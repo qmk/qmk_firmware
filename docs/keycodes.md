@@ -257,37 +257,37 @@ This is a reference only. Each group of keys links to the page documenting their
 
 ## [Bootmagic](feature_bootmagic.md)
 
-|Key                               |Aliases  |Description                                |
-|----------------------------------|---------|-------------------------------------------|
-|`MAGIC_SWAP_CONTROL_CAPSLOCK`     |         |Swap Caps Lock and Left Control            |
-|`MAGIC_CAPSLOCK_TO_CONTROL`       |         |Treat Caps Lock as Control                 |
-|`MAGIC_SWAP_LCTL_LGUI`            |         |Swap Left Control and GUI                  |
-|`MAGIC_SWAP_RCTL_RGUI`            |         |Swap Right Control and GUI                 |
-|`MAGIC_SWAP_LALT_LGUI`            |         |Swap Left Alt and GUI                      |
-|`MAGIC_SWAP_RALT_RGUI`            |         |Swap Right Alt and GUI                     |
-|`MAGIC_NO_GUI`                    |         |Disable the GUI key                        |
-|`MAGIC_SWAP_GRAVE_ESC`            |         |Swap <code>&#96;</code> and Escape         |
-|`MAGIC_SWAP_BACKSLASH_BACKSPACE`  |         |Swap `\` and Backspace                     |
-|`MAGIC_HOST_NKRO`                 |         |Force NKRO on                              |
-|`MAGIC_SWAP_ALT_GUI`              |`AG_SWAP`|Swap Alt and GUI on both sides             |
-|`MAGIC_SWAP_CTL_GUI`              |`CG_SWAP`|Swap Ctrl and GUI on both sides (for macOS)|
-|`MAGIC_UNSWAP_CONTROL_CAPSLOCK`   |         |Unswap Caps Lock and Left Control          |
-|`MAGIC_UNCAPSLOCK_TO_CONTROL`     |         |Stop treating Caps Lock as Control         |
-|`MAGIC_UNSWAP_LCTL_LGUI`          |         |Unswap Left Control and GUI                |
-|`MAGIC_UNSWAP_RCTL_RGUI`          |         |Unswap Right Control and GUI               |
-|`MAGIC_UNSWAP_LALT_LGUI`          |         |Unswap Left Alt and GUI                    |
-|`MAGIC_UNSWAP_RALT_RGUI`          |         |Unswap Right Alt and GUI                   |
-|`MAGIC_UNNO_GUI`                  |         |Enable the GUI key                         |
-|`MAGIC_UNSWAP_GRAVE_ESC`          |         |Unswap <code>&#96;</code> and Escape       |
-|`MAGIC_UNSWAP_BACKSLASH_BACKSPACE`|         |Unswap `\` and Backspace                   |
-|`MAGIC_UNHOST_NKRO`               |         |Force NKRO off                             |
-|`MAGIC_UNSWAP_ALT_GUI`            |`AG_NORM`|Unswap Alt and GUI on both sides           |
-|`MAGIC_UNSWAP_CTL_GUI`            |`CG_NORM`|Unswap Ctrl and GUI on both sides          |
-|`MAGIC_TOGGLE_ALT_GUI`            |`AG_TOGG`|Toggle Alt and GUI swap on both sides      |
-|`MAGIC_TOGGLE_CTL_GUI`            |`CG_TOGG`|Toggle Ctrl and GUI swap on both sides     |
-|`MAGIC_TOGGLE_NKRO`               |         |Turn NKRO on or off                        |
-|`MAGIC_EE_HANDS_LEFT`             |         |Set "Left Hand" for EE_HANDS handedness    |
-|`MAGIC_EE_HANDS_RIGHT`            |         |Set "Right Hand" for EE_HANDS handedness   |
+|Key                               |Aliases  |Description                                                               |
+|----------------------------------|---------|--------------------------------------------------------------------------|
+|`MAGIC_SWAP_CONTROL_CAPSLOCK`     |`CL_SWAP`|Swap Caps Lock and Left Control                                           |
+|`MAGIC_UNSWAP_CONTROL_CAPSLOCK`   |`CL_NORM`|Unswap Caps Lock and Left Control                                         |
+|`MAGIC_CAPSLOCK_TO_CONTROL`       |`CL_CTRL`|Treat Caps Lock as Control                                                |
+|`MAGIC_UNCAPSLOCK_TO_CONTROL`     |`CL_CAPS`|Stop treating Caps Lock as Control                                        |
+|`MAGIC_SWAP_LCTL_LGUI`            |`LCG_SWP`|Swap Left Control and GUI                                                 |
+|`MAGIC_UNSWAP_LCTL_LGUI`          |`LCG_NRM`|Unswap Left Control and GUI                                               |
+|`MAGIC_SWAP_RCTL_RGUI`            |`RCG_SWP`|Swap Right Control and GUI                                                |
+|`MAGIC_UNSWAP_RCTL_RGUI`          |`RCG_NRM`|Unswap Right Control and GUI                                              |
+|`MAGIC_SWAP_CTL_GUI`              |`CG_SWAP`|Swap Control and GUI on both sides                                        |
+|`MAGIC_UNSWAP_CTL_GUI`            |`CG_NORM`|Unswap Control and GUI on both sides                                      |
+|`MAGIC_TOGGLE_CTL_GUI`            |`CG_TOGG`|Toggle Control and GUI swap on both sides                                 |
+|`MAGIC_SWAP_LALT_LGUI`            |`LAG_SWP`|Swap Left Alt and GUI                                                     |
+|`MAGIC_UNSWAP_LALT_LGUI`          |`LAG_NRM`|Unswap Left Alt and GUI                                                   |
+|`MAGIC_SWAP_RALT_RGUI`            |`RAG_SWP`|Swap Right Alt and GUI                                                    |
+|`MAGIC_UNSWAP_RALT_RGUI`          |`RAG_NRM`|Unswap Right Alt and GUI                                                  |
+|`MAGIC_SWAP_ALT_GUI`              |`AG_SWAP`|Swap Alt and GUI on both sides                                            |
+|`MAGIC_UNSWAP_ALT_GUI`            |`AG_NORM`|Unswap Alt and GUI on both sides                                          |
+|`MAGIC_TOGGLE_ALT_GUI`            |`AG_TOGG`|Toggle Alt and GUI swap on both sides                                     |
+|`MAGIC_NO_GUI`                    |`GUI_OFF`|Disable the GUI keys                                                      |
+|`MAGIC_UNNO_GUI`                  |`GUI_ON` |Enable the GUI keys                                                       |
+|`MAGIC_SWAP_GRAVE_ESC`            |`GE_SWAP`|Swap <code>&#96;</code> and Escape                                        |
+|`MAGIC_UNSWAP_GRAVE_ESC`          |`GE_NORM`|Unswap <code>&#96;</code> and Escape                                      |
+|`MAGIC_SWAP_BACKSLASH_BACKSPACE`  |`BS_SWAP`|Swap `\` and Backspace                                                    |
+|`MAGIC_UNSWAP_BACKSLASH_BACKSPACE`|`BS_NORM`|Unswap `\` and Backspace                                                  |
+|`MAGIC_HOST_NKRO`                 |`NK_ON`  |Enable N-key rollover                                                     |
+|`MAGIC_UNHOST_NKRO`               |`NK_OFF` |Disable N-key rollover                                                    |
+|`MAGIC_TOGGLE_NKRO`               |`NK_TOGG`|Toggle N-key rollover                                                     |
+|`MAGIC_EE_HANDS_LEFT`             |`EH_LEFT`|Set the master half of a split keyboard as the left hand (for `EE_HANDS`) |
+|`MAGIC_EE_HANDS_RIGHT`            |`EH_RGHT`|Set the master half of a split keyboard as the right hand (for `EE_HANDS`)|
 
 ## [Bluetooth](feature_bluetooth.md)
 
@@ -389,12 +389,12 @@ This is a reference only. Each group of keys links to the page documenting their
 |`RGB_TOG`          |          |Toggle RGB lighting on or off                                       |
 |`RGB_MODE_FORWARD` |`RGB_MOD` |Cycle through modes, reverse direction when Shift is held           |
 |`RGB_MODE_REVERSE` |`RGB_RMOD`|Cycle through modes in reverse, forward direction when Shift is held|
-|`RGB_HUI`          |          |Increase hue                                                        |
-|`RGB_HUD`          |          |Decrease hue                                                        |
-|`RGB_SAI`          |          |Increase saturation                                                 |
-|`RGB_SAD`          |          |Decrease saturation                                                 |
-|`RGB_VAI`          |          |Increase value (brightness)                                         |
-|`RGB_VAD`          |          |Decrease value (brightness)                                         |
+|`RGB_HUI`          |          |Increase hue, decrease hue when Shift is held                       |
+|`RGB_HUD`          |          |Decrease hue, increase hue when Shift is held                       |
+|`RGB_SAI`          |          |Increase saturation, decrease saturation when Shift is held         |
+|`RGB_SAD`          |          |Decrease saturation, increase saturation when Shift is held         |
+|`RGB_VAI`          |          |Increase value (brightness), decrease value when Shift is held      |
+|`RGB_VAD`          |          |Decrease value (brightness), increase value when Shift is held      |
 |`RGB_MODE_PLAIN`   |`RGB_M_P `|Static (no animation) mode                                          |
 |`RGB_MODE_BREATHE` |`RGB_M_B` |Breathing animation mode                                            |
 |`RGB_MODE_RAINBOW` |`RGB_M_R` |Rainbow animation mode                                              |
@@ -407,19 +407,19 @@ This is a reference only. Each group of keys links to the page documenting their
 
 ## [RGB Matrix Lighting](feature_rgb_matrix.md)
 
-|Key                |Aliases   |Description                                                         |
-|-------------------|----------|--------------------------------------------------------------------|
-|`RGB_TOG`          |          |Toggle RGB lighting on or off                                       |
-|`RGB_MODE_FORWARD` |`RGB_MOD` |Cycle through modes, reverse direction when Shift is held           |
-|`RGB_MODE_REVERSE` |`RGB_RMOD`|Cycle through modes in reverse, forward direction when Shift is held|
-|`RGB_HUI`          |          |Increase hue                                                        |
-|`RGB_HUD`          |          |Decrease hue                                                        |
-|`RGB_SAI`          |          |Increase saturation                                                 |
-|`RGB_SAD`          |          |Decrease saturation                                                 |
-|`RGB_VAI`          |          |Increase value (brightness)                                         |
-|`RGB_VAD`          |          |Decrease value (brightness)                                         |
-|`RGB_SPI`          |          |Increase effect speed (does no support eeprom yet)                  |
-|`RGB_SPD`          |          |Decrease effect speed (does no support eeprom yet)                  |
+|Key                |Aliases   |Description                                                                           |
+|-------------------|----------|--------------------------------------------------------------------------------------|
+|`RGB_TOG`          |          |Toggle RGB lighting on or off                                                         |
+|`RGB_MODE_FORWARD` |`RGB_MOD` |Cycle through modes, reverse direction when Shift is held                             |
+|`RGB_MODE_REVERSE` |`RGB_RMOD`|Cycle through modes in reverse, forward direction when Shift is held                  |
+|`RGB_HUI`          |          |Increase hue, decrease hue when Shift is held                                         |
+|`RGB_HUD`          |          |Decrease hue, increase hue when Shift is held                                         |
+|`RGB_SAI`          |          |Increase saturation, decrease saturation when Shift is held                           |
+|`RGB_SAD`          |          |Decrease saturation, increase saturation when Shift is held                           |
+|`RGB_VAI`          |          |Increase value (brightness), decrease value when Shift is held                        |
+|`RGB_VAD`          |          |Decrease value (brightness), increase value when Shift is held                        |
+|`RGB_SPI`          |          |Increase effect speed (does not support eeprom yet), decrease speed when Shift is held|
+|`RGB_SPD`          |          |Decrease effect speed (does not support eeprom yet), increase speed when Shift is held|
 
 ## [Thermal Printer](feature_thermal_printer.md)
 

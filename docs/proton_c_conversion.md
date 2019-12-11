@@ -29,3 +29,5 @@ These are defaults based on what has been implemented for ARM boards.
 | [Audio](feature_audio.md)           | Enabled                                                                                                          |  
 | [RGB Lighting](feature_rgblight.md) | Disabled                                                                                                         |
 | [Backlight](feature_backlight.md)   | Forces [task driven PWM](feature_backlight.md#software-pwm-driver) until ARM can provide automatic configuration |
+| USB Host (e.g. USB-USB converter)   | Not supported (USB host code is AVR specific and is not currently supported on ARM)                              |
+| [Split keyboards](feature_split_keyboard.md) | Not supported yet                                                                                       |

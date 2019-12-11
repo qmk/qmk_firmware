@@ -3,7 +3,10 @@
   * [Building Your First Firmware](newbs_building_firmware.md)
   * [Flashing Firmware](newbs_flashing.md)
   * [Testing and Debugging](newbs_testing_debugging.md)
-  * [Git Best Practices](newbs_best_practices.md)
+  * [Best Git Practices](newbs_git_best_practices.md)
+    * [Using Your Fork's Master](newbs_git_using_your_master_branch.md)
+    * [Resolving Merge Conflicts](newbs_git_resolving_merge_conflicts.md)
+    * [Resynchronizing a Branch](newbs_git_resynchronize_a_branch.md)
   * [Learning Resources](newbs_learn_more_resources.md)
 
 * [QMK Basics](README.md)
@@ -98,6 +101,7 @@
   * [Hand Wiring Guide](hand_wire.md)
   * [ISP Flashing Guide](isp_flashing_guide.md)
   * [ARM Debugging Guide](arm_debugging.md)
+  * [ADC Driver](adc_driver.md)
   * [I2C Driver](i2c_driver.md)
   * [WS2812 Driver](ws2812_driver.md)
   * [GPIO Controls](internals_gpio_control.md)
@@ -111,7 +115,7 @@
   * [Using Eclipse with QMK](other_eclipse.md)
   * [Using VSCode with QMK](other_vscode.md)
   * [Support](support.md)
-  * [How to add translations](translating.md)
+  * [Translating the QMK Docs](translating.md)
 
 * QMK Internals (In Progress)
   * [Defines](internals_defines.md)
