@@ -68,14 +68,6 @@ https://github.com/tmk/tmk_keyboard/issues/150
 - http://www.obdev.at/products/vusb/license.html
 - http://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
 
-## Cortex: `cstddef: No such file or directory`
-在Ubuntu 14.04上的GCC 4.8 会出现这种问题需要用这个PPA升级到4.9。
-https://launchpad.net/~terry.guo/+archive/ubuntu/gcc-arm-embedded
-
-https://github.com/tmk/tmk_keyboard/issues/212
-https://github.com/tmk/tmk_keyboard/wiki/mbed-cortex-porting#compile-error-cstddef
-https://developer.mbed.org/forum/mbed/topic/5205/
-
 ## AVR的BOOTLOADER_SIZE
 注意Teensy2.0++ bootloader的大小是2048字节。有些Makefile注释错了。
 
