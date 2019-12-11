@@ -1,1 +1,1 @@
-# The default keymap for prime_l
+# The default keymap for prime_l_v2
