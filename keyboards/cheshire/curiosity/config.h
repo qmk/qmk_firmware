@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x0142
+#define VENDOR_ID       0xFADE
 #define PRODUCT_ID      0xA71C
 #define DEVICE_VER      0x0001
 /* in python2: list(u"whatever".encode('utf-16-le')) */
@@ -67,13 +67,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // This will automatically reset the EEPROM with defaults
 // and avoid loading invalid data from the EEPROM
 #define EEPROM_VERSION 0x01
-#define EEPROM_VERSION_ADDR 34
 
 #define EEPROM_CUSTOM_BACKLIGHT 804
 
-#undef EEPROM_MAGIC_ADDR
-#define EEPROM_MAGIC_ADDR 34
-#undef EEPROM_VERSION_ADDR
 #define EEPROM_VERSION_ADDR 36
 #undef RGB_BACKLIGHT_CONFIG_EEPROM_ADDR
 #define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR 37
