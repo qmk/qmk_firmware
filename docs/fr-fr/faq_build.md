@@ -86,10 +86,6 @@ Relancer le script d'installation de QMK (`./util/qmk_install.sh` situé dans r�
 
 Si vous rencontrez toujours des problèmes, essayez de télécharger et lancer Zadig. Voir [Installation du driver du bootloader avec Zadig](driver_installation_zadig.md) pour plus d'informations.
 
-## WINAVR est obsolète
-
-Il n'est plus recommandé et peut causer des problèmes. Voir [TMK Issue #99](https://github.com/tmk/tmk_keyboard/issues/99).
-
 ## USB VID et PID
 
 Vous pouvez utiliser l'ID de votre choix en modifier `config.h`. Il y a peu de chance de conflit avec d'autres produits.
