@@ -1,10 +1,10 @@
 # 助けを得る
 
-QMK の助けを得るための多くのリソースがあります。
+QMK に関して助けを得るための多くのリソースがあります。
 
 ## リアルタイム チャット
 
-メインの [Discord server](https://discord.gg/Uq7gcHh) で QMK の開発者とユーザを見つけることができます。サーバには、ファームウェア、ツールボックス、ハードウェアおよび設定についてのチャットするための特定のチャンネルがあります。
+メインの [Discord server](https://discord.gg/Uq7gcHh) で QMK の開発者とユーザを見つけることができます。サーバには、ファームウェア、Toolbox、ハードウェアおよび Configurator についてチャットするための特定のチャンネルがあります。
 
 ## OLKB Subreddit
 
@@ -12,4 +12,4 @@ QMK の助けを得るための多くのリソースがあります。
 
 ## Github Issues
 
-[issue on GitHub](https://github.com/qmk/qmk_firmware/issues) を開くことができます。issue が長期的な議論あるいはデバッグを必要とする場合は、特に便利です。
+[GitHub で issue](https://github.com/qmk/qmk_firmware/issues) を開くことができます。issue が長期的な議論あるいはデバッグを必要とする場合は、特に便利です。
