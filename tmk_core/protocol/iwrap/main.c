@@ -393,7 +393,7 @@ static uint8_t key2asc(uint8_t key) {
         case KC_BSLASH:
             return '\\';
         case KC_NONUS_HASH:
-            return '\\';
+            return '#';
         case KC_SCOLON:
             return ';';
         case KC_QUOTE:
