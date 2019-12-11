@@ -37,7 +37,7 @@ def compile(cli):
         cli.log.info('Creating {fg_cyan}%s{style_reset_all} keymap in {fg_cyan}%s', user_keymap['keymap'], keymap_path)
 
         # Compile the keymap
-        command = compile_configurator_json(cli.args.filename)
+        command = compile_configurator_json(user_keymap)
 
         cli.log.info('Wrote keymap to {fg_cyan}%s/%s/keymap.c', keymap_path, user_keymap['keymap'])
 
