@@ -1,3 +1,10 @@
+# MCU name
+MCU = atmega32u4
+
+# Processor frequency
+F_CPU = 8000000
+
+
 # Bootloader selection
 #   Teensy       halfkay
 #   Pro Micro    caterina
@@ -8,23 +15,6 @@
 #   ATmega328P   USBasp
 BOOTLOADER = caterina
 
-# MCU Selection
-MCU = atmega32u4
-
-# Processor frequency.
-#     This will define a symbol, F_CPU, in all source code files equal to the
-#     processor frequency in Hz. You can then use this symbol in your source code to
-#     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
-#     automatically to create a 32-bit value in your source code.
-#
-#     This will be an integer division of F_USB below, as it is sourced by
-#     F_USB after it has run through any CPU prescalers. Note that this value
-#     does not *change* the processor frequency - it should merely be updated to
-#     reflect the processor speed set externally so that the code can use accurate
-#     software delays.
-
-F_CPU = 8000000
-#F_CPU = 16000000
 
 # Build Options
 #   comment out to disable the options.
@@ -42,11 +32,6 @@ NKRO_ENABLE = yes		# USB Nkey Rollover - not yet supported in LUFA
 # MIDI_ENABLE = YES 		# MIDI controls
 UNICODE_ENABLE = YES 		# Unicode
 # BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
-
-USB = /dev/ttyACM0
-
-# upload: build
-# 	$(TELOPHASE_UPLOAD_COMMAND)
 
 # # project specific files
 SRC = matrix.c

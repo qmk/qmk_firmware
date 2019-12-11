@@ -29,8 +29,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION     q.m.k. keyboard firmware for TELOPHASE
 
 /* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 12
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
