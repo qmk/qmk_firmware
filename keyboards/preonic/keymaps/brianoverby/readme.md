@@ -1,1 +1,4 @@
-# The default Preonic layout - largely based on the Planck's
+# 50% (Preonic) with nordic/danish + gaming
+
+# Build and flash
+    make preonic/rev3:brianoverby:dfu-util
