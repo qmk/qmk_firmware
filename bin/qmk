@@ -25,6 +25,11 @@ with open(os.path.join(qmk_dir, 'requirements.txt'), 'r') as fd:
             line = line.split('#')[0]
 
         module = line.split('=')[0] if '=' in line else line
+
+        if module in ['pep8-naming']:
+            # Not every module is importable by its own name.
+            continue
+
         if not find_spec(module):
             print('Could not find module %s!' % module)
             print('Please run `pip3 install -r requirements.txt` to install the python dependencies.')
