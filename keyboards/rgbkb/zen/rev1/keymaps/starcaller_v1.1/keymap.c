@@ -2,6 +2,7 @@
 
 enum custom_keycodes {
   S_H = SAFE_RANGE, // slack here
+  S_H_P,       // slack here + paste 
   E_OP,  	    // email open
   E_CL,		    // email close 
   E_FU,		    // email follow up 
@@ -15,6 +16,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case S_H:
       if (record->event.pressed) {
         SEND_STRING("@HERE");
+      }
+ break;
+
+    case S_H_P:
+      if (record->event.pressed) {
+        SEND_STRING("@HERE" SS_LCTL("v"));
       }
  break;
 
@@ -74,7 +81,7 @@ KC_LCTL, KC_LGUI, KC_LALT, KC_NO, TO(0), KC_SPC, KC_BSPC, KC_ENT, KC_SPC, TO(0),
 
 	[3] = LAYOUT(
 KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 			KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
-KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 			KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
+KC_NO, KC_NO, KC_NO, KC_NO, S_H_P, KC_NO, 			KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
 KC_NO, E_CL,  E_FU,  E_OP,  S_H,   SCRN_C, 			KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
 KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 			KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
 KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO)
