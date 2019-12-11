@@ -99,14 +99,6 @@ You can buy a really unique VID:PID here. I don't think you need this for person
 - http://www.obdev.at/products/vusb/license.html
 - http://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
 
-## Cortex: `cstddef: No such file or directory`
-GCC 4.8 of Ubuntu 14.04 had this problem and had to update to 4.9 with this PPA.
-https://launchpad.net/~terry.guo/+archive/ubuntu/gcc-arm-embedded
-
-https://github.com/tmk/tmk_keyboard/issues/212
-https://github.com/tmk/tmk_keyboard/wiki/mbed-cortex-porting#compile-error-cstddef
-https://developer.mbed.org/forum/mbed/topic/5205/
-
 ## BOOTLOADER_SIZE for AVR
 Note that Teensy2.0++ bootloader size is 2048byte. Some Makefiles may have wrong comment.
 
