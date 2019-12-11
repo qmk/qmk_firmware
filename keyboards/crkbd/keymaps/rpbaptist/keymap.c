@@ -234,10 +234,10 @@ void render_status(void) {
             oled_write_P(PSTR("     "), false);
             break;
         case _NUM:
-            oled_write_P(PSTR("Comm "), false);
+            oled_write_P(PSTR("Num  "), false);
             break;
         case _NAV:
-            oled_write_P(PSTR("Fuel "), false);
+            oled_write_P(PSTR("Nav  "), false);
             break;
         case _GAMING_EXT:
             oled_write_P(PSTR("Ext  "), false);
