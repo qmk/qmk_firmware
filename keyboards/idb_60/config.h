@@ -155,11 +155,16 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 // TODO: refactor with new user EEPROM code (coming soon)
 #define EEPROM_MAGIC 0x451F
+<<<<<<< HEAD
 #define EEPROM_MAGIC_ADDR 32
+=======
+#define EEPROM_MAGIC_ADDR 34
+>>>>>>> master
 // Bump this every time we change what we store
 // This will automatically reset the EEPROM with defaults
 // and avoid loading invalid data from the EEPROM
 #define EEPROM_VERSION 0x08
+<<<<<<< HEAD
 #define EEPROM_VERSION_ADDR 34
 
 // Dynamic keymap starts after EEPROM version
@@ -167,4 +172,13 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 // Dynamic macro starts after dynamic keymaps (35+(4*10*6*2)) = (35+480)
 #define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 675    // **** CHANGE THIS BASED ON MATRIX_ROWS & MATRIX_COLS ****
 #define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 349    // **** CHANGE THIS BASED ON 1024-DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR ****
+=======
+#define EEPROM_VERSION_ADDR 36
+
+// Dynamic keymap starts after EEPROM version
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 37
+// Dynamic macro starts after dynamic keymaps (37+(4*10*6*2)) = (37+480)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 677    // **** CHANGE THIS BASED ON MATRIX_ROWS & MATRIX_COLS ****
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 347    // **** CHANGE THIS BASED ON 1024-DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR ****
+>>>>>>> master
 #define DYNAMIC_KEYMAP_MACRO_COUNT 16

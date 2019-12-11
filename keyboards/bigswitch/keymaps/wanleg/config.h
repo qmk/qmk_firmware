@@ -32,8 +32,8 @@
 #define BREATHING_PERIOD 5
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#undef DEBOUNCING_DELAY
-#define DEBOUNCING_DELAY 5
+#undef DEBOUNCE
+#define DEBOUNCE 5
 
 // set flashing LED with QMK DFU
 #define QMK_LED B0

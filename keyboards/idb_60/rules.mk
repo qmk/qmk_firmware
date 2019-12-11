@@ -1,6 +1,7 @@
 # MCU name
 MCU = atmega32u2
 
+<<<<<<< HEAD
 # Processor frequency.
 #     This will define a symbol, F_CPU, in all source code files equal to the
 #     processor frequency in Hz. You can then use this symbol in your source code to
@@ -47,6 +48,18 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 BOOTLOADER = atmel-dfu
 
 
+=======
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
+BOOTLOADER = atmel-dfu
+
+>>>>>>> master
 # Build Options
 #   comment out to disable the options.
 #
@@ -62,4 +75,8 @@ NKRO_ENABLE = yes			# USB Nkey Rollover - if this doesn't work, see here: https:
 # BACKLIGHT_ENABLE = yes	# Enable keyboard backlight functionality
 # MIDI_ENABLE = YES			# MIDI controls
 # UNICODE_ENABLE = YES		# Unicode
+<<<<<<< HEAD
 # BLUETOOTH_ENABLE = yes	# Enable Bluetooth with the Adafruit EZ-Key HID
+=======
+# BLUETOOTH_ENABLE = yes	# Enable Bluetooth with the Adafruit EZ-Key HID
+>>>>>>> master

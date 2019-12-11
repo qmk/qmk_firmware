@@ -3,12 +3,6 @@
 
 extern keymap_config_t keymap_config;
 
-enum custom_macros {
-    DLEFT,
-    DRIGHT,
-    PSCREEN_APP
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
@@ -46,11 +40,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------------------------------------------------- -------------------------------------------------'
  */
 [SYMB] = LAYOUT( \
-    KC_CAPS,        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                      KC_F6, KC_F7,  KC_F8,  KC_F9,   KC_F10,  KC_F11, \
-    _______,        KC_EXLM, KC_AT,   KC_LPRN, KC_RPRN, KC_PIPE,                    KC_7,  KC_8,   KC_9,   KC_ASTR, KC_RPRN, KC_F12, \
-    _______,        KC_HASH, KC_DLR,  KC_LCBR, KC_RCBR, KC_GRV,                     KC_4,  KC_5,   KC_6,   KC_PLUS, KC_RCBR, KC_PIPE, \
-    M(PSCREEN_APP), KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD,                    KC_1,  KC_2,   KC_3,   KC_BSLS, KC_VOLD, KC_VOLU, \
-    KC_PSCR,        _______, RESET,   _______, _______, TO(GAME), _______, _______, KC_0,  KC_DOT, KC_EQL, KC_MPRV, KC_MNXT, KC_MPLY \
+    KC_CAPS,     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                      KC_F6, KC_F7,  KC_F8,  KC_F9,   KC_F10,  KC_F11, \
+    _______,     KC_EXLM, KC_AT,   KC_LPRN, KC_RPRN, KC_PIPE,                    KC_7,  KC_8,   KC_9,   KC_ASTR, KC_RPRN, KC_F12, \
+    _______,     KC_HASH, KC_DLR,  KC_LCBR, KC_RCBR, KC_GRV,                     KC_4,  KC_5,   KC_6,   KC_PLUS, KC_RCBR, KC_PIPE, \
+    PSCREEN_APP, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD,                    KC_1,  KC_2,   KC_3,   KC_BSLS, KC_VOLD, KC_VOLU, \
+    KC_PSCR,     _______, RESET,   _______, _______, TO(GAME), _______, _______, KC_0,  KC_DOT, KC_EQL, KC_MPRV, KC_MNXT, KC_MPLY \
 ),
 
 /* Vim Movement
@@ -67,11 +61,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------------------------------------------------..------------------------------------------------'
  */
 [VIM] =  LAYOUT( \
-    _______, _______,  _______,   _______, _______, _______,                   _______, _______, _______, _______, RESET,   _______, \
-    _______, RGB_SAI,  RGB_VAI,   RGB_SAD, KC_LSFT, _______,                   _______, _______, _______, _______, _______, _______, \
-    _______, M(DLEFT), M(DRIGHT), KC_LCTL, KC_LGUI, _______,                   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, \
-    _______, RGB_HUD,  RGB_VAD,   RGB_HUI, _______, _______,                   _______, _______, _______, _______, _______, _______, \
-    _______, _______,  _______,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
+    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, RESET,   _______, \
+    _______, RGB_SAI, RGB_VAI, RGB_SAD, KC_LSFT, _______,                   _______, _______, _______, _______, _______, _______, \
+    _______, DLEFT,   DRIGHT,  KC_LCTL, KC_LGUI, _______,                   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, \
+    _______, RGB_HUD, RGB_VAD, RGB_HUI, _______, _______,                   _______, _______, _______, _______, _______, _______, \
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
 ),
 
 /* Gaming mode (Raise)
@@ -123,28 +117,7 @@ void persistant_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-    switch(id) {
-        case DLEFT:
-            if (record->event.pressed) { // Windows move desktop left
-                return MACRO(D(LCTL), D(LGUI), T(LEFT), U(LGUI), U(LCTL), END);
-            }
-            break;
-        case DRIGHT:
-            if (record->event.pressed) { // Windows move desktop right
-                return MACRO(D(LCTL), D(LGUI), T(RIGHT), U(LGUI), U(LCTL), END);
-            }
-            break;
-        case PSCREEN_APP:
-            if (record->event.pressed) {
-                return MACRO(D(LALT), T(PSCR), U(LALT), END);
-            }
-            break;
-    }
-    return MACRO_NONE;
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    tap_dance_process_record(keycode);
+    tap_dance_process_keycode(keycode);
     return true;
 }
