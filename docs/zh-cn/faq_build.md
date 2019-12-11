@@ -56,11 +56,6 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", MODE:="0666"
 ?> 事实上没有一个驱动的最佳选择，有些选项就是和某些系统相辅相成。但libUSB和WinUSB似乎也算是这里的最佳选择了。
 如果bootloader在设备列表中没有显示，你可能要使能 "List all devices"选项在选项菜单中`Options`，然后找到有问题的bootloader设备。(译者注：在win10中可能为 查看-显示隐藏的设备)
 
-
-## WINAVR已淘汰
-不再推荐使用WINAVR，使用可能会导致问题
-详情请见[TMK Issue #99](https://github.com/tmk/tmk_keyboard/issues/99).
-
 ## USB VID 和 PID
 你可以在编辑`config.h`时使用任何你想用的ID值。实际上，使用任何可能未使用的ID都没有问题，除了有极低的与其他产品发生冲突的可能性。
 
