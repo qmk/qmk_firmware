@@ -10,6 +10,7 @@ enum custom_keycodes {
   E_FU,		    // email follow up 
   E_SS,       // email service schedule
   SCRN_C,	    // screen clip 
+  DC_C,       // double click + copy
   		
 };
 
@@ -71,6 +72,14 @@ break;
       }
 break;
 
+   case DC_C:
+      if (record->event.pressed) {
+                tap_code(KC_BTN1);
+                tap_code(KC_BTN1);
+                tap_code16(C(KC_C)); 
+      }
+break;
+
   }
   return true;
 };  
@@ -116,7 +125,7 @@ KC_LCTL, KC_LGUI, KC_LALT, KC_NO, TO(0), KC_SPC, KC_BSPC, KC_ENT, KC_SPC, TO(0),
 KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 			KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
 KC_NO, KC_NO, KC_NO, KC_NO, S_H_P, KC_NO, 			KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
 KC_NO, E_CL,  E_FU,  E_OP,  S_H,   SCRN_C, 			KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
-KC_NO, KC_NO, E_SS, T_H_T, T_H_B, KC_NO, 			KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
+KC_NO, DC_C, E_SS, T_H_T, T_H_B, KC_NO, 			KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
 KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO)
 
 };
