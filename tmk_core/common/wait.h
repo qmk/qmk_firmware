@@ -33,8 +33,6 @@ extern "C" {
 #    include "clks.h"
 #    define wait_ms(ms) CLK_delay_ms(ms)
 #    define wait_us(us) CLK_delay_us(us)
-#elif defined(__arm__)
-#    include "wait_api.h"
 #else  // Unit tests
 void wait_ms(uint32_t ms);
 #    define wait_us(us) wait_ms(us / 1000)
