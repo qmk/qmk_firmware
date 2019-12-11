@@ -128,7 +128,7 @@ extern "C"
 
 #        endif /* USER_PRINT / NORMAL PRINT */
 
-#    endif /* __AVR__ / PROTOCOL_CHIBIOS / PROTOCOL_ARM_ATSAM
+#    endif /* __AVR__ / PROTOCOL_CHIBIOS / PROTOCOL_ARM_ATSAM */
 
 // User print disables the normal print messages in the body of QMK/TMK code and
 // is meant as a lightweight alternative to NOPRINT. Use it when you only want to do
