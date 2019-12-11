@@ -108,9 +108,16 @@ upgrade_conf_files_generic() {
     shead "Updating $search_filename files..."
     pushd "$qmk_firmware_dir/lib/chibios/tools/updater" >/dev/null 2>&1
     for file in $(find_chibi_files "$qmk_firmware_dir" -name "$search_filename") ; do
+        cp -f "$file" "$file.orig"
         clang-format --style='{IndentPPDirectives: None}' -i "$file"
+        cp -f "$file" "$file.formatted"
         bash "$update_script" "$file"
-        dos2unix "$file" >/dev/null 2>&1
+        if ! diff "$file" "$file.formatted" >/dev/null 2>&1 ; then
+            dos2unix "$file" >/dev/null 2>&1
+        else
+            cp -f "$file.orig" "$file"
+        fi
+        rm -f "$file.orig" "$file.formatted"
     done
     popd >/dev/null 2>&1
 }
