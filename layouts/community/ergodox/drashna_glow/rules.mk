@@ -1,10 +1,13 @@
 USER_NAME := drashna
-SRC += ../drashna/keymap.c
 
--include $(LAYOUT_KEYMAP_PATH)/../drashna/rules.mk
+CORRECTED_LAYOUT := $(LAYOUTS_REPO)/$(LAYOUT)/drashna
 
-ifneq (,$(findstring ergodox_ez,$(KEYBOARD)))
-  RGBLIGHT_ENABLE = no
-  RGB_MATRIX_ENABLE = yes
-  TAP_DANCE_ENABLE  = no
+SRC += $(CORRECTED_LAYOUT)/keymap.c
+
+-include $(CORRECTED_LAYOUT)/rules.mk
+
+ifeq ($(strip $(KEYBOARD)), ergodox_ez)
+	RGBLIGHT_ENABLE = no
+	RGB_MATRIX_ENABLE = yes
+#   TAP_DANCE_ENABLE  = no
 endif

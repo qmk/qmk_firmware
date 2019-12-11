@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x4024
+#define VENDOR_ID       0x5052
+#define PRODUCT_ID      0x6578
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    PrimeKB
 #define PRODUCT         Prime_EXL
@@ -43,9 +43,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 5
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+#define DYNAMIC_KEYMAP_LAYER_COUNT 4
+
+// EEPROM usage
+
+// TODO: refactor with new user EEPROM code (coming soon)
+#define EEPROM_MAGIC 0x451F
+#define EEPROM_MAGIC_ADDR 34
+// Bump this every time we change what we store
+// This will automatically reset the EEPROM with defaults
+// and avoid loading invalid data from the EEPROM
+#define EEPROM_VERSION 0x08
+#define EEPROM_VERSION_ADDR 36
+
+// Dynamic keymap starts after EEPROM version
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 37
+// Dynamic macro starts after dynamic keymaps (37+(4*10*9*2)) = (37+720)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 757
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 267    // 1024-DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
+#define DYNAMIC_KEYMAP_MACRO_COUNT 16

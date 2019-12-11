@@ -12,7 +12,7 @@
 #define PGUP KC_PGUP
 #define PGDN KC_PGDN
 #define END_ KC_END
-#define DELT KC_DELETE
+#define DEL  KC_DELETE
 #define UPUP KC_UP
 #define D_WN KC_DOWN
 #define LEFT KC_LEFT

@@ -15,6 +15,12 @@
 // pushing dev branch
 // git push origin dev:dev
 
+// debounce settings
+// remove these after getting a new keyboard
+// #define DEBOUNCE 50
+// #define QMK_KEYS_PER_SCAN 4
+
+
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
@@ -43,7 +49,7 @@ enum custom_keycodes {
 
   SHELL_EXPAND_OE_LOGPATTERN,
   SHELL_EXPAND_OE_TRANPATTERN,
-  
+
   // Cloud9 macros
   CLOUD9_TAB_LEFT,
   CLOUD9_TAB_RIGHT,
@@ -52,17 +58,22 @@ enum custom_keycodes {
   CLOUD9_GOTO_LINE,
   CLOUD9_NAVIGATE,
 
+  // Windows 10 macros,
+  WINDOWS10_WORKSPACE_LEFT,
+  WINDOWS10_WORKSPACE_RIGHT,
 };
 
 
-#define BASE         0 // base dvorak layer
-#define KEYNAV       1 // arrow navigation (right hand)
-#define KEYSEL       2 // arrow navigation + shift (allow text selection)
-#define SHELL_NAV    3 // bash shortcuts
-#define SHELL_SCREEN 4 // linux screen shortcuts
-#define SCREEN_NAV   5 // navigate between linux screen tabs 
-#define BROWSER_CONTROL 6 // control browser and mouse
-#define COMBINED      	7 // combined numbers and symbols layer
+#define BASE             0 // base dvorak layer
+#define BASE_ALTERNATE   1 // base dvorak layer, with different layer toggling
+#define KEYNAV           2 // arrow navigation (right hand)
+#define KEYSEL           3 // arrow navigation + shift (allow text selection)
+#define SHELL_NAV        4 // bash shortcuts
+#define SHELL_SCREEN     5 // linux screen shortcuts
+#define SCREEN_NAV       6 // navigate between linux screen tabs
+#define BROWSER_CONTROL  7 // control browser and mouse
+#define COMBINED         8 // combined numbers and symbols layer
+#define ANDROID_STUDIO   9
 
 
 // macros
@@ -94,7 +105,17 @@ enum custom_keycodes {
 #define SCREEN_PASTEREG_3 30
 #define DEL_TO_HOME 36
 
-
+// Android Studio shortcuts
+#define AS_TABLEFT LALT(KC_LEFT)
+#define AS_TABRIGHT LALT(KC_RIGHT)
+#define AS_SYMBOL LCTL(LALT(KC_N))
+#define AS_CLASS LCTL(KC_N)
+#define AS_FINDUSAGE LALT(KC_F7)
+#define AS_BACK LCTL(LALT(KC_LEFT))
+#define AS_GO_DECLARATION LCTL(KC_B)
+#define AS_GO_IMPLEMENTATION LCTL(LALT(KC_B))
+#define AS_CLOSETAB LCTL(KC_F4)
+#define AS_CLOSETOOLWINDOW LCTL(LSFT(KC_F4))
 
 
 #define MACRO_SCREEN_NUM(MACRO_NAME,NUM) \
@@ -149,7 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MEH(KC_1),         OSM(MOD_LSFT), OSM(MOD_LCTL), MO(KEYSEL), MO(BROWSER_CONTROL),
 
       // left thumb cluster
-                MEH(KC_4),      MEH(KC_5),
+                WINDOWS10_WORKSPACE_LEFT, WINDOWS10_WORKSPACE_RIGHT,
                                 MEH(KC_6),
       MO(COMBINED),MO(KEYNAV),  OSM(MOD_LALT),
 
@@ -163,6 +184,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       // right thumb cluster
       MEH(KC_F5),MEH(KC_F6),MEH(KC_F7),MEH(KC_F8),KC_ENTER,KC_SPACE
 
+  ),
+
+    // alternate base layout
+  [BASE_ALTERNATE] = LAYOUT_ergodox(
+       // left hand
+       KC_TRNS,            KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_TRNS,            KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_TRNS,            KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,
+       OSL(ANDROID_STUDIO),KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+               // bottom row
+               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                                       // thumb cluster
+                                       KC_TRNS,KC_TRNS,
+                                               KC_TRNS,
+                               KC_TRNS,KC_TRNS,KC_TRNS,
+       // right hand
+       KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,          KC_TRNS,                   KC_TRNS,             KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,          KC_TRNS,                   KC_TRNS,             KC_TRNS,
+                KC_TRNS, KC_TRNS,       KC_TRNS,          KC_TRNS,                   KC_TRNS,             KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,          KC_TRNS,                   KC_TRNS,             KC_TRNS,
+                         // bottom row
+                         KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
+       // thumb cluster
+       KC_TRNS, KC_TRNS,
+       KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS
   ),
 
   [KEYNAV] = LAYOUT_ergodox(
@@ -195,7 +242,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_TRNS,MEH(KC_L), MEH(KC_M),MEH(KC_N), MEH(KC_O), MEH(KC_P),
            KC_TRNS,MEH(KC_Q), MEH(KC_R),MEH(KC_S), MEH(KC_T), MEH(KC_U), KC_TRNS,
                    // bottom row
-                   RESET,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                   RESET,DF(BASE),DF(BASE_ALTERNATE),KC_TRNS,KC_TRNS,
                                            // thumb cluster
                                            KC_TRNS,KC_TRNS,
                                                    KC_TRNS,
@@ -294,7 +341,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 
-
+    // android studio shortcuts
+  [ANDROID_STUDIO] = LAYOUT_ergodox(
+       // left hand
+       KC_NO,  KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+               // bottom row
+               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                                       // thumb cluster
+                                       KC_TRNS,KC_TRNS,
+                                               KC_TRNS,
+                               KC_TRNS,KC_TRNS,KC_TRNS,
+       // right hand
+       KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,          KC_TRNS,                   KC_TRNS,              KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS,       AS_FINDUSAGE,     AS_GO_DECLARATION,         AS_GO_IMPLEMENTATION, KC_TRNS,
+                KC_TRNS, AS_TABLEFT,    AS_TABRIGHT,      AS_SYMBOL,                 AS_CLASS,             AS_BACK,
+       KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,          AS_CLOSETAB,               AS_CLOSETOOLWINDOW,   KC_TRNS,
+                         // bottom row
+                         KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
+       // thumb cluster
+       KC_TRNS, KC_TRNS,
+       KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS
+  ),
 
   [COMBINED] = LAYOUT_ergodox(
 
@@ -319,8 +390,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS,KC_TRNS,
 	KC_TRNS,
 	KC_TRNS,KC_TRNS,KC_TRNS),
-  
-  
+
+
     [BROWSER_CONTROL] = LAYOUT_ergodox(
 		   // left hand
            KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,      KC_TRNS, KC_TRNS,
@@ -431,19 +502,19 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             if (record->event.pressed) {
                 return MACRO( D(LCTL), T(A), U(LCTL), T(RBRC), END);
             }
-        break;        
+        break;
 
 	case DEL_TO_HOME:
             if (record->event.pressed) {
-                return MACRO( 
+                return MACRO(
 				// delete to the beginning of the line
  				D(LSFT), T(HOME), U(LSFT),
 				T(DELETE),
 				END);
-            }				
-  	    break;		
+            }
+  	    break;
 
-   
+
       }
     return MACRO_NONE;
 };
@@ -537,21 +608,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case SHELL_HTCSTATUS:
             SEND_STRING("htcStatus -j ");
             return true;
-            break;               
+            break;
         case SHELL_HTCBOUNCE:
             SEND_STRING("htcBounce -j ");
             return true;
-            break;               
+            break;
 	case SHELL_EXPAND_OE_LOGPATTERN:
             SEND_STRING(SS_TAP(X_LEFT)"*CQW_HKEX"SS_TAP(X_END)"*.log"SS_LCTRL("x")SS_LSFT("8"));
-	    break;	
+	    break;
 	case SHELL_EXPAND_OE_TRANPATTERN:
             SEND_STRING(SS_TAP(X_LEFT)"*CQW_HKEX"SS_TAP(X_END)"*.tran"SS_LCTRL("x")SS_LSFT("8"));
-	    break;	
+	    break;
         case SHELL_DUMPTLOG:
             SEND_STRING(" | dumptlog - ");
             return true;
-            break;            
+            break;
 	// Cloud9 macros
 	case CLOUD9_TAB_LEFT:
             SEND_STRING(SS_LCTRL("["));
@@ -577,6 +648,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING(SS_LCTRL("e"));
             return true;
 			break;
+        case WINDOWS10_WORKSPACE_LEFT:
+            SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_LEFT))));
+            return true;
+            break;
+        case WINDOWS10_WORKSPACE_RIGHT:
+            SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_RIGHT))));
+            break;
 
     }
   }

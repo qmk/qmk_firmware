@@ -17,15 +17,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef DEFAULT_H
-#define DEFAULT_H
+#pragma once
 
 #include "quantum.h"
-
-#ifdef __INTELLISENSE__
-#define PROGMEM
-#include "../config.h"
-#endif
 
 /* S60-X keymap definition macro
 * K31 is the extra key next to short left ISO shift
@@ -67,6 +61,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { K40, K41, K42, XXX, XXX, XXX, K46, XXX, XXX, XXX, K4A, K4B, K4C, K4D, XXX, }  \
 }
 
+#define LAYOUT_60_hhkb( \
+    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K0E, \
+    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D,      \
+    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B,      K2D,      \
+    K30,      K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B,      K3D, K3E, \
+         K41, K42,                K46,                     K4B, K4C            \
+) { \
+    { K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K0E, }, \
+    { K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, XXX, }, \
+    { K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, XXX, K2D, XXX, }, \
+    { K30, XXX, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, XXX, K3D, K3E, }, \
+    { XXX, K41, K42, XXX, XXX, XXX, K46, XXX, XXX, XXX, XXX, K4B, K4C, XXX, XXX, }  \
+}
 
 #define LAYOUT_60_ansi_split_bs_rshift( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K0E, \
@@ -114,5 +121,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   { KC_##K30, KC_##K31, KC_##K32, KC_##K33, KC_##K34, KC_##K35, KC_##K36, KC_##K37, KC_##K38, KC_##K39, KC_##K3A, KC_##K3B, KC_##K3C, KC_##K3D, KC_##K3E }, \
   { KC_##K40, KC_##K41, KC_##K42, XXX,      XXX,      XXX,      KC_##K46, XXX,      XXX,      XXX,      KC_##K4A, KC_##K4B, KC_##K4C, KC_##K4D, XXX      }  \
 }
-
-#endif

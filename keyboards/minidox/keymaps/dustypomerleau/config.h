@@ -2,7 +2,6 @@
 
 #pragma once
 
-
 #define EE_HANDS
 #define IGNORE_MOD_TAP_INTERRUPT
 #define ONESHOT_TIMEOUT 1000

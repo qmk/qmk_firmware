@@ -1,4 +1,4 @@
-#include "maartenwut.h"
+#include QMK_KEYBOARD_H
 
 #define _MA 0
 #define _NU 1

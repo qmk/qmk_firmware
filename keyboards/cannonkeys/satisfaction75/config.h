@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 /* in python2: list(u"whatever".encode('utf-16-le')) */
 /*   at most 32 characters or the ugly hack in usb_main.c borks */
-#define MANUFACTURER QMK
+#define MANUFACTURER CannonKeys
 #define PRODUCT Satisfaction75
 #define DESCRIPTION Satisfaction 75 Keyboard
 
@@ -35,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B3, B4, A0, A2, A4, A3 }
 #define DIODE_DIRECTION COL2ROW
 
-#define NUMBER_OF_ENCODERS 1
 #define ENCODERS_PAD_A { B9 }
 #define ENCODERS_PAD_B { B8 }
 
@@ -72,18 +71,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // TODO: refactor with new user EEPROM code (coming soon)
 #define EEPROM_MAGIC 0x451F
-#define EEPROM_MAGIC_ADDR 32
+#define EEPROM_MAGIC_ADDR 40
 // Bump this every time we change what we store
 // This will automatically reset the EEPROM with defaults
 // and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x02
-#define EEPROM_VERSION_ADDR 34
+#define EEPROM_VERSION 0x01
+#define EEPROM_VERSION_ADDR 42
 
 // Dynamic keymap starts after EEPROM version
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 35
-// Dynamic macro starts after dynamic keymaps (35+(4*6*16*2)) = (35+768)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 803
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 221
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 43
+
+// Dynamic macro starts after dynamic keymaps (35+(4*6*16*2)) = (35+768) = 803
+
+// I'm also putting my custom stuff after that
+// 1 for enabled encoder modes
+// 1 for custom backlighting controls
+// 1 for OLED default mode
+// 6 for 3x custom encoder settings, left, right, and press (18 total)
+
+#define DYNAMIC_KEYMAP_ENABLED_ENCODER_MODES 811
+#define DYNAMIC_KEYMAP_CUSTOM_BACKLIGHT 812
+#define DYNAMIC_KEYMAP_DEFAULT_OLED 813
+#define DYNAMIC_KEYMAP_CUSTOM_ENCODER 814
+
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 832
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 192
 #define DYNAMIC_KEYMAP_MACRO_COUNT 16
 
 

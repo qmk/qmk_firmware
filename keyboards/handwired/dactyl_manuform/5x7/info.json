@@ -3,9 +3,9 @@
     "url": "",
     "maintainer": "qmk",
     "width": 17,
-    "height": 16,
+    "height": 8,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_5x7": {
             "layout": [
                 {"label":"L11", "x":0, "y":0},
                 {"label":"L12", "x":1, "y":0},

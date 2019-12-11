@@ -66,8 +66,10 @@ You will need to install Git. It's very likely that you already have it, but if 
 
 Once you have set up your Linux/Unix environment, you are ready to download QMK. We will do this by using Git to "clone" the QMK repository. Open a Terminal or MSYS2 MinGW window and leave it open for the remainder of this guide. Inside that window run these two commands:
 
-    git clone https://github.com/qmk/qmk_firmware.git
-    cd qmk_firmware
+```shell
+git clone --recurse-submodules https://github.com/qmk/qmk_firmware.git
+cd qmk_firmware
+```
 
 ?> If you already know [how to use GitHub](getting_started_github.md), we recommend that you create and clone your own fork instead. If you don't know what that means, you can safely ignore this message.
 

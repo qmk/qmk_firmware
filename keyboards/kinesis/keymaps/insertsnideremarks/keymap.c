@@ -1,4 +1,4 @@
-#include QMK_KEYBOARD_H
+#include QMK_KEYBOARD_H 
 
 extern keymap_config_t keymap_config;
 
@@ -147,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                SPCFN,   ENTNS,   KC_BSPC,                   KC_ENT,  DELNS,   BSPCFN
 ),
 
-/* Number/symbol layer
+/* Numbers/Symbols layer
    (Multiple characters: single-tap for first, double-tap for second)
   ,-----------------------------------------------------------------------------------------------------------.
   |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |
@@ -256,7 +256,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   |--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
   |        |      | KP . |KP/KP*| KP- _| KP+ =|                   |      | KP 1 | KP 2 | KP 3 |KP Ent|        |
   `--------+------+------+------+------+------'                   `------+------+------+------+------+--------'
-	       |   (  |   )  |  [ { |  ] } |                                 | KP 0 |  ,   | KP . |KP Ent|
+	       |   (  |   )  |  [ { |  ] } |                                 |      | KP 0 | KP . |KP Ent|
 	       `---------------------------'                                 `---------------------------'
 	                          ,---------------.                   ,---------------.
 	                          |       |       |                   |       |       |
@@ -272,14 +272,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_P6,   KC_P7,   KC_P8,      KC_P9,     KC_P0,                                                           _______, KC_P7,   KC_P8,   KC_P9,   KC_PPLS, _______,
   _______, KC_P1,   KC_P2,   KC_P3,      KC_P4,     KC_P5,                                                           _______, KC_P4,   KC_P5,   KC_P6,   KC_EQL,  _______,
   _______, _______, KC_PDOT, TD(PSLPAS), TD(PMNUN), TD(PPLEQ),                                                       _______, KC_P1,   KC_P2,   KC_P3,   KC_PENT, _______,
-           KC_LPRN, KC_RPRN, TD(LBCB),   TD(RBCB),                                                                            KC_P0,   KC_COMM, KC_PDOT, KC_PENT,
+           KC_LPRN, KC_RPRN, TD(LBCB),   TD(RBCB),                                                                            _______, KC_P0,   KC_PDOT, KC_PENT,
                                                                _______, _______,                   _______, _______,
                                                                         _______,                   _______,
                                                     _______,   _______, _______,                   _______, _______, _______
 ),
 
 /* Colemak gaming/vanilla
-   (Limited access to Function or Numbers layers; mainly used for gaming; double-tap and hold TD(ADJ) above LAlt to access Adjust layer)
+   (Limited access to Function or Numbers layers; mainly used for gaming; Ent/NS + Delete/Numbers2 to access Adjust layer)
   ,-----------------------------------------------------------------------------------------------------------.
   | ESC |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 | PScr| SLck| Paus|Numpd|Adjst|
   `-----------------------------------------------------------------------------------------------------------'
@@ -288,18 +288,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   |--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
   |   Tab  |   Q  |   W  |   F  |   P  |   G  |                   |   J  |   L  |   U  |   Y  |   ;  |   \    |
   |--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
-  |  Ctrl  |   A  |   R  |   S  |   T  |   D  |                   |   H  |   N  |   E  |   I  |   O  |   '    |
+  |  LCtrl |   A  |   R  |   S  |   T  |   D  |                   |   H  |   N  |   E  |   I  |   O  |   '    |
   |--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
   |  Shift |   Z  |   X  |   C  |   V  |   B  |                   |   K  |   M  |   ,  |   .  |   /  |  Shift |
   `--------+------+------+------+------+------'                   `------+------+------+------+------+--------'
 	       |  Ins |   `  |   [  |   ]  |                                 | Left | Down |  Up  | Right|
 	       `---------------------------'                                 `---------------------------'
 	                          ,---------------.                   ,---------------.
-	                          |Esc/Ctl|TD(ADJ)|                   |  RAlt |  RCtl |
+	                          |  Esc  |       |                   |  RAlt |  RCtl |
 	                  ,-------|-------|-------|                   |-------+-------+-------.
-	                  |       |       |  LAlt |                   |  RGUI |       |       |
-	                  | Space | Enter |-------|                   |-------| Delete|  Bspc |
-	                  |       |       |Bspc/FN|                   | Ent/NS|       |       |
+	                  |       |       |  LAlt |                   |  RGUI | Delete|  Bspc |
+	                  | Space | Enter |-------|                   |-------|   /   |   /   |
+	                  |       |       |  Bspc |                   | Ent/NS|Number2|  Fn2  |
 	                  `-----------------------'                   `-----------------------' 
 */
 [_COLEMAKGM] = LAYOUT_pretty(
@@ -309,13 +309,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LCTL, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                                                          KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                                                          KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
            KC_INS,  KC_GRV,  KC_LBRC, KC_RBRC,                                                                         KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
-                                                        CTLESC,  TD(ADJ),                   KC_RALT, KC_RCTL,
+                                                        KC_ESC,  XXXXXXX,                   KC_RALT, KC_RCTL,
                                                                  KC_LALT,                   KC_RGUI,
-                                               KC_SPC,  KC_ENT,  BSPCFN,                    ENTNS,   KC_DEL,  KC_BSPC
+                                               KC_SPC,  KC_ENT,  KC_BSPC,                   ENTNS,   DELNS,   BSPCFN
 ),
 
 /* QWERTY gaming/vanilla
-   (Limited access to Function or Numbers layers; mainly used for gaming; double-tap and hold TD(ADJ) above LAlt to access Adjust layer)
+   (Limited access to Function or Numbers layers; mainly used for gaming; Ent/NS + Delete/Numbers2 to access Adjust layer)
   ,-----------------------------------------------------------------------------------------------------------.
   | ESC |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 | PScr| SLck| Paus|Numpd|Adjst|
   `-----------------------------------------------------------------------------------------------------------'
@@ -324,18 +324,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   |--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
   |   Tab  |   Q  |   W  |   E  |   R  |   T  |                   |   Y  |   U  |   I  |   O  |   P  |   \    |
   |--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
-  |  Ctrl  |   A  |   S  |   D  |   F  |   G  |                   |   H  |   J  |   K  |   L  |   ;  |   '    |
+  |  LCtrl |   A  |   S  |   D  |   F  |   G  |                   |   H  |   J  |   K  |   L  |   ;  |   '    |
   |--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
   |  Shift |   Z  |   X  |   C  |   V  |   B  |                   |   N  |   M  |   ,  |   .  |   /  |  Shift |
   `--------+------+------+------+------+------'                   `------+------+------+------+------+--------'
 	       |  Ins |   `  |   [  |   ]  |                                 | Left | Down |  Up  | Right|
 	       `---------------------------'                                 `---------------------------'
 	                          ,---------------.                   ,---------------.
-	                          |Esc/Ctl|TD(ADJ)|                   |  RAlt |  RCtl |
+	                          |  Esc  |       |                   |  RAlt |  RCtl |
 	                  ,-------|-------|-------|                   |-------+-------+-------.
-	                  |       |       |  LAlt |                   |  RGUI |       |       |
-	                  | Space | Enter |-------|                   |-------| Delete|  Bspc |
-	                  |       |       |Bspc/FN|                   | Ent/NS|       |       |
+	                  |       |       |  LAlt |                   |  RGUI | Delete|  Bspc |
+	                  | Space | Enter |-------|                   |-------|   /   |   /   |
+	                  |       |       |  Bspc |                   | Ent/NS|Number2|  Fn2  |
 	                  `-----------------------'                   `-----------------------' 
 */
 [_QWERTYGM] = LAYOUT_pretty(
@@ -345,9 +345,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                                                          KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                                                          KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
            KC_INS,  KC_GRV,  KC_LBRC, KC_RBRC,                                                                         KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
-                                                        CTLESC,  TD(ADJ),                   KC_RALT, KC_RCTL,
+                                                        KC_ESC,  XXXXXXX,                   KC_RALT, KC_RCTL,
                                                                  KC_LALT,                   KC_RGUI,
-                                               KC_SPC,  KC_ENT,  BSPCFN,                    ENTNS,   KC_DEL,  KC_BSPC
+                                               KC_SPC,  KC_ENT,  KC_BSPC,                   ENTNS,   DELNS,   BSPCFN
 ),
 
 /* Adjust layer
@@ -402,11 +402,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 uint32_t layer_state_set_user(uint32_t state) {
   return update_tri_layer_state(state, _NUMBERS, _NUMBERS2, _ADJUST);
-}
-
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

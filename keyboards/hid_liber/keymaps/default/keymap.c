@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "hid_liber.h"
+#include QMK_KEYBOARD_H
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -42,22 +42,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                            _______,                            _______, _______, _______, _______,      _______, _______, _______  \
     ),
 };
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    // MACRODOWN only works in this function
-    switch(id) {
-        case 0:
-            if (record->event.pressed) {
-                register_code(KC_RSFT);
-            } else {
-                unregister_code(KC_RSFT);
-            }
-            break;
-    }
-    return MACRO_NONE;
-};
-
 
 void matrix_init_user(void) {
 

@@ -1,7 +1,7 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#pragma once
 
-#include "../../config.h"
+// place overrides here
+
 #include "matrix_types.h"
 
 /* USB Device descriptor parameter */
@@ -77,5 +77,3 @@ KEYMAP_MASTER(MATRIX_LAYER,                      NUMERIC_NORMAL,          HOMING
       k601, k602, k603, k604, k605, k606, k607, k608, k609, k60A, KC_NO, KC_NO, k611, k612, k613, k614, k615, k616, k617, k618, k619, k61A, k61B, KC_NO  \
 )
 */
-
-#endif

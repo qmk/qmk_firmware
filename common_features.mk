@@ -103,18 +103,20 @@ ifeq ($(strip $(UNICODE_COMMON)), yes)
 endif
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
+    POST_CONFIG_H += $(QUANTUM_DIR)/rgblight_post_config.h
     OPT_DEFS += -DRGBLIGHT_ENABLE
+    SRC += $(QUANTUM_DIR)/color.c
     SRC += $(QUANTUM_DIR)/rgblight.c
     CIE1931_CURVE = yes
     LED_BREATHING_TABLE = yes
     ifeq ($(strip $(RGBLIGHT_CUSTOM_DRIVER)), yes)
         OPT_DEFS += -DRGBLIGHT_CUSTOM_DRIVER
     else
-        SRC += ws2812.c
+        WS2812_DRIVER_REQUIRED = yes
     endif
 endif
 
-VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 custom
+VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 IS31FL3737 WS2812 custom
 
 LED_MATRIX_ENABLE ?= no
 ifneq ($(strip $(LED_MATRIX_ENABLE)), no)
@@ -131,10 +133,11 @@ ifeq ($(strip $(LED_MATRIX_ENABLE)), IS31FL3731)
     OPT_DEFS += -DIS31FL3731
     COMMON_VPATH += $(DRIVER_PATH)/issi
     SRC += is31fl3731-simple.c
-    SRC += i2c_master.c
+    QUANTUM_LIB_SRC += i2c_master.c
 endif
 
 RGB_MATRIX_ENABLE ?= no
+
 ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
 ifeq ($(filter $(RGB_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
     $(error RGB_MATRIX_ENABLE="$(RGB_MATRIX_ENABLE)" is not a valid matrix type)
@@ -151,17 +154,37 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3731)
-    OPT_DEFS += -DIS31FL3731
+    OPT_DEFS += -DIS31FL3731 -DSTM32_I2C -DHAL_USE_I2C=TRUE
     COMMON_VPATH += $(DRIVER_PATH)/issi
     SRC += is31fl3731.c
-    SRC += i2c_master.c
+    QUANTUM_LIB_SRC += i2c_master.c
 endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3733)
-    OPT_DEFS += -DIS31FL3733
+    OPT_DEFS += -DIS31FL3733 -DSTM32_I2C -DHAL_USE_I2C=TRUE
     COMMON_VPATH += $(DRIVER_PATH)/issi
     SRC += is31fl3733.c
-    SRC += i2c_master.c
+    QUANTUM_LIB_SRC += i2c_master.c
+endif
+
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3737)
+    OPT_DEFS += -DIS31FL3737 -DSTM32_I2C -DHAL_USE_I2C=TRUE
+    COMMON_VPATH += $(DRIVER_PATH)/issi
+    SRC += is31fl3737.c
+    QUANTUM_LIB_SRC += i2c_master.c
+endif
+
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), WS2812)
+    OPT_DEFS += -DWS2812
+    WS2812_DRIVER_REQUIRED = yes
+endif
+
+ifeq ($(strip $(RGB_MATRIX_CUSTOM_KB)), yes)
+    OPT_DEFS += -DRGB_MATRIX_CUSTOM_KB
+endif
+
+ifeq ($(strip $(RGB_MATRIX_CUSTOM_USER)), yes)
+    OPT_DEFS += -DRGB_MATRIX_CUSTOM_USER
 endif
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
@@ -206,12 +229,59 @@ ifeq ($(strip $(LCD_ENABLE)), yes)
     CIE1931_CURVE = yes
 endif
 
-ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
+# backward compat
+ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
+    BACKLIGHT_ENABLE = custom
+endif
+
+VALID_BACKLIGHT_TYPES := yes software custom
+
+BACKLIGHT_ENABLE ?= no
+ifneq ($(strip $(BACKLIGHT_ENABLE)), no)
+    ifeq ($(filter $(BACKLIGHT_ENABLE),$(VALID_BACKLIGHT_TYPES)),)
+        $(error BACKLIGHT_ENABLE="$(BACKLIGHT_ENABLE)" is not a valid backlight type)
+    endif
+
     ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
         CIE1931_CURVE = yes
     endif
-    ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
-        OPT_DEFS += -DBACKLIGHT_CUSTOM_DRIVER
+
+    COMMON_VPATH += $(QUANTUM_DIR)/backlight
+    SRC += $(QUANTUM_DIR)/backlight/backlight.c
+    OPT_DEFS += -DBACKLIGHT_ENABLE
+
+    ifeq ($(strip $(BACKLIGHT_ENABLE)), software)
+        SRC += $(QUANTUM_DIR)/backlight/backlight_soft.c
+    else
+        ifeq ($(strip $(BACKLIGHT_ENABLE)), custom)
+            OPT_DEFS += -DBACKLIGHT_CUSTOM_DRIVER
+        endif
+
+        ifeq ($(PLATFORM),AVR)
+            SRC += $(QUANTUM_DIR)/backlight/backlight_avr.c
+        else
+            SRC += $(QUANTUM_DIR)/backlight/backlight_arm.c
+        endif
+    endif
+endif
+
+VALID_WS2812_DRIVER_TYPES := bitbang pwm spi i2c
+
+WS2812_DRIVER ?= bitbang
+ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
+    ifeq ($(filter $(WS2812_DRIVER),$(VALID_WS2812_DRIVER_TYPES)),)
+        $(error WS2812_DRIVER="$(WS2812_DRIVER)" is not a valid WS2812 driver)
+    endif
+
+    ifeq ($(strip $(WS2812_DRIVER)), bitbang)
+        SRC += ws2812.c
+    else
+        SRC += ws2812_$(strip $(WS2812_DRIVER)).c
+    endif
+
+    # add extra deps
+    ifeq ($(strip $(WS2812_DRIVER)), i2c)
+        QUANTUM_LIB_SRC += i2c_master.c
     endif
 endif
 
@@ -244,20 +314,21 @@ ifeq ($(strip $(ENCODER_ENABLE)), yes)
     OPT_DEFS += -DENCODER_ENABLE
 endif
 
-ifeq ($(strip $(HAPTIC_ENABLE)), DRV2605L)
-    COMMON_VPATH += $(DRIVER_PATH)/haptic
-    SRC += haptic.c
+HAPTIC_ENABLE ?= no
+ifneq ($(strip $(HAPTIC_ENABLE)),no)
+	COMMON_VPATH += $(DRIVER_PATH)/haptic
+	SRC += haptic.c
+	OPT_DEFS += -DHAPTIC_ENABLE
+endif
+
+ifneq ($(filter DRV2605L, $(HAPTIC_ENABLE)), )
     SRC += DRV2605L.c
-    SRC += i2c_master.c
-    OPT_DEFS += -DHAPTIC_ENABLE
+    QUANTUM_LIB_SRC += i2c_master.c
     OPT_DEFS += -DDRV2605L
 endif
 
-ifeq ($(strip $(HAPTIC_ENABLE)), SOLENOID)
-    COMMON_VPATH += $(DRIVER_PATH)/haptic
-    SRC += haptic.c
+ifneq ($(filter SOLENOID, $(HAPTIC_ENABLE)), )
     SRC += solenoid.c
-    OPT_DEFS += -DHAPTIC_ENABLE
     OPT_DEFS += -DSOLENOID_ENABLE
 endif
 
@@ -298,34 +369,56 @@ ifneq ($(strip $(CUSTOM_MATRIX)), yes)
 endif
 
 DEBOUNCE_DIR:= $(QUANTUM_DIR)/debounce
-# Debounce Modules. If implemented in matrix.c, don't use these.
+# Debounce Modules. Set DEBOUNCE_TYPE=custom if including one manually.
 DEBOUNCE_TYPE?= sym_g
-VALID_DEBOUNCE_TYPES := sym_g eager_pk custom
-ifeq ($(filter $(DEBOUNCE_TYPE),$(VALID_DEBOUNCE_TYPES)),)
-    $(error DEBOUNCE_TYPE="$(DEBOUNCE_TYPE)" is not a valid debounce algorithm)
+ifneq ($(strip $(DEBOUNCE_TYPE)), custom)
+    QUANTUM_SRC += $(DEBOUNCE_DIR)/$(strip $(DEBOUNCE_TYPE)).c
 endif
-ifeq ($(strip $(DEBOUNCE_TYPE)), sym_g)
-    QUANTUM_SRC += $(DEBOUNCE_DIR)/debounce_sym_g.c
-else ifeq ($(strip $(DEBOUNCE_TYPE)), eager_pk)
-    QUANTUM_SRC += $(DEBOUNCE_DIR)/debounce_eager_pk.c
-endif
-
-
 
 ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
+    POST_CONFIG_H += $(QUANTUM_DIR)/split_common/post_config.h
     OPT_DEFS += -DSPLIT_KEYBOARD
 
     # Include files used by all split keyboards
-    QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_flags.c \
-                   $(QUANTUM_DIR)/split_common/split_util.c
+    QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_util.c
 
     # Determine which (if any) transport files are required
     ifneq ($(strip $(SPLIT_TRANSPORT)), custom)
         QUANTUM_SRC += $(QUANTUM_DIR)/split_common/transport.c
         # Functions added via QUANTUM_LIB_SRC are only included in the final binary if they're called.
-        # Unused functions are pruned away, which is why we can add both drivers here without bloat.
-        QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/i2c.c \
-                           $(QUANTUM_DIR)/split_common/serial.c
+        # Unused functions are pruned away, which is why we can add multiple drivers here without bloat.
+        QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/serial.c \
+                           i2c_master.c \
+                           i2c_slave.c
     endif
     COMMON_VPATH += $(QUANTUM_PATH)/split_common
+endif
+
+ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
+    OPT_DEFS += -DOLED_DRIVER_ENABLE
+    COMMON_VPATH += $(DRIVER_PATH)/oled
+    QUANTUM_LIB_SRC += i2c_master.c
+    SRC += oled_driver.c
+endif
+
+SPACE_CADET_ENABLE ?= yes
+ifeq ($(strip $(SPACE_CADET_ENABLE)), yes)
+  SRC += $(QUANTUM_DIR)/process_keycode/process_space_cadet.c
+  OPT_DEFS += -DSPACE_CADET_ENABLE
+endif
+
+MAGIC_ENABLE ?= yes
+ifeq ($(strip $(MAGIC_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/process_keycode/process_magic.c
+    OPT_DEFS += -DMAGIC_KEYCODE_ENABLE
+endif
+
+ifeq ($(strip $(DYNAMIC_MACRO_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/process_keycode/process_dynamic_macro.c
+    OPT_DEFS += -DDYNAMIC_MACRO_ENABLE
+endif
+
+ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
+  SRC += $(QUANTUM_DIR)/dip_switch.c
+  OPT_DEFS += -DDIP_SWITCH_ENABLE
 endif

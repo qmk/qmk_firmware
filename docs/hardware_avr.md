@@ -1,19 +1,31 @@
 # Keyboards with AVR Processors
 
-This page describes the support for for AVR processors in QMK. AVR processors include the atmega32u4, atmega32u2, at90usb1286, and other processors from Atmel Corporation. AVR processors are 8-bit MCU's that are designed to be easy to work with. The most common AVR processors in keyboards have on-board USB and plenty of GPIO for supporting large keyboard matrices. They are the most popular MCU for use in keyboards today.
+This page describes the support for for AVR processors in QMK. AVR processors include the atmega32u4, atmega32u2, at90usb1286, and other processors from Atmel Corporation. AVR processors are 8-bit MCUs that are designed to be easy to work with. The most common AVR processors in keyboards have on-board USB and plenty of GPIO for supporting large keyboard matrices. They are the most popular MCU for use in keyboards today.
 
 If you have not yet you should read the [Keyboard Guidelines](hardware_keyboard_guidelines.md) to get a sense of how keyboards fit into QMK.
 
 ## Adding Your AVR Keyboard to QMK
 
-QMK has a number of features to simplify working with AVR keyboards. For most keyboards you don't have to write a single line of code. To get started run the `util/new_project.sh` script:
+QMK has a number of features to simplify working with AVR keyboards. For most keyboards you don't have to write a single line of code. To get started, run the `util/new_keyboard.sh` script:
 
-```bash
-$ util/new_project.sh my_awesome_keyboard
-######################################################
-# /keyboards/my_awesome_keyboard project created. To start
-# working on things, cd into keyboards/my_awesome_keyboard
-######################################################
+```
+$ ./util/new_keyboard.sh
+Generating a new QMK keyboard directory
+
+Keyboard Name: mycoolkb
+Keyboard Type [avr]: 
+Your Name [John Smith]: 
+
+Copying base template files... done
+Copying avr template files... done
+Renaming keyboard files... done
+Replacing %KEYBOARD% with mycoolkb... done
+Replacing %YOUR_NAME% with John Smith... done
+
+Created a new keyboard called mycoolkb.
+
+To start working on things, cd into keyboards/mycoolkb,
+or open the directory in your favourite text editor.
 ```
 
 This will create all the files needed to support your new keyboard, and populate the settings with default values. Now you just need to customize it for your keyboard.
@@ -66,7 +78,7 @@ Do change the `MANUFACTURER`, `PRODUCT`, and `DESCRIPTION` lines to accurately r
 #define DESCRIPTION     A custom keyboard
 ```
 
-?> Note: On Windows and macOS the `MANUFACTURER`, `PRODUCT`, and `DESCRIPTION` fields will be displayed in the list of USB devices. ?> On Linux these values will not be visible in lsusb by default, since Linux takes the information from the list maintained by [USB ID Repository](http://www.linux-usb.org/usb-ids.html) by default. lsusb will show the information reported by the device when executed with -v option. It is also present in kernel logs after plugging in the device.
+?> Windows and macOS will display the `MANUFACTURER` and `PRODUCT` in the list of USB devices. `lsusb` on Linux instead takes these from the list maintained by the [USB ID Repository](http://www.linux-usb.org/usb-ids.html) by default. `lsusb -v` will show the values reported by the device, and they are also present in kernel logs after plugging it in.
 
 ### Keyboard Matrix Configuration
 
@@ -93,9 +105,27 @@ Finally, you can specify the direction your diodes point. This can be `COL2ROW` 
 #define DIODE_DIRECTION COL2ROW
 ```
 
+#### Direct Pin Matrix
+To configure a keyboard where each switch is connected to a separate pin and ground instead of sharing row and column pins, use `DIRECT_PINS`. The mapping defines the pins of each switch in rows and columns, from left to right. Must conform to the sizes within `MATRIX_ROWS` and `MATRIX_COLS`, use `NO_PIN` to fill in blank spaces. Overrides the behaviour of `DIODE_DIRECTION`, `MATRIX_ROW_PINS` and `MATRIX_COL_PINS`.
+
+```c
+// #define MATRIX_ROW_PINS { D0, D5 }
+// #define MATRIX_COL_PINS { F1, F0, B0 }
+#define DIRECT_PINS { \
+    { F1, E6, B0, B2, B3 }, \
+    { F5, F0, B1, B7, D2 }, \
+    { F6, F7, C7, D5, D3 }, \
+    { B5, C6, B6, NO_PIN, NO_PIN } \
+}
+#define UNUSED_PINS
+
+/* COL2ROW, ROW2COL */
+//#define DIODE_DIRECTION
+```
+
 ### Backlight Configuration
 
-By default QMK supports backlighting on pins `B5`, `B6`, and `B7`. If you are using one of those you can simply enable it here. For more details see the [Backlight Documentation](feature_backlight.md).
+QMK supports backlighting on most GPIO pins. A select few of these can be driven by the MCU in hardware. For more details see the [Backlight Documentation](feature_backlight.md).
 
 ```c
 #define BACKLIGHT_PIN B7
@@ -103,8 +133,6 @@ By default QMK supports backlighting on pins `B5`, `B6`, and `B7`. If you are us
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 6
 ```
-
-?> You can use backlighting on any pin you like, but you will have to do more work to support that. See the [Backlight Documentation](feature_backlight.md) for more details.
 
 ### Other Configuration Options
 

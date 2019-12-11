@@ -17,14 +17,21 @@
 #ifndef PROCESS_COMBO_H
 #define PROCESS_COMBO_H
 
-#include <stdint.h>
 #include "progmem.h"
 #include "quantum.h"
+#include <stdint.h>
 
-typedef struct
-{
+#ifdef EXTRA_EXTRA_LONG_COMBOS
+#    define MAX_COMBO_LENGTH 32
+#elif EXTRA_LONG_COMBOS
+#    define MAX_COMBO_LENGTH 16
+#else
+#    define MAX_COMBO_LENGTH 8
+#endif
+
+typedef struct {
     const uint16_t *keys;
-    uint16_t keycode;        
+    uint16_t        keycode;
 #ifdef EXTRA_EXTRA_LONG_COMBOS
     uint32_t state;
 #elif EXTRA_LONG_COMBOS
@@ -32,29 +39,28 @@ typedef struct
 #else
     uint8_t state;
 #endif
-    uint16_t timer;
-    bool is_active;
-#ifdef COMBO_ALLOW_ACTION_KEYS
-    keyrecord_t prev_record;
-#else
-    uint16_t prev_key;
-#endif
 } combo_t;
 
-
-#define COMBO(ck, ca)       {.keys = &(ck)[0], .keycode = (ca)}
-#define COMBO_ACTION(ck)    {.keys = &(ck)[0]}
+#define COMBO(ck, ca) \
+    { .keys = &(ck)[0], .keycode = (ca) }
+#define COMBO_ACTION(ck) \
+    { .keys = &(ck)[0] }
 
 #define COMBO_END 0
 #ifndef COMBO_COUNT
-#define COMBO_COUNT 0
+#    define COMBO_COUNT 0
 #endif
 #ifndef COMBO_TERM
-#define COMBO_TERM TAPPING_TERM
+#    define COMBO_TERM TAPPING_TERM
 #endif
 
 bool process_combo(uint16_t keycode, keyrecord_t *record);
 void matrix_scan_combo(void);
 void process_combo_event(uint8_t combo_index, bool pressed);
+
+void combo_enable(void);
+void combo_disable(void);
+void combo_toggle(void);
+bool is_combo_enabled(void);
 
 #endif

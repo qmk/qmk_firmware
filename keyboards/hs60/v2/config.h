@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
@@ -102,8 +102,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // disable backlight after timeout in minutes, 0 = no timeout
 #define RGB_BACKLIGHT_DISABLE_AFTER_TIMEOUT 0
 
+// the default brightness
+#define RGB_BACKLIGHT_BRIGHTNESS 255
+
 // the default effect (RGB test)
-#define RGB_BACKLIGHT_EFFECT 255
+#define RGB_BACKLIGHT_EFFECT 6
+
+// the default effect speed (0-3)
+#define RGB_BACKLIGHT_EFFECT_SPEED 0
+
+// the default color1 and color2
+#define RGB_BACKLIGHT_COLOR_1 { .h = 0, .s = 255 }
+#define RGB_BACKLIGHT_COLOR_2 { .h = 127, .s = 255 }
 
 #define DRIVER_COUNT 2
 #define DRIVER_LED_TOTAL 64
@@ -119,21 +129,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_BACKLIGHT_ALPHAS_MODS_ROW_3 0b0010000000000001
 #define RGB_BACKLIGHT_ALPHAS_MODS_ROW_4 0b0011110000000111
 
+#define RGB_BACKLIGHT_CAPS_LOCK_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
+#define RGB_BACKLIGHT_LAYER_1_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
+#define RGB_BACKLIGHT_LAYER_2_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
+#define RGB_BACKLIGHT_LAYER_3_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
+
 // TODO: refactor with new user EEPROM code (coming soon)
 #define EEPROM_MAGIC 0x451F
-#define EEPROM_MAGIC_ADDR 32
+#define EEPROM_MAGIC_ADDR 34
 // Bump this every time we change what we store
 // This will automatically reset the EEPROM with defaults
 // and avoid loading invalid data from the EEPROM
 #define EEPROM_VERSION 0x08
-#define EEPROM_VERSION_ADDR 34
+#define EEPROM_VERSION_ADDR 36
 
 // Backlight config starts after EEPROM version
-#define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR 35
-// Dynamic keymap starts after backlight config (35+32)
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 67
+#define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR 37
+// Dynamic keymap starts after backlight config (37+32)
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 69
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
-// Dynamic macro starts after dynamic keymaps (67+(4*5*14*2)) = (67+560)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 627
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 398
+// Dynamic macro starts after dynamic keymaps (69+(4*5*14*2)) = (69+560)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 629
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 396
 #define DYNAMIC_KEYMAP_MACRO_COUNT 16

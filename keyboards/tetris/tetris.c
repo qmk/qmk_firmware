@@ -1,1 +1,1 @@
-#include "tetris.h"
+#include QMK_KEYBOARD_H

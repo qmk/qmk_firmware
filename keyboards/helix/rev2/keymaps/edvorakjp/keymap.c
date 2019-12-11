@@ -7,21 +7,6 @@
 
 // keymaps definitions are moved to keymap_Xrows.c.
 
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-  switch(keycode) {
-    case KC_LOCK:
-      if (record->event.pressed) {
-        if (get_enable_kc_lang()) {
-          SEND_STRING( SS_LCTRL(SS_LSFT(SS_TAP(X_POWER))) );
-        } else {
-          SEND_STRING( SS_LGUI("l") );
-        }
-      }
-      return false;
-  }
-  return true;
-}
-
 #ifdef SSD1306OLED
 void matrix_init_keymap(void) {
   //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
@@ -37,23 +22,15 @@ void matrix_scan_user(void) {
 uint32_t layer_state_set_keymap(uint32_t state) {
   rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
   switch (biton32(state)) {
-    case _EDVORAKJ1:
-    case _EDVORAKJ2:
-      // _EDVORAKJ1 & J2 are same colored
-      rgblight_sethsv_noeeprom_white();
-      break;
     case _LOWER:
       rgblight_sethsv_noeeprom_red();
       break;
     case _RAISE:
       rgblight_sethsv_noeeprom_blue();
       break;
-    case _ADJUST:
-      rgblight_sethsv_noeeprom_green();
-      break;
     default: //  for any other layers, or the default layer
-      rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_GRADIENT + 3);
-      rgblight_sethsv_noeeprom_red();
+      rgblight_mode(RGBLIGHT_MODE_STATIC_GRADIENT + 3);
+      rgblight_sethsv_red();
       break;
   }
   return state;

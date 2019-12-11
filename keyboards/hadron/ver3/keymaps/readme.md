@@ -17,7 +17,8 @@ When adding your keymap to this list, keep it organised alphabetically (select l
 
      * **folder_name** description
 
-# List of Planck keymaps
+# List of Hadron keymaps
 
-* **default** default Planck layout
-* **cbbrowne** cbbrowne's Planck layout
+* **default** default Hadron layout
+* **ishtob** ishtob's Hadron layout
+* **sebaslayout** sebaslayout's Hadron layout

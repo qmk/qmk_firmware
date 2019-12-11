@@ -1,6 +1,6 @@
 # project specific files
-SRC = led_programs.c
-SRC += matrix.c
+SRC = matrix.c
+SRC += config_led.c
 
 #For platform and packs
 ARM_ATSAM = SAMD51J18A
@@ -31,3 +31,6 @@ HD44780_ENABLE = no         # Enable support for HD44780 based LCDs (+400)
 VIRTSER_ENABLE = no         # USB Serial Driver
 RAW_ENABLE = no             # Raw device
 AUTO_SHIFT_ENABLE = no      # Auto Shift
+
+# Custom RGB matrix handling
+RGB_MATRIX_ENABLE = custom

@@ -14,15 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#pragma once
 
-#include "../../config.h"
+// place overrides here
 
 // QMK customization:
 // - after 1.5s, turn off one-shot keys
 #define ONESHOT_TIMEOUT 1500
 // - TT(layer) only needs one press
 #define TAPPING_TOGGLE 1
-
-#endif

@@ -20,4 +20,3 @@ When adding your keymap to this list, keep it organised alphabetically (select l
 # List of Planck keymaps
 
 * **default** default Planck layout
-* **cbbrowne** cbbrowne's Planck layout

@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef REV1_H
-#define REV1_H
+#pragma once
 
 #include "quantum.h"
 
@@ -56,4 +55,3 @@
     { K40, K41,   KC_NO, K43, KC_NO, KC_NO, K46, KC_NO, KC_NO, KC_NO, K4A, K4B, K4C,   K4D,   K4E,   K4F }, \
 }
 
-#endif

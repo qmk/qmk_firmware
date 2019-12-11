@@ -18,7 +18,7 @@ If Mary presses GESC on her keyboard, the OS will see an KC_ESC character. Now i
 
 ### Caveats
 
- * On macOS CMD/GUI + KC_GRV is actually mapped to a hot key so it will not output a backtick.
+On macOS, Command+<code>&#96;</code> is by default mapped to "Move focus to next window" so it will not output a backtick. Additionally, Terminal always recognises this shortcut to cycle between windows, even if the shortcut is changed in the Keyboard preferences.
 
 ## Configuration
 

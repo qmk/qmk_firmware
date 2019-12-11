@@ -1,10 +1,143 @@
-#ifndef SEND_STRING_KEYCODES
-#define SEND_STRING_KEYCODES
+/* Copyright 2019
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-#define X_NO                 00
-#define X_ROLL_OVER          01
-#define X_POST_FAIL          02
-#define X_UNDEFINED          03
+#pragma once
+
+// clang-format off
+
+/* Punctuation */
+#define X_ENT  X_ENTER
+#define X_ESC  X_ESCAPE
+#define X_BSPC X_BSPACE
+#define X_SPC  X_SPACE
+#define X_MINS X_MINUS
+#define X_EQL  X_EQUAL
+#define X_LBRC X_LBRACKET
+#define X_RBRC X_RBRACKET
+#define X_BSLS X_BSLASH
+#define X_NUHS X_NONUS_HASH
+#define X_SCLN X_SCOLON
+#define X_QUOT X_QUOTE
+#define X_GRV  X_GRAVE
+#define X_COMM X_COMMA
+#define X_SLSH X_SLASH
+#define X_NUBS X_NONUS_BSLASH
+
+/* Lock Keys */
+#define X_CLCK X_CAPSLOCK
+#define X_CAPS X_CAPSLOCK
+#define X_SLCK X_SCROLLLOCK
+#define X_NLCK X_NUMLOCK
+#define X_LCAP X_LOCKING_CAPS
+#define X_LNUM X_LOCKING_NUM
+#define X_LSCR X_LOCKING_SCROLL
+
+/* Commands */
+#define X_PSCR X_PSCREEN
+#define X_PAUS X_PAUSE
+#define X_BRK  X_PAUSE
+#define X_INS  X_INSERT
+#define X_DEL  X_DELETE
+#define X_PGDN X_PGDOWN
+#define X_RGHT X_RIGHT
+#define X_APP  X_APPLICATION
+#define X_EXEC X_EXECUTE
+#define X_SLCT X_SELECT
+#define X_AGIN X_AGAIN
+#define X_PSTE X_PASTE
+#define X_ERAS X_ALT_ERASE
+#define X_CLR  X_CLEAR
+
+/* Keypad */
+#define X_PSLS X_KP_SLASH
+#define X_PAST X_KP_ASTERISK
+#define X_PMNS X_KP_MINUS
+#define X_PPLS X_KP_PLUS
+#define X_PENT X_KP_ENTER
+#define X_P1   X_KP_1
+#define X_P2   X_KP_2
+#define X_P3   X_KP_3
+#define X_P4   X_KP_4
+#define X_P5   X_KP_5
+#define X_P6   X_KP_6
+#define X_P7   X_KP_7
+#define X_P8   X_KP_8
+#define X_P9   X_KP_9
+#define X_P0   X_KP_0
+#define X_PDOT X_KP_DOT
+#define X_PEQL X_KP_EQUAL
+#define X_PCMM X_KP_COMMA
+
+/* Japanese specific */
+#define X_ZKHK X_GRAVE
+#define X_RO   X_INT1
+#define X_KANA X_INT2
+#define X_JYEN X_INT3
+#define X_HENK X_INT4
+#define X_MHEN X_INT5
+
+/* Korean specific */
+#define X_HAEN X_LANG1
+#define X_HANJ X_LANG2
+
+/* Modifiers */
+#define X_LCTL X_LCTRL
+#define X_LSFT X_LSHIFT
+#define X_LCMD X_LGUI
+#define X_LWIN X_LGUI
+#define X_RCTL X_RCTRL
+#define X_RSFT X_RSHIFT
+#define X_ALGR X_RALT
+#define X_RCMD X_RGUI
+#define X_RWIN X_RGUI
+
+/* Generic Desktop Page (0x01) */
+#define X_PWR  X_SYSTEM_POWER
+#define X_SLEP X_SYSTEM_SLEEP
+#define X_WAKE X_SYSTEM_WAKE
+
+/* Consumer Page (0x0C) */
+#define X_MUTE X_AUDIO_MUTE
+#define X_VOLU X_AUDIO_VOL_UP
+#define X_VOLD X_AUDIO_VOL_DOWN
+#define X_MNXT X_MEDIA_NEXT_TRACK
+#define X_MPRV X_MEDIA_PREV_TRACK
+#define X_MSTP X_MEDIA_STOP
+#define X_MPLY X_MEDIA_PLAY_PAUSE
+#define X_MSEL X_MEDIA_SELECT
+#define X_EJCT X_MEDIA_EJECT
+#define X_CALC X_CALCULATOR
+#define X_MYCM X_MY_COMPUTER
+#define X_WSCH X_WWW_SEARCH
+#define X_WHOM X_WWW_HOME
+#define X_WBAK X_WWW_BACK
+#define X_WFWD X_WWW_FORWARD
+#define X_WSTP X_WWW_STOP
+#define X_WREF X_WWW_REFRESH
+#define X_WFAV X_WWW_FAVORITES
+#define X_MFFD X_MEDIA_FAST_FORWARD
+#define X_MRWD X_MEDIA_REWIND
+#define X_BRIU X_BRIGHTNESS_UP
+#define X_BRID X_BRIGHTNESS_DOWN
+
+/* System Specific */
+#define X_BRMU X_PAUSE
+#define X_BRMD X_SCROLLLOCK
+
+/* Keyboard/Keypad Page (0x07) */
 #define X_A                  04
 #define X_B                  05
 #define X_C                  06
@@ -177,12 +310,13 @@
 #define X_RALT               e6
 #define X_RGUI               e7
 
-/* System Control */
+/* Media and Function keys */
+/* Generic Desktop Page (0x01) */
 #define X_SYSTEM_POWER       a5
 #define X_SYSTEM_SLEEP       a6
 #define X_SYSTEM_WAKE        a7
 
-/* Media Control */
+/* Consumer Page (0x0C) */
 #define X_AUDIO_MUTE         a8
 #define X_AUDIO_VOL_UP       a9
 #define X_AUDIO_VOL_DOWN     aa
@@ -204,4 +338,37 @@
 #define X_WWW_FAVORITES      ba
 #define X_MEDIA_FAST_FORWARD bb
 #define X_MEDIA_REWIND       bc
-#endif
+#define X_BRIGHTNESS_UP      bd
+#define X_BRIGHTNESS_DOWN    be
+
+// Send string macros
+#define STRINGIZE(z) #z
+#define ADD_SLASH_X(y) STRINGIZE(\x##y)
+#define SYMBOL_STR(x) ADD_SLASH_X(x)
+
+#define SS_TAP_CODE 1
+#define SS_DOWN_CODE 2
+#define SS_UP_CODE 3
+
+#define SS_TAP(keycode) "\1" SYMBOL_STR(keycode)
+#define SS_DOWN(keycode) "\2" SYMBOL_STR(keycode)
+#define SS_UP(keycode) "\3" SYMBOL_STR(keycode)
+
+// `string` arguments must not be parenthesized
+#define SS_LCTL(string) SS_DOWN(X_LCTL) string SS_UP(X_LCTL)
+#define SS_LSFT(string) SS_DOWN(X_LSFT) string SS_UP(X_LSFT)
+#define SS_LALT(string) SS_DOWN(X_LALT) string SS_UP(X_LALT)
+#define SS_LGUI(string) SS_DOWN(X_LGUI) string SS_UP(X_LGUI)
+#define SS_LCMD(string) SS_LGUI(string)
+#define SS_LWIN(string) SS_LGUI(string)
+
+#define SS_RCTL(string) SS_DOWN(X_RCTL) string SS_UP(X_RCTL)
+#define SS_RSFT(string) SS_DOWN(X_RSFT) string SS_UP(X_RSFT)
+#define SS_RALT(string) SS_DOWN(X_RALT) string SS_UP(X_RALT)
+#define SS_RGUI(string) SS_DOWN(X_RGUI) string SS_UP(X_RGUI)
+#define SS_ALGR(string) SS_RALT(string)
+#define SS_RCMD(string) SS_RGUI(string)
+#define SS_RWIN(string) SS_RGUI(string)
+
+// DEPRECATED
+#define SS_LCTRL(string) SS_LCTL(string)

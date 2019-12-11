@@ -6,8 +6,8 @@
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    80ultraman
-#define PRODUCT         doro67 
+#define MANUFACTURER    Backprop Studio
+#define PRODUCT         Doro67 Regular PCB
 #define DESCRIPTION     65% custom keyboard
 
 /* key matrix size */

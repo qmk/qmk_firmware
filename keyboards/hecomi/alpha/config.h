@@ -45,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { C6,D7,E6,B4,B5 }
 #define MATRIX_COL_PINS { F4,F5,F6,F7,B1,B3,B2,B6 }
 #define UNUSED_PINS
-#define SOFT_SERIAL_PIN D0 // or D1, D2, D3, E6
+#define SOFT_SERIAL_PIN D1 // or D1, D2, D3, E6
 //#define USE_I2C
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
@@ -62,24 +62,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
  #define RGB_DI_PIN D4
  #ifdef RGB_DI_PIN
-   #define RGBLED_NUM 8
+   #define RGBLED_NUM 16 
    #define RGBLIGHT_HUE_STEP 8
    #define RGBLIGHT_SAT_STEP 8
    #define RGBLIGHT_VAL_STEP 8
  /*== or choose animations ==*/
-   #define RGBLIGHT_EFFECT_BREATHING
-   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-   #define RGBLIGHT_EFFECT_SNAKE
-   #define RGBLIGHT_EFFECT_KNIGHT
-   #define RGBLIGHT_EFFECT_CHRISTMAS
-   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-   #define RGBLIGHT_EFFECT_RGB_TEST
-   #define RGBLIGHT_EFFECT_ALTERNATING
+//   #define RGBLIGHT_EFFECT_BREATHING
+//   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+//   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+//   #define RGBLIGHT_EFFECT_SNAKE
+//   #define RGBLIGHT_EFFECT_KNIGHT
+//   #define RGBLIGHT_EFFECT_CHRISTMAS
+//   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+//   #define RGBLIGHT_EFFECT_RGB_TEST
+//   #define RGBLIGHT_EFFECT_ALTERNATING
  #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
@@ -244,3 +244,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MASTER_LEFT
 #define EEHANDS
 */
+#define RGBLED_SPLIT {8,8}

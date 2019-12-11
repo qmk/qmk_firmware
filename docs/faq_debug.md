@@ -27,7 +27,7 @@ You may need privilege to access the device on OS like Linux.
 Check:
 - *hid_listen* finds your device. See above.
 - Enable debug with pressing **Magic**+d. See [Magic Commands](https://github.com/tmk/tmk_keyboard#magic-commands).
-- set `debug_enable=true` usually in `matrix_init()` in **matrix.c**.
+- set `debug_enable=true`. See [Testing and Debugging](newbs_testing_debugging.md#debugging)
 - try using 'print' function instead of debug print. See **common/print.h**.
 - disconnect other devices with console function. See [Issue #97](https://github.com/tmk/tmk_keyboard/issues/97).
 
@@ -87,6 +87,7 @@ Size after:
 - EEPROM has around a 100000 write cycle.  You shouldn't rewrite the
   firmware repeatedly and continually; that'll burn the EEPROM
   eventually.
+
 ## NKRO Doesn't work
 First you have to compile firmware with this build option `NKRO_ENABLE` in **Makefile**.
 
@@ -111,56 +112,6 @@ In C `1` means one of [int] type which is [16 bit] in case of AVR so you can't s
 
 http://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad-keyboard-t6181-60.html#p146279
 
-
-## Bootloader Jump Doesn't Work
-Properly configure bootloader size in **Makefile**. With wrong section size bootloader won't probably start with **Magic command** and **Boot Magic**.
-```
-# Size of Bootloaders in bytes:
-#   Atmel DFU loader(ATmega32U4)   4096
-#   Atmel DFU loader(AT90USB128)   8192
-#   LUFA bootloader(ATmega32U4)    4096
-#   Arduino Caterina(ATmega32U4)   4096
-#   USBaspLoader(ATmega***)        2048
-#   Teensy   halfKay(ATmega32U4)   512
-#   Teensy++ halfKay(AT90USB128)   2048
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
-```
-AVR Boot section size are defined by setting **BOOTSZ** fuse in fact. Consult with your MCU datasheet.
-Note that **Word**(2 bytes) size and address are used in datasheet while TMK uses **Byte**.
-
-AVR Boot section is located at end of Flash memory like the followings.
-```
-byte     Atmel/LUFA(ATMega32u4)          byte     Atmel(AT90SUB1286)
-0x0000   +---------------+               0x00000  +---------------+
-         |               |                        |               |
-         |               |                        |               |
-         |  Application  |                        |  Application  |
-         |               |                        |               |
-         =               =                        =               =
-         |               | 32KB-4KB               |               | 128KB-8KB
-0x6000   +---------------+               0x1E000  +---------------+
-         |  Bootloader   | 4KB                    |  Bootloader   | 8KB
-0x7FFF   +---------------+               0x1FFFF  +---------------+
-
-
-byte     Teensy(ATMega32u4)              byte     Teensy++(AT90SUB1286)
-0x0000   +---------------+               0x00000  +---------------+
-         |               |                        |               |
-         |               |                        |               |
-         |  Application  |                        |  Application  |
-         |               |                        |               |
-         =               =                        =               =
-         |               | 32KB-512B              |               | 128KB-2KB
-0x7E00   +---------------+               0x1FC00  +---------------+
-         |  Bootloader   | 512B                   |  Bootloader   | 2KB
-0x7FFF   +---------------+               0x1FFFF  +---------------+
-```
-
-And see this discussion for further reference.
-https://github.com/tmk/tmk_keyboard/issues/179
-
-If you are using a TeensyUSB, there is a [known bug](https://github.com/qmk/qmk_firmware/issues/164) in which the hardware reset button prevents the RESET key from working. Unplugging the keyboard and plugging it back in should resolve the problem.
-
 ## Special Extra Key Doesn't Work (System, Audio Control Keys)
 You need to define `EXTRAKEY_ENABLE` in `rules.mk` to use them in QMK.
 
@@ -183,40 +134,15 @@ Pressing any key during sleep should wake host.
 
 Arduino Leonardo and micro have **ATMega32U4** and can be used for TMK, though Arduino bootloader may be a problem.
 
+## Enabling JTAG
 
-## Using PF4-7 Pins of USB AVR?
-You need to set JTD bit of MCUCR yourself to use PF4-7 as GPIO. Those pins are configured to serve JTAG function by default. MCUs like ATMega*U* or AT90USB* are affected with this.
+By default, the JTAG debugging interface is disabled as soon as the keyboard starts up. JTAG-capable MCUs come from the factory with the `JTAGEN` fuse set, and it takes over certain pins of the MCU that the board may be using for the switch matrix, LEDs, etc.
 
-If you are using Teensy this isn't needed. Teensy is shipped with JTAGEN fuse bit unprogrammed to disable the function.
+If you would like to keep JTAG enabled, just add the following to your `config.h`:
 
-See this code.
+```c
+#define NO_JTAG_DISABLE
 ```
-    // JTAG disable for PORT F. write JTD bit twice within four cycles.
-    MCUCR |= (1<<JTD);
-    MCUCR |= (1<<JTD);
-```
-https://github.com/tmk/tmk_keyboard/blob/master/keyboard/hbkb/matrix.c#L67
-
-And read **26.5.1 MCU Control Register – MCUCR** of ATMega32U4 datasheet.
-
-
-## Adding LED Indicators of Lock Keys
-You need your own LED indicators for CapsLock, ScrollLock and NumLock? See this post.
-
-http://deskthority.net/workshop-f7/tmk-keyboard-firmware-collection-t4478-120.html#p191560
-
-## Program Arduino Micro/Leonardo
-Push reset button and then run command like this within 8 seconds.
-
-```
-avrdude -patmega32u4 -cavr109 -b57600 -Uflash:w:adb_usb.hex -P/dev/ttyACM0
-```
-
-Device name will vary depending on your system.
-
-http://arduino.cc/en/Main/ArduinoBoardMicro
-https://geekhack.org/index.php?topic=14290.msg1563867#msg1563867
-
 
 ## USB 3 Compatibility
 I heard some people have a problem with USB 3 port, try USB 2 port.
