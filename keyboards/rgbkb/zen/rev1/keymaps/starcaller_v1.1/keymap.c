@@ -3,6 +3,8 @@
 enum custom_keycodes {
   S_H = SAFE_RANGE, // slack here
   S_H_P,       // slack here + paste 
+  T_H_B,         // ticket header bike
+  T_H_T,       // ticket header tread 
   E_OP,  	    // email open
   E_CL,		    // email close 
   E_FU,		    // email follow up 
@@ -22,6 +24,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case S_H_P:
       if (record->event.pressed) {
         SEND_STRING("@HERE" SS_LCTL("v"));
+      }
+ break;
+
+ case T_H_B:
+      if (record->event.pressed) {
+        SEND_STRING("Your Peloton Bike - ");
+      }
+ break;
+
+ case T_H_T:
+      if (record->event.pressed) {
+        SEND_STRING("Your Peloton Tread - ");
       }
  break;
 
@@ -83,7 +97,7 @@ KC_LCTL, KC_LGUI, KC_LALT, KC_NO, TO(0), KC_SPC, KC_BSPC, KC_ENT, KC_SPC, TO(0),
 KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 			KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
 KC_NO, KC_NO, KC_NO, KC_NO, S_H_P, KC_NO, 			KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
 KC_NO, E_CL,  E_FU,  E_OP,  S_H,   SCRN_C, 			KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
-KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 			KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
+KC_NO, KC_NO, KC_NO, T_H_T, T_H_B, KC_NO, 			KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
 KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO)
 
 };
