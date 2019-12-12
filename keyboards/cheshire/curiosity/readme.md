@@ -4,6 +4,7 @@ Cheshire Alice Keyboard Replacement PCB
 
 * Keyboard Maintainer: [sidcarter](https://github.com/sidcarter)
 * Hardware Supported: Cheshire Curiosity PCB, STM32F072CBT6
+* Designed By: Nightingale Studios/PhoenixStarr
 
 Make example for this keyboard (after setting up your build environment):
 
