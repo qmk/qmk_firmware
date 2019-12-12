@@ -7,7 +7,10 @@ It has two Unicode layers, so that the dead-keys system can be de-activated.
 
 This keymap allows the same layout on a computer that is already set to Dvorak
 on the computer side, such as a laptop that you need the built-in keyboard to be
-mapped to Dvorak. (Only tested on Linux, should work on other systems.)
+mapped to Dvorak. 
+
+Only tested on Linux, it should work on most other systems. However on Windos
+comment out `GUI_IS_MODIFIER`, if pressing to `_FUN` gives "Win key" side effects.
 
 This keymap.c was edited from the default, LED support was copied/edited
 from ../jetpacktuxedo/ keymap. 
@@ -92,15 +95,16 @@ from ../jetpacktuxedo/ keymap.
  
      Layer _LTR (LeTteRs, standard Dvorak)
                                             | Right hand
-     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>      // Keys by finger
-     -o-                                   <|>                              ...        // -o- BASE access
-     Esc      '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL    Bksp 
-     Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS      -_
-     LSht     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht
-     -------------------------------------------------------------------
-     Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space _NSY _FUN     Right;_DRA              // _XYZ is to layer
-               hold     hold  hold      |        hold mixed   hold                   // Layer switch type
-     <1        <2       <3    <4        | 4>     3>   2>      1>                        // Keys by number
+     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2> 
+     -o-                                   <|>                              ...        //(to) BASE access
+     Esc      qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP    Bksp
+     Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
+     LSft     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft
+     ------------------------------------------------------------------
+     Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space  _NSY RGUI    Right;_DRA              // _XYZ is to layer
+                                        |             +_FUN                          // 
+               hold     hold  hold      |        hold tap     hold                   // Layer switch type
+     <1        <2       <3    <4        | 4>    3>   2>      1>                         // Keys by number
 
 Remarks: The 'Tab' on Left-Control causes a slight delay for using Control in combination with a mouse.
 It seems this will be difficult to fix, because it is spread over two devices. To avoid the
@@ -119,7 +123,7 @@ There is an uncluttered _Delete_ and _Right_ on the `_NSY` or `_MOV` layer respe
      Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)  `~+RCtl
      -+LSft   [{    ]}    /?    \|    =+    | +     |     ?     {     }   `+RSft // limitation prevents ~
      -------------------------------------------------------
-     Left+LAlt Del   ___   Ent  | .   ___   ,     Right+RAlt
+     Left+LAlt Del   ___   Ent  | .   ___   RGUI  Right+RAlt
                      -*-       <|>    -*-                                         //(hold) Access on _LTR
        <1      <2    <3    <4   | 4>  3>    2>    1>  
 
@@ -136,7 +140,7 @@ Remarks. There is a bit of numbers entry here with -,.Tab, also see `_REV` for t
      LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10     RCtl     //... ! 'descramble'
      LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20     RSft     //... < toggle 'stay'
      ----------------------------------------------------------
-     LAlt  LCtl&   LCtl&   LSft& | +LCtl&LSft xxx   BASE   RAlt
+     LAlt  LCtl&   LCtl&   LSft& | +LCtl&LSft RGUI  BASE   RAlt
            LSft    LAlt    LAlt  | &LAlt                                     
            +xxx    +xxx    +xxx  | +xxx
                                 <|>                 -*-                         //(toggle) Acces -*- base
@@ -157,7 +161,7 @@ or staying on the `_FUN` layer. Default: return to BASE.
      Tab+LCtl  MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
      LSft      Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSft
      --------------------------------------------------------
-     Left+LAlt Del   Ent   ___ | PgUp  PgDn  BASE  Right+RAlt
+     Left+LAlt Del   Ent   ___ | PgUp  PgDn  RGUI   Right+RAlt
                            -*-<|>                                                        //(hold) on BASE
      <1        <2    <3    <4  | 4>    3>    2>    1>  
 
@@ -255,7 +259,7 @@ Remarks. This layer is seamlessly activated with 'descramble'
      Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)  `~+RCtl
      -+LSht   -_    =+    [{    \|    ]}    | }     |     {     _     +   `+RSht            // row 2, raw
      -------------------------------------------------------
-     Left+LAlt Del   ___   Ent  | .   ___   ,     Right+RAlt
+     Left+LAlt Del   ___   Ent  | .   ___   RGUI  Right+RAlt
                      -*-       <|>    -*-                                         //(hold) Access on _LTR
        <1      <2    <3    <4   | 4>  3>    2>    1>  
 
@@ -277,9 +281,9 @@ Remarks. This layer is seamlessly activated with 'descramble'
      Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
      LSft     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft
      ------------------------------------------------------------------
-     Left+LAlt Del;_DDA _DDN  Enter+_MOV| Space _DDN _FUN    Right;_DDD        // _XYZ are layer switches
-               or:;_ACC                <|>                   or:;_DRA        // When in 'half descramble'
-               hold     hold  hold      |       hold toggl   hold                 // Type of layer switch
+     Left+LAlt Del;_DDA _DDN  Enter+_MOV| Space _DDN RGUI    Right;_DDD        // _XYZ are layer switches
+               or:;_ACC                <|>           +_FUN   or:;_DRA        // When in 'half descramble'
+               hold     hold  hold      |       hold tap     hold                 // Type of layer switch
      <1        <2       <3    <4        | 4>    3>   2>      1>                         // Keys by number
 
 
@@ -300,8 +304,9 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   =========
 
 
-    - Shift/Alt/Control, Del/Esc and Alt with tap arrows, repeat on
-      most layers.
+    - Shift/Alt/Control/RGUI, Del/Esc and Alt with tap arrows, repeat on
+      several layers, to have the same effect regardless of the order
+      in which keys are pressed.
 
     - Exception:  the Right Control on the base layer is taken off, because
       of tap delay. QMK allows one to press-hold to the numerical layer
@@ -352,7 +357,7 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   could be: assign a key to each of the layer-tap key thus avoiding
   the slight hold delay with a mouse; add layer-hold keys to `_RAR` and
   `_REV`; more navigation on the base layer; some accented or Unicode
-  that you use the most, etc.
+  that you use the most; LGUI keys, etc.
 
   Keyboards with fewer keys: the `_REV` layer would be the first
   to repurpose I guess. One of the `_NSY` layer hold keys to it,

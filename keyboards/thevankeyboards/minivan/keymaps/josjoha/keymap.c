@@ -23,6 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Todo:
  *
+ * - Assign a key to prevent RGUI activation on _FUN key in Base layer, to
+ *   allow the keyboard to be used on a system where the Win key is not a 
+ *   modifier only key.
  * - Make _REV follow _MOV configuration system
  */
         /*       Navigation cluster configuration
@@ -48,6 +51,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          /* Uncomment below line to put the arrows on the left, comment out to have arrows right. */
 
 //#define ARROWS_LEFT // implies mouse is right
+
+// Windos configuration:
+#define GUI_IS_MODIFIER // Comment out this line if your system sees GUI not purely as a modifier (such as Windos).
+
+
+// Below here no more comfortable configuration options.....
+// ---------------------------------------------------------
 
 
 #include QMK_KEYBOARD_H
@@ -440,6 +450,7 @@ enum custom_keycodes {
     CTO_ACCE,
     CTO_DRAW,
     CHOLTAP_ACCE,
+    CHOLTAP_RGUI,
     CHOLTAP_DRAW,
     _FUN_STAY,
     LEDS_ON,
@@ -887,6 +898,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break; 
 
+        // This allows RGUI to be an easily held key for use with a window manager (Linux), where it acts
+        // as a modifier, meaning it does nothing when tapped. It seems that the documentation on Windos
+        // reveals that the GUI or "Win" keys are not modifiers, but they have an action even when tapped 
+        // by themselves. Therefore to use this keymap on Windos, you may want to comment ut the two
+        // SEND_STRING lines, or replace CHOLTAP_RGUI in the keymap with TO ( _FUN ), or something like that,
+        // unless you like <no action> when you hold this key for longer and only _FUN layer on a tap.
+        // #define condifuration provided
+        case CHOLTAP_RGUI: // When tapped it toggles the _FUN layer, when held it is RGUI
+            if (record->event.pressed) { // key down
+                 key_timer = timer_read ();
+#ifdef GUI_IS_MODIFIER
+                 // Activte Mod4 key (GUI).
+                 SEND_STRING (SS_DOWN (X_RGUI)); // Windos: comment out this line
+#endif
+            } else { // key up
+#ifdef GUI_IS_MODIFIER
+                 // De-activate Mod4 key (GUI).
+                 SEND_STRING (SS_UP (X_RGUI)); // Windos: comment out this line
+#endif
+                 if (timer_elapsed (key_timer) <= TAPPING_TERM_HOLTAP) { // tapped
+                     activate_this_layer (_FUN); // activates function layer as a toggle
+                     deactivate_all_but (_FUN);  
+                 }
+            }
+            break;
         // These two are a simulated LT(layer,kc), layer-tap. 
         // Double-tap-hold functionality: not done, but holding _NSY layer gives a normal Del there
         // They switch what layer to use depending on 'descramble'
@@ -1434,8 +1470,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS      -_
      LSht     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht
      -------------------------------------------------------------------
-     Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space _NSY _FUN     Right;_DRA              // _XYZ is to layer
-               hold     hold  hold      |        hold mixed   hold                   // Layer switch type
+     Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space  _NSY RGUI    Right;_DRA              // _XYZ is to layer
+                                        |             +_FUN                          // 
+               hold     hold  hold      |        hold tap     hold                   // Layer switch type
      <1        <2       <3    <4        | 4>     3>   2>      1>                        // Keys by number
 */
 //
@@ -1445,9 +1482,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LCTL_T ( KC_TAB ) , KC_A    , KC_O    , KC_E   , KC_U , KC_I , KC_D , KC_H , KC_T , KC_N , KC_S , KC_MINS ,
         KC_LSFT           , KC_SCLN , KC_Q    , KC_J   , KC_K , KC_X , KC_B , KC_M , KC_W , KC_V , KC_Z , KC_RSFT ,
 //      --------------------------------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , CHOLTAP_ACCE , MO ( _NSY ) , LT ( _MOV , KC_ENT ) , KC_SPC , MO ( _NSY ) , TO ( _FUN ) , CHOLTAP_DRAW
-//                         ,              ,             ,                    <|,>       ,             ,             ,
-//      <1                 , <2           , <3          , <4                  |, 4>     , 3>          , 2>          , 1>
+        LALT_T ( KC_LEFT ) , CHOLTAP_ACCE , MO ( _NSY ) , LT ( _MOV , KC_ENT ) , KC_SPC , MO ( _NSY ) , CHOLTAP_RGUI , CHOLTAP_DRAW
+//                         ,              ,             ,                    <|,>       ,             ,              ,
+//      <1                 , <2           , <3          , <4                  |, 4>     , 3>          , 2>           , 1>
                       ),
 
         /**/
@@ -1503,9 +1540,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
      LSft     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft
      ------------------------------------------------------------------
-     Left+LAlt Del;_DDA _DDN  Enter+_MOV| Space _DDN _FUN    Right;_DDD        // _XYZ are layer switches
-               or:;_ACC                <|>                   or:;_DRA        // When in 'half descramble'
-               hold     hold  hold      |       hold toggl   hold                 // Type of layer switch
+     Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space  _NSY RGUI    Right;_DRA              // _XYZ is to layer
+                                        |             +_FUN                          // 
+               hold     hold  hold      |        hold tap     hold                   // Layer switch type
      <1        <2       <3    <4        | 4>    3>   2>      1>                         // Keys by number
 
 
@@ -1526,9 +1563,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LCTL_T ( KC_TAB ) , KC_A , KC_S , KC_D , KC_F , KC_G , KC_H , KC_J , KC_K    , KC_L   , KC_SCLN , KC_QUOT ,
         KC_LSFT           , KC_Z , KC_X , KC_C , KC_V , KC_B , KC_N , KC_M , KC_COMM , KC_DOT , KC_SLSH , KC_RSFT ,
 //      --------------------------------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , CHOLTAP_ACCE , MO ( _DDN ) , LT ( _MOV , KC_ENT ) , KC_SPC , MO ( _DDN ) , TO ( _FUN ) , CHOLTAP_DRAW
-//                         ,              ,             ,                    <|,>       ,             ,             ,
-//      <1                 , <2           , <3          , <4                  |, 4>     , 3>          , 2>          , 1>
+        LALT_T ( KC_LEFT ) , CHOLTAP_ACCE , MO ( _DDN ) , LT ( _MOV , KC_ENT ) , KC_SPC , MO ( _DDN ) , CHOLTAP_RGUI , CHOLTAP_DRAW
+//                         ,              ,             ,                    <|,>       ,             ,              ,
+//      <1                 , <2           , <3          , <4                  |, 4>     , 3>          , 2>           , 1>
                       ),
 
         /**/
@@ -1549,7 +1586,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)  `~+RCtl
      -+LSft   [{    ]}    /?    \|    =+    | +     |     ?     {     }   `+RSft // limitation prevents ~
      -------------------------------------------------------
-     Left+LAlt Del   ___   Ent  | .   ___   ,     Right+RAlt
+     Left+LAlt Del   ___   Ent  | .   ___   RGUI  Right+RAlt
                      -*-       <|>    -*-                                         //(hold) Access on _LTR
        <1      <2    <3    <4   | 4>  3>    2>    1>  
 */
@@ -1561,7 +1598,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LCTL_T ( KC_TAB )  , KC_1    , KC_2    , KC_3    , KC_4    , KC_5    , KC_6    , KC_7    , KC_8    , KC_9    , KC_0    , RCTL_T ( KC_GRV )  , 
         LSFT_T ( KC_MINS ) , KC_LBRC , KC_RBRC , KC_SLSH , KC_BSLS , KC_EQL  , KC_PLUS , KC_PIPE , KC_QUES , KC_LCBR , KC_RCBR , RSFT_T ( KC_TILD ) ,  
 //      -------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , KC_DEL , _______ , KC_ENT , KC_DOT , _______ , KC_COMM  , RALT_T ( KC_RGHT )
+        LALT_T ( KC_LEFT ) , KC_DEL , _______ , KC_ENT , KC_DOT , _______ , KC_RGUI  , RALT_T ( KC_RGHT )
 //                         ,        , -*-     ,      <|,>       , -*-     ,          ,
 //      <1                 , <2     , <3      , <4    |, 4>     , 3>      , 2>       , 1>
                       ),
@@ -1585,7 +1622,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)  `~+RCtl
      -+LSht   -_    =+    [{    \|    ]}    | }     |     {     _     +   `+RSht            // row 2, raw
      -------------------------------------------------------
-     Left+LAlt Del   ___   Ent  | .   ___   ,     Right+RAlt
+     Left+LAlt Del   ___   Ent  | .   ___   RGUI  Right+RAlt
                      -*-       <|>    -*-                                         //(hold) Access on _LTR
        <1      <2    <3    <4   | 4>  3>    2>    1>  
 
@@ -1600,7 +1637,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LCTL_T ( KC_TAB )  , KC_1    , KC_2   , KC_3    , KC_4    , KC_5    , KC_6    , KC_7    , KC_8    , KC_9    , KC_0    , RCTL_T ( KC_GRV )  , 
         LSFT_T ( KC_MINS ) , KC_MINS , KC_EQL , KC_LBRC , KC_BSLS , KC_RBRC , KC_RCBR , KC_PIPE , KC_LCBR , KC_UNDS , KC_PLUS , RSFT_T ( KC_TILD ) ,  
 //  ----------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , KC_DEL , _______ , KC_ENT , KC_DOT , _______ , KC_COMM , RALT_T ( KC_RGHT )
+        LALT_T ( KC_LEFT ) , KC_DEL , _______ , KC_ENT , KC_DOT , _______ , KC_RGUI , RALT_T ( KC_RGHT )
 //                         ,        , -*-     ,      <|,>       , -*-     ,         ,
 //      <1                 , <2     , <3      , <4    |, 4>     , 3>      , 2>      , 1>
                       ),
@@ -1623,7 +1660,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      Tab+LCtl  MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
      LSft      Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSft
      -------------------------------------------------------------
-     Left+LAlt Del   Ent   ___ | PgUp  PgDn  BASE   Right+RAlt
+     Left+LAlt Del   Ent   ___ | PgUp  PgDn  RGUI   Right+RAlt
                            -*-<|>                                                        //(hold) on BASE
      <1        <2    <3    <4  | 4>    3>    2>    1>  
  */
@@ -1776,9 +1813,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT           , LEFT_CA , LEFT_CB , LEFT_CC , LEFT_CD , LEFT_CE , RGHT_CA , RGHT_CB , RGHT_CC , RGHT_CD , RGHT_CE , KC_RSFT ,
 
 //      --------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , KC_DEL  , KC_ENT , _______ , KC_PGUP , KC_PGDN , CTO_BASE , RALT_T ( KC_RGHT )
-//                         ,         ,        , -*-   <|,>        ,         ,          ,
-//      <1                 , <2      , <3     , <4     |, 4>      , 3>      , 2>       , 1>
+        LALT_T ( KC_LEFT ) , KC_DEL  , KC_ENT , _______ , KC_PGUP , KC_PGDN , KC_RGUI , RALT_T ( KC_RGHT )
+//                         ,         ,        , -*-   <|,>        ,         ,         ,
+//      <1                 , <2      , <3     , <4     |, 4>      , 3>      , 2>      , 1>
                       ),
 
         /**/
@@ -2055,7 +2092,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10     RCtl     //... ! 'descramble'
      LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20     RSft     //... < toggle 'stay'
      ----------------------------------------------------------                  
-     LAlt  LCtl&   LCtl&   LSft& | +LCtl&LSft xxx   BASE   RAlt
+     LAlt  LCtl&   LCtl&   LSft& | +LCtl&LSft RGUI  BASE   RAlt
            LSft    LAlt    LAlt  | &LAlt                                     
            +xxx    +xxx    +xxx  | +xxx
                                 <|>                 -*-                         //(toggle) Acces -*- base
@@ -2068,9 +2105,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL  , KC_F1    , KC_F2     , KC_F3       , KC_F4       , KC_F5       , KC_F6    , KC_F7    , KC_F8   , KC_F9   , KC_F10  , KC_RCTL       ,
         KC_LSFT  , KC_F11   , KC_F12    , KC_F13      , KC_F14      , KC_F15      , KC_F16   , KC_F17   , KC_F18  , KC_F19  , KC_F20  , KC_RSFT       ,
 //      ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        KC_LALT , MT ( MOD_LCTL | MOD_LSFT, XXXXXXX ) , MT ( MOD_LCTL | MOD_LALT , XXXXXXX ) , MT ( MOD_LSFT | MOD_LALT , XXXXXXX ) , MT ( MOD_LCTL | MOD_LSFT | MOD_LALT , XXXXXXX ) , XXXXXXX , CTO_BASE , KC_RALT
-//              ,                                     ,                                      ,                                    <|,>                                                ,         , -*-     ,
-//      <1      , <2                                  , <3                                   , <4                                  |, 4>                                              , 3>      , 2>      , 1>
+        KC_LALT , MT ( MOD_LCTL | MOD_LSFT, XXXXXXX ) , MT ( MOD_LCTL | MOD_LALT , XXXXXXX ) , MT ( MOD_LSFT | MOD_LALT , XXXXXXX ) , MT ( MOD_LCTL | MOD_LSFT | MOD_LALT , XXXXXXX ) , KC_RGUI , CTO_BASE , KC_RALT
+//              ,                                     ,                                      ,                                    <|,>                                                ,         , -*-      ,
+//      <1      , <2                                  , <3                                   , <4                                  |, 4>                                              , 3>      , 2>       , 1>
                       ),
 
         /**/
