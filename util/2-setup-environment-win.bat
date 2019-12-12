@@ -15,7 +15,7 @@ IF NOT ["%ERRORLEVEL%"]==["0"] (
 DEL %STARTINGDIR%\environment-setup.log
 
 :: Make sure path to MinGW exists - if so, CD to it
-SET MINGWPATH="C:\MinGW\bin"
+SET MINGWPATH="C:\msys32\mingw64"
 IF NOT EXIST !MINGWPATH! (ECHO Path not found: %MINGWPATH%. Did you install MinGW to the default location? && GOTO ExitBatch)
 CD /D %MINGWPATH%
 
