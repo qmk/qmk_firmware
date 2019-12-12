@@ -30,11 +30,6 @@ rgb_theme_color_t default_adjust = { HSV_SPRINGGREEN };
 
 void keyboard_post_init_rgb(void) {
     layer_state_set_user(layer_state);
-#if defined(RGBLIGHT_ENABLE)
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-#elif defined(RGB_MATRIX_ENABLE)
-    rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
-#endif
 }
 
 #if defined(RGB_THEME_ENABLE)
