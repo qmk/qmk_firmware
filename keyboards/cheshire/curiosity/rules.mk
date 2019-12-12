@@ -1,5 +1,3 @@
-# project specific files
-# SRC = ssd1306.c
 ## chip/board settings
 # the next two should match the directories in
 #  <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
@@ -31,27 +29,26 @@ ARMV = 6
 #   <tmk_dir>/tmk_core/tool/chibios/ch-bootloader-jump.patch
 #STM32_BOOTLOADER_ADDRESS = 0x1FFFC800
 
-# Build Options
-#   comment out to disable the options.
-#
-
-# project specific files
-VPATH += keyboards/cannonkeys/stm32f072
-SRC =	keyboard.c \
-      led.c
-
-BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
-MOUSEKEY_ENABLE = yes	# Mouse keys
-EXTRAKEY_ENABLE = yes	# Audio control and System control
-CONSOLE_ENABLE = yes	# Console for debug
-COMMAND_ENABLE = yes    # Commands for debug and configuration
-SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
-NKRO_ENABLE = yes	    # USB Nkey Rollover
-CUSTOM_MATRIX = no # Custom matrix file
-# BACKLIGHT_ENABLE = yes # This is broken on 072 for some reason
-RGBLIGHT_ENABLE = yes
-
-# RAW_ENABLE = yes
-# DYNAMIC_KEYMAP_ENABLE = yes
-
+# Options to pass to dfu-util when flashing
 DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
+DFU_SUFFIX_ARGS = -p df11 -v 0483
+
+# Build Options
+#   change yes to no to disable
+#
+BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration
+MOUSEKEY_ENABLE = yes       # Mouse keys
+EXTRAKEY_ENABLE = yes       # Audio control and System control
+CONSOLE_ENABLE = no        # Console for debug
+COMMAND_ENABLE = no         # Commands for debug and configuration
+# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
+SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
+# if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE = no            # USB Nkey Rollover
+BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
+RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
+MIDI_ENABLE = no            # MIDI support
+BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
+AUDIO_ENABLE = no           # Audio output on port C6
+FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
+HD44780_ENABLE = no         # Enable support for HD44780 based LCDs
