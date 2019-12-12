@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-#include "danish_to_us.h" // Includes Danish and custom keymaps
+#include "brianoverby.h" // Includes Danish and custom keymaps
 
 extern keymap_config_t keymap_config;
 
@@ -30,7 +30,7 @@ bool gamemode_enabled = false;
 #define ____ KC_TRNS
 #define xxxx KC_NO
 
-// UPPERCASE keycodes are handled by process_record_user() in the file 'danish_to_us.c'
+// UPPERCASE keycodes are handled by process_record_user() in the file 'brianoverby.c' from userspace
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
