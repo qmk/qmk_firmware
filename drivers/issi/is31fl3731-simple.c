@@ -235,7 +235,7 @@ void IS31FL3731_update_pwm_buffers(uint8_t addr, uint8_t index) {
 }
 
 void IS31FL3731_update_led_control_registers(uint8_t addr, uint8_t index) {
-    if (g_led_control_registers_update_required) {
+    if (g_led_control_registers_update_required[index]) {
         for (int i = 0; i < 18; i++) {
             IS31FL3731_write_register(addr, i, g_led_control_registers[index][i]);
         }
