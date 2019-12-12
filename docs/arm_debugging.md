@@ -51,7 +51,7 @@ Now you can see the QMK folder on the left hand side. Right click it and select 
 
 Now its time to install the necessary MCU packages. Go to Packs perspective by selecting Window -> Open Perspective -> Others -> Packs. Now select the yellow refresh symbol next to the Packs tab. This will take a long time as it is requesting the MCU definitions from various places. If some of the links fail you can probably select Ignore.
 
-When this finishes you must find the MCU which we will be building/debugging for. In this example I will be using the STM32F3 series MCUs. On the left, select STMicroelectonics -> STM32F3 Series. On the middle window we can see the pack. Right click and select Install. Once that is done we can go back to the default perspective, Window -> Open Perspective -> Others -> C/C++.
+When this finishes you must find the MCU which we will be building/debugging for. In this example I will be using the STM32F3 series MCUs. On the left, select STMicroelectronics -> STM32F3 Series. On the middle window we can see the pack. Right click and select Install. Once that is done we can go back to the default perspective, Window -> Open Perspective -> Others -> C/C++.
 
 We need to let eclipse know the device we intent to build QMK on. Right click on the QMK folder -> Properties -> C/C++ Build -> Settings. Select the Devices tab and under devices select the appropriate variant of your MCU. For my example it is STM32F303CC
 
