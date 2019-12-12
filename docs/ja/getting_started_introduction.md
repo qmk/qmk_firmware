@@ -4,7 +4,7 @@
 
 ## 基本的な QMK の構造
 
-QMK は [Jun Wako](https://github.com/tmk) の [tmk_keyboard](https://github.com/tmk/tmk_keyboard) プロジェクトのフォークです。変更された元の TMK コードは、`tmk` フォルダで見つけることができます。プロジェクトへの QMK の追加は、`quantum` フォルダで見つけることができます。キーボードプロジェクトは `handwired` および `keyboard` フォルダで見つけることができます。
+QMK は [Jun Wako](https://github.com/tmk) の [tmk_keyboard](https://github.com/tmk/tmk_keyboard) プロジェクトのフォークです。変更された元の TMK コードは、`tmk_core` フォルダで見つけることができます。プロジェクトへの QMK の追加は、`quantum` フォルダで見つけることができます。キーボードプロジェクトは `handwired` および `keyboard` フォルダで見つけることができます。
 
 ### ユーザスペースの構造
 
