@@ -25,7 +25,8 @@
  * @{
  */
 
-#pragma once
+#ifndef _HALCONF_H_
+#define _HALCONF_H_
 
 #include "mcuconf.h"
 
@@ -75,7 +76,7 @@
  * @brief   Enables the I2C subsystem.
  */
 #if !defined(HAL_USE_I2C) || defined(__DOXYGEN__)
-#define HAL_USE_I2C                 TRUE
+#define HAL_USE_I2C                 FALSE
 #endif
 
 /**
@@ -110,7 +111,7 @@
  * @brief   Enables the PWM subsystem.
  */
 #if !defined(HAL_USE_PWM) || defined(__DOXYGEN__)
-#define HAL_USE_PWM                 TRUE
+#define HAL_USE_PWM                 FALSE
 #endif
 
 /**
@@ -145,7 +146,7 @@
  * @brief   Enables the SPI subsystem.
  */
 #if !defined(HAL_USE_SPI) || defined(__DOXYGEN__)
-#define HAL_USE_SPI                 TRUE
+#define HAL_USE_SPI                 FALSE
 #endif
 
 /**
@@ -335,7 +336,6 @@
 #define SPI_USE_MUTUAL_EXCLUSION    TRUE
 #endif
 
-
 /*===========================================================================*/
 /* USB driver related settings.                                              */
 /*===========================================================================*/
@@ -347,5 +347,7 @@
 #if !defined(USB_USE_WAIT) || defined(__DOXYGEN__)
 #define USB_USE_WAIT                TRUE
 #endif
+
+#endif /* _HALCONF_H_ */
 
 /** @} */
