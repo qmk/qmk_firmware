@@ -235,7 +235,7 @@ Remarks. This layer is seamlessly activated with 'descramble'
      LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
      LSft 「     」    °〇   •§    …·    | ⮘⮙    ⮚⮛    ¿¡    《     》    RSft
      --------------------------------------------------
-     LAlt+Left xxx   xxx   Ent  | Spc   xxx   BASE  ___
+     LAlt+Left xxx   LGUI  Ent  | Spc   RGUI  BASE  ___
                                <|>                  -*-                                  //(hold) on BASE
      <1        <2    <3    <4   | 4>    3>    2>    1>  
 
@@ -313,7 +313,7 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
     - Exception: Right Alt on the base layer is taken off, instead it switches to
       an accented letters layer. It becomes a bit like a private subset
       of AltGr symbols.
-  
+
   Hacking & slashing 
   ==================
 

@@ -1983,7 +1983,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
      LSft 「     」    °〇   •§    …·    | ⮘⮙    ⮚⮛    ¿¡    《     》    RSft
      --------------------------------------------------
-     LAlt+Left xxx   xxx   Ent  | Spc   xxx   BASE  ___
+     LAlt+Left xxx   LGUI  Ent  | Spc   RGUI  BASE  ___
                                <|>                  -*-                                  //(hold) on BASE
      <1        <2    <3    <4   | 4>    3>    2>    1>  
  */
@@ -1994,7 +1994,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL  , XP ( CN_1SUP , CN_1SUB )  , XP ( CN_2SUP , CN_2SUB ) , XP ( CN_3SUP , CN_3SUB )     , XP ( CN_4SUP , CN_4SUB )   , XP ( CN_5SUP , CN_5SUB )     , XP ( CN_6SUP , CN_6SUB )     , XP ( CN_7SUP , CN_7SUB )     , XP ( CN_8SUP , CN_8SUB ) , XP ( CN_9SUP , CN_9SUB )   , XP ( CN_0SUP , CN_0SUB )   , KC_RCTL ,
         KC_LSFT  , X ( CS_OCBRA )            , X ( CS_CCBRA )           , XP ( CS_DEGREE , CS_CIRCLE ) , XP ( CS_BULLET , CS_PARA ) , XP ( CS_ELLIPS , CS_MIDDOT ) , XP ( CS_LARROW , CS_UARROW ) , XP ( CS_RARROW , CS_DARROW ) , XP ( CQU_INV , CEX_INV ) , X ( CS_ODABRA )            , X ( CS_CDABRA )            , KC_RSFT ,
 //      ---------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , XXXXXXX , XXXXXXX , KC_ENT , KC_SPC , XXXXXXX , CTO_BASE , _______
+        LALT_T ( KC_LEFT ) , XXXXXXX , KC_LGUI , KC_ENT , KC_SPC , KC_RGUI , CTO_BASE , _______
 //                         ,         ,         ,      <|,>       ,         ,          ,
 //      <1                 , <2      , <3      , <4    |, 4>     , 3>      , 2>       , 1>
                       ),
@@ -2020,7 +2020,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
      LSft 「     」    °〇   •§    …·    | ⮘⮙    ⮚⮛    ¿¡    《     》    RSft
      --------------------------------------------------
-     LAlt+Left xxx   xxx   Ent  | Spc   xxx   BASE  ___
+     LAlt+Left xxx   LGUI  Ent  | Spc   RGUI  BASE  ___
                                <|>                  -*-                                  //(hold) on BASE
      <1        <2    <3    <4   | 4>    3>    2>    1>  
  */
@@ -2031,7 +2031,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL     , UN_N_1SUBP , UN_N_2SUBP  , UN_N_3SUBP  , UN_N_4SUBP  , UN_N_5SUBP   , UN_N_6SUBP  , UN_N_7SUBP  , UN_N_8SUBP , UN_N_9SUBP  , UN_N_0SUBP  , KC_RCTL ,
         KC_LSFT     , UN_S_OCBRA , UN_S_CCBRA  , UN_S_DEGREE , UN_S_BULLET , UN_S_ELLIPS  , UN_S_LARROW , UN_S_RARROW , UN_QU_INV  , UN_S_ODABRA , UN_S_CDABRA , KC_RSFT ,
 //      -----------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , XXXXXXX , XXXXXXX , KC_ENT  , KC_SPC  , XXXXXXX , CTO_BASE , _______
+        LALT_T ( KC_LEFT ) , XXXXXXX , KC_LGUI , KC_ENT  , KC_SPC  , KC_RGUI , CTO_BASE , _______
 //                         ,         ,         ,       <|,>        ,         ,          ,
 //      <1                 , <2      , <3      , <4     |, 4>      , 3>      , 2>       , 1>
                       ),  
