@@ -19,6 +19,10 @@
 #undef PRODUCT
 #define PRODUCT         Crkbd NICOLA Oyayubi Shift
 
+// NICOLA親指シフト
+// #define NICOLA_RENZOKU // 連続シフト、シフト押しっぱなしで入力可能
+// NICOLA親指シフト
+
 #define SELECT_SOFT_SERIAL_SPEED 2
 
 //#define USE_MATRIX_I2C

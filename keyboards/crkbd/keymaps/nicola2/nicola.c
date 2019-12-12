@@ -315,6 +315,9 @@ void nicola_clear(void) {
     ninputs[i] = 0;
   }
   ng_chrcount = 0;
+  #ifndef NICOLA_RENZOKU // 連続シフト、シフト押しっぱなしで入力可能
+    keycomb = 0UL;
+  #endif
 }
 
 // 入力モードか編集モードかを確認する
