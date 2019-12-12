@@ -6,6 +6,8 @@
 // 薙刀式
 // #define DEUCALYN
 #define NAGINATA_JDOUJI // 順序つきの同時押しに対応する
+#define NAGINATA_TATEGAKI
+// #define NAGINATA_YOKOGAKI
 #define DWORKMAN
 // #define NAGINATA_EDIT_WIN // JP106
 #define NAGINATA_EDIT_MAC // US101

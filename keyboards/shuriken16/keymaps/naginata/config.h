@@ -23,6 +23,8 @@
 
 // 薙刀式
 #define NAGINATA_JDOUJI // 順序つきの同時押しに対応する
+#define NAGINATA_TATEGAKI
+// #define NAGINATA_YOKOGAKI
 #define DQWERTY
 //#define DQGMLWY
 #define NAGINATA_EDIT_WIN // JP106
