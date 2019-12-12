@@ -14,14 +14,13 @@ enum custom_keycodes {
   QUOT,                  // ' | "
   BSLS,                  // \ | |
 
-  CU_2,                  // 2 | @
-  CU_3,                  // 3 | #
-  CU_4,                  // 4 | $
-  CU_6,                  // 6 | ^
-  CU_7,                  // 7 | &
-  CU_8,                  // 8 | *
-  CU_9,                  // 9 | (
-  CU_0,                  // 0 | )
+  NUM2,                  // 2 | @
+  NUM4,                  // 4 | $
+  NUM6,                  // 6 | ^
+  NUM7,                  // 7 | &
+  NUM8,                  // 8 | *
+  NUM9,                  // 9 | (
+  NUM0,                  // 0 | )
   EQAL,                  // = | +
 
   NEW_SAFE_RANGE         // Use for keymap specific keycodes
@@ -105,5 +104,71 @@ if (record->event.pressed) { \
     register_code(KC_LSFT); \
   else \
     unregister_code(KC_LSFT); \
+} \
+return false;
+
+// Always AltGr
+#define SHIFT_ALWAYS_ALGR(kc1, kc2) \
+if (record->event.pressed) { \
+  timer_timeout(); \
+  unregister_code(KC_LSFT); \
+  register_code(KC_ALGR); \
+  if (lshift) { \
+    unregister_code(kc2); \
+    register_code(kc2); \
+    unregister_code(kc2); \
+    register_code(KC_LSFT); \
+  } else { \
+    unregister_code(kc1); \
+    register_code(kc1); \
+    unregister_code(kc1); \
+  } \
+  unregister_code(KC_ALGR); \
+} \
+return false;
+
+// Inverted shift status
+#define SHIFT_SWITCH(kc1, kc2) \
+if (record->event.pressed) { \
+  timer_timeout(); \
+  if (lshift) { \
+    unregister_code(KC_LSFT); \
+    unregister_code(kc2); \
+    register_code(kc2); \
+    add_to_prev(kc2); \
+  } else { \
+    register_code(KC_LSFT); \
+    unregister_code(kc1); \
+    register_code(kc1); \
+    add_to_prev(kc1); \
+  } \
+} else { \
+  unregister_code(kc1); \
+  unregister_code(kc2); \
+  unreg_prev(); \
+  if (lshift) \
+    register_code(KC_LSFT); \
+  else \
+    unregister_code(KC_LSFT); \
+} \
+return false;
+
+// AltGr on shift
+#define SHIFT_ALGR(kc1, kc2) \
+if (record->event.pressed) { \
+  timer_timeout(); \
+  unregister_code(KC_LSFT); \
+  if (lshift) { \
+    register_code(KC_ALGR); \
+    unregister_code(kc2); \
+    register_code(kc2); \
+    unregister_code(kc2); \
+    register_code(KC_LSFT); \
+    unregister_code(KC_ALGR); \
+  } else { \
+    unregister_code(kc1); \
+    register_code(kc1); \
+    unregister_code(kc1); \
+  } \
 } \
 return false;

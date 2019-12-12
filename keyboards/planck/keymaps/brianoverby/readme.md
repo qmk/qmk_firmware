@@ -1,7 +1,7 @@
 # 40% (Planck) with nordic/danish + gaming
 I'm using US layout with danish keyboard in Windows. It's done using a modified version of [SpacebarRacecars userspace](https://github.com/qmk/qmk_firmware/tree/master/users/spacebarracecar)
 
-![](http://brianoverby.dk/files/keymap.png)
+![](http://brianoverby.dk/files/keymap_planck.png)
 
 # Build and flash
     make planck/rev6:brianoverby:dfu-util

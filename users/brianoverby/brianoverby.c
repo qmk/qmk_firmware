@@ -79,6 +79,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       SHIFT_ALL(KC_COMM, KC_DOT)
     case QUOT:
       SHIFT_NORM(quot, KC_2)
+    case NUM2:
+      SHIFT_ALGR(KC_2,KC_2)
+    case NUM4:
+      SHIFT_ALGR(KC_4,KC_4)
+    case NUM6:
+      SHIFT_NORM(KC_6,uml)
+    case NUM7:
+      SHIFT_NORM(KC_7,KC_6)
+    case NUM8:
+      SHIFT_NORM(KC_8,quot)
+    case NUM9:
+      SHIFT_NORM(KC_9,KC_8)
+    case NUM0:
+      SHIFT_NORM(KC_0,KC_9)
+    case EQAL:
+      SHIFT_SWITCH(KC_0,plus)
 
     default:
       if(record->event.pressed) {

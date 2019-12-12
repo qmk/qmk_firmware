@@ -11,12 +11,12 @@ enum preonic_layers {
 
 enum preonic_keycodes {
   BASE = SAFE_RANGE,
-  LOWER,
-  RAISE
+  wntg
 };
 
+bool winkey_enabled = true;
+
 /* Define mod keys */
-#define game TG(_GAME)
 #define lw MO(_LOWER)
 #define ra MO(_RAISE)
 #define fn MO(_FN)
@@ -28,7 +28,7 @@ enum preonic_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BASE] = LAYOUT_preonic_grid(
-  n1,   n2,   n3,   n4,   n5,   n6,   n7,   n8,   n9,   n0,   mins, plus,
+  n1,   NUM2, n3,   NUM4, n5,   NUM6, NUM7, NUM8, NUM9, NUM0, mins, EQAL,
   tab,  q,    w,    e,    r,    t,    y,    u,    i,    o,    p,    bspc, 
   esc,  a,    s,    d,    f,    g,    h,    j,    k,    l,    SCLN, QUOT,
   LSFT, z,    x,    c,    v,    b,    n,    m,    COMM, DOT,  up,   ent, 
@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_RAISE] = LAYOUT_preonic_grid(
   f1,   f2,   f3,   f4,   f5,   f6,   f7,   f8,   f9,   f10,  f11,  f12,
-  tild, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx,
+  grv,  xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx,
   caps, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, uml,
   ____, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, mute, vold, volu, xxxx, ____,
   ____, ____, ____, ____, ____, ____, ____, ____, xxxx, xxxx, xxxx, xxxx
@@ -60,11 +60,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_SYSTEM] = LAYOUT_preonic_grid(
-  ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____,
-  ____, rset, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____,
-  ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____,
-  ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____,
-  ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____  
+  xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx,
+  xxxx, xxxx, wntg, xxxx, rset, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx,
+  xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx,
+  xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx,
+  xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx  
 )
 
 };
@@ -75,3 +75,21 @@ uint32_t layer_state_set_user(uint32_t state) {
   return state;
 }
 
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case wntg:
+      if (record->event.pressed) { // Toggle Windows Key
+        winkey_enabled = !winkey_enabled;
+      }
+      return false;
+      break;
+    case lgui: // Check if Windows Key is disabled 
+      if (!winkey_enabled) {
+        return false;
+      } else {
+        return true;
+      }
+      break;
+  }
+  return true;
+}
