@@ -100,3 +100,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_SPC,  XXXXXXX, _______, _______, _______,      _______,     _______, G_0,     _______, _______, _______
 )
 };
+
+#define MODS_ALGR_MASK (MOD_BIT(KC_ALGR))
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case DE_QST:
+            if (get_mods() & MODS_ALGR_MASK) {
+                if (record->event.pressed) {
+                    register_code(DE_SS);
+                } else {
+                    unregister_code(DE_SS);
+                }
+                return false;
+            }
+            break;
+    }
+    return true;
+};
