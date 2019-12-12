@@ -88,13 +88,9 @@ break;
                 copy_paste_timer = timer_read();
             } else {
                 if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {  // Hold, copy
-                    register_code(KC_LCTL);
-                    tap_code(KC_C);
-                    unregister_code(KC_LCTL);
+                    tap_code16(C(KC_C));
                 } else {  // Tap, paste
-                    register_code(KC_LCTL);
-                    tap_code(KC_V);
-                    unregister_code(KC_LCTL);
+                    tap_code16(C(KC_V));
                 }
             }
 break;
