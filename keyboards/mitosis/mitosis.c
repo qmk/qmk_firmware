@@ -5,10 +5,11 @@ void uart_init(void) {
 }
 
 void led_init(void) {
-	DDRD  |= (1<<1); // Pin to green, set as output
-	PORTD |= (1<<1); // Turn it off
-	DDRF  |= (1<<4) | (1<<5); // Pins to red and blue, set as output
-	PORTF |= (1<<4) | (1<<5); // Turn them off
+  led_init_pin(red); led(red, off);
+  led_init_pin(green); led(green, off);
+  led_init_pin(blue); led(blue, off);
+  led_init_pin(tx); led(tx, off);
+  led_init_pin(rx); led(rx, off);
 }
 
 void matrix_init_kb(void) {

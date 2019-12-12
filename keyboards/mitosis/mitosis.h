@@ -3,45 +3,37 @@
 
 #include "quantum.h"
 
-#define red_led_off   PORTF |= (1<<5)
-#define red_led_on    PORTF &= ~(1<<5)
-#define blu_led_off   PORTF |= (1<<4)
-#define blu_led_on    PORTF &= ~(1<<4)
-#define grn_led_off   PORTD |= (1<<1)
-#define grn_led_on    PORTD &= ~(1<<1)
+// port,pin assignments for LED indicators
+#define led_red   F, 5
+#ifdef MITOSIS_DATAGROK_I2CHACK
+#define led_green D, 4
+#else
+#define led_green D, 1
+#endif
+#define led_blue  F, 4
+#define led_tx    D, 5
+#define led_rx    B, 0
 
-#define set_led_off     red_led_off; grn_led_off; blu_led_off
-#define set_led_red     red_led_on;  grn_led_off; blu_led_off
-#define set_led_blue    red_led_off; grn_led_off; blu_led_on
-#define set_led_green   red_led_off; grn_led_on;  blu_led_off
-#define set_led_yellow  red_led_on;  grn_led_on;  blu_led_off
-#define set_led_magenta red_led_on;  grn_led_off; blu_led_on
-#define set_led_cyan    red_led_off; grn_led_on;  blu_led_on
-#define set_led_white   red_led_on;  grn_led_on;  blu_led_on
+// led_init_pin(name): sets the pin for the named LED to output mode
+#define __led_init_pin(port, pin) DDR ## port |= (1<<pin)
+#define _led_init_pin(portpin) __led_init_pin(portpin)
+#define led_init_pin(name) _led_init_pin(led_ ## name)
 
-/*
-#define LED_B 5
-#define LED_R 6
-#define LED_G 7
+// led(name, state): sets the named LED to state, where state is on or off
+#define _led_off(port, pin) PORT ## port |= (1<<pin)
+#define _led_on(port, pin) PORT ## port &= ~(1<<pin)
+#define _led(portpin, state) _led_ ## state (portpin)
+#define led(name, state) _led(led_ ## name, state)
 
-#define all_leds_off PORTF &= ~(1<<LED_B) & ~(1<<LED_R) & ~(1<<LED_G)
-
-#define red_led_on   PORTF |= (1<<LED_R)
-#define red_led_off  PORTF &= ~(1<<LED_R)
-#define grn_led_on   PORTF |= (1<<LED_G)
-#define grn_led_off  PORTF &= ~(1<<LED_G)
-#define blu_led_on   PORTF |= (1<<LED_B)
-#define blu_led_off  PORTF &= ~(1<<LED_B)
-
-#define set_led_off     PORTF &= ~(1<<LED_B) & ~(1<<LED_R) & ~(1<<LED_G)
-#define set_led_red     PORTF = PORTF & ~(1<<LED_B) & ~(1<<LED_G) | (1<<LED_R)
-#define set_led_blue    PORTF = PORTF & ~(1<<LED_G) & ~(1<<LED_R) | (1<<LED_B)
-#define set_led_green   PORTF = PORTF & ~(1<<LED_B) & ~(1<<LED_R) | (1<<LED_G)
-#define set_led_yellow  PORTF = PORTF & ~(1<<LED_B) | (1<<LED_R) | (1<<LED_G)
-#define set_led_magenta PORTF = PORTF & ~(1<<LED_G) | (1<<LED_R) | (1<<LED_B)
-#define set_led_cyan    PORTF = PORTF & ~(1<<LED_R) | (1<<LED_B) | (1<<LED_G)
-#define set_led_white   PORTF |= (1<<LED_B) | (1<<LED_R) | (1<<LED_G)
-*/
+// convenience macros to set the RGB LED to a specific color
+#define set_led_off     led(red, off); led(green, off); led(blue, off)
+#define set_led_red     led(red, on);  led(green, off); led(blue, off)
+#define set_led_blue    led(red, off); led(green, off); led(blue, on)
+#define set_led_green   led(red, off); led(green, on);  led(blue, off)
+#define set_led_yellow  led(red, on);  led(green, on);  led(blue, off)
+#define set_led_magenta led(red, on);  led(green, off); led(blue, on)
+#define set_led_cyan    led(red, off); led(green, on);  led(blue, on)
+#define set_led_white   led(red, on);  led(green, on);  led(blue, on)
 
 // This a shortcut to help you visually see your layout.
 // The first section contains all of the arguments
