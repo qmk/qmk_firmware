@@ -4,7 +4,6 @@ MCU = atmega32u4
 # Processor frequency
 F_CPU = 8000000
 
-
 # Bootloader selection
 #   Teensy       halfkay
 #   Pro Micro    caterina
@@ -14,7 +13,6 @@ F_CPU = 8000000
 #   ATmega32A    bootloadHID
 #   ATmega328P   USBasp
 BOOTLOADER = caterina
-
 
 # Build Options
 #   comment out to disable the options.
@@ -35,3 +33,5 @@ UNICODE_ENABLE = YES 		# Unicode
 
 # # project specific files
 SRC = matrix.c
+
+LAYOUTS = ortho_4x12
