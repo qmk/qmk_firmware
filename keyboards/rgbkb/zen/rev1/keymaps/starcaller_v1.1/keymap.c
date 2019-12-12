@@ -1,5 +1,7 @@
 #include QMK_KEYBOARD_H
 
+uint16_t copy_paste_timer;
+
 enum custom_keycodes {
   S_H = SAFE_RANGE, // slack here
   S_H_P,       // slack here + paste 
@@ -11,6 +13,7 @@ enum custom_keycodes {
   E_SS,       // email service schedule
   SCRN_C,	    // screen clip 
   DC_C,       // double click + copy
+  KC_CCCV,    // one key copy/paste 
   		
 };
 
@@ -79,6 +82,22 @@ break;
                 tap_code16(C(KC_C)); 
       }
 break;
+    
+    case KC_CCCV:  // One key copy/paste
+            if (record->event.pressed) {
+                copy_paste_timer = timer_read();
+            } else {
+                if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {  // Hold, copy
+                    register_code(KC_LCTL);
+                    tap_code(KC_C);
+                    unregister_code(KC_LCTL);
+                } else {  // Tap, paste
+                    register_code(KC_LCTL);
+                    tap_code(KC_V);
+                    unregister_code(KC_LCTL);
+                }
+            }
+break;
 
   }
   return true;
@@ -105,7 +124,7 @@ KC_GESC, KC_1, 	KC_2, 	KC_3, 	KC_4, 	KC_5, 				KC_6, 	KC_7, 	KC_8, 	KC_9, 	KC_0,
 KC_TAB,  KC_Q, 	KC_W, 	KC_E, 	KC_R, 	KC_T, 				KC_Y, 	KC_U, 	KC_I, 	KC_O, 	KC_P, KC_BSPC, 
 KC_LCTL, KC_A, 	KC_S, 	KC_D, 	KC_F, 	KC_G, 				KC_H, 	KC_J, 	KC_K, 	KC_L, 	KC_SCLN, KC_QUOT, 
 KC_LSFT, KC_Z, 	KC_X, 	KC_C, 	KC_V, 	KC_B, 				KC_N, 	KC_M, 	KC_COMM, KC_DOT, KC_SLSH, KC_SFTENT, 
-TO(2),   KC_LGUI, KC_LALT, RGB_TOG, MO(1), TD(TD_SPC_DOT), KC_BSPC, KC_ENT, TD(TD_SPC_DOT), MO(2), KC_MINS, KC_EQL, KC_PGUP, KC_PGDN),
+KC_CCCV,   KC_LGUI, KC_LALT, RGB_TOG, MO(1), TD(TD_SPC_DOT), KC_BSPC, KC_ENT, TD(TD_SPC_DOT), MO(2), KC_MINS, KC_EQL, KC_PGUP, KC_PGDN),
 
 	[1] = LAYOUT(
 KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5, KC_F6, 			KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, 
