@@ -23,7 +23,7 @@ XPM のインストール手順は[ここ](https://www.npmjs.com/package/xpm)で
 
 ### ARM ツールチェーン
 
-XPM を使うと、ARM ツールチェーンをとても簡単にインストールできます。`xpm install --global @gnu-mcu-eclipse/arm-none-eabi-gcc` とコマンドを入力します。
+XPM を使うと、ARM ツールチェーンをとても簡単にインストールできます。`xpm install --global @xpack-dev-tools/arm-none-eabi-gcc` とコマンドを入力します。
 
 ### Windows ビルドツール
 
@@ -38,7 +38,7 @@ ST-Link を持っている場合は、ドライバは[ここ](https://www.st.com
 
 ### OpenOCD
 
-この依存関係により、SWD は GDB からアクセスでき、デバッグに不可欠です。`xpm install --global @gnu-mcu-eclipse/openocd` を実行します。
+この依存関係により、SWD は GDB からアクセスでき、デバッグに不可欠です。`xpm install --global @xpack-dev-tools/openocd` を実行します。
 
 ### Java
 

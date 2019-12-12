@@ -18,7 +18,7 @@ XPM installation instructions can be found [here](https://www.npmjs.com/package/
 
 ### The ARM Toolchain
 
-Using XPM it is very easy to install the ARM toolchain. Enter the command `xpm install --global @gnu-mcu-eclipse/arm-none-eabi-gcc`.
+Using XPM it is very easy to install the ARM toolchain. Enter the command `xpm install --global @xpack-dev-tools/arm-none-eabi-gcc`.
 
 ### Windows build tools
 
@@ -33,7 +33,7 @@ If you have an ST-Link the drivers can be found [here](https://www.st.com/en/dev
 
 ### OpenOCD
 
-This dependency allows SWD access from GDB and it is essential for debugging. Run `xpm install --global @gnu-mcu-eclipse/openocd`.
+This dependency allows SWD access from GDB and it is essential for debugging. Run `xpm install --global @xpack-dev-tools/openocd`.
 
 ### Java
 
