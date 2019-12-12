@@ -12,7 +12,7 @@ QMK は [Jun Wako](https://github.com/tmk) の [tmk_keyboard](https://github.com
 
 ### キーボードプロジェクトの構造
 
-`keyboards` フォルダ内には、サブフォルダ `handwired` と、そのベンダと製品のサブディレクトリがあります。例えば、`clueboard` は各キーボードプロジェクトのためのディレクトリです。例えば、`qmk_firmware/keyboards/clueboard/2x1800`。その中には、以下の構造があります:
+`keyboards` フォルダ内にある、サブフォルダ `handwired` と、ベンダと製品のサブディレクトリ(例えば `clueboard` )は各キーボードプロジェクトのためのディレクトリです。例えば、`qmk_firmware/keyboards/clueboard/2x1800` です。その中には、以下の構造があります:
 
 * `keymaps/`: ビルドできる様々なキーマップ
 * `rules.mk`: デフォルトの "make" オプションを設定するファイル。このファイルを直接編集しないでください。代わりにキーマップ固有の `rules.mk` を使ってください。
@@ -41,13 +41,13 @@ QMK は [Jun Wako](https://github.com/tmk) の [tmk_keyboard](https://github.com
 * ユーザスペース (`/users/<user>/config.h`)
 * キーマップ (`/keyboards/<keyboard>/keymaps/<keymap>/config.h`)
 
-ビルドシステムは自動的に上の順に config ファイルを取得します。前の `config.h` で設定された設定を上書きしたい場合は、変更する予定の設定の定型コードを最初に含める必要があります。
+ビルドシステムは自動的に上の順に config ファイルを取得します。前の `config.h` で設定された設定を上書きしたい場合は、変更したい設定に対して最初に定型コードを含める必要があります。
 
 ```
 #pragma once
 ```
 
-次に、前の `config.h` ファイルの設定を上書きするために、`#undef` し次に再び `#define` 設定をする必要があります。
+次に、前の `config.h` ファイルの設定を上書きするために、設定を `#undef` し再び `#define` する必要があります。
 
 定型コードと設定は、以下のようになります:
 
