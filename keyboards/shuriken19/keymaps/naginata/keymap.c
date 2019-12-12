@@ -222,7 +222,17 @@ void persistent_default_layer_set(uint16_t default_layer) {
 
 static bool nstate = false;
 
+uint16_t timer;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+  if (record->event.pressed) {
+    uint16_t nowt = timer_read();
+    if (nowt - timer > 5000) {
+      makesure_mode();
+    }
+    timer = nowt;
+  }
 
   switch (keycode) {
     case ADJUST:
@@ -368,6 +378,7 @@ void matrix_init_user(void) {
   set_unicode_input_mode(UC_OSX);
   // set_unicode_input_mode(UC_WINC);
   // 薙刀式
+  timer = timer_read();
 }
 
 void matrix_scan_user(void) {

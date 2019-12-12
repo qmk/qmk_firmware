@@ -498,6 +498,15 @@ bool naginata_state(void) {
   return is_naginata;
 }
 
+void makesure_mode(void) {
+  if (is_naginata) {
+    tap_code(KC_LANG1); // Mac
+    tap_code(KC_HENK); // Win
+  } else {
+    tap_code(KC_LANG2); // Mac
+    tap_code(KC_MHEN); // Win
+  }
+}
 
 // キー入力を文字に変換して出力する
 void naginata_type(void) {

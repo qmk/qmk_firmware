@@ -21,6 +21,7 @@ void naginata_mode(uint16_t, keyrecord_t *);
 
 void naginata_on(void);
 void naginata_off(void);
+void makesure_mode(void);
 bool naginata_state(void);
 
 bool process_naginata(uint16_t, keyrecord_t *);
