@@ -307,9 +307,10 @@ void keyboard_task(void) {
 #ifdef QMK_KEYS_PER_SCAN
                         // only jump out if we have processed "enough" keys.
                         if (++keys_processed >= QMK_KEYS_PER_SCAN)
-#endif
+                            // This can miss stroke when scan matrix takes long like Topre
                             // process a key per task call
                             goto MATRIX_LOOP_END;
+#endif
                     }
                 }
             }
@@ -322,7 +323,9 @@ void keyboard_task(void) {
 #endif
         action_exec(TICK);
 
+#ifdef QMK_KEYS_PER_SCAN
 MATRIX_LOOP_END:
+#endif
 
 #ifdef DEBUG_MATRIX_SCAN_RATE
     matrix_scan_perf_task();
