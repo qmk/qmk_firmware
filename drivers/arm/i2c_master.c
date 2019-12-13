@@ -60,8 +60,7 @@ __attribute__((weak)) void i2c_init(void) {
     palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_INPUT);
 
     chThdSleepMilliseconds(10);
-
-#ifdef USE_I2CV1
+#if defined(USE_GPIOV1)
     palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, PAL_MODE_STM32_ALTERNATE_OPENDRAIN);
     palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_STM32_ALTERNATE_OPENDRAIN);
 #else
