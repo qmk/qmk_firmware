@@ -1,7 +1,7 @@
 # QMK-based firmware for Magnavox Videowriter keyboard
 Matrix layout is based on info from this [article](https://deskthority.net/workshop-f7/magnavox-videowriter-keyboard-cleanup-and-conversion-t19687.html).
 
-![videowriter2](imgur.com image replace me!)
+![Videowriter](https://i.imgur.com/zNTHmZa.jpg)
 
 Magnavox Videowriter keyboard conversion project: direct connection of Pro Micro to the matrix.
 
@@ -36,7 +36,7 @@ Videowriter has 8x10 matrix:
 ## Separating Shift keys
 Initially left and right Shift keys are connected in parrallel. You need to cut the traces from right Shift (switch 62) and wire it to column 2 (switch 55, right pin) and row 9 (switch 71, bottom pin).
 
-![Right shift](doc/pcb_rshift_handwire.jpg)
+![Right shift](https://i.imgur.com/ttdTVtC.jpg)
 
 ## Stock components removal
 SN74LS145N IC (BCD-to-decimal decoder, drives matrix rows), NEC D8049HC IC (MCU, drives matrix columns) and resistor array need to be desoldered from the PCB. You need to shorten the 4 diodes (D2–D5) in the bottom right corner of the PCB (solder a wire between their pins).
@@ -47,7 +47,7 @@ Optional: add diodes between each switch and corresponding row for NKRO. If you 
 ## Pro Micro
 Suggested mount position for the Pro Micro:
 
-![PCB bottom side](doc/pro_micro_videowriter.jpg)
+![PCB bottom side](https://i.imgur.com/bb7zZD0.jpg)
 
 1. Solder two 8-pin headers to the Pro Micro (pin D1-B5 on the left side and pins F4-B6 on the right side).
 2. Solder the Pro Micro to the Videowriter's PCB.
@@ -56,6 +56,6 @@ Suggested mount position for the Pro Micro:
 5. Connect rows 5-9 (see right side of the PCB) to the corresponding pins of the Pro Micro using additional wires.
 6. Optional: connect a push button between Reset and Ground pins.
 
-![PCB top side](doc/pro_micro_videowriter.jpg)
+![PCB top side](https://i.imgur.com/PVEXIxj.jpg)
 
 Compile and flash the firmware. Use matrix [debug mode](https://docs.qmk.fm/#/feature_command) if something is wrong.
