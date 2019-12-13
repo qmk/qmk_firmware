@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM_PER_KEY
 #define PERMISSIVE_HOLD
 #define PREVENT_STUCK_MODIFIERS
+#define IGNORE_MOD_TAP_INTERRUPT
 #define TAPPING_TERM 200
 
 /* key matrix size */
@@ -43,6 +44,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define THIS_DEVICE_COLS 16
 #define IS_LEFT_HAND  true
 #define BMP_DEFAULT_MODE SINGLE
+
+#include "microshell/util/mscmd.h"
+#define USER_DEFINED_MSCMD {"tb_pix", usrcmd_trackball_pixel, "get pixel values"}
+MSCMD_USER_RESULT usrcmd_trackball_pixel(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 
 
 /*
