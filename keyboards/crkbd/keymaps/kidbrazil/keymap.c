@@ -12,7 +12,7 @@ enum crkbd_layers {
     _NUM,
     _SYM,
     _GAME,
-	  _WEAPON
+    _WEAPON
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -174,20 +174,19 @@ void render_slave_oled(void) {
 
 // OLED Task
 void oled_task_user(void){
-
-  switch (USB_DeviceState) {
-  case DEVICE_STATE_Unattached:
-  case DEVICE_STATE_Powered:
-  case DEVICE_STATE_Suspended:
-      render_logo();
-      break;
-  default:
-    if (is_master) {
-      render_master_oled();
-    } else {
-      render_slave_oled();
+    switch (USB_DeviceState) {
+      case DEVICE_STATE_Unattached:
+      case DEVICE_STATE_Powered:
+      case DEVICE_STATE_Suspended:
+        render_logo();
+        break;
+      default:
+        if (is_master) {
+          render_master_oled();
+        } else {
+          render_slave_oled();
+        }
     }
-  }
 }
 #endif
 
