@@ -449,18 +449,18 @@ bmp_error_t webnus_write_callback(const uint8_t* dat, uint32_t len)
   if (strnstr((const char*)dat, "show keymap", len) != NULL)
   {
     BMPAPI->web_config.set_send_buffer((uint8_t*)keymap_string,
-      strlen(keymap_string) + 1); // send keymap string whit null character
+      strlen(keymap_string) + 1); // send keymap string with null character
   }
   else if (strnstr((const char*)dat, "show config", len) != NULL)
   {
     BMPAPI->web_config.set_send_buffer((uint8_t*)config_string,
-      strlen(config_string) + 1); // send keymap string whit null character
+      strlen(config_string) + 1); // send keymap string with null character
   }
   else if (strnstr((const char*)dat, "show tapping term", len) != NULL)
   {
     // TODO implement
     // BMPAPI->web_config.set_send_buffer((uint8_t*)config_string,
-    //   strlen(config_string) + 1); // send keymap string whit null character
+    //   strlen(config_string) + 1); // send keymap string with null character
   }
   else
   {
