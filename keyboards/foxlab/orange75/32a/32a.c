@@ -20,12 +20,15 @@
 // You can leave any or all of these undefined.
 // These are only required if you want to perform custom actions.
 
-/*
+
 void matrix_init_kb(void) {
     // put your keyboard start-up code here
     // runs once when the firmware starts up
 
     matrix_init_user();
+    setPinOutput(D0);
+    setPinOutput(D6);
+    setPinOutput(D1);
 }
 
 void matrix_scan_kb(void) {
@@ -45,6 +48,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 bool led_update_kb(led_t led_state) {
     // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
 
-    return led_update_user(led_state);
+   if(led_update_user(led_state)) {
+        writePin(D0, !led_state.caps_lock);
+    }
+
+    return true;
 }
-*/
