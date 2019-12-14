@@ -10,7 +10,7 @@
 #endif
 
 #ifndef BACKLIGHT_ON_STATE
-#    define BACKLIGHT_ON_STATE 0
+#    define BACKLIGHT_ON_STATE 1
 #endif
 
 #ifdef BACKLIGHT_PINS
