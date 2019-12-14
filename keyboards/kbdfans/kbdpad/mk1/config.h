@@ -21,18 +21,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VENDOR_ID       0x20A0
 #define PRODUCT_ID      0x422D
+#define DEVICE_VER      0x0200
 #define MANUFACTURER    KBDfans
 #define PRODUCT         KBDPAD-MKI
 
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 4
 
-//                        0   1   2   3   4   5   
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, B4, B5 }
 #define MATRIX_COL_PINS { A0, A1, A2, A3 }
-#define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
-#define DEBOUNCE 5
 
-#define BACKLIGHT_LEVELS 1
+#define BACKLIGHT_PIN D4
+#define BACKLIGHT_BREATHING
+
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 6

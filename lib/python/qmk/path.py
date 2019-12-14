@@ -1,6 +1,9 @@
 """Functions that help us work with files and folders.
 """
+import logging
 import os
+
+from qmk.errors import NoSuchKeyboardError
 
 
 def keymap(keyboard):

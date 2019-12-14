@@ -22,7 +22,6 @@
 #ifndef COMMON_GFXCONF_H
 #define COMMON_GFXCONF_H
 
-
 ///////////////////////////////////////////////////////////////////////////
 // GOS - One of these must be defined, preferably in your Makefile       //
 ///////////////////////////////////////////////////////////////////////////
@@ -41,11 +40,11 @@
 //    #define INTERRUPTS_OFF()                         optional_code
 //    #define INTERRUPTS_ON()                          optional_code
 // These are not defined by default for some reason
-#define GOS_NEED_X_THREADS	FALSE
-#define GOS_NEED_X_HEAP		FALSE
+#define GOS_NEED_X_THREADS FALSE
+#define GOS_NEED_X_HEAP FALSE
 
 // Options that (should where relevant) apply to all operating systems
-    #define GFX_NO_INLINE                            FALSE
+#define GFX_NO_INLINE FALSE
 //    #define GFX_COMPILER                             GFX_COMPILER_UNKNOWN
 //    #define GFX_CPU                                  GFX_CPU_UNKNOWN
 //    #define GFX_OS_HEAP_SIZE                         0
@@ -55,32 +54,31 @@
 //    #define GFX_OS_EXTRA_INIT_FUNCTION               myOSInitRoutine
 //    #define GFX_OS_EXTRA_DEINIT_FUNCTION             myOSDeInitRoutine
 
-
 ///////////////////////////////////////////////////////////////////////////
 // GDISP                                                                 //
 ///////////////////////////////////////////////////////////////////////////
-#define GFX_USE_GDISP                                TRUE
+#define GFX_USE_GDISP TRUE
 
 //#define GDISP_NEED_AUTOFLUSH                         FALSE
 //#define GDISP_NEED_TIMERFLUSH                        FALSE
 //#define GDISP_NEED_VALIDATION                        TRUE
 //#define GDISP_NEED_CLIP                              TRUE
-#define GDISP_NEED_CIRCLE                            TRUE
-#define GDISP_NEED_ELLIPSE                           TRUE
-#define GDISP_NEED_ARC                               TRUE
-#define GDISP_NEED_ARCSECTORS                        TRUE
-#define GDISP_NEED_CONVEX_POLYGON                    TRUE
+#define GDISP_NEED_CIRCLE TRUE
+#define GDISP_NEED_ELLIPSE TRUE
+#define GDISP_NEED_ARC TRUE
+#define GDISP_NEED_ARCSECTORS TRUE
+#define GDISP_NEED_CONVEX_POLYGON TRUE
 //#define GDISP_NEED_SCROLL                            FALSE
-#define GDISP_NEED_PIXELREAD                         TRUE
-#define GDISP_NEED_CONTROL                           TRUE
+#define GDISP_NEED_PIXELREAD TRUE
+#define GDISP_NEED_CONTROL TRUE
 //#define GDISP_NEED_QUERY                             FALSE
 //#define GDISP_NEED_MULTITHREAD                       FALSE
 //#define GDISP_NEED_STREAMING                         FALSE
-#define GDISP_NEED_TEXT                              TRUE
+#define GDISP_NEED_TEXT TRUE
 //    #define GDISP_NEED_TEXT_WORDWRAP                 FALSE
 //    #define GDISP_NEED_ANTIALIAS                     FALSE
 //    #define GDISP_NEED_UTF8                          FALSE
-    #define GDISP_NEED_TEXT_KERNING                  TRUE
+#define GDISP_NEED_TEXT_KERNING TRUE
 //    #define GDISP_INCLUDE_FONT_UI1                   FALSE
 //    #define GDISP_INCLUDE_FONT_UI2                   FALSE		// The smallest preferred font.
 //    #define GDISP_INCLUDE_FONT_LARGENUMBERS          FALSE
@@ -90,10 +88,10 @@
 //    #define GDISP_INCLUDE_FONT_DEJAVUSANS20          FALSE
 //    #define GDISP_INCLUDE_FONT_DEJAVUSANS24          FALSE
 //    #define GDISP_INCLUDE_FONT_DEJAVUSANS32          FALSE
-    #define GDISP_INCLUDE_FONT_DEJAVUSANSBOLD12      TRUE
+#define GDISP_INCLUDE_FONT_DEJAVUSANSBOLD12 TRUE
 //    #define GDISP_INCLUDE_FONT_FIXED_10X20           FALSE
 //    #define GDISP_INCLUDE_FONT_FIXED_7X14            FALSE
-    #define GDISP_INCLUDE_FONT_FIXED_5X8             TRUE
+#define GDISP_INCLUDE_FONT_FIXED_5X8 TRUE
 //    #define GDISP_INCLUDE_FONT_DEJAVUSANS12_AA       FALSE
 //    #define GDISP_INCLUDE_FONT_DEJAVUSANS16_AA       FALSE
 //    #define GDISP_INCLUDE_FONT_DEJAVUSANS20_AA       FALSE
@@ -118,50 +116,49 @@
 //    #define GDISP_NEED_IMAGE_PNG                     FALSE
 //    #define GDISP_NEED_IMAGE_ACCOUNTING              FALSE
 #ifdef EMULATOR
-#define GDISP_NEED_PIXMAP                            TRUE
+#    define GDISP_NEED_PIXMAP TRUE
 #endif
 //    #define GDISP_NEED_PIXMAP_IMAGE                  FALSE
 
 //#define GDISP_DEFAULT_ORIENTATION                    GDISP_ROTATE_LANDSCAPE    // If not defined the native hardware orientation is used.
 //#define GDISP_LINEBUF_SIZE                           128
 //#define GDISP_STARTUP_COLOR                          Black
-#define GDISP_NEED_STARTUP_LOGO                      FALSE
+#define GDISP_NEED_STARTUP_LOGO FALSE
 
 //#define GDISP_TOTAL_DISPLAYS		                 2
 
-    #ifdef GDISP_DRIVER_LIST
-        // For code and speed optimization define as TRUE or FALSE if all controllers have the same capability
-        #define GDISP_HARDWARE_STREAM_WRITE          FALSE
-        #define GDISP_HARDWARE_STREAM_READ           FALSE
-        #define GDISP_HARDWARE_STREAM_POS            FALSE
-        #define GDISP_HARDWARE_DRAWPIXEL             TRUE
-        #define GDISP_HARDWARE_CLEARS                FALSE
-        #define GDISP_HARDWARE_FILLS                 FALSE
-        //#define GDISP_HARDWARE_BITFILLS              FALSE
-        #define GDISP_HARDWARE_SCROLL                FALSE
-        #define GDISP_HARDWARE_PIXELREAD             TRUE
-        #define GDISP_HARDWARE_CONTROL               TRUE
-        #define GDISP_HARDWARE_QUERY                 FALSE
-        #define GDISP_HARDWARE_CLIP                  FALSE
+#ifdef GDISP_DRIVER_LIST
+// For code and speed optimization define as TRUE or FALSE if all controllers have the same capability
+#    define GDISP_HARDWARE_STREAM_WRITE FALSE
+#    define GDISP_HARDWARE_STREAM_READ FALSE
+#    define GDISP_HARDWARE_STREAM_POS FALSE
+#    define GDISP_HARDWARE_DRAWPIXEL TRUE
+#    define GDISP_HARDWARE_CLEARS FALSE
+#    define GDISP_HARDWARE_FILLS FALSE
+//#define GDISP_HARDWARE_BITFILLS              FALSE
+#    define GDISP_HARDWARE_SCROLL FALSE
+#    define GDISP_HARDWARE_PIXELREAD TRUE
+#    define GDISP_HARDWARE_CONTROL TRUE
+#    define GDISP_HARDWARE_QUERY FALSE
+#    define GDISP_HARDWARE_CLIP FALSE
 
-        #define GDISP_PIXELFORMAT                    GDISP_PIXELFORMAT_RGB888
-    #endif
+#    define GDISP_PIXELFORMAT GDISP_PIXELFORMAT_RGB888
+#endif
 
 // The custom format is not defined for some reason, so define it as error
 // so we don't get compiler warnings
 #define GDISP_PIXELFORMAT_CUSTOM GDISP_PIXELFORMAT_ERROR
 
-#define GDISP_USE_GFXNET                             FALSE
+#define GDISP_USE_GFXNET FALSE
 //    #define GDISP_GFXNET_PORT                        13001
 //    #define GDISP_GFXNET_CUSTOM_LWIP_STARTUP         FALSE
 //    #define GDISP_DONT_WAIT_FOR_NET_DISPLAY          FALSE
 //    #define GDISP_GFXNET_UNSAFE_SOCKETS              FALSE
 
-
 ///////////////////////////////////////////////////////////////////////////
 // GWIN                                                                  //
 ///////////////////////////////////////////////////////////////////////////
-#define GFX_USE_GWIN                                 FALSE
+#define GFX_USE_GWIN FALSE
 
 //#define GWIN_NEED_WINDOWMANAGER                      FALSE
 //    #define GWIN_REDRAW_IMMEDIATE                    FALSE
@@ -210,30 +207,27 @@
 //    #define GWIN_NEED_TABSET                         FALSE
 //        #define GWIN_TABSET_TABHEIGHT                18
 
-
 ///////////////////////////////////////////////////////////////////////////
 // GEVENT                                                                //
 ///////////////////////////////////////////////////////////////////////////
-#define GFX_USE_GEVENT                               TRUE
+#define GFX_USE_GEVENT TRUE
 
 //#define GEVENT_ASSERT_NO_RESOURCE                    FALSE
 //#define GEVENT_MAXIMUM_SIZE                          32
 //#define GEVENT_MAX_SOURCE_LISTENERS                  32
 
-
 ///////////////////////////////////////////////////////////////////////////
 // GTIMER                                                                //
 ///////////////////////////////////////////////////////////////////////////
-#define GFX_USE_GTIMER                               FALSE
+#define GFX_USE_GTIMER FALSE
 
 //#define GTIMER_THREAD_PRIORITY                       HIGH_PRIORITY
 //#define GTIMER_THREAD_WORKAREA_SIZE                  2048
 
-
 ///////////////////////////////////////////////////////////////////////////
 // GQUEUE                                                                //
 ///////////////////////////////////////////////////////////////////////////
-#define GFX_USE_GQUEUE                               FALSE
+#define GFX_USE_GQUEUE FALSE
 
 //#define GQUEUE_NEED_ASYNC                            FALSE
 //#define GQUEUE_NEED_GSYNC                            FALSE
@@ -243,7 +237,7 @@
 ///////////////////////////////////////////////////////////////////////////
 // GINPUT                                                                //
 ///////////////////////////////////////////////////////////////////////////
-#define GFX_USE_GINPUT                               FALSE
+#define GFX_USE_GINPUT FALSE
 
 //#define GINPUT_NEED_MOUSE                            FALSE
 //    #define GINPUT_TOUCH_STARTRAW                    FALSE
@@ -264,11 +258,10 @@
 //#define GINPUT_NEED_TOGGLE                           FALSE
 //#define GINPUT_NEED_DIAL                             FALSE
 
-
 ///////////////////////////////////////////////////////////////////////////
 // GFILE                                                                 //
 ///////////////////////////////////////////////////////////////////////////
-#define GFX_USE_GFILE                                FALSE
+#define GFX_USE_GFILE FALSE
 
 //#define GFILE_NEED_PRINTG                            FALSE
 //#define GFILE_NEED_SCANG                             FALSE
@@ -292,26 +285,24 @@
 ///////////////////////////////////////////////////////////////////////////
 // GADC                                                                  //
 ///////////////////////////////////////////////////////////////////////////
-#define GFX_USE_GADC                                 FALSE
+#define GFX_USE_GADC FALSE
 
 //#define GADC_MAX_LOWSPEED_DEVICES                    4
-
 
 ///////////////////////////////////////////////////////////////////////////
 // GAUDIO                                                                //
 ///////////////////////////////////////////////////////////////////////////
-#define GFX_USE_GAUDIO                               FALSE
+#define GFX_USE_GAUDIO FALSE
 // There seems to be a bug in the ugfx code, the wrong define is used
 // So define it in order to avoid warnings
-#define GFX_USE_GAUDIN                               GFX_USE_GAUDIO
+#define GFX_USE_GAUDIN GFX_USE_GAUDIO
 //    #define GAUDIO_NEED_PLAY                         FALSE
 //    #define GAUDIO_NEED_RECORD                       FALSE
-
 
 ///////////////////////////////////////////////////////////////////////////
 // GMISC                                                                 //
 ///////////////////////////////////////////////////////////////////////////
-#define GFX_USE_GMISC                                TRUE
+#define GFX_USE_GMISC TRUE
 
 //#define GMISC_NEED_ARRAYOPS                          FALSE
 //#define GMISC_NEED_FASTTRIG                          FALSE
@@ -319,7 +310,7 @@
 //#define GMISC_NEED_INVSQRT                           FALSE
 //    #define GMISC_INVSQRT_MIXED_ENDIAN               FALSE
 //    #define GMISC_INVSQRT_REAL_SLOW                  FALSE
-#define GMISC_NEED_MATRIXFLOAT2D                     TRUE
-#define GMISC_NEED_MATRIXFIXED2D                     FALSE
+#define GMISC_NEED_MATRIXFLOAT2D TRUE
+#define GMISC_NEED_MATRIXFIXED2D FALSE
 
 #endif /* COMMON_GFXCONF_H */

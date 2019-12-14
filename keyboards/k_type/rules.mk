@@ -59,6 +59,8 @@ OPT_DEFS =
 DFU_ARGS = -d 1c11:b007
 DFU_SUFFIX_ARGS = -p b007 -v 1c11
 
+BOOTLOADER = dfu
+
 # Build Options
 #   comment out to disable the options.
 #

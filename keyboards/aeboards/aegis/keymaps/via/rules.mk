@@ -1,6 +1,6 @@
 # project specific files
 SRC =	keyboards/wilba_tech/wt_main.c
-		
+
 # MCU name
 MCU = atmega32u4
 

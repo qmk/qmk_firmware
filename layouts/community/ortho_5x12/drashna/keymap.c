@@ -1,24 +1,12 @@
-/* Copyright 2015-2017 Jack Humbert
- * Modified by KeyPCB for the Fractal keyboard
- * Backlight isn't on the Fractal, so I've removed the keycode from the keymaps
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-#include QMK_KEYBOARD_H
 #include "drashna.h"
 
+/*
+ * The `LAYOUT_ortho_5x12_base` macro is a template to allow the use of identical
+ * modifiers for the default layouts (eg QWERTY, Colemak, Dvorak, etc), so
+ * that there is no need to set them up for each layout, and modify all of
+ * them if I want to change them.  This helps to keep consistency and ease
+ * of use. K## is a placeholder to pass through the individual keycodes
+ */
 // clang-format off
 #define LAYOUT_ortho_5x12_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
@@ -27,12 +15,13 @@
     K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A  \
   ) \
   LAYOUT_ortho_5x12_wrapper( \
-    KC_GRV,  K01,    K02,     K03,      K04,     K05,     K06,     K07,     K08,     K09,     K0A,     KC_BSPC, \
-    KC_TAB,  K11,    K12,     K13,      K14,     K15,     K16,     K17,     K18,     K19,     K1A,     KC_BSPC, \
-    KC_ESC,  K21,    K22,     K23,      K24,     K25,     K26,     K27,     K28,     K29,     K2A,     KC_QUOT, \
-    KC_MLSF, CTL_T(K31), K32, K33,      K34,     K35,     K36,     K37,     K38,     K39,  CTL_T(K3A), KC_ENT,  \
+    KC_ESC,  K01,    K02,     K03,      K04,     K05,     K06,     K07,     K08,     K09,     K0A,     KC_BSPC, \
+    LALT_T(KC_TAB), K11, K12, K13,      K14,     K15,     K16,     K17,     K18,     K19,     K1A,     KC_BSPC, \
+    KC_C1R3, K21,    K22,     K23,      K24,     K25,     K26,     K27,     K28,     K29,     K2A, RALT_T(KC_QUOT), \
+    KC_MLSF, CTL_T(K31), K32, K33,      K34,     K35,     K36,     K37,     K38,     K39, RCTL_T(K3A), KC_ENT,  \
     KC_NO,   OS_LCTL, OS_LALT, OS_LGUI, SP_LWER, BK_LWER, DL_RAIS, ET_RAIS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
   )
+
 #define LAYOUT_ortho_5x12_base_wrapper(...)       LAYOUT_ortho_5x12_base(__VA_ARGS__)
 
 
@@ -132,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT_ortho_5x12_wrapper( \
   KC_MAKE, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_RST,
   VRSN,    _________________ADJUST_L1_________________, _________________ADJUST_R1_________________, EEP_RST,
-  _______, _________________ADJUST_L2_________________, _________________ADJUST_R2_________________, _______,
+  _______, _________________ADJUST_L2_________________, _________________ADJUST_R2_________________, RGB_IDL,
   _______, _________________ADJUST_L3_________________, _________________ADJUST_R3_________________, TG_MODS,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
