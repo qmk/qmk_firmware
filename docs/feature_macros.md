@@ -67,14 +67,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QMKURL:
       if (record->event.pressed) {
         // when keycode QMKURL is pressed
-        SEND_STRING("https://qmk.fm/" SS_TAP(X_ENTER));
+        SEND_STRING("https://qmk.fm/\n");
       } else {
         // when keycode QMKURL is released
       }
       break;
     case MY_OTHER_MACRO:
       if (record->event.pressed) {
-                SEND_STRING(SS_LCTRL("ac")); // selects all and copies
+                SEND_STRING(SS_LCTL("ac")); // selects all and copies
       }
       break;
   }
@@ -109,18 +109,21 @@ Which would send "VE" followed by a `KC_HOME` tap, and "LO" (spelling "LOVE" if 
 
 There's also a couple of mod shortcuts you can use:
 
-* `SS_LCTRL(string)`
-* `SS_LGUI(string)`
-* `SS_LALT(string)`
+* `SS_LCTL(string)`
 * `SS_LSFT(string)`
-* `SS_RALT(string)`
+* `SS_LALT(string)`
+* `SS_LGUI(string)`, `SS_LCMD(string)` or `SS_LWIN(string)`
+* `SS_RCTL(string)`
+* `SS_RSFT(string)`
+* `SS_RALT(string)` or `SS_ALGR(string)`
+* `SS_RGUI(string)`, `SS_RCMD(string)` or `SS_RWIN(string)`
 
 These press the respective modifier, send the supplied string and then release the modifier.
 They can be used like this:
 
-    SEND_STRING(SS_LCTRL("a"));
+    SEND_STRING(SS_LCTL("a"));
 
-Which would send LCTRL+a (LCTRL down, a, LCTRL up) - notice that they take strings (eg `"k"`), and not the `X_K` keycodes.
+Which would send Left Control+`a` (Left Control down, `a`, Left Control up) - notice that they take strings (eg `"k"`), and not the `X_K` keycodes.
 
 ### Alternative Keymaps
 
