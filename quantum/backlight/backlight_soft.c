@@ -75,8 +75,6 @@ static uint16_t backlight_duty_table[] = {
 
 static uint8_t scale_backlight(uint8_t v) { return v * (backlight_duty_table_size - 1) / BACKLIGHT_LEVELS; }
 
-void backlight_set(uint8_t level) { s_duty_pattern = backlight_duty_table[scale_backlight(level)]; }
-
 void backlight_task(void) {
     static uint8_t backlight_tick = 0;
 
@@ -87,3 +85,5 @@ void backlight_task(void) {
     }
     backlight_tick = (backlight_tick + 1) % 16;
 }
+
+void backlight_set(uint8_t level) { s_duty_pattern = backlight_duty_table[scale_backlight(level)]; }
