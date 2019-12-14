@@ -1,0 +1,1 @@
+#define ENCODER_RESOLUTION 2
