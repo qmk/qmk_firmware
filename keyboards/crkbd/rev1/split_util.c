@@ -20,7 +20,7 @@
 #endif
 
 #ifndef SPLIT_USB_TIMEOUT
-#    define SPLIT_USB_TIMEOUT 2500
+#    define SPLIT_USB_TIMEOUT 2000
 #endif
 
 volatile bool isLeftHand = true;
