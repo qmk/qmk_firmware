@@ -1,6 +1,6 @@
 # RGBLIGHT_ENABLE is not for MD boards. This is here in case you forget.
 # RGBLIGHT_ENABLE = no				# Enable keyboard underlight functionality
-# COMMAND_ENABLE = yes				# Commands for debug and configuration
+COMMAND_ENABLE = yes				# Commands for debug and configuration
 # BOOTMAGIC_ENABLE = full			# Virtual DIP switch configuration
 # BOOTMAGIC_ENABLE = lite
 # AUTO_SHIFT_ENABLE = yes      	# Auto Shift
@@ -10,10 +10,12 @@ MOUSEKEY_ENABLE = yes			# Enable mouse control keycodes. Increases firmware size
 TAP_DANCE_ENABLE = yes			# Enable tap dance keys
 CONSOLE_ENABLE = yes			# Enable debugging console. Increases firmware size.
 SRC += config_led.c				# Used to add files to the compilation/linking list.
+TERMINAL_ENABLE = yes
+EXTRAKEY_ENABLE = yes			# Audio control and System control
+# RAW_ENABLE = yes				# Raw HID has not yet been implemented for this keyboard
 
 # FIRMWARE_FORMAT				# Defines which format (bin, hex) is copied to the root qmk_firmware folder after building.
 # LAYOUTS						# A list of layouts this keyboard supports.
-# EXTRAKEY_ENABLE				# Audio control and System control
 # COMBO_ENABLE					# Key combo feature
 # AUDIO_ENABLE					# Enable the audio subsystem.
 # LEADER_ENABLE					# Enable leader key chording

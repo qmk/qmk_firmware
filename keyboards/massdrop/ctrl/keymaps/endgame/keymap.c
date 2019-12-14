@@ -9,11 +9,9 @@ static const char * sendstring_commands[] = {
     "git clone ",
     "git config --global ",
     "git add ",
-    "git add . ",
     "git diff ",
     "git reset ",
     "git rebase ",
-    "git reflog ",
     "git branch -b \"",
     "git checkout ",
     "git merge ",
@@ -21,9 +19,7 @@ static const char * sendstring_commands[] = {
     "git fetch ",
     "git pull ",
     "git push ",
-    "git push -f ",
-    "git commit -m \"",
-    "git commit --amend",
+    "git commit ",
     "git status ",
     "git log ",
 };
@@ -31,11 +27,8 @@ static const char * sendstring_commands[] = {
 //Associate our tap dance key with its functionality
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_LGUI_ML] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LGUI, _ML),
-    [TD_LCTRL_TERM] = ACTION_TAP_DANCE_DOUBLE(KC_LCTRL, LCA(KC_T)),
-    [TD_RCTRL_TERM] = ACTION_TAP_DANCE_DOUBLE(KC_RCTRL, LCA(KC_T)),
+    [TD_CTRL_TERM] = ACTION_TAP_DANCE_DOUBLE(KC_LCTRL, LCA(KC_T)),
     [TD_LSFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
-    [TD_CTRL_CL] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LCTRL, _CL),
-    [TD_LSFT_SL] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LSFT, _SL),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -54,12 +47,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,            KC_1,           KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,   KC_EQL,  KC_BSPC,   KC_INS,  KC_HOME, KC_PGUP,
         KC_TAB,            KC_Q,           KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,   KC_RBRC, KC_BSLS,   KC_DEL,  KC_END,  KC_PGDN,
         KC_CAPS,           KC_A,           KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,   KC_ENT,
-        TD(TD_LSFT_SL),    KC_Z,           KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,                              KC_UP,
-        TD(TD_CTRL_CL),    TD(TD_LGUI_ML), KC_LALT,                   KC_SPC,                             KC_RALT, TT(_FL), KC_APP,    KC_RCTL,            KC_LEFT, KC_DOWN, KC_RGHT
+        TD(TD_LSFT_CAPS),  KC_Z,           KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,                              KC_UP,
+        TD(TD_CTRL_TERM),  TD(TD_LGUI_ML), KC_LALT,                   KC_SPC,                             KC_RALT, TT(_FL), KC_APP,    KC_RCTL,            KC_LEFT, KC_DOWN, KC_RGHT
     ),
     [_FL] = LAYOUT(
-        _______, DM_PLY1, DM_PLY2, _______,  _______, DM_REC1, DM_REC2, _______,  _______,  DM_RSTP, _______, KC_WAKE, KC_SLEP,            KC_MUTE, _______, _______,
-        _______, _______, TG(_ML), TG(_GL),  TG(_VL), TG(_CL), TG(_SL), _______,  _______,  ROUT_FM, ROUT_TG, ROUT_VD, ROUT_VI, _______,   KC_MSTP, KC_MPLY, KC_VOLU,
+        _______, DM_PLY1, DM_PLY2, _______,  _______, DM_REC1, DM_REC2, _______,  _______,  DM_RSTP, _______, KC_WAKE, KC_SLEP,            KC_MUTE, TERM_ON, TERM_OFF,
+        _______, _______, TG(_ML), TG(_GL),  TG(_VL), _______, _______, _______,  _______,  ROUT_FM, ROUT_TG, ROUT_VD, ROUT_VI, _______,   KC_MSTP, KC_MPLY, KC_VOLU,
         RGB_M_P, RGB_SPD, RGB_VAI, RGB_SPI,  RGB_HUI, RGB_SAI, _______, U_T_AUTO, U_T_AGCR, _______, _______, _______, _______, _______,   KC_MPRV, KC_MNXT, KC_VOLD,
         _______, RGB_RMOD,RGB_VAD, RGB_MOD,  RGB_HUD, RGB_SAD, _______, _______,  _______,  _______, _______, _______, _______,
         _______, RGB_TOG, _______, COPY_ALL, _______, MD_BOOT, TG_NKRO, _______,  _______,  _______, _______, _______,                              KC_BRIU,
@@ -76,11 +69,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_GL] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______,
-        _______, G_ADDA,  G_AMEND, _______, G_REMTE, G_RESET, G_REBAS, G_RFLOG, G_INIT,  _______, G_PULL,  G_PUSH,  G_FPSH,  _______,   _______, _______, _______,
+        _______, _______, _______, _______, G_REMTE, G_RESET, G_REBAS, _______, G_INIT,  _______, G_PULL,  G_PUSH,  _______,  _______,   _______, _______, _______,
         _______, G_ADD,   G_STAT,  G_DIFF,  G_FETCH, _______, _______, _______, _______, G_LOG,   _______, _______, _______,
         _______, G_CONF,  G_CHECK, G_CLONE, G_COMM,  G_BRANH, _______, G_MERGE, _______, _______, _______, _______,                              _______,
         _______, _______, _______,                   _______,                            _______, TG(_GL), _______, _______,            _______, _______, _______
     ),
+    // This layout doesn't have custom keycodes for now, just custom LED config
     [_VL] = LAYOUT(
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,    KC_F12,           KC_PSCR, KC_SLCK, KC_PAUS,
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,   KC_EQL,  KC_BSPC, KC_INS,  KC_HOME, KC_PGUP,
@@ -88,22 +82,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,   KC_ENT,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,                            KC_UP,
         KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                            KC_RALT, TG(_VL), KC_APP,    KC_RCTL,          KC_LEFT, KC_DOWN, KC_RGHT
-    ),
-    [_CL] = LAYOUT(
-        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,             KC_PSCR, KC_SLCK, KC_PAUS,
-        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,   KC_INS,  KC_HOME, KC_PGUP,
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,   KC_DEL,  KC_END,  KC_PGDN,
-        KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,                              KC_UP,
-        TG(_CL), KC_LGUI, KC_LALT,                   KC_SPC,                             KC_RALT, TG(_CL), KC_APP,  KC_RCTL,            KC_LEFT, KC_DOWN, KC_RGHT
-    ),
-    [_SL] = LAYOUT(
-        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,             KC_PSCR, KC_SLCK, KC_PAUS,
-        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,   KC_INS,  KC_HOME, KC_PGUP,
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,   KC_DEL,  KC_END,  KC_PGDN,
-        KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
-        TG(_SL), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,                              KC_UP,
-        KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                             KC_RALT, TG(_SL), KC_APP,  KC_RCTL,            KC_LEFT, KC_DOWN, KC_RGHT
     ),
     /*
     [X] = LAYOUT(
@@ -139,12 +117,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
     [_FL] = {
-        _______, CORAL,   CORAL,   _______, _______, CORAL,   CORAL,   _______, _______, CORAL,   _______, YELLOW,  YELLOW,           TEAL,    _______, _______,
-        _______, _______, PINK,    PINK,    PINK,    PINK,    _______, _______, _______, GREEN,   GREEN,   GREEN,   GREEN,   _______, TEAL,    TEAL,    TEAL,
+        _______, CORAL,   CORAL,   _______, _______, CORAL,   CORAL,   _______, _______, CORAL,   _______, YELLOW,  YELLOW,           TEAL,    GOLD,    GOLD,
+        _______, _______, PINK,    PINK,    PINK,    _______, _______, _______, _______, GREEN,   GREEN,   GREEN,   GREEN,   _______, TEAL,    TEAL,    TEAL,
         ORANGE,  ORANGE,  ORANGE,  ORANGE,  ORANGE,  ORANGE,  _______, AZURE,   AZURE,   _______, _______, _______, _______, _______, TEAL,    TEAL,    TEAL,
         _______, ORANGE,  ORANGE,  ORANGE,  ORANGE,  ORANGE,  _______, _______, _______, _______, _______, _______, _______,
         _______, ORANGE,  _______, CORAL,   _______, AZURE,   AZURE,   _______, _______, _______, _______, AZURE,                              SPRING,
-        _______, _______, _______,                   _______,                            _______, PINK,    PINK,    AZURE,            _______, SPRING,  _______
+        _______, _______, _______,                   _______,                            _______, PINK,    _______, AZURE,            _______, SPRING,  _______
     },
     [_ML] = {
         _______, GOLD,    GOLD,    GOLD,   _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
@@ -170,22 +148,6 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
         _______, _______, BLUE,    BLUE,    _______, _______, TURQ,    _______, _______, _______, TURQ,    _______,                            _______,
         _______, _______, _______,                   _______,                            _______, PINK,    _______, _______,            _______, _______, _______
     },
-    [_CL] = {
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                              _______,
-        PINK,    _______, _______,                   _______,                            _______, PINK,    _______, _______,            _______, _______, _______
-    },
-    [_SL] = {
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        PINK,    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                              _______,
-        _______, _______, _______,                   _______,                            _______, PINK,    _______, _______,            _______, _______, _______
-    },
 };
 
 #undef _______
@@ -200,16 +162,14 @@ void matrix_init_user(void) {
     debug_keyboard=true;
     debug_mouse=true;
 
-    ctrl_layer_active = false;
-    shift_layer_active = false;
-    idle_second_counter = 0;
-    key_event_counter = 0;
-    rgb_time_out_seconds = RGB_DEFAULT_TIME_OUT;
-    rgb_time_out_enable = false;                    // Disable RGB timeout by default. Enable using toggle key.
-    rgb_time_out_user_value = false;                // Has to have the same initial value as rgb_time_out_enable
-    rgb_enabled_flag = true;                        // Initially, keyboard RGB is enabled. Change appropriately if config.h initializes RGB disabled.
-    rgb_time_out_fast_mode_enabled = false;         // RGB timeout fast mode disabled initially.
-    rgb_time_out_saved_flag = rgb_matrix_get_flags();
+    idle_second_counter = 0;                            // Counter for number of seconds keyboard has been idle.
+    key_event_counter = 0;                              // Counter to determine if keys are being held, neutral at 0.
+    rgb_time_out_seconds = RGB_DEFAULT_TIME_OUT;        // RGB timeout initialized to its default configure in keymap.h
+    rgb_time_out_enable = false;                        // Disable RGB timeout by default. Enable using toggle key.
+    rgb_time_out_user_value = false;                    // Has to have the same initial value as rgb_time_out_enable.
+    rgb_enabled_flag = true;                            // Initially, keyboard RGB is enabled. Change to false config.h initializes RGB disabled.
+    rgb_time_out_fast_mode_enabled = false;             // RGB timeout fast mode disabled initially.
+    rgb_time_out_saved_flag = rgb_matrix_get_flags();   // Save RGB matrix state for when keyboard comes back from ide.
 };
 
 void keyboard_post_init_user(void) {
@@ -218,18 +178,6 @@ void keyboard_post_init_user(void) {
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
-    if (biton32(layer_state) == _CL) {
-        ctrl_layer_active = true;
-    } else {
-        ctrl_layer_active = false;
-    }
-
-    if (biton32(layer_state) == _SL) {
-        shift_layer_active = true;
-    } else {
-        shift_layer_active = false;
-    }
-
     if(rgb_time_out_enable && rgb_enabled_flag) {
         // If the key event counter is not zero then some key was pressed down but not released, thus reset the timeout counter.
         if (key_event_counter) {
@@ -293,14 +241,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     if (record->event.pressed) {
-        if (ctrl_layer_active && keycode != TG(_CL)) {
-            tap_code16(C(keycode));
-            return false;
-        }
-        if (shift_layer_active && keycode != TG(_SL)) {
-            tap_code16(S(keycode));
-            return false;
-        }
         switch (keycode) {
             case DBG_TOG:
                 TOGGLE_FLAG_AND_PRINT(debug_enable, "Debug mode");
@@ -402,7 +342,7 @@ void set_layer_color(int layer) {
             RGB rgb = hsv_to_rgb(hsv);
             float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
             rgb_matrix_set_color(i, f * rgb.r, f * rgb.g, f * rgb.b);
-        } else if (layer != 1 && layer < 5) {
+        } else if (layer != 1) {
             // Only deactivate non-defined key LEDs at layers other than FN. Because at FN we have RGB adjustments and need to see them live.
             // If the values are all false then it's a transparent key and deactivate LED at this layer
             rgb_matrix_set_color(i, 0, 0, 0);
@@ -414,3 +354,15 @@ void rgb_matrix_indicators_user(void) {
     if (g_suspend_state || disable_layer_color) { return; }
     set_layer_color(biton32(layer_state));
 }
+
+/* This is a test function for Raw HID, which is currently not implemented for this keyboard */
+/**
+void raw_hid_receive(uint8_t *data, uint8_t length) {
+    uint8_t response[RAW_EPSIZE];
+    memset(response+1, 'C', 1);
+    memset(response+2, 'T', 1);
+    memset(response+3, 'R', 1);
+    memset(response+4, 'L', 1);
+    raw_hid_send(data, length);
+}
+*/
