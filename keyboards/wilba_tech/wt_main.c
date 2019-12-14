@@ -51,6 +51,14 @@ void via_init_kb(void)
 
         // DO NOT set EEPROM valid here, let caller do this
     }
+
+#if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
+    // Initialize LED drivers for backlight.
+    backlight_init_drivers();
+
+    backlight_timer_init();
+    backlight_timer_enable();
+#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 }
 
 void matrix_init_kb(void)
@@ -62,13 +70,6 @@ void matrix_init_kb(void)
     via_init_kb();
     via_eeprom_set_valid(true);
 #endif // VIA_ENABLE
-#if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
-    // Initialize LED drivers for backlight.
-    backlight_init_drivers();
-
-    backlight_timer_init();
-    backlight_timer_enable();
-#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 
     matrix_init_user();
 }
