@@ -459,7 +459,8 @@ enum custom_keycodes {
     CTO_ACCE,
     CTO_DRAW,
     CHOLTAP_ACCE,
-    CHOLTAP_SHIFT,
+    CHOLTAP_RSHFT,
+    CHOLTAP_LSHFT,
     CHOLTAP_DRAW,
     _FUN_STAY,
     LEDS_ON,
@@ -786,8 +787,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     // Detect if right shift was pressed in isolation
-    if (isolate_trigger) { // hoping this statement to execute a little quicker overall, than the next 
-        if (keycode != CHOLTAP_SHIFT) { // not right shift up
+    if (isolate_trigger) { // speed: hoping this statement to execute a little quicker overall, than the next 
+        if ((keycode != CHOLTAP_RSHFT)   // not right shift up
+             &&
+            (keycode != CHOLTAP_LSHFT)) { // not left shift up
             isolate_trigger = FALSE;
         }
     }
@@ -924,7 +927,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         //   The reason for this on shift is to isolate GUI, where _FUN was previously
         // located. No alternative tapping function with GUI because some systems do not treat GUI
         // purely as a modifier. Since its a tap anyway, _FUN can fit away from the thumb-hold row.
-        case CHOLTAP_SHIFT: // When tapped it toggles the _FUN layer, when held it is Shift
+        case CHOLTAP_RSHFT: // When tapped it toggles the _FUN layer, when held it is Shift
             if (record->event.pressed) { // key down
                 key_timer = timer_read ();
                 SEND_STRING (SS_DOWN (X_RSFT)); 
@@ -935,6 +938,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     if (isolate_trigger) { // no other key was hit since key down 
                         activate_this_layer (_FUN); // activates function layer as a toggle
                         deactivate_all_but (_FUN);  
+                    }
+                 }
+            }
+            break;
+        // The left-shift version of the above keycode.
+        case CHOLTAP_LSHFT: // When tapped it toggles the _MOV layer, when held it is Shift
+                            // _RAR was the first idea, but some of its keys are too dangerous regarding accidents.
+            if (record->event.pressed) { // key down
+                key_timer = timer_read ();
+                SEND_STRING (SS_DOWN (X_LSFT)); 
+                // This key is re-used, for speed and because using both shifts is useless,
+                // .. thus very rare, and also not a usage problem if it occured.
+                isolate_trigger = TRUE; // keep track of whether another key gets pressed.
+            } else { // key up
+                SEND_STRING (SS_UP (X_LSFT)); 
+                 if (timer_elapsed (key_timer) <= TAPPING_TERM_HOLTAP) { // tapped
+                    if (isolate_trigger) { // no other key was hit since key down 
+                        activate_this_layer (_MOV); // activates function layer as a toggle
+                        deactivate_all_but (_MOV);  
                     }
                  }
             }
@@ -1480,12 +1502,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
      Layer _LTR (LeTteRs, standard Dvorak)
-                                            | Right hand
-     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>     // Keys by finger
-     -o-                                   <|>                                   ...   // -o- BASE access
-     Esc      '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL         Bksp 
-     Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS           -_
-     LSht     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN         // _FUN tap
+                                             | Right hand
+     <pink2    <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>    // Keys by finger
+     -o-                                    <|>                                    ... // -o- BASE access
+     Esc       '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL         Bksp
+     Tab+LCtl  aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS           -_
+     LSht+_MOV ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN   // _FUN _MOV tap
      -------------------------------------------------------------------
      Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space  _NSY LGUI    Right;_DRA              // _XYZ is to layer
                hold     hold  hold      |        hold         hold                   // Layer switch type
@@ -1497,7 +1519,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      -*!-              ,         ,         ,        ,      ,    <|,>     ,      ,      ,      ,      ,               ,
         KC_ESC            , KC_QUOT , KC_COMM , KC_DOT , KC_P , KC_Y , KC_F , KC_G , KC_C , KC_R , KC_L , KC_BSPC       ,
         LCTL_T ( KC_TAB ) , KC_A    , KC_O    , KC_E   , KC_U , KC_I , KC_D , KC_H , KC_T , KC_N , KC_S , KC_MINS       ,
-        KC_LSFT           , KC_SCLN , KC_Q    , KC_J   , KC_K , KC_X , KC_B , KC_M , KC_W , KC_V , KC_Z , CHOLTAP_SHIFT ,
+        CHOLTAP_LSHFT     , KC_SCLN , KC_Q    , KC_J   , KC_K , KC_X , KC_B , KC_M , KC_W , KC_V , KC_Z , CHOLTAP_RSHFT ,
 //      -----------------------------------------------------------------------------------------------------------------------
         LALT_T ( KC_LEFT ) , CHOLTAP_ACCE , MO ( _NSY ) , LT ( _MOV , KC_ENT ) , KC_SPC , MO ( _NSY ) , KC__YGUI , CHOLTAP_DRAW
 //                         ,              ,             ,                    <|,>       ,             ,          ,
@@ -1550,12 +1572,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
      Layer _DDL (Dvorak descramble mode for letters)
 
-                                            | Right hand
-     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2> 
-     -o-                                   <|>                                   ...   //(to) BASE access
-     Esc      qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP         Bksp
-     Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:           '"
-     LSft     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft+_FUN         // _FUN tap
+                                             | Right hand
+     <pink2    <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2> 
+     -o-                                    <|>                                   ...  //(to) BASE access
+     Esc       qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP         Bksp
+     Tab+LCtl  aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:           '"
+     LSft+_MOV zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft+_FUN   // _FUN _MOV tap
      -------------------------------------------------------------------
      Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space  _NSY LGUI    Right;_DRA              // _XYZ is to layer
                hold     hold  hold      |        hold         hold                   // Layer switch type
@@ -1577,7 +1599,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      -*-               ,      ,      ,      ,      ,    <|,>     ,      ,         ,        ,         , -!-           ,
         KC_ESC            , KC_Q , KC_W , KC_E , KC_R , KC_T , KC_Y , KC_U , KC_I    , KC_O   , KC_P    , KC_BSPC       ,
         LCTL_T ( KC_TAB ) , KC_A , KC_S , KC_D , KC_F , KC_G , KC_H , KC_J , KC_K    , KC_L   , KC_SCLN , KC_QUOT       ,
-        KC_LSFT           , KC_Z , KC_X , KC_C , KC_V , KC_B , KC_N , KC_M , KC_COMM , KC_DOT , KC_SLSH , CHOLTAP_SHIFT ,
+        CHOLTAP_LSHFT     , KC_Z , KC_X , KC_C , KC_V , KC_B , KC_N , KC_M , KC_COMM , KC_DOT , KC_SLSH , CHOLTAP_RSHFT ,
 //      -----------------------------------------------------------------------------------------------------------------------
         LALT_T ( KC_LEFT ) , CHOLTAP_ACCE , MO ( _DDN ) , LT ( _MOV , KC_ENT ) , KC_SPC , MO ( _DDN ) , KC__YGUI , CHOLTAP_DRAW
 //                         ,              ,             ,                    <|,>       ,             ,          ,

@@ -91,12 +91,12 @@ from ../jetpacktuxedo/ keymap.
   ======
  
      Layer _LTR (LeTteRs, standard Dvorak)
-                                            | Right hand
-     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>     // Keys by finger
-     -o-                                   <|>                                   ...   // -o- BASE access
-     Esc      '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL         Bksp 
-     Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS           -_
-     LSht     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN         // _FUN tap
+                                             | Right hand
+     <pink2    <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>    // Keys by finger
+     -o-                                    <|>                                    ... // -o- BASE access
+     Esc       '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL         Bksp
+     Tab+LCtl  aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS           -_
+     LSht+_MOV ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN   // _FUN _MOV tap
      -------------------------------------------------------------------
      Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space  _NSY LGUI    Right;_DRA              // _XYZ is to layer
                hold     hold  hold      |        hold         hold                   // Layer switch type
@@ -104,7 +104,7 @@ from ../jetpacktuxedo/ keymap.
 
 Remarks: The 'Tab' on Left-Control causes a slight delay for using Control in combination with a mouse.
 It seems this will be difficult to fix, because it is spread over two devices. To avoid the
-±0.2 second delay, activate a layer where Left-Control is direct, such as `_FUN`.
+±0.2 second delay, activate a layer where Left-Control is direct, such as toggle to `_DRA` on `_FUN.`
 
 The two keys with ';' (Del;`_ACC`, Right;`_DRA`) do not auto-repeat on double tap, like QMK normal layer-tap keys.
 There is an uncluttered _Delete_ and _Right_ on the `_NSY` or `_MOV` layer respectively.
@@ -341,7 +341,8 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   
      (…)
      Checking file size of thevankeyboards_minivan_josjoha.hex               [WARNINGS]
-     * The firmware size is approaching the maximum - 27946/28672 (97%, 726 bytes free)
+     * The firmware size is approaching the maximum - 28068/28672 (97%, 604 bytes free)
+
 
 
   **Other formfactor keyboards**
@@ -370,7 +371,7 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   with the Pok3r keyboard _hence the (non)shift symbols on row 2 left side,_
   for use with 3D editing _hence Control, Alt, Shift on left edge and a
   delete on base layer,_ (this is not optimal because of a ±0.2 second 
-  delay on Control, but no Modifier delay on `_ACC` and `_DRA`),
+  delay on Control, but no Modifier delay on `_ACC` or `_DRA`),
   10 fingers blind typing. 
 
   It seems this keymap should be fine for most usual purposes.
