@@ -1,7 +1,7 @@
 # 貢献方法
 
 <!---
-  original document: d598f01cb:contributiong.md
+  original document: d598f01cb:contributing.md
   git diff d598f01cb HEAD contributing.md | cat
 -->
 
@@ -130,7 +130,7 @@ enum my_keycodes {
 
 ## キーボード
 
-キーボードは QMK の存在理由です。一部のキーボードはコミュニティによって管理されていますが、他のキーボードはそれぞれのキーボードを作成する責任者によって管理されています。`readme.md` を見るとそのキーボードを管理しているのが誰かが分かります。特定のキーボードに関する質問がある場合、[Issue を開いて](https://github.com/qmk/qmk_firmware/issues)質問にメンテナをタグ付けしてください。(訳注: タグ付け は メンションする という意味です。)
+キーボードは QMK の存在理由です。一部のキーボードはコミュニティによって管理されていますが、他のキーボードはそれぞれのキーボードを作成する責任者によって管理されています。`readme.md` を見るとそのキーボードを管理しているのが誰かが分かります。特定のキーボードに関する質問がある場合、[Issue を開いて](https://github.com/qmk/qmk_firmware/issues)質問にメンテナをタグ付けしてください。(訳注: タグ付け は [メンションする](https://help.github.com/ja/github/writing-on-github/basic-writing-and-formatting-syntax#mentioning-people-and-teams) という意味です。)
 
 また以下のガイドラインに従うことをお願いします:
 
