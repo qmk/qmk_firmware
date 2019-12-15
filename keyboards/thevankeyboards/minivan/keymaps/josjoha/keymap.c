@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
  * Authors: This QMK keymap file is a combination of the default
- * keymap, led code original copied from ../jetpacktuxedo, some
+ * keymap, led code original copied/edited from ../jetpacktuxedo, some
  * copy/paste from QMK documentation code examples (etc).
  * Remainder: (C) 2019 by J.B. <joshb@xs4all.nl>
  *
@@ -59,12 +59,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #ifndef SWITCH_GUIS
-    #define KC__LGUI KC_LGUI
-    #define KC__RGUI KC_RGUI
+    #define KC__XGUI KC_LGUI
+    #define KC__YGUI KC_RGUI
 #endif
 #ifdef SWITCH_GUIS
-    #define KC__LGUI KC_RGUI
-    #define KC__RGUI KC_LGUI
+    #define KC__XGUI KC_RGUI
+    #define KC__YGUI KC_LGUI
 #endif
 
 
@@ -1491,7 +1491,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                hold     hold  hold      |        hold         hold                   // Layer switch type
      <1        <2       <3    <4        | 4>     3>   2>      1>                        // Keys by number
 
-    The GUIs are represented in comment layouts with #define SWITCH_GUIS set, left/right reversed that is.
 */
 //
 //      <pink2            , <pinky  , <ring   , <middl , <indx, <ind|, indx>, inde>, midd>, ring>, pink>, pink2>        ,
@@ -1500,7 +1499,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LCTL_T ( KC_TAB ) , KC_A    , KC_O    , KC_E   , KC_U , KC_I , KC_D , KC_H , KC_T , KC_N , KC_S , KC_MINS       ,
         KC_LSFT           , KC_SCLN , KC_Q    , KC_J   , KC_K , KC_X , KC_B , KC_M , KC_W , KC_V , KC_Z , CHOLTAP_SHIFT ,
 //      -----------------------------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , CHOLTAP_ACCE , MO ( _NSY ) , LT ( _MOV , KC_ENT ) , KC_SPC , MO ( _NSY ) , KC__RGUI , CHOLTAP_DRAW
+        LALT_T ( KC_LEFT ) , CHOLTAP_ACCE , MO ( _NSY ) , LT ( _MOV , KC_ENT ) , KC_SPC , MO ( _NSY ) , KC__YGUI , CHOLTAP_DRAW
 //                         ,              ,             ,                    <|,>       ,             ,          ,
 //      <1                 , <2           , <3          , <4                  |, 4>     , 3>          , 2>       , 1>
                       ),
@@ -1580,7 +1579,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LCTL_T ( KC_TAB ) , KC_A , KC_S , KC_D , KC_F , KC_G , KC_H , KC_J , KC_K    , KC_L   , KC_SCLN , KC_QUOT       ,
         KC_LSFT           , KC_Z , KC_X , KC_C , KC_V , KC_B , KC_N , KC_M , KC_COMM , KC_DOT , KC_SLSH , CHOLTAP_SHIFT ,
 //      -----------------------------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , CHOLTAP_ACCE , MO ( _DDN ) , LT ( _MOV , KC_ENT ) , KC_SPC , MO ( _DDN ) , KC__RGUI , CHOLTAP_DRAW
+        LALT_T ( KC_LEFT ) , CHOLTAP_ACCE , MO ( _DDN ) , LT ( _MOV , KC_ENT ) , KC_SPC , MO ( _DDN ) , KC__YGUI , CHOLTAP_DRAW
 //                         ,              ,             ,                    <|,>       ,             ,          ,
 //      <1                 , <2           , <3          , <4                  |, 4>     , 3>          , 2>       , 1>
                       ),
@@ -1615,7 +1614,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LCTL_T ( KC_TAB )  , KC_1    , KC_2    , KC_3    , KC_4    , KC_5    , KC_6    , KC_7    , KC_8    , KC_9    , KC_0    , RCTL_T ( KC_GRV )  , 
         LSFT_T ( KC_MINS ) , KC_LBRC , KC_RBRC , KC_SLSH , KC_BSLS , KC_EQL  , KC_PLUS , KC_PIPE , KC_QUES , KC_LCBR , KC_RCBR , RSFT_T ( KC_TILD ) ,  
 //      -------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , KC_DEL , _______ , KC_ENT , KC_DOT , _______ , KC__RGUI , RALT_T ( KC_RGHT )
+        LALT_T ( KC_LEFT ) , KC_DEL , _______ , KC_ENT , KC_DOT , _______ , KC__YGUI , RALT_T ( KC_RGHT )
 //                         ,        , -*-     ,      <|,>       , -*-     ,          ,
 //      <1                 , <2     , <3      , <4    |, 4>     , 3>      , 2>       , 1>
                       ),
@@ -1654,7 +1653,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LCTL_T ( KC_TAB )  , KC_1    , KC_2   , KC_3    , KC_4    , KC_5    , KC_6    , KC_7    , KC_8    , KC_9    , KC_0    , RCTL_T ( KC_GRV )  , 
         LSFT_T ( KC_MINS ) , KC_MINS , KC_EQL , KC_LBRC , KC_BSLS , KC_RBRC , KC_RCBR , KC_PIPE , KC_LCBR , KC_UNDS , KC_PLUS , RSFT_T ( KC_TILD ) ,  
 //  -----------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , KC_DEL , _______ , KC_ENT , KC_DOT , _______ , KC__RGUI , RALT_T ( KC_RGHT )
+        LALT_T ( KC_LEFT ) , KC_DEL , _______ , KC_ENT , KC_DOT , _______ , KC__YGUI , RALT_T ( KC_RGHT )
 //                         ,        , -*-     ,      <|,>       , -*-     ,          ,
 //      <1                 , <2     , <3      , <4    |, 4>     , 3>      , 2>       , 1>
                       ),
@@ -1830,7 +1829,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT           , LEFT_CA , LEFT_CB , LEFT_CC , LEFT_CD , LEFT_CE , RGHT_CA , RGHT_CB , RGHT_CC , RGHT_CD , RGHT_CE , KC_RSFT ,
 
 //      ---------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , KC_DEL  , KC_ENT , _______ , KC_PGUP , KC_PGDN , KC__RGUI , RALT_T ( KC_RGHT )
+        LALT_T ( KC_LEFT ) , KC_DEL  , KC_ENT , _______ , KC_PGUP , KC_PGDN , KC__YGUI , RALT_T ( KC_RGHT )
 //                         ,         ,        , -*-   <|,>        ,         ,          ,
 //      <1                 , <2      , <3     , <4     |, 4>      , 3>      , 2>       , 1>
                       ),
@@ -1913,7 +1912,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LCTL_T ( KC_TAB )  , KC_LEFT , KC_DOWN , KC_UP   , KC_RGHT , XXXXXXX , KC_6    , KC_7    , KC_8    , KC_9    , KC_0    , KC_RCTL ,
         LSFT_T ( KC_MINS ) , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_5    , KC_4    , KC_3    , KC_2    , KC_1    , KC_RSFT ,
 //      ---------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , KC_DEL , KC_PGDN , KC_PGUP , KC_DOT  , XXXXXXX , KC__RGUI , RALT_T ( KC_RGHT )
+        LALT_T ( KC_LEFT ) , KC_DEL , KC_PGDN , KC_PGUP , KC_DOT  , XXXXXXX , KC__YGUI , RALT_T ( KC_RGHT )
 //                         ,        ,         ,       <|,>        ,         ,          ,
 //      <1                 , <2     , <3      , <4     |, 4>      , 3>      , 2>       , 1>
                       ),
@@ -1980,7 +1979,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL     , XP ( CAL_DIA , CAU_DIA ) , XP ( COL_DIA , COU_DIA ) , XP ( CEL_DIA , CEU_DIA ) , XP ( CUL_DIA , CUU_DIA ) , XP ( CIL_DIA , CIU_DIA ) , XP ( CYL_DIA , CYU_DIA ) , XP ( COEL_BI , COEU_BI ) , XP ( CAEL_BI , CAEU_BI ) , XP ( CNL_TLD , CNU_TLD ) , X ( CSL_SHP )            , KC_RCTL ,
         KC_LSFT     , XP ( CAL_GRA , CAU_GRA ) , XP ( COL_GRA , COU_GRA ) , XP ( CEL_GRA , CEU_GRA ) , XP ( CUL_GRA , CUU_GRA ) , XP ( CIL_GRA , CIU_GRA ) , XP ( CIL_CAR , CIU_CAR ) , XP ( CUL_CAR , CUU_CAR ) , XP ( CEL_CAR , CEU_CAR ) , XP ( COL_CAR , COU_CAR ) , XP ( CAL_CAR , CAU_CAR ) , KC_RSFT ,
 //      ----------------------------------------------------------------------------
-        KC_LALT , _______ , KC__LGUI , KC_ENT , KC_SPC , XXXXXXX , KC__RGUI , _______ 
+        KC_LALT , _______ , KC__XGUI , KC_ENT , KC_SPC , XXXXXXX , KC__YGUI , _______ 
 //              , -*-     ,          ,      <|,>       ,         ,          , 
 //      <1      , <2      , <3       , <4    |, 4>     , 3>      , 2>       , 1>
                       ),
@@ -2014,7 +2013,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL  , UN_A_DIA , UN_O_DIA , UN_E_DIA , UN_U_DIA , UN_I_DIA , UN_Y_DIA , UN_OE_BI , UN_AE_BI , UN_N_TLD , UN_S_SHP , KC_RCTL ,
         KC_LSFT  , UN_A_GRA , UN_O_GRA , UN_E_GRA , UN_U_GRA , UN_I_GRA , UN_I_CAR , UN_U_CAR , UN_E_CAR , UN_O_CAR , UN_A_CAR , KC_RSFT ,
 //      ----------------------------------------------------------------------------
-        KC_LALT , _______ , KC__LGUI , KC_ENT , KC_SPC , XXXXXXX , KC__RGUI , _______ 
+        KC_LALT , _______ , KC__XGUI , KC_ENT , KC_SPC , XXXXXXX , KC__YGUI , _______ 
 //              ,         ,          ,      <|,>       ,         ,          , -*-
 //      <1      , <2      , <3       , <4    |, 4>     , 3>      , 2>       , 1>
                       ),
@@ -2048,7 +2047,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL  , XP ( CN_1SUP , CN_1SUB )  , XP ( CN_2SUP , CN_2SUB ) , XP ( CN_3SUP , CN_3SUB )     , XP ( CN_4SUP , CN_4SUB )   , XP ( CN_5SUP , CN_5SUB )     , XP ( CN_6SUP , CN_6SUB )     , XP ( CN_7SUP , CN_7SUB )     , XP ( CN_8SUP , CN_8SUB ) , XP ( CN_9SUP , CN_9SUB )   , XP ( CN_0SUP , CN_0SUB )   , KC_RCTL ,
         KC_LSFT  , X ( CS_OCBRA )            , X ( CS_CCBRA )           , XP ( CS_DEGREE , CS_CIRCLE ) , XP ( CS_BULLET , CS_PARA ) , XP ( CS_ELLIPS , CS_MIDDOT ) , XP ( CS_LARROW , CS_UARROW ) , XP ( CS_RARROW , CS_DARROW ) , XP ( CQU_INV , CEX_INV ) , X ( CS_ODABRA )            , X ( CS_CDABRA )            , KC_RSFT ,
 //      ---------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , XXXXXXX , KC__LGUI , KC_ENT , KC_SPC , XXXXXXX , KC__RGUI , _______
+        LALT_T ( KC_LEFT ) , XXXXXXX , KC__XGUI , KC_ENT , KC_SPC , XXXXXXX , KC__YGUI , _______
 //                         ,         ,          ,      <|,>       ,         ,          ,
 //      <1                 , <2      , <3       , <4    |, 4>     , 3>      , 2>       , 1>
                       ),
@@ -2085,7 +2084,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL     , UN_N_1SUBP , UN_N_2SUBP  , UN_N_3SUBP  , UN_N_4SUBP  , UN_N_5SUBP   , UN_N_6SUBP  , UN_N_7SUBP  , UN_N_8SUBP , UN_N_9SUBP  , UN_N_0SUBP  , KC_RCTL ,
         KC_LSFT     , UN_S_OCBRA , UN_S_CCBRA  , UN_S_DEGREE , UN_S_BULLET , UN_S_ELLIPS  , UN_S_LARROW , UN_S_RARROW , UN_QU_INV  , UN_S_ODABRA , UN_S_CDABRA , KC_RSFT ,
 //      -----------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , XXXXXXX , KC__LGUI , KC_ENT  , KC_SPC  , XXXXXXX , KC__RGUI , _______
+        LALT_T ( KC_LEFT ) , XXXXXXX , KC__XGUI , KC_ENT  , KC_SPC  , XXXXXXX , KC__YGUI , _______
 //                         ,         ,          ,       <|,>        ,         ,          ,
 //      <1                 , <2      , <3       , <4     |, 4>      , 3>      , 2>       , 1>
                       ),  
@@ -2122,7 +2121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL  , KC_F1    , KC_F2     , KC_F3       , KC_F4       , KC_F5       , KC_F6    , KC_F7    , KC_F8   , KC_F9   , KC_F10  , KC_RCTL       ,
         KC_LSFT  , KC_F11   , KC_F12    , KC_F13      , KC_F14      , KC_F15      , KC_F16   , KC_F17   , KC_F18  , KC_F19  , KC_F20  , KC_RSFT       ,
 //      ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        KC_LALT , MT ( MOD_LCTL | MOD_LSFT, XXXXXXX ) , MT ( MOD_LCTL | MOD_LALT , XXXXXXX ) , MT ( MOD_LSFT | MOD_LALT , XXXXXXX ) , MT ( MOD_LCTL | MOD_LSFT | MOD_LALT , XXXXXXX ) , XXXXXXX , KC__RGUI , KC_RALT
+        KC_LALT , MT ( MOD_LCTL | MOD_LSFT, XXXXXXX ) , MT ( MOD_LCTL | MOD_LALT , XXXXXXX ) , MT ( MOD_LSFT | MOD_LALT , XXXXXXX ) , MT ( MOD_LCTL | MOD_LSFT | MOD_LALT , XXXXXXX ) , XXXXXXX , KC__YGUI , KC_RALT
 //              ,                                     ,                                      ,                                    <|,>                                                ,         ,          ,
 //      <1      , <2                                  , <3                                   , <4                                  |, 4>                                              , 3>      , 2>       , 1>
                       ),
