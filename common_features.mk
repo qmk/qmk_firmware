@@ -407,12 +407,18 @@ ifeq ($(strip $(SPACE_CADET_ENABLE)), yes)
   OPT_DEFS += -DSPACE_CADET_ENABLE
 endif
 
-ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
-  SRC += $(QUANTUM_DIR)/dip_switch.c
-  OPT_DEFS += -DDIP_SWITCH_ENABLE
+MAGIC_ENABLE ?= yes
+ifeq ($(strip $(MAGIC_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/process_keycode/process_magic.c
+    OPT_DEFS += -DMAGIC_KEYCODE_ENABLE
 endif
 
 ifeq ($(strip $(DYNAMIC_MACRO_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_dynamic_macro.c
     OPT_DEFS += -DDYNAMIC_MACRO_ENABLE
+endif
+
+ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
+  SRC += $(QUANTUM_DIR)/dip_switch.c
+  OPT_DEFS += -DDIP_SWITCH_ENABLE
 endif
