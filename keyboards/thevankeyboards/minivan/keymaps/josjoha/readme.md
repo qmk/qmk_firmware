@@ -213,10 +213,10 @@ used for the `_MOV` layer (it seemed to become convoluted and overkill to add it
      BASE  áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    ĳĲ    çÇ    øØ    åÅ    Bspc 
      LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
      LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
-     --------------------------------------------------
-     LAlt+Left ___   RGUI  Ent  | Spc   xxx   LGUI  ___
-               -*-             <|>                                                       //(hold) on BASE
-     <1        <2    <3    <4   | 4>    3>    2>    1>  
+     ---------------------------------------------
+     LAlt ___   RGUI  Ent  | Spc   xxx   LGUI  ___
+          -*-             <|>                                                            //(hold) on BASE
+     <1   <2    <3    <4   | 4>    3>    2>    1>  
 
 - - -
    
@@ -234,10 +234,10 @@ Remarks. This layer is seamlessly activated with 'descramble'
      BASE  „“    ”     ¤£    ∅ ¢   ±ƒ    | ❦♥    🙂🙁  👍👎   ⁽₍    ⁾₎    Bspc
      LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
      LSft 「     」    °〇   •§    …·    | ⮘⮙    ⮚⮛    ¿¡    《     》    RSft
-     --------------------------------------------------
-     LAlt+Left xxx   RGUI  Ent  | Spc   xxx   LGUI  ___
-                               <|>                  -*-                                  //(hold) on BASE
-     <1        <2    <3    <4   | 4>    3>    2>    1>  
+     ---------------------------------------------
+     LAlt xxx   RGUI  Ent  | Spc   xxx   LGUI  ___
+                          <|>                  -*-                                       //(hold) on BASE
+     <1   <2    <3    <4   | 4>    3>    2>    1>  
 
 - - -
    
@@ -359,23 +359,28 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   Use case
   ========
 
-  The use case this keymap is for: PCs GNU/Debian/Linux (etc), laptop
-  already set to Dvorak _(hence 'descramble')_, being able on the move
-  to operate other operating systems owned by others _(hence non-Linux
-  Unicode modes),_ editing in vim / websites etc. _(hence no dead keys),_
-  programming (shell, C (like) languages) _(hence decent access to basic
-  symbols),_ writing in Dutch _(hence accented characters)_, using a tiling
-  window manager _(hence a LGUI on base layer),_ AltGr or Compose seemed
-  difficult to configure / use _(hence a symbols layer),_ compatibility
-  with the Pok3r keyboard _(hence the (non)shift symbols on row 2 left),_
-  blind typing with 10 fingers. Some of the more recent bloat like an e-mail
-  button etc. is not on it, because that seems to me not a task for a keyboard. 
-  It could be added to the map easily (on `_RAR` or on a repurposed `_REV`).
+  The use case this keymap is designed for: PCs with GNU/Debian/Linux (etc),
+  Linux laptop already set to Dvorak _hence 'descramble'_, being able on the move
+  to operate other operating systems owned by others _hence non-Linux
+  Unicode modes,_ editing in vim / websites etc. _hence no dead keys,_
+  programming (shell, C (like) languages) _hence decent access to basic
+  symbols,_ writing in Dutch _hence accented characters_, using a tiling
+  window manager _hence a LGUI on base layer,_ AltGr or Compose seemed
+  difficult to configure / use _hence accented and symbols layer,_ compatibility
+  with the Pok3r keyboard _hence the (non)shift symbols on row 2 left side,_
+  for use with 3D editing _hence Control, Alt, Shift on left edge and a
+  delete on base layer,_ (this is not optimal because of a ±0.2 second 
+  delay on Control, but no Modifier delay on `_ACC` and `_DRA`),
+  10 fingers blind typing. 
 
-  It should work just about anywhere. You can let me know if you find any 
-  bugs / problems, or if you like using it too 👍.
+  It seems this keymap should be fine for most usual purposes.
+  Some of the more recent key additions like an e-mail button is not on
+  it. It could be added easily on `_RAR` or on a repurposed `_REV`.
 
   BUGS
   ====
 
-  (Unknown.) Only tested on Linux (FIXME).
+  (Unknown at time of this writing.) Only tested on Linux (FIXME).
+
+  You can let me know if you find any bugs / problems, or if you like using
+  it too 👍.
