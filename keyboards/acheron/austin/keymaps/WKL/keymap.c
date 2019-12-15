@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -34,4 +33,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL, KC_LALT, KC_LALT, KC_NO  , KC_NO  , KC_SPC , KC_NO  , KC_NO  , KC_NO  , KC_RALT, KC_RGUI, KC_LEFT, KC_DOWN, KC_NO  , KC_RIGHT,KC_KP_0, KC_KP_0, KC_KP_DOT, KC_PMNS 
   )
 };
-
