@@ -570,6 +570,9 @@ bmp_error_t bmp_state_change_cb(bmp_api_event_t event)
   return BMP_OK;
 }
 
+static bool has_ble = true;
+static bool has_usb = true;
+
 void bmp_init()
 {
 
@@ -639,6 +642,7 @@ void bmp_init()
     update_config_string(config, config_string, sizeof(config_string));
     update_tapping_term_string(config, qmk_config_string, sizeof(qmk_config_string));
     BMPAPI->web_config.set_rcv_callback(webnus_write_callback);
+    has_ble = false;
   }
   else if ((config->mode == SINGLE || config->mode == SPLIT_MASTER) &&
     config->startup == 1)
@@ -833,9 +837,9 @@ uint16_t get_tapping_term(uint16_t keycode) {
 static bool usb_enabled = true;
 static bool ble_enabled = true;
 
-bool get_ble_enabled() { return ble_enabled; }
+bool get_ble_enabled() { return ble_enabled & has_ble; }
 void set_ble_enabled(bool enabled) { ble_enabled = enabled; }
-bool get_usb_enabled() { return usb_enabled; }
+bool get_usb_enabled() { return usb_enabled & has_usb; }
 void set_usb_enabled(bool enabled) { usb_enabled = enabled; }
 
 bool process_record_user_bmp(uint16_t keycode, keyrecord_t *record)

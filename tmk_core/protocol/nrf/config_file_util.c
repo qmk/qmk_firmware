@@ -67,7 +67,7 @@ int32_t json_to_keymap_conv(json_keymap_convert_inst_t * const inst,
 
   if ((inst->keymap_idx == 0) && inst->tail[0]=='\0')
   {
-    str = strstr(json, "keyboard");
+    str = strstr(json, "\"keyboard\"");
     if (str != NULL)
     {
         get_val_string(str, "keyboard", &str2, &name_len);
@@ -77,7 +77,7 @@ int32_t json_to_keymap_conv(json_keymap_convert_inst_t * const inst,
         }
     }
 
-    str = strstr(json, "layout");
+    str = strstr(json, "\"layout\"");
     if (str != NULL)
     {
         get_val_string(str, "layout", &str2, &layout_name_len);
@@ -96,7 +96,7 @@ int32_t json_to_keymap_conv(json_keymap_convert_inst_t * const inst,
         strcat(inst->layout_name, "LAYOUT");
     }
 
-    str = strstr(json, "layers");
+    str = strstr(json, "\"layers\"");
     if (str == NULL)
     {
       return 1;
