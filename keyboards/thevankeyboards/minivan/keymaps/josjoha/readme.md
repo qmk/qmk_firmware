@@ -95,16 +95,15 @@ from ../jetpacktuxedo/ keymap.
  
      Layer _LTR (LeTteRs, standard Dvorak)
                                             | Right hand
-     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2> 
-     -o-                                   <|>                              ...        //(to) BASE access
-     Esc      qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP    Bksp
-     Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
-     LSft     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft
-     ------------------------------------------------------------------
+     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>     // Keys by finger
+     -o-                                   <|>                                   ...   // -o- BASE access
+     Esc      '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL         Bksp 
+     Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS           -_
+     LSht     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN         // _FUN tap
+     -------------------------------------------------------------------
      Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space  _NSY RGUI    Right;_DRA              // _XYZ is to layer
-                                        |             +_FUN                          // 
-               hold     hold  hold      |        hold tap     hold                   // Layer switch type
-     <1        <2       <3    <4        | 4>    3>   2>      1>                         // Keys by number
+               hold     hold  hold      |        hold         hold                   // Layer switch type
+     <1        <2       <3    <4        | 4>     3>   2>      1>                        // Keys by number
 
 Remarks: The 'Tab' on Left-Control causes a slight delay for using Control in combination with a mouse.
 It seems this will be difficult to fix, because it is spread over two devices. To avoid the
@@ -160,7 +159,7 @@ or staying on the `_FUN` layer. Default: return to BASE.
      BASE      WLft  WDn   WUp   WRht  xxx   | Btn3  PgUp  Home  End   PgDn  Bksp
      Tab+LCtl  MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
      LSft      Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSft
-     --------------------------------------------------------
+     ---------------------------------------------------------
      Left+LAlt Del   Ent   ___ | PgUp  PgDn  RGUI   Right+RAlt
                            -*-<|>                                                        //(hold) on BASE
      <1        <2    <3    <4  | 4>    3>    2>    1>  
@@ -200,7 +199,7 @@ MLed switches on/off the middle led, SLeds switches on/off the side leds.
      Tab+LCtl Left  Down  Up    Right xxx   | 6^    7&    8*    9(    0)    RCtl
      -+LSft   xxx   xxx   xxx   xxx   xxx   | 5%    4$    3#    2@    1!    RSft
      -----------------------------------------------------------
-     Left+LAlt Del   PgDn     PgUp | .    xxx   ,     Right+RAlt
+     Left+LAlt Del   PgDn     PgUp | .    xxx   RGUI  Right+RAlt
                                   <|>
      <1        <2    <3       <4   | 4>   3>    2>    1>  
 
@@ -218,7 +217,7 @@ used for the `_MOV` layer (it seemed to become convoluted and overkill to add it
      LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
      LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
      --------------------------------------------------
-     LAlt+Left ___   LGUI  Ent  | Spc   RGUI  BASE  ___
+     LAlt+Left ___   LGUI  Ent  | Spc   xxx   RGUI  ___
                -*-             <|>                                                       //(hold) on BASE
      <1        <2    <3    <4   | 4>    3>    2>    1>  
 
@@ -239,7 +238,7 @@ Remarks. This layer is seamlessly activated with 'descramble'
      LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
      LSft 「     」    °〇   •§    …·    | ⮘⮙    ⮚⮛    ¿¡    《     》    RSft
      --------------------------------------------------
-     LAlt+Left xxx   LGUI  Ent  | Spc   RGUI  BASE  ___
+     LAlt+Left xxx   LGUI  Ent  | Spc   xxx   RGUI  ___
                                <|>                  -*-                                  //(hold) on BASE
      <1        <2    <3    <4   | 4>    3>    2>    1>  
 
@@ -275,17 +274,15 @@ Remarks. This layer is seamlessly activated with 'descramble'
      Layer _DDL (Dvorak descramble mode for letters)
 
                                             | Right hand
-     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2> 
-     -o-                                   <|>                              ...        //(to) BASE access
-     Esc      qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP    Bksp
-     Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
-     LSft     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft
-     ------------------------------------------------------------------
-     Left+LAlt Del;_DDA _DDN  Enter+_MOV| Space _DDN RGUI    Right;_DDD        // _XYZ are layer switches
-               or:;_ACC                <|>           +_FUN   or:;_DRA        // When in 'half descramble'
-               hold     hold  hold      |       hold tap     hold                 // Type of layer switch
-     <1        <2       <3    <4        | 4>    3>   2>      1>                         // Keys by number
-
+     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2> 
+     -o-                                   <|>                                   ...   //(to) BASE access
+     Esc      qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP         Bksp
+     Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:           '"
+     LSft     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft+_FUN         // _FUN tap
+     -------------------------------------------------------------------
+     Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space  _NSY RGUI    Right;_DRA              // _XYZ is to layer
+               hold     hold  hold      |        hold         hold                   // Layer switch type
+     <1        <2       <3    <4        | 4>     3>   2>      1>                        // Keys by number
 
 
      _DDL input results in the same as _LTR with computer side Dvorak remapping. Only shown what changes:
