@@ -7,6 +7,9 @@
 #ifdef KEYBOARD_kinesis_stapelberg
 	#include "stapelberg.h"
 #endif
+#ifdef KEYBOARD_kinesis_stapelberg_i2c
+	#include "stapelberg_i2c.h"
+#endif
 
 #include "quantum.h"
 
