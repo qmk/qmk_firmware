@@ -40,3 +40,4 @@ QMK has a staggering number of features for building your keyboard. It can take 
 * [Unicode](feature_unicode.md) - Unicode input support.
 * [Userspace](feature_userspace.md) - Share code between different keymaps and keyboards.
 * [Velocikey](feature_velocikey.md) - Allows changes in RGB animation speed based on WPM/Typing speed.
+* [Raw HID](feature_rawhid.md) - Allows 32-byte bi-directional packet between keyboard and PC Host using HID interface.
