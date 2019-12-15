@@ -101,7 +101,7 @@ from ../jetpacktuxedo/ keymap.
      Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS           -_
      LSht     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN         // _FUN tap
      -------------------------------------------------------------------
-     Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space  _NSY RGUI    Right;_DRA              // _XYZ is to layer
+     Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space  _NSY LGUI    Right;_DRA              // _XYZ is to layer
                hold     hold  hold      |        hold         hold                   // Layer switch type
      <1        <2       <3    <4        | 4>     3>   2>      1>                        // Keys by number
 
@@ -122,7 +122,7 @@ There is an uncluttered _Delete_ and _Right_ on the `_NSY` or `_MOV` layer respe
      Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)  `~+RCtl
      -+LSft   [{    ]}    /?    \|    =+    | +     |     ?     {     }   `+RSft // limitation prevents ~
      -------------------------------------------------------
-     Left+LAlt Del   ___   Ent  | .   ___   RGUI  Right+RAlt
+     Left+LAlt Del   ___   Ent  | .   ___   LGUI  Right+RAlt
                      -*-       <|>    -*-                                         //(hold) Access on _LTR
        <1      <2    <3    <4   | 4>  3>    2>    1>  
 
@@ -139,7 +139,7 @@ Remarks. There is a bit of numbers entry here with -,.Tab, also see `_REV` for t
      LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10     RCtl     //... ! 'descramble'
      LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20     RSft     //... < toggle 'stay'
      ----------------------------------------------------------
-     LAlt  LCtl&   LCtl&   LSft& | +LCtl&LSft RGUI  BASE   RAlt
+     LAlt  LCtl&   LCtl&   LSft& | +LCtl&LSft xxx   LGUI   RAlt
            LSft    LAlt    LAlt  | &LAlt                                     
            +xxx    +xxx    +xxx  | +xxx
                                 <|>                 -*-                         //(toggle) Acces -*- base
@@ -160,7 +160,7 @@ or staying on the `_FUN` layer. Default: return to BASE.
      Tab+LCtl  MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
      LSft      Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSft
      ---------------------------------------------------------
-     Left+LAlt Del   Ent   ___ | PgUp  PgDn  RGUI   Right+RAlt
+     Left+LAlt Del   Ent   ___ | PgUp  PgDn  LGUI   Right+RAlt
                            -*-<|>                                                        //(hold) on BASE
      <1        <2    <3    <4  | 4>    3>    2>    1>  
 
@@ -178,7 +178,7 @@ to switch left with right hand. See `ARROW_TRIANGLE` and `ARROW_LEFT` #defines a
      P     Power Wake  Sleep Pause ScrLk | PrtSc xxx   Vol+  Vol-  Mute  CapL        // P(ower) indicator
      Ü     uLNX  uBSD  uOSX  uWIN  uWNC  | xxx   xxx   xxx   xxx   xxx Insert         // Ü(nicode) tester
      ----------------------------------------------
-     MLed  SLeds xxx   xxx  | xxx   xxx   BASE  App                      // Middle-led, Side-leds: on/off
+     MLed  SLeds xxx   xxx  | xxx   xxx   xxx   App                      // Middle-led, Side-leds: on/off
                            <|>
      <1    <2    <3    <4   | 4>    3>    2>    1>  
 
@@ -199,7 +199,7 @@ MLed switches on/off the middle led, SLeds switches on/off the side leds.
      Tab+LCtl Left  Down  Up    Right xxx   | 6^    7&    8*    9(    0)    RCtl
      -+LSft   xxx   xxx   xxx   xxx   xxx   | 5%    4$    3#    2@    1!    RSft
      -----------------------------------------------------------
-     Left+LAlt Del   PgDn     PgUp | .    xxx   RGUI  Right+RAlt
+     Left+LAlt Del   PgDn     PgUp | .    xxx   LGUI  Right+RAlt
                                   <|>
      <1        <2    <3       <4   | 4>   3>    2>    1>  
 
@@ -217,7 +217,7 @@ used for the `_MOV` layer (it seemed to become convoluted and overkill to add it
      LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
      LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
      --------------------------------------------------
-     LAlt+Left ___   LGUI  Ent  | Spc   xxx   RGUI  ___
+     LAlt+Left ___   RGUI  Ent  | Spc   xxx   LGUI  ___
                -*-             <|>                                                       //(hold) on BASE
      <1        <2    <3    <4   | 4>    3>    2>    1>  
 
@@ -238,7 +238,7 @@ Remarks. This layer is seamlessly activated with 'descramble'
      LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
      LSft 「     」    °〇   •§    …·    | ⮘⮙    ⮚⮛    ¿¡    《     》    RSft
      --------------------------------------------------
-     LAlt+Left xxx   LGUI  Ent  | Spc   xxx   RGUI  ___
+     LAlt+Left xxx   RGUI  Ent  | Spc   xxx   LGUI  ___
                                <|>                  -*-                                  //(hold) on BASE
      <1        <2    <3    <4   | 4>    3>    2>    1>  
 
@@ -258,7 +258,7 @@ Remarks. This layer is seamlessly activated with 'descramble'
      Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)  `~+RCtl
      -+LSht   -_    =+    [{    \|    ]}    | }     |     {     _     +   `+RSht            // row 2, raw
      -------------------------------------------------------
-     Left+LAlt Del   ___   Ent  | .   ___   RGUI  Right+RAlt
+     Left+LAlt Del   ___   Ent  | .   ___   LGUI  Right+RAlt
                      -*-       <|>    -*-                                         //(hold) Access on _LTR
        <1      <2    <3    <4   | 4>  3>    2>    1>  
 
@@ -280,7 +280,7 @@ Remarks. This layer is seamlessly activated with 'descramble'
      Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:           '"
      LSft     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft+_FUN         // _FUN tap
      -------------------------------------------------------------------
-     Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space  _NSY RGUI    Right;_DRA              // _XYZ is to layer
+     Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space  _NSY LGUI    Right;_DRA              // _XYZ is to layer
                hold     hold  hold      |        hold         hold                   // Layer switch type
      <1        <2       <3    <4        | 4>     3>   2>      1>                        // Keys by number
 
@@ -316,6 +316,10 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
       an accented letters layer. It becomes a bit like a private subset
       of AltGr symbols.
 
+    - RGUI is the only one on the BASE layer of the two GUIs (or OS keys
+      or other names for these keys). You can switch the RGUI for LGUI
+      with a #define in keymap.c. GUIs are also available on other layers.
+
   Hacking & slashing 
   ==================
 
@@ -325,7 +329,6 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   you could have a look at layers `_RAR`, `_ACC`, and `_DRA`, and 
   then see what layers to set for the 2nd, 3rd or 6th, 8th key on the
   bottom row.
-
 
   **Dual language or layout**
 
@@ -339,24 +342,35 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
 
   **Device Space**
   
-  Not much can be added without removing things.
-
      (…)
      Checking file size of thevankeyboards_minivan_josjoha.hex               [WARNINGS]
-     * The firmware size is approaching the maximum - 27938/28672 (97%, 734 bytes free)
+     * The firmware size is approaching the maximum - 27946/28672 (97%, 726 bytes free)
 
 
   **Other formfactor keyboards**
 
-  To use this layout on a keyboard with more keys on the bottom row
-  (like the Planck) it seems you would need to add some keys to the
-  first row in each of the 12 layers. An interesting use of more keys
-  could be: assign a key to each of the layer-tap key thus avoiding
-  the slight hold delay with a mouse; add layer-hold keys to `_RAR` and
-  `_REV`; more navigation on the base layer; some accented or Unicode
-  that you use the most; LGUI keys, etc.
+  An interesting use of more keys could be: assign a key to each of
+  the layer-tap key thus avoiding the slight hold delay with a mouse;
+  add layer-hold key to `_RAR` more navigation; some Unicode; GUI key
+  ... this should be easy.
 
   Keyboards with fewer keys: the `_REV` layer would be the first
-  to repurpose I guess. One of the `_NSY` layer hold keys to it,
-  to accomodate the lost characters, or use another layer hold key.
+  to repurpose I guess, with a `_NSY` or `_ACC` or `_DRA` layer to it.
+  There is still a spot free for a toggle on left-shift, on the right-
+  shift system. It seems it could become difficult. 
+
+  ** Use case it is made for **
+
+  The use case this keymap is for: PCs GNU/Debian/Linux (etc), laptop
+  already set to Dvorak (hence 'descramble'), being able on the move
+  to operate other operating systems owned by others (hence non-Linux
+  Unicode modes), editing in vim / websites etc. (hence no dead keys),
+  programming (shell, C (like) languages) (hence decent access to basic
+  symbols), writing in Dutch (hence accented characters), using a tiling
+  window manager (hence a LGUI on base layer). AltGr or Compose seemed
+  difficult to configure / use, hence a symbols layer. Since this gets
+  published on Github, I tried to make it easier to use for others too.
+
+  You can let me know if you find any bugs / problems, or just if you
+  like using it too 👍.
 
