@@ -22,12 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Select hand configuration */
 #define MASTER_LEFT
 
-/* Tap Dance timing */
-#define TAPPING_TERM 150
-
-/* Toggling layer requires # taps */
-#define TAPPING_TOGGLE 3
-
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 12
 
