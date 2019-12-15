@@ -13,7 +13,7 @@ There are 7 main sections to this guide:
 * [Building Your First Firmware using the online GUI](newbs_building_firmware_configurator.md)
 * [Flashing Firmware](newbs_flashing.md)
 * [Testing and Debugging](newbs_testing_debugging.md)
-* [Git Best Practices](newbs_best_practices.md)
+* [Best Git Practices](newbs_git_best_practices.md)
 * [Learn More with these Resources](newbs_learn_more_resources.md)
 
 This guide is focused on helping someone who has never compiled software before. It makes choices and recommendations based on that viewpoint. There are alternative methods for many of these procedures, and we support most of those alternatives. If you have any doubt about how to accomplish a task you can [ask us for guidance](getting_started_getting_help.md).
