@@ -1,5 +1,10 @@
 # 助けを得る
 
+<!---
+  original document: d598f01cb:getting_started_getting_help.md
+  git diff d598f01cb HEAD getting_started_getting_help.md | cat
+-->
+
 QMK に関して助けを得るための多くのリソースがあります。
 
 ## リアルタイム チャット

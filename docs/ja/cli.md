@@ -1,5 +1,10 @@
 # QMK CLI
 
+<!---
+  original document: d598f01cb:cli.md
+  git diff d598f01cb HEAD cli.md | cat
+-->
+
 このページは QMK CLI のセットアップと使用方法について説明します。
 
 # 概要

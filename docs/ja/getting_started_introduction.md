@@ -1,6 +1,11 @@
 # はじめに
 
-このページでは、QMK プロジェクトで作業するために知っておくべき基本的な情報について説明しようと思います。Unix シェルの操作に精通していることを前提としていますが、C または make を使ったコンパイルに精通しているとは想定していません。
+<!---
+  original document: d598f01cb:getting_started_introduction.md
+  git diff d598f01cb HEAD getting_started_introduction.md | cat
+-->
+
+このページでは、QMK プロジェクトで作業するために知っておくべき基本的な情報について説明しようと思います。Unix シェルの操作に精通していることを前提としていますが、C について、または make を使ったコンパイルについて精通しているとは想定していません。
 
 ## 基本的な QMK の構造
 
@@ -12,7 +17,7 @@ QMK は [Jun Wako](https://github.com/tmk) の [tmk_keyboard](https://github.com
 
 ### キーボードプロジェクトの構造
 
-`keyboards` フォルダ内にある、サブフォルダ `handwired` と、ベンダと製品のサブディレクトリ(例えば `clueboard` )は各キーボードプロジェクトのためのディレクトリです。例えば、`qmk_firmware/keyboards/clueboard/2x1800` です。その中には、以下の構造があります:
+`keyboards` フォルダ、そのサブフォルダ `handwired`、ベンダと製品のサブディレクトリ (例えば、`clueboard`) の中には、各キーボードプロジェクトのためのディレクトリ (例えば `qmk_firmware/keyboards/clueboard/2x1800`) があります。その中には、以下の構造があります:
 
 * `keymaps/`: ビルドできる様々なキーマップ
 * `rules.mk`: デフォルトの "make" オプションを設定するファイル。このファイルを直接編集しないでください。代わりにキーマップ固有の `rules.mk` を使ってください。
@@ -41,7 +46,7 @@ QMK は [Jun Wako](https://github.com/tmk) の [tmk_keyboard](https://github.com
 * ユーザスペース (`/users/<user>/config.h`)
 * キーマップ (`/keyboards/<keyboard>/keymaps/<keymap>/config.h`)
 
-ビルドシステムは自動的に上の順に config ファイルを取得します。前の `config.h` で設定された設定を上書きしたい場合は、変更したい設定に対して最初に定型コードを含める必要があります。
+ビルドシステムは自動的に上の順に config ファイルを取得します。前の `config.h` で設定された設定を上書きしたい場合は、変更したい設定の準備のために最初に定型コードを置く必要があります。
 
 ```
 #pragma once
