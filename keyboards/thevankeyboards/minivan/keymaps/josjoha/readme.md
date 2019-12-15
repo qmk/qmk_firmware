@@ -301,7 +301,7 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   =========
 
 
-    - Shift/Alt/Control/RGUI, Del/Esc and Alt with tap arrows, repeat on
+    - Shift/Alt/Control/GUI, Del/Esc and Alt with tap arrows, repeat on
       several layers, to have the same effect regardless of the order
       in which keys are pressed.
 
@@ -316,9 +316,9 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
       an accented letters layer. It becomes a bit like a private subset
       of AltGr symbols.
 
-    - RGUI is the only one on the BASE layer of the two GUIs (or OS keys
+    - LGUI is the only one on the BASE layer of the two GUIs (or OS keys
       or other names for these keys). You can switch the RGUI for LGUI
-      with a #define in keymap.c. GUIs are also available on other layers.
+      with a #define in keymap.c.
 
   Hacking & slashing 
   ==================
@@ -359,17 +359,18 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   There is still a spot free for a toggle on left-shift, on the right-
   shift system. It seems it could become difficult. 
 
-  ** Use case it is made for **
+  Use case it is made for
+  =======================
 
   The use case this keymap is for: PCs GNU/Debian/Linux (etc), laptop
-  already set to Dvorak (hence 'descramble'), being able on the move
-  to operate other operating systems owned by others (hence non-Linux
-  Unicode modes), editing in vim / websites etc. (hence no dead keys),
-  programming (shell, C (like) languages) (hence decent access to basic
-  symbols), writing in Dutch (hence accented characters), using a tiling
-  window manager (hence a LGUI on base layer). AltGr or Compose seemed
-  difficult to configure / use, hence a symbols layer. Since this gets
-  published on Github, I tried to make it easier to use for others too.
+  already set to Dvorak _(hence 'descramble')_, being able on the move
+  to operate other operating systems owned by others _(hence non-Linux
+  Unicode modes),_ editing in vim / websites etc. _(hence no dead keys),_
+  programming (shell, C (like) languages) _(hence decent access to basic
+  symbols),_ writing in Dutch _(hence accented characters)_, using a tiling
+  window manager _(hence a LGUI on base layer)._ AltGr or Compose seemed
+  difficult to configure / use (_hence a symbols layer.)_ Since this gets
+  published on Github, I tried to make it easier to use for others.
 
   You can let me know if you find any bugs / problems, or just if you
   like using it too 👍.
