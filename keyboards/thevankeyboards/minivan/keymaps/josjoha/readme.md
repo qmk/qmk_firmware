@@ -7,10 +7,7 @@ It has two Unicode layers, so that the dead-keys system can be de-activated.
 
 This keymap allows the same layout on a computer that is already set to Dvorak
 on the computer side, such as a laptop that you need the built-in keyboard to be
-mapped to Dvorak. 
-
-Only tested on Linux, it should work on most other systems. However on Windos
-comment out `GUI_IS_MODIFIER`, if pressing to `_FUN` gives "Win key" side effects.
+mapped to Dvorak.
 
 This keymap.c was edited from the default, LED support was copied/edited
 from ../jetpacktuxedo/ keymap. 
@@ -359,8 +356,8 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   There is still a spot free for a toggle on left-shift, on the right-
   shift system. It seems it could become difficult. 
 
-  Use case it is made for
-  =======================
+  Use case
+  ========
 
   The use case this keymap is for: PCs GNU/Debian/Linux (etc), laptop
   already set to Dvorak _(hence 'descramble')_, being able on the move
@@ -368,10 +365,17 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   Unicode modes),_ editing in vim / websites etc. _(hence no dead keys),_
   programming (shell, C (like) languages) _(hence decent access to basic
   symbols),_ writing in Dutch _(hence accented characters)_, using a tiling
-  window manager _(hence a LGUI on base layer)._ AltGr or Compose seemed
-  difficult to configure / use (_hence a symbols layer.)_ Since this gets
-  published on Github, I tried to make it easier to use for others.
+  window manager _(hence a LGUI on base layer),_ AltGr or Compose seemed
+  difficult to configure / use _(hence a symbols layer),_ compatibility
+  with the Pok3r keyboard _(hence the (non)shift symbols on row 2 left),_
+  blind typing with 10 fingers. Some of the more recent bloat like an e-mail
+  button etc. is not on it, because that seems to me not a task for a keyboard. 
+  It could be added to the map easily (on `_RAR` or on a repurposed `_REV`).
 
-  You can let me know if you find any bugs / problems, or just if you
-  like using it too 👍.
+  It should work just about anywhere. You can let me know if you find any 
+  bugs / problems, or if you like using it too 👍.
 
+  BUGS
+  ====
+
+  (Unknown.) Only tested on Linux (FIXME).
