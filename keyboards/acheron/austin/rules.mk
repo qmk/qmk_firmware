@@ -33,7 +33,6 @@ ARMV = 6
 
 # Build Options
 #   comment out to disable the options.
-#
 
 # project specific files
 # VPATH += keyboards/cannonkeys/stm32f072
