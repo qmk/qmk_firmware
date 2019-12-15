@@ -200,8 +200,8 @@ void render_slave_oled(void) {
 
 // {OLED Task} -----------------------------------------------//
 void oled_task_user(void) {
-      // Drashna style timeout for LED and OLED
-      if (timer_elapsed32(oled_timer) > 30000) {
+      // Drashna style timeout for LED and OLED Roughly 8mins
+      if (timer_elapsed32(oled_timer) > 480000) {
           oled_off();
           rgb_matrix_disable_noeeprom();
           return;
