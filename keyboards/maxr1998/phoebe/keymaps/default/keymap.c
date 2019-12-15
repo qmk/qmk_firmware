@@ -115,6 +115,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             break;
+        case KC_Z:
+            if (get_mods() & MODS_ALGR_MASK) {
+                if (record->event.pressed) {
+                    register_code(DE_LESS);
+                } else {
+                    unregister_code(DE_LESS);
+                }
+                return false;
+            }
+            break;
     }
     return true;
 };
