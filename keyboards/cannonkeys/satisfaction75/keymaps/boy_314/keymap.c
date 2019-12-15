@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#define NKRO MAGIC_TOGGLE_NKRO
 
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_2x2(
@@ -29,23 +28,10 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [1] = LAYOUT_2x2(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    NKRO,    _______, _______, _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, _______, _______, _______, OLED_TOGG,
+    NK_TOGG, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, _______, _______, _______, OLED_TOGG,
     _______, _______, _______, _______, _______, _______, _______, _______, KC_INS,  KC_HOME, KC_PGUP, _______, _______, RESET,   CLOCK_SET,
     KC_CAPS, _______, _______, _______, _______, _______, _______, _______, KC_DEL,  KC_END,  KC_PGDN, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_VOLU, _______,
     _______, _______,                            _______,                            _______,          _______, KC_MPRV, KC_VOLD, KC_MNXT
   )
 };
-
-
-void matrix_init_user(void) {
-  //user initialization
-}
-
-void matrix_scan_user(void) {
-  //user matrix
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
