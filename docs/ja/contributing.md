@@ -38,7 +38,7 @@ QMK は主に C で書かれており、特定の機能と部品は C++ で書�
 
 # どうやって貢献することができますか？
 
-以前にオープンソースに貢献したことはありませんか？ QMK で貢献がどのように機能するかが疑問ですか？ここに簡単な説明があります！
+以前にオープンソースに貢献したことはありませんか？ QMK で貢献がどのように機能するかが疑問ですか？ ここに簡単な説明があります！
 
 0. [GitHub](https://github.com) アカウントにサインアップします。
 1. 貢献するためのキーマップをまとめるか、解決に興味がある[問題を見つける](https://github.com/qmk/qmk_firmware/issues)、あるいは追加したい[機能](https://github.com/qmk/qmk_firmware/issues?q=is%3Aopen+is%3Aissue+label%3Afeature)を見つけます。
