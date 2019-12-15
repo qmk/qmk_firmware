@@ -7,21 +7,11 @@ void matrix_init_board(void){
 }
 
 
-void led_set_kb(uint8_t usb_led) {
-    if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-        writePinHigh(A2);
-    } else {
-        writePinLow(A2);
+bool led_update_kb(led_t led_state) {
+    if (led_update_user(led_state)) {
+        writePin(A2, led_state.num_lock);
+        writePin(A0, led_state.caps_lock);
+        writePin(A1, led_state.scroll_lock);
     }
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        writePinHigh(A0);
-    } else {
-        writePinLow(A0);
-    }
-    if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-        writePinHigh(A1);
-    } else {
-        writePinLow(A1);
-    }
-    led_set_user(usb_led);
+    return true;
 }
