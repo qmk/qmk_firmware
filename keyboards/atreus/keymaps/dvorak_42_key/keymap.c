@@ -36,8 +36,9 @@ enum custom_keycodes {
   CLOUD9_NAVIGATE,
 
   // Windows 10 macros
-  WINDOWS10_WORKSPACE_LEFT,
-  WINDOWS10_WORKSPACE_RIGHT,
+  W10_TASKVIEW,
+  W10_WORKSPACE_LEFT,
+  W10_WORKSPACE_RIGHT,
 
 };
 
@@ -77,10 +78,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [BROWSER_CONTROL] = LAYOUT(
-    MEH(KC_0), KC_BTN3,   KC_MS_U,                  KC_BTN1,                   KC_BTN2,                      KC_UP,      KC_PGUP,            KC_PGDN,      KC_MS_WH_UP,   MEH(KC_9),
-    MEH(KC_1), KC_MS_L,   KC_MS_D,                  KC_MS_R,                   MEH(KC_6),                    KC_DOWN,    RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), KC_MS_WH_DOWN, LALT(KC_LEFT),
-    MEH(KC_2), MEH(KC_3), WINDOWS10_WORKSPACE_LEFT, WINDOWS10_WORKSPACE_RIGHT, MEH(KC_7),                    MEH(KC_8),  RCTL(KC_1),         RCTL(KC_9),   KC_F6,         KC_F5,
-    KC_TRNS,   KC_TRNS,   KC_TRNS,                  KC_TRNS,                   KC_TRNS, KC_TRNS, RCTL(KC_W), RCTL(KC_T), RSFT(RCTL(KC_TAB)), KC_TRNS,      KC_TRNS,       KC_TRNS
+    MEH(KC_0), KC_BTN3,      KC_MS_U,            KC_BTN1,             KC_BTN2,                      KC_UP,      KC_PGUP,            KC_PGDN,      KC_MS_WH_UP,   MEH(KC_9),
+    MEH(KC_1), KC_MS_L,      KC_MS_D,            KC_MS_R,             MEH(KC_6),                    KC_DOWN,    RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), KC_MS_WH_DOWN, LALT(KC_LEFT),
+    MEH(KC_2), W10_TASKVIEW, W10_WORKSPACE_LEFT, W10_WORKSPACE_RIGHT, MEH(KC_7),                    MEH(KC_8),  RCTL(KC_1),         RCTL(KC_9),   KC_F6,         KC_F5,
+    KC_TRNS,   KC_TRNS,      KC_TRNS,            KC_TRNS,             KC_TRNS, KC_TRNS, RCTL(KC_W), RCTL(KC_T), KC_TRNS,             KC_TRNS,     KC_TRNS,       KC_TRNS
   ),
 };
 
@@ -112,11 +113,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING(SS_LCTRL("e"));
             return true;
 			break;
-    case WINDOWS10_WORKSPACE_LEFT:
+    case W10_TASKVIEW:
+        SEND_STRING(SS_LGUI(SS_TAP(X_TAB)));
+        return true;    
+        break;
+    case W10_WORKSPACE_LEFT:
         SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_LEFT))));
         return true;
         break;
-    case WINDOWS10_WORKSPACE_RIGHT:
+    case W10_WORKSPACE_RIGHT:
         SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_RIGHT))));
         break;      
 	}
