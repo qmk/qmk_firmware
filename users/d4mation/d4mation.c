@@ -16,6 +16,9 @@ void matrix_scan_keymap() {
     /* If you want a matrix scan specific to your keymap, you need to define this function in your keymap */
 }
 
+__attribute__((weak))
+void eeconfig_init_keymap( void ) {}
+
 /* process_record_user() is called in macros.c */
 
 void matrix_init_user( void ) {
@@ -24,4 +27,11 @@ void matrix_init_user( void ) {
 
 void matrix_scan_user( void ) {
     matrix_scan_keymap();
+}
+
+void eeconfig_init_user( void ) {
+
+    eeconfig_init_keymap();
+    keyboard_init();
+
 }
