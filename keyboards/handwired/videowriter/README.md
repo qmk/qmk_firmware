@@ -34,7 +34,7 @@ Videowriter has 8x10 matrix:
 | 9       |          |           | 62 RShift | 72 Undo   | 71 Help  | 70 Do     | 69 Right  | 68 Down |
 
 ## Separating Shift keys
-Initially left and right Shift keys are connected in parrallel. You need to cut the traces from right Shift (switch 62) and wire it to column 2 (switch 55, right pin) and row 9 (switch 71, bottom pin).
+Initially left and right Shift keys are connected in parrallel. You need to cut the traces from right Shift (switch 62) and wire it to column 2 (switch 65, right pin) and row 9 (switch 71, bottom pin).
 
 ![Right shift](https://i.imgur.com/ttdTVtC.jpg)
 
