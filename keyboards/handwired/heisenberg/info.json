@@ -1,12 +1,12 @@
 {
-  "keyboard_name": "Chotanck",
-  "keyboard_folder": "handwired/chotanck",
+  "keyboard_name": "Heisenberg",
+  "keyboard_folder": "handwired/heisenberg",
   "url": "https://github.com/Ardakilic",
   "maintainer": "Arda Kilicdagi",
   "width": 12,
   "height": 4,
   "layouts": {
-    "LAYOUT_chotanck_mit": {
+    "LAYOUT_heisenberg_mit": {
       "key_count": 47,
       "layout": [
         { "x": 0, "y": 0 },

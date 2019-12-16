@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID 0x0000
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Ardakilic
-#define PRODUCT Chotanck
+#define PRODUCT Heisenberg
 #define DESCRIPTION A handwired 40% ortholinear keyboard
 
 /* key matrix size */
@@ -100,11 +100,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /**
- * Chotanck-specific definitions
+ * Heisenberg-specific definitions
  */
 #define B5_AUDIO
 /**
- * Chotanck-specific definitions END
+ * Heisenberg-specific definitions END
  */
 
 
