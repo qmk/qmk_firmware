@@ -57,8 +57,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         /* Uncomment one of the below lines, determining where L-shift tap-toggles to on the BASE layer. */
 
 //#define LSHIFT_LAYER_RAR // Be warned and don't hold it against me if you accidentally hit 'Power' at the wrong moment.
-//#define LSHIFT_LAYER_MOV // Handy to have navigation on a toggle.
-#define LSHIFT_LAYER_DRA // Helps when using Control, Shift, Alt with a pointer device, to quickly go to a layer 
+#define LSHIFT_LAYER_MOV // Handy to have navigation on a toggle. Has unencumbered Control, Shift, Alt (see LSHIFT_LAYER_DRA).
+                         // _MOV is the least dangerous layer to accidentally activate.
+//#define LSHIFT_LAYER_DRA // Helps when using Control, Shift, Alt with a pointer device, to quickly go to a layer 
                          // .. where these modifiers are not delayed, and snap back with <Escape> (as it where).
                          // _DRA is also the least easy to access layer normally, on pinky which is sortof wrong.
                          // This would help alleviate it.
@@ -1532,7 +1533,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      -o-                                    <|>                                    ... // -o- BASE access
      Esc       '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL         Bksp
      Tab+LCtl  aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS           -_
-     LSht+_DRA ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN   // _FUN _MOV tap
+     LSht+_MOV ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN   // _FUN _MOV tap
      -------------------------------------------------------------------
      Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space  _NSY LGUI    Right;_DRA              // _XYZ is to layer
                hold     hold  hold      |        hold         hold                   // Layer switch type
@@ -1601,7 +1602,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      -o-                                    <|>                                   ...  //(to) BASE access
      Esc       qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP         Bksp
      Tab+LCtl  aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:           '"
-     LSft+_DRA zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft+_FUN   // _FUN _MOV tap
+     LSft+_MOV zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft+_FUN   // _FUN _MOV tap
      -------------------------------------------------------------------
      Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space  _NSY LGUI    Right;_DRA              // _XYZ is to layer
                hold     hold  hold      |        hold         hold                   // Layer switch type
@@ -1716,15 +1717,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
      Layer _MOV (MOVement, mouse movement on left hand)
     
-     <pinky2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-                           -*-              <|>                                        //(toggle) on _FUN
-     BASE      WLft  WDn   WUp   WRht  xxx   | Btn3  PgUp  Home  End   PgDn  Bksp
-     Tab+LCtl  MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
-     LSft      Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSft
+     <pinky2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
+                        -*-              <|>                                           //(toggle) on _FUN
+     BASE   WLft  WDn   WUp   WRht  xxx   | Btn3  PgUp  Home  End   PgDn  Bksp
+     LCtl   MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
+     LSft   Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSft
      ---------------------------------------------------------
-     Left+LAlt Del   Ent   ___ | PgUp  PgDn  LGUI   Right+RAlt
-                           -*-<|>                                                        //(hold) on BASE
-     <1        <2    <3    <4  | 4>    3>    2>    1>  
+     LAlt Del   Ent   ___ | PgUp  PgDn  LGUI  RAlt
+                      -*-<|>                                                             //(hold) on BASE
+     <1   <2    <3    <4  | 4>    3>    2>    1>  
  */
 
          /* Inner default navigation/mouse layout. 11 means row 1, column 1, etc.
@@ -1868,16 +1869,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     #define RGHT_CE MOUS_35
 #endif
 
-//      <pink2            , <pinky  , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>  ,
-//                        ,         ,         , -*-     ,         ,       <|,>        ,         ,         ,         ,         ,         ,
-        CTO_BASE          , LEFT_AA , LEFT_AB , LEFT_AC , LEFT_AD , LEFT_AE , RGHT_AA , RGHT_AB , RGHT_AC , RGHT_AD , RGHT_AE , KC_BSPC ,
-        LCTL_T ( KC_TAB ) , LEFT_BA , LEFT_BB , LEFT_BC , LEFT_BD , LEFT_BE , RGHT_BA , RGHT_BB , RGHT_BC , RGHT_BD , RGHT_BE , KC_RCTL ,
-        KC_LSFT           , LEFT_CA , LEFT_CB , LEFT_CC , LEFT_CD , LEFT_CE , RGHT_CA , RGHT_CB , RGHT_CC , RGHT_CD , RGHT_CE , KC_RSFT ,
-
+//      <pink2   , <pinky  , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>  ,
+//               ,         ,         , -*-     ,         ,       <|,>        ,         ,         ,         ,         ,         ,
+        CTO_BASE , LEFT_AA , LEFT_AB , LEFT_AC , LEFT_AD , LEFT_AE , RGHT_AA , RGHT_AB , RGHT_AC , RGHT_AD , RGHT_AE , KC_BSPC ,
+        KC_LCTL  , LEFT_BA , LEFT_BB , LEFT_BC , LEFT_BD , LEFT_BE , RGHT_BA , RGHT_BB , RGHT_BC , RGHT_BD , RGHT_BE , KC_RCTL ,
+        KC_LSFT  , LEFT_CA , LEFT_CB , LEFT_CC , LEFT_CD , LEFT_CE , RGHT_CA , RGHT_CB , RGHT_CC , RGHT_CD , RGHT_CE , KC_RSFT ,
 //      ---------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , KC_DEL  , KC_ENT , _______ , KC_PGUP , KC_PGDN , KC__YGUI , RALT_T ( KC_RGHT )
-//                         ,         ,        , -*-   <|,>        ,         ,          ,
-//      <1                 , <2      , <3     , <4     |, 4>      , 3>      , 2>       , 1>
+        KC_LALT , KC_DEL  , KC_ENT , _______ , KC_PGUP , KC_PGDN , KC__YGUI , KC_RALT
+//              ,         ,        , -*-   <|,>        ,         ,          ,
+//      <1      , <2      , <3     , <4     |, 4>      , 3>      , 2>       , 1>
                       ),
 
         /**/

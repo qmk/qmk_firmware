@@ -96,15 +96,15 @@ from ../jetpacktuxedo/ keymap.
      -o-                                    <|>                                    ... // -o- BASE access
      Esc       '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL         Bksp
      Tab+LCtl  aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS           -_
-     LSht+_DRA ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN   // _FUN _MOV tap
+     LSht+_MOV ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN   // _FUN _MOV tap
      -------------------------------------------------------------------
      Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space  _NSY LGUI    Right;_DRA              // _XYZ is to layer
                hold     hold  hold      |        hold         hold                   // Layer switch type
      <1        <2       <3    <4        | 4>     3>   2>      1>                        // Keys by number
 
-Remarks: The 'Tab' on Left-Control causes a slight delay for using Control in combination with a mouse.
+Remarks: The left modifiers have a slight delay in combination with an outside pointer device (mouse, stylus).
 It seems this will be difficult to fix, because it is spread over two devices. To avoid the
-±0.2 second delay, activate a layer where Left-Control is direct, such as toggle to `_DRA` on left shift.
+±0.2 second delay, activate a layer where the modifiers are direct, such as the layer toggle on left shift. 
 
 The two keys with ';' (Del;`_ACC`, Right;`_DRA`) do not auto-repeat on double tap, like QMK normal layer-tap keys.
 There is an uncluttered _Delete_ and _Right_ on the `_NSY` or `_MOV` layer respectively.
@@ -151,18 +151,18 @@ or staying on the `_FUN` layer. Default: return to BASE.
     
      Layer _MOV (MOVement, mouse movement on left hand)
     
-     <pinky2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-                           -*-              <|>                                        //(toggle) on _FUN
-     BASE      WLft  WDn   WUp   WRht  xxx   | Btn3  PgUp  Home  End   PgDn  Bksp
-     Tab+LCtl  MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
-     LSft      Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSft
+     <pinky2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
+                        -*-              <|>                                           //(toggle) on _FUN
+     BASE   WLft  WDn   WUp   WRht  xxx   | Btn3  PgUp  Home  End   PgDn  Bksp
+     LCtl   MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
+     LSft   Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSft
      ---------------------------------------------------------
-     Left+LAlt Del   Ent   ___ | PgUp  PgDn  LGUI   Right+RAlt
-                           -*-<|>                                                        //(hold) on BASE
-     <1        <2    <3    <4  | 4>    3>    2>    1>  
+     LAlt Del   Ent   ___ | PgUp  PgDn  LGUI  RAlt
+                      -*-<|>                                                             //(hold) on BASE
+     <1   <2    <3    <4  | 4>    3>    2>    1>  
 
-Remarks. It is fairly easy to switch from this vim-like layout, to a wasd layout, and/or
-to switch left with right hand. See `ARROW_TRIANGLE` and `ARROW_LEFT` #defines at the top of keymap.c.
+Remarks. It is fairly easy to switch from this horizontal arrow layout, to a wasd layout which also
+switches left with right hand. See `ARROW_TRIANGLE` and `ARROW_LEFT` #defines at the top of keymap.c.
 
 - - -
     
@@ -274,7 +274,7 @@ Remarks. This layer is seamlessly activated with 'descramble'
      -o-                                    <|>                                   ...  //(to) BASE access
      Esc       qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP         Bksp
      Tab+LCtl  aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:           '"
-     LSft+_DRA zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft+_FUN   // _FUN _MOV tap
+     LSft+_MOV zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft+_FUN   // _FUN _MOV tap
      -------------------------------------------------------------------
      Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space  _NSY LGUI    Right;_DRA              // _XYZ is to layer
                hold     hold  hold      |        hold         hold                   // Layer switch type
