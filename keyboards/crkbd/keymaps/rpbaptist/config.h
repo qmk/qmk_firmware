@@ -33,11 +33,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef USE_I2C
 #define USE_SERIAL_PD2
 
-#define FORCE_NKRO
+// #define FORCE_NKRO
 
 #define QMK_ESC_OUTPUT F4  // usually COL
 #define QMK_ESC_INPUT D4   // usually ROW
 #define QMK_LED B0
+
+#define NO_ACTION_ONESHOT
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED true  // turn off effects when suspended
@@ -86,8 +88,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define DISABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
 #    define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
 
-#    define DISABLE_RGB_MATRIX_SPLASH
-// #define DISABLE_RGB_MATRIX_MULTISPLASH
+// #    define DISABLE_RGB_MATRIX_SPLASH
+#    define DISABLE_RGB_MATRIX_MULTISPLASH
 #    define DISABLE_RGB_MATRIX_SOLID_SPLASH
 #    define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
 

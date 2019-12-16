@@ -19,7 +19,7 @@ enum custom_keycodes {
     RGB_UND,  // Toggle RGB underglow as layer indicator
     RGB_IDL,  // RGB Idling animations
     RGB_MAP,  // RGB_MATRIX_TYPING_HEATMAP
-    RGB_SPL,  // RGB_MATRIX_MULTISPLASH
+    RGB_SPL,  // RGB_MATRIX_SPLASH
     RGB_SOL,  // RGB_MATRIX_SOLID_COLOR
     RGB_CYC,  // RGB_MATRIX_CYCLE_ALL
     RGB_DUO,  // RGB_MATRIX_RAINBOW_PINWHEELS
@@ -200,7 +200,7 @@ const char *rgb_matrix_anim_oled_text(uint8_t mode) {
     switch (mode) {
         case RGB_MATRIX_TYPING_HEATMAP:
             return PSTR("Heat ");
-        case RGB_MATRIX_MULTISPLASH:
+        case RGB_MATRIX_SPLASH:
             return PSTR("Splsh");
         case RGB_MATRIX_SOLID_COLOR:
             return PSTR("Solid");
@@ -299,8 +299,10 @@ void oled_task_user(void) {
         render_status();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_crkbd_logo();
-        if (rgb_matrix_get_mode() == user_config.rgb_matrix_idle_mode) {
+        if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == user_config.rgb_matrix_idle_mode) {
             oled_scroll_left();  // Turns on scrolling
+        } else {
+          oled_scroll_off();
         }
     }
 }
@@ -538,7 +540,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case RGB_SPL:
             if (record->event.pressed) {
-                rgb_matrix_update_mode(RGB_MATRIX_MULTISPLASH, RGB_MATRIX_ANIMATION_SPEED_DEFAULT, true);
+                rgb_matrix_update_mode(RGB_MATRIX_SPLASH, RGB_MATRIX_ANIMATION_SPEED_DEFAULT, true);
             }
             break;
         case RGB_SOL:
