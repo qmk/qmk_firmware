@@ -1,29 +1,25 @@
-#ifndef MITOSIS_H
-#define MITOSIS_H
-
+#pragma once
 #include "quantum.h"
 
 // port,pin assignments for LED indicators
-#define led_red   F, 5
+#define led_red   F5
 #ifdef MITOSIS_DATAGROK_I2CHACK
-#define led_green D, 4
+#define led_green D4
 #else
-#define led_green D, 1
+#define led_green D1
 #endif
-#define led_blue  F, 4
-#define led_tx    D, 5
-#define led_rx    B, 0
+#define led_blue  F4
+#define led_tx    D5
+#define led_rx    B0
 
 // led_init_pin(name): sets the pin for the named LED to output mode
-#define __led_init_pin(port, pin) DDR ## port |= (1<<pin)
-#define _led_init_pin(portpin) __led_init_pin(portpin)
+#define _led_init_pin(pin) setPinOutput(pin)
 #define led_init_pin(name) _led_init_pin(led_ ## name)
 
 // led(name, state): sets the named LED to state, where state is on or off
-#define _led_off(port, pin) PORT ## port |= (1<<pin)
-#define _led_on(port, pin) PORT ## port &= ~(1<<pin)
-#define _led(portpin, state) _led_ ## state (portpin)
-#define led(name, state) _led(led_ ## name, state)
+#define _led_off(pin) writePinHigh(pin)
+#define _led_on(pin) writePinLow(pin)
+#define led(name, state) _led_ ## state (led_ ## name)
 
 // convenience macros to set the RGB LED to a specific color
 #define set_led_off     led(red, off); led(green, off); led(blue, off)
@@ -52,4 +48,3 @@
     { KC_NO, k31, k32, k33, k34, k35, k36, k37, k38, KC_NO }, \
     { KC_NO, k41, k42, k43, k44, k45, k46, k47, k48, KC_NO }  \
   }
-#endif
