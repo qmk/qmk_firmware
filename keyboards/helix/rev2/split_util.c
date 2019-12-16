@@ -20,7 +20,7 @@
 #endif
 
 #ifndef SPLIT_USB_TIMEOUT
-  #define SPLIT_USB_TIMEOUT 2000
+#    define SPLIT_USB_TIMEOUT 2000
 #endif
 
 #ifndef SPLIT_USB_TIMEOUT_POLL
@@ -31,7 +31,7 @@ volatile bool isLeftHand = true;
 
 bool waitForUsb(void) {
     for (uint8_t i = 0; i < (SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL); i++) {
-        // This will return true of a USB connection has been established
+        // This will return true if a USB connection has been established
         if (UDADDR & _BV(ADDEN)) {
             return true;
         }
