@@ -5,9 +5,7 @@ AUDIO_ENABLE = yes
 WS2812_DRIVER = bitbang
 
 # Force task driven PWM until ARM can provide automatic configuration
-ifneq ($(strip $(BACKLIGHT_ENABLE)), no)
-	BACKLIGHT_ENABLE = software
-endif
+BACKLIGHT_DRIVER = software
 
 # The rest of these settings shouldn't change
 
