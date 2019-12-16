@@ -66,7 +66,6 @@ typedef union {
 } user_config_t;
 
 user_config_t user_config;
-bool caps_active = false;
 
 // toggle one of the range flag bits
 void toggle_led_state(unsigned int led_range) {
