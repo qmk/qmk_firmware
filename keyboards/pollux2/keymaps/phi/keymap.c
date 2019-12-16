@@ -151,19 +151,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+int rotation = 0;
+
 void matrix_scan_user (void) {
     static uint32_t last_layer_state = ~0;
 
     if (layer_state != last_layer_state) {
-        if (LAYER_ON(RAISE)) {
-            rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE);
-            rgb_matrix_sethsv_noeeprom(10, 190, 140);
+        if (LAYER_ON(MICROWRITER)) {
+            rgb_matrix_sethsv_noeeprom(
+                rgb_matrix_config.hsv.h + 60,
+                rgb_matrix_config.hsv.s,
+                rgb_matrix_config.hsv.v
+            );
+            rotation += 60;
         } else {
-            rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE);
-            rgb_matrix_sethsv_noeeprom(20, 190, 140);
+            rgb_matrix_sethsv_noeeprom(
+                rgb_matrix_config.hsv.h - rotation,
+                rgb_matrix_config.hsv.s,
+                rgb_matrix_config.hsv.v
+            );
+            rotation = 0;
         }
         last_layer_state = layer_state;
     }
+}
+
+void keyboard_post_init_user () {
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE);
+    rgb_matrix_sethsv_noeeprom(20, 190, rgb_matrix_config.hsv.v);
+    /* rgb_matrix_sethsv_noeeprom(128, 40, rgb_matrix_config.hsv.v); */
 }
 
 bool process_record_keymap (uint16_t keycode, keyrecord_t *record) {
