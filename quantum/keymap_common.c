@@ -48,13 +48,10 @@ action_t action_for_key(uint8_t layer, keypos_t key) {
     // keycode remapping
     keycode = keycode_config(keycode);
 
-    action_t action;
+    action_t action = {};
     uint8_t  action_layer, when, mod;
 
     switch (keycode) {
-        case KC_FN0 ... KC_FN31:
-            action.code = keymap_function_id_to_action(FN_INDEX(keycode));
-            break;
         case KC_A ... KC_EXSEL:
         case KC_LCTRL ... KC_RGUI:
             action.code = ACTION_KEY(keycode);
@@ -65,9 +62,11 @@ action_t action_for_key(uint8_t layer, keypos_t key) {
         case KC_AUDIO_MUTE ... KC_BRIGHTNESS_DOWN:
             action.code = ACTION_USAGE_CONSUMER(KEYCODE2CONSUMER(keycode));
             break;
+#ifdef MOUSEKEY_ENABLE
         case KC_MS_UP ... KC_MS_ACCEL2:
             action.code = ACTION_MOUSEKEY(keycode);
             break;
+#endif
         case KC_TRNS:
             action.code = ACTION_TRANSPARENT;
             break;
@@ -76,17 +75,24 @@ action_t action_for_key(uint8_t layer, keypos_t key) {
             // Split it up
             action.code = ACTION_MODS_KEY(keycode >> 8, keycode & 0xFF);  // adds modifier to key
             break;
+#ifndef NO_ACTION_FUNCTION
+        case KC_FN0 ... KC_FN31:
+            action.code = keymap_function_id_to_action(FN_INDEX(keycode));
+            break;
         case QK_FUNCTION ... QK_FUNCTION_MAX:;
             // Is a shortcut for function action_layer, pull last 12bits
             // This means we have 4,096 FN macros at our disposal
             action.code = keymap_function_id_to_action((int)keycode & 0xFFF);
             break;
+#endif
+#ifndef NO_ACTION_MACRO
         case QK_MACRO ... QK_MACRO_MAX:
             if (keycode & 0x800)  // tap macros have upper bit set
                 action.code = ACTION_MACRO_TAP(keycode & 0xFF);
             else
                 action.code = ACTION_MACRO(keycode & 0xFF);
             break;
+#endif
         case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
             action.code = ACTION_LAYER_TAP_KEY((keycode >> 0x8) & 0xF, keycode & 0xFF);
             break;
