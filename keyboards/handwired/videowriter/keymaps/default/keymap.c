@@ -18,8 +18,7 @@
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
     _BASE,
-    _FN1,
-    _FN2
+    _FN1
 };
 
 // Example of custom keycodes used by macros in process_record_user

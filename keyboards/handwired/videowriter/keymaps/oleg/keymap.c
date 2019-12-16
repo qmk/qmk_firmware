@@ -106,8 +106,3 @@ void matrix_init_user(void) {
   set_unicode_input_mode(UC_WIN);
 }
 
-/*
-void matrix_scan_user(void) {
-
-}
-*/
