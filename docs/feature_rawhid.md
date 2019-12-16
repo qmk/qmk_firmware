@@ -22,7 +22,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 ```
 
 The `"raw_hid.h"` header also includes `void raw_hid_send(uint8_t *data, uint8_t length);`
-which allows sending packets from keyboard to host. It can be used for debugging when building your host by returning all data back to host to test communication.
+which allows sending packets from keyboard to host. It can also be used for debugging when building your host by returning all data back to host to test communication.
 
 ```C
 void raw_hid_receive(uint8_t *data, uint8_t length) {
@@ -30,7 +30,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 }
 ```
 
-All Raw HID packets by default have size `RAW_EPSIZE` which is `32 bytes`, the actual length is determined by `uint8_t length` both when sending and receiving.
+`raw_hid_receive` can receive variable size packets from host with maximum length `RAW_EPSIZE`. `raw_hid_send` on the other hand can send packets to host of exactly `RAW_EPSIZE` length, therefore it should be used with data of length `RAW_EPSIZE`.
 
 Make sure to flash raw enabled firmware before proceeding with working on the host side.
 
