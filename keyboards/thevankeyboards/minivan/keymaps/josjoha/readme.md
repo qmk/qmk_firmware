@@ -29,7 +29,7 @@ from ../jetpacktuxedo/ keymap.
       • navigation, numbers other hand, (Led: green/blue)      _REV "REVerse hands"
       • accented characters é, ø, ß ... (Led: cyan 2x)         _ACC "ACCented"
       • Unicode symbols, etc etc.       (Led: yellow 2x)       _DRA "DRAwings"
-     Descramble _Computer_ set Dvorak: 
+     Descramble _Computer_ set Dvorak (activate automatic as drop-ins for above layers)
       • Unicode symbols, etc            (Led: cyan/low-white)  _DDD "Descramble Drawings"
       • accented characters             (Led: yellow/low-white)_DDA "Descramble Accented"
       • numbers                         (Led: blue/low-white)  _DDL "Descramble Numbers"
@@ -49,9 +49,9 @@ from ../jetpacktuxedo/ keymap.
  
   All normal use layer switching is by thumb buttons on the base layer,
   mostly temporary. The layers can be set to be on persistently through
-  the `_FUN` layer top row toggles. A few rarely used layers can only
-  be reached by `_FUN` layer toggle. From each layer one can go back
-  to the BASE layer by pressing the upper/left most button.
+  the `_FUN` layer top row toggles. A few layers can only be reached by
+  `_FUN` layer toggle. From each layer one can go back to the BASE layer
+  by pressing the upper/left most button.
 
   'Descramble' mode
   -----------------
@@ -61,15 +61,15 @@ from ../jetpacktuxedo/ keymap.
 
   The keys on `_FUN` to layers that have a 'descramble' twin, switch to
   the normal layer variant in normal mode, and to the 'descramble' 
-  variant when in 'descramble' mode. The same is the case for the base
-  layers `_LTR` (normal) and `_DDL` (descramble).
+  variant when in 'descramble' mode. This includes the base layers
+  `_LTR` (normal) and `_DDL` (descramble).
 
   Activation: go to `_FUN` layer, touch the upper/right key (Backspace 
   on base layer). This cycles through the descramble modes.
 
-  ⮚ When the left led is white: normal mode.
-  ⮚ Right led white: full descramble mode (Linux descrambled Unicode input).
-  ⮚ Middle led white: half descramble mode, with normal Unicode input system.
+      ⮚ When the left led is white: normal mode.
+      ⮚ Right led white: full descramble mode (Linux descrambled Unicode input).
+      ⮚ Middle led white: half descramble mode, with normal Unicode input system.
 
   With the middle led set to white, you can take advantage of a Unicode
   input mode that works on your system, if it is the same when the
@@ -104,7 +104,7 @@ from ../jetpacktuxedo/ keymap.
 
 Remarks: The left modifiers have a slight delay in combination with an outside pointer device (mouse, stylus).
 It seems this will be difficult to fix, because it is spread over two devices. To avoid the
-±0.2 second delay, activate a layer where the modifiers are direct, such as the layer toggle on left shift. 
+±0.2 second delay, activate a layer where the modifiers are direct, using the layer toggle on left shift. 
 
 The two keys with ';' (Del;`_ACC`, Right;`_DRA`) do not auto-repeat on double tap, like QMK normal layer-tap keys.
 There is an uncluttered _Delete_ and _Right_ on the `_NSY` or `_MOV` layer respectively.
@@ -169,11 +169,11 @@ switches left with right hand. See `ARROW_TRIANGLE` and `ARROW_LEFT` #defines at
     
      _RAR (RARely used keys) (Only through _FUN layer)
     
-     <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-                             -*-        <|>                                            //(toggle) on _FUN
-     BASE  xxx   xxx   xxx   xxx   xxx   | xxx   Play  Next  Prev  Stop  NumL
-     P     Power Wake  Sleep Pause ScrLk | PrtSc xxx   Vol+  Vol-  Mute  CapL        // P(ower) indicator
-     Ü     uLNX  uBSD  uOSX  uWIN  uWNC  | xxx   xxx   xxx   xxx   xxx Insert         // Ü(nicode) tester
+     <pink2<pinky <ring <middl <indexx<indx2| indx2>index>middl>ring> pinky> pink2>
+                               -*-         <|>                                         //(toggle) on _FUN
+     BASE  xxx    xxx   xxx    xxx    xxx   | xxx   Play  Next  Prev  Stop   NumL
+     P     Power• Wake• Sleep• Pause• ScrLk | PrtSc xxx   Vol+  Vol-  Mute   CapL     // • requires Shift
+     Ü     uLNX   uBSD  uOSX   uWIN   uWNC  | xxx   xxx   xxx   xxx   Insert RSft(•)  // Ü(nicode) tester
      ----------------------------------------------
      MLed  SLeds xxx   xxx  | xxx   xxx   xxx   App                      // Middle-led, Side-leds: on/off
                            <|>
@@ -184,6 +184,9 @@ for BSD Unix, uWIN for Windos, uWNC for another Windos encoding. The
 change is retained between on/off power cycles.
 
 MLed switches on/off the middle led, SLeds switches on/off the side leds.
+
+The keys marked with • require Shift to be activated, as a means of preventing 
+accidents. The 'P' key in front is meant as a memory assist, it prints the letter.
 
 - - -
     
@@ -340,7 +343,7 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   
      (…)
      Checking file size of thevankeyboards_minivan_josjoha.hex               [WARNINGS]
-     * The firmware size is approaching the maximum - 28068/28672 (97%, 604 bytes free)
+     * The firmware size is approaching the maximum - 28340/28672 (98%, 332 bytes free)
 
 
 

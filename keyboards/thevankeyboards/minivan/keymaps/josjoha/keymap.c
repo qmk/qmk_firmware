@@ -475,6 +475,10 @@ enum custom_keycodes {
     CHOLTAP_LSHFT,
     CHOLTAP_DRAW,
     _FUN_STAY,
+    C_KC_PWR, 
+    C_KC_WAKE,
+    C_KC_SLEP,
+    C_KC_PAUS,
     LEDS_ON,
     //
     // For descramble BASE layer set. These need to be 'costum' keycodes, which seems to prevent
@@ -1050,6 +1054,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
+        // These keys are so dangerous that they are behind a shift lock.
+        // Although the layer is already a bit hard to reach, the media keys might be used.
+        case C_KC_PWR: 
+            if (record->event.pressed) { // key down
+                if (shift_ison) { 
+                    SEND_STRING (SS_TAP (X_PWR)); 
+                }
+            }
+            break;
+        case C_KC_WAKE:
+            if (record->event.pressed) { // key down
+                if (shift_ison) { 
+                    SEND_STRING (SS_TAP (X_WAKE)); 
+                }
+            }
+            break;
+        case C_KC_SLEP:
+            if (record->event.pressed) { // key down
+                if (shift_ison) { 
+                    SEND_STRING (SS_TAP (X_SLEP)); 
+                }
+            }
+            break;
+        case C_KC_PAUS:
+            if (record->event.pressed) { // key down
+                if (shift_ison) { 
+                    SEND_STRING (SS_TAP (X_PAUS)); 
+                }
+            }
+            break;
+
         case LEDS_ON: // Toggles leds on or off
             if (record->event.pressed) { // key down
                 if (leds_on == FALSE) { 
@@ -1906,11 +1941,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
      _RAR (RARely used keys) (Only through _FUN layer)
     
-     <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-                             -*-        <|>                                            //(toggle) on _FUN
-     BASE  xxx   xxx   xxx   xxx   xxx   | xxx   Play  Next  Prev  Stop  NumL
-     P     Power Wake  Sleep Pause ScrLk | PrtSc xxx   Vol+  Vol-  Mute  CapL        // P(ower) indicator
-     Ü     uLNX  uBSD  uOSX  uWIN  uWNC  | xxx   xxx   xxx   xxx   xxx Insert         // Ü(nicode) tester
+     <pink2<pinky <ring <middl <indexx<indx2| indx2>index>middl>ring> pinky> pink2>
+                               -*-         <|>                                         //(toggle) on _FUN
+     BASE  xxx    xxx   xxx    xxx    xxx   | xxx   Play  Next  Prev  Stop   NumL
+     P     Power• Wake• Sleep• Pause• ScrLk | PrtSc xxx   Vol+  Vol-  Mute   CapL     // • requires Shift
+     Ü     uLNX   uBSD  uOSX   uWIN   uWNC  | xxx   xxx   xxx   xxx   Insert RSft(•)  // Ü(nicode) tester
      ----------------------------------------------
      MLed  SLeds xxx   xxx  | xxx   xxx   xxx   App                      // Middle-led, Side-leds: on/off
                            <|>
@@ -1921,8 +1956,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      <pink2        , <pinky           , <ring            , <middl           , <index           , <indx2           |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>  ,
 //                    ,                  ,                  ,                  , -*-              ,                 <|,>        ,         ,         ,         ,         ,         ,
         CTO_BASE      , XXXXXXX          , XXXXXXX          , XXXXXXX          , XXXXXXX          , XXXXXXX           , XXXXXXX , KC_MPLY , KC_MNXT , KC_MPRV , KC_MSTP , KC_NLCK ,
-        S ( KC_P )    , KC_PWR           , KC_WAKE          , KC_SLEP          , KC_PAUS          , KC_SLCK           , KC_PSCR , XXXXXXX , KC_VOLU , KC_VOLD , KC_MUTE , KC_CAPS ,
-        X ( CUU_DIA ) , UNICODE_MODE_LNX , UNICODE_MODE_BSD , UNICODE_MODE_OSX , UNICODE_MODE_WIN , UNICODE_MODE_WINC , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_INS  ,
+        S ( KC_P )    , C_KC_PWR         , C_KC_WAKE        , C_KC_SLEP        , C_KC_PAUS        , KC_SLCK           , KC_PSCR , XXXXXXX , KC_VOLU , KC_VOLD , KC_MUTE , KC_CAPS ,
+        X ( CUU_DIA ) , UNICODE_MODE_LNX , UNICODE_MODE_BSD , UNICODE_MODE_OSX , UNICODE_MODE_WIN , UNICODE_MODE_WINC , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_INS  , KC_RSFT ,
 //      ----------------------------------------------------------------------------
         RGB_TOG , LEDS_ON , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_APP
 //              ,         ,         ,       <|,>        ,         ,         ,
