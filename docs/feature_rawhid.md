@@ -106,7 +106,7 @@ You can build your host using any language that has an available HID implementat
 * Java: [purejavahidapi](https://github.com/nyholku/purejavahidapi) and [hid4java](https://github.com/gary-rowe/hid4java).
 * Python: [pyhidapi](https://pypi.org/project/hid/).
 
-This is not an exhaustive cross-platofrm list but should get you started. There are no special requirements for using raw HID so any HID library should work.
+This is not an exhaustive cross-platform list but should get you started. There are no special requirements for using raw HID so any HID library should work.
 
 Now that you have all four pieces of information required to open HID interface to your keyboard. All you need to do is use your library's available functions to open the device with these parameters.
 
