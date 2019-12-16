@@ -34,7 +34,7 @@ All Raw HID packets by default have size `RAW_EPSIZE` which is `32 bytes`, the a
 
 Make sure to flash raw enabled firmware before proceeding with working on the host side.
 
-## Host (PC/Mac/Linux)
+## Host (Windows/macOS/Linux)
 
 This is the more complicated part as it will require some digging.
 
