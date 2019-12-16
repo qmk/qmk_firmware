@@ -1,6 +1,6 @@
 #pragma once
 
-#define USE_BABLPASTE
+//#define USE_BABLPASTE
 
 // Expect to get errors if you comment a feature out and leave it in your keymap.
 
@@ -26,3 +26,24 @@
 //#define BABL_NOBROWSER
 
 // place overrides here
+#define RGBLED_NUM 2
+
+
+#define RGBLIGHT_LIMIT_VAL 200
+#ifdef RGBLIGHT_ENABLE
+#define RGBLIGHT_COLOR_LAYER_0 0x00, 0xFF, 0x00
+#define RGBLIGHT_COLOR_LAYER_1 0x00, 0x00, 0xFF 
+#define RGBLIGHT_COLOR_LAYER_2 0xFF, 0x00, 0x00 
+#define RGBLIGHT_COLOR_LAYER_3 0x00, 0xFF, 0xFF 
+#define RGBLIGHT_COLOR_LAYER_4 0xFF, 0xFF, 0x00 
+#define RGBLIGHT_COLOR_LAYER_5 0x00, 0xFF, 0xFF 
+#define RGBLIGHT_ANIMATIONS
+#define RGB_LIGHT_EFFECT_BREATHE_MAX 200
+#define RGBLIGHT_RAINBOW_SWIRL_RANGE 127
+#endif // rgblight
+
+#define TAPPING_TERM 200
+#define TAPPING_TERM_PER_KEY
+#define RETRO_TAPPING
+//#define PERMISSIVE_HOLD
+//# RAW_ENABLE

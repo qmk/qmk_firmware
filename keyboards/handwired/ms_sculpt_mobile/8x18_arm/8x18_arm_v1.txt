@@ -1,0 +1,45 @@
+ribbon pin,  teensy chip pin,	bluepill,	teensy2++
+// Chip pin is correct for teensy / ignore standard bluepill ordering & assume 1 is left of usb
+// ribbon pin may or may not be the column pin2222222222222222
+
+NC		1	B12	
+pin 7	2	B13
+row 6	3	B14	remap a12 / row 6 (jumper rev0)
+row 1	4	B15	
+row 2	5	A8	
+row 3rx	6	A9	
+row 4tx	7	a10	
+(row5)		8   usb	   a11/usb- row 5 rev0 board
+(row6)S    	9   usb   a12/usb+ row 6 rev0 board
+row 7	10	a15	
+row 8	11	b3	 needs _SWJ_JTAGDISABLE) to work. 
+pin 1	12	b4	
+pin 2 	13	b5	
+pin 3	14	b6	
+pin 4	15	b7	
+pin 5	16	b8	
+pin 6	17	b9	
++5 		18	+5v	
+GND		19	GND	
+NC		20	+3.3v	
+NC		21	bat	
+NC		22	c13	  bluepill LED.
+NC		23	c14	   
+pin 18	24	c15	
+pin 17	25	a0	
+pin 16	26	a1	
+pin 15	27	a2	
+pin 14	28	a3	
+row 5	29	a4	remapped from a11 (jumper rev0)
+NC      30	a5	
+pin 13	31	a6	
+pin 12	32	a7
+pin 11	33	b0
+pin 10	34	b1	
+pin 9	35	b10	
+pin 8	36	b11	
+NC		37	reset
+NC		38	+3.3v
+NC		39	GND
+NC		40	GND
+			
