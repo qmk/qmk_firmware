@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    zk-phi
 #define PRODUCT         Gemini
-#define DESCRIPTION     A split 3x6 semi-symmetric row staggered with 2 thumb keys.
+#define DESCRIPTION     A split 3x6 matrix-staggered with 2 thumb keys.
 
 /* key matrix size */
 // Rows are doubled-up
