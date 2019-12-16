@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef USE_I2C
 #define USE_SERIAL_PD2
 
-#define FORCE_NKRO
+// #define FORCE_NKRO
 
 #define QMK_ESC_OUTPUT F4  // usually COL
 #define QMK_ESC_INPUT D4   // usually ROW
