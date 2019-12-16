@@ -35,19 +35,19 @@ uint8_t layer_image [][DRIVER_LED_TOTAL] = {
         ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___,
         MOD, ___, ___, MOD, MOD, ___, ___, ___, ___, ___, ___, ___,
         MOD, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___,
-        /*               */ MOD, ___, ___, MOD
+        /*               */ MOD, FN1, FN1, MOD
     ),
     [RAISE] = LED_LAYOUT(
         FN2, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, FN1,
         XXX, XXX, XXX, FN1, FN1, FN1, FN1, FN1, FN1, XXX, FN1, FN1,
-        MOD, ___, ___, ___, ___, ___, ___, ___, ___, XXX, XXX, FN1,
-        /*               */ FN2, FN2, XXX, MOD
+        XXX, ___, ___, ___, ___, ___, ___, ___, ___, XXX, XXX, FN1,
+        /*               */ MOD, MOD, FN2, MOD
     ),
     [FUNCTION] = LED_LAYOUT(
         XXX, ___, ___, ___, ___, ___, ___, ___, ___, ___, FN2, XXX,
         XXX, FN1, FN1, FN1, FN1, MOD, XXX, XXX, XXX, XXX, XXX, XXX,
-        MOD, FN1, FN1, FN1, FN1, XXX, XXX, XXX, XXX, XXX, XXX, XXX,
-        /*               */ XXX, FN2, XXX, MOD
+        XXX, FN1, FN1, FN1, FN1, XXX, XXX, XXX, XXX, XXX, XXX, XXX,
+        /*               */ FN2, MOD, XXX, XXX
     ),
     [MOUSE] = LED_LAYOUT(
         XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX,
@@ -72,6 +72,12 @@ uint8_t layer_image [][DRIVER_LED_TOTAL] = {
         XXX, XXX, XXX, MOD, MOD, XXX, FN1, FN1, FN1, FN1, XXX, XXX,
         XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX,
         /*               */ XXX, XXX, XXX, XXX
+    ),
+    [MICROWRITER] = LED_LAYOUT(
+        XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX,
+        XXX, XXX, XXX, XXX, XXX, XXX, XXX, FN1, FN1, FN1, FN1, XXX,
+        XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX,
+        /*               */ XXX, XXX, FN1, FN2
     ),
 };
 
@@ -123,6 +129,8 @@ static bool my_effect (effect_params_t* params) {
             set_color_internal(i, layer_image[CURSOR_ACCL][i]);
         } else if (LAYER_ON(CURSOR)) {
             set_color_internal(i, layer_image[CURSOR][i]);
+        } else if (LAYER_ON(MICROWRITER)) {
+            set_color_internal(i, layer_image[MICROWRITER][i]);
         } else {
             set_color_internal(i, layer_image[0][i]);
         }
