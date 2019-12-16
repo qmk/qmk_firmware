@@ -47,16 +47,7 @@ bool process_record_user( uint16_t keycode, keyrecord_t *record ) {
 
       if ( record->event.pressed ) {
 
-        process_unicode( ( 0x0F3C|QK_UNICODE ), record );  /* Head */
-        tap_code( KC_SPACE );
-        process_unicode( ( 0x3064|QK_UNICODE ), record );  /* Hand */
-        tap_code( KC_SPACE );
-        process_unicode( ( 0x25D5|QK_UNICODE ), record );  /* Eye */
-        tap_code16( S( KC_MINS ) );                        /* Mouth */
-        process_unicode( ( 0x25D5|QK_UNICODE ), record );  /* Eye */
-        tap_code( KC_SPACE );
-        process_unicode( ( 0x0F3D|QK_UNICODE ), record );  /* Head */
-        process_unicode( ( 0x3064|QK_UNICODE ), record );  /* Hand */
+        send_unicode_hex_string( "0F3C 0020 3064 0020 25D5 005F 25D5 0020 0F3D 3064" );
 
       }
 
@@ -66,28 +57,8 @@ bool process_record_user( uint16_t keycode, keyrecord_t *record ) {
     case MAGIC:  /* (∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ. * */
 
       if ( record->event.pressed ) {
-        
-        tap_code16( S( KC_9 ) );                            /* Head */
-        process_unicode( ( 0x2229|QK_UNICODE ), record );   /* Hand */
-        tap_code( KC_SPC );
-        process_unicode( ( 0x0361|QK_UNICODE ), record );   /* Eyebrow */
-        process_unicode( ( 0x00B0|QK_UNICODE ), record );   /* Eye */
-        tap_code( KC_SPC );
-        process_unicode( ( 0x035C|QK_UNICODE ), record );   /* Mouth */
-        process_unicode( ( 0x0296|QK_UNICODE ), record );   /* Nose */
-        tap_code( KC_SPC );
-        process_unicode( ( 0x0361|QK_UNICODE ), record );   /* Eyebrow */
-        process_unicode((0x00B0 | QK_UNICODE), record);     /* Eye */
-        tap_code16( S( KC_0 ) );                            /* Head */
-        process_unicode( ( 0x2283|QK_UNICODE ), record );   /* Hand */
-        process_unicode( ( 0x2501|QK_UNICODE ), record );   /* Wand Shaft */
-        process_unicode( ( 0x2606|QK_UNICODE ), record );   /* Wand Star */
-        unicode_input_start();
-        register_hex( 0xFF9F );  /* Magic. If we use process_unicode() here it does a bitwise AND operation on it and changes the character on us */
-        unicode_input_finish();
-        tap_code( KC_DOT );  /* Magic */
-        tap_code( KC_SPACE );
-        tap_code16( S( KC_8 ) );  /* Magic */
+
+        send_unicode_hex_string( "0028 2229 0020 0361 00B0 0020 035C 0296 0020 0361 00B0 0029 2283 2501 2606 FF9F 002E 0020 002A" );
 
       }
 
@@ -98,17 +69,7 @@ bool process_record_user( uint16_t keycode, keyrecord_t *record ) {
 
       if ( record->event.pressed ) {
 
-        tap_code16( S( KC_9 ) );                           /* Head */
-        tap_code( KC_SPC );
-        process_unicode( ( 0x0361|QK_UNICODE ), record );  /* Eyebrow */
-        process_unicode( ( 0x00B0|QK_UNICODE ), record );  /* Eye */
-        tap_code( KC_SPC );
-        process_unicode( ( 0x035C|QK_UNICODE ), record );  /* Mouth */
-        process_unicode( ( 0x0296|QK_UNICODE ), record );  /* Nose */
-        tap_code( KC_SPC );
-        process_unicode( ( 0x0361|QK_UNICODE ), record );  /* Eyebrow */
-        process_unicode( ( 0x00B0|QK_UNICODE ), record );  /* Eye */
-        tap_code16( S( KC_0 ) );                           /* Head */
+        send_unicode_hex_string( "0028 0020 0361 00B0 0020 035C 0296 0020 0361 00b0 0029" );
 
       }
 
@@ -118,9 +79,7 @@ bool process_record_user( uint16_t keycode, keyrecord_t *record ) {
     case DISFACE:  /* ಠ_ಠ */
 
       if ( record->event.pressed ) {
-        process_unicode( ( 0x0CA0|QK_UNICODE ), record );  /* Eye */
-        tap_code16( S( KC_MINS ) );
-        process_unicode( ( 0x0CA0|QK_UNICODE ), record );  /* Eye */
+        send_unicode_hex_string( "0CA0 005F 0CA0" );
       }
 
       return false;
@@ -130,19 +89,7 @@ bool process_record_user( uint16_t keycode, keyrecord_t *record ) {
 
       if ( record->event.pressed ) {
 
-        tap_code16( S( KC_9 ) );
-        process_unicode( ( 0x256F|QK_UNICODE ), record );  /* Arm */
-        process_unicode( ( 0x00B0|QK_UNICODE ), record );  /* Eye */
-        process_unicode( ( 0x25A1|QK_UNICODE ), record );  /* Mouth */
-        process_unicode( ( 0x00B0|QK_UNICODE ), record );  /* Eye */
-        tap_code16( S( KC_0 ) );
-        process_unicode( ( 0x256F|QK_UNICODE ), record );  /* Arm */
-        tap_code( KC_SPC );
-        process_unicode( ( 0x0361|QK_UNICODE ), record );  /* Flippy */
-        tap_code( KC_SPC );
-        process_unicode( ( 0x253B|QK_UNICODE ), record );  /* Table */
-        process_unicode( ( 0x2501|QK_UNICODE ), record );  /* Table */
-        process_unicode( ( 0x253B|QK_UNICODE ), record );  /* Table */
+        send_unicode_hex_string( "0028 256F 00b0 25A1 00B0 0029 256F FE35 253B 2501 253B" );
 
       }
 
@@ -153,19 +100,8 @@ bool process_record_user( uint16_t keycode, keyrecord_t *record ) {
 
       if ( record->event.pressed ) {
 
-        process_unicode( ( 0x252C|QK_UNICODE ), record );  /* Table */
-        process_unicode( ( 0x2500|QK_UNICODE ), record );  /* Table */
-        process_unicode( ( 0x2500|QK_UNICODE ), record );  /* Table */
-        process_unicode( ( 0x252C|QK_UNICODE ), record );  /* Table */
-        tap_code( KC_SPC );
-        process_unicode( ( 0x30CE|QK_UNICODE ), record );  /* Arm */
-        tap_code16( S( KC_9 ) );
-        tap_code( KC_SPC );
-        process_unicode( ( 0x309C|QK_UNICODE ), record );  /* Eye */
-        tap_code( KC_MINS );
-        process_unicode( ( 0x309C|QK_UNICODE ), record );  /* Eye */
-        process_unicode( ( 0x30CE|QK_UNICODE ), record );  /* Arm */
-        tap_code16( S( KC_0 ) );
+        send_unicode_hex_string( "252C 2500 2500 252C 0020 30CE 0028 0020 309C 002D 309C 30CE 0029" );
+
       }
 
       return false;
@@ -175,15 +111,7 @@ bool process_record_user( uint16_t keycode, keyrecord_t *record ) {
 
       if ( record->event.pressed ) {
 
-        process_unicode( ( 0x00AF|QK_UNICODE ), record );  /* Hand */
-        tap_code( KC_BSLS );                               /* Arm */
-        tap_code16( S( KC_MINS ) );                        /* Arm */
-        tap_code16( S( KC_9 ) );                           /* Head */
-        process_unicode( ( 0x30C4|QK_UNICODE ), record );  /* Face */
-        tap_code16( S( KC_0 ) );                           /* Head */
-        tap_code16( S( KC_MINS ) );                        /* Arm */
-        tap_code( KC_SLSH );                               /* Arm */
-        process_unicode( ( 0x00AF|QK_UNICODE ), record );  /* Hand */
+        send_unicode_hex_string( "00AF 005C 005F 0028 30C4 0029 005F 002F 00AF" );
 
       }
 
