@@ -648,11 +648,11 @@ UDC_DESC_STORAGE udi_hid_raw_report_desc_t udi_hid_raw_report_desc = {{
     0x25, 0xFF,        //   Logical Maximum (255)
     // Data to host
     0x09, 0x62,        //     Usage (Vendor Defined)
-    0x95, 0x40,        //     Report Count (64)
+    0x95, RAW_EPSIZE,  //     Report Count
     0x81, 0x02,        //     Input (Data, Variable, Absolute)
     // Data from host
     0x09, 0x63,        //     Usage (Vendor Defined)
-    0x95, 0x40,        //     Report Count (64)
+    0x95, RAW_EPSIZE,  //     Report Count
     0x91, 0x02,        //     Output (Data, Variable, Absolute)
     0xC0               // End Collection
 }};
