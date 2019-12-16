@@ -45,18 +45,13 @@ To connect your host computer to your keyboard with raw HID you need four pieces
 3. Usage Page
 4. Usage
 
-The first two can easily be found in your keyboard's `config.h` in the keyboard's main directory under `VENDOR_ID` and `PRODUCT_ID`.
+The first two can easily be found in your keyboard's `config.h` in the keyboard's main directory under `VENDOR_ID` and `PRODUCT_ID`. **Usage Page** is **`0xFF60`** and **Usage** is **`0x0061`**.
 
-The second two are slightly harder and can vary by vendor. Most of the time though for most QMK keyboards **usage page is `0xFF60`** and **usage is `0x0061`**.
+### Building your host
 
-#### The harder way
-
-If these values don't work for you, you can easily discover the usage page and usage for your keyboard by finding the values for `tag 4` for usage page and `tag 8` for usage in the hid interface descriptor for your keyboard by using any form of hid dump or any hid library to find the descriptor and extract the values from the tags.
- 
-The easy way to do this for linux and mac users is to use teensy raw HID [host implementation](https://www.pjrc.com/teensy/rawhid.html "PJRC Teensy") to find the two tags' values. It is also recommended to use this host implementation as a starting point for your own host on any platform.
+The easy way to do this is to use teensy raw HID [host implementation](https://www.pjrc.com/teensy/rawhid.html "PJRC Teensy")
 
 Download for your proper platform and extract the files. You'll need to go into `hid_<platform>.c` and enable logging by commenting out the first line in this block at the beginning of either file.
-
 ```
 #define printf(...) // comment this out to get lots of info printed
 
@@ -68,36 +63,6 @@ typedef struct buffer_struct buffer_t;
 static hid_t *first_hid = NULL;
 static hid_t *last_hid = NULL;
 ```
-
-**TODO:** Find out the easiest way to get the values for these tags on windows.
-
-Then make and run `raw_hidtest.c`. If you are on linux, ensure first you have the proper [udev rule](https://docs.qmk.fm/#/faq_build?id=linux-udev-rules).
-You should get output similar to this:
-
-```txt
-device: vid=<Vendor ID>, pic=<Product ID>, with # iface
-  type 3, 1, 1
-  type 3, 1, 2
-  type 3, 1, 0
-  type 3, 0, 0
-    OUT endpoint #
-    IN endpoint #
-  hid interface (generic)
-  descriptor, len=32
-  tag: 4, val #
-  tag: 8, val #
-  type 3, 0, 0
-    OUT endpoint #
-    IN endpoint #
-  hid interface (generic)
-  descriptor, len=32
-  tag: 4, val <Usage Page>
-  tag: 8, val <Usage>
-```
-
-Note that we are looking for the final two tag lines, the first two tag lines describe another interface that isn't used for HID. It's easy to figure out the correct tag lines as `tag: 4, val #` which determines the usage page will have an apparent hexadecimal address, usage line is the one immediately after. 
-
-### Building your host
 
 You can build your host using any language that has an available HID implementation library if you don't wish to make your own. The ones we know of for popular languages are:
 
