@@ -12,9 +12,7 @@
 #define _ADJUST 6
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK
+  QWERTY = SAFE_RANGE
 };
 
 
