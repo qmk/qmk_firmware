@@ -5,7 +5,7 @@ Matrix layout is based on info from this [article](https://deskthority.net/works
 
 Magnavox Videowriter keyboard conversion project: direct connection of Pro Micro to the matrix.
 
-* Keyboard Maintainer: [quartz64](https://github.com/yourusername)
+* Keyboard Maintainer: [DmNosachev](https://github.com/DmNosachev)
 * Hardware Supported: Alps-based [Magnavox Videowriter keyboard](https://deskthority.net/wiki/Magnavox_VideoWriter), Pro Micro 16MHz 5V MCU board (you can use any MCU which is supported by QMK and has 18 or more IO).
 
 Make example for this keyboard (after setting up your build environment):
