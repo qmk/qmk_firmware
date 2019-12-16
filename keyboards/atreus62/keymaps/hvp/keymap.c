@@ -1,5 +1,3 @@
-// this is the style you want to emulate.
-// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 
 #include QMK_KEYBOARD_H
 #include "hvp.c"
@@ -8,9 +6,6 @@
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-// #define _DEFAULT 0
-// #define _NAV 1
-// #define _RESET 2
 
 #define LT3_ESC LT(3, KC_ESC)
 #define LT4_TAB LT(4, KC_TAB)
@@ -54,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   
   LAYOUT(/* Tab */
-    _______,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______ ,
+    _______,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                        KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______ ,
     _______,  _______, _______, _______, _______, _______,                     _______, KC_4, KC_5, KC_6, _______, _______ ,
     _______,  _______, _______, _______, _______, _______,                     KC_0, KC_1, KC_2, KC_3, _______, _______ ,
     _______,  _______, _______, _______, _______, _______,                     _______, _______, _______, _______, _______, _______ ,
