@@ -100,4 +100,4 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
     [TD4] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_4_finished, dance_4_reset),
 
-    [TD5] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_4_finished, dance_4_reset)};
+    [TD5] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_5_finished, dance_5_reset)};
