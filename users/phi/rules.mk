@@ -6,6 +6,11 @@ ifdef CUSTOM_MOUSEKEY
 	MOUSEKEY_ENABLE = yes
 endif
 
+ifdef MICROWRITER_KEYS
+	OPT_DEFS += -DMICROWRITER_KEYS
+	SRC += microwriter.c
+endif
+
 ifdef HSVDUMP
 	SRC += hsvdump.c
 endif

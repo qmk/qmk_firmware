@@ -5,7 +5,8 @@ enum layer_number {
     MOUSE,
     WHEEL,
     CURSOR,
-    CURSOR_ACCL
+    CURSOR_ACCL,
+    MICROWRITER
 };
 
 #define LAYER_ON(n) (layer_state & (2 << ((n) - 1)))

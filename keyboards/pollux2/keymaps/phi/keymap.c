@@ -2,8 +2,18 @@
 
 #include "layer_numbers.h"
 #include "rgb_matrix.h"         /* rgb_matrix_config */
+#include "microwriter.h"
 
 /* KEYCODE DEFINITIONS */
+
+enum custom_keycodes {
+    KC_MW_0 = SAFE_RANGE,
+    KC_MW_1,
+    KC_MW_2,
+    KC_MW_3,
+    KC_MW_4,
+    KC_MW_5
+};
 
 #define KC_____ KC_TRNS
 #define KC_XXXX KC_NO
@@ -16,6 +26,8 @@
 #define KC_ES_ALT LALT_T(KC_ESC)
 #define KC_WEEL   MO(WHEEL)
 #define KC_CACCL  MO(CURSOR_ACCL)
+#define KC_MCRW   TO(MICROWRITER)
+#define KC_BASE   TO(BASE)
 
 #define KC_RST  RESET
 #define KC_MUP  KC_MS_U
@@ -61,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
     ____ , EXLM , AT   , HASH , DLR  , PERC ,   CIRC , AMPR , ASTR , ____ , ____ , BSLS , \
 //`------+------+------+------+------+------| |------+------+------+------+------+------'
-                               L2_ALT,L1_FN ,   ____ , ____ \
+                               L2_ALT,L1_FN ,   MCRW , ____ \
 //                            `-------------' `------------'
 ),
 
@@ -125,6 +137,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                            `-------------' `------------'
 ),
 
+[MICROWRITER] = LAYOUT_kc( \
+//,-----------------------------------------. ,-----------------------------------------.
+    ____ , ____ , ____ , ____ , ____ , ____ ,   ____ , ____ , ____ , ____ , ____ , ____ , \
+//|------+------+------+------+------+------| |------+------+------+------+------+------|
+    ____ , ____ , ____ , ____ , ____ , ____ ,   ____ , MW_2 , MW_3 , MW_4 , MW_5 , ____ , \
+//|------+------+------+------+------+------| |------+------+------+------+------+------|
+    ____ , ____ , ____ , ____ , ____ , ____ ,   ____ , ____ , ____ , ____ , ____ , ____ , \
+//`------+------+------+------+------+------| |------+------+------+------+------+------'
+                                ____ , BASE ,   MW_1 , MW_0 \
+//                            `-------------' `------------'
+),
+
 };
 
 void matrix_scan_user (void) {
@@ -140,4 +164,22 @@ void matrix_scan_user (void) {
         }
         last_layer_state = layer_state;
     }
+}
+
+bool process_record_keymap (uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+      case KC_MW_0:
+        return process_microwriter(MW_FUNCTION, record);
+      case KC_MW_1:
+        return process_microwriter(MW_THUMB, record);
+      case KC_MW_2:
+        return process_microwriter(MW_INDEX, record);
+      case KC_MW_3:
+        return process_microwriter(MW_MIDDLE, record);
+      case KC_MW_4:
+        return process_microwriter(MW_RING, record);
+      case KC_MW_5:
+        return process_microwriter(MW_PINKY, record);
+    }
+    return true;
 }
