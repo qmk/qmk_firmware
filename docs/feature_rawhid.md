@@ -99,7 +99,7 @@ Note that we are looking for the final two tag lines, the first two tag lines de
 
 ### Building your host
 
-You can build you host using any language that has an avialable HID implementation library if you don't wish to make your own. The ones we know of for popular languages are:
+You can build your host using any language that has an available HID implementation library if you don't wish to make your own. The ones we know of for popular languages are:
 
 * Node: [node-hid](https://github.com/node-hid/node-hid).
 * C: [hidapi](https://github.com/signal11/hidapi).
