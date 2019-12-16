@@ -5,7 +5,7 @@ Matrix layout is based on info from this [article](https://deskthority.net/works
 
 Magnavox Videowriter keyboard conversion project: direct connection of Pro Micro to the matrix.
 
-* Keyboard Maintainer: [quartz64](https://github.com/yourusername)
+* Keyboard Maintainer: [DmNosachev](https://github.com/DmNosachev)
 * Hardware Supported: Alps-based [Magnavox Videowriter keyboard](https://deskthority.net/wiki/Magnavox_VideoWriter), Pro Micro 16MHz 5V MCU board (you can use any MCU which is supported by QMK and has 18 or more IO).
 
 Make example for this keyboard (after setting up your build environment):
@@ -34,7 +34,7 @@ Videowriter has 8x10 matrix:
 | 9       |          |           | 62 RShift | 72 Undo   | 71 Help  | 70 Do     | 69 Right  | 68 Down |
 
 ## Separating Shift keys
-Initially left and right Shift keys are connected in parrallel. You need to cut the traces from right Shift (switch 62) and wire it to column 2 (switch 55, right pin) and row 9 (switch 71, bottom pin).
+Initially left and right Shift keys are connected in parrallel. You need to cut the traces from right Shift (switch 62) and wire it to column 2 (switch 65, right pin) and row 9 (switch 71, bottom pin).
 
 ![Right shift](https://i.imgur.com/ttdTVtC.jpg)
 
