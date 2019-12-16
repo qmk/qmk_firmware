@@ -16,6 +16,5 @@
 
 #pragma once
 
-// place overrides here
-
+// Have't added any diodes in this particular convertion project
 #define MATRIX_HAS_GHOST

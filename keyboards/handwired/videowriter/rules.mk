@@ -2,8 +2,12 @@
 MCU = atmega32u4
 
 # Bootloader selection
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   ATmega32A    bootloadHID
 
-BOOTLOADER = lufa-dfu
+BOOTLOADER = caterina
 
 # Build Options
 #   change yes to no to disable

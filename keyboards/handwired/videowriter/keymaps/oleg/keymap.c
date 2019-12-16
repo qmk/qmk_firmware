@@ -1,4 +1,4 @@
-/* Copyright 2019 quartz64
+/* Copyright 2019 DmNosachev
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,11 +18,10 @@
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
     _BASE,
-    _FN1,
-    _FN2
+    _FN1
 };
 
-// Defines the keycodes used by our macros in process_record_user
+// Example of custom keycodes used by macros in process_record_user
 /*
 enum custom_keycodes {
     QMKBEST = SAFE_RANGE,
@@ -83,19 +82,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______,          _______,
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
 		  _______,                                _______,                                          _______
-  ),
-
-  [_FN2] = LAYOUT( \
-			_______, _______, _______,      _______, _______, _______, _______,    _______, _______, _______,    _______, _______, _______, _______,
-	 	_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,
-	 	_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,           _______,
-	 	_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,           _______,
-	 	_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-	 	  _______,                                _______,                                          _______
   )
 };
 
-/*
+/* macros template (example)
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case USECT:
@@ -119,9 +109,5 @@ void matrix_init_user(void) {
 /*
 void matrix_scan_user(void) {
 
-}
-
-bool led_update_user(led_t led_state) {
-    return true;
 }
 */
