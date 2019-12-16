@@ -1,4 +1,4 @@
-#include "pollux2.h"
+#include "gemini.h"
 #include "split_util.h"         /* isLeftHand */
 
 #define LED_POS(col, row) { col * (224 / 11), row * (64 / 3) }

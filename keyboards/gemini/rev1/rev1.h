@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../pollux2.h"
+#include "../gemini.h"
 
 //void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
