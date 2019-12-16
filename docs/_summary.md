@@ -84,6 +84,7 @@
   * [One Shot Keys](feature_advanced_keycodes.md#one-shot-keys)
   * [Pointing Device](feature_pointing_device.md)
   * [PS/2 Mouse](feature_ps2_mouse.md)
+  * [Raw HID](feature_rawhid.md)
   * [RGB Lighting](feature_rgblight.md)
   * [RGB Matrix](feature_rgb_matrix.md)
   * [Space Cadet](feature_space_cadet.md)
@@ -96,7 +97,6 @@
   * [Unicode](feature_unicode.md)
   * [Userspace](feature_userspace.md)
   * [Velocikey](feature_velocikey.md)
-  * [Raw HID](feature_rawhid.md)
 
 * For Makers and Modders
   * [Hand Wiring Guide](hand_wire.md)
