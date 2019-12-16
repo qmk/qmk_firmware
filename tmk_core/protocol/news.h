@@ -41,9 +41,8 @@ POSSIBILITY OF SUCH DAMAGE.
  * Primitive PS/2 Library for AVR
  */
 
-
 /* host role */
-void news_init(void);
+void    news_init(void);
 uint8_t news_recv(void);
 
 /* device role */

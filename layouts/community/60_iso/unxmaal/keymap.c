@@ -108,7 +108,6 @@ enum function_id {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    [0]  = ACTION_LAYER_MOMENTARY(2),  // Momentary Fn overlay
     [1]  = ACTION_LAYER_TOGGLE(1),     // Toggle Arrow Layer overlay
     [2]  = ACTION_LAYER_TAP_KEY(2, KC_CAPS), // Tap to toggle caps lock and hold to activate function layer
     [3]  = ACTION_LAYER_TOGGLE(3),     // Toggle Underglow Layer overlay

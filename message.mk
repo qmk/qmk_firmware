@@ -76,6 +76,11 @@ define GENERATE_MSG_MAKE_TEST
 endef
 MSG_MAKE_TEST = $(eval $(call GENERATE_MSG_MAKE_TEST))$(MSG_MAKE_TEST_ACTUAL)
 MSG_TEST = Testing $(BOLD)$(TEST_NAME)$(NO_COLOR)
+define GENERATE_MSG_AVAILABLE_KEYMAPS
+    MSG_AVAILABLE_KEYMAPS_ACTUAL := Available keymaps for $(BOLD)$$(CURRENT_KB)$(NO_COLOR):
+endef
+MSG_AVAILABLE_KEYMAPS = $(eval $(call GENERATE_MSG_AVAILABLE_KEYMAPS))$(MSG_AVAILABLE_KEYMAPS_ACTUAL)
+
 MSG_CHECK_FILESIZE = Checking file size of $(TARGET).hex
 MSG_FILE_TOO_BIG = $(ERROR_COLOR)The firmware is too large!$(NO_COLOR) $(CURRENT_SIZE)/$(MAX_SIZE) ($(OVER_SIZE) bytes over)\n
 MSG_FILE_TOO_SMALL = The firmware is too small! $(CURRENT_SIZE)/$(MAX_SIZE)\n
@@ -85,3 +90,6 @@ MSG_PYTHON_MISSING = $(WARN_COLOR)WARNING:$(NO_COLOR)\n \
 	Python 3 is not installed. It will be required by a future version\n\
 	of qmk_firmware.\n\n\
 	Please run $(BOLD)util/qmk_install.sh$(NO_COLOR) to install all the dependencies QMK requires.\n\n
+MSG_FLASH_BOOTLOADER = $(WARN_COLOR)WARNING:$(NO_COLOR) This board's bootloader is not specified or is not supported by the \":flash\" target at this time.\n\n
+MSG_FLASH_ARCH = $(WARN_COLOR)WARNING:$(NO_COLOR) This board's architecture is not supported by the \":flash\" target at this time.\n\n
+MSG_BOOTLOADER_NOT_FOUND = $(ERROR_COLOR)ERROR:$(NO_COLOR) Bootloader not found. Trying again in 5s.\n

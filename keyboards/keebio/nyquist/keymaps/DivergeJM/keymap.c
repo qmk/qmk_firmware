@@ -47,13 +47,11 @@ enum {
   const uint16_t PROGMEM fn_actions[] = {
       [0] = ACTION_LAYER_TAP_KEY(_LOWER, KC_SPC),    //Hold for momentary Lower layer, Tap for Space,
       [1] = ACTION_LAYER_TAP_KEY(_RAISE, KC_ENT),    //Hold for momentary Mouse layer, Tap for Enter,
-      [2] = ACTION_LAYER_MOMENTARY(_FUNCTION),       //Hold for momentary Function
-      [3] = ACTION_LAYER_MOMENTARY(_MOUSE)           //Hold for momentary MOUSE
    };
 #define SPC_LW FUNC(0)
 #define ENT_RS FUNC(1)
-#define FNC FUNC(2)
-#define MSE FUNC(3)
+#define FNC MO(_FUNCTION)
+#define MSE MO(_MOUSE)
 #define PIPE M(R_PIPE)
 #define POINT M(R_POINT)
 
