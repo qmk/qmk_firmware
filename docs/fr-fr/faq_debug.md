@@ -104,58 +104,6 @@ En C, `1` implique un type [int] qui est [16 bits] pour les AVR, ce qui implique
 
 http://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad-keyboard-t6181-60.html#p146279
 
-## Bootloader Jump ne fonctionne pas
-
-Configurez correctement la taille du bootloader dans le **Makefile**. Une mauvaise taille de section du bootloader empêchera probablement le démarrage avec **Magic command** et **Boot Magic**.
-
-```
-# Size of Bootloaders in bytes:
-#   Atmel DFU loader(ATmega32U4)   4096
-#   Atmel DFU loader(AT90USB128)   8192
-#   LUFA bootloader(ATmega32U4)    4096
-#   Arduino Caterina(ATmega32U4)   4096
-#   USBaspLoader(ATmega***)        2048
-#   Teensy   halfKay(ATmega32U4)   512
-#   Teensy++ halfKay(AT90USB128)   2048
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
-```
-
-La taille de la section de démarrage de AVR est définie par l'option **BOOTSZ** fuse. Vérifiez la fiche technique du MCU. Veuilez noter que les tailles et adresses sont définies en **Word** (2 octets) dans la fiche technique alors que TMK utilise des **Byte**.
-
-La section de boot AVR se trouve à la fin de la mémoire flash, comme suit.
-
-```
-byte     Atmel/LUFA(ATMega32u4)          byte     Atmel(AT90SUB1286)
-0x0000   +---------------+               0x00000  +---------------+
-         |               |                        |               |
-         |               |                        |               |
-         |  Application  |                        |  Application  |
-         |               |                        |               |
-         =               =                        =               =
-         |               | 32KB-4KB               |               | 128KB-8KB
-0x6000   +---------------+               0x1E000  +---------------+
-         |  Bootloader   | 4KB                    |  Bootloader   | 8KB
-0x7FFF   +---------------+               0x1FFFF  +---------------+
-
-
-byte     Teensy(ATMega32u4)              byte     Teensy++(AT90SUB1286)
-0x0000   +---------------+               0x00000  +---------------+
-         |               |                        |               |
-         |               |                        |               |
-         |  Application  |                        |  Application  |
-         |               |                        |               |
-         =               =                        =               =
-         |               | 32KB-512B              |               | 128KB-2KB
-0x7E00   +---------------+               0x1FC00  +---------------+
-         |  Bootloader   | 512B                   |  Bootloader   | 2KB
-0x7FFF   +---------------+               0x1FFFF  +---------------+
-```
-
-Référez-vous à cette discussion pour plus de référence.
-https://github.com/tmk/tmk_keyboard/issues/179
-
-Si vous utilisez un TeensyUSB, il y a un [bug connu](https://github.com/qmk/qmk_firmware/issues/164) qui fait que le bouton reset matériel empêche la touche RESET de fonctionner. Débrancher et rebrancher le clavier devrait résoudre le problème.
-
 ## Les touches spéciales ne fonctionnent pas (Touche Système, Touches de contrôle du son)
 
 Vous devez définir `EXTRAKEY_ENABLE` dans le fichier `rules.mk` pour les utiliser dans QMK.
@@ -188,25 +136,6 @@ Si vous voulez garder JTAG activé, ajoutez la ligne suivante à votre fichier `
 ```c
 #define NO_JTAG_DISABLE
 ```
-
-## Adding LED Indicators of Lock Keys
-
-Si vous souhaitez votre propre indicateur LED pour CapsLock, ScrollLock et NumLock alors lisez ce post.
-
-http://deskthority.net/workshop-f7/tmk-keyboard-firmware-collection-t4478-120.html#p191560
-
-## Programmer Arduino Micro/Leonardo
-
-Appuyez sur le bouton reset puis lancez la commande suivante dans les 8 secondes.
-
-```
-avrdude -patmega32u4 -cavr109 -b57600 -Uflash:w:adb_usb.hex -P/dev/ttyACM0
-```
-
-Le nom du périphérique peut varier en fonction de votre système.
-
-http://arduino.cc/en/Main/ArduinoBoardMicro
-https://geekhack.org/index.php?topic=14290.msg1563867#msg1563867
 
 ## Compatibilité USB 3
 
