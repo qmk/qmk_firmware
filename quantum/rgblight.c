@@ -1152,36 +1152,42 @@ void rgblight_effect_knight(animation_status_t *anim) {
 #endif
 
 #ifdef RGBLIGHT_EFFECT_CHRISTMAS
-#    ifndef RGBLIGHT_CHRISTMAS_EASING
-#        define RGBLIGHT_CHRISTMAS_EASING 3
-#    endif
+#    include <limits.h>
+#    define CUBED(x) ((x) * (x) * (x))
 
 /**
  * Christmas lights effect, with a smooth animation between red & green.
  */
 void rgblight_effect_christmas(animation_status_t *anim) {
-    uint16_t x, xa;
-    uint8_t hue, val;
+    static int8_t increment = 1;
+    const uint16_t max_pos = 32;
+    const uint16_t hue_green = 85;
+
+    float xa;
+    uint16_t hue;
+    uint8_t val;
     uint8_t i;
 
-    /* The effect works by animating an x from 0 to 32 back to 0 */
-    x = anim->pos;
-    x = x > 32 ? 64 - x : x;
 
-    /* That X is then used in a cubic bezier formula to ease-in-out between red and green,
-     * leaving the interpolated (yellow) color visible as short as possible. */
-    xa = pow(x, RGBLIGHT_CHRISTMAS_EASING);
-    hue = (uint8_t) (85 * (xa / (xa + pow(32 - x, RGBLIGHT_CHRISTMAS_EASING))));
-    /* Additionally, the yellow get a slightly darker value, to make it not as prominent as the main colors */
-    val = 255 - (3 * (hue < 42 ? hue : 85 - hue) / 2);
+    // The effect works by animating anim->pos from 0 to 32 and back to 0.
+    // The pos is used in a cubic bezier formula to ease-in-out between red and green, leaving the interpolated colors visible as short as possible.
+    xa = CUBED(anim->pos);
+    hue = hue_green * (xa / (xa + CUBED(max_pos - anim->pos)));
+    // Additionally, these interpolated colors get shown with a slightly darker value, to make them less prominent than the main colors.
+    val = UINT8_MAX - (3 * (hue < hue_green / 2 ? hue : hue_green - hue) / 2);
 
     for (i = 0; i < rgblight_ranges.effect_num_leds; i++) {
-        uint8_t local_hue = (i / RGBLIGHT_EFFECT_CHRISTMAS_STEP) % 2 ? hue : 85 - hue;
+        uint8_t local_hue = (i / RGBLIGHT_EFFECT_CHRISTMAS_STEP) % 2 ? hue : hue_green - hue;
         sethsv(local_hue, rgblight_config.sat, val, (LED_TYPE *)&led[i + rgblight_ranges.effect_start_pos]);
     }
     rgblight_set();
 
-    anim->pos = (anim->pos + 1) % 65;
+    if (anim->pos == 0) {
+        increment = 1;
+    } else if (anim->pos == max_pos) {
+        increment = -1;
+    }
+    anim->pos += increment;
 }
 #endif
 
