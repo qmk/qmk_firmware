@@ -87,25 +87,6 @@ void matrix_scan_user(void) {
  */
 
 inline
-uint8_t matrix_rows(void) {
-  return MATRIX_ROWS;
-}
-
-inline
-uint8_t matrix_cols(void) {
-  return MATRIX_COLS;
-}
-
-inline
-void matrix_setup(void) {
-}
-
-inline
-bool matrix_is_modified(void) {
-  return true;
-}
-
-inline
 bool matrix_is_on(uint8_t row, uint8_t col) {
   return (deb_matrix[row] & ((matrix_row_t)1<col));
 }
@@ -116,16 +97,7 @@ matrix_row_t matrix_get_row(uint8_t row) {
 }
 
 inline
-void matrix_print(void) {
-}
-
-inline
-void matrix_power_up(void) {
-}
-
-inline
-void matrix_power_down(void) {
-}
+void matrix_print(void) {}
 
 /**
  * Initialize the matrix reading circuitry. Called once at the start
@@ -157,20 +129,26 @@ void matrix_init(void) {
  * Read the matrix. Called continuously
  */
 uint8_t matrix_scan(void) {
+  bool rawChanged = false;
+
   for (int i = R0; i <= L2; ++i) {
     // A bank upper 8 bits, B bank lower 8 bits
     uint16_t gpio = gpx_read_reg(i, GPX_GPIO);
 
     // Even matrix rows are bank B, odd are bank A
+
+    rawChanged |= (raw_matrix[i*2] != (gpio & 0xFF));
     raw_matrix[i*2] = gpio & 0xFF;
+
+    rawChanged |= (raw_matrix[i*2+1] != ((gpio >> 8) & 0xFF));
     raw_matrix[i*2+1] = (gpio >> 8) & 0xFF;
   }
 
-  debounce(raw_matrix, deb_matrix, MATRIX_ROWS, true);
+  debounce(raw_matrix, deb_matrix, MATRIX_ROWS, rawChanged);
 
   matrix_scan_quantum();
 
-  return 1;
+  return (uint8_t) rawChanged;
 }
 
 /**

@@ -41,17 +41,20 @@ uint32_t scanCount = 0;
  */
 
 void mass_led_on(uint8_t idx) {
-  if (idx >= 5) return;
+  if (idx >= 5)
+    return;
   PORTF |= LED_MASK[idx];
 }
 
 void mass_led_off(uint8_t idx) {
-  if (idx >= 5) return;
+  if (idx >= 5)
+    return;
   PORTF &= ~LED_MASK[idx];
 }
 
 void mass_led_toggle(uint8_t idx) {
-  if (idx >= 5) return;
+  if (idx >= 5)
+    return;
   PORTF ^= LED_MASK[idx];
 }
 
@@ -59,7 +62,7 @@ void mass_led_toggle(uint8_t idx) {
  * QMK keyboard callback functions
  */
 
-uint32_t layer_state_set_kb(uint32_t state) {
+layer_state_t layer_state_set_kb(layer_state_t state) {
   //uprintf("LAYER %d\n", state);
 
   // Set layer LEDs based on new layer state
@@ -90,7 +93,8 @@ void matrix_init_kb(void) {
   }
 
   // Set layer LEDs based on default layer state
-  layer_state_set_kb(default_layer_state);
+  layer_state_set_kb(layer_state);
+  default_layer_state_set_kb(default_layer_state);
 
   matrix_init_user();
 }
