@@ -1,0 +1,1 @@
+Juno's Junonum keymap adapted for Atom47.

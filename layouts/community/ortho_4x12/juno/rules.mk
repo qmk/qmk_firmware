@@ -1,6 +1,10 @@
-BACKLIGHT_ENABLE = yes
-
 SRC += muse.c
+
+ifeq ($(strip $(KEYBOARD)), planck/rev6)
+  BACKLIGHT_ENABLE = no
+else
+  BACKLIGHT_ENABLE = yes
+endif
 
 MIDI_ENABLE=no
 RGBLIGHT_ENABLE = no

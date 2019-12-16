@@ -25,13 +25,13 @@ enum planck_keycodes {
   BACKLIT,
   EXT_PLV,
   
-  FN1,
   DP_ON,
   DP_OFF
 };
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
+#define SPACEFN LT(_FN1, KC_SPC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -50,8 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
 	KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
 	KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, RSFT_T(KC_ENT),
-	KC_APP,  KC_LCTL, KC_LGUI, KC_LALT, LOWER,   LT(_FN1, KC_SPC), 
-											   LT(_FN1, KC_SPC), RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT 
+	KC_APP,  KC_LCTL, KC_LGUI, KC_LALT, LOWER,   SPACEFN, SPACEFN, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT 
 ),
 
 /* Colemak
@@ -104,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT_planck_grid(
     KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
     KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
-    _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______,  _______,
+    _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
 ),
 
@@ -227,16 +226,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   float caps_song_on[][2] = SONG(NUM_LOCK_ON_SOUND);
   float caps_song_off[][2] = SONG(SCROLL_LOCK_ON_SOUND);
 
-  float dpad_song_on[][2] = SONG(ZELDA_PUZZLE);
-  float dpad_song_off[][2] = SONG(SONIC_RING);
+  float dpad_song_on[][2] = SONG(ODE_TO_JOY);
+  float dpad_song_off[][2] = SONG(UNICODE_WINDOWS);
 #endif
 
+// Disable LED on Rev6
+#ifdef KEYBOARD_planck_rev6
 uint32_t layer_state_set_user(uint32_t state) {
+  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+}
 
+#else
+	
+uint32_t layer_state_set_user(uint32_t state) {
   // LED control, lighting up when Fn layer is activated
-  
   state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-  
   switch (biton32(state)) {
     case _QWERTY:
       backlight_set(0);
@@ -248,9 +252,10 @@ uint32_t layer_state_set_user(uint32_t state) {
       backlight_set(3);
       break;
   }
-
   return state;
 }
+
+#endif 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
