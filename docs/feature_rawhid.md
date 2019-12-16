@@ -1,6 +1,6 @@
 # Raw HID
 
-Raw HID allows for bidirectional communication between keyboard and a host computer over HID interface. It allows for 32 byte bidirectional packet transfer in QMK.
+Raw HID allows for bidirectional communication between QMK and the host computer over an HID interface. This has many potential use cases, such as switching keymaps on the fly or changing RGB LED colors and modes.
 
 There are two main components to getting raw HID working with your keyboard.
 
