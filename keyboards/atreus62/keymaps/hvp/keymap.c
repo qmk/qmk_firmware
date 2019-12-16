@@ -14,8 +14,8 @@
 
 #define LT3_ESC LT(3, KC_ESC)
 #define LT4_TAB LT(4, KC_TAB)
-#define LT1_SPC LT(1, KC_SPC)
-#define LT2_SPC LT(2, KC_SPC)
+#define LT1_ENT LT(1, KC_ENTER)
+#define LT2_BSP LT(2, KC_BSPC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LAYOUT( /* qwerty */
@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LT4_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC ,
     LT3_ESC,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                        KC_H,    KC_J,    KC_K,    KC_L,    TD(TD1), TD(TD2) ,
     KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                        KC_N,    KC_M,    KC_COMM, KC_DOT,  TD(TD3), KC_SFTENT ,
-    KC_LCTL,  KC_APP, _______, KC_LGUI,  KC_LALT,LT2_SPC, KC_BSPC,   KC_SFTENT,   LT1_SPC,  KC_LSFT,  KC_LEFT, KC_DOWN, KC_UP,  KC_RGHT
+    KC_LCTL,  KC_APP, _______, KC_LGUI,  KC_LALT,SFT_T(KC_SPC), LT2_BSP,   LT1_ENT,   SFT_T(KC_SPC),  KC_LSFT,  KC_LEFT, KC_DOWN, KC_UP,  KC_RGHT
   ),
 
   LAYOUT( /* Right */
