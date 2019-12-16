@@ -32,5 +32,5 @@ This doc will include all currently available information, including low level i
 
 * VENDOR_ID           0x04D8
 * PRODUCT_ID          0xEED2
-* USAGE_PAGE          0xFF31
-* USAGE               0x0074
+* USAGE_PAGE          0xFF60
+* USAGE               0x0061
