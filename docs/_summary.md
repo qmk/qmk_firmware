@@ -96,6 +96,7 @@
   * [Unicode](feature_unicode.md)
   * [Userspace](feature_userspace.md)
   * [Velocikey](feature_velocikey.md)
+  * [Raw HID](feature_rawhid.md)
 
 * For Makers and Modders
   * [Hand Wiring Guide](hand_wire.md)
