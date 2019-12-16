@@ -53,9 +53,8 @@ inline uint8_t matrix_cols(void){
 
 /* generic STM32F103C8T6 board */
 #ifdef BOARD_GENERIC_STM32_F103
-// This could be removed, only used now in matrix_init()
-#define LED_ON()    do { palClearPad(GPIOA, 1) ;} while (0)
-#define LED_OFF()   do { palSetPad(GPIOA, 1); } while (0)
+#define LED_ON()    do { palClearPad(GPIOC, 13) ;} while (0)
+#define LED_OFF()   do { palSetPad(GPIO3, 13); } while (0)
 #endif
 
 __attribute__ ((weak))
@@ -91,9 +90,9 @@ void matrix_init(void)
     matrix_debouncing[i] = 0;
   }
   //debug
-  debug_matrix = true;
+  //debug_matrix = true;
   LED_ON();
-  wait_ms(500);
+  wait_ms(250);
   LED_OFF();
 
   matrix_init_quantum();
