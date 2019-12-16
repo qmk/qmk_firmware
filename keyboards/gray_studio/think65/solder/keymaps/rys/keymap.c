@@ -66,11 +66,26 @@ typedef union {
 } user_config_t;
 
 user_config_t user_config;
+bool caps_active = false;
 
 // toggle one of the range flag bits
 void toggle_led_state(unsigned int led_range) {
     if (led_range >= THINK65_LED_ESC_RANGE_BIT && led_range <= THINK65_LED_UNDERGLOW_RANGE_BIT) {
         user_config.current_led_state ^= 1 << led_range;
+    }
+}
+
+// set one of the range flag bits
+void set_led_state(unsigned int led_range) {
+    if (led_range >= THINK65_LED_ESC_RANGE_BIT && led_range <= THINK65_LED_UNDERGLOW_RANGE_BIT) {
+        user_config.current_led_state |= 1 << led_range;
+    }
+}
+
+// clear one of the range flag bits
+void clear_led_state(unsigned int led_range) {
+    if (led_range >= THINK65_LED_ESC_RANGE_BIT && led_range <= THINK65_LED_UNDERGLOW_RANGE_BIT) {
+        user_config.current_led_state &= ~(1 << led_range);
     }
 }
 
@@ -194,6 +209,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case TOG_UGL:
             if (record->event.pressed) {
                 toggle_led_state(THINK65_LED_UNDERGLOW_RANGE_BIT);
+                apply_led_state();
+                eeconfig_update_user(user_config.raw);
+            }
+            break;
+        case KC_CAPS:
+            if (!record->event.pressed) {
+                // connect capslock LED control to the badge LEDs
+                host_keyboard_led_state().caps_lock ? set_led_state(THINK65_LED_BADGE_RANGE_BIT) : clear_led_state(THINK65_LED_BADGE_RANGE_BIT);
                 apply_led_state();
                 eeconfig_update_user(user_config.raw);
             }
