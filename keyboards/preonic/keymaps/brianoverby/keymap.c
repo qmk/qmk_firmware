@@ -28,11 +28,11 @@ bool winkey_enabled = true;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BASE] = LAYOUT_preonic_grid(
-  n1,   NUM2, n3,   NUM4, n5,   NUM6, NUM7, NUM8, NUM9, NUM0, mins, EQAL,
-  tab,  q,    w,    e,    r,    t,    y,    u,    i,    o,    p,    bspc, 
-  esc,  a,    s,    d,    f,    g,    h,    j,    k,    l,    SCLN, QUOT,
-  LSFT, z,    x,    c,    v,    b,    n,    m,    COMM, DOT,  up,   ent, 
-  lctl, fn,   lgui, lalt, lw,   spc,  spc,  ra,   SLSH, left, down, rght 
+  esc,  n1,   n2,   n3,   n4,   n5,   n6,   n7,   n8,   n9,   n0,   bspc,
+  tab,  q,    w,    e,    r,    t,    y,    u,    i,    o,    p,    plus, 
+  lt,   a,    s,    d,    f,    g,    h,    j,    k,    l,    quot, ent,
+  lsft, z,    x,    c,    v,    b,    n,    m,    comm, dot,  up,   rsft, 
+  lctl, fn,   lgui, lalt, lw,   spc,  spc,  ralt, mins, left, down, rght 
 ),
 
 [_LOWER] = LAYOUT_preonic_grid(
