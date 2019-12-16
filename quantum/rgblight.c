@@ -1152,7 +1152,6 @@ void rgblight_effect_knight(animation_status_t *anim) {
 #endif
 
 #ifdef RGBLIGHT_EFFECT_CHRISTMAS
-#    include <limits.h>
 #    define CUBED(x) ((x) * (x) * (x))
 
 /**
@@ -1160,21 +1159,19 @@ void rgblight_effect_knight(animation_status_t *anim) {
  */
 void rgblight_effect_christmas(animation_status_t *anim) {
     static int8_t increment = 1;
-    const uint16_t max_pos = 32;
-    const uint16_t hue_green = 85;
+    const uint8_t max_pos = 32;
+    const uint8_t hue_green = 85;
 
-    float xa;
-    uint16_t hue;
-    uint8_t val;
+    uint32_t xa;
+    uint8_t hue, val;
     uint8_t i;
-
 
     // The effect works by animating anim->pos from 0 to 32 and back to 0.
     // The pos is used in a cubic bezier formula to ease-in-out between red and green, leaving the interpolated colors visible as short as possible.
-    xa = CUBED(anim->pos);
-    hue = hue_green * (xa / (xa + CUBED(max_pos - anim->pos)));
+    xa = CUBED((uint32_t) anim->pos);
+    hue = ((uint32_t) hue_green) * xa / (xa + CUBED((uint32_t) (max_pos - anim->pos)));
     // Additionally, these interpolated colors get shown with a slightly darker value, to make them less prominent than the main colors.
-    val = UINT8_MAX - (3 * (hue < hue_green / 2 ? hue : hue_green - hue) / 2);
+    val = 255 - (3 * (hue < hue_green / 2 ? hue : hue_green - hue) / 2);
 
     for (i = 0; i < rgblight_ranges.effect_num_leds; i++) {
         uint8_t local_hue = (i / RGBLIGHT_EFFECT_CHRISTMAS_STEP) % 2 ? hue : hue_green - hue;
