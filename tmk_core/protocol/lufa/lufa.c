@@ -914,14 +914,11 @@ void virtser_send(const uint8_t byte) {
  */
 static void setup_mcu(void) {
     /* Disable watchdog if enabled by bootloader/fuses */
-    MCUSR &= ~(1 << WDRF);
+    MCUSR &= ~_BV(WDRF);
     wdt_disable();
 
     /* Disable clock division */
-    // clock_prescale_set(clock_div_1);
-
-    CLKPR = (1 << CLKPCE);
-    CLKPR = (0 << CLKPS3) | (0 << CLKPS2) | (0 << CLKPS1) | (0 << CLKPS0);
+    clock_prescale_set(clock_div_1);
 }
 
 /** \brief Setup USB

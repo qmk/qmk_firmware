@@ -12,3 +12,5 @@ NKRO_ENABLE = yes                  # USB Nkey Rollover
 AUDIO_ENABLE = no
 RGB_MATRIX_ENABLE = IS31FL3733     # Use RGB matrix
 NO_USB_STARTUP_CHECK = no          # Disable initialization only when usb is plugged in
+
+LAYOUTS = 60_tsangan_hhkb
