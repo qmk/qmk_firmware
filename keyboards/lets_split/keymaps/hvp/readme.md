@@ -18,5 +18,5 @@ Flash instructions: Flash using avrdude, will req the hvp user space to compile.
 > make lets_split/rev2:hvp:avrdude
 
 Links:
-Github - https://github.com/ai03-2725/UT47.2
+Github - https://github.com/qmk/qmk_firmware/tree/master/keyboards/lets_split
 Eurkey layout - https://eurkey.steffen.bruentjen.eu/
