@@ -2188,12 +2188,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      BASE: NUMS: FUN<  _MOV  _RAR  _REV  | ACCE: DRAW: xxx   xxx   xxx   !Descr     //':' are dynamic ...
      LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10     RCtl     //... ! 'descramble'
      LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20     RSft     //... < toggle 'stay'
-     ----------------------------------------------------------                  
-     LAlt  LCtl&   LCtl&   LSft& | +LCtl&LSft xxx   LGUI   RAlt
-           LSft    LAlt    LAlt  | &LAlt                                     
-           +xxx    +xxx    +xxx  | +xxx
-                                <|>
-     <1    <2      <3      <4    | 4>         3>    2>     1>                
+     -------------------------------------------------------                  
+     LAlt  LCtl&  LGUI  LCtl& | LSft& +LCtl&LSft LGUI   RAlt
+           LSft         LAlt  | LAlt  &LAlt                                    
+           +xxx         +xxx  | +xxx  +xxx
+                             <|>
+     <1    <2     <3    <4    | 4>    3>         2>     1>                
  */
 //
 //      <pink2   , <pinky   , <ring     , <middl      , <index      , <indx2     |, indx2>   , index>   , middl>  , ring>   , pinky>  , pink2>        ,
@@ -2202,9 +2202,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL  , KC_F1    , KC_F2     , KC_F3       , KC_F4       , KC_F5       , KC_F6    , KC_F7    , KC_F8   , KC_F9   , KC_F10  , KC_RCTL       ,
         KC_LSFT  , KC_F11   , KC_F12    , KC_F13      , KC_F14      , KC_F15      , KC_F16   , KC_F17   , KC_F18  , KC_F19  , KC_F20  , KC_RSFT       ,
 //      ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        KC_LALT , MT ( MOD_LCTL | MOD_LSFT, XXXXXXX ) , MT ( MOD_LCTL | MOD_LALT , XXXXXXX ) , MT ( MOD_LSFT | MOD_LALT , XXXXXXX ) , MT ( MOD_LCTL | MOD_LSFT | MOD_LALT , XXXXXXX ) , XXXXXXX , KC__YGUI , KC_RALT
-//              ,                                     ,                                      ,                                    <|,>                                                ,         ,          ,
-//      <1      , <2                                  , <3                                   , <4                                  |, 4>                                              , 3>      , 2>       , 1>
+        KC_LALT , MT ( MOD_LCTL | MOD_LSFT, XXXXXXX ) , KC__XGUI , MT ( MOD_LCTL | MOD_LALT , XXXXXXX ) , MT ( MOD_LSFT | MOD_LALT , XXXXXXX ) , MT ( MOD_LCTL | MOD_LSFT | MOD_LALT , XXXXXXX ) , KC__YGUI , KC_RALT
+//              ,                                     ,          ,                                    <|,>                                     ,                                                 ,          ,
+//      <1      , <2                                  , <3       , <4                                  |, 4>                                   , 3>                                              , 2>       , 1>
                       ),
 
         /**/

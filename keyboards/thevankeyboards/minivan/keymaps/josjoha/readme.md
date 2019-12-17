@@ -126,7 +126,7 @@ There is an uncluttered _Delete_ and _Right_ on the `_NSY` or `_MOV` layer respe
 Remarks. There is a bit of numbers entry here with -,.Tab, also see `_REV` for that.
 
 - - -
-    
+     
      Layer _FUN (F-keys, Layer access, Set BASE key direction)
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
@@ -135,12 +135,12 @@ Remarks. There is a bit of numbers entry here with -,.Tab, also see `_REV` for t
      BASE: NUMS: FUN<  _MOV  _RAR  _REV  | ACCE: DRAW: xxx   xxx   xxx   !Descr     //':' are dynamic ...
      LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10     RCtl     //... ! 'descramble'
      LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20     RSft     //... < toggle 'stay'
-     ----------------------------------------------------------
-     LAlt  LCtl&   LCtl&   LSft& | +LCtl&LSft xxx   LGUI   RAlt
-           LSft    LAlt    LAlt  | &LAlt                                     
-           +xxx    +xxx    +xxx  | +xxx
-                                <|>                 -*-                         //(toggle) Acces -*- base
-     <1    <2      <3      <4    | 4>         3>    2>     1>                
+     -------------------------------------------------------                  
+     LAlt  LCtl&  LGUI  LCtl& | LSft& +LCtl&LSft LGUI   RAlt
+           LSft         LAlt  | LAlt  &LAlt                                    
+           +xxx         +xxx  | +xxx  +xxx
+                             <|>
+     <1    <2     <3    <4    | 4>    3>         2>     1>                
 
 Remarks. Unusual keys !Descr and FUN<. !Descr cycles through the 'descramble' modes. 
 Default: off. FUN< toggles an immediate return to the BASE layer after pressing an F-key, 
