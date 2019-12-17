@@ -1,5 +1,6 @@
 #!/bin/bash
 
+source util/travis_utils.sh
 source util/travis_push.sh
 
 set -o errexit -o nounset
@@ -9,11 +10,12 @@ echo "Using git hash ${rev}"
 
 if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" ]] ; then
 
-# convert to unix line-endings
+# fix formatting
 git checkout master
-git diff --diff-filter=M --name-only -n 1 -z ${TRAVIS_COMMIT_RANGE} | xargs -0 dos2unix
-git diff --diff-filter=M --name-only -n 1 -z ${TRAVIS_COMMIT_RANGE} | xargs -0 git add
-git commit -m "convert to unix line-endings [skip ci]" && git push git@github.com:qmk/qmk_firmware.git master
+git diff --diff-filter=AM --name-only -n 1 -z ${TRAVIS_COMMIT_RANGE} | xargs -0 dos2unix
+git diff --diff-filter=AM --name-only -n 1 -z ${TRAVIS_COMMIT_RANGE} '*.c' '*.h' '*.cpp' | grep -z -e '^drivers' -e '^quantum' -e '^tests' -e '^tmk_core' | grep -zv -e 'quantum/template' -e 'tmk_core/protocol/usb_hid' | xargs -0 clang-format -i
+git diff --diff-filter=AM --name-only -n 1 -z ${TRAVIS_COMMIT_RANGE} | xargs -0 git add
+git commit -m "format code according to conventions [skip ci]" && git push git@github.com:qmk/qmk_firmware.git master
 
 increment_version ()
 {
@@ -29,8 +31,7 @@ NEFM=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -Ev '^(keyboards/
 if [[ $NEFM -gt 0 ]] ; then
 	echo "Essential files modified."
 	git fetch --tags
-	#lasttag=$(git describe --tags $(git rev-list --tags --max-count=10) | grep -Ev '\-' | xargs -I@ git log --format=format:"%ai @%n" -1 @ | sort -V | awk '{print $4}' | tail -1)
-	lasttag=$(git describe --tags $(git rev-list --tags --max-count=10) | grep -Ev '\-' | sort -V | tail -1)
+	lasttag=$(git tag --sort=-creatordate --no-column --list '*.*.*' | grep -E -m1 '^[0-9]+\.[0-9]+\.[0-9]+$')
 	newtag=$(increment_version $lasttag)
 	until git tag $newtag; do
 		newtag=$(increment_version $newtag)

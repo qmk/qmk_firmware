@@ -41,8 +41,8 @@ copy_templates() {
     echo " done"
 
     echo -n "Renaming keyboard files..."
-    mv "${keyboard_dir}/template.c" "${keyboard_dir}/${keyboard_name}.c"
-    mv "${keyboard_dir}/template.h" "${keyboard_dir}/${keyboard_name}.h"
+    mv "${keyboard_dir}/keyboard.c" "${keyboard_dir}/${keyboard_name}.c"
+    mv "${keyboard_dir}/keyboard.h" "${keyboard_dir}/${keyboard_name}.h"
     echo " done"
 }
 
@@ -70,10 +70,23 @@ replace_placeholders() {
     echo " done"
 }
 
+# Replace %YEAR% with the current year.
+replace_year_placeholders() {
+    local replace_year_filenames=(
+        "${keyboard_dir}/config.h"
+        "${keyboard_dir}/${keyboard_name}.c"
+        "${keyboard_dir}/${keyboard_name}.h"
+        "${keyboard_dir}/keymaps/default/config.h"
+        "${keyboard_dir}/keymaps/default/keymap.c"
+    )
+    replace_placeholders "%YEAR%" "$(date +%Y)" "${replace_year_filenames[@]}"
+}
+
 # Replace %KEYBOARD% with the keyboard name.
 replace_keyboard_placeholders() {
     local replace_keyboard_filenames=(
         "${keyboard_dir}/config.h"
+        "${keyboard_dir}/info.json"
         "${keyboard_dir}/readme.md"
         "${keyboard_dir}/${keyboard_name}.c"
         "${keyboard_dir}/keymaps/default/readme.md"
@@ -85,6 +98,7 @@ replace_keyboard_placeholders() {
 replace_name_placeholders() {
     local replace_name_filenames=(
         "${keyboard_dir}/config.h"
+        "${keyboard_dir}/info.json"
         "${keyboard_dir}/readme.md"
         "${keyboard_dir}/${keyboard_name}.c"
         "${keyboard_dir}/${keyboard_name}.h"
@@ -149,6 +163,7 @@ echo
 
 copy_templates
 set_sed_i
+replace_year_placeholders
 replace_keyboard_placeholders
 [ -n "$username" ] && replace_name_placeholders
 

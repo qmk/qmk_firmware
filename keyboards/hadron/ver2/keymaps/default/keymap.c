@@ -5,7 +5,6 @@
 #ifdef SSD1306OLED
 #include "ssd1306.h"
 #endif
-extern keymap_config_t keymap_config;
 
 //Following line allows macro to read current RGB settings
 extern rgblight_config_t rgblight_config;
@@ -37,10 +36,7 @@ enum preonic_keycodes {
   RGBLED_DECREASE_SAT,
   RGBLED_INCREASE_VAL,
   RGBLED_DECREASE_VAL,
-};
-
-enum macro_keycodes {
-  KC_DEMOMACRO,
+  DEMOMACRO
 };
 
 // Custom macros
@@ -51,7 +47,6 @@ enum macro_keycodes {
 // Requires KC_TRNS/_______ for the trigger key in the destination layer
 #define LT_MC(kc)   LT(_MOUSECURSOR, kc)        // L-ayer T-ap M-ouse C-ursor
 #define LT_RAI(kc)  LT(_RAISE, kc)              // L-ayer T-ap to Raise
-#define DEMOMACRO   M(KC_DEMOMACRO)            // Sample for macros
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -302,31 +297,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case DEMOMACRO:
+      if (record->event.pressed) {
+        SEND_STRING("hello world");
+      }
+      return false;
+      break;
   }
   return true;
 }
-
-
-
-/*
- * Macro definition
- */
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    if (!eeconfig_is_enabled()) {
-      eeconfig_init();
-    }
-
-    switch (id) {
-      case KC_DEMOMACRO:
-        if (record->event.pressed){
-          return MACRO (I(1), T(H),T(E),T(L), T(L), T(O), T(SPACE), T(W), T(O), T(R), T(L), T(D),  END);
-        }
-    }
-
-    return MACRO_NONE;
-}
-
 
 //Functions for ver2
 #ifdef KEYBOARD_hadron_ver2

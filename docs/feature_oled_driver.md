@@ -14,7 +14,7 @@ Tested combinations:
 
 Hardware configurations using ARM-based microcontrollers or different sizes of OLED modules may be compatible, but are untested.
 
-!> Warning: This OLED Driver currently uses the new i2c_master driver from split common code. If your split keyboard uses i2c to communication between sides this driver could cause an address conflict (serial is fine). Please contact your keyboard vendor and ask them to migrate to the latest split common code to fix this. 
+!> Warning: This OLED Driver currently uses the new i2c_master driver from split common code. If your split keyboard uses I2C to communicate between sides, this driver could cause an address conflict (serial is fine). Please contact your keyboard vendor and ask them to migrate to the latest split common code to fix this. In addition, the display timeout system to reduce OLED burn-in also uses split common to detect keypresses, so you will need to implement custom timeout logic for non-split common keyboards.
 
 ## Usage
 
@@ -31,7 +31,7 @@ This enables the feature and the `OLED_DRIVER_ENABLE` define. Then in your `keym
 void oled_task_user(void) {
   // Host Keyboard Layer Status
   oled_write_P(PSTR("Layer: "), false);
-  switch (biton32(layer_state)) {
+  switch (get_highest_layer(layer_state)) {
     case _QWERTY:
       oled_write_P(PSTR("Default\n"), false);
       break;
@@ -96,17 +96,19 @@ void oled_task_user(void) {
 
  ## Basic Configuration
 
-| Define                 | Default           | Description                                                                                                                |
-|------------------------|-------------------|----------------------------------------------------------------------------------------------------------------------------|
-| `OLED_DISPLAY_ADDRESS` | `0x3C`            | The i2c address of the OLED Display                                                                                        |
-| `OLED_FONT_H`          | `"glcdfont.c"`    | The font code file to use for custom fonts                                                                                 |
-| `OLED_FONT_START`      | `0`               | The starting characer index for custom fonts                                                                               |
-| `OLED_FONT_END`        | `224`             | The ending characer index for custom fonts                                                                                 |
-| `OLED_FONT_WIDTH`      | `6`               | The font width                                                                                                             |
-| `OLED_FONT_HEIGHT`     | `8`               | The font height (untested)                                                                                                 |
-| `OLED_DISABLE_TIMEOUT` | *Not defined*     | Disables the built in OLED timeout feature. Useful when implementing custom timeout rules.                                 |
-| `OLED_IC`              | `OLED_IC_SSD1306` | Set to `OLED_IC_SH1106` if you're using the SH1106 OLED controller.                                                        |
-| `OLED_COLUMN_OFFSET`   | `0`               | (SH1106 only.) Shift output to the right this many pixels.<br />Useful for 128x64 displays centered on a 132x64 SH1106 IC. |
+| Define                     | Default           | Description                                                                                                                |
+|----------------------------|-------------------|----------------------------------------------------------------------------------------------------------------------------|
+| `OLED_DISPLAY_ADDRESS`     | `0x3C`            | The i2c address of the OLED Display                                                                                        |
+| `OLED_FONT_H`              | `"glcdfont.c"`    | The font code file to use for custom fonts                                                                                 |
+| `OLED_FONT_START`          | `0`               | The starting characer index for custom fonts                                                                               |
+| `OLED_FONT_END`            | `224`             | The ending characer index for custom fonts                                                                                 |
+| `OLED_FONT_WIDTH`          | `6`               | The font width                                                                                                             |
+| `OLED_FONT_HEIGHT`         | `8`               | The font height (untested)                                                                                                 |
+| `OLED_TIMEOUT`             | `60000`           | Turns off the OLED screen after 60000ms of keyboard inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.            |
+| `OLED_SCROLL_TIMEOUT`      | `0`               | Scrolls the OLED screen after 0ms of OLED inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.                      |
+| `OLED_SCROLL_TIMEOUT_RIGHT`| *Not defined*     | Scroll timeout direction is right when defined, left when undefined.                                                       |
+| `OLED_IC`                  | `OLED_IC_SSD1306` | Set to `OLED_IC_SH1106` if you're using the SH1106 OLED controller.                                                        |
+| `OLED_COLUMN_OFFSET`       | `0`               | (SH1106 only.) Shift output to the right this many pixels.<br />Useful for 128x64 displays centered on a 132x64 SH1106 IC. |
 
  ## 128x64 & Custom sized OLED Displays
 
@@ -226,6 +228,12 @@ void oled_write_P(const char *data, bool invert);
 // Advances the cursor to the next page, wiring ' ' to the remainder of the current page
 // Remapped to call 'void oled_write_ln(const char *data, bool invert);' on ARM
 void oled_write_ln_P(const char *data, bool invert);
+
+// Writes a string to the buffer at current cursor position
+void oled_write_raw(const char *data, uint16_t size);
+
+// Writes a PROGMEM string to the buffer at current cursor position
+void oled_write_raw_P(const char *data, uint16_t size);
 
 // Can be used to manually turn on the screen if it is off
 // Returns true if the screen was on or turns on

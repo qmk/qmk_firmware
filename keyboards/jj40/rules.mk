@@ -15,19 +15,15 @@
 
 # MCU name
 MCU = atmega32a
-PROTOCOL = VUSB
 
-# unsupported features for now
-NO_UART = yes
-NO_SUSPEND_POWER_DOWN = yes
-
-# processor frequency
-F_CPU = 12000000
-
-# Bootloader
-#     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded
-#     automatically (+60). See bootloader.mk for all options.
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
 BOOTLOADER = bootloadHID
 
 # Build Options
@@ -44,17 +40,12 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality on B7 by default
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
-RGBLIGHT_CUSTOM_DRIVER = yes
+WS2812_DRIVER = i2c
 MIDI_ENABLE = no            # MIDI support (+2400 to 4200, depending on config)
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
-
-SRC += i2c_master.c
-
-# programming options
-PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex
 
 LAYOUTS = ortho_4x12 planck_mit

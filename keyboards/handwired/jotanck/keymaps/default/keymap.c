@@ -3,7 +3,6 @@
 
 #include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -13,10 +12,13 @@ extern keymap_config_t keymap_config;
 #define _QWERTY   0
 #define _LOWER    1
 #define _RAISE    2
-#define _ADJUST   3
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
+
+static bool is_ctl_pressed;
+static bool is_esc_pressed;
+static bool is_bspc_pressed;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -73,20 +75,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
 ),
-
-/* Adjust */
-[_ADJUST] = LAYOUT_ortho_4x12 (
-    _______, RESET,   _______, _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-),    
+    
 };
 
-uint32_t layer_state_set_user(uint32_t state) {
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+layer_state_t layer_state_set_user(layer_state_t state) {
+  #ifdef JOTANCK_LEDS
+  switch (get_highest_layer(state)) {
+  case _LOWER:
+    writePinHigh(JOTANCK_LED1);
+    writePinLow(JOTANCK_LED2);
+    break;
+  case _RAISE:
+    writePinLow(JOTANCK_LED1);
+    writePinHigh(JOTANCK_LED2);
+    break;
+  default:
+    writePinLow(JOTANCK_LED1);
+    writePinLow(JOTANCK_LED2);
+    break; 
+  };
+  #endif
+  return state;
 }
 
-void matrix_init_user(void) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case KC_LCTL:
+      is_ctl_pressed = record->event.pressed;
+      break;
+    case KC_ESC:
+      is_esc_pressed = record->event.pressed;
+      break;
+    case KC_BSPC:
+      is_bspc_pressed = record->event.pressed;
+      break;
+  };
+  return true;
 }
 
+void matrix_scan_user(void) {
+  if (is_ctl_pressed && is_esc_pressed && is_bspc_pressed) {
+    reset_keyboard();
+  }
+}
