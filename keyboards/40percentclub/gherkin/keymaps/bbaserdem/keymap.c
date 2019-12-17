@@ -24,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-void matrix_init_user(void) {
+void matrix_init_keymap(void) {
     // Set RGB to rainbow mood light
 #ifdef RGBLIGHT_ENABLE
     rgblight_enable();

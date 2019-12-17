@@ -6,7 +6,6 @@
 #define XXX     KC_NO
 
 #define LAYOUT_ortho_4x12_wrapper(...)      LAYOUT_ortho_4x12(__VA_ARGS__)
-#define LAYOUT_kc_ortho_4x12_wrapper(...)   LAYOUT_kc_ortho_4x12(__VA_ARGS__)
 #define LAYOUT_ortho_5x15_wrapper(...)      LAYOUT_ortho_5x15(__VA_ARGS__)
 #define LAYOUT_planck_wrapper(...)          LAYOUT_planck_grid(__VA_ARGS__)
 

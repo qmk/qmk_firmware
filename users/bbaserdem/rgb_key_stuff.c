@@ -18,9 +18,9 @@ extern rgb_config_t rgb_matrix_config;
 // Save configuration of base layer rgb matrix state
 void rgb_matrix_saveBase(void) {
     // Get HSV, speed, mode and activation state
-    userspace_config.rgb_mat_hue =      rgb_matrix_config.hue;
-    userspace_config.rgb_mat_sat =      rgb_matrix_config.sat;
-    userspace_config.rgb_mat_val =      rgb_matrix_config.val;
+    userspace_config.rgb_mat_hue =      rgb_matrix_config.hsv.h;
+    userspace_config.rgb_mat_sat =      rgb_matrix_config.hsv.s;
+    userspace_config.rgb_mat_val =      rgb_matrix_config.hsv.v;
     userspace_config.rgb_mat_speed =    rgb_matrix_config.speed;
     userspace_config.rgb_mat_mode =     rgb_matrix_get_mode();
     userspace_config.rgb_mat_toggle =   rgb_matrix_config.enable;

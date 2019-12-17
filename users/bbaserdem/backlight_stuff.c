@@ -4,7 +4,7 @@
 */
 #include "rgb_bl_stuff.h"
 
-extern backlight_config_t backlight_config;onfig;
+extern backlight_config_t backlight_config;
 
 // Backlight LEDs
 void matrix_init_backlight(void) {

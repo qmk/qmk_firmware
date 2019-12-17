@@ -1,10 +1,13 @@
 # Lets Split
 
 Check out [user readme](../../../../users/bbaserdem/README.md) for more info.
+This is still a WIP, but the firmware should be fine.
+
+Builds fine as of 2019-12-17
 
 # Setup
 
-I am planning on I2C, using Proton C's (or ProMicro's)
+I am planning on I2C, using Proton C's (or ProMicro's).
 
 # Caterina
 

@@ -80,10 +80,6 @@ uint32_t layer_state_set_rgb_light( uint32_t state ) {
             rgblight_sethsv_noeeprom_red();
             break;
     }
-    // For lets split it up
-#ifdef SPLIT_KEYBOARD
-    RGB_DIRTY = true;
-#endif
 
     return(state);
 }

@@ -15,9 +15,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "quantum.h"
-#ifdef SPLIT_KEYBOARD           // Let's split eh slave refresh
-#include "split_flags.h"
-#endif
 #ifdef AUDIO_ENABLE             // Audio stuff
     #include "audio_stuff.h"
 #endif
