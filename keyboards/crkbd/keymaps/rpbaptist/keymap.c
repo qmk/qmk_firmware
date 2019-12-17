@@ -19,7 +19,7 @@ enum custom_keycodes {
     RGB_UND,  // Toggle RGB underglow as layer indicator
     RGB_IDL,  // RGB Idling animations
     RGB_MAP,  // RGB_MATRIX_TYPING_HEATMAP
-    RGB_SPL,  // RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
+    RGB_NXS,  // RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
     RGB_SOL,  // RGB_MATRIX_SOLID_COLOR
     RGB_CYC,  // RGB_MATRIX_CYCLE_ALL
     RGB_DUO,  // RGB_MATRIX_RAINBOW_PINWHEELS
@@ -154,7 +154,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_UTIL] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        RESET, XXXXXXX, KC_MPRV, KC_VOLU, KC_MNXT, COLEMAK,                      RGB_IDL, RGB_MAP, RGB_SPL, XXXXXXX, RGB_HUD, RGB_HUI,\
+        RESET, XXXXXXX, KC_MPRV, KC_VOLU, KC_MNXT, COLEMAK,                      RGB_IDL, RGB_MAP, RGB_NXS, XXXXXXX, RGB_HUD, RGB_HUI,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       RGB_RST, XXXXXXX, KC_MSTP, KC_VOLD, KC_MPLY,  GAMING,                      RGB_UND, RGB_DUO, RGB_CHV, RGB_SPI, RGB_VAD, RGB_VAI,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -201,7 +201,7 @@ const char *rgb_matrix_anim_oled_text(uint8_t mode) {
         case RGB_MATRIX_TYPING_HEATMAP:
             return PSTR("Heat ");
         case RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS:
-            return PSTR("Splsh");
+            return PSTR("Nexus");
         case RGB_MATRIX_SOLID_COLOR:
             return PSTR("Solid");
         case RGB_MATRIX_CYCLE_ALL:
@@ -540,7 +540,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 rgb_matrix_update_mode(RGB_MATRIX_TYPING_HEATMAP, rgb_matrix_config.speed, true);
             }
             break;
-        case RGB_SPL:
+        case RGB_NXS:
             if (record->event.pressed) {
                 rgb_matrix_update_mode(RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS, RGB_MATRIX_ANIMATION_SPEED_DEFAULT, true);
             }
