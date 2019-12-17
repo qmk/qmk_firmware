@@ -4,9 +4,9 @@
 
 A hotswap 60% RGB keyboard.
 
-Keyboard Maintainer: DZtech  
-Hardware Supported: DZtech dz60rgb, dz60rgb-ansi  
-Hardware Availability: [kbdfans](https://kbdfans.myshopify.com/)
+* Keyboard Maintainer: DZtech
+* Hardware Supported: DZtech dz60rgb, dz60rgb-ansi
+* Hardware Availability: [kbdfans](https://kbdfans.myshopify.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
