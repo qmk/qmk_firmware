@@ -38,6 +38,7 @@ enum custom_keycodes {
   SDTOGG, // Toggle SuperDuper
   GUI_UNDS,
   LSFT_LPRN,
+  RSFT_RPRN,
 };
 
 // Narze : Custom Macros
@@ -68,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  [_QWERTY] = LAYOUT( \
   KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS, \
   HPR_ESC, KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-  LSFT_LPRN, KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,                     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  SFT_ENT, \
+  LSFT_LPRN, KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,                     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  RSFT_RPRN, \
   LT(_RAISE, KC_LBRC), KC_LCTL, KC_LALT, GUI_UNDS,LOWER,  KC_SPC, SH_TT,  SH_TT,  KC_SPC,  RAISE,   KC_BSPC, KC_RALT, KC_RCTL,   LT(_LOWER, KC_RBRC), \
                              _______, _______, _______, KC_SPC,   KC_ENT,   _______,   _______, _______ \
 ),
@@ -349,6 +350,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // 2. Hold for LSHIFT, tap for Parens open
     case LSFT_LPRN:
         perform_space_cadet(record, KC_LSFT, KC_LSFT, KC_9);
+        return false;
+
+    // 3. Hold for RSHIFT, tap for Parens close
+    case RSFT_RPRN:
+        perform_space_cadet(record, KC_RSFT, KC_RSFT, KC_0);
         return false;
   }
   return true;
