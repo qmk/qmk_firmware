@@ -219,6 +219,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           } else {
             layer_off(_SHIFT);
           }
+          update_tri_layer(_SHIFT, _RAISE, _SHIFTED_RAISE);
+          update_tri_layer(_SHIFT, _LOWER, _SHIFTED_LOWER);
           return false;
           break;
         case LOWER:
@@ -228,7 +230,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_off(_LOWER);
           }
           update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          update_tri_layer(_SHIFT, _RAISE, _SHIFTED_RAISE);
           update_tri_layer(_SHIFT, _LOWER, _SHIFTED_LOWER);
           return false;
           break;
@@ -240,7 +241,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           update_tri_layer(_LOWER, _RAISE, _ADJUST);
           update_tri_layer(_SHIFT, _RAISE, _SHIFTED_RAISE);
-          update_tri_layer(_SHIFT, _LOWER, _SHIFTED_LOWER);
           return false;
           break;
       }
