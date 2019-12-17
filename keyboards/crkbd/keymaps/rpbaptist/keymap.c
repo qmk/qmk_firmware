@@ -494,6 +494,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case COLEMAK:
             if (record->event.pressed) {
                 user_config.rgb_matrix_idle_timeout = 60000;
+                rgb_matrix_update_mode(RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS, RGB_MATRIX_ANIMATION_SPEED_DEFAULT, true);
                 rgb_matrix_update_mode(RGB_MATRIX_CYCLE_ALL, RGB_MATRIX_ANIMATION_SPEED_SLOWER, false);
             }
             return true;
@@ -503,6 +504,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     user_config.rgb_layer_change = true;
                 }
                 user_config.rgb_matrix_idle_timeout = 5000;
+                rgb_matrix_update_mode(RGB_MATRIX_TYPING_HEATMAP, RGB_MATRIX_ANIMATION_SPEED_DEFAULT, true);
                 rgb_matrix_update_mode(RGB_MATRIX_RAINBOW_PINWHEELS, RGB_MATRIX_ANIMATION_SPEED_SLOW, false);
             }
             return true;
