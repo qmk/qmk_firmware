@@ -1,4 +1,4 @@
-#KidBrazil's custom CRKBD Layout
+# KidBrazil's custom CRKBD Layout
 
 ![Crkbd](https://user-images.githubusercontent.com/736191/40575636-6fba63a4-6123-11e8-9ca0-3f990f1f9f4c.jpg)
 
@@ -39,7 +39,7 @@ the glcdfont file here and you should be fine.
 Alternatively you could remove the font config line from the config.h file so it
 will use the default QMK one.
 
-##OLED
+## OLED
 This Keymap is setup to use the newer OLED API. Some work has been done to
 customize this with showing layer and USB information. I also tried my best to
 get a dormant / sleep state going but it is hit or miss and often only works on
