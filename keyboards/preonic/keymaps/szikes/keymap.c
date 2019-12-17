@@ -131,11 +131,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_preonic_grid( \
-  HU_GRV,  HU_1,    HU_2,    HU_3,    HU_4,    HU_5,    HU_6,    HU_7,             HU_8,    HU_9,            HU_0,    KC_DEL,     \
-  HU_GRV,  HU_1,    HU_2,    HU_3,    HU_4,    HU_5,    HU_6,    TD(TD_S_UE_UEE),  HU_8,    TD(TD_S_OE_OEE), HU_0,    KC_DEL,     \
-  KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   HU_MINS,          HU_EQL,  HU_LBRC,         HU_RBRC, HU_BSLS,    \
-  KC_LSHIFT,KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUHS,          KC_NUBS, S(KC_INSERT),    KC_PGUP, KC_PSCREEN, \
-  _______, _______, _______, _______, _______, _______, _______, _______,          _______, KC_HOME,         KC_PGDN, KC_END      \
+  HU_GRV,  HU_1,    HU_2,    HU_3,    HU_4,    HU_5,    HU_6,    HU_7,          HU_8,    HU_9,          HU_0,    KC_DEL,     \
+  HU_GRV,  HU_1,    HU_2,    HU_3,    HU_4,    HU_5,    HU_6,    TD(TD_UE_UEE), HU_8,    TD(TD_OE_OEE), HU_0,    KC_DEL,     \
+  KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   HU_MINS,       HU_EQL,  HU_LBRC,       HU_RBRC, HU_BSLS,    \
+  KC_LSFT, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUHS,       KC_NUBS, S(KC_INSERT),  KC_PGUP, KC_PSCREEN, \
+  _______, _______, _______, _______, _______, _______, _______, _______,       _______, KC_HOME,       KC_PGDN, KC_END      \
 ),
 
 /* Raise + Shift
@@ -152,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_SHIFTED_RAISE] = LAYOUT_preonic_grid( \
-  HU_GRV,    S(HU_1),   S(HU_2),  S(HU_3),  S(HU_4),   S(HU_5),   S(HU_6),   S(HU_7),         S(HU_8), S(HU_9),         S(HU_0),    S(KC_DEL), \
+  HU_GRV,    S(HU_1),  S(HU_2),  S(HU_3),  S(HU_4),   S(HU_5),   S(HU_6),   S(HU_7),         S(HU_8), S(HU_9),         S(HU_0),    S(KC_DEL),     \
   HU_GRV,    S(HU_1),  S(HU_2),  S(HU_3),  S(HU_4),   S(HU_5),   S(HU_6),   TD(TD_S_UE_UEE), S(HU_8), TD(TD_S_OE_OEE), S(HU_0),    S(KC_DEL),     \
   S(KC_DEL), S(KC_F1), S(KC_F2), S(KC_F3), S(KC_F4),  S(KC_F5),  S(KC_F6),  HU_MINS,         HU_EQL,  HU_LBRC,         HU_RBRC,    HU_BSLS,       \
   _______,   S(KC_F7), S(KC_F8), S(KC_F9), S(KC_F10), S(KC_F11), S(KC_F12), KC_NUHS,         KC_NUBS, S(KC_INSERT),    S(KC_PGUP), S(KC_PSCREEN), \
