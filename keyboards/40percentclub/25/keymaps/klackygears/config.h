@@ -22,7 +22,7 @@
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
 #ifdef RGBLIGHT_ENABLE
-#define RGBLED_NUM 4    // Number of LEDs
+#define RGBLED_NUM 7    // Number of LEDs
 #endif
 
  #ifdef RGB_DI_PIN

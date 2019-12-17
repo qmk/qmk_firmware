@@ -27,11 +27,11 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [0] = LAYOUT_ortho_5x5_wrapper(
-    _________________MEDIA_____________________,    \
-    _________________RGB_1_____________________, \
-    _________________RGB_2_____________________, \
-    _______________MACDVK_L3___________________, \
-    MAKEK, ________MAC_THUMB_CLUSTER_________ \
+    _________________MEDIA_____________________,\
+    RGBRST, RGBRST, RGBRST, RGBRST, RGBRST,\
+    RGBRST, RGBRST, RGBRST, RGBRST, RGBRST,\
+    RGBRST, RGBRST, RGBRST, RGBRST, RGBRST,\
+    RGBRST, RGBRST, RGBRST, RGBRST, RGBRST\
   ),
 
 
