@@ -1,0 +1,88 @@
+#!/usr/bin/env python3
+"""CLI wrapper for running QMK commands.
+"""
+import os
+import subprocess
+import sys
+from importlib.util import find_spec
+from time import strftime
+
+# Add the QMK python libs to our path
+script_dir = os.path.dirname(os.path.realpath(__file__))
+qmk_dir = os.path.abspath(os.path.join(script_dir, '..'))
+python_lib_dir = os.path.abspath(os.path.join(qmk_dir, 'lib', 'python'))
+sys.path.append(python_lib_dir)
+
+# Make sure our modules have been setup
+with open(os.path.join(qmk_dir, 'requirements.txt'), 'r') as fd:
+    for line in fd.readlines():
+        line = line.strip().replace('<', '=').replace('>', '=')
+
+        if line[0] == '#':
+            continue
+
+        if '#' in line:
+            line = line.split('#')[0]
+
+        module = line.split('=')[0] if '=' in line else line
+
+        if module in ['pep8-naming']:
+            # Not every module is importable by its own name.
+            continue
+
+        if not find_spec(module):
+            print('Could not find module %s!' % module)
+            print('Please run `pip3 install -r requirements.txt` to install the python dependencies.')
+            exit(255)
+
+# Figure out our version
+# TODO(skullydazed/anyone): Find a method that doesn't involve git. This is slow in docker and on windows.
+command = ['git', 'describe', '--abbrev=6', '--dirty', '--always', '--tags']
+result = subprocess.run(command, universal_newlines=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+
+if result.returncode == 0:
+    os.environ['QMK_VERSION'] = result.stdout.strip()
+else:
+    os.environ['QMK_VERSION'] = 'nogit-' + strftime('%Y-%m-%d-%H:%M:%S') + '-dirty'
+
+# Setup the CLI
+import milc  # noqa
+
+milc.EMOJI_LOGLEVELS['INFO'] = '{fg_blue}Ψ{style_reset_all}'
+
+
+@milc.cli.entrypoint('QMK Helper Script')
+def qmk_main(cli):
+    """The function that gets run when no subcommand is provided.
+    """
+    cli.print_help()
+
+
+def main():
+    """Setup our environment and then call the CLI entrypoint.
+    """
+    # Change to the root of our checkout
+    os.environ['ORIG_CWD'] = os.getcwd()
+    os.chdir(qmk_dir)
+
+    # Import the subcommands
+    import qmk.cli  # noqa
+
+    # Execute
+    return_code = milc.cli()
+
+    if return_code is False:
+        exit(1)
+
+    elif return_code is not True and isinstance(return_code, int):
+        if return_code < 0 or return_code > 255:
+            milc.cli.log.error('Invalid return_code: %d', return_code)
+            exit(255)
+
+        exit(return_code)
+
+    exit(0)
+
+
+if __name__ == '__main__':
+    main()

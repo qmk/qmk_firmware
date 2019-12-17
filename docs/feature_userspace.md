@@ -110,16 +110,16 @@ QMK has a bunch of [functions](custom_quantum_functions.md) that have [`_quantum
 However, you can actually add support for keymap version, so that you can use it in both your userspace and your keymap! 
 
 
-For instance, lets looks at the `layer_state_set_user` function.  Lets enable the [Tri Layer State](ref_functions.md#olkb-tri-layers) functionalitly to all of our boards, and then still have your `keymap.c` still able to use this functionality. 
+For instance, let's look at the `layer_state_set_user()` function.  You can enable the [Tri Layer State](ref_functions.md#olkb-tri-layers) functionality on all of your boards, while also retaining the Tri Layer functionality in your `keymap.c` files. 
 
 In your `<name.c>` file, you'd want to add this: 
 ```c
 __attribute__ ((weak))
-uint32_t layer_state_set_keymap (uint32_t state) {
+layer_state_t layer_state_set_keymap (layer_state_t state) {
   return state;
 }
 
-uint32_t layer_state_set_user (uint32_t state) {
+layer_state_t layer_state_set_user (layer_state_t state) {
   state = update_tri_layer_state(state, 2, 3, 5);
   return layer_state_set_keymap (state);
 }
@@ -208,23 +208,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             clear_mods(); clear_oneshot_mods();
             SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
     #ifndef FLASH_BOOTLOADER
-            if ( (temp_mod | temp_osm) & MOD_MASK_SHIFT ) 
+            if ((temp_mod | temp_osm) & MOD_MASK_SHIFT)
     #endif
-            { // 
-                #if defined(__arm__)  // only run for ARM boards
-                    SEND_STRING(":dfu-util");
-                #elif defined(BOOTLOADER_DFU) // only run for DFU boards
-                    SEND_STRING(":dfu");
-                #elif defined(BOOTLOADER_HALFKAY) // only run for teensy boards
-                    SEND_STRING(":teensy");
-                #elif defined(BOOTLOADER_CATERINA) // only run for Pro Micros
-                    SEND_STRING(":avrdude");
-                #endif // bootloader options
+            {
+                SEND_STRING(":flash");
             }
-            if ( (temp_mod | temp_osm) & MOD_MASK_CTRL) { 
-                SEND_STRING(" -j8 --output-sync"); 
+            if ((temp_mod | temp_osm) & MOD_MASK_CTRL) {
+                SEND_STRING(" -j8 --output-sync");
             }
-            SEND_STRING(SS_TAP(X_ENTER));
+            tap_code(KC_ENT);
             set_mods(temp_mod);
         }
         break;
@@ -244,7 +236,7 @@ endif
 
 This will add a new `KC_MAKE` keycode that can be used in any of your keymaps.  And this keycode will output `make <keyboard>:<keymap>`, making frequent compiling easier.  And this will work with any keyboard and any keymap as it will output the current boards info, so that you don't have to type this out every time.
 
-Also, holding `shift` will add the appropriate flashing command (`:dfu`, `:teensy`, `:avrdude`, `:dfu-util`) for a majority of keyboards.  Holding `control` will add some commands that will speed up compiling time by processing multiple files at once. 
+Also, holding Shift will add the flash target (`:flash`) to the command.  Holding Control will add some commands that will speed up compiling time by processing multiple files at once. 
 
 And for the boards that lack a shift key, or that you want to always attempt the flashing part, you can add `FLASH_BOOTLOADER = yes` to the `rules.mk` of that keymap.
 

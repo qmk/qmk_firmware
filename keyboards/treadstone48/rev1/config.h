@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         treadstone48
 #define DESCRIPTION     Symmetrical staggered 47+1 Keys Keyboard
 
-#define PREVENT_STUCK_MODIFIERS
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 150
 
@@ -63,7 +62,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BACKLIGHT_LEVELS 3
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 //#define LOCKING_SUPPORT_ENABLE

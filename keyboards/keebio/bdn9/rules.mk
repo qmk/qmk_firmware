@@ -1,11 +1,5 @@
+# MCU name
 MCU = atmega32u4
-F_CPU = 16000000
-ARCH = AVR8
-F_USB = $(F_CPU)
-
-# Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-
 
 # Bootloader selection
 #   Teensy       halfkay
@@ -13,19 +7,9 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   Atmel DFU    atmel-dfu
 #   LUFA DFU     lufa-dfu
 #   QMK DFU      qmk-dfu
-#   atmega32a    bootloadHID
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
 BOOTLOADER = caterina
-
-
-# If you don't know the bootloader type, then you can specify the
-# Boot Section Size in *bytes* by uncommenting out the OPT_DEFS line
-#   Teensy halfKay      512
-#   Teensy++ halfKay    1024
-#   Atmel DFU loader    4096
-#   LUFA bootloader     4096
-#   USBaspLoader        2048
-# OPT_DEFS += -DBOOTLOADER_SIZE=4096
-
 
 # Build Options
 #   change yes to no to disable

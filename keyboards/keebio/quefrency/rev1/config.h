@@ -18,8 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include QMK_KEYBOARD_CONFIG_H
-
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCB10
 #define PRODUCT_ID      0x1257
@@ -41,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_HAND_PIN D2
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* serial.c configuration for split keyboard */
 #define SOFT_SERIAL_PIN D0

@@ -4,16 +4,16 @@
  */
 #pragma once
 #ifdef MODULE_ADAFRUIT_BLE
-#include <stdbool.h>
-#include <stdint.h>
-#include <string.h>
+#    include <stdbool.h>
+#    include <stdint.h>
+#    include <string.h>
 
-#include "config_common.h"
-#include "progmem.h"
+#    include "config_common.h"
+#    include "progmem.h"
 
-#ifdef __cplusplus
+#    ifdef __cplusplus
 extern "C" {
-#endif
+#    endif
 
 /* Instruct the module to enable HID keyboard support and reset */
 extern bool adafruit_ble_enable_keyboard(void);
@@ -34,20 +34,18 @@ extern void adafruit_ble_task(void);
  * this set of keys.
  * Also sends a key release indicator, so that the keys do not remain
  * held down. */
-extern bool adafruit_ble_send_keys(uint8_t hid_modifier_mask, uint8_t *keys,
-                                   uint8_t nkeys);
+extern bool adafruit_ble_send_keys(uint8_t hid_modifier_mask, uint8_t *keys, uint8_t nkeys);
 
 /* Send a consumer keycode, holding it down for the specified duration
  * (milliseconds) */
 extern bool adafruit_ble_send_consumer_key(uint16_t keycode, int hold_duration);
 
-#ifdef MOUSE_ENABLE
+#    ifdef MOUSE_ENABLE
 /* Send a mouse/wheel movement report.
  * The parameters are signed and indicate positive of negative direction
  * change. */
-extern bool adafruit_ble_send_mouse_move(int8_t x, int8_t y, int8_t scroll,
-                                         int8_t pan, uint8_t buttons);
-#endif
+extern bool adafruit_ble_send_mouse_move(int8_t x, int8_t y, int8_t scroll, int8_t pan, uint8_t buttons);
+#    endif
 
 /* Compute battery voltage by reading an analog pin.
  * Returns the integer number of millivolts */
@@ -56,8 +54,8 @@ extern uint32_t adafruit_ble_read_battery_voltage(void);
 extern bool adafruit_ble_set_mode_leds(bool on);
 extern bool adafruit_ble_set_power_level(int8_t level);
 
-#ifdef __cplusplus
+#    ifdef __cplusplus
 }
-#endif
+#    endif
 
-#endif // MODULE_ADAFRUIT_BLE
+#endif  // MODULE_ADAFRUIT_BLE

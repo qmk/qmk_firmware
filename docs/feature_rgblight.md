@@ -6,7 +6,7 @@ QMK has the ability to control RGB LEDs attached to your keyboard. This is commo
 
 Some keyboards come with RGB LEDs preinstalled. Others must have them installed after the fact. See the [Hardware Modification](#hardware-modification) section for information on adding RGB lighting to your keyboard.
 
-Currently QMK supports the following addressable LEDs on AVR microcontrollers (however, the white LED in RGBW variants is not supported):
+Currently QMK supports the following addressable LEDs (however, the white LED in RGBW variants is not supported):
 
  * WS2811, WS2812, WS2812B, WS2812C, etc.
  * SK6812, SK6812MINI, SK6805
@@ -37,9 +37,9 @@ QMK uses [Hue, Saturation, and Value](https://en.wikipedia.org/wiki/HSL_and_HSV)
 
 <img src="gitbook/images/color-wheel.svg" alt="HSV Color Wheel" width="250"/>
 
-Changing the **Hue** cycles around the circle.  
-Changing the **Saturation** moves between the inner and outer sections of the wheel, affecting the intensity of the color.  
-Changing the **Value** sets the overall brightness.
+Changing the **Hue** cycles around the circle.<br>
+Changing the **Saturation** moves between the inner and outer sections of the wheel, affecting the intensity of the color.<br>
+Changing the **Value** sets the overall brightness.<br>
 
 ## Keycodes
 
@@ -48,12 +48,12 @@ Changing the **Value** sets the overall brightness.
 |`RGB_TOG`          |          |Toggle RGB lighting on or off                                       |
 |`RGB_MODE_FORWARD` |`RGB_MOD` |Cycle through modes, reverse direction when Shift is held           |
 |`RGB_MODE_REVERSE` |`RGB_RMOD`|Cycle through modes in reverse, forward direction when Shift is held|
-|`RGB_HUI`          |          |Increase hue                                                        |
-|`RGB_HUD`          |          |Decrease hue                                                        |
-|`RGB_SAI`          |          |Increase saturation                                                 |
-|`RGB_SAD`          |          |Decrease saturation                                                 |
-|`RGB_VAI`          |          |Increase value (brightness)                                         |
-|`RGB_VAD`          |          |Decrease value (brightness)                                         |
+|`RGB_HUI`          |          |Increase hue, decrease hue when Shift is held                       |
+|`RGB_HUD`          |          |Decrease hue, increase hue when Shift is held                       |
+|`RGB_SAI`          |          |Increase saturation, decrease saturation when Shift is held         |
+|`RGB_SAD`          |          |Decrease saturation, increase saturation when Shift is held         |
+|`RGB_VAI`          |          |Increase value (brightness), decrease value when Shift is held      |
+|`RGB_VAD`          |          |Decrease value (brightness), increase value when Shift is held      |
 |`RGB_MODE_PLAIN`   |`RGB_M_P `|Static (no animation) mode                                          |
 |`RGB_MODE_BREATHE` |`RGB_M_B` |Breathing animation mode                                            |
 |`RGB_MODE_RAINBOW` |`RGB_M_R` |Rainbow animation mode                                              |
@@ -75,9 +75,9 @@ Your RGB lighting can be configured by placing these `#define`s in your `config.
 |`RGBLIGHT_VAL_STEP`  |`17`         |The number of steps to increment the brightness by                           |
 |`RGBLIGHT_LIMIT_VAL` |`255`        |The maximum brightness level                                                 |
 |`RGBLIGHT_SLEEP`     |*Not defined*|If defined, the RGB lighting will be switched off when the host goes to sleep|
+|`RGBLIGHT_SPLIT`     |*Not defined*|If defined, synchronization functionality for split keyboards is added|
 
-## Animations
-
+## Effects and Animations
 
 Not only can this lighting be whatever color you want,
 if `RGBLIGHT_EFFECT_xxxx` or `RGBLIGHT_ANIMATIONS` is defined, you also have a number of animation modes at your disposal:
@@ -99,29 +99,54 @@ Check out [this video](https://youtube.com/watch?v=VKrpPAHlisY) for a demonstrat
 
 Note: For versions older than 0.6.117, The mode numbers were written directly. In `quantum/rgblight.h` there is a contrast table between the old mode number and the current symbol.
 
-The following options can be used to tweak the various animations:
+### Effect and Animation Toggles
+
+Use these defines to add or remove animations from the firmware. When you are running low on flash space, it can be helpful to disable animations you are not using.
 
 |Define                              |Default      |Description                                                                          |
 |------------------------------------|-------------|-------------------------------------------------------------------------------------|
-|`RGBLIGHT_EFFECT_BREATHING`         |*Not defined*|If defined, enable breathing animation mode.                                         |
-|`RGBLIGHT_EFFECT_RAINBOW_MOOD`      |*Not defined*|If defined, enable rainbow mood animation mode.                                      |
-|`RGBLIGHT_EFFECT_RAINBOW_SWIRL`     |*Not defined*|If defined, enable rainbow swirl animation mode.                                     |
-|`RGBLIGHT_EFFECT_SNAKE`             |*Not defined*|If defined, enable snake animation mode.                                             |
-|`RGBLIGHT_EFFECT_KNIGHT`            |*Not defined*|If defined, enable knight animation mode.                                            |
-|`RGBLIGHT_EFFECT_CHRISTMAS`         |*Not defined*|If defined, enable christmas animation mode.                                         |
-|`RGBLIGHT_EFFECT_STATIC_GRADIENT`   |*Not defined*|If defined, enable static gradient mode.                                             |
-|`RGBLIGHT_EFFECT_RGB_TEST`          |*Not defined*|If defined, enable RGB test animation mode.                                          |
-|`RGBLIGHT_EFFECT_ALTERNATING`       |*Not defined*|If defined, enable alternating animation mode.                                       |
-|`RGBLIGHT_ANIMATIONS`               |*Not defined*|If defined, enables all additional animation modes                                   |
-|`RGBLIGHT_EFFECT_BREATHE_CENTER`    |`1.85`       |Used to calculate the curve for the breathing animation. Valid values are 1.0 to 2.7 |
+|`RGBLIGHT_ANIMATIONS`               |*Not defined*|Enable all additional animation modes.                                   |
+|`RGBLIGHT_EFFECT_ALTERNATING`       |*Not defined*|Enable alternating animation mode.                                       |
+|`RGBLIGHT_EFFECT_BREATHING`         |*Not defined*|Enable breathing animation mode.                                         |
+|`RGBLIGHT_EFFECT_CHRISTMAS`         |*Not defined*|Enable christmas animation mode.                                         |
+|`RGBLIGHT_EFFECT_KNIGHT`            |*Not defined*|Enable knight animation mode.                                            |
+|`RGBLIGHT_EFFECT_RAINBOW_MOOD`      |*Not defined*|Enable rainbow mood animation mode.                                      |
+|`RGBLIGHT_EFFECT_RAINBOW_SWIRL`     |*Not defined*|Enable rainbow swirl animation mode.                                     |
+|`RGBLIGHT_EFFECT_RGB_TEST`          |*Not defined*|Enable RGB test animation mode.                                          |
+|`RGBLIGHT_EFFECT_SNAKE`             |*Not defined*|Enable snake animation mode.                                             |
+|`RGBLIGHT_EFFECT_STATIC_GRADIENT`   |*Not defined*|Enable static gradient mode.                                             |
+
+### Effect and Animation Settings
+
+The following options are used to tweak the various animations:
+
+|Define                              |Default      |Description                                                                          |
+|------------------------------------|-------------|-------------------------------------------------------------------------------------|
+|`RGBLIGHT_EFFECT_BREATHE_CENTER`    |*Not defined*|If defined, used to calculate the curve for the breathing animation. Valid values are 1.0 to 2.7 |
 |`RGBLIGHT_EFFECT_BREATHE_MAX`       |`255`        |The maximum brightness for the breathing mode. Valid values are 1 to 255             |
-|`RGBLIGHT_EFFECT_SNAKE_LENGTH`      |`4`          |The number of LEDs to light up for the "Snake" animation                             |
-|`RGBLIGHT_EFFECT_KNIGHT_LENGTH`     |`3`          |The number of LEDs to light up for the "Knight" animation                            |
-|`RGBLIGHT_EFFECT_KNIGHT_OFFSET`     |`0`          |The number of LEDs to start the "Knight" animation from the start of the strip by    |
-|`RGBLIGHT_EFFECT_KNIGHT_LED_NUM`    |`RGBLED_NUM` |The number of LEDs to have the "Knight" animation travel                             |
 |`RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL`|`1000`       |How long to wait between light changes for the "Christmas" animation, in milliseconds|
 |`RGBLIGHT_EFFECT_CHRISTMAS_STEP`    |`2`          |The number of LEDs to group the red/green colors by for the "Christmas" animation    |
-|`RGBLIGHT_RAINBOW_SWIRL_RANGE`      |`360`        |Range adjustment for the rainbow swirl effect to get different swirls                |
+|`RGBLIGHT_EFFECT_KNIGHT_LED_NUM`    |`RGBLED_NUM` |The number of LEDs to have the "Knight" animation travel                             |
+|`RGBLIGHT_EFFECT_KNIGHT_LENGTH`     |`3`          |The number of LEDs to light up for the "Knight" animation                            |
+|`RGBLIGHT_EFFECT_KNIGHT_OFFSET`     |`0`          |The number of LEDs to start the "Knight" animation from the start of the strip by    |
+|`RGBLIGHT_RAINBOW_SWIRL_RANGE`      |`255`        |Range adjustment for the rainbow swirl effect to get different swirls                |
+|`RGBLIGHT_EFFECT_SNAKE_LENGTH`      |`4`          |The number of LEDs to light up for the "Snake" animation                             |
+
+### Example Usage to Reduce Memory Footprint
+  1. Remove `RGBLIGHT_ANIMATIONS` from `config.h`.
+  1. Selectively add the animations you want to enable. The following would enable two animations and save about 4KiB:
+
+```diff
+ #undef RGBLED_NUM
+-#define RGBLIGHT_ANIMATIONS
++#define RGBLIGHT_EFFECT_STATIC_GRADIENT
++#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+ #define RGBLED_NUM 12
+ #define RGBLIGHT_HUE_STEP 8
+ #define RGBLIGHT_SAT_STEP 8
+```
+
+### Animation Speed
 
 You can also modify the speeds that the different modes animate at:
 
@@ -144,53 +169,142 @@ const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {100, 50, 20};
 const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {127, 63, 31};
 
 // These control which hues are selected for each of the "Static gradient" modes
-const uint16_t RGBLED_GRADIENT_RANGES[] PROGMEM = {360, 240, 180, 120, 90};
+const uint8_t RGBLED_GRADIENT_RANGES[] PROGMEM = {255, 170, 127, 85, 64};
 ```
 
 ## Functions
 
 If you need to change your RGB lighting in code, for example in a macro to change the color whenever you switch layers, QMK provides a set of functions to assist you. See [`rgblight.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight.h) for the full list, but the most commonly used functions include:
 
-|Function                                    |Description                                                                                                                                                   |
-|--------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|`rgblight_enable()`                         |Turn LEDs on, based on their previous state                                                                                                                   |
-|`rgblight_enable_noeeprom()`                |Turn LEDs on, based on their previous state (not written to EEPROM)                                                                                           |
-|`rgblight_disable()`                        |Turn LEDs off                                                                                                                                                 |
-|`rgblight_disable_noeeprom()`               |Turn LEDs off (not written to EEPROM)                                                                                                                         |
-|`rgblight_mode(x)`                          |Set the mode, if RGB animations are enabled                                                                                                                   |
-|`rgblight_mode_noeeprom(x)`                 |Set the mode, if RGB animations are enabled (not written to EEPROM)                                                                                           |
-|`rgblight_setrgb(r, g, b)`                  |Set all LEDs to the given RGB value where `r`/`g`/`b` are between 0 and 255 (not written to EEPROM)                                                           |
-|`rgblight_setrgb_at(r, g, b, led)`          |Set a single LED to the given RGB value, where `r`/`g`/`b` are between 0 and 255 and `led` is between 0 and `RGBLED_NUM` (not written to EEPROM)              |
-|`rgblight_setrgb_range(r, g, b, start, end)`|Set a continuous range of LEDs to the given RGB value, where `r`/`g`/`b` are between 0 and 255 and `start`(included) and `stop`(excluded) are between 0 and `RGBLED_NUM` (not written to EEPROM)|
-|`rgblight_setrgb_master(r, g, b)`           |Set the LEDs on the master side  to the given RGB value, where `r`/`g`/`b` are between 0 and 255 (not written to EEPROM)                                      |
-|`rgblight_setrgb_slave(r, g, b)`            |Set the LEDs on the slave side  to the given RGB value, where `r`/`g`/`b` are between 0 and 255 (not written to EEPROM)                                       |
-|`rgblight_sethsv(h, s, v)`                  |Set all LEDs to the given HSV value where `h` is between 0 and 360 and `s`/`v` are between 0 and 255                                                          |
-|`rgblight_sethsv_noeeprom(h, s, v)`         |Set all LEDs to the given HSV value where `h` is between 0 and 360 and `s`/`v` are between 0 and 255 (not written to EEPROM)                                  |
-|`rgblight_sethsv_at(h, s, v, led)`          |Set a single LED to the given HSV value, where `h` is between 0 and 360, `s`/`v` are between 0 and 255, and `led` is between 0 and `RGBLED_NUM` (not written to EEPROM)|
-|`rgblight_sethsv_range(h, s, v, start, end)`|Set a continuous range of LEDs to the given HSV value, where `h` is between 0 and 360, `s`/`v` are between 0 and 255, and `start`(included) and `stop`(excluded) are between 0 and `RGBLED_NUM` (not written to EEPROM)|
-|`rgblight_sethsv_master(h, s, v)`           |Set the LEDs on the master side to the given HSV value, where `h` is between 0 and 360, `s`/`v` are between 0 and 255 (not written to EEPROM)                 |
-|`rgblight_sethsv_slave(h, s, v)`            |Set the LEDs on the slave side to the given HSV value, where `h` is between 0 and 360, `s`/`v` are between 0 and 255 (not written to EEPROM)                  |
-|`rgblight_toggle()`                         |Toggle all LEDs between on and off                                                                                                                            |
-|`rgblight_toggle_noeeprom()`                |Toggle all LEDs between on and off (not written to EEPROM)                                                                                                    |
-|`rgblight_step()`                           |Change the mode to the next RGB animation in the list of enabled RGB animations                                                                               |
-|`rgblight_step_noeeprom()`                  |Change the mode to the next RGB animation in the list of enabled RGB animations (not written to EEPROM)                                                       |
-|`rgblight_step_reverse()`                   |Change the mode to the previous RGB animation in the list of enabled RGB animations                                                                           |
-|`rgblight_step_reverse_noeeprom()`          |Change the mode to the previous RGB animation in the list of enabled RGB animations (not written to EEPROM)                                                   |
-|`rgblight_increase_hue()`                   |Increase the hue for all LEDs. This wraps around at maximum hue                                                                                               |
-|`rgblight_increase_hue_noeeprom()`          |Increase the hue for all LEDs. This wraps around at maximum hue (not written to EEPROM)                                                                       |
-|`rgblight_decrease_hue()`                   |Decrease the hue for all LEDs. This wraps around at minimum hue                                                                                               |
-|`rgblight_decrease_hue_noeeprom()`          |Decrease the hue for all LEDs. This wraps around at minimum hue (not written to EEPROM)                                                                       |
-|`rgblight_increase_sat()`                   |Increase the saturation for all LEDs. This wraps around at maximum saturation                                                                                 |
-|`rgblight_increase_sat_noeeprom()`          |Increase the saturation for all LEDs. This wraps around at maximum saturation (not written to EEPROM)                                                         |
-|`rgblight_decrease_sat()`                   |Decrease the saturation for all LEDs. This wraps around at minimum saturation                                                                                 |
-|`rgblight_decrease_sat_noeeprom()`          |Decrease the saturation for all LEDs. This wraps around at minimum saturation (not written to EEPROM)                                                         |
-|`rgblight_increase_val()`                   |Increase the value for all LEDs. This wraps around at maximum value                                                                                           |
-|`rgblight_increase_val_noeeprom()`          |Increase the value for all LEDs. This wraps around at maximum value (not written to EEPROM)                                                                   |
-|`rgblight_decrease_val()`                   |Decrease the value for all LEDs. This wraps around at minimum value                                                                                           |
-|`rgblight_decrease_val_noeeprom()`          |Decrease the value for all LEDs. This wraps around at minimum value (not written to EEPROM)                                                                   |
-|`rgblight_set_clipping_range(pos, num)`     |Set clipping Range                                                                                                                                            |
+### Utility Functions
+|Function                                    |Description                                                        |
+|--------------------------------------------|-------------------------------------------------------------------|
+|`sethsv(hue, sat, val, ledbuf)`             |Set ledbuf to the given HSV value                                  |
+|`sethsv_raw(hue, sat, val, ledbuf)`         |Set ledbuf to the given HSV value without RGBLIGHT_LIMIT_VAL check |
+|`setrgb(r, g, b, ledbuf)`                   |Set ledbuf to the given RGB value where `r`/`g`/`b`                |
 
-Additionally, [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h) defines several predefined shortcuts for various colors. Feel free to add to this list!
+### Low level Functions
+|Function                                    |Description                                |
+|--------------------------------------------|-------------------------------------------|
+|`rgblight_set()`                            |Flash out led buffers to LEDs              |
+|`rgblight_set_clipping_range(pos, num)`     |Set clipping Range. see [Clipping Range](#clipping-range) |
+
+Example:
+```c
+sethsv(HSV_WHITE, (LED_TYPE *)&led[0]); // led 0
+sethsv(HSV_RED,   (LED_TYPE *)&led[1]); // led 1
+sethsv(HSV_GREEN, (LED_TYPE *)&led[2]); // led 2
+rgblight_set(); // Utility functions do not call rgblight_set() automatically, so they need to be called explicitly.
+```
+
+### Effects and Animations Functions
+#### effect range setting
+|Function                                    |Description       |
+|--------------------------------------------|------------------|
+|`rgblight_set_effect_range(pos, num)`       |Set Effects Range |
+
+#### direct operation
+|Function                                    |Description  |
+|--------------------------------------------|-------------|
+|`rgblight_setrgb_at(r, g, b, index)`          |Set a single LED to the given RGB value, where `r`/`g`/`b` are between 0 and 255 and `index` is between 0 and `RGBLED_NUM` (not written to EEPROM) |
+|`rgblight_sethsv_at(h, s, v, index)`          |Set a single LED to the given HSV value, where `h`/`s`/`v` are between 0 and 255, and `index` is between 0 and `RGBLED_NUM` (not written to EEPROM) |
+|`rgblight_setrgb_range(r, g, b, start, end)`|Set a continuous range of LEDs to the given RGB value, where `r`/`g`/`b` are between 0 and 255 and `start`(included) and `stop`(excluded) are between 0 and `RGBLED_NUM` (not written to EEPROM)|
+|`rgblight_sethsv_range(h, s, v, start, end)`|Set a continuous range of LEDs to the given HSV value, where `h`/`s`/`v` are between 0 and 255, and `start`(included) and `stop`(excluded) are between 0 and `RGBLED_NUM` (not written to EEPROM)|
+|`rgblight_setrgb(r, g, b)`                  |Set effect range LEDs to the given RGB value where `r`/`g`/`b` are between 0 and 255 (not written to EEPROM) |
+|`rgblight_setrgb_master(r, g, b)`           |Set the LEDs on the master side  to the given RGB value, where `r`/`g`/`b` are between 0 and 255 (not written to EEPROM) |
+|`rgblight_setrgb_slave(r, g, b)`            |Set the LEDs on the slave side  to the given RGB value, where `r`/`g`/`b` are between 0 and 255 (not written to EEPROM) |
+|`rgblight_sethsv_master(h, s, v)`           |Set the LEDs on the master side to the given HSV value, where `h`/`s`/`v` are between 0 and 255 (not written to EEPROM) |
+|`rgblight_sethsv_slave(h, s, v)`            |Set the LEDs on the slave side to the given HSV value, where `h`/`s`/`v` are between 0 and 255 (not written to EEPROM) |
+
+Example:
+```c
+rgblight_sethsv(HSV_WHITE, 0); // led 0
+rgblight_sethsv(HSV_RED,   1); // led 1
+rgblight_sethsv(HSV_GREEN, 2); // led 2
+// The above functions automatically calls rgblight_set(), so there is no need to call it explicitly.
+// Note that it is inefficient to call repeatedly.
+```
+
+#### effect mode change
+|Function                                    |Description  |
+|--------------------------------------------|-------------|
+|`rgblight_mode(x)`                          |Set the mode, if RGB animations are enabled |
+|`rgblight_mode_noeeprom(x)`                 |Set the mode, if RGB animations are enabled (not written to EEPROM) |
+|`rgblight_step()`                           |Change the mode to the next RGB animation in the list of enabled RGB animations |
+|`rgblight_step_noeeprom()`                  |Change the mode to the next RGB animation in the list of enabled RGB animations (not written to EEPROM) |
+|`rgblight_step_reverse()`                   |Change the mode to the previous RGB animation in the list of enabled RGB animations |
+|`rgblight_step_reverse_noeeprom()`          |Change the mode to the previous RGB animation in the list of enabled RGB animations (not written to EEPROM) |
+
+#### effects mode disable/enable
+|Function                                    |Description  |
+|--------------------------------------------|-------------|
+|`rgblight_toggle()`                         |Toggle effect range LEDs between on and off |
+|`rgblight_toggle_noeeprom()`                |Toggle effect range LEDs between on and off (not written to EEPROM) |
+|`rgblight_enable()`                         |Turn effect range LEDs on, based on their previous state |
+|`rgblight_enable_noeeprom()`                |Turn effect range LEDs on, based on their previous state (not written to EEPROM) |
+|`rgblight_disable()`                        |Turn effect range LEDs off |
+|`rgblight_disable_noeeprom()`               |Turn effect range LEDs off (not written to EEPROM) |
+
+#### hue, sat, val change
+|Function                                    |Description  |
+|--------------------------------------------|-------------|
+|`rgblight_increase_hue()`                   |Increase the hue for effect range LEDs. This wraps around at maximum hue |
+|`rgblight_increase_hue_noeeprom()`          |Increase the hue for effect range LEDs. This wraps around at maximum hue (not written to EEPROM) |
+|`rgblight_decrease_hue()`                   |Decrease the hue for effect range LEDs. This wraps around at minimum hue |
+|`rgblight_decrease_hue_noeeprom()`          |Decrease the hue for effect range LEDs. This wraps around at minimum hue (not written to EEPROM) |
+|`rgblight_increase_sat()`                   |Increase the saturation for effect range LEDs. This wraps around at maximum saturation |
+|`rgblight_increase_sat_noeeprom()`          |Increase the saturation for effect range LEDs. This wraps around at maximum saturation (not written to EEPROM) |
+|`rgblight_decrease_sat()`                   |Decrease the saturation for effect range LEDs. This wraps around at minimum saturation |
+|`rgblight_decrease_sat_noeeprom()`          |Decrease the saturation for effect range LEDs. This wraps around at minimum saturation (not written to EEPROM) |
+|`rgblight_increase_val()`                   |Increase the value for effect range LEDs. This wraps around at maximum value |
+|`rgblight_increase_val_noeeprom()`          |Increase the value for effect range LEDs. This wraps around at maximum value (not written to EEPROM) |
+|`rgblight_decrease_val()`                   |Decrease the value for effect range LEDs. This wraps around at minimum value |
+|`rgblight_decrease_val_noeeprom()`          |Decrease the value for effect range LEDs. This wraps around at minimum value (not written to EEPROM) |
+|`rgblight_sethsv(h, s, v)`                  |Set effect range LEDs to the given HSV value where `h`/`s`/`v` are between 0 and 255 |
+|`rgblight_sethsv_noeeprom(h, s, v)`         |Set effect range LEDs to the given HSV value where `h`/`s`/`v` are between 0 and 255 (not written to EEPROM) |
+
+#### query
+|Function               |Description      |
+|-----------------------|-----------------|
+|`rgblight_get_mode()`  |Get current mode |
+|`rgblight_get_hue()`   |Get current hue  |
+|`rgblight_get_sat()`   |Get current sat  |
+|`rgblight_get_val()`   |Get current val  |
+
+## Colors
+
+These are shorthands to popular colors. The `RGB` ones can be passed to the `setrgb` functions, while the `HSV` ones to the `sethsv` functions.
+
+|RGB                |HSV                |
+|-------------------|-------------------|
+|`RGB_WHITE`        |`HSV_WHITE`        |
+|`RGB_RED`          |`HSV_RED`          |
+|`RGB_CORAL`        |`HSV_CORAL`        |
+|`RGB_ORANGE`       |`HSV_ORANGE`       |
+|`RGB_GOLDENROD`    |`HSV_GOLDENROD`    |
+|`RGB_GOLD`         |`HSV_GOLD`         |
+|`RGB_YELLOW`       |`HSV_YELLOW`       |
+|`RGB_CHARTREUSE`   |`HSV_CHARTREUSE`   |
+|`RGB_GREEN`        |`HSV_GREEN`        |
+|`RGB_SPRINGGREEN`  |`HSV_SPRINGGREEN`  |
+|`RGB_TURQUOISE`    |`HSV_TURQUOISE`    |
+|`RGB_TEAL`         |`HSV_TEAL`         |
+|`RGB_CYAN`         |`HSV_CYAN`         |
+|`RGB_AZURE`        |`HSV_AZURE`        |
+|`RGB_BLUE`         |`HSV_BLUE`         |
+|`RGB_PURPLE`       |`HSV_PURPLE`       |
+|`RGB_MAGENTA`      |`HSV_MAGENTA`      |
+|`RGB_PINK`         |`HSV_PINK`         |
+
+```c
+rgblight_setrgb(RGB_ORANGE);
+rgblight_sethsv_noeeprom(HSV_GREEN);
+rgblight_setrgb_at(RGB_GOLD, 3);
+rgblight_sethsv_range(HSV_WHITE, 0, 6);
+```
+
+These are defined in [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h). Feel free to add to this list!
+
 
 ## Changing the order of the LEDs
 
@@ -249,8 +363,8 @@ Using the `rgblight_set_clipping_range()` function, you can prepare more buffers
 You can set the Clipping Range by executing the following code.
 
 ```c
-// some soruce
-  rgblight_set_clipping_range(3, 4);
+// some source
+rgblight_set_clipping_range(3, 4);
 ```
 <img src="https://user-images.githubusercontent.com/2170248/55743785-2bd82a00-5a6e-11e9-9d4b-1b4ffaf4932b.JPG" alt="clip direct" width="70%"/>
 
@@ -265,5 +379,7 @@ In addition to setting the Clipping Range, you can use `RGBLIGHT_LED_MAP` togeth
   rgblight_set_clipping_range(3, 4);
 ```
 <img src="https://user-images.githubusercontent.com/2170248/55743747-119e4c00-5a6e-11e9-91e5-013203ffae8a.JPG" alt="clip mapped" width="70%"/>
+
+## Hardware Modification
 
 If your keyboard lacks onboard underglow LEDs, you may often be able to solder on an RGB LED strip yourself. You will need to find an unused pin to wire to the data pin of your LED strip. Some keyboards may break out unused pins from the MCU to make soldering easier. The other two pins, VCC and GND, must also be connected to the appropriate power pins.

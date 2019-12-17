@@ -1,14 +1,24 @@
-Setting up your ARM based PCB is a little more involved than an Atmel MCU, but is easy enough. Start by using `util/new_project.sh <keyboard>` to create a new project:
+Setting up your ARM based PCB is a little more involved than an Atmel MCU, but is easy enough. Start by running `util/new_keyboard.sh`:
 
 ```
-$ util/new_project.sh simontester
-######################################################
-# /keyboards/simontester project created. To start
-# working on things, cd into keyboards/simontester
-######################################################
+$ ./util/new_keyboard.sh
+Generating a new QMK keyboard directory
+
+Keyboard Name: mycoolkb
+Keyboard Type [avr]: 
+Your Name [John Smith]: 
+
+Copying base template files... done
+Copying avr template files... done
+Renaming keyboard files... done
+Replacing %KEYBOARD% with mycoolkb... done
+Replacing %YOUR_NAME% with John Smith... done
+
+Created a new keyboard called mycoolkb.
+
+To start working on things, cd into keyboards/mycoolkb,
+or open the directory in your favourite text editor.
 ```
-
-
 
 # END OF NEW ARM DOC, OLD ATMEL DOC FOLLOWS
 
@@ -24,7 +34,7 @@ For the `DIODE_DIRECTION`, most hand-wiring guides will instruct you to wire the
 
 To configure a keyboard where each switch is connected to a separate pin and ground instead of sharing row and column pins, use `DIRECT_PINS`. The mapping defines the pins of each switch in rows and columns, from left to right. Must conform to the sizes within `MATRIX_ROWS` and `MATRIX_COLS`, use `NO_PIN` to fill in blank spaces. Overrides the behaviour of `DIODE_DIRECTION`, `MATRIX_ROW_PINS` and `MATRIX_COL_PINS`.
 
-`BACKLIGHT_PIN` is the pin that your PWM-controlled backlight (if one exists) is hooked-up to. Currently only B5, B6, and B7 are supported.
+`BACKLIGHT_PIN` is the pin that your PWM-controlled backlight (if one exists) is hooked-up to.
 
 `BACKLIGHT_BREATHING` is a fancier backlight feature that adds breathing/pulsing/fading effects to the backlight. It uses the same timer as the normal backlight. These breathing effects must be called by code in your keymap.
 

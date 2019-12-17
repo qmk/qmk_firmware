@@ -27,10 +27,7 @@ enum preonic_keycodes {
   RGBLED_DECREASE_SAT,
   RGBLED_INCREASE_VAL,
   RGBLED_DECREASE_VAL,
-};
-
-enum macro_keycodes {
-  KC_DEMOMACRO,
+  DEMOMACRO
 };
 
 // Custom macros
@@ -41,8 +38,6 @@ enum macro_keycodes {
 // Requires KC_TRNS/_______ for the trigger key in the destination layer
 #define LT_MC(kc)   LT(_MOUSECURSOR, kc)        // L-ayer T-ap M-ouse C-ursor
 #define LT_RAI(kc)  LT(_RAISE, kc)              // L-ayer T-ap to Raise
-#define DEMOMACRO   M(KC_DEMOMACRO)            // Sample for macros
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -198,7 +193,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
@@ -248,6 +243,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case DEMOMACRO:
+      if (record->event.pressed) {
+        SEND_STRING("hello world");
+      }
   }
   return true;
 }
@@ -262,31 +261,9 @@ bool music_mask_user(uint16_t keycode) {
   }
 }
 
-
-/*
- * Macro definition
- */
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    if (!eeconfig_is_enabled()) {
-      eeconfig_init();
-    }
-
-    switch (id) {
-      case KC_DEMOMACRO:
-        if (record->event.pressed){
-          return MACRO (I(1), T(H),T(E),T(L), T(L), T(O), T(SPACE), T(W), T(O), T(R), T(L), T(D),  END);
-        }
-    }
-
-    return MACRO_NONE;
-}
-
-
 void matrix_init_user(void) {
 }
 
 
 void matrix_scan_user(void) {
 }
-

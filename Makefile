@@ -20,7 +20,10 @@ endif
 override SILENT := false
 
 ifndef SUB_IS_SILENT
-QMK_VERSION := $(shell git describe --abbrev=0 --tags 2>/dev/null)
+ifndef SKIP_GIT
+    QMK_VERSION := $(shell git describe --abbrev=0 --tags 2>/dev/null)
+endif
+
 ifneq ($(QMK_VERSION),)
 $(info QMK Firmware $(QMK_VERSION))
 endif
@@ -94,6 +97,7 @@ $(eval $(call NEXT_PATH_ELEMENT))
 # endif
 
 define GET_KEYBOARDS
+ifndef ALT_GET_KEYBOARDS
     All_RULES_MK := $$(patsubst $(ROOT_DIR)/keyboards/%/rules.mk,%,$$(wildcard $(ROOT_DIR)/keyboards/*/rules.mk))
     All_RULES_MK += $$(patsubst $(ROOT_DIR)/keyboards/%/rules.mk,%,$$(wildcard $(ROOT_DIR)/keyboards/*/*/rules.mk))
     All_RULES_MK += $$(patsubst $(ROOT_DIR)/keyboards/%/rules.mk,%,$$(wildcard $(ROOT_DIR)/keyboards/*/*/*/rules.mk))
@@ -105,6 +109,9 @@ define GET_KEYBOARDS
     KEYMAPS_MK += $$(patsubst $(ROOT_DIR)/keyboards/%/rules.mk,%,$$(wildcard $(ROOT_DIR)/keyboards/*/*/*/*/keymaps/*/rules.mk))
 
     KEYBOARDS := $$(sort $$(filter-out $$(KEYMAPS_MK), $$(All_RULES_MK)))
+else
+    KEYBOARDS := $(shell find keyboards/ -type f -iname "rules.mk" | grep -v keymaps | sed 's!keyboards/\(.*\)/rules.mk!\1!' | sort | uniq)
+endif
 endef
 
 $(eval $(call GET_KEYBOARDS))
@@ -265,12 +272,14 @@ define PARSE_RULE
     # If the rule starts with all, then continue the parsing from
     # PARSE_ALL_KEYBOARDS
     ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all),true)
+        KEYBOARD_RULE=all
         $$(eval $$(call PARSE_ALL_KEYBOARDS))
     else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,test),true)
         $$(eval $$(call PARSE_TEST))
     # If the rule starts with the name of a known keyboard, then continue
     # the parsing from PARSE_KEYBOARD
     else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYBOARDS)),true)
+        KEYBOARD_RULE=$$(MATCHED_ITEM)
         $$(eval $$(call PARSE_KEYBOARD,$$(MATCHED_ITEM)))
     # Otherwise use the KEYBOARD variable, which is determined either by
     # the current directory you run make from, or passed in as an argument
@@ -364,12 +373,18 @@ define PARSE_KEYBOARD
     # The same if all was specified
     else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all),true)
         $$(eval $$(call PARSE_ALL_KEYMAPS))
+    # List all keymaps for the given keyboard
+    else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,list-keymaps),true)
+        $$(eval $$(call LIST_ALL_KEYMAPS))
     # Try to match the specified keyamp with the list of known keymaps
     else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYMAPS)),true)
         $$(eval $$(call PARSE_KEYMAP,$$(MATCHED_ITEM)))
     # Otherwise try to match the keymap from the current folder, or arguments to the make command
     else ifneq ($$(KEYMAP),)
         $$(eval $$(call PARSE_KEYMAP,$$(KEYMAP)))
+    # Otherwise if we are running make all:<user> just skip
+    else ifeq ($$(KEYBOARD_RULE),all)
+        # $$(info Skipping: No user keymap for $$(CURRENT_KB))
     # Otherwise, make all keymaps, again this is consistent with how it works without
     # any arguments
     else
@@ -399,6 +414,16 @@ endef
 #         $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_SUBPROJECT,$$(SUBPROJECTS)))
 #     endif
 # endef
+
+# Prints a list of all known keymaps for the given keyboard
+define LIST_ALL_KEYMAPS
+    COMMAND_true_LIST_KEYMAPS := \
+        printf "$$(KEYMAPS)\n";
+    COMMAND_false_LIST_KEYMAPS := \
+        printf "$$(MSG_AVAILABLE_KEYMAPS)\n"; \
+        printf "$$(KEYMAPS)\n";
+    COMMANDS += LIST_KEYMAPS
+endef
 
 # $1 Keymap
 # This is the meat of compiling a keyboard, when entering this, everything is known
@@ -534,11 +559,14 @@ endef
 %:
 	# Check if we have the CMP tool installed
 	cmp $(ROOT_DIR)/Makefile $(ROOT_DIR)/Makefile >/dev/null 2>&1; if [ $$? -gt 0 ]; then printf "$(MSG_NO_CMP)"; exit 1; fi;
+	# Ensure that python3 is installed. This check can be removed after python is used in more places.
+	if ! python3 --version 1> /dev/null 2>&1; then printf "$(MSG_PYTHON_MISSING)"; fi
 	# Check if the submodules are dirty, and display a warning if they are
 ifndef SKIP_GIT
-	if [ ! -e lib/chibios ]; then git submodule sync lib/chibios && git submodule update --depth 1 --init lib/chibios; fi
-	if [ ! -e lib/chibios-contrib ]; then git submodule sync lib/chibios-contrib && git submodule update --depth 1 --init lib/chibios-contrib; fi
-	if [ ! -e lib/ugfx ]; then git submodule sync lib/ugfx && git submodule update --depth 1 --init lib/ugfx; fi
+	if [ ! -e lib/chibios ]; then git submodule sync lib/chibios && git submodule update --depth 50 --init lib/chibios; fi
+	if [ ! -e lib/chibios-contrib ]; then git submodule sync lib/chibios-contrib && git submodule update --depth 50 --init lib/chibios-contrib; fi
+	if [ ! -e lib/ugfx ]; then git submodule sync lib/ugfx && git submodule update --depth 50 --init lib/ugfx; fi
+	if [ ! -e lib/lufa ]; then git submodule sync lib/lufa && git submodule update --depth 50 --init lib/lufa; fi
 	git submodule status --recursive 2>/dev/null | \
 	while IFS= read -r x; do \
 		case "$$x" in \
