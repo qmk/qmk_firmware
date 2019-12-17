@@ -24,9 +24,9 @@ static const char* git_macros[] = {
     "git stash ",
     "git status ",
     "git tag ",
-    SS_LCTRL(SS_LALT(SS_TAP(X_HOME)))"\t ",
-    SS_LCTRL(SS_LALT(SS_TAP(X_HOME)))"\t\t\t ",
-    SS_LCTRL(SS_LALT(SS_TAP(X_HOME)))SS_LALT("\t")
+    SS_LCTL(SS_LALT(SS_TAP(X_HOME)))"\t ",
+    SS_LCTL(SS_LALT(SS_TAP(X_HOME)))"\t\t\t ",
+    SS_LCTL(SS_LALT(SS_TAP(X_HOME)))SS_LALT("\t")
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
