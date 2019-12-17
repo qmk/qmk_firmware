@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#include "pwm.c"
 
 #ifndef DEBOUNCE
-#   define DEBOUNCE 5
+#define DEBOUNCE 5
 #endif
 static uint8_t debouncing = DEBOUNCE;
 
@@ -44,11 +44,11 @@ static void unselect_rows(void);
 static void select_row(uint8_t row);
 
 inline uint8_t matrix_rows(void){
-  return MATRIX_ROWS;
+    return MATRIX_ROWS;
 }
 
 inline uint8_t matrix_cols(void){
-  return MATRIX_COLS;
+    return MATRIX_COLS;
 }
 
 /* generic STM32F103C8T6 board */
@@ -78,69 +78,69 @@ void matrix_scan_user(void) {
 void matrix_init(void)
 {
 	// disable JTAG  to enable PB3 and PB4
-  AFIO->MAPR |= AFIO_MAPR_SWJ_CFG_JTAGDISABLE;
-  AFIO->MAPR |= AFIO_MAPR_SWJ_CFG_DISABLE;
+    AFIO->MAPR |= AFIO_MAPR_SWJ_CFG_JTAGDISABLE;
+    AFIO->MAPR |= AFIO_MAPR_SWJ_CFG_DISABLE;
 	//
   // initialize row and col
-  unselect_rows();
-  init_cols();
+    unselect_rows();
+    init_cols();
   // initialize matrix state: all keys off
-  for (uint8_t i=0; i < MATRIX_ROWS; i++) {
-    matrix[i] = 0;
-    matrix_debouncing[i] = 0;
-  }
+    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
+        matrix[i] = 0;
+        matrix_debouncing[i] = 0;
+    }
   //debug
   //debug_matrix = true;
-  LED_ON();
-  wait_ms(250);
-  LED_OFF();
+    LED_ON();
+    wait_ms(250);
+    LED_OFF();
 
-  matrix_init_quantum();
+    matrix_init_quantum();
 }
 
 uint8_t matrix_scan(void){
-  for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-    select_row(i);
-    wait_us(30);  // without this wait read unstable value.
-    matrix_row_t cols = read_cols();
-    if (matrix_debouncing[i] != cols) {
-      matrix_debouncing[i] = cols;
-      if (debouncing) {
-        debug("bounce!: "); debug_hex(debouncing); debug("\n");
-      }
-    debouncing = DEBOUNCE;
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+        select_row(i);
+        wait_us(30);  // without this wait read unstable value.
+        matrix_row_t cols = read_cols();
+        if (matrix_debouncing[i] != cols) {
+            matrix_debouncing[i] = cols;
+            if (debouncing) {
+                debug("bounce!: "); debug_hex(debouncing); debug("\n");
+            }
+            debouncing = DEBOUNCE;
+        }
+        unselect_rows();
     }
-    unselect_rows();
-  }
 
-  if (debouncing) {
-    if (--debouncing) {
-      wait_ms(1);
-    } else {
-      for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        matrix[i] = matrix_debouncing[i];
-      }
+    if (debouncing) {
+        if (--debouncing) {
+            wait_ms(1);
+        } else {
+            for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+                matrix[i] = matrix_debouncing[i];
+            }
+        }
     }
-  }
-  matrix_scan_quantum();
-  return 1;
+    matrix_scan_quantum();
+    return 1;
 }
 
 inline bool matrix_is_on(uint8_t row, uint8_t col){
-  return (matrix[row] & ((matrix_row_t)1<<col));
+    return (matrix[row] & ((matrix_row_t)1<<col));
 }
 
 inline matrix_row_t matrix_get_row(uint8_t row){
-  return matrix[row];
+    return matrix[row];
 }
 
 void matrix_print(void){
-  print("\nr/c 0123456789ABCDEF\n");
-  for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-    phex(row); print(": ");
-    pbin_reverse16(matrix_get_row(row));
-    print("\n");
-  }
+    print("\nr/c 0123456789ABCDEF\n");
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+        phex(row); print(": ");
+        pbin_reverse16(matrix_get_row(row));
+        print("\n");
+    }
 }
 
 /* Column pin configuration
@@ -148,43 +148,43 @@ void matrix_print(void){
 // V0 Modified by milestogo
 static void  init_cols(void){
 #ifdef V0
-  palSetPadMode(GPIOB, 4, PAL_MODE_INPUT_PULLUP);// pin 1, unknown column
-  palSetPadMode(GPIOB, 5, PAL_MODE_INPUT_PULLUP); 
-  palSetPadMode(GPIOB, 6, PAL_MODE_INPUT_PULLUP);
-  palSetPadMode(GPIOB, 7, PAL_MODE_INPUT_PULLUP);
-  palSetPadMode(GPIOB, 8, PAL_MODE_INPUT_PULLUP);
-  palSetPadMode(GPIOB, 9, PAL_MODE_INPUT_PULLUP);
-  palSetPadMode(GPIOB, 13, PAL_MODE_INPUT_PULLUP); 
-  palSetPadMode(GPIOB, 11, PAL_MODE_INPUT_PULLUP);//pin
-  palSetPadMode(GPIOB, 10, PAL_MODE_INPUT_PULLUP);
-  palSetPadMode(GPIOB, 1, PAL_MODE_INPUT_PULLUP);
-  palSetPadMode(GPIOB, 0, PAL_MODE_INPUT_PULLUP);//
-  palSetPadMode(GPIOA, 7, PAL_MODE_INPUT_PULLUP);
-  palSetPadMode(GPIOA, 6, PAL_MODE_INPUT_PULLUP); // pin 13
-  palSetPadMode(GPIOA, 3, PAL_MODE_INPUT_PULLUP);//
-  palSetPadMode(GPIOA, 2, PAL_MODE_INPUT_PULLUP);
-  palSetPadMode(GPIOA, 1, PAL_MODE_INPUT_PULLUP); //pin16
-  palSetPadMode(GPIOA, 0, PAL_MODE_INPUT_PULLUP); //pin 17
-  palSetPadMode(GPIOC, 15, PAL_MODE_INPUT_PULLUP);//pin 18
+    palSetPadMode(GPIOB, 4, PAL_MODE_INPUT_PULLUP);// pin 1, unknown column
+    palSetPadMode(GPIOB, 5, PAL_MODE_INPUT_PULLUP); 
+    palSetPadMode(GPIOB, 6, PAL_MODE_INPUT_PULLUP);
+    palSetPadMode(GPIOB, 7, PAL_MODE_INPUT_PULLUP);
+    palSetPadMode(GPIOB, 8, PAL_MODE_INPUT_PULLUP);
+    palSetPadMode(GPIOB, 9, PAL_MODE_INPUT_PULLUP);
+    palSetPadMode(GPIOB, 13, PAL_MODE_INPUT_PULLUP); 
+    palSetPadMode(GPIOB, 11, PAL_MODE_INPUT_PULLUP);//pin
+    palSetPadMode(GPIOB, 10, PAL_MODE_INPUT_PULLUP);
+    palSetPadMode(GPIOB, 1, PAL_MODE_INPUT_PULLUP);
+    palSetPadMode(GPIOB, 0, PAL_MODE_INPUT_PULLUP);//
+    palSetPadMode(GPIOA, 7, PAL_MODE_INPUT_PULLUP);
+    palSetPadMode(GPIOA, 6, PAL_MODE_INPUT_PULLUP); // pin 13
+    palSetPadMode(GPIOA, 3, PAL_MODE_INPUT_PULLUP);//
+    palSetPadMode(GPIOA, 2, PAL_MODE_INPUT_PULLUP);
+    palSetPadMode(GPIOA, 1, PAL_MODE_INPUT_PULLUP); //pin16
+    palSetPadMode(GPIOA, 0, PAL_MODE_INPUT_PULLUP); //pin 17
+    palSetPadMode(GPIOC, 15, PAL_MODE_INPUT_PULLUP);//pin 18
 #else // current model
-  palSetPadMode(GPIOB, 3, PAL_MODE_INPUT_PULLUP);// pin 1, unknown column
-  palSetPadMode(GPIOB, 4, PAL_MODE_INPUT_PULLUP); 
-  palSetPadMode(GPIOB, 5, PAL_MODE_INPUT_PULLUP);
-  palSetPadMode(GPIOB, 6, PAL_MODE_INPUT_PULLUP);
-  palSetPadMode(GPIOB, 7, PAL_MODE_INPUT_PULLUP);
-  palSetPadMode(GPIOB, 8, PAL_MODE_INPUT_PULLUP);
-  palSetPadMode(GPIOB, 11, PAL_MODE_INPUT_PULLUP);//pin 7
-  palSetPadMode(GPIOA, 0, PAL_MODE_INPUT_PULLUP); // pin 8
-  palSetPadMode(GPIOA, 1, PAL_MODE_INPUT_PULLUP);
-  palSetPadMode(GPIOA, 2, PAL_MODE_INPUT_PULLUP);
-  palSetPadMode(GPIOA, 3, PAL_MODE_INPUT_PULLUP);
-  palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_PULLUP);
-  palSetPadMode(GPIOA, 5, PAL_MODE_INPUT_PULLUP);
-  palSetPadMode(GPIOA, 6, PAL_MODE_INPUT_PULLUP);
-  palSetPadMode(GPIOB, 0, PAL_MODE_INPUT_PULLUP); //pin 15
-  palSetPadMode(GPIOB, 1, PAL_MODE_INPUT_PULLUP); //pin 16 
-  palSetPadMode(GPIOB, 10, PAL_MODE_INPUT_PULLUP); //pin 17
-  palSetPadMode(GPIOA, 7, PAL_MODE_INPUT_PULLUP);//pin 18
+    palSetPadMode(GPIOB, 3, PAL_MODE_INPUT_PULLUP);// pin 1, unknown column
+    palSetPadMode(GPIOB, 4, PAL_MODE_INPUT_PULLUP); 
+    palSetPadMode(GPIOB, 5, PAL_MODE_INPUT_PULLUP);
+    palSetPadMode(GPIOB, 6, PAL_MODE_INPUT_PULLUP);
+    palSetPadMode(GPIOB, 7, PAL_MODE_INPUT_PULLUP);
+    palSetPadMode(GPIOB, 8, PAL_MODE_INPUT_PULLUP);
+    palSetPadMode(GPIOB, 11, PAL_MODE_INPUT_PULLUP);//pin 7
+    palSetPadMode(GPIOA, 0, PAL_MODE_INPUT_PULLUP); // pin 8
+    palSetPadMode(GPIOA, 1, PAL_MODE_INPUT_PULLUP);
+    palSetPadMode(GPIOA, 2, PAL_MODE_INPUT_PULLUP);
+    palSetPadMode(GPIOA, 3, PAL_MODE_INPUT_PULLUP);
+    palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_PULLUP);
+    palSetPadMode(GPIOA, 5, PAL_MODE_INPUT_PULLUP);
+    palSetPadMode(GPIOA, 6, PAL_MODE_INPUT_PULLUP);
+    palSetPadMode(GPIOB, 0, PAL_MODE_INPUT_PULLUP); //pin 15
+    palSetPadMode(GPIOB, 1, PAL_MODE_INPUT_PULLUP); //pin 16 
+    palSetPadMode(GPIOB, 10, PAL_MODE_INPUT_PULLUP); //pin 17
+    palSetPadMode(GPIOA, 7, PAL_MODE_INPUT_PULLUP);//pin 18
 #endif
 }
 /* Returns status of switches(1:on, 0:off) */
@@ -236,102 +236,102 @@ return ((palReadPad(GPIOB, 3)==PAL_HIGH) ? 0 : (1<<17))
 //  Modified by milestogo
 static void unselect_rows(void){
 #ifdef V0
-  palSetPadMode(GPIOB, 15, PAL_MODE_INPUT);
-  palSetPadMode(GPIOA, 8, PAL_MODE_INPUT);
-  palSetPadMode(GPIOA, 9, PAL_MODE_INPUT);
-  palSetPadMode(GPIOA, 10, PAL_MODE_INPUT);
-  palSetPadMode(GPIOA, 4, PAL_MODE_INPUT);
-  palSetPadMode(GPIOB, 14, PAL_MODE_INPUT);
-  palSetPadMode(GPIOA, 15, PAL_MODE_INPUT);
-  palSetPadMode(GPIOB, 3, PAL_MODE_INPUT);
+    palSetPadMode(GPIOB, 15, PAL_MODE_INPUT);
+    palSetPadMode(GPIOA, 8, PAL_MODE_INPUT);
+    palSetPadMode(GPIOA, 9, PAL_MODE_INPUT);
+    palSetPadMode(GPIOA, 10, PAL_MODE_INPUT);
+    palSetPadMode(GPIOA, 4, PAL_MODE_INPUT);
+    palSetPadMode(GPIOB, 14, PAL_MODE_INPUT);
+    palSetPadMode(GPIOA, 15, PAL_MODE_INPUT);
+    palSetPadMode(GPIOB, 3, PAL_MODE_INPUT);
 #else
-  palSetPadMode(GPIOB, 12, PAL_MODE_INPUT);
-  palSetPadMode(GPIOB, 13, PAL_MODE_INPUT);
-  palSetPadMode(GPIOB, 14, PAL_MODE_INPUT);
-  palSetPadMode(GPIOB, 15, PAL_MODE_INPUT);
-  palSetPadMode(GPIOA,  8, PAL_MODE_INPUT);
-  palSetPadMode(GPIOA,  9, PAL_MODE_INPUT);
-  palSetPadMode(GPIOA, 10, PAL_MODE_INPUT);
-  palSetPadMode(GPIOA, 15, PAL_MODE_INPUT);
+    palSetPadMode(GPIOB, 12, PAL_MODE_INPUT);
+    palSetPadMode(GPIOB, 13, PAL_MODE_INPUT);
+    palSetPadMode(GPIOB, 14, PAL_MODE_INPUT);
+    palSetPadMode(GPIOB, 15, PAL_MODE_INPUT);
+    palSetPadMode(GPIOA,  8, PAL_MODE_INPUT);
+    palSetPadMode(GPIOA,  9, PAL_MODE_INPUT);
+    palSetPadMode(GPIOA, 10, PAL_MODE_INPUT);
+    palSetPadMode(GPIOA, 15, PAL_MODE_INPUT);
 #endif
 }
 
 
 static void select_row(uint8_t row){
-  (void)row;
-  switch (row) {
-   case 7: 
+(void)row;
+switch (row) {
+    case 7: 
 #ifdef V0
-      palSetPadMode(GPIOB, 15, PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad(GPIOB, 15);
+        palSetPadMode(GPIOB, 15, PAL_MODE_OUTPUT_PUSHPULL);
+        palClearPad(GPIOB, 15);
 #else
-      palSetPadMode(GPIOB, 12, PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad( GPIOB, 12 );
+        palSetPadMode(GPIOB, 12, PAL_MODE_OUTPUT_PUSHPULL);
+        palClearPad( GPIOB, 12 );
 #endif
-      break;
+        break;
 
     case 6:
 #ifdef V0
-      palSetPadMode(GPIOA, 8, PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad(GPIOA, 8);
+        palSetPadMode(GPIOA, 8, PAL_MODE_OUTPUT_PUSHPULL);
+        palClearPad(GPIOA, 8);
 #else
-      palSetPadMode(GPIOB, 13, PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad(GPIOB, 13 );
+        palSetPadMode(GPIOB, 13, PAL_MODE_OUTPUT_PUSHPULL);
+        palClearPad(GPIOB, 13 );
 #endif
-      break;
+        break;
 
     case 5:
 #ifdef V0
-      palSetPadMode(GPIOA, 9, PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad(GPIOA, 9);
+        palSetPadMode(GPIOA, 9, PAL_MODE_OUTPUT_PUSHPULL);
+        palClearPad(GPIOA, 9);
 #else
-      palSetPadMode(GPIOB, 14, PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad(GPIOB, 14 );
+        palSetPadMode(GPIOB, 14, PAL_MODE_OUTPUT_PUSHPULL);
+        palClearPad(GPIOB, 14 );
 #endif
-      break;
+        break;
     case 4:
 #ifdef V0
-      palSetPadMode(GPIOB, 14, PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad(GPIOB, 14 );
+        palSetPadMode(GPIOB, 14, PAL_MODE_OUTPUT_PUSHPULL);
+        palClearPad(GPIOB, 14 );
 #else
-      palSetPadMode(GPIOB, 15, PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad(GPIOB, 15 );
+        palSetPadMode(GPIOB, 15, PAL_MODE_OUTPUT_PUSHPULL);
+        palClearPad(GPIOB, 15 );
 #endif
       break;
     case 3:
 #ifdef V0
-      palSetPadMode(GPIOA, 4, PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad(GPIOA, 4);
+        palSetPadMode(GPIOA, 4, PAL_MODE_OUTPUT_PUSHPULL);
+        palClearPad(GPIOA, 4);
 #else
-      palSetPadMode(GPIOA, 8 , PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad(GPIOA, 8  );
+        palSetPadMode(GPIOA, 8 , PAL_MODE_OUTPUT_PUSHPULL);
+        palClearPad(GPIOA, 8  );
 #endif
       break;
     case 2:
 #ifdef V0
-      palSetPadMode(GPIOA, 9, PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad(GPIOA, 9);
+        palSetPadMode(GPIOA, 9, PAL_MODE_OUTPUT_PUSHPULL);
+        palClearPad(GPIOA, 9);
 #else
-      palSetPadMode(GPIOA, 9, PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad(GPIOA, 9 );
+        palSetPadMode(GPIOA, 9, PAL_MODE_OUTPUT_PUSHPULL);
+        palClearPad(GPIOA, 9 );
 #endif
       break;
     case 1:
 #ifdef V0
-      palSetPadMode(GPIOA, 15,PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad(GPIOA, 15);
+        palSetPadMode(GPIOA, 15,PAL_MODE_OUTPUT_PUSHPULL);
+        palClearPad(GPIOA, 15);
 #else
-      palSetPadMode(GPIOA, 10, PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad(GPIOA, 10 );
+        palSetPadMode(GPIOA, 10, PAL_MODE_OUTPUT_PUSHPULL);
+        palClearPad(GPIOA, 10 );
 #endif
       break;
     case 0:
 #ifdef V0
-      palSetPadMode(GPIOB, 3, PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad(GPIOB, 3);
+        palSetPadMode(GPIOB, 3, PAL_MODE_OUTPUT_PUSHPULL);
+        palClearPad(GPIOB, 3);
 #else
-      palSetPadMode(GPIOA, 15, PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad(GPIOA, 15  );
+        palSetPadMode(GPIOA, 15, PAL_MODE_OUTPUT_PUSHPULL);
+        palClearPad(GPIOA, 15  );
 #endif
       break;
   }

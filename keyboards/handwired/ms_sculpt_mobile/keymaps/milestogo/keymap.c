@@ -17,12 +17,12 @@
 #define LAYOUT_local LAYOUT_mobile_XUW
 
 enum layer_keycodes {
-QWR,
-CDH,
-SYM,
-MOV,
-NUM,
-TRAN
+    QWR,
+    CDH,
+    SYM,
+    MOV,
+    NUM,
+    TRAN
 };
 
 
@@ -48,8 +48,8 @@ TRAN
 #define MV0 LT(MOV, KC_0)
 
 enum macro_keycodes {
-DHPASTE=1,
-VIBRK,
+    DHPASTE=1,
+    VIBRK,
 };
 
 
@@ -71,23 +71,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 
 [_QWR] = LAYOUT_local( \
-   KC_ESC,   KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8,   KC_F9, KC_F10,    KC_F11,   KC_F12, KC_VOLD, KC_VOLU, TG(CDH),\
-   KC_GRAVE, KC_1, MV2,  MV3 ,  MV4, KC_5, KC_6, KC_7, MV8,    MV9,    MV0,    KC_MINUS, KC_EQL, KC_BSPC, KC_DEL,\
-   KC_TAB,   KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I,   KC_O, KC_P,    KC_LBRC,  KC_RBRC,KC_BSLS,\
-   BKSYM,    KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,   KC_L, KC_SCLN, KC_QUOT,  KC_ENT, KC_PGUP,\
-   KC_LSFT,  KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM,KC_DOT,KC_SLSH,KC_RSFT,  KC_UP,  KC_PGDN,\
-   KC_LCTL,  KC_LGUI, KC_LALT, KC_SPC, KC_RGUI, TT_SYM,  KC_CAPS, KC_LEFT, KC_DOWN, KC_RIGHT
+KC_ESC,   KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8,   KC_F9, KC_F10,    KC_F11,   KC_F12, KC_VOLD, KC_VOLU, TG(CDH),\
+KC_GRAVE, KC_1, MV2,  MV3 ,  MV4, KC_5, KC_6, KC_7, MV8,    MV9,    MV0,    KC_MINUS, KC_EQL, KC_BSPC, KC_DEL,\
+KC_TAB,   KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I,   KC_O, KC_P,    KC_LBRC,  KC_RBRC,KC_BSLS,\
+BKSYM,    KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,   KC_L, KC_SCLN, KC_QUOT,  KC_ENT, KC_PGUP,\
+KC_LSFT,  KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM,KC_DOT,KC_SLSH,KC_RSFT,  KC_UP,  KC_PGDN,\
+KC_LCTL,  KC_LGUI, KC_LALT, KC_SPC, KC_RGUI, TT_SYM,  KC_CAPS, KC_LEFT, KC_DOWN, KC_RIGHT
 ),
 
 
 [_CDH] = LAYOUT_local(\
-   ____,    ____, ____, ____, ____, ____, ____, ____, ____,   ____,   ____,    ____,     ____,   ____,    ____,    ____,  \
- KC_GRAVE, KC_1, KC_2, KC_3 ,KC_4, KC_5, KC_6, KC_7, KC_8,   KC_9, KC_0,    KC_MINUS, KC_EQL, KC_BSPC, KC_DEL,\
-   ____,    KC_Q, KC_W, KC_F, KC_P, KC_B, KC_J, KC_L, KC_U,   KC_Y,   KC_SCLN, ____,    ____,    ____,\
-   MVTAB,   KC_A, KC_R, KC_S, KC_T, KC_G, KC_M, KC_N, KC_E,   KC_I,   KC_O,    KC_QUOT, KC_ENT,  KC_2,\
-   KC_LSFT, KC_Z, KC_X, KC_C, M(DHPASTE), KC_V, KC_K, KC_H, KC_COMM,  KC_DOT,  KC_SLSH, KC_RSFT, ____,   KC_1,\
-  ____,     ____, ____ , KC_FN1, ____, ____, ____, ____, ____,   ____
-
+____,    ____, ____, ____, ____, ____, ____, ____, ____,   ____,   ____,    ____,     ____,   ____,    ____,    ____,  \
+KC_GRAVE, KC_1, KC_2, KC_3 ,KC_4, KC_5, KC_6, KC_7, KC_8,   KC_9, KC_0,    KC_MINUS, KC_EQL, KC_BSPC, KC_DEL,\
+____,    KC_Q, KC_W, KC_F, KC_P, KC_B, KC_J, KC_L, KC_U,   KC_Y,   KC_SCLN, ____,    ____,    ____,\
+MVTAB,   KC_A, KC_R, KC_S, KC_T, KC_G, KC_M, KC_N, KC_E,   KC_I,   KC_O,    KC_QUOT, KC_ENT,  KC_2,\
+KC_LSFT, KC_Z, KC_X, KC_C, M(DHPASTE), KC_V, KC_K, KC_H, KC_COMM,  KC_DOT,  KC_SLSH, KC_RSFT, ____,   KC_1,\
+____,     ____, ____ , KC_FN1, ____, ____, ____, ____, ____,   ____
 ),
 
 /*  SYM
@@ -107,12 +106,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 
 [_SYM] = LAYOUT_local(\
-  ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     ____,  \
-  ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,   \
-  ____,  KC_CIRC, KC_LCBR,  KC_RCBR, KC_AT,  KC_PERC,         ____, KC_LBRC,KC_LPRN,KC_RPRN,  KC_UNDS,  ____,   ____,   ____,\
-  ____,  KC_EXLM, KC_HASH,  KC_0,   KC_EQL,  KC_LCBR,      KC_RCBR, KC_MINS,KC_1,   KC_PLUS,  KC_RBRC,  KC_GRV,   ____,  ____,\
-  ____,  KC_SCLN, KC_TILDE, KC_COLN,KC_TILDE,KC_PIPE,       KC_DLR, KC_ASTR, ____,  KC_DOT ,  KC_SLSH,  ____, ____, ____,\
-  ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____
+____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     ____,  \
+____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,   \
+____,  KC_CIRC, KC_LCBR,  KC_RCBR, KC_AT,  KC_PERC,         ____, KC_LBRC,KC_LPRN,KC_RPRN,  KC_UNDS,  ____,   ____,   ____,\
+____,  KC_EXLM, KC_HASH,  KC_0,   KC_EQL,  KC_LCBR,      KC_RCBR, KC_MINS,KC_1,   KC_PLUS,  KC_RBRC,  KC_GRV,   ____,  ____,\
+____,  KC_SCLN, KC_TILDE, KC_COLN,KC_TILDE,KC_PIPE,       KC_DLR, KC_ASTR, ____,  KC_DOT ,  KC_SLSH,  ____, ____, ____,\
+____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____
 ),
 /* MOVE simple version
 
@@ -131,13 +130,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 
 [_MOV] = LAYOUT_local(\
-  ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     ____,  \
-  ____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____, ____,    ____, ____,   ____, ____,   \
-  ____,     ____, ____, ____, ____, ____,      ____, ____, KC_UP, ____, ____,    ____, ____,   ____, \
-  ____,     ____, ____, ____, ____, ____,      ____,  KC_LEFT, KC_DOWN, KC_RIGHT,  ____,    ____, ____,   ____, \
-  ____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____, ____,    ____, ____,   ____, \
-  ____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____
-
+____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     ____,  \
+____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____, ____,    ____, ____,   ____, ____,   \
+____,     ____, ____, ____, ____, ____,      ____, ____, KC_UP, ____, ____,    ____, ____,   ____, \
+____,     ____, ____, ____, ____, ____,      ____,  KC_LEFT, KC_DOWN, KC_RIGHT,  ____,    ____, ____,   ____, \
+____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____, ____,    ____, ____,   ____, \
+____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____
 )
 
 /* MOVE babble version version
@@ -179,97 +177,92 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-[1] = ACTION_LAYER_TAP_KEY(_SYM,KC_SPACE),
-[2] = ACTION_LAYER_TAP_KEY(_MOV,KC_BSPC)
+    [1] = ACTION_LAYER_TAP_KEY(_SYM,KC_SPACE),
+    [2] = ACTION_LAYER_TAP_KEY(_MOV,KC_BSPC)
 };
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case QWR:
+            if (record->event.pressed) {
+                layer_off(_CDH);
+            }
+        return false;
+        break;
 
-  switch (keycode) {
-    case QWR:
-      if (record->event.pressed) {
-        layer_off(_CDH);
-      }
-      return false;
-      break;
+        case CDH:
+        if (record->event.pressed) {
+            layer_on(_CDH);
+        }
+        return false;
+        break;
 
-    case CDH:
-      if (record->event.pressed) {
-        layer_on(_CDH);
-      }
-      return false;
-      break;
+        case SYM:
+        if (record->event.pressed) {
+            layer_on(_SYM);
+        } else {
+          layer_off(_SYM);
+        }
 
-    case SYM:
-      if (record->event.pressed) {
-        layer_on(_SYM);
-      } else {
-		    layer_off(_SYM);
-      }
-     return false;
-     break;
-
-   }
- return true;
+        return false;
+        break;
+    }
+    return true;
 
 }
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
-
 /* Any clever remapping with modifiers should happen here e.g. shift bablkey does opposite*/
 #ifdef USE_BABLPASTE
-
-   if( id >= BABL_START_NUM && id < (BABL_START_NUM + BABL_NUM_MACROS ) ) {
+    if( id >= BABL_START_NUM && id < (BABL_START_NUM + BABL_NUM_MACROS ) ) {
    		if (record->event.pressed)  { // is there a case where this isn't desired?
-
-   			babblePaste ( record,  id );
-   			return MACRO_NONE;
-   		}
-   	}
+            babblePaste ( record,  id );
+            return MACRO_NONE;
+        }
+    }
 #endif
 
 
   // MACRODOWN only works in this function
-      switch(id) {
+    switch(id) {
         case 0:
-          if (record->event.pressed) {
-            register_code(KC_RSFT);
-          } else {
-            unregister_code(KC_RSFT);
-          }
-        break;
+            if (record->event.pressed) {
+                register_code(KC_RSFT);
+            } else {
+                unregister_code(KC_RSFT);
+            }
+            break;
 
  /* Colemak mod-dh moves the D key to the qwerty V position
    This hack makes apple-V_position do what I mean */
- 	case DHPASTE:
-		if(keyboard_report->mods & MOD_BIT(KC_LGUI) ) {
-			if (record->event.pressed) {
-	  	 		clear_keyboard_but_mods();
-		 		register_code(KC_V);
-	     	} else {
-		 		unregister_code(KC_V);
-	    	}
-		} else {
-            if (record->event.pressed) {
-          		register_code(KC_D);
+        case DHPASTE:
+            if(keyboard_report->mods & MOD_BIT(KC_LGUI) ) {
+                if (record->event.pressed) {
+                    clear_keyboard_but_mods();
+                    register_code(KC_V);
+                } else {
+                    unregister_code(KC_V);
+                }
             } else {
-           		unregister_code(KC_D);
-	   		}
-		}
-	break;
+                if (record->event.pressed) {
+                    register_code(KC_D);
+                } else {
+                    unregister_code(KC_D);
+                }
+            }
+            break;
 
-	case VIBRK: // vi esc:
-		 if (record->event.pressed) {
-			return MACRO( T(ESC),D(LSFT),T(SCLN),U(LSFT), END );
-		 }
-	break;
+        case VIBRK: // vi esc:
+            if (record->event.pressed) {
+                return MACRO( T(ESC),D(LSFT),T(SCLN),U(LSFT), END );
+            }
+            break;
 
-	default:
-    	return MACRO_NONE;
+        default:
+            return MACRO_NONE;
     }
-
 return MACRO_NONE;
 };
 
@@ -284,16 +277,15 @@ void keyboard_post_init_user(void) {
 
 
 void matrix_init_user(void) {
-  #ifdef RGB_MATRIX_ENABLE
-  #ifdef RGB_DI_PIN
-    rgblight_setrgb(RGB_GREEN);
-  #endif
-  #endif //RGB_matrix  
+    #ifdef RGB_MATRIX_ENABLE
+    #ifdef RGB_DI_PIN
+        rgblight_setrgb(RGB_GREEN);
+    #endif
+    #endif //RGB_matrix  
 }
 
 
 void matrix_scan_user(void) {
-  
 }
 
 
@@ -313,43 +305,48 @@ void led_set_user(uint8_t usb_led) {
 layer_state_t layer_state_set_user(layer_state_t state) {
   uint8_t layer = get_highest_layer(state);
   switch (layer) {
-      case 0:
+    case 0:
         #ifdef RGBLIGHT_COLOR_LAYER_0
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
+            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
         #else
-          #ifdef RGBLIGHT_ENABLE
-          rgblight_init();
-          #endif
+            #ifdef RGBLIGHT_ENABLE
+                rgblight_init();
+            #endif
         #endif
         break;
-      case 1:
+
+    case 1:
         #ifdef RGBLIGHT_COLOR_LAYER_1
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_1);
+            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_1);
         #endif
         break;
-      case 2:
+    
+    case 2:
         #ifdef RGBLIGHT_COLOR_LAYER_2
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_2);
+            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_2);
         #endif
         break;
-      case 3:
+    case 3:
         #ifdef RGBLIGHT_COLOR_LAYER_3
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_3);
+            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_3);
         #endif
         break;
-      case 4:
+    
+    case 4:
         #ifdef RGBLIGHT_COLOR_LAYER_4
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_4);
+            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_4);
         #endif
         break;
-      case 5:
+    
+    case 5:
         #ifdef RGBLIGHT_COLOR_LAYER_5
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_5);
+            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_5);
         #endif
         break;
-      default:
-       break;
-    }
+    
+    default:
+      break;
+  }
     #ifdef VIRTSER_ENABLE
       //virtser_send(layer + 48); // ascii 0 is 48
     #endif
@@ -360,10 +357,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 uint16_t get_tapping_term(uint16_t keycode) {
   switch (keycode) {
     case LT(_MOV, KC_TAB):
-      return TAPPING_TERM *2 ;
+        return TAPPING_TERM ;
+        break;
     default:
-      return TAPPING_TERM;
-  }
+    return TAPPING_TERM;
+}
 }
 
 
@@ -382,133 +380,127 @@ uint8_t ser_got_RGBbytes =0 ; // how many bytes we've recived.
 uint8_t rgb_r[6]; // R, g, b, P1, p2
 uint8_t bs=0; // how many bytes into our rgbBytestring.
 
-void virtser_recv(uint8_t serIn) 
-{ 
-  #ifdef RGBLIGHT_ENABLE 
-  if ((serIn == 10 ) || (serIn ==  13) || ser_got_RGBbytes >=5) { //reached newline or max digits
+void virtser_recv(uint8_t serIn) { 
+#ifdef RGBLIGHT_ENABLE 
+    if ((serIn == 10 ) || (serIn ==  13) || ser_got_RGBbytes >=5) { //reached newline or max digits
 
-    if (ser_cmd_started) {
-      ser_cmd_started =0 ; // end loop at newline
-      virtser_send('|');
+        if (ser_cmd_started) {
+            ser_cmd_started =0 ; // end loop at newline
+            virtser_send('|');
 
-      if (ser_got_RGBbytes==3) {
-        rgblight_setrgb( rgb_r[0], rgb_r[1], rgb_r[2]);
-      }
+            if (ser_got_RGBbytes==3) {
+                rgblight_setrgb( rgb_r[0], rgb_r[1], rgb_r[2]);
+            }
 
-      if (ser_got_RGBbytes ==4) {
-        if (( rgb_r[3] >=0)  && (rgb_r[3] <= RGBLED_NUM) ) { // is pos1 plausible
-          rgblight_setrgb_at ( rgb_r[0], rgb_r[1], rgb_r[2], rgb_r[3]);
-        } else {
-          rgblight_setrgb( rgb_r[0], rgb_r[1], rgb_r[2]);
+            if (ser_got_RGBbytes ==4) {
+                if (( rgb_r[3] >=0)  && (rgb_r[3] <= RGBLED_NUM) ) { // is pos1 plausible
+                    rgblight_setrgb_at ( rgb_r[0], rgb_r[1], rgb_r[2], rgb_r[3]);
+                } else {
+                        rgblight_setrgb( rgb_r[0], rgb_r[1], rgb_r[2]);
+                }
+            }
+
+            if (ser_got_RGBbytes == 5) { // are start and end positions plausible? 
+                if ( (rgb_r[4] >0)  && (rgb_r[4] <= RGBLED_NUM) && (rgb_r[4] > rgb_r[3]) && 
+                 (rgb_r[3] >=0)  && (rgb_r[3] <= (RGBLED_NUM -1))  ) {
+                    rgblight_setrgb_range(rgb_r[0], rgb_r[1], rgb_r[2], rgb_r[3], rgb_r[4]);
+               } else {
+                   rgblight_setrgb( rgb_r[0], rgb_r[1], rgb_r[2]);
+               }
+            }
+        } else { // newline outside of command loop, or something that can be ignored. 
+          //virtser_send('.');
         }
-      }
-      
-      if (ser_got_RGBbytes == 5) { // are start and end positions plausible? 
-        if ( (rgb_r[4] >0)  && (rgb_r[4] <= RGBLED_NUM) && (rgb_r[4] > rgb_r[3]) && 
-           (rgb_r[3] >=0)  && (rgb_r[3] <= (RGBLED_NUM -1))
-          ) {
-         rgblight_setrgb_range(rgb_r[0], rgb_r[1], rgb_r[2], rgb_r[3], rgb_r[4]);
-        } else {
-         rgblight_setrgb( rgb_r[0], rgb_r[1], rgb_r[2]);
-        }
-      }
-    } else { // newline outside of command terminates, or something strange
-      //virtser_send('.');
-    }
-  } 
+    } 
 
-  if (1 == ser_cmd_started) { // collecting bytes. 
-    if  (   // it is time to compute a byte
+    if (1 == ser_cmd_started) { // collecting bytes. 
+        if  (   // it is time to compute a byte
           ( ( (serIn == ',') || (serIn == '.') ) && (bs > 0) ) || // signal done with the byte. 
-            (bs ==2 ) //or we know this is last.
-        )
-    { 
-     
-      if ( (serIn <= '9') && (serIn >='0') ) { //3rd asci digit 
-        ser_rgbByte[bs] = serIn;
-        bs++;
-      //  virtser_send(serIn);
-      }
-  
-      if (bs>3) {
-        rgb_r[ser_got_RGBbytes]=255;
-        ser_got_RGBbytes ++;
-      }
-      if (bs==3) {
-          rgb_r[ser_got_RGBbytes] = (ser_rgbByte[0] -'0')*100 + (ser_rgbByte[1] -'0')*10 + (ser_rgbByte[2] -'0' );
-          ser_got_RGBbytes ++;
-      }
-      if (bs ==2 ) {
-         rgb_r[ser_got_RGBbytes] = (ser_rgbByte[0] -'0')*10 +  (ser_rgbByte[1] -'0' );
-         ser_got_RGBbytes ++;
-      }
-      if (bs ==1) {
-         rgb_r[ser_got_RGBbytes] = (ser_rgbByte[0] -'0');
-         ser_got_RGBbytes ++;
-      } // {else wipe & start over}
+            (bs ==2 )){ //or we know this is last.
+        
+            if ( (serIn <= '9') && (serIn >='0') ) { //3rd asci digit 
+                ser_rgbByte[bs] = serIn;
+                bs++;
+            //  virtser_send(serIn);
+            }
 
-      bs=0;
+            if (bs>3) {
+                rgb_r[ser_got_RGBbytes]=255;
+                ser_got_RGBbytes ++;
+            }
+            if (bs==3) {
+              rgb_r[ser_got_RGBbytes] = (ser_rgbByte[0] -'0')*100 + (ser_rgbByte[1] -'0')*10 + (ser_rgbByte[2] -'0' );
+              ser_got_RGBbytes ++;
+            }
+            if (bs ==2 ) {
+               rgb_r[ser_got_RGBbytes] = (ser_rgbByte[0] -'0')*10 +  (ser_rgbByte[1] -'0' );
+               ser_got_RGBbytes ++;
+            }
+            if (bs ==1) {
+               rgb_r[ser_got_RGBbytes] = (ser_rgbByte[0] -'0');
+               ser_got_RGBbytes ++;
+            }  // {else wipe & start over}
+
+          bs=0;
     //  virtser_send(ser_got_RGBbytes+'0');
-    } else { // haven't got enough for our byte / no terminal marker
-      if ( (serIn <= '9') && (serIn >='0') ) { //ascii only 
-        ser_rgbByte[bs] = serIn;
-        bs++;
-     //    virtser_send(serIn);
-      }
+
+        } else { // haven't got enough for our byte / no terminal marker
+            if ( (serIn <= '9') && (serIn >='0') ) { //ascii only 
+                ser_rgbByte[bs] = serIn;
+                bs++;
+            //    virtser_send(serIn);
+            }
+        }
+    } else { //not in command loop - next is command w/o arguments, or start of one. 
+        switch (serIn) {
+            case 'C':  // color switch
+                ser_cmd_started=1;
+                ser_got_RGBbytes = bs =0;
+                virtser_send('/');
+                break;
+        
+            case 'r': {//red
+                rgblight_setrgb(RGB_RED);
+                break;
+         
+            case 'g': 
+                rgblight_setrgb(RGB_GREEN);
+                break;
+   
+            case 'b':  // color switch
+                rgblight_setrgb(RGB_BLUE);
+                break;
+
+            case 'w': { // color switch
+                rgblight_setrgb(RGB_WHITE);
+                break;
+
+            case 'o':  // color black/off
+                rgblight_setrgb(0,0,0);
+                break;
+               
+            case 'T':  // toggle
+                rgblight_toggle();
+                break;
+            
+            case 'P': // pulse led
+                rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING);
+                break; 
+            case 'S':  // Static
+                rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
+                break;
+           
+            case 'U':  // Rainbow
+                rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD);
+                break;
+                   
+            default: 
+           //     virtser_send(serIn);
+                break;
+
+        }
     }
-  } else {
-    // simple commands that don't need arguments. 
-    switch (serIn) {
-     case 'C': { // color switch
-        ser_cmd_started=1;
-        ser_got_RGBbytes = bs =0;
-        virtser_send('/');
-        break;
-      }
-      case 'r': {//red
-       rgblight_setrgb(RGB_RED);
-       break;
-      } 
-      case 'g': {
-         rgblight_setrgb(RGB_GREEN);
-         break;
-      } 
-      case 'b': { // color switch
-         rgblight_setrgb(RGB_BLUE);
-         break;
-      } 
-       case 'w': { // color switch
-         rgblight_setrgb(RGB_WHITE);
-         break;
-      } 
-       case 'o': { // color black/off
-         rgblight_setrgb(0,0,0);
-         break;
-      } 
-      case 'T': { // toggle
-         rgblight_toggle();
-         break;
-      } 
-      case 'P': { // pulse led
-         rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING);
-         break;
-      } 
-      case 'S': { // Static
-         rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
-         break;
-      } 
-      case 'U': { // Rainbow
-         rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD);
-         break;
-      } 
-      default: {
-   //     virtser_send(serIn);
-        break;
-      }
-    }
-  }
  #endif // RGBLIGHT_ENABLE 
 }
-     
-#endif // VirtSerial
 
+#endif // VirtSerial
