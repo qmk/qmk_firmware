@@ -1,5 +1,10 @@
 # キーマップの FAQ
 
+<!---
+  original document: d598f01cb:faq_keymap.md
+  git diff d598f01cb HEAD faq_keymap.md | cat
+-->
+
 このページは人々がキーマップについてしばしば持つ疑問について説明します。まだ読んだことが無い場合には、[キーマップの概要](ja/keymap.md)を最初に読むべきです。
 
 ## どのキーコードを使えますか？

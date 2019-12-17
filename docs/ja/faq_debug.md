@@ -1,5 +1,10 @@
 # デバッグの FAQ
 
+<!---
+  original document: d598f01cb:faq_debug.md
+  git diff d598f01cb HEAD faq_debug.md | cat
+-->
+
 このページは、キーボードのトラブルシューティングについての様々な一般的な質問を説明します。
 
 # デバッグ コンソール

@@ -1,6 +1,11 @@
 # よくあるビルドの質問
 
-このページは QMK のビルドに関する質問を説明します。まだビルドをしていない場合は、[ビルド環境のセットアップ](ja/getting_started_build_tools.md) および [Make手順](ja/getting_started_make_guide.md)ガイドを読むべきです。
+<!---
+  original document: d598f01cb:faq_build.md
+  git diff d598f01cb HEAD faq_build.md | cat
+-->
+
+このページは QMK のビルドに関する質問を説明します。まだビルドをしていない場合は、[ビルド環境のセットアップ](ja/getting_started_build_tools.md) および [Make 手順](ja/getting_started_make_guide.md)ガイドを読むべきです。
 
 ## Linux でプログラムできません
 デバイスを操作するには適切な権限が必要です。Linux ユーザに関しては、以下の `udev` ルールに関する指示を見てください。`udev` に問題がある場合は、回避策は `sudo` コマンドを使うことです。このコマンドに慣れていない場合は、`man sudo` を使ってマニュアルを確認するか、[この web ページを見てください](https://linux.die.net/man/8/sudo)。
@@ -46,7 +51,7 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", MODE:="0666"
 ```
 
-**/etc/udev/rules.d/55-catalina.rules:**
+**/etc/udev/rules.d/55-caterina.rules:**
 ```
 # ModemManager should ignore the following devices
 ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"
@@ -68,6 +73,12 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="1eaf", ATTRS{idProduct}=="0003", MODE:="066
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE:="0666"
 ```
 
+**/etc/udev/rules.d/57-bootloadhid.rules:**
+```
+# bootloadHID
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="05df", MODE:="0666"
+```
+
 ### Linux のブートローダモードで Serial デバイスが検知されない
 カーネルがデバイスの適切なサポートを持つことを確認してください。デバイスが、Pro Micro (Atmega32u4) のような USB ACM を使う場合、`CONFIG_USB_ACM=y` を含めるようにしてください。他のデバイスは `USB_SERIAL` およびそのサブオプションを必要とするかもしれません。
 
@@ -75,13 +86,13 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE:="066
 
 Windows 上でキーボードを書き込む時に発生する問題は、ブートローダに間違ったドライバがインストールされているか、全くインストールされていないかによるものがほとんどです。
 
-QMK インストール スクリプト (MSYS2 あるいは WSL 内の `qmk_firmware` ディレクトリから `./util/qmk_install.sh`) を再実行するか、QMK Toolbox の再インストールでこの問題が解決するかもしれません。別のやり方として、手動で [`qmk_driver_installer`](https://github.com/qmk/qmk_driver_installer) パッケージをダウンロードして実行することができます。
+QMK インストールスクリプト (MSYS2 あるいは WSL 内の `qmk_firmware` ディレクトリから `./util/qmk_install.sh`) を再実行するか、QMK Toolbox の再インストールでこの問題が解決するかもしれません。別のやり方として、手動で [`qmk_driver_installer`](https://github.com/qmk/qmk_driver_installer) パッケージをダウンロードして実行することができます。
 
 それでもうまく行かない場合は、Zadig をダウンロードして実行する必要があります。詳細な情報は [Zadig を使ったブートローダドライバのインストール](ja/driver_installation_zadig.md)を見てください。
 
 ## WINAVR は非推奨
 もう推奨されなくなり、何らかの問題を起こすかもしれません。
-[TMK Issue #99](https://github.com/tmk/tmk_keyboard/issues/99)を見てください。
+[TMK Issue #99](https://github.com/tmk/tmk_keyboard/issues/99) を見てください。
 
 ## USB VID と PID
 `config.h` を編集することで必要な ID を使うことができます。おそらく未使用の ID を使っても、他の製品との衝突の可能性が低いことを除いて、実際には問題はありません。
@@ -163,7 +174,7 @@ brew install avr-gcc@8
 brew link --force avr-gcc@8
 ```
 
-### キーボードを書き込んだが何も起こらない/キーの押下が登録されない - ARM でも同じ (rev6 planck、clueboard 60、hs60v2 など) (Feb 2019)
+### キーボードを書き込んだが何も起こらない、あるいはキーの押下が登録されない - ARM でも同じ (rev6 planck、clueboard 60、hs60v2 など) (Feb 2019)
 ARM ベースのチップ上で EEPROM がどのように動作するかにより、保存された設定が無効になる場合があります。これはデフォルトレイヤに影響し、まだ調査中の特定の環境下でキーボードが不安定になるかも*しれません*。EEPROM の再設定でこれが修正されます。
 
 [Planck rev6 reset EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/539284620861243409/planck_rev6_default.bin) を使って eeprom 再設定を強制することができます。このイメージを書き込んだ後で、通常のファームウェアを書き込むと、キーボードが_通常_ の正常な順序に復元されます。

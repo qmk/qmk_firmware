@@ -1,4 +1,9 @@
-# Zadig を使ったブートローダ ドライバのインストール
+# Zadig を使ったブートローダドライバのインストール
+
+<!---
+  original document: d598f01cb:driver_installation_zadig.md
+  git diff d598f01cb HEAD driver_installation_zadig.md | cat
+-->
 
 QMK は通常の HID キーボードとしてホストに提示されるため、特別なドライバは必要ありません。However, in order to flash your keyboard on Windows, the bootloader device that appears when you reset the board often *does*.
 
@@ -8,15 +13,15 @@ There are two notable exceptions: the Caterina bootloader, usually seen on Pro M
 
 ## インストール
 
-`RESET` キーコード (別のレイヤにあるかもしれません)を押すか、通常はボードの下側にあるリセットスイッチを押して、キーボードをブートローダモードにします。キーボードに無い場合は、Escape または Space+`B` を押しながら接続してみてください (詳細は、[Bootmagic](ja/feature_bootmagic.md) ドキュメントを見てください)。一部のボードは Bootmagic の代わりに [Command](ja/feature_command.md) を使います。この場合、キーボードが接続されている状態で Left Shift+Right Shift+`B` あるいは Left Shift+Right Shift+Escape を押すと、ブートローダ モードに入ることができます。
+`RESET` キーコード (別のレイヤにあるかもしれません)を押すか、通常はボードの下側にあるリセットスイッチを押して、キーボードをブートローダモードにします。キーボードに無い場合は、Escape または Space+`B` を押しながら接続してみてください (詳細は、[ブートマジック](ja/feature_bootmagic.md) ドキュメントを見てください)。一部のボードはブートマジックの代わりに [コマンド](ja/feature_command.md) を使います。この場合、キーボードが接続されている状態で Left Shift+Right Shift+`B` あるいは Left Shift+Right Shift+Escape を押すと、ブートローダ モードに入ることができます。
 一部のキーボードはブートローダに入るために特定の操作をする必要があります。例えば、[Bootmagic Lite](ja/feature_bootmagic.md#bootmagic-lite) キー (デフォルト: Escape) は別のキーかもしれません。例えば、左 Control あるいは Command の魔法の組み合わせ (デフォルト: Left Shift+Right Shift) は何か他のキーを押し続ける必要がある場合があります。例えば Left Control+Right Control。不明な場合は、ボードの README ファイルを参照してください。
-
+{
 USBaspLoader を使ってデバイスをブートローダ モードにするには、`BOOT` ボタンを押しながら `RESET` ボタンをタップしてください。
 あるいは USB ケーブルを挿入しながら `BOOT` を押し続けます。
 
-Zadig は自動的にブートローダ デバイスを検知します。**Options → List All Devices** を確認する必要がある場合があります。
+Zadig は自動的にブートローダデバイスを検知します。**Options → List All Devices** を確認する必要がある場合があります。
 
-- Atmel AVR MCU を搭載したキーボードの場合、ブートローダは`ATm32U4DFU`に似た名前が付けられ、ベンダー ID は `03EB` です。
+- Atmel AVR MCU を搭載したキーボードの場合、ブートローダは `ATm32U4DFU` に似た名前が付けられ、ベンダー ID は `03EB` です。
 - USBasp ブートローダは `USBasp` として表示され、VID/PID は`16C0:05DC` です。
 - QMK-DFU ブートローダを使って書き込まれた AVR キーボードは `<keyboard name> Bootloader` という名前が付けられ、VID `03EB` も持ちます。
 - ほとんどの ARM キーボードでは、`STM32 BOOTLOADER` と呼ばれ、VID/PID `0483:DF11` を持ちます。
@@ -39,7 +44,7 @@ Zadig は自動的にブートローダ デバイスを検知します。**Optio
 
 ![デバイスマネージャで、間違ったドライバがインストールされたボード](https://i.imgur.com/L3wvX8f.png)
 
-右クリックし、**Uninstall device** をクリックします。最初に**Delete the driver software for this device** をクリックするようにしてください。
+右クリックし、**Uninstall device** をクリックします。最初に **Delete the driver software for this device** をクリックするようにしてください。
 
 !["ドライバの削除"にチェックボックスにチェックが付いた、デバイスのアンインストールダイアログ](https://i.imgur.com/aEs2RuA.png)
 
