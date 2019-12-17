@@ -14,6 +14,6 @@ Get keyboard into reset mode, and then;
 
 ```
 make planck/rev4:bbaserdem:dfu
-CFLAGS="-Wno-error=deprecated" make planck/rev6:bbaserdem:dfu
+CFLAGS="-Wno-error=deprecated" make planck/rev6:bbaserdem:dfu-util
 make planck/light:bbaserdem:dfu
 ```
