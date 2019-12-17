@@ -34,7 +34,6 @@ enum layer_keycodes {
 
 /* Fn Keys */
 #define TT_SYM MO(_SYM)
-#define TT_MOV KC_FN2
 #define TT_NUM MO(_NUM)
 #define SSFT ACTION_MODS_ONESHOT(MOD_LSFT)
 #define SSYM LT(_SYM, KC_SPC)
@@ -199,6 +198,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             } else {
               layer_off(_SYM);
             }
+            return false;
+            break;
 
         /* Colemak mod-dh moves the D key to the qwerty V position
             This hack makes apple-V_position do what I mean */
@@ -463,7 +464,7 @@ void virtser_recv(uint8_t serIn) {
 
         }
     }
-
-}
 #endif // RGBLIGHT_ENABLE
+}
+
 #endif // VirtSerial

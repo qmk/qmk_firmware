@@ -16,18 +16,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-
 #include "config_common.h"
 
-
-
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    5
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-  keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
+#define DEBOUNCE 5
 
 
 /* COL2ROW or ROW2COL */

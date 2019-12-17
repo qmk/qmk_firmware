@@ -1,7 +1,5 @@
 #pragma once
 
-//#define USE_BABLPASTE
-
 // Expect to get errors if you comment a feature out and leave it in your keymap.
 
 #ifdef USE_BABLPASTE
@@ -27,8 +25,6 @@
 
 // place overrides here
 #define RGBLED_NUM 2
-
-
 #define RGBLIGHT_LIMIT_VAL 200
 #ifdef RGBLIGHT_ENABLE
 #define RGBLIGHT_COLOR_LAYER_0 0x00, 0xFF, 0x00
@@ -46,4 +42,3 @@
 #define TAPPING_TERM_PER_KEY
 #define RETRO_TAPPING
 //#define PERMISSIVE_HOLD
-//# RAW_ENABLE
