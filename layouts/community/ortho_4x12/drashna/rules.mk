@@ -17,8 +17,8 @@ ifneq ($(strip $(KEYBOARD)), planck/rev6)
 else
     CONSOLE_ENABLE    			= yes
     COMMAND_ENABLE    			= yes
-    RGBLIGHT_ENABLE             = no
-    RGB_MATRIX_ENABLE           = WS2812
+    RGBLIGHT_ENABLE             = yes
+    RGB_MATRIX_ENABLE           = no
     AUDIO_ENABLE       			= yes
 endif
 ifeq ($(strip $(KEYBOARD)), planck/light)
