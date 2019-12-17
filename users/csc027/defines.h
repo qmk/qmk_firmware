@@ -6,7 +6,6 @@
 #define MC_LSEC LSFT_T(KC_ESC)  // Left Shift on hold, Escape on tap
 
 #define ________________ KC_TRNS
-#define XXXXXXX KC_NO
 
 /* QWERTY Layer
  *
