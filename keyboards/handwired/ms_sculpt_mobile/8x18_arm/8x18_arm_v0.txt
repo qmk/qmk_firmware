@@ -1,6 +1,6 @@
 ribbon pin,  teensy chip pin,	bluepill,	teensy2++
 // Chip pin is correct for teensy / ignore standard bluepill ordering & assume 1 is left of usb
-// ribbon pin may or may not be the column pin2222222222222222
+// ribbon pin may or may not be the column pin
 
 NC		1	B12	
 pin 7	2	B13

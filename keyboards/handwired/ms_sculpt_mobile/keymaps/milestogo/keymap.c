@@ -47,9 +47,9 @@ enum layer_keycodes {
 #define MV9 LT(MOV, KC_9)
 #define MV0 LT(MOV, KC_0)
 
-enum macro_keycodes {
-    DHPASTE=1,
-    VIBRK,
+enum custom_keycodes {
+    DHPASTE= SAFE_RANGE,
+    VIBRK
 };
 
 
@@ -176,11 +176,6 @@ ____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____
 */
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_KEY(_SYM,KC_SPACE),
-    [2] = ACTION_LAYER_TAP_KEY(_MOV,KC_BSPC)
-};
-
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -188,55 +183,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 layer_off(_CDH);
             }
-        return false;
-        break;
-
-        case CDH:
-        if (record->event.pressed) {
-            layer_on(_CDH);
-        }
-        return false;
-        break;
-
-        case SYM:
-        if (record->event.pressed) {
-            layer_on(_SYM);
-        } else {
-          layer_off(_SYM);
-        }
-
-        return false;
-        break;
-    }
-    return true;
-
-}
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-/* Any clever remapping with modifiers should happen here e.g. shift bablkey does opposite*/
-#ifdef USE_BABLPASTE
-    if( id >= BABL_START_NUM && id < (BABL_START_NUM + BABL_NUM_MACROS ) ) {
-   		if (record->event.pressed)  { // is there a case where this isn't desired?
-            babblePaste ( record,  id );
-            return MACRO_NONE;
-        }
-    }
-#endif
-
-
-  // MACRODOWN only works in this function
-    switch(id) {
-        case 0:
-            if (record->event.pressed) {
-                register_code(KC_RSFT);
-            } else {
-                unregister_code(KC_RSFT);
-            }
+            return false;
             break;
 
- /* Colemak mod-dh moves the D key to the qwerty V position
-   This hack makes apple-V_position do what I mean */
+        case CDH:
+            if (record->event.pressed) {
+                layer_on(_CDH);
+            }
+            return false;
+            break;
+
+        case SYM:
+            if (record->event.pressed) {
+                layer_on(_SYM);
+            } else {
+              layer_off(_SYM);
+            }
+
+        /* Colemak mod-dh moves the D key to the qwerty V position
+            This hack makes apple-V_position do what I mean */
         case DHPASTE:
             if(keyboard_report->mods & MOD_BIT(KC_LGUI) ) {
                 if (record->event.pressed) {
@@ -252,20 +217,24 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                     unregister_code(KC_D);
                 }
             }
+            return false;
             break;
 
-        case VIBRK: // vi esc:
-            if (record->event.pressed) {
-                return MACRO( T(ESC),D(LSFT),T(SCLN),U(LSFT), END );
-            }
-            break;
-
-        default:
-            return MACRO_NONE;
+        return false;
+        break;
     }
-return MACRO_NONE;
-};
+    /* Any clever remapping with modifiers should happen here e.g. shift bablkey does opposite*/
+#ifdef USE_BABLPASTE
+    if( keycode >= BABL_START_NUM && id < (BABL_START_NUM + BABL_NUM_MACROS ) ) {
+        if (record->event.pressed)  { // is there a case where this isn't desired?
+            babblePaste ( record,  keycode);
+            return false;
+        }
+    }
+#endif
 
+    return true;
+}
 
 void keyboard_post_init_user(void) {
   // Customise these values to desired behaviour
