@@ -5,7 +5,6 @@
 #define MC_RSFE RSFT_T(KC_ENT)  // Right Shift on hold, Enter on tap
 #define MC_LSEC LSFT_T(KC_ESC)  // Left Shift on hold, Escape on tap
 
-#define _______ KC_TRNS
 #define ________________ KC_TRNS
 #define XXXXXXX KC_NO
 
