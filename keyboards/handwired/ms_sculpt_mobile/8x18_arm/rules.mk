@@ -1,6 +1,5 @@
 # project specific files
-SRC =	matrix.c \
-	    led.c
+#SRC =
 
 # GENERIC STM32F103C8T6 board - stm32duino bootloader
 OPT_DEFS = -DCORTEX_VTOR_INIT=0x2000
@@ -11,7 +10,7 @@ BOARD = GENERIC_STM32_F103
 #OPT_DEFS =
 #MCU_LDSCRIPT = STM32F103x8
 #BOARD = GENERIC_STM32_F103
-CUSTOM_MATRIX = yes    # Custom matrix file
+#CUSTOM_MATRIX = no    # Custom matrix file
 
 ## chip/board settings
 # the next two should match the directories in
@@ -41,3 +40,6 @@ ARMV = 7
 # This also requires a patch to chibios:
 #   <tmk_dir>/tmk_core/tool/chibios/ch-bootloader-jump.patch
 ##STM32_BOOTLOADER_ADDRESS = 0x1FFFC800
+
+DFU_ARGS = -d 1eaf:0003 -a 2 -R
+DFU_SUFFIX_ARGS  ?= -v 1eaf -p 0003

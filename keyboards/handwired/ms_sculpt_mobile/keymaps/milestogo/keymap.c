@@ -290,63 +290,57 @@ void matrix_scan_user(void) {
 
 
 void led_set_user(uint8_t usb_led) {
-#ifdef BOARD_GENERIC_STM32_F103
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        LED_ON();
-    } else {
-        LED_OFF();
-    }
-#endif
 }
 
 
 
 // Runs whenever there is a layer state change.
 layer_state_t layer_state_set_user(layer_state_t state) {
-  uint8_t layer = get_highest_layer(state);
-  switch (layer) {
-    case 0:
-        #ifdef RGBLIGHT_COLOR_LAYER_0
-            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
-        #else
-            #ifdef RGBLIGHT_ENABLE
-                rgblight_init();
+    uint8_t layer = get_highest_layer(state);
+    switch (layer) {
+        case 0:
+            #ifdef RGBLIGHT_COLOR_LAYER_0
+                rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
+            #else
+                #ifdef RGBLIGHT_ENABLE
+                    rgblight_init();
+                #endif
             #endif
-        #endif
-        break;
+            break;
 
-    case 1:
-        #ifdef RGBLIGHT_COLOR_LAYER_1
-            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_1);
-        #endif
-        break;
-    
-    case 2:
-        #ifdef RGBLIGHT_COLOR_LAYER_2
-            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_2);
-        #endif
-        break;
-    case 3:
-        #ifdef RGBLIGHT_COLOR_LAYER_3
-            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_3);
-        #endif
-        break;
-    
-    case 4:
-        #ifdef RGBLIGHT_COLOR_LAYER_4
-            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_4);
-        #endif
-        break;
-    
-    case 5:
-        #ifdef RGBLIGHT_COLOR_LAYER_5
-            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_5);
-        #endif
-        break;
-    
-    default:
-      break;
-  }
+        case 1:
+            #ifdef RGBLIGHT_COLOR_LAYER_1
+                rgblight_setrgb(RGBLIGHT_COLOR_LAYER_1);
+            #endif
+            break;
+
+        case 2:
+            #ifdef RGBLIGHT_COLOR_LAYER_2
+                rgblight_setrgb(RGBLIGHT_COLOR_LAYER_2);
+            #endif
+            break;
+
+        case 3:
+            #ifdef RGBLIGHT_COLOR_LAYER_3
+                rgblight_setrgb(RGBLIGHT_COLOR_LAYER_3);
+            #endif
+            break;
+
+        case 4:
+            #ifdef RGBLIGHT_COLOR_LAYER_4
+                rgblight_setrgb(RGBLIGHT_COLOR_LAYER_4);
+            #endif
+            break;
+
+        case 5:
+            #ifdef RGBLIGHT_COLOR_LAYER_5
+                rgblight_setrgb(RGBLIGHT_COLOR_LAYER_5);
+            #endif
+            break;
+
+        default:
+          break;
+      }
     #ifdef VIRTSER_ENABLE
       //virtser_send(layer + 48); // ascii 0 is 48
     #endif
@@ -355,13 +349,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 // custom tapping term lengths. 
 uint16_t get_tapping_term(uint16_t keycode) {
-  switch (keycode) {
-    case LT(_MOV, KC_TAB):
-        return TAPPING_TERM ;
-        break;
-    default:
-    return TAPPING_TERM;
-}
+    switch (keycode) {
+        case LT(_MOV, KC_TAB):
+            return TAPPING_TERM ;
+            break;
+        default:
+        return TAPPING_TERM;
+    }
 }
 
 
@@ -453,13 +447,13 @@ void virtser_recv(uint8_t serIn) {
         }
     } else { //not in command loop - next is command w/o arguments, or start of one. 
         switch (serIn) {
-            case 'C':  // color switch
+            case 'C': // color switch
                 ser_cmd_started=1;
                 ser_got_RGBbytes = bs =0;
                 virtser_send('/');
                 break;
         
-            case 'r': {//red
+            case 'r': //red
                 rgblight_setrgb(RGB_RED);
                 break;
          
@@ -471,7 +465,7 @@ void virtser_recv(uint8_t serIn) {
                 rgblight_setrgb(RGB_BLUE);
                 break;
 
-            case 'w': { // color switch
+            case 'w':  // color switch
                 rgblight_setrgb(RGB_WHITE);
                 break;
 
@@ -500,7 +494,7 @@ void virtser_recv(uint8_t serIn) {
 
         }
     }
- #endif // RGBLIGHT_ENABLE 
-}
 
+}
+#endif // RGBLIGHT_ENABLE
 #endif // VirtSerial
