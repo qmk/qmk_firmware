@@ -1,5 +1,4 @@
 # project specific files
-#SRC =
 
 # GENERIC STM32F103C8T6 board - stm32duino bootloader
 OPT_DEFS = -DCORTEX_VTOR_INIT=0x2000
