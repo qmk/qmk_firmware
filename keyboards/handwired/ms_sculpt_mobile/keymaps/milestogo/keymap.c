@@ -5,14 +5,15 @@
 #endif
 
 #include "virtser.h"
-
 #include <print.h>
-#define _QWR 0
-#define _CDH 1
-#define _SYM 2
-#define _MOV 3
-#define _TRAN 5
 
+enum layer_names {
+_QWR =0,
+_CDH,
+_SYM,
+_MOV,
+_TRAN
+};
 
 #define LAYOUT_local LAYOUT_mobile_XUW
 

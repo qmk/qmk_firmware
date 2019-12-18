@@ -1,15 +1,13 @@
 ifdef ASTAR
 	CFLAGS=-D ASTAR
 	MCU = atmega32u4
-	SCULPT_UPLOAD_COMMAND = avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
 else
 	MCU = at90usb1286
-	SCULPT_UPLOAD_COMMAND = teensy_loader_cli -w -mmcu=$(MCU) $(TARGET).hex
 endif
 
 # Bootloader Selection
 #   Teensy       halfkay
-#   Pro Micro	caterina
+#   Pro Micro    caterina
 #   Atmel DFU    atmel-dfu
 #   LUFA DFU     lufa-dfu
 #   QMK DFU      qmk-dfu
@@ -18,7 +16,7 @@ endif
 ifdef ASTAR
 	BOOTLOADER = caterina
 else
-	BOOTLOADER = atmel-dfu
+	BOOTLOADER = halfkay
 endif
 
 #Build Options

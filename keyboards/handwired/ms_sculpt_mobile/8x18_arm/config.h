@@ -27,10 +27,6 @@
 #define MATRIX_COL_PINS { A7, B10, B1, B0, A6, A5, A4, A3, A2, A1, A0, B11, B8, B7, B6, B5, B4, B3 }
 #define MATRIX_ROW_PINS { A15, A10, A9, A8, B15, B14, B13, B12 }
 
-// Iso fix for Space Cadet, comment for ANSI layouts
-#define LSPO_KEY KC_8
-#define RSPC_KEY KC_9
-
 // bitbanged RGB
 #define RGB_DI_PIN B9
 
