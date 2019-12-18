@@ -1,4 +1,15 @@
 
+██░ ██ ██▒ █▓ ██▓███  
+▓██░ ██▒▓██░ █▒▓██░ ██▒
+▒██▀▀██░ ▓██ █▒░▓██░ ██▓▒
+░▓█ ░██ ▒██ █░░▒██▄█▓▒ ▒
+░▓█▒░██▓ ▒▀█░ ▒██▒ ░ ░
+▒ ░░▒░▒ ░ ▐░ ▒▓▒░ ░ ░
+▒ ░▒░ ░ ░ ░░ ░▒ ░  
+ ░ ░░ ░ ░░ ░░  
+ ░ ░ ░ ░  
+ ░
+
 Keyboard: Lets split!
 Keys: 48key ortho 40% keyboard
 Layout: Swedish characters on main layer using tapdance. Built for eurkey keyboard layout.

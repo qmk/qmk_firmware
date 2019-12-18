@@ -61,7 +61,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, RGB_SAD, RGB_SAI, _______, _______, KC_0, KC_1, KC_2, KC_3, _______, _______,
   RESET, _______, RGB_VAD, RGB_VAI, _______, _______, _______, _______, _______, _______, _______, _______
 )};
-
-uint32_t layer_state_set_user(uint32_t state) {
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
