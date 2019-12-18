@@ -16,12 +16,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 userspace_config_t userspace_config;
 
+/*---------------------------*\
+|*-----KEYBOARD PRE INIT-----*|
+\*---------------------------*/
+
+/*
+ * This code runs before anything is started.
+ * Good for early hardware setup
+ */
+
+__attribute__ ((weak)) void keyboard_pre_init_keymap(void) {}
+__attribute__ ((weak)) void keyboard_pre_init_user(void) {
+    // Keymap specific stuff
+    keyboard_pre_init_keymap()
+}
+
 /*---------------------*\
 |*-----MATRIX INIT-----*|
 \*---------------------*/
 
 /*
- * This code runs once on startup
+ * This code runs once midway thru the firmware process.
  * So far, sets the base layer and fixes unicode mode
  */
 
@@ -53,6 +68,21 @@ void matrix_init_user (void) {
 
     // Keymap specific things
     matrix_init_keymap();
+}
+
+/*----------------------------*\
+|*-----KEYBOARD POST INIT-----*|
+\*----------------------------*/
+
+/*
+ * This code runs after anything is started.
+ * Good for late hardware setup
+ */
+
+__attribute__ ((weak)) void keyboard_post_init_keymap(void) {}
+__attribute__ ((weak)) void keyboard_post_init_user(void) {
+    // Keymap specific stuff
+    keyboard_post_init_keymap()
 }
 
 /*---------------------*\
