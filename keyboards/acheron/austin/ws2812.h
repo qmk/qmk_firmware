@@ -10,7 +10,6 @@ void leds_init(void);
 
  // This is what users will use to interface with this
 void ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds);
-void ws2812_setleds_rgbw(LED_TYPE *ledarray, uint16_t number_of_leds);
 
 
 void WS2812_init(void);
