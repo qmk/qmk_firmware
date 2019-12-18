@@ -1,20 +1,23 @@
 # Lets Split
 
 Check out [user readme](../../../../users/bbaserdem/README.md) for more info.
-This is still a WIP, but the firmware should be fine.
+This is still a *WIP*, but the firmware should be OK.
 
 Builds fine as of 2019-12-17
 
 # Setup
 
-I am planning on I2C, using Proton C's (or ProMicro's).
-Make command should run fine with the flash command, but possibly the bootloader needs to be configured.
+I am planning on using I2C, using Proton C.
+Make command should run fine with the flash command,
+but possibly the bootloader needs to be configured.
 
-# Caterina
+## Caterina
 
-The default bootloader for ProMicro.
+The default bootloader for the ProMicro.
 
-For flashing the EEPROM with the side information, flash the following.
+For flashing the EEPROM with the side information,
+flash the following provided files;
+
 ```
 avrdude -p atmega32u4 -P "$(ls /dev/ttyACM*)" -c avr109 -U eeprom:w:"./quantum/split_common/eeprom-lefthand.eep"
 avrdude -p atmega32u4 -P "$(ls /dev/ttyACM*)" -c avr109 -U eeprom:w:"./quantum/split_common/eeprom-righthand.eep"
@@ -23,14 +26,13 @@ avrdude -p atmega32u4 -P "$(ls /dev/ttyACM*)" -c avr109 -U eeprom:w:"./quantum/s
 Afterwards, the following command should work just fine for flashing.
 
 ```
-make lets_split/rev2:bbaserdem:avrdude
+make lets_split/rev2:bbaserdem:flash
 ```
 
-If it does not flash, the hex files can be flashed by the following command.
+If it does not flash, the hex files can be flashed by the following command
 
-For the left half, after plugging in and resetting; (from repo main directory)
 ```
-sudo avrdude -p atmega32u4 -P "$(ls /dev/ttyACM*)" -c avr109 -D -U flash:w:"./lets_split_rev2_bbaserdem.hex"
+avrdude -p atmega32u4 -P "$(ls /dev/ttyACM*)" -c avr109 -D -U flash:w:"./lets_split_rev2_bbaserdem.hex"
 ```
 
 # QMK-DFU
@@ -65,7 +67,7 @@ it should be straightforward to do it.
 The command is
 
 ```
-make lots_split/rev2:bbaserdem:dfu CTPC=yes
+make lets_split/rev2:bbaserdem:flash CTPC=yes
 ```
 
 NEED TO ADD EEPROM FLASHING HALVES HERE
