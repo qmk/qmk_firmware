@@ -1,8 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "muse.h"
 
-extern keymap_config_t keymap_config;
-
 enum planck_layers {
   _QWERTY,
   _COLEMAK,
@@ -137,7 +135,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 layer_state_t layer_state_set_user(layer_state_t state) {
   // LED control, lighting up when Fn layer is activated
   state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-  switch (biton32(state)) {
+  switch (get_highest_layer(state)) {
     case _QWERTY:
       backlight_set(0);
       break;
