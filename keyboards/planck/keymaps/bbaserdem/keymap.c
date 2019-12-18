@@ -1,7 +1,4 @@
 /*
- * PLANCK - Dvorak turkish
- * Keymap by @bbaserdem
- * Dvorak layout with multiple features
  * Most of the code is in the "user" directory.
  * Check qmk_firmware/users/bbaserdem for the main part of the code
  */

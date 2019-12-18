@@ -10,4 +10,3 @@ AUDIO_ENABLE = no      # Enable audio output from keyboard
 RGBLIGHT_ENABLE = yes  # Enable RBG light strips
 BACKLIGHT_ENABLE = yes # Enable keyboard backlight functionality
 BLUETOOTH_ENABLE = no  # No bluetooth option
-
