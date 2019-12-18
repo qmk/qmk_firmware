@@ -48,7 +48,7 @@ action_t action_for_key(uint8_t layer, keypos_t key) {
     // keycode remapping
     keycode = keycode_config(keycode);
 
-    action_t action;
+    action_t action = {};
     uint8_t  action_layer, when, mod;
 
     switch (keycode) {
