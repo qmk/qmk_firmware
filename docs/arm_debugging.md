@@ -71,7 +71,7 @@ NOTE: Make sure the SWCLK and SWDIO pins are not used in the matrix of your keyb
 
 ### Configuring the Debugger
 
-Right click on your QMK folder, select Debug As -> Debug Configurations... . Here double click on GDB OpenOCD Debugging. Select the Debugger tab and enter the configuration necessary for your MCU. This might take some fiddling and googleing to find out. The default script for the STM32F3 is called stm32f3discovery.cfg. To let OpenOCD know, in the Config options enter `-f board/stm32f3discovery.cfg`.
+Right click on your QMK folder, select Debug As -> Debug Configurations... . Here double click on GDB OpenOCD Debugging. Select the Debugger tab and enter the configuration necessary for your MCU. This might take some fiddling and Googling to find out. The default script for the STM32F3 is called `stm32f3discovery.cfg`. To let OpenOCD know, in the Config options enter `-f board/stm32f3discovery.cfg`.
 
 NOTE: In my case this configuration script requires editing to disable the reset assertion. The locations of the scripts can be found in the actual executable field usually under the path `openocd/version/.content/scripts/board`. Here I edited `reset_config srst_only` to `reset_config none`.
 
