@@ -1,8 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#ifdef BOARD_GENERIC_STM32_F103
-#include "8x18_arm.h"
-#endif
 
 #include "virtser.h"
 #include <print.h>
@@ -205,7 +202,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         /* Colemak mod-dh moves the D key to the qwerty V position
             This hack makes apple-V_position do what I mean */
         case DHPASTE:
-            if(keyboard_report->mods & MOD_BIT(KC_LGUI) ) {
+            if(get_mods() & MOD_BIT(KC_LGUI) ) {
                 if (record->event.pressed) {
                     clear_keyboard_but_mods();
                     register_code(KC_V);
@@ -248,7 +245,7 @@ void keyboard_post_init_user(void) {
 
 
 void matrix_init_user(void) {
-    #ifdef RGB_MATRIX_ENABLE
+    #ifdef RGBLIGHT_ENABLE
     #ifdef RGB_DI_PIN
         rgblight_setrgb(RGB_GREEN);
     #endif

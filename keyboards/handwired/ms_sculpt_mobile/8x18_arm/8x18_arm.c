@@ -12,10 +12,10 @@ void keyboard_pre_init_kb(void){
     keyboard_pre_init_user();
 }
 
-void led_set(uint8_t usb_led){
-  if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-   LED_ON
-  } else {
-   LED_OFF
-  }
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        writePin(STM32LED, !led_state.caps_lock);
+    }
+    return res;
 }
