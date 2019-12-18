@@ -5,11 +5,11 @@ void uart_init(void) {
 }
 
 void led_init(void) {
-  led_init_pin(red); led(red, off);
-  led_init_pin(green); led(green, off);
-  led_init_pin(blue); led(blue, off);
-  led_init_pin(tx); led(tx, off);
-  led_init_pin(rx); led(rx, off);
+  LED_INIT_PIN(RED); LED(RED, OFF);
+  LED_INIT_PIN(GREEN); LED(GREEN, OFF);
+  LED_INIT_PIN(BLUE); LED(BLUE, OFF);
+  LED_INIT_PIN(TX); LED(TX, OFF);
+  LED_INIT_PIN(RX); LED(RX, OFF);
 }
 
 void matrix_init_kb(void) {

@@ -1,5 +1,8 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#pragma once
+
+#ifdef MITOSIS_DATAGROK_I2CHACK
+#define LED_PIN_GREEN D4
+#endif
 
 #ifdef MITOSIS_DATAGROK_SLOWUART
 // This is the highest possible baud rate that a pro micro clocked at 8Mhz can
@@ -37,8 +40,6 @@
 #define AUDIO_VOICES
 #define AUDIO_CLICKY
 #define C6_AUDIO
-#endif
-
 #endif
 
 #define LAYOUT_bottomspace(                                           \

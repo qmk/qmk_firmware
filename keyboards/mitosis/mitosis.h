@@ -1,35 +1,45 @@
 #pragma once
 #include "quantum.h"
 
-/* port,pin assignments for LED indicators */
-#define led_red   F5
-#ifdef MITOSIS_DATAGROK_I2CHACK
-#define led_green D4
-#else
-#define led_green D1
+/*
+  port and pin assignments for LED indicators. if you modify your hardware to
+  reroute some pins (for example, to allow use of the i2c pins) then you can
+  override these assignments in your own keymap.
+*/
+#ifndef LED_PIN_RED
+#    define LED_PIN_RED   F5
 #endif
-#define led_blue  F4
-#define led_tx    D5
-#define led_rx    B0
+#ifndef LED_PIN_GREEN
+#    define LED_PIN_GREEN D1
+#endif
+#ifndef LED_PIN_BLUE
+#    define LED_PIN_BLUE  F4
+#endif
+#ifndef LED_PIN_TX
+#    define LED_PIN_TX    D5
+#endif
+#ifndef LED_PIN_RX
+#    define LED_PIN_RX    B0
+#endif
 
-/* led_init_pin(name): sets the pin for the named LED to output mode */
-#define _led_init_pin(pin) setPinOutput(pin)
-#define led_init_pin(name) _led_init_pin(led_ ## name)
+/* LED_INIT_PIN(name): sets the pin for the named LED to output mode */
+#define _LED_INIT_PIN(pin) setPinOutput(pin)
+#define LED_INIT_PIN(name) _LED_INIT_PIN(LED_PIN_ ## name)
 
-/* led(name, state): sets the named LED to state, where state is on or off */
-#define _led_off(pin) writePinHigh(pin)
-#define _led_on(pin) writePinLow(pin)
-#define led(name, state) _led_ ## state (led_ ## name)
+/* LED(name, state): sets the named LED to state, where state is on or off */
+#define _LED_OFF(pin) writePinHigh(pin)
+#define _LED_ON(pin) writePinLow(pin)
+#define LED(name, state) _LED_ ## state (LED_PIN_ ## name)
 
 /* convenience macros to set the RGB LED to a specific color */
-#define set_led_off     led(red, off); led(green, off); led(blue, off)
-#define set_led_red     led(red, on);  led(green, off); led(blue, off)
-#define set_led_blue    led(red, off); led(green, off); led(blue, on)
-#define set_led_green   led(red, off); led(green, on);  led(blue, off)
-#define set_led_yellow  led(red, on);  led(green, on);  led(blue, off)
-#define set_led_magenta led(red, on);  led(green, off); led(blue, on)
-#define set_led_cyan    led(red, off); led(green, on);  led(blue, on)
-#define set_led_white   led(red, on);  led(green, on);  led(blue, on)
+#define set_led_off     LED(RED, OFF); LED(GREEN, OFF); LED(BLUE, OFF)
+#define set_led_red     LED(RED, ON);  LED(GREEN, OFF); LED(BLUE, OFF)
+#define set_led_blue    LED(RED, OFF); LED(GREEN, OFF); LED(BLUE, ON)
+#define set_led_green   LED(RED, OFF); LED(GREEN, ON);  LED(BLUE, OFF)
+#define set_led_yellow  LED(RED, ON);  LED(GREEN, ON);  LED(BLUE, OFF)
+#define set_led_magenta LED(RED, ON);  LED(GREEN, OFF); LED(BLUE, ON)
+#define set_led_cyan    LED(RED, OFF); LED(GREEN, ON);  LED(BLUE, ON)
+#define set_led_white   LED(RED, ON);  LED(GREEN, ON);  LED(BLUE, ON)
 
 /*
   This a shortcut to help you visually see your layout.
