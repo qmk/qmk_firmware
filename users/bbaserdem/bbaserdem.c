@@ -46,24 +46,9 @@ void matrix_init_user (void) {
     // Fix beginning base layer
     set_single_persistent_default_layer(_BA);
 
-    // Backlight LED
-#ifdef BACKLIGHT_ENABLE
-    matrix_init_backlight();
-#endif
-
     // Unicode mode
 #ifdef UNICODE_ENABLE
     set_unicode_input_mode(UC_LNX);
-#endif
-
-    // RGB backlight
-#ifdef RGBLIGHT_ENABLE
-    matrix_init_rgb_light();
-#endif
-
-    // RGB Matrix
-#ifdef RGB_MATRIX_ENABLE
-    matrix_init_rgb_matrix();
 #endif
 
     // Keymap specific things
@@ -81,6 +66,21 @@ void matrix_init_user (void) {
 
 __attribute__ ((weak)) void keyboard_post_init_keymap(void) {}
 __attribute__ ((weak)) void keyboard_post_init_user(void) {
+    // Backlight LED
+#ifdef BACKLIGHT_ENABLE
+    matrix_init_backlight();
+#endif
+
+    // RGB backlight
+#ifdef RGBLIGHT_ENABLE
+    matrix_init_rgb_light();
+#endif
+
+    // RGB Matrix
+#ifdef RGB_MATRIX_ENABLE
+    matrix_init_rgb_matrix();
+#endif
+
     // Keymap specific stuff
     keyboard_post_init_keymap()
 }
