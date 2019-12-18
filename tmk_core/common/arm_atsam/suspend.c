@@ -15,26 +15,20 @@ void suspend_idle(uint8_t time) {
  *
  * FIXME: needs doc
  */
-__attribute__ ((weak))
-void suspend_power_down_user (void) {
+__attribute__((weak)) void suspend_power_down_user(void) {}
 
-}
 
 /** \brief Run keyboard level Power down
  *
  * FIXME: needs doc
  */
-__attribute__ ((weak))
-void suspend_power_down_kb(void) {
-    suspend_power_down_user();
-}
+__attribute__((weak)) void suspend_power_down_kb(void) { suspend_power_down_user(); }
 
 /** \brief Suspend power down
  *
  * FIXME: needs doc
  */
-void suspend_power_down(void)
-{
+void suspend_power_down(void) {
 #ifdef RGB_MATRIX_ENABLE
     I2C3733_Control_Set(0); //Disable LED driver
 #endif
@@ -58,19 +52,14 @@ bool suspend_wakeup_condition(void) {
  *
  * FIXME: needs doc
  */
-__attribute__ ((weak))
-void suspend_wakeup_init_user(void) {
+__attribute__((weak)) void suspend_wakeup_init_user(void) {}
 
-}
 
 /** \brief run keyboard level code immediately after wakeup
  *
  * FIXME: needs doc
  */
-__attribute__ ((weak))
-void suspend_wakeup_init_kb(void) {
-    suspend_wakeup_init_user();
-}
+__attribute__((weak)) void suspend_wakeup_init_kb(void) { suspend_wakeup_init_user(); }
 
 /** \brief run immediately after wakeup
  *
@@ -78,14 +67,14 @@ void suspend_wakeup_init_kb(void) {
  */
 void suspend_wakeup_init(void) {
 #ifdef RGB_MATRIX_ENABLE
-#ifdef USE_MASSDROP_CONFIGURATOR
+#    ifdef USE_MASSDROP_CONFIGURATOR
     // TODO: need to re-add led_enabled?
     // if (I2C3733_Control_Get()) {
         I2C3733_Control_Set(1);
     // }
-#else
+#    else
     I2C3733_Control_Set(1);
-#endif
+#    endif
 #endif
 
     suspend_wakeup_init_kb();

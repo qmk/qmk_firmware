@@ -26,7 +26,6 @@ enum ctrl_keycodes {
 	MAS_WHT,
 };
 
-#define TG_NKRO MAGIC_TOGGLE_NKRO //Toggle 6KRO / NKRO mode
 #define LT_CAPS LT(_NAV, KC_CAPS)
 #define _V_V_V_ KC_TRNS
 extern bool autoshift_enabled;
@@ -56,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   KC_MSTP, KC_MPLY, KC_VOLU, \
 		_______, RGB_MOD, RGB_SPI, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, MAS_MGT, MAS_BLU, MAS_WHT, RGB_RMOD, RGB_MOD, _______,   KC_MPRV, KC_MNXT, KC_VOLD, \
 		_______, RGB_RMOD, RGB_SPD, RGB_HUD, RGB_SAD, RGB_VAD, _______, MAS_RED, MAS_KEY, MAS_CYN, MAS_PRP, _______, _______, \
-		MAS_TOG, RGB_TOG, _______, _______, _______, MD_BOOT, TG_NKRO, MAS_YEL, MAS_GRN, MAS_CRM, _______, _______,                              RGB_VAI, \
+		MAS_TOG, RGB_TOG, _______, _______, _______, MD_BOOT, NK_TOGG, MAS_YEL, MAS_GRN, MAS_CRM, _______, _______,                              RGB_VAI, \
 		_______, _______, _______,                   _______,                            _______, _V_V_V_, _______, _______,            RGB_SPD, RGB_VAD, RGB_SPI  \
 	),
 	/*
@@ -161,7 +160,7 @@ void rgb_matrix_indicators_user(void)
 			rgb_matrix_set_color(95, rgb.r, rgb.g, rgb.b);
 			rgb_matrix_set_color(96, 0x00, 0x00, 0x00);
 			rgb_matrix_set_color(68, 0xFF, 0x00, 0x00); // MD_BOOT
-			rgb_matrix_set_color(69, 0xFF, 0x00, 0x40); // TG_NKRO
+			rgb_matrix_set_color(69, 0xFF, 0x00, 0x40); // NK_TOGG
 			rgb_matrix_set_color(32, 0x00, 0x80, 0xFF); // KC_VOLU
 			rgb_matrix_set_color(49, 0x00, 0x80, 0xFF);
 			rgb_matrix_set_color(13, 0xFF, 0x00, 0x00); // KC_MUTE

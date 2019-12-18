@@ -25,7 +25,6 @@ enum rocketeer_keycodes {
     MD_BOOT             //Restart into bootloader after hold timeout
 };
 
-#define TG_NKRO MAGIC_TOGGLE_NKRO //Toggle 6KRO / NKRO mode
 
 keymap_config_t keymap_config;
 
@@ -41,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  \
         L_T_BR,  L_PSD,   L_BRI,   L_PSI,   L_EDG_I, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, KC_UP,   _______, _______, U_T_AGCR,\
         L_T_PTD, L_PTP,   L_BRD,   L_PTN,   L_EDG_D, _______, KC_INS,  KC_HOME, KC_PGUP, KC_LEFT, KC_DOWN, KC_RGHT,          _______, \
-        _______, L_T_MD,  L_T_ONF, _______, L_EDG_M, MD_BOOT, TG_NKRO, KC_END,  KC_PGDN, KC_VOLD, KC_VOLU,                   _______, \
+        _______, L_T_MD,  L_T_ONF, _______, L_EDG_M, MD_BOOT, NK_TOGG, KC_END,  KC_PGDN, KC_VOLD, KC_VOLU,                   _______, \
         _______, _______, _______,                   DBG_FAC,                            KC_MUTE, _______, KC_APP,           _______  \
     ),
     /*
