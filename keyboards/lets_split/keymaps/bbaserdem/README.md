@@ -8,6 +8,7 @@ Builds fine as of 2019-12-17
 # Setup
 
 I am planning on I2C, using Proton C's (or ProMicro's).
+Make command should run fine with the flash command, but possibly the bootloader needs to be configured.
 
 # Caterina
 

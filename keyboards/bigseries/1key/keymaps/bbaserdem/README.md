@@ -15,4 +15,4 @@ Builds fine as of 2019-12-17
 
 # Flashing
 
-Make command is `make bigseries/1key:bbaserdem`, but I forgot if it is dfu or not.
+Make command is `make bigseries/1key:bbaserdem:flash`

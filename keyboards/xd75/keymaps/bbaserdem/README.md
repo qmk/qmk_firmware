@@ -9,7 +9,7 @@ Builds fine as of 2019-12-17
 # Make
 Take the board into reset mode, then
 ```
-make xd75:bbaserdem:dfu
+make xd75:bbaserdem:flash
 ```
 As suggested by the [faq](../../../../docs/faq_build.md),
 implementing the correct udev rules to be able to flash without sudo.

@@ -13,7 +13,7 @@ To fix this; add to the environment `CFLAGS="-Wno-error=deprecated"`.
 Get keyboard into reset mode, and then;
 
 ```
-make planck/rev4:bbaserdem:dfu
-CFLAGS="-Wno-error=deprecated" make planck/rev6:bbaserdem:dfu-util
-make planck/light:bbaserdem:dfu
+make planck/rev4:bbaserdem:flash
+CFLAGS="-Wno-error=deprecated" make planck/rev6:bbaserdem:flash
+make planck/light:bbaserdem:flash
 ```

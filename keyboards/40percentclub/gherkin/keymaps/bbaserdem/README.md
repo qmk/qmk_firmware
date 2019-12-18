@@ -7,7 +7,7 @@ Builds fine as of 2019-12-17
 
 # Flashing
 
-Run `make 40percentclub/gherkin:bbaserdem:avrdude`
+Run `make 40percentclub/gherkin:bbaserdem:flash`
 
 The following commands are commands I used before;
 ```
