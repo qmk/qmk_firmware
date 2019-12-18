@@ -28,7 +28,7 @@ userspace_config_t userspace_config;
 __attribute__ ((weak)) void keyboard_pre_init_keymap(void) {}
 __attribute__ ((weak)) void keyboard_pre_init_user(void) {
     // Keymap specific stuff
-    keyboard_pre_init_keymap()
+    keyboard_pre_init_keymap();
 }
 
 /*---------------------*\
@@ -82,7 +82,7 @@ __attribute__ ((weak)) void keyboard_post_init_user(void) {
 #endif
 
     // Keymap specific stuff
-    keyboard_post_init_keymap()
+    keyboard_post_init_keymap();
 }
 
 /*---------------------*\
