@@ -143,8 +143,3 @@ void set_leds_color_rgb(LED_TYPE color){
  for(int i = 0; i < NB_LEDS; i++)
    set_led_color_rgb(color, i);
 }
-
-
-void ws2812_setleds_rgbw(LED_TYPE *ledarray, uint16_t number_of_leds) {
-
-}
