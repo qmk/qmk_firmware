@@ -82,8 +82,8 @@ ____,    ____, ____, ____, ____, ____, ____, ____, ____,   ____,   ____,    ____
 KC_GRAVE, KC_1, KC_2, KC_3 ,KC_4, KC_5, KC_6, KC_7, KC_8,   KC_9, KC_0,    KC_MINUS, KC_EQL, KC_BSPC, KC_DEL,\
 ____,    KC_Q, KC_W, KC_F, KC_P, KC_B, KC_J, KC_L, KC_U,   KC_Y,   KC_SCLN, ____,    ____,    ____,\
 MVTAB,   KC_A, KC_R, KC_S, KC_T, KC_G, KC_M, KC_N, KC_E,   KC_I,   KC_O,    KC_QUOT, KC_ENT,  KC_2,\
-KC_LSFT, KC_Z, KC_X, KC_C, M(DHPASTE), KC_V, KC_K, KC_H, KC_COMM,  KC_DOT,  KC_SLSH, KC_RSFT, ____,   KC_1,\
-____,     ____, ____ , KC_FN1, ____, ____, ____, ____, ____,   ____
+KC_LSFT, KC_Z, KC_X, KC_C, DHPASTE, KC_V, KC_K, KC_H, KC_COMM,  KC_DOT,  KC_SLSH, KC_RSFT, ____,   KC_1,\
+____,     ____, ____ , ____, ____, ____, ____, ____, ____,   ____
 ),
 
 /*  SYM
