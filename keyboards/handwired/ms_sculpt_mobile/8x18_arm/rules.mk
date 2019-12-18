@@ -1,5 +1,4 @@
 # project specific files
-
 # GENERIC STM32F103C8T6 board - stm32duino bootloader
 OPT_DEFS = -DCORTEX_VTOR_INIT=0x2000
 MCU_LDSCRIPT = STM32F103x8_stm32duino_bootloader
