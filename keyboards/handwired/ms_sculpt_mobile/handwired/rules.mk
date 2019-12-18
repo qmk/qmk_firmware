@@ -8,7 +8,7 @@ else
 endif
 
 # Bootloader Selection
-#   Teensy		halfkay
+#   Teensy       halfkay
 #   Pro Micro	caterina
 #   Atmel DFU    atmel-dfu
 #   LUFA DFU     lufa-dfu
