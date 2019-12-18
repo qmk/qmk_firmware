@@ -128,13 +128,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Disable LED on Rev6
 #ifdef KEYBOARD_planck_rev6
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
 #else
 	
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   // LED control, lighting up when Fn layer is activated
   state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
   switch (biton32(state)) {
@@ -182,12 +182,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           backlight_step();
         #endif
         #ifdef KEYBOARD_planck_rev5
-          PORTE &= ~(1<<6);
+          writePinLow(E6);
         #endif
       } else {
         unregister_code(KC_RSFT);
         #ifdef KEYBOARD_planck_rev5
-          PORTE |= (1<<6);
+          writePinHigh(E6);
         #endif
       }
       return false;
@@ -227,7 +227,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	case KC_CAPS:
 		if (record->event.pressed) {
 			#ifdef AUDIO_ENABLE
-			if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
+			if (host_keyboard_led_state().caps_lock) {
 				PLAY_SONG(caps_song_off);
 			} else {
 				PLAY_SONG(caps_song_on);
@@ -283,11 +283,9 @@ void encoder_update(bool clockwise) {
     }
   } else {
     if (clockwise) {
-      register_code(KC_PGDN);
-      unregister_code(KC_PGDN);
+      tap_code(KC_PGDN);
     } else {
-      register_code(KC_PGUP);
-      unregister_code(KC_PGUP);
+      tap_code(KC_PGUP);
     }
   }
 }
