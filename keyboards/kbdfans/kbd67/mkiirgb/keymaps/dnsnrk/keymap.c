@@ -49,3 +49,9 @@ bool led_update_user(led_t led_state) {
   }
   return true;
 }
+
+void rgb_matrix_indicators_user(void) {
+  if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+    rgb_matrix_set_color(30, 0xFF, 0x00, 0x00);
+  }
+}
