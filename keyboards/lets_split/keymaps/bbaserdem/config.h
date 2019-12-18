@@ -1,7 +1,4 @@
-#ifndef CONFIG_KEYMAP_H
-#define CONFIG_KEYMAP_H
-
-#include "../../config.h"
+#pragma once
 
 #define USE_I2C
 #define EE_HANDS
@@ -22,6 +19,4 @@
 #define RGBLIGHT_EFFECT_SNAKE_LENGTH 6
 #define RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL 2000
 #define RGBLIGHT_EFFECT_CHRISTMAS_STEP 1
-#endif
-
 #endif

@@ -24,12 +24,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-void matrix_init_keymap(void) {
+void keyboard_post_init_keymap(void) {
     // Set RGB to rainbow mood light
 #ifdef RGBLIGHT_ENABLE
-    rgblight_enable();
-    rgblight_mode(6);
-    rgblight_sethsv(120,255,255);
-    rgblight_mode(6);
+    rgblight_enable_noeeprom();
+    rgblight_mode_noeeprom(6);
+    rgblight_sethsv_noeeprom(120,255,255);
+    rgblight_mode_noeeprom(6);
 #endif
 }

@@ -1,7 +1,4 @@
-#ifndef CONFIG_KEYMAP_H
-#define CONFIG_KEYMAP_H
-
-#include "config_common.h"
+#pragma once
 
 // BACKLIGHT
 #ifdef BACKLIGHT_ENABLE
@@ -28,5 +25,3 @@
 #endif // RGBLIGHT_ENABLE
 
 #define ENCODER_RESOLUTION 4
-
-#endif // CONFIG_KEYMAP_H
