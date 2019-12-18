@@ -29,17 +29,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				     _______,  _______, _______,                   _______,                   _______,           _______,          _______, _______, _______)
 
 };
-void matrix_init_user(void)
-{
-  //user initialization
+void matrix_init_user(void) {
+  //setPinOutput(30);
 }
 
-void matrix_scan_user(void)
-{
+void matrix_scan_user(void) {
   //user matrix
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record)
-{
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	  return true;
+}
+
+bool led_update_user(led_t led_state) {
+  // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
+  if (led_state.caps_lock) {
+    rgb_matrix_set_color(30, 0xFF, 0x00, 0x00);
+    return false;
+  }
+  return true;
 }
