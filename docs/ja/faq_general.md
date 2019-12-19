@@ -7,11 +7,11 @@
 
 ## QMK とは何か？
 
-Quantum Mechanical Keyboard の略である [QMK](https://github.com/qmk) はカスタム キーボードのためのツールをビルドしている人々のグループです。[TMK](https://github.com/tmk/tmk_keyboard) の大幅に修正されたフォークである [QMK ファームウェア](https://github.com/qmk/qmk_firmware)から始まりました。
+Quantum Mechanical Keyboard の略である [QMK](https://github.com/qmk) は、カスタムキーボードのためのツールをビルドしている人々のグループです。[TMK](https://github.com/tmk/tmk_keyboard) の大幅に修正されたフォークである [QMK ファームウェア](https://github.com/qmk/qmk_firmware)から始まりました。
 
 ## QMK と TMK の違いは何か？
 
-TMK は [Jun Wako](https://github.com/tmk) によって設計され実装されました。QMK は [Jack Humbert](https://github.com/jackhumbert)の Planck 用 TMK のフォークとして始まりました。しばらくして、Jack のフォークは TMK からかなり分岐し、2015年に Jack はフォークを QMK に名前を変えることにしました。
+TMK は [Jun Wako](https://github.com/tmk) によって設計され実装されました。QMK は [Jack Humbert](https://github.com/jackhumbert) の Planck 用 TMK のフォークとして始まりました。しばらくして、Jack のフォークは TMK からかなり分岐し、2015年に Jack はフォークを QMK に名前を変えることにしました。
 
 技術的な観点から、QMK は幾つかの新しい機能を追加した TMK に基づいています。最も注目すべきことは、QMK は利用可能なキーボードの数を増やし、`S()`、`LCTL()` および `MO()` などの高度な機能を実装するためにこれらを使っています。[キーコード](ja/keycodes.md)でこれらのキーコードの完全なリストを見ることができます。
 

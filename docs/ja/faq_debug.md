@@ -7,7 +7,7 @@
 
 このページは、キーボードのトラブルシューティングについての様々な一般的な質問を説明します。
 
-# デバッグ コンソール
+# デバッグコンソール
 
 ## `hid_listen` デバイスを認識できない
 デバイスのデバッグコンソールの準備ができていない場合、以下のように表示されます:
@@ -31,7 +31,7 @@ Linux のような OS でデバイスにアクセスするには、権限が必�
 ## コンソールにメッセージが表示されない
 以下を調べてください:
 - *hid_listen* がデバイスを検出する。上記を見てください。
-- **Magic**+d を使ってデバッグを有効にする。[マジック コマンド](https://github.com/tmk/tmk_keyboard#magic-commands)を見てください。
+- **Magic**+d を使ってデバッグを有効にする。[マジックコマンド](https://github.com/tmk/tmk_keyboard#magic-commands)を見てください。
 - `debug_enable=true` を設定します。[テストとデバッグ](ja/newbs_testing_debugging.md#debugging)を見てください
 - デバッグ print の代わりに 'print' 関数を使ってみてください。**common/print.h** を見てください。
 - コンソール機能を持つ他のデバイスを切断します。[Issue #97](https://github.com/tmk/tmk_keyboard/issues/97) を見てください。
@@ -44,7 +44,7 @@ $ sudo hid_listen
 
 または rules ディレクトリにファイルを置いて、TMK デバイスのための *udev rule* を追加します。ディレクトリは各システムで異なるかもしれません。
 
-File: /etc/udev/rules.d/52-tmk-keyboard.rules (Ubuntuの場合)
+File: /etc/udev/rules.d/52-tmk-keyboard.rules (Ubuntu の場合)
 ```
 # tmk keyboard products     https://github.com/tmk/tmk_keyboard
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
@@ -55,7 +55,7 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
 # 雑多なこと
 ## 安全性の考慮
 
-あなたはおそらくキーボードを "文鎮化" したくないでしょう。ファームウェアを書き換えられないようにします。リスクがあまりに高い(そしてそうでないかもしれない)ものの一部のリストを示します。
+あなたはおそらくキーボードを"文鎮化"したくないでしょう。ファームウェアを書き換えられないようにします。リスクがあまりに高い(そしてそうでないかもしれない)ものの一部のリストを示します。
 
 - キーボードマップに RESET が含まれない場合、DFU モードに入るには、PCB のリセットボタンを押す必要があります。底部のネジを外す必要があります。
 - tmk_core / common ファイルを触るとキーボードが操作不能になるかもしれません。
@@ -76,18 +76,18 @@ Size after:
 
 - 上のファイルのサイズは 22396/577ch で、28672/7000h より小さいです
 - 適切な替わりの .hex ファイルがある限り、それをロードして再試行することができます
-- キーボードの Makefile で指定したかもしれない一部のオプションは、余分なメモリを消費します; BOOTMAGIC_ENABLE、MOUSEKEY_ENABLE、EXTRAKEY_ENABLE、CONSOLE_ENABLE、API_SYSEX_ENABLE に注意してください
+- あなたがキーボードの Makefile で指定したかもしれない一部のオプションは、余分なメモリを消費します; BOOTMAGIC_ENABLE、MOUSEKEY_ENABLE、EXTRAKEY_ENABLE、CONSOLE_ENABLE、API_SYSEX_ENABLE に注意してください
 - DFU tools do /not/ allow you to write into the bootloader (unless
 you throw in extra fruit salad of options), so there is little risk
 there.
 - EEPROM の書き込みサイクルは、約100000です。ファームウェアを繰り返し継続的に書き換えるべきではありません。それは最終的に EEPROM を焼き焦がします。
 
 ## NKRO が動作しません
-最初に、**Makefile** 内で ビルドオプション `NKRO_ENABLE`を使ってファームウェアをコンパイルする必要があります。
+最初に、**Makefile** 内でビルドオプション `NKRO_ENABLE` を使ってファームウェアをコンパイルする必要があります。
 
-**NKRO** がまだ動作しない場合は、`Magic` **N** コマンド(デフォルトでは`LShift+RShift+N`)を試してみてください。**NKRO** モードと **6KRO** モードの間で一時的に切り替えるためにこのコマンドを使うことができます。状況によっては **NKRO** が機能しない場合、特に BIOS の場合は **6KRO** モードに切り替える必要があります。
+**NKRO** がまだ動作しない場合は、`Magic` **N** コマンド(デフォルトでは `LShift+RShift+N`)を試してみてください。**NKRO** モードと **6KRO** モードの間で一時的に切り替えるためにこのコマンドを使うことができます。**NKRO** が機能しない状況、特に BIOS の場合は **6KRO** モードに切り替える必要があります。
 
-ファームウェアが `BOOTMAGIC_ENABLE` でビルドされた場合、`BootMagic` **N** コマンドによって切り替える必要があります (デフォルトでは`Space+N`)。この設定は EEPROM に格納され、電源を入れ直しても保持されます。
+ファームウェアが `BOOTMAGIC_ENABLE` でビルドされた場合、`ブートマジック` **N** コマンドによって切り替える必要があります (デフォルトでは `Space+N`)。この設定は EEPROM に格納され、電源を入れ直しても保持されます。
 
 https://github.com/tmk/tmk_keyboard#boot-magic-configuration---virtual-dip-switch
 
@@ -108,7 +108,7 @@ http://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad
 
 
 ## ブートローダの Jump が動作しない
-**Makefile** 内でブートローダのサイズを適切に設定します。間違ったセクションサイズのブートローダは、おそらく**マジックコマンド** および **ブートマジック**で起動しません。
+**Makefile** 内でブートローダのサイズを適切に設定します。間違ったセクションサイズのブートローダは、おそらく**マジックコマンド**および**ブートマジック**で起動しません。
 ```
 # Size of Bootloaders in bytes:
 #   Atmel DFU loader(ATmega32U4)   4096

@@ -17,23 +17,23 @@
 世界中で使用されている ANSI、ISO および JIS の3つの標準キーボードがあります。北米では主に ANSI が使われ、ヨーロッパおよびアフリカでは主に ISO が使われ、日本では JIS が使われます。言及されていない地域では、ANSI あるいは ISO が使われています。これらのレイアウトに対応するキーコードは以下の通りです:
 
 <!-- Source for this image: http://www.keyboard-layout-editor.com/#/gists/bf431647d1001cff5eff20ae55621e9a -->
-![キーボードのレイアウト イメージ](https://i.imgur.com/5wsh5wM.png)
+![キーボードのレイアウトイメージ](https://i.imgur.com/5wsh5wM.png)
 
-## 一部のキーが交換されているか動作しない
+## 一部のキーが交換されているか、または動作しない
 
 QMK は2つの機能、ブートマジックとコマンドを持ち、これによりその場でキーボードの動作を変更することができます。これには Ctrl/Caps の交換、Gui の無効化、Alt/GUI の交換、Backspace/Backslash の交換、全てのキーの無効化およびその他の動作の変更が含まれますが、これらに限定されません。
 
-高速な解決策として、キーボードを接続している時に `Space`+`Backspace` を押してみてください。これはキーボードに保存されている設定をリセットし、これらのキーを通常の操作に戻します。うまく行かない場合は、以下を見てください:
+迅速な解決策として、キーボードを接続している時に `Space`+`Backspace` を押してみてください。これはキーボードに保存されている設定をリセットし、これらのキーを通常の操作に戻します。うまく行かない場合は、以下を見てください:
 
 * [ブートマジック](ja/feature_bootmagic.md)
 * [コマンド](ja/feature_command.md)
 
 ## メニューキーが動作しない
 
-`KC_RGUI` と `KC_RCTL` の間にあるほとんどの最近のキーボードで見つかるキーは、実際には `KC_APP` と呼ばれます。これは、そのキーが発明された時に、関連する標準にすでに `MENU` という名前のキーが存在していたため、MS はそれを `APP` キーと呼ぶことを選択したたためです。
+ほとんどの最近のキーボードにある、`KC_RGUI` と `KC_RCTL` の間にあるキーは、実際には `KC_APP` と呼ばれます。これは、そのキーが発明された時に、関連する標準にすでに `MENU` という名前のキーが存在していたため、MS はそれを `APP` キーと呼ぶことを選択したたためです。
 
 ## `KC_SYSREQ` が動作しません。
-`KC_SYSREQ`の代わりに、Print Screen(`KC_PSCREEN` あるいは `KC_PSCR`) のキーコードを使ってください。'Alt + Print Screen' のキーの組み合わせは、'System request' と認識されます。
+`KC_SYSREQ` の代わりに、Print Screen(`KC_PSCREEN` あるいは `KC_PSCR`) のキーコードを使ってください。'Alt + Print Screen' のキーの組み合わせは、'System request' と認識されます。
 
 [issue #168](https://github.com/tmk/tmk_keyboard/issues/168) と以下を見てください
 * http://en.wikipedia.org/wiki/Magic_SysRq_key
@@ -60,7 +60,7 @@ https://github.com/tmk/tmk_keyboard/issues/67
 
 ## メカニカルロックスイッチのサポート
 
-この機能は [this Alps one](http://deskthority.net/wiki/Alps_SKCL_Lock) のような*メカニカルロックスイッチ*用です。これを `config.h` に追加することで有効にすることができます:
+この機能は [Alps](http://deskthority.net/wiki/Alps_SKCL_Lock) のような*メカニカルロックスイッチ*用です。以下を `config.h` に追加することで有効にすることができます:
 
 ```
 #define LOCKING_SUPPORT_ENABLE
@@ -188,7 +188,7 @@ Windows 10 はコードを無視し、Linux/Xorg は認識しますが、デフ�
 ## `action_util.c` の `weak_mods` と `real_mods` は何か
 ___TO BE IMPROVED___
 
-real_mods は実際/物理的な修飾キーの状態を保持することを目的にしていますが、weak_mods は実際の修飾キーの状態に影響しない仮想あるいは一時的な修飾子の状態を保持します。
+real_mods は実際/物理的な修飾キーの状態を保持することを目的にしていますが、weak_mods は実際の修飾キーの状態に影響しない仮想あるいは一時的なモディファイアの状態を保持します。
 
 物理的な左シフトキーを押しながら ACTION_MODS_KEY を入力するとします (LSHIFT, KC_A)
 
@@ -204,5 +204,5 @@ weak mods 無しでは、
 * (3) ACTION_MODS_KEY を放す(LSHIFT, KC_A): real_mods &= ~MOD_BIT(LSHIFT)
 ここで、real_mods は 'physical left shift' の状態を失います。
 
-キーボード レポートが送信される時、weak_mods は real_mods と OR されます。
+キーボードレポートが送信される時、weak_mods は real_mods と OR されます。
 https://github.com/tmk/tmk_core/blob/master/common/action_util.c#L57
