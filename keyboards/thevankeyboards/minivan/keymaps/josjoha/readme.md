@@ -1,4 +1,4 @@
-# Dvorak² no-dead-keys₍₁₂·₁₂·₁₂·₈₎
+# Dvorak² no-dead-keys ₍₁₂,₁₂,₁₂,₈₎
 
 This is a Dvorak layout for the Minivan "40% keyboard" (default 44 keys).
 The accented characters would likely cover Dutch, German, French, Finnish,
