@@ -173,7 +173,6 @@ As mentioned earlier, the center of the keyboard by default is expected to be `{
 
 All RGB keycodes are currently shared with the RGBLIGHT system:
 
-<<<<<<< HEAD
 |Key                |Aliases   |Description                                                                           |
 |-------------------|----------|--------------------------------------------------------------------------------------|
 |`RGB_TOG`          |          |Toggle RGB lighting on or off                                                         |
