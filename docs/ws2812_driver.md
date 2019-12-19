@@ -14,7 +14,7 @@ These LEDs are called "addressable" because instead of using a wire per color, e
 |----------|--------------------|--------------------|
 | bit bang | :heavy_check_mark: | :heavy_check_mark: |
 | I2C      | :heavy_check_mark: |                    |
-| SPI      |                    | Soon™              |
+| SPI      |                    | :heavy_check_mark: |
 | PWM      |                    | Soon™              |
 
 ## Driver configuration
@@ -39,4 +39,17 @@ Configure the hardware via your config.h:
 ```c
 #define WS2812_ADDRESS 0xb0 // default: 0xb0
 #define WS2812_TIMEOUT 100 // default: 100
+```
+
+### SPI
+Targeting ARM boards where WS2812 support is offloaded to an SPI hardware device. The advantage is that the use of DMA offloads processing of the WS2812 protocol from the MCU. `RGB_DI_PIN` for this driver is the configured SPI MOSI pin. Due to the nature of repurposing SPI to drive the LEDs, the other SPI pins, MISO and SCK, **must** remain unused. To configure it, add this to your rules.mk:
+
+```make
+WS2812_DRIVER = spi
+```
+
+Configure the hardware via your config.h:
+```c
+#define WS2812_SPI SPID1 // default: SPID1
+#define WS2812_SPI_MOSI_PAL_MODE 5 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 5
 ```
