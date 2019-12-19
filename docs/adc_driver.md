@@ -137,3 +137,17 @@ Note that care was taken to match all of the functions used for AVR devices, how
 |`analogReadPinAdc(pin, adc)`|Reads the value from the specified QMK pin and ADC, eg. `C0, 1` will read from channel 6, ADC 2 instead of ADC 1. Note that the ADCs are 0-indexed for this function.|
 |`pinToMux(pin)`             |Translates a given QMK pin to a channel and ADC combination. If an unsupported pin is given, returns the mux value for "0V (GND)".|
 |`adc_read(mux)`             |Reads the value from the ADC according to the specified pin and adc combination. See your MCU's datasheet for more information.|
+
+## Configuration
+
+## ARM
+
+The ARM implementation of the ADC has a few additional options that you can override in your own keyboards and keymaps to change how it operates.
+
+|`#define`          |Type  |Default              |Description|
+|-------------------|------|---------------------|-----------|
+|ADC_CIRCULAR_BUFFER|`bool`|`false`              |If `TRUE`, then the implementation will use a circular buffer.|
+|ADC_NUM_CHANNELS   |`int` |`1`                  |Sets the number of channels that will be scanned as part of an ADC operation. The current implementation only supports `1`.|
+|ADC_BUFFER_DEPTH   |`int` |`2`                  |Sets the depth of each result. Since we are only getting a 12-bit result by default, we set this to `2` bytes so we can contain our one value. This could be set to 1 if you opt for a 8-bit or lower result.|
+|ADC_SAMPLING_RATE  |`int` |`ADC_SMPR_SMP_1P5`   |Sets the sampling rate of the ADC. By default, it is set to the fastest setting. Please consult the corresponding `hal_adc_lld.h` in ChibiOS for your specific microcontroller for further documentation on your available options.|
+|ADC_RESOLUTION     |`int` |`ADC_CFGR1_RES_12BIT`|The resolution of your result. We choose 12 bit by default, but you can opt for 12, 10, 8, or 6 bit. Please consult the corresponding `hal_adc_lld.h` in ChibiOS for your specific microcontroller for further documentation on your available options.|
