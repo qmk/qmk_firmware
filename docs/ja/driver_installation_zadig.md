@@ -1,5 +1,10 @@
 # Zadig を使ったブートローダドライバのインストール
 
+<!---
+  original document: d598f01cb:driver_installation_zadig.md
+  git diff d598f01cb HEAD driver_installation_zadig.md | cat
+-->
+
 QMK は通常の HID キーボードデバイスとしてホストに提供されるため、特別なドライバは必要ありません。しかし、Windows でキーボードに書き込むには、キーボードをリセットした時に現れるブートローダデバイスがしばしば*現れます*。
 
 2つの注目すべき例外があります: 通常 Pro Micro で見られる Caterina ブートローダや、PJRC Teensy に書き込まれている HalfKay ブートローダは、それぞれシリアルポートと汎用 HID デバイスとして現れるため、ドライバは必要ありません。
