@@ -118,6 +118,7 @@ typedef struct {
 } __attribute__((packed)) report_extra_t;
 
 static void send_system(uint16_t data) {
+#ifdef EXTRAKEY_ENABLE
     static uint16_t last_data = 0;
     if (data == last_data) return;
     last_data = data;
@@ -126,9 +127,11 @@ static void send_system(uint16_t data) {
     if (usbInterruptIsReady3()) {
         usbSetInterrupt3((void *)&report, sizeof(report));
     }
+#endif
 }
 
 static void send_consumer(uint16_t data) {
+#ifdef EXTRAKEY_ENABLE
     static uint16_t last_data = 0;
     if (data == last_data) return;
     last_data = data;
@@ -137,6 +140,7 @@ static void send_consumer(uint16_t data) {
     if (usbInterruptIsReady3()) {
         usbSetInterrupt3((void *)&report, sizeof(report));
     }
+#endif
 }
 
 /*------------------------------------------------------------------*
