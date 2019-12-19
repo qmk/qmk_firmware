@@ -86,6 +86,7 @@ from ../jetpacktuxedo/ keymap.
 
         > setxkbmap -layout us
 
+  Unicode on Windos may require to install something special.
 
   Layers
   ======
@@ -198,10 +199,10 @@ accidents. The 'P' key in front is meant as a memory assist, it prints the lette
      BASE     PgDn  End   Home  PgUp  xxx   | xxx   xxx   xxx   xxx   xxx   Bspc
      Tab+LCtl Left  Down  Up    Right xxx   | 6^    7&    8*    9(    0)    RCtl
      -+LSft   xxx   xxx   xxx   xxx   xxx   | 5%    4$    3#    2@    1!    RSft
-     -----------------------------------------------------------
-     Left+LAlt Del   PgDn     PgUp | .    xxx   LGUI  Right+RAlt
+     ----------------------------------------------------------
+     Left+LAlt Del   PgDn     PgUp | .    ,    LGUI  Right+RAlt
                                   <|>
-     <1        <2    <3       <4   | 4>   3>    2>    1>  
+     <1        <2    <3       <4   | 4>   3>   2>    1>  
 
 Remarks. This layer does not follow the navigation configuration #define settings 
 used for the `_MOV` layer (it seemed to become convoluted and overkill to add it).
@@ -343,7 +344,7 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   
      (…)
      Checking file size of thevankeyboards_minivan_josjoha.hex               [WARNINGS]
-     * The firmware size is approaching the maximum - 28340/28672 (98%, 332 bytes free)
+     * The firmware size is approaching the maximum - 28384/28672 (98%, 288 bytes free)
 
 
 

@@ -1981,10 +1981,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      BASE     PgDn  End   Home  PgUp  xxx   | xxx   xxx   xxx   xxx   xxx   Bspc
      Tab+LCtl Left  Down  Up    Right xxx   | 6^    7&    8*    9(    0)    RCtl
      -+LSft   xxx   xxx   xxx   xxx   xxx   | 5%    4$    3#    2@    1!    RSft
-     -----------------------------------------------------------
-     Left+LAlt Del   PgDn     PgUp | .    xxx   LGUI  Right+RAlt
+     ----------------------------------------------------------
+     Left+LAlt Del   PgDn     PgUp | .    ,    LGUI  Right+RAlt
                                   <|>
-     <1        <2    <3       <4   | 4>   3>    2>    1>  
+     <1        <2    <3       <4   | 4>   3>   2>    1>  
  */
 //
 //      <pink2             , <pinky  , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>  ,
@@ -1993,7 +1993,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LCTL_T ( KC_TAB )  , KC_LEFT , KC_DOWN , KC_UP   , KC_RGHT , XXXXXXX , KC_6    , KC_7    , KC_8    , KC_9    , KC_0    , KC_RCTL ,
         LSFT_T ( KC_MINS ) , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_5    , KC_4    , KC_3    , KC_2    , KC_1    , KC_RSFT ,
 //      ---------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , KC_DEL , KC_PGDN , KC_PGUP , KC_DOT  , XXXXXXX , KC__YGUI , RALT_T ( KC_RGHT )
+        LALT_T ( KC_LEFT ) , KC_DEL , KC_PGDN , KC_PGUP , KC_DOT  , KC_COMM , KC__YGUI , RALT_T ( KC_RGHT )
 //                         ,        ,         ,       <|,>        ,         ,          ,
 //      <1                 , <2     , <3      , <4     |, 4>      , 3>      , 2>       , 1>
                       ),
