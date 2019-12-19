@@ -40,8 +40,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	  return true;
 }
 
+void keyboard_post_init_user() {
+}
+
 void rgb_matrix_indicators_user(void) {
   if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
     rgb_matrix_set_color(30, 0xFF, 0x00, 0x00);
   }
+  // Layer2 indicator
+  rgb_matrix_set_color(57, 0x00, 0x90, 0x90);
+  // Layer1 indicator
+  rgb_matrix_set_color(63, 0x90, 0x00, 0x90);
 }
