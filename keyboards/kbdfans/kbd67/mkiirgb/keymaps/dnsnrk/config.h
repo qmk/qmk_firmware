@@ -1,5 +1,4 @@
-/* Copyright 2018 MechMerlin
- *
+/*
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
@@ -17,8 +16,9 @@
 #pragma once
 
 // place overrides here
+#undef QMK_KEYS_PER_SCAN
 #define QMK_KEYS_PER_SCAN 4
 #undef DEBOUNCE
-#define DEBOUNCE 15
+#define DEBOUNCE 10
 
 
