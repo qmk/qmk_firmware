@@ -174,8 +174,8 @@ bool process_rgb(const uint16_t keycode, const keyrecord_t *record) {
 #if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES) && defined( RGBLIGHT_EFFECT_RAINBOW_SWIRL)
                 handleKeycodeRGBMode(RGBLIGHT_MODE_RAINBOW_SWIRL, RGBLIGHT_MODE_RAINBOW_SWIRL_end);
 #endif
-#if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES) && !defined(DISABLE_RGB_MATRIX_RAINBOW_PINWHEELS)
-                rgb_matrix_mode(RGB_MATRIX_RAINBOW_PINWHEELS);
+#if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES) && !defined(DISABLE_RGB_MATRIX_CYCLE_PINWHEEL)
+                rgb_matrix_mode(RGB_MATRIX_CYCLE_PINWHEEL);
 #endif
                 return false;
             case RGB_MODE_SNAKE:
