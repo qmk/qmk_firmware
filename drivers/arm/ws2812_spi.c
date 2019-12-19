@@ -80,5 +80,11 @@ void ws2812_setleds(LED_TYPE* ledarray, uint16_t leds) {
         set_led_color_rgb(ledarray[i], i);
     }
 
-    spiStartSend(&WS2812_SPI, sizeof(txbuf) / sizeof(txbuf[0]), txbuf);  // TODO: check async finishes
+    // Send async - each led takes ~0.03ms, 50 leds ~1.5ms, animations flushing faster than send will cause issues.
+    // Instead spiSend can be used to send synchronously (or the thread logic can be added back).
+#ifdef WS2812_SPI_SYNC
+    spiSend(&WS2812_SPI, sizeof(txbuf) / sizeof(txbuf[0]), txbuf);
+#else
+    spiStartSend(&WS2812_SPI, sizeof(txbuf) / sizeof(txbuf[0]), txbuf);
+#endif
 }
