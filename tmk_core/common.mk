@@ -173,8 +173,8 @@ endif
 
 ifeq ($(strip $(LINK_TIME_OPTIMIZATION_ENABLE)), yes)
     ifeq ($(PLATFORM),CHIBIOS)
-        @echo Enabling LTO on ChibiOS-targeting boards is known to have a high likelihood of failure.
-        @echo If unsure, set LINK_TIME_OPTIMIZATION_ENABLE = no.
+        $(info Enabling LTO on ChibiOS-targeting boards is known to have a high likelihood of failure.)
+        $(info If unsure, set LINK_TIME_OPTIMIZATION_ENABLE = no.)
     endif
     EXTRAFLAGS += -flto
     TMK_COMMON_DEFS += -DLINK_TIME_OPTIMIZATION_ENABLE
