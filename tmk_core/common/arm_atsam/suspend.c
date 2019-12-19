@@ -7,8 +7,7 @@
  *
  * FIXME: needs doc
  */
-void suspend_idle(uint8_t time) {
-    /* Note: Not used anywhere currently */
+void suspend_idle(uint8_t time) { /* Note: Not used anywhere currently */
 }
 
 /** \brief Run user level Power down
@@ -30,15 +29,15 @@ __attribute__((weak)) void suspend_power_down_kb(void) { suspend_power_down_user
  */
 void suspend_power_down(void) {
 #ifdef RGB_MATRIX_ENABLE
-    I2C3733_Control_Set(0); //Disable LED driver
+    I2C3733_Control_Set(0);  // Disable LED driver
 #endif
 
     suspend_power_down_kb();
 }
 
-__attribute__ ((weak)) void matrix_power_up(void) {}
-__attribute__ ((weak)) void matrix_power_down(void) {}
-bool suspend_wakeup_condition(void) {
+__attribute__((weak)) void matrix_power_up(void) {}
+__attribute__((weak)) void matrix_power_down(void) {}
+bool                       suspend_wakeup_condition(void) {
     matrix_power_up();
     matrix_scan();
     matrix_power_down();

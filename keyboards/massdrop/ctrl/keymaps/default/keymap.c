@@ -9,7 +9,6 @@ enum ctrl_keycodes {
     MD_BOOT,               //Restart into bootloader after hold timeout
 };
 
-
 keymap_config_t keymap_config;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
