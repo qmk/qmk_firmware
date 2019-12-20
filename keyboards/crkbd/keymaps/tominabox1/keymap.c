@@ -107,6 +107,7 @@ void matrix_scan_user(void) {
   if(!oled_initialized) {
     wait_ms(200);
     oled_init(0);
+	oled_initialized = true;
     return;
   }
 }
