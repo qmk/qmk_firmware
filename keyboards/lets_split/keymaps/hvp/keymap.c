@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWERTY] = LAYOUT_ortho_4x12(
    LT4_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, 
-   LT3_ESC,  KC_A,    KC_S,    D_NAVI,    F_NAVI,    LT(6,KC_G),    KC_H,    KC_J,    KC_K,    KC_L,    TD(TD1), TD(TD2),
+   LT3_ESC,  KC_A,    KC_S,    KC_D,    F_NAVI,    LT(6,KC_G),    KC_H,    KC_J,    KC_K,    KC_L,    TD(TD1), TD(TD2),
    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  TD(TD3), KC_SFTENT , 
    KC_LCTL,  KC_APP, KC_LGUI, KC_LALT, LT(3,KC_SPC),   SFT_T(KC_SPC),  KC_SFTENT, LT(4,KC_SPC),   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  
 ),
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_NAVI] =  LAYOUT_ortho_4x12( /* Esc */
   KC_F1,  KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12,
-  _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, _______, _______,
+  _______, _______, _______, D_NAVI, _______, _______, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, _______, _______,
   _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END, _______, _______,
   _______, _______, _______, _______, _______,KC_MUTE, KC_MPLY, KC_MSTP, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT
 ),
