@@ -44,18 +44,24 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
 */
 
-void led_set_kb(uint8_t usb_led) {
-  if( IS_LED_ON(usb_led, USB_LED_CAPS_LOCK) ) {
-    writePinLow(C6);
-  } else {
-    writePinHigh(C6);
+bool led_update_kb(led_t led_state) {
+  bool res = led_update_user(led_state);
+  if(res) {
+    // writePin sets the pin high for 1 and low for 0.
+    // In this example the pins are inverted, setting
+    // it low/0 turns it on, and high/1 turns the LED off.
+    // This behavior depends on whether the LED is between the pin
+    // and VCC or the pin and GND.
+    writePin(C6, !led_state.caps_lock);
   }
+  return res;
+}
+
+__attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
   if( IS_LAYER_ON(1) ){
     writePinLow(B0);
   } else {
     writePinHigh(B0);
   }
+  return state;
 }
-
-
-
