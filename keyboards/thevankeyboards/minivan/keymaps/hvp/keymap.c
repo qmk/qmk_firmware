@@ -12,8 +12,6 @@
 
 #define LT4_TAB LT(_L4, KC_TAB)
 #define LT3_ESC LT(_L3, KC_ESC)
-// #define LT2_SPC LT(4, KC_TAB)
-// #define LT3_BSPC LT(4, KC_TAB)
 
 enum custom_keycodes {
   QW = SAFE_RANGE,
@@ -27,9 +25,9 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QW] = LAYOUT_arrow( /* Qwerty */
     LT4_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-    LT3_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    TD(TD1), TD(TD2),
-    KC_SFTENT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, TD(TD4),  KC_UP, KC_SFTENT,
-    KC_LCTL, KC_LGUI, KC_LALT, LT(_L2,KC_ENT),  LT(_L1,KC_SPC), KC_SLSH, KC_LEFT, KC_DOWN,  KC_RGHT
+    LT3_ESC, KC_A,    KC_S,    KC_D,    LT(3,KC_F),    LT(4,KC_G),    KC_H,    KC_J,    KC_K,    KC_L,    TD(TD1), TD(TD2),
+    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  TD(TD3), KC_SFTENT,
+    KC_LCTL, KC_LGUI, KC_LALT, LT(_L2,KC_ENT),  LT(_L1,KC_SPC), KC_LEFT, KC_DOWN, KC_UP,  KC_RGHT
   ),
   [_L1] = LAYOUT_arrow( /* LAYER 1 */
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
@@ -53,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_L4] = LAYOUT_arrow( /* LAYER 4 */
     _______,  RGB_TOG, RGB_MOD, RGB_RMOD, _______, _______, _______, KC_7, KC_8, KC_9, KC_0, _______,
     _______, RGB_M_P, RGB_HUD, RGB_HUI, _______, _______, _______, KC_4, KC_5, KC_6, _______, _______,
-    _______, _______, RGB_SAD, RGB_SAI, _______, _______, KC_0, KC_1, KC_2, KC_3, _______, _______,
+    KC_PSCR, _______, RGB_SAD, RGB_SAI, _______, _______, KC_0, KC_1, KC_2, KC_3, _______, _______,
     RESET, _______, RGB_VAD, RGB_VAI, _______,     _______,    _______, _______, _______
   )
 };
