@@ -919,7 +919,7 @@ void rgblight_effect_snake(animation_status_t *anim) {
         ledp->g        = 0;
         ledp->b        = 0;
 #    ifdef RGBW
-        ledp->w        = 0;
+        ledp->w = 0;
 #    endif
         for (j = 0; j < RGBLIGHT_EFFECT_SNAKE_LENGTH; j++) {
             k = pos + j * increment;

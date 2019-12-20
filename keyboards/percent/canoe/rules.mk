@@ -27,4 +27,4 @@ OPT_DEFS = -DDEBUG_LEVEL=0
 CUSTOM_MATRIX = yes
 SRC = matrix.c
 
-LAYOUTS = 65_ansi_blocker
+LAYOUTS = 65_ansi_blocker 65_iso_blocker

@@ -83,7 +83,7 @@ QMK Configurator は Chrome/Firefox で最適に動作します。
 
 ## キーボードに書き込む(フラッシュする)
 
-[ファームウェアを書きこむ](newbs_flashing.md) を参照してください。
+[ファームウェアを書きこむ](ja/newbs_flashing.md) を参照してください。
 
 ## トラブルシューティング
 

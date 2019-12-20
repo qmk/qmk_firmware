@@ -109,6 +109,7 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/rgblight.c
     CIE1931_CURVE = yes
     LED_BREATHING_TABLE = yes
+    RGB_KEYCODES_ENABLE = yes
     ifeq ($(strip $(RGBLIGHT_CUSTOM_DRIVER)), yes)
         OPT_DEFS += -DRGBLIGHT_CUSTOM_DRIVER
     else
@@ -147,6 +148,7 @@ endif
     SRC += $(QUANTUM_DIR)/rgb_matrix.c
     SRC += $(QUANTUM_DIR)/rgb_matrix_drivers.c
     CIE1931_CURVE = yes
+    RGB_KEYCODES_ENABLE = yes
 endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
@@ -185,6 +187,10 @@ endif
 
 ifeq ($(strip $(RGB_MATRIX_CUSTOM_USER)), yes)
     OPT_DEFS += -DRGB_MATRIX_CUSTOM_USER
+endif
+
+ifeq ($(strip $(RGB_KEYCODES_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/process_keycode/process_rgb.c
 endif
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
@@ -231,15 +237,16 @@ endif
 
 # backward compat
 ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
-    BACKLIGHT_ENABLE = custom
+    BACKLIGHT_DRIVER = custom
 endif
 
-VALID_BACKLIGHT_TYPES := yes software custom
+VALID_BACKLIGHT_TYPES := pwm software custom
 
 BACKLIGHT_ENABLE ?= no
-ifneq ($(strip $(BACKLIGHT_ENABLE)), no)
-    ifeq ($(filter $(BACKLIGHT_ENABLE),$(VALID_BACKLIGHT_TYPES)),)
-        $(error BACKLIGHT_ENABLE="$(BACKLIGHT_ENABLE)" is not a valid backlight type)
+BACKLIGHT_DRIVER ?= pwm
+ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
+    ifeq ($(filter $(BACKLIGHT_DRIVER),$(VALID_BACKLIGHT_TYPES)),)
+        $(error BACKLIGHT_DRIVER="$(BACKLIGHT_DRIVER)" is not a valid backlight type)
     endif
 
     ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
@@ -250,10 +257,10 @@ ifneq ($(strip $(BACKLIGHT_ENABLE)), no)
     SRC += $(QUANTUM_DIR)/backlight/backlight.c
     OPT_DEFS += -DBACKLIGHT_ENABLE
 
-    ifeq ($(strip $(BACKLIGHT_ENABLE)), software)
+    ifeq ($(strip $(BACKLIGHT_DRIVER)), software)
         SRC += $(QUANTUM_DIR)/backlight/backlight_soft.c
     else
-        ifeq ($(strip $(BACKLIGHT_ENABLE)), custom)
+        ifeq ($(strip $(BACKLIGHT_DRIVER)), custom)
             OPT_DEFS += -DBACKLIGHT_CUSTOM_DRIVER
         endif
 
@@ -407,12 +414,18 @@ ifeq ($(strip $(SPACE_CADET_ENABLE)), yes)
   OPT_DEFS += -DSPACE_CADET_ENABLE
 endif
 
-ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
-  SRC += $(QUANTUM_DIR)/dip_switch.c
-  OPT_DEFS += -DDIP_SWITCH_ENABLE
+MAGIC_ENABLE ?= yes
+ifeq ($(strip $(MAGIC_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/process_keycode/process_magic.c
+    OPT_DEFS += -DMAGIC_KEYCODE_ENABLE
 endif
 
 ifeq ($(strip $(DYNAMIC_MACRO_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_dynamic_macro.c
     OPT_DEFS += -DDYNAMIC_MACRO_ENABLE
+endif
+
+ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
+  SRC += $(QUANTUM_DIR)/dip_switch.c
+  OPT_DEFS += -DDIP_SWITCH_ENABLE
 endif
