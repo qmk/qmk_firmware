@@ -1947,7 +1947,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      P     Power• Wake• Sleep• Pause• ScrLk | PrtSc xxx   Vol+  Vol-  Mute   CapL     // • requires Shift
      Ü     uLNX   uBSD  uOSX   uWIN   uWNC  | xxx   xxx   xxx   xxx   Insert RSft(•)  // Ü(nicode) tester
      ----------------------------------------------
-     MLed  SLeds xxx   xxx  | xxx   xxx   xxx   App                      // Middle-led, Side-leds: on/off
+     MLed  SLeds RGUI  xxx  | xxx   xxx   LGUI  App                      // Middle-led, Side-leds: on/off
                            <|>
      <1    <2    <3    <4   | 4>    3>    2>    1>  
  */
@@ -1958,10 +1958,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CTO_BASE      , XXXXXXX          , XXXXXXX          , XXXXXXX          , XXXXXXX          , XXXXXXX           , XXXXXXX , KC_MPLY , KC_MNXT , KC_MPRV , KC_MSTP , KC_NLCK ,
         S ( KC_P )    , C_KC_PWR         , C_KC_WAKE        , C_KC_SLEP        , C_KC_PAUS        , KC_SLCK           , KC_PSCR , XXXXXXX , KC_VOLU , KC_VOLD , KC_MUTE , KC_CAPS ,
         X ( CUU_DIA ) , UNICODE_MODE_LNX , UNICODE_MODE_BSD , UNICODE_MODE_OSX , UNICODE_MODE_WIN , UNICODE_MODE_WINC , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_INS  , KC_RSFT ,
-//      ----------------------------------------------------------------------------
-        RGB_TOG , LEDS_ON , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_APP
-//              ,         ,         ,       <|,>        ,         ,         ,
-//      <1      , <2      , <3      , <4     |, 4>      , 3>      , 2>       , 1>
+//      ------------------------------------------------------------------------------
+        RGB_TOG , LEDS_ON , KC__XGUI , XXXXXXX , XXXXXXX , XXXXXXX , KC__YGUI , KC_APP
+//              ,         ,          ,       <|,>        ,         ,          ,
+//      <1      , <2      , <3       , <4     |, 4>      , 3>      , 2>       , 1>
                       ),
 
         /**/

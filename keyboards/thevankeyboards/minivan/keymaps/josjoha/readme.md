@@ -176,7 +176,7 @@ switches left with right hand. See `ARROW_TRIANGLE` and `ARROW_LEFT` #defines at
      P     Power• Wake• Sleep• Pause• ScrLk | PrtSc xxx   Vol+  Vol-  Mute   CapL     // • requires Shift
      Ü     uLNX   uBSD  uOSX   uWIN   uWNC  | xxx   xxx   xxx   xxx   Insert RSft(•)  // Ü(nicode) tester
      ----------------------------------------------
-     MLed  SLeds xxx   xxx  | xxx   xxx   xxx   App                      // Middle-led, Side-leds: on/off
+     MLed  SLeds RGUI  xxx  | xxx   xxx   LGUI  App                      // Middle-led, Side-leds: on/off
                            <|>
      <1    <2    <3    <4   | 4>    3>    2>    1>  
 
