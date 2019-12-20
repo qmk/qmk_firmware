@@ -37,7 +37,7 @@ uint8_t DRV_read(uint8_t regaddress) {
     DRV2605L_read_register = (uint8_t)DRV2605L_read_buffer[0];
 #else
     DRV2605L_tx_register[0] = regaddress;
-    if (MSG_OK != i2c_transmit_receive(DRV2605L_BASE_ADDRESS << 1, DRV2605L_tx_register, 1, DRV2605L_read_buffer, 1)) {
+    if (MSG_OK != i2c_transmit_receive(DRV2605L_BASE_ADDRESS << 1, DRV2605L_tx_register, 1, DRV2605L_read_buffer, 1, 100)) {
         printf("err reading reg \n");
     }
     DRV2605L_read_register = (uint8_t)DRV2605L_read_buffer[0];
