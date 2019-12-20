@@ -138,6 +138,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         spongebob_mode ^= 1;
       }
+      return false; break;
 	case AESTHETIC:
       if (record->event.pressed) {
         aesthetic_mode ^= 1;
