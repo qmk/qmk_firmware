@@ -18,6 +18,5 @@ Flash instructions: Flash using avrdude, will req the hvp user space to compile.
 > make crkbd:hvp:avrdude
 
 Links:
-Github - https://github.com/qmk/qmk_firmware/tree/master/keyboards/lets_split
+Github - https://github.com/qmk/qmk_firmware/tree/master/keyboards/crkbd
 Eurkey layout - https://eurkey.steffen.bruentjen.eu/
-
