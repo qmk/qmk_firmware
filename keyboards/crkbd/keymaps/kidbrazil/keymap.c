@@ -209,7 +209,7 @@ void render_slave_oled(void) {
 
 // {OLED Task} -----------------------------------------------//
 void oled_task_user(void) {
-    if (timer_elapsed32(oled_timer) > 80000) {
+    if (timer_elapsed32(oled_timer) > 80000 && timer_elapsed32(oled_timer) < 479999) {
         // Render logo on both halves before full timeout
         if (is_master && !master_oled_cleared) {
             // Clear master OLED once so the logo renders properly
@@ -217,6 +217,7 @@ void oled_task_user(void) {
             master_oled_cleared = true;
         }
         render_logo();
+        return;
     }
     // Drashna style timeout for LED and OLED Roughly 8mins
     else if (timer_elapsed32(oled_timer) > 480000) {
