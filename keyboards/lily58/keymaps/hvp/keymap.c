@@ -24,6 +24,7 @@ extern uint8_t is_master;
 #define _RAISE 2
 #define _ADJUST 3
 #define _NAVI 4
+#define D_NAVI MT(MOD_LCTL | MOD_LSFT, KC_D)
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -39,9 +40,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  [_QWERTY] = LAYOUT( 
   LT(3,KC_ESC),   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, 
   LT(_NAVI,KC_TAB),   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS, 
-  KC_LSFT, KC_A,   KC_S,    KC_D,    LT(4,KC_F),    LT(3,KC_G),                     KC_H,    KC_J,    KC_K,    KC_L,     TD(TD1), TD(TD2),
+  KC_LSFT, KC_A,   KC_S,    D_NAVI,    LT(4,KC_F),    LT(3,KC_G),                     KC_H,    KC_J,    KC_K,    KC_L,     TD(TD1), TD(TD2),
   KC_LCTRL,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, MT(MOD_LSFT,KC_BSPC),  MT(MOD_LSFT,KC_ENTER),  KC_N,    KC_M,    KC_COMM, KC_DOT,  TD(TD3),  MT(MOD_RSFT,KC_ENT),
-                             KC_LALT, KC_LGUI, LOWER,LT(1,KC_SPC),   LT(2,KC_SPC),   RAISE,   KC_RALT, KC_RGUI \
+                             KC_LALT, KC_LGUI, LOWER,LT(1,KC_SPC),   LT(2,KC_SPC),   RAISE,   KC_RALT, KC_RGUI
 ),
 [_RAISE] = LAYOUT( /* Right */
   _______, _______, _______,  _______,  _______,  _______,                   _______, _______, _______, _______, _______, _______,  
@@ -80,11 +81,7 @@ int RGB_current_mode;
 
 // Setting ADJUST layer RGB back to default
 void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-  if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
-    layer_on(layer3);
-  } else {
-    layer_off(layer3);
-  }
+  
 }
 
 void matrix_init_user(void) {

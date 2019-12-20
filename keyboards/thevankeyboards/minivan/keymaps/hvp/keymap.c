@@ -12,6 +12,7 @@
 
 #define LT4_TAB LT(_L4, KC_TAB)
 #define LT3_ESC LT(_L3, KC_ESC)
+#define D_NAVI MT(MOD_LCTL | MOD_LSFT, KC_D)
 
 enum custom_keycodes {
   QW = SAFE_RANGE,
@@ -25,7 +26,7 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QW] = LAYOUT_arrow( /* Qwerty */
     LT4_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-    LT3_ESC, KC_A,    KC_S,    KC_D,    LT(3,KC_F),    LT(4,KC_G),    KC_H,    KC_J,    KC_K,    KC_L,    TD(TD1), TD(TD2),
+    LT3_ESC, KC_A,    KC_S,    D_NAVI,    LT(3,KC_F),    LT(4,KC_G),    KC_H,    KC_J,    KC_K,    KC_L,    TD(TD1), TD(TD2),
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  TD(TD3), KC_SFTENT,
     KC_LCTL, KC_LGUI, KC_LALT, LT(_L2,KC_ENT),  LT(_L1,KC_SPC), KC_LEFT, KC_DOWN, KC_UP,  KC_RGHT
   ),

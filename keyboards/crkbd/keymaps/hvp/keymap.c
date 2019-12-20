@@ -16,6 +16,7 @@ extern uint8_t is_master;
 #define _LOWER 1
 #define _RAISE 2
 #define _ADJUST 3
+#define D_NAVI MT(MOD_LCTL | MOD_LSFT, KC_D)
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -29,11 +30,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------.                ,-----------------------------------------.
      LT(_ADJUST,KC_TAB),  KC_Q,  KC_W,  KC_E,  KC_R,  KC_T,                   KC_Y,  KC_U,  KC_I,  KC_O,  KC_P,KC_BSPC,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-    MT(MOD_LSFT,KC_ESC),  KC_A,  KC_S,  KC_D,  LT(3,KC_F),  MT(MOD_LCTL,KC_G), KC_H,  KC_J,  KC_K,  KC_L,TD(TD1),TD(TD2),
+    MT(MOD_LSFT,KC_ESC),  KC_A,  KC_S,  D_NAVI,  LT(3,KC_F), KC_G, KC_H,  KC_J,  KC_K,  KC_L,TD(TD1),TD(TD2),
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
     KC_LCTL,  KC_Z,  KC_X,  KC_C,  KC_V,  KC_B,                   KC_N,  KC_M,KC_COMM,KC_DOT,TD(TD3),KC_SFTENT,
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                KC_LGUI, LT(1,KC_SPC),MT(MOD_LSFT, KC_BSPC),   MT(MOD_LSFT,KC_ENT), LT(2,KC_SPC),KC_LALT 
+                                KC_LGUI, LT(1,KC_SPC),MT(MOD_LSFT, KC_SPC),   MT(MOD_LSFT,KC_ENT), LT(2,KC_SPC),KC_LALT 
                               //`--------------------'  `--------------------'
   ),
   
