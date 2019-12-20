@@ -209,40 +209,39 @@ void render_slave_oled(void) {
 
 // {OLED Task} -----------------------------------------------//
 void oled_task_user(void) {
-      if (timer_elapsed32(oled_timer) > 80000) {
-          // Render logo on both halves before full timeout
-          if (is_master && !master_oled_cleared) {
+    if (timer_elapsed32(oled_timer) > 80000) {
+        // Render logo on both halves before full timeout
+        if (is_master && !master_oled_cleared) {
             // Clear master OLED once so the logo renders properly
             oled_clear();
             master_oled_cleared = true;
-          }
-          render_logo();
-      }
-      // Drashna style timeout for LED and OLED Roughly 8mins
-      else if (timer_elapsed32(oled_timer) > 480000) {
-          oled_off();
-          rgb_matrix_disable_noeeprom();
-          return;
-      }
-      else {
-          oled_on();
-          // Reset OLED Clear flag
-          master_oled_cleared = false;
-          // Show logo when USB dormant
-          switch (USB_DeviceState) {
-              case DEVICE_STATE_Unattached:
-              case DEVICE_STATE_Powered:
-              case DEVICE_STATE_Suspended:
+        }
+        render_logo();
+    }
+    // Drashna style timeout for LED and OLED Roughly 8mins
+    else if (timer_elapsed32(oled_timer) > 480000) {
+        oled_off();
+        rgb_matrix_disable_noeeprom();
+        return;
+    }
+    else {
+        oled_on();
+        // Reset OLED Clear flag
+        master_oled_cleared = false;
+        // Show logo when USB dormant
+        switch (USB_DeviceState) {
+            case DEVICE_STATE_Unattached:
+            case DEVICE_STATE_Powered:
+            case DEVICE_STATE_Suspended:
                 render_logo();
                 break;
-              default:
+            default:
                 if (is_master) {
                     render_master_oled();
                 } else {
                     render_slave_oled();
                 }
-          }
-      }
-
+        }
+    }
 }
 #endif

@@ -82,9 +82,9 @@
                 .replace('raw.githubusercontent.com', 'github.com')
                 .replace(/\/master/, '/blob/master')
             } else {
-              url = 'https://github.com/qmk/qmk_firmware/blob/master/docs/' + vm.route.file
+              url = 'https://github.com/qmk/qmk_firmware/edit/master/docs/' + vm.route.file
             }
-            var editHtml = '[:memo: Edit Document](' + url + ')\n'
+            var editHtml = ':pencil2: [Edit this page](' + url + ')\n'
             return html
               + '\n\n----\n\n'
               + editHtml

@@ -16,10 +16,6 @@
 
 #include "quantum.h"
 
-#if !defined(RGBLIGHT_ENABLE) && !defined(RGB_MATRIX_ENABLE)
-#    include "rgb.h"
-#endif
-
 #ifdef PROTOCOL_LUFA
 #    include "outputselect.h"
 #endif
@@ -254,6 +250,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef MAGIC_KEYCODE_ENABLE
             process_magic(keycode, record) &&
 #endif
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+            process_rgb(keycode, record) &&
+#endif
             true)) {
         return false;
     }
@@ -293,175 +292,23 @@ bool process_record_quantum(keyrecord_t *record) {
                 return false;
 #endif
 #ifdef BLUETOOTH_ENABLE
-        case OUT_AUTO:
+            case OUT_AUTO:
                 set_output(OUTPUT_AUTO);
                 return false;
-        case OUT_USB:
+            case OUT_USB:
                 set_output(OUTPUT_USB);
                 return false;
-        case OUT_BT:
+            case OUT_BT:
                 set_output(OUTPUT_BLUETOOTH);
                 return false;
 #endif
 #if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_BREATHING)
-        case BL_BRTG:
+            case BL_BRTG:
                 backlight_toggle_breathing();
                 return false;
 #endif
         }
     }
-
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-#    ifndef SPLIT_KEYBOARD
-    if (record->event.pressed) {
-#    else
-    // Split keyboards need to trigger on key-up for edge-case issue
-    if (!record->event.pressed) {
-#    endif
-        uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
-        switch (keycode) {
-            case RGB_TOG:
-                rgblight_toggle();
-                return false;
-            case RGB_MODE_FORWARD:
-                if (shifted) {
-                    rgblight_step_reverse();
-                } else {
-                    rgblight_step();
-                }
-                return false;
-            case RGB_MODE_REVERSE:
-                if (shifted) {
-                    rgblight_step();
-                } else {
-                    rgblight_step_reverse();
-                }
-                return false;
-            case RGB_HUI:
-                if (shifted) {
-                    rgblight_decrease_hue();
-                } else {
-                    rgblight_increase_hue();
-                }
-                return false;
-            case RGB_HUD:
-                if (shifted) {
-                    rgblight_increase_hue();
-                } else {
-                    rgblight_decrease_hue();
-                }
-                return false;
-            case RGB_SAI:
-                if (shifted) {
-                    rgblight_decrease_sat();
-                } else {
-                    rgblight_increase_sat();
-                }
-                return false;
-            case RGB_SAD:
-                if (shifted) {
-                    rgblight_increase_sat();
-                } else {
-                    rgblight_decrease_sat();
-                }
-                return false;
-            case RGB_VAI:
-                if (shifted) {
-                    rgblight_decrease_val();
-                } else {
-                    rgblight_increase_val();
-                }
-                return false;
-            case RGB_VAD:
-                if (shifted) {
-                    rgblight_increase_val();
-                } else {
-                    rgblight_decrease_val();
-                }
-                return false;
-            case RGB_SPI:
-                if (shifted) {
-                    rgblight_decrease_speed();
-                } else {
-                    rgblight_increase_speed();
-                }
-                return false;
-            case RGB_SPD:
-                if (shifted) {
-                    rgblight_increase_speed();
-                } else {
-                    rgblight_decrease_speed();
-                }
-                return false;
-            case RGB_MODE_PLAIN:
-                rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
-                return false;
-            case RGB_MODE_BREATHE:
-#    ifdef RGBLIGHT_EFFECT_BREATHING
-                if ((RGBLIGHT_MODE_BREATHING <= rgblight_get_mode()) && (rgblight_get_mode() < RGBLIGHT_MODE_BREATHING_end)) {
-                    rgblight_step();
-                } else {
-                    rgblight_mode(RGBLIGHT_MODE_BREATHING);
-                }
-#    endif
-                return false;
-        case RGB_MODE_RAINBOW:
-#    ifdef RGBLIGHT_EFFECT_RAINBOW_MOOD
-                if ((RGBLIGHT_MODE_RAINBOW_MOOD <= rgblight_get_mode()) && (rgblight_get_mode() < RGBLIGHT_MODE_RAINBOW_MOOD_end)) {
-                    rgblight_step();
-                } else {
-                    rgblight_mode(RGBLIGHT_MODE_RAINBOW_MOOD);
-                }
-#    endif
-            case RGB_MODE_SWIRL:
-#    ifdef RGBLIGHT_EFFECT_RAINBOW_SWIRL
-                if ((RGBLIGHT_MODE_RAINBOW_SWIRL <= rgblight_get_mode()) && (rgblight_get_mode() < RGBLIGHT_MODE_RAINBOW_SWIRL_end)) {
-                    rgblight_step();
-                } else {
-                    rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
-                }
-#    endif
-                return false;
-            case RGB_MODE_SNAKE:
-#    ifdef RGBLIGHT_EFFECT_SNAKE
-                if ((RGBLIGHT_MODE_SNAKE <= rgblight_get_mode()) && (rgblight_get_mode() < RGBLIGHT_MODE_SNAKE_end)) {
-                    rgblight_step();
-                } else {
-                    rgblight_mode(RGBLIGHT_MODE_SNAKE);
-                }
-#    endif
-                return false;
-            case RGB_MODE_KNIGHT:
-#    ifdef RGBLIGHT_EFFECT_KNIGHT
-                if ((RGBLIGHT_MODE_KNIGHT <= rgblight_get_mode()) && (rgblight_get_mode() < RGBLIGHT_MODE_KNIGHT_end)) {
-                    rgblight_step();
-                } else {
-                    rgblight_mode(RGBLIGHT_MODE_KNIGHT);
-                }
-#    endif
-                return false;
-            case RGB_MODE_XMAS:
-#    ifdef RGBLIGHT_EFFECT_CHRISTMAS
-                rgblight_mode(RGBLIGHT_MODE_CHRISTMAS);
-#    endif
-                return false;
-            case RGB_MODE_GRADIENT:
-#    ifdef RGBLIGHT_EFFECT_STATIC_GRADIENT
-                if ((RGBLIGHT_MODE_STATIC_GRADIENT <= rgblight_get_mode()) && (rgblight_get_mode() < RGBLIGHT_MODE_STATIC_GRADIENT_end)) {
-                    rgblight_step();
-                } else {
-                    rgblight_mode(RGBLIGHT_MODE_STATIC_GRADIENT);
-                }
-#    endif
-                return false;
-            case RGB_MODE_RGBTEST:
-#    ifdef RGBLIGHT_EFFECT_RGB_TEST
-                rgblight_mode(RGBLIGHT_MODE_RGB_TEST);
-#    endif
-                return false;
-        }
-    }
-#endif
 
     // keycodes that depend on both pressed and non-pressed state
     switch (keycode) {
@@ -513,7 +360,6 @@ bool process_record_quantum(keyrecord_t *record) {
             send_keyboard_report();
             return false;
         }
-
     }
 
     return process_action_kb(record);
