@@ -22,7 +22,7 @@
 
 ## デバッグ
 
-`rules.mk`へ`CONSOLE_ENABLE = yes`の設定をするとキーボードはデバッグ情報を出力します。デフォルトの出力は非常に限られたものですが、デバッグモードをオンにすることでデバッグ情報の量を増やすことが出来ます。キーマップの`DEBUG`キーコードを使用するか、デバッグモードを有効にする [Command](feature_command.md) 機能を使用するか、以下のコードをキーマップに追加します。
+`rules.mk`へ`CONSOLE_ENABLE = yes`の設定をするとキーボードはデバッグ情報を出力します。デフォルトの出力は非常に限られたものですが、デバッグモードをオンにすることでデバッグ情報の量を増やすことが出来ます。キーマップの`DEBUG`キーコードを使用するか、デバッグモードを有効にする [Command](ja/feature_command.md) 機能を使用するか、以下のコードをキーマップに追加します。
 
 ```c
 void keyboard_post_init_user(void) {
@@ -46,7 +46,7 @@ void keyboard_post_init_user(void) {
 
 ## 独自のデバッグメッセージを送信する
 
-[custom code](custom_quantum_functions.md)内からデバッグメッセージを出力すると便利な場合があります。それはとても簡単です。ファイルの先頭に`print.h`のインクルードを追加します:
+[custom code](ja/custom_quantum_functions.md)内からデバッグメッセージを出力すると便利な場合があります。それはとても簡単です。ファイルの先頭に`print.h`のインクルードを追加します:
 
     #include <print.h>
 
@@ -59,7 +59,7 @@ void keyboard_post_init_user(void) {
 
 ## デバッグの例
 
-以下は現実世界での実際のデバッグ手法の例を集めたものです。追加情報は[Debugging/Troubleshooting QMK](faq_debug.md)を参照してください。
+以下は現実世界での実際のデバッグ手法の例を集めたものです。追加情報は[Debugging/Troubleshooting QMK](ja/faq_debug.md)を参照してください。
 
 ### マトリックス上のどの場所でキー押下が起こったか？
 

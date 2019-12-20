@@ -191,7 +191,7 @@ void backlight_off(pin_t backlight_pin) {
 
 #        define FOR_EACH_LED(x)                                 \
             for (uint8_t i = 0; i < BACKLIGHT_LED_COUNT; i++) { \
-                pin_t backlight_pin = backlight_pins[i];      \
+                pin_t backlight_pin = backlight_pins[i];        \
                 { x }                                           \
             }
 

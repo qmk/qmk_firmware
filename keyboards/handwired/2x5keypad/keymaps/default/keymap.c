@@ -143,7 +143,7 @@ layer_state_t layer_state_set_user(layer_state_t state)
 {
     turn_off_leds();
 
-    switch (biton32(state))
+    switch (get_highest_layer(state))
     {
     case NORMAL_LAYER:
 	break;
