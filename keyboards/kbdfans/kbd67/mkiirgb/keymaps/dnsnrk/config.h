@@ -1,4 +1,4 @@
-/*
+/* Copyright 2019 dnsnrk 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
@@ -15,10 +15,10 @@
 
 #pragma once
 
-// place overrides here
+/* place overrides here */
 #undef QMK_KEYS_PER_SCAN
 #define QMK_KEYS_PER_SCAN 4
 #undef DEBOUNCE
-#define DEBOUNCE 10
+#define DEBOUNCE 5
 #undef TAPPING_TOGGLE
 #define TAPPING_TOGGLE 2
