@@ -81,7 +81,7 @@ Select Apply and Close.
 
 Reset your keyboard.
 
-Press the bug icon and if all goes well you should soon find yourself in the Debug perspective. Here the program counter will pause at the beginning of the main function and way for you to press Play. Most of the features of all debuggers work on ARM MCUs but for exact details google is your friend!
+Press the bug icon and if all goes well you should soon find yourself in the Debug perspective. Here the program counter will pause at the beginning of the main function and wait for you to press Play. Most of the features of all debuggers work on Arm MCUs but for exact details Google is your friend!
 
 
 Happy debugging!
