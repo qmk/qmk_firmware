@@ -1,5 +1,4 @@
-
-// generated from users/manna-harbour_miryoku/miryoku.org
+// generated from users/manna-harbour_miryoku/miryoku.org  -*- buffer-read-only: t -*-
 
 #pragma once
 
@@ -15,3 +14,5 @@
 #define RGB_MATRIX_VAL_STEP 8
 #define RGB_MATRIX_SPD_STEP 10
 #endif
+
+#define SSD1306OLED // old oled driver
