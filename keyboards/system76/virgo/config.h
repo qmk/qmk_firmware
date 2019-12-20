@@ -1,10 +1,11 @@
-#pragma once
+#ifndef CONFIG_H
+#define CONFIG_H
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x1776
+#define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    System76
 #define PRODUCT         Virgo
@@ -30,3 +31,5 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+#endif // CONFIG_H
