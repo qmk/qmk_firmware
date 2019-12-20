@@ -85,30 +85,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             ),
     /* keymap 1: colemak layer
      *
-     * ,--------------------------------------------------.           ,--------------------------------------------------.
-     * |   =    |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  |   -    |
-     * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-     * | Tab    |   Q  |   W  |   F  |   P  |   G  |  L1  |           |  L1  |   J  |   L  |   U  |   Y  |   ;  |   \    |
-     * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-     * | Bksp   |   A  |   R  |   S  |   T  |   D  |------|           |------|   H  |   N  |   E  |   I  |O / L2|   '    |
-     * |--------+------+------+------+------+------| Hyper|           |      |------+------+------+------+------+--------|
-     * | LShift |Z/Ctrl|   X  |   C  |   V  |   B  |      |           |      |   K  |   M  |   ,  |   .  |//Ctrl| RShift |
-     * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-     *   |Grv/L1|  '"  |Insert| Left | Right|                                       |  Up  | Down |   [  |   ]  | ~L1  |
-     *   `----------------------------------'                                       `----------------------------------'
-     *                                        ,-------------.       ,-------------.
-     *                                        | Ctl  | Alt  |       | Gui  |Ctrl/Esc|
-     *                                 ,------|------|------|       |------+--------+------.
-     *                                 |      |      | Home |       | PgUp |        |      |
-     *                                 | Bkspc| Del  |------|       |------| Enter  |Space |
-     *                                 |      |      | End  |       | PgDn |        |      |
-     *                                 `--------------------'       `----------------------'
+     * ,--------------------------------------------------.             ,--------------------------------------------------.
+     * |   =    |   1  |   2  |   3  |   4  |   5  |CTRL(GUI(LEFT)) |   |CTRL(GUI(RIGHT))|6|7|   8  |   9  |   0  |   -    |
+     * |--------+------+------+------+------+-------------|             |------+------+------+------+------+------+--------|
+     * | Tab    |   Q  |   W  |   F  |   P  |   G  |  L1  |             |  L1  |   J  |   L  |   U  |   Y  |   ;  |   \    |
+     * |--------+------+------+------+------+------|      |             |      |------+------+------+------+------+--------|
+     * | Bksp   |   A  |   R  |   S  |   T  |   D  |------|             |------|   H  |   N  |   E  |   I  |O / L2|   '    |
+     * |--------+------+------+------+------+------| Hyper|             |      |------+------+------+------+------+--------|
+     * | LShift |Z/Ctrl|   X  |   C  |   V  |   B  |      |             |      |   K  |   M  |   ,  |   .  |//Ctrl| RShift |
+     * `--------+------+------+------+------+-------------'             `-------------+------+------+------+------+--------'
+     *   |Grv/L1|  '"  |Insert| Left | Right|                                         |  Up  | Down |   [  |   ]  | ~L1  |
+     *   `----------------------------------'                                         `----------------------------------'
+     *                                        ,-------------.           ,-------------.
+     *                                        | Ctl  | Alt  |           | Gui  |Ctrl/Esc|
+     *                                 ,------|------|------|           |------+--------+------.
+     *                                 |      |      | Home |           | PgUp |        |      |
+     *                                 | Bkspc| Del  |------|           |------| Enter  |Space |
+     *                                 |      |      | End  |           | PgDn |        |      |
+     *                                 `--------------------'           `----------------------'
      */
     // If it accepts an argument (i.e, is a function), it doesn't need KC_.
     // Otherwise, it needs KC_*
     [_COLEMAK] = LAYOUT_ergodox(  // layer 2 : colemak
             // left hand
-            KC_EQL,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_LEFT,
+            KC_EQL,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   LGUI(LCTL(KC_LEFT)),
             KC_TAB,         KC_Q,         KC_W,   KC_F,   KC_P,   KC_G,   TG(_SYMB),
             TD(TD_ESC_CAPS),KC_A,         KC_R,   KC_S,   KC_T,   KC_D,
             KC_LSFT,        CTL_T(KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   KC_FN3,
@@ -117,10 +117,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_HOME,
             KC_BSPC,KC_DEL,KC_END,
             // right hand
-            KC_RGHT,        KC_6,         KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,
-            TG(_MDIA_MOUSE),KC_J,         KC_L,   KC_U,   KC_Y,   KC_SCLN,KC_BSLS,
-                            KC_H,         KC_N,   KC_E,   KC_I,   FN_O,   KC_QUOT,
-            KC_TRNS,        KC_K,         KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLSH),   KC_RSFT,
+            LGUI(LCTL(KC_RGHT)),KC_6,         KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,
+            TG(_MDIA_MOUSE),    KC_J,         KC_L,   KC_U,   KC_Y,   KC_SCLN,KC_BSLS,
+                                KC_H,         KC_N,   KC_E,   KC_I,   FN_O,   KC_QUOT,
+            KC_TRNS,            KC_K,         KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLSH),   KC_RSFT,
                                           KC_UP,  KC_DOWN,KC_LBRC,KC_RBRC,KC_FN1,
             KC_LGUI,        CTL_T(KC_ESC),
             KC_PGUP,
