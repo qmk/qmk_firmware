@@ -63,7 +63,7 @@ void indicator_init_ports(void) {
   setPinOutput(B4); 
 
   // Caps Lock
-  DDRB |= (1<<0); 
+  setPinOutput(B0); 
   PORTB &= ~(1<<0); 
 
   // Scroll Lock
