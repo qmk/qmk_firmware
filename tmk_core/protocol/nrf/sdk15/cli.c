@@ -64,7 +64,9 @@ static const MSCMD_COMMAND_TABLE table[] = {
     {   "ee",     usrcmd_eeprom_control, "eeprom control"     },
     {   "web",     usrcmd_webconfig_enter, "Start web config mode"     },
     {   "i2c",     usrcmd_i2c_test, "Test i2c"     },
-    USER_DEFINED_MSCMD,
+#ifdef USER_DEFINED_MSCMD
+    USER_DEFINED_MSCMD
+#endif
 };
 
 void cli_puts(char *str) {
