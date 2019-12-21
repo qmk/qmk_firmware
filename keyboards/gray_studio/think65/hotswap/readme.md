@@ -1,6 +1,6 @@
 # Think6.5 Hotswap
 
-65% board with 6.5 degree angle ran by Airpotter and Oldcat. PCB Manufactured by DEMO Studio and Keyboard manufactured by Gray Studio. 
+65% board with 6.5 degree angle ran by Airpotter and Oldcat. PCB Manufactured by DEMO Studio and Keyboard manufactured by Gray Studio.
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
 Hardware Supported: Think6.5 Hotswap PCB  
