@@ -27,10 +27,6 @@
 #include "ch.h"
 #include <hal.h>
 
-#if defined(STM32F1XX) || defined(STM32F1xx) || defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32F4XX) || defined(STM32L0xx) || defined(STM32L1xx)
-#    define USE_I2CV1
-#endif
-
 #ifdef I2C1_BANK
 #    define I2C1_SCL_BANK I2C1_BANK
 #    define I2C1_SDA_BANK I2C1_BANK
@@ -49,20 +45,6 @@
 #endif
 #ifndef I2C1_SDA
 #    define I2C1_SDA 7
-#endif
-
-#if defined(STM32F1XX) || defined(STM32F1xx)
-#    define USE_GPIOV1
-#endif
-
-#ifndef USE_GPIOV1
-// The default PAL alternate modes are used to signal that the pins are used for I2C
-#    ifndef I2C1_SCL_PAL_MODE
-#        define I2C1_SCL_PAL_MODE 4
-#    endif
-#    ifndef I2C1_SDA_PAL_MODE
-#        define I2C1_SDA_PAL_MODE 4
-#    endif
 #endif
 
 #ifdef USE_I2CV1
@@ -97,6 +79,16 @@
 
 #ifndef I2C_DRIVER
 #    define I2C_DRIVER I2CD1
+#endif
+
+#ifndef USE_GPIOV1
+// The default PAL alternate modes are used to signal that the pins are used for I2C
+#    ifndef I2C1_SCL_PAL_MODE
+#        define I2C1_SCL_PAL_MODE 4
+#    endif
+#    ifndef I2C1_SDA_PAL_MODE
+#        define I2C1_SDA_PAL_MODE 4
+#    endif
 #endif
 
 typedef int16_t i2c_status_t;
