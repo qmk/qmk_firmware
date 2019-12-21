@@ -66,7 +66,7 @@ void indicator_init_ports(void) {
   setPinOutput(B0); 
 
   // Scroll Lock
-  DDRD |= (1<<7); 
+ setPinOutput(D7); 
   PORTD &= ~(1<<7);
 }
 
