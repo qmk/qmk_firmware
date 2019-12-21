@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#define CONFIG_H
 
 #undef DESCRIPTION
 #define DESCRIPTION     QMK keyboard firmware for TADA68 with QMK bootloader
