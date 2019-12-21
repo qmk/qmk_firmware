@@ -60,7 +60,7 @@ void backlight_init_ports(void)
 void indicator_init_ports(void) {
 
   // Num LED
-  DDRB |=  (1<<4); 
+  setPinOutput(B4); 
   PORTB &= ~(1<<4); 
 
   // Caps Lock
