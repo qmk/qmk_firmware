@@ -52,13 +52,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 #define RGBLIGHT_ANIMATIONS
-
-#define WS2812_LED_N 9
-#define RGBLED_NUM WS2812_LED_N
-#define PORT_WS2812     GPIOB
-#define PIN_WS2812      15
+#define RGB_DI_PIN B15
+#define RGBLED_NUM 9
 #define WS2812_SPI SPID2
-
 
 /*
  * Feature disable options
