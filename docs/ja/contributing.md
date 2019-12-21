@@ -1,7 +1,7 @@
 # 貢献方法
 
 <!---
-  original document: d47809575:contributing.md
+  original document: d47809575:docs/contributing.md
   git diff d47809575 HEAD contributing.md | cat
 -->
 
