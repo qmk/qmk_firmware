@@ -27,7 +27,8 @@ int main(void) {
               );
     }
     printf("#ifndef RGBLIGHT_EFFECT_BREATHE_TABLE\n");
-    printf("#define RGBLIGHT_EFFECT_BREATHE_TABLE\n\n");
+    printf("#define RGBLIGHT_EFFECT_BREATHE_TABLE\n");
+    printf("// clang-format off\n\n");
     printf("const uint8_t rgblight_effect_breathe_table[] PROGMEM = {\n");
     printf("  /* #define RGBLIGHT_EFFECT_BREATHE_CENTER   %.2f */\n", RGBLIGHT_EFFECT_BREATHE_CENTER);
     printf("  /* #define RGBLIGHT_EFFECT_BREATHE_MAX      %d */\n", RGBLIGHT_EFFECT_BREATHE_MAX);
@@ -43,7 +44,7 @@ int main(void) {
         printf(" #endif /* %d bytes table */\n", s == 0 ? 256:(s== 1 ? 128: 64));
     }
     printf("};\n");
-    printf("\nstatic const int table_scale = 256/sizeof(rgblight_effect_breathe_table);\n");
+    printf("\nstatic const int table_scale = 256 / sizeof(rgblight_effect_breathe_table);\n");
     printf("\n#endif /* RGBLIGHT_EFFECT_BREATHE_TABLE */\n");
     return 0;
 }
