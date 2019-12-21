@@ -1,4 +1,4 @@
-# ARM Debugging usign Eclipse
+# ARM Debugging using Eclipse
 
 This page describes how to setup debugging for ARM MCUs using an SWD adapter and open-source/free tools. In this guide we will install GNU MCU Eclipse IDE for C/C++ Developers and OpenOCD together with all the necessary dependencies.
 
