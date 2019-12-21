@@ -14,6 +14,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "led_control.h"
+
+void keyboard_post_init_user(void) {
+    wait_ms(250); // workaround a bug somewhere in TMK that stops user init happening at the right time in the startup sequence
+    setup_led_range_control();
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    return process_led_range_control_codes(keycode, record);
+}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_65_ansi_blocker(
@@ -26,9 +36,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT_65_ansi_blocker(
         RESET,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______,
         _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
-        _______, _______, _______,                      _______,                         _______, _______,          _______, _______, _______
+        _______, ESC_HUI, ESC_SAI, ESC_VAI, BDG_HUI, BDG_SAI, BDG_VAI, UGL_HUI, UGL_SAI, UGL_VAI, _______, _______, _______,          _______,
+        _______, ESC_HUD, ESC_SAD, ESC_VAD, BDG_HUD, BDG_SAD, BDG_VAD, UGL_HUD, UGL_SAD, UGL_VAD, _______, _______,          CYC_LED, _______,
+        _______, _______, _______,                      _______,                         _______, _______,          TOG_ESC, TOG_BDG, TOG_UGL
     ),
 
 };
