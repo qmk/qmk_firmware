@@ -1,8 +1,8 @@
 # よくあるビルドの質問
 
 <!---
-  original document: d598f01cb:faq_build.md
-  git diff d598f01cb HEAD faq_build.md | cat
+  original document: d598f01cb:docs/faq_build.md
+  git diff d598f01cb HEAD docs/faq_build.md | cat
 -->
 
 このページは QMK のビルドに関する質問を説明します。まだビルドをしていない場合は、[ビルド環境のセットアップ](ja/getting_started_build_tools.md) および [Make 手順](ja/getting_started_make_guide.md)ガイドを読むべきです。

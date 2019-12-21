@@ -1,8 +1,8 @@
 # Zadig を使ったブートローダドライバのインストール
 
 <!---
-  original document: d598f01cb:driver_installation_zadig.md
-  git diff d598f01cb HEAD driver_installation_zadig.md | cat
+  original document: d598f01cb:docs/driver_installation_zadig.md
+  git diff d598f01cb HEAD docs/driver_installation_zadig.md | cat
 -->
 
 QMK は通常の HID キーボードデバイスとしてホストに提供されるため、特別なドライバは必要ありません。しかし、Windows でキーボードに書き込むには、キーボードをリセットした時に現れるブートローダデバイスがしばしば*現れます*。
