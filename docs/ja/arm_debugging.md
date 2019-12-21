@@ -23,7 +23,7 @@ XPM のインストール手順は[ここ](https://www.npmjs.com/package/xpm)で
 
 ### ARM ツールチェーン
 
-XPM を使うと、ARM ツールチェーンをとても簡単にインストールできます。`xpm install --global @gnu-mcu-eclipse/arm-none-eabi-gcc` とコマンドを入力します。
+XPM を使うと、ARM ツールチェーンをとても簡単にインストールできます。`xpm install --global @xpack-dev-tools/arm-none-eabi-gcc` とコマンドを入力します。
 
 ### Windows ビルドツール
 
@@ -38,7 +38,7 @@ ST-Link を持っている場合は、ドライバは[ここ](https://www.st.com
 
 ### OpenOCD
 
-この依存関係により、SWD は GDB からアクセスでき、デバッグに不可欠です。`xpm install --global @gnu-mcu-eclipse/openocd` を実行します。
+この依存関係により、SWD は GDB からアクセスでき、デバッグに不可欠です。`xpm install --global @xpack-dev-tools/openocd` を実行します。
 
 ### Java
 
@@ -50,17 +50,17 @@ Java は Eclipse で必要とされるため、[ここ](https://www.oracle.com/t
 
 ## Eclipse の設定
 
-ダウンロードした Eclipse IDE を開きます。QMK ディレクトリをインポートするために、File -> Import -> C/C++ -> Existing code as Makefile Project を選択します。Next を選択し、Browse を使用して QMK フォルダを選択します。tool-chain リストから ARM Cross GCC を選択し、Finish を選択します。
+ダウンロードした Eclipse IDE を開きます。QMK ディレクトリをインポートするために、File -> Import -> C/C++ -> Existing Code as Makefile Project を選択します。Next を選択し、Browse を使用して QMK フォルダを選択します。tool-chain リストから ARM Cross GCC を選択し、Finish を選択します。
 
-これで、左側に QMK フォルダが表示されます。右クリックして、Properties を選択します。左側で MCU を展開し、ARM Toolchain Paths を選択します。xPack を押して OK を押します。OpenOCD Path で同じことを繰り返し、Windows の場合は、Build Tool Path でも同じことを繰り返します。Apply and Close を選択します。
+これで、左側に QMK フォルダが表示されます。右クリックして、Properties を選択します。左側で MCU を展開し、ARM Toolchains Paths を選択します。xPack を押して OK を押します。OpenOCD Path で同じことを繰り返し、Windows の場合は、Build Tools Path でも同じことを繰り返します。Apply and Close を選択します。
 
-ここで、必要な MCU パッケージをインストールします。Window -> Open Perspective -> Others -> Packs を選択して、Packs perspective に移動します。Packs タブの横にある黄色のリフレッシュ記号を選択します。これは様々な場所から MCU の定義を要求するため、時間が掛かります。一部のリンクが失敗した場合は、おそらく Ignore を選択できます。
+ここで、必要な MCU パッケージをインストールします。Window -> Perspective -> Open Perspective -> Other... -> Packs を選択して、Packs perspective に移動します。Packs タブの横にある黄色のリフレッシュ記号を選択します。これは様々な場所から MCU の定義を要求するため、時間が掛かります。一部のリンクが失敗した場合は、おそらく Ignore を選択できます。
 
-これが終了すると、ビルドやデバッグする MCU を見つけることができるはずです。この例では、STM32F3 シリーズの MCU を使います。左側で、STMicroelectronics -> STM32F3 Series を選択します。中央のウィンドウに、pack が表示されます。右クリックし、Install を選択します。それが終了したら、Window -> Open Perspective -> Others -> C/C++ を選択してデフォルトのパースペクティブに戻ることができます。
+これが終了すると、ビルドやデバッグする MCU を見つけることができるはずです。この例では、STM32F3 シリーズの MCU を使います。左側で、STMicroelectronics -> STM32F3 Series を選択します。中央のウィンドウに、pack が表示されます。右クリックし、Install を選択します。それが終了したら、Window -> Perspective -> Open Perspective -> Other... -> C/C++ を選択してデフォルトのパースペクティブに戻ることができます。
 
-Eclipse に QMK をビルドしようとするデバイスを教える必要があります。QMK フォルダを右クリック -> Properties -> C/C++ Build -> Settings を選択します。Devices タブを選択し、devices の下から MCU の適切な種類を選択します。私の例では、STM32F303CC です。
+Eclipse に QMK をビルドしようとするデバイスを教える必要があります。QMK フォルダを右クリック -> Properties -> C/C++ Build -> Settings を選択します。Devices タブを選択し、Devices の下から MCU の適切な種類を選択します。私の例では、STM32F303CC です。
 
-この間に、build コマンドもセットアップしましょう。C/C++ Build を選択し、Behavior タブを選択します。build コマンドのところで、`all` を必要な make コマンドに置き換えます。例えば、rev6 Planck の default キーマップの場合、これは `planck/rev6:default` になります。Apply and Close を選択します。
+この間に、Build コマンドもセットアップしましょう。C/C++ Build を選択し、Behavior タブを選択します。build コマンドのところで、`all` を必要な make コマンドに置き換えます。例えば、rev6 Planck の default キーマップの場合、これは `planck/rev6:default` になります。Apply and Close を選択します。
 
 ## ビルド
 
@@ -76,7 +76,7 @@ ARM MCU は、クロック信号(SWCLK) とデータ信号(SWDIO) で構成さ�
 
 ### デバッガの設定
 
-QMK フォルダを右クリックし、Debug As -> Debug Configuration を選択します。ここで、GDB OpenOCD Debugging をダブルクリックします。Debugger タブを選択し、MCU に必要な設定を入力します。これを見つけるにはいじったりググったりする必要があるかもしれません。STM32F3 用のデフォルトスクリプトは stm32f3discovery.cfg と呼ばれます。OpenOCD に伝えるには、Config options で `-f board/stm32f3discovery.cfg` と入力します。
+QMK フォルダを右クリックし、Debug As -> Debug Configurations... を選択します。ここで、GDB OpenOCD Debugging をダブルクリックします。Debugger タブを選択し、MCU に必要な設定を入力します。これを見つけるにはいじったりググったりする必要があるかもしれません。STM32F3 用のデフォルトスクリプトは stm32f3discovery.cfg と呼ばれます。OpenOCD に伝えるには、Config options で `-f board/stm32f3discovery.cfg` と入力します。
 
 注意: 私の場合、この設定スクリプトはリセット操作を無効にするために編集が必要です。スクリプトの場所は、通常はパス `openocd/version/.content/scripts/board` の下の実際の実行可能フィールドの中で見つかります。ここで、私は `reset_config srst_only` を `reset_config none` に編集しました。
 
@@ -86,7 +86,7 @@ Apply and Close を選択します。
 
 キーボードをリセットしてください。
 
-虫アイコンをクリックし、もし全てうまく行けば debug パースペクティブに移動します。ここでは、main 関数の最初でプログラムカウンタが停止するので、Play ボタンを押します。全てのデバッガのほとんどの機能は ARM MCU で動作しますが、正確な詳細については google があなたのお友達です！
+虫アイコンをクリックし、もし全てうまく行けば Debug パースペクティブに移動します。ここでは、main 関数の最初でプログラムカウンタが停止するので、Play ボタンを押します。全てのデバッガのほとんどの機能は ARM MCU で動作しますが、正確な詳細については google があなたのお友達です！
 
 
 ハッピーデバッギング！
