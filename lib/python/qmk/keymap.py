@@ -1,12 +1,8 @@
 """Functions that help you work with QMK keymaps.
 """
-import json
-import logging
 import os
-from traceback import format_exc
 
 import qmk.path
-from qmk.errors import NoSuchKeyboardError
 
 # The `keymap.c` template to use when a keyboard doesn't have its own
 DEFAULT_KEYMAP_C = """#include QMK_KEYBOARD_H

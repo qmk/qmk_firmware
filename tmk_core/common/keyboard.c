@@ -254,6 +254,7 @@ void keyboard_init(void) {
 #endif
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
     keymap_config.nkro = 1;
+    eeconfig_update_keymap(keymap_config.raw);
 #endif
     keyboard_post_init_kb(); /* Always keep this last */
 }
@@ -296,13 +297,14 @@ void keyboard_task(void) {
                 }
 #endif
                 if (debug_matrix) matrix_print();
-                for (uint8_t c = 0; c < MATRIX_COLS; c++) {
-                    if (matrix_change & ((matrix_row_t)1 << c)) {
+                matrix_row_t col_mask = 1;
+                for (uint8_t c = 0; c < MATRIX_COLS; c++, col_mask <<= 1) {
+                    if (matrix_change & col_mask) {
                         action_exec((keyevent_t){
-                            .key = (keypos_t){.row = r, .col = c}, .pressed = (matrix_row & ((matrix_row_t)1 << c)), .time = (timer_read() | 1) /* time should not be 0 */
+                            .key = (keypos_t){.row = r, .col = c}, .pressed = (matrix_row & col_mask), .time = (timer_read() | 1) /* time should not be 0 */
                         });
                         // record a processed key
-                        matrix_prev[r] ^= ((matrix_row_t)1 << c);
+                        matrix_prev[r] ^= col_mask;
 #ifdef QMK_KEYS_PER_SCAN
                         // only jump out if we have processed "enough" keys.
                         if (++keys_processed >= QMK_KEYS_PER_SCAN)

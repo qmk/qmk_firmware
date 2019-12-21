@@ -1,9 +1,9 @@
 /* Copyright 2018 Jack Humbert
  * Copyright 2018 Yiancar
  *
- * This program is free sofare: you can redistribute it and/or modify
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Sofare Foundation, either version 2 of the License, or
+ * the Free Software Foundation, either version 2 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -27,7 +27,7 @@
 #include "ch.h"
 #include <hal.h>
 
-#if defined(STM32F1XX) || defined(STM32F1xx) || defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32L0xx) || defined(STM32L1xx)
+#if defined(STM32F1XX) || defined(STM32F1xx) || defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32F4XX) || defined(STM32L0xx) || defined(STM32L1xx)
 #    define USE_I2CV1
 #endif
 
@@ -51,6 +51,20 @@
 #    define I2C1_SDA 7
 #endif
 
+#if defined(STM32F1XX) || defined(STM32F1xx)
+#    define USE_GPIOV1
+#endif
+
+#ifndef USE_GPIOV1
+// The default PAL alternate modes are used to signal that the pins are used for I2C
+#    ifndef I2C1_SCL_PAL_MODE
+#        define I2C1_SCL_PAL_MODE 4
+#    endif
+#    ifndef I2C1_SDA_PAL_MODE
+#        define I2C1_SDA_PAL_MODE 4
+#    endif
+#endif
+
 #ifdef USE_I2CV1
 #    ifndef I2C1_OPMODE
 #        define I2C1_OPMODE OPMODE_I2C
@@ -62,14 +76,6 @@
 #        define I2C1_DUTY_CYCLE STD_DUTY_CYCLE /* FAST_DUTY_CYCLE_2 */
 #    endif
 #else
-// The default PAL alternate modes are used to signal that the pins are used for I2C
-#    ifndef I2C1_SCL_PAL_MODE
-#        define I2C1_SCL_PAL_MODE 4
-#    endif
-#    ifndef I2C1_SDA_PAL_MODE
-#        define I2C1_SDA_PAL_MODE 4
-#    endif
-
 // The default timing values below configures the I2C clock to 400khz assuming a 72Mhz clock
 // For more info : https://www.st.com/en/embedded-software/stsw-stm32126.html
 #    ifndef I2C1_TIMINGR_PRESC

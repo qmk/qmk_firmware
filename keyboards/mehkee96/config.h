@@ -5,6 +5,7 @@
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x20A0
 #define PRODUCT_ID      0x422D
+#define DEVICE_VER      0x0200
 #define MANUFACTURER    mehkee
 #define PRODUCT         96kee
 

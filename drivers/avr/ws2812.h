@@ -34,8 +34,7 @@
  * The functions will perform the following actions:
  *         - Set the data-out pin as output
  *         - Send out the LED data
- *         - Wait 50�s to reset the LEDs
+ *         - Wait 50us to reset the LEDs
  */
 void ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds);
 void ws2812_setleds_pin(LED_TYPE *ledarray, uint16_t number_of_leds, uint8_t pinmask);
-void ws2812_setleds_rgbw(LED_TYPE *ledarray, uint16_t number_of_leds);

@@ -5,6 +5,11 @@ SRC += local_drivers/serial.c
 SRC += local_drivers/ssd1306.c
 KEYBOARD_PATHS += $(HELIX_TOP_DIR)/local_drivers
 
+# A workaround until #7089 is merged.
+#   serial.c must not be compiled with the -lto option.
+#   The current LIB_SRC has a side effect with the -fno-lto option, so use it.
+LIB_SRC += local_drivers/serial.c
+
 CUSTOM_MATRIX = yes
 
 SRC += rev2/matrix.c
