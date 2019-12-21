@@ -67,7 +67,6 @@ void indicator_init_ports(void) {
 
   // Scroll Lock
  setPinOutput(D7); 
-  PORTD &= ~(1<<7);
 }
 
 void matrix_init(void) {
