@@ -272,12 +272,14 @@ define PARSE_RULE
     # If the rule starts with all, then continue the parsing from
     # PARSE_ALL_KEYBOARDS
     ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all),true)
+        KEYBOARD_RULE=all
         $$(eval $$(call PARSE_ALL_KEYBOARDS))
     else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,test),true)
         $$(eval $$(call PARSE_TEST))
     # If the rule starts with the name of a known keyboard, then continue
     # the parsing from PARSE_KEYBOARD
     else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYBOARDS)),true)
+        KEYBOARD_RULE=$$(MATCHED_ITEM)
         $$(eval $$(call PARSE_KEYBOARD,$$(MATCHED_ITEM)))
     # Otherwise use the KEYBOARD variable, which is determined either by
     # the current directory you run make from, or passed in as an argument
@@ -380,6 +382,9 @@ define PARSE_KEYBOARD
     # Otherwise try to match the keymap from the current folder, or arguments to the make command
     else ifneq ($$(KEYMAP),)
         $$(eval $$(call PARSE_KEYMAP,$$(KEYMAP)))
+    # Otherwise if we are running make all:<user> just skip
+    else ifeq ($$(KEYBOARD_RULE),all)
+        # $$(info Skipping: No user keymap for $$(CURRENT_KB))
     # Otherwise, make all keymaps, again this is consistent with how it works without
     # any arguments
     else

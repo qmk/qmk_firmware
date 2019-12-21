@@ -19,7 +19,7 @@ And be sure to select "HTTPS", and select the link and copy it:
 From here, enter `git clone ` into the command line, and then paste your link:
 
 ```
-user@computer:~$ git clone https://github.com/whoeveryouare/qmk_firmware.git
+user@computer:~$ git clone --recurse-submodules https://github.com/whoeveryouare/qmk_firmware.git
 Cloning into 'qmk_firmware'...
 remote: Counting objects: 46625, done.
 remote: Compressing objects: 100% (2/2), done.
