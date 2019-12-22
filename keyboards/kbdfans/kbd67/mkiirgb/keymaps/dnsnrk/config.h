@@ -19,6 +19,6 @@
 #undef QMK_KEYS_PER_SCAN
 #define QMK_KEYS_PER_SCAN 4
 #undef DEBOUNCE
-#define DEBOUNCE 5
+#define DEBOUNCE 8
 #undef TAPPING_TOGGLE
 #define TAPPING_TOGGLE 2
