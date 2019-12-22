@@ -84,4 +84,4 @@ git push --force-with-lease
 !> 他のユーザーがコミットを投稿するフォークで `git push --force-with-lease` を**実行しないでください**。これをすると、かれらのコミットが消去されてしまいます。
 
 これで、あなたの GitHub フォーク、あなたのローカルファイル、および QMK のリポジトリはすべて同じになりました。
-ここから、さらに必要な変更を加え（[変更を行なう](ja/newbs_git_using_your_master_branch.md#making-changes)）、通常どおりそれらを投稿できます。
+ここから、[ブランチを使って](ja/newbs_git_using_your_master_branch.md#making-changes)さらに必要な変更を加え、通常どおりそれらを投稿できます。
