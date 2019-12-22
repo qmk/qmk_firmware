@@ -22,6 +22,7 @@
 #endif
 #if defined(PROTOCOL_CHIBIOS)
 #    include "hal.h"
+#    include "chibios_config.h"
 #endif
 
 #include "wait.h"
@@ -135,6 +136,10 @@ extern layer_state_t layer_state;
 
 #ifdef MAGIC_KEYCODE_ENABLE
 #    include "process_magic.h"
+#endif
+
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#    include "process_rgb.h"
 #endif
 
 #ifdef HD44780_ENABLE
