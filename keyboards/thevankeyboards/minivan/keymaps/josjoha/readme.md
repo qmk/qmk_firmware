@@ -134,9 +134,9 @@ Remarks. There is a bit of numbers entry here with -,.Tab, also see `_REV` for t
      toggl toggl set   toggl toggl toggl | toggl toggl                   cycles   // Type of layer switch
                  -v-                    <|>                                       // -v- One-shot setting
      BASE: NUMS: FUN<  _MOV  _RAR  _REV  | ACCE: DRAW: xxx   xxx   xxx   !Descr     //':' are dynamic ...
-     LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10     RCtl     //... ! 'descramble'
-     LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20     RSft     //... < toggle 'stay'
-     -------------------------------------------------------                  
+     LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10     RCtl     //...  ! 'descramble'
+     LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20   -*RSft     //... < toggle 'stay'
+     -------------------------------------------------------                        //. -* toggle on BASE
      LAlt  LCtl&  LGUI  LCtl& | LSft& +LCtl&LSft LGUI   RAlt
            LSft         LAlt  | LAlt  &LAlt                                    
            +xxx         +xxx  | +xxx  +xxx
@@ -156,7 +156,7 @@ or staying on the `_FUN` layer. Default: return to BASE.
                         -*-              <|>                                           //(toggle) on _FUN
      BASE   WLft  WDn   WUp   WRht  xxx   | Btn3  PgUp  Home  End   PgDn  Bksp
      LCtl   MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
-     LSft   Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSft
+     LSft*- Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSft         //(toggle) on BASE
      ---------------------------------------------------------
      LAlt Del   Ent   ___ | PgUp  PgDn  LGUI  RAlt
                       -*-<|>                                                             //(hold) on BASE
@@ -218,7 +218,7 @@ used for the `_MOV` layer (it seemed to become convoluted and overkill to add it
      LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
      LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
      ---------------------------------------------
-     LAlt ___   RGUI  Ent  | Spc   xxx   LGUI  ___
+     LAlt ___   RGUI  Ent  | Spc   xxx   LGUI  xxx
           -*-             <|>                                                            //(hold) on BASE
      <1   <2    <3    <4   | 4>    3>    2>    1>  
 

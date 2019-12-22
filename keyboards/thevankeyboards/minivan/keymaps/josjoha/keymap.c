@@ -1756,7 +1756,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         -*-              <|>                                           //(toggle) on _FUN
      BASE   WLft  WDn   WUp   WRht  xxx   | Btn3  PgUp  Home  End   PgDn  Bksp
      LCtl   MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
-     LSft   Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSft
+     LSft*- Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSft         //(toggle) on BASE
      ---------------------------------------------------------
      LAlt Del   Ent   ___ | PgUp  PgDn  LGUI  RAlt
                       -*-<|>                                                             //(hold) on BASE
@@ -2049,7 +2049,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
      LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
      ---------------------------------------------
-     LAlt ___   RGUI  Ent  | Spc   xxx   LGUI  ___
+     LAlt ___   RGUI  Ent  | Spc   xxx   LGUI  xxx
           -*-             <|>                                                            //(hold) on BASE
      <1   <2    <3    <4   | 4>    3>    2>    1>  
  */
@@ -2060,7 +2060,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL     , XP ( CAL_DIA , CAU_DIA ) , XP ( COL_DIA , COU_DIA ) , XP ( CEL_DIA , CEU_DIA ) , XP ( CUL_DIA , CUU_DIA ) , XP ( CIL_DIA , CIU_DIA ) , XP ( CYL_DIA , CYU_DIA ) , XP ( COEL_BI , COEU_BI ) , XP ( CAEL_BI , CAEU_BI ) , XP ( CNL_TLD , CNU_TLD ) , X ( CSL_SHP )            , KC_RCTL ,
         KC_LSFT     , XP ( CAL_GRA , CAU_GRA ) , XP ( COL_GRA , COU_GRA ) , XP ( CEL_GRA , CEU_GRA ) , XP ( CUL_GRA , CUU_GRA ) , XP ( CIL_GRA , CIU_GRA ) , XP ( CIL_CAR , CIU_CAR ) , XP ( CUL_CAR , CUU_CAR ) , XP ( CEL_CAR , CEU_CAR ) , XP ( COL_CAR , COU_CAR ) , XP ( CAL_CAR , CAU_CAR ) , KC_RSFT ,
 //      ----------------------------------------------------------------------------
-        KC_LALT , _______ , KC__XGUI , KC_ENT , KC_SPC , XXXXXXX , KC__YGUI , _______ 
+        KC_LALT , _______ , KC__XGUI , KC_ENT , KC_SPC , XXXXXXX , KC__YGUI , XXXXXXX 
 //              , -*-     ,          ,      <|,>       ,         ,          , 
 //      <1      , <2      , <3       , <4    |, 4>     , 3>      , 2>       , 1>
                       ),
@@ -2083,7 +2083,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
      LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
      ---------------------------------------------
-     LAlt ___   RGUI  Ent  | Spc   xxx   LGUI  ___
+     LAlt ___   RGUI  Ent  | Spc   xxx   LGUI  xxx
           -*-             <|>                                                            //(hold) on BASE
      <1   <2    <3    <4   | 4>    3>    2>    1>  
  */
@@ -2094,8 +2094,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL  , UN_A_DIA , UN_O_DIA , UN_E_DIA , UN_U_DIA , UN_I_DIA , UN_Y_DIA , UN_OE_BI , UN_AE_BI , UN_N_TLD , UN_S_SHP , KC_RCTL ,
         KC_LSFT  , UN_A_GRA , UN_O_GRA , UN_E_GRA , UN_U_GRA , UN_I_GRA , UN_I_CAR , UN_U_CAR , UN_E_CAR , UN_O_CAR , UN_A_CAR , KC_RSFT ,
 //      ----------------------------------------------------------------------------
-        KC_LALT , _______ , KC__XGUI , KC_ENT , KC_SPC , XXXXXXX , KC__YGUI , _______ 
-//              ,         ,          ,      <|,>       ,         ,          , -*-
+        KC_LALT , _______ , KC__XGUI , KC_ENT , KC_SPC , XXXXXXX , KC__YGUI , XXXXXXX 
+//              , -*-     ,          ,      <|,>       ,         ,          ,
 //      <1      , <2      , <3       , <4    |, 4>     , 3>      , 2>       , 1>
                       ),
         /**/
@@ -2186,9 +2186,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      toggl toggl set   toggl toggl toggl | toggl toggl                   cycles   // Type of layer switch
                  -v-                    <|>                                       // -v- One-shot setting
      BASE: NUMS: FUN<  _MOV  _RAR  _REV  | ACCE: DRAW: xxx   xxx   xxx   !Descr     //':' are dynamic ...
-     LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10     RCtl     //... ! 'descramble'
-     LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20     RSft     //... < toggle 'stay'
-     -------------------------------------------------------                  
+     LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10     RCtl     //...  ! 'descramble'
+     LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20   -*RSft     //... < toggle 'stay'
+     -------------------------------------------------------                        //. -* toggle on BASE
      LAlt  LCtl&  LGUI  LCtl& | LSft& +LCtl&LSft LGUI   RAlt
            LSft         LAlt  | LAlt  &LAlt                                    
            +xxx         +xxx  | +xxx  +xxx
