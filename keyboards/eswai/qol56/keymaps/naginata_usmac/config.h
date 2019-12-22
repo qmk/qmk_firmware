@@ -17,23 +17,24 @@
 #pragma once
 
 #undef PRODUCT
-#define PRODUCT         Anhedral67 Naginata Style
+#define PRODUCT         QOL56 Naginata Style
 
 // 薙刀式
-#define NAGINATA_JDOUJI // 順序つきの同時押しに対応する
-#define NAGINATA_TATEGAKI
-// #define NAGINATA_YOKOGAKI
 // #define DEUCALYN
-#define DQGMLWY
-// #define DQGMLWB
-// #define DWORKMAN
-#define NAGINATA_EDIT_WIN // JP106
-// #define NAGINATA_EDIT_MAC // US101
+// #define DEUCALYNKAI
+#define DWORKMAN
+// #define NAGINATA_EDIT_WIN
+#define NAGINATA_EDIT_MAC
 #define COMBO_COUNT 10
-#define COMBO_TERM 50
+#define COMBO_TERM 300
 // 薙刀式
 
-// #define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 150
+#define TAPPING_FORCE_HOLD
+#define TAPPING_TERM 300
 #define PERMISSIVE_HOLD
-#define RETRO_TAPPING
+#define TAPPING_TOGGLE 2
+
+// #define RGBLIGHT_EFFECT_BREATHING
+// #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+// #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+// #define RGBLIGHT_EFFECT_KNIGHT
