@@ -4,7 +4,7 @@
 /* Adapted from https://github.com/gamazeps/ws2812b-chibios-SPIDMA/ */
 
 #ifdef RGBW
-#    error("NOT SUPPORTED")
+#    error "RGBW not supported"
 #endif
 
 // Define the spi your LEDs are plugged to here
