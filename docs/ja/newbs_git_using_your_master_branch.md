@@ -24,7 +24,7 @@ git remote add upstream https://github.com/qmk/qmk_firmware.git
 QMK のリモートリポジトリには、あなたにとって分かりやすい名前を付けることができます。
 Git の `remote` コマンドは、構文 `git remote add <name> <url>` を使用します。
 `<name>` はリモートリポジトリの省略形としてあなたが指定するものです。
-この名前は、`fetch`、`pull`、`push` などの多くの Git コマンドで、リモートリポジトリを指定するために使用できます。
+この名前は、`fetch`、`pull`、`push` やそれ以外の多くの Git コマンドで、対象のリモートリポジトリを指定するために使用されます。
 
 リポジトリが追加されたことを確認するには、`git remote -v` を実行します。
 次のように表示されます。
