@@ -31,9 +31,9 @@
 #define ConnectionUpdateInterval 1000 /* milliseconds */
 
 #ifdef SAMPLE_BATTERY
-#ifndef BATTERY_LEVEL_PIN
-#    define BATTERY_LEVEL_PIN 7
-#endif
+#    ifndef BATTERY_LEVEL_PIN
+#        define BATTERY_LEVEL_PIN 7
+#    endif
 #endif
 
 static struct {

@@ -85,7 +85,7 @@ Limited experimentation on the devices I have available shows that 7 is high eno
 
 Documentation is one of the easiest ways to get started contributing to QMK. Finding places where the documentation is wrong or incomplete and fixing those is easy! We also very badly need someone to edit our documentation, so if you have editing skills but aren't sure where or how to jump in please [reach out for help](#where-can-i-go-for-help)!
 
-You'll find all our documentation in the `qmk_firmware/docs` directory, or if you'd rather use a web based workflow you can click "Suggest An Edit" at the top of each page on http://docs.qmk.fm/.
+You'll find all our documentation in the `qmk_firmware/docs` directory, or if you'd rather use a web based workflow you can click the "Edit this page" link at the bottom of each page on https://docs.qmk.fm/.
 
 When providing code examples in your documentation, try to observe naming conventions used elsewhere in the docs. For example, standardizing enums as `my_layers` or `my_keycodes` for consistency:
 
@@ -100,6 +100,18 @@ enum my_keycodes {
   SECOND_LAYER
 };
 ```
+
+### Previewing the Documentation
+
+Before opening a pull request, you can preview your changes if you have set up the development environment by running this command from the `qmk_firmware/` folder:
+
+    ./bin/qmk docs
+
+or if you only have Python 3 installed:
+
+    python3 -m http.server 8936
+
+and navigating to `http://localhost:8936/`.
 
 ## Keymaps
 
