@@ -6,7 +6,7 @@
   git diff adf4acf59 HEAD docs/newbs_git_resynchronize_a_branch.md | cat
 -->
 
-あなたの `master` ブランチに あなた自身のコミットをしたとします、そしてあなた自身の QMK リポジトリの更新が必要になったとします。
+仮にあなたの `master` ブランチにあなたのコミットを行い、そしてあなたの QMK リポジトリの更新が必要になったとします。
 (フォーク元の) QMKの `master` ブランチを `git pull` することもできますが、but GitHub will tell you that your commit is a number of commits ahead of `qmk:master`、QMK にプルリクエストを行う場合、問題が発生する可能性があります。
 
 ?> このドキュメントは [あなたのフォークの master ブランチ: 更新は頻繁に、コミットはしないこと](ja/newbs_git_using_your_master_branch.md) で詳述されている概念に基づいています。その概念に慣れていない場合は、まずそれを読んでから、ここに戻ってください。
