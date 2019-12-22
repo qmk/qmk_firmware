@@ -26,7 +26,7 @@ git branch old_master master
 
 さあ、`master` ブランチを再同期します。
 この手順では、QMK のリポジトリを git のリモートリポジトリとして設定する必要があります。
-設定済みのリモートリポジトリを確認するには、`git remote -v` を実行します、次のような結果が返されなければなりません。
+設定済みのリモートリポジトリを確認するには、`git remote -v` を実行し、次のような結果が返されなければなりません。
 
 ```sh
 QMKuser ~/qmk_firmware (master)
