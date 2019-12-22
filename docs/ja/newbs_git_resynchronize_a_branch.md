@@ -65,7 +65,7 @@ Now that you have both remotes configured, you need to update the references for
 git fetch upstream
 ```
 
-この時点で、次を実行してあなたの(訳注：master)ブランチを QMK に再同期します。
+この時点で、次を実行してあなたの(訳注：master)ブランチを QMK のブランチに再同期します。
 (訳注： 今現在 `master` ブランチがチェックアウトされていなければなりません。
  そうなってなければ、`git checkout master` を先に実行しておく必要があります。)
 
