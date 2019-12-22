@@ -14,11 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Sendstring lookup tables for Turkish layouts
+// Sendstring lookup tables for Turkish Q layouts
 
 #pragma once
 
-#include "keymap_turkish.h"
+#include "keymap_turkish_q.h"
 
 // clang-format off
 
@@ -35,7 +35,7 @@ const bool ascii_to_shift_lut[128] PROGMEM = {
     0, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 0, 0, 0, 0, 1,
+    1, 1, 1, 0, 0, 0, 1, 1,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -87,7 +87,7 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // P     Q        R        S        T        U        V        W
     TR_P,    TR_Q,    TR_R,    TR_S,    TR_T,    TR_U,    TR_V,    TR_W,
     // X     Y        Z        [        \        ]        ^        _
-    TR_X,    TR_Y,    TR_Z,    TR_8,    TR_ASTR, TR_9,    TR_6,    TR_MINS,
+    TR_X,    TR_Y,    TR_Z,    TR_8,    TR_ASTR, TR_9,    TR_3,    TR_MINS,
     // `     a        b        c        d        e        f        g
     TR_COMM, TR_A,    TR_B,    TR_C,    TR_D,    TR_E,    TR_F,    TR_G,
     // h     i        j        k        l        m        n        o
@@ -95,5 +95,5 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // p     q        r        s        t        u        v        w
     TR_P,    TR_Q,    TR_R,    TR_S,    TR_T,    TR_U,    TR_V,    TR_W,
     // x     y        z        {        |        }        ~        DEL
-    TR_X,    TR_Y,    TR_Z,    TR_7,    TR_LABK, TR_0,    TR_UDIA, KC_DEL
+    TR_X,    TR_Y,    TR_Z,    TR_7,    TR_MINS, TR_0,    TR_UDIA, KC_DEL
 };
