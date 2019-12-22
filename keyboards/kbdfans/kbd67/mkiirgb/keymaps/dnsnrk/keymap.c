@@ -30,13 +30,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				       LC_CPS,  KC_A,     KC_S,     KC_D,  KC_F,  KC_G,  KC_H,    KC_J,  KC_K,    KC_L,     KC_SCLN,  KC_QUOT,           RC_ENT,    KC_PGDN,
 				       KC_LSFT, KC_Z,     KC_X,     KC_C,  KC_V,  KC_B,  KC_N,    KC_M,  KC_COMM, KC_DOT,   KC_SLSH,  KC_RSFT,           KC_UP,     TT(2),
 				       KC_LCTL, KC_LGUI,  KC_LALT,                KC_SPC,                KC_RALT,           TT(1),    KC_LEFT,           KC_DOWN,   KC_RIGHT),
-    [_LAYER1] = LAYOUT_65_ansi_blocker( /* FN, RGB */
+    [_LAYER1] = LAYOUT_65_ansi_blocker( /* FN, RGB Controls */
 				       KC_GRV,   KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_POWER,
-				       _______,  RGB_TOG,  RGB_SPI, _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, _______, KC_INS,  KC_HOME,
+				       _______,  RGB_TOG,  RGB_SPI, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_INS,  KC_HOME,
 				       _______,  RGB_RMOD, RGB_SPD, RGB_MOD, _______, _______, _______, _______, _______, _______, _______, _______,          _______, KC_END,
 				       _______,  _______,  _______, _______, _______, _______, _______, _______, RGB_SAD, RGB_SAI, _______,          _______, RGB_VAI, _______,
 				       _______,  _______,  _______,                   _______,                   _______,          _______,          RGB_HUD, RGB_VAD, RGB_HUI),
-    [_LAYER2] = LAYOUT_65_ansi_blocker( /* Media, DFU */
+    [_LAYER2] = LAYOUT_65_ansi_blocker( /* Media, Programming */
 				       _______,  KC_BRMD, KC_BRMU, _______, _______, _______, _______, KC_MRWD, KC_MPLY, KC_MFFD, KC__MUTE,  KC_VDN,  KC_VUP, KC_EJCT, _______,
 				       _______,  _______, _______, EEP_RST, RESET,   _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______,
 				       _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,          _______, _______,
@@ -61,7 +61,7 @@ void rgb_matrix_indicators_user(void) {
 	// indicate which higher layer is currently active on which key
 	HSV hsv1 = {hsv.h - 64, hsv.s, hsv.v};
 	HSV hsv2 = {hsv.h + 64, hsv.s, hsv.v};
-	// this would kill animated LED FX otherwise
+	// except when we are in any animated LED mode
 	if (rgb_matrix_config.mode < RGB_MATRIX_BREATHING || rgb_matrix_config.mode > RGB_MATRIX_JELLYBEAN_RAINDROPS) {
 	    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
 		for (uint8_t col = 0; col < MATRIX_COLS; col++) {
