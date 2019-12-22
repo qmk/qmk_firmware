@@ -4,7 +4,7 @@
 
 A Split keyboard co-designed with Cable Car designs 
 
-Keyboard Maintainer: [Yiancar-Designs](https://github.com/yiancar)  
+* Keyboard Maintainer: [Yiancar-Designs](https://github.com/yiancar)  
 Hardware Supported: The specific set of pcbs which use 2 ATMEGA-32u4  
 Hardware Availability: Contact Noahf#2971 on discord!
 
