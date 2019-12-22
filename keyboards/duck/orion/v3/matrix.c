@@ -14,13 +14,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <util/delay.h>
-#include <avr/io.h>
-#include <stdio.h>
-#include "matrix.h"
-#include "util.h"
-#include "print.h"
-#include "debug.h"
+#include "quantum.h"
 
 static uint8_t debouncing = DEBOUNCE;
 
