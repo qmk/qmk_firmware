@@ -9,7 +9,7 @@
 #define MODS_ALT  (get_mods() & MOD_MASK_ALT)
 
 #define PERMISSIVE_HOLD
-#define TAPPING_TERM 250https://i.imgur.com/IaS0nAB.pnghttps://i.imgur.com/IaS0nAB.pnghttps://i.imgur.com/IaS0nAB.pnghttps://i.imgur.com/IaS0nAB.png
+#define TAPPING_TERM 250
 
 #define TAP_HOLD_CAPS_DELAY 0
 

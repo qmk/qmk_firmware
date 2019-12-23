@@ -43,7 +43,7 @@ enum ctrl_keycodes {
     ROUT_VD,                // Timeout Value Decrease. Decrease idle time out before LED disabled
     ROUT_FM,                // RGB timeout fast mode toggle
     COPY_ALL,               // Copy all text using ctrl(a+c)
-    ARROW,
+    ARROW,                  // Arrow Function shortcut
     TERMINAL,
 };
 
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     */
     [_KL] = LAYOUT(KC_ESC, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_PSCR, KC_SLCK, KC_PAUS, KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSPC, KC_INS, KC_HOME, KC_PGUP, KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL, KC_END, KC_PGDN, KC_CAPS, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT, KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_SFTENT, KC_UP, TD(TD_LCTRL_TERM), TD(TD_GUI_ML), KC_LALT, KC_SPC, KC_RALT, MO(_FL), KC_APP, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT),
-    [_FL] = LAYOUT(_______, DM_PLY1, DM_PLY2, _______, _______, DM_REC1, DM_REC2, _______, _______, DM_RSTP, _______, KC_WAKE, KC_SLEP, KC_MUTE, _______, _______, _______, RGB_M_P, _______, _______, _______, _______, _______, _______, _______, ROUT_FM, ROUT_TG, ROUT_VD, ROUT_VI, _______, KC_MSTP, KC_MPLY, KC_VOLU, _______, RGB_SPD, RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, _______, U_T_AUTO, U_T_AGCR, _______, _______, _______, _______, _______, KC_MPRV, KC_MNXT, KC_VOLD, _______, RGB_RMOD, RGB_VAD, RGB_MOD, RGB_HUD, RGB_SAD, _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOG, _______, COPY_ALL, ARROW, MD_BOOT, TG_NKRO, _______, _______, _______, _______, _______, KC_BRIU, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_BRID, _______),
+    [_FL] = LAYOUT(_______, DM_PLY1, DM_PLY2, _______, _______, DM_REC1, DM_REC2, _______, _______, DM_RSTP, _______, KC_WAKE, KC_SLEP, KC_MUTE, _______, _______, _______, RGB_M_P, _______, _______, _______, _______, _______, _______, _______, ROUT_FM, ROUT_TG, ROUT_VD, ROUT_VI, _______, KC_MSTP, KC_MPLY, KC_VOLU, _______, RGB_SPD, RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, _______, U_T_AUTO, U_T_AGCR, _______, _______, _______, _______, _______, KC_MPRV, KC_MNXT, KC_VOLD, _______, RGB_RMOD, RGB_VAD, RGB_MOD, RGB_HUD, RGB_SAD, _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOG, _______, COPY_ALL, ARROW, MD_BOOT, TG_NKRO, _______, _______, _______, _______, _______, KC_BRIU, _______, _______, , _______, _______, _______, _______, _______, _______, KC_BRID, _______),
     [_ML] = LAYOUT(_______, KC_ACL0, KC_ACL1, KC_ACL2, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_BTN4, KC_BTN3, KC_BTN5, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, SEL_CPY, _______, _______, TG_NKRO, _______, _______, _______, _______, _______, _______, _______, TD(TD_GUI_ML), _______, _______, _______, _______, TG(_ML), _______, _______, _______, _______),
     /*
     [X] = LAYOUT(
@@ -227,18 +227,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING(SS_LCTRL("ac"));
             }
             return false;
+        case ARROW:_______
+            if (record->event.pressed) {
+                // when keycode ARROW is pressed
+                SEND_STRING("=>");
+            } else {
+                // when keycode ARROW is released
+            }
+            break;
+
         case SEL_CPY:
             // Select word under cursor and copy. Double mouse click then ctrl+c
             if (record->event.pressed) {
                 tap_code16(KC_BTN1);
                 tap_code16(KC_BTN1);
                 tap_code16(C(KC_C));
-            }
-            return false;
-        case ARROW:
-            if (record->event.pressed) {
-                // when keycode QMKBEST is pressed
-                SEND_STRING("=>");
             }
             return false;
         case ROUT_TG:
@@ -304,7 +307,7 @@ void rgb_matrix_indicators_user(void) {
                 _______, RGB_M_P, _______, _______,  _______, _______, _______, _______,  _______,  ROUT_FM, ROUT_TG, ROUT_VD, ROUT_VI, _______,   KC_MSTP, KC_MPLY, KC_VOLU,
                 _______, RGB_SPD, RGB_VAI, RGB_SPI,  RGB_HUI, RGB_SAI, _______, U_T_AUTO, U_T_AGCR, _______, _______, _______, _______, _______,   KC_MPRV, KC_MNXT, KC_VOLD,
                 _______, RGB_RMOD,RGB_VAD, RGB_MOD,  RGB_HUD, RGB_SAD, _______, _______,  _______,  _______, _______, _______, _______,
-                _______, RGB_TOG, _______, COPY_ALL, _______, MD_BOOT, TG_NKRO, _______,  _______,  _______, _______, _______,                              KC_BRIU,
+                _______, RGB_TOG, _______, COPY_ALL, ARROW, MD_BOOT, TG_NKRO, _______,  _______,  _______, _______ , _______,                              KC_BRIU,
                 _______, _______, _______,                    _______,                              _______, _______, _______, _______,            _______, KC_BRID, _______
                 )
                 */
@@ -314,7 +317,7 @@ void rgb_matrix_indicators_user(void) {
                 // Sleep and Wake. Color code #aeb0b0
                 rgb_matrix_set_color(11, 0xae, 0xb0, 0xb0);
                 rgb_matrix_set_color(12, 0xae, 0xb0, 0xb0);
-                // Power Control Keys. Color code #cb2f2ahttps://i.imgur.com/IaS0nAB.pnghttps://i.imgur.com/IaS0nAB.png
+                // Power Control Keys. Color code #cb2f2a
                 rgb_matrix_set_color(40, 0xcb, 0x2f, 0x2a);
                 rgb_matrix_set_color(41, 0xcb, 0x2f, 0x2a);
                 rgb_matrix_set_color(74, 0xcb, 0x2f, 0x2a);
@@ -322,11 +325,8 @@ void rgb_matrix_indicators_user(void) {
                 // Keyboard Control Keys. Color code #f4791e
                 rgb_matrix_set_color(68, 0xf4, 0x79, 0x1e);
                 rgb_matrix_set_color(69, 0xf4, 0x79, 0x1e);
-                // Copy All Key. Color Code #45b866                rgb_matrix_set_color(66, 0x45, 0xb8, 0x66);
-
+                // Copy All Key. Color Code #45b866
                 rgb_matrix_set_color(66, 0x45, 0xb8, 0x66);
-                rgb_matrix_set_color(67, 0x45, 0xb8, 0x66);
-
                 // Brightness Keys. Color code #aeb0b0
                 rgb_matrix_set_color(75, 0xae, 0xb0, 0xb0);
                 rgb_matrix_set_color(85, 0xae, 0xb0, 0xb0);

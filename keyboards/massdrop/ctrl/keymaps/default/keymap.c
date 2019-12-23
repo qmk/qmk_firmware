@@ -9,7 +9,8 @@ enum ctrl_keycodes {
     DBG_MOU,               //DEBUG Toggle Mouse Prints
     MD_BOOT,               //Restart into bootloader after hold timeout
 };
-
+ }
+  return true;https://i.imgur.com/IaS0nAB.pnghttps://i.imgur.com/IaS0nAB.png
 keymap_config_t keymap_config;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

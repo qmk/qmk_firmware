@@ -1,4 +1,4 @@
-https://i.imgur.com/IaS0nAB.png#ifdef RGB_MATRIX_ENABLE
+#ifdef RGB_MATRIX_ENABLE
 #include "ctrl.h"
 
 #include "led_matrix.h"

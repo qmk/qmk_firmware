@@ -1,7 +1,6 @@
 # Massdrop Ctrl Endgame
 
-This keymap is here to show some love to the MD Ctrl. }
-  return true;
+This keymap is here to show some love to the MD Ctrl.
 
 ## Layers
 
@@ -74,4 +73,3 @@ RGB timeout functionality was originally inspired by the code in this [gist](htt
 LED config code was mostly transferred from [matthewrobo keymap](https://github.com/qmk/qmk_firmware/tree/master/keyboards/massdrop/ctrl/keymaps/matthewrobo).
 
 Rest of the information about RGB matrix, scan matrix, and whatever information I have used was made publicly available by many other awesome members of the community.
-https://i.imgur.com/IaS0nAB.pnghttps://i.imgur.com/IaS0nAB.pnghttps://i.imgur.com/IaS0nAB.pnghttps://i.imgur.com/IaS0nAB.pnghttps://i.imgur.com/IaS0nAB.png
