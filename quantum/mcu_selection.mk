@@ -19,7 +19,7 @@ ifneq ($(findstring STM32F303, $(MCU)),)
   BOARD ?= GENERIC_STM32_F303XC
 
   # Cortex version
-  MCU ?= cortex-m4
+  MCU = cortex-m4
 
   # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
   ARMV ?= 7
@@ -51,7 +51,7 @@ ifneq ($(findstring STM32F072, $(MCU)),)
   BOARD ?= ST_STM32F072B_DISCOVERY
 
   # Cortex version
-  MCU ?= cortex-m0
+  MCU = cortex-m0
 
   # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
   ARMV ?= 6
@@ -83,7 +83,7 @@ ifneq ($(findstring STM32F042, $(MCU)),)
   BOARD ?= GENERIC_STM32_F042X6
 
   # Cortex version
-  MCU ?= cortex-m0
+  MCU = cortex-m0
 
   # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
   ARMV ?= 6
@@ -115,7 +115,7 @@ ifneq ($(findstring STM32F103, $(MCU)),)
   BOARD ?= GENERIC_STM32_F103
 
   # Cortex version
-  MCU ?= cortex-m3
+  MCU = cortex-m3
 
   # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
   ARMV ?= 7
