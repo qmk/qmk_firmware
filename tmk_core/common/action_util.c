@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_layer.h"
 #include "timer.h"
 #include "keycode_config.h"
-#include <quantum_keycodes.h>
 #include <quantum/quantum.h>
 
 extern keymap_config_t keymap_config;
