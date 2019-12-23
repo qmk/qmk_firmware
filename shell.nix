@@ -1,4 +1,11 @@
-{ avr ? true, arm ? true, teensy ? true }:
+let
+  nixpkgs-pinned = builtins.fetchTarball {
+    url = "https://github.com/NixOS/nixpkgs/archive/0260747427737b980f0.tar.gz";
+    sha256 = "1p2yc6b40xvvxvmlqd9wb440pkrimnlc2wsbpa5rddlpx1dn8qmf";
+  };
+in
+
+{ avr ? true, arm ? true, teensy ? true, nixpkgs ? nixpkgs-pinned }:
 
 let
   overlay = self: super:
@@ -17,11 +24,6 @@ let
         };
       });
     };
-
-  nixpkgs = builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/0260747427737b980f0.tar.gz";
-    sha256 = "1p2yc6b40xvvxvmlqd9wb440pkrimnlc2wsbpa5rddlpx1dn8qmf";
-  };
 
   pkgs = import nixpkgs { overlays = [ overlay ]; };
 in
