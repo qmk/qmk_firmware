@@ -160,6 +160,9 @@ static void print_version(void) {
     print("BUILD:  (" __DATE__ ")\n");
 #else
     print("BUILD: " STR(QMK_VERSION) " (" __TIME__ " " __DATE__ ")\n");
+#    ifdef PROTOCOL_CHIBIOS
+    print("CHIBIOS: " STR(CHIBIOS_VERSION) ", CONTRIB: " STR(CHIBIOS_CONTRIB_VERSION) "\n");
+#    endif
 #endif
 
     /* build options */
