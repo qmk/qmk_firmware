@@ -60,7 +60,7 @@ void indicator_init_ports(void) {
   setPinOutput(B0); 
 
   // Scroll Lock
- setPinOutput(D7); 
+  setPinOutput(D7); 
 }
 
 void matrix_init(void) {
