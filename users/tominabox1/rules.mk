@@ -53,3 +53,17 @@ COMBO_ENABLE = yes
 SRC += tominabox1.c
 BOOTLOADER = halfkay
 endif
+
+ifeq ($(strip $(KEYBOARD)), treadstone32)
+RGBLIGHT_ENABLE = yes  # LED underglow (Enable WS2812 RGB underlight.)
+LED_ANIMATIONS = yes        # LED animations
+TAP_DANCE_ENABLE = yes
+COMBO_ENABLE = yes
+
+ifeq ($(strip $(LED_ANIMATIONS)), yes)
+    # OPT_DEFS += -DRGBLIGHT_ANIMATIONS
+    OPT_DEFS += -DLED_ANIMATIONS
+endif
+
+SRC += tominabox1.c
+endif

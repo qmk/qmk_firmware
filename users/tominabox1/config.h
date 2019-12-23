@@ -4,11 +4,30 @@
 #define TAPPING_TERM_PER_KEY
 #define TAPPING_TERM 200
 #define IGNORE_MOD_TAP_INTERRUPT
+//#define TAPPING_LAYER_TERM 150 // Custom LT Tapping term
 
 // Combos
-#ifndef KEYBOARD_thevankeyboards_roadkit // Combo settings for NOT roadkit - roadkit defined in keymap folder
-#define COMBO_COUNT 7
-#define COMBO_TERM 80
+#if defined(KEYBOARD_thevankeyboards_roadkit)
+  #define COMBO_COUNT 7
+  #define COMBO_TERM 75
+#else //everything else
+  #define COMBO_COUNT 10
+  #define COMBO_TERM 80
+#endif
+
+#ifdef KEYBOARD_treadstone32
+// Selection of RGBLIGHT MODE to use.
+#if defined(LED_ANIMATIONS)
+   //#define RGBLIGHT_EFFECT_BREATHING
+   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+   //#define RGBLIGHT_EFFECT_SNAKE
+   #define RGBLIGHT_EFFECT_KNIGHT
+   //#define RGBLIGHT_EFFECT_CHRISTMAS
+   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+   //#define RGBLIGHT_EFFECT_RGB_TEST
+   //#define RGBLIGHT_EFFECT_ALTERNATING
+#endif
 #endif
 
 // Bootmagic

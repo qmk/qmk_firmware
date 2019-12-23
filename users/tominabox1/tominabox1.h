@@ -31,12 +31,13 @@ enum custom_keycodes {
     KC_LFT_NUM_F,
     RGBRST,
     KC_PASTA,
-	SPONGEBOB,
-	AESTHETIC
+	  SPONGEBOB,
+	  AESTHETIC
 };
 
 enum tap_dance_indexes {
     TD_TAB_ESC,
+    TD_Q_ESC,
 };
 
 #define KC_ARROW MO(4)

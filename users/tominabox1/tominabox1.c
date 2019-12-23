@@ -14,6 +14,7 @@ void dance_esc_tab_reset (qk_tap_dance_state_t *state, void *user_data) {
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_TAB_ESC] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_esc_tab, dance_esc_tab_reset),
+    [TD_Q_ESC]  = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC),
 };
 
 uint16_t get_tapping_term(uint16_t keycode) {
@@ -48,7 +49,10 @@ enum combo_events {
   CRET,
   COMBOPP,
   COMBO_NEXT,
-  COMBO_PREV
+  COMBO_PREV,
+  COMBO_BACK,
+  COMBO_ARTAB,
+  COMBO_NUMBAK
 };
 
 const uint16_t PROGMEM email[] = {KC_Q, KC_W, COMBO_END};
@@ -63,6 +67,10 @@ const uint16_t PROGMEM cret[] = {KC_QUOT, KC_O, COMBO_END};
 const uint16_t PROGMEM combo_pp[] = {KC_7, KC_9, COMBO_END};
 const uint16_t PROGMEM combo_next[] = {KC_8, KC_9, COMBO_END};
 const uint16_t PROGMEM combo_prev[] = {KC_7, KC_8, COMBO_END};
+const uint16_t PROGMEM combo_back[] = {KC_Y, KC_QUOT, COMBO_END};
+const uint16_t PROGMEM combo_artab[] = {LCTL_T(KC_A), KC_R, COMBO_END};
+const uint16_t PROGMEM combo_numbak[] = {KC_0, KC_9, COMBO_END};
+
 
 combo_t key_combos[COMBO_COUNT] = {
   [EMAIL] = COMBO_ACTION(email),
@@ -72,6 +80,9 @@ combo_t key_combos[COMBO_COUNT] = {
   [COMBOPP] = COMBO(combo_pp,KC_MPLY),
   [COMBO_NEXT] = COMBO(combo_next,KC_MNXT),
   [COMBO_PREV] = COMBO(combo_prev,KC_MPRV),
+  [COMBO_BACK] = COMBO(combo_back,KC_BSPC),
+  [COMBO_ARTAB] = COMBO(combo_artab,KC_TAB),
+  [COMBO_NUMBAK] = COMBO(combo_numbak,KC_BSPC),
 };
 
 __attribute__ ((weak))
@@ -173,5 +184,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return process_record_keymap(keycode, record);
 }
-
-
