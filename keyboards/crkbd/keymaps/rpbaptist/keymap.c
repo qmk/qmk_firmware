@@ -502,7 +502,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (!user_config.rgb_layer_change) {
                     user_config.rgb_layer_change = true;
                 }
-                user_config.rgb_matrix_idle_timeout = 5000;
+                user_config.rgb_matrix_idle_timeout = 10000;
                 rgb_matrix_update_mode(RGB_MATRIX_RAINBOW_PINWHEELS, RGB_MATRIX_ANIMATION_SPEED_SLOW, false);
             }
             return true;
