@@ -1,15 +1,13 @@
 #include QMK_KEYBOARD_H
 
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
-#define _QWERTY 0
-#define _LOWER 1
-#define _RAISE 2
-#define _NUMPAD 3
-#define _GAMING 4
-#define _ADJUST 16
+enum layer_names {
+   _QWERTY,
+   _LOWER,
+   _RAISE,
+   _NUMPAD,
+   _GAMING,
+   _ADJUST
+};
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -43,10 +41,10 @@ enum custom_keycodes {
 };
 
 enum td_extra_keys {
-  U = 0 ,
-  O = 1,
-  NEXTPREV = 2,
-  SLASH = 3
+  U,
+  O,
+  NEXTPREV,
+  SLASH
 };
 
 typedef struct {
@@ -84,10 +82,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------'                `-----------------------------------------'
  */
 [_QWERTY] = LAYOUT_ortho_4x12(
-   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINUS, \
-   KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,         KC_N,    KC_M,    KC_COMM, KC_DOT,  TD(SLASH), KC_ENT , \
-   KC_LCTL, KC_LALT, NUMPAD,  KC_LGUI, LOWER,   KC_SPC,       KC_BSPC, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
+   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINUS,
+   KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,         KC_N,    KC_M,    KC_COMM, KC_DOT,  TD(SLASH), KC_ENT,
+   KC_LCTL, KC_LALT, NUMPAD,  KC_LGUI, LOWER,   KC_SPC,       KC_BSPC, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Lower
@@ -101,11 +99,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |Insert|                |  Del |      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------'                `-----------------------------------------'
  */
-[_LOWER] = LAYOUT_ortho_4x12( \
-  KC_TILD, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC,          KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_EQL, \
-  SLIGHTLY, SMILE, JOY, RELAXED, HEART, _______,              KC_HOME, KC_PGUP, _______, KC_LCBR, KC_RCBR, KC_PIPE, \
-  SAD, CRY, NETRURAL, SCREAM, THUMBSUP, _______,              KC_END, KC_PGDOWN,_______, KC_LBRC, KC_RBRC, KC_PSCREEN, \
-  _______, _______, _______, _______, _______, KC_INSERT,     KC_DEL, _______,  TD(NEXTPREV), KC_VOLD, KC_VOLU, KC_MPLY \
+[_LOWER] = LAYOUT_ortho_4x12(
+  KC_TILD, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC,          KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_EQL,
+  SLIGHTLY, SMILE, JOY, RELAXED, HEART, _______,              KC_HOME, KC_PGUP, _______, KC_LCBR, KC_RCBR, KC_PIPE,
+  SAD, CRY, NETRURAL, SCREAM, THUMBSUP, _______,              KC_END, KC_PGDOWN,_______, KC_LBRC, KC_RBRC, KC_PSCREEN,
+  _______, _______, _______, _______, _______, KC_INSERT,     KC_DEL, _______,  TD(NEXTPREV), KC_VOLD, KC_VOLU, KC_MPLY
 ),
 
 /* Raise
@@ -119,11 +117,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |                |      |      |      |      |      |      |
  * `-----------------------------------------'                `-----------------------------------------'
  */
-[_RAISE] = LAYOUT_ortho_4x12( \
-  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL, \
-  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,         KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
-  _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______,\
-  _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______ \
+[_RAISE] = LAYOUT_ortho_4x12(
+  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL,
+  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,         KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
+  _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______
 ),
 
 /* Adjust (Lower + Raise)
@@ -137,11 +135,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | TGLAS|      |      |      |      |      |                |      |      |      |      |      |GAMING|
  * `-----------------------------------------'                `-----------------------------------------'
  */
-[_ADJUST] =  LAYOUT_ortho_4x12( \
-  RESET,   EEP_RST, _______, EE,      _______, _______,       _______, TD(U),   IE,      TD(O),   _______, _______, \
-  _______, AE,      _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______, \
-  KC_ASTG, _______, _______, _______, _______, _______,       _______, _______, _______, _______, QWERTY, GAMING   \
+[_ADJUST] =  LAYOUT_ortho_4x12(
+  RESET,   EEP_RST, _______, EE,      _______, _______,       _______, TD(U),   IE,      TD(O),   _______, _______,
+  _______, AE,      _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______,
+  KC_ASTG, _______, _______, _______, _______, _______,       _______, _______, _______, _______, QWERTY, GAMING
 ),
 
 /* Numpad
@@ -155,11 +153,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |RGBMPR|RGBMFW|RGBTGL|               | Calc |   0  |   +  |      |      |      |
  * `-----------------------------------------'               `-----------------------------------------'
  */
-[_NUMPAD] = LAYOUT_ortho_4x12( \
-  _______, _______, _______, _______, _______, _______,       KC_7,    KC_8,   KC_9,    _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______,       KC_4,    KC_5,   KC_6,    _______, _______, _______, \
-  VAI_NEE, VAD_NEE, SAI_NEE, SAD_NEE, HUI_NEE, HUD_NEE,       KC_1,    KC_2,   KC_3,    _______, _______, _______, \
-  _______, _______, _______, RGB_PRE, RGB_ANM, TOG_NEE,       KC_CALC, KC_0,   KC_PPLS, _______, _______, _______  \
+[_NUMPAD] = LAYOUT_ortho_4x12(
+  _______, _______, _______, _______, _______, _______,       KC_7,    KC_8,   KC_9,    _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,       KC_4,    KC_5,   KC_6,    _______, _______, _______,
+  VAI_NEE, VAD_NEE, SAI_NEE, SAD_NEE, HUI_NEE, HUD_NEE,       KC_1,    KC_2,   KC_3,    _______, _______, _______,
+  _______, _______, _______, RGB_PRE, RGB_ANM, TOG_NEE,       KC_CALC, KC_0,   KC_PPLS, _______, _______, _______
 ),
 
 /* Gaming
@@ -174,16 +172,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------'               `-----------------------------------------'
  */
 [_GAMING] = LAYOUT_ortho_4x12(
-  _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, RAISE,   _______,       _______, LOWER,   _______, _______, _______, _______  \
+  _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, RAISE,   _______,       _______, LOWER,   _______, _______, _______, _______
 )};
-
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -191,7 +184,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
 	rgb_mode = RGBLIGHT_MODE_BREATHING + 1;
 	autoshift_enable();
-        persistent_default_layer_set(1UL<<_QWERTY);
+        set_single_persistent_default_layer(_QWERTY);
       }
       return false;
       break;
