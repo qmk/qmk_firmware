@@ -121,11 +121,6 @@ ifneq ($(findstring STM32F103, $(MCU)),)
 
   USE_FPU ?= no
 
-  # Vector table for application
-  # 0x00000000-0x00001000 area is occupied by bootloader.*/
-  # The CORTEX_VTOR... is needed only for MCHCK/Infinity KB
-  # OPT_DEFS = -DCORTEX_VTOR_INIT=0x08005000
-
   # Options to pass to dfu-util when flashing
   DFU_ARGS ?= -d 0483:df11 -a 0 -s 0x08000000:leave
   DFU_SUFFIX_ARGS ?= -p DF11 -v 0483
