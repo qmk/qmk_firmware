@@ -101,6 +101,7 @@
   * [Hand Wiring Guide](hand_wire.md)
   * [ISP Flashing Guide](isp_flashing_guide.md)
   * [ARM Debugging Guide](arm_debugging.md)
+  * [ADC Driver](adc_driver.md)
   * [I2C Driver](i2c_driver.md)
   * [WS2812 Driver](ws2812_driver.md)
   * [GPIO Controls](internals_gpio_control.md)
