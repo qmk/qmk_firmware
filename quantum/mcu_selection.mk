@@ -23,7 +23,6 @@ ifneq ($(findstring STM32F303, $(MCU)),)
 
   # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
   ARMV ?= 7
-
   USE_FPU ?= yes
 
   # Options to pass to dfu-util when flashing
@@ -56,6 +55,7 @@ ifneq ($(findstring STM32F072, $(MCU)),)
 
   # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
   ARMV ?= 6
+  USE_FPU ?= no
 
   # Options to pass to dfu-util when flashing
   DFU_ARGS ?= -d 0483:df11 -a 0 -s 0x08000000:leave
@@ -87,6 +87,7 @@ ifneq ($(findstring STM32F042, $(MCU)),)
 
   # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
   ARMV ?= 6
+  USE_FPU ?= no
 
   # Options to pass to dfu-util when flashing
   DFU_ARGS ?= -d 0483:df11 -a 0 -s 0x08000000:leave
@@ -118,7 +119,6 @@ ifneq ($(findstring STM32F103, $(MCU)),)
 
   # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
   ARMV ?= 7
-
   USE_FPU ?= no
 
   # Options to pass to dfu-util when flashing
