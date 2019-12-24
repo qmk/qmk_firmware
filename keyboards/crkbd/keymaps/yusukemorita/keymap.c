@@ -32,11 +32,12 @@ enum custom_keycodes {
   RAISE,
   ADJUST,
   BACKLIT,
-  RGBRST
+  RGBRST,
+  KC_ESCAPE_AND_ENGLISH
 };
 
 enum macro_keycodes {
-  ESCAPE_AND_ENGLISH
+  KC_SAMPLEMACRO,
 };
 
 #define KC______ KC_TRNS
@@ -78,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LSFT,    F1,    F2,    F3,    F4,    F5,                     F6,    F7,    F8,    F9,   F10, XXXXX,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  GUIEI, LOWER,   SPC,      ESC, RAISE, ALTKN \
+                                  GUIEI, LOWER,   SPC,   ESCAPE_AND_ENGLISH, RAISE, ALTKN \
                               //`--------------------'  `--------------------'
   ),
 
@@ -183,7 +184,7 @@ void iota_gfx_task_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch(keycode) {
-    case ESCAPE_AND_ENGLISH:
+    case KC_ESCAPE_AND_ENGLISH:
       if (record->event.pressed) {
         SEND_STRING(SS_TAP(X_ESCAPE)SS_TAP(X_LANG1));
       }
