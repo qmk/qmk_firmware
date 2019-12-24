@@ -71,11 +71,11 @@ def test_list_keymaps_long():
     assert 'planck/ez:default' and 'planck/ez:drashna' in result.stdout
 
 
-# def test_list_keymaps_kb_only():
-#     # check keyboard param
-#     result = check_subcommand('list-keymaps', '-kb', 'niu_mini')
-#     assert result.returncode == 0
-#     assert 'niu_mini:default' in result.stdout
+def test_list_keymaps_kb_only():
+    # check keyboard param
+    result = check_subcommand('list-keymaps', '-kb', 'niu_mini')
+    assert result.returncode == 0
+    assert 'niu_mini:default' in result.stdout
 
 
 # def test_list_keymaps_vendor_kb():
