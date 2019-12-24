@@ -224,6 +224,8 @@ void oled_write_raw_P(const char *data, uint16_t size);
 // Advances the cursor while writing, inverts the pixels if true
 // Advances the cursor to the next page, wiring ' ' to the remainder of the current page
 #    define oled_write_ln_P(data, invert) oled_write(data, invert)
+
+#    define oled_write_raw_P(data, size) oled_write_raw(data, size)
 #endif  // defined(__AVR__)
 
 // Can be used to manually turn on the screen if it is off
