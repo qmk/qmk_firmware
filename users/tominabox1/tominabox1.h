@@ -38,6 +38,16 @@ enum custom_keycodes {
 enum tap_dance_indexes {
     TD_TAB_ESC,
     TD_Q_ESC,
+    TD_QUES_ENT,
+    TD_SPC_SHFT,
+    TD_CTRL_Z,
+    TD_CTRL_Y,
+    TD_CTRL_C,
+    TD_CTRL_V,
+    TD_CTRL_A,
+    TD_P_BSLS,
+    TD_QUOTE,
+    TD_SDCOL
 };
 
 #define KC_ARROW MO(4)

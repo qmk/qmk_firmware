@@ -35,4 +35,4 @@
 #define RGBLIGHT_VAL_STEP 8
 
 #undef COMBO_COUNT
-#define COMBO_COUNT 6
+#define COMBO_COUNT 10

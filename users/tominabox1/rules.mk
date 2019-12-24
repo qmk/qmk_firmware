@@ -68,7 +68,7 @@ endif
 SRC += tominabox1.c
 endif
 
-ifreq ($(strip $(KEYBOARD)), handwired/postageboard/mini)
+ifeq ($(strip $(KEYBOARD)), handwired/postageboard/mini)
 TAP_DANCE_ENABLE = yes
 COMBO_ENABLE = yes
 SRC += tominabox1.c
