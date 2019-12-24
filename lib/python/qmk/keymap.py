@@ -1,8 +1,8 @@
 """Functions that help you work with QMK keymaps.
 """
 import os
-
 import qmk.path
+import qmk.makefile
 
 # The `keymap.c` template to use when a keyboard doesn't have its own
 DEFAULT_KEYMAP_C = """#include QMK_KEYBOARD_H
@@ -94,3 +94,52 @@ def write(keyboard, keymap, layout, layers):
         keymap_fd.write(keymap_c)
 
     return keymap_file
+
+
+def list_keymaps(kb_name):
+    """ List the available keymaps for a keyboard.
+
+    Args:
+        kb_name: the keyboards full name with vendor and revision if necessary, example: clueboard/66/rev3
+
+    Returns:
+        a set with the names of the available keymaps
+    """
+    # Parse all the rules.mk files for the keyboard
+    rules_mk = qmk.makefile.get_rules_mk(kb_name)
+
+    if rules_mk:
+        # Start in qmk_firmware/keyboards
+        keyboards_dir = os.path.join(os.getcwd(), "keyboards")
+        # Find the path to the keyboard's directory
+        kb_path = os.path.join(keyboards_dir, kb_name)
+
+        # Traverse the directory tree until keyboards_dir
+        # and collect all directories that contain keymap.c files.
+        names = set()
+        while kb_path != keyboards_dir:
+            keymaps_dir = os.path.join(kb_path, "keymaps")
+            names.update(union_keymaps(keymaps_dir))
+            kb_path = os.path.dirname(kb_path)
+
+        # If community layouts are supported, get them
+        if "LAYOUTS" in rules_mk:
+            for layout in rules_mk["LAYOUTS"].split():
+                cl_path = os.path.join(os.getcwd(), "layouts", "community", layout)
+                names.update(union_keymaps(cl_path))
+    return sorted(names)
+
+
+def union_keymaps(path):
+    """ Return the set of all of the keymaps in the given directory
+
+    Args:
+        path: The directory to be searched
+
+    Returns:
+        A set of the keymaps in the directory, if any
+    """
+    output = set()
+    if os.path.exists(path):
+        output.update([keymap for keymap in os.listdir(path) if os.path.isfile(os.path.join(path, keymap, 'keymap.c'))])
+    return output

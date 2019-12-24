@@ -33,3 +33,14 @@ def normpath(path):
         return os.path.normpath(path)
 
     return os.path.normpath(os.path.join(os.environ['ORIG_CWD'], path))
+
+
+def file_lines(filepath):
+    """ Return a file's contents line by line
+    Args:
+        filepath: The path to the file
+    Returns:
+        a list of the lines in the file
+    """
+    with open(filepath, 'r') as fd:
+        return fd.readlines()

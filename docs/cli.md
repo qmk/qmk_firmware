@@ -191,6 +191,20 @@ This command lists all the keyboards currently defined in `qmk_firmware`
 qmk list-keyboards
 ```
 
+## `qmk list-keymaps`
+
+This command lists all the keymaps for a specified keyboard (vendor\keyboard\revision).
+
+**Usage**:
+```
+qmk list-keymaps [-kb|--keyboard] <keyboard>         
+
+Examples:
+qmk list-keymaps --keyboard ergodox_ez                  # keyboard
+qmk list-keymaps --keyboard ai03\lunar                  # vendor\keyboard
+qmk list-keymaps --keyboard kbdfans\kbd67\mkii_soldered # vendor\keyboard\revision
+```
+
 ## `qmk new-keymap`
 
 This command creates a new keymap based on a keyboard's existing default keymap.
