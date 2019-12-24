@@ -237,7 +237,7 @@ Remarks. This layer is seamlessly activated with 'descramble'
                                         <|>      -*-                                   //(toggle) on _FUN
      BASE  „“    ”     ¤£    ∅ ¢   ±ƒ    | ❦♥    🙂🙁  👍👎   ⁽₍    ⁾₎    Bspc
      LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
-     LSft 「     」    °〇   •§    …·    | ⮘⮙    ⮚⮛    ¿¡    《     》    RSft
+     LSft 「─    」━   °〇   •§    …·    | ⮘⮙    ⮚⮛    ¿¡    《┄    》┅   RSft
      ---------------------------------------------
      LAlt xxx   RGUI  Ent  | Spc   xxx   LGUI  ___
                           <|>                  -*-                                       //(hold) on BASE
