@@ -92,8 +92,8 @@ def test_list_keymaps_vendor_kb_rev():
     assert 'kbdfans/kbd67/mkiirgb/v2:default' and 'kbdfans/kbd67/mkiirgb/v2:kemmeldev' in result.stdout
 
 
-# def test_list_keymaps_no_such_keyboard():
-#     # check keyboard does not exist
-#     result = check_subcommand('list-keymaps', '-kb', 'thiskeyboard/does/not/exist')
-#     assert result.returncode == 0
-#     assert 'does not exist' in result.stdout
+def test_list_keymaps_no_such_keyboard():
+    # check keyboard does not exist
+    result = check_subcommand('list-keymaps', '-kb', 'thiskeyboard/does/not/exist')
+    assert result.returncode == 0
+    assert 'does not exist' in result.stdout
