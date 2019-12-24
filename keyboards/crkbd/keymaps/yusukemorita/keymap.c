@@ -186,7 +186,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch(keycode) {
     case KC_ESCAPE_AND_ENGLISH:
       if (record->event.pressed) {
-        SEND_STRING(SS_TAP(X_ESCAPE)SS_TAP(X_LANG1));
+        SEND_STRING(SS_TAP(X_ESCAPE)SS_TAP(X_LANG2));
       }
       break;
 #ifdef SSD1306OLED
