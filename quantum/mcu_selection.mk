@@ -1,9 +1,15 @@
 ifneq ($(findstring STM32F303, $(MCU)),)
+  # Cortex version
+  MCU = cortex-m4
+
+  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+  ARMV = 7
+
   ## chip/board settings
   # - the next two should match the directories in
   #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
-  MCU_FAMILY ?= STM32
-  MCU_SERIES ?= STM32F3xx
+  MCU_FAMILY = STM32
+  MCU_SERIES = STM32F3xx
 
   # Linker script to use
   # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
@@ -18,11 +24,6 @@ ifneq ($(findstring STM32F303, $(MCU)),)
   # <keyboard_dir>/boards/, or drivers/boards/
   BOARD ?= GENERIC_STM32_F303XC
 
-  # Cortex version
-  MCU = cortex-m4
-
-  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
-  ARMV ?= 7
   USE_FPU ?= yes
 
   # Options to pass to dfu-util when flashing
@@ -31,11 +32,17 @@ ifneq ($(findstring STM32F303, $(MCU)),)
 endif
 
 ifneq ($(findstring STM32F072, $(MCU)),)
+  # Cortex version
+  MCU = cortex-m0
+
+  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+  ARMV = 6
+
   ## chip/board settings
   # - the next two should match the directories in
   #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
-  MCU_FAMILY ?= STM32
-  MCU_SERIES ?= STM32F0xx
+  MCU_FAMILY = STM32
+  MCU_SERIES = STM32F0xx
 
   # Linker script to use
   # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
@@ -50,11 +57,6 @@ ifneq ($(findstring STM32F072, $(MCU)),)
   # <keyboard_dir>/boards/, or drivers/boards/
   BOARD ?= ST_STM32F072B_DISCOVERY
 
-  # Cortex version
-  MCU = cortex-m0
-
-  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
-  ARMV ?= 6
   USE_FPU ?= no
 
   # Options to pass to dfu-util when flashing
@@ -63,11 +65,17 @@ ifneq ($(findstring STM32F072, $(MCU)),)
 endif
 
 ifneq ($(findstring STM32F042, $(MCU)),)
+  # Cortex version
+  MCU = cortex-m0
+
+  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+  ARMV = 6
+
   ## chip/board settings
   # - the next two should match the directories in
   #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
-  MCU_FAMILY ?= STM32
-  MCU_SERIES ?= STM32F0xx
+  MCU_FAMILY = STM32
+  MCU_SERIES = STM32F0xx
 
   # Linker script to use
   # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
@@ -82,11 +90,6 @@ ifneq ($(findstring STM32F042, $(MCU)),)
   # <keyboard_dir>/boards/, or drivers/boards/
   BOARD ?= GENERIC_STM32_F042X6
 
-  # Cortex version
-  MCU = cortex-m0
-
-  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
-  ARMV ?= 6
   USE_FPU ?= no
 
   # Options to pass to dfu-util when flashing
@@ -95,11 +98,17 @@ ifneq ($(findstring STM32F042, $(MCU)),)
 endif
 
 ifneq ($(findstring STM32F103, $(MCU)),)
+  # Cortex version
+  MCU = cortex-m3
+
+  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+  ARMV = 7
+
   ## chip/board settings
   # - the next two should match the directories in
   #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
-  MCU_FAMILY ?= STM32
-  MCU_SERIES ?= STM32F1xx
+  MCU_FAMILY = STM32
+  MCU_SERIES = STM32F1xx
 
   # Linker script to use
   # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
@@ -114,11 +123,6 @@ ifneq ($(findstring STM32F103, $(MCU)),)
   # <keyboard_dir>/boards/, or drivers/boards/
   BOARD ?= GENERIC_STM32_F103
 
-  # Cortex version
-  MCU = cortex-m3
-
-  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
-  ARMV ?= 7
   USE_FPU ?= no
 
   # Options to pass to dfu-util when flashing
