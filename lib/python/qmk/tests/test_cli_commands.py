@@ -81,9 +81,11 @@ def test_list_keymaps_kb_only():
 def test_list_keymaps_vendor_kb():
     # check vendor/keyboard param
     result = check_subcommand('list-keymaps', '-kb', 'ai03/lunar')
-    print('result return code: ' + result.returncode)
+    print('result return code: \n')
+    print(result.returncode)
     assert result.returncode == 0
-    print('result return value: ' + result.stdout)
+    print('result return value: \n')
+    print(result.stdout)
     assert 'ai03/lunar:default' and 'ai03/lunar:via' in result.stdout
 
 
