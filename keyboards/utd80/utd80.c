@@ -15,27 +15,14 @@ void matrix_scan_kb(void) {
 };
 
 void led_init_ports(void) {
-    DDRB |= (1<<5) | (1<<6); // OUT
+   setPinOutput(B5);
+   setPinOutput(B6);
 }
 
-void led_set_kb(uint8_t usb_led) {
-    if (usb_led & (1<<USB_LED_CAPS_LOCK))
-    {
-        PORTB |= (1<<6); // HI
+bool led_update_kb(led_t led_state) {
+    if(led_update_user(led_state)) {
+        writePin(B6, led_state.caps_lock);
+        writePin(B5, led_state.scroll_lock);
     }
-    else
-    {
-        PORTB &= ~(1<<6); // LO
-    }
-
-    if (usb_led & (1<<USB_LED_SCROLL_LOCK))
-    {
-        PORTB |= (1<<5); // HI
-    }
-    else
-    {
-        PORTB &= ~(1<<5); // LO
-    }
-
-    led_set_user(usb_led);
+    return true;
 }
