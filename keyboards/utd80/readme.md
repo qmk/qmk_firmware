@@ -5,7 +5,7 @@ A 80% replacement PCB for OTD keyboards.
 ![UTD80 PCB](https://i.imgur.com/U0X8XmA.jpg)
 
 
-* Keyboard Maintainer: [UTDKeyboard](https://github.com/utdkeyboard)  
+* Keyboard Maintainer: [UTDKeyboard](https://github.com/utdkeyboard)
 * Hardware Supported: OTD TKL keyboard  
 * Hardware Availability: TaoBao
 
