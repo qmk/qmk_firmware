@@ -11,7 +11,6 @@
 #define LT4_TAB LT(4, KC_TAB)
 #define LT1_ENT LT(1, KC_ENTER)
 #define LT2_BSP LT(2, KC_BSPC)
-#define D_NAVI MT(MOD_LCTL | MOD_LSFT, KC_D)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LAYOUT( /* qwerty */

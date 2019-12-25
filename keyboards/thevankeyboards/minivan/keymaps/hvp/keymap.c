@@ -12,7 +12,6 @@
 
 #define LT4_TAB LT(_L4, KC_TAB)
 #define LT3_ESC LT(_L3, KC_ESC)
-#define D_NAVI MT(MOD_LCTL | MOD_LSFT, KC_D)
 
 enum custom_keycodes {
   QW = SAFE_RANGE,

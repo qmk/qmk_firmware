@@ -24,7 +24,6 @@ extern uint8_t is_master;
 #define _RAISE 2
 #define _ADJUST 3
 #define _NAVI 4
-#define D_NAVI MT(MOD_LCTL | MOD_LSFT, KC_D)
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,

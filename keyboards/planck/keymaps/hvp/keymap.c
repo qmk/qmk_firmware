@@ -37,7 +37,6 @@ enum planck_keycodes {
 #define _LOWER 2
 #define _NAVI 3
 #define _ADJUST 5
-#define D_NAVI MT(MOD_LCTL | MOD_LSFT, KC_D)
 
 #define LT3_ESC LT(3, KC_ESC)
 #define LT4_TAB LT(5, KC_TAB)

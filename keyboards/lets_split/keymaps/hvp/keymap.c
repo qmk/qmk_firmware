@@ -23,7 +23,6 @@ enum custom_keycodes {
 #define LT3_ESC LT(5, KC_ESC)
 #define LT4_TAB LT(6, KC_TAB)
 #define F_NAVI LT(5, KC_F)
-#define D_NAVI MT(MOD_LCTL | MOD_LSFT, KC_D)
 
 
 
