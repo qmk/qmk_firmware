@@ -7,7 +7,7 @@ A 80% replacement PCB for OTD keyboards.
 
 * Keyboard Maintainer: [UTDKeyboard](https://github.com/utdkeyboard)  
 * Hardware Supported: OTD TKL keyboard  
-Hardware Availability: TaoBao
+* Hardware Availability: TaoBao
 
 Make example for this keyboard (after setting up your build environment):
 
