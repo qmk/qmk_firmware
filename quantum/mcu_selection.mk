@@ -28,7 +28,7 @@ ifneq ($(findstring STM32F303, $(MCU)),)
 
   # Options to pass to dfu-util when flashing
   DFU_ARGS ?= -d 0483:df11 -a 0 -s 0x08000000:leave
-  DFU_SUFFIX_ARGS ?= -p DF11 -v 0483
+  DFU_SUFFIX_ARGS ?= -v 0483 -p df11
 endif
 
 ifneq ($(findstring STM32F072, $(MCU)),)
@@ -61,7 +61,7 @@ ifneq ($(findstring STM32F072, $(MCU)),)
 
   # Options to pass to dfu-util when flashing
   DFU_ARGS ?= -d 0483:df11 -a 0 -s 0x08000000:leave
-  DFU_SUFFIX_ARGS ?= -p DF11 -v 0483
+  DFU_SUFFIX_ARGS ?= -v 0483 -p df11
 endif
 
 ifneq ($(findstring STM32F042, $(MCU)),)
@@ -94,7 +94,7 @@ ifneq ($(findstring STM32F042, $(MCU)),)
 
   # Options to pass to dfu-util when flashing
   DFU_ARGS ?= -d 0483:df11 -a 0 -s 0x08000000:leave
-  DFU_SUFFIX_ARGS ?= -p DF11 -v 0483
+  DFU_SUFFIX_ARGS ?= -v 0483 -p df11
 endif
 
 ifneq ($(findstring STM32F103, $(MCU)),)
@@ -127,7 +127,7 @@ ifneq ($(findstring STM32F103, $(MCU)),)
 
   # Options to pass to dfu-util when flashing
   DFU_ARGS ?= -d 0483:df11 -a 0 -s 0x08000000:leave
-  DFU_SUFFIX_ARGS ?= -p DF11 -v 0483
+  DFU_SUFFIX_ARGS ?= -v 0483 -p df11
 endif
 
 ifneq (,$(filter $(MCU),atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 at90usb1286))
