@@ -1,5 +1,4 @@
-K-Numpad17 
-===
+# K-Numpad17 
 <img src="https://i.imgur.com/MasSa71.jpg" alt="k-numpad" width="400"/>
 
 ### Arduino Pro Micro Pinout
@@ -20,7 +19,7 @@ Make example for this keyboard (after setting up your build environment):
 
 Bootmagic is enabled.  Press the key at (0,0) while plugging the keyboard in to jump to bootloader. This is numlock in the default keymap.
 
-Keyboard Maintainer: [Karlssn](https://github.com/Karlssn)
-Hardware: [Casefile](https://www.thingiverse.com/thing:4062409)
+* Keyboard Maintainer: [Karlssn](https://github.com/Karlssn)
+* Hardware Availability: [Casefile](https://www.thingiverse.com/thing:4062409)
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
