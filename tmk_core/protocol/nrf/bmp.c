@@ -570,6 +570,46 @@ bmp_error_t bmp_state_change_cb(bmp_api_event_t event)
   return BMP_OK;
 }
 
+#if defined(ALLOW_MSC_ROW_PIN) && defined(ALLOW_MSC_COL_PIN)
+#include "bmp_matrix.h"
+static bool checkMscDisableFlag(bmp_api_config_t const * const config)
+{
+  int8_t low_side_pin, high_side_pin;
+  if (config->matrix.diode_direction == MATRIX_COL2ROW
+    || config->matrix.diode_direction == MATRIX_COL2ROW2COL
+    || config->matrix.diode_direction == MATRIX_COL2ROW_LPME) {
+    high_side_pin = ALLOW_MSC_COL_PIN;
+    low_side_pin = ALLOW_MSC_ROW_PIN;
+  }
+  else if (config->matrix.diode_direction == MATRIX_ROW2COL
+    || config->matrix.diode_direction == MATRIX_ROW2COL2ROW
+    || config->matrix.diode_direction == MATRIX_ROW2COL_LPME) {
+    high_side_pin = ALLOW_MSC_ROW_PIN;
+    low_side_pin = ALLOW_MSC_COL_PIN;
+  }
+  else {
+    // return default value
+    return DISABLE_MSC;
+  }
+
+  setPinInput(high_side_pin);
+  setPinOd(low_side_pin);
+  writePinLow(low_side_pin);
+
+  uint8_t pin_state = readPin(high_side_pin);
+
+  writePinLow(low_side_pin);
+
+  if (pin_state == 0) {
+    // enable MSC
+    return false;
+  } else {
+    // disable MSC
+    return true;
+  }
+}
+#endif
+
 static bool has_ble = true;
 static bool has_usb = true;
 
@@ -613,7 +653,11 @@ void bmp_init()
   BMPAPI->usb.set_msc_write_cb(msc_write_callback);
   BMPAPI->app.set_state_change_cb(bmp_state_change_cb);
 
+#if defined(ALLOW_MSC_ROW_PIN) && defined(ALLOW_MSC_COL_PIN)
+  BMPAPI->usb.init(config, checkMscDisableFlag(config));
+#else
   BMPAPI->usb.init(config, DISABLE_MSC);
+#endif
   BMPAPI->ble.init(config);
 
   BMPAPI->logger.info("usb init");

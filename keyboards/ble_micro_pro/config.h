@@ -46,6 +46,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BMP_DEFAULT_MODE SINGLE
 
 /*
+ * Enable mass storage when the switch connected following pins is pushed on boot.
+ * No warranty
+*/
+// #define ALLOW_MSC_ROW_PIN 7
+// #define ALLOW_MSC_COL_PIN 20
+
+/*
  * Keyboard Matrix Assignments
  *
  * Change this to how you wired your keyboard
