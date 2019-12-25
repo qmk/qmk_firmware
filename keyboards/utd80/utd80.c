@@ -6,7 +6,7 @@ void matrix_init_kb(void) {
   // Runs once when the firmware starts up
   matrix_init_user();
   led_init_ports();
-};
+}
 
 void led_init_ports(void) {
    setPinOutput(B5);
