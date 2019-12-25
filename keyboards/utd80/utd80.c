@@ -8,12 +8,6 @@ void matrix_init_kb(void) {
   led_init_ports();
 };
 
-void matrix_scan_kb(void) {
-  // Looping keyboard code goes here
-  // This runs every cycle (a lot)
-  matrix_scan_user();
-};
-
 void led_init_ports(void) {
    setPinOutput(B5);
    setPinOutput(B6);
