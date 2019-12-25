@@ -57,6 +57,9 @@ float goodbye_song[][2] = GOODBYE_SONG;
 #    ifdef DEFAULT_LAYER_SONGS
 float default_layer_songs[][16][2] = DEFAULT_LAYER_SONGS;
 #    endif
+#    ifdef SENDSTRING_BELL
+float bell_song[][2] = SONG(TERMINAL_SOUND);
+#    endif
 #endif
 
 static void do_code16(uint16_t code, void (*f)(uint8_t)) {
@@ -470,6 +473,13 @@ void send_string_with_delay_P(const char *str, uint8_t interval) {
 }
 
 void send_char(char ascii_code) {
+#if defined(AUDIO_ENABLE) && defined(SENDSTRING_BELL)
+    if (ascii_code == '\a') { // BEL
+        PLAY_SONG(bell_song);
+        return;
+    }
+#endif
+
     uint8_t keycode    = pgm_read_byte(&ascii_to_keycode_lut[(uint8_t)ascii_code]);
     bool    is_shifted = pgm_read_byte(&ascii_to_shift_lut[(uint8_t)ascii_code]);
     bool    is_altgred = pgm_read_byte(&ascii_to_altgr_lut[(uint8_t)ascii_code]);
