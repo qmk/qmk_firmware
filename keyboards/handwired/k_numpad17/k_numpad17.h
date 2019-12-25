@@ -1,10 +1,9 @@
 #pragma once
-
 #include "quantum.h"
 
 // The first section contains all of the arguments
 // The second converts the arguments into a two-dimensional array
-#define layout_5x4( \
+#define LAYOUT_numpad_5x4( \
   k00, k01, k02, k03, \
   k10, k11, k12,      \
   k20, k21, k22, k13,  \
@@ -33,7 +32,4 @@
    * `-------------------'
  */
 
-
-void keyboard_pre_init_user(void);
-void matrix_scan_user(void);
 

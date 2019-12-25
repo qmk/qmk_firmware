@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-------------------'
    */
 
-  [0] = layout_5x4(
+  [0] = LAYOUT_numpad_5x4(
     KC_BSPC, KC_PSLS, KC_PAST, KC_PMNS, 
     KC_P7,   KC_P8,   KC_P9,   
     KC_P4,   KC_P5,   KC_P6,   KC_PPLS, 
@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |    FN   | .  |    |
    * `-------------------'
    */
-  [1] = layout_5x4(
+  [1] = LAYOUT_numpad_5x4(
     KC_F10, KC_F11, KC_F12, KC_NO, 
     KC_F7,   KC_F8,   KC_F9,   
     KC_F4,   KC_F5,   KC_F6, KC_VOLU, 
