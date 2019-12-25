@@ -32,6 +32,12 @@ Once you've finished translating a new language, you'll also need to modify the 
   '/zh-cn/': '没有结果!',
   ```
 
+  The `nameLink` object, for setting the "QMK Firmware" heading link in the sidebar, must also be added to:
+
+  ```js
+  '/zh-cn/': '/#/zh-cn/',
+  ```
+
   And make sure to add the language folder in the `fallbackLanguages` list, so it will properly fall back to English instead of 404ing:
 
   ```js
@@ -44,6 +50,6 @@ Once you've finished translating a new language, you'll also need to modify the 
 
 ## Previewing the Translations
 
-See (Previewing the Documentation)[contributing.md#previewing-the-documentation] for how to set up a local instance of the docs - you should be able to select your new language from the "Translations" menu at the top-right.
+See [Previewing the Documentation](contributing.md#previewing-the-documentation) for how to set up a local instance of the docs - you should be able to select your new language from the "Translations" menu at the top-right.
 
 Once you're happy with your work, feel free to open a pull request!

@@ -10,10 +10,6 @@
 #        error "Backlight support for STMF072 is not available. Please disable."
 #    endif
 
-#    if defined(STM32F1XX) || defined(STM32F1xx)
-#        define USE_GPIOV1
-#    endif
-
 // GPIOV2 && GPIOV3
 #    ifndef BACKLIGHT_PAL_MODE
 #        define BACKLIGHT_PAL_MODE 2

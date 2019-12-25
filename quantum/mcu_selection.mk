@@ -75,6 +75,9 @@ ifneq (,$(filter $(MCU),atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 a
 endif
 
 ifneq (,$(filter $(MCU),atmega32a))
+  # MCU name for avrdude
+  AVRDUDE_MCU = m32
+
   PROTOCOL = VUSB
 
   # Processor frequency.
@@ -87,12 +90,12 @@ ifneq (,$(filter $(MCU),atmega32a))
   # unsupported features for now
   NO_UART ?= yes
   NO_SUSPEND_POWER_DOWN ?= yes
-
-  # Programming options
-  PROGRAM_CMD ?= ./util/atmega32a_program.py $(TARGET).hex
 endif
 
 ifneq (,$(filter $(MCU),atmega328p))
+  # MCU name for avrdude
+  AVRDUDE_MCU = m328p
+
   PROTOCOL = VUSB
 
   # Processor frequency.

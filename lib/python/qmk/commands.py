@@ -25,16 +25,14 @@ def create_make_command(keyboard, keymap, target=None):
     return ['make', ':'.join((keyboard, keymap, target))]
 
 
-def parse_configurator_json(configurator_filename):
+def parse_configurator_json(configurator_file):
     """Open and parse a configurator json export
     """
-    file = open(configurator_filename)
-    user_keymap = json.load(file)
-    file.close()
+    user_keymap = json.load(configurator_file)
     return user_keymap
 
 
-def compile_configurator_json(configurator_filename, bootloader=None):
+def compile_configurator_json(user_keymap, bootloader=None):
     """Convert a configurator export JSON file into a C file
 
     Args:
@@ -47,9 +45,6 @@ def compile_configurator_json(configurator_filename, bootloader=None):
     Returns:
         A command to run to compile and flash the C file.
     """
-    # Parse the configurator json
-    user_keymap = parse_configurator_json(configurator_filename)
-
     # Write the keymap C file
     qmk.keymap.write(user_keymap['keyboard'], user_keymap['keymap'], user_keymap['layout'], user_keymap['layers'])
 
