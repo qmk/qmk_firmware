@@ -21,4 +21,4 @@ QMK に貢献するプロセスを順を追って説明し、この作業を簡�
 
 - パート 1: [あなたのフォークの master ブランチ: 更新は頻繁に、コミットはしないこと](ja/newbs_git_using_your_master_branch.md)
 - パート 2: [マージの競合の解決](ja/newbs_git_resolving_merge_conflicts.md)
-- パート 3: [同期の外れた git ブランチの再同期](ja/newbs_git_resynchronize_a_branch.md)
+- パート 3: [同期のとれていない git ブランチの再同期](ja/newbs_git_resynchronize_a_branch.md)
