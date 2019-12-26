@@ -58,7 +58,7 @@ void matrix_init(void)
   // all columns are pulled-up
   PORTA = 0xFF;
   PORTC |= (0b111111<<2);
-  //PORTD |= (1<<PIND7);
+  PORTD |= (1<<PIND7);
 
 #ifdef RIGHT_HALF
   // initialize row and col
@@ -106,17 +106,14 @@ uint8_t matrix_scan(void)
     matrix_row_t cols;
 
     matrix_select_row(row);
-#ifndef RIGHT_HALF
-    // we only need the delay if we haven't pulled the right half
     _delay_us(5);
-#endif
 
     cols = (
       // cols 0..7, PORTA 0 -> 7
       (~PINA) & 0xFF
     );
 
-#if defined(RIGHT_HALF)
+#ifdef RIGHT_HALF
     uint8_t data = 0x7F;
     // Receive the columns from right half
     i2c_receive(I2C_ADDR_WRITE, &data, 1, MCP23018_I2C_TIMEOUT);
