@@ -7,7 +7,7 @@
 
 キーボードが使用するブートローダにはかなり多くの種類があり、ほぼ全てが異なる書き込みの方法を使います。幸いなことに、[QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) のようなプロジェクトは、あまり深く考える必要無しに様々なタイプと互換性を持つことを目指していますが、この文章では様々なタイプのブートローダとそれらを書き込むために利用可能な方法について説明します。
 
-`rules.mk` で利用可能な `BOOTLOADER` 変数を使ってブートローダを選択すると、QMK は .hex ファイルがデバイスに書き込むのに適切なサイズかどうかを自動的に計算し、合計サイズをバイト単位で(最大値とともに)に出力します。この処理を手動で実行するには、`check-size` を付けてコンパイルします。例えば、`make planck/rev4:default:check-size`。
+`rules.mk` で利用可能な `BOOTLOADER` 変数を使ってブートローダを選択すると、QMK は .hex ファイルがデバイスに書き込むのに適切なサイズかどうかを自動的に計算し、合計サイズをバイト単位で(最大値とともに)出力します。この処理を手動で実行するには、`check-size` を付けてコンパイルします。例えば、`make planck/rev4:default:check-size`。
 
 ## DFU
 
@@ -27,7 +27,7 @@ DFU ブートローダとの互換性を確保するために、以下のブロ�
 BOOTLOADER = atmel-dfu
 ```
 
-互換性のある書き込み器:
+互換性のある flasher:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (推奨の GUI)
 * QMK の [dfu-programmer](https://github.com/dfu-programmer/dfu-programmer) / `:dfu` (推奨のコマンドライン)
@@ -87,7 +87,7 @@ Caterina ブートローダとの互換性を確保するために、以下の�
 BOOTLOADER = caterina
 ```
 
-互換性のある書き込み器:
+互換性のある flasher:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (推奨の GUI)
 * avr109 を使った [avrdude](http://www.nongnu.org/avrdude/) / `:avrdude` (推奨のコマンドライン)
@@ -134,7 +134,7 @@ Halfkay ブートローダとの互換性を確保するために、以下のブ
 BOOTLOADER = halfkay
 ```
 
-互換性のある書き込み器:
+互換性のある flasher:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (推奨の GUI)
 * [Teensy ローダー](https://www.pjrc.com/teensy/loader.html)
@@ -165,7 +165,7 @@ USBasploader ブートローダとの互換性を確保するために、以下�
 BOOTLOADER = USBasp
 ```
 
-互換性のある書き込み器:
+互換性のある flasher:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (推奨の GUI)
 * `usbasp` プログラマを使った [avrdude](http://www.nongnu.org/avrdude/)
@@ -196,7 +196,7 @@ bootloadHID ブートローダとの互換性を確保するために、以下�
 BOOTLOADER = bootloadHID
 ```
 
-互換性のある書き込み器:
+互換性のある flasher:
 
 * [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash) (推奨の Windows GUI)
 * [bootloadhid コマンドライン](https://www.obdev.at/products/vusb/bootloadhid.html) / QMK の `:BootloadHID` (推奨のコマンドライン)
@@ -220,7 +220,7 @@ BOOTLOADER = bootloadHID
 
 現時点では、STM32 の `rules.mk` には、`BOOTLOADER` 変数は不要です。
 
-互換性のある書き込み器:
+互換性のある flasher:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (推奨の GUI)
 * [dfu-util](https://github.com/Stefan-Schmidt/dfu-util) / `:dfu-util` (推奨のコマンドライン)
