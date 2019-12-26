@@ -1,33 +1,16 @@
 #include QMK_KEYBOARD_H
 
 enum layer_names {
-   _QWERTY,
-   _LOWER,
-   _RAISE,
-   _NUMPAD,
-   _GAMING,
-   _ADJUST
+  _QWERTY,
+  _LOWER,
+  _RAISE,
+  _NUMPAD,
+  _GAMING,
+  _ADJUST
 };
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  LOWER,
-  RAISE,
-  NUMPAD,
-  ADJUST,
-  GAMING,
-  AE,
-  EE,
-  IE,
-  VAD_NEE,
-  VAI_NEE,
-  SAI_NEE,
-  SAD_NEE,
-  HUI_NEE,
-  HUD_NEE,
-  TOG_NEE,
-  RGB_ANM,
-  RGB_PRE,
+  NUMPAD = SAFE_RANGE,
   SLIGHTLY,
   SMILE,
   JOY,
@@ -62,12 +45,15 @@ enum {
   TRIPLE_HOLD = 7
 };
 
+#define LOWER MO(_LOWER)
+#define RAISE MO(_RAISE)
+
 int cur_dance (qk_tap_dance_state_t *state);
 
 void u_finished (qk_tap_dance_state_t *state, void *user_data);
 void o_finished (qk_tap_dance_state_t *state, void *user_data);
 
-uint32_t rgb_mode = RGBLIGHT_MODE_BREATHING + 1;
+uint8_t rgb_mode = RGBLIGHT_MODE_BREATHING + 1;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Qwerty
@@ -85,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINUS,
    KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,         KC_N,    KC_M,    KC_COMM, KC_DOT,  TD(SLASH), KC_ENT,
-   KC_LCTL, KC_LALT, NUMPAD,  KC_LGUI, LOWER,   KC_SPC,       KC_BSPC, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+   KC_LCTL, KC_LALT, MO(_NUMPAD),  KC_LGUI, LOWER, KC_SPC,    KC_BSPC, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Lower
@@ -136,10 +122,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------'                `-----------------------------------------'
  */
 [_ADJUST] =  LAYOUT_ortho_4x12(
-  RESET,   EEP_RST, _______, EE,      _______, _______,       _______, TD(U),   IE,      TD(O),   _______, _______,
-  _______, AE,      _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______,
+  RESET,   EEP_RST, _______, RALT(KC_SCLN), _______, _______,       _______, TD(U),  RALT(KC_Z),      TD(O),   _______, _______,
+  _______, RALT(KC_QUOT), _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______,
-  KC_ASTG, _______, _______, _______, _______, _______,       _______, _______, _______, _______, QWERTY, GAMING
+  KC_ASTG, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, TG(_GAMING)
 ),
 
 /* Numpad
@@ -148,16 +134,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|               |------+------+------+------+------+------|
  * |      |      |      |      |      |      |               |   4  |   5  |   6  |      |      |      |
  * |------+------+------+------+------+------|               |------+------+------+------+------+------|
- * |  VAI |  VAD |  SAI |  SAD | HUI  | HUD  |               |   3  |   2  |   1  |      |      |      |
+ * |  VAI |  SAI |  HUI |      |      |      |               |   3  |   2  |   1  |      |      |      |
  * |------+------+------+------+------+------|               |------+------+------+------+------+------|
- * |      |      |      |RGBMPR|RGBMFW|RGBTGL|               | Calc |   0  |   +  |      |      |      |
+ * |      |      |      |      |RGBMOD|RGBTGL|               | Calc |   0  |   +  |      |      |      |
  * `-----------------------------------------'               `-----------------------------------------'
  */
 [_NUMPAD] = LAYOUT_ortho_4x12(
   _______, _______, _______, _______, _______, _______,       KC_7,    KC_8,   KC_9,    _______, _______, _______,
   _______, _______, _______, _______, _______, _______,       KC_4,    KC_5,   KC_6,    _______, _______, _______,
-  VAI_NEE, VAD_NEE, SAI_NEE, SAD_NEE, HUI_NEE, HUD_NEE,       KC_1,    KC_2,   KC_3,    _______, _______, _______,
-  _______, _______, _______, RGB_PRE, RGB_ANM, TOG_NEE,       KC_CALC, KC_0,   KC_PPLS, _______, _______, _______
+  RGB_VAI, RGB_SAI, RGB_HUI, _______, _______, _______,       KC_1,    KC_2,   KC_3,    _______, _______, _______,
+  _______, _______, _______, _______, RGB_MOD, RGB_TOG,       KC_CALC, KC_0,   KC_PPLS, _______, _______, _______
 ),
 
 /* Gaming
@@ -178,180 +164,118 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, RAISE,   _______,       _______, LOWER,   _______, _______, _______, _______
 )};
 
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-	rgb_mode = RGBLIGHT_MODE_BREATHING + 1;
-	autoshift_enable();
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case RAISE:
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case ADJUST:
-      if (record->event.pressed) {
-        layer_on(_ADJUST);
-      } else {
-        layer_off(_ADJUST);
-      }
-      return false;
-      break;
-    case GAMING:
-      if (record->event.pressed) {
-	rgb_mode = RGBLIGHT_MODE_RAINBOW_SWIRL + 5;
-        autoshift_disable();
-	default_layer_set(1UL<<_GAMING);
-      }
-      return false;
-      break;
-    case NUMPAD:
-      if(record->event.pressed){
-	layer_on(_NUMPAD);
-	PORTB &= ~(1<<0);
-      } else {
-	layer_off(_NUMPAD);
-	PORTB |= (1<<0);
-      }
-      return false;
-      break;
-    case AE:           
-      if(record->event.pressed) {
-	SEND_STRING(SS_RALT("'"));
-      }    
-      break;
-    case EE:            
-      if(record->event.pressed) {
-	SEND_STRING(SS_RALT(";"));
-      }    
-      break;
-    case IE:            
-      if(record->event.pressed) {
-	SEND_STRING(SS_RALT("z"));
-      }    
-      break;
-    case VAI_NEE:            
+  switch(keycode) {
+    case RGB_VAI:
       if(record->event.pressed) {
         rgblight_increase_val_noeeprom();
-      }    
+      }
       break;
-    case VAD_NEE:            
+    case RGB_VAD:
       if(record->event.pressed) {
         rgblight_decrease_val_noeeprom();
-      }    
+      }
       break;
-    case SAI_NEE:            
+    case RGB_SAI:
       if(record->event.pressed) {
         rgblight_increase_sat_noeeprom();
-      }    
+      }
       break;
-    case SAD_NEE:            
+    case RGB_SAD:
       if(record->event.pressed) {
         rgblight_decrease_sat_noeeprom();
-      }    
+      }
       break;
-    case HUI_NEE:            
+    case RGB_HUI:
       if(record->event.pressed) {
         rgblight_increase_hue_noeeprom();
-      }    
+      }
       break;
-    case HUD_NEE:            
+    case RGB_HUD:
       if(record->event.pressed) {
         rgblight_decrease_hue_noeeprom();
-      }    
+      }
       break;
-    case TOG_NEE:            
+    case RGB_TOG:
       if(record->event.pressed) {
 	rgblight_toggle_noeeprom();
-      }    
+      }
       break;
-    case RGB_ANM:            
+    case RGB_MOD:
       if(record->event.pressed) {
         rgblight_step_noeeprom();
 	rgb_mode = rgblight_get_mode();
-      }    
+      }
       break;
-    case RGB_PRE:            
+    case RGB_RMOD:
       if(record->event.pressed) {
         rgblight_step_reverse_noeeprom();
 	rgb_mode = rgblight_get_mode();
-      }    
+      }
       break;
+
     case SLIGHTLY:
       if(record->event.pressed) {
 	SEND_STRING(":slightly_smiling_face:");
-      }    
+      }
       break;
     case SMILE:
       if(record->event.pressed) {
 	SEND_STRING(":smile:");
-      }    
+      }
       break;
     case JOY:
       if(record->event.pressed) {
 	SEND_STRING(":joy:");
-      }    
+      }
       break;
     case RELAXED:
       if(record->event.pressed) {
 	SEND_STRING(":relaxed:");
-      }    
+      }
       break;
     case HEART:
       if(record->event.pressed) {
 	SEND_STRING(":heart:");
-      }    
+      }
       break;
     case SAD:
       if(record->event.pressed) {
 	SEND_STRING(":white_frowning_face:");
-      }    
+      }
       break;
     case CRY:
       if(record->event.pressed) {
 	SEND_STRING(":cry:");
-      }    
+      }
       break;
     case NETRURAL:
       if(record->event.pressed) {
 	SEND_STRING(":neutral_face:");
-      }    
+      }
       break;
     case SCREAM:
       if(record->event.pressed) {
 	SEND_STRING(":scream:");
-      }    
+      }
       break;
     case THUMBSUP:
       if(record->event.pressed) {
 	SEND_STRING(":+1:");
-      }    
+      }
       break;
+    default:
+      return true;
   }
-  return true;
+  return false;
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
-  switch (biton32(state)) {
+layer_state_t layer_state_set_user(layer_state_t state) {
+  state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+  writePin(B0, !(state & (1UL << (_NUMPAD))));
+
+  switch(biton32(state)) {
     case _RAISE:
       rgblight_setrgb_at(255, 255, 255, RGBLED_NUM / 2);
       rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
@@ -364,8 +288,14 @@ uint32_t layer_state_set_user(uint32_t state) {
       rgblight_setrgb_at(0,255,0, 0);
       rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
       break;
+    case _GAMING:
+      rgb_mode = RGBLIGHT_MODE_RAINBOW_SWIRL + 5;
+      autoshift_disable();
+      break;
     default:
-      rgblight_mode_noeeprom(rgb_mode);      
+      rgb_mode = RGBLIGHT_MODE_BREATHING + 1;
+      rgblight_mode_noeeprom(rgb_mode);
+      autoshift_enable();
       break;
   }
   return state;
