@@ -1,0 +1,2 @@
+
+POINTING_DEVICE_ENABLE = yes
