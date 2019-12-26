@@ -601,8 +601,8 @@ void rgblight_set(void) {
     LED_TYPE *start_led;
     uint16_t  num_leds = clipping_num_leds;
 
-    for (uint8_t i = effect_start_pos; i < effect_end_pos; i++) {
-        if (!rgblight_config.enable) {
+    if (!rgblight_config.enable) {
+        for (uint8_t i = effect_start_pos; i < effect_end_pos; i++) {
             led[i].r = 0;
             led[i].g = 0;
             led[i].b = 0;
@@ -610,12 +610,9 @@ void rgblight_set(void) {
             led[i].w = 0;
 #    endif
         }
-#    ifdef RGBW
-        else {
-            convert_rgb_to_rgbw(led[i]);
-        }
-#endif
     }
+
+
 
 #    ifdef RGBLIGHT_LED_MAP
     LED_TYPE led0[RGBLED_NUM];
@@ -626,7 +623,13 @@ void rgblight_set(void) {
 #    else
     start_led = led + clipping_start_pos;
 #    endif
-    ws2812_setleds(start_led, num_leds);
+
+#ifdef RGBW
+    for (uint8_t i = 0; i < num_leds; i++) {
+        convert_rgb_to_rgbw(start_led[i]);
+    }
+#endif
+   ws2812_setleds(start_led, num_leds);
 }
 #endif
 
