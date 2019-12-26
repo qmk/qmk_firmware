@@ -9,7 +9,7 @@
 
 <!-- FIXME: We should have ARM instructions somewhere. -->
 
-**注意:** 初めての場合は、[初心者のガイド](newbs.md)ページを調べてください。
+**注意:** 初めての場合は、[初心者のガイド](ja/newbs.md)ページを調べてください。
 
 続ける前に、`make git-submodule` を実行することで、サブモジュール(サードパーティライブラリ)が最新であることを再確認してください。
 
@@ -84,23 +84,23 @@ Windows Vista 以降のバージョン(7および10でテスト済み)につい�
 * ``MSYS2 MingGW 64-bit`` のショートカットを開きます
 * QMK リポジトリに移動します。例えば、c ドライブのルートにある場合:
 * `$ cd /c/qmk_firmware`
-* `util/qmk_install.sh` を実行し、プロンプトに従います
+* `util/qmk_install.sh` を実行し、指示に従います
 
 ## Windows 10 (非推奨)
 Windows 10 の古い手順です。[上記の概要のように MSYS2](#windows-with-msys2-recommended) を使うことをお勧めします。
 
 ### Creators Update
-Creators Update 以降の Windows 10 を持っている場合、ファームウェアを直接ビルドして書き込むことができます。Creators Update の前は、ビルドだけが可能でした。まだ持っていないか、不明な場合は、[これらの指示](https://support.microsoft.com/en-us/instantanswers/d4efb316-79f0-1aa1-9ef3-dcada78f3fa0/get-the-windows-10-creators-update)に従ってください。
+Creators Update 以降の Windows 10 の場合、ファームウェアを直接ビルドして書き込むことができます。Creators Update の前は、ビルドだけが可能でした。まだそうではないか、不明な場合は、[これらの指示](https://support.microsoft.com/en-us/instantanswers/d4efb316-79f0-1aa1-9ef3-dcada78f3fa0/get-the-windows-10-creators-update)に従ってください。
 
 ### Linux 用の Windows Subsystem
-Creators Update に加えて、Linux 用の Windows 10 Subystem が必要ですので、[これらの指示](http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/)に従ってインストールしてください。Anniversary update から Linux 用の Windows 10 Subsystem を既に持っている場合、一部のキーボードは 14.04LTS に含まれるツールチェーンを使ってコンパイルしないため、16.04LTS に[アップグレード](https://betanews.com/2017/04/14/upgrade-windows-subsystem-for-linux/)することをお勧めします。`sudo do-release-upgrade` メソッドを選択した場合は、自分が何をしているかを知る必要があることに注意してください。
+Creators Update に加えて、Linux 用の Windows 10 Subystem が必要ですので、[これらの指示](http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/)に従ってインストールしてください。Anniversary update からの Linux 用の Windows 10 Subsystem が既にある場合、一部のキーボードは 14.04LTS に含まれるツールチェーンを使ってコンパイルしないため、16.04LTS に[アップグレード](https://betanews.com/2017/04/14/upgrade-windows-subsystem-for-linux/)することをお勧めします。`sudo do-release-upgrade` メソッドを選択した場合は、自分が何をしているかを知る必要があることに注意してください。
 
 ### Git
 すでに Windows ファイルシステムにリポジトリをクローンしている場合は、この章を無視することができます。
 
 WSL Git では**なく**、Windows 用の通常の Git を使って Windows ファイルシステムにリポジトリをクローンする必要があります。以前に Git をインストールしたことが無ければ、[ダウンロード](https://git-scm.com/download/win)し、インストールしてください。次に[セットアップします](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup)。特に貢献する予定がある場合は、eメールとユーザ名をセットアップすることが重要です。
 
-Git がインストールされると、Git Bash コマンドを開き、QMK をクローンしたい場所へディレクトリを変更します: スラッシュを使う必要があり、c ドライブは `/c/path/to/where/you/want/to/go` のようにアクセスされることに注意してください。次に、`git clone --recurse-submodules https://github.com/qmk/qmk_firmware` を実行します。これは現在のフォルダのサブディレクトリとして新しいフォルダ `qmk_firmware` を作成します。
+Git がインストールされたら、Git Bash コマンドを開き、QMK をクローンしたい場所へディレクトリを変更します: スラッシュを使う必要があり、c ドライブは `/c/path/to/where/you/want/to/go` のようにアクセスされることに注意してください。次に、`git clone --recurse-submodules https://github.com/qmk/qmk_firmware` を実行します。これは現在のフォルダのサブディレクトリとして新しいフォルダ `qmk_firmware` を作成します。
 
 ### ツールチェーンセットアップ
 ツールチェーンのセットアップは Linux のための Windows サブシステムを介して行われ、手順は完全に自動化されています。全てを手動で行いたい場合は、スクリプト以外の手順はありませんが、常に issue を開いて詳細情報を求めることができます。
@@ -115,7 +115,7 @@ Git がインストールされると、Git Bash コマンドを開き、QMK を
 * 全ての最新の更新を取得するために `util/wsl_install.sh` を再実行することができます。
 * WSL は外部で実行可能ファイルを実行できないため、QMK リポジトリは Windows ファイルシステム上にある必要があります。
 * WSL Git は Windows の Git と互換性が**無い**ため、全ての Git 操作には、Windows Git Bash あるいは windows Git GUI を使ってください。
-* WSL 内あるいは通常は Windows を使ってファイルを編集できますが、makefile あるいはシェルスクリプトを編集する場合は、Unix の行末でファイルを保存するエディタを使うようにしてください。そうでなければコンパイルは機能しないかもしれません。
+* WSL 内あるいは通常は Windows を使ってファイルを編集できますが、makefile あるいはシェルスクリプトを編集する場合は、行末をUnix形式にしてファイルを保存するエディタを使うようにしてください。そうでなければコンパイルは機能しないかもしれません。
 
 ## Docker
 
@@ -135,11 +135,11 @@ util/docker_build.sh
 `target` を指定することで Docker から直接キーボードをビルドし_かつ_書き込むためのサポートもあります。
 ```bash
 util/docker_build.sh keyboard:keymap:target
-# For example: util/docker_build.sh planck/rev6:default:flash
+# 例えば: util/docker_build.sh planck/rev6:default:flash
 ```
 Linux を使っている場合は、これはそのままで動作するはずです。Windows と macOS では、実行するのに [Docker Machine](http://gw.tnode.com/docker/docker-machine-with-usb-support-on-windows-macos/) が必要です。これはセットアップが面倒なので、お勧めではありません: 代わりに [QMK Toolbox](https://github.com/qmk/qmk_toolbox) を使ってください。
 
 !> Docker for Windows は[Hyper-V](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v) を有効にする必要があります。これは、Windows 7、Windows 8 および **Windows 10 Home** のような Hyper-V を搭載していない Windows のバージョンでは機能しないことを意味します。
 
 ## Vagrant
-ファームウェアをビルドするのに問題がある場合は、Vagrant と呼ばれるツールを試してみることができます。それは、ファームウェアをビルドする準備ができた既知の構成を搭載した仮想コンピュータをセットアップします。OLKB はこの仮想コンピュータのためのファイルをホストしません。Vagrant をセットアップする方法の詳細は、[vagrant ガイド](getting_started_vagrant.md)にあります。
+ファームウェアをビルドするのに問題がある場合は、Vagrant と呼ばれるツールを試してみることができます。それは、ファームウェアをビルドする準備ができた既知の構成を搭載した仮想コンピュータをセットアップします。OLKB はこの仮想コンピュータのためのファイルをホストしません。Vagrant をセットアップする方法の詳細は、[vagrant ガイド](ja/getting_started_vagrant.md)にあります。
