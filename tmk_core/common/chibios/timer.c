@@ -2,39 +2,23 @@
 
 #include "timer.h"
 
-#if CH_CFG_ST_RESOLUTION < 64
-static uint64_t last_systime = 0;
-static uint64_t overflow     = 0;
-#endif
+static uint32_t last_systime_ms = 0;
+static uint32_t time_ms         = 0;
 
 void timer_init(void) { timer_clear(); }
 
 void timer_clear(void) {
-#if CH_CFG_ST_RESOLUTION < 64
-    last_systime = (uint64_t)chVTGetSystemTime();
-    overflow     = 0;
-#endif
+    last_systime_ms = (uint64_t)chVTGetSystemTime();
+    time_ms         = 0;
 }
 
 uint16_t timer_read(void) { return (uint16_t)timer_read32(); }
 
 uint32_t timer_read32(void) {
-    uint64_t systime = (uint64_t)chVTGetSystemTime();
-
-#if CH_CFG_ST_RESOLUTION < 64
-
-    if (systime < last_systime) {
-        overflow += ((uint64_t)1) << CH_CFG_ST_RESOLUTION;
-    }
-
-    last_systime = systime;
-    return (uint32_t)TIME_I2MS(systime + overflow);
-
-#else
-
-    return (uint32_t)TIME_I2MS(systime);
-
-#endif
+    uint32_t systime_ms = TIME_I2MS((uint32_t)chVTGetSystemTime());
+    time_ms += systime_ms - last_systime_ms;
+    last_systime_ms = systime_ms;
+    return time_ms;
 }
 
 uint16_t timer_elapsed(uint16_t last) { return TIMER_DIFF_16(timer_read(), last); }
