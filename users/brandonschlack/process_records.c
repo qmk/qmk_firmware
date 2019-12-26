@@ -141,8 +141,11 @@ void send_make_command(bool flash_bootloader) {
 #else // use universal flash command
         send_string_with_delay_P(PSTR(":flash"), SS_DELAY);
 #endif
-#if defined(FORCE_LAYOUT)
+#if defined(FORCE_LAYOUT) // Add layout string if built with FORCE_LAYOUT
         send_string_with_delay_P(PSTR(" FORCE_LAYOUT=" FORCE_LAYOUT), SS_DELAY);
+#endif
+#if defined(CONVERT_TO_PROTON_C) // Add CTPC if built with CONVERT_TO_PROTON_C
+        send_string_with_delay_P(PSTR(" CTPC=" CONVERT_TO_PROTON_C), SS_DELAY);
 #endif
     }
     send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), SS_DELAY);
