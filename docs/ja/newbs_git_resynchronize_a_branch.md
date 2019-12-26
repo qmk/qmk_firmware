@@ -1,4 +1,4 @@
-# 同期の外れた git ブランチの再同期
+# 同期のとれていない git ブランチの再同期
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
