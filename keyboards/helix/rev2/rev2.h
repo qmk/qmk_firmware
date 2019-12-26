@@ -4,18 +4,16 @@
 
 #include "quantum.h"
 
-#ifdef RGBLIGHT_ENABLE
-//rgb led driver
-#include "ws2812.h"
+#ifndef SPLIT_KEYBOARD
+  extern bool is_helix_master(void);
+  #define is_keyboard_master() is_helix_master()
 #endif
 
-#ifdef USE_I2C
-#include <stddef.h>
-#ifdef __AVR__
-  #include <avr/io.h>
-  #include <avr/interrupt.h>
-#endif
-#endif
+// Each keymap.c should use is_keyboard_master() instead of 'is_master', 'has_usb()'.
+// But keep 'is_master' for a while for backwards compatibility
+//  for the old keymap.c.
+extern uint8_t is_master; // 'is_master' will be obsolete, it is recommended to use 'is_keyboard_master ()' instead.
+#define has_usb() is_keyboard_master()
 
 #if MATRIX_ROWS == 8 // HELIX_ROWS == 4
 #ifndef FLIP_HALF
