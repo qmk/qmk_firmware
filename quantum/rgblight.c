@@ -107,11 +107,11 @@ LED_TYPE led[RGBLED_NUM];
 rgblight_segment_t const *const *rgblight_layers = NULL;
 #endif
 
-static uint8_t clipping_start_pos = 0;
-static uint8_t clipping_num_leds  = RGBLED_NUM;
-static uint8_t effect_start_pos   = 0;
-static uint8_t effect_end_pos     = RGBLED_NUM;
-static uint8_t effect_num_leds    = RGBLED_NUM;
+uint8_t clipping_start_pos = 0;
+uint8_t clipping_num_leds  = RGBLED_NUM;
+uint8_t effect_start_pos   = 0;
+uint8_t effect_end_pos     = RGBLED_NUM;
+uint8_t effect_num_leds    = RGBLED_NUM;
 
 void rgblight_set_clipping_range(uint8_t start_pos, uint8_t num_leds) {
     clipping_start_pos = start_pos;
