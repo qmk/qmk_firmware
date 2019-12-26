@@ -182,11 +182,20 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
 #if defined(RGBLIGHT_ENABLE) && defined(RGB_MATRIX_ENABLE)
         case KC_F13: // toggle rgb matrix
-        rgb_matrix_toggle();
-        return false;
+            rgb_matrix_toggle();
+            return false;
         case KC_F14:
-        rgb_matrix_step();
-        return false;
+            rgb_matrix_step();
+            return false;
+        case KC_F15:
+            rgb_matrix_increase_hue();
+            return false;
+        case KC_F16:
+            rgb_matrix_increase_sat();
+            return false;
+        case KC_F17:
+            rgb_matrix_increase_val();
+            return false;
 #endif
         default:
         break;
