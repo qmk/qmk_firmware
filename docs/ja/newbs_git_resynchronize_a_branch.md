@@ -7,7 +7,7 @@
 -->
 
 仮にあなたの `master` ブランチにあなたのコミットを行い、そしてあなたの QMK リポジトリの更新が必要になったとします。
-(フォーク元の) QMKの `master` ブランチを `git pull` することもできますが、but GitHub will tell you that your commit is a number of commits ahead of `qmk:master`、QMK にプルリクエストを行う場合、問題が発生する可能性があります。
+(フォーク元の) QMKの `master` ブランチをあなたの `master`ブランチに `git pull` することもできますが、GitHub は、あなたのブランチが `qmk:master` よりも多くのコミットがあることを通知します(訳注：実際には GitHub はこういった通知をしませんが、`git status` を実行するとこういった通知を見ることになります)、この状態で QMK にプルリクエストを行う場合、問題が発生する可能性があります。
 
 ?> このドキュメントは [あなたのフォークの master ブランチ: 更新は頻繁に、コミットはしないこと](ja/newbs_git_using_your_master_branch.md) で詳述されている概念に基づいています。その概念に慣れていない場合は、まずそれを読んでから、ここに戻ってください。
 
