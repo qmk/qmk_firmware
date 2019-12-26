@@ -1,9 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "hvp.c"
 
-// extern keymap_config_t keymap_config;
-
-
 #define _QW 0
 #define _L1 1
 #define _L2 2
