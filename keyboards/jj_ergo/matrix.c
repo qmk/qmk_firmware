@@ -106,7 +106,10 @@ uint8_t matrix_scan(void)
     matrix_row_t cols;
 
     matrix_select_row(row);
-    //_delay_us(5);
+#ifndef RIGHT_HALF
+    // we only need the delay if we haven't pulled the right half
+    _delay_us(5);
+#endif
 
     cols = (
       // cols 0..7, PORTA 0 -> 7
