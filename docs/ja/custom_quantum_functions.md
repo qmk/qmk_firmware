@@ -1,0 +1,520 @@
+# キーボードの挙動をカスタマイズする方法
+
+<!---
+  original document: 7494490d6:docs/custom_quantum_functions.md
+  git diff 7494490d6 HEAD docs/custom_quantum_functions.md | cat
+-->
+
+多くの人にとって、カスタムキーボードはボタンを押すことをコンピュータに送信するだけではありません。単純なボタンの押下やマクロよりも複雑なことを実行できるようにしたいです。QMK にはコードを挿入したり、機能を上書きしたり、様々な状況でキーボードの挙動をカスタマイズしたりできるフックがあります。
+
+このページでは、QMK に関する特別な知識は想定していませんが、[QMK の理解](understanding_qmk.md)を読むとより根本的なレベルで何が起きているかを理解するのに役立ちます。
+
+## A Word on Core vs Keyboards vs Keymap
+
+私たちは QMK を階層として構造化しました:
+
+* コア (`_quantum`)
+   * キーボード/リビジョン (`_kb`)
+      * キーマップ (`_user`)
+
+以下で説明される各関数は `_kb()` サフィックスあるいは `_user()` サフィックスを使って定義することができます。キーボード/リビジョンレベルで `_kb()` サフィックスを使うことを意図しており、一方でキーマップレベルでは `_user()` サフィックスが使われるべきです。
+
+キーボード/リビジョンレベルで関数を定義する場合、他の何かを呼び出す前に `_kb()` の実装が `_user()` を呼び出すことが重要です。そうでなければ、キーマップレベル関数は呼ばれないでしょう。
+
+# カスタムキーコード
+
+最も一般的なタスクは、既存のキーコードの挙動を変更するか、新しいキーコードを作成することです。コードの観点からは、それぞれの仕組みは非常に似ています。
+
+## 新しいキーコードの定義
+
+独自のカスタムキーコードを作成する最初のステップは、それらを列挙することです。これは、それらに名前を付け、そのキーコードにユニークな番号を割り当てることを意味します。カスタムキーコードを固定範囲の数字に制限するのではなく、QMK は `SAFE_RANGE` マクロを提供します。カスタムキーコードを列挙する時に `SAFE_RANGE` を使うと、ユニークな番号を取得することが保証されます。
+
+
+これは2つのキーコードを列挙する例です。このブロックを `keymap.c` に追加した後で、キーマップの中で `FOO` と `BAR` を使うことができます。
+
+```c
+enum my_keycodes {
+  FOO = SAFE_RANGE,
+  BAR
+};
+```
+
+## 任意のキーコードの挙動のプログラミング
+
+既存のキーの挙動を上書きしたい場合、あるいは新しいキーについて挙動を定義する場合、`process_record_kb()` および `process_record_user()` 関数を使うべきです。これらは実際のキーイベントが処理される前のキー処理中に QMK によって呼び出されます。これらの関数が `true` を返す場合、QMK はキーコードを通常通りに処理します。これは、キーを置き換えるのではなく、キーの機能を拡張するのに便利です。これらの関数が `false` を返す場合、QMK は通常のキー処理をスキップします。必要なキーのアップまたはダウンイベントを送信するのはユーザ次第です。
+
+これらの関数はキーが押されるか放されるたびに呼び出されます。
+
+### 例 `process_record_user()` の実装
+
+この例は2つの事を行います。`FOO` と呼ばれるカスタム キーコードの挙動を定義し、押されるたびに音を再生することで Enter キーを補完します。
+
+```c
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case FOO:
+      if (record->event.pressed) {
+        // 押された時に何かをします
+      } else {
+        // 放された時に何かをします
+      }
+      return false; // このキー以降の処理をスキップします
+    case KC_ENTER:
+      // enter が押された時に音を再生します
+      if (record->event.pressed) {
+        PLAY_NOTE_ARRAY(tone_qwerty);
+      }
+      return true; // QMK に enter のプレスまたはリリースイベントを送信させます
+    default:
+      return true; // 他の全てのキーコードを通常通りに処理します
+  }
+}
+```
+
+### `process_record_*` 関数のドキュメント
+
+* キーボード/リビジョン: `bool process_record_kb(uint16_t keycode, keyrecord_t *record)`
+* キーマップ: `bool process_record_user(uint16_t keycode, keyrecord_t *record)`
+
+`keycode` 引数はキーマップで定義されているものです。例えば `MO(1)`、`KC_L` など。これらのイベントを処理するには `switch...case` ブロックを使うべきです。
+
+`record` 引数は実際のプレスに関する情報を含みます:
+
+```c
+keyrecord_t record {
+  keyevent_t event {
+    keypos_t key {
+      uint8_t col
+      uint8_t row
+    }
+    bool     pressed
+    uint16_t time
+  }
+}
+```
+
+# LED 制御
+
+QMK は HID 仕様で定義された5つの LED の読み取りメソッドを提供します:
+
+* Num Lock
+* Caps Lock
+* Scroll Lock
+* Compose
+* Kana
+
+lock LED の状態を取得するには2つの方法があります:
+
+* `bool led_update_kb(led_t led_state)` あるいは `_user(led_t led_state)` を実装する、または
+* `led_t host_keyboard_led_state()` を読み込む
+
+!> `host_keyboard_led_state()` は `led_update_user()` が呼ばれる前に新しい値を既に反映している場合があります。
+
+LED の状態を `uint8_t` として提供する2つの専用の関数があります:
+
+* `uint8_t led_set_kb(uint8_t usb_led)` と `_user(uint8_t usb_led)`
+* `uint8_t host_keyboard_leds()`
+
+## `led_update_user()`
+
+この関数はこれら5つの LED のいずれかの状態が変化すると呼ばれます。LED の状態を構造化パラメータとして受け取ります。
+
+By convention, return `true` from `led_update_user()` to get the `led_update_kb()` hook to run its code, and
+return `false` when you would prefer not to run the code in `led_update_kb()`.
+
+以下はいくつかの例です:
+
+- レイヤー表示のような何かのためにLEDを使うために LED を上書きする
+   - `_kb()` 関数はレイヤーの挙動を上書きするので、それを実行したくないため、`false` を返します。
+- LED がオンあるいはオフになった時に音楽を再生します。
+   - `_kb` 関数を実行したいので、`true` を返します。これはデフォルトの LED の挙動に追加されます。
+
+?> `led_set_*` 関数は `bool` の代わりに `void` を返すため、キーボードの LED 制御を上書きすることができません。従って、代わりに `led_update_*` を使うことをお勧めします。
+
+### 例 `led_update_kb()` の実装
+
+```c
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        // writePin sets the pin high for 1 and low for 0.
+        // In this example the pins are inverted, setting
+        // it low/0 turns it on, and high/1 turns the LED off.
+        // This behavior depends on whether the LED is between the pin
+        // and VCC or the pin and GND.
+        writePin(B0, !led_state.num_lock);
+        writePin(B1, !led_state.caps_lock);
+        writePin(B2, !led_state.scroll_lock);
+        writePin(B3, !led_state.compose);
+        writePin(B4, !led_state.kana);
+    }
+    return res;
+}
+```
+
+### 例 `led_update_user()` の実装
+
+この不完全な例は Caps Lock がオンまたはオフになった場合に音を再生します。また LED の状態を保持する必要があるため、`true` を返します。
+
+```c
+#ifdef AUDIO_ENABLE
+  float caps_on[][2] = SONG(CAPS_LOCK_ON_SOUND);
+  float caps_off[][2] = SONG(CAPS_LOCK_OFF_SOUND);
+#endif
+
+bool led_update_user(led_t led_state) {
+    #ifdef AUDIO_ENABLE
+    static uint8_t caps_state = 0;
+    if (caps_state != led_state.caps_lock) {
+        led_state.caps_lock ? PLAY_SONG(caps_on) : PLAY_SONG(caps_off);
+        caps_state = led_state.caps_lock;
+    }
+    #endif
+    return true;
+}
+```
+
+### `led_update_*` 関数のドキュメント
+
+* キーボード/リビジョン: `bool led_update_kb(led_t led_state)`
+* キーマップ: `bool led_update_user(led_t led_state)`
+
+## `host_keyboard_led_state()`
+
+最後に受信した LED の状態を `led_t` として取得するためにこの関数を呼びます。これは、例えば [`matrix_scan_user()`](#matrix-scanning-code) の中で、`led_update_*` の外部から LED の状態を読み取るのに便利です。
+
+## 物理的な LED の状態の設定
+
+一部のキーボードは物理的な LED の状態を設定するために便利なメソッドを提供します。
+
+### Ergodox Boards
+
+Ergodox の実装は、個々の LED をオンあるいはオフにするために `ergodox_right_led_1`/`2`/`3_on`/`off()` と、インデックスによってそれらをオンあるいはオフにするために `ergodox_right_led_on`/`off(uint8_t led)` を提供します。
+
+さらに、`ergodox_led_all_set(uint8_t n)` を使って全ての LED の明度を指定することができます; `ergodox_right_led_1`/`2`/`3_set(uint8_t n)` を使って個々の LED; `ergodox_right_led_set(uint8_t led, uint8_t n)` を使ってインデックスによって指定します。
+
+Ergodox boards は、最低の明度に `LED_BRIGHTNESS_LO` を、最高の輝度(これはデフォルトです)に `LED_BRIGHTNESS_HI` も定義します。
+
+# キーボードの初期化コード
+
+キーボードの初期化プロセスには幾つかのステップがあります。何をしたいかによって、どの関数を使うべきかに影響します。
+
+3つの主な初期化関数があり、呼び出される順番にリストされています。
+
+* `keyboard_pre_init_*` - ほとんどのものが開始される前に発生します。非常に速く実行したいハードウェアのセットアップに適しています。
+* `matrix_init_*` - ファームウェアのスタートアップ プロセスの途中で発生します。ハードウェアは初期化されますが、機能はまだ無いかもしれません。
+* `keyboard_post_init_*` - ファームウェアのスタートアッププロセスの最後に発生します。これはほとんどの場合、 "カスタマイズ"コードを配置する場所です。
+
+!> ほとんどの人にとって、`keyboard_post_init_user` が呼び出したいものです。例えば、RGB アンダーグローのセットアップを行います。
+
+## キーボードの事前初期化コード
+
+これは USB さえ起動する前の、起動中の非常に早い段階で実行されます。
+
+この直後にマトリックスが初期化されます。
+
+ほとんどのユーザにとって、これは主にハードウェア向きの初期化のためであるため、使うべきではありません。
+
+ただし、初期化が必要なハードウェアがある場合には、これが最適な場所です (LED ピンの初期化など)。
+
+### 例 `keyboard_pre_init_user()` の実装
+
+この例は、キーボードレベルで、LED ピンとして B0、B1、B2、B3 および B4 をセットアップします。
+
+```c
+void keyboard_pre_init_user(void) {
+  // Call the keyboard pre init code.
+
+  // Set our LED pins as output
+  setPinOutput(B0);
+  setPinOutput(B1);
+  setPinOutput(B2);
+  setPinOutput(B3);
+  setPinOutput(B4);
+}
+```
+
+### `keyboard_pre_init_*` 関数のドキュメント
+
+* キーボード/リビジョン: `void keyboard_pre_init_kb(void)`
+* キーマップ: `void keyboard_pre_init_user(void)`
+
+## マトリックスの初期化コード
+
+これはマトリックスが初期化され、ハードウェアの一部がセットアップされた後で、ただし機能の多くが初期化される前に、呼び出されます。
+
+これは、他の場所で必要になるかもしれないものをセットアップするのに役立ちますが、ハードウェアに関連するものではなく、開始場所に依存するものでもありません。
+
+
+### `matrix_init_*` 関数のドキュメント
+
+* キーボード/リビジョン: `void matrix_init_kb(void)`
+* キーマップ: `void matrix_init_user(void)`
+
+
+## キーボードの事後初期化コード
+
+これはキーボードの初期化プロセスの極めて最後のタスクとして実行されます。これは、特定の機能を変更したい場合に便利です。この時点で初期化される必要があるからです。
+
+
+### 例 `keyboard_post_init_user()` の実装
+
+他の全てのものが初期化された後で実行されるこの例は、rgb アンダーグローの設定をセットアップします。
+
+```c
+void keyboard_post_init_user(void) {
+  // post init コードを呼びます
+  rgblight_enable_noeeprom(); // 設定を保存せずに Rgb を有効にします
+  rgblight_sethsv_noeeprom(180, 255, 255); // 保存せずに色を青緑/シアンに設定します
+  rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 3); // 保存せずにモードを高速なブレスに設定します
+}
+```
+
+### `keyboard_post_init_*` 関数のドキュメント
+
+* キーボード/リビジョン: `void keyboard_post_init_kb(void)`
+* キーマップ: `void keyboard_post_init_user(void)`
+
+# マトリックススキャンコード
+
+可能であれば常に `process_record_*()` を使ってキーボードをカスタマイズし、その方法でイベントをフックし、コードがキーボードのパフォーマンスに悪影響を与えないようにします。ただし、まれにマトリックススキャンにフックする必要があります。これらの関数は1秒あたり少なくとも10回は呼び出されるため、これらの関数のコードのパフォーマンスに非常に注意してください。
+
+### 例 `matrix_scan_*` の実装
+
+この例は意図的に省略されています。このようなパフォーマンスに敏感な領域にフックする前に、例を使わずにこれを書くために、QMK 内部について十分理解する必要があります。助けが必要であれば、[issue を開く](https://github.com/qmk/qmk_firmware/issues/new) か [Discord で会話](https://discord.gg/Uq7gcHh)してください。
+
+### `matrix_scan_*` 関数のドキュメント
+
+* キーボード/リビジョン: `void matrix_scan_kb(void)`
+* キーマップ: `void matrix_scan_user(void)`
+
+この関数は全てのマトリックススキャンで呼び出されます。これは基本的に MCU が処理できる頻度です。ここに何を置くかに注意してください。大量に実行されるからです。
+
+カスタムマトリックススキャンコードが必要な場合は、この関数を使う必要があります。また、カスタムステータス出力(LED あるいはディスプレイなど)や、ユーザが入力していない場合でも定期的にトリガーするその他の機能のために使うことができます。
+
+
+# キーボードアイドリング/ウェイクコード
+
+ボードがサポートしている場合、多くの機能を停止することで"アイドル"にすることができます。これの良い例は、RGB ライトあるいはバックライトです。これにより、電力消費を節約できるか、キーボードの動作が改善されるかもしれません。
+
+これは2つの関数によって制御されます: `suspend_power_down_*` および `suspend_wakeup_init_*`。これらはそれぞれ システムキーボードがアイドルになった時と、起動した時に呼ばれます。
+
+
+### 例 suspend_power_down_user() と suspend_wakeup_init_user() の実装
+
+
+```c
+void suspend_power_down_user(void) {
+    rgb_matrix_set_suspend_state(true);
+}
+
+void suspend_wakeup_init_user(void) {
+    rgb_matrix_set_suspend_state(false);
+}
+```
+
+### キーボード suspend/wake 関数のドキュメント
+
+* キーボード/リビジョン : `void suspend_power_down_kb(void)` および `void suspend_wakeup_init_user(void)`
+* キーマップ: `void suspend_power_down_kb(void)` および `void suspend_wakeup_init_user(void)`
+
+# レイヤ変更コード
+
+これはレイヤが変更されるたびにコードを実行します。これはレイヤ表示あるいはカスタムレイヤ処理に役立ちます。
+
+### 例 `layer_state_set_*` の実装
+
+この例は、Planck を例として使って、レイヤに基づいて [RGB アンダーグロー](feature_rgblight.md) を設定する方法を示します。
+
+```c
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+    case _RAISE:
+        rgblight_setrgb (0x00,  0x00, 0xFF);
+        break;
+    case _LOWER:
+        rgblight_setrgb (0xFF,  0x00, 0x00);
+        break;
+    case _PLOVER:
+        rgblight_setrgb (0x00,  0xFF, 0x00);
+        break;
+    case _ADJUST:
+        rgblight_setrgb (0x7A,  0x00, 0xFF);
+        break;
+    default: //  他の全てのレイヤあるいはデフォルトのレイヤ
+        rgblight_setrgb (0x00,  0xFF, 0xFF);
+        break;
+    }
+  return state;
+}
+```
+### `layer_state_set_*` 関数のドキュメント
+
+* キーボード/リビジョン: `layer_state_t layer_state_set_kb(layer_state_t state)`
+* キーマップ: `layer_state_t layer_state_set_user(layer_state_t state)`
+
+
+[キーマップの概要](keymap.md#keymap-layer-status)で説明されるように、`state` はアクティブなレイヤのビットマスクです。
+
+
+# 永続的な設定 (EEPROM)
+
+これによりキーボードのための永続的な設定を設定することができます。これらの設定はコントローラの EEPROM に保存され、電源が喪失した後であっても保持されます。設定は `eeconfig_read_kb` および `eeconfig_read_user` を使って読み取ることができ、`eeconfig_update_kb` および `eeconfig_update_user` を使って書きこむことができます。これは切り替え可能な機能(rgb レイヤの表示の切り替えなど)に役立ちます。さらに、`eeconfig_init_kb` および `eeconfig_init_user` を使って EEPROM のデフォルト値を設定できます。
+
+ここでの複雑な部分は、EEPROM を介してデータを保存およびアクセスできる方法がたくさんあり、これを行うための"正しい"方法が無いということです。ただし、各関数には DWORD (4 バイト)しかありません。
+
+EEPROM の書き込み回数には制限があることに注意してください。これは非常に高い値ですが、EEPROM に書き込むのはこれだけではなく、もし頻繁に書き込むと、MCU の寿命を大幅に短くする可能性があります。
+
+* この例を理解していない場合は、この機能はかなり複雑なため、この機能を使うことをさけることができます。
+
+### 実装の例
+
+これは、設定を追加し、読み書きする例です。ここの例では、ユーザキーマップを使っています。これは複雑な機能で、多くのことが行われています。実際、動作のために上記の多くの関数を使います！
+
+
+keymap.c ファイルの中で、先頭にこれを追加します:
+```c
+typedef union {
+  uint32_t raw;
+  struct {
+    bool     rgb_layer_change :1;
+  };
+} user_config_t;
+
+user_config_t user_config;
+```
+
+これは、設定をメモリ内に保存し、EEPROM に書き込むことができる32ビット構造体をセットアップします。これを使うと、この構造体に変数が定義されるため、変数を定義する必要が無くなります。`bool` (boolean) の値は1ビットを使い、`uint8_t` は8ビットを使い、`uint16_t` は16ビットまでを使うことに注意してください。組み合わせて使うことができますが、順番の変更は読み書きされる値が変更されるため、問題が発生するかもしれません。
+
+`layer_state_set_*` 関数のために `rgb_layer_change` を使い、全てを設定するために `keyboard_post_init_user` および `process_record_user` を使います。
+
+ここで、上の `keyboard_post_init_user` コードを使って、作成したばかりの構造体を設定するために `eeconfig_read_user()` を追加します。そして、この構造体をすぐに使ってキーマップの機能を制御することができます。それは以下のようになります:
+```c
+void keyboard_post_init_user(void) {
+  // キーマップレベルのマトリックスの init を呼びます
+
+  // EEPROM からユーザ設定を読み込みます
+  user_config.raw = eeconfig_read_user();
+
+  // 有効な場合はデフォルトレイヤを設定します
+  if (user_config.rgb_layer_change) {
+    rgblight_enable_noeeprom();
+    rgblight_sethsv_noeeprom_cyan();
+    rgblight_mode_noeeprom(1);
+  }
+}
+```
+上記の関数は読み取ったばかりの EEPROM 設定を使い、デフォルトのレイヤの RGB 色を設定します。その"生の"値は、上で作成した"共用体"に基づいて使用可能な構造に変換されます。
+
+```c
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+    case _RAISE:
+        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_magenta(); rgblight_mode_noeeprom(1); }
+        break;
+    case _LOWER:
+        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_red(); rgblight_mode_noeeprom(1); }
+        break;
+    case _PLOVER:
+        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_green(); rgblight_mode_noeeprom(1); }
+        break;
+    case _ADJUST:
+        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_white(); rgblight_mode_noeeprom(1); }
+        break;
+    default: //  他の全てのレイヤあるいはデフォルトのレイヤ
+        if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_cyan(); rgblight_mode_noeeprom(1); }
+        break;
+    }
+  return state;
+}
+```
+これにより、値が有効になっていた場合のみ RGB アンダーグローが変更されます。この値を設定するために、`RGB_LYR` と呼ばれる `process_record_user` の新しいキーコードを作成します。さらに、通常の RGB コードを使う場合、上記の例を使ってオフにすることを確認します。以下のようになります:
+```c
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case FOO:
+      if (record->event.pressed) {
+        // 押された時に何かをします
+      } else {
+        // 放された時に何かをします
+      }
+      return false; // このキー以降の処理をスキップします
+    case KC_ENTER:
+        // enter が押された時に音を再生します
+        if (record->event.pressed) {
+            PLAY_NOTE_ARRAY(tone_qwerty);
+        }
+        return true; // QMK に enter のプレスまたはリリースイベントを送信させます
+    case RGB_LYR:  // これにより、アンダーグローをレイヤ表示として、あるいは通常通りに使うことができます。
+        if (record->event.pressed) {
+            user_config.rgb_layer_change ^= 1; // 状態を切り替えます
+            eeconfig_update_user(user_config.raw); // 新しい状態を EEPROM に書き込みます
+            if (user_config.rgb_layer_change) { // レイヤの状態表示が有効な場合
+                layer_state_set(layer_state);   // すぐにレイヤの色を更新します
+            }
+        }
+        return false; break;
+    case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT: // 任意の RGB コード (quantum_keycodes.h を見てください。参照としては L400)
+        if (record->event.pressed) { // これはレイヤ表示を無効にします。これを変更する場合は、無効にしたいだろうため。
+            if (user_config.rgb_layer_change) {        // 有効な場合のみ
+                user_config.rgb_layer_change = false;  // 無効にします
+                eeconfig_update_user(user_config.raw); // 設定を EEPROM に書き込みます
+            }
+        }
+        return true; break;
+    default:
+      return true; // 他の全てのキーコードを通常通りに処理します
+  }
+}
+```
+最後に、`eeconfig_init_user` 関数を追加して、EEPROM がリセットされた時にデフォルト値、さらにはカスタムアクションを指定できるようにします。EEPROM を強制的にリセットするには、`EEP_RST` キーコードあるいは[ブートマジック](feature_bootmagic.md)機能を使います。例えば、デフォルトで rgb レイヤ表示を設定し、デフォルト値を保存したい場合。
+
+```c
+void eeconfig_init_user(void) {  // EEPROM がリセットされます！
+  user_config.raw = 0;
+  user_config.rgb_layer_change = true; // デフォルトでこれを有効にします
+  eeconfig_update_user(user_config.raw); // デフォルト値を EEPROM に書き込みます
+
+  // noeeprom 以外のバージョンを使って、これらの値も EEPROM に書き込みます
+  rgblight_enable(); // デフォルトで RGB を有効にします
+  rgblight_sethsv_cyan();  // デフォルトで CYAN に設定します
+  rgblight_mode(1); // デフォルトでソリッドに設定します
+}
+```
+
+これで完了です。RGB レイヤ表示は必要な場合にのみ機能します。ボードを取り外した後でも保存されます。RGB コードのいずれかを使うと、レイヤ表示が無効になり、設定したモードと色がそのままになります。
+
+### 'EECONFIG' 関数のドキュメント
+
+* キーボード/リビジョン: `void eeconfig_init_kb(void)`、`uint32_t eeconfig_read_kb(void)` および `void eeconfig_update_kb(uint32_t val)`
+* キーマップ: `void eeconfig_init_user(void)`、`uint32_t eeconfig_read_user(void)` および `void eeconfig_update_user(uint32_t val)`
+
+`val` は EEPROM に書き込みたいデータの値です。`eeconfig_read_*` 関数は EEPROM から32ビット(DWORD) 値を返します。
+
+# カスタムタッピング期間
+
+デフォルトでは、タッピング期間はグローバルに設定されていて、キーでは設定することができません。ほとんどのユーザにとって、これは全然問題ありません。しかし、場合によっては、`LT` キーとは異なるタイムアウトによって、または一部のキーは他のキーよりも保持しやすいため、デュアルファンクションキーが大幅に改善されます。これにより、それぞれにカスタムキーコードを使う代わりに、キーごとに設定可能な `TAPPING_TERM` を可能にします。
+
+この機能を有効にするには、最初に `config.h` に `#define TAPPING_TERM_PER_KEY` を追加する必要があります。
+
+
+## 例 `get_tapping_term` の実装
+
+キーコードに基づいて `TAPPING TERM` を変更するには、次のようなものを `keymap.c` ファイルに追加します:
+
+```c
+uint16_t get_tapping_term(uint16_t keycode) {
+  switch (keycode) {
+    case SFT_T(KC_SPC):
+      return TAPPING_TERM + 1250;
+    case LT(1, KC_GRV):
+      return 130;
+    default:
+      return TAPPING_TERM;
+  }
+}
+```
+
+### `get_tapping_term` 関数のドキュメント
+
+ここにある他の多くの関数とは異なり、quantum あるいはキーボードレベルの関数を持つ必要はありません (または理由さえありません)。ここではユーザレベルの関数だけが有用なため、そのようにマークする必要はありません。
