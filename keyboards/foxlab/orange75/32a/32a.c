@@ -46,10 +46,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool led_update_kb(led_t led_state) {
-    // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
 
    if(led_update_user(led_state)) {
         writePin(D0, !led_state.caps_lock);
+        writePin(D6, !led_state.scroll_lock);
+        writePin(D1, !led_state.num_lock);
     }
 
     return true;
