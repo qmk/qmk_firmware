@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #if defined(LAYER_STATE_8BIT)
 typedef uint8_t layer_state_t;
-#    define get_highest_layer(state) biton8(state)
+#    define get_highest_layer(state) biton(state)
 #elif defined(LAYER_STATE_16BIT)
 typedef uint16_t layer_state_t;
 #    define get_highest_layer(state) biton16(state)

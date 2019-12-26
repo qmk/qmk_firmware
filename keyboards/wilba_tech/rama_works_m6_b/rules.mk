@@ -1,10 +1,3 @@
-# project specific files
-SRC =	keyboards/wilba_tech/wt_main.c \
-		keyboards/wilba_tech/wt_rgb_backlight.c \
-		quantum/color.c \
-		drivers/issi/is31fl3218.c \
-		drivers/avr/i2c_master.c
-
 # MCU name
 MCU = atmega32u4
 
@@ -22,7 +15,6 @@ BOOTLOADER = atmel-dfu
 # when we get USB suspend event. We want it to keep updating
 # backlight effects.
 OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
-
 
 # Build Options
 #   change yes to no to disable
@@ -47,3 +39,9 @@ RAW_ENABLE = yes
 DYNAMIC_KEYMAP_ENABLE = yes
 CIE1931_CURVE = yes
 
+# project specific files
+SRC =	keyboards/wilba_tech/wt_main.c \
+		keyboards/wilba_tech/wt_rgb_backlight.c \
+		quantum/color.c \
+		drivers/issi/is31fl3218.c \
+		drivers/avr/i2c_master.c

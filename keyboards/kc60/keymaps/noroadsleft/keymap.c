@@ -8,41 +8,38 @@
 /**********************
 ** LAYER DEFINITIONS **
 **********************/
-enum layers_keymap {
+enum layer_names {
     // BASE LAYERS
+        // SHORT CODES
     _QWERTY = 0,
+        _QW = _QWERTY,
     _DVORAK,
+        _DV = _DVORAK,
     _COLEMAK,
+        _CM = _COLEMAK,
     _MAC,
+        _MC = _MAC,
     _QUAKE2,
+        _Q2 = _QUAKE2,
     _QUAKE2_DVORAK,
+        _QD = _QUAKE2_DVORAK,
     _QUAKE2_CONSOLE,
-
+        _QC = _QUAKE2_CONSOLE,
     // FUNCTION LAYERS
     _FUNCWIN,
+        _FW = _FUNCWIN,
     _FUNCMAC,
+        _FM = _FUNCMAC,
     _FUNCQ2,
-
+        _FQ = _FUNCQ2,
     // OTHER LAYERS
     _NUMPAD,
+        _NP = _NUMPAD,
     _MACROS,
-    _SYSTEM
+        _MA = _MACROS,
+    _SYSTEM,
+        _SY = _SYSTEM,
 };
-
-// LAYER SHORT CODES
-#define _QW _QWERTY
-#define _DV _DVORAK
-#define _CM _COLEMAK
-#define _MC _MAC
-#define _Q2 _QUAKE2
-#define _QD _QUAKE2_DVORAK
-#define _QC _QUAKE2_CONSOLE
-#define _FW _FUNCWIN
-#define _FM _FUNCMAC
-#define _FQ _FUNCQ2
-#define _NP _NUMPAD
-#define _MA _MACROS
-#define _SY _SYSTEM
 
 
 // KEYCODE DEFINITIONS
@@ -57,6 +54,8 @@ enum layers_keymap {
 #define WN_CUT  LCTL(DV_X)       // Windows/Linux Cut
 #define WN_COPY LCTL(DV_C)       // Windows/Linux Copy
 #define WN_PSTE LCTL(DV_V)       // Windows/Linux Paste
+
+#define CTL_GRV MT(MOD_LCTL, KC_GRV)  // Left Control when held, Grave accent when tapped
 
 #define MC_PSCR LGUI(LSFT(KC_3)) // MacOS Print Screen (Command + Shift + 3)
 #define MC_HOME LGUI(KC_LEFT)    // MacOS Home (Command + Left Arrow)
@@ -252,6 +251,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
+        case KC_F1 ... KC_F12:
+            if (record->event.pressed) {
+                if ( get_mods() & MOD_MASK_RALT ) {
+                    register_code( keycode + 0x2E );
+                } else {
+                    register_code( keycode );
+                }
+            } else {
+                if ( get_mods() & MOD_MASK_RALT ) {
+                    unregister_code( keycode + 0x2E );
+                } else {
+                    unregister_code( keycode );
+                }
+            }
+            return false;
     } // switch()
     return true;
 };
@@ -267,31 +281,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* QWERTY */
     [_QWERTY] = LAYOUT_60_ansi(
         //       2        3        4        5        6        7        8        9        10       11       12       13       14       15       16
-        KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, \
+        KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, \
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, \
         FW_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,           \
         KC_LSFT, NUBS_Z,  KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,                   \
-        KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                                      KC_RALT, KC_RGUI, MO(_FW), KC_RCTL  \
+        CTL_GRV, KC_LGUI, KC_LALT,                   KC_SPC,                                      KC_RALT, MO(_MA), MO(_FW), KC_RCTL  \
     ),
 
     /* Dvorak */
     [_DVORAK] = LAYOUT_60_ansi(
         //       2        3        4        5        6        7        8        9        10       11       12       13       14       15       16
-        KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_LBRC, KC_RBRC, KC_BSPC, \
+        KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_LBRC, KC_RBRC, KC_BSPC, \
         KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH, KC_EQL,  KC_BSLS, \
         FW_CAPS, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, KC_ENT,           \
         KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,                   \
-        KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                                      KC_RALT, KC_RGUI, MO(_FW), KC_RCTL  \
+        CTL_GRV, KC_LGUI, KC_LALT,                   KC_SPC,                                      KC_RALT, MO(_MA), MO(_FW), KC_RCTL  \
     ),
 
     /* Colemak */
     [_COLEMAK] = LAYOUT_60_ansi(
         //       2        3        4        5        6        7        8        9        10       11       12       13       14       15       16
-        KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, \
+        KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, \
         KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_LBRC, KC_RBRC, KC_BSLS, \
         FW_CAPS, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT, KC_ENT,           \
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,                   \
-        KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                                      KC_RALT, KC_RGUI, MO(_FW), KC_RCTL  \
+        CTL_GRV, KC_LGUI, KC_LALT,                   KC_SPC,                                      KC_RALT, MO(_MA), MO(_FW), KC_RCTL  \
     ),
 
     /****************
@@ -391,9 +405,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Macro layer */
     [_MACROS] = LAYOUT_60_ansi(
         //       2        3        4        5        6        7        8        9        10       11       12       13       14       15       16
-        TG(_MA), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-        _______, _______, _______, G_PUSH,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-        _______, _______, _______, G_FTCH,  G_COMM,  _______, _______, _______, _______, T_L3DED, _______, _______, _______,          \
+        TG(_MA), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DM_REC1, DM_REC2, _______, \
+        _______, _______, _______, G_PUSH,  _______, _______, _______, _______, _______, _______, _______, DM_PLY1, DM_PLY2, DM_RSTP, \
+        _______, _______, _______, G_FTCH,  G_COMM,  _______, _______, _______, _______, _______, _______, _______, _______,          \
         _______, _______, _______, _______, _______, G_BRCH,  SIGNA,   _______, _______, _______, _______, _______,                   \
         _______, _______, _______,                   _______,                                     _______, _______, NO_CHNG, _______  \
     ),

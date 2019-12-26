@@ -1,9 +1,10 @@
 #ifndef RGBLIGHT_EFFECT_BREATHE_TABLE
 #define RGBLIGHT_EFFECT_BREATHE_TABLE
 
+// clang-format off
 const uint8_t rgblight_effect_breathe_table[] PROGMEM = {
-  /* #define RGBLIGHT_EFFECT_BREATHE_CENTER   0.00 */
-  /* #define RGBLIGHT_EFFECT_BREATHE_MAX      255 */
+/* #define RGBLIGHT_EFFECT_BREATHE_CENTER   0.00 */
+/* #define RGBLIGHT_EFFECT_BREATHE_MAX      255 */
 
  #if RGBLIGHT_BREATHE_TABLE_SIZE == 256
   0x44,  0x45,  0x47,  0x48,  0x4a,  0x4b,  0x4c,  0x4e,
@@ -110,7 +111,8 @@ const uint8_t rgblight_effect_breathe_table[] PROGMEM = {
   0x4e,  0x48
  #endif /* 64 bytes table */
 };
+// clang-format on
 
-static const int table_scale = 256/sizeof(rgblight_effect_breathe_table);
+static const int table_scale = 256 / sizeof(rgblight_effect_breathe_table);
 
 #endif /* RGBLIGHT_EFFECT_BREATHE_TABLE */
