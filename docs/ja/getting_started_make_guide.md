@@ -11,17 +11,17 @@
    * 全てのキーボードをコンパイルするには `all` を使います。
    * リビジョンをコンパイルするためのパスを指定します。例えば `planck/rev4` あるいは `planck/rev3`
    * キーボードにフォルダが無い場合は、省略することができます
-   * デフォルトのフォルダをコンパイルするには、省略することができます
+   * デフォルトのフォルダをコンパイルする場合は、省略することができます
 * `<keymap>` はキーマップの名前です。例えば、`algernon`
    * 全てのキーマップをコンパイルするには `all` を使います。
 * `<target>` の詳細は以下で説明します。
 
 `<target>` は以下を意味します
 * target が指定されない場合は、以下の `all` と同じです
-* `all` は指定された数のキーボード/リビジョン/キーマップの組み合わせをコンパイルします。例えば、`make planck/rev4:default` は1つの .hex を生成しますが、`make planck/rev4:all` は planck で利用可能な全てのキーマップについて hex を生成します。
-* `flash`、`dfu`、`teensy`、`avrdude`、`dfu-util` または `bootloadHID` はファームウェアをコンパイルし、キーボードにアップロードします。コンパイルが失敗すると、何もアップロードされません。使用するプログラムはキーボードに依存します。ほとんどのキーボードでは `dfu` ですが、ChibiOS キーボードについては `dfu-util` 、標準的な Teensys については `teensy` です。キーボードに使うべきコマンドを見つけるには、キーボード固有のreadmeをチェックしてください。
-* **注意**: 一部のオペレーティングシステムはこれらのコマンドが機能するために root アクセスが必要です。そのため、例えば `sudo make planck/rev4:default:flash` を実行する必要があります。
-* `clean` 、全てをゼロからビルドするためにビルド出力フォルダを掃除します。説明できない問題がある場合は、通常のコンパイルの前にこれを実行してください。
+* `all` は指定された全てのキーボード/リビジョン/キーマップの組み合わせをコンパイルします。例えば、`make planck/rev4:default` は1つの .hex を生成しますが、`make planck/rev4:all` は planck で利用可能な全てのキーマップについて hex を生成します。
+* `flash`、`dfu`、`teensy`、`avrdude`、`dfu-util` または `bootloadHID` はファームウェアをコンパイルし、キーボードにアップロードします。コンパイルが失敗すると、何もアップロードされません。使用するプログラムはキーボードに依存します。ほとんどのキーボードでは `dfu` ですが、ChibiOS キーボードについては `dfu-util` 、標準的な Teensys については `teensy` です。キーボードに使うべきコマンドを見つけるには、キーボード固有の readme をチェックしてください。
+* **注意**: 一部のオペレーティングシステムはこれらのコマンドが機能するためには root アクセスが必要です。そのため、例えば `sudo make planck/rev4:default:flash` を実行する必要があります。
+* `clean`、全てをゼロからビルドするためにビルド出力フォルダを掃除します。説明できない問題がある場合は、通常のコンパイルの前にこれを実行してください。
 
 target の後の make コマンドの最後に追加のオプションを追加することもできます
 
@@ -44,7 +44,7 @@ make コマンド自体にもいくつかの追加オプションがあります
 
 `BOOTMAGIC_ENABLE`
 
-これにより、キーとソルトキー(デフォルトではスペース)を保持し、電力が失われても持続する様々な EEPROM 設定へのアクセスを持ちます。誤って設定が変更されることが多く、デバッグするのが難しい混乱した結果を生成するため、これを無効にしておくことをお勧めします。ヘルプセッションで発生する、より一般的な問題の1つです。
+これにより、キーとソルトキー(デフォルトではスペース)を保持し、電力が失われても持続する様々な EEPROM 設定へアクセスできます。誤って設定が変更されることが多く、デバッグするのが難しい混乱した結果を生成するため、これを無効にしておくことをお勧めします。ヘルプセッションで発生する、より一般的な問題の1つです。
 
 `MOUSEKEY_ENABLE`
 
@@ -64,7 +64,7 @@ make コマンド自体にもいくつかの追加オプションがあります
 
 出力メッセージ( *print*、*xprintf* )とユーザ出力( *uprint* ) を無効にし、.hex のファイルサイズを小さくするには、`config.h` に `#define NO_PRINT` を含めます。
 
-出力メッセージ ( *print*、*xprintf* ) を無効にし、ユーザメッセージ ( *uprint* )を**そのままにする**には、`config.h` に `#define USER_PRINT` を含めます。
+出力メッセージ ( *print*、*xprintf* ) を無効にし、ユーザメッセージ ( *uprint* )を**そのままにする**には、`config.h` に `#define USER_PRINT` を含めます(この場合は、`#define NO_PRINT` も含めないでください)。
 
 テキストを見るには、`hid_listen` を開き、出力メッセージを見るのを楽しんでください。
 
@@ -104,15 +104,15 @@ make コマンド自体にもいくつかの追加オプションがあります
 
 これにより、送信したい文字に対応するニーモニックを入力することで Unicode 文字を送信することができます。キーマップファイル内にマッピングテーブルを保持する必要があります。可能な全てのコードポイント( `0x10FFFF` まで)がサポートされます。
 
-詳細と制限については、[Unicodeページ](feature_unicode.md) を見てください。
+詳細と制限については、[Unicodeページ](ja/feature_unicode.md) を見てください。
 
 `BLUETOOTH_ENABLE`
 
-これによりキーコードをワイヤレスで送信するために Bluefruit EZ-key と話すことができます。D2 と D3 ピンを使います。
+これによりキーコードをワイヤレスで送信するために Bluefruit EZ-key と連動することができます。D2 と D3 ピンを使います。
 
 `AUDIO_ENABLE`
 
-This allows you output audio on the C6 pin (needs abstracting). 詳細は[オーディオページ](feature_audio.md)を見てください。
+This allows you output audio on the C6 pin (needs abstracting). 詳細は[オーディオページ](ja/feature_audio.md)を見てください。
 
 `FAUXCLICKY_ENABLE`
 
@@ -120,7 +120,7 @@ This allows you output audio on the C6 pin (needs abstracting). 詳細は[オー
 
 `VARIABLE_TRACE`
 
-これを使って変数の値の変更をデバッグします。詳細についてはユニットテストのページの[トレース変数](unit_testing.md#tracing-variables)の章を見てください。
+これを使って変数の値の変更をデバッグします。詳細についてはユニットテストのページの[トレース変数](ja/unit_testing.md#tracing-variables)のセクションを見てください。
 
 `API_SYSEX_ENABLE`
 
@@ -128,7 +128,7 @@ This allows you output audio on the C6 pin (needs abstracting). 詳細は[オー
 
 `KEY_LOCK_ENABLE`
 
-これは [key lock](feature_key_lock.md) を有効にします。
+これは [key lock](ja/feature_key_lock.md) を有効にします。
 
 `SPLIT_KEYBOARD`
 
@@ -150,4 +150,4 @@ ARM ベースの分割キーボード用の標準分割通信ドライバはま�
 
 キーマップディレクトリに `rules.mk` というファイルがある場合、そのファイルで設定した全てのオプションは、特定のキーボードの他の `rules.mk` オプションよりも優先されます。
 
-キーボードの `rules.mk` に `BACKLIGHT_ENABLE = yes` があるとします。特定のキーボードにバックライトが無いようにするには、`rules.mk` というファイルを作成し、`BACKLIGHT_ENABLE = no` を指定します。
+キーボードの `rules.mk` に `BACKLIGHT_ENABLE = yes` があるとします。特定のキーボードでバックライトが無いようにするには、`rules.mk` というファイルを作成し、`BACKLIGHT_ENABLE = no` を指定します。
