@@ -37,19 +37,29 @@ extern rgblight_config_t rgblight_config;
 void ws2812_sendarray(uint8_t *array, uint16_t length);
 void ws2812_sendarray_mask(uint8_t *array, uint16_t length, uint8_t pinmask);
 
+extern uint8_t clipping_start_pos;
+extern uint8_t clipping_num_leds;
+extern uint8_t effect_start_pos;
+extern uint8_t effect_end_pos;
+extern uint8_t effect_num_leds;
 
 
 
 void rgblight_set(void) {
-    if (!rgblight_config.enable) {
-        for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+    for (uint8_t i = effect_start_pos; i < effect_end_pos; i++) {
+        if (!rgblight_config.enable) {
             led[i].r = 0;
             led[i].g = 0;
             led[i].b = 0;
-#ifdef RGBW
+#    ifdef RGBW
             led[i].w = 0;
-#endif
+#    endif
         }
+#    ifdef RGBW
+        else {
+            convert_rgb_to_rgbw(&led[i]);
+        }
+#endif
     }
 
 
