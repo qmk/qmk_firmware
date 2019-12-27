@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "narze.h"
 #include "keymap_colemak.h"
+#include "keymap_steno.h"
 
 #ifdef PROTOCOL_LUFA
   #include "lufa.h"
@@ -23,6 +24,7 @@ enum layers {
     _QWOC,
     _LOWER,
     _RAISE,
+    _PLOVER,
     _SUPERDUPER,
     _DEV,
     _ADJUST
@@ -30,6 +32,7 @@ enum layers {
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
+  PLOVER,
   LOWER,
   RAISE,
   ADJUST,
@@ -39,6 +42,7 @@ enum custom_keycodes {
   GUI_UNDS,
   LSFT_LPRN,
   RSFT_RPRN,
+  EXT_PLV,
 };
 
 // Narze : Custom Macros
@@ -91,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_TILD, \
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                    _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,                    _______, _______, _______,_______, _______, _______,\
-  _______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
                              _______, _______, _______, _______, _______,  _______, _______, _______\
 ),
 /* RAISE
@@ -131,11 +135,50 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   `----------------------------'           '------''--------------------'
  */
 [_ADJUST] = LAYOUT( \
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, \
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD,\
+  PLOVER,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD,\
                              _______, _______, _______, _______, _______,  _______, _______, _______ \
+),
+/* Plover layer (http://opensteno.org)
+ * ,-----------------------------------------------------------------------------------.
+ * |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |  FN  |   S  |   T  |   P  |   H  |   *  |   *  |   F  |   P  |   L  |   T  |   D  |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |   S  |   K  |   W  |   R  |   *  |   *  |   R  |   B  |   G  |   S  |   Z  |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Exit |      |      |   A  |   O  |             |   E  |   U  |  PWR | RES1 | RES2 |
+ * `-----------------------------------------------------------------------------------'
+ */
+
+// [_PLOVER] = {
+//   {STN_N1,  STN_N2,  STN_N3,  STN_N4,  STN_N5,  STN_N6,  STN_N7,  STN_N8,  STN_N9,  STN_NA,  STN_NB,  STN_NC },
+//   {STN_FN,  STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1, STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR },
+//   {XXXXXXX, STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR },
+//   {EXT_PLV, XXXXXXX, XXXXXXX, STN_A,   STN_O,   XXXXXXX, XXXXXXX, STN_E,   STN_U,   STN_PWR, STN_RE1, STN_RE2}
+// },
+/* Plover
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * |      |      |      |      |      |      |                    |      |      |  T←  |  T→  |      |      |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |      | Alt  | [SuperDuper]| Bksp | Gui  |                    |  ←   |  ↓   |   ↑  |  →   | Del  |      |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |      |      |      |      |      |      |-------.    ,-------|      |      |      |      |      |      |
+ * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
+ * |      |      |      |      |      |      |-------|    |-------|      |      |      |      |      |      |
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |RAISE |BackSP| RGUI |
+ *                   |      |      |      |/       /         \      \ |      |      |      |
+ *                   `----------------------------'           '------''--------------------'
+ */
+[_PLOVER] = LAYOUT( \
+  STN_N1,  STN_N2,  STN_N3,  STN_N4,  STN_N5,  STN_N6,                    STN_N7,  STN_N8,  STN_N9,  STN_NA,  STN_NB,  STN_NC, \
+  STN_FN,  STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1,                   STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR, \
+  XXXXXXX, STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2,                   STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR, \
+  EXT_PLV, XXXXXXX, XXXXXXX, STN_A,   STN_O,   XXXXXXX, KC_LSFT, KC_LSFT, XXXXXXX, STN_E,   STN_U,   STN_PWR, STN_RE1, STN_RE2,\
+                            QK_STENO_GEMINI, QK_STENO_BOLT, _______, KC_LSFT, KC_LSFT,  _______, _______, _______ \
 ),
 /* SuperDuper : https://gist.github.com/narze/861e2167784842d38771
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -236,6 +279,7 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 
 void matrix_init_user(void) {
     set_superduper_key_combos();
+    steno_set_mode(STENO_MODE_GEMINI);
 
     #ifdef RGBLIGHT_ENABLE
       RGB_current_mode = rgblight_config.mode;
@@ -339,6 +383,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
+    case PLOVER:
+      if (!record->event.pressed) {
+        layer_on(_PLOVER);
+      }
+      return false;
+      break;
+    case EXT_PLV:
+      if (record->event.pressed) {
+        layer_off(_PLOVER);
+      }
+      return false;
+      break;
 
     // Macros
 
