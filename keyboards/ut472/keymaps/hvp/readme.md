@@ -1,15 +1,3 @@
-
-██░ ██ ██▒ █▓ ██▓███  
-▓██░ ██▒▓██░ █▒▓██░ ██▒
-▒██▀▀██░ ▓██ █▒░▓██░ ██▓▒
-░▓█ ░██ ▒██ █░░▒██▄█▓▒ ▒
-░▓█▒░██▓ ▒▀█░ ▒██▒ ░ ░
-▒ ░░▒░▒ ░ ▐░ ▒▓▒░ ░ ░
-▒ ░▒░ ░ ░ ░░ ░▒ ░  
- ░ ░░ ░ ░░ ░░  
- ░ ░ ░ ░  
- ░
-
 Keyboard: UT47.2
 Keys: 47key staggered 40% keyboard
 Layout: Swedish characters on main layer using tap dance. Built for Eurkey keyboard layout.

@@ -1,15 +1,3 @@
-
-██░ ██ ██▒ █▓ ██▓███  
-▓██░ ██▒▓██░ █▒▓██░ ██▒
-▒██▀▀██░ ▓██ █▒░▓██░ ██▓▒
-░▓█ ░██ ▒██ █░░▒██▄█▓▒ ▒
-░▓█▒░██▓ ▒▀█░ ▒██▒ ░ ░
-▒ ░░▒░▒ ░ ▐░ ▒▓▒░ ░ ░
-▒ ░▒░ ░ ░ ░░ ░▒ ░  
- ░ ░░ ░ ░░ ░░  
- ░ ░ ░ ░  
- ░
-
 Keyboard: Corne Keyboard (CRKBD)
 Keys: A split keyboard with 3x6 vertically staggered keys and 3 thumb keys.
 Layout: Swedish characters on main layer using tapdance. Built for eurkey keyboard layout.

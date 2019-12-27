@@ -1,15 +1,3 @@
-
-██░ ██ ██▒ █▓ ██▓███  
-▓██░ ██▒▓██░ █▒▓██░ ██▒
-▒██▀▀██░ ▓██ █▒░▓██░ ██▓▒
-░▓█ ░██ ▒██ █░░▒██▄█▓▒ ▒
-░▓█▒░██▓ ▒▀█░ ▒██▒ ░ ░
-▒ ░░▒░▒ ░ ▐░ ▒▓▒░ ░ ░
-▒ ░▒░ ░ ░ ░░ ░▒ ░  
- ░ ░░ ░ ░░ ░░  
- ░ ░ ░ ░  
- ░
-
 Keyboard: Minivan 40% keyboard
 Keys: A compact 44% keyboard.
 Layout: Swedish characters on main layer using tap dance. Built for Eurkey keyboard layout.
