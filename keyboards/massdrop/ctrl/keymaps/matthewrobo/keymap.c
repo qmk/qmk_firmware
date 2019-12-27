@@ -1,4 +1,4 @@
-https://i.imgur.com/IaS0nAB.png#include QMK_KEYBOARD_H
+#include QMK_KEYBOARD_H
 
 enum ctrl_layers {
 	_QWERTY,

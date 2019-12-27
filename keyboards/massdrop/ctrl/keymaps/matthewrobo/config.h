@@ -1,4 +1,4 @@
-https://i.imgur.com/IaS0nAB.png#pragma once
+#pragma once
 
 #define FORCE_NKRO
 

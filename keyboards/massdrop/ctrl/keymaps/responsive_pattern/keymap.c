@@ -1,4 +1,4 @@
-https://i.imgur.com/IaS0nAB.png#include QMK_KEYBOARD_H
+#include QMK_KEYBOARD_H
 
 // uint8_t keyboard_leds(void)
 #include <tmk_core/protocol/arm_atsam/main_arm_atsam.h>
