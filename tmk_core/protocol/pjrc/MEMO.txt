@@ -1,0 +1,25 @@
+Endpoint configuration
+----------------------
+0   Control endpoint
+1   keyboard
+2   mouse
+3   debug
+4   extra key(consumer/system)
+5   nkro keyboard(supported only on ATmega32U4/16U4 and AT90USB64/128)
+
+
+ATmega32U4/16U4, AT90USB64/128
+• Endpoint 0:programmable size FIFO up to 64 bytes, default control endpoint
+• Endpoints 1 programmable size FIFO up to 256 bytes in ping-pong mode.
+• Endpoints 2 to 6: programmable size FIFO up to 64 bytes in ping-pong mode.
+
+AT90USB82/162, ATmega8U2/16U2/32U2
+• Endpoint 0:programmable size FIFO up to 64 bytes, default control endpoint
+• Endpoints 1 and 2: programmable size FIFO up to 64 bytes.
+• Endpoints 3 and 4: programmable size FIFO up to 64 bytes with ping-pong mode.
+
+ping-pong mode means double buffer feature.
+
+
+NOTE: ATmega8U2/16U2/32U2 is not supported with PJRC stack at this time.
+TODO: Macro definition for ATmega8U2/16U2/32U2 in usb.h

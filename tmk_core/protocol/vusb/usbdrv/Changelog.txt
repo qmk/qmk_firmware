@@ -1,0 +1,308 @@
+This file documents changes in the firmware-only USB driver for atmel's AVR
+microcontrollers. New entries are always appended to the end of the file.
+Scroll down to the bottom to see the most recent changes.
+
+2005-04-01:
+  - Implemented endpoint 1 as interrupt-in endpoint.
+  - Moved all configuration options to usbconfig.h which is not part of the
+    driver.
+  - Changed interface for usbVendorSetup().
+  - Fixed compatibility with ATMega8 device.
+  - Various minor optimizations.
+
+2005-04-11:
+  - Changed interface to application: Use usbFunctionSetup(), usbFunctionRead()
+    and usbFunctionWrite() now. Added configuration options to choose which
+    of these functions to compile in.
+  - Assembler module delivers receive data non-inverted now.
+  - Made register and bit names compatible with more AVR devices.
+
+2005-05-03:
+  - Allow address of usbRxBuf on any memory page as long as the buffer does
+    not cross 256 byte page boundaries.
+  - Better device compatibility: works with Mega88 now.
+  - Code optimization in debugging module.
+  - Documentation updates.
+
+2006-01-02:
+  - Added (free) default Vendor- and Product-IDs bought from voti.nl.
+  - Added USBID-License.txt file which defines the rules for using the free
+    shared VID/PID pair.
+  - Added readme.txt to the usbdrv directory which clarifies administrative
+    issues.
+
+2006-01-25:
+  - Added "configured state" to become more standards compliant.
+  - Added "HALT" state for interrupt endpoint.
+  - Driver passes the "USB Command Verifier" test from usb.org now.
+  - Made "serial number" a configuration option.
+  - Minor optimizations, we now recommend compiler option "-Os" for best
+    results.
+  - Added a version number to usbdrv.h
+
+2006-02-03:
+  - New configuration variable USB_BUFFER_SECTION for the memory section where
+    the USB rx buffer will go. This defaults to ".bss" if not defined. Since
+    this buffer MUST NOT cross 256 byte pages (not even touch a page at the
+    end), the user may want to pass a linker option similar to
+    "-Wl,--section-start=.mybuffer=0x800060".
+  - Provide structure for usbRequest_t.
+  - New defines for USB constants.
+  - Prepared for HID implementations.
+  - Increased data size limit for interrupt transfers to 8 bytes.
+  - New macro usbInterruptIsReady() to query interrupt buffer state.
+
+2006-02-18:
+  - Ensure that the data token which is sent as an ack to an OUT transfer is
+    always zero sized. This fixes a bug where the host reports an error after
+    sending an out transfer to the device, although all data arrived at the
+    device.
+  - Updated docs in usbdrv.h to reflect changed API in usbFunctionWrite().
+
+* Release 2006-02-20
+
+  - Give a compiler warning when compiling with debugging turned on.
+  - Added Oleg Semyonov's changes for IAR-cc compatibility.
+  - Added new (optional) functions usbDeviceConnect() and usbDeviceDisconnect()
+    (also thanks to Oleg!).
+  - Rearranged tests in usbPoll() to save a couple of instructions in the most
+    likely case that no actions are pending.
+  - We need a delay between the SET ADDRESS request until the new address
+    becomes active. This delay was handled in usbPoll() until now. Since the
+    spec says that the delay must not exceed 2ms, previous versions required
+    aggressive polling during the enumeration phase. We have now moved the
+    handling of the delay into the interrupt routine.
+  - We must not reply with NAK to a SETUP transaction. We can only achieve this
+    by making sure that the rx buffer is empty when SETUP tokens are expected.
+    We therefore don't pass zero sized data packets from the status phase of
+    a transfer to usbPoll(). This change MAY cause troubles if you rely on
+    receiving a less than 8 bytes long packet in usbFunctionWrite() to
+    identify the end of a transfer. usbFunctionWrite() will NEVER be called
+    with a zero length.
+
+* Release 2006-03-14
+
+  - Improved IAR C support: tiny memory model, more devices
+  - Added template usbconfig.h file under the name usbconfig-prototype.h
+
+* Release 2006-03-26
+
+  - Added provision for one more interrupt-in endpoint (endpoint 3).
+  - Added provision for one interrupt-out endpoint (endpoint 1).
+  - Added flowcontrol macros for USB.
+  - Added provision for custom configuration descriptor.
+  - Allow ANY two port bits for D+ and D-.
+  - Merged (optional) receive endpoint number into global usbRxToken variable.
+  - Use USB_CFG_IOPORTNAME instead of USB_CFG_IOPORT. We now construct the
+    variable name from the single port letter instead of computing the address
+    of related ports from the output-port address.
+
+* Release 2006-06-26
+
+  - Updated documentation in usbdrv.h and usbconfig-prototype.h to reflect the
+    new features.
+  - Removed "#warning" directives because IAR does not understand them. Use
+    unused static variables instead to generate a warning.
+  - Do not include <avr/io.h> when compiling with IAR.
+  - Introduced USB_CFG_DESCR_PROPS_* in usbconfig.h to configure how each
+    USB descriptor should be handled. It is now possible to provide descriptor
+    data in Flash, RAM or dynamically at runtime.
+  - STALL is now a status in usbTxLen* instead of a message. We can now conform
+    to the spec and leave the stall status pending until it is cleared.
+  - Made usbTxPacketCnt1 and usbTxPacketCnt3 public. This allows the
+    application code to reset data toggling on interrupt pipes.
+
+* Release 2006-07-18
+
+  - Added an #if !defined __ASSEMBLER__ to the warning in usbdrv.h. This fixes
+    an assembler error.
+  - usbDeviceDisconnect() takes pull-up resistor to high impedance now.
+
+* Release 2007-02-01
+
+  - Merged in some code size improvements from usbtiny (thanks to Dick
+    Streefland for these optimizations!)
+  - Special alignment requirement for usbRxBuf not required any more. Thanks
+    again to Dick Streefland for this hint!
+  - Reverted to "#warning" instead of unused static variables -- new versions
+    of IAR CC should handle this directive.
+  - Changed Open Source license to GNU GPL v2 in order to make linking against
+    other free libraries easier. We no longer require publication of the
+    circuit diagrams, but we STRONGLY encourage it. If you improve the driver
+    itself, PLEASE grant us a royalty free license to your changes for our
+    commercial license.
+
+* Release 2007-03-29
+
+  - New configuration option "USB_PUBLIC" in usbconfig.h.
+  - Set USB version number to 1.10 instead of 1.01.
+  - Code used USB_CFG_DESCR_PROPS_STRING_DEVICE and
+    USB_CFG_DESCR_PROPS_STRING_PRODUCT inconsistently. Changed all occurrences
+    to USB_CFG_DESCR_PROPS_STRING_PRODUCT.
+  - New assembler module for 16.5 MHz RC oscillator clock with PLL in receiver
+    code.
+  - New assembler module for 16 MHz crystal.
+  - usbdrvasm.S contains common code only, clock-specific parts have been moved
+    to usbdrvasm12.S, usbdrvasm16.S and usbdrvasm165.S respectively.
+
+* Release 2007-06-25
+
+  - 16 MHz module: Do SE0 check in stuffed bits as well.
+
+* Release 2007-07-07
+
+  - Define hi8(x) for IAR compiler to limit result to 8 bits. This is necessary
+    for negative values.
+  - Added 15 MHz module contributed by V. Bosch.
+  - Interrupt vector name can now be configured. This is useful if somebody
+    wants to use a different hardware interrupt than INT0.
+
+* Release 2007-08-07
+
+  - Moved handleIn3 routine in usbdrvasm16.S so that relative jump range is
+    not exceeded.
+  - More config options: USB_RX_USER_HOOK(), USB_INITIAL_DATATOKEN,
+    USB_COUNT_SOF
+  - USB_INTR_PENDING can now be a memory address, not just I/O
+
+* Release 2007-09-19
+
+  - Split out common parts of assembler modules into separate include file
+  - Made endpoint numbers configurable so that given interface definitions
+    can be matched. See USB_CFG_EP3_NUMBER in usbconfig-prototype.h.
+  - Store endpoint number for interrupt/bulk-out so that usbFunctionWriteOut()
+    can handle any number of endpoints.
+  - Define usbDeviceConnect() and usbDeviceDisconnect() even if no
+    USB_CFG_PULLUP_IOPORTNAME is defined. Directly set D+ and D- to 0 in this
+    case.
+
+* Release 2007-12-01
+
+  - Optimize usbDeviceConnect() and usbDeviceDisconnect() for less code size
+    when USB_CFG_PULLUP_IOPORTNAME is not defined.
+
+* Release 2007-12-13
+
+  - Renamed all include-only assembler modules from *.S to *.inc so that
+    people don't add them to their project sources.
+  - Distribute leap bits in tx loop more evenly for 16 MHz module.
+  - Use "macro" and "endm" instead of ".macro" and ".endm" for IAR
+  - Avoid compiler warnings for constant expr range by casting some values in
+    USB descriptors.
+
+* Release 2008-01-21
+
+  - Fixed bug in 15 and 16 MHz module where the new address set with
+    SET_ADDRESS was already accepted at the next NAK or ACK we send, not at
+    the next data packet we send. This caused problems when the host polled
+    too fast. Thanks to Alexander Neumann for his help and patience debugging
+    this issue!
+
+* Release 2008-02-05
+
+  - Fixed bug in 16.5 MHz module where a register was used in the interrupt
+    handler before it was pushed. This bug was introduced with version
+    2007-09-19 when common parts were moved to a separate file.
+  - Optimized CRC routine (thanks to Reimar Doeffinger).
+
+* Release 2008-02-16
+
+  - Removed outdated IAR compatibility stuff (code sections).
+  - Added hook macros for USB_RESET_HOOK() and USB_SET_ADDRESS_HOOK().
+  - Added optional routine usbMeasureFrameLength() for calibration of the
+    internal RC oscillator.
+
+* Release 2008-02-28
+
+  - USB_INITIAL_DATATOKEN defaults to USBPID_DATA1 now, which means that we
+    start with sending USBPID_DATA0.
+  - Changed defaults in usbconfig-prototype.h
+  - Added free USB VID/PID pair for MIDI class devices
+  - Restructured AVR-USB as separate package, not part of PowerSwitch any more.
+
+* Release 2008-04-18
+
+  - Restructured usbdrv.c so that it is easier to read and understand.
+  - Better code optimization with gcc 4.
+  - If a second interrupt in endpoint is enabled, also add it to config
+    descriptor.
+  - Added config option for long transfers (above 254 bytes), see
+    USB_CFG_LONG_TRANSFERS in usbconfig.h.
+  - Added 20 MHz module contributed by Jeroen Benschop.
+
+* Release 2008-05-13
+
+  - Fixed bug in libs-host/hiddata.c function usbhidGetReport(): length
+    was not incremented, pointer to length was incremented instead.
+  - Added code to command line tool(s) which claims an interface. This code
+    is disabled by default, but may be necessary on newer Linux kernels.
+  - Added usbconfig.h option "USB_CFG_CHECK_DATA_TOGGLING".
+  - New header "usbportability.h" prepares ports to other development
+    environments.
+  - Long transfers (above 254 bytes) did not work when usbFunctionRead() was
+    used to supply the data. Fixed this bug. [Thanks to Alexander Neumann!]
+  - In hiddata.c (example code for sending/receiving data over HID), use
+    USB_RECIP_DEVICE instead of USB_RECIP_INTERFACE for control transfers so
+    that we need not claim the interface.
+  - in usbPoll() loop 20 times polling for RESET state instead of 10 times.
+    This accounts for the higher clock rates we now support.
+  - Added a module for 12.8 MHz RC oscillator with PLL in receiver loop.
+  - Added hook to SOF code so that oscillator can be tuned to USB frame clock.
+  - Added timeout to waitForJ loop. Helps preventing unexpected hangs.
+  - Added example code for oscillator tuning to libs-device (thanks to
+    Henrik Haftmann for the idea to this routine).
+  - Implemented option USB_CFG_SUPPRESS_INTR_CODE.
+
+* Release 2008-10-22
+
+  - Fixed libs-device/osctune.h: OSCCAL is memory address on ATMega88 and
+    similar, not offset of 0x20 needs to be added.
+  - Allow distribution under GPLv3 for those who have to link against other
+    code distributed under GPLv3.
+
+* Release 2008-11-26
+
+  - Removed libusb-win32 dependency for hid-data example in Makefile.windows.
+    It was never required and confused many people.
+  - Added extern uchar usbRxToken to usbdrv.h.
+  - Integrated a module with CRC checks at 18 MHz by Lukas Schrittwieser.
+
+* Release 2009-03-23
+
+  - Hid-mouse example used settings from hid-data example, fixed that.
+  - Renamed project to V-USB due to a trademark issue with Atmel(r).
+  - Changed CommercialLicense.txt and USBID-License.txt to make the
+    background of USB ID registration clearer.
+
+* Release 2009-04-15
+
+  - Changed CommercialLicense.txt to reflect the new range of PIDs from
+    Jason Kotzin.
+  - Removed USBID-License.txt in favor of USB-IDs-for-free.txt and
+    USB-ID-FAQ.txt
+  - Fixed a bug in the 12.8 MHz module: End Of Packet decection was made in
+    the center between bit 0 and 1 of each byte. This is where the data lines
+    are expected to change and the sampled data may therefore be nonsense.
+    We therefore check EOP ONLY if bits 0 AND 1 have both been read as 0 on D-.
+  - Fixed a bitstuffing problem in the 16 MHz module: If bit 6 was stuffed,
+    the unstuffing code in the receiver routine was 1 cycle too long. If
+    multiple bytes had the unstuffing in bit 6, the error summed up until the
+    receiver was out of sync.
+  - Included option for faster CRC routine.
+    Thanks to Slawomir Fras (BoskiDialer) for this code!
+  - Updated bits in Configuration Descriptor's bmAttributes according to
+    USB 1.1 (in particular bit 7, it is a must-be-set bit now).
+
+* Release 2009-08-22
+
+  - Moved first DBG1() after odDebugInit() in all examples.
+  - Use vector INT0_vect instead of SIG_INTERRUPT0 if defined. This makes
+    V-USB compatible with the new "p" suffix devices (e.g. ATMega328p).
+  - USB_CFG_CLOCK_KHZ setting is now required in usbconfig.h (no default any
+    more).
+  - New option USB_CFG_DRIVER_FLASH_PAGE allows boot loaders on devices with
+    more than 64 kB flash.
+  - Built-in configuration descriptor allows custom definition for second
+    endpoint now.
+
+* Release 2010-07-15
