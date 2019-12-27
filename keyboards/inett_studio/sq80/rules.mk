@@ -10,6 +10,7 @@ MCU = atmega32u4
 #   ATmega32A    bootloadHID
 #   ATmega328P   USBasp
 BOOTLOADER = atmel-dfu
+
 # Build Options
 #   comment out to disable the options.
 #
