@@ -51,3 +51,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              _______,                   _______,  _______, _______,        _______,          _______,                        _______
   )
 };
+
+static uint8_t top = 0;
+static uint8_t middle = 0;
+static uint8_t bottom = 1;
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    top = middle = bottom = 0;
+    switch (get_highest_layer(state)) {
+      case _NAVMED:
+          top = 1;
+          break;
+      case _FNMS:
+          middle = 1;
+          break;
+      default:
+        break;
+    }
+  return state;
+}
+
+bool led_update_user(led_t usb_led) {
+    writePin(A8, !top);
+    writePin(A9, !middle);
+    writePin(A10, !bottom);
+    return false;
+}
