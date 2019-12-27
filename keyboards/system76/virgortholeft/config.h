@@ -4,12 +4,12 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define VENDOR_ID       0x1776
+#define PRODUCT_ID      0x1776
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    System76
-#define PRODUCT         Split Ortho 2U Virgo Left
-#define DESCRIPTION     Virgo Left
+#define PRODUCT         Virgortholeft
+#define DESCRIPTION     Left half of 2U Split Ortho
 
 /* key matrix size */
 #define MATRIX_ROWS 6
