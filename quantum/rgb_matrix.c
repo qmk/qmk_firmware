@@ -417,7 +417,12 @@ void rgb_matrix_init(void) {
     eeconfig_debug_rgb_matrix();  // display current eeprom values
 }
 
-void rgb_matrix_set_suspend_state(bool state) { g_suspend_state = state; }
+void rgb_matrix_set_suspend_state(bool state) { 
+    if (RGB_DISABLE_WHEN_USB_SUSPENDED && state) { 
+        rgb_matrix_set_color_all(0, 0, 0); // turn off all LEDs when suspending
+    }
+    g_suspend_state = state; 
+}
 
 void rgb_matrix_toggle(void) {
     rgb_matrix_config.enable ^= 1;
