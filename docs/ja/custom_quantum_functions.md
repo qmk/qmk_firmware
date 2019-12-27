@@ -316,13 +316,13 @@ void suspend_wakeup_init_user(void) {
 * キーボード/リビジョン : `void suspend_power_down_kb(void)` および `void suspend_wakeup_init_user(void)`
 * キーマップ: `void suspend_power_down_kb(void)` および `void suspend_wakeup_init_user(void)`
 
-# レイヤ変更コード
+# レイヤー変更コード
 
-これはレイヤが変更されるたびにコードを実行します。レイヤ表示あるいはカスタムレイヤ処理に役立ちます。
+これはレイヤーが変更されるたびにコードを実行します。レイヤー表示あるいはカスタムレイヤー処理に役立ちます。
 
 ### 例 `layer_state_set_*` の実装
 
-この例は、Planck を例として使って、レイヤに基づいて [RGB アンダーグロー](ja/feature_rgblight.md)を設定する方法を示します。
+この例は、Planck を例として使って、レイヤーに基づいて [RGB アンダーグロー](ja/feature_rgblight.md)を設定する方法を示します。
 
 ```c
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -339,7 +339,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case _ADJUST:
         rgblight_setrgb (0x7A,  0x00, 0xFF);
         break;
-    default: //  他の全てのレイヤあるいはデフォルトのレイヤ
+    default: //  他の全てのレイヤーあるいはデフォルトのレイヤー
         rgblight_setrgb (0x00,  0xFF, 0xFF);
         break;
     }
@@ -352,12 +352,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 * キーマップ: `layer_state_t layer_state_set_user(layer_state_t state)`
 
 
-[キーマップの概要](ja/keymap.md#keymap-layer-status)で説明されるように、`state` はアクティブなレイヤのビットマスクです。
+[キーマップの概要](ja/keymap.md#keymap-layer-status)で説明されるように、`state` はアクティブなレイヤーのビットマスクです。
 
 
 # 永続的な設定 (EEPROM)
 
-これによりキーボードのための永続的な設定を設定することができます。これらの設定はコントローラの EEPROM に保存され、電源が喪失した後であっても保持されます。設定は `eeconfig_read_kb` および `eeconfig_read_user` を使って読み取ることができ、`eeconfig_update_kb` および `eeconfig_update_user` を使って書きこむことができます。これは切り替え可能な機能 (rgb レイヤの表示の切り替えなど)に役立ちます。さらに、`eeconfig_init_kb` および `eeconfig_init_user` を使って EEPROM のデフォルト値を設定できます。
+これによりキーボードのための永続的な設定を設定することができます。これらの設定はコントローラの EEPROM に保存され、電源が喪失した後であっても保持されます。設定は `eeconfig_read_kb` および `eeconfig_read_user` を使って読み取ることができ、`eeconfig_update_kb` および `eeconfig_update_user` を使って書きこむことができます。これは切り替え可能な機能 (rgb レイヤーの表示の切り替えなど)に役立ちます。さらに、`eeconfig_init_kb` および `eeconfig_init_user` を使って EEPROM のデフォルト値を設定できます。
 
 ここでの複雑な部分は、EEPROM を介してデータを保存およびアクセスできる方法がたくさんあり、これを行うための"正しい"方法が無いということです。ただし、各関数には DWORD (4 バイト)しかありません。
 
@@ -394,7 +394,7 @@ void keyboard_post_init_user(void) {
   // EEPROM からユーザ設定を読み込みます
   user_config.raw = eeconfig_read_user();
 
-  // 有効な場合はデフォルトレイヤを設定します
+  // 有効な場合はデフォルトレイヤーを設定します
   if (user_config.rgb_layer_change) {
     rgblight_enable_noeeprom();
     rgblight_sethsv_noeeprom_cyan();
@@ -402,7 +402,7 @@ void keyboard_post_init_user(void) {
   }
 }
 ```
-上記の関数は読み取ったばかりの EEPROM 設定を使い、デフォルトのレイヤの RGB 色を設定します。その"生の"値は、上で作成した"共用体"に基づいて使用可能な構造に変換されます。
+上記の関数は読み取ったばかりの EEPROM 設定を使い、デフォルトのレイヤーの RGB 色を設定します。その"生の"値は、上で作成した"共用体"に基づいて使用可能な構造に変換されます。
 
 ```c
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -419,7 +419,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case _ADJUST:
         if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_white(); rgblight_mode_noeeprom(1); }
         break;
-    default: //  他の全てのレイヤあるいはデフォルトのレイヤ
+    default: //  他の全てのレイヤーあるいはデフォルトのレイヤー
         if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_cyan(); rgblight_mode_noeeprom(1); }
         break;
     }
@@ -443,17 +443,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             PLAY_NOTE_ARRAY(tone_qwerty);
         }
         return true; // QMK に enter のプレスまたはリリースイベントを送信させます
-    case RGB_LYR:  // これにより、アンダーグローをレイヤ表示として、あるいは通常通りに使うことができます。
+    case RGB_LYR:  // これにより、アンダーグローをレイヤー表示として、あるいは通常通りに使うことができます。
         if (record->event.pressed) {
             user_config.rgb_layer_change ^= 1; // 状態を切り替えます
             eeconfig_update_user(user_config.raw); // 新しい状態を EEPROM に書き込みます
-            if (user_config.rgb_layer_change) { // レイヤの状態表示が有効な場合
-                layer_state_set(layer_state);   // すぐにレイヤの色を更新します
+            if (user_config.rgb_layer_change) { // レイヤーの状態表示が有効な場合
+                layer_state_set(layer_state);   // すぐにレイヤーの色を更新します
             }
         }
         return false; break;
     case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT: // 任意の RGB コード (quantum_keycodes.h を見てください。参照としては L400)
-        if (record->event.pressed) { // これはレイヤ表示を無効にします。これを変更する場合は、無効にしたいだろうため。
+        if (record->event.pressed) { // これはレイヤー表示を無効にします。これを変更する場合は、無効にしたいだろうため。
             if (user_config.rgb_layer_change) {        // 有効な場合のみ
                 user_config.rgb_layer_change = false;  // 無効にします
                 eeconfig_update_user(user_config.raw); // 設定を EEPROM に書き込みます
@@ -465,7 +465,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 }
 ```
-最後に、`eeconfig_init_user` 関数を追加して、EEPROM がリセットされた時にデフォルト値、さらにはカスタムアクションを指定できるようにします。EEPROM を強制的にリセットするには、`EEP_RST` キーコードあるいは[ブートマジック](ja/feature_bootmagic.md)機能を使います。例えば、デフォルトで rgb レイヤ表示を設定し、デフォルト値を保存したい場合。
+最後に、`eeconfig_init_user` 関数を追加して、EEPROM がリセットされた時にデフォルト値、さらにはカスタムアクションを指定できるようにします。EEPROM を強制的にリセットするには、`EEP_RST` キーコードあるいは[ブートマジック](ja/feature_bootmagic.md)機能を使います。例えば、デフォルトで rgb レイヤー表示を設定し、デフォルト値を保存したい場合。
 
 ```c
 void eeconfig_init_user(void) {  // EEPROM がリセットされます！
@@ -480,7 +480,7 @@ void eeconfig_init_user(void) {  // EEPROM がリセットされます！
 }
 ```
 
-これで完了です。RGB レイヤ表示は必要な場合にのみ機能します。ボードを取り外した後でも保存されます。RGB コードのいずれかを使うと、レイヤ表示が無効になり、設定したモードと色がそのままになります。
+これで完了です。RGB レイヤー表示は必要な場合にのみ機能します。ボードを取り外した後でも保存されます。RGB コードのいずれかを使うと、レイヤー表示が無効になり、設定したモードと色がそのままになります。
 
 ### 'EECONFIG' 関数のドキュメント
 
