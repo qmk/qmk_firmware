@@ -8,7 +8,7 @@ Cheshire Alice Keyboard Replacement PCB
 
 Make example for this keyboard (after setting up your build environment):
 
-    make cheshire/curiosity:default
+    make cheshire/curiosity:default:flash
 
 If you are flashing this keyboard/pcb for the first time:
 
