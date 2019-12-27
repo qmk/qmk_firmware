@@ -60,7 +60,7 @@ git remote add upstream https://github.com/qmk/qmk_firmware.git
 git remote set-url origin https://github.com/<あなたのユーザ名>/qmk_firmware.git
 ```
 
-両方のリモートリポジトリが設定されたので、次を実行して、QMK である `upstream` リポジトリの参照を更新する必要があります。(?? 'references' をこう訳して git の説明として正しいのか??)
+両方のリモートリポジトリが設定されたので、次を実行して、QMK である `upstream` リポジトリの参照を更新する必要があります。
 
 ```sh
 git fetch upstream
