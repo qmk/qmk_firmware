@@ -1,6 +1,6 @@
 # SQ80
 
-![SQ80] https://imgur.com/a/lXPQfKv
+![SQ80](https://i.imgur.com/svHuZC5.png)
 
 A short description of the keyboard/project
 
