@@ -37,4 +37,4 @@ CUSTOM_MATRIX = yes
 DEFAULT_FOLDER = zinc/rev1
 
 #SRC += i2c.c
-SRC += serial.c
+SRC += serial.c/NO-LTO

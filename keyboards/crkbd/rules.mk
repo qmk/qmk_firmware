@@ -33,7 +33,7 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 CUSTOM_MATRIX = yes
 QUANTUM_LIB_SRC += 	i2c.c \
-					serial.c
+					serial.c/NO-LTO
 SRC += ssd1306.c
 
 # if firmware size over limit, try this option

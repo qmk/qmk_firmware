@@ -37,5 +37,5 @@ CUSTOM_MATRIX = yes
 DEFAULT_FOLDER = treadstone48/rev1
 
 SRC += i2c.c
-SRC += serial.c
+SRC += serial.c/NO-LTO
 SRC += ssd1306.c

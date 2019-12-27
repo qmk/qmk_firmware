@@ -143,8 +143,13 @@ CC = arm-none-eabi-gcc
 OBJCOPY = arm-none-eabi-objcopy
 OBJDUMP = arm-none-eabi-objdump
 SIZE = arm-none-eabi-size
-AR = arm-none-eabi-ar
-NM = arm-none-eabi-nm
+ifeq ($(strip $(LINK_TIME_OPTIMIZATION_ENABLE)), yes)
+  AR = arm-none-eabi-gcc-ar
+  NM = arm-none-eabi-gcc-nm
+else
+  AR = arm-none-eabi-ar
+  NM = arm-none-eabi-nm
+endif
 HEX = $(OBJCOPY) -O $(FORMAT)
 EEP =
 BIN = $(OBJCOPY) -O binary

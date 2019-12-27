@@ -33,7 +33,7 @@ USE_I2C = no               # i2c is not supported
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 CUSTOM_MATRIX = yes
-SRC += matrix.c serial.c split_util.c
+SRC += matrix.c serial.c/NO-LTO split_util.c
 
 DEFAULT_FOLDER = ergoinu
 

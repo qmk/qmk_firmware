@@ -33,7 +33,7 @@ HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
 
 CUSTOM_MATRIX = yes
 SRC += i2c.c \
-       serial.c \
+       serial.c/NO-LTO \
        matrix.c \
        split_util.c
 USE_I2C = yes

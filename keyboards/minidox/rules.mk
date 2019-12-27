@@ -35,6 +35,6 @@ CUSTOM_MATRIX = yes
 SRC += matrix.c \
 	   i2c.c \
 	   split_util.c \
-	   serial.c
+	   serial.c/NO-LTO
 
 DEFAULT_FOLDER = minidox/rev1

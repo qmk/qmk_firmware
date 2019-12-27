@@ -36,7 +36,7 @@ CUSTOM_MATRIX = yes
 SRC += matrix.c \
 	   i2c.c \
 	   split_util.c \
-	   serial.c \
+	   serial.c/NO-LTO \
 	   ssd1306.c
 
 LAYOUTS = ortho_4x14
