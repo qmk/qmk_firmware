@@ -36,7 +36,7 @@ typedef union {
   uint32_t raw;
   struct {
     bool     rgb_layer_change :1;
-    uint8_t  rgb_theme :2;
+    uint8_t  rgb_theme :4;
   };
 } user_config_t;
 extern user_config_t user_config;
