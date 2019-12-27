@@ -15,6 +15,11 @@
  */
 #include "doppelganger.h"
 
+void keyboard_pre_init_kb (void) {
+  setPinOutput(C6);
+  setPinOutput(B0);
+}
+
 bool led_update_kb(led_t led_state) {
   bool res = led_update_user(led_state);
   if(res) {
@@ -29,6 +34,6 @@ bool led_update_kb(led_t led_state) {
 }
 
 __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
-  writePin(B0, (state & (1UL << 1)));
+  writePin(B0, !(state & (1UL << 1)));
   return state;
 }
