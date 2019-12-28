@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | caps| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
+ * | caps| alt   | gui  | ctl  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_preonic_grid( \
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | caps| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
+ * | caps | alt | gui  | ctrl  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_DVORAK] = LAYOUT_preonic_1x2uC( \
@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | caps | Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
+ * | caps | alt  |gui   | ctl  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = LAYOUT_preonic_grid( \
@@ -150,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 
-/* Adjust (Lower + Raise)
+/* Adjust (Lower + Raise)     wwssswwwwsss s s 
  * ,-----------------------------------------------------------------------------------.
  * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -172,11 +172,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 /* Mouse / LED
  * ,-----------------------------------------------------------------------------------.
- * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
+ * |  Fa1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |RGB_TO|      | WHL_U|Mclick|      | HU_D | HU_I | LCTL | MS_U | WHL_U|      |  Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |RGB_MO|      | WHL_D|Rclick|Lclick| SA_D | SA_I | MS_L | MS_D | MS_R |      | ACL0 |
+ * |RGBa_MO|      | WHL_D|Rclick|Lclick| SA_D | SA_I | MS_L | MS_D | MS_R |      | ACL0 |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |RGB_MR|      |      |      |      | VA_D | VA_I | WHL_D| WHL_L| WHL_R|      | ACL1 |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -188,7 +188,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   RGB_TOG, _______, KC_WH_U, KC_BTN3, _______, RGB_HUD, RGB_HUI, KC_LCTL, KC_MS_U, KC_WH_U, _______, KC_DEL,  \
   RGB_MOD, _______, KC_WH_D, KC_BTN2, KC_BTN1, RGB_SAD, RGB_SAI, KC_MS_L, KC_MS_D, KC_MS_R, _______, KC_ACL0, \
   RGB_RMOD,_______, _______, SEL_CPY, _______, RGB_VAD, RGB_VAI, KC_WH_D, KC_WH_L, KC_WH_R, _______, KC_ACL1, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_ACL2  \
+  QWERTY, _______, _______, _______, LOWER, _______, _______, RAISE, _______, _______, _______, KC_ACL2  \
   )
 
 };
@@ -196,8 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
-static bool mouse_interrupted = 0;
-static uint16_t mouse_timer = 0;
+
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -220,7 +219,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           return false;
           break;
-       
+       case SPC_MOU:
+         if (record->event.pressed) {
+            set_single_persistent_default_layer(_WORKMAN);
+          }
+          return false;
+          break;
         case LOWER:
           if (record->event.pressed) {
             layer_on(_LOWER);
@@ -242,20 +246,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           return false;
           break;
 
-          case SPC_MOU:
-          if (record->event.pressed) {
-           mouse_interrupted = false;
-           mouse_timer = timer_read();
-
-           layer_on(_WORKMAN);
-          } else if (!mouse_interrupted && timer_elapsed(mouse_timer) < TAPPING_TERM) {
-           layer_off(_WORKMAN);
-           tap_code(KC_SPC);
-          } else {
-           layer_off(_WORKMAN);
-          }
-          return false;
-          break;
+          
 // custom stuff
 
 
