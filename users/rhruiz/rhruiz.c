@@ -14,6 +14,13 @@ __attribute__((weak)) bool rhruiz_is_layer_indicator_led(uint8_t index) { return
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case KC_EPIP:
+            if (!record->event.pressed) {
+                SEND_STRING("|> ");
+            }
+
+            break;
+
         case KC_MAKE:
             if (!record->event.pressed) {
                 uint8_t temp_mod = mod_config(get_mods());

@@ -2,7 +2,7 @@
 
 enum rhruiz_layers { _BL, _VIM_EMACS, _MOUSE, _KEY_OVERRIDE, _FN1, _FN2, _CFG, _NUM };
 
-enum custom_keycodes { KC_MAKE = SAFE_RANGE, NEW_SAFE_RANGE };
+enum custom_keycodes { KC_MAKE = SAFE_RANGE, KC_EPIP, NEW_SAFE_RANGE };
 
 /* mission control */
 #define MISCTRL LCTL(KC_UP)
