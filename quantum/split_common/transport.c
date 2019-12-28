@@ -145,9 +145,9 @@ volatile Serial_rgblight_t serial_rgblight = {};
 uint8_t volatile status_rgblight           = 0;
 #    endif
 
-uint8_t volatile slave_buffer_change_count = 0;
 volatile Serial_s2m_buffer_t serial_s2m_buffer = {};
 volatile Serial_m2s_buffer_t serial_m2s_buffer = {};
+uint8_t volatile slave_buffer_change_count     = 0;
 uint8_t volatile status0                       = 0;
 
 enum serial_transaction_id {
@@ -169,11 +169,13 @@ SSTD_t transactions[] = {
         },
     [GET_SLAVE_STATUS] =
         /* master buffer not changed, only receive slave_buffer_change_count */
-        {
-            (uint8_t *)&status0,
-            0, NULL,
-            sizeof(slave_buffer_change_count), (uint8_t *)&slave_buffer_change_count,
-        },
+    {
+        (uint8_t *)&status0,
+        0,
+        NULL,
+        sizeof(slave_buffer_change_count),
+        (uint8_t *)&slave_buffer_change_count,
+    },
 #    if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
     [PUT_RGBLIGHT] =
         {
@@ -245,7 +247,7 @@ bool transport_master(matrix_row_t matrix[]) {
 void transport_slave(matrix_row_t matrix[]) {
     transport_rgblight_slave();
 
-    slave_buffer_change_count=0;
+    slave_buffer_change_count = 0;
     // TODO: if MATRIX_COLS > 8 change to pack()
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         slave_buffer_change_count += (serial_s2m_buffer.smatrix[i] != matrix[i]);
