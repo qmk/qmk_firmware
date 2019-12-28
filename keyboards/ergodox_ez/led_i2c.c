@@ -51,10 +51,11 @@ void rgblight_set(void) {
 #endif
         }
     }
-
 #ifdef RGBW
-    for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-        convert_rgb_to_rgbw(&led[i]);
+    else {
+        for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+            convert_rgb_to_rgbw(&led[i]);
+        }
     }
 #endif
 
