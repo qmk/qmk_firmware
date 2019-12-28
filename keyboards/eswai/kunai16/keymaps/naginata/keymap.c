@@ -377,8 +377,12 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
 void matrix_init_user(void) {
   // 薙刀式
   set_naginata(_NAGINATA);
+  #ifdef NAGINATA_EDIT_MAC
   set_unicode_input_mode(UC_OSX);
-  // set_unicode_input_mode(UC_WINC);
+  #endif
+  #ifdef NAGINATA_EDIT_WIN
+  set_unicode_input_mode(UC_WINC);
+  #endif
   // 薙刀式
   timer = timer_read();
 }
