@@ -59,6 +59,7 @@ enum keymap_layers {
 };
 
 // 薙刀式
+// FG, HJの同時押しでかな/英数モードを切り替えられるようにする
 enum combo_events {
   NAGINATA_ON_CMB,
   NAGINATA_OFF_CMB,
@@ -485,12 +486,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   // 薙刀式
   bool a = true;
-  if (naginata_state()) {
-    naginata_mode(keycode, record);
-    a = process_naginata(keycode, record);
+  if (naginata_state()) { // 薙刀式モードONなら
+    naginata_mode(keycode, record); // modifierを押していたら薙刀式レイヤーはOFFにする
+    a = process_naginata(keycode, record); // 薙刀式の処理をする
     // update_led();
   }
-  if (a == false) return false;
+  if (a == false) return false; // 以降のevent chainを中断する
   // 薙刀式
 
   return true;

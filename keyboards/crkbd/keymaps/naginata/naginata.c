@@ -22,7 +22,8 @@
   #define memcpy_P(des, src, len) memcpy(des, src, len)
 #endif
 
-#define NGBUFFER 5 // バッファのサイズ
+#define NGBUFFER 5 // キー入力バッファのサイズ
+#define N_DOUJIKEY 3 // 同時押しするキー数（最大）
 
 #ifdef NAGINATA_TATEGAKI
   #define NGUP X_UP
@@ -47,7 +48,7 @@
 
 static uint8_t ng_chrcount = 0; // 文字キー入力のカウンタ (シフトキーを除く)
 static bool is_naginata = false; // 薙刀式がオンかオフか
-static uint8_t naginata_layer = 0; // レイヤー番号
+static uint8_t naginata_layer = 0; // NG_*を配置しているレイヤー番号
 static uint8_t n_modifier = 0; // 押しているmodifierキーの数
 static uint32_t keycomb = 0UL; // 同時押しの状態を示す。32bitの各ビットがキーに対応する。
 
@@ -136,7 +137,7 @@ const uint32_t ng_key[] = {
 };
 
 // 薙刀式カナ変換テーブル
-// 順序つき
+// 順序つき（オリジナル薙刀式にはキーを押す順序は関係ないが、順序を考慮した同時押しも定義可能）
 #ifdef NAGINATA_JDOUJI
 typedef struct {
   uint32_t key[3];
@@ -498,6 +499,7 @@ bool naginata_state(void) {
   return is_naginata;
 }
 
+// OSのかな/英数モードをキーボードに合わせる
 void makesure_mode(void) {
   if (is_naginata) {
     tap_code(KC_LANG1); // Mac
@@ -655,11 +657,10 @@ void naginata_clear(void) {
   ng_chrcount = 0;
 }
 
-// 入力モードか編集モードかを確認する
+// modifierが押されたら薙刀式レイヤーをオフしてベースレイヤーに戻す
 void naginata_mode(uint16_t keycode, keyrecord_t *record) {
   if (!is_naginata) return;
 
-  // modifierが押されたらレイヤーをオフ
   switch (keycode) {
     case KC_LCTRL:
     case KC_LSHIFT:
@@ -680,7 +681,6 @@ void naginata_mode(uint16_t keycode, keyrecord_t *record) {
       }
       break;
   }
-
 }
 
 // 薙刀式の入力処理
@@ -693,8 +693,8 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         ninputs[ng_chrcount] = keycode; // キー入力をバッファに貯める
         ng_chrcount++;
         keycomb |= ng_key[keycode - NG_Q]; // キーの重ね合わせ
-        // 3文字押したら処理を開始
-        if (ng_chrcount > 2) {
+        // N文字押したら処理を開始
+        if (ng_chrcount >= N_DOUJIKEY) {
           naginata_type();
         }
         return false;
@@ -703,7 +703,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
   } else { // key release
     switch (keycode) {
       case NG_Q ... NG_SHFT:
-        // 3文字入力していなくても、どれかキーを離したら処理を開始する
+        // N文字入力していなくても、どれかキーを離したら処理を開始する
         if (ng_chrcount > 0) {
           naginata_type();
         }
