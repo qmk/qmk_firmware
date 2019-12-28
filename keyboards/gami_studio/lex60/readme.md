@@ -2,7 +2,7 @@
 
 A 60% with split space bars made by Gami Studio.
 
-![Lex60 Layout support](https://imgur.com/a/sVP3s0o)
+![Lex60 Layout support](https://i.imgur.com/oehz1Zm.png)
 
 * Keyboard Maintainer: [Gami Studio](https://github.com/GamiStudio)
 * Hardware Supported: Lex60 powered by the ATmega32U4
