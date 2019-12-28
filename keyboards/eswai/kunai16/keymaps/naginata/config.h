@@ -17,9 +17,7 @@
 #pragma once
 
 #undef PRODUCT
-#define PRODUCT Shuriken19 Naginata Style
-#undef MANUFACTURER
-#define MANUFACTURER    eswai
+#define PRODUCT Kunai16 Naginata Style
 
 // 薙刀式
 #define NAGINATA_JDOUJI // 順序つきの同時押しに対応する
