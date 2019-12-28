@@ -3,9 +3,9 @@
 ![Minitomic](https://i.imgur.com/wGtNokW.jpg)
 
 ## Support
-Keyboard Maintainer: [Maarten Dekkers](https://github.com/maartenwut)  
-Hardware Supported: Minitomic  
-Hardware Availability: [maartenwut.com](https://maartenwut.com)  
+* Keyboard Maintainer: [Maarten Dekkers](https://github.com/maartenwut)
+* Hardware Supported: Minitomic
+* Hardware Availability: [maartenwut.com](https://maartenwut.com)
 
 
 ## Features
