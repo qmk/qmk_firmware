@@ -3,9 +3,9 @@
 ![mx5160](https://i.imgur.com/XZ9xUeq.jpg)
 
 ## Support
-Keyboard Maintainer: [Maarten Dekkers](https://github.com/maartenwut)  
-Hardware Supported: mx-5160 (Chicony 5160c case)  
-Hardware Availability: [Github](https://github.com/Maartenwut/mx-5160)  
+* Keyboard Maintainer: [Maarten Dekkers](https://github.com/maartenwut)
+* Hardware Supported: mx-5160 (Chicony 5160c case)
+* Hardware Availability: [Github](https://github.com/Maartenwut/mx-5160)
 
 ## Build
 Make example for this keyboard (after setting up your build environment):
