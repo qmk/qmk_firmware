@@ -45,5 +45,9 @@ CONSOLE_ENABLE = no# Console for debug
 COMMAND_ENABLE = no # Commands for debug and configuration
 NKRO_ENABLE = no # USB Nkey Rollover
 AUDIO_ENABLE = no
-
 RGBLIGHT_ENABLE = yes
+
+RGBLIGHT_CUSTOM_DRIVER = yes
+CUSTOM_MATRIX = yes
+
+SRC += matrix.c drivers/arm/ws2812.c
