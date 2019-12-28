@@ -32,14 +32,15 @@
 
     #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
                                   SONG(COLEMAK_SOUND), \
+                                  SONG(WORKMAN_SOUND), \                    
                                   SONG(DVORAK_SOUND) \
                                 }
 #endif
 
 #define MUSIC_MASK (keycode != KC_NO)
 
-#define AUDIO_CLICKY
-#define AUDIO_CLICKY_FREQ_DEFAULT 440.f
+// #define AUDIO_CLICKY
+// #define AUDIO_CLICKY_FREQ_DEFAULT 440.f
 
 /*
  * MIDI options
