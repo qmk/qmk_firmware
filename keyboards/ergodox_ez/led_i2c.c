@@ -52,6 +52,11 @@ void rgblight_set(void) {
         }
     }
 
+#ifdef RGBW
+    for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+        convert_rgb_to_rgbw(&led[i]);
+    }
+#endif
 
     uint8_t led_num = RGBLED_NUM;
     i2c_init();
