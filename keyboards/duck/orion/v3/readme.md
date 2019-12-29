@@ -4,7 +4,7 @@ Non official firmware for custom TKL Korean keyboard made by Duck.
 Group buy was run December 2018 via [geekhack](https://geekhack.org/index.php?topic=98581.0) with 100 keyboards total. 
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
-Hardware Supported: Duck Orion V3 PCB Ver 2.1  
+* Hardware Supported: Duck Orion V3 PCB Ver 2.1
 Hardware Availability: Wait until GB of the next revision
 
 Make example for this keyboard (after setting up your build environment):
