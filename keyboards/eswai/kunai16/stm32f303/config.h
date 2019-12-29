@@ -1,4 +1,5 @@
-#ifndef STM32F303_CONFIG_H
+#pragma once
+
 #define STM32F303_CONFIG_H
 
 /* USB Device descriptor parameter */
@@ -9,5 +10,3 @@
 
 // #define MATRIX_ROWS 4
 // #define MATRIX_COLS 16
-
-#endif

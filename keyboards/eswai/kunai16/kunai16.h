@@ -1,5 +1,4 @@
-#ifndef KUNAI16_H
-#define KUNAI16_H
+#pragma once
 
 #include "quantum.h"
 
@@ -7,6 +6,4 @@
   #include "stm32f303.h"
 #elif defined(STM32F103_CONFIG_H)
   #include "stm32f103.h"
-#endif
-
 #endif

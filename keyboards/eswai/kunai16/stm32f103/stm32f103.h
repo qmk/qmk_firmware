@@ -1,5 +1,4 @@
-#ifndef STM32F301_H
-#define STM32F301_H
+#pragma once
 
 #include "quantum.h"
 
@@ -15,5 +14,3 @@
                 { KC_NO, KC_NO, R02, R03, R18, R08, R13, R07, R17, R12, R16, R11, R06, R01, KC_NO, KC_NO }, \
                 { R04, R05, R10, R15, KC_NO, R14, R09, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
         }
-
-#endif
