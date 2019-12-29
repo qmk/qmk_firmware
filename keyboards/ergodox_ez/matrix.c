@@ -129,6 +129,9 @@ uint8_t matrix_scan(void) {
         print("left side not responding\n");
       } else {
         print("left side attached\n");
+#ifdef RGB_MATRIX_ENABLE
+        rgb_matrix_init();
+#endif
         ergodox_blink_all_leds();
       }
     }
