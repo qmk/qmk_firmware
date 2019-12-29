@@ -17,7 +17,7 @@
 void naginata_type(void);
 void naginata_clear(void);
 
-void check_modifier(uint16_t, keyrecord_t *);
+void process_modifier(uint16_t, keyrecord_t *);
 
 void naginata_on(void);
 void naginata_off(void);

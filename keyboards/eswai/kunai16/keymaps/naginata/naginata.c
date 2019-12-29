@@ -658,7 +658,7 @@ void naginata_clear(void) {
 }
 
 // modifierが押されたら薙刀式レイヤーをオフしてベースレイヤーに戻す
-void check_modifier(uint16_t keycode, keyrecord_t *record) {
+void process_modifier(uint16_t keycode, keyrecord_t *record) {
   if (!is_naginata) return;
   if (get_mods() > 0) {
     layer_off(naginata_layer);

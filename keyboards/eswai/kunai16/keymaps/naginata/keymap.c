@@ -347,7 +347,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // 薙刀式
   bool a = true;
   if (naginata_state()) {
-    check_modifier(keycode, record);
+    process_modifier(keycode, record);
     a = process_naginata(keycode, record);
     if (a == false) return false;
   }
