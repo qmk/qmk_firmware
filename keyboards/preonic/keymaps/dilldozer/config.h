@@ -7,10 +7,7 @@
 #define MK_MOMENTARY_ACCEL
 #define MOUSEKEY_MAX_SPEED         8
 
-// Must raise 5 halftones
-/* #define CUSTOM_STARTUP \ */
-/*  Q__NOTE(_FS7), \ */
-/*  W__NOTE(_B7), */
+
 
 #undef MUSICAL_NOTE
 #define MUSICAL_NOTE(note, duration) {((NOTE##note) * 1.3348398541700344), duration}

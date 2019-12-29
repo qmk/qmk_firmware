@@ -1,4 +1,6 @@
-# John's layout
+# Dilldozer layout
+
+## Layout created by John Garrett 2019 <https://github.com/JHGarrett>
 
 ### Qwerty
 ```
