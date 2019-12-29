@@ -1,6 +1,6 @@
 # ergoslab
 
-![ergoslab](https://raw.githubusercontent.com/tomsaleeba/ergoslab/master/render-pcb.png)
+![ergoslab](https://raw.githubusercontent.com/tomsaleeba/ergoslab/master/ergoslab.jpg)
 
 
 A split ergo 5x6 keyboard with hotswap sockets and a heap of thumb keys designed
