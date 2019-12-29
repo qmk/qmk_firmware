@@ -23,12 +23,13 @@ enum preonic_layers {
   _QWERTY,
   _COLEMAK,
   _DVORAK,
+   _MOUSE,
+  _NUMPAD,
+  _SYMB,
   _LOWER,
   _RAISE,
-  _ADJUST,
-  _MOUSE,
-  _NUMPAD,
-  _SYMB
+  _ADJUST
+ 
 
 };
 
