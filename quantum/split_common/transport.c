@@ -245,21 +245,25 @@ bool transport_master(matrix_row_t matrix[]) {
 }
 
 void transport_slave(matrix_row_t matrix[]) {
+    // handle puts
     transport_rgblight_slave();
 
-    slave_buffer_change_count = 0;
-    // TODO: if MATRIX_COLS > 8 change to pack()
-    for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        slave_buffer_change_count += (serial_s2m_buffer.smatrix[i] != matrix[i]);
-        serial_s2m_buffer.smatrix[i] = matrix[i];
-    }
 #    ifdef BACKLIGHT_ENABLE
     backlight_set(serial_m2s_buffer.backlight_level);
 #    endif
 
+    // handle gets
+    Serial_s2m_buffer_t temp_buffer = {};
+
+    // TODO: if MATRIX_COLS > 8 change to pack()
+    memcpy((void *)temp_buffer.smatrix, (void *)matrix, sizeof(temp_buffer.smatrix));
+
 #    ifdef ENCODER_ENABLE
-    encoder_state_raw((uint8_t *)serial_s2m_buffer.encoder_state);
+    encoder_state_raw((uint8_t *)temp_buffer.encoder_state);
 #    endif
+
+    slave_buffer_change_count = memcmp((void *)&serial_s2m_buffer, &temp_buffer, sizeof(temp_buffer)) != 0;
+    memcpy((void *)&serial_s2m_buffer, &temp_buffer, sizeof(temp_buffer));
 }
 
 #endif
