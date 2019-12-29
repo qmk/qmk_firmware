@@ -1,5 +1,4 @@
-# Dilldozer layout
-
+# John's Preonic layout
 
 
 ### Qwerty
