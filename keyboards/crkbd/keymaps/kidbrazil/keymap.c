@@ -8,7 +8,16 @@ static uint32_t oled_timer = 0;
 bool user_led_enabled = true;
 // Boolean to store the master LED clear so it only runs once.
 bool master_oled_cleared = false;
-
+// Current Color
+int current_color = 0; //Corresponds to green as initialized above
+// [CRKBD Layer Colors]-------------------------------------------------------//
+enum crkbd_colors {
+    _GREEN,
+    _GOLD,
+    _GOLDENROD,
+    _RED,
+    _PURPLE
+};
 // [CRKBD layers Init] -------------------------------------------------------//
 enum crkbd_layers {
     _QWERTY,
@@ -56,17 +65,87 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+// [RGB Matrix Helpers] ----------------------------------------------------//
+// This function is set to limit the HUE's to just the ones I like and which
+// best match the cases I 3D print for my boards.
+void set_crkbd_color(int input_color) {
+    if (user_led_enabled) {
+       switch(input_color) {
+          case _GREEN:
+              rgb_matrix_set_color_all(RGB_GREEN);
+              current_color = _GREEN;
+              break;
+          case _GOLD:
+              rgb_matrix_set_color_all(RGB_GOLD);
+              current_color = _GOLD;
+              break;
+          case _GOLDENROD:
+              rgb_matrix_set_color_all(RGB_GOLDENROD);
+              current_color = _GOLDENROD;
+              break;
+          case _RED:
+              rgb_matrix_set_color_all(RGB_RED);
+              current_color = _RED;
+              break;
+          case _PURPLE:
+              rgb_matrix_set_color_all(RGB_PURPLE);
+              current_color = _PURPLE;
+              break;
+          default:
+              break;
+       }
+    }
+}
+
+int handle_crkbd_color_step( int step ) {
+    int output_color = step;
+
+    // Handle wrapping of out of bounds values
+    if ( output_color + current_color < _GREEN ) {
+        output_color = _GREEN;
+    } else if ( output_color + current_color > _PURPLE ) {
+        output_color = _PURPLE;
+    } else {
+        output_color = output_color + current_color;
+    }
+    return output_color;
+}
+
 // [Post Init] --------------------------------------------------------------//
 void keyboard_post_init_user(void) {
     // Set RGB to known state
     rgb_matrix_enable_noeeprom();
-    rgb_matrix_set_color_all(RGB_GREEN);
+    set_crkbd_color(_GREEN);
     user_led_enabled = true;
-
+}
+// [Matrix Scan] ------------------------------------------------------------//
+void matrix_scan_user(void) {
+     // Set RGB Matrix color based on layers
+     switch (get_highest_layer(layer_state)){
+        case _GAME:
+            set_crkbd_color(_PURPLE);
+            break;
+        case _WEAPON:
+            set_crkbd_color(_GOLD);
+            break;
+        default:
+            set_crkbd_color(handle_crkbd_color_step(0));
+    }
 }
 // [Process User Input] ------------------------------------------------------//
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+      // Handle RGB Changes sans eeprom
+      case RGB_HUI:
+        if (record->event.pressed) {
+            set_crkbd_color(handle_crkbd_color_step(1));
+        }
+        return false;
+      case RGB_HUD:
+        if (record->event.pressed) {
+            set_crkbd_color(handle_crkbd_color_step(-1));
+        }
+        return false;
       case RGB_TOG:
         if (record->event.pressed) {
             // Toggle matrix on key press
@@ -75,7 +154,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // Flip User_led_enabled variable on key release
             user_led_enabled = !user_led_enabled;
         }
-        return false; // Skip all further processing of this key
+        return false;
       default:
           // Use process_record_keymap to reset timer on all other keypresses
           if (record->event.pressed) {
