@@ -43,38 +43,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [VIM] = LAYOUT_5x6(
-     _______, RESET,    _______,   _______, _______, _______,                       _______, _______, _______, _______, RESET,   _______,
-     _______, _______,  _______,   _______, KC_LSFT, _______,                       _______, _______, _______, _______, _______, _______,
-     _______, M(DLEFT), M(DRIGHT), KC_LCTL, KC_LGUI, _______,                       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
-     _______, _______,  _______,   _______, _______, _______,                       _______, _______, _______, _______, _______, _______,
-                        _______,   _______,                                                            _______, _______,
-                                           _______, _______,                       _______, _______,
-                                                    _______, _______,     _______, _______,
-                                                    _______, _______,     _______, _______
+     _______, RESET,   _______, _______, _______, _______,                       _______, _______, _______, _______, RESET,   _______,
+     _______, _______, _______, _______, KC_LSFT, _______,                       _______, _______, _______, _______, _______, _______,
+     _______, DLEFT,   DRIGHT,  KC_LCTL, KC_LGUI, _______,                       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
+     _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______,
+                       _______, _______,                                                           _______, _______,
+                                         _______, _______,                       _______, _______,
+                                                  _______, _______,     _______, _______,
+                                                  _______, _______,     _______, _______
   ),
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-    switch(id) {
-        case DLEFT:
-            if (record->event.pressed) { // Windows move desktop left
-                return MACRO(D(LCTL), D(LGUI), T(LEFT), U(LGUI), U(LCTL), END);
-            }
-            break;
-        case DRIGHT:
-            if (record->event.pressed) { // Windows move desktop right
-                return MACRO(D(LCTL), D(LGUI), T(RIGHT), U(LGUI), U(LCTL), END);
-            }
-            break;
-        case PSCREEN_APP: if (record->event.pressed) {
-                return MACRO(D(LALT), T(PSCR), U(LALT), END);
-            }
-            break;
-    }
-    return MACRO_NONE;
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    tap_dance_process_record(keycode);
-    return true;
+    tap_dance_process_keycode(keycode);
+    return !try_handle_macro(keycode, record);
 }

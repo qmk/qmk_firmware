@@ -7,7 +7,7 @@
 
 // disable backlight after timeout in minutes, 0 = no timeout
 #undef RGB_BACKLIGHT_DISABLE_AFTER_TIMEOUT
-#define RGB_BACKLIGHT_DISABLE_AFTER_TIMEOUT 10
+#define RGB_BACKLIGHT_DISABLE_AFTER_TIMEOUT 20
 
 #undef RGB_BACKLIGHT_ALPHAS_MODS_ROW_0
 #undef RGB_BACKLIGHT_ALPHAS_MODS_ROW_1
@@ -39,3 +39,5 @@
 
 #define RGB_BACKLIGHT_COLOR_1 { .h = 0, .s = 255 }
 #define RGB_BACKLIGHT_COLOR_2 { .h = 150, .s = 255 }
+
+#define RGB_MATRIX_KEYPRESSES

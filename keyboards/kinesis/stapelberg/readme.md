@@ -22,8 +22,8 @@ If you want to perform this customization, these parts may be helpful.
 | 10 pin headers for thumb clusters                      | 4        | Digi-Key | 609-3250-ND  |
 | 8 pin cable for thumb clusters                         | 2        | Digi-Key | SAM8928-ND   |
 | Teensy++ 2.0                                           | 1        | Digi-Key | 1528-1056-ND |
-| 2 pin right angle header for reset                     | 1        | Digi-Key | 3M9467-ND    |
-| Reset cables                                           | 2        | Sparkfun | PRT-09140    |
+| 2 pin right angle header for reset                     | 1        | Digi-Key | 952-2244-ND  |
+| Reset cables                                           | 1        | Digi-Key | PRT-08672-ND |
 
 The board and connections are shown here
 ![controller board](https://i.imgur.com/2ZPMwvZ.jpg)

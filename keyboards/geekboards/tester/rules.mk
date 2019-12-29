@@ -1,6 +1,7 @@
 # MCU name
 MCU = atmega32u4
 
+<<<<<<< HEAD
 # project specific files
 #SRC =
 
@@ -47,6 +48,18 @@ BOOTLOADER = qmk-dfu
 # when we get USB suspend event. We want it to keep updating
 # backlight effects.
 
+=======
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
+BOOTLOADER = qmk-dfu
+
+>>>>>>> upstream
 # Build Options
 #   change yes to no to disable
 #

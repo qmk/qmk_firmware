@@ -11,9 +11,9 @@ Hardware Availability: Group buy in r/mk
 Make example for this keyboard (after setting up your build environment):
     make plaid:default
 
-Flash firmware:
-    // In bootloader mode
-    make plaid:default:program
+Flashing example for this keyboard:
+
+    make plaid:default:flash
 
 ## Bootloader
 use usbasploader in my repository.

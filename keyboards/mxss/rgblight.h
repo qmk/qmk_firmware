@@ -73,7 +73,7 @@
 #ifndef RGBLIGHT_CUSTOM_DRIVER
 #include "ws2812.h"
 #endif
-#include "rgblight_types.h"
+#include "color.h"
 #include "rgblight_list.h"
 
 extern LED_TYPE led[RGBLED_NUM];

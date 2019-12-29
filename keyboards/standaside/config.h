@@ -40,7 +40,7 @@
 
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
@@ -201,4 +201,3 @@
 #define LCD_E_PIN        1            //< pin  for Enable line
 #endif
 */
-

@@ -28,36 +28,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 
 #ifdef MAX
-#undef MAX
+#    undef MAX
 #endif
 #define MAX(X, Y) ((X) > (Y) ? (X) : (Y))
 
 static void print_usb_data(const report_mouse_t *report);
 
-void serial_mouse_task(void)
-{
+void serial_mouse_task(void) {
     /* 3 byte ring buffer */
     static uint8_t buffer[3];
-    static int buffer_cur = 0;
+    static int     buffer_cur = 0;
 
     static report_mouse_t report = {};
 
     int16_t rcv;
 
     rcv = serial_recv2();
-    if (rcv < 0)
-        /* no new data */
+    if (rcv < 0) /* no new data */
         return;
 
-    if (debug_mouse)
-        xprintf("serial_mouse: byte: %04X\n", rcv);
+    if (debug_mouse) xprintf("serial_mouse: byte: %04X\n", rcv);
 
     /*
      * If bit 6 is one, this signals the beginning
      * of a 3 byte sequence/packet.
      */
-    if (rcv & (1 << 6))
-        buffer_cur = 0;
+    if (rcv & (1 << 6)) buffer_cur = 0;
 
     buffer[buffer_cur] = (uint8_t)rcv;
 
@@ -76,8 +72,7 @@ void serial_mouse_task(void)
 
     buffer_cur++;
 
-    if (buffer_cur < 3)
-        return;
+    if (buffer_cur < 3) return;
     buffer_cur = 0;
 
     /*
@@ -87,10 +82,8 @@ void serial_mouse_task(void)
      * change.
      */
     report.buttons = 0;
-    if (buffer[0] & (1 << 5))
-        report.buttons |= MOUSE_BTN1;
-    if (buffer[0] & (1 << 4))
-        report.buttons |= MOUSE_BTN2;
+    if (buffer[0] & (1 << 5)) report.buttons |= MOUSE_BTN1;
+    if (buffer[0] & (1 << 4)) report.buttons |= MOUSE_BTN2;
 
     report.x = (buffer[0] << 6) | buffer[1];
     report.y = ((buffer[0] << 4) & 0xC0) | buffer[2];
@@ -113,12 +106,8 @@ void serial_mouse_task(void)
     host_mouse_send(&report);
 }
 
-static void print_usb_data(const report_mouse_t *report)
-{
-    if (!debug_mouse)
-        return;
+static void print_usb_data(const report_mouse_t *report) {
+    if (!debug_mouse) return;
 
-    xprintf("serial_mouse usb: [%02X|%d %d %d %d]\n",
-            report->buttons, report->x, report->y,
-            report->v, report->h);
+    xprintf("serial_mouse usb: [%02X|%d %d %d %d]\n", report->buttons, report->x, report->y, report->v, report->h);
 }
