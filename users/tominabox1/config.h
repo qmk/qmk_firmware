@@ -11,7 +11,7 @@
   #define COMBO_COUNT 7
   #define COMBO_TERM 75
 #else //everything else
-  #define COMBO_COUNT 13
+  #define COMBO_COUNT 14
   #define COMBO_TERM 80
 #endif
 

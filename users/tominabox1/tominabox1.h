@@ -45,7 +45,7 @@ enum tap_dance_indexes {
     TD_CTRL_C,
     TD_CTRL_V,
     TD_CTRL_A,
-    TD_P_BSLS,
+    TD_O_BSLS,
     TD_QUOTE,
     TD_SDCOL
 };

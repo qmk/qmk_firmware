@@ -16,13 +16,12 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_TAB_ESC]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_esc_tab, dance_esc_tab_reset),
     [TD_Q_ESC]     = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC),
     [TD_QUES_ENT]  = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_ENT),
-    [TD_SPC_SHFT]  = ACTION_TAP_DANCE_DOUBLE(KC_SPACE, KC_LSFT),
     [TD_CTRL_Z]    = ACTION_TAP_DANCE_DOUBLE(KC_Z, LCTL(KC_Z)),
     [TD_CTRL_Y]    = ACTION_TAP_DANCE_DOUBLE(KC_Y, LCTL(KC_Y)),
     [TD_CTRL_C]    = ACTION_TAP_DANCE_DOUBLE(KC_C, LCTL(KC_C)),
     [TD_CTRL_V]    = ACTION_TAP_DANCE_DOUBLE(KC_V, LCTL(KC_V)),
     [TD_CTRL_A]    = ACTION_TAP_DANCE_DOUBLE(KC_A, LCTL(KC_A)),
-    [TD_P_BSLS]    = ACTION_TAP_DANCE_DOUBLE(KC_P, KC_BSLS),
+    [TD_O_BSLS]    = ACTION_TAP_DANCE_DOUBLE(KC_O, KC_BSLS),
     [TD_QUOTE]     = ACTION_TAP_DANCE_DOUBLE(KC_QUOTE, KC_DQT),
     [TD_SDCOL]     = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_COLN)
 };
@@ -52,7 +51,6 @@ layer_state_t layer_state_set_user (layer_state_t state) {
   return layer_state_set_keymap (state);
 }
 
-
 enum combo_events {
   EMAIL,
   COMBO_RESET,
@@ -62,13 +60,11 @@ enum combo_events {
   COMBO_NEXT,
   COMBO_PREV,
   COMBO_BACK,
-  // COMBO_ARTAB,
-//  COMBO_NUMBAK,
+  COMBO_ARTAB,
+  COMBO_NUMBAK,
   COMBO_ESC,
-  COMBO_BACK,
   COMBO_TAB,
-  COMBO_PINKYCTRL,
-  // COMBO_DELETE,
+  COMBO_DELETE,
   COMBO_ALT
 };
 
@@ -85,13 +81,11 @@ const uint16_t PROGMEM combo_pp[] = {KC_7, KC_9, COMBO_END};
 const uint16_t PROGMEM combo_next[] = {KC_8, KC_9, COMBO_END};
 const uint16_t PROGMEM combo_prev[] = {KC_7, KC_8, COMBO_END};
 const uint16_t PROGMEM combo_back[] = {KC_Y, KC_QUOT, COMBO_END};
-// const uint16_t PROGMEM combo_artab[] = {LCTL_T(KC_A), KC_R, COMBO_END};
-//const uint16_t PROGMEM combo_numbak[] = {KC_0, KC_9, COMBO_END};
+const uint16_t PROGMEM combo_artab[] = {LCTL_T(KC_A), KC_R, COMBO_END};
+const uint16_t PROGMEM combo_numbak[] = {KC_0, KC_9, COMBO_END};
 const uint16_t PROGMEM combo_esc[] = {KC_1, KC_2, COMBO_END};
-const uint16_t PROGMEM bspc_combo[] = {KC_9, KC_0, COMBO_END};
 const uint16_t PROGMEM tab_combo[] = {KC_Q, KC_W, COMBO_END};
-const uint16_t PROGMEM pinkyctrl_combo[] = {KC_A, KC_S, COMBO_END};
-// const uint16_t PROGMEM del_combo[] = {KC_1, KC_0, COMBO_END};
+const uint16_t PROGMEM del_combo[] = {KC_1, KC_0, COMBO_END};
 const uint16_t PROGMEM alt_combo[] = {KC_COMM, KC_DOT, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
@@ -103,13 +97,11 @@ combo_t key_combos[COMBO_COUNT] = {
   [COMBO_NEXT] = COMBO(combo_next,KC_MNXT),
   [COMBO_PREV] = COMBO(combo_prev,KC_MPRV),
   [COMBO_BACK] = COMBO(combo_back,KC_BSPC),
-  // [COMBO_ARTAB] = COMBO(combo_artab,KC_TAB),
-  //[COMBO_NUMBAK] = COMBO(combo_numbak,KC_BSPC),
+  [COMBO_ARTAB] = COMBO(combo_artab,KC_TAB),
+  [COMBO_NUMBAK] = COMBO(combo_numbak,KC_BSPC),
   [COMBO_ESC] = COMBO(combo_esc, KC_ESC),
-  [COMBO_BACK] = COMBO(bspc_combo, KC_BSPC),
   [COMBO_TAB] = COMBO(tab_combo, KC_TAB),
-  [COMBO_PINKYCTRL] = COMBO(pinkyctrl_combo, KC_LCTRL),
-  // [COMBO_DELETE] = COMBO(del_combo, KC_DEL),
+  [COMBO_DELETE] = COMBO(del_combo, KC_DEL),
   [COMBO_ALT] = COMBO(alt_combo, KC_LALT)
 };
 
