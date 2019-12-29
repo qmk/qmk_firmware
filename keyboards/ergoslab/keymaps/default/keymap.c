@@ -1,9 +1,11 @@
 #include QMK_KEYBOARD_H
 
-#define BASE 0
-#define MDIA 1
-#define NUMB 2
-#define MOUS 3
+enum layer_names {
+    BASE,
+    MDIA,
+    NUMB,
+    MOUS
+};
 
 #ifdef RGBLIGHT_ENABLE
 #define ERGOSLAB_BRIGHTNESS 112
