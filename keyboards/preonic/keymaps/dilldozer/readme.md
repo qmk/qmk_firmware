@@ -1,5 +1,6 @@
-# John's Preonic layout
+# Dilldozer layout
 
+## Layout created by John Garrett 2019 <https://github.com/JHGarrett>
 
 ### Qwerty
 ```
@@ -59,7 +60,7 @@
 |------+------+------+------+------+------+------+------+------+------+------+------|
 |RGB_TO|      | WHL_U|Mclick|      | HU_D | HU_I | LCTL | MS_U | WHL_U|      |  Del |
 |------+------+------+------+------+-------------+------+------+------+------+------|
-|RGBa_MO|     | WHL_D|Rclick|Lclick| SA_D | SA_I | MS_L | MS_D | MS_R |      | ACL0 |Payton Preslee
+|RGBa_MO|     | WHL_D|Rclick|Lclick| SA_D | SA_I | MS_L | MS_D | MS_R |      | ACL0 |
 |------+------+------+------+------+------|------+------+------+------+------+------|
 |RGB_MR|      |      |      |      | VA_D | VA_I | WHL_D| WHL_L| WHL_R|      | ACL1 |
 |------+------+------+------+------+------+------+------+------+------+------+------|
