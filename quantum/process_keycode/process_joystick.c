@@ -2,6 +2,7 @@
 
 #include <quantum/joystick.h>
 #include <quantum/quantum_keycodes.h>
+#include <quantum/config_common.h>
 
 #ifdef __AVR__
 # include <drivers/avr/analog.h>
@@ -52,8 +53,8 @@ bool process_joystick_buttons(uint16_t keycode, keyrecord_t *record){
 uint8_t savePinState(uint8_t pin){
 #ifdef __AVR__
   uint8_t pinNumber = pin & 0xF;
-  return ((PIN_ADDRESS(pin, 2) >> pinNumber) & 0x1) << 1 
-       | ((PIN_ADDRESS(pin, 1) >> pinNumber) & 0x1) ;
+  return ((PORTx_ADDRESS(pin) >> pinNumber) & 0x1) << 1 
+       | ((DDRx_ADDRESS(pin) >> pinNumber) & 0x1) ;
 #else
   return 0;
 #endif
@@ -62,8 +63,8 @@ uint8_t savePinState(uint8_t pin){
 void restorePinState(uint8_t pin, uint8_t restoreState){
 #ifdef __AVR__
   uint8_t pinNumber = pin & 0xF;
-  PIN_ADDRESS(pin, 2) = (PIN_ADDRESS(pin, 2) & ~_BV(pinNumber)) | (((restoreState >> 1) & 0x1) << pinNumber);
-  PIN_ADDRESS(pin, 1) = (PIN_ADDRESS(pin, 1) & ~_BV(pinNumber)) | ((restoreState & 0x1) << pinNumber);
+  PORTx_ADDRESS(pin) = (PORTx_ADDRESS(pin) & ~_BV(pinNumber)) | (((restoreState >> 1) & 0x1) << pinNumber);
+  DDRx_ADDRESS(pin) = (DDRx_ADDRESS(pin) & ~_BV(pinNumber)) | ((restoreState & 0x1) << pinNumber);
 #else
   return;
 #endif
