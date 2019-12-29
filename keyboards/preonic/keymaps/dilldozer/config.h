@@ -28,10 +28,13 @@
     // #define STARTUP_SONG SONG(NO_SOUND)
 
     #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
-                                  SONG(WORKMAN_SOUND), \
-                                  SONG(COIN_SOUND), \
                                   SONG(COLEMAK_SOUND), \
-                                  SONG(DVORAK_SOUND) \
+                                  SONG(DVORAK_SOUND), \
+                                  SONG(WORKMAN_SOUND), \
+                                  SONG(PREONIC_SOUND), \
+                                  SONG(GUITAR_SOUND), \
+                                  SONG(UNICODE_WINDOWS), \
+                                  SONG(UNICODE_LINUX) \
                                 }
 #endif
 
