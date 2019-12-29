@@ -16,8 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IS31FL3733_DRIVER_H
-#define IS31FL3733_DRIVER_H
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
