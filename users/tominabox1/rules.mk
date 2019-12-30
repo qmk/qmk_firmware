@@ -2,7 +2,7 @@
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
-CONSOLE_ENABLE = no
+CONSOLE_ENABLE = yes
 BOOTMAGIC_ENABLE = full      # Virtual DIP switch configuration
 NKRO_ENABLE = yes
 UCIS_ENABLE = no
@@ -59,6 +59,7 @@ RGBLIGHT_ENABLE = yes  # LED underglow (Enable WS2812 RGB underlight.)
 LED_ANIMATIONS = yes        # LED animations
 TAP_DANCE_ENABLE = yes
 COMBO_ENABLE = yes
+NKRO_ENABLE = yes
 
 ifeq ($(strip $(LED_ANIMATIONS)), yes)
     # OPT_DEFS += -DRGBLIGHT_ANIMATIONS
@@ -71,5 +72,6 @@ endif
 ifeq ($(strip $(KEYBOARD)), handwired/postageboard/mini)
 TAP_DANCE_ENABLE = yes
 COMBO_ENABLE = yes
+NKRO_ENABLE = yes
 SRC += tominabox1.c
 endif

@@ -1,4 +1,15 @@
 #include "tominabox1.h"
+__attribute__ ((weak))
+void keyboard_post_init_keymap(void) {
+}
+
+void keyboard_post_init_user(void) {
+  // Customise these values to desired behaviour
+  debug_enable=true;
+  //debug_matrix=true;
+  debug_keyboard=true;
+  //debug_mouse=true;
+}
 
 void dance_esc_tab (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
@@ -23,7 +34,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_CTRL_A]    = ACTION_TAP_DANCE_DOUBLE(KC_A, LCTL(KC_A)),
     [TD_O_BSLS]    = ACTION_TAP_DANCE_DOUBLE(KC_O, KC_BSLS),
     [TD_QUOTE]     = ACTION_TAP_DANCE_DOUBLE(KC_QUOTE, KC_DQT),
-    [TD_SDCOL]     = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_COLN)
+    [TD_QCOL]      = ACTION_TAP_DANCE_DOUBLE(KC_QUOTE, KC_SCLN),
+    [TD_WTAB]      = ACTION_TAP_DANCE_DOUBLE(KC_W, KC_TAB)
 };
 
 uint16_t get_tapping_term(uint16_t keycode) {
@@ -35,6 +47,12 @@ uint16_t get_tapping_term(uint16_t keycode) {
         case LT(_LOWER, KC_SPC):
             return 270;
         case LCTL_T(KC_TAB):
+            return 120;
+        case TD(TD_WTAB):
+            return 120;
+        case LCTL_T(KC_A):
+            return 200;
+        case LSFT_T(KC_Z):
             return 120;
         default:
             return TAPPING_TERM;
@@ -60,7 +78,7 @@ enum combo_events {
   COMBO_NEXT,
   COMBO_PREV,
   COMBO_BACK,
-  COMBO_ARTAB,
+  //COMBO_ARTAB,
   COMBO_NUMBAK,
   COMBO_ESC,
   COMBO_TAB,
@@ -68,8 +86,8 @@ enum combo_events {
   COMBO_ALT
 };
 
-const uint16_t PROGMEM email[] = {KC_Q, KC_W, COMBO_END};
-const uint16_t PROGMEM combo_reset[] = {KC_W, KC_ESC, COMBO_END};
+const uint16_t PROGMEM email[] = {TD(TD_Q_ESC), TD(TD_WTAB), COMBO_END};
+const uint16_t PROGMEM combo_reset[] = {TD(TD_Q_ESC), KC_F, COMBO_END};
 #ifdef KEYBOARD_crkbd_rev1
 const uint16_t PROGMEM caps_combo[] = {KC_M, KC_V, COMBO_END};
 #endif
@@ -80,8 +98,8 @@ const uint16_t PROGMEM cret[] = {KC_QUOT, KC_O, COMBO_END};
 const uint16_t PROGMEM combo_pp[] = {KC_7, KC_9, COMBO_END};
 const uint16_t PROGMEM combo_next[] = {KC_8, KC_9, COMBO_END};
 const uint16_t PROGMEM combo_prev[] = {KC_7, KC_8, COMBO_END};
-const uint16_t PROGMEM combo_back[] = {KC_Y, KC_QUOT, COMBO_END};
-const uint16_t PROGMEM combo_artab[] = {LCTL_T(KC_A), KC_R, COMBO_END};
+const uint16_t PROGMEM combo_back[] = {TD(TD_QCOL), KC_Y,  COMBO_END};
+//const uint16_t PROGMEM combo_artab[] = {KC_A, KC_R, COMBO_END};
 const uint16_t PROGMEM combo_numbak[] = {KC_0, KC_9, COMBO_END};
 const uint16_t PROGMEM combo_esc[] = {KC_1, KC_2, COMBO_END};
 const uint16_t PROGMEM tab_combo[] = {KC_Q, KC_W, COMBO_END};
@@ -97,7 +115,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [COMBO_NEXT] = COMBO(combo_next,KC_MNXT),
   [COMBO_PREV] = COMBO(combo_prev,KC_MPRV),
   [COMBO_BACK] = COMBO(combo_back,KC_BSPC),
-  [COMBO_ARTAB] = COMBO(combo_artab,KC_TAB),
+  //[COMBO_ARTAB] = COMBO(combo_artab,KC_TAB),
   [COMBO_NUMBAK] = COMBO(combo_numbak,KC_BSPC),
   [COMBO_ESC] = COMBO(combo_esc, KC_ESC),
   [COMBO_TAB] = COMBO(tab_combo, KC_TAB),

@@ -13,6 +13,7 @@ extern rgblight_config_t rgblight_config;
 #define KC_C_AL  LALT_T(KC_C)
 #define KC_K_GU  LGUI_T(KC_K)
 #define KC_ENSF  LSFT_T(KC_ENT)
+#define KC_GBAK  LALT_T(KC_BSPC)
 
 // Layer tap
 #define KC_ENLO  LT(_LOWER, KC_ENT)
@@ -22,13 +23,13 @@ extern rgblight_config_t rgblight_config;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT(
   //,---------------------------------------------------------------------------------------------------.
-  TD(TD_Q_ESC),     KC_W,     KC_F,     KC_P,     KC_G,     KC_J,     KC_L,     KC_U,     KC_Y,  KC_QUOT, //Y+QUOTE = KC_BSPC
+  TD(TD_Q_ESC),KC_W,     KC_F,     KC_P,     KC_G,     KC_J,     KC_L,     KC_U,     KC_Y,  TD(TD_QCOL), //Y+QUOTE = KC_BSPC
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
   LCTL_T(KC_A),     KC_R,     KC_S,     KC_T,     KC_D,     KC_H,     KC_N,     KC_E,     KC_I, TD(TD_O_BSLS),
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
   LSFT_T(KC_Z),     KC_X,  KC_C_AL,     KC_V,     KC_B,  KC_K_GU, LT(_LOWER,KC_M),  KC_COMM,  KC_FDOT, TD(TD_QUES_ENT),
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'
-                                               KC_LALT,  KC_SPRA
+                                               KC_GBAK,  KC_SPRA
   //                                        `---------|---------'
   ),
 
@@ -46,9 +47,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT(
   //,---------------------------------------------------------------------------------------------------.
-        KC_ESC,   RGBRST,  AG_NORM,  AG_SWAP,  XXXXXXX,  KC_PGDN,    KC_UP,  KC_PGUP,  XXXXXXX,  XXXXXXX,
+        KC_ESC,   RGBRST,  AG_NORM,  AG_SWAP,  DEBUG,  XXXXXXX,KC_PGDN,    KC_UP,  KC_PGUP,    XXXXXXX,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI,  KC_HOME,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_RGHT,   KC_END,
+       RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI,  XXXXXXX,  KC_HOME,  KC_LEFT,  KC_DOWN,  KC_RGHT,   KC_END,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
        RGB_MOD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  XXXXXXX,  KC_MINS,    KC_RO,  KC_COMM,   KC_DOT,  KC_SLSH,
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'

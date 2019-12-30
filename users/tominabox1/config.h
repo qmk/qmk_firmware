@@ -11,8 +11,8 @@
   #define COMBO_COUNT 7
   #define COMBO_TERM 75
 #else //everything else
-  #define COMBO_COUNT 14
-  #define COMBO_TERM 80
+  #define COMBO_COUNT 13
+  #define COMBO_TERM 200
 #endif
 
 #ifdef KEYBOARD_treadstone32

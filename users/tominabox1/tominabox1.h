@@ -47,7 +47,8 @@ enum tap_dance_indexes {
     TD_CTRL_A,
     TD_O_BSLS,
     TD_QUOTE,
-    TD_SDCOL
+    TD_QCOL,
+    TD_WTAB
 };
 
 #define KC_ARROW MO(4)
