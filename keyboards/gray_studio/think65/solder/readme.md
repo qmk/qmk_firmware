@@ -15,3 +15,5 @@ Make example for this keyboard (after setting up your build environment):
     make gray_studio/think65/solder:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+**Note:** If you want to define custom keycodes in your keymap for this board, use `THINK65_SAFE_RANGE` instead of `SAFE_RANGE` in your `custom_keycodes` enum.

@@ -136,7 +136,9 @@ enum think65_led_keycodes {
     UGL_SAI,
     UGL_SAD,
     UGL_VAI,
-    UGL_VAD
+    UGL_VAD,
+    // New SAFE_RANGE
+    THINK65_SAFE_RANGE
 };
 
 // Handle the custom LED range control keycodes
