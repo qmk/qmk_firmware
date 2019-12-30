@@ -50,11 +50,14 @@ enum ctrl_keycodes {
   CC_PRN,
   CC_BRC,
   CC_CBR,
-  DBL_AND
+  DBL_AND,
+  QWERTY,
+  COLEMAK
 };
 
 enum layout_names {
     _KL=0,       // Keys Layout: The main keyboard layout that has all the characters
+    _CM,         // Colemak Layout
     _FL,         // Function Layout: The function key activated layout with default functions and some added ones
     _ML,         // Mouse Layout: Mouse Keys and mouse movement
     _GL,         // GIT Layout: GIT shortcuts and macros
@@ -86,9 +89,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,           KC_Z,          KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,                             KC_UP,
         TD(TD_LCTRL_TERM), TD(TD_GUI_ML), KC_LALT,                   KC_SPC,                             KC_RALT, MO(_FL), KC_APP,   KC_RCTL,            KC_LEFT, KC_DOWN, KC_RGHT
     ),
+
+    [_CM] = LAYOUT(
+        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,             KC_PSCR, KC_SLCK, KC_PAUS,
+        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,   KC_INS,  KC_HOME, KC_PGUP,
+        KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,    KC_LBRC, KC_RBRC, KC_BSLS,   KC_DEL,  KC_END,  KC_PGDN,
+        KC_BSPC, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O, KC_QUOT, KC_ENT,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,                              KC_UP,
+        TD(TD_LCTRL_TERM), TD(TD_GUI_ML), KC_LALT,                   KC_SPC,                             KC_RALT, MO(_FL), KC_APP,   KC_RCTL,            KC_LEFT, KC_DOWN, KC_RGHT
+    ),
+
     [_FL] = LAYOUT(
         _______, DM_PLY1, DM_PLY2, _______,  _______, DM_REC1, DM_REC2, _______,  _______,  DM_RSTP, _______, KC_WAKE, KC_SLEP,            KC_MUTE, _______, _______,
-        _______, RGB_M_P, _______, _______,  _______, _______, _______, ROUT_VI,  ROUT_VD,  ROUT_FM, ROUT_TG, NOTEQL ,TRIPEQL, _______,   KC_MSTP, KC_MPLY, KC_VOLU,
+        _______, RGB_M_P, _______, _______,  QWERTY, COLEMAK, _______, ROUT_VI,  ROUT_VD,  ROUT_FM, ROUT_TG, NOTEQL ,TRIPEQL, _______,   KC_MSTP, KC_MPLY, KC_VOLU,
         _______, RGB_SPD, RGB_VAI,RGB_MOD ,  RGB_HUI, RGB_SAI, _______, U_T_AUTO, U_T_AGCR, _______, _______, CC_BRC, CC_CBR, CC_PRN,      KC_MPRV, KC_MNXT, KC_VOLD,
         KC_CAPS, RGB_SPI,RGB_VAD, RGB_RMOD,  RGB_HUD, RGB_SAD, _______, _______,  _______,  _______, _______, _______, _______,
         _______, RGB_TOG, _______, COPY_ALL, ARROW, MD_BOOT, TG_NKRO, _______,  _______,  _______, _______, _______,                              KC_BRIU,
@@ -249,8 +262,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         // ======================================================== CUSTOM KEYCOADS BELOW ========================================================
+  case QWERTY:
+          if (record->event.pressed) {
+            set_single_persistent_default_layer(_KL);
+          }
+          return false;
+          break;
+        case COLEMAK:
+          if (record->event.pressed) {
+            set_single_persistent_default_layer(_CM);
+          }
+          return false;
+          break;
 
-                     case TRIPEQL:
+
+            case TRIPEQL:
             if (record->event.pressed){
                 SEND_STRING("===");
             } 
