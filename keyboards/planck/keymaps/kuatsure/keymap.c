@@ -50,14 +50,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | Ent  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Mute | Ldr  | Alt  | GUI  |Lower |     Spc     |Raise | Left |  Up  | Down |Right |
+ * | Mute | Ldr  | Alt  | GUI  |Lower |     Spc     |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_planck_grid_wrapper(
     KT_MTAB, _________________QWERTY_L1_________________, _________________QWERTY_R1_________________, KC_BSPC,
     KT_CESC, _________________QWERTY_L2_________________, _________________QWERTY_R2_________________, KC_QUOT,
     KT_LSFT, _________________QWERTY_L3_________________, _________________QWERTY_R3_________________, KC_ENT,
-    KC_MPLY, KC_LEAD, KC_LALT, KC_LGUI, LOWER,    KC_SPC, KC_SPC,      RAISE, KC_LEFT, KC_UP, KC_DOWN, KC_RGHT
+    KC_MPLY, KC_LEAD, KC_LALT, KC_LGUI, LOWER,    KC_SPC, KC_SPC,      RAISE, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
 ),
 
 /* Lower
