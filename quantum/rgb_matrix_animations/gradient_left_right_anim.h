@@ -11,7 +11,7 @@ bool GRADIENT_LEFT_RIGHT(effect_params_t* params) {
         RGB_MATRIX_TEST_LED_FLAGS();
         // The x range will be 0..64, map this to 0..2
         // Relies on hue being 8-bit and wrapping
-        hsv.h   = rgb_matrix_config.hsv.h + round(scale * g_led_config.point[i].x / 32);
+        hsv.h   = rgb_matrix_config.hsv.h + scale * g_led_config.point[i].x / 32;
         RGB rgb = hsv_to_rgb(hsv);
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
