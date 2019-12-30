@@ -45,16 +45,19 @@ enum ctrl_keycodes {
     COPY_ALL,              //Copy all text using ctrl(a+c)
     ARROW,
     TERMINAL,
+    TRIPEQL,
+  NOTEQL,
+  CC_PRN,
+  CC_BRC,
+  CC_CBR,
+  DBL_AND
 };
 
 enum layout_names {
     _KL=0,       // Keys Layout: The main keyboard layout that has all the characters
     _FL,         // Function Layout: The function key activated layout with default functions and some added ones
     _ML,         // Mouse Layout: Mouse Keys and mouse movement
-    _VL,         // VIM Layout: VIM shorcuts and macros
     _GL,         // GIT Layout: GIT shortcuts and macros
-    _YL,         // Yakuake Layout: Yakuake drop-down terminal shortcuts and macros
-    _EL,         // KDE Layout: Shortcuts for KDE desktop using default KDE shortcuts settings
 };
 
 //Associate our tap dance key with its functionality
@@ -85,11 +88,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_FL] = LAYOUT(
         _______, DM_PLY1, DM_PLY2, _______,  _______, DM_REC1, DM_REC2, _______,  _______,  DM_RSTP, _______, KC_WAKE, KC_SLEP,            KC_MUTE, _______, _______,
-        _______, RGB_M_P, _______, _______,  _______, _______, _______, _______,  _______,  ROUT_FM, ROUT_TG, ROUT_VD, ROUT_VI, _______,   KC_MSTP, KC_MPLY, KC_VOLU,
-        _______, RGB_SPD, RGB_VAI, RGB_SPI,  RGB_HUI, RGB_SAI, _______, U_T_AUTO, U_T_AGCR, _______, _______, _______, _______, _______,   KC_MPRV, KC_MNXT, KC_VOLD,
-        KC_CAPS, RGB_RMOD,RGB_VAD, RGB_MOD,  RGB_HUD, RGB_SAD, _______, _______,  _______,  _______, _______, _______, _______,
+        _______, RGB_M_P, _______, _______,  _______, _______, _______, ROUT_VI,  ROUT_VD,  ROUT_FM, ROUT_TG, NOTEQL ,TRIPEQL, _______,   KC_MSTP, KC_MPLY, KC_VOLU,
+        _______, RGB_SPD, RGB_VAI,RGB_MOD ,  RGB_HUI, RGB_SAI, _______, U_T_AUTO, U_T_AGCR, _______, _______, CC_BRC, CC_CBR, CC_PRN,      KC_MPRV, KC_MNXT, KC_VOLD,
+        KC_CAPS, RGB_SPI,RGB_VAD, RGB_RMOD,  RGB_HUD, RGB_SAD, _______, _______,  _______,  _______, _______, _______, _______,
         _______, RGB_TOG, _______, COPY_ALL, ARROW, MD_BOOT, TG_NKRO, _______,  _______,  _______, _______, _______,                              KC_BRIU,
-        _______, _______, _______,                    _______,                              _______, _______, _______, _______,            _______, KC_BRID, _______
+        ARROW, LCTL(KC_DEL), LCTL(KC_BSPC),                    _______,                              _______, _______, _______, _______,            _______, KC_BRID, _______
     ),
     [_ML] = LAYOUT(
         _______, KC_ACL0,       KC_ACL1, KC_ACL2, _______, _______, _______, _______, _______, _______, _______, _______, _______,            _______, _______, _______,
@@ -246,6 +249,43 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         // ======================================================== CUSTOM KEYCOADS BELOW ========================================================
+
+                     case TRIPEQL:
+            if (record->event.pressed){
+                SEND_STRING("===");
+            } 
+            return false;
+
+             case NOTEQL:
+            if (record->event.pressed){
+                SEND_STRING("!=");
+            } 
+            return false;
+            
+            case DBL_AND:
+            if (record->event.pressed){
+                SEND_STRING("&&");
+            } 
+            return false;
+
+            case CC_PRN:
+            if (record->event.pressed){
+            SEND_STRING("()"SS_TAP(X_LEFT));
+            } 
+            return false;
+            
+            case CC_BRC:
+            if (record->event.pressed){
+            SEND_STRING("[]"SS_TAP(X_LEFT));
+            } 
+            return false;
+            
+            case CC_CBR:
+            if (record->event.pressed){
+            SEND_STRING("{}"SS_TAP(X_LEFT));
+            } 
+            return false;
+
         case COPY_ALL:
             if (record->event.pressed) {
                 // Selects all and text and copy
