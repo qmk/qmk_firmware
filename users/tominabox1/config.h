@@ -11,11 +11,13 @@
   #define COMBO_COUNT 7
   #define COMBO_TERM 75
 #else //everything else
-  #define COMBO_COUNT 13
+  #define COMBO_COUNT 11
   #define COMBO_TERM 200
 #endif
 
 #ifdef KEYBOARD_treadstone32
+#undef RGBLED_NUM
+#define RGBLED_NUM 5
 // Selection of RGBLIGHT MODE to use.
 #if defined(LED_ANIMATIONS)
    //#define RGBLIGHT_EFFECT_BREATHING

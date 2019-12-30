@@ -32,11 +32,12 @@ enum custom_keycodes {
     RGBRST,
     KC_PASTA,
 	  SPONGEBOB,
-	  AESTHETIC
+	  AESTHETIC,
+    EMAIL2
 };
 
 enum tap_dance_indexes {
-    TD_TAB_ESC,
+    TD_TAB_ESC=0,
     TD_Q_ESC,
     TD_QUES_ENT,
     TD_SPC_SHFT,
