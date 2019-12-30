@@ -63,66 +63,11 @@ enum preonic_keycodes {
   CC_PRN,
   CC_BRC,
   CC_CBR,
-  DBL_AND,
-  SHFT_CAP
+  DBL_AND
 };
 
-#ifdef AUDIO_ENABLE
-#include "audio.h"
-float tone_capslock_on[][2]     = SONG(CAPS_LOCK_ON_SOUND);
-float tone_capslock_off[][2]    = SONG(CAPS_LOCK_OFF_SOUND);
-#endif
 
 
-#define IBANG   X(0x203D)
-#define RAROW   X(0x2192)
-#define LAROW   X(0x2190)
-#define DEGREE  X(0x00B0)
-#define OMEGA   X(0x03A9)
-#define WOMEGA  X(0x03C9)
-#define MICRO   X(0x00B5)
-#define PLUMIN  X(0x00B1)
-#define SUPA2   X(0x00B2)
-#define ROMAN1  X(0x2160)
-#define ROMAN2  X(0x2161)
-#define ROMAN3  X(0x2162)
-#define ROMAN4  X(0x2163)
-#define ROMAN5  X(0x2164)
-#define ROMAN6  X(0x2165)
-#define ROMAN7  X(0x2166)
-#define roman1  X(0x2170)
-#define roman2  X(0x2171)
-#define roman3  X(0x2172)
-#define roman4  X(0x2173)
-#define roman5  X(0x2174)
-#define roman6  X(0x2175)
-#define roman7  X(0x2176)
-
-
-#ifdef UNICODEMAP_ENABLE        // For Unicode characters larger than 0x8000. Send with X(<unicode>)
-enum Ext_Unicode{
-    PENGUIN = 0,
-    BOAR,
-    MONKEY,
-    DRAGON,
-    CHICK,
-    TUMBLER
-};
-const uint32_t PROGMEM unicode_map[] = {
-    [PENGUIN]   = 0x1F427,
-    [BOAR]      = 0x1F417,
-    [MONKEY]    = 0x1F412,
-    [DRAGON]    = 0x1F409,
-    [CHICK]     = 0x1F425,
-    [TUMBLER]   = 0x1F943
-};
-#define PENGY   X(PENGUIN)
-#define BOARY   X(BOAR)
-#define MNKY    X(MONKEY)
-#define DRGN    X(DRAGON)
-#define DUCK    X(CHICK)
-#define TMBL    X(TUMBLER)
-#endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -249,7 +194,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,  \
   KC_BSPC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
   _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,S(KC_NUHS),S(KC_NUBS),KC_LBRC, KC_RBRC, KC_ENT, \
-  SHFT_CAP, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY \
+  KC_CAPS, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY \
 ),
 
 /* Raise
@@ -266,7 +211,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_preonic_grid( \
-  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL, \
+  KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL, \
   KC_TAB, _______, KC_UP,   KC_PGUP, CC_PRN,  KC_LPRN, KC_RPRN, TRIPEQL, NOTEQL, KC_LABK, KC_RABK, KC_DEL,  \
   KC_BSPC,  KC_LEFT,   KC_DOWN,   KC_RIGHT,   CC_CBR,   KC_LCBR,   KC_RCBR,   KC_UNDS, KC_EQL,  KC_AT, DBL_AND, KC_PIPE, \
   KC_SFTENT, _______,   _______,   KC_PGDN,   CC_BRC,  KC_LBRC,  KC_RBRC,  KC_MINS, KC_PLUS, KC_BSLASH, KC_SLSH, KC_ENT, \
@@ -292,7 +237,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, RESET,   DEBUG,   _______, _______, _______, _______, TERM_ON, TERM_OFF,_______, _______, KC_DEL,  \
   _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______,  _______, _______,  _______, _______, \
   _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  KC_CALC, KC_MRWD, KC_MFFD, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, DISFACE, TFLIP, TPUT, SHRUG  \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
 ),
 /* Mouse 
  * ,-----------------------------------------------------------------------------------.
@@ -322,8 +267,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
-static uint16_t key_timer;
-static uint8_t  caps_status = 0;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
         case QWERTY:
@@ -385,29 +328,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
           
 // custom stuff
-        case SHFT_CAP:
-        if(record->event.pressed){
-            key_timer = timer_read();               // if the key is being pressed, we start the timer.
-            register_code(KC_LSHIFT);
-        } else {                                    // this means the key was just released (tap or "held down")
-            if(timer_elapsed(key_timer) < 152){     // Time in ms, the threshold we pick for counting something as a tap.
-                tap(KC_CAPS);
-                if(caps_status == 0){
-                    caps_status = 1;
-                    #ifdef AUDIO_ENABLE
-                        PLAY_SONG(tone_capslock_on);
-                    #endif
-                } else {
-                    caps_status = 0;
-                    #ifdef AUDIO_ENABLE
-                        PLAY_SONG(tone_capslock_off);
-                    #endif
-                }
-            }
-            unregister_code(KC_LSHIFT);
-        }
-        return false;
-        break;   
+        
            case SEL_CPY:
             // Select word under cursor and copy. Double mouse click then ctrl+c
             if (record->event.pressed) {
@@ -438,97 +359,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING("!=");
             } 
             return false;
+            
+            case DBL_AND:
+            if (record->event.pressed){
+                SEND_STRING("&&");
+            } 
+            return false;
 
-             #ifdef UNICODE_ENABLE
-    
-    case DISFACE:       // ಠ_ಠ
-        if(record->event.pressed){
-            process_unicode((0x0CA0|QK_UNICODE), record);   // Eye
-            register_code(KC_RSFT);
-            tap(KC_MINS);
-            unregister_code(KC_RSFT);
-            process_unicode((0x0CA0|QK_UNICODE), record);   // Eye
-        }
-        return false;
-        break;
-    case TFLIP:         // (╯°□°)╯ ︵ ┻━┻
-        if(record->event.pressed){
-            register_code(KC_RSFT);
-            tap(KC_9);
-            unregister_code(KC_RSFT);
-            process_unicode((0x256F|QK_UNICODE), record);   // Arm
-            process_unicode((0x00B0|QK_UNICODE), record);   // Eye
-            process_unicode((0x25A1|QK_UNICODE), record);   // Mouth
-            process_unicode((0x00B0|QK_UNICODE), record);   // Eye
-            register_code(KC_RSFT);
-            tap(KC_0);
-            unregister_code(KC_RSFT);
-            process_unicode((0x256F|QK_UNICODE), record);   // Arm
-            tap(KC_SPC);
-            process_unicode((0x0361|QK_UNICODE), record);   // Flippy
-            tap(KC_SPC);
-            process_unicode((0x253B|QK_UNICODE), record);   // Table
-            process_unicode((0x2501|QK_UNICODE), record);   // Table
-            process_unicode((0x253B|QK_UNICODE), record);   // Table
-        }
-        return false;
-        break;
-    case TPUT:          // ┬──┬ ノ( ゜-゜ノ)
-        if(record->event.pressed){
-            process_unicode((0x252C|QK_UNICODE), record);   // Table
-            process_unicode((0x2500|QK_UNICODE), record);   // Table
-            process_unicode((0x2500|QK_UNICODE), record);   // Table
-            process_unicode((0x252C|QK_UNICODE), record);   // Table
-            tap(KC_SPC);
-            process_unicode((0x30CE|QK_UNICODE), record);   // Arm
-            register_code(KC_RSFT);
-            tap(KC_9);
-            unregister_code(KC_RSFT);
-            tap(KC_SPC);
-            process_unicode((0x309C|QK_UNICODE), record);   // Eye
-            tap(KC_MINS);
-            process_unicode((0x309C|QK_UNICODE), record);   // Eye
-            process_unicode((0x30CE|QK_UNICODE), record);   // Arm
-            register_code(KC_RSFT);
-            tap(KC_0);
-            unregister_code(KC_RSFT);
-        }
-        return false;
-        break;
-    case SHRUG:         // ¯\_(ツ)_/¯
-        if(record->event.pressed){
-            process_unicode((0x00AF|QK_UNICODE), record);   // Hand
-            tap(KC_BSLS);                                   // Arm
-            register_code(KC_RSFT);
-            tap(KC_UNDS);                                   // Arm
-            tap(KC_LPRN);                                   // Head
-            unregister_code(KC_RSFT);
-            process_unicode((0x30C4|QK_UNICODE), record);   // Face
-            register_code(KC_RSFT);
-            tap(KC_RPRN);                                   // Head
-            tap(KC_UNDS);                                   // Arm
-            unregister_code(KC_RSFT);
-            tap(KC_SLSH);                                   // Arm
-            process_unicode((0x00AF|QK_UNICODE), record);   // Hand
-        }
-        return false;
-        break;
-    #endif
+            case CC_PRN:
+            if (record->event.pressed){
+            SEND_STRING("()"SS_TAP(X_LEFT));
+            } 
+            return false;
+            
+            case CC_BRC:
+            if (record->event.pressed){
+            SEND_STRING("[]"SS_TAP(X_LEFT));
+            } 
+            return false;
+            
+            case CC_CBR:
+            if (record->event.pressed){
+            SEND_STRING("{}"SS_TAP(X_LEFT));
+            } 
+            return false;
 
-         case CC_PRN:
-        SEND_STRING("()"SS_TAP(X_LEFT));
-        return false;
-      case CC_BRC:
-        SEND_STRING("[]"SS_TAP(X_LEFT));
-        return false;
-      case CC_CBR:
-        SEND_STRING("{}"SS_TAP(X_LEFT));
-        return false;
-    case DBL_AND:
-        SEND_STRING("&&");
-        return false;
-  
-      
       }
     return true;
 };
