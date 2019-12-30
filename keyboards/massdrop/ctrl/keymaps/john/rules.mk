@@ -1,4 +1,4 @@
-# NKRO_ENABLE = yes           	# USB Nkey Rollover
+NKRO_ENABLE = yes           	# USB Nkey Rollover
 # AUTO_SHIFT_ENABLE = yes      	# Auto Shift
 # # RGBLIGHT_ENABLE is not for MD boards. This is here in case you forget.
 # RGBLIGHT_ENABLE = no
