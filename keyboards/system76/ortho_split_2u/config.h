@@ -16,8 +16,8 @@
 #define MATRIX_COLS 16
 
 /* key matrix pins */
-#define MATRIX_ROW_PINS_LEFT { F4, F5, F6, F7, B1, B3 }
-#define MATRIX_COL_PINS_LEFT { D1, B5, D4, C6, D7, E6, B4 }
+#define MATRIX_ROW_PINS { F4, F5, F6, F7, B1, B3 }
+#define MATRIX_COL_PINS { D1, B5, D4, C6, D7, E6, B4 }
 #define MATRIX_ROW_PINS_RIGHT { F4, F5, F6, F7, B1, B3 }
 #define MATRIX_COL_PINS_RIGHT  { D3, D2, D1, B5, D4, C6, D7, E6, B4 }
 #define UNUSED_PINS
@@ -35,7 +35,7 @@
 #define LOCKING_RESYNC_ENABLE
 
 /* Settings for split keyboard */
-#define MASTER_RIGHT               // Right half is the master, left obeys
+#define MASTER_RIGHT               // Right half is the master, don't plug USB into left half
 #define SOFT_SERIAL_PIN D0         // The halves communicate via serial on pin D0
 
 #endif // CONFIG_H
