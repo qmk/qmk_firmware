@@ -277,7 +277,7 @@ void keyboard_post_init_user(void) {
 
 可能であれば常に `process_record_*()` を使ってキーボードをカスタマイズし、その方法でイベントをフックし、コードがキーボードのパフォーマンスに悪影響を与えないようにします。ただし、まれにマトリックススキャンにフックする必要があります。これらの関数は1秒あたり少なくとも10回は呼び出されるため、これらの関数のコードのパフォーマンスに非常に注意してください。
 
-### 例 `matrix_scan_*` の実装
+### `matrix_scan_*` の実装例
 
 この例は意図的に省略されています。このようなパフォーマンスに敏感な領域にフックする前に、例を使わずにこれを書くために、QMK 内部について十分理解する必要があります。助けが必要であれば、[issue を開く](https://github.com/qmk/qmk_firmware/issues/new) か [Discord で会話](https://discord.gg/Uq7gcHh)してください。
 
@@ -286,19 +286,19 @@ void keyboard_post_init_user(void) {
 * キーボード/リビジョン: `void matrix_scan_kb(void)`
 * キーマップ: `void matrix_scan_user(void)`
 
-この関数は全てのマトリックススキャンで呼び出されます。これは基本的に MCU が処理できる頻度です。大量に実行されるため、ここに何を置くかについては注意してください。
+この関数はマトリックススキャンのたびに呼び出されます。これは基本的に MCU が処理できる頻度です。大量に実行されるため、ここに何を置くかについては注意してください。
 
 カスタムマトリックススキャンコードが必要な場合は、この関数を使う必要があります。また、カスタムステータス出力 (LED あるいはディスプレイなど)や、ユーザが入力していない場合でも定期的にトリガーするその他の機能のために使うことができます。
 
 
 # キーボードアイドリング/ウェイクコード
 
-ボードがサポートしている場合、多くの機能を停止することで"アイドル"にすることができます。これの良い例は、RGB ライトあるいはバックライトです。これにより、電力消費を節約できるか、キーボードの動作が改善されるかもしれません。
+キーボードがサポートしている場合、多くの機能を停止することで"アイドル"にすることができます。これの良い例は、RGB ライトあるいはバックライトです。これにより、電力消費を節約できるか、キーボードの動作が改善されるかもしれません。
 
-これは2つの関数によって制御されます: `suspend_power_down_*` および `suspend_wakeup_init_*`。これらはそれぞれ システムキーボードがアイドルになった時と、起動した時に呼ばれます。
+これは2つの関数によって制御されます: `suspend_power_down_*` および `suspend_wakeup_init_*`。これらはシステムキーボードがアイドルになった時と、起動した時のそれぞれで呼ばれます。
 
 
-### 例 suspend_power_down_user() と suspend_wakeup_init_user() の実装
+### suspend_power_down_user() と suspend_wakeup_init_user() の実装例
 
 
 ```c
@@ -311,18 +311,18 @@ void suspend_wakeup_init_user(void) {
 }
 ```
 
-### キーボード suspend/wake 関数のドキュメント
+### キーボードサスペンド/ウェイク関数のドキュメント
 
 * キーボード/リビジョン : `void suspend_power_down_kb(void)` および `void suspend_wakeup_init_user(void)`
 * キーマップ: `void suspend_power_down_kb(void)` および `void suspend_wakeup_init_user(void)`
 
-# レイヤー変更コード
+# レイヤー切り替えコード
 
-これはレイヤーが変更されるたびにコードを実行します。レイヤー表示あるいはカスタムレイヤー処理に役立ちます。
+これはレイヤーが切り替えられるたびにコードを実行します。レイヤー表示あるいはカスタムレイヤー処理に役立ちます。
 
-### 例 `layer_state_set_*` の実装
+### `layer_state_set_*` の実装例
 
-この例は、Planck を例として使って、レイヤーに基づいて [RGB アンダーグロー](ja/feature_rgblight.md)を設定する方法を示します。
+この例は、レイヤーに基づいて [RGB アンダーグロー](ja/feature_rgblight.md)を設定する方法を示していて、Planck を例として使っています。
 
 ```c
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -357,7 +357,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 # 永続的な設定 (EEPROM)
 
-これによりキーボードのための永続的な設定を設定することができます。これらの設定はコントローラの EEPROM に保存され、電源が喪失した後であっても保持されます。設定は `eeconfig_read_kb` および `eeconfig_read_user` を使って読み取ることができ、`eeconfig_update_kb` および `eeconfig_update_user` を使って書きこむことができます。これは切り替え可能な機能 (rgb レイヤーの表示の切り替えなど)に役立ちます。さらに、`eeconfig_init_kb` および `eeconfig_init_user` を使って EEPROM のデフォルト値を設定できます。
+これによりキーボードのための永続的な設定を設定することができます。これらの設定はコントローラの EEPROM に保存され、電源が落ちた後であっても保持されます。設定は `eeconfig_read_kb` および `eeconfig_read_user` を使って読み取ることができ、`eeconfig_update_kb` および `eeconfig_update_user` を使って書きこむことができます。これは切り替え可能な機能 (rgb レイヤーの表示の切り替えなど)に役立ちます。さらに、`eeconfig_init_kb` および `eeconfig_init_user` を使って EEPROM のデフォルト値を設定できます。
 
 ここでの複雑な部分は、EEPROM を介してデータを保存およびアクセスできる方法がたくさんあり、これを行うための"正しい"方法が無いということです。ただし、各関数には DWORD (4 バイト)しかありません。
 
@@ -365,7 +365,7 @@ EEPROM の書き込み回数には制限があることに注意してくださ�
 
 * この例を理解していない場合は、この機能はかなり複雑なため、この機能を使うことを避けても構いません。
 
-### 実装の例
+### 実装例
 
 これは、設定を追加し、読み書きする例です。この例では、ユーザキーマップを使っています。これは複雑な機能で、多くのことが行われています。実際、動作のために上記の多くの関数を使います！
 
@@ -382,14 +382,14 @@ typedef union {
 user_config_t user_config;
 ```
 
-これは、設定をメモリ内に保存し、EEPROM に書き込むことができる32ビット構造体をセットアップします。これを使うと、この構造体に変数が定義されるため、変数を定義する必要が無くなります。`bool` (boolean) の値は1ビットを使い、`uint8_t` は8ビットを使い、`uint16_t` は16ビットまでを使うことに注意してください。組み合わせて使うことができますが、順番の変更は読み書きされる値が変更されるため、問題が発生するかもしれません。
+これは、設定をメモリ内に保存し、EEPROM に書き込むことができる32ビット構造体をセットアップします。これを使うと、この構造体に変数が定義されるため、変数を定義する必要が無くなります。`bool` (boolean) の値は1ビットを使い、`uint8_t` は8ビットを使い、`uint16_t` は16ビットを使うことに注意してください。組み合わせて使うことができますが、順番の変更は読み書きされる値が変更されるため、問題が発生するかもしれません。
 
 `layer_state_set_*` 関数のために `rgb_layer_change` を使い、全てを設定するために `keyboard_post_init_user` および `process_record_user` を使います。
 
 ここで、上の `keyboard_post_init_user` コードを使って、作成したばかりの構造体を設定するために `eeconfig_read_user()` を追加します。そして、この構造体をすぐに使ってキーマップの機能を制御することができます。それは以下のようになります:
 ```c
 void keyboard_post_init_user(void) {
-  // キーマップレベルのマトリックスの init を呼びます
+  // キーマップレベルのマトリックスの初期化処理を呼びます
 
   // EEPROM からユーザ設定を読み込みます
   user_config.raw = eeconfig_read_user();
@@ -402,7 +402,7 @@ void keyboard_post_init_user(void) {
   }
 }
 ```
-上記の関数は読み取ったばかりの EEPROM 設定を使い、デフォルトのレイヤーの RGB 色を設定します。その"生の"値は、上で作成した"共用体"に基づいて使用可能な構造に変換されます。
+上記の関数は読み取ったばかりの EEPROM 設定を使い、デフォルトのレイヤーの RGB 色を設定します。その「生の」値は、上で作成した「共用体」に基づいて使用可能な構造に変換されます。
 
 ```c
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -426,7 +426,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return state;
 }
 ```
-これにより、値が有効になっていた場合のみ、RGB アンダーグローが変更されます。この値を設定するために、`RGB_LYR` と呼ばれる `process_record_user` の新しいキーコードを作成します。さらに、通常の RGB コードを使う場合、上記の例を使ってオフになることを確認します。以下のようになります:
+これにより、値が有効になっていた場合のみ、RGB アンダーグローが変更されます。この値を設定するために、`RGB_LYR` と呼ばれる `process_record_user` 用の新しいキーコードを作成します。さらに、通常の RGB コードを使う場合、上記の例を使ってオフになることを確認します。以下のようになります:
 ```c
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -452,7 +452,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         }
         return false; break;
-    case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT: // 任意の RGB コード (quantum_keycodes.h を見てください。参照としては L400)
+    case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT: // 任意の RGB コード に対して(quantum_keycodes.h を見てください。400行目参照)
         if (record->event.pressed) { // これはレイヤー表示を無効にします。これを変更する場合は、無効にしたいだろうため。
             if (user_config.rgb_layer_change) {        // 有効な場合のみ
                 user_config.rgb_layer_change = false;  // 無効にします
@@ -473,14 +473,14 @@ void eeconfig_init_user(void) {  // EEPROM がリセットされます！
   user_config.rgb_layer_change = true; // デフォルトでこれを有効にします
   eeconfig_update_user(user_config.raw); // デフォルト値を EEPROM に書き込みます
 
-  // noeeprom 以外のバージョンを使って、これらの値も EEPROM に書き込みます
+  // これらの値も EEPROM に書き込むためには、noeeprom 以外のバージョンを使います
   rgblight_enable(); // デフォルトで RGB を有効にします
-  rgblight_sethsv_cyan();  // デフォルトで CYAN に設定します
+  rgblight_sethsv_cyan();  // デフォルトでシアンに設定します
   rgblight_mode(1); // デフォルトでソリッドに設定します
 }
 ```
 
-これで完了です。RGB レイヤー表示は必要な場合にのみ機能します。ボードを取り外した後でも保存されます。RGB コードのいずれかを使うと、レイヤー表示が無効になり、設定したモードと色がそのままになります。
+これで完了です。RGB レイヤー表示は必要な場合にのみ機能します。キーボードを取り外した後でも保存されます。RGB コードのいずれかを使うと、レイヤー表示が無効になり、設定したモードと色がそのままになります。
 
 ### 'EECONFIG' 関数のドキュメント
 
@@ -491,12 +491,12 @@ void eeconfig_init_user(void) {  // EEPROM がリセットされます！
 
 # カスタムタッピング期間
 
-デフォルトでは、タッピング期間はグローバルに設定されていて、キーでは設定することができません。ほとんどのユーザにとって、これは全然問題ありません。しかし、場合によっては、`LT` キーとは異なるタイムアウトによって、または一部のキーは他のキーよりも押し続けやすいため、デュアルファンクションキーが大幅に改善されます。これにより、それぞれにカスタムキーコードを使う代わりに、キーごとに設定可能な `TAPPING_TERM` を可能にします。
+デフォルトでは、タッピング期間はグローバルに設定されていて、キーでは設定することができません。ほとんどのユーザにとって、これは全然問題ありません。しかし、場合によっては、`LT` キーとは異なるタイムアウトによって、デュアルファンクションキーが大幅に改善されます。なぜなら、一部のキーは他のキーよりも押し続けやすいためです。それぞれにカスタムキーコードを使う代わりに、キーごとに設定可能な `TAPPING_TERM` を使用できます。
 
 この機能を有効にするには、最初に `config.h` に `#define TAPPING_TERM_PER_KEY` を追加する必要があります。
 
 
-## 例 `get_tapping_term` の実装
+## `get_tapping_term` の実装例
 
 キーコードに基づいて `TAPPING TERM` を変更するには、次のようなものを `keymap.c` ファイルに追加します:
 
