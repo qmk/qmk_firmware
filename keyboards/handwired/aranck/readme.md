@@ -8,7 +8,7 @@ A handwired 40% ortholinear keyboard.
 
 The story: https://imgur.com/a/4QI7ifJ
 
-* Keyboard Maintainer: [Arda Kilicdagi](https://github.com/ardakilic)  
+* Keyboard Maintainer: [Arda Kilicdagi](https://github.com/ardakilic)
 * Hardware Supported: Pro Micro
 
 Make example for this keyboard (after setting up your build environment):
