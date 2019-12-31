@@ -1,5 +1,3 @@
-#pragma once
-
 #include "progmem.h"
 
 // Helidox 8x6 font with QMK Firmware Logo

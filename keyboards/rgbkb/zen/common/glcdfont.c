@@ -1,7 +1,5 @@
 // This is the SOL 6x8 font
 
-#pragma once
-
 #include "progmem.h"
 
 static const unsigned char font[] PROGMEM = {
