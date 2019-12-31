@@ -8,7 +8,7 @@ Most of our style follows PEP8 with some local modifications to make things less
   * Think of them as a story describing the feature
   * Use them liberally to explain why particular decisions were made.
   * Do not write obvious comments
-  * If you not sure if a comment is obvious, go ahead and include it.
+  * If you're not sure if a comment is obvious, go ahead and include it.
 * We require useful docstrings for all functions.
 * In general we don't wrap lines, they can be as long as needed. If you do choose to wrap lines please do not wrap any wider than 76 columns.
 * Some of our practices conflict with the wider python community to make our codebase more approachable to non-pythonistas.
@@ -77,9 +77,9 @@ Always use a .py filename extension. Never use dashes.
 
 ## Names to Avoid
 
-* single character names except for counters or iterators. You may use "e" as an exception identifier in try/except statements.
-* dashes (-) in any package/module name
-* __double_leading_and_trailing_underscore__ names (reserved by Python)
+* single character names except for counters or iterators. You may use `e` as an exception identifier in try/except statements.
+* dashes (`-`) in any package/module name
+* `__double_leading_and_trailing_underscore__` names (reserved by Python)
 
 # Docstrings
 

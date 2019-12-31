@@ -20,9 +20,9 @@ Support for SSD1306 based OLED displays. For more information see the [OLED Driv
 
 ## uGFX
 
-You can make use of uGFX within QMK to drive character and graphic LCD's, LED arrays, OLED, TFT, and other display technologies. This needs to be better documented, if you are trying to do this and reading the code doesn't help please [open an issue](https://github.com/qmk/qmk_firmware/issues/new) and we can help you through the process.
+You can make use of uGFX within QMK to drive character and graphic LCDs, LED arrays, OLED, TFT, and other display technologies. This needs to be better documented, if you are trying to do this and reading the code doesn't help please [open an issue](https://github.com/qmk/qmk_firmware/issues/new) and we can help you through the process.
 
-## WS2812 (AVR Only)
+## WS2812
 
 Support for WS2811/WS2812{a,b,c} LED's. For more information see the [RGB Light](feature_rgblight.md) page.
 
