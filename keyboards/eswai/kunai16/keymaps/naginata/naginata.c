@@ -23,7 +23,6 @@
 #endif
 
 #define NGBUFFER 5 // キー入力バッファのサイズ
-#define N_DOUJIKEY 3 // 同時押しするキー数（最大）
 
 #ifdef NAGINATA_TATEGAKI
   #define NGUP X_UP
@@ -46,10 +45,9 @@
   #define NGKRT KC_UP
 #endif
 
-static uint8_t ng_chrcount = 0; // 文字キー入力のカウンタ (シフトキーを除く)
+static uint8_t ng_chrcount = 0; // 文字キー入力のカウンタ
 static bool is_naginata = false; // 薙刀式がオンかオフか
 static uint8_t naginata_layer = 0; // NG_*を配置しているレイヤー番号
-// static uint8_t n_modifier = 0; // 押しているmodifierキーの数
 static uint32_t keycomb = 0UL; // 同時押しの状態を示す。32bitの各ビットがキーに対応する。
 
 // 31キーを32bitの各ビットに割り当てる
@@ -473,7 +471,7 @@ void set_naginata(uint8_t layer) {
   naginata_layer = layer;
 }
 
-// 薙刀式をオンオフ
+// 薙刀式をオン
 void naginata_on(void) {
   is_naginata = true;
   keycomb = 0UL;
@@ -484,6 +482,7 @@ void naginata_on(void) {
   tap_code(KC_HENK); // Win
 }
 
+// 薙刀式をオフ
 void naginata_off(void) {
   is_naginata = false;
   keycomb = 0UL;
@@ -494,7 +493,7 @@ void naginata_off(void) {
   tap_code(KC_MHEN); // Win
 }
 
-// 薙刀式の状態
+// 薙刀式のon/off状態を返す
 bool naginata_state(void) {
   return is_naginata;
 }
@@ -510,151 +509,24 @@ void makesure_mode(void) {
   }
 }
 
-// キー入力を文字に変換して出力する
-void naginata_type(void) {
-#ifdef NAGINATA_JDOUJI
-  naginata_keymap_ordered bngmapo; // PROGMEM buffer
-#endif
-  naginata_keymap bngmap; // PROGMEM buffer
-  naginata_keymap_long bngmapl; // PROGMEM buffer
-  naginata_keymap_unicode bngmapu; // PROGMEM buffer
-
-  uint32_t skey = 0; // 連続押しの場合のバッファ
-
-  switch (keycomb) {
-    // send_stringできないキー、長すぎるマクロはここで定義
-    case B_F|B_G:
-      naginata_off();
-      break;
-    case B_J|B_K|B_T:
-#ifdef NAGINATA_EDIT_WIN
-      tap_code(KC_HOME);
-      for (int i = 0; i < 10; i++) tap_code(NGKDN);
-#endif
-#ifdef NAGINATA_EDIT_MAC
-      register_code(KC_LGUI);
-      tap_code(KC_LEFT);
-      unregister_code(KC_LGUI);
-      for (int i = 0; i < 10; i++) tap_code(NGKDN);
-#endif
-      break;
-    case B_J|B_K|B_G:
-#ifdef NAGINATA_EDIT_WIN
-      tap_code(KC_HOME);
-      for (int i = 0; i < 20; i++) tap_code(NGKDN);
-#endif
-#ifdef NAGINATA_EDIT_MAC
-      register_code(KC_LGUI);
-      tap_code(KC_LEFT);
-      unregister_code(KC_LGUI);
-      for (int i = 0; i < 20; i++) tap_code(NGKDN);
-#endif
-      break;
-    case B_J|B_K|B_B:
-#ifdef NAGINATA_EDIT_WIN
-      tap_code(KC_HOME);
-      for (int i = 0; i < 30; i++) tap_code(NGKDN);
-#endif
-#ifdef NAGINATA_EDIT_MAC
-      register_code(KC_LGUI);
-      tap_code(KC_LEFT);
-      unregister_code(KC_LGUI);
-      for (int i = 0; i < 30; i++) tap_code(NGKDN);
-#endif
-      break;
-#ifdef NAGINATA_EDIT_WIN
-    case B_C|B_V|B_P:
-      send_unicode_hex_string("FF5C");
-      tap_code(KC_ENT);
-      tap_code(KC_END);
-      send_unicode_hex_string("300A 300B");
-      tap_code(KC_ENT);
-      tap_code(KC_LEFT);
-      break;
-    case B_C|B_V|B_Y:
-      send_unicode_hex_string("300D");
-      tap_code(KC_ENT);
-      tap_code(KC_ENT);
-      tap_code(KC_SPC);
-      break;
-    case B_C|B_V|B_H:
-      send_unicode_hex_string("300D");
-      tap_code(KC_ENT);
-      tap_code(KC_ENT);
-      send_unicode_hex_string("300C");
-      tap_code(KC_ENT);
-      break;
-    case B_C|B_V|B_N:
-      send_unicode_hex_string("300D");
-      tap_code(KC_ENT);
-      tap_code(KC_ENT);
-      break;
-#endif
-    default:
-      // キーから仮名に変換して出力する。
-      // 同時押しの場合 ngmapに定義されている
-      // 順序つき
-      #ifdef NAGINATA_JDOUJI
-      for (int i = 0; i < sizeof ngmapo / sizeof bngmapo; i++) {
-        memcpy_P(&bngmapo, &ngmapo[i], sizeof(bngmapo));
-        if (ninputs[0] == bngmapo.key[0] && ninputs[1] == bngmapo.key[1] && ninputs[2] == bngmapo.key[2]) {
-          send_string(bngmapo.kana);
-          naginata_clear();
-          return;
-        }
-      }
-      #endif
-      // 順序なし
-      for (int i = 0; i < sizeof ngmap / sizeof bngmap; i++) {
-        memcpy_P(&bngmap, &ngmap[i], sizeof(bngmap));
-        if (keycomb == bngmap.key) {
-          send_string(bngmap.kana);
-          naginata_clear();
-          return;
-        }
-      }
-      // 順序なしロング
-      for (int i = 0; i < sizeof ngmapl / sizeof bngmapl; i++) {
-        memcpy_P(&bngmapl, &ngmapl[i], sizeof(bngmapl));
-        if (keycomb == bngmapl.key) {
-          send_string(bngmapl.kana);
-          naginata_clear();
-          return;
-        }
-      }
-      // 順序なしUNICODE
-      for (int i = 0; i < sizeof ngmapu / sizeof bngmapu; i++) {
-        memcpy_P(&bngmapu, &ngmapu[i], sizeof(bngmapu));
-        if (keycomb == bngmapu.key) {
-          send_unicode_hex_string(bngmapu.kana);
-          tap_code(KC_ENT);
-          naginata_clear();
-          return;
-        }
-      }
-      // 連続押しの場合 ngmapに定義されていない
-      for (int j = 0; j < ng_chrcount; j++) {
-        skey = ng_key[ninputs[j] - NG_Q];
-        if ((keycomb & B_SHFT) > 0) skey |= B_SHFT; // シフトキー状態を反映
-        for (int i = 0; i < sizeof ngmap / sizeof bngmap; i++) {
-          memcpy_P(&bngmap, &ngmap[i], sizeof(bngmap));
-          if (skey == bngmap.key) {
-            send_string(bngmap.kana);
-            break;
-          }
-        }
-      }
-  }
-
-  naginata_clear(); // バッファを空にする
-}
-
 // バッファをクリアする
 void naginata_clear(void) {
   for (int i = 0; i < NGBUFFER; i++) {
     ninputs[i] = 0;
   }
   ng_chrcount = 0;
+}
+
+// バッファから先頭n文字を削除する
+void compress_buffer(int n) {
+  for (int j = 0; j < NGBUFFER; j++) {
+    if (j + n < NGBUFFER) {
+      ninputs[j] = ninputs[j + n];
+    } else {
+      ninputs[j] = 0;
+    }
+  }
+  ng_chrcount -= n;
 }
 
 // modifierが押されたら薙刀式レイヤーをオフしてベースレイヤーに戻す
@@ -669,7 +541,6 @@ void process_modifier(uint16_t keycode, keyrecord_t *record) {
 
 // 薙刀式の入力処理
 bool process_naginata(uint16_t keycode, keyrecord_t *record) {
-  // if (!is_naginata || n_modifier > 0) return true;
 
   if (record->event.pressed) {
     switch (keycode) {
@@ -677,8 +548,8 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         ninputs[ng_chrcount] = keycode; // キー入力をバッファに貯める
         ng_chrcount++;
         keycomb |= ng_key[keycode - NG_Q]; // キーの重ね合わせ
-        // N文字押したら処理を開始
-        if (ng_chrcount >= N_DOUJIKEY) {
+        // バッファが一杯になったら処理を開始
+        if (ng_chrcount >= NGBUFFER) {
           naginata_type();
         }
         return false;
@@ -687,15 +558,188 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
   } else { // key release
     switch (keycode) {
       case NG_Q ... NG_SHFT:
-        // N文字入力していなくても、どれかキーを離したら処理を開始する
+        // どれかキーを離したら処理を開始する
+        keycomb &= ~ng_key[keycode - NG_Q]; // キーの重ね合わせ
         if (ng_chrcount > 0) {
           naginata_type();
         }
-        keycomb &= ~ng_key[keycode - NG_Q]; // キーの重ね合わせ
         return false;
         break;
     }
   }
   return true;
+}
+
+// キー入力を文字に変換して出力する
+void naginata_type(void) {
+  // バッファの最初からnt文字目までを検索キーにする。
+  // 一致する組み合わせがなければntを減らして=最後の1文字を除いて再度検索する。
+  int nt = ng_chrcount; 
+
+  while (nt >= 0) {
+    if (naginata_lookup(nt)) return;
+    nt--; // 最後の1キーを除いて、もう一度仮名テーブルを検索する
+  }
+}
+
+// バッファの頭からnt文字の範囲を検索キーにしてテーブル検索し、文字に変換して出力する
+// 検索に成功したらtrue、失敗したらfalseを返す
+bool naginata_lookup(int nt) {
+#ifdef NAGINATA_JDOUJI
+  naginata_keymap_ordered bngmapo; // PROGMEM buffer
+#endif
+  naginata_keymap bngmap; // PROGMEM buffer
+  naginata_keymap_long bngmapl; // PROGMEM buffer
+  naginata_keymap_unicode bngmapu; // PROGMEM buffer
+
+  // keycomb_bufはバッファ内のキーの組み合わせ、keycombはリリースしたキーを含んでいない
+  uint32_t keycomb_buf = 0UL;
+
+  // バッファ内のキーを組み合わせる
+  for (int i = 0; i < nt; i++) {
+    keycomb_buf |= ng_key[ninputs[i] - NG_Q];
+  }
+  // リリースしたキーがシフトキーでなければ、連続シフトを有効にする
+  if ((keycomb & B_SHFT) == B_SHFT) keycomb_buf |= B_SHFT;
+
+  // 編集モードを連続する
+  if ((keycomb & (B_D | B_F))    == (B_D | B_F))    keycomb_buf |= (B_D | B_F);
+  if ((keycomb & (B_C | B_V))    == (B_C | B_V))    keycomb_buf |= (B_C | B_V);
+  if ((keycomb & (B_J | B_K))    == (B_J | B_K))    keycomb_buf |= (B_J | B_K);
+  if ((keycomb & (B_M | B_COMM)) == (B_M | B_COMM)) keycomb_buf |= (B_M | B_COMM);
+
+  switch (keycomb_buf) {
+    // send_stringできないキー、長すぎるマクロはここで定義
+    case B_F|B_G:
+      naginata_off();
+      compress_buffer(nt);
+      return true;
+      break;
+    case B_J|B_K|B_T:
+#ifdef NAGINATA_EDIT_WIN
+      tap_code(KC_HOME);
+      for (int i = 0; i < 10; i++) tap_code(NGKDN);
+#endif
+#ifdef NAGINATA_EDIT_MAC
+      register_code(KC_LGUI);
+      tap_code(KC_LEFT);
+      unregister_code(KC_LGUI);
+      for (int i = 0; i < 10; i++) tap_code(NGKDN);
+#endif
+      compress_buffer(nt);
+      return true;
+      break;
+    case B_J|B_K|B_G:
+#ifdef NAGINATA_EDIT_WIN
+      tap_code(KC_HOME);
+      for (int i = 0; i < 20; i++) tap_code(NGKDN);
+#endif
+#ifdef NAGINATA_EDIT_MAC
+      register_code(KC_LGUI);
+      tap_code(KC_LEFT);
+      unregister_code(KC_LGUI);
+      for (int i = 0; i < 20; i++) tap_code(NGKDN);
+#endif
+      compress_buffer(nt);
+      return true;
+      break;
+    case B_J|B_K|B_B:
+#ifdef NAGINATA_EDIT_WIN
+      tap_code(KC_HOME);
+      for (int i = 0; i < 30; i++) tap_code(NGKDN);
+#endif
+#ifdef NAGINATA_EDIT_MAC
+      register_code(KC_LGUI);
+      tap_code(KC_LEFT);
+      unregister_code(KC_LGUI);
+      for (int i = 0; i < 30; i++) tap_code(NGKDN);
+#endif
+      compress_buffer(nt);
+      return true;
+      break;
+#ifdef NAGINATA_EDIT_WIN
+    case B_C|B_V|B_P:
+      send_unicode_hex_string("FF5C");
+      tap_code(KC_ENT);
+      tap_code(KC_END);
+      send_unicode_hex_string("300A 300B");
+      tap_code(KC_ENT);
+      tap_code(KC_LEFT);
+      compress_buffer(nt);
+      return true;
+      break;
+    case B_C|B_V|B_Y:
+      send_unicode_hex_string("300D");
+      tap_code(KC_ENT);
+      tap_code(KC_ENT);
+      tap_code(KC_SPC);
+      compress_buffer(nt);
+      return true;
+      break;
+    case B_C|B_V|B_H:
+      send_unicode_hex_string("300D");
+      tap_code(KC_ENT);
+      tap_code(KC_ENT);
+      send_unicode_hex_string("300C");
+      tap_code(KC_ENT);
+      compress_buffer(nt);
+      return true;
+      break;
+    case B_C|B_V|B_N:
+      send_unicode_hex_string("300D");
+      tap_code(KC_ENT);
+      tap_code(KC_ENT);
+      compress_buffer(nt);
+      return true;
+      break;
+#endif
+    default:
+      // キーから仮名に変換して出力する
+      // 順序つき仮名変換
+      #ifdef NAGINATA_JDOUJI
+      for (int i = 0; i < sizeof(ngmapo) / sizeof(bngmapo); i++) {
+        memcpy_P(&bngmapo, &ngmapo[i], sizeof(bngmapo));
+        bool jd = true;
+        // nt = 1だと、い、う、がヒットしてしまう
+        for (int j = 0; j < nt; j++) {
+          jd &= (ninputs[j] == bngmapo.key[j]);
+        }
+        // if (jd) {
+        //   send_string(bngmapo.kana);
+        //   compress_buffer(nt);
+        //   return true;
+        // }
+      }
+      #endif
+      // 通常の仮名
+      for (int i = 0; i < sizeof ngmap / sizeof bngmap; i++) {
+        memcpy_P(&bngmap, &ngmap[i], sizeof(bngmap));
+        if (keycomb_buf == bngmap.key) {
+          send_string(bngmap.kana);
+          compress_buffer(nt);
+          return true;
+        }
+      }
+      // 仮名ロング
+      for (int i = 0; i < sizeof ngmapl / sizeof bngmapl; i++) {
+        memcpy_P(&bngmapl, &ngmapl[i], sizeof(bngmapl));
+        if (keycomb_buf == bngmapl.key) {
+          send_string(bngmapl.kana);
+          compress_buffer(nt);
+          return true;
+        }
+      }
+      // UNICODE文字
+      for (int i = 0; i < sizeof ngmapu / sizeof bngmapu; i++) {
+        memcpy_P(&bngmapu, &ngmapu[i], sizeof(bngmapu));
+        if (keycomb_buf == bngmapu.key) {
+          send_unicode_hex_string(bngmapu.kana);
+          tap_code(KC_ENT);
+          compress_buffer(nt);
+          return true;
+        }
+      }
+  }
+  return false;
 }
 
