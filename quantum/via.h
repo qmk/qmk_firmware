@@ -48,7 +48,7 @@
 
 // This is changed only when the command IDs change,
 // so VIA Configurator can detect compatible firmware. 
-#define VIA_PROTOCOL_VERSION 0x0008
+#define VIA_PROTOCOL_VERSION 0x0009
 
 enum via_command_id
 {
@@ -77,7 +77,8 @@ enum via_command_id
 enum via_keyboard_value_id
 {
   id_uptime = 0x01,
-  id_layout_options
+  id_layout_options,
+  id_switch_matrix_state
 };
 
 // Can't use SAFE_RANGE here, it might change if someone adds

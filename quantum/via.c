@@ -247,6 +247,26 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
                     command_data[4] = value & 0xFF;
                     break;
                 }
+                case id_switch_matrix_state:
+                {
+#if ( (MATRIX_COLS/8+1)*MATRIX_ROWS <= 28 )
+                    uint8_t i = 1;
+                    for ( uint8_t row=0; row<MATRIX_ROWS; row++ ) {
+                        matrix_row_t value = matrix_get_row(row);
+#if (MATRIX_COLS > 24)
+                        command_data[i++] = (value >> 24 ) & 0xFF;
+#endif
+#if (MATRIX_COLS > 16)
+                        command_data[i++] = (value >> 16 ) & 0xFF;
+#endif
+#if (MATRIX_COLS > 8)
+                        command_data[i++] = (value >> 8 ) & 0xFF;
+#endif
+                        command_data[i++] = value & 0xFF;
+                    }
+#endif
+                    break;
+                }
                 default:
                 {
                     raw_hid_receive_kb(data,length);
