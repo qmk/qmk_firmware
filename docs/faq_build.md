@@ -136,7 +136,7 @@ brew link --force arm-gcc-bin@8
 ```
 ## `avr-gcc` and `dyld: Library not loaded: /usr/local/opt/isl/lib/libisl.21.dylib`
 
-This is in a when cc1 has a dependency on libisl.021 which is no longer available in homebrew.
+This is in an issue when cc1 has a dependency on libisl.021 which is no longer available in homebrew.
 
 ```
 Compiling: keyboards/keebio/iris/iris.c                                                            dyld: Library not loaded: /usr/local/opt/isl/lib/libisl.21.dylib
