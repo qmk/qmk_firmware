@@ -12,7 +12,7 @@
 #define DESCRIPTION     2U Split Ortho
 
 /* key matrix size */
-#define MATRIX_ROWS 6
+#define MATRIX_ROWS 12 // 6, but each side is separate
 #define MATRIX_COLS 16
 
 /* key matrix pins */
