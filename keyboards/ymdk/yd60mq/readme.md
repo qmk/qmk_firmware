@@ -11,10 +11,10 @@ Hardware Availability: YMDK - [AliExpress](https://www.aliexpress.com/item/YMDK-
 
 Make example for this keyboard (after setting up your build environment):
 
-    make yd60mq:default
+    make ymdk/yd60mq:default
 
 The keyboard uses a DFU bootloader. To make a keymap and use dfu-util to flash it:
 
-    make yd60mq:default:dfu
+    make ymdk/yd60mq:default:dfu
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.

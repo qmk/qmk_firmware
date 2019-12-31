@@ -8,11 +8,11 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ymd75:default
+    make ymdk/ymd75:default
 
 Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
 
-    make ymd75:default:flash
+    make ymdk/ymd75:default:flash
 
 **Reset Key**: Hold down the key located at *Key below the top right key*, commonly programmed as *Backspace* while plugging in the keyboard.
 
