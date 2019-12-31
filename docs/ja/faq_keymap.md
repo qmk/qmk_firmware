@@ -51,7 +51,7 @@ https://github.com/tmk/tmk_keyboard/issues/67
 
 ## モディファイヤ/レイヤスタック
 修飾キーあるいはレイヤは、レイヤの切り替えが適切に設定されていない場合、スタックするかもしれません。
-修飾キーおよびレイヤ切り替えの場合、修飾キーの登録を解除するか、リリースイベント時に前のレイヤに戻るために、目的のレイヤの同じ位置に `KC_TRANS` を配置する必要があります。
+修飾キーおよびレイヤ切り替えの場合、リリースイベント時に修飾キーの登録を解除する、もしくは前のレイヤに戻るために、目的のレイヤの同じ位置に `KC_TRANS` を配置する必要があります。
 
 * https://github.com/tmk/tmk_core/blob/master/doc/keymap.md#31-momentary-switching
 * http://geekhack.org/index.php?topic=57008.msg1492604#msg1492604
