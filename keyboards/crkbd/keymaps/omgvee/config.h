@@ -43,3 +43,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
 #define BACKLIGHT_LEVELS 10
+
+#undef PRODUCT
+#define PRODUCT "Vee's hotswappable Helidox/Corne/CRKBD split keeb"
+
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION

@@ -31,13 +31,7 @@
 #endif
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
-
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
+#define DEBOUNCE 5
 
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS
@@ -55,6 +49,3 @@
 
 /* Locking resynchronize hack */
 //#define LOCKING_RESYNC_ENABLE
-
-/* prevent stuck modifiers */
-//#define PREVENT_STUCK_MODIFIERS

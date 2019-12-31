@@ -20,17 +20,14 @@ enum planck_keycodes {
   DYNAMIC_MACRO_RANGE,
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
 #define FKEYS F(_FKEYS)
-#define NUMSYM F(_NUMSYM)
+#define NUMSYM TT(_NUMSYM)
 #define FKEYGRV F(_FKEYGRV)
 #define MACSLEEP M(5)
 #define PLOVER M(6)
 #define LAYERRESET M(7)
 #define BACKLIT M(8)
 #define ADJUST M(9)
-#define XXXXXXX KC_NO
 
 #include "dynamic_macro.h"
 
@@ -88,7 +85,6 @@ void persistant_default_layer_set(uint16_t default_layer) {
 const uint16_t PROGMEM fn_actions[] = {
  [_FKEYS] = ACTION_LAYER_TAP_KEY(_FKEYS, KC_TAB),
  [_FKEYGRV] = ACTION_LAYER_TAP_KEY(_FKEYS, KC_GRV),
- [_NUMSYM] = ACTION_LAYER_TAP_TOGGLE(_NUMSYM),
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

@@ -73,64 +73,64 @@
 #define HU_AA KC_QUOT
 #define HU_UEE KC_NUHS
 
-#define HU_MINS KC_SLSH // - 
+#define HU_MINS KC_SLSH  // -
 
 #define HU_DOT KC_DOT
 #define HU_COMM KC_COMM
 
 // shifted characters
 // num row
-#define HU_PARA LSFT(HU_0) // §
-#define HU_QUOT LSFT(HU_1) // '
-#define HU_DQOT LSFT(HU_2) // "
-#define HU_PLUS LSFT(HU_3) // + 
-#define HU_EXLM LSFT(HU_4) // !
-#define HU_PERC LSFT(HU_5) // %
-#define HU_SLSH LSFT(HU_6) // /
-#define HU_EQL LSFT(HU_7) // =
-#define HU_LPRN LSFT(HU_8) // (
-#define HU_RPRN LSFT(HU_9) // )
+#define HU_PARA LSFT(HU_0)  // §
+#define HU_QUOT LSFT(HU_1)  // '
+#define HU_DQOT LSFT(HU_2)  // "
+#define HU_PLUS LSFT(HU_3)  // +
+#define HU_EXLM LSFT(HU_4)  // !
+#define HU_PERC LSFT(HU_5)  // %
+#define HU_SLSH LSFT(HU_6)  // /
+#define HU_EQL LSFT(HU_7)   // =
+#define HU_LPRN LSFT(HU_8)  // (
+#define HU_RPRN LSFT(HU_9)  // )
 
 // í,y row
-#define HU_II	KC_NUBS
-#define HU_QST  LSFT(HU_COMM) // ?
-#define HU_COLN LSFT(HU_DOT) // :
-#define HU_UNDS LSFT(HU_MINS) // _
+#define HU_II KC_NUBS
+#define HU_QST LSFT(HU_COMM)   // ?
+#define HU_COLN LSFT(HU_DOT)   // :
+#define HU_UNDS LSFT(HU_MINS)  // _
 
 // Alt Gr'd characters
 // num row
-#define HU_TILD ALGR(HU_1) // ~
+#define HU_TILD ALGR(HU_1)  // ~
 //#define HU_?? ALGR(HU_2) // ˇ (proper name?)
-#define HU_CIRC ALGR(HU_3) // ^
-#define HU_BRV ALGR(HU_4) // ˘
-#define HU_RING ALGR(HU_5) // °
+#define HU_CIRC ALGR(HU_3)  // ^
+#define HU_BRV ALGR(HU_4)   // ˘
+#define HU_RING ALGR(HU_5)  // °
 //#define HU_?? ALGR(HU_6) // ˛ (proper name?)
-#define HU_GRV ALGR(HU_7) // `
+#define HU_GRV ALGR(HU_7)  // `
 //#define HU_?? ALGR(HU_8) // ˙ (proper name?)
-#define HU_ACUT ALGR(HU_9) // ´ 
+#define HU_ACUT ALGR(HU_9)  // ´
 
 // q row
-#define HU_BSLS ALGR(HU_Q) // \ backslash 
-#define HU_PIPE ALGR(HU_W) // |
-#define HU_DIV ALGR(HU_OEE) // ÷
-#define HU_CRSS ALGR(HU_UU) // ×
-#define HU_EURO ALGR(HU_U) // €
+#define HU_BSLS ALGR(HU_Q)   // \ backslash
+#define HU_PIPE ALGR(HU_W)   // |
+#define HU_DIV ALGR(HU_OEE)  // ÷
+#define HU_CRSS ALGR(HU_UU)  // ×
+#define HU_EURO ALGR(HU_U)   // €
 
 // a row
-#define HU_LBRC ALGR(HU_F) // [
-#define HU_RBRC ALGR(HU_G) // ]
-#define HU_DLR  ALGR(HU_EE) // $
-#define HU_SS ALGR(HU_AA) // ß
+#define HU_LBRC ALGR(HU_F)  // [
+#define HU_RBRC ALGR(HU_G)  // ]
+#define HU_DLR ALGR(HU_EE)  // $
+#define HU_SS ALGR(HU_AA)   // ß
 
 // í,y row
-#define HU_LESS ALGR(KC_NUBS) // < 
-#define HU_MORE ALGR(HU_Y) // >
-#define HU_HASH ALGR(HU_X) // # 
-#define HU_AMPR ALGR(HU_C) // &
-#define HU_AT  ALGR(HU_V) // @
-#define HU_LCBR ALGR(HU_B)// {
-#define HU_RCBR ALGR(HU_N) // }
-#define HU_SCLN ALGR(HU_COMM) // ;
-#define HU_ASTR ALGR(HU_MINS) // *
+#define HU_LESS ALGR(KC_NUBS)  // <
+#define HU_MORE ALGR(HU_Y)     // >
+#define HU_HASH ALGR(HU_X)     // #
+#define HU_AMPR ALGR(HU_C)     // &
+#define HU_AT ALGR(HU_V)       // @
+#define HU_LCBR ALGR(HU_B)     // {
+#define HU_RCBR ALGR(HU_N)     // }
+#define HU_SCLN ALGR(HU_COMM)  // ;
+#define HU_ASTR ALGR(HU_MINS)  // *
 
 #endif

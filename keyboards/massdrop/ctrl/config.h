@@ -92,17 +92,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBUG_BOOT_TRACING_PIN      23
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 //#define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 //#define LOCKING_RESYNC_ENABLE
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /* Force boot in NKRO mode */
 //#define FORCE_NKRO
@@ -124,3 +119,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
+
+#define RGB_MATRIX_KEYPRESSES
+#define RGB_MATRIX_LED_PROCESS_LIMIT 15
+#define RGB_MATRIX_LED_FLUSH_LIMIT 10
+
+#include "config_led.h"

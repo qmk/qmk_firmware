@@ -53,14 +53,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 } while (0)
 #endif
 #endif
+#ifdef __AVR__
 #include "outputselect.h"
+#endif
 #include "led.h"
 #define COUNT(x) (sizeof (x) / sizeof (*(x)))
 
-// Fillers to make layering clearer
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-#define G(x) LGUI(x)
 #define KC_WWWB KC_WWW_BACK
 #define KC_WWWF KC_WWW_FORWARD
 
@@ -897,13 +895,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Emoji
  * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |  💕  |  😢  |  😩  | 😍   |  😏  |  😂  |  ♻  |  😒  |  🎶  | 👌  |  😔  |  😌  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |  👍  |  🙏  |  😁  |  😅  |  😳  |  😊  |  ❤  |  👋  |  😘  | 🙌  |  😎  | 🙈   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |  👎  |  😴  |  👏  |  😭  |  ✌  |  💔  |  ☀  |  😊  |  😉  |  🌔  |  😕  |  🙉  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |  💩  |  👀  |  💯  |      |  💀  |  😈  |  😇  |  😱  |     |  😋  |  😞  |  🙊  |
  * `-----------------------------------------------------------------------------------'
  */
 [_EMOJI] = LAYOUT(
@@ -1281,7 +1279,7 @@ void set_output_user(uint8_t output) {
 }
 
 void matrix_init_user() {
-  _delay_ms(500); // give time for usb to initialize
+  wait_ms(500); // give time for usb to initialize
 
   set_unicode_input_mode(UC_LNX);
 

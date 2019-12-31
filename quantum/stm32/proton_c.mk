@@ -2,8 +2,10 @@
 
 # These are defaults based on what has been implemented for ARM boards
 AUDIO_ENABLE = yes
-RGBLIGHT_ENABLE = no
-BACKLIGHT_ENABLE = no
+WS2812_DRIVER = bitbang
+
+# Force task driven PWM until ARM can provide automatic configuration
+BACKLIGHT_DRIVER = software
 
 # The rest of these settings shouldn't change
 
@@ -42,3 +44,4 @@ OPT_DEFS =
 
 # Options to pass to dfu-util when flashing
 DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
+DFU_SUFFIX_ARGS = -p df11 -v 0483

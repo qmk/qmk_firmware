@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 
 #define _BL 0
 #define _FN1 1
@@ -56,15 +55,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-
-
-	switch (id) {
-
-	}
-	return MACRO_NONE;
-}
-
 void matrix_init_user(void) {
 }
 
@@ -107,38 +97,4 @@ void led_set_user(uint8_t usb_led) {
 		
 	}
 
-}
-
-enum function_id {
-    SHIFT_ESC,
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-  [0]  = ACTION_FUNCTION(SHIFT_ESC),
-};
-
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  static uint8_t shift_esc_shift_mask;
-  switch (id) {
-    case SHIFT_ESC:
-      shift_esc_shift_mask = get_mods()&MODS_CTRL_MASK;
-      if (record->event.pressed) {
-        if (shift_esc_shift_mask) {
-          add_key(KC_GRV);
-          send_keyboard_report();
-        } else {
-          add_key(KC_ESC);
-          send_keyboard_report();
-        }
-      } else {
-        if (shift_esc_shift_mask) {
-          del_key(KC_GRV);
-          send_keyboard_report();
-        } else {
-          del_key(KC_ESC);
-          send_keyboard_report();
-        }
-      }
-      break;
-  }
 }
