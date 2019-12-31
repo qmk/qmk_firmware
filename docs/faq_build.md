@@ -119,10 +119,11 @@ The solution is to remove and reinstall all affected modules.
 
 ```
 brew rm avr-gcc
+brew rm avr-gcc@8
 brew rm dfu-programmer
 brew rm dfu-util
 brew rm gcc-arm-none-eabi
-brew rm arm-gcc-bin
+brew rm arm-gcc-bin@8
 brew rm avrdude
 brew install avr-gcc@8
 brew install dfu-programmer
