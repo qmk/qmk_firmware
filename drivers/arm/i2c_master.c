@@ -24,9 +24,8 @@
  * STM32_I2C_USE_I2C1 is TRUE in the mcuconf.h file. Pins B6 and B7 are used
  * but using any other I2C pins should be trivial.
  */
-
-#include "i2c_master.h"
 #include "quantum.h"
+#include "i2c_master.h"
 #include <string.h>
 #include <hal.h>
 
@@ -38,6 +37,8 @@ static const I2CConfig i2cconfig = {
     I2C1_CLOCK_SPEED,
     I2C1_DUTY_CYCLE,
 #else
+    // This configures the I2C clock to 400khz assuming a 72Mhz clock
+    // For more info : https://www.st.com/en/embedded-software/stsw-stm32126.html
     STM32_TIMINGR_PRESC(I2C1_TIMINGR_PRESC) | STM32_TIMINGR_SCLDEL(I2C1_TIMINGR_SCLDEL) | STM32_TIMINGR_SDADEL(I2C1_TIMINGR_SDADEL) | STM32_TIMINGR_SCLH(I2C1_TIMINGR_SCLH) | STM32_TIMINGR_SCLL(I2C1_TIMINGR_SCLL), 0, 0
 #endif
 };
@@ -60,16 +61,13 @@ __attribute__((weak)) void i2c_init(void) {
     palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_INPUT);
 
     chThdSleepMilliseconds(10);
-
-#ifdef USE_I2CV1
+#if defined(USE_GPIOV1)
     palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, PAL_MODE_STM32_ALTERNATE_OPENDRAIN);
     palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_STM32_ALTERNATE_OPENDRAIN);
 #else
     palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, PAL_MODE_ALTERNATE(I2C1_SCL_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
     palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_ALTERNATE(I2C1_SDA_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
 #endif
-
-    // i2cInit(); //This is invoked by halInit() so no need to redo it.
 }
 
 i2c_status_t i2c_start(uint8_t address) {

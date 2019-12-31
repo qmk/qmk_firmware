@@ -1,5 +1,4 @@
-#ifndef PICO_H
-#define PICO_CONFIG_H
+#pragma once
 
 #include "../helix.h"
 
@@ -70,6 +69,3 @@
       KC_##L20, KC_##L21, KC_##L22, KC_##L23, KC_##L24, KC_##L25, KC_##R20, KC_##R21, KC_##R22, KC_##R23, KC_##R24, KC_##R25, \
       KC_##L30, KC_##L31, KC_##L32, KC_##L33, KC_##L34, KC_##L35, KC_##L36, KC_##R36, KC_##R30, KC_##R31, KC_##R32, KC_##R33, KC_##R34, KC_##R35 \
     )
-
-
-#endif
