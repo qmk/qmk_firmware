@@ -134,7 +134,23 @@ brew link --force avr-gcc@8
 brew link --force arm-gcc-bin@8
 
 ```
+## `avr-gcc` and `dyld: Library not loaded: /usr/local/opt/isl/lib/libisl.21.dylib`
 
+This is in a when cc1 has a dependency on libisl.021 which is no longer available in homebrew.
+
+```
+Compiling: keyboards/keebio/iris/iris.c                                                            dyld: Library not loaded: /usr/local/opt/isl/lib/libisl.21.dylib
+  Referenced from: /usr/local/Cellar/avr-gcc@8/8.3.0/libexec/gcc/avr/8.3.0/cc1
+  Reason: image not found
+avr-gcc: internal compiler error: Abort trap: 6 signal terminated program cc1
+```
+
+The solution is to install the lastest version and update the link.
+
+```
+brew install isl 
+install_name_tool -change '/usr/local/opt/isl/lib/libisl.21.dylib' /usr/local/opt/isl/lib/libisl.dylib /usr/local/Cellar/avr-gcc@8/8.3.0/libexec/gcc/avr/8.3.0/cc1
+```
 ### `avr-gcc` and LUFA
 
 If you updated your `avr-gcc` and you see errors involving LUFA, for example:
