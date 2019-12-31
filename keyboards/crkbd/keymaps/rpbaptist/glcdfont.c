@@ -1,13 +1,6 @@
 #pragma once
 
-#ifdef __AVR__
- #include <avr/io.h>
- #include <avr/pgmspace.h>
-#elif defined(ESP8266)
- #include <pgmspace.h>
-#else
- #define PROGMEM
-#endif
+#include "progmem.h"
 
 // Helidox 8x6 font with QMK Firmware Logo
 // Online editor: http://teripom.x0.com/
