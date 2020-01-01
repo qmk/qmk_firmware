@@ -61,7 +61,7 @@ This is the default mode. You can adjust the cursor and scrolling acceleration u
 |`MOUSEKEY_XY_MAX_SPEED`     |15     |Maximum cursor speed at which acceleration stops                |
 |`MOUSEKEY_WH_MAX_SPEED`     |5      |Maximum number of scroll steps per scroll action                |
 |`MOUSEKEY_XY_TIME_TO_MAX`   |15     |Cursor movements before maximum cursor speed is reached         |
-|`MOUSEKEY_WH_TIME_TO_MAX`   |30     |Wheel momevements until maximum scroll speed is reached         |
+|`MOUSEKEY_WH_TIME_TO_MAX`   |30     |Wheel movements until maximum scroll speed is reached           |
 
 Tips:
 
