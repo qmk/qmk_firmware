@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "print.h"
 #include "debug.h"
 #include "util.h"
-#include QMK_KEYBOARD_H
 
 #ifndef DEBOUNCE
 # define DEBOUNCE	5
@@ -189,4 +188,3 @@ static void matrix_select_row(uint8_t row)
   DDRB = (1 << row);
   PORTB = ~(1 << row);
 }
-
