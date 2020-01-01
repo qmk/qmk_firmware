@@ -24,7 +24,6 @@ CONSOLE_ENABLE = yes        # Console for debug
 COMMAND_ENABLE = yes        # Commands for debug and configuration
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no       # Enable keyboard RGB underglow
-NO_UART = yes
 CUSTOM_MATRIX = yes
 
 SRC += matrix.c i2c_master.c
