@@ -22,11 +22,6 @@ enum layer_names {
     _COMMAND
 };
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-    QMKBEST = SAFE_RANGE,
-};
-
 #define FN_SPC LT(_FN, KC_SPC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -50,18 +45,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        QMKBEST, _______, _______, _______,          _______,          _______, _______,          _______, _______, _______, _______
+        _______, _______, _______, _______,          _______,          _______, _______,          _______, _______, _______, _______
      )
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case QMKBEST:
-            if (record->event.pressed) {
-                // when keycode QMKBEST is pressed
-                SEND_STRING("All Hail God Yang!");
-            }
-           break;
-    }
-    return true;
-}
