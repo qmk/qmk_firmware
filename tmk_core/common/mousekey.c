@@ -50,7 +50,7 @@ static uint16_t       last_timer_w       = 0;
 
 /* Variable             Description
  * mk_xy_delay          tens of milliseconds between the initial key press and first repeated mouse motion event (0-255)
- * mk_wh_delay          tens of milliseconds between the initial mouse wheel event repeated mouse wheel events (0-255)
+ * mk_wh_delay          tens of milliseconds between the initial mouse wheel event and first repeated mouse wheel event (0-255)
  * mk_xy_interval       milliseconds between repeated mouse motion events (0-255)
  * mk_wh_interval       milliseconds between repeated mouse wheel events (0-255)
  * mk_xy_max_speed      steady speed (in action_delta units) applied each mouse motion event (0-255)
