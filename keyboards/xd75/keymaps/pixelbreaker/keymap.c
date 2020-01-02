@@ -72,9 +72,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_SYMB] = LAYOUT_ortho_5x15(
-    ___,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    ___,    ___,    ___,    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
+    ___,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    ___,    ___,    ___,    KC_PIPE,   KC_LBRC,   KC_RBRC,   KC_F9,   KC_F10,  KC_F11,
     ___,    PANE_1,  PANE_2,  PANE_3,    ___,    ___,    ___,    ___,    ___,    KC_EXLM, KC_LPRN, KC_RPRN, KC_DLR,  KC_PERC, KC_F12,
-    ___,    ___,    SAVE,  ___,  ___,    ___,    ___,    ___,    ___, KC_PIPE, KC_LCBR, KC_RCBR, KC_EQL,  KC_COLN, KC_DQUO,
+    ___,    ___,    SAVE,  ___,  ___,    ___,    ___,    ___,    ___,   KC_DLR, KC_LCBR, KC_RCBR, KC_EQL,  KC_COLN, KC_DQUO,
     ___,    UNDO,    CUT,    COPY,   PASTE,    ___,    ___,    ___,    ___,    KC_AMPR,KC_LT,   KC_GT,   KC_MINS, KC_BSLS, KC_GRV,
     ___,    ___,    ___,    ___,    ___,    ___,    ___,    ___,    ___,    DEL_LINE,    DEL_LINE,    ___,    ___,    ___,    ___
   ),
@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_TOGGLE] = LAYOUT_ortho_5x15(
-    x,    x,    x,    x,    x,    x,    x,    x,    x,    x,    x,    x,    x,    x,    L_LOCK,
+    x,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    x,    x,    x,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,    L_LOCK,
     x,    x,    x,    x,    x,    x,    x,    x,    x,    x,    x,    x,    x,    x,    x,
     x,    x,    x,    x,    x,    L_GAMING,    x,    x,    x,    x,    x,    x,    x,    x,    x,
     x,    x,    x,    x,    x,    x,    ___,    x,    MO(_RESET),    x,    x,    x,    x,    x,    x,

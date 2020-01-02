@@ -27,8 +27,10 @@ enum tap_dance {
 // Nicer keycode alias for keymap readability
 #define x KC_NO // No action
 #define _v_ KC_TRNS // Pass through
+#define _______ KC_TRNS // Pass through
 #define L_SYMB LT(_SYMB,KC_CAPSLOCK)
 #define L_NAV LT(_NAV,KC_TAB)
+#define L_NAV2 LT(_NAV,KC_LEFT)
 #define L_ADJUST LT(_ADJUST,KC_ESC)
 #define L_TOGGLE LT(_TOGGLE,KC_HOME)
 #define L_GAMING TG(_GAMING)
@@ -86,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   L_NAV,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_PIPE,
   L_SYMB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,
-  KC_LCTL, KC_LALT, KC_LGUI, L_LOWER, KC_SPC,  KC_SPC,  KC_BSPC, KC_BSPC, KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT
+  KC_LCTL, KC_LALT, KC_LGUI, L_LOWER, KC_SPC,  KC_SPC,  KC_BSPC, KC_BSPC, L_NAV2, KC_UP,   KC_DOWN, KC_RGHT
 ),
 
 [_SYMB] = LAYOUT_preonic_grid( \
@@ -100,9 +102,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_LOWER] = LAYOUT_preonic_grid( \
   x,       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  L_LOCK,
-  _______, _______, _______, _______, MO(_RESET), _______, _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, L_GAMING, _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, MO(_RESET), _______, _______, _______, KC_UP, _______, _______, _______,
+  _______, _______, _______, _______, _______, L_GAMING, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______, LALT(KC_LEFT),_v_,    LALT(KC_RGHT), _______, _______,
   _______, _______, _______, _______, _______, _______, KC_DEL, KC_DEL, _______, _______, _______, _______
 ),
 
@@ -131,11 +133,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_NAV] = LAYOUT_preonic_grid(
-  x,       x,       x,       x,       x,       x,       x,       KC_MRWD, KC_MPLY, KC_MFFD, KC__MUTE,KC_VOLU,
-  _v_,     x,       x,       x,       x,       x,       x,       x,       KC_UP,   x,       x,       KC_VOLD,
-  x,       x,       x,       x,       x,       x,       x,       KC_LEFT, KC_DOWN, KC_RGHT, x,       KC_MPLY,
-  x,       x,       x,       x,       x,       x,        x,    LALT(KC_LEFT),x,    LALT(KC_RGHT),x,   x,
-  x, x, x, x, x, x, x, x, x, x, x, x
+  _v_,       _v_,       _v_,       _v_,       _v_,       _v_,       _v_,       KC_MRWD, KC_MPLY, KC_MFFD, KC__MUTE,KC_VOLU,
+  _v_,     _v_,       _v_,       _v_,       _v_,       _v_,       _v_,       _v_,       KC_UP,   _v_,       _v_,       KC_VOLD,
+  _v_,       _v_,       _v_,       _v_,       _v_,       _v_,       _v_,       KC_LEFT, KC_DOWN, KC_RGHT, _v_,       KC_MPLY,
+  _v_,       _v_,       _v_,       _v_,       _v_,       _v_,        _v_,    LALT(KC_LEFT),_v_,    LALT(KC_RGHT),_v_,   _v_,
+  _v_, _v_, _v_, _v_, _v_, _v_, _v_, _v_, _v_, _v_, _v_, x
 ),
 
 [_GAMING] = LAYOUT_preonic_grid( \
