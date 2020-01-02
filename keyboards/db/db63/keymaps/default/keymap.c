@@ -17,27 +17,47 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
+bool isrecorded=false;
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_63_ansi(
-        RESET, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSPC,
+        KC_GESC, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSPC,
         KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,KC_RBRC,KC_BSLS,
-        KC_CAPS,  KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,KC_ENT,
-        KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT,     KC_RSFT  ,   KC_UP ,KC_SLSH,
-        KC_LCTL,KC_LALT,KC_LGUI,                KC_SPC,                   KC_RGUI,MO(1), KC_LEFT, KC_DOWN,KC_RIGHT
+        MO(3),  KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,KC_ENT,
+        KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT,     KC_RSFT  ,   KC_UP ,MO(2),
+        KC_LCTL,KC_LALT,KC_LGUI,                KC_SPC,                   KC_SLSH,MO(1), KC_LEFT, KC_DOWN,KC_RIGHT
     ),
     [1] = LAYOUT_63_ansi(
-        KC_ESC, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSPC,
+        KC_GESC, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSPC,
         KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,KC_RBRC,KC_BSLS,
-        KC_CAPS,  KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,RESET,
-        KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT,     KC_RSFT  ,   KC_UP ,KC_SLSH,
-        KC_LCTL,KC_LALT,KC_LGUI,                KC_SPC,                   KC_RGUI,MO(1), KC_LEFT, KC_DOWN,KC_RIGHT
+        KC_CAPS,  KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,_______,
+        KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT,     KC_RSFT  ,   KC_UP ,XXXXXXX,
+        KC_LCTL,KC_LALT,KC_LGUI,                KC_SPC,                   _______,MO(1), KC_LEFT, KC_DOWN,KC_RIGHT
+    ),
+    [2] = LAYOUT_63_ansi(
+        KC_GESC, RGB_MODE_PLAIN,   RGB_MODE_BREATHE,   RGB_MODE_RAINBOW,   RGB_MODE_SWIRL,  RGB_MODE_SNAKE,  RGB_MODE_KNIGHT,  RGB_MODE_XMAS,  RGB_MODE_GRADIENT,  RGB_MODE_RGBTEST,   RGB_TOG,  RGB_VAD,   RGB_VAI, KC_BSPC,
+        KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,KC_RBRC,KC_BSLS,
+        XXXXXXX,  KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,_______,
+        KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT,     KC_RSFT  ,   KC_UP ,MO(2),
+        KC_LCTL,KC_LALT,KC_LGUI,                KC_SPC,                   _______,XXXXXXX, KC_LEFT, KC_DOWN,KC_RIGHT
+    ),
+    [3] = LAYOUT_63_ansi(
+        _______, _______,_______, _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+        KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,KC_RBRC,KC_BSLS,
+        MO(3),  KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,RESET,
+        KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT,     KC_RSFT  ,   KC_UP ,XXXXXXX,
+        KC_LCTL,KC_LALT,KC_LGUI,                KC_SPC,                   _______,XXXXXXX, KC_LEFT, KC_DOWN,KC_RIGHT
     ),
     /* You can copy this layer as base for a new fn layer * /
-	[n] = LAYOUT_63_ansi(
-        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,        KC_TRNS,
-        KC_TRNS,KC_TRNS,KC_TRNS,                KC_TRNS,                        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS
     ), // */
 };
+
+void led_set_user(uint8_t usb_led) {
+    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+        rgblight_sethsv(HSV_CYAN);
+    } else if (isrecorded) {
+        rgblight_sethsv(HSV_SPRINGGREEN);
+    } else {
+        rgblight_sethsv(HSV_GREEN);
+    }
+}
