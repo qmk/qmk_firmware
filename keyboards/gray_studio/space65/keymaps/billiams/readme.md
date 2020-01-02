@@ -8,7 +8,6 @@ Settings:
 * The `ALT` and `CMD` keys are swapped to replicate the Mac layout.
 * RESET is available as `Fn`+ `Right Ctrl` + `ESC`
 * Underglow toggle is available as `Fn` + `Q`.
-* Backlighting toggle is available as `Fn` + `Z`
 * vim-style arrow key bindings H J K L in layer 1
 
 ### Initial Installation
@@ -22,8 +21,8 @@ git clone git@github.com:qmk/qmk_firmware.git # OR
 git clone https://github.com/qmk/qmk_firmware.git
 ```
 2. Customize your layout by starting with a [keymap](https://github.com/qmk/qmk_firmware/tree/master/keyboards/gray_studio/space65/keymaps). I copied  the default and changed it to my liking.
-3. Before plugging in your keyboard into your computer, hold `SPACE` and `B` keys down
-4. Holding those keys down, plug the keyboard into your computer, which will put the keyboard in bootloader mode. Note that if you've done this before, it could be that you need to simply press `ESC` prior to plugging in the board to put it in Bootloader mode.
+3. Before plugging in your keyboard into your computer, hold `ESC` key down
+4. Plug the keyboard into your computer, which will put the keyboard in bootloader mode.
 5. Build your hex file and flash your keyboard
 ```
 make gray_studio/space65:billiams:flash # be in the qmk_firmware directory to do this
@@ -55,11 +54,11 @@ Hope this helps!
 ,------------------------------------------------------------------------------------------------.
 |     |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 |Vol- |Vol+ | Next |
 |------------------------------------------------------------------------------------------------+
-|        |RGB T|RGB M| Hue-| Hue+| Sat-| Sat+| Val-| Val+|      |      |    |      |      | Prev |
+|        |RGB T|RGB M| Hue-| Hue+| Sat-| Sat+| Val-| Val+| Spd- | Spd+ |    |      |      | Prev |
 |------------------------------------------------------------------------------------------------+
-|         |     |     |     |     |     | Left| Down| Up |Right|      |      | Play/Pause | Vol+ |
+|         | RGBP | RGBG | RGBK |    |     | Left| Down| Up |Right|     |     | Play/Pause |      |
 |------------------------------------------------------------------------------------------------+
-|           |     |     |     |     |     |     |     |    | Scr- | Scr+ |    |     |PGUP | Vol- |
+|           |     |     |     |     |     |     |     |    | Scr- | Scr+ |    |     |PGUP |      |
 |------------------------------------------------------------------------------------------------+
 |      |       |       |                                  |      |  Fn2  |  HOME  | PGDN  |  END |
 `------------------------------------------------------------------------------------------------'
