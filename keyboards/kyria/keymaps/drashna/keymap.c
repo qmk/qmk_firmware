@@ -52,7 +52,7 @@ void add_keylog(uint16_t keycode);
   LAYOUT_wrapper( \
       KC_ESC,  K01,     K02,     K03,     K04,     K05,                                             K06,     K07,     K08,     K09,     K0A,     KC_MINS, \
    LALT_T(KC_TAB), K11, K12,     K13,     K14,     K15,                                             K16,     K17,     K18,     K19,     K1A, RALT_T(KC_QUOT), \
-      OS_LSFT, CTL_T(K21), K22,  K23,     K24,     K25,     KC_NO,   KC_NO,       KC_NO,   KC_NO,   K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
+      OS_LSFT, CTL_T(K21), K22,  K23,     K24,     K25,     KC_NO,   KC_NO,  MEH(KC_MINS), KC_NO,   K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
                                  KC_MUTE, OS_LALT, KC_GRV,  KC_SPC,  BK_LWER,     DL_RAIS, KC_ENT,  OS_RGUI, UC(0x03A8), UC(0x2E2E) \
     )
 /* Re-pass though to allow templates to be used */
