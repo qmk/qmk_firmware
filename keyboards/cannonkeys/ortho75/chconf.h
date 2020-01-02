@@ -105,10 +105,6 @@
  */
 #define CH_CFG_NO_IDLE_THREAD               FALSE
 
-/* Use __WFI in the idle thread for waiting. Does lower the power
- * consumption. */
-#define CORTEX_ENABLE_WFI_IDLE              TRUE
-
 /** @} */
 
 /*===========================================================================*/
