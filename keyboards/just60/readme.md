@@ -7,7 +7,7 @@ To use a QMK based firmware, you might want to install a QMK bootloader. The PCB
 Backlight LEDs and Bluetooth are not working yet.
 
 * Keyboard Maintainer: [Jianfei Wang](https://github.com/thinxer)
-* Hardware Supported: The PCBs, controllers supported
+* Hardware Supported: Just60 (atmega32u4)
 * Hardware Availability: https://item.taobao.com/item.htm?id=564176654249
 
 Make example for this keyboard (after setting up your build environment):
