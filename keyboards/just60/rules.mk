@@ -12,7 +12,7 @@ F_CPU = 8000000
 #   QMK DFU      qmk-dfu
 #   ATmega32A    bootloadHID
 #   ATmega328P   USBasp
-BOOTLOADER = qmk-dfu
+BOOTLOADER = lufa-ms
 
 # Build Options
 #   change yes to no to disable
