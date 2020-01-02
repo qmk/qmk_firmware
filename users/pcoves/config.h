@@ -1,0 +1,2 @@
+#define COMBO_TERM 300
+#define COMBO_COUNT 5
