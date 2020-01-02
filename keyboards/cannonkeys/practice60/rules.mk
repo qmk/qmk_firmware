@@ -28,3 +28,7 @@ RGBLIGHT_ENABLE = yes
 LAYOUTS = 60_ansi
 
 DEFAULT_FOLDER = cannonkeys/practice60
+
+
+# Enter lower-power sleep mode when on the ChibiOS idle thread
+OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
