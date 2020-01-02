@@ -1,18 +1,18 @@
 #include "curry.h"
 
 #define LAYOUT_lily58_base( \
-    K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
-    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
-    K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A,  \
-    K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A  \
-  ) \
-  LAYOUT_wrapper( \
-    KC_ESC,  K01, K02, K03, K04, K05,                    K06, K07, K08, K09, K0A, KC_GRV, \
-    KC_TAB,  K11, K12, K13, K14, K15,                    K16, K17, K18, K19, K1A, KC_BSLS,  \
-    KC_LCTL, K21, K22, K23, K24, K25,                    K26, K27, K28, K29, K2A, KC_QUOT, \
-    OS_LSFT, K31, K32, K33, K34, K35, KC_LBRC, KC_RBRC,  K36, K37, K38, K39, K3A, OS_RSFT, \
-             OS_LGUI, OS_LALT, LOWER, KC_SPC,  KC_ENT,  RAISE, KC_BSPC, OS_RGUI \
-  )
+        K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
+        K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
+        K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A,  \
+        K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A  \
+    ) \
+    LAYOUT_wrapper( \
+        KC_ESC,  K01, K02, K03, K04, K05,                    K06, K07, K08, K09, K0A, KC_GRV, \
+        KC_TAB,  K11, K12, K13, K14, K15,                    K16, K17, K18, K19, K1A, KC_BSLS,  \
+        KC_LCTL, K21, K22, K23, K24, K25,                    K26, K27, K28, K29, K2A, KC_QUOT, \
+        OS_LSFT, K31, K32, K33, K34, K35, KC_LBRC, KC_RBRC,  K36, K37, K38, K39, K3A, OS_RSFT, \
+                OS_LGUI, OS_LALT, LOWER, KC_SPC,  KC_ENT,  RAISE, KC_BSPC, OS_RGUI \
+    )
 #define LAYOUT_lily58_base_wrapper(...) LAYOUT_lily58_base(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

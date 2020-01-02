@@ -2,18 +2,19 @@
 
 These is my userspace files, heavily influenced by @drashna's userspace structure.
 
+# Keyboards
+
 Main uses are for corne & lily58, supporting dfu bootloader (elite-c)
 
-# Keyboards
 ## Split Common
 Is compatible with split_common when the previous two keyboards update to them. 
 
-If you want to use these keymaps with split common code, they are on my personal github fork: [CurryFurous/qmk_firmware](https://github.com/CurryFurious/qmk_firmware)
+If you want to use these keymaps with split common code, they are on my personal github fork: [CurryFurious/qmk_firmware](https://github.com/CurryFurious/qmk_firmware)
 
 Referenced PRs: #6260, #5998, #6001
 
 ## Keymaps
-Keymap layout is similar between the two keyboards. Lily 58 has a lot of open keys for custom keys as well. Keymap formatting is set up in the physical layout of the keyboard, so mapping keys should be easier.
+Keymap layout is similar between the two keyboards. Lily58 has a lot of open keys for custom keys as well. Keymap formatting is set up in the physical layout of the keyboard, so mapping keys should be easier.
 
 ## Tap Dances
 
