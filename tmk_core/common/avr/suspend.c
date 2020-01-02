@@ -9,7 +9,6 @@
 #include "timer.h"
 #include "led.h"
 #include "host.h"
-#include "rgblight_reconfig.h"
 
 #ifdef PROTOCOL_LUFA
 #    include "lufa.h"

@@ -16,8 +16,6 @@
 #ifndef RGBLIGHT_H
 #define RGBLIGHT_H
 
-#include "rgblight_reconfig.h"
-
 /***** rgblight_mode(mode)/rgblight_mode_noeeprom(mode) ****
 
  old mode number (before 0.6.117) to new mode name table
