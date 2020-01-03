@@ -18,3 +18,14 @@ ifeq ($(strip $(UNICODE_ENABLE)), yes)
     SRC += unicode.c
 	OPT_DEFS += -DUNICODE_ENABLE
 endif
+
+ifneq ($(strip $(NO_SECRET)), yes)
+    ifneq ("$(wildcard $(USER_PATH)/secret.c)","")
+        SRC += secret.c
+	else
+		OPT_DEFS += -DNO_SECRET
+		pablo.coves@protonmail.com
+    endif
+else
+	OPT_DEFS += -DNO_SECRET
+endif
