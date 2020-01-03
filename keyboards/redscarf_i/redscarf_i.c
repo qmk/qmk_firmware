@@ -36,7 +36,7 @@ void led_set_kb(uint8_t usb_led) {
   led_set_user(usb_led);
 }
 
-uint32_t layer_state_set_kb(uint32_t state) {
+layer_state_t layer_state_set_kb(layer_state_t state) {
   switch (biton32(state)) {
     case 1:
       writePinHigh(F6);
