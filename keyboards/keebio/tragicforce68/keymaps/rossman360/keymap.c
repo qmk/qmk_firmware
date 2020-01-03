@@ -32,8 +32,6 @@ enum custom_keycodes {
   PARADOWN,
   WREFRESH,
   PMERGE,
-  URIGHT,
-  ULEFT,
   REMCAPS,
 };
 
@@ -67,16 +65,6 @@ switch (keycode) {
 	case PARADOWN:
 		if (record->event.pressed) {
 		SEND_STRING(SS_TAP(X_PGDOWN) SS_TAP(X_ENTER) SS_TAP(X_PGDOWN));
-    }
-    break;
-    case ULEFT:
-		if (record->event.pressed) {
-		SEND_STRING(SS_TAP(X_UP) SS_TAP(X_HOME));
-    }
-	break;
-    case URIGHT:
-		if (record->event.pressed) {
-		SEND_STRING(SS_TAP(X_UP) SS_TAP(X_END));      
     }
     break;
     case PMERGE:
