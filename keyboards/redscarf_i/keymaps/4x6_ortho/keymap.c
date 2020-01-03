@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LEFT, KC_DOWN, KC_RGHT, MO(1)
   ),
 
-  [1] = LAYOUT_4x6_ortho( // Function 1
+  [1] = LAYOUT_ortho_6x4( // Function 1
     _______, _______, _______, _______,
     _______, _______, _______, _______,
     _______, _______, _______, _______,
