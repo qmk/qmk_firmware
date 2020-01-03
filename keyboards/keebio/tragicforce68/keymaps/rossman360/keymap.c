@@ -1,11 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#define _MAC 0
-#define _REV 1
-#define _MOD 2
-#define _DEL 3
-#define _LIN 4
-#define _META 5
 #define PGMOD LT(_MOD, KC_PGDN)
 #define SPCMOD LT(_MOD, KC_SPACE)
 #define VOLMOD LT(_MOD, KC__MUTE)
@@ -20,15 +14,16 @@
 #define NTAB LCTL(KC_T)
 #define CTAB LCTL(KC_W)
 #define XPANDR LCTL(LSFT(KC_X))
-#define INAUD LCTL(KC_COMMA)
-#define TSTAMP LCTL(KC_DOT)
-#define CTALK LCTL(LSFT(KC_COMMA))
-#define ATAB LCTL(KC_TAB)
+
+enum layer_names {
+  _MAC,
+  _REV,
+  _MOD,
+  _DEL,
+};
 
 enum custom_keycodes {
   LAUNCHCLOCK = SAFE_RANGE,
-  CLOCKIN,
-  CLOCKOUT,
   CSPEAK,
   SPEAK1,
   SPEAK2,
@@ -36,126 +31,79 @@ enum custom_keycodes {
   SPEAK4,
   PARADOWN,
   WREFRESH,
-  SMERGE,
   PMERGE,
   URIGHT,
   ULEFT,
   REMCAPS,
-  COPYCLOSE
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-   case CSPEAK:
-      if (record->event.pressed) {
-        SEND_STRING(SS_TAP(X_PGDOWN));
-        SEND_STRING(SS_TAP(X_ENTER));
-        SEND_STRING(SS_TAP(X_ENTER));
-SEND_STRING(SS_TAP(X_PGDOWN));
- break;
- }
- case SPEAK1:
-      if (record->event.pressed) {
-        SEND_STRING(SS_TAP(X_PGDOWN));
-        SEND_STRING(SS_TAP(X_ENTER));
-        SEND_STRING(SS_TAP(X_ENTER));
-SEND_STRING(SS_TAP(X_PGDOWN));
-SEND_STRING(SS_LCTRL(SS_TAP(X_1)));
-}
-break;
-case SPEAK2:
-      if (record->event.pressed) {
-        SEND_STRING(SS_TAP(X_PGDOWN));
-        SEND_STRING(SS_TAP(X_ENTER));
-        SEND_STRING(SS_TAP(X_ENTER));
-SEND_STRING(SS_TAP(X_PGDOWN));
-SEND_STRING(SS_LCTRL(SS_TAP(X_2)));
-}
-break;
-case SPEAK3:
-      if (record->event.pressed) {
-        SEND_STRING(SS_TAP(X_PGDOWN));
-        SEND_STRING(SS_TAP(X_ENTER));
-        SEND_STRING(SS_TAP(X_ENTER));
-SEND_STRING(SS_TAP(X_PGDOWN));
-SEND_STRING(SS_LCTRL(SS_TAP(X_3)));
-}
-break;
-case SPEAK4:
-      if (record->event.pressed) {
-        SEND_STRING(SS_TAP(X_PGDOWN));
-        SEND_STRING(SS_TAP(X_ENTER));
-        SEND_STRING(SS_TAP(X_ENTER));
-SEND_STRING(SS_TAP(X_PGDOWN));
-SEND_STRING(SS_LCTRL(SS_TAP(X_4)));
-}
-break;
-case PARADOWN:
-      if (record->event.pressed) {
- SEND_STRING(SS_TAP(X_PGDOWN));
- SEND_STRING(SS_TAP(X_ENTER));
- SEND_STRING(SS_TAP(X_PGDOWN));
-      }
-      break;
-      case ULEFT:
-      if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_UP));
-      SEND_STRING(SS_TAP(X_HOME));
-      }
-      break;
-      case URIGHT:
-      if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_UP));
-SEND_STRING(SS_TAP(X_END));      
-      }
-      break;
-      case SMERGE:
-      if (record->event.pressed) {
-        SEND_STRING(SS_TAP(X_DELETE));
-SEND_STRING(SS_LCTRL(SS_TAP(X_BSPACE)));
-SEND_STRING(SS_LCTRL(SS_TAP(X_BSPACE)));
-      }
-      break;
-      case PMERGE:
-      if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_HOME));
-SEND_STRING(SS_TAP(X_BSPACE));
-SEND_STRING(SS_TAP(X_SPACE));
-SEND_STRING(SS_LCTRL(SS_TAP(X_BSPACE)));
-SEND_STRING(SS_TAP(X_SPACE));
-      }
-      break;
-      case WREFRESH:
-      if (record->event.pressed) {
- SEND_STRING(SS_TAP(X_SPACE));
- SEND_STRING(SS_TAP(X_BSPACE));
-      }
-      break;
-      case REMCAPS:
-      if (record->event.pressed) {
- SEND_STRING(SS_TAP(X_LEFT));
- SEND_STRING(SS_TAP(X_LEFT));
- SEND_STRING(SS_LCTRL(SS_TAP(X_LEFT)));
- SEND_STRING(SS_TAP(X_DELETE));
-      }
-      break;
-      case COPYCLOSE:
-   if (record->event.pressed) {
-          SEND_STRING(SS_LCTRL(SS_TAP(X_C)));
-          SEND_STRING(SS_LCTRL(SS_TAP(X_W)));
-      }
-      break;
-    };  
-  return true;
-  
+switch (keycode) {
+	case CSPEAK:
+		if (record->event.pressed) {
+		SEND_STRING(SS_TAP(X_PGDOWN) SS_TAP(X_ENTER) SS_TAP(X_ENTER) SS_TAP(X_PGDOWN));
+	break;
+	}
+	case SPEAK1:
+		if (record->event.pressed) {
+		SEND_STRING(SS_TAP(X_PGDOWN) SS_TAP(X_ENTER) SS_TAP(X_ENTER) SS_TAP(X_PGDOWN) SS_LCTRL(SS_TAP(X_1)));
+	break;
+	}
+	case SPEAK2:
+		if (record->event.pressed) {
+		SEND_STRING(SS_TAP(X_PGDOWN) SS_TAP(X_ENTER) SS_TAP(X_ENTER) SS_TAP(X_PGDOWN) SS_LCTRL(SS_TAP(X_2)));
+	}
+	break;
+	case SPEAK3:
+		if (record->event.pressed) {
+		SEND_STRING(SS_TAP(X_PGDOWN) SS_TAP(X_ENTER) SS_TAP(X_ENTER) SS_TAP(X_PGDOWN) SS_LCTRL(SS_TAP(X_3)));
+	}
+	break;
+	case SPEAK4:
+		if (record->event.pressed) {
+		SEND_STRING(SS_TAP(X_PGDOWN) SS_TAP(X_ENTER) SS_TAP(X_ENTER) SS_TAP(X_PGDOWN) SS_LCTRL(SS_TAP(X_4)));
+	}
+	break;
+	case PARADOWN:
+		if (record->event.pressed) {
+		SEND_STRING(SS_TAP(X_PGDOWN) SS_TAP(X_ENTER) SS_TAP(X_PGDOWN));
+    }
+    break;
+    case ULEFT:
+		if (record->event.pressed) {
+		SEND_STRING(SS_TAP(X_UP) SS_TAP(X_HOME));
+    }
+	break;
+    case URIGHT:
+		if (record->event.pressed) {
+		SEND_STRING(SS_TAP(X_UP) SS_TAP(X_END));      
+    }
+    break;
+    case PMERGE:
+    if (record->event.pressed) {
+		SEND_STRING(SS_TAP(X_HOME) SS_TAP(X_BSPACE) SS_TAP(X_SPACE) SS_LCTRL(SS_TAP(X_BSPACE)) SS_TAP(X_SPACE));
+    }
+    break;
+    case WREFRESH:
+    if (record->event.pressed) {
+		SEND_STRING(SS_TAP(X_SPACE) SS_TAP(X_BSPACE));
+    }
+    break;
+    case REMCAPS:
+    if (record->event.pressed) {
+		SEND_STRING(SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_LCTRL(SS_TAP(X_LEFT)) SS_TAP(X_DELETE));
+    }
+    break;
+ };  
+ return true; 
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_MAC] = LAYOUT_split_space(
   //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────────────┐ ┌────────┬────────┐
-     KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,       KC_BSPC,      MO(_META),NTAB,
+     KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,       KC_BSPC,      KC_DEL,   NTAB,
   //├────────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────────────┤ ├────────┼────────┤
-     KC_TAB,      KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC,    KC_BSLS,    MO(_META),CTAB,
+     KC_TAB,      KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC,    KC_BSLS,    MO(_MOD),CTAB,
   //├────────────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴────────────┤ └────────┴────────┘
      KC_CAPS,       KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,       KC_ENTER,
   //├──────────────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───────────────────┤ ┌────────┐
@@ -185,9 +133,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────────────┤ ├────────┼────────┤
      _______,     _______, WREFRESH,_______, DF(_REV), _______, _______, UNDO,   _______, _______, _______,  _______, _______, _______,      _______, _______,
   //├────────────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴────────────┤ └────────┴────────┘
-     KC_CAPS,       _______, SMERGE, _______, _______, _______,  KC_HOME, KC_LEFT,  KC_UP,  KC_RIGHT, KC_END, _______,      PARADOWN,
+     KC_CAPS,       _______, _______, _______, _______, _______,  KC_HOME, KC_LEFT,  KC_UP,  KC_RIGHT, KC_END, _______,      PARADOWN,
   //├──────────────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───────────────────┤ ┌────────┐
-     _______,           _______, XPANDR, COPYCLOSE,_______,  _______, _______, PMERGE,   KC_DOWN, _______,  _______,           _______,          KC_F1  ,
+     _______,           _______, XPANDR, _______,  _______,  _______, _______, PMERGE,   KC_DOWN, _______,  _______,           _______,          KC_F1  ,
   //├──────────┬───────┴──┬─────┴────┬───┴────────┴──────┬──┴────────┴────┬────┴────────┴┬────────┴────────┼────────┴─┬──────────┬────┬──────┴─┬────────┼────────┐
      _______,   _______,   _______,        LWORD,              RWORD,         LWORD,       RWORD,            _______,   _______,       _______, KC_F2  ,  _______
   //└──────────┴──────────┴──────────┴───────────────────┴────────────────┴──────────────┴─────────────────┴──────────┴──────────┘    └────────┴────────┴────────┘
@@ -206,32 +154,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      _______,   _______,   KC_DEL,        KC_BSPC,         BWORD,         _______,      _______,          _______,   _______,       _______, _______,  _______
   //└──────────┴──────────┴──────────┴───────────────────┴────────────────┴──────────────┴─────────────────┴──────────┴──────────┘    └────────┴────────┴────────┘
   ),
-  
-    [_LIN] = LAYOUT_split_space(
-  //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────────────┐ ┌────────┬────────┐
-     _______  , _______, _______, _______, _______, _______,_______,  _______,_______, _______, _______, _______, _______,       _______,     _______, KC_VOLU,
-  //├────────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────────────┤ ├────────┼────────┤
-     _______,     _______, _______,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______,  _______, KC_VOLD,
-  //├────────────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴────────────┤ └────────┴────────┘
-     _______,       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,       _______,
-  //├──────────────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───────────────────┤ ┌────────┐
-     _______,           _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,           _______,          _______,
-  //├──────────┬───────┴──┬─────┴────┬───┴────────┴──────┬──┴────────┴────┬────┴────────┴┬────────┴────────┼────────┴─┬──────────┬────┬──────┴─┬────────┼────────┐
-     _______,   _______,   _______,        _______,         _______,         _______,      _______,          _______,   _______,       _______, _______,  _______
-  //└──────────┴──────────┴──────────┴───────────────────┴────────────────┴──────────────┴─────────────────┴──────────┴──────────┘    └────────┴────────┴────────┘
-  ),
-  
-    [_META] = LAYOUT_split_space(
-  //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────────────┐ ┌────────┬────────┐
-     RESET  , _______, _______, _______, _______, _______,_______,  _______,_______, _______, _______, _______, _______,       _______,     _______, KC_VOLU,
-  //├────────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────────────┤ ├────────┼────────┤
-     _______,     _______, _______,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______,  _______, KC_VOLD,
-  //├────────────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴─┬──────┴────────────┤ └────────┴────────┘
-     _______,       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,       _______,
-  //├──────────────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───┬────┴───────────────────┤ ┌────────┐
-     _______,           _______, _______, _______, _______, _______, _______, DF(_MAC), _______, _______, _______,           _______,          _______,
-  //├──────────┬───────┴──┬─────┴────┬───┴────────┴──────┬──┴────────┴────┬────┴────────┴┬────────┴────────┼────────┴─┬──────────┬────┬──────┴─┬────────┼────────┐
-     _______,   _______,   _______,        _______,         _______,         _______,      _______,          _______,   _______,       _______, _______,  _______
-  //└──────────┴──────────┴──────────┴───────────────────┴────────────────┴──────────────┴─────────────────┴──────────┴──────────┘    └────────┴────────┴────────┘
-  )
+
 };
