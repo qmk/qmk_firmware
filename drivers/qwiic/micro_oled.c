@@ -101,7 +101,7 @@ static uint8_t micro_oled_screen_buffer[LCDWIDTH * LCDHEIGHT / 8] = {0x00, 0x00,
 // TODO: generate bitmap of QMK logo here
 #    endif
 #else
-// catchall for custom screen szies
+// catchall for custom screen sizes
 static uint8_t micro_oled_screen_buffer[LCDWIDTH * LCDHEIGHT / 8] = {0};
 #endif
 
