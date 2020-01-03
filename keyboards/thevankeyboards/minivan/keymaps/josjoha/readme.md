@@ -1,11 +1,8 @@
 # Minivan
 
 A 40% keyboard made by https://thevankeyboards.com This keymap is for the default 
-12x12x12x8 keys arrangement.
+12x12x12x8 arrangement.
 
-
-
-# Dvorak² no-dead-keys ₍₁₂,₁₂,₁₂,₈₎
 
 The accented characters would likely cover Dutch, German, French, Finnish,
 Norwegian, Swedish, Italian and Spanish, besides English (Unicode input).
@@ -32,7 +29,7 @@ from ../jetpacktuxedo/ keymap.
       • and a movement layer            (Led: green 2x)        _MOV "MOVement"
      Extra layers: 
       • keys like Power, Play,          (Led: purple 2x)       _RAR "RARe keys"
-      • navigation, numbers other hand, (Led: green/blue)      _REV "REVerse hands"
+      • number pad symbol versions      (Led: green/blue)      _PAD "numbers PAD"
       • accented characters é, ø, ß ... (Led: cyan 2x)         _ACC "ACCented"
       • Unicode symbols, etc etc.       (Led: yellow 2x)       _DRA "DRAwings"
      Descramble _Computer_ set Dvorak (activate automatic as drop-ins for above layers)
@@ -53,11 +50,11 @@ from ../jetpacktuxedo/ keymap.
   Usage
   =====
  
-  All normal use layer switching is by thumb buttons on the base layer,
-  mostly temporary. The layers can be set to be on persistently through
-  the `_FUN` layer top row toggles. A few layers can only be reached by
-  `_FUN` layer toggle. From each layer one can go back to the BASE layer
-  by pressing the upper/left most button.
+  Normal layer switching is by thumb buttons on the base layer (hold),
+  and on the shifts (those are toggles). The layers can be set to be on
+  persistently through the `_FUN` layer top row toggles. A few layers
+  can only be reached by `_FUN` layer toggle. From each layer one can
+  go back to the BASE layer by pressing the upper/left most button.
 
   'Descramble' mode
   -----------------
@@ -70,8 +67,8 @@ from ../jetpacktuxedo/ keymap.
   variant when in 'descramble' mode. This includes the base layers
   `_LTR` (normal) and `_DDL` (descramble).
 
-  Activation: go to `_FUN` layer, touch the upper/right key (Backspace 
-  on base layer). This cycles through the descramble modes.
+  Activation: go to `_FUN` layer, than touch the upper/right key 
+  (Backspace on base layer). This cycles through the descramble modes.
 
       ⮚ When the left led is white: normal mode.
       ⮚ Right led white: full descramble mode (Linux descrambled Unicode input).
@@ -103,7 +100,7 @@ from ../jetpacktuxedo/ keymap.
      -o-                                    <|>                                    ... // -o- BASE access
      Esc       '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL         Bksp
      Tab+LCtl  aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS           -_
-     LSht+_MOV ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN   // _FUN _MOV tap
+     LSht+_PAD ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN   // _FUN _PAD tap
      -------------------------------------------------------------------
      Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space  _NSY LGUI    Right;_DRA              // _XYZ is to layer
                hold     hold  hold      |        hold         hold                   // Layer switch type
@@ -130,8 +127,6 @@ There is an uncluttered _Delete_ and _Right_ on the `_NSY` or `_MOV` layer respe
                      -*-       <|>    -*-                                         //(hold) Access on _LTR
        <1      <2    <3    <4   | 4>  3>    2>    1>  
 
-Remarks. There is a bit of numbers entry here with -,.Tab, also see `_REV` for that.
-
 - - -
      
      Layer _FUN (F-keys, Layer access, Set BASE key direction)
@@ -139,7 +134,7 @@ Remarks. There is a bit of numbers entry here with -,.Tab, also see `_REV` for t
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
      toggl toggl set   toggl toggl toggl | toggl toggl                   cycles   // Type of layer switch
                  -v-                    <|>                                       // -v- One-shot setting
-     BASE: NUMS: FUN<  _MOV  _RAR  _REV  | ACCE: DRAW: xxx   xxx   xxx   !Descr     //':' are dynamic ...
+     BASE: NUMS: FUN<  _MOV  _RAR  _PAD  | ACCE: DRAW: xxx   xxx   xxx   !Descr     //':' are dynamic ...
      LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10     RCtl     //...  ! 'descramble'
      LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20   -*RSft     //... < toggle 'stay'
      -------------------------------------------------------                        //. -* toggle on BASE
@@ -198,20 +193,16 @@ accidents. The 'P' key in front is meant as a memory assist, it prints the lette
 - - -
     
     
-     Layer _REV (REVerse hands) (Only through _FUN layer)
+     Layer _PAD Numbers Pad (special symbol versions; regular '1' is not the same as this numpad '1', etc)
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                       -*-  <|>                                         //(toggle) on _FUN
-     BASE     PgDn  End   Home  PgUp  xxx   | xxx   xxx   xxx   xxx   xxx   Bspc
-     Tab+LCtl Left  Down  Up    Right xxx   | 6^    7&    8*    9(    0)    RCtl
-     -+LSft   xxx   xxx   xxx   xxx   xxx   | 5%    4$    3#    2@    1!    RSft
-     ----------------------------------------------------------
-     Left+LAlt Del   PgDn     PgUp | .    ,    LGUI  Right+RAlt
-                                  <|>
-     <1        <2    <3       <4   | 4>   3>   2>    1>  
-
-Remarks. This layer does not follow the navigation configuration #define settings 
-used for the `_MOV` layer (it seemed to become convoluted and overkill to add it).
+     BASE     xxx   xxx   .DEL  xxx   xxx   | xxx   xxx   *     xxx   xxx   Bspc
+     LCtl     1END  2DOWN 3PGDN 4LEFT 5     | 6RGHT 7HOME 8UP   9PGUP 0INS     -
+     LSft     xxx   xxx   /     xxx   =     | +     xxx   xxx   xxx   xxx   RSft
+     -*-------------------------------------------------                               //(toggle) on BASE
+     LAlt     Del   xxx   ENT  |  NUML  xxx   LGUI  RAlt
+                              <|>
 
 - - -
     
@@ -347,11 +338,11 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   difficult to configure / use _hence accented and symbols layer,_ compatibility
   with the Pok3r keyboard _hence the (non)shift symbols on row 2 left side,_
   for use with 3D editing _hence a delete on base layer, Control, Alt, Shift on 
-  left edge and quick toggle access to `_DRA,` on left shift,_ 10 fingers blind typing. 
+  left edge and quick toggle access to `_PAD,` on left shift._ 
 
   It seems this keymap should be fine for most usual purposes.
   Some of the more recent key additions like an e-mail button is not on
-  it. It could be added easily on `_RAR` or on a repurposed `_REV`.
+  it.
 
   BUGS
   ====

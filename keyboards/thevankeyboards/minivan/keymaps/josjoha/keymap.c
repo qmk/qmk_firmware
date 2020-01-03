@@ -57,13 +57,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         /* Uncomment one of the below lines, determining where L-shift tap-toggles to on the BASE layer. */
 
 //#define LSHIFT_LAYER_RAR // Be warned and don't hold it against me if you accidentally hit 'Power' at the wrong moment.
-#define LSHIFT_LAYER_MOV // Handy to have navigation on a toggle. Has unencumbered Control, Shift, Alt (see LSHIFT_LAYER_DRA).
+//#define LSHIFT_LAYER_MOV // Handy to have navigation on a toggle. 
                          // _MOV is the least dangerous layer to accidentally activate.
-//#define LSHIFT_LAYER_DRA // Helps when using Control, Shift, Alt with a pointer device, to quickly go to a layer 
-                         // .. where these modifiers are not delayed, and snap back with <Escape> (as it where).
-                         // _DRA is also the least easy to access layer normally, on pinky which is sortof wrong.
+//#define LSHIFT_LAYER_DRA // _DRA is also the least easy to access layer normally, on pinky which is sortof wrong.
                          // This would help alleviate it.
 //#define LSHIFT_LAYER_ACC // If typing a lot of these in a row
+#define LSHIFT_LAYER_PAD // Easier Access to numpad (for default shortcuts in blender for example).
 
 
 // Below here no more comfortable configuration options.....
@@ -117,7 +116,7 @@ extern keymap_config_t keymap_config;
 #define _FUN 11 // function keys, layer switcher, given highest order precedence just in case
 #define _MOV 4  // movement arrows and mouse
 #define _RAR 5  // strange keys never used, Unicode config
-#define _REV 6  // Reversing: numbers right, navigation left (mirrored.)
+#define _PAD 6  // Numbers pad (these are different versions of the same symbols)
 #define _ACC 7  // Accented letters 
 #define _DRA 9  // Unusual symbols and whatever else
 #define _DDD 10 // Descramble version of _DRA
@@ -629,7 +628,7 @@ uint32_t layer_state_set_user (uint32_t state) {
 
     // The order should be the reverse of the #defines of layer number of the layers on top
     // because higher layer number is higher priority if activated
-    /* _LTR 0 _DDL 1 _NSY 2 _DDN 3 _MOV 4 _RAR 5 _REV 6 _ACC 7 _DDA 8 _DRA 9 _DDD 10 _FUN 11 */
+    /* _LTR 0 _DDL 1 _NSY 2 _DDN 3 _MOV 4 _RAR 5 _PAD 6 _ACC 7 _DDA 8 _DRA 9 _DDD 10 _FUN 11 */
     if (layer_state_cmp (state, _FUN)) { // F-keys, and layer toggles
         indicate_scramble (); // this function already does it all
         return state; // 
@@ -667,7 +666,7 @@ uint32_t layer_state_set_user (uint32_t state) {
         rgblight_sethsv_noeeprom (HSV_TURQUOISE); // cyan
     }
     //---
-    else if (layer_state_cmp (state, _REV)) { // reverse hands layer
+    else if (layer_state_cmp (state, _PAD)) { // reverse hands layer
         led0g = 255; // green for nagivation left hand
         led2b = 255; // blue for symbols right hand
         rgblight_sethsv_noeeprom (60, 20, 100); // yellow (low saturation)
@@ -778,7 +777,7 @@ void deactivate_all_but (int layer) {
    if (_FUN != layer) { layer_off ( _FUN ) ; } 
    if (_MOV != layer) { layer_off ( _MOV ) ; } 
    if (_RAR != layer) { layer_off ( _RAR ) ; } 
-   if (_REV != layer) { layer_off ( _REV ) ; } 
+   if (_PAD != layer) { layer_off ( _PAD ) ; } 
    if (_ACC != layer) { layer_off ( _ACC ) ; } 
    if (_DRA != layer) { layer_off ( _DRA ) ; } 
    if (_DDD != layer) { layer_off ( _DDD ) ; } 
@@ -995,6 +994,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         activate_this_layer (_ACC); // activates function layer as a toggle
                         deactivate_all_but (_ACC);  
 #endif
+#ifdef LSHIFT_LAYER_PAD
+                        activate_this_layer (_PAD); // activates function layer as a toggle
+                        deactivate_all_but (_PAD);  
+#endif
+
                     }
                  }
             }
@@ -1576,7 +1580,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      -o-                                    <|>                                    ... // -o- BASE access
      Esc       '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL         Bksp
      Tab+LCtl  aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS           -_
-     LSht+_MOV ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN   // _FUN _MOV tap
+     LSht+_PAD ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN   // _FUN _MOV tap
      -------------------------------------------------------------------
      Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space  _NSY LGUI    Right;_DRA              // _XYZ is to layer
                hold     hold  hold      |        hold         hold                   // Layer switch type
@@ -1975,35 +1979,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /**/
 
 
-    /* Layer _REV: Reversing hands layer numbers and navigation, for one hand on keyboard use.
-     *          Generally follows numbers layer.
+    /* Layer _PAD: Numbers pad, for numbers pad version of symbols (used in shortcuts in Blender).
+     *             Number pad navigation will be more or less useless.
      */
 
-    [ _REV ] = LAYOUT (
+    [ _PAD ] = LAYOUT (
 
 /*
-     Layer _REV (REVerse hands) (Only through _FUN layer)
+     Layer _PAD Numbers Pad (special symbol versions; regular '1' is not the same as this numpad '1', etc)
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                       -*-  <|>                                         //(toggle) on _FUN
-     BASE     PgDn  End   Home  PgUp  xxx   | xxx   xxx   xxx   xxx   xxx   Bspc
-     Tab+LCtl Left  Down  Up    Right xxx   | 6^    7&    8*    9(    0)    RCtl
-     -+LSft   xxx   xxx   xxx   xxx   xxx   | 5%    4$    3#    2@    1!    RSft
-     ----------------------------------------------------------
-     Left+LAlt Del   PgDn     PgUp | .    ,    LGUI  Right+RAlt
-                                  <|>
-     <1        <2    <3       <4   | 4>   3>   2>    1>  
+     BASE     xxx   xxx   .DEL  xxx   xxx   | xxx   xxx   *     xxx   xxx   Bspc
+     LCtl     1END  2DOWN 3PGDN 4LEFT 5     | 6RGHT 7HOME 8UP   9PGUP 0INS     -
+     LSft     xxx   xxx   /     xxx   =     | +     xxx   xxx   xxx   xxx   RSft
+     -*-------------------------------------------------                               //(toggle) on BASE
+     LAlt     Del   xxx   ENT  |  NUML  xxx   LGUI  RAlt
+                              <|>
+
  */
+
 //
-//      <pink2             , <pinky  , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>  ,
-//                         ,         ,         ,         ,         , -*-   <|,>        ,         ,         ,         ,         ,         ,
-        CTO_BASE           , KC_PGDN , KC_END  , KC_HOME , KC_PGUP , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_BSPC ,
-        LCTL_T ( KC_TAB )  , KC_LEFT , KC_DOWN , KC_UP   , KC_RGHT , XXXXXXX , KC_6    , KC_7    , KC_8    , KC_9    , KC_0    , KC_RCTL ,
-        LSFT_T ( KC_MINS ) , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_5    , KC_4    , KC_3    , KC_2    , KC_1    , KC_RSFT ,
-//      ---------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , KC_DEL , KC_PGDN , KC_PGUP , KC_DOT  , KC_COMM , KC__YGUI , RALT_T ( KC_RGHT )
-//                         ,        ,         ,       <|,>        ,         ,          ,
-//      <1                 , <2     , <3      , <4     |, 4>      , 3>      , 2>       , 1>
+//      <pink2   , <pinky  , <ring   , <middl      , <index  , <indx2     |, indx2>     , index>  , middl>         , ring>   , pinky>  , pink2>      ,
+//               ,         ,         ,             ,         , -*-       <|,>           ,         ,                ,         ,         ,             ,
+        CTO_BASE , XXXXXXX , XXXXXXX , KC_DOT      , XXXXXXX , XXXXXXX     , XXXXXXX    , XXXXXXX , KC_KP_ASTERISK , XXXXXXX , XXXXXXX , KC_BSPC     ,
+        KC_LCTL  , KC_KP_1 , KC_KP_2 , KC_KP_3     , KC_KP_4 , KC_KP_5     , KC_KP_6    , KC_KP_7 , KC_KP_8        , KC_KP_9 , KC_KP_0 , KC_KP_MINUS ,
+        KC_LSFT  , XXXXXXX , XXXXXXX , KC_KP_SLASH , XXXXXXX , KC_KP_EQUAL , KC_KP_PLUS , XXXXXXX , XXXXXXX        , XXXXXXX , XXXXXXX , KC_RSFT     ,
+//      ------------------------------------------------------------------------------------
+        KC_LALT , KC_DEL , XXXXXXX , KC_KP_ENTER , KC_NUMLOCK , XXXXXXX , KC__YGUI , KC_RALT
+//              ,        ,         ,           <|,>           ,         ,          ,
+//      <1      , <2     , <3      , <4         |, 4>         , 3>      , 2>       , 1>
                       ),
 
         /**/
@@ -2193,7 +2198,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
      toggl toggl set   toggl toggl toggl | toggl toggl                   cycles   // Type of layer switch
                  -v-                    <|>                                       // -v- One-shot setting
-     BASE: NUMS: FUN<  _MOV  _RAR  _REV  | ACCE: DRAW: xxx   xxx   xxx   !Descr     //':' are dynamic ...
+     BASE: NUMS: FUN<  _MOV  _RAR  _PAD  | ACCE: DRAW: xxx   xxx   xxx   !Descr     //':' are dynamic ...
      LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10     RCtl     //...  ! 'descramble'
      LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20   -*RSft     //... < toggle 'stay'
      -------------------------------------------------------                        //. -* toggle on BASE
@@ -2206,7 +2211,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //
 //      <pink2   , <pinky   , <ring     , <middl      , <index      , <indx2     |, indx2>   , index>   , middl>  , ring>   , pinky>  , pink2>        ,
 //               ,          , -*-       ,             ,             ,           <|,>         ,          ,         ,         ,         ,               ,
-        CTO_BASE , CTO_NUMS , _FUN_STAY , TO ( _MOV ) , TO ( _RAR ) , TO ( _REV ) , CTO_ACCE , CTO_DRAW , XXXXXXX , XXXXXXX , XXXXXXX , BASE_DESCRMBL ,
+        CTO_BASE , CTO_NUMS , _FUN_STAY , TO ( _MOV ) , TO ( _RAR ) , TO ( _PAD ) , CTO_ACCE , CTO_DRAW , XXXXXXX , XXXXXXX , XXXXXXX , BASE_DESCRMBL ,
         KC_LCTL  , KC_F1    , KC_F2     , KC_F3       , KC_F4       , KC_F5       , KC_F6    , KC_F7    , KC_F8   , KC_F9   , KC_F10  , KC_RCTL       ,
         KC_LSFT  , KC_F11   , KC_F12    , KC_F13      , KC_F14      , KC_F15      , KC_F16   , KC_F17   , KC_F18  , KC_F19  , KC_F20  , KC_RSFT       ,
 //      ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
