@@ -51,9 +51,9 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BL] = LAYOUT_ortho_5x14_kc(
     GRV,  1,    2,    3,    4,    5,    MINS, _TGN, 6,    7,    8,    9,    0,    EQL,
-    TAB,  Q,    W,    E,    R,    T,    LBRC, _TAN, Y,    U,    I,    O,    P,    BSPC,
-    CESC, A,    S,    D,    F,    G,    PGUP, ENT , H,    J,    K,    L,    SCLN, QUOT,
-    LSFT, Z,    X,    C,    V,    B,    PGDN, EPIP, N,    M,    COMM, DOT,  SLSH, ENTS,
+    TAB,  Q,    W,    E,    R,    T,    LBRC, _TAN, Y,    U,    I,    O,    P,    QUOT,
+    CESC, A,    S,    D,    F,    G,    PGUP, ENT , H,    J,    K,    L,    SCLN, ENT,
+    LSFT, Z,    X,    C,    V,    B,    PGDN, EPIP, N,    M,    COMM, DOT,  SLSH, RSFT,
     _FN2, _FN1, LCTL, LALT, LGUI, SFN1, SFN1, BFN2, BFN2, RGUI, LEFT, DOWN, UP,   RFN1
   ),
 
@@ -83,8 +83,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_KEY_OVERRIDE] = LAYOUT_ortho_5x14_kc(
     TILD, ____, ____, ____, ____, ____, UNDS,   ____, ____, ____, ____, ____, ____, PLUS,
-    ____, ____, ____, ____, ____, ____, RBRC,   _TAP, ____, LPRN, RPRN, ____, ____, DEL ,
-    ____, ____, ____, ____, ____, ____, ____,   PENT, ____, ____, ____, ____, COLN, DQUO,
+    ____, ____, ____, ____, ____, ____, RBRC,   _TAP, ____, LPRN, RPRN, ____, ____, DQUO,
+    ____, ____, ____, ____, ____, ____, ____,   PENT, ____, ____, ____, ____, COLN, DEL ,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, LT  , GT  , QUES, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, MRWD, MPLY, MFFD, ____
   ),
