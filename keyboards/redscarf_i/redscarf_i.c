@@ -27,13 +27,12 @@ void keyboard_pre_init_kb(void) {
   writePinHigh(F5);
 }
 
-void led_set_kb(uint8_t usb_led) {
-  if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-    writePinLow(F7);
-  } else {
-    writePinHigh(F7);
-  }
-  led_set_user(usb_led);
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        writePin(F7, !led_state.num_lock);
+    }
+    return res;
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
