@@ -20,4 +20,4 @@ TAP_DANCE_ENABLE            = yes      # Enable Tap Dance.
 OLED_DRIVER_ENABLE          = yes
 BOOTLOADER                  = atmel-dfu
 SLEEP_LED_ENABLE            = no    # Breathing sleep LED during USB suspend
-SPLIT_TRANSPORT				= mirror
+SPLIT_TRANSPORT             = mirror

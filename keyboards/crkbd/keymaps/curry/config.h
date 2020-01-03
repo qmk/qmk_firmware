@@ -1,7 +1,10 @@
 #pragma once
 
-#define MASTER_RIGHT
+#define EE_HANDS
 #define USE_SERIAL_PD2
+
+#define OLED_DISABLE_TIMEOUT
+#define TAPPING_TERM_PER_KEY
 
 #ifdef RGBLIGHT_ENABLE
 #    undef RGBLED_NUM
@@ -26,6 +29,3 @@
 #    define RGB_MATRIX_VAL_STEP 5
 #    define RGB_MATRIX_SPD_STEP 10
 #endif
-
-#define OLED_DISABLE_TIMEOUT
-#define TAPPING_TERM_PER_KEY
