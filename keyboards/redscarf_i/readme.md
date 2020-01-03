@@ -5,7 +5,7 @@
 Port of QMK for Red Scarf I number pads. Default keymaps designed for ortho layouts.
 
 Keyboard Maintainer: [Ben Weakley](https://github.com/defying)  
-Hardware Supported: Red Scarf I PCB's
+Hardware Supported: Red Scarf I PCBs  
 Hardware Availability: no longer available
 
 Make example for this keyboard (after setting up your build environment):
