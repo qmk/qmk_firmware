@@ -1,7 +1,5 @@
 #include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
-
 #define PGMOD LT(_NUM, KC_PGDN)
 #define TABMOD LT(_FN1, KC_TAB)
 #define SPCMOD LT(_FN1, KC_SPACE)
