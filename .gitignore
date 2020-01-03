@@ -2,6 +2,8 @@
 .dep
 *.o
 *.bin
+*.uf2
+*.zip
 *.eep
 *.elf
 *.hex
