@@ -190,6 +190,8 @@ If you define these options you will enable the associated feature, which may in
   * pin the DI on the WS2812 is hooked-up to
 * `#define RGBLIGHT_ANIMATIONS`
   * run RGB animations
+* `#define RGBLIGHT_LAYERS`
+  * Lets you define [lighting layers](feature_rgblight.md) that can be toggled on or off. Great for showing the current keyboard layer or caps lock state.
 * `#define RGBLED_NUM 12`
   * number of LEDs
 * `#define RGBLIGHT_SPLIT`
