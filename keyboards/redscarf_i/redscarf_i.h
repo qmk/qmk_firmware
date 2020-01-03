@@ -35,7 +35,7 @@
     { k50, k51, k52, k53 }  \
 }
 
-#define LAYOUT_4x5_ortho( \
+#define LAYOUT_ortho_5x4( \
     k00, k01, k02, k03, \
     k10, k11, k12, k13, \
     k20, k21, k22, k23, \
