@@ -71,7 +71,7 @@ void via_eeprom_reset(void)
 
 // Override bootmagic_lite() so it can flag EEPROM as invalid
 // as well as jump to bootloader, thus performing a "factory reset"
-// of dynamic keyamps and optionally backlight/other settings.
+// of dynamic keymaps and optionally backlight/other settings.
 void bootmagic_lite(void)
 {
     // The lite version of TMK's bootmagic based on Wilba.
