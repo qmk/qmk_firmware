@@ -67,7 +67,20 @@ and Readline, with 70+ common macro actions.
 3) update your rules.mk to include the right modes. 
 SRC += babblePaste.c babl_windows.c babl_mac.c babl_vi.c babl_readmux.c  babl_chromeos.c babl_emacs.c babl_linux.c
 
-4) add Babblepaste actions to your keymap. See the full list in babblePaste.h, or the
+
+4) if you are using custom keycodes, you'll want to update the safe range in your user.h
+
+#if defined(BABBLE_END_RANGE)
+      #define USER_START BABBLE_END_RANGE
+#else
+    #if defined(KEYMAP_SAFE_RANGE)
+        #define USER_START KEYMAP_SAFE_RANGE
+    #else
+        #define USER_START SAFE_RANGE
+    #endif
+#endif
+
+5) add Babblepaste actions to your keymap. See the full list in babblePaste.h, or the
 list below
 
 B_WIN // switch babblepaste to  windows mode. 

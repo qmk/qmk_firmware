@@ -1,4 +1,5 @@
-#include QMK_KEYBOARD_H
+//placeholder until the new keymaps tree is built
+//#include QMK_KEYBOARD_H
 
 
 #include "virtser.h"
@@ -12,7 +13,7 @@
 
 #ifndef USERSPACE_ACTIVE
 enum layer_keycodes {
-    QWR,
+    QWR = SAFE_RANGE,
     CDH,
     SYM,
     MOV,
@@ -21,7 +22,7 @@ enum layer_keycodes {
 };
 
 enum layer_names {
-_QWR =0,
+_QWR,
 _CDH,
 _SYM,
 _MOV,

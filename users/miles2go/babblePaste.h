@@ -9,8 +9,7 @@ and jeebak & algernon's keymap
 */
 
 #pragma once
-#include "action_layer.h"
-#include "quantum_keycodes.h"
+#include "quantum.h"
 
 
 
