@@ -1,9 +1,7 @@
 #include QMK_KEYBOARD_H
 
 enum custom_keycodes {
-  KC_P00 = SAFE_RANGE,
-  MR_0001,
-  MR_0002
+  KC_P00 = SAFE_RANGE
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
