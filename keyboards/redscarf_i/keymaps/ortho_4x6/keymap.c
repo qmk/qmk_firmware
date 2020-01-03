@@ -16,9 +16,7 @@
 
 #include QMK_KEYBOARD_H
 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
   [0] = LAYOUT_ortho_6x4( // Base
     KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
     KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
@@ -27,7 +25,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_P0,   KC_UP,   KC_PDOT, KC_BSPC,
     KC_LEFT, KC_DOWN, KC_RGHT, MO(1)
   ),
-
   [1] = LAYOUT_ortho_6x4( // Function 1
     _______, _______, _______, _______,
     _______, _______, _______, _______,
@@ -35,6 +32,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     BL_TOGG, BL_STEP, BL_BRTG, _______,
     KC_MUTE, KC_VOLD, KC_VOLU, _______,
     KC_MPRV, KC_MPLY, KC_MNXT, _______
-  ),
-
+  )
 };
