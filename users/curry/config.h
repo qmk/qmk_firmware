@@ -114,3 +114,5 @@
 #ifdef LOCKING_RESYNC_ENABLE
 #    undef LOCKING_RESYNC_ENABLE
 #endif
+
+#define OLED_FONT_H "users/curry/glcdfont.c"

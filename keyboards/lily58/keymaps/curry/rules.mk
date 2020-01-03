@@ -18,4 +18,4 @@ SWAP_HANDS_ENABLE           = no  # Enable one-hand typing
 TAP_DANCE_ENABLE            = yes      # Enable Tap Dance.
 OLED_DRIVER_ENABLE          = yes
 BOOTLOADER                  = atmel-dfu
-SPLIT_TRANSPORT				= mirror
+SPLIT_TRANSPORT             = mirror
