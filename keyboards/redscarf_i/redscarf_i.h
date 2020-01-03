@@ -18,7 +18,7 @@
 
 #include "quantum.h"
 
-#define LAYOUT_4x6_ortho( \
+#define LAYOUT_ortho_6x4( \
     k00, k01, k02, k03, \
     k10, k11, k12, k13, \
     k20, k21, k22, k23, \
