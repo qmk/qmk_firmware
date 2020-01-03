@@ -213,7 +213,7 @@ void clear_screen(void) {
 */
 void clear_buffer(void) {
     // 384
-    memset(micro_oled_screen_buffer, 0, LCDWIDTH * LCDWIDTH / 8);
+    memset(micro_oled_screen_buffer, 0, LCDWIDTH * LCDHEIGHT / 8);
 }
 
 /** \brief Invert display.
