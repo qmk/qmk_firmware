@@ -40,8 +40,6 @@ enum custom_keycodes {
   CSPEAK,
   PARADOWN,
   PMERGE,
-  ULEFT,
-  URIGHT,
   WREFRESH,
   REMCAPS,
   SPEAK1,
@@ -49,7 +47,6 @@ enum custom_keycodes {
   SPEAK3,
   SPEAK4
 };
-
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 switch (keycode) {
