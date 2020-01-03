@@ -36,7 +36,6 @@ enum layer_names {
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
-  SPEAKDASH,
   CSPEAK,
   PARADOWN,
   PMERGE,
@@ -50,11 +49,6 @@ enum custom_keycodes {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 switch (keycode) {
-	case SPEAKDASH:
-	if (record->event.pressed) {
-	SEND_STRING(SS_TAP(X_MINUS) SS_TAP(X_ENTER) SS_TAP(X_ENTER));
-	}
-	break;
 	case CSPEAK:
 	if (record->event.pressed) {
 		SEND_STRING(SS_TAP(X_PGDOWN) SS_TAP(X_ENTER) SS_TAP(X_ENTER) SS_TAP(X_PGDOWN));
@@ -123,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_FN2] = LAYOUT_ortho_4x12(
     _______, SPEAK1 , SPEAK2 , SPEAK3 , SPEAK4 , _______,    _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______,SPEAKDASH,
+    _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, PARADOWN, CSPEAK,    _______, _______, _______, _______, _______, _______
   ),
 
