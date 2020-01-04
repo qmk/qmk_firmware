@@ -30,17 +30,27 @@ NGKEYS naginata_keys;
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
   QWERTY = NG_SAFE_RANGE,
+  EUCALYN,
+  WORKMAN,
   QGMLWY,
   RAISE,
   LOWER,
+  NUMBER,
   ADJUST,
+  RGBRST,
   EISU,
   KANA2,
+  EURO,
+  SSCLN,
+  SEQL,
+  DELA,
+  DELE,
+  ALPH,
+  SALPH,
 };
 
 // Layers
 enum kepmap_layers {
-  _QWERTY,
   _QGMLWY,
   _SHIFT,
 // 薙刀式
@@ -81,11 +91,6 @@ enum combo_events {
   ENTER_CMB,
 };
 
-#if defined(DQWERTY)
-const uint16_t PROGMEM ngon_combo[] = {KC_H, KC_J, COMBO_END};
-const uint16_t PROGMEM ngoff_combo[] = {KC_F, KC_G, COMBO_END};
-const uint16_t PROGMEM enter_combo[] = {KC_V, KC_M, COMBO_END};
-#endif
 #if defined(DQGMLWY)
 const uint16_t PROGMEM ngon_combo[] = {KC_I, KC_A, COMBO_END};
 const uint16_t PROGMEM ngoff_combo[] = {KC_N, KC_R, COMBO_END};
@@ -114,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QGMLWY] = LAYOUT(
     KC_Q             ,KC_G             ,KC_M             ,KC_L             ,KC_W             ,KC_Y             ,KC_F             ,KC_U             ,KC_B             ,KC_BSPC          , \
     KC_D             ,KC_S             ,KC_T             ,KC_N             ,KC_R             ,KC_I             ,KC_A             ,KC_E             ,KC_O             ,KC_ENT           , \
-    KC_Z             ,KC_X             ,KC_C             ,KC_V             ,KC_J             ,KC_K             ,KC_H             ,KC_P             ,JP_COMM          ,JP_DOT           , \
+    KC_Z             ,KC_X             ,KC_C             ,KC_V             ,KC_J             ,KC_K             ,KC_H             ,KC_P             ,KC_COMM          ,KC_DOT           , \
                                         KC_LCMD          ,LOWER            ,LT(_SHIFT,KC_SPC),LT(_SHIFT,KC_ENT),RAISE            ,KC_RCTL
   ),
 
@@ -131,8 +136,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
   [_SHIFT] = LAYOUT(
     S(KC_Q),S(KC_G),S(KC_M),S(KC_L),S(KC_W),S(KC_Y),S(KC_F),S(KC_U),S(KC_B),KC_DEL , \
-    S(KC_D),S(KC_S),S(KC_T),S(KC_N),S(KC_R),S(KC_I),S(KC_A),S(KC_E),S(KC_O),JP_COLN, \
-    S(KC_Z),S(KC_X),S(KC_C),S(KC_V),S(KC_J),S(KC_K),S(KC_H),S(KC_P),JP_SLSH,JP_QUES, \
+    S(KC_D),S(KC_S),S(KC_T),S(KC_N),S(KC_R),S(KC_I),S(KC_A),S(KC_E),S(KC_O),KC_COLN, \
+    S(KC_Z),S(KC_X),S(KC_C),S(KC_V),S(KC_J),S(KC_K),S(KC_H),S(KC_P),KC_SLSH,KC_QUES, \
                     _______,_______,_______,_______,_______,_______
   ),
 
@@ -148,13 +153,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
 */
   [_LOWER] = LAYOUT(
-    KC_ESC ,XXXXXXX,XXXXXXX,JP_COLN,JP_SCLN,JP_SLSH,KC_7   ,KC_8   ,KC_9   ,JP_MINS, \
-    KC_TAB ,JP_LCBR,JP_LBRC,JP_LPRN,JP_LT  ,JP_ASTR,KC_4   ,KC_5   ,KC_6   ,JP_PLUS, \
-    XXXXXXX,JP_RCBR,JP_RBRC,JP_RPRN,JP_GT  ,KC_0   ,KC_1   ,KC_2   ,KC_3   ,JP_EQL , \
+    KC_ESC ,XXXXXXX,XXXXXXX,KC_COLN,KC_SCLN,KC_SLSH,KC_7   ,KC_8   ,KC_9   ,KC_MINS, \
+    KC_TAB ,KC_LCBR,KC_LBRC,KC_LPRN,KC_LT  ,KC_ASTR,KC_4   ,KC_5   ,KC_6   ,KC_PLUS, \
+    XXXXXXX,KC_RCBR,KC_RBRC,KC_RPRN,KC_GT  ,KC_0   ,KC_1   ,KC_2   ,KC_3   ,KC_EQL , \
                     _______,_______,_______,_______,_______,_______
   ),
 
-/* _RAISE
+/* "
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   |   ~   |   @   |   #   |   $   |   %   | HOME  | S(UP) |  UP   |       | BSPC  |
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
@@ -162,13 +167,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   |   |   |   `   |   '   |   "   |   _   |       |S(LEFT)|S(DOWN)|S(RGHT)|       |
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |ndefine|ndefine|ndefine|ndefine|ndefine|ndefine|ndefine|ndefine|ndefine|ndefine|
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   |       |       |  __   |  __   |  __   |  __   |  __   |  __   |       |       |
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 */
   [_RAISE] = LAYOUT(
-    JP_TILD   ,JP_AT     ,JP_HASH   ,JP_DLR    ,JP_PERC   ,KC_HOME   ,S(KC_UP)  ,KC_UP     ,XXXXXXX   ,KC_BSPC   , \
-    JP_CIRC   ,JP_AMPR   ,JP_EXLM   ,JP_QUES   ,JP_YEN    ,KC_END    ,KC_LEFT   ,KC_DOWN   ,KC_RGHT   ,XXXXXXX   , \
-    JP_PIPE   ,JP_GRV    ,JP_QUOT   ,JP_DQT    ,JP_UNDS   ,XXXXXXX   ,S(KC_LEFT),S(KC_DOWN),S(KC_RGHT),XXXXXXX   , \
+    KC_TILD   ,KC_AT     ,KC_HASH   ,KC_DLR    ,KC_PERC   ,KC_HOME   ,S(KC_UP)  ,KC_UP     ,XXXXXXX   ,KC_BSPC   , \
+    KC_CIRC   ,KC_AMPR   ,KC_EXLM   ,KC_QUES   ,KC_JYEN   ,KC_END    ,KC_LEFT   ,KC_DOWN   ,KC_RGHT   ,XXXXXXX   , \
+    KC_PIPE   ,KC_GRV    ,KC_QUOT   ,KC_DQT    ,KC_UNDS   ,XXXXXXX   ,S(KC_LEFT),S(KC_DOWN),S(KC_RGHT),XXXXXXX   , \
                           _______   ,_______   ,_______   ,_______   ,_______   ,_______
   ),
 
@@ -208,24 +215,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     _______,_______,NG_SHFT,NG_SHFT,_______,_______
   ),
 
-/* _QWERTY
-  +-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+
-  |        Q        |        W        |        E        |        R        |        T        |        Y        |        U        |        I        |        O        |        P        |
-  +-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+
-  |        A        |        S        |        D        |        F        |        G        |        H        |        J        |        K        |        L        |        ;        |
-  +-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+
-  |        Z        |        X        |        C        |        V        |        B        |        N        |        M        |        ,        |        .        |        /        |
-  +-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+
-  |                 |                 |      LCMD       |      LOWER      |LT(_SHIFT,KC_SPC)|LT(_SHIFT,KC_ENT)|      RAISE      |      RCTL       |                 |                 |
-  +-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+
-*/
-  [_QWERTY] = LAYOUT(
-    KC_Q             ,KC_W             ,KC_E             ,KC_R             ,KC_T             ,KC_Y             ,KC_U             ,KC_I             ,KC_O             ,KC_P             , \
-    KC_A             ,KC_S             ,KC_D             ,KC_F             ,KC_G             ,KC_H             ,KC_J             ,KC_K             ,KC_L             ,JP_SCLN          , \
-    KC_Z             ,KC_X             ,KC_C             ,KC_V             ,KC_B             ,KC_N             ,KC_M             ,JP_COMM          ,JP_DOT           ,JP_SLSH          , \
-                                        KC_LCMD          ,LOWER            ,LT(_SHIFT,KC_SPC),LT(_SHIFT,KC_ENT),RAISE            ,KC_RCTL
-  ),
-
 };
 
 void persistent_default_layer_set(uint16_t default_layer) {
@@ -233,7 +222,19 @@ void persistent_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
+static bool nstate = false;
+
+uint16_t timer;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+  if (record->event.pressed) {
+    uint16_t nowt = timer_read();
+    if (nowt - timer > 5000) {
+      makesure_mode();
+    }
+    timer = nowt;
+  }
 
   switch (keycode) {
     case ADJUST:
@@ -282,18 +283,71 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case QWERTY:
+    case EURO:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_QGMLWY);
+        send_string("(e)");
+        return false;
       }
-      return false;
+      break;
+    case SSCLN:
+      if (record->event.pressed) {
+        unregister_code(KC_LSFT);
+        tap_code(KC_SCLN);
+        return false;
+      }
+      break;
+    case SEQL:
+      if (record->event.pressed) {
+        unregister_code(KC_LSFT);
+        tap_code(KC_EQL);
+        return false;
+      }
+      break;
+    case DELA:
+      if (record->event.pressed) {
+        register_code(KC_LSFT);
+        tap_code(KC_HOME);
+        unregister_code(KC_LSFT);
+        register_code(KC_LCTRL);
+        tap_code(KC_X);
+        unregister_code(KC_LCTRL);
+        return false;
+      }
+      break;
+    case DELE:
+      if (record->event.pressed) {
+        register_code(KC_LSFT);
+        tap_code(KC_END);
+        unregister_code(KC_LSFT);
+        register_code(KC_LCTRL);
+        tap_code(KC_X);
+        unregister_code(KC_LCTRL);
+      }
+      break;
+    case ALPH:
+      if (record->event.pressed) {
+        nstate = naginata_state();
+        if (nstate) naginata_off();
+      } else {
+        if (nstate) naginata_on();
+      }
+      break;
+    case SALPH:
+      if (record->event.pressed) {
+        nstate = naginata_state();
+        if (nstate) naginata_off();
+        register_code(KC_LSFT);
+      } else {
+        unregister_code(KC_LSFT);
+        if (nstate) naginata_on();
+      }
       break;
     }
 
   // 薙刀式
   bool a = true;
   if (naginata_state()) {
-    naginata_mode(keycode, record);
+    process_modifier(keycode, record);
     a = process_naginata(keycode, record);
     if (a == false) return false;
   }
@@ -323,9 +377,14 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
 void matrix_init_user(void) {
   // 薙刀式
   set_naginata(_NAGINATA);
+  #ifdef NAGINATA_EDIT_MAC
   set_unicode_input_mode(UC_OSX);
-  // set_unicode_input_mode(UC_WINC);
+  #endif
+  #ifdef NAGINATA_EDIT_WIN
+  set_unicode_input_mode(UC_WINC);
+  #endif
   // 薙刀式
+  timer = timer_read();
 }
 
 void matrix_scan_user(void) {

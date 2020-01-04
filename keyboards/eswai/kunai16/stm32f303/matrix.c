@@ -1,20 +1,3 @@
-/*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
 #include "ch.h"
 #include "hal.h"
 
@@ -26,6 +9,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "matrix.h"
 #include "wait.h"
+
+#define I2C1_SCL_BANK GPIOB
+#define I2C1_SDA_BANK GPIOB
+#define I2C1_SCL 8
+#define I2C1_SDA 9
+
+#define I2C2_SCL_BANK GPIOA
+#define I2C2_SDA_BANK GPIOA
+#define I2C2_SCL 9
+#define I2C2_SDA 10
+
+#define I2C1_TIMINGR_PRESC 0U
+#define I2C1_TIMINGR_SCLDEL 7U
+#define I2C1_TIMINGR_SDADEL 0U
+#define I2C1_TIMINGR_SCLH 38U
+#define I2C1_TIMINGR_SCLL 129U
+#define I2C1_SCL_PAL_MODE 4
+#define I2C1_SDA_PAL_MODE 4
 
 #ifndef DEBOUNCE
 #   define DEBOUNCE 5
@@ -39,7 +40,7 @@ static uint8_t matrix_row_read[2] = { 0xff, 0xff };
 
 // Address / Row config
 static const uint8_t addresses[MATRIX_ROWS] = { 0b0100000, 0b0100001, 0b0100000, 0b0100001 };
-static I2CDriver* i2cDrivers[MATRIX_ROWS] = { &I2CD2, &I2CD2, &I2CD1, &I2CD1 };
+static I2CDriver* i2cDrivers[MATRIX_ROWS] = { &I2CD1, &I2CD1, &I2CD2, &I2CD2 };
 
 static uint8_t read_command = 0;
 
@@ -58,27 +59,13 @@ uint8_t matrix_cols(void)
     return MATRIX_COLS;
 }
 
-/* generic STM32F103C8T6 board */
-#ifdef BOARD_GENERIC_STM32_F103
-#define LED_ON()    do { palClearPad(GPIOC, GPIOC_LED) ;} while (0)
-#define LED_OFF()   do { palSetPad(GPIOC, GPIOC_LED); } while (0)
-#define LED_TGL()   do { palTogglePad(GPIOC, GPIOC_LED); } while (0)
-#endif
-
-/* Maple Mini */
-#ifdef BOARD_MAPLEMINI_STM32_F103
-#define LED_ON()    do { palSetPad(GPIOB, 1) ;} while (0)
-#define LED_OFF()   do { palClearPad(GPIOB, 1); } while (0)
-#define LED_TGL()   do { palTogglePad(GPIOB, 1); } while (0)
-#endif
-
 /*
  * I2C1 config.
  */
 static const I2CConfig i2ccfg = {
-    OPMODE_I2C,
-    400000,
-    FAST_DUTY_CYCLE_2,
+    // This configures the I2C clock to 400khz assuming a 72Mhz clock
+    // For more info : https://www.st.com/en/embedded-software/stsw-stm32126.html
+    STM32_TIMINGR_PRESC(I2C1_TIMINGR_PRESC) | STM32_TIMINGR_SCLDEL(I2C1_TIMINGR_SCLDEL) | STM32_TIMINGR_SDADEL(I2C1_TIMINGR_SDADEL) | STM32_TIMINGR_SCLH(I2C1_TIMINGR_SCLH) | STM32_TIMINGR_SCLL(I2C1_TIMINGR_SCLL), 0, 0
 };
 
 void matrix_init(void)
@@ -91,13 +78,6 @@ void matrix_init(void)
         matrix[i] = 0;
         matrix_debouncing[i] = 0;
     }
-
-    // debug
-    // debug_enable = true;
-    debug_matrix = true;
-    LED_ON();
-    wait_ms(500);
-    LED_OFF();
 
     matrix_init_user();
 }
@@ -155,11 +135,17 @@ void matrix_print(void)
  */
 static void init_cols(void)
 {
-    // setup I2C hardware
-    palSetPadMode(GPIOB, 6, PAL_MODE_STM32_ALTERNATE_OPENDRAIN);   /* SCL */
-    palSetPadMode(GPIOB, 7, PAL_MODE_STM32_ALTERNATE_OPENDRAIN);   /* SDA */
-    palSetPadMode(GPIOB, 10, PAL_MODE_STM32_ALTERNATE_OPENDRAIN);   /* SCL */
-    palSetPadMode(GPIOB, 11, PAL_MODE_STM32_ALTERNATE_OPENDRAIN);   /* SDA */
+    palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, PAL_MODE_INPUT);
+    palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_INPUT);
+    palSetPadMode(I2C2_SCL_BANK, I2C2_SCL, PAL_MODE_INPUT);
+    palSetPadMode(I2C2_SDA_BANK, I2C2_SDA, PAL_MODE_INPUT);
+
+    chThdSleepMilliseconds(10);
+
+    palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, PAL_MODE_ALTERNATE(I2C1_SCL_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
+    palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_ALTERNATE(I2C1_SDA_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
+    palSetPadMode(I2C2_SCL_BANK, I2C2_SCL, PAL_MODE_ALTERNATE(I2C1_SCL_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
+    palSetPadMode(I2C2_SDA_BANK, I2C2_SDA, PAL_MODE_ALTERNATE(I2C1_SDA_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
 }
 
 /* Returns status of switches(1:on, 0:off) */
@@ -172,18 +158,18 @@ static matrix_row_t read_cols(uint8_t row)
     status = i2cMasterTransmit(i2cDrivers[row], addresses[row], &read_command, 1, NULL, 0);
 
     if (MSG_OK != status) {
-        i2cflags_t error_code;
-        error_code = i2cGetErrors(i2cDrivers[row]);
-        printf("I2C TX Error: %x\n", error_code);
+        // i2cflags_t error_code;
+        // error_code = i2cGetErrors(i2cDrivers[row]);
+        // printf("I2C TX Error: %x\n", error_code);
         return (matrix_row_t)0;
     }
 
     status = i2cMasterReceive(i2cDrivers[row], addresses[row], matrix_row_read, 2);
 
     if (MSG_OK != status) {
-        i2cflags_t error_code;
-        error_code = i2cGetErrors(i2cDrivers[row]);
-        printf("I2C RX Error: %x\n", error_code);
+        // i2cflags_t error_code;
+        // error_code = i2cGetErrors(i2cDrivers[row]);
+        // printf("I2C RX Error: %x\n", error_code);
         return (matrix_row_t)0;
     }
 

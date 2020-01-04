@@ -1,20 +1,4 @@
-/* Copyright 2018 Jack Humbert <jack.humb@gmail.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-#ifndef REV6_H
-#define REV6_H
+#pragma once
 
 #include "kunai16.h"
 #define LAYOUT(   \
@@ -29,5 +13,3 @@
                 { KC_NO, KC_NO, R02, R03, R18, R08, R13, R07, R17, R12, R16, R11, R06, R01, KC_NO, KC_NO }, \
                 { R04, R05, R10, R15, KC_NO, R14, R09, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
         }
-
-#endif

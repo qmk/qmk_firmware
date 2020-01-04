@@ -23,13 +23,13 @@
 
 // 薙刀式
 #define NAGINATA_JDOUJI // 順序つきの同時押しに対応する
-#define NAGINATA_TATEGAKI
-// #define NAGINATA_YOKOGAKI
-#define DQWERTY
+#define NAGINATA_TATEGAKI // カーソル移動縦書き用（オリジナル）
+// #define NAGINATA_YOKOGAKI // カーソル移動横書き用
+#define DQWERTY // IME ON/OFFをQWERTYで(FG, HJ)
 // #define DEUCALYN
 // #define DWORKMAN
-// #define NAGINATA_EDIT_WIN // JP106
-#define NAGINATA_EDIT_MAC // JP106
+// #define NAGINATA_EDIT_WIN // 編集モード Windows用 JP106
+#define NAGINATA_EDIT_MAC // 編集モード Mac用 JP106
 #define COMBO_COUNT 2
 #define COMBO_TERM 300
 // 薙刀式
@@ -82,3 +82,5 @@
 // #if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
 // #define NO_PRINT
 // #endif // !NO_PRINT
+
+#define USB_MAX_POWER_CONSUMPTION 100

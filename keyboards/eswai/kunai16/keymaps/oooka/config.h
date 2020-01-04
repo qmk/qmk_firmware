@@ -1,5 +1,4 @@
-/*
- * Copyright 2018 Jack Humbert <jack.humb@gmail.com>
+/* Copyright 2018-2019 eswai <@eswai>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,16 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef REV6_CONFIG_H
-#define REV6_CONFIG_H
+#pragma once
 
-/* USB Device descriptor parameter */
-#define DEVICE_VER 0x0006
+#undef TAPPING_TERM
+#define TAPPING_TERM 0
+#define PERMISSIVE_HOLD
+#define RETRO_TAPPING
 
-#undef MATRIX_ROWS
-#undef MATRIX_COLS
 
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 16
-
-#endif
