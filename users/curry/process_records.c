@@ -49,7 +49,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
-#ifdef UNICODE_ENABLE
+#if defined(UNICODE_ENABLE)
         case UC_FLIP:  // (ノಠ痊ಠ)ノ彡┻━┻
             if (record->event.pressed) {
                 send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");

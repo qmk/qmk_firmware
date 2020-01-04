@@ -10,7 +10,7 @@ void rgblight_sethsv_default_helper(uint8_t index) { rgblight_sethsv_at(rgblight
  * This allows for certain lights to be lit up, based on what mods are active, giving some visual feedback.
  * This is especially useful for One Shot Mods, since it's not always obvious if they're still lit up.
  */
-#ifdef INDICATOR_LIGHTS
+#if defined(INDICATOR_LIGHTS)
 void set_rgb_indicators(uint8_t this_mod, uint8_t this_led, uint8_t this_osm) {
     if (userspace_config.rgb_layer_change && get_highest_layer(layer_state) == 0) {
         if ((this_mod | this_osm) & MOD_MASK_SHIFT || this_led & (1 << USB_LED_CAPS_LOCK)) {
@@ -84,7 +84,7 @@ void matrix_scan_indicator(void) {
 }
 #endif  // INDICATOR_LIGHTS
 
-#ifdef RGBLIGHT_TWINKLE
+#if defined(RGBLIGHT_TWINKLE)
 static rgblight_fadeout lights[RGBLED_NUM];
 
 __attribute__((weak)) bool rgblight_twinkle_is_led_used_keymap(uint8_t index) { return false; }
@@ -208,7 +208,7 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (temp_keycode) {
-#ifdef RGBLIGHT_TWINKLE
+#if defined(RGBLIGHT_TWINKLE)
         case KC_A ... KC_SLASH:
         case KC_F1 ... KC_F12:
         case KC_INSERT ... KC_UP:
@@ -273,11 +273,11 @@ void keyboard_post_init_rgb(void) {
 }
 
 void matrix_scan_rgb(void) {
-#ifdef RGBLIGHT_TWINKLE
+#if defined(RGBLIGHT_TWINKLE)
     scan_rgblight_fadeout();
 #endif  // RGBLIGHT_ENABLE
 
-#ifdef INDICATOR_LIGHTS
+#if defined(INDICATOR_LIGHTS)
     matrix_scan_indicator();
 #endif
 }

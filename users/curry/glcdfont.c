@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef __AVR__
+#if defined(__AVR__)
 #    include <avr/io.h>
 #    include <avr/pgmspace.h>
 #elif defined(ESP8266)

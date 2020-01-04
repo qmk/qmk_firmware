@@ -6,15 +6,15 @@
 #include "wrappers.h"
 #include "process_records.h"
 
-#ifdef TAP_DANCE_ENABLE
+#if defined(TAP_DANCE_ENABLE)
 #    include "tap_dances.h"
 #endif  // TAP_DANCE_ENABLE
 
-#ifdef RGB_MATRIX_ENABLE
+#if defined(RGB_MATRIX_ENABLE)
 #   include "rgb_matrix_user.h"
 #endif
 
-#ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE)
 #   include "rgb_lighting_user.h"
 #endif
 
