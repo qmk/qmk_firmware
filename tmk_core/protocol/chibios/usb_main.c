@@ -40,6 +40,7 @@
 #include "wait.h"
 #include "usb_descriptor.h"
 #include "usb_driver.h"
+#include "usb_shim.h"
 
 #ifdef NKRO_ENABLE
 #    include "keycode_config.h"
@@ -601,7 +602,7 @@ static void keyboard_idle_timer_cb(void *arg) {
 #endif /* NKRO_ENABLE */
         /* TODO: are we sure we want the KBD_ENDPOINT? */
         if (!usbGetTransmitStatusI(usbp, KEYBOARD_IN_EPNUM)) {
-            usbStartTransmitI(usbp, KEYBOARD_IN_EPNUM, (uint8_t *)&keyboard_report_sent, KEYBOARD_EPSIZE);
+            usbStartTransmitIGuard(usbp, KEYBOARD_IN_EPNUM, (uint8_t *)&keyboard_report_sent, KEYBOARD_EPSIZE);
         }
         /* rearm the timer */
         chVTSetI(&keyboard_idle_timer, 4 * MS2ST(keyboard_idle), keyboard_idle_timer_cb, (void *)usbp);
@@ -640,7 +641,7 @@ void send_keyboard(report_keyboard_t *report) {
              * Note: for suspend, need USB_USE_WAIT == TRUE in halconf.h */
             osalThreadSuspendS(&(&USB_DRIVER)->epc[SHARED_IN_EPNUM]->in_state->thread);
         }
-        usbStartTransmitI(&USB_DRIVER, SHARED_IN_EPNUM, (uint8_t *)report, sizeof(struct nkro_report));
+        usbStartTransmitIGuard(&USB_DRIVER, SHARED_IN_EPNUM, (uint8_t *)report, sizeof(struct nkro_report));
         osalSysUnlock();
     } else
 #endif /* NKRO_ENABLE */
@@ -663,7 +664,7 @@ void send_keyboard(report_keyboard_t *report) {
             data = &report->mods;
             size = 8;
         }
-        usbStartTransmitI(&USB_DRIVER, KEYBOARD_IN_EPNUM, data, size);
+        usbStartTransmitIGuard(&USB_DRIVER, KEYBOARD_IN_EPNUM, data, size);
         osalSysUnlock();
     }
     keyboard_report_sent = *report;
@@ -701,7 +702,7 @@ void send_mouse(report_mouse_t *report) {
             return;
         }
     }
-    usbStartTransmitI(&USB_DRIVER, MOUSE_IN_EPNUM, (uint8_t *)report, sizeof(report_mouse_t));
+    usbStartTransmitIGuard(&USB_DRIVER, MOUSE_IN_EPNUM, (uint8_t *)report, sizeof(report_mouse_t));
     osalSysUnlock();
 }
 
@@ -737,7 +738,7 @@ static void send_extra_report(uint8_t report_id, uint16_t data) {
 
     report_extra_t report = {.report_id = report_id, .usage = data};
 
-    usbStartTransmitI(&USB_DRIVER, SHARED_IN_EPNUM, (uint8_t *)&report, sizeof(report_extra_t));
+    usbStartTransmitIGuard(&USB_DRIVER, SHARED_IN_EPNUM, (uint8_t *)&report, sizeof(report_extra_t));
     osalSysUnlock();
 }
 

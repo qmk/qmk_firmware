@@ -24,6 +24,7 @@
 
 #include "hal.h"
 #include "usb_driver.h"
+#include "usb_shim.h"
 #include <string.h>
 
 /*===========================================================================*/
@@ -129,7 +130,7 @@ static void obnotify(io_buffers_queue_t *bqp) {
         uint8_t *buf = obqGetFullBufferI(&qmkusbp->obqueue, &n);
         if (buf != NULL) {
             /* Buffer found, starting a new transaction.*/
-            usbStartTransmitI(qmkusbp->config->usbp, qmkusbp->config->bulk_in, buf, n);
+            usbStartTransmitIGuard(qmkusbp->config->usbp, qmkusbp->config->bulk_in, buf, n);
         }
     }
 }
@@ -349,7 +350,7 @@ void qmkusbSOFHookI(QMKUSBDriver *qmkusbp) {
 
         osalDbgAssert(buf != NULL, "queue is empty");
 
-        usbStartTransmitI(qmkusbp->config->usbp, qmkusbp->config->bulk_in, buf, n);
+        usbStartTransmitIGuard(qmkusbp->config->usbp, qmkusbp->config->bulk_in, buf, n);
     }
 }
 
@@ -386,14 +387,14 @@ void qmkusbDataTransmitted(USBDriver *usbp, usbep_t ep) {
     if (buf != NULL) {
         /* The endpoint cannot be busy, we are in the context of the callback,
            so it is safe to transmit without a check.*/
-        usbStartTransmitI(usbp, ep, buf, n);
+        usbStartTransmitIGuard(usbp, ep, buf, n);
     } else if ((usbp->epc[ep]->in_state->txsize > 0U) && ((usbp->epc[ep]->in_state->txsize & ((size_t)usbp->epc[ep]->in_maxsize - 1U)) == 0U)) {
         /* Transmit zero sized packet in case the last one has maximum allowed
            size. Otherwise the recipient may expect more data coming soon and
            not return buffered data to app. See section 5.8.3 Bulk Transfer
            Packet Size Constraints of the USB Specification document.*/
         if (!qmkusbp->config->fixed_size) {
-            usbStartTransmitI(usbp, ep, usbp->setup, 0);
+            usbStartTransmitIGuard(usbp, ep, usbp->setup, 0);
         }
 
     } else {
