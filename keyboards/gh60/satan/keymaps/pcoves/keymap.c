@@ -3,7 +3,7 @@
 #include "pcoves.h"
 #include "tapDance.h"
 
-#define RUT RAINBOW_UNICORN_ENABLE
+#define RUT RAINBOW_UNICORN_TOGGLE
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_60_ansi(
