@@ -32,24 +32,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) rainbowUnicornToggle();
             return false;
 #endif
-
-#ifdef UNICODE_ENABLE
-        case EMOTE0:
-            if (record->event.pressed) emote0();
-            return false;
-
-        case EMOTE1:
-            if (record->event.pressed) emote1();
-            return false;
-
-        case EMOTE2:
-            if (record->event.pressed) emote2();
-            return false;
-
-        case EMOTE3:
-            if (record->event.pressed) emote3();
-            return false;
-#endif
     }
 
 #ifdef RAINBOW_UNICORN_ENABLE
@@ -58,9 +40,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
 
     return process_record_keymap(keycode, record)
+#ifdef UNICODE_ENABLE
+        && process_record_unicode(keycode, record)
+#endif
 #if SECRET_ENABLE
-        &&
-        process_record_secret(keycode, record)
+        && process_record_secret(keycode, record)
 #endif
         ;
 }
