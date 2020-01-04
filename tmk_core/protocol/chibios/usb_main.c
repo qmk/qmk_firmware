@@ -620,8 +620,7 @@ uint8_t keyboard_leds(void) { return (uint8_t)(keyboard_led_stats & 0xFF); }
 void send_keyboard(report_keyboard_t *report) {
     osalSysLock();
     if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
-        osalSysUnlock();
-        return;
+        goto unlock;
     }
 
 #ifdef NKRO_ENABLE
@@ -640,8 +639,7 @@ void send_keyboard(report_keyboard_t *report) {
 
             /* after osalThreadSuspendS returns USB status might have changed */
             if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
-                osalSysUnlock();
-                return;
+                goto unlock;
             }
         }
         usbStartTransmitI(&USB_DRIVER, SHARED_IN_EPNUM, (uint8_t *)report, sizeof(struct nkro_report));
@@ -659,8 +657,7 @@ void send_keyboard(report_keyboard_t *report) {
 
             /* after osalThreadSuspendS returns USB status might have changed */
             if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
-                osalSysUnlock();
-                return;
+                goto unlock;
             }
         }
         uint8_t *data, size;
@@ -674,6 +671,8 @@ void send_keyboard(report_keyboard_t *report) {
         usbStartTransmitI(&USB_DRIVER, KEYBOARD_IN_EPNUM, data, size);
     }
     keyboard_report_sent = *report;
+
+unlock:
     osalSysUnlock();
 }
 
