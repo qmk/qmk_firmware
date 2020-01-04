@@ -1,5 +1,4 @@
 #include "sq80.h"
-#include QMK_KEYBOARD_H
 
 void matrix_init_kb(void) {
   // Keyboard start-up code goes here
