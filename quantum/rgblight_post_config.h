@@ -21,8 +21,17 @@
 #    define RGBLIGHT_EFFECT_STATIC_GRADIENT
 #endif
 
+// clang-format off
+
 // check dynamic animation effects chose ?
-#if defined(RGBLIGHT_EFFECT_BREATHING) || defined(RGBLIGHT_EFFECT_RAINBOW_MOOD) || defined(RGBLIGHT_EFFECT_RAINBOW_SWIRL) || defined(RGBLIGHT_EFFECT_SNAKE) || defined(RGBLIGHT_EFFECT_KNIGHT) || defined(RGBLIGHT_EFFECT_CHRISTMAS) || defined(RGBLIGHT_EFFECT_RGB_TEST) || defined(RGBLIGHT_EFFECT_ALTERNATING)
+#if    defined(RGBLIGHT_EFFECT_BREATHING)     || \
+       defined(RGBLIGHT_EFFECT_RAINBOW_MOOD)  || \
+       defined(RGBLIGHT_EFFECT_RAINBOW_SWIRL) || \
+       defined(RGBLIGHT_EFFECT_SNAKE)         || \
+       defined(RGBLIGHT_EFFECT_KNIGHT)        || \
+       defined(RGBLIGHT_EFFECT_CHRISTMAS)     || \
+       defined(RGBLIGHT_EFFECT_RGB_TEST)      || \
+       defined(RGBLIGHT_EFFECT_ALTERNATING)
 #    define RGBLIGHT_USE_TIMER
 #    ifndef RGBLIGHT_ANIMATIONS
 #        define RGBLIGHT_ANIMATIONS  // for backward compatibility
