@@ -1,6 +1,5 @@
 #include "rainbowUnicorn.h"
-
-#include "quantum.h"
+#include "pcoves.h"
 
 static struct {
     bool    enabled;
@@ -9,12 +8,14 @@ static struct {
     uint8_t mods;
 } state = {false, 0};
 
-bool rainbowUnicornIsEnabled() { return state.enabled; }
-void rainbowUnicornEnable() { state.enabled = true; }
-void rainbowUnicornDisable() { state.enabled = false; }
-void rainbowUnicornToggle() { state.enabled ^= true; }
+bool process_record_rainbowUnicorn(uint16_t keycode, keyrecord_t* record) {
+    if (keycode == RAINBOW_UNICORN_TOGGLE) {
+        state.enabled ^= true;
+        return false;
+    }
 
-void rainbowUnicorn(uint16_t keycode, keyrecord_t* record) {
+    if (!state.enabled) return true;
+
     switch (keycode) {
         case KC_A ... KC_Z:
         case KC_1 ... KC_0:
@@ -36,4 +37,6 @@ void rainbowUnicorn(uint16_t keycode, keyrecord_t* record) {
                 state.color = (state.color + 1) % 11;
             }
     }
+
+    return true;
 }
