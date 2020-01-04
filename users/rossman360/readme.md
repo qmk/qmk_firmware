@@ -1,4 +1,4 @@
-Copyright <year> <name> <email> @<github_username>
+Copyright 2020 Ross Montsinger rmontsinger@gmail.com @Rossman360
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
