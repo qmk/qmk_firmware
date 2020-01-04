@@ -12,6 +12,7 @@ enum custom_keycodes { DVORAK = SAFE_RANGE, QWERTY, COLEMAK, KEYPAD };
 // Aliases to make the keymap more uniform
 #define GUI_END GUI_T(KC_END)
 #define KPD_ENT LT(_KEYPAD, KC_ENT)
+#define MACLOCK LGUI(LCTL(KC_Q))
 
 // clang-format off
 
@@ -197,7 +198,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            // Left Thumb
                     _______, _______,
                              _______,
-           _______, _______, _______,
+           _______, _______, MACLOCK,
 
            // Right Hand
            _______, _______, _______, _______, _______, _______, _______, _______, _______,

@@ -28,6 +28,4 @@ OPT_DEFS = -DDEBUG_LEVEL=0
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
-# custom matrix setup
-CUSTOM_MATRIX = yes
-SRC = matrix.c backlight.c
+SRC = backlight.c

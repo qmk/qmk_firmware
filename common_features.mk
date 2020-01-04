@@ -82,19 +82,19 @@ endif
 
 ifeq ($(strip $(UCIS_ENABLE)), yes)
     OPT_DEFS += -DUCIS_ENABLE
-    UNICODE_COMMON = yes
+    UNICODE_COMMON := yes
     SRC += $(QUANTUM_DIR)/process_keycode/process_ucis.c
 endif
 
 ifeq ($(strip $(UNICODEMAP_ENABLE)), yes)
     OPT_DEFS += -DUNICODEMAP_ENABLE
-    UNICODE_COMMON = yes
+    UNICODE_COMMON := yes
     SRC += $(QUANTUM_DIR)/process_keycode/process_unicodemap.c
 endif
 
 ifeq ($(strip $(UNICODE_ENABLE)), yes)
     OPT_DEFS += -DUNICODE_ENABLE
-    UNICODE_COMMON = yes
+    UNICODE_COMMON := yes
     SRC += $(QUANTUM_DIR)/process_keycode/process_unicode.c
 endif
 
@@ -107,13 +107,13 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     OPT_DEFS += -DRGBLIGHT_ENABLE
     SRC += $(QUANTUM_DIR)/color.c
     SRC += $(QUANTUM_DIR)/rgblight.c
-    CIE1931_CURVE = yes
-    LED_BREATHING_TABLE = yes
-    RGB_KEYCODES_ENABLE = yes
+    CIE1931_CURVE := yes
+    LED_BREATHING_TABLE := yes
+    RGB_KEYCODES_ENABLE := yes
     ifeq ($(strip $(RGBLIGHT_CUSTOM_DRIVER)), yes)
         OPT_DEFS += -DRGBLIGHT_CUSTOM_DRIVER
     else
-        WS2812_DRIVER_REQUIRED = yes
+        WS2812_DRIVER_REQUIRED := yes
     endif
 endif
 
@@ -147,12 +147,12 @@ endif
     SRC += $(QUANTUM_DIR)/color.c
     SRC += $(QUANTUM_DIR)/rgb_matrix.c
     SRC += $(QUANTUM_DIR)/rgb_matrix_drivers.c
-    CIE1931_CURVE = yes
-    RGB_KEYCODES_ENABLE = yes
+    CIE1931_CURVE := yes
+    RGB_KEYCODES_ENABLE := yes
 endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
-	RGB_MATRIX_ENABLE = IS31FL3731
+	RGB_MATRIX_ENABLE := IS31FL3731
 endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3731)
@@ -178,7 +178,7 @@ endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), WS2812)
     OPT_DEFS += -DWS2812
-    WS2812_DRIVER_REQUIRED = yes
+    WS2812_DRIVER_REQUIRED := yes
 endif
 
 ifeq ($(strip $(RGB_MATRIX_CUSTOM_KB)), yes)
@@ -232,12 +232,12 @@ endif
 endif
 
 ifeq ($(strip $(LCD_ENABLE)), yes)
-    CIE1931_CURVE = yes
+    CIE1931_CURVE := yes
 endif
 
 # backward compat
 ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
-    BACKLIGHT_DRIVER = custom
+    BACKLIGHT_DRIVER := custom
 endif
 
 VALID_BACKLIGHT_TYPES := pwm software custom
@@ -250,7 +250,7 @@ ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     endif
 
     ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
-        CIE1931_CURVE = yes
+        CIE1931_CURVE := yes
     endif
 
     COMMON_VPATH += $(QUANTUM_DIR)/backlight
@@ -294,12 +294,12 @@ endif
 
 ifeq ($(strip $(CIE1931_CURVE)), yes)
     OPT_DEFS += -DUSE_CIE1931_CURVE
-    LED_TABLES = yes
+    LED_TABLES := yes
 endif
 
 ifeq ($(strip $(LED_BREATHING_TABLE)), yes)
     OPT_DEFS += -DUSE_LED_BREATHING_TABLE
-    LED_TABLES = yes
+    LED_TABLES := yes
 endif
 
 ifeq ($(strip $(LED_TABLES)), yes)
@@ -347,6 +347,14 @@ endif
 ifeq ($(strip $(VELOCIKEY_ENABLE)), yes)
     OPT_DEFS += -DVELOCIKEY_ENABLE
     SRC += $(QUANTUM_DIR)/velocikey.c
+endif
+
+ifeq ($(strip $(VIA_ENABLE)), yes)
+    DYNAMIC_KEYMAP_ENABLE := yes
+    RAW_ENABLE := yes
+    BOOTMAGIC_ENABLE := lite
+    SRC += $(QUANTUM_DIR)/via.c
+    OPT_DEFS += -DVIA_ENABLE
 endif
 
 ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
