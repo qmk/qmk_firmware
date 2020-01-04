@@ -165,8 +165,8 @@ CFLAGS += $(COMPILEFLAGS)
 
 ASFLAGS += $(THUMBFLAGS)
 
-CPPFLAGS += $(COMPILEFLAGS)
-CPPFLAGS += -fno-rtti
+CXXFLAGS += $(COMPILEFLAGS)
+CXXFLAGS += -fno-rtti
 
 LDFLAGS +=-Wl,--gc-sections
 LDFLAGS +=-Wl,--no-wchar-size-warning
