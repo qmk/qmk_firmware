@@ -6,7 +6,7 @@
   "height": 5,
   "layouts": {
     "LAYOUT": {
-      "layout": [
+      "LAYOUT_all": [
 		{"label":"Esc","x":0,"y":0},
 		{"label":"!\n1","x":1,"y":0},
 		{"label":"@\n2","x":2,"y":0},
