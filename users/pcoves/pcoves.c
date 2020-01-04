@@ -26,20 +26,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case AUTRUCHE:
             if (record->event.pressed) SEND_STRING("Autruche");
             return false;
-
-#ifdef RAINBOW_UNICORN_ENABLE
-        case RAINBOW_UNICORN_TOGGLE:
-            if (record->event.pressed) rainbowUnicornToggle();
-            return false;
-#endif
     }
 
-#ifdef RAINBOW_UNICORN_ENABLE
-    if (rainbowUnicornIsEnabled())
-        rainbowUnicorn(keycode, record);
-#endif
-
     return process_record_keymap(keycode, record)
+#ifdef RAINBOW_UNICORN_ENABLE
+        && process_record_rainbowUnicorn(keycode, record)
+#endif
 #ifdef UNICODE_ENABLE
         && process_record_unicode(keycode, record)
 #endif
