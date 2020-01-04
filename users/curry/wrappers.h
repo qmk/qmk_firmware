@@ -75,11 +75,11 @@ NOTE: These are all the same length.  If you do a search/replace
 
 #define _________________RAISE_L1__________________         ________________NUMBER_LEFT________________
 #define _________________RAISE_L2__________________         KC_PGUP, KC_PGDN, KC_HOME, KC_END,  _______
-#define _________________RAISE_L3__________________         _______, _______, _______, _______, _______
+#define _________________RAISE_L3__________________         UC_FLIP, UC_TABL, UC_SHRG, UC_DISA, _______
 
 #define _________________RAISE_R1__________________         ________________NUMBER_RIGHT_______________
 #define _________________RAISE_R2__________________         KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______
-#define _________________RAISE_R3__________________         _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC
+#define _________________RAISE_R3__________________         KC_CCCV, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC
 
 #define _________________ADJUST_L1_________________         RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_TOG
 #define _________________ADJUST_L2_________________         MU_TOG , CK_TOGG, AU_ON,   AU_OFF,  CG_NORM

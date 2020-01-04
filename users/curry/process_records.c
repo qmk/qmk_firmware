@@ -9,6 +9,11 @@ __attribute__((weak)) bool process_record_secrets(uint16_t keycode, keyrecord_t 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     xprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
     switch (keycode) {
+        case KC_QWERTY ... KC_DVORAK:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(keycode - KC_QWERTY);
+            }
+            break;
         case KC_MAKE:
             if (!record->event.pressed) {
                 uint8_t temp_mod = mod_config(get_mods());
@@ -19,18 +24,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if ((temp_mod | temp_osm) & MOD_MASK_SHIFT) {
                     send_string_with_delay_P(PSTR(":flash"), TAP_CODE_DELAY);
                 }
-                if ((temp_mod | temp_osm) & MOD_MASK_CTRL) {
-                    send_string_with_delay_P(PSTR(" -j8 --output-sync"), TAP_CODE_DELAY);
-                }
-#ifdef RGB_MATRIX_SPLIT_RIGHT
-                send_string_with_delay_P(PSTR(" RGB_MATRIX_SPLIT_RIGHT=yes"), TAP_CODE_DELAY);
-#    ifndef OLED_DRIVER_ENABLE
-                send_string_with_delay_P(PSTR(" OLED_DRIVER_ENABLE=no"), TAP_CODE_DELAY);
-#    endif
-#endif
-                send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), TAP_CODE_DELAY);
+                send_string_with_delay_P(PSTR(" -j8 --output-sync\n"), TAP_CODE_DELAY);
             }
-
             break;
 
         case VRSN:  // Prints firmware version
