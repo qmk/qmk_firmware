@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // You can edit those at usbconfig.h about line 250. These values will
 // unforunatly be ignored so far
 #define MANUFACTURER    HNB
-#define PRODUCT         DB63 Hotswap
+#define PRODUCT         DB63v1 Hotswap
 
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 14
