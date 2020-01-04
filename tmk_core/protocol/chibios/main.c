@@ -197,6 +197,12 @@ int main(void) {
                     usbWakeupHost(&USB_DRIVER);
                 }
             }
+
+            /* Wait for USB to configure, otherwise we have no endpoints */
+            while (!usb_configured()) {
+                wait_ms(50);
+            }
+
             /* Woken up */
             // variables has been already cleared by the wakeup hook
             send_keyboard_report();

@@ -292,6 +292,12 @@ static usb_driver_configs_t drivers = {
  * ---------------------------------------------------------
  */
 
+static volatile bool is_usb_configured;
+
+bool usb_configured(void) {
+    return is_usb_configured;
+}
+
 /* Handles the USB driver global events
  * TODO: maybe disable some things when connection is lost? */
 static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
@@ -319,6 +325,7 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
                 }
                 qmkusbConfigureHookI(&drivers.array[i].driver);
             }
+            is_usb_configured = TRUE;
             osalSysUnlockFromISR();
             return;
         case USB_EVENT_SUSPEND:
@@ -329,6 +336,8 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
         case USB_EVENT_UNCONFIGURED:
             /* Falls into.*/
         case USB_EVENT_RESET:
+            is_usb_configured = FALSE;
+
             for (int i = 0; i < NUM_USB_DRIVERS; i++) {
                 chSysLockFromISR();
                 /* Disconnection event on suspend.*/

@@ -35,6 +35,9 @@
 /* Initialize the USB driver and bus */
 void init_usb_driver(USBDriver *usbp);
 
+/* Whether USB is currently configured */
+bool usb_configured(void);
+
 /* ---------------
  * Keyboard header
  * ---------------
