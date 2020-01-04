@@ -1,8 +1,8 @@
 # QMK CLI 設定
 
 <!---
-  original document: d598f01cb:cli_configuration.md
-  git diff d598f01cb HEAD cli_configuration.md | cat
+  original document: d598f01cb:docs/cli_configuration.md
+  git diff d598f01cb HEAD -- docs/cli_configuration.md | cat
 -->
 
 このドキュメントは `qmk config` がどのように動作するかを説明します。
