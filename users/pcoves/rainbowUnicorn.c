@@ -1,6 +1,5 @@
 #include "rainbowUnicorn.h"
 
-
 #include "quantum.h"
 
 static struct {

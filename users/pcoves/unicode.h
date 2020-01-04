@@ -1,6 +1,5 @@
 #pragma once
 
-void emote0(void);
-void emote1(void);
-void emote2(void);
-void emote3(void);
+#include "quantum.h"
+
+__attribute__((weak)) bool process_record_unicode(uint16_t keycode, keyrecord_t *record);
