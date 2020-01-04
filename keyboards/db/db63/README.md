@@ -14,7 +14,7 @@ Flashing example for this keyboard ([after setting up the bootloadHID flashing e
 
     make db/db63:default:flash
 
-**Reset Key**: Hold down the key located at *K00*, commonly programmed as *Escape* while plugging in the keyboard(*all backlight led will flashing which indicate the board is in bootloader mode*)
+**Reset Key**: Hold down the key located at *K00*, commonly programmed as *Escape* while plugging in the keyboard. (*All backlight LEDs will flash which indicate the board is in bootloader mode.*)
 
 **Tips**: Another trick to enable the board in reset mode is using BootMapper Client->Options->Set Bootloader (*this is only available for the first times before flashing QMK firmware*)
 
