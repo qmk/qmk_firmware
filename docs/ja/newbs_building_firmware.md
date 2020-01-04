@@ -3,7 +3,7 @@
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
   original document: 0f43c2652:docs/newbs_building_firmware.md
-  git diff 0f43c2652 HEAD docs/newbs_building_firmware.md | cat
+  git diff 0f43c2652 HEAD -- docs/newbs_building_firmware.md | cat
 -->
 
 ビルド環境をセットアップしたので、カスタムファームウェアのビルドを開始する準備ができました。

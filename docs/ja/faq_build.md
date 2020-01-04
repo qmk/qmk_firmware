@@ -2,7 +2,7 @@
 
 <!---
   original document: 0f43c2652:docs/faq_build.md
-  git diff 0f43c2652 HEAD docs/faq_build.md | cat
+  git diff 0f43c2652 HEAD -- docs/faq_build.md | cat
 -->
 
 このページは QMK のビルドに関する質問を説明します。まだビルドをしていない場合は、[ビルド環境のセットアップ](ja/getting_started_build_tools.md) および [Make 手順](ja/getting_started_make_guide.md)ガイドを読むべきです。

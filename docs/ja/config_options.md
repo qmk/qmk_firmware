@@ -2,7 +2,7 @@
 
 <!---
   original document: 0f43c2652:docs/config_options.md
-  git diff 0f43c2652 HEAD docs/config_options.md | cat
+  git diff 0f43c2652 HEAD -- docs/config_options.md | cat
 -->
 
 QMK はほぼ無制限に設定可能です。可能なところはいかなるところでも、やりすぎな程、ユーザーがコードサイズを犠牲にしてでも彼らのキーボードをカスタマイズをすることを許しています。ただし、このレベルの柔軟性により設定が困難になります。
