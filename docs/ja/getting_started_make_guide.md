@@ -2,7 +2,7 @@
 
 <!---
   original document: 7494490d6:docs/getting_started_make_guide.md
-  git diff 7494490d6 HEAD docs/getting_started_make_guide.md | cat
+  git diff 7494490d6 HEAD -- docs/getting_started_make_guide.md | cat
 -->
 
 `make` コマンドの完全な構文は `<keyboard_folder>:<keymap>:<target>` です:

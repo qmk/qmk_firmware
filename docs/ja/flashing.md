@@ -2,7 +2,7 @@
 
 <!---
   original document: 7494490d6:docs/flashing.md
-  git diff 7494490d6 HEAD docs/flashing.md | cat
+  git diff 7494490d6 HEAD -- docs/flashing.md | cat
 -->
 
 キーボードが使用するブートローダにはかなり多くの種類があり、ほぼ全てが異なる書き込みの方法を使います。幸いなことに、[QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) のようなプロジェクトは、あまり深く考える必要無しに様々なタイプと互換性を持つことを目指していますが、この文章では様々なタイプのブートローダとそれらを書き込むために利用可能な方法について説明します。

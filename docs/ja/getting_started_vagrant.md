@@ -2,7 +2,7 @@
 
 <!---
   original document: 7494490d6:docs/getting_started_vagrant.md
-  git diff 7494490d6 HEAD docs/getting_started_vagrant.md | cat
+  git diff 7494490d6 HEAD -- docs/getting_started_vagrant.md | cat
 -->
 
 このプロジェクトは、プライマリオペレーティングシステムに大きな変更を加えることなくキーボードの新しいファームウェアを非常に簡単に構築することができる `Vagrantfile` を含みます。これは、あなたがプロジェクトをクローンしビルドを実行した時に、ビルドのために Vagrantfile を使っている他のユーザと全く同じ環境を持つことも保証します。人々が、発生した問題のトラブルシュートを簡単に行えるようにします

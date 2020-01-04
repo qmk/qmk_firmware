@@ -2,7 +2,7 @@
 
 <!---
   original document: 7494490d6:docs/getting_started_build_tools.md
-  git diff 7494490d6 HEAD docs/getting_started_build_tools.md | cat
+  git diff 7494490d6 HEAD -- docs/getting_started_build_tools.md | cat
 -->
 
 このページは QMK のためのビルド環境のセットアップを説明します。これらの手順は (atmega32u4 のような) AVR プロセッサを対象としてします。

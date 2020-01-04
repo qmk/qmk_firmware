@@ -2,7 +2,7 @@
 
 <!---
   original document: 7494490d6:docs/custom_quantum_functions.md
-  git diff 7494490d6 HEAD docs/custom_quantum_functions.md | cat
+  git diff 7494490d6 HEAD -- docs/custom_quantum_functions.md | cat
 -->
 
 多くの人にとって、カスタムキーボードはボタンの押下をコンピュータに送信するだけではありません。単純なボタンの押下やマクロよりも複雑なことを実行できるようにしたいでしょう。QMK にはコードを挿入したり、機能を上書きしたり、様々な状況でキーボードの挙動をカスタマイズできるフックがあります。

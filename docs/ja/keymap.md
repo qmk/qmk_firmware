@@ -2,7 +2,7 @@
 
 <!---
   original document: 7494490d6:docs/keymap.md
-  git diff 7494490d6 HEAD docs/keymap.md | cat
+  git diff 7494490d6 HEAD -- docs/keymap.md | cat
 -->
 
 QMK のキーマップは C のソースファイルの中で定義されます。そのデータ構造は配列の配列です。外側の配列はレイヤーの配列のリストで、内側のレイヤーの配列はキーのリストです。ほとんどのキーボードは `LAYOUT()` マクロを定義して、この配列の配列を作成しやすくしています。
