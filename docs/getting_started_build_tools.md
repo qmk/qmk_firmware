@@ -43,7 +43,7 @@ Debian / Ubuntu example:
 Fedora / Red Hat example:
 
     sudo dnf install gcc unzip wget zip dfu-util dfu-programmer avr-gcc avr-libc binutils-avr32-linux-gnu arm-none-eabi-gcc-cs arm-none-eabi-binutils-cs arm-none-eabi-newlib
-    
+
 Arch / Manjaro example:
 
     pacman -S base-devel gcc unzip wget zip avr-gcc avr-binutils avr-libc dfu-util arm-none-eabi-gcc arm-none-eabi-binutils arm-none-eabi-newlib git dfu-programmer dfu-util
@@ -57,16 +57,17 @@ By default, this will download compilers for both AVR and ARM. If you don't need
     nix-shell --arg arm false
 
 ## macOS
-If you're using [homebrew,](http://brew.sh/) you can use the following commands:
+If you're using [Homebrew](http://brew.sh/), you can use the following commands:
 
     brew tap osx-cross/avr
-    brew tap PX4/homebrew-px4
+    brew tap osx-cross/arm
     brew update
     brew install avr-gcc@8
     brew link --force avr-gcc@8
     brew install dfu-programmer
     brew install dfu-util
-    brew install gcc-arm-none-eabi
+    brew install arm-gcc-bin@8
+    brew link --force arm-gcc-bin@8
     brew install avrdude
 
 This is the recommended method. If you don't have homebrew, [install it!](http://brew.sh/) It's very much worth it for anyone who works in the command line. Note that the `make` and `make install` portion during the homebrew installation of `avr-gcc@8` can take over 20 minutes and exhibit high CPU usage.
