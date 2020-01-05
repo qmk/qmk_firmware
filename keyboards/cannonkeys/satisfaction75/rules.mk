@@ -51,7 +51,4 @@ ENCODER_ENABLE = yes
 QWIIC_ENABLE += MICRO_OLED
 #BACKLIGHT_ENABLE = yes
 
-# RAW_ENABLE = yes
-# DYNAMIC_KEYMAP_ENABLE = yes
-
 DEFAULT_FOLDER = cannonkeys/satisfaction75/rev1

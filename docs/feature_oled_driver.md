@@ -229,6 +229,12 @@ void oled_write_P(const char *data, bool invert);
 // Remapped to call 'void oled_write_ln(const char *data, bool invert);' on ARM
 void oled_write_ln_P(const char *data, bool invert);
 
+// Writes a string to the buffer at current cursor position
+void oled_write_raw(const char *data, uint16_t size);
+
+// Writes a PROGMEM string to the buffer at current cursor position
+void oled_write_raw_P(const char *data, uint16_t size);
+
 // Can be used to manually turn on the screen if it is off
 // Returns true if the screen was on or turns on
 bool oled_on(void);

@@ -196,8 +196,8 @@ If you define these options you will enable the associated feature, which may in
   * units to step when in/decreasing saturation
 * `#define RGBLIGHT_VAL_STEP 12`
   * units to step when in/decreasing value (brightness)
-* `#define RGBW_BB_TWI`
-  * bit-bangs TWI to EZ RGBW LEDs (only required for Ergodox EZ)
+* `#define RGBW`
+  * Enables RGBW LED support
 
 ## Mouse Key Options
 
@@ -267,6 +267,14 @@ There are a few different ways to set handedness for split keyboards (listed in 
     * 4: about 26kbps
     * 5: about 20kbps
 
+* `#define SPLIT_USB_DETECT`
+  * Detect (with timeout) USB connection when delegating master/slave
+  * Default behavior for ARM
+  * Required for AVR Teensy
+
+* `#define SPLIT_USB_TIMEOUT 2500`
+  * Maximum timeout when detecting master/slave when using `SPLIT_USB_DETECT`
+
 # The `rules.mk` File
 
 This is a [make](https://www.gnu.org/software/make/manual/make.html) file that is included by the top-level `Makefile`. It is used to set some information about the MCU that we will be compiling for as well as enabling and disabling certain features.
@@ -279,8 +287,27 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
   * Defines which format (bin, hex) is copied to the root `qmk_firmware` folder after building.
 * `SRC`
   * Used to add files to the compilation/linking list.
+* `LIB_SRC`
+  * Used to add files as a library to the compilation/linking list.  
+    The files specified by `LIB_SRC` is linked after the files specified by `SRC`.  
+    For example, if you specify:
+    ```
+    SRC += a.c
+    LIB_SRC += lib_b.c
+    SRC += c.c
+    LIB_SRC += lib_d.c
+    ```
+    The link order is as follows.
+    ```
+     ...  a.o c.o  ...  lib_b.a lib_d.a  ...
+    ```
 * `LAYOUTS`
   * A list of [layouts](feature_layouts.md) this keyboard supports.
+* `LINK_TIME_OPTIMIZATION_ENABLE`
+  * Enables Link Time Optimization (`LTO`) when compiling the keyboard.  This makes the process take longer, but can significantly reduce the compiled size (and since the firmware is small, the added time is not noticeable).  However, this will automatically disable the old Macros and Functions features automatically, as these break when `LTO` is enabled.
+  It does this by automatically defining `NO_ACTION_MACRO` and `NO_ACTION_FUNCTION`
+* `LTO_ENABLE`
+  * It has the same meaning as LINK_TIME_OPTIMIZATION_ENABLE.  You can use `LTO_ENABLE` instead of `LINK_TIME_OPTIMIZATION_ENABLE`.
 
 ## AVR MCU Options
 * `MCU = atmega32u4`
@@ -302,13 +329,13 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
 Use these to enable or disable building certain features. The more you have enabled the bigger your firmware will be, and you run the risk of building a firmware too large for your MCU.
 
 * `BOOTMAGIC_ENABLE`
-  * Virtual DIP switch configuration(+1000)
+  * Virtual DIP switch configuration
 * `MOUSEKEY_ENABLE`
-  * Mouse keys(+4700)
+  * Mouse keys
 * `EXTRAKEY_ENABLE`
-  * Audio control and System control(+450)
+  * Audio control and System control
 * `CONSOLE_ENABLE`
-  * Console for debug(+400)
+  * Console for debug
 * `COMMAND_ENABLE`
   * Commands for debug and configuration
 * `COMBO_ENABLE`
@@ -339,8 +366,6 @@ Use these to enable or disable building certain features. The more you have enab
   * Forces the keyboard to wait for a USB connection to be established before it starts up
 * `NO_USB_STARTUP_CHECK`
   * Disables usb suspend check after keyboard startup. Usually the keyboard waits for the host to wake it up before any tasks are performed. This is useful for split keyboards as one half will not get a wakeup call but must send commands to the master.
-* `LINK_TIME_OPTIMIZATION_ENABLE`
-  = Enables Link Time Optimization (`LTO`) when compiling the keyboard.  This makes the process take longer, but can significantly reduce the compiled size (and since the firmware is small, the added time is not noticable).  However, this will automatically disable the old Macros and Functions features automatically, as these break when `LTO` is enabled.  It does this by automatically defining `NO_ACTION_MACRO` and `NO_ACTION_FUNCTION` 
 
 ## USB Endpoint Limitations
 

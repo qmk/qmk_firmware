@@ -225,10 +225,10 @@ void matrix_init(void) {
 uint8_t matrix_scan(void)
 {
     bool changed = false;
-        
+
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
         changed |= read_cols_on_row(raw_matrix, current_row);
-    } 
+    }
 
     debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
 
@@ -290,7 +290,7 @@ static void select_col_analog(uint8_t col) {
 static void mux_pin_control(const uint8_t binary[]) {
     // set pin0
     setPinOutput(col_select_pins[0]);
-    if(binary[0] == 0) {
+    if(binary[2] == 0) {
         writePinLow(col_select_pins[0]);
     }
     else {
@@ -306,7 +306,7 @@ static void mux_pin_control(const uint8_t binary[]) {
     }
     // set pin2
     setPinOutput(col_select_pins[2]);
-    if(binary[2] == 0) {
+    if(binary[0] == 0) {
         writePinLow(col_select_pins[2]);
     }
     else {
