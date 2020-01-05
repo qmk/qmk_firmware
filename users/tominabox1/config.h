@@ -15,12 +15,8 @@
   #define COMBO_TERM 200
 #endif
 
-#ifdef KEYBOARD_treadstone32
-#undef RGBLED_NUM
-#define RGBLED_NUM 5
-// Selection of RGBLIGHT MODE to use.
 #if defined(LED_ANIMATIONS)
-   //#define RGBLIGHT_EFFECT_BREATHING
+   #define RGBLIGHT_EFFECT_BREATHING
    #define RGBLIGHT_EFFECT_RAINBOW_MOOD
    #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
    //#define RGBLIGHT_EFFECT_SNAKE
@@ -30,7 +26,7 @@
    //#define RGBLIGHT_EFFECT_RGB_TEST
    //#define RGBLIGHT_EFFECT_ALTERNATING
 #endif
-#endif
+#define RGBLIGHT_SLEEP
 
 // Bootmagic
 #define BOOTMAGIC_KEY_SALT KC_BSPACE
@@ -39,6 +35,14 @@
 // OLED settings
 #define OLED_FONT_H "users/tominabox1/doug.c"
 #define OLED_DISABLE_TIMEOUT
+
+#ifdef KEYBOARD_treadstone32
+#undef RGBLED_NUM
+#define RGBLED_NUM 5
+#undef RGBLIGHT_LIMIT_VAL
+#define RGBLIGHT_LIMIT_VAL 255
+// Selection of RGBLIGHT MODE to use.
+#endif
 
 // Setup RGB settings for the Dimple.
 #ifdef KEYBOARD_lazydesigners_dimple

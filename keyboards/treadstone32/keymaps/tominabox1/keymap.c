@@ -18,7 +18,7 @@ extern rgblight_config_t rgblight_config;
 #define KC_ENLO  LT(_LOWER, KC_ENT)
 #define KC_SPRA  LT(_RAISE, KC_SPC)
 #define KC_FDOT  LT(_FKEY, KC_DOT)
-  
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT(
   //,---------------------------------------------------------------------------------------------------.
