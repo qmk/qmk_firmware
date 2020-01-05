@@ -27,6 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         QOL56
 #define DESCRIPTION     14x4 Quasi-Ortholinear keyboard
 
+#define USB_MAX_POWER_CONSUMPTION 100
+
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 7

@@ -26,6 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT Modulo pendant
 #define DESCRIPTION The Modular keyboard pendant
 
+#define USB_MAX_POWER_CONSUMPTION 100
+
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 16
