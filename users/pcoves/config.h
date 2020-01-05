@@ -1,2 +1,2 @@
-#define COMBO_TERM 300
-#define COMBO_COUNT 5
+#define COMBO_TERM 200
+#define COMBO_COUNT 8
