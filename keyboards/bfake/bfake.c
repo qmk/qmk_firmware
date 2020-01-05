@@ -17,9 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "bfake.h"
 
-__attribute__ ((weak))
-void matrix_scan_user(void) {}
-
 void backlight_init_ports(void) {
 	setPinOutput(D0);
 	setPinOutput(D1);

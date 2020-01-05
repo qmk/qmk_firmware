@@ -162,6 +162,14 @@ extern layer_state_t layer_state;
 #    include "process_dynamic_macro.h"
 #endif
 
+#ifdef DYNAMIC_KEYMAP_ENABLE
+#   include "dynamic_keymap.h"
+#endif
+
+#ifdef VIA_ENABLE
+#   include "via.h"
+#endif
+
 // Function substitutions to ease GPIO manipulation
 #if defined(__AVR__)
 typedef uint8_t pin_t;
