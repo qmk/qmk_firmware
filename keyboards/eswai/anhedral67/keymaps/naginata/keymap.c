@@ -340,12 +340,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   // 薙刀式
-  bool a = true;
-  if (naginata_state()) {
-    naginata_mode(keycode, record);
-    a = process_naginata(keycode, record);
-  }
-  return a;
+    if (!process_naginata(keycode, record))
+      return false;
   // 薙刀式
 
   return true;

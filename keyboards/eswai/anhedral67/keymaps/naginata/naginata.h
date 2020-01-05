@@ -14,10 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
+
 void naginata_type(void);
 void naginata_clear(void);
+void compress_buffer(int nt);
+bool naginata_lookup(int nt);
 
-void naginata_mode(uint16_t, keyrecord_t *);
+bool process_modifier(uint16_t, keyrecord_t *);
 
 void naginata_on(void);
 void naginata_off(void);
