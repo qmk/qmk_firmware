@@ -22,7 +22,7 @@
   #define memcpy_P(des, src, len) memcpy(des, src, len)
 #endif
 
-#define NGBUFFER 5 // キー入力バッファのサイズ
+#define NGBUFFER 10 // キー入力バッファのサイズ
 
 #ifdef NAGINATA_TATEGAKI
   #define NGUP X_UP
@@ -134,16 +134,6 @@ const uint32_t ng_key[] = {
   [NG_SHFT - NG_Q] = B_SHFT,
 };
 
-// 薙刀式カナ変換テーブル
-// 順序つき（オリジナル薙刀式にはキーを押す順序は関係ないが、順序を考慮した同時押しも定義可能）
-// (現在無効)
-// #ifdef NAGINATA_JDOUJI
-// typedef struct {
-//   uint32_t key[3];
-//   char kana[5];
-// } naginata_keymap_ordered;
-// #endif
-
 // 順序なし
 typedef struct {
   uint32_t key;
@@ -161,14 +151,6 @@ typedef struct {
   uint32_t key;
   char kana[10];
 } naginata_keymap_unicode;
-
-// (現在無効)
-// #ifdef NAGINATA_JDOUJI
-// const PROGMEM naginata_keymap_ordered ngmapo[] = {
-//   {.key = {NG_K, NG_E, 0}   , .kana = "ite"},
-//   {.key = {NG_L, NG_D, 0}   , .kana = "uto"},
-// };
-// #endif
 
 const PROGMEM naginata_keymap ngmap[] = {
   // 単独
@@ -256,7 +238,36 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_F|B_N           , .kana = "da"},
   {.key = B_F|B_DOT         , .kana = "bu"},
 
+  // 濁音+シフト(連続シフト)
+  {.key = B_SHFT|B_J|B_W    , .kana = "ba"},
+  {.key = B_SHFT|B_J|B_E    , .kana = "de"},
+  {.key = B_SHFT|B_J|B_R    , .kana = "ji"},
+  {.key = B_SHFT|B_F|B_U    , .kana = "za"},
+  {.key = B_SHFT|B_F|B_O    , .kana = "zu"},
+  {.key = B_SHFT|B_F|B_P    , .kana = "be"},
+  {.key = B_SHFT|B_J|B_A    , .kana = "ze"},
+  {.key = B_SHFT|B_J|B_S    , .kana = "gi"},
+  {.key = B_SHFT|B_J|B_D    , .kana = "do"},
+  {.key = B_SHFT|B_J|B_F    , .kana = "ga"},
+  {.key = B_SHFT|B_J|B_G    , .kana = "di"},
+  {.key = B_SHFT|B_F|B_H    , .kana = "gu"},
+  {.key = B_SHFT|B_F|B_L    , .kana = "du"},
+  {.key = B_SHFT|B_J|B_Z    , .kana = "bo"},
+  {.key = B_SHFT|B_J|B_X    , .kana = "bi"},
+  {.key = B_SHFT|B_J|B_C    , .kana = "ge"},
+  {.key = B_SHFT|B_J|B_V    , .kana = "go"},
+  {.key = B_SHFT|B_J|B_B    , .kana = "zo"},
+  {.key = B_SHFT|B_F|B_N    , .kana = "da"},
+  {.key = B_SHFT|B_F|B_DOT  , .kana = "bu"},
+
   // 半濁音
+  {.key = B_M|B_W           , .kana = "pa"},
+  {.key = B_M|B_X           , .kana = "pi"},
+  {.key = B_V|B_DOT         , .kana = "pu"},
+  {.key = B_V|B_P           , .kana = "pe"},
+  {.key = B_M|B_Z           , .kana = "po"},
+
+  // 半濁音+シフト(連続シフト)
   {.key = B_M|B_W           , .kana = "pa"},
   {.key = B_M|B_X           , .kana = "pi"},
   {.key = B_V|B_DOT         , .kana = "pu"},
@@ -298,6 +309,29 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_E|B_O           , .kana = "ryu"},
   {.key = B_E|B_I           , .kana = "ryo"},
 
+  // 拗音同時+シフト(連続シフト)
+  {.key = B_SHFT|B_S|B_SCLN , .kana = "kya"},
+  {.key = B_SHFT|B_S|B_O    , .kana = "kyu"},
+  {.key = B_SHFT|B_S|B_I    , .kana = "kyo"},
+  {.key = B_SHFT|B_R|B_SCLN , .kana = "sya"},
+  {.key = B_SHFT|B_R|B_O    , .kana = "syu"},
+  {.key = B_SHFT|B_R|B_I    , .kana = "syo"},
+  {.key = B_SHFT|B_G|B_SCLN , .kana = "tya"},
+  {.key = B_SHFT|B_G|B_O    , .kana = "tyu"},
+  {.key = B_SHFT|B_G|B_I    , .kana = "tyo"},
+  {.key = B_SHFT|B_D|B_SCLN , .kana = "nya"},
+  {.key = B_SHFT|B_D|B_O    , .kana = "nyu"},
+  {.key = B_SHFT|B_D|B_I    , .kana = "nyo"},
+  {.key = B_SHFT|B_X|B_SCLN , .kana = "hya"},
+  {.key = B_SHFT|B_X|B_O    , .kana = "hyu"},
+  {.key = B_SHFT|B_X|B_I    , .kana = "hyo"},
+  {.key = B_SHFT|B_W|B_SCLN , .kana = "mya"},
+  {.key = B_SHFT|B_W|B_O    , .kana = "myu"},
+  {.key = B_SHFT|B_W|B_I    , .kana = "myo"},
+  {.key = B_SHFT|B_E|B_SCLN , .kana = "rya"},
+  {.key = B_SHFT|B_E|B_O    , .kana = "ryu"},
+  {.key = B_SHFT|B_E|B_I    , .kana = "ryo"},
+
   // 濁音拗音同時
   {.key = B_J|B_S|B_SCLN    , .kana = "gya"},
   {.key = B_J|B_S|B_O       , .kana = "gyu"},
@@ -312,10 +346,29 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_J|B_X|B_O       , .kana = "byu"},
   {.key = B_J|B_X|B_I       , .kana = "byo"},
 
+  // 濁音拗音同時+シフト(連続シフト)
+  {.key = B_SHFT|B_J|B_S|B_SCLN, .kana = "gya"},
+  {.key = B_SHFT|B_J|B_S|B_O   , .kana = "gyu"},
+  {.key = B_SHFT|B_J|B_S|B_I   , .kana = "gyo"},
+  {.key = B_SHFT|B_J|B_R|B_SCLN, .kana = "jya"},
+  {.key = B_SHFT|B_J|B_R|B_O   , .kana = "jyu"},
+  {.key = B_SHFT|B_J|B_R|B_I   , .kana = "jyo"},
+  {.key = B_SHFT|B_J|B_G|B_SCLN, .kana = "dya"},
+  {.key = B_SHFT|B_J|B_G|B_O   , .kana = "dyu"},
+  {.key = B_SHFT|B_J|B_G|B_I   , .kana = "dyo"},
+  {.key = B_SHFT|B_J|B_X|B_SCLN, .kana = "bya"},
+  {.key = B_SHFT|B_J|B_X|B_O   , .kana = "byu"},
+  {.key = B_SHFT|B_J|B_X|B_I   , .kana = "byo"},
+
   // 半濁音拗音同時
   {.key = B_M|B_X|B_SCLN    , .kana = "pya"},
   {.key = B_M|B_X|B_O       , .kana = "pyu"},
   {.key = B_M|B_X|B_I       , .kana = "pyo"},
+
+  // 半濁音拗音同時+シフト(連続シフト)
+  {.key = B_SHFT|B_M|B_X|B_SCLN, .kana = "pya"},
+  {.key = B_SHFT|B_M|B_X|B_O   , .kana = "pyu"},
+  {.key = B_SHFT|B_M|B_X|B_I   , .kana = "pyo"},
 
   // 外来音
   {.key = B_Q|B_J           , .kana = "va"},
@@ -337,6 +390,26 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_DOT|B_P         , .kana = "fe"},
   {.key = B_DOT|B_N         , .kana = "fo"},
 
+  // 外来音+シフト(連続シフト)
+  {.key = B_SHFT|B_Q|B_J    , .kana = "va"},
+  {.key = B_SHFT|B_Q|B_K    , .kana = "vi"},
+  {.key = B_SHFT|B_Q|B_L    , .kana = "vyu"},
+  {.key = B_SHFT|B_Q|B_P    , .kana = "ve"},
+  {.key = B_SHFT|B_Q|B_N    , .kana = "vo"},
+  {.key = B_SHFT|B_E|B_K    , .kana = "teli"},
+  {.key = B_SHFT|B_E|B_L    , .kana = "telu"},
+  {.key = B_SHFT|B_R|B_P    , .kana = "sye"},
+  {.key = B_SHFT|B_D|B_L    , .kana = "tolu"},
+  {.key = B_SHFT|B_G|B_P    , .kana = "tile"},
+  {.key = B_SHFT|B_L|B_K    , .kana = "uli"},
+  {.key = B_SHFT|B_L|B_P    , .kana = "ule"},
+  {.key = B_SHFT|B_L|B_N    , .kana = "ulo"},
+  {.key = B_SHFT|B_DOT|B_J  , .kana = "fa"},
+  {.key = B_SHFT|B_DOT|B_K  , .kana = "fi"},
+  {.key = B_SHFT|B_DOT|B_L  , .kana = "fyu"},
+  {.key = B_SHFT|B_DOT|B_P  , .kana = "fe"},
+  {.key = B_SHFT|B_DOT|B_N  , .kana = "fo"},
+
   // シフト外来音
   {.key = B_SHFT|B_L|B_J    , .kana = "tula"},
   {.key = B_SHFT|B_L|B_K    , .kana = "tuli"},
@@ -350,8 +423,17 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_D|B_J|B_L       , .kana = "dolu"},
   {.key = B_G|B_J|B_P       , .kana = "dile"},
 
+  // 濁音外来音+シフト(連続シフト)
+  {.key = B_SHFT|B_E|B_J|B_K, .kana = "deli"},
+  {.key = B_SHFT|B_E|B_J|B_L, .kana = "delu"},
+  {.key = B_SHFT|B_R|B_J|B_P, .kana = "je"},
+  {.key = B_SHFT|B_D|B_J|B_L, .kana = "dolu"},
+  {.key = B_SHFT|B_G|B_J|B_P, .kana = "dile"},
+
   // enter
   {.key = B_V|B_M           , .kana = SS_TAP(X_ENTER)},
+  // enter+シフト(連続シフト)
+  {.key = B_SHFT|B_V|B_M    , .kana = SS_TAP(X_ENTER)},
 
   // 編集モード1
   {.key = B_J|B_K|B_E       , .kana = "deli"},
@@ -395,8 +477,8 @@ const PROGMEM naginata_keymap ngmap[] = {
 };
 
 const PROGMEM naginata_keymap_long ngmapl[] = {
-  {.key = B_SHFT|B_T        , .kana = SS_DOWN(X_LSHIFT)SS_TAP(NGLT)SS_UP(X_LSHIFT)},
-  {.key = B_SHFT|B_Y        , .kana = SS_DOWN(X_LSHIFT)SS_TAP(NGRT)SS_UP(X_LSHIFT)},
+  {.key = B_SHFT|B_T        , .kana = SS_LSFT(SS_TAP(NGLT))},
+  {.key = B_SHFT|B_Y        , .kana = SS_LSFT(SS_TAP(NGRT))},
 
   // 編集モード1
   {.key = B_D|B_F|B_P       , .kana = SS_TAP(X_ESCAPE)SS_TAP(X_ESCAPE)SS_TAP(X_ESCAPE)},
@@ -404,24 +486,24 @@ const PROGMEM naginata_keymap_long ngmapl[] = {
   {.key = B_D|B_F|B_K       , .kana = SS_DOWN(X_LSHIFT)SS_TAP(NGUP)SS_UP(X_LSHIFT)},
   {.key = B_D|B_F|B_L       , .kana = SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)SS_TAP(NGUP)},
 
-  {.key = B_D|B_F|B_COMM    , .kana = SS_DOWN(X_LSHIFT)SS_TAP(NGDN)SS_UP(X_LSHIFT)},
+  {.key = B_D|B_F|B_COMM    , .kana = SS_LSFT(SS_TAP(NGDN))},
   {.key = B_D|B_F|B_DOT     , .kana = SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)SS_TAP(NGDN)},
 
 #ifdef NAGINATA_EDIT_WIN
-  {.key = B_J|B_K|B_Q       , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_END)SS_UP(X_LCTRL)},
-  {.key = B_J|B_K|B_W       , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_HOME)SS_UP(X_LCTRL)},
+  {.key = B_J|B_K|B_Q       , .kana = SS_LCTRL(SS_TAP(X_END))},
+  {.key = B_J|B_K|B_W       , .kana = SS_LCTRL(SS_TAP(X_HOME))},
   {.key = B_D|B_F|B_U       , .kana = SS_DOWN(X_LSHIFT)SS_TAP(X_END)SS_UP(X_LSHIFT)SS_TAP(X_BSPACE)},
   {.key = B_D|B_F|B_H       , .kana = SS_TAP(X_ENTER)SS_TAP(X_END)},
   {.key = B_D|B_F|B_Y       , .kana = SS_TAP(X_HOME)},
   {.key = B_D|B_F|B_N       , .kana = SS_TAP(X_END)},
 #endif
 #ifdef NAGINATA_EDIT_MAC
-  {.key = B_J|B_K|B_Q       , .kana = SS_DOWN(X_LGUI)SS_TAP(X_DOWN)SS_UP(X_LGUI)},
-  {.key = B_J|B_K|B_W       , .kana = SS_DOWN(X_LGUI)SS_TAP(X_UP)SS_UP(X_LGUI)},
-  {.key = B_D|B_F|B_U       , .kana = SS_DOWN(X_LSHIFT)SS_DOWN(X_LGUI)SS_TAP(NGDN)SS_UP(X_LGUI)SS_UP(X_LSHIFT)SS_LGUI("x")},
-  {.key = B_D|B_F|B_H       , .kana = SS_TAP(X_ENTER)SS_DOWN(X_LGUI)SS_TAP(NGDN)SS_UP(X_LGUI)},
-  {.key = B_D|B_F|B_Y       , .kana = SS_DOWN(X_LGUI)SS_TAP(NGUP)SS_UP(X_LGUI)},
-  {.key = B_D|B_F|B_N       , .kana = SS_DOWN(X_LGUI)SS_TAP(NGDN)SS_UP(X_LGUI)},
+  {.key = B_J|B_K|B_Q       , .kana = SS_LCMD(SS_TAP(X_DOWN))},
+  {.key = B_J|B_K|B_W       , .kana = SS_LCMD(SS_TAP(X_UP))},
+  {.key = B_D|B_F|B_U       , .kana = SS_LSFT(SS_LCMD(SS_TAP(NGDN)))SS_LGUI("x")},
+  {.key = B_D|B_F|B_H       , .kana = SS_TAP(X_ENTER)SS_LCMD(SS_TAP(NGDN))},
+  {.key = B_D|B_F|B_Y       , .kana = SS_LCMD(SS_TAP(NGUP))},
+  {.key = B_D|B_F|B_N       , .kana = SS_LCMD(SS_TAP(NGDN))},
 #endif
 
   // 編集モード2
@@ -429,12 +511,12 @@ const PROGMEM naginata_keymap_long ngmapl[] = {
   {.key = B_M|B_COMM|B_T    , .kana = SS_TAP(X_HOME)" "SS_TAP(X_END)},
   {.key = B_M|B_COMM|B_G    , .kana = SS_TAP(X_HOME)"   "SS_TAP(X_END)},
   {.key = B_C|B_V|B_U       , .kana = SS_DOWN(X_LSHIFT)SS_TAP(X_HOME)SS_UP(X_LSHIFT)SS_LCTRL("x")},
-  {.key = B_C|B_V|B_I       , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_BSPACE)SS_UP(X_LCTRL)},
+  {.key = B_C|B_V|B_I       , .kana = SS_LCTRL(SS_TAP(X_BSPACE))},
 #endif
 #ifdef NAGINATA_EDIT_MAC
-  {.key = B_M|B_COMM|B_T    , .kana = SS_DOWN(X_LGUI)SS_TAP(NGUP)SS_UP(X_LGUI)" "SS_DOWN(X_LGUI)SS_TAP(X_RIGHT)SS_UP(X_LGUI)},
-  {.key = B_M|B_COMM|B_G    , .kana = SS_DOWN(X_LGUI)SS_TAP(NGUP)SS_UP(X_LGUI)"   "SS_DOWN(X_LGUI)SS_TAP(X_RIGHT)SS_UP(X_LGUI)},
-  {.key = B_C|B_V|B_U       , .kana = SS_DOWN(X_LSHIFT)SS_DOWN(X_LGUI)SS_TAP(NGUP)SS_UP(X_LGUI)SS_UP(X_LSHIFT)SS_LGUI("x")},
+  {.key = B_M|B_COMM|B_T    , .kana = SS_LCMD(SS_TAP(NGUP))" "SS_LCMD(SS_TAP(X_RIGHT))},
+  {.key = B_M|B_COMM|B_G    , .kana = SS_LCMD(SS_TAP(NGUP))"   "SS_LCMD(SS_TAP(X_RIGHT))},
+  {.key = B_C|B_V|B_U       , .kana = SS_LSFT(SS_LCMD(SS_TAP(NGUP)))SS_LGUI("x")},
   {.key = B_C|B_V|B_I       , .kana = ""},
 #endif
 
@@ -531,18 +613,42 @@ void compress_buffer(int n) {
   ng_chrcount -= n;
 }
 
+
 // modifierが押されたら薙刀式レイヤーをオフしてベースレイヤーに戻す
-void process_modifier(uint16_t keycode, keyrecord_t *record) {
-  if (!is_naginata) return;
-  if (get_mods() > 0) {
-    layer_off(naginata_layer);
-  } else {
-    layer_on(naginata_layer);
+// get_mods()がうまく動かない
+static int n_modifier = 0;
+
+bool process_modifier(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case KC_LCTRL:
+    case KC_LSHIFT:
+    case KC_LALT:
+    case KC_LGUI:
+    case KC_RCTRL:
+    case KC_RSHIFT:
+    case KC_RALT:
+    case KC_RGUI:
+      if (record->event.pressed) {
+        n_modifier++;
+        layer_off(naginata_layer);
+      } else {
+        n_modifier--;
+        if (n_modifier == 0) {
+          layer_on(naginata_layer);
+        }
+      }
+      return true;
+      break;
   }
+  return false;
 }
 
 // 薙刀式の入力処理
 bool process_naginata(uint16_t keycode, keyrecord_t *record) {
+  if (!is_naginata) return true;
+
+  if (process_modifier(keycode, record))
+    return true;
 
   if (record->event.pressed) {
     switch (keycode) {
@@ -587,9 +693,6 @@ void naginata_type(void) {
 // バッファの頭からnt文字の範囲を検索キーにしてテーブル検索し、文字に変換して出力する
 // 検索に成功したらtrue、失敗したらfalseを返す
 bool naginata_lookup(int nt) {
-// #ifdef NAGINATA_JDOUJI
-//   naginata_keymap_ordered bngmapo; // PROGMEM buffer
-// #endif
   naginata_keymap bngmap; // PROGMEM buffer
   naginata_keymap_long bngmapl; // PROGMEM buffer
   naginata_keymap_unicode bngmapu; // PROGMEM buffer
@@ -703,22 +806,7 @@ bool naginata_lookup(int nt) {
 #endif
     default:
       // キーから仮名に変換して出力する
-      // 順序つき仮名変換 (現在無効)
-      // #ifdef NAGINATA_JDOUJI
-      // for (int i = 0; i < sizeof(ngmapo) / sizeof(bngmapo); i++) {
-      //   memcpy_P(&bngmapo, &ngmapo[i], sizeof(bngmapo));
-      //   bool jd = true;
-      //   // nt = 1だと、い、う、がヒットしてしまう
-      //   for (int j = 0; j < nt; j++) {
-      //     jd &= (ninputs[j] == bngmapo.key[j]);
-      //   }
-      //   if (jd) {
-      //     send_string(bngmapo.kana);
-      //     compress_buffer(nt);
-      //     return true;
-      //   }
-      // }
-      // #endif
+
       // 通常の仮名
       for (int i = 0; i < sizeof ngmap / sizeof bngmap; i++) {
         memcpy_P(&bngmap, &ngmap[i], sizeof(bngmap));
