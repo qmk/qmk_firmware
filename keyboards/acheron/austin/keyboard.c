@@ -10,11 +10,6 @@
 #include "dynamic_keymap.h"
 #include "tmk_core/common/eeprom.h"
 
-// HACK
-#include "keyboards/wilba_tech/via_api.h" // Temporary hack
-#include "keyboards/wilba_tech/via_keycodes.h" // Temporary hack
-
-
 backlight_config_t kb_backlight_config = {
   .enable = true,
   .breathing = true,
