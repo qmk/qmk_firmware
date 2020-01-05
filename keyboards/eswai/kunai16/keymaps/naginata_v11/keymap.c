@@ -228,13 +228,13 @@ uint16_t timer;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
-  if (record->event.pressed) {
-    uint16_t nowt = timer_read();
-    if (nowt - timer > 5000) {
-      makesure_mode();
-    }
-    timer = nowt;
-  }
+  // if (record->event.pressed) {
+  //   uint16_t nowt = timer_read();
+  //   if (nowt - timer > 5000) {
+  //     makesure_mode();
+  //   }
+  //   timer = nowt;
+  // }
 
   switch (keycode) {
     case ADJUST:

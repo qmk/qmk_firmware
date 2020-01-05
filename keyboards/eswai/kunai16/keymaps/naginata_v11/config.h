@@ -20,9 +20,9 @@
 #define PRODUCT Kunai16 Naginata Style
 
 // 薙刀式
-#define NAGINATA_JDOUJI // 順序つきの同時押しに対応する
-#define NAGINATA_TATEGAKI
-// #define NAGINATA_YOKOGAKI
+// #define NAGINATA_JDOUJI // 順序つきの同時押しに対応する
+// #define NAGINATA_TATEGAKI
+#define NAGINATA_YOKOGAKI
 // #define DEUCALYN
 // #define DWORKMAN
 #define DQGMLWY

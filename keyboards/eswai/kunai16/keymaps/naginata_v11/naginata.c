@@ -37,12 +37,12 @@
 #ifdef NAGINATA_YOKOGAKI
   #define NGUP X_LEFT
   #define NGDN X_RGHT
-  #define NGLT X_DOWN
-  #define NGRT X_UP
+  #define NGLT X_UP
+  #define NGRT X_DOWN
   #define NGKUP KC_LEFT
   #define NGKDN KC_RGHT
-  #define NGKLT KC_DOWN
-  #define NGKRT KC_UP
+  #define NGKLT KC_UP
+  #define NGKRT KC_DOWN
 #endif
 
 static uint8_t ng_chrcount = 0; // 文字キー入力のカウンタ
@@ -136,12 +136,13 @@ const uint32_t ng_key[] = {
 
 // 薙刀式カナ変換テーブル
 // 順序つき（オリジナル薙刀式にはキーを押す順序は関係ないが、順序を考慮した同時押しも定義可能）
-#ifdef NAGINATA_JDOUJI
-typedef struct {
-  uint32_t key[3];
-  char kana[5];
-} naginata_keymap_ordered;
-#endif
+// (現在無効)
+// #ifdef NAGINATA_JDOUJI
+// typedef struct {
+//   uint32_t key[3];
+//   char kana[5];
+// } naginata_keymap_ordered;
+// #endif
 
 // 順序なし
 typedef struct {
@@ -161,12 +162,13 @@ typedef struct {
   char kana[10];
 } naginata_keymap_unicode;
 
-#ifdef NAGINATA_JDOUJI
-const PROGMEM naginata_keymap_ordered ngmapo[] = {
-  {.key = {NG_K, NG_E, 0}   , .kana = "ite"},
-  {.key = {NG_L, NG_D, 0}   , .kana = "uto"},
-};
-#endif
+// (現在無効)
+// #ifdef NAGINATA_JDOUJI
+// const PROGMEM naginata_keymap_ordered ngmapo[] = {
+//   {.key = {NG_K, NG_E, 0}   , .kana = "ite"},
+//   {.key = {NG_L, NG_D, 0}   , .kana = "uto"},
+// };
+// #endif
 
 const PROGMEM naginata_keymap ngmap[] = {
   // 単独
@@ -574,7 +576,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
 void naginata_type(void) {
   // バッファの最初からnt文字目までを検索キーにする。
   // 一致する組み合わせがなければntを減らして=最後の1文字を除いて再度検索する。
-  int nt = ng_chrcount; 
+  int nt = ng_chrcount;
 
   while (nt >= 0) {
     if (naginata_lookup(nt)) return;
@@ -585,9 +587,9 @@ void naginata_type(void) {
 // バッファの頭からnt文字の範囲を検索キーにしてテーブル検索し、文字に変換して出力する
 // 検索に成功したらtrue、失敗したらfalseを返す
 bool naginata_lookup(int nt) {
-#ifdef NAGINATA_JDOUJI
-  naginata_keymap_ordered bngmapo; // PROGMEM buffer
-#endif
+// #ifdef NAGINATA_JDOUJI
+//   naginata_keymap_ordered bngmapo; // PROGMEM buffer
+// #endif
   naginata_keymap bngmap; // PROGMEM buffer
   naginata_keymap_long bngmapl; // PROGMEM buffer
   naginata_keymap_unicode bngmapu; // PROGMEM buffer
@@ -599,7 +601,7 @@ bool naginata_lookup(int nt) {
   for (int i = 0; i < nt; i++) {
     keycomb_buf |= ng_key[ninputs[i] - NG_Q];
   }
-  // リリースしたキーがシフトキーでなければ、連続シフトを有効にする
+  // 連続シフトを有効にする
   if ((keycomb & B_SHFT) == B_SHFT) keycomb_buf |= B_SHFT;
 
   // 編集モードを連続する
@@ -607,6 +609,12 @@ bool naginata_lookup(int nt) {
   if ((keycomb & (B_C | B_V))    == (B_C | B_V))    keycomb_buf |= (B_C | B_V);
   if ((keycomb & (B_J | B_K))    == (B_J | B_K))    keycomb_buf |= (B_J | B_K);
   if ((keycomb & (B_M | B_COMM)) == (B_M | B_COMM)) keycomb_buf |= (B_M | B_COMM);
+
+  // 濁音、半濁音を連続する
+  if ((keycomb & B_F) == B_F) keycomb_buf |= B_F;
+  if ((keycomb & B_J) == B_J) keycomb_buf |= B_J;
+  if ((keycomb & B_V) == B_V) keycomb_buf |= B_V;
+  if ((keycomb & B_M) == B_M) keycomb_buf |= B_M;
 
   switch (keycomb_buf) {
     // send_stringできないキー、長すぎるマクロはここで定義
@@ -695,22 +703,22 @@ bool naginata_lookup(int nt) {
 #endif
     default:
       // キーから仮名に変換して出力する
-      // 順序つき仮名変換
-      #ifdef NAGINATA_JDOUJI
-      for (int i = 0; i < sizeof(ngmapo) / sizeof(bngmapo); i++) {
-        memcpy_P(&bngmapo, &ngmapo[i], sizeof(bngmapo));
-        bool jd = true;
-        // nt = 1だと、い、う、がヒットしてしまう
-        for (int j = 0; j < nt; j++) {
-          jd &= (ninputs[j] == bngmapo.key[j]);
-        }
-        // if (jd) {
-        //   send_string(bngmapo.kana);
-        //   compress_buffer(nt);
-        //   return true;
-        // }
-      }
-      #endif
+      // 順序つき仮名変換 (現在無効)
+      // #ifdef NAGINATA_JDOUJI
+      // for (int i = 0; i < sizeof(ngmapo) / sizeof(bngmapo); i++) {
+      //   memcpy_P(&bngmapo, &ngmapo[i], sizeof(bngmapo));
+      //   bool jd = true;
+      //   // nt = 1だと、い、う、がヒットしてしまう
+      //   for (int j = 0; j < nt; j++) {
+      //     jd &= (ninputs[j] == bngmapo.key[j]);
+      //   }
+      //   if (jd) {
+      //     send_string(bngmapo.kana);
+      //     compress_buffer(nt);
+      //     return true;
+      //   }
+      // }
+      // #endif
       // 通常の仮名
       for (int i = 0; i < sizeof ngmap / sizeof bngmap; i++) {
         memcpy_P(&bngmap, &ngmap[i], sizeof(bngmap));
