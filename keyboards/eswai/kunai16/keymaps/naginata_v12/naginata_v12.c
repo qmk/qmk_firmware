@@ -22,7 +22,7 @@
   #define memcpy_P(des, src, len) memcpy(des, src, len)
 #endif
 
-#define NGBUFFER 5 // キー入力バッファのサイズ
+#define NGBUFFER 10 // キー入力バッファのサイズ
 
 #ifdef NAGINATA_TATEGAKI
   #define NGUP X_UP
@@ -250,12 +250,51 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_F|B_DOT         , .kana = "bu"},
   // {.key = B_F|B_SLSH        , .kana = ""},
 
+  // 濁音+シフト(連続シフト)
+  {.key = B_SHFT|B_J|B_Q    , .kana = ""},
+  {.key = B_SHFT|B_J|B_W    , .kana = "gi"},
+  {.key = B_SHFT|B_J|B_E    , .kana = "de"},
+  {.key = B_SHFT|B_J|B_R    , .kana = "ji"},
+  // {.key = B_SHFT|B_J|B_T    , .kana = ""},
+  // {.key = B_SHFT|B_J|B_Y    , .kana = ""},
+  {.key = B_SHFT|B_F|B_U    , .kana = "za"},
+  // {.key = B_SHFT|B_J|B_I    , .kana = ""},
+  {.key = B_SHFT|B_F|B_O    , .kana = "zu"},
+  {.key = B_SHFT|B_F|B_P    , .kana = "be"},
+  {.key = B_SHFT|B_J|B_A    , .kana = "ze"},
+  {.key = B_SHFT|B_J|B_S    , .kana = "bi"},
+  {.key = B_SHFT|B_J|B_D    , .kana = "do"},
+  {.key = B_SHFT|B_J|B_F    , .kana = "ga"},
+  {.key = B_SHFT|B_J|B_G    , .kana = "di"},
+  {.key = B_SHFT|B_F|B_H    , .kana = "gu"},
+  // {.key = B_SHFT|B_J|B_J    , .kana = ""},
+  // {.key = B_SHFT|B_J|B_K    , .kana = ""},
+  // {.key = B_SHFT|B_F|B_L    , .kana = ""},
+  {.key = B_SHFT|B_F|B_SCLN , .kana = "du"},
+  {.key = B_SHFT|B_J|B_Z    , .kana = "ge"},
+  {.key = B_SHFT|B_J|B_X    , .kana = "bo"},
+  {.key = B_SHFT|B_J|B_C    , .kana = "ba"},
+  {.key = B_SHFT|B_J|B_V    , .kana = "go"},
+  {.key = B_SHFT|B_J|B_B    , .kana = "zo"},
+  {.key = B_SHFT|B_F|B_N    , .kana = "da"},
+  // {.key = B_SHFT|B_J|B_M    , .kana = ""},
+  // {.key = B_SHFT|B_J|B_COMM , .kana = ""},
+  {.key = B_SHFT|B_F|B_DOT  , .kana = "bu"},
+  // {.key = B_SHFT|B_F|B_SLSH , .kana = ""},
+
   // 半濁音
   {.key = B_M|B_C           , .kana = "pa"},
   {.key = B_M|B_S           , .kana = "pi"},
   {.key = B_V|B_DOT         , .kana = "pu"},
   {.key = B_V|B_P           , .kana = "pe"},
   {.key = B_M|B_X           , .kana = "po"},
+
+  // 半濁音+シフト(連続シフト)
+  {.key = B_SHFT|B_M|B_C    , .kana = "pa"},
+  {.key = B_SHFT|B_M|B_S    , .kana = "pi"},
+  {.key = B_SHFT|B_V|B_DOT  , .kana = "pu"},
+  {.key = B_SHFT|B_V|B_P    , .kana = "pe"},
+  {.key = B_SHFT|B_M|B_X    , .kana = "po"},
 
   // 小書き
   {.key = B_SHFT|B_V|B_J    , .kana = "xa"},
@@ -292,6 +331,29 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_E|B_H           , .kana = "ryu"},
   {.key = B_E|B_I           , .kana = "ryo"},
 
+  // 拗音同時+シフト(連続シフト)
+  {.key = B_SHFT|B_W|B_O    , .kana = "kya"},
+  {.key = B_SHFT|B_W|B_H    , .kana = "kyu"},
+  {.key = B_SHFT|B_W|B_I    , .kana = "kyo"},
+  {.key = B_SHFT|B_R|B_O    , .kana = "sya"},
+  {.key = B_SHFT|B_R|B_H    , .kana = "syu"},
+  {.key = B_SHFT|B_R|B_I    , .kana = "syo"},
+  {.key = B_SHFT|B_G|B_O    , .kana = "tya"},
+  {.key = B_SHFT|B_G|B_H    , .kana = "tyu"},
+  {.key = B_SHFT|B_G|B_I    , .kana = "tyo"},
+  {.key = B_SHFT|B_D|B_O    , .kana = "nya"},
+  {.key = B_SHFT|B_D|B_H    , .kana = "nyu"},
+  {.key = B_SHFT|B_D|B_I    , .kana = "nyo"},
+  {.key = B_SHFT|B_S|B_O    , .kana = "hya"},
+  {.key = B_SHFT|B_S|B_H    , .kana = "hyu"},
+  {.key = B_SHFT|B_S|B_I    , .kana = "hyo"},
+  {.key = B_SHFT|B_B|B_O    , .kana = "mya"},
+  {.key = B_SHFT|B_B|B_H    , .kana = "myu"},
+  {.key = B_SHFT|B_B|B_I    , .kana = "myo"},
+  {.key = B_SHFT|B_E|B_O    , .kana = "rya"},
+  {.key = B_SHFT|B_E|B_H    , .kana = "ryu"},
+  {.key = B_SHFT|B_E|B_I    , .kana = "ryo"},
+
   // 濁音拗音同時
   {.key = B_J|B_W|B_O       , .kana = "gya"},
   {.key = B_J|B_W|B_H       , .kana = "gyu"},
@@ -306,10 +368,29 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_J|B_S|B_H       , .kana = "byu"},
   {.key = B_J|B_S|B_I       , .kana = "byo"},
 
+  // 濁音拗音同時+シフト(連続シフト)
+  {.key = B_SHFT|B_J|B_W|B_O, .kana = "gya"},
+  {.key = B_SHFT|B_J|B_W|B_H, .kana = "gyu"},
+  {.key = B_SHFT|B_J|B_W|B_I, .kana = "gyo"},
+  {.key = B_SHFT|B_J|B_R|B_O, .kana = "jya"},
+  {.key = B_SHFT|B_J|B_R|B_H, .kana = "jyu"},
+  {.key = B_SHFT|B_J|B_R|B_I, .kana = "jyo"},
+  {.key = B_SHFT|B_J|B_G|B_O, .kana = "dya"},
+  {.key = B_SHFT|B_J|B_G|B_H, .kana = "dyu"},
+  {.key = B_SHFT|B_J|B_G|B_I, .kana = "dyo"},
+  {.key = B_SHFT|B_J|B_S|B_O, .kana = "bya"},
+  {.key = B_SHFT|B_J|B_S|B_H, .kana = "byu"},
+  {.key = B_SHFT|B_J|B_S|B_I, .kana = "byo"},
+
   // 半濁音拗音同時
   {.key = B_M|B_S|B_O       , .kana = "pya"},
   {.key = B_M|B_S|B_H       , .kana = "pyu"},
   {.key = B_M|B_S|B_I       , .kana = "pyo"},
+
+  // 半濁音拗音同時+シフト(連続シフト)
+  {.key = B_SHFT|B_M|B_S|B_O, .kana = "pya"},
+  {.key = B_SHFT|B_M|B_S|B_H, .kana = "pyu"},
+  {.key = B_SHFT|B_M|B_S|B_I, .kana = "pyo"},
 
   // 外来音
   {.key = B_E|B_V|B_K       , .kana = "texi"},
@@ -341,29 +422,82 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_SCLN|B_V|B_P    , .kana = "tuxe"},
   {.key = B_SCLN|B_V|B_N    , .kana = "tuxo"},
 
+  // 外来音+シフト(連続シフト)
+  {.key = B_SHFT|B_E|B_V|B_K   , .kana = "texi"},
+  {.key = B_SHFT|B_E|B_V|B_H   , .kana = "telyu"},
+
+  {.key = B_SHFT|B_D|B_V|B_L   , .kana = "toxu"},
+
+  {.key = B_SHFT|B_R|B_V|B_P   , .kana = "sye"},
+  {.key = B_SHFT|B_G|B_V|B_P   , .kana = "tixe"},
+
+  {.key = B_SHFT|B_DOT|B_V|B_J , .kana = "fa"},
+  {.key = B_SHFT|B_DOT|B_V|B_K , .kana = "fi"},
+  {.key = B_SHFT|B_DOT|B_V|B_L , .kana = "fyu"},
+  {.key = B_SHFT|B_DOT|B_V|B_P , .kana = "fe"},
+  {.key = B_SHFT|B_DOT|B_V|B_N , .kana = "fo"},
+
+  {.key = B_SHFT|B_L|B_V|B_K   , .kana = "uxi"},
+  {.key = B_SHFT|B_L|B_V|B_P   , .kana = "uxe"},
+  {.key = B_SHFT|B_L|B_V|B_N   , .kana = "uxo"},
+
+  {.key = B_SHFT|B_H|B_V|B_J   , .kana = "kuxa"},
+  {.key = B_SHFT|B_H|B_V|B_K   , .kana = "kuxi"},
+  {.key = B_SHFT|B_H|B_V|B_P   , .kana = "kuxe"},
+  {.key = B_SHFT|B_H|B_V|B_N   , .kana = "kuxo"},
+  {.key = B_SHFT|B_H|B_V|B_L   , .kana = "kulwa"},
+
+  {.key = B_SHFT|B_SCLN|B_V|B_J, .kana = "tuxa"},
+  {.key = B_SHFT|B_SCLN|B_V|B_K, .kana = "tuxi"},
+  {.key = B_SHFT|B_SCLN|B_V|B_P, .kana = "tuxe"},
+  {.key = B_SHFT|B_SCLN|B_V|B_N, .kana = "tuxo"},
+
   // 濁音外来音
-  {.key = B_E|B_J|B_K       , .kana = "dexi"},
-  {.key = B_E|B_J|B_H       , .kana = "delyu"},
+  {.key = B_E|B_J|B_K          , .kana = "dexi"},
+  {.key = B_E|B_J|B_H          , .kana = "delyu"},
 
-  {.key = B_D|B_J|B_L       , .kana = "doxu"},
+  {.key = B_D|B_J|B_L          , .kana = "doxu"},
 
-  {.key = B_R|B_J|B_P       , .kana = "je"},
-  {.key = B_G|B_J|B_P       , .kana = "dixe"},
+  {.key = B_R|B_J|B_P          , .kana = "je"},
+  {.key = B_G|B_J|B_P          , .kana = "dixe"},
 
-  {.key = B_L|B_F|B_J       , .kana = "va"},
-  {.key = B_L|B_F|B_K       , .kana = "vi"},
-  {.key = B_L|B_F|B_H       , .kana = "vyu"},
-  {.key = B_L|B_F|B_P       , .kana = "ve"},
-  {.key = B_L|B_F|B_N       , .kana = "vo"},
+  {.key = B_L|B_F|B_J          , .kana = "va"},
+  {.key = B_L|B_F|B_K          , .kana = "vi"},
+  {.key = B_L|B_F|B_H          , .kana = "vyu"},
+  {.key = B_L|B_F|B_P          , .kana = "ve"},
+  {.key = B_L|B_F|B_N          , .kana = "vo"},
 
-  {.key = B_H|B_F|B_J       , .kana = "guxa"},
-  {.key = B_H|B_F|B_K       , .kana = "guxi"},
-  {.key = B_H|B_F|B_P       , .kana = "guxe"},
-  {.key = B_H|B_F|B_N       , .kana = "guxo"},
-  {.key = B_H|B_F|B_L       , .kana = "gulwa"}, // vyu
+  {.key = B_H|B_F|B_J          , .kana = "guxa"},
+  {.key = B_H|B_F|B_K          , .kana = "guxi"},
+  {.key = B_H|B_F|B_P          , .kana = "guxe"},
+  {.key = B_H|B_F|B_N          , .kana = "guxo"},
+  {.key = B_H|B_F|B_L          , .kana = "gulwa"}, // vyu
+
+  // 濁音外来音+シフト(連続シフト)
+  {.key = B_SHFT|B_E|B_J|B_K   , .kana = "dexi"},
+  {.key = B_SHFT|B_E|B_J|B_H   , .kana = "delyu"},
+
+  {.key = B_SHFT|B_D|B_J|B_L   , .kana = "doxu"},
+
+  {.key = B_SHFT|B_R|B_J|B_P   , .kana = "je"},
+  {.key = B_SHFT|B_G|B_J|B_P   , .kana = "dixe"},
+
+  {.key = B_SHFT|B_L|B_F|B_J   , .kana = "va"},
+  {.key = B_SHFT|B_L|B_F|B_K   , .kana = "vi"},
+  {.key = B_SHFT|B_L|B_F|B_H   , .kana = "vyu"},
+  {.key = B_SHFT|B_L|B_F|B_P   , .kana = "ve"},
+  {.key = B_SHFT|B_L|B_F|B_N   , .kana = "vo"},
+
+  {.key = B_SHFT|B_H|B_F|B_J   , .kana = "guxa"},
+  {.key = B_SHFT|B_H|B_F|B_K   , .kana = "guxi"},
+  {.key = B_SHFT|B_H|B_F|B_P   , .kana = "guxe"},
+  {.key = B_SHFT|B_H|B_F|B_N   , .kana = "guxo"},
+  {.key = B_SHFT|B_H|B_F|B_L   , .kana = "gulwa"}, // vyu
 
   // enter
   {.key = B_V|B_M           , .kana = SS_TAP(X_ENTER)},
+  // enter+シフト(連続シフト)
+  {.key = B_SHFT|B_V|B_M    , .kana = SS_TAP(X_ENTER)},
 
   // 編集モード1
   {.key = B_J|B_K|B_E       , .kana = "dexi"},
@@ -545,6 +679,7 @@ void compress_buffer(int n) {
 
 
 // modifierが押されたら薙刀式レイヤーをオフしてベースレイヤーに戻す
+// get_mods()がうまく動かない
 static int n_modifier = 0;
 
 bool process_modifier(uint16_t keycode, keyrecord_t *record) {
