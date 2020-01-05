@@ -49,8 +49,6 @@ void       altFinish(qk_tap_dance_state_t* state, void* user_data) {
             if (state->pressed) {
                 register_code(KC_LALT);
                 Alt = HOLD1;
-            } else {
-                tap_code(KC_TAB);
             }
             break;
         case 2:
