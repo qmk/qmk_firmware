@@ -103,5 +103,3 @@ void matrix_scan_user(void) {
         tap_code(KC_H);
     }
 }
-
-void led_set_user(uint8_t usb_led) {}

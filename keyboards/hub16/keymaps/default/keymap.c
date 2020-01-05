@@ -141,5 +141,3 @@ void matrix_scan_user(void) {
         unregister_code(KC_WRAP);
     }
 }
-
-void led_set_user(uint8_t usb_led) {}
