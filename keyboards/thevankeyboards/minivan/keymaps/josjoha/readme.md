@@ -180,7 +180,7 @@ index and middle fingers are stronger than ring and pinky fingers.
      P     Power• Wake• Sleep• Pause• ScrLk | PrtSc xxx   Vol+  Vol-  Mute   CapL     // • requires Shift
      Ü     uLNX   uBSD  uOSX   uWIN   uWNC  | xxx   xxx   xxx   xxx   Insert xxx      // Ü(nicode) tester
      ------------------------------------------------------
-     MLed  SLeds RGUI  xxx  | RSft(•) xxx   xxx   LGUI  App                      // Middle-led, Side-leds: on/off
+     MLed  SLeds RGUI  xxx  | RSft(•) xxx   xxx   LGUI  App              // Middle-led, Side-leds: on/off
                            <|>
      <1    <2    <3    <4   | 4>      3>    2>    1>  
 
@@ -204,9 +204,9 @@ assist.
                                       -*-  <|>                                         //(toggle) on _FUN
      BASE     xxx   xxx   .DEL  4LEFT 2DOWN | 8UP   6RGHT *     xxx   xxx   Bspc
      LCtl     1END  2DOWN 3PGDN 4LEFT 5     | 6RGHT 7HOME 8UP   9PGUP 0INS     -
-     LSft     xxx   xxx   /     xxx   =     | +     9PGUP 1END  7HOME 3PGDN RSft
+     LSft     xxx   xxx   /     xxx   =     | +     3PGDN 1END  7HOME 9PGUP RSft
      -*-------------------------------------------------                               //(toggle) on BASE
-     LAlt     Del   xxx   ENT  |  NUML  xxx   LGUI  RAlt
+     LAlt     Del   Tab   ENT  |  NUML  xxx   LGUI  RAlt
                               <|>
 
 Remarks: The keys between `.DEL` and `*`, `+` and `RSft` constitute left handed
@@ -222,7 +222,7 @@ key in `_RAR` (as Shift).
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                         <|>-*-                                         //(toggle) on _FUN
      BASE  áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    ĳĲ    çÇ    øØ    åÅ    Bspc 
-     LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
+     Tab   äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
      LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
      ---------------------------------------------
      LAlt ___   RGUI  Ent  | Spc   xxx   LGUI  xxx
