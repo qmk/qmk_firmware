@@ -1957,11 +1957,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                -*-         <|>                                         //(toggle) on _FUN
      BASE  xxx    xxx   xxx    xxx    xxx   | xxx   Play  Next  Prev  Stop   NumL
      P     Power• Wake• Sleep• Pause• ScrLk | PrtSc xxx   Vol+  Vol-  Mute   CapL     // • requires Shift
-     Ü     uLNX   uBSD  uOSX   uWIN   uWNC  | xxx   xxx   xxx   xxx   Insert RSft(•)  // Ü(nicode) tester
-     ----------------------------------------------
-     MLed  SLeds RGUI  xxx  | xxx   xxx   LGUI  App                      // Middle-led, Side-leds: on/off
+     Ü     uLNX   uBSD  uOSX   uWIN   uWNC  | xxx   xxx   xxx   xxx   Insert xxx      // Ü(nicode) tester
+     ------------------------------------------------------
+     MLed  SLeds RGUI  xxx  | RSft(•) xxx   xxx   LGUI  App                      // Middle-led, Side-leds: on/off
                            <|>
-     <1    <2    <3    <4   | 4>    3>    2>    1>  
+     <1    <2    <3    <4   | 4>      3>    2>    1>  
  */
 //
 //
@@ -1969,9 +1969,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                    ,                  ,                  ,                  , -*-              ,                 <|,>        ,         ,         ,         ,         ,         ,
         CTO_BASE      , XXXXXXX          , XXXXXXX          , XXXXXXX          , XXXXXXX          , XXXXXXX           , XXXXXXX , KC_MPLY , KC_MNXT , KC_MPRV , KC_MSTP , KC_NLCK ,
         S ( KC_P )    , C_KC_PWR         , C_KC_WAKE        , C_KC_SLEP        , C_KC_PAUS        , KC_SLCK           , KC_PSCR , XXXXXXX , KC_VOLU , KC_VOLD , KC_MUTE , KC_CAPS ,
-        X ( CUU_DIA ) , UNICODE_MODE_LNX , UNICODE_MODE_BSD , UNICODE_MODE_OSX , UNICODE_MODE_WIN , UNICODE_MODE_WINC , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_INS  , KC_RSFT ,
+        X ( CUU_DIA ) , UNICODE_MODE_LNX , UNICODE_MODE_BSD , UNICODE_MODE_OSX , UNICODE_MODE_WIN , UNICODE_MODE_WINC , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_INS  , XXXXXXX ,
 //      ------------------------------------------------------------------------------
-        RGB_TOG , LEDS_ON , KC__XGUI , XXXXXXX , XXXXXXX , XXXXXXX , KC__YGUI , KC_APP
+        RGB_TOG , LEDS_ON , KC__XGUI , XXXXXXX , KC_RSFT , XXXXXXX , KC__YGUI , KC_APP
 //              ,         ,          ,       <|,>        ,         ,          ,
 //      <1      , <2      , <3       , <4     |, 4>      , 3>      , 2>       , 1>
                       ),
@@ -1990,9 +1990,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                       -*-  <|>                                         //(toggle) on _FUN
-     BASE     xxx   xxx   .DEL  xxx   xxx   | xxx   xxx   *     xxx   xxx   Bspc
+     BASE     xxx   xxx   .DEL  4LEFT 2DOWN | 8UP   6RGHT *     xxx   xxx   Bspc
      LCtl     1END  2DOWN 3PGDN 4LEFT 5     | 6RGHT 7HOME 8UP   9PGUP 0INS     -
-     LSft     xxx   xxx   /     xxx   =     | +     xxx   xxx   xxx   xxx   RSft
+     LSft     xxx   xxx   /     xxx   =     | +     3PGDN 1END  7HOME 9PGUP RSft
      -*-------------------------------------------------                               //(toggle) on BASE
      LAlt     Del   xxx   ENT  |  NUML  xxx   LGUI  RAlt
                               <|>
@@ -2002,9 +2002,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //
 //      <pink2   , <pinky  , <ring   , <middl      , <index  , <indx2     |, indx2>     , index>  , middl>         , ring>   , pinky>  , pink2>      ,
 //               ,         ,         ,             ,         , -*-       <|,>           ,         ,                ,         ,         ,             ,
-        CTO_BASE , XXXXXXX , XXXXXXX , KC_DOT      , XXXXXXX , XXXXXXX     , XXXXXXX    , XXXXXXX , KC_KP_ASTERISK , XXXXXXX , XXXXXXX , KC_BSPC     ,
+        CTO_BASE , XXXXXXX , XXXXXXX , KC_DOT      , KC_KP_4 , KC_KP_2     , KC_KP_8    , KC_KP_6 , KC_KP_ASTERISK , XXXXXXX , XXXXXXX , KC_BSPC     ,
         KC_LCTL  , KC_KP_1 , KC_KP_2 , KC_KP_3     , KC_KP_4 , KC_KP_5     , KC_KP_6    , KC_KP_7 , KC_KP_8        , KC_KP_9 , KC_KP_0 , KC_KP_MINUS ,
-        KC_LSFT  , XXXXXXX , XXXXXXX , KC_KP_SLASH , XXXXXXX , KC_KP_EQUAL , KC_KP_PLUS , XXXXXXX , XXXXXXX        , XXXXXXX , XXXXXXX , KC_RSFT     ,
+        KC_LSFT  , XXXXXXX , XXXXXXX , KC_KP_SLASH , XXXXXXX , KC_KP_EQUAL , KC_KP_PLUS , KC_KP_3 , KC_KP_1        , KC_KP_7 , KC_KP_9 , KC_RSFT     ,
 //      ------------------------------------------------------------------------------------
         KC_LALT , KC_DEL , XXXXXXX , KC_KP_ENTER , KC_NUMLOCK , XXXXXXX , KC__YGUI , KC_RALT
 //              ,        ,         ,           <|,>           ,         ,          ,

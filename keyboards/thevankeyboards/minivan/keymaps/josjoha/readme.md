@@ -166,6 +166,9 @@ or staying on the `_FUN` layer. Default: return to BASE.
 Remarks. It is fairly easy to switch from this horizontal arrow layout, to a wasd layout which also
 switches left with right hand. See `ARROW_TRIANGLE` and `ARROW_LEFT` #defines at the top of keymap.c.
 
+A memory assist is that the weaker fingers go down and that down is end, it takes power to go up;
+index and middle fingers are stronger than ring and pinky fingers.
+
 - - -
     
     
@@ -175,11 +178,11 @@ switches left with right hand. See `ARROW_TRIANGLE` and `ARROW_LEFT` #defines at
                                -*-         <|>                                         //(toggle) on _FUN
      BASE  xxx    xxx   xxx    xxx    xxx   | xxx   Play  Next  Prev  Stop   NumL
      P     Power• Wake• Sleep• Pause• ScrLk | PrtSc xxx   Vol+  Vol-  Mute   CapL     // • requires Shift
-     Ü     uLNX   uBSD  uOSX   uWIN   uWNC  | xxx   xxx   xxx   xxx   Insert RSft(•)  // Ü(nicode) tester
-     ----------------------------------------------
-     MLed  SLeds RGUI  xxx  | xxx   xxx   LGUI  App                      // Middle-led, Side-leds: on/off
+     Ü     uLNX   uBSD  uOSX   uWIN   uWNC  | xxx   xxx   xxx   xxx   Insert xxx      // Ü(nicode) tester
+     ------------------------------------------------------
+     MLed  SLeds RGUI  xxx  | RSft(•) xxx   xxx   LGUI  App                      // Middle-led, Side-leds: on/off
                            <|>
-     <1    <2    <3    <4   | 4>    3>    2>    1>  
+     <1    <2    <3    <4   | 4>      3>    2>    1>  
 
 Remarks. Ü is a Unicode tester key. uLNX for Linux Unicode input encoding, uBSD
 for BSD Unix, uWIN for Windos, uWNC for another Windos encoding. The
@@ -188,7 +191,9 @@ change is retained between on/off power cycles.
 MLed switches on/off the middle led, SLeds switches on/off the side leds.
 
 The keys marked with • require Shift to be activated, as a means of preventing 
-accidents. The 'P' key in front is meant as a memory assist, it prints the letter.
+accidents. Shift is on (BASE) 'space' which also reduces accidents (combinations
+which are never pressed normally). The 'P' key in front is meant as a memory
+assist.
 
 - - -
     
@@ -197,12 +202,17 @@ accidents. The 'P' key in front is meant as a memory assist, it prints the lette
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                       -*-  <|>                                         //(toggle) on _FUN
-     BASE     xxx   xxx   .DEL  xxx   xxx   | xxx   xxx   *     xxx   xxx   Bspc
+     BASE     xxx   xxx   .DEL  4LEFT 2DOWN | 8UP   6RGHT *     xxx   xxx   Bspc
      LCtl     1END  2DOWN 3PGDN 4LEFT 5     | 6RGHT 7HOME 8UP   9PGUP 0INS     -
-     LSft     xxx   xxx   /     xxx   =     | +     xxx   xxx   xxx   xxx   RSft
+     LSft     xxx   xxx   /     xxx   =     | +     9PGUP 1END  7HOME 3PGDN RSft
      -*-------------------------------------------------                               //(toggle) on BASE
      LAlt     Del   xxx   ENT  |  NUML  xxx   LGUI  RAlt
                               <|>
+
+Remarks: The keys between `.DEL` and `*`, `+` and `RSft` constitute left handed
+navigation clusters. The other keys are on the same locations as their normal
+counter parts. Numlock is on (BASE) 'space', mirroring the special use of that
+key in `_RAR` (as Shift).
 
 - - -
     
