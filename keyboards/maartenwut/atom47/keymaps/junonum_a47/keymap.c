@@ -20,7 +20,6 @@
 #define _DPAD 6
 #define _DPADNUM 7
 
-#define XXXXXX KC_NO
 
 #define SHIFTEN RSFT_T(KC_ENT)
 #define LOWER MO(_LOWER)
@@ -149,4 +148,3 @@ void led_set_user(uint8_t usb_led) {
     	writePinHigh(E6);
     }
 }
-
