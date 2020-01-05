@@ -63,7 +63,7 @@ hs_set fled_hs[2];
 
 void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
   uint8_t r = 0, g = 0, b = 0, base, color;
-  
+
   // if led is front leds, cache the hue and sat values
   if (led1 == &led[RGBLIGHT_FLED1]) {
       fled_hs[0].hue = hue;
@@ -441,10 +441,10 @@ void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool 
       // same static color
       LED_TYPE tmp_led;
       sethsv(hue, sat, val, &tmp_led);
-      
+
       fled_hs[0].hue = fled_hs[1].hue = hue;
       fled_hs[0].sat = fled_hs[1].sat = sat;
-      
+
       rgblight_setrgb(tmp_led.r, tmp_led.g, tmp_led.b);
     } else {
       // all LEDs in same color
@@ -532,36 +532,36 @@ void rgblight_set(void) {
     for (uint8_t i = 0; i < RGBLED_NUM; i++) {
       if (i == RGBLIGHT_FLED1 && i == RGBLIGHT_FLED2)
           continue;
-      
+
       led[i].r = 0;
       led[i].g = 0;
       led[i].b = 0;
     }
   }
-  
+
   switch (fled_mode) {
       case FLED_OFF:
       setrgb(0, 0, 0, &led[RGBLIGHT_FLED1]);
       setrgb(0, 0, 0, &led[RGBLIGHT_FLED2]);
       break;
-      
+
       case FLED_INDI:
       copyrgb(&fleds[0], &led[RGBLIGHT_FLED1]);
       copyrgb(&fleds[1], &led[RGBLIGHT_FLED2]);
       break;
-      
+
       case FLED_RGB:
       if (fled_hs[0].hue == 0 && fled_hs[0].hue == 0 && (rgblight_config.mode >= 15 && rgblight_config.mode <= 23))
           setrgb(0, 0, 0, &led[RGBLIGHT_FLED1]);
       else
         sethsv(fled_hs[0].hue, fled_hs[0].sat, fled_val, &led[RGBLIGHT_FLED1]);
-      
+
       if (fled_hs[1].hue == 0 && fled_hs[1].hue == 0 && (rgblight_config.mode >= 15 && rgblight_config.mode <= 23))
           setrgb(0, 0, 0, &led[RGBLIGHT_FLED2]);
       else
           sethsv(fled_hs[1].hue, fled_hs[1].sat, fled_val, &led[RGBLIGHT_FLED2]);
       break;
-      
+
       default:
       break;
   }
@@ -703,10 +703,10 @@ void rgblight_effect_snake(uint8_t interval) {
     return;
   }
   last_timer = timer_read();
-  
+
   fled_hs[0].hue = fled_hs[1].hue = 0;
   fled_hs[0].sat = fled_hs[1].sat = 0;
-  
+
   for (i = 0; i < RGBLED_NUM; i++) {
     led[i].r = 0;
     led[i].g = 0;
@@ -762,7 +762,7 @@ void rgblight_effect_knight(uint8_t interval) {
           fled_hs[0].hue = fled_hs[1].hue = 0;
           fled_hs[0].sat = fled_hs[1].sat = 0;
       }
-        
+
       led[cur].r = 0;
       led[cur].g = 0;
       led[cur].b = 0;
@@ -816,9 +816,27 @@ void rgblight_effect_rgbtest(void) {
   last_timer = timer_read();
   g = r = b = 0;
   switch( pos ) {
-    case 0: r = maxval; break;
-    case 1: g = maxval; break;
-    case 2: b = maxval; break;
+    case 0:
+      r = maxval;
+      fled_hs[0].hue = 0;
+      fled_hs[0].sat = 255;
+      fled_hs[1].hue = 0;
+      fled_hs[1].sat = 255;
+    break;
+    case 1:
+      g = maxval;
+      fled_hs[0].hue = 85;
+      fled_hs[0].sat = 255;
+      fled_hs[1].hue = 85;
+      fled_hs[1].sat = 255;
+    break;
+    case 2:
+      b = maxval;
+      fled_hs[0].hue = 170;
+      fled_hs[0].sat = 255;
+      fled_hs[1].hue = 170;
+      fled_hs[1].sat = 255;
+    break;
   }
   rgblight_setrgb(r, g, b);
   pos = (pos + 1) % 3;
