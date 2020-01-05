@@ -16,11 +16,15 @@
 
 // EEPROM management code taken from Wilba6582
 // https://github.com/Wilba6582/qmk_firmware/blob/zeal60/keyboards/zeal60/zeal_eeprom.h
- 
+
 #ifndef MXSS_FRONTLED_H
 #define MXSS_FRONTLED_H
 
+#include "quantum.h"
 #include "quantum_keycodes.h"
+#ifdef VIA_ENABLE
+    #include "via.h"
+#endif
 
 // RGBLED index for front LEDs
 #define RGBLIGHT_FLED1 14
@@ -29,13 +33,12 @@
 // Brightness increase step for front LEDs
 #define FLED_VAL_STEP 8
 
-// QMK never uses more then 32bytes of EEPROM, so our region starts there
-// Magic value to verify the state of the EEPROM
-#define EEPROM_MAGIC 0xC3E7
-#define EEPROM_MAGIC_ADDR ((void*)32)
-
 // Front LED settings
-#define EEPROM_FRONTLED_ADDR ((void*)34)
+#ifdef VIA_ENABLE
+    #define EEPROM_FRONTLED_ADDR ((uint8_t*) VIA_EEPROM_CUSTOM_CONFIG_ADDR)
+#else
+    #define EEPROM_FRONTLED_ADDR ((void *) 32)
+#endif
 
 // Modes for front LEDs
 #define FLED_OFF    0b00
@@ -58,24 +61,34 @@ typedef union {
 
 // Structure to store hue and saturation values
 typedef struct _hs_set {
-    uint16_t hue; 
+    uint16_t hue;
     uint8_t sat;
 } hs_set;
 
 // Custom keycodes for front LED control
-enum fled_keycodes {
-  FLED_MOD = SAFE_RANGE,
-  FLED_VAI,
-  FLED_VAD,
-  NEW_SAFE_RANGE // define a new safe range
-};
+#ifdef VIA_ENABLE
+    enum fled_keycodes {
+        FLED_MOD = USER00, // USER00 = VIA custom keycode start
+        FLED_VAI,
+        FLED_VAD,
+        NEW_SAFE_RANGE // define a new safe range
+    };
+#else
+    enum fled_keycodes {
+        FLED_MOD = SAFE_RANGE, // SAFE_RANGE = QMK custom keycode start
+        FLED_VAI,
+        FLED_VAD,
+        NEW_SAFE_RANGE // define a new safe range
+    };
+#endif
 
-bool eeprom_is_valid(void);         // Check if EEPROM has been set up
-void eeprom_set_valid(bool valid);  // Change validity state of EEPROM
 void eeprom_update_conf(void);      // Store current front LED config to EEPROM
 
 void fled_mode_cycle(void);         // Cycle between the 3 modes for the front LEDs
 void fled_val_increase(void);       // Increase the brightness of the front LEDs
 void fled_val_decrease(void);       // Decrease the brightness of the front LEDs
+
+void fled_layer_update(uint32_t);   // Process layer update for front LEDs
+void fled_lock_update(uint8_t);     // Process lock update for front LEDs
 
 #endif //MXSS_FRONTLED_H

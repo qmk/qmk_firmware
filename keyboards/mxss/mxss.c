@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 #include QMK_KEYBOARD_H
 #include "tmk_core/common/eeprom.h"
 #include "tmk_core/common/action_layer.h"
@@ -41,7 +41,13 @@ const size_t lc_size = sizeof(layer_colors) / sizeof(uint16_t);
 
 void matrix_init_kb(void) {
     // If EEPROM config exists, load it
-    if (eeprom_is_valid()) {
+    // If VIA EEPROM exists, FLED config should too
+    #ifdef VIA_ENABLE
+        bool eeprom_valid = via_eeprom_is_valid();
+    #else
+        bool eeprom_valid = true;
+    #endif
+    if (eeprom_valid) {
         fled_config fled_conf;
         fled_conf.raw = eeprom_read_byte(EEPROM_FRONTLED_ADDR);
         fled_mode = fled_conf.mode;
@@ -52,22 +58,15 @@ void matrix_init_kb(void) {
         fled_val = 10 * FLED_VAL_STEP;
         eeprom_update_conf();   // Store default config to EEPROM
     }
-    
+
     // Set default values for leds
     setrgb(0, 0, 0, &fleds[0]);
     setrgb(0, 0, 0, &fleds[1]);
-    
+
     // Handle lighting for indicator mode
     if (fled_mode == FLED_INDI) {
-        // Enable capslock led if enabled on host
-        if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK))
-            sethsv(FLED_CAPS_H, FLED_CAPS_S, fled_val, &fleds[0]);
-        
-        // Determine and set colour of layer LED according to current layer
-        // if hue = sat = 0, leave LED off
-        uint8_t layer = biton32(layer_state);
-        if (layer < lc_size && !(layer_colors[layer].hue == 0 && layer_colors[layer].hue == 0))
-            sethsv(layer_colors[layer].hue, layer_colors[layer].sat, fled_val, &fleds[1]);
+        fled_lock_update(host_keyboard_leds());
+        fled_layer_update(layer_state);
     }
 
 	matrix_init_user();
@@ -87,17 +86,17 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed)
             fled_mode_cycle();
         break;
-        
+
         case FLED_VAI: // Increase the brightness of the front LEDs by FLED_VAL_STEP
         if (record->event.pressed)
             fled_val_increase();
         break;
-        
+
         case FLED_VAD: // Decrease the brightness of the front LEDs by FLED_VAL_STEP
         if (record->event.pressed)
             fled_val_decrease();
         break;
-        
+
         default:
         break; // Process all other keycodes normally
       }
@@ -106,42 +105,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 void led_set_kb(uint8_t usb_led) {
-    // Set indicator LED appropriately, whether it is used or not
-    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-        sethsv(FLED_CAPS_H, FLED_CAPS_S, fled_val, &fleds[0]);
-    } else {
-        setrgb(0, 0, 0, &fleds[0]);
-    }
-
-    rgblight_set();
+    fled_lock_update(usb_led);
 	led_set_user(usb_led);
 }
 
 uint32_t layer_state_set_kb(uint32_t state) {
-    // Determine and set colour of layer LED according to current layer
-    // if hue = sat = 0, leave LED off
-    uint8_t layer = biton32(state);
-    
-    if (layer < lc_size && !(layer_colors[layer].hue == 0 && layer_colors[layer].hue == 0))
-        sethsv(layer_colors[layer].hue, layer_colors[layer].sat, fled_val, &fleds[1]);
-    else
-        setrgb(0, 0, 0, &fleds[1]);
-    
+    fled_layer_update(state);
     return state;
-}
-
-// EEPROM Management
-
-// Test if magic value is present at expected location
-bool eeprom_is_valid(void)
-{
-	return (eeprom_read_word(EEPROM_MAGIC_ADDR) == EEPROM_MAGIC);
-}
-
-// Set magic value at expected location
-void eeprom_set_valid(bool valid)
-{
-	eeprom_update_word(EEPROM_MAGIC_ADDR, valid ? EEPROM_MAGIC : 0xFFFF);
 }
 
 // Store current front led config in EEPROM
@@ -150,15 +120,14 @@ void eeprom_update_conf(void)
     // Create storage struct and set values
     fled_config conf;
     conf.mode = fled_mode;
-    
+
     // Small hack to ensure max value is stored correctly
     if (fled_val == 255)
         conf.val = 256 / FLED_VAL_STEP;
     else
         conf.val = fled_val / FLED_VAL_STEP;
-    
-    // Set magic value and store config
-    eeprom_set_valid(true);
+
+    // Store config
 	eeprom_update_byte(EEPROM_FRONTLED_ADDR, conf.raw);
 }
 
@@ -171,16 +140,16 @@ void fled_mode_cycle(void)
         case FLED_OFF:
         fled_mode = FLED_RGB;
         break;
-        
+
         case FLED_RGB:
         fled_mode = FLED_INDI;
         break;
-        
+
         case FLED_INDI:
         fled_mode = FLED_OFF;
         break;
     }
-    
+
     // Update stored config
     eeprom_update_conf();
     rgblight_set();
@@ -193,7 +162,7 @@ void fled_val_increase(void)
         fled_val = 255;
     else
         fled_val += FLED_VAL_STEP;
-    
+
     // Update stored config
     eeprom_update_conf();
     rgblight_set();
@@ -206,8 +175,30 @@ void fled_val_decrease(void)
         fled_val = 255;
     else
         fled_val -= FLED_VAL_STEP;
-    
+
     // Update stored config
     eeprom_update_conf();
+    rgblight_set();
+}
+
+void fled_layer_update(uint32_t state) {
+    // Determine and set colour of layer LED according to current layer
+    // if hue = sat = 0, leave LED off
+    uint8_t layer = biton32(state);
+
+    if (layer < lc_size && !(layer_colors[layer].hue == 0 && layer_colors[layer].hue == 0))
+        sethsv(layer_colors[layer].hue, layer_colors[layer].sat, fled_val, &fleds[1]);
+    else
+        setrgb(0, 0, 0, &fleds[1]);
+}
+
+void fled_lock_update(uint8_t usb_led) {
+    // Set indicator LED appropriately, whether it is used or not
+    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
+        sethsv(FLED_CAPS_H, FLED_CAPS_S, fled_val, &fleds[0]);
+    } else {
+        setrgb(0, 0, 0, &fleds[0]);
+    }
+
     rgblight_set();
 }
