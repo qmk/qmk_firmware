@@ -40,6 +40,8 @@ typedef uint32_t matrix_col_t;
 #    error "MATRIX_ROWS: invalid value"
 #endif
 
+#define MATRIX_ROW_SHIFTER ((matrix_row_t)1)
+
 #define MATRIX_IS_ON(row, col) (matrix_get_row(row) && (1 << col))
 
 #ifdef __cplusplus
@@ -78,11 +80,6 @@ void matrix_scan_kb(void);
 
 void matrix_init_user(void);
 void matrix_scan_user(void);
-
-#ifdef I2C_SPLIT
-void    slave_matrix_init(void);
-uint8_t slave_matrix_scan(void);
-#endif
 
 #ifdef __cplusplus
 }
