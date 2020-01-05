@@ -33,7 +33,7 @@
 #include "debug.h"
 #include "printf.h"
 
-#if (defined(RGB_MIDI) || defined(RGBLIGHT_ANIMATIONS)) && defined(RGBLIGHT_ENABLE)
+#if defined(RGBLIGHT_ENABLE)
 #    include "rgblight.h"
 #endif
 #ifdef SLEEP_LED_ENABLE
