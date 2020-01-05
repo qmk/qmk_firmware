@@ -543,18 +543,41 @@ void compress_buffer(int n) {
   ng_chrcount -= n;
 }
 
+
 // modifierが押されたら薙刀式レイヤーをオフしてベースレイヤーに戻す
-void process_modifier(uint16_t keycode, keyrecord_t *record) {
-  if (!is_naginata) return;
-  if (get_mods() > 0) {
-    layer_off(naginata_layer);
-  } else {
-    layer_on(naginata_layer);
+static int n_modifier = 0;
+
+bool process_modifier(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case KC_LCTRL:
+    case KC_LSHIFT:
+    case KC_LALT:
+    case KC_LGUI:
+    case KC_RCTRL:
+    case KC_RSHIFT:
+    case KC_RALT:
+    case KC_RGUI:
+      if (record->event.pressed) {
+        n_modifier++;
+        layer_off(naginata_layer);
+      } else {
+        n_modifier--;
+        if (n_modifier == 0) {
+          layer_on(naginata_layer);
+        }
+      }
+      return true;
+      break;
   }
+  return false;
 }
 
 // 薙刀式の入力処理
 bool process_naginata(uint16_t keycode, keyrecord_t *record) {
+  if (!is_naginata) return true;
+
+  if (process_modifier(keycode, record))
+    return true;
 
   if (record->event.pressed) {
     switch (keycode) {
