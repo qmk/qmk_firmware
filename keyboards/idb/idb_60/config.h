@@ -20,9 +20,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0x6060 // idb Keyboards
-#define PRODUCT_ID   0x6060 // idb 60
-#define DEVICE_VER   0x0001
+#define VENDOR_ID    	0x494b // idb Keyboards
+#define PRODUCT_ID  	0x0001 // idb 60
+#define DEVICE_VER   	0x0001
 #define MANUFACTURER    idb Keyboards
 #define PRODUCT         idb 60
 #define DESCRIPTION     QMK keyboard firmware for idb 60
