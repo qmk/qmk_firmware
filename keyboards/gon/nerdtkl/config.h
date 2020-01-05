@@ -4,11 +4,11 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define PRODUCT_ID      0x6965
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    GON
-#define PRODUCT         NerD
-#define DESCRIPTION     QMK port for the GON Nerd PCB
+#define PRODUCT         NerD TKL
+#define DESCRIPTION     QMK port for the GON NerD TKL PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 10
