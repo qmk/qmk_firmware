@@ -8,7 +8,6 @@ For more information regarding the keyboard, please visit the [Hub16 Webpage](ht
 * Hardware Supported: Hub16 PCB (atmega32u4)
 * Hardware Availability: [Josh Johnson](https://www.joshajohnson.com/hub16-keyboard/)
 
-
 Make example for this keyboard (after setting up your build environment):
 
     make hub16:default
