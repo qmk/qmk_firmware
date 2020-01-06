@@ -1,20 +1,16 @@
 # Minivan (Dvorak²)
 
 A 40% keyboard made by https://thevankeyboards.com This Dvorak keymap is for
-the default 12x12x12x8 arrangement.
+the default 12x12x12x8 arrangement (44 keys).
 
-![Minivan layout Image](https://i.postimg.cc/BvgMMv0c/minivan-layer0-900.jpg)
-![Minivan layout Image](https://i.postimg.cc/VvSgfBbD/minivan-layer1-900.jpg)
-![Minivan layout Image](https://i.postimg.cc/BQKpRp3v/minivan-layer2-900.jpg)
-![Minivan layout Image](https://i.postimg.cc/Y9PNsGyg/minivan-layer3b-900.jpg)
-![Minivan layout Image](https://i.postimg.cc/HsXKbdV3/minivan-layer4-900.jpg)
-![Minivan layout Image](https://i.postimg.cc/ZRjfw5rz/minivan-layer5-900.jpg)
-![Minivan layout Image](https://i.postimg.cc/L4Z0M2BR/minivan-layer6-900.jpg)
-![Minivan layout Image](https://i.postimg.cc/FHsH6W5t/minivan-layer7-900.jpg)
-
-The accented characters would likely cover Dutch, German, French, Finnish,
-Norwegian, Swedish, Italian and Spanish, besides English (Unicode input).
-It has two Unicode layers, so that the dead-keys system can be de-activated.
+![Minivan layout Image 0](https://i.postimg.cc/BvgMMv0c/minivan-layer0-900.jpg)
+![Minivan layout Image 1](https://i.postimg.cc/VvSgfBbD/minivan-layer1-900.jpg)
+![Minivan layout Image 2](https://i.postimg.cc/BQKpRp3v/minivan-layer2-900.jpg)
+![Minivan layout Image 3b](https://i.postimg.cc/Y9PNsGyg/minivan-layer3b-900.jpg)
+![Minivan layout Image 4](https://i.postimg.cc/HsXKbdV3/minivan-layer4-900.jpg)
+![Minivan layout Image 5](https://i.postimg.cc/ZRjfw5rz/minivan-layer5-900.jpg)
+![Minivan layout Image 6](https://i.postimg.cc/L4Z0M2BR/minivan-layer6-900.jpg)
+![Minivan layout Image 7](https://i.postimg.cc/G2frfBSw/minivan-layer7-900.jpg)
 
 This keymap allows the same layout on a computer that is already set to Dvorak
 on the computer side, such as a laptop that you need the built-in keyboard to be
@@ -254,7 +250,7 @@ Remarks. This layer is seamlessly activated with 'descramble'
      LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
      LSft 「─    」━   °〇   •§    …·    | ⮘⮙    ⮚⮛    ¿¡    《┄    》┅   RSft
      ---------------------------------------------
-     LAlt xxx   RGUI  Ent  | Spc   xxx   LGUI  ___
+     LAlt Del   RGUI  Ent  | Spc   xxx   LGUI  ___
                           <|>                  -*-                                       //(hold) on BASE
      <1   <2    <3    <4   | 4>    3>    2>    1>  
 
@@ -343,7 +339,7 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   which needs to be learned.
 
   On all layers possible / needed the modifiers are in their usual spots,
-  and so is backspace, Delete (see also section above).
+  and so is backspace, Delete.
 
   Because one often uses an F-key only once, the layer switches back
   to BASE after an F-key is used. This can be disabled/enabled with the
