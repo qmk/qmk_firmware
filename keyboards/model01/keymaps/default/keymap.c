@@ -110,7 +110,7 @@ void rgb_matrix_indicators_user(void) {
 }
 #else   /* no RGB matrix support */
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   if (state & (1<<NUM)) {
     set_numpad_colours(1, &set_led_to);
   } else {

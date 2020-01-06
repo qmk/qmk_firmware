@@ -10,7 +10,7 @@
 #endif
 
 #ifndef BACKLIGHT_ON_STATE
-#    define BACKLIGHT_ON_STATE 0
+#    define BACKLIGHT_ON_STATE 1
 #endif
 
 #ifdef BACKLIGHT_PINS
@@ -20,6 +20,7 @@
         { BACKLIGHT_PIN }
 #endif
 
+static uint16_t    s_duty_pattern   = 0;
 static const pin_t backlight_pins[] = BACKLIGHT_PIN_INIT;
 #define BACKLIGHT_LED_COUNT (sizeof(backlight_pins) / sizeof(pin_t))
 
@@ -46,14 +47,38 @@ void backlight_off(pin_t backlight_pin) {
 }
 
 void backlight_init_ports(void) {
-    // Setup backlight pin as output and output to on state.
-    FOR_EACH_LED(setPinOutput(backlight_pin); backlight_on(backlight_pin);)
+    // Setup backlight pin as output and output to off state.
+    FOR_EACH_LED(setPinOutput(backlight_pin); backlight_off(backlight_pin);)
 }
+
+// clang-format off
+
+/** \brief PWM duty patterns
+ *
+ * We scale the current backlight level to an index within this array. This allows
+ * backlight_task to focus on just switching LEDs on/off, and we can predict the duty pattern
+ */
+static uint16_t backlight_duty_table[] = {
+    0b0000000000000000,
+    0b1000000000000000,
+    0b1000000010000000,
+    0b1000001000010000,
+    0b1000100010001000,
+    0b1001001001001000,
+    0b1010101010101010,
+    0b1110111011101110,
+    0b1111111111111111,
+};
+#define backlight_duty_table_size (sizeof(backlight_duty_table) / sizeof(backlight_duty_table[0]))
+
+// clang-format on
+
+static uint8_t scale_backlight(uint8_t v) { return v * (backlight_duty_table_size - 1) / BACKLIGHT_LEVELS; }
 
 void backlight_task(void) {
     static uint8_t backlight_tick = 0;
 
-    if ((0xFFFF >> (get_backlight_level() * ((BACKLIGHT_LEVELS + 1) / 2))) & (1 << backlight_tick)) {
+    if (s_duty_pattern & ((uint16_t)1 << backlight_tick)) {
         FOR_EACH_LED(backlight_on(backlight_pin);)
     } else {
         FOR_EACH_LED(backlight_off(backlight_pin);)
@@ -61,6 +86,4 @@ void backlight_task(void) {
     backlight_tick = (backlight_tick + 1) % 16;
 }
 
-void backlight_set(uint8_t level) {
-    // noop as backlight_task uses get_backlight_level()
-}
+void backlight_set(uint8_t level) { s_duty_pattern = backlight_duty_table[scale_backlight(level)]; }

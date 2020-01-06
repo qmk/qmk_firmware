@@ -19,7 +19,7 @@ De cualquier manera, también puedes descargarlo directamente en formatos ([zip]
 
 ## Cómo compilar
 
-Antes de poder compilar, necesitarás [instalar un entorno](getting_started_build_tools.md) para el desarrollo de AVR y/o ARM. Una vez hayas completado este paso, usarás el comando `make` para compilar un teclado y keymap con la siguiente notación:
+Antes de poder compilar, necesitarás [instalar un entorno](es/getting_started_build_tools.md) para el desarrollo de AVR y/o ARM. Una vez hayas completado este paso, usarás el comando `make` para compilar un teclado y keymap con la siguiente notación:
 
     make planck/rev4:default
 
@@ -29,4 +29,4 @@ Este ejemplo compilaría la revisión `rev4` del teclado `planck` con el keymap 
 
 ## Cómo personalizar
 
-QMK tiene montones de [características](features.md) para explorar, y una buena cantidad de [documentación de referencia](http://docs.qmk.fm) en la que sumergirse. Se pueden sacar provecho de la mayoría de las características modificando tu [keymap](keymap.md), y cambiando los [keycodes](keycodes.md).
+QMK tiene montones de [características](es/features.md) para explorar, y una buena cantidad de [documentación de referencia](http://docs.qmk.fm) en la que sumergirse. Se pueden sacar provecho de la mayoría de las características modificando tu [keymap](es/keymap.md), y cambiando los [keycodes](es/keycodes.md).

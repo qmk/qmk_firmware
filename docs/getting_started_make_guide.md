@@ -59,7 +59,7 @@ To disable debug messages (*dprint*) and reduce the .hex file size, include `#de
 
 To disable print messages (*print*, *xprintf*) and user print messages (*uprint*) and reduce the .hex file size, include `#define NO_PRINT` in your `config.h` file.
 
-To disable print messages (*print*, *xprintf*) and **KEEP** user print messages (*uprint*), include `#define USER_PRINT` in your `config.h` file.
+To disable print messages (*print*, *xprintf*) and **KEEP** user print messages (*uprint*), include `#define USER_PRINT` in your `config.h` file (do not also include `#define NO_PRINT` in this case).
 
 To see the text, open `hid_listen` and enjoy looking at your printed messages.
 
