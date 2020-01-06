@@ -1,4 +1,4 @@
-# Minivan
+# Minivan (Dvorak²)
 
 A 40% keyboard made by https://thevankeyboards.com This Dvorak keymap is for
 the default 12x12x12x8 arrangement.
@@ -324,24 +324,97 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
       of tap delay. QMK allows one to press-hold to the numerical layer
       for example, then press a right modifier like right Control, release
       numerical layer, and access the base layer with that modifier
-      (Right-Contro-A for example); so it is still possible, just not
-      needed, Left-Control-A will suffice in all to me known cases.)
+      (Right-Control-A for example); so it is still possible, just not
+      needed, Left-Control-A will suffice in all to me known cases.
 
-    - Exception: Right Alt on the base layer is taken off, instead it switches to
-      an accented letters layer. It becomes a bit like a private subset
-      of AltGr symbols.
+    - Exception: Right Alt on the base layer is taken off, instead it switches
+      to the accented letters layer. It becomes a bit like a private subset
+      of AltGr symbols, but easier to remember where is what letter.
 
     - LGUI is the only one on the BASE layer of the two GUIs (or OS keys
       or other names for these keys). You can switch the RGUI for LGUI
       with a #define in keymap.c.
 
 
-  **Device Space**
-  
-     (…)
-     Checking file size of thevankeyboards_minivan_josjoha.hex               [WARNINGS]
-     * The firmware size is approaching the maximum - 28384/28672 (98%, 288 bytes free)
 
+  Why you want this layout
+  ========================
+
+  This layout is easy to learn and predictable, assuming you are a Dvorak typer:
+
+  The Dvorak layer (BASE) is an unaltered standard Dvorak layout. Despite the
+  crammed space, you have left & rigth arrow, GUI, Backspace, Delete and Esc.
+  The tap keys are typically keys that you do not use when in fluent typing (enter, 
+  tab, etc).
+
+  Every time you have 0-9 enumerations / numbers, they are on the same fingers 
+  as a standard keyboard, except on the home row (numbers, numpad numbers, F-keys,
+  super- and sub-script numbers).
+
+  The symbols normally reached by shifting a number, are also still on the same
+  fingers. Now on the third row, accessed by pressing either thumb NUMS key.
+  This means you can reach the entire alpha-numerical set in two layers. There
+  being two NUMS keys makes the NUMS layer the most comfortable to reach.
+
+  The lowest symbols row copies the logic that the braces are normally under right
+  hand ring and pinky fingers (numbers 90), and therefore on this second row
+  the parathesis and square brackets are also on the ring and pinky fingers.
+  All the unshifted symbols are on the left hand, and they mirror over to the
+  right hand.  The / next to \ is easier to recall (I think). Then come =+|?,
+  which needs to be learned.
+
+  On all layers possible / needed the modifiers are in their usual spots, and so is
+  backspace, Delete (see also section above).
+
+  Because one often uses an F-key only once, the layer switches back to BASE
+  after an F-key is used. This can be disabled/enabled with the appropriate key
+  stroke on that layer. Because it is hard to touch more than 3 keys, there are
+  modifier combination keys on this layer. The logic is that they are written
+  left to right, starting from the top with Control plus Shift, then Control
+  plus Alt, etc. They skip some keys. If for whatever reason you need a layer
+  to stay on, you can activate it here.
+
+  With the 'descramble' mode, you never have to fear not being able to use your
+  keyboard. This mode is completely seamless, everything works exactly the same.
+
+  Leds indicate what layer and mode you are in.
+
+  The movement layer is fairly standard, and allows for mouse use. You may want
+  to fiddle it to whatever you are used to. 
+
+  The layer with Power buttons protects you from accidental keystrokes on the
+  critical keys. Media keys arrangement you may want to change to what you are
+  used to. Otherwise it will have to be learned. 
+
+  The number pad layer is quickly in reach on tapping left space. This makes it
+  easy to get to modifdiers Control, Shift and Alt without build in delays (unlike 
+  on BASE layer, where they must share the space). There are some blocks where
+  the number pad navigation comes back, which makes it easier to remember where
+  what is, but it is not so obvious. This will have to be learned if one uses
+  those keys.
+
+  The accented layer makes it possible to set the keyboard in a mode on the
+  computer side without dead-keys, and also to be able to remember where your
+  accented characters are. The locations are fairly intuitive, where possible.
+  The upper row left for example has the vowels, with accents going up. The
+  letter 'å' is on the same finger as 'a' but other hand, etc. Not all is 
+  logical however, or has vague logic (ý being 'near y'). One will have to
+  learn some things by heart.
+ 
+  The last layer adds a fair amount of fun stuff to spice up your text. Some
+  logic is fairly obvious such as ⁽⁾ on the same keys as (), and quotation
+  marks on the same keys as on the BASE layer, while others have vague or no
+  logic to their placement such as ° (Degrees symbol), 🙂 and others, which
+  would have to be learned.
+
+  Conclusion: most is as normal or has some logic to it to help you remember, 
+  a bunch is better than your normal keyboard, some things rarely used will 
+  have to be learned (one can print out the included sheet, see the .ODT file).
+
+  …
+
+  There is also a version for Qwerty typers: 《learn Dvorak》. There you go ;-).
+  
 
   Use case
   ========
@@ -356,11 +429,21 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   difficult to configure / use _hence accented and symbols layer,_ compatibility
   with the Pok3r keyboard _hence the (non)shift symbols on row 2 left side,_
   for use with 3D editing _hence a delete on base layer, Control, Alt, Shift on 
-  left edge and quick toggle access to `_PAD,` on left shift._ 
+  left edge and quick toggle access to `_PAD,` on left shift for faster
+  modifiers and tab key._ 
 
   It seems this keymap should be fine for most usual purposes.
   Some of the more recent key additions like an e-mail button is not on
-  it.
+  it, you can add things like that if you like obviously (some room left
+  on `_RAR`.)
+
+
+  **Device Space**
+  
+     (…)
+     Checking file size of thevankeyboards_minivan_josjoha.hex               [WARNINGS]
+     * The firmware size is approaching the maximum - 28384/28672 (98%, 288 bytes free)
+
 
   BUGS
   ====
