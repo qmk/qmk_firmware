@@ -706,22 +706,20 @@ bool naginata_lookup(int nt) {
     keycomb_buf |= ng_key[ninputs[i] - NG_Q];
   }
 
-  if (nt > 1) {
-    // 連続シフトを有効にする
-    if ((keycomb & B_SHFT) == B_SHFT) keycomb_buf |= B_SHFT;
+  // 連続シフトを有効にする
+  if ((keycomb & B_SHFT) == B_SHFT) keycomb_buf |= B_SHFT;
 
-    // 編集モードを連続する
-    if ((keycomb & (B_D | B_F))    == (B_D | B_F))    keycomb_buf |= (B_D | B_F);
-    if ((keycomb & (B_C | B_V))    == (B_C | B_V))    keycomb_buf |= (B_C | B_V);
-    if ((keycomb & (B_J | B_K))    == (B_J | B_K))    keycomb_buf |= (B_J | B_K);
-    if ((keycomb & (B_M | B_COMM)) == (B_M | B_COMM)) keycomb_buf |= (B_M | B_COMM);
+  // 編集モードを連続する
+  if ((keycomb & (B_D | B_F))    == (B_D | B_F))    keycomb_buf |= (B_D | B_F);
+  if ((keycomb & (B_C | B_V))    == (B_C | B_V))    keycomb_buf |= (B_C | B_V);
+  if ((keycomb & (B_J | B_K))    == (B_J | B_K))    keycomb_buf |= (B_J | B_K);
+  if ((keycomb & (B_M | B_COMM)) == (B_M | B_COMM)) keycomb_buf |= (B_M | B_COMM);
 
-    // 濁音、半濁音を連続する
-    if ((keycomb & B_F) == B_F) keycomb_buf |= B_F;
-    if ((keycomb & B_J) == B_J) keycomb_buf |= B_J;
-    if ((keycomb & B_V) == B_V) keycomb_buf |= B_V;
-    if ((keycomb & B_M) == B_M) keycomb_buf |= B_M;
-  }
+  // 濁音、半濁音を連続する
+  if ((keycomb & B_F) == B_F) keycomb_buf |= B_F;
+  if ((keycomb & B_J) == B_J) keycomb_buf |= B_J;
+  if ((keycomb & B_V) == B_V) keycomb_buf |= B_V;
+  if ((keycomb & B_M) == B_M) keycomb_buf |= B_M;
 
   switch (keycomb_buf) {
     // send_stringできないキー、長すぎるマクロはここで定義
