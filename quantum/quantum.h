@@ -149,6 +149,10 @@ extern layer_state_t layer_state;
     #include "dip_switch.h"
 #endif
 
+#ifdef DYNAMIC_MACRO_ENABLE
+    #include "process_dynamic_macro.h"
+#endif
+
 
 // Function substitutions to ease GPIO manipulation
 #if defined(__AVR__)
