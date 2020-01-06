@@ -30,7 +30,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LAYER_1] = LAYOUT_gergo(
             KC_F2,     KC_1,      KC_2,      KC_3,      KC_4,      KC_5,                                                KC_6,      KC_7,      KC_8,      KC_9,      KC_0,      RESET,
             KC_F3,     _______,   KC_HOME,   KC_PGDN,   KC_PGUP,   KC_END,  _______,                         _______,   KC_LEFT,   KC_DOWN,   KC_UP,     KC_RGHT,   _______,   EEP_RST,
+#if SECRET_ENABLE
             KC_F4,     SECRET0,   SECRET1,   SECRET2,   SECRET3,   SECRET4, _______,   _______,   _______,   _______,   EMOTE0,    EMOTE1,    EMOTE2,    EMOTE3,    AUTRUCHE,  RU_TOGGLE,
+#else
+            KC_F4,     _______,   _______,   _______,   _______,   _______, _______,   _______,   _______,   _______,   EMOTE0,    EMOTE1,    EMOTE2,    EMOTE3,    AUTRUCHE,  RU_TOGGLE,
+#endif
                                                         _______,   _______, _______,   _______,   _______,   _______,   _______,   _______
             ),
 };
