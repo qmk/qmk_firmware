@@ -4,7 +4,7 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0x4B46  // "KF" as if KbdFans
 #define PRODUCT_ID      0x2260
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KBDFans
