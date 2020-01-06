@@ -5,7 +5,7 @@ the default 12x12x12x8 arrangement (44 keys).
 
 ![Minivan layout Image 0](https://i.postimg.cc/BvgMMv0c/minivan-layer0-900.jpg)
 ![Minivan layout Image 1](https://i.postimg.cc/VvSgfBbD/minivan-layer1-900.jpg)
-![Minivan layout Image 2](https://i.postimg.cc/BQKpRp3v/minivan-layer2-900.jpg)
+![Minivan layout Image 2](https://i.postimg.cc/Mp4rQy4Q/minivan-layer2.jpg)
 ![Minivan layout Image 3b](https://i.postimg.cc/Y9PNsGyg/minivan-layer3b-900.jpg)
 ![Minivan layout Image 4](https://i.postimg.cc/x1H1wPKf/minivan-layer4-900.jpg)
 ![Minivan layout Image 5](https://i.postimg.cc/ZRjfw5rz/minivan-layer5-900.jpg)
