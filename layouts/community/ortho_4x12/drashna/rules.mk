@@ -2,7 +2,6 @@ BOOTMAGIC_ENABLE   = lite       # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE    = no       # Mouse keys(+4700)
 EXTRAKEY_ENABLE    = yes       # Audio control and System control(+450)
 TAP_DANCE_ENABLE   = no
-AUDIO_ENABLE       = yes
 SPACE_CADET_ENABLE = no
 NKRO_ENABLE        = yes
 
@@ -11,20 +10,22 @@ ifneq ($(strip $(KEYBOARD)), planck/rev6)
     COMMAND_ENABLE    			= no
     ifeq ($(strip $(LAYOUT_HAS_RGB)), yes)
         RGBLIGHT_ENABLE         = yes
-	endif
-    INDICATOR_LIGHTS            = yes
-    RGBLIGHT_TWINKLE            = yes
-    RGBLIGHT_STARTUP_ANIMATION  = yes
+        INDICATOR_LIGHTS            = yes
+        RGBLIGHT_TWINKLE            = yes
+        RGBLIGHT_STARTUP_ANIMATION  = yes
+    endif
 else
     CONSOLE_ENABLE    			= yes
     COMMAND_ENABLE    			= yes
-    RGBLIGHT_ENABLE             = no
-    RGB_MATRIX_ENABLE           = WS2812
+    RGBLIGHT_ENABLE             = yes
+    RGB_MATRIX_ENABLE           = no
+    AUDIO_ENABLE       			= yes
 endif
 ifeq ($(strip $(KEYBOARD)), planck/light)
     RGB_MATRIX_ENABLE           = yes
-    RGBLIGHT_ENABLE             = no
-    RGBLIGHT_STARTUP_ANIMATION  = no
+    RGBLIGHT_ENABLE             = yes
+    RGBLIGHT_STARTUP_ANIMATION  = yes
+    AUDIO_ENABLE       			= yes
     # HAPTIC_ENABLE               += SOLENOID
 endif
 ifeq ($(strip $(KEYBOARD)), planck/ez)
@@ -37,4 +38,5 @@ ifeq ($(strip $(KEYBOARD)), planck/ez)
     RGBLIGHT_STARTUP_ANIMATION  = yes
     CONSOLE_ENABLE    			= yes
     COMMAND_ENABLE    			= yes
+    AUDIO_ENABLE       			= yes
 endif
