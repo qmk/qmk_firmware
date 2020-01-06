@@ -30,14 +30,14 @@ int main(void) {
     printf("#define RGBLIGHT_EFFECT_BREATHE_TABLE\n");
     printf("// clang-format off\n\n");
     printf("const uint8_t rgblight_effect_breathe_table[] PROGMEM = {\n");
-    printf("  /* #define RGBLIGHT_EFFECT_BREATHE_CENTER   %.2f */\n", RGBLIGHT_EFFECT_BREATHE_CENTER);
-    printf("  /* #define RGBLIGHT_EFFECT_BREATHE_MAX      %d */\n", RGBLIGHT_EFFECT_BREATHE_MAX);
+    printf("    /* #define RGBLIGHT_EFFECT_BREATHE_CENTER   %.2f */\n", RGBLIGHT_EFFECT_BREATHE_CENTER);
+    printf("    /* #define RGBLIGHT_EFFECT_BREATHE_MAX      %d */\n", RGBLIGHT_EFFECT_BREATHE_MAX);
 
     for (int s = 0, step = (1<<s); s < 3 ; s += 1, step = (1<<s) ) {
         printf("\n #if RGBLIGHT_BREATHE_TABLE_SIZE == %d\n",
                s == 0 ? 256:(s== 1 ? 128: 64));
         for (pos = 0; pos < 256; pos += step ) {
-            printf("  0x%x%s", table[pos], (pos+step)>=256?"":"," );
+            printf("    0x%x%s", table[pos], (pos+step)>=256?"":"," );
             if ((pos+step) % 8 == 0)
                 printf("\n");
         }
