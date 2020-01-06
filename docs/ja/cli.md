@@ -1,8 +1,8 @@
 # QMK CLI
 
 <!---
-  original document: d598f01cb:cli.md
-  git diff d598f01cb HEAD cli.md | cat
+  original document: d598f01cb:docs/cli.md
+  git diff d598f01cb HEAD -- docs/cli.md | cat
 -->
 
 このページは QMK CLI のセットアップと使用方法について説明します。
