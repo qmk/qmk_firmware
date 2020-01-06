@@ -124,6 +124,12 @@ static uint8_t layout_conversion_dip_state = 0;
   )
 #define LAYOUT_base_wrapper(...) LAYOUT_base(__VA_ARGS__)
 
+#ifdef SWAP_HANDS_ENABLE
+#define SW_TG SH_TG
+#else
+#define SW_TG _______
+#endif
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWERTY] = LAYOUT_base_wrapper(QWERTY_base),
@@ -153,7 +159,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   RESET,   DEBUG,   KC_ASUP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
            KC_ASRP, KC_ASTG, XXXXXXX, XXXXXXX, QWERTY,  PLOVER,  \
            BL_ADJ,  KC_ASDN, XXXXXXX, XXXXXXX, TG_ISO,  TG_THMB, \
-                                      _______, SH_TG,   _______  \
+                                      _______, SW_TG,   _______  \
 ),
 #if defined(RGBLIGHT) | defined(BACKLIGHT_ENABLE)
 [_BCKLT_ADJ] = SYMM_LAYOUT(\

@@ -42,6 +42,12 @@ enum jian_keycodes {
   )
 #define LAYOUT_base_wrapper(...) LAYOUT_base(__VA_ARGS__)
 
+#ifdef SWAP_HANDS_ENABLE
+#define SW_TG SH_TG
+#else
+#define SW_TG _______
+#endif
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWERTY] = LAYOUT_base_wrapper(QWERTY_base),
@@ -67,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   RESET,   DEBUG,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
            XXXXXXX,        WORKMAN, COLEMAK, DVORAK,  QWERTY,  XXXXXXX, \
            TG(_BCKLT_ADJ), XXXXXXX, XXXXXXX, XXXXXXX, TG(_ISO),TG(_THUMB_ALT), \
-                                             _______, SH_TG,   _______  \
+                                             _______, SW_TG,   _______  \
 ),
 #if defined(RGBLIGHT) | defined(BACKLIGHT_ENABLE)
 [_BCKLT_ADJ] = SYMM_LAYOUT(\
