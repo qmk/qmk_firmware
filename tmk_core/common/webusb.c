@@ -1,11 +1,14 @@
-#include QMK_KEYBOARD_H
+#include "quantum.h"
 #include <string.h>
 #include "webusb.h"
 #include "wait.h"
+
 webusb_state_t webusb_state = {
   .paired = false,
   .pairing = false,
 };
+
+__attribute__((weak)) bool webusb_receive_quantum(uint8_t *data, uint8_t length) { return false; }
 
 void webusb_receive(uint8_t *data, uint8_t length) {
     uint8_t command = data[0];
@@ -21,7 +24,7 @@ void webusb_receive(uint8_t *data, uint8_t length) {
         return;
     }
 
-    if(command == WEBUSB_GET_FW_VERSION) {
+    if(command == WEBUSB_CMD_GET_FW_VERSION) {
         // Landing page + packet headers(2) + stop bit(1)
         uint8_t lp_size = sizeof(FIRMWARE_VERSION) + 3;
         uint8_t url[lp_size];
@@ -41,29 +44,13 @@ void webusb_receive(uint8_t *data, uint8_t length) {
     }
 
     if(webusb_state.paired == true) {
-        switch(command) {
-            //Handle commands in here
-            case WEBUSB_GET_LAYER:
-                webusb_layer_event();
-                break;
-            default:
-                break;
+        if (!webusb_receive_quantum(data, length)) {
+            webusb_error(WEBUSB_STATUS_UNKNOWN_COMMAND);
         }
     } else {
         webusb_error(WEBUSB_STATUS_NOT_PAIRED);
     }
 };
-
-void webusb_layer_event() {
-    uint8_t layer;
-    uint8_t event[4];
-    layer = biton32(layer_state);
-    event[0] = WEBUSB_STATUS_OK;
-    event[1] = WEBUSB_EVT_LAYER;
-    event[2] = layer;
-    event[3] = WEBUSB_STOP_BIT;
-    webusb_send(event, sizeof(event));
-}
 
 void webusb_error(uint8_t code) {
     uint8_t buffer[1];

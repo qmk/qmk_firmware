@@ -3,7 +3,9 @@
 #include "eeprom.h"
 #include "eeconfig.h"
 #include "action_layer.h"
-
+#ifdef ORYX_ENABLE
+#    include "oryx.h"
+#endif
 #ifdef STM32_EEPROM_ENABLE
 #    include <hal.h>
 #    include "eeprom_stm32.h"
@@ -78,6 +80,9 @@ void eeconfig_init_quantum(void) {
     eeprom_update_dword(EECONFIG_HAPTIC, 0);
 #endif
 
+#ifdef ORYX_ENABLE
+    eeconfig_init_oryx();
+#endif
     eeconfig_init_kb();
 }
 

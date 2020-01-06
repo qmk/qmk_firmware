@@ -258,16 +258,6 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
     planck_ez_right_led_off();
     state = layer_state_set_user(state);
     uint8_t layer = biton32(state);
-#ifdef WEBUSB_ENABLE
-    if(webusb_state.paired == true) {
-        uint8_t event[4];
-        event[0] = WEBUSB_STATUS_OK;
-        event[1] = WEBUSB_EVT_LAYER;
-        event[2] = layer;
-        event[3] = WEBUSB_STOP_BIT;
-        webusb_send(event, sizeof(event));
-    }
-#endif
     switch (layer) {
         case PLANCK_EZ_LED_LOWER:
             planck_ez_left_led_on();
@@ -287,17 +277,6 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 #endif
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-#ifdef WEBUSB_ENABLE
-    if(webusb_state.paired == true) {
-        uint8_t event[5];
-        event[0] = WEBUSB_STATUS_OK;
-        event[1] = record->event.pressed ? WEBUSB_EVT_KEYDOWN : WEBUSB_EVT_KEYUP;
-        event[2] = record->event.key.col;
-        event[3] = record->event.key.row;
-        event[4] = WEBUSB_STOP_BIT;
-        webusb_send(event, sizeof(event));
-    }
-#endif
     switch (keycode) {
         case LED_LEVEL:
             if (record->event.pressed) {
@@ -359,7 +338,7 @@ bool music_mask_kb(uint16_t keycode) {
     }
 }
 #endif
-#ifdef WEBUSB_ENABLE
+#ifdef ORYX_ENABLE
 static uint16_t loops = 0;
 static bool is_on = false;
 
@@ -392,5 +371,6 @@ void matrix_scan_kb(void) {
       planck_ez_left_led_off();
       planck_ez_right_led_off();
     }
+    matrix_scan_user();
 }
 #endif

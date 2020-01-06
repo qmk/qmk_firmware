@@ -1065,11 +1065,9 @@ void webusb_send(uint8_t *data, uint8_t length) {
     }
 }
 
-__attribute__((weak)) void webusb_receive_kb(uint8_t *data, uint8_t length) {
   // Users should #include "raw_hid.h" in their own code
   // and implement this function there. Leave this as weak linkage
   // so users can opt to not handle data coming in.
-}
 
 void webusb_task(void) {
     uint8_t buffer[WEBUSB_EPSIZE];
