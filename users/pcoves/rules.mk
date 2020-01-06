@@ -24,7 +24,6 @@ ifneq ($(strip $(NO_SECRET)), yes)
         SRC += secret.c
 	else
 		OPT_DEFS += -DNO_SECRET
-		pablo.coves@protonmail.com
     endif
 else
 	OPT_DEFS += -DNO_SECRET
