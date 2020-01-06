@@ -16,9 +16,6 @@
 #include "ez.h"
 #include "ch.h"
 #include "hal.h"
-#ifdef WEBUSB_ENABLE
-#include "webusb.h"
-#endif
 
 keyboard_config_t keyboard_config;
 

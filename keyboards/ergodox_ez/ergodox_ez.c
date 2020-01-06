@@ -1,9 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#ifdef WEBUSB_ENABLE
-#include "webusb.h"
-#endif
-
 extern inline void ergodox_board_led_on(void);
 extern inline void ergodox_right_led_1_on(void);
 extern inline void ergodox_right_led_2_on(void);
@@ -451,4 +447,3 @@ uint32_t layer_state_set_kb(uint32_t state) {
     return state;
 }
 #endif
-

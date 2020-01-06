@@ -49,10 +49,6 @@ extern backlight_config_t backlight_config;
 #    include "encoder.h"
 #endif
 
-#ifdef WEBUSB_ENABLE
-#    include "webusb.h"
-#endif
-
 #ifdef AUDIO_ENABLE
 #    ifndef GOODBYE_SONG
 #        define GOODBYE_SONG SONG(GOODBYE_SOUND)
