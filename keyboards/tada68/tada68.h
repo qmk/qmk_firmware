@@ -37,7 +37,7 @@
     {k40, k41, k42, XXX, XXX, k45, XXX, XXX, XXX, k49, k4a, k4b, k4c, k4d, k4e}  \
 }
 
-#define LAYOUT_65_ansi LAYOUT_ansi
+#define LAYOUT_ansi LAYOUT_65_ansi
 
 /* TADA68 ISO layout
    * ,----------------------------------------------------------------.
