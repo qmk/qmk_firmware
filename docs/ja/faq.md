@@ -2,7 +2,7 @@
 
 <!---
   original document: d598f01cb:docs/faq.md
-  git diff d598f01cb HEAD docs/faq.md | cat
+  git diff d598f01cb HEAD -- docs/faq.md | cat
 -->
 
 * [一般](ja/faq_general.md)

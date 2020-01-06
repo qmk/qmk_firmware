@@ -3,7 +3,7 @@
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
   original document: adf4acf59:docs/newbs_git_best_practices.md
-  git diff adf4acf59 HEAD docs/newbs_git_best_practices.md | cat
+  git diff adf4acf59 HEAD -- docs/newbs_git_best_practices.md | cat
 -->
 
 ## または、"如何にして私は心配することをやめて Git を愛することを学んだか。"
