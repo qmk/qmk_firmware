@@ -1,7 +1,7 @@
 /**
  * @file eeprom_stm32f4.c
  *
- * Copyright 2020 yulei
+ * Copyright 2020 yulei (astro)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -68,15 +68,15 @@
 #define FLASH_PSIZE_HFWORD FLASH_CR_PSIZE_0
 #define FLASH_PSIZE_WORD FLASH_CR_PSIZE_1
 #define FLASH_CR_SNB_POS 3
+/* the flash key was not defined in the current CMSIS */
 #define FLASH_KEY1_F4 0x45670123U
 #define FLASH_KEY2_F4 0xCDEF89ABU
 #define FLASH_EMPTY_VALUE 0xFFFFFFFFU
 
-//backup buffer
+/* backup buffer */
 static uint8_t DataBuf[EE_MAX_BYTES];
 
-static FLASH_Status FLASH_StatusF4(void)
-{
+static FLASH_Status FLASH_StatusF4(void) {
     if (FLASH->SR & FLASH_SR_BSY) return FLASH_BUSY;
 
     if ((FLASH->SR & (FLASH_SR_PGSERR | FLASH_SR_PGPERR | FLASH_SR_PGAERR))) return FLASH_ERROR_PG;
@@ -86,16 +86,14 @@ static FLASH_Status FLASH_StatusF4(void)
     return FLASH_COMPLETE;
 }
 
-static void FLASH_DelayF4(void)
-{
+static void FLASH_DelayF4(void) {
     __IO uint32_t i = 0;
     for (i = 0xFF; i != 0; i--) {
         __asm__ volatile("nop\n\t");
     }
 }
 
-static FLASH_Status FLASH_WaitF4(void)
-{
+static FLASH_Status FLASH_WaitF4(void) {
     /* Check for the Flash Status */
     FLASH_Status status = FLASH_StatusF4();
     /* Wait for a Flash operation to complete */
@@ -107,8 +105,7 @@ static FLASH_Status FLASH_WaitF4(void)
     return status;
 }
 
-static void FLASH_ClearFlagF4(void)
-{
+static void FLASH_ClearFlagF4(void) {
     if (FLASH->SR & FLASH_SR_PGAERR) {
         FLASH->SR |= FLASH_SR_PGAERR;
     }
@@ -122,6 +119,7 @@ static void FLASH_ClearFlagF4(void)
         FLASH->SR |= FLASH_SR_WRPERR;
     }
 }
+
 static void FLASH_UnlockF4(void) {
     FLASH->KEYR = FLASH_KEY1_F4;
     FLASH->KEYR = FLASH_KEY2_F4;
@@ -149,8 +147,7 @@ static FLASH_Status FLASH_EraseSectorF4(uint32_t sector) {
     return status;
 }
 
-static FLASH_Status FLASH_ProgramWordF4(uint32_t address, uint32_t data)
-{
+static FLASH_Status FLASH_ProgramWordF4(uint32_t address, uint32_t data) {
     FLASH_Status status;
     if ((address % sizeof(uint32_t) != 0) || !IS_VALID_FLASH(address)) {
         // not a valid address
@@ -177,8 +174,7 @@ static FLASH_Status FLASH_ProgramWordF4(uint32_t address, uint32_t data)
     return status;
 }
 
-static uint32_t FLASH_FindValidAddress(void)
-{
+static uint32_t FLASH_FindValidAddress(void) {
     uint32_t begin = EE_SECTOR_BEGIN;
     uint32_t end = EE_SECTOR_END;
     while( begin < end) {
@@ -191,8 +187,7 @@ static uint32_t FLASH_FindValidAddress(void)
     return FLASH_EMPTY_VALUE;
 }
 
-static void FLASH_Backup(void)
-{
+static void FLASH_Backup(void) {
     uint32_t begin = EE_SECTOR_BEGIN;
     uint32_t end = EE_SECTOR_END;
     memset(&DataBuf[0], 0xFF, sizeof(DataBuf));
@@ -205,8 +200,7 @@ static void FLASH_Backup(void)
     }
 }
 
-static uint16_t FLASH_Restore(void)
-{
+static uint16_t FLASH_Restore(void) {
     uint32_t current = EE_SECTOR_BEGIN;
     for (uint8_t i = 0; i < EE_MAX_BYTES; i++) {
         if (DataBuf[i] != 0xFF) {
@@ -221,19 +215,16 @@ static uint16_t FLASH_Restore(void)
 /*******************************************************************
  * stm32 eeprom interface
  *******************************************************************/
-uint16_t EEPROM_Init(void)
-{
+uint16_t EEPROM_Init(void) {
     FLASH_UnlockF4();
     return FEE_DENSITY_BYTES;
 }
 
-void EEPROM_Erase(void)
-{
+void EEPROM_Erase(void) {
     FLASH_EraseSectorF4(EE_SECTOR_ID);
 }
 
-uint16_t EEPROM_WriteDataByte(uint16_t Address, uint8_t DataByte)
-{
+uint16_t EEPROM_WriteDataByte(uint16_t Address, uint8_t DataByte) {
     uint32_t addr = FLASH_FindValidAddress();
     if (addr == FLASH_EMPTY_VALUE) {
         FLASH_Backup();
@@ -246,8 +237,7 @@ uint16_t EEPROM_WriteDataByte(uint16_t Address, uint8_t DataByte)
     }
 }
 
-uint8_t  EEPROM_ReadDataByte(uint16_t Address)
-{
+uint8_t  EEPROM_ReadDataByte(uint16_t Address) {
     uint32_t begin = EE_SECTOR_BEGIN;
     uint32_t end = EE_SECTOR_END-4;
     while( end >= begin) {
