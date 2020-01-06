@@ -1,7 +1,7 @@
 # Minivan
 
-A 40% keyboard made by https://thevankeyboards.com This keymap is for the default 
-12x12x12x8 arrangement.
+A 40% keyboard made by https://thevankeyboards.com This Dvorak keymap is for
+the default 12x12x12x8 arrangement.
 
 ![Minivan layout Image](https://i.postimg.cc/BvgMMv0c/minivan-layer0-900.jpg)
 ![Minivan layout Image](https://i.postimg.cc/VvSgfBbD/minivan-layer1-900.jpg)
@@ -10,7 +10,7 @@ A 40% keyboard made by https://thevankeyboards.com This keymap is for the defaul
 ![Minivan layout Image](https://i.postimg.cc/HsXKbdV3/minivan-layer4-900.jpg)
 ![Minivan layout Image](https://i.postimg.cc/TP7HTP42/minivan-layer5-900.jpg)
 ![Minivan layout Image](https://i.postimg.cc/L4Z0M2BR/minivan-layer6-900.jpg)
-![Minivan layout Image](https://i.postimg.cc/3R097FG9/minivan-layer7-900.jpg)
+![Minivan layout Image](https://i.postimg.cc/FHsH6W5t/minivan-layer7-900.jpg)
 
 The accented characters would likely cover Dutch, German, French, Finnish,
 Norwegian, Swedish, Italian and Spanish, besides English (Unicode input).
