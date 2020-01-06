@@ -39,14 +39,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * The alternative layout is configured for arrows in a triangle, on the left hand.
          *
          * Uncomment below line to use a "WASD" type layout.
-         * Comment out if you prefer a flat "vim" type layout.
+         * Comment out if you prefer a flat type layout, with arrows in a row.
          */
  
-//#define ARROWS_TRIANGLE // implies mouse is also similarly in a triangle.
+#define ARROWS_TRIANGLE // implies mouse is also similarly in a triangle.
 
          /* Uncomment below line to put the arrows on the left, comment out to have arrows right. */
 
-//#define ARROWS_LEFT // implies mouse is right
+#define ARROWS_LEFT // implies mouse is right
 
 
         /* Uncomment below line to have LGUI (OS key) where RGUI is, and RGUI where LGUI is. */
@@ -1762,7 +1762,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ _MOV ] = LAYOUT (
 
 /*
+     triangle layout:
      Layer _MOV (MOVement, mouse movement on left hand)
+    
+     <pinky2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
+                        -*-              <|>                                           //(toggle) on _FUN
+     BASE   PgDn  Up    PgUp  Home  Btn3  | xxx   WhDn  MsUp  WhU   WhLft Bksp
+     LCtl   Left  Down  Right End   Btn1  | Btn1  MsLft MsDn  MsRht WhRht RCtl
+     LSft*- xxx   Acc2  Acc1  Acc0  Btn2  | xxx   Btn2  Btn3  Btn4  Btn5  RSft         //(toggle) on BASE
+     ---------------------------------------------------------
+     LAlt Del   Ent   ___ | PgUp  PgDn  LGUI  RAlt
+                      -*-<|>                                                             //(hold) on BASE
+     <1   <2    <3    <4  | 4>    3>    2>    1>  
+
+     flat layout:
     
      <pinky2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                         -*-              <|>                                           //(toggle) on _FUN
@@ -1843,10 +1856,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     #define                                                 MOUS_24 KC_MS_R
     #define                                                                MOUS_25 KC_WH_R
     #define MOUS_31 XXXXXXX
-    #define                 MOUS_32 KC_BTN5
-    #define                                 MOUS_33 KC_BTN4
-    #define                                                 MOUS_34 KC_BTN3
-    #define                                                                MOUS_35 KC_BTN2
+    #define                 MOUS_32 KC_BTN2
+    #define                                 MOUS_33 KC_BTN3
+    #define                                                 MOUS_34 KC_BTN4
+    #define                                                                MOUS_35 KC_BTN5
 #endif
 
 // Default left/right layout, meaning arrows right and mouse left.
