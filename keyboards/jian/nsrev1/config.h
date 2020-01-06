@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 6
 
 // wiring of each half
-#define MATRIX_ROW_PINS { F4, F5, D7, E6, F4, F5, B1, B3 }
+#define MATRIX_ROW_PINS { F4, F5, B1, B3, D1, D0, D7, E6 }
 #define MATRIX_COL_PINS { D3, D2, B4, F6, F7, B2 }
 
 /* define if matrix has ghost */
@@ -43,6 +43,61 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
+
+#define PHYSICAL_LEDS_ENABLE
+
+#ifdef BACKLIGHT_ENABLE
+#define BACKLIGHT_PIN C6
+#define BACKLIGHT_LEVELS 5
+#define BACKLIGHT_BREATHING //not working with splits right now
+#define BREATHING_PERIOD 6
+#endif
+
+/* ws2812 RGB LED */
+#define RGB_DI_PIN D4
+#define RGBLIGHT_TIMER
+#define RGBLED_NUM 7    // Number of LEDs
+#define RGBLIGHT_ANIMATIONS //not working with splits right now
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8
+#define RGBLIGHT_LIMIT_VAL 100
+#define ws2812_PORTREG  PORTD
+#define ws2812_DDRREG   DDRD
+#define RGBLIGHT_SLEEP
+#define RGBLIGHT_SPLIT
+
+#define NUM_LOCK_LED_PIN B6
+#define CAPS_LOCK_LED_PIN B5
+// #define SCROLL_LOCK_LED_PIN B6
+
+#define NUM_LOCK_INVERT  //uncomment this if you using n-mosfet
+//#define CAPS_LOCK_INVERT  //uncomment this if you using n-mosfet
+//#define SCROLL_LOCK_INVERT  //uncomment this if you using n-mosfet
+
+#ifdef NUM_LOCK_INVERT
+#define SET_NUM_LOCK_LED() writePinHigh(NUM_LOCK_LED_PIN)
+#define RESET_NUM_LOCK_LED() writePinLow(NUM_LOCK_LED_PIN)
+#else
+#define SET_NUM_LOCK_LED() writePinLow(NUM_LOCK_LED_PIN)
+#define RESET_NUM_LOCK_LED() writePinHigh(NUM_LOCK_LED_PIN)
+#endif // NUM_LOCK_INVERT
+
+#ifdef CAPS_LOCK_INVERT
+#define SET_CAPS_LOCK_LED() writePinHigh(CAPS_LOCK_LED_PIN)
+#define RESET_CAPS_LOCK_LED() writePinLow(CAPS_LOCK_LED_PIN)
+#else
+#define SET_CAPS_LOCK_LED() writePinLow(CAPS_LOCK_LED_PIN)
+#define RESET_CAPS_LOCK_LED() writePinHigh(CAPS_LOCK_LED_PIN)
+#endif // CAPS_LOCK_INVERT
+
+#ifdef SCROLL_LOCK_INVERT
+#define SET_SCROLL_LOCK_LED() writePinHigh(SCROLL_LOCK_LED_PIN)
+#define RESET_SCROLL_LOCK_LED() writePinLow(SCROLL_LOCK_LED_PIN)
+#else
+#define SET_SCROLL_LOCK_LED() writePinLow(SCROLL_LOCK_LED_PIN)
+#define RESET_SCROLL_LOCK_LED() writePinHigh(SCROLL_LOCK_LED_PIN)
+#endif // SCROLL_LOCK_INVERT
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
