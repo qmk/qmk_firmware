@@ -36,6 +36,8 @@
 #    define MCU_STM32F103RB
 #elif defined(EEPROM_EMU_STM32F072xB)
 #    define MCU_STM32F072CB
+#elif defined(EEPROM_EMU_STM32F411xE)
+#    define MCU_STM32F411xE
 #else
 #    error "not implemented."
 #endif
@@ -47,6 +49,9 @@
 #    elif defined(MCU_STM32F103ZE) || defined(MCU_STM32F103RE) || defined(MCU_STM32F103RD) || defined(MCU_STM32F303CC) || defined(MCU_STM32F072CB)
 #        define FEE_PAGE_SIZE (uint16_t)0x800  // Page size = 2KByte
 #        define FEE_DENSITY_PAGES 4            // How many pages are used
+#    elif defined(MCU_STM32F411xE)
+#        define FEE_PAGE_SIZE (uint16_t)0x4000  // Page size = 16KByte
+#        define FEE_DENSITY_PAGES 1            // How many pages are used
 #    else
 #        error "No MCU type specified. Add something like -DMCU_STM32F103RB to your compiler arguments (probably in a Makefile)."
 #    endif
@@ -61,6 +66,8 @@
 #        define FEE_MCU_FLASH_SIZE 384  // Size in Kb
 #    elif defined(MCU_STM32F303CC)
 #        define FEE_MCU_FLASH_SIZE 256  // Size in Kb
+#    elif defined(MCU_STM32F411xE)
+#        define FEE_MCU_FLASH_SIZE 512  // Size in Kb
 #    else
 #        error "No MCU type specified. Add something like -DMCU_STM32F103RB to your compiler arguments (probably in a Makefile)."
 #    endif
