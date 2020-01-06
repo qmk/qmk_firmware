@@ -1,12 +1,58 @@
 /**
  * @file eeprom_stm32f4.c
- * @author astro
+ *
+ * Copyright 2020 yulei
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/**
+ * Current implementation of eeprom emulation on QMK was using fixed
+ * addresses for eeprom data. When writing data to the same addres, it
+ * requirs to use an empty flash pages or erase and then program.
+ *
+ * The following implementation improved this behavior through
+ * combined eeprom's address and data to a WORD. Thus to avoid put the
+ * eeprom data at fixed flash addresses.
+ *
+ * The writing operation was from begin address of the flash to end,
+ * but the reading operation was from the reversed direction. Thus
+ * reading always return the latest data and we only need to erase
+ * the flash sector while it's full.
  */
 
 #include <string.h>
 #include "eeprom_stm32.h"
 #include "hal.h"
 
+/**
+ * from https://www.st.com/resource/en/reference_manual/dm00119316.pdf
+ * STM32F4 FLASH layout
+ *
+ * Sector 0 0x0800 0000 - 0x0800 3FFF 16 Kbytes
+ * Sector 1 0x0800 4000 - 0x0800 7FFF 16 Kbytes
+ * Sector 2 0x0800 8000 - 0x0800 BFFF 16 Kbytes
+ * Sector 3 0x0800 C000 - 0x0800 FFFF 16 Kbytes
+ * Sector 4 0x0801 0000 - 0x0801 FFFF 64 Kbytes
+ * Sector 5 0x0802 0000 - 0x0803 FFFF 128 Kbytes
+ * Sector 6 0x0804 0000 - 0x0805 FFFF 128 Kbytes
+ * Sector 7 0x0806 0000 - 0x0807 FFFF 128 Kbytes
+ *
+ * Sector 3 was selected for eeprom emulation, thus the QMK firmware or
+ * bootloader can be put on Sector 0-2(48KB total), other sectors were
+ * too big for eeprom emulation
+ */
 #define EE_SECTOR_ID 3
 #define EE_SECTOR_SIZE 0x4000
 #define EE_SECTOR_BEGIN 0x0800C000
