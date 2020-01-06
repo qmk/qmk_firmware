@@ -3,6 +3,14 @@
 A 40% keyboard made by https://thevankeyboards.com This keymap is for the default 
 12x12x12x8 arrangement.
 
+![Minivan layout Image](https://i.postimg.cc/wjCLdY6y/minivan-layer0-900.jpg)
+![Minivan layout Image](https://i.postimg.cc/1RVgsYjD/minivan-layer1-900.jpg)
+![Minivan layout Image](https://i.postimg.cc/YCZZK0G6/minivan-layer2-900.jpg)
+![Minivan layout Image](https://i.postimg.cc/t4xD65J6/minivan-layer3b-900.jpg)
+![Minivan layout Image](https://i.postimg.cc/QxBqLbpz/minivan-layer4-900.jpg)
+![Minivan layout Image](https://i.postimg.cc/4xVbyx2b/minivan-layer5-900.jpg)
+![Minivan layout Image](https://i.postimg.cc/sX65qQ1y/minivan-layer6-900.jpg)
+![Minivan layout Image](https://i.postimg.cc/Vk84jtCH/minivan-layer7-900.jpg)
 
 The accented characters would likely cover Dutch, German, French, Finnish,
 Norwegian, Swedish, Italian and Spanish, besides English (Unicode input).
@@ -179,8 +187,8 @@ index and middle fingers are stronger than ring and pinky fingers.
      BASE  xxx    xxx   xxx    xxx    xxx   | xxx   Play  Next  Prev  Stop   NumL
      P     Power• Wake• Sleep• Pause• ScrLk | PrtSc xxx   Vol+  Vol-  Mute   CapL     // • requires Shift
      Ü     uLNX   uBSD  uOSX   uWIN   uWNC  | xxx   xxx   xxx   xxx   Insert xxx      // Ü(nicode) tester
-     ------------------------------------------------------
-     MLed  SLeds RGUI  xxx  | RSft(•) xxx   xxx   LGUI  App              // Middle-led, Side-leds: on/off
+     ------------------------------------------------
+     MLed  SLeds RGUI  xxx  | RSft(•) xxx   LGUI  App                    // Middle-led, Side-leds: on/off
                            <|>
      <1    <2    <3    <4   | 4>      3>    2>    1>  
 

@@ -1971,8 +1971,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      BASE  xxx    xxx   xxx    xxx    xxx   | xxx   Play  Next  Prev  Stop   NumL
      P     Power• Wake• Sleep• Pause• ScrLk | PrtSc xxx   Vol+  Vol-  Mute   CapL     // • requires Shift
      Ü     uLNX   uBSD  uOSX   uWIN   uWNC  | xxx   xxx   xxx   xxx   Insert xxx      // Ü(nicode) tester
-     ------------------------------------------------------
-     MLed  SLeds RGUI  xxx  | RSft(•) xxx   xxx   LGUI  App                      // Middle-led, Side-leds: on/off
+     ------------------------------------------------
+     MLed  SLeds RGUI  xxx  | RSft(•) xxx   LGUI  App                    // Middle-led, Side-leds: on/off
                            <|>
      <1    <2    <3    <4   | 4>      3>    2>    1>  
  */
