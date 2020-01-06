@@ -13,6 +13,7 @@ BOOTLOADER = caterina
 # Build Options
 #   change yes to no to disable
 #
+CUSTOM_MATRIX = yes			# Custom scanning of matrix
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
@@ -32,3 +33,5 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no         # Enable support for HD44780 based LCDs
 ENCODER_ENABLE = yes        # Rotary Encoder support
 TAP_DANCE_ENABLE = yes      # Support for tap dancing
+
+SRC = matrix.c

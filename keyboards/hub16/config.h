@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION Macro Pad with USB Hub and Encoders
 
 /* key matrix size */
-#define MATRIX_ROWS 4
+#define MATRIX_ROWS 5
 #define MATRIX_COLS 4
 
 /*
@@ -42,9 +42,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 #define MATRIX_ROW_PINS \
-    { F0, C7, C6, B6 }
+    { F0, C7, C6, B6, E6}  
 #define MATRIX_COL_PINS \
-    { F4, F1, D5, D3 }
+    { F4, F1, D5, D3 }  
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -78,7 +78,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
+#define DEBOUNCE 20
 
 /* ENCODER THINGS */
 

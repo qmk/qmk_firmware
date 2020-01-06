@@ -15,13 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-// Allow reading of encoder switch
-#define readInput(port, pin) (((*(&port - 2)) & (1 << pin)) ? 1 : 0)
-#define SWITCH_1 PF7
-#define SWITCH_1_PORT PORTF
-#define SWITCH_2 PD7
-#define SWITCH_2_PORT PORTD
-
 // Function key we are 'wrapping' usual key presses in
 #define KC_WRAP KC_F24
 
@@ -35,17 +28,19 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT( /* Base */
-    KC_A, KC_B, KC_C, KC_D, \
-    KC_E, KC_F, KC_G, KC_H, \
-    KC_I, KC_J, KC_K, KC_L, \
-    KC_M, KC_N, KC_O, TD(TD_TO_LED) \
+        KC_S,      KC_V,    
+    KC_A, KC_B, KC_C, KC_D, 
+    KC_E, KC_F, KC_G, KC_H, 
+    KC_I, KC_J, KC_K, KC_L, 
+    KC_M, KC_N, KC_O, TD(TD_TO_LED) 
   ),
 
   [1] = LAYOUT( /* LED Control */
-    _______, RGB_MOD, RGB_RMOD, RGB_TOG, \
-    RGB_VAD, RGB_VAI, RGB_HUD, RGB_HUI, \
-    RGB_SAD, RGB_SAI, _______, _______, \
-    _______, _______, RESET, TD(TD_TO_DEFAULT) \
+          KC_NO,            KC_NO,        
+    _______, RGB_MOD, RGB_RMOD, RGB_TOG,
+    RGB_VAD, RGB_VAI, RGB_HUD,  RGB_HUI, 
+    RGB_SAD, RGB_SAI, _______,  _______, 
+    _______, _______, RESET,    TD(TD_TO_DEFAULT) 
   ),
 };
 
@@ -98,46 +93,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
     }
     return true;
-}
-
-void matrix_init_user(void) {
-    // Set encoder switches as inputs
-    setPinInput(SWITCH_1);
-    setPinInput(SWITCH_2);
-}
-
-void matrix_scan_user(void) {
-    /* Below is a hack to make up for a mistake in hardware.
-     * I did not connect the encoder buttons in the matrix, and could not
-     * get it working as a DIRECT_PINS in conjunction with the matrix.
-     * readPin from quantum.h also didn't work, so implemented my own read macro
-     * Not proud or happy with the below, but it works.
-     */
-
-    // Debounce the encoder buttons using a shift register
-    static uint8_t btn_1_array;
-    static uint8_t btn_2_array;
-    uint8_t        btn_1_rising;
-    uint8_t        btn_2_rising;
-    btn_1_array <<= 1;
-    btn_2_array <<= 1;
-    btn_1_array |= readInput(SWITCH_1_PORT, SWITCH_1);
-    btn_2_array |= readInput(SWITCH_2_PORT, SWITCH_2);
-    (btn_1_array == 0b01111111) ? (btn_1_rising = 1) : (btn_1_rising = 0);
-    (btn_2_array == 0b01111111) ? (btn_2_rising = 1) : (btn_2_rising = 0);
-
-    // Act upon button press
-    if (btn_1_rising) {
-        btn_1_rising = 0;
-        register_code(KC_WRAP);
-        tap_code(KC_S);
-        unregister_code(KC_WRAP);
-    }
-
-    if (btn_2_rising) {
-        btn_2_rising = 0;
-        register_code(KC_WRAP);
-        tap_code(KC_V);
-        unregister_code(KC_WRAP);
-    }
 }

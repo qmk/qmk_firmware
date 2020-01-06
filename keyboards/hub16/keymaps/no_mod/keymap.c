@@ -15,15 +15,8 @@
  */
 #include QMK_KEYBOARD_H
 
-// Allow reading of encoder switch
-#define readInput(port, pin) (((*(&port - 2)) & (1 << pin)) ? 1 : 0)
-#define SWITCH_1 PF7
-#define SWITCH_1_PORT PORTF
-#define SWITCH_2 PD7
-#define SWITCH_2_PORT PORTD
-
 // Function key we are 'wrapping' usual key presses in
-#define KC_WRAP KC_24
+#define KC_WRAP KC_F24
 
 // Tap Dance Declarations
 enum { TD_TO_LED = 0, TD_TO_DEFAULT = 1 };
@@ -35,71 +28,36 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT( /* Base */
-    KC_0, KC_1, KC_2, KC_3, \
-    KC_4, KC_5, KC_6, KC_7, \
-    KC_8, KC_9, KC_A, KC_B, \
-    KC_C, KC_D, KC_E, KC_F \
-  )
+        KC_S,      KC_V,    
+    KC_A, KC_B, KC_C, KC_D, 
+    KC_E, KC_F, KC_G, KC_H, 
+    KC_I, KC_J, KC_K, KC_L, 
+    KC_M, KC_N, KC_O, TD(TD_TO_LED) 
+  ),
+
+  [1] = LAYOUT( /* LED Control */
+          KC_NO,            KC_NO,        
+    _______, RGB_MOD, RGB_RMOD, RGB_TOG,
+    RGB_VAD, RGB_VAI, RGB_HUD,  RGB_HUI, 
+    RGB_SAD, RGB_SAI, _______,  _______, 
+    _______, _______, RESET,    TD(TD_TO_DEFAULT) 
+  ),
 };
 
 // Keyboard is setup to 'warp' the pressed key with F24,
 // allowing for easy differentiation from a real keyboard.
 void encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) { /* Left encoder */
+    if (index == 0) { /* Left Encoder */
         if (clockwise) {
-            tap_code(KC_I);
+            tap_code(KC_R);
         } else {
-            tap_code(KC_J);
+            tap_code(KC_Q);
         }
-    } else if (index == 1) { /* Right encoder */
+    } else if (index == 1) { /* Right Encoder */
         if (clockwise) {
-            tap_code(KC_K);
+            tap_code(KC_U);
         } else {
-            tap_code(KC_L);
+            tap_code(KC_T);
         }
-    }
-}
-
-// Below stolen from TaranVH (https://github.com/TaranVH/2nd-keyboard/blob/master/HASU_USB/F24/keymap.c)
-// Shoutout to drashna on the QMK discord for basically writing this for me.... :P
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {}
-    return true;
-}
-
-void matrix_init_user(void) {
-    // Set encoder switches as inputs
-    (DDRF) &= ~(SWITCH_1);
-    (DDRD) &= ~(SWITCH_2);
-}
-
-void matrix_scan_user(void) {
-    /* Below is a hack to make up for a mistake in hardware.
-     * Ideally the buttons would be dealt with as normal keys on the
-     * keyboard, but without a hardware revision I don't believe it is possible.
-     */
-
-    // Debounce the encoder buttons using a shift register
-    static uint8_t btn_1_array;
-    static uint8_t btn_2_array;
-    uint8_t        btn_1_rising;
-    uint8_t        btn_2_rising;
-    btn_1_array <<= 1;
-    btn_2_array <<= 1;
-    btn_1_array |= readInput(SWITCH_1_PORT, SWITCH_1);
-    btn_2_array |= readInput(SWITCH_2_PORT, SWITCH_2);
-    (btn_1_array == 0b01111111) ? (btn_1_rising = 1) : (btn_1_rising = 0);
-    (btn_2_array == 0b01111111) ? (btn_2_rising = 1) : (btn_2_rising = 0);
-
-    // Act upon button press
-    if (btn_1_rising) {
-        btn_1_rising = 0;
-        tap_code(KC_G);
-    }
-
-    if (btn_2_rising) {
-        btn_2_rising = 0;
-        tap_code(KC_H);
     }
 }
