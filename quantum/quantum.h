@@ -133,6 +133,14 @@ extern layer_state_t layer_state;
 #    include "process_space_cadet.h"
 #endif
 
+#ifdef MAGIC_KEYCODE_ENABLE
+#    include "process_magic.h"
+#endif
+
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#    include "process_rgb.h"
+#endif
+
 #ifdef HD44780_ENABLE
 #    include "hd44780.h"
 #endif
