@@ -255,7 +255,7 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_SHFT|B_J|B_Z    , .kana = "bo"},
   {.key = B_SHFT|B_J|B_X    , .kana = "bi"},
   {.key = B_SHFT|B_J|B_C    , .kana = "ge"},
-  {.key = B_SHFT|B_J|B_V    , .kana = "go"},
+  // {.key = B_SHFT|B_J|B_V    , .kana = "go"},
   {.key = B_SHFT|B_J|B_B    , .kana = "zo"},
   {.key = B_SHFT|B_F|B_N    , .kana = "da"},
   {.key = B_SHFT|B_F|B_DOT  , .kana = "bu"},
@@ -684,10 +684,11 @@ void naginata_type(void) {
   // 一致する組み合わせがなければntを減らして=最後の1文字を除いて再度検索する。
   int nt = ng_chrcount;
 
-  while (nt >= 0) {
+  while (nt > 0) {
     if (naginata_lookup(nt)) return;
     nt--; // 最後の1キーを除いて、もう一度仮名テーブルを検索する
   }
+  compress_buffer(1);
 }
 
 // バッファの頭からnt文字の範囲を検索キーにしてテーブル検索し、文字に変換して出力する
@@ -704,6 +705,7 @@ bool naginata_lookup(int nt) {
   for (int i = 0; i < nt; i++) {
     keycomb_buf |= ng_key[ninputs[i] - NG_Q];
   }
+
   // 連続シフトを有効にする
   if ((keycomb & B_SHFT) == B_SHFT) keycomb_buf |= B_SHFT;
 
