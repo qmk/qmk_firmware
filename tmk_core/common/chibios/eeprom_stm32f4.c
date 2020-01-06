@@ -20,11 +20,11 @@
 /**
  * Current implementation of eeprom emulation on QMK was using fixed
  * addresses for eeprom data. When writing data to the same addres, it
- * requirs to use an empty flash pages or erase and then program.
+ * requires to use an empty flash page or erase page and then program.
  *
  * The following implementation improved this behavior through
- * combined eeprom's address and data to a WORD. Thus to avoid put the
- * eeprom data at fixed flash addresses.
+ * combined eeprom's address and data to a WORD. Thus to avoid putting
+ * the eeprom data at fixed flash addresses.
  *
  * The writing operation was from begin address of the flash to end,
  * but the reading operation was from the reversed direction. Thus
