@@ -12,15 +12,8 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   ADJUST,
-  MKITPNK,
-  DYNAMIC_MACRO_RANGE
+  MKITPNK
 };
-
-#define DREC_1  DYN_REC_START1
-#define DREC_2  DYN_REC_START2
-#define DPLAY_1 DYN_MACRO_PLAY1
-#define DPLAY_2 DYN_MACRO_PLAY2
-#define DSTOP   DYN_REC_STOP
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -90,9 +83,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------'    `-----------------------------------------'
  */
     [_AD] = LAYOUT_ortho_4x12(
-        RESET  , XXXXXXX,  KC_UP , XXXXXXX, XXXXXXX, DREC_1 ,    DREC_2 , RGB_M_P, RGB_M_SN,RGB_M_G, XXXXXXX, KC_DEL ,
-        KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT, MKITPNK, DPLAY_1,    DPLAY_2, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, _______,
-        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DSTOP  ,    DSTOP  , RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______,
+        RESET  , XXXXXXX,  KC_UP , XXXXXXX, XXXXXXX, DM_REC1 ,    DM_REC2 , RGB_M_P, RGB_M_SN,RGB_M_G, XXXXXXX, KC_DEL ,
+        KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT, MKITPNK, DM_PLY1,    DM_PLY2, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, _______,
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DM_RSTP  ,    DM_RSTP  , RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______,
         _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______
         )
 };
