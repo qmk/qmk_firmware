@@ -20,7 +20,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    	0x494b // idb Keyboards
+#define VENDOR_ID    	0x494B // idb Keyboards
 #define PRODUCT_ID  	0x0001 // idb 60
 #define DEVICE_VER   	0x0001
 #define MANUFACTURER    idb Keyboards
@@ -48,7 +48,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Debounce reduces chatter (unintended double-presses) - see https://beta.docs.qmk.fm/features/feature_debounce_type for more information */
+/* Debounce reduces chatter (unintended double-presses) - see https://docs.qmk.fm/#/feature_debounce_type for more information */
 #define DEBOUNCE_TYPE eager_pk
 #define DEBOUNCE 5
 
