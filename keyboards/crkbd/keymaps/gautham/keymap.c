@@ -1,24 +1,25 @@
 #include QMK_KEYBOARD_H
 
-#ifdef AUDIO_ENABLE
-  #include "audio.h"
-  extern audio_config_t audio_config;
-#endif
-
 extern keymap_config_t keymap_config;
+extern uint8_t is_master;
 
 #ifdef RGBLIGHT_ENABLE
-//Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
+  extern rgblight_config_t rgblight_config;
+  rgblight_config_t RGB_current_config;
 #endif
 
-extern uint8_t is_master;
+#ifdef RGB_MATRIX_ENABLE
+  rgb_config_t RGB_current_config;
+#endif
+
+#ifdef AUDIO_ENABLE
+  extern audio_config_t audio_config;
+#endif
 
 #ifdef OLED_DRIVER_ENABLE
 #    define KEYLOGGER_LENGTH 5
 static uint32_t oled_timer                       = 0;
 static char     keylog_str[KEYLOGGER_LENGTH + 1] = {"\n"};
-static uint16_t log_timer                        = 0;
 // clang-format off
 static const char PROGMEM code_to_name[0xFF] = {
 //   0    1    2    3    4    5    6    7    8    9    A    B    c    D    E    F
@@ -57,63 +58,93 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   ADJUST,
-  BACKLIT,
-  RGBRST
+  RGBRST,
+  NOTEQL
 };
 
-enum macro_keycodes {
-  KC_SAMPLEMACRO,
-};
+#define KC________ KC_TRNS
+#define KC____X___ KC_NO
 
-#define KC_SFBS MT(MOD_LSFT, KC_BSPC)
-#define KC_SFDL MT(MOD_LSFT, KC_DEL)
+#define KC_SFEQ MT(MOD_LSFT, KC_EQL)
+#define KC_SFNE MT(MOD_LSFT, NOTEQL)
+
+#define KC_LWSP LT(_LOWER, KC_SPC)
+#define KC_RSEQ LT(_RAISE, KC_EQL)
+#define KC_RSENT LT(_RAISE, KC_ENT)
+#define KC_LWBSP LT(_LOWER, KC_BSPC)
+#define KC_LWDEL LT(_RAISE, KC_DEL)
+#define KC_ADBSL LT(_ADJUST, KC_BSLS)
+#define KC_ANGL LSFT(KC_COMM)
+#define KC_ANGR LSFT(KC_DOT)
+
+#define KC_CK_RST CK_RST
+#define KC_CK_DOWN CK_DOWN
+#define KC_CK_UP CK_UP
+#define KC_CK_TOGG CK_TOGG
+
+#define KC_RGB_TOG RGB_TOG
+#define KC_RGB_HUI RGB_HUI
+#define KC_RGB_HUD RGB_HUD
+#define KC_RGB_SAI RGB_SAI
+#define KC_RGB_SAD RGB_SAD
+#define KC_RGB_VAI RGB_VAI
+#define KC_RGB_VAD RGB_VAD
+#define KC_RGB_SPI RGB_SPI
+#define KC_RGB_SPD RGB_SPD
+#define KC_RGB_MOD RGB_MOD
+#define KC_RGBRST RGBRST
+
+#define KC_MU_TOG MU_TOG
+#define KC_MU_MOD MU_MOD
+
+#define KC_AU_TOG AU_TOG
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = LAYOUT( \
+  [_QWERTY] = LAYOUT_kc( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_GRV,\
+          TAB,       Q,       W,       E,       R,       T,                            Y,       U,       I,       O,       P,     GRV,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_SFBS,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,\
+         SFEQ,       A,       S,       D,       F,       G,                            H,       J,       K,       L,    SCLN,    QUOT,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, LT(_ADJUST, KC_BSLS),\
+         LCTL,       Z,       X,       C,       V,       B,                            N,       M,    COMM,     DOT,    SLSH,   ADBSL,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                    KC_LALT, LT(_LOWER, KC_SPC), LT(_RAISE, KC_EQL),  LT(_RAISE, KC_ENT), LT(_LOWER, KC_BSPC), KC_LGUI \
-                                      //`--------------------------'  `--------------------------'
-  ),
- 
-  [_LOWER] = LAYOUT( \
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_ESC, XXXXXXX,    KC_7,    KC_8,    KC_9, XXXXXXX,                      KC_PSCR, XXXXXXX,   KC_UP, XXXXXXX, XXXXXXX, XXXXXXX,\
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_SFDL, XXXXXXX,    KC_4,    KC_5,    KC_6, XXXXXXX,                      KC_PGUP, KC_LEFT, KC_DOWN,KC_RIGHT, KC_VOLD, KC_VOLU,\
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_TRNS,    KC_0,    KC_1,    KC_2,    KC_3, XXXXXXX,                    KC_PGDOWN, KC_HOME, XXXXXXX,  KC_END, XXXXXXX, KC_TRNS,\
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, LT(_LOWER, KC_DEL), KC_TRNS \
+                                             LALT,    LWSP,    RSEQ,      RSENT,   LWBSP,    LGUI\
                                       //`--------------------------'  `--------------------------'
   ),
 
-  [_RAISE] = LAYOUT( \
+  [_LOWER] = LAYOUT_kc( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_ESC, KC_HASH,  KC_DLR, KC_LCBR, KC_RCBR, XXXXXXX,                      XXXXXXX, KC_AMPR, KC_EXLM, KC_ASTR, XXXXXXX, XXXXXXX,\
+          ESC, ___X___,       7,       8,       9, ___X___,                         PSCR, ___X___,      UP, ___X___, ___X___, ___X___,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_TRNS, KC_EXLM,   KC_AT, KC_LPRN, KC_RPRN, XXXXXXX,                      XXXXXXX, KC_UNDS,  KC_EQL, XXXXXXX, KC_PIPE, XXXXXXX,\
+         SFNE,     DOT,       4,       5,       6, ___X___,                         PGUP,    LEFT,    DOWN,   RIGHT,    VOLD,    VOLU,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_TRNS, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, XXXXXXX,                      XXXXXXX, KC_MINS, KC_PLUS, XXXXXXX, KC_BSLS, KC_TRNS,\
+      _______,       0,       1,       2,       3, ___X___,                       PGDOWN,    HOME, ___X___,     END, ___X___, _______,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS \
+                                          _______, _______, _______,    _______,   LWDEL, _______\
+                                      //`--------------------------'  `--------------------------'
+  ),
+
+  [_RAISE] = LAYOUT_kc( \
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+          ESC,    HASH,     DLR,    LCBR,    RCBR, ___X___,                      ___X___,    AMPR,    PIPE,    EXLM,    ASTR, ___X___,\
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      _______,    EXLM,      AT,    LPRN,    RPRN, ___X___,                      ___X___,    UNDS,     EQL,    ANGL,    ANGR, ___X___,\
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      _______,    PERC,    CIRC,    LBRC,    RBRC, ___X___,                      ___X___,    MINS,    PLUS, ___X___,    BSLS, _______,\
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                          _______, _______, _______,    _______, _______, _______\
                                       //`--------------------------'  `--------------------------'
   ),
  
-  [_ADJUST] = LAYOUT( \
+  [_ADJUST] = LAYOUT_kc( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,  AU_TOG,                      XXXXXXX,   KC_F12,  KC_F7,   KC_F8,   KC_F9, XXXXXXX,\
+      ___X___,  CK_RST, CK_DOWN,   CK_UP, CK_TOGG, RGB_TOG,                       MU_TOG,     F12,      F7,      F8,      F9, ___X___,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, RGB_MOD,                      XXXXXXX,   KC_F11,  KC_F4,   KC_F5,   KC_F6, XXXXXXX,\
+      ___X___, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, RGB_MOD,                       MU_MOD,     F11,      F4,      F5,      F6, ___X___,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,  RGBRST,                      XXXXXXX,   KC_F10,  KC_F1,   KC_F2,   KC_F3, KC_TRNS,\
+      ___X___, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,  RGBRST,                       AU_TOG,     F10,      F1,      F2,      F3, _______,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS \
+                                          _______, _______, _______,    _______, _______, _______\
                                       //`--------------------------'  `--------------------------'
   )
 };
@@ -123,275 +154,165 @@ void persistent_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
-// Setting ADJUST layer RGB back to default
-void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-  if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
-    layer_on(layer3);
-  } else {
-    layer_off(layer3);
-  }
-}
-
-#ifdef RGBLIGHT_ENABLE
-  int RGB_current_mode;
-#endif
-#ifdef RGB_MATRIX_ENABLE
-  rgb_config_t RGB_current_config;
-
-  const char *get_effect_code(int effect) {
-    switch (effect) {
-      // case RGB_MATRIX_ALPHAS_MODS:
-      //   return PSTR(" AMod");
-      // case RGB_MATRIX_GRADIENT_UP_DOWN:
-      //   return PSTR(" GrdV");
-      // case RGB_MATRIX_BREATHING:
-      //   return PSTR(" Brth");
-      // case RGB_MATRIX_BAND_SAT:
-      //   return PSTR(" BnSt");
-      // case RGB_MATRIX_BAND_VAL:
-      //   return PSTR(" BnVl");
-      // case RGB_MATRIX_BAND_PINWHEEL_SAT:
-      //   return PSTR(" PnSt");
-      // case RGB_MATRIX_BAND_PINWHEEL_VAL:
-      //   return PSTR(" PnVl");
-      // case RGB_MATRIX_BAND_SPIRAL_SAT:
-      //   return PSTR(" SpSt");
-      // case RGB_MATRIX_BAND_SPIRAL_VAL:
-      //   return PSTR(" SpVl");
-      // case RGB_MATRIX_CYCLE_ALL:
-      //   return PSTR(" CylA");
-      // case RGB_MATRIX_CYCLE_LEFT_RIGHT:
-      //   return PSTR(" CylH");
-      // case RGB_MATRIX_CYCLE_UP_DOWN:
-      //   return PSTR(" CylV");
-      // case RGB_MATRIX_CYCLE_OUT_IN:
-      //   return PSTR(" CyOI");
-      // case RGB_MATRIX_CYCLE_OUT_IN_DUAL:
-      //   return PSTR("CyOId");
-      // case RGB_MATRIX_RAINBOW_MOVING_CHEVRON:
-      //   return PSTR(" Rb>>");
-      // case RGB_MATRIX_DUAL_BEACON:
-      //   return PSTR(" DlBc");
-      // case RGB_MATRIX_CYCLE_PINWHEEL:
-      //   return PSTR(" CyPn");
-      // case RGB_MATRIX_CYCLE_SPIRAL:
-      //   return PSTR("CySpr");
-      // case RGB_MATRIX_RAINBOW_BEACON:
-      //   return PSTR(" RbBc");
-      // case RGB_MATRIX_RAINBOW_PINWHEELS:
-      //   return PSTR(" RbPn");
-      case RGB_MATRIX_RAINDROPS:
-        return PSTR(" Rndr");
-      // case RGB_MATRIX_JELLYBEAN_RAINDROPS:
-      //   return PSTR(" JbRn");
-      // case RGB_MATRIX_TYPING_HEATMAP:
-      //   return PSTR(" HMap");
-      // case RGB_MATRIX_DIGITAL_RAIN:
-      //   return PSTR(" DgRn");
-      case RGB_MATRIX_SOLID_REACTIVE:
-        return PSTR(" SRct");
-      // case RGB_MATRIX_SOLID_REACTIVE_SIMPLE:
-      //   return PSTR(" SRSM");
-      // case RGB_MATRIX_SOLID_REACTIVE_WIDE:
-      //   return PSTR(" SRWd");
-      // case RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE:
-      //   return PSTR(" SRMW");
-      // case RGB_MATRIX_SOLID_REACTIVE_CROSS:
-      //   return PSTR(" SRCr");
-      // case RGB_MATRIX_SOLID_REACTIVE_MULTICROSS:
-      //   return PSTR(" SRMC");
-      // case RGB_MATRIX_SOLID_REACTIVE_NEXUS:
-      //   return PSTR(" SRNx");
-      // case RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS:
-      //   return PSTR(" SRMN");
-      // case RGB_MATRIX_SPLASH:
-      //   return PSTR("  Spl");
-      // case RGB_MATRIX_MULTISPLASH:
-      //   return PSTR(" SplM");
-      // case RGB_MATRIX_SOLID_SPLASH:
-      //   return PSTR(" SSpl");
-      // case RGB_MATRIX_SOLID_MULTISPLASH:
-      //   return PSTR("SMSpl");
-      default:
-        return PSTR(" Unkn");
-    }
-  }
-#endif
-
-char rgb_enabled[24];
-
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
 void save_rgb_config(void) {
   #ifdef RGBLIGHT_ENABLE
-    RGB_current_mode = rgblight_config.mode;
-  #endif
-  #ifdef RGB_MATRIX_ENABLE
+    RGB_current_config.enable = rgblight_config.enable;
+    RGB_current_config.mode = rgblight_config.mode;
+    RGB_current_config.speed  = rgblight_config.speed;
+    RGB_current_config.hue = rgblight_config.hue;
+    RGB_current_config.sat = rgblight_config.sat;
+    RGB_current_config.val = rgblight_config.val;
+  #elif RGB_MATRIX_ENABLE
     RGB_current_config.enable = rgb_matrix_config.enable;
     RGB_current_config.mode = rgb_matrix_config.mode;
-    RGB_current_config.hsv = rgb_matrix_config.hsv;
-    RGB_current_config.speed = rgb_matrix_config.speed;
+    RGB_current_config.speed  = rgb_matrix_config.speed;
+    RGB_current_config.hsv.h = rgb_matrix_config.hsv.h;
+    RGB_current_config.hsv.s = rgb_matrix_config.hsv.s;
+    RGB_current_config.hsv.v = rgb_matrix_config.hsv.v;
   #endif
 }
 
 void restore_rgb_config(void) {
   #ifdef RGBLIGHT_ENABLE
-    if (RGB_current_mode != rgblight_config.mode) rgblight_mode(RGB_current_mode);
-  #endif
-  #ifdef RGB_MATRIX_ENABLE
-    if (rgb_matrix_config.mode != RGB_current_config.mode) rgb_matrix_config.mode = RGB_current_config.mode;
+    rgblight_config.speed = RGB_current_config.speed;
+    if (rgblight_config.mode != RGB_current_config.mode) {
+      rgblight_mode_noeeprom(RGB_current_config.mode);
+    }
+    if ((RGB_current_config.hue != rgblight_config.hue) ||
+      (RGB_current_config.sat != rgblight_config.sat) ||
+      (RGB_current_config.val != rgblight_config.val)) {
+      rgblight_sethsv_noeeprom(RGB_current_config.hue, RGB_current_config.sat, RGB_current_config.val);
+    }
+    if (rgblight_config.enable) {
+      rgblight_enable_noeeprom();
+    } else {
+      rgblight_disable_noeeprom();
+    }
+  #elif RGB_MATRIX_ENABLE
+    rgb_matrix_config.speed = RGB_current_config.speed;
+    if (rgb_matrix_config.mode != RGB_current_config.mode) {
+      rgb_matrix_mode_noeeprom(RGB_current_config.mode);
+    }
     if ((RGB_current_config.hsv.h != rgb_matrix_config.hsv.h) ||
       (RGB_current_config.hsv.s != rgb_matrix_config.hsv.s) ||
       (RGB_current_config.hsv.v != rgb_matrix_config.hsv.v)) {
-      rgb_matrix_sethsv(RGB_current_config.hsv.h, RGB_current_config.hsv.s, RGB_current_config.hsv.v);
+      rgb_matrix_sethsv_noeeprom(RGB_current_config.hsv.h, RGB_current_config.hsv.s, RGB_current_config.hsv.v);
     }
-    rgb_matrix_config.speed = RGB_current_config.speed;
-    // eeconfig_update_rgb_matrix();
     if (rgb_matrix_config.enable) {
-      rgb_matrix_enable();
+      rgb_matrix_enable_noeeprom();
     } else {
-      rgb_matrix_disable();
+      rgb_matrix_disable_noeeprom();
     }
   #endif
 }
 
 void rgb_by_layer(int layer) {
-  rgblight_mode(RGB_MATRIX_SOLID_COLOR);
+  #ifdef RGBLIGHT_ENABLE
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+  #elif RGB_MATRIX_ENABLE
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+  #endif
+
   switch (layer) {
-    case _LOWER:
-      rgb_matrix_sethsv_noeeprom(HSV_BLUE);
+    case _ADJUST:
+      rgblight_sethsv_noeeprom(9, 255, 255);
       break;
     case _RAISE:
-      rgb_matrix_sethsv_noeeprom(HSV_GREEN);
+      rgblight_sethsv_noeeprom(HSV_CYAN);
       break;
-    case _ADJUST:
-      rgb_matrix_sethsv_noeeprom(HSV_ORANGE);
+    case _LOWER:
+      rgblight_sethsv_noeeprom(HSV_MAGENTA);
       break;
     default:
-      rgb_matrix_sethsv_noeeprom(HSV_RED);
-      break;
+      rgblight_sethsv_noeeprom(HSV_RED);
   }
 }
+#endif
 
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
 uint32_t layer_state_set_user(uint32_t state) {
-  uint8_t layer = biton32(state);
-  switch (layer) {
-    case _LOWER:
-      save_rgb_config();
-      rgb_by_layer(_LOWER);
-      break;
-    case _RAISE:
-      save_rgb_config();
-      rgb_by_layer(_RAISE);
-      break;
-    case _ADJUST:
-      save_rgb_config();
-      rgb_by_layer(_ADJUST);
-      break;
-    default:
-      restore_rgb_config();
-      break;
+  if (state == default_layer_state) {
+    restore_rgb_config();
+  } else {
+    uint8_t layer = biton32(state);
+    if (layer_state == default_layer_state) save_rgb_config();
+    rgb_by_layer(layer);
   }
   return state;
 }
 #endif
 
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
 void matrix_init_user(void) {
-    #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-      save_rgb_config(); // TODO: rgb_mat_mode rgb_mat_sethsv or rgb_matrix_set_color_all(20, 0, 0) sync both halves
-    #endif
+  save_rgb_config();
 }
+#endif
 
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
 
 void add_keylog(uint16_t keycode) {
-    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) || (keycode >= QK_MODS && keycode <= QK_MODS_MAX)) {
-        keycode = keycode & 0xFF;
-    } else if (keycode > 0xFF) {
-        keycode = 0;
-    }
+  if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) || (keycode >= QK_MODS && keycode <= QK_MODS_MAX)) {
+    keycode = keycode & 0xFF;
+  } else if (keycode > 0xFF) {
+    keycode = 0;
+  }
 
-    for (uint8_t i = (KEYLOGGER_LENGTH - 1); i > 0; --i) {
-        keylog_str[i] = keylog_str[i - 1];
-    }
+  for (uint8_t i = (KEYLOGGER_LENGTH - 1); i > 0; --i) {
+    keylog_str[i] = keylog_str[i - 1];
+  }
 
-    if (keycode < (sizeof(code_to_name) / sizeof(char))) {
-        keylog_str[0] = pgm_read_byte(&code_to_name[keycode]);
-    }
-
-    log_timer = timer_read();
-}
-
-void update_log(void) {
-    if (timer_elapsed(log_timer) > 750) {
-        // add_keylog(0);
-    }
+  if (keycode < (sizeof(code_to_name) / sizeof(char))) {
+    keylog_str[0] = pgm_read_byte(&code_to_name[keycode]);
+  }
 }
 
 void render_keylogger_status(void) {
-    oled_write_P(PSTR("Log: "), false);
-    oled_write(keylog_str, false);
+  oled_write_P(PSTR("Log: "), false);
+  oled_write(keylog_str, false);
 }
 
-void render_default_layer_state(void) {
-    oled_write_P(PSTR("Lyout"), false);
-    switch (get_highest_layer(default_layer_state)) {
-        case _QWERTY:
-            oled_write_P(PSTR(" Qrty"), false);
-            break;
-    }
-}
-
-void render_layer_state(void) {
-    oled_write_P(PSTR("Layr:"), false);
-    oled_write_P(PSTR("  Num"), layer_state_is(_LOWER));
-    oled_write_P(PSTR("  Sym"), layer_state_is(_RAISE));
-    oled_write_P(PSTR("   Fn"), layer_state_is(_ADJUST));
-}
-
-void render_keylock_status(uint8_t led_usb_state) {
-    oled_write_P(PSTR("Lock:"), false);
-    oled_write_P(PSTR("  Num"), led_usb_state & (1 << USB_LED_NUM_LOCK));
-    oled_write_P(PSTR(" Caps"), led_usb_state & (1 << USB_LED_CAPS_LOCK));
-    oled_write_P(PSTR(" Scrl"), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
-}
-
-void render_mod_status(uint8_t modifiers) {
-    oled_write_P(PSTR("Mods:"), false);
-    oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR("S"), (modifiers & MOD_MASK_SHIFT));
-    oled_write_P(PSTR("C"), (modifiers & MOD_MASK_CTRL));
-    oled_write_P(PSTR("A"), (modifiers & MOD_MASK_ALT));
-    oled_write_P(PSTR("G"), (modifiers & MOD_MASK_GUI));
-}
-
-void render_bootmagic_status(void) {
-    /* Show Ctrl-Gui Swap options */
-    static const char PROGMEM logo[][2][3] = {
-        {{0x97, 0x98, 0}, {0xb7, 0xb8, 0}},
-        {{0x95, 0x96, 0}, {0xb5, 0xb6, 0}},
-    };
-    oled_write_P(PSTR("BTMGK"), false);
-    oled_write_P(PSTR(" "), false);
-    oled_write_P(logo[0][0], !keymap_config.swap_lctl_lgui);
-    oled_write_P(logo[1][0], keymap_config.swap_lctl_lgui);
-    oled_write_P(PSTR(" "), false);
-    oled_write_P(logo[0][1], !keymap_config.swap_lctl_lgui);
-    oled_write_P(logo[1][1], keymap_config.swap_lctl_lgui);
-    oled_write_P(PSTR(" NKRO"), keymap_config.nkro);
-}
-
-// void render_user_status(void) {
-//     oled_write_P(PSTR("USER:"), false);
-//     oled_write_P(PSTR(" Anim"), userspace_config.rgb_matrix_idle_anim);
-//     oled_write_P(PSTR(" Layr"), userspace_config.rgb_layer_change);
-//     oled_write_P(PSTR(" Nuke"), userspace_config.nuke_switch);
+// void render_default_layer_state(void) {
+//   oled_write_P(PSTR("Lyout"), false);
+//   switch (get_highest_layer(default_layer_state)) {
+//     case _QWERTY:
+//       oled_write_P(PSTR(" Qrty"), false);
+//       break;
+//   }
 // }
 
-#ifdef RGB_MATRIX_ENABLE
+void render_layer_state(void) {
+  oled_write_P(PSTR("Layr:"), false);
+  oled_write_P(PSTR("  Num"), layer_state_is(_LOWER));
+  oled_write_P(PSTR("  Sym"), layer_state_is(_RAISE));
+  oled_write_P(PSTR("   Fn"), layer_state_is(_ADJUST));
+}
+
+// void render_keylock_status(uint8_t led_usb_state) {
+//   oled_write_P(PSTR("Lock:"), false);
+//   oled_write_P(PSTR("  Num"), led_usb_state & (1 << USB_LED_NUM_LOCK));
+//   oled_write_P(PSTR(" Caps"), led_usb_state & (1 << USB_LED_CAPS_LOCK));
+//   oled_write_P(PSTR(" Scrl"), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
+// }
+
+void render_mod_status(uint8_t modifiers) {
+  oled_write_P(PSTR("Mods:"), false);
+  oled_write_P(PSTR(" "), false);
+  oled_write_P(PSTR("S"), (modifiers & MOD_MASK_SHIFT));
+  oled_write_P(PSTR("C"), (modifiers & MOD_MASK_CTRL));
+  oled_write_P(PSTR("A"), (modifiers & MOD_MASK_ALT));
+  oled_write_P(PSTR("G"), (modifiers & MOD_MASK_GUI));
+}
+
+#if defined(RGB_MATRIX_ENABLE) || defined(RGBLIGHT_ENABLE)
 void render_effect_status(void) {
     oled_write_P(PSTR("RGB: "), false);
-    oled_write_P(get_effect_code(RGB_current_config.mode), false);
+    #ifdef RGBLIGHT_ENABLE
+      oled_write_P(rgblight_config.enable ? PSTR("  On") : PSTR("  Off"), false);
+    #elif RGB_MATRIX_ENABLE
+      oled_write_P(rgb_matrix_config.enable ? PSTR("  On") : PSTR("  Off"), false);
+    #endif
     oled_write_ln_P(PSTR(""), false);
 }
 #endif
@@ -400,9 +321,9 @@ void render_effect_status(void) {
 void render_audio_status(void) {
     oled_write_P(PSTR("Aud: "), false);
     if (audio_config.enable) {
-      oled_write_P(PSTR("  Yes"), false);
+      oled_write_P(PSTR("   On"), false);
     } else {
-      oled_write_P(PSTR("   No"), false);
+      oled_write_P(PSTR("  Off"), false);
     }
     oled_write_ln_P(PSTR(""), false);
 }
@@ -410,20 +331,15 @@ void render_audio_status(void) {
 
 void render_status_main(void) {
     /* Show Keyboard Layout  */
-    render_default_layer_state();
-    oled_write_ln_P(PSTR(""), false);
+    // render_default_layer_state();
+    // oled_write_ln_P(PSTR(""), false);
 
     render_layer_state();
     oled_write_ln_P(PSTR(""), false);
     // render_bootmagic_status();
     // render_user_status();
-    #ifdef RGB_MATRIX_ENABLE
+    #if defined(RGB_MATRIX_ENABLE) || defined(RGBLIGHT_ENABLE)
     render_effect_status();
-    oled_write_ln_P(PSTR(""), false);
-    #endif
-
-    #ifdef AUDIO_ENABLE
-    render_audio_status();
     oled_write_ln_P(PSTR(""), false);
     #endif
 
@@ -432,16 +348,29 @@ void render_status_main(void) {
 
 void render_status_secondary(void) {
     /* Show Keyboard Layout  */
-    render_default_layer_state();
+    // render_default_layer_state();
+    // oled_write_ln_P(PSTR(""), false);
+
+    render_layer_state();
     oled_write_ln_P(PSTR(""), false);
 
-    render_keylock_status(host_keyboard_leds());
+    // render_keylock_status(host_keyboard_leds());
+    // oled_write_ln_P(PSTR(""), false);
+
+    #ifdef NO_ACTION_ONESHOT
+      render_mod_status(get_mods());
+    #else
+      render_mod_status(get_mods() | get_oneshot_mods());
+    #endif
+    
     oled_write_ln_P(PSTR(""), false);
 
-    render_mod_status(get_mods() | get_oneshot_mods());
-    oled_write_ln_P(PSTR(""), false);
+    #ifdef AUDIO_ENABLE
+    render_audio_status();
+    // oled_write_ln_P(PSTR(""), false);
+    #endif
 
-    render_keylogger_status();
+    // render_keylogger_status();
 }
 
 void oled_task_user(void) {
@@ -449,15 +378,14 @@ void oled_task_user(void) {
         oled_off();
         return;
     }
-#    ifndef SPLIT_KEYBOARD
+    #ifndef SPLIT_KEYBOARD
     else {
         oled_on();
     }
-#    endif
+    #endif
 
-    update_log();
     if (is_master) {
-        render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+        render_status_main();
     } else {
         render_status_secondary();
     }
@@ -481,19 +409,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_LOWER);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       }
       return false;
     case RAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_RAISE);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       }
       return false;
     case ADJUST:
@@ -503,37 +427,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           layer_off(_ADJUST);
         }
         return false;
-    // TODO: restore_rgb_config fir rgb setting keys
-    case RGB_MOD:
-      #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+    case NOTEQL:
         if (record->event.pressed) {
-          restore_rgb_config();
-          #ifdef RGBLIGHT_ENABLE
-            rgblight_step();
-          #endif
-          #ifdef RGB_MATRIX_ENABLE
-            rgb_matrix_step();
-          #endif
-          save_rgb_config();
+          SEND_STRING("!=");
         }
-      #endif
+        break;
+    #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+    case RGB_MOD: case RGB_TOG:
+    case RGB_HUI: case RGB_HUD:
+    case RGB_SAI: case RGB_SAD:
+    case RGB_VAI: case RGB_VAD:
+    case RGB_SPI: case RGB_SPD:
+      if (record->event.pressed) {
+        restore_rgb_config();
+        process_rgb(keycode, record);
+        save_rgb_config();
+      }
       return false;
     case RGBRST:
-      #ifdef RGBLIGHT_ENABLE
-        if (record->event.pressed) {
+      if (record->event.pressed) {
+        #ifdef RGBLIGHT_ENABLE
           eeconfig_update_rgblight_default();
           rgblight_enable();
-          RGB_current_mode = rgblight_config.mode;
-        }
-      #endif
-      #ifdef RGB_MATRIX_ENABLE
-        if (record->event.pressed) {
+        #elif RGB_MATRIX_ENABLE
           eeconfig_update_rgb_matrix_default();
           rgb_matrix_enable();
-          save_rgb_config();
-        }
-      #endif
-      break;
+        #endif
+        save_rgb_config();
+      }
+      return false;
+    #endif
   }
   return true;
 }
