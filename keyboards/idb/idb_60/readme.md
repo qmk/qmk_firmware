@@ -12,7 +12,7 @@ Make example for this keyboard (after setting up your build environment):
 
 Or to make and flash:
 
-    make idb/idb_60:default:dfu
+    make idb/idb_60:default:flash
 	
 To compile VIA firmware:
 
