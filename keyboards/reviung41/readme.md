@@ -2,7 +2,7 @@
 
 ![reviung41](https://github.com/gtips/reviung/blob/master/reviung41/image/REVIUNG41-prototype.jpg)  
 
-The REVIUNG41 is 41-key column staggered keyboard.  
+The REVIUNG41 is 41-key column staggered keyboard.
 
 * Keyboard Maintainer: [gtips](https://github.com/gtips)
 * Hardware Supported: REVIUNG41 PCBs, Pro Micro supported
