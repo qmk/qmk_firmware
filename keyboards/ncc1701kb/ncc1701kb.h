@@ -1,4 +1,4 @@
-#ifndef NCC1701KB_H
+#pragma once
 #define NCC1701KB_H
 
 #include "quantum.h"
