@@ -7,7 +7,7 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Fox Lab x iNETT STUDIO
 #define PRODUCT         Square 80%
-#define DESCRIPTION     SQ68 Keyboard
+#define DESCRIPTION     Square 80% Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 6
