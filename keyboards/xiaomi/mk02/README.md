@@ -4,6 +4,16 @@ A tenkeyless keyboard sold under Xiaomi brand. It uses an STM32F072C8T6 microcon
 
 LED backlight is currently not supported.
 
+* Keyboard Maintainer: [@xyzz](https://github.com/xyzz)
+* Hardware Supported: Xiaomi Yuemi Pro MK02
+* Hardware Availability: Aliexpress
+
+Make example for this keyboard (after setting up your build environment):
+
+    make xiaomi/mk02:default
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
 ## Installation
 
 Please understand that following these steps will void your warranty and might irrecoverably damage your keyboard.
