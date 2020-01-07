@@ -21,6 +21,6 @@ To compile VIA firmware:
 LAYOUT_* Macros:
 
  * *LAYOUT_default*: ANSI WKL with full Backspace
-	LAYOUT_all: All split keys are available
+ * *LAYOUT_all*: All split keys are available
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
