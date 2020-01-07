@@ -58,22 +58,21 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   ADJUST,
-  RGBRST,
-  NOTEQL
+  RGBRST
 };
 
 #define KC________ KC_TRNS
 #define KC____X___ KC_NO
 
 #define KC_SFEQ MT(MOD_LSFT, KC_EQL)
-#define KC_SFNE MT(MOD_LSFT, NOTEQL)
+#define KC_SFQT MT(MOD_LSFT, KC_QUOT)
 
 #define KC_LWSP LT(_LOWER, KC_SPC)
 #define KC_RSEQ LT(_RAISE, KC_EQL)
 #define KC_RSENT LT(_RAISE, KC_ENT)
 #define KC_LWBSP LT(_LOWER, KC_BSPC)
 #define KC_LWDEL LT(_RAISE, KC_DEL)
-#define KC_ADBSL LT(_ADJUST, KC_BSLS)
+#define KC_ADGRV LT(_ADJUST, KC_GRV)
 #define KC_ANGL LSFT(KC_COMM)
 #define KC_ANGR LSFT(KC_DOT)
 
@@ -102,11 +101,11 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_kc( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-          TAB,       Q,       W,       E,       R,       T,                            Y,       U,       I,       O,       P,     GRV,\
+          TAB,       Q,       W,       E,       R,       T,                            Y,       U,       I,       O,       P,    BSLS,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-         SFEQ,       A,       S,       D,       F,       G,                            H,       J,       K,       L,    SCLN,    QUOT,\
+         SFEQ,       A,       S,       D,       F,       G,                            H,       J,       K,       L,    SCLN,    SFQT,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-         LCTL,       Z,       X,       C,       V,       B,                            N,       M,    COMM,     DOT,    SLSH,   ADBSL,\
+         LCTL,       Z,       X,       C,       V,       B,                            N,       M,    COMM,     DOT,    SLSH,   ADGRV,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                              LALT,    LWSP,    RSEQ,      RSENT,   LWBSP,    LGUI\
                                       //`--------------------------'  `--------------------------'
@@ -114,11 +113,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT_kc( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-          ESC, ___X___,       7,       8,       9, ___X___,                         PSCR, ___X___,      UP, ___X___, ___X___, ___X___,\
+          ESC,       1,       2,       3,       4,       5,                            6,       7,       8,       9,       0, _______,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-         SFNE,     DOT,       4,       5,       6, ___X___,                         PGUP,    LEFT,    DOWN,   RIGHT,    VOLD,    VOLU,\
+      _______,    ANGL,    ANGR,    LPRN,    RPRN,    PGUP,                         MINS,    LEFT,      UP,   RIGHT,    PLUS, _______,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______,       0,       1,       2,       3, ___X___,                       PGDOWN,    HOME, ___X___,     END, ___X___, _______,\
+      _______, ___X___, ___X___,    LBRC,    RBRC,  PGDOWN,                         UNDS,    HOME,    DOWN,     END, ___X___, _______,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______, _______,    _______,   LWDEL, _______\
                                       //`--------------------------'  `--------------------------'
@@ -144,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       ___X___, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,  RGBRST,                       AU_TOG,     F10,      F1,      F2,      F3, _______,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______, _______,    _______, _______, _______\
+                                          _______, _______, _______,    _______,    VOLD,    VOLU\
                                       //`--------------------------'  `--------------------------'
   )
 };
@@ -427,11 +426,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           layer_off(_ADJUST);
         }
         return false;
-    case NOTEQL:
-        if (record->event.pressed) {
-          SEND_STRING("!=");
-        }
-        break;
     #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     case RGB_MOD: case RGB_TOG:
     case RGB_HUI: case RGB_HUD:
