@@ -1,11 +1,9 @@
 """Functions that help you work with QMK keymaps.
 """
 import os
-from traceback import format_exc
 
 import qmk.path
 import qmk.makefile
-from qmk.errors import NoSuchKeyboardError
 
 # The `keymap.c` template to use when a keyboard doesn't have its own
 DEFAULT_KEYMAP_C = """#include QMK_KEYBOARD_H
@@ -97,6 +95,7 @@ def write(keyboard, keymap, layout, layers):
         keymap_fd.write(keymap_c)
 
     return keymap_file
+
 
 def list_keymaps(keyboard_name):
     """ List the available keymaps for a keyboard.
