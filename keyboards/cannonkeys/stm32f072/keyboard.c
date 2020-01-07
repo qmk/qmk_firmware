@@ -74,6 +74,7 @@ void matrix_scan_kb(void)
   #ifdef RGBLIGHT_ENABLE
     rgblight_task();
   #endif
+    matrix_scan_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
