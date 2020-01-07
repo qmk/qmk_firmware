@@ -1,4 +1,4 @@
-/* Copyright 2018 Jumail Mundekkat / MxBlue
+/* Copyright 2020 Jumail Mundekkat / MxBlue
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +18,8 @@
 #include "tmk_core/common/eeprom.h"
 #include "tmk_core/common/action_layer.h"
 #include "rgblight.h"
+#include "via.h"
+#include "version.h" // for QMK_BUILDDATE used in EEPROM magic
 
 // Variables for controlling front LED application
 uint8_t fled_mode;  // Mode for front LEDs
@@ -39,15 +41,11 @@ const hs_set layer_colors[] = {
 __attribute__ ((weak))
 const size_t lc_size = sizeof(layer_colors) / sizeof(uint16_t);
 
-void matrix_init_kb(void) {
-    // If EEPROM config exists, load it
+void via_init_kb(void)
+{
+	// If EEPROM config exists, load it
     // If VIA EEPROM exists, FLED config should too
-    #ifdef VIA_ENABLE
-        bool eeprom_valid = via_eeprom_is_valid();
-    #else
-        bool eeprom_valid = true;
-    #endif
-    if (eeprom_valid) {
+    if (via_eeprom_is_valid()) {
         fled_config fled_conf;
         fled_conf.raw = eeprom_read_byte(EEPROM_FRONTLED_ADDR);
         fled_mode = fled_conf.mode;
@@ -58,6 +56,16 @@ void matrix_init_kb(void) {
         fled_val = 10 * FLED_VAL_STEP;
         eeprom_update_conf();   // Store default config to EEPROM
     }
+}
+
+void matrix_init_kb(void) {
+    // If VIA is disabled, we still need to load settings
+	// Call via_init_kb() the same way as via_init(), with setting
+	// EEPROM valid afterwards.
+#ifndef VIA_ENABLE
+    via_init_kb();
+    via_eeprom_set_valid(true);
+#endif // VIA_ENABLE
 
     // Set default values for leds
     setrgb(0, 0, 0, &fleds[0]);
@@ -202,3 +210,37 @@ void fled_lock_update(uint8_t usb_led) {
 
     rgblight_set();
 }
+
+
+// Fallback eeprom functions if VIA is not enabled
+#ifndef VIA_ENABLE
+
+// Can be called in an overriding via_init_kb() to test if keyboard level code usage of
+// EEPROM is invalid and use/save defaults.
+bool via_eeprom_is_valid(void)
+{
+    char *p = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
+    uint8_t magic0 = ( ( p[2] & 0x0F ) << 4 ) | ( p[3]  & 0x0F );
+    uint8_t magic1 = ( ( p[5] & 0x0F ) << 4 ) | ( p[6]  & 0x0F );
+    uint8_t magic2 = ( ( p[8] & 0x0F ) << 4 ) | ( p[9]  & 0x0F );
+
+    return (eeprom_read_byte( (void*)VIA_EEPROM_MAGIC_ADDR+0 ) == magic0 &&
+            eeprom_read_byte( (void*)VIA_EEPROM_MAGIC_ADDR+1 ) == magic1 &&
+            eeprom_read_byte( (void*)VIA_EEPROM_MAGIC_ADDR+2 ) == magic2 );
+}
+
+// Sets VIA/keyboard level usage of EEPROM to valid/invalid
+// Keyboard level code (eg. via_init_kb()) should not call this
+void via_eeprom_set_valid(bool valid)
+{
+    char *p = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
+    uint8_t magic0 = ( ( p[2] & 0x0F ) << 4 ) | ( p[3]  & 0x0F );
+    uint8_t magic1 = ( ( p[5] & 0x0F ) << 4 ) | ( p[6]  & 0x0F );
+    uint8_t magic2 = ( ( p[8] & 0x0F ) << 4 ) | ( p[9]  & 0x0F );
+
+    eeprom_update_byte( (void*)VIA_EEPROM_MAGIC_ADDR+0, valid ? magic0 : 0xFF);
+    eeprom_update_byte( (void*)VIA_EEPROM_MAGIC_ADDR+1, valid ? magic1 : 0xFF);
+    eeprom_update_byte( (void*)VIA_EEPROM_MAGIC_ADDR+2, valid ? magic2 : 0xFF);
+}
+
+#endif

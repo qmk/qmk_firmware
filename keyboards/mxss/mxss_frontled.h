@@ -22,9 +22,7 @@
 
 #include "quantum.h"
 #include "quantum_keycodes.h"
-#ifdef VIA_ENABLE
-    #include "via.h"
-#endif
+#include "via.h"
 
 // RGBLED index for front LEDs
 #define RGBLIGHT_FLED1 14
@@ -34,11 +32,7 @@
 #define FLED_VAL_STEP 8
 
 // Front LED settings
-#ifdef VIA_ENABLE
-    #define EEPROM_FRONTLED_ADDR ((uint8_t*) VIA_EEPROM_CUSTOM_CONFIG_ADDR)
-#else
-    #define EEPROM_FRONTLED_ADDR ((void *) 32)
-#endif
+#define EEPROM_FRONTLED_ADDR ((uint8_t*) VIA_EEPROM_CUSTOM_CONFIG_ADDR)
 
 // Modes for front LEDs
 #define FLED_OFF    0b00
@@ -66,21 +60,12 @@ typedef struct _hs_set {
 } hs_set;
 
 // Custom keycodes for front LED control
-#ifdef VIA_ENABLE
-    enum fled_keycodes {
-        FLED_MOD = USER00, // USER00 = VIA custom keycode start
-        FLED_VAI,
-        FLED_VAD,
-        NEW_SAFE_RANGE // define a new safe range
-    };
-#else
-    enum fled_keycodes {
-        FLED_MOD = SAFE_RANGE, // SAFE_RANGE = QMK custom keycode start
-        FLED_VAI,
-        FLED_VAD,
-        NEW_SAFE_RANGE // define a new safe range
-    };
-#endif
+enum fled_keycodes {
+    FLED_MOD = USER00, // USER00 = VIA custom keycode start
+    FLED_VAI,
+    FLED_VAD,
+    NEW_SAFE_RANGE // define a new safe range
+};
 
 void eeprom_update_conf(void);      // Store current front LED config to EEPROM
 
