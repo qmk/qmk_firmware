@@ -50,7 +50,7 @@
 #        define FEE_PAGE_SIZE (uint16_t)0x800  // Page size = 2KByte
 #        define FEE_DENSITY_PAGES 4            // How many pages are used
 #    elif defined(MCU_STM32F411xE)
-#        define FEE_PAGE_SIZE ((uint32_t)0x20000U)  // Page size = 128KByte
+#        define FEE_PAGE_SIZE (uint32_t)0x20000  // Page size = 128KByte
 #        define FEE_DENSITY_PAGES 1              // How many pages are used
 #        define FEE_SECTOR_ID 7                  // sector id of the flash
 #    else
@@ -76,17 +76,17 @@
 
 // DONT CHANGE
 // Choose location for the first EEPROM Page address on the top of flash
-#define FEE_PAGE_END_ADDRESS ((uint32_t)(0x8000000 + FEE_MCU_FLASH_SIZE * 1024))
+#define FEE_PAGE_END_ADDRESS ((uint32_t)(0x08000000 + FEE_MCU_FLASH_SIZE * 1024))
 #define FEE_PAGE_BASE_ADDRESS ((uint32_t)((FEE_PAGE_END_ADDRESS) - FEE_DENSITY_PAGES * FEE_PAGE_SIZE))
 #define FEE_DENSITY_BYTES ((FEE_PAGE_SIZE / 4) * FEE_DENSITY_PAGES - 1) // 4 Bytes for address, value pair
-#define FEE_LAST_PAGE_ADDRESS (FEE_PAGE_BASE_ADDRESS + (FEE_PAGE_SIZE * FEE_DENSITY_PAGES))
+//#define FEE_LAST_PAGE_ADDRESS (FEE_PAGE_BASE_ADDRESS + (FEE_PAGE_SIZE * FEE_DENSITY_PAGES))
 #define FEE_EMPTY_BYTE ((uint8_t)0xFF)
 #define FEE_EMPTY_WORD ((uint16_t)0xFFFF)
 #define FEE_EMPTY_VALUE ((uint32_t)0xFFFFFFFF)
 //#define FEE_ADDR_OFFSET(Address) (Address * 2)      // 1 Byte per Word will be saved to preserve Flash
 #define FEE_DATA_ADDRESS(Address) ((Address)+2)     // flash address of the eeprom data
 #define FEE_ADDR_ADDRESS(Address) (Address)         // flash address of the eeprom address
-#define FEE_MAX_BYTES ((FEE_DENSITY_BYTES) >= 1024 ? 1024 : (FEE_DENSITY_BYTES)) // eeprom size
+#define FEE_MAX_BYTES ((FEE_DENSITY_BYTES+1) > 1024 ? 1024 : (FEE_DENSITY_BYTES+1)) // eeprom size
 
 // Use this function to initialize the functionality
 uint16_t EEPROM_Init(void);

@@ -75,7 +75,7 @@ uint16_t EEPROM_WriteDataByte(uint16_t Address, uint8_t DataByte) {
 
     uint32_t addr;
     // exit if not a valid address
-    if (IS_VALID_ADDRESS(Address)) {
+    if (!IS_VALID_ADDRESS(Address)) {
         return 0;
     }
 

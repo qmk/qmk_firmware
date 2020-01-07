@@ -218,5 +218,5 @@ void FLASH_Lock(void) {
  */
 void FLASH_ClearFlag(uint32_t FLASH_FLAG) {
     /* Clear the flags */
-    FLASH->SR = FLASH_FLAG;
+    FLASH->SR |= FLASH_FLAG;
 }
