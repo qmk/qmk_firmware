@@ -12,6 +12,8 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * EEPROM management code from ../cannonkeys/stm32f072/keyboard.c
  */
 
 #include QMK_KEYBOARD_H
