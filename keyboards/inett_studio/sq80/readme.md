@@ -4,7 +4,7 @@
 
 Square 80%. As a result of co-working with FOX LAB, we have finally got an amazing SQUARE prototype after a looong design period.
 
-* Keyboard Maintainer: QMK Community  
+* Keyboard Maintainer: QMK Community
 * Hardware Supported: SQ80 and SQ80wkl
 * Hardware Availability: iNETT STUDIO   QQ群号：528509432
 
