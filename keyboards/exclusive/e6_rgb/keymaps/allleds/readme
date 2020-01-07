@@ -1,0 +1,11 @@
+This folder turned underglow led and per key led ON as same time.
+While this is the case:
+
+RGB_TOG, RGB_MOD, etc to control the underglow led
+
+And F13-F17 was used to control the per key led
+F13 to turn the led on/off
+F14 to change the effect mode
+F15 to increase the HUE
+F16 to increase the SAT
+F17 to increase the VAL

@@ -7,8 +7,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xDEAD
-#define PRODUCT_ID      0xFEED
+#define VENDOR_ID       0x4154      //AT
+#define PRODUCT_ID      0x4536      //E6
 #define DEVICE_VER      0x0062
 #define MANUFACTURER    astro
 #define PRODUCT         e6rgb

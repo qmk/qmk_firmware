@@ -54,7 +54,6 @@
     {KC_NO, k42, k43, KC_NO, KC_NO, KC_NO, k47, KC_NO, KC_NO, KC_NO, KC_NO, k49, k4a, KC_NO}  \
 }
 
-#define LAYOUT_allleds LAYOUT_60_wkl_split_bs
 #define LAYOUT_60_wkl_split_bs( \
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, k0e, \
 	k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1e, \
