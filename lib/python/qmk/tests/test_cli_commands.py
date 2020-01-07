@@ -55,7 +55,14 @@ def test_list_keyboards():
     # this will fail if handwired/onekey/pytest is removed
     assert 'handwired/onekey/pytest' in result.stdout
 
+
 def test_list_keymaps():
-    result = check_subcommand("list_keymaps", "-kb", "planck/ez")
+    result = check_subcommand("list-keymaps", "-kb", "planck/ez")
     assert result.returncode == 0
     assert "planck/ez:default" and "planck/ez:drashna" in result.stdout
+
+
+def test_list_keymaps_no_keyboard_found():
+    result = check_subcommand("list-keymaps", "-kb", "asdfghjkl")
+    assert result.returncode == 0
+    assert "does not exist" in result.stdout

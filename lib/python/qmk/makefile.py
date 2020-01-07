@@ -5,6 +5,7 @@ import os
 import qmk.path
 from qmk.errors import NoSuchKeyboardError
 
+
 def parse_rules_mk_file(file, rules_mk=None):
     """Turn a rules.mk file into a dictionary.
 
@@ -45,11 +46,12 @@ def parse_rules_mk_file(file, rules_mk=None):
                         rules_mk[key.strip()] = value.strip()
                 else:
                     if ":=" in line:
-                        line.replace(":","")
+                        line.replace(":", "")
                     key, value = line.split('=', 1)
                     rules_mk[key.strip()] = value.strip()
 
     return rules_mk
+
 
 def get_rules_mk(keyboard):
     """ Get a rules.mk for a keyboard

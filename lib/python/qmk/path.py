@@ -5,6 +5,7 @@ import os
 
 from qmk.errors import NoSuchKeyboardError
 
+
 def keymap(keyboard):
     """Locate the correct directory for storing a keymap.
 
@@ -32,6 +33,7 @@ def normpath(path):
         return os.path.normpath(path)
 
     return os.path.normpath(os.path.join(os.environ['ORIG_CWD'], path))
+
 
 def file_lines(filename):
     """ Return a files content, line by line
