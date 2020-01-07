@@ -14,6 +14,7 @@
  * https://github.com/leaflabs/libmaple
  *
  * Modifications for QMK and STM32F303 by Yiancar
+ * updated for STM32F4 support by yulei
  */
 
 #if defined(EEPROM_EMU_STM32F303xC)
@@ -25,6 +26,9 @@
 #elif defined(EEPROM_EMU_STM32F072xB)
 #    define STM32F072xB
 #    include "stm32f0xx.h"
+#elif defined(EEPROM_EMU_STM32F411xE)
+#    define STM32F411xE
+#    include "stm32f4xx.h"
 #else
 #    error "not implemented."
 #endif
@@ -33,6 +37,18 @@
 
 #if defined(EEPROM_EMU_STM32F103xB)
 #    define FLASH_SR_WRPERR FLASH_SR_WRPRTERR
+#endif
+
+#if defined(EEPROM_EMU_STM32F411xE)
+#    define FLASH_PSIZE_HFWORD FLASH_CR_PSIZE_0
+#    define FLASH_PSIZE_WORD FLASH_CR_PSIZE_1
+#    define FLASH_CR_SNB_POS 3
+/* the flash key was not defined in the CMSIS used by current chibios */
+#    define FLASH_KEY1 0x45670123
+#    define FLASH_KEY2 0xCDEF89AB
+#    define FLASH_SR_FLAGS (FLASH_SR_PGAERR|FLASH_SR_PGPERR|FLASH_SR_PGSERR|FLASH_SR_WRPERR)
+#else
+#    define FLASH_SR_FLAGS (FLASH_SR_EOP | FLASH_SR_PGERR | FLASH_SR_WRPERR)
 #endif
 
 /* Delay definition */
@@ -61,11 +77,14 @@ static void delay(void) {
 FLASH_Status FLASH_GetStatus(void) {
     if ((FLASH->SR & FLASH_SR_BSY) == FLASH_SR_BSY) return FLASH_BUSY;
 
+#if defined(EEPROM_EMU_STM32F411xE)
+    if ((FLASH->SR & (FLASH_SR_PGSERR | FLASH_SR_PGPERR | FLASH_SR_PGAERR))) return FLASH_ERROR_PG;
+    if ((FLASH->SR & FLASH_SR_WRPERR)) return FLASH_ERROR_WRP;
+#else
     if ((FLASH->SR & FLASH_SR_PGERR) != 0) return FLASH_ERROR_PG;
-
     if ((FLASH->SR & FLASH_SR_WRPERR) != 0) return FLASH_ERROR_WRP;
-
     if ((FLASH->SR & FLASH_OBR_OPTERR) != 0) return FLASH_ERROR_OPT;
+#endif
 
     return FLASH_COMPLETE;
 }
@@ -94,30 +113,40 @@ FLASH_Status FLASH_WaitForLastOperation(uint32_t Timeout) {
 
 /**
  * @brief  Erases a specified FLASH page.
- * @param  Page_Address: The page address to be erased.
+ * @param  Page_Address: The page address or sector to be erased.
  * @retval FLASH Status: The returned value can be: FLASH_BUSY, FLASH_ERROR_PG,
  *   FLASH_ERROR_WRP, FLASH_COMPLETE or FLASH_TIMEOUT.
  */
-FLASH_Status FLASH_ErasePage(uint32_t Page_Address) {
+FLASH_Status FLASH_ErasePage(uint32_t Page) {
     FLASH_Status status = FLASH_COMPLETE;
     /* Check the parameters */
-    ASSERT(IS_FLASH_ADDRESS(Page_Address));
+    //ASSERT(IS_FLASH_ADDRESS(Page_Address));
     /* Wait for last operation to be completed */
     status = FLASH_WaitForLastOperation(EraseTimeout);
 
     if (status == FLASH_COMPLETE) {
         /* if the previous operation is completed, proceed to erase the page */
+#if defined(EEPROM_EMU_STM32F411xE)
+        FLASH->CR &= ~FLASH_CR_SNB;
+        FLASH->CR |= (Page << FLASH_CR_SNB_POS);
+        FLASH->CR |= FLASH_CR_SER;
+#else
+        FLASH->AR = Page;
         FLASH->CR |= FLASH_CR_PER;
-        FLASH->AR = Page_Address;
+#endif
         FLASH->CR |= FLASH_CR_STRT;
 
         /* Wait for last operation to be completed */
         status = FLASH_WaitForLastOperation(EraseTimeout);
         if (status != FLASH_TIMEOUT) {
             /* if the erase operation is completed, disable the PER Bit */
+#if defined(EEPROM_EMU_STM32F411xE)
+            FLASH->CR &= ~FLASH_CR_SER;
+#else
             FLASH->CR &= ~FLASH_CR_PER;
+#endif
         }
-        FLASH->SR = (FLASH_SR_EOP | FLASH_SR_PGERR | FLASH_SR_WRPERR);
+        FLASH_ClearFlag(FLASH_SR_FLAGS);
     }
     /* Return the Erase Status */
     return status;
@@ -132,22 +161,27 @@ FLASH_Status FLASH_ErasePage(uint32_t Page_Address) {
  */
 FLASH_Status FLASH_ProgramHalfWord(uint32_t Address, uint16_t Data) {
     FLASH_Status status = FLASH_BAD_ADDRESS;
+    if ((Address % sizeof(uint16_t) != 0 ) || !IS_FLASH_ADDRESS(Address)) {
+        return status;
+    }
 
-    if (IS_FLASH_ADDRESS(Address)) {
+    /* Wait for last operation to be completed */
+    status = FLASH_WaitForLastOperation(ProgramTimeout);
+    if (status == FLASH_COMPLETE) {
+        /* if the previous operation is completed, proceed to program the new data */
+#if defined(EEPROM_EMU_STM32F411xE)
+        FLASH->CR &= ~FLASH_CR_PSIZE;
+        FLASH->CR |= FLASH_PSIZE_HFWORD;
+#endif
+        FLASH->CR |= FLASH_CR_PG;
+        *(__IO uint16_t*)Address = Data;
         /* Wait for last operation to be completed */
         status = FLASH_WaitForLastOperation(ProgramTimeout);
-        if (status == FLASH_COMPLETE) {
-            /* if the previous operation is completed, proceed to program the new data */
-            FLASH->CR |= FLASH_CR_PG;
-            *(__IO uint16_t*)Address = Data;
-            /* Wait for last operation to be completed */
-            status = FLASH_WaitForLastOperation(ProgramTimeout);
-            if (status != FLASH_TIMEOUT) {
-                /* if the program operation is completed, disable the PG Bit */
-                FLASH->CR &= ~FLASH_CR_PG;
-            }
-            FLASH->SR = (FLASH_SR_EOP | FLASH_SR_PGERR | FLASH_SR_WRPERR);
+        if (status != FLASH_TIMEOUT) {
+            /* if the program operation is completed, disable the PG Bit */
+            FLASH->CR &= ~FLASH_CR_PG;
         }
+        FLASH_ClearFlag(FLASH_SR_FLAGS);
     }
     return status;
 }
