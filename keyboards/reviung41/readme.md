@@ -6,7 +6,7 @@ The REVIUNG41 is 41-key column staggered keyboard.
 
 * Keyboard Maintainer: [gtips](https://github.com/gtips)
 * Hardware Supported: REVIUNG41 PCBs, Pro Micro supported
-* Hardware Availability: [PCB & Case Data](https://github.com/gtips/reviung/tree/master/reviung41)  
+* Hardware Availability: [PCB & Case Data](https://github.com/gtips/reviung/tree/master/reviung41)
 
 Make example for this keyboard (after setting up your build environment):
 
