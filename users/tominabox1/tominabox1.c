@@ -186,7 +186,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false; break;
 #endif
-      case KC_1 ... KC_0:
       case KC_B ... KC_D:
       case KC_F ... KC_Z:
       //case LS(Z):
