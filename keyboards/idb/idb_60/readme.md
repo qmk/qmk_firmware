@@ -16,7 +16,7 @@ Or to make and flash:
 	
 To compile VIA firmware:
 
-	make idb/idb_60:via
+    make idb/idb_60:via
 	
 LAYOUT_* Macros:
 
