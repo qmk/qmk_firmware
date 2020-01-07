@@ -8,7 +8,7 @@ The NCC-1701-KB Keypad is a custom Star Trek-inspired 3x3 mechanical keypad with
 
 * Keyboard Maintainer: [J2L Designs](https://github.com/jessel92)
 * Hardware Supported: NCC-1701-KB PCB, ATmega32U4
-Hardware Availability: [J2L Designs Store](https://www.etsy.com/listing/752039967/ncc-1701-kb-custom-star-trek-inspired)
+* Hardware Availability: [J2L Designs Store](https://www.etsy.com/listing/752039967/ncc-1701-kb-custom-star-trek-inspired)
 
 Make example for this keyboard (after setting up your build environment):
 
