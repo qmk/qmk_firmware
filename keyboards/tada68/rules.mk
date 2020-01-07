@@ -9,10 +9,7 @@ MCU = atmega32u4
 #   QMK DFU      qmk-dfu
 #   ATmega32A    bootloadHID
 #   ATmega328P   USBasp
-BOOTLOADER = atmel-dfu # actually lufa-ms
-
-# Mass storage bootloader on the tada68 uses bin files
-FIRMWARE_FORMAT = bin
+BOOTLOADER = lufa-ms
 
 # Build Options
 #   comment out to disable the options.
@@ -29,3 +26,5 @@ MIDI_ENABLE = no 		# MIDI controls
 AUDIO_ENABLE = no
 UNICODE_ENABLE = no 		# Unicode
 BLUETOOTH_ENABLE = no # Enable Bluetooth with the Adafruit EZ-Key HID
+
+LAYOUTS = 65_ansi
