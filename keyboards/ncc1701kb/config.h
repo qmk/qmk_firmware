@@ -51,5 +51,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION ROW2COL
 
 #define TAPPING_TERM 200
-
-#endif
