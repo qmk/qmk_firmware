@@ -1,5 +1,4 @@
 # NCC-1701-KB Keypad with Encoder
-===
 
 ![NCC-1701-KB PCB](https://i.imgur.com/aXFgH52.jpg)
 ![NCC-1701-KB](https://i.imgur.com/9hWyhcR.jpg)
