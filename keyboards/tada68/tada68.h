@@ -101,6 +101,3 @@
     {k30, XXX, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d, k3e}, \
     {k40, k41, k42, XXX, XXX, k45, XXX, XXX, XXX, k49, k4a, k4b, k4c, k4d, k4e}  \
 }
-
-void matrix_init_user(void);
-void matrix_scan_user(void);
