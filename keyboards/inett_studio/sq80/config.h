@@ -5,7 +5,7 @@
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    PITTA
+#define MANUFACTURER    Fox Lab x iNETT STUDIO
 #define PRODUCT         SQ68
 #define DESCRIPTION     SQ68 Keyboard
 
