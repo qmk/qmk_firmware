@@ -1,5 +1,4 @@
-#ifndef TADA68_H
-#define TADA68_H
+#pragma once
 
 #include "quantum.h"
 
@@ -105,5 +104,3 @@
 
 void matrix_init_user(void);
 void matrix_scan_user(void);
-
-#endif
