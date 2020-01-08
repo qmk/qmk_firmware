@@ -23,8 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keycode.h"
 #include "action.h"
 
-void matrix_init_user(void);  // TODO port this to other PS2AVRGB boards
-
 #define LAYOUT( \
     K01, K02, K03, K04, K05, K06, \
     K11, K12, K13, K14, K15, K16, \

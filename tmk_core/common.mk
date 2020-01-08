@@ -153,11 +153,6 @@ ifeq ($(strip $(NO_SUSPEND_POWER_DOWN)), yes)
     TMK_COMMON_DEFS += -DNO_SUSPEND_POWER_DOWN
 endif
 
-ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
-    TMK_COMMON_SRC += $(COMMON_DIR)/backlight.c
-    TMK_COMMON_DEFS += -DBACKLIGHT_ENABLE
-endif
-
 ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     TMK_COMMON_DEFS += -DBLUETOOTH_ENABLE
 	TMK_COMMON_DEFS += -DNO_USB_STARTUP_CHECK
@@ -208,6 +203,9 @@ ifeq ($(strip $(SHARED_EP_ENABLE)), yes)
     TMK_COMMON_DEFS += -DSHARED_EP_ENABLE
 endif
 
+ifeq ($(strip $(LTO_ENABLE)), yes)
+    LINK_TIME_OPTIMIZATION_ENABLE = yes
+endif
 
 ifeq ($(strip $(LINK_TIME_OPTIMIZATION_ENABLE)), yes)
     EXTRAFLAGS += -flto
