@@ -37,8 +37,12 @@ ARMV = 6
 
 # project specific files
 VPATH += keyboards/cannonkeys/stm32f072
+SRC =	keyboard.c \
+      led.c
 
-BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
+DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
+
+#BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes	# Mouse keys
 EXTRAKEY_ENABLE = yes	# Audio control and System control
 CONSOLE_ENABLE = yes	# Console for debug
@@ -49,7 +53,4 @@ CUSTOM_MATRIX = no # Custom matrix file
 # BACKLIGHT_ENABLE = yes # This is broken on 072 for some reason
 RGBLIGHT_ENABLE = yes
 
-# RAW_ENABLE = yes
-# DYNAMIC_KEYMAP_ENABLE = yes
-
-DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
+LAYOUTS = 60_tsangan_hhkb
