@@ -222,8 +222,6 @@ case CSPEAK:
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-
   [_BASE] = LAYOUT_ortho_5x14(
     KC_NO,   STOP   , TST    , _______, _______, _______, BUS    ,     _______, _______, _______, _______, _______, _______, _______, \
     KC_NO,   _______, SET    , SET    , SET    , _______, _______,     _______, _______, _______, _______, _______, _______, _______, \
