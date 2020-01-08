@@ -4,8 +4,10 @@
 extern uint8_t is_master;
 // Oled timer similar to Drashna's
 static uint32_t oled_timer = 0;
-// Boolean to store
-bool eeprom_oled_enabled = false;
+// Boolean to store LED state
+bool user_led_enabled = true;
+// Boolean to store the master LED clear so it only runs once.
+bool master_oled_cleared = false;
 
 // [CRKBD layers Init] -------------------------------------------------------//
 enum crkbd_layers {
@@ -54,19 +56,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-//int RGB_current_mode;
+// [Post Init] --------------------------------------------------------------//
+void keyboard_post_init_user(void) {
+    // Set RGB to known state
+    rgb_matrix_enable_noeeprom();
+    rgb_matrix_set_color_all(RGB_GREEN);
+    user_led_enabled = true;
 
+}
 // [Process User Input] ------------------------------------------------------//
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // Use process_record_keymap to reset timer on keypress
-    if (record->event.pressed) {
-        #ifdef OLED_DRIVER_ENABLE
-            oled_timer = timer_read32();
-        #endif
-        // Restore LEDs if they are enabled in eeprom
-        rgb_matrix_enable_noeeprom();
+    switch (keycode) {
+      case RGB_TOG:
+        if (record->event.pressed) {
+            // Toggle matrix on key press
+            user_led_enabled ? rgb_matrix_disable_noeeprom() : rgb_matrix_enable_noeeprom();
+        } else {
+            // Flip User_led_enabled variable on key release
+            user_led_enabled = !user_led_enabled;
+        }
+        return false; // Skip all further processing of this key
+      default:
+          // Use process_record_keymap to reset timer on all other keypresses
+          if (record->event.pressed) {
+              #ifdef OLED_DRIVER_ENABLE
+                  oled_timer = timer_read32();
+              #endif
+              // Restore LEDs if they are enabled by user
+              if (user_led_enabled) {
+                  rgb_matrix_enable_noeeprom();
+              }
+          }
+          return true;
     }
-    return true;
 }
 
 // [OLED Configuration] ------------------------------------------------------//
@@ -180,35 +202,47 @@ void render_master_oled(void) {
     }
 }
 
-// lave OLED scren (Right Hand)
+// Slave OLED scren (Right Hand)
 void render_slave_oled(void) {
     render_logo();
 }
 
 // {OLED Task} -----------------------------------------------//
 void oled_task_user(void) {
-      // Drashna style timeout for LED and OLED Roughly 8mins
-      if (timer_elapsed32(oled_timer) > 480000) {
-          oled_off();
-          rgb_matrix_disable_noeeprom();
-          return;
-      }
-      else {
-          oled_on();
-      }
-      // Show logo when USB dormant
-      switch (USB_DeviceState) {
-          case DEVICE_STATE_Unattached:
-          case DEVICE_STATE_Powered:
-          case DEVICE_STATE_Suspended:
-            render_logo();
-            break;
-          default:
-            if (is_master) {
-                render_master_oled();
-            } else {
-                render_slave_oled();
-            }
-      }
+    if (timer_elapsed32(oled_timer) > 80000 && timer_elapsed32(oled_timer) < 479999) {
+        // Render logo on both halves before full timeout
+        if (is_master && !master_oled_cleared) {
+            // Clear master OLED once so the logo renders properly
+            oled_clear();
+            master_oled_cleared = true;
+        }
+        render_logo();
+        return;
+    }
+    // Drashna style timeout for LED and OLED Roughly 8mins
+    else if (timer_elapsed32(oled_timer) > 480000) {
+        oled_off();
+        rgb_matrix_disable_noeeprom();
+        return;
+    }
+    else {
+        oled_on();
+        // Reset OLED Clear flag
+        master_oled_cleared = false;
+        // Show logo when USB dormant
+        switch (USB_DeviceState) {
+            case DEVICE_STATE_Unattached:
+            case DEVICE_STATE_Powered:
+            case DEVICE_STATE_Suspended:
+                render_logo();
+                break;
+            default:
+                if (is_master) {
+                    render_master_oled();
+                } else {
+                    render_slave_oled();
+                }
+        }
+    }
 }
 #endif
