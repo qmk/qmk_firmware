@@ -67,7 +67,9 @@ enum fled_keycodes {
     NEW_SAFE_RANGE // define a new safe range
 };
 
-void eeprom_update_conf(void);      // Store current front LED config to EEPROM
+void fled_init(void);
+void process_record_fled(uint16_t, keyrecord_t*) ;
+void fled_update_conf(void);      // Store current front LED config to EEPROM
 
 void fled_mode_cycle(void);         // Cycle between the 3 modes for the front LEDs
 void fled_val_increase(void);       // Increase the brightness of the front LEDs
