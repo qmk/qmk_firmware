@@ -49,7 +49,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - see https://docs.qmk.fm/#/feature_debounce_type for more information */
-#define DEBOUNCE_TYPE eager_pk
 #define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
