@@ -89,6 +89,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     eeconfig_update_user(user_config.raw);
                 }
             }
+            break;
         case RGB_THEME_FORWARD:
             if (record->event.pressed) {
                 uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
