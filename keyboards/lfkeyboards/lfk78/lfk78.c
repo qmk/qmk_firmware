@@ -1,4 +1,3 @@
-#include <avr/sfr_defs.h>
 #include <avr/timer_avr.h>
 #include <avr/wdt.h>
 #include "lfk78.h"
@@ -27,21 +26,23 @@ void matrix_init_kb(void)
     matrix_init_user();
 
     // Configure the Layer LED
-    // Set up 16 bit PWM: Fast PWM, mode 15, inverted
-    TCCR1A = 0b11111110;
-    TCCR1B = 0b00011001;
+    // Set up 16 bit PWM: Fast PWM, mode 14, inverted
+    TCCR1A = _BV(COM1A1) | _BV(COM1A0) | _BV(COM1B1) | _BV(COM1B0) | _BV(COM1C1) | _BV(COM1C0) | _BV(WGM11);
+    TCCR1B = _BV(WGM13) | _BV(WGM12) | _BV(CS10);
     ICR1 = 0xFFFF;
     // PWM values - 0xFFFF = off, 0x0000 = max
-    OCR1C = 0x0000; // B7 - Blue
-    OCR1B = 0x0000; // B6 - Green
     OCR1A = 0x0FFF; // B5 - Red
+    OCR1B = 0x0000; // B6 - Green
+    OCR1C = 0x0000; // B7 - Blue
     // Set as output
-    DDRB |= 0b11100000;
+    setPinOutput(B5);
+    setPinOutput(B6);
+    setPinOutput(B7);
 
 #ifndef AUDIO_ENABLE
     // If we're not using the audio pin, drive it low
-    sbi(DDRC, 6);
-    cbi(PORTC, 6);
+    setPinOutput(C6);
+    writePinLow(C6);
 #endif
 
 #ifdef ISSI_ENABLE

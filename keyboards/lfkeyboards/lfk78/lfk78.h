@@ -2,16 +2,6 @@
 
 #include "quantum.h"
 #include "matrix.h"
-#include <avr/sfr_defs.h>
-
-#ifndef cbi
-#define cbi(sfr, bit) (_SFR_BYTE(sfr) &= ~_BV(bit))
-#endif
-
-#ifndef sbi
-#define sbi(sfr, bit) (_SFR_BYTE(sfr) |= _BV(bit))
-#endif
-
 
 typedef struct RGB_Color {
     uint16_t red;
