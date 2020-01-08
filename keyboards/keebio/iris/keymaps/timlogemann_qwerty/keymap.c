@@ -6,7 +6,7 @@
 
 #define HP_GR HYPR_T(KC_GRAVE)
 #define MH_DT MEH_T(KC_DOT)
-#define SHFT_CPS LSFT_T(KC_CAPS)
+#define SHFT_CPS LSFT_T(OSM(MOD_LSFT))
 #define SHFT_QT RSFT_T(KC_QUOT)
 #define L_ALT KC_LAPO
 #define R_ALT KC_RAPC

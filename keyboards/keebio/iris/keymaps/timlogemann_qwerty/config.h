@@ -34,6 +34,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TOGGLE 3
 #define TAPPING_TERM 200
 
+// apparantly I'm a fast typist
+#define PERMISSIVE_HOLD
+
 /* Fix Grave Escape key breaking app switching in MacOS */
 #define GRAVE_ESC_GUI_OVERRIDE
 
