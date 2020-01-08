@@ -1,10 +1,4 @@
-#ifndef LFK78_H
-#define LFK78_H
-
-/* if the kb.h file exists (because we're running from qmkbuilder) include it */
-#if __has_include("kb.h")
-#include "kb.h"
-#endif
+#pragma once
 
 #include "quantum.h"
 #include "matrix.h"
@@ -168,5 +162,3 @@ void click(uint16_t freq, uint16_t duration);
     }
 
 #endif //LFK_REV_B
-
-#endif //LFK78_H
