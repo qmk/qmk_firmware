@@ -14,6 +14,14 @@ void eeconfig_init_user(void) {
     eeconfig_update_user(user_config.raw);
 }
 
+__attribute__((weak)) void keyboard_pre_init_keymap(void) {}
+
+void keyboard_pre_init_user(void) {
+    // Read the user config from EEPROM
+    user_config.raw = eeconfig_read_user();
+    keyboard_pre_init_keymap();
+}
+
 __attribute__((weak))
 void matrix_init_keymap(void){ }
 
@@ -29,8 +37,6 @@ void keyboard_post_init_keymap(void){ }
  * calls RGB init if RGBs enabled
  */
 void keyboard_post_init_user(void){
-    // Read the user config from EEPROM
-    user_config.raw = eeconfig_read_user();
     // Do RGB things if RGBs enabled
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     keyboard_post_init_rgb();

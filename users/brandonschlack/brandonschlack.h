@@ -41,6 +41,7 @@ typedef union {
 } user_config_t;
 extern user_config_t user_config;
 
+void keyboard_pre_init_keymap(void);
 void matrix_init_keymap(void);
 void keyboard_post_init_keymap(void);
 void shutdown_keymap(void);
