@@ -21,6 +21,7 @@
 #include "rgblight.h"
 #include "via.h"
 #include "version.h" // for QMK_BUILDDATE used in EEPROM magic
+#include "debug.h"
 
 // Variables for controlling front LED application
 uint8_t fled_mode;  // Mode for front LEDs
@@ -32,15 +33,10 @@ LED_TYPE fleds[2];  // Front LED rgb values for indicator mode use
 // {0, 0} to turn off the LED
 // Add additional rows to handle more layers
 __attribute__ ((weak))
-hs_set layer_colors[4] = {
-    [0] = {0,     0},  // Color for Layer 0
-    [1] = {86,    255},  // Color for Layer 1
-    [2] = {36,    255},  // Color for Layer 2
-    [3] = {185,   255},  // Color for Layer 3
-};
+hs_set layer_colors[4];
 
 // Caps lock indicator color
-hs_set caps_color = { 0, 255 };
+hs_set caps_color;
 
 __attribute__ ((weak))
 size_t lc_size = sizeof(layer_colors) / sizeof(uint16_t);
@@ -49,14 +45,23 @@ void fled_init(void) {
     // If EEPROM config exists, load it
     // If VIA EEPROM exists, FLED config should too
     if (via_eeprom_is_valid()) {
-        fled_config fled_conf;
-        fled_conf.raw = eeprom_read_byte(EEPROM_FRONTLED_ADDR);
-        fled_mode = fled_conf.mode;
-        fled_val = fled_conf.val * FLED_VAL_STEP;
+        fled_load_conf();
     // Else, default config
     } else {
         fled_mode = FLED_RGB;
         fled_val = 10 * FLED_VAL_STEP;
+
+        caps_color.hue = 0;
+        caps_color.sat = 255;
+        layer_colors[0].hue = 0;
+        layer_colors[0].sat = 0;
+        layer_colors[1].hue = 86;
+        layer_colors[1].sat = 255;
+        layer_colors[2].hue = 36;
+        layer_colors[2].sat = 255;
+        layer_colors[3].hue = 185;
+        layer_colors[3].sat = 255;
+
         fled_update_conf();   // Store default config to EEPROM
     }
 
@@ -96,6 +101,25 @@ void  process_record_fled(uint16_t keycode, keyrecord_t *record) {
 	return;
 }
 
+void fled_load_conf(void) {
+    // Load config
+    fled_config fled_conf;
+    fled_conf.raw = eeprom_read_byte(FRONTLED_CONF_ADDR);
+    fled_mode = fled_conf.mode;
+    fled_val = fled_conf.val * FLED_VAL_STEP;
+
+    // Load color data
+    uint8_t stored_cnt = eeprom_read_byte(FRONTLED_COLOR_CNT_ADDR);
+    uint16_t *color_ptr = FRONTLED_COLOR_ADDR;
+    caps_color.raw = eeprom_read_word(color_ptr); // Should always store at least 1 color
+    for (uint8_t i = 1; i < stored_cnt; i++) {
+        if (i == lc_size) // Can't load more layers than we have available
+            break;
+        layer_colors[i].raw = eeprom_read_word(&color_ptr[i]);
+    }
+    layer_colors[0].raw = 0; // hue = sat = 0 for layer 0
+}
+
 // Store current front led config in EEPROM
 void fled_update_conf(void)
 {
@@ -110,7 +134,19 @@ void fled_update_conf(void)
         conf.val = fled_val / FLED_VAL_STEP;
 
     // Store config
-	eeprom_update_byte(EEPROM_FRONTLED_ADDR, conf.raw);
+	eeprom_update_byte(FRONTLED_CONF_ADDR, conf.raw);
+
+    // Store color data
+    uint16_t *color_ptr = FRONTLED_COLOR_ADDR;
+    eeprom_update_word(color_ptr, caps_color.raw);
+    // Start from 1, layer 0 is not modifiable and therefore not persisted
+    uint8_t i = 1;
+    for (; i < lc_size; i++) {
+        if (i == FRONTLED_COLOR_MAXCNT) // Can't store more than the EEPROM we have available
+            break;
+        eeprom_update_word(&color_ptr[i], layer_colors[i].raw);
+    }
+    eeprom_update_byte(FRONTLED_COLOR_CNT_ADDR, i); // For safety, store the count of colors stored
 }
 
 // Custom keycode functions
@@ -169,7 +205,7 @@ void fled_layer_update(uint32_t state) {
     // if hue = sat = 0, leave LED off
     uint8_t layer = biton32(state);
 
-    if (layer < lc_size && !(layer_colors[layer].hue == 0 && layer_colors[layer].hue == 0))
+    if (layer < lc_size && !(layer_colors[layer].hue == 0 && layer_colors[layer].sat == 0))
         sethsv(layer_colors[layer].hue, layer_colors[layer].sat, fled_val, &fleds[1]);
     else
         setrgb(0, 0, 0, &fleds[1]);
@@ -188,6 +224,8 @@ void fled_lock_update(uint8_t usb_led) {
 
 void set_fled_layer_color(uint8_t layer, hs_set hs) {
     layer_colors[layer] = hs;
+    fled_layer_update(layer_state);
+    fled_update_conf();
 }
 
 hs_set get_fled_layer_color(uint8_t layer) {
@@ -196,6 +234,8 @@ hs_set get_fled_layer_color(uint8_t layer) {
 
 void set_fled_caps_color(hs_set hs) {
     caps_color = hs;
+    fled_lock_update(host_keyboard_leds());
+    fled_update_conf();
 }
 
 hs_set get_fled_caps_color(void) {

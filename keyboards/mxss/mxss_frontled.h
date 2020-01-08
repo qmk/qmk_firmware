@@ -32,7 +32,12 @@
 #define FLED_VAL_STEP 8
 
 // Front LED settings
-#define EEPROM_FRONTLED_ADDR ((uint8_t*) VIA_EEPROM_CUSTOM_CONFIG_ADDR)
+#define FRONTLED_CONF_ADDR ((uint8_t*) VIA_EEPROM_CUSTOM_CONFIG_ADDR)
+#define FRONTLED_COLOR_CNT_ADDR (FRONTLED_CONF_ADDR + 1)
+#define FRONTLED_COLOR_ADDR ((uint16_t*)(FRONTLED_COLOR_CNT_ADDR + 1))
+
+// No point persisting more 4, VIA only allows editing of 3 + 1 for caps
+#define FRONTLED_COLOR_MAXCNT 4
 
 // Modes for front LEDs
 #define FLED_OFF    0b00
@@ -50,9 +55,12 @@ typedef union {
 } fled_config;
 
 // Structure to store hue and saturation values
-typedef struct _hs_set {
-    uint8_t hue;
-    uint8_t sat;
+typedef union {
+    uint16_t raw;
+    struct {
+        uint8_t hue;
+        uint8_t sat;
+    };
 } hs_set;
 
 // Custom keycodes for front LED control
@@ -65,6 +73,7 @@ enum fled_keycodes {
 
 void fled_init(void);                // Run init functions for front LEDs
 void process_record_fled(uint16_t, keyrecord_t*); // Process keycodes for front LEDs
+void fled_load_conf(void);          // Load front LED config from EEPROM
 void fled_update_conf(void);        // Store current front LED config to EEPROM
 
 void fled_mode_cycle(void);         // Cycle between the 3 modes for the front LEDs
