@@ -3,7 +3,7 @@
 /* enable/disable LEDs based on layout */
 // switch between split backspace (1) or normal backspace(0)
 #undef RGB_BACKLIGHT_USE_SPLIT_BACKSPACE
-#define RGB_BACKLIGHT_USE_SPLIT_BACKSPACE 0
+#define RGB_BACKLIGHT_USE_SPLIT_BACKSPACE 1
 
 // switch between Tsangan (1) or Arrows Bottom Row (0)
 #undef RGB_BACKLIGHT_USE_7U_SPACEBAR

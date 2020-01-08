@@ -35,13 +35,14 @@
 #if !defined(RGB_BACKLIGHT_HS60) && !defined(RGB_BACKLIGHT_NK65)
 #include <avr/interrupt.h>
 #include "drivers/avr/i2c_master.h"
-#if defined(RGB_BACKLIGHT_DAWN60)
-#include "drivers/avr/ws2812.h"
-#endif
 #else
 #include "ch.h"
 #include "hal.h"
 #include "drivers/arm/i2c_master.h"
+#endif
+
+#if defined(RGB_CUSTOM_UNDERGLOW)
+#include "drivers/avr/ws2812.h"
 #endif
 
 #include "progmem.h"
@@ -66,13 +67,17 @@
 #define BACKLIGHT_LED_COUNT 108
 #elif defined(RGB_BACKLIGHT_DAWN60)
 #define BACKLIGHT_LED_COUNT 84  //64 + 20
-LED_TYPE led[RGBLED_NUM];
-static uint8_t clipping_start_pos = 0;
-static uint8_t clipping_num_leds = RGBLED_NUM;
 #else
 #define BACKLIGHT_LED_COUNT 72
 #endif
 #endif
+
+#if defined(RGB_CUSTOM_UNDERGLOW)
+LED_TYPE led[RGBLED_NUM];
+static uint8_t clipping_start_pos = 0;
+static uint8_t clipping_num_leds = RGBLED_NUM;
+#endif
+
 
 #define BACKLIGHT_EFFECT_MAX 10
 
@@ -1152,7 +1157,7 @@ const uint8_t g_map_row_column_to_led[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
     {     0,     3,     5,     1,     2,     4 }
 };
 #elif defined(RGB_BACKLIGHT_DAWN60)
-//Xel60
+//Dawn60
 // A16, A15, A14, A13, A12, A11, A10,  A9,  B1,  B2,  B3,  B4,  B5,  B6,
 //  A7,  A6,  A5,  A4,  A3,  A2,  A1,  B9, B10, B11, B12, B13, B14, B15,
 //  A8, C14, C13, C12, C11, C10,  C9,  D1,  D2,  D3,  D4,  D5,  B8,  B7,
@@ -1324,7 +1329,7 @@ void backlight_effect_rgb_test(void)
         case 0:
         {
             backlight_set_color_all( 255, 0, 0 );
-#if defined(RGB_BACKLIGHT_DAWN60)
+#if defined(RGB_CUSTOM_UNDERGLOW)
             underglow_set_color_all( 255, 0, 0 );	
 #endif
             break;
@@ -1332,7 +1337,7 @@ void backlight_effect_rgb_test(void)
         case 1:
         {
             backlight_set_color_all( 0, 255, 0 );
-#if defined(RGB_BACKLIGHT_DAWN60)
+#if defined(RGB_CUSTOM_UNDERGLOW)
             underglow_set_color_all( 0, 255, 0 );	
 #endif
             break;
@@ -1340,7 +1345,7 @@ void backlight_effect_rgb_test(void)
         case 2:
         {
             backlight_set_color_all( 0, 0, 255 );
-#if defined(RGB_BACKLIGHT_DAWN60)
+#if defined(RGB_CUSTOM_UNDERGLOW)
             underglow_set_color_all( 0, 0, 255 );	
 #endif
             break;
@@ -1348,7 +1353,7 @@ void backlight_effect_rgb_test(void)
         case 3:
         {
             backlight_set_color_all( 255, 255, 255 );
-#if defined(RGB_BACKLIGHT_DAWN60)
+#if defined(RGB_CUSTOM_UNDERGLOW)
             underglow_set_color_all( 255, 255, 255 );	
 #endif
             break;
@@ -1402,7 +1407,7 @@ void backlight_effect_single_LED_test(void)
 void backlight_effect_all_off(void)
 {
     backlight_set_color_all( 0, 0, 0 );
-#if defined(RGB_BACKLIGHT_DAWN60)
+#if defined(RGB_CUSTOM_UNDERGLOW)
     underglow_set_color_all( 0, 0, 0 );	
 #endif
 }
@@ -1413,7 +1418,7 @@ void backlight_effect_solid_color(void)
     HSV hsv = { .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness };
     RGB rgb = hsv_to_rgb( hsv );
     backlight_set_color_all( rgb.r, rgb.g, rgb.b );
-#if defined(RGB_BACKLIGHT_DAWN60)
+#if defined(RGB_CUSTOM_UNDERGLOW)
     underglow_set_color_all( rgb.r, rgb.g, rgb.b );	
 #endif
 }
@@ -1455,12 +1460,13 @@ void backlight_effect_alphas_mods(void)
             }
         }
     }
-#if defined(RGB_BACKLIGHT_DAWN60) 
-	for (int i = 0; i < 20; i++) {
-		if ((7 <= i && i <= 11) || 16 <= i) {
-            underglow_set_color(i, rgb2.r, rgb2.g, rgb2.b);
-		} else {
+#if defined(RGB_CUSTOM_UNDERGLOW) 
+	for (int i = 0; i < RGBLED_NUM; i++) {
+		if ((RGB_UNDERGLOW_ALPHA_TOP_START <= i && i <= RGB_UNDERGLOW_ALPHA_TOP_END) || 
+            (RGB_UNDERGLOW_ALPHA_BOT_START <= i && i <= RGB_UNDERGLOW_ALPHA_BOT_END)) {
             underglow_set_color(i, rgb1.r, rgb1.g, rgb1.b);
+		} else {
+            underglow_set_color(i, rgb2.r, rgb2.g, rgb2.b);
 		}
 	}
 #endif
@@ -1500,7 +1506,7 @@ void backlight_effect_gradient_up_down(void)
         hsv.h = g_config.color_1.h + ( deltaH * y );
         hsv.s = g_config.color_1.s + ( deltaS * y );
         rgb = hsv_to_rgb( hsv );
-#if !defined(RGB_BACKLIGHT_DAWN60)
+#if !defined(RGB_CUSTOM_UNDERGLOW)
         backlight_set_color( i, rgb.r, rgb.g, rgb.b );
 #else
         if (DRIVER_LED_TOTAL <= i && i <= BACKLIGHT_LED_COUNT) {
@@ -1551,7 +1557,7 @@ void backlight_effect_raindrops(bool initialize)
             hsv.v = g_config.brightness;
 
             rgb = hsv_to_rgb( hsv );
-#if !defined(RGB_BACKLIGHT_DAWN60)
+#if !defined(RGB_CUSTOM_UNDERGLOW)
             backlight_set_color( i, rgb.r, rgb.g, rgb.b );
 #else
             if (DRIVER_LED_TOTAL <= i && i <= BACKLIGHT_LED_COUNT) {
@@ -1584,7 +1590,7 @@ void backlight_effect_cycle_all(void)
 
         HSV hsv = { .h = offset+offset2, .s = 255, .v = g_config.brightness };
         RGB rgb = hsv_to_rgb( hsv );
-#if !defined(RGB_BACKLIGHT_DAWN60)
+#if !defined(RGB_CUSTOM_UNDERGLOW)
         backlight_set_color( i, rgb.r, rgb.g, rgb.b );
 #else
         if (DRIVER_LED_TOTAL <= i && i <= BACKLIGHT_LED_COUNT) {
@@ -1619,7 +1625,7 @@ void backlight_effect_cycle_left_right(void)
         // Relies on hue being 8-bit and wrapping
         hsv.h = point.x + offset + offset2;
         rgb = hsv_to_rgb( hsv );
-#if !defined(RGB_BACKLIGHT_DAWN60)
+#if !defined(RGB_CUSTOM_UNDERGLOW)
         backlight_set_color( i, rgb.r, rgb.g, rgb.b );
 #else
         if (DRIVER_LED_TOTAL <= i && i <= BACKLIGHT_LED_COUNT) {
@@ -1654,7 +1660,7 @@ void backlight_effect_cycle_up_down(void)
         // Relies on hue being 8-bit and wrapping
         hsv.h = point.y + offset + offset2;
         rgb = hsv_to_rgb( hsv );
-#if !defined(RGB_BACKLIGHT_DAWN60)
+#if !defined(RGB_CUSTOM_UNDERGLOW)
         backlight_set_color( i, rgb.r, rgb.g, rgb.b );
 #else
         if (DRIVER_LED_TOTAL <= i && i <= BACKLIGHT_LED_COUNT) {
@@ -1686,7 +1692,7 @@ void backlight_effect_jellybean_raindrops( bool initialize )
             hsv.v = g_config.brightness;;
 
             rgb = hsv_to_rgb( hsv );
-#if !defined(RGB_BACKLIGHT_DAWN60)
+#if !defined(RGB_CUSTOM_UNDERGLOW)
             backlight_set_color( i, rgb.r, rgb.g, rgb.b );
 #else
             if (DRIVER_LED_TOTAL <= i && i <= BACKLIGHT_LED_COUNT) {
@@ -1712,7 +1718,7 @@ void backlight_effect_cycle_radial1(void)
         hsv.h = point.x + offset;
         hsv.s = point.y;
         rgb = hsv_to_rgb( hsv );
-#if !defined(RGB_BACKLIGHT_DAWN60)
+#if !defined(RGB_CUSTOM_UNDERGLOW)
         backlight_set_color( i, rgb.r, rgb.g, rgb.b );
 #else
         if (DRIVER_LED_TOTAL <= i && i <= BACKLIGHT_LED_COUNT) {
@@ -1743,7 +1749,7 @@ void backlight_effect_cycle_radial2(void)
         hsv.h = g_config.color_1.h + offset2;
         hsv.s = 127 + ( point.y >> 1 );
         rgb = hsv_to_rgb( hsv );
-#if !defined(RGB_BACKLIGHT_DAWN60)
+#if !defined(RGB_CUSTOM_UNDERGLOW)
         backlight_set_color( i, rgb.r, rgb.g, rgb.b );
 #else
         if (DRIVER_LED_TOTAL <= i && i <= BACKLIGHT_LED_COUNT) {
@@ -2702,7 +2708,7 @@ void backlight_debug_led( bool state )
 }
 #endif // defined(RGB_DEBUGGING_ONLY)
 
-#if defined(RGB_BACKLIGHT_DAWN60)
+#if defined(RGB_CUSTOM_UNDERGLOW)
 
 void rgblight_set(void) {
 	LED_TYPE *start_led = led + clipping_start_pos;

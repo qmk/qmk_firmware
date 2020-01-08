@@ -75,8 +75,9 @@
 
 #define RGB_BACKLIGHT_ENABLED 1
 
-// This conditionally compiles the backlight code for Zeal60 specifics
+// This conditionally compiles the backlight code for Dawn60 specifics
 #define RGB_BACKLIGHT_DAWN60
+#define RGB_CUSTOM_UNDERGLOW
 
 // enable/disable LEDs based on layout
 // switch between split backspace (1) or normal backspace(0)
@@ -117,6 +118,11 @@
 #define RGB_DI_PIN F0
 #define RGBLED_NUM 20
 
+#define RGB_UNDERGLOW_ALPHA_TOP_START 0
+#define RGB_UNDERGLOW_ALPHA_TOP_END   6   
+#define RGB_UNDERGLOW_ALPHA_BOT_START 12
+#define RGB_UNDERGLOW_ALPHA_BOT_END   15
+
 // These define which keys in the matrix are alphas/mods
 // Used for backlight effects so colors are different for
 // alphas vs. mods
@@ -139,23 +145,3 @@
 #define RGB_REACTIVE_VERTICAL 0
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
-
-// EEPROM usage
-
-// TODO: refactor with new user EEPROM code (coming soon)
-#define EEPROM_MAGIC 0x451F
-#define EEPROM_MAGIC_ADDR 34
-// Bump this every time we change what we store
-// This will automatically reset the EEPROM with defaults
-// and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x08
-#define EEPROM_VERSION_ADDR 36
-
-// Backlight config starts after EEPROM version
-#define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR 37
-// Dynamic keymap starts after backlight config (37+31)
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 68
-// Dynamic macro starts after dynamic keymaps (68+(4*5*14*2)) = (68+560)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 628
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 396
-#define DYNAMIC_KEYMAP_MACRO_COUNT 16
