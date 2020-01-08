@@ -41,10 +41,10 @@
 #include "drivers/arm/i2c_master.h"
 #endif
 
-#if defined(RGB_CUSTOM_UNDERGLOW)
+#if defined(RGB_BACKLIGHT_DAWN60)
 #include "drivers/avr/ws2812.h"
 void rgblight_set(void);
-LED_TYPE led[RGBLED_NUM];
+LED_TYPE led_underglow[RGBLED_NUM];
 static uint8_t clipping_start_pos = 0;
 static uint8_t clipping_num_leds = RGBLED_NUM;
 #endif
@@ -1224,17 +1224,17 @@ void backlight_set_color( int index, uint8_t red, uint8_t green, uint8_t blue )
     IS31FL3218_set_color( index, red, green, blue );
 #elif defined(RGB_BACKLIGHT_HS60) || defined(RGB_BACKLIGHT_NK65)
     IS31FL3733_set_color( index, red, green, blue );
-#else
-    IS31FL3731_set_color( index, red, green, blue );
-#endif
-
-#if defined(RGB_CUSTOM_UNDERGLOW)
-    if(index >= DRIVER_LED_TOTAL) {
-        led[index - DRIVER_LED_TOTAL].r = red;
-        led[index - DRIVER_LED_TOTAL].g = green;
-        led[index - DRIVER_LED_TOTAL].b = blue;
+#elif defined(RGB_BACKLIGHT_DAWN60)
+    if( index < DRIVER_LED_TOTAL ) {
+        IS31FL3731_set_color( index, red, green, blue );
+    } else {
+        led_underglow[index - DRIVER_LED_TOTAL].r = red;
+        led_underglow[index - DRIVER_LED_TOTAL].g = green;
+        led_underglow[index - DRIVER_LED_TOTAL].b = blue;
         rgblight_set();
     }
+#else
+    IS31FL3731_set_color( index, red, green, blue );
 #endif
 }
 
@@ -1244,17 +1244,16 @@ void backlight_set_color_all( uint8_t red, uint8_t green, uint8_t blue )
     IS31FL3218_set_color_all( red, green, blue );
 #elif defined(RGB_BACKLIGHT_HS60) || defined(RGB_BACKLIGHT_NK65)
     IS31FL3733_set_color_all( red, green, blue );
+#elif defined(RGB_BACKLIGHT_DAWN60)
+    IS31FL3731_set_color_all( red, green, blue );
+    for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+        led_underglow[i].r = red;
+        led_underglow[i].g = green;
+        led_underglow[i].b = blue;
+    }
+    rgblight_set();    
 #else
     IS31FL3731_set_color_all( red, green, blue );
-#endif
-
-#if defined(RGB_CUSTOM_UNDERGLOW)
-    for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-        led[i].r = red;
-        led[i].g = green;
-        led[i].b = blue;
-    }
-    rgblight_set();
 #endif
 }
 
