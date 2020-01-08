@@ -441,8 +441,10 @@ void rgblight_decrease_speed(void) {
 
 void rgblight_sethsv_noeeprom_old(uint8_t hue, uint8_t sat, uint8_t val) {
     if (rgblight_config.enable) {
+        // MxSS custom code
         fled_hs[0].hue = fled_hs[1].hue = hue;
         fled_hs[0].sat = fled_hs[1].sat = sat;
+
         LED_TYPE tmp_led;
         sethsv(hue, sat, val, &tmp_led);
         rgblight_setrgb(tmp_led.r, tmp_led.g, tmp_led.b);
@@ -1068,6 +1070,7 @@ void rgblight_effect_knight(animation_status_t *anim) {
         if (i >= low_bound && i <= high_bound) {
             sethsv(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[cur]);
         } else {
+            // MxSS custom code
             if (cur == RGBLIGHT_FLED1) {
                 fled_hs[0].hue = fled_hs[0].sat = 0;
             } else if (cur == RGBLIGHT_FLED2) {
@@ -1130,6 +1133,7 @@ void rgblight_effect_rgbtest(animation_status_t *anim) {
     }
     g = r = b = 0;
     switch (anim->pos) {
+        // MxSS custom code
         case 0:
             r = maxval;
             fled_hs[0].hue = 0;
