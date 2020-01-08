@@ -1,20 +1,28 @@
 #ifndef RGBLIGHT_RECONFIG_H
 #define RGBLIGHT_RECONFIG_H
 
-#if defined(RGBLIGHT_ANIMATIONS) || defined(RGBLIGHT_ANIMATIONS_ALL)
+#ifdef RGBLIGHT_ANIMATIONS_ALL
+// enables all animations
+#    define RGBLIGHT_ANIMATIONS
+#    define RGBLIGHT_TEST_ANIMATIONS
+#    define RGBLIGHT_EFFECT_CHRISTMAS
+#endif
+
+#ifdef RGBLIGHT_TEST_ANIMATIONS
+// enables test animations
+#    define RGBLIGHT_EFFECT_RGB_TEST
+#    define RGBLIGHT_EFFECT_ALTERNATING
+#endif
+
+#ifdef RGBLIGHT_ANIMATIONS
 // for backward compatibility
+// Enables general purpose animations
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 #    define RGBLIGHT_EFFECT_SNAKE
 #    define RGBLIGHT_EFFECT_KNIGHT
-#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#endif
-
-#ifdef RGBLIGHT_ANIMATIONS_ALL
-#    define RGBLIGHT_EFFECT_CHRISTMAS
-#    define RGBLIGHT_EFFECT_RGB_TEST
-#    define RGBLIGHT_EFFECT_ALTERNATING
+#    define RGBLIGHT_STATIC_PATTERNS
 #endif
 
 #ifdef RGBLIGHT_STATIC_PATTERNS
