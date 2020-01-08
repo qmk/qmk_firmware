@@ -12,10 +12,6 @@ bool process_record_oled(uint16_t keycode, keyrecord_t *record) { return true; }
 #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  #ifdef OLED_DRIVER_ENABLE
-  process_record_oled(keycode, record);
-  #endif
-
   switch (keycode) {
 
     // Sends pyenv to activate 'jira' environment
@@ -81,7 +77,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Opens Visual Studio Code on current directory
     case M_CODE:
       if (record->event.pressed) {
-        SEND_STRING("code ." SS_TAP(X_ENTER));
+        SEND_STRING("code .\n");
+      }
+      break;
+
+    // Opens Terminal
+    case M_TERM:
+      if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_SPACE) SS_UP(X_LGUI));
+        wait_ms(250);
+        SEND_STRING("terminal\n");
       }
       break;
 
@@ -104,5 +109,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // END: Layer macros
   }
 
-  return process_record_keymap(keycode, record) && process_record_secrets(keycode, record);
+  return process_record_keymap(keycode, record) && process_record_secrets(keycode, record)
+         #ifdef OLED_DRIVER_ENABLE
+         && process_record_oled(keycode, record)
+         #endif
+         ; // Close return
 }

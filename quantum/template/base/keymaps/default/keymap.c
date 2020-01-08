@@ -15,12 +15,28 @@
  */
 #include QMK_KEYBOARD_H
 
+// Defines names for use in layer keycodes and the keymap
+enum layer_names {
+    _BASE,
+    _FN
+};
+
 // Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes { QMKBEST = SAFE_RANGE, QMKURL };
+enum custom_keycodes {
+    QMKBEST = SAFE_RANGE,
+    QMKURL
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT(/* Base */
-                 KC_A, KC_1, KC_H, KC_TAB, KC_SPC),
+    /* Base */
+    [_BASE] = LAYOUT(
+        KC_A,    KC_1,    MO(_FN),
+            KC_TAB,   KC_SPC
+    ),
+    [_FN] = LAYOUT(
+        QMKBEST, QMKURL,  _______,
+            RESET,    XXXXXXX
+    )
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -36,7 +52,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case QMKURL:
             if (record->event.pressed) {
                 // when keycode QMKURL is pressed
-                SEND_STRING("https://qmk.fm/" SS_TAP(X_ENTER));
+                SEND_STRING("https://qmk.fm/\n");
             } else {
                 // when keycode QMKURL is released
             }
@@ -45,8 +61,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void matrix_init_user(void) {}
+/*
+void matrix_init_user(void) {
 
-void matrix_scan_user(void) {}
+}
 
-void led_set_user(uint8_t usb_led) {}
+void matrix_scan_user(void) {
+
+}
+
+bool led_update_user(led_t led_state) {
+    return true;
+}
+*/

@@ -78,7 +78,7 @@ extern keymap_config_t keymap_config;
 #    include "virtser.h"
 #endif
 
-#if (defined(RGB_MIDI) | defined(RGBLIGHT_ANIMATIONS)) & defined(RGBLIGHT_ENABLE)
+#if (defined(RGB_MIDI) || defined(RGBLIGHT_ANIMATIONS)) && defined(RGBLIGHT_ENABLE)
 #    include "rgblight.h"
 #endif
 
@@ -914,14 +914,11 @@ void virtser_send(const uint8_t byte) {
  */
 static void setup_mcu(void) {
     /* Disable watchdog if enabled by bootloader/fuses */
-    MCUSR &= ~(1 << WDRF);
+    MCUSR &= ~_BV(WDRF);
     wdt_disable();
 
     /* Disable clock division */
-    // clock_prescale_set(clock_div_1);
-
-    CLKPR = (1 << CLKPCE);
-    CLKPR = (0 << CLKPS3) | (0 << CLKPS2) | (0 << CLKPS1) | (0 << CLKPS0);
+    clock_prescale_set(clock_div_1);
 }
 
 /** \brief Setup USB
@@ -1001,7 +998,7 @@ int main(void) {
         MIDI_Device_USBTask(&USB_MIDI_Interface);
 #endif
 
-#if defined(RGBLIGHT_ANIMATIONS) & defined(RGBLIGHT_ENABLE)
+#if defined(RGBLIGHT_ANIMATIONS) && defined(RGBLIGHT_ENABLE)
         rgblight_task();
 #endif
 

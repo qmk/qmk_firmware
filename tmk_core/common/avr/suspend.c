@@ -4,7 +4,6 @@
 #include <avr/interrupt.h>
 #include "matrix.h"
 #include "action.h"
-#include "backlight.h"
 #include "suspend_avr.h"
 #include "suspend.h"
 #include "timer.h"
@@ -14,6 +13,10 @@
 
 #ifdef PROTOCOL_LUFA
 #    include "lufa.h"
+#endif
+
+#ifdef BACKLIGHT_ENABLE
+#    include "backlight.h"
 #endif
 
 #ifdef AUDIO_ENABLE

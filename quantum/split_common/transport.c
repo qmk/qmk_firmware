@@ -21,7 +21,7 @@ static pin_t encoders_pad[] = ENCODERS_PAD_A;
 #    define NUMBER_OF_ENCODERS (sizeof(encoders_pad) / sizeof(pin_t))
 #endif
 
-#if defined(USE_I2C) || defined(EH)
+#if defined(USE_I2C)
 
 #    include "i2c_master.h"
 #    include "i2c_slave.h"
