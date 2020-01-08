@@ -46,6 +46,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+#define RGBLIGHT_ANIMATIONS
+
+#define WS2812_LED_N 14
+#define RGBLED_NUM WS2812_LED_N
+#define PORT_WS2812 GPIOB
+#define PIN_WS2812 15
+#define WS2812_SPI SPID2
+
 // EEPROM usage
 // TODO: refactor with new user EEPROM code (coming soon)
 #define EEPROM_MAGIC 0x451F
@@ -56,6 +64,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EEPROM_VERSION 0x01
 #define EEPROM_VERSION_ADDR 34
 
+#define EEPROM_CUSTOM_BACKLIGHT 804
+
+#undef EEPROM_MAGIC_ADDR
+#define EEPROM_MAGIC_ADDR 34
+#undef EEPROM_VERSION_ADDR
+#define EEPROM_VERSION_ADDR 36
+#undef RGB_BACKLIGHT_CONFIG_EEPROM_ADDR
+#define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR 37
+#undef DYNAMIC_KEYMAP_EEPROM_ADDR
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 68
+#undef DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 66
 
 /*
  * Feature disable options
