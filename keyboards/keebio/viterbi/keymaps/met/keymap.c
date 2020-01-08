@@ -6,18 +6,7 @@ extern keymap_config_t keymap_config;
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _BASE 0
-#define _PLAYING 1
-#define _PLAYED 2
-#define _NUMS 3
-#define _FN 4
-#define _TEST 5
-#define _ALPHA 6
-#define _QWERTY 7
-#define _REV 8
-#define _DEL 9
-#define _MOD 10
-#define _ENT 11
+
 #define CANCEL LCTL(KC_C)
 #define TERM LCTL(LALT(KC_T))
 #define ALPHAMOD LT(_ALPHA, KC_VOLD)
@@ -25,7 +14,6 @@ extern keymap_config_t keymap_config;
 #define GUIDEL MT(MOD_LGUI, KC_DEL)
 #define ALTSPC MT(MOD_LALT, KC_SPACE)
 #define SPCMOD LT(_MOD, KC_SPACE)
-#define BWORD LCTL(KC_BSPC)
 #define JUMPBACK LSFT(KC_TAB)
 #define NTAB LCTL(KC_T)
 #define CTAB LCTL(KC_W)
@@ -33,10 +21,26 @@ extern keymap_config_t keymap_config;
 #define TAB2 LCTL(KC_2)
 #define TAB3 LCTL(KC_3)
 #define TAB4 LCTL(KC_4)
+#define BWORD LCTL(KC_BSPC)
 #define LWORD LCTL(KC_LEFT)
 #define RWORD LCTL(KC_RIGHT)
 #define TABMOD LT(_MOD, KC_TAB)
 #define ENTMOD LT(_ENT, KC_ENTER)
+
+enum layer_names {
+  _BASE,
+  _PLAYING,
+  _PLAYED,
+  _NUMS,
+  _FN,
+  _TEST,
+  _ALPHA,
+  _QWERTY,
+  _REV,
+  _DEL,
+  _MOD,
+  _ENT
+};
 
 enum custom_keycodes {
   MET = SAFE_RANGE,
