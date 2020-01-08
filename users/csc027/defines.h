@@ -182,9 +182,7 @@
 
 /* MIT Layout (Convenience)
  *
- *  The Convenience layer adds a tenkey and miscellaneous chords to the keyboard.
- *  The lack of a fifth row means that some of the tenkey's functions need to be
- *  moved to the left of tenkey from the top.
+ *  The Convenience layer adds miscellaneous chords to the keyboard.
  *
  *  - The Number Lock key is physically in the same spot as the Caps Lock key
  *    in the raise layer.
@@ -194,15 +192,17 @@
  *    in Windows.
  *  - There is a convenience macro to cycle through programs in Windows.
  *  - There is a convenience macro to go to the previous program in Windows.
+ *  - There are convenience macros to switch between virtual desktops in Windows.
+ *  - There are convenience macros to create and delete virtual desktops in Windows.
  *
  * ,-----------------------------------.  ,-----------------------------------.
- * |     |     |Insrt|ScrLk|PrtSc|     |  |  *  |  7  |  8  |  9  |  -  |BkSpc|
+ * |     |     |Insrt|ScrLk|PrtSc|     |  |     |     |     |     |     |BkSpc|
  * |-----------------------------------|  |-----------------------------------|
- * |     |     | App | LCAD|MRDP7|NmLck|  |  /  |  4  |  5  |  6  |  +  |     |
+ * |     |     | App | LCAD|MRDP7|NmLck|  |MVTDL|MVTDC|MVTDN|MVTDR|     |     |
  * |-----------------------------------|  |-----------------------------------|
- * |     |     |     | ATRD|MRDP8|     |  |     |  1  |  2  |  3  |Enter|     |
+ * |     |     |     | ATRD|MRDP8|     |  |     |     |     |     |     |     |
  * |-----------------------------------|  |-----------------------------------|
- * |     |     |     |     |     |     |  |     |  0  |  0  |  .  |     |     |
+ * |     |     |     |     |     |     |  |     |     |     |     |     |     |
  * `-----------------------------------'  `-----------------------------------'
  */
 
@@ -211,10 +211,10 @@
 #define ___________________CONVENIENCE_L3__________________  _______,  XXXXXXX,  XXXXXXX,  MC_atrd,  MC_mrd8,  XXXXXXX
 #define ___________________CONVENIENCE_L4__________________  _______,  _______,  _______,  _______,  _______,  _______
 
-#define ___________________CONVENIENCE_R1__________________  KC_PAST,  KC_P7,    KC_P8,    KC_P9,    KC_PMNS,  KC_BSPC
-#define ___________________CONVENIENCE_R2__________________  KC_PSLS,  KC_P4,    KC_P5,    KC_P6,    KC_PPLS,  XXXXXXX
-#define ___________________CONVENIENCE_R3__________________  XXXXXXX,  KC_P1,    KC_P2,    KC_P3,    KC_PENT,  _______
-#define ___________________CONVENIENCE_R4__________________  _______,  KC_P0,    KC_P0,    KC_PDOT,  XXXXXXX,  XXXXXXX
+#define ___________________CONVENIENCE_R1__________________  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_BSPC
+#define ___________________CONVENIENCE_R2__________________  MC_vtdl,  MC_vtdc,  MC_vtdn,  MC_vtdr,  XXXXXXX,  XXXXXXX
+#define ___________________CONVENIENCE_R3__________________  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______
+#define ___________________CONVENIENCE_R4__________________  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
 
 /* Convenience macros
  *
@@ -290,4 +290,8 @@
 #define CUSTOM_MACROS(CUSTOM_CALL, CUSTOM_DELIM) \
     CUSTOM_CALL(mrd7, SS_LCTL(SS_LALT(SS_TAP(X_HOME)))"\t ")         CUSTOM_DELIM() \
     CUSTOM_CALL(mrd8, SS_LCTL(SS_LALT(SS_TAP(X_HOME)))"\t\t\t ")     CUSTOM_DELIM() \
-    CUSTOM_CALL(atrd, SS_LCTL(SS_LALT(SS_TAP(X_HOME)))SS_LALT("\t"))
+    CUSTOM_CALL(atrd, SS_LCTL(SS_LALT(SS_TAP(X_HOME)))SS_LALT("\t")) CUSTOM_DELIM() \
+    CUSTOM_CALL(vtdl, SS_LCTL(SS_LGUI(SS_TAP(X_LEFT))))              CUSTOM_DELIM() \
+    CUSTOM_CALL(vtdc, SS_LCTL(SS_LGUI(SS_TAP(X_F4))))                CUSTOM_DELIM() \
+    CUSTOM_CALL(vtdn, SS_LCTL(SS_LGUI("d")))                         CUSTOM_DELIM() \
+    CUSTOM_CALL(vtdr, SS_LCTL(SS_LGUI(SS_TAP(X_RIGHT))))
