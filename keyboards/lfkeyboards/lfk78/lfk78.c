@@ -1,12 +1,11 @@
+#include "lfk78.h"
+
 #include <avr/timer_avr.h>
 #include <avr/wdt.h>
-#include "lfk78.h"
-#include "keymap.h"
+#include <audio/audio.h>
 #include "issi.h"
 #include "TWIlib.h"
 #include "lighting.h"
-#include "debug.h"
-#include <audio/audio.h>
 
 uint16_t click_hz = CLICK_HZ;
 uint16_t click_time = CLICK_MS;
@@ -14,7 +13,7 @@ uint8_t click_toggle = CLICK_ENABLED;
 
 __attribute__((weak))
 const Layer_Info layer_info[] = {
-    // Layer     Mask           Red     Green   Blue
+    // Layer      Mask          Red     Green   Blue
     { 0x00000000, 0xFFFFFFFF, { 0x0000, 0x0FFF, 0x0000 } }, // base layer - green
     { 0x00000002, 0xFFFFFFFE, { 0x0000, 0x0000, 0x0FFF } }, // function layer - blue
     { 0x00000004, 0xFFFFFFFC, { 0x0FFF, 0x0000, 0x0FFF } }, // settings layer - magenta
