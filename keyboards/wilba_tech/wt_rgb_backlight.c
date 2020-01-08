@@ -43,10 +43,7 @@
 
 #if defined(RGB_BACKLIGHT_DAWN60)
 #include "drivers/avr/ws2812.h"
-void rgblight_set(void);
 LED_TYPE led_underglow[RGBLED_NUM];
-static uint8_t clipping_start_pos = 0;
-static uint8_t clipping_num_leds = RGBLED_NUM;
 #endif
 
 #include "progmem.h"
@@ -75,8 +72,6 @@ static uint8_t clipping_num_leds = RGBLED_NUM;
 #define BACKLIGHT_LED_COUNT 72
 #endif
 #endif
-
-
 
 #define BACKLIGHT_EFFECT_MAX 10
 
@@ -1231,7 +1226,7 @@ void backlight_set_color( int index, uint8_t red, uint8_t green, uint8_t blue )
         led_underglow[index - DRIVER_LED_TOTAL].r = red;
         led_underglow[index - DRIVER_LED_TOTAL].g = green;
         led_underglow[index - DRIVER_LED_TOTAL].b = blue;
-        rgblight_set();
+        ws2812_setleds(led_underglow, RGBLED_NUM);    
     }
 #else
     IS31FL3731_set_color( index, red, green, blue );
@@ -1251,16 +1246,10 @@ void backlight_set_color_all( uint8_t red, uint8_t green, uint8_t blue )
         led_underglow[i].g = green;
         led_underglow[i].b = blue;
     }
-    rgblight_set();    
+    ws2812_setleds(led_underglow, RGBLED_NUM);    
 #else
     IS31FL3731_set_color_all( red, green, blue );
 #endif
-}
-
-void rgblight_set(void) {
-	LED_TYPE *start_led = led + clipping_start_pos;
-	uint16_t num_leds = clipping_num_leds;
-	ws2812_setleds(start_led, num_leds);
 }
 
 void backlight_set_key_hit(uint8_t row, uint8_t column)
