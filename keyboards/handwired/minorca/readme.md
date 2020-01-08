@@ -3,7 +3,7 @@
 A handwired 40% keyboard by panc.co.
 
 * Keyboard Maintainer: [The QMK Community](https://github.com/qmk)
-* Hardware Supported: panc.co Minorca
+* Hardware Supported: panc.co Minorca, Teensy 2.0
 * Hardware Availability: [panc.co](https://www.panc.co/blog/minorcasebright-information-page)
 
 Make example for this keyboard (after setting up your build environment):
