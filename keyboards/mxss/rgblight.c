@@ -469,6 +469,8 @@ void rgblight_sethsv_eeprom_helper(uint8_t hue, uint8_t sat, uint8_t val, bool w
             else if (rgblight_status.base_mode == RGBLIGHT_MODE_BREATHING) {
                 // breathing mode, ignore the change of val, use in memory value instead
                 val = rgblight_config.val;
+                sethsv(hue, sat, val, &led[RGBLIGHT_FLED1]);
+                sethsv(hue, sat, val, &led[RGBLIGHT_FLED2]);
             }
 #endif
 #ifdef RGBLIGHT_EFFECT_RAINBOW_MOOD
@@ -518,7 +520,7 @@ void rgblight_sethsv_eeprom_helper(uint8_t hue, uint8_t sat, uint8_t val, bool w
         rgblight_config.val = val;
         if (write_to_eeprom) {
             eeconfig_update_rgblight(rgblight_config.raw);
-            dprintf("rgblight set hsv [EEPROM]: %u,%u,%u\n", rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
+            xprintf("rgblight set hsv [EEPROM]: %u,%u,%u\n", rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
         } else {
             dprintf("rgblight set hsv [NOEEPROM]: %u,%u,%u\n", rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
         }
