@@ -2,7 +2,7 @@
 
 <!---
   original document: d598f01cb:docs/faq_general.md
-  git diff d598f01cb HEAD docs/faq_general.md | cat
+  git diff d598f01cb HEAD -- docs/faq_general.md | cat
 -->
 
 ## QMK とは何か？

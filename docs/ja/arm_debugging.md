@@ -2,7 +2,7 @@
 
 <!---
   original document: eae21eed7:docs/arm_debugging.md
-  git diff eae21eed7 HEAD docs/arm_debugging.md | cat
+  git diff eae21eed7 HEAD -- docs/arm_debugging.md | cat
 -->
 
 このページでは、SWD アダプタとオープンソース/フリーツールを使って ARM MCU をデバッグするためのセットアップ方法について説明します。このガイドでは、GNU MCU Eclipse IDE for C/C++ Developers および OpenOCD を必要な依存関係と一緒にインストールします。

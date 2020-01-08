@@ -99,11 +99,11 @@ enum custom_keycodes { DVORAK = SAFE_RANGE, QWERTY, COLEMAK, KEYPAD };
 	         |      |QWERTY|Colemk|Dvorak|              |      |      | KP . |KP Ent|
 	         `---------------------------'              `---------------------------'
 	                              ,-------------.,-------------.
-	                              |      |      ||      |      |
+	                              |      |      ||      |MacLck|
 	                       ,------|------|------||------+------+------.
 	                       |      |      |      ||      |      |      |
 	                       |      |      |------||------|      | KP 0 |
-	                       |      |      |      ||      |      |      |
+	                       |      |      |MacLck||      |      |      |
 	                       `--------------------'`--------------------'
 */
 
@@ -208,7 +208,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            _______, KC_P1,   KC_P2,   KC_P3,   KC_PENT, _______,
                     _______, _______, KC_PDOT, KC_PENT,
            // Right Thumb
-           _______, _______,
+           _______, MACLOCK,
            _______,
            _______, _______, KC_P0
     )
