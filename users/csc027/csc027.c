@@ -28,13 +28,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             update_tri_layer(_LW, _RS, _MS);
             return false;
-        case GIT_add...MC_vtdr:
+        case (MC_first + 1)...(MC_last - 1):
             if(record->event.pressed) {
                 // The accessor here first reads from the pointer array that is located
                 // in PROGMEM.  The pointer is taken and passed to the send_string_P
                 // function, which is aware of the difference between RAM and PROGMEM
                 // pointers.
-                send_string_P((char*)pgm_read_word(&git_macros[keycode - GIT_add]));
+                send_string_P((char*)pgm_read_word(&git_macros[keycode - MC_first - 1]));
                 return true;
             }
             return false;
