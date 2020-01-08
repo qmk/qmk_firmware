@@ -21,25 +21,22 @@
 #include "rgblight.h"
 #include "via.h"
 #include "version.h" // for QMK_BUILDDATE used in EEPROM magic
-#include "debug.h"
 
 // Variables for controlling front LED application
 uint8_t fled_mode;  // Mode for front LEDs
 uint8_t fled_val;   // Brightness for front leds (0 - 255)
 LED_TYPE fleds[2];  // Front LED rgb values for indicator mode use
 
-// Predefined colors for layers
-// Format: {hue, saturation}
-// {0, 0} to turn off the LED
-// Add additional rows to handle more layers
+// Layer indicator colors
 __attribute__ ((weak))
-hs_set layer_colors[4];
+hs_set layer_colors[FRONTLED_COLOR_MAXCNT];
 
 // Caps lock indicator color
+__attribute__ ((weak))
 hs_set caps_color;
 
 __attribute__ ((weak))
-size_t lc_size = sizeof(layer_colors) / sizeof(uint16_t);
+size_t lc_size = sizeof(layer_colors) / sizeof(hs_set);
 
 void fled_init(void) {
     // If EEPROM config exists, load it
