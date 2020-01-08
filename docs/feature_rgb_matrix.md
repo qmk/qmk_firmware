@@ -173,16 +173,20 @@ As mentioned earlier, the center of the keyboard by default is expected to be `{
 
 All RGB keycodes are currently shared with the RGBLIGHT system:
 
-* `RGB_TOG` - toggle
-* `RGB_MOD` - cycle through modes
-* `RGB_HUI` - increase hue
-* `RGB_HUD` - decrease hue
-* `RGB_SAI` - increase saturation
-* `RGB_SAD` - decrease saturation
-* `RGB_VAI` - increase value
-* `RGB_VAD` - decrease value
-* `RGB_SPI` - increase speed effect (no EEPROM support)
-* `RGB_SPD` - decrease speed effect (no EEPROM support)
+|Key                |Aliases   |Description                                                                           |
+|-------------------|----------|--------------------------------------------------------------------------------------|
+|`RGB_TOG`          |          |Toggle RGB lighting on or off                                                         |
+|`RGB_MODE_FORWARD` |`RGB_MOD` |Cycle through modes, reverse direction when Shift is held                             |
+|`RGB_MODE_REVERSE` |`RGB_RMOD`|Cycle through modes in reverse, forward direction when Shift is held                  |
+|`RGB_HUI`          |          |Increase hue, decrease hue when Shift is held                                         |
+|`RGB_HUD`          |          |Decrease hue, increase hue when Shift is held                                         |
+|`RGB_SAI`          |          |Increase saturation, decrease saturation when Shift is held                           |
+|`RGB_SAD`          |          |Decrease saturation, increase saturation when Shift is held                           |
+|`RGB_VAI`          |          |Increase value (brightness), decrease value when Shift is held                        |
+|`RGB_VAD`          |          |Decrease value (brightness), increase value when Shift is held                        |
+|`RGB_SPI`          |          |Increase effect speed (does not support eeprom yet), decrease speed when Shift is held|
+|`RGB_SPD`          |          |Decrease effect speed (does not support eeprom yet), increase speed when Shift is held|
+
 * `RGB_MODE_*` keycodes will generally work, but are not currently mapped to the correct effects for the RGB Matrix system
 
 ## RGB Matrix Effects
@@ -195,6 +199,7 @@ enum rgb_matrix_effects {
     RGB_MATRIX_SOLID_COLOR = 1,     // Static single hue, no speed support
     RGB_MATRIX_ALPHAS_MODS,         // Static dual hue, speed is hue for secondary hue
     RGB_MATRIX_GRADIENT_UP_DOWN,    // Static gradient top to bottom, speed controls how much gradient changes
+    RGB_MATRIX_GRADIENT_LEFT_RIGHT,    // Static gradient left to right, speed controls how much gradient changes
     RGB_MATRIX_BREATHING,           // Single hue brightness cycling animation
     RGB_MATRIX_BAND_SAT,        // Single hue band fading saturation scrolling left to right
     RGB_MATRIX_BAND_VAL,        // Single hue band fading brightness scrolling left to right
@@ -282,7 +287,7 @@ You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `con
 
 ## Custom RGB Matrix Effects
 
-By setting `RGB_MATRIX_CUSTOM_USER` (and/or `RGB_MATRIX_CUSTOM_KB`) in `rule.mk`, new effects can be defined directly from userspace, without having to edit any QMK core files.
+By setting `RGB_MATRIX_CUSTOM_USER` (and/or `RGB_MATRIX_CUSTOM_KB`) in `rules.mk`, new effects can be defined directly from userspace, without having to edit any QMK core files.
 
 To declare new effects, create a new `rgb_matrix_user/kb.inc` that looks something like this:
 

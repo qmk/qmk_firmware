@@ -24,9 +24,8 @@
  * STM32_I2C_USE_I2C1 is TRUE in the mcuconf.h file. Pins B6 and B7 are used
  * but using any other I2C pins should be trivial.
  */
-
-#include "i2c_master.h"
 #include "quantum.h"
+#include "i2c_master.h"
 #include <string.h>
 #include <hal.h>
 
@@ -62,7 +61,7 @@ __attribute__((weak)) void i2c_init(void) {
     palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_INPUT);
 
     chThdSleepMilliseconds(10);
-#ifdef USE_I2CV1
+#if defined(USE_GPIOV1)
     palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, PAL_MODE_STM32_ALTERNATE_OPENDRAIN);
     palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_STM32_ALTERNATE_OPENDRAIN);
 #else
