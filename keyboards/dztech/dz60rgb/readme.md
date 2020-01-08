@@ -10,8 +10,8 @@ A hotswap 60% RGB keyboard.
 
 There are two versions of the DZ60RGB. Please use the appropriate firmware for your board.
 
-V1: STM32F303 (Arm), takes .bin files
-V2: ATmega32U4 (AVR), takes .hex files
+* V1: STM32F303 (Arm), takes .bin files
+* V2: ATmega32U4 (AVR), takes .hex files
 
 Make example for this keyboard (after setting up your build environment):
 
