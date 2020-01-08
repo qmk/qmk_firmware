@@ -441,6 +441,8 @@ void rgblight_decrease_speed(void) {
 
 void rgblight_sethsv_noeeprom_old(uint8_t hue, uint8_t sat, uint8_t val) {
     if (rgblight_config.enable) {
+        fled_hs[0].hue = fled_hs[1].hue = hue;
+        fled_hs[0].sat = fled_hs[1].sat = sat;
         LED_TYPE tmp_led;
         sethsv(hue, sat, val, &tmp_led);
         rgblight_setrgb(tmp_led.r, tmp_led.g, tmp_led.b);
@@ -469,8 +471,6 @@ void rgblight_sethsv_eeprom_helper(uint8_t hue, uint8_t sat, uint8_t val, bool w
             else if (rgblight_status.base_mode == RGBLIGHT_MODE_BREATHING) {
                 // breathing mode, ignore the change of val, use in memory value instead
                 val = rgblight_config.val;
-                sethsv(hue, sat, val, &led[RGBLIGHT_FLED1]);
-                sethsv(hue, sat, val, &led[RGBLIGHT_FLED2]);
             }
 #endif
 #ifdef RGBLIGHT_EFFECT_RAINBOW_MOOD
