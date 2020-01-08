@@ -99,7 +99,6 @@ void set_crkbd_color(int input_color) {
 
 int handle_crkbd_color_step( int step ) {
     int output_color = step;
-
     // Handle wrapping of out of bounds values
     if ( output_color + current_color < _GREEN ) {
         output_color = _GREEN;
@@ -288,7 +287,8 @@ void render_slave_oled(void) {
 
 // {OLED Task} -----------------------------------------------//
 void oled_task_user(void) {
-    if (timer_elapsed32(oled_timer) > 80000 && timer_elapsed32(oled_timer) < 479999) {
+    // First time out switches to logo as first indication of iddle.
+    if (timer_elapsed32(oled_timer) > 80000 && timer_elapsed32(oled_timer) < 159999) {
         // Render logo on both halves before full timeout
         if (is_master && !master_oled_cleared) {
             // Clear master OLED once so the logo renders properly
@@ -296,6 +296,15 @@ void oled_task_user(void) {
             master_oled_cleared = true;
         }
         render_logo();
+        return;
+    }
+    else if (timer_elapsed32(oled_timer) > 160000 && timer_elapsed32(oled_timer) < 479999) {
+        // Reset layer in case it got left on _GAME
+        // This prevents the issue where the master side sometimes wont switch off as expected
+        // in the next step.
+        if (get_highest_layer(layer_state) == _GAME) {
+            layer_on(_QWERTY);
+        }
         return;
     }
     // Drashna style timeout for LED and OLED Roughly 8mins
