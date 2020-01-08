@@ -20,7 +20,6 @@
 #define FWD KC_MEDIA_FAST_FORWARD
 #define RWD KC_MEDIA_REWIND
 
-
 // Mouse keys
 #define MS_UP KC_MS_UP
 #define MS_DN KC_MS_D
