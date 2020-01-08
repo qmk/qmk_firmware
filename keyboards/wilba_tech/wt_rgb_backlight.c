@@ -43,6 +43,10 @@
 
 #if defined(RGB_CUSTOM_UNDERGLOW)
 #include "drivers/avr/ws2812.h"
+void rgblight_set(void);
+LED_TYPE led[RGBLED_NUM];
+static uint8_t clipping_start_pos = 0;
+static uint8_t clipping_num_leds = RGBLED_NUM;
 #endif
 
 #include "progmem.h"
@@ -72,11 +76,6 @@
 #endif
 #endif
 
-#if defined(RGB_CUSTOM_UNDERGLOW)
-LED_TYPE led[RGBLED_NUM];
-static uint8_t clipping_start_pos = 0;
-static uint8_t clipping_num_leds = RGBLED_NUM;
-#endif
 
 
 #define BACKLIGHT_EFFECT_MAX 10
@@ -1228,6 +1227,15 @@ void backlight_set_color( int index, uint8_t red, uint8_t green, uint8_t blue )
 #else
     IS31FL3731_set_color( index, red, green, blue );
 #endif
+
+#if defined(RGB_CUSTOM_UNDERGLOW)
+    if(index >= DRIVER_LED_TOTAL) {
+        led[index - DRIVER_LED_TOTAL].r = red;
+        led[index - DRIVER_LED_TOTAL].g = green;
+        led[index - DRIVER_LED_TOTAL].b = blue;
+        rgblight_set();
+    }
+#endif
 }
 
 void backlight_set_color_all( uint8_t red, uint8_t green, uint8_t blue )
@@ -1239,6 +1247,21 @@ void backlight_set_color_all( uint8_t red, uint8_t green, uint8_t blue )
 #else
     IS31FL3731_set_color_all( red, green, blue );
 #endif
+
+#if defined(RGB_CUSTOM_UNDERGLOW)
+    for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+        led[i].r = red;
+        led[i].g = green;
+        led[i].b = blue;
+    }
+    rgblight_set();
+#endif
+}
+
+void rgblight_set(void) {
+	LED_TYPE *start_led = led + clipping_start_pos;
+	uint16_t num_leds = clipping_num_leds;
+	ws2812_setleds(start_led, num_leds);
 }
 
 void backlight_set_key_hit(uint8_t row, uint8_t column)
@@ -1329,33 +1352,21 @@ void backlight_effect_rgb_test(void)
         case 0:
         {
             backlight_set_color_all( 255, 0, 0 );
-#if defined(RGB_CUSTOM_UNDERGLOW)
-            underglow_set_color_all( 255, 0, 0 );	
-#endif
             break;
         }
         case 1:
         {
             backlight_set_color_all( 0, 255, 0 );
-#if defined(RGB_CUSTOM_UNDERGLOW)
-            underglow_set_color_all( 0, 255, 0 );	
-#endif
             break;
         }
         case 2:
         {
             backlight_set_color_all( 0, 0, 255 );
-#if defined(RGB_CUSTOM_UNDERGLOW)
-            underglow_set_color_all( 0, 0, 255 );	
-#endif
             break;
         }
         case 3:
         {
             backlight_set_color_all( 255, 255, 255 );
-#if defined(RGB_CUSTOM_UNDERGLOW)
-            underglow_set_color_all( 255, 255, 255 );	
-#endif
             break;
         }
     }
@@ -1407,9 +1418,6 @@ void backlight_effect_single_LED_test(void)
 void backlight_effect_all_off(void)
 {
     backlight_set_color_all( 0, 0, 0 );
-#if defined(RGB_CUSTOM_UNDERGLOW)
-    underglow_set_color_all( 0, 0, 0 );	
-#endif
 }
 
 // Solid color
@@ -1418,9 +1426,6 @@ void backlight_effect_solid_color(void)
     HSV hsv = { .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness };
     RGB rgb = hsv_to_rgb( hsv );
     backlight_set_color_all( rgb.r, rgb.g, rgb.b );
-#if defined(RGB_CUSTOM_UNDERGLOW)
-    underglow_set_color_all( rgb.r, rgb.g, rgb.b );	
-#endif
 }
 
 // alphas = color1, mods = color2
@@ -1464,9 +1469,9 @@ void backlight_effect_alphas_mods(void)
 	for (int i = 0; i < RGBLED_NUM; i++) {
 		if ((RGB_UNDERGLOW_ALPHA_TOP_START <= i && i <= RGB_UNDERGLOW_ALPHA_TOP_END) || 
             (RGB_UNDERGLOW_ALPHA_BOT_START <= i && i <= RGB_UNDERGLOW_ALPHA_BOT_END)) {
-            underglow_set_color(i, rgb1.r, rgb1.g, rgb1.b);
-		} else {
-            underglow_set_color(i, rgb2.r, rgb2.g, rgb2.b);
+            backlight_set_color(i + DRIVER_LED_TOTAL, rgb1.r, rgb1.g, rgb1.b);
+		} else {    
+            backlight_set_color(i + DRIVER_LED_TOTAL, rgb2.r, rgb2.g, rgb2.b);
 		}
 	}
 #endif
@@ -1506,15 +1511,8 @@ void backlight_effect_gradient_up_down(void)
         hsv.h = g_config.color_1.h + ( deltaH * y );
         hsv.s = g_config.color_1.s + ( deltaS * y );
         rgb = hsv_to_rgb( hsv );
-#if !defined(RGB_CUSTOM_UNDERGLOW)
+
         backlight_set_color( i, rgb.r, rgb.g, rgb.b );
-#else
-        if (DRIVER_LED_TOTAL <= i && i <= BACKLIGHT_LED_COUNT) {
-            underglow_set_color( i - DRIVER_LED_TOTAL, rgb.r, rgb.g, rgb.b );
-        } else {
-            backlight_set_color( i, rgb.r, rgb.g, rgb.b );
-        }
-#endif
     }
 }
 
@@ -1557,15 +1555,7 @@ void backlight_effect_raindrops(bool initialize)
             hsv.v = g_config.brightness;
 
             rgb = hsv_to_rgb( hsv );
-#if !defined(RGB_CUSTOM_UNDERGLOW)
             backlight_set_color( i, rgb.r, rgb.g, rgb.b );
-#else
-            if (DRIVER_LED_TOTAL <= i && i <= BACKLIGHT_LED_COUNT) {
-                underglow_set_color( i - DRIVER_LED_TOTAL, rgb.r, rgb.g, rgb.b );
-            } else {
-				backlight_set_color( i, rgb.r, rgb.g, rgb.b );
-			}
-#endif
         }
     }
 }
@@ -1590,15 +1580,7 @@ void backlight_effect_cycle_all(void)
 
         HSV hsv = { .h = offset+offset2, .s = 255, .v = g_config.brightness };
         RGB rgb = hsv_to_rgb( hsv );
-#if !defined(RGB_CUSTOM_UNDERGLOW)
         backlight_set_color( i, rgb.r, rgb.g, rgb.b );
-#else
-        if (DRIVER_LED_TOTAL <= i && i <= BACKLIGHT_LED_COUNT) {
-            underglow_set_color( i - DRIVER_LED_TOTAL, rgb.r, rgb.g, rgb.b );
-        } else {
-            backlight_set_color( i, rgb.r, rgb.g, rgb.b );
-        }
-#endif
     }
 }
 
@@ -1625,15 +1607,7 @@ void backlight_effect_cycle_left_right(void)
         // Relies on hue being 8-bit and wrapping
         hsv.h = point.x + offset + offset2;
         rgb = hsv_to_rgb( hsv );
-#if !defined(RGB_CUSTOM_UNDERGLOW)
         backlight_set_color( i, rgb.r, rgb.g, rgb.b );
-#else
-        if (DRIVER_LED_TOTAL <= i && i <= BACKLIGHT_LED_COUNT) {
-            underglow_set_color( i - DRIVER_LED_TOTAL, rgb.r, rgb.g, rgb.b );
-        } else {
-            backlight_set_color( i, rgb.r, rgb.g, rgb.b );
-        }
-#endif
     }
 }
 
@@ -1660,15 +1634,7 @@ void backlight_effect_cycle_up_down(void)
         // Relies on hue being 8-bit and wrapping
         hsv.h = point.y + offset + offset2;
         rgb = hsv_to_rgb( hsv );
-#if !defined(RGB_CUSTOM_UNDERGLOW)
         backlight_set_color( i, rgb.r, rgb.g, rgb.b );
-#else
-        if (DRIVER_LED_TOTAL <= i && i <= BACKLIGHT_LED_COUNT) {
-            underglow_set_color( i - DRIVER_LED_TOTAL, rgb.r, rgb.g, rgb.b );
-        } else {
-            backlight_set_color( i, rgb.r, rgb.g, rgb.b );
-        }
-#endif
     }
 }
 
@@ -1692,15 +1658,7 @@ void backlight_effect_jellybean_raindrops( bool initialize )
             hsv.v = g_config.brightness;;
 
             rgb = hsv_to_rgb( hsv );
-#if !defined(RGB_CUSTOM_UNDERGLOW)
             backlight_set_color( i, rgb.r, rgb.g, rgb.b );
-#else
-            if (DRIVER_LED_TOTAL <= i && i <= BACKLIGHT_LED_COUNT) {
-                underglow_set_color( i - DRIVER_LED_TOTAL, rgb.r, rgb.g, rgb.b );
-            } else {
-                backlight_set_color( i, rgb.r, rgb.g, rgb.b );
-            }
-#endif
         }
     }
 }
@@ -1718,15 +1676,7 @@ void backlight_effect_cycle_radial1(void)
         hsv.h = point.x + offset;
         hsv.s = point.y;
         rgb = hsv_to_rgb( hsv );
-#if !defined(RGB_CUSTOM_UNDERGLOW)
         backlight_set_color( i, rgb.r, rgb.g, rgb.b );
-#else
-        if (DRIVER_LED_TOTAL <= i && i <= BACKLIGHT_LED_COUNT) {
-            underglow_set_color( i - DRIVER_LED_TOTAL, rgb.r, rgb.g, rgb.b );
-        } else {
-            backlight_set_color( i, rgb.r, rgb.g, rgb.b );
-        }
-#endif
     }
 }
 
@@ -1749,15 +1699,7 @@ void backlight_effect_cycle_radial2(void)
         hsv.h = g_config.color_1.h + offset2;
         hsv.s = 127 + ( point.y >> 1 );
         rgb = hsv_to_rgb( hsv );
-#if !defined(RGB_CUSTOM_UNDERGLOW)
         backlight_set_color( i, rgb.r, rgb.g, rgb.b );
-#else
-        if (DRIVER_LED_TOTAL <= i && i <= BACKLIGHT_LED_COUNT) {
-            underglow_set_color( i - DRIVER_LED_TOTAL, rgb.r, rgb.g, rgb.b );
-        } else {
-            backlight_set_color( i, rgb.r, rgb.g, rgb.b );
-        }
-#endif
     }
 }
 
@@ -2708,29 +2650,4 @@ void backlight_debug_led( bool state )
 }
 #endif // defined(RGB_DEBUGGING_ONLY)
 
-#if defined(RGB_CUSTOM_UNDERGLOW)
-
-void rgblight_set(void) {
-	LED_TYPE *start_led = led + clipping_start_pos;
-	uint16_t num_leds = clipping_num_leds;
-	ws2812_setleds(start_led, num_leds);
-}
-
-void underglow_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
-	for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-        led[i].r = red;
-        led[i].g = green;
-        led[i].b = blue;
-	}
-	rgblight_set();
-}
-
-void underglow_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
-    led[index].r = red;
-    led[index].g = green;
-    led[index].b = blue;
-	rgblight_set();
-}
-
-#endif
 
