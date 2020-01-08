@@ -1,15 +1,30 @@
 #include "tominabox1.h"
-__attribute__ ((weak))
-void keyboard_post_init_keymap(void) {
-}
+// __attribute__ ((weak))
+// void keyboard_post_init_keymap(void) {
+// }
+//
+// void keyboard_post_init_user(void) {
+//   // Customise these values to desired behaviour
+//   debug_enable=true;
+//   //debug_matrix=true;
+//   debug_keyboard=true;
+//   //debug_mouse=true;
+// }
 
-void keyboard_post_init_user(void) {
-  // Customise these values to desired behaviour
-  debug_enable=true;
-  //debug_matrix=true;
-  debug_keyboard=true;
-  //debug_mouse=true;
-}
+typedef struct {
+  bool is_press_action;
+  int state;
+} tap;
+
+enum {
+  SINGLE_TAP = 1,
+  SINGLE_HOLD = 2,
+  DOUBLE_TAP = 3,
+  DOUBLE_HOLD = 4,
+  DOUBLE_SINGLE_TAP = 5, //send two single taps
+  TRIPLE_TAP = 6,
+  TRIPLE_HOLD = 7
+};
 
 void dance_esc_tab (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
@@ -23,6 +38,63 @@ void dance_esc_tab_reset (qk_tap_dance_state_t *state, void *user_data) {
         unregister_code16(KC_TAB);
 }
 
+int cur_dance (qk_tap_dance_state_t *state) {
+  if (state->count == 1) {
+    if (state->interrupted || !state->pressed)  return SINGLE_TAP;
+    //key has not been interrupted, but they key is still held. Means you want to send a 'HOLD'.
+    else return SINGLE_HOLD;
+  }
+  else if (state->count == 2) {
+    /*
+     * DOUBLE_SINGLE_TAP is to distinguish between typing "pepper", and actually wanting a double tap
+     * action when hitting 'pp'. Suggested use case for this return value is when you want to send two
+     * keystrokes of the key, and not the 'double tap' action/macro.
+    */
+    if (state->interrupted) return DOUBLE_SINGLE_TAP;
+    else if (state->pressed) return DOUBLE_HOLD;
+    else return DOUBLE_TAP;
+  }
+  //Assumes no one is trying to type the same letter three times (at least not quickly).
+  //If your tap dance key is 'KC_W', and you want to type "www." quickly - then you will need to add
+  //an exception here to return a 'TRIPLE_SINGLE_TAP', and define that enum just like 'DOUBLE_SINGLE_TAP'
+  if (state->count == 3) {
+    if (state->interrupted || !state->pressed)  return TRIPLE_TAP;
+    else return TRIPLE_HOLD;
+  }
+  else return 8; //magic number. At some point this method will expand to work for more presses
+}
+
+//instanalize an instance of 'tap' for the 'x' tap dance.
+static tap atap_state = {
+  .is_press_action = true,
+  .state = 0
+};
+
+void a_finished (qk_tap_dance_state_t *state, void *user_data) {
+  atap_state.state = cur_dance(state);
+  switch (atap_state.state) {
+    case SINGLE_TAP: register_code16(KC_A); break;
+    case SINGLE_HOLD: register_code16(KC_LCTRL); break;
+    case DOUBLE_TAP: register_code16(LCTL(KC_A)); break;
+    case DOUBLE_HOLD: register_code16(KC_LALT); break;
+    case DOUBLE_SINGLE_TAP: register_code16(KC_A); unregister_code16(KC_A); register_code16(KC_A);
+    //Last case is for fast typing. Assuming your key is `f`:
+    //For example, when typing the word `buffer`, and you want to make sure that you send `ff` and not `Esc`.
+    //In order to type `ff` when typing fast, the next character will have to be hit within the `TAPPING_TERM`, which by default is 200ms.
+  }
+}
+
+void a_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (atap_state.state) {
+    case SINGLE_TAP: unregister_code16(KC_A); break;
+    case SINGLE_HOLD: unregister_code16(KC_LCTRL); break;
+    case DOUBLE_TAP: unregister_code16(LCTL(KC_A)); break;
+    case DOUBLE_HOLD: unregister_code16(KC_LALT);
+    case DOUBLE_SINGLE_TAP: unregister_code16(KC_A);
+  }
+  atap_state.state = 0;
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_TAB_ESC]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_esc_tab, dance_esc_tab_reset),
     [TD_Q_ESC]     = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC),
@@ -31,7 +103,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_CTRL_Y]    = ACTION_TAP_DANCE_DOUBLE(KC_Y, LCTL(KC_Y)),
     [TD_CTRL_C]    = ACTION_TAP_DANCE_DOUBLE(KC_C, LCTL(KC_C)),
     [TD_CTRL_V]    = ACTION_TAP_DANCE_DOUBLE(KC_V, LCTL(KC_V)),
-    [TD_CTRL_A]    = ACTION_TAP_DANCE_DOUBLE(KC_A, LCTL(KC_A)),
+    [TD_CTRL_A]    = ACTION_TAP_DANCE_FN_ADVANCED(NULL, a_finished, a_reset),
     [TD_O_BSLS]    = ACTION_TAP_DANCE_DOUBLE(KC_O, KC_BSLS),
     [TD_QUOTE]     = ACTION_TAP_DANCE_DOUBLE(KC_QUOTE, KC_DQT),
     [TD_QCOL]      = ACTION_TAP_DANCE_DOUBLE(KC_QUOTE, KC_SCLN),
@@ -50,7 +122,7 @@ uint16_t get_tapping_term(uint16_t keycode) {
             return 120;
         case TD(TD_WTAB):
             return 120;
-        case LCTL_T(KC_A):
+        case TD(TD_CTRL_A):
             return 250;
         case LSFT_T(KC_Z):
             return 120;
