@@ -1,12 +1,17 @@
-# DZ60RGB
+# DZ60RGB-ANSI
 
 ![dz60rgb](https://cdn.shopify.com/s/files/1/0043/9140/3591/products/TIM_20190130170231_grande.jpg?v=1548839053)
 
 A hotswap 60% RGB keyboard.
 
-* Keyboard Maintainer: DZtech
-* Hardware Supported: DZtech dz60rgb, dz60rgb-ansi
-* Hardware Availability: [kbdfans](https://kbdfans.myshopify.com/)
+* Keyboard Maintainer: [moyi4681](https://github.com/moyi4681)
+* Hardware Supported: DZtech DZ60RGB-ANSI V1 and V2
+* Hardware Availability: [KBDfans](https://kbdfans.com/)
+
+There are two versions of the DZ60RGB-ANSI. Please use the appropriate firmware for your board.
+
+V1: STM32F303 (Arm)
+V2: ATmega32U4 (AVR)
 
 Make example for this keyboard (after setting up your build environment):
 

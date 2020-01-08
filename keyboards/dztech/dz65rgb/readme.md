@@ -1,10 +1,17 @@
 # DZ65RGB
 
+
+
 A customizable 65% RGB keyboard.
 
-* Keyboard Maintainer: [DZtech](http://keyboarddiy.taobao.com)
-* Hardware Supported: [DZtech](http://keyboarddiy.taobao.com)
-* Hardware Availability: [kbdfans](https://kbdfans.myshopify.com/)
+* Keyboard Maintainer: [moyi4681](https://github.com/moyi4681)
+* Hardware Supported: DZ65RGB V1 and V2
+* Hardware Availability: [KBDfans](https://kbdfans.com/)
+
+There are two versions of the DZ65RGB. Please use the appropriate firmware for your board.
+
+V1: STM32F303 (Arm)
+V2: ATmega32U4 (AVR)
 
 Make example for this keyboard (after setting up your build environment):
 

@@ -4,9 +4,14 @@
 
 A hotswap 60% RGB keyboard.
 
-* Keyboard Maintainer: DZtech
-* Hardware Supported: DZtech dz60rgb, dz60rgb-ansi
-* Hardware Availability: [kbdfans](https://kbdfans.myshopify.com/)
+* Keyboard Maintainer: [moyi4681](https://github.com/moyi4681)
+* Hardware Supported: DZtech DZ60RGB V1 and V2
+* Hardware Availability: [KBDfans](https://kbdfans.com/)
+
+There are two versions of the DZ60RGB. Please use the appropriate firmware for your board.
+
+V1: STM32F303 (Arm)
+V2: ATmega32U4 (AVR)
 
 Make example for this keyboard (after setting up your build environment):
 
