@@ -28,7 +28,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             update_tri_layer(_LW, _RS, _MS);
             return false;
-        case GIT_add...MC_atrd:
+        case GIT_add...MC_vtdr:
             if(record->event.pressed) {
                 // The accessor here first reads from the pointer array that is located
                 // in PROGMEM.  The pointer is taken and passed to the send_string_P
