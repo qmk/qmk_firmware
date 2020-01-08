@@ -1,4 +1,4 @@
-This folder turns RGB underglow and per-key RGB ON at the same time.
+This keymap turns RGB underglow and per-key RGB ON at the same time.
 
 While this is the case:
 
