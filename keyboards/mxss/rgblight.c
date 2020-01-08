@@ -770,9 +770,12 @@ void rgblight_timer_enable(void) {
     dprintf("rgblight timer enabled.\n");
 }
 void rgblight_timer_disable(void) {
-    rgblight_status.timer_enabled = false;
-    RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE;
-    dprintf("rgblight timer disable.\n");
+    // MxSS custom code
+    if (fled_mode != FLED_RGB) {
+        rgblight_status.timer_enabled = false;
+        RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE;
+        dprintf("rgblight timer disable.\n");
+    }
 }
 void rgblight_timer_toggle(void) {
     dprintf("rgblight timer toggle.\n");
