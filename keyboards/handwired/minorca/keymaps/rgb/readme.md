@@ -1,4 +1,4 @@
-#RGB backlight for MinOrca
+# RGB backlight for MinOrca
 
 ![wiring](https://i.imgur.com/jyYyiSS.jpg)
 
