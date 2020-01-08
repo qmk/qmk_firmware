@@ -74,6 +74,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case RGB_LYR:
             if (record->event.pressed) {
                 user_config.rgb_layer_change ^= 1;
+                dprintf("rgb layer change [EEPROM]: %u\n", user_config.rgb_layer_change);
                 eeconfig_update_user(user_config.raw);
                 if (user_config.rgb_layer_change) {
                     layer_state_set(layer_state);
@@ -84,6 +85,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 if (user_config.rgb_layer_change) {
                     user_config.rgb_layer_change = false;
+                    dprintf("rgb layer change [EEPROM]: %u\n", user_config.rgb_layer_change);
                     eeconfig_update_user(user_config.raw);
                 }
             }

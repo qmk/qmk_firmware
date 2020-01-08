@@ -38,6 +38,7 @@ void set_rgb_theme(uint8_t index) {
         user_config.rgb_layer_change = true;
     }
     user_config.rgb_theme = index;
+    dprintf("rgb theme [EEPROM]: %u\n", user_config.rgb_theme);
     eeconfig_update_user(user_config.raw);
 }
 
