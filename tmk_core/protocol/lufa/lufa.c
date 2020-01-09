@@ -86,7 +86,7 @@ extern keymap_config_t keymap_config;
 #endif
 
 #ifdef JOYSTICK_ENABLE
-	#include "joystick.h"
+#    include "joystick.h"
 #endif
 
 uint8_t keyboard_idle = 0;
@@ -271,64 +271,58 @@ static void Console_Task(void) {
  * Joystick
  ******************************************************************************/
 #ifdef JOYSTICK_ENABLE
-
-typedef struct {
-    #if JOYSTICK_AXES_COUNT>0
-    int8_t  axes[JOYSTICK_AXES_COUNT];
-    #endif
-    
-    #if JOYSTICK_BUTTON_COUNT>0
-    uint8_t buttons[(JOYSTICK_BUTTON_COUNT-1)/8+1];
-    #endif
-} __attribute__ ((packed)) joystick_report_t;
-
-void send_joystick_packet(joystick_t* joystick){
-    
+void send_joystick_packet(joystick_t *joystick) {
     uint8_t timeout = 255;
-    uint8_t where = where_to_send();
-    
-    if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
-      return;
-    }
-    
-    joystick_report_t r = {
-        #if JOYSTICK_AXES_COUNT>0
-        .axes = {
-            joystick->axes[0]
+    uint8_t where   = where_to_send();
 
-          #if JOYSTICK_AXES_COUNT >= 2
-            ,joystick->axes[1]
-          #endif
-          #if JOYSTICK_AXES_COUNT >= 3
-            ,joystick->axes[2]
-          #endif
-          #if JOYSTICK_AXES_COUNT >= 4
-            ,joystick->axes[3]
-          #endif
-          #if JOYSTICK_AXES_COUNT >= 5
-            ,joystick->axes[4]
-          #endif
-          #if JOYSTICK_AXES_COUNT >= 6
-            ,joystick->axes[5]
-          #endif
+    if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
+        return;
+    }
+
+    joystick_report_t r = {
+#    if JOYSTICK_AXES_COUNT > 0
+        .axes = {joystick->axes[0]
+
+#        if JOYSTICK_AXES_COUNT >= 2
+                 ,
+                 joystick->axes[1]
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 3
+                 ,
+                 joystick->axes[2]
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 4
+                 ,
+                 joystick->axes[3]
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 5
+                 ,
+                 joystick->axes[4]
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 6
+                 ,
+                 joystick->axes[5]
+#        endif
         },
-        #endif //JOYSTICK_AXES_COUNT>0
-        
-        #if JOYSTICK_BUTTON_COUNT>0
-        .buttons = {
-            joystick->buttons[0]
-            
-          #if JOYSTICK_BUTTON_COUNT>8
-            ,joystick->buttons[1]
-          #endif
-          #if JOYSTICK_BUTTON_COUNT>16
-            ,joystick->buttons[2]
-          #endif
-          #if JOYSTICK_BUTTON_COUNT>24
-            ,joystick->buttons[3]
-          #endif
+#    endif  // JOYSTICK_AXES_COUNT>0
+
+#    if JOYSTICK_BUTTON_COUNT > 0
+        .buttons = {joystick->buttons[0]
+
+#        if JOYSTICK_BUTTON_COUNT > 8
+                    ,
+                    joystick->buttons[1]
+#        endif
+#        if JOYSTICK_BUTTON_COUNT > 16
+                    ,
+                    joystick->buttons[2]
+#        endif
+#        if JOYSTICK_BUTTON_COUNT > 24
+                    ,
+                    joystick->buttons[3]
+#        endif
         }
-        #endif //JOYSTICK_BUTTON_COUNT>0
+#    endif  // JOYSTICK_BUTTON_COUNT>0
     };
 
     /* Select the Joystick Report Endpoint */
@@ -494,8 +488,7 @@ void EVENT_USB_Device_ConfigurationChanged(void) {
     ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC_IN_EPADDR, EP_TYPE_BULK, CDC_EPSIZE, ENDPOINT_BANK_SINGLE);
 #endif
 #ifdef JOYSTICK_ENABLE
-    ConfigSuccess &= ENDPOINT_CONFIG(JOYSTICK_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
-                                     JOYSTICK_EPSIZE, ENDPOINT_BANK_SINGLE);
+    ConfigSuccess &= ENDPOINT_CONFIG(JOYSTICK_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN, JOYSTICK_EPSIZE, ENDPOINT_BANK_SINGLE);
 #endif
 }
 

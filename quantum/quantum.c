@@ -63,10 +63,6 @@ float bell_song[][2] = SONG(TERMINAL_SOUND);
 #    endif
 #endif
 
-#ifdef JOYSTICK_ENABLE
-#include <process_keycode/process_joystick.h>
-#endif //JOYSTICK_ENABLE
-
 static void do_code16(uint16_t code, void (*f)(uint8_t)) {
     switch (code) {
         case QK_MODS ... QK_MODS_MAX:

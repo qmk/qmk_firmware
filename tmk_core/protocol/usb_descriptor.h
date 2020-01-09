@@ -126,9 +126,9 @@ typedef struct {
 
 #ifdef JOYSTICK_ENABLE
     // Joystick HID Interface
-    USB_Descriptor_Interface_t            Joystick_Interface;
-    USB_HID_Descriptor_HID_t              Joystick_HID;
-    USB_Descriptor_Endpoint_t             Joystick_INEndpoint;
+    USB_Descriptor_Interface_t Joystick_Interface;
+    USB_HID_Descriptor_HID_t   Joystick_HID;
+    USB_Descriptor_Endpoint_t  Joystick_INEndpoint;
 #endif
 } USB_Descriptor_Configuration_t;
 
@@ -235,7 +235,7 @@ enum usb_endpoints {
 #    define CDC_OUT_EPADDR (ENDPOINT_DIR_OUT | CDC_OUT_EPNUM)
 #endif
 #ifdef JOYSTICK_ENABLE
-    JOYSTICK_IN_EPNUM = NEXT_EPNUM,
+    JOYSTICK_IN_EPNUM  = NEXT_EPNUM,
     JOYSTICK_OUT_EPNUM = NEXT_EPNUM,
 #endif
 };

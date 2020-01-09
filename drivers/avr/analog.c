@@ -129,9 +129,9 @@ int16_t adc_read(uint8_t mux) {
     low = ADCL;
     // Must read MSB only once!
     low |= (ADCH << 8);
-    
-    //turn off the ADC
-    ADCSRA &= ~(1<<ADEN);
-    
+
+    // turn off the ADC
+    ADCSRA &= ~(1 << ADEN);
+
     return low;
 }
