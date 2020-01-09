@@ -38,7 +38,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 send_string_P((char*)pgm_read_word(&git_macros[keycode - MC_first - 1]));
 #else
                 // For some reason, compiling using ChibiOS for STM boards works without explicitly
-                // grabbing the PROGMEM pointer.  This is a hack until
+                // grabbing the PROGMEM pointer.  This is a hack until a better solution is found.
                 send_string_P(git_macros[keycode - MC_first - 1]);
 #endif
                 return true;
