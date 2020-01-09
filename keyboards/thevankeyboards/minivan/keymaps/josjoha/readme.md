@@ -21,7 +21,7 @@ mapped to Dvorak.
 
 This keymap.c was edited from the default, LED support was copied/edited
 from ../jetpacktuxedo/ keymap. 
-                                                By Jos B.,  jos@socialism.nl
+                        By Jos B. [contact](https://market.socialism.nl/author/ "get e-mail address there")
 
    
 
