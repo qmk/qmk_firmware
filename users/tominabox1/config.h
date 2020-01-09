@@ -3,7 +3,8 @@
 // Tapping term settings
 #define TAPPING_TERM_PER_KEY
 #define TAPPING_TERM 200
-#define IGNORE_MOD_TAP_INTERRUPT
+//#define IGNORE_MOD_TAP_INTERRUPT
+//#define PERMISSIVE_HOLD
 //#define TAPPING_LAYER_TERM 150 // Custom LT Tapping term
 
 // Combos
@@ -11,8 +12,8 @@
   #define COMBO_COUNT 7
   #define COMBO_TERM 75
 #else //everything else
-  #define COMBO_COUNT 11
-  #define COMBO_TERM 200
+  #define COMBO_COUNT 10
+  #define COMBO_TERM 100
 #endif
 
 #if defined(LED_ANIMATIONS)

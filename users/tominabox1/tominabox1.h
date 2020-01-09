@@ -11,7 +11,7 @@ enum layers {
     _LOWER,
     _RAISE,
     _MACRO,
-	  _NUMPAD,
+	_NUMPAD,
     _ARROW,
     _FKEY,
     _GAMER,
@@ -31,8 +31,8 @@ enum custom_keycodes {
     KC_LFT_NUM_F,
     RGBRST,
     KC_PASTA,
-	  SPONGEBOB,
-	  AESTHETIC,
+	SPONGEBOB,
+	AESTHETIC,
     EMAIL2
 };
 
