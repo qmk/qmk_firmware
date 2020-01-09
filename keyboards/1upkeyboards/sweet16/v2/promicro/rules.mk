@@ -11,7 +11,9 @@ MCU = atmega32u4
 #   ATmega328P   USBasp
 BOOTLOADER = caterina
 
-## Features
+# Build Options
+#   change yes to no to disable
+#
 CONSOLE_ENABLE = yes
 
 ## On a Pro Micro you have to choose between underglow and the rotary encoder.
