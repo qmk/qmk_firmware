@@ -1,5 +1,5 @@
 /*
-Copyright 2019 mechmerlin
+Copyright 2020 Yiancar
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,16 +20,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x5154 // "QT"
-#define PRODUCT_ID      0x0009
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Quantrik
-#define PRODUCT         Kyuu
-#define DESCRIPTION     A 65% keyboard with blocker
+#define VENDOR_ID 0x8968
+#define PRODUCT_ID 0x414E
+#define DEVICE_VER 0x0001
+#define MANUFACTURER protoTypist
+#define PRODUCT Allison Numpad
+#define DESCRIPTION A custom luxurious numpad to match Allison
 
 /* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
+#define MATRIX_ROWS 6
+#define MATRIX_COLS 4
 
 /*
  * Keyboard Matrix Assignments
@@ -40,9 +40,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
-*/
-#define MATRIX_ROW_PINS { B6, B5, B4, D7, D6 }
-#define MATRIX_COL_PINS { F1, F4, F5, F6, F7, C7, C6, F0, B7, D0, D5, D3, D2, D1, B3 }
+ */
+#define MATRIX_ROW_PINS { F4, C7, C6, B6, B5, B4 }
+#define MATRIX_COL_PINS { F6, F5, F1, F0 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
@@ -51,11 +51,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
-// #define SOFT_SERIAL_PIN D0 // or D1, D2, D3, E6
+// #define SOFT_SERIAL_PIN D0  // or D1, D2, D3, E6
 
-// #define BACKLIGHT_PIN B7
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
+#define BACKLIGHT_PIN B7
+#define BACKLIGHT_BREATHING
+#define BACKLIGHT_LEVELS 4
 
 // #define RGB_DI_PIN E2
 // #ifdef RGB_DI_PIN
@@ -77,6 +77,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
 //   #define RGBLIGHT_EFFECT_RGB_TEST
 //   #define RGBLIGHT_EFFECT_ALTERNATING
+// /*== customize breathing effect ==*/
+//   /*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
+//   #define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
+//   /*==== use exp() and sin() ====*/
+//   #define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
+//   #define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
 // #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
@@ -84,8 +90,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -132,7 +136,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key combination for magic key command */
 /* defined by default; to change, uncomment and set to the combination you want */
-// #define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
+// #define IS_COMMAND() (get_mods() == MOD_MASK_SHIFT)
 
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true
@@ -186,9 +190,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
+/* disable these deprecated features by default */
+#ifndef LINK_TIME_OPTIMIZATION_ENABLE
+  #define NO_ACTION_MACRO
+  #define NO_ACTION_FUNCTION
+#endif
 /*
  * MIDI options
  */
@@ -241,5 +248,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 /* Bootmagic Lite key configuration */
-// #define BOOTMAGIC_LITE_ROW 0
-// #define BOOTMAGIC_LITE_COLUMN 0
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 0
