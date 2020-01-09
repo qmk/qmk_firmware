@@ -2,26 +2,25 @@
 
 /* LAYER DEFINITIONS */
 
-#define BASE     0
-#define RAISE    1
-#define MOUSE    3
-#define WHEEL    4
-#define FUNCTION 5
+enum layer_number {
+    BASE =  0,
+    RAISE,
+    MOUSE,
+    WHEEL,
+    FUNCTION
+};
 
-/* KEYCODE DEFINITIONS */
+/* KEYCODE ALIASES */
 
-/* invalid / blank keys */
 #define KC_____ KC_TRNS
 #define KC_XXXX KC_NO
 
-/* layers */
 #define KC_WEEL   MO(WHEEL)
 #define KC_D_MOUS LT(MOUSE, KC_D)
 #define KC_L1_RAI LT(RAISE, KC_LANG1)
 #define KC_L2_ALT LALT_T(KC_LANG2)
 #define KC_ESC_FN LT(FUNCTION, KC_ESC)
 
-/* aliases */
 #define KC_RST  RESET
 #define KC_MUP  KC_MS_U
 #define KC_MDN  KC_MS_D
