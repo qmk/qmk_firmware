@@ -22,6 +22,9 @@ void check_default_layer(uint8_t mode, uint8_t type) {
         case _DVORAK:
             rgb_matrix_layer_helper(HSV_SPRINGGREEN, mode, rgb_matrix_config.speed, type);
             break;
+        case _WORKMAN:
+            rgb_matrix_layer_helper(HSV_GOLDENROD, mode, rgb_matrix_config.speed, type);
+            break;
     }
 }
 

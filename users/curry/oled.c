@@ -65,6 +65,9 @@ void render_default_layer_state(void) {
         case _DVORAK:
             oled_write_P(PSTR(" DVRK"), false);
             break;
+        case _WORKMAN:
+            oled_write_P(PSTR(" WRKM"), false);
+            break;
     }
 }
 

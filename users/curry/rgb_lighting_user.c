@@ -310,6 +310,9 @@ layer_state_t layer_state_set_rgb(layer_state_t state) {
                     case _DVORAK:
                         rgblight_set_hsv_and_mode(HSV_SPRINGGREEN, mode);
                         break;
+                    case _WORKMAN:
+                        rgblight_set_hsv_and_mode(HSV_GOLDENROD, mode);
+                        break;
                     default:
                         rgblight_set_hsv_and_mode(HSV_CYAN, mode);
                         break;
