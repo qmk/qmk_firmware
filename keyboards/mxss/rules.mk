@@ -39,4 +39,3 @@ SRC += rgblight.c
 SRC += color.c
 SRC += ws2812.c
 CIE1931_CURVE = yes
-LED_BREATHING_TABLE = yes
