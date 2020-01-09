@@ -22,10 +22,14 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
-/* number of backlight levels */
-#define BACKLIGHT_PIN B6
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 8
+/* configure per-key rgb lighting */
+#define RGB_DI_PIN E2
+#ifdef RGB_DI_PIN
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 9
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8
 #endif
 
 /* Set 0 if debouncing isn't needed */
@@ -36,12 +40,3 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-#define RGB_DI_PIN E2
-#ifdef RGB_DI_PIN
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 9
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
-#endif
