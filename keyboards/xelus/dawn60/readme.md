@@ -1,11 +1,10 @@
-Dawn60
-===
+# Dawn60
 
 An in-switch RGB LED keyboard with RGB underglow.
 
-Keyboard Maintainer: [Xelus22](https://github.com/Xelus22)  
-Hardware Supported: Dawn60 
-Hardware Availability: [Keyboard Treehouse](https://keyboardtreehouse.com) 
+* Keyboard Maintainer: [Xelus22](https://github.com/Xelus22)
+* Hardware Supported: Dawn60
+* Hardware Availability: [Keyboard Treehouse](https://keyboardtreehouse.com)
 
 Make example for this keyboard (after setting up your build environment):
 
