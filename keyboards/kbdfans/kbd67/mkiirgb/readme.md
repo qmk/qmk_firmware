@@ -13,7 +13,7 @@ There are two versions of the KBD67 MKII RGB. Please use the appropriate firmwar
 
 Make example for this keyboard (after setting up your build environment):
 
-    make kbdfans/kbd67/mkiirgb/v1:default
+    make kbdfans/kbd67/mkiirgb/v1:default # Arm (STM32F303)
     make kbdfans/kbd67/mkiirgb/v2:default # AVR (ATmega32U4)
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
