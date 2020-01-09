@@ -43,7 +43,7 @@
 
 #if defined(RGB_BACKLIGHT_DAWN60)
 #include "drivers/avr/ws2812.h"
-LED_TYPE led_underglow[RGBLED_NUM];
+LED_TYPE g_ws2812_leds[WS2812_LED_TOTAL];
 #endif
 
 #include "progmem.h"
@@ -1453,7 +1453,7 @@ void backlight_effect_alphas_mods(void)
             }
         }
     }
-#if defined(RGB_CUSTOM_UNDERGLOW) 
+#if defined(RGB_BACKLIGHT_DAWN60) 
 	for (int i = 0; i < RGBLED_NUM; i++) {
 		if ((RGB_UNDERGLOW_ALPHA_TOP_START <= i && i <= RGB_UNDERGLOW_ALPHA_TOP_END) || 
             (RGB_UNDERGLOW_ALPHA_BOT_START <= i && i <= RGB_UNDERGLOW_ALPHA_BOT_END)) {

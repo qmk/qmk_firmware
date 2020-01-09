@@ -76,7 +76,6 @@
 
 // This conditionally compiles the backlight code for Dawn60 specifics
 #define RGB_BACKLIGHT_DAWN60
-#define RGB_CUSTOM_UNDERGLOW
 
 // enable/disable LEDs based on layout
 // switch between split backspace (1) or normal backspace(0)
@@ -115,7 +114,7 @@
 
 //RGB Underglow defines
 #define RGB_DI_PIN F0
-#define RGBLED_NUM 20
+#define WS2812_LED_TOTAL 20
 
 #define RGB_UNDERGLOW_ALPHA_TOP_START 0
 #define RGB_UNDERGLOW_ALPHA_TOP_END   6   
