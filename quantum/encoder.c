@@ -35,6 +35,13 @@
 static pin_t encoders_pad_a[] = ENCODERS_PAD_A;
 static pin_t encoders_pad_b[] = ENCODERS_PAD_B;
 
+#ifndef ENCODER_DIRECTION_FLIP
+#    define ENCODER_CLOCKWISE true
+#    define ENCODER_COUNTER_CLOCKWISE false
+#else
+#    define ENCODER_CLOCKWISE false
+#    define ENCODER_COUNTER_CLOCKWISE true
+#endif
 static int8_t encoder_LUT[] = {0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0};
 
 static uint8_t encoder_state[NUMBER_OF_ENCODERS]  = {0};
@@ -86,11 +93,11 @@ static void encoder_update(int8_t index, uint8_t state) {
     encoder_pulses[i] += encoder_LUT[state & 0xF];
     if (encoder_pulses[i] >= ENCODER_RESOLUTION) {
         encoder_value[index]++;
-        encoder_update_kb(index, true);
+        encoder_update_kb(index, ENCODER_COUNTER_CLOCKWISE);
     }
     if (encoder_pulses[i] <= -ENCODER_RESOLUTION) {  // direction is arbitrary here, but this clockwise
         encoder_value[index]--;
-        encoder_update_kb(index, false);
+        encoder_update_kb(index, ENCODER_CLOCKWISE);
     }
     encoder_pulses[i] %= ENCODER_RESOLUTION;
 }
@@ -113,12 +120,12 @@ void encoder_update_raw(uint8_t* slave_state) {
         while (delta > 0) {
             delta--;
             encoder_value[index]++;
-            encoder_update_kb(index, true);
+            encoder_update_kb(index, ENCODER_COUNTER_CLOCKWISE);
         }
         while (delta < 0) {
             delta++;
             encoder_value[index]--;
-            encoder_update_kb(index, false);
+            encoder_update_kb(index, ENCODER_CLOCKWISE);
         }
     }
 }
