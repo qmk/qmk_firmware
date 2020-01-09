@@ -40,7 +40,7 @@
 #define FLED_RGB    0b10
 #define FLED_UNDEF  0b11
 
-// Hard-coded color for capslock indicator in FLED_INDI mode, H:0% S:100% = Red
+// Hard-coded color for capslock indicator in FLED_INDI mode, H:0deg S:100% = Red
 #define FLED_CAPS_H 0
 #define FLED_CAPS_S 255
 
@@ -55,7 +55,7 @@ typedef union {
 
 // Structure to store hue and saturation values
 typedef struct _hs_set {
-    uint16_t hue;
+    uint8_t hue;
     uint8_t sat;
 } hs_set;
 

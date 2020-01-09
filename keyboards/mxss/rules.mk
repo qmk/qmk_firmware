@@ -34,6 +34,7 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 OPT_DEFS += -DRGBLIGHT_ENABLE
 SRC += $(QUANTUM_DIR)/process_keycode/process_rgb.c
 SRC += rgblight.c
+SRC += color.c
 SRC += ws2812.c
 CIE1931_CURVE = yes
 LED_BREATHING_TABLE = yes
