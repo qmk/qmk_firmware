@@ -48,9 +48,11 @@ void fled_init(void) {
         fled_load_conf();
     // Else, default config
     } else {
+        // Default mode/brightness
         fled_mode = FLED_RGB;
         fled_val = 10 * FLED_VAL_STEP;
 
+        // Default colors
         caps_color.hue = 0;
         caps_color.sat = 255;
         layer_colors[0].hue = 0;
@@ -223,6 +225,7 @@ void fled_lock_update(uint8_t usb_led) {
 }
 
 void set_fled_layer_color(uint8_t layer, hs_set hs) {
+    // Update layer colors and refresh LEDs
     layer_colors[layer] = hs;
     fled_layer_update(layer_state);
     fled_update_conf();
@@ -233,6 +236,7 @@ hs_set get_fled_layer_color(uint8_t layer) {
 }
 
 void set_fled_caps_color(hs_set hs) {
+    // Update caplock color and refresh LEDs
     caps_color = hs;
     fled_lock_update(host_keyboard_leds());
     fled_update_conf();
