@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* in python2: list(u"whatever".encode('utf-16-le')) */
 /*   at most 32 characters or the ugly hack in usb_main.c borks */
 #define MANUFACTURER BoardNotBored
-#define PRODUCT MIMI
+#define PRODUCT Mimi
 #define DESCRIPTION MIMI Keyboard
 
 /* key matrix size */
