@@ -1,9 +1,6 @@
 # MCU name
 MCU = STM32F303
 
-# Code for backlight breathing:
-SRC += led.c
-
 # Use SPI for RGB underglow:
 WS2812_DRIVER = spi
 
