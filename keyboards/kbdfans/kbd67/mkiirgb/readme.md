@@ -8,7 +8,7 @@ A customizable 65% RGB keyboard.
 
 There are two versions of the KBD67 MKII RGB. Please use the appropriate firmware for your board. 
 
-V1: ARM
+* V1: STM32F303 (Arm), takes .bin files
 V2: Atmega32u4
 
 Make example for this keyboard (after setting up your build environment):
