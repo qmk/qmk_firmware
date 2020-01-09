@@ -9,7 +9,7 @@ __attribute__((weak)) bool process_record_secrets(uint16_t keycode, keyrecord_t 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     xprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
     switch (keycode) {
-        case KC_QWERTY ... KC_DVORAK:
+        case KC_QWERTY ... KC_WORKMAN:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(keycode - KC_QWERTY);
             }

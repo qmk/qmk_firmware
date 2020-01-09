@@ -5,6 +5,7 @@ enum userspace_custom_keycodes {
     KC_QWERTY,          // Sets default layer to QWERTY
     KC_COLEMAK,         // Sets default layer to COLEMAK
     KC_DVORAK,          // Sets default layer to DVORAK
+    KC_WORKMAN,         // Sets default layer to WORKMAN
     KC_MAKE,            // Run keyboard's customized make command
     KC_RGB_T,           // Toggles RGB Layer Indication mode
     RGB_IDL,            // RGB Idling animations
@@ -44,6 +45,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define QWERTY KC_QWERTY
 #define DVORAK KC_DVORAK
 #define COLEMAK KC_COLEMAK
+#define WORKMAN KC_WORKMAN
 
 #define KC_RST RESET
 
@@ -53,15 +55,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #    define KC_C1R3 KC_TAB
 #endif  // SWAP_HANDS_ENABLE
 
-#define BK_LWER LT(_LOWER, KC_BSPC)
 #define SP_LWER LT(_LOWER, KC_SPC)
-#define DL_RAIS LT(_RAISE, KC_DEL)
 #define ET_RAIS LT(_RAISE, KC_ENTER)
 
 /* OSM keycodes, to keep things clean and easy to change */
-#define KC_MLSF OSM(MOD_LSFT)
-#define KC_MRSF OSM(MOD_RSFT)
-
 #define OS_LGUI OSM(MOD_LGUI)
 #define OS_RGUI OSM(MOD_RGUI)
 #define OS_LSFT OSM(MOD_LSFT)
@@ -72,12 +69,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define OS_RALT OSM(MOD_RALT)
 #define OS_MEH OSM(MOD_MEH)
 #define OS_HYPR OSM(MOD_HYPR)
-
-#define M_LALT ALT_T(KC_TAB)
-#define M_RALT RALT_T(KC_QUOT)
-
-#define M_LCTL CTL_T(KC_TAB)
-#define M_RCTL RCTL_T(KC_QUOT)
 
 #define MT_ESC MT(MOD_LCTL, KC_ESC)
 
