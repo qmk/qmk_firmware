@@ -1,7 +1,7 @@
 # zk-phi userspace
 ## `process_record_keymap`
 
-`phi.c` in the userspace reserves `process_record_user`, instead you can use `process_record_keymap` for per-keymap customizations.
+`phi.c` in the userspace reserves `process_record_user`. You can use `process_record_keymap` for per-keymap customizations instead.
 
 ## Common configurations
 
@@ -11,7 +11,7 @@ See `config.h` for details.
 
 ## Custom mousekey accelaration
 
-Enables customized version of mousekeys. Wheel and cursor speed are configured independently (in a bit hack-y way).
+Customized version of mousekeys: wheel and cursor speed can be configured independently.
 
 ### Usage
 
@@ -21,7 +21,7 @@ Add `CUSTOM_MOUSEKEY` to `rules.mk` (this also enables `MOUSEKEY_ENABLE`).
 CUSTOM_MOUSEKEY = yes
 ```
 
-Note that `KC_MS_ACCEL0` is the only supported keycode among the `KC_MS_ACCEL*` keycodes.
+Note that `KC_MS_ACCEL0` is the only supported accelaration key.
 
 ### Per-board settings
 
