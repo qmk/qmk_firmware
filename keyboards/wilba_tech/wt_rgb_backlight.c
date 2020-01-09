@@ -1223,10 +1223,10 @@ void backlight_set_color( int index, uint8_t red, uint8_t green, uint8_t blue )
     if( index < DRIVER_LED_TOTAL ) {
         IS31FL3731_set_color( index, red, green, blue );
     } else {
-        led_underglow[index - DRIVER_LED_TOTAL].r = red;
-        led_underglow[index - DRIVER_LED_TOTAL].g = green;
-        led_underglow[index - DRIVER_LED_TOTAL].b = blue;
-        ws2812_setleds(led_underglow, RGBLED_NUM);    
+        g_ws2812_leds[index - DRIVER_LED_TOTAL].r = red;
+        g_ws2812_leds[index - DRIVER_LED_TOTAL].g = green;
+        g_ws2812_leds[index - DRIVER_LED_TOTAL].b = blue;
+        ws2812_setleds(g_ws2812_leds, WS2812_LED_TOTAL);    
     }
 #else
     IS31FL3731_set_color( index, red, green, blue );
@@ -1241,12 +1241,12 @@ void backlight_set_color_all( uint8_t red, uint8_t green, uint8_t blue )
     IS31FL3733_set_color_all( red, green, blue );
 #elif defined(RGB_BACKLIGHT_DAWN60)
     IS31FL3731_set_color_all( red, green, blue );
-    for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-        led_underglow[i].r = red;
-        led_underglow[i].g = green;
-        led_underglow[i].b = blue;
+    for (uint8_t i = 0; i < WS2812_LED_TOTAL; i++) {
+        g_ws2812_leds[i].r = red;
+        g_ws2812_leds[i].g = green;
+        g_ws2812_leds[i].b = blue;
     }
-    ws2812_setleds(led_underglow, RGBLED_NUM);    
+    ws2812_setleds(g_ws2812_leds, WS2812_LED_TOTAL);    
 #else
     IS31FL3731_set_color_all( red, green, blue );
 #endif
@@ -1454,7 +1454,7 @@ void backlight_effect_alphas_mods(void)
         }
     }
 #if defined(RGB_BACKLIGHT_DAWN60) 
-	for (int i = 0; i < RGBLED_NUM; i++) {
+	for (int i = 0; i < WS2812_LED_TOTAL; i++) {
 		if ((RGB_UNDERGLOW_ALPHA_TOP_START <= i && i <= RGB_UNDERGLOW_ALPHA_TOP_END) || 
             (RGB_UNDERGLOW_ALPHA_BOT_START <= i && i <= RGB_UNDERGLOW_ALPHA_BOT_END)) {
             backlight_set_color(i + DRIVER_LED_TOTAL, rgb1.r, rgb1.g, rgb1.b);
