@@ -694,7 +694,8 @@ void naginata_type(void) {
   int nt = ng_chrcount;
 
   while (nt > 0) {
-    if (naginata_lookup(nt)) return;
+    if (naginata_lookup(nt, true)) return; // 連続シフト有効で探す
+    if (naginata_lookup(nt, false)) return; // 連続シフト無効で探す
     nt--; // 最後の1キーを除いて、もう一度仮名テーブルを検索する
   }
   compress_buffer(1);
@@ -702,7 +703,7 @@ void naginata_type(void) {
 
 // バッファの頭からnt文字の範囲を検索キーにしてテーブル検索し、文字に変換して出力する
 // 検索に成功したらtrue、失敗したらfalseを返す
-bool naginata_lookup(int nt) {
+bool naginata_lookup(int nt, bool shifted) {
   naginata_keymap bngmap; // PROGMEM buffer
   naginata_keymap_long bngmapl; // PROGMEM buffer
   naginata_keymap_unicode bngmapu; // PROGMEM buffer
@@ -715,20 +716,22 @@ bool naginata_lookup(int nt) {
     keycomb_buf |= ng_key[ninputs[i] - NG_Q];
   }
 
-  // 連続シフトを有効にする
-  if ((keycomb & B_SHFT) == B_SHFT) keycomb_buf |= B_SHFT;
+  if (shifted) {
+    // 連続シフトを有効にする
+    if ((keycomb & B_SHFT) == B_SHFT) keycomb_buf |= B_SHFT;
 
-  // 編集モードを連続する
-  if ((keycomb & (B_D | B_F))    == (B_D | B_F))    keycomb_buf |= (B_D | B_F);
-  if ((keycomb & (B_C | B_V))    == (B_C | B_V))    keycomb_buf |= (B_C | B_V);
-  if ((keycomb & (B_J | B_K))    == (B_J | B_K))    keycomb_buf |= (B_J | B_K);
-  if ((keycomb & (B_M | B_COMM)) == (B_M | B_COMM)) keycomb_buf |= (B_M | B_COMM);
+    // 編集モードを連続する
+    if ((keycomb & (B_D | B_F))    == (B_D | B_F))    keycomb_buf |= (B_D | B_F);
+    if ((keycomb & (B_C | B_V))    == (B_C | B_V))    keycomb_buf |= (B_C | B_V);
+    if ((keycomb & (B_J | B_K))    == (B_J | B_K))    keycomb_buf |= (B_J | B_K);
+    if ((keycomb & (B_M | B_COMM)) == (B_M | B_COMM)) keycomb_buf |= (B_M | B_COMM);
 
-  // 濁音、半濁音を連続する
-  if ((keycomb & B_F) == B_F) keycomb_buf |= B_F;
-  if ((keycomb & B_J) == B_J) keycomb_buf |= B_J;
-  if ((keycomb & B_V) == B_V) keycomb_buf |= B_V;
-  if ((keycomb & B_M) == B_M) keycomb_buf |= B_M;
+    // 濁音、半濁音を連続する
+    if ((keycomb & B_F) == B_F) keycomb_buf |= B_F;
+    if ((keycomb & B_J) == B_J) keycomb_buf |= B_J;
+    if ((keycomb & B_V) == B_V) keycomb_buf |= B_V;
+    if ((keycomb & B_M) == B_M) keycomb_buf |= B_M;
+  }
 
   switch (keycomb_buf) {
     // send_stringできないキー、長すぎるマクロはここで定義
