@@ -60,7 +60,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 0
 
-// FLED config takes up 1 byte, so make sure VIA doesn't eat it
+// FLED config takes up 1 byte, stored color count takes 1, stored colors take up to 8
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 10
 
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
