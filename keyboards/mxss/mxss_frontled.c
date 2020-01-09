@@ -1,3 +1,21 @@
+/* Copyright 2020 Jumail Mundekkat / MxBlue
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Extended from the work done by fcoury: https://github.com/qmk/qmk_firmware/pull/4915
+ */
+
 #include "mxss_frontled.h"
 #include "tmk_core/common/eeprom.h"
 #include "rgblight.h"
@@ -14,15 +32,18 @@ LED_TYPE fleds[2];  // Front LED rgb values for indicator mode use
 // {0, 0} to turn off the LED
 // Add additional rows to handle more layers
 __attribute__ ((weak))
-const hs_set layer_colors[] = {
+hs_set layer_colors[4] = {
     [0] = {0,     0},  // Color for Layer 0
     [1] = {86,    255},  // Color for Layer 1
     [2] = {36,    255},  // Color for Layer 2
     [3] = {185,   255},  // Color for Layer 3
 };
 
+// Caps lock indicator color
+hs_set caps_color = { 0, 255 };
+
 __attribute__ ((weak))
-const size_t lc_size = sizeof(layer_colors) / sizeof(uint16_t);
+size_t lc_size = sizeof(layer_colors) / sizeof(uint16_t);
 
 void fled_init(void) {
     // If EEPROM config exists, load it
@@ -157,12 +178,28 @@ void fled_layer_update(uint32_t state) {
 void fled_lock_update(uint8_t usb_led) {
     // Set indicator LED appropriately, whether it is used or not
     if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-        sethsv(FLED_CAPS_H, FLED_CAPS_S, fled_val, &fleds[0]);
+        sethsv(caps_color.hue, caps_color.sat, fled_val, &fleds[0]);
     } else {
         setrgb(0, 0, 0, &fleds[0]);
     }
 
     rgblight_set();
+}
+
+void set_fled_layer_color(uint8_t layer, hs_set hs) {
+    layer_colors[layer] = hs;
+}
+
+hs_set get_fled_layer_color(uint8_t layer) {
+    return layer_colors[layer];
+}
+
+void set_fled_caps_color(hs_set hs) {
+    caps_color = hs;
+}
+
+hs_set get_fled_caps_color(void) {
+    return caps_color;
 }
 
 // Fallback eeprom functions if VIA is not enabled

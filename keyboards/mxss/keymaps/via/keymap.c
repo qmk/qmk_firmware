@@ -14,17 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-// Colors for layers
-// Format: {hue, saturation}
-// {0, 0} to turn off the LED
-// Add additional rows to handle more layers
-const hs_set layer_colors[] = {
-    [0] = {0,     0},  // Color for Layer 0
-    [1] = {86,    255},  // Color for Layer 1
-    [2] = {36,    255},  // Color for Layer 2
-    [3] = {185,   255},  // Color for Layer 3
-};
-const size_t lc_size = sizeof(layer_colors) / sizeof(uint16_t);
 
 // Use NEW_SAFE_RANGE to define new custom keycodes in order to not overwrite the ones used for front LED control
 enum custom_keycodes {

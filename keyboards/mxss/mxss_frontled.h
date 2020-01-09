@@ -1,4 +1,4 @@
-/* Copyright 2018 Jumail Mundekkat / MxBlue
+/* Copyright 2020 Jumail Mundekkat / MxBlue
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,10 +40,6 @@
 #define FLED_RGB    0b10
 #define FLED_UNDEF  0b11
 
-// Hard-coded color for capslock indicator in FLED_INDI mode, H:0deg S:100% = Red
-#define FLED_CAPS_H 0
-#define FLED_CAPS_S 255
-
 // Config storage format for EEPROM
 typedef union {
   uint8_t raw;
@@ -67,9 +63,9 @@ enum fled_keycodes {
     NEW_SAFE_RANGE // define a new safe range
 };
 
-void fled_init(void);
-void process_record_fled(uint16_t, keyrecord_t*) ;
-void fled_update_conf(void);      // Store current front LED config to EEPROM
+void fled_init(void);                // Run init functions for front LEDs
+void process_record_fled(uint16_t, keyrecord_t*); // Process keycodes for front LEDs
+void fled_update_conf(void);        // Store current front LED config to EEPROM
 
 void fled_mode_cycle(void);         // Cycle between the 3 modes for the front LEDs
 void fled_val_increase(void);       // Increase the brightness of the front LEDs
@@ -77,5 +73,10 @@ void fled_val_decrease(void);       // Decrease the brightness of the front LEDs
 
 void fled_layer_update(uint32_t);   // Process layer update for front LEDs
 void fled_lock_update(uint8_t);     // Process lock update for front LEDs
+
+void set_fled_layer_color(uint8_t, hs_set); // Set color for a given layer
+void set_fled_caps_color(hs_set hs);        // Set color for the capslock indicator
+hs_set get_fled_caps_color(void);           // Get color for the capslock indicator
+hs_set get_fled_layer_color(uint8_t);       // Get color for a given layer
 
 #endif //MXSS_FRONTLED_H
