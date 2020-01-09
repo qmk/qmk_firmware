@@ -133,7 +133,7 @@ void fled_update_conf(void)
         conf.val = fled_val / FLED_VAL_STEP;
 
     // Store config
-	eeprom_update_byte(FRONTLED_CONF_ADDR, conf.raw);
+    eeprom_update_byte(FRONTLED_CONF_ADDR, conf.raw);
 
     // Store color data
     uint16_t *color_ptr = FRONTLED_COLOR_ADDR;
