@@ -4,8 +4,8 @@
 
 #if defined(KEYBOARD_lfkeyboards_lfk78_revb)
 #    include "revb.h"
-#elif defined(KEYBOARD_lfkeyboards_lfk78_revc_h)
-#    include "revc_h.h"
+#elif defined(KEYBOARD_lfkeyboards_lfk78_revc)
+#    include "revc.h"
 #elif defined(KEYBOARD_lfkeyboards_lfk78_revj)
 #    include "revj.h"
 #endif
