@@ -12,5 +12,6 @@ ifdef MICROWRITER_KEYS
 endif
 
 ifdef HSVDUMP
+	OPT_DEFS += -HSVDUMP_KEYS
 	SRC += hsvdump.c
 endif
