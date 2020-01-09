@@ -18,21 +18,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xCA04
-#define PRODUCT_ID      0xA00C
+#define VENDOR_ID       0xCB4B
+#define PRODUCT_ID      0xA350
 #define DEVICE_VER      0x0001
 /* in python2: list(u"whatever".encode('utf-16-le')) */
 /*   at most 32 characters or the ugly hack in usb_main.c borks */
-#define MANUFACTURER CannonKeys
-#define PRODUCT AN-C
-#define DESCRIPTION AN-C Keyboard
+#define MANUFACTURER BoardNotBored
+#define PRODUCT MIMI
+#define DESCRIPTION MIMI Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 
-#define MATRIX_COL_PINS { B11, B10, B2, A9, A15, B3, B4, B5, B6, B7, B8, B9, C13, C14, C15 }
-#define MATRIX_ROW_PINS { B1, B0, A7, A5, A4 }
+#define MATRIX_COL_PINS { B4, B5, B8, B3, A15, A3, B15, B14, B13, B12, A4, B10, A5, B0, A5 }
+#define MATRIX_ROW_PINS { B1, A6, B2, B11, A7}
 #define DIODE_DIRECTION COL2ROW
 
 #define BACKLIGHT_LEVELS 6
@@ -52,10 +52,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGBLIGHT_ANIMATIONS
 
-#define WS2812_LED_N 14
+#define WS2812_LED_N 16
 #define RGBLED_NUM WS2812_LED_N
 #define PORT_WS2812     GPIOB
-#define PIN_WS2812      15
+#define PIN_WS2812      17
 #define WS2812_SPI SPID2
 
 // Backlight config starts after VIA's EEPROM usage,
