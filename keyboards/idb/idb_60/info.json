@@ -5,8 +5,9 @@
     "width": 15,
     "height": 5,
     "layouts": {
-        "LAYOUT": {
-            "LAYOUT_default": [
+        "LAYOUT_default": {
+            "key_count": 59,
+            "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"!\n1", "x":1, "y":0},
                 {"label":"@\n2", "x":2, "y":0},
@@ -66,8 +67,11 @@
                 {"label":"Space", "x":4, "y":4, "w":7},
                 {"label":"Alt", "x":11, "y":4, "w":1.5},
                 {"label":"Ctrl", "x":13.5, "y":4, "w":1.5}
-            ],
-            "LAYOUT_all":[
+            ]
+        },
+        "LAYOUT_all": {
+            "key_count": 63,
+            "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"!\n1", "x":1, "y":0},
                 {"label":"@\n2", "x":2, "y":0},
