@@ -22,5 +22,5 @@ else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_1)/keymap.json)","")
 endif
 
 # Generate the keymap.c
-$(KEYBOARD_OUTPUT)/src/keymap.c:
+$(KEYBOARD_OUTPUT)/src/keymap.c: $(KEYMAP_JSON)
 	bin/qmk json-keymap --quiet --output $(KEYMAP_C) $(KEYMAP_JSON)

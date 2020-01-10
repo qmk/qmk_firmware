@@ -31,6 +31,7 @@
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8
+#    define RGBLIGHT_SPLIT
 #endif
 
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:

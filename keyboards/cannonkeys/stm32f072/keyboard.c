@@ -10,11 +10,10 @@
 #include "raw_hid.h"
 #include "dynamic_keymap.h"
 #include "tmk_core/common/eeprom.h"
+#include "version.h" // for QMK_BUILDDATE used in EEPROM magic
 
-// HACK
-#include "keyboards/wilba_tech/via_api.h" // Temporary hack
-#include "keyboards/wilba_tech/via_keycodes.h" // Temporary hack
-
+#include "via.h"
+#define EEPROM_CUSTOM_BACKLIGHT (VIA_EEPROM_CUSTOM_CONFIG_ADDR)
 
 backlight_config_t kb_backlight_config = {
   .enable = true,
@@ -22,61 +21,29 @@ backlight_config_t kb_backlight_config = {
   .level = BACKLIGHT_LEVELS
 };
 
-bool eeprom_is_valid(void)
-{
-	return (eeprom_read_word(((void*)EEPROM_MAGIC_ADDR)) == EEPROM_MAGIC &&
-			eeprom_read_byte(((void*)EEPROM_VERSION_ADDR)) == EEPROM_VERSION);
-}
-
-void eeprom_set_valid(bool valid)
-{
-	eeprom_update_word(((void*)EEPROM_MAGIC_ADDR), valid ? EEPROM_MAGIC : 0xFFFF);
-	eeprom_update_byte(((void*)EEPROM_VERSION_ADDR), valid ? EEPROM_VERSION : 0xFF);
-}
-
-void eeprom_reset(void)
-{
-	eeprom_set_valid(false);
-	eeconfig_disable();
-}
-
-void save_backlight_config_to_eeprom(){
+void backlight_config_save(){
   eeprom_update_byte((uint8_t*)EEPROM_CUSTOM_BACKLIGHT, kb_backlight_config.raw);
 }
 
-void load_custom_config(){
+void backlight_config_load(){
   kb_backlight_config.raw = eeprom_read_byte((uint8_t*)EEPROM_CUSTOM_BACKLIGHT);
 }
 
-#ifdef DYNAMIC_KEYMAP_ENABLE
-void dynamic_keymap_custom_reset(void){
-    void *p = (void*)(EEPROM_CUSTOM_BACKLIGHT);
-	void *end = (void*)(DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR);
-	while ( p != end ) {
-		eeprom_update_byte(p, 0);
-		++p;
-	}
-}
-#endif
-
-void eeprom_init_kb(void)
+// Called from via_init() if VIA_ENABLE
+// Called from matrix_init_kb() if not VIA_ENABLE
+void via_init_kb(void)
 {
 	// If the EEPROM has the magic, the data is good.
 	// OK to load from EEPROM.
-	if (eeprom_is_valid()) {
-		load_custom_config();
+	if (via_eeprom_is_valid()) {
+		backlight_config_load();
 	} else	{
-#ifdef DYNAMIC_KEYMAP_ENABLE
-		// This resets the keymaps in EEPROM to what is in flash.
-		dynamic_keymap_reset();
-		// This resets the macros in EEPROM to nothing.
-		dynamic_keymap_macro_reset();
-        // Reset the custom stuff
-        dynamic_keymap_custom_reset();
-#endif
-		// Save the magic number last, in case saving was interrupted
-        save_backlight_config_to_eeprom();
-		eeprom_set_valid(true);
+		// If the EEPROM has not been saved before, or is out of date,
+		// save the default values to the EEPROM. Default values
+		// come from construction of the backlight_config instance.
+		backlight_config_save();
+
+		// DO NOT set EEPROM valid here, let caller do this
 	}
 }
 
@@ -84,7 +51,13 @@ __attribute__ ((weak))
 void matrix_init_board(void);
 
 void matrix_init_kb(void){
-  	eeprom_init_kb();
+	// If VIA is disabled, we still need to load backlight settings.
+	// Call via_init_kb() the same way as via_init(), with setting
+	// EEPROM valid afterwards.
+#ifndef VIA_ENABLE
+	via_init_kb();
+	via_eeprom_set_valid(true);
+#endif // VIA_ENABLE
       /* MOSI pin*/
 #ifdef RGBLIGHT_ENABLE
     palSetPadMode(PORT_WS2812, PIN_WS2812, PAL_MODE_ALTERNATE(0));
@@ -101,6 +74,7 @@ void matrix_scan_kb(void)
   #ifdef RGBLIGHT_ENABLE
     rgblight_task();
   #endif
+    matrix_scan_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
@@ -112,7 +86,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
           kb_backlight_config.level = BACKLIGHT_LEVELS;
         }
         backlight_set(kb_backlight_config.level);
-        save_backlight_config_to_eeprom();
+        backlight_config_save();
       }
       return false;
     case BL_TOGG:
@@ -123,7 +97,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         } else {
           backlight_set(0);
         }
-        save_backlight_config_to_eeprom();
+        backlight_config_save();
       }
       return false;
 
@@ -135,168 +109,71 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
           kb_backlight_config.level = kb_backlight_config.level - 1;
         }
         backlight_set(kb_backlight_config.level);
-        save_backlight_config_to_eeprom();
+        backlight_config_save();
       }
       return false;
     case BL_BRTG:
       if (record->event.pressed) {
         kb_backlight_config.breathing = !kb_backlight_config.breathing;
         breathing_toggle();
-        save_backlight_config_to_eeprom();
+        backlight_config_save();
       }
       return false;
     default:
         break;
   }
 
-  #ifdef DYNAMIC_KEYMAP_ENABLE
-	// Handle macros
-	if (record->event.pressed) {
-		if ( keycode >= MACRO00 && keycode <= MACRO15 )
-		{
-			uint8_t id = keycode - MACRO00;
-			dynamic_keymap_macro_send(id);
-			return false;
-		}
-	}
-    #endif //DYNAMIC_KEYMAP_ENABLE
-
   return process_record_user(keycode, record);;
 }
 
 
-// Start Dynamic Keymap code
-#ifdef RAW_ENABLE
 
-void raw_hid_receive( uint8_t *data, uint8_t length )
+
+//
+// In the case of VIA being disabled, we still need to check if
+// keyboard level EEPROM memory is valid before loading.
+// Thus these are copies of the same functions in VIA, since
+// the backlight settings reuse VIA's EEPROM magic/version,
+// and the ones in via.c won't be compiled in.
+//
+// Yes, this is sub-optimal, and is only here for completeness
+// (i.e. catering to the 1% of people that want wilba.tech LED bling
+// AND want persistent settings BUT DON'T want to use dynamic keymaps/VIA).
+//
+#ifndef VIA_ENABLE
+
+bool via_eeprom_is_valid(void)
 {
-	uint8_t *command_id = &(data[0]);
-	uint8_t *command_data = &(data[1]);
-	switch ( *command_id )
-	{
-		case id_get_protocol_version:
-		{
-			command_data[0] = PROTOCOL_VERSION >> 8;
-			command_data[1] = PROTOCOL_VERSION & 0xFF;
-			break;
-		}
-		case id_get_keyboard_value:
-		{
-            switch( command_data[0])
-            {
-                case id_uptime:
-                {
-                uint32_t value = timer_read32();
-                command_data[1] = (value >> 24 ) & 0xFF;
-                command_data[2] = (value >> 16 ) & 0xFF;
-                command_data[3] = (value >> 8 ) & 0xFF;
-                command_data[4] = value & 0xFF;
-                break;
-                }
-                default:
-                {
-                *command_id = id_unhandled;
-                break;
-                }
-            }
-            break;
-        }
-#ifdef DYNAMIC_KEYMAP_ENABLE
+    char *p = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
+    uint8_t magic0 = ( ( p[2] & 0x0F ) << 4 ) | ( p[3]  & 0x0F );
+    uint8_t magic1 = ( ( p[5] & 0x0F ) << 4 ) | ( p[6]  & 0x0F );
+    uint8_t magic2 = ( ( p[8] & 0x0F ) << 4 ) | ( p[9]  & 0x0F );
 
-		case id_dynamic_keymap_get_keycode:
-		{
-			uint16_t keycode = dynamic_keymap_get_keycode( command_data[0], command_data[1], command_data[2] );
-			command_data[3] = keycode >> 8;
-			command_data[4] = keycode & 0xFF;
-			break;
-		}
-		case id_dynamic_keymap_set_keycode:
-		{
-			dynamic_keymap_set_keycode( command_data[0], command_data[1], command_data[2], ( command_data[3] << 8 ) | command_data[4] );
-			break;
-		}
-		case id_dynamic_keymap_reset:
-		{
-			dynamic_keymap_reset();
-			break;
-		}
-		case id_dynamic_keymap_macro_get_count:
-		{
-			command_data[0] = dynamic_keymap_macro_get_count();
-			break;
-		}
-		case id_dynamic_keymap_macro_get_buffer_size:
-		{
-			uint16_t size = dynamic_keymap_macro_get_buffer_size();
-			command_data[0] = size >> 8;
-			command_data[1] = size & 0xFF;
-			break;
-		}
-		case id_dynamic_keymap_macro_get_buffer:
-		{
-			uint16_t offset = ( command_data[0] << 8 ) | command_data[1];
-			uint16_t size = command_data[2]; // size <= 28
-			dynamic_keymap_macro_get_buffer( offset, size, &command_data[3] );
-			break;
-		}
-		case id_dynamic_keymap_macro_set_buffer:
-		{
-			uint16_t offset = ( command_data[0] << 8 ) | command_data[1];
-			uint16_t size = command_data[2]; // size <= 28
-			dynamic_keymap_macro_set_buffer( offset, size, &command_data[3] );
-			break;
-		}
-		case id_dynamic_keymap_macro_reset:
-		{
-			dynamic_keymap_macro_reset();
-			break;
-		}
-		case id_dynamic_keymap_get_layer_count:
-		{
-			command_data[0] = dynamic_keymap_get_layer_count();
-			break;
-		}
-		case id_dynamic_keymap_get_buffer:
-		{
-			uint16_t offset = ( command_data[0] << 8 ) | command_data[1];
-			uint16_t size = command_data[2]; // size <= 28
-			dynamic_keymap_get_buffer( offset, size, &command_data[3] );
-			break;
-		}
-		case id_dynamic_keymap_set_buffer:
-		{
-			uint16_t offset = ( command_data[0] << 8 ) | command_data[1];
-			uint16_t size = command_data[2]; // size <= 28
-			dynamic_keymap_set_buffer( offset, size, &command_data[3] );
-			break;
-		}
-#endif // DYNAMIC_KEYMAP_ENABLE
-		case id_eeprom_reset:
-		{
-			eeprom_reset();
-			break;
-		}
-		case id_bootloader_jump:
-		{
-			// Need to send data back before the jump
-			// Informs host that the command is handled
-			raw_hid_send( data, length );
-			// Give host time to read it
-			wait_ms(100);
-			bootloader_jump();
-			break;
-		}
-		default:
-		{
-			// Unhandled message.
-			*command_id = id_unhandled;
-			break;
-		}
-	}
-
-	// Return same buffer with values changed
-	raw_hid_send( data, length );
-
+    return (eeprom_read_byte( (void*)VIA_EEPROM_MAGIC_ADDR+0 ) == magic0 &&
+            eeprom_read_byte( (void*)VIA_EEPROM_MAGIC_ADDR+1 ) == magic1 &&
+            eeprom_read_byte( (void*)VIA_EEPROM_MAGIC_ADDR+2 ) == magic2 );
 }
 
-#endif
+// Sets VIA/keyboard level usage of EEPROM to valid/invalid
+// Keyboard level code (eg. via_init_kb()) should not call this
+void via_eeprom_set_valid(bool valid)
+{
+    char *p = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
+    uint8_t magic0 = ( ( p[2] & 0x0F ) << 4 ) | ( p[3]  & 0x0F );
+    uint8_t magic1 = ( ( p[5] & 0x0F ) << 4 ) | ( p[6]  & 0x0F );
+    uint8_t magic2 = ( ( p[8] & 0x0F ) << 4 ) | ( p[9]  & 0x0F );
+
+    eeprom_update_byte( (void*)VIA_EEPROM_MAGIC_ADDR+0, valid ? magic0 : 0xFF);
+    eeprom_update_byte( (void*)VIA_EEPROM_MAGIC_ADDR+1, valid ? magic1 : 0xFF);
+    eeprom_update_byte( (void*)VIA_EEPROM_MAGIC_ADDR+2, valid ? magic2 : 0xFF);
+}
+
+void via_eeprom_reset(void)
+{
+    // Set the VIA specific EEPROM state as invalid.
+    via_eeprom_set_valid(false);
+    // Set the TMK/QMK EEPROM state as invalid.
+    eeconfig_disable();
+}
+
+#endif // VIA_ENABLE

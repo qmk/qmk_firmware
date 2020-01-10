@@ -48,13 +48,13 @@ __attribute__((weak)) bool is_keyboard_left(void) {
 #elif defined(EE_HANDS)
     return eeconfig_read_handedness();
 #elif defined(MASTER_RIGHT)
-    return !is_keyboard_master();
+    return !has_usb();
 #endif
 
-    return is_keyboard_master();
+    return has_usb();
 }
 
-__attribute__((weak)) bool is_keyboard_master(void) {
+__attribute__((weak)) bool has_usb(void) {
     static enum { UNKNOWN, MASTER, SLAVE } usbstate = UNKNOWN;
 
     // only check once, as this is called often
@@ -102,9 +102,4 @@ void split_keyboard_setup(void) {
       keyboard_slave_setup();
    }
    sei();
-}
-
-// backwards compat
-bool has_usb(void) {
-   return is_keyboard_master();
 }
