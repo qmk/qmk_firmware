@@ -6,7 +6,7 @@ A 9-key macropad by [YMDK](https://ymdk.aliexpress.com/store/429151) with per-ke
 
 * Keyboard Maintainer: [Patrick Fruh](https://github.com/kaeltis)
 * Hardware Supported: YMD09
-* Hardware Availability: [AliExpress](https://www.aliexpress.com/item/4000510880374.html)
+* Hardware Availability: [AliExpress](https://www.aliexpress.com/i/4000510880374.html)
 
 Make example for this keyboard (after setting up your build environment):
 
