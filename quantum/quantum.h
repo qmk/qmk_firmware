@@ -88,6 +88,10 @@ extern layer_state_t layer_state;
 #    include "process_music.h"
 #endif
 
+#ifdef BACKLIGHT_ENABLE
+#    include "process_backlight.h"
+#endif
+
 #ifdef LEADER_ENABLE
 #    include "process_leader.h"
 #endif
