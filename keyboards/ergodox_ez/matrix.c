@@ -122,6 +122,9 @@ uint8_t matrix_scan(void) {
       } else {
         print("left side attached\n");
         ergodox_blink_all_leds();
+#ifdef RGB_MATRIX_ENABLE
+        rgb_matrix_init(); // re-init driver on reconnect
+#endif
       }
     }
   }

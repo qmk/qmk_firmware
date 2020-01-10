@@ -21,16 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "backlight.h"
 #include "backlight_custom.h"
 
-void matrix_init_kb(void) { matrix_init_user(); }
-
-__attribute__ ((weak))
-void matrix_init_user(void) {}
-
-void matrix_scan_kb(void) { matrix_scan_user(); }
-
-__attribute__ ((weak))
-void matrix_scan_user(void) {}
-
 #ifdef BACKLIGHT_ENABLE
 /// Overrides functions in `quantum.c`
 void backlight_init_ports(void) {

@@ -34,7 +34,7 @@ HD44780_ENABLE = no         # Enable support for HD44780 based LCDs (+400)
 LINK_TIME_OPTIMIZATION_ENABLE = yes
 
 # custom matrix setup
-CUSTOM_MATRIX = yes
+CUSTOM_MATRIX = lite
 
 VPATH += drivers/gpio
 SRC += custom_matrix_helper.c pca9555.c matrix.c

@@ -21,8 +21,6 @@ AUDIO_ENABLE = no                  # Audio output on port C6
 NO_USB_STARTUP_CHECK = no          # Disable initialization only when usb is plugged in
 #SERIAL_LINK_ENABLE = yes
 
-RAW_ENABLE = no
-DYNAMIC_KEYMAP_ENABLE = no
 CIE1931_CURVE = yes
 
 LAYOUTS = 60_ansi 60_iso
