@@ -27,12 +27,7 @@ enum planck_keycodes {
 };
 
 // Func macro definitions.
-#define SFT_TAB  FUNC(0) // Tap for Enter, hold for Shift
-
-// Enable these functions using FUNC(n) macro.
-const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_LAYER_TAP_KEY(_MULTIMEDIA, KC_TAB)
- };
+#define SFT_TAB  LT(_MULTIMEDIA, KC_TAB) // Tap for Enter, hold for Shift
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
