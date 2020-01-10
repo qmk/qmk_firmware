@@ -2,8 +2,8 @@
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
-  original document: docs/newbs_getting_started.md
-  git diff 161d469 HEAD docs/newbs_getting_started.md | cat
+  original document: 161d469:docs/newbs_getting_started.md
+  git diff 161d469 HEAD -- docs/newbs_getting_started.md | cat
 -->
 
 キーボードにはプロセッサが入っており、それはコンピュータに入っているものと大して違わないものです。
