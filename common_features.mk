@@ -298,6 +298,7 @@ VALID_BACKLIGHT_TYPES := pwm software custom
 BACKLIGHT_ENABLE ?= no
 BACKLIGHT_DRIVER ?= pwm
 ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/process_keycode/process_backlight.c
     ifeq ($(filter $(BACKLIGHT_DRIVER),$(VALID_BACKLIGHT_TYPES)),)
         $(error BACKLIGHT_DRIVER="$(BACKLIGHT_DRIVER)" is not a valid backlight type)
     endif
