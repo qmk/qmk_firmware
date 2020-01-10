@@ -186,6 +186,25 @@ uint16_t get_tapping_term(uint16_t keycode) {
     }
 };
 
+bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
+  switch (keycode) {
+    case RSFT_T(KC_DOT):
+      return true;
+	case LSFT_T(KC_Z):
+	  return false;
+    default:
+      return false;
+  }
+}
+
+bool get_tapping_force_hold(uint16_t keycode) {
+  switch (keycode) {
+    case MO(_RAISE):
+      return false;
+    default:
+      return false;
+  }
+}
 __attribute__ ((weak))
 layer_state_t layer_state_set_keymap (layer_state_t state) {
   return state;

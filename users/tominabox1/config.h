@@ -3,9 +3,11 @@
 // Tapping term settings
 #define TAPPING_TERM_PER_KEY
 #define TAPPING_TERM 200
-//#define IGNORE_MOD_TAP_INTERRUPT
+#define IGNORE_MOD_TAP_INTERRUPT
 //#define PERMISSIVE_HOLD
 //#define TAPPING_LAYER_TERM 150 // Custom LT Tapping term
+#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
+#define IGNORE_TAPPING_FORCE_HOLD_PER_KEY
 
 // Combos
 #if defined(KEYBOARD_thevankeyboards_roadkit)
