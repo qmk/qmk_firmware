@@ -24,10 +24,10 @@
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 6
+#define DEBOUNCE 5
 
 /* rgb light */
-#define RGBLED_NUM      2
+#define RGBLED_NUM      8
 #define RGB_DI_PIN      B8
 #define RGBLIGHT_ANIMATIONS
 
