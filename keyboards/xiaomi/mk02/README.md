@@ -79,6 +79,14 @@ Flash the keyboard normally by executing:
 make xiaomi/mk02:default:flash
 ```
 
+Warning! If you flash the firmware manually by using `dfu-util`, make sure to use the following arguments:
+
+```
+-d 0483:df11 -a 0 -s 0x08002000:leave
+```
+
+If you don't, you'll blow away the user bootloader and will have to repeat the installation steps.
+
 ## Booting into bootloader
 
 To boot into bootloader, do either of the following:
