@@ -1,25 +1,25 @@
 # ビルドツールのインストール
 
 <!---
-  original document: 7494490d6:docs/getting_started_build_tools.md
-  git diff 7494490d6 HEAD -- docs/getting_started_build_tools.md | cat
+  original document: 5a02cc00a:docs/getting_started_build_tools.md
+  git diff 5a02cc00a HEAD -- docs/getting_started_build_tools.md | cat
 -->
 
 このページは QMK のためのビルド環境のセットアップを説明します。これらの手順は (atmega32u4 のような) AVR プロセッサを対象としてします。
 
 <!-- FIXME: We should have ARM instructions somewhere. -->
 
-**注意:** 初めての場合は、[初心者のガイド](ja/newbs.md)ページを調べてください。
+**注意:** ここが初めての場合は、[QMK 初心者ガイド](ja/newbs.md)ページを調べてください。
 
-続ける前に、`make git-submodule` を実行することで、サブモジュール(サードパーティライブラリ)が最新であることを再確認してください。
+続ける前に、`make git-submodule` を実行して、サブモジュール(サードパーティライブラリ)が最新であることを再確認してください。
 
 ## Linux
 
-常に最新の状態を保つために、単に `sudo util/qmk_install.sh` を実行することができます。全ての必要な依存関係が常にインストールされるはずです。**これは `apt-get upgrade` を実行します。**
+常に最新の状態を保つためには、単に `sudo util/qmk_install.sh` を実行してください。全ての必要な依存関係が常にインストールされるはずです。**これは `apt-get upgrade` を実行します。**
 
 手動でインストールすることもできますが、このドキュメントは常に全ての要件を満たしているとは限りません。
 
-現在の要件は以下の通りですが、何をしようとしているかに依存して全てが必要ではないかもしれません。また、一部のシステムではパッケージとして利用可能な全ての依存関係が無い場合、あるいは名前が異なる場合があるかもしれません。
+現在の要件は以下の通りですが、何をしようとしているかによっては全てが必要とは限りません。また、一部のシステムではパッケージとして全ての依存関係が利用できるとは限らず、あるいは名前が異なる場合があるかもしれません。
 
 ```
 build-essential
@@ -62,21 +62,22 @@ Arch / Manjaro の例:
     nix-shell --arg arm false
 
 ## macOS
-[homebrew](http://brew.sh/) を使っている場合は、以下のコマンドを使うことができます:
+[Homebrew](http://brew.sh/) を使っている場合は、以下のコマンドを使うことができます:
 
     brew tap osx-cross/avr
-    brew tap PX4/homebrew-px4
+    brew tap osx-cross/arm
     brew update
     brew install avr-gcc@8
     brew link --force avr-gcc@8
     brew install dfu-programmer
     brew install dfu-util
-    brew install gcc-arm-none-eabi
+    brew install arm-gcc-bin@8
+    brew link --force arm-gcc-bin@8
     brew install avrdude
 
-これはお勧めの方法です。homebrew が無い場合は、[インストールしてください！](http://brew.sh/) コマンドラインで作業する人にとってとても価値があります。`avr-gcc@8` の homebrew インストールの間の `make` と `make install` 部分は20分以上かかり、CPU使用率が高くなることに注意してください。
+これはお勧めの方法です。homebrew が無い場合は、[インストールしてください！](http://brew.sh/) コマンドラインで作業する人にとってとても価値があります。`avr-gcc@8` の homebrew でのインストール中、`make` と `make install` 部分は20分以上かかり、CPU使用率が高くなることに注意してください。
 
-## msys2 を使った Windows (推奨)
+## msys2 を使った Windows (推奨) :id=windows-with-msys2-recommended
 
 Windows Vista 以降のバージョン(7および10でテスト済み)について、使用するのに最適な環境は [msys2](http://www.msys2.org) です。
 
@@ -102,11 +103,11 @@ WSL Git では**なく**、Windows 用の通常の Git を使って Windows フ�
 
 Git がインストールされたら、Git Bash コマンドを開き、QMK をクローンしたい場所へディレクトリを変更します: スラッシュを使う必要があり、c ドライブは `/c/path/to/where/you/want/to/go` のようにアクセスされることに注意してください。次に、`git clone --recurse-submodules https://github.com/qmk/qmk_firmware` を実行します。これは現在のフォルダのサブディレクトリとして新しいフォルダ `qmk_firmware` を作成します。
 
-### ツールチェーンセットアップ
-ツールチェーンのセットアップは Linux のための Windows サブシステムを介して行われ、手順は完全に自動化されています。全てを手動で行いたい場合は、スクリプト以外の手順はありませんが、常に issue を開いて詳細情報を求めることができます。
+### ツールチェーンのセットアップ
+ツールチェーンのセットアップは Linux 用の Windows サブシステムを介して行われ、手順は完全に自動化されています。全てを手動で行いたい場合は、スクリプト以外の手順はありませんが、常に issue を開いて詳細情報を求めることができます。
 
 1. スタートメニューから "Bash On Ubuntu On Windows" を開いてください。
-2. クローンした `qmk_firmware` ディレクトリに移動します。パスは WSL 内で `/mnt/` から始まることに注意してください。つまり、例えば `cd /mnt/c/path/to/qmk_firmware` を書く必要があります。
+2. クローンした `qmk_firmware` ディレクトリに移動します。パスは WSL 内で `/mnt/` から始まることに注意してください。つまり、例えば `cd /mnt/c/path/to/qmk_firmware` と書く必要があります。
 3. `util/wsl_install.sh` を実行し、画面上の手順に従います。
 4. Bash コマンドウィンドウを閉じ、再び開きます。
 5. ファームウェアをコンパイルし書き込む準備ができました！
@@ -115,21 +116,21 @@ Git がインストールされたら、Git Bash コマンドを開き、QMK を
 * 全ての最新の更新を取得するために `util/wsl_install.sh` を再実行することができます。
 * WSL は外部で実行可能ファイルを実行できないため、QMK リポジトリは Windows ファイルシステム上にある必要があります。
 * WSL Git は Windows の Git と互換性が**無い**ため、全ての Git 操作には、Windows Git Bash あるいは windows Git GUI を使ってください。
-* WSL 内あるいは通常は Windows を使ってファイルを編集できますが、makefile あるいはシェルスクリプトを編集する場合は、行末をUnix形式にしてファイルを保存するエディタを使うようにしてください。そうでなければコンパイルは機能しないかもしれません。
+* WSL 内あるいは普通に Windows を使ってファイルを編集できますが、makefile あるいはシェルスクリプトを編集する場合は、行末をUnix形式にしてファイルを保存するエディタを使うようにしてください。そうでなければコンパイルは機能しないかもしれません。
 
 ## Docker
 
-これが少し複雑な場合は、Docker があなたが必要とする完成品引き渡し方式の解決法かもしれません。[Docker CE](https://docs.docker.com/install/#supported-platforms) をインストールした後で、キーボード/キーマップをビルドするために `qmk_firmware` ディレクトリから以下のコマンドを実行します:
+これが少し複雑な場合は、Docker があなたが必要とするすぐに使える解決法かもしれません。[Docker CE](https://docs.docker.com/install/#supported-platforms) をインストールした後で、キーボード/キーマップをビルドするために `qmk_firmware` ディレクトリから以下のコマンドを実行します:
 ```bash
 util/docker_build.sh keyboard:keymap
 # 例えば: util/docker_build.sh ergodox_ez:steno
 ```
-これは目的のキーボード/キーマップをコンパイルし、結果の `.hex` あるいは `.bin` ファイルを QMK ディレクトリの中に残し、書き込むことができます。`:keymap` が省略された場合は、`デフォルト`のキーマップが使われます。パラメータの形式は、`make` を使ってビルドする時と同じであることに注意してください。
+これは目的のキーボード/キーマップをコンパイルし、結果として書き込み用に `.hex` あるいは `.bin` ファイルを QMK ディレクトリの中に残します。`:keymap` が省略された場合は全てのキーマップが使われます。パラメータの形式は、`make` を使ってビルドする時と同じであることに注意してください。
 
 スクリプトをパラメータ無しで開始することもできます。この場合、1つずつビルドパラメータを入力するように求められます。これが使いやすいと思うかもしれません:
 ```bash
 util/docker_build.sh
-# パラメータを入力として読み込みます (空白にするとデフォルトです)
+# パラメータを入力として読み込みます (空白にすると全てのキーボード/キーマップ)
 ```
 
 `target` を指定することで Docker から直接キーボードをビルドし_かつ_書き込むためのサポートもあります。
