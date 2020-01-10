@@ -22,6 +22,7 @@
 #endif
 #if defined(PROTOCOL_CHIBIOS)
 #    include "hal.h"
+#    include "chibios_config.h"
 #endif
 
 #include "wait.h"
@@ -137,6 +138,10 @@ extern layer_state_t layer_state;
 #    include "process_magic.h"
 #endif
 
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#    include "process_rgb.h"
+#endif
+
 #ifdef HD44780_ENABLE
 #    include "hd44780.h"
 #endif
@@ -155,6 +160,14 @@ extern layer_state_t layer_state;
 
 #ifdef DYNAMIC_MACRO_ENABLE
 #    include "process_dynamic_macro.h"
+#endif
+
+#ifdef DYNAMIC_KEYMAP_ENABLE
+#   include "dynamic_keymap.h"
+#endif
+
+#ifdef VIA_ENABLE
+#   include "via.h"
 #endif
 
 // Function substitutions to ease GPIO manipulation

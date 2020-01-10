@@ -9,10 +9,7 @@ MCU = atmega32u4
 #   QMK DFU      qmk-dfu
 #   ATmega32A    bootloadHID
 #   ATmega328P   USBasp
-BOOTLOADER = atmel-dfu # actually lufa-ms
-
-# Mass storage bootloader on the COD67 uses bin files
-FIRMWARE_FORMAT = bin
+BOOTLOADER = lufa-ms
 
 # Build Options
 #   change yes to no to disable
