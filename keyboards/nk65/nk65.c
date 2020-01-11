@@ -25,7 +25,7 @@
  * Middle LED is blue and red. LED driver 2 RGB 6 Red and Blue channel
  * Bottom LED is red only LED driver 2 RGB 6 Green channel.
  */
-__attribute__((weak)) bool led_update_kb(led_t led_state) {
+bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
         if (led_state.caps_lock) {
