@@ -14,6 +14,7 @@ NKRO_ENABLE = no # USB Nkey Rollover
 AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = yes
 
+CUSTOM_MATRIX = yes
 RGBLIGHT_CUSTOM_DRIVER = yes
 
-SRC += drivers/arm/ws2812.c
+SRC += drivers/arm/ws2812.c matrix.c
