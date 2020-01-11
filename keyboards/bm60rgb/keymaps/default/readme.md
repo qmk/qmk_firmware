@@ -1,1 +1,1 @@
-# The default keymap for bm60hsrgb
+# The default keymap for bm60rgb
