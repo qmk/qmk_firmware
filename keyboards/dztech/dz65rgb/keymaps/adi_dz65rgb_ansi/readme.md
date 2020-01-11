@@ -7,7 +7,7 @@ This layout modifies the extra row on the right and makes some of the key bindin
 ```make dztech/dz65rgb/v1:adi_dz65rgb_ansi```
 2. Flash your Firmware:
     * Open QMK Toolbox Application
-    * Open firmware file: dztech_dz65rgb_v1_adi_dz65rgb_ansi.bin
+    * Open firmware file: dztech_dz65rgb_v1_adi.bin
     * Unplug keyboard USB-C, and hold the ESC key while plugging it back in
     * Check that QMK Toolbox displays: *** STM32 device connected. 
     * Hit the flash button!
