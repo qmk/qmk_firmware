@@ -10,13 +10,15 @@ import glob
 
 from milc import cli
 
-def _udev_rule(vid, pid = None):
+
+def _udev_rule(vid, pid=None):
     """ Helper function that return udev rules
     """
     if pid:
         return 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="%s", ATTRS{idProduct}=="%s", MODE:="0666"' % (vid, pid)
     else:
         return 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="%s", MODE:="0666"' % vid
+
 
 @cli.subcommand('Basic QMK environment checks')
 def doctor(cli):
@@ -57,17 +59,14 @@ def doctor(cli):
         # Checking for udev rules
         udev_dir = "/etc/udev/rules.d/"
         # These are the recommended udev rules
-        desired_rules = dict(dfu = {_udev_rule("03eb", "2ff4"),_udev_rule("03eb", "2ffb"), _udev_rule("03eb", "2ff0")},
+        desired_rules = {
+            'dfu': {_udev_rule("03eb", "2ff4"), _udev_rule("03eb", "2ffb"), _udev_rule("03eb", "2ff0")},
+            'tmk': {_udev_rule("feed")},
+            'input_club': {_udev_rule("1c11")},
+            'stm32': {_udev_rule("1eaf", "0003"), _udev_rule("0483", "df11")},
+            'caterina': {'ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"', 'ATTRS{idVendor}=="2341", ENV{ID_MM_DEVICE_IGNORE}="1"'},
+        }
 
-                             tmk = {_udev_rule("feed")},
-
-                             input_club = {_udev_rule("1c11")},
-
-                             stm32 = {_udev_rule("1eaf", "0003"),_udev_rule("0483", "df11")},
-
-                             caterina = {'ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"',
-                                         'ATTRS{idVendor}=="2341", ENV{ID_MM_DEVICE_IGNORE}="1"'}
-                             )
         if os.path.exists(udev_dir):
             udev_rules = [rule for rule in glob.iglob(os.path.join(udev_dir, "*.rules")) if os.path.isfile(rule)]
             # Collect all rules from the config files
