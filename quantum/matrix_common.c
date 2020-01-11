@@ -7,6 +7,10 @@
 matrix_row_t raw_matrix[MATRIX_ROWS];
 matrix_row_t matrix[MATRIX_ROWS];
 
+#ifdef MATRIX_MASKED
+extern const matrix_row_t matrix_mask[];
+#endif
+
 // user-defined overridable functions
 
 __attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
