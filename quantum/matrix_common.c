@@ -75,12 +75,12 @@ uint8_t matrix_key_count(void) {
 }
 
 // CUSTOM MATRIX 'LITE'
-__attribute__((weak)) void custom_matrix_init(void) {}
+__attribute__((weak)) void matrix_init_custom(void) {}
 
-__attribute__((weak)) bool custom_matrix_scan(matrix_row_t current_matrix[]) { return true; }
+__attribute__((weak)) bool matrix_scan_custom(matrix_row_t current_matrix[]) { return true; }
 
 __attribute__((weak)) void matrix_init(void) {
-    custom_matrix_init();
+    matrix_init_custom();
 
     // initialize matrix state: all keys off
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
@@ -94,7 +94,7 @@ __attribute__((weak)) void matrix_init(void) {
 }
 
 __attribute__((weak)) uint8_t matrix_scan(void) {
-    bool changed = custom_matrix_scan(raw_matrix);
+    bool changed = matrix_scan_custom(raw_matrix);
 
     debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
 
