@@ -4,7 +4,7 @@
 This layout modifies the extra row on the right and makes some of the key bindings easier to reach on Layer 1.
 ## Step by Step
 1. Build your Firmware: run build command in directory
-```make dztech/dz65rgb/v1:adi_dz65rgb_ansi```
+```make dztech/dz65rgb/v1:adi```
 2. Flash your Firmware:
     * Open QMK Toolbox Application
     * Open firmware file: dztech_dz65rgb_v1_adi.bin
