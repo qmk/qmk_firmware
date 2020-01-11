@@ -31,6 +31,6 @@ AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no         # Enable support for HD44780 based LCDs
 UNICODE_ENABLE = no         # Unicode
-LTO_ENABLE = yes            # Link Time Optimization
+EXTRAFLAGS += -flto         # Link Time Optimization
 
 LAYOUTS = 60_ansi
