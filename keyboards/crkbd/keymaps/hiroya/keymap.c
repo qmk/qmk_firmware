@@ -180,8 +180,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_LOWER);
         update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
         if (lower_pressed) {
-          register_code(KC_LANG1);
-          unregister_code(KC_LANG1);
+          register_code(KC_LANG2);
+          unregister_code(KC_LANG2);
         }
         lower_pressed = false;
       }
@@ -195,8 +195,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_RAISE);
         update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
         if (raise_pressed) {
-          register_code(KC_LANG2);
-          unregister_code(KC_LANG2);
+          register_code(KC_LANG1);
+          unregister_code(KC_LANG1);
         }
         raise_pressed = false;
       }
