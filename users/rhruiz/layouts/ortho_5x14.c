@@ -12,9 +12,7 @@
 #define KC_MISS MISCTRL
 #define KC__VUP KC__VOLUP
 #define KC__VDN KC__VOLDOWN
-#define KC_____ KC_TRNS
 #define KC_ KC_TRNS
-#define KC_ENTS KC_SFTENT
 #define KC__TGN TG(_NUM)
 #define KC__TGM TG(_GAME)
 #define KC__TAN LCMD(KC_RCBR)
@@ -29,9 +27,7 @@
 #    define KC_RHUD RGB_HUD
 #    define KC_RSAI RGB_SAI
 #    define KC_RSAD RGB_SAD
-#endif
-
-#ifndef RGBLIGHT_ENABLE
+#else
 #    define KC_RVAD KC_TRNS
 #    define KC_RVAI KC_TRNS
 #    define KC_RTOG KC_TRNS
