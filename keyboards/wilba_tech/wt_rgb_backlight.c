@@ -1551,22 +1551,6 @@ void backlight_effect_indicators(void)
     {
         backlight_effect_indicators_set_colors( g_config.caps_lock_indicator.index, g_config.caps_lock_indicator.color );
     }
-
-#if defined(RGB_BACKLIGHT_NK65)
-    if ( IS_LED_ON(g_indicator_state, USB_LED_CAPS_LOCK) ) {
-        IS31FL3733_set_color( 7+64-1, 0, 255, 0 );
-    } else {
-        IS31FL3733_set_color( 7+64-1, 0, 0, 0 );
-    }
-    if ( IS_LAYER_ON(1) ) {
-        IS31FL3733_set_color( 6+64-1, 255, 0, 255 );
-    } else if ( IS_LAYER_ON(2) ) {
-        IS31FL3733_set_color( 6+64-1, 0, 255, 0 );
-    } else {
-        IS31FL3733_set_color( 6+64-1, 0, 0, 0 );
-    }
-#endif
-
     // This if/else if structure allows higher layers to
     // override lower ones. If we set layer 3's indicator
     // to none, then it will NOT show layer 2 or layer 1
