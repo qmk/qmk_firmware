@@ -93,6 +93,6 @@ enum ORDER {
 
 #define GRT STN(SLW)
 #define GRI STN(SLH)
-#define GRM STN(SRL)
+#define GRM STN(SLR)
 #define GRR STN(SST1)
 #define GRP STN(SST2)

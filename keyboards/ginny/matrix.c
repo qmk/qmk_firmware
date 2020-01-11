@@ -90,6 +90,11 @@ void matrix_init_kb(void) {
 __attribute__ ((weak))
 void matrix_scan_kb(void) {
   matrix_scan_user();
+#ifdef DEBUG_MATRIX
+    for (uint8_t c = 0; c < MATRIX_COLS; c++)
+		for (uint8_t r = 0; r < MATRIX_ROWS; r++)
+		  if (matrix_is_on(r, c)) xprintf("r:%d c:%d \n", r, c);
+#endif
 }
 inline uint8_t matrix_rows(void) { return MATRIX_ROWS; }
 inline uint8_t matrix_cols(void) { return MATRIX_COLS; }
@@ -148,20 +153,21 @@ uint8_t matrix_scan(void) {
     }
 
     bool changed = false;
-    for (uint8_t i = 0; i < MATRIX_LEFT; i++) {
+    for (uint8_t i = 0; i < MATRIX_I2C; i++) {
         // select rows from left and right hands
-        uint8_t left_index = i;
-        uint8_t right_index = i + MATRIX_LEFT; 
-        select_row(left_index);
-        if (i < MATRIX_RIGHT) 
-						select_row(right_index);
+        uint8_t i2c_index = i;
+        uint8_t main_index = i + MATRIX_I2C; 
+        select_row(i2c_index);
+
+        if (i < MATRIX_MAIN) 
+						select_row(main_index);
 
         // we don't need a 30us delay anymore, because selecting a
         // left-hand row requires more than 30us for i2c.
 
-        changed |= store_raw_matrix_row(left_index);
-        if (i < MATRIX_RIGHT) 
-        	changed |= store_raw_matrix_row(right_index);
+        changed |= store_raw_matrix_row(i2c_index);
+        if (i < MATRIX_MAIN) 
+        	changed |= store_raw_matrix_row(main_index);
 
         unselect_rows();
     }
@@ -210,7 +216,7 @@ static void  init_cols(void) {
     PORTF |=  FMASK;
 }
 static matrix_row_t read_cols(uint8_t row) {
-    if (row < MATRIX_LEFT) {
+    if (row < MATRIX_I2C) {
         if (mcp23018_status) { // if there was an error
             return 0;
         } else {
@@ -219,14 +225,10 @@ static matrix_row_t read_cols(uint8_t row) {
             mcp23018_status = i2c_write(GPIOB, I2C_TIMEOUT);             if (mcp23018_status) goto out;
             mcp23018_status = i2c_start(I2C_ADDR_READ, I2C_TIMEOUT);     if (mcp23018_status) goto out;
             mcp23018_status = i2c_read_nack(I2C_TIMEOUT);                if (mcp23018_status < 0) goto out;
-            data = ~((uint8_t)mcp23018_status);
+            data = ~(mcp23018_status>>2);
             mcp23018_status = I2C_STATUS_SUCCESS;
         out:
             i2c_stop();
-
-#ifdef DEBUG_MATRIX
-            if (data != 0x00) xprintf("I2C: %b\n", data);
-#endif
             return data;
         }
     } else {
@@ -249,7 +251,7 @@ static void unselect_rows(void)
 
 static void select_row(uint8_t row)
 {
-    if (row < MATRIX_LEFT) {
+    if (row < MATRIX_I2C) {
         // select on mcp23018
         if (mcp23018_status) { // do nothing on error
         } else { // set active row low  : 0 // set other rows hi-Z : 1
@@ -280,4 +282,4 @@ static void select_row(uint8_t row)
                 break;
         }
     }
-
+}
