@@ -15,6 +15,7 @@
 #define KC_ KC_TRNS
 #define KC__TGN TG(_NUM)
 #define KC__TGM TG(_GAME)
+#define KC__WN LCMD(KC_GRV)
 #define KC__TAN LCMD(KC_RCBR)
 #define KC__TAP LCMD(KC_LCBR)
 
@@ -65,9 +66,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //,----+-----+-----+-----+-----+-----+-----.  ,-----+-----+-----+-----+-----+-----+-----.
     GRV , 1   , 2   , 3   , 4   , 5   , MINS,    _TGN, 6   , 7   , 8   , 9   , 0   , EQL ,
  //|----+-----+-----+-----+-----+-----+-----|  |-----+-----+-----+-----+-----+-----+-----+
-    TAB , Q   , W   , E   , R   , T   , LBRC,    _TAN, Y   , U   , I   , O   , P   , QUOT,
+    TAB , Q   , W   , E   , R   , T   , _WN ,    _TAN, Y   , U   , I   , O   , P   , QUOT,
  //|----+-----+-----+-----+-----+-----+-----|  |-----+-----+-----+-----+-----+-----+-----+
-    CESC, A   , S   , D   , F   , G   , ENT ,    ENT , H   , J   , K   , L   , SCLN, ENT ,
+    CESC, A   , S   , D   , F   , G   , PGUP,    ENT , H   , J   , K   , L   , SCLN, ENT ,
  //|----+-----+-----+-----+-----+-----+-----|  |-----+-----+-----+-----+-----+-----+-----+
     LSFT, Z   , X   , C   , V   , B   , PGDN,    EPIP, N   , M   , COMM, DOT , SLSH, RSFT,
  //|----+-----+-----+-----+-----+-----+-----|  |-----+-----+-----+-----+-----+-----+-----+
