@@ -10,17 +10,13 @@ from qmk.errors import NoSuchKeyboardError
 def list_keymaps(cli):
     """List the keymaps for a specific keyboard
     """
-    # ask for user input if keyboard was not provided in the command line
-    if cli.args.keyboard:
-        cli.config.list_keymaps.keyboard = cli.args.keyboard
-    elif not cli.config.list_keymaps.keyboard:
-        cli.config.list_keymaps.keyboard = input("Keyboard Name: ")
-
     try:
         for name in qmk.keymap.list_keymaps(cli.config.list_keymaps.keyboard):
             # We echo instead of cli.log.info to allow easier piping of this output
-            cli.echo('%s:%s', cli.config.list_keymaps.keyboard, name)
+            cli.echo('%s', name)
     except NoSuchKeyboardError as e:
         cli.echo("{fg_red}%s: %s", cli.config.list_keymaps.keyboard, e.message)
     except (FileNotFoundError, PermissionError) as e:
         cli.echo("{fg_red}%s: %s", cli.config.list_keymaps.keyboard, e)
+    except TypeError:
+        cli.echo("{fg_red}Something went wrong. Did you specify a keyboard?")
