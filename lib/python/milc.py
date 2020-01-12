@@ -180,7 +180,7 @@ class ConfigurationSection(Configuration):
         """Returns a config value, pulling from the `user` section as a fallback.
         This is called when the attribute is accessed either via the get method or through [ ] index.
         """
-        if key in self._config and self._config[key]:
+        if key in self._config and self._config.get(key) is not None:
             return self._config[key]
 
         elif key in self.parent.user:
@@ -523,7 +523,7 @@ class MILC(object):
                     exit(1)
 
                 # Merge this argument into self.config
-                if argument in self.default_arguments:
+                if argument in self.default_arguments[section]:
                     arg_value = getattr(self.args, argument)
                     if arg_value:
                         self.config[section][argument] = arg_value
@@ -531,7 +531,7 @@ class MILC(object):
                     if argument not in self.config[section]:
                         # Check if the argument exist for this section
                         arg = getattr(self.args, argument)
-                        if arg:
+                        if arg is not None:
                             self.config[section][argument] = arg
 
         self.release_lock()
