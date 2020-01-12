@@ -30,8 +30,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION     40% modular keyboard
 
 /* matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 15
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 12
+#define MATRIX_ROW_PINS { B0, B1, B2, B3 }
+#define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4 }
+#define DIODE_DIRECTION COL2ROW
 
 #define NO_UART 1
 

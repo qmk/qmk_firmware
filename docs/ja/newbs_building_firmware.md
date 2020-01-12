@@ -2,8 +2,8 @@
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
-  original document: ed0575fc8:docs/newbs_building_firmware.md
-  git diff ed0575fc8 HEAD docs/newbs_building_firmware.md | cat
+  original document: 0f43c2652:docs/newbs_building_firmware.md
+  git diff 0f43c2652 HEAD -- docs/newbs_building_firmware.md | cat
 -->
 
 ビルド環境をセットアップしたので、カスタムファームウェアのビルドを開始する準備ができました。
@@ -56,7 +56,7 @@ macOS または Windows を使用している場合は、キーマップフォ�
 
 この行はレイヤーのリストの開始を表わしています。
 その下には、`LAYOUT` または `KEYMAP` のいずれかを含む行があり、これらの行はレイヤーの開始を表わしています。
-その行の下には、その特定のレイヤーを構成するキーのリストがあります。
+その行の下には、そのレイヤーを構成するキーのリストがあります。
 
 !> キーマップファイルを編集するときは、カンマを追加したり削除したりしないように注意してください。そうするとファームウェアのコンパイルができなくなり、余分であったり欠落していたりするカンマがどこにあるのかを容易に把握できない場合があります。
 

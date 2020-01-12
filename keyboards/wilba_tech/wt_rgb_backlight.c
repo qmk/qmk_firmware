@@ -33,18 +33,20 @@
 #include "wt_rgb_backlight_keycodes.h"
 
 #if !defined(RGB_BACKLIGHT_HS60) && !defined(RGB_BACKLIGHT_NK65)
-#include <avr/io.h>
-#include <util/delay.h>
 #include <avr/interrupt.h>
 #include "drivers/avr/i2c_master.h"
 #else
 #include "ch.h"
 #include "hal.h"
 #include "drivers/arm/i2c_master.h"
-#include "tmk_core/common/eeprom.h"
 #endif
+
 #include "progmem.h"
 #include "quantum/color.h"
+#include "tmk_core/common/eeprom.h"
+
+#include "via.h" // uses only the EEPROM address
+#define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR (VIA_EEPROM_CUSTOM_CONFIG_ADDR)
 
 #if defined(RGB_BACKLIGHT_M6_B)
 #include "drivers/issi/is31fl3218.h"
@@ -1549,22 +1551,6 @@ void backlight_effect_indicators(void)
     {
         backlight_effect_indicators_set_colors( g_config.caps_lock_indicator.index, g_config.caps_lock_indicator.color );
     }
-
-#if defined(RGB_BACKLIGHT_NK65)
-    if ( IS_LED_ON(g_indicator_state, USB_LED_CAPS_LOCK) ) {
-        IS31FL3733_set_color( 7+64-1, 0, 255, 0 );
-    } else {
-        IS31FL3733_set_color( 7+64-1, 0, 0, 0 );
-    }
-    if ( IS_LAYER_ON(1) ) {
-        IS31FL3733_set_color( 6+64-1, 255, 0, 255 );
-    } else if ( IS_LAYER_ON(2) ) {
-        IS31FL3733_set_color( 6+64-1, 0, 255, 0 );
-    } else {
-        IS31FL3733_set_color( 6+64-1, 0, 0, 0 );
-    }
-#endif
-
     // This if/else if structure allows higher layers to
     // override lower ones. If we set layer 3's indicator
     // to none, then it will NOT show layer 2 or layer 1
