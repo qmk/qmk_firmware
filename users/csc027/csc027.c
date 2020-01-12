@@ -3,7 +3,7 @@
 // Declare the strings in PROGMEM using the convenience macro
 CUSTOM_MACROS(CUSTOM_DEF, CUSTOM_MACRO_STRING, SEMI_DELIM);
 
-static const char* const git_macros[] PROGMEM = {
+static const char* const custom_macros[] PROGMEM = {
     // Declare the pointer to the strings in PROGMEM
     CUSTOM_MACROS(CUSTOM_VAR, DROP, COMMA_DELIM)
 };
@@ -34,13 +34,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     // in PROGMEM.  The pointer is taken and passed to the send_string_P
                     // function, which is aware of the difference between RAM and PROGMEM
                     // pointers.
-                    (char*)pgm_read_word(&git_macros[keycode - MC_first - 1])
+                    (char*)pgm_read_word(&custom_macros[keycode - MC_first - 1])
 #else
                     // For non-AVR MCUs, the PROGMEM macro is defined as nothing.  So, the strings are
                     // declared in RAM instead of flash.  The send_string_P uses a different definition
                     // of pgm_read_byte internally, which uses RAM pointers instead.  This is why the
                     // raw pointer should be passed for non-AVR MCUs.
-                    git_macros[keycode - MC_first - 1]
+                    custom_macros[keycode - MC_first - 1]
 #endif
                 );
                 return true;
