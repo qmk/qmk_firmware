@@ -20,10 +20,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0x6060 // 24672
-#define PRODUCT_ID   0x6060 // 24672
-#define DEVICE_VER   0x0001
-#define MANUFACTURER    pngu
+#define VENDOR_ID    	0x494B // "IB" for idb Keyboards
+#define PRODUCT_ID  	0x0001 // idb 60
+#define DEVICE_VER   	0x0001
+#define MANUFACTURER    idb Keyboards
 #define PRODUCT         idb 60
 #define DESCRIPTION     QMK keyboard firmware for idb 60
 
@@ -48,7 +48,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
+/* Debounce reduces chatter (unintended double-presses) - see https://docs.qmk.fm/#/feature_debounce_type for more information */
 #define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
