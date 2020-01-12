@@ -37,9 +37,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     (char*)pgm_read_word(&custom_macros[keycode - MC_first - 1])
 #else
                     // For non-AVR MCUs, the PROGMEM macro is defined as nothing.  So, the strings are
-                    // declared in RAM instead of flash.  The send_string_P uses a different definition
-                    // of pgm_read_byte internally, which uses RAM pointers instead.  This is why the
-                    // raw pointer should be passed for non-AVR MCUs.
+                    // declared in RAM instead of flash.  The send_string_P function, when compiled for
+                    // non-AVR targets, uses a different definition of pgm_read_byte internally.  This
+                    // definition uses RAM pointers instead.  This is why the raw pointer is passed for
+                    // non-AVR MCUs.
                     custom_macros[keycode - MC_first - 1]
 #endif
                 );
