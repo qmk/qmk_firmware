@@ -1,7 +1,7 @@
 # Minivan (Dvorak² or Qwerty+Dvorak)
 
-A 40% keyboard made by https://thevankeyboards.com This keymap is for
-the default 12x12x12x8 arrangement (44 keys).
+A 40% keyboard made by https://thevankeyboards.com This Qwerty+Dvorak
+keymap is for the default 12x12x12x8 arrangement (44 keys).
 
 Qwerty + Dvorak
 ===============
@@ -81,6 +81,6 @@ and numbers/symbols.
 
 
 For the other layers, see [regular readme.md file](./readme.md)
-Wherever that readme refers to 'descramble' in this compile
-version it would be a shift into standard Dvorak, in place for
+Wherever that readme refers to 'descramble,' in this compile
+version it would mean a shift into standard Dvorak, in place for
 the Dvorak-descramble 'full' mode (right led indicator).

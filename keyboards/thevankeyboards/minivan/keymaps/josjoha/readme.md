@@ -3,6 +3,9 @@
 A 40% keyboard made by https://thevankeyboards.com This Dvorak keymap is for
 the default 12x12x12x8 arrangement (44 keys).
 
+This readme file assumes the Dvorak with Dvorak-descramble version. For the
+Qwerty+Dvorak version, see [here](./qwerty_dvorak.md)
+
 ![Minivan layout Image 0](http://socialism.nl/misc/minivan_layer0_900.jpg)
 ![Minivan layout Image 1](http://socialism.nl/misc/minivan_layer1_900.jpg)
 ![Minivan layout Image 2](http://socialism.nl/misc/minivan_layer2_900.jpg)
@@ -15,9 +18,6 @@ the default 12x12x12x8 arrangement (44 keys).
 These keymaps can be compiled either in a Dvorak version which also allows typing
 normally on a computer already set to Dvorak, or in a Qwerty version that can
 also be set to Dvorak (see `#define QWERTY_DVORAK`).
-
-This readme file assumes the Dvorak with Dvorak-descramble version. For the
-Qwerty+Dvorak version, see [here](./qwerty_dvorak.md)
 
 ![Minivan descramble Dvorak](http://socialism.nl/misc/minivan_descramble.jpg)
 
