@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * Authors: This QMK keymap file is a combination of the default
  * keymap, led code original copied/edited from ../jetpacktuxedo, some
  * copy/paste from QMK documentation code examples (etc).
- * Remainder: (C) 2019 by J.B. <jos@socialism.nl>
+ * Remainder: (C) 2019,2020 by Jos Boersema
  *
  */
 
@@ -44,6 +44,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // ----------------------------- Configuration: -------------------------------------
 
 
+        /*                            Qwerty
+         *
+         * Here you can define if you want a pure Dvorak keyboard, also with the ability
+         * to connect seamlessly with a computer which is alreaedy set to Dvorak ('descramble
+         * mode'), or if you want the default keymap to be in Qwerty, and the 'descramble' keymaps
+         * to be in normal Dvorak.
+         * If you choose Qwerty and still want to change something, you can open qwerty_dvorak.c 
+         * to edit the letters and numbers/symbols keymaps there, because those will be dropped
+         * in place instead of those programmed in this file (below).
+         *
+         */
+
+//#define QWERTY_DVORAK // Comment out to have Dvorak on default, and 'descramble Dvorak' on alternate.
+                        // Uncomment to have Qwerty on default, and Dvorak on alternate.
+
         /*       Navigation cluster configuration
          * 
          * Here you can easily define what navigation type layout you like.
@@ -61,20 +76,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Uncomment below line to use a "WASD" type layout.
          * Comment out if you prefer a flat type layout, with arrows in a row.
          */
- 
 #define ARROWS_TRIANGLE // implies mouse is also similarly in a triangle.
-
          /* Uncomment below line to put the arrows on the left, comment out to have arrows right. */
-
 #define ARROWS_LEFT // implies mouse is right
 
 
-        /* Uncomment below line to have LGUI (OS key) where RGUI is, and RGUI where LGUI is. */
+        /*     GUI left/right 
+         *
+         * Uncomment below line to have LGUI (also called OS or Win key, etc) where RGUI is, 
+         * and RGUI where LGUI is. This does not affect placement, only what that key is.
+         */
 
-#define SWITCH_GUIS // Set this if you want LGUI on the BASE layer rather than RGUI, while remaining consistent on all lyaers.
+#define SWITCH_GUIS // Set this if you want LGUI on the BASE layer rather than RGUI, and so consistently on all layers.
 
 
-        /* Uncomment one of the below lines, determining where L-shift tap-toggles to on the BASE layer. */
+        /*      Left Shift layer to ...
+         *
+         * Uncomment one of the below lines, determining where L-shift tap-toggles to on the 
+         * BASE layer. 
+         */
 
 //#define LSHIFT_LAYER_RAR // Be warned and don't hold it against me if you accidentally hit 'Power' at the wrong moment.
 //#define LSHIFT_LAYER_MOV // Handy to have navigation on a toggle. 
@@ -89,6 +109,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // --------------------------------------^---------------------------------------
 
 
+// Set up user GUI choice:
 #ifndef SWITCH_GUIS
     #define KC__XGUI KC_LGUI
     #define KC__YGUI KC_RGUI
@@ -99,14 +120,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 
+// Some things from broader QMK code:
 #include QMK_KEYBOARD_H
 #define RGBLIGHT_SLEEP // QMK docs: "If defined, the RGB lighting will be switched off when the host goes to sleep"
-
-// Layer switch TT(layer) tapping amount to make it toggle
-//#define TAPPING_TOGGLE 2
-#define TAPPING_TERM_HOLTAP 225 // 175 ms proved unreliable, 225 ms seems ok
-
 extern keymap_config_t keymap_config;
+// Layer switch TT(layer) tapping amount to make it toggle
+#define TAPPING_TERM_HOLTAP 225 // 175 ms proved unreliable, 225 ms seems ok (personal preference)
 
 // Notice this order in layer_state_set_user as well, regarding the led indicators.
 // Below #defines the internal order of the layers.
@@ -132,7 +151,7 @@ enum {
 // is the layers hub, although that should not matter either.
 // It seems that setting the 'default' layer is not needed, no need for DF(layer).
 
-// Some defines to make the code a bit easier to read with regards to descramble
+// Descramble mode defines and variable.
 enum {
     _NORMAL_,
     _HALF_,
@@ -382,15 +401,19 @@ uint32_t layer_state_set_user (uint32_t state) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
+
+/* This file contains the Qwerty + Dvorak keymaps.
+ */
+#ifdef QWERTY_DVORAK
+        #include "./qwerty_dvorak.c"
+#endif
+#ifndef QWERTY_DVORAK // Cut out all the letters and numbers/symbols maps (4).
+       // .... v .... v .... v .... v .... v .... v .... v .... v .... v .... v 
+
     /* Layer _LTR: Dvorak, normal BASE layer and 'default' layer
      *
      * - Dual use keys create a delay in the key (tap/hold keys), therefore
      *   space is not dual use (most ued key), neither is hyphen.
-     *
-     * - If _ACC right hand or _RAR is much used, an obvious choice is to 
-     *   change the layer switched to by the Delete key, or copy the more
-     *   used keys to the _DRA layer, etc. Perhaps ;: could be a layer
-     *   switch key as well, if not much used; or space as many do.
      */ 
 
     [ _LTR ] = LAYOUT (
@@ -471,7 +494,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      -o-                                    <|>                                   ...  //(to) BASE access
      Esc       qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP         Bksp
      Tab+LCtl  aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:           '"
-     LSft+_MOV zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft+_FUN   // _FUN _MOV tap
+     LSft+_PAD zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft+_FUN   // _FUN _MOV tap
      -------------------------------------------------------------------
      Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space  _NSY LGUI    Right;_DRA              // _XYZ is to layer
                hold     hold  hold      |        hold         hold                   // Layer switch type
@@ -575,6 +598,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ),
 
         /**/
+
+#endif // QWERTY_DVORAK .... ^ .... ^ .... ^ .... ^ .... ^ .... ^ .... ^ .... ^ .... ^ .... ^ 
 
 
     /* Layer _MOV: Movement layer: mouse and hands on navigation
@@ -916,6 +941,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /**/
 
 
+// These special Unicode layers for 'descramble' are not use in Qwerty compile version.
+#ifndef QWERTY_DVORAK  // :   :   v   :   :   v   :   :   v   :   :   v   :   :   v   
+
     /* Layer _DDA: Descrambled _ACC layer for a computer already set to Dvorak (see just above).
      *
      */
@@ -946,6 +974,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //              , -*-     ,          ,      <|,>       ,         ,          ,
 //      <1      , <2      , <3       , <4    |, 4>     , 3>      , 2>       , 1>
                       ),
+
+#endif // QWERTY_DVORAK   :   :   ^   :   :   ^   :   :   ^   :   :   ^   :   :   ^   
+
         /**/
 
     /* Layer _DRA: Drawings, like various Unicode symbols, and whatever else.
@@ -981,9 +1012,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      <1      , <2     , <3       , <4    |, 4>     , 3>      , 2>       , 1>
                       ),
 
-
         /**/
 
+
+#ifndef QWERTY_DVORAK  // :   :   v   :   :   v   :   :   v   :   :   v   :   :   v   
 
     /* Layer _DDD: Drawings, like various Unicode symbols, and whatever else.
      *          The emoticons follow the "logic" of the movement layer.
@@ -1017,6 +1049,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //              ,        ,          ,       <|,>        ,         ,          ,
 //      <1      , <2     , <3       , <4     |, 4>      , 3>      , 2>       , 1>
                       ),  
+
+#endif // QWERTY_DVORAK   :   :   ^   :   :   ^   :   :   ^   :   :   ^   :   :   ^   
                           
         /**/              
                           

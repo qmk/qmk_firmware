@@ -1,4 +1,4 @@
-# Minivan (Dvorak²)
+# Minivan (Dvorak² or Qwerty+Dvorak)
 
 A 40% keyboard made by https://thevankeyboards.com This Dvorak keymap is for
 the default 12x12x12x8 arrangement (44 keys).
@@ -12,10 +12,12 @@ the default 12x12x12x8 arrangement (44 keys).
 ![Minivan layout Image 6](https://i.postimg.cc/L4Z0M2BR/minivan-layer6-900.jpg)
 ![Minivan layout Image 7](https://i.postimg.cc/G2frfBSw/minivan-layer7-900.jpg)
 
-This keymap allows the same layout on a computer that is already set to Dvorak
-on the computer side, such as a laptop that you need the built-in keyboard to be
-mapped to Dvorak.
+These keymaps can be compiled either in a Dvorak version which also allows typing
+normally on a computer already set to Dvorak, or in a Qwerty version that can
+also be set to Dvorak (see `#define QWERTY_DVORAK`).
 
+This readme file assumes the Dvorak with Dvorak-descramble version. For the
+Qwerty+Dvorak version, see [here](./qwerty_dvorak.md)
 
 ![Minivan descramble Dvorak](https://i.postimg.cc/52p27Pnk/descramble.jpg)
 
@@ -292,7 +294,7 @@ Remarks. This layer is seamlessly activated with 'descramble'
      -o-                                    <|>                                   ...  //(to) BASE access
      Esc       qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP         Bksp
      Tab+LCtl  aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:           '"
-     LSft+_MOV zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft+_FUN   // _FUN _MOV tap
+     LSft+_PAD zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft+_FUN   // _FUN _MOV tap
      -------------------------------------------------------------------
      Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space  _NSY LGUI    Right;_DRA              // _XYZ is to layer
                hold     hold  hold      |        hold         hold                   // Layer switch type

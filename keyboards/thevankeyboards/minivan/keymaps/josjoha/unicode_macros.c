@@ -14,6 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+ * Author: (C) 2019 by Jos Boersema
  *
  */
 
@@ -382,7 +383,9 @@ enum custom_keycodes {
     C_KC_PAUS,
 // Toggles leds on/off. Note that RGB_TOG is a build-in keycode, to toggle the other led.
     LEDS_ON,
-//
+
+#ifndef QWERTY_DVORAK 
+       // .... v .... v .... v .... v .... v .... v .... v .... v .... v .... v 
 // For descramble BASE layer set. These need to be 'costum' keycodes, which seems to prevent
 // the assigned key to end up doing other stuff besides what we have defined in this file.
 // The below are the same as above for the normal maps, but there is not upper/lower case
@@ -454,6 +457,7 @@ enum custom_keycodes {
     UN_U_GRA,
     UN_Y_ACU,
     UN_Y_DIA,
+#endif // QWERTY_DVORAK .... ^ .... ^ .... ^ .... ^ .... ^ .... ^ .... ^ .... ^ .... ^ .... ^ 
 };
 
 
@@ -536,6 +540,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 ;
             } else { // key up
                 // Cycles through the modes
+#ifndef QWERTY_DVORAK // normal version Dvorak+Dvorak-descramble
                 if (_NORMAL_ == descramble) {
                     descramble = _FULL_;// all descramble layers
                 } else if (_HALF_ == descramble) {
@@ -543,6 +548,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 } else { // _FULL_ == descramble
                     descramble = _HALF_;// with normal Unicode layers
                 }
+#endif
+#ifdef QWERTY_DVORAK // The 'full descramble' is used for plain Dvorak here, which has better led colors.
+                     // The #defines cause the _FULL_ descramble to point to the normal Unicode layers.
+                if (_NORMAL_ == descramble) {
+                    descramble = _FULL_;// all descramble layers
+                } else {
+                    descramble = _NORMAL_;// normal layers
+                } 
+#endif
                 indicate_scramble ();  // activate led change 
             }
             break; 
@@ -581,37 +595,128 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     deactivate_all_but (_NSY); //  "     "
                 }
             }
+                      // These '_NSY and _DDN' layers do not have the below
+                      // #ifdef QWERTY_DVORAK system, because they are not Unicode,
+                      // and those layers are switched by their re-definition in ./qwerty_dvorak.c
+                      // The alternate layer is in use with QWERTY_DVORAK set.
             break; 
         case CTO_ACCE: // Unicode layer
             if (record->event.pressed) { // key down
+#ifndef QWERTY_DVORAK // normal mode keyboard: Dvorak with Dvorak-descramble
                 if (_FULL_ == descramble) { // go to the descramble version
                     activate_this_layer (_DDA); // activates descrambled accented layer
                 } else {
                     activate_this_layer (_ACC); // activates normal accented layer
                 }
+#endif
+#ifdef QWERTY_DVORAK // alternative layout: Qwerty with Dvorak on 'descramble'
+                     // The 'full descramble' becomes Dvorak standard, hence normal _ACC layer.
+                activate_this_layer (_ACC); // activates normal accented layer
+#endif
             } else { // key up
+#ifndef QWERTY_DVORAK // normal mode keyboard: Dvorak with Dvorak-descramble
                 if (_FULL_ == descramble) {
                     deactivate_all_but (_DDA); // stop all other layers 
                 } else {
                     deactivate_all_but (_ACC); //  "     "
                 }
+#endif
+#ifdef QWERTY_DVORAK 
+                deactivate_all_but (_ACC); //  "     "
+#endif
             }
             break; 
         case CTO_DRAW: // Unicode layer
             if (record->event.pressed) { // key down
+#ifndef QWERTY_DVORAK 
                 if (_FULL_ == descramble) { // go to the descramble version
                     activate_this_layer (_DDD); // activates descrambled drawings layer
                 } else {
                     activate_this_layer (_DRA); // activates normal drawings layer
                 }
+#endif
+#ifdef QWERTY_DVORAK 
+                activate_this_layer (_DRA); // activates normal drawings layer
+#endif
             } else { // key up
+#ifndef QWERTY_DVORAK 
                 if (_FULL_ == descramble) {
                     deactivate_all_but (_DDD); // stop all other layers 
                 } else {
                     deactivate_all_but (_DRA); //  "     "
                 }
+#endif
+#ifdef QWERTY_DVORAK 
+                deactivate_all_but (_DRA); //  "     "
+#endif
             }
             break; 
+        // These two are a simulated LT(layer,kc), layer-tap. 
+        // Double-tap-hold functionality: not done, but holding _NSY layer gives a normal Del there
+        // They switch what layer to use depending on 'descramble'
+        // Basically it starts the right layer on key down, goes back to base layer on key up,
+        // and throws in a keypress if tapped.
+        case CHOLTAP_ACCE: //LT ( _DDA , KC_DEL ) or to _ACC, depending ...
+            if (record->event.pressed) { // key down
+                 key_timer = timer_read ();
+#ifndef QWERTY_DVORAK // normal mode keyboard: Dvorak with Dvorak-descramble
+                 if (_FULL_ == descramble) {
+                     activate_this_layer (_DDA); // activates descrambled drawings layer
+                     deactivate_all_but (_DDA); 
+                 } else {
+                     activate_this_layer (_ACC); // activates normal drawings layer
+                     deactivate_all_but (_ACC);
+                 }
+#endif
+#ifdef QWERTY_DVORAK // alternative layout: Qwerty with Dvorak on 'descramble'
+                     // The 'full descramble' becomes Dvorak standard, hence normal _ACC layer.
+                 activate_this_layer (_ACC); // activates descrambled drawings layer
+                 deactivate_all_but (_ACC); 
+#endif
+            } else { // key up
+                 // Go back to base layer
+                 if (descramble) { // 
+                     activate_this_layer (_DDL); 
+                     deactivate_all_but (_DDL); 
+                 } else {
+                     activate_this_layer (_LTR);
+                     deactivate_all_but (_LTR); 
+                 }
+                 if (timer_elapsed (key_timer) <= TAPPING_TERM_HOLTAP) { // tapped
+                     SEND_STRING (SS_TAP (X_DEL));
+                 }
+            }
+            break;
+        case CHOLTAP_DRAW: //LT ( _DDD , KC_RIGHT ), or to _DRA, depending ...
+            if (record->event.pressed) { // key down
+                 key_timer = timer_read ();
+#ifndef QWERTY_DVORAK // (See comment shortly above at CHOLTAP_ACCE, the same applies).
+                 if (_FULL_ == descramble) {
+                     activate_this_layer (_DDD); // activates descrambled drawings layer
+                     deactivate_all_but (_DDD); 
+                 } else {
+                     activate_this_layer (_DRA); // activates normal drawings layer
+                     deactivate_all_but (_DRA);
+                 }
+#endif
+#ifdef QWERTY_DVORAK 
+                 activate_this_layer (_DRA); 
+                 deactivate_all_but (_DRA); 
+#endif
+            } else { // key up
+                 // Go back to base layer
+                 if (descramble) { // 
+                     activate_this_layer (_DDL); 
+                     deactivate_all_but (_DDL); 
+                 } else {
+                     activate_this_layer (_LTR);
+                     deactivate_all_but (_LTR); 
+                 }
+                 if (timer_elapsed (key_timer) <= TAPPING_TERM_HOLTAP) { // tapped
+                     SEND_STRING (SS_TAP (X_RIGHT));
+                 }
+            }
+            break;
 
         //   When held the key is shift. When tapped it is computed if the tap is short enough,
         // and if no other key was pressed, in which case: shift-up and a toggle to the _FUN layer.
@@ -674,60 +779,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                  }
             }
             break;
-
-        // These two are a simulated LT(layer,kc), layer-tap. 
-        // Double-tap-hold functionality: not done, but holding _NSY layer gives a normal Del there
-        // They switch what layer to use depending on 'descramble'
-        // Basically it starts the right layer on key down, goes back to base layer on key up,
-        // and throws in a keypress if tapped.
-        case CHOLTAP_ACCE: //LT ( _DDA , KC_DEL ) or to _ACC, depending ...
-            if (record->event.pressed) { // key down
-                 key_timer = timer_read ();
-                 if (_FULL_ == descramble) {
-                     activate_this_layer (_DDA); // activates descrambled drawings layer
-                     deactivate_all_but (_DDA); 
-                 } else {
-                     activate_this_layer (_ACC); // activates normal drawings layer
-                     deactivate_all_but (_ACC);
-                 }
-            } else { // key up
-                 // Go back to base layer
-                 if (descramble) { // 
-                     activate_this_layer (_DDL); 
-                     deactivate_all_but (_DDL); 
-                 } else {
-                     activate_this_layer (_LTR);
-                     deactivate_all_but (_LTR); 
-                 }
-                 if (timer_elapsed (key_timer) <= TAPPING_TERM_HOLTAP) { // tapped
-                     SEND_STRING (SS_TAP (X_DEL));
-                 }
-            }
-            break;
-        case CHOLTAP_DRAW: //LT ( _DDD , KC_RIGHT ), or to _DRA, depending ...
-            if (record->event.pressed) { // key down
-                 key_timer = timer_read ();
-                 if (_FULL_ == descramble) {
-                     activate_this_layer (_DDD); // activates descrambled drawings layer
-                     deactivate_all_but (_DDD); 
-                 } else {
-                     activate_this_layer (_DRA); // activates normal drawings layer
-                     deactivate_all_but (_DRA);
-                 }
-            } else { // key up
-                 // Go back to base layer
-                 if (descramble) { // 
-                     activate_this_layer (_DDL); 
-                     deactivate_all_but (_DDL); 
-                 } else {
-                     activate_this_layer (_LTR);
-                     deactivate_all_but (_LTR); 
-                 }
-                 if (timer_elapsed (key_timer) <= TAPPING_TERM_HOLTAP) { // tapped
-                     SEND_STRING (SS_TAP (X_RIGHT));
-                 }
-            }
-            break;
         case _FUN_STAY: // causes the f-keys to *not* return _FUN layer to BASE
             if (record->event.pressed) { // key down
                 if (_fun_stay == FALSE) { // cycles, so it becomes permament until altered
@@ -780,6 +831,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
      
+#ifndef QWERTY_DVORAK 
+       // .... v .... v .... v .... v .... v .... v .... v .... v .... v .... v 
+
         // Unicode macros for descramble mode.
         // The plan was to use the already defined hex values, convert them to ascii and then use them (itoa(...), stdlib.h).
         // However it seems SEND_STRING cannot take a variable.
@@ -1222,6 +1276,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unicode_tail ();
             }
           break;
+#endif // QWERTY_DVORAK .... ^ .... ^ .... ^ .... ^ .... ^ .... ^ .... ^ .... ^ .... ^ .... ^ 
      }
      return true;
         // 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y 
