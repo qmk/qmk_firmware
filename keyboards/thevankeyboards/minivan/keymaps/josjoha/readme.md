@@ -1,10 +1,24 @@
-# Minivan (Dvorak² or Qwerty+Dvorak)
+# Minivan
 
 A 40% keyboard made by https://thevankeyboards.com This Dvorak keymap is for
 the default 12x12x12x8 arrangement (44 keys).
 
+
+Dvorak² or Qwerty+Dvorak
+========================
+
+These keymaps can be compiled either in a Dvorak version which also allows typing
+normally on a computer already set to Dvorak (Dvorak²), or in a Qwerty version that can
+also be set to Dvorak (Qwerty+Dvorak) (see `#define QWERTY_DVORAK`).
 This readme file assumes the Dvorak with Dvorak-descramble version. For the
-Qwerty+Dvorak version, see [here](./qwerty_dvorak.md)
+layers in the Qwerty+Dvorak version that are different, see [here](./qwerty_dvorak.md)
+
+This keymap.c was edited from the default, LED support was copied/edited
+from ../jetpacktuxedo/ keymap. 
+                        By Jos B. [contact](https://market.socialism.nl/author/ "get e-mail address there")
+
+Dvorak² keymaps:
+----------------
 
 ![Minivan layout Image 0](http://socialism.nl/misc/minivan_layer0_900.jpg)
 ![Minivan layout Image 1](http://socialism.nl/misc/minivan_layer1_900.jpg)
@@ -15,15 +29,9 @@ Qwerty+Dvorak version, see [here](./qwerty_dvorak.md)
 ![Minivan layout Image 6](http://socialism.nl/misc/minivan_layer6_900.jpg)
 ![Minivan layout Image 7](http://socialism.nl/misc/minivan_layer7_900.jpg)
 
-These keymaps can be compiled either in a Dvorak version which also allows typing
-normally on a computer already set to Dvorak, or in a Qwerty version that can
-also be set to Dvorak (see `#define QWERTY_DVORAK`).
+The 'descramble' system:
 
 ![Minivan descramble Dvorak](http://socialism.nl/misc/minivan_descramble.jpg)
-
-This keymap.c was edited from the default, LED support was copied/edited
-from ../jetpacktuxedo/ keymap. 
-                        By Jos B. [contact](https://market.socialism.nl/author/ "get e-mail address there")
 
    
 
