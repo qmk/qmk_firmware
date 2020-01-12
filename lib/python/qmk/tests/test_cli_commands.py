@@ -57,9 +57,9 @@ def test_list_keyboards():
 
 
 def test_list_keymaps():
-    result = check_subcommand("list-keymaps", "-kb", "planck/ez")
+    result = check_subcommand("list-keymaps", "-kb", "handwired/onekey/pytest")
     assert result.returncode == 0
-    assert "planck/ez:default" and "planck/ez:drashna" in result.stdout
+    assert "default" and "test" in result.stdout
 
 
 def test_list_keymaps_no_keyboard_found():
