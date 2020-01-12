@@ -2,11 +2,9 @@
 
 Check out the user's QMK environment and make sure it's ready to compile.
 """
-import os
 import platform
 import shutil
 import subprocess
-import glob
 from pathlib import Path
 
 from milc import cli
