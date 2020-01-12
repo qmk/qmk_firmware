@@ -1,13 +1,11 @@
 #include "csc027.h"
 
 // Declare the strings in PROGMEM using the convenience macro
-GIT_MACROS(GIT_DEF, PARAMS, SEMI_DELIM);
-CUSTOM_MACROS(CUSTOM_DEF, SEMI_DELIM);
+CUSTOM_MACROS(CUSTOM_DEF, CUSTOM_MACRO_STRING, SEMI_DELIM);
 
 static const char* const git_macros[] PROGMEM = {
     // Declare the pointer to the strings in PROGMEM
-    GIT_MACROS(GIT_VAR, DROP, COMMA_DELIM),
-    CUSTOM_MACROS(CUSTOM_VAR, COMMA_DELIM)
+    CUSTOM_MACROS(CUSTOM_VAR, DROP, COMMA_DELIM)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

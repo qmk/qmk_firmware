@@ -168,15 +168,15 @@
  * `-----------------------------------'  `-----------------------------------'
  */
 
-#define _______________________GIT_L1______________________  XXXXXXX,    GIT_cherry_pick,  GIT_show,      GIT_rebase,  GIT_reset,  GIT_tag
-#define _______________________GIT_L2______________________  _______,    GIT_add,          GIT_status,    GIT_diff,    GIT_fetch,  GIT_grep
-#define _______________________GIT_L3______________________  _______,    XXXXXXX,          XXXXXXX,       GIT_commit,  GIT_mv,     GIT_branch
-#define _______________________GIT_L4______________________  _______,    _______,          _______,       _______,     _______,    _______
+#define _______________________GIT_L1______________________  XXXXXXX,   MC_cherrypick,  MC_show,      MC_rebase,  MC_reset,  MC_tag
+#define _______________________GIT_L2______________________  _______,   MC_add,         MC_status,    MC_diff,    MC_fetch,  MC_grep
+#define _______________________GIT_L3______________________  _______,   XXXXXXX,        XXXXXXX,      MC_commit,  MC_mv,     MC_branch
+#define _______________________GIT_L4______________________  _______,   _______,        _______,      _______,    _______,   _______
 
-#define _______________________GIT_R1______________________  XXXXXXX,    GIT_pull,         GIT_init,      GIT_remote,  GIT_push,   XXXXXXX
-#define _______________________GIT_R2______________________  GIT_stash,  XXXXXXX,          GIT_checkout,  GIT_log,     XXXXXXX,    XXXXXXX
-#define _______________________GIT_R3______________________  XXXXXXX,    GIT_merge,        XXXXXXX,       XXXXXXX,     XXXXXXX,    _______
-#define _______________________GIT_R4______________________  _______,    _______,          _______,       _______,     XXXXXXX,    XXXXXXX
+#define _______________________GIT_R1______________________  XXXXXXX,   MC_pull,        MC_init,      MC_remote,  MC_push,   XXXXXXX
+#define _______________________GIT_R2______________________  MC_stash,  XXXXXXX,        MC_checkout,  MC_log,     XXXXXXX,   XXXXXXX
+#define _______________________GIT_R3______________________  XXXXXXX,   MC_merge,       XXXXXXX,      XXXXXXX,    XXXXXXX,   _______
+#define _______________________GIT_R4______________________  _______,   _______,        _______,      _______,    XXXXXXX,   XXXXXXX
 
 
 /* MIT Layout (Convenience)
@@ -225,36 +225,15 @@
 #define GET_MACRO(_0, _1, _2, _3, NAME, ...) NAME
 
 // Declare variable name
-#define CUSTOM_VAR(VAR, X)                   mc_##VAR
+#define CUSTOM_VAR(VAR)                      mc_##VAR
 
 // Declare PROGMEM string using the variable name
-#define CUSTOM_DEF(VAR, X)                   const char CUSTOM_VAR(VAR, X)[] PROGMEM = X
+#define CUSTOM_DEF(VAR)                      const char CUSTOM_VAR(VAR)[] PROGMEM =
 
 // Declare enum name
-#define CUSTOM_ENUM(VAR, X)                  MC_##VAR
+#define CUSTOM_ENUM(VAR)                     MC_##VAR
 
-// Declare variable name
-#define GIT_VAR(...)                         GET_MACRO(_0, ##__VA_ARGS__, GIT_VAR3, GIT_VAR2, GIT_VAR1, GIT_VAR0)(__VA_ARGS__)
-#define GIT_VAR0()
-#define GIT_VAR1(X)                          git_##X
-#define GIT_VAR2(X, Y)                       git_##X##_##Y
-#define GIT_VAR3(X, Y, Z)                    git_##X##_##Y##_##Z
-
-// Declare PROGMEM string using the variable name
-#define GIT_DEF(...)                         GET_MACRO(_0, ##__VA_ARGS__, GIT_DEF3, GIT_DEF2, GIT_DEF1, GIT_DEF0)(__VA_ARGS__)
-#define GIT_DEF0()
-#define GIT_DEF1(X)                          const char GIT_VAR(X)[] PROGMEM = "git "#X" "
-#define GIT_DEF2(X, Y)                       const char GIT_VAR(X, Y)[] PROGMEM = "git "#X"-"#Y" "
-#define GIT_DEF3(X, Y, Z)                    const char GIT_VAR(X, Y, Z)[] PROGMEM = "git "#X"-"#Y"-"#Z" "
-
-// Declare enum name
-#define GIT_ENUM(...)                        GET_MACRO(_0, ##__VA_ARGS__, GIT_ENUM3, GIT_ENUM2, GIT_ENUM1, GIT_ENUM0)(__VA_ARGS__)
-#define GIT_ENUM0()
-#define GIT_ENUM1(X)                         GIT_##X
-#define GIT_ENUM2(X, Y)                      GIT_##X##_##Y
-#define GIT_ENUM3(X, Y, Z)                   GIT_##X##_##Y##_##Z
-
-#define PARAMS(X)                            X
+#define CUSTOM_MACRO_STRING(X)               X
 
 #define COMMA_DELIM(...)                     ,
 #define SEMI_DELIM(...)                      ;
@@ -266,33 +245,32 @@
  * These macros help synchronize the keycodes between the string declaration, string pointer declaration, and enum order.
  */
 
-#define GIT_MACROS(GIT_NAME, GIT_PARAMS, GIT_DELIM) \
-    GIT_NAME(add)          GIT_PARAMS()                               GIT_DELIM() \
-    GIT_NAME(branch)       GIT_PARAMS()                               GIT_DELIM() \
-    GIT_NAME(checkout)     GIT_PARAMS()                               GIT_DELIM() \
-    GIT_NAME(cherry, pick) GIT_PARAMS()                               GIT_DELIM() \
-    GIT_NAME(commit)       GIT_PARAMS("-m \"\""SS_TAP(X_LEFT))        GIT_DELIM() \
-    GIT_NAME(diff)         GIT_PARAMS()                               GIT_DELIM() \
-    GIT_NAME(fetch)        GIT_PARAMS()                               GIT_DELIM() \
-    GIT_NAME(grep)         GIT_PARAMS()                               GIT_DELIM() \
-    GIT_NAME(log)          GIT_PARAMS("--decorate --oneline --graph") GIT_DELIM() \
-    GIT_NAME(init)         GIT_PARAMS()                               GIT_DELIM() \
-    GIT_NAME(mv)           GIT_PARAMS()                               GIT_DELIM() \
-    GIT_NAME(merge)        GIT_PARAMS()                               GIT_DELIM() \
-    GIT_NAME(push)         GIT_PARAMS()                               GIT_DELIM() \
-    GIT_NAME(pull)         GIT_PARAMS()                               GIT_DELIM() \
-    GIT_NAME(rebase)       GIT_PARAMS()                               GIT_DELIM() \
-    GIT_NAME(remote)       GIT_PARAMS()                               GIT_DELIM() \
-    GIT_NAME(reset)        GIT_PARAMS()                               GIT_DELIM() \
-    GIT_NAME(show)         GIT_PARAMS()                               GIT_DELIM() \
-    GIT_NAME(stash)        GIT_PARAMS()                               GIT_DELIM() \
-    GIT_NAME(status)       GIT_PARAMS()                               GIT_DELIM() \
-    GIT_NAME(tag)          GIT_PARAMS()
 
-#define CUSTOM_MACROS(CUSTOM_NAME, CUSTOM_DELIM) \
-    CUSTOM_NAME(rdcc, SS_LCTL(SS_LALT(SS_TAP(X_HOME))))              CUSTOM_DELIM() \
-    CUSTOM_NAME(lcad, SS_LCTL(SS_LALT(SS_TAP(X_DELETE))))            CUSTOM_DELIM() \
-    CUSTOM_NAME(vtdl, SS_LCTL(SS_LGUI(SS_TAP(X_LEFT))))              CUSTOM_DELIM() \
-    CUSTOM_NAME(vtdc, SS_LCTL(SS_LGUI(SS_TAP(X_F4))))                CUSTOM_DELIM() \
-    CUSTOM_NAME(vtdn, SS_LCTL(SS_LGUI("d")))                         CUSTOM_DELIM() \
-    CUSTOM_NAME(vtdr, SS_LCTL(SS_LGUI(SS_TAP(X_RIGHT))))
+#define CUSTOM_MACROS(CUSTOM_NAME, CUSTOM_STRING, CUSTOM_DELIM) \
+    CUSTOM_NAME(add)        CUSTOM_STRING("git add ")                              CUSTOM_DELIM() \
+    CUSTOM_NAME(branch)     CUSTOM_STRING("git branch ")                           CUSTOM_DELIM() \
+    CUSTOM_NAME(checkout)   CUSTOM_STRING("git checkout ")                         CUSTOM_DELIM() \
+    CUSTOM_NAME(cherrypick) CUSTOM_STRING("git cherry-pick ")                      CUSTOM_DELIM() \
+    CUSTOM_NAME(commit)     CUSTOM_STRING("git commit -m \"\""SS_TAP(X_LEFT))      CUSTOM_DELIM() \
+    CUSTOM_NAME(diff)       CUSTOM_STRING("git diff ")                             CUSTOM_DELIM() \
+    CUSTOM_NAME(fetch)      CUSTOM_STRING("git fetch ")                            CUSTOM_DELIM() \
+    CUSTOM_NAME(grep)       CUSTOM_STRING("git grep ")                             CUSTOM_DELIM() \
+    CUSTOM_NAME(log)        CUSTOM_STRING("git log --decorate --oneline --graph ") CUSTOM_DELIM() \
+    CUSTOM_NAME(init)       CUSTOM_STRING("git init ")                             CUSTOM_DELIM() \
+    CUSTOM_NAME(mv)         CUSTOM_STRING("git mv ")                               CUSTOM_DELIM() \
+    CUSTOM_NAME(merge)      CUSTOM_STRING("git merge ")                            CUSTOM_DELIM() \
+    CUSTOM_NAME(push)       CUSTOM_STRING("git push ")                             CUSTOM_DELIM() \
+    CUSTOM_NAME(pull)       CUSTOM_STRING("git pull ")                             CUSTOM_DELIM() \
+    CUSTOM_NAME(rebase)     CUSTOM_STRING("git rebase ")                           CUSTOM_DELIM() \
+    CUSTOM_NAME(remote)     CUSTOM_STRING("git remote ")                           CUSTOM_DELIM() \
+    CUSTOM_NAME(reset)      CUSTOM_STRING("git reset ")                            CUSTOM_DELIM() \
+    CUSTOM_NAME(show)       CUSTOM_STRING("git show ")                             CUSTOM_DELIM() \
+    CUSTOM_NAME(stash)      CUSTOM_STRING("git stash ")                            CUSTOM_DELIM() \
+    CUSTOM_NAME(status)     CUSTOM_STRING("git status ")                           CUSTOM_DELIM() \
+    CUSTOM_NAME(tag)        CUSTOM_STRING("git tag ")                              CUSTOM_DELIM() \
+    CUSTOM_NAME(rdcc)       CUSTOM_STRING(SS_LCTL(SS_LALT(SS_TAP(X_HOME))))        CUSTOM_DELIM() \
+    CUSTOM_NAME(lcad)       CUSTOM_STRING(SS_LCTL(SS_LALT(SS_TAP(X_DELETE))))      CUSTOM_DELIM() \
+    CUSTOM_NAME(vtdl)       CUSTOM_STRING(SS_LCTL(SS_LGUI(SS_TAP(X_LEFT))))        CUSTOM_DELIM() \
+    CUSTOM_NAME(vtdc)       CUSTOM_STRING(SS_LCTL(SS_LGUI(SS_TAP(X_F4))))          CUSTOM_DELIM() \
+    CUSTOM_NAME(vtdn)       CUSTOM_STRING(SS_LCTL(SS_LGUI("d")))                   CUSTOM_DELIM() \
+    CUSTOM_NAME(vtdr)       CUSTOM_STRING(SS_LCTL(SS_LGUI(SS_TAP(X_RIGHT))))
