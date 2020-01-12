@@ -511,7 +511,10 @@ class MILC(object):
 
             if argument not in self.arg_only:
                 # Find the argument's section
-                if self._entrypoint.__name__ in self.default_arguments and argument in self.default_arguments[self._entrypoint.__name__]:
+                # Underscores in command's names are converted to dashes during initialization.
+                # TODO(Erovia) Find a better solution
+                entrypoint_name = self._entrypoint.__name__.replace("_", "-")
+                if entrypoint_name in self.default_arguments and argument in self.default_arguments[entrypoint_name]:
                     argument_found = True
                     section = self._entrypoint.__name__
                 if argument in self.default_arguments['general']:
@@ -523,12 +526,12 @@ class MILC(object):
                     exit(1)
 
                 # Merge this argument into self.config
-                if argument in self.default_arguments[section]:
+                if argument in self.default_arguments['general'] or argument in self.default_arguments[entrypoint_name]:
                     arg_value = getattr(self.args, argument)
-                    if arg_value:
+                    if arg_value is not None:
                         self.config[section][argument] = arg_value
                 else:
-                    if argument not in self.config[section]:
+                    if argument not in self.config[entrypoint_name]:
                         # Check if the argument exist for this section
                         arg = getattr(self.args, argument)
                         if arg is not None:
