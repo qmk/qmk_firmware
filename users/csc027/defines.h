@@ -220,10 +220,6 @@
  * These are accelerator macros for simplifying declaration of PROGMEM strings
  */
 
-// This macro is used to provide overloading functionality to the other macros (i.e., this will allow GIT_DEF macro declaration to
-// work for GIT_DEF(), GIT_DEF(X), GIT_DEF(X, Y), AND GIT_DIF(X, Y, Z)).
-#define GET_MACRO(_0, _1, _2, _3, NAME, ...) NAME
-
 // Declare variable name
 #define CUSTOM_VAR(VAR)                      mc_##VAR
 
