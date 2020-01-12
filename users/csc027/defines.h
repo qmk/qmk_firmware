@@ -254,11 +254,7 @@
 #define GIT_ENUM2(X, Y)                      GIT_##X##_##Y
 #define GIT_ENUM3(X, Y, Z)                   GIT_##X##_##Y##_##Z
 
-#define PARAMS(...)                          GET_MACRO(_0, ##__VA_ARGS__, PARAMS3, PARAMS2, PARAMS1, PARAMS0)(__VA_ARGS__)
-#define PARAMS0()
-#define PARAMS1(X)                           X
-#define PARAMS2(X, Y)                        X" "Y
-#define PARAMS3(X, Y, Z)                     X" "Y" "Z
+#define PARAMS(X)                            X
 
 #define COMMA_DELIM(...)                     ,
 #define SEMI_DELIM(...)                      ;
