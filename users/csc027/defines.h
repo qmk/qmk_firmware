@@ -187,10 +187,8 @@
  *    in the raise layer.
  *  - There is also a Backspace Key for convenience.
  *  - There is a convenience macro to type the Control-Alt-Delete login chord for Windows.
- *  - There is a convenience macro to Minimize Remote Desktop within Remote Desktop
- *    in Windows.
- *  - There is a convenience macro to cycle through programs in Windows.
- *  - There is a convenience macro to go to the previous program in Windows.
+ *  - There is a convenience macro to switch context from the Remote Desktop to the local
+ *    machine in Windows.
  *  - There are convenience macros to switch between virtual desktops in Windows.
  *  - There are convenience macros to create and delete virtual desktops in Windows.
  *
