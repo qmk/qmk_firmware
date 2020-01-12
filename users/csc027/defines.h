@@ -220,26 +220,34 @@
  * These are accelerator macros for simplifying declaration of PROGMEM strings
  */
 
+// This macro is used to provide overloading functionality to the other macros (i.e., this will allow GIT_DEF macro declaration to
+// work for GIT_DEF(), GIT_DEF(X), GIT_DEF(X, Y), AND GIT_DIF(X, Y, Z)).
 #define GET_MACRO(_0, _1, _2, _3, NAME, ...) NAME
 
+// Declare variable name
 #define CUSTOM_VAR(VAR, X)                   mc_##VAR
 
+// Declare PROGMEM string using the variable name
 #define CUSTOM_DEF(VAR, X)                   const char CUSTOM_VAR(VAR, X)[] PROGMEM = X
 
+// Declare enum name
 #define CUSTOM_ENUM(VAR, X)                  MC_##VAR
 
+// Declare variable name
 #define GIT_VAR(...)                         GET_MACRO(_0, ##__VA_ARGS__, GIT_VAR3, GIT_VAR2, GIT_VAR1, GIT_VAR0)(__VA_ARGS__)
 #define GIT_VAR0()
 #define GIT_VAR1(X)                          git_##X
 #define GIT_VAR2(X, Y)                       git_##X##_##Y
 #define GIT_VAR3(X, Y, Z)                    git_##X##_##Y##_##Z
 
+// Declare PROGMEM string using the variable name
 #define GIT_DEF(...)                         GET_MACRO(_0, ##__VA_ARGS__, GIT_DEF3, GIT_DEF2, GIT_DEF1, GIT_DEF0)(__VA_ARGS__)
 #define GIT_DEF0()
 #define GIT_DEF1(X)                          const char GIT_VAR(X)[] PROGMEM = "git "#X" "
 #define GIT_DEF2(X, Y)                       const char GIT_VAR(X, Y)[] PROGMEM = "git "#X"-"#Y" "
 #define GIT_DEF3(X, Y, Z)                    const char GIT_VAR(X, Y, Z)[] PROGMEM = "git "#X"-"#Y"-"#Z" "
 
+// Declare enum name
 #define GIT_ENUM(...)                        GET_MACRO(_0, ##__VA_ARGS__, GIT_ENUM3, GIT_ENUM2, GIT_ENUM1, GIT_ENUM0)(__VA_ARGS__)
 #define GIT_ENUM0()
 #define GIT_ENUM1(X)                         GIT_##X
@@ -259,8 +267,7 @@
 
 /* Keycode synchronization macros
  *
- * These macros help synchronize the keycodes between the macro invocation and enum order.  It also makes it cleaner to
- * declare strings in PROGMEM instead of in RAM.
+ * These macros help synchronize the keycodes between the string declaration, string pointer declaration, and enum order.
  */
 
 #define GIT_MACROS(GIT_NAME, GIT_PARAMS, GIT_DELIM) \
