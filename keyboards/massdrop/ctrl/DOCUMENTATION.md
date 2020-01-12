@@ -27,10 +27,3 @@ This doc will include all currently available information, including low level i
 * PRODUCT_ID          0xEEC5
 * MANUFACTURER        "Massdrop Inc."
 * PRODUCT             "Massdrop Hub"
-
-### RAW HID parameters
-
-* VENDOR_ID           0x04D8
-* PRODUCT_ID          0xEED2
-* USAGE_PAGE          0xFF60
-* USAGE               0x0061
