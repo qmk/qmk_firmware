@@ -2,6 +2,7 @@
 """
 import logging
 import os
+from pathlib import Path
 
 from qmk.errors import NoSuchKeyboardError
 
@@ -13,23 +14,24 @@ def keymap(keyboard):
         keyboard
             The name of the keyboard. Example: clueboard/66/rev3
     """
-    for directory in ['.', '..', '../..', '../../..', '../../../..', '../../../../..']:
-        basepath = os.path.normpath(os.path.join('keyboards', keyboard, directory, 'keymaps'))
+    keyboard_folder = Path('keyboards') / keyboard
 
-        if os.path.exists(basepath):
-            return basepath
+    for i in range(5):
+        if (keyboard_folder / 'keymaps').exists():
+            return (keyboard_folder / 'keymaps').resolve()
 
-    logging.error('Could not find keymaps directory!')
+        keyboard_folder = keyboard_folder / '..'
+
+    logging.error('Could not find the keymaps directory!')
     raise NoSuchKeyboardError('Could not find keymaps directory for: %s' % keyboard)
 
 
 def normpath(path):
-    """Returns the fully resolved absolute path to a file.
+    """Returns a `pathlib.Path()` object for a given path.
 
-    This function will return the absolute path to a file as seen from the
-    directory the script was called from.
+    This will use the path to a file as seen from the directory the script was called from. You should use this to normalize filenames supplied from the command line.
     """
-    if path and path[0] == '/':
-        return os.path.normpath(path)
+    if path[0] == '/':
+        return Path(path)
 
-    return os.path.normpath(os.path.join(os.environ['ORIG_CWD'], path))
+    return Path(os.environ['ORIG_CWD']) / path
