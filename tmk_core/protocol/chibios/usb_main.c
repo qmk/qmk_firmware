@@ -411,7 +411,7 @@ static uint16_t get_hword(uint8_t *p) {
  * Other Device    Required    Optional    Optional    Optional    Optional    Optional
  */
 
-#ifdef SHARED_EP_ENABLE
+#if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
 static uint8_t set_report_buf[2] __attribute__((aligned(2)));
 static void    set_led_transfer_cb(USBDriver *usbp) {
     if ((set_report_buf[0] == REPORT_ID_KEYBOARD) || (set_report_buf[0] == REPORT_ID_NKRO)) {
