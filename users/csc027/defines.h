@@ -1,7 +1,6 @@
 #pragma once
 #include "csc027.h"
 
-#define MC_LCAD LCA(KC_DEL)     // Control-Alt-Delete
 #define MC_RSFE RSFT_T(KC_ENT)  // Right Shift on hold, Enter on tap
 #define MC_LSEC LSFT_T(KC_ESC)  // Left Shift on hold, Escape on tap
 
@@ -207,7 +206,7 @@
  */
 
 #define ___________________CONVENIENCE_L1__________________  XXXXXXX,  XXXXXXX,  KC_INS,   KC_SLCK,  KC_PSCR,  XXXXXXX
-#define ___________________CONVENIENCE_L2__________________  _______,  XXXXXXX,  KC_APP,   MC_LCAD,  MC_mrd7,  KC_NLCK
+#define ___________________CONVENIENCE_L2__________________  _______,  XXXXXXX,  KC_APP,   MC_lcad,  MC_mrd7,  KC_NLCK
 #define ___________________CONVENIENCE_L3__________________  _______,  XXXXXXX,  XXXXXXX,  MC_atrd,  MC_mrd8,  XXXXXXX
 #define ___________________CONVENIENCE_L4__________________  _______,  _______,  _______,  _______,  _______,  _______
 
@@ -264,34 +263,35 @@
  * declare strings in PROGMEM instead of in RAM.
  */
 
-#define GIT_MACROS(GIT_CALL, GIT_PARAMS, GIT_DELIM) \
-    GIT_CALL(add)          GIT_PARAMS()                               GIT_DELIM() \
-    GIT_CALL(branch)       GIT_PARAMS()                               GIT_DELIM() \
-    GIT_CALL(checkout)     GIT_PARAMS()                               GIT_DELIM() \
-    GIT_CALL(cherry, pick) GIT_PARAMS()                               GIT_DELIM() \
-    GIT_CALL(commit)       GIT_PARAMS("-m \"\""SS_TAP(X_LEFT))        GIT_DELIM() \
-    GIT_CALL(diff)         GIT_PARAMS()                               GIT_DELIM() \
-    GIT_CALL(fetch)        GIT_PARAMS()                               GIT_DELIM() \
-    GIT_CALL(grep)         GIT_PARAMS()                               GIT_DELIM() \
-    GIT_CALL(log)          GIT_PARAMS("--decorate --oneline --graph") GIT_DELIM() \
-    GIT_CALL(init)         GIT_PARAMS()                               GIT_DELIM() \
-    GIT_CALL(mv)           GIT_PARAMS()                               GIT_DELIM() \
-    GIT_CALL(merge)        GIT_PARAMS()                               GIT_DELIM() \
-    GIT_CALL(push)         GIT_PARAMS()                               GIT_DELIM() \
-    GIT_CALL(pull)         GIT_PARAMS()                               GIT_DELIM() \
-    GIT_CALL(rebase)       GIT_PARAMS()                               GIT_DELIM() \
-    GIT_CALL(remote)       GIT_PARAMS()                               GIT_DELIM() \
-    GIT_CALL(reset)        GIT_PARAMS()                               GIT_DELIM() \
-    GIT_CALL(show)         GIT_PARAMS()                               GIT_DELIM() \
-    GIT_CALL(stash)        GIT_PARAMS()                               GIT_DELIM() \
-    GIT_CALL(status)       GIT_PARAMS()                               GIT_DELIM() \
-    GIT_CALL(tag)          GIT_PARAMS()
+#define GIT_MACROS(GIT_NAME, GIT_PARAMS, GIT_DELIM) \
+    GIT_NAME(add)          GIT_PARAMS()                               GIT_DELIM() \
+    GIT_NAME(branch)       GIT_PARAMS()                               GIT_DELIM() \
+    GIT_NAME(checkout)     GIT_PARAMS()                               GIT_DELIM() \
+    GIT_NAME(cherry, pick) GIT_PARAMS()                               GIT_DELIM() \
+    GIT_NAME(commit)       GIT_PARAMS("-m \"\""SS_TAP(X_LEFT))        GIT_DELIM() \
+    GIT_NAME(diff)         GIT_PARAMS()                               GIT_DELIM() \
+    GIT_NAME(fetch)        GIT_PARAMS()                               GIT_DELIM() \
+    GIT_NAME(grep)         GIT_PARAMS()                               GIT_DELIM() \
+    GIT_NAME(log)          GIT_PARAMS("--decorate --oneline --graph") GIT_DELIM() \
+    GIT_NAME(init)         GIT_PARAMS()                               GIT_DELIM() \
+    GIT_NAME(mv)           GIT_PARAMS()                               GIT_DELIM() \
+    GIT_NAME(merge)        GIT_PARAMS()                               GIT_DELIM() \
+    GIT_NAME(push)         GIT_PARAMS()                               GIT_DELIM() \
+    GIT_NAME(pull)         GIT_PARAMS()                               GIT_DELIM() \
+    GIT_NAME(rebase)       GIT_PARAMS()                               GIT_DELIM() \
+    GIT_NAME(remote)       GIT_PARAMS()                               GIT_DELIM() \
+    GIT_NAME(reset)        GIT_PARAMS()                               GIT_DELIM() \
+    GIT_NAME(show)         GIT_PARAMS()                               GIT_DELIM() \
+    GIT_NAME(stash)        GIT_PARAMS()                               GIT_DELIM() \
+    GIT_NAME(status)       GIT_PARAMS()                               GIT_DELIM() \
+    GIT_NAME(tag)          GIT_PARAMS()
 
-#define CUSTOM_MACROS(CUSTOM_CALL, CUSTOM_DELIM) \
-    CUSTOM_CALL(mrd7, SS_LCTL(SS_LALT(SS_TAP(X_HOME)))"\t ")         CUSTOM_DELIM() \
-    CUSTOM_CALL(mrd8, SS_LCTL(SS_LALT(SS_TAP(X_HOME)))"\t\t\t ")     CUSTOM_DELIM() \
-    CUSTOM_CALL(atrd, SS_LCTL(SS_LALT(SS_TAP(X_HOME)))SS_LALT("\t")) CUSTOM_DELIM() \
-    CUSTOM_CALL(vtdl, SS_LCTL(SS_LGUI(SS_TAP(X_LEFT))))              CUSTOM_DELIM() \
-    CUSTOM_CALL(vtdc, SS_LCTL(SS_LGUI(SS_TAP(X_F4))))                CUSTOM_DELIM() \
-    CUSTOM_CALL(vtdn, SS_LCTL(SS_LGUI("d")))                         CUSTOM_DELIM() \
-    CUSTOM_CALL(vtdr, SS_LCTL(SS_LGUI(SS_TAP(X_RIGHT))))
+#define CUSTOM_MACROS(CUSTOM_NAME, CUSTOM_DELIM) \
+    CUSTOM_NAME(mrd7, SS_LCTL(SS_LALT(SS_TAP(X_HOME)))"\t ")         CUSTOM_DELIM() \
+    CUSTOM_NAME(mrd8, SS_LCTL(SS_LALT(SS_TAP(X_HOME)))"\t\t\t ")     CUSTOM_DELIM() \
+    CUSTOM_NAME(atrd, SS_LCTL(SS_LALT(SS_TAP(X_HOME)))SS_LALT("\t")) CUSTOM_DELIM() \
+    CUSTOM_NAME(lcad, SS_LCTL(SS_LALT(SS_TAP(X_DELETE))))            CUSTOM_DELIM() \
+    CUSTOM_NAME(vtdl, SS_LCTL(SS_LGUI(SS_TAP(X_LEFT))))              CUSTOM_DELIM() \
+    CUSTOM_NAME(vtdc, SS_LCTL(SS_LGUI(SS_TAP(X_F4))))                CUSTOM_DELIM() \
+    CUSTOM_NAME(vtdn, SS_LCTL(SS_LGUI("d")))                         CUSTOM_DELIM() \
+    CUSTOM_NAME(vtdr, SS_LCTL(SS_LGUI(SS_TAP(X_RIGHT))))
