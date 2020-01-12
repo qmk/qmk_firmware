@@ -3,14 +3,14 @@
 A 40% keyboard made by https://thevankeyboards.com This Dvorak keymap is for
 the default 12x12x12x8 arrangement (44 keys).
 
-![Minivan layout Image 0](https://i.postimg.cc/BvgMMv0c/minivan-layer0-900.jpg)
-![Minivan layout Image 1](https://i.postimg.cc/VvSgfBbD/minivan-layer1-900.jpg)
-![Minivan layout Image 2](https://i.postimg.cc/mkXvkhHZ/minivan-layer2-900.jpg)
-![Minivan layout Image 3b](https://i.postimg.cc/Y9PNsGyg/minivan-layer3b-900.jpg)
-![Minivan layout Image 4](https://i.postimg.cc/x1H1wPKf/minivan-layer4-900.jpg)
-![Minivan layout Image 5](https://i.postimg.cc/ZRjfw5rz/minivan-layer5-900.jpg)
-![Minivan layout Image 6](https://i.postimg.cc/L4Z0M2BR/minivan-layer6-900.jpg)
-![Minivan layout Image 7](https://i.postimg.cc/G2frfBSw/minivan-layer7-900.jpg)
+![Minivan layout Image 0](http://socialism.nl/misc/minivan_layer0_900.jpg)
+![Minivan layout Image 1](http://socialism.nl/misc/minivan_layer1_900.jpg)
+![Minivan layout Image 2](http://socialism.nl/misc/minivan_layer2_900.jpg)
+![Minivan layout Image 3b](http://socialism.nl/misc/minivan_layer3b_900.jpg)
+![Minivan layout Image 4](http://socialism.nl/misc/minivan_layer4_900.jpg)
+![Minivan layout Image 5](http://socialism.nl/misc/minivan_layer5_900.jpg)
+![Minivan layout Image 6](http://socialism.nl/misc/minivan_layer6_900.jpg)
+![Minivan layout Image 7](http://socialism.nl/misc/minivan_layer7_900.jpg)
 
 These keymaps can be compiled either in a Dvorak version which also allows typing
 normally on a computer already set to Dvorak, or in a Qwerty version that can
@@ -19,7 +19,7 @@ also be set to Dvorak (see `#define QWERTY_DVORAK`).
 This readme file assumes the Dvorak with Dvorak-descramble version. For the
 Qwerty+Dvorak version, see [here](./qwerty_dvorak.md)
 
-![Minivan descramble Dvorak](https://i.postimg.cc/52p27Pnk/descramble.jpg)
+![Minivan descramble Dvorak](http://socialism.nl/misc/minivan_descramble.jpg)
 
 This keymap.c was edited from the default, LED support was copied/edited
 from ../jetpacktuxedo/ keymap. 
