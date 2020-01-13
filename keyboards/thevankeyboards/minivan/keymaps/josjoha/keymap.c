@@ -55,9 +55,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * in place instead of those programmed in this file (below).
          *
          */
-
 //#define QWERTY_DVORAK // Comment out to have Dvorak on default, and 'descramble Dvorak' on alternate.
                         // Uncomment to have Qwerty on default, and Dvorak on alternate.
+
+
+        /*                           Startup layer
+         *
+         * Here you can define which of the two BASE layer is active when powering up the keyboard.
+         * For starting up in 'descramble' for non-Linux, fix the variable in the code by hand to _HALF_.
+         */
+//#define STARTUP_ALTERNATE // For QWERTY_DVORAK *is* defined: comment out is startup in Qwerty, #defined is
+                          //                                                              startup in Dvorak
+                          // For QWERTY_DVORAK *not* defined: comment out is startup in normal Dvorak,
+                          //                          #defined is startup in 'descramble' Dvorak Linux mode.
+
 
         /*       Navigation cluster configuration
          * 
@@ -86,7 +97,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Uncomment below line to have LGUI (also called OS or Win key, etc) where RGUI is, 
          * and RGUI where LGUI is. This does not affect placement, only what that key is.
          */
-
 #define SWITCH_GUIS // Set this if you want LGUI on the BASE layer rather than RGUI, and so consistently on all layers.
 
 
@@ -95,7 +105,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Uncomment one of the below lines, determining where L-shift tap-toggles to on the 
          * BASE layer. 
          */
-
 //#define LSHIFT_LAYER_RAR // Be warned and don't hold it against me if you accidentally hit 'Power' at the wrong moment.
 //#define LSHIFT_LAYER_MOV // Handy to have navigation on a toggle. 
                          // _MOV is the least dangerous layer to accidentally activate.
@@ -153,11 +162,16 @@ enum {
 
 // Descramble mode defines and variable.
 enum {
-    _NORMAL_,
-    _HALF_,
-    _FULL_,
+    _NORMAL_, // BASE layer is _LTR
+    _HALF_,   // BASE layer is _DDL, jumps to 'normal' Unicode maps
+    _FULL_,   // BASE layer is _DDL, jumps to special Linux 'descramble' Unicode maps
 };
-short descramble = _NORMAL_; // to remember if we are in descramble mode for 'escape'ing out of layers to the right base
+#ifndef STARTUP_ALTERNATE
+ short descramble = _NORMAL_; // to remember if we are in descramble mode for 'escape'ing out of layers to the right base
+#endif
+#ifdef STARTUP_ALTERNATE
+ short descramble = _FULL_; 
+#endif
                       // There are three modes: 0 for everything normal, 1 for descramble for letters and number/symbols,
                       // .. but with the normal unicode layers, and 2 for all in descramble mode, where the Unicode
                       // .. coding is for a Linux system (shift-control-U + HEX input).
