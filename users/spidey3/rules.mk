@@ -1,9 +1,10 @@
 
 SRC += init.c
 SRC += debug.c
-SRC += unicode.c
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
-  # Include my fancy rgb functions source here
   SRC += rgb_caps_lock.c
+endif
+ifeq ($(strip $(UNICODEMAP_ENABLE)), yes)
+  SRC += unicode.c
 endif
