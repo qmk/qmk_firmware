@@ -6,8 +6,10 @@ KVT
 A open source southpaw keyboard. The Default layer is a standard 104 ANSI keyboard just the numpad is on the left.
 There is a fn layer (its not in the layout image but in the keymap file) it adds media keys, f13-f24, and mouse keys.
 
-Keyboard Maintainer: [Hybrid65](https://github.com/Hybrid65)
-Hardware Supported: QMK Proton C & KVT  
+[More info on KVT github](https://github.com/Hybrid65/KVT)
+
+Keyboard Maintainer: [Neil Feagan](https://github.com/Hybrid65)
+Hardware Supported: KVT, Proton C  
 Hardware Availability: [List of vendors](https://qmk.fm/proton-c)
 
 Make example for this keyboard (after setting up your build environment):
