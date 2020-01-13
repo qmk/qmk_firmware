@@ -343,7 +343,7 @@ For more granular control of this feature, you can add the following to your `co
 You can then add the following function to your keymap:
 
 ```c
-bool get_tapping_force_hold(uint16_t keycode) {
+bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case LT(1, KC_BSPC):
       return true;

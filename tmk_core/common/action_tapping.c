@@ -28,7 +28,7 @@ __attribute__((weak)) uint16_t get_tapping_term(uint16_t keycode) { return TAPPI
 #    endif
 
 #    ifdef TAPPING_FORCE_HOLD_PER_KEY
-__attribute__((weak)) bool get_tapping_force_hold(uint16_t keycode) { return false; }
+__attribute__((weak)) bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) { return false; }
 #    endif
 
 static keyrecord_t tapping_key                         = {};
@@ -240,7 +240,7 @@ bool process_tapping(keyrecord_t *keyp) {
 #    if !defined(TAPPING_FORCE_HOLD) || defined(IGNORE_TAPPING_FORCE_HOLD_PER_KEY)
                     if (
 #        ifdef TAPPING_FORCE_HOLD_PER_KEY
-                        !get_tapping_force_hold(get_event_keycode(tapping_key.event)) &&
+                        !get_tapping_force_hold(get_event_keycode(tapping_key.event), keyp) &&
 #        endif
                         !tapping_key.tap.interrupted && tapping_key.tap.count > 0) {
                         // sequential tap.
