@@ -120,12 +120,12 @@ If this is a bit complex for you, Docker might be the turnkey solution you need.
 util/docker_build.sh keyboard:keymap
 # For example: util/docker_build.sh ergodox_ez:steno
 ```
-This will compile the desired keyboard/keymap and leave the resulting `.hex` or `.bin` file in the QMK directory for you to flash. If `:keymap` is omitted, the `default` keymap is used. Note that the parameter format is the same as when building with `make`.
+This will compile the desired keyboard/keymap and leave the resulting `.hex` or `.bin` file in the QMK directory for you to flash. If `:keymap` is omitted, all keymaps are used. Note that the parameter format is the same as when building with `make`.
 
 You can also start the script without any parameters, in which case it will ask you to input the build parameters one by one, which you may find easier to use:
 ```bash
 util/docker_build.sh
-# Reads parameters as input (leave blank for defaults)
+# Reads parameters as input (leave blank for all keyboards/keymaps)
 ```
 
 There is also support for building _and_ flashing the keyboard straight from Docker by specifying the `target` as well:

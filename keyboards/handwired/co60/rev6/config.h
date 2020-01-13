@@ -55,6 +55,5 @@
 /* Backlight configuration
  * Backlight LEDs on B8
  */
-#define BACKLIGHT_LEVELS 24
+#define BACKLIGHT_PIN B8
 #define BACKLIGHT_BREATHING
-#define BREATHING_PERIOD 6
