@@ -332,7 +332,8 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   The Dvorak layer (BASE) is an unaltered standard Dvorak layout. Despite
   the crammed space, you have left & rigth arrow, GUI, Backspace, Delete
   and Esc.  The tap keys are typically keys that you do not use when in
-  fluent typing (enter, tab, etc).
+  fluent typing (enter, tab, etc). If you want Qwerty you can compile
+  it for that.
 
   Every time you have 0-9 enumerations / numbers, they are on the same
   fingers as a standard keyboard, except on the home row (numbers,
@@ -398,6 +399,10 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   (), and quotation marks on the same keys as on the BASE layer, while
   others have vague or no logic to their placement such as ° (Degrees
   symbol), 🙂 and others, which would have to be learned.
+ 
+  You could use the Qwerty+Dvorak compile version if you somehow have
+  a use for both, but not for 'descramble' (typing Dvorak on a computer
+  already set to Dvorak).
 
   Conclusion: most is as normal or has some logic to it to help you
   remember, a bunch is better than your normal keyboard, some things
@@ -405,9 +410,6 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   sheet, see the .ODT file).
 
   …
-
-  There is also a version for Qwerty typers: 《learn Dvorak》. There
-  you go ;-).
 
 
   Use case

@@ -19,12 +19,13 @@ Dvorak² version (85% versus 99% of flash memory).
 Qwerty+Dvorak keymaps
 ---------------------
 
+──────────Qwerty───────────────
 ![Minivan layout Image 0](http://socialism.nl/misc/minivan_layer0_qwerty_900.jpg)
 ![Minivan layout Image 1](http://socialism.nl/misc/minivan_layer1_qwerty_900.jpg)
-─────────────────────────
+──────────Dvorak───────────────
 ![Minivan layout Image 0](http://socialism.nl/misc/minivan_layer0_900.jpg)
 ![Minivan layout Image 1](http://socialism.nl/misc/minivan_layer1_900.jpg)
-─────────────────────────
+──────────the rest───────────────
 ![Minivan layout Image 2](http://socialism.nl/misc/minivan_layer2_qwerty_900.jpg)
 ![Minivan layout Image 3b](http://socialism.nl/misc/minivan_layer3b_900.jpg)
 ![Minivan layout Image 4](http://socialism.nl/misc/minivan_layer4_900.jpg)
@@ -38,7 +39,7 @@ letters and numbers/symbols.
 
   Layers (text)
   =============
-                                Qwerty
+                    ───────────────Qwerty─────────────────
 
      Layer _LTR (LeTteRs). This is standard Qwerty (#define QWERTY_DVORAK set.)
                                              | Right hand
@@ -68,9 +69,8 @@ letters and numbers/symbols.
                      -*-       <|>    -*-                                         //(hold) Access on _LTR
        <1      <2    <3    <4   | 4>  3>    2>    1>  
 
-─────────────────────────
-                            
-                                Dvorak
+
+                    ───────────────Dvorak─────────────────
 
      Layer _DDL This is a standard Dvorak layer (#define QWERTY_DVORAK set.)
                                              | Right hand
@@ -98,7 +98,8 @@ letters and numbers/symbols.
                      -*-       <|>    -*-                                         //(hold) Access on _LTR
        <1      <2    <3    <4   | 4>  3>    2>    1>  
 
-─────────────────────────
+
+                    ──────────────the rest────────────────
      
      Layer _FUN (F-keys, Layer access, Set BASE key direction)
     
