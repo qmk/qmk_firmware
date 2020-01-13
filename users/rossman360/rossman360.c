@@ -1,5 +1,3 @@
-
-  
 #include "rossman360.h"
 
 void my_custom_function(void) {
