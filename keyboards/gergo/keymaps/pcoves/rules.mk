@@ -1,5 +1,5 @@
 #----------------------------------------------------------------------------
-# make gergo:germ:dfu
+# make gergo:pcoves:dfu
 # Make sure you have dfu-programmer installed!
 #----------------------------------------------------------------------------
 # Firmware options
@@ -18,7 +18,6 @@ DEBUG_MATRIX           = no
 # know what you're doing.
 #
 # No touchy, capiche?
-SRC += matrix.c i2c_master.c
 ifneq ($(strip $(BALLSTEP)),)
     OPT_DEFS += -DTRKSTEP=$(strip $(BALLSTEP))
 endif
