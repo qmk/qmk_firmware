@@ -192,9 +192,6 @@ static void print_version(void) {
 #ifdef NKRO_ENABLE
           " NKRO"
 #endif
-#ifdef KEYMAP_SECTION_ENABLE
-          " KEYMAP_SECTION"
-#endif
 
           " " STR(BOOTLOADER_SIZE) "\n");
 
