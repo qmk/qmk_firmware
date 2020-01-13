@@ -26,4 +26,3 @@ enum custom_keycodes {
   PMERGE,
   REMCAPS,
 };
-

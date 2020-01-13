@@ -1,5 +1,4 @@
-/*
- * Copyright 2019 John M Daly <jmdaly@gmail.com>
+/* Copyright 2017 Jason Williams (Wilba)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,9 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-#pragma once
-
-void backlight_task(void);
-void breathing_interrupt_disable(void);
-void breathing_interrupt_enable(void);
+#ifndef RGB_BACKLIGHT_DAWN60
+#error RGB_BACKLIGHT_DAWN60 not defined, you done goofed somehao, brah
+#endif

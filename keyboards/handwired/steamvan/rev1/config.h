@@ -57,9 +57,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Backlight configuration
  * Backlight LEDs on B8
  */
-#define BACKLIGHT_LEVELS 24
+#define BACKLIGHT_PIN B8
 #define BACKLIGHT_BREATHING
-#define BREATHING_PERIOD 6
+
+#define WS2812_SPI SPID1
+#define WS2812_SPI_MOSI_PAL_MODE 5
 
 #define RGBLIGHT_ANIMATIONS
 
