@@ -1,12 +1,13 @@
 KVT
 ===
 
-![Proton C](https://i.imgur.com/xZrjIqa.jpg)
+![KVT default layout](https://imgur.com/nPwxzdU)
 
-A Pro Micro drop-in replacement.
+A open source southpaw keyboard. The Default layer is a standard 104 ANSI keyboard just the numpad is on the left.
+There is a fn layer (its not in the layout image but in the keymap file) it adds media keys, f13-f24, and mouse keys.
 
-Keyboard Maintainer: [Neil Feagan](https://github.com/Hybrid65)
-Hardware Supported: QMK Proton C  
+Keyboard Maintainer: [Hybrid65](https://github.com/Hybrid65)
+Hardware Supported: QMK Proton C & KVT  
 Hardware Availability: [List of vendors](https://qmk.fm/proton-c)
 
 Make example for this keyboard (after setting up your build environment):
