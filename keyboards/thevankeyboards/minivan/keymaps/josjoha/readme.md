@@ -3,15 +3,16 @@
 A 40% keyboard made by https://thevankeyboards.com This Dvorak keymap is for
 the default 12x12x12x8 arrangement (44 keys).
 
-
-Dvorak² or Qwerty+Dvorak
-========================
+Compile option for: Dvorak² or Qwerty+Dvorak
+============================================
 
 These keymaps can be compiled either in a Dvorak version which also allows typing
-normally on a computer already set to Dvorak (Dvorak²), or in a Qwerty version that can
-also be set to Dvorak (Qwerty+Dvorak) (see `#define QWERTY_DVORAK`).
-This readme file assumes the Dvorak with Dvorak-descramble version. For the
-layers in the Qwerty+Dvorak version that are different, see [here](./qwerty_dvorak.md)
+normally on a computer already set to Dvorak (Dvorak²), or in a version that can
+switch between Qwerty and Dvorak. (The compile time options are at the top of
+[keymap.c](./keymap.c) The option to choose Qwerty+Dvorak is *`#define QWERTY_DVORAK`*).
+
+This readme file assumes the Dvorak with Dvorak-descramble version (Dvorak²). For the
+layers in the Qwerty+Dvorak version, see [qwerty dvorak.md](./qwerty_dvorak.md)
 
 This keymap.c was edited from the default, LED support was copied/edited
 from ../jetpacktuxedo/ keymap. 
@@ -108,8 +109,8 @@ The 'descramble' system:
 
   Unicode on Windos may require to install something special.
 
-  Layers
-  ======
+  Layers (text)
+  =============
  
      Layer _LTR (LeTteRs, standard Dvorak)
                                              | Right hand
@@ -326,7 +327,7 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   ========================
 
   This layout is easy to learn and predictable, assuming you are a
-  Dvorak typer:
+  Dvorak typer.
 
   The Dvorak layer (BASE) is an unaltered standard Dvorak layout. Despite
   the crammed space, you have left & rigth arrow, GUI, Backspace, Delete
@@ -413,15 +414,15 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   ========
 
   The use case this keymap is designed for: PCs with GNU/Debian/Linux (etc),
-  Linux laptop already set to Dvorak _hence 'descramble'_, being able on the move
+  Linux laptop already set to Dvorak _hence 'descramble'_. Being able on the move
   to operate other operating systems owned by others _hence non-Linux
-  Unicode modes,_ editing in vim / websites etc. _hence no dead keys,_
+  Unicode modes._ Editing in vim / websites etc. _hence no dead keys,_
   programming (shell, C (like) languages) _hence decent access to basic
-  symbols,_ writing in Dutch _hence accented characters_, using a tiling
-  window manager _hence a LGUI on base layer,_ AltGr or Compose seemed
-  difficult to configure / use _hence accented and symbols layer,_ compatibility
-  with the Pok3r keyboard _hence the (non)shift symbols on row 2 left side,_
-  for use with 3D editing _hence a delete on base layer, Control, Alt, Shift on 
+  symbols._ Writing in Dutch _hence accented characters_. Using a tiling
+  window manager _hence a LGUI on base layer._ AltGr or Compose seemed
+  difficult to configure / use _hence accented and symbols layer._ Compatibility
+  with the Pok3r keyboard _hence the (non)shift symbols on row 2 left side._
+  For use with 3D editing _hence a delete on base layer, Control, Alt, Shift on 
   left edge and quick toggle access to `_PAD,` on left shift for faster
   modifiers and tab key._ 
 
@@ -437,6 +438,7 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
      Checking file size of thevankeyboards_minivan_josjoha.hex               [WARNINGS]
      * The firmware size is approaching the maximum - 28384/28672 (98%, 288 bytes free)
 
+     The Qwerty+Dvorak compile version takes only 85% of the memory.
 
   BUGS
   ====
