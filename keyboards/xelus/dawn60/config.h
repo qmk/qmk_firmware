@@ -77,6 +77,15 @@
 // This conditionally compiles the backlight code for Dawn60 specifics
 #define RGB_BACKLIGHT_DAWN60
 
+//RGB Underglow defines
+#define RGB_DI_PIN F0
+#define WS2812_LED_TOTAL 20
+
+#define RGB_UNDERGLOW_ALPHA_TOP_START 0
+#define RGB_UNDERGLOW_ALPHA_TOP_END   6   
+#define RGB_UNDERGLOW_ALPHA_BOT_START 12
+#define RGB_UNDERGLOW_ALPHA_BOT_END   15
+
 // enable/disable LEDs based on layout
 // switch between split backspace (1) or normal backspace(0)
 #define RGB_BACKLIGHT_USE_SPLIT_BACKSPACE 1
@@ -112,15 +121,6 @@
 #define RGB_BACKLIGHT_COLOR_1 { .h = 0, .s = 255 }
 #define RGB_BACKLIGHT_COLOR_2 { .h = 127, .s = 255 }
 
-//RGB Underglow defines
-#define RGB_DI_PIN F0
-#define WS2812_LED_TOTAL 20
-
-#define RGB_UNDERGLOW_ALPHA_TOP_START 0
-#define RGB_UNDERGLOW_ALPHA_TOP_END   6   
-#define RGB_UNDERGLOW_ALPHA_BOT_START 12
-#define RGB_UNDERGLOW_ALPHA_BOT_END   15
-
 // These define which keys in the matrix are alphas/mods
 // Used for backlight effects so colors are different for
 // alphas vs. mods
@@ -137,9 +137,6 @@
 #define RGB_BACKLIGHT_LAYER_2_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
 #define RGB_BACKLIGHT_LAYER_3_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
 
-//RGB reactive only on keypress (put 1 to enable)
-#define RGB_REACTIVE_LEFT_RIGHT 0
-#define RGB_REACTIVE_CYCLE_ALL 0
-#define RGB_REACTIVE_VERTICAL 0
-
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
+// Backlight config starts after VIA's EEPROM usage,
+// dynamic keymaps start after this.
+#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 31
