@@ -62,7 +62,7 @@ extern keymap_config_t keymap_config;
 
 uint8_t                keyboard_idle __attribute__((aligned(2)))      = 0;
 uint8_t                keyboard_protocol __attribute__((aligned(2)))  = 1;
-uint16_t               keyboard_led_stats __attribute__((aligned(2))) = 0;
+uint8_t                keyboard_led_stats                             = 0;
 volatile uint16_t      keyboard_idle_count                            = 0;
 static virtual_timer_t keyboard_idle_timer;
 static void            keyboard_idle_timer_cb(void *arg);
@@ -610,7 +610,7 @@ static void keyboard_idle_timer_cb(void *arg) {
 }
 
 /* LED status */
-uint8_t keyboard_leds(void) { return (uint8_t)(keyboard_led_stats & 0xFF); }
+uint8_t keyboard_leds(void) { return keyboard_led_stats; }
 
 /* prepare and start sending a report IN
  * not callable from ISR or locked state */
