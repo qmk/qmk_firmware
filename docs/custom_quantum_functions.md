@@ -489,14 +489,24 @@ The `val` is the value of the data that you want to write to EEPROM.  And the `e
 
 # Custom Tapping Term
 
-By default, the tapping term is defined globally, and is not configurable by key.  For most users, this is perfectly fine.  But in come cases, dual function keys would be greatly improved by different timeouts than `LT` keys, or because some keys may be easier to hold than others.  Instead of using custom key codes for each, this allows for per key configurable `TAPPING_TERM`.
+By default, the tapping term and related options (such as `IGNORE_MOD_TAP_INTERRUPT`) are defined globally, and are not configurable by key.  For most users, this is perfectly fine.  But in some cases, dual function keys would be greatly improved by different timeout behaviors than `LT` keys, or because some keys may be easier to hold than others.  Instead of using custom key codes for each, this allows for per key configurable timeout behaviors.
 
-To enable this functionality, you need to add `#define TAPPING_TERM_PER_KEY` to your `config.h`, first. 
+There are two configurable options to control per-key timeout behaviors:
+
+- `TAPPING_TERM_PER_KEY`
+- `IGNORE_MOD_TAP_INTERRUPT_PER_KEY`
+
+You need to add `#define` lines to your `config.h` for each feature you want.
+
+```
+#define TAPPING_TERM_PER_KEY
+#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
+```
 
 
 ## Example `get_tapping_term` Implementation
 
-To change the `TAPPING TERM` based on the keycode, you'd want to add something like the following to your `keymap.c` file: 
+To change the `TAPPING_TERM` based on the keycode, you'd want to add something like the following to your `keymap.c` file:
 
 ```c
 uint16_t get_tapping_term(uint16_t keycode) {
@@ -511,6 +521,21 @@ uint16_t get_tapping_term(uint16_t keycode) {
 }
 ```
 
-### `get_tapping_term` Function Documentation
+## Example `get_ignore_mod_tap_interrupt` Implementation
 
-Unlike many of the other functions here, there isn't a need (or even reason) to have a quantum or keyboard level function. Only a user level function is useful here, so no need to mark it as such.
+To change the `IGNORE_MOD_TAP_INTERRUPT` value based on the keycode, you'd want to add something like the following to your `keymap.c` file:
+
+```c
+bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
+  switch (keycode) {
+    case SFT_T(KC_SPC):
+      return true;
+    default:
+      return false;
+  }
+}
+```
+
+## `get_tapping_term` / `get_ignore_mod_tap_interrupt` Function Documentation
+
+Unlike many of the other functions here, there isn't a need (or even reason) to have a quantum or keyboard level function. Only user level functions are useful here, so no need to mark them as such.

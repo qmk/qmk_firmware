@@ -36,6 +36,11 @@ SRC += i2c.c
 SRC += serial.c
 SRC += ssd1306.c
 
+# A workaround until #7089 is merged.
+#   serial.c must not be compiled with the -lto option.
+#   The current LIB_SRC has a side effect with the -fno-lto option, so use it.
+LIB_SRC += serial.c
+
 # if firmware size over limit, try this option
 # CFLAGS += -flto
 

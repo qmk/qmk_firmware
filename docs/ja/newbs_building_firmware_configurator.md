@@ -3,7 +3,7 @@
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
   original document: ed0575fc8:docs/newbs_building_firmware_configurator.md
-  git diff ed0575fc8 HEAD docs/newbs_building_firmware_configurator.md | cat
+  git diff ed0575fc8 HEAD -- docs/newbs_building_firmware_configurator.md | cat
 -->
 
 [QMK Configurator](https://config.qmk.fm) は、QMKファームウェアの hex ファイルを生成するオンライングラフィカルユーザーインターフェイスです。

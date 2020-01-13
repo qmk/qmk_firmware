@@ -3,7 +3,7 @@
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
   original document: adf4acf59:docs/newbs_git_resynchronize_a_branch.md
-  git diff adf4acf59 HEAD docs/newbs_git_resynchronize_a_branch.md | cat
+  git diff adf4acf59 HEAD -- docs/newbs_git_resynchronize_a_branch.md | cat
 -->
 
 仮にあなたの `master` ブランチにあなたのコミットを行い、そしてあなたの QMK リポジトリの更新が必要になったとします。
