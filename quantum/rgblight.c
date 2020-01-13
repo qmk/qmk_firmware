@@ -611,6 +611,7 @@ void rgblight_set(void) {
 #    endif
         }
     }
+
 #    ifdef RGBLIGHT_LED_MAP
     LED_TYPE led0[RGBLED_NUM];
     for (uint8_t i = 0; i < RGBLED_NUM; i++) {
@@ -620,7 +621,13 @@ void rgblight_set(void) {
 #    else
     start_led = led + clipping_start_pos;
 #    endif
-    ws2812_setleds(start_led, num_leds);
+
+#ifdef RGBW
+    for (uint8_t i = 0; i < num_leds; i++) {
+        convert_rgb_to_rgbw(&start_led[i]);
+    }
+#endif
+   ws2812_setleds(start_led, num_leds);
 }
 #endif
 

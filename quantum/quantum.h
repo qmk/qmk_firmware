@@ -22,6 +22,7 @@
 #endif
 #if defined(PROTOCOL_CHIBIOS)
 #    include "hal.h"
+#    include "chibios_config.h"
 #endif
 
 #include "wait.h"
@@ -133,6 +134,14 @@ extern layer_state_t layer_state;
 #    include "process_space_cadet.h"
 #endif
 
+#ifdef MAGIC_KEYCODE_ENABLE
+#    include "process_magic.h"
+#endif
+
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#    include "process_rgb.h"
+#endif
+
 #ifdef HD44780_ENABLE
 #    include "hd44780.h"
 #endif
@@ -151,6 +160,14 @@ extern layer_state_t layer_state;
 
 #ifdef DYNAMIC_MACRO_ENABLE
 #    include "process_dynamic_macro.h"
+#endif
+
+#ifdef DYNAMIC_KEYMAP_ENABLE
+#   include "dynamic_keymap.h"
+#endif
+
+#ifdef VIA_ENABLE
+#   include "via.h"
 #endif
 
 // Function substitutions to ease GPIO manipulation
@@ -182,30 +199,8 @@ typedef ioline_t pin_t;
 #    define readPin(pin) palReadLine(pin)
 #endif
 
-// Send string macros
-#define STRINGIZE(z) #z
-#define ADD_SLASH_X(y) STRINGIZE(\x##y)
-#define SYMBOL_STR(x) ADD_SLASH_X(x)
-
-#define SS_TAP_CODE 1
-#define SS_DOWN_CODE 2
-#define SS_UP_CODE 3
-
-#define SS_TAP(keycode) "\1" SYMBOL_STR(keycode)
-#define SS_DOWN(keycode) "\2" SYMBOL_STR(keycode)
-#define SS_UP(keycode) "\3" SYMBOL_STR(keycode)
-
-// `string` arguments must not be parenthesized
-#define SS_LCTRL(string) SS_DOWN(X_LCTRL) string SS_UP(X_LCTRL)
-#define SS_LGUI(string) SS_DOWN(X_LGUI) string SS_UP(X_LGUI)
-#define SS_LCMD(string) SS_LGUI(string)
-#define SS_LWIN(string) SS_LGUI(string)
-#define SS_LALT(string) SS_DOWN(X_LALT) string SS_UP(X_LALT)
-#define SS_LSFT(string) SS_DOWN(X_LSHIFT) string SS_UP(X_LSHIFT)
-#define SS_RALT(string) SS_DOWN(X_RALT) string SS_UP(X_RALT)
-#define SS_ALGR(string) SS_RALT(string)
-
 #define SEND_STRING(string) send_string_P(PSTR(string))
+#define SEND_STRING_DELAY(string, interval) send_string_with_delay_P(PSTR(string), interval)
 
 extern const bool    ascii_to_shift_lut[128];
 extern const bool    ascii_to_altgr_lut[128];
@@ -255,30 +250,6 @@ void shutdown_user(void);
 void register_code16(uint16_t code);
 void unregister_code16(uint16_t code);
 void tap_code16(uint16_t code);
-
-#ifdef BACKLIGHT_ENABLE
-void backlight_init_ports(void);
-void backlight_task(void);
-void backlight_task_internal(void);
-void backlight_on(pin_t backlight_pin);
-void backlight_off(pin_t backlight_pin);
-
-#    ifdef BACKLIGHT_BREATHING
-void breathing_task(void);
-void breathing_enable(void);
-void breathing_pulse(void);
-void breathing_disable(void);
-void breathing_self_disable(void);
-void breathing_toggle(void);
-bool is_breathing(void);
-
-void breathing_intensity_default(void);
-void breathing_period_default(void);
-void breathing_period_set(uint8_t value);
-void breathing_period_inc(void);
-void breathing_period_dec(void);
-#    endif
-#endif
 
 void     send_dword(uint32_t number);
 void     send_word(uint16_t number);
