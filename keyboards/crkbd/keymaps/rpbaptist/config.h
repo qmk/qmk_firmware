@@ -51,6 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGB_MATRIX_SPD_STEP 10
 
 #    define DISABLE_RGB_MATRIX_ALPHAS_MODS
+#    define DISABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
 #    define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 #    define DISABLE_RGB_MATRIX_BREATHING
 #    define DISABLE_RGB_MATRIX_BAND_SAT
@@ -59,6 +60,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define DISABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
 #    define DISABLE_RGB_MATRIX_BAND_SPIRAL_SAT
 #    define DISABLE_RGB_MATRIX_BAND_SPIRAL_VAL
+
 // #define DISABLE_RGB_MATRIX_CYCLE_ALL
 #    define DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
 #    define DISABLE_RGB_MATRIX_CYCLE_UP_DOWN
