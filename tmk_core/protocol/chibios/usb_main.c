@@ -383,7 +383,7 @@ static uint16_t get_hword(uint8_t *p) {
 
 static uint8_t set_report_buf[2] __attribute__((aligned(2)));
 static void    set_led_transfer_cb(USBDriver *usbp) {
-    if (usbp->setup[6] == 2) { // LSB(wLength)
+    if (usbp->setup[6] == 2) { /* LSB(wLength) */
         uint8_t report_id = set_report_buf[0];
         if ((report_id == REPORT_ID_KEYBOARD) || (report_id == REPORT_ID_NKRO)) {
             keyboard_led_stats = set_report_buf[1];
@@ -447,7 +447,7 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
             case USB_RTYPE_DIR_HOST2DEV:
                 switch (usbp->setup[1]) { /* bRequest */
                     case HID_SET_REPORT:
-                        switch (usbp->setup[4]) { /* LSB(wIndex) (check MSB==0 and wLength==1?) */
+                        switch (usbp->setup[4]) { /* LSB(wIndex) (check MSB==0?) */
                             case KEYBOARD_INTERFACE:
 #if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
                             case SHARED_INTERFACE:
