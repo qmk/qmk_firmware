@@ -1,12 +1,10 @@
-# yurei
+# Yurei
 
-![yurei](imgur.com image replace me!)
+A Tenkeyless PCB inspired by Phantom, for customizing Filco Majestouch 2.
 
-A short description of the keyboard/project
-
-* Keyboard Maintainer: [Koichi Katano](https://github.com/yourusername)
-* Hardware Supported: The PCBs, controllers supported
-* Hardware Availability: Links to where you can find this hardware
+* Keyboard Maintainer: [Koichi Katano](https://github.com/kkatano)
+* Hardware Supported: Yurei PCB
+* Hardware Availability: https://github.com/kkatano/yurei
 
 Make example for this keyboard (after setting up your build environment):
 
