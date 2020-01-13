@@ -2,11 +2,11 @@
 
 ![Rebound](https://imgur.com/zMPhNmm)
 
-A conjoined-split 40% 4x12 ortholinear keyboard made and sold by Montsinger and Massdrop. [More info on Montsinger.net](https://montsinger.net)
+A conjoined-split 40% 4x12 ortholinear keyboard made and sold by Montsinger. [More info on Montsinger.net](https://montsinger.net)
 
 * Keyboard Maintainer: [Rossman360](https://github.com/rossman360)
 * Hardware Supported: Pro Micro, Elite-C
-* Hardware Availability: [Montsinger.net.com](https://montsinger.net)
+* Hardware Availability: [Montsinger.net](https://montsinger.net)
 
 Make example for this keyboard (after setting up your build environment):
 
