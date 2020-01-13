@@ -5,7 +5,7 @@
     "width": 18.26,
     "height": 6.47,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_tkl_ansi": {
             "key_count": 87,
             "layout": [
                 {"label":"1", "x":0, "y":0},
