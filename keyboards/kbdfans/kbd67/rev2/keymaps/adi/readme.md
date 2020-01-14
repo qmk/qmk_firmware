@@ -5,4 +5,4 @@ This layout modifies the extra row on the right and makes some of the key bindin
 
 Build and flash your firmware: press reset button below keyboard and run build command in directory:
 
-```make kbdfans/kbd67/rev2:adi:dfu```
+```make kbdfans/kbd67/rev2:adi:flash```
