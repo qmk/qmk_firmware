@@ -373,7 +373,11 @@ void set_layer_color(int layer) {
 }
 
 void rgb_matrix_indicators_user(void) {
-    if (g_suspend_state || disable_layer_color) { return; }
+    if (g_suspend_state || disable_layer_color ||
+        rgb_matrix_get_flags() == LED_FLAG_NONE ||
+        rgb_matrix_get_flags() == LED_FLAG_UNDERGLOW) {
+            return;
+        }
     set_layer_color(get_highest_layer(layer_state));
 }
 
