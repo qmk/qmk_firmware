@@ -1,7 +1,18 @@
+# MCU name
 MCU = atmega32u4
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
 BOOTLOADER = atmel-dfu
 
 # Build Options
+#   change yes to no to disable
+#
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
 MOUSEKEY_ENABLE  = yes      # Mouse keys
 EXTRAKEY_ENABLE  = yes      # Audio control and System control
@@ -22,4 +33,4 @@ ENCODER_ENABLE     = yes    # Enable support for rotary encoders
 OLED_DRIVER_ENABLE = yes    # Enable support for OLED display
 
 # Additional code
-SRC += ./lib/oled_helper.c  # Adding OLED
+SRC += lib/oled_helper.c  # Adding OLED

@@ -93,8 +93,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void encoder_update_user(uint8_t index, bool clockwise) {
-  int currentDefault = eeconfig_read_default_layer();
-  int currentLayer = get_highest_layer(layer_state);
+  uint8_t currentDefault = get_highest_layer(default_layer_state);
+  uint8_t currentLayer = get_highest_layer(layer_state);
   if (index == 0) { /* the upper encoder */
     switch (biton32(currentDefault)) {
       case MAC_CS_1:
