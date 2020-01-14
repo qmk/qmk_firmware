@@ -15,6 +15,8 @@ references:
             CONTAINER_NAME: qkm_firmware
           command: |
             set -x
+            git submodule init
+            git submodule update
             docker image build -t $CONTAINER_NAME .
             docker container run --name $CONTAINER_NAME $CONTAINER_NAME make $BUILD_TARGET
             docker container cp $CONTAINER_NAME:/qmk_firmware/.build .
