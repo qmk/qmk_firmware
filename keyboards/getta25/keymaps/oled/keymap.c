@@ -1,13 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "keymap_jp.h"
 
-#ifdef RGBLIGHT_ENABLE
-//Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-#endif
-
-extern uint8_t is_master;
-
 #ifdef OLED_DRIVER_ENABLE
 static uint32_t        oled_timer = 0;
 #endif
@@ -155,22 +148,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("_MIN*");
       }
       break;
-    #ifdef RGBLIGHT_ENABLE
-      case RGB_MOD:
-          if (record->event.pressed) {
-            rgblight_mode(RGB_current_mode);
-            rgblight_step();
-            RGB_current_mode = rgblight_config.mode;
-          }
-        break;
-      case RGB_RST:
-          if (record->event.pressed) {
-            eeconfig_update_rgblight_default();
-            rgblight_enable();
-            RGB_current_mode = rgblight_config.mode;
-          }
-        break;
-    #endif
     default:
       result = true;
       break;
