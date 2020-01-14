@@ -179,7 +179,7 @@ void render_layer_messages(void) {
 void render_status(void) {
     /* Show Keyboard Layout  */
     render_layer_state();
-    render_keylock_status(host_keyboard_leds());
+    render_keylock_status(host_keyboard_led_state());
 }
 
 void oled_task_user(void) {
@@ -202,4 +202,3 @@ void oled_task_user(void) {
 }
 
 #endif
-
