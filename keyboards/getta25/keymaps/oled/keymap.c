@@ -169,7 +169,7 @@ void render_layer_state(void) {
 }
 
 void render_keylock_status(led_t led_state) {
-    oled_write_P(PSTR("NumL "), led_usb_state & (1 << USB_LED_NUM_LOCK));
+    oled_write_P(PSTR("NumL "), led_state.num_lock);
 }
 
 void render_layer_messages(void) {
