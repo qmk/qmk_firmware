@@ -99,7 +99,7 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
     if [[ $? == 0 ]]; then
         yay -S --needed bootloadhid
     else
-        echo "!!!Prease manually install bootloadhid package from AUR!!!"
+        printf "\033[0;31m!!!Prease manually install bootloadhid package from AUR!!!\033[0m\n"
     fi
 
 elif grep ID /etc/os-release | grep -q gentoo; then
