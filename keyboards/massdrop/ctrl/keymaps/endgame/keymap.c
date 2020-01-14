@@ -374,7 +374,7 @@ void set_layer_color(int layer) {
 
 void rgb_matrix_indicators_user(void) {
     if (g_suspend_state || disable_layer_color) { return; }
-    set_layer_color(biton32(layer_state));
+    set_layer_color(get_highest_layer(layer_state));
 }
 
 /* This is a test function for Raw HID, which is currently not implemented for this keyboard */
