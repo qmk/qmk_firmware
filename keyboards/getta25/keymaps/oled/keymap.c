@@ -168,7 +168,7 @@ void render_layer_state(void) {
     oled_write_P(PSTR("     "), false);
 }
 
-void render_keylock_status(uint8_t led_usb_state) {
+void render_keylock_status(led_t led_state) {
     oled_write_P(PSTR("NumL "), led_usb_state & (1 << USB_LED_NUM_LOCK));
 }
 
