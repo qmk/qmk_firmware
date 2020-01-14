@@ -259,7 +259,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     if (record->event.pressed) {
         // The Yakuake config uses LGUI+Ctrl+Shift+<keycode>. KC_NO used for undesired key, all mapped ones get mods.
-        if (biton32(layer_state) == _YL && keycode != TG(_YL)) {
+        if (get_highest_layer(layer_state) == _YL && keycode != TG(_YL)) {
             tap_code16(C(G(S(keycode))));
             return false;
         }
