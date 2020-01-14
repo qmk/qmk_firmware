@@ -176,7 +176,7 @@ uint16_t get_tapping_term(uint16_t keycode) {
         case TD(TD_WTAB):
             return 120;
         case TD(TD_CTRL_A):
-            return 150;
+            return 100;
         case LSFT_T(KC_Z):
             return 120;
 		case TD(TD_QUES_ENT):
