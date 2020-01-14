@@ -1,7 +1,5 @@
 # Palette1202
 
----
-
 ![Palette1202](https://palette1202.nilgiri-tea.net/images/palette1202.jpg)
 
 A left hand device with rotary encoder, for artists.
