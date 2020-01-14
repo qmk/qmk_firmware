@@ -19,13 +19,13 @@
   #include "lib/oled_helper.h"
 #endif
 
-enum PROGMEM custom_keycode {
+enum custom_keycode {
   Mac_CS = SAFE_RANGE,
   Mac_PS,
   Win_CS,
   Win_PS,
 };
-enum PROGMEM layerID {
+enum layerID {
   MAC_CS_1 = 0,
   MAC_CS_2,
   MAC_PS_1,
@@ -96,49 +96,49 @@ void encoder_update_user(uint8_t index, bool clockwise) {
   uint8_t currentDefault = get_highest_layer(default_layer_state);
   uint8_t currentLayer = get_highest_layer(layer_state);
   if (index == 0) { /* the upper encoder */
-    switch (biton32(currentDefault)) {
+    switch (currentDefault) {
       case MAC_CS_1:
         if (currentLayer % 2 == 0) {
           // default layer
           // Zoom
-          !clockwise ? SEND_STRING(SS_LGUI("-")) : SEND_STRING(SS_LGUI("="));
+          tap_code16(!clockwise ? G(KC_MINS) : G(KC_EQL));
         } else {
           // Fn Layer
           // rotate canvas
-          !clockwise ? SEND_STRING("-") : tap_code(KC_QUOT);
+          tap_code(!clockwise ? KC_MINS : KC_QUOT);
         }
         break;
       case MAC_PS_1:
         if (currentLayer % 2 == 0) {
           // default layer
           // Zoom
-          !clockwise ? SEND_STRING(SS_LGUI("-")) : SEND_STRING(SS_LGUI("="));
+          tap_code16(!clockwise ? G(KC_MINS) : G(KC_EQL));
         } else {
           // Fn Layer
           // undo / redo
-          !clockwise ? SEND_STRING(SS_LGUI("z")) : SEND_STRING(SS_LGUI("Z"));
+          tap_code16(!clockwise ? G(KC_Z) : S(G(KC_Z)));
         }
         break;
       case WIN_CS_1:
         if (currentLayer % 2 == 0) {
           // default layer
           // Zoom
-          !clockwise ? SEND_STRING(SS_LCTRL("-")) : SEND_STRING(SS_LCTRL("="));
+          tap_code16(!clockwise ? C(KC_MINS) : C(KC_EQL));
         } else {
           // Fn Layer
           // rotate canvas
-          !clockwise ? SEND_STRING("-") : tap_code(KC_QUOT);
+          tap_code(!clockwise ? KC_MINS : KC_QUOT);
         }
         break;
       case WIN_PS_1:
         if (currentLayer % 2 == 0) {
           // default layer
           // Zoom
-          !clockwise ? SEND_STRING(SS_LCTRL("-")) : SEND_STRING(SS_LCTRL(";"));
+          tap_code16(!clockwise ? C(KC_MINS) : C(KC_SCLN));
         } else {
           // Fn Layer
           // undo / redo
-          !clockwise ? SEND_STRING(SS_LCTRL("z")) : SEND_STRING(SS_LCTRL("Z"));
+          tap_code16(!clockwise ? C(KC_Z) : C(S(KC_Z)));
         }
         break;
         break;
@@ -146,49 +146,49 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         break;
     }
   } else if (index == 1) { /* the lower encoder */ 
-    switch (biton32(currentDefault)) {
+    switch (currentDefault) {
       case MAC_CS_1:
         if (currentLayer % 2 == 0) {
           // default layer
           // size of brush
-          !clockwise ? SEND_STRING("[") : SEND_STRING("]");
+          tap_code(!clockwise ? KC_LBRC : KC_RBRC);
         } else {
           // Fn Layer
           // opacity of brush
-          !clockwise ? SEND_STRING(SS_LGUI("[")) : SEND_STRING(SS_LGUI("]"));
+          tap_code16(!clockwise ? G(KC_LBRC) : G(KC_RBRC));
         }
         break;
       case MAC_PS_1:
         if (currentLayer % 2 == 0) {
           // default layer
           // size of brush
-          !clockwise ? SEND_STRING("[") : SEND_STRING("]");
+          tap_code(!clockwise ? KC_LBRC : KC_RBRC);
         } else {
           // Fn Layer
           // opacity of brush
-          !clockwise ? SEND_STRING("{") : SEND_STRING("}");
+          tap_code16(!clockwise ? KC_LCBR : KC_RCBR);
         }
         break;
       case WIN_CS_1:
         if (currentLayer % 2 == 0) {
           // default layer
           // rotate canvas
-          !clockwise ? SEND_STRING("[") : SEND_STRING("]");
+          tap_code(!clockwise ? KC_LBRC : KC_RBRC);
         } else {
           // Fn Layer
           // opacity of brush
-          !clockwise ? SEND_STRING(SS_LCTRL("[")) : SEND_STRING(SS_LCTRL("]"));
+          tap_code16(!clockwise ? C(KC_LBRC) : C(KC_RBRC));
         }
         break;
       case WIN_PS_1:
         if (currentLayer % 2 == 0) {
           // default layer
           // rotate canvas
-          !clockwise ? SEND_STRING("[") : SEND_STRING("]");
+          tap_code(!clockwise ? KC_LBRC : KC_RBRC);
         } else {
           // Fn Layer
           // opacity of brush
-          !clockwise ? SEND_STRING("{") : SEND_STRING("}");
+          tap_code16(!clockwise ? KC_LCBR : KC_RCBR);
         }
         break;
       default:
