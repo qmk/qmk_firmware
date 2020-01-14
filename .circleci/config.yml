@@ -5,7 +5,7 @@ references:
     docker:
       - image: circleci/buildpack-deps:18.04
 
-  build_run: &build_steps
+  build_run: &build_run
     run:
       name: build
       environment:
