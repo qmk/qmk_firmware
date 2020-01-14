@@ -311,7 +311,7 @@ FIXME(username): Revisit this code when the frob feature is done.
 
 # Testing
 
-We use a combination of Integration and Unit testing to ensure that the our code is as bug-free as possible. All the tests can be found in `lib/python/qmk/tests/`.
+We use a combination of Integration and Unit testing to ensure that the our code is as bug-free as possible. All the tests can be found in `lib/python/qmk/tests/`. You can run all the tests with `qmk pytest`.
 
 At the time of this writing our tests are not very comprehensive. Looking at the current tests and writing new test cases for untested situations is a great way to both familiarize yourself with the codebase and contribute to QMK.
 
