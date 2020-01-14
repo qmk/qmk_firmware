@@ -23,7 +23,7 @@ enum custom_keycodes {
     RGB_SOL,  // RGB_MATRIX_SOLID_COLOR
     RGB_CYC,  // RGB_MATRIX_CYCLE_ALL
     RGB_DUO,  // RGB_MATRIX_RAINBOW_PINWHEELS
-    RGB_CHV   // RGB_MATRIX_RAINBOW_MOVING_CHEVRON
+    RGB_SCR   // RGB_MATRIX_CYCLE_LEFT_RIGHT
 };
 
 typedef union {
@@ -156,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
         RESET, XXXXXXX, KC_MPRV, KC_VOLU, KC_MNXT, COLEMAK,                      RGB_IDL, RGB_MAP, RGB_NXS, XXXXXXX, RGB_HUD, RGB_HUI,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_RST, XXXXXXX, KC_MSTP, KC_VOLD, KC_MPLY,  GAMING,                      RGB_UND, RGB_DUO, RGB_CHV, RGB_SPI, RGB_VAD, RGB_VAI,\
+      RGB_RST, XXXXXXX, KC_MSTP, KC_VOLD, KC_MPLY,  GAMING,                      RGB_UND, RGB_DUO, RGB_SCR, RGB_SPI, RGB_VAD, RGB_VAI,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, KC_SLEP, XXXXXXX, KC_MUTE, XXXXXXX, XXXXXXX,                      RGB_TOG, RGB_SOL, RGB_CYC, RGB_SPD, RGB_SAD, RGB_SAI,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -208,7 +208,7 @@ const char *rgb_matrix_anim_oled_text(uint8_t mode) {
             return PSTR("Cycle");
         case RGB_MATRIX_RAINBOW_PINWHEELS:
             return PSTR("Wheel");
-        case RGB_MATRIX_RAINBOW_MOVING_CHEVRON:
+        case RGB_MATRIX_CYCLE_LEFT_RIGHT:
             return PSTR("Wave ");
         default:
             return PSTR("");
@@ -558,9 +558,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 rgb_matrix_update_mode(RGB_MATRIX_RAINBOW_PINWHEELS, RGB_MATRIX_ANIMATION_SPEED_SLOW, false);
             }
             break;
-        case RGB_CHV:
+        case RGB_SCR:
             if (record->event.pressed) {
-                rgb_matrix_update_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON, RGB_MATRIX_ANIMATION_SPEED_SLOW, false);
+                rgb_matrix_update_mode(RGB_MATRIX_CYCLE_LEFT_RIGHT, RGB_MATRIX_ANIMATION_SPEED_SLOW, false);
             }
             break;
 #endif
