@@ -1,17 +1,50 @@
-#include QMK_KEYBOARD_H
 #include "drashna.h"
 
-extern keymap_config_t keymap_config;
-extern uint8_t         is_master;
+extern uint8_t is_master;
 
 #ifdef RGBLIGHT_ENABLE
 // Following line allows macro to read current RGB settings
 extern rgblight_config_t rgblight_config;
 #endif
+#ifdef OLED_DRIVER_ENABLE
+#    define KEYLOGGER_LENGTH 5
+static uint32_t oled_timer                       = 0;
+static char     keylog_str[KEYLOGGER_LENGTH + 1] = {"\n"};
+static uint16_t log_timer                        = 0;
+// clang-format off
+static const char PROGMEM code_to_name[0xFF] = {
+//   0    1    2    3    4    5    6    7    8    9    A    B    c    D    E    F
+    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',  // 0x
+    'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2',  // 1x
+    '3', '4', '5', '6', '7', '8', '9', '0',  20,  19,  27,  26,  22, '-', '=', '[',  // 2x
+    ']','\\', '#', ';','\'', '`', ',', '.', '/', 128, ' ', ' ', ' ', ' ', ' ', ' ',  // 3x
+    ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'S', ' ', ' ', ' ', ' ',  16, ' ', ' ', ' ',  // 4x
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 5x
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 6x
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 7x
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 8x
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 9x
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Ax
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Bx
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Cx
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Dx
+    'C', 'S', 'A', 'C', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Ex
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '        // Fx
+};
+
+void add_keylog(uint16_t keycode);
+#endif
 
 enum crkbd_keycodes { RGBRST = NEW_SAFE_RANGE };
 
-// clang-format off
+/*
+ * The `LAYOUT_crkbd_base` macro is a template to allow the use of identical
+ * modifiers for the default layouts (eg QWERTY, Colemak, Dvorak, etc), so
+ * that there is no need to set them up for each layout, and modify all of
+ * them if I want to change them.  This helps to keep consistency and ease
+ * of use. K## is a placeholder to pass through the individual keycodes
+ */
+
 #define LAYOUT_crkbd_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
     K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
@@ -19,7 +52,7 @@ enum crkbd_keycodes { RGBRST = NEW_SAFE_RANGE };
   ) \
   LAYOUT_wrapper( \
     KC_ESC,  K01,    K02,     K03,      K04,     K05,                        K06,     K07,     K08,     K09,     K0A,     KC_MINS, \
-    KC_TAB, ALT_T(K11),  K12, K13,      K14,     K15,                        K16,     K17,     K18,     K19,     K1A,     KC_QUOT, \
+    ALT_T(KC_TAB), K11,  K12, K13,      K14,     K15,                        K16,     K17,     K18,     K19,     K1A, RALT_T(KC_QUOT), \
     OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,                        K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
                                         KC_GRV,  KC_SPC,  BK_LWER, DL_RAIS,  KC_ENT,  OS_RGUI                                      \
   )
@@ -98,187 +131,167 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = LAYOUT_wrapper( \
     KC_MAKE, _________________ADJUST_L1_________________,                    _________________ADJUST_R1_________________, KC_RESET,
     VRSN,    _________________ADJUST_L2_________________,                    _________________ADJUST_R2_________________, EEP_RST,
-    _______, _________________ADJUST_L3_________________,                    _________________ADJUST_R3_________________, KC_MPLY,
-                                     _______, KC_NUKE, _______,        _______, TG_MODS, _______
+    MG_NKRO, _________________ADJUST_L3_________________,                    _________________ADJUST_R3_________________, RGB_IDL,
+                                     HPT_TOG, KC_NUKE, _______,        _______, TG_MODS, HPT_FBK
   )
 };
 // clang-format on
 
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+#ifdef OLED_DRIVER_ENABLE
+        oled_timer = timer_read32();
+        add_keylog(keycode);
+#endif
+#ifndef SPLIT_KEYBOARD
+        if (keycode == RESET && !is_master) {
+            return false;
+        }
+#endif
+    }
+    return true;
+}
+
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
-uint16_t        oled_timer;
-
-char     keylog_str[5]   = {};
-uint8_t  keylogs_str_idx = 0;
-uint16_t log_timer       = 0;
-
-const char code_to_name[60] = {' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\', '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
 
 void add_keylog(uint16_t keycode) {
-    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
+    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) || (keycode >= QK_MODS && keycode <= QK_MODS_MAX)) {
         keycode = keycode & 0xFF;
+    } else if (keycode > 0xFF) {
+        keycode = 0;
     }
 
-    for (uint8_t i = 4; i > 0; i--) {
+    for (uint8_t i = (KEYLOGGER_LENGTH - 1); i > 0; --i) {
         keylog_str[i] = keylog_str[i - 1];
     }
-    if (keycode < 60) {
-        keylog_str[0] = code_to_name[keycode];
+
+    if (keycode < (sizeof(code_to_name) / sizeof(char))) {
+        keylog_str[0] = pgm_read_byte(&code_to_name[keycode]);
     }
-    keylog_str[5] = 0;
 
     log_timer = timer_read();
 }
 
 void update_log(void) {
     if (timer_elapsed(log_timer) > 750) {
-        add_keylog(0);
+        // add_keylog(0);
     }
 }
 
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        add_keylog(keycode);
-        oled_timer = timer_read();
-    }
-    return true;
+void render_keylogger_status(void) {
+    oled_write_P(PSTR("KLogr"), false);
+    oled_write(keylog_str, false);
 }
 
-void render_rgb_status(void) {
-    oled_write_ln("RGB:", false);
-    static char temp[20] = {0};
-    snprintf(temp, sizeof(temp) + 1, "M:%3dH:%3dS:%3dV:%3d", rgb_matrix_config.mode, rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
-    oled_write(temp, false);
+void render_default_layer_state(void) {
+    oled_write_P(PSTR("Lyout"), false);
+    switch (get_highest_layer(default_layer_state)) {
+        case _QWERTY:
+            oled_write_P(PSTR(" QRTY"), false);
+            break;
+        case _COLEMAK:
+            oled_write_P(PSTR(" COLE"), false);
+            break;
+        case _DVORAK:
+            oled_write_P(PSTR(" DVRK"), false);
+            break;
+        case _WORKMAN:
+            oled_write_P(PSTR(" WKMN"), false);
+            break;
+        case _NORMAN:
+            oled_write_P(PSTR(" NORM"), false);
+            break;
+        case _MALTRON:
+            oled_write_P(PSTR(" MLTN"), false);
+            break;
+        case _EUCALYN:
+            oled_write_P(PSTR(" ECLN"), false);
+            break;
+        case _CARPLAX:
+            oled_write_P(PSTR(" CRPX"), false);
+            break;
+    }
+}
+
+void render_layer_state(void) {
+    oled_write_P(PSTR("LAYER"), false);
+    oled_write_P(PSTR("Lower"), layer_state_is(_LOWER));
+    oled_write_P(PSTR("Raise"), layer_state_is(_RAISE));
+    oled_write_P(PSTR(" Mods"), layer_state_is(_MODS));
+}
+
+void render_keylock_status(uint8_t led_usb_state) {
+    oled_write_P(PSTR("Lock:"), false);
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR("N"), led_usb_state & (1 << USB_LED_NUM_LOCK));
+    oled_write_P(PSTR("C"), led_usb_state & (1 << USB_LED_CAPS_LOCK));
+    oled_write_ln_P(PSTR("S"), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
+}
+
+void render_mod_status(uint8_t modifiers) {
+    oled_write_P(PSTR("Mods:"), false);
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR("S"), (modifiers & MOD_MASK_SHIFT));
+    oled_write_P(PSTR("C"), (modifiers & MOD_MASK_CTRL));
+    oled_write_P(PSTR("A"), (modifiers & MOD_MASK_ALT));
+    oled_write_P(PSTR("G"), (modifiers & MOD_MASK_GUI));
+}
+
+void render_bootmagic_status(void) {
+    /* Show Ctrl-Gui Swap options */
+    static const char PROGMEM logo[][2][3] = {
+        {{0x97, 0x98, 0}, {0xb7, 0xb8, 0}},
+        {{0x95, 0x96, 0}, {0xb5, 0xb6, 0}},
+    };
+    oled_write_P(PSTR("BTMGK"), false);
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(logo[0][0], !keymap_config.swap_lctl_lgui);
+    oled_write_P(logo[1][0], keymap_config.swap_lctl_lgui);
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(logo[0][1], !keymap_config.swap_lctl_lgui);
+    oled_write_P(logo[1][1], keymap_config.swap_lctl_lgui);
+    oled_write_P(PSTR(" NKRO"), keymap_config.nkro);
+}
+
+void render_user_status(void) {
+    oled_write_P(PSTR("USER:"), false);
+    oled_write_P(PSTR(" Anim"), userspace_config.rgb_matrix_idle_anim);
+    oled_write_P(PSTR(" Layr"), userspace_config.rgb_layer_change);
+    oled_write_P(PSTR(" Nuke"), userspace_config.nuke_switch);
 }
 
 void render_status_main(void) {
     /* Show Keyboard Layout  */
-    oled_write("Lyout", false);
-    switch (biton32(default_layer_state)) {
-        case _QWERTY:
-            oled_write(" QRTY", false);
-            break;
-        case _COLEMAK:
-            oled_write(" COLE", false);
-            break;
-        case _DVORAK:
-            oled_write(" DVRK", false);
-            break;
-        case _WORKMAN:
-            oled_write(" WKMN", false);
-            break;
-        case _NORMAN:
-            oled_write(" NORM", false);
-            break;
-        case _MALTRON:
-            oled_write(" MLTN", false);
-            break;
-        case _EUCALYN:
-            oled_write(" ECLN", false);
-            break;
-        case _CARPLAX:
-            oled_write(" CRPX", false);
-            break;
-    }
+    render_default_layer_state();
+    render_keylock_status(host_keyboard_leds());
+    render_bootmagic_status();
+    render_user_status();
 
-    /* Show Lock Status (only work on master side) */
-    uint8_t led_usb_state = host_keyboard_leds();
-    oled_write("Lock:", false);
-    oled_write(" ", false);
-    oled_write_ln("NUM", led_usb_state & (1 << USB_LED_NUM_LOCK));
-    oled_write(" ", false);
-    oled_write("CAPS", led_usb_state & (1 << USB_LED_CAPS_LOCK));
-    oled_write(" ", false);
-    oled_write("SCRL", led_usb_state & (1 << USB_LED_SCROLL_LOCK));
-
-    /* Show Alt-Gui Swap options */
-    oled_write("BTMGK", false);
-    oled_write(" ", false);
-    oled_write_ln("Win", !keymap_config.swap_lalt_lgui);
-    oled_write(" ", false);
-    oled_write_ln("Mac", keymap_config.swap_lalt_lgui);
-
-#    if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-    /* Show RGB Options */
-    render_rgb_status();
-#    endif
-
-    oled_write(keylog_str, false);
+    render_keylogger_status();
 }
 
 void render_status_secondary(void) {
     /* Show Keyboard Layout  */
-    oled_write("Lyout", false);
-    switch (biton32(default_layer_state)) {
-        case _QWERTY:
-            oled_write(" QRTY", false);
-            break;
-        case _COLEMAK:
-            oled_write(" COLE", false);
-            break;
-        case _DVORAK:
-            oled_write(" DVRK", false);
-            break;
-        case _WORKMAN:
-            oled_write(" WKMN", false);
-            break;
-        case _NORMAN:
-            oled_write(" NORM", false);
-            break;
-        case _MALTRON:
-            oled_write(" MLTN", false);
-            break;
-        case _EUCALYN:
-            oled_write(" ECLN", false);
-            break;
-        case _CARPLAX:
-            oled_write(" CRPX", false);
-            break;
-    }
+    render_default_layer_state();
+    render_layer_state();
+    render_mod_status(get_mods() | get_oneshot_mods());
 
-    /* Show Activate layer */
-    oled_write("Layer", false);
-    switch (biton32(layer_state)) {
-        case _RAISE:
-            oled_write("Raise", false);
-            break;
-        case _LOWER:
-            oled_write("Lower", false);
-            break;
-        case _ADJUST:
-            oled_write("Adjst", false);
-            break;
-        default:
-            oled_write("Dflt ", false);
-            break;
-    }
-
-    /* Show Mod  */
-    uint8_t modifiers = get_mods() | get_oneshot_mods();
-
-    oled_write("Mods:", false);
-    oled_write(" ", false);
-    oled_write_ln("SFT", (modifiers & MOD_MASK_SHIFT));
-    oled_write(" ", false);
-    oled_write_ln("CTL", (modifiers & MOD_MASK_CTRL));
-    oled_write(" ", false);
-    oled_write_ln("ALT", (modifiers & MOD_MASK_ALT));
-    oled_write(" ", false);
-    oled_write_ln("GUI", (modifiers & MOD_MASK_GUI));
-
-#    if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-    render_rgb_status();
-#    endif
-
-    /* Show logged Keys */
-    oled_write(keylog_str, false);
+    render_keylogger_status();
 }
 
 void oled_task_user(void) {
-    if (timer_elapsed(oled_timer) > 60000) {
+    if (timer_elapsed32(oled_timer) > 30000) {
         oled_off();
         return;
     }
+#    ifndef SPLIT_KEYBOARD
+    else {
+        oled_on();
+    }
+#    endif
+
+    update_log();
     if (is_master) {
         render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
@@ -286,7 +299,6 @@ void oled_task_user(void) {
     }
 }
 
-void matrix_scan_keymap(void) { update_log(); }
 #endif
 
 uint16_t get_tapping_term(uint16_t keycode) {
@@ -300,25 +312,39 @@ uint16_t get_tapping_term(uint16_t keycode) {
 
 #ifdef RGB_MATRIX_ENABLE
 
-static bool is_suspended;
-static bool rgb_matrix_enabled;
+void suspend_power_down_keymap(void) { rgb_matrix_set_suspend_state(true); }
 
-void suspend_power_down_keymap(void) {
-    rgb_matrix_set_suspend_state(true);
-    if (!is_suspended) {
-        is_suspended = true;
-        rgb_matrix_enabled = (bool)rgb_matrix_config.enable;
-        rgb_matrix_disable_noeeprom();
+void suspend_wakeup_init_keymap(void) { rgb_matrix_set_suspend_state(false); }
+
+void check_default_layer(uint8_t mode, uint8_t type) {
+    switch (get_highest_layer(default_layer_state)) {
+        case _QWERTY:
+            rgb_matrix_layer_helper(HSV_CYAN, mode, rgb_matrix_config.speed, type);
+            break;
+        case _COLEMAK:
+            rgb_matrix_layer_helper(HSV_MAGENTA, mode, rgb_matrix_config.speed, type);
+            break;
+        case _DVORAK:
+            rgb_matrix_layer_helper(HSV_SPRINGGREEN, mode, rgb_matrix_config.speed, type);
+            break;
+        case _WORKMAN:
+            rgb_matrix_layer_helper(HSV_GOLDENROD, mode, rgb_matrix_config.speed, type);
+            break;
+        case _NORMAN:
+            rgb_matrix_layer_helper(HSV_CORAL, mode, rgb_matrix_config.speed, type);
+            break;
+        case _MALTRON:
+            rgb_matrix_layer_helper(HSV_YELLOW, mode, rgb_matrix_config.speed, type);
+            break;
+        case _EUCALYN:
+            rgb_matrix_layer_helper(HSV_PINK, mode, rgb_matrix_config.speed, type);
+            break;
+        case _CARPLAX:
+            rgb_matrix_layer_helper(HSV_BLUE, mode, rgb_matrix_config.speed, type);
+            break;
     }
 }
 
-void suspend_wakeup_init_keymap(void) {
-    rgb_matrix_set_suspend_state(false);
-    is_suspended = false;
-    if (rgb_matrix_enabled) {
-        rgb_matrix_enable_noeeprom();
-    }
-}
 void rgb_matrix_indicators_user(void) {
     if (userspace_config.rgb_layer_change &&
 #    ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
@@ -330,53 +356,28 @@ void rgb_matrix_indicators_user(void) {
         rgb_matrix_config.enable
 #    endif
     ) {
-        switch (biton32(layer_state)) {
+        switch (get_highest_layer(layer_state)) {
             case _GAMEPAD:
-                rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_ORANGE, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
                 break;
             case _DIABLO:
-                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_RED, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
                 break;
             case _RAISE:
-                rgb_matrix_layer_helper(HSV_YELLOW, 1, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_YELLOW, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
                 break;
             case _LOWER:
-                rgb_matrix_layer_helper(HSV_GREEN, 1, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_GREEN, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
                 break;
             case _ADJUST:
-                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_RED, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
                 break;
             default: {
-                bool mods_enabled = IS_LAYER_ON(_MODS);
-                switch (biton32(default_layer_state)) {
-                    case _QWERTY:
-                        rgb_matrix_layer_helper(HSV_CYAN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-                        break;
-                    case _COLEMAK:
-                        rgb_matrix_layer_helper(HSV_MAGENTA, mods_enabled, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-                        break;
-                    case _DVORAK:
-                        rgb_matrix_layer_helper(HSV_SPRINGGREEN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-                        break;
-                    case _WORKMAN:
-                        rgb_matrix_layer_helper(HSV_GOLDENROD, mods_enabled, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-                        break;
-                    case _NORMAN:
-                        rgb_matrix_layer_helper(HSV_CORAL, mods_enabled, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-                        break;
-                    case _MALTRON:
-                        rgb_matrix_layer_helper(HSV_YELLOW, mods_enabled, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-                        break;
-                    case _EUCALYN:
-                        rgb_matrix_layer_helper(HSV_PINK, mods_enabled, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-                        break;
-                    case _CARPLAX:
-                        rgb_matrix_layer_helper(HSV_BLUE, mods_enabled, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-                        break;
-                }
+                check_default_layer(IS_LAYER_ON(_MODS), LED_FLAG_UNDERGLOW);
                 break;
             }
         }
+        check_default_layer(0, LED_FLAG_MODIFIER);
     }
 }
 #endif

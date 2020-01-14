@@ -19,8 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Use I2C or Serial, not both */
 
-#define USE_SERIAL
-// #define USE_I2C
+// #define USE_SERIAL
+#define USE_I2C
 
 /* Select hand configuration */
 
@@ -32,7 +32,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    undef RGBLED_NUM
 #    define RGBLED_NUM 18  // Number of LEDs
 #    undef RGBLED_SPLIT
-#    define RGBLED_SPLIT { 9, 9 }
+#    define RGBLED_SPLIT \
+        { 9, 9 }
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8
@@ -45,11 +46,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef AUDIO_ENABLE
 #    define C6_AUDIO
 #    ifdef RGBLIGHT_ENABLE
-#        define NO_MUSIC_MODE
+#        ifndef __arm__
+#            define NO_MUSIC_MODE
+#        endif
 #    endif  // RGBLIGHT_ENABLE
 #endif      // AUDIO_ENABLE
 
-#ifndef KEYBOARD_keebio_iris_rev3
+#if defined(KEYBOARD_keebio_iris_rev1) || defined(KEYBOARD_keebio_iris_rev2)
 #    define QMK_ESC_OUTPUT F6  // usually COL
 #    define QMK_ESC_INPUT D7   // usually ROW
 #    define QMK_LED B0
@@ -57,10 +60,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #undef PRODUCT
-#ifdef KEYBOARD_keebio_iris_rev2
-#    define PRODUCT Drashna Hacked Iris Rev .2
+#if defined(KEYBOARD_keebio_iris_rev2)
+#    define PRODUCT Drashna Hacked Iris Rev 2
 #elif defined(KEYBOARD_keebio_iris_rev3)
-#    define PRODUCT Drashna Hacked Iris Rev .3
+#    define PRODUCT Drashna Hacked Iris Rev 3
+#elif defined(KEYBOARD_keebio_iris_rev4)
+#    define PRODUCT Drashna Hacked Iris Rev 4
 #endif
 
 #define SHFT_LED1 6

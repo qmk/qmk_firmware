@@ -2,7 +2,7 @@
 
 ## Haptic feedback rules.mk options
 
-The following options are currently available for haptic feedback in `rule.mk`:
+The following options are currently available for haptic feedback in `rules.mk`:
 
 `HAPTIC_ENABLE += DRV2605L`
 
@@ -22,13 +22,16 @@ Not all keycodes below will work depending on which haptic mechanism you have ch
 | Name      | Description                                           |
 |-----------|-------------------------------------------------------|
 |`HPT_ON`   | Turn haptic feedback on                               |
-|`HPT_OFF`  | Turn haptic feedback on                               |
+|`HPT_OFF`  | Turn haptic feedback off                              |
 |`HPT_TOG`  | Toggle haptic feedback on/off                         |
 |`HPT_RST`  | Reset haptic feedback config to default               |
 |`HPT_FBK`  | Toggle feedback to occur on keypress, release or both |
 |`HPT_BUZ`  | Toggle solenoid buzz on/off                           |
 |`HPT_MODI` | Go to next DRV2605L waveform                          |
 |`HPT_MODD` | Go to previous DRV2605L waveform                      |
+|`HPT_CONT` | Toggle continuous haptic mode on/off                  |
+|`HPT_CONI` | Increase DRV2605L continous haptic strength           |
+|`HPT_COND` | Decrease DRV2605L continous haptic strength           |
 |`HPT_DWLI` | Increase Solenoid dwell time                          |
 |`HPT_DWLD` | Decrease Solenoid dwell time                          |
 
@@ -38,11 +41,15 @@ First you will need a build a circuit to drive the solenoid through a mosfet as 
 
 [Wiring diagram provided by Adafruit](https://playground.arduino.cc/uploads/Learning/solenoid_driver.pdf)
 
-Select a pin that has PWM for the signal pin
 
-```
-#define SOLENOID_PIN *pin*
-```
+| Settings                 | Default       | Description                                           |
+|--------------------------|---------------|-------------------------------------------------------|
+|`SOLENOID_PIN`            | *Not defined* |Configures the pin that the Solenoid is connected to.  |
+|`SOLENOID_DEFAULT_DWELL`  | `12` ms       |Configures the default dwell time for the solenoid.    |
+|`SOLENOID_MIN_DWELL`      | `4` ms        |Sets the lower limit for the dwell.                    |
+|`SOLENOID_MAX_DWELL`      | `100` ms      |Sets the upper limit for the dwell.                    |
+
+?> Dwell time is how long the "plunger" stays activated.  The dwell time changes how the solenoid sounds.
 
 Beware that some pins may be powered during bootloader (ie. A13 on the STM32F303 chip) and will result in the solenoid kept in the on state through the whole flashing process. This may overheat and damage the solenoid. If you find that the pin the solenoid is connected to is triggering the solenoid during bootloader/DFU, select another pin.
 
@@ -145,3 +152,7 @@ If haptic feedback is enabled, the keyboard will vibrate to a specific sqeuence 
 #define DRV_MODE_DEFAULT *sequence name or number*
 ```
 This will set what sequence HPT_RST will set as the active mode. If not defined, mode will be set to 1 when HPT_RST is pressed.
+
+### DRV2605L Continuous Haptic Mode
+
+This mode sets continuous haptic feedback with the option to increase or decrease strength. 

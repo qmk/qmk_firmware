@@ -55,7 +55,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_EQUAL`             |`KC_EQL`                      |`=` and `+`                                    |
 |`KC_LBRACKET`          |`KC_LBRC`                     |`[` and `{`                                    |
 |`KC_RBRACKET`          |`KC_RBRC`                     |`]` and `}`                                    |
-|`KC_BSLASH`            |`KC_BSLS`                     |`\` and <code>&#124;</code>                    |
+|`KC_BSLASH`            |`KC_BSLS`                     |`\` and `\|`                                   |
 |`KC_NONUS_HASH`        |`KC_NUHS`                     |Non-US `#` and `~`                             |
 |`KC_SCOLON`            |`KC_SCLN`                     |`;` and `:`                                    |
 |`KC_QUOTE`             |`KC_QUOT`                     |`'` and `"`                                    |
@@ -106,7 +106,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_KP_9`              |`KC_P9`                       |Keypad `9` and Page Up                         |
 |`KC_KP_0`              |`KC_P0`                       |Keypad `0` and Insert                          |
 |`KC_KP_DOT`            |`KC_PDOT`                     |Keypad `.` and Delete                          |
-|`KC_NONUS_BSLASH`      |`KC_NUBS`                     |Non-US `\` and <code>&#124;</code>             |
+|`KC_NONUS_BSLASH`      |`KC_NUBS`                     |Non-US `\` and `\|`                            |
 |`KC_APPLICATION`       |`KC_APP`                      |Application (Windows Menu Key)                 |
 |`KC_POWER`             |                              |System Power (macOS)                           |
 |`KC_KP_EQUAL`          |`KC_PEQL`                     |Keypad `=`                                     |
@@ -143,7 +143,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_KP_EQUAL_AS400`    |                              |Keypad `=` on AS/400 keyboards                 |
 |`KC_INT1`              |`KC_RO`                       |JIS `\` and `_`                                |
 |`KC_INT2`              |`KC_KANA`                     |JIS Katakana/Hiragana                          |
-|`KC_INT3`              |`KC_JYEN`                     |JIS `¥` and <code>&#124;</code>                |
+|`KC_INT3`              |`KC_JYEN`                     |JIS `¥` and `\|`                               |
 |`KC_INT4`              |`KC_HENK`                     |JIS Henkan                                     |
 |`KC_INT5`              |`KC_MHEN`                     |JIS Muhenkan                                   |
 |`KC_INT6`              |                              |JIS Numpad `,`                                 |
@@ -185,8 +185,8 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_AUDIO_MUTE`        |`KC_MUTE`                     |Mute                                           |
 |`KC_AUDIO_VOL_UP`      |`KC_VOLU`                     |Volume Up                                      |
 |`KC_AUDIO_VOL_DOWN`    |`KC_VOLD`                     |Volume Down                                    |
-|`KC_MEDIA_NEXT_TRACK`  |`KC_MNXT`                     |Next Track (Windows)                           |
-|`KC_MEDIA_PREV_TRACK`  |`KC_MPRV`                     |Previous Track (Windows)                       |
+|`KC_MEDIA_NEXT_TRACK`  |`KC_MNXT`                     |Next Track                                     |
+|`KC_MEDIA_PREV_TRACK`  |`KC_MPRV`                     |Previous Track                                 |
 |`KC_MEDIA_STOP`        |`KC_MSTP`                     |Stop Track (Windows)                           |
 |`KC_MEDIA_PLAY_PAUSE`  |`KC_MPLY`                     |Play/Pause Track                               |
 |`KC_MEDIA_SELECT`      |`KC_MSEL`                     |Launch Media Player (Windows)                  |
@@ -257,28 +257,37 @@ This is a reference only. Each group of keys links to the page documenting their
 
 ## [Bootmagic](feature_bootmagic.md)
 
-|Key                               |Aliases  |Description                         |
-|----------------------------------|---------|------------------------------------|
-|`MAGIC_SWAP_CONTROL_CAPSLOCK`     |         |Swap Caps Lock and Left Control     |
-|`MAGIC_CAPSLOCK_TO_CONTROL`       |         |Treat Caps Lock as Control          |
-|`MAGIC_SWAP_LALT_LGUI`            |         |Swap Left Alt and GUI               |
-|`MAGIC_SWAP_RALT_RGUI`            |         |Swap Right Alt and GUI              |
-|`MAGIC_NO_GUI`                    |         |Disable the GUI key                 |
-|`MAGIC_SWAP_GRAVE_ESC`            |         |Swap <code>&#96;</code> and Escape  |
-|`MAGIC_SWAP_BACKSLASH_BACKSPACE`  |         |Swap `\` and Backspace              |
-|`MAGIC_HOST_NKRO`                 |         |Force NKRO on                       |
-|`MAGIC_SWAP_ALT_GUI`              |`AG_SWAP`|Swap Alt and GUI on both sides      |
-|`MAGIC_UNSWAP_CONTROL_CAPSLOCK`   |         |Unswap Caps Lock and Left Control   |
-|`MAGIC_UNCAPSLOCK_TO_CONTROL`     |         |Stop treating Caps Lock as Control  |
-|`MAGIC_UNSWAP_LALT_LGUI`          |         |Unswap Left Alt and GUI             |
-|`MAGIC_UNSWAP_RALT_RGUI`          |         |Unswap Right Alt and GUI            |
-|`MAGIC_UNNO_GUI`                  |         |Enable the GUI key                  |
-|`MAGIC_UNSWAP_GRAVE_ESC`          |         |Unswap <code>&#96;</code> and Escape|
-|`MAGIC_UNSWAP_BACKSLASH_BACKSPACE`|         |Unswap `\` and Backspace            |
-|`MAGIC_UNHOST_NKRO`               |         |Force NKRO off                      |
-|`MAGIC_UNSWAP_ALT_GUI`            |`AG_NORM`|Unswap Alt and GUI on both sides    |
-|`MAGIC_TOGGLE_ALT_GUI`            |`AG_TOGG`|Toggle Alt and GUI swap on both sides|
-|`MAGIC_TOGGLE_NKRO`               |         |Turn NKRO on or off                 |
+|Key                               |Aliases  |Description                                                               |
+|----------------------------------|---------|--------------------------------------------------------------------------|
+|`MAGIC_SWAP_CONTROL_CAPSLOCK`     |`CL_SWAP`|Swap Caps Lock and Left Control                                           |
+|`MAGIC_UNSWAP_CONTROL_CAPSLOCK`   |`CL_NORM`|Unswap Caps Lock and Left Control                                         |
+|`MAGIC_CAPSLOCK_TO_CONTROL`       |`CL_CTRL`|Treat Caps Lock as Control                                                |
+|`MAGIC_UNCAPSLOCK_TO_CONTROL`     |`CL_CAPS`|Stop treating Caps Lock as Control                                        |
+|`MAGIC_SWAP_LCTL_LGUI`            |`LCG_SWP`|Swap Left Control and GUI                                                 |
+|`MAGIC_UNSWAP_LCTL_LGUI`          |`LCG_NRM`|Unswap Left Control and GUI                                               |
+|`MAGIC_SWAP_RCTL_RGUI`            |`RCG_SWP`|Swap Right Control and GUI                                                |
+|`MAGIC_UNSWAP_RCTL_RGUI`          |`RCG_NRM`|Unswap Right Control and GUI                                              |
+|`MAGIC_SWAP_CTL_GUI`              |`CG_SWAP`|Swap Control and GUI on both sides                                        |
+|`MAGIC_UNSWAP_CTL_GUI`            |`CG_NORM`|Unswap Control and GUI on both sides                                      |
+|`MAGIC_TOGGLE_CTL_GUI`            |`CG_TOGG`|Toggle Control and GUI swap on both sides                                 |
+|`MAGIC_SWAP_LALT_LGUI`            |`LAG_SWP`|Swap Left Alt and GUI                                                     |
+|`MAGIC_UNSWAP_LALT_LGUI`          |`LAG_NRM`|Unswap Left Alt and GUI                                                   |
+|`MAGIC_SWAP_RALT_RGUI`            |`RAG_SWP`|Swap Right Alt and GUI                                                    |
+|`MAGIC_UNSWAP_RALT_RGUI`          |`RAG_NRM`|Unswap Right Alt and GUI                                                  |
+|`MAGIC_SWAP_ALT_GUI`              |`AG_SWAP`|Swap Alt and GUI on both sides                                            |
+|`MAGIC_UNSWAP_ALT_GUI`            |`AG_NORM`|Unswap Alt and GUI on both sides                                          |
+|`MAGIC_TOGGLE_ALT_GUI`            |`AG_TOGG`|Toggle Alt and GUI swap on both sides                                     |
+|`MAGIC_NO_GUI`                    |`GUI_OFF`|Disable the GUI keys                                                      |
+|`MAGIC_UNNO_GUI`                  |`GUI_ON` |Enable the GUI keys                                                       |
+|`MAGIC_SWAP_GRAVE_ESC`            |`GE_SWAP`|Swap <code>&#96;</code> and Escape                                        |
+|`MAGIC_UNSWAP_GRAVE_ESC`          |`GE_NORM`|Unswap <code>&#96;</code> and Escape                                      |
+|`MAGIC_SWAP_BACKSLASH_BACKSPACE`  |`BS_SWAP`|Swap `\` and Backspace                                                    |
+|`MAGIC_UNSWAP_BACKSLASH_BACKSPACE`|`BS_NORM`|Unswap `\` and Backspace                                                  |
+|`MAGIC_HOST_NKRO`                 |`NK_ON`  |Enable N-key rollover                                                     |
+|`MAGIC_UNHOST_NKRO`               |`NK_OFF` |Disable N-key rollover                                                    |
+|`MAGIC_TOGGLE_NKRO`               |`NK_TOGG`|Toggle N-key rollover                                                     |
+|`MAGIC_EE_HANDS_LEFT`             |`EH_LEFT`|Set the master half of a split keyboard as the left hand (for `EE_HANDS`) |
+|`MAGIC_EE_HANDS_RIGHT`            |`EH_RGHT`|Set the master half of a split keyboard as the right hand (for `EE_HANDS`)|
 
 ## [Bluetooth](feature_bluetooth.md)
 
@@ -287,6 +296,16 @@ This is a reference only. Each group of keys links to the page documenting their
 |`OUT_AUTO`|Automatically switch between USB and Bluetooth|
 |`OUT_USB` |USB only                                      |
 |`OUT_BT`  |Bluetooth only                                |
+
+## [Dynamic Macros](feature_dynamic_macros.md)
+
+|Key              |Alias    |Description                                       |
+|-----------------|---------|--------------------------------------------------|
+|`DYN_REC_START1` |`DM_REC1`|Start recording Macro 1                           |
+|`DYN_REC_START2` |`DM_REC2`|Start recording Macro 2                           |
+|`DYN_MACRO_PLAY1`|`DM_PLY1`|Replay Macro 1                                    |
+|`DYN_MACRO_PLAY2`|`DM_PLY2`|Replay Macro 2                                    |
+|`DYN_REC_STOP`   |`DM_RSTP`|Finish the macro that is currently being recorded.|
 
 ## [Layer Switching](feature_advanced_keycodes.md#switching-and-toggling-layers)
 
@@ -370,12 +389,12 @@ This is a reference only. Each group of keys links to the page documenting their
 |`RGB_TOG`          |          |Toggle RGB lighting on or off                                       |
 |`RGB_MODE_FORWARD` |`RGB_MOD` |Cycle through modes, reverse direction when Shift is held           |
 |`RGB_MODE_REVERSE` |`RGB_RMOD`|Cycle through modes in reverse, forward direction when Shift is held|
-|`RGB_HUI`          |          |Increase hue                                                        |
-|`RGB_HUD`          |          |Decrease hue                                                        |
-|`RGB_SAI`          |          |Increase saturation                                                 |
-|`RGB_SAD`          |          |Decrease saturation                                                 |
-|`RGB_VAI`          |          |Increase value (brightness)                                         |
-|`RGB_VAD`          |          |Decrease value (brightness)                                         |
+|`RGB_HUI`          |          |Increase hue, decrease hue when Shift is held                       |
+|`RGB_HUD`          |          |Decrease hue, increase hue when Shift is held                       |
+|`RGB_SAI`          |          |Increase saturation, decrease saturation when Shift is held         |
+|`RGB_SAD`          |          |Decrease saturation, increase saturation when Shift is held         |
+|`RGB_VAI`          |          |Increase value (brightness), decrease value when Shift is held      |
+|`RGB_VAD`          |          |Decrease value (brightness), increase value when Shift is held      |
 |`RGB_MODE_PLAIN`   |`RGB_M_P `|Static (no animation) mode                                          |
 |`RGB_MODE_BREATHE` |`RGB_M_B` |Breathing animation mode                                            |
 |`RGB_MODE_RAINBOW` |`RGB_M_R` |Rainbow animation mode                                              |
@@ -388,19 +407,19 @@ This is a reference only. Each group of keys links to the page documenting their
 
 ## [RGB Matrix Lighting](feature_rgb_matrix.md)
 
-|Key                |Aliases   |Description                                                         |
-|-------------------|----------|--------------------------------------------------------------------|
-|`RGB_TOG`          |          |Toggle RGB lighting on or off                                       |
-|`RGB_MODE_FORWARD` |`RGB_MOD` |Cycle through modes, reverse direction when Shift is held           |
-|`RGB_MODE_REVERSE` |`RGB_RMOD`|Cycle through modes in reverse, forward direction when Shift is held|
-|`RGB_HUI`          |          |Increase hue                                                        |
-|`RGB_HUD`          |          |Decrease hue                                                        |
-|`RGB_SAI`          |          |Increase saturation                                                 |
-|`RGB_SAD`          |          |Decrease saturation                                                 |
-|`RGB_VAI`          |          |Increase value (brightness)                                         |
-|`RGB_VAD`          |          |Decrease value (brightness)                                         |
-|`RGB_SPI`          |          |Increase effect speed (does no support eeprom yet)                  |
-|`RGB_SPD`          |          |Decrease effect speed (does no support eeprom yet)                  |
+|Key                |Aliases   |Description                                                                           |
+|-------------------|----------|--------------------------------------------------------------------------------------|
+|`RGB_TOG`          |          |Toggle RGB lighting on or off                                                         |
+|`RGB_MODE_FORWARD` |`RGB_MOD` |Cycle through modes, reverse direction when Shift is held                             |
+|`RGB_MODE_REVERSE` |`RGB_RMOD`|Cycle through modes in reverse, forward direction when Shift is held                  |
+|`RGB_HUI`          |          |Increase hue, decrease hue when Shift is held                                         |
+|`RGB_HUD`          |          |Decrease hue, increase hue when Shift is held                                         |
+|`RGB_SAI`          |          |Increase saturation, decrease saturation when Shift is held                           |
+|`RGB_SAD`          |          |Decrease saturation, increase saturation when Shift is held                           |
+|`RGB_VAI`          |          |Increase value (brightness), decrease value when Shift is held                        |
+|`RGB_VAD`          |          |Decrease value (brightness), increase value when Shift is held                        |
+|`RGB_SPI`          |          |Increase effect speed (does not support eeprom yet), decrease speed when Shift is held|
+|`RGB_SPD`          |          |Decrease effect speed (does not support eeprom yet), increase speed when Shift is held|
 
 ## [Thermal Printer](feature_thermal_printer.md)
 
@@ -411,29 +430,29 @@ This is a reference only. Each group of keys links to the page documenting their
 
 ## [US ANSI Shifted Symbols](keycodes_us_ansi_shifted.md)
 
-|Key                     |Aliases            |Description        |
-|------------------------|-------------------|-------------------|
-|`KC_TILDE`              |`KC_TILD`          |`~`                |
-|`KC_EXCLAIM`            |`KC_EXLM`          |`!`                |
-|`KC_AT`                 |                   |`@`                |
-|`KC_HASH`               |                   |`#`                |
-|`KC_DOLLAR`             |`KC_DLR`           |`$`                |
-|`KC_PERCENT`            |`KC_PERC`          |`%`                |
-|`KC_CIRCUMFLEX`         |`KC_CIRC`          |`^`                |
-|`KC_AMPERSAND`          |`KC_AMPR`          |`&`                |
-|`KC_ASTERISK`           |`KC_ASTR`          |`*`                |
-|`KC_LEFT_PAREN`         |`KC_LPRN`          |`(`                |
-|`KC_RIGHT_PAREN`        |`KC_RPRN`          |`)`                |
-|`KC_UNDERSCORE`         |`KC_UNDS`          |`_`                |
-|`KC_PLUS`               |                   |`+`                |
-|`KC_LEFT_CURLY_BRACE`   |`KC_LCBR`          |`{`                |
-|`KC_RIGHT_CURLY_BRACE`  |`KC_RCBR`          |`}`                |
-|`KC_PIPE`               |                   |<code>&#124;</code>|
-|`KC_COLON`              |`KC_COLN`          |`:`                |
-|`KC_DOUBLE_QUOTE`       |`KC_DQUO`, `KC_DQT`|`"`                |
-|`KC_LEFT_ANGLE_BRACKET` |`KC_LABK`, `KC_LT` |`<`                |
-|`KC_RIGHT_ANGLE_BRACKET`|`KC_RABK`, `KC_GT` |`>`                |
-|`KC_QUESTION`           |`KC_QUES`          |`?`                |
+|Key                     |Aliases            |Description|
+|------------------------|-------------------|-----------|
+|`KC_TILDE`              |`KC_TILD`          |`~`        |
+|`KC_EXCLAIM`            |`KC_EXLM`          |`!`        |
+|`KC_AT`                 |                   |`@`        |
+|`KC_HASH`               |                   |`#`        |
+|`KC_DOLLAR`             |`KC_DLR`           |`$`        |
+|`KC_PERCENT`            |`KC_PERC`          |`%`        |
+|`KC_CIRCUMFLEX`         |`KC_CIRC`          |`^`        |
+|`KC_AMPERSAND`          |`KC_AMPR`          |`&`        |
+|`KC_ASTERISK`           |`KC_ASTR`          |`*`        |
+|`KC_LEFT_PAREN`         |`KC_LPRN`          |`(`        |
+|`KC_RIGHT_PAREN`        |`KC_RPRN`          |`)`        |
+|`KC_UNDERSCORE`         |`KC_UNDS`          |`_`        |
+|`KC_PLUS`               |                   |`+`        |
+|`KC_LEFT_CURLY_BRACE`   |`KC_LCBR`          |`{`        |
+|`KC_RIGHT_CURLY_BRACE`  |`KC_RCBR`          |`}`        |
+|`KC_PIPE`               |                   |`\|`       |
+|`KC_COLON`              |`KC_COLN`          |`:`        |
+|`KC_DOUBLE_QUOTE`       |`KC_DQUO`, `KC_DQT`|`"`        |
+|`KC_LEFT_ANGLE_BRACKET` |`KC_LABK`, `KC_LT` |`<`        |
+|`KC_RIGHT_ANGLE_BRACKET`|`KC_RABK`, `KC_GT` |`>`        |
+|`KC_QUESTION`           |`KC_QUES`          |`?`        |
 
 ## [One Shot Keys](feature_advanced_keycodes.md#one-shot-keys)
 
