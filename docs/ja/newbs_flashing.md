@@ -3,7 +3,7 @@
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
   original document: ed0575fc8:docs/newbs_flashing.md
-  git diff ed0575fc8 HEAD docs/newbs_flashing.md | cat
+  git diff ed0575fc8 HEAD -- docs/newbs_flashing.md | cat
 -->
 
 カスタムファームウェアは出来たので、キーボードに書き込みたくなるでしょう/フラッシュしたくなるでしょう。

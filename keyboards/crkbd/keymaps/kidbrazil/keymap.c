@@ -57,7 +57,6 @@ void keyboard_post_init_user(void) {
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
     user_led_enabled = true;
 }
-
 // [Process User Input] ------------------------------------------------------//
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -89,7 +88,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // [Matrix Scan] ------------------------------------------------------------//
 void matrix_scan_user(void) {
      // Iddle timer to return to default layer if left on game layer
-     if (timer_elapsed32(oled_timer) > 200000 && timer_elapsed32(oled_timer) < 479999) {
+     if (timer_elapsed32(oled_timer) > 380000 && timer_elapsed32(oled_timer) < 479999) {
          // Reset layer in case it got left on _GAME
          // This prevents the issue where the master side sometimes wont switch off as expected
          // in the next step.
@@ -116,6 +115,7 @@ void matrix_scan_user(void) {
                 rgb_matrix_set_color_all(RGB_GREEN);
                 break;
             default:
+                rgb_matrix_set_color_all(RGB_GREEN);
                 break;
 
           }
@@ -174,7 +174,7 @@ void render_slave_oled(void) {
 // {OLED Task} -----------------------------------------------//
 void oled_task_user(void) {
     // First time out switches to logo as first indication of iddle.
-    if (timer_elapsed32(oled_timer) > 80000 && timer_elapsed32(oled_timer) < 479999) {
+    if (timer_elapsed32(oled_timer) > 100000 && timer_elapsed32(oled_timer) < 479999) {
         // Render logo on both halves before full timeout
         if (is_master && !master_oled_cleared) {
             // Clear master OLED once so the logo renders properly

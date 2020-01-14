@@ -16,48 +16,26 @@
 #include "v3.h"
 #include "indicator_leds.h"
 
-enum BACKLIGHT_AREAS {
-  BACKLIGHT_ALPHAS   = 0b00000010,
-  BACKLIGHT_MODNUM   = 0b00001000
-};
+// Alphas              PB1
+// Navigation Cluster: PB2
+// Number Row, Mods:   PB3
+// Function Row:       PE6
 
-void backlight_set(uint8_t level) {
-  switch(level) {
-  case 0:
-    PORTB |= BACKLIGHT_ALPHAS;
-    PORTB |= BACKLIGHT_MODNUM;
-  break;
-  case 1:
-    PORTB &= ~BACKLIGHT_ALPHAS;
-    PORTB |= BACKLIGHT_MODNUM;
-  break;
-  case 2:
-    PORTB |= BACKLIGHT_ALPHAS;
-    PORTB &= ~BACKLIGHT_MODNUM;
-  break;
-  case 3:
-    PORTB &= ~BACKLIGHT_ALPHAS;
-    PORTB &= ~BACKLIGHT_MODNUM;
-  break;
-  }
-}
+// Other than using RGB or LED matrix, QMK cannot turn on specific zones
+// of backlight LEDs. Unfortunately, Duck PCBs do not follow this design
+// and instead use multiple pins connected to each of these zones. QMK is
+// only able to control them ALL with the current default mechanisms. 
 
-// Port from backlight_update_state
-void led_set_kb(uint8_t usb_led) {
-    bool status[8] = {
-    IS_HOST_LED_ON(USB_LED_SCROLL_LOCK), /* LED 3 */
-    IS_HOST_LED_ON(USB_LED_CAPS_LOCK),   /* LED 2 */
-    IS_HOST_LED_ON(USB_LED_NUM_LOCK),    /* LED 1 */
-
-    layer_state & (1<<2),                            /* LED 6 */
-    layer_state & (1<<1),                            /* LED 5 */
-    layer_state & (1<<0) ? 0: 1,                     /* LED 4 */
-
-    layer_state & (1<<5),                            /* LED 8 */
-    layer_state & (1<<4)                             /* LED 7 */
-  };
-
-  indicator_leds_set(status);
+// Locking indicator LEDs
+// The Duck Orion V3 has 3 locking indicator LEDs and are located to the right
+// of the Escape key. 
+bool led_update_kb(led_t led_state) {
+    if(led_update_user(led_state)) {
+        writePin(B0, !led_state.caps_lock);
+        writePin(B4, !led_state.num_lock);
+        writePin(D7, !led_state.scroll_lock);
+    }
+    return true;
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {

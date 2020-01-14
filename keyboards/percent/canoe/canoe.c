@@ -17,16 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "canoe.h"
 
-void matrix_init_kb(void) { matrix_init_user(); }
-
-__attribute__ ((weak))
-void matrix_init_user(void) {}
-
-void matrix_scan_kb(void) { matrix_scan_user(); }
-
-__attribute__ ((weak))
-void matrix_scan_user(void) {}
-
 #ifdef BACKLIGHT_ENABLE
 void backlight_set(uint8_t level) {
 	if (level == 0) {

@@ -20,8 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
-void matrix_init_user(void);  // TODO port this to other PS2AVRGB boards
-
 #define LAYOUT_default( \
     K50, K52, K53, K54, K55, K60, K6A, K7A, K70, K5B, K5C, K5D, K5E, K1D, K2E,   K0D, K76, K79, K78, \
     K40, K41, K42, K43, K44, K45, K61, K6B, K7B, K71, K4A, K4B, K4C,      K4E,   K46, K47, K48, K49, \

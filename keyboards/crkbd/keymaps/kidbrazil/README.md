@@ -55,7 +55,7 @@ Once a user hits the keys again, the LED matrix will turn back on unless the
 user has disabled it via RGB_TOG.
 
 ## Flashing
-To flash this on your CRKBD simply use the `make crkbd:kidbrazil:avrdude`
+To flash this on your CRKBD simply use the `make crkbd:kidbrazil:flash`
 command.
 
 ### TODO

@@ -1,8 +1,8 @@
 # 貢献方法
 
 <!---
-  original document: d598f01cb:contributing.md
-  git diff d598f01cb HEAD contributing.md | cat
+  original document: d47809575:docs/contributing.md
+  git diff d47809575 HEAD -- docs/contributing.md | cat
 -->
 
 👍🎉 まず、これを読み貢献する時間を作ってくれてありがとうございます！🎉👍
@@ -90,7 +90,7 @@ kerpleplork はエラーコード 23 で連続的に失敗していました。�
 
 ドキュメントは QMK への貢献を始める最も簡単な方法の1つです。ドキュメントが間違っているか不完全な場所を見つけ、これらを修正するのは簡単です！私たちもドキュメントを編集する人を非常に必要としています。編集するスキルがあるが、どこにどのように飛び乗ればいいのか分からない場合は、[助けをもとめて](#where-can-i-go-for-help)ください！
 
-全てのドキュメントは `qmk_firmware/docs` ディレクトリの中にあります。あるいは web ベースのワークフローを使いたい場合は、http://docs.qmk.fm/ の各ページの上部にある "Suggest An Edit" をクリックすることができます。
+全てのドキュメントは `qmk_firmware/docs` ディレクトリの中にあります。あるいは web ベースのワークフローを使いたい場合は、https://docs.qmk.fm/ の各ページの下部にある "Edit this page" リンクをクリックすることができます。
 
 ドキュメントの中にコードの例を提供する場合は、ドキュメント内の他の場所で使用されている命名規則を順守してください。例えば、一貫性を保つために、`my_layers` あるいは `my_keycodes` として列挙型を標準化します:
 
