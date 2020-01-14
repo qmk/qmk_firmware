@@ -57,6 +57,7 @@ enum layout_names {
 
 enum tapdance_keycodes {
     TD_LGUI_ML = 0,     // Tap dance key to switch to mouse layer _ML
+    TD_APP_YL,
     TD_CTRL_TERM,       // Tap dance key to open terminal on LCTRL double press
 };
 
