@@ -6,7 +6,7 @@ This is 25 keys tenkeypad.
 
 * Keyboard Maintainer: [Salicylic_acid3](https://github.com/Salicylic-acid3)
 * Hardware Supported: Getta25 PCB, Pro Micro
-Hardware Availability: [PCB & Case Data](https://github.com/Salicylic-acid3/PCB_Data), [Booth Shop](https://salicylic-acid3.booth.pm/items/1700006)
+* Hardware Availability: [PCB & Case Data](https://github.com/Salicylic-acid3/PCB_Data), [Booth Shop](https://salicylic-acid3.booth.pm/items/1700006)
 
 Make example for this keyboard (after setting up your build environment):
 
