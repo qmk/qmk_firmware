@@ -1,4 +1,7 @@
 #include QMK_KEYBOARD_H
+#include "enums.h"
+#include "layer.h"
+#include "rgbstuff.h"
 
 // [Init Variables] ----------------------------------------------------------//
 extern uint8_t is_master;
@@ -10,22 +13,6 @@ bool user_led_enabled = true;
 bool master_oled_cleared = false;
 // Current Color
 int current_color = 0; //Corresponds to green as initialized above
-// [CRKBD Layer Colors]-------------------------------------------------------//
-enum crkbd_colors {
-    _GREEN,
-    _GOLD,
-    _GOLDENROD,
-    _RED,
-    _PURPLE
-};
-// [CRKBD layers Init] -------------------------------------------------------//
-enum crkbd_layers {
-    _QWERTY,
-    _NUM,
-    _SYM,
-    _GAME,
-    _WEAPON
-};
 
 // [Keymaps] -----------------------------------------------------------------//
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -65,51 +52,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-// [RGB Matrix Helpers] ----------------------------------------------------//
-// This function is set to limit the HUE's to just the ones I like and which
-// best match the cases I 3D print for my boards.
-void set_crkbd_color(int input_color) {
-    if (user_led_enabled) {
-       switch(input_color) {
-          case _GREEN:
-              rgb_matrix_set_color_all(RGB_GREEN);
-              current_color = _GREEN;
-              break;
-          case _GOLD:
-              rgb_matrix_set_color_all(RGB_GOLD);
-              current_color = _GOLD;
-              break;
-          case _GOLDENROD:
-              rgb_matrix_set_color_all(RGB_GOLDENROD);
-              current_color = _GOLDENROD;
-              break;
-          case _RED:
-              rgb_matrix_set_color_all(RGB_RED);
-              current_color = _RED;
-              break;
-          case _PURPLE:
-              rgb_matrix_set_color_all(RGB_PURPLE);
-              current_color = _PURPLE;
-              break;
-          default:
-              break;
-       }
-    }
-}
-
-int handle_crkbd_color_step( int step ) {
-    int output_color = step;
-    // Handle wrapping of out of bounds values
-    if ( output_color + current_color < _GREEN ) {
-        output_color = _GREEN;
-    } else if ( output_color + current_color > _PURPLE ) {
-        output_color = _PURPLE;
-    } else {
-        output_color = output_color + current_color;
-    }
-    return output_color;
-}
-
 // [Post Init] --------------------------------------------------------------//
 void keyboard_post_init_user(void) {
     // Set RGB to known state
@@ -117,6 +59,7 @@ void keyboard_post_init_user(void) {
     set_crkbd_color(_GREEN);
     user_led_enabled = true;
 }
+
 // [Matrix Scan] ------------------------------------------------------------//
 void matrix_scan_user(void) {
      // Set RGB Matrix color based on layers
@@ -131,6 +74,7 @@ void matrix_scan_user(void) {
             set_crkbd_color(handle_crkbd_color_step(0));
     }
 }
+
 // [Process User Input] ------------------------------------------------------//
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -171,7 +115,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // [OLED Configuration] ------------------------------------------------------//
 #ifdef OLED_DRIVER_ENABLE
-
 // Init Oled and Rotate....
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (!has_usb())
@@ -183,74 +126,6 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 const char *read_logo(void);
 
 // {OLED helpers} -----------------------------------------------//
-
-// Render Blank Space
-void render_space(void) {
-    oled_write_ln_P(PSTR("     "), false);
-}
-
-// Render separator lines for oled display
-void render_separator(void) {
-    switch (get_highest_layer(layer_state)){
-        case _GAME:
-        case _WEAPON:
-            oled_write_ln_P(PSTR("===================="), false);
-            break;
-        default:
-            oled_write_ln_P(PSTR("++++++++++++++++++++"), false);
-    }
-}
-
-// Render current layer state
-void render_layer_state(void){
-	// If you want to change the display of OLED, you need to change here
-    switch (get_highest_layer(layer_state)){
-        case _QWERTY:
-            oled_write_ln_P(PSTR("| MODE | QWRTY     ]"), false);
-            break;
-        case _NUM:
-            oled_write_ln_P(PSTR("| MODE | NUMBERS   ]"), false);
-            break;
-        case _SYM:
-            oled_write_ln_P(PSTR("| MODE | SYMBOLS   ]"), false);
-            break;
-        case _GAME:
-            oled_write_ln_P(PSTR("|    G  A  M  E    ]"), false);
-            break;
-        case _WEAPON:
-            oled_write_ln_P(PSTR("| W  E  A  P  O  N ]"), false);
-            break;
-        default:
-            oled_write_ln_P(PSTR("| MODE | UNDEF     ]"), false);
-    }
-}
-
-// Render USB State
-void render_usb_state(void) {
-    switch (USB_DeviceState) {
-      case DEVICE_STATE_Unattached:
-			    oled_write_ln_P(PSTR("| USB  | FREE      ]"), false);
-          break;
-      case DEVICE_STATE_Suspended:
-          oled_write_ln_P(PSTR("| USB  | SLEEP     ]"), false);
-          break;
-      case DEVICE_STATE_Configured:
-          oled_write_ln_P(PSTR("| USB  | READY     ]"), false);
-          break;
-      case DEVICE_STATE_Powered:
-          oled_write_ln_P(PSTR("| USB  | PWRD      ]"), false);
-          break;
-      case DEVICE_STATE_Default:
-          oled_write_ln_P(PSTR("| USB  | DFLT      ]"), false);
-          break;
-      case DEVICE_STATE_Addressed:
-          oled_write_ln_P(PSTR("| USB  | ADDRS     ]"), false);
-          break;
-      default:
-          oled_write_ln_P(PSTR("| USB  | INVALID   ]"), false);
-    }
-}
-
 // Render Logo
 void render_logo(void) {
     oled_write(read_logo(), false);
