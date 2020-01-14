@@ -28,7 +28,7 @@
 
 /* key matrix size */
 #define MATRIX_ROWS 4
-#define MATRIX_COLS 13
+#define MATRIX_COLS 12
 
 /*
  * Keyboard Matrix Assignments
@@ -250,5 +250,5 @@
 // #define BOOTMAGIC_LITE_ROW 0
 // #define BOOTMAGIC_LITE_COLUMN 0
 
-#define QMK_ESC_OUTPUT C6 // usually COL
-#define QMK_ESC_INPUT B1 // usually ROW
+#define QMK_ESC_OUTPUT F0 // usually COL
+#define QMK_ESC_INPUT B7 // usually ROW

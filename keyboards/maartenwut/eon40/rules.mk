@@ -7,13 +7,13 @@ MCU = atmega32u4
 #   Atmel DFU    atmel-dfu
 #   LUFA DFU     lufa-dfu
 #   QMK DFU      qmk-dfu
-#   atmega32a    bootloadHID
+#   ATmega32A    bootloadHID
 BOOTLOADER = qmk-dfu
 
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = yes        # Console for debug
