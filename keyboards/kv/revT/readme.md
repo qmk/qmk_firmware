@@ -1,7 +1,7 @@
 KVT
 ===
 
-![KVT default layout](https://imgur.com/nPwxzdU)
+![KVT default layout](https://i.imgur.com/nPwxzdU.jpg)
 
 A open source southpaw keyboard. The Default layer is a standard 104 ANSI keyboard just the numpad is on the left.
 There is a fn layer (its not in the layout image but in the keymap file) it adds media keys, f13-f24, and mouse keys.
