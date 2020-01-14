@@ -82,6 +82,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
+/* Bootmagic Lite key configuration */
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 0
+
 /* Backlight options */
 
 #define RGB_BACKLIGHT_ENABLED 1
