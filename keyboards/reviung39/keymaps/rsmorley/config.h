@@ -18,7 +18,7 @@
 
 // place overrides here
 
-#define TAPPING_TERM 175
+//#define TAPPING_TERM 175
 
 #define RGB_DI_PIN D3
 #ifdef RGB_DI_PIN

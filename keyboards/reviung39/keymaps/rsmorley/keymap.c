@@ -22,15 +22,15 @@ enum {
 
 enum layer_names {
     _BASE,
-    _LOWER,
-    _RAISE,
+    _NAV_MEDIA,
+    _NUM_SCHAR,
     _ADJUST
 };
 
 #define KC_COPY LCMD(KC_C)
 #define KC_PASTE LCMD(KC_V)
-#define LOWER  MO(_LOWER)
-#define RAISE  MO(_RAISE)
+#define NAV_MEDIA  MO(_NAV_MEDIA)
+#define NUM_SCHAR  MO(_NUM_SCHAR)
 #define ADJUST MO(_ADJUST)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -38,17 +38,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GESC,   KC_Q,     KC_W,     KC_E,     KC_R,      KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
     LSFT_T(KC_TAB),  KC_A,     KC_S,     KC_D,     KC_F,      KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_RSPC,
     KC_LCPO,  KC_Z,     KC_X,     KC_C,     KC_V,      KC_B,               KC_N,     KC_M,     KC_COMM,  KC_DOT,   TD(TD_COPY_PASTE),  ALT_T(KC_F6),
-                                                       LT(_RAISE, KC_ENT),    RCMD_T(KC_F3),   LT(_LOWER, KC_SPC)
+                                                       LT(_NUM_SCHAR, KC_ENT),    RCMD_T(KC_F3),   LT(_NAV_MEDIA, KC_SPC)
   ),
   
-  [_LOWER] = LAYOUT_reviung39(
+  [_NAV_MEDIA] = LAYOUT_reviung39(
     _______,  _______,  KC_UP,    _______,  _______,    _______,            _______,  _______,  KC__MUTE,  KC__VOLDOWN,  KC__VOLUP,  _______,
     _______,  KC_LEFT,  KC_DOWN,  KC_RIGHT,  _______,   _______,            _______,  KC_MEDIA_PREV_TRACK,  KC_MEDIA_PLAY_PAUSE,    KC_MEDIA_NEXT_TRACK,  _______,   _______,
     _______,  _______,   _______,  _______,  _______,   _______,            _______,  _______,   _______,  _______,  _______,  KC_CAPSLOCK,
                                                        _______,  _______,   _______
   ),
   
-  [_RAISE] = LAYOUT_reviung39(
+  [_NUM_SCHAR] = LAYOUT_reviung39(
     KC_GRV,  KC_1,     KC_2,     KC_3,     KC_4,      KC_5,               KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     _______,
     _______,  _______,  _______,   KC_QUOT,  KC_LBRC,   KC_RBRC,            KC_BSLS,    KC_MINS,    KC_EQL,    KC_SLSH,    _______,    _______,
     _______,  _______,   _______,  _______,  _______,   _______,            _______,    _______,    _______,    _______,   _______,   ALT_T(KC_F5),
@@ -70,7 +70,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 
 //Tri state allows momentary toggle of _ADJUST layer when 
-//buttons are held to toggle _LOWER and _RAISE
+//buttons are held to toggle _NAV_MEDIA and _NUM_SCHAR
 layer_state_t layer_state_set_user(layer_state_t state) {
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+  return update_tri_layer_state(state, _NAV_MEDIA, _NUM_SCHAR, _ADJUST);
 }
