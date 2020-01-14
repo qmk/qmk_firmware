@@ -8,7 +8,7 @@ There is a fn layer (its not in the layout image but in the keymap file) it adds
 
 [More info on KVT github](https://github.com/Hybrid65/KVT)
 
-Keyboard Maintainer: [Neil Feagan](https://github.com/Hybrid65)
+* Keyboard Maintainer: [Neil Feagan](https://github.com/Hybrid65)
 * Hardware Supported: KVT, Proton C
 Hardware Availability: [List of vendors](https://qmk.fm/proton-c)
 
