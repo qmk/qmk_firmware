@@ -5,32 +5,34 @@ references:
     docker:
       - image: circleci/buildpack-deps:18.04
 
-  build_steps: &build_steps
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run:
-          name: build
-          environment:
-            CONTAINER_NAME: qkm_firmware
-          command: |
-            set -x
-            git submodule init
-            git submodule update
-            docker image build -t $CONTAINER_NAME .
-            docker container run --name $CONTAINER_NAME $CONTAINER_NAME make helix:luciferous_helix
-            docker container run --name $CONTAINER_NAME $CONTAINER_NAME make shiro:luciferous_shiro
-            docker container cp $CONTAINER_NAME:/qmk_firmware/.build .
-            docker container rm $CONTAINER_NAME
-            cd .build
-            ls -F | grep / | xargs rm -rf
-      - store_artifacts:
-          path: .build
+  build_run: &build_steps
+    run:
+      name: build
+      environment:
+        CONTAINER_NAME: qkm_firmware
+      command: |
+        set -x
+        git submodule init
+        git submodule update
+        docker image build -t $CONTAINER_NAME .
+        docker container run --name $CONTAINER_NAME $CONTAINER_NAME make helix:luciferous_helix
+        docker container run --name $CONTAINER_NAME $CONTAINER_NAME make shiro:luciferous
+        docker container cp $CONTAINER_NAME:/qmk_firmware/.build .
+        docker container rm $CONTAINER_NAME
+        cd .build
+        ls -F | grep / | xargs rm -rf
 
 jobs:
   build_helix_luciferous_helix:
     <<: *primary_containers
-    <<: *build_steps
+    steps:
+      - checkout
+      - setup_remote_docker
+      - <<: *build_run
+        environment:
+          BUILD_TARGET: helix:luciferous_helix
+      - store_artifacts:
+        path: .build
 
 workflows:
   version: 2
