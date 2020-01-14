@@ -397,7 +397,7 @@ void rgb_matrix_set_defaults(void) {
     rgb_matrix_config.enable = 1;
     rgb_matrix_config.hsv    = (HSV){128, 255, 128};  // TEAL
 
-    user_config.rgb_layer_change        = true;
+    user_config.rgb_layer_change        = false;
     user_config.rgb_matrix_idle_anim    = true;
     user_config.rgb_matrix_idle_timeout = 60000;
 
