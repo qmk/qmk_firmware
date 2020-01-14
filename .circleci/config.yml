@@ -18,7 +18,8 @@ references:
             git submodule init
             git submodule update
             docker image build -t $CONTAINER_NAME .
-            docker container run --name $CONTAINER_NAME $CONTAINER_NAME make $BUILD_TARGET
+            docker container run --name $CONTAINER_NAME $CONTAINER_NAME make helix:luciferous_helix
+            docker container run --name $CONTAINER_NAME $CONTAINER_NAME make shiro:luciferous_shiro
             docker container cp $CONTAINER_NAME:/qmk_firmware/.build .
             docker container rm $CONTAINER_NAME
             cd .build
@@ -30,8 +31,6 @@ jobs:
   build_helix_luciferous_helix:
     <<: *primary_containers
     <<: *build_steps
-    environment:
-      BUILD_TARGET: helix:luciferous_helix
 
 workflows:
   version: 2
