@@ -200,6 +200,8 @@ void oled_write(const char *data, bool invert);
 // Advances the cursor to the next page, wiring ' ' to the remainder of the current page
 void oled_write_ln(const char *data, bool invert);
 
+void oled_write_raw(const char *data, uint16_t size);
+
 #if defined(__AVR__)
 // Writes a PROGMEM string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
@@ -211,6 +213,8 @@ void oled_write_P(const char *data, bool invert);
 // Advances the cursor to the next page, wiring ' ' to the remainder of the current page
 // Remapped to call 'void oled_write_ln(const char *data, bool invert);' on ARM
 void oled_write_ln_P(const char *data, bool invert);
+
+void oled_write_raw_P(const char *data, uint16_t size);
 #else
 // Writes a string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
@@ -220,6 +224,8 @@ void oled_write_ln_P(const char *data, bool invert);
 // Advances the cursor while writing, inverts the pixels if true
 // Advances the cursor to the next page, wiring ' ' to the remainder of the current page
 #    define oled_write_ln_P(data, invert) oled_write(data, invert)
+
+#    define oled_write_raw_P(data, size) oled_write_raw(data, size)
 #endif  // defined(__AVR__)
 
 // Can be used to manually turn on the screen if it is off

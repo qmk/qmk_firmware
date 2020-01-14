@@ -25,7 +25,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif //KEYLOGGER_ENABLE
 
   switch (keycode) {
-  case KC_QWERTY ... KC_UNICODE:
+  case KC_QWERTY ... KC_PLOVER:
     if (record->event.pressed) {
       set_single_persistent_default_layer(keycode - KC_QWERTY);
     }
@@ -168,7 +168,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case KC_OVERWATCH: // Toggle's if we hit "ENTER" or "BACKSPACE" to input macros
     if (record->event.pressed) { userspace_config.is_overwatch ^= 1; eeconfig_update_user(userspace_config.raw); }
 #ifdef RGBLIGHT_ENABLE
-    userspace_config.is_overwatch ? rgblight_mode_noeeprom(17) : rgblight_mode_noeeprom(18);
+//    userspace_config.is_overwatch ? rgblight_mode_noeeprom(17) : rgblight_mode_noeeprom(18);
 #endif //RGBLIGHT_ENABLE
     break;
   case KC_SALT:

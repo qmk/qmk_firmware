@@ -47,7 +47,7 @@ The 3 wires of the TRS/TRRS cable need to connect GND, VCC, and D0 (aka PDO or p
 
 The 4 wires of the TRRS cable need to connect GND, VCC, and SCL and SDA (aka PD0/pin 3 and PD1/pin 2, respectively) between the two Pro Micros. 
 
-The pull-up resistors may be placed on either half. It is also possible to use 4 resistors and have the pull-ups in both halves, but this is unnecessary in simple use cases.
+The pull-up resistors may be placed on either half. If you wish to use the halves independently, it is also possible to use 4 resistors and have the pull-ups in both halves.
 
 ![I2C wiring](https://i.imgur.com/Hbzhc6E.png)
 

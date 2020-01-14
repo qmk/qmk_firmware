@@ -11,8 +11,6 @@ MCU = atmega32u4
 #   ATmega328P   USBasp
 BOOTLOADER = caterina
 
-HELIX_TOP_DIR := $(patsubst %/,%,$(dir $(lastword $(MAKEFILE_LIST))))
-
 # QMK Standard Build Options
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
@@ -35,3 +33,5 @@ RGBLIGHT_ENABLE = no    # Enable WS2812 RGB underlight.
 SLEEP_LED_ENABLE = no   # Breathing sleep LED during USB suspend
 
 DEFAULT_FOLDER = helix/rev2
+
+HELIX_TOP_DIR := $(patsubst %/,%,$(dir $(lastword $(MAKEFILE_LIST))))
