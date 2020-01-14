@@ -141,7 +141,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
           tap_code16(!clockwise ? C(KC_Z) : C(S(KC_Z)));
         }
         break;
-        break;
       default:
         break;
     }
@@ -233,10 +232,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef OLED_DRIVER_ENABLE
 void oled_task_user(void) {
   // get layer Number
-  int currentDefault = eeconfig_read_default_layer();
-  int currentLayer = get_highest_layer(layer_state);
+  uint8_t currentDefault = get_highest_layer(default_layer_state);
+  uint8_t currentLayer = get_highest_layer(layer_state);
   // write OS mode / 1st line of the logo
-  switch (biton32(currentDefault)) {
+  switch (currentDefault) {
     case MAC_CS_1:
     case MAC_PS_1:
       render_row(0, "Mac ");
@@ -250,7 +249,7 @@ void oled_task_user(void) {
   }
 
   // write Application mode / 2nd line of the logo
-  switch (biton32(currentDefault)) {
+  switch (currentDefault) {
     case MAC_CS_1:
     case WIN_CS_1:
       render_row(1, "A:CS");
