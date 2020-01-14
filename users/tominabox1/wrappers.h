@@ -75,7 +75,7 @@ __  __ _       _
 #define __________________MINIVAN1_________________       __________________BASE1____________________
 #define __________________MINIVAN2_________________       __________________BASE2____________________
 #define __________________MINIVAN3_________________       __________________BASE3L___________________, __________________BASE3R___________________, KC_RSFT
-#define __________________MINIVAN4_________________       KC_DEL, KC_LCTL, KC_LGUI, KC_LALT, LT(_LOWER, KC_SPC),  LT(_LOWER, KC_SPC),  MO(_RAISE), MO(_FKEY), KC_NO, MO(_FKEY)
+#define __________________MINIVAN4_________________       KC_DEL, KC_LCTL, KC_LGUI, KC_LALT, LT(_LOWER, KC_SPC),  LT(_LOWER, KC_SPC),  LT(_RAISE, KC_ENT), MO(_FKEY), KC_NO, MO(_FKEY)
 
 /* Minivan Num/Symbol Layer
 #define _________________LOWER_1___________________
