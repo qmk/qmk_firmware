@@ -44,6 +44,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 
 };
+void keyboard_post_init_user(void){
+  wait_ms(2000);
+  oled_init(0);
+}
 
 #ifdef RGB_MATRIX_ENABLE
 void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode, uint8_t speed, uint8_t led_type);
@@ -101,16 +105,6 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
   }
 }
 #endif //RGB_MATRIX_ENABLE
-
-extern bool oled_initialized;
-void matrix_scan_user(void) {
-  if(!oled_initialized) {
-    wait_ms(200);
-    oled_init(0);
-	oled_initialized = true;
-    return;
-  }
-}
 
 extern uint8_t is_master;
 

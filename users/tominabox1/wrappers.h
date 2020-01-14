@@ -126,7 +126,7 @@ __  __ _       _
 #define _________________LOWER_1___________________
 #define _________________LOWER_2___________________       */
 #define ___________________CRKBD_LOW3______________       __________________MININUM3_________________
-#define ___________________CRKBD_LOW4______________       SPONGEBOB, AESTHETIC,LT(_LOWER, KC_SPC),  LT(_LOWER, KC_SPC), MO(_ARROW), KC_FKEY
+#define ___________________CRKBD_LOW4______________       SPONGEBOB, AESTHETIC,LT(_RAISE, KC_SPC),  LT(_LOWER, KC_SPC), MO(_ARROW), KC_FKEY
 
 /* CRKBD F-key layer
 #define ___________________FKEY1___________________
