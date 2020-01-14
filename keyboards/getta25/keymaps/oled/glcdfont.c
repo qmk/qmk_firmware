@@ -1,7 +1,6 @@
 // 'loveLain', 128x32px
 
 #include "progmem.h"
-#include <avr/pgmspace.h>
 
 static const unsigned char font[] PROGMEM = {
 0x00,0x00,0x00,0x00,0x00,0x00, // 00
