@@ -1238,7 +1238,10 @@ void backlight_set_color_all( uint8_t red, uint8_t green, uint8_t blue )
 #if defined(RGB_BACKLIGHT_M6_B)
     IS31FL3218_set_color_all( red, green, blue );
 #elif defined(RGB_BACKLIGHT_HS60) || defined(RGB_BACKLIGHT_NK65)
-    IS31FL3733_set_color_all( red, green, blue );
+    // This is done to avoid indicator LEDs being set
+    for (int i = 0; i < BACKLIGHT_LED_COUNT; i++) {
+        IS31FL3733_set_color(i, red, green, blue);
+    }
 #elif defined(RGB_BACKLIGHT_DAWN60)
     IS31FL3731_set_color_all( red, green, blue );
     for (uint8_t i = 0; i < WS2812_LED_TOTAL; i++) {
