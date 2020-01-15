@@ -354,6 +354,7 @@ ifeq ($(strip $(ORYX_ENABLE)), yes)
     WEBUSB_ENABLE := yes
     SRC += $(QUANTUM_DIR)/oryx.c
     OPT_DEFS += -DORYX_ENABLE
+    OPT_DEFS += -DLAYER_STATE_8BIT
 endif
 
 ifeq ($(strip $(VIA_ENABLE)), yes)

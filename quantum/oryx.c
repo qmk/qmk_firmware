@@ -191,3 +191,40 @@ void oryx_layer_event(void) {
 }
 
 bool is_oryx_live_training_enabled(void) { return oryx_state_live_training_enabled; }
+
+bool process_record_oryx(uint16_t keycode, keyrecord_t *record) {
+    if(is_oryx_live_training_enabled()) {
+        uint8_t event[5];
+        event[0] = WEBUSB_STATUS_OK;
+        event[1] = record->event.pressed ? ORYX_EVT_KEYDOWN : ORYX_EVT_KEYUP;
+        event[2] = record->event.key.col;
+        event[3] = record->event.key.row;
+        event[4] = WEBUSB_STOP_BIT;
+        webusb_send(event, sizeof(event));
+    }
+
+    switch (keycode) {
+        case WEBUSB_PAIR:
+            if (record->event.pressed) {
+                webusb_state.pairing = true;
+            }
+            return false;
+        case MACRO00 ... MACRO15:
+            if (record->event.pressed) {
+                dynamic_keymap_macro_send(keycode - MACRO00);
+            }
+            return false;
+    }
+    return true;
+}
+
+void layer_state_set_oryx(layer_state_t state) {
+    if(is_oryx_live_training_enabled()) {
+        uint8_t event[4];
+        event[0] = WEBUSB_STATUS_OK;
+        event[1] = ORYX_EVT_LAYER;
+        event[2] = get_highest_layer(state);
+        event[3] = WEBUSB_STOP_BIT;
+        webusb_send(event, sizeof(event));
+    }
+}

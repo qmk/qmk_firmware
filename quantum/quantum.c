@@ -210,6 +210,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #if defined(RGB_MATRIX_ENABLE)
             process_rgb_matrix(keycode, record) &&
 #endif
+#ifdef ORYX_ENABLE
+            process_record_oryx(keycode, record) &&
+#endif
 #if defined(VIA_ENABLE)
             process_record_via(keycode, record) &&
 #endif
@@ -308,11 +311,6 @@ bool process_record_quantum(keyrecord_t *record) {
 #if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_BREATHING)
             case BL_BRTG:
                 backlight_toggle_breathing();
-                return false;
-#endif
-#ifdef WEBUSB_ENABLE
-            case WEBUSB_PAIR:
-                webusb_state.pairing = true;
                 return false;
 #endif
         }

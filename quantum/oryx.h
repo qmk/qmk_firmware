@@ -54,6 +54,24 @@ enum Oryx_Event_Code {
     ORYX_EVT_KEYUP,
 };
 
+enum dynamic_macros_keycodes {
+    MACRO00 = 0x5F12,
+    MACRO01,
+    MACRO02,
+    MACRO03,
+    MACRO04,
+    MACRO05,
+    MACRO06,
+    MACRO07,
+    MACRO08,
+    MACRO09,
+    MACRO10,
+    MACRO11,
+    MACRO12,
+    MACRO13,
+    MACRO14,
+    MACRO15,
+};
 
 
 extern bool oryx_state_live_training_enabled;
@@ -61,5 +79,6 @@ extern bool oryx_state_live_training_enabled;
 bool webusb_receive_oryx(uint8_t *data, uint8_t length);
 void oryx_layer_event(void);
 bool is_oryx_live_training_enabled(void);
-
+bool process_record_oryx(uint16_t keycode, keyrecord_t *record);
+void layer_state_set_oryx(layer_state_t state);
 void keyboard_pre_init_oryx(void);
