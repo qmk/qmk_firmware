@@ -1,8 +1,8 @@
 # Rebound
 
-![Rebound](https://imgur.com/zMPhNmm)
+![Rebound](https://imgur.com/zMPhNmm.jpg)
 
-A conjoined-split 40% 4x12 ortholinear keyboard made and sold by Montsinger. [More info on Montsinger.net](https://montsinger.net)
+A conjoined-split 40% 4x12 ortholinear keyboard made and sold by Montsinger. [More info on Montsinger.net](https://montsinger.net).
 
 * Keyboard Maintainer: [Rossman360](https://github.com/rossman360)
 * Hardware Supported: Pro Micro, Elite-C
