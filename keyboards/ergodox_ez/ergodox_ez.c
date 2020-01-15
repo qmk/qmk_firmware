@@ -336,11 +336,11 @@ void keyboard_post_init_kb(void) {
 
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-#ifdef WEBUSB_ENABLE
-    if(webusb_state.paired == true) {
+#ifdef ORYX_ENABLE
+    if(is_oryx_live_training_enabled()) {
         uint8_t event[5];
         event[0] = WEBUSB_STATUS_OK;
-        event[1] = record->event.pressed ? WEBUSB_EVT_KEYDOWN : WEBUSB_EVT_KEYUP;
+        event[1] = record->event.pressed ? ORYX_EVT_KEYDOWN : ORYX_EVT_KEYUP;
         event[2] = record->event.key.col;
         event[3] = record->event.key.row;
         event[4] = WEBUSB_STOP_BIT;
@@ -399,7 +399,7 @@ void eeconfig_init_kb(void) {  // EEPROM is getting reset!
     eeconfig_init_user();
 }
 
-#ifdef WEBUSB_ENABLE
+#ifdef ORYX_ENABLE
 static uint16_t loops = 0;
 static bool is_on = false;
 
@@ -436,10 +436,10 @@ void matrix_scan_kb(void) {
 uint32_t layer_state_set_kb(uint32_t state) {
     state = layer_state_set_user(state);
     uint8_t layer = biton32(state);
-    if(webusb_state.paired == true) {
+    if(is_oryx_live_training_enabled()) {
         uint8_t event[4];
         event[0] = WEBUSB_STATUS_OK;
-        event[1] = WEBUSB_EVT_LAYER;
+        event[1] = ORYX_EVT_LAYER;
         event[2] = layer;
         event[3] = WEBUSB_STOP_BIT;
         webusb_send(event, sizeof(event));

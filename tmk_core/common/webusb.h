@@ -28,6 +28,7 @@ enum Webusb_Status_Code {
     WEBUSB_STATUS_NOT_PAIRED = -1,
     WEBUSB_STATUS_OK,
     WEBUSB_STATUS_UNKNOWN_COMMAND,
+    WEBUSB_STATUS_SAFE_RANGE,
 };
 
 enum Webusb_Command_Code {
@@ -35,7 +36,6 @@ enum Webusb_Command_Code {
     WEBUSB_CMD_GET_FW_VERSION,
     WEBUSB_CMD_SAFE_RANGE,
 
-    WEBUSB_GET_LAYER,
 };
 
 enum Webusb_Event_Code {
@@ -43,7 +43,4 @@ enum Webusb_Event_Code {
     WEBUSB_EVT_FW_VERSION,
     WEBUSB_EVT_SAFE_RANGE,
 
-    WEBUSB_EVT_KEYDOWN,
-    WEBUSB_EVT_KEYUP,
-    WEBUSB_EVT_LAYER,
 };
