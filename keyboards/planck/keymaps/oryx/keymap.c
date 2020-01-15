@@ -130,22 +130,5 @@ bool music_mask_user(uint16_t keycode) {
     }
 }
 uint32_t layer_state_set_user(uint32_t state) {
-    palClearPad(GPIOB, 8);
-    palClearPad(GPIOB, 9);
-    uint8_t layer = biton32(state);
-    switch (layer) {
-        case _LOWER:
-            palSetPad(GPIOB, 9);
-            break;
-        case _RAISE:
-            palSetPad(GPIOB, 8);
-            break;
-        case _ADJUST:
-            palSetPad(GPIOB, 9);
-            palSetPad(GPIOB, 8);
-            break;
-        default:
-            break;
-    }
     return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }

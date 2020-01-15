@@ -346,7 +346,7 @@ bool music_mask_kb(uint16_t keycode) {
     }
 }
 #endif
-#ifdef WEBUSB_ENABLE
+#ifdef ORYX_ENABLE
 static uint16_t loops = 0;
 static bool is_on = false;
 

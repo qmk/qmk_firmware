@@ -3,3 +3,4 @@ SRC += muse.c
 # See rules at https://docs.qmk.fm/#/config_options?id=the-rulesmk-file
 COMMAND_ENABLE = no
 MOUSEKEY_ENABLE = no
+ORYX_ENABLE = yes
