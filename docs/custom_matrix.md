@@ -10,6 +10,20 @@ The reasons to use this feature include:
 * Irregular switch matrix
   * Simultaneous use of `COL2ROW` and `ROW2COL`
 
+## Prerequisites
+
+Implementing custom matrix usually involves compilation of an additional source file. It is recommended that for consistency, this file is called `matrix.c`.
+
+Add a new file to:
+```text
+keyboards/<keyboard>/matrix.c
+```
+
+And to configure compilation for the new file, add this to your `rules.mk`:
+```make
+SRC += matrix.c
+```
+
 ## 'lite'
 
 Provides a default implementation for various scanning functions, reducing the boilerplate code when implementing custom matrix.
