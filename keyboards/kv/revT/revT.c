@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "revT.h"
+#include "revt.h"
 
 void matrix_init_kb(void) {
   // Turn status LED on
