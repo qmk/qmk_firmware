@@ -1,12 +1,4 @@
 # KVT
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
-===
->>>>>>> 7f1ef1ab3ebbf7a64af4901a5ccc65415533d4eb
-=======
->>>>>>> e050e59ec79b49332222157d2f74968b49066e58
 
 ![KVT default layout](https://i.imgur.com/nPwxzdU.jpg)
 
