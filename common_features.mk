@@ -316,9 +316,6 @@ ifeq ($(strip $(USB_HID_ENABLE)), yes)
     include $(TMK_DIR)/protocol/usb_hid.mk
 endif
 
-ifeq ($(strip $(WEBUSB_ENABLE)), yes)
-    SRC += $(TMK_DIR)/common/webusb.c
-endif
 
 ifeq ($(strip $(ENCODER_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/encoder.c
@@ -350,6 +347,13 @@ endif
 ifeq ($(strip $(VELOCIKEY_ENABLE)), yes)
     OPT_DEFS += -DVELOCIKEY_ENABLE
     SRC += $(QUANTUM_DIR)/velocikey.c
+endif
+
+ifeq ($(strip $(ORYX_ENABLE)), yes)
+    DYNAMIC_KEYMAP_ENABLE := yes
+    WEBUSB_ENABLE := yes
+    SRC += $(QUANTUM_DIR)/oryx.c
+    OPT_DEFS += -DORYX_ENABLE
 endif
 
 ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)

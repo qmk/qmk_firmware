@@ -288,8 +288,6 @@ void webusb_send(uint8_t *data, uint8_t length) {
     Endpoint_ClearIN();
 }
 
-__attribute__((weak)) void webusb_receive_kb(uint8_t *data, uint8_t length) { }
-
 static void webusb_task(void) {
     // Create a temporary buffer to hold the read in data from the host
     uint8_t data[WEBUSB_EPSIZE];
