@@ -228,3 +228,9 @@ void layer_state_set_oryx(layer_state_t state) {
         webusb_send(event, sizeof(event));
     }
 }
+
+void eeconfig_init_oryx(void) {
+    // reread settings from flash into eeprom
+    dynamic_keymap_reset();
+    dynamic_keymap_macro_reset();
+}

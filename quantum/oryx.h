@@ -81,4 +81,5 @@ void oryx_layer_event(void);
 bool is_oryx_live_training_enabled(void);
 bool process_record_oryx(uint16_t keycode, keyrecord_t *record);
 void layer_state_set_oryx(layer_state_t state);
+void eeconfig_init_oryx(void);
 void keyboard_pre_init_oryx(void);
