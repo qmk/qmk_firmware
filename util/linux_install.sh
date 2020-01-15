@@ -12,8 +12,7 @@ util_dir=$(dirname "$0")
 
 # For those distros that do not package bootloadHID
 install_bootloadhid() {
-    type bootloadHID >/dev/null 2>&1
-    if [[ $? -ne 0 ]]; then
+    if command -v bootloadHid >/dev/null; then
         wget https://www.obdev.at/downloads/vusb/bootloadHID.2012-12-08.tar.gz -O - | tar -xz -C /tmp
         cd /tmp/bootloadHID.2012-12-08/commandline/
         if make; then
