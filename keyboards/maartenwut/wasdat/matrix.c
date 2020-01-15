@@ -324,38 +324,25 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 
 #endif
 
-void matrix_init(void) {
+void matrix_init_custom(void) {
     // initialize key pins
     init_pins();
-
-    // initialize matrix state: all keys off
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        raw_matrix[i] = 0;
-        matrix[i]     = 0;
-    }
-
-    debounce_init(MATRIX_ROWS);
-
-    matrix_init_quantum();
 }
 
-uint8_t matrix_scan(void) {
+uint8_t matrix_scan_custom(matrix_row_t current_matrix[]) {
     bool changed = false;
 
 #if defined(DIRECT_PINS) || (DIODE_DIRECTION == COL2ROW)
     // Set row, read cols
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
-        changed |= read_cols_on_row(raw_matrix, current_row);
+        changed |= read_cols_on_row(current_matrix, current_row);
     }
 #elif (DIODE_DIRECTION == ROW2COL)
     // Set col, read rows
     for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
-        changed |= read_rows_on_col(raw_matrix, current_col);
+        changed |= read_rows_on_col(current_matrix, current_col);
     }
 #endif
 
-    debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
-
-    matrix_scan_quantum();
-    return (uint8_t)changed;
+    return changed;
 }
