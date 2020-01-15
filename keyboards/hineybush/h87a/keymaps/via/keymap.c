@@ -68,10 +68,8 @@ void led_init_ports(void) {
     setPinOutput(E6);
 }
 
-void led_set_user(uint8_t usb_led) {
-
+bool led_update_user(led_t led_state) {
     writePin(D5, !led_state.caps_lock);
     writePin(E6, !led_state.scroll_lock);
     return true;
-
 }
