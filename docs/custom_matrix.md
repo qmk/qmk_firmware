@@ -4,7 +4,7 @@ QMK provides a mechanism to supplement or replace the default matrix scanning ro
 
 The reasons to use this feature include:
 
-* Extra hardware between the keyboards switches and MCU pins
+* Extra hardware between the keyboard's switches and MCU pins
   * I/O multiplexer
   * Line decoder
 * Irregular switch matrix
@@ -13,13 +13,13 @@ The reasons to use this feature include:
 ## 'lite'
 
 Provides a default implementation for various scanning functions, reducing the boilerplate code when implementing custom matrix.
-To configure it, add this to your rules.mk:
+To configure it, add this to your `rules.mk`:
 
 ```make
 CUSTOM_MATRIX = lite
 ```
 
-And implement the following functions:
+And implement the following functions in a `matrix.c` file in your keyboard folder:
 
 ```c
 void matrix_init_custom(void) {
@@ -45,10 +45,10 @@ To configure it, add this to your rules.mk:
 CUSTOM_MATRIX = yes
 ```
 
-And implement the following functions:
+And implement the following functions in a `matrix.c` file in your keyboard folder:
 
 ```c
-matrix_row_t matrix_get_row(uint8_t row){
+matrix_row_t matrix_get_row(uint8_t row) {
     // TODO: return the requested row data
 }
 
@@ -71,7 +71,7 @@ uint8_t matrix_scan(void) {
 
     // TODO: add matrix scanning routine here
 
-    // Unless hardware debouncing - use the configured debounce routine 
+    // Unless hardware debouncing - use the configured debounce routine
     debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
 
     // This *must* be called for correct keyboard behavior
