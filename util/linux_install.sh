@@ -12,12 +12,15 @@ util_dir=$(dirname "$0")
 
 # For those distros that do not package bootloadHID
 install_bootloadhid() {
-    wget https://www.obdev.at/downloads/vusb/bootloadHID.2012-12-08.tar.gz -O - | tar -xz -C /tmp
-    cd /tmp/bootloadHID.2012-12-08/commandline/
-    if make; then
-        sudo cp bootloadHID /usr/local/bin
+    type bootloadHID >/dev/null 2>&1
+    if [[ $? -ne 0 ]]; then
+        wget https://www.obdev.at/downloads/vusb/bootloadHID.2012-12-08.tar.gz -O - | tar -xz -C /tmp
+        cd /tmp/bootloadHID.2012-12-08/commandline/
+        if make; then
+            sudo cp bootloadHID /usr/local/bin
+        fi
+        cd -
     fi
-    cd -
 }
 
 if grep ID /etc/os-release | grep -qE "fedora"; then
@@ -94,12 +97,6 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 		unzip \
 		wget \
 		zip
-    type yay >/dev/null 2>&1
-    if [[ $? == 0 ]]; then
-        yay -S --needed bootloadhid
-    else
-        printf "\033[0;31m!!!Prease manually install bootloadhid package from AUR!!!\033[0m\n"
-    fi
 
 elif grep ID /etc/os-release | grep -q gentoo; then
 	echo "$GENTOO_WARNING" | fmt
