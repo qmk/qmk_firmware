@@ -69,6 +69,7 @@ void    slider(void) {
         char demo_buff[5];
         itoa(x, demo_buff, 10);
         send_string(demo_buff);
+        SEND_STRING(SS_TAP(X_ENTER));
     }
 }
 
