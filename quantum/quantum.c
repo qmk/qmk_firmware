@@ -213,6 +213,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #if defined(RGB_MATRIX_ENABLE)
             process_rgb_matrix(keycode, record) &&
 #endif
+#if defined(VIA_ENABLE)
+            process_record_via(keycode, record) &&
+#endif
             process_record_kb(keycode, record) &&
 #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
             process_midi(keycode, record) &&
@@ -560,9 +563,7 @@ __attribute__((weak)) void bootmagic_lite(void) {
 
     // We need multiple scans because debouncing can't be turned off.
     matrix_scan();
-#if defined(DEBOUNCING_DELAY) && DEBOUNCING_DELAY > 0
-    wait_ms(DEBOUNCING_DELAY * 2);
-#elif defined(DEBOUNCE) && DEBOUNCE > 0
+#if defined(DEBOUNCE) && DEBOUNCE > 0
     wait_ms(DEBOUNCE * 2);
 #else
     wait_ms(30);

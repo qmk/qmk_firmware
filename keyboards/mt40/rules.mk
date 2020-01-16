@@ -29,9 +29,5 @@ TAP_DANCE_ENABLE = no
 
 OPT_DEFS = -DDEBUG_LEVEL=0
 
-# custom matrix setup
-CUSTOM_MATRIX = yes
-SRC = matrix.c
-
 LAYOUTS = planck_mit
 LAYOUTS_HAS_RGB = no
