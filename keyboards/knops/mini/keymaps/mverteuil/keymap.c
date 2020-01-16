@@ -11,10 +11,10 @@
 #define LT_ESC LT(_LAYERS, KC_ESC)
 #define LT_NXTH TD(TD_SPEC)
 
+void led_init_animation(void);
+void led_set_layer(int layer);
 void td_spectacles_finish(qk_tap_dance_state_t *state, void *user_data);
 void td_spectacles_reset(qk_tap_dance_state_t *state, void *user_data);
-void led_set_layer(int layer);
-void led_init_animation(void);
 
 enum mini_layers {
     _MEDIA,
@@ -25,12 +25,10 @@ enum mini_layers {
 
 enum { TD_SPEC = 0 };
 
-
 qk_tap_dance_action_t tap_dance_actions[] = {
     /* Tap once for spectacles macro, hold for layer toggle */
     [TD_SPEC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_spectacles_finish, td_spectacles_reset),
 };
-
 
 /*
  *   Key Layout
@@ -52,7 +50,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 /* clang-format off */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
     /*
      *  Layer 0 (Media Keys)
      *   _____   _____   _____
@@ -124,7 +121,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, RESET,
         TO(_MEDIA),TO(_COPYPASTA),TO(_SPECTACLES)
     )
-
 };
 /* clang-format on */
 
@@ -198,11 +194,11 @@ void set_layer_led(int layerId, bool layerState) {
 void led_init_animation() {
     for (int i = 1; i < 7; i++) {
         set_switch_led(i, false);
-        set_layer_led((i-1) % 3, false);
+        set_layer_led((i - 1) % 3, false);
     }
     for (int i = 1; i < 7; i++) {
         set_switch_led(i, true);
-        set_layer_led((i-1) % 3, true);
+        set_layer_led((i - 1) % 3, true);
         wait_ms(75);
     }
 }
