@@ -247,7 +247,7 @@ section at the end of this file).
  * you use a shared VID/PID.
  */
 /*#define USB_CFG_SERIAL_NUMBER   'N', 'o', 'n', 'e' */
-#define USB_CFG_SERIAL_NUMBER_LEN   17
+/*#define USB_CFG_SERIAL_NUMBER_LEN   0 */
 /* Same as above for the serial number. If you don't want a serial number,
  * undefine the macros.
  * It may be useful to provide the serial number through other means than at
