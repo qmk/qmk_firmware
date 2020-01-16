@@ -11,6 +11,11 @@
 #define LT_ESC LT(_LAYERS, KC_ESC)
 #define LT_NXTH TD(TD_SPEC)
 
+void td_spectacles_finish(qk_tap_dance_state_t *state, void *user_data);
+void td_spectacles_reset(qk_tap_dance_state_t *state, void *user_data);
+void led_set_layer(int layer);
+void led_init_animation(void);
+
 enum mini_layers {
     _MEDIA,
     _COPYPASTA,
@@ -20,15 +25,12 @@ enum mini_layers {
 
 enum { TD_SPEC = 0 };
 
-void td_spectacles_finish(qk_tap_dance_state_t *state, void *user_data);
-void td_spectacles_reset(qk_tap_dance_state_t *state, void *user_data);
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     /* Tap once for spectacles macro, hold for layer toggle */
     [TD_SPEC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_spectacles_finish, td_spectacles_reset),
 };
 
-void led_set_layer(int layer);
 
 /*
  *   Key Layout
@@ -141,6 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                       To turn on/off these leds, use:
  *                                           set_layer_led( [0-2], [true/false] );
  */
+
 void set_switch_led(int ledId, bool state) {
     switch (ledId) {
         case 1:
@@ -176,11 +179,6 @@ void set_layer_led(int layerId, bool layerState) {
             case 2:
                 writePinLow(B0);
                 break;
-            case 3:
-                writePinLow(D5);
-                writePinHigh(B6);
-                writePinLow(B0);
-                break;
         }
     } else {
         switch (layerId) {
@@ -193,12 +191,19 @@ void set_layer_led(int layerId, bool layerState) {
             case 2:
                 writePinHigh(B0);
                 break;
-            case 3:
-                writePinHigh(D5);
-                writePinLow(B6);
-                writePinHigh(B0);
-                break;
         }
+    }
+}
+
+void led_init_animation() {
+    for (int i = 1; i < 7; i++) {
+        set_switch_led(i, false);
+        set_layer_led((i-1) % 3, false);
+    }
+    for (int i = 1; i < 7; i++) {
+        set_switch_led(i, true);
+        set_layer_led((i-1) % 3, true);
+        wait_ms(75);
     }
 }
 
@@ -209,37 +214,19 @@ void set_layer_led(int layerId, bool layerState) {
  */
 void led_set_layer(int layer) {
     switch (layer) {
-        case 0:
+        case _MEDIA ... _SPECTACLES:
             set_switch_led(1, true);
             set_switch_led(2, true);
             set_switch_led(3, true);
             set_switch_led(4, true);
-            set_switch_led(5, false);
-            set_switch_led(6, false);
-            break;
-
-        case 1:
-            set_switch_led(1, true);
-            set_switch_led(2, true);
-            set_switch_led(3, true);
-            set_switch_led(4, false);
             set_switch_led(5, true);
-            set_switch_led(6, false);
-            break;
-
-        case 2:
-            set_switch_led(1, true);
-            set_switch_led(2, true);
-            set_switch_led(3, true);
-            set_switch_led(4, false);
-            set_switch_led(5, false);
             set_switch_led(6, true);
             break;
 
-        case 3:
+        case _LAYERS:
             set_switch_led(1, false);
             set_switch_led(2, false);
-            set_switch_led(3, true);
+            set_switch_led(3, false);
             set_switch_led(4, true);
             set_switch_led(5, true);
             set_switch_led(6, true);
@@ -261,19 +248,10 @@ void led_init_ports() {
     setPinOutput(D5);  // Layer 0 LED
     setPinOutput(B6);  // Layer 1 LED
     setPinOutput(B0);  // Layer 2 LED
-
-    // Cycle through layer LEDs
-    for (int i = 0; i < 4; i++) {
-        led_set_layer(i % 3);
-        wait_ms(200);
-    }
 }
 
 // Runs on layer change, no matter where the change was initiated
 layer_state_t layer_state_set_user(layer_state_t state) {
-    // Skip from initialization state 0 to 1
-    if (state == 0) state = 1;
-
     // Check for active layers and set layer LED appropriately
     // Layers are indicated by active bits
     // i.e. 0001 = just 1, 0011 = 1 and 2, 0010 = just 2, etc.
@@ -286,9 +264,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-void matrix_init_user(void) { led_init_ports(); }
-
-void matrix_scan_user(void) {}
+void matrix_init_user(void) {
+    led_init_ports();
+    led_init_animation();
+    layer_on(_MEDIA);
+}
 
 void td_spectacles_finish(qk_tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
