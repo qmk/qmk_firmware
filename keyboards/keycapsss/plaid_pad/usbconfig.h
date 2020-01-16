@@ -382,5 +382,3 @@ section at the end of this file).
 // /* #define USB_INTR_PENDING        EIFR */
 // #define USB_INTR_PENDING_BIT    INTF1
 // #define USB_INTR_VECTOR         INT1_vect
-
-#endif /* __usbconfig_h_included__ */
