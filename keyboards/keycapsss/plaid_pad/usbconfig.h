@@ -242,7 +242,7 @@ section at the end of this file).
  * details.
  */
 #define USB_CFG_DEVICE_NAME     'P', 'l', 'a', 'i', 'd', '-', 'P', 'a', 'd'
-#define USB_CFG_DEVICE_NAME_LEN 5
+#define USB_CFG_DEVICE_NAME_LEN 9
 /* Same as above for the device name. If you don't want a device name, undefine
  * the macros. See the file USB-IDs-for-free.txt before you assign a name if
  * you use a shared VID/PID.
