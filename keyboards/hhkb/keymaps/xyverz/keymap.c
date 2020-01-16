@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*
    *  _FL: Function Layer
    * ,-----------------------------------------------------------.
-   * |    |F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|   |RST|
+   * |Grv |F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|   |RST|
    * |-----------------------------------------------------------|
    * |     |   |_QW|_DV|_CM|   |   |PgU| Up|PgD|PSc|SLk|Pau|     |
    * |-----------------------------------------------------------|
@@ -109,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   /* Layer 3: Functions */
   [_FL] = LAYOUT(
-    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, RESET  ,
+    KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, RESET  ,
     _______, _______, QWERTY,  DVORAK,  COLEMAK, _______, _______, KC_PGUP, KC_UP,   KC_PGDN, KC_PSCR, KC_SLCK, KC_PAUS, _______,
     KC_CAPS, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,          _______,
     _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_END,  _______, _______, _______, _______,          _______, _______,
