@@ -33,18 +33,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
         TO(_FN),
         KC_1,       KC_2,       KC_3,
-        KC_4,       KC_5,       KC_6,       KC_0),
+        KC_4,       KC_5,       KC_6,       KC_0
     ),
     [_FN] = LAYOUT(
         TO(_DEMO),
-        RGB_TOG,    RGB_MOD,    KC_VAI,
-		RGB_TRNS,    KC_TRNS,    RGB_TRNS,    KC_TRNS),
+        RGB_TOG,    RGB_MOD,    RGB_VAI,
+		KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS
     ),
     [_DEMO] = LAYOUT(
         TO(_BASE),
         QMKBEST,    KC_TRNS,    KC_TRNS,
-        KC_TRNS,    KC_TRNS,    KC_TRNS,    QMKURL)
-
+        KC_TRNS,    KC_TRNS,    KC_TRNS,    QMKURL
+    )
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
