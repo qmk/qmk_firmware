@@ -5,6 +5,7 @@ bool oryx_state_live_training_enabled;
 bool webusb_receive_oryx(uint8_t *data, uint8_t length) {
     uint8_t command = data[0];
     uint8_t *param   = &(data[1]);
+    oryx_state_live_training_enabled = false;
 
     switch (command) {
         case ORYX_GET_LAYER:
@@ -12,7 +13,7 @@ bool webusb_receive_oryx(uint8_t *data, uint8_t length) {
             return true;
         case ORYX_CMD_LIVE_TRAINING: {
             uint8_t event[4];
-            switch (param[0]) {  // 0 for state, 1 for off, 2 for on
+            switch (param[0]) {  // 0 for querying, 1 for off, 2 for on
                 case 0:
                     break;
                 case 1:
