@@ -21,3 +21,5 @@
 #define MATRIX_COL_PINS { A3 }
 #define MATRIX_ROW_PINS { A2 }
 #define UNUSED_PINS
+
+#define DIODE_DIRECTION COL2ROW
