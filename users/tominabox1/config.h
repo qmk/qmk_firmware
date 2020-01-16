@@ -17,6 +17,7 @@
   #define COMBO_COUNT 10
   #define COMBO_TERM 100
 #endif
+#define COMBO_ALLOW_ACTION_KEYS
 
 #if defined(LED_ANIMATIONS)
    #define RGBLIGHT_EFFECT_BREATHING

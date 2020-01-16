@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT(
   //,---------------------------------------------------------------------------------------------------.
-        KC_ESC,   RGBRST,  AG_NORM,  AG_SWAP,  DEBUG,  XXXXXXX,KC_PGDN,    KC_UP,  KC_PGUP,    XXXXXXX,
+        KC_ESC,   RGBRST,  AG_NORM,  AG_SWAP,  DEBUG,  KC_GRV,KC_PGDN,    KC_UP,  KC_PGUP,    XXXXXXX,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
        RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI,  XXXXXXX,  KC_HOME,  KC_LEFT,  KC_DOWN,  KC_RGHT,   KC_END,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
