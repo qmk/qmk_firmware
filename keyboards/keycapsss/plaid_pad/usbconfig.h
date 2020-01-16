@@ -231,7 +231,7 @@ section at the end of this file).
 #define USB_CFG_DEVICE_VERSION  (DEVICE_VER & 0xFF), ((DEVICE_VER >> 8) & 0xFF)
 /* Version number of the device: Minor number first, then major number.
  */
-#define USB_CFG_VENDOR_NAME     'd','m','9','r','e','c','o','r','d','s'
+#define USB_CFG_VENDOR_NAME     'K','e','y','c','a','p','s','s','s'
 #define USB_CFG_VENDOR_NAME_LEN 10
 /* These two values define the vendor name returned by the USB device. The name
  * must be given as a list of characters under single quotes. The characters
