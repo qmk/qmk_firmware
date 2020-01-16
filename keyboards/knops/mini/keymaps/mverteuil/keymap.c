@@ -252,22 +252,17 @@ void led_init_ports() {
 
 // Runs on layer change, no matter where the change was initiated
 layer_state_t layer_state_set_user(layer_state_t state) {
-    // Check for active layers and set layer LED appropriately
-    // Layers are indicated by active bits
-    // i.e. 0001 = just 1, 0011 = 1 and 2, 0010 = just 2, etc.
     for (int i = 0; i < 4; i++) {
-        bool isActive = (state & 1 << i) == 1 << i;
-        set_layer_led(i, isActive);
-        if (isActive) led_set_layer(i);
+        set_layer_led(i, false);
     }
-
+    set_layer_led(get_highest_layer(state), true);
+    led_set_layer(get_highest_layer(state));
     return state;
 }
 
 void matrix_init_user(void) {
     led_init_ports();
     led_init_animation();
-    layer_on(_MEDIA);
 }
 
 void td_spectacles_finish(qk_tap_dance_state_t *state, void *user_data) {
