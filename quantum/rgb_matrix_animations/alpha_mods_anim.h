@@ -11,9 +11,17 @@ bool ALPHAS_MODS(effect_params_t* params) {
     hsv.h += rgb_matrix_config.speed;
     RGB rgb2 = hsv_to_rgb(hsv);
 
+    HSV alt_hsv = rgb_matrix_config.hsv;
+    alt_hsv.h  += rgb_matrix_alt_config.hsv.h;
+    alt_hsv.s  += rgb_matrix_alt_config.hsv.s;
+    alt_hsv.v  += rgb_matrix_alt_config.hsv.v;
+    RGB alt_rgb = hsv_to_rgb(alt_hsv);
+
     for (uint8_t i = led_min; i < led_max; i++) {
         RGB_MATRIX_TEST_LED_FLAGS();
-        if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
+        if (RGB_MATRIX_IS_UNDERGLOW()) {
+            rgb_matrix_set_color(i, alt_rgb.r, alt_rgb.g, alt_rgb.b);
+        } else if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
             rgb_matrix_set_color(i, rgb2.r, rgb2.g, rgb2.b);
         } else {
             rgb_matrix_set_color(i, rgb1.r, rgb1.g, rgb1.b);
