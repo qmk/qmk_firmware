@@ -202,7 +202,7 @@ void fled_val_decrease(void)
 void fled_layer_update(layer_state_t state) {
     // Determine and set colour of layer LED according to current layer
     // if hue = sat = 0, leave LED off
-    uint8_t layer = biton32(state);
+    uint8_t layer = get_highest_layer(state);
 
     if (layer < lc_size && !(layer_colors[layer].hue == 0 && layer_colors[layer].sat == 0)) {
         sethsv(layer_colors[layer].hue, layer_colors[layer].sat, fled_val, &fleds[1]);
