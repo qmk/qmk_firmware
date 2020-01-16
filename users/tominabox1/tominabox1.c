@@ -182,7 +182,7 @@ uint16_t get_tapping_term(uint16_t keycode) {
         case TD(TD_WTAB):
             return 120;
         case TD(TD_CTRL_A):
-            return 150;
+            return 125;
         case LSFT_T(KC_Z):
             return 120;
 		case TD(TD_QUES_ENT):
@@ -197,7 +197,7 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
     case RSFT_T(KC_DOT):
       return true;
 	case LSFT_T(KC_Z):
-	  return false;
+	  return true;
     default:
       return false;
   }
@@ -205,8 +205,8 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
 
 bool get_tapping_force_hold(uint16_t keycode) {
   switch (keycode) {
-    case MO(_RAISE):
-      return false;
+    case LSFT_T(KC_Z):
+      return true;
     default:
       return false;
   }
