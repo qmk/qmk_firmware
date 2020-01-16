@@ -85,7 +85,7 @@ typedef union {
 typedef union {
     uint32_t raw;
     struct PACKED {
-        HSV_OFFSET hsv;
+        HSV hsv;
         uint8_t    speed;
     };
 } rgb_alt_config_t;

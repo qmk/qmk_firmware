@@ -59,12 +59,6 @@ typedef struct PACKED {
     uint8_t v;
 } HSV;
 
-typedef struct PACKED {
-    uint8_t h;
-    uint8_t s; // offset
-    uint8_t v; // offset
-} HSV_OFFSET;
-
 #if defined(_MSC_VER)
 #    pragma pack(pop)
 #endif

@@ -126,7 +126,7 @@ void eeconfig_update_rgb_matrix_default(void) {
     rgb_matrix_config.speed  = UINT8_MAX / 2;
 
     // rgb_matrix_alt_config is an offset.
-    rgb_matrix_alt_config.hsv    = (HSV_OFFSET){0, 0, 0};
+    rgb_matrix_alt_config.hsv    = (HSV){0, 0, 0};
     rgb_matrix_alt_config.speed  = 0;
 
     eeconfig_update_rgb_matrix();
@@ -530,32 +530,32 @@ void rgb_matrix_decrease_alt_hue(void) {
 }
 
 void rgb_matrix_increase_alt_sat(void) {
-    rgb_matrix_alt_config.hsv.s = qadd8(rgb_matrix_alt_config.hsv.s, RGB_MATRIX_SAT_STEP);
+    rgb_matrix_alt_config.hsv.s += RGB_MATRIX_SAT_STEP;
     eeconfig_update_rgb_matrix();
 }
 
 void rgb_matrix_decrease_alt_sat(void) {
-    rgb_matrix_alt_config.hsv.s = qsub8(rgb_matrix_alt_config.hsv.s, RGB_MATRIX_SAT_STEP);
+    rgb_matrix_alt_config.hsv.s -= RGB_MATRIX_SAT_STEP;
     eeconfig_update_rgb_matrix();
 }
 
 void rgb_matrix_increase_alt_val(void) {
-    rgb_matrix_alt_config.hsv.v = qadd8(rgb_matrix_alt_config.hsv.v, RGB_MATRIX_VAL_STEP);
+    rgb_matrix_alt_config.hsv.v += RGB_MATRIX_VAL_STEP;
     eeconfig_update_rgb_matrix();
 }
 
 void rgb_matrix_decrease_alt_val(void) {
-    rgb_matrix_alt_config.hsv.v = qsub8(rgb_matrix_alt_config.hsv.v, RGB_MATRIX_VAL_STEP);
+    rgb_matrix_alt_config.hsv.v -= RGB_MATRIX_VAL_STEP;
     eeconfig_update_rgb_matrix();
 }
 
 void rgb_matrix_increase_alt_speed(void) {
-    rgb_matrix_alt_config.speed = qadd8(rgb_matrix_alt_config.speed, RGB_MATRIX_SPD_STEP);
+    rgb_matrix_alt_config.speed += RGB_MATRIX_SPD_STEP;
     eeconfig_update_rgb_matrix();
 }
 
 void rgb_matrix_decrease_alt_speed(void) {
-    rgb_matrix_alt_config.speed = qsub8(rgb_matrix_alt_config.speed, RGB_MATRIX_SPD_STEP);
+    rgb_matrix_alt_config.speed -= RGB_MATRIX_SPD_STEP;
     eeconfig_update_rgb_matrix();
 }
 
