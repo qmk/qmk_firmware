@@ -58,6 +58,8 @@
 #define RGB_MATRIX_TEST_LED_FLAGS() \
     if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) continue
 
+#define RGB_MATRIX_IS_UNDERGLOW() HAS_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)
+
 enum rgb_matrix_effects {
     RGB_MATRIX_NONE = 0,
 
@@ -119,6 +121,14 @@ void        rgb_matrix_increase_val(void);
 void        rgb_matrix_decrease_val(void);
 void        rgb_matrix_increase_speed(void);
 void        rgb_matrix_decrease_speed(void);
+void        rgb_matrix_increase_alt_hue(void);
+void        rgb_matrix_decrease_alt_hue(void);
+void        rgb_matrix_increase_alt_sat(void);
+void        rgb_matrix_decrease_alt_sat(void);
+void        rgb_matrix_increase_alt_val(void);
+void        rgb_matrix_decrease_alt_val(void);
+void        rgb_matrix_increase_alt_speed(void);
+void        rgb_matrix_decrease_alt_speed(void);
 led_flags_t rgb_matrix_get_flags(void);
 void        rgb_matrix_set_flags(led_flags_t flags);
 void        rgb_matrix_mode(uint8_t mode);
@@ -145,6 +155,14 @@ void        rgb_matrix_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val);
 #    define rgblight_decrease_val rgb_matrix_decrease_val
 #    define rgblight_increase_speed rgb_matrix_increase_speed
 #    define rgblight_decrease_speed rgb_matrix_decrease_speed
+#    define rgblight_increase_alt_hue rgb_matrix_increase_alt_hue
+#    define rgblight_decrease_alt_hue rgb_matrix_decrease_alt_hue
+#    define rgblight_increase_alt_sat rgb_matrix_increase_alt_sat
+#    define rgblight_decrease_alt_sat rgb_matrix_decrease_alt_sat
+#    define rgblight_increase_alt_val rgb_matrix_increase_alt_val
+#    define rgblight_decrease_alt_val rgb_matrix_decrease_alt_val
+#    define rgblight_increase_alt_speed rgb_matrix_increase_alt_speed
+#    define rgblight_decrease_alt_speed rgb_matrix_decrease_alt_speed
 #    define rgblight_mode rgb_matrix_mode
 #    define rgblight_mode_noeeprom rgb_matrix_mode_noeeprom
 #    define rgblight_get_mode rgb_matrix_get_mode
@@ -164,6 +182,7 @@ typedef struct {
 extern const rgb_matrix_driver_t rgb_matrix_driver;
 
 extern rgb_config_t rgb_matrix_config;
+extern rgb_alt_config_t rgb_matrix_alt_config;
 
 extern bool           g_suspend_state;
 extern rgb_counters_t g_rgb_counters;

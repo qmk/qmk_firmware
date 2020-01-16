@@ -388,9 +388,10 @@ The EEPROM for it is currently shared with the RGBLIGHT system (it's generally a
 
 ```C
 #define EECONFIG_RGB_MATRIX (uint32_t *)28
+#define EECONFIG_RGB_ALT_MATRIX (uint32_t *)34
 ```
 
-Where `28` is an unused index from `eeconfig.h`.
+Where `28` and `34` are unused indices from `eeconfig.h`.
 
 ## Suspended state
 

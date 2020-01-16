@@ -98,6 +98,7 @@ const point_t k_rgb_matrix_center = RGB_MATRIX_CENTER;
 bool g_suspend_state = false;
 
 rgb_config_t rgb_matrix_config;
+rgb_alt_config_t rgb_matrix_alt_config;
 
 rgb_counters_t  g_rgb_counters;
 static uint32_t rgb_counters_buffer;
@@ -112,8 +113,10 @@ static last_hit_t last_hit_buffer;
 #endif  // RGB_MATRIX_KEYREACTIVE_ENABLED
 
 void eeconfig_read_rgb_matrix(void) { eeprom_read_block(&rgb_matrix_config, EECONFIG_RGB_MATRIX, sizeof(rgb_matrix_config)); }
+void eeconfig_read_rgb_matrix_alt(void) { eeprom_read_block(&rgb_matrix_alt_config, EECONFIG_RGB_ALT_MATRIX, sizeof(rgb_matrix_alt_config)); }
 
 void eeconfig_update_rgb_matrix(void) { eeprom_update_block(&rgb_matrix_config, EECONFIG_RGB_MATRIX, sizeof(rgb_matrix_config)); }
+void eeconfig_update_rgb_matrix_alt(void) { eeprom_update_block(&rgb_matrix_alt_config, EECONFIG_RGB_ALT_MATRIX, sizeof(rgb_matrix_alt_config)); }
 
 void eeconfig_update_rgb_matrix_default(void) {
     dprintf("eeconfig_update_rgb_matrix_default\n");
@@ -121,6 +124,11 @@ void eeconfig_update_rgb_matrix_default(void) {
     rgb_matrix_config.mode   = RGB_MATRIX_STARTUP_MODE;
     rgb_matrix_config.hsv    = (HSV){0, UINT8_MAX, RGB_MATRIX_MAXIMUM_BRIGHTNESS};
     rgb_matrix_config.speed  = UINT8_MAX / 2;
+
+    // rgb_matrix_alt_config is an offset.
+    rgb_matrix_alt_config.hsv    = (HSV_OFFSET){0, 0, 0};
+    rgb_matrix_alt_config.speed  = 0;
+
     eeconfig_update_rgb_matrix();
 }
 
@@ -132,6 +140,11 @@ void eeconfig_debug_rgb_matrix(void) {
     dprintf("rgb_matrix_config.hsv.s = %d\n", rgb_matrix_config.hsv.s);
     dprintf("rgb_matrix_config.hsv.v = %d\n", rgb_matrix_config.hsv.v);
     dprintf("rgb_matrix_config.speed = %d\n", rgb_matrix_config.speed);
+
+    dprintf("rgb_matrix_alt_config.hsv.h = %d\n", rgb_matrix_alt_config.hsv.h);
+    dprintf("rgb_matrix_alt_config.hsv.s = %d\n", rgb_matrix_alt_config.hsv.s);
+    dprintf("rgb_matrix_alt_config.hsv.v = %d\n", rgb_matrix_alt_config.hsv.v);
+    dprintf("rgb_matrix_alt_config.speed = %d\n", rgb_matrix_alt_config.speed);
 }
 
 __attribute__((weak)) uint8_t rgb_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t *led_i) { return 0; }
@@ -414,6 +427,7 @@ void rgb_matrix_init(void) {
         dprintf("rgb_matrix_init_drivers rgb_matrix_config.mode = 0. Write default values to EEPROM.\n");
         eeconfig_update_rgb_matrix_default();
     }
+    eeconfig_read_rgb_matrix_alt();
     eeconfig_debug_rgb_matrix();  // display current eeprom values
 }
 
@@ -505,6 +519,46 @@ void rgb_matrix_decrease_speed(void) {
     eeconfig_update_rgb_matrix();
 }
 
+void rgb_matrix_increase_alt_hue(void) {
+    rgb_matrix_alt_config.hsv.h += RGB_MATRIX_HUE_STEP;
+    eeconfig_update_rgb_matrix();
+}
+
+void rgb_matrix_decrease_alt_hue(void) {
+    rgb_matrix_alt_config.hsv.h -= RGB_MATRIX_HUE_STEP;
+    eeconfig_update_rgb_matrix();
+}
+
+void rgb_matrix_increase_alt_sat(void) {
+    rgb_matrix_alt_config.hsv.s = qadd8(rgb_matrix_alt_config.hsv.s, RGB_MATRIX_SAT_STEP);
+    eeconfig_update_rgb_matrix();
+}
+
+void rgb_matrix_decrease_alt_sat(void) {
+    rgb_matrix_alt_config.hsv.s = qsub8(rgb_matrix_alt_config.hsv.s, RGB_MATRIX_SAT_STEP);
+    eeconfig_update_rgb_matrix();
+}
+
+void rgb_matrix_increase_alt_val(void) {
+    rgb_matrix_alt_config.hsv.v = qadd8(rgb_matrix_alt_config.hsv.v, RGB_MATRIX_VAL_STEP);
+    eeconfig_update_rgb_matrix();
+}
+
+void rgb_matrix_decrease_alt_val(void) {
+    rgb_matrix_alt_config.hsv.v = qsub8(rgb_matrix_alt_config.hsv.v, RGB_MATRIX_VAL_STEP);
+    eeconfig_update_rgb_matrix();
+}
+
+void rgb_matrix_increase_alt_speed(void) {
+    rgb_matrix_alt_config.speed = qadd8(rgb_matrix_alt_config.speed, RGB_MATRIX_SPD_STEP);
+    eeconfig_update_rgb_matrix();
+}
+
+void rgb_matrix_decrease_alt_speed(void) {
+    rgb_matrix_alt_config.speed = qsub8(rgb_matrix_alt_config.speed, RGB_MATRIX_SPD_STEP);
+    eeconfig_update_rgb_matrix();
+}
+
 led_flags_t rgb_matrix_get_flags(void) { return rgb_effect_params.flags; }
 
 void rgb_matrix_set_flags(led_flags_t flags) { rgb_effect_params.flags = flags; }
@@ -528,5 +582,7 @@ void rgb_matrix_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val) {
     rgb_matrix_config.hsv.h = hue;
     rgb_matrix_config.hsv.s = sat;
     rgb_matrix_config.hsv.v = val;
-    if (rgb_matrix_config.hsv.v > RGB_MATRIX_MAXIMUM_BRIGHTNESS) rgb_matrix_config.hsv.v = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
+    if (rgb_matrix_config.hsv.v + rgb_matrix_alt_config.hsv.v > RGB_MATRIX_MAXIMUM_BRIGHTNESS) {
+        rgb_matrix_config.hsv.v = RGB_MATRIX_MAXIMUM_BRIGHTNESS-rgb_matrix_alt_config.hsv.v;
+    }
 }

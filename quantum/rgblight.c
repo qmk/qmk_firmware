@@ -425,6 +425,15 @@ void rgblight_sethsv_noeeprom_old(uint8_t hue, uint8_t sat, uint8_t val) {
     }
 }
 
+void rgblight_increase_alt_hue(void);
+void rgblight_decrease_alt_hue(void);
+void rgblight_increase_alt_sat(void);
+void rgblight_decrease_alt_sat(void);
+void rgblight_increase_alt_val(void);
+void rgblight_decrease_alt_val(void);
+void rgblight_increase_alt_speed(void);
+void rgblight_decrease_alt_speed(void);
+
 void rgblight_sethsv_eeprom_helper(uint8_t hue, uint8_t sat, uint8_t val, bool write_to_eeprom) {
     if (rgblight_config.enable) {
         rgblight_status.base_mode = mode_base_table[rgblight_config.mode];

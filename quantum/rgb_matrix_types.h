@@ -82,6 +82,14 @@ typedef union {
     };
 } rgb_config_t;
 
+typedef union {
+    uint32_t raw;
+    struct PACKED {
+        HSV_OFFSET hsv;
+        uint8_t    speed;
+    };
+} rgb_alt_config_t;
+
 #if defined(_MSC_VER)
 #    pragma pack(pop)
 #endif

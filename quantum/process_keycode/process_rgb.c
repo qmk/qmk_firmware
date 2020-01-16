@@ -20,12 +20,16 @@ typedef void (*rgb_func_pointer)(void);
 
 /**
  * Wrapper for inc/dec rgb keycode
- * 
- * noinline to optimise for firmware size not speed (not in hot path) 
+ *
+ * noinline to optimise for firmware size not speed (not in hot path)
  */
-static void __attribute__((noinline)) handleKeycodeRGB(const uint8_t is_shifted, const rgb_func_pointer inc_func, const rgb_func_pointer dec_func) {
+static void __attribute__((noinline)) handleKeycodeRGB(const uint8_t is_shifted, const uint8_t is_alted, const rgb_func_pointer inc_func, const rgb_func_pointer dec_func, const rgb_func_pointer alt_inc_func, const rgb_func_pointer alt_dec_func) {
     if (is_shifted) {
         dec_func();
+    } else if (is_alted) {
+        alt_inc_func();
+    } else if (is_shifted && is_alted) {
+        alt_dec_func();
     } else {
         inc_func();
     }
@@ -35,10 +39,10 @@ static void __attribute__((noinline)) handleKeycodeRGB(const uint8_t is_shifted,
  * Wrapper for animation mode
  *   - if not in animation family -> jump to that animation
  *   - otherwise -> wrap round animation speed
- * 
- * noinline to optimise for firmware size not speed (not in hot path) 
+ *
+ * noinline to optimise for firmware size not speed (not in hot path)
  */
-static void __attribute__((noinline,unused)) handleKeycodeRGBMode(const uint8_t start, const uint8_t end) {
+static void __attribute__((noinline, unused)) handleKeycodeRGBMode(const uint8_t start, const uint8_t end) {
     if ((start <= rgblight_get_mode()) && (rgblight_get_mode() < end)) {
         rgblight_step();
     } else {
@@ -57,39 +61,40 @@ bool process_rgb(const uint16_t keycode, const keyrecord_t *record) {
     if (!record->event.pressed) {
 #endif
         uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
+        uint8_t alted   = get_mods() & (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT));
         switch (keycode) {
             case RGB_TOG:
                 rgblight_toggle();
                 return false;
             case RGB_MODE_FORWARD:
-                handleKeycodeRGB(shifted, rgblight_step, rgblight_step_reverse);
+                handleKeycodeRGB(shifted, alted, rgblight_step, rgblight_step_reverse, rgblight_step, rgblight_step_reverse);
                 return false;
             case RGB_MODE_REVERSE:
-                handleKeycodeRGB(shifted, rgblight_step_reverse, rgblight_step);
+                handleKeycodeRGB(shifted, alted, rgblight_step_reverse, rgblight_step, rgblight_step_reverse, rgblight_step);
                 return false;
             case RGB_HUI:
-                handleKeycodeRGB(shifted, rgblight_increase_hue, rgblight_decrease_hue);
+                handleKeycodeRGB(shifted, alted, rgblight_increase_hue, rgblight_decrease_hue, rgblight_increase_alt_hue, rgblight_decrease_alt_hue);
                 return false;
             case RGB_HUD:
-                handleKeycodeRGB(shifted, rgblight_decrease_hue, rgblight_increase_hue);
+                handleKeycodeRGB(shifted, alted, rgblight_decrease_hue, rgblight_increase_hue, rgblight_decrease_alt_hue, rgblight_increase_alt_hue);
                 return false;
             case RGB_SAI:
-                handleKeycodeRGB(shifted, rgblight_increase_sat, rgblight_decrease_sat);
+                handleKeycodeRGB(shifted, alted, rgblight_increase_sat, rgblight_decrease_sat, rgblight_increase_alt_sat, rgblight_decrease_alt_sat);
                 return false;
             case RGB_SAD:
-                handleKeycodeRGB(shifted, rgblight_decrease_sat, rgblight_increase_sat);
+                handleKeycodeRGB(shifted, alted, rgblight_decrease_sat, rgblight_increase_sat, rgblight_decrease_alt_sat, rgblight_increase_alt_sat);
                 return false;
             case RGB_VAI:
-                handleKeycodeRGB(shifted, rgblight_increase_val, rgblight_decrease_val);
+                handleKeycodeRGB(shifted, alted, rgblight_increase_val, rgblight_decrease_val, rgblight_increase_alt_val, rgblight_decrease_alt_val);
                 return false;
             case RGB_VAD:
-                handleKeycodeRGB(shifted, rgblight_decrease_val, rgblight_increase_val);
+                handleKeycodeRGB(shifted, alted, rgblight_decrease_val, rgblight_increase_val, rgblight_decrease_alt_val, rgblight_increase_alt_val);
                 return false;
             case RGB_SPI:
-                handleKeycodeRGB(shifted, rgblight_increase_speed, rgblight_decrease_speed);
+                handleKeycodeRGB(shifted, alted, rgblight_increase_speed, rgblight_decrease_speed, rgblight_increase_alt_speed, rgblight_decrease_alt_speed);
                 return false;
             case RGB_SPD:
-                handleKeycodeRGB(shifted, rgblight_decrease_speed, rgblight_increase_speed);
+                handleKeycodeRGB(shifted, alted, rgblight_decrease_speed, rgblight_increase_speed, rgblight_decrease_alt_speed, rgblight_increase_alt_speed);
                 return false;
             case RGB_MODE_PLAIN:
                 rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
