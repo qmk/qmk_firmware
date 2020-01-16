@@ -5,7 +5,7 @@
 A 4x4 numpad with only through hole components.  
 It's a great companion to the Plaid keyboard by [hsgw](https://github.com/hsgw/) and heavily inspired by it.
 
-- Keyboard Maintainer: BenRoe [Github](https://github.com/BenRoe) / [Twitter](https://twitter.com/keycapsss)  
+* Keyboard Maintainer: BenRoe [Github](https://github.com/BenRoe) / [Twitter](https://twitter.com/keycapsss)
 - Hardware Supported: ATMEGA328p with VUSB ([see Bootloader section](#Bootloader))
 - Hardware Availability: [Keycapsss.com](https://keycapsss.com)  
 
