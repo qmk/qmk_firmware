@@ -6,7 +6,7 @@
 #define VENDOR_ID 0xFEED
 #define PRODUCT_ID 0x7983
 #define DEVICE_VER 0x0001
-#define MANUFACTURER keycapsss
+#define MANUFACTURER Keycapsss
 #define PRODUCT Plaid-Pad
 #define DESCRIPTION 4x4 numpad with through hole components
 
