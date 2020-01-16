@@ -55,7 +55,7 @@ void matrix_init_user(void) {
     analogReference(ADC_REF_POWER);
 }
 
-int     last_slider_value = 0;
+int16_t     last_slider_value = 0;
 uint8_t divisor           = 0;
 void    slider(void) {
     if (divisor++) { // 1/256
@@ -63,7 +63,7 @@ void    slider(void) {
     }
 
     int x = analogReadPin(SLIDER_PIN);
-    if (abs(last_slider_value - x) > 10) {
+    if (abs(last_slider_value - x) > 100) {
         last_slider_value = x;
 
         char demo_buff[5];
