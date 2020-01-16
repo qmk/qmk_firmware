@@ -7,8 +7,8 @@
 #define NXTTHRD SS_LCTL(SS_LALT(SS_TAP(X_RIGHT)))
 #define PRVTHRD C(A(KC_LEFT))
 
-#define LT_MSTP LT(3, KC_MSTP)
-#define LT_ESC LT(3, KC_ESC)
+#define LT_MSTP LT(_LAYERS, KC_MSTP)
+#define LT_ESC LT(_LAYERS, KC_ESC)
 #define LT_NXTH TD(TD_SPEC)
 
 enum mini_layers {
@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_LAYERS] = LAYOUT(
         _______, _______, RESET,
-        TO(0),   TO(1),   TO(2)
+        TO(_MEDIA),TO(_COPYPASTA),TO(_SPECTACLES)
     )
 
 };
@@ -143,56 +143,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 void set_switch_led(int ledId, bool state) {
-    if (state) {
-        switch (ledId) {
-            case 1:
-                writePinHigh(D7);
-                break;
-            case 2:
-                if (readPin(B7)) {
-                    writePinHigh(C6);
-                } else {
-                    writePinHigh(C7);
-                }
-                break;
-            case 3:
-                writePinHigh(D4);
-                break;
-            case 4:
-                writePinHigh(E6);
-                break;
-            case 5:
-                writePinHigh(B4);
-                break;
-            case 6:
-                writePinHigh(D6);
-                break;
-        }
-    } else {
-        switch (ledId) {
-            case 1:
-                writePinLow(D7);
-                break;
-            case 2:
-                if (readPin(B7)) {
-                    writePinLow(C6);
-                } else {
-                    writePinLow(C7);
-                }
-                break;
-            case 3:
-                writePinLow(D4);
-                break;
-            case 4:
-                writePinLow(E6);
-                break;
-            case 5:
-                writePinLow(B4);
-                break;
-            case 6:
-                writePinLow(D6);
-                break;
-        }
+    switch (ledId) {
+        case 1:
+            writePin(D7, state);
+            break;
+        case 2:
+            writePin(readPin(B7) ? C6 : C7, state);
+            break;
+        case 3:
+            writePin(D4, state);
+            break;
+        case 4:
+            writePin(E6, state);
+            break;
+        case 5:
+            writePin(B4, state);
+            break;
+        case 6:
+            writePin(D6, state);
+            break;
     }
 }
 
@@ -318,18 +287,16 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-void matrix_init_user(void) {
-    led_init_ports();
-}
+void matrix_init_user(void) { led_init_ports(); }
 
 void matrix_scan_user(void) {}
 
 void td_spectacles_finish(qk_tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
-        layer_on(3);
+        layer_on(_LAYERS);
     } else {
         SEND_STRING(NXTTHRD);
     }
 }
 
-void td_spectacles_reset(qk_tap_dance_state_t *state, void *user_data) { layer_off(3); }
+void td_spectacles_reset(qk_tap_dance_state_t *state, void *user_data) { layer_off(_LAYERS); }
