@@ -66,5 +66,3 @@ void    slider(void) {
 }
 
 void matrix_scan_user(void) { slider(); }
-
-bool led_update_user(led_t led_state) { return true; }
