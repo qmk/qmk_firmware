@@ -17,8 +17,7 @@
 // EEPROM management code taken from Wilba6582
 // https://github.com/Wilba6582/qmk_firmware/blob/zeal60/keyboards/zeal60/zeal_eeprom.h
 
-#ifndef MXSS_FRONTLED_H
-#define MXSS_FRONTLED_H
+#pragma once
 
 #include "quantum.h"
 #include "quantum_keycodes.h"
@@ -72,7 +71,7 @@ enum fled_keycodes {
 };
 
 void fled_init(void);                // Run init functions for front LEDs
-void process_record_fled(uint16_t, keyrecord_t*); // Process keycodes for front LEDs
+void process_record_fled(uint16_t keycode, keyrecord_t* record); // Process keycodes for front LEDs
 void fled_load_conf(void);          // Load front LED config from EEPROM
 void fled_update_conf(void);        // Store current front LED config to EEPROM
 
@@ -80,12 +79,10 @@ void fled_mode_cycle(void);         // Cycle between the 3 modes for the front L
 void fled_val_increase(void);       // Increase the brightness of the front LEDs
 void fled_val_decrease(void);       // Decrease the brightness of the front LEDs
 
-void fled_layer_update(uint32_t);   // Process layer update for front LEDs
-void fled_lock_update(uint8_t);     // Process lock update for front LEDs
+void fled_layer_update(layer_state_t state);   // Process layer update for front LEDs
+void fled_lock_update(led_t led_state);     // Process lock update for front LEDs
 
-void set_fled_layer_color(uint8_t, hs_set); // Set color for a given layer
+void set_fled_layer_color(uint8_t layer, hs_set hs); // Set color for a given layer
 void set_fled_caps_color(hs_set hs);        // Set color for the capslock indicator
 hs_set get_fled_caps_color(void);           // Get color for the capslock indicator
-hs_set get_fled_layer_color(uint8_t);       // Get color for a given layer
-
-#endif //MXSS_FRONTLED_H
+hs_set get_fled_layer_color(uint8_t layer);       // Get color for a given layer

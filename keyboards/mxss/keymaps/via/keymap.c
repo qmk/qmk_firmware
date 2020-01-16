@@ -15,12 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-// Use NEW_SAFE_RANGE to define new custom keycodes in order to not overwrite the ones used for front LED control
-enum custom_keycodes {
-  MY_KEYCODE = NEW_SAFE_RANGE,
-};
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	LAYOUT_all( /* L0 */
         KC_GESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_NO, KC_BSPC,
@@ -37,19 +31,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, RGB_HUD, RGB_SAD, RGB_HUI
     )
 };
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
-void led_set_user(uint8_t usb_led) {
-
-}

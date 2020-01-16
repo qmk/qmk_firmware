@@ -70,7 +70,7 @@ void fled_init(void) {
 
     // Handle lighting for indicator mode
     if (fled_mode == FLED_INDI) {
-        fled_lock_update(host_keyboard_leds());
+        fled_lock_update(host_keyboard_led_state());
         fled_layer_update(layer_state);
     }
 }
@@ -199,20 +199,21 @@ void fled_val_decrease(void)
     rgblight_set();
 }
 
-void fled_layer_update(uint32_t state) {
+void fled_layer_update(layer_state_t state) {
     // Determine and set colour of layer LED according to current layer
     // if hue = sat = 0, leave LED off
     uint8_t layer = biton32(state);
 
-    if (layer < lc_size && !(layer_colors[layer].hue == 0 && layer_colors[layer].sat == 0))
+    if (layer < lc_size && !(layer_colors[layer].hue == 0 && layer_colors[layer].sat == 0)) {
         sethsv(layer_colors[layer].hue, layer_colors[layer].sat, fled_val, &fleds[1]);
-    else
+    } else {
         setrgb(0, 0, 0, &fleds[1]);
+    }
 }
 
-void fled_lock_update(uint8_t usb_led) {
+void fled_lock_update(led_t led_state) {
     // Set indicator LED appropriately, whether it is used or not
-    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
+    if (led_state.caps_lock) {
         sethsv(caps_color.hue, caps_color.sat, fled_val, &fleds[0]);
     } else {
         setrgb(0, 0, 0, &fleds[0]);
@@ -235,7 +236,7 @@ hs_set get_fled_layer_color(uint8_t layer) {
 void set_fled_caps_color(hs_set hs) {
     // Update caplock color and refresh LEDs
     caps_color = hs;
-    fled_lock_update(host_keyboard_leds());
+    fled_lock_update(host_keyboard_led_state());
     fled_update_conf();
 }
 
