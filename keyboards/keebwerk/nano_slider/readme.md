@@ -1,8 +1,8 @@
 # nano. slider
 
-![nano. slider](imgur.com image replace me!)
+![nano. slider](https://i.imgur.com/0UxyfxL.png)
 
-A short description of the keyboard/project
+A small eight key macropad with slider.
 
 * Keyboard Maintainer: [Duckle](https://github.com/yourusername)
 * Hardware Supported: The PCBs, controllers supported
