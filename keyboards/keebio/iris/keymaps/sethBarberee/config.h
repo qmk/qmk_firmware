@@ -35,6 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
+#undef RGBLED_SPLIT
 #define RGBLED_SPLIT { RGBLED_NUM, 0} // defined to sync animations
 
 #define FORCE_NKRO // force NKRO on by default

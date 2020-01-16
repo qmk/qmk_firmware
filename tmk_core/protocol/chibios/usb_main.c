@@ -15,6 +15,16 @@
  * GPL v2 or later.
  */
 
+/*
+ * Implementation notes:
+ *
+ * USBEndpointConfig - Configured using explicit order instead of struct member name.
+ *   This is due to ChibiOS hal LLD differences, which is dependent on hardware,
+ *   "USBv1" devices have `ep_buffers` and "OTGv1" have `in_multiplier`.
+ *   Given `USBv1/hal_usb_lld.h` marks the field as "not currently used" this code file
+ *   makes the assumption this is safe to avoid littering with preprocessor directives.
+ */
+
 #include "ch.h"
 #include "hal.h"
 
@@ -98,7 +108,7 @@ static const USBDescriptor *usb_get_descriptor_cb(USBDriver *usbp, uint8_t dtype
 #ifndef KEYBOARD_SHARED_EP
 /* keyboard endpoint state structure */
 static USBInEndpointState kbd_ep_state;
-/* keyboard endpoint initialization structure (IN) */
+/* keyboard endpoint initialization structure (IN) - see USBEndpointConfig comment at top of file */
 static const USBEndpointConfig kbd_ep_config = {
     USB_EP_MODE_TYPE_INTR, /* Interrupt EP */
     NULL,                  /* SETUP packet notification callback */
@@ -117,7 +127,7 @@ static const USBEndpointConfig kbd_ep_config = {
 /* mouse endpoint state structure */
 static USBInEndpointState mouse_ep_state;
 
-/* mouse endpoint initialization structure (IN) */
+/* mouse endpoint initialization structure (IN) - see USBEndpointConfig comment at top of file */
 static const USBEndpointConfig mouse_ep_config = {
     USB_EP_MODE_TYPE_INTR, /* Interrupt EP */
     NULL,                  /* SETUP packet notification callback */
@@ -136,7 +146,7 @@ static const USBEndpointConfig mouse_ep_config = {
 /* shared endpoint state structure */
 static USBInEndpointState shared_ep_state;
 
-/* shared endpoint initialization structure (IN) */
+/* shared endpoint initialization structure (IN) - see USBEndpointConfig comment at top of file */
 static const USBEndpointConfig shared_ep_config = {
     USB_EP_MODE_TYPE_INTR, /* Interrupt EP */
     NULL,                  /* SETUP packet notification callback */
@@ -164,58 +174,62 @@ typedef struct {
     QMKUSBDriver        driver;
 } usb_driver_config_t;
 
-#define QMK_USB_DRIVER_CONFIG(stream, notification, fixedsize)                                                       \
-    {                                                                                                                \
-        .queue_capacity_in = stream##_IN_CAPACITY, .queue_capacity_out = stream##_OUT_CAPACITY,                      \
-        .in_ep_config = {.ep_mode     = stream##_IN_MODE,                                                            \
-                         .setup_cb    = NULL,                                                                        \
-                         .in_cb       = qmkusbDataTransmitted,                                                       \
-                         .out_cb      = NULL,                                                                        \
-                         .in_maxsize  = stream##_EPSIZE,                                                             \
-                         .out_maxsize = 0, /* The pointer to the states will be filled during initialization */      \
-                         .in_state    = NULL,                                                                        \
-                         .out_state   = NULL,                                                                        \
-                         .ep_buffers  = 2,                                                                           \
-                         .setup_buf   = NULL},                                                                         \
-        .out_ep_config =                                                                                             \
-            {                                                                                                        \
-                .ep_mode     = stream##_OUT_MODE,                                                                    \
-                .setup_cb    = NULL,                                                                                 \
-                .in_cb       = NULL,                                                                                 \
-                .out_cb      = qmkusbDataReceived,                                                                   \
-                .in_maxsize  = 0,                                                                                    \
-                .out_maxsize = stream##_EPSIZE, /* The pointer to the states will be filled during initialization */ \
-                .in_state    = NULL,                                                                                 \
-                .out_state   = NULL,                                                                                 \
-                .ep_buffers  = 2,                                                                                    \
-                .setup_buf   = NULL,                                                                                 \
-            },                                                                                                       \
-        .int_ep_config =                                                                                             \
-            {                                                                                                        \
-                .ep_mode     = USB_EP_MODE_TYPE_INTR,                                                                \
-                .setup_cb    = NULL,                                                                                 \
-                .in_cb       = qmkusbInterruptTransmitted,                                                           \
-                .out_cb      = NULL,                                                                                 \
-                .in_maxsize  = CDC_NOTIFICATION_EPSIZE,                                                              \
-                .out_maxsize = 0, /* The pointer to the states will be filled during initialization */               \
-                .in_state    = NULL,                                                                                 \
-                .out_state   = NULL,                                                                                 \
-                .ep_buffers  = 2,                                                                                    \
-                .setup_buf   = NULL,                                                                                 \
-            },                                                                                                       \
-        .config = {                                                                                                  \
-            .usbp        = &USB_DRIVER,                                                                              \
-            .bulk_in     = stream##_IN_EPNUM,                                                                        \
-            .bulk_out    = stream##_OUT_EPNUM,                                                                       \
-            .int_in      = notification,                                                                             \
-            .in_buffers  = stream##_IN_CAPACITY,                                                                     \
-            .out_buffers = stream##_OUT_CAPACITY,                                                                    \
-            .in_size     = stream##_EPSIZE,                                                                          \
-            .out_size    = stream##_EPSIZE,                                                                          \
-            .fixed_size  = fixedsize,                                                                                \
-            .ib          = (uint8_t[BQ_BUFFER_SIZE(stream##_IN_CAPACITY, stream##_EPSIZE)]){},                       \
-            .ob          = (uint8_t[BQ_BUFFER_SIZE(stream##_OUT_CAPACITY, stream##_EPSIZE)]){},                      \
-        }                                                                                                            \
+/* Reusable initialization structure - see USBEndpointConfig comment at top of file */
+#define QMK_USB_DRIVER_CONFIG(stream, notification, fixedsize)                                  \
+    {                                                                                           \
+        .queue_capacity_in = stream##_IN_CAPACITY, .queue_capacity_out = stream##_OUT_CAPACITY, \
+        .in_ep_config =                                                                         \
+            {                                                                                   \
+                stream##_IN_MODE,      /* Interrupt EP */                                       \
+                NULL,                  /* SETUP packet notification callback */                 \
+                qmkusbDataTransmitted, /* IN notification callback */                           \
+                NULL,                  /* OUT notification callback */                          \
+                stream##_EPSIZE,       /* IN maximum packet size */                             \
+                0,                     /* OUT maximum packet size */                            \
+                NULL,                  /* IN Endpoint state */                                  \
+                NULL,                  /* OUT endpoint state */                                 \
+                2,                     /* IN multiplier */                                      \
+                NULL                   /* SETUP buffer (not a SETUP endpoint) */                \
+            },                                                                                  \
+        .out_ep_config =                                                                        \
+            {                                                                                   \
+                stream##_OUT_MODE,  /* Interrupt EP */                                          \
+                NULL,               /* SETUP packet notification callback */                    \
+                NULL,               /* IN notification callback */                              \
+                qmkusbDataReceived, /* OUT notification callback */                             \
+                0,                  /* IN maximum packet size */                                \
+                stream##_EPSIZE,    /* OUT maximum packet size */                               \
+                NULL,               /* IN Endpoint state */                                     \
+                NULL,               /* OUT endpoint state */                                    \
+                2,                  /* IN multiplier */                                         \
+                NULL,               /* SETUP buffer (not a SETUP endpoint) */                   \
+            },                                                                                  \
+        .int_ep_config =                                                                        \
+            {                                                                                   \
+                USB_EP_MODE_TYPE_INTR,      /* Interrupt EP */                                  \
+                NULL,                       /* SETUP packet notification callback */            \
+                qmkusbInterruptTransmitted, /* IN notification callback */                      \
+                NULL,                       /* OUT notification callback */                     \
+                CDC_NOTIFICATION_EPSIZE,    /* IN maximum packet size */                        \
+                0,                          /* OUT maximum packet size */                       \
+                NULL,                       /* IN Endpoint state */                             \
+                NULL,                       /* OUT endpoint state */                            \
+                2,                          /* IN multiplier */                                 \
+                NULL,                       /* SETUP buffer (not a SETUP endpoint) */           \
+            },                                                                                  \
+        .config = {                                                                             \
+            .usbp        = &USB_DRIVER,                                                         \
+            .bulk_in     = stream##_IN_EPNUM,                                                   \
+            .bulk_out    = stream##_OUT_EPNUM,                                                  \
+            .int_in      = notification,                                                        \
+            .in_buffers  = stream##_IN_CAPACITY,                                                \
+            .out_buffers = stream##_OUT_CAPACITY,                                               \
+            .in_size     = stream##_EPSIZE,                                                     \
+            .out_size    = stream##_EPSIZE,                                                     \
+            .fixed_size  = fixedsize,                                                           \
+            .ib          = (uint8_t[BQ_BUFFER_SIZE(stream##_IN_CAPACITY, stream##_EPSIZE)]){},  \
+            .ob          = (uint8_t[BQ_BUFFER_SIZE(stream##_OUT_CAPACITY, stream##_EPSIZE)]){}, \
+        }                                                                                       \
     }
 
 typedef struct {
@@ -367,7 +381,7 @@ static uint16_t get_hword(uint8_t *p) {
  * Other Device    Required    Optional    Optional    Optional    Optional    Optional
  */
 
-#ifdef SHARED_EP_ENABLE
+#if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
 static uint8_t set_report_buf[2] __attribute__((aligned(2)));
 static void    set_led_transfer_cb(USBDriver *usbp) {
     if ((set_report_buf[0] == REPORT_ID_KEYBOARD) || (set_report_buf[0] == REPORT_ID_NKRO)) {
@@ -606,10 +620,8 @@ uint8_t keyboard_leds(void) { return (uint8_t)(keyboard_led_stats & 0xFF); }
 void send_keyboard(report_keyboard_t *report) {
     osalSysLock();
     if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
-        osalSysUnlock();
-        return;
+        goto unlock;
     }
-    osalSysUnlock();
 
 #ifdef NKRO_ENABLE
     if (keymap_config.nkro && keyboard_protocol) { /* NKRO protocol */
@@ -618,28 +630,35 @@ void send_keyboard(report_keyboard_t *report) {
          * until *after* the packet has been transmitted. I think
          * this is more efficient */
         /* busy wait, should be short and not very common */
-        osalSysLock();
         if (usbGetTransmitStatusI(&USB_DRIVER, SHARED_IN_EPNUM)) {
             /* Need to either suspend, or loop and call unlock/lock during
              * every iteration - otherwise the system will remain locked,
              * no interrupts served, so USB not going through as well.
              * Note: for suspend, need USB_USE_WAIT == TRUE in halconf.h */
             osalThreadSuspendS(&(&USB_DRIVER)->epc[SHARED_IN_EPNUM]->in_state->thread);
+
+            /* after osalThreadSuspendS returns USB status might have changed */
+            if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
+                goto unlock;
+            }
         }
         usbStartTransmitI(&USB_DRIVER, SHARED_IN_EPNUM, (uint8_t *)report, sizeof(struct nkro_report));
-        osalSysUnlock();
     } else
 #endif /* NKRO_ENABLE */
     {  /* regular protocol */
         /* need to wait until the previous packet has made it through */
         /* busy wait, should be short and not very common */
-        osalSysLock();
         if (usbGetTransmitStatusI(&USB_DRIVER, KEYBOARD_IN_EPNUM)) {
             /* Need to either suspend, or loop and call unlock/lock during
              * every iteration - otherwise the system will remain locked,
              * no interrupts served, so USB not going through as well.
              * Note: for suspend, need USB_USE_WAIT == TRUE in halconf.h */
             osalThreadSuspendS(&(&USB_DRIVER)->epc[KEYBOARD_IN_EPNUM]->in_state->thread);
+
+            /* after osalThreadSuspendS returns USB status might have changed */
+            if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
+                goto unlock;
+            }
         }
         uint8_t *data, size;
         if (keyboard_protocol) {
@@ -650,9 +669,11 @@ void send_keyboard(report_keyboard_t *report) {
             size = 8;
         }
         usbStartTransmitI(&USB_DRIVER, KEYBOARD_IN_EPNUM, data, size);
-        osalSysUnlock();
     }
     keyboard_report_sent = *report;
+
+unlock:
+    osalSysUnlock();
 }
 
 /* ---------------------------------------------------------

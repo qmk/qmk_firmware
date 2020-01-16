@@ -5,7 +5,7 @@
 
 ## מבנה QMK בסיסי
 
-QMK הוא פורק של הפרוייקט [tmk_keyboard](https://github.com/tmk/tmk_keyboard) של [Jun Wako](https://github.com/tmk). קוד הTMK המקורי, עם התאמות, יכול להמצא בתיקיית `tmk`. התוספות של QMK לפרוייקט יכולות להמצא בתיקיית `quantum`. פרוייקטי מקלדות יכולות להמצא בתיקיות `handwired` ו- `keyboard`.
+QMK הוא פורק של הפרוייקט [tmk_keyboard](https://github.com/tmk/tmk_keyboard) של [Jun Wako](https://github.com/tmk). קוד הTMK המקורי, עם התאמות, יכול להמצא בתיקיית `tmk_core`. התוספות של QMK לפרוייקט יכולות להמצא בתיקיית `quantum`. פרוייקטי מקלדות יכולות להמצא בתיקיות `handwired` ו- `keyboard`.
 
 ### מבנה אחסון המשתמש
 
