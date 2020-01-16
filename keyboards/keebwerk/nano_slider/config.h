@@ -40,6 +40,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { B0, B1, B2, B3 }
 #define UNUSED_PINS
 
+#define SLIDER_PIN D4
+
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 

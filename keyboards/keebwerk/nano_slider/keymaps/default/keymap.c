@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "analog.h"
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
@@ -69,16 +70,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-/*
-void matrix_init_user(void) {
 
+void matrix_init_user(void) {
+    // Set up the ADC for the slider
+    analogReference(ADC_REF_POWER);
+}
+
+int last_slider_value = 0;
+void slider(void)
+{
+    int x = analogReadPin(SLIDER_PIN);
+    if(abs(last_slider_value - x) > 10)
+    {
+        last_slider_value = x;
+
+        char demo_buff[5];
+        itoa(x, demo_buff, 10);
+        send_string_P(demo_buff);
+    }
 }
 
 void matrix_scan_user(void) {
-
+    slider();
 }
 
 bool led_update_user(led_t led_state) {
     return true;
 }
-*/
+
