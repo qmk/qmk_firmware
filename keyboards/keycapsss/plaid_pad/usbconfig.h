@@ -8,7 +8,7 @@
  * This Revision: $Id: usbconfig-prototype.h 785 2010-05-30 17:57:07Z cs $
  */
 
-#ifndef __usbconfig_h_included__
+#pragma once
 #define __usbconfig_h_included__
 
 #include "config.h"
