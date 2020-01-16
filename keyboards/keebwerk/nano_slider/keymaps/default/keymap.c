@@ -15,6 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 #include "analog.h"
+#include "qmk_midi.h"
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names { _BASE, _FN, _DEMO };
@@ -55,22 +56,13 @@ void matrix_init_user(void) {
     analogReference(ADC_REF_POWER);
 }
 
-int16_t     last_slider_value = 0;
 uint8_t divisor           = 0;
 void    slider(void) {
-    if (divisor++) { // 1/256
+    if (divisor++) { // only run the slider function 1/256 times it's called
         return;
     }
 
-    int x = analogReadPin(SLIDER_PIN);
-    if (abs(last_slider_value - x) > 100) {
-        last_slider_value = x;
-
-        char demo_buff[5];
-        itoa(x, demo_buff, 10);
-        send_string(demo_buff);
-        SEND_STRING(SS_TAP(X_ENTER));
-    }
+    midi_send_cc(&midi_device, 2, 0x3E, analogReadPin(SLIDER_PIN) / 8 );
 }
 
 void matrix_scan_user(void) { slider(); }
