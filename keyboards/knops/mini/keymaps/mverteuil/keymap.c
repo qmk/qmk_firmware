@@ -32,14 +32,14 @@ void led_set_layer(int layer);
 
 /*
  *   Key Layout
- *	 _____	 _____	 _____
- *	| 	  | | 	  | | 	  |
- *	|  1  | |  2  | |  3  |
- *	|_____| |_____| |_____|
- *	 _____	 _____	 _____
- *	| 	  | | 	  | | 	  |
- *	|  4  | |  5  | |  6  |
- *	|_____| |_____| |_____|
+ *   _____   _____   _____
+ *  |     | |     | |     |
+ *  |  1  | |  2  | |  3  |
+ *  |_____| |_____| |_____|
+ *   _____   _____   _____
+ *  |     | |     | |     |
+ *  |  4  | |  5  | |  6  |
+ *  |_____| |_____| |_____|
  *
  *  Hold 1 and:
  *    - press 4, 5, or 6 to change layers
@@ -52,15 +52,15 @@ void led_set_layer(int layer);
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /*
-     *   Layer 0 (Media Keys)
-     *	 _____	 _____	 _____
-     *	| 	  | | 	  | | 	  |
-     *	 Stop    VolUp   Play
-     *	|_____| |_____| |_____|
-     *	 _____	 _____	 _____
-     *	| 	  | | 	  | | 	  |
-     *	 Prev    VolDwn  Next
-     *	|_____| |_____| |_____|
+     *  Layer 0 (Media Keys)
+     *   _____   _____   _____
+     *  |     | |     | |     |
+     *  |Stop | |VolUp| |Play |
+     *  |_____| |_____| |_____|
+     *   _____   _____   _____
+     *  |     | |     | |     |
+     *  |Prev | |VolDn| |Next |
+     *  |_____| |_____| |_____|
      *
      */
     [_MEDIA] = LAYOUT(
@@ -69,14 +69,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /*
-     *   Layer 1 (Copy and Paste Macros)
-     *	 _____	 _____	 _____
-     *	| 	  | | 	  | | 	  |
-     *	  ESC    Ctl+Z   CSf+Z
+     *  Layer 1 (Copy and Paste Macros)
+     *   _____   _____   _____
+     *  |     | |     | |     |
+     *	| ESC | |Ctl+Z| |CSf+Z|
      *	|_____| |_____| |_____|
-     *	 _____	 _____	 _____
-     *	| 	  | | 	  | | 	  |
-     *	 Ctl+X   Ctl+C   Ctl+V
+     *   _____   _____   _____
+     *  |     | |     | |     |
+     *	|Ctl+X| |Ctl+C| |Ctl+V|
      *	|_____| |_____| |_____|
      *
      */
@@ -88,14 +88,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /*
      *   Layer 2 (Spectacles Macros)
-     *	 _LT&__	 _____	 _____
-     *	| Win | | Win | | Win |
-     *	| Next| | Top | |Mximze
-     *	|_1/3_| |_1/2_| |_____|
-     *	 _____	 _____	 _____
-     *	| Win | | Win | | Win |
-     *	| Prev| | Bot | | Next|
-     *	|_1/3_| |_1/2_| |Displ|
+     *   _LT&_   _____   _____
+     *  | Win | | Win | | Win |
+     *  | Next| | Top | |Mximze
+     *  |_1/3_| |_1/2_| |_____|
+     *   _____	 _____	 _____
+     *  | Win | | Win | | Win |
+     *  | Prev| | Bot | | Next|
+     *  |_1/3_| |_1/2_| |Displ|
      *
      */
     [_SPECTACLES] = LAYOUT(
@@ -105,14 +105,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /*
      *  Layer 3 (Layer Select/Reset)
-     *	 _____	 _____	 _____
-     *	| 	  | | 	  | |     |
-     *	|None | |None | |Reset|
-     *	|_____| |_____| |_____|
-     *	 _____	 _____	 _____
-     *	|Layer| |Layer| |Layer|
+     *   _____   _____   _____
+     *  |     | |     | |     |
+     *  |None | |None | |Reset|
+     *  |_____| |_____| |_____|
+     *   _____   _____   _____
+     *  |Layer| |Layer| |Layer|
      *  |  0  | |  1  | |  2  |
-     *	|_____| |_____| |_____|
+     *  |_____| |_____| |_____|
      *
      *  Layers 0, 1, and 2 have the top left button held to activate this layer.
      *  Then press the specific layer to switch to it.
@@ -128,20 +128,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
  *	Knops Mini LED Numbers:
- *	 _____	 _____	 _____
- *	| 	  | | 	  | | 	  |
- *	|  1  | |  2  | |  3  |    <---
- *	|_____| |_____| |_____|       |      These LEDs are called 'Switch LEDs'
- *	 _____	 _____	 _____        |----- To turn on/off these leds, use:
- *	| 	  | | 	  | | 	  |       |	  set_switch_led( [1-6], [true/false]);
- *	|  4  | |  5  | |  6  |    <---
- *	|_____| |_____| |_____|
+ *   _____   _____   _____
+ *  |     | |     | |     |
+ *  |  1  | |  2  | |  3  |    <---
+ *  |_____| |_____| |_____|       |      These LEDs are called 'Switch LEDs'
+ *   _____   _____   _____        |----- To turn on/off these leds, use:
+ *  |     | |     | |     |       |          set_switch_led( [1-6], [true/false]);
+ *  |  4  | |  5  | |  6  |    <---
+ *  |_____| |_____| |_____|
  *
  *	 < 0 >   < 1 >   < 2 >     <---      These front-LEDs are called 'Layer LEDs'
- *							             To turn on/off these leds, use:
- *										 set_layer_led( [0-2], [true/false] );
+ *                                       To turn on/off these leds, use:
+ *                                           set_layer_led( [0-2], [true/false] );
  */
-
 void set_switch_led(int ledId, bool state) {
     switch (ledId) {
         case 1:
