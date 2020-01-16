@@ -3,7 +3,6 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-/* VID & PID from vusb project, see tmk_core/protocol/vusb/USB-IDs-for-free.txt"*/
 #define VENDOR_ID 0xFEED
 #define PRODUCT_ID 0x7983
 #define DEVICE_VER 0x0001
