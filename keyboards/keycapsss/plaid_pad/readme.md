@@ -7,7 +7,7 @@ It's a great companion to the Plaid keyboard by [hsgw](https://github.com/hsgw/)
 
 * Keyboard Maintainer: BenRoe [Github](https://github.com/BenRoe) / [Twitter](https://twitter.com/keycapsss)
 * Hardware Supported: ATmega328P with VUSB ([see Bootloader section](#Bootloader))
-- Hardware Availability: [Keycapsss.com](https://keycapsss.com)  
+* Hardware Availability: [Keycapsss.com](https://keycapsss.com)
 
 Make example for this keyboard (after setting up your build environment):
 
