@@ -61,7 +61,7 @@ endif
 
 ifeq ($(strip $(STENO_ENABLE)), yes)
     OPT_DEFS += -DSTENO_ENABLE
-    VIRTSER_ENABLE := yes
+    VIRTSER_ENABLE ?= yes
     SRC += $(QUANTUM_DIR)/process_keycode/process_steno.c
 endif
 
