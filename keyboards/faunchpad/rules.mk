@@ -20,4 +20,4 @@ STENO_ENABLE		= yes 		# Needed for chording
 
 OPT_DEFS += -DONLYQWERTY -DDEBUG_MATRIX
 SRC += sten.c
-EXTRAFLAGS += -flto
+LTO_ENABLE = yes
