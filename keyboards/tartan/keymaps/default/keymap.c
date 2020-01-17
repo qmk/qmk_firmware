@@ -15,7 +15,6 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "keycode.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_60_ansi(
