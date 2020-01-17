@@ -237,7 +237,7 @@ bool process_tapping(keyrecord_t *keyp) {
             if (event.pressed) {
                 if (IS_TAPPING_KEY(event.key)) {
 //#    ifndef TAPPING_FORCE_HOLD
-#    if !defined(TAPPING_FORCE_HOLD) || defined(IGNORE_TAPPING_FORCE_HOLD_PER_KEY)
+#    if !defined(TAPPING_FORCE_HOLD) || defined(TAPPING_FORCE_HOLD_PER_KEY)
                     if (
 #        ifdef TAPPING_FORCE_HOLD_PER_KEY
                         !get_tapping_force_hold(get_event_keycode(tapping_key.event), keyp) &&
