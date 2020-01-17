@@ -4,7 +4,7 @@
 
 A 60% keyboard with only through hole components.   
 
-Keyboard Maintainer: [hsgw](https://github.com/hsgw)  
+* Keyboard Maintainer: [hsgw](https://github.com/hsgw)
 Hardware Supported: ATMEGA328p with vusb [PCB](https://github.com/hsgw/tartan)  
 Hardware Availability: https://5z6p.com/products/tartan/
 
