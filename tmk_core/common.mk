@@ -187,18 +187,6 @@ ifeq ($(strip $(NO_USB_STARTUP_CHECK)), yes)
     TMK_COMMON_DEFS += -DNO_USB_STARTUP_CHECK
 endif
 
-ifeq ($(strip $(KEYMAP_SECTION_ENABLE)), yes)
-    TMK_COMMON_DEFS += -DKEYMAP_SECTION_ENABLE
-
-    ifeq ($(strip $(MCU)),atmega32u2)
-	TMK_COMMON_LDFLAGS = -Wl,-L$(TMK_DIR),-Tldscript_keymap_avr35.x
-    else ifeq ($(strip $(MCU)),atmega32u4)
-	TMK_COMMON_LDFLAGS = -Wl,-L$(TMK_DIR),-Tldscript_keymap_avr5.x
-    else
-	TMK_COMMON_LDFLAGS = $(error no ldscript for keymap section)
-    endif
-endif
-
 ifeq ($(strip $(SHARED_EP_ENABLE)), yes)
     TMK_COMMON_DEFS += -DSHARED_EP_ENABLE
 endif
