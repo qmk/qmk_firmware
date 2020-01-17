@@ -31,7 +31,7 @@ void led_init_kb(void)
 {
 #ifdef NUM_LOCK_LED_PIN
     setPinOutput(NUM_LOCK_LED_PIN);
-    SET_NUM_LOCK_LED();
+    RESET_NUM_LOCK_LED();
 #endif // NUM_LOCK_LED_PIN
 #ifdef CAPS_LOCK_LED_PIN
     setPinOutput(CAPS_LOCK_LED_PIN);

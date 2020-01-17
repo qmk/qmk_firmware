@@ -35,7 +35,7 @@ void led_init_kb(void)
 {
 #ifdef NUM_LOCK_LED_PIN
     setPinOutput(NUM_LOCK_LED_PIN);
-    SET_NUM_LOCK_LED();
+    RESET_NUM_LOCK_LED();
 #endif // NUM_LOCK_LED_PIN
 #ifdef CAPS_LOCK_LED_PIN
     setPinOutput(CAPS_LOCK_LED_PIN);
@@ -60,7 +60,7 @@ void led_set_kb(uint8_t usb_led)
 {
 #ifdef NUM_LOCK_LED_PIN
    if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-        RESET_NUM_LOCK_LED();
+        SET_NUM_LOCK_LED();
     } else {
         RESET_NUM_LOCK_LED();
     }

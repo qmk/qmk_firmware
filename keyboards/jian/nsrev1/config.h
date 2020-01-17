@@ -93,7 +93,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CAPS_LOCK_LED_PIN B5
 // #define SCROLL_LOCK_LED_PIN B6
 
-#define NUM_LOCK_INVERT  //uncomment this if you using n-mosfet
+//#define NUM_LOCK_INVERT  //uncomment this if you using n-mosfet
 //#define CAPS_LOCK_INVERT  //uncomment this if you using n-mosfet
 //#define SCROLL_LOCK_INVERT  //uncomment this if you using n-mosfet
 
