@@ -187,7 +187,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           break;
         case EMOJI:
           if (record->event.pressed) {
-            //SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LGUI)SS_TAP(X_SPACE)SS_UP(X_LGUI)SS_UP(X_LCTRL));
             tap_code16(C(G(KC_SPC)));
           }
           return false;
