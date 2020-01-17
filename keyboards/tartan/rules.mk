@@ -1,6 +1,5 @@
 # MCU name
 MCU = atmega328p
-PROTOCOL = VUSB
 
 # Bootloader selection
 #   Teensy       halfkay
