@@ -112,14 +112,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_TIMER
 #define RGBLED_NUM 7    // Number of LEDs
 #define RGBLIGHT_ANIMATIONS //not working with splits right now
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
-#define RGBLIGHT_LIMIT_VAL 100
+
 #define ws2812_PORTREG  PORTD
 #define ws2812_DDRREG   DDRD
 #define RGBLIGHT_SLEEP
 #define RGBLIGHT_SPLIT
+
+#ifndef IOS_DEVICE_ENABLE
+#if RGBLED_NUM <= 6
+#define RGBLIGHT_LIMIT_VAL 255
+#else
+#define RGBLIGHT_LIMIT_VAL 130
+#endif
+#define RGBLIGHT_VAL_STEP 8
+#else
+#if RGBLED_NUM <= 6
+#define RGBLIGHT_LIMIT_VAL 90
+#else
+#define RGBLIGHT_LIMIT_VAL 45
+#endif
+#define RGBLIGHT_VAL_STEP 4
+#endif
+#define RGBLIGHT_HUE_STEP 10
+#define RGBLIGHT_SAT_STEP 17
+
+#if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
+#define USB_MAX_POWER_CONSUMPTION 400
+#else
+// iOS device need lessthan 100
+#define USB_MAX_POWER_CONSUMPTION 100
+#endif
 
 /*
  * Feature disable options
