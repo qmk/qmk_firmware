@@ -19,8 +19,15 @@ bool effect_runner_reactive_splash(uint8_t start, effect_params_t* params, react
             uint16_t tick = scale16by8(g_last_hit_tracker.tick[j], rgb_matrix_config.speed);
             hsv           = effect_func(hsv, dx, dy, dist, tick);
         }
-        hsv.v   = scale8(hsv.v, rgb_matrix_config.hsv.v);
-        RGB rgb = hsv_to_rgb(hsv);
+        RGB rgb;
+        if (rgb_matrix_alt_config.hsv.v) {
+            RGB bg = hsv_to_rgb(rgb_matrix_alt_config.hsv);
+            RGB fg = hsv_to_rgb(rgb_matrix_config.hsv);
+            rgb    = sqrt_blend(bg, fg, hsv.v);
+        } else {
+            hsv.v   = scale8(hsv.v, rgb_matrix_config.hsv.v);
+            rgb     = hsv_to_rgb(hsv);
+        }
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
     return led_max < DRIVER_LED_TOTAL;
