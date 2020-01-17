@@ -39,4 +39,20 @@ __attribute__((weak)) void rgblight_increase_speed(void){};
 
 __attribute__((weak)) void rgblight_decrease_speed(void){};
 
+__attribute__((weak)) void rgblight_increase_alt_hue(void){};
+
+__attribute__((weak)) void rgblight_decrease_alt_hue(void){};
+
+__attribute__((weak)) void rgblight_increase_alt_sat(void){};
+
+__attribute__((weak)) void rgblight_decrease_alt_sat(void){};
+
+__attribute__((weak)) void rgblight_increase_alt_val(void){};
+
+__attribute__((weak)) void rgblight_decrease_alt_val(void){};
+
+__attribute__((weak)) void rgblight_increase_alt_speed(void){};
+
+__attribute__((weak)) void rgblight_decrease_alt_speed(void){};
+
 #endif
