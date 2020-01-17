@@ -14,7 +14,8 @@ LOCAL_GLCDFONT = yes
 VERBOSE 		 = yes
 DEBUG_MATRIX_SCAN_RATE   = no
 DEBUG_BALLER 		 = no
-DEBUG_MATRIX		 = yes
+DEBUG_MATRIX		 = no
+CONSOLE_ENABLE   = no
 
 # A bunch of stuff that you shouldn't touch unless you
 # know what you're doing.
