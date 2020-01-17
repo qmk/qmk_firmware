@@ -18,7 +18,7 @@
 
 #include "quantum.h"
 
-#if defined(STENO_ENABLE) && !defined(VIRTSER_ENABLE)
+#if defined(STENO_ENABLE) && !(defined(VIRTSER_ENABLE) || defined(STENO_DISABLE_VIRTSER))
 #    error "must have virtser enabled to use steno"
 #endif
 
