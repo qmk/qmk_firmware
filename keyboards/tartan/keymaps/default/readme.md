@@ -1,2 +1,2 @@
-# The default keymap for plaid
+# The default keymap for Tartan
 folk from planck
