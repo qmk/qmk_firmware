@@ -37,10 +37,5 @@ AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no         # Enable support for HD44780 based LCDs
 
-# unsupported features for now
-NO_UART = yes
-NO_SUSPEND_POWER_DOWN = yes
-
-
 LAYOUTS = 60_ansi 60_ansi_split_bs 60_iso 60_iso_split_bs 60_ansi_split_bs_rshift 60_iso_split_bs
 LAYOUTS_HAS_RGB = no
