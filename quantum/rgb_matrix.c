@@ -350,6 +350,16 @@ static void rgb_task_render(uint8_t effect) {
     }
 }
 
+RGB sqrt_blend(RGB a, RGB b, uint8_t t) {
+    // Blend a towards b by amount t.
+    RGB rgb;
+    rgb.r = sqrt16(scale16by8( a.r * a.r, (255 - t) ) + scale16by8( b.r * b.r, t ));
+    rgb.g = sqrt16(scale16by8( a.g * a.g, (255 - t) ) + scale16by8( b.g * b.g, t ));
+    rgb.b = sqrt16(scale16by8( a.b * a.b, (255 - t) ) + scale16by8( b.b * b.b, t ));
+    return rgb;
+}
+
+
 static void rgb_task_flush(uint8_t effect) {
     // update last trackers after the first full render so we can init over several frames
     rgb_last_effect = effect;

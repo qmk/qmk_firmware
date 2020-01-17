@@ -60,6 +60,8 @@
 
 #define RGB_MATRIX_IS_UNDERGLOW() HAS_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)
 
+RGB sqrt_blend(RGB a, RGB b, uint8_t t);
+
 enum rgb_matrix_effects {
     RGB_MATRIX_NONE = 0,
 
