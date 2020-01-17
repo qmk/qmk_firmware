@@ -1,6 +1,6 @@
 # Gergo
 
-![Gergo](https://cdn.pbrd.co/images/HVglSWD.jpg)
+![Gergo](https://assets.bigcartel.com/product_images/241501097/IMG_20190704_1106412-05.jpeg)
 
 A compact 50% (14x4) Split Keyboard compatible with i2c modules and a trackball. 
 
@@ -13,11 +13,11 @@ Hardware Availability: [gboards.ca](http://gboards.ca)
 ## Firmware building
 After cloning the QMK repo and installing dfu-programmer build and flash with. Be sure to reset your keyboard!
 
-    make gergo:germ:dfu
+    make gergo:default:dfu
 
 To just test your build with the default keymap
    
-    make gergo:germ
+    make default:germ
 
 Gadgets and options can be enabled/disabled in keyboards/gergo/keymaps/default/rules.mk . Copy the default directory and make any changes to your layout, if you think they're worth sharing submit a PR!
 
