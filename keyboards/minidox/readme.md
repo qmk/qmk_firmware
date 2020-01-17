@@ -4,8 +4,8 @@
 
 A compact version of the ErgoDox
 
-Keyboard Maintainer: That-Canadian  
-Hardware Supported: MiniDox PCB rev1 Pro Micro
+* Keyboard Maintainer: That-Canadian
+* Hardware Supported: MiniDox PCB rev1 Pro Micro
 
 Make example for this keyboard (after setting up your build environment):
 
