@@ -11,7 +11,7 @@ Hardware Availability: [gboards.ca](http://gboards.ca)
 ## Firmware building
 After cloning the QMK repo and installing dfu-programmer build and flash with. Be sure to reset your keyboard!
 
-    make gergoplex:default:dfu
+    make gergoplex:default:flash
 
 To just test your build with the default keymap
    
