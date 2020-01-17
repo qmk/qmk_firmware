@@ -86,7 +86,8 @@ void matrix_scan_cmd_tab(void);
 #define MC_PLYR   LGUI(KC_F8)          // Focuses current Media Player
 #define MC_UNDO   LGUI(KC_Z)           // Undo (Command-Z)
 #define MC_REDO   LSFT(LGUI(KC_Z))     // Redo (Shift-Command-Z)
-#define PW_ATFL   HYPR(KC_BSLS)        // Password Autofill (Shift-Control-Option-Command-\)
+#define OP_AFLL   HYPR(KC_BSLS)        // 1Password Autofill (Shift-Control-Option-Command-\)
+#define PX_AFLL   LSFT(LALT(KC_X))     // 1PasswordX Autofill (Shift-Option-X)
 // Reverse scrolling for using with macOS Natural Scrolling.
 #define MC_WH_U   KC_WH_D              // Mouse Wheel Up
 #define MC_WH_D   KC_WH_U              // Mouse Wheel Down
