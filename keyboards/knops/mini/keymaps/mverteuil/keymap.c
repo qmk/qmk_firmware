@@ -7,20 +7,42 @@
 #define NXTTHRD SS_LCTL(SS_LALT(SS_TAP(X_RIGHT)))
 #define PRVTHRD C(A(KC_LEFT))
 
-#define LT_MSTP LT(_LAYERS, KC_MSTP)
-#define LT_ESC LT(_LAYERS, KC_ESC)
+#define LT_MSTP LT(_LAYER_SELECT, KC_MSTP)
+#define LT_ESC LT(_LAYER_SELECT, KC_ESC)
 #define LT_NXTH TD(TD_SPEC)
+
+#define writeLayerLedState(layer) writePin(layer)
+#define layer_led_0_off B6, false
+#define layer_led_1_off D5, true
+#define layer_led_2_off B0, false
+#define layer_led_0_on B6, true
+#define layer_led_1_on D5, false
+#define layer_led_2_on B0, true
 
 void led_init_animation(void);
 void led_set_layer(int layer);
 void td_spectacles_finish(qk_tap_dance_state_t *state, void *user_data);
 void td_spectacles_reset(qk_tap_dance_state_t *state, void *user_data);
 
+enum layer_led_mode {
+    ALL_LAYERS_OFF = -1,
+    LAYER_0,
+    LAYER_1,
+    LAYER_2,
+    LAYER_3,
+    LAYER_4,
+    LAYER_5,
+    ALL_LAYERS_ON,
+};
+
 enum mini_layers {
     _MEDIA,
     _COPYPASTA,
     _SPECTACLES,
-    _LAYERS,
+    _LAYER_3,
+    _LAYER_4,
+    _LAYER_5,
+    _LAYER_SELECT,
 };
 
 enum { TD_SPEC = 0 };
@@ -103,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /*
-     *  Layer 3 (Layer Select/Reset)
+     *  Layer 6 (Layer Select/Reset)
      *   _____   _____   _____
      *  |     | |     | |     |
      *  |None | |None | |Reset|
@@ -117,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *  Then press the specific layer to switch to it.
      *
      */
-    [_LAYERS] = LAYOUT(
+    [_LAYER_SELECT] = LAYOUT(
         _______, _______, RESET,
         TO(_MEDIA),TO(_COPYPASTA),TO(_SPECTACLES)
     )
@@ -163,44 +185,49 @@ void set_switch_led(int ledId, bool state) {
     }
 }
 
-void set_layer_led(int layerId, bool layerState) {
-    if (layerState) {
-        switch (layerId) {
-            case 0:
-                writePinLow(D5);
-                break;
-            case 1:
-                writePinHigh(B6);
-                break;
-            case 2:
-                writePinLow(B0);
-                break;
-        }
-    } else {
-        switch (layerId) {
-            case 0:
-                writePinHigh(D5);
-                break;
-            case 1:
-                writePinLow(B6);
-                break;
-            case 2:
-                writePinHigh(B0);
-                break;
-        }
+void set_layer_led(int layerLedMode) {
+    writeLayerLedState(layer_led_0_off);
+    writeLayerLedState(layer_led_1_off);
+    writeLayerLedState(layer_led_2_off);
+
+    switch (layerLedMode) {
+        case ALL_LAYERS_OFF:
+            break;
+        case LAYER_0:
+            writeLayerLedState(layer_led_0_on);
+            break;
+        case LAYER_1:
+            writeLayerLedState(layer_led_1_on);
+            break;
+        case LAYER_2:
+            writeLayerLedState(layer_led_2_on);
+            break;
+        case LAYER_3:
+            writeLayerLedState(layer_led_0_on);
+            writeLayerLedState(layer_led_1_on);
+            break;
+        case LAYER_4:
+            writeLayerLedState(layer_led_1_on);
+            writeLayerLedState(layer_led_2_on);
+            break;
+        case LAYER_5:
+            writeLayerLedState(layer_led_0_on);
+            writeLayerLedState(layer_led_2_on);
+            break;
+        default:
+            writeLayerLedState(layer_led_0_on);
+            writeLayerLedState(layer_led_1_on);
+            writeLayerLedState(layer_led_2_on);
+            break;
     }
 }
 
 void led_init_animation() {
-    for (int i = 1; i < 7; i++) {
-        set_switch_led(i, false);
-        set_layer_led((i - 1) % 3, false);
+    for (int i = ALL_LAYERS_OFF; i <= ALL_LAYERS_ON; i++) {
+        led_set_layer(i);
     }
-    for (int i = 1; i < 7; i++) {
-        set_switch_led(i, true);
-        set_layer_led((i - 1) % 3, true);
-        wait_ms(75);
-    }
+
+    led_set_layer(LAYER_0);
 }
 
 /*
@@ -210,16 +237,15 @@ void led_init_animation() {
  */
 void led_set_layer(int layer) {
     switch (layer) {
-        case _MEDIA ... _SPECTACLES:
-            set_switch_led(1, true);
-            set_switch_led(2, true);
-            set_switch_led(3, true);
-            set_switch_led(4, true);
-            set_switch_led(5, true);
-            set_switch_led(6, true);
-            break;
+        case ALL_LAYERS_OFF:
+            set_switch_led(1, false);
+            set_switch_led(2, false);
+            set_switch_led(3, false);
+            set_switch_led(4, false);
+            set_switch_led(5, false);
+            set_switch_led(6, false);
 
-        case _LAYERS:
+        case _LAYER_SELECT:
             set_switch_led(1, false);
             set_switch_led(2, false);
             set_switch_led(3, false);
@@ -227,7 +253,18 @@ void led_set_layer(int layer) {
             set_switch_led(5, true);
             set_switch_led(6, true);
             break;
+
+        default:
+            set_switch_led(1, true);
+            set_switch_led(2, true);
+            set_switch_led(3, true);
+            set_switch_led(4, true);
+            set_switch_led(5, true);
+            set_switch_led(6, true);
+            break;
     }
+
+    set_layer_led(layer);
 }
 
 /*
@@ -248,10 +285,7 @@ void led_init_ports() {
 
 // Runs on layer change, no matter where the change was initiated
 layer_state_t layer_state_set_user(layer_state_t state) {
-    for (int i = 0; i < 4; i++) {
-        set_layer_led(i, false);
-    }
-    set_layer_led(get_highest_layer(state), true);
+    set_layer_led(get_highest_layer(state));
     led_set_layer(get_highest_layer(state));
     return state;
 }
@@ -263,10 +297,10 @@ void matrix_init_user(void) {
 
 void td_spectacles_finish(qk_tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
-        layer_on(_LAYERS);
+        layer_on(_LAYER_SELECT);
     } else {
         SEND_STRING(NXTTHRD);
     }
 }
 
-void td_spectacles_reset(qk_tap_dance_state_t *state, void *user_data) { layer_off(_LAYERS); }
+void td_spectacles_reset(qk_tap_dance_state_t *state, void *user_data) { layer_off(_LAYER_SELECT); }
