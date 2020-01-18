@@ -69,6 +69,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SPLIT
 #define RGBLED_SPLIT { 12, 12 }    // Number of LEDs
 
+// The LEDs on the slave half go in reverse order
+#define RGBLIGHT_LED_MAP { 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, \
+                          23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12}
+
 #define SOFT_SERIAL_PIN D0
 #define SELECT_SOFT_SERIAL_SPEED 1
 /*Sets the protocol speed when using serial communication*/
