@@ -33,14 +33,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /*
    * !        @     #    $     %        ||     ^    &    *     (    )
-   *  del   left  down right pgdn       ||     down    F4    F5    F6   F11
-   *       volup             reset      ||             F1    F2    F3   F12
-   *       voldn  super shift space bspc|| alt  ent    L0  prtsc scroll pause
+   *  F1     F2     F3   F4    F5       ||    F6   F7  F8   F9  F10
+   *       volup             reset      ||    F11  F12      UP
+   *       voldn  super shift space bspc|| alt  ent   LEFT  DOWN RGHT
    */
   [_LW] = LAYOUT( /* [> LOWER <] */
     KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN  ,
-    KC_DELT, KC_LEFT, KC_DOWN, KC_RGHT, KC_DOWN,                   KC_DOWN, KC_F4,   KC_F5,   KC_F6,   KC_F11  ,
-    KC_NO,   KC_VOLU, KC_NO,   KC_NO,   RESET,                     KC_NO,   KC_F1,   KC_F2,   KC_UP,   KC_F12  ,
+    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,   KC_9,  KC_0 ,
+    KC_NO,   KC_VOLU, KC_NO,   KC_NO,   RESET,                     KC_F11,  KC_F12,   KC_NO,   KC_UP,   KC_NO  ,
     KC_NO,   KC_VOLD, KC_LGUI, KC_LSFT, KC_SPC, KC_BSPC, KC_LALT, KC_ENT,  TO(_QW), KC_LEFT, KC_DOWN, KC_RGHT )
 
 };
@@ -61,4 +61,4 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     break;
   }
   return MACRO_NONE;
-};
+}; 

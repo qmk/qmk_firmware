@@ -1,11 +1,11 @@
-// Windowsï¿½ï¿½JISï¿½zï¿½ï¿½Æ‚ï¿½ï¿½Ä”Fï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ÉAï¿½Iï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½USï¿½zï¿½ï¿½pï¿½Lï¿½[ï¿½Lï¿½ï¿½ï¿½bï¿½vï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ß‚ÌƒLï¿½[ï¿½}ï¿½bï¿½vï¿½Å‚ï¿½ï¿½B
-// Googleï¿½ï¿½ï¿½{ï¿½ï¿½ï¿½ï¿½Í‚Ìê‡ï¿½Aï¿½È‰ï¿½ï¿½ÌƒLï¿½[ï¿½Ý’ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½Lower,Raiseï¿½Ìƒ^ï¿½bï¿½vï¿½Å‚ï¿½ï¿½ê‚¼ï¿½ê”¼ï¿½pï¿½ï¿½ï¿½Í‚Æ‘Sï¿½pï¿½ï¿½ï¿½Í‚ï¿½Ø‚ï¿½Ö‚ï¿½ï¿½Å‚ï¿½ï¿½ï¿½æ‚¤ï¿½É‚È‚ï¿½Ü‚ï¿½ï¿½B
-//  ï¿½EHenkanï¿½iï¿½ï¿½ï¿½Í•ï¿½ï¿½ï¿½ï¿½È‚ï¿½/ï¿½ï¿½ï¿½Ú“ï¿½ï¿½Íjï¿½ÉuIMEï¿½ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½è“–ï¿½ï¿½
-//  ï¿½EMuhenkanï¿½iï¿½ï¿½ï¿½Í•ï¿½ï¿½ï¿½ï¿½È‚ï¿½/ï¿½ï¿½ï¿½Ú“ï¿½ï¿½Íjï¿½ÉuIMEï¿½ð–³Œï¿½ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½è“–ï¿½ï¿½
+// Windows‚ÅJIS”z—ñ‚Æ‚µ‚Ä”FŽ¯‚µ‚Ä‚¢‚é‚Æ‚«‚ÉAƒIƒVƒƒƒŒ‚ÈUS”z—ñ—pƒL[ƒLƒƒƒbƒv‚ðŽg‚¤‚½‚ß‚ÌƒL[ƒ}ƒbƒv‚Å‚·B
+// Google“ú–{Œê“ü—Í‚Ìê‡AˆÈ‰º‚ÌƒL[Ý’è‚ðs‚¤‚ÆLower,Raise‚Ìƒ^ƒbƒv‚Å‚»‚ê‚¼‚ê”¼Šp“ü—Í‚Æ‘SŠp“ü—Í‚ðØ‚è‘Ö‚¦‚Å‚«‚é‚æ‚¤‚É‚È‚è‚Ü‚·B
+//  EHenkani“ü—Í•¶Žš‚È‚µ/’¼Ú“ü—Íj‚ÉuIME‚ð—LŒø‰»v‚ðŠ„‚è“–‚Ä
+//  EMuhenkani“ü—Í•¶Žš‚È‚µ/’¼Ú“ü—Íj‚ÉuIME‚ð–³Œø‰»v‚ðŠ„‚è“–‚Ä
 
 #include QMK_KEYBOARD_H
-#include "keymap_jp.h"       // qmk_firmware-master/quantum/keymap_extras/keymap_jp.h ï¿½ï¿½ï¿½{ï¿½ï¿½Lï¿½[ï¿½{ï¿½[ï¿½hï¿½Ý’ï¿½p
-#include <sendstring_jis.h>  // macro sendstring for jis keyboard ï¿½}ï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ñ‘—Mï¿½ï¿½ï¿½É“ï¿½ï¿½{ï¿½ï¿½Lï¿½[ï¿½{ï¿½[ï¿½hï¿½Ý’ï¿½Å‚Ì•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#include "keymap_jp.h"       // qmk_firmware-master/quantum/keymap_extras/keymap_jp.h “ú–{ŒêƒL[ƒ{[ƒhÝ’è—p
+#include <sendstring_jis.h>  // macro sendstring for jis keyboard ƒ}ƒNƒ•¶Žš—ñ‘—MŽž‚É“ú–{ŒêƒL[ƒ{[ƒhÝ’è‚Å‚Ì•¶Žš‰»‚¯‰ñ”ð
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -23,40 +23,40 @@ enum layer_number {
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   HDBX,
-  MCR1,                // ï¿½}ï¿½Nï¿½ï¿½1
-  MCR2,                // ï¿½}ï¿½Nï¿½ï¿½2
-  MCR3,                // ï¿½}ï¿½Nï¿½ï¿½3
-  MCR4,                // ï¿½}ï¿½Nï¿½ï¿½4
-  MCR5,                // ï¿½}ï¿½Nï¿½ï¿½5
-  DYNAMIC_MACRO_RANGE, // ï¿½_ï¿½Cï¿½iï¿½~ï¿½bï¿½Nï¿½}ï¿½Nï¿½ï¿½
-  WN_SCLN              // ï¿½^ï¿½bï¿½vï¿½ï¿½JISï¿½Ìu:ï¿½v  ï¿½Vï¿½tï¿½gï¿½ï¿½JISï¿½Ìu;ï¿½v (Windows)
+  MCR1,                // ƒ}ƒNƒ1
+  MCR2,                // ƒ}ƒNƒ2
+  MCR3,                // ƒ}ƒNƒ3
+  MCR4,                // ƒ}ƒNƒ4
+  MCR5,                // ƒ}ƒNƒ5
+  DYNAMIC_MACRO_RANGE, // ƒ_ƒCƒiƒ~ƒbƒNƒ}ƒNƒ
+  WN_SCLN              // ƒ^ƒbƒv‚ÅJIS‚Ìu:v  ƒVƒtƒg‚ÅJIS‚Ìu;v (Windows)
 };
 
 // Use Dynamic macro
 #include "dynamic_macro.h"
 
 // Fillers to make layering more clear
-#define LOWER   LT(_LOWER, KC_MHEN)    // ï¿½^ï¿½bï¿½vï¿½Å–ï¿½ï¿½ÏŠï¿½     ï¿½zï¿½[ï¿½ï¿½ï¿½hï¿½ï¿½Lower
-#define RAISE   LT(_RAISE, KC_HENK)    // ï¿½^ï¿½bï¿½vï¿½Å•ÏŠï¿½       ï¿½zï¿½[ï¿½ï¿½ï¿½hï¿½ï¿½Raise
-#define GUI_ESC GUI_T(KC_ESC)          // ï¿½^ï¿½bï¿½vï¿½ï¿½ESC        ï¿½zï¿½[ï¿½ï¿½ï¿½hï¿½ï¿½GUI
-#define SFT_BS  SFT_T(KC_BSPC)         // ï¿½^ï¿½bï¿½vï¿½ï¿½BackSpace  ï¿½zï¿½[ï¿½ï¿½ï¿½hï¿½ï¿½SHIFT
-#define CTL_ENT CTL_T(KC_ENT)          // ï¿½^ï¿½bï¿½vï¿½ï¿½Enter      ï¿½zï¿½[ï¿½ï¿½ï¿½hï¿½ï¿½CTRL
-#define CTL_TAB CTL_T(KC_TAB)          // ï¿½^ï¿½bï¿½vï¿½ï¿½TAB        ï¿½zï¿½[ï¿½ï¿½ï¿½hï¿½ï¿½CTRL
-#define SFT_DEL SFT_T(KC_DEL)          // ï¿½^ï¿½bï¿½vï¿½ï¿½DELETE     ï¿½zï¿½[ï¿½ï¿½ï¿½hï¿½ï¿½SHIFT
-#define ALT_LBR ALT_T(JP_LBRC)         // ï¿½^ï¿½bï¿½vï¿½ï¿½[          ï¿½zï¿½[ï¿½ï¿½ï¿½hï¿½ï¿½ALT
-#define SFT_RBR SFT_T(JP_RBRC)         // ï¿½^ï¿½bï¿½vï¿½ï¿½]          ï¿½zï¿½[ï¿½ï¿½ï¿½hï¿½ï¿½SHIFT
+#define LOWER   LT(_LOWER, KC_MHEN)    // ƒ^ƒbƒv‚Å–³•ÏŠ·     ƒz[ƒ‹ƒh‚ÅLower
+#define RAISE   LT(_RAISE, KC_HENK)    // ƒ^ƒbƒv‚Å•ÏŠ·       ƒz[ƒ‹ƒh‚ÅRaise
+#define GUI_ESC GUI_T(KC_ESC)          // ƒ^ƒbƒv‚ÅESC        ƒz[ƒ‹ƒh‚ÅGUI
+#define SFT_BS  SFT_T(KC_BSPC)         // ƒ^ƒbƒv‚ÅBackSpace  ƒz[ƒ‹ƒh‚ÅSHIFT
+#define CTL_ENT CTL_T(KC_ENT)          // ƒ^ƒbƒv‚ÅEnter      ƒz[ƒ‹ƒh‚ÅCTRL
+#define CTL_TAB CTL_T(KC_TAB)          // ƒ^ƒbƒv‚ÅTAB        ƒz[ƒ‹ƒh‚ÅCTRL
+#define SFT_DEL SFT_T(KC_DEL)          // ƒ^ƒbƒv‚ÅDELETE     ƒz[ƒ‹ƒh‚ÅSHIFT
+#define ALT_LBR ALT_T(JP_LBRC)         // ƒ^ƒbƒv‚Å[          ƒz[ƒ‹ƒh‚ÅALT
+#define SFT_RBR SFT_T(JP_RBRC)         // ƒ^ƒbƒv‚Å]          ƒz[ƒ‹ƒh‚ÅSHIFT
 #define SFT_SPC S(KC_SPC)              // Shift + Space
 #define WN_CAPS S(KC_CAPS)             // Caps Lock           (Windows)
-#define MPLAY1  DYN_MACRO_PLAY1        // ï¿½_ï¿½Cï¿½iï¿½~ï¿½bï¿½Nï¿½}ï¿½Nï¿½ï¿½1 
-#define MPLAY2  DYN_MACRO_PLAY2        // ï¿½_ï¿½Cï¿½iï¿½~ï¿½bï¿½Nï¿½}ï¿½Nï¿½ï¿½2
-#define MREC1   DYN_REC_START1         // ï¿½_ï¿½Cï¿½iï¿½~ï¿½bï¿½Nï¿½}ï¿½Nï¿½ï¿½1ï¿½Lï¿½^ï¿½Jï¿½n
-#define MREC2   DYN_REC_START2         // ï¿½_ï¿½Cï¿½iï¿½~ï¿½bï¿½Nï¿½}ï¿½Nï¿½ï¿½2ï¿½Lï¿½^ï¿½Jï¿½n
-#define MRSTOP  DYN_REC_STOP           // ï¿½_ï¿½Cï¿½iï¿½~ï¿½bï¿½Nï¿½}ï¿½Nï¿½ï¿½ï¿½Lï¿½^ï¿½Iï¿½ï¿½
-#define GAME    TO(_GAME)              // _GAMEï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ÖˆÚ“ï¿½
-#define ADJUST  TO(_ADJUST)            // _ADJUSTï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ÖˆÚ“ï¿½
+#define MPLAY1  DYN_MACRO_PLAY1        // ƒ_ƒCƒiƒ~ƒbƒNƒ}ƒNƒ1 
+#define MPLAY2  DYN_MACRO_PLAY2        // ƒ_ƒCƒiƒ~ƒbƒNƒ}ƒNƒ2
+#define MREC1   DYN_REC_START1         // ƒ_ƒCƒiƒ~ƒbƒNƒ}ƒNƒ1‹L˜^ŠJŽn
+#define MREC2   DYN_REC_START2         // ƒ_ƒCƒiƒ~ƒbƒNƒ}ƒNƒ2‹L˜^ŠJŽn
+#define MRSTOP  DYN_REC_STOP           // ƒ_ƒCƒiƒ~ƒbƒNƒ}ƒNƒ‹L˜^I—¹
+#define GAME    TO(_GAME)              // _GAMEƒŒƒCƒ„[‚ÖˆÚ“®
+#define ADJUST  TO(_ADJUST)            // _ADJUSTƒŒƒCƒ„[‚ÖˆÚ“®
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  /* Qwertyï¿½zï¿½ï¿½
+  /* Qwerty”z—ñ
    * ,----------------------------------.             ,----------------------------------.
    * |   Q  |   W  |   E  |   R  |   T  |             |   Y  |   U  |   I  |   O  |   P  |
    * |------+------+------+------+------|             |------+------+------+------+------|
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ALT_LBR, GUI_ESC, JP_TILD, SFT_BS,  LOWER,   CTL_ENT,  KC_SPC,   RAISE,   CTL_TAB, KC_MINS, JP_QUOT, SFT_RBR  \
       ),
 
-  /* HDBXï¿½zï¿½ï¿½ ï¿½fï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Ì”zï¿½ï¿½É‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½ÍAAdjustï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½K (Lower + Raise + K)
+  /* HDBX”z—ñ ƒfƒtƒHƒ‹ƒgƒŒƒCƒ„[‚ð‚±‚Ì”z—ñ‚É‚µ‚½‚¢ê‡‚ÍAAdjustƒŒƒCƒ„[‚ÅK (Lower + Raise + K)
    * ,----------------------------------.             ,----------------------------------.
    * |   Q  |   W  |   E  |   ,  |   .  |             |   Y  |   D  |   P  |   F  |   :  |
    * |------+------+------+------+------|             |------+------+------+------+------|
@@ -128,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LALT, KC_LGUI, JP_GRV,  KC_DEL,  _______, KC_LCTL,  WN_CAPS,  _______, KC_RCTL, JP_UNDS, JP_DQT,  KC_RSFT  \
       ),
 
-  /* GAME ï¿½Qï¿½[ï¿½ï¿½ï¿½ï¿½eï¿½ï¿½ï¿½Lï¿½[ï¿½Å’ï¿½ÅŽgï¿½pï¿½ï¿½ï¿½éƒŒï¿½Cï¿½ï¿½ï¿½[ï¿½Å‚ï¿½ï¿½BAdjustï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½Gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‘Jï¿½ÚBï¿½ß‚ï¿½Æ‚ï¿½ï¿½ï¿½toBaseï¿½ï¿½ï¿½ï¿½B
+  /* GAME ƒQ[ƒ€‚âƒeƒ“ƒL[ŒÅ’è‚ÅŽg—p‚·‚éƒŒƒCƒ„[‚Å‚·BAdjustƒŒƒCƒ„[‚ÅG‚ð‰Ÿ‰º‚µ‚Ä‘JˆÚB–ß‚é‚Æ‚«‚ÍtoBase‚©‚çB
    * ,----------------------------------.             ,----------------------------------.
    * |   Q  |  Up  |   E  |   R  |   T  |             |   7  |   8  |   9  |   .  | Bspc |
    * |------+------+------+------+------|             |------+------+------+------+------|
@@ -188,7 +188,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     static bool     lshift = false;
-    case WN_SCLN: // ï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½u;:ï¿½v
+    case WN_SCLN: // ƒRƒƒ“u;:v
       if (record->event.pressed) {
         lshift = keyboard_report->mods & MOD_BIT(KC_LSFT);
         if (lshift) {
@@ -204,31 +204,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case MCR1:
       if (record->event.pressed) {
-        SEND_STRING("0123456789"); // ï¿½ï¿½ï¿½Mï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        SEND_STRING("0123456789"); // ‘—M•¶Žš—ñ
       }
       return false;
       break;
     case MCR2:
       if (record->event.pressed) {
-        SEND_STRING("hogehoge"SS_TAP(X_ENTER)); // ï¿½ï¿½ï¿½Mï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        SEND_STRING("hogehoge"SS_TAP(X_ENTER)); // ‘—M•¶Žš—ñ
       }
       return false;
       break;
     case MCR3:
       if (record->event.pressed) {
-        SEND_STRING("hoge@hoge.hoge"); // ï¿½ï¿½ï¿½Mï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        SEND_STRING("hoge@hoge.hoge"); // ‘—M•¶Žš—ñ
       }
       return false;
       break;
     case MCR4:
       if (record->event.pressed) {
-        SEND_STRING("\"\""SS_TAP(X_LEFT)); // ï¿½ï¿½ï¿½Mï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        SEND_STRING("\"\""SS_TAP(X_LEFT)); // ‘—M•¶Žš—ñ
       }
       return false;
       break;
     case MCR5:
       if (record->event.pressed) {
-        SEND_STRING("<>"SS_TAP(X_LEFT)); // ï¿½ï¿½ï¿½Mï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        SEND_STRING("<>"SS_TAP(X_LEFT)); // ‘—M•¶Žš—ñ
       }
       return false;
       break;
