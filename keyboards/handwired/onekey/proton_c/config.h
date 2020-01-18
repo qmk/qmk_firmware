@@ -22,8 +22,6 @@
 #define MATRIX_ROW_PINS { A2 }
 #define UNUSED_PINS
 
-#define DIODE_DIRECTION COL2ROW
-
 #define BACKLIGHT_PIN           B8
 #define BACKLIGHT_PWM_DRIVER    PWMD4
 #define BACKLIGHT_PWM_CHANNEL   3

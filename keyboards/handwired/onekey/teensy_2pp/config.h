@@ -21,5 +21,3 @@
 #define MATRIX_COL_PINS { B2 }
 #define MATRIX_ROW_PINS { B1 }
 #define UNUSED_PINS
-
-#define DIODE_DIRECTION COL2ROW
