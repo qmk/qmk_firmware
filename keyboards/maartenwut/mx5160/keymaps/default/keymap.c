@@ -23,7 +23,6 @@
 #define _MA 0 //Main layer
 #define _FN 1 //Main layer
 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_MA] = LAYOUT_all(
     KC_F1,   KC_F2,   KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,     KC_8,     KC_9,      KC_0,      KC_MINS, KC_EQL,  _______, KC_BSPC,    KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,    \
