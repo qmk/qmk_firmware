@@ -90,7 +90,7 @@ static void process_mouse(bool bMotion, bool* bBurst) {
     pointing_device_set_report(currentReport);
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (DEBUGMOUSE) {
         uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
     }
@@ -99,8 +99,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     if ((record->event.key.col == 2) && (record->event.key.row == 0) && (record->event.pressed == 0)) {
         lastMidClick = timer_read();
     }
+#ifndef MOUSEKEY_ENABLE
+    if (IS_MOUSEKEY_BUTTON(keycode)) {
+        report_mouse_t currentReport = pointing_device_get_report();
+        if (record->event.pressed) {
+            if (keycode == KC_MS_BTN1)
+                currentReport.buttons |= MOUSE_BTN1;
+            else if (keycode == KC_MS_BTN2)
+                currentReport.buttons |= MOUSE_BTN2;
+            else if (keycode == KC_MS_BTN3)
+                currentReport.buttons |= MOUSE_BTN3;
+            else if (keycode == KC_MS_BTN4)
+                currentReport.buttons |= MOUSE_BTN4;
+            else if (keycode == KC_MS_BTN5)
+                currentReport.buttons |= MOUSE_BTN5;
+        } else {
+            if (keycode == KC_MS_BTN1)
+                currentReport.buttons &= ~MOUSE_BTN1;
+            else if (keycode == KC_MS_BTN2)
+                currentReport.buttons &= ~MOUSE_BTN2;
+            else if (keycode == KC_MS_BTN3)
+                currentReport.buttons &= ~MOUSE_BTN3;
+            else if (keycode == KC_MS_BTN4)
+                currentReport.buttons &= ~MOUSE_BTN4;
+            else if (keycode == KC_MS_BTN5)
+                currentReport.buttons &= ~MOUSE_BTN5;
+        }
+        pointing_device_set_report(currentReport);
+    }
+#endif
 
-    return true;
+    return process_record_user(keycode, record);
 }
 
 void process_wheel(void) {

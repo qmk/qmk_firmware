@@ -32,6 +32,6 @@ AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs
 POINTING_DEVICE_ENABLE = yes
-MOUSEKEY_ENABLE = yes        # Mouse keys
+MOUSEKEY_ENABLE = no        # Mouse keys
 
 QUANTUM_LIB_SRC += analog.c spi.c
