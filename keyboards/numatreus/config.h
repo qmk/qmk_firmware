@@ -22,9 +22,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6062
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Profet
-#define PRODUCT         Atreus
-#define DESCRIPTION     q.m.k. keyboard firmware for Atreus
+#define MANUFACTURER    yohewi
+#define PRODUCT         NumAtreus
+#define DESCRIPTION     q.m.k. keyboard firmware for NumAtreus
 
 /* key matrix size */
 #define MATRIX_ROWS 4
