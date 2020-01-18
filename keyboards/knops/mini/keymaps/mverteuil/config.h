@@ -1,4 +1,4 @@
-/* Copyright 2017 Joseph Wasson
+/* Copyright 2017 Pawnerd, 2019 Matthew de Verteuil
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,17 +13,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef PROCESS_STENO_H
-#define PROCESS_STENO_H
 
-#include "quantum.h"
+#pragma once
 
-typedef enum { STENO_MODE_BOLT, STENO_MODE_GEMINI } steno_mode_t;
-
-bool     process_steno(uint16_t keycode, keyrecord_t *record);
-void     steno_init(void);
-void     steno_set_mode(steno_mode_t mode);
-uint8_t *steno_get_state(void);
-uint8_t *steno_get_chord(void);
-
+#if defined(AUDIO_ENABLE)
+    #define AUDIO_CLICKY
+    #define B5_AUDIO
+    #define C6_AUDIO
+    #define STARTUP_SONG SONG(ZELDA_PUZZLE)
+    #define GOODBYE_SONG SONG(COIN_SOUND)
 #endif

@@ -291,6 +291,25 @@ Normally, this would send `X` (`SHIFT`+`x`). With `Ignore Mod Tap Interrupt` ena
 
 ?> If you have `Permissive Hold` enabled, as well, this will modify how both work. The regular key has the modifier added if the first key is released first or if both keys are held longer than the `TAPPING_TERM`.
 
+For more granular control of this feature, you can add the following to your `config.h`:
+
+```c
+#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
+```
+
+You can then add the following function to your keymap:
+
+```c
+bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
+  switch (keycode) {
+    case SFT_T(KC_SPC):
+      return true;
+    default:
+      return false;
+  }
+}
+```
+
 ## Tapping Force Hold
 
 To enable `tapping force hold`, add the following to your `config.h`: 
@@ -314,6 +333,25 @@ With default settings, `a` will be sent on the first release, then `a` will be s
 With `TAPPING_FORCE_HOLD`, the second press will be interpreted as a Shift, allowing to use it as a modifier shortly after having used it as a tap.
 
 !> `TAPPING_FORCE_HOLD` will break anything that uses tapping toggles (Such as the `TT` layer keycode, and the One Shot Tapping Toggle).
+
+For more granular control of this feature, you can add the following to your `config.h`:
+
+```c
+#define TAPPING_FORCE_HOLD_PER_KEY
+```
+
+You can then add the following function to your keymap:
+
+```c
+bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case LT(1, KC_BSPC):
+      return true;
+    default:
+      return false;
+  }
+}
+```
 
 ## Retro Tapping
 
