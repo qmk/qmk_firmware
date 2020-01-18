@@ -4,7 +4,7 @@
 
 A macropad loaded with a numpad, and a ton of cat macros. Spam some keys and push enter for cats, What more could you want from a keyboard?
 
-Keyboard Maintainer: [Germ](https://github.com/germ)  
+* Keyboard Maintainer: [Germ](https://github.com/germ)  
 * Hardware Availability: [g Heavy Industries](https://www.gboards.ca/product)
 
 Make example for this keyboard (after setting up your build environment):
