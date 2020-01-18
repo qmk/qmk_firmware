@@ -1,5 +1,5 @@
 #----------------------------------------------------------------------------
-# make gergo:germ:dfu
+# make gergoplex:default:flash
 # Make sure you have dfu-programmer installed!
 #----------------------------------------------------------------------------
 # Firmware options

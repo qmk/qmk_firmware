@@ -1,4 +1,4 @@
-# Gergo
+# GergoPlex
 
 ![GergoPlex](https://assets.bigcartel.com/product_images/248890490/IMG_20191114_1406385-01-01.jpeg)
 
