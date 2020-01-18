@@ -18,10 +18,6 @@
 
 #include "quantum.h"
 
-#if defined(STENO_ENABLE) && !(defined(VIRTSER_ENABLE) || defined(STENO_DISABLE_VIRTSER))
-#    error "must have virtser enabled to use steno"
-#endif
-
 typedef enum { STENO_MODE_BOLT, STENO_MODE_GEMINI } steno_mode_t;
 
 bool     process_steno(uint16_t keycode, keyrecord_t *record);

@@ -59,22 +59,14 @@ ifeq ($(strip $(COMBO_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_combo.c
 endif
 
-ifeq ($(strip $(STENO_DISABLE_VIRTSER)), yes)
-    OPT_DEFS += -DSTENO_DISABLE_VIRTSER
-endif
-
 ifeq ($(strip $(STENO_ENABLE)), yes)
     OPT_DEFS += -DSTENO_ENABLE
+    VIRTSER_ENABLE ?= yes
     SRC += $(QUANTUM_DIR)/process_keycode/process_steno.c
-		ifneq ($(strip $(STENO_DISABLE_VIRTSER)), yes)
-    	VIRTSER_ENABLE := yes
-		endif
 endif
 
 ifeq ($(strip $(VIRTSER_ENABLE)), yes)
-	ifneq ($(strip $(STENO_DISABLE_VIRTSER)), yes)
-		OPT_DEFS += -DVIRTSER_ENABLE
-	endif
+    OPT_DEFS += -DVIRTSER_ENABLE
 endif
 
 ifeq ($(strip $(FAUXCLICKY_ENABLE)), yes)
