@@ -23,8 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID 0xFEED
 #define PRODUCT_ID 0x0000
 #define DEVICE_VER 0x0001
-#define MANUFACTURER % YOUR_NAME %
-#define PRODUCT % KEYBOARD %
+#define MANUFACTURER %YOUR_NAME%
+#define PRODUCT %KEYBOARD%
 #define DESCRIPTION A custom keyboard
 
 /* key matrix size */
@@ -41,10 +41,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS \
-    { D0, D5 }
-#define MATRIX_COL_PINS \
-    { F1, F0, B0 }
+#define MATRIX_ROW_PINS { D0, D5 }
+#define MATRIX_COL_PINS { F1, F0, B0 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
@@ -195,8 +193,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* disable these deprecated features by default */
 #ifndef LINK_TIME_OPTIMIZATION_ENABLE
-#    define NO_ACTION_MACRO
-#    define NO_ACTION_FUNCTION
+  #define NO_ACTION_MACRO
+  #define NO_ACTION_FUNCTION
 #endif
 /*
  * MIDI options
