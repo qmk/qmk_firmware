@@ -255,6 +255,11 @@ bmp_error_t nus_rcv_callback(const uint8_t* dat, uint32_t len)
 #include "config_file_util.h"
 #include "apidef.h"
 #include "cli.h"
+#include "bmp_matrix.h"
+
+#ifndef BMP_FORCE_SAFE_MODE
+#define BMP_FORCE_SAFE_MODE false
+#endif
 
 char config_string[2048];
 char keymap_string[10*1024];
@@ -570,26 +575,24 @@ bmp_error_t bmp_state_change_cb(bmp_api_event_t event)
   return BMP_OK;
 }
 
-#if defined(ALLOW_MSC_ROW_PIN) && defined(ALLOW_MSC_COL_PIN)
-#include "bmp_matrix.h"
-static bool checkMscDisableFlag(bmp_api_config_t const * const config)
+static bool checkKeyIsPressedOnStartup(bmp_api_config_t const * const config, uint8_t row, uint8_t col)
 {
   int8_t low_side_pin, high_side_pin;
   if (config->matrix.diode_direction == MATRIX_COL2ROW
     || config->matrix.diode_direction == MATRIX_COL2ROW2COL
     || config->matrix.diode_direction == MATRIX_COL2ROW_LPME) {
-    high_side_pin = ALLOW_MSC_COL_PIN;
-    low_side_pin = ALLOW_MSC_ROW_PIN;
+    high_side_pin = col;
+    low_side_pin = row;
   }
   else if (config->matrix.diode_direction == MATRIX_ROW2COL
     || config->matrix.diode_direction == MATRIX_ROW2COL2ROW
     || config->matrix.diode_direction == MATRIX_ROW2COL_LPME) {
-    high_side_pin = ALLOW_MSC_ROW_PIN;
-    low_side_pin = ALLOW_MSC_COL_PIN;
+    high_side_pin = row;
+    low_side_pin = col;
   }
   else {
     // return default value
-    return DISABLE_MSC;
+    return false;
   }
 
   setPinInput(high_side_pin);
@@ -600,7 +603,20 @@ static bool checkMscDisableFlag(bmp_api_config_t const * const config)
 
   writePinLow(low_side_pin);
 
-  if (pin_state == 0) {
+  return pin_state == 0;
+}
+
+static inline bool checkSafemodeFlag(bmp_api_config_t const * const config)
+{
+    return checkKeyIsPressedOnStartup(config, config->matrix.row_pins[0],
+            config->matrix.col_pins[0]);
+}
+
+#if defined(ALLOW_MSC_ROW_PIN) && defined(ALLOW_MSC_COL_PIN)
+static inline bool checkMscDisableFlag(bmp_api_config_t const * const config)
+{
+  if (checkKeyIsPressedOnStartup(config,
+    ALLOW_MSC_ROW_PIN, ALLOW_MSC_COL_PIN) == 0) {
     // enable MSC
     return false;
   } else {
@@ -612,6 +628,7 @@ static bool checkMscDisableFlag(bmp_api_config_t const * const config)
 
 static bool has_ble = true;
 static bool has_usb = true;
+static bool is_safe_mode = false;
 
 void bmp_init()
 {
@@ -649,15 +666,35 @@ void bmp_init()
   };
 
   BMPAPI->app.init(&default_config);
+
   const bmp_api_config_t * config = BMPAPI->app.get_config();
+
+
+  if (checkSafemodeFlag(config) || BMP_FORCE_SAFE_MODE)
+  {
+    // start in safe mode
+    BMPAPI->app.set_config(&default_config);
+    config = &default_config;
+    is_safe_mode = true;
+  }
+
   BMPAPI->usb.set_msc_write_cb(msc_write_callback);
   BMPAPI->app.set_state_change_cb(bmp_state_change_cb);
 
+  if (!is_safe_mode)
+  {
 #if defined(ALLOW_MSC_ROW_PIN) && defined(ALLOW_MSC_COL_PIN)
-  BMPAPI->usb.init(config, checkMscDisableFlag(config));
+    BMPAPI->usb.init(config, checkMscDisableFlag(config));
 #else
-  BMPAPI->usb.init(config, DISABLE_MSC);
+    BMPAPI->usb.init(config, DISABLE_MSC);
 #endif
+  }
+  else
+  {
+    BMPAPI->usb.init(config, DISABLE_MSC);
+  }
+
+
   BMPAPI->ble.init(config);
 
   BMPAPI->logger.info("usb init");
