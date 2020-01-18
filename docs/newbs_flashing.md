@@ -86,7 +86,23 @@ Click the `Flash` button in QMK Toolbox. You will see output similar to the foll
 
 ## Flash your Keyboard from the Command Line
 
-First thing you'll need to know is which bootloader that your keyboard uses.  There are four main bootloaders that are used, usually. Pro-Micro and clones use CATERINA, and Teensy's use Halfkay, OLKB boards use QMK-DFU, and other atmega32u4 chips use DFU. 
+This has been made pretty simple compared to what it used to be.  When you are ready to compile and flash your firmware, open up your terminal window and run the build command: 
+
+    make <my_keyboard>:<my_keymap>:flash
+
+For example, if your keymap is named "xyverz" and you're building a keymap for a rev5 planck, you'll use this command:
+
+    make planck/rev5:xyverz:flash
+
+This will check the keyboard's configuration, and then attempt to flash it based on the specified bootloader.  This means that you don't need to know which bootloader that your keyboard uses.  Just run the command, and let the command do the heavy lifting.
+
+However, this does rely on the bootloader being set by the keyboard.  If this information is not configured, or you're using a board that doesn't have a supported target to flash it, you will see this error:
+
+    WARNING: This board's bootloader is not specified or is not supported by the ":flash" target at this time.
+
+In this case, you'll have to fall back on specifying the bootloader.
+
+There are five main bootloaders that are used. Pro Micro and clones use Caterina, Teensys use HalfKay, OLKB's AVR boards use QMK-DFU, other ATmega32U4 boards use DFU, and most ARM boards use ARM DFU.
 
 You can find more information about the bootloaders in the [Flashing Instructions and Bootloader Information](flashing.md) page. 
 
@@ -216,11 +232,14 @@ If you have any issues with this, you may need to this:
     sudo make <my_keyboard>:<my_keymap>:avrdude
 
 
-Additionally, if you want to flash multiple boards, use the following command:
+#### Caterina commands
 
-    make <keyboard>:<keymap>:avrdude-loop
+There are a number of DFU commands that you can use to flash firmware to a DFU device:
 
-When you're done flashing boards, you'll need to hit Ctrl + C or whatever the correct keystroke is for your operating system to break the loop.
+* `:avrdude` - This is the normal option which waits until a Caterina device is available (by detecting a new COM port), and then flashes the firmware.
+* `:avrdude-loop` - This runs the same command as `:avrdude`, but after each device is flashed, it will attempt to flash again.  This is useful for bulk flashing. _This requires you to manually escape the loop by hitting Control+C._
+* `:avrdude-split-left` - This flashes the normal firmware, just like the default option (`:avrdude`). However, this also flashes the "Left Side" EEPROM file for split keyboards. _This is ideal for Pro Micro based split keyboards._
+* `:avrdude-split-right` - This flashes the normal firmware, just like the default option (`:avrdude`). However, this also flashes the "Right Side" EEPROM file for split keyboards. _This is ideal for Pro Micro based split keyboards._
 
 
 ### HalfKay
@@ -254,42 +273,6 @@ Read "./.build/ergodox_ez_xyverz.hex": 28532 bytes, 88.5% usage
 Programming............................................................................................................................................................................
 ...................................................
 Booting
-```
-
-### BootloadHID
-
-For Bootmapper Client(BMC)/bootloadHID/ATmega32A based boards, when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
-
-    make <my_keyboard>:<my_keymap>:bootloaderHID
-
-For example, if your keymap is named "xyverz" and you're building a keymap for a jj40, you'll use this command:
-
-    make jj40:xyverz:bootloaderHID
-
-Once the firmware finishes compiling, it will output something like this: 
-
-```
-Linking: .build/jj40_default.elf                                                                   [OK]
-Creating load file for flashing: .build/jj40_default.hex                                           [OK]
-Copying jj40_default.hex to qmk_firmware folder                                                    [OK]
-Checking file size of jj40_default.hex                                                             [OK]
- * The firmware size is fine - 21920/28672 (6752 bytes free)
-```
-
-After it gets to this point, the build script will look for the DFU bootloader every 5 seconds.  It will repeat the following until the device is found or you cancel it. 
-
-```
-Error opening HIDBoot device: The specified device was not found
-Trying again in 5s.
-```
-
-Once it does this, you'll want to reset the controller.  It should then show output similar to this: 
-
-```
-Page size   = 128 (0x80)
-Device size = 32768 (0x8000); 30720 bytes remaining
-Uploading 22016 (0x5600) bytes starting at 0 (0x0)
-0x05580 ... 0x05600
 ```
 
 ### STM32 (ARM)
@@ -346,11 +329,47 @@ Transitioning to dfuMANIFEST state
 
 There are a number of DFU commands that you can use to flash firmware to a STM32 device:
 
-* `:dfu-util` - The default command for flashing to STM32 devices. 
-* `:dfu-util-wait` - This works like the default command, but it gives you a (configurable) 10 second timeout before it attempts to flash the firmware.  You can use `TIME_DELAY=20` from the command line to change the timeout.
-   * Eg: `make <keyboard>:<keymap>:dfu-util TIME_DELAY=5`
+* `:dfu-util` - The default command for flashing to STM32 devices, and will wait until an STM32 bootloader is present. . 
 * `:dfu-util-split-left` - This flashes the normal firmware, just like the default option (`:dfu-util`). However, this also configures the "Left Side" EEPROM setting for split keyboards.
 * `:dfu-util-split-right` - This flashes the normal firmware, just like the default option (`:dfu-util`). However, this also configures the "Right Side" EEPROM setting for split keyboards.
+* `:st-link-cli` - This allows you to flash the firmware via ST-LINK's CLI utility, rather than dfu-util. 
+
+
+### BootloadHID
+
+For Bootmapper Client(BMC)/bootloadHID/ATmega32A based boards, when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
+
+    make <my_keyboard>:<my_keymap>:bootloaderHID
+
+For example, if your keymap is named "xyverz" and you're building a keymap for a jj40, you'll use this command:
+
+    make jj40:xyverz:bootloaderHID
+
+Once the firmware finishes compiling, it will output something like this: 
+
+```
+Linking: .build/jj40_default.elf                                                                   [OK]
+Creating load file for flashing: .build/jj40_default.hex                                           [OK]
+Copying jj40_default.hex to qmk_firmware folder                                                    [OK]
+Checking file size of jj40_default.hex                                                             [OK]
+ * The firmware size is fine - 21920/28672 (6752 bytes free)
+```
+
+After it gets to this point, the build script will look for the DFU bootloader every 5 seconds.  It will repeat the following until the device is found or you cancel it. 
+
+```
+Error opening HIDBoot device: The specified device was not found
+Trying again in 5s.
+```
+
+Once it does this, you'll want to reset the controller.  It should then show output similar to this: 
+
+```
+Page size   = 128 (0x80)
+Device size = 32768 (0x8000); 30720 bytes remaining
+Uploading 22016 (0x5600) bytes starting at 0 (0x0)
+0x05580 ... 0x05600
+```
 
 ## Test It Out!
 

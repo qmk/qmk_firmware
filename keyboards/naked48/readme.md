@@ -5,8 +5,8 @@
 This is 48 keys modification Ortholinear keyboard. 
 
 Keyboard Maintainer: [Salicylic_acid3](https://github.com/Salicylic-acid3)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Hardware Supported: Naked60BMP PCB, Pro Micro  
+Hardware Availability: [PCB & Case Data](https://github.com/Salicylic-acid3/PCB_Data), [Booth Shop](https://salicylic-acid3.booth.pm/items/1271568)
 
 Make example for this keyboard (after setting up your build environment):
 

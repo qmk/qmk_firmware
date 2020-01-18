@@ -1,16 +1,18 @@
 SRC += drashna.c \
        process_records.c
 
-LINK_TIME_OPTIMIZATION_ENABLE = yes
-SPACE_CADET_ENABLE            = no
+ifneq ($(PLATFORM),CHIBIOS)
+    LTO_ENABLE            = yes
+endif
+SPACE_CADET_ENABLE    = no
 
 ifneq ($(strip $(NO_SECRETS)), yes)
-	ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
-    	SRC += secrets.c
-	endif
-	ifeq ($(strip $(NO_SECRETS)), lite)
-		OPT_DEFS += -DNO_SECRETS
-	endif
+    ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
+        SRC += secrets.c
+    endif
+    ifeq ($(strip $(NO_SECRETS)), lite)
+        OPT_DEFS += -DNO_SECRETS
+    endif
 endif
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
@@ -51,4 +53,11 @@ endif
 
 ifeq ($(strip $(MAKE_BOOTLOADER)), yes)
     OPT_DEFS += -DMAKE_BOOTLOADER
+endif
+
+# At least until build.mk or the like drops, this is here to prevent
+# VUSB boards from enabling NKRO, as they do not support it. Ideally
+# this should be handled per keyboard, but until that happens ...
+ifeq ($(strip $(PROTOCOL)), VUSB)
+    NKRO_ENABLE       = no
 endif

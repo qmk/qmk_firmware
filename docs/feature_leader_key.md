@@ -22,10 +22,10 @@ void matrix_scan_user(void) {
       SEND_STRING("QMK is awesome.");
     }
     SEQ_TWO_KEYS(KC_D, KC_D) {
-      SEND_STRING(SS_LCTRL("a")SS_LCTRL("c"));
+      SEND_STRING(SS_LCTL("a") SS_LCTL("c"));
     }
     SEQ_THREE_KEYS(KC_D, KC_D, KC_S) {
-      SEND_STRING("https://start.duckduckgo.com"SS_TAP(X_ENTER));
+      SEND_STRING("https://start.duckduckgo.com\n");
     }
     SEQ_TWO_KEYS(KC_A, KC_S) {
       register_code(KC_LGUI);
@@ -115,11 +115,11 @@ void matrix_scan_user(void) {
 
     SEQ_ONE_KEY(KC_E) {
       // Anything you can do in a macro.
-      SEND_STRING(SS_LCTRL(SS_LSFT("t")));
+      SEND_STRING(SS_LCTL(SS_LSFT("t")));
       did_leader_succeed = true;
     } else 
     SEQ_TWO_KEYS(KC_E, KC_D) {
-      SEND_STRING(SS_LGUI("r")"cmd"SS_TAP(KC_ENTER)SS_LCTRL("c"));
+      SEND_STRING(SS_LGUI("r") "cmd\n" SS_LCTL("c"));
       did_leader_succeed = true;
     }
     leader_end();

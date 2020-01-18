@@ -11,3 +11,6 @@ else
     AUDIO_ENABLE = no
 endif
 
+ifeq ($(strip $(KEYBOARD)), fruity60)
+    COMMAND_ENABLE = no
+endif
