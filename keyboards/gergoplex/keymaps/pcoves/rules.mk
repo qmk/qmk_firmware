@@ -8,6 +8,5 @@ ifeq ($(strip $(DEBUG_MATRIX)), yes)
 endif
 
 COMBO_ENABLE           = yes
-RAINBOW_UNICORN_ENABLE = yes
 TAP_DANCE_ENABLE       = yes
 UNICODE_ENABLE         = yes
