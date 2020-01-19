@@ -5,7 +5,7 @@
 A compact 30% (5x3+3) Split Keyboard from g Heavy Industries
 
 * Keyboard Maintainer: [Jeremy Bernhardt](https://github.com/germ)
-* Hardware Supported: GergoPlex (Kit, Partial, Ready)   
+* Hardware Supported: GergoPlex (Kit, Partial, Ready)
 * Hardware Availability: [gboards.ca](http://gboards.ca)  
 
 ## Firmware building
