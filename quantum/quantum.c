@@ -318,9 +318,9 @@ bool process_record_quantum(keyrecord_t *record) {
                 return false;
 #endif
 #ifdef WEBUSB_ENABLE
-        case WEBUSB_PAIR:
-            webusb_state.pairing ^= true;
-            return false;
+            case WEBUSB_PAIR:
+                webusb_state.pairing ^= true;
+                return false;
 #endif
         }
     }
@@ -508,6 +508,13 @@ void send_string_with_delay_P(const char *str, uint8_t interval) {
 }
 
 void send_char(char ascii_code) {
+#if defined(AUDIO_ENABLE) && defined(SENDSTRING_BELL)
+    if (ascii_code == '\a') {  // BEL
+        PLAY_SONG(bell_song);
+        return;
+    }
+#endif
+
     uint8_t keycode    = pgm_read_byte(&ascii_to_keycode_lut[(uint8_t)ascii_code]);
     bool    is_shifted = PGM_LOADBIT(ascii_to_shift_lut, (uint8_t)ascii_code);
     bool    is_altgred = PGM_LOADBIT(ascii_to_altgr_lut, (uint8_t)ascii_code);
