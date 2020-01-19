@@ -9,7 +9,7 @@
 #define MANUFACTURER    g Heavy Industries
 #define PRODUCT         FaunchPad
 #define DESCRIPTION     Teeny Toiny Macropad
-#define VERSION   			"Rev 1"
+#define VERSION          "Rev 1"
 
 #define FORCE_NKRO
 
