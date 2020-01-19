@@ -1,4 +1,4 @@
-#NumAtreus
+# NumAtreus
 ===
 
 A small mechanical keyboard that is based around the shape of the human hand.
