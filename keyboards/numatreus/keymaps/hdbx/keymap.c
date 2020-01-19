@@ -32,7 +32,6 @@ enum custom_keycodes {
 };
 
 // Use Dynamic macro
-#include "dynamic_macro.h"
 
 // Fillers to make layering more clear
 #define LOWER   LT(_LOWER, KC_MHEN)    // タップで無変換     ホールドでLower
