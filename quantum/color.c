@@ -88,9 +88,9 @@ RGB hsv_to_rgb(HSV hsv) {
 
 
 #ifdef RGBW
-#ifndef MIN
-#    define MIN(a, b) ((a) < (b) ? (a) : (b))
-#endif
+#    ifndef MIN
+#        define MIN(a, b) ((a) < (b) ? (a) : (b))
+#    endif
 void convert_rgb_to_rgbw(LED_TYPE *led) {
     // Determine lowest value in all three colors, put that into
     // the white channel and then shift all colors by that amount

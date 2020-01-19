@@ -435,10 +435,10 @@ void rgb_matrix_init(void) {
 }
 
 void rgb_matrix_set_suspend_state(bool state) {
-  if (state && RGB_DISABLE_WHEN_USB_SUSPENDED) {
-    rgb_matrix_set_color_all(0, 0, 0);
-  }
-  g_suspend_state = state;
+    if (RGB_DISABLE_WHEN_USB_SUSPENDED && state) {
+        rgb_matrix_set_color_all(0, 0, 0);  // turn off all LEDs when suspending
+    }
+    g_suspend_state = state;
 }
 
 void rgb_matrix_toggle(void) {

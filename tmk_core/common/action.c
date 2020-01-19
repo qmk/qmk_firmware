@@ -48,7 +48,7 @@ int retro_tapping_counter = 0;
 #endif
 
 #ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-__attribute__ ((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode) { return false; }
+__attribute__((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode) { return false; }
 #endif
 
 #ifndef TAP_CODE_DELAY

@@ -16,7 +16,7 @@
 
 #pragma once
 
-#include <tmk_core/common/eeconfig.h> // for EECONFIG_SIZE
+#include <tmk_core/common/eeconfig.h>  // for EECONFIG_SIZE
 
 // Keyboard level code can change where VIA stores the magic.
 // The magic is the build date YYMMDD encoded as BCD in 3 bytes,
@@ -25,25 +25,25 @@
 // The only reason this is important is in case EEPROM usage changes
 // and the EEPROM was not explicitly reset by bootmagic lite.
 #ifndef VIA_EEPROM_MAGIC_ADDR
-#   define VIA_EEPROM_MAGIC_ADDR (EECONFIG_SIZE)
+#    define VIA_EEPROM_MAGIC_ADDR (EECONFIG_SIZE)
 #endif
 
-#define VIA_EEPROM_LAYOUT_OPTIONS_ADDR (VIA_EEPROM_MAGIC_ADDR+3)
+#define VIA_EEPROM_LAYOUT_OPTIONS_ADDR (VIA_EEPROM_MAGIC_ADDR + 3)
 
 // Changing the layout options size after release will invalidate EEPROM,
 // but this is something that should be set correctly on initial implementation.
 // 1 byte is enough for most uses (i.e. 8 binary states, or 6 binary + 1 ternary/quaternary )
 #ifndef VIA_EEPROM_LAYOUT_OPTIONS_SIZE
-#   define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 1
+#    define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 1
 #endif
 
 // The end of the EEPROM memory used by VIA
 // By default, dynamic keymaps will start at this if there is no
 // custom config
-#define VIA_EEPROM_CUSTOM_CONFIG_ADDR (VIA_EEPROM_LAYOUT_OPTIONS_ADDR+VIA_EEPROM_LAYOUT_OPTIONS_SIZE)
+#define VIA_EEPROM_CUSTOM_CONFIG_ADDR (VIA_EEPROM_LAYOUT_OPTIONS_ADDR + VIA_EEPROM_LAYOUT_OPTIONS_SIZE)
 
 #ifndef VIA_EEPROM_CUSTOM_CONFIG_SIZE
-#   define VIA_EEPROM_CUSTOM_CONFIG_SIZE 0
+#    define VIA_EEPROM_CUSTOM_CONFIG_SIZE 0
 #endif
 
 // This is changed only when the command IDs change,
@@ -118,22 +118,22 @@ enum via_keycodes {
 };
 
 enum user_keycodes {
-  USER00 = 0x5F80,
-  USER01,
-  USER02,
-  USER03,
-  USER04,
-  USER05,
-  USER06,
-  USER07,
-  USER08,
-  USER09,
-  USER10,
-  USER11,
-  USER12,
-  USER13,
-  USER14,
-  USER15,
+    USER00 = 0x5F80,
+    USER01,
+    USER02,
+    USER03,
+    USER04,
+    USER05,
+    USER06,
+    USER07,
+    USER08,
+    USER09,
+    USER10,
+    USER11,
+    USER12,
+    USER13,
+    USER14,
+    USER15,
 };
 
 // Can be called in an overriding via_init_kb() to test if keyboard level code usage of
@@ -154,7 +154,7 @@ void via_init(void);
 
 // Used by VIA to store and retrieve the layout options.
 uint32_t via_get_layout_options(void);
-void via_set_layout_options(uint32_t value);
+void     via_set_layout_options(uint32_t value);
 
 // Called by QMK core to process VIA-specific keycodes.
 bool process_record_via(uint16_t keycode, keyrecord_t *record);
