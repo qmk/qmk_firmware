@@ -52,16 +52,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |  esc |  f1  |  f2  |  f3  |  f4  |  f5  |  f6  |  f7  |  f8  |  f9  |  =   |  \   |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |   7  |   8  |   9  |   [  |   ]  | Del  |
+ * |      |  f11 |  f12 |      |      |      |   7  |   8  |   9  |   [  |   ]  | Del  |
  * |------+--- --+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      |      |      |      |   4  |   5  |   6  |  ins |  home|  pu  |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |  bu  |      |      |      |      |      |   1  |   2  |   3  | del  | end  |  pd  |
+ * |shift | bu   |      |      |      |      |   1  |   2  |   3  | del  | end  |  pd  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      | bd   |      |      |      |             |      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
  */
-[_LOWER] = LAYOUT_preonic_2x2u(KC_ESC, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_EQL, KC_PSCR, KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_P7, KC_P8, KC_P9, KC_LBRC, KC_RBRC, KC_BSLS, KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_P4, KC_P5, KC_P6, KC_INS, KC_HOME, KC_PGUP, KC_BRIU, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_P1, KC_P2, KC_P3, KC_DEL, KC_END, KC_PGDN, KC_LGUI, KC_BRID, KC_NO, KC_TRNS, KC_MPLY, TO(1), KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT),
+[_LOWER] = LAYOUT_preonic_2x2u(KC_ESC, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_EQL, KC_PSCR, KC_F11, KC_F12, KC_NO, KC_NO, KC_NO, KC_NO, KC_P7, KC_P8, KC_P9, KC_LBRC, KC_RBRC, KC_BSLS, KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_P4, KC_P5, KC_P6, KC_INS, KC_HOME, KC_PGUP, KC_LSFT,RIU, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_P1, KC_P2, KC_P3, KC_DEL, KC_END, KC_PGDN, KC_LGUI, KC_BRID, KC_NO, KC_TRNS, KC_MPLY, TO(1), KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT),
 
 /* Raise
  * ,-----------------------------------------------------------------------------------.
