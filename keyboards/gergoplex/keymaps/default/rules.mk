@@ -3,7 +3,7 @@
 # Make sure you have dfu-programmer installed!
 #----------------------------------------------------------------------------
 # Firmware options
-MOUSEKEY_ENABLE = yes  		# Mouse keys(+4700), needed for baller
+MOUSEKEY_ENABLE = yes  		# Mouse keys, needed for baller
 
 #Debug options
 VERBOSE 		 							= yes
