@@ -9,10 +9,19 @@ Compile option for: Dvorak² or Qwerty+Dvorak
 These keymaps can be compiled either in a Dvorak version which also allows typing
 normally on a computer already set to Dvorak (Dvorak²), or in a version that can
 switch between Qwerty and Dvorak. (The compile time options are at the top of
-[keymap.c](./keymap.c) The option to choose Qwerty+Dvorak is *`#define QWERTY_DVORAK`*).
+![keymap.c](./keymap.c) The option to choose Qwerty+Dvorak is *`#define QWERTY_DVORAK`*).
 
-This readme file assumes the Dvorak with Dvorak-descramble version (Dvorak²). For the
-layers in the Qwerty+Dvorak version, see [qwerty dvorak.md](./qwerty_dvorak.md)
+     Download the repository, resolve software dependencies.
+     If you want to change compile options (or whatever else): open keymap.c (etc).
+     > cd […]/qmk_firmware
+     > make thevankeyboards/minivan:josjoha
+     > su
+     # dfu-programmer atmega32u4 erase
+     # dfu-programmer atmega32u4 flash thevankeyboards_minivan_josjoha.hex
+     # dfu-programmer atmega32u4 start
+
+This readme file assumes the Dvorak with Dvorak-descramble compile version (Dvorak²).
+For the layers in the Qwerty+Dvorak version, see ![qwerty dvorak.md](./qwerty_dvorak.md)
 
 This keymap.c was edited from the default, LED support was copied/edited
 from ../jetpacktuxedo/ keymap. 
@@ -35,8 +44,6 @@ The 'descramble' system:
 ![Minivan descramble Dvorak](http://socialism.nl/misc/minivan_descramble.jpg)
 
    
-
-
   Overview of layers
   - - - - - - - - - 
 
