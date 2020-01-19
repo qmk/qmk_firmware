@@ -7,7 +7,7 @@
 #define PRODUCT_ID      0x1337
 #define DEVICE_VER      1
 #define MANUFACTURER    g Heavy Industries
-#define PRODUCT       	FaunchPad
+#define PRODUCT         FaunchPad
 #define DESCRIPTION     Teeny Toiny Macropad
 #define VERSION   			"Rev 1"
 
