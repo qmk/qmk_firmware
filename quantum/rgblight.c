@@ -622,12 +622,12 @@ void rgblight_set(void) {
     start_led = led + clipping_start_pos;
 #    endif
 
-#ifdef RGBW
+#    ifdef RGBW
     for (uint8_t i = 0; i < num_leds; i++) {
         convert_rgb_to_rgbw(&start_led[i]);
     }
-#endif
-   ws2812_setleds(start_led, num_leds);
+#    endif
+    ws2812_setleds(start_led, num_leds);
 }
 #endif
 
