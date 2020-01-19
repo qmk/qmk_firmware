@@ -14,17 +14,13 @@
 #define SFT_Z SFT_T(KC_Z)
 #define SFT_SLSH SFT_T(KC_SLSH)
 
-#define SFT_ENT SFT_T(KC_ENT)
-
-#define RU_TOGGLE RAINBOW_UNICORN_TOGGLE
-
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [LAYER_0] = LAYOUT_gergoplex(
         KC_Q    , KC_W    , KC_E    , KC_R    , KC_T    , /**/ KC_Y     , KC_U    , KC_I    , KC_O    , KC_P     ,
         CTL_A   , KC_S    , KC_D    , KC_F    , KC_G    , /**/ KC_H     , KC_J    , KC_K    , KC_L    , CTL_SCLN ,
         SFT_Z   , KC_X    , KC_C    , KC_V    , KC_B    , /**/ KC_N     , KC_M    , KC_COMM , KC_DOT  , SFT_SLSH ,
-                              TD(ALT), SFT_ENT, TD(LEFT), /**/ TD(RIGHT), L1_SPC, KC_RGUI
+                            TD(ALT), KC_SFTENT, TD(LEFT), /**/ TD(RIGHT), L1_SPC, KC_RGUI
         ),
 [LAYER_1] = LAYOUT_gergoplex(
         KC_1    , KC_2    , KC_3    , KC_4    , KC_5    , /**/ KC_6    , KC_7    , KC_8    , KC_9    , KC_0     ,
