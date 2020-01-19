@@ -16,6 +16,4 @@
 #define MATRIX_COL_PINS { D2, C6, E6, D5, B3, D3, D1, C7, F0, B6, B1, F4 }
 #define UNUSED_PINS
 #define DIODE_DIRECTION COL2ROW
-#define DEBOUNCING_DELAY 5
-
-#endif
+#define DEBOUNCE 5
