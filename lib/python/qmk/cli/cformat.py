@@ -26,7 +26,8 @@ def cformat(cli):
     else:
         for dir in ['drivers', 'quantum', 'tests', 'tmk_core']:
             for dirpath, dirnames, filenames in os.walk(dir):
-                if 'tmk_core/protocol/usb_hid' in dirpath:
+                ignores = ['tmk_core/protocol/usb_hid', 'quantum/template']
+                if any(i in dirpath for i in ignores):
                     continue
 
                 for name in filenames:
