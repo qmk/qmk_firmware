@@ -234,8 +234,5 @@ int main(void) {
         webusb_task();
 #endif
 
-#if defined(RGBLIGHT_ANIMATIONS) && defined(RGBLIGHT_ENABLE)
-        rgblight_task();
-#endif
     }
 }
