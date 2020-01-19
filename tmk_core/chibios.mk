@@ -124,10 +124,10 @@ CHIBISRC = $(STARTUPSRC) \
        $(PLATFORMSRC) \
        $(PLATFORMSRC_CONTRIB) \
        $(BOARDSRC) \
-       $(STREAMSSRC) \
-	   $(STARTUPASM) \
-	   $(PORTASM) \
-	   $(OSALASM)
+       $(STREAMSSRC)
+
+# Ensure the ASM files are not subjected to LTO -- it'll strip out interrupt handlers otherwise.
+QUANTUM_LIB_SRC += $(STARTUPASM) $(PORTASM) $(OSALASM)
 
 CHIBISRC := $(patsubst $(TOP_DIR)/%,%,$(CHIBISRC))
 

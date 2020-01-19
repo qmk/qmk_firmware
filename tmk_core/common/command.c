@@ -195,6 +195,9 @@ static void print_version(void) {
 #ifdef NKRO_ENABLE
           " NKRO"
 #endif
+#ifdef LINK_TIME_OPTIMIZATION_ENABLE
+          " LTO"
+#endif
 
           " " STR(BOOTLOADER_SIZE) "\n");
 
