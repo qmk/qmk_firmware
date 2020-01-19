@@ -21,14 +21,14 @@ from ../jetpacktuxedo/ keymap.
 Dvorak² keymaps:
 ----------------
 
-![Minivan layout Image 0](http://socialism.nl/misc/minivan_layer0_900.jpg)
-![Minivan layout Image 1](http://socialism.nl/misc/minivan_layer1_900.jpg)
-![Minivan layout Image 2](http://socialism.nl/misc/minivan_layer2_900.jpg)
-![Minivan layout Image 3b](http://socialism.nl/misc/minivan_layer3b_900.jpg)
-![Minivan layout Image 4](http://socialism.nl/misc/minivan_layer4_900.jpg)
-![Minivan layout Image 5](http://socialism.nl/misc/minivan_layer5_900.jpg)
-![Minivan layout Image 6](http://socialism.nl/misc/minivan_layer6_900.jpg)
-![Minivan layout Image 7](http://socialism.nl/misc/minivan_layer7_900.jpg)
+![Minivan layout Image 0](http://socialism.nl/misc/minivan_layer0.jpg)
+![Minivan layout Image 1](http://socialism.nl/misc/minivan_layer1.jpg)
+![Minivan layout Image 2](http://socialism.nl/misc/minivan_layer2.jpg)
+![Minivan layout Image 3b](http://socialism.nl/misc/minivan_layer3b.jpg)
+![Minivan layout Image 4](http://socialism.nl/misc/minivan_layer4.jpg)
+![Minivan layout Image 5](http://socialism.nl/misc/minivan_layer5.jpg)
+![Minivan layout Image 6](http://socialism.nl/misc/minivan_layer6.jpg)
+![Minivan layout Image 7](http://socialism.nl/misc/minivan_layer7.jpg)
 
 The 'descramble' system:
 
@@ -119,17 +119,21 @@ The 'descramble' system:
      Esc       '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL         Bksp
      Tab+LCtl  aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS           -_
      LSht+_PAD ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN   // _FUN _PAD tap
-     -------------------------------------------------------------------
-     Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space  _NSY LGUI    Right;_DRA              // _XYZ is to layer
-               hold     hold  hold      |        hold         hold                   // Layer switch type
-     <1        <2       <3    <4        | 4>     3>   2>      1>                        // Keys by number
+     -------------------------------------------------------------------------------
+     Left+LAlt Del;_ACC _NSY(_DRA)  Enter+_MOV| Space  _NSY(_DRA) LGUI    Right;_RAR  // _XYZ is to layer
+               hold     hold₍₂₎     hold      |        hold₍₂₎    hold    hold       // Layer switch type
+                        ^---------------------+--------^                              // both hold = _DRA
+     <1        <2       <3          <4        | 4>     3>         2>      1>            // Keys by number
 
 Remarks: The left modifiers have a slight delay in combination with an outside pointer device (mouse, stylus).
 It seems this will be difficult to fix, because it is spread over two devices. To avoid the
 ±0.2 second delay, activate a layer where the modifiers are direct, using the layer toggle on left shift. 
 
-The two keys with ';' (Del;`_ACC`, Right;`_DRA`) do not auto-repeat on double tap, like QMK normal layer-tap keys.
+The two keys with ';' (Del;`_ACC`, Right;`_RAR`) do not auto-repeat on double tap, like QMK normal layer-tap keys.
 There is an uncluttered _Delete_ and _Right_ on the `_NSY` or `_MOV` layer respectively.
+
+Holding both `_NSY` keys left and right of the "split space bar" results in layer `_DRA` (or
+`_DDD` where appropriate, with the same result).
 
 - - -
 
@@ -196,9 +200,9 @@ index and middle fingers are stronger than ring and pinky fingers.
                                -*-         <|>                                         //(toggle) on _FUN
      BASE  xxx    xxx   xxx    xxx    xxx   | xxx   Play  Next  Prev  Stop   NumL
      P     Power• Wake• Sleep• Pause• ScrLk | PrtSc xxx   Vol+  Vol-  Mute   CapL     // • requires Shift
-     Ü     uLNX   uBSD  uOSX   uWIN   uWNC  | xxx   xxx   xxx   xxx   Insert xxx      // Ü(nicode) tester
+     Ü     uLNX   uBSD  uOSX   uWIN   uWNC  | xxx   xxx   xxx   xxx   Insert  APP     // Ü(nicode) tester
      ------------------------------------------------
-     MLed  SLeds RGUI  xxx  | RSft(•) xxx   LGUI  App                    // Middle-led, Side-leds: on/off
+     MLed  SLeds RGUI  xxx  | RSft(•) xxx   LGUI  ___                    // Middle-led, Side-leds: on/off
                            <|>
      <1    <2    <3    <4   | 4>      3>    2>    1>  
 
@@ -260,12 +264,12 @@ Remarks. This layer is seamlessly activated with 'descramble'
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                         <|>      -*-                                   //(toggle) on _FUN
-     BASE  „“    ”     ¤£    ∅ ¢   ±ƒ    | ❦♥    🙂🙁  👍👎   ⁽₍    ⁾₎    Bspc
+     BASE  „“    ”     ¤£    ∅ ¢   ±ƒ    | ❦♥   🙂😃  👍👎   ⁽₍    ⁾₎     Bspc
      LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
      LSft 「─    」━   °〇   •§    …·    | ⮘⮙    ⮚⮛    ¿¡    《┄    》┅   RSft
-     ---------------------------------------------
-     LAlt Del   RGUI  Ent  | Spc   xxx   LGUI  ___
-                          <|>                  -*-                                       //(hold) on BASE
+     ----------------------------------------------
+     LAlt Del   ___   Ent  | Spc   ___   LGUI  RGUI 
+                -*-       <|>      -*-                                                   //(hold) on BASE
      <1   <2    <3    <4   | 4>    3>    2>    1>  
 
 - - -
@@ -438,7 +442,8 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   
      (…)
      Checking file size of thevankeyboards_minivan_josjoha.hex               [WARNINGS]
-     * The firmware size is approaching the maximum - 28384/28672 (98%, 288 bytes free)
+     * The firmware size is approaching the maximum - 28670/28672 (99%, 2 bytes free)
+
 
      The Qwerty+Dvorak compile version takes only 85% of the memory.
 

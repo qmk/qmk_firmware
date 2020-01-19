@@ -29,6 +29,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static uint16_t key_timer; // Used in _DDL to differentiate layer switching in half or full descramble mode.
                            // In 'full' mode it goes to _DDD and _DDA Unicode layers, in 'half' mode to _DRA and _ACC.
 
+short duo_press = 0; // This remembers how many of the duo-press keys are being pressed
+
 void deactivate_all_but (int layer);
 void activate_this_layer (int layer);
 void indicate_scramble (void);

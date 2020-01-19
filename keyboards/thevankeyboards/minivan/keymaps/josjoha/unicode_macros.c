@@ -373,7 +373,7 @@ enum custom_keycodes {
     CHOLTAP_ACCE,
     CHOLTAP_RSHFT,
     CHOLTAP_LSHFT,
-    CHOLTAP_DRAW,
+    CHOLTAP_LAYR,
 // Special macro to make F-keys one-shot or not.
     _FUN_STAY,
 // These macros protect the critical keys like 'Power' from accidental press.
@@ -383,6 +383,8 @@ enum custom_keycodes {
     C_KC_PAUS,
 // Toggles leds on/off. Note that RGB_TOG is a build-in keycode, to toggle the other led.
     LEDS_ON,
+// These keys can be pressed together for a separate layer (like 'adjust layer' on the Planck).
+    DUO_HOLD,
 
 #ifndef QWERTY_DVORAK 
        // .... v .... v .... v .... v .... v .... v .... v .... v .... v .... v 
@@ -687,22 +689,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                  }
             }
             break;
-        case CHOLTAP_DRAW: //LT ( _DDD , KC_RIGHT ), or to _DRA, depending ...
+        case CHOLTAP_LAYR: //LT ( _DDD , KC_RIGHT ), or to _DRA, depending ...
             if (record->event.pressed) { // key down
                  key_timer = timer_read ();
-#ifndef QWERTY_DVORAK // (See comment shortly above at CHOLTAP_ACCE, the same applies).
-                 if (_FULL_ == descramble) {
-                     activate_this_layer (_DDD); // activates descrambled drawings layer
-                     deactivate_all_but (_DDD); 
-                 } else {
-                     activate_this_layer (_DRA); // activates normal drawings layer
-                     deactivate_all_but (_DRA);
-                 }
-#endif
-#ifdef QWERTY_DVORAK 
-                 activate_this_layer (_DRA); 
-                 deactivate_all_but (_DRA); 
-#endif
+                 activate_this_layer (_RAR); // activates descrambled drawings layer
+                 deactivate_all_but (_RAR); 
             } else { // key up
                  // Go back to base layer
                  if (descramble) { // 
@@ -776,6 +767,55 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
 
                     }
+                 }
+            }
+            break;
+        case DUO_HOLD:
+            if (record->event.pressed) { // key down
+                 duo_press ++; // simple way to keep track of how many are pressed
+                 if (1 == duo_press) {
+                     if (_NORMAL_ == descramble) { // In all 'descramble' modes to the 'descramble' layer of numbers/symbols
+                         activate_this_layer (_NSY); // activates normal numbers/symbols
+                         deactivate_all_but (_NSY); 
+                     } else {
+                         activate_this_layer (_DDN); // activates 'descramble' version
+                         deactivate_all_but (_DDN);
+                     }
+                 }
+                 else if (2 == duo_press) { // both are pressed
+#ifndef QWERTY_DVORAK  // The _DDD layer is not even compiled in this compile version
+                     if (_FULL_ == descramble) { 
+                         activate_this_layer (_DDD); // activates Linux 'descramble' layer
+                         deactivate_all_but (_DDD); 
+                     } else {
+                         activate_this_layer (_DRA); // activates normal Unicode layer
+                         deactivate_all_but (_DRA);
+                     }
+#endif
+#ifdef QWERTY_DVORAK 
+                     activate_this_layer (_DRA); // activates normal Unicode layer
+                     deactivate_all_but (_DRA);
+#endif
+                 }
+            } else { // key up
+                 duo_press --; 
+                 if (1 == duo_press) {
+                     if (_NORMAL_ == descramble) { // In all 'descramble' modes to the 'descramble' layer of numbers/symbols
+                         activate_this_layer (_NSY); // activates normal numbers/symbols
+                         deactivate_all_but (_NSY); 
+                     } else {
+                         activate_this_layer (_DDN); // activates 'descramble' version
+                         deactivate_all_but (_DDN);
+                     }
+                 }
+                 else { // Has to be zero. Back to letters
+                     if (descramble) { // 
+                         activate_this_layer (_DDL); 
+                         deactivate_all_but (_DDL); 
+                     } else {
+                         activate_this_layer (_LTR);
+                         deactivate_all_but (_LTR); 
+                     }
                  }
             }
             break;
