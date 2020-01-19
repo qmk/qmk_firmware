@@ -9,7 +9,7 @@ A small mechanical keyboard that is based around the shape of the human hand.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make numatreus:default:avrdude
+    make numatreus:default:flash
 
 Unlike the TMK firmware, this command should be run from the root of
 the repository, not the directory containing this readme.
