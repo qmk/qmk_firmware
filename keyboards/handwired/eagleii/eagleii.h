@@ -9,16 +9,16 @@
        K50,      K87, K08, K68, K09, K69, K04, K61, K01, K62, K02, K70,               K6A,      K41,           \
        KB5, K66, K07,                 K64,                    K76, K03                                         \
 ) { \
-	{ KC_NO, K0001, K0002, K0003, K0004, KC_NO, KC_NO, K0007, K0008, K0009, K0010, K0011 }, \
-	{ KC_NO, K0101, K0102, K0103, K0104, KC_NO, KC_NO, K0107, K0108, K0109, K0110, K0111 }, \
-	{ KC_NO, K0201, K0202, K0203, K0204, KC_NO, KC_NO, K0207, K0208, K0209, KC_NO, KC_NO }, \
-	{ KC_NO, K0301, K0302, K0303, K0304, KC_NO, KC_NO, K0307, K0308, K0309, KC_NO, KC_NO }, \
-	{ KC_NO, K0401, K0402, K0403, K0404, KC_NO, K0406, K0407, KC_NO, KC_NO, K0410, KC_NO }, \
-	{ K0500, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
-	{ KC_NO, K0601, K0602, KC_NO, K0604, KC_NO, K0606, KC_NO, K0608, K0609, K0610, K0611 }, \
-	{ K0700, K0701, K0702, KC_NO, K0704, KC_NO, K0706, K0707, K0708, K0709, KC_NO, KC_NO }, \
-	{ KC_NO, K0801, K0802, K0803, K0804, KC_NO, KC_NO, K0807, K0808, K0809, K0810, K0811 }, \
-	{ KC_NO, K0901, K0902, K0903, K0904, KC_NO, KC_NO, K0907, K0908, K0909, KC_NO, KC_NO }, \
-	{ K1000, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
-	{ KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, K1105, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }  \
+    { KC_NO, K01,   K02,   K03,   K04,   KC_NO, KC_NO, K07,   K08,   K09,   K0A,   K0B   }, \
+    { KC_NO, K11,   K12,   K13,   K14,   KC_NO, KC_NO, K17,   K18,   K19,   K1A,   K1B   }, \
+    { KC_NO, K21,   K22,   K23,   K24,   KC_NO, KC_NO, K27,   K28,   K29,   KC_NO, KC_NO }, \
+    { KC_NO, K31,   K32,   K33,   K34,   KC_NO, KC_NO, K37,   K38,   K39,   KC_NO, KC_NO }, \
+    { KC_NO, K41,   K42,   K43,   K44,   KC_NO, K46,   K47,   KC_NO, KC_NO, K4A,   KC_NO }, \
+    { K50,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
+    { KC_NO, K61,   K62,   KC_NO, K64,   KC_NO, K66,   KC_NO, K68,   K69,   K6A,   K6B   }, \
+    { K70,   K71,   K72,   KC_NO, K74,   KC_NO, K76,   K77,   K78,   K79,   KC_NO, KC_NO }, \
+    { KC_NO, K81,   K82,   K83,   K84,   KC_NO, KC_NO, K87,   K88,   K89,   K8A,   K8B   }, \
+    { KC_NO, K91,   K92,   K93,   K94,   KC_NO, KC_NO, K97,   K98,   K99,   KC_NO, KC_NO }, \
+    { KA0,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
+    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KB5,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
 }
