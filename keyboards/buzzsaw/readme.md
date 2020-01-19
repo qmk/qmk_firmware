@@ -6,7 +6,7 @@ A Alice style Choc only keyboard that is breakable down to a 40% Split semi-ergo
 
 [More info on gboards.ca](http://gboards.ca)
 
-* Keyboard Maintainer: [Jeremy Bernhardt](https://github.com/germ)  
+* Keyboard Maintainer: [Jeremy Bernhardt](https://github.com/germ)
 * Hardware Supported: Gergo (Kit, Partial, Ready)   
 * Hardware Availability: [gboards.ca](http://gboards.ca)  
 
