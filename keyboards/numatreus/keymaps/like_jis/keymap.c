@@ -79,63 +79,63 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BASE] = LAYOUT_kc( \
+  [_BASE] = LAYOUT( \
   //,----------------------------------.             ,----------------------------------.
-          Q,     W,     E,     R,     T,                   Y,     U,     I,     O,     P,\
+      KC_Q,  KC_W, KC_E,  KC_R,  KC_T,                KC_Y,  KC_U,  KC_I, KC_O,  KC_P,\
   //|------+------+------+------+------|             |------+------+------+------+------|
-          A,     S,     D,     F,     G,                   H,     J,     K,     L,   ENT,\
+      KC_A,  KC_S, KC_D,  KC_F,  KC_G,                KC_H,  KC_J,  KC_K, KC_L, KC_ENT,\
   //|------+------+------+------+------|             |------+------+------+------+------|
-       ZSFT,     X,     C,     V,     B,                   N,     M,  CODO,    UP,  MNSF,\
+    KC_ZSFT, KC_X, KC_C,  KC_V,  KC_B,                KC_N,  KC_M,  KC_CODO, KC_UP,  KC_MNSF,\
   //|------+------+------+------+------|------+------+------+------+------+------+------|
-       ESCT,  TBAL,  LGUI, LOWER,  BSPC,  BSPC,   SPC,   SPC, RAISE,  LEFT,  DOWN,  RGHT \
+    KC_ESCT, KC_TBAL, KC_LGUI, KC_LOWER, KC_BSPC, KC_BSPC, KC_SPC, KC_SPC, KC_RAISE, KC_LEFT, KC_DOWN, KC_RGHT \
   //|------+------+------+------+-------------+------+------+------+------+------+------|
   ),
 
-  [_NUMPAD] = LAYOUT_kc( \
+  [_NUMPAD] = LAYOUT( \
   //,----------------------------------.             ,----------------------------------.
-         P7,    P8,    P9,  PAST,  NLCK,                  P7,    P8,    P9,  PAST,  NLCK,\
+    KC_P7,  KC_P8,  KC_P9, KC_PAST, KC_NLCK,          KC_P7, KC_P8, KC_P9, KC_PAST, KC_NLCK,\
   //|------+------+------+------+------|             |------+------+------+------+------|
-         P4,    P5,    P6,  PMNS,  PSLS,                  P4,    P5,    P6,  PMNS,  PSLS,\
+    KC_P4,  KC_P5,  KC_P6, KC_PMNS, KC_PSLS,          KC_P4, KC_P5, KC_P6, KC_PMNS, KC_PSLS,\
   //|------+------+------+------+------|             |------+------+------+------+------|
-         P1,    P2,    P3,  PPLS,  QUOT,                  P1,    P2,    P3,  PPLS,  QUOT,\
+    KC_P1,  KC_P2,  KC_P3, KC_PPLS, KC_QUOT,          KC_P1, KC_P2, KC_P3, KC_PPLS, KC_QUOT,\
   //|------+------+------+------+------|------+------+------+------+------+------+------|
-       DLBS,    P0,  PDOT,  SFEQ,   SPC,   DEL,   SPC,  DLBS,    P0,  PDOT,  SFEQ,  BSPC \
+   KC_DLBS, KC_P0, KC_PDOT, KC_SFEQ, KC_SPC, KC_DEL, KC_SPC, KC_DLBS, KC_P0, KC_PDOT, KC_SFEQ, KC_BSPC \
   //|------+------+------+------+-------------+------+------+------+------+------+------|
   ),
 
-  [_LOWER] = LAYOUT_kc( \
+  [_LOWER] = LAYOUT( \
   //,----------------------------------.             ,----------------------------------.
-         F1,    F2,    F3,    F4,    F5,                MINS,   EQL,  JYEN,  LBRC,  RBRC,\
+    KC_F1,  KC_F2,  KC_F3,  KC_F4, KC_F5,            KC_MINS, KC_EQL, KC_JYEN, KC_LBRC, KC_RBRC,\
   //|------+------+------+------+------|             |------+------+------+------+------|
-         F6,    F7,    F8,    F9,   F10,               XXXXX, XXXXX,  SCLN,  QUOT,  BSLS,\
+    KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10,           KC_XXXXX, KC_XXXXX, KC_SCLN, KC_QUOT, KC_BSLS,\
   //|------+------+------+------+------|             |------+------+------+------+------|
-       11SF,   F12,  DLNP, KANJI,   ENT,               XXXXX,  COMM,   DOT,  SLSH,    RO,\
+    KC_11SF, KC_F12, KC_DLNP, KC_KANJI, KC_ENT,      KC_XXXXX, KC_COMM, KC_DOT, KC_SLSH, KC_RO,\
   //|------+------+------+------+------|------+------+------+------+------+------+------|
-      _____, _____, _____, _____,   DEL, _____, _____, _____, _____, _____, _____, _____ \
+   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_DEL, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS \
   //|------+------+------+------+-------------+------+------+------+------+------+------|
   ),
 
-  [_RAISE] = LAYOUT_kc( \
+  [_RAISE] = LAYOUT( \
   //,----------------------------------.             ,----------------------------------.
-          1,     2,     3,     4,     5,                   6,     7,     8,     9,     0,\
+     KC_1,  KC_2,  KC_3,  KC_4,  KC_5,                 KC_6,  KC_7, KC_8, KC_9, KC_0,\
   //|------+------+------+------+------|             |------+------+------+------+------|
-      XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                QUOT,     4,     5,     6,  MINS,\
+  KC_XXXXX, KC_XXXXX, KC_XXXXX, KC_XXXXX, KC_XXXXX,     KC_QUOT, KC_4, KC_5, KC_6, KC_MINS,\
   //|------+------+------+------+------|             |------+------+------+------+------|
-       LSFT, XXXXX, XXXXX, XXXXX, XXXXX,                SLSH,     1,     2,     3,  PPLS,\
+  KC_LSFT, KC_XXXXX, KC_XXXXX, KC_XXXXX, KC_XXXXX,      KC_SLSH, KC_1, KC_2, KC_3, KC_PPLS,\
   //|------+------+------+------+------|------+------+------+------+------+------+------|
-      _____, _____, _____, _____, _____, _____, _____,  WLCK, _____,     0,   DOT,  JEQL \
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_WLCK, KC_TRNS, KC_0, KC_DOT, KC_JEQL \
   //|------+------+------+------+-------------+------+------+------+------+------+------|
   ),
 
-  [_ADJUST] = LAYOUT_kc( \
+  [_ADJUST] = LAYOUT( \
   //,----------------------------------.             ,----------------------------------.
-        RST,  LRST,  KNRM,  KSWP,  CAPS,               XXXXX,  WH_L,  WH_U,  HOME,  PGUP,\
+   KC_RST,  KC_LRST, KC_KNRM, KC_KSWP, KC_CAPS,      KC_XXXXX, KC_WH_L, KC_WH_U, KC_HOME, KC_PGUP,\
   //|------+------+------+------+------|             |------+------+------+------+------|
-       LTOG,  LHUI,  LSAI,  LVAI,  SLCK,               XXXXX,  WH_R,  WH_D,   END,  PGDN,\
+   KC_LTOG, KC_LHUI, KC_LSAI, KC_LVAI, KC_SLCK,      KC_XXXXX, KC_WH_R, KC_WH_D,  KC_END, KC_PGDN,\
   //|------+------+------+------+------|             |------+------+------+------+------|
-       LMOD,  LHUD,  LSAD,  LVAD,  NLCK,               XXXXX,  BTN1,  BTN2,  MS_U, XXXXX,\
+   KC_LMOD, KC_LHUD, KC_LSAD, KC_LVAD, KC_NLCK,      KC_XXXXX, KC_BTN1, KC_BTN2, KC_MS_U, KC_XXXXX,\
   //|------+------+------+------+------|------+------+------+------+------+------+------|
-       LSFT, _____, _____, _____, _____, _____, _____, _____, _____,  MS_L,  MS_D,  MS_R \
+   KC_LSFT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R \
   //|------+------+------+------+-------------+------+------+------+------+------+------|
   )
 };

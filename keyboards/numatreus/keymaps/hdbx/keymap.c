@@ -12,7 +12,7 @@
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 enum layer_number {
-    _QWERTY = 0,
+    _QWERTY,
     _HDBX,
     _LOWER,
     _RAISE,
@@ -45,11 +45,11 @@ enum custom_keycodes {
 #define SFT_RBR SFT_T(JP_RBRC)         // タップで]          ホールドでSHIFT
 #define SFT_SPC S(KC_SPC)              // Shift + Space
 #define WN_CAPS S(KC_CAPS)             // Caps Lock           (Windows)
-#define MPLAY1  DYN_MACRO_PLAY1        // ダイナミックマクロ1 
-#define MPLAY2  DYN_MACRO_PLAY2        // ダイナミックマクロ2
-#define MREC1   DYN_REC_START1         // ダイナミックマクロ1記録開始
-#define MREC2   DYN_REC_START2         // ダイナミックマクロ2記録開始
-#define MRSTOP  DYN_REC_STOP           // ダイナミックマクロ記録終了
+/*#define DM_PLY1  DYN_MACRO_PLAY1        // ダイナミックマクロ1 
+#define DM_PLY2  DYN_MACRO_PLAY2        // ダイナミックマクロ2
+#define DM_REC1  DYN_REC_START1         // ダイナミックマクロ1記録開始
+#define DM_REC2  DYN_REC_START2         // ダイナミックマクロ2記録開始
+#define DM_RSTP  DYN_REC_STOP           // ダイナミックマクロ記録終了 */
 #define GAME    TO(_GAME)              // _GAMEレイヤーへ移動
 #define ADJUST  TO(_ADJUST)            // _ADJUSTレイヤーへ移動
 
@@ -156,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------------------------------------------------'
    */
   [_ADJUST] =  LAYOUT( \
-      MCR1,    MCR2,    MCR3,    MCR4,    MCR5,                      MPLAY1,  MPLAY2,  MREC1,   MREC2,   MRSTOP, \
+      MCR1,    MCR2,    MCR3,    MCR4,    MCR5,                 KC_DM_PLY1, KC_DM_PLY2, KC_DM_REC1, KC_DM_REC2, KC_DM_RSTP, \
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, GAME,                      XXXXXXX, QWERTY,  HDBX,    XXXXXXX, XXXXXXX, \
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       RESET,   XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
@@ -169,9 +169,6 @@ return state;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (!process_record_dynamic_macro(keycode, record)) {
-      return false;
-  }
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
@@ -191,11 +188,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         lshift = keyboard_report->mods & MOD_BIT(KC_LSFT);
         if (lshift) {
           unregister_code(KC_LSFT);
-          register_code(JP_SCLN);
-          unregister_code(JP_SCLN);
+          tap_code(JP_SCLN)
         } else {
-          register_code(JP_COLN);
-          unregister_code(JP_COLN);
+          tap_code(JP_SCLN);
         }
       }
       return false;
