@@ -3,6 +3,8 @@ MCU = atmega32u4
 BOOTLOADER = atmel-dfu
 
 # Build Options
+#   change yes to no to disable
+#
 BOOTMAGIC_ENABLE = yes
 MOUSEKEY_ENABLE = yes
 EXTRAKEY_ENABLE = yes
