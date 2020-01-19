@@ -6,13 +6,14 @@
 #define LAYER_0 0
 #define LAYER_1 1
 
-#define L1_SPC LT(1, KC_SPC)
+#define L1_SPC LT(LAYER_1, KC_SPC)
 
 #define CTL_A CTL_T(KC_A)
 #define CTL_SCLN CTL_T(KC_SCLN)
 
 #define SFT_Z SFT_T(KC_Z)
 #define SFT_SLSH SFT_T(KC_SLSH)
+
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
