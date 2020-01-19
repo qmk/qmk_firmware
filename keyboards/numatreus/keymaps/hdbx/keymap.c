@@ -28,7 +28,6 @@ enum custom_keycodes {
   MCR3,                // マクロ3
   MCR4,                // マクロ4
   MCR5,                // マクロ5
-  DYNAMIC_MACRO_RANGE, // ダイナミックマクロ
   WN_SCLN              // タップでJISの「:」  シフトでJISの「;」 (Windows)
 };
 
