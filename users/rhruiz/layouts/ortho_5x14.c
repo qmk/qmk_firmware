@@ -5,8 +5,9 @@
 #define KC__RST RESET
 #define KC__FN1 MO(_FN1)
 #define KC__FN2 MO(_FN2)
+#define KC_FNUM MO(_NUM)
+#define KC_RNUM LT(_NUM, KC_RGHT)
 #define KC_SFN1 LT(_FN1, KC_SPC)
-#define KC_RFN1 LT(_FN1, KC_RGHT)
 #define KC_BFN2 BKSFN2
 #define KC_CESC CTRLESC
 #define KC_MISS MISCTRL
@@ -72,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //|----+-----+-----+-----+-----+-----+-----|  |-----+-----+-----+-----+-----+-----+-----+
     LSFT,  Z  ,  X  ,  C  ,  V  ,  B  , PGDN,    EPIP,  N  ,  M  , COMM, DOT , SLSH, RSFT,
  //|----+-----+-----+-----+-----+-----+-----|  |-----+-----+-----+-----+-----+-----+-----+
-    _FN2, _FN1, LCTL, LALT, LGUI, SFN1, SFN1,    BFN2, BFN2, RGUI, LEFT, DOWN, UP  , RFN1
+    FNUM, _FN1, LCTL, LALT, LGUI, SFN1, SFN1,    BFN2, BFN2, RGUI, LEFT, DOWN, UP  , RNUM
  //`----+-----+-----+-----+-----+-----+-----'  `-----+-----+-----+-----+-----+-----+-----'
   ),
 
