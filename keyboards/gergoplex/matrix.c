@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifndef DEBOUNCE
-#   define DEBOUNCE	5
+#   define DEBOUNCE  5
 #endif
 
 // MCP Pin Defs
@@ -174,8 +174,8 @@ uint8_t matrix_scan(void) {
 
 #ifdef DEBUG_MATRIX
     for (uint8_t c = 0; c < MATRIX_COLS; c++)
-		for (uint8_t r = 0; r < MATRIX_ROWS; r++)
-		  if (matrix_is_on(r, c)) xprintf("r:%d c:%d \n", r, c);
+  	for (uint8_t r = 0; r < MATRIX_ROWS; r++)
+  	  if (matrix_is_on(r, c)) xprintf("r:%d c:%d \n", r, c);
 #endif
 
     return changed;

@@ -14,10 +14,10 @@
 
 // Combos
 enum combos {
-	WE,AS,SD,DF,XC,OP,CV,
-	UI,HJ,JK,KL,MC,NM,
-	FV,GB,HN,
-	SDJK
+  WE,AS,SD,DF,XC,OP,CV,
+  UI,HJ,JK,KL,MC,NM,
+  FV,GB,HN,
+  SDJK
 };
 
 // NOTE: If you're using MT,LT or anything you must
@@ -57,7 +57,7 @@ const uint16_t PROGMEM hn_combo[] = {KC_H, KC_N, COMBO_END};
 const uint16_t PROGMEM sdjk_combo[] = {KC_J, KC_K, KC_S, KC_D, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
-	// Horizontal Chords
+  // Horizontal Chords
   [WE] = COMBO(we_combo, KC_ESC),
   //[AS] = COMBO(as_combo, KC_ENT),
   [SD] = COMBO(sd_combo, KC_BSPC),
@@ -72,8 +72,8 @@ combo_t key_combos[COMBO_COUNT] = {
   [KL] = COMBO(kl_combo, KC_GT),
   [MC] = COMBO(mc_combo, KC_UNDS), // m,
   [NM] = COMBO(nm_combo, KC_QUOT),
-	
-	// Vertical
+  
+  // Vertical
   [GB] = COMBO(gb_combo, KC_BTN1),
   [FV] = COMBO(fv_combo, KC_BTN2),
   [HN] = COMBO(hn_combo, KC_ENT)
@@ -95,12 +95,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *  '-------------------------'           '-----------------'
  */
 [BASE] = LAYOUT_gergoplex(
-    KC_Q,  			 			 KC_W, KC_E, KC_R, KC_T,  	KC_Y, KC_U, KC_I,    KC_O, 	 KC_P, 
-    MT(MOD_LCTL, KC_A),KC_S, KC_D, KC_F, KC_G,  	KC_H, KC_J, KC_K,    KC_L, 	 MT(MOD_LCTL, KC_SCLN),
-    MT(MOD_RSFT, KC_Z),KC_X, KC_C, KC_V, KC_B,  	KC_N, KC_M, KC_COMM, KC_DOT, MT(MOD_RSFT, KC_SLSH),
+    KC_Q,    		 			 KC_W, KC_E, KC_R, KC_T,  	KC_Y, KC_U, KC_I,    KC_O, 	 KC_P, 
+    MT(MOD_LCTL, KC_A),KC_S, KC_D, KC_F, KC_G,    KC_H, KC_J, KC_K,    KC_L, 	 MT(MOD_LCTL, KC_SCLN),
+    MT(MOD_RSFT, KC_Z),KC_X, KC_C, KC_V, KC_B,    KC_N, KC_M, KC_COMM, KC_DOT, MT(MOD_RSFT, KC_SLSH),
 
- 		MT(MOD_LGUI, KC_ESC), MT(MOD_LALT, KC_ENT), LT(SYMB, KC_SPC),									// Left
-		LT(NUMB, KC_SPC), KC_LSFT, MT(MOD_RSFT, KC_TAB)																// Right
+   	MT(MOD_LGUI, KC_ESC), MT(MOD_LALT, KC_ENT), LT(SYMB, KC_SPC),									// Left
+  	LT(NUMB, KC_SPC), KC_LSFT, MT(MOD_RSFT, KC_TAB)																// Right
     ),
 /* Keymap 1: Symbols layer
  * ,-----------------------------.       ,--------------------------------.
@@ -133,9 +133,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *  '-----------------'                   '-----------------'
  */
 [NUMB] = LAYOUT_gergoplex(
-    KC_1,  KC_2,  KC_3,  KC_4,  KC_5,		 		KC_6,  	KC_7, 	 KC_8, 		KC_9, 	 KC_0,
-    KC_F1, KC_F2, KC_F3, KC_F4, KC_F5,   		KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_VOLU,
-    KC_F6, KC_F7, KC_F8, KC_F9, KC_F10,  		KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_VOLD,
-     						  KC_F11,KC_F12,KC_TRNS,  	KC_TRNS,KC_MPLY,KC_MNXT
+    KC_1,  KC_2,  KC_3,  KC_4,  KC_5,  	 		KC_6,  	KC_7, 	 KC_8, 		KC_9, 	 KC_0,
+    KC_F1, KC_F2, KC_F3, KC_F4, KC_F5,     	KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_VOLU,
+    KC_F6, KC_F7, KC_F8, KC_F9, KC_F10,    	KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_VOLD,
+       					  KC_F11,KC_F12,KC_TRNS,  	KC_TRNS,KC_MPLY,KC_MNXT
     )
 };

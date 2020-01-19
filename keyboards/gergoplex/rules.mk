@@ -11,11 +11,11 @@ MCU = atmega32u4
 #   ATmega328P   USBasp
 BOOTLOADER = atmel-dfu
 
-CUSTOM_MATRIX 		= yes
-COMBO_ENABLE			= yes
-EXTRAKEY_ENABLE		= yes
-CONSOLE_ENABLE  	= yes
-COMMAND_ENABLE		= yes
+CUSTOM_MATRIX   	= yes
+COMBO_ENABLE  		= yes
+EXTRAKEY_ENABLE  	= yes
+CONSOLE_ENABLE    = yes
+COMMAND_ENABLE  	= yes
 BOOTMAGIC_ENABLE = lite
 
 DEBOUNCE_TYPE  = eager_pr
