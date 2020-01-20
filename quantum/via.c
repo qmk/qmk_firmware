@@ -22,13 +22,41 @@
 #    error "DYNAMIC_KEYMAP_ENABLE is not enabled"
 #endif
 
+// If VIA_CUSTOM_LIGHTING_ENABLE is not defined, then VIA_QMK_BACKLIGHT_ENABLE is set
+// if BACKLIGHT_ENABLE is set, so handling of QMK Backlight values happens here by default.
+// if VIA_CUSTOM_LIGHTING_ENABLE is defined, then VIA_QMK_BACKLIGHT_ENABLE must be explicitly
+// set in keyboard-level config.h, so handling of QMK Backlight values happens here
+#if defined(BACKLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE)
+#    define VIA_QMK_BACKLIGHT_ENABLE
+#endif
+
+// If VIA_CUSTOM_LIGHTING_ENABLE is not defined, then VIA_QMK_RGBLIGHT_ENABLE is set
+// if RGBLIGHT_ENABLE is set, so handling of QMK RGBLIGHT values happens here by default.
+// If VIA_CUSTOM_LIGHTING_ENABLE is defined, then VIA_QMK_RGBLIGHT_ENABLE must be explicitly
+// set in keyboard-level config.h, so handling of QMK RGBLIGHT values happens here
+#if defined(RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE)
+#    define VIA_QMK_RGBLIGHT_ENABLE
+#endif
+
 #include "quantum.h"
 
 #include "via.h"
+
 #include "raw_hid.h"
 #include "dynamic_keymap.h"
 #include "tmk_core/common/eeprom.h"
 #include "version.h" // for QMK_BUILDDATE used in EEPROM magic
+
+// Forward declare some helpers.
+#if defined(VIA_QMK_BACKLIGHT_ENABLE)
+void via_qmk_backlight_set_value(uint8_t *data);
+void via_qmk_backlight_get_value(uint8_t *data);
+#endif
+
+#if defined(VIA_QMK_RGBLIGHT_ENABLE)
+void via_qmk_rgblight_set_value(uint8_t *data);
+void via_qmk_rgblight_get_value(uint8_t *data);
+#endif
 
 // Can be called in an overriding via_init_kb() to test if keyboard level code usage of
 // EEPROM is invalid and use/save defaults.
@@ -211,7 +239,7 @@ __attribute__((weak)) void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
 // This gives the keyboard code level the ability to handle the command
 // specifically.
 //
-// raw_hid_send() is called at the end, with the same buffer, which was 
+// raw_hid_send() is called at the end, with the same buffer, which was
 // possibly modified with returned values.
 void raw_hid_receive( uint8_t *data, uint8_t length )
 {
@@ -313,11 +341,52 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
             dynamic_keymap_reset();
             break;
         }
-        case id_backlight_config_set_value:
-        case id_backlight_config_get_value:
-        case id_backlight_config_save:
-        {
+        case id_lighting_set_value: {
+#if defined(VIA_QMK_BACKLIGHT_ENABLE)
+            via_qmk_backlight_set_value(command_data);
+#endif
+#if defined(VIA_QMK_RGBLIGHT_ENABLE)
+            via_qmk_rgblight_set_value(command_data);
+#endif
+#if defined(VIA_CUSTOM_LIGHTING_ENABLE)
             raw_hid_receive_kb(data, length);
+#endif
+#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE)
+            // Return the unhandled state
+            *command_id = id_unhandled;
+#endif
+            break;
+        }
+        case id_lighting_get_value: {
+#if defined(VIA_QMK_BACKLIGHT_ENABLE)
+            via_qmk_backlight_get_value(command_data);
+#endif
+#if defined(VIA_QMK_RGBLIGHT_ENABLE)
+            via_qmk_rgblight_get_value(command_data);
+#endif
+#if defined(VIA_CUSTOM_LIGHTING_ENABLE)
+            raw_hid_receive_kb(data, length);
+#endif
+#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE)
+            // Return the unhandled state
+            *command_id = id_unhandled;
+#endif
+            break;
+        }
+        case id_lighting_save: {
+#if defined(VIA_QMK_BACKLIGHT_ENABLE)
+            eeconfig_update_backlight_current();
+#endif
+#if defined(VIA_QMK_RGBLIGHT_ENABLE)
+            eeconfig_update_rgblight_current();
+#endif
+#if defined(VIA_CUSTOM_LIGHTING_ENABLE)
+            raw_hid_receive_kb(data, length);
+#endif
+#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE)
+            // Return the unhandled state
+            *command_id = id_unhandled;
+#endif
             break;
         }
         case id_dynamic_keymap_macro_get_count:
@@ -398,3 +467,109 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
     // (i.e. returning state to the host, or the unhandled state).
     raw_hid_send( data, length );
 }
+
+#if defined(VIA_QMK_BACKLIGHT_ENABLE)
+
+#    if BACKLIGHT_LEVELS == 0
+#        error BACKLIGHT_LEVELS == 0
+#    endif
+
+void via_qmk_backlight_get_value(uint8_t *data) {
+    uint8_t *value_id   = &(data[0]);
+    uint8_t *value_data = &(data[1]);
+    switch (*value_id) {
+        case id_qmk_backlight_brightness: {
+            // level / BACKLIGHT_LEVELS * 255
+            value_data[0] = ((uint16_t)get_backlight_level()) * 255 / BACKLIGHT_LEVELS;
+            break;
+        }
+        case id_qmk_backlight_effect: {
+#    ifdef BACKLIGHT_BREATHING
+            value_data[0] = is_backlight_breathing() ? 1 : 0;
+#    else
+            value_data[0] = 0;
+#    endif
+            break;
+        }
+    }
+}
+
+void via_qmk_backlight_set_value(uint8_t *data) {
+    uint8_t *value_id   = &(data[0]);
+    uint8_t *value_data = &(data[1]);
+    switch (*value_id) {
+        case id_qmk_backlight_brightness: {
+            // level / 255 * BACKLIGHT_LEVELS
+            backlight_level_noeeprom(((uint16_t)value_data[0]) * BACKLIGHT_LEVELS / 255);
+            break;
+        }
+        case id_qmk_backlight_effect: {
+#    ifdef BACKLIGHT_BREATHING
+            if (value_data[0] == 0) {
+                backlight_disable_breathing();
+            } else {
+                backlight_enable_breathing();
+            }
+#    endif
+            break;
+        }
+    }
+}
+
+#endif  // #if defined(VIA_QMK_BACKLIGHT_ENABLE)
+
+#if defined(VIA_QMK_RGBLIGHT_ENABLE)
+
+void via_qmk_rgblight_get_value(uint8_t *data) {
+    uint8_t *value_id   = &(data[0]);
+    uint8_t *value_data = &(data[1]);
+    switch (*value_id) {
+        case id_qmk_rgblight_brightness: {
+            value_data[0] = rgblight_get_val();
+            break;
+        }
+        case id_qmk_rgblight_effect: {
+            value_data[0] = rgblight_get_mode();
+            break;
+        }
+        case id_qmk_rgblight_effect_speed: {
+            value_data[0] = rgblight_get_speed();
+            break;
+        }
+        case id_qmk_rgblight_color: {
+            value_data[0] = rgblight_get_hue();
+            value_data[1] = rgblight_get_sat();
+            break;
+        }
+    }
+}
+
+void via_qmk_rgblight_set_value(uint8_t *data) {
+    uint8_t *value_id   = &(data[0]);
+    uint8_t *value_data = &(data[1]);
+    switch (*value_id) {
+        case id_qmk_rgblight_brightness: {
+            rgblight_sethsv_noeeprom(rgblight_get_hue(), rgblight_get_sat(), value_data[0]);
+            break;
+        }
+        case id_qmk_rgblight_effect: {
+            rgblight_mode_noeeprom(value_data[0]);
+            if (value_data[0] == 0) {
+                rgblight_disable_noeeprom();
+            } else {
+                rgblight_enable_noeeprom();
+            }
+            break;
+        }
+        case id_qmk_rgblight_effect_speed: {
+            rgblight_set_speed_noeeprom(value_data[0]);
+            break;
+        }
+        case id_qmk_rgblight_color: {
+            rgblight_sethsv_noeeprom(value_data[0], value_data[1], rgblight_get_val());
+            break;
+        }
+    }
+}
+
+#endif  // #if defined(VIA_QMK_RGBLIGHT_ENABLE)
