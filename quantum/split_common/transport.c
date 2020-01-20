@@ -220,7 +220,11 @@ bool transport_master(matrix_row_t matrix[]) {
     }
 #    else
     transport_rgblight_master();
-    if (soft_serial_transaction(GET_SLAVE_STATUS) == TRANSACTION_END && slave_buffer_change_count > 0) {
+
+    static uint8_t s_last_slave_buffer_change_count = 0;
+    if (soft_serial_transaction(GET_SLAVE_STATUS) == TRANSACTION_END && slave_buffer_change_count != s_last_slave_buffer_change_count) {
+        printf("matrix sync needed:%u:%u\n", slave_buffer_change_count, s_last_slave_buffer_change_count);
+        s_last_slave_buffer_change_count = slave_buffer_change_count;
         if (soft_serial_transaction(GET_SLAVE_MATRIX) != TRANSACTION_END) {
             return false;
         }
@@ -262,7 +266,7 @@ void transport_slave(matrix_row_t matrix[]) {
     encoder_state_raw((uint8_t *)temp_buffer.encoder_state);
 #    endif
 
-    slave_buffer_change_count = memcmp((void *)&serial_s2m_buffer, &temp_buffer, sizeof(temp_buffer)) != 0;
+    slave_buffer_change_count += memcmp((void *)&serial_s2m_buffer, &temp_buffer, sizeof(temp_buffer)) != 0;
     memcpy((void *)&serial_s2m_buffer, &temp_buffer, sizeof(temp_buffer));
 }
 
