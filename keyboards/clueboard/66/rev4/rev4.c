@@ -7,10 +7,6 @@ void matrix_init_kb(void) {
     led_init_ports();
 }
 
-void matrix_scan_kb(void) {
-    matrix_scan_user();
-}
-
 void led_init_ports() {
     // Set our LED pins as output
     setPinOutput(B13); // LED1
