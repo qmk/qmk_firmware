@@ -233,6 +233,11 @@ void rgblight_decrease_speed(void);
 void rgblight_sethsv(uint8_t hue, uint8_t sat, uint8_t val);
 void rgblight_sethsv_noeeprom(uint8_t hue, uint8_t sat, uint8_t val);
 
+/*   effect speed */
+uint8_t rgblight_get_speed(void);
+void rgblight_set_speed(uint8_t speed);
+void rgblight_set_speed_noeeprom(uint8_t speed);
+
 /*       query */
 uint8_t rgblight_get_mode(void);
 uint8_t rgblight_get_hue(void);
@@ -245,6 +250,7 @@ uint32_t rgblight_read_dword(void);
 void     rgblight_update_dword(uint32_t dword);
 uint32_t eeconfig_read_rgblight(void);
 void     eeconfig_update_rgblight(uint32_t val);
+void     eeconfig_update_rgblight_current(void);
 void     eeconfig_update_rgblight_default(void);
 void     eeconfig_debug_rgblight(void);
 

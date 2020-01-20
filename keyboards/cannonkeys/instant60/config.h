@@ -62,6 +62,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // dynamic keymaps start after this.
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 1
 
+// VIA lighting is handled by the keyboard-level code
+#define VIA_CUSTOM_LIGHTING_ENABLE
+
+// Let VIA handle the QMK RGBLIGHT 
+#define VIA_QMK_RGBLIGHT_ENABLE
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
