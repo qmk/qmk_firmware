@@ -320,8 +320,8 @@ bool process_record_quantum(keyrecord_t *record) {
     switch (keycode) {
         case GRAVE_ESC: {
             /* true if the last press of GRAVE_ESC was shifted (i.e. GUI or SHIFT were pressed), false otherwise.
-            * Used to ensure that the correct keycode is released if the key is released.
-            */
+             * Used to ensure that the correct keycode is released if the key is released.
+             */
             static bool grave_esc_was_shifted = false;
 
             uint8_t shifted = get_mods() & ((MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT) | MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI)));
@@ -379,6 +379,7 @@ __attribute__((weak)) const bool ascii_to_altgr_lut[128] PROGMEM = {0, 0, 0, 0, 
 
                                                                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
+// clang-format off
 __attribute__((weak)) const uint8_t ascii_to_keycode_lut[128] PROGMEM = {// NUL   SOH      STX      ETX      EOT      ENQ      ACK      BEL
                                                                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                                                          // BS    TAB      LF       VT       FF       CR       SO       SI
@@ -412,6 +413,7 @@ __attribute__((weak)) const uint8_t ascii_to_keycode_lut[128] PROGMEM = {// NUL 
                                                                          KC_P, KC_Q, KC_R, KC_S, KC_T, KC_U, KC_V, KC_W,
                                                                          // x     y        z        {        |        }        ~        DEL
                                                                          KC_X, KC_Y, KC_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV, KC_DEL};
+// clang-format on
 
 void send_string(const char *str) { send_string_with_delay(str, 0); }
 
@@ -477,7 +479,7 @@ void send_string_with_delay_P(const char *str, uint8_t interval) {
 
 void send_char(char ascii_code) {
 #if defined(AUDIO_ENABLE) && defined(SENDSTRING_BELL)
-    if (ascii_code == '\a') { // BEL
+    if (ascii_code == '\a') {  // BEL
         PLAY_SONG(bell_song);
         return;
     }
@@ -634,12 +636,8 @@ void matrix_scan_quantum() {
     matrix_scan_combo();
 #endif
 
-#if defined(BACKLIGHT_ENABLE)
-#    if defined(LED_MATRIX_ENABLE)
+#ifdef LED_MATRIX_ENABLE
     led_matrix_task();
-#    elif defined(BACKLIGHT_PIN) || defined(BACKLIGHT_PINS)
-    backlight_task();
-#    endif
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
