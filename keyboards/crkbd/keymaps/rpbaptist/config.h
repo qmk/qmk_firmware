@@ -118,7 +118,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define MOUSEKEY_TIME_TO_MAX 32
 #endif
 
+// #define OLED_FONT_H "keyboards/crkbd/keymaps/rpbaptist/glcdfont_godspeed.c"
+// #define THEME_HSV HSV_CYAN
 #define OLED_FONT_H "keyboards/crkbd/keymaps/rpbaptist/glcdfont_pulse.c"
+#define THEME_HSV HSV_TURQUOISE
 
 #define NO_ACTION_ONESHOT
 
@@ -127,7 +130,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define LCPC_KEYS KC_LCTL, KC_LSFT, KC_9
 #define RCPC_KEYS KC_RCTL, KC_RSFT, KC_0
-
-// Maybe needed for new split common?
-// #define SPLIT_USB_DETECT
-// #define SPLIT_USB_TIMEOUT 1000

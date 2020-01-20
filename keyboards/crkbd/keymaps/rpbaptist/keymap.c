@@ -330,7 +330,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t led_
 void check_default_layer(uint8_t type) {
     switch (get_highest_layer(default_layer_state)) {
         case _COLEMAKDHM:
-            rgb_matrix_layer_helper(HSV_TEAL, type);
+            rgb_matrix_layer_helper(THEME_HSV, type);
             break;
         case _GAMING:
             rgb_matrix_layer_helper(HSV_RED, type);
@@ -395,7 +395,7 @@ void rgb_matrix_update_mode(uint8_t mode, uint8_t speed, bool active) {
 
 void rgb_matrix_set_defaults(void) {
     rgb_matrix_config.enable = 1;
-    rgb_matrix_config.hsv    = (HSV){128, 255, 128};  // TEAL
+    rgb_matrix_config.hsv    = (HSV){THEME_HSV};
 
     user_config.rgb_layer_change        = false;
     user_config.rgb_matrix_idle_anim    = true;
