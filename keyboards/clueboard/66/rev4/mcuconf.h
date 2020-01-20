@@ -14,6 +14,9 @@
     limitations under the License.
 */
 
+#ifndef MCUCONF_H
+#define MCUCONF_H
+
 /*
  * STM32F3xx drivers configuration.
  * The following settings override the default settings present in
@@ -251,3 +254,4 @@
  */
 #define STM32_WDG_USE_IWDG                  FALSE
 
+#endif /* MCUCONF_H */
