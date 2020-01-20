@@ -90,3 +90,10 @@ def test_json2c():
     result = check_subcommand('json2c', 'keyboards/handwired/onekey/keymaps/default_json/keymap.json')
     assert result.returncode == 0
     assert result.stdout == '#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\t[0] = LAYOUT(KC_A)};\n\n'
+
+
+def test_info():
+    result = check_subcommand('info', 'handwired/onekey/pytest')
+    assert result.returncode == 0
+    assert 'handwired/onekey/pytest:' in result.stdout
+    assert 'processor: STM32F303' in result.stdout
