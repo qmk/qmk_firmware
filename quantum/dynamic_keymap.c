@@ -20,36 +20,36 @@
 #include "progmem.h"  // to read default from flash
 #include "quantum.h"  // for send_string()
 #include "dynamic_keymap.h"
-#include "via.h" // for default VIA_EEPROM_ADDR_END
+#include "via.h"  // for default VIA_EEPROM_ADDR_END
 
 #ifndef DYNAMIC_KEYMAP_LAYER_COUNT
-#   define DYNAMIC_KEYMAP_LAYER_COUNT 4
+#    define DYNAMIC_KEYMAP_LAYER_COUNT 4
 #endif
 
 #ifndef DYNAMIC_KEYMAP_MACRO_COUNT
-#   define DYNAMIC_KEYMAP_MACRO_COUNT 16
+#    define DYNAMIC_KEYMAP_MACRO_COUNT 16
 #endif
 
 // If DYNAMIC_KEYMAP_EEPROM_ADDR not explicitly defined in config.h,
 // default it start after VIA_EEPROM_CUSTOM_ADDR+VIA_EEPROM_CUSTOM_SIZE
 #ifndef DYNAMIC_KEYMAP_EEPROM_ADDR
-#   ifdef VIA_EEPROM_CUSTOM_CONFIG_ADDR
-#       define DYNAMIC_KEYMAP_EEPROM_ADDR (VIA_EEPROM_CUSTOM_CONFIG_ADDR+VIA_EEPROM_CUSTOM_CONFIG_SIZE)
-#   else
-#       error DYNAMIC_KEYMAP_EEPROM_ADDR not defined
-#   endif 
+#    ifdef VIA_EEPROM_CUSTOM_CONFIG_ADDR
+#        define DYNAMIC_KEYMAP_EEPROM_ADDR (VIA_EEPROM_CUSTOM_CONFIG_ADDR + VIA_EEPROM_CUSTOM_CONFIG_SIZE)
+#    else
+#        error DYNAMIC_KEYMAP_EEPROM_ADDR not defined
+#    endif
 #endif
 
 // Dynamic macro starts after dynamic keymaps
 #ifndef DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
-#   define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR (DYNAMIC_KEYMAP_EEPROM_ADDR+(DYNAMIC_KEYMAP_LAYER_COUNT*MATRIX_ROWS*MATRIX_COLS*2))
+#    define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR (DYNAMIC_KEYMAP_EEPROM_ADDR + (DYNAMIC_KEYMAP_LAYER_COUNT * MATRIX_ROWS * MATRIX_COLS * 2))
 #endif
 
 // Dynamic macro uses up all remaining memory
 // Assumes 1K EEPROM on ATMega32U4
 // Override for anything different
 #ifndef DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE
-#   define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE (1024-DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR)
+#    define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE (1024 - DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR)
 #endif
 
 uint8_t dynamic_keymap_get_layer_count(void) { return DYNAMIC_KEYMAP_LAYER_COUNT; }
