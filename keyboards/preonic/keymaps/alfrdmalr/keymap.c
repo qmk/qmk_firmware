@@ -146,49 +146,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
-// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-//   switch (keycode) {
-//         case QWERTY:
-//           if (record->event.pressed) {
-//             set_single_persistent_default_layer(_QWERTY);
-//           }
-//           return false;
-//           break;
-//         case SYMBOLS:
-//           if (record->event.pressed) {
-//             layer_on(_SYMBOLS);
-//           } else {
-//             layer_off(_SYMBOLS);
-//           }
-//           return false;
-//           break;
-//         case NUMPAD:
-//           if (record->event.pressed) {
-//             layer_on(_NUMPAD);
-//           } else {
-//             layer_off(_NUMPAD);
-//           }
-//           return false;
-//           break;
-//         case NAVIGATION:
-//           if (record->event.pressed) {
-//             layer_on(_NAVIGATION);
-//           } else {
-//             layer_off(_NAVIGATION);
-//           } 
-//           return false;
-//           break;
-//         case SETTINGS:
-//           if (record->event.pressed) {
-//             layer_on(_SETTINGS);
-//           } else {
-//             layer_off(_SETTINGS);
-//           } 
-//           return false;
-//           break;
-//       }
-//     return true;
-// };
 
 bool muse_mode = false;
 uint8_t last_muse_note = 0;
