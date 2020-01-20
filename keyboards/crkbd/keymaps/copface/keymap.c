@@ -13,7 +13,7 @@ extern uint8_t is_master;
 #define KC_SBSPC LALT(KC_BSPC)
 #define KC_MGRV LALT(KC_GRV)
 
-#define M_LGTAB LGUI_T(KC_TAB)
+#define M_LGSPC LGUI_T(KC_SPC)
 #define M_LCENT LCTL_T(KC_ENT)
 #define M_LGENT LGUI_T(KC_ENT)
 
@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, XXXXXXX, KC_LEAD,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,   LOWER,  KC_SPC,    M_LCENT,   RAISE,  KC_RALT \
+                                          KC_LCTL,   LOWER, M_LGSPC,    M_LCENT,   RAISE,  KC_RALT \
                                       //`--------------------------'  `--------------------------'
 
   ),
