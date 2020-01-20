@@ -1,1 +1,4 @@
-# The default keymap for xd75, with led controls
+# atomic style jp
+
+This layout is based Standard Japanese Layout and atomic style layout.
+
