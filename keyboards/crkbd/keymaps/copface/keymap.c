@@ -14,7 +14,7 @@ extern uint8_t is_master;
 #define KC_MGRV LALT(KC_GRV)
 
 #define M_LGTAB LGUI_T(KC_TAB)
-#define M_LCENT CTL_T(KC_ENT)
+#define M_LGENT LGUI_T(KC_ENT)
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, XXXXXXX, KC_LEAD,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LCTL,   LOWER,  KC_SPC,    KC_LGUI,   RAISE,  KC_RALT \
+                                          KC_LCTL,   LOWER,  KC_SPC,    M_LGENT,   RAISE,  KC_RALT \
                                       //`--------------------------'  `--------------------------'
 
   ),
