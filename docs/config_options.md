@@ -149,6 +149,8 @@ If you define these options you will enable the associated feature, which may in
   * makes it possible to use a dual role key as modifier shortly after having been tapped
   * See [Hold after tap](feature_advanced_keycodes.md#tapping-force-hold)
   * Breaks any Tap Toggle functionality (`TT` or the One Shot Tap Toggle)
+* `#define TAPPING_FORCE_HOLD_PER_KEY`
+  * enables handling for per key `TAPPING_FORCE_HOLD` settings
 * `#define LEADER_TIMEOUT 300`
   * how long before the leader key times out
     * If you're having issues finishing the sequence before it times out, you may need to increase the timeout setting. Or you may want to enable the `LEADER_PER_KEY_TIMING` option, which resets the timeout after each key is tapped.

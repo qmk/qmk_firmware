@@ -48,7 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SOFT_SERIAL_PIN D1 // or D1, D2, D3, E6
 //#define USE_I2C
 
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
+/* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
 /*
