@@ -235,8 +235,8 @@ void rgblight_sethsv_noeeprom(uint8_t hue, uint8_t sat, uint8_t val);
 
 /*   effect speed */
 uint8_t rgblight_get_speed(void);
-void rgblight_set_speed(uint8_t speed);
-void rgblight_set_speed_noeeprom(uint8_t speed);
+void    rgblight_set_speed(uint8_t speed);
+void    rgblight_set_speed_noeeprom(uint8_t speed);
 
 /*       query */
 uint8_t rgblight_get_mode(void);
