@@ -163,11 +163,11 @@ extern layer_state_t layer_state;
 #endif
 
 #ifdef DYNAMIC_KEYMAP_ENABLE
-#   include "dynamic_keymap.h"
+#    include "dynamic_keymap.h"
 #endif
 
 #ifdef VIA_ENABLE
-#   include "via.h"
+#    include "via.h"
 #endif
 
 // Function substitutions to ease GPIO manipulation

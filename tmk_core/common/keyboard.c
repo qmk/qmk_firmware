@@ -335,6 +335,16 @@ MATRIX_LOOP_END:
     matrix_scan_perf_task();
 #endif
 
+#if defined(RGBLIGHT_ANIMATIONS) && defined(RGBLIGHT_ENABLE)
+    rgblight_task();
+#endif
+
+#if defined(BACKLIGHT_ENABLE)
+#    if defined(BACKLIGHT_PIN) || defined(BACKLIGHT_PINS)
+    backlight_task();
+#    endif
+#endif
+
 #ifdef QWIIC_ENABLE
     qwiic_task();
 #endif

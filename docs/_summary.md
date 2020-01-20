@@ -105,6 +105,7 @@
   * [I2C Driver](i2c_driver.md)
   * [WS2812 Driver](ws2812_driver.md)
   * [GPIO Controls](internals_gpio_control.md)
+  * [Custom Matrix](custom_matrix.md)
   * [Proton C Conversion](proton_c_conversion.md)
 
 * For a Deeper Understanding
