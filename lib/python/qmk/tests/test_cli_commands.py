@@ -84,3 +84,10 @@ def test_list_keymaps_no_keyboard_found():
     result = check_subcommand('list-keymaps', '-kb', 'asdfghjkl')
     assert result.returncode == 0
     assert 'does not exist' in result.stdout
+
+
+def test_info():
+    result = check_subcommand('info', 'handwired/onekey/pytest')
+    assert result.returncode == 0
+    assert 'handwired/onekey/pytest:' in result.stdout
+    assert 'processor: STM32F303' in result.stdout

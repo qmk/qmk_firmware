@@ -307,7 +307,7 @@ class MILC(object):
     def description(self, value):
         self._description = self._arg_parser.description = value
 
-    def echo(self, text, *args, **kwargs):
+    def echo(self, text='', *args, **kwargs):
         """Print colorized text to stdout.
 
         ANSI color strings (such as {fg-blue}) will be converted into ANSI
