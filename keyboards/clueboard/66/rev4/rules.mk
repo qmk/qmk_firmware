@@ -4,7 +4,7 @@ MCU = STM32F303
 # Build Options
 #   comment out to disable the options.
 #
-BACKLIGHT_ENABLE = yes
+BACKLIGHT_ENABLE = no
 BOOTMAGIC_ENABLE = no   # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = yes   # Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes   # Audio control and System control(+450)
