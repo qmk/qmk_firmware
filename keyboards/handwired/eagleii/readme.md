@@ -2,7 +2,7 @@
 
 ![Eagle II](https://upload.wikimedia.org/wikipedia/en/a/ae/Eagleiicomp.jpg)
 
-A short description of the keyboard/project
+A handwired conversion of an Eagle II computer.
 
 * Keyboard Maintainer: [Spaceman](https://github.com/rionlion100)
 * Hardware Supported: Eagle II Keyboard
