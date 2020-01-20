@@ -69,17 +69,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | ESC  |   <  |   >  |   (  |   )  |      |      |   -  |   +  |   &  |   \  |   `  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | SHFT |   @  |   !  |   [  |   ]  |      |      |   _  |   =  |   %  |   /  | SHFT |
+ * | SHFT |   !  |   @  |   [  |   ]  |      |      |   _  |   =  |   %  |   /  | SHFT |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | TRNS | TRNS | TRNS | TRNS | TRNS |    TRNS     | TRNS | TRNS | TRNS | TRNS | TRNS |
  * `-----------------------------------------------------------------------------------'
  */
 [_SYMBOLS] = LAYOUT_preonic_grid(
-  KC_GRV,  KC_1,    KC_2,       KC_3,       KC_4,       KC_5,     KC_6,     KC_7,       KC_8,     KC_9,     KC_0,    KC_BSPC,
-  KC_TAB,  KC_HASH, KC_DOLLAR,  KC_LCBR,    KC_RCBR,    KC_NO,    KC_NO,    KC_CIRC,    KC_ASTR,  KC_PIPE,  KC_TILD, KC_DEL, 
-  KC_NO,   KC_LABK, KC_RABK,    KC_LPRN,    KC_RPRN,    KC_NO,    KC_NO,    KC_MINS,    KC_PLUS,  KC_AMPR,  KC_BSLS, KC_GRV, 
-  KC_LSFT, KC_AT,   KC_EXCLAIM, KC_LBRC,    KC_RBRC,    KC_NO,    KC_NO,    KC_UNDS,    KC_EQL,   KC_PERC,  KC_SLSH, KC_RSFT,
-  KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,  KC_TRNS,  KC_TRNS,    KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS 
+  KC_GRV,  KC_1,       KC_2,       KC_3,       KC_4,       KC_5,     KC_6,     KC_7,       KC_8,     KC_9,     KC_0,    KC_BSPC,
+  KC_TAB,  KC_HASH,    KC_DOLLAR,  KC_LCBR,    KC_RCBR,    KC_NO,    KC_NO,    KC_CIRC,    KC_ASTR,  KC_PIPE,  KC_TILD, KC_DEL, 
+  KC_NO,   KC_LABK,    KC_RABK,    KC_LPRN,    KC_RPRN,    KC_NO,    KC_NO,    KC_MINS,    KC_PLUS,  KC_AMPR,  KC_BSLS, KC_GRV, 
+  KC_LSFT, KC_EXCLAIM, KC_AT,      KC_LBRC,    KC_RBRC,    KC_NO,    KC_NO,    KC_UNDS,    KC_EQL,   KC_PERC,  KC_SLSH, KC_RSFT,
+  KC_TRNS, KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,  KC_TRNS,  KC_TRNS,    KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS 
 ),
 
 /* NAVIGATION
