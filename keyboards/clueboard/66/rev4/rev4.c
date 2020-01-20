@@ -1,5 +1,4 @@
 #include "rev4.h"
-//#include "backlight.h"
 
 void matrix_init_kb(void) {
     // put your keyboard start-up code here
