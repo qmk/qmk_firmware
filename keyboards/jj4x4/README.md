@@ -22,7 +22,7 @@ Hold down the key located at *K00*, commonly programmed as *8* while plugging in
 
 Key *K00* is in the above picture:
 
-Row 3 from bottom (or 1 from top), Column 2 from left (or 3 from right), just like the schematic below:
+Row 2 from the top, Column 2 from the left, see the schematic below:
 
 ```
   ,-----------------------.
