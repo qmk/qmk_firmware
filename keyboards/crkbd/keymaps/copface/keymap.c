@@ -14,6 +14,7 @@ extern uint8_t is_master;
 #define KC_MGRV LALT(KC_GRV)
 
 #define M_LGTAB LGUI_T(KC_TAB)
+#define M_LCENT LCTL_T(KC_ENT)
 #define M_LGENT LGUI_T(KC_ENT)
 
 enum custom_keycodes {
@@ -45,11 +46,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_ESC,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_TAB,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, XXXXXXX,  KC_ENT,\
+       KC_TAB,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, XXXXXXX, KC_LEAD,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LCTL,   LOWER,  KC_SPC,    M_LGENT,   RAISE,  KC_RALT \
+                                          KC_LGUI,   LOWER,  KC_SPC,    M_LCENT,   RAISE,  KC_RALT \
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -139,6 +140,16 @@ void matrix_scan_user(void) {
         }
         SEQ_ONE_KEY(KC_V) {
             SEND_STRING(":DDDDDD");
+        }
+        SEQ_ONE_KEY(KC_S) {
+            register_code(KC_LGUI);
+            register_code(KC_LCTL);
+            register_code(KC_LSFT);
+            register_code(KC_4);
+            unregister_code(KC_4);
+            unregister_code(KC_LSFT);
+            unregister_code(KC_LCTL);
+            unregister_code(KC_LGUI);
         }
         SEQ_ONE_KEY(KC_F) {
             register_code(KC_LGUI);
