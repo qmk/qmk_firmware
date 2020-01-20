@@ -6,7 +6,7 @@ A short description of the keyboard/project
 
 * Keyboard Maintainer: [Spaceman](https://github.com/rionlion100)
 * Hardware Supported: Eagle II Keyboard
-* Hardware Availability: Not availible 
+* Hardware Availability: Not available
 
 Make example for this keyboard (after setting up your build environment):
 
