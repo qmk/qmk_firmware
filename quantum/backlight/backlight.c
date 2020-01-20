@@ -130,7 +130,6 @@ void backlight_step(void) {
     backlight_set(backlight_config.level);
 }
 
-
 /** \brief Backlight set level without EEPROM update
  *
  */
@@ -150,13 +149,10 @@ void backlight_level(uint8_t level) {
     eeconfig_update_backlight(backlight_config.raw);
 }
 
-
 /** \brief Update current backlight state to EEPROM
  *
  */
-void eeconfig_update_backlight_current(void) {
-    eeconfig_update_backlight(backlight_config.raw);
-}
+void eeconfig_update_backlight_current(void) { eeconfig_update_backlight(backlight_config.raw); }
 
 /** \brief Get backlight level
  *
