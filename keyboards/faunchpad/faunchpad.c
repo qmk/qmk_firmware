@@ -1,4 +1,4 @@
-/* Copyright 2017 Joseph Wasson
+/* Copyright 2019 Jeremy Bernhardt
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,17 +13,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef PROCESS_STENO_H
-#define PROCESS_STENO_H
+#include "faunchpad.h"
 
-#include "quantum.h"
+// Optional override functions below.
+// You can leave any or all of these undefined.
+// These are only required if you want to perform custom actions.
 
-typedef enum { STENO_MODE_BOLT, STENO_MODE_GEMINI } steno_mode_t;
-
-bool     process_steno(uint16_t keycode, keyrecord_t *record);
-void     steno_init(void);
-void     steno_set_mode(steno_mode_t mode);
-uint8_t *steno_get_state(void);
-uint8_t *steno_get_chord(void);
-
+void matrix_scan_kb(void) {
+#ifdef DEBUG_MATRIX
+    for (uint8_t c = 0; c < MATRIX_COLS; c++)
+			for (uint8_t r = 0; r < MATRIX_ROWS; r++)
+		  	if (matrix_is_on(r, c)) xprintf("r:%d c:%d \n", r, c);
 #endif
+  matrix_scan_user();
+}
