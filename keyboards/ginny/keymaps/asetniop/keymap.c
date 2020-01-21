@@ -38,62 +38,62 @@
 #define AO		GRR
 #define AP		GRP
 
-#define AL		GLT  						// Left/Right thumbs
+#define AL		GLT							// Left/Right thumbs
 #define AR		GRT
 
-#define NUM		RES1 						// Sticky Layer 1
-#define USR   RES2 						// Sticky Layer 2
-#define CMD		RES2 | RES1 		// Sticky Layer 3
+#define NUM		RES1						// Sticky Layer 1
+#define USR   RES2						// Sticky Layer 2
+#define CMD		RES2 | RES1			// Sticky Layer 3
 
 // Asetniop layout see above link
 uint32_t processQwerty(bool lookup) {
 	// Layer Switches 
-	P(AA | AT | AN | AP,  															SET_STICKY(NUM));
-	P(AS | AE | AI | AO,  															SET_STICKY(CMD));
-	P(AA | AT | AN | AP | AS | AE | AI | AO, 						SET_STICKY(USR));
-	P(AA | AT | AN | AP | AS | AE | AI | AO | AL | AR, 	SET_STICKY(USR));
+	P(AA | AT | AN | AP,																SET_STICKY(NUM));
+	P(AS | AE | AI | AO,																SET_STICKY(CMD));
+	P(AA | AT | AN | AP | AS | AE | AI | AO,						SET_STICKY(USR));
+	P(AA | AT | AN | AP | AS | AE | AI | AO | AL | AR,	SET_STICKY(USR));
 
 	// Base defs
 	P(AL,									SEND(KC_LSFT));
 	P(AR,									SEND(KC_SPC));
 
-	P(AA, 								SEND(KC_A));
-	P(AS, 								SEND(KC_S));
-	P(AE,			 						SEND(KC_E));
-	P(AT,			 						SEND(KC_T));
-	P(AN,			 						SEND(KC_N));
-	P(AI, 								SEND(KC_I));
-	P(AO,			 						SEND(KC_O));
-	P(AP,						 			SEND(KC_P));
+	P(AA,									SEND(KC_A));
+	P(AS,									SEND(KC_S));
+	P(AE,									SEND(KC_E));
+	P(AT,									SEND(KC_T));
+	P(AN,									SEND(KC_N));
+	P(AI,									SEND(KC_I));
+	P(AO,									SEND(KC_O));
+	P(AP,									SEND(KC_P));
 
-	P(AT | AN, 			 			SEND(KC_B));
-	P(AA | AN, 						SEND(KC_Q));
-	P(AI | AP, 						SEND(KC_LSFT); SEND(KC_1)); // !
-	P(AS | AE, 						SEND(KC_D));
-	P(AT | AO,			 			SEND(KC_G));
-	P(AA | AT, 						SEND(KC_F));
-	P(AN | AP,			 			SEND(KC_M));
-	P(AS | AI,			 			SEND(KC_K));
-	P(AS | AN, 						SEND(KC_J));
-	P(AI | AO,			 			SEND(KC_L));
-	P(AA | AS, 						SEND(KC_W));
-	P(AE | AP,			 			SEND(KC_QUOT));
-	P(AE | AT, 						SEND(KC_R));
-	P(AN | AI, 						SEND(KC_R));
-	P(AS | AT, 						SEND(KC_C));
-	P(AN | AO,			 			SEND(KC_U));
-	P(AA | AE, 						SEND(KC_X));
-	P(AT | AP,			 			SEND(KC_BSPC));
-	P(AT | AI, 						SEND(KC_V));
-	P(AE | AN, 						SEND(KC_Y));
-	P(AA | AI, 						SEND(KC_Z));
-	P(AO | AP,			 			SEND(KC_SCLN));
-	P(AE | AI,			 			SEND(KC_COMM));
-	P(AS | AO,			 			SEND(KC_DOT));
-	P(AA | AP,			 			SEND(KC_SLSH));
-	P(AA | AO,			 			SEND(KC_LSFT); SEND(KC_9)); // (
-	P(AS | AP,			 			SEND(KC_LSFT); SEND(KC_0)); // (
-	P(AE | AO,			 			SEND(KC_MINS));
+	P(AT | AN,						SEND(KC_B));
+	P(AA | AN,						SEND(KC_Q));
+	P(AI | AP,						SEND(KC_LSFT); SEND(KC_1)); // !
+	P(AS | AE,						SEND(KC_D));
+	P(AT | AO,						SEND(KC_G));
+	P(AA | AT,						SEND(KC_F));
+	P(AN | AP,						SEND(KC_M));
+	P(AS | AI,						SEND(KC_K));
+	P(AS | AN,						SEND(KC_J));
+	P(AI | AO,						SEND(KC_L));
+	P(AA | AS,						SEND(KC_W));
+	P(AE | AP,						SEND(KC_QUOT));
+	P(AE | AT,						SEND(KC_R));
+	P(AN | AI,						SEND(KC_R));
+	P(AS | AT,						SEND(KC_C));
+	P(AN | AO,						SEND(KC_U));
+	P(AA | AE,						SEND(KC_X));
+	P(AT | AP,						SEND(KC_BSPC));
+	P(AT | AI,						SEND(KC_V));
+	P(AE | AN,						SEND(KC_Y));
+	P(AA | AI,						SEND(KC_Z));
+	P(AO | AP,						SEND(KC_SCLN));
+	P(AE | AI,						SEND(KC_COMM));
+	P(AS | AO,						SEND(KC_DOT));
+	P(AA | AP,						SEND(KC_SLSH));
+	P(AA | AO,						SEND(KC_LSFT); SEND(KC_9)); // (
+	P(AS | AP,						SEND(KC_LSFT); SEND(KC_0)); // (
+	P(AE | AO,						SEND(KC_MINS));
 	P(AA | AS | AE | AT,  SEND(KC_TAB));
 	P(AN | AI | AO | AP,  SEND(KC_ENT));
 
