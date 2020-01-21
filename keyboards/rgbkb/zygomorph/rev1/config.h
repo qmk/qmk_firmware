@@ -38,14 +38,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 6
 #define MATRIX_COL_PINS { F4, F6, C7, C6, B6, D4 }
 
+#define DIODE_DIRECTION COL2ROW
+
 #define SOFT_SERIAL_PIN D3
 
-#define NUMBER_OF_ENCODERS 1
 #define ENCODERS_PAD_A  { D2 }
 #define ENCODERS_PAD_B  { D7 }
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN B7

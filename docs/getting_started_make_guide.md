@@ -14,8 +14,8 @@ The full syntax of the `make` command is `<keyboard_folder>:<keymap>:<target>`, 
 The `<target>` means the following
 * If no target is given, then it's the same as `all` below
 * `all` compiles as many keyboard/revision/keymap combinations as specified. For example, `make planck/rev4:default` will generate a single .hex, while `make planck/rev4:all` will generate a hex for every keymap available to the planck.
-* `dfu`, `teensy`, `avrdude` or `dfu-util`, compile and upload the firmware to the keyboard. If the compilation fails, then nothing will be uploaded. The programmer to use depends on the keyboard. For most keyboards it's `dfu`, but for ChibiOS keyboards you should use `dfu-util`, and `teensy` for standard Teensys. To find out which command you should use for your keyboard, check the keyboard specific readme.
- * **Note**: some operating systems need root access for these commands to work, so in that case you need to run for example `sudo make planck/rev4:default:dfu`.
+* `flash`, `dfu`, `teensy`, `avrdude`, `dfu-util`, or `bootloadHID` compile and upload the firmware to the keyboard. If the compilation fails, then nothing will be uploaded. The programmer to use depends on the keyboard. For most keyboards it's `dfu`, but for ChibiOS keyboards you should use `dfu-util`, and `teensy` for standard Teensys. To find out which command you should use for your keyboard, check the keyboard specific readme.
+ * **Note**: some operating systems need root access for these commands to work, so in that case you need to run for example `sudo make planck/rev4:default:flash`.
 * `clean`, cleans the build output folders to make sure that everything is built from scratch. Run this before normal compilation if you have some unexplainable problems.
 
 You can also add extra options at the end of the make command line, after the target
@@ -31,7 +31,7 @@ Here are some examples commands
 
 * `make all:all` builds everything (all keyboard folders, all keymaps). Running just `make` from the `root` will also run this.
 * `make ergodox_infinity:algernon:clean` will clean the build output of the Ergodox Infinity keyboard.
-* `make planck/rev4:default:dfu COLOR=false` builds and uploads the keymap without color output.
+* `make planck/rev4:default:flash COLOR=false` builds and uploads the keymap without color output.
 
 ## `rules.mk` Options
 
@@ -40,8 +40,6 @@ Set these variables to `no` to disable them, and `yes` to enable them.
 `BOOTMAGIC_ENABLE`
 
 This allows you to hold a key and the salt key (space by default) and have access to a various EEPROM settings that persist over power loss. It's advised you keep this disabled, as the settings are often changed by accident, and produce confusing results that makes it difficult to debug. It's one of the more common problems encountered in help sessions.
-
-Consumes about 1000 bytes.
 
 `MOUSEKEY_ENABLE`
 
@@ -61,13 +59,11 @@ To disable debug messages (*dprint*) and reduce the .hex file size, include `#de
 
 To disable print messages (*print*, *xprintf*) and user print messages (*uprint*) and reduce the .hex file size, include `#define NO_PRINT` in your `config.h` file.
 
-To disable print messages (*print*, *xprintf*) and **KEEP** user print messages (*uprint*), include `#define USER_PRINT` in your `config.h` file.
+To disable print messages (*print*, *xprintf*) and **KEEP** user print messages (*uprint*), include `#define USER_PRINT` in your `config.h` file (do not also include `#define NO_PRINT` in this case).
 
 To see the text, open `hid_listen` and enjoy looking at your printed messages.
 
 **NOTE:** Do not include *uprint* messages in anything other than your keymap code. It must not be used within the QMK system framework. Otherwise, you will bloat other people's .hex files.
-
-Consumes about 400 bytes.
 
 `COMMAND_ENABLE`
 
@@ -83,7 +79,7 @@ This allows the keyboard to tell the host OS that up to 248 keys are held down a
 
 `BACKLIGHT_ENABLE`
 
-This enables your backlight on Timer1 and ports B5, B6, or B7 (for now). You can specify your port by putting this in your `config.h`:
+This enables the in-switch LED backlighting. You can specify the backlight pin by putting this in your `config.h`:
 
     #define BACKLIGHT_PIN B7
 
@@ -125,11 +121,9 @@ Use this to debug changes to variable values, see the [tracing variables](unit_t
 
 This enables using the Quantum SYSEX API to send strings (somewhere?)
 
-This consumes about 5390 bytes.
-
 `KEY_LOCK_ENABLE`
 
-This enables [key lock](feature_key_lock.md). This consumes an additional 260 bytes.
+This enables [key lock](feature_key_lock.md).
 
 `SPLIT_KEYBOARD`
 
@@ -141,7 +135,7 @@ As there is no standard split communication driver for ARM-based split keyboards
 
 `CUSTOM_MATRIX`
 
-Lets you replace the default matrix scanning routine with your own code. You will need to provide your own implementations of matrix_init() and matrix_scan().
+Lets you replace the default matrix scanning routine with your own code. For further details, see the [Custom Matrix page](custom_matrix.md).
 
 `DEBOUNCE_TYPE`
 

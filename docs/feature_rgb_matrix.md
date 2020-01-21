@@ -42,11 +42,11 @@ Define these arrays listing all the LEDs in your `<keyboard>.c`:
 ```C
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
-    *   driver
-    *   |  R location
-    *   |  |      G location
-    *   |  |      |      B location
-    *   |  |      |      | */
+ *   driver
+ *   |  R location
+ *   |  |      G location
+ *   |  |      |      B location
+ *   |  |      |      | */
     {0, C1_3,  C2_3,  C3_3},
     ....
 }
@@ -93,11 +93,11 @@ Define these arrays listing all the LEDs in your `<keyboard>.c`:
 ```C
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
-    *   driver
-    *   |  R location
-    *   |  |       G location
-    *   |  |       |       B location
-    *   |  |       |       | */
+ *   driver
+ *   |  R location
+ *   |  |       G location
+ *   |  |       |       B location
+ *   |  |       |       | */
     {0, B_1,    A_1,    C_1},
     ....
 }
@@ -107,7 +107,7 @@ Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](
 
 ---
 
-### WS2812 (AVR only)
+### WS2812
 
 There is basic support for addressable RGB matrix lighting with a WS2811/WS2812{a,b,c} addressable LED strand. To enable it, add this to your `rules.mk`:
 
@@ -144,14 +144,16 @@ const led_config_t g_led_config = { {
 } };
 ```
 
-The first part, `// Key Matrix to LED Index`, tells the system what key this LED represents by using the key's electrical matrix row & col. The second part, `// LED Index to Physical Position` represents the LED's physical position on the keyboard. The first value, `x`, is between 0-224 (inclusive), and the second value, `y`, is between 0-64 (inclusive). This range is due to effect that calculate the center or halves for their animations. The easiest way to calculate these positions is imagine your keyboard is a grid, and the top left of the keyboard represents x, y coordinate 0, 0 and the bottom right of your keyboard represents 224, 64. Using this as a basis, you can use the following formula to calculate the physical position:
+The first part, `// Key Matrix to LED Index`, tells the system what key this LED represents by using the key's electrical matrix row & col. The second part, `// LED Index to Physical Position` represents the LED's physical `{ x, y }` position on the keyboard. The default expected range of values for `{ x, y }` is the inclusive range `{ 0..224, 0..64 }`. This default expected range is due to effects that calculate the center of the keyboard for their animations. The easiest way to calculate these positions is imagine your keyboard is a grid, and the top left of the keyboard represents `{ x, y }` coordinate `{ 0, 0 }` and the bottom right of your keyboard represents `{ 224, 64 }`. Using this as a basis, you can use the following formula to calculate the physical position:
 
 ```C
 x = 224 / (NUMBER_OF_COLS - 1) * COL_POSITION
 y =  64 / (NUMBER_OF_ROWS - 1) * ROW_POSITION
 ```
 
-Where NUMBER_OF_COLS, NUMBER_OF_ROWS, COL_POSITION, & ROW_POSITION are all based on the physical layout of your keyboard, not the electrical layout.
+Where NUMBER_OF_COLS, NUMBER_OF_ROWS, COL_POSITION, & ROW_POSITION are all based on the physical layout of your keyboard, not the electrical layout. 
+
+As mentioned earlier, the center of the keyboard by default is expected to be `{ 112, 32 }`, but this can be changed if you want to more accurately calculate the LED's physical `{ x, y }` positions. Keyboard designers can implement `#define RGB_MATRIX_CENTER { 112, 32 }` in their config.h file with the new center point of the keyboard, or where they want it to be allowing more possibilities for the `{ x, y }` values. Do note that the maximum value for x or y is 255, and the recommended maximum is 224 as this gives animations runoff room before they reset.
 
 `// LED Index to Flag` is a bitmask, whether or not a certain LEDs is of a certain type. It is recommended that LEDs are set to only 1 type.
 
@@ -171,16 +173,20 @@ Where NUMBER_OF_COLS, NUMBER_OF_ROWS, COL_POSITION, & ROW_POSITION are all based
 
 All RGB keycodes are currently shared with the RGBLIGHT system:
 
-* `RGB_TOG` - toggle
-* `RGB_MOD` - cycle through modes
-* `RGB_HUI` - increase hue
-* `RGB_HUD` - decrease hue
-* `RGB_SAI` - increase saturation
-* `RGB_SAD` - decrease saturation
-* `RGB_VAI` - increase value
-* `RGB_VAD` - decrease value
-* `RGB_SPI` - increase speed effect (no EEPROM support)
-* `RGB_SPD` - decrease speed effect (no EEPROM support)
+|Key                |Aliases   |Description                                                                           |
+|-------------------|----------|--------------------------------------------------------------------------------------|
+|`RGB_TOG`          |          |Toggle RGB lighting on or off                                                         |
+|`RGB_MODE_FORWARD` |`RGB_MOD` |Cycle through modes, reverse direction when Shift is held                             |
+|`RGB_MODE_REVERSE` |`RGB_RMOD`|Cycle through modes in reverse, forward direction when Shift is held                  |
+|`RGB_HUI`          |          |Increase hue, decrease hue when Shift is held                                         |
+|`RGB_HUD`          |          |Decrease hue, increase hue when Shift is held                                         |
+|`RGB_SAI`          |          |Increase saturation, decrease saturation when Shift is held                           |
+|`RGB_SAD`          |          |Decrease saturation, increase saturation when Shift is held                           |
+|`RGB_VAI`          |          |Increase value (brightness), decrease value when Shift is held                        |
+|`RGB_VAD`          |          |Decrease value (brightness), increase value when Shift is held                        |
+|`RGB_SPI`          |          |Increase effect speed (does not support eeprom yet), decrease speed when Shift is held|
+|`RGB_SPD`          |          |Decrease effect speed (does not support eeprom yet), increase speed when Shift is held|
+
 * `RGB_MODE_*` keycodes will generally work, but are not currently mapped to the correct effects for the RGB Matrix system
 
 ## RGB Matrix Effects
@@ -193,13 +199,22 @@ enum rgb_matrix_effects {
     RGB_MATRIX_SOLID_COLOR = 1,     // Static single hue, no speed support
     RGB_MATRIX_ALPHAS_MODS,         // Static dual hue, speed is hue for secondary hue
     RGB_MATRIX_GRADIENT_UP_DOWN,    // Static gradient top to bottom, speed controls how much gradient changes
+    RGB_MATRIX_GRADIENT_LEFT_RIGHT,    // Static gradient left to right, speed controls how much gradient changes
     RGB_MATRIX_BREATHING,           // Single hue brightness cycling animation
+    RGB_MATRIX_BAND_SAT,        // Single hue band fading saturation scrolling left to right
+    RGB_MATRIX_BAND_VAL,        // Single hue band fading brightness scrolling left to right
+    RGB_MATRIX_BAND_PINWHEEL_SAT,   // Single hue 3 blade spinning pinwheel fades saturation
+    RGB_MATRIX_BAND_PINWHEEL_VAL,   // Single hue 3 blade spinning pinwheel fades brightness
+    RGB_MATRIX_BAND_SPIRAL_SAT,     // Single hue spinning spiral fades saturation
+    RGB_MATRIX_BAND_SPIRAL_VAL,     // Single hue spinning spiral fades brightness
     RGB_MATRIX_CYCLE_ALL,           // Full keyboard solid hue cycling through full gradient
     RGB_MATRIX_CYCLE_LEFT_RIGHT,    // Full gradient scrolling left to right
     RGB_MATRIX_CYCLE_UP_DOWN,       // Full gradient scrolling top to bottom
     RGB_MATRIX_CYCLE_OUT_IN,        // Full gradient scrolling out to in
     RGB_MATRIX_CYCLE_OUT_IN_DUAL,   // Full dual gradients scrolling out to in
     RGB_MATRIX_RAINBOW_MOVING_CHEVRON,  // Full gradent Chevron shapped scrolling left to right
+    RGB_MATRIX_CYCLE_PINWHEEL,      // Full gradient spinning pinwheel around center of keyboard
+    RGB_MATRIX_CYCLE_SPIRAL,        // Full gradient spinning spiral around center of keyboard
     RGB_MATRIX_DUAL_BEACON,         // Full gradient spinning around center of keyboard
     RGB_MATRIX_RAINBOW_BEACON,      // Full tighter gradient spinning around center of keyboard
     RGB_MATRIX_RAINBOW_PINWHEELS,   // Full dual gradients spinning two halfs of keyboard
@@ -235,6 +250,12 @@ You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `con
 |`#define DISABLE_RGB_MATRIX_ALPHAS_MODS`               |Disables `RGB_MATRIX_ALPHAS_MODS`              |
 |`#define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN`          |Disables `RGB_MATRIX_GRADIENT_UP_DOWN`         |
 |`#define DISABLE_RGB_MATRIX_BREATHING`                 |Disables `RGB_MATRIX_BREATHING`                |
+|`#define DISABLE_RGB_MATRIX_BAND_SAT`                  |Disables `RGB_MATRIX_BAND_SAT`                 |
+|`#define DISABLE_RGB_MATRIX_BAND_VAL`                  |Disables `RGB_MATRIX_BAND_VAL`                 |
+|`#define DISABLE_RGB_MATRIX_BAND_PINWHEEL_SAT`         |Disables `RGB_MATRIX_BAND_PINWHEEL_SAT`        |
+|`#define DISABLE_RGB_MATRIX_BAND_PINWHEEL_VAL`         |Disables `RGB_MATRIX_BAND_PINWHEEL_VAL`        |
+|`#define DISABLE_RGB_MATRIX_BAND_SPIRAL_SAT`           |Disables `RGB_MATRIX_BAND_SPIRAL_SAT`          |
+|`#define DISABLE_RGB_MATRIX_BAND_SPIRAL_VAL`           |Disables `RGB_MATRIX_BAND_SPIRAL_VAL`          |
 |`#define DISABLE_RGB_MATRIX_CYCLE_ALL`                 |Disables `RGB_MATRIX_CYCLE_ALL`                |
 |`#define DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT`          |Disables `RGB_MATRIX_CYCLE_LEFT_RIGHT`         |
 |`#define DISABLE_RGB_MATRIX_CYCLE_UP_DOWN`             |Disables `RGB_MATRIX_CYCLE_UP_DOWN`            |
@@ -242,6 +263,8 @@ You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `con
 |`#define DISABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL`         |Disables `RGB_MATRIX_CYCLE_OUT_IN_DUAL`        |
 |`#define DISABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON`    |Disables `RGB_MATRIX_RAINBOW_MOVING_CHEVRON`   |
 |`#define DISABLE_RGB_MATRIX_DUAL_BEACON`               |Disables `RGB_MATRIX_DUAL_BEACON`              |
+|`#define DISABLE_RGB_MATRIX_CYCLE_PINWHEEL`            |Disables `RGB_MATRIX_CYCLE_PINWHEEL`           |
+|`#define DISABLE_RGB_MATRIX_CYCLE_SPIRAL`              |Disables `RGB_MATRIX_CYCLE_SPIRAL`             |
 |`#define DISABLE_RGB_MATRIX_RAINBOW_BEACON`            |Disables `RGB_MATRIX_RAINBOW_BEACON`           |
 |`#define DISABLE_RGB_MATRIX_RAINBOW_PINWHEELS`         |Disables `RGB_MATRIX_RAINBOW_PINWHEELS`        |
 |`#define DISABLE_RGB_MATRIX_RAINDROPS`                 |Disables `RGB_MATRIX_RAINDROPS`                |
@@ -264,7 +287,7 @@ You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `con
 
 ## Custom RGB Matrix Effects
 
-By setting `RGB_MATRIX_CUSTOM_USER` (and/or `RGB_MATRIX_CUSTOM_KB`) in `rule.mk`, new effects can be defined directly from userspace, without having to edit any QMK core files.
+By setting `RGB_MATRIX_CUSTOM_USER` (and/or `RGB_MATRIX_CUSTOM_KB`) in `rules.mk`, new effects can be defined directly from userspace, without having to edit any QMK core files.
 
 To declare new effects, create a new `rgb_matrix_user/kb.inc` that looks something like this:
 
@@ -356,6 +379,11 @@ These are defined in [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blo
 #define RGB_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 #define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
+#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT // Sets the default mode, if none has been set
+#define RGB_MATRIX_STARTUP_HUE 0 // Sets the default hue value, if none has been set
+#define RGB_MATRIX_STARTUP_SAT 255 // Sets the default saturation value, if none has been set
+#define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
+#define RGB_MATRIX_STARTUP_SPD 127 // Sets the default animation speed, if none has been set
 ```
 
 ## EEPROM storage

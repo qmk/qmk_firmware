@@ -90,68 +90,93 @@ keyrecord_t record {
 
 # LED Control
 
-QMK provides methods to read the 5 LEDs defined as part of the HID spec:
+QMK provides methods to read 5 of the LEDs defined in the HID spec:
 
-* `USB_LED_NUM_LOCK`
-* `USB_LED_CAPS_LOCK`
-* `USB_LED_SCROLL_LOCK`
-* `USB_LED_COMPOSE`
-* `USB_LED_KANA`
+* Num Lock
+* Caps Lock
+* Scroll Lock
+* Compose
+* Kana
 
-These five constants correspond to the positional bits of the host LED state.
-There are two ways to get the host LED state:
+There are two ways to get the lock LED state:
 
-* by implementing `led_set_user()`
-* by calling `host_keyboard_leds()`
+* by implementing `bool led_update_kb(led_t led_state)` or `_user(led_t led_state)`; or
+* by calling `led_t host_keyboard_led_state()`
 
-## `led_set_user()`
+!> `host_keyboard_led_state()` may already reflect a new value before `led_update_user()` is called.
 
-This function will be called when the state of one of those 5 LEDs changes. It receives the LED state as a parameter.
-Use the `IS_LED_ON(usb_led, led_name)` and `IS_LED_OFF(usb_led, led_name)` macros to check the LED status.
+Two more deprecated functions exist that provide the LED state as a `uint8_t`:
 
-!> `host_keyboard_leds()` may already reflect a new value before `led_set_user()` is called.
+* `uint8_t led_set_kb(uint8_t usb_led)` and `_user(uint8_t usb_led)`
+* `uint8_t host_keyboard_leds()`
 
-### Example `led_set_user()` Implementation
+## `led_update_user()`
+
+This function will be called when the state of one of those 5 LEDs changes. It receives the LED state as a struct parameter.
+
+By convention, return `true` from `led_update_user()` to get the `led_update_kb()` hook to run its code, and
+return `false` when you would prefer not to run the code in `led_update_kb()`.
+
+Some examples include:
+
+  - overriding the LEDs to use them for something else like layer indication
+    - return `false` because you do not want the `_kb()` function to run, as it would override your layer behavior.
+  - play a sound when an LED turns on or off.
+    - return `true` because you want the `_kb` function to run, and this is in addition to the default LED behavior.
+
+?> Because the `led_set_*` functions return `void` instead of `bool`, they do not allow for overriding the keyboard LED control, and thus it's recommended to use `led_update_*` instead.
+
+### Example `led_update_kb()` Implementation
 
 ```c
-void led_set_user(uint8_t usb_led) {
-    if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-        writePinLow(B0);
-    } else {
-        writePinHigh(B0);
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        // writePin sets the pin high for 1 and low for 0.
+        // In this example the pins are inverted, setting
+        // it low/0 turns it on, and high/1 turns the LED off.
+        // This behavior depends on whether the LED is between the pin
+        // and VCC or the pin and GND.
+        writePin(B0, !led_state.num_lock);
+        writePin(B1, !led_state.caps_lock);
+        writePin(B2, !led_state.scroll_lock);
+        writePin(B3, !led_state.compose);
+        writePin(B4, !led_state.kana);
     }
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        writePinLow(B1);
-    } else {
-        writePinHigh(B1);
-    }
-    if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-        writePinLow(B2);
-    } else {
-        writePinHigh(B2);
-    }
-    if (IS_LED_ON(usb_led, USB_LED_COMPOSE)) {
-        writePinLow(B3);
-    } else {
-        writePinHigh(B3);
-    }
-    if (IS_LED_ON(usb_led, USB_LED_KANA)) {
-        writePinLow(B4);
-    } else {
-        writePinHigh(B4);
-    }
+    return res;
 }
 ```
 
-### `led_set_*` Function Documentation
+### Example `led_update_user()` Implementation
 
-* Keyboard/Revision: `void led_set_kb(uint8_t usb_led)`
-* Keymap: `void led_set_user(uint8_t usb_led)`
+This incomplete example would play a sound if Caps Lock is turned on or off. It returns `true`, because you also want the LEDs to maintain their state.
 
-## `host_keyboard_leds()`
+```c
+#ifdef AUDIO_ENABLE
+  float caps_on[][2] = SONG(CAPS_LOCK_ON_SOUND);
+  float caps_off[][2] = SONG(CAPS_LOCK_OFF_SOUND);
+#endif
 
-Call this function to get the last received LED state. This is useful for reading the LED state outside `led_set_*`, e.g. in [`matrix_scan_user()`](#matrix-scanning-code).
-For convenience, you can use the `IS_HOST_LED_ON(led_name)` and `IS_HOST_LED_OFF(led_name)` macros instead of calling and checking `host_keyboard_leds()` directly.
+bool led_update_user(led_t led_state) {
+    #ifdef AUDIO_ENABLE
+    static uint8_t caps_state = 0;
+    if (caps_state != led_state.caps_lock) {
+        led_state.caps_lock ? PLAY_SONG(caps_on) : PLAY_SONG(caps_off);
+        caps_state = led_state.caps_lock;
+    }
+    #endif
+    return true;
+}
+```
+
+### `led_update_*` Function Documentation
+
+* Keyboard/Revision: `bool led_update_kb(led_t led_state)`
+* Keymap: `bool led_update_user(led_t led_state)`
+
+## `host_keyboard_led_state()`
+
+Call this function to get the last received LED state as a `led_t`. This is useful for reading the LED state outside `led_update_*`, e.g. in [`matrix_scan_user()`](#matrix-scanning-code).
 
 ## Setting Physical LED State
 
@@ -267,7 +292,7 @@ You should use this function if you need custom matrix scanning code. It can als
 
 If the board supports it, it can be "idled", by stopping a number of functions.  A good example of this is RGB lights or backlights.   This can save on power consumption, or may be better behavior for your keyboard.
 
-This is controlled by two functions: `suspend_power_down_*` and `suspend_wakeup_init_*`, which are called when the system is board is idled and when it wakes up, respectively.
+This is controlled by two functions: `suspend_power_down_*` and `suspend_wakeup_init_*`, which are called when the system board is idled and when it wakes up, respectively.
 
 
 ### Example suspend_power_down_user() and suspend_wakeup_init_user() Implementation
@@ -297,8 +322,8 @@ This runs code every time that the layers get changed.  This can be useful for l
 This example shows how to set the [RGB Underglow](feature_rgblight.md) lights based on the layer, using the Planck as an example
 
 ```c
-uint32_t layer_state_set_user(uint32_t state) {
-    switch (biton32(state)) {
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
     case _RAISE:
         rgblight_setrgb (0x00,  0x00, 0xFF);
         break;
@@ -320,8 +345,8 @@ uint32_t layer_state_set_user(uint32_t state) {
 ```
 ### `layer_state_set_*` Function Documentation
 
-* Keyboard/Revision: `uint32_t layer_state_set_kb(uint32_t state)`
-* Keymap: `uint32_t layer_state_set_user(uint32_t state)`
+* Keyboard/Revision: `layer_state_t layer_state_set_kb(layer_state_t state)`
+* Keymap: `layer_state_t layer_state_set_user(layer_state_t state)`
 
 
 The `state` is the bitmask of the active layers, as explained in the [Keymap Overview](keymap.md#keymap-layer-status)
@@ -369,7 +394,7 @@ void keyboard_post_init_user(void) {
   // Set default layer, if enabled
   if (user_config.rgb_layer_change) {
     rgblight_enable_noeeprom();
-    rgblight_sethsv_noeeprom_cyan(); 
+    rgblight_sethsv_noeeprom_cyan();
     rgblight_mode_noeeprom(1);
   }
 }
@@ -377,8 +402,8 @@ void keyboard_post_init_user(void) {
 The above function will use the EEPROM config immediately after reading it, to set the default layer's RGB color. The "raw" value of it is converted in a usable structure based on the "union" that you created above. 
 
 ```c
-uint32_t layer_state_set_user(uint32_t state) {
-    switch (biton32(state)) {
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
     case _RAISE:
         if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_magenta(); rgblight_mode_noeeprom(1); }
         break;
@@ -417,18 +442,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return true; // Let QMK send the enter press/release events
     case RGB_LYR:  // This allows me to use underglow as layer indication, or as normal
-        if (record->event.pressed) { 
+        if (record->event.pressed) {
             user_config.rgb_layer_change ^= 1; // Toggles the status
             eeconfig_update_user(user_config.raw); // Writes the new status to EEPROM
-            if (user_config.rgb_layer_change) { // if layer state indication is enabled, 
+            if (user_config.rgb_layer_change) { // if layer state indication is enabled,
                 layer_state_set(layer_state);   // then immediately update the layer color
             }
         }
         return false; break;
     case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT: // For any of the RGB codes (see quantum_keycodes.h, L400 for reference)
         if (record->event.pressed) { //This disables layer indication, as it's assumed that if you're changing this ... you want that disabled
-            if (user_config.rgb_layer_change) {        // only if this is enabled 
-                user_config.rgb_layer_change = false;  // disable it, and 
+            if (user_config.rgb_layer_change) {        // only if this is enabled
+                user_config.rgb_layer_change = false;  // disable it, and
                 eeconfig_update_user(user_config.raw); // write the setings to EEPROM
             }
         }
@@ -441,7 +466,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 And lastly, you want to add the `eeconfig_init_user` function, so that when the EEPROM is reset, you can specify default values, and even custom actions. To force an EEPROM reset, use the `EEP_RST` keycode or [Bootmagic](feature_bootmagic.md) functionallity. For example, if you want to set rgb layer indication by default, and save the default valued. 
 
 ```c
-void eeconfig_init_user(void) {  // EEPROM is getting reset! 
+void eeconfig_init_user(void) {  // EEPROM is getting reset!
   user_config.raw = 0;
   user_config.rgb_layer_change = true; // We want this enabled by default
   eeconfig_update_user(user_config.raw); // Write default value to EEPROM now
@@ -464,14 +489,24 @@ The `val` is the value of the data that you want to write to EEPROM.  And the `e
 
 # Custom Tapping Term
 
-By default, the tapping term is defined globally, and is not configurable by key.  For most users, this is perfectly fine.  But in come cases, dual function keys would be greatly improved by different timeouts than `LT` keys, or because some keys may be easier to hold than others.  Instead of using custom key codes for each, this allows for per key configurable `TAPPING_TERM`.
+By default, the tapping term and related options (such as `IGNORE_MOD_TAP_INTERRUPT`) are defined globally, and are not configurable by key.  For most users, this is perfectly fine.  But in some cases, dual function keys would be greatly improved by different timeout behaviors than `LT` keys, or because some keys may be easier to hold than others.  Instead of using custom key codes for each, this allows for per key configurable timeout behaviors.
 
-To enable this functionality, you need to add `#define TAPPING_TERM_PER_KEY` to your `config.h`, first.  
+There are two configurable options to control per-key timeout behaviors:
+
+- `TAPPING_TERM_PER_KEY`
+- `IGNORE_MOD_TAP_INTERRUPT_PER_KEY`
+
+You need to add `#define` lines to your `config.h` for each feature you want.
+
+```
+#define TAPPING_TERM_PER_KEY
+#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
+```
 
 
 ## Example `get_tapping_term` Implementation
 
-To change the `TAPPING TERM` based on the keycode, you'd want to add something like the following to your `keymap.c` file: 
+To change the `TAPPING_TERM` based on the keycode, you'd want to add something like the following to your `keymap.c` file:
 
 ```c
 uint16_t get_tapping_term(uint16_t keycode) {
@@ -486,6 +521,21 @@ uint16_t get_tapping_term(uint16_t keycode) {
 }
 ```
 
-### `get_tapping_term` Function Documentation
+## Example `get_ignore_mod_tap_interrupt` Implementation
 
-Unlike many of the other functions here, there isn't a need (or even reason) to have a quantum or keyboard level function. Only a user level function is useful here, so no need to mark it as such.
+To change the `IGNORE_MOD_TAP_INTERRUPT` value based on the keycode, you'd want to add something like the following to your `keymap.c` file:
+
+```c
+bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
+  switch (keycode) {
+    case SFT_T(KC_SPC):
+      return true;
+    default:
+      return false;
+  }
+}
+```
+
+## `get_tapping_term` / `get_ignore_mod_tap_interrupt` Function Documentation
+
+Unlike many of the other functions here, there isn't a need (or even reason) to have a quantum or keyboard level function. Only user level functions are useful here, so no need to mark them as such.

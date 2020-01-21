@@ -1,9 +1,7 @@
-#ifndef REV2_H
-#define REV2_CONFIG_H
+#pragma once
 
 #include "../helix.h"
 
-//void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
 
 #ifdef RGBLIGHT_ENABLE
@@ -19,10 +17,7 @@
 #endif
 #endif
 
-//void promicro_bootloader_jmp(bool program);
-
-
-#if HELIX_ROWS == 4
+#if MATRIX_ROWS == 8 // HELIX_ROWS == 4
 #ifndef FLIP_HALF
 // Standard Keymap
 // (TRRS jack on the left half is to the right, TRRS jack on the right half is to the left)
@@ -111,7 +106,7 @@
 #endif
 
 // Used to create a keymap using only KC_ prefixed keys
-#if HELIX_ROWS == 4
+#if MATRIX_ROWS == 8 // HELIX_ROWS == 4
   #define LAYOUT_kc( \
     L00, L01, L02, L03, L04, L05,           R00, R01, R02, R03, R04, R05, \
     L10, L11, L12, L13, L14, L15,           R10, R11, R12, R13, R14, R15, \
@@ -139,6 +134,4 @@
       KC_##L30, KC_##L31, KC_##L32, KC_##L33, KC_##L34, KC_##L35, KC_##L36, KC_##R36, KC_##R30, KC_##R31, KC_##R32, KC_##R33, KC_##R34, KC_##R35, \
       KC_##L40, KC_##L41, KC_##L42, KC_##L43, KC_##L44, KC_##L45, KC_##L46, KC_##R46, KC_##R40, KC_##R41, KC_##R42, KC_##R43, KC_##R44, KC_##R45 \
     )
-#endif
-
 #endif

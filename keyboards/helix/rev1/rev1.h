@@ -1,11 +1,8 @@
-#ifndef REV1_H
-#define REV1_CONFIG_H
+#pragma once
 
 #include "../helix.h"
 
-//void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
-
 
 #ifdef USE_I2C
 #include <stddef.h>
@@ -15,10 +12,7 @@
 #endif
 #endif
 
-//void promicro_bootloader_jmp(bool program);
-
-
-#if HELIX_ROWS == 3
+#if MATRIX_ROWS == 6 // HELIX_ROWS == 3
   #ifndef FLIP_HALF
   // Standard Keymap
   // (TRRS jack on the left half is to the right, TRRS jack on the right half is to the left)
@@ -52,7 +46,7 @@
       { R20, R21, R22, R23, R24, R25 }, \
     }
   #endif
-#elif HELIX_ROWS == 4
+#elif MATRIX_ROWS == 8 // HELIX_ROWS == 4
   #ifndef FLIP_HALF
   // Standard Keymap
   // (TRRS jack on the left half is to the right, TRRS jack on the right half is to the left)
@@ -92,7 +86,7 @@
       { R30, R31, R32, R33, R34, R35 } \
     }
   #endif
-#elif HELIX_ROWS == 5
+#elif MATRIX_ROWS == 10 // HELIX_ROWS == 5
   #ifndef FLIP_HALF
   // Standard Keymap
   // (TRRS jack on the left half is to the right, TRRS jack on the right half is to the left)
@@ -143,7 +137,7 @@
 #endif
 
 // Used to create a keymap using only KC_ prefixed keys
-#if HELIX_ROWS == 3
+#if MATRIX_ROWS == 6 // HELIX_ROWS == 3
   #define LAYOUT_kc( \
     L00, L01, L02, L03, L04, L05, R00, R01, R02, R03, R04, R05, \
     L10, L11, L12, L13, L14, L15, R10, R11, R12, R13, R14, R15, \
@@ -154,7 +148,7 @@
       KC_##L10, KC_##L11, KC_##L12, KC_##L13, KC_##L14, KC_##L15, KC_##R10, KC_##R11, KC_##R12, KC_##R13, KC_##R14, KC_##R15, \
       KC_##L20, KC_##L21, KC_##L22, KC_##L23, KC_##L24, KC_##L25, KC_##R20, KC_##R21, KC_##R22, KC_##R23, KC_##R24, KC_##R25  \
     )
-#elif HELIX_ROWS == 4
+#elif MATRIX_ROWS == 8 // HELIX_ROWS == 4
   #define LAYOUT_kc( \
     L00, L01, L02, L03, L04, L05, R00, R01, R02, R03, R04, R05, \
     L10, L11, L12, L13, L14, L15, R10, R11, R12, R13, R14, R15, \
@@ -184,4 +178,3 @@
     )
 #endif
 
-#endif

@@ -19,15 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define USB_VENDOR_ID_LENOVO            0x17ef
-#define USB_DEVICE_ID_LENOVO_TPKBD      0x6009
-#define USB_DEVICE_ID_LENOVO_CUSBKBD    0x6047
-#define USB_DEVICE_ID_LENOVO_CBTKBD     0x6048
-#define USB_DEVICE_ID_LENOVO_TPPRODOCK  0x6067
-
 /* USB Device descriptor parameter */
-#define VENDOR_ID       USB_VENDOR_ID_LENOVO
-#define PRODUCT_ID      USB_DEVICE_ID_LENOVO_CBTKBD
+#define VENDOR_ID       0x17EF // Lenovo
+//#define PRODUCT_ID    0x6009 // ThinkPad Keyboard with TrackPoint
+//#define PRODUCT_ID    0x6047 // ThinkPad Compact USB Keyboard with TrackPoint
+#define PRODUCT_ID      0x6048 // ThinkPad Compact Bluetooth Keyboard with TrackPoint
+//#define PRODUCT_ID    0x6067 // ThinkPad Pro Docking Station
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Priyadi
 #define PRODUCT         Promethium Keyboard
@@ -60,7 +57,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BACKLIGHT_LEVELS 3
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST

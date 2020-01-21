@@ -1,10 +1,12 @@
 #pragma once
 
-/* Use I2C rather than serial communicaiton to reduce latency. */
-#define USE_I2C
-
-/* Turn off RGB lighting when the host goes to sleep. */
-#define RGBLIGHT_SLEEP
+/*
+ * Quefrency lacks I2C resistors on the right PCB, so the right half doesn't
+ * work independently. (Presumably the floating I2C lines cause a problem.)
+ * Using serial seems sufficiently fast in practice and allows both halves to
+ * be used independently.
+ */
+#define USE_SERIAL
 
 /* Use an extra LED on the right side since it's wider on the 65% PCB. */
 #undef RGBLED_NUM
@@ -12,13 +14,3 @@
 
 /* Set up RGB lighting so it works with either side as master. */
 #define RGBLED_SPLIT { 8, 9 }
-
-/* Make mouse operation smoother. */
-#define MOUSEKEY_DELAY 0
-#define MOUSEKEY_INTERVAL 16
-
-/* Lower mouse speed to adjust for reduced MOUSEKEY_INTERVAL. */
-#define MOUSEKEY_MAX_SPEED 7
-#define MOUSEKEY_TIME_TO_MAX 150
-#define MOUSEKEY_WHEEL_MAX_SPEED 4
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 150
