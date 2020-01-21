@@ -131,95 +131,94 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-
 #ifdef RGBLIGHT_ENABLE
-//Following line allows macro to read current RGB settings
+// Following line allows macro to read current RGB settings
 extern rgblight_config_t rgblight_config;
 #endif
 
-int RGB_current_mode;
+int  RGB_current_mode;
 bool alt_pressed = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case ADJUST:
-        if (record->event.pressed) {
-          layer_on(_ADJUST);
-        } else {
-          layer_off(_ADJUST);
-        }
-        return false;
-        break;
-    case RGBRST:
-      #ifdef RGBLIGHT_ENABLE
-        if (record->event.pressed) {
-          eeconfig_update_rgblight_default();
-          rgblight_enable();
-          RGB_current_mode = rgblight_config.mode;
-        }
-      #endif
-      break;
-    case KC_SCLN:
-      if (keyboard_report->mods & MOD_BIT(KC_LSFT)) {
-        if (record->event.pressed) {
-          unregister_code(KC_LSFT);
-          register_code(keycode);
-          unregister_code(keycode);
-          register_code(KC_LSFT);
-        }
-    /*  } else if (keyboard_report->mods & MOD_BIT(KC_RSFT)) {
-        if (record->event.pressed) {
-          unregister_code(KC_RSFT);
-          register_code(kc);
-          unregister_code(kc);
-          register_code(KC_RSFT);
-        } */
-      } else {
-        if (record->event.pressed) {
-          register_code(KC_LSFT);
-          register_code(keycode);
-          unregister_code(keycode);
-          unregister_code(KC_LSFT);
-        }
-      }
-      return false; \
-      break;
-    case KC_00:
-      if (record->event.pressed) {
-        SEND_STRING("00");
-      }
-      return false;
-      break;
-    case S(ALTAB):
-    case ALTAB:
-      if (record->event.pressed) {
-        if (!alt_pressed) {
-          alt_pressed = true;
-          register_code(KC_LALT);
-        }
-        if (keycode == S(ALTAB)) {
-          register_code(KC_LSFT);
-        }
-        register_code(KC_TAB);
-      } else {
-        unregister_code(KC_TAB);
-        if (keycode == S(ALTAB)) {
-          unregister_code(KC_LSFT);
-        }
-      }
-      return false;
-      break;
-    default:
-      if (alt_pressed) {
-        alt_pressed = false;
-        unregister_code(KC_LALT);
-        if (record->event.pressed) {
-          return false;
-        }
-      }
-    break;
-  }
-  return true;
+    switch (keycode) {
+        case ADJUST:
+            if (record->event.pressed) {
+                layer_on(_ADJUST);
+            } else {
+                layer_off(_ADJUST);
+            }
+            return false;
+            break;
+        case RGBRST:
+#ifdef RGBLIGHT_ENABLE
+            if (record->event.pressed) {
+                eeconfig_update_rgblight_default();
+                rgblight_enable();
+                RGB_current_mode = rgblight_config.mode;
+            }
+#endif
+            break;
+        case KC_SCLN:
+            if (keyboard_report->mods & MOD_BIT(KC_LSFT)) {
+                if (record->event.pressed) {
+                    unregister_code(KC_LSFT);
+                    register_code(keycode);
+                    unregister_code(keycode);
+                    register_code(KC_LSFT);
+                }
+                /*  } else if (keyboard_report->mods & MOD_BIT(KC_RSFT)) {
+                    if (record->event.pressed) {
+                      unregister_code(KC_RSFT);
+                      register_code(kc);
+                      unregister_code(kc);
+                      register_code(KC_RSFT);
+                    } */
+            } else {
+                if (record->event.pressed) {
+                    register_code(KC_LSFT);
+                    register_code(keycode);
+                    unregister_code(keycode);
+                    unregister_code(KC_LSFT);
+                }
+            }
+            return false;
+            break;
+        case KC_00:
+            if (record->event.pressed) {
+                SEND_STRING("00");
+            }
+            return false;
+            break;
+        case S(ALTAB):
+        case ALTAB:
+            if (record->event.pressed) {
+                if (!alt_pressed) {
+                    alt_pressed = true;
+                    register_code(KC_LALT);
+                }
+                if (keycode == S(ALTAB)) {
+                    register_code(KC_LSFT);
+                }
+                register_code(KC_TAB);
+            } else {
+                unregister_code(KC_TAB);
+                if (keycode == S(ALTAB)) {
+                    unregister_code(KC_LSFT);
+                }
+            }
+            return false;
+            break;
+        default:
+            if (alt_pressed) {
+                alt_pressed = false;
+                unregister_code(KC_LALT);
+                if (record->event.pressed) {
+                    return false;
+                }
+            }
+            break;
+    }
+    return true;
 }
 
 void matrix_init_user(void) {
