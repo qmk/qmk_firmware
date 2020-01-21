@@ -366,7 +366,10 @@ define PARSE_KEYBOARD
     LAYOUT_KEYMAPS :=
     $$(foreach LAYOUT,$$(KEYBOARD_LAYOUTS),$$(eval LAYOUT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/layouts/*/$$(LAYOUT)/*/.)))))
 
-    KEYMAPS := $$(sort $$(KEYMAPS) $$(LAYOUT_KEYMAPS))
+    USER_LAYOUT_KEYMAPS :=
+    $$(foreach LAYOUT,$$(KEYBOARD_LAYOUTS),$$(eval USER_LAYOUT_KEYMAPS += $$(word 3,$$(subst /, ,$$(wildcard $(ROOT_DIR)/users/*/layouts/$$(LAYOUT)/.)))))
+
+    KEYMAPS := $$(sort $$(KEYMAPS) $$(LAYOUT_KEYMAPS) $$(USER_LAYOUT_KEYMAPS))
 
     # if the rule after removing the start of it is empty (we haven't specified a kemap or target)
     # compile all the keymaps
