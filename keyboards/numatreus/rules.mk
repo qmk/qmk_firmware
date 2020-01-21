@@ -10,7 +10,6 @@ BOOTLOADER = caterina
 
 # Build Options
 #   change yes to no to disable
-#   the appropriate keymap folder that will get included automatically
 #
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes       # Mouse keys
