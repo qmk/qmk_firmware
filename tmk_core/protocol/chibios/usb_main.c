@@ -63,10 +63,10 @@ extern keymap_config_t keymap_config;
 #    define usb_lld_disconnect_bus(usbp)
 #endif
 
-uint8_t                keyboard_idle __attribute__((aligned(2)))      = 0;
-uint8_t                keyboard_protocol __attribute__((aligned(2)))  = 1;
-uint8_t                keyboard_led_stats                             = 0;
-volatile uint16_t      keyboard_idle_count                            = 0;
+uint8_t                keyboard_idle __attribute__((aligned(2)))     = 0;
+uint8_t                keyboard_protocol __attribute__((aligned(2))) = 1;
+uint8_t                keyboard_led_stats                            = 0;
+volatile uint16_t      keyboard_idle_count                           = 0;
 static virtual_timer_t keyboard_idle_timer;
 static void            keyboard_idle_timer_cb(void *arg);
 
