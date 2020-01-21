@@ -39,12 +39,6 @@ ifdef SKIP_VERSION
     OPT_DEFS += -DSKIP_VERSION
 endif
 
-# Userspace setup and definitions
-ifeq ("$(USER_NAME)","")
-    USER_NAME := $(KEYMAP)
-endif
-USER_PATH := users/$(USER_NAME)
-
 # Determine which subfolders exist.
 KEYBOARD_FOLDER_PATH_1 := $(KEYBOARD)
 KEYBOARD_FOLDER_PATH_2 := $(patsubst %/,%,$(dir $(KEYBOARD_FOLDER_PATH_1)))
@@ -103,7 +97,7 @@ MAIN_KEYMAP_PATH_2 := $(KEYBOARD_PATH_2)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_3 := $(KEYBOARD_PATH_3)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_4 := $(KEYBOARD_PATH_4)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_5 := $(KEYBOARD_PATH_5)/keymaps/$(KEYMAP)
-MAIN_USER_KEYMAPS := $(USER_PATH)/keymaps
+MAIN_USER_KEYMAPS := users/$(KEYMAP)/keymaps
 
 KEYMAP_USER_PATH_1 := $(MAIN_USER_KEYMAPS)/$(KEYBOARD)
 KEYMAP_USER_PATH_2 := $(MAIN_USER_KEYMAPS)/$(subst /,_,$(KEYBOARD))
@@ -149,6 +143,12 @@ ifeq ("$(wildcard $(KEYMAP_PATH))", "")
         # this state should never be reached
     endif
 endif
+
+# Userspace setup and definitions
+ifeq ("$(USER_NAME)","")
+    USER_NAME := $(KEYMAP)
+endif
+USER_PATH := users/$(USER_NAME)
 
 ifeq ($(strip $(CTPC)), yes)
   CONVERT_TO_PROTON_C=yes
