@@ -21,11 +21,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x8968
-#define PRODUCT_ID      0x4853
+#define PRODUCT_ID      0x4855
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    Yiancar-Designs
 #define PRODUCT         HS60 V2
 #define DESCRIPTION     GH60 compatible, tool free RGB keyboard
+
+#define HS60_HHKB
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -82,6 +84,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
+/* Bootmagic Lite key configuration */
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 0
+
 /* Backlight options */
 
 #define RGB_BACKLIGHT_ENABLED 1
@@ -123,11 +129,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // alphas vs. mods
 // Each value is for a row, bit 0 is column 0
 // Alpha=0 Mod=1
-#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_0 0b0010000000000001
+#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_0 0b0000000000000001
 #define RGB_BACKLIGHT_ALPHAS_MODS_ROW_1 0b0000000000000001
-#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_2 0b0010000000000001
-#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_3 0b0010000000000001
-#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_4 0b0011110000000111
+#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_2 0b0011000000000001
+#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_3 0b0011000000000001
+#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_4 0b0011100000000111
 
 #define RGB_BACKLIGHT_CAPS_LOCK_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
 #define RGB_BACKLIGHT_LAYER_1_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
@@ -138,5 +144,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // dynamic keymaps start after this.
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 31
 
-// VIA lighting is handled by the keyboard-level code
-#define VIA_CUSTOM_LIGHTING_ENABLE
