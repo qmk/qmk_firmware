@@ -1,12 +1,12 @@
 # uranuma
 
-![uranuma](imgur.com image replace me!)
+It is a keyboard to input using fingers and palms.
 
 A short description of the keyboard/project
 
-Keyboard Maintainer: [yohei](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Keyboard Maintainer: yohewi(yohewi@gmail.com)
+Hardware Supported: UraNuma, PCB
+Hardware Availability: Case Data
 
 Make example for this keyboard (after setting up your build environment):
 
