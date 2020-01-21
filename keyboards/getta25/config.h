@@ -1,6 +1,6 @@
 /*
-Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
-Modified 2018 Kenneth A. <github.com/krusli>
+Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2015 Jack Humbert
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,21 +16,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "ymdk_np21.h"
+#pragma once
 
-void keyboard_pre_init_kb(void) {
-    led_init_ports();
-    keyboard_pre_init_user();
-}
-
-void led_init_ports(void) {
-    setPinOutput(D0);
-    writePinHigh(D0);
-}
-
-bool led_update_kb(led_t led_state) {
-    if (led_update_user(led_state)) {
-        writePin(D0, led_state.num_lock);
-    }
-    return true;
-}
+#include "config_common.h"
