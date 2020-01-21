@@ -2,7 +2,6 @@
 # MCU name
 MCU = atmega32u4
 
-
 # Bootloader
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
 #     different sizes, comment this out, and the correct address will be loaded
