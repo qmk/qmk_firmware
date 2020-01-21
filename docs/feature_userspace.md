@@ -95,7 +95,50 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 You'd want to replace the year, name, email and github username with your info. 
 
-Additionally, this is a good place to document your code, if you wish to share it with others. 
+Additionally, this is a good place to document your code, if you wish to share it with others.
+
+## User Keymaps
+You can also store your custom keymaps inside your user directory.
+
+Instead of making a new folder in `keyboards/<keyboard>/keymaps/<user>`, you can now create the keymap in `users/<user>/keymaps/<keyboard>`.
+
+You must follow the pathing of the keyboard directory. For example, if you create a custom keymap for `crkbd/rev1`, the structure should look like this:
+
+```
+users/
++ curry/
+| + keymaps/
+| | + crkbd/
+| | | + rev1/
+| | | | + config.h
+| | | | + keymap.c
+| | | | + rules.mk
+| | + <layout folder>/
+| | + ...
+```
+
+If there are nested folders, you will need to simulate that:
+
+```
+users/
++ curry/
+| + keymaps/
+| | + montsinger/
+| | | + rebound/
+| | | | + config.h
+| | | | + keymap.c
+| | | | + rules.mk
+| | + kbdfans/
+| | | + kbd75/
+| | | | + rev2/
+| | | | | + config.h
+| | | | | + keymap.c
+| | | | | + rules.mk
+| | | + rules.mk
+| | + <layout folder>/
+| | + ...
+```
+You can view an example of this on [`/users/curry/`](https://github.com/qmk/qmk_firmware/tree/master/users/curry)'s userspace.
 
 ## Build All Keyboards That Support a Specific Keymap
 
