@@ -31,6 +31,26 @@ Each layout folder is named (`[a-z0-9_]`) after the physical aspects of the layo
    LAYOUT_60_ansi
 ```
 
+Additionally, you can support customized layouts in your userspace.
+```
+users/
++ curry/
+| + layouts/
+| | + ortho_5x25/
+| | | + keymap.c
+| | | + readme.md
+| | | + config.h
+| | | + rules.mk
+| | + <layout folder>/
+| | + ...
+```
+
+```md
+# ortho_5x25
+
+   LAYOUT_ortho_5x25
+```
+
 New names should try to stick to the standards set by existing layouts, and can be discussed in the PR/Issue.
 
 ## Supporting a Layout
