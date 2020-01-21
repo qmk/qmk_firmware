@@ -82,6 +82,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
+/* Bootmagic Lite key configuration */
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 0
+
 /* Backlight options */
 
 #define RGB_BACKLIGHT_ENABLED 1
@@ -137,3 +141,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Backlight config starts after VIA's EEPROM usage,
 // dynamic keymaps start after this.
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 31
+
+// VIA lighting is handled by the keyboard-level code
+#define VIA_CUSTOM_LIGHTING_ENABLE

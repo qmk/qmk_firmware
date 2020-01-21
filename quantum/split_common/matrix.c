@@ -41,20 +41,14 @@ static pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 #endif
 
 /* matrix state(1:on, 0:off) */
-static matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
-static matrix_row_t matrix[MATRIX_ROWS];      // debounced values
+extern matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
+extern matrix_row_t matrix[MATRIX_ROWS];      // debounced values
 
 // row offsets for each hand
 uint8_t thisHand, thatHand;
 
 // user-defined overridable functions
 __attribute__((weak)) void matrix_slave_scan_user(void) {}
-
-// helper functions
-
-inline bool matrix_is_on(uint8_t row, uint8_t col) { return (matrix[row] & ((matrix_row_t)1 << col)); }
-
-inline matrix_row_t matrix_get_row(uint8_t row) { return matrix[row]; }
 
 // matrix code
 
@@ -85,7 +79,8 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     return (last_row_value != current_matrix[current_row]);
 }
 
-#elif (DIODE_DIRECTION == COL2ROW)
+#elif defined(DIODE_DIRECTION)
+#    if (DIODE_DIRECTION == COL2ROW)
 
 static void select_row(uint8_t row) {
     setPinOutput(row_pins[row]);
@@ -130,7 +125,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     return (last_row_value != current_matrix[current_row]);
 }
 
-#elif (DIODE_DIRECTION == ROW2COL)
+#    elif (DIODE_DIRECTION == ROW2COL)
 
 static void select_col(uint8_t col) {
     setPinOutput(col_pins[col]);
@@ -185,6 +180,11 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     return matrix_changed;
 }
 
+#    else
+#        error DIODE_DIRECTION must be one of COL2ROW or ROW2COL!
+#    endif
+#else
+#    error DIODE_DIRECTION is not defined!
 #endif
 
 void matrix_init(void) {
