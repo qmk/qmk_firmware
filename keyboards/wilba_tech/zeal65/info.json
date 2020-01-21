@@ -2,7 +2,6 @@
     "keyboard_name": "Zeal65", 
     "url": "https://zealpc.net", 
     "maintainer": "Wilba", 
-    "bootloader": "atmel-dfu", 
     "width": 16, 
     "height": 5, 
     "layouts": {
