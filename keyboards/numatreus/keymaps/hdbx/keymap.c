@@ -65,11 +65,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |Alt/[ |WINESC|   ~  |Sft/Bs|Lower |CtlEnt|Space |Raise |CtrlTb|   -  |   '  |Sft/] |
    * `-----------------------------------------------------------------------------------'
    */
-  [_QWERTY] = LAYOUT( \
-      KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    \
-      KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                        KC_H,    KC_J,    KC_K,    KC_L,    WN_SCLN, \
-      KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, \
-      ALT_LBR, GUI_ESC, JP_TILD, SFT_BS,  LOWER,   CTL_ENT,  KC_SPC,   RAISE,   CTL_TAB, KC_MINS, JP_QUOT, SFT_RBR  \
+  [_QWERTY] = LAYOUT(
+      KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
+      KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                        KC_H,    KC_J,    KC_K,    KC_L,    WN_SCLN,
+      KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
+      ALT_LBR, GUI_ESC, JP_TILD, SFT_BS,  LOWER,   CTL_ENT,  KC_SPC,   RAISE,   CTL_TAB, KC_MINS, JP_QUOT, SFT_RBR
       ),
 
   /* HDBX配列 デフォルトレイヤーをこの配列にしたい場合は、AdjustレイヤーでK (Lower + Raise + K)
@@ -83,11 +83,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |Alt/[ |WINESC|   ~  |Sft/Bs|Lower |CtlEnt|Space |Raise |CtrlTb|   -  |   '  |Sft/] |
    * `-----------------------------------------------------------------------------------'
    */
-  [_HDBX] = LAYOUT( \
-      KC_Q,    KC_W,    KC_E,    KC_COMM, KC_DOT,                      KC_Y,    KC_D,    KC_P,    KC_F,    WN_SCLN, \
-      KC_A,    KC_I,    KC_O,    KC_U,    KC_G,                        KC_M,    KC_N,    KC_T,    KC_R,    KC_S,    \
-      KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                        KC_H,    KC_J,    KC_K,    KC_L,    KC_SLSH, \
-      ALT_LBR, GUI_ESC, JP_TILD, SFT_BS,  LOWER,   CTL_ENT,  KC_SPC,   RAISE,   CTL_TAB, KC_MINS, JP_QUOT, SFT_RBR  \
+  [_HDBX] = LAYOUT(
+      KC_Q,    KC_W,    KC_E,    KC_COMM, KC_DOT,                      KC_Y,    KC_D,    KC_P,    KC_F,    WN_SCLN,
+      KC_A,    KC_I,    KC_O,    KC_U,    KC_G,                        KC_M,    KC_N,    KC_T,    KC_R,    KC_S,
+      KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                        KC_H,    KC_J,    KC_K,    KC_L,    KC_SLSH,
+      ALT_LBR, GUI_ESC, JP_TILD, SFT_BS,  LOWER,   CTL_ENT,  KC_SPC,   RAISE,   CTL_TAB, KC_MINS, JP_QUOT, SFT_RBR
       ),
 
   /* Lower
@@ -101,11 +101,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * | Alt  | WIN  |   `  |SftDel|Lower | Ctrl |SftSpc|Raise |   0  |   ,  |   =  |Enter |
    * `-----------------------------------------------------------------------------------'
    */
-  [_LOWER] = LAYOUT( \
-      KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                       KC_7,    KC_8,    KC_9,    KC_DOT,  KC_BSPC, \
-      KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,                      KC_4,    KC_5,    KC_6,    KC_PPLS, KC_PAST, \
-      KC_ZKHK, KC_SLCK, KC_PAUS, KC_F11,  KC_F12,                      KC_1,    KC_2,    KC_3,    KC_PMNS, KC_PSLS, \
-      KC_LALT, KC_LGUI, JP_GRV,  SFT_DEL, _______, KC_LCTL,  SFT_SPC,  _______, KC_0,    KC_COMM, JP_EQL,  KC_ENT   \
+  [_LOWER] = LAYOUT( 
+      KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                       KC_7,    KC_8,    KC_9,    KC_DOT,  KC_BSPC,
+      KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,                      KC_4,    KC_5,    KC_6,    KC_PPLS, KC_PAST,
+      KC_ZKHK, KC_SLCK, KC_PAUS, KC_F11,  KC_F12,                      KC_1,    KC_2,    KC_3,    KC_PMNS, KC_PSLS,
+      KC_LALT, KC_LGUI, JP_GRV,  SFT_DEL, _______, KC_LCTL,  SFT_SPC,  _______, KC_0,    KC_COMM, JP_EQL,  KC_ENT
       ),
 
   /* Raise
@@ -119,11 +119,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * | Alt  | WIN  |   `  | Del  |Lower | Ctrl | Caps |Raise | Ctrl |   _  |   "  |Shift |
    * `-----------------------------------------------------------------------------------'
    */
-  [_RAISE] = LAYOUT( \
-      KC_EXLM, JP_AT,   KC_HASH, KC_DLR,  KC_PERC,                     KC_HOME, KC_APP,  KC_INS,  KC_CALC, KC_PSCR, \
-      JP_CIRC, JP_AMPR, JP_ASTR, JP_YEN,  JP_PIPE,                     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_SCLN, \
-      JP_GRV,  JP_LCBR, JP_RCBR, KC_LT,   KC_GT,                       KC_END,  KC_MUTE, JP_LPRN, JP_RPRN, KC_QUES, \
-      KC_LALT, KC_LGUI, JP_GRV,  KC_DEL,  _______, KC_LCTL,  WN_CAPS,  _______, KC_RCTL, JP_UNDS, JP_DQT,  KC_RSFT  \
+  [_RAISE] = LAYOUT(
+      KC_EXLM, JP_AT,   KC_HASH, KC_DLR,  KC_PERC,                     KC_HOME, KC_APP,  KC_INS,  KC_CALC, KC_PSCR,
+      JP_CIRC, JP_AMPR, JP_ASTR, JP_YEN,  JP_PIPE,                     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_SCLN,
+      JP_GRV,  JP_LCBR, JP_RCBR, KC_LT,   KC_GT,                       KC_END,  KC_MUTE, JP_LPRN, JP_RPRN, KC_QUES,
+      KC_LALT, KC_LGUI, JP_GRV,  KC_DEL,  _______, KC_LCTL,  WN_CAPS,  _______, KC_RCTL, JP_UNDS, JP_DQT,  KC_RSFT
       ),
 
   /* GAME ゲームやテンキー固定で使用するレイヤーです。AdjustレイヤーでGを押下して遷移。戻るときはtoBaseから。
@@ -137,11 +137,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * | Alt  | Esc  |  Tab |Shift |Space | Ctrl |toBase|   \  |   0  |   ,  |   =  |Enter |
    * `-----------------------------------------------------------------------------------'
    */
-  [_GAME] = LAYOUT( \
-      KC_Q,    KC_UP,   KC_E,    KC_R,    KC_T,                        KC_7,    KC_8,    KC_9,    KC_DOT,  KC_BSPC, \
-      KC_LEFT, KC_DOWN, KC_RGHT, KC_F,    KC_G,                        KC_4,    KC_5,    KC_6,    KC_PPLS, KC_PAST, \
-      KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                        KC_1,    KC_2,    KC_3,    KC_PMNS, KC_PSLS, \
-      KC_LALT, KC_ESC,  KC_TAB,  KC_LSFT, KC_SPC,  KC_LCTL,  ADJUST,   JP_YEN,  KC_0,    KC_COMM, JP_EQL,  KC_ENT   \
+  [_GAME] = LAYOUT(
+      KC_Q,    KC_UP,   KC_E,    KC_R,    KC_T,                        KC_7,    KC_8,    KC_9,    KC_DOT,  KC_BSPC,
+      KC_LEFT, KC_DOWN, KC_RGHT, KC_F,    KC_G,                        KC_4,    KC_5,    KC_6,    KC_PPLS, KC_PAST,
+      KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                        KC_1,    KC_2,    KC_3,    KC_PMNS, KC_PSLS,
+      KC_LALT, KC_ESC,  KC_TAB,  KC_LSFT, KC_SPC,  KC_LCTL,  ADJUST,   JP_YEN,  KC_0,    KC_COMM, JP_EQL,  KC_ENT
       ),
 
   /* Adjust (Lower + Raise)
@@ -155,11 +155,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |RESET |      |      |      |      |      |      |      |      |      |      |      |
    * `-----------------------------------------------------------------------------------'
    */
-  [_ADJUST] =  LAYOUT( \
-      MCR1,    MCR2,    MCR3,    MCR4,    MCR5,                DM_PLY1, DM_PLY2, DM_REC1, DM_REC2, DM_RSTP, \
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, GAME,                      XXXXXXX, QWERTY,  HDBX,    XXXXXXX, XXXXXXX, \
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      RESET,   XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
+  [_ADJUST] =  LAYOUT(
+      MCR1,    MCR2,    MCR3,    MCR4,    MCR5,                DM_PLY1, DM_PLY2, DM_REC1, DM_REC2, DM_RSTP,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, GAME,                      XXXXXXX, QWERTY,  HDBX,    XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      RESET,   XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
       )
 };
 
@@ -185,7 +185,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool     lshift = false;
     case WN_SCLN: // コロン「;:」
       if (record->event.pressed) {
-        lshift = keyboard_report->mods & MOD_BIT(KC_LSFT);
+        lshift = get_mods() & MOD_BIT(KC_LSFT);
         if (lshift) {
           unregister_code(KC_LSFT);
           tap_code(JP_SCLN);
@@ -203,7 +203,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case MCR2:
       if (record->event.pressed) {
-        SEND_STRING("hogehoge"SS_TAP(X_ENTER)); // 送信文字列
+        SEND_STRING("hogehoge\n"); // 送信文字列
       }
       return false;
       break;
