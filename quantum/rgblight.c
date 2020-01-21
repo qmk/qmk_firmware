@@ -19,9 +19,11 @@
 #    include <avr/eeprom.h>
 #    include <avr/interrupt.h>
 #endif
+#ifdef EEPROM_ENABLE
+#    include "eeprom.h"
+#endif
 #ifdef STM32_EEPROM_ENABLE
 #    include "hal.h"
-#    include "eeprom.h"
 #    include "eeprom_stm32.h"
 #endif
 #include "wait.h"
@@ -146,7 +148,7 @@ void rgblight_check_config(void) {
 }
 
 uint32_t eeconfig_read_rgblight(void) {
-#if defined(__AVR__) || defined(STM32_EEPROM_ENABLE) || defined(PROTOCOL_ARM_ATSAM) || defined(EEPROM_SIZE)
+#ifdef EEPROM_ENABLE
     return eeprom_read_dword(EECONFIG_RGBLIGHT);
 #else
     return 0;
@@ -154,7 +156,7 @@ uint32_t eeconfig_read_rgblight(void) {
 }
 
 void eeconfig_update_rgblight(uint32_t val) {
-#if defined(__AVR__) || defined(STM32_EEPROM_ENABLE) || defined(PROTOCOL_ARM_ATSAM) || defined(EEPROM_SIZE)
+#ifdef EEPROM_ENABLE
     rgblight_check_config();
     eeprom_update_dword(EECONFIG_RGBLIGHT, val);
 #endif
