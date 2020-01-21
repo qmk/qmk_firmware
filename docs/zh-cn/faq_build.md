@@ -56,11 +56,6 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", MODE:="0666"
 ?> 事实上没有一个驱动的最佳选择，有些选项就是和某些系统相辅相成。但libUSB和WinUSB似乎也算是这里的最佳选择了。
 如果bootloader在设备列表中没有显示，你可能要使能 "List all devices"选项在选项菜单中`Options`，然后找到有问题的bootloader设备。(译者注：在win10中可能为 查看-显示隐藏的设备)
 
-
-## WINAVR已淘汰
-不再推荐使用WINAVR，使用可能会导致问题
-详情请见[TMK Issue #99](https://github.com/tmk/tmk_keyboard/issues/99).
-
 ## USB VID 和 PID
 你可以在编辑`config.h`时使用任何你想用的ID值。实际上，使用任何可能未使用的ID都没有问题，除了有极低的与其他产品发生冲突的可能性。
 
@@ -72,14 +67,6 @@ https://github.com/tmk/tmk_keyboard/issues/150
 一也可以在下方链接购买一个唯一的VID:PID。不过个人使用似乎用不着这个。
 - http://www.obdev.at/products/vusb/license.html
 - http://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
-
-## Cortex: `cstddef: No such file or directory`
-在Ubuntu 14.04上的GCC 4.8 会出现这种问题需要用这个PPA升级到4.9。
-https://launchpad.net/~terry.guo/+archive/ubuntu/gcc-arm-embedded
-
-https://github.com/tmk/tmk_keyboard/issues/212
-https://github.com/tmk/tmk_keyboard/wiki/mbed-cortex-porting#compile-error-cstddef
-https://developer.mbed.org/forum/mbed/topic/5205/
 
 ## AVR的BOOTLOADER_SIZE
 注意Teensy2.0++ bootloader的大小是2048字节。有些Makefile注释错了。

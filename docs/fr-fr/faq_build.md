@@ -86,10 +86,6 @@ Relancer le script d'installation de QMK (`./util/qmk_install.sh` situé dans r�
 
 Si vous rencontrez toujours des problèmes, essayez de télécharger et lancer Zadig. Voir [Installation du driver du bootloader avec Zadig](driver_installation_zadig.md) pour plus d'informations.
 
-## WINAVR est obsolète
-
-Il n'est plus recommandé et peut causer des problèmes. Voir [TMK Issue #99](https://github.com/tmk/tmk_keyboard/issues/99).
-
 ## USB VID et PID
 
 Vous pouvez utiliser l'ID de votre choix en modifier `config.h`. Il y a peu de chance de conflit avec d'autres produits.
@@ -102,15 +98,6 @@ https://github.com/tmk/tmk_keyboard/issues/150
 Vous pouvez acheter un VID:PID unique ici. Je ne pense pas que ce soit nécessaire pour un usage personnel.
 - http://www.obdev.at/products/vusb/license.html
 - http://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
-
-## Cortex: `cstddef: No such file or directory`
-
-Ce problème existait avec le GCC 4.8 d'Ubuntu 14.04, la solution a nécessité de mettre à jour vers 4.9 avec ce PPA.
-https://launchpad.net/~terry.guo/+archive/ubuntu/gcc-arm-embedded
-
-https://github.com/tmk/tmk_keyboard/issues/212
-https://github.com/tmk/tmk_keyboard/wiki/mbed-cortex-porting#compile-error-cstddef
-https://developer.mbed.org/forum/mbed/topic/5205/
 
 ## BOOTLOADER_SIZE pour AVR
 

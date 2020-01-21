@@ -1,8 +1,8 @@
 # QMK の設定
 
 <!---
-  original document: eae21eed7:docs/config_options.md
-  git diff eae21eed7 HEAD docs/config_options.md | cat
+  original document: 0f43c2652:docs/config_options.md
+  git diff 0f43c2652 HEAD -- docs/config_options.md | cat
 -->
 
 QMK はほぼ無制限に設定可能です。可能なところはいかなるところでも、やりすぎな程、ユーザーがコードサイズを犠牲にしてでも彼らのキーボードをカスタマイズをすることを許しています。ただし、このレベルの柔軟性により設定が困難になります。
@@ -148,6 +148,8 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 * `#define IGNORE_MOD_TAP_INTERRUPT`
    * 両方のキーに `TAPPING_TERM` を適用することで、ホールド時に他のキーに変換するキーを使ってローリングコンボ (zx) をすることができるようにします
    * 詳細は [Mod tap interrupt](ja/feature_advanced_keycodes.md#ignore-mod-tap-interrupt) を見てください
+* `#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY`
+   * キーごとの `IGNORE_MOD_TAP_INTERRUPT` 設定の処理を有効にします
 * `#define TAPPING_FORCE_HOLD`
    * タップされた直後に、デュアルロールキーを修飾子として使用できるようにします
    * [Hold after tap](ja/feature_advanced_keycodes.md#tapping-force-hold)を見てください
@@ -285,8 +287,26 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
    * ビルドの後でルート `qmk_firmware` フォルダにコピーされる形式 (bin, hex) を定義します。
 * `SRC`
    * コンパイル・リンクリストにファイルを追加するために使われます。
+* `LIB_SRC`
+  * コンパイル・リンクリストにライブラリとしてファイルを追加するために使われます。  
+    `LIB_SRC` で指定されたファイルは、`SRC` で指定されたファイルの後にリンクされます。  
+    例えば、次のように指定した場合:
+    ```
+    SRC += a.c
+    LIB_SRC += lib_b.c
+    SRC += c.c
+    LIB_SRC += lib_d.c
+    ```
+    リンク順は以下の通りです。
+    ```
+     ...  a.o c.o  ...  lib_b.a lib_d.a  ...
+    ```
 * `LAYOUTS`
    * このキーボードがサポートする[レイアウト](ja/feature_layouts.md)のリスト
+* `LINK_TIME_OPTIMIZATION_ENABLE`
+   * キーボードをコンパイルする時に、Link Time Optimization (`LTO`) を有効にします。これは処理に時間が掛かりますが、コンパイルされたサイズを大幅に減らします (そして、ファームウェアが小さいため、追加の時間は分からないくらいです)。ただし、`LTO` が有効な場合、古いマクロと関数の機能が壊れるため、自動的にこれらの機能を無効にします。これは `NO_ACTION_MACRO` と `NO_ACTION_FUNCTION` を自動的に定義することで行われます。
+* `LTO_ENABLE`
+   * LINK_TIME_OPTIMIZATION_ENABLE と同じ意味です。`LINK_TIME_OPTIMIZATION_ENABLE` の代わりに `LTO_ENABLE` を使うことができます。
 
 ## AVR MCU オプション
 * `MCU = atmega32u4`
@@ -345,9 +365,6 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
    * キーボードが起動する前に、USB 接続が確立されるのをキーボードに待機させます
 * `NO_USB_STARTUP_CHECK`
    * キーボードの起動後の usb サスペンドチェックを無効にします。通常、キーボードはタスクが実行される前にホストがウェイク アップするのを待ちます。分割キーボードは半分はウェイクアップコールを取得できませんが、マスタにコマンドを送信する必要があるため、役に立ちます。
-* `LINK_TIME_OPTIMIZATION_ENABLE`
-   * キーボードをコンパイルする時に、Link Time Optimization (`LTO`) を有効にします。これは処理に時間が掛かりますが、コンパイルされたサイズを大幅に減らします (そして、ファームウェアが小さいため、追加の時間は分からないくらいです)。ただし、`LTO` が有効な場合、古いマクロと関数の機能が壊れるため、自動的にこれらの機能を無効にします。これは `NO_ACTION_MACRO` と `NO_ACTION_FUNCTION` を自動的に定義することで行われます。
-   * `LINK_TIME_OPTIMIZATION_ENABLE` の代わりに `LTO_ENABLE` を使うことができます。
 
 ## USB エンドポイントの制限
 

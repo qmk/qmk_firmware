@@ -87,10 +87,6 @@ Re-running the QMK installation script (`./util/qmk_install.sh` from the `qmk_fi
 
 If that doesn't work, then you may need to download and run Zadig. See [Bootloader Driver Installation with Zadig](driver_installation_zadig.md) for more detailed information.
 
-## WINAVR is Obsolete
-It is no longer recommended and may cause some problem.
-See [TMK Issue #99](https://github.com/tmk/tmk_keyboard/issues/99).
-
 ## USB VID and PID
 You can use any ID you want with editing `config.h`. Using any presumably unused ID will be no problem in fact except for very low chance of collision with other product.
 
@@ -102,14 +98,6 @@ https://github.com/tmk/tmk_keyboard/issues/150
 You can buy a really unique VID:PID here. I don't think you need this for personal use.
 - http://www.obdev.at/products/vusb/license.html
 - http://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
-
-## Cortex: `cstddef: No such file or directory`
-GCC 4.8 of Ubuntu 14.04 had this problem and had to update to 4.9 with this PPA.
-https://launchpad.net/~terry.guo/+archive/ubuntu/gcc-arm-embedded
-
-https://github.com/tmk/tmk_keyboard/issues/212
-https://github.com/tmk/tmk_keyboard/wiki/mbed-cortex-porting#compile-error-cstddef
-https://developer.mbed.org/forum/mbed/topic/5205/
 
 ## BOOTLOADER_SIZE for AVR
 Note that Teensy2.0++ bootloader size is 2048byte. Some Makefiles may have wrong comment.
@@ -131,24 +119,29 @@ The solution is to remove and reinstall all affected modules.
 
 ```
 brew rm avr-gcc
+brew rm avr-gcc@8
 brew rm dfu-programmer
 brew rm dfu-util
 brew rm gcc-arm-none-eabi
+brew rm arm-gcc-bin@8
 brew rm avrdude
-brew install avr-gcc
+brew install avr-gcc@8
 brew install dfu-programmer
 brew install dfu-util
-brew install gcc-arm-none-eabi
+brew install arm-gcc-bin@8
 brew install avrdude
+brew link --force avr-gcc@8
+brew link --force arm-gcc-bin@8
+
 ```
 
-### avr-gcc 8.1 and LUFA
+### `avr-gcc` and LUFA
 
-If you updated your avr-gcc to above 7 you may see errors involving LUFA. For example:
+If you updated your `avr-gcc` and you see errors involving LUFA, for example:
 
 `lib/lufa/LUFA/Drivers/USB/Class/Device/AudioClassDevice.h:380:5: error: 'const' attribute on function returning 'void'`
 
-For now, you need to rollback avr-gcc to 7 in brew.
+For now, you need to rollback `avr-gcc` to 8 in Homebrew.
 
 ```
 brew uninstall --force avr-gcc

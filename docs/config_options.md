@@ -143,10 +143,14 @@ If you define these options you will enable the associated feature, which may in
 * `#define IGNORE_MOD_TAP_INTERRUPT`
   * makes it possible to do rolling combos (zx) with keys that convert to other keys on hold, by enforcing the `TAPPING_TERM` for both keys.
   * See [Mod tap interrupt](feature_advanced_keycodes.md#ignore-mod-tap-interrupt) for details
+* `#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY`
+  * enables handling for per key `IGNORE_MOD_TAP_INTERRUPT` settings
 * `#define TAPPING_FORCE_HOLD`
   * makes it possible to use a dual role key as modifier shortly after having been tapped
   * See [Hold after tap](feature_advanced_keycodes.md#tapping-force-hold)
   * Breaks any Tap Toggle functionality (`TT` or the One Shot Tap Toggle)
+* `#define TAPPING_FORCE_HOLD_PER_KEY`
+  * enables handling for per key `TAPPING_FORCE_HOLD` settings
 * `#define LEADER_TIMEOUT 300`
   * how long before the leader key times out
     * If you're having issues finishing the sequence before it times out, you may need to increase the timeout setting. Or you may want to enable the `LEADER_PER_KEY_TIMING` option, which resets the timeout after each key is tapped.
@@ -287,8 +291,27 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
   * Defines which format (bin, hex) is copied to the root `qmk_firmware` folder after building.
 * `SRC`
   * Used to add files to the compilation/linking list.
+* `LIB_SRC`
+  * Used to add files as a library to the compilation/linking list.  
+    The files specified by `LIB_SRC` is linked after the files specified by `SRC`.  
+    For example, if you specify:
+    ```
+    SRC += a.c
+    LIB_SRC += lib_b.c
+    SRC += c.c
+    LIB_SRC += lib_d.c
+    ```
+    The link order is as follows.
+    ```
+     ...  a.o c.o  ...  lib_b.a lib_d.a  ...
+    ```
 * `LAYOUTS`
   * A list of [layouts](feature_layouts.md) this keyboard supports.
+* `LINK_TIME_OPTIMIZATION_ENABLE`
+  * Enables Link Time Optimization (`LTO`) when compiling the keyboard.  This makes the process take longer, but can significantly reduce the compiled size (and since the firmware is small, the added time is not noticeable).  However, this will automatically disable the old Macros and Functions features automatically, as these break when `LTO` is enabled.
+  It does this by automatically defining `NO_ACTION_MACRO` and `NO_ACTION_FUNCTION`
+* `LTO_ENABLE`
+  * It has the same meaning as LINK_TIME_OPTIMIZATION_ENABLE.  You can use `LTO_ENABLE` instead of `LINK_TIME_OPTIMIZATION_ENABLE`.
 
 ## AVR MCU Options
 * `MCU = atmega32u4`
@@ -347,9 +370,6 @@ Use these to enable or disable building certain features. The more you have enab
   * Forces the keyboard to wait for a USB connection to be established before it starts up
 * `NO_USB_STARTUP_CHECK`
   * Disables usb suspend check after keyboard startup. Usually the keyboard waits for the host to wake it up before any tasks are performed. This is useful for split keyboards as one half will not get a wakeup call but must send commands to the master.
-* `LINK_TIME_OPTIMIZATION_ENABLE`
-  * Enables Link Time Optimization (`LTO`) when compiling the keyboard.  This makes the process take longer, but can significantly reduce the compiled size (and since the firmware is small, the added time is not noticeable).  However, this will automatically disable the old Macros and Functions features automatically, as these break when `LTO` is enabled.  It does this by automatically defining `NO_ACTION_MACRO` and `NO_ACTION_FUNCTION`
-  * Alternatively, you can use `LTO_ENABLE` instead of `LINK_TIME_OPTIMIZATION_ENABLE`. 
 
 ## USB Endpoint Limitations
 
