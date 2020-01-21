@@ -39,13 +39,13 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define _________________DVORAK_R2_________________         KC_D,    KC_H,    KC_T,    KC_N,    KC_S
 #define _________________DVORAK_R3_________________         KC_B,    KC_M,    KC_W,    KC_V,    KC_Z
 
-#define _________________WORKMAN_L1________________         KC_Q,    KC_D,    KC_R,   KC_W,     KC_B
-#define _________________WORKMAN_L2________________         KC_A,    KC_S,    KC_H,   KC_T,     KC_G
-#define _________________WORKMAN_L3________________         KC_Z,    KC_X,    KC_M,   KC_C,     KC_V
+#define _________________WORKMAN_L1________________       KC_Q,    KC_D,    KC_R,   KC_W,     KC_B
+#define _________________WORKMAN_L2________________       KC_A,    KC_S,    KC_H,   KC_T,     KC_G
+#define _________________WORKMAN_L3________________       KC_Z,    KC_X,    KC_M,   KC_C,     KC_V
 
-#define _________________WORKMAN_R1________________         KC_J,    KC_F,    KC_U,    KC_P,    KC_SCLN
-#define _________________WORKMAN_R2________________         KC_Y,    KC_N,    KC_E,    KC_O,    KC_I
-#define _________________WORKMAN_R3________________         KC_K,    KC_L,    KC_COMM, KC_DOT,  KC_SLASH
+#define _________________WORKMAN_R1________________       KC_J,    KC_F,    KC_U,    KC_P,    KC_SCLN
+#define _________________WORKMAN_R2________________       KC_Y,    KC_N,    KC_E,    KC_O,    KC_I
+#define _________________WORKMAN_R3________________       KC_K,    KC_L,    KC_COMM, KC_DOT,  KC_SLASH
 
 
 #define ________________NUMBER_LEFT________________         KC_1,    KC_2,    KC_3,    KC_4,    KC_5
