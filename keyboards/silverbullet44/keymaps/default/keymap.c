@@ -34,8 +34,8 @@ enum custom_keycodes {
   KC_00,
   ALTAB
 };
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
+//#define _______ KC_TRNS
+//#define XXXXXXX KC_NO
 #define CALC  LT(_CALC,   KC_ESC)
 #define CUSL  LT(_CURSOL, KC_TAB)
 
