@@ -14,9 +14,9 @@ define SEARCH_LAYOUTS_REPO
 endef
 
 define SEARCH_USER_LAYOUTS_REPO
-	USER_LAYOUT_KEYMAP_PATH := $$(USER_LAYOUTS_REPO)/$$(LAYOUT)
+    USER_LAYOUT_KEYMAP_PATH := $$(USER_LAYOUTS_REPO)/$$(LAYOUT)
     USER_LAYOUT_KEYMAP_C := $$(USER_LAYOUT_KEYMAP_PATH)/keymap.c
-	ifneq ("$$(wildcard $$(USER_LAYOUT_KEYMAP_C))","")
+    ifneq ("$$(wildcard $$(USER_LAYOUT_KEYMAP_C))","")
         -include $$(USER_LAYOUT_KEYMAP_PATH)/rules.mk
         KEYMAP_C := $$(USER_LAYOUT_KEYMAP_C)
         KEYMAP_PATH := $$(USER_LAYOUT_KEYMAP_PATH)
@@ -25,7 +25,9 @@ endef
 
 define SEARCH_LAYOUTS
     $$(foreach LAYOUTS_REPO,$$(LAYOUTS_REPOS),$$(eval $$(call SEARCH_LAYOUTS_REPO)))
-    $$(foreach USER_LAYOUTS_REPO,$$(USER_LAYOUTS_REPOS),$$(eval $$(call SEARCH_USER_LAYOUTS_REPO)))
+    ifeq ("$$(wildcard $$(KEYMAP_C))","")
+        $$(foreach USER_LAYOUTS_REPO,$$(USER_LAYOUTS_REPOS),$$(eval $$(call SEARCH_USER_LAYOUTS_REPO)))
+    endif
 endef
 
 ifneq ($(FORCE_LAYOUT),)
