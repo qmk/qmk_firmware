@@ -330,8 +330,8 @@ define PARSE_KEYBOARD
     KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/keymaps/*/.)))
     KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/keymaps/*/.)))
     KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/keymaps/*/.)))
-    KEYMAPS += $$(word 3,$$(subst /, ,$$(wildcard $(ROOT_DIR)/users/*/keymaps/$$(CURRENT_KB)/.)))
-    KEYMAPS += $$(word 3,$$(subst /, ,$$(wildcard $(ROOT_DIR)/users/*/keymaps/$$(subst /,_,$$(CURRENT_KB)_*))))
+    KEYMAPS += $$(foreach KEYMAP,$$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/users/*/keymaps/$$(CURRENT_KB)/.)),$$(word 3,$$(subst /, ,$$(KEYMAP))))
+    KEYMAPS += $$(foreach KEYMAP,$$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/users/*/keymaps/$$(subst /,_,$$(CURRENT_KB)_*))),$$(word 3,$$(subst /, ,$$(KEYMAP))))
     # this might be needed, but in a different form
     #KEYMAPS := $$(sort $$(filter-out $$(KEYBOARD_FOLDER_1) $$(KEYBOARD_FOLDER_2) \
         $$(KEYBOARD_FOLDER_3) $$(KEYBOARD_FOLDER_4) $$(KEYBOARD_FOLDER_5), $$(KEYMAPS)))
