@@ -1,2 +1,2 @@
-# The Default Ext65 Layout
+# The Default Dharma Layout
 
