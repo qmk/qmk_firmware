@@ -23,7 +23,7 @@
  // 日本語キーボードとして認識させて使うことが前提なので、記号位置が英語キーボードとは異なります。
  // また、日本語キーボードでないと認識されない特殊なキーコードが含まれています。
 
-#include "xd75.h"
+#include QMK_KEYBOARD_H
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
