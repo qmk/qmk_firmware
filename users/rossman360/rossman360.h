@@ -12,6 +12,13 @@
 #define XPANDR LCTL(LSFT(KC_X))
 #define CMDBSP MT(MOD_LGUI, KC_BSPC)
 #define ALTDEL MT(MOD_LALT, KC_DEL)
+#define TAB1 LCTL(KC_1)
+#define TAB2 LCTL(KC_2)
+#define TAB3 LCTL(KC_3)
+#define TAB4 LCTL(KC_4)
+#define CTRLSP MT(MOD_LCTL, KC_SPACE)
+#define RVOLU LCTL(KC_RBRC)
+#define RVOLD LCTL(KC_LBRC)
 
 // Define all of
 enum custom_keycodes {
