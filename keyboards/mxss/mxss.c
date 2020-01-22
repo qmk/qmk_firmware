@@ -57,7 +57,7 @@ bool led_update_kb(led_t led_state) {
 	return led_update_user(led_state);
 }
 
-uint32_t layer_state_set_kb(layer_state_t state) {
+layer_state_t layer_state_set_kb(layer_state_t state) {
     fled_layer_update(state);
     return layer_state_set_user(state);
 }
