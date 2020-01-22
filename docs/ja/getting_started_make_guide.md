@@ -35,7 +35,7 @@ make コマンド自体にもいくつかの追加オプションがあります
 コマンドの例を幾つか示します
 
 * `make all:all` は、全てをビルドします (全てのキーボードフォルダ、全てのキーマップ)。`root` から単に `make` を実行すると、これを実行します。
-* `make ergodox_infinity:algernon:clean` は、Ergodox Infinity キーボードのビルド出力を消去します。
+* `make ergodox_infinity:algernon:clean` は、Ergodox Infinity キーボードのビルド出力を掃除します。
 * `make planck/rev4:default:flash COLOR=false` カラー出力なしでキーマップをビルドしアップロードします。
 
 ## `rules.mk` オプション
