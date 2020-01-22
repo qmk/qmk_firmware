@@ -277,7 +277,7 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_Q|B_K                  , .kana = "xi"      }, // ぃ
   {.key = B_V|B_M|B_K              , .kana = "xi"      }, // ぃ
   {.key = B_V|B_M|B_K|B_SHFT       , .kana = "xi"      }, // ぃ(冗長)
-  // {.key = B_Q|B_L                  , .kana = "xu"      }, // ぅ
+  {.key = B_Q|B_L                  , .kana = "xu"      }, // ぅ
   {.key = B_V|B_M|B_L              , .kana = "xu"      }, // ぅ
   {.key = B_V|B_M|B_L|B_SHFT       , .kana = "xu"      }, // ぅ(冗長)
   {.key = B_Q|B_O                  , .kana = "xe"      }, // ぇ
@@ -287,17 +287,21 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_V|B_M|B_N              , .kana = "xo"      }, // ぉ
   {.key = B_V|B_M|B_N|B_SHFT       , .kana = "xo"      }, // ぉ(冗長)
   {.key = B_Q|B_L                  , .kana = "xwa"     }, // ゎ
-  // {.key = B_V|B_M|B_L              , .kana = "xwa"     }, // ゎ
-  // {.key = B_V|B_M|B_L|B_SHFT       , .kana = "xwa"     }, // ゎ(冗長)
+  {.key = B_V|B_M|B_L              , .kana = "xwa"     }, // ゎ
+  {.key = B_V|B_M|B_L|B_SHFT       , .kana = "xwa"     }, // ゎ(冗長)
   {.key = B_G                      , .kana = "xtu"     }, // っ
 
   // 清音拗音 濁音拗音 半濁拗音
+  {.key = B_R|B_O                  , .kana = "sye"     }, // しぇ
+  {.key = B_R|B_O|B_SHFT           , .kana = "sye"     }, // しぇ(冗長)
   {.key = B_R|B_H                  , .kana = "sya"     }, // しゃ
   {.key = B_R|B_H|B_SHFT           , .kana = "sya"     }, // しゃ(冗長)
   {.key = B_R|B_P                  , .kana = "syu"     }, // しゅ
   {.key = B_R|B_P|B_SHFT           , .kana = "syu"     }, // しゅ(冗長)
   {.key = B_R|B_I                  , .kana = "syo"     }, // しょ
   {.key = B_R|B_I|B_SHFT           , .kana = "syo"     }, // しょ(冗長)
+  {.key = B_J|B_R|B_O              , .kana = "je"      }, // じぇ
+  {.key = B_J|B_R|B_O|B_SHFT       , .kana = "je"      }, // じぇ(冗長)
   {.key = B_J|B_R|B_H              , .kana = "ja"      }, // じゃ
   {.key = B_J|B_R|B_H|B_SHFT       , .kana = "ja"      }, // じゃ(冗長)
   {.key = B_J|B_R|B_P              , .kana = "ju"      }, // じゅ
@@ -316,12 +320,16 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_J|B_W|B_P|B_SHFT       , .kana = "gyu"     }, // ぎゅ(冗長)
   {.key = B_J|B_W|B_I              , .kana = "gyo"     }, // ぎょ
   {.key = B_J|B_W|B_I|B_SHFT       , .kana = "gyo"     }, // ぎょ(冗長)
+  {.key = B_G|B_O                  , .kana = "che"     }, // ちぇ
+  {.key = B_G|B_O|B_SHFT           , .kana = "che"     }, // ちぇ(冗長)
   {.key = B_G|B_H                  , .kana = "cha"     }, // ちゃ
   {.key = B_G|B_H|B_SHFT           , .kana = "cha"     }, // ちゃ(冗長)
   {.key = B_G|B_P                  , .kana = "chu"     }, // ちゅ
   {.key = B_G|B_P|B_SHFT           , .kana = "chu"     }, // ちゅ(冗長)
   {.key = B_G|B_I                  , .kana = "cho"     }, // ちょ
   {.key = B_G|B_I|B_SHFT           , .kana = "cho"     }, // ちょ(冗長)
+  {.key = B_J|B_G|B_O              , .kana = "dye"     }, // ぢぇ
+  {.key = B_J|B_G|B_O|B_SHFT       , .kana = "dye"     }, // ぢぇ(冗長)
   {.key = B_J|B_G|B_H              , .kana = "dya"     }, // ぢゃ
   {.key = B_J|B_G|B_H|B_SHFT       , .kana = "dya"     }, // ぢゃ(冗長)
   {.key = B_J|B_G|B_P              , .kana = "dyu"     }, // ぢゅ
@@ -420,6 +428,8 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_V|B_H|B_O|B_SHFT       , .kana = "kuxe"    }, // くぇ(冗長)
   {.key = B_V|B_H|B_N              , .kana = "kuxo"    }, // くぉ
   {.key = B_V|B_H|B_N|B_SHFT       , .kana = "kuxo"    }, // くぉ(冗長)
+  {.key = B_V|B_H|B_L              , .kana = "kuxwa"   }, // くゎ
+  {.key = B_V|B_H|B_L|B_SHFT       , .kana = "kuxwa"   }, // くゎ(冗長)
   {.key = B_F|B_H|B_J              , .kana = "guxa"    }, // ぐぁ
   {.key = B_F|B_H|B_J|B_SHFT       , .kana = "guxa"    }, // ぐぁ(冗長)
   {.key = B_F|B_H|B_K              , .kana = "guxi"    }, // ぐぃ
@@ -428,6 +438,8 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_F|B_H|B_O|B_SHFT       , .kana = "guxe"    }, // ぐぇ(冗長)
   {.key = B_F|B_H|B_N              , .kana = "guxo"    }, // ぐぉ
   {.key = B_F|B_H|B_N|B_SHFT       , .kana = "guxo"    }, // ぐぉ(冗長)
+  {.key = B_F|B_H|B_L              , .kana = "guxwa"   }, // ぐゎ
+  {.key = B_F|B_H|B_L|B_SHFT       , .kana = "guxwa"   }, // ぐゎ(冗長)
   {.key = B_V|B_SCLN|B_J           , .kana = "tuxa"    }, // つぁ
   {.key = B_V|B_SCLN|B_J|B_SHFT    , .kana = "tuxa"    }, // つぁ(冗長)
   {.key = B_V|B_SCLN|B_K           , .kana = "tuxi"    }, // つぃ
@@ -458,25 +470,31 @@ const PROGMEM naginata_keymap ngmap[] = {
 
 #ifdef NAGINATA_EDIT_WIN
   {.key = B_J|B_K|B_R       , .kana = SS_LCTRL("s")},
+  {.key = B_J|B_K|B_T       , .kana = SS_LCTRL("c")},
   {.key = B_D|B_F|B_I       , .kana = SS_TAP(X_INT4)},
   {.key = B_J|B_K|B_A       , .kana = SS_LCTRL("y")},
   {.key = B_J|B_K|B_S       , .kana = SS_LCTRL("s")},
+  {.key = B_J|B_K|B_G       , .kana = SS_LCTRL("x")},
   {.key = B_J|B_K|B_Z       , .kana = SS_LCTRL("z")},
   {.key = B_J|B_K|B_X       , .kana = SS_LCTRL("x")},
   {.key = B_J|B_K|B_C       , .kana = SS_LCTRL("c")},
   {.key = B_J|B_K|B_V       , .kana = SS_LCTRL("v")},
+  {.key = B_J|B_K|B_B       , .kana = SS_LCTRL("v")},
   {.key = B_D|B_F|B_SCLN    , .kana = SS_LCTRL("i")},
   {.key = B_D|B_F|B_SLSH    , .kana = SS_LCTRL("u")},
 #endif
 #ifdef NAGINATA_EDIT_MAC
   {.key = B_J|B_K|B_R       , .kana = SS_LGUI("s")},
+  {.key = B_J|B_K|B_T       , .kana = SS_LGUI("c")},
   {.key = B_D|B_F|B_I       , .kana = SS_TAP(X_LANG1)SS_TAP(X_LANG1)},
   {.key = B_J|B_K|B_A       , .kana = SS_LGUI("y")},
   {.key = B_J|B_K|B_S       , .kana = SS_LGUI("s")},
+  {.key = B_J|B_K|B_G       , .kana = SS_LGUI("x")},
   {.key = B_J|B_K|B_Z       , .kana = SS_LGUI("z")},
   {.key = B_J|B_K|B_X       , .kana = SS_LGUI("x")},
   {.key = B_J|B_K|B_C       , .kana = SS_LGUI("c")},
   {.key = B_J|B_K|B_V       , .kana = SS_LGUI("v")},
+  {.key = B_J|B_K|B_B       , .kana = SS_LGUI("v")},
   {.key = B_D|B_F|B_SCLN    , .kana = SS_LCTRL("k")},
   {.key = B_D|B_F|B_SLSH    , .kana = SS_LCTRL("j")},
 #endif
@@ -748,48 +766,6 @@ bool naginata_lookup(int nt, bool shifted) {
     // send_stringできないキー、長すぎるマクロはここで定義
     case B_F|B_G:
       naginata_off();
-      compress_buffer(nt);
-      return true;
-      break;
-    case B_J|B_K|B_T:
-#ifdef NAGINATA_EDIT_WIN
-      tap_code(KC_HOME);
-      for (int i = 0; i < 10; i++) tap_code(NGKDN);
-#endif
-#ifdef NAGINATA_EDIT_MAC
-      register_code(KC_LGUI);
-      tap_code(KC_LEFT);
-      unregister_code(KC_LGUI);
-      for (int i = 0; i < 10; i++) tap_code(NGKDN);
-#endif
-      compress_buffer(nt);
-      return true;
-      break;
-    case B_J|B_K|B_G:
-#ifdef NAGINATA_EDIT_WIN
-      tap_code(KC_HOME);
-      for (int i = 0; i < 20; i++) tap_code(NGKDN);
-#endif
-#ifdef NAGINATA_EDIT_MAC
-      register_code(KC_LGUI);
-      tap_code(KC_LEFT);
-      unregister_code(KC_LGUI);
-      for (int i = 0; i < 20; i++) tap_code(NGKDN);
-#endif
-      compress_buffer(nt);
-      return true;
-      break;
-    case B_J|B_K|B_B:
-#ifdef NAGINATA_EDIT_WIN
-      tap_code(KC_HOME);
-      for (int i = 0; i < 30; i++) tap_code(NGKDN);
-#endif
-#ifdef NAGINATA_EDIT_MAC
-      register_code(KC_LGUI);
-      tap_code(KC_LEFT);
-      unregister_code(KC_LGUI);
-      for (int i = 0; i < 30; i++) tap_code(NGKDN);
-#endif
       compress_buffer(nt);
       return true;
       break;
