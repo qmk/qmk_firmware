@@ -36,35 +36,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,                                              KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS		 ),
 };
 
-void keyboard_pre_init_user(void) {
-  // Call the keyboard pre init code.
 
-  // Set our LED pins as output
-  setPinOutput(B7);
-  setPinOutput(F0);
-}
 
-void led_set_user(uint8_t usb_led) {
-    if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-        writePinLow(F0);
-    } else {
-        writePinHigh(F0);
+
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        writePin(F0, led_state.num_lock);
+        writePin(B7, led_state.caps_lock);
     }
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        writePinLow(B7);
-    } else {
-        writePinHigh(B7);
-    }
+    return res;
 }
-
-// uint32_t layer_state_set_user(uint32_t state) {
-//     switch (biton32(state)) {
-//       case 1:
-//         writePinHigh(D1);
-//         break;
-//       default: //  for any other layers, or the default layer
-//         writePinLow(D1);
-//         break;
-//       }
-//     return state;
-// }

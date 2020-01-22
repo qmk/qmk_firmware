@@ -15,7 +15,7 @@ BOOTLOADER = atmel-dfu
 #   change yes to no to disable
 #
 BOOTMAGIC_ENABLE = lite      # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = no       # Mouse keys(+4700)
+MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
 CONSOLE_ENABLE = no        # Console for debug(+400)
 COMMAND_ENABLE = no        # Commands for debug and configuration
@@ -29,6 +29,3 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
-
-# project specific files
-SRC += keyboards/wilba_tech/wt_main.c

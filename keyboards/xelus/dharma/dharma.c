@@ -15,6 +15,13 @@
  */
 
 // Nothing to see here, move along... ;-)
+#include "quantum.h"    
 
+void keyboard_post_init_kb(void) {
+  // Call the keyboard pre init code.
 
+  // Set our LED pins as output
+  setPinOutput(B7);
+  setPinOutput(F0);
+}
 
