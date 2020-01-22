@@ -36,9 +36,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,                                              KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS		 ),
 };
 
-
-
-
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
