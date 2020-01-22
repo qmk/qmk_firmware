@@ -354,12 +354,12 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_J|B_X|B_P|B_SHFT       , .kana = "byu"     }, // びゅ(冗長)
   {.key = B_J|B_X|B_I              , .kana = "byo"     }, // びょ
   {.key = B_J|B_X|B_I|B_SHFT       , .kana = "byo"     }, // びょ(冗長)
-  {.key = B_J|B_X|B_H              , .kana = "pya"     }, // ぴゃ
-  {.key = B_J|B_X|B_H|B_SHFT       , .kana = "pya"     }, // ぴゃ(冗長)
-  {.key = B_J|B_X|B_P              , .kana = "pyu"     }, // ぴゅ
-  {.key = B_J|B_X|B_P|B_SHFT       , .kana = "pyu"     }, // ぴゅ(冗長)
-  {.key = B_J|B_X|B_I              , .kana = "pyo"     }, // ぴょ
-  {.key = B_J|B_X|B_I|B_SHFT       , .kana = "pyo"     }, // ぴょ(冗長)
+  {.key = B_M|B_X|B_H              , .kana = "pya"     }, // ぴゃ
+  {.key = B_M|B_X|B_H|B_SHFT       , .kana = "pya"     }, // ぴゃ(冗長)
+  {.key = B_M|B_X|B_P              , .kana = "pyu"     }, // ぴゅ
+  {.key = B_M|B_X|B_P|B_SHFT       , .kana = "pyu"     }, // ぴゅ(冗長)
+  {.key = B_M|B_X|B_I              , .kana = "pyo"     }, // ぴょ
+  {.key = B_M|B_X|B_I|B_SHFT       , .kana = "pyo"     }, // ぴょ(冗長)
   {.key = B_B|B_H                  , .kana = "mya"     }, // みゃ
   {.key = B_B|B_H|B_SHFT           , .kana = "mya"     }, // みゃ(冗長)
   {.key = B_B|B_P                  , .kana = "myu"     }, // みゅ
