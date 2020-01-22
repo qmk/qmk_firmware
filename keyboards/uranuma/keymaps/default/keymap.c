@@ -20,8 +20,6 @@ enum custom_keycodes {
 #define KC_ADUJST ADJUST
 #define KC_DLBS BASE //DF(_BASE)
 
-#define KC________ KC_TRNS
-#define KC_XXXXXXX KC_NO
 #define KC_RST   RESET
 #define KC_SUSFT SUSFT
 #define KC_ZSFT  LSFT_T(KC_Z)
