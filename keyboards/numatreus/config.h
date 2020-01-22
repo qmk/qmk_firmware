@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    yohewi
 #define PRODUCT         NumAtreus
-#define DESCRIPTION     q.m.k. keyboard firmware for NumAtreus
+#define DESCRIPTION     QMK keyboard firmware for NumAtreus
 
 /* key matrix size */
 #define MATRIX_ROWS 4

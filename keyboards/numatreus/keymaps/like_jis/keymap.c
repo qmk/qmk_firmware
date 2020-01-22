@@ -41,10 +41,6 @@ enum tapdances{
 #define KC_DLNP NUMPAD //DF(_NUMPAD)
 #define KC_DLBS BASE //DF(_BASE)
 
-#define KC________ KC_TRNS
-#define KC_XXXXXXX KC_NO
-
-
 #define KC_ZSFT  LSFT_T(KC_Z)
 #define KC_MNSF  LSFT_T(KC_MINS)
 #define KC_ESCT  LCTL_T(KC_ESC)
