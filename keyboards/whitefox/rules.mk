@@ -72,6 +72,7 @@ COMMAND_ENABLE = yes    # Commands for debug and configuration
 NKRO_ENABLE = yes	    # USB Nkey Rollover
 CUSTOM_MATRIX = yes # Custom matrix file
 BACKLIGHT_ENABLE = yes
+BACKLIGHT_DRIVER = custom
 VISUALIZER_ENABLE = yes
 
 LED_DRIVER = is31fl3731c
