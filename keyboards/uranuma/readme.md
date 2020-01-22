@@ -3,7 +3,7 @@
 It is a keyboard to input using fingers and palms.
 
 
-Keyboard Maintainer: yohewi(yohewi@gmail.com)
+* Keyboard Maintainer: yohewi(yohewi@gmail.com)
 Hardware Supported: UraNuma, PCB
 Hardware Availability: Case Data
 
