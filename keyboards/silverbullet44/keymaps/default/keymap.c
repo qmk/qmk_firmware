@@ -25,19 +25,15 @@
 #define _CURSOL 1
 #define _CALC 2
 #define _ADJUST 3
-#define _MOUSE 4
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  ADJUST,
+  ADJUST = SAFE_RANGE,
   RGBRST,
   KC_00,
   ALTAB
 };
-//#define _______ KC_TRNS
-//#define XXXXXXX KC_NO
-#define CALC  LT(_CALC,   KC_ESC)
-#define CUSL  LT(_CURSOL, KC_TAB)
+#define CALC LT(_CALC,   KC_ESC)
+#define CUSL LT(_CURSOL, KC_TAB)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -53,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                          |  F5  |      |/ Space /  Esc  /       \  Tab  \ Enter\     |  F12  |
  *                          `-----------------------------'         '---------------------------'
  */
- [_QWERTY] = LAYOUT( \
+  [_QWERTY] = LAYOUT( \
     KC_TAB,    KC_Q, KC_W, KC_E, KC_R, KC_T,                KC_Y,   KC_U,    KC_I,    KC_O,   KC_P,    KC_EQL,  \
     KC_LSFT,   KC_A, KC_S, KC_D, KC_F, KC_G,                KC_H,   KC_J,    KC_K,    KC_L,   KC_SCLN, KC_QUOT, \
     KC_LCTRL,  KC_Z, KC_X, KC_C, KC_V, KC_B,                KC_N,   KC_M,    KC_COMM, KC_DOT, KC_SLSH, KC_MINS, \
@@ -72,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                          |      |      |/       /       /       \       \      \ |      |      |
  *                          `-----------------------------'         '-----------------------------'
  */
- [_CURSOL] = LAYOUT( \
+  [_CURSOL] = LAYOUT( \
   RESET ,  KC_F1,   KC_F2,      KC_PGUP, KC_F4,      KC_F5,                         KC_F6,   KC_F7,        KC_UP,   KC_F9,        KC_F10,  RESET,  \
   _______, KC_TILD, KC_HOME,    KC_PGDN, KC_END,     KC_LPRN,                       KC_RPRN, KC_LEFT,      KC_DOWN, KC_RGHT,      KC_PIPE, KC_F11, \
   _______, KC_GRV,  C(KC_LEFT), KC_F3,   C(KC_RGHT), S(ALTAB),                      ALTAB,   LCA(KC_LEFT), KC_F8,   LCA(KC_RGHT), KC_BSLS, RGBRST, \
@@ -91,25 +87,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                          |      |      |/       /       /       \       \   0   \ |  00  |  .   |
  *                          `-----------------------------'         '------------------------------'
  */
- [_CALC] = LAYOUT( \
+  [_CALC] = LAYOUT( \
   _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                       KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______, \
   _______, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_LBRC,                    KC_RBRC, KC_4,    KC_5,    KC_6,    KC_PPLS, _______, \
   _______, KC_CIRC, KC_AMPR, KC_ASTR, KC_EXLM, KC_LCBR,                    KC_RCBR, KC_1,    KC_2,    KC_3,    KC_PEQL, _______, \
                              _______, _______, _______, _______,   ADJUST, KC_0,    KC_00,   KC_PDOT \
   ),
 
-/*   MOUSE
- * ,-----------------------------------------.                                  ,-----------------------------------------.
- * |      |      |      |      |      |      |                                  |WhlL  | WhlR |  Up  |      |      |      |
- * |------+------+------+------+------+------|                                  |------+------+------+------+------+------|
- * |      |      |      |      |      |      |                                  |WhlUP | Left | Down |Right |      |      |
- * |------+------+------+------+------+------+                                  +------+------+------+------+------+------|
- * |      |  `   |      |      |      |      |-------.-------.  ,---------------|WhlDW |      |      |      |      |      |
- * `-----------------------------------------/       /       /   \       \      \----------------------------------------'
- *                          | Left |Right | /Center /       /     \       \      \  |      |      |
- *                          |Click |Click |/ Click /       /       \       \      \ |      |      |
- *                          `-----------------------------'         '-----------------------------'
-*/
 /*   ADJUST
  * ,-----------------------------------------.                                  ,-----------------------------------------.
  * |      |      |      |FrqRst|      |      |                                  |      |      |      |      |      |      |
@@ -123,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                          `-----------------------------'         '------------------------------'
 */
 
- [_ADJUST] = LAYOUT( \
+  [_ADJUST] = LAYOUT( \
   _______, XXXXXXX, XXXXXXX, CK_RST,  XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, _______, \
   XXXXXXX, XXXXXXX, MU_TOG,  CK_UP,   AU_TOG,  XXXXXXX,                      RGB_SPI, RGB_MOD,  RGB_VAI, RGB_SAI, RGB_HUI, XXXXXXX, \
   XXXXXXX, XXXXXXX, MU_MOD,  CK_DOWN, XXXXXXX, XXXXXXX,                      RGB_SPD, RGB_RMOD, RGB_VAD, RGB_SAD, RGB_HUD, XXXXXXX, \
@@ -149,15 +133,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-        case RGBRST:
 #ifdef RGBLIGHT_ENABLE
+        case RGBRST:
             if (record->event.pressed) {
                 eeconfig_update_rgblight_default();
                 rgblight_enable();
                 RGB_current_mode = rgblight_config.mode;
             }
-#endif
             break;
+#endif
         case KC_SCLN:
             if (keyboard_report->mods & MOD_BIT(KC_LSFT)) {
                 if (record->event.pressed) {
@@ -222,15 +206,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_init_user(void) {
-  #ifdef RGBLIGHT_ENABLE
+#ifdef RGBLIGHT_ENABLE
     RGB_current_mode = rgblight_config.mode;
-  #endif
+#endif
 }
 
-void matrix_scan_user(void) {
-
-}
-
-void led_set_user(uint8_t usb_led) {
-
-}
