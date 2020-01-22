@@ -1,1 +1,1 @@
-# The default keymap for Noxary 280
+# The VIA keymap for Noxary 280
