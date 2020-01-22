@@ -72,11 +72,11 @@ make コマンド自体にもいくつかの追加オプションがあります
 
 `COMMAND_ENABLE`
 
-これは、通常はデフォルトのマジックキーコマンド `LSHIFT+RSHIFT+KEY` で起動されるマジックコマンドを有効にします。マジックコマンドは、デバッグメッセージ (`MAGIC+D`) あるいは NKRO の一時的な切り替え (`MAGIC+N`) の有効化を含みます。
+これはマジックコマンドを有効にし、通常はデフォルトのマジックキーの組み合わせ `LSHIFT+RSHIFT+KEY` で起動されます。マジックコマンドは、デバッグメッセージ (`MAGIC+D`) の有効化や NKRO の一時的な切り替え (`MAGIC+N`) を含みます。
 
 `SLEEP_LED_ENABLE`
 
-コンピュータがスリープの間に LED がブレスできるようにします。Timer1 が使われます。This feature is largely unused and untested, and needs updating/abstracting.
+コンピュータがスリープの間に LED がブレスできるようにします。ここでは Timer1 が使われます。この機能は大部分が未使用でテストされておらず、更新もしくは抽象化が必要です。
 
 `NKRO_ENABLE`
 
@@ -104,7 +104,7 @@ make コマンド自体にもいくつかの追加オプションがあります
 
 これにより、送信したい文字に対応するニーモニックを入力することで Unicode 文字を送信することができます。キーマップファイル内にマッピングテーブルを保持する必要があります。可能な全てのコードポイント( `0x10FFFF` まで)がサポートされます。
 
-詳細と制限については、[Unicodeページ](ja/feature_unicode.md) を見てください。
+詳細と制限については、[Unicode ページ](ja/feature_unicode.md) を見てください。
 
 `BLUETOOTH_ENABLE`
 
@@ -112,23 +112,23 @@ make コマンド自体にもいくつかの追加オプションがあります
 
 `AUDIO_ENABLE`
 
-This allows you output audio on the C6 pin (needs abstracting). 詳細は[オーディオページ](ja/feature_audio.md)を見てください。
+C6 ピン(抽象化が必要)でオーディオ出力できます。詳細は[オーディオページ](ja/feature_audio.md)を見てください。
 
 `FAUXCLICKY_ENABLE`
 
-クリック音のあるスイッチをエミュレートするためにブザーを使います。チェリー青スイッチの安っぽい模倣。デフォルトでは、`AUDIO_ENABLE` と同じ C6 ピンを使います。
+クリック音のあるスイッチをエミュレートするためにブザーを使います。チェリー青軸スイッチの安っぽい模倣です。デフォルトでは、`AUDIO_ENABLE` と同じように C6 ピンを使います。
 
 `VARIABLE_TRACE`
 
-これを使って変数の値の変更をデバッグします。詳細についてはユニットテストのページの[トレース変数](ja/unit_testing.md#tracing-variables)のセクションを見てください。
+これを使って変数の値の変更をデバッグします。詳細についてはユニットテストのページの[変数のトレース](ja/unit_testing.md#tracing-variables)のセクションを見てください。
 
 `API_SYSEX_ENABLE`
 
-これにより文字列を送信するために Quantum SYSEX API を使うことができます (どこに？)
+これにより Quantum SYSEX API を使って文字列を送信することができます (どこに？)
 
 `KEY_LOCK_ENABLE`
 
-これは [key lock](ja/feature_key_lock.md) を有効にします。
+これは [キーロック](ja/feature_key_lock.md) を有効にします。
 
 `SPLIT_KEYBOARD`
 
@@ -136,11 +136,11 @@ This allows you output audio on the C6 pin (needs abstracting). 詳細は[オー
 
 `SPLIT_TRANSPORT`
 
-ARM ベースの分割キーボード用の標準分割通信ドライバはまだ無いため、これらのために `SPLIT_TRANSPORT = custom` が使われる必要があります。カスタムの実装が使われるようにすることで、標準の分割キーボード通信コード(AVR 固有)が含まれないようにします。
+ARM ベースの分割キーボード用の標準分割通信ドライバはまだ無いため、これらのために `SPLIT_TRANSPORT = custom` を使わなければなりません。カスタムの実装が使われるようにすることで、標準の分割キーボード通信コード(AVR 固有)が含まれないようにします。
 
 `CUSTOM_MATRIX`
 
-デフォルトのマトリックス走査ルーチンを独自のコードで置き換えます。詳細と制限については、[カスタムマトリックスページ](ja/custom_matrix.md) を見てください。
+デフォルトのマトリックス走査ルーチンを独自のコードで置き換えます。詳細については、[カスタムマトリックスページ](ja/custom_matrix.md) を見てください。
 
 `DEBOUNCE_TYPE`
 
@@ -148,6 +148,6 @@ ARM ベースの分割キーボード用の標準分割通信ドライバはま�
 
 ## キーマップごとに Makefile オプションをカスタマイズ
 
-キーマップディレクトリに `rules.mk` というファイルがある場合、そのファイルで設定した全てのオプションは、特定のキーボードの他の `rules.mk` オプションよりも優先されます。
+あなたのキーマップディレクトリに `rules.mk` というファイルがある場合、そのファイルで設定した全てのオプションは、あなたのキーボードの他の `rules.mk` オプションよりも優先されます。
 
-キーボードの `rules.mk` に `BACKLIGHT_ENABLE = yes` があるとします。特定のキーボードでバックライトが無いようにするには、`rules.mk` というファイルを作成し、`BACKLIGHT_ENABLE = no` を指定します。
+あなたのキーボードの `rules.mk` に `BACKLIGHT_ENABLE = yes` があるとします。あなたの特定のキーボードでバックライトが無いようにするには、`rules.mk` というファイルを作成し、`BACKLIGHT_ENABLE = no` を指定します。
