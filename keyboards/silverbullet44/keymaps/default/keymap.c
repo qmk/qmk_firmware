@@ -20,11 +20,12 @@
 //  QMKBEST = SAFE_RANGE,
 //  QMKURL
 //};
-
-#define _QWERTY 0
-#define _CURSOL 1
-#define _CALC 2
-#define _ADJUST 3
+enum layer {
+    _QWERTY,
+    _CURSOL,
+    _CALC,
+    _ADJUST,
+};
 
 enum custom_keycodes {
   ADJUST = SAFE_RANGE,

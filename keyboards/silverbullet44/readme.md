@@ -6,8 +6,8 @@ A hard keyboard with a hard keystroke that uses aluminum PCB for the top plate.
 Upgradable from sandwich mount to top mount by using optional parts.
 
 Keyboard Maintainer: [swan_match](https://github.com/swanmatch/)  
-Hardware Supported: The PCBs, ProMicro  
-Hardware Availability: [PCB & Case Data](https://github.com/swanmatch/silverbullet44), [Booth Shop](https://swanmatch.booth.pm/items/1561270)
+* Hardware Supported: The PCBs, ProMicro  
+* Hardware Availability: [PCB & Case Data](https://github.com/swanmatch/silverbullet44), [Booth Shop](https://swanmatch.booth.pm/items/1561270)
 
 Make example for this keyboard (after setting up your build environment):
 
