@@ -115,8 +115,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define B6_AUDIO
   #define STARTUP_SONG SONG(STARTUP_SOUND)
   #define AUDIO_CLICKY
-  #define AUDIO_CLUCKY_FREQ_MAX 220.0f
-  #define AUDIO_CLUCKY_FREQ_MIN 1760.0f
   #define AUDIO_CLICKY_FREQ_RANDOMNESS 1.0f
 #endif
 
