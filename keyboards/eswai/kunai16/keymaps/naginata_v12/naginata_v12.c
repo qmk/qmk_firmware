@@ -279,15 +279,15 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_V|B_M|B_K|B_SHFT       , .kana = "xi"      }, // ぃ(冗長)
   {.key = B_Q|B_L                  , .kana = "xu"      }, // ぅ
   {.key = B_V|B_M|B_L              , .kana = "xu"      }, // ぅ
-  {.key = B_V|B_M|B_L|B_SHFT       , .kana = "xu"      }, // ぅ(冗長)
+  // {.key = B_V|B_M|B_L|B_SHFT       , .kana = "xu"      }, // ぅ(冗長)
   {.key = B_Q|B_O                  , .kana = "xe"      }, // ぇ
   {.key = B_V|B_M|B_O              , .kana = "xe"      }, // ぇ
   {.key = B_V|B_M|B_O|B_SHFT       , .kana = "xe"      }, // ぇ(冗長)
   {.key = B_Q|B_N                  , .kana = "xo"      }, // ぉ
   {.key = B_V|B_M|B_N              , .kana = "xo"      }, // ぉ
   {.key = B_V|B_M|B_N|B_SHFT       , .kana = "xo"      }, // ぉ(冗長)
-  {.key = B_Q|B_L                  , .kana = "xwa"     }, // ゎ
-  {.key = B_V|B_M|B_L              , .kana = "xwa"     }, // ゎ
+  {.key = B_Q|B_L|B_SHFT           , .kana = "xwa"     }, // ゎ
+  // {.key = B_V|B_M|B_L              , .kana = "xwa"     }, // ゎ
   {.key = B_V|B_M|B_L|B_SHFT       , .kana = "xwa"     }, // ゎ(冗長)
   {.key = B_G                      , .kana = "xtu"     }, // っ
 
