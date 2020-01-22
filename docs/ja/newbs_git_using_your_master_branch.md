@@ -3,7 +3,7 @@
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
   original document: adf4acf59:docs/newbs_git_using_your_master_branch.md
-  git diff adf4acf59 HEAD docs/newbs_git_using_your_master_branch.md | cat
+  git diff adf4acf59 HEAD -- docs/newbs_git_using_your_master_branch.md | cat
 -->
 
 QMK の開発では、何がどこで行われているかにかかわらず、`master` ブランチを最新の状態に保つことを強くお勧めします、しかし `master` ブランチには***絶対に直接コミットしないでください***。

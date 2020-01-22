@@ -163,11 +163,11 @@ extern layer_state_t layer_state;
 #endif
 
 #ifdef DYNAMIC_KEYMAP_ENABLE
-#   include "dynamic_keymap.h"
+#    include "dynamic_keymap.h"
 #endif
 
 #ifdef VIA_ENABLE
-#   include "via.h"
+#    include "via.h"
 #endif
 
 // Function substitutions to ease GPIO manipulation
@@ -250,30 +250,6 @@ void shutdown_user(void);
 void register_code16(uint16_t code);
 void unregister_code16(uint16_t code);
 void tap_code16(uint16_t code);
-
-#ifdef BACKLIGHT_ENABLE
-void backlight_init_ports(void);
-void backlight_task(void);
-void backlight_task_internal(void);
-void backlight_on(pin_t backlight_pin);
-void backlight_off(pin_t backlight_pin);
-
-#    ifdef BACKLIGHT_BREATHING
-void breathing_task(void);
-void breathing_enable(void);
-void breathing_pulse(void);
-void breathing_disable(void);
-void breathing_self_disable(void);
-void breathing_toggle(void);
-bool is_breathing(void);
-
-void breathing_intensity_default(void);
-void breathing_period_default(void);
-void breathing_period_set(uint8_t value);
-void breathing_period_inc(void);
-void breathing_period_dec(void);
-#    endif
-#endif
 
 void     send_dword(uint32_t number);
 void     send_word(uint16_t number);

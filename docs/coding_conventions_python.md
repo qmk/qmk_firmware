@@ -309,6 +309,18 @@ FIXME(username): Revisit this code when the frob feature is done.
 
 ...where username is your GitHub username.
 
-# Unit Tests
+# Testing
 
-These are good. We should have some one day.
+We use a combination of Integration and Unit testing to ensure that the our code is as bug-free as possible. All the tests can be found in `lib/python/qmk/tests/`. You can run all the tests with `qmk pytest`.
+
+At the time of this writing our tests are not very comprehensive. Looking at the current tests and writing new test cases for untested situations is a great way to both familiarize yourself with the codebase and contribute to QMK.
+
+## Integration Tests
+
+Integration tests can be found in `lib/python/qmk/tests/test_cli_commands.py`. This is where CLI commands are actually run and their overall behavior is verified. We use [`subprocess`](https://docs.python.org/3.5/library/subprocess.html#module-subprocess) to launch each CLI command and a combination of checking output and returncode to determine if the right thing happened.
+
+## Unit Tests
+
+The other `test_*.py` files in `lib/python/qmk/tests/` contain unit tests. You can write tests for individual functions inside `lib/python/qmk/` here. Generally these files are named after the module, with dots replaced by underscores.
+
+At the time of this writing we do not do any mocking for our tests. If you would like to help us change this please [open an issue](https://github.com/qmk/qmk_firmware/issues/new?assignees=&labels=cli%2C+python&template=other_issues.md&title=) or [join #cli on Discord](https://discord.gg/heQPAgy) and start a conversation there.

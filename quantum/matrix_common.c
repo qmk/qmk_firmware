@@ -3,6 +3,14 @@
 #include "print.h"
 #include "debug.h"
 
+/* matrix state(1:on, 0:off) */
+matrix_row_t raw_matrix[MATRIX_ROWS];
+matrix_row_t matrix[MATRIX_ROWS];
+
+#ifdef MATRIX_MASKED
+extern const matrix_row_t matrix_mask[];
+#endif
+
 // user-defined overridable functions
 
 __attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
@@ -18,6 +26,18 @@ __attribute__((weak)) void matrix_scan_user(void) {}
 inline uint8_t matrix_rows(void) { return MATRIX_ROWS; }
 
 inline uint8_t matrix_cols(void) { return MATRIX_COLS; }
+
+inline bool matrix_is_on(uint8_t row, uint8_t col) { return (matrix[row] & ((matrix_row_t)1 << col)); }
+
+inline matrix_row_t matrix_get_row(uint8_t row) {
+    // Matrix mask lets you disable switches in the returned matrix data. For example, if you have a
+    // switch blocker installed and the switch is always pressed.
+#ifdef MATRIX_MASKED
+    return matrix[row] & matrix_mask[row];
+#else
+    return matrix[row];
+#endif
+}
 
 // Deprecated.
 bool matrix_is_modified(void) {
@@ -56,4 +76,32 @@ uint8_t matrix_key_count(void) {
         count += matrix_bitpop(i);
     }
     return count;
+}
+
+// CUSTOM MATRIX 'LITE'
+__attribute__((weak)) void matrix_init_custom(void) {}
+
+__attribute__((weak)) bool matrix_scan_custom(matrix_row_t current_matrix[]) { return true; }
+
+__attribute__((weak)) void matrix_init(void) {
+    matrix_init_custom();
+
+    // initialize matrix state: all keys off
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+        raw_matrix[i] = 0;
+        matrix[i]     = 0;
+    }
+
+    debounce_init(MATRIX_ROWS);
+
+    matrix_init_quantum();
+}
+
+__attribute__((weak)) uint8_t matrix_scan(void) {
+    bool changed = matrix_scan_custom(raw_matrix);
+
+    debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
+
+    matrix_scan_quantum();
+    return changed;
 }
