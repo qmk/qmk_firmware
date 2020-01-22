@@ -71,7 +71,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           return false;
       default:
-          // Use process_record_keymap to reset timer on all other keypresses to awaken from iddle.
+          // Use process_record_keymap to reset timer on all other keypresses to awaken from idle.
           if (record->event.pressed) {
               #ifdef OLED_DRIVER_ENABLE
                   oled_timer = timer_read32();
