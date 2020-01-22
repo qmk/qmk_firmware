@@ -90,9 +90,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,----------------------------------.             ,----------------------------------.
     KC_F1,  KC_F2,  KC_F3,  KC_F4, KC_F5,            KC_MINS, KC_EQL, KC_JYEN, KC_LBRC, KC_RBRC,
   //|------+------+------+------+------|             |------+------+------+------+------|
-    KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10,           KC_XXXXXXX, KC_XXXXXXX, KC_SCLN, KC_QUOT, KC_BSLS,
+    KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10,           XXXXXXX, XXXXXXX, KC_SCLN, KC_QUOT, KC_BSLS,
   //|------+------+------+------+------|             |------+------+------+------+------|
-    KC_11SF, KC_F12, KC_DLNP, KANJI, KC_ENT,         KC_XXXXXXX, KC_COMM, KC_DOT, KC_SLSH, KC_RO,
+    KC_11SF, KC_F12, KC_DLNP, KANJI, KC_ENT,         XXXXXXX, KC_COMM, KC_DOT, KC_SLSH, KC_RO,
   //|------+------+------+------+------|------+------+------+------+------+------+------|
    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_DEL, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
   //|------+------+------+------+-------------+------+------+------+------+------+------|
@@ -102,9 +102,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,----------------------------------.             ,----------------------------------.
      KC_1,  KC_2,  KC_3,  KC_4,  KC_5,                 KC_6,  KC_7, KC_8, KC_9, KC_0,
   //|------+------+------+------+------|             |------+------+------+------+------|
-  KC_XXXXXXX, KC_XXXXXXX, KC_XXXXXXX, KC_XXXXXXX, KC_XXXXXXX,     KC_QUOT, KC_4, KC_5, KC_6, KC_MINS,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     KC_QUOT, KC_4, KC_5, KC_6, KC_MINS,
   //|------+------+------+------+------|             |------+------+------+------+------|
-  KC_LSFT, KC_XXXXXXX, KC_XXXXXXX, KC_XXXXXXX, KC_XXXXXXX,        KC_SLSH, KC_1, KC_2, KC_3, KC_PPLS,
+  KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,        KC_SLSH, KC_1, KC_2, KC_3, KC_PPLS,
   //|------+------+------+------+------|------+------+------+------+------+------+------|
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_WLCK, KC_TRNS, KC_0, KC_DOT, KC_JEQL
   //|------+------+------+------+-------------+------+------+------+------+------+------|
@@ -112,11 +112,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT(
   //,----------------------------------.             ,----------------------------------.
-   RESET,  RGBRST, AG_NORM, AG_SWAP, KC_CAPS,        KC_XXXXXXX, KC_WH_L, KC_WH_U, KC_HOME, KC_PGUP,
+   RESET,  RGBRST, AG_NORM, AG_SWAP, KC_CAPS,        XXXXXXX, KC_WH_L, KC_WH_U, KC_HOME, KC_PGUP,
   //|------+------+------+------+------|             |------+------+------+------+------|
-   RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, KC_SLCK,      KC_XXXXXXX, KC_WH_R, KC_WH_D,  KC_END, KC_PGDN,
+   RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, KC_SLCK,      XXXXXXX, KC_WH_R, KC_WH_D,  KC_END, KC_PGDN,
   //|------+------+------+------+------|             |------+------+------+------+------|
-   RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, KC_NLCK,      KC_XXXXXXX, KC_BTN1, KC_BTN2, KC_MS_U, KC_XXXXXXX,
+   RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, KC_NLCK,      XXXXXXX, KC_BTN1, KC_BTN2, KC_MS_U, XXXXXXX,
   //|------+------+------+------+------|------+------+------+------+------+------+------|
    KC_LSFT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R
   //|------+------+------+------+-------------+------+------+------+------+------+------|

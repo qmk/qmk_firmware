@@ -2,10 +2,9 @@
 
 It is a keyboard to input using fingers and palms.
 
-A short description of the keyboard/project
 
-Keyboard Maintainer: yohewi(yohewi@gmail.com)
-Hardware Supported: UraNuma, PCB
+* Keyboard Maintainer: yohewi(yohewi@gmail.com)
+* Hardware Supported: UraNuma PCB
 Hardware Availability: Case Data
 
 Make example for this keyboard (after setting up your build environment):
