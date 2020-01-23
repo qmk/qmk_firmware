@@ -1,4 +1,4 @@
-#include QMK_KEYBOARD_H;
+#include QMK_KEYBOARD_H
 
 // Increase reaeabolity of transparent keys
 #define ____ KC_TRNS
