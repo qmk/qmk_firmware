@@ -42,6 +42,12 @@
 
 // Asetniop layout see above link
 uint32_t processQwerty(bool lookup) {
+	// These three are needed for numbers, commands and layering
+	// These must be included before any other maps
+	#include "gen/aset/layer-keymap.c"
+	#include "gen/aset/cmd-keymap.c"
+	#include "gen/aset/num-keymap.c"
+
 	// ASETNIOP supports various languages, define the one you wish to include here
 	// da, de, en, en-colemak, en-dvorak, es, fn, fr, hu, it, nl, nw, pl, pt, ro, sv, tr
 	#include "gen/aset/en-keymap.c"
@@ -66,31 +72,6 @@ uint32_t processQwerty(bool lookup) {
 	P(AR | AN | AI,									SEND_STRING("Undefined Quick Fire"));
 	P(AR | AI | AO,									SEND_STRING("Undefined Quick Fire"));
 	P(AR | AO | AP,									SEND_STRING("Undefined Quick Fire"));
-
-	// These two are needed for your numbers and commands
-	#include "gen/aset/cmd-keymap.c"
-	#include "gen/aset/num-keymap.c"
-
-	// Thumb Keys
-	P(AL,														SEND(KC_LSFT));
-	P(AR,														SEND(KC_SPC));
-	
-	// Layer Switches 
-	P(AA  | AT | AN | AP,																			SET_STICKY(NUM));
-	P(AS  | AE | AI | AO,																			SET_STICKY(CMD));
-	P(AA  | AS | AE | AT | AN | AI | AO | AP | AL | AR,				SET_STICKY(USR));
-
-	P(NUM | AA | AT | AN | AP,																SET_STICKY(0));
-	P(NUM | AS | AE | AI | AO,																SET_STICKY(CMD));
-	P(NUM | AA | AS | AE | AT | AN | AI | AO | AP | AL | AR,	SET_STICKY(USR));
-
-	P(CMD | AA | AT | AN | AP,																SET_STICKY(NUM));
-	P(CMD | AA | AS | AE | AT | AN | AI | AO | AP | AL | AR,  SET_STICKY(USR));
-	P(CMD | AS | AE | AI | AO,																SET_STICKY(0));
-
-	P(USR | AA | AT | AN | AP,																SET_STICKY(NUM));
-	P(USR | AA | AS | AE | AT | AN | AI | AO | AP | AL | AR,  SET_STICKY(0));
-	P(USR | AS | AE | AI | AO,																SET_STICKY(CMD));
 
 	return 0;
 }
