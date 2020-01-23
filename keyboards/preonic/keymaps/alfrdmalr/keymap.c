@@ -178,8 +178,13 @@ void matrix_scan_user(void) {
 
   LEADER_DICTIONARY() {
     leading = false;
+    // reset keyboard to bootloader
     SEQ_FIVE_KEYS(KC_R, KC_E, KC_S, KC_E, KC_T) {
       reset_keyboard();
+    }
+    // minimize window (Windows)
+    SEQ_FIVE_KEYS(KC_M, KC_I, KC_N) {
+      SEND_STRING(SS_LALT(" ")"n")
     }
     leader_end(); 
   }
