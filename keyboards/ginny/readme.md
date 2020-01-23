@@ -8,7 +8,7 @@ onboard ASETNIOP and all sorts of fun shenanigans
 [More info on qmk.fm](https://www.gboards.ca/product/ginni/)
 
 * Keyboard Maintainer: [Jeremy Bernhardt](https://github.com/germ)  
-Hardware Supported: Gergo (Kit, Partial, Ready)   
+* Hardware Supported: Gergo (Kit, Partial, Ready)   
 Hardware Availability: [gboards.ca](http://gboards.ca)  
 
 ## Firmware building
