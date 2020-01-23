@@ -184,7 +184,7 @@ void matrix_scan_user(void) {
     }
     // minimize window (Windows)
     SEQ_THREE_KEYS(KC_M, KC_I, KC_N) {
-      SEND_STRING(SS_LALT(" ")"n")
+      SEND_STRING(SS_LALT(" ")"n");
     }
     leader_end(); 
   }
