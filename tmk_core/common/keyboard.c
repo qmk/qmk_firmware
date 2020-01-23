@@ -83,6 +83,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef VELOCIKEY_ENABLE
 #    include "velocikey.h"
 #endif
+#ifdef VIA_ENABLE
+#    include "via.h"
+#endif
 
 // Only enable this if console is enabled to print to
 #if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)
@@ -217,6 +220,9 @@ __attribute__((weak)) bool is_keyboard_master(void) { return true; }
 void keyboard_init(void) {
     timer_init();
     matrix_init();
+#ifdef VIA_ENABLE
+    via_init();
+#endif
 #ifdef QWIIC_ENABLE
     qwiic_init();
 #endif
@@ -327,6 +333,16 @@ MATRIX_LOOP_END:
 
 #ifdef DEBUG_MATRIX_SCAN_RATE
     matrix_scan_perf_task();
+#endif
+
+#if defined(RGBLIGHT_ANIMATIONS) && defined(RGBLIGHT_ENABLE)
+    rgblight_task();
+#endif
+
+#if defined(BACKLIGHT_ENABLE)
+#    if defined(BACKLIGHT_PIN) || defined(BACKLIGHT_PINS)
+    backlight_task();
+#    endif
 #endif
 
 #ifdef QWIIC_ENABLE

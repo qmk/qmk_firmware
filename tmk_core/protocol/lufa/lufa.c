@@ -998,10 +998,6 @@ int main(void) {
         MIDI_Device_USBTask(&USB_MIDI_Interface);
 #endif
 
-#if defined(RGBLIGHT_ANIMATIONS) && defined(RGBLIGHT_ENABLE)
-        rgblight_task();
-#endif
-
 #ifdef MODULE_ADAFRUIT_BLE
         adafruit_ble_task();
 #endif

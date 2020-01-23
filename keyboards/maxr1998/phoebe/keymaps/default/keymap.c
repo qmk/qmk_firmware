@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_FN] = LAYOUT(
   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F10,  KC_F11,  KC_F12,
   _______, _______, _______, _______, _______, _______, _______, DE_UE,   KC_F9,   DE_OE,   _______, KC_DEL,
-  KC_LOCK, DE_AE,   DE_SS,   _______, _______, G_1,     _______, RGB_M_P, RGB_M_B, RGB_M_SW,_______, _______,
+  KC_LOCK, DE_AE,   DE_SS,   _______, _______, G_1,     _______, RGB_M_P, RGB_M_SW,RGB_M_SN,_______, _______,
   _______, _______, _______, _______, _______, _______, _______, RGB_HUD, RGB_TOG, RGB_HUI, KC_PGUP, _______,
   XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX,      _______,     XXXXXXX, XXXXXXX, KC_HOME, KC_PGDN, KC_END
 ),
@@ -111,6 +111,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     register_code(DE_SS);
                 } else {
                     unregister_code(DE_SS);
+                }
+                return false;
+            }
+            break;
+        case KC_Z:
+            if (get_mods() & MODS_ALGR_MASK) {
+                if (record->event.pressed) {
+                    register_code(DE_LESS);
+                } else {
+                    unregister_code(DE_LESS);
                 }
                 return false;
             }
