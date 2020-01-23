@@ -181,7 +181,7 @@ uint8_t matrix_scan(void) {
 		  if (matrix_is_on(r, c)) xprintf("r:%d c:%d \n", r, c);
 #endif
 
-    return 1;
+    return changed;
 }
 
 bool matrix_is_modified(void) // deprecated and evidently not called.
