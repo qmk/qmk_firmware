@@ -14,7 +14,7 @@ Hardware Availability: [gboards.ca](http://gboards.ca)
 ## Firmware building
 After cloning the QMK repo and installing dfu-programmer build and flash with. Be sure to reset your keyboard!
 
-    make ginny:default:dfu
+    make ginny:default:flash
 
 To just test your build with the default keymap
    
