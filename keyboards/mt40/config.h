@@ -63,6 +63,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 #define BACKLIGHT_PIN D2
+#define BACKLIGHT_ON_STATE 0
 
 /* number of backlight levels */
 #define BACKLIGHT_LEVELS 3
