@@ -9,7 +9,7 @@ onboard ASETNIOP and all sorts of fun shenanigans
 
 * Keyboard Maintainer: [Jeremy Bernhardt](https://github.com/germ)  
 * Hardware Supported: Gergo (Kit, Partial, Ready)   
-Hardware Availability: [gboards.ca](http://gboards.ca)  
+* Hardware Availability: [gboards.ca](http://gboards.ca)  
 
 ## Firmware building
 After cloning the QMK repo and installing dfu-programmer build and flash with. Be sure to reset your keyboard!
