@@ -3,7 +3,6 @@
 // Increase reaeabolity of transparent keys
 #define ____ KC_TRNS
 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[0] = LAYOUT_default(
