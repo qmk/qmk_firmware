@@ -61,7 +61,6 @@
         Attempts to modify the EEPROM_SIZE setting may brick your board.
 */
 
-
 // Writing unaligned 16 or 32 bit data is handled automatically when
 // this is defined, but at a cost of extra code size.  Without this,
 // any unaligned write will cause a hard fault exception!  If you're
@@ -529,7 +528,7 @@ void eeprom_write_block(const void *buf, void *addr, uint32_t len) {
 
 #    ifndef EEPROM_SIZE
 #        include "eeconfig.h"
-#        define EEPROM_SIZE (((EECONFIG_SIZE+3)/4)*4)  // based off eeconfig's current usage, aligned to 4-byte sizes, to deal with LTO
+#        define EEPROM_SIZE (((EECONFIG_SIZE + 3) / 4) * 4)  // based off eeconfig's current usage, aligned to 4-byte sizes, to deal with LTO
 #    endif
 __attribute__((aligned(4))) static uint8_t buffer[EEPROM_SIZE];
 
