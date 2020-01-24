@@ -38,13 +38,11 @@ void matrix_scan_cmd_tab(void);
  * Use the Mod-Tap feature for easy media controls
  * Used with >=65% layouts
  */
-#define MM_RGUI   RGUI_T(KC_MRWD)      // Tap Right GUI for Prev Track
-#define MM_RGPY   RGUI_T(KC_MPLY)      // Tap Right GUI for Play/Pause
-#define MM_RALT   RALT_T(KC_MFFD)      // Tap Right Alt for Next Track
-#define MM_FNPY   LT(1, KC_MPLY)       // Tap Fn for Play/Pause
-#define MM_RSFT   RSFT_T(KC_MUTE)      // Tap Right Shift for Mute
-#define LWR_MUT   LT(_LOWER, KC_MUTE)  // Tap Lower for Mute
-#define RAI_PLY   LT(_RAISE, KC_MPLY)  // Tap Raise for Play/Pause
+#define RWD_GUI   RGUI_T(KC_MRWD)      // Tap Right GUI for Prev Track
+#define PLY_GUI   RGUI_T(KC_MPLY)      // Tap Right GUI for Play/Pause
+#define FFD_ALT   RALT_T(KC_MFFD)      // Tap Right Alt for Next Track
+#define PLY_FN1   LT(1, KC_MPLY)       // Tap Fn for Play/Pause
+#define MUT_SFT   RSFT_T(KC_MUTE)      // Tap Right Shift for Mute
 /**
  * Arrow Mod-Tap
  * Use the Mod-Tap feature for arrow keys

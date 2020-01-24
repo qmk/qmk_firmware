@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_PGDN, \
     HY_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           XXXXXXX, \
     KC_LSFT, XXXXXXX, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,          KC_UP,   XXXXXXX, \
-    KC_LCTL, KC_LALT, KC_LGUI,                            KC_SPC,                             KC_RGUI, MM_FNPY,          KC_LEFT, KC_DOWN, KC_RGHT  \
+    KC_LCTL, KC_LALT, KC_LGUI,                            KC_SPC,                             KC_RGUI, PLY_FN1,          KC_LEFT, KC_DOWN, KC_RGHT  \
 ),
 /* Function Layer
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬───┐
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DELT, XXXXXXX, KC_VOLU, \
     RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, _______, _______, _______, _______, KC_F13,  KC_F14,  KC_F15,  MC_SLPD,          KC_VOLD, \
     RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______, _______, _______, _______, _______, MC_MSSN, MC_LHPD,          _______,          XXXXXXX, \
-    _______, XXXXXXX, RGB_LYR, RGB_THM, _______, _______, RESET,   _______, QM_MAKE, KC_MRWD, KC_MFFD, KC_MPLY, MM_RSFT,          KC_PGUP, XXXXXXX, \
+    _______, XXXXXXX, RGB_LYR, RGB_THM, _______, _______, RESET,   _______, QM_MAKE, KC_MRWD, KC_MFFD, KC_MPLY, MUT_SFT,          KC_PGUP, XXXXXXX, \
     _______, _______, _______,                            _______,                            _______, _______,          KC_HOME, KC_PGDN, KC_END   \
 ),
 /* Blank Layout
