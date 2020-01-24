@@ -25,7 +25,6 @@ void keyboard_pre_init_kb(void) {
 
 void led_init_ports(void) {
     setPinOutput(D0);
-    writePinHigh(D0);
 }
 
 bool led_update_kb(led_t led_state) {
