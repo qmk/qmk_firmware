@@ -102,6 +102,57 @@ ifeq ($(strip $(UNICODE_COMMON)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c
 endif
 
+VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c
+EEPROM_DRIVER ?= vendor
+ifeq ($(filter $(EEPROM_DRIVER),$(VALID_EEPROM_DRIVER_TYPES)),)
+  $(error EEPROM_DRIVER="$(EEPROM_DRIVER)" is not a valid EEPROM driver)
+else
+  OPT_DEFS += -DEEPROM_ENABLE
+  ifeq ($(strip $(EEPROM_DRIVER)), custom)
+    OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_CUSTOM
+    COMMON_VPATH += $(DRIVER_PATH)/eeprom
+    SRC += eeprom_driver.c
+  else ifeq ($(strip $(EEPROM_DRIVER)), i2c)
+    OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_I2C
+    COMMON_VPATH += $(DRIVER_PATH)/eeprom
+    QUANTUM_LIB_SRC += i2c_master.c
+    SRC += eeprom_driver.c eeprom_i2c.c
+  else ifeq ($(strip $(EEPROM_DRIVER)), transient)
+    OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_TRANSIENT
+    COMMON_VPATH += $(DRIVER_PATH)/eeprom
+    SRC += eeprom_driver.c eeprom_transient.c
+  else ifeq ($(strip $(EEPROM_DRIVER)), vendor)
+    OPT_DEFS += -DEEPROM_VENDOR
+    ifeq ($(PLATFORM),AVR)
+      # Automatically provided by avr-libc, nothing required
+    else ifeq ($(PLATFORM),CHIBIOS)
+      ifeq ($(MCU_SERIES), STM32F3xx)
+        SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
+        SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
+        OPT_DEFS += -DEEPROM_EMU_STM32F303xC
+        OPT_DEFS += -DSTM32_EEPROM_ENABLE
+      else ifeq ($(MCU_SERIES), STM32F1xx)
+        SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
+        SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
+        OPT_DEFS += -DEEPROM_EMU_STM32F103xB
+        OPT_DEFS += -DSTM32_EEPROM_ENABLE
+      else ifeq ($(MCU_SERIES)_$(MCU_LDSCRIPT), STM32F0xx_STM32F072xB)
+        SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
+        SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
+        OPT_DEFS += -DEEPROM_EMU_STM32F072xB
+        OPT_DEFS += -DSTM32_EEPROM_ENABLE
+      else
+        # This will effectively work the same as "transient" if not supported by the chip
+        SRC += $(PLATFORM_COMMON_DIR)/eeprom_teensy.c
+      endif
+    else ifeq ($(PLATFORM),ARM_ATSAM)
+      SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
+    else ifeq ($(PLATFORM),TEST)
+      SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
+    endif
+  endif
+endif
+
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     POST_CONFIG_H += $(QUANTUM_DIR)/rgblight_post_config.h
     OPT_DEFS += -DRGBLIGHT_ENABLE
@@ -418,9 +469,15 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
         QUANTUM_SRC += $(QUANTUM_DIR)/split_common/transport.c
         # Functions added via QUANTUM_LIB_SRC are only included in the final binary if they're called.
         # Unused functions are pruned away, which is why we can add multiple drivers here without bloat.
-        QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/serial.c \
-                           i2c_master.c \
+        QUANTUM_LIB_SRC += i2c_master.c \
                            i2c_slave.c
+
+        SERIAL_DRIVER ?= bitbang
+        ifeq ($(strip $(SERIAL_DRIVER)), bitbang)
+            QUANTUM_LIB_SRC += serial.c
+        else
+            QUANTUM_LIB_SRC += serial_$(strip $(SERIAL_DRIVER)).c
+        endif
     endif
     COMMON_VPATH += $(QUANTUM_PATH)/split_common
 endif
