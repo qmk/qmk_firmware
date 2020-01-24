@@ -70,7 +70,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define OS_MEH OSM(MOD_MEH)
 #define OS_HYPR OSM(MOD_HYPR)
 
-#define MT_ESC MT(MOD_LCTL, KC_ESC)
+#define MT_TAB MT(MOD_LCTL, KC_TAB)
 
 #define ALT_APP ALT_T(KC_APP)
 
