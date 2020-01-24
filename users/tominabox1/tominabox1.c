@@ -23,7 +23,7 @@ enum combo_events {
   COMBO_NUMBAK,
   //COMBO_ESC,
   COMBO_TAB,
-  COMBO_DELETE,
+ // COMBO_DELETE,
   COMBO_ALT
 };
 
@@ -44,7 +44,7 @@ const uint16_t PROGMEM combo_prev[] = {KC_7, KC_8, COMBO_END};
 const uint16_t PROGMEM combo_numbak[] = {KC_0, KC_9, COMBO_END};
 //const uint16_t PROGMEM combo_esc[] = {KC_1, KC_2, COMBO_END};
 const uint16_t PROGMEM tab_combo[] = {KC_Q, KC_W, COMBO_END};
-const uint16_t PROGMEM del_combo[] = {KC_1, KC_0, COMBO_END};
+//const uint16_t PROGMEM del_combo[] = {KC_1, KC_0, COMBO_END};
 const uint16_t PROGMEM alt_combo[] = {KC_COMM, KC_DOT, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
@@ -60,7 +60,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [COMBO_NUMBAK] = COMBO(combo_numbak,KC_BSPC),
   //[COMBO_ESC] = COMBO(combo_esc, KC_ESC),
   [COMBO_TAB] = COMBO(tab_combo, KC_TAB),
-  [COMBO_DELETE] = COMBO(del_combo, KC_DEL),
+//  [COMBO_DELETE] = COMBO(del_combo, KC_DEL),
   [COMBO_ALT] = COMBO(alt_combo, KC_LALT)
 };
 
@@ -180,12 +180,12 @@ void slsh_reset (qk_tap_dance_state_t *state, void *user_data) {
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_TAB_ESC]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_esc_tab, dance_esc_tab_reset),
     [TD_Q_ESC]     = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC),
-    [TD_QUES_ENT]  = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, slsh_finished, slsh_reset,250),
+    [TD_QUES_ENT]  = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, slsh_finished, slsh_reset,175),
     [TD_CTRL_Z]    = ACTION_TAP_DANCE_DOUBLE(KC_Z, LCTL(KC_Z)),
     [TD_CTRL_Y]    = ACTION_TAP_DANCE_DOUBLE(KC_Y, LCTL(KC_Y)),
     [TD_CTRL_C]    = ACTION_TAP_DANCE_DOUBLE(KC_C, LCTL(KC_C)),
     [TD_CTRL_V]    = ACTION_TAP_DANCE_DOUBLE(KC_V, LCTL(KC_V)),
-    [TD_CTRL_A]    = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, a_finished, a_reset, 220),
+    [TD_CTRL_A]    = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, a_finished, a_reset, 175),
     [TD_O_BSLS]    = ACTION_TAP_DANCE_DOUBLE(KC_O, KC_BSLS),
     [TD_QUOTE]     = ACTION_TAP_DANCE_DOUBLE(KC_QUOTE, KC_DQT),
     [TD_QCOL]      = ACTION_TAP_DANCE_DOUBLE(KC_QUOTE, KC_SCLN),
@@ -200,35 +200,36 @@ uint16_t get_tapping_term(uint16_t keycode) {
 			return 270;
         case LCTL_T(KC_TAB):
             return 120;
-        // case TD(TD_WTAB):
-            // return 150;
-   	    //case TD(TD_CTRL_A):
-          //  return 150;
         case LSFT_T(KC_Z):
-            return 150;
-		//case TD(TD_QUES_ENT):
-            //return 150;
+            return 125;
 		case LALT_T(KC_C):
-            return 300;
+            return 200;
         default:
             return TAPPING_TERM;
     }
 };
 
-// bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
-  // switch (keycode) {
-    // case RSFT_T(KC_DOT):
-      // return true;
-	// case LSFT_T(KC_Z):
-	  // return true;
-	// case LALT_T(KC_C):
-      // return true; 
-    // default:
-      // return false;
-  // }
-// }
+bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
+  switch (keycode) {
+	case LSFT_T(KC_Z):
+	  return false;
+    default:
+      return true;
+  }
+}
 
 bool get_tapping_force_hold(uint16_t keycode) {
+  switch (keycode) {
+    case LSFT_T(KC_Z):
+      return false; 
+    case TD(TD_QUES_ENT):
+      return false;
+	default:
+      return false;
+  }
+}
+
+bool get_permissive_hold(uint16_t keycode) {
   switch (keycode) {
     case LSFT_T(KC_Z):
       return true; 
@@ -236,6 +237,7 @@ bool get_tapping_force_hold(uint16_t keycode) {
       return false;
   }
 }
+
 __attribute__ ((weak))
 layer_state_t layer_state_set_keymap (layer_state_t state) {
   return state;

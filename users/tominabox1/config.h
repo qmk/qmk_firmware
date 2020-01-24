@@ -8,13 +8,14 @@
 //#define TAPPING_LAYER_TERM 150 // Custom LT Tapping term
 //#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
 #define IGNORE_TAPPING_FORCE_HOLD_PER_KEY
+#define PERMISSIVE_HOLD_PER_KEY
 
 // Combos
 #if defined(KEYBOARD_thevankeyboards_roadkit)
   #define COMBO_COUNT 7
   #define COMBO_TERM 75
 #else //everything else
-  #define COMBO_COUNT 10
+  #define COMBO_COUNT 9
   #define COMBO_TERM 100
 #endif
 #define COMBO_ALLOW_ACTION_KEYS
