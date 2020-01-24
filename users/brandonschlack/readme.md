@@ -7,7 +7,7 @@ My QMK home. I feel as though I stand on the shoulders of giants, for a lot of m
 
 I have some predefined layer names for keyboards:
 * **_BASE**: Default Layer, QWERTY layout.
-* **_FN**: Function Layer for 60% and above, and additional macros and shortcuts on 50% and below. 
+* **_FN1**: Function Layer for 60% and above, and additional macros and shortcuts on 50% and below. 
 * **_LOWER** and **_RAISE**: Function layers for 40%
 
 and macropads:

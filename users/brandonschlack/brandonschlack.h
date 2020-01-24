@@ -15,7 +15,7 @@
 enum bs_layers {
 #if !defined(IS_MACROPAD) // Keyboard Layers
     _BASE = 0,
-    _FN = 1,
+    _FN1 = 1,
     _LOWER,
     _RAISE,
 #else // Macropad Layers

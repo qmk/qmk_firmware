@@ -27,7 +27,7 @@ void matrix_scan_cmd_tab(void);
 #define HY_ESC    ALL_T(KC_ESC)        // Hold Escape for Hyper (Shift-Control-Option-Command)
 #define SF_CAPS   LSFT_T(KC_CAPS)      // Hold Caps Lock for Left Shift
 #define SFT_ENT   RSFT_T(KC_ENT)       // Hold Enter for Right Shift
-#define FN_LYR    MO(_FN)              // Hold for FN Layer
+#define FN_LYR    MO(_FN1)             // Hold for FN Layer
 #define LOWER     MO(_LOWER)           // Hold for LOWER Layer
 #define RAISE     MO(_RAISE)           // Hold for RAISE Layer
 #define TG_ADJT   TG(_ADJUST)          // Toggle ADJUST Layer
