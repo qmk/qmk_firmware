@@ -180,12 +180,12 @@ void slsh_reset (qk_tap_dance_state_t *state, void *user_data) {
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_TAB_ESC]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_esc_tab, dance_esc_tab_reset),
     [TD_Q_ESC]     = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC),
-    [TD_QUES_ENT]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, slsh_finished, slsh_reset),
+    [TD_QUES_ENT]  = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, slsh_finished, slsh_reset,250),
     [TD_CTRL_Z]    = ACTION_TAP_DANCE_DOUBLE(KC_Z, LCTL(KC_Z)),
     [TD_CTRL_Y]    = ACTION_TAP_DANCE_DOUBLE(KC_Y, LCTL(KC_Y)),
     [TD_CTRL_C]    = ACTION_TAP_DANCE_DOUBLE(KC_C, LCTL(KC_C)),
     [TD_CTRL_V]    = ACTION_TAP_DANCE_DOUBLE(KC_V, LCTL(KC_V)),
-    [TD_CTRL_A]    = ACTION_TAP_DANCE_FN_ADVANCED(NULL, a_finished, a_reset),
+    [TD_CTRL_A]    = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, a_finished, a_reset, 220),
     [TD_O_BSLS]    = ACTION_TAP_DANCE_DOUBLE(KC_O, KC_BSLS),
     [TD_QUOTE]     = ACTION_TAP_DANCE_DOUBLE(KC_QUOTE, KC_DQT),
     [TD_QCOL]      = ACTION_TAP_DANCE_DOUBLE(KC_QUOTE, KC_SCLN),
@@ -197,6 +197,7 @@ uint16_t get_tapping_term(uint16_t keycode) {
         case RSFT_T(KC_DOT):
             return 150;
         case LT(_LOWER, KC_SPC):
+			return 270;
         case LCTL_T(KC_TAB):
             return 120;
         // case TD(TD_WTAB):
@@ -207,31 +208,30 @@ uint16_t get_tapping_term(uint16_t keycode) {
             return 150;
 		//case TD(TD_QUES_ENT):
             //return 150;
-		case RALT_T(KC_C):
-            return 250;
+		case LALT_T(KC_C):
+            return 300;
         default:
             return TAPPING_TERM;
     }
 };
 
-bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
-  switch (keycode) {
-    case RSFT_T(KC_DOT):
-      return true;
-	case LSFT_T(KC_Z):
-	  return true;
-	case RALT_T(KC_C):
-      return true;
-    default:
-      return false;
-  }
-}
+// bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
+  // switch (keycode) {
+    // case RSFT_T(KC_DOT):
+      // return true;
+	// case LSFT_T(KC_Z):
+	  // return true;
+	// case LALT_T(KC_C):
+      // return true; 
+    // default:
+      // return false;
+  // }
+// }
 
 bool get_tapping_force_hold(uint16_t keycode) {
   switch (keycode) {
     case LSFT_T(KC_Z):
-      return true;
-
+      return true; 
     default:
       return false;
   }
