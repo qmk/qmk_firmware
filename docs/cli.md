@@ -141,13 +141,27 @@ qmk docs [-p PORT]
 
 ## `qmk doctor`
 
-This command examines your environment and alerts you to potential build or flash problems.
+This command examines your environment and alerts you to potential build or flash problems. It can fix many of them if you want it to.
 
 **Usage**:
 
 ```
-qmk doctor
+qmk doctor [-y] [-n]
 ```
+
+**Examples**:
+
+Check your environment for problems and prompt to fix them:
+
+    qmk doctor
+
+Check your environment and automatically fix any problems found:
+
+    qmk doctor -y
+
+Check your environment and report problems only:
+
+    qmk doctor -n
 
 ## `qmk json-keymap`
 
