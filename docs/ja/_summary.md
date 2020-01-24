@@ -3,7 +3,10 @@
    * [初めてのファームウェアの構築](ja/newbs_building_firmware.md)
    * [ファームウェアのフラッシュ](ja/newbs_flashing.md)
    * [テストとデバッグ](ja/newbs_testing_debugging.md)
-   * [Gitのベストプラクティス](ja/newbs_best_practices.md)
+   * [QMK における Git 運用作法](ja/newbs_git_best_practices.md)
+     * [あなたのフォークの master ブランチ](ja/newbs_git_using_your_master_branch.md)
+     * [マージの競合の解決](ja/newbs_git_resolving_merge_conflicts.md)
+     * [同期のとれていない git ブランチの再同期](ja/newbs_git_resynchronize_a_branch.md)
    * [学習リソース](ja/newbs_learn_more_resources.md)
 
 * [QMKの基本](ja/README.md)
