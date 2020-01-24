@@ -131,7 +131,7 @@ def os_test_linux():
     cli.log.info("Detected {fg_cyan}Linux.")
     ok = True
 
-    if not check_udev_rules:
+    if not check_udev_rules():
         ok = False
 
     return ok
