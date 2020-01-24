@@ -662,6 +662,10 @@ static void send_mouse(report_mouse_t *report) {
 #endif
 }
 
+/** \brief Send Extra
+ *
+ * FIXME: Needs doc
+ */
 static void send_extra(uint8_t report_id, uint16_t data) {
     uint8_t timeout = 255;
 
