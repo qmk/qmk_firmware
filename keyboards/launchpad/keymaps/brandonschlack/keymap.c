@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * │   7  │  8   │
  * └──────┴──────┘
  */
-[_MACRO] = LAYOUT( \
+[_KARABINER] = LAYOUT( \
     KC_P1,     KC_P2, \
     KC_P3,     KC_P4, \
     KC_P5,     KC_P6, \
@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT( \
     QM_MAKE, RESET, \
     DF_REDR, DF_MEDA, \
-    DF_NAVI, DF_MCRO, \
+    DF_NAVI, DF_KBNR, \
     TG_LGHT, XXXXXXX \
 )
 
@@ -152,7 +152,7 @@ void process_tap_dance_keycode (bool reset, uint8_t toggle_layer) {
                 case _NAVI:
                     keycode = REO_TAB;
                     break;
-                case _MACRO:
+                case _KARABINER:
                     keycode = KC_P7;
                     break;
             }
@@ -168,7 +168,7 @@ void process_tap_dance_keycode (bool reset, uint8_t toggle_layer) {
                 case _NAVI:
                     keycode = CLS_TAB;
                     break;
-                case _MACRO:
+                case _KARABINER:
                     keycode = KC_P8;
                     break;
             }

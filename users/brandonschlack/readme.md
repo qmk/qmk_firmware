@@ -14,7 +14,7 @@ and macropads:
 * **_REEDER**: Shortcuts for [Reeder.app](https://reederapp.com/), my RSS feed reader
 * **_MEDIA**: Media controls
 * **_NAVI**: Navigation macros, for changing tabs and scrolling
-* **_MACRO**: Generic macro keys, meant to be customized per app with [Karabiner](https://pqrs.org/osx/karabiner/)
+* **_KARABINER**: Generic macro keys, meant to be customized per app with [Karabiner](https://pqrs.org/osx/karabiner/)
 
 #### Protected Layers
 I have some named "protected" layers, meant to be at the end of the layer list for changing keyboard settings and features.

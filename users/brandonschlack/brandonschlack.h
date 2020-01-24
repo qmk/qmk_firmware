@@ -22,7 +22,7 @@ enum bs_layers {
     _REEDER = 0,
     _MEDIA,
     _NAVI,
-    _MACRO,
+    _KARABINER,
 #endif
     KEYMAP_LAYERS, // Add more layers in keymaps
     /* Protected Layer */

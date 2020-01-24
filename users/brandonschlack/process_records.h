@@ -100,7 +100,7 @@ void matrix_scan_cmd_tab(void);
 #define DF_REDR   DF(_REEDER)          // Set Default Layer to Reeder shortcuts
 #define DF_MEDA   DF(_MEDIA)           // Set Default Layer to Media controls
 #define DF_NAVI   DF(_NAVI)            // Set Default Layer to Navigation shortcuts
-#define DF_MCRO   DF(_MACRO)           // Set Default Layer to Basic Macro keys
+#define DF_KBNR   DF(_KARABINER)       // Set Default Layer to Basic Macro keys
 #endif
 
 // RGB Theme

@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         │    7   │    8   │    9   │
         └────────┴────────┴────────┘
      */
-    [_MACRO] = LAYOUT(
+    [_KARABINER] = LAYOUT(
         KC_P1, KC_P2, KC_P3,
         KC_P4, KC_P5, DTP_AVC,
         KC_P7, KC_P8, DTP_ADJ
@@ -193,7 +193,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_ADJUST] = LAYOUT(
         QM_MAKE, DF_REDR, TG_LGHT,
-        DF_MEDA, DF_NAVI, DF_MCRO,
+        DF_MEDA, DF_NAVI, DF_KBNR,
         TG_REVW, TG_LNAV, TG_EDIT
     ),
 };
@@ -210,7 +210,7 @@ const uint16_t PROGMEM encoders[][2][2] = {
     [_REEDER] = {{ KC_J, KC_K }, { KC_N, KC_P }},
     [_MEDIA] = {{ KC_VOLU, KC_VOLD }, { KC_MFFD, KC_MRWD }},
     [_NAVI] = {{ MC_WH_D, MC_WH_U }, { NXT_TAB, PRV_TAB }},
-    [_MACRO] = {{ KC_PPLS, KC_PMNS }, { KC_PEQL, KC_PDOT }},
+    [_KARABINER] = {{ KC_PPLS, KC_PMNS }, { KC_PEQL, KC_PDOT }},
     [LR_NAV] = {{ KC_EQL, KC_MINS }, { KC_PGUP, KC_PGDN }},
     [LR_REVIEW] = {{ KC_RBRC, KC_LBRC }, { G(KC_UP), G(KC_DOWN) }},
     [LR_EDIT] = {{ KC_DOT, KC_COMM }, { KC_EQL, KC_MINS }},
@@ -318,7 +318,7 @@ void process_tap_dance_keycode (bool reset, uint8_t toggle_layer) {
                 case _NAVI:
                     keycode = KC_PGUP;
                     break;
-                case _MACRO:
+                case _KARABINER:
                     keycode = KC_P6;
                     break;
                 case LR_NAV:
@@ -335,7 +335,7 @@ void process_tap_dance_keycode (bool reset, uint8_t toggle_layer) {
                 case _REEDER:
                     keycode = G(KC_3);
                     break;
-                case _MACRO:
+                case _KARABINER:
                     keycode = KC_P9;
                     break;
                 case _MEDIA:

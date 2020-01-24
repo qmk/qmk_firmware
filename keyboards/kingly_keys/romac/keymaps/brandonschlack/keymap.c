@@ -21,13 +21,13 @@ enum romac_layers {
     NUMPAD = 0,
     FN,
     NUMLOCK,
-    MACRO
+    KARABINER
 };
 
 #define DF_NMPD   DF(NUMPAD)
 #define DF_NMLK   DF(NUMLOCK)
-#undef DF_MCRO
-#define DF_MCRO   DF(MACRO)
+#undef  DF_KBNR
+#define DF_KBNR   DF(KARABINER)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[FN] = LAYOUT(
 		KC_PSLS, KC_PAST, KC_BSPC, \
 		KC_TRNS, KC_TRNS, KC_PMNS, \
-		DF_NMLK, DF_MCRO, KC_PPLS, \
+		DF_NMLK, DF_KBNR, KC_PPLS, \
 		KC_TRNS, TG_ADJT, KC_PENT \
 	),
 
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		DF_NMPD, KC_INS, KC_DEL  \
 	),
 
-    [MACRO] = LAYOUT(
+    [KARABINER] = LAYOUT(
 		KC_F13, KC_F14, KC_F15, \
 		KC_F16, KC_F17, KC_F18, \
 		KC_F19, KC_F20, KC_F21, \
@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST] = LAYOUT(
 		QM_MAKE, EEP_RST, XXXXXXX, \
 		XXXXXXX, XXXXXXX, XXXXXXX, \
-		DF_NMPD, DF_NMLK, DF_MCRO, \
+		DF_NMPD, DF_NMLK, DF_KBNR, \
 		KC_TRNS, XXXXXXX, XXXXXXX  \
 	)
 };
