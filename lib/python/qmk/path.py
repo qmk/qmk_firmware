@@ -31,7 +31,7 @@ def normpath(path):
 
     This will use the path to a file as seen from the directory the script was called from. You should use this to normalize filenames supplied from the command line.
     """
-    if path[0] == '/':
+    if path.is_absolute():
         return Path(path)
 
     return Path(os.environ['ORIG_CWD']) / path
