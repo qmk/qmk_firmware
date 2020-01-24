@@ -16,8 +16,8 @@ enum bs_layers {
 #if !defined(IS_MACROPAD) // Keyboard Layers
     _BASE = 0,
     _FN1 = 1,
-    _LOWER,
-    _RAISE,
+    _FN2,
+    _MACRO,
 #else // Macropad Layers
     _REEDER = 0,
     _MEDIA,
@@ -30,6 +30,9 @@ enum bs_layers {
     _LIGHT = 14, // 14: Backlight/RGB controls
     _ADJUST = 15 // 15: Change keyboard settings
 };
+
+#define _LOWER _FN1
+#define _RAISE _FN2
 
 /* TODO User EECONFIG */
 typedef union {
