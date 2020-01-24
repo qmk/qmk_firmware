@@ -36,7 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 12
 #define BACKLIGHT_BREATHING
-#define BACKLIGHT_ON_STATE 0
 
 /* RGB underglow */
 // NOTE: for PS2AVRGB boards, underglow commands are sent via I2C to 0xB0.

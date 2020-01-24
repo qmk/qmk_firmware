@@ -35,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_PIN D4
 #define BACKLIGHT_BREATHING
-#define BACKLIGHT_ON_STATE 0
 
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 6

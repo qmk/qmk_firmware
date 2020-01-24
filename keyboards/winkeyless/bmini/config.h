@@ -38,6 +38,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 3
-#define BACKLIGHT_ON_STATE 0
 
 #define NO_UART 1
