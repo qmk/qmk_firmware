@@ -48,19 +48,19 @@ void matrix_scan_cmd_tab(void);
  * Use the Mod-Tap feature for arrow keys
  * Mostly used for 60% layouts
  */
-#define MT_RSUP   RSFT_T(KC_UP)        // Tap Right Shift for Up
-#define MT_RALT   RALT_T(KC_LEFT)      // Tap Right Alt for Left
-#define MT_RFDN   LT(1, KC_DOWN)       // Tap Fn for Down
-#define MT_RCRT   RCTL_T(KC_RGHT)      // Tap Right Ctrl for Right
+#define UP_RSFT   RSFT_T(KC_UP)        // Tap Right Shift for Up
+#define LFT_ALT   RALT_T(KC_LEFT)      // Tap Right Alt for Left
+#define DWN_FN1   LT(1, KC_DOWN)       // Tap Fn for Down
+#define RGT_CTL   RCTL_T(KC_RGHT)      // Tap Right Ctrl for Right
 /**
  * Nav Mod-Tap
  * Use the Mod-Tap feature for nav keys (Home/End, Page Up/Down)
  * Mostly used for 60% layouts, on a function layer
  */
-#define MT_RSPU   RSFT_T(KC_PGUP)      // Tap Right Shift for Page Up
-#define MT_RAHM   RALT_T(KC_HOME)      // Tap Right Alt for Home
-#define MT_RFPD   LT(1, KC_PGDN)       // Tap Fn for Page Down
-#define MT_RCED   RCTL_T(KC_END)       // Tap Right Ctrl for End
+#define PGU_SFT   RSFT_T(KC_PGUP)      // Tap Right Shift for Page Up
+#define HOM_ALT   RALT_T(KC_HOME)      // Tap Right Alt for Home
+#define PGD_FN2   LT(2, KC_PGDN)       // Tap Fn2 for Page Down
+#define END_CTL   RCTL_T(KC_END)       // Tap Right Ctrl for End
 
 /**
  * MacOS
