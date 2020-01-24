@@ -24,14 +24,12 @@ void keyboard_pre_init_kb(void) {
 void led_init_ports(void) {
     setPinOutput(D1);
     setPinOutput(D6);
-    writePinHigh(D1);
-    writePinHigh(D6);
 }
 
 bool led_update_kb(led_t led_state) {
     if (led_update_user(led_state)) {
-        writePin(D1, !led_state.caps_lock);
-        writePin(D6, !led_state.scroll_lock);
+        writePin(D1, led_state.caps_lock);
+        writePin(D6, led_state.scroll_lock);
     }
     return true;
 }
