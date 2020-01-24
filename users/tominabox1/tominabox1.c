@@ -64,12 +64,6 @@ combo_t key_combos[COMBO_COUNT] = {
   [COMBO_ALT] = COMBO(alt_combo, KC_LALT)
 };
 
-
-
-
-
-
-
 typedef struct {
   bool is_press_action;
   int state;
@@ -152,12 +146,41 @@ void a_reset (qk_tap_dance_state_t *state, void *user_data) {
     case DOUBLE_SINGLE_TAP: unregister_code16(KC_A);
   }
   atap_state.state = 0;
+} 
+
+static tap slshtap_state = {
+  .is_press_action = true,
+  .state = 0
+};
+
+void slsh_finished (qk_tap_dance_state_t *state, void *user_data) {
+  slshtap_state.state = cur_dance(state);
+  switch (slshtap_state.state) {
+    case SINGLE_TAP: register_code16(KC_SLSH); break;
+    case SINGLE_HOLD: register_code16(KC_RSFT); break;
+    case DOUBLE_TAP: register_code16(KC_ENT); break;
+    case DOUBLE_HOLD: register_code16(KC_LALT); break;
+    case DOUBLE_SINGLE_TAP: register_code16(KC_SLSH); unregister_code16(KC_SLSH); register_code16(KC_SLSH);
+    //Last case is for fast typing. Assuming your key is `f`:
+    //For example, when typing the word `buffer`, and you want to make sure that you send `ff` and not `Esc`.
+    //In order to type `ff` when typing fast, the next character will have to be hit within the `TAPPING_TERM`, which by default is 200ms.
+  }
 }
 
+void slsh_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (slshtap_state.state) {
+    case SINGLE_TAP: unregister_code16(KC_SLSH); break;
+    case SINGLE_HOLD: unregister_code16(KC_RSFT); break;
+    case DOUBLE_TAP: unregister_code16(KC_ENT); break;
+    case DOUBLE_HOLD: unregister_code16(KC_LALT);
+    case DOUBLE_SINGLE_TAP: unregister_code16(KC_SLSH);
+  }
+  slshtap_state.state = 0;
+}
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_TAB_ESC]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_esc_tab, dance_esc_tab_reset),
     [TD_Q_ESC]     = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC),
-    [TD_QUES_ENT]  = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_ENT),
+    [TD_QUES_ENT]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, slsh_finished, slsh_reset),
     [TD_CTRL_Z]    = ACTION_TAP_DANCE_DOUBLE(KC_Z, LCTL(KC_Z)),
     [TD_CTRL_Y]    = ACTION_TAP_DANCE_DOUBLE(KC_Y, LCTL(KC_Y)),
     [TD_CTRL_C]    = ACTION_TAP_DANCE_DOUBLE(KC_C, LCTL(KC_C)),
@@ -173,20 +196,19 @@ uint16_t get_tapping_term(uint16_t keycode) {
     switch (keycode) {
         case RSFT_T(KC_DOT):
             return 150;
-        case KC_ENT_LOW:
-            return 150;
         case LT(_LOWER, KC_SPC):
-            return 270;
         case LCTL_T(KC_TAB):
             return 120;
-        case TD(TD_WTAB):
-            return 120;
-        case TD(TD_CTRL_A):
-            return 125;
+        // case TD(TD_WTAB):
+            // return 150;
+   	    //case TD(TD_CTRL_A):
+          //  return 150;
         case LSFT_T(KC_Z):
-            return 120;
-		case TD(TD_QUES_ENT):
             return 150;
+		//case TD(TD_QUES_ENT):
+            //return 150;
+		case RALT_T(KC_C):
+            return 250;
         default:
             return TAPPING_TERM;
     }
@@ -198,6 +220,8 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
       return true;
 	case LSFT_T(KC_Z):
 	  return true;
+	case RALT_T(KC_C):
+      return true;
     default:
       return false;
   }
@@ -207,6 +231,7 @@ bool get_tapping_force_hold(uint16_t keycode) {
   switch (keycode) {
     case LSFT_T(KC_Z):
       return true;
+
     default:
       return false;
   }
