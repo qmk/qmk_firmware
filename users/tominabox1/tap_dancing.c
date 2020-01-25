@@ -22,8 +22,8 @@ void dance_esc_tab (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 void dance_esc_tab_reset (qk_tap_dance_state_t *state, void *user_data) {
-        unregister_code16(KC_ESC);
-        unregister_code16(KC_TAB);
+  unregister_code16(KC_ESC);
+  unregister_code16(KC_TAB);
 }
 
 int cur_dance (qk_tap_dance_state_t *state) {
@@ -34,9 +34,9 @@ int cur_dance (qk_tap_dance_state_t *state) {
   }
   else if (state->count == 2) {
     /*
-     * DOUBLE_SINGLE_TAP is to distinguish between typing "pepper", and actually wanting a double tap
-     * action when hitting 'pp'. Suggested use case for this return value is when you want to send two
-     * keystrokes of the key, and not the 'double tap' action/macro.
+    * DOUBLE_SINGLE_TAP is to distinguish between typing "pepper", and actually wanting a double tap
+    * action when hitting 'pp'. Suggested use case for this return value is when you want to send two
+    * keystrokes of the key, and not the 'double tap' action/macro.
     */
     if (state->interrupted) return DOUBLE_SINGLE_TAP;
     else if (state->pressed) return DOUBLE_HOLD;
@@ -110,54 +110,57 @@ void slsh_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
   slshtap_state.state = 0;
 }
+
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_TAB_ESC]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_esc_tab, dance_esc_tab_reset),
-    [TD_Q_ESC]     = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC),
-    [TD_QUES_ENT]  = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, slsh_finished, slsh_reset,175),
-    [TD_CTRL_Z]    = ACTION_TAP_DANCE_DOUBLE(KC_Z, LCTL(KC_Z)),
-    [TD_CTRL_Y]    = ACTION_TAP_DANCE_DOUBLE(KC_Y, LCTL(KC_Y)),
-    [TD_CTRL_C]    = ACTION_TAP_DANCE_DOUBLE(KC_C, LCTL(KC_C)),
-    [TD_CTRL_V]    = ACTION_TAP_DANCE_DOUBLE(KC_V, LCTL(KC_V)),
-    [TD_CTRL_A]    = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, a_finished, a_reset, 175),
-    [TD_O_BSLS]    = ACTION_TAP_DANCE_DOUBLE(KC_O, KC_BSLS),
-    [TD_QUOTE]     = ACTION_TAP_DANCE_DOUBLE(KC_QUOTE, KC_DQT),
-    [TD_QCOL]      = ACTION_TAP_DANCE_DOUBLE(KC_QUOTE, KC_SCLN),
-    [TD_WTAB]      = ACTION_TAP_DANCE_DOUBLE(KC_W, KC_TAB)
+  [TD_TAB_ESC]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_esc_tab, dance_esc_tab_reset),
+  [TD_Q_ESC]     = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC),
+  [TD_QUES_ENT]  = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, slsh_finished, slsh_reset,200),
+  [TD_CTRL_Z]    = ACTION_TAP_DANCE_DOUBLE(KC_Z, LCTL(KC_Z)),
+  [TD_CTRL_Y]    = ACTION_TAP_DANCE_DOUBLE(KC_Y, LCTL(KC_Y)),
+  [TD_CTRL_C]    = ACTION_TAP_DANCE_DOUBLE(KC_C, LCTL(KC_C)),
+  [TD_CTRL_V]    = ACTION_TAP_DANCE_DOUBLE(KC_V, LCTL(KC_V)),
+  [TD_CTRL_A]    = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, a_finished, a_reset, 125),
+  [TD_O_BSLS]    = ACTION_TAP_DANCE_DOUBLE(KC_O, KC_BSLS),
+  [TD_QUOTE]     = ACTION_TAP_DANCE_DOUBLE(KC_QUOTE, KC_DQT),
+  [TD_QCOL]      = ACTION_TAP_DANCE_DOUBLE(KC_QUOTE, KC_SCLN),
+  [TD_WTAB]      = ACTION_TAP_DANCE_DOUBLE(KC_W, KC_TAB)
 };
 
 uint16_t get_tapping_term(uint16_t keycode) {
-    switch (keycode) {
-        case RSFT_T(KC_DOT):
-            return 150;
-        case LT(_LOWER, KC_SPC):
-			return 270;
-        case LCTL_T(KC_TAB):
-            return 120;
-        case LSFT_T(KC_Z):
-            return 125;
-		case LALT_T(KC_C):
-            return 200;
-        default:
-            return TAPPING_TERM;
-    }
+  switch (keycode) {
+    case RSFT_T(KC_DOT):
+      return 150;
+    case LT(_LOWER, KC_SPC):
+      return 300;
+    case LCTL_T(KC_TAB):
+      return 120;
+    case LSFT_T(KC_Z):
+      return 125;
+    case LALT_T(KC_C):
+      return 200;
+    default:
+      return TAPPING_TERM;
+  }
 };
 
 bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
   switch (keycode) {
-	case LSFT_T(KC_Z):
-	  return false;
-    default:
+    case LSFT_T(KC_Z):
+      return false;
+    case TD(TD_QUES_ENT):
       return true;
+    default:
+      return false;
   }
 }
 
 bool get_tapping_force_hold(uint16_t keycode) {
   switch (keycode) {
     case LSFT_T(KC_Z):
-      return false;
+      return true;
     case TD(TD_QUES_ENT):
       return false;
-	default:
+    default:
       return false;
   }
 }
@@ -166,6 +169,8 @@ bool get_permissive_hold(uint16_t keycode) {
   switch (keycode) {
     case LSFT_T(KC_Z):
       return true;
+    case TD(TD_QUES_ENT):
+        return true;
     default:
       return false;
   }
