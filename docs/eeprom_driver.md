@@ -2,11 +2,11 @@
 
 The EEPROM driver can be swapped out depending on the needs of the keyboard, or whether extra hardware is present.
 
-Driver                      | Description
---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-`EEPROM_DRIVER = vendor`    | Uses the on-chip driver provided by the chip manufacturer. For AVR, this is provided by avr-libc. This is supported on ARM for a subset of chips -- STM32F3xx, STM32F1xx, and STM32F072xB will be emulated by writing to flash. Other chips will generally act as "transient" below.
-`EEPROM_DRIVER = i2c`       | Supports writing to I2C-based 24xx EEPROM chips. See the driver section below.
-`EEPROM_DRIVER = transient` | Fake EEPROM driver -- supports reading/writing to RAM, and will be discarded when power is lost.
+Driver                             | Description
+-----------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+`EEPROM_DRIVER = vendor` (default) | Uses the on-chip driver provided by the chip manufacturer. For AVR, this is provided by avr-libc. This is supported on ARM for a subset of chips -- STM32F3xx, STM32F1xx, and STM32F072xB will be emulated by writing to flash. STM32L0xx and STM32L1xx will use the onboard dedicated true EEPROM. Other chips will generally act as "transient" below.
+`EEPROM_DRIVER = i2c`              | Supports writing to I2C-based 24xx EEPROM chips. See the driver section below.
+`EEPROM_DRIVER = transient`        | Fake EEPROM driver -- supports reading/writing to RAM, and will be discarded when power is lost.
 
 ## Vendor Driver Configuration
 
