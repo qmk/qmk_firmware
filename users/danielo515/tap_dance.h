@@ -22,7 +22,7 @@ int cur_dance (qk_tap_dance_state_t *state);
 # endif
 
 enum tap_dance {
-  COPY_CUT=0,
+  COPY_CUT,
   PASTE_DANCE,
   _TD_F1,
   _TD_F2,
