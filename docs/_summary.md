@@ -18,6 +18,7 @@
   * [Getting Help](getting_started_getting_help.md)
 
 * [Breaking Changes](breaking_changes.md)
+  * [Breaking Changes Instructions](breaking_changes_instructions.md)
   * [2019 Aug 30](ChangeLog/20190830.md)
 
 * [FAQ](faq.md)
