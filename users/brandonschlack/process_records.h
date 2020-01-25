@@ -30,7 +30,7 @@ void matrix_scan_cmd_tab(void);
 #define FN_LYR    MO(_FN1)             // Hold for FN Layer
 #define LOWER     MO(_LOWER)           // Hold for LOWER Layer
 #define RAISE     MO(_RAISE)           // Hold for RAISE Layer
-#define MACRO     MO(_MACRO)           // Hold for MACRO Layer
+#define MCO_LYR   MO(_MACRO)           // Hold for MACRO Layer
 #define TG_ADJT   TG(_ADJUST)          // Toggle ADJUST Layer
 #define TG_LGHT   TG(_LIGHT)           // Toggle LIGHT Layer
 /**
