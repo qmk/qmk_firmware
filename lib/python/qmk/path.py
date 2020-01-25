@@ -20,7 +20,7 @@ def keymap(keyboard):
         if (keyboard_folder / 'keymaps').exists():
             return (keyboard_folder / 'keymaps').resolve()
 
-        keyboard_folder = keyboard_folder / '..'
+        keyboard_folder = keyboard_folder.parent
 
     logging.error('Could not find the keymaps directory!')
     raise NoSuchKeyboardError('Could not find keymaps directory for: %s' % keyboard)
