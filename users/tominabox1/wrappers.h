@@ -37,7 +37,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define _________________LOWER_3___________________       KC_DEL,KC_NO, KC_LCBR, KC_LBRC, KC_LPRN, KC_UNDS, KC_RPRN, KC_RBRC, KC_RCBR, KC_DOT, KC_SLSH
 #define _________________LOWER_4___________________       LCA(KC_DEL),   KC_NO,   KC_NO,   KC_TRNS, KC_TRNS, KC_ENT, KC_PGDN, KC_END
 
-// Dimple Number layer
+// Dimple Nav layer
 #define ___________________NAV1____________________       KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_PGDN,   KC_UP,     KC_PGUP,    KC_NO, KC_NO
 #define ___________________NAV2____________________       KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_LEFT, KC_DOWN,  KC_RIGHT, KC_RBRC, KC_BSLS
 #define ___________________NAV3____________________       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_DOT,   KC_SLSH
@@ -83,7 +83,7 @@ __  __ _       _
 #define __________________MININUM3_________________       _________________LOWER_3___________________, KC_SLSH
 #define __________________MININUM4_________________       KC_DEL, _________________LOWER_4___________________, KC_END
 
-/* Minvian Number Layer
+/* Minvian Nav Layer
 #define ___________________NAV1____________________
 #define ___________________NAV2____________________       */
 #define ___________________RVAN_3__________________       ___________________NAV3____________________, KC_NO
@@ -116,13 +116,13 @@ __  __ _       _
 #define ___________________CRKBD3__________________       __________________BASE3L___________________, KC_K, KC_M,KC_COMM,   KC_DOT,  KC_SLSH,  KC_RSFT
 #define ___________________CRKBD4__________________       KC_LGUI, KC_LALT,LT(_LOWER, KC_SPC),  LT(_LOWER, KC_SPC), MO(_ARROW), KC_FKEY
 
-/* CRKBD Number layer
+/* CRKBD Nav layer
 #define ___________________NAV1____________________
 #define ___________________NAV2____________________        */
 #define ___________________CRKBD_RAISE3____________       ___________________RVAN_3__________________
 #define ___________________CRKBD_RAISE4____________       SPONGEBOB, KC_LALT,LT(_LOWER, KC_SPC),  LT(_LOWER, KC_SPC), MO(_ARROW), KC_FKEY
 
-/* CRKBD Symbol Layer
+/* CRKBD Number/Symbol Layer
 #define _________________LOWER_1___________________
 #define _________________LOWER_2___________________       */
 #define ___________________CRKBD_LOW3______________       __________________MININUM3_________________

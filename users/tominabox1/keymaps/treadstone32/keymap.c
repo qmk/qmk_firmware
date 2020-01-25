@@ -6,19 +6,6 @@
 extern rgblight_config_t rgblight_config;
 #endif
 
-// Base layer mod tap
-#define KC_A_CT  LCTL_T(KC_A)
-#define KC_Z_SF  LSFT_T(KC_Z)
-#define KC_C_AL  LALT_T(KC_C)
-#define KC_K_GU  LGUI_T(KC_K)
-#define KC_ENSF  LSFT_T(KC_ENT)
-#define KC_GBAK  LALT_T(KC_BSPC)
-
-// Layer tap
-#define KC_ENLO  LT(_LOWER, KC_ENT)
-#define KC_SPRA  LT(_RAISE, KC_SPC)
-#define KC_FDOT  LT(_FKEY, KC_DOT)
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT(
   //,---------------------------------------------------------------------------------------------------.
@@ -48,9 +35,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,---------------------------------------------------------------------------------------------------.
         KC_ESC,   RGBRST,  AG_NORM,  AG_SWAP,  DEBUG,  KC_GRV,KC_PGDN,    KC_UP,  KC_PGUP,    XXXXXXX,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI,  XXXXXXX,  KC_HOME,  KC_LEFT,  KC_DOWN,  KC_RGHT,   KC_END,
+       RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI,  SPONGEBOB,  KC_HOME,  KC_LEFT,  KC_DOWN,  KC_RGHT,   KC_END,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       RGB_MOD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  XXXXXXX,  KC_MINS,    KC_RO,  KC_COMM,   KC_DOT,  KC_BSLS,
+       RGB_MOD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  AESTHETIC,  KC_MINS,    KC_RO,  KC_COMM,   KC_DOT,  KC_BSLS,
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'
                                                KC_TRNS,  KC_TRNS
   //                                        `---------|---------'

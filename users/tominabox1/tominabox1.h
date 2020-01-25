@@ -11,7 +11,7 @@ enum layers {
     _LOWER,
     _RAISE,
     _MACRO,
-	_NUMPAD,
+	  _NUMPAD,
     _ARROW,
     _FKEY,
     _GAMER,
@@ -31,8 +31,8 @@ enum custom_keycodes {
     KC_LFT_NUM_F,
     RGBRST,
     KC_PASTA,
-	SPONGEBOB,
-	AESTHETIC,
+	  SPONGEBOB,
+	  AESTHETIC,
     EMAIL2
 };
 
@@ -67,3 +67,15 @@ enum tap_dance_indexes {
 #define KC_SPC_RSE LT(_RAISE, KC_SPC) // Space on tap, raise on hold
 #define KC_FKEY LT(_FKEY, KC_ENT) // Return on tap, Fkey on hold
 #define KC_NUMF TD(KC_LFT_NUM_F)
+
+#define KC_A_CT  LCTL_T(KC_A)
+#define KC_Z_SF  LSFT_T(KC_Z)
+#define KC_C_AL  LALT_T(KC_C)
+#define KC_K_GU  LGUI_T(KC_K)
+#define KC_ENSF  LSFT_T(KC_ENT)
+#define KC_GBAK  LALT_T(KC_BSPC)
+
+// Layer tap
+#define KC_ENLO  LT(_LOWER, KC_ENT)
+#define KC_SPRA  LT(_RAISE, KC_SPC)
+#define KC_FDOT  LT(_FKEY, KC_DOT)
