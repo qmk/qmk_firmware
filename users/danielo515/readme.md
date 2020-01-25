@@ -1,4 +1,4 @@
-Copyright <year> <name> <email> @<github_username>
+Copyright 2017 Daniel Rodriguez @ danielo515
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
