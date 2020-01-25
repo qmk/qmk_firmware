@@ -4,4 +4,4 @@
 # The docker container is deleted after the compilation, so this does not leave any trace.
 KEYBOARD=${1:-ergodox_ez}
 KEYMAP=${2:-default}
-docker run --rm -v $(pwd):/qmk -e keyboard="$KEYBOARD" -e subproject=" " -e keymap="$KEYMAP" qmk:latest
+docker run --rm -v $(pwd):/qmk_firmware -e keyboard="$KEYBOARD" -e subproject=" " -e keymap="$KEYMAP" qmk:latest make $KEYBOARD:$KEYMAP
