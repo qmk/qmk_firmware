@@ -1,6 +1,7 @@
 """Functions that help you work with QMK keymaps.
 """
 import os
+from pathlib import Path
 
 import qmk.path
 import qmk.makefile
@@ -112,22 +113,22 @@ def list_keymaps(keyboard_name):
 
     if rules_mk:
         # qmk_firmware/keyboards
-        keyboards_dir = os.path.join(os.getcwd(), "keyboards")
+        keyboards_dir = Path.cwd() / "keyboards"
         # path to the keyboard's directory
-        kb_path = os.path.join(keyboards_dir, keyboard_name)
+        kb_path = keyboards_dir / keyboard_name
         # walk up the directory tree until keyboards_dir
         # and collect all directories' name with keymap.c file in it
         while kb_path != keyboards_dir:
-            keymaps_dir = os.path.join(kb_path, "keymaps")
-            if os.path.exists(keymaps_dir):
-                names = names.union([keymap for keymap in os.listdir(keymaps_dir) if os.path.isfile(os.path.join(keymaps_dir, keymap, "keymap.c"))])
-            kb_path = os.path.dirname(kb_path)
+            keymaps_dir = kb_path / "keymaps"
+            if keymaps_dir.exists():
+                names = names.union([keymap for keymap in os.listdir(keymaps_dir) if (keymaps_dir / keymap / "keymap.c").is_file()])
+            kb_path = kb_path.parent
 
         # if community layouts are supported, get them
         if "LAYOUTS" in rules_mk:
             for layout in rules_mk["LAYOUTS"].split():
-                cl_path = os.path.join(os.getcwd(), "layouts", "community", layout)
-                if os.path.exists(cl_path):
-                    names = names.union([keymap for keymap in os.listdir(cl_path) if os.path.isfile(os.path.join(cl_path, keymap, "keymap.c"))])
+                cl_path = Path.cwd() / "layouts" / "community" / layout
+                if cl_path.exists():
+                    names = names.union([keymap for keymap in os.listdir(cl_path) if (cl_path / keymap / "keymap.c").is_file()])
 
     return sorted(names)
