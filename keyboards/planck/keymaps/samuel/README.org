@@ -28,21 +28,26 @@ before, so bear with me.
   | T_LRSE | QUOT   | COMM | DOT  | P   | Y   | F    | G   | C    | R     | L      | T_RRSE |
   | T_LSFT | A      | O    | E    | U   | I   | D    | H   | T    | N     | S      | T_RSFT |
   | T_LCTL | SCLN   | Q    | J    | K   | X   | B    | M   | W    | V     | Z      | T_RCTL |
-  | T_LGUI | T_LALT | UP   | DOWN | SPC | EQL | MINS | SPC | LEFT | RIGHT | T_RALT | T_RGUI |
+  | T_LGUI | T_LALT | UP   | DOWN | SPC | EQL | GRAVE | SPC | LEFT | RIGHT | T_RALT | T_RGUI |
   |--------+--------+------+------+-----+-----+------+-----+------+-------+--------+--------|
 
-  This qwerty layout is just so normal people can try out the board. Tap keys
-  would need to be customized I think, more on that later. I also put another
-  dvorak key here because I have nightmares of getting trapped in this forsaken
-  layout.
+  Tap keys. Used only with the "T_" keys above.
 
-  #+NAME: qwerty-layer
-  |--------+--------+----+------+-----+-----+------+-----+------+-------+--------+--------|
-  | T_LRSE | Q      | W  | E    | R   | T   | Y    | U   | I    | O     | P      | T_RRSE |
-  | T_LSFT | A      | S  | D    | F   | G   | H    | J   | K    | L     | SCLN   | T_RSFT |
-  | T_LCTL | Z      | X  | C    | V   | B   | N    | M   | COMM | DOT   | QUOT   | T_RCTL |
-  | T_LGUI | T_LALT | UP | DOWN | SPC | EQL | MINS | SPC | LEFT | RIGHT | T_RALT | DVORAK |
-  |--------+--------+----+------+-----+-----+------+-----+------+-------+--------+--------|
+  #+NAME: tap-layer
+  |----------+------+---+---+---+---+---+---+---+---+------+----------|
+  | DEL      | -    | - | - | - | - | - | - | - | - | -    | BSPC     |
+  | TAB      | -    | - | - | - | - | - | - | - | - | -    | ENTER    |
+  | LBRACKET | -    | - | - | - | - | - | - | - | - | -    | RBRACKET |
+  | SLASH    | LPRN | - | - | - | - | - | - | - | - | RPRN | MINS     |
+  |----------+------+---+---+---+---+---+---+---+---+------+----------|
+
+  #+NAME: hold-layer
+  |------+------+---+---+---+---+---+---+---+---+------+------|
+  | RISE | -    | - | - | - | - | - | - | - | - | -    | RISE |
+  | LSFT | -    | - | - | - | - | - | - | - | - | -    | RSFT |
+  | LCTL | -    | - | - | - | - | - | - | - | - | -    | RCTL |
+  | LGUI | LALT | - | - | - | - | - | - | - | - | RALT | RGUI |
+  |------+------+---+---+---+---+---+---+---+---+------+------|
 
   I tried to keep my layout bare bones, just what would be available on a normal
   keyboard, minus some keys I never used. This one secondary layer should cover a
@@ -52,12 +57,12 @@ before, so bear with me.
   left.
 
   #+NAME: secondary-layer
-  |--------+--------+--------+--------+--------+------+------+-----+--------+--------+-------+--------|
-  | --     | EZUNDO | EZCOPY | EZCUT  | EZPSTE | INS  | ASTR |   7 |      8 |      9 | --    | --     |
-  | EZSHFT | ESC    | CAPS   | PGUP   | PGDN   | HOME | AMPR |   4 |      5 |      6 | 0     | EZSHFT |
-  | EZCTRL | EXLM   | AT     | HASH   | DLR    | PERC | CIRC |   1 |      2 |      3 | COM   | EZCTRL |
-  | EZGUI  | EZALT  | EZUP   | EZDOWN | SPC    | QUES | SLSH | END | EZLEFT | EZRGHT | EZALT | EZGUI  |
-  |--------+--------+--------+--------+--------+------+------+-----+--------+--------+-------+--------|
+  |--------+--------+--------+--------+--------+------+--------+-----+--------+--------+-------+--------|
+  | --     | EZUNDO | EZCOPY | EZCUT  | EZPSTE | INS  | ASTR   |   7 |      8 |      9 | --    | --     |
+  | EZSHFT | ESC    | CAPS   | PGUP   | PGDN   | HOME | AMPR   |   4 |      5 |      6 | 0     | EZSHFT |
+  | EZCTRL | EXLM   | AT     | HASH   | DLR    | PERC | CIRC   |   1 |      2 |      3 | COM   | EZCTRL |
+  | EZGUI  | EZALT  | EZUP   | EZDOWN | SPC    | PIPE | BSLASH | END | EZLEFT | EZRGHT | EZALT | EZGUI  |
+  |--------+--------+--------+--------+--------+------+--------+-----+--------+--------+-------+--------|
 
   Basic command layer for one-shot macros and function keys.
 
@@ -69,8 +74,19 @@ before, so bear with me.
   | -- | --  | --  | --  | --  | --     | --     | --  | --  | --  | --  | -- |
   |----+-----+-----+-----+-----+--------+--------+-----+-----+-----+-----+----|
 
-  But wait, we are missing several important keys? well, yes, but the modifier keys
-  all do other keys when tapped. More about that in the keymap section.
+  This qwerty layout is just so normal people can try out the board. Tap keys
+  would need to be customized I think, more on that later. I also put another
+  dvorak key here because I have nightmares of getting trapped in this forsaken
+  layout.
+
+  #+NAME: qwerty-layer
+  |--------+--------+----+------+-----+-----+------+-----+------+-------+--------+--------|
+  | T_LRSE | Q      | W  | E    | R   | T   | Y    | U   | I    | O     | P      | T_RRSE |
+  | T_LSFT | A      | S  | D    | F   | G   | H    | J   | K    | L     | SCLN   | T_RSFT |
+  | T_LCTL | Z      | X  | C    | V   | B   | N    | M   | COMM | DOT   | QUOT   | T_RCTL |
+  | T_LGUI | T_LALT | UP | DOWN | SPC | EQL | GRAVE | SPC | LEFT | RIGHT | T_RALT | DVORAK |
+  |--------+--------+----+------+-----+-----+------+-----+------+-------+--------+--------|
+
 
 * Keymap Conversion in Python
 
@@ -82,27 +98,57 @@ before, so bear with me.
 
   #+NAME:layer-to-array
   #+BEGIN_SRC python :var keys=secondary-layer :tangle no
-results = "{"
-row = 0
-while row < len(keys):
-  results += '{ '
-  key = 0
-  while key < len(keys[row]):
-    keyName = str(keys[row][key])
+  results = "{"
+  row = 0
+  while row < len(keys):
+    results += '{ '
+    key = 0
+    while key < len(keys[row]):
+      keyName = str(keys[row][key])
+      if keyName == '--':
+        keyName = 'TRANSPARENT'
+      results += 'KC_' + keyName
+      if key != 11:
+        results += ', '
+      key+=1
+    results += '}'
+    if row != 3:
+      results += ','
+    results += '\n'
+    row+=1
+  results += '},\n'
+  return results
+  #+END_SRC
+
+  Tap keys are technically defined in the mod_lift function. but this is will
+  implement that function from the org table.
+
+  #+NAME:define-tap-key
+  #+BEGIN_SRC python :var row=3 :var col=1 :var id=0 :var tapkeys=tap-layer :var holdkeys=hold-layer :tangle no
+  def getKey(keys, istapkey):
+    if istapkey == True:
+      keyName = str(keys[row][col])
+    else:
+      keyName = str(keys[row][col])
     if keyName == '--':
       keyName = 'TRANSPARENT'
-    results += 'KC_' + keyName
-    if key != 11:
-      results += ', '
-    key+=1
-  results += '}'
-  if row != 3:
-    results += ','
-  results += '\n'
-  row+=1
-results += '},\n'
-return results
+    if istapkey == False:
+      return 'KC_T_' + keyName, 'KC_' + keyName
+    else:
+      return 'KC_' + keyName
+  tapKeyName = getKey(tapkeys, True)
+  holdKeyMacro, holdKeyName = getKey(holdkeys, False)
+  return """case %s:
+  if (record->event.pressed) {
+     mod_press(%s, %s, %i);
+  } else {
+     mod_lift(%s, %s, %i);
+  }
+  return false;
+  break;""" % (holdKeyMacro, tapKeyName, holdKeyName, id, tapKeyName, holdKeyName, id)
+
   #+END_SRC
+
 
 * keymap.c
 
@@ -168,45 +214,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
    #+BEGIN_SRC C :noweb yes
 [_DVORAK] =
-
-   #+END_SRC
-
-   #+BEGIN_SRC C :noweb yes
 <<layer-to-array(home-layer)>>
-
-   #+END_SRC
-
-   #+BEGIN_SRC C :noweb yes
 [_QWERTY] =
-
-   #+END_SRC
-
-   #+BEGIN_SRC C :noweb yes
 <<layer-to-array(qwerty-layer)>>
-
-   #+END_SRC
-
-   #+BEGIN_SRC C :noweb yes
 [_RISE] =
-
-   #+END_SRC
-
-   #+BEGIN_SRC C :noweb yes
 <<layer-to-array(secondary-layer)>>
-
-   #+END_SRC
-
-   #+BEGIN_SRC C :noweb yes
 [_COMMAND] =
-
-   #+END_SRC
-
-   #+BEGIN_SRC C :noweb yes
 <<layer-to-array(command-layer)>>
-
-   #+END_SRC
-
-   #+BEGIN_SRC C :noweb yes
 };
 
    #+END_SRC
@@ -284,123 +298,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     #+END_SRC
 
-*** Alt and ()
-
-    Left and right alt are ( and ) when tapped. I put them on alt instead of a more
-    conveniant key like control because parentheses do not need to be shift modified
-    ever, unlike some other tap keys seen in the next sections.
+*** Custom Keys
+**** Command Layer One Shot
 
     #+BEGIN_SRC C :noweb yes
- case KC_T_LALT:
+ case KC_COM:
  if (record->event.pressed) {
-     mod_press(S(KC_9), KC_LALT, 0);
+     layer_on(_COMMAND);
+     set_oneshot_layer(_COMMAND, ONESHOT_START);
+     last_mod = 10;
  } else {
-     mod_lift(S(KC_9), KC_LALT, 0);
+     clear_oneshot_layer_state (ONESHOT_PRESSED);
  }
  return false;
  break;
- case KC_T_RALT:
- if (record->event.pressed) {
-     mod_press(S(KC_0), KC_RALT, 1);
- } else {
-     mod_lift(S(KC_0), KC_RALT, 1);
- }
- return false;
- break;
-
     #+END_SRC
 
-*** Gui and `\
-
-    I place gui in the bottom corner because I believe it is the hardest key to
-    reach, so gui seemed like a good fit for a dedicated key that I never want to
-    have to spam. For tap keys, I used equally unused keys that are not apart of the
-    number pad or shifted number keys.
+**** Tap Keys
 
     #+BEGIN_SRC C :noweb yes
- case KC_T_LGUI:
- if (record->event.pressed) {
-     mod_press(KC_GRAVE, KC_LGUI, 2);
- } else {
-     mod_lift(KC_GRAVE, KC_LGUI, 2);
- }
- return false;
- break;
- case KC_T_RGUI:
- if (record->event.pressed) {
-     mod_press(KC_BSLASH, KC_RGUI, 3);
- } else {
-     mod_lift(KC_BSLASH, KC_RGUI, 3);
- }
- return false;
- break;
-
+    <<define-tap-key(3, 1, 0)>>
+    <<define-tap-key(3, 10, 1)>>
+    <<define-tap-key(3, 0, 2)>>
+    <<define-tap-key(3, 11, 3)>>
+    <<define-tap-key(2, 0, 4)>>
+    <<define-tap-key(2, 11, 5)>>
+    <<define-tap-key(1, 0, 6)>>
+    <<define-tap-key(1, 11, 7)>>
     #+END_SRC
 
-*** Ctrl and []
-
-    Left and right control are [] respectively when they are tapped, making { and }
-    also very convenient.
-
-    #+BEGIN_SRC C :noweb yes
- case KC_T_LCTL:
- if (record->event.pressed) {
-     mod_press(KC_LBRACKET, KC_LCTL, 4);
- } else {
-     mod_lift(KC_LBRACKET, KC_LCTL, 4);
- }
- return false;
- break;
- case KC_T_RCTL:
- if (record->event.pressed) {
-     mod_press(KC_RBRACKET, KC_RCTL, 5);
- } else {
-     mod_lift(KC_RBRACKET, KC_RCTL, 5);
- }
- return false;
- break;
-
-    #+END_SRC
-
-*** Shft and Tab/Enter
-
-    My thumb got so tired of doing enter key.  this hurts to type.  Enter
-    is by the pinkie where it should be.  Same with tab.
-
-    #+BEGIN_SRC C :noweb yes
- case KC_T_LSFT:
- if (record->event.pressed) {
-     mod_press(KC_TAB, KC_LSFT, 6);
- } else {
-     mod_lift(KC_TAB, KC_LSFT, 6);
- }
- return false;
- break;
- case KC_T_RSFT:
- if (record->event.pressed) {
-     mod_press(KC_ENTER, KC_RSFT, 7);
- } else {
-     mod_lift(KC_ENTER, KC_RSFT, 7);
- }
- return false;
- break;
-
-    #+END_SRC
-
-*** Rise, DEL, and Backspace
-
-    I use the top corners as rise because I decided that I do not like
-    using layers with my thumbs. It feels uncomfortable to hold keys
-    down with the side of my thumb, and spacebar is all it can
-    take. My pinky is for holding modifiers, so it makes sense to put
-    the layer key with the other modifiers. Both my left and right
-    layer keys activate the same layer which also makes sense to
-    me. You wouldn't want left and right shift to do different things
-
-    I used to have escape in the top left, but I use delete a lot
-    more, and putting escape under a layer has not been a problem at
-    all. I put backspace on the top right corner like a normal
-    keyboard.
+**** Rise Keys
 
     #+BEGIN_SRC C :noweb yes
  case KC_T_LRSE:
@@ -433,11 +360,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  break;
 
     #+END_SRC
-
-*** EZ Keys
-
-    EZ or "easy" keys do things that can already be done on the board, but I want an
-    easier way of doing them.
 
 **** One Shot Keys
 
@@ -476,7 +398,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
      #+END_SRC
 
-**** Arrows
+**** C-S Arrows
 
      I use ctrl+shift+arrows keys a lot, so when the layer key is pressed they became
      lazy versions of themselves with control and shift already pressed.
@@ -555,23 +477,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  return false;
  break;
      #+END_SRC
-
-*** Commands
-
-    Start command layer one shot
-
-    #+BEGIN_SRC C :noweb yes
- case KC_COM:
- if (record->event.pressed) {
-     layer_on(_COMMAND);
-     set_oneshot_layer(_COMMAND, ONESHOT_START);
-     last_mod = 10;
- } else {
-     clear_oneshot_layer_state (ONESHOT_PRESSED);
- }
- return false;
- break;
-    #+END_SRC
 
 *** Standard inputs interupt tap
 
