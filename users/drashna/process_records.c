@@ -34,20 +34,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
             if (!record->event.pressed) {
+#ifndef MAKE_BOOTLOADER
                 uint8_t temp_mod = mod_config(get_mods());
                 uint8_t temp_osm = mod_config(get_oneshot_mods());
                 clear_mods();
                 clear_oneshot_mods();
-                send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), TAP_CODE_DELAY);
+#endif
+                send_string_with_delay_P(PSTR("bin/qmk"), TAP_CODE_DELAY);
 #ifndef MAKE_BOOTLOADER
                 if ((temp_mod | temp_osm) & MOD_MASK_SHIFT)
 #endif
                 {
-                    send_string_with_delay_P(PSTR(":flash"), TAP_CODE_DELAY);
+                    send_string_with_delay_P(PSTR(" flash "), TAP_CODE_DELAY);
+#ifndef MAKE_BOOTLOADER
+                } else {
+                    send_string_with_delay_P(PSTR(" compile "), TAP_CODE_DELAY);
+#endif
                 }
-                if ((temp_mod | temp_osm) & MOD_MASK_CTRL) {
-                    send_string_with_delay_P(PSTR(" -j8 --output-sync"), TAP_CODE_DELAY);
-                }
+                send_string_with_delay_P(PSTR("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP), TAP_CODE_DELAY);
 #ifdef RGB_MATRIX_SPLIT_RIGHT
                 send_string_with_delay_P(PSTR(" RGB_MATRIX_SPLIT_RIGHT=yes"), TAP_CODE_DELAY);
 #    ifndef OLED_DRIVER_ENABLE
