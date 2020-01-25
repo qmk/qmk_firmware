@@ -1,5 +1,4 @@
-#ifndef USERSPACE
-#define USERSPACE
+#pragma once
 
 #include "quantum.h"
 
@@ -53,7 +52,7 @@ enum custom_keycodes
 
 
 enum layers {
-  _QWERTY = 0,
+  _QWERTY,
   _LOWER,
   _RAISE,
   _F,
@@ -63,7 +62,7 @@ enum layers {
   _J,
   _K,
   _MACROS,
-  _ADJUST = 16,
+  _ADJUST,
   _SAFE_LAYER
 };
 
@@ -101,5 +100,4 @@ enum layers {
 
 #ifdef TAP_DANCE_ENABLE
     #include "tap_dance.h"
-#endif
 #endif
