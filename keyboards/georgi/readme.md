@@ -21,8 +21,11 @@ To just test your build with the default keymap
 
 Build options can be enabled/disabled in keyboards/georgi/keymaps/default/rules.mk . Copy the default directory and make any changes to your layout, if you think they're worth sharing submit a PR!
 
+## Documentation
+Is hosted over on [docs.gboards.ca](http://docs.gboards.ca/). Please take a look at the docs for customizing your firmware!
+
 # Space
-The stock firmware uses nearly all of the flash avalible. For custom dictionary modifications, disable mousekeys in your keymaps rules.mk (4K of space) and remove the Gaming layers. I've done this already in the provided keymap 'template'.
+The stock firmware leaves 7K free for custom entries. For extra space disable mousekeys in your keymaps rules.mk (3K of space) and remove the Gaming layers (1k). 
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 

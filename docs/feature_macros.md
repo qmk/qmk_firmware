@@ -67,14 +67,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QMKURL:
       if (record->event.pressed) {
         // when keycode QMKURL is pressed
-        SEND_STRING("https://qmk.fm/" SS_TAP(X_ENTER));
+        SEND_STRING("https://qmk.fm/\n");
       } else {
         // when keycode QMKURL is released
       }
       break;
     case MY_OTHER_MACRO:
       if (record->event.pressed) {
-                SEND_STRING(SS_LCTRL("ac")); // selects all and copies
+                SEND_STRING(SS_LCTL("ac")); // selects all and copies
       }
       break;
   }
@@ -109,18 +109,21 @@ Which would send "VE" followed by a `KC_HOME` tap, and "LO" (spelling "LOVE" if 
 
 There's also a couple of mod shortcuts you can use:
 
-* `SS_LCTRL(string)`
-* `SS_LGUI(string)`
-* `SS_LALT(string)`
+* `SS_LCTL(string)`
 * `SS_LSFT(string)`
-* `SS_RALT(string)`
+* `SS_LALT(string)`
+* `SS_LGUI(string)`, `SS_LCMD(string)` or `SS_LWIN(string)`
+* `SS_RCTL(string)`
+* `SS_RSFT(string)`
+* `SS_RALT(string)` or `SS_ALGR(string)`
+* `SS_RGUI(string)`, `SS_RCMD(string)` or `SS_RWIN(string)`
 
 These press the respective modifier, send the supplied string and then release the modifier.
 They can be used like this:
 
-    SEND_STRING(SS_LCTRL("a"));
+    SEND_STRING(SS_LCTL("a"));
 
-Which would send LCTRL+a (LCTRL down, a, LCTRL up) - notice that they take strings (eg `"k"`), and not the `X_K` keycodes.
+Which would send Left Control+`a` (Left Control down, `a`, Left Control up) - notice that they take strings (eg `"k"`), and not the `X_K` keycodes.
 
 ### Alternative Keymaps
 
@@ -195,6 +198,49 @@ This will clear all mods currently pressed.
 
 This will clear all keys besides the mods currently pressed.
 
+## Advanced Example: 
+
+### Super ALT↯TAB
+
+This macro will register `KC_LALT` and tap `KC_TAB`, then wait for 1000ms. If the key is tapped again, it will send another `KC_TAB`; if there is no tap, `KC_LALT` will be unregistered, thus allowing you to cycle through windows. 
+
+```c
+bool is_alt_tab_active = false;    # ADD this near the begining of keymap.c
+uint16_t alt_tab_timer = 0;        # we will be using them soon.
+
+enum custom_keycodes {             # Make sure have the awesome keycode ready
+  ALT_TAB = SAFE_RANGE,
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {               # This will do most of the grunt work with the keycodes.
+    case ALT_TAB:
+      if (record->event.pressed) {
+        if (!is_alt_tab_active) {
+          is_alt_tab_active = true;
+          register_code(KC_LALT);
+        } 
+        alt_tab_timer = timer_read();
+        register_code(KC_TAB);
+      } else {
+        unregister_code(KC_TAB);
+      }
+      break;
+  }
+  return true;
+}
+
+void matrix_scan_user(void) {     # The very important timer. 
+  if (is_alt_tab_active) {
+    if (timer_elapsed(alt_tab_timer) > 1000) {
+      unregister_code(KC_LALT);
+      is_alt_tab_active = false;
+    }
+  }
+}
+```
+
+---
 
 ##  **(DEPRECATED)** The Old Way: `MACRO()` & `action_get_macro`
 
@@ -273,7 +319,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ```
 
 
-### Advanced Example: Single-Key Copy/Paste
+## Advanced Example: 
+
+### Single-Key Copy/Paste
 
 This example defines a macro which sends `Ctrl-C` when pressed down, and `Ctrl-V` when released.
 

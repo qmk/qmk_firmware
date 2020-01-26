@@ -33,14 +33,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifndef MD_BOOTLOADER
 
-#include "main_arm_atsam.h"
-#include "led_matrix.h"
-#include "issi3733_driver.h"
-#include "./usb/compiler.h"
-#include "./usb/udc.h"
-#include "./usb/udi_cdc.h"
+#    include "main_arm_atsam.h"
+#    ifdef RGB_MATRIX_ENABLE
+#        include "led_matrix.h"
+#        include "rgb_matrix.h"
+#    endif
+#    include "issi3733_driver.h"
+#    include "./usb/compiler.h"
+#    include "./usb/udc.h"
+#    include "./usb/udi_cdc.h"
 
-#endif //MD_BOOTLOADER
+#endif  // MD_BOOTLOADER
 
-#endif //_ARM_ATSAM_PROTOCOL_H_
-
+#endif  //_ARM_ATSAM_PROTOCOL_H_

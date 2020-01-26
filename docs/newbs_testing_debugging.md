@@ -8,14 +8,15 @@ Testing your keyboard is usually pretty straightforward. Press every single key 
 
 Note: These programs are not provided by or endorsed by QMK.
 
-* [Switch Hitter](https://elitekeyboards.com/switchhitter.php) (Windows Only)
+* [QMK Configurator](https://config.qmk.fm/#/test/) (Web Based)
+* [Switch Hitter](https://web.archive.org/web/20190413233743/https://elitekeyboards.com/switchhitter.php) (Windows Only)
 * [Keyboard Viewer](https://www.imore.com/how-use-keyboard-viewer-your-mac) (Mac Only)
 * [Keyboard Tester](http://www.keyboardtester.com) (Web Based)
 * [Keyboard Checker](http://keyboardchecker.com) (Web Based)
 
-## Debugging With QMK Toolbox
+## Debugging
 
-[QMK Toolbox](https://github.com/qmk/qmk_toolbox) will show messages from your keyboard if you have `CONSOLE_ENABLE = yes` in your `rules.mk`. By default the output is very limited, but you can turn on debug mode to increase the amount of debug output. Use the `DEBUG` keycode in your keymap, use the [Command](feature_command.md) feature to enable debug mode, or add the following code to your keymap.
+Your keyboard will output debug information if you have `CONSOLE_ENABLE = yes` in your `rules.mk`. By default the output is very limited, but you can turn on debug mode to increase the amount of debug output. Use the `DEBUG` keycode in your keymap, use the [Command](feature_command.md) feature to enable debug mode, or add the following code to your keymap.
 
 ```c
 void keyboard_post_init_user(void) {
@@ -26,6 +27,14 @@ void keyboard_post_init_user(void) {
   //debug_mouse=true;
 }
 ```
+
+### Debugging With QMK Toolbox
+
+For compatible platforms, [QMK Toolbox](https://github.com/qmk/qmk_toolbox) can be used to display debug messages from your keyboard.
+
+### Debugging With hid_listen
+
+Prefer a terminal based solution? [hid_listen](https://www.pjrc.com/teensy/hid_listen.html), provided by PJRC, can also be used to display debug messages. Prebuilt binaries for Windows,Linux,and MacOS are available.
 
 <!-- FIXME: Describe the debugging messages here. -->
 
@@ -41,3 +50,51 @@ After that you can use a few different print functions:
 * `uprintf("%s string", var)`: Print a formatted string
 * `dprint("string")` Print a simple string, but only when debug mode is enabled
 * `dprintf("%s string", var)`: Print a formatted string, but only when debug mode is enabled
+
+## Debug Examples
+
+Below is a collection of real world debugging examples. For additional information, refer to [Debugging/Troubleshooting QMK](faq_debug.md).
+
+### Which matrix position is this keypress?
+
+When porting, or when attempting to diagnose pcb issues, it can be useful to know if a keypress is scanned correctly. To enable logging for this scenario, add the following code to your keymaps `keymap.c`
+
+```c
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // If console is enabled, it will print the matrix position and status of each key pressed
+#ifdef CONSOLE_ENABLE
+    uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+#endif 
+  return true;
+}
+```
+
+Example output
+```text
+Waiting for device:.......
+Listening:
+KL: kc: 169, col: 0, row: 0, pressed: 1
+KL: kc: 169, col: 0, row: 0, pressed: 0
+KL: kc: 174, col: 1, row: 0, pressed: 1
+KL: kc: 174, col: 1, row: 0, pressed: 0
+KL: kc: 172, col: 2, row: 0, pressed: 1
+KL: kc: 172, col: 2, row: 0, pressed: 0
+```
+
+### How long did it take to scan for a keypress?
+
+When testing performance issues, it can be useful to know the frequency at which the switch matrix is being scanned. To enable logging for this scenario, add the following code to your keymaps `config.h`
+
+```c
+#define DEBUG_MATRIX_SCAN_RATE
+```
+
+Example output
+```text
+  > matrix scan frequency: 315
+  > matrix scan frequency: 313
+  > matrix scan frequency: 316
+  > matrix scan frequency: 316
+  > matrix scan frequency: 316
+  > matrix scan frequency: 316
+```
