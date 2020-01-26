@@ -638,7 +638,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
      triangle layout:
-     Layer _MOV (MOVement, mouse movement on left hand)
+     Layer _MOV (MOVement, mouse movement on right hand)
     
      <pinky2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                         -*-              <|>                                           //(toggle) on _FUN
@@ -650,7 +650,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       -*-<|>                                                             //(hold) on BASE
      <1   <2    <3    <4  | 4>    3>    2>    1>  
 
-     flat layout:
+     flat layout (mouse movement on left hand):
     
      <pinky2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                         -*-              <|>                                           //(toggle) on _FUN

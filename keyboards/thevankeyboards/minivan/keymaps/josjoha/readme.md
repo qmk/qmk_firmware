@@ -180,7 +180,7 @@ or staying on the `_FUN` layer. Default: return to BASE.
 - - -
     
     
-     Layer _MOV (MOVement, mouse movement on left hand)
+     Layer _MOV (MOVement, mouse movement on right hand)
     
      <pinky2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                         -*-              <|>                                           //(toggle) on _FUN
