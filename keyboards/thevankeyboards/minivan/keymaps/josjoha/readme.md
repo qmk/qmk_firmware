@@ -39,6 +39,10 @@ Dvorak² keymaps:
 ![Minivan layout Image 6](http://socialism.nl/misc/minivan/minivan_layer6.jpg)
 ![Minivan layout Image 7](http://socialism.nl/misc/minivan/minivan_layer7.jpg)
 
+The right led in 'descramble' mode shows when using a layer that is different
+in that mode, analogue to the `_FUN` led indicator for 'descramble' (not shown
+in above graphics).
+
 The 'descramble' system:
 
 ![Minivan descramble Dvorak](http://socialism.nl/misc/minivan/minivan_descramble.jpg)

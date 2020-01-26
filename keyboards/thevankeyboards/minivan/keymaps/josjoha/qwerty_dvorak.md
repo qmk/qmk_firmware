@@ -23,8 +23,8 @@ Qwerty+Dvorak keymaps
 ![Minivan layout Image 0](http://socialism.nl/misc/minivan/minivan_layer0_qwerty.jpg)
 ![Minivan layout Image 1](http://socialism.nl/misc/minivan/minivan_layer1_qwerty.jpg)
 ──────────Dvorak───────────────
-![Minivan layout Image 0](http://socialism.nl/misc/minivan/minivan_layer0.jpg)
-![Minivan layout Image 1](http://socialism.nl/misc/minivan/minivan_layer1.jpg)
+![Minivan layout Image 0](http://socialism.nl/misc/minivan/minivan_layer0_qwerty_dvorak.jpg)
+![Minivan layout Image 1](http://socialism.nl/misc/minivan/minivan_layer1_qwerty_dvorak.jpg)
 ──────────in common────────────
 ![Minivan layout Image 2](http://socialism.nl/misc/minivan/minivan_layer2_qwerty.jpg)
 ![Minivan layout Image 3b](http://socialism.nl/misc/minivan/minivan_layer3b.jpg)
@@ -35,13 +35,17 @@ Qwerty+Dvorak keymaps
 
 With the right/upper key in layer `_FUN` you can switch between layers 
 for Qwerty or Dvorak being active. This only affects the layers containting
-letters and numbers/symbols.
+letters and numbers/symbols. 
 
-  Layers (text)
-  =============
-                    ───────────────Qwerty─────────────────
+The right led in Dvorak mode shows when using a layer that is different
+in that mode, analogue to the `_FUN` led indicator for Dvorak (not shown
+in above graphics).
 
-     Layer _LTR (LeTteRs). This is standard Qwerty (#define QWERTY_DVORAK set.)
+Layers (text)
+        =============
+        ───────────────Qwerty─────────────────
+
+Layer _LTR (LeTteRs). This is standard Qwerty (#define QWERTY_DVORAK set.)
                                              | Right hand
      <pink2    <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>    // Keys by finger
      -o-                                    <|>                                    ... // -o- BASE access
