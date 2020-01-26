@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Raise
  * ,-----------------------------------------------------------------------------------.
- * |   /  |   7  |   8  |   9  |   *  |      |      |      |      |  Alt |   `  | Bksp |
+ * |   /  |   7  |   8  |   9  |   *  |      |      |      |   #  |  Alt |   `  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Del  |   4  |   5  |   6  |   -  | Pos1 |  End |   ä  |   ö  |   ü  |   ß  |Enter |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT( \
-  DE_SLSH,    KC_7,    KC_8,    KC_9, DE_ASTR, _______, _______, _______, _______, KC_LALT, DE_ACUT, KC_BSPC, \
+  DE_SLSH,    KC_7,    KC_8,    KC_9, DE_ASTR, _______, _______, _______, DE_HASH, KC_LALT, DE_ACUT, KC_BSPC, \
    KC_DEL,    KC_4,    KC_5,    KC_6, DE_MINS, KC_HOME,  KC_END,   DE_AE,   DE_OE,   DE_UE,   DE_SS,  KC_ENT, \
   KC_LSFT,    KC_1,    KC_2,    KC_3, DE_PLUS, KC_PGUP, KC_PGDN, _______, _______, _______, _______, KC_LSFT, \
   _______,  DE_DOT,    KC_0,  DE_EQL,  KC_ENT, _______, _______, KC_MPRV, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY  \
