@@ -28,15 +28,15 @@ The debounce code is compatible with split keyboards.
 * Add ```SRC += debounce.c```
 * Add your own ```debounce.c```. Look at current implementations in ```quantum/debounce``` for examples.
 * Debouncing occurs after every raw matrix scan.
-* Use num_rows rather than MATRIX_ROWS, so that split keyboards are supported correctly.
+* Use num_rows rather than `MATRIX_ROWS`, so that split keyboards are supported correctly.
 
 # Changing between included debouncing methods
-You can either use your own code, by including your own debounce.c, or switch to another included one.
+You can either use your own code, by including your own `debounce.c`, or switch to another included one.
 Included debounce methods are:
 * eager_pr - debouncing per row. On any state change, response is immediate, followed by locking the row ```DEBOUNCE_DELAY``` milliseconds of no further input for that row. 
 For use in keyboards where refreshing ```NUM_KEYS``` 8-bit counters is computationally expensive / low scan rate, and fingers usually only hit one row at a time. This could be
 appropriate for the ErgoDox models; the matrix is rotated 90°, and hence its "rows" are really columns, and each finger only hits a single "row" at a time in normal use.
 * eager_pk - debouncing per key. On any state change, response is immediate, followed by ```DEBOUNCE_DELAY``` milliseconds of no further input for that key
 * sym_g - debouncing per keyboard. On any state change, a global timer is set. When ```DEBOUNCE_DELAY``` milliseconds of no changes has occured, all input changes are pushed.
-
+* sym_pk - debouncing per key. Each key has its own debouncing timer and reports the state change after it has been stable across four samples over `DEBOUNCE_DELAY` milliseconds.
 
