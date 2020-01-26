@@ -202,25 +202,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case Mac_CS:
       if (record->event.pressed) {
-        setBaseLayer(MAC_CS_1);
+        set_single_persistent_default_layer(MAC_CS_1);
       }
       return false;
       break;
     case Mac_PS:
       if (record->event.pressed) {
-        setBaseLayer(MAC_PS_1);
+        set_single_persistent_default_layer(MAC_PS_1);
       }
       return false;
       break;
     case Win_CS:
       if (record->event.pressed) {
-        setBaseLayer(WIN_CS_1);
+        set_single_persistent_default_layer(WIN_CS_1);
       }
       return false;
       break;
     case Win_PS:
       if (record->event.pressed) {
-        setBaseLayer(WIN_PS_1);
+        set_single_persistent_default_layer(WIN_PS_1);
       }
       return false;
       break;

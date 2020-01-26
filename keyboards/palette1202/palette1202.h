@@ -35,5 +35,3 @@
     { k10,   k11, k12, k13, k14 }, \
     { KC_NO, k21, k22, k23, k24 }, \
 }
-
-void setBaseLayer(uint16_t layerID);

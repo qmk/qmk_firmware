@@ -15,12 +15,6 @@
  */
 #include "palette1202.h"
 
-// set base layer and save it to EPROM
-void setBaseLayer(uint16_t layerID) {
-  eeconfig_update_default_layer(1UL<<layerID);
-  default_layer_set(1UL<<layerID);
-}
-
 // initialize OLED if OLED is enabled
 #ifdef OLED_DRIVER_ENABLE
   oled_rotation_t oled_init_user(oled_rotation_t rotation) {
