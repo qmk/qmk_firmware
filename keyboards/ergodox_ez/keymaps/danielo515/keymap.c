@@ -1,6 +1,4 @@
-#include "ergodox_ez.h"
-#include "debug.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 #include "version.h"
 #include "danielo515.h"
 

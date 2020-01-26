@@ -21,6 +21,8 @@
 #define LEADER_TIMEOUT 350
 #define LEADER_PER_KEY_TIMING
 
+#undef DEBOUNCE
+#define DEBOUNCE 45
 // Memory saving
 #ifdef CONSOLE_ENABLE
 #    define NO_DEBUG
