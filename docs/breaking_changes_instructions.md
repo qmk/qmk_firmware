@@ -12,10 +12,16 @@ Some things that may cause a pull request to be flagged are:
   Changes may also require action to be taken by users, such as updating a toolchain or taking some action in Git.
 - **Changes Necessitating Increased Scrutiny**
   On occasion, a submission may have implications for QMK as a project. This could be copyright/licensing issues, coding conventions, large feature overhauls, "high-risk" changes that need wider testing by our community, or something else entirely.
+- **Changes Requiring Communication to End Users**
+  This includes warnings about future deprecations, outdated practices, and anything else that needs to be communicated but doesn't fit into one of the above categories.
 
 ## What Do I Do?
 
 If it is determined that your submission is a breaking change, there are a few things you can do to smooth the process:
+
+### Consider Splitting Up Your PR
+
+If you are contributing core code, and the only reason it needs to go through breaking changes is that you are updating keymaps to match your change, consider whether you can submit your feature in a way that the old keymaps continue to work. Then submit a separate PR that goes through the breaking changes process to remove the old code.
 
 ### Contribute a ChangeLog Entry
 
