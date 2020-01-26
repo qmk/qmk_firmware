@@ -455,14 +455,10 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
 
   **Device Space**
 
-     QMK code changed while coding this keymap, causing the hex file to become 4 bytes
-     larger. It became necessary to cut functionality to make it fit again. In the
-     'descramble' Unicode layer, some likely less used characters can be cut out 
-     using a #define at the top of keymap.c (⮙⮛, ┅┄). By default the up/down arrows
-     are cut out in all modes, dashes remain.
-
-     The Qwerty+Dvorak compile version takes only 85% of the memory. You can re-instate
-     up/down arrows if you like, with the appropriate #define in keymap.c at the top.
+     The Dvorak² compile version is roughly 378 bytes below the maximum.
+     The Qwerty+Dvorak compile version takes about 15% less device memory.
+     There are some defines at the top of keymap.c by which you can cut out
+     the up/down arrows, or dashed lines in 'descramble' to save a little space.
   
      (Example output …)
      Checking file size of thevankeyboards_minivan_josjoha.hex               [WARNINGS]
