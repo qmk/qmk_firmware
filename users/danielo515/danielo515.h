@@ -95,6 +95,8 @@ enum layers {
 // Short hand for complex key combinations
 # define WIN_LEFT_HALF LALT(LGUI(KC_LEFT))
 # define WIN_RIGHT_HALF LALT(LGUI(KC_RIGHT))
+# define WIN_TO_LEFT LALT(LSFT( LGUI(KC_LEFT) ))
+# define WIN_TO_RIGHT LALT(LSFT( LGUI(KC_RIGHT) ))
 
 // Ready to use Tap dance definitions, just put them on your layout
 

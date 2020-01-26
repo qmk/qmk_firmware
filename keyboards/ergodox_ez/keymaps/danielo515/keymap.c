@@ -28,11 +28,11 @@ const format = string => {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [0] = LAYOUT_ergodox(
-    KC_ESC              ,TD_F1               ,KC_2                ,KC_3                ,KC_4                ,TD_F5               ,OSM(MOD_HYPR)    ,
+    KC_EQL              ,TD_F1               ,KC_2                ,KC_3                ,KC_4                ,TD_F5               ,OSM(MOD_HYPR)    ,
     KC_TAB              ,KC_Q                ,KC_W                ,KC_E                ,KC_R                ,KC_T                ,TD(PASTE_DANCE) ,
     KC_DELETE           ,KC_A                ,LT(3,KC_S)          ,LT(2,KC_D)          ,LT(4,KC_F)          ,KC_G                ,
     KC_GRAVE            ,KC_Z                ,KC_X                ,KC_C                ,KC_V                ,KC_B                ,TD(COPY_CUT) ,
-    LSFT(KC_LALT)       ,OSM(MOD_LCTL)       ,OSM(MOD_LALT)       ,KC_LEFT             ,KC_RIGHT            ,
+    KC_BSLASH           ,OSM(MOD_LCTL)       ,OSM(MOD_LALT)       ,KC_LEFT             ,KC_RIGHT            ,
     OSM_SF_CMD          ,KC_PLUS             ,
     KC_INSERT           ,
     OSM(MOD_LSFT)       ,LT(2,KC_BSPACE)     ,OSM(MOD_LGUI)              ,
@@ -119,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LALT(KC_UP)        ,LSFT(KC_HOME)      ,LSFT(KC_LEFT)      ,KC_UP              ,LSFT(KC_RIGHT)     ,LSFT(KC_END)       ,KC_F13             ,
                         KC_HOME            ,KC_LEFT            ,KC_DOWN            ,KC_RIGHT           ,KC_END             ,KC_F12             ,
     LALT(KC_DOWN)      ,LSFT(KC_INSERT)    ,LCTL(LSFT(KC_J))   ,LSFT(KC_UP)        ,KC_PGUP            ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,
-    KC_TRANSPARENT                                             ,LSFT(KC_DOWN)      ,KC_PGDOWN          ,LGUI(KC_LEFT)      ,LGUI(KC_RIGHT)     ,
+    KC_TRANSPARENT                                             ,LSFT(KC_DOWN)      ,KC_PGDOWN          ,WIN_TO_LEFT        ,WIN_TO_RIGHT     ,
     KC_TRANSPARENT     ,KC_SYSTEM_SLEEP    ,
     KC_TRANSPARENT     ,
     KC_TRANSPARENT     ,KC_BSPACE          ,KC_TRANSPARENT
