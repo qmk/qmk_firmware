@@ -98,10 +98,9 @@ before, so bear with me.
 
   #+NAME:layer-to-array
   #+BEGIN_SRC python :var keys=secondary-layer :tangle no
-  results = "{"
   row = 0
+  results = ''
   while row < len(keys):
-    results += '{ '
     key = 0
     while key < len(keys[row]):
       keyName = str(keys[row][key])
@@ -111,12 +110,10 @@ before, so bear with me.
       if key != 11:
         results += ', '
       key+=1
-    results += '}'
     if row != 3:
       results += ','
     results += '\n'
     row+=1
-  results += '},\n'
   return results
   #+END_SRC
 
@@ -213,14 +210,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    #+END_SRC
 
    #+BEGIN_SRC C :noweb yes
-[_DVORAK] =
+[_DVORAK] = LAYOUT_planck_grid(
 <<layer-to-array(home-layer)>>
-[_QWERTY] =
+),
+[_QWERTY] = LAYOUT_planck_grid(
 <<layer-to-array(qwerty-layer)>>
-[_RISE] =
+),
+[_RISE] = LAYOUT_planck_grid(
 <<layer-to-array(secondary-layer)>>
-[_COMMAND] =
+),
+[_COMMAND] = LAYOUT_planck_grid(
 <<layer-to-array(command-layer)>>
+)
 };
 
    #+END_SRC
