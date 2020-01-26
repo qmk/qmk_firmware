@@ -127,7 +127,9 @@ enum unicode_names { // See below under 'unicode map' for meaning
     CS_CPSUB,
     CS_CPSUP,
     CS_CURREN,
+#ifndef space_cut_normal_arrow_ud 
     CS_DARROW,
+#endif
     CS_DEGREE,
     CS_DQUH,
     CS_DQUHR,
@@ -157,7 +159,9 @@ enum unicode_names { // See below under 'unicode map' for meaning
     CS_SQIG,
     CS_THDN,
     CS_THUP,
+#ifndef space_cut_normal_arrow_ud 
     CS_UARROW,
+#endif
     CS_YAYS,
     CUL_ACU,
     CUL_CAR,
@@ -338,17 +342,21 @@ const uint32_t PROGMEM unicode_map[] = {
     [CS_DQUHR] = 0x201C, //       ''     ,    ''       ,      ''       ,       ,,      , "H" for high, "R" for reverse: “
     // arrows
     [CS_LARROW] = 0x2B98, //      ''     ,    ''       , "L" for Left, "ARROW" for arrow: ⮘
+#ifndef space_cut_normal_arrow_ud 
     [CS_UARROW] = 0x2B99, //      ''     ,    ''       , "U" for UP,            ''      : ⮙
+#endif
     [CS_RARROW] = 0x2B9A, //      ''     ,    ''       , "R" for Right,         ''      : ⮚
+#ifndef space_cut_normal_arrow_ud 
     [CS_DARROW] = 0x2B9B, //      ''     ,    ''       , "D" for Down,          ''      : ⮛
+#endif
     // ornamental, heart
     [CS_FLEUR] = 0x2766, //       ''     ,    ''       , "FLEUR" for fleur (flower): ❦
     [CS_HEART] = 0x2665, //       ''     ,    ''       ' "HEART" for heart: ♥
 
     [CS_LHORI] = 0x2500, //       ''     ,    ''       ' "L" for light, "HORI" for horizontal: ─
     [CS_HHORI] = 0x2501, //       ''     ,    ''       ' "H" for heavy,         ''           : ━
-    [CS_LHORID] = 0x2504,//       ''     ,    ''       ' "L" for light,         ''           , "D" for dash: ┄
-    [CS_HHORID] = 0x2505,//       ''     ,    ''       ' "H" for heavy,         ''           , "D" for dash: ┅
+    [CS_LHORID] = 0x2504,//       ''     ,    ''       ' "L" for light,         ''           , "D" for dashes: ┄
+    [CS_HHORID] = 0x2505,//       ''     ,    ''       ' "H" for heavy,         ''           , "D" for dashes: ┅
 };
 
 enum custom_keycodes {
@@ -1139,14 +1147,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case UN_S_ODABRA: 
             if (record->event.pressed) { 
                 unicode_lead ();
-                if (shift_ison) { SEND_STRING ("2504"); } else { SEND_STRING ("300a"); } //  《
+#ifndef space_cut_descr_dashes
+                if (shift_ison) { SEND_STRING ("2504"); } else { SEND_STRING ("300a"); } //  《┄
+#endif
+#ifdef space_cut_descr_dashes
+                SEND_STRING ("300a"); //  《
+#endif
                 unicode_tail ();
             }
           break;
         case UN_S_CDABRA: 
             if (record->event.pressed) { 
                 unicode_lead ();
-                if (shift_ison) { SEND_STRING ("2505"); } else { SEND_STRING ("300n"); } //  》
+#ifndef space_cut_descr_dashes
+                if (shift_ison) { SEND_STRING ("2505"); } else { SEND_STRING ("300n"); } //  》┅
+#endif
+#ifdef space_cut_descr_dashes
+                SEND_STRING ("300n");  //  》
+#endif
                 unicode_tail ();
             }
           break;
@@ -1297,15 +1315,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case UN_S_LARROW: 
             if (record->event.pressed) { 
                 unicode_lead ();
-                SEND_STRING (""); // 
+#ifndef space_cut_descr_arrow_ud
                 if (shift_ison) { SEND_STRING ("2n99"); } else { SEND_STRING ("2n98"); } // ⮙⮘ 
+#endif
+#ifdef space_cut_descr_arrow_ud
+                SEND_STRING ("2n98");  // ⮘ 
+#endif
                 unicode_tail ();
             }
           break;
         case UN_S_RARROW: 
             if (record->event.pressed) { 
                 unicode_lead ();
-                if (shift_ison) { SEND_STRING ("2n9n"); } else { SEND_STRING ("2n9a"); } // ⮛⮚
+#ifndef space_cut_descr_arrow_ud
+                if (shift_ison) { SEND_STRING ("2n9n"); } else { SEND_STRING ("2n9a");  } // ⮛⮚
+#endif
+#ifdef space_cut_descr_arrow_ud
+                SEND_STRING ("2n9a"); // ⮚
+#endif
                 unicode_tail ();
             }
           break;

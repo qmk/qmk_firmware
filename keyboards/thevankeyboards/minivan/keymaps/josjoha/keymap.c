@@ -114,6 +114,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LSHIFT_LAYER_PAD // Easier Access to numpad (for default shortcuts in blender for example).
 
 
+        /*      Sacrificing functionality when compiled hex file is too large
+         *
+         * You can cut some parts of the functionality, if device space is too small.
+         * The overall QMK code sometimes changes, which causes the firmware to change
+         * size. This happened once at time of this writing, hence it became necessary
+         * to remove something to make it fit. The QMK code became 4 bytes larger,
+         * despite nothing changing in this keymap. 
+         *
+         * Default (and how documentation represents the keymap): 
+         *                 - no up/down arrow in either 'descramble' or normal
+         *                 - dashes in all maps
+         */
+#define space_cut_descr_arrow_ud // Uncomment to remove up/down arrows in the 'descramble mode' Unicode layer.
+                                 // This saves a couple of dozen bytes.
+#define space_cut_normal_arrow_ud // Uncomment to remove up/down arrows in the 'normal mode' Unicode layers.
+                                  // This saves only a few bytes, but harmonizes the keymap if 'descramble' arrows cut.
+//#define space_cut_descr_dashes // Uncomment to remove dashed lines in the 'descramble mode' Unicode layer.
+                               // This saves a couple of dozen bytes.
+
 // Below here no more comfortable configuration options.....
 // --------------------------------------^---------------------------------------
 
@@ -1022,7 +1041,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         <|>      -*-                                   //(toggle) on _FUN
      BASE  „“    ”     ¤£    ∅ ¢   ±ƒ    | ❦♥    🙂🙁  👍👎   ⁽₍    ⁾₎    Bspc
      LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
-     LSft 「─    」━   °〇   •§    …·    | ⮘⮙    ⮚⮛    ¿¡    《┄    》┅   RSft
+     LSft 「─    」━   °〇   •§    …·    | ⮘     ⮚     ¿¡    《┄    》┅   RSft
      ----------------------------------------------
      LAlt Del   ___   Ent  | Spc   ___   LGUI  RGUI
                 -*-       <|>      -*-                                                   //(hold) on BASE
@@ -1033,7 +1052,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //               ,                            ,                            ,                              ,                            ,                            <|,>                             , -*-                          ,                          ,                              ,                              ,         ,
         CTO_BASE , XP ( CS_DQUL , CS_DQUHR )  , X ( CS_DQUH )              , XP ( CS_CURREN , CS_POUND )  , XP ( CS_NONE , CS_CENT )   , XP ( CS_PLMI , CS_LGULDEN )  , XP ( CS_FLEUR , CS_HEART )   , XP ( CS_SMIL , CS_SAD_ )     , XP ( CS_THUP , CS_THDN ) , XP ( CS_OPSUP , CS_OPSUB )   , XP ( CS_CPSUP , CS_CPSUB )   , KC_BSPC ,
         KC_LCTL  , XP ( CN_1SUP , CN_1SUB )   , XP ( CN_2SUP , CN_2SUB )   , XP ( CN_3SUP , CN_3SUB )     , XP ( CN_4SUP , CN_4SUB )   , XP ( CN_5SUP , CN_5SUB )     , XP ( CN_6SUP , CN_6SUB )     , XP ( CN_7SUP , CN_7SUB )     , XP ( CN_8SUP , CN_8SUB ) , XP ( CN_9SUP , CN_9SUB )     , XP ( CN_0SUP , CN_0SUB )     , KC_RCTL ,
+#ifdef space_cut_normal_arrow_ud 
+        KC_LSFT  , XP ( CS_OCBRA , CS_LHORI ) , XP ( CS_CCBRA , CS_HHORI ) , XP ( CS_DEGREE , CS_CIRCLE ) , XP ( CS_BULLET , CS_PARA ) , XP ( CS_ELLIPS , CS_MIDDOT ) , X ( CS_LARROW )              , X ( CS_RARROW )              , XP ( CQU_INV , CEX_INV ) , XP ( CS_ODABRA , CS_LHORID ) , XP ( CS_CDABRA , CS_HHORID ) , KC_RSFT ,
+#endif
+#ifndef space_cut_normal_arrow_ud
         KC_LSFT  , XP ( CS_OCBRA , CS_LHORI ) , XP ( CS_CCBRA , CS_HHORI ) , XP ( CS_DEGREE , CS_CIRCLE ) , XP ( CS_BULLET , CS_PARA ) , XP ( CS_ELLIPS , CS_MIDDOT ) , XP ( CS_LARROW , CS_UARROW ) , XP ( CS_RARROW , CS_DARROW ) , XP ( CQU_INV , CEX_INV ) , XP ( CS_ODABRA , CS_LHORID ) , XP ( CS_CDABRA , CS_HHORID ) , KC_RSFT ,
+#endif
 //      ----------------------------------------------------------------------------
         KC_LALT , KC_DEL , DUO_HOLD , KC_ENT , KC_SPC , DUO_HOLD , KC__YGUI , KC__XGUI
 //              ,        ,          ,      <|,>       ,          ,          ,
@@ -1045,7 +1069,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifndef QWERTY_DVORAK  // :   :   v   :   :   v   :   :   v   :   :   v   :   :   v   
 
-    /* Layer _DDD: Drawings, like various Unicode symbols, and whatever else.
+    /* Layer _DDD: Drawings ('descramble'), like various Unicode symbols, and whatever else.
      *          The emoticons follow the "logic" of the movement layer.
      *          The symbols ¡ and ¿ are placed on top of ! and ?.
      *   
@@ -1060,8 +1084,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         <|>      -*-                                   //(toggle) on _FUN
      BASE  „“    ”     ¤£    ∅ ¢   ±ƒ    | ❦♥   🙂😃  👍👎   ⁽₍    ⁾₎     Bspc
      LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
-     LSft 「─    」━   °〇   •§    …·    | ⮘⮙    ⮚⮛    ¿¡    《┄    》┅   RSft
-     ----------------------------------------------
+     LSft 「─    」━   °〇   •§    …·    | ⮘     ⮚     ¿¡    《┄    》┅   RSft //⮙⮛, ┄┅ can be sacrificed
+     ----------------------------------------------                            // to make room on device.
      LAlt Del   ___   Ent  | Spc   ___   LGUI  RGUI 
                 -*-       <|>      -*-                                                   //(hold) on BASE
      <1   <2    <3    <4   | 4>    3>    2>    1>  

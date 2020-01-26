@@ -268,20 +268,24 @@ Remarks. This layer is seamlessly activated with 'descramble'
     
     
      Layer _DRA (DRAwings, whatever else (rendering width varies in different applications))
-    
+
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                         <|>      -*-                                   //(toggle) on _FUN
-     BASE  „“    ”     ¤£    ∅ ¢   ±ƒ    | ❦♥   🙂😃  👍👎   ⁽₍    ⁾₎     Bspc
+     BASE  „“    ”     ¤£    ∅ ¢   ±ƒ    | ❦♥    🙂🙁  👍👎   ⁽₍    ⁾₎    Bspc
      LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
-     LSft 「─    」━   °〇   •§    …·    | ⮘⮙    ⮚⮛    ¿¡    《┄    》┅   RSft
+     LSft 「─    」━   °〇   •§    …·    | ⮘     ⮚     ¿¡    《┄    》┅   RSft
      ----------------------------------------------
-     LAlt Del   ___   Ent  | Spc   ___   LGUI  RGUI 
+     LAlt Del   ___   Ent  | Spc   ___   LGUI  RGUI
                 -*-       <|>      -*-                                                   //(hold) on BASE
      <1   <2    <3    <4   | 4>    3>    2>    1>  
 
 - - -
    
      Layer _DDD: same as _DRA, but internally coded for 'descramble' mode.
+     (…)
+     LSft 「─    」━   °〇   •§    …·    | ⮘⮙    ⮚⮛    ¿¡    《┄    》┅   RSft //⮙⮛, ┄┅ can be sacrificed
+                                             ^     ^           ^      ^        // to make room on device.
+     (…)                                                                       // See §  Device Space 
 
 Remarks. This layer is seamlessly activated with 'descramble'
     
@@ -351,10 +355,10 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   numpad numbers, F-keys, super- and sub-script numbers).
 
   The symbols normally reached by shifting a number, are also still on
-  the same fingers. Now on the third row, accessed by pressing either
+  the same fingers: on the third row, accessed by pressing either
   thumb NUMS key.  You can reach the entire alpha-numerical set in two
   layers. There being a NUMS key for each hand makes the NUMS layer
-  comfortable to reach.
+  comfortable to reach left/right handed.
 
   The lowest symbols row on NUMS copies the logic that the braces are
   normally under right hand ring and pinky fingers (numbers 90), and
@@ -373,12 +377,6 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   than 3 keys, there are modifier combination keys on this layer. The
   logic is that they are written left to right, starting from the top
   with Control plus Shift, then Control plus Alt, as if cascading down.
-  They skip some keys, which needs to be learned. If for whatever reason
-  you need a layer to stay on, you can activate it here.
-
-  With the 'descramble' mode, you never have to fear not being able to
-  use your keyboard. This mode is completely seamless, everything works
-  exactly the same.
 
   Leds indicate what layer and mode you are in.
 
@@ -409,8 +407,14 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   writing. Some logic is fairly obvious such as ⁽⁾ on the same keys as
   (), and quotation marks on the same keys as on the BASE layer, while
   others have vague or no logic to their placement such as ° (Degrees
-  symbol), 🙂 and others, which would have to be learned.
+  symbol), 🙂 and others, which would have to be learned. You also have
+  'correct' quotation marks for some languages. Dutch: „he said” English:
+  “he said”.
  
+  With the 'descramble' mode, you never have to fear not being able to
+  use your keyboard. This mode is completely seamless, everything works
+  exactly the same.
+
   You could use the Qwerty+Dvorak compile version if you somehow have
   a use for both, but not for 'descramble' (typing Dvorak on a computer
   already set to Dvorak).
@@ -446,13 +450,19 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
 
 
   **Device Space**
+
+     QMK code changed while coding this keymap, causing the hex file to become 4 bytes
+     larger. It became necessary to cut functionality to make it fit again. In the
+     'descramble' Unicode layer, some likely less used characters can be cut out 
+     using a #define at the top of keymap.c (⮙⮛, ┅┄). By default the up/down arrows
+     are cut out in all modes, dashes remain.
+
+     The Qwerty+Dvorak compile version takes only 85% of the memory. You can re-instate
+     up/down arrows if you like, with the appropriate #define in keymap.c at the top.
   
-     (…)
+     (Example output …)
      Checking file size of thevankeyboards_minivan_josjoha.hex               [WARNINGS]
      * The firmware size is approaching the maximum - 28670/28672 (99%, 2 bytes free)
-
-
-     The Qwerty+Dvorak compile version takes only 85% of the memory.
 
   BUGS
   ====
