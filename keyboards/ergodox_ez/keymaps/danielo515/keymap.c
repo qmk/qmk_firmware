@@ -26,7 +26,7 @@ const format = string => {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [0] = LAYOUT_ergodox(
-    KC_EQL              ,TD_F1               ,KC_2                ,KC_3                ,KC_4                ,TD_F5               ,OSM(MOD_HYPR)    ,
+    KC_EQL              ,KC_1                ,KC_2                ,KC_3                ,KC_4                ,KC_5                ,OSM(MOD_HYPR)    ,
     KC_TAB              ,KC_Q                ,KC_W                ,KC_E                ,KC_R                ,KC_T                ,TD(PASTE_DANCE) ,
     KC_DELETE           ,KC_A                ,LT(3,KC_S)          ,LT(2,KC_D)          ,LT(4,KC_F)          ,KC_G                ,
     KC_GRAVE            ,KC_Z                ,KC_X                ,KC_C                ,KC_V                ,KC_B                ,TD(COPY_CUT) ,
