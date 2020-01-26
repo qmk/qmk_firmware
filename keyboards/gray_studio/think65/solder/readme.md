@@ -6,8 +6,6 @@ Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)
 Hardware Supported: Think6.5 Compatible PCB  
 Hardware Availability: [Geekhack GB](https://geekhack.org/index.php?topic=100166.0)
 
-**Note:** The `LAYOUT_65_ansi_blocker` LAYOUT macro utilizes the same pins and switch matrix as the hotswap version. Any firmware made with this LAYOUT macro can be flashed on both the Solder (Compatible) version and the Hotswap version of the Think6.5.  
-
 **Indicator LEDs:** The solder PCB ONLY supports Caps Lock LEDs unlike the Hotswap version that supports Num Lock, Caps Lock, and Scroll Lock.  
 
 Make example for this keyboard (after setting up your build environment):

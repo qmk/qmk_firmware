@@ -19,6 +19,8 @@
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6 }
 #define UNUSED_PINS
 
+#define DIODE_DIRECTION COL2ROW
+
 /* number of backlight levels */
 #define BACKLIGHT_PIN B5
 #ifdef BACKLIGHT_PIN

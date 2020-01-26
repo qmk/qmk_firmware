@@ -120,7 +120,8 @@ static void putchw(void* putp, putcf putf, int n, char z, char* bf) {
 }
 
 void tfp_format(void* putp, putcf putf, char* fmt, va_list va) {
-    char bf[12];
+    // This used to handle max of 12, but binary support jumps this to at least 32
+    char bf[36];
 
     char ch;
 
