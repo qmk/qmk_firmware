@@ -6,7 +6,7 @@ An Arduino Pro Micro driven Alice-clone PCB.
 
 * Keyboard Maintainer: [cfbender](https://github.com/cfbender)  
 * Hardware Supported: All Alice-style cases, given the clearance for the Pro Micro. Ergosaurus specific acrylic case files available [here](https://github.com/cfbender/Lubrigante) 
-* Hardware Availability: [KeyHive](keyhive.xyz)
+* Hardware Availability: [KeyHive](https://keyhive.xyz)
 
 Make example for this keyboard (after setting up your build environment):
 
