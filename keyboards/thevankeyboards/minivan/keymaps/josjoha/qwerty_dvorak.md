@@ -20,18 +20,18 @@ Qwerty+Dvorak keymaps
 ---------------------
 
 ──────────Qwerty───────────────
-![Minivan layout Image 0](http://socialism.nl/misc/minivan_layer0_qwerty.jpg)
-![Minivan layout Image 1](http://socialism.nl/misc/minivan_layer1_qwerty.jpg)
+![Minivan layout Image 0](http://socialism.nl/misc/minivan/minivan_layer0_qwerty.jpg)
+![Minivan layout Image 1](http://socialism.nl/misc/minivan/minivan_layer1_qwerty.jpg)
 ──────────Dvorak───────────────
-![Minivan layout Image 0](http://socialism.nl/misc/minivan_layer0.jpg)
-![Minivan layout Image 1](http://socialism.nl/misc/minivan_layer1.jpg)
+![Minivan layout Image 0](http://socialism.nl/misc/minivan/minivan_layer0.jpg)
+![Minivan layout Image 1](http://socialism.nl/misc/minivan/minivan_layer1.jpg)
 ──────────in common────────────
-![Minivan layout Image 2](http://socialism.nl/misc/minivan_layer2_qwerty.jpg)
-![Minivan layout Image 3b](http://socialism.nl/misc/minivan_layer3b.jpg)
-![Minivan layout Image 4](http://socialism.nl/misc/minivan_layer4.jpg)
-![Minivan layout Image 5](http://socialism.nl/misc/minivan_layer5.jpg)
-![Minivan layout Image 6](http://socialism.nl/misc/minivan_layer6.jpg)
-![Minivan layout Image 7](http://socialism.nl/misc/minivan_layer7.jpg)
+![Minivan layout Image 2](http://socialism.nl/misc/minivan/minivan_layer2_qwerty.jpg)
+![Minivan layout Image 3b](http://socialism.nl/misc/minivan/minivan_layer3b.jpg)
+![Minivan layout Image 4](http://socialism.nl/misc/minivan/minivan_layer4.jpg)
+![Minivan layout Image 5](http://socialism.nl/misc/minivan/minivan_layer5.jpg)
+![Minivan layout Image 6](http://socialism.nl/misc/minivan/minivan_layer6.jpg)
+![Minivan layout Image 7](http://socialism.nl/misc/minivan/minivan_layer7.jpg)
 
 With the right/upper key in layer `_FUN` you can switch between layers 
 for Qwerty or Dvorak being active. This only affects the layers containting
