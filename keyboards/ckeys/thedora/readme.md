@@ -30,6 +30,8 @@ All cKeys PCBs are open source. However, this one has not been posted yet becaus
 
 ## Firmware
 
+If you want to reflash the pre-installed firmware, use the `.bin` file for Proton C. Flash with the QMK Toolbox or via the command line.
+
 **Building for Proton C:**
 `make ckeys/thedora:default`
 
