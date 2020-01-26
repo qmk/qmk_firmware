@@ -4,7 +4,7 @@ De_Programming Keymap
 Features
 --------
 
-Changed Keymap to reasamble German Layout. Optimized for Programming
+Changed Keymap to resemble German Layout. Optimized for Programming
 
 Layout 
 --------
@@ -35,7 +35,7 @@ Layout
     
     Raise
     ,-----------------------------------------------------------------------------------.
-    |   /  |   7  |   8  |   9  |   *  |      |      |      |      |  Alt |   `  | Bksp |
+    |   /  |   7  |   8  |   9  |   *  |      |      |      |   #  |  Alt |   `  | Bksp |
     |------+------+------+------+------+-------------+------+------+------+------+------|
     | Del  |   4  |   5  |   6  |   -  | Pos1 |  End |   ä  |   ö  |   ü  |   ß  |Enter |
     |------+------+------+------+------+------|------+------+------+------+------+------|
