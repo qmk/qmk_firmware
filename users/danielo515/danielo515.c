@@ -82,7 +82,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     }
   case KC_END:// make the end behave the same on OSX
     if (record->event.pressed && onMac) {
-        SEND_STRING(SS_LCTRL("e"));
+        tap_code16(C(KC_E));
         return false;
     }
   case AC_A:// Accent á
