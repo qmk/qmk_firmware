@@ -118,17 +118,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          *
          * You can cut some parts of the functionality, if device space is too small.
          * The overall QMK code sometimes changes, which causes the firmware to change
-         * size. This happened once at time of this writing, hence it became necessary
-         * to remove something to make it fit. The QMK code became 4 bytes larger,
-         * despite nothing changing in this keymap. 
+         * size. See also in config.h about space saving #defines.
          *
          * Default (and how documentation represents the keymap): 
-         *                 - no up/down arrow in either 'descramble' or normal
-         *                 - dashes in all maps
+         *           - all undefined
          */
-#define space_cut_descr_arrow_ud // Uncomment to remove up/down arrows in the 'descramble mode' Unicode layer.
+//#define space_cut_descr_arrow_ud // Uncomment to remove up/down arrows in the 'descramble mode' Unicode layer.
                                  // This saves a couple of dozen bytes.
-#define space_cut_normal_arrow_ud // Uncomment to remove up/down arrows in the 'normal mode' Unicode layers.
+//#define space_cut_normal_arrow_ud // Uncomment to remove up/down arrows in the 'normal mode' Unicode layers.
                                   // This saves only a few bytes, but harmonizes the keymap if 'descramble' arrows cut.
 //#define space_cut_descr_dashes // Uncomment to remove dashed lines in the 'descramble mode' Unicode layer.
                                // This saves a couple of dozen bytes.
@@ -1041,7 +1038,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         <|>      -*-                                   //(toggle) on _FUN
      BASE  „“    ”     ¤£    ∅ ¢   ±ƒ    | ❦♥    🙂🙁  👍👎   ⁽₍    ⁾₎    Bspc
      LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
-     LSft 「─    」━   °〇   •§    …·    | ⮘     ⮚     ¿¡    《┄    》┅   RSft
+     LSft 「─    」━   °〇   •§    …·    | ⮘⮙   ⮚⮛     ¿¡    《┄    》┅   RSft
      ----------------------------------------------
      LAlt Del   ___   Ent  | Spc   ___   LGUI  RGUI
                 -*-       <|>      -*-                                                   //(hold) on BASE
@@ -1082,11 +1079,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                         <|>      -*-                                   //(toggle) on _FUN
-     BASE  „“    ”     ¤£    ∅ ¢   ±ƒ    | ❦♥   🙂😃  👍👎   ⁽₍    ⁾₎     Bspc
+     BASE  „“    ”     ¤£    ∅ ¢   ±ƒ    | ❦♥    🙂🙁  👍👎   ⁽₍    ⁾₎    Bspc
      LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
-     LSft 「─    」━   °〇   •§    …·    | ⮘     ⮚     ¿¡    《┄    》┅   RSft //⮙⮛, ┄┅ can be sacrificed
-     ----------------------------------------------                            // to make room on device.
-     LAlt Del   ___   Ent  | Spc   ___   LGUI  RGUI 
+     LSft 「─    」━   °〇   •§    …·    | ⮘⮙   ⮚⮛     ¿¡    《┄    》┅   RSft
+     ----------------------------------------------
+     LAlt Del   ___   Ent  | Spc   ___   LGUI  RGUI
                 -*-       <|>      -*-                                                   //(hold) on BASE
      <1   <2    <3    <4   | 4>    3>    2>    1>  
  */
@@ -1122,12 +1119,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      BASE: NUMS: FUN<  _MOV  _RAR  _PAD  | ACCE: DRAW: xxx   xxx   xxx   !Descr     //':' are dynamic ...
      LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10     RCtl     //...  ! 'descramble'
      LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20   -*RSft     //... < toggle 'stay'
-     -------------------------------------------------------                        //. -* toggle on BASE
-     LAlt  LCtl&  LGUI  LCtl& | LSft& +LCtl&LSft LGUI   RAlt
-           LSft         LAlt  | LAlt  &LAlt                                    
-           +xxx         +xxx  | +xxx  +xxx
-                             <|>
-     <1    <2     <3    <4    | 4>    3>         2>     1>                
+     --------------------------------------------------------                       //. -* toggle on BASE
+     LAlt  LCtl&  LCtl&  LSft&  | +LCtl&LSft xxx  LGUI   RAlt
+           LSft   LAlt   LAlt   | &LAlt                                    
+           +xxx   +xxx   +xxx   | +xxx
+                               <|>
+     <1    <2     <3     <4     | 4>         3>   2>     1>                
  */
 //
 //      <pink2   , <pinky   , <ring     , <middl      , <index      , <indx2     |, indx2>   , index>   , middl>  , ring>   , pinky>  , pink2>        ,
@@ -1136,9 +1133,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL  , KC_F1    , KC_F2     , KC_F3       , KC_F4       , KC_F5       , KC_F6    , KC_F7    , KC_F8   , KC_F9   , KC_F10  , KC_RCTL       ,
         KC_LSFT  , KC_F11   , KC_F12    , KC_F13      , KC_F14      , KC_F15      , KC_F16   , KC_F17   , KC_F18  , KC_F19  , KC_F20  , KC_RSFT       ,
 //      ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        KC_LALT , MT ( MOD_LCTL | MOD_LSFT, XXXXXXX ) , KC__XGUI , MT ( MOD_LCTL | MOD_LALT , XXXXXXX ) , MT ( MOD_LSFT | MOD_LALT , XXXXXXX ) , MT ( MOD_LCTL | MOD_LSFT | MOD_LALT , XXXXXXX ) , KC__YGUI , KC_RALT
-//              ,                                     ,          ,                                    <|,>                                     ,                                                 ,          ,
-//      <1      , <2                                  , <3       , <4                                  |, 4>                                   , 3>                                              , 2>       , 1>
+        KC_LALT , MT ( MOD_LCTL | MOD_LSFT, XXXXXXX ) , MT ( MOD_LCTL | MOD_LALT , XXXXXXX ) , MT ( MOD_LSFT | MOD_LALT , XXXXXXX ) , MT ( MOD_LCTL | MOD_LSFT | MOD_LALT , XXXXXXX ) , XXXXXXX , KC__YGUI , KC_RALT
+//              ,                                     ,                                      ,                                    <|,>                                                ,         ,          ,
+//      <1      , <2                                  , <3                                   , <4                                  |, 4>                                              , 3>      , 2>       , 1>
                       ),
 
         /**/

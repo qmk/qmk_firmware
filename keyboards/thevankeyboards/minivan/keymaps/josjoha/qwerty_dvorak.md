@@ -109,12 +109,12 @@ letters and numbers/symbols.
      BASE: NUMS: FUN<  _MOV  _RAR  _PAD  | ACCE: DRAW: xxx   xxx   xxx !Qwe/Dvo     //':' are dynamic ...
      LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10     RCtl     //... ! Qwerty/Dvorak
      LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20   -*RSft     //... < toggle 'stay'
-     -------------------------------------------------------                        //. -* toggle on BASE
-     LAlt  LCtl&  LGUI  LCtl& | LSft& +LCtl&LSft LGUI   RAlt
-           LSft         LAlt  | LAlt  &LAlt                                    
-           +xxx         +xxx  | +xxx  +xxx
-                             <|>
-     <1    <2     <3    <4    | 4>    3>         2>     1>                
+     --------------------------------------------------------                       //. -* toggle on BASE
+     LAlt  LCtl&  LCtl&  LSft&  | +LCtl&LSft xxx  LGUI   RAlt
+           LSft   LAlt   LAlt   | &LAlt                                    
+           +xxx   +xxx   +xxx   | +xxx
+                               <|>
+     <1    <2     <3     <4     | 4>         3>   2>     1>                
 
 Remarks. Unusual keys !Qwe/Dvo and FUN<. !Qwe/Dvo switches between (plain) Qwerty and Dvorak.
 Default: Qwerty. FUN< toggles an immediate return to the BASE layer after pressing an F-key, 
