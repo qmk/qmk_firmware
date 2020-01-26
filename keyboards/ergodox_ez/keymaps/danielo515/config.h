@@ -2,6 +2,8 @@
   Set any config.h overrides for your specific keymap here.
   See config.h options at https://docs.qmk.fm/#/config_options?id=the-configh-file
 */
+#pragma once 
+
 #define IGNORE_MOD_TAP_INTERRUPT
 #define TAPPING_TERM 200
 
@@ -27,4 +29,3 @@
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 #undef RGBLIGHT_ANIMATIONS
-
