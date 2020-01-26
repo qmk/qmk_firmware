@@ -2,7 +2,7 @@
   Set any config.h overrides for your specific keymap here.
   See config.h options at https://docs.qmk.fm/#/config_options?id=the-configh-file
 */
-#pragma once 
+#pragma once
 
 #define IGNORE_MOD_TAP_INTERRUPT
 #define TAPPING_TERM 200
@@ -22,10 +22,14 @@
 #define LEADER_PER_KEY_TIMING
 
 // Memory saving
-#undef NO_DEBUG
-#define NO_DEBUG
-#undef NO_PRINT
-#define NO_PRINT
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
+#ifdef CONSOLE_ENABLE
+#    define NO_DEBUG
+#    define NO_PRINT
+#endif
+
+#ifndef LINK_TIME_OPTIMIZATION_ENABLE
+#    define NO_ACTION_MACRO
+#    define NO_ACTION_FUNCTION
+#endif
+
 #undef RGBLIGHT_ANIMATIONS
