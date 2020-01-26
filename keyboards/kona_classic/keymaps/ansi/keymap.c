@@ -22,10 +22,6 @@ enum custom_keycodes {
   SFT_ESC = SAFE_RANGE
 };
 
-// Helpful defines
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 #define _DEFAULT 0
 #define _FN 1
 
@@ -47,9 +43,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     RGB_VAI, RGB_VAD, _______, _______, _______,                            _______,                            _______, _______, _______, _______  \
   )
 };
-
-// const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {};
-
 
 void matrix_init_user(void) {
 

@@ -35,68 +35,62 @@ uint8_t g_twi_transfer_buffer[20];
 // IS31FL3218 has 18 PWM outputs and a fixed I2C address, so no chaining.
 // If used as RGB LED driver, LEDs are assigned RGB,RGB,RGB,RGB,RGB,RGB
 uint8_t g_pwm_buffer[18];
-bool g_pwm_buffer_update_required = false;
+bool    g_pwm_buffer_update_required = false;
 
-void IS31FL3218_write_register( uint8_t reg, uint8_t data )
-{
-	g_twi_transfer_buffer[0] = reg;
-	g_twi_transfer_buffer[1] = data;
-	i2c_transmit( ISSI_ADDRESS, g_twi_transfer_buffer, 2, ISSI_TIMEOUT);
+void IS31FL3218_write_register(uint8_t reg, uint8_t data) {
+    g_twi_transfer_buffer[0] = reg;
+    g_twi_transfer_buffer[1] = data;
+    i2c_transmit(ISSI_ADDRESS, g_twi_transfer_buffer, 2, ISSI_TIMEOUT);
 }
 
-void IS31FL3218_write_pwm_buffer( uint8_t *pwm_buffer )
-{
-	g_twi_transfer_buffer[0] = ISSI_REG_PWM;
-	for ( int i=0; i<18; i++ ) {
-		g_twi_transfer_buffer[1+i] = pwm_buffer[i];
-	}
-	
-	i2c_transmit( ISSI_ADDRESS, g_twi_transfer_buffer, 19, ISSI_TIMEOUT);
+void IS31FL3218_write_pwm_buffer(uint8_t *pwm_buffer) {
+    g_twi_transfer_buffer[0] = ISSI_REG_PWM;
+    for (int i = 0; i < 18; i++) {
+        g_twi_transfer_buffer[1 + i] = pwm_buffer[i];
+    }
+
+    i2c_transmit(ISSI_ADDRESS, g_twi_transfer_buffer, 19, ISSI_TIMEOUT);
 }
 
-void IS31FL3218_init(void)
-{
-	// In case we ever want to reinitialize (?)
-	IS31FL3218_write_register( ISSI_REG_RESET, 0x00 );
-	
-	// Turn off software shutdown
-	IS31FL3218_write_register( ISSI_REG_SHUTDOWN, 0x01 );
+void IS31FL3218_init(void) {
+    // In case we ever want to reinitialize (?)
+    IS31FL3218_write_register(ISSI_REG_RESET, 0x00);
 
-	// Set all PWM values to zero
-	for ( uint8_t i = 0; i < 18; i++ ) {
-		IS31FL3218_write_register( ISSI_REG_PWM+i, 0x00 );
-	}
-	
-	// Enable all channels
-	for ( uint8_t i = 0; i < 3; i++ ) {
-		IS31FL3218_write_register( ISSI_REG_CONTROL+i, 0b00111111 );
-	}
-	
-	// Load PWM registers and LED Control register data
-	IS31FL3218_write_register( ISSI_REG_UPDATE, 0x01 );
+    // Turn off software shutdown
+    IS31FL3218_write_register(ISSI_REG_SHUTDOWN, 0x01);
+
+    // Set all PWM values to zero
+    for (uint8_t i = 0; i < 18; i++) {
+        IS31FL3218_write_register(ISSI_REG_PWM + i, 0x00);
+    }
+
+    // Enable all channels
+    for (uint8_t i = 0; i < 3; i++) {
+        IS31FL3218_write_register(ISSI_REG_CONTROL + i, 0b00111111);
+    }
+
+    // Load PWM registers and LED Control register data
+    IS31FL3218_write_register(ISSI_REG_UPDATE, 0x01);
 }
 
-void IS31FL3218_set_color( int index, uint8_t red, uint8_t green, uint8_t blue )
-{
-	g_pwm_buffer[index * 3 + 0] = red;
-	g_pwm_buffer[index * 3 + 1] = green;
-	g_pwm_buffer[index * 3 + 2] = blue;
-	g_pwm_buffer_update_required = true;
+void IS31FL3218_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
+    g_pwm_buffer[index * 3 + 0]  = red;
+    g_pwm_buffer[index * 3 + 1]  = green;
+    g_pwm_buffer[index * 3 + 2]  = blue;
+    g_pwm_buffer_update_required = true;
 }
 
-void IS31FL3218_set_color_all( uint8_t red, uint8_t green, uint8_t blue )
-{
-	for ( int i = 0; i < 6; i++ ) {
-		IS31FL3218_set_color( i, red, green, blue );
-	}
+void IS31FL3218_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
+    for (int i = 0; i < 6; i++) {
+        IS31FL3218_set_color(i, red, green, blue);
+    }
 }
 
-void IS31FL3218_update_pwm_buffers(void)
-{
-	if ( g_pwm_buffer_update_required ) {
-		IS31FL3218_write_pwm_buffer( g_pwm_buffer );
-		// Load PWM registers and LED Control register data
-		IS31FL3218_write_register( ISSI_REG_UPDATE, 0x01 );
-	}
-	g_pwm_buffer_update_required = false;
+void IS31FL3218_update_pwm_buffers(void) {
+    if (g_pwm_buffer_update_required) {
+        IS31FL3218_write_pwm_buffer(g_pwm_buffer);
+        // Load PWM registers and LED Control register data
+        IS31FL3218_write_register(ISSI_REG_UPDATE, 0x01);
+    }
+    g_pwm_buffer_update_required = false;
 }

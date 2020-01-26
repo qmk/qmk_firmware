@@ -3,8 +3,6 @@
 #define _BL 0
 #define _FL 1
 
-#define _______ KC_TRNS
-
 enum rys_keycodes {
   PSTOKEN = SAFE_RANGE,
   QSTOKEN

@@ -2,8 +2,6 @@
 
 #define FORCE_NKRO
 
-#define MAGIC_KEY_BOOTLOADER B
-
 #define MOUSEKEY_DELAY              50
 #define MOUSEKEY_INTERVAL           15
 #define MOUSEKEY_MAX_SPEED          4

@@ -47,9 +47,6 @@ enum macro_keycodes {
   KC_DEMOMACRO,
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 // Custom macros
 #define CTL_ESC     CTL_T(KC_ESC)               // Tap for Esc, hold for Ctrl
 #define CTL_TTAB    CTL_T(KC_TAB)               // Tap for Esc, hold for Ctrl

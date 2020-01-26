@@ -57,8 +57,6 @@ enum planck_keycodes {
 #define WM_9 LALT(KC_9)
 #define WM_0 LALT(KC_0)
 
-// Transparent Key
-#define _______ KC_TRNS
 // NOP
 #define ___x___ KC_NO
 

@@ -1,8 +1,5 @@
 #include QMK_KEYBOARD_H
 
-//Define a clearer 'transparent' key code
-#define _______ KC_TRNS
-
 enum keymap_layout {
     VANILLA = 0,
     FUNC,
@@ -59,15 +56,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______,          _______,          _______,          _______,          _______, _______, _______, RGB_SAD, RGB_HUD, RGB_SAI  \
   ),
 };
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-      }
-    return MACRO_NONE;
-};
-
 
 void matrix_init_user(void) {
 

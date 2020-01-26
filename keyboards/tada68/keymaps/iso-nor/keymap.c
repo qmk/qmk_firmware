@@ -3,8 +3,6 @@
 #define _BL 0
 #define _FL 1
 
-#define _______ KC_TRNS
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: (Base Layer) Default Layer
    * ,----------------------------------------------------------------.
@@ -16,7 +14,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |----------------------------------------------------------------|
    * |Shif| <>|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  -| Shift| Up|PgDn|
    * |----------------------------------------------------------------|
-   * |Ctrl|Alt |Cmd |        Space          |Alt| FN|Ctrl|Lef|Dow|Rig |
+   * |Ctrl|Win |Alt |        Space          |Alt| FN|Ctrl|Lef|Dow|Rig |
    * `----------------------------------------------------------------'
    */
   [_BL] = LAYOUT_iso(

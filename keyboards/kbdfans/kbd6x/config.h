@@ -45,13 +45,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F6, F5, F4, F1, E6, D0, D1, D2, D3, D5, D6, D7, B4, B5 }
 #define UNUSED_PINS
 
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
+/* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-
 #define BACKLIGHT_PIN B7
+#ifdef BACKLIGHT_PIN
 #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 3
-
+#endif
 #define RGB_DI_PIN F0
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS
@@ -59,10 +59,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 12
 #define RGBLIGHT_VAL_STEP 12
+#define RGBLIGHT_SLEEP
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST

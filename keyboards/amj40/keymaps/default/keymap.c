@@ -21,14 +21,6 @@ enum custom_keycodes {
   ADJUST,
 };
 
-
-
-
-
-// increase readability 
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /* Default Layer
      * ,-----------------------------------------------------------.
@@ -105,16 +97,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     
 
 };
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    // MACRODOWN only works in this function
-   
-    return MACRO_NONE;
-};
-
-
-
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  
