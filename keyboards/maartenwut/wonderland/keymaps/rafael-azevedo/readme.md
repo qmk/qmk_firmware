@@ -1,4 +1,4 @@
-## Gaming Layout
+## Rafael-Azevedo a layout for everyday use and gaming 
 
 ### This layout was designed for everyday work with all necessary keys reachable from the home row, while having a toggle layer moving the space and backspace to a more traditional location. 
 
