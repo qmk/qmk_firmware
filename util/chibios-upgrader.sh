@@ -47,7 +47,7 @@ revert_chibi_files() {
     for file in $(find_chibi_files "$search_path" -name chconf.h -or -name halconf.h -or -name mcuconf.h -or -name board.c -or -name board.h -or -name board.mk -or -name board.chcfg) ; do
         pushd "$search_path" >/dev/null 2>&1
         local relpath=$(realpath --relative-to="$search_path" "$file")
-        git checkout upstream/master -- "$relpath" || git checkout origin/master -- "$relpath"
+        git checkout upstream/master -- "$relpath" || git checkout origin/master -- "$relpath" || true
         popd >/dev/null 2>&1
     done
 }
@@ -105,7 +105,7 @@ swap_mcuconf_f3xx_f303() {
 upgrade_conf_files_generic() {
     local search_filename="$1"
     local update_script="$2"
-    shead "Updating $search_filename files..."
+    shead "Updating $search_filename files ($update_script)..."
     pushd "$qmk_firmware_dir/lib/chibios/tools/updater" >/dev/null 2>&1
     for file in $(find_chibi_files "$qmk_firmware_dir" -name "$search_filename") ; do
         cp -f "$file" "$file.orig"
@@ -131,7 +131,11 @@ upgrade_halconf_files() {
 }
 
 upgrade_mcuconf_files() {
-    upgrade_conf_files_generic mcuconf.h update_mcuconf_stm32f303xx.sh
+    pushd "$qmk_firmware_dir/lib/chibios/tools/updater" >/dev/null 2>&1
+    for f in $(find . -name 'update_mcuconf*') ; do
+        upgrade_conf_files_generic mcuconf.h $f
+    done
+    popd >/dev/null 2>&1
 }
 
 update_staged_files() {
@@ -162,7 +166,7 @@ fi
 swap_mcuconf_f3xx_f303
 
 deploy_staged_files
+upgrade_mcuconf_files
 upgrade_chconf_files
 upgrade_halconf_files
-upgrade_mcuconf_files
 update_staged_files
