@@ -1,4 +1,4 @@
-/* Copyright 2018 Rozakiin
+/* Copyright 2018 Jumail Mundekkat / MxBlue
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,15 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "268_2.h"
 
-void led_set_kb(uint8_t usb_led) {
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        setPinOutput(B0);
-        writePinHigh(B0);
-    } else {
-        setPinInput(B0);
-    }
+#pragma once
 
-    led_set_user(usb_led);
-}
+#define LAYER_STATE_8BIT
