@@ -62,7 +62,7 @@ void    slider(void) {
         return;
     }
 
-    midi_send_cc(&midi_device, 2, 0x3E, analogReadPin(SLIDER_PIN) >> 3);
+    midi_send_cc(&midi_device, 2, 0x3E, 0x7F - (analogReadPin(SLIDER_PIN) >> 3));
 }
 
 void matrix_scan_user(void) { slider(); }
