@@ -24,8 +24,8 @@
 /*
  * Board identifier.
  */
-#define BOARD_GENERIC_STM32_F103
-#define BOARD_NAME              "Generic STM32F103x board"
+#define BOARD_STM32_F103_STM32DUINO
+#define BOARD_NAME              "GENERIC STM32F103C8T6 board - stm32duino bootloader"
 
 /*
  * Board frequencies.
