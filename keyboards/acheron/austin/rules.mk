@@ -3,6 +3,9 @@
 #  <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
 MCU = STM32F072
 
+# Enter lower-power sleep mode when on the ChibiOS idle thread
+OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
+
 # project specific files
 # VPATH += keyboards/cannonkeys/stm32f072
 SRC =	keyboard.c \
