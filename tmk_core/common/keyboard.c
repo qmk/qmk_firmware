@@ -163,6 +163,13 @@ void disable_jtag(void) {
 #endif
 }
 
+/** \brief keyboard_early_init
+ *
+ * FIXME: needs doc
+ */
+
+__attribute__((weak)) void keyboard_early_init(void) {}
+
 /** \brief matrix_setup
  *
  * FIXME: needs doc
@@ -200,6 +207,13 @@ __attribute__((weak)) void keyboard_post_init_kb(void) { keyboard_post_init_user
  * FIXME: needs doc
  */
 void keyboard_setup(void) {
+#ifdef STM32_BOOTLOADER_ADDRESS
+    void enter_bootloader_mode_if_requested(void);
+    enter_bootloader_mode_if_requested();
+#endif
+
+    keyboard_early_init();
+
 #ifndef NO_JTAG_DISABLE
     disable_jtag();
 #endif
