@@ -43,9 +43,9 @@ def yesno(prompt, *args, default=None, **kwargs):
             prompt = prompt + ' [y/N] '
 
     while True:
-        cli.echo()
+        cli.echo('')
         answer = input(format_ansi(prompt % args))
-        cli.echo()
+        cli.echo('')
 
         if not answer and prompt is not None:
             return default
@@ -82,9 +82,9 @@ def question(prompt, *args, default=None, confirm=False, answer_type=str, valida
         prompt = '%s [%s] ' % (prompt, default)
 
     while True:
-        cli.echo()
+        cli.echo('')
         answer = input(format_ansi(prompt % args))
-        cli.echo()
+        cli.echo('')
 
         if answer:
             if validate is not None and not validate(answer, *args, **kwargs):
@@ -107,54 +107,64 @@ def question(prompt, *args, default=None, confirm=False, answer_type=str, valida
             return default
 
 
-def choice(prompt, options, *args, default=None, confirm=False, **kwargs):
-    """Present the user with a list of options and let them pick one by numerical index.
+def choice(heading, options, *args, default=None, confirm=False, prompt='Please enter your choice: ', **kwargs):
+    """Present the user with a list of options and let them pick one.
 
-    This will return the item from options they choose, not the index.
+    Users can enter either the number or the text of their choice.
+
+    This will return the value of the item they choose, not the numerical index.
 
     Arguments:
-        prompt
-            The prompt to present to the user. Can include ANSI and format strings like milc's `cli.echo()`.
+        heading
+            The text to place above the list of options.
 
         options
             A sequence of items to choose from.
 
         default
-            The value to return when the user doesn't enter any value. Use None to prompt until they enter a value.
+            The index of the item to return when the user doesn't enter any value. Use None to prompt until they enter a value.
 
         confirm
             Present the user with a confirmation dialog before accepting their answer.
+
+        prompt
+            The prompt to present to the user. Can include ANSI and format strings like milc's `cli.echo()`.
     """
     if not args and kwargs:
         args = kwargs
 
+    if prompt and default:
+        prompt = prompt + ' [%s] ' % (default+1,)
+
     while True:
         # Prompt for an answer.
-        cli.echo()
-        cli.echo(prompt % args)
-        cli.echo()
-        for i, option in enumerate(options):
-            cli.echo('\t{fg_cyan}%d.{fg_reset} %s', i+1, option)
+        cli.echo('')
+        cli.echo(heading % args)
+        cli.echo('')
+        for i, option in enumerate(options, 1):
+            cli.echo('\t{fg_cyan}%d.{fg_reset} %s', i, option)
 
-        if default:
-            answer = input(format_ansi('Please choose an option: [%s] ' % (default+1,)))
-        else:
-            answer = input(format_ansi('Please choose an option: '))
-        cli.echo()
+        cli.echo('')
+        answer = input(format_ansi(prompt))
+        cli.echo('')
+
+        # If the user types in one of the options exactly use that
+        if answer in options:
+            return answer
 
         # Massage the answer into a valid integer
-        if answer = '' and default:
+        if answer == '' and default:
             answer = default
         else:
             try:
                 answer = int(answer) - 1
             except Exception as e:
-                cli.log.error('Could not convert answer (%s) to type int: %s', answer, str(e))
+                cli.log.error('Invalid choice: %s', answer+1)
                 continue
 
         # Validate the answer
-        if answer > len(options) or answer < 0:
-            cli.log.error('Invalid choice: %s', answer)
+        if answer >= len(options) or answer < 0:
+            cli.log.error('Invalid choice: %s', answer+1)
             continue
 
         if confirm and not yesno('Is the answer "%s" correct?', answer+1, default=True):

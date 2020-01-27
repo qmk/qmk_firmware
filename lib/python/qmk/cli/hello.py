@@ -3,6 +3,7 @@
 This is an example QMK CLI script.
 """
 from milc import cli
+from qmk.questions import question
 
 
 @cli.argument('-n', '--name', default='World', help='Name to greet.')
