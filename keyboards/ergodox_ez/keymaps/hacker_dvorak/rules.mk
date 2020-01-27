@@ -4,8 +4,8 @@
 LINK_TIME_OPTIMIZATION_ENABLE = yes
 NKRO_ENABLE      = yes  # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 TAP_DANCE_ENABLE = yes
-MOUSEKEY_ENABLE  = yes  # Mouse keys(+4700b).
-EXTRAKEY_ENABLE  = yes  # Audio control and System control(+450b).
+MOUSEKEY_ENABLE  = yes  # Mouse keys.
+EXTRAKEY_ENABLE  = yes  # Audio control and System control.
 RGBLIGHT_ENABLE  = yes
 LEADER_ENABLE    = yes
 
@@ -19,9 +19,9 @@ SWAP_HANDS_ENABLE = no  # Allow swapping hands of keyboard.
 # UCIS_ENABLE       = no  # For Unicode.
 # UNICODEMAP_ENABLE = no
 # SLEEP_LED_ENABLE  = no  # Turn off leds when computer is sleeping.
-# KEY_LOCK_ENABLE   = no  # (+1730b)
-# CONSOLE_ENABLE    = no  # Console for debug(+400b)
-# BOOTMAGIC_ENABLE  = no  # Virtual DIP switch configuration(+1000b)
+# KEY_LOCK_ENABLE   = no  #
+# CONSOLE_ENABLE    = no  # Console for debug
+# BOOTMAGIC_ENABLE  = no  # Virtual DIP switch configuration
 # API_SYSEX_ENABLE  = no
 # MIDI_ENABLE       = no
 # BLUETOOTH_ENABLE  = no

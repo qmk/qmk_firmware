@@ -1,7 +1,7 @@
 # Overridden build options from rev1 & rev2
 
 # Debug Options
-CONSOLE_ENABLE          = yes       # Console for debug(+400)
+CONSOLE_ENABLE          = yes       # Console for debug
 COMMAND_ENABLE          = yes       # Commands for debug and configuration
 
 # RGB Options

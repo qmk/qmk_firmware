@@ -14,10 +14,10 @@ BOOTLOADER = halfkay
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = no  # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE  = yes # Mouse keys(+4700)
-EXTRAKEY_ENABLE  = yes # Audio control and System control(+450)
-CONSOLE_ENABLE   = yes  # Console for debug(+400)
+BOOTMAGIC_ENABLE = no  # Virtual DIP switch configuration
+MOUSEKEY_ENABLE  = yes # Mouse keys
+EXTRAKEY_ENABLE  = yes # Audio control and System control
+CONSOLE_ENABLE   = yes  # Console for debug
 COMMAND_ENABLE   = yes # Commands for debug and configuration
 CUSTOM_MATRIX    = yes # Custom matrix file (taken and adapted from the ErgoDox EZ to handle custom number of columns)
 SLEEP_LED_ENABLE = no # Breathing sleep LED during USB suspend

@@ -3,8 +3,8 @@ SRC += xulkal.c \
     custom_tap_dance.c
 
 # Some usual defaults
-MOUSEKEY_ENABLE         = no    # Mouse keys (+4700)
-EXTRAKEY_ENABLE         = yes   # Audio control and System control (+450)
+MOUSEKEY_ENABLE         = no    # Mouse keys
+EXTRAKEY_ENABLE         = yes   # Audio control and System control
 TAP_DANCE_ENABLE        = yes
 
 ifneq ($(strip $(DISABLE_LTO)), yes)

@@ -1,6 +1,6 @@
 BOOTMAGIC_ENABLE = no       # Disable Boot Magic (https://beta.docs.qmk.fm/features/feature_bootmagic)
-MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
-EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
+MOUSEKEY_ENABLE = yes       # Mouse keys
+EXTRAKEY_ENABLE = yes       # Audio control and System control
 TAP_DANCE_ENABLE = yes      # Enable Tap Dance.
 
 SRC += ninjonas.c \

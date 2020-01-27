@@ -14,12 +14,12 @@ BOOTLOADER = halfkay
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE        = no  # Virtual DIP switch configuration(+1000)
-MIDI_ENABLE             = no  # MIDI support (+2400 to 4200)
+BOOTMAGIC_ENABLE        = no  # Virtual DIP switch configuration
+MIDI_ENABLE             = no  # MIDI support
 POINTING_DEVICE_ENABLE  = no
-MOUSEKEY_ENABLE         = no  # Mouse keys(+4700)
-EXTRAKEY_ENABLE         = yes # Audio control and System control(+450)
-CONSOLE_ENABLE          = no  # Console for debug(+8000)
+MOUSEKEY_ENABLE         = no  # Mouse keys
+EXTRAKEY_ENABLE         = yes # Audio control and System control
+CONSOLE_ENABLE          = no  # Console for debug
 COMMAND_ENABLE          = no  # Commands for debug and configuration
 CUSTOM_MATRIX           = yes # Custom matrix file for the Dactyl
 NKRO_ENABLE             = yes # USB Nkey Rollover
