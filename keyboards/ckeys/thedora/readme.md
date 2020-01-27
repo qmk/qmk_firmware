@@ -35,12 +35,12 @@ If you want to reflash the pre-installed firmware, use the `.bin` file for Proto
 **Building for Proton C:**
 `make ckeys/thedora:default`
 
-**Enter DFU-Bootloader Mode:**
+**Search for Bootloader Device:**
 `make ckeys/thedora:default:dfu-util`
+You will begin seeing output of the host searching for the bootloader device, `ERROR: Bootloader not found. Trying again in 5s.`
 
-**Flash Firmware:**
-In DFU-bootloader mode with `ERROR: Bootloader not found. Trying again in 5s.` output, reset the controller. 
-Press [ADMIN](https://ckeys.org/slides/exboard/assets/player/keynotedhtmlplayer#21) + [RESET](https://ckeys.org/slides/exboard/assets/player/keynotedhtmlplayer#25)  
+**Enter DFU-Bootloader Mode:**
+Reset the controller. Press [ADMIN](https://ckeys.org/slides/exboard/assets/player/keynotedhtmlplayer#21) + [RESET](https://ckeys.org/slides/exboard/assets/player/keynotedhtmlplayer#25) or, if accessible, press the reset button on the Proton C microcontroller. 
 
 ## Default Layout
 
