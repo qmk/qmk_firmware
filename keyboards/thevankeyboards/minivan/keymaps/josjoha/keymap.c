@@ -62,21 +62,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         /*                           Startup layer
          *
          * Here you can define which of the two BASE layer is active when powering up the keyboard.
-         * For starting up in 'descramble' for non-Linux, fix the variable in the code by hand to _HALF_.
+         * For starting up in 'descramble' for non-Linux, fix the variable 'short descramble' in the code by hand to _HALF_.
          */
 //#define STARTUP_ALTERNATE // For QWERTY_DVORAK *is* defined: comment out is startup in Qwerty, #defined is
-                          //                                                              startup in Dvorak
+                          //     startup in Dvorak
                           // For QWERTY_DVORAK *not* defined: comment out is startup in normal Dvorak,
-                          //                          #defined is startup in 'descramble' Dvorak Linux mode.
+                          //   #defined is startup in 'descramble' Dvorak Linux mode.
 
 
         /*       Navigation cluster configuration
          * 
-         * Here you can easily define what navigation type layout you like.
+         * Here you can "easily" define what navigation type layout you like.
          * There are two basic settings: - Arrows in a triangle, or in a row.
          * - Arrows on left or right hand (mouse on the other). 
          * Left/right hand setting affects if the less usable center column is left 
-         * or right on that hand.
+         * or right on that hand (see code below at _MOV layer to understand).
          * If you are uncommenting both below settings, you probably do not have
          * to edit anything. If you only use one, you may want to swap the edge 
          * columns by hand.
@@ -97,7 +97,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Uncomment below line to have LGUI (also called OS or Win key, etc) where RGUI is, 
          * and RGUI where LGUI is. This does not affect placement, only what that key is.
          */
-#define SWITCH_GUIS // Set this if you want LGUI on the BASE layer rather than RGUI, and so consistently on all layers.
+#define SWITCH_GUIS // Set this if you want LGUI on the BASE layer rather than RGUI, and so consistently on all layers (default).
 
 
         /*      Left Shift layer to ...
@@ -111,7 +111,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define LSHIFT_LAYER_DRA // _DRA is also the least easy to access layer normally, on pinky which is sortof wrong.
                          // This would help alleviate it.
 //#define LSHIFT_LAYER_ACC // If typing a lot of these in a row
-#define LSHIFT_LAYER_PAD // Easier Access to numpad (for default shortcuts in blender for example).
+#define LSHIFT_LAYER_PAD // Easier Access to numpad (for default shortcuts in blender(1) for example).
 
 
         /*      Sacrificing functionality when compiled hex file is too large
@@ -194,11 +194,12 @@ enum {
     _HALF_,   // BASE layer is _DDL, jumps to 'normal' Unicode maps
     _FULL_,   // BASE layer is _DDL, jumps to special Linux 'descramble' Unicode maps
 };
-#ifndef STARTUP_ALTERNATE
- short descramble = _NORMAL_; // to remember if we are in descramble mode for 'escape'ing out of layers to the right base
+// To remember if we are in descramble mode for 'escape'ing out of layers to the right base
+#ifndef STARTUP_ALTERNATE // Startup with no 'descramble', normal mode.
+ short descramble = _NORMAL_;
 #endif
-#ifdef STARTUP_ALTERNATE
- short descramble = _FULL_; 
+#ifdef STARTUP_ALTERNATE  // Startup with 'descramble' (which is 'dvorak' with QWERTY_DVORAK defined) active.
+ short descramble = _FULL_; // Set this to _HALF_ if you want non-Linux layers in 'descramble' upon startup.
 #endif
                       // There are three modes: 0 for everything normal, 1 for descramble for letters and number/symbols,
                       // .. but with the normal unicode layers, and 2 for all in descramble mode, where the Unicode
@@ -229,8 +230,7 @@ void keyboard_post_init_user (void) {
   #ifdef RGBLIGHT_ENABLE
     // Set up RGB effects on _only_ the first LED 
     rgblight_set_effect_range (1, 1); // Takes a range: 1st arg is start, 2nd how many
-    // Purple
-    rgblight_sethsv_noeeprom (210, 255, 20);
+    rgblight_sethsv_noeeprom (HSV_WHITE); // Startup color of keyboard.
     // Set LED effects to breathing mode
     rgblight_mode_noeeprom (RGBLIGHT_EFFECT_BREATHING + 2);
 
@@ -239,6 +239,16 @@ void keyboard_post_init_user (void) {
     setrgb (0, 0, 0, (LED_TYPE *)&led[2]); // 2nd led
     rgblight_set ();
   #endif //RGBLIGHT_ENABLE
+
+// Set startup layer
+#ifndef STARTUP_ALTERNATE 
+    activate_this_layer (_LTR); // Startup layer
+    deactivate_all_but (_LTR);
+#endif
+#ifdef STARTUP_ALTERNATE 
+    activate_this_layer (_DDL); // Startup layer
+    deactivate_all_but (_DDL);
+#endif
 }
 
 
