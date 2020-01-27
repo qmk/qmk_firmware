@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "southpaw-fullsize",
+    "keyboard_name": "southpaw_fullsize",
     "url": "",
-    "maintainer": "Ryota Goto",
+    "maintainer": "ai03",
     "width": 3,
     "height": 2,
     "layouts": {
