@@ -21,4 +21,4 @@
 #define PRODUCT_ID      0x9102
 #define DEVICE_VER      0x0002
 
-// place overrides here
+#define RGBLED_NUM 28
