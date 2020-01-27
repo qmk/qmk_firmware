@@ -24,6 +24,7 @@ enum custom_keycode {
   Mac_PS,
   Win_CS,
   Win_PS,
+  IOS_CS,
 };
 enum layerID {
   MAC_CS_1 = 0,
@@ -34,6 +35,8 @@ enum layerID {
   WIN_CS_2,
   WIN_PS_1,
   WIN_PS_2,
+  IOS_CS_1,
+  IOS_CS_2,
   SETTING,
 };
 
@@ -85,10 +88,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,      LCTL(KC_D), KC_V,         LCTL(KC_T),    LCTL(KC_S),
                     KC_LALT,    KC_I,         C(S(KC_Z)),    KC_H
     ),
+    // iOS
+    // Clip Studio
+    [IOS_CS_1] = LAYOUT(
+      KC_TAB,       LGUI(KC_A), KC_E,         KC_P,          LGUI(KC_0),
+      MO(IOS_CS_2), KC_M,       KC_BSPC,      KC_B,          LGUI(KC_LALT),
+                    KC_LSFT,    KC_LGUI,      LGUI(KC_Z),    KC_SPC
+    ),
+    [IOS_CS_2] = LAYOUT(
+      MO(SETTING),  KC_ESC,     KC_G,         KC_R,          LGUI(KC_EQL),
+      _______,      LGUI(KC_D), KC_K,         KC_F,          LGUI(KC_S),
+                    KC_LALT,    KC_I,         SGUI(KC_Z),    KC_H
+    ),
     [SETTING] = LAYOUT(
-      _______, KC_NO, Win_CS, Mac_CS, KC_NO,
-      _______, KC_NO, Win_PS, Mac_PS, KC_NO,
-               KC_NO, KC_NO,  KC_NO,  KC_NO
+      _______, IOS_CS, Win_CS, Mac_CS, KC_NO,
+      _______, KC_NO,  Win_PS, Mac_PS, KC_NO,
+               KC_NO,  KC_NO,  KC_NO,  KC_NO
     ),
 };
 
@@ -141,6 +156,17 @@ void encoder_update_user(uint8_t index, bool clockwise) {
           tap_code16(!clockwise ? C(S(KC_Z)) : C(KC_Z));
         }
         break;
+      case IOS_CS_1:
+        if (currentLayer % 2 == 0) {
+          // default layer
+          // Zoom 
+          tap_code16(!clockwise ? G(KC_SCLN) : G(KC_MINS));
+        } else {
+          // Fn Layer
+          // rotate canvas
+          tap_code(!clockwise ? KC_EQL : KC_MINS);
+        }
+        break;
       default:
         break;
     }
@@ -190,6 +216,17 @@ void encoder_update_user(uint8_t index, bool clockwise) {
           tap_code16(!clockwise ? KC_RCBR : KC_LCBR);
         }
         break;
+      case IOS_CS_1:
+        if (currentLayer % 2 == 0) {
+          // default layer
+          // size of brush
+          tap_code(!clockwise ? KC_BSLS : KC_RBRC);
+        } else {
+          // Fn Layer
+          // opacity of brush
+          tap_code16(!clockwise ? G(KC_BSLS) : G(KC_RBRC));
+        }
+        break;
       default:
         break;
     }
@@ -224,6 +261,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case IOS_CS:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(IOS_CS_1);
+      }
+      return false;
+      break;
   }
   return true;
 }
@@ -244,6 +287,9 @@ void oled_task_user(void) {
     case WIN_PS_1:
       render_row(0, "Win ");
       break;
+    case IOS_CS_1:
+      render_row(0, "iOS ");
+      break;
     default:
       render_row(0, "    ");
   }
@@ -252,6 +298,7 @@ void oled_task_user(void) {
   switch (currentDefault) {
     case MAC_CS_1:
     case WIN_CS_1:
+    case IOS_CS_1:
       render_row(1, "A:CS");
       break;
     case MAC_PS_1:
