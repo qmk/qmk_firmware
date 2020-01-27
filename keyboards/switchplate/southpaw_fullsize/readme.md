@@ -1,11 +1,11 @@
-# Southpaw Fullsize
+# Southpaw Full Size
 
 ![southpaw_fullsize](https://i.imgur.com/Kt8eN8L.jpg)
 
 A fullsize keyboard with southpaw numpad  
 
 * Keyboard Maintainer: [Switchplate Peripherals](https://switchplate.co/)/[ai03](https://github.com/ai03-2725)
-* Hardware Supported: The Southpaw Fullsize PCB
+* Hardware Supported: The Southpaw Full Size PCB
 * Hardware Availability: GB
 
 Make example for this keyboard (after setting up your build environment):
