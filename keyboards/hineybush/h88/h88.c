@@ -54,7 +54,6 @@ void led_set_user(uint8_t usb_led) {
     writePinLow(D5);
   } else {
     setPinInput(D5);
-    writePinLow(D5);
   }
 
   if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
@@ -62,7 +61,6 @@ void led_set_user(uint8_t usb_led) {
     writePinLow(E6);
   } else {
     setPinInput(E6);
-    writePinLow(E6);
   }
 
 }
