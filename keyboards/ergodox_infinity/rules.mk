@@ -54,11 +54,14 @@ ARMV = 7
 # The CORTEX_VTOR... is needed only for MCHCK/Infinity KB
 OPT_DEFS += -DCORTEX_VTOR_INIT=0x00002000
 
+BOOTLOADER = dfu
+
 # Build Options
 #   comment out to disable the options.
 #
 
 DFU_ARGS = -d 1c11:b007
+DFU_SUFFIX_ARGS = -p b007 -v 1c11
 
 BOOTMAGIC_ENABLE = no  # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE  = yes # Mouse keys(+4700)

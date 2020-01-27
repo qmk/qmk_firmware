@@ -16,8 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef PICO_CONFIG_H
-#define PICO_CONFIG_H
+#pragma once
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
@@ -27,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         HelixPico
 #define DESCRIPTION     A split keyboard for the cheap makers
 
-
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 100
 
@@ -35,6 +33,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_I2C
 #define USE_SERIAL
 //#define USE_MATRIX_I2C
+
+/* Soft Serial defines */
+#define SOFT_SERIAL_PIN D2
+#define SERIAL_SLAVE_BUFFER_LENGTH  ((MATRIX_ROWS)/2)
+#define SERIAL_MASTER_BUFFER_LENGTH ((MATRIX_ROWS)/2)
 
 /* Select hand configuration */
 #define MASTER_LEFT
@@ -64,17 +67,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BACKLIGHT_LEVELS 3
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 //#define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 //#define LOCKING_RESYNC_ENABLE
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /* Audio */
 #ifdef AUDIO_ENABLE
@@ -144,6 +142,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-
-#endif

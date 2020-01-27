@@ -14,7 +14,7 @@ Or for the [Workman](https://github.com/ojbucao/workman) layout:
 
     make diverge3:workman
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
 # Reflashing Animus
 Reflashing the stock firmware is pretty easy. Just follow the same steps in the [original guide](https://imgur.com/a/8UapN). You will have to manually reset the Pro Micro (by shorting the GND and RST pins) during the upload step. Then reapply your keymap through Arbites.

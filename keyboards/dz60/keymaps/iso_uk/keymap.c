@@ -10,12 +10,6 @@
 #define _CONTROL 2     // Control layer
 #define _CN _CONTROL
 
-// KEYCODES
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
-#define MO_FN MO(1)
-#define MO_FN MO(1)
 #define MO_FN MO(1)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

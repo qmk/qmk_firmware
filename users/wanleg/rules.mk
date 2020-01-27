@@ -18,5 +18,28 @@ endif
 #use alternate settings for boards using "Adafruit Feather 32u4 Bluefruit LE" instead of Micro
 #example usage: make 5x5:wanleg BT=yes
 ifeq ($(strip $(BT)), yes)
-	OPT_DEFS += -DBLUEFRUIT
+  #opt_defs for alternate pin usage
+  OPT_DEFS += -DBLUEFRUIT
+  #Adafruit Bluefruit controller settings
+  BLUETOOTH = AdafruitBLE
+  BLUETOOTH_ENABLE = yes
+  F_CPU = 8000000
+  CONSOLE_ENABLE = no 		# Console for debug(+400)
+  COMMAND_ENABLE = no 		# Commands for debug and configuration
+  RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
+endif
+
+#move numpad to Left/Centre/Right(default) on 5x15 boards
+#example usage: make 4x4:wanleg padc=yes
+ifeq ($(strip $(padc)), yes)
+	OPT_DEFS += -DPADC
+endif
+ifeq ($(strip $(padl)), yes)
+	OPT_DEFS += -DPADL
+endif
+
+#change gherkin orientation (i.e. move USB port from right side to left side)
+#example usage: make gherkin:wanleg flip=yes
+ifeq ($(strip $(flip)), yes)
+	OPT_DEFS += -DFLIP
 endif

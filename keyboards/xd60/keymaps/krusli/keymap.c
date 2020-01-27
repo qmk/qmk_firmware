@@ -1,8 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "action_layer.h"
 
-#define _______ KC_TRNS
-
 #define _BASE 0
 #define _FN   1
 
@@ -21,11 +19,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, KC_VOLD, KC_VOLU, KC_MUTE, _______, _______, KC_PAST, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT, KC_NO,        _______,           \
       _______, KC_NO,   _______, _______, _______, _______, _______, KC_PPLS, KC_PMNS, KC_END,  KC_PGDN, KC_DOWN, _______, _______,  _______,      \
       _______, _______, _______,                          _______,                              _______, _______, _______, _______, _______),
-};
-
-// Custom Actions
-const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_LAYER_MOMENTARY(1),  // to Fn overlay
 };
 
 // Macros

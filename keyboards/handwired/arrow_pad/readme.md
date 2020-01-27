@@ -94,13 +94,13 @@ More info can be found on [GeekHack](https://geekhack.org/index.php?topic=73632.
 The second ArrowPad was a conversion from a 21-key Genovation keypad. It used a 2 row x 11 column matrix.
 
 ```
-#define KEYMAP( \
+#define LAYOUT_pad21( \
     KM_ESC, KM_TAB, KM_BSL, KM_ARR, \
     KM_NUM, KM_FSL, KM_AST, KM_MIN, \
-    KM___7, KM___8, KM___9, ___PLS, \
+    KM___7, KM___8, KM___9,         \
     KM___4, KM___5, KM___6, KM_PLS, \
-    KM___1, KM___2, KM___3, ___ENT, \
-    KM___0, _____0, KM_DOT, KM_ENT  \
+    KM___1, KM___2, KM___3,         \
+    KM___0,         KM_DOT, KM_ENT  \
 ) { \
     { KM_ESC, KM_TAB, KM_BSL, KM_ARR, KM___7, KM___8, KM___9, KM_PLS, KM___1, KM___2, KM___3, }, \
     { KM_NUM, KM_FSL, KM_AST, KM_MIN, KM___4, KM___5, KM___6, KM_ENT, KC_NO,  KM___0, KM_DOT, }, \
@@ -119,7 +119,7 @@ Download or clone the whole firmware and navigate to the keyboards/arrow_pad fol
 Depending on which keymap you would like to use, you will have to compile slightly differently.
 
 ### Default
-To build with the default keymap, simply run `make default`.
+To build with the default keymap, simply run `make handwired/arrow_pad:default`.
 
 ### Other Keymaps
 Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create file named `<name>.c` in the keymaps folder, and see keymap document (you can find in top readme.md) and existent keymap files.
@@ -127,7 +127,7 @@ Several version of keymap are available in advance but you are recommended to de
 To build the firmware binary hex file with a keymap just do `make` with a keymap like this:
 
 ```
-$ make [default|pad_21|pad_24|<name>]
+$ make handwired/arrow_pad:[default|pad_21|pad_24|<name>]
 ```
 
 Keymaps follow the format **__\<name\>.c__** and are stored in the `keymaps` folder.

@@ -34,8 +34,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [BASE] = LAYOUT_dactyl(  // layer 0 : default
         // left hand
-           KC_EQL,            KC_1,           KC_2,     KC_3,     KC_4,  KC_5,
-          KC_DELT,         KC_QUOT,        KC_COMM,   KC_DOT,     KC_P,  KC_Y,
+          KC_EQL,             KC_1,           KC_2,     KC_3,     KC_4,  KC_5,
+          KC_DEL,          KC_QUOT,        KC_COMM,   KC_DOT,     KC_P,  KC_Y,
           KC_BSPC,            KC_A,           KC_O,     KC_E,     KC_U,  KC_I,
           KC_LSFT,  CTL_T(KC_SCLN),           KC_Q,     KC_J,     KC_K,  KC_X,
   LT(SYMB,KC_GRV),          KC_EQL,  LALT(KC_LSFT),  KC_LEFT,  KC_RGHT,
@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              KC_F,   KC_G,     KC_C,     KC_R,            KC_L,         KC_BSLS,
                              KC_D,   KC_H,     KC_T,     KC_N,  LT(MDIA, KC_S),  GUI_T(KC_SLSH),
                              KC_B,   KC_M,     KC_W,     KC_V,     CTL_T(KC_Z),         KC_RSFT,
-                                    KC_UP,  KC_DOWN,  KC_LBRC,         KC_RBRC,          KC_FN1,
+                                    KC_UP,  KC_DOWN,  KC_LBRC,         KC_RBRC,          TT(SYMB),
           KC_RALT,  CTL_T(KC_ESC),
           KC_PGUP,
           KC_PGDN, KC_TAB, KC_ENT
@@ -135,10 +135,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TRNS,
       KC_TRNS,  KC_TRNS,  KC_WBAK
 ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

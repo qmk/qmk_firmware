@@ -12,9 +12,8 @@ enum custom_keycodes {
   PS = SAFE_RANGE,
   AI,
   PR,
+  MACRO_0,
 };
-
-#define _______ KC_TRNS
 
 #define PS TO(0)
 #define AI TO(1)
@@ -72,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // Illustrator layer
   [_AI] = LAYOUT_ortho_3x10(
-    _______, M(0),    RULER,   _______, KC_G,    _______, _______, KC_Q,  KC_MINS, KC_PLUS,
+    _______, MACRO_0, RULER,   _______, KC_G,    _______, _______, KC_Q,  KC_MINS, KC_PLUS,
     _______, _______, _______, KC_E,    _______, _______, _______, SHAPE, KC_O,    OPEN,
     _______, _______, _______, _______, _______, _______, _______, KC_M,  KC_SLSH, PR
   ),
@@ -133,20 +132,14 @@ void matrix_scan_user(void) {
   #endif
 }
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  keyevent_t event = record->event;
-    (void)event;
-
-  switch (id) {
-    case 0:
-      // Save for Web Macro.
-      return MACRO(D(LSFT), D(LALT), D(LCTL), T(S), U(LCTL), U(LALT), U(LSFT), END);
-  }
-  return MACRO_NONE;
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-  }
-  return true;
-}
+	if (record->event.pressed) {
+		switch(keycode) {
+			case MACRO_0:
+        // Save for Web Macro.
+				SEND_STRING(SS_LSFT(SS_LALT(SS_LCTRL("s"))));
+				return false;
+		}
+	}
+	return true;
+};

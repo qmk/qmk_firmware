@@ -1,8 +1,4 @@
-ifndef QUANTUM_DIR
-  include ../../../../Makefile
-endif
-
-STENO_ENABLE = yes          # Additional protocols for Stenography(+1700), requires VIRTSER
+STENO_ENABLE = yes     # Additional protocols for Stenography(+1700), requires VIRTSER
 
 BOOTMAGIC_ENABLE = no  # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = no   # Mouse keys(+4700)

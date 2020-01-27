@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#pragma once
 
 #include "config_common.h"
 
@@ -23,5 +22,3 @@
 #define RGBLIGHT_ANIMATIONS
 #define RGB_DI_PIN D3    // The pin the LED strip is connected to
 #define RGBLED_NUM 7     // Number of LEDs in your strip
-
-#endif

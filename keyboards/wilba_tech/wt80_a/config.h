@@ -44,16 +44,15 @@
 #define MATRIX_COL_PINS { F5, D5, B1, B2, B3, D3, D2, C7, C6, B6, B5, B4, D7, D6, D4, B7, B0 }
 #define UNUSED_PINS
 
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
+/* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
- 
+
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
 // #define BACKLIGHT_LEVELS 3
 
-
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
@@ -102,11 +101,6 @@
  * useful if your keyboard/keypad is missing keys and you want magic key support.
  *
  */
-
-/* key combination for magic key command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true
@@ -185,3 +179,27 @@
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 1
 
+// enable the mono backlight
+#define MONO_BACKLIGHT_ENABLED 1
+
+// disable backlight when USB suspended (PC sleep/hibernate/shutdown)
+#define MONO_BACKLIGHT_DISABLE_WHEN_USB_SUSPENDED 0
+
+// disable backlight after timeout in minutes, 0 = no timeout
+#define MONO_BACKLIGHT_DISABLE_AFTER_TIMEOUT 0
+
+// the default brightness
+#define MONO_BACKLIGHT_BRIGHTNESS 255
+
+// the default effect
+#define MONO_BACKLIGHT_EFFECT 1
+
+// the default effect speed (0-3)
+#define MONO_BACKLIGHT_EFFECT_SPEED 0
+
+// Backlight config starts after VIA's EEPROM usage,
+// dynamic keymaps start after this.
+#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 7
+
+// VIA lighting is handled by the keyboard-level code
+#define VIA_CUSTOM_LIGHTING_ENABLE

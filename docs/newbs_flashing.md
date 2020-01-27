@@ -12,23 +12,31 @@ However, the QMK Toolbox is only available for Windows and macOS currently.  If 
 
 Begin by opening the QMK Toolbox application. You'll want to locate the firmware file in Finder or Explorer. Your keyboard firmware may be in one of two formats- `.hex` or `.bin`. QMK tries to copy the appropriate one for your keyboard into the root `qmk_firmware` directory.
 
-?> If you are on Windows or macOS there are commands you can use to easily open the current firmware folder in Explorer or Finder.
+If you are on Windows or macOS there are commands you can use to easily open the current firmware folder in Explorer or Finder.
 
-?> Windows:
+#### Windows
 
-    start .
+```
+start .
+```
 
-?> macOS:
+#### macOS
 
-    open .
+```
+open .
+```
 
 The firmware file always follows this naming format:
 
-    <keyboard_name>_<keymap_name>.{bin,hex}
+```
+<keyboard_name>_<keymap_name>.{bin,hex}
+```
 
-For example, the `plank/rev5` with a `default` keymap will have this filename:
+For example, the `planck/rev5` with a `default` keymap will have this filename:
 
-    planck_rev5_default.hex
+```
+planck_rev5_default.hex
+```
 
 Once you have located your firmware file drag it into the "Local file" box in QMK Toolbox, or click "Open" and navigate to where your firmware file is stored. 
 
@@ -78,7 +86,23 @@ Click the `Flash` button in QMK Toolbox. You will see output similar to the foll
 
 ## Flash your Keyboard from the Command Line
 
-First thing you'll need to know is which bootloader that your keyboard uses.  There are four main bootloaders that are used, usually. Pro-Micro and clones use CATERINA, and Teensy's use Halfkay, OLKB boards use QMK-DFU, and other atmega32u4 chips use DFU. 
+This has been made pretty simple compared to what it used to be.  When you are ready to compile and flash your firmware, open up your terminal window and run the build command: 
+
+    make <my_keyboard>:<my_keymap>:flash
+
+For example, if your keymap is named "xyverz" and you're building a keymap for a rev5 planck, you'll use this command:
+
+    make planck/rev5:xyverz:flash
+
+This will check the keyboard's configuration, and then attempt to flash it based on the specified bootloader.  This means that you don't need to know which bootloader that your keyboard uses.  Just run the command, and let the command do the heavy lifting.
+
+However, this does rely on the bootloader being set by the keyboard.  If this information is not configured, or you're using a board that doesn't have a supported target to flash it, you will see this error:
+
+    WARNING: This board's bootloader is not specified or is not supported by the ":flash" target at this time.
+
+In this case, you'll have to fall back on specifying the bootloader.
+
+There are five main bootloaders that are used. Pro Micro and clones use Caterina, Teensys use HalfKay, OLKB's AVR boards use QMK-DFU, other ATmega32U4 boards use DFU, and most ARM boards use ARM DFU.
 
 You can find more information about the bootloaders in the [Flashing Instructions and Bootloader Information](flashing.md) page. 
 
@@ -86,7 +110,7 @@ If you know what bootloader that you're using, then when compiling the firmware,
 
 ### DFU
 
-For the DFU bootloader, when you're ready to compile and flash your firmware, open up your terminal window and run the built command: 
+For the DFU bootloader, when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
 
     make <my_keyboard>:<my_keymap>:dfu
 
@@ -109,7 +133,7 @@ After it gets to this point, the build script will look for the DFU bootloader e
     dfu-programmer: no device present.
     Error: Bootloader not found. Trying again in 5s.
 
-Once it does this, you'll want to reset the controller.  It should then show output similiar to this: 
+Once it does this, you'll want to reset the controller.  It should then show output similar to this: 
 
 ```
 *** Attempting to flash, please don't remove device
@@ -127,13 +151,21 @@ Once it does this, you'll want to reset the controller.  It should then show out
 >>> dfu-programmer atmega32u4 reset
 ```
 
-If you have any issues with this, you may need to this: 
+?> If you have any issues with this - such as `dfu-programmer: no device present` - please see the [Frequently Asked Build Questions](faq_build.md).
 
-    sudo make <my_keyboard>:<my_keymap>:dfu
+#### DFU commands
+
+There are a number of DFU commands that you can use to flash firmware to a DFU device:
+
+* `:dfu` - This is the normal option and waits until a DFU device is available, and then flashes the firmware. This will check every 5 seconds, to see if a DFU device has appeared.
+* `:dfu-ee` - This flashes an `eep` file instead of the normal hex.  This is uncommon. 
+* `:dfu-split-left` - This flashes the normal firmware, just like the default option (`:dfu`). However, this also flashes the "Left Side" EEPROM file for split keyboards. _This is ideal for Elite C based split keyboards._
+* `:dfu-split-right` - This flashes the normal firmware, just like the default option (`:dfu`). However, this also flashes the "Right Side" EEPROM file for split keyboards. _This is ideal for Elite C based split keyboards._
+
 
 ### Caterina 
 
-For Arduino boards and their close (such as the SparkFun ProMicro), when you're ready to compile and flash your firmware, open up your terminal window and run the built command: 
+For Arduino boards and their clones (such as the SparkFun ProMicro), when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
 
     make <my_keyboard>:<my_keymap>:avrdude
 
@@ -199,15 +231,26 @@ If you have any issues with this, you may need to this:
 
     sudo make <my_keyboard>:<my_keymap>:avrdude
 
-## HalfKay
 
-For the PJRC devices (Teensy's), when you're ready to compile and flash your firmware, open up your terminal window and run the built command: 
+#### Caterina commands
+
+There are a number of DFU commands that you can use to flash firmware to a DFU device:
+
+* `:avrdude` - This is the normal option which waits until a Caterina device is available (by detecting a new COM port), and then flashes the firmware.
+* `:avrdude-loop` - This runs the same command as `:avrdude`, but after each device is flashed, it will attempt to flash again.  This is useful for bulk flashing. _This requires you to manually escape the loop by hitting Control+C._
+* `:avrdude-split-left` - This flashes the normal firmware, just like the default option (`:avrdude`). However, this also flashes the "Left Side" EEPROM file for split keyboards. _This is ideal for Pro Micro based split keyboards._
+* `:avrdude-split-right` - This flashes the normal firmware, just like the default option (`:avrdude`). However, this also flashes the "Right Side" EEPROM file for split keyboards. _This is ideal for Pro Micro based split keyboards._
+
+
+### HalfKay
+
+For the PJRC devices (Teensy's), when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
 
     make <my_keyboard>:<my_keymap>:teensy
 
 For example, if your keymap is named "xyverz" and you're building a keymap for an Ergodox or Ergodox EZ, you'll use this command:
 
-    make erdogox_ez:xyverz:teensy
+    make ergodox_ez:xyverz:teensy
 
 Once the firmware finishes compiling, it will output something like this: 
 
@@ -226,12 +269,107 @@ Waiting for Teensy device...
 
  ```
  Found HalfKay Bootloader
-Read "./.build/ergodox_ez_drashna.hex": 28532 bytes, 88.5% usage
+Read "./.build/ergodox_ez_xyverz.hex": 28532 bytes, 88.5% usage
 Programming............................................................................................................................................................................
 ...................................................
 Booting
 ```
 
+### STM32 (ARM)
+
+For a majority of ARM boards (including the Proton C, Planck Rev 6, and Preonic Rev 3), when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
+
+    make <my_keyboard>:<my_keymap>:dfu-util
+
+For example, if your keymap is named "xyverz" and you're building a keymap for the Planck Revision 6 keyboard, you'll use this command and then reboot the keyboard to the bootloader (before it finishes compiling):
+
+    make planck/rev6:xyverz:dfu-util
+
+Once the firmware finishes compiling, it will output something like this: 
+
+```
+Linking: .build/planck_rev6_xyverz.elf                                                             [OK]
+Creating binary load file for flashing: .build/planck_rev6_xyverz.bin                               [OK]
+Creating load file for flashing: .build/planck_rev6_xyverz.hex                                     [OK]
+
+Size after:
+   text    data     bss     dec     hex filename
+      0   41820       0   41820    a35c .build/planck_rev6_xyverz.hex
+
+Copying planck_rev6_xyverz.bin to qmk_firmware folder                                              [OK]
+dfu-util 0.9
+
+Copyright 2005-2009 Weston Schmidt, Harald Welte and OpenMoko Inc.
+Copyright 2010-2016 Tormod Volden and Stefan Schmidt
+This program is Free Software and has ABSOLUTELY NO WARRANTY
+Please report bugs to http://sourceforge.net/p/dfu-util/tickets/
+
+Invalid DFU suffix signature
+A valid DFU suffix will be required in a future dfu-util release!!!
+Opening DFU capable USB device...
+ID 0483:df11
+Run-time device DFU version 011a
+Claiming USB DFU Interface...
+Setting Alternate Setting #0 ...
+Determining device status: state = dfuERROR, status = 10
+dfuERROR, clearing status
+Determining device status: state = dfuIDLE, status = 0
+dfuIDLE, continuing
+DFU mode device DFU version 011a
+Device returned transfer size 2048
+DfuSe interface name: "Internal Flash  "
+Downloading to address = 0x08000000, size = 41824
+Download        [=========================] 100%        41824 bytes
+Download done.
+File downloaded successfully
+Transitioning to dfuMANIFEST state
+```
+
+#### STM32 Commands
+
+There are a number of DFU commands that you can use to flash firmware to a STM32 device:
+
+* `:dfu-util` - The default command for flashing to STM32 devices, and will wait until an STM32 bootloader is present. . 
+* `:dfu-util-split-left` - This flashes the normal firmware, just like the default option (`:dfu-util`). However, this also configures the "Left Side" EEPROM setting for split keyboards.
+* `:dfu-util-split-right` - This flashes the normal firmware, just like the default option (`:dfu-util`). However, this also configures the "Right Side" EEPROM setting for split keyboards.
+* `:st-link-cli` - This allows you to flash the firmware via ST-LINK's CLI utility, rather than dfu-util. 
+
+
+### BootloadHID
+
+For Bootmapper Client(BMC)/bootloadHID/ATmega32A based boards, when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
+
+    make <my_keyboard>:<my_keymap>:bootloaderHID
+
+For example, if your keymap is named "xyverz" and you're building a keymap for a jj40, you'll use this command:
+
+    make jj40:xyverz:bootloaderHID
+
+Once the firmware finishes compiling, it will output something like this: 
+
+```
+Linking: .build/jj40_default.elf                                                                   [OK]
+Creating load file for flashing: .build/jj40_default.hex                                           [OK]
+Copying jj40_default.hex to qmk_firmware folder                                                    [OK]
+Checking file size of jj40_default.hex                                                             [OK]
+ * The firmware size is fine - 21920/28672 (6752 bytes free)
+```
+
+After it gets to this point, the build script will look for the DFU bootloader every 5 seconds.  It will repeat the following until the device is found or you cancel it. 
+
+```
+Error opening HIDBoot device: The specified device was not found
+Trying again in 5s.
+```
+
+Once it does this, you'll want to reset the controller.  It should then show output similar to this: 
+
+```
+Page size   = 128 (0x80)
+Device size = 32768 (0x8000); 30720 bytes remaining
+Uploading 22016 (0x5600) bytes starting at 0 (0x0)
+0x05580 ... 0x05600
+```
 
 ## Test It Out!
 

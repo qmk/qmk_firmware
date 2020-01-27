@@ -2,8 +2,6 @@
 
 #define _MAIN 0
 
-#define _______ KC_TRNS
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_MAIN] = LAYOUT(
      RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,

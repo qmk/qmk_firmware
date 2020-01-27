@@ -18,24 +18,14 @@ enum mitosis_layers
 enum mitosis_keycodes
 {
   FNKEY = SAFE_RANGE,
-  SHIFT
-};
-
-
-// Macro definitions for readability
-enum mitosis_macros
-{
-	VOLU,
-	VOLD,
-	ESCM
+  SHIFT,
+  M_VOLU,
+  M_VOLD,
+  M_ESCM
 };
 
 #define LONGPRESS_DELAY 150
 #define LAYER_TOGGLE_DELAY 300
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -43,8 +33,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q,    KC_P,    KC_Y,    KC_C,    KC_B,           KC_V,    KC_M,    KC_U,    KC_Z,    KC_L,
     KC_A,    KC_N,    KC_I,    KC_S,    KC_F,           KC_D,    KC_T,    KC_H,    KC_O,    KC_R,
     KC_COMM, KC_DOT,  KC_J,    KC_G,    KC_SLSH,        KC_SCLN, KC_W,    KC_K,    KC_QUOT, KC_X,
-             M(VOLU), M(ESCM), KC_TAB,  KC_LCTL,        KC_LALT, KC_ENT,  KC_DEL,  KC_PGUP,
-             M(VOLD), KC_LGUI, KC_E,    FNKEY,          SHIFT,   KC_SPC,  KC_BSPC, KC_PGDN
+             M_VOLU,  M_ESCM,  KC_TAB,  KC_LCTL,        KC_LALT, KC_ENT,  KC_DEL,  KC_PGUP,
+             M_VOLD,  KC_LGUI, KC_E,    FNKEY,          SHIFT,   KC_SPC,  KC_BSPC, KC_PGDN
   ),
 
 
@@ -80,61 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-
-const uint16_t PROGMEM fn_actions[] = {
-
-};
-
 static uint16_t key_timer;
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-    switch(id) {
-
-      	//switch multiplexing for media, short tap for volume up, long press for play/pause
-        case VOLU:
-            if (record->event.pressed) {
-            	key_timer = timer_read(); // if the key is being pressed, we start the timer.
-          	} else { // this means the key was just released, so we can figure out how long it was pressed for (tap or "held down").
-            	if (timer_elapsed(key_timer) > LONGPRESS_DELAY) { // LONGPRESS_DELAY being 150ms, the threshhold we pick for counting something as a tap.
-                  return MACRO(T(MPLY), END);
-                } else {
-                  return MACRO(T(VOLU), END);
-                }
-          	}
-          	break;
-
-		//switch multiplexing for media, short tap for volume down, long press for next track
-        case VOLD:
-            if (record->event.pressed) {
-            	key_timer = timer_read();
-          	} else {
-            	if (timer_elapsed(key_timer) > LONGPRESS_DELAY) {
-                  return MACRO(T(MNXT), END);
-                } else {
-                  return MACRO(T(VOLD), END);
-                }
-          	}
-          	break;
-
-        //switch multiplexing for escape, short tap for escape, long press for context menu
-        case ESCM:
-            if (record->event.pressed) {
-            	key_timer = timer_read();
-          	} else {
-            	if (timer_elapsed(key_timer) > LONGPRESS_DELAY) {
-                  return MACRO(T(APP), END);
-                } else {
-                  return MACRO(T(ESC), END);
-                }
-          	}
-          	break;
-
-        break;
-    }
-    return MACRO_NONE;
-};
 
 static bool singular_key = false;
 
@@ -174,6 +110,44 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     update_tri_layer(_FUNCTION, _SHIFTED, _FUNCSHIFT);
   	return false;
   	break;
+  //switch multiplexing for media, short tap for volume up, long press for play/pause
+  case M_VOLU:
+      if (record->event.pressed) {
+        key_timer = timer_read(); // if the key is being pressed, we start the timer.
+      } else { // this means the key was just released, so we can figure out how long it was pressed for (tap or "held down").
+        if (timer_elapsed(key_timer) > LONGPRESS_DELAY) { // LONGPRESS_DELAY being 150ms, the threshhold we pick for counting something as a tap.
+            tap_code(KC_MPLY);
+          } else {
+            tap_code(KC_VOLU);
+          }
+      }
+      return false;
+
+  //switch multiplexing for media, short tap for volume down, long press for next track
+  case M_VOLD:
+      if (record->event.pressed) {
+        key_timer = timer_read();
+      } else {
+        if (timer_elapsed(key_timer) > LONGPRESS_DELAY) {
+            tap_code(KC_MNXT);
+          } else {
+            tap_code(KC_VOLD);
+          }
+      }
+      return false;
+
+  //switch multiplexing for escape, short tap for escape, long press for context menu
+  case M_ESCM:
+      if (record->event.pressed) {
+        key_timer = timer_read();
+      } else {
+        if (timer_elapsed(key_timer) > LONGPRESS_DELAY) {
+            tap_code(KC_APP);
+          } else {
+            tap_code(KC_ESC);
+          }
+      }
+      return false;
 
   //If any other key was pressed during the layer mod hold period,
   //then the layer mod was used momentarily, and should block latching

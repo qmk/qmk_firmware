@@ -8,6 +8,21 @@
 #define COMBINED  3
 #define BROWSER_CONTROL 4
 
+// aliases
+// shell
+#define SHELL_DEL_WORD RCTL(KC_W)
+// android studio
+
+#define AS_TABLEFT LALT(KC_LEFT)
+#define AS_TABRIGHT LALT(KC_RIGHT)
+#define AS_SYMBOL LCTL(LALT(KC_N))
+#define AS_CLASS LCTL(KC_N)
+#define AS_FINDUSAGE LALT(KC_F7)
+#define AS_BACK LCTL(LALT(KC_LEFT))
+#define AS_GO_DECLARATION LCTL(KC_B)
+#define AS_GO_IMPLEMENTATION LCTL(LALT(KC_B))
+#define AS_CLOSETAB LCTL(KC_F4)
+#define AS_CLOSETOOLWINDOW LCTL(LSFT(KC_F4))
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -37,10 +52,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [KEYNAV] = LAYOUT(
-    KC_ESC,      CLOUD9_GOTO_LINE,   RCTL(KC_Z),      RCTL(KC_S),       MEH(KC_F10),                         KC_TRNS,       KC_HOME,    KC_UP,           KC_END,     KC_PGUP,
-    MEH(KC_F11), CLOUD9_GOTO_SYMBOL, RSFT(KC_TAB),    KC_TAB,           MEH(KC_A),                           LCTL(KC_LEFT), KC_LEFT,    KC_DOWN,         KC_RIGHT,   LCTL(KC_RIGHT),
-    MEH(KC_B),   CLOUD9_NAVIGATE,    CLOUD9_TAB_LEFT, CLOUD9_TAB_RIGHT, CLOUD9_TAB_CLOSE,                    KC_TRNS,       RCTL(KC_C), RCTL(KC_X),      RCTL(KC_V), KC_PGDOWN,
-    KC_TRNS,     KC_TRNS,            KC_TRNS,         KC_TRNS,          KC_TRNS,          KC_TRNS, KC_ENTER, KC_SPACE,      KC_BSPC,    RCTL(KC_BSPC),   KC_DELETE,  LCTL(KC_DELETE)
+    KC_ESC,             AS_GO_IMPLEMENTATION,  RCTL(KC_Z),      RCTL(KC_S),       MEH(KC_A),                           MEH(KC_B),     KC_HOME,    KC_UP,           KC_END,     KC_PGUP,
+    AS_BACK,            AS_SYMBOL,             RSFT(KC_TAB),    KC_TAB,           SHELL_DEL_WORD,                      LCTL(KC_LEFT), KC_LEFT,    KC_DOWN,         KC_RIGHT,   LCTL(KC_RIGHT),
+    AS_FINDUSAGE,       AS_CLASS,              AS_TABLEFT,      AS_TABRIGHT,      AS_CLOSETAB,                         KC_TRNS,       RCTL(KC_C), RCTL(KC_X),      RCTL(KC_V), KC_PGDOWN,
+    AS_CLOSETOOLWINDOW, AS_GO_DECLARATION,     KC_TRNS,         KC_TRNS,          KC_TRNS,          KC_TRNS, KC_ENTER, KC_SPACE,      KC_BSPC,    RCTL(KC_BSPC),   KC_DELETE,  LCTL(KC_DELETE)
   ),
 
   [KEYSEL] = LAYOUT(
@@ -63,10 +78,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     MEH(KC_2), MEH(KC_3), MEH(KC_4), MEH(KC_5), MEH(KC_7),                    MEH(KC_8),  RCTL(KC_1),         RCTL(KC_9),   KC_F6,         KC_F5,
     KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS, RCTL(KC_W), RCTL(KC_T), RSFT(RCTL(KC_TAB)), KC_TRNS,      KC_TRNS,       KC_TRNS
   ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

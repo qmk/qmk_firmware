@@ -3,7 +3,6 @@
 #define _MAIN 0
 #define _FN 1
 
-#define _______ KC_TRNS
 #define KC_X0 LT(_FN, KC_ESC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

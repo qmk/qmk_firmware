@@ -13,6 +13,15 @@ uint16_t click_hz = CLICK_HZ;
 uint16_t click_time = CLICK_MS;
 uint8_t click_toggle = CLICK_ENABLED;
 
+__attribute__((weak))
+const Layer_Info layer_info[] = {
+  // Layer     Mask           Red     Green   Blue
+  {0x00000000, 0xFFFFFFFF, {0x0000, 0x0FFF, 0x0000}}, // base layer - green
+  {0x00000002, 0xFFFFFFFE, {0x0000, 0x0000, 0x0FFF}}, // function layer - blue
+  {0x00000004, 0xFFFFFFFC, {0x0FFF, 0x0000, 0x0FFF}}, // settings layer - magenta
+  {0xFFFFFFFF, 0xFFFFFFFF, {0x0FFF, 0x0FFF, 0x0FFF}}, // unknown layer - REQUIRED - white
+};
+
 void matrix_init_kb(void)
 {
     matrix_init_user();

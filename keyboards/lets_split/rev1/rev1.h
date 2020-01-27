@@ -1,12 +1,8 @@
-#ifndef REV1_H
-#define REV1_H
+#pragma once
 
 #include "lets_split.h"
 
-//void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
-
-//void promicro_bootloader_jmp(bool program);
 
 #define LAYOUT( \
 	L00, L01, L02, L03, L04, L05, R00, R01, R02, R03, R04, R05, \
@@ -26,5 +22,3 @@
 	}
 
 #define LAYOUT_ortho_4x12 LAYOUT
-
-#endif

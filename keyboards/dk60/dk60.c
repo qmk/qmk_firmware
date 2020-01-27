@@ -1,5 +1,15 @@
 #include "dk60.h"
 
+extern inline void dk60_caps_led_on(void);
+extern inline void dk60_esc_led_on(void);
+
+extern inline void dk60_caps_led_off(void);
+extern inline void dk60_esc_led_off(void);
+
+extern inline void dk60_led_all_on(void);
+extern inline void dk60_led_all_off(void);
+
+
 void dk60_blink_all_leds(void)
 {
     dk60_led_all_off();

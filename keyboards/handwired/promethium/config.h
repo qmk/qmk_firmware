@@ -15,20 +15,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
-#define USB_VENDOR_ID_LENOVO            0x17ef
-#define USB_DEVICE_ID_LENOVO_TPKBD      0x6009
-#define USB_DEVICE_ID_LENOVO_CUSBKBD    0x6047
-#define USB_DEVICE_ID_LENOVO_CBTKBD     0x6048
-#define USB_DEVICE_ID_LENOVO_TPPRODOCK  0x6067
-
 /* USB Device descriptor parameter */
-#define VENDOR_ID       USB_VENDOR_ID_LENOVO
-#define PRODUCT_ID      USB_DEVICE_ID_LENOVO_CBTKBD
+#define VENDOR_ID       0x17EF // Lenovo
+//#define PRODUCT_ID    0x6009 // ThinkPad Keyboard with TrackPoint
+//#define PRODUCT_ID    0x6047 // ThinkPad Compact USB Keyboard with TrackPoint
+#define PRODUCT_ID      0x6048 // ThinkPad Compact Bluetooth Keyboard with TrackPoint
+//#define PRODUCT_ID    0x6067 // ThinkPad Pro Docking Station
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Priyadi
 #define PRODUCT         Promethium Keyboard
@@ -61,7 +57,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BACKLIGHT_LEVELS 3
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
@@ -96,7 +92,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key combination for command */
 #define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT) | MOD_BIT(KC_LCTRL) | MOD_BIT(KC_RCTRL)) \
+    get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT) | MOD_BIT(KC_LCTRL) | MOD_BIT(KC_RCTRL)) \
 )
 
 /* control how magic key switches layers */
@@ -158,27 +154,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BATTERY_POLL 30000
 #define MAX_VOLTAGE 4.2
 #define MIN_VOLTAGE 3.2
-
-#define ___ KC_NO
-
-#define KEYMAP_CUSTOM( \
-    k11, k12, k13, k14, k15, k16,      k17, k18, k19, k1a, k1b, k1c, \
-    k21, k22, k23, k24, k25, k26,      k27, k28, k29, k2a, k2b, k2c, \
-    k31, k32, k33, k34, k35, k36,      k37, k38, k39, k3a, k3b, k3c, \
-    k41, k42, k43, k44, k45, k46,      k47, k48, k49, k4a, k4b, k4c, \
-                             tp1, tp2, tp3 \
-) \
-{ \
-    {k11, k12, k13, k14, k15, k16}, \
-    {k21, k22, k23, k24, k25, k26}, \
-    {k31, k32, k33, k34, k35, k36}, \
-    {k41, k42, k43, k44, k45, k46}, \
-    {k17, k18, k19, k1a, k1b, k1c}, \
-    {k27, k28, k29, k2a, k2b, k2c}, \
-    {k37, k38, k39, k3a, k3b, k3c}, \
-    {k47, k48, k49, k4a, k4b, k4c}, \
-    {tp1, tp2, tp3, ___, ___, ___}  \
-}
 
 #ifndef __ASSEMBLER__ // assembler doesn't like enum in .h file
 enum led_sequence {
@@ -350,7 +325,4 @@ enum led_sequence {
 #define PS2_USART_RX_DATA       UDR1
 #define PS2_USART_ERROR         (UCSR1A & ((1<<FE1) | (1<<DOR1) | (1<<UPE1)))
 #define PS2_USART_RX_VECT       USART1_RX_vect
-#endif
-
-
 #endif
