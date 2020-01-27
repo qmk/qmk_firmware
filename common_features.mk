@@ -471,8 +471,10 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
         QUANTUM_SRC += $(QUANTUM_DIR)/split_common/transport.c
         # Functions added via QUANTUM_LIB_SRC are only included in the final binary if they're called.
         # Unused functions are pruned away, which is why we can add multiple drivers here without bloat.
-        QUANTUM_LIB_SRC += i2c_master.c \
-                           i2c_slave.c
+        ifeq ($(PLATFORM),AVR)
+            QUANTUM_LIB_SRC += i2c_master.c \
+                               i2c_slave.c
+        endif
 
         SERIAL_DRIVER ?= bitbang
         ifeq ($(strip $(SERIAL_DRIVER)), bitbang)
