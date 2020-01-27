@@ -1,6 +1,4 @@
-## chip/board settings
-# the next two should match the directories in
-#  <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+# MCU name
 MCU = STM32F072
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread
