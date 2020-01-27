@@ -1,5 +1,4 @@
-# Minivan
-
+# Minivan 
 A 40% keyboard made by ![thevankeyboards.com](https://thevankeyboards.com) This Dvorak keymap is for
 the default 12x12x12x8 arrangement (44 keys).
 
@@ -170,7 +169,7 @@ Holding both `_NSY` keys left and right of the "split space bar" results in laye
      BASE: NUMS: FUN<  _MOV  _RAR  _PAD  | ACCE: DRAW: xxx   xxx   xxx   !Descr     //':' are dynamic ...
      LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10     RCtl     //...  ! 'descramble'
      LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20     RSft     //... < toggle 'stay'
-     --------------------------------------------------------              -*-      //. -* toggle on BASE
+     --------------------------------------------------------              -*-      //-*-  toggle on BASE
      LAlt  LCtl&  LCtl&  LSft&  | +LCtl&LSft xxx  LGUI   RAlt
            LSft   LAlt   LAlt   | &LAlt                                    
            +xxx   +xxx   +xxx   | +xxx
@@ -190,8 +189,8 @@ or staying on the `_FUN` layer. Default: return to BASE.
                         -*-              <|>                                           //(toggle) on _FUN
      BASE   PgDn  Up    PgUp  Home  Btn3  | xxx   WhDn  MsUp  WhU   WhLft Bksp
      LCtl   Left  Down  Right End   Btn1  | Btn1  MsLft MsDn  MsRht WhRht RCtl
-     LSft*- xxx   Acc2  Acc1  Acc0  Btn2  | xxx   Btn2  Btn3  Btn4  Btn5  RSft         //(toggle) on BASE
-     ---------------------------------------------------------
+     LSft   xxx   Acc2  Acc1  Acc0  Btn2  | xxx   Btn2  Btn3  Btn4  Btn5  RSft         //(toggle) on BASE
+     --------------------------------------------------------
      LAlt Del   Ent   ___ | PgUp  PgDn  LGUI  RAlt
                       -*-<|>                                                             //(hold) on BASE
      <1   <2    <3    <4  | 4>    3>    2>    1>  
@@ -238,7 +237,7 @@ assist.
      BASE     xxx   xxx   .DEL  4LEFT 2DOWN | 8UP   6RGHT *     xxx   xxx   Bspc
      LCtl     1END  2DOWN 3PGDN 4LEFT 5     | 6RGHT 7HOME 8UP   9PGUP 0INS     -
      LSft     xxx   xxx   /     xxx   =     | +     3PGDN 1END  7HOME 9PGUP RSft
-     -*-------------------------------------------------                               //(toggle) on BASE
+     -*------------------------------------------------------                       //-*-  toggle on BASE
      LAlt     Del   Tab   ENT  |  NUML  xxx   LGUI  RAlt
                               <|>
 

@@ -113,7 +113,7 @@ Layer _LTR (LeTteRs). This is standard Qwerty (#define QWERTY_DVORAK set.)
      BASE: NUMS: FUN<  _MOV  _RAR  _PAD  | ACCE: DRAW: xxx   xxx   xxx !Qwe/Dvo     //':' are dynamic ...
      LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10     RCtl     //... ! Qwerty/Dvorak
      LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20     RSft     //... < toggle 'stay'
-     --------------------------------------------------------              -*-      //. -* toggle on BASE
+     --------------------------------------------------------              -*-      //-*-  toggle on BASE
      LAlt  LCtl&  LCtl&  LSft&  | +LCtl&LSft xxx  LGUI   RAlt
            LSft   LAlt   LAlt   | &LAlt                                    
            +xxx   +xxx   +xxx   | +xxx
@@ -186,7 +186,7 @@ assist.
      BASE     xxx   xxx   .DEL  4LEFT 2DOWN | 8UP   6RGHT *     xxx   xxx   Bspc
      LCtl     1END  2DOWN 3PGDN 4LEFT 5     | 6RGHT 7HOME 8UP   9PGUP 0INS     -
      LSft     xxx   xxx   /     xxx   =     | +     3PGDN 1END  7HOME 9PGUP RSft
-     -*-------------------------------------------------                               //(toggle) on BASE
+     -*------------------------------------------------------                       //-*-  toggle on BASE
      LAlt     Del   Tab   ENT  |  NUML  xxx   LGUI  RAlt
                               <|>
 
