@@ -11,6 +11,7 @@ from milc import cli
 DOCS_PATH = Path('docs/')
 BUILD_PATH = Path('.build/docs/')
 
+
 def serve(dir):
     """Spin up a local HTTPServer instance for the QMK docs.
     """
@@ -26,6 +27,7 @@ def serve(dir):
             cli.log.info("Stopping HTTP server...")
         finally:
             httpd.shutdown()
+
 
 def build():
     """Invoke the docs build process
@@ -48,6 +50,7 @@ def build():
     except subprocess.CalledProcessError:
         cli.log.error('Error generated internal docs!')
         return False
+
 
 @cli.argument('-b', '--build', arg_only=True, action='store_true', help='Build docs.')
 @cli.argument('-s', '--serve', arg_only=True, action='store_true', help='Serve docs locally.')
