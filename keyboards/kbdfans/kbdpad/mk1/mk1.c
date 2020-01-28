@@ -23,12 +23,11 @@ void keyboard_pre_init_kb(void) {
 
 void led_init_ports(void) {
     setPinOutput(D0);
-    writePinHigh(D0);
 }
 
 bool led_update_kb(led_t led_state) {
     if (led_update_user(led_state)) {
-        writePin(D0, !led_state.num_lock);
+        writePin(D0, led_state.num_lock);
     }
     return true;
 }
