@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0xBEEF
-#define PRODUCT_ID 0x0000
+#define PRODUCT_ID 0xFEED
 #define DEVICE_VER 0x0001
 #define MANUFACTURER reggalicious
 #define PRODUCT ergosaurus
@@ -46,7 +46,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS \
     { D7, C6, D0, D1, F7, B1, B3, B2 }
 #define UNUSED_PINS
-
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
