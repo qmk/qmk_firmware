@@ -1,7 +1,11 @@
 
 #include QMK_KEYBOARD_H
 
-
+// Defines names for use in layer keycodes and the keymap
+enum layer_names { 
+    _BASE,
+    _FN, 
+    _MEDIA };
 // Tap Dance Declarations
 enum {
     TD_SCAPS = 0
