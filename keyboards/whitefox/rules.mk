@@ -78,3 +78,7 @@ VISUALIZER_ENABLE = yes
 LED_DRIVER = is31fl3731c
 LED_WIDTH = 16
 LED_HEIGHT = 5
+
+
+# Enter lower-power sleep mode when on the ChibiOS idle thread
+OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
