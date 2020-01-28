@@ -299,11 +299,13 @@ void oled_task_user(void) {
         render_status();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_crkbd_logo();
-        if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == user_config.rgb_matrix_idle_mode) {
-            oled_scroll_left();  // Turns on scrolling
-        } else {
-          oled_scroll_off();
-        }
+        #ifdef RGB_MATRIX_ENABLE
+            if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == user_config.rgb_matrix_idle_mode) {
+                oled_scroll_left();  // Turns on scrolling
+            } else {
+              oled_scroll_off();
+            }
+        #endif
     }
 }
 #endif
