@@ -52,6 +52,7 @@
 #    if defined(__AVR__) && !defined(__AVR_AT90USB1286__)
 #        define DISABLE_RGB_MATRIX_ALPHAS_MODS
 #        define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
+#        define DISABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
 #        define DISABLE_RGB_MATRIX_BREATHING
 #        define DISABLE_RGB_MATRIX_BAND_SAT
 #        define DISABLE_RGB_MATRIX_BAND_VAL
