@@ -36,7 +36,7 @@ If you want to reflash the pre-installed firmware, use the `.bin` file for Proto
 `make ckeys/thedora:default`
 
 **Search for Bootloader Device:**
-`make ckeys/thedora:default:dfu-util`
+`make ckeys/thedora:default:flash`
 You will begin seeing output of the host searching for the bootloader device, `ERROR: Bootloader not found. Trying again in 5s.`
 
 **Enter DFU-Bootloader Mode:**
