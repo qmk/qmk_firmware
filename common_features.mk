@@ -175,7 +175,9 @@ ifneq ($(strip $(LED_MATRIX_ENABLE)), no)
     ifeq ($(filter $(LED_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
         $(error LED_MATRIX_ENABLE="$(LED_MATRIX_ENABLE)" is not a valid matrix type)
     else
-        OPT_DEFS += -DLED_MATRIX_ENABLE -DBACKLIGHT_ENABLE -DBACKLIGHT_CUSTOM_DRIVER
+        BACKLIGHT_ENABLE = yes
+        BACKLIGHT_DRIVER = custom
+        OPT_DEFS += -DLED_MATRIX_ENABLE
         SRC += $(QUANTUM_DIR)/led_matrix.c
         SRC += $(QUANTUM_DIR)/led_matrix_drivers.c
     endif
@@ -300,10 +302,6 @@ ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
         $(error BACKLIGHT_DRIVER="$(BACKLIGHT_DRIVER)" is not a valid backlight type)
     endif
 
-    ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
-        CIE1931_CURVE := yes
-    endif
-
     COMMON_VPATH += $(QUANTUM_DIR)/backlight
     SRC += $(QUANTUM_DIR)/backlight/backlight.c
     OPT_DEFS += -DBACKLIGHT_ENABLE
@@ -341,6 +339,10 @@ ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
     ifeq ($(strip $(WS2812_DRIVER)), i2c)
         QUANTUM_LIB_SRC += i2c_master.c
     endif
+endif
+
+ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
+    CIE1931_CURVE := yes
 endif
 
 ifeq ($(strip $(CIE1931_CURVE)), yes)
@@ -469,8 +471,10 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
         QUANTUM_SRC += $(QUANTUM_DIR)/split_common/transport.c
         # Functions added via QUANTUM_LIB_SRC are only included in the final binary if they're called.
         # Unused functions are pruned away, which is why we can add multiple drivers here without bloat.
-        QUANTUM_LIB_SRC += i2c_master.c \
-                           i2c_slave.c
+        ifeq ($(PLATFORM),AVR)
+            QUANTUM_LIB_SRC += i2c_master.c \
+                               i2c_slave.c
+        endif
 
         SERIAL_DRIVER ?= bitbang
         ifeq ($(strip $(SERIAL_DRIVER)), bitbang)
