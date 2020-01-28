@@ -1,4 +1,4 @@
-#define CONFIG_H
+#pragma once
 
 
 #include "config_common.h"
@@ -57,7 +57,6 @@
  #define GRAVE_ESC_CTRL_OVERRIDE
 
 #endif
-
 
 
 
