@@ -6,7 +6,7 @@ The Neuron is a 12 column staggered 40% keyboard.
 
 * Keyboard Maintainer: [worldspawn00](https://github.com/worldspawn00/)  
 * Hardware Supported: The Neuron PCB and kit.  
-Hardware Availability: [PCB & Kit](https://geekhack.org/index.php?topic=102681.0)  
+* Hardware Availability: [PCB & Kit](https://geekhack.org/index.php?topic=102681.0)  
 
 Make example for this keyboard (after setting up your build environment):
 
