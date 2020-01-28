@@ -43,7 +43,7 @@ void matrix_init_user(void) {
   // set CapsLock LED to output and off (active low)
   setPinOutput(F5);
   writePinHigh(F5);
-  // set NumLock LED to output and low
+  // set NumLock LED to output and off (active low)
   setPinOutput(F6);
   writePinHigh(F6);
   // set ScrollLock LED to output and off (active low)
