@@ -20,8 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x4D4C // ML-MechLovin'
-#define PRODUCT_ID      0x9100 
+#define VENDOR_ID       0x4D4C // ML-MechLovin'                                                   
 #define MANUFACTURER    Mechlovin
 #define PRODUCT         Mechlovin Hannah910
 #define DESCRIPTION     Mechlovin Hannah910
