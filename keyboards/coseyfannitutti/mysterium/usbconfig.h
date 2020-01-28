@@ -8,7 +8,8 @@
  * This Revision: $Id: usbconfig-prototype.h 785 2010-05-30 17:57:07Z cs $
  */
 
-#pragma once
+#ifndef __usbconfig_h_included__
+#define __usbconfig_h_included__
 
 #include "config.h"
 
@@ -112,7 +113,6 @@ section at the end of this file).
 /* Define this to 1 if the device has its own power supply. Set it to 0 if the
  * device is powered from the USB bus.
  */
-// max power draw with maxed white underglow measured at 120 mA (peaks)
 #define USB_CFG_IMPLEMENT_FN_WRITE      1
 /* Set this to 1 if you want usbFunctionWrite() to be called for control-out
  * transfers. Set it to 0 if you don't need it and want to save a couple of
@@ -382,3 +382,5 @@ section at the end of this file).
 // /* #define USB_INTR_PENDING        EIFR */
 // #define USB_INTR_PENDING_BIT    INTF1
 // #define USB_INTR_VECTOR         INT1_vect
+
+#endif /* __usbconfig_h_included__ */
