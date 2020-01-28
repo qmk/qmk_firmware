@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void matrix_init_user(void) {
-  // set CapsLock LED to output and lowprimekb
+  // set CapsLock LED to output and off (active low)
   setPinOutput(F5);
   writePinHigh(F5);
   // set NumLock LED to output and low
