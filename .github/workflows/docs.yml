@@ -23,22 +23,13 @@ jobs:
         fetch-depth: 1
     - name: Install dependencies
       run: sudo apt install nodejs doxygen
-    - name: Prep code
-      run: |
-        mkdir -p .build/{in,out}
-        cp -rf docs/* .build/in
-    - name: Generate internal docs
-      run: |
-        doxygen Doxyfile
-        npx moxygen -q -a -g -o .build/in/internals_%s.md doxygen/xml
     - name: Build docs
       run: |
-        # TODO: add a real build step... something static docs
-        cp -rf .build/in/* .build/out
+        bin/qmk docs --build
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BASE_BRANCH: master
         BRANCH: gh-pages
-        FOLDER: .build/out
+        FOLDER: .build/docs
