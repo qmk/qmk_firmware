@@ -6,7 +6,7 @@ An Alice style board with arrowkeys, based on the Fate Arisu layout.
 
 Keyboard Maintainer: [Worldspawn00](https://github.com/Worldspawn00)  
 Hardware Supported: Gothic70 PCB
-Hardware Availability: https://geekhack.org/index.php?topic=102180.0
+* Hardware Availability: https://geekhack.org/index.php?topic=102180.0
 
 Make example for this keyboard (after setting up your build environment):
 
