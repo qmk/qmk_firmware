@@ -93,7 +93,7 @@
     { RE1, RE2, KC_NO, RE4, RE5, RE6, RE7, RE8, RE9 } \
   }
 
-#define LAYOUT_60_ISO( \
+#define LAYOUT_60_iso( \
   LA3, LA4, LA5, LA6, LA7, LA8, LA9,      RA1, RA2, RA3, RA4, RA5, RA6, RA7, RA8, \
   LB3, LB4, LB5, LB6, LB7, LB8,           RB1, RB2, RB3, RB4, RB5, RB6, RB7,      \
   LC3, LC4, LC5, LC6, LC7, LC8,           RC1, RC2, RC3, RC4, RC5, RC6, RC7, RC8, \
@@ -113,7 +113,7 @@
     { RE1, RE2, KC_NO, RE4, RE5, RE6, RE7, RE8, KC_NO } \
   }
 
-#define LAYOUT_65_ISO( \
+#define LAYOUT_65_iso( \
   LA3, LA4, LA5, LA6, LA7, LA8, LA9,      RA1, RA2, RA3, RA4, RA5, RA6, RA7, RA8, RA9, \
   LB3, LB4, LB5, LB6, LB7, LB8,           RB1, RB2, RB3, RB4, RB5, RB6, RB7,      RB9, \
   LC3, LC4, LC5, LC6, LC7, LC8,           RC1, RC2, RC3, RC4, RC5, RC6, RC7, RC8, RC9, \
@@ -133,7 +133,7 @@
     { RE1, RE2, KC_NO, RE4, RE5, RE6, RE7, RE8, RE9 } \
   }
 
-#define LAYOUT_60_ISO_with_macro( \
+#define LAYOUT_60_iso_with_macro( \
   LA1, LA2, LA3, LA4, LA5, LA6, LA7, LA8, LA9,      RA1, RA2, RA3, RA4, RA5, RA6, RA7, RA8, \
   LB1, LB2, LB3, LB4, LB5, LB6, LB7, LB8,           RB1, RB2, RB3, RB4, RB5, RB6, RB7,      \
   LC1, LC2, LC3, LC4, LC5, LC6, LC7, LC8,           RC1, RC2, RC3, RC4, RC5, RC6, RC7, RC8, \
@@ -153,7 +153,7 @@
     { RE1, RE2, KC_NO, RE4, RE5, RE6, RE7, RE8, KC_NO } \
   }
 
-#define LAYOUT_65_ISO_with_macro( \
+#define LAYOUT_65_iso_with_macro( \
   LA1, LA2, LA3, LA4, LA5, LA6, LA7, LA8, LA9,      RA1, RA2, RA3, RA4, RA5, RA6, RA7, RA8, RA9, \
   LB1, LB2, LB3, LB4, LB5, LB6, LB7, LB8,           RB1, RB2, RB3, RB4, RB5, RB6, RB7,      RB9, \
   LC1, LC2, LC3, LC4, LC5, LC6, LC7, LC8,           RC1, RC2, RC3, RC4, RC5, RC6, RC7, RC8, RC9, \
