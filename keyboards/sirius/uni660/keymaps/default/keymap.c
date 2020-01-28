@@ -9,9 +9,3 @@ KC_F3,    KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC
 KC_F4,    KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, KC_DEL, KC_SPC, KC_RALT, KC_RGUI, KC_RCTL, KC_LEFT, KC_DOWN, KC_RIGHT 
 ),
 };
-
-void matrix_scan_user(void) {
-};
-
-void matrix_init_user(void) {
-};
