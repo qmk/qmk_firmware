@@ -8,6 +8,9 @@ from pathlib import Path
 
 from milc import cli
 
+DOCS_PATH = Path('docs/')
+BUILD_PATH = Path('.build/docs/')
+
 def serve(dir):
     """Spin up a local HTTPServer instance for the QMK docs.
     """
@@ -25,26 +28,28 @@ def serve(dir):
             httpd.shutdown()
 
 def build():
-    """
-    Invoke the docs build process
+    """Invoke the docs build process
 
     TODO(unclaimed):
         * [ ] Add a real build step... something static docs
     """
 
-    input_path = Path('docs')
-    output_path = Path('.build/docs')
+    if BUILD_PATH.exists():
+        shutil.rmtree(BUILD_PATH)
 
-    if output_path.exists():
-        shutil.rmtree(output_path)
-
-    shutil.copytree(input_path, output_path)
+    shutil.copytree(DOCS_PATH, BUILD_PATH)
 
     #Generate internal docs
-    doxygen = subprocess.run(['doxygen', 'Doxyfile'])
-    moxygen = subprocess.run(['npx', 'moxygen', '-q', '-a', '-g', '-o', '.build/docs/internals_%s.md', 'doxygen/xml'])
+    try:
+        doxygen = subprocess.run(['doxygen', 'Doxyfile'], check=True)
+        moxygen = subprocess.run(['moxygen', '-q', '-a', '-g', '-o', BUILD_PATH / 'internals_%s.md', 'doxygen/xml'], check=True)
+        cli.log.info('Successfully generated internal docs.')
 
-@cli.argument('-b', '--build', arg_only=True, action='store_true', help='Build.')
+    except subprocess.CalledProcessError:
+        cli.log.error('Error generated internal docs!')
+        return False
+
+@cli.argument('-b', '--build', arg_only=True, action='store_true', help='Build docs.')
 @cli.argument('-s', '--serve', arg_only=True, action='store_true', help='Serve docs locally.')
 @cli.argument('-p', '--port', default=8936, type=int, help='Port number to use.')
 @cli.subcommand('Local interactins wth QMK documentation.', hidden=False if cli.config.user.developer else True)
@@ -52,7 +57,7 @@ def docs(cli):
     if cli.args.build:
         build()
         if cli.args.serve:
-            serve('.build/docs')
+            serve(BUILD_PATH)
     else:
         # default to just serve the docs folder
-        serve('docs')
+        serve(DOCS_PATH)

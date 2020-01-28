@@ -22,7 +22,9 @@ jobs:
       with:
         fetch-depth: 1
     - name: Install dependencies
-      run: sudo apt install nodejs doxygen
+      run: |
+        sudo apt install nodejs doxygen
+        npm install -g moxygen
     - name: Build docs
       run: |
         bin/qmk docs --build
