@@ -1,63 +1,14 @@
 #include "alfrdmalr.h"
 
-// default modifier wrapper
-#define LAYOUT_ortho_5x12_base( \
-    K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
-    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
-    K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, \
-    K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A  \
-  ) \
-  LAYOUT_ortho_5x12_wrapper( \
-    KC_ESC,   K01,       K02,      K03,      K04,       K05,       K06,      K07,      K08,      K09,       K0A,     KC_BSPC, \
-    KC_TAB,   K11,       K12,      K13,      K14,       K15,       K16,      K17,      K18,      K19,       K1A,     KC_DEL,  \
-    NAVLAYER, K21,       K22,      K23,      K24,       K25,       K26,      K27,      K28,      K29,       K2A,     KC_QUOT, \
-    KC_LSFT,  K31,       K32,      K33,      K34,       K35,       K36,      K37,      K38,      K39,       K3A,     KC_RSFT, \
-    KC_LCTL,  CTRLSHFT,  KC_LGUI,  KC_LALT,  SYMLAYER,  NUMSPACE,  NUMSPACE, SYMLAYER, KC_RALT,  SETLAYER,  MU_TOG,  KC_LEAD  \
-  )
-
-// special numpad wrapper, since the numpad layers dip down into R4
-#define LAYOUT_ortho_5x12_num( \
-    K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
-    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
-    K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, \
-    K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A  \
-  ) \
-  LAYOUT_ortho_5x12_wrapper( \
-    KC_ESC,   K01,       K02,      K03,      K04,       K05,       K06,      K07,      K08,     K09,       K0A,     KC_BSPC, \
-    KC_TAB,   K11,       K12,      K13,      K14,       K15,       K16,      K17,      K18,     K19,       K1A,     KC_DEL,  \
-    NAVLAYER, K21,       K22,      K23,      K24,       K25,       K26,      K27,      K28,     K29,       K2A,     KC_QUOT, \
-    KC_LSFT,  K31,       K32,      K33,      K34,       K35,       K36,      K37,      K38,     K39,       K3A,     KC_RSFT, \
-    KC_LCTL,  CTRLSHFT,  KC_LGUI,  KC_LALT,  SYMLAYER,  NUMSPACE,  NUMSPACE,         ____NUMPAD_R4____,             KC_LEAD  \
-  )
-
-// special settings wrapper to allow for settings to be located in normal modifier positions
-#define LAYOUT_ortho_5x12_set( \
-    K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
-    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
-    K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, \
-    K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A  \
-  ) \
-  LAYOUT_ortho_5x12_wrapper( \
-    _______,  K01,       K02,      K03,      K04,       K05,       K06,      K07,      K08,     K09,       K0A,     _______, \
-    _______,  K11,       K12,      K13,      K14,       K15,       K16,      K17,      K18,     K19,       K1A,     _______, \
-    _______,  K21,       K22,      K23,      K24,       K25,       K26,      K27,      K28,     K29,       K2A,     _______, \
-    KC_ASTG,  K31,       K32,      K33,      K34,       K35,       K36,      K37,      K38,     K39,       K3A,     _______, \
-    _______,             ______TRANS______,                                           ______TRANS______,            _______  \
-  )
-
-#define LAYOUT_ortho_5x12_base_wrapper(...) LAYOUT_ortho_5x12_base(__VA_ARGS__)
-#define LAYOUT_ortho_5x12_num_wrapper(...)  LAYOUT_ortho_5x12_num(__VA_ARGS__)
-#define LAYOUT_ortho_5x12_set_wrapper(...)  LAYOUT_ortho_5x12_set(__VA_ARGS__)
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // QWERTY 
 [_QWERTY] = LAYOUT_ortho_5x12_wrapper(
-  K00, ____NUMROW_L0____, ____NUMROW_R0____, K0B,
-  K10, ____QWERTY_L1____, ____QWERTY_R1____, K1B_ALT,
-  K20, ____QWERTY_L2____, ____QWERTY_R2____, K2B,
-  K30, ____QWERTY_L3____, ____QWERTY_R3____, K3B,
-  K40, _____BASE_L4_____, _____BASE_R4_____, K4B
+  K00,     ____NUMROW_L0____, ____NUMROW_R0____, K0B,
+  K10,     ____QWERTY_L1____, ____QWERTY_R1____, K1B_ALT,
+  K20,     ____QWERTY_L2____, ____QWERTY_R2____, K2B,
+  K30,     ____QWERTY_L3____, ____QWERTY_R3____, K3B,
+  K40,     _____BASE_L4_____, _____BASE_R4_____, K4B
 ),
 
 // SYMBOLS 
