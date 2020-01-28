@@ -397,7 +397,7 @@ void rgb_matrix_update_mode(uint8_t mode, uint8_t speed, bool active) {
 
 void rgb_matrix_set_defaults(void) {
     rgb_matrix_config.enable = 1;
-    rgb_matrix_config.hsv    = (HSV){THEME_HSV};
+    rgb_matrix_sethsv_noeeprom(THEME_HSV);
 
     user_config.rgb_layer_change        = false;
     user_config.rgb_matrix_idle_anim    = true;
