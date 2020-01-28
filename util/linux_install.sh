@@ -12,12 +12,14 @@ util_dir=$(dirname "$0")
 
 # For those distros that do not package bootloadHID
 install_bootloadhid() {
-    wget https://www.obdev.at/downloads/vusb/bootloadHID.2012-12-08.tar.gz -O - | tar -xz -C /tmp
-    cd /tmp/bootloadHID.2012-12-08/commandline/
-    if make; then
-        sudo cp bootloadHID /usr/local/bin
+    if ! command -v bootloadHID >/dev/null; then
+        wget https://www.obdev.at/downloads/vusb/bootloadHID.2012-12-08.tar.gz -O - | tar -xz -C /tmp
+        cd /tmp/bootloadHID.2012-12-08/commandline/
+        if make; then
+            sudo cp bootloadHID /usr/local/bin
+        fi
+        cd -
     fi
-    cd -
 }
 
 if grep ID /etc/os-release | grep -qE "fedora"; then
@@ -73,16 +75,14 @@ elif grep ID /etc/os-release | grep -qE 'debian|ubuntu'; then
 		zip
 
 elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
-	sudo pacman -U https://archive.archlinux.org/packages/a/avr-gcc/avr-gcc-8.3.0-1-x86_64.pkg.tar.xz
+	sudo pacman --needed -U https://archive.archlinux.org/packages/a/avr-gcc/avr-gcc-8.3.0-1-x86_64.pkg.tar.xz
 	sudo pacman -S --needed \
 		arm-none-eabi-binutils \
 		arm-none-eabi-gcc \
 		arm-none-eabi-newlib \
 		avr-binutils \
 		avr-libc \
-		avr-gcc \
 		base-devel \
-		bootloadhid \
 		clang \
 		dfu-programmer \
 		dfu-util \
