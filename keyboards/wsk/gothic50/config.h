@@ -1,4 +1,3 @@
-#ifndef CONFIG_H
 #define CONFIG_H
 
 
@@ -58,7 +57,6 @@
  #define GRAVE_ESC_CTRL_OVERRIDE
 
 #endif
-
 
 
 
