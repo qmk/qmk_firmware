@@ -1,4 +1,4 @@
-# alfrdmalr's preonic layout
+# alfrdmalr's userspace
 ## Overview 
 The alphanumeric characters and symbols are spread between three main 'typing' layers: REGULAR, NUMPAD, and SYMBOLS. 
 
