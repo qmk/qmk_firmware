@@ -163,18 +163,18 @@ extern layer_state_t layer_state;
 #endif
 
 #ifdef DYNAMIC_KEYMAP_ENABLE
-#   include "dynamic_keymap.h"
+#    include "dynamic_keymap.h"
 #endif
 
 #ifdef VIA_ENABLE
-#   include "via.h"
+#    include "via.h"
 #endif
 
 // Function substitutions to ease GPIO manipulation
 #if defined(__AVR__)
 typedef uint8_t pin_t;
 
-#    define setPinInput(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF))
+#    define setPinInput(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
 #    define setPinInputHigh(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
 #    define setPinInputLow(pin) _Static_assert(0, "AVR processors cannot implement an input as pull low")
 #    define setPinOutput(pin) (DDRx_ADDRESS(pin) |= _BV((pin)&0xF))
@@ -184,6 +184,7 @@ typedef uint8_t pin_t;
 #    define writePin(pin, level) ((level) ? writePinHigh(pin) : writePinLow(pin))
 
 #    define readPin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
+
 #elif defined(PROTOCOL_CHIBIOS)
 typedef ioline_t pin_t;
 

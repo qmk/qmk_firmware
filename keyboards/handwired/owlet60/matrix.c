@@ -215,10 +215,7 @@ void matrix_init(void) {
     matrix_init_quantum();
 
     setPinInput(D5);
-   writePinLow(D5);
-
-   setPinInput(B0);
-   writePinLow(B0);
+    setPinInput(B0);
 }
 
 // modified for per col read matrix scan

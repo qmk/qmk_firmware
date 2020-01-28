@@ -99,10 +99,6 @@ int main(void) {
             // To prevent failing to configure NOT scan keyboard during configuration
             if (usbConfiguration && usbInterruptIsReady()) {
                 keyboard_task();
-
-#if defined(RGBLIGHT_ANIMATIONS) && defined(RGBLIGHT_ENABLE)
-                rgblight_task();
-#endif
             }
             vusb_transfer_keyboard();
         }

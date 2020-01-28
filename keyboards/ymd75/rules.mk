@@ -23,14 +23,8 @@ WS2812_DRIVER = i2c
 NKRO_ENABLE = no
 # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 
-
 DISABLE_WS2812 = no
 
 KEY_LOCK_ENABLE = yes
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
-
-
-#OPT_DEFS = -DDEBUG_LEVEL=0
-
-SRC = backlight.c

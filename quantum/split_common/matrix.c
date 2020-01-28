@@ -79,7 +79,8 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     return (last_row_value != current_matrix[current_row]);
 }
 
-#elif (DIODE_DIRECTION == COL2ROW)
+#elif defined(DIODE_DIRECTION)
+#    if (DIODE_DIRECTION == COL2ROW)
 
 static void select_row(uint8_t row) {
     setPinOutput(row_pins[row]);
@@ -124,7 +125,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     return (last_row_value != current_matrix[current_row]);
 }
 
-#elif (DIODE_DIRECTION == ROW2COL)
+#    elif (DIODE_DIRECTION == ROW2COL)
 
 static void select_col(uint8_t col) {
     setPinOutput(col_pins[col]);
@@ -179,6 +180,11 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     return matrix_changed;
 }
 
+#    else
+#        error DIODE_DIRECTION must be one of COL2ROW or ROW2COL!
+#    endif
+#else
+#    error DIODE_DIRECTION is not defined!
 #endif
 
 void matrix_init(void) {
