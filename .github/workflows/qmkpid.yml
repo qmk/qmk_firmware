@@ -1,0 +1,32 @@
+name: Generate QMKPID
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  generate_pid:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out
+      uses: actions/checkout@v1
+
+    - name: Get keyboard config
+      if: github.event.pull_request.merged
+      id: get_config
+      run: |
+        echo "##[set-output name=configs;]$(git diff-tree --no-commit-id -m --name-only -r ${{ github.sha }} | grep config.h | grep -v keymaps || echo 'No keyboards added')"
+
+    - name: Generate QMKPID
+      if: steps.get_config.outputs.config != 'No keyboards added'
+      id: generate_qmkpid
+      run: |
+        bin/qmk pid --commit ${{ steps.get_config.outputs.configs }}
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        tags: true
