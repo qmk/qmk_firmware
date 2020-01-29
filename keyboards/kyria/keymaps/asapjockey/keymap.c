@@ -18,7 +18,7 @@
 #define MODS_SHIFT_MASK (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 
 enum layers {
-    QWERTY = 0,
+    QWERTY,
     LOWER,
     RAISE,
     NAV,
