@@ -313,6 +313,11 @@ bool process_record_quantum(keyrecord_t *record) {
                 backlight_toggle_breathing();
                 return false;
 #endif
+#ifdef WEBUSB_ENABLE
+        case WEBUSB_PAIR:
+            webusb_state.pairing ^= true;
+            return false;
+#endif
         }
     }
 

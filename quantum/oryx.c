@@ -206,20 +206,15 @@ bool process_record_oryx(uint16_t keycode, keyrecord_t *record) {
         webusb_send(event, sizeof(event));
     }
 
-    switch (keycode) {
-        case WEBUSB_PAIR:
-            if (record->event.pressed) {
-                webusb_state.pairing = true;
-            }
-            return false;
 #ifdef DYNAMIC_KEYMAP_ENABLE
+    switch (keycode) {
         case MACRO00 ... MACRO15:
             if (record->event.pressed) {
                 dynamic_keymap_macro_send(keycode - MACRO00);
             }
             return false;
-#endif
     }
+#endif
     return true;
 }
 
