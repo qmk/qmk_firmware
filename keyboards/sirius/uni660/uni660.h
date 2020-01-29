@@ -59,4 +59,3 @@
     { k30, k31, k32, k33, k34, k35, k36,  KC_NO, k38, k39, k3a, k3b, k3c, k3d, k3e, k3f   }, \
     { k40, k41, k42, k43, k44, k45, k46,  KC_NO, k48, k49, k4a, KC_NO, k4c, k4d, k4e, k4f    }  \
   }
-#endif
