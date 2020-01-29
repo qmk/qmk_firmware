@@ -1,8 +1,15 @@
 SRC += curry.c \
        process_records.c
 
-LTO_ENABLE            = yes
-SPACE_CADET_ENABLE    = no
+# Common flags
+SPACE_CADET_ENABLE      = no
+LTO_ENABLE              = yes
+EXTRAKEY_ENABLE         = yes
+UNICODE_ENABLE          = yes
+NKRO_ENABLE             = yes
+EXTRAKEY_ENABLE         = yes
+LEADER_ENABLE           = yes
+TAP_DANCE_ENABLE        = no
 
 ifneq ($(strip $(NO_SECRETS)), yes)
     ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
@@ -21,8 +28,12 @@ ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
     SRC += oled.c
 endif
 
+ifeq ($(strip $(LEADER_ENABLE)), yes)
+    SRC += leader.c
+endif
+
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
-    SRC += rgb_stuff.c
+    SRC += rgb_lighting_user.c
     ifeq ($(strip $(INDICATOR_LIGHTS)), yes)
         OPT_DEFS += -DINDICATOR_LIGHTS
     endif
@@ -39,9 +50,8 @@ endif
 
 RGB_MATRIX_ENABLE ?= no
 ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
-    SRC += rgb_stuff.c
+    SRC += rgb_matrix_user.c
 endif
-
 
 ifdef CONSOLE_ENABLE
     ifeq ($(strip $(KEYLOGGER_ENABLE)), yes)
