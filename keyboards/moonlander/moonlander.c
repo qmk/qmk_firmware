@@ -383,10 +383,12 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_moonlander(
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+#ifdef WEBUSB_ENABLE
         case WEBUSB_PAIR:
             if (!record->event.pressed && !webusb_state.pairing)
                 layer_state_set_kb(layer_state);
             break;
+#endif
 #ifdef RGB_MATRIX_ENABLE
         case TOGGLE_LAYER_COLOR:
             if (record->event.pressed) {
