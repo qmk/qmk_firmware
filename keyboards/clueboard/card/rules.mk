@@ -20,6 +20,7 @@ COMMAND_ENABLE = yes       # Commands for debug and configuration
 NKRO_ENABLE = no           # USB Nkey Rollover
 RGBLIGHT_ENABLE = yes      # Enable keyboard underlight functionality
 BACKLIGHT_ENABLE = yes     # Enable keyboard backlight functionality by default
+BACKLIGHT_DRIVER = custom
 MIDI_ENABLE = no           # MIDI controls
 UNICODE_ENABLE = no        # Unicode
 BLUETOOTH_ENABLE = no      # Enable Bluetooth with the Adafruit EZ-Key HID
