@@ -350,7 +350,6 @@ ifeq ($(strip $(VELOCIKEY_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(ORYX_ENABLE)), yes)
-    DYNAMIC_KEYMAP_ENABLE := yes
     WEBUSB_ENABLE := yes
     SRC += $(QUANTUM_DIR)/oryx.c
     OPT_DEFS += -DORYX_ENABLE

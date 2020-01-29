@@ -33,6 +33,7 @@ bool webusb_receive_oryx(uint8_t *data, uint8_t length) {
             webusb_send(event, sizeof(event));
             return true;
         }
+#ifdef DYNAMIC_KEYMAP_ENABLE
         case ORYX_CMD_LIVE_UPDATE_GET_KEYCODE: {
             uint8_t event[5];
             // layer, row, col
@@ -173,6 +174,7 @@ bool webusb_receive_oryx(uint8_t *data, uint8_t length) {
             reset_keyboard();
             return true;
         }
+#endif
         default:
             return webusb_receive_kb(data, length);
     }
@@ -210,11 +212,13 @@ bool process_record_oryx(uint16_t keycode, keyrecord_t *record) {
                 webusb_state.pairing = true;
             }
             return false;
+#ifdef DYNAMIC_KEYMAP_ENABLE
         case MACRO00 ... MACRO15:
             if (record->event.pressed) {
                 dynamic_keymap_macro_send(keycode - MACRO00);
             }
             return false;
+#endif
     }
     return true;
 }
@@ -232,6 +236,8 @@ void layer_state_set_oryx(layer_state_t state) {
 
 void eeconfig_init_oryx(void) {
     // reread settings from flash into eeprom
+#ifdef DYNAMIC_KEYMAP_ENABLE
     dynamic_keymap_reset();
     dynamic_keymap_macro_reset();
+#endif
 }

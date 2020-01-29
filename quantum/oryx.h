@@ -7,10 +7,6 @@
 #    error "WebUSB needs to be enabled, please enable it!"
 #endif
 
-#ifndef DYNAMIC_KEYMAP_ENABLE
-#    error "Dynamic Keymaps are not enabled. It must be enabled"
-#endif
-
 // enum Oryx_Status_code {
 //     PLACEHOLDER = WEBUSB_STATUS_SAFE_RANGE,
 // }
@@ -54,6 +50,7 @@ enum Oryx_Event_Code {
     ORYX_EVT_KEYUP,
 };
 
+#ifdef DYNAMIC_KEYMAP_ENABLE
 enum dynamic_macros_keycodes {
     MACRO00 = 0x5F12,
     MACRO01,
@@ -72,7 +69,7 @@ enum dynamic_macros_keycodes {
     MACRO14,
     MACRO15,
 };
-
+#endif
 
 extern bool oryx_state_live_training_enabled;
 
