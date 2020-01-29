@@ -88,7 +88,7 @@ static uint16_t sc_timer = 0;
 static uint8_t sc_mods = 0;
 #endif
 
-void perform_space_cadet(keyrecord_t *record, uint16_t og_keycode, uint8_t holdMod, uint8_t tapMod, uint8_t keycode) {
+void perform_space_cadet(keyrecord_t *record, uint16_t sc_keycode, uint8_t holdMod, uint8_t tapMod, uint8_t keycode) {
     if (record->event.pressed) {
         sc_last  = holdMod;
         sc_timer = timer_read();
@@ -97,7 +97,7 @@ void perform_space_cadet(keyrecord_t *record, uint16_t og_keycode, uint8_t holdM
         }
     } else {
 #ifdef TAPPING_TERM_PER_KEY
-        if (sc_last == holdMod && timer_elapsed(sc_timer) < get_tapping_term(og_keycode))
+        if (sc_last == holdMod && timer_elapsed(sc_timer) < get_tapping_term(sc_keycode))
 #else
         if (sc_last == holdMod && timer_elapsed(sc_timer) < TAPPING_TERM)
 #endif
