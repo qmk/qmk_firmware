@@ -12,12 +12,8 @@ enum layers {
   _ADJUST,
 };
 
-enum custom_keycodes {
-  QWERTZ = SAFE_RANGE,
-  LOWER,
-  RAISE,
-  ADJUST,
-};
+#define LOWER MO(_LOWER)
+#define RAISE MO(_RAISE)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -54,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   DE_CIRC, DE_EXLM,  DE_QST, DE_PARA, DE_EURO,  DE_TILD,  DE_DLR, DE_LPRN, DE_RPRN, DE_LESS, DE_MORE, KC_BSPC,
    KC_DEL, KC_VOLU, KC_MPRV, KC_MNXT, KC_MPLY,  DE_AMPR,   DE_AT, DE_LCBR, DE_RCBR, DE_LBRC, DE_RBRC,  KC_ENT,
   KC_LSFT, KC_VOLD, _______, _______, _______,  DE_PIPE, DE_PERC, DE_SLSH, DE_BSLS, DE_QUOT, DE_DQOT, KC_RSFT,
-  KC_LCTL, _______, _______, _______,   LOWER,  _______, _______,   RAISE,  DE_EQL, DE_ASTR, _______, _______ 
+  KC_LCTL, _______, _______, _______, _______,  _______, _______, _______,  DE_EQL, DE_ASTR, _______, _______ 
 ),
 
 /* Raise
@@ -72,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   DE_SLSH,    KC_7,    KC_8,    KC_9, DE_ASTR, _______, _______, _______, DE_HASH, KC_LALT, DE_ACUT, KC_BSPC,
    KC_DEL,    KC_4,    KC_5,    KC_6, DE_MINS, KC_HOME,  KC_END,   DE_AE,   DE_OE,   DE_UE,   DE_SS,  KC_ENT,
   KC_LSFT,    KC_1,    KC_2,    KC_3, DE_PLUS, KC_PGUP, KC_PGDN, _______, _______, _______, _______, KC_LSFT,
-  _______,  DE_DOT,    KC_0,  DE_EQL,   LOWER, _______, _______,   RAISE, _______, _______, _______, _______
+  _______,  DE_DOT,    KC_0,  DE_EQL, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
 /* Adjust (Lower + Raise)
@@ -81,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |  F13 |  F14 |  F15 |  F16 |  F17 |  F18 |  F19 |  F20 |  F21 |  F22 |  F23 |  F24 |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwertz|      |      |      |      |
+ * |      |      |      |Aud on|Audoff|AGnorm|AGswap|      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
@@ -89,8 +85,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] =  LAYOUT( 
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,
    KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,
-  _______, _______, _______,   AU_ON,  AU_OFF, AG_NORM, AG_SWAP,  QWERTZ, _______, _______, _______, _______,
-  _______, _______, _______, _______,   LOWER, _______, _______,   RAISE, _______, _______, _______, _______
+  _______, _______, _______,   AU_ON,  AU_OFF, AG_NORM, AG_SWAP, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
 
 
