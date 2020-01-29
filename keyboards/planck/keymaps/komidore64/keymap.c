@@ -1,6 +1,9 @@
 #include QMK_KEYBOARD_H
 
-#define K64_VERSION "8"
+#include "version.h"
+
+#define KEYMAP_REVISION "9"
+#define VER_NEWLINE_WAIT 200 // in milliseconds
 
 enum custom_keycodes {
     VER_STR = SAFE_RANGE,
@@ -10,7 +13,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case VER_STR:
             if (record->event.pressed) {
-                SEND_STRING("# olkb plank rev6 - komidore64 v"K64_VERSION);
+                SEND_STRING("# qmk " QMK_VERSION "\n");
+                wait_ms(VER_NEWLINE_WAIT);
+                SEND_STRING("# " QMK_KEYBOARD "/" QMK_KEYMAP " - rev" KEYMAP_REVISION "\n");
+                wait_ms(VER_NEWLINE_WAIT);
+                SEND_STRING("# built on: " QMK_BUILDDATE "\n");
             }
             break;
     }
