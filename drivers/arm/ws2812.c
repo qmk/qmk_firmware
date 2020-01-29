@@ -6,7 +6,7 @@
 /* Adapted from https://github.com/bigjosh/SimpleNeoPixelDemo/ */
 
 #ifndef NOP_FUDGE
-#    if defined(STM32F1XX) || defined(STM32F1xx) || defined(STM32F0XX) || defined(STM32F0xx) || defined(STM32F3XX) || defined(STM32F3xx) || defined(STM32L0XX) || defined(STM32L0xx)
+#    if defined(STM32F0XX) || defined(STM32F1XX) || defined(STM32F3XX) || defined(STM32F4XX) || defined(STM32L0XX)
 #        define NOP_FUDGE 0.4
 #    else
 #        error("NOP_FUDGE configuration required")
@@ -84,17 +84,12 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
         sendByte(ledarray[i].g);
         sendByte(ledarray[i].r);
         sendByte(ledarray[i].b);
+#ifdef RGBW
+        sendByte(ledarray[i].w);
+#endif
     }
 
     wait_ns(RES);
 
     chSysUnlock();
-}
-
-// Setleds for SK6812RGBW
-void ws2812_setleds_rgbw(LED_TYPE *ledarray, uint16_t leds) {
-// not supported - for now error out if its enabled
-#ifdef RGBW
-#    error "RGBW not supported"
-#endif
 }

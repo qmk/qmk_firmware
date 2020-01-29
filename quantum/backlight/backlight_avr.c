@@ -191,7 +191,7 @@ void backlight_off(pin_t backlight_pin) {
 
 #        define FOR_EACH_LED(x)                                 \
             for (uint8_t i = 0; i < BACKLIGHT_LED_COUNT; i++) { \
-                pin_t backlight_pin = backlight_pins[i];      \
+                pin_t backlight_pin = backlight_pins[i];        \
                 { x }                                           \
             }
 
@@ -206,7 +206,7 @@ static const pin_t backlight_pin = BACKLIGHT_PIN;
 #    endif
 
 #    ifdef NO_HARDWARE_PWM
-__attribute__((weak)) void backlight_init_ports(void) {
+void backlight_init_ports(void) {
     // Setup backlight pin as output and output to on state.
     FOR_EACH_LED(setPinOutput(backlight_pin); backlight_on(backlight_pin);)
 
@@ -216,8 +216,6 @@ __attribute__((weak)) void backlight_init_ports(void) {
     }
 #        endif
 }
-
-__attribute__((weak)) void backlight_set(uint8_t level) {}
 
 uint8_t backlight_tick = 0;
 
@@ -303,7 +301,7 @@ static uint16_t cie_lightness(uint16_t v) {
 static inline void set_pwm(uint16_t val) { OCRxx = val; }
 
 #        ifndef BACKLIGHT_CUSTOM_DRIVER
-__attribute__((weak)) void backlight_set(uint8_t level) {
+void backlight_set(uint8_t level) {
     if (level > BACKLIGHT_LEVELS) level = BACKLIGHT_LEVELS;
 
     if (level == 0) {
@@ -342,7 +340,6 @@ void backlight_task(void) {}
 #            define BREATHING_HALT_ON 2
 #            define BREATHING_STEPS 128
 
-static uint8_t breathing_period = BREATHING_PERIOD;
 static uint8_t breathing_halt = BREATHING_NO_HALT;
 static uint16_t breathing_counter = 0;
 
@@ -377,9 +374,9 @@ bool is_breathing(void) { return !!(TIMSKx & _BV(TOIEx)); }
                 do {                       \
                     breathing_counter = 0; \
                 } while (0)
-#            define breathing_max()                                 \
-                do {                                                \
-                    breathing_counter = breathing_period * 244 / 2; \
+#            define breathing_max()                                       \
+                do {                                                      \
+                    breathing_counter = get_breathing_period() * 244 / 2; \
                 } while (0)
 
 void breathing_enable(void) {
@@ -417,17 +414,6 @@ void breathing_toggle(void) {
         breathing_enable();
 }
 
-void breathing_period_set(uint8_t value) {
-    if (!value) value = 1;
-    breathing_period = value;
-}
-
-void breathing_period_default(void) { breathing_period_set(BREATHING_PERIOD); }
-
-void breathing_period_inc(void) { breathing_period_set(breathing_period + 1); }
-
-void breathing_period_dec(void) { breathing_period_set(breathing_period - 1); }
-
 /* To generate breathing curve in python:
  * from math import sin, pi; [int(sin(x/128.0*pi)**4*255) for x in range(128)]
  */
@@ -445,6 +431,7 @@ void breathing_task(void)
 ISR(TIMERx_OVF_vect)
 #            endif
 {
+    uint8_t breathing_period = get_breathing_period();
     uint16_t interval = (uint16_t)breathing_period * 244 / BREATHING_STEPS;
     // resetting after one period to prevent ugly reset at overflow.
     breathing_counter = (breathing_counter + 1) % (breathing_period * 244);
@@ -459,7 +446,7 @@ ISR(TIMERx_OVF_vect)
 
 #        endif  // BACKLIGHT_BREATHING
 
-__attribute__((weak)) void backlight_init_ports(void) {
+void backlight_init_ports(void) {
     // Setup backlight pin as output and output to on state.
     FOR_EACH_LED(setPinOutput(backlight_pin); backlight_on(backlight_pin);)
 
@@ -499,11 +486,5 @@ __attribute__((weak)) void backlight_init_ports(void) {
 }
 
 #    endif  // hardware backlight
-
-#else  // no backlight
-
-__attribute__((weak)) void backlight_init_ports(void) {}
-
-__attribute__((weak)) void backlight_set(uint8_t level) {}
 
 #endif  // backlight

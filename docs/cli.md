@@ -95,6 +95,30 @@ qmk compile <configuratorExport.json>
 qmk compile -kb <keyboard_name> -km <keymap_name>
 ```
 
+## `qmk flash`
+
+This command is similar to `qmk compile`, but can also target a bootloader. The bootloader is optional, and is set to `:flash` by default.
+To specify a different bootloader, use `-bl <bootloader>`. Visit <https://docs.qmk.fm/#/flashing>
+for more details of the available bootloaders.
+
+**Usage for Configurator Exports**:
+
+```
+qmk flash <configuratorExport.json> -bl <bootloader>
+```
+
+**Usage for Keymaps**:
+
+```
+qmk flash -kb <keyboard_name> -km <keymap_name> -bl <bootloader>
+```
+
+**Listing the Bootloaders**
+
+```
+qmk flash -b
+```
+
 ## `qmk config`
 
 This command lets you configure the behavior of QMK. For the full `qmk config` documentation see [CLI Configuration](cli_configuration.md).
@@ -117,13 +141,27 @@ qmk docs [-p PORT]
 
 ## `qmk doctor`
 
-This command examines your environment and alerts you to potential build or flash problems.
+This command examines your environment and alerts you to potential build or flash problems. It can fix many of them if you want it to.
 
 **Usage**:
 
 ```
-qmk doctor
+qmk doctor [-y] [-n]
 ```
+
+**Examples**:
+
+Check your environment for problems and prompt to fix them:
+
+    qmk doctor
+
+Check your environment and automatically fix any problems found:
+
+    qmk doctor -y
+
+Check your environment and report problems only:
+
+    qmk doctor -n
 
 ## `qmk json-keymap`
 
@@ -133,6 +171,28 @@ Creates a keymap.c from a QMK Configurator export.
 
 ```
 qmk json-keymap [-o OUTPUT] filename
+```
+
+## `qmk kle2json`
+
+This command allows you to convert from raw KLE data to QMK Configurator JSON. It accepts either an absolute file path, or a file name in the current directory. By default it will not overwrite `info.json` if it is already present. Use the `-f` or `--force` flag to overwrite.
+
+**Usage**:
+
+```
+qmk kle2json [-f] <filename>
+```
+
+**Examples**:
+
+```
+$ qmk kle2json kle.txt 
+☒ File info.json already exists, use -f or --force to overwrite.
+```
+
+```
+$ qmk kle2json -f kle.txt -f
+Ψ Wrote out to info.json
 ```
 
 ## `qmk list-keyboards`

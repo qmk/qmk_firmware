@@ -36,11 +36,11 @@ extern "C" {
 typedef union {
     uint8_t raw;
     struct {
-        bool num_lock    : 1;
-        bool caps_lock   : 1;
-        bool scroll_lock : 1;
-        bool compose     : 1;
-        bool kana        : 1;
+        bool    num_lock : 1;
+        bool    caps_lock : 1;
+        bool    scroll_lock : 1;
+        bool    compose : 1;
+        bool    kana : 1;
         uint8_t reserved : 3;
     };
 } led_t;

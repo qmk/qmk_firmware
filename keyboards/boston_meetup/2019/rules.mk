@@ -1,7 +1,5 @@
-# project specific files
-
-# Cortex version
-MCU  = STM32F303
+# MCU name
+MCU = STM32F303
 
 # Build Options
 #   comment out to disable the options.

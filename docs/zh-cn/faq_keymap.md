@@ -66,24 +66,8 @@ https://github.com/tmk/tmk_keyboard/issues/67
 远古机械键盘偶尔会有自锁机械开关，现在几乎没有了。***大多数情况下你不需要使用该功能，且要使用`KC_CAPS`, `KC_NLCK`和`KC_SLCK`这三个键码。***
 
 ## 输入ASCII之外的特殊字符比如Cédille 'Ç'
-没有在所有系统中输入这个的通用方法。你要定义针对你的特定操作系统或布局的**宏**。
 
-比如看这个**宏**代码的文章。
-
-http://deskthority.net/workshop-f7/tmk-keyboard-firmware-collection-t4478-120.html#p195620
-<!--翻译问题：下方维基百科链接应全部替换为中文链接，暂未找到全部-->
-在**Windows**上，可以用`AltGr`键或**Alt码**。
-* http://en.wikipedia.org/wiki/AltGr_key
-* https://zh.wikipedia.org/wiki/Alt%E7%A0%81
-
-在**Mac OS**定义`Option`键组合。
-* https://zh.wikipedia.org/wiki/Option%E9%94%AE#%E6%9B%BF%E4%BB%A3%E9%94%AE%E7%9B%98%E8%BE%93%E5%85%A5
-
-在**Xorg**可以改用`compose`键。
-* http://en.wikipedia.org/wiki/Compose_key
-
-下方链接查看**Unicode**输入。
-* http://en.wikipedia.org/wiki/Unicode_input
+请见[Unicode](feature_unicode.md)功能。
 
 ## macOS上的`Fn` 
 
@@ -135,51 +119,6 @@ https://github.com/tekezo/Karabiner/issues/403
 ## Esc 和 <code>&#96;</code> 双功能键
 
 请见[Grave Escape](feature_grave_esc.md)功能。
-
-## 右侧双角色修改键(诸如Shift、Alt等有修改其他键作用的键)变箭头键
-右侧修改键单击时会变为箭头键，长按就还是修改键。在TMK中双角色键称之为**TAP**.
-```
-
-#include "keymap_common.h"
-
-
-/* 用TMK双角色键功能实现右侧修改键改箭头键
- *
- *  https://github.com/tmk/tmk_core/blob/master/doc/keymap.md#213-modifier-with-tap-keydual-role
- *  https://en.wikipedia.org/wiki/Modifier_key#Dual-role_keys
- */
-const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* 0: qwerty */
-    [0] = LAYOUT( \
-        ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, NUHS,BSPC, \
-        TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS, \
-        LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,ENT,  \
-        LSFT,NUBS,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,FN0, ESC, \
-        FN4, LGUI,LALT,          SPC,                     APP, FN2, FN1, FN3),
-    [1] = LAYOUT( \
-        GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, TRNS,TRNS, \
-        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,\
-        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
-        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,FN5, TRNS, \
-        TRNS,TRNS,TRNS,          TRNS,                    TRNS,FN7, FN6, FN8),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_UP),
-    [1] = ACTION_MODS_TAP_KEY(MOD_RGUI, KC_DOWN),
-    [2] = ACTION_MODS_TAP_KEY(MOD_RALT, KC_LEFT),
-    [3] = ACTION_MODS_TAP_KEY(MOD_RCTL, KC_RIGHT),
-    [4] = ACTION_LAYER_MOMENTARY(1),
-    [5] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_PGUP),
-    [6] = ACTION_MODS_TAP_KEY(MOD_RGUI, KC_PGDN),
-    [7] = ACTION_MODS_TAP_KEY(MOD_RALT, KC_HOME),
-    [8] = ACTION_MODS_TAP_KEY(MOD_RCTL, KC_END),
-};
-
-```
-
-双角色键说明: https://en.wikipedia.org/wiki/Modifier_key#Dual-role_keys
-
 
 ## Mac OSX的弹出键
 `KC_EJCT` 键码在OSX可以使用 https://github.com/tmk/tmk_keyboard/issues/250

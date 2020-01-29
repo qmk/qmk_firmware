@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "host_driver.h"
 #include "vusb.h"
-#include "bootloader.h"
 #include <util/delay.h>
 
 static uint8_t vusb_keyboard_leds = 0;
@@ -145,7 +144,7 @@ static void send_consumer(uint16_t data) {
  *------------------------------------------------------------------*/
 static struct {
     uint16_t len;
-    enum { NONE, BOOTLOADER, SET_LED } kind;
+    enum { NONE, SET_LED } kind;
 } last_req;
 
 usbMsgLen_t usbFunctionSetup(uchar data[8]) {
@@ -173,11 +172,6 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
                 debug("SET_LED: ");
                 last_req.kind = SET_LED;
                 last_req.len  = rq->wLength.word;
-#ifdef BOOTLOADER_SIZE
-            } else if (rq->wValue.word == 0x0301) {
-                last_req.kind = BOOTLOADER;
-                last_req.len  = rq->wLength.word;
-#endif
             }
             return USB_NO_MSG;  // to get data in usbFunctionWrite
         } else {
@@ -202,11 +196,6 @@ uchar usbFunctionWrite(uchar *data, uchar len) {
             debug("\n");
             vusb_keyboard_leds = data[0];
             last_req.len       = 0;
-            return 1;
-            break;
-        case BOOTLOADER:
-            usbDeviceDisconnect();
-            bootloader_jump();
             return 1;
             break;
         case NONE:
@@ -345,6 +334,15 @@ const PROGMEM uchar mouse_hid_report[] = {
     0xc0,                      // END_COLLECTION
 };
 
+#ifndef USB_MAX_POWER_CONSUMPTION
+#    define USB_MAX_POWER_CONSUMPTION 500
+#endif
+
+// TODO: change this to 10ms to match LUFA
+#ifndef USB_POLLING_INTERVAL_MS
+#    define USB_POLLING_INTERVAL_MS 1
+#endif
+
 /*
  * Descriptor for compite device: Keyboard + Mouse
  *
@@ -366,7 +364,7 @@ const PROGMEM char usbDescriptorConfiguration[] = {
 #    else
     (1 << 7), /* attributes */
 #    endif
-    USB_CFG_MAX_BUS_POWER / 2, /* max USB current in 2mA units */
+    USB_MAX_POWER_CONSUMPTION / 2, /* max USB current in 2mA units */
 
     /*
      * Keyboard interface
@@ -393,7 +391,7 @@ const PROGMEM char usbDescriptorConfiguration[] = {
     (char)0x81,                      /* IN endpoint number 1 */
     0x03,                            /* attrib: Interrupt endpoint */
     8, 0,                            /* maximum packet size */
-    USB_CFG_INTR_POLL_INTERVAL,      /* in ms */
+    USB_POLLING_INTERVAL_MS,         /* in ms */
 #    endif
 
     /*
@@ -424,7 +422,7 @@ const PROGMEM char usbDescriptorConfiguration[] = {
     (char)(0x80 | USB_CFG_EP3_NUMBER), /* IN endpoint number 3 */
     0x03,                              /* attrib: Interrupt endpoint */
     8, 0,                              /* maximum packet size */
-    USB_CFG_INTR_POLL_INTERVAL,        /* in ms */
+    USB_POLLING_INTERVAL_MS,           /* in ms */
 #    endif
 };
 #endif
