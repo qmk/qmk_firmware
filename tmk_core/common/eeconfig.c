@@ -15,7 +15,7 @@
 #    include "eeprom_driver.h"
 #endif
 
-extern uint32_t  default_layer_state;
+extern layer_state_t  default_layer_state;
 /** \brief eeconfig enable
  *
  * FIXME: needs doc
