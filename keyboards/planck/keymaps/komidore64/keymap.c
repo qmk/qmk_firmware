@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 
-#define K64_VERSION "7"
+#define K64_VERSION "8"
 
 enum custom_keycodes {
     VER_STR = SAFE_RANGE,
