@@ -118,10 +118,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define MOUSEKEY_TIME_TO_MAX 32
 #endif
 
-// #define OLED_FONT_H "keyboards/crkbd/keymaps/rpbaptist/glcdfont_godspeed.c"
-// #define THEME_HSV HSV_CYAN
-#define OLED_FONT_H "keyboards/crkbd/keymaps/rpbaptist/glcdfont_pulse.c"
-#define THEME_HSV HSV_TURQUOISE
+#ifdef THEME_GODSPEED
+#   define OLED_FONT_H "keyboards/crkbd/keymaps/rpbaptist/glcdfont_godspeed.c"
+#   define THEME_HSV HSV_AZURE
+#endif
+
+#ifdef THEME_PULSE
+#   define OLED_FONT_H "keyboards/crkbd/keymaps/rpbaptist/glcdfont_pulse.c"
+#   define THEME_HSV HSV_TURQUOISE
+#endif
 
 #define NO_ACTION_ONESHOT
 
