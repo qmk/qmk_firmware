@@ -49,6 +49,10 @@ extern backlight_config_t backlight_config;
 #    include "encoder.h"
 #endif
 
+#ifdef WPM_ENABLE
+#    include "wpm.h"
+#endif
+
 #ifdef AUDIO_ENABLE
 #    ifndef GOODBYE_SONG
 #        define GOODBYE_SONG SONG(GOODBYE_SOUND)
@@ -188,6 +192,12 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef VELOCIKEY_ENABLE
     if (velocikey_enabled() && record->event.pressed) {
         velocikey_accelerate();
+    }
+#endif
+
+#ifdef WPM_ENABLE
+    if (record->event.pressed) {
+	update_wpm(keycode);
     }
 #endif
 
@@ -646,6 +656,10 @@ void matrix_scan_quantum() {
 
 #ifdef ENCODER_ENABLE
     encoder_read();
+#endif
+
+#ifdef WPM_ENABLE
+  decay_wpm();
 #endif
 
 #ifdef HAPTIC_ENABLE
