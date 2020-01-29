@@ -51,3 +51,7 @@ SRC = matrix.c \
       led_controller.c
 
 LAYOUTS = 60_ansi_split_bs_rshift
+
+
+# Enter lower-power sleep mode when on the ChibiOS idle thread
+OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
