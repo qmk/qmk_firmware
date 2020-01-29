@@ -1,4 +1,4 @@
-#ifndef UNI660_H
+#pragma once
 #define UNI660_H
 
 #include "quantum.h"
