@@ -380,17 +380,6 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_moonlander(
 
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-#ifdef WEBUSB_ENABLE
-    if(webusb_state.paired == true) {
-        uint8_t event[5];
-        event[0] = WEBUSB_STATUS_OK;
-        event[1] = record->event.pressed ? WEBUSB_EVT_KEYDOWN : WEBUSB_EVT_KEYUP;
-        event[2] = record->event.key.col;
-        event[3] = record->event.key.row;
-        event[4] = WEBUSB_STOP_BIT;
-        webusb_send(event, sizeof(event));
-    }
-#endif
     switch (keycode) {
 #ifdef RGB_MATRIX_ENABLE
         case TOGGLE_LAYER_COLOR:
