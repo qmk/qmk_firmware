@@ -21,12 +21,25 @@
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-  #define RGBLIGHT_ANIMATIONS
+//  #define RGBLIGHT_ANIMATIONS
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8
 #endif
 
+#define TAP_CODE_DELAY 100
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
 // #define SPLIT_USB_DETECT
 // #define NO_USB_STARTUP_CHECK
+
+// Using the bottom encoder positions and my encoders
+// my board reports the wrong direction
+#undef ENCODERS_PAD_A
+#undef ENCODERS_PAD_B
+#undef ENCODERS_PAD_A_RIGHT
+#undef ENCODERS_PAD_B_RIGHT
+
+#define ENCODERS_PAD_A { B5 }
+#define ENCODERS_PAD_B { C6 }
+#define ENCODERS_PAD_A_RIGHT { C6 }
+#define ENCODERS_PAD_B_RIGHT { B5 }
