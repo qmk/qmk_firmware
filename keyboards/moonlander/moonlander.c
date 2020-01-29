@@ -62,7 +62,7 @@ void moonlander_led_task(void) {
         layer_state_set_kb(layer_state);
     }
 #ifdef WEBUSB_ENABLE
-    if (webusb_state.pairing == true) {
+    else if (webusb_state.pairing == true) {
         static uint8_t led_mask;
 
         ML_LED_1(false);
@@ -76,29 +76,31 @@ void moonlander_led_task(void) {
             led_mask = 1;
         } else {
             led_mask++;
-            if (led_mask > 10) led_mask = 1;
+            if (led_mask > 12) led_mask = 1;
         }
         switch (led_mask) {
             case 1:
+            case 12:
                 ML_LED_1(true);
                 break;
             case 2:
-            case 10:
+            case 11:
                 ML_LED_2(true);
                 break;
             case 3:
-            case 9:
+            case 10:
                 ML_LED_3(true);
                 break;
             case 4:
-            case 8:
+            case 9:
                 ML_LED_4(true);
                 break;
             case 5:
-            case 7:
+            case 8:
                 ML_LED_5(true);
                 break;
             case 6:
+            case 7:
                 ML_LED_6(true);
                 break;
         }
@@ -141,12 +143,12 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
     state         = layer_state_set_user(state);
     if (is_launching) return state;
 
-    ML_LED_1(0);
-    ML_LED_2(0);
-    ML_LED_3(0);
-    ML_LED_4(0);
-    ML_LED_5(0);
-    ML_LED_6(0);
+    ML_LED_1(false);
+    ML_LED_2(false);
+    ML_LED_3(false);
+    ML_LED_4(false);
+    ML_LED_5(false);
+    ML_LED_6(false);
 
     uint8_t layer = get_highest_layer(state);
     switch (layer) {
@@ -381,6 +383,10 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_moonlander(
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case WEBUSB_PAIR:
+            if (!record->event.pressed && !webusb_state.pairing)
+                layer_state_set_kb(layer_state);
+            break;
 #ifdef RGB_MATRIX_ENABLE
         case TOGGLE_LAYER_COLOR:
             if (record->event.pressed) {
