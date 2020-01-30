@@ -32,7 +32,7 @@ UNICODE_ENABLE = yes 		# Unicode
 
 USB = /dev/ttyACM0
 
-# # project specific files
+# project specific files
 SRC = matrix.c
 
 RAW_ENABLE = yes
