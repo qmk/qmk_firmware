@@ -26,6 +26,7 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no       # Enable keyboard RGB underglow
 CUSTOM_MATRIX = yes
 
-SRC += matrix.c i2c_master.c
+SRC += matrix.c 
+QUANTUM_LIB_SRC += i2c_master.c
 
 OPT_DEFS = -DDEBUG_LEVEL=0
