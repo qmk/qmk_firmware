@@ -286,7 +286,7 @@ nrfutil: $(TARGET).zip
 			sleep 0.5; \
 			printf "."; \
 			ls /dev/tty* > /tmp/2; \
-			USB=`comm -13 /tmp/1 /tmp/2 | $(GREP) -o '/dev/tty.*'`; \
+			USB=`comm -13 /tmp/1 /tmp/2 | $(GREP) -o '/dev/tty.*' | head -n 1`; \
 			mv /tmp/2 /tmp/1; \
 		done; \
 		echo ""; \
