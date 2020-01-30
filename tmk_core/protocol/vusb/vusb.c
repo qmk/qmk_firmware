@@ -123,7 +123,7 @@ static void send_system(uint16_t data) {
     if (data == last_data) return;
     last_data = data;
 
-    report_extra_t report = {.report_id = REPORT_ID_SYSTEM, .usage = data};
+    report_extra_t report = {.report_id = REPORT_ID_SYSTEM, .usage = data - SYSTEM_POWER_DOWN + 1};
     if (usbInterruptIsReady3()) {
         usbSetInterrupt3((void *)&report, sizeof(report));
     }
