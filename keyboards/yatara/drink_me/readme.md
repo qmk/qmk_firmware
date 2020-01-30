@@ -5,6 +5,8 @@
 A 4% ergo macropad.
 
 * Keyboard Maintainer: [Yatara](https://github.com/yatara-cc)
+* Hardware Supported: Drink Me PCB (ATmega32U2)
+* Hardware Availability: [Interest Check on Reddit](https://www.reddit.com/r/MechanicalKeyboards/comments/evu429/ic_drink_me_4_ergo_interest_check_giveaway/)
 
 Make example for this keyboard (after setting up your build environment):
 
