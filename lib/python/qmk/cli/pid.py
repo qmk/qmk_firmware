@@ -68,7 +68,7 @@ def calculate_pid(config_path, data, max_tries=3):
     digest = m.hexdigest()
     offset = 0
     while offset < max_tries:
-        id_pid = digest[offset:offset+4].upper()
+        id_pid = digest[offset:offset + 4].upper()
 
         if id_pid not in data['pids']:
             return id_pid
@@ -130,7 +130,7 @@ def pid(cli):
     Main entry point of the script
     """
 
-    pids_json_path = cli.config.pid.db_path if cli.config.pid.db_path else "quantum/usb_pids.json" # TODO: decide on default pids.json path
+    pids_json_path = cli.config.pid.db_path if cli.config.pid.db_path else "quantum/usb_pids.json"
     qmk_vid = cli.config.pid.qmk_vid if cli.config.pid.qmk_vid else "0x03A8"
 
     if not Path(pids_json_path).is_file():
@@ -146,14 +146,14 @@ def pid(cli):
         else:
             path = str(Path(config_h).parents[0])
 
-            try:
-                pid_new = calculate_pid(path, data)
-            except RecursionError as e:
-                cli.log.error("Too many PID collisions ({}). Aborting".format(e))
-                return False
-
             with open(pids_json_path, 'r') as json_file:
                 data = json.load(json_file)
+
+                try:
+                    pid_new = calculate_pid(path, data)
+                except RecursionError as e:
+                    cli.log.error("Too many PID collisions ({}). Aborting".format(e))
+                    return False
 
                 if path in data['pids'].values():
                     if pid_new != pid_match.group(1)[-4:]:
@@ -174,8 +174,8 @@ def pid(cli):
                         ['git', 'commit', '-am', '"Generated PID 0x{} for {}"'.format(pid_new, keyboard)],
                         timeout=5,
                         check=True,
-                        stdout=PIPE,
-                        stderr=STDOUT
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT
                     )
                 except subprocess.CalledProcessError as e:
                     cli.log.error('Committing to git failed. {} failed with: {}'.format(e.cmd, e.output))
