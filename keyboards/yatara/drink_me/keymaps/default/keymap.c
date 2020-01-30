@@ -6,5 +6,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LCTL(KC_X),
         LCTL(KC_C),
         LCTL(KC_V)
-        )
+    )
 };
