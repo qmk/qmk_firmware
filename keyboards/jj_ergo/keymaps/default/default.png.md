@@ -1,1 +1,1 @@
-https://i.imgur.com/fKX0Zbs.png
+![](https://i.imgur.com/fKX0Zbs.png)
