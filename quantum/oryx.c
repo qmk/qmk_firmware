@@ -236,18 +236,16 @@ void eeconfig_init_oryx(void) {
     // reread settings from flash into eeprom
     dynamic_keymap_reset();
     dynamic_keymap_macro_reset();
-    eeprom_update_block(FIRMWARE_VERSION, (uint8_t *)EECONFIG_SIZE, sizeof(uint8_t)*17);
+    eeprom_update_block(FIRMWARE_VERSION, (uint8_t *)EECONFIG_SIZE, sizeof(uint8_t)*FIRMWARE_VERSION_SIZE);
 }
 
-// since I'm being lazy, ATM
-void matrix_setup(void) {
-    uint8_t temp[17];
-    uint8_t firmware[17] = FIRMWARE_VERSION;
-    eeprom_read_block(&temp, (uint8_t *)EECONFIG_SIZE, sizeof(uint8_t)*17);
-    if (!memcmp(&temp, &firmware, sizeof(uint8_t)*17)) {
+void matrix_init_oryx(void) {
+    uint8_t temp[FIRMWARE_VERSION_SIZE];
+    uint8_t firmware[FIRMWARE_VERSION_SIZE] = FIRMWARE_VERSION;
+    eeprom_read_block(&temp, (uint8_t *)EECONFIG_SIZE, sizeof(uint8_t)*FIRMWARE_VERSION_SIZE);
+    if (!memcmp(&temp, &firmware, sizeof(uint8_t)*FIRMWARE_VERSION_SIZE)) {
         eeconfig_init_oryx();
     }
 }
-//    FIRMWARE_VERSION
 
 #endif

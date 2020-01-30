@@ -587,6 +587,9 @@ void matrix_init_quantum() {
     if (!eeconfig_is_enabled()) {
         eeconfig_init();
     }
+#ifdef ORYX_ENABLE
+    matrix_init_oryx();
+#endif
 #ifdef BACKLIGHT_ENABLE
 #    ifdef LED_MATRIX_ENABLE
     led_matrix_init();
