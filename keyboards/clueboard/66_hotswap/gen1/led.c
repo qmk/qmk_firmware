@@ -16,6 +16,5 @@
 */
 
 #include "hal.h"
-#include "backlight.h"
 #include "led.h"
 #include "printf.h"
