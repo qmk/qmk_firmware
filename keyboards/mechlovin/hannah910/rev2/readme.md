@@ -4,10 +4,10 @@
 
 Replacement PCB and plate for TGR 910 keyboard (maybe fit with dolinger 65)
 
-Keyboard Maintainer: [Mechlovin'](https://github.com/mechlovin)  
-Hardware Supported: TGR910 CE, TGR910 SE  
-Hardware Availability: [Reddit Group Buy](https://www.reddit.com/r/mechmarket/comments/dhwvbn/gb_1015_update_hannah_910_group_buy_tgr_910/)
-
+* Keyboard Maintainer: [Mechlovin'](https://github.com/mechlovin)
+* Hardware Supported: TGR910 CE, TGR910 SE 
+* Hardware Availability: [Reddit Group Buy](https://www.reddit.com/r/mechmarket/comments/dhwvbn/gb_1015_update_hannah_910_group_buy_tgr_910/)
+S
 Make example for this keyboard (after setting up your build environment):
 
     make mechlovin/hannah910/rev2:default
