@@ -6,7 +6,7 @@ void uart_init(void) {
 
 void led_init(void) {
 	setPinOutput(D1); // Pin to green, set as output
-	PORTD |= (1<<1); // Turn it off
+	writePinHigh(D1); // Turn it off
 	DDRF  |= (1<<4) | (1<<5); // Pins to red and blue, set as output
 	PORTF |= (1<<4) | (1<<5); // Turn them off
 }
