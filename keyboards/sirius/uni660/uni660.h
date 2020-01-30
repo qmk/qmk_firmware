@@ -4,7 +4,7 @@
 
 #define red_led_off   writePinHigh(F5)
 #define red_led_on    writePinLow(F5)
-#define blu_led_off   PORTF |= (1<<4)
+#define blu_led_off   writePinHigh(F4)
 #define blu_led_on    PORTF &= ~(1<<4)
 #define grn_led_off   PORTD |= (1<<1)
 #define grn_led_on    PORTD &= ~(1<<1)
