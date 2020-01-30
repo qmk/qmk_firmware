@@ -9,7 +9,8 @@ void led_init(void) {
 	writePinHigh(D1); // Turn it off
 	setPinOutput(F4); // Pins to red and blue, set as output
 	setPinOutput(F5);
-	PORTF |= (1<<4) | (1<<5); // Turn them off
+	writePinHigh(F4); // Turn them off
+	writePinHigh(F5);
 }
 
 void matrix_init_kb(void) {
