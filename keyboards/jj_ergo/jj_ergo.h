@@ -84,5 +84,3 @@ uint8_t init_mcp23018(void);
     { KC_NO, KC_NO, k56, k51, k54, KC_NO, k55,   KC_NO, KC_NO, k59, k5C, k5A, KC_NO, k5B   }  \
    }
 
-#define LAYOUT LAYOUT_ergodox
-
