@@ -97,7 +97,8 @@ enum layers {
 # define WIN_RIGHT_HALF LALT(LGUI(KC_RIGHT))
 # define WIN_TO_LEFT LALT(LSFT( LGUI(KC_LEFT) ))
 # define WIN_TO_RIGHT LALT(LSFT( LGUI(KC_RIGHT) ))
-
+# define SHIFT OSM(MOD_LSFT)
+# define HYPR_H HYPR_T(KC_H)
 // Ready to use Tap dance definitions, just put them on your layout
 
 #ifdef TAP_DANCE_ENABLE

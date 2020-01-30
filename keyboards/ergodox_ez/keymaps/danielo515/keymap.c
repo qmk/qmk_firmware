@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     TO(1)               ,KC_6                ,KC_7                ,KC_8                ,TD_F9               ,LT(3,KC_0)          ,KC_DQUO             ,
     KC_UNDS             ,KC_Y                ,KC_U                ,KC_I                ,KC_O                ,KC_P                ,RSFT_T(KC_MINUS)            ,
-    HYPR_T(KC_H)        ,ALT_T(KC_J)         ,RCTL_T(KC_K)        ,LT(6,KC_L)          ,TD_CLN              ,GUI_T(KC_QUOTE)     ,
+    HYPR_H              ,ALT_T(KC_J)         ,RCTL_T(KC_K)        ,LT(6,KC_L)          ,TD_CLN              ,GUI_T(KC_QUOTE)     ,
     ALT_TAB             ,KC_N                ,MEH_T(KC_M)         ,KC_COMMA            ,KC_DOT              ,KC_SLASH            ,LT(4,KC_KP_ASTERISK),
     LT(4,KC_ENTER)      ,KC_DOWN             ,KC_LBRACKET         ,KC_RBRACKET         ,OSL(2)              ,
     KC_AUDIO_MUTE       ,KC_ESCAPE           ,
