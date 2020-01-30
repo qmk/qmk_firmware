@@ -2,7 +2,7 @@
 
 #include "quantum.h"
 
-#define red_led_off   PORTF |= (1<<5)
+#define red_led_off   writePinHigh(F5)
 #define red_led_on    PORTF &= ~(1<<5)
 #define blu_led_off   PORTF |= (1<<4)
 #define blu_led_on    PORTF &= ~(1<<4)
