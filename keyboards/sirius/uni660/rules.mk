@@ -9,12 +9,7 @@ MCU = atmega32u4
 #   QMK DFU      qmk-dfu
 #   ATmega32A    bootloadHID
 #   ATmega328P   USBasp
-MCU = atmega32u4
-ARCH = AVR8
 BOOTLOADER = caterina
-
-# Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 # Build Options
 #   comment out to disable the options.
@@ -33,10 +28,5 @@ NKRO_ENABLE = yes		# USB Nkey Rollover - not yet supported in LUFA
 UNICODE_ENABLE = yes 		# Unicode
 # BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
 
-USB = /dev/ttyACM0
-
 # project specific files
-SRC = matrix.c
-
-RAW_ENABLE = yes
-DYNAMIC_KEYMAP_ENABLE = yes
+SRC += matrix.c

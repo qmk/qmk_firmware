@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "matrix.h"
 #include "timer.h"
+#include "debounce.h"
 
 #if (MATRIX_COLS <= 8)
 #    define print_matrix_header()  print("\nr/c 01234567\n")
@@ -77,12 +78,14 @@ uint8_t matrix_cols(void) {
 }
 
 void matrix_init(void) {
-
+    debounce_init(MATRIX_ROWS);
     matrix_init_quantum();
 }
 
 uint8_t matrix_scan(void)
 {
+    bool matrix_has_changed = false;
+
     SERIAL_UART_INIT();
 
     uint32_t timeout = 0;
@@ -117,9 +120,11 @@ uint8_t matrix_scan(void)
         }
     }
 
+    debounce(matrix, matrix, MATRIX_ROWS, matrix_has_changed);
 
     matrix_scan_quantum();
-    return 1;
+
+    return matrix_has_changed;
 }
 
 inline
