@@ -1,5 +1,7 @@
 /*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
+This is the c configuration file for the keymap
+
+Copyright 2020 Mose Schmiedel <mose.schmiedel@web.de>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -14,17 +16,13 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 #pragma once
 
-#define DEVICE_VER      0x0001
-
-// wiring of each half
-#define MATRIX_ROW_PINS { B2, B6, B4, B5 }
-#define MATRIX_COL_PINS { F4, D3, D2, D1, D4 }
-
-#define SOFT_SERIAL_PIN D0
-
+/* Use I2C or Serial, not both */
 #define USE_SERIAL
+// #define USE_I2C
 
-//#define EE_HANDS
+/* Select hand configuration */
+#define MASTER_LEFT
+// #define MASTER_RIGHT
+// #define EE_HANDS
