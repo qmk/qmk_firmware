@@ -1,4 +1,6 @@
 #include "oryx.h"
+#include "eeprom.h"
+#include <string.h>
 
 bool oryx_state_live_training_enabled;
 
@@ -229,10 +231,23 @@ void layer_state_set_oryx(layer_state_t state) {
     }
 }
 
+#ifdef DYNAMIC_KEYMAP_ENABLE
 void eeconfig_init_oryx(void) {
     // reread settings from flash into eeprom
-#ifdef DYNAMIC_KEYMAP_ENABLE
     dynamic_keymap_reset();
     dynamic_keymap_macro_reset();
-#endif
+    eeprom_update_block(FIRMWARE_VERSION, (uint8_t *)EECONFIG_SIZE, sizeof(uint8_t)*17);
 }
+
+// since I'm being lazy, ATM
+void matrix_setup(void) {
+    uint8_t temp[17];
+    uint8_t firmware[17] = FIRMWARE_VERSION;
+    eeprom_read_block(&temp, (uint8_t *)EECONFIG_SIZE, sizeof(uint8_t)*17);
+    if (!memcmp(&temp, &firmware, sizeof(uint8_t)*17)) {
+        eeconfig_init_oryx();
+    }
+}
+//    FIRMWARE_VERSION
+
+#endif
