@@ -14,6 +14,7 @@ Make example for this keyboard (after setting up your build environment):
     make mechlovin/hannah910/rev2:default
 
 Make firmware for keymap with VIA:
+
     make mechlovin/hannah910/rev1:via
     make mechlovin/hannah910/rev2:via
 
