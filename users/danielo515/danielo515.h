@@ -15,10 +15,13 @@ enum custom_keycodes
   EPRM,
   RGB_SLD,
   ALT_TAB,
+  QWERTY,
+  SYM,
+  NAV,
+  ADJUST,
   // Macros
   ARROW,
   F_ARROW,
-  QWERTY,
   GREP,
   // Accented characters
   AC_A,
@@ -36,16 +39,17 @@ enum custom_keycodes
   // OTHER OLD STUFF
   LOWER,
   RAISE,
-  ADJUST,
   MAC_TGL,
-  MACRO_START,  // START OF VSC DECLARATIONS
+  // START OF VSC DECLARATIONS
+  MACRO_START,
   T_TERM,
   FIX_ALL,
   BLK_CMNT,
   LN_CMNT,
   CMD_S_P,
   TRI_TICKS,
-  MACRO_END,  // END OF VSC DECLARATIONS
+  MACRO_END,
+  // END OF VSC DECLARATIONS
   INC_MACROS_START,
   INC_MACROS_END,
 };
@@ -53,16 +57,19 @@ enum custom_keycodes
 
 enum layers {
   _QWERTY,
-  _LOWER,
-  _RAISE,
+  _SYMB,
+  _NAV,
+  _ADJUST,
   _F,
   _D,
-  _A,
   _S,
+  _A,
   _J,
   _K,
+  // iris specific - TBD
+  _LOWER,
+  _RAISE,
   _MACROS,
-  _ADJUST,
   _SAFE_LAYER
 };
 
