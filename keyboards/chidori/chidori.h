@@ -35,7 +35,7 @@
         { R19, R20, R21, R22, R23, R24 }  \
     }
 
-#define LAYOUT3( \
+#define LAYOUT_extended( \
         L01, L02, L03, L04, L05, L06, M01, M02, M03, M04, M05, M06, R01, R02, R03, R04, R05, R06, \
         L07, L08, L09, L10, L11, L12, M07, M08, M09, M10, M11, M12, R07, R08, R09, R10, R11, R12, \
         L13, L14, L15, L16, L17, L18, M13, M14, M15, M16, M17, M18, R13, R14, R15, R16, R17, R18, \
