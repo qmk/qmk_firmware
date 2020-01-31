@@ -19,7 +19,6 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   QMK DFU      qmk-dfu
 #   ATmega32A    bootloadHID
 #   ATmega328P   USBasp
-# BOOTLOADER = atmel-dfu
 BOOTLOADER = USBasp
 #PROGRAM_CMD = avrdude -c usbasp -p m328p -v -U flash:w:$(BUILD_DIR)/$(TARGET).hex
 
