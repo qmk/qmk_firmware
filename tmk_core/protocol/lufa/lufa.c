@@ -78,7 +78,7 @@ extern keymap_config_t keymap_config;
 #    include "virtser.h"
 #endif
 
-#if (defined(RGB_MIDI) | defined(RGBLIGHT_ANIMATIONS)) & defined(RGBLIGHT_ENABLE)
+#if (defined(RGB_MIDI) || defined(RGBLIGHT_ANIMATIONS)) && defined(RGBLIGHT_ENABLE)
 #    include "rgblight.h"
 #endif
 
@@ -869,7 +869,7 @@ void virtser_recv(uint8_t c) {
 void virtser_task(void) {
     uint16_t count = CDC_Device_BytesReceived(&cdc_device);
     uint8_t  ch;
-    if (count) {
+    for (; count; --count) {
         ch = CDC_Device_ReceiveByte(&cdc_device);
         virtser_recv(ch);
     }
@@ -914,14 +914,11 @@ void virtser_send(const uint8_t byte) {
  */
 static void setup_mcu(void) {
     /* Disable watchdog if enabled by bootloader/fuses */
-    MCUSR &= ~(1 << WDRF);
+    MCUSR &= ~_BV(WDRF);
     wdt_disable();
 
     /* Disable clock division */
-    // clock_prescale_set(clock_div_1);
-
-    CLKPR = (1 << CLKPCE);
-    CLKPR = (0 << CLKPS3) | (0 << CLKPS2) | (0 << CLKPS1) | (0 << CLKPS0);
+    clock_prescale_set(clock_div_1);
 }
 
 /** \brief Setup USB
@@ -999,10 +996,6 @@ int main(void) {
 
 #ifdef MIDI_ENABLE
         MIDI_Device_USBTask(&USB_MIDI_Interface);
-#endif
-
-#if defined(RGBLIGHT_ANIMATIONS) & defined(RGBLIGHT_ENABLE)
-        rgblight_task();
 #endif
 
 #ifdef MODULE_ADAFRUIT_BLE

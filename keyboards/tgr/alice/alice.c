@@ -15,41 +15,24 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <string.h>
+#include "alice.h"
 
-#include "rgblight.h"
-
-#include "i2c_master.h"
-#include "quantum.h"
-
-#ifdef RGBLIGHT_ENABLE
-extern rgblight_config_t rgblight_config;
-
-void matrix_init_kb(void) {
-  i2c_init();
-  // call user level keymaps, if any
-  matrix_init_user();
+void keyboard_pre_init_kb(void) {
+    led_init_ports();
+    keyboard_pre_init_user();
 }
 
-// custom RGB driver
-void rgblight_set(void) {
-  if (!rgblight_config.enable) {
-    memset(led, 0, 3 * RGBLED_NUM);
-  }
-
-  i2c_transmit(0xb0, (uint8_t*)led, 3 * RGBLED_NUM, 100);
+void led_init_ports(void) {
+    setPinOutput(D0);
+    setPinOutput(D1);
+    setPinOutput(D6);
 }
 
-bool rgb_init = false;
-
-void matrix_scan_kb(void) {
-  // if LEDs were previously on before poweroff, turn them back on
-  if (rgb_init == false && rgblight_config.enable) {
-    i2c_transmit(0xb0, (uint8_t*)led, 3 * RGBLED_NUM, 100);
-    rgb_init = true;
-  }
-
-  rgblight_task();
-  matrix_scan_user();
+bool led_update_kb(led_t led_state) {
+    if (led_update_user(led_state)) {
+        writePin(D0, led_state.num_lock);
+        writePin(D1, led_state.caps_lock);
+        writePin(D6, led_state.scroll_lock);
+    }
+    return true;
 }
-#endif

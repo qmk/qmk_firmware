@@ -8,7 +8,7 @@ UNICODE_ENABLE          = no        # Unicode keycodes
 NKRO_ENABLE             = no        # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 
 # Debug Options
-CONSOLE_ENABLE          = no        # Console for debug(+400)
+CONSOLE_ENABLE          = no        # Console for debug
 COMMAND_ENABLE          = no        # Commands for debug and configuration
 
 # RGB Options
@@ -22,6 +22,7 @@ RGB_MATRIX_FRAMEBUFFER_EFFECTS = no # Enable frame buffer effects like the typin
 
 RGBLIGHT_FULL_POWER     = no        # Allow maximum RGB brightness for RGBLIGHT or RGB_MATRIX. Otherwise, limited to a safe level for a normal USB-A port
 FULLHAND_ENABLE         = no        # Enables the additional 24 Full Hand LEDs
+SF_ENABLE               = no        # Enables the additional 38 Starfighter LEDs
 IOS_DEVICE_ENABLE       = no        # Limit max brightness to connect to IOS device (iPad,iPhone)
 
 # Misc
