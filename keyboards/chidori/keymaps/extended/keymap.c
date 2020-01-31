@@ -17,7 +17,6 @@
 
 #include "board.h"
 
-extern keymap_config_t keymap_config;
 
 enum layer_number { _QWERTY = 0, _COLEMAK, _DVORAK, _LOWER, _RAISE, _ADJUST };
 
