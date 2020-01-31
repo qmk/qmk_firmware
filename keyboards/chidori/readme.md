@@ -4,7 +4,7 @@
 
 Yet another split keyboard made with only through-hole components.
 
-Keyboard Maintainer: [ka2hiro](https://github.com/ka2hiro) [@ka2hiro](https://twitter.com/ka2hiro)  
+* Keyboard Maintainer: [ka2hiro](https://github.com/ka2hiro) [@ka2hiro](https://twitter.com/ka2hiro)
 Hardware Supported: Chidori PCB, ATMEGA328P  
 Hardware Availability: [@kagizaraya](https://twitter.com/kagizaraya)
 
