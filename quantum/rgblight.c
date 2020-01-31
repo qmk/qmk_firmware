@@ -19,9 +19,11 @@
 #    include <avr/eeprom.h>
 #    include <avr/interrupt.h>
 #endif
+#ifdef EEPROM_ENABLE
+#    include "eeprom.h"
+#endif
 #ifdef STM32_EEPROM_ENABLE
 #    include "hal.h"
-#    include "eeprom.h"
 #    include "eeprom_stm32.h"
 #endif
 #include "wait.h"
@@ -146,7 +148,7 @@ void rgblight_check_config(void) {
 }
 
 uint32_t eeconfig_read_rgblight(void) {
-#if defined(__AVR__) || defined(STM32_EEPROM_ENABLE) || defined(PROTOCOL_ARM_ATSAM) || defined(EEPROM_SIZE)
+#ifdef EEPROM_ENABLE
     return eeprom_read_dword(EECONFIG_RGBLIGHT);
 #else
     return 0;
@@ -154,11 +156,13 @@ uint32_t eeconfig_read_rgblight(void) {
 }
 
 void eeconfig_update_rgblight(uint32_t val) {
-#if defined(__AVR__) || defined(STM32_EEPROM_ENABLE) || defined(PROTOCOL_ARM_ATSAM) || defined(EEPROM_SIZE)
+#ifdef EEPROM_ENABLE
     rgblight_check_config();
     eeprom_update_dword(EECONFIG_RGBLIGHT, val);
 #endif
 }
+
+void eeconfig_update_rgblight_current(void) { eeconfig_update_rgblight(rgblight_config.raw); }
 
 void eeconfig_update_rgblight_default(void) {
     rgblight_config.enable = 1;
@@ -501,6 +505,22 @@ void rgblight_sethsv(uint8_t hue, uint8_t sat, uint8_t val) { rgblight_sethsv_ee
 
 void rgblight_sethsv_noeeprom(uint8_t hue, uint8_t sat, uint8_t val) { rgblight_sethsv_eeprom_helper(hue, sat, val, false); }
 
+uint8_t rgblight_get_speed(void) { return rgblight_config.speed; }
+
+void rgblight_set_speed_eeprom_helper(uint8_t speed, bool write_to_eeprom) {
+    rgblight_config.speed = speed;
+    if (write_to_eeprom) {
+        eeconfig_update_rgblight(rgblight_config.raw);  // EECONFIG needs to be increased to support this
+        dprintf("rgblight set speed [EEPROM]: %u\n", rgblight_config.speed);
+    } else {
+        dprintf("rgblight set speed [NOEEPROM]: %u\n", rgblight_config.speed);
+    }
+}
+
+void rgblight_set_speed(uint8_t speed) { rgblight_set_speed_eeprom_helper(speed, true); }
+
+void rgblight_set_speed_noeeprom(uint8_t speed) { rgblight_set_speed_eeprom_helper(speed, false); }
+
 uint8_t rgblight_get_hue(void) { return rgblight_config.hue; }
 
 uint8_t rgblight_get_sat(void) { return rgblight_config.sat; }
@@ -622,12 +642,12 @@ void rgblight_set(void) {
     start_led = led + clipping_start_pos;
 #    endif
 
-#ifdef RGBW
+#    ifdef RGBW
     for (uint8_t i = 0; i < num_leds; i++) {
         convert_rgb_to_rgbw(&start_led[i]);
     }
-#endif
-   ws2812_setleds(start_led, num_leds);
+#    endif
+    ws2812_setleds(start_led, num_leds);
 }
 #endif
 

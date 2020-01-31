@@ -32,6 +32,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4, C3, C2 }
 #define UNUSED_PINS
 
+#define DIODE_DIRECTION COL2ROW
+
 #define RGBLED_NUM 18
 #define RGBLIGHT_ANIMATIONS
 
@@ -39,4 +41,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 3
-
