@@ -126,6 +126,9 @@ typedef struct _Serial_m2s_buffer_t {
 #    ifdef BACKLIGHT_ENABLE
     uint8_t backlight_level;
 #    endif
+#    ifdef WPM_ENABLE
+    uint8_t current_wpm;
+#    endif
 } Serial_m2s_buffer_t;
 
 #    if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
@@ -228,6 +231,10 @@ bool transport_master(matrix_row_t matrix[]) {
     encoder_update_raw((uint8_t *)serial_s2m_buffer.encoder_state);
 #    endif
 
+#    ifdef WPM_ENABLE
+    // Write wpm to slave
+    serial_m2s_buffer.current_wpm = get_current_wpm();
+#    endif
     return true;
 }
 
@@ -243,6 +250,10 @@ void transport_slave(matrix_row_t matrix[]) {
 
 #    ifdef ENCODER_ENABLE
     encoder_state_raw((uint8_t *)serial_s2m_buffer.encoder_state);
+#    endif
+
+#    ifdef WPM_ENABLE
+     set_current_wpm(serial_m2s_buffer.current_wpm);
 #    endif
 }
 
