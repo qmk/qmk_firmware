@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |ADJUST| Esc  | Alt  | GUI  |LOWER |Space |             | Space| RAISE| Left | Down |  Up  | Right|             |      0      |   .  |      |   -  | Bksp |
    * `-----------------------------------------'             `-----------------------------------------'             `-----------------------------------------'
    */
-    [_DVORAK] = LAYOUT3(
+    [_DVORAK] = LAYOUT_extended(
       KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,              KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_DEL,        KC_P7,   KC_P8,   KC_P9,  KC_PPLS, KC_NLCK, KC_ESC,
       KC_LCTL, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,              KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH,       KC_P4,   KC_P5,   KC_P6,  _______, KC_PSLS, KC_TAB,
       KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,              KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_ENT ,       KC_P1,   KC_P2,   KC_P3,  KC_PENT, KC_PAST, KC_PEQL,
