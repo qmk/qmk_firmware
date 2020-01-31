@@ -17,7 +17,8 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   Atmel DFU    atmel-dfu
 #   LUFA DFU     lufa-dfu
 #   QMK DFU      qmk-dfu
-#   atmega32a    bootloadHID
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
 # BOOTLOADER = atmel-dfu
 BOOTLOADER = USBasp
 #PROGRAM_CMD = avrdude -c usbasp -p m328p -v -U flash:w:$(BUILD_DIR)/$(TARGET).hex
@@ -55,4 +56,3 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
 
 CUSTOM_MATRIX = yes
-
