@@ -22,5 +22,3 @@
 #elif KEYBOARD_mechlovin_hannah910_rev2
     #include "rev2.h"
 #endif
-
-#include "quantum.h"
