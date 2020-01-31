@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      |      |      |      |      |             |      |      | Next | Vol- | Vol+ | Play |             |      0      |   .  |      |   -  | Bksp |
    * `-----------------------------------------'             `-----------------------------------------'             `-----------------------------------------'
    */
-    [_LOWER] = LAYOUT3(
+    [_LOWER] = LAYOUT_extended(
       KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,           KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,       KC_P7,   KC_P8,   KC_P9,  KC_PPLS, KC_NLCK, KC_ESC,
       _______, _______, _______, _______, _______, _______,           KC_MINS, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,       KC_P4,   KC_P5,   KC_P6,  _______, KC_PSLS, KC_TAB,
       _______, _______, _______, _______, _______, _______,           _______, _______, _______, KC_HOME, KC_END,  _______,       KC_P1,   KC_P2,   KC_P3,  KC_PENT, KC_PAST, KC_PEQL,
