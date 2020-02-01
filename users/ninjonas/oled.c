@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "ninjonas.h"
 
-#ifdef OLED_DRIVER_ENABLE
+#if defined(OLED_DRIVER_ENABLE) & !defined(KEYBOARD_kyria_rev1)
 
 static uint32_t oled_timer = 0;
 extern uint8_t is_master;
@@ -38,19 +38,28 @@ void render_default_layer_state(void) {
   }
 }
 
+void oled_white_space(void){
+  oled_write_P(PSTR(" "), false);
+}
+
 void render_layer_state(void) {
-    oled_write_P(PSTR("\nLayer:"), false);
-    oled_write_P(PSTR(" LOW"), layer_state_is(_LOWER));
-    oled_write_P(PSTR(" RAI"), layer_state_is(_RAISE));
-    oled_write_P(PSTR(" ADJ"), layer_state_is(_ADJUST));
+  oled_write_P(PSTR("\nLayer: "), false);
+  oled_write_P(PSTR("LOW"), (layer_state_is(_LOWER) & !layer_state_is(_ADJUST)));
+  oled_white_space();
+  oled_write_P(PSTR("RAI"), (layer_state_is(_RAISE) & !layer_state_is(_ADJUST)));
+  oled_white_space();
+  oled_write_P(PSTR("ADJ"), layer_state_is(_ADJUST));
 }
 
 void render_mod_status(uint8_t modifiers) {
-    oled_write_P(PSTR("\nMods: "), false);
-    oled_write_P(PSTR("SHF "), (modifiers & MOD_MASK_SHIFT));
-    oled_write_P(PSTR("CTL "), (modifiers & MOD_MASK_CTRL));
-    oled_write_P(PSTR("ALT "), (modifiers & MOD_MASK_ALT));
-    oled_write_P(PSTR("GUI"), (modifiers & MOD_MASK_GUI));
+  oled_write_P(PSTR("\nMods: "), false);
+  oled_write_P(PSTR("SHF"), (modifiers & MOD_MASK_SHIFT));
+  oled_white_space();
+  oled_write_P(PSTR("CTL"), (modifiers & MOD_MASK_CTRL));
+  oled_white_space();
+  oled_write_P(PSTR("ALT"), (modifiers & MOD_MASK_ALT));
+  oled_white_space();
+  oled_write_P(PSTR("GUI"), (modifiers & MOD_MASK_GUI));
 }
 
 void render_status(void){
