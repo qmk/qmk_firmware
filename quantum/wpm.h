@@ -19,6 +19,10 @@
 
 #include "quantum.h"
 
+bool wpm_keycode(uint16_t keycode);
+bool wpm_keycode_kb(uint16_t keycode);
+bool wpm_keycode_user(uint16_t keycode);
+
 void set_current_wpm(uint8_t);
 uint8_t get_current_wpm(void);
 void update_wpm(uint16_t);

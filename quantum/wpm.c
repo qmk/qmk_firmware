@@ -29,8 +29,33 @@ void set_current_wpm(uint8_t new_wpm) { current_wpm = new_wpm; }
 
 uint8_t get_current_wpm(void) { return current_wpm;}
 
-void update_wpm(uint16_t keycode) {
+bool wpm_keycode(uint16_t keycode) {
+#    ifdef WPM_KEYCODE
+    return WPM_KEYCODE;
+#    else
+    return wpm_keycode_kb(keycode);
+#    endif
+}
+
+__attribute__((weak)) bool wpm_keycode_kb(uint16_t keycode) { return wpm_keycode_user(keycode); }
+
+__attribute__((weak)) bool wpm_keycode_user(uint16_t keycode) {
+
+    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) || (keycode >= QK_MODS && keycode <= QK_MODS_MAX)) {
+        keycode = keycode & 0xFF;
+    } else if (keycode > 0xFF) {
+	keycode = 0;
+    }
     if((keycode >= KC_A && keycode <= KC_0) || (keycode >= KC_TAB && keycode <= KC_SLASH)) {
+	return true;
+    }
+
+    return false;
+}
+
+
+void update_wpm(uint16_t keycode) {
+    if(wpm_keycode(keycode)) {
 	if(wpm_timer > 0) {
 	    latest_wpm = 60000 / timer_elapsed(wpm_timer) / 5;
 	    current_wpm = (latest_wpm - current_wpm) * wpm_smoothing + current_wpm;
