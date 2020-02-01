@@ -64,13 +64,13 @@
 
 #define _____________________DVORAK_L1______________________ T_TAB, KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y
 #define _____________________DVORAK_L2______________________ T_ESC, KC_A, KC_O, KC_E, KC_U, KC_I
-#define _____________________DVORAK_L3______________________ KC_LSFT, KC_SCLN, KC_W, KC_J, KC_K, KC_X
+#define _____________________DVORAK_L3______________________ KC_LSFT, KC_SCLN, KC_Q, KC_J, KC_K, KC_X
 
 #define _____________________DVORAK_R1______________________ KC_F, KC_G, KC_C, KC_R, KC_L, KC_BSLS
 #define _____________________DVORAK_R2______________________ KC_D, KC_H, KC_T, KC_N, KC_S, KC_SLSH
 #define _____________________DVORAK_R3______________________ KC_B, KC_M, KC_W, KC_V, KC_Z, MT_EQL
 
-#define _____________________COLEMAK_L1_____________________ T_TAB, KC_W, KC_W, KC_F, KC_P, KC_G
+#define _____________________COLEMAK_L1_____________________ T_TAB, KC_Q, KC_W, KC_F, KC_P, KC_G
 #define _____________________COLEMAK_L2_____________________ T_ESC, KC_A, KC_R, KC_S, KC_T, KC_D
 #define _____________________COLEMAK_L3_____________________ KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B
 
