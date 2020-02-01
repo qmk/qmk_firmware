@@ -114,7 +114,6 @@ extern rgblight_config_t rgblight_config;
 #endif
 
 int RGB_current_mode;
-bool alt_pressed = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
