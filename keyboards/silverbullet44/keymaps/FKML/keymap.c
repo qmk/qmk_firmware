@@ -15,11 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 
-// Defines the keycodes used by our macros in process_record_user
-//enum custom_keycodes {
-//  QMKBEST = SAFE_RANGE,
-//  QMKURL
-//};
+
 
 #define _QWERTY 0
 #define _LOWER 1
