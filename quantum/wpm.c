@@ -27,15 +27,9 @@ static const float wpm_smoothing = 0.0487;
 
 void set_current_wpm(uint8_t new_wpm) { current_wpm = new_wpm; }
 
-uint8_t get_current_wpm(void) { return current_wpm;}
+uint8_t get_current_wpm(void) { return current_wpm; }
 
-bool wpm_keycode(uint16_t keycode) {
-#    ifdef WPM_KEYCODE
-    return WPM_KEYCODE;
-#    else
-    return wpm_keycode_kb(keycode);
-#    endif
-}
+bool wpm_keycode(uint16_t keycode) { return wpm_keycode_kb(keycode); }
 
 __attribute__((weak)) bool wpm_keycode_kb(uint16_t keycode) { return wpm_keycode_user(keycode); }
 
