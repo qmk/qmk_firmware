@@ -88,7 +88,7 @@ static void render_logo(void) {
 }
 
 void oled_task_user(void) {
-    if (timer_elapsed32(oled_timer) > 30000) {
+    if (timer_elapsed32(oled_timer) > 15000) {
         oled_off();
         return;
     }
