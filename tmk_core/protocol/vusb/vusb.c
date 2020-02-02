@@ -114,10 +114,10 @@ static void send_mouse(report_mouse_t *report) {
 }
 
 static void send_extra(uint8_t report_id, uint16_t data) {
-    static uint8_t last_id    = 0;
+    static uint8_t  last_id   = 0;
     static uint16_t last_data = 0;
     if ((report_id == last_id) && (data == last_data)) return;
-    last_id = report_id;
+    last_id   = report_id;
     last_data = data;
 
     report_extra_t report = {.report_id = report_id, .usage = data};
@@ -126,13 +126,9 @@ static void send_extra(uint8_t report_id, uint16_t data) {
     }
 }
 
-static void send_system(uint16_t data) {
-    send_extra(REPORT_ID_SYSTEM, data);
-}
+static void send_system(uint16_t data) { send_extra(REPORT_ID_SYSTEM, data); }
 
-static void send_consumer(uint16_t data) {
-    send_extra(REPORT_ID_CONSUMER, data);
-}
+static void send_consumer(uint16_t data) { send_extra(REPORT_ID_CONSUMER, data); }
 
 /*------------------------------------------------------------------*
  * Request from host                                                *
