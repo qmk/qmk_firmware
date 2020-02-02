@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER kamonanban
 #define PRODUCT manta60
-#define DESCRIPTION A split keyboard with 27 ortholinear keys and 4-5 thumb keys
+#define DESCRIPTION A split keyboard with 27 ortholinear keys and 5-7 thumb/little finger keys
 
 /* key matrix size */
 #define MATRIX_ROWS 10
