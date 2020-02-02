@@ -700,7 +700,7 @@ static void send_system(uint16_t data) {
  */
 static void send_consumer(uint16_t data) {
 #ifdef EXTRAKEY_ENABLE
-    uint8_t where   = where_to_send();
+    uint8_t where = where_to_send();
 
 #    ifdef BLUETOOTH_ENABLE
     if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
