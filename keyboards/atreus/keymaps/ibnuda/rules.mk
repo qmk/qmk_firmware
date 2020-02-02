@@ -2,8 +2,8 @@
 #   change yes to no to disable
 #
 
-MOUSEKEY_ENABLE  = yes     # Mouse keys(+4700)
+MOUSEKEY_ENABLE  = yes
 COMBO_ENABLE	 = yes
 TAP_DANCE_ENABLE = yes
 
-DEFAULT_FOLDER = atreus/greasy-promicro
+DEFAULT_FOLDER = atreus/promicro

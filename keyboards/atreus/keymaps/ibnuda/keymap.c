@@ -44,17 +44,15 @@ enum combos {
     K_M,
 };
 
-#define _BASE    0
-#define _LOWER   1
-#define _RAISE   2
-#define _ADJUST  3
-#define _MUIS    4
-
-#define ____ KC_TRNS
+enum {
+    _BASE,
+    _LOWER,
+    _RAISE,
+    _ADJUST,
+    _MUIS
+};
 
 // short.
-#define KC_QUES LSFT(KC_SLSH)
-#define KC_UNDR LSFT(KC_MINS)
 #define MU_UP   KC_MS_UP
 #define MU_DN   KC_MS_DOWN
 #define MU_LFT  KC_MS_LEFT
@@ -246,36 +244,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     SM_CLN, KC_COMM,KC_DOT, KC_P,   KC_Y,                       KC_F,   KC_G,   KC_C,   KC_R,   KC_L,
     SH_A,   CT_O,   AL_E,   KC_U,   GU_I,                       GU_D,   KC_H,   AL_T,   CT_N,   SH_S,
     MU_QUOT,KC_Q,   KC_J,   KC_K,   KC_X,                       KC_B,   KC_M,   KC_W,   KC_V,   MU_Z,
-    ____,   ____,   ____,   ____,   LW_BSPC,SFT_ESC,    ALT_ENT,RS_SPC, ____,   ____,   ____,   ____
+    _______,_______,_______,_______,LW_BSPC,SFT_ESC,    ALT_ENT,RS_SPC, _______,_______,_______,____
 ),
 
 [_RAISE] = LAYOUT(
     KC_EXLM,KC_AT,  KC_UP,  KC_LCBR,KC_RCBR,                    KC_BSLS,KC_7,   KC_8,   KC_9,   KC_ASTR ,
     KC_HASH,KC_LEFT,KC_DOWN,KC_RGHT,KC_DLR,                     KC_EQL, KC_4,   KC_5,   KC_6,   KC_TILD ,
     KC_LBRC,KC_RBRC,KC_LPRN,KC_RPRN,KC_AMPR,                    KC_GRV, KC_1,   KC_2,   KC_3,   KC_PLUS ,
-    ____,   ____,   ____,   ____,   ADDDD,  ____,       ALT_ENT,RS_SPC, ____,   ____,   ____,   ____
+    _______,_______,_______,_______,ADDDD,  _______,    ALT_ENT,RS_SPC, _______,_______,_______,____
 ),
 [_LOWER] = LAYOUT(
-    KC_ESC, KC_QUES,KC_UNDR,KC_F1,  KC_F2,                      KC_F3,  KC_F4,  KC_MINS,KC_SLSH,KC_BSPC ,
+    KC_ESC, KC_QUES,KC_UNDS,KC_F1,  KC_F2,                      KC_F3,  KC_F4,  KC_MINS,KC_SLSH,KC_BSPC ,
     KC_LSFT,KC_TAB, KC_PGUP,KC_F5,  KC_F6,                      KC_F7,  KC_F8,  KC_HOME,KC_LALT,KC_ENT  ,
     KC_CLCK,KC_SLCK,KC_PGDN,KC_F9,  KC_F10,                     KC_F11, KC_F12, KC_END, KC_INS, KC_SLSH ,
-    ____,   ____,   ____,   ____,   ADDDD,  ____,       KC_DELT,ADDDD,  ____,   ____,   ____,   ____
+    _______,_______,_______,_______,ADDDD,  _______,    KC_DELT,ADDDD,  _______,_______,_______,____
 ),
 [_ADJUST] = LAYOUT(
-    ____,   EXPLR,  KC_UP,  PRVTAB, PRVWIN,                     NXTWIN, NXTTAB, ____,   ____,   LCKGUI,
-    TSKMGR, KC_LEFT,KC_DOWN,KC_RGHT,UPTAB,                      DNTAB,  KC_ENT, KC_LGUI,____,   CALDL,
-    ____,   CLSGUI, ____,   CONPST, RESET,                      ____,   ____,   ____,   ____,   ____,
-    ____,   ____,   ____,   ____,   ____,   ____,       ____,   ____,   ____,   ____,   ____,   ____
+    _______,EXPLR,  KC_UP,  PRVTAB, PRVWIN,                     NXTWIN, NXTTAB, _______,_______,LCKGUI,
+    TSKMGR, KC_LEFT,KC_DOWN,KC_RGHT,UPTAB,                      DNTAB,  KC_ENT, KC_LGUI,_______,CALDL,
+    _______,CLSGUI, _______,CONPST, RESET,                      _______,_______,_______,_______,____,
+    _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,____
 ),
 [_MUIS] = LAYOUT(
-    ____,   MU_BTN2,MU_UP,  MU_BTN1,____,                       ____,   MU_BTN1,MU_UP,  MU_BTN2,____,
-    ____,   MU_LFT, MU_DN,  MU_RGHT,____,                       ____,   MU_LFT, MU_DN,  MU_RGHT,____,
-    ____,   ____,   MU_WD,  MU_WU,  ____,                       ____,   MU_WU,  MU_WD,  ____,   ____,
-    ____,   ____,   ____,   ____,   ____,   ____,       ____,   ____,   ____,   ____,   ____,   ____
+    _______,KC_BTN2,KC_MS_U,KC_BTN1,_______,                    _______,KC_BTN1,KC_MS_U,KC_BTN2,____,
+    _______,KC_MS_L,KC_MS_D,KC_MS_R,_______,                    _______,KC_MS_L,KC_MS_D,KC_MS_R,____,
+    _______,_______,KC_WH_D,KC_WH_U,_______,                    _______,KC_WH_U,KC_WH_D,_______,____,
+    _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,____
 ),
 };
-
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
