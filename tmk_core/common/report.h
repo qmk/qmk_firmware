@@ -151,6 +151,11 @@ typedef union {
 } __attribute__((packed)) report_keyboard_t;
 
 typedef struct {
+    uint8_t  report_id;
+    uint16_t usage;
+} __attribute__((packed)) report_extra_t;
+
+typedef struct {
 #ifdef MOUSE_SHARED_EP
     uint8_t report_id;
 #endif
