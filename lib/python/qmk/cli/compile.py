@@ -65,9 +65,9 @@ def compile(cli):
 
     # If user keyboard/keymap or compile keyboard/keymap are supplied, assign those
     if cli.config.compile.keyboard:
-        user_keyboard = cli.config.user.keyboard if cli.config.user.keyboard else cli.config.compile.keyboard
+        user_keyboard = cli.config.compile.keyboard
     if cli.config.compile.keymap and not in_layout:
-        user_keymap = cli.config.user.keymap if cli.config.user.keymap else cli.config.compile.keymap
+        user_keymap = cli.config.compile.keymap
 
     if cli.args.filename:
         # Parse the configurator json
