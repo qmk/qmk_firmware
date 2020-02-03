@@ -36,7 +36,7 @@ ________________________________________________________________________________
     /* Layer 1, function layer
 ___________________________________________________________________________________________________________________________________
 |        |        |        |        |        |        |        |        |        |        |        |        |        |            |
-|        |        |        |        |        |        |        |        |        |        |        |        |        |            |
+| RESET  |        |        |        |        |        |        |        |        |        |        |        |        |            |
 |________|________|________|________|________|________|________|________|________|________|________|________|________|____________|
 |        |        |        |        |        |        |        |        |        |        |        |        |        |            |
 |        |        |        |        |        |        |        |        |        |        |        |        |        |            |
@@ -53,10 +53,12 @@ ________________________________________________________________________________
   |            |        |       |        |                 |                 |        |        |             |        |        |        |
   |            |        |       |        |                 |                 |        |        |             |  Home  |  PgDn  |  End   |
   |____________|________|_______|________|_________________|_________________|________|________|_____________|________|________|________|
+* 'RESET' resets the controller and puts the board into firmware flashing mode. If this key is hit accidentally, just unplug the board
+*        and plug it back in.
 */
 
   [1] = LAYOUT(
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    RESET,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
