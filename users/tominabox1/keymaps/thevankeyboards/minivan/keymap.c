@@ -5,45 +5,38 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_BASE] = LAYOUT_arrow_wrapper(
-    __________________MINIVAN1_________________,
-    __________________MINIVAN2_________________,
-    __________________MINIVAN3_________________,
-    __________________MINIVAN4_________________
+    KC_TABESC, _______________COLEMAK1____________________, KC_BSPC,
+    KC_CTLTB,  _______________COLEMAK2____________________, KC_QUOT,
+    KC_LSFT,   _______________COLEMAK3____________________, KC_RSFT,
+    KC_DEL, KC_LCTL, KC_LGUI, KC_LALT, KC_NUM_SPC,  KC_NUM_SPC,  KC_NAV_ENT, MO(_FKEY), KC_NO, MO(_FKEY)
   ),
 
-  [_LOWER] = LAYOUT_arrow_wrapper(
-    _________________LOWER_1___________________,
-    _________________LOWER_2___________________,
-    __________________MININUM3_________________,
-    __________________MININUM4_________________
+  [_NUM_SYM] = LAYOUT_arrow_wrapper(
+    KC_GRV,  __________________NUM_1____________________, KC_BSPC,
+    KC_TILD, __________________NUM_2____________________, KC_PIPE,
+    KC_DEL,  KC_NO, __________________NUM_3____________________, KC_DOT, KC_SLSH, KC_RSFT,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
   ),
 
-  [_RAISE] = LAYOUT_arrow_wrapper(
-    ___________________NAV1____________________,
-    ___________________NAV2____________________,
-    ___________________RVAN_3__________________,
-    ___________________RVAN_4__________________
-  ),
-
-  [_ADJUST] = LAYOUT_arrow_wrapper(
-    ___________________ADJST1__________________,
-    ___________________ADJST2__________________,
-    ___________________ADJVAN3_________________,
-    __________________MINIVAN4_________________
+  [_NAV] = LAYOUT_arrow_wrapper(
+    KC_NO, ___________________NAV1____________________, KC_NO,
+    KC_NO,___________________NAV2____________________, KC_NO,
+    KC_LTOG,   ___________________NO______________________, KC_NO,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
   ),
 
   [_FKEY] = LAYOUT_arrow_wrapper(
-    ___________________FKEY1___________________,
-    ___________________FKEY2___________________,
-    ___________________FVAN_3__________________,
-    __________________MINIVAN4_________________
+    RESET,___________________FKEY1___________________, KC_F11,
+    KC_NO,  ___________________NO______________________, KC_NO,
+    KC_NO,   ___________________NO______________________, KC_NO,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
   ),
 };
 
+#ifdef RGBLIGHT_ENABLE
 const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {100, 30, 5, 1};
 
 void keyboard_post_init_user(void) {
-  #ifdef RGBLIGHT_ENABLE
   // Set up RGB effects on _only_ the third LED (index 2)
   rgblight_set_effect_range(2, 1);
   // Set LED effects to breathing mode in a tealish blue color
@@ -54,14 +47,13 @@ void keyboard_post_init_user(void) {
   setrgb(0, 0, 0, (LED_TYPE *)&led[0]);
   setrgb(0, 0, 0, (LED_TYPE *)&led[1]);
   rgblight_set();
-  #endif //RGBLIGHT_ENABLE
+
 }
 
 uint32_t layer_state_set_keymap(uint32_t state){
-  #ifdef RGBLIGHT_ENABLE
   uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
   uint8_t led1r = 0; uint8_t led1g = 0; uint8_t led1b = 0;
-  if (layer_state_cmp(state, _LOWER)) {
+  if (layer_state_cmp(state, _NUM_SYM)) {
     led0r = 25;
     led0g = 25;
   }
@@ -84,7 +76,6 @@ uint32_t layer_state_set_keymap(uint32_t state){
   setrgb(led1r, led1g, led1b, (LED_TYPE *)&led[1]);
   rgblight_set();
 
-  #endif //RGBLIGHT_ENABLE
   return state;
 }
 
@@ -101,3 +92,4 @@ bool led_update_kb(led_t led_state){
   }
   return true;
 }
+#endif //RGBLIGHT_ENABLE

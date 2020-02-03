@@ -119,18 +119,19 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_CTRL_Y]    = ACTION_TAP_DANCE_DOUBLE(KC_Y, LCTL(KC_Y)),
   [TD_CTRL_C]    = ACTION_TAP_DANCE_DOUBLE(KC_C, LCTL(KC_C)),
   [TD_CTRL_V]    = ACTION_TAP_DANCE_DOUBLE(KC_V, LCTL(KC_V)),
-  [TD_CTRL_A]    = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, a_finished, a_reset, 125),
+  [TD_CTRL_A]    = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, a_finished, a_reset, 175),
   [TD_O_BSLS]    = ACTION_TAP_DANCE_DOUBLE(KC_O, KC_BSLS),
   [TD_QUOTE]     = ACTION_TAP_DANCE_DOUBLE(KC_QUOTE, KC_DQT),
   [TD_QCOL]      = ACTION_TAP_DANCE_DOUBLE(KC_QUOTE, KC_SCLN),
   [TD_WTAB]      = ACTION_TAP_DANCE_DOUBLE(KC_W, KC_TAB)
 };
 
+/* Per key tapdance configs */
 uint16_t get_tapping_term(uint16_t keycode) {
   switch (keycode) {
     case RSFT_T(KC_DOT):
       return 150;
-    case LT(_LOWER, KC_SPC):
+    case KC_NUM_SPC:
       return 300;
     case LCTL_T(KC_TAB):
       return 120;

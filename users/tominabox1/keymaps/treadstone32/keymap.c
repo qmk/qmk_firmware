@@ -9,17 +9,17 @@ extern rgblight_config_t rgblight_config;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT(
   //,---------------------------------------------------------------------------------------------------.
-  TD(TD_Q_ESC),TD(TD_WTAB),     KC_F,     KC_P,     KC_G,     KC_J,     KC_L,     KC_U,     KC_Y,  TD(TD_QCOL), //Y+QUOTE = KC_BSPC
+          KC_Q,     KC_W,     KC_F,     KC_P,     KC_G,     KC_J,     KC_L,     KC_U,     KC_Y,  KC_QUOT, //Y+QUOTE = KC_BSPC
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-  TD(TD_CTRL_A),     KC_R,     KC_S,     KC_T,     KC_D,     KC_H,     KC_N,     KC_E,     KC_I, KC_O,
+       KC_CTLA,     KC_R,     KC_S,     KC_T,     KC_D,     KC_H,     KC_N,     KC_E,     KC_I,    KC_O,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-  LSFT_T(KC_Z),     KC_X,  KC_C_AL,     KC_V,     KC_B,  KC_K_GU, LT(_LOWER,KC_M),  KC_COMM,  KC_FDOT, TD(TD_QUES_ENT),
+       KC_Z_SF,     KC_X,  KC_C_AL,     KC_V,     KC_B,  KC_K_GU, LT(_NAV,KC_M),  KC_COMM,  KC_FDOT, KC_SSLSH,
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'
-                                               KC_GBAK,  KC_SPRA
+                                               KC_GENT,KC_NUM_SPC
   //                                        `---------|---------'
   ),
 
-  [_RAISE] = LAYOUT(
+  [_NUM_SYM] = LAYOUT(
   //,---------------------------------------------------------------------------------------------------.
           KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0, //0 + 9 = KC_BSPC
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
@@ -31,13 +31,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                                        `---------|---------'
   ),
 
-  [_LOWER] = LAYOUT(
+  [_NAV] = LAYOUT(
   //,---------------------------------------------------------------------------------------------------.
-        KC_ESC,   RGBRST,  AG_NORM,  AG_SWAP,  DEBUG,  KC_GRV,KC_PGDN,    KC_UP,  KC_PGUP,    XXXXXXX,
+        KC_ESC,KC_MS_BTN1,KC_MS_UP,  KC_MS_BTN2,  DEBUG,  KC_GRV,KC_PGDN,    KC_UP,  KC_PGUP,    KC_COLN,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI,  SPONGEBOB,  KC_HOME,  KC_LEFT,  KC_DOWN,  KC_RGHT,   KC_END,
+      RGB_TOG,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT,SPONGEBOB,KC_HOME, KC_LEFT,  KC_DOWN,  KC_RGHT,   KC_END,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       RGB_MOD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  AESTHETIC,  KC_MINS,    KC_RO,  KC_COMM,   KC_DOT,  KC_BSLS,
+       RGB_MOD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  AESTHETIC,  KC_MINS,  KC_RO,  KC_COMM,   KC_DOT,  KC_BSLS,
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'
                                                KC_TRNS,  KC_TRNS
   //                                        `---------|---------'

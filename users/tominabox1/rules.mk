@@ -1,11 +1,6 @@
-# Build Options
-#   change to "no" to disable the options, or define them in the Makefile in
-#   the appropriate keymap folder that will get included automatically
-#
 CONSOLE_ENABLE = no
 BOOTMAGIC_ENABLE = full      # Virtual DIP switch configuration
 NKRO_ENABLE = yes
-UCIS_ENABLE = no
 
 ifeq ($(strip $(KEYBOARD)), crkbd/rev1)
 RGB_MATRIX_ENABLE = WS2812
@@ -14,35 +9,28 @@ BOOTLOADER = qmk-dfu
 OLED_DRIVER_ENABLE = yes
 TAP_DANCE_ENABLE = yes
 COMBO_ENABLE = yes
-MOUSEKEY_ENABLE = no
 EXTRAKEY_ENABLE = yes
 NKRO_ENABLE = yes
 SRC += tominabox1.c
 endif
 
 ifeq ($(strip $(KEYBOARD)), lazydesigners/dimple)
-MOUSEKEY_ENABLE = no        # Mouse keys
-EXTRAKEY_ENABLE = yes        # Audio control and System control
-BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality on B7 by default
-RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
+EXTRAKEY_ENABLE = yes
+RGBLIGHT_ENABLE = yes
 TAP_DANCE_ENABLE = yes
 COMBO_ENABLE = yes
 SRC += tominabox1.c
 endif
 
 ifeq ($(strip $(KEYBOARD)), thevankeyboards/minivan)
-MOUSEKEY_ENABLE = no        # Mouse keys
-EXTRAKEY_ENABLE = yes        # Audio control and System control
+EXTRAKEY_ENABLE = yes
 TAP_DANCE_ENABLE = yes
 COMBO_ENABLE = yes
 SRC += tominabox1.c
 endif
 
 ifeq ($(strip $(KEYBOARD)), thevankeyboards/roadkit)
-MOUSEKEY_ENABLE = no        # Mouse keys
-EXTRAKEY_ENABLE = yes        # Audio control and System control
-BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality on B7 by default
-RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
+EXTRAKEY_ENABLE = yes
 TAP_DANCE_ENABLE = no
 COMBO_ENABLE = yes
 endif
@@ -54,11 +42,12 @@ SRC += tominabox1.c
 endif
 
 ifeq ($(strip $(KEYBOARD)), treadstone32)
-RGBLIGHT_ENABLE = yes  # LED underglow (Enable WS2812 RGB underlight.)
-LED_ANIMATIONS = yes        # LED animations
+RGBLIGHT_ENABLE = yes
+LED_ANIMATIONS = yes
 TAP_DANCE_ENABLE = yes
 COMBO_ENABLE = yes
 EXTRAKEY_ENABLE = yes
+MOUSEKEY_ENABLE = yes
 
 ifeq ($(strip $(LED_ANIMATIONS)), yes)
     # OPT_DEFS += -DRGBLIGHT_ANIMATIONS

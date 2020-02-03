@@ -1,17 +1,18 @@
 #pragma once
 
 // Tapping term settings
-#define TAPPING_TERM_PER_KEY
+#undef TAPPING_TERM
 #define TAPPING_TERM 250
 #define IGNORE_MOD_TAP_INTERRUPT
+#define TAPPING_TERM_PER_KEY
 //#define PERMISSIVE_HOLD
 //#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
 #define IGNORE_TAPPING_FORCE_HOLD_PER_KEY
 #define PERMISSIVE_HOLD_PER_KEY
 
 // Combos
-#define COMBO_COUNT 7
-#define COMBO_TERM 100
+#define COMBO_COUNT 9
+#define COMBO_TERM 200
 
 // RGB LEDs
 #if defined(LED_ANIMATIONS)

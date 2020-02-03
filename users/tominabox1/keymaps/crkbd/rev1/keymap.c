@@ -3,12 +3,12 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_wrapper(
-    ___________________CRKBD1__________________,
-    ___________________CRKBD2__________________,
-    ___________________CRKBD3__________________,
-    ___________________CRKBD4__________________
+    KC_TABESC, _______________COLEMAK1____________________, KC_BSPC,
+    KC_CTLTB,  _______________COLEMAK2____________________, KC_QUOT,
+    KC_LSFT,   _______________COLEMAK3____________________, KC_RSFT,
+    KC_LGUI, KC_LALT, KC_NUM_SPC,  KC_NUM_SPC,  KC_NAV_ENT, MO(_FKEY)
   ),
-
+/*
   [_RAISE] = LAYOUT_wrapper(
     ___________________NAV1____________________,
     ___________________NAV2____________________,
@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___________________CRKBD_FKEY3_____________,
     ___________________CRKBD_FKEY4_____________
   )
-
+*/
 };
 void keyboard_post_init_user(void){
   wait_ms(2000);
@@ -120,18 +120,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     oled_timer = timer_read();
     oled_on();
     #endif // OLED_DRIVER_ENABLE
-    switch (keycode) {
-      case KC_BBB:
-      if (record->event.pressed) {
-        SEND_STRING(":b:");
-      } else {}
-      break;
-      case KC_BEPIS:
-      if (record->event.pressed) {
-        SEND_STRING("BEPIS");
-      } else {}
-      break;
-    }
   }
   return true;
 
@@ -177,18 +165,12 @@ void render_logo(void) {
     oled_write_P(PSTR("Layer: "), false);
     switch (biton32(layer_state)) {
       case _BASE:
-      oled_write_P(PSTR("Colemak\n"), false);
+      oled_write_P(PSTR("Base\n"), false);
       break;
-      case _RAISE:
-      oled_write_P(PSTR("Numbers\n"), false);
+      case _NUM_SYM:
+      oled_write_P(PSTR("Num/Symbol\n"), false);
       break;
-      case _LOWER:
-      oled_write_P(PSTR("Symbols\n"), false);
-      break;
-      case _ADJUST:
-      oled_write_P(PSTR("Adjust\n"), false);
-      break;
-      case _ARROW:
+      case _NAV:
       oled_write_P(PSTR("Navigation\n"), false);
       break;
       case _FKEY:
