@@ -44,13 +44,13 @@ def get_ids(config_file):
     return id_vid, id_pid
 
 
-def calculate_pid(config_path, data, max_tries=3):
+def calculate_pid(config_path, data, max_tries=10):
     """Calculate a PID given the path to a config.h
 
     This function generates a unique PID for any config.h supplied.
     The PID is determined based on the SHA1 hexdigest of the path to the config file
     The first 4 characters (2 bytes) are used as the PID, unless those collide with
-    an already assigned PID, in which case the process will be repeated with offset + 1
+    an already assigned PID. If a collision happens the process will be repeated with offset + 1
 
     Args:
         config_path (str): The path to the config file to process.
@@ -58,7 +58,7 @@ def calculate_pid(config_path, data, max_tries=3):
 
             * PID (str): The parent folder of the config associated with the PID key
 
-        max_tries (int): The maximum recursion level of this function.
+        max_tries (int): The maximum amount of attempts to get around collisions
 
     Returns:
         new_pid (str): The 4 characters of the 2 byte pid
@@ -81,7 +81,7 @@ def calculate_pid(config_path, data, max_tries=3):
 def atomic_dump(data, json_file):
     """Dumps a dict as a json file atomically
 
-    This function should avoid data loss due to an error happening during
+    This function should avoid data loss caused by an error happening during
     file writing.
     It accomplishes this by writing the new json file to a temporary file,
     then using os.replace() to overwrite the old file with the new file.
@@ -103,7 +103,7 @@ def atomic_dump(data, json_file):
 
 def init(pids_json_path):
     """On the first run of this script, write a skeleton json file"""
-    Path(pids_json_path).parents[0].mkdir(parents=True)
+    Path(pids_json_path).parents[0].mkdir(parents=True, exist_ok=True)
     with open(pids_json_path, 'w') as jfile:
         json.dump({"pids": {}}, jfile)
 
@@ -123,12 +123,16 @@ def replace_pid(config_h, id_pid, pid_match):
 
 @cli.argument('config', nargs='+', arg_only=True, type=str, help='One or more configs to process')
 @cli.argument('--commit', action='store_true', arg_only=True, help='Commit each change to git')
+@cli.argument('--apply', action='store_true', arg_only=True, help='Set this if you want to apply the PIDs to the supplied configs')
 @cli.subcommand('Computes and applies a QMKPID for configs supplied. Intended for CI/CD use')
 def pid(cli):
-    """Generates and applies a PID for configs using 0x03A8 VID
+    """Generates and applies a PID for configs using the 0x03A8 VID
 
     Main entry point of the script
     """
+    if cli.args.commit and not cli.args.apply:
+        cli.log.error("Can't commit changes if changes aren't applied, please use --apply with --commit. This option is only intended for CI/CD")
+        return False
 
     pids_json_path = cli.config.pid.db_path if cli.config.pid.db_path else "quantum/usb_pids.json"
     qmk_vid = cli.config.pid.qmk_vid if cli.config.pid.qmk_vid else "0x03A8"
@@ -138,7 +142,7 @@ def pid(cli):
 
     for config_h in cli.args.config:
         vid_match, pid_match = get_ids(config_h)
-        keyboard = config_h.parent.stem
+        keyboard = Path(config_h).parent.stem
 
         if vid_match.group(1) != qmk_vid:
             cli.log.info("Keyboard does not use QMK VID ({} != {})".format(vid_match.group(1), qmk_vid))
@@ -152,24 +156,30 @@ def pid(cli):
                 try:
                     pid_new = calculate_pid(path, data)
                 except RecursionError as e:
-                    cli.log.error("Too many PID collisions ({}). Aborting".format(e))
+                    cli.log.error("Too many PID collisions ({}) when generating PID for {}. Aborting".format(e, keyboard))
                     return False
 
-                if path in data['pids'].values():
+                if config_h in data['pids'].values():
                     if pid_new != pid_match.group(1)[-4:]:
-                        cli.log.warning("Keyboard already assigned a PID, but PID doesn't match. Re-applying")
-                        replace_pid(config_h, pid_new, pid_match)
+                        cli.log.warning("{} already assigned {}, but PID doesn't match.".format(keyboard, pid_new))
+                        if cli.args.apply:
+                            replace_pid(config_h, pid_new, pid_match)
+                            cli.log.warning('\tRe-applying {} to {}'.format(pid_new, keyboard))
                     else:
-                        cli.log.info("Keyboard already assigned a pid")
-                    return True
+                        cli.log.info('{} already assigned pid 0x{}'.format(keyboard, pid_new))
+                    continue
                 else:
-                    replace_pid(config_h, pid_new, pid_match)
-                    cli.log.info('Assigned PID 0x{} to')
-                    data["pids"][pid_new] = config_h
+                    cli.log.info('Assigned PID 0x{} to {}'.format(pid_new, keyboard))
+                    if cli.args.apply:
+                        cli.log.info('\tApplying PID')
+                        replace_pid(config_h, pid_new, pid_match)
+                        data["pids"][pid_new] = config_h
+
 
             atomic_dump(data, pids_json_path)  # Save the new pids table
-            if cli.config.pid.commit:
-                try:  # Commit change to git
+            if cli.args.commit:
+                try:
+                    cli.log.info('\tCommiting changes to git')
                     subprocess.run(
                         ['git', 'commit', '-am', '"Generated PID 0x{} for {}"'.format(pid_new, keyboard)],
                         timeout=5,
@@ -180,3 +190,4 @@ def pid(cli):
                 except subprocess.CalledProcessError as e:
                     cli.log.error('Committing to git failed. {} failed with: {}'.format(e.cmd, e.output))
                     return False
+    return True
