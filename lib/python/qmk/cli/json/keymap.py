@@ -6,17 +6,20 @@ from pathlib import Path
 from milc import cli
 
 import qmk.keymap
+import qmk.path
 
 
 @cli.argument('-o', '--output', arg_only=True, type=Path, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('filename', arg_only=True, type=Path, help='Configurator JSON file')
+@cli.argument('filename', arg_only=True, help='Configurator JSON file')
 @cli.subcommand('Creates a keymap.c from a QMK Configurator export.')
 def json_keymap(cli):
     """Generate a keymap.c from a configurator export.
 
     This command uses the `qmk.keymap` module to generate a keymap.c from a configurator export. The generated keymap is written to stdout, or to a file if -o is provided.
     """
+    cli.args.filename = qmk.path.normpath(cli.args.filename)
+
     # Error checking
     if not cli.args.filename.exists():
         cli.log.error('JSON file does not exist!')
@@ -34,7 +37,7 @@ def json_keymap(cli):
         cli.args.output = None
 
     # Parse the configurator json
-    with open(qmk.path.normpath(cli.args.filename), 'r') as fd:
+    with cli.args.filename.open('r') as fd:
         user_keymap = json.load(fd)
 
     # Generate the keymap

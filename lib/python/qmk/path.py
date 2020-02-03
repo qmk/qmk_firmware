@@ -4,6 +4,7 @@ import logging
 import os
 from pathlib import Path
 
+from qmk.constants import MAX_KEYBOARD_SUBFOLDERS
 from qmk.errors import NoSuchKeyboardError
 
 
@@ -16,7 +17,7 @@ def keymap(keyboard):
     """
     keyboard_folder = Path('keyboards') / keyboard
 
-    for i in range(5):
+    for i in range(MAX_KEYBOARD_SUBFOLDERS):
         if (keyboard_folder / 'keymaps').exists():
             return (keyboard_folder / 'keymaps').resolve()
 
@@ -31,6 +32,8 @@ def normpath(path):
 
     This will use the path to a file as seen from the directory the script was called from. You should use this to normalize filenames supplied from the command line.
     """
+    path = Path(path)
+
     if path.is_absolute():
         return Path(path)
 

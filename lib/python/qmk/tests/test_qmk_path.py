@@ -11,4 +11,4 @@ def test_keymap_onekey_pytest():
 
 def test_normpath():
     path = qmk.path.normpath('lib/python')
-    assert str(path) == str(Path(os.environ['ORIG_CWD']) / 'lib/python')
+    assert path.samefile(Path(os.environ['ORIG_CWD']) / 'lib/python')
