@@ -156,13 +156,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define KC__YGUI KC_LGUI
 #endif
 
-
-// Some things from broader QMK code:
 #include QMK_KEYBOARD_H
-#define RGBLIGHT_SLEEP // QMK docs: "If defined, the RGB lighting will be switched off when the host goes to sleep"
-extern keymap_config_t keymap_config;
-// Layer switch TT(layer) tapping amount to make it toggle
-#define TAPPING_TERM_HOLTAP 225 // 175 ms proved unreliable, 225 ms seems ok (personal preference)
 
 // Notice this order in layer_state_set_user as well, regarding the led indicators.
 // Below #defines the internal order of the layers.
@@ -242,36 +236,11 @@ void keyboard_post_init_user (void) {
 
 // Set startup layer
 #ifndef STARTUP_ALTERNATE 
-    activate_this_layer (_LTR); // Startup layer
-    deactivate_all_but (_LTR);
+    layer_move (_LTR); // Startup layer
 #endif
 #ifdef STARTUP_ALTERNATE 
-    activate_this_layer (_DDL); // Startup layer
-    deactivate_all_but (_DDL);
+    layer_move (_DDL); // Startup layer
 #endif
-}
-
-
-// De-activates all other layers than the one given. Does not activate the one given.
-void deactivate_all_but (int layer) {
-   //if (_LTR != layer) { layer_off ( _LTR ) ; } // maybe better never to de-activate lowest base and default layer, it is covered up anyway
-   if (_NSY != layer) { layer_off ( _NSY ) ; }
-   if (_FUN != layer) { layer_off ( _FUN ) ; } 
-   if (_MOV != layer) { layer_off ( _MOV ) ; } 
-   if (_RAR != layer) { layer_off ( _RAR ) ; } 
-   if (_PAD != layer) { layer_off ( _PAD ) ; } 
-   if (_ACC != layer) { layer_off ( _ACC ) ; } 
-   if (_DRA != layer) { layer_off ( _DRA ) ; } 
-   if (_DDD != layer) { layer_off ( _DDD ) ; } 
-   if (_DDA != layer) { layer_off ( _DDA ) ; } 
-   if (_DDN != layer) { layer_off ( _DDN ) ; } 
-   if (_DDL != layer) { layer_off ( _DDL ) ; } 
-}
-
-
-// Activate the given layer
-void activate_this_layer (int layer) {
-    layer_on (layer) ;
 }
 
 
@@ -346,7 +315,7 @@ void leds_show_off (void) {
 
 // pre-existing function
 // Only deals with setting led colors.
-uint32_t layer_state_set_user (uint32_t state) {
+layer_state_t layer_state_set_user (layer_state_t state) {
   #ifdef RGBLIGHT_ENABLE
     uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
     uint8_t led2r = 0; uint8_t led2g = 0; uint8_t led2b = 0;

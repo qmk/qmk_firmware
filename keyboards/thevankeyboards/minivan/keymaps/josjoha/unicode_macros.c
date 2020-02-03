@@ -485,11 +485,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
          // Go back to base layer
          if (!(record->event.pressed)) { // key up
              if (descramble) { // 
-                 activate_this_layer (_DDL); 
-                 deactivate_all_but (_DDL); 
+                 layer_move (_DDL); 
              } else {
-                 activate_this_layer (_LTR);
-                 deactivate_all_but (_LTR); 
+                 layer_move (_LTR);
              }
         }
     }
@@ -577,34 +575,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) { // key down
                 if (descramble) { // go to the descramble version (bit of a hack maybe, but all descramble
                        // ... modes are non-zero, and all use _DDL layer)
-                    activate_this_layer (_DDL); // activates descrambled num-sys layer
+                    layer_move (_DDL); // activates descrambled num-sys layer
                 } else {
-                    activate_this_layer (_LTR); // activates normal num-sys layer
+                    layer_move (_LTR); // activates normal num-sys layer
                 }
-            } else { // key up
-                if (descramble) {
-                    deactivate_all_but (_DDL); // stop all other layers 
-                } else {
-                    deactivate_all_but (_LTR); //  "     "
-                }
-            }
+            } 
             break;
         case CTO_NUMS: // activates number-symbols layer
                 // It seems best to first enable the chosen layer on key-down, then stop others on key-up.
                 // Alternatives gave some issues. Other keymaps seem to do it this way (IIRC).
             if (record->event.pressed) { // key down
                 if (descramble) { // go to the descramble version
-                    activate_this_layer (_DDN); // activates descrambled num-sys layer
+                    layer_move (_DDN); // activates descrambled num-sys layer
                 } else {
-                    activate_this_layer (_NSY); // activates normal num-sys layer
+                    layer_move (_NSY); // activates normal num-sys layer
                 }
-            } else { // key up
-                if (descramble) {
-                    deactivate_all_but (_DDN); // stop all other layers 
-                } else {
-                    deactivate_all_but (_NSY); //  "     "
-                }
-            }
+            } 
                       // These '_NSY and _DDN' layers do not have the below
                       // #ifdef QWERTY_DVORAK system, because they are not Unicode,
                       // and those layers are switched by their re-definition in ./qwerty_dvorak.c
@@ -614,25 +600,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) { // key down
 #ifndef QWERTY_DVORAK // normal mode keyboard: Dvorak with Dvorak-descramble
                 if (_FULL_ == descramble) { // go to the descramble version
-                    activate_this_layer (_DDA); // activates descrambled accented layer
+                    layer_move (_DDA); // activates descrambled accented layer
                 } else {
-                    activate_this_layer (_ACC); // activates normal accented layer
+                    layer_move (_ACC); // activates normal accented layer
                 }
 #endif
 #ifdef QWERTY_DVORAK // alternative layout: Qwerty with Dvorak on 'descramble'
                      // The 'full descramble' becomes Dvorak standard, hence normal _ACC layer.
-                activate_this_layer (_ACC); // activates normal accented layer
-#endif
-            } else { // key up
-#ifndef QWERTY_DVORAK // normal mode keyboard: Dvorak with Dvorak-descramble
-                if (_FULL_ == descramble) {
-                    deactivate_all_but (_DDA); // stop all other layers 
-                } else {
-                    deactivate_all_but (_ACC); //  "     "
-                }
-#endif
-#ifdef QWERTY_DVORAK 
-                deactivate_all_but (_ACC); //  "     "
+                layer_move (_ACC); // activates normal accented layer
 #endif
             }
             break; 
@@ -640,26 +615,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) { // key down
 #ifndef QWERTY_DVORAK 
                 if (_FULL_ == descramble) { // go to the descramble version
-                    activate_this_layer (_DDD); // activates descrambled drawings layer
+                    layer_move (_DDD); // activates descrambled drawings layer
                 } else {
-                    activate_this_layer (_DRA); // activates normal drawings layer
+                    layer_move (_DRA); // activates normal drawings layer
                 }
 #endif
 #ifdef QWERTY_DVORAK 
-                activate_this_layer (_DRA); // activates normal drawings layer
+                layer_move (_DRA); // activates normal drawings layer
 #endif
-            } else { // key up
-#ifndef QWERTY_DVORAK 
-                if (_FULL_ == descramble) {
-                    deactivate_all_but (_DDD); // stop all other layers 
-                } else {
-                    deactivate_all_but (_DRA); //  "     "
-                }
-#endif
-#ifdef QWERTY_DVORAK 
-                deactivate_all_but (_DRA); //  "     "
-#endif
-            }
+            } 
             break; 
         // These two are a simulated LT(layer,kc), layer-tap. 
         // Double-tap-hold functionality: not done, but holding _NSY layer gives a normal Del there
@@ -671,26 +635,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                  key_timer = timer_read ();
 #ifndef QWERTY_DVORAK // normal mode keyboard: Dvorak with Dvorak-descramble
                  if (_FULL_ == descramble) {
-                     activate_this_layer (_DDA); // activates descrambled drawings layer
-                     deactivate_all_but (_DDA); 
+                     layer_move (_DDA); // activates descrambled drawings layer
                  } else {
-                     activate_this_layer (_ACC); // activates normal drawings layer
-                     deactivate_all_but (_ACC);
+                     layer_move (_ACC); // activates normal drawings layer
                  }
 #endif
 #ifdef QWERTY_DVORAK // alternative layout: Qwerty with Dvorak on 'descramble'
                      // The 'full descramble' becomes Dvorak standard, hence normal _ACC layer.
-                 activate_this_layer (_ACC); // activates descrambled drawings layer
-                 deactivate_all_but (_ACC); 
+                 layer_move (_ACC); // activates descrambled drawings layer
 #endif
             } else { // key up
                  // Go back to base layer
                  if (descramble) { // 
-                     activate_this_layer (_DDL); 
-                     deactivate_all_but (_DDL); 
+                     layer_move (_DDL); 
                  } else {
-                     activate_this_layer (_LTR);
-                     deactivate_all_but (_LTR); 
+                     layer_move (_LTR);
                  }
                  if (timer_elapsed (key_timer) <= TAPPING_TERM_HOLTAP) { // tapped
                      SEND_STRING (SS_TAP (X_DEL));
@@ -700,16 +659,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case CHOLTAP_LAYR: //LT ( _DDD , KC_RIGHT ), or to _DRA, depending ...
             if (record->event.pressed) { // key down
                  key_timer = timer_read ();
-                 activate_this_layer (_RAR); // activates descrambled drawings layer
-                 deactivate_all_but (_RAR); 
+                 layer_move (_RAR); // activates descrambled drawings layer
             } else { // key up
                  // Go back to base layer
                  if (descramble) { // 
-                     activate_this_layer (_DDL); 
-                     deactivate_all_but (_DDL); 
+                     layer_move (_DDL); 
                  } else {
-                     activate_this_layer (_LTR);
-                     deactivate_all_but (_LTR); 
+                     layer_move (_LTR);
                  }
                  if (timer_elapsed (key_timer) <= TAPPING_TERM_HOLTAP) { // tapped
                      SEND_STRING (SS_TAP (X_RIGHT));
@@ -734,8 +690,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING (SS_UP (X_RSFT)); 
                  if (timer_elapsed (key_timer) <= TAPPING_TERM_HOLTAP) { // tapped
                     if (isolate_trigger) { // no other key was hit since key down 
-                        activate_this_layer (_FUN); // activates function layer as a toggle
-                        deactivate_all_but (_FUN);  
+                        layer_move (_FUN); // activates function layer as a toggle
                     }
                  }
             }
@@ -754,24 +709,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                  if (timer_elapsed (key_timer) <= TAPPING_TERM_HOLTAP) { // tapped
                     if (isolate_trigger) { // no other key was hit since key down 
 #ifdef LSHIFT_LAYER_RAR
-                        activate_this_layer (_RAR); // activates function layer as a toggle
-                        deactivate_all_but (_RAR);  
+                        layer_move (_RAR); // activates function layer as a toggle
 #endif
 #ifdef LSHIFT_LAYER_MOV
-                        activate_this_layer (_MOV); // activates function layer as a toggle
-                        deactivate_all_but (_MOV);  
+                        layer_move (_MOV); // activates function layer as a toggle
 #endif
 #ifdef LSHIFT_LAYER_DRA
-                        activate_this_layer (_DRA); // activates function layer as a toggle
-                        deactivate_all_but (_DRA);  
+                        layer_move (_DRA); // activates function layer as a toggle
 #endif
 #ifdef LSHIFT_LAYER_ACC
-                        activate_this_layer (_ACC); // activates function layer as a toggle
-                        deactivate_all_but (_ACC);  
+                        layer_move (_ACC); // activates function layer as a toggle
 #endif
 #ifdef LSHIFT_LAYER_PAD
-                        activate_this_layer (_PAD); // activates function layer as a toggle
-                        deactivate_all_but (_PAD);  
+                        layer_move (_PAD); // activates function layer as a toggle
 #endif
 
                     }
@@ -783,46 +733,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                  duo_press ++; // simple way to keep track of how many are pressed
                  if (1 == duo_press) {
                      if (_NORMAL_ == descramble) { // In all 'descramble' modes to the 'descramble' layer of numbers/symbols
-                         activate_this_layer (_NSY); // activates normal numbers/symbols
-                         deactivate_all_but (_NSY); 
+                         layer_move (_NSY); // activates normal numbers/symbols
                      } else {
-                         activate_this_layer (_DDN); // activates 'descramble' version
-                         deactivate_all_but (_DDN);
+                         layer_move (_DDN); // activates 'descramble' version
                      }
                  }
                  else if (2 == duo_press) { // both are pressed
 #ifndef QWERTY_DVORAK  // The _DDD layer is not even compiled in this compile version
                      if (_FULL_ == descramble) { 
-                         activate_this_layer (_DDD); // activates Linux 'descramble' layer
-                         deactivate_all_but (_DDD); 
+                         layer_move (_DDD); // activates Linux 'descramble' layer
                      } else {
-                         activate_this_layer (_DRA); // activates normal Unicode layer
-                         deactivate_all_but (_DRA);
+                         layer_move (_DRA); // activates normal Unicode layer
                      }
 #endif
 #ifdef QWERTY_DVORAK 
-                     activate_this_layer (_DRA); // activates normal Unicode layer
-                     deactivate_all_but (_DRA);
+                     layer_move (_DRA); // activates normal Unicode layer
 #endif
                  }
             } else { // key up
                  duo_press --; 
                  if (1 == duo_press) {
                      if (_NORMAL_ == descramble) { // In all 'descramble' modes to the 'descramble' layer of numbers/symbols
-                         activate_this_layer (_NSY); // activates normal numbers/symbols
-                         deactivate_all_but (_NSY); 
+                         layer_move (_NSY); // activates normal numbers/symbols
                      } else {
-                         activate_this_layer (_DDN); // activates 'descramble' version
-                         deactivate_all_but (_DDN);
+                         layer_move (_DDN); // activates 'descramble' version
                      }
                  }
                  else { // Has to be zero. Back to letters
                      if (descramble) { // 
-                         activate_this_layer (_DDL); 
-                         deactivate_all_but (_DDL); 
+                         layer_move (_DDL); 
                      } else {
-                         activate_this_layer (_LTR);
-                         deactivate_all_but (_LTR); 
+                         layer_move (_LTR);
                      }
                  }
             }

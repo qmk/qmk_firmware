@@ -452,17 +452,6 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   on `_RAR`.)
 
 
-  **Device Space**
-
-     The Dvorak² compile version is roughly 378 bytes below the maximum.
-     The Qwerty+Dvorak compile version takes about 15% less device memory.
-     There are some defines at the top of keymap.c by which you can cut out
-     the up/down arrows, or dashed lines in 'descramble' to save a little space.
-  
-     (Example output …)
-     Checking file size of thevankeyboards_minivan_josjoha.hex               [WARNINGS]
-     * The firmware size is approaching the maximum - 28670/28672 (99%, 2 bytes free)
-
   BUGS
   ====
 

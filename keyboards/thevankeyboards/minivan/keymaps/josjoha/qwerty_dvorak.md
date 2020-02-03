@@ -38,8 +38,7 @@ for Qwerty or Dvorak being active. This only affects the layers containting
 letters and numbers/symbols. 
 
 The right led in Dvorak mode shows when using a layer that is different
-in that mode, analogue to the `_FUN` led indicator for Dvorak (not shown
-in above graphics).
+in that mode, analogue to the `_FUN` led indicator for Dvorak.
 
 Layers (text)
         =============
