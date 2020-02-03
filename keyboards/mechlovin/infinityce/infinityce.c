@@ -24,13 +24,6 @@ void matrix_init_kb(void) {
 };
 
 __attribute__ ((weak))
-void matrix_scan_kb(void) {
-	// put your looping keyboard code here
-	// runs every cycle (a lot)
-	matrix_scan_user();
-};
-
-__attribute__ ((weak))
 void led_init_ports(void) {
     // * Set our LED pins as output
     setPinOutput(B3);

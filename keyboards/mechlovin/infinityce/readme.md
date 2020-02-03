@@ -2,7 +2,7 @@
 
 ![infinityce](https://i.imgur.com/GyH1G1M.jpg)
 
-A short description of the keyboard/project
+Replacement PCB for TGR Jane CE V2 keyboard 
 
 * Keyboard Maintainer: [mechlovin](https://github.com/mechlovin)
 * Hardware Supported: Infinity CE PCB

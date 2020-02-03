@@ -23,9 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID   0x4D4C // ML-Mechlovin
 #define PRODUCT_ID  0x0088 
 #define DEVICE_VER  0x0001
-#define MANUFACTURER  mechlovin
-#define PRODUCT       mechlovin Infinity CE
-#define DESCRIPTION   mechlovin Infinity CE
+#define MANUFACTURER  Team.Mechlovin
+#define PRODUCT       Team.Mechlovin Infinity CE
+#define DESCRIPTION   Team.Mechlovin Infinity CE
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 17
