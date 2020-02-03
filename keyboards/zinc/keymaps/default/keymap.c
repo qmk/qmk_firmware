@@ -33,7 +33,6 @@ enum custom_keycodes {
   BACKLIT,
   KANA,
   EISU,
-  RGBMODR,
   RGBRST
 };
 
@@ -315,4 +314,3 @@ void matrix_init_user(void) {
       RGB_current_config = rgblight_config;
     #endif
 }
-
