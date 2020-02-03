@@ -13,13 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-//#include "minorca.h"
 #include QMK_KEYBOARD_H
 #include "ridingqwerty.h"
-//#include "tapdance.c"
-//#include "unicode.h"
 
-// FIXME
 /*                                                         MinOrca
         ┏━━━━━━━━┯━━━━━━━━┯━━━━━━━━┯━━━━━━━━┯━━━━━━━━┯━━━━━━━━┯━━━━━━━━┯━━━━━━━━┯━━━━━━━━┯━━━━━━━━┯━━━━━━━━┯━━━━━━━━┓
         ┃   ⎋    │   Q    │   W    │   E    │   R    │   T    │   Y    │   U    │   I    │   O    │   P    │  ❦ ⌫   ┃
@@ -32,7 +28,7 @@
         ┗━━━━━━━━━━┷━━━━━━━━━━┷━━━━━━━━━━┷━━━━━━━━━━━━━━━━━━━━┷━━━━━━━━━━━━━━━━━━━━┷━━━━━━━━━━┷━━━━━━━━┷━━━━━━━━━━━━┛
 */
 
-#define LAYOUT( \
+#define LAYOUT_minorca( \
     KA00, KA01, KA02, KA03, KA04, KA05, KA06, KA07, KA08, KA09, KA10, KA11, \
     KB00,  KB01, KB02, KB03, KB04, KB05, KB06, KB07, KB08, KB09,    KB11,   \
     KC00,    KC02, KC03, KC04, KC05, KC06, KC07, KC08, KC09, KC10,   KC11,  \
@@ -47,9 +43,9 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = {
-        {KC_GESC,  KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     SC(BSPC) }, 
-        {ED(TAB),  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     XXXXXXX,  NM(SCLN) }, 
-        {LS(QUOT), XXXXXXX,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  FK(DOT),  RS(SLSH) }, 
+        {KC_GESC,  KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     SC(BSPC) },
+        {ED(TAB),  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     XXXXXXX,  NM(SCLN) },
+        {LS(QUOT), XXXXXXX,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  FK(DOT),  RS(SLSH) },
         {LC(ESC),  XXXXXXX,  LG(LBRC), LA(RBRC), NM(BSPC), XXXXXXX,  XXXXXXX,  SM(SPC),  XXXXXXX,  RA(MINS), RG(EQL),  RC(ENT)  }
 /*
       //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐
@@ -59,10 +55,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       //└─────────────────┴────────┴────────┴─────────────────┴─────────────────┴─────────────────┴────────┴────────┘
 */
 
-        
+
     },
 #ifdef UNICODE_H
-    [_RUNE] = { 
+    [_RUNE] = {
         {KC_ESC,  X(INGWZ), X(WUNJO),  X(EHWAZ), X(RAIDO), X(TIWAZ), X(IWAZ),  X(UR),    X(ISAZ),  X(ETHEL), X(PERTH), SC(BSPC) },
         {ED(TAB), X(ANSUZ), X(SOWIL),  X(DAGAZ), X(FE),    X(GEBO),  X(HAGLZ), X(JERAN), X(KAUNA), X(LAUKZ), XXXXXXX,  NM(SCLN) },
         {MT_QUOT, XXXXXXX,  X(ALGIZ),  X(THURS), X(KAUNA), X(WUNJO), X(BEORC), X(NAUDZ), X(MANNZ), KC_COMM,  FK(DOT),  RS(SLSH) },
@@ -102,26 +98,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         {_______, XXXXXXX, _______, _______, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, KC_COLN, KC_DQUO, KC_PIPE }
       //└─────────────────┴────────┴────────┴─────────────────┴─────────────────┴─────────────────┴────────┴────────┘
     },
-#ifdef MOUSEKEY_ENABLE
-    [_MOUSE] = {
-      //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐
-        {_______, KC_BTN2, KC_MS_U, KC_BTN1, _______, _______, _______, _______, _______, _______, _______, _______ },
-      //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┴────────┤
-        {_______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, _______, _______, _______, _______, XXXXXXX, _______ },
-      //├────────┴────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┬────────┤
-        {_______, XXXXXXX, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
-      //├─────────────────┼────────┼────────┼────────┴────────┼────────┴────────┼────────┴────────┼────────┼────────┤
-        {_______, XXXXXXX, _______, _______, KC_ACL0, XXXXXXX, XXXXXXX, KC_ACL2, XXXXXXX, _______, _______, _______ }
-      //└─────────────────┴────────┴────────┴─────────────────┴─────────────────┴─────────────────┴────────┴────────┘
-    },
-#endif
     [_SECRET] = {
       //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐
-        {RESET,   _______, _______, _______, RUSTY,   FUEL,    _______, _______, _______, _______, VERSION, _______ },
+        {RESET,   _______, _______, _______, SECRET0, SECRET1, _______, _______, _______, _______, VERSION, _______ },
       //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┴────────┤
-        {_______, AR1ST,   SYSNOC,  DEBUG,   FLAG,    _______, _______, _______, _______, OS_LAB,  XXXXXXX, MAKE    },
+        {_______, SECRET4, SECRET8, DEBUG,   _______, _______, _______, _______, _______, SECRET7, XXXXXXX, MAKE    },
       //├────────┴────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┬────────┤
-        {_______, XXXXXXX, _______, _______, C0RE,    VAXIS,   _______, _______, MUNKY,   _______, _______, _______ },
+        {_______, XXXXXXX, SECRET6, _______, SECRET2, SECRET5, _______, _______, SECRET3, _______, _______, _______ },
       //├─────────────────┼────────┼────────┼────────┴────────┼────────┴────────┼────────┴────────┼────────┼────────┤
         {_______, XXXXXXX, _______, _______, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, _______, _______, _______ }
       //└─────────────────┴────────┴────────┴─────────────────┴─────────────────┴─────────────────┴────────┴────────┘
@@ -138,83 +121,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       //└─────────────────┴────────┴────────┴─────────────────┴─────────────────┴─────────────────┴────────┴────────┘
     },
 };
-
-uint16_t key_timer;
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-    // multi-function macros
-    switch(keycode) {
-/*
-        case MT_LBRC:
-            if (record->event.pressed) {
-                key_timer = timer_read();
-                register_code(KC_LCTL);
-            } else {
-                unregister_code(KC_LCTL);
-                if (timer_elapsed(key_timer) < TAPPING_TERM) {
-                    SEND_STRING("{");
-                }
-            }
-            return false; break;
-        case MT_RBRC:
-            if (record->event.pressed) {
-                key_timer = timer_read();
-                register_code(KC_RCTL);
-            } else {
-                unregister_code(KC_RCTL);
-                if (timer_elapsed(key_timer) < TAPPING_TERM) {
-                    SEND_STRING("}");
-                }
-            }
-            return false; break;
-        case MT_LBRK:
-            if (record->event.pressed) {
-                key_timer = timer_read();
-                register_code(KC_LGUI);
-            } else {
-                unregister_code(KC_LGUI);
-                if (timer_elapsed(key_timer) < TAPPING_TERM) {
-                    SEND_STRING("[");
-                }
-            }
-            return false; break;
-        case MT_RBRK:
-            if (record->event.pressed) {
-                key_timer = timer_read();
-                register_code(KC_RGUI);
-            } else {
-                unregister_code(KC_RGUI);
-                if (timer_elapsed(key_timer) < TAPPING_TERM) {
-                    SEND_STRING("]");
-                }
-            }
-            return false; break;
-        case MT_LPRN:
-            if (record->event.pressed) {
-                key_timer = timer_read();
-                register_code(KC_LALT);
-            } else {
-                unregister_code(KC_LALT);
-                if (timer_elapsed(key_timer) < TAPPING_TERM) {
-                    SEND_STRING("(");
-                }
-            }
-            return false; break;
-        case MT_RPRN:
-            if (record->event.pressed) {
-                key_timer = timer_read();
-                register_code(KC_RALT);
-            } else {
-                unregister_code(KC_RALT);
-                if (timer_elapsed(key_timer) < TAPPING_TERM) {
-                    SEND_STRING(")");
-                }
-            }
-            return false; break;
-*/
-        }
-    return true;
-};
-
-void matrix_init_keymap(void) {
-    set_unicode_input_mode(UC_LNX);
-}
