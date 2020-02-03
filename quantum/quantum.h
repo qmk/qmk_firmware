@@ -207,8 +207,13 @@ typedef ioline_t pin_t;
 #define SEND_STRING(string) send_string_P(PSTR(string))
 #define SEND_STRING_DELAY(string, interval) send_string_with_delay_P(PSTR(string), interval)
 
+#ifndef USE_PACKED_KEYCODE_LUT
 extern const bool    ascii_to_shift_lut[128];
 extern const bool    ascii_to_altgr_lut[128];
+#else
+extern const uint8_t ascii_to_shift_lutp[16];
+extern const uint8_t ascii_to_altgr_lutp[16];
+#endif
 extern const uint8_t ascii_to_keycode_lut[128];
 
 void send_string(const char *str);

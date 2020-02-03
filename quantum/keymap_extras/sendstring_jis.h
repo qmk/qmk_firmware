@@ -22,6 +22,7 @@
 
 // clang-format off
 
+#ifndef USE_PACKED_KEYCODE_LUT
 const bool ascii_to_shift_lut[128] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -41,6 +42,15 @@ const bool ascii_to_shift_lut[128] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 1, 1, 1, 1, 0
 };
+#else
+const uint8_t ascii_to_shift_lutp[16] PROGMEM = {
+    0x00, 0x00, 0x00, 0x00,
+
+    0x7f, 0xf0, 0x00, 0x0f,
+    0x7f, 0xff, 0xff, 0xe1,
+    0x80, 0x00, 0x00, 0x1e
+};
+#endif
 
 const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // NUL   SOH      STX      ETX      EOT      ENQ      ACK      BEL
