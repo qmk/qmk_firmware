@@ -11,7 +11,7 @@ QMK Toolbox を開き、`/Users/moritayusuke/qmk_firmware/crkbd_rev1_yusukemorit
 
 3.
 auto flashがONになってることを確認し、キーボードのresetボタンをクリックすると
-j
+
 # Quantum Mechanical Keyboard Firmware
 
 [![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)

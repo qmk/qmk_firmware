@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------.                ,-----------------------------------------.
         ESC,  EXLM,   DQT,  HASH,   DLR,  PERC,                   AMPR,  ASTR,  LPRN,  RPRN,  CIRC,  BSPC,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      CTLTB,   TAB, QUOTE, XXXXX, XXXXX, XXXXX,                   MINS,   EQL,  LCBR,  RCBR,  SCLN,  PIPE,\
+      CTLTB,   TAB, QUOTE, LANG2, LANG1, XXXXX,                   MINS,   EQL,  LCBR,  RCBR,  SCLN,  PIPE,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LSFT, XXXXX,   GRV, XXXXX, XXXXX, XXXXX,                   UNDS,  PLUS,  LBRC,  RBRC,  BSLS,  TILD,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
