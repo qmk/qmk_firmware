@@ -16,7 +16,6 @@
 
 #pragma once
 
-#define MASTER_LEFT
 #define RGBLIGHT_SLEEP
 
 // place overrides here
