@@ -26,7 +26,6 @@ enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
   RAISE,
-  ADJUST,
 };
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
