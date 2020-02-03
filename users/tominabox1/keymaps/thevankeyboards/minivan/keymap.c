@@ -5,7 +5,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_BASE] = LAYOUT_arrow_wrapper(
-    KC_TABESC, _______________COLEMAK1____________________, KC_BSPC,
+    KC_ESC, _______________COLEMAK1____________________, KC_BSPC,
     KC_CTLTB,  _______________COLEMAK2____________________, KC_QUOT,
     KC_LSFT,   _______________COLEMAK3____________________, KC_RSFT,
     KC_DEL, KC_LCTL, KC_LGUI, KC_LALT, KC_NUM_SPC,  KC_NUM_SPC,  KC_NAV_ENT, MO(_FKEY), KC_NO, MO(_FKEY)
@@ -37,17 +37,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {100, 30, 5, 1};
 
 void keyboard_post_init_user(void) {
-  // Set up RGB effects on _only_ the third LED (index 2)
-  rgblight_set_effect_range(2, 1);
-  // Set LED effects to breathing mode in a tealish blue color
-  rgblight_sethsv_noeeprom(180, 200, 150);
   rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-
-  // Init the first two LEDs to a static color
+  // Init the LEDs to a static color
   setrgb(0, 0, 0, (LED_TYPE *)&led[0]);
   setrgb(0, 0, 0, (LED_TYPE *)&led[1]);
+  setrgb(0, 0, 0, (LED_TYPE *)&led[2]);
   rgblight_set();
-
 }
 
 uint32_t layer_state_set_keymap(uint32_t state){
@@ -57,7 +52,7 @@ uint32_t layer_state_set_keymap(uint32_t state){
     led0r = 25;
     led0g = 25;
   }
-  if (layer_state_cmp(state, _RAISE)) {
+  if (layer_state_cmp(state, _NAV)) {
     led1g = 25;
     led1b = 25;
   }
@@ -68,10 +63,7 @@ uint32_t layer_state_set_keymap(uint32_t state){
     led1b = 25;
     led1r = 25;
   }
-  if (layer_state_cmp(state, _ADJUST)) {
-    led1r = 0;
-    led1b = 25;
-  }
+  
   setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]);
   setrgb(led1r, led1g, led1b, (LED_TYPE *)&led[1]);
   rgblight_set();
