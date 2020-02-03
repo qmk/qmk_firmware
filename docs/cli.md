@@ -142,7 +142,7 @@ $ qmk compile -kb dz60
 ...
 ```
 
-## `qmk cformat`
+## `qmk flash`
 
 This command is similar to `qmk compile`, but can also target a bootloader. The bootloader is optional, and is set to `:flash` by default.
 To specify a different bootloader, use `-bl <bootloader>`. Visit <https://docs.qmk.fm/#/flashing>
