@@ -66,6 +66,9 @@ def question(prompt, *args, default=None, confirm=False, answer_type=str, valida
 
         default
             The value to return when the user doesn't enter any value. Use None to prompt until they enter a value.
+        
+        confirm
+            Present the user with a confirmation dialog before accepting their answer.
 
         answer_type
             Specify a type function for the answer. Will re-prompt the user if the function raises any errors. Common choices here include int, float, and decimal.Decimal.
