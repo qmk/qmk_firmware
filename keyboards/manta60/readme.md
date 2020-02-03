@@ -2,11 +2,11 @@
 
 ![manta60](https://github.com/KamoNanban/Manta60/blob/master/documents/_image/manta60_1.jpg)
 
-A short description of the keyboard/project
+A split keyboard with 27 ortholinear keys and 5-7 thumb/little finger keys
 
 * Keyboard Maintainer: [kamonanban](https://github.com/KamoNanban)
-* Hardware Supported: The PCBs, controllers supported
-* Hardware Availability: Links to where you can find this hardware
+* Hardware Supported: MANTA60 PCBs, Pro Micro (ATmega32U4)
+* Hardware Availability: https://github.com/KamoNanban/Manta60
 
 Make example for this keyboard (after setting up your build environment):
 
