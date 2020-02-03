@@ -66,7 +66,7 @@ def question(prompt, *args, default=None, confirm=False, answer_type=str, valida
 
         default
             The value to return when the user doesn't enter any value. Use None to prompt until they enter a value.
-        
+
         confirm
             Present the user with a confirmation dialog before accepting their answer.
 
@@ -137,7 +137,7 @@ def choice(heading, options, *args, default=None, confirm=False, prompt='Please 
         args = kwargs
 
     if prompt and default:
-        prompt = prompt + ' [%s] ' % (default+1,)
+        prompt = prompt + ' [%s] ' % (default + 1,)
 
     while True:
         # Prompt for an answer.
@@ -161,16 +161,17 @@ def choice(heading, options, *args, default=None, confirm=False, prompt='Please 
         else:
             try:
                 answer = int(answer) - 1
-            except Exception as e:
-                cli.log.error('Invalid choice: %s', answer+1)
+            except Exception:
+                # Normally we would log the exception here, but in the interest of clean UI we do not.
+                cli.log.error('Invalid choice: %s', answer + 1)
                 continue
 
         # Validate the answer
         if answer >= len(options) or answer < 0:
-            cli.log.error('Invalid choice: %s', answer+1)
+            cli.log.error('Invalid choice: %s', answer + 1)
             continue
 
-        if confirm and not yesno('Is the answer "%s" correct?', answer+1, default=True):
+        if confirm and not yesno('Is the answer "%s" correct?', answer + 1, default=True):
             continue
 
         # Return the answer they chose.
