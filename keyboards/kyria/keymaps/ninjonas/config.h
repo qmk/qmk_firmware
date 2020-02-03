@@ -1,4 +1,4 @@
-/* Copyright 2019 Mechlovin
+/* Copyright 2020 ninjonas
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,4 +16,26 @@
 
 #pragma once
 
-// place overrides here
+#define TAPPING_TERM 200
+
+#ifdef OLED_DRIVER_ENABLE
+  #define OLED_DISPLAY_128X64
+  #define OLED_TIMEOUT 30000
+#endif
+
+#ifdef RGBLIGHT_ENABLE
+#    define RGBLIGHT_SLEEP
+#    define RGBLIGHT_LIMIT_VAL 200
+#    define RGBLIGHT_HUE_STEP 8
+#    define RGBLIGHT_SAT_STEP 8
+#    define RGBLIGHT_VAL_STEP 8
+#    define RGBLIGHT_SPLIT
+#endif
+
+// Allows to use either side as the master. Look at the documentation for info:
+// https://docs.qmk.fm/#/config_options?id=setting-handedness
+#define EE_HANDS
+
+// If you are using an Elite C rev3 on the slave side, uncomment the lines below:
+#define SPLIT_USB_DETECT
+#define SPLIT_USB_TIMEOUT 1000

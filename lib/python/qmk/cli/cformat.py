@@ -29,6 +29,7 @@ def cformat(cli):
             for dirpath, dirnames, filenames in os.walk(dir):
                 if any(i in dirpath for i in ignores):
                     dirnames.clear()
+                    continue
 
                 for name in filenames:
                     if name.endswith(('.c', '.h', '.cpp')):
