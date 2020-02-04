@@ -107,15 +107,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TOGGLE 2
 
 #ifdef MOUSEKEY_ENABLE
-#    define MK_KINETIC_SPEED
-
 #    define MOUSEKEY_DELAY 0
-#    define MOUSEKEY_MOVE_DELTA 27
-#    define MOUSEKEY_INITIAL_SPEED 400
-#    define MOUSEKEY_BASE_SPEED 1800
-#    define MOUSEKEY_DECELERATED_SPEED 300
-#    define MOUSEKEY_ACCELERATED_SPEED 2200
-#    define MOUSEKEY_TIME_TO_MAX 32
+#    define MOUSEKEY_INTERVAL 16
+#    define MOUSEKEY_MAX_SPEED 6
+#    define MOUSEKEY_TIME_TO_MAX 36
+#    define MOUSEKEY_WHEEL_MAX_SPEED 4
+#    define MOUSEKEY_WHEEL_TIME_TO_MAX 100
+
+// #    define MK_KINETIC_SPEED
+// #    define MOUSEKEY_MOVE_DELTA 27
+// #    define MOUSEKEY_INITIAL_SPEED 400
+// #    define MOUSEKEY_BASE_SPEED 1800
+// #    define MOUSEKEY_DECELERATED_SPEED 300
+// #    define MOUSEKEY_ACCELERATED_SPEED 2200
 #endif
 
 #ifdef THEME_GODSPEED
