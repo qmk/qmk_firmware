@@ -25,12 +25,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <avr/interrupt.h>
 #include "print.h"
 
-
 /* Pin definitions */
 #define CLK_PIN PD0
 #define CLK_PORT PORTD
 #define CLK_DDR DDRD
-#define DATA_PINS  PIND
+#define DATA_PINS PIND
 #define DATA_PIN PD1
 #define DATA_PORT PORTD
 #define DATA_DDR DDRD
@@ -47,46 +46,40 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #define TIMER_PERIOD 210
 
-
 static inline uint8_t pbuf_dequeue(void);
-static inline void pbuf_enqueue(uint8_t data);
-static inline bool pbuf_empty(void);
-static inline void pbuf_clear(void);
+static inline void    pbuf_enqueue(uint8_t data);
+static inline bool    pbuf_empty(void);
+static inline void    pbuf_clear(void);
 
-typedef enum
-{
+typedef enum {
     IDLE,
     RECV,
     CLICK,
 } ScanState;
 
+static volatile att56k_click_mode_e click_mode      = ATT56K_CLICK_MODE_OFF;
+static volatile uint8_t             scanState       = IDLE;
+static bool                         device_detected = false;
 
-static volatile att56k_click_mode_e click_mode = ATT56K_CLICK_MODE_OFF;
-static volatile uint8_t scanState = IDLE;
-static bool device_detected = false;
-
-static void enable_off(void)
-{
-#if defined (ATT56K_USE_ENABLE)
+static void enable_off(void) {
+#if defined(ATT56K_USE_ENABLE)
     /* Set ENABLE pin as input */
     ENABLE_DDR |= (1 << ENABLE_PIN);
 #endif
 }
 
-static void enable_on(void)
-{
-#if defined (ATT56K_USE_ENABLE)
+static void enable_on(void) {
+#if defined(ATT56K_USE_ENABLE)
 
     /* Set ENABLE pin as output */
     ENABLE_DDR |= (1 << ENABLE_PIN);
 
     /* Pull ENABLE pin low */
-    ENABLE_PORT &=  ~(1 << ENABLE_PIN);
+    ENABLE_PORT &= ~(1 << ENABLE_PIN);
 #endif
 }
 
-static void clock_config(void)
-{
+static void clock_config(void) {
     // Set as input
     CLK_DDR &= ~(1 << CLK_PIN);
 
@@ -94,9 +87,7 @@ static void clock_config(void)
     CLK_PORT |= (1 << CLK_PIN);
 }
 
-
-static void data_config(void)
-{
+static void data_config(void) {
     // Set as input
     DATA_DDR &= ~(1 << DATA_PIN);
 
@@ -104,35 +95,26 @@ static void data_config(void)
     DATA_PORT |= (1 << DATA_PIN);
 }
 
-static inline uint8_t data_read(void)
-{
-    return (DATA_PINS & (1 << DATA_PIN));
-}
+static inline uint8_t data_read(void) { return (DATA_PINS & (1 << DATA_PIN)); }
 
-void att56k_click_cycle(void)
-{
+void att56k_click_cycle(void) {
     click_mode++;
-    if (click_mode == ATT56K_CLICK_MODE_COUNT)
-        click_mode = ATT56K_CLICK_MODE_OFF;
+    if (click_mode == ATT56K_CLICK_MODE_COUNT) click_mode = ATT56K_CLICK_MODE_OFF;
 }
 
-void click_low(void)
-{
+void click_low(void) {
     /* Set PIEZO pin as output */
     PIEZO_DDR |= (1 << PIEZO_PIN);
 
     /* Pull PIEZO pin low */
-    PIEZO_PORT &=  ~(1 << PIEZO_PIN);
-
+    PIEZO_PORT &= ~(1 << PIEZO_PIN);
 }
-void click_release(void)
-{
+void click_release(void) {
     /* Set PIEZO pin as input */
     PIEZO_DDR &= ~(1 << PIEZO_PIN);
 }
 
-static inline void clk_int_init(void)
-{
+static inline void clk_int_init(void) {
     /* Disable interrupt via mask register */
     EIFR = (1 << INTF0);
 
@@ -144,23 +126,19 @@ static inline void clk_int_init(void)
     EIFR &= ~(1 << INTF0);
 }
 
-static inline void clk_int_enable(void)
-{
+static inline void clk_int_enable(void) {
     /* Clear any outstanding flag */
     EIFR = (1 << INTF0);
     /* Enable interrupt in mask register */
     EIMSK |= (1 << INT0);
 }
 
-static inline void clk_int_disable(void)
-{
+static inline void clk_int_disable(void) {
     /* Disable interrupt via mask register */
     EIMSK &= ~(1 << INT0);
 }
 
-
-static inline void data_int_init(void)
-{
+static inline void data_int_init(void) {
     /* Disable interrupt via mask register */
     EIFR = (1 << INTF1);
 
@@ -172,45 +150,41 @@ static inline void data_int_init(void)
     EIFR &= ~(1 << INTF1);
 }
 
-static inline void data_int_enable(void)
-{
+static inline void data_int_enable(void) {
     /* Clear any outstanding flag */
     EIFR = (1 << INTF1);
     /* Enable interrupt in mask register */
     EIMSK |= (1 << INT1);
 }
 
-static inline void data_int_disable(void)
-{
+static inline void data_int_disable(void) {
     /* Disable interrupt via mask register */
     EIMSK &= ~(1 << INT1);
 }
 
 #ifdef ATT56K_USE_ASYNC
 
-static void timer_init(void)
-{
+static void timer_init(void) {
     /* Configure Timer3 */
     TCCR3A = 0;
 
-	/* Enable CTC mode and stop timer by selecting no clock source*/
+    /* Enable CTC mode and stop timer by selecting no clock source*/
     TCCR3A = 0x00;
     TCCR3B = (1 << WGM32);
 
     OCR3A = TIMER_PERIOD;
-    OCR3B = TIMER_PERIOD/2;
+    OCR3B = TIMER_PERIOD / 2;
 
-	/* Reset counter */
+    /* Reset counter */
     TCNT3 = 0;
 }
 
-static void timer_int_enable(void)
-{
+static void timer_int_enable(void) {
     /* Reset counter */
     TCNT3 = 0;
 
     /* Clear the Compare Match flags*/
-    TIFR3 = (1<<OCF3B);
+    TIFR3 = (1 << OCF3B);
     /* Enable interrupt on Compare Match */
     TIMSK3 |= 1 << OCIE3B;
 
@@ -218,9 +192,7 @@ static void timer_int_enable(void)
     TCCR3B |= (1 << CS31);
 }
 
-
-static void timer_int_disable(void)
-{
+static void timer_int_disable(void) {
     /* Stop timer by selecting no clock source but leaving CTC mode*/
     TCCR3B = (1 << WGM32);
 
@@ -228,14 +200,11 @@ static void timer_int_disable(void)
     TIMSK3 &= ~(1 << OCIE3B);
 
     /* Clear the Compare Match flags*/
-    TIFR3 = (1<<OCF3B);
-
+    TIFR3 = (1 << OCF3B);
 }
 #endif
 
-
-void att56k_init(void)
-{
+void att56k_init(void) {
     enable_off();
 
     clock_config();
@@ -251,7 +220,7 @@ void att56k_init(void)
     clk_int_init();
     clk_int_enable();
 #else
-    #error ATT56K must define ATT56K_USE_SYNC or ATT56K_USE_ASYNC
+#    error ATT56K must define ATT56K_USE_SYNC or ATT56K_USE_ASYNC
 #endif
 
     pbuf_clear();
@@ -259,67 +228,49 @@ void att56k_init(void)
     enable_on();
 }
 
-
-uint8_t att56k_recv(void)
-{
+uint8_t att56k_recv(void) {
     uint8_t data = 0;
 
-    if (!pbuf_empty())
-    {
+    if (!pbuf_empty()) {
         data = pbuf_dequeue();
     }
 
     return data;
 }
 
-bool att56k_has_data(void)
-{
-    return !pbuf_empty();
-}
+bool att56k_has_data(void) { return !pbuf_empty(); }
 
-bool att56k_device_detected(void)
-{
-    return device_detected;
-}
-
+bool att56k_device_detected(void) { return device_detected; }
 
 // /* Interrupt handler
 //  * This interrupt handler is invoked on the falling edge of the CLK line.
 //  * ------------------------------------------------------------------------- */
-ISR(CLK_INT)
-{
-    static uint8_t bit;
+ISR(CLK_INT) {
+    static uint8_t  bit;
     static uint16_t data;
 
-    switch (scanState)
-    {
+    switch (scanState) {
         case IDLE:
-            bit = 16;
-            data = 0;
+            bit       = 16;
+            data      = 0;
             scanState = RECV;
         case RECV:
             bit--;
-            if (data_read() != 0)
-                data |= (1 << bit);
-            if (bit == 0)
-            {
+            if (data_read() != 0) data |= (1 << bit);
+            if (bit == 0) {
                 /* Detect 0x7F SOF designator.
                     - if found, queue data
                     - else, keep reading until we do */
-                if ((data >> 8) == 0x7F)
-                {
+                if ((data >> 8) == 0x7F) {
                     pbuf_enqueue(data & 0xFF);
                     scanState = IDLE;
-                }
-                else
-                {
+                } else {
                     bit++;
                 }
             }
             break;
     }
-
- }
+}
 
 /* Asynchronous data reception
  *  Interrupt on data start bit (falling edge)
@@ -331,50 +282,37 @@ ISR(CLK_INT)
  *   - Enable falling edge interrupt
  * ------------------------------------------------------------------------- */
 
-ISR(DATA_INT)
-{
+ISR(DATA_INT) {
     data_int_disable();
     timer_int_enable();
 }
 
-
-
-ISR(TIMER_INT)
-{
-    static uint8_t bit;
+ISR(TIMER_INT) {
+    static uint8_t  bit;
     static uint16_t data;
-    static uint8_t click_count;
+    static uint8_t  click_count;
 
-    switch (scanState)
-    {
+    switch (scanState) {
         case IDLE:
-            bit = 16;
-            data = 0;
+            bit       = 16;
+            data      = 0;
             scanState = RECV;
         case RECV:
             bit--;
-            if (data_read() != 0)
-                data |= (1 << bit);
-            if (bit == 0)
-            {
-                if ((data >> 8) == 0x7F)
-                {
+            if (data_read() != 0) data |= (1 << bit);
+            if (bit == 0) {
+                if ((data >> 8) == 0x7F) {
                     pbuf_enqueue(data & 0xFF);
                     bool is_make = ((data & (1 << 7)) == 0);
-                    if ((is_make && click_mode == ATT56K_CLICK_MODE_MAKE)
-                        || (click_mode == ATT56K_CLICK_MODE_MAKE_BREAK))
-                    {
-                        scanState = CLICK;
+                    if ((is_make && click_mode == ATT56K_CLICK_MODE_MAKE) || (click_mode == ATT56K_CLICK_MODE_MAKE_BREAK)) {
+                        scanState   = CLICK;
                         click_count = 0;
                     }
-                }
-                else if (data == 0x770F)
-                {
+                } else if (data == 0x770F) {
                     device_detected = true;
                 }
 
-                if (scanState == RECV)
-                {
+                if (scanState == RECV) {
                     scanState = IDLE;
                     timer_int_disable();
                     data_int_enable();
@@ -385,8 +323,7 @@ ISR(TIMER_INT)
         case CLICK:
             if (click_count == 0)
                 click_low();
-            else if (click_count >= 3)
-            {
+            else if (click_count >= 3) {
                 click_release();
                 scanState = IDLE;
                 timer_int_disable();
@@ -401,44 +338,25 @@ ISR(TIMER_INT)
 static uint8_t pbuf[PBUF_SIZE];
 
 uint8_t pbuf_front = 0;
-uint8_t pbuf_rear = 0;
+uint8_t pbuf_rear  = 0;
 
-static uint8_t pbuf_size(void)
-{
-    return pbuf_rear - pbuf_front;
+static uint8_t pbuf_size(void) { return pbuf_rear - pbuf_front; }
+
+static bool pbuf_empty(void) { return pbuf_front == pbuf_rear; }
+
+static bool pbuf_full(void) { return pbuf_size() == PBUF_SIZE; }
+
+static void pbuf_clear(void) { pbuf_front = pbuf_rear = 0; }
+
+static uint8_t pbuf_mask(uint8_t val) { return val & (PBUF_SIZE - 1); }
+
+static void pbuf_enqueue(uint8_t val) {
+    if (!pbuf_full()) pbuf[pbuf_mask(pbuf_rear++)] = val;
 }
 
-static bool pbuf_empty(void)
-{
-    return pbuf_front == pbuf_rear;
-}
-
-static bool pbuf_full(void)
-{
-    return pbuf_size() == PBUF_SIZE;
-}
-
-static void pbuf_clear(void)
-{
-    pbuf_front = pbuf_rear = 0;
-}
-
-static uint8_t pbuf_mask(uint8_t val)
-{
-    return val & (PBUF_SIZE - 1);
-}
-
-static void pbuf_enqueue(uint8_t val)
-{
-    if (!pbuf_full())
-        pbuf[pbuf_mask(pbuf_rear++)] = val;
-}
-
-static uint8_t pbuf_dequeue(void)
-{
+static uint8_t pbuf_dequeue(void) {
     uint8_t val = 0;
-    if (!pbuf_empty())
-        val = pbuf[pbuf_mask(pbuf_front++)];
+    if (!pbuf_empty()) val = pbuf[pbuf_mask(pbuf_front++)];
 
     return val;
 }

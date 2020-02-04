@@ -16,7 +16,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #include <stdint.h>
 #include <stdbool.h>
 #include <avr/io.h>
@@ -25,10 +24,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
-#if defined (ATT56K_USE_ASYNC) || defined (ATT56K_USE_SYNC)
-#   include "att56k_if.h"
+#if defined(ATT56K_USE_ASYNC) || defined(ATT56K_USE_SYNC)
+#    include "att56k_if.h"
 #else
-#   error No protocol defined for ATT56K
+#    error No protocol defined for ATT56K
 #endif
 
 #include "att56k.h"
@@ -43,32 +42,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TX_LED_OFF() (PORTB |= (1 << PB0))
 #define TX_LED_TOGGLE() (PORTB ^= (1 << PB0))
 
-
 #ifndef DEBOUNCE
-#   define DEBOUNCE	0
+#    define DEBOUNCE 0
 #endif
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
 
-static void matrix_clear(matrix_row_t*);
+static void        matrix_clear(matrix_row_t*);
 static inline void matrix_make(uint8_t row, uint8_t col);
 static inline void matrix_break(uint8_t row, uint8_t col);
 
-inline
-uint8_t matrix_rows(void)
-{
-    return MATRIX_ROWS;
-}
+inline uint8_t matrix_rows(void) { return MATRIX_ROWS; }
 
-inline
-uint8_t matrix_cols(void)
-{
-    return MATRIX_COLS;
-}
+inline uint8_t matrix_cols(void) { return MATRIX_COLS; }
 
-void matrix_setup(void)
-{
+void matrix_setup(void) {
     DD_LED_OFF();
     DD_LED_INIT();
 
@@ -80,44 +69,35 @@ void matrix_setup(void)
     xprintf("ATT 56K converter setup\n");
 }
 
-void matrix_init(void)
-{
+void matrix_init(void) {
     debug_config.enable = true;
 
     // initialize matrix state: all keys off
     matrix_clear(matrix);
 
     xprintf("Matrix init\n");
-
 }
-
 
 #define ROW(pos) (pos >> 4)
 #define COL(pos) (pos & 0xF)
 
-uint8_t matrix_scan(void)
-{
-    if (att56k_device_detected())
-        DD_LED_ON();
+uint8_t matrix_scan(void) {
+    if (att56k_device_detected()) DD_LED_ON();
 
     uint8_t scan_code;
-    while (att56k_has_data())
-    {
-        scan_code = att56k_recv();
-        bool is_make = ((scan_code & (1 << 7)) == 0);
+    while (att56k_has_data()) {
+        scan_code        = att56k_recv();
+        bool    is_make  = ((scan_code & (1 << 7)) == 0);
         uint8_t position = (scan_code & 0x7f);
-        uint8_t row = ROW(position);
-        uint8_t col = COL(position);
+        uint8_t row      = ROW(position);
+        uint8_t col      = COL(position);
 
         xprintf("[%02X:%01X]", position, is_make);
 
-        if (is_make)
-        {
+        if (is_make) {
             TX_LED_ON();
             matrix_make(row, col);
-        }
-        else
-        {
+        } else {
             TX_LED_OFF();
             matrix_break(row, col);
         }
@@ -125,43 +105,30 @@ uint8_t matrix_scan(void)
     return 1;
 }
 
-
-static inline
-void matrix_make(uint8_t row, uint8_t col)
-{
+static inline void matrix_make(uint8_t row, uint8_t col) {
     xprintf(" [%X, %X] make\n", row, col);
     matrix[row] |= (1 << col);
 }
 
-static inline
-void matrix_break(uint8_t row, uint8_t col)
-{
+static inline void matrix_break(uint8_t row, uint8_t col) {
     xprintf(" [%X, %X] break\n", row, col);
     matrix[row] &= ~(1 << col);
 }
 
-
-inline
-matrix_row_t matrix_get_row(uint8_t row)
-{
+inline matrix_row_t matrix_get_row(uint8_t row) {
     matrix_row_t value = matrix[row];
     return value;
 }
 
-void matrix_print(void)
-{
+void matrix_print(void) {
     print("\nr/c 0123456789ABCDEF\n");
     for (uint8_t row = 0; row < matrix_rows(); row++) {
         xprintf("%02X: %16b\n", row, bitrev(matrix_get_row(row)));
     }
 }
 
-void matrix_clear(matrix_row_t* matrix)
-{
-    for (uint8_t i=0; i < MATRIX_ROWS; i++)
-    {
+void matrix_clear(matrix_row_t* matrix) {
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
         matrix[i] = 0;
     }
-
 }
-
