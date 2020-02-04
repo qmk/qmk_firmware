@@ -72,9 +72,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       case A:
       case E:
         if (record->event.pressed) {
-          register_code(KC_LSFT);
-          tap_code16(temp_keycode);
-          unregister_code(KC_LSFT);
+          tap_code16(S(temp_keycode));
           tap_code(KC_SPC);
         }
       return false;
