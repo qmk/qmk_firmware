@@ -37,6 +37,7 @@
 // Shortcut Keys
 #define K_LOCK LGUI(LCTL(KC_Q)) // Locks screen on MacOS
 #define K_CSCN LGUI(LCTL(LSFT(KC_4))) // Copy a portion of the screen to the clipboard
+#define K_CPRF LGUI(LSFT(KC_M)) //   + Shift + M. Used for switching Google Chrome profiles
 #define K_MDSH LSFT(LALT(KC_MINS))
 #define K_LAPP SGUI(KC_TAB) //  + Shift + Tab
 #define K_RAPP LGUI(KC_TAB) //  + Tab
