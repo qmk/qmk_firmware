@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID  0x8801
 #define DEVICE_VER  0x0001
 #define MANUFACTURER  Team.Mechlovin
-#define PRODUCT       Team.Mechlovin Infinity CE
+#define PRODUCT       Infinity CE
 #define DESCRIPTION   Team.Mechlovin Infinity CE
 /* key matrix size */
 #define MATRIX_ROWS 6
