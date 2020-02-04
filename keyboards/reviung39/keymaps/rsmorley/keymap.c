@@ -33,11 +33,13 @@ enum layer_names {
 #define NUM_SCHAR  MO(_NUM_SCHAR)
 #define ADJUST MO(_ADJUST)
 
-#define RETRO_WAVE_PURPLE 0xc0, 0x4d, 0xf9
+#define RETRO_WAVE_ORANGE 0xf1, 0x6a, 0x43
+#define RETRO_WAVE_YELLOW 0xf3, 0xea, 0x5f
 #define RETRO_WAVE_RED 0xff, 0x3f, 0x3f
 #define RETRO_WAVE_PINK 0xff, 0x48, 0xc4
-#define RETRO_WAVE_YELLOW 0xf3, 0xea, 0x5f
-#define RETRO_WAVE_BLUE 0x2b, 0xd1, 0xfc
+#define RETRO_WAVE_PURPLE 0xc0, 0x4d, 0xf9
+#define RETRO_WAVE_BLUE 0x2b, 0xb5, 0xf7
+#define RETRO_WAVE_TEAL 0x2b, 0xfe, 0xf8
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_reviung39(
@@ -73,8 +75,13 @@ void keyboard_post_init_user(void) {
   //only show animations across bottom LEDs so top LED can
   //be used as an indicator light
   rgblight_set_effect_range(0, 10);
+
   //rainbow_swirl supports additional numbers 0-5
-  rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL + 4);
+  //rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL + 4);
+
+  //static_gradient supports additional numbers 0-9)
+  //set lighting mode to outrun appropriate variant
+  rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_GRADIENT);
   setrgb(RETRO_WAVE_PURPLE, (LED_TYPE *)&led[10]); //purple
   rgblight_set();
 }
@@ -134,7 +141,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case RCMD_T(KC_F3):
     case LSFT_T(KC_TAB):
     case KC_RSPC:
-      update_indicator(record, RGB_WHITE);
+      update_indicator(record, RETRO_WAVE_ORANGE);
       return true;
       break;
   }
