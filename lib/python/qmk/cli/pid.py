@@ -175,7 +175,6 @@ def pid(cli):
                         replace_pid(config_h, pid_new, pid_match)
                         data["pids"][pid_new] = config_h
 
-
             atomic_dump(data, pids_json_path)  # Save the new pids table
             if cli.args.commit:
                 try:
