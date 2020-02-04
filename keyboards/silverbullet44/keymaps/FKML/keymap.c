@@ -24,7 +24,6 @@ enum layer {
     _ADJUST,
 };
 
-
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
@@ -43,8 +42,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                                  |------+------+------+------+------+------|
  * | CMD  |   Z  |   X  |   C  |   V  |   B  |-------.-------.  ,---------------|   N  |   M  |   ,  |   .  |   /  |  -   |
  * `-----------------------------------------/       /       /   \       \      \-----------------------------------------'
- *                            | CAPS  | LOWER| Space/  Bcsp /     \    .  \ Ent | RAISE|LEDOff|
- *                            `--------------- -------------'       '--------------------------'
+                              | CAPS  | LOWER| Space/  Bcsp /     \    .  \ Ent | RAISE|LEDOff|
+                              `----------------------------'       '--------------------------'
  */
  [_QWERTY] = LAYOUT( 
      KC_TAB,   KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                      KC_Y,   KC_U,    KC_I,    KC_O,   KC_P,    KC_EQL,  
@@ -62,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |-------.-------.  ,---------------|   6  |   7  |   8  |   9  |   0  |      |
  * `-----------------------------------------/       /       /   \       \      \-----------------------------------------'
  *                             |      |      |      /       /     \       \     |      |      |
- *                             `----------------------------'      '--------------------------'
+ *                             `---------------------------'       '--------------------------'
  */
  [_LOWER] = LAYOUT( 
   KC_GRV , KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN, KC_RPRN, KC_PIPE, 
