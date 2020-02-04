@@ -29,7 +29,7 @@ volatile uint8_t *SmartEEPROM8 = (uint8_t *) SEEPROM_ADDR;
 uint8_t eeprom_read_byte(const uint8_t *addr) {
     uintptr_t offset = (uintptr_t)addr;
     if (offset >= EEPROM_SIZE)
-        return 0xff;
+        return 0x0;
 
     if (NVMCTRL->SEESTAT.bit.PSZ == 0 || NVMCTRL->SEESTAT.bit.SBLK == 0)
         return buffer[offset];
@@ -40,7 +40,7 @@ uint8_t eeprom_read_byte(const uint8_t *addr) {
     if (!NVMCTRL->SEESTAT.bit.BUSY)
         return SmartEEPROM8[offset];
 
-    return 0xff;
+    return 0;
 }
 
 void eeprom_write_byte(uint8_t *addr, uint8_t value) {
