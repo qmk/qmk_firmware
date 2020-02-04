@@ -51,8 +51,8 @@ void matrix_init_user(void) {
 	
 layer_state_t layer_state_set_user(layer_state_t state)
 {
-    if (layer_state_cmp(state, 1) {
-    writePinHigh(B2);
+    if (layer_state_cmp(state, 1)) {
+        writePinHigh(B2);
     } else if (state & (1<<2)) {
         writePinLow(B2);
         writePinHigh(B6);
