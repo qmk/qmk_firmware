@@ -6,7 +6,7 @@ An Alice style 30% board.
 
 * Keyboard Maintainer: [Worldspawn00](https://github.com/Worldspawn00)  
 * Hardware Supported: Jerkin PCB
-* Hardware Availability: https://github.com/worldspawn00/jerkin30
+* Hardware Availability: https://www.etsy.com/shop/WorldspawnsKeebs
 
 Make example for this keyboard (after setting up your build environment):
 

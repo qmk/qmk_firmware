@@ -4,11 +4,11 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define PRODUCT_ID      0x79AE
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    qmkbuilder
-#define PRODUCT         keyboard
-#define DESCRIPTION     Keyboard
+#define MANUFACTURER    wsk
+#define PRODUCT         jerkin
+#define DESCRIPTION     Alice style 30% board
 
 /* key matrix size */
 #define MATRIX_ROWS 3

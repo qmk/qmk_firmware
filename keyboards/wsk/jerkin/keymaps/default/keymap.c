@@ -28,14 +28,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
             case KC_PASTA:
                 if (record->event.pressed) {
-                    SEND_STRING("You better not be fucking thinking about flipping this board. I'll have you know I graduated top of my class in the Navy Seals, and I've been involved in numerous secret raids on Al-Quaeda, and I have over 300 confirmed trades on /r/mm.  I am trained in gorilla warfare and I'm the top typist in the entire US armed forces at over 600 wpm. If you flip this board, you are nothing to me but just another target. I will wipe you the fuck out with precision the likes of which has never been seen before on this Earth, mark my fucking words. You think you can get away with flipping this board over the Internet? Think again, fucker. As we speak I am contacting my secret network of spies across the USA and your IP is being traced right now so you better prepare for the storm, maggot. The storm that wipes out the pathetic little thing you call your life. You're fucking dead, kid. I can be anywhere, anytime, and I can kill you in over seven hundred ways, and that's just with this PCB. Not only am I extensively trained in unarmed combat, but I have access to the entire arsenal of the United States Marine Corps and I will use it to its full extent to wipe your miserable ass off the face of the continent, you little shit. If only you could have known what unholy retribution your little clever sale was about to bring down upon you, maybe you would have held your fucking tongue. But you couldn't, you didn't, and now you're paying the price, you goddamn idiot. I will shit fury all over you and you will drown in it. You're fucking dead, kiddo.");
+                    SEND_STRING("https://i.imgur.com/dzBrlqc.png");
                 }
                 break;
-           
+
         }
     }
     return true;
-}	
+}
 
 void matrix_init_user(void) {
   // set CapsLock LED to output and low
@@ -44,11 +44,9 @@ void matrix_init_user(void) {
   // set NumLock LED to output and low
   setPinOutput(B6);
   writePinLow(B6);
-  
+
 }
 
-	
-	
 layer_state_t layer_state_set_user(layer_state_t state)
 {
     if (layer_state_cmp(state, 1)) {
