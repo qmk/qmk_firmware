@@ -15,56 +15,55 @@
  */
 #include "process_grave.h"
 
-bool process_grave(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case GRAVE_ESC: {
-            /* true if the last press of GRAVE_ESC was shifted (i.e. GUI or SHIFT were pressed), false otherwise.
-             * Used to ensure that the correct keycode is released if the key is released.
-             */
-            static bool grave_esc_was_shifted = false;
+/* true if the last press of GRAVE_ESC was shifted (i.e. GUI or SHIFT were pressed), false otherwise.
+ * Used to ensure that the correct keycode is released if the key is released.
+ */
+static bool grave_esc_was_shifted = false;
 
-            uint8_t shifted = get_mods() & ((MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT) | MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI)));
+bool process_grave(uint16_t keycode, keyrecord_t *record) {
+    if (keycode == GRAVE_ESC) {
+        const uint8_t mods    = get_mods();
+        uint8_t       shifted = mods & MOD_MASK_SG;
 
 #ifdef GRAVE_ESC_ALT_OVERRIDE
-            // if ALT is pressed, ESC is always sent
-            // this is handy for the cmd+opt+esc shortcut on macOS, among other things.
-            if (get_mods() & (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT))) {
-                shifted = 0;
-            }
+        // if ALT is pressed, ESC is always sent
+        // this is handy for the cmd+opt+esc shortcut on macOS, among other things.
+        if (mods & MOD_MASK_ALT) {
+            shifted = 0;
+        }
 #endif
 
 #ifdef GRAVE_ESC_CTRL_OVERRIDE
-            // if CTRL is pressed, ESC is always sent
-            // this is handy for the ctrl+shift+esc shortcut on windows, among other things.
-            if (get_mods() & (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL))) {
-                shifted = 0;
-            }
+        // if CTRL is pressed, ESC is always sent
+        // this is handy for the ctrl+shift+esc shortcut on windows, among other things.
+        if (mods & MOD_MASK_CTRL) {
+            shifted = 0;
+        }
 #endif
 
 #ifdef GRAVE_ESC_GUI_OVERRIDE
-            // if GUI is pressed, ESC is always sent
-            if (get_mods() & (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI))) {
-                shifted = 0;
-            }
+        // if GUI is pressed, ESC is always sent
+        if (mods & MOD_MASK_GUI) {
+            shifted = 0;
+        }
 #endif
 
 #ifdef GRAVE_ESC_SHIFT_OVERRIDE
-            // if SHIFT is pressed, ESC is always sent
-            if (get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
-                shifted = 0;
-            }
+        // if SHIFT is pressed, ESC is always sent
+        if (mods & MOD_MASK_SHIFT) {
+            shifted = 0;
+        }
 #endif
 
-            if (record->event.pressed) {
-                grave_esc_was_shifted = shifted;
-                add_key(shifted ? KC_GRAVE : KC_ESCAPE);
-            } else {
-                del_key(grave_esc_was_shifted ? KC_GRAVE : KC_ESCAPE);
-            }
-
-            send_keyboard_report();
-            return false;
+        if (record->event.pressed) {
+            grave_esc_was_shifted = shifted;
+            add_key(shifted ? KC_GRAVE : KC_ESCAPE);
+        } else {
+            del_key(grave_esc_was_shifted ? KC_GRAVE : KC_ESCAPE);
         }
+
+        send_keyboard_report();
+        return false;
     }
 
     // Not a grave keycode so continue processing
