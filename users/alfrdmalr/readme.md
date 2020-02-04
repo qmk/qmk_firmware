@@ -33,9 +33,10 @@ To the immediate right of the NAVIGATION layer key are the following modifiers: 
 `ESCAPE` is located on the spacebar from this layer, and `DELETE` is placed next to `BACKSPACE`, for convenience when formatting text. There are also four Windows shortcuts for undo, cut, copy, and paste, located in the same position as the relevant keys on the base layer (undo, for example, is in the same place as the `Z` key). 
 
 #### SETTINGS
-Right now, this is pretty similar to the default settings layer (the planck's ADJUST layer).
+Right now, this is pretty similar to the default settings layer (the planck's ADJUST layer). It's accessed in a similar manner: by activating a trilayer with NUMPAD and SYMBOLS. Currently, since the NUMPAD layer places a zero on the right SYMBOLS layer key, only the left SYMBOLS key (in conjunction with either of the NUMPAD keys) can be used to activate the settings layer. This is intentional, and allows more deleterious or consequential options to reside somewhat safely on the left side of the board, while more commonly accessed options are located on the right side.
 
 Primary differences are the inclusion of an autoshift toggle and the removal of the reset button. The bootloader functionality has been moved to a leader key sequence: LEAD - R - E - S - E - T.
+
 
 ### Leader Key Sequences
 A complete list of leader sequences can be found below:
