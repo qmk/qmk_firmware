@@ -4,7 +4,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* LAYER 0
  * ,-----------------------.
- * |   <<  |  MUTE |  >>   |  ENCODER - PRESS (MUTE) / KNOB (VOLUME CONTROL)
+ * |   <<  |  MUTE |  >>   |  ENCODER - PRESS (MUTE) / KNOB (Brush size)
  * |-------+-------+-------|
  * |  STOP |  PLAY | MEDIA | 
  * |-------+-------+-------|
