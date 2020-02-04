@@ -20,7 +20,7 @@
 
 #ifdef OLED_DRIVER_ENABLE
   #define OLED_DISPLAY_128X64
-  #define OLED_TIMEOUT 30000
+  #define OLED_TIMEOUT 15000
 #endif
 
 #ifdef RGBLIGHT_ENABLE
@@ -31,10 +31,6 @@
 #    define RGBLIGHT_VAL_STEP 8
 #    define RGBLIGHT_SPLIT
 #endif
-
-// Allows to use either side as the master. Look at the documentation for info:
-// https://docs.qmk.fm/#/config_options?id=setting-handedness
-#define EE_HANDS
 
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
 #define SPLIT_USB_DETECT

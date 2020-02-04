@@ -25,6 +25,7 @@ See: https://docs.qmk.fm/#/feature_userspace
 |K_MDSH | MacOS shortcut to get em-dash `–` |
 |K_RAPP | MacOS shortcut to switch apps to the right |
 |K_LAPP | MacOS shortcut to switch apps to the left |
+|K_CPRF |  + Shift + M. Used for switching Google Chrome profiles | 
 
 ### [Layers](ninjonas.h#L44)
 |Code | Description |
