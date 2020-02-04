@@ -15,8 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-
-
 enum layer {
     _QWERTY,
     _LOWER,
@@ -105,7 +103,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX 
   )
 };
-
 
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
