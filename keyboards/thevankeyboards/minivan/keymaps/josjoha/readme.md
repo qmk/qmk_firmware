@@ -420,7 +420,8 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
 
   You could use the Qwerty+Dvorak compile version if you somehow have
   a use for both, but not for 'descramble' (typing Dvorak on a computer
-  already set to Dvorak).
+  already set to Dvorak). Keymap.c has an option to easily change
+  ƒ into €.
 
   Conclusion: most is as normal or has some logic to it to help you
   remember, a bunch is better than your normal keyboard, some things

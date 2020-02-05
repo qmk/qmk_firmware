@@ -24,6 +24,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "./unicode_macros.h"
 
+#ifndef UNICODE_CURRENCY // Prior optional definition in keymap.c
+    #define UNICODE_CURRENCY 0x0192 // Hex number. The unicode hex number for position ƒ in the default keymap.
+#endif
+#ifndef UNICODE_CURRENCY_DESCRAMBLE // Prior optional definition in keymap.c
+    #define UNICODE_CURRENCY_DESCRAMBLE "0192" // String. Same, but for 'descramble'. If you change this, you
+        // need to recode the hex number *letters* like so: 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y
+        // You can ignore UNICODE_CURRENCY_DESCRAMBLE if you compile with QWERTY_DVORAK set.
+#endif
+
 // Descramble Unicode functions, for layouts _DDA, _DDD
 // This function sends the leader codes that are common to most/all accented characters,
 // in an effort to reduce memory use, and/or to simplify the code. The "f" becomes "u"
@@ -295,7 +304,8 @@ const uint32_t PROGMEM unicode_map[] = {
     [CS_CDABRA] = 0x300b, //     ''              ''          "C" for closing,      ''              ''                ''        : 》
 
      // currency
-    [CS_LGULDEN] = 0x0192, //    ''              ''          "L" for lower, "GULDEN" for guilder: ƒ
+    [CS_LGULDEN] = UNICODE_CURRENCY, //    ''              ''          "L" for lower, "GULDEN" for guilder: ƒ
+                // ^ special case for easy user configuration
     [CS_CURREN] = 0x00A4, //     ''              ''          "CURREN" for currency, 'any currency' symbol: ¤
     [CS_POUND] = 0x00A3, //      ''              ''          "POUND" for pound: £
     [CS_CENT] = 0x00A2, //       ''              ''          "CENT" for cent: ¢
@@ -337,6 +347,7 @@ const uint32_t PROGMEM unicode_map[] = {
     // Symbols from Dutch typewriter, other Dutch 
     [CS_PARA] = 0x00A7,  //       ''     , S for symbol, "PARA" for paragraaf: §
     [CS_PLMI] = 0x00B1,  //       ''     ,    ''       , "PLMI" for plus-minus; ±
+    // English and Dutch quotations
     [CS_DQUL] = 0x201E,  //       ''     ,    ''       , "D" for double, "QU" for quote, "L" for low: „
     [CS_DQUH] = 0x201D,  //       ''     ,    ''       ,      ''       ,       ,,      , "H" for high: ”
     [CS_DQUHR] = 0x201C, //       ''     ,    ''       ,      ''       ,       ,,      , "H" for high, "R" for reverse: “
@@ -1112,7 +1123,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case UN_S_PLUSMIN: 
             if (record->event.pressed) { 
                 unicode_lead ();
-                if (shift_ison) { SEND_STRING ("0192"); } else { SEND_STRING ("00n1"); } // ƒ±
+                if (shift_ison) { SEND_STRING (UNICODE_CURRENCY_DESCRAMBLE); } else { SEND_STRING ("00n1"); } // ƒ±
+                                            // ^ special case for easy user configuration
                 unicode_tail ();
             }
           break;

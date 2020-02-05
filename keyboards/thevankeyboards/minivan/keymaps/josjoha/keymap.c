@@ -100,7 +100,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SWITCH_GUIS // Set this if you want LGUI on the BASE layer rather than RGUI, and so consistently on all layers (default).
 
 
-        /*      Left Shift layer to ...
+        /*      'Left Shift' key on BASE layer, activates layer ...
          *
          * Uncomment one of the below lines, determining where L-shift tap-toggles to on the 
          * BASE layer. 
@@ -112,6 +112,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                          // This would help alleviate it.
 //#define LSHIFT_LAYER_ACC // If typing a lot of these in a row
 #define LSHIFT_LAYER_PAD // Easier Access to numpad (for default shortcuts in blender(1) for example).
+
+
+        /*      Alternate currency symbol
+         *
+         * Uncomment the below to get a Euro symbol, where ƒ (Dutch Guilder) is on the default map (_DRA, _DDD layers).
+         */
+
+#define UNICODE_CURRENCY 0x20ac // Hex number, euro symbol €. The unicode hex number for position ƒ in the default keymap.
+#define UNICODE_CURRENCY_DESCRAMBLE "20ai" // String, euro symbol €. Same as above, but for 'descramble' mode. 
+    // If you change this to whatever, you need to recode the hex number *letters* like so: 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y
+    // You can ignore UNICODE_CURRENCY_DESCRAMBLE if you compile with QWERTY_DVORAK set.
 
 
         /*      Sacrificing functionality when compiled hex file is too large
