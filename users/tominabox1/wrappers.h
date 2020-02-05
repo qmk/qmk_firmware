@@ -21,7 +21,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 
 /* Num/Symbol Layer */
 #define __________________NUM_1____________________       KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0
-#define __________________NUM_2____________________       KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_PLUS, KC_MINS
+#define __________________NUM_2____________________       KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_EQUAL, KC_MINS
 #define __________________NUM_3____________________       KC_LCBR, KC_LBRC, KC_LPRN, KC_UNDS, KC_RPRN, KC_RBRC, KC_RCBR
 
 /* F-key layer */
