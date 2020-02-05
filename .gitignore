@@ -57,8 +57,6 @@ util/Win_Check_Output.txt
 *.jpg
 *.gif
 
-# Do not ignore MiniDox left/right hand eeprom files
-
 # things travis sees
 secrets.tar
 id_rsa_*
