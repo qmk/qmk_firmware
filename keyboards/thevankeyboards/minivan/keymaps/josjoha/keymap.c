@@ -119,8 +119,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Uncomment the below to get a Euro symbol, where ƒ (Dutch Guilder) is on the default map (_DRA, _DDD layers).
          */
 
-#define UNICODE_CURRENCY 0x20ac // Hex number, euro symbol €. The unicode hex number for position ƒ in the default keymap.
-#define UNICODE_CURRENCY_DESCRAMBLE "20ai" // String, euro symbol €. Same as above, but for 'descramble' mode. 
+//#define UNICODE_CURRENCY 0x20ac // Hex number, euro symbol €. The unicode hex number for position ƒ in the default keymap.
+//#define UNICODE_CURRENCY_DESCRAMBLE "20ai" // String, euro symbol €. Same as above, but for 'descramble' mode. 
     // If you change this to whatever, you need to recode the hex number *letters* like so: 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y
     // You can ignore UNICODE_CURRENCY_DESCRAMBLE if you compile with QWERTY_DVORAK set.
 
