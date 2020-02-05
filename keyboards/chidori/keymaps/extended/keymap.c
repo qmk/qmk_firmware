@@ -162,20 +162,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void led_set_user(uint8_t usb_led) {
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        board_set_led_by_index(0, LED_YELLOW, true);
-    } else {
-        board_set_led_by_index(0, LED_YELLOW, false);
-    }
-    if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-        board_set_led_by_index(1, LED_YELLOW, true);
-    } else {
-        board_set_led_by_index(1, LED_YELLOW, false);
-    }
-    if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-        board_set_led_by_index(2, LED_YELLOW, true);
-    } else {
-        board_set_led_by_index(2, LED_YELLOW, false);
-    }
+bool led_update_user(led_t led_state) {
+    board_set_led_by_index(0, LED_YELLOW, led_state.caps_lock);
+    board_set_led_by_index(1, LED_YELLOW, led_state.scroll_lock);
+    board_set_led_by_index(2, LED_YELLOW, led_state.num_lock);
+
+    return false;
 }
