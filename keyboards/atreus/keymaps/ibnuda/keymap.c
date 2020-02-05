@@ -52,16 +52,6 @@ enum {
     _MUIS
 };
 
-// short.
-#define MU_UP   KC_MS_UP
-#define MU_DN   KC_MS_DOWN
-#define MU_LFT  KC_MS_LEFT
-#define MU_RGHT KC_MS_RIGHT
-#define MU_BTN1 KC_MS_BTN1
-#define MU_BTN2 KC_MS_BTN2
-#define MU_WD   KC_MS_WH_DOWN
-#define MU_WU   KC_MS_WH_UP
-
 // thumb keys.
 #define ALT_ENT   ALT_T(KC_ENT)
 #define SFT_ESC   SFT_T(KC_ESC)
