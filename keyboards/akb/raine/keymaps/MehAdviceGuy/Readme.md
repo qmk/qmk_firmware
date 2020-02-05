@@ -6,7 +6,7 @@
 Welcome to one of the most useless layouts you will find this side of town!
 The layout is born out of the need for AltGr to get to æø and å when you don't have a full bottom row.
 
-## Base Layer (0)
+## Base Layer (0) 
 The base layer borrows alot from the Default Raine layer in regards to the alphas, and the numpad. But deviates ever so slightly by putting the layer key on the Left arrow key, relacing it from its original location with AltGr. And putting , and . on what was normally ? and right shift.
 ```
  ,----------------------------------------------------------------.   ,--------------.
