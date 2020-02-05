@@ -136,7 +136,7 @@ uint16_t get_tapping_term(uint16_t keycode) {
     case LCTL_T(KC_TAB):
       return 120;
     case KC_Z_SF:
-      return 100;
+      return 115;
     case LALT_T(KC_C):
       return 200;
     default:
