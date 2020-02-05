@@ -55,9 +55,9 @@ void matrix_init_user(void) {
 // write to above indicators in a binary fashion based on current layer
 layer_state_t layer_state_set_user(layer_state_t state)
 {
-    (state & 0x1) ? writePinHigh(F5) : writePinLow(F5);
-    (state & 0x2) ? writePinHigh(F6) : writePinLow(F6);
-    (state & 0x4) ? writePinHigh(F7) : writePinLow(F7);
+    writePin(F5, (state & 0x1));
+    writePin(F6, (state & 0x2));
+    writePin(F7, (state & 0x4));
     return state;
 }
 
