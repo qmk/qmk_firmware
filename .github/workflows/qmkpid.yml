@@ -13,20 +13,44 @@ jobs:
     - name: Check out
       uses: actions/checkout@v1
 
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: '3.5'
+
+    - name: Cache pip
+      uses: actions/cache@v1
+      with:
+        path: ~/.cache/pip # This path is specific to Ubuntu
+        # Look to see if there is a cache hit for the corresponding requirements file
+        key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+          ${{ runner.os }}-
+
+    - name: Install python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Set up git config
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "QMK Action"
+
     - name: Get keyboard config
       if: github.event.pull_request.merged
       id: get_config
       run: |
-        echo "##[set-output name=configs;]$(git diff-tree --no-commit-id -m --name-only -r ${{ github.sha }} | grep config.h | grep -v keymaps || echo 'No keyboards added')"
+        echo "##[set-output name=configs;]$((git diff-tree --no-commit-id -m --name-only -r ${{ github.sha }} | grep config.h | grep -v keymaps || echo 'No keyboards added') | tr '\r\n' ' ')"
 
     - name: Generate QMKPID
-      if: steps.get_config.outputs.config != 'No keyboards added'
+      if: steps.get_config.outputs.configs != 'No keyboards added'
       id: generate_qmkpid
       run: |
-        bin/qmk pid --commit ${{ steps.get_config.outputs.configs }}
+        /usr/bin/env python3 bin/qmk pid --apply --commit ${{ steps.get_config.outputs.configs }}
 
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        tags: true
