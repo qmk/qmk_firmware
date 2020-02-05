@@ -51,6 +51,7 @@ jobs:
         /usr/bin/env python3 bin/qmk pid --apply --commit ${{ steps.get_config.outputs.configs }}
 
     - name: Push changes
+      if: 0 == 1
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
