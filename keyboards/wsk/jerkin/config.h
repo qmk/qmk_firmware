@@ -6,8 +6,8 @@
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x79AE
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    wsk
-#define PRODUCT         jerkin
+#define MANUFACTURER    Worldspawn00
+#define PRODUCT         Jerkin
 #define DESCRIPTION     Alice style 30% board
 
 /* key matrix size */
