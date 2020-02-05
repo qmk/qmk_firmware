@@ -4,7 +4,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[_BASE] = LAYOUT_wrapper(
-    KC_TABESC, _______________COLEMAK1____________________, KC_BSPC,
+    KC_ESC, _______________COLEMAK1____________________, KC_BSPC,
     KC_CTLTB,  _______________COLEMAK2____________________, KC_QUOT,
     KC_LSFT,   _______________COLEMAK3____________________,
     KC_LCTRL, KC_LGUI, KC_LALT, KC_NUM_SPC,  KC_NUM_SPC,  KC_NAV_ENT, MO(_FKEY), KC_NO

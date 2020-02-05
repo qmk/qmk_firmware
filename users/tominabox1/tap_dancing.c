@@ -132,11 +132,11 @@ uint16_t get_tapping_term(uint16_t keycode) {
     case RSFT_T(KC_DOT):
       return 150;
     case KC_NUM_SPC:
-      return 300;
+      return 200;
     case LCTL_T(KC_TAB):
       return 120;
-    case LSFT_T(KC_Z):
-      return 125;
+    case KC_Z_SF:
+      return 100;
     case LALT_T(KC_C):
       return 200;
     default:
@@ -146,8 +146,8 @@ uint16_t get_tapping_term(uint16_t keycode) {
 
 bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
   switch (keycode) {
-    case LSFT_T(KC_Z):
-      return false;
+    case KC_Z_SF:
+      return true;
     case TD(TD_QUES_ENT):
       return true;
     default:
@@ -157,8 +157,8 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
 
 bool get_tapping_force_hold(uint16_t keycode) {
   switch (keycode) {
-    case LSFT_T(KC_Z):
-      return true;
+    case KC_Z_SF:
+      return false;
     case TD(TD_QUES_ENT):
       return false;
     default:
@@ -168,8 +168,8 @@ bool get_tapping_force_hold(uint16_t keycode) {
 
 bool get_permissive_hold(uint16_t keycode) {
   switch (keycode) {
-    case LSFT_T(KC_Z):
-      return true;
+    case KC_Z_SF:
+      return false;
     case TD(TD_QUES_ENT):
         return true;
     default:
