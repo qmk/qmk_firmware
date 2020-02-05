@@ -105,6 +105,17 @@ def init(pids_json_path):
     Path(pids_json_path).parents[0].mkdir(parents=True, exist_ok=True)
     with open(pids_json_path, 'w') as jfile:
         json.dump({"pids": {}}, jfile)
+    try:
+        subprocess.run(
+            ['git', 'add', pids_json_path],
+            timeout=5,
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT
+        )
+    except subprocess.CalledProcessError as e:
+        cli.log.error('Adding json to git failed. {} failed with: {}'.format(e.cmd, e.output))
+        return False
 
 
 def replace_pid(config_h, id_pid, pid_match):
@@ -149,8 +160,8 @@ def pid(cli):
             return False
 
         if vid_match.group(1) != qmk_vid:
-            cli.log.info("Keyboard does not use QMK VID, or it's not a keyboard config. ({} != {})".format(vid_match.group(1), qmk_vid))
-            return True
+            cli.log.info("Keyboard does not use QMK VID, or it's not a keyboard config. ({} != {} in {})".format(vid_match.group(1), qmk_vid, config_h))
+            continue
         else:
             path = str(Path(config_h).parents[0])
 
