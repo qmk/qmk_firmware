@@ -1,12 +1,12 @@
 # Houndstooth
 
-![Houndstooth](https://i.imgur.com/YkD4GNG.png)  
+![Houndstooth](https://i.imgur.com/YkD4GNG.png)
 
-The Houndstooth is a 12 column split ortho 40% keyboard.  
+The Houndstooth is a 12 column split ortho 40% keyboard.
 
-Keyboard Maintainer: [worldspawn00](https://github.com/worldspawn00/)  
-Hardware Supported: The Houndstooth PCB and kit.  
-Hardware Availability: [PCB & Kit](https://geekhack.org/index.php?topic=101374)  
+* Keyboard Maintainer: [worldspawn00](https://github.com/worldspawn00/)
+* Hardware Supported: The Houndstooth PCB and kit.
+* Hardware Availability: [PCB & Kit](https://geekhack.org/index.php?topic=101374)
 
 Make example for this keyboard (after setting up your build environment):
 
