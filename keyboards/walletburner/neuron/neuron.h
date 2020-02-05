@@ -14,4 +14,3 @@
 	{ KC_NO, K301,  K302,  K303,  KC_NO, KC_NO, K306,  KC_NO, K308, KC_NO, K310,  K311 }  \
 }
 
-#endif
