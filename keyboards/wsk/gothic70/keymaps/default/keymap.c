@@ -2,10 +2,11 @@
 #include QMK_KEYBOARD_H
 
 // Defines names for use in layer keycodes and the keymap
-enum layer_names { 
+enum layer_names {
     _BASE,
-    _FN, 
+    _FN,
     _MEDIA };
+
 // Tap Dance Declarations
 enum {
     TD_SCAPS = 0
@@ -51,37 +52,18 @@ void matrix_init_user(void) {
   writePinHigh(F7);
 }
 
-void matrix_scan_user(void) {
-
-}
-
-
+// write to above indicators in a binary fashion based on current layer
 layer_state_t layer_state_set_user(layer_state_t state)
 {
-    if (state & (1<<1)) {
-    writePinHigh(F5);
-    } else if (state & (1<<2)) {
-        writePinHigh(F5);
-        writePinHigh(F6);
-    } else if (state & (1<<3)) {
-        writePinHigh(F5);
-        writePinHigh(F6);
-        writePinHigh(F7);
-    } else if (state & (1<<4)) {
-        writePinLow(F5);
-        writePinHigh(F6);
-        writePinHigh(F7);
-    } else {
-        writePinLow(F5);
-        writePinLow(F6);
-        writePinLow(F7);
-    }
+    (state & 0x1) ? writePinHigh(F5) : writePinLow(F5);
+    (state & 0x2) ? writePinHigh(F6) : writePinLow(F6);
+    (state & 0x4) ? writePinHigh(F7) : writePinLow(F7);
     return state;
 }
 
+
 // Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for 
+    // Tap once for
     [TD_SCAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
-    
 };

@@ -1,14 +1,12 @@
-#ifndef CONFIG_H
-#define CONFIG_H
-
+#pragma once
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
+#define PRODUCT_ID      0x63CC
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Worldspawn
+#define MANUFACTURER    Worldspawn00
 #define PRODUCT         Gothic70
 #define DESCRIPTION     Expanded Ergo Keyboard
 
@@ -25,8 +23,6 @@
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-
-
 #define RGB_DI_PIN F4
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS
@@ -42,25 +38,9 @@
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
 
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-
 #define LOCKING_SUPPORT_ENABLE
 
 /* Locking resynchronize hack */
-
 #define LOCKING_RESYNC_ENABLE
-
-/* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
- * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
- */
-
- #define GRAVE_ESC_CTRL_OVERRIDE
-
-
-
-
-
-
-
 
