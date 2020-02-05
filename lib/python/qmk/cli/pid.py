@@ -100,24 +100,6 @@ def atomic_dump(data, json_file):
     os.replace(tf.name, json_file)
 
 
-def init(pids_json_path):
-    """On the first run of this script, write a skeleton json file"""
-    Path(pids_json_path).parents[0].mkdir(parents=True, exist_ok=True)
-    with open(pids_json_path, 'w') as jfile:
-        json.dump({"pids": {}}, jfile)
-    try:
-        subprocess.run(
-            ['git', 'add', pids_json_path],
-            timeout=5,
-            check=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT
-        )
-    except subprocess.CalledProcessError as e:
-        cli.log.error('Adding json to git failed. {} failed with: {}'.format(e.cmd, e.output))
-        return False
-
-
 def replace_pid(config_h, id_pid, pid_match):
     """Replace the PID in a config.h file
 
@@ -147,8 +129,23 @@ def pid(cli):
     pids_json_path = cli.config.pid.db_path if cli.config.pid.db_path else "quantum/usb_pids.json"
     qmk_vid = cli.config.pid.qmk_vid if cli.config.pid.qmk_vid else "0x03A8"
 
+    # Make a skeleton json file on first run
     if not Path(pids_json_path).is_file():
-        init(pids_json_path)
+        Path(pids_json_path).parents[0].mkdir(parents=True, exist_ok=True)
+        with open(pids_json_path, 'w') as jfile:
+            json.dump({"pids": {}}, jfile)
+        if cli.args.commit:
+            try:
+                subprocess.run(
+                    ['git', 'add', pids_json_path],
+                    timeout=5,
+                    check=True,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT
+                )
+            except subprocess.CalledProcessError as e:
+                cli.log.error('Adding json to git failed. {} failed with: {}'.format(e.cmd, e.output))
+                return False
 
     for config_h in cli.args.config:
         vid_match, pid_match = get_ids(config_h)
