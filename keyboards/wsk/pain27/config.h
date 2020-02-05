@@ -1,15 +1,14 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define PRODUCT_ID      0x9E8C
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Worldspawn00
 #define PRODUCT         PAIN27
-#define DESCRIPTION     Keyboard
+#define DESCRIPTION     A 27-key Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 3
@@ -38,12 +37,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
-
 #define RGB_DI_PIN D1
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS
@@ -53,4 +46,3 @@
 #define RGBLIGHT_VAL_STEP 8
 #endif
 
-#endif
