@@ -138,6 +138,10 @@ extern layer_state_t layer_state;
 #    include "process_magic.h"
 #endif
 
+#ifdef GRAVE_ESC_ENABLE
+#    include "process_grave_esc.h"
+#endif
+
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
 #    include "process_rgb.h"
 #endif
