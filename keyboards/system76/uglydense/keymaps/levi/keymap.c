@@ -73,13 +73,13 @@ ________________________________________________________________________________
 |        |        |        |        |        |        |        |        |        |        |        |        |        |            |
 |________|________|________|________|________|________|________|________|________|________|________|________|________|____________|
 |            |        |        |        |        |        |        |        |        |        |        |        |        |        |
-|            |  Home  |   Up   |  End   |  PgUp  |        |        |  Home  |   Up   |  End   |        |        |        |        |
+|            |  Home  |   Up   |  End   |  PgUp  |        |  PgUp  |  Home  |   Up   |  End   |        |        |        |        |
 |____________|________|________|________|________|________|________|________|________|________|________|________|________|________|
   |            |        |        |        |        |        |        |        |        |        |        |        |            |
-  |            |  Left  |  Down  |  Right |  PgDn  |        |        |  Left  |  Down  |  Right |        |        |            |
+  |            |  Left  |  Down  |  Right |  PgDn  |        |  PgDn  |  Left  |  Down  |  Right |        |        |            |
   |____________|________|________|________|________|________|________|________|________|________|________|________|____________|
       |            |        |        |        |        |        |        |        |        |        |        |        |        |
-      |            |PlayPaus| Prev   | Next   | VolUp  | VolDn  | VolMute|        |        |        |        |        |  PgUp  |
+      |            |PlayPaus| Prev   | Next   | VolDn  | VolUp  | VolMute|        |        |        |        |        |  PgUp  |
   ____|____________|________|________|________|________|________|________|________|________|________|________|________|________|_________
   |            |        |       |        |                 |                 |        |        |             |        |        |        |
   |            |        |       |        |    Backspace    |                 |        |        |             |  Home  |  PgDn  |  End   |
@@ -91,10 +91,10 @@ ________________________________________________________________________________
   [2] = LAYOUT(
     RESET,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-              KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_PGUP,
-          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,          KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,     KC_HOME,  KC_PGDN, KC_END
+        KC_TRNS, KC_HOME, KC_UP,   KC_END,  KC_PGUP, KC_TRNS, KC_PGUP, KC_HOME, KC_UP, KC_END, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+          KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, KC_TRNS, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS, KC_TRNS, KC_TRNS,
+              KC_TRNS, KC_MPLY, KC_MPRV, KC_MNXT, KC_VOLD, KC_VOLU, KC_MUTE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_PGUP,
+          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_BSPC,          KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,     KC_HOME,  KC_PGDN, KC_END
   )
 };
 
