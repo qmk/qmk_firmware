@@ -511,10 +511,10 @@ ifeq ($(strip $(MAGIC_ENABLE)), yes)
     OPT_DEFS += -DMAGIC_KEYCODE_ENABLE
 endif
 
-GRAVE_ENABLE ?= yes
-ifeq ($(strip $(GRAVE_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_grave.c
-    OPT_DEFS += -DGRAVE_ENABLE
+GRAVE_ESC_ENABLE ?= yes
+ifeq ($(strip $(GRAVE_ESC_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/process_keycode/process_grave_esc.c
+    OPT_DEFS += -DGRAVE_ESC_ENABLE
 endif
 
 ifeq ($(strip $(DYNAMIC_MACRO_ENABLE)), yes)

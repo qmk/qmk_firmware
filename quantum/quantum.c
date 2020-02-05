@@ -256,8 +256,8 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef MAGIC_KEYCODE_ENABLE
             process_magic(keycode, record) &&
 #endif
-#ifdef GRAVE_ENABLE
-            process_grave(keycode, record) &&
+#ifdef GRAVE_ESC_ENABLE
+            process_grave_esc(keycode, record) &&
 #endif
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
             process_rgb(keycode, record) &&

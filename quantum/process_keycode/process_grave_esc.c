@@ -13,14 +13,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "process_grave.h"
+#include "process_grave_esc.h"
 
 /* true if the last press of GRAVE_ESC was shifted (i.e. GUI or SHIFT were pressed), false otherwise.
  * Used to ensure that the correct keycode is released if the key is released.
  */
 static bool grave_esc_was_shifted = false;
 
-bool process_grave(uint16_t keycode, keyrecord_t *record) {
+bool process_grave_esc(uint16_t keycode, keyrecord_t *record) {
     if (keycode == GRAVE_ESC) {
         const uint8_t mods    = get_mods();
         uint8_t       shifted = mods & MOD_MASK_SG;

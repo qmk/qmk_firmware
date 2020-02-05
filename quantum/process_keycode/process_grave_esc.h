@@ -17,4 +17,4 @@
 
 #include "quantum.h"
 
-bool process_grave(uint16_t keycode, keyrecord_t *record);
+bool process_grave_esc(uint16_t keycode, keyrecord_t *record);
