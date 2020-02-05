@@ -833,7 +833,17 @@ bool recv_midi_packet(MIDI_EventPacket_t *const event) {
     size_t size = chnReadTimeout(&drivers.midi_driver.driver, (uint8_t *)event, sizeof(MIDI_EventPacket_t), TIME_IMMEDIATE);
     return size == sizeof(MIDI_EventPacket_t);
 }
-
+void midi_ep_task(void) {
+    uint8_t buffer[MIDI_STREAM_EPSIZE];
+    size_t  size = 0;
+    do {
+        size_t size = chnReadTimeout(&drivers.midi_driver.driver, buffer, sizeof(buffer), TIME_IMMEDIATE);
+        if (size > 0) {
+            MIDI_EventPacket_t event;
+            recv_midi_packet(&event);
+        }
+    } while (size > 0);
+}
 #endif
 
 #ifdef VIRTSER_ENABLE
