@@ -141,10 +141,15 @@ def pid(cli):
 
     for config_h in cli.args.config:
         vid_match, pid_match = get_ids(config_h)
+
         keyboard = Path(config_h).parent.stem
 
+        if vid_match is not None and pid_match is None:
+            cli.log.error('No product ID placeholder defined in config!')
+            return False
+
         if vid_match.group(1) != qmk_vid:
-            cli.log.info("Keyboard does not use QMK VID ({} != {})".format(vid_match.group(1), qmk_vid))
+            cli.log.info("Keyboard does not use QMK VID, or it's not a keyboard config. ({} != {})".format(vid_match.group(1), qmk_vid))
             return True
         else:
             path = str(Path(config_h).parents[0])
