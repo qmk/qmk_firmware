@@ -19,18 +19,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 #include <avr/io.h>
-#include <util/delay.h>
 #include <print.h>
 #include "debug.h"
-#include "util.h"
 #include "matrix.h"
 #if defined(ATT56K_USE_ASYNC) || defined(ATT56K_USE_SYNC)
 #    include "att56k_if.h"
 #else
 #    error No protocol defined for ATT56K
 #endif
-
-#include "att56k.h"
 
 #define DD_LED_INIT() (DDRD |= (1 << PD5))
 #define DD_LED_ON() (PORTD &= ~(1 << PD5))

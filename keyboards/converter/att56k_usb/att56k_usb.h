@@ -1,5 +1,4 @@
-#ifndef ATT56K_H
-#define ATT56K_H
+#pragma once
 
 #include "quantum.h"
 #include "att56k_if.h"
@@ -21,12 +20,11 @@ void matrix_init_user(void);
 
 
 enum custom_keycodes {
-  CLCK_TOG = SAFE_RANGE,
-  CLCK_CYC,
+  CLCK_CYC = SAFE_RANGE,
   NEW_SAFE_RANGE //use "NEW_SAFE_RANGE" for keymap specific codes
 };
 
-#define KEYMAP( \
+#define LAYOUT( \
                         K3C, K08, K56, K03, K24, K06, K04, K30, K7C, K3D, K49, K74, \
                         K0E, K38, K1D, K5F, K79, K6C, K53, K7A, K1F, K3F, K2F, K2B, \
   K1A, K2C,   K20, K58, K09, K3E, K7E, K10, K2E, K3A, K4C, K5E, K0F, K27, K2D,   K4B,     K57, K7B, K4E,   K12, K14, K07, K7F, \
@@ -48,4 +46,3 @@ enum custom_keycodes {
 void on_scan(void);
 
 
-#endif

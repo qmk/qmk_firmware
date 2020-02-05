@@ -1,10 +1,5 @@
-#include <stdbool.h>
 
-#include "att56k_if.h"
-#include "att56k.h"
-#include <print.h>
-#include "debug.h"
-#include "util.h"
+#include "att56k_usb.h"
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {

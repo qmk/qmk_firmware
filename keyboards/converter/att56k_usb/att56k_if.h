@@ -19,8 +19,7 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef ATT56K_IF_H
-#define ATT56K_IF_H
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -37,5 +36,3 @@ bool    att56k_has_data(void);
 uint8_t att56k_recv(void);
 void    att56k_click_cycle(void);
 bool    att56k_device_detected(void);
-
-#endif  // ATT56K_IF_H
