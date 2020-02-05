@@ -23,7 +23,6 @@ void matrix_init_kb(void) {
 	led_init_ports();
 };
 
-__attribute__ ((weak))
 void led_init_ports(void) {
     // * Set our LED pins as output
     setPinOutput(B3);
@@ -38,7 +37,6 @@ bool led_update_kb(led_t led_state) {
         } else {
             rgblight_setrgb_at(0, 0, 0, 0);
         }
-            rgblight_set();
     }
     return res;
 }
