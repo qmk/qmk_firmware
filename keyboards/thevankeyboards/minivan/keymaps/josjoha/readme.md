@@ -425,8 +425,7 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
 
   Conclusion: most is as normal or has some logic to it to help you
   remember, a bunch is better than your normal keyboard, some things
-  rarely used will have to be learned (one can print out the included
-  sheet, see the .ODT file).
+  rarely used will have to be learned.
 
   …
 
