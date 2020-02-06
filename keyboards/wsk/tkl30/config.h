@@ -1,15 +1,14 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define PRODUCT_ID      0xCA45
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    worldspawn
+#define MANUFACTURER    Worldspawn00
 #define PRODUCT         TKL30
-#define DESCRIPTION     Keyboard
+#define DESCRIPTION     A 3-row TKL-style keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 3
@@ -25,7 +24,7 @@
 
 /* number of backlight levels */
 
-#ifdef BACKLIGHT_PIN 
+#ifdef BACKLIGHT_PIN
 #define BACKLIGHT_LEVELS 1
 #endif
 
@@ -38,15 +37,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
-
-
 #define RGB_DI_PIN B1
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS
@@ -56,4 +46,3 @@
 #define RGBLIGHT_VAL_STEP 8
 #endif
 
-#endif
