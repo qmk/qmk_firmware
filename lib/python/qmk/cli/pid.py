@@ -15,8 +15,8 @@ import json
 
 from milc import cli
 
-VID_regex = re.compile(r"^#define\s+VENDOR_ID\s+(0x[0-9a-f]{4})$", flags=re.IGNORECASE)
-PID_regex = re.compile(r"^(#define\s+PRODUCT_ID\s+0x)([0-9a-f]{4})$", flags=re.IGNORECASE)
+VID_regex = re.compile(r"^#define\s+VENDOR_ID\s+(0x[0-9a-f]{4})(\s+/[/|*].*)*$", flags=re.IGNORECASE)
+PID_regex = re.compile(r"^(#define\s+PRODUCT_ID\s+0x)([0-9a-f]{4})(\s+/[/|*].*)*$", flags=re.IGNORECASE)
 
 
 def get_ids(config_file):
@@ -108,9 +108,10 @@ def replace_pid(config_h, id_pid, pid_match):
         id_pid (str): The PID to write in to the file as 4 characters
         pid_match (re.match): The full regex match for the PID string
     """
+    comment = pid_match.group(3) if pid_match.group(3) is not None else ''
 
     for line in fileinput.input(config_h, inplace=True):
-        print(line.replace(pid_match.group(0), "{}{}".format(pid_match.group(1), id_pid)), end='')
+        print(line.replace(pid_match.group(0), "{}{}{}".format(pid_match.group(1), id_pid, comment)), end='')
 
 
 def init(json_path):
@@ -232,7 +233,12 @@ def pid(cli):
     for config_h in cli.args.config:
         vid_match, pid_match = get_ids(config_h)
 
-        if vid_match is not None and pid_match is None:
+        if vid_match is None:
+            cli.log.info('{} is not a keyboard config'.format(config_h))
+            continue
+
+        # If vid_match is not none, but pid_match is:
+        if pid_match is None:
             cli.log.error('No product ID placeholder defined in config!')
             return False
 
