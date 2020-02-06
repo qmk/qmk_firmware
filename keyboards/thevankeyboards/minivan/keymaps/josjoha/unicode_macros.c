@@ -24,14 +24,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "./unicode_macros.h"
 
+// Two easy to change spots on the Unicode keymap
+// ƒ (best configured in keymap.c)
 #ifndef UNICODE_CURRENCY // Prior optional definition in keymap.c
     #define UNICODE_CURRENCY 0x0192 // Hex number. The unicode hex number for position ƒ in the default keymap.
 #endif
 #ifndef UNICODE_CURRENCY_DESCRAMBLE // Prior optional definition in keymap.c
-    #define UNICODE_CURRENCY_DESCRAMBLE "0192" // String. Same, but for 'descramble'. If you change this, you
+    #define UNICODE_CURRENCY_DESCRAMBLE "0192"
         // need to recode the hex number *letters* like so: 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y
-        // You can ignore UNICODE_CURRENCY_DESCRAMBLE if you compile with QWERTY_DVORAK set.
+        // You can ignore UNICODE_CURRENCY_DESCRAMBLE if you compile with QWERTY_DVORAK set (see keymap.c)
 #endif
+// 🛠
+#define CS_USER_DEFINED 0x1F6E0 // Hammer & wrench (place holder).
+#define CS_USER_DEFINED_DESCRAMBLE "1y6d0" // String. Same, but for 'descramble'. If you change this, you
+        // need to recode the hex number *letters* like so: 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y
+        // You can ignore UNICODE_CURRENCY_DESCRAMBLE if you compile with QWERTY_DVORAK set (see keymap.c)
 
 // Descramble Unicode functions, for layouts _DDA, _DDD
 // This function sends the leader codes that are common to most/all accented characters,
@@ -171,6 +178,7 @@ enum unicode_names { // See below under 'unicode map' for meaning
 #ifndef space_cut_normal_arrow_ud 
     CS_UARROW,
 #endif
+    CS_USER,
     CS_YAYS,
     CUL_ACU,
     CUL_CAR,
@@ -187,6 +195,8 @@ enum unicode_names { // See below under 'unicode map' for meaning
 };
 
 const uint32_t PROGMEM unicode_map[] = {
+
+    [CS_USER] = CS_USER_DEFINED, // Remaining free spot; making it easy to configure on top of this fdile.
 
     // a lower case variants
     [CAL_ACU] = 0x00e1, // 'C' for Costum 'A' for a, 'L' for lower, "ACU" for acute: á
@@ -1261,7 +1271,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case UN_S_DQUH: 
             if (record->event.pressed) { 
                 unicode_lead ();
-                SEND_STRING ("201h"); // ”
+                if (shift_ison) { SEND_STRING (CS_USER_DEFINED_DESCRAMBLE); } else { SEND_STRING ("201h"); } // 🛠”
                 unicode_tail ();
             }
           break;
