@@ -16,7 +16,7 @@ import json
 from milc import cli
 
 VID_regex = re.compile(r"""^#define\s+VENDOR_ID\s+(0x[0-9a-f]{4})$""", flags=re.IGNORECASE)
-PID_regex = re.compile(r"""^#define\s+PRODUCT_ID\s+(0x[0-9a-f]{4})$""", flags=re.IGNORECASE)
+PID_regex = re.compile(r"^(#define\s+PRODUCT_ID\s+)(0x[0-9a-f]{4})$", flags=re.IGNORECASE)
 
 
 def get_ids(config_file):
