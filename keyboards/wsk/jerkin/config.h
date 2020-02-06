@@ -3,29 +3,29 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x6F75 // OU
-#define PRODUCT_ID      0x7267 // RG
+#define VENDOR_ID       0xFEED
+#define PRODUCT_ID      0x79AE
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    1upkeyboards
-#define PRODUCT         1UP RGB Underglow PCB
-#define DESCRIPTION     60% keyboard with RGB underglow
+#define MANUFACTURER    Worldspawn00
+#define PRODUCT         Jerkin
+#define DESCRIPTION     Alice style 30% board
 
 /* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
+#define MATRIX_ROWS 3
+#define MATRIX_COLS 13
 
 /* key matrix pins */
-#define MATRIX_ROW_PINS { D0, D1, D2, D3, D5 }
-#define MATRIX_COL_PINS { F0, F1, E6, C7, C6, B7, D4, B1, B0, B5, B4, D7, D6, B3, F4 }
+#define MATRIX_ROW_PINS { B3, B4, B5 }
+#define MATRIX_COL_PINS { D3, D2, D1, D0, D4, C6, B1, F7, F6, F5, F4, E6, D7 }
 #define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
 /* number of backlight levels */
-#define BACKLIGHT_PIN B6
+
 #ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 5
+#define BACKLIGHT_LEVELS 0
 #endif
 
 /* Set 0 if debouncing isn't needed */
@@ -37,10 +37,9 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 16
+// #define RGBLED_NUM 0
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
