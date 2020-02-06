@@ -1,12 +1,12 @@
 # Kodachi50
 
-![Kodachi50](https://i.imgur.com/v1SYb6a.png)  
+![Kodachi50](https://i.imgur.com/v1SYb6a.png)
 
-The Kodachi50 is a mirror stagger 50% board.  
+The Kodachi50 is a mirror stagger 50% board.
 
-Keyboard Maintainer: [worldspawn00](https://github.com/worldspawn00/)  
-Hardware Supported: The Kodachi50 PCB and kit.  
-Hardware Availability: [PCB & Kit](https://geekhack.org/index.php?topic=100535)  
+* Keyboard Maintainer: [worldspawn00](https://github.com/worldspawn00/)
+* Hardware Supported: The Kodachi50 PCB and kit.
+* Hardware Availability: [PCB & Kit](https://geekhack.org/index.php?topic=100535)
 
 Make example for this keyboard (after setting up your build environment):
 
