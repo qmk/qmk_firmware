@@ -60,16 +60,8 @@ Click                                                                     \_____
 DATA transitions low half a clock cycle before CLOCK to ensure the leading 0 bit value. 
 ## Build
 
-From the root qmk_firmware directory execute:
+Make example for this keyboard (after setting up your build environment):
 
-    $ make converter/att56k_usb
+    make converter/att56k_usb:default
 
-To specify a custom keymap in the folder <custom_keymap>, execute
-
-    $ make converter/att56k_usb:custom_keymap
-
-## Keymap
-The default keymap is based on the standard PC 122 key layout.
-
-The F24 key has been mapped to cycle through the clicker modes:
-    OFF -> MAKE -> MAKE/BREAK
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
