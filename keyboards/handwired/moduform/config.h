@@ -30,6 +30,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MATRIX_COL_PINS { C6, D7, E6, B4, B5 }
 //#define MATRIX_ROW_PINS { B1, B3, B2, B6 }
 #define MATRIX_COL_PINS { D1, D4, C6, D7, E6 }
+//Need to move D1 different pin for I2C as below
+#define MATRIX_COL_PINS { D4, C6, D7, E6, B4 }
 #define MATRIX_ROW_PINS { F4, F5, F6, F7 }
 
 
@@ -53,7 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE 5
 
 /* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D0
+#define SOFT_SERIAL_PIN D2
 #define EE_HANDS
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
