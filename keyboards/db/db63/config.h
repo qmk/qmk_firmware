@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 #define RGBLED_NUM 18
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_ANIMATIONS_ALL
 
 #define NO_UART 1
 

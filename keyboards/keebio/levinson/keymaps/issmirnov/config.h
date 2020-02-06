@@ -7,7 +7,7 @@
 
 #ifdef RGBLIGHT_ENABLE
    // Enable animations. +5500 bytes
-   #define RGBLIGHT_ANIMATIONS
+   #define RGBLIGHT_ANIMATIONS_ALL
 
    // Map my custom number of LED's
    #undef RGBLED_NUM

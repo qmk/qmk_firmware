@@ -36,6 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 #define EE_HANDS
 
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_ANIMATIONS_ALL
 
 #endif

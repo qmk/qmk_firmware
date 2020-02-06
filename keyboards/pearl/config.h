@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define NO_UART 1
 
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_ANIMATIONS_ALL
 #define RGBLED_NUM 12
 
 #define BACKLIGHT_PIN D4
