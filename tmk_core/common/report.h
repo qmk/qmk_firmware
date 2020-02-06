@@ -167,9 +167,6 @@ typedef struct {
 } __attribute__((packed)) report_mouse_t;
 
 /* keycode to system usage */
-#ifndef USE_KEYCODE2_FUNCTION
-#define KEYCODE2SYSTEM(key) (key == KC_SYSTEM_POWER ? SYSTEM_POWER_DOWN : (key == KC_SYSTEM_SLEEP ? SYSTEM_SLEEP : (key == KC_SYSTEM_WAKE ? SYSTEM_WAKE_UP : 0)))
-#else
 static inline uint16_t KEYCODE2SYSTEM(uint8_t key) {
     switch (key) {
         case KC_SYSTEM_POWER:  return SYSTEM_POWER_DOWN;
@@ -178,13 +175,8 @@ static inline uint16_t KEYCODE2SYSTEM(uint8_t key) {
         default:               return 0;
     }
 }
-#endif
 
 /* keycode to consumer usage */
-#ifndef USE_KEYCODE2_FUNCTION
-#define KEYCODE2CONSUMER(key) \
-    (key == KC_AUDIO_MUTE ? AUDIO_MUTE : (key == KC_AUDIO_VOL_UP ? AUDIO_VOL_UP : (key == KC_AUDIO_VOL_DOWN ? AUDIO_VOL_DOWN : (key == KC_MEDIA_NEXT_TRACK ? TRANSPORT_NEXT_TRACK : (key == KC_MEDIA_PREV_TRACK ? TRANSPORT_PREV_TRACK : (key == KC_MEDIA_FAST_FORWARD ? TRANSPORT_FAST_FORWARD : (key == KC_MEDIA_REWIND ? TRANSPORT_REWIND : (key == KC_MEDIA_STOP ? TRANSPORT_STOP : (key == KC_MEDIA_EJECT ? TRANSPORT_STOP_EJECT : (key == KC_MEDIA_PLAY_PAUSE ? TRANSPORT_PLAY_PAUSE : (key == KC_MEDIA_SELECT ? AL_CC_CONFIG : (key == KC_MAIL ? AL_EMAIL : (key == KC_CALCULATOR ? AL_CALCULATOR : (key == KC_MY_COMPUTER ? AL_LOCAL_BROWSER : (key == KC_WWW_SEARCH ? AC_SEARCH : (key == KC_WWW_HOME ? AC_HOME : (key == KC_WWW_BACK ? AC_BACK : (key == KC_WWW_FORWARD ? AC_FORWARD : (key == KC_WWW_STOP ? AC_STOP : (key == KC_WWW_REFRESH ? AC_REFRESH : (key == KC_BRIGHTNESS_UP ? BRIGHTNESS_UP : (key == KC_BRIGHTNESS_DOWN ? BRIGHTNESS_DOWN : (key == KC_WWW_FAVORITES ? AC_BOOKMARKS : 0)))))))))))))))))))))))
-#else
 static inline uint16_t KEYCODE2CONSUMER(uint8_t key) {
     switch (key) {
         case KC_AUDIO_MUTE:            return AUDIO_MUTE;
@@ -213,7 +205,6 @@ static inline uint16_t KEYCODE2CONSUMER(uint8_t key) {
         default:                       return 0;
     }
 }
-#endif
 
 uint8_t has_anykey(report_keyboard_t* keyboard_report);
 uint8_t get_first_key(report_keyboard_t* keyboard_report);
