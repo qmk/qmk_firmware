@@ -132,7 +132,7 @@ uint16_t get_tapping_term(uint16_t keycode) {
     case RSFT_T(KC_DOT):
       return 150;
     case KC_NUM_SPC:
-      return 200;
+      return 225;
     case LCTL_T(KC_TAB):
       return 120;
     case KC_Z_SF:
