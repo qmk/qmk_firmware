@@ -18,7 +18,7 @@ Flashing example for this keyboard ([after setting up the bootloadHID flashing e
 
 **Reset Key**:
 
-Hold down the key located at *K00*, commonly programmed as *8* while plugging in the keyboard USB cable.
+Hold down the key located at *K12*, commonly programmed as *8* while plugging in the keyboard USB cable.
 
 Key *K12* is in the above picture:
 
