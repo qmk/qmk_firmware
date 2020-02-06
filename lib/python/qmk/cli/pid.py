@@ -106,11 +106,103 @@ def replace_pid(config_h, id_pid, pid_match):
     Args:
         config_h (str): The config to replace the PID in. The file has to have a "#define PRODUCT_ID 0x0000" the value doesn't matter, but has to be 2 bytes
         id_pid (str): The PID to write in to the file
-        pid_match (re.match): The full re match for the PID string
+        pid_match (re.match): The full regex match for the PID string
     """
 
     for line in fileinput.input(config_h, inplace=True):
         print(line.replace(pid_match.group(0), "{}{}".format(pid_match.group(0)[:-4], id_pid)), end='')
+
+
+def init(json_path):
+    """Generates a skeleton pids json file.
+
+    Generates a skeleton jsonfile for this script. If the parent folders in the configured path don't exist, these will also be created.
+
+    Args:
+        json_path (str): The path to create the json skeleton file at
+    """
+
+    Path(json_path).parents[0].mkdir(parents=True, exist_ok=True)
+    with open(json_path, 'w') as jfile:
+        json.dump({"pids": {}}, jfile)
+    if cli.args.commit:
+        subprocess.run(
+            ['git', 'add', json_path],
+            timeout=5,
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT
+        )
+
+
+def lchop(source_string, chop):
+    """Chops off chop from thestring from the left
+
+        Args:
+            source_string (str): The string to check
+            chop (str): The string to remove from source_string
+    """
+
+    if source_string.startswith(chop):
+        return source_string[len(chop):]
+    return source_string
+
+
+def process_config(cli, config_path, pids_json_path, pid_match):
+    """Generates PID for a config. Optionally applies and commits it
+
+        Args:
+            cli: The milc CLI. Used for logging output
+            config_path (str): The path to the config.h file to process
+            pids_json_path (str): The path to the json file storing all assigned PIDs
+            pid_match (re.Match): The full regex match of the product id define
+    """
+
+    config_path_lchop = cli.config.pid.path_lchop if cli.config.pid.path_lchop else "keyboards/"
+
+    chopped_config_path = lchop(config_path, config_path_lchop)
+    keyboard = str(Path(config_path).parent.stem)
+
+    with open(pids_json_path, 'r') as json_file:
+        data = json.load(json_file)
+
+    try:
+        pid_new = calculate_pid(chopped_config_path, data)
+    except RecursionError as e:
+        cli.log.error("Too many PID collisions ({}) when generating PID for {}. Aborting".format(e, keyboard))
+        return False
+
+    if chopped_config_path in data['pids'].values():
+        if pid_new != pid_match.group(1)[-4:]:
+            cli.log.warning("{} already assigned {}, but PID doesn't match.".format(keyboard, pid_new))
+            if cli.args.apply:
+                replace_pid(config_path, pid_new, pid_match)
+                cli.log.warning('\tRe-applying {} to {}'.format(pid_new, keyboard))
+        else:
+            cli.log.info('{} already assigned pid 0x{}'.format(keyboard, pid_new))
+            return True
+    else:
+        cli.log.info('Assigned PID 0x{} to {}'.format(pid_new, keyboard))
+        if cli.args.apply:
+            cli.log.info('\tApplying PID')
+            replace_pid(config_path, pid_new, pid_match)
+            data["pids"][pid_new] = chopped_config_path
+
+    atomic_dump(data, pids_json_path)  # Save the new pids table
+    if cli.args.commit:
+        try:
+            cli.log.info('\tCommitting changes to git')
+            subprocess.run(
+                ['git', 'commit', '-am', '"Generated PID 0x{} for {}"'.format(pid_new, keyboard)],
+                timeout=5,
+                check=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT
+            )
+        except subprocess.CalledProcessError as e:
+            cli.log.error('Committing to git failed. {} failed with: {}'.format(e.cmd, e.output))
+            return False
+    return True
 
 
 @cli.argument('config', nargs='+', arg_only=True, type=str, help='One or more configs to process')
@@ -131,26 +223,14 @@ def pid(cli):
 
     # Make a skeleton json file on first run
     if not Path(pids_json_path).is_file():
-        Path(pids_json_path).parents[0].mkdir(parents=True, exist_ok=True)
-        with open(pids_json_path, 'w') as jfile:
-            json.dump({"pids": {}}, jfile)
-        if cli.args.commit:
-            try:
-                subprocess.run(
-                    ['git', 'add', pids_json_path],
-                    timeout=5,
-                    check=True,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT
-                )
-            except subprocess.CalledProcessError as e:
-                cli.log.error('Adding json to git failed. {} failed with: {}'.format(e.cmd, e.output))
-                return False
+        try:
+            init(pids_json_path)
+        except subprocess.CalledProcessError as e:
+            cli.log.error('Adding json to git failed. {} failed with: {}'.format(e.cmd, e.output))
+            return False
 
     for config_h in cli.args.config:
         vid_match, pid_match = get_ids(config_h)
-
-        keyboard = Path(config_h).parent.stem
 
         if vid_match is not None and pid_match is None:
             cli.log.error('No product ID placeholder defined in config!')
@@ -160,45 +240,7 @@ def pid(cli):
             cli.log.info("Keyboard does not use QMK VID, or it's not a keyboard config. ({} != {} in {})".format(vid_match.group(1), qmk_vid, config_h))
             continue
         else:
-            path = str(Path(config_h).parents[0])
+            if not process_config(cli, config_h, pids_json_path, pid_match):
+                return False
 
-            with open(pids_json_path, 'r') as json_file:
-                data = json.load(json_file)
-
-                try:
-                    pid_new = calculate_pid(path, data)
-                except RecursionError as e:
-                    cli.log.error("Too many PID collisions ({}) when generating PID for {}. Aborting".format(e, keyboard))
-                    return False
-
-                if config_h in data['pids'].values():
-                    if pid_new != pid_match.group(1)[-4:]:
-                        cli.log.warning("{} already assigned {}, but PID doesn't match.".format(keyboard, pid_new))
-                        if cli.args.apply:
-                            replace_pid(config_h, pid_new, pid_match)
-                            cli.log.warning('\tRe-applying {} to {}'.format(pid_new, keyboard))
-                    else:
-                        cli.log.info('{} already assigned pid 0x{}'.format(keyboard, pid_new))
-                    continue
-                else:
-                    cli.log.info('Assigned PID 0x{} to {}'.format(pid_new, keyboard))
-                    if cli.args.apply:
-                        cli.log.info('\tApplying PID')
-                        replace_pid(config_h, pid_new, pid_match)
-                        data["pids"][pid_new] = config_h
-
-            atomic_dump(data, pids_json_path)  # Save the new pids table
-            if cli.args.commit:
-                try:
-                    cli.log.info('\tCommiting changes to git')
-                    subprocess.run(
-                        ['git', 'commit', '-am', '"Generated PID 0x{} for {}"'.format(pid_new, keyboard)],
-                        timeout=5,
-                        check=True,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT
-                    )
-                except subprocess.CalledProcessError as e:
-                    cli.log.error('Committing to git failed. {} failed with: {}'.format(e.cmd, e.output))
-                    return False
     return True
