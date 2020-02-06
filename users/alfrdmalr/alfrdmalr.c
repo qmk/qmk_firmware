@@ -35,10 +35,6 @@ void matrix_scan_user(void) {
     SEQ_FIVE_KEYS(KC_R, KC_E, KC_S, KC_E, KC_T) {
       reset_keyboard();
     }
-    // minimize window (Windows)
-    SEQ_THREE_KEYS(KC_M, KC_I, KC_N) {
-      SEND_STRING(SS_LALT(" ")"n");
-    }
     leader_end(); 
   }
 }
