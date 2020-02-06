@@ -9,7 +9,7 @@
 
 このページでは、QMK に関する特別な知識は想定していませんが、[QMK の理解](ja/understanding_qmk.md)を読むとより根本的なレベルで何が起きているかを理解するのに役立ちます。
 
-## A Word on Core vs Keyboards vs Keymap
+## コア、キーボード、キーマップ階層 :id=a-word-on-core-vs-keyboards-vs-keymap
 
 私たちは QMK を階層として構造化しました:
 
@@ -273,7 +273,7 @@ void keyboard_post_init_user(void) {
 * キーボード/リビジョン: `void keyboard_post_init_kb(void)`
 * キーマップ: `void keyboard_post_init_user(void)`
 
-# マトリックススキャンコード
+# マトリックススキャンコード :id=matrix-scanning-code
 
 可能であれば常に `process_record_*()` を使ってキーボードをカスタマイズし、その方法でイベントをフックし、コードがキーボードのパフォーマンスに悪影響を与えないようにします。ただし、まれにマトリックススキャンにフックする必要があります。これらの関数は1秒あたり少なくとも10回は呼び出されるため、これらの関数のコードのパフォーマンスに非常に注意してください。
 
