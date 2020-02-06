@@ -1,5 +1,6 @@
 # Minivan 
-A 40% keyboard made by ![thevankeyboards.com](https://thevankeyboards.com) This Dvorak keymap is for
+A 40% keyboard made first by ![thevankeyboards.com](https://thevankeyboards.com),
+now taken over by ![thekey.company](https://thekey.company). This keymap is for
 the default 12x12x12x8 arrangement (44 keys).
 
 Compile option for: Dvorak² or Qwerty+Dvorak
