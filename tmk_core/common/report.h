@@ -169,40 +169,68 @@ typedef struct {
 /* keycode to system usage */
 static inline uint16_t KEYCODE2SYSTEM(uint8_t key) {
     switch (key) {
-        case KC_SYSTEM_POWER:  return SYSTEM_POWER_DOWN;
-        case KC_SYSTEM_SLEEP:  return SYSTEM_SLEEP;
-        case KC_SYSTEM_WAKE:   return SYSTEM_WAKE_UP;
-        default:               return 0;
+        case KC_SYSTEM_POWER:
+            return SYSTEM_POWER_DOWN;
+        case KC_SYSTEM_SLEEP:
+            return SYSTEM_SLEEP;
+        case KC_SYSTEM_WAKE:
+            return SYSTEM_WAKE_UP;
+        default:
+            return 0;
     }
 }
 
 /* keycode to consumer usage */
 static inline uint16_t KEYCODE2CONSUMER(uint8_t key) {
     switch (key) {
-        case KC_AUDIO_MUTE:            return AUDIO_MUTE;
-        case KC_AUDIO_VOL_UP:          return AUDIO_VOL_UP;
-        case KC_AUDIO_VOL_DOWN:        return AUDIO_VOL_DOWN;
-        case KC_MEDIA_NEXT_TRACK:      return TRANSPORT_NEXT_TRACK;
-        case KC_MEDIA_PREV_TRACK:      return TRANSPORT_PREV_TRACK;
-        case KC_MEDIA_FAST_FORWARD:    return TRANSPORT_FAST_FORWARD;
-        case KC_MEDIA_REWIND:          return TRANSPORT_REWIND;
-        case KC_MEDIA_STOP:            return TRANSPORT_STOP;
-        case KC_MEDIA_EJECT:           return TRANSPORT_STOP_EJECT;
-        case KC_MEDIA_PLAY_PAUSE:      return TRANSPORT_PLAY_PAUSE;
-        case KC_MEDIA_SELECT:          return AL_CC_CONFIG;
-        case KC_MAIL:                  return AL_EMAIL;
-        case KC_CALCULATOR:            return AL_CALCULATOR;
-        case KC_MY_COMPUTER:           return AL_LOCAL_BROWSER;
-        case KC_WWW_SEARCH:            return AC_SEARCH;
-        case KC_WWW_HOME:              return AC_HOME;
-        case KC_WWW_BACK:              return AC_BACK;
-        case KC_WWW_FORWARD:           return AC_FORWARD;
-        case KC_WWW_STOP:              return AC_STOP;
-        case KC_WWW_REFRESH:           return AC_REFRESH;
-        case KC_BRIGHTNESS_UP:         return BRIGHTNESS_UP;
-        case KC_BRIGHTNESS_DOWN:       return BRIGHTNESS_DOWN;
-        case KC_WWW_FAVORITES:         return AC_BOOKMARKS;
-        default:                       return 0;
+        case KC_AUDIO_MUTE:
+            return AUDIO_MUTE;
+        case KC_AUDIO_VOL_UP:
+            return AUDIO_VOL_UP;
+        case KC_AUDIO_VOL_DOWN:
+            return AUDIO_VOL_DOWN;
+        case KC_MEDIA_NEXT_TRACK:
+            return TRANSPORT_NEXT_TRACK;
+        case KC_MEDIA_PREV_TRACK:
+            return TRANSPORT_PREV_TRACK;
+        case KC_MEDIA_FAST_FORWARD:
+            return TRANSPORT_FAST_FORWARD;
+        case KC_MEDIA_REWIND:
+            return TRANSPORT_REWIND;
+        case KC_MEDIA_STOP:
+            return TRANSPORT_STOP;
+        case KC_MEDIA_EJECT:
+            return TRANSPORT_STOP_EJECT;
+        case KC_MEDIA_PLAY_PAUSE:
+            return TRANSPORT_PLAY_PAUSE;
+        case KC_MEDIA_SELECT:
+            return AL_CC_CONFIG;
+        case KC_MAIL:
+            return AL_EMAIL;
+        case KC_CALCULATOR:
+            return AL_CALCULATOR;
+        case KC_MY_COMPUTER:
+            return AL_LOCAL_BROWSER;
+        case KC_WWW_SEARCH:
+            return AC_SEARCH;
+        case KC_WWW_HOME:
+            return AC_HOME;
+        case KC_WWW_BACK:
+            return AC_BACK;
+        case KC_WWW_FORWARD:
+            return AC_FORWARD;
+        case KC_WWW_STOP:
+            return AC_STOP;
+        case KC_WWW_REFRESH:
+            return AC_REFRESH;
+        case KC_BRIGHTNESS_UP:
+            return BRIGHTNESS_UP;
+        case KC_BRIGHTNESS_DOWN:
+            return BRIGHTNESS_DOWN;
+        case KC_WWW_FAVORITES:
+            return AC_BOOKMARKS;
+        default:
+            return 0;
     }
 }
 
