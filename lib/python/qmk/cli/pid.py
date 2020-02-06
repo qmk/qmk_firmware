@@ -15,8 +15,8 @@ import json
 
 from milc import cli
 
-VID_regex = re.compile(r"""^#define\s+VENDOR_ID\s+(0x[0-9a-f]{4})$""", flags=re.IGNORECASE)
-PID_regex = re.compile(r"^(#define\s+PRODUCT_ID\s+)(0x[0-9a-f]{4})$", flags=re.IGNORECASE)
+VID_regex = re.compile(r"^#define\s+VENDOR_ID\s+(0x[0-9a-f]{4})$", flags=re.IGNORECASE)
+PID_regex = re.compile(r"^(#define\s+PRODUCT_ID\s+0x)([0-9a-f]{4})$", flags=re.IGNORECASE)
 
 
 def get_ids(config_file):
@@ -105,12 +105,12 @@ def replace_pid(config_h, id_pid, pid_match):
 
     Args:
         config_h (str): The config to replace the PID in. The file has to have a "#define PRODUCT_ID 0x0000" the value doesn't matter, but has to be 2 bytes
-        id_pid (str): The PID to write in to the file
+        id_pid (str): The PID to write in to the file as 4 characters
         pid_match (re.match): The full regex match for the PID string
     """
 
     for line in fileinput.input(config_h, inplace=True):
-        print(line.replace(pid_match.group(0), "{}{}".format(pid_match.group(0)[:-4], id_pid)), end='')
+        print(line.replace(pid_match.group(0), "{}{}".format(pid_match.group(1), id_pid)), end='')
 
 
 def init(json_path):
@@ -173,7 +173,7 @@ def process_config(cli, config_path, pids_json_path, pid_match):
         return False
 
     if chopped_config_path in data['pids'].values():
-        if pid_new != pid_match.group(1)[-4:]:
+        if pid_new != pid_match.group(2):
             cli.log.warning("{} already assigned {}, but PID doesn't match.".format(keyboard, pid_new))
             if cli.args.apply:
                 replace_pid(config_path, pid_new, pid_match)
@@ -242,5 +242,4 @@ def pid(cli):
         else:
             if not process_config(cli, config_h, pids_json_path, pid_match):
                 return False
-
     return True
