@@ -20,7 +20,7 @@ Flashing example for this keyboard ([after setting up the bootloadHID flashing e
 
 Hold down the key located at *K00*, commonly programmed as *8* while plugging in the keyboard USB cable.
 
-Key *K00* is in the above picture:
+Key *K12* is in the above picture:
 
 Row 2 from the top, Column 2 from the left, see the schematic below:
 
