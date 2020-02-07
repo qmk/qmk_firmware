@@ -1,6 +1,6 @@
 # Prime_L_V2
 
-![Prime_L_V2](https://i.imgur.com/jUWhjOD.jpg)
+![Prime_L_V2](https://i.imgur.com/P3P6GUu.jpg)
 
 A compact layout with the footprint of your typical 65% board, featuring a left mini-numpad.
 
