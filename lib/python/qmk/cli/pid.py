@@ -109,7 +109,7 @@ def replace_pid(config_h, id_pid, pid_match):
         pid_match (re.match): The full regex match for the PID string
     """
 
-    comment = pid_match.group(3) if pid_match.group(3) is not None else ''
+    comment = pid_match.group(2) if pid_match.group(2) is not None else ''
     for line in fileinput.input(config_h, inplace=True):
         print(line.replace(pid_match.group(0), "{}{}{}".format(pid_match.group(1), id_pid, comment)), end='')
 
