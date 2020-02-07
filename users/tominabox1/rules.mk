@@ -1,5 +1,5 @@
 CONSOLE_ENABLE = no
-BOOTMAGIC_ENABLE = full      # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite      # Virtual DIP switch configuration
 NKRO_ENABLE = yes
 
 ifeq ($(strip $(KEYBOARD)), crkbd/rev1)
