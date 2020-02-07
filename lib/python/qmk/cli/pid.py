@@ -183,7 +183,7 @@ def process_config(cli, config_path, pids_json_path, pid_match):
             cli.log.info('%s already assigned pid 0x%s', keyboard, pid_new)
             return True
     else:
-        cli.log.info('Assigned PID 0x{} to {}'.format(pid_new, keyboard))
+        cli.log.info('Assigned PID 0x%s to %s', pid_new, keyboard)
         if cli.args.apply:
             cli.log.info('\tApplying PID')
             replace_pid(config_path, pid_new, pid_match)
