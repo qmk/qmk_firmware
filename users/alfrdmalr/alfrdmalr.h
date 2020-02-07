@@ -246,7 +246,7 @@ enum alfrdmalr_keycodes {
 
 /* SETTINGS ============================================================================
  * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |      |      |      |      |      |      |      |      | BRID | BRIU |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -273,7 +273,7 @@ enum alfrdmalr_keycodes {
 
 // RIGHT
 // - CORE
-#define ___SETTINGS_R1___    KC_NO,    KC_NO,     KC_NO,    KC_NO,    KC_NO
+#define ___SETTINGS_R1___    KC_NO,    KC_NO,     KC_NO,    KC_BRID,  KC_BRIU
 #define ___SETTINGS_R2___    KC_MPRV,  KC_MPLY,   KC_MUTE,  KC_MNXT,  KC_NO
 #define ___SETTINGS_R3___    KC_NO,    KC_VOLD,   KC_VOLU,  KC_NO,    KC_NO
 
