@@ -201,7 +201,7 @@ def process_config(cli, config_path, pids_json_path, pid_match):
                 stderr=subprocess.STDOUT
             )
         except subprocess.CalledProcessError as e:
-            cli.log.error('Committing to git failed. {} failed with: {}'.format(e.cmd, e.output))
+            cli.log.error('Committing to git failed. %s failed with: %s', e.cmd, e.output)
             return False
     return True
 
