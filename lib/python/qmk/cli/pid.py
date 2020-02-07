@@ -194,7 +194,7 @@ def process_config(cli, config_path, pids_json_path, pid_match):
         try:
             cli.log.info('\tCommitting changes to git')
             subprocess.run(
-                ['git', 'commit', '-am', '"Generated PID 0x{} for {}"'.format(pid_new, keyboard)],
+                ['git', 'commit', '-am', 'Generated PID 0x%s for %s' % (pid_new, keyboard)],
                 timeout=5,
                 check=True,
                 stdout=subprocess.PIPE,
