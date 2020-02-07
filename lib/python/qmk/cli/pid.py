@@ -178,7 +178,7 @@ def process_config(cli, config_path, pids_json_path, pid_match):
             cli.log.warning("%s already assigned %s, but PID doesn't match.", keyboard, pid_new)
             if cli.args.apply:
                 replace_pid(config_path, pid_new, pid_match)
-                cli.log.warning('\tRe-applying {} to {}'.format(pid_new, keyboard))
+                cli.log.warning('\tRe-applying %s to %s', pid_new, keyboard)
         else:
             cli.log.info('{} already assigned pid 0x{}'.format(keyboard, pid_new))
             return True
