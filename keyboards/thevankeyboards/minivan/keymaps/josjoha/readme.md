@@ -1,7 +1,8 @@
 # Minivan 
 A 40% keyboard made first by TheVan Keyboards _https://thevankeyboards.com_
 now taken over by TKC _https://thekey.company_  This keymap is for the default
-12x12x12x8 arrangement (44 keys).
+12x12x12x8 arrangement (44 keys). There are some code tokens to make it
+easier to compile for 45 or 46 keys (see keymap.c below compile options block). 
 
 Compile option for: Dvorak² or Qwerty+Dvorak
 ============================================
@@ -123,18 +124,23 @@ The 'descramble' system:
   Layers (text)
   =============
  
-     Layer _LTR (LeTteRs, standard Dvorak)
                                              | Right hand
      <pink2    <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>    // Keys by finger
      -o-                                    <|>                                    ... // -o- BASE access
      Esc       '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL         Bksp
      Tab+LCtl  aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS           -_
-     LSht+_PAD ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN   // _FUN _PAD tap
+     LSht+_PAD ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN   // _FUN _MOV tap
      -------------------------------------------------------------------------------
      Left+LAlt Del;_ACC _NSY(_DRA)  Enter+_MOV| Space  _NSY(_DRA) LGUI    Right;_RAR  // _XYZ is to layer
                hold     hold₍₂₎     hold      |        hold₍₂₎    hold    hold       // Layer switch type
                         ^---------------------+--------^                              // both hold = _DRA
-     <1        <2       <3          <4        | 4>     3>         2>      1>            // Keys by number
+     <1   ±    <2       <3    <4              | 4>     3>         2>   ±  1>            // Keys by number
+          ^¹                                                           ^²           // Optional more keys
+     
+     ¹) 'South paw' hardware configuration (#define J1)
+     ²) 'Arrow' hardware configuration (#define J4)
+     ¹ ²) There are two more optional hardware keys (#define J2, J3), to make it easier to compile for
+          a 12x12x12x11 or 12x12x12x12 layouts.
 
 Remarks: The left modifiers have a slight delay in combination with an outside pointer device (mouse, stylus).
 It seems this will be difficult to fix, because it is spread over two devices. To avoid the
@@ -158,7 +164,7 @@ Holding both `_NSY` keys left and right of the "split space bar" results in laye
      -------------------------------------------------------
      Left+LAlt Del   ___   Ent  | .   ___   LGUI  Right+RAlt
                      -*-       <|>    -*-                                         //(hold) Access on _LTR
-       <1      <2    <3    <4   | 4>  3>    2>    1>  
+       <1   ±  <2    <3    <4   | 4>  3>    2>  ± 1>  
 
 - - -
      
@@ -175,7 +181,7 @@ Holding both `_NSY` keys left and right of the "split space bar" results in laye
            LSft   LAlt   LAlt   | &LAlt                                    
            +xxx   +xxx   +xxx   | +xxx
                                <|>
-     <1    <2     <3     <4     | 4>         3>   2>     1>                
+     <1  ± <2     <3     <4     | 4>         3>   2>  ±  1>                
 
 Remarks. Unusual keys !Descr and FUN<. !Descr cycles through the 'descramble' modes. 
 Default: off. FUN< toggles an immediate return to the BASE layer after pressing an F-key, 
@@ -191,10 +197,10 @@ or staying on the `_FUN` layer. Default: return to BASE.
      BASE   PgDn  Up    PgUp  Home  Btn3  | xxx   WhDn  MsUp  WhU   WhLft Bksp
      LCtl   Left  Down  Right End   Btn1  | Btn1  MsLft MsDn  MsRht WhRht RCtl
      LSft   xxx   Acc2  Acc1  Acc0  Btn2  | xxx   Btn2  Btn3  Btn4  Btn5  RSft         //(toggle) on BASE
-     --------------------------------------------------------
+     ---------------------------------------------
      LAlt Del   Ent   ___ | PgUp  PgDn  LGUI  RAlt
                       -*-<|>                                                             //(hold) on BASE
-     <1   <2    <3    <4  | 4>    3>    2>    1>  
+     <1 ± <2    <3    <4  | 4>    3>    2>  ± 1>  
 
 Remarks. It is fairly easy to switch from this horizontal arrow layout, to a wasd layout which also
 switches left with right hand. See `ARROW_TRIANGLE` and `ARROW_LEFT` #defines at the top of keymap.c.
@@ -215,7 +221,7 @@ index and middle fingers are stronger than ring and pinky fingers.
      ------------------------------------------------
      MLed  SLeds RGUI  xxx  | RSft(•) xxx   LGUI  ___                    // Middle-led, Side-leds: on/off
                            <|>
-     <1    <2    <3    <4   | 4>      3>    2>    1>  
+     <1  ± <2    <3    <4   | 4>      3>    2>  ± 1>  
 
 Remarks. Ü is a Unicode tester key. uLNX for Linux Unicode input encoding, uBSD
 for BSD Unix, uWIN for Windos, uWNC for another Windos encoding. The
@@ -238,9 +244,10 @@ assist.
      BASE     xxx   xxx   .DEL  4LEFT 2DOWN | 8UP   6RGHT *     xxx   xxx   Bspc
      LCtl     1END  2DOWN 3PGDN 4LEFT 5     | 6RGHT 7HOME 8UP   9PGUP 0INS     -
      LSft     xxx   xxx   /     xxx   =     | +     3PGDN 1END  7HOME 9PGUP RSft
-     -*------------------------------------------------------                       //-*-  toggle on BASE
+     -*-------------------------------------------------                            //-*-  toggle on BASE
      LAlt     Del   Tab   ENT  |  NUML  xxx   LGUI  RAlt
                               <|>
+     <1   ±   <2    <3    <4   | 4>     3>    2>  ± 1>  
 
 Remarks: The keys between `.DEL` and `*`, `+` and `RSft` constitute left handed
 navigation clusters. The other keys are on the same locations as their normal
@@ -260,7 +267,7 @@ key in `_RAR` (as Shift).
      ---------------------------------------------
      LAlt ___   RGUI  Ent  | Spc   xxx   LGUI  xxx
           -*-             <|>                                                            //(hold) on BASE
-     <1   <2    <3    <4   | 4>    3>    2>    1>  
+     <1 ± <2    <3    <4   | 4>    3>    2>  ± 1>  
 
 - - -
    
@@ -281,7 +288,7 @@ Remarks. This layer is seamlessly activated with 'descramble'
      ----------------------------------------------
      LAlt Del   ___   Ent  | Spc   ___   LGUI  RGUI
                 -*-       <|>      -*-                                                   //(hold) on BASE
-     <1   <2    <3    <4   | 4>    3>    2>    1>  
+     <1 ± <2    <3    <4   | 4>    3>    2>  ± 1>  
 
 - - -
    
@@ -305,7 +312,7 @@ Remarks. This layer is seamlessly activated with 'descramble'
      -------------------------------------------------------
      Left+LAlt Del   ___   Ent  | .   ___   LGUI  Right+RAlt
                      -*-       <|>    -*-                                         //(hold) Access on _LTR
-       <1      <2    <3    <4   | 4>  3>    2>    1>  
+       <1   ±  <2    <3    <4   | 4>  3>    2>  ± 1>  
 
      _DDN input results in the same as _NSY with computer side Dvorak remapping. Only shown what changes:
 
@@ -326,7 +333,7 @@ Remarks. This layer is seamlessly activated with 'descramble'
      -------------------------------------------------------------------
      Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space  _NSY LGUI    Right;_DRA              // _XYZ is to layer
                hold     hold  hold      |        hold         hold                   // Layer switch type
-     <1        <2       <3    <4        | 4>     3>   2>      1>                        // Keys by number
+     <1   ±    <2       <3    <4        | 4>     3>   2>   ±  1>                        // Keys by number
 
 
      _DDL input results in the same as _LTR with computer side Dvorak remapping. Only shown what changes:

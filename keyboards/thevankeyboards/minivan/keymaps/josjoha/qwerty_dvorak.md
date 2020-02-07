@@ -54,7 +54,7 @@ Layer _LTR (LeTteRs). This is standard Qwerty (#define QWERTY_DVORAK set.)
      -------------------------------------------------------------------
      Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space  _NSY LGUI    Right;_DRA              // _XYZ is to layer
                hold     hold  hold      |        hold         hold                   // Layer switch type
-     <1        <2       <3    <4        | 4>     3>   2>      1>                        // Keys by number
+     <1   ±    <2       <3    <4        | 4>     3>   2>   ±  1>                        // Keys by number
 
 - - -
 
@@ -70,7 +70,7 @@ Layer _LTR (LeTteRs). This is standard Qwerty (#define QWERTY_DVORAK set.)
      -------------------------------------------------------
      Left+LAlt Del   ___   Ent  | .   ___   LGUI  Right+RAlt
                      -*-       <|>    -*-                                         //(hold) Access on _LTR
-       <1      <2    <3    <4   | 4>  3>    2>    1>  
+       <1   ±  <2    <3    <4   | 4>  3>    2>  ± 1>  
 
 
                     ───────────────Dvorak─────────────────
@@ -85,7 +85,7 @@ Layer _LTR (LeTteRs). This is standard Qwerty (#define QWERTY_DVORAK set.)
      -------------------------------------------------------------------
      Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space  _NSY LGUI    Right;_DRA              // _XYZ is to layer
                hold     hold  hold      |        hold         hold                   // Layer switch type
-     <1        <2       <3    <4        | 4>     3>   2>      1>                        // Keys by number
+     <1   ±    <2       <3    <4        | 4>     3>   2>   ±  1>                        // Keys by number
 
 - - -
 
@@ -99,7 +99,7 @@ Layer _LTR (LeTteRs). This is standard Qwerty (#define QWERTY_DVORAK set.)
      -------------------------------------------------------
      Left+LAlt Del   ___   Ent  | .   ___   LGUI  Right+RAlt
                      -*-       <|>    -*-                                         //(hold) Access on _LTR
-       <1      <2    <3    <4   | 4>  3>    2>    1>  
+       <1   ±  <2    <3    <4   | 4>  3>    2>  ± 1>  
 
 
                     ──────────────in common───────────────
@@ -117,7 +117,7 @@ Layer _LTR (LeTteRs). This is standard Qwerty (#define QWERTY_DVORAK set.)
            LSft   LAlt   LAlt   | &LAlt                                    
            +xxx   +xxx   +xxx   | +xxx
                                <|>
-     <1    <2     <3     <4     | 4>         3>   2>     1>                
+     <1  ± <2     <3     <4     | 4>         3>   2>  ±  1>                
 
 Remarks. Unusual keys !Qwe/Dvo and FUN<. !Qwe/Dvo switches between (plain) Qwerty and Dvorak.
 Default: Qwerty. FUN< toggles an immediate return to the BASE layer after pressing an F-key, 
@@ -141,7 +141,7 @@ layers are present in Qwerty+Dvorak too (accented letters and additional symbols
      ---------------------------------------------------------
      LAlt Del   Ent   ___ | PgUp  PgDn  LGUI  RAlt
                       -*-<|>                                                             //(hold) on BASE
-     <1   <2    <3    <4  | 4>    3>    2>    1>  
+     <1 ± <2    <3    <4  | 4>    3>    2>  ± 1>  
 
 Remarks. It is fairly easy to switch from this horizontal arrow layout, to a wasd layout which also
 switches left with right hand. See `ARROW_TRIANGLE` and `ARROW_LEFT` #defines at the top of keymap.c.
@@ -162,7 +162,7 @@ index and middle fingers are stronger than ring and pinky fingers.
      ------------------------------------------------
      MLed  SLeds RGUI  xxx  | RSft(•) xxx   LGUI  App                    // Middle-led, Side-leds: on/off
                            <|>
-     <1    <2    <3    <4   | 4>      3>    2>    1>  
+     <1  ± <2    <3    <4   | 4>      3>    2>  ± 1>  
 
 Remarks. Ü is a Unicode tester key. uLNX for Linux Unicode input encoding, uBSD
 for BSD Unix, uWIN for Windos, uWNC for another Windos encoding. The
@@ -188,6 +188,7 @@ assist.
      -*------------------------------------------------------                       //-*-  toggle on BASE
      LAlt     Del   Tab   ENT  |  NUML  xxx   LGUI  RAlt
                               <|>
+     <1   ±   <2    <3    <4   |  4>    3>    2>  ± 1>  
 
 Remarks: The keys between `.DEL` and `*`, `+` and `RSft` constitute left handed
 navigation clusters. The other keys are on the same locations as their normal
@@ -207,7 +208,7 @@ key in `_RAR` (as Shift).
      ---------------------------------------------
      LAlt ___   RGUI  Ent  | Spc   xxx   LGUI  xxx
           -*-             <|>                                                            //(hold) on BASE
-     <1   <2    <3    <4   | 4>    3>    2>    1>  
+     <1 ± <2    <3    <4   | 4>    3>    2>  ± 1>  
 
 - - -
     
@@ -222,7 +223,7 @@ key in `_RAR` (as Shift).
      ---------------------------------------------
      LAlt Del   RGUI  Ent  | Spc   xxx   LGUI  ___
                           <|>                  -*-                                       //(hold) on BASE
-     <1   <2    <3    <4   | 4>    3>    2>    1>  
+     <1 ± <2    <3    <4   | 4>    3>    2>  ± 1>  
 
 - - -
 

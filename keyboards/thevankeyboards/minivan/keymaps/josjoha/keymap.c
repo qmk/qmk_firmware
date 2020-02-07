@@ -41,6 +41,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *       (unknown)
  */
 
+#include QMK_KEYBOARD_H
+
 // ----------------------------- Configuration: -------------------------------------
 
 
@@ -129,6 +131,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Below here no more comfortable configuration options.....
 // --------------------------------------^---------------------------------------
 
+        // Experimental, only tested for compilation.
+        /*                            More keys on 1st row ('Command' / 'Arrow / both).
+         *
+         * Unfortunately (for now) it seems you need to use an editor, and change the
+         * occurences of J1, J2, J3, and J4 by hand, to a key that you want, plus a
+         * comma in the right spot. There is one space on both sides of these tokens.
+         * J1 and J2 are on the left side, they take a leading comma.
+         * J3 and J4 are on the right, they take a trailing comma.
+         *
+         * " J1 " becomes " , KC_A " if you want the letter 'a' there on each layer.
+         *  .. and then undo the change in the #define of J1 just below, or comment that out.
+         * Probably you don't want an 'a' there, and you may want to edit that further by layer.
+         * In editor vim :%s/ J1 / , KC_A /
+         * There are also occurences in qwerty_dvorak.c which need to be edited by hand,
+         * if QWERTY_DVORAK is set.
+         */
+
+#define LAYOUT_redefined LAYOUT                // Default (8 keys on 1st row)
+//#define LAYOUT_redefined LAYOUT_arrow          // Additional key 1st row on the right.
+//#define LAYOUT_redefined LAYOUT_command        // Additional key 1st row on the left.
+//#define LAYOUT_redefined LAYOUT_arrow_command  // Additional keys 1st row both left and right.
+//
+// Unfortunately this did not work:
+//#define J1 , KC_A  // Additional key 1st row on the left.
+// It seems you would have to use an editor, and replace occurences of these
+// symbols by hand, to a key that you want, and then compile it.
+#define J1         // Additional key 1st row on the left.
+#define J2 
+#define J3 
+#define J4         // Additional key 1st row on the right.
+
+
   /* Overview of the code
    *
    * The two compile options imply that the Qwerty-Dvorak variant re-defines
@@ -141,7 +175,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    * The Unicode is in unicode_macros.c/h.
    */
 
-
 // Set up user GUI choice:
 #ifndef SWITCH_GUIS
     #define KC__XGUI KC_LGUI
@@ -151,8 +184,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define KC__XGUI KC_RGUI
     #define KC__YGUI KC_LGUI
 #endif
-
-#include QMK_KEYBOARD_H
 
 // Notice this order in layer_state_set_user as well, regarding the led indicators.
 // Below #defines the internal order of the layers.
@@ -414,7 +445,7 @@ layer_state_t layer_state_set_user (layer_state_t state) {
   return state;
 }
 
-// -------------------------------- layouts -------------------------------
+// -------------------------------- layers --------------------------------
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -433,7 +464,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *   space is not dual use (most ued key), neither is hyphen.
      */ 
 
-    [ _LTR ] = LAYOUT (
+    [ _LTR ] = LAYOUT_redefined (
 
 /*
      Layer _LTR (LeTteRs, standard Dvorak)
@@ -447,8 +478,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      Left+LAlt Del;_ACC _NSY(_DRA)  Enter+_MOV| Space  _NSY(_DRA) LGUI    Right;_RAR  // _XYZ is to layer
                hold     hold₍₂₎     hold      |        hold₍₂₎    hold    hold       // Layer switch type
                         ^---------------------+--------^                              // both hold = _DRA
-     <1        <2       <3    <4              | 4>     3>   2>      1>                  // Keys by number
-
+     <1   ±    <2       <3    <4              | 4>     3>         2>   ±  1>            // Keys by number
+          ^¹                                                           ^²           // Optional more keys
+     
+     ¹) 'South paw' hardware configuration (#define J1)
+     ²) 'Arrow' hardware configuration (#define J4)
+     ¹ ²) There are two more optional hardware keys (#define J2, J3), to make it easier to compile for
+          a 12x12x12x11 or 12x12x12x12 layouts.
 */
 //
 //      <pink2            , <pinky  , <ring   , <middl , <indx, <ind|, indx>, inde>, midd>, ring>, pink>, pink2>        ,
@@ -456,10 +492,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC            , KC_QUOT , KC_COMM , KC_DOT , KC_P , KC_Y , KC_F , KC_G , KC_C , KC_R , KC_L , KC_BSPC       ,
         LCTL_T ( KC_TAB ) , KC_A    , KC_O    , KC_E   , KC_U , KC_I , KC_D , KC_H , KC_T , KC_N , KC_S , KC_MINS       ,
         CHOLTAP_LSHFT     , KC_SCLN , KC_Q    , KC_J   , KC_K , KC_X , KC_B , KC_M , KC_W , KC_V , KC_Z , CHOLTAP_RSHFT ,
-//      -----------------------------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , CHOLTAP_ACCE , DUO_HOLD , LT ( _MOV , KC_ENT ) , KC_SPC , DUO_HOLD , KC__YGUI , CHOLTAP_LAYR
-//                         ,              ,          ,                    <|,>       ,          ,          ,
-//      <1                 , <2           , <3       , <4                  |, 4>     , 3>       , 2>       , 1>
+//      -----------------------------------------------------------------------------------------------------------------------------
+        LALT_T ( KC_LEFT ) J1 J2 , CHOLTAP_ACCE , DUO_HOLD , LT ( _MOV , KC_ENT ) , KC_SPC , DUO_HOLD , KC__YGUI , J3 J4 CHOLTAP_LAYR
+//                               ,              ,          ,                    <|,>       ,          ,          ,
+//      <1                 ±  ±  , <2           , <3       , <4                  |, 4>     , 3>       , 2>       , ±  ±  1>
                       ),
 
         /**/
@@ -503,7 +539,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *
      */
 
-    [ _DDL ] = LAYOUT (
+    [ _DDL ] = LAYOUT_redefined (
 
 /*
      Layer _DDL (Dvorak descramble mode for letters)
@@ -517,7 +553,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      Left+LAlt Del;_DDA _DDN(DRAW)  Enter+_MOV| Space  _DDN(DRAW) LGUI    Right;_RAR  // _XYZ is to layer
                hold     hold₍₂₎     hold      |        hold₍₂₎    hold    hold       // Layer switch type
                         ^---------------------+--------^                              // both hold = DRAW
-     <1        <2       <3          <4        | 4>     3>         2>      1>            // Keys by number
+     <1   ±    <2       <3          <4        | 4>     3>         2>   ±  1>            // Keys by number
 
 
      _DDL input results in the same as _LTR with computer side Dvorak remapping. Only shown what changes:
@@ -536,10 +572,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC            , KC_Q , KC_W , KC_E , KC_R , KC_T , KC_Y , KC_U , KC_I    , KC_O   , KC_P    , KC_BSPC       ,
         LCTL_T ( KC_TAB ) , KC_A , KC_S , KC_D , KC_F , KC_G , KC_H , KC_J , KC_K    , KC_L   , KC_SCLN , KC_QUOT       ,
         CHOLTAP_LSHFT     , KC_Z , KC_X , KC_C , KC_V , KC_B , KC_N , KC_M , KC_COMM , KC_DOT , KC_SLSH , CHOLTAP_RSHFT ,
-//      -----------------------------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , CHOLTAP_ACCE , DUO_HOLD , LT ( _MOV , KC_ENT ) , KC_SPC , DUO_HOLD , KC__YGUI , CHOLTAP_LAYR
-//                         ,              ,          ,                    <|,>       ,          ,          ,
-//      <1                 , <2           , <3       , <4                  |, 4>     , 3>       , 2>       , 1>
+//      -----------------------------------------------------------------------------------------------------------------------------
+        LALT_T ( KC_LEFT ) J1 J2 , CHOLTAP_ACCE , DUO_HOLD , LT ( _MOV , KC_ENT ) , KC_SPC , DUO_HOLD , KC__YGUI , J3 J4 CHOLTAP_LAYR
+//                               ,              ,          ,                    <|,>       ,          ,          ,
+//      <1                 ±  ±  , <2           , <3       , <4                  |, 4>     , 3>       , 2>       , ±  ±  1>
                       ),
 
         /**/
@@ -549,7 +585,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     // KC_TILD does not work there, because of a limitation with shifted keys (nov 2019).
 
-    [ _NSY ] = LAYOUT (
+    [ _NSY ] = LAYOUT_redefined (
 
 /*
      Layer _NSY (Numbers and SYmbols)
@@ -562,7 +598,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      -------------------------------------------------------
      Left+LAlt Del   ___   Ent  | .   ___   LGUI  Right+RAlt
                      -*-       <|>    -*-                                         //(hold) Access on _LTR
-       <1      <2    <3    <4   | 4>  3>    2>    1>  
+       <1   ±  <2    <3    <4   | 4>  3>    2>  ± 1>  
 */
 //
 //
@@ -571,10 +607,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CTO_BASE           , KC_EXLM , KC_AT   , KC_HASH , KC_DLR  , KC_PERC , KC_CIRC , KC_AMPR , KC_ASTR , KC_LPRN , KC_RPRN , KC_BSPC            ,
         LCTL_T ( KC_TAB )  , KC_1    , KC_2    , KC_3    , KC_4    , KC_5    , KC_6    , KC_7    , KC_8    , KC_9    , KC_0    , RCTL_T ( KC_GRV )  , 
         LSFT_T ( KC_MINS ) , KC_LBRC , KC_RBRC , KC_SLSH , KC_BSLS , KC_EQL  , KC_PLUS , KC_PIPE , KC_QUES , KC_LCBR , KC_RCBR , RSFT_T ( KC_TILD ) ,  
-//      -------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , KC_DEL , DUO_HOLD , KC_ENT , KC_DOT , DUO_HOLD , KC__YGUI , RALT_T ( KC_RGHT )
-//                         ,        , -*-      ,      <|,>       , -*-      ,          ,
-//      <1                 , <2     , <3       , <4    |, 4>     , 3>       , 2>       , 1>
+//      ---------------------------------------------------------------------------------------------------------------
+        LALT_T ( KC_LEFT ) J1 J2 , KC_DEL , DUO_HOLD , KC_ENT , KC_DOT , DUO_HOLD , KC__YGUI , J3 J4 RALT_T ( KC_RGHT )
+//                               ,        , -*-      ,      <|,>       , -*-      ,          ,
+//      <1                 ±  ±  , <2     , <3       , <4    |, 4>     , 3>       , 2>       , ±  ±  1>
                       ),
 
         /**/
@@ -585,7 +621,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     // KC_TILD does not work there, because of a limitation with shifted keys (nov 2019).
 
-    [ _DDN ] = LAYOUT (
+    [ _DDN ] = LAYOUT_redefined (
 
 /*
      Layer _DDN (Dvorak descramble mode for numbers/symbols)
@@ -598,7 +634,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      -------------------------------------------------------
      Left+LAlt Del   ___   Ent  | .   ___   LGUI  Right+RAlt
                      -*-       <|>    -*-                                         //(hold) Access on _LTR
-       <1      <2    <3    <4   | 4>  3>    2>    1>  
+       <1   ±  <2    <3    <4   | 4>  3>    2>  ± 1>  
 
      _DDN input results in the same as _NSY with computer side Dvorak remapping. Only shown what changes:
 
@@ -610,10 +646,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CTO_BASE           , KC_EXLM , KC_AT  , KC_HASH , KC_DLR  , KC_PERC , KC_CIRC , KC_AMPR , KC_ASTR , KC_LPRN , KC_RPRN , KC_BSPC            ,
         LCTL_T ( KC_TAB )  , KC_1    , KC_2   , KC_3    , KC_4    , KC_5    , KC_6    , KC_7    , KC_8    , KC_9    , KC_0    , RCTL_T ( KC_GRV )  , 
         LSFT_T ( KC_MINS ) , KC_MINS , KC_EQL , KC_LBRC , KC_BSLS , KC_RBRC , KC_RCBR , KC_PIPE , KC_LCBR , KC_UNDS , KC_PLUS , RSFT_T ( KC_TILD ) ,  
-//  -----------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , KC_DEL , DUO_HOLD , KC_ENT , KC_DOT , DUO_HOLD , KC__YGUI , RALT_T ( KC_RGHT )
-//                         ,        , -*-      ,      <|,>       , -*-      ,          ,
-//      <1                 , <2     , <3       , <4    |, 4>     , 3>       , 2>       , 1>
+//  -------------------------------------------------------------------------------------------------------------------
+        LALT_T ( KC_LEFT ) J1 J2 , KC_DEL , DUO_HOLD , KC_ENT , KC_DOT , DUO_HOLD , KC__YGUI , J3 J4 RALT_T ( KC_RGHT )
+//                               ,        , -*-      ,      <|,>       , -*-      ,          ,
+//      <1                 ±  ±  , <2     , <3       , <4    |, 4>     , 3>       , 2>       , ±  ±  1>
                       ),
 
         /**/
@@ -625,7 +661,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *          Also delete/backspace, to navigate and delete together.
      */
 
-    [ _MOV ] = LAYOUT (
+    [ _MOV ] = LAYOUT_redefined (
 
 /*
      triangle layout:
@@ -636,10 +672,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      BASE   PgDn  Up    PgUp  Home  Btn3  | xxx   WhDn  MsUp  WhU   WhLft Bksp
      LCtl   Left  Down  Right End   Btn1  | Btn1  MsLft MsDn  MsRht WhRht RCtl
      LSft*- xxx   Acc2  Acc1  Acc0  Btn2  | xxx   Btn2  Btn3  Btn4  Btn5  RSft         //(toggle) on BASE
-     ---------------------------------------------------------
+     ---------------------------------------------
      LAlt Del   Ent   ___ | PgUp  PgDn  LGUI  RAlt
                       -*-<|>                                                             //(hold) on BASE
-     <1   <2    <3    <4  | 4>    3>    2>    1>  
+     <1 ± <2    <3    <4  | 4>    3>    2>  ± 1>  
 
      flat layout (mouse movement on left hand):
     
@@ -648,10 +684,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      BASE   WLft  WDn   WUp   WRht  xxx   | Btn3  PgUp  Home  End   PgDn  Bksp
      LCtl   MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
      LSft*- Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSft         //(toggle) on BASE
-     ---------------------------------------------------------
+     ---------------------------------------------
      LAlt Del   Ent   ___ | PgUp  PgDn  LGUI  RAlt
                       -*-<|>                                                             //(hold) on BASE
-     <1   <2    <3    <4  | 4>    3>    2>    1>  
+     <1 ± <2    <3    <4  | 4>    3>    2>  ± 1>  
  */
 
          /* Inner default navigation/mouse layout. 11 means row 1, column 1, etc.
@@ -800,10 +836,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CTO_BASE , LEFT_AA , LEFT_AB , LEFT_AC , LEFT_AD , LEFT_AE , RGHT_AA , RGHT_AB , RGHT_AC , RGHT_AD , RGHT_AE , KC_BSPC ,
         KC_LCTL  , LEFT_BA , LEFT_BB , LEFT_BC , LEFT_BD , LEFT_BE , RGHT_BA , RGHT_BB , RGHT_BC , RGHT_BD , RGHT_BE , KC_RCTL ,
         KC_LSFT  , LEFT_CA , LEFT_CB , LEFT_CC , LEFT_CD , LEFT_CE , RGHT_CA , RGHT_CB , RGHT_CC , RGHT_CD , RGHT_CE , KC_RSFT ,
-//      ---------------------------------------------------------------------------------------------------
-        KC_LALT , KC_DEL  , KC_ENT , _______ , KC_PGUP , KC_PGDN , KC__YGUI , KC_RALT
-//              ,         ,        , -*-   <|,>        ,         ,          ,
-//      <1      , <2      , <3     , <4     |, 4>      , 3>      , 2>       , 1>
+//      -----------------------------------------------------------------------------------------
+        KC_LALT J1 J2 , KC_DEL  , KC_ENT , _______ , KC_PGUP , KC_PGDN , KC__YGUI , J3 J4 KC_RALT
+//                    ,         ,        , -*-   <|,>        ,         ,          ,
+//      <1      ±  ±  , <2      , <3     , <4     |, 4>      , 3>      , 2>       , ±  ±  1>
                       ),
 
         /**/
@@ -827,7 +863,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *            case some program needs them suddenly.
      */
 
-    [ _RAR ] = LAYOUT (
+    [ _RAR ] = LAYOUT_redefined (
 
 /*
      _RAR (RARely used keys) (Only through _FUN layer)
@@ -840,7 +876,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      ------------------------------------------------
      MLed  SLeds RGUI  xxx  | RSft(•) xxx   LGUI  ___                    // Middle-led, Side-leds: on/off
                            <|>                    -*-                                   // (Hold) on BASE
-     <1    <2    <3    <4   | 4>      3>    2>    1>  
+     <1  ± <2    <3    <4   | 4>      3>    2>  ± 1>  
  */
 //
 //
@@ -849,10 +885,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CTO_BASE      , XXXXXXX          , XXXXXXX          , XXXXXXX          , XXXXXXX          , XXXXXXX           , XXXXXXX , KC_MPLY , KC_MNXT , KC_MPRV , KC_MSTP , KC_NLCK ,
         S ( KC_P )    , C_KC_PWR         , C_KC_WAKE        , C_KC_SLEP        , C_KC_PAUS        , KC_SLCK           , KC_PSCR , XXXXXXX , KC_VOLU , KC_VOLD , KC_MUTE , KC_CAPS ,
         X ( CUU_DIA ) , UNICODE_MODE_LNX , UNICODE_MODE_BSD , UNICODE_MODE_OSX , UNICODE_MODE_WIN , UNICODE_MODE_WINC , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_INS  , KC_APP  ,
-//      -------------------------------------------------------------------------------
-        RGB_TOG , LEDS_ON , KC__XGUI , XXXXXXX , KC_RSFT , XXXXXXX , KC__YGUI , _______
-//              ,         ,          ,       <|,>        ,         ,          ,
-//      <1      , <2      , <3       , <4     |, 4>      , 3>      , 2>       , 1>
+//      --------------------------------------------------------------------------------------------
+        RGB_TOG J1 J2 , LEDS_ON , KC__XGUI , XXXXXXX , KC_RSFT , XXXXXXX , KC__YGUI , J3 J4 _______
+//                    ,         ,          ,       <|,>        ,         ,          ,
+//      <1      ±  ±  , <2      , <3       , <4     |, 4>      , 3>      , 2>       , ±  ±  1>
                       ),
 
         /**/
@@ -862,7 +898,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *             Number pad navigation will be more or less useless.
      */
 
-    [ _PAD ] = LAYOUT (
+    [ _PAD ] = LAYOUT_redefined (
 
 /*
      Layer _PAD Numbers Pad (special symbol versions; regular '1' is not the same as this numpad '1', etc)
@@ -875,6 +911,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      -*------------------------------------------------------                       //-*-  toggle on BASE
      LAlt     Del   Tab   ENT  |  NUML  xxx   LGUI  RAlt
                               <|>
+     <1   ±   <2    <3    <4   |  4>    3>    2>  ± 1>  
 
  */
 
@@ -884,10 +921,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CTO_BASE , XXXXXXX , XXXXXXX , KC_DOT      , KC_KP_4 , KC_KP_2     , KC_KP_8    , KC_KP_6 , KC_KP_ASTERISK , XXXXXXX , XXXXXXX , KC_BSPC     ,
         KC_LCTL  , KC_KP_1 , KC_KP_2 , KC_KP_3     , KC_KP_4 , KC_KP_5     , KC_KP_6    , KC_KP_7 , KC_KP_8        , KC_KP_9 , KC_KP_0 , KC_KP_MINUS ,
         KC_LSFT  , XXXXXXX , XXXXXXX , KC_KP_SLASH , XXXXXXX , KC_KP_EQUAL , KC_KP_PLUS , KC_KP_3 , KC_KP_1        , KC_KP_7 , KC_KP_9 , KC_RSFT     ,
-//      ------------------------------------------------------------------------------------
-        KC_LALT , KC_DEL , KC_TAB , KC_KP_ENTER , KC_NUMLOCK , XXXXXXX , KC__YGUI , KC_RALT
-//              ,        ,        ,           <|,>           ,         ,          ,
-//      <1      , <2     , <3     , <4         |, 4>         , 3>      , 2>       , 1>
+//      ------------------------------------------------------------------------------------------------
+        KC_LALT J1 J2 , KC_DEL , KC_TAB , KC_KP_ENTER , KC_NUMLOCK , XXXXXXX , KC__YGUI , J3 J4 KC_RALT
+//                    ,        ,        ,           <|,>           ,         ,          ,
+//      <1      ±  ±  , <2     , <3     , <4         |, 4>         , 3>      , 2>       , ±  ±  1>
                       ),
 
         /**/
@@ -930,7 +967,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *       See _RAR about why GUI is here.
      */ 
 
-    [ _ACC ] = LAYOUT (
+    [ _ACC ] = LAYOUT_redefined (
 
 /*
      Layer _ACC (ACCented characters, see _RAR layer for input modes)
@@ -943,7 +980,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      ---------------------------------------------
      LAlt ___   RGUI  Ent  | Spc   xxx   LGUI  xxx
           -*-             <|>                                                            //(hold) on BASE
-     <1   <2    <3    <4   | 4>    3>    2>    1>  
+     <1 ± <2    <3    <4   | 4>    3>    2>  ± 1>  
  */
 //
 //      <pink2      , <pinky                   , <ring                    , <middl                   , <index                   , <indx2                  |, indx2>                   , index>                   , middl>                   , ring>                    , pinky>                   , pink2>  ,
@@ -951,10 +988,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CTO_BASE    , XP ( CAL_ACU , CAU_ACU ) , XP ( COL_ACU , COU_ACU ) , XP ( CEL_ACU , CEU_ACU ) , XP ( CUL_ACU , CUU_ACU ) , XP ( CIL_ACU , CIU_ACU ) , XP ( CYL_ACU , CYU_ACU ) , XP ( CIJL_BI , CIJU_BI ) , XP ( CCL_CDL , CCU_CDL ) , XP ( COL_STK , COU_STK ) , XP ( CAL_RNG , CAU_RNG ) , KC_BSPC ,
         KC_TAB      , XP ( CAL_DIA , CAU_DIA ) , XP ( COL_DIA , COU_DIA ) , XP ( CEL_DIA , CEU_DIA ) , XP ( CUL_DIA , CUU_DIA ) , XP ( CIL_DIA , CIU_DIA ) , XP ( CYL_DIA , CYU_DIA ) , XP ( COEL_BI , COEU_BI ) , XP ( CAEL_BI , CAEU_BI ) , XP ( CNL_TLD , CNU_TLD ) , X ( CSL_SHP )            , KC_RCTL ,
         KC_LSFT     , XP ( CAL_GRA , CAU_GRA ) , XP ( COL_GRA , COU_GRA ) , XP ( CEL_GRA , CEU_GRA ) , XP ( CUL_GRA , CUU_GRA ) , XP ( CIL_GRA , CIU_GRA ) , XP ( CIL_CAR , CIU_CAR ) , XP ( CUL_CAR , CUU_CAR ) , XP ( CEL_CAR , CEU_CAR ) , XP ( COL_CAR , COU_CAR ) , XP ( CAL_CAR , CAU_CAR ) , KC_RSFT ,
-//      ----------------------------------------------------------------------------
-        KC_LALT , _______ , KC__XGUI , KC_ENT , KC_SPC , XXXXXXX , KC__YGUI , XXXXXXX 
-//              , -*-     ,          ,      <|,>       ,         ,          , 
-//      <1      , <2      , <3       , <4    |, 4>     , 3>      , 2>       , 1>
+//      -----------------------------------------------------------------------------------------
+        KC_LALT J1 J2 , _______ , KC__XGUI , KC_ENT , KC_SPC , XXXXXXX , KC__YGUI , J3 J4 XXXXXXX 
+//                    , -*-     ,          ,      <|,>       ,         ,          , 
+//      <1      ±  ±  , <2      , <3       , <4    |, 4>     , 3>      , 2>       , ±  ±  1>
                       ),
 
         /**/
@@ -967,7 +1004,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *
      */
 
-    [ _DDA ] = LAYOUT (
+    [ _DDA ] = LAYOUT_redefined (
 
 /*
      Layer _ACC (ACCented characters, see _RAR layer for input modes)
@@ -980,7 +1017,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      ---------------------------------------------
      LAlt ___   RGUI  Ent  | Spc   xxx   LGUI  xxx
           -*-             <|>                                                            //(hold) on BASE
-     <1   <2    <3    <4   | 4>    3>    2>    1>  
+     <1 ± <2    <3    <4   | 4>    3>    2>  ± 1>  
  */
 //
 //      <pink2   , <pinky   , <ring    , <middl   , <index   , <indx2  |, indx2>   , index>   , middl>   , ring>    , pinky>   , pink2>  ,
@@ -988,10 +1025,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CTO_BASE , UN_A_ACU , UN_O_ACU , UN_E_ACU , UN_U_ACU , UN_I_ACU , UN_Y_ACU , UN_IJ_BI , UN_C_CDL , UN_O_STK , UN_A_RNG , KC_BSPC ,
         KC_LCTL  , UN_A_DIA , UN_O_DIA , UN_E_DIA , UN_U_DIA , UN_I_DIA , UN_Y_DIA , UN_OE_BI , UN_AE_BI , UN_N_TLD , UN_S_SHP , KC_RCTL ,
         KC_LSFT  , UN_A_GRA , UN_O_GRA , UN_E_GRA , UN_U_GRA , UN_I_GRA , UN_I_CAR , UN_U_CAR , UN_E_CAR , UN_O_CAR , UN_A_CAR , KC_RSFT ,
-//      ----------------------------------------------------------------------------
-        KC_LALT , _______ , KC__XGUI , KC_ENT , KC_SPC , XXXXXXX , KC__YGUI , XXXXXXX 
-//              , -*-     ,          ,      <|,>       ,         ,          ,
-//      <1      , <2      , <3       , <4    |, 4>     , 3>      , 2>       , 1>
+//      -----------------------------------------------------------------------------------------
+        KC_LALT J1 J2 , _______ , KC__XGUI , KC_ENT , KC_SPC , XXXXXXX , KC__YGUI , J3 J4 XXXXXXX 
+//                    , -*-     ,          ,      <|,>       ,         ,          ,
+//      <1      ±  ±  , <2      , <3       , <4    |, 4>     , 3>      , 2>       , ±  ±  1>
                       ),
 
 #endif // QWERTY_DVORAK   :   :   ^   :   :   ^   :   :   ^   :   :   ^   :   :   ^   
@@ -1004,7 +1041,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *   
      */
 
-    [ _DRA ] = LAYOUT (
+    [ _DRA ] = LAYOUT_redefined (
 
 /*
      Layer _DRA (DRAwings, whatever else (rendering width varies in different applications))
@@ -1017,7 +1054,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      ----------------------------------------------
      LAlt Del   ___   Ent  | Spc   ___   LGUI  RGUI
                 -*-       <|>      -*-                                                   //(hold) on BASE
-     <1   <2    <3    <4   | 4>    3>    2>    1>  
+     <1 ± <2    <3    <4   | 4>    3>    2>  ± 1>  
  */
 //
 //      <pink2   , <pinky                     , <ring                      , <middl                       , <index                     , <indx2                      |, indx2>                       , index>                       , middl>                   , ring>                        , pinky>                       , pink2>  ,
@@ -1025,10 +1062,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CTO_BASE , XP ( CS_DQUL , CS_DQUHR )  , XP ( CS_DQUH , CS_USER )   , XP ( CS_CURREN , CS_POUND )  , XP ( CS_NONE , CS_CENT )   , XP ( CS_PLMI , CS_LGULDEN )  , XP ( CS_FLEUR , CS_HEART )   , XP ( CS_SMIL , CS_SAD_ )     , XP ( CS_THUP , CS_THDN ) , XP ( CS_OPSUP , CS_OPSUB )   , XP ( CS_CPSUP , CS_CPSUB )   , KC_BSPC ,
         KC_LCTL  , XP ( CN_1SUP , CN_1SUB )   , XP ( CN_2SUP , CN_2SUB )   , XP ( CN_3SUP , CN_3SUB )     , XP ( CN_4SUP , CN_4SUB )   , XP ( CN_5SUP , CN_5SUB )     , XP ( CN_6SUP , CN_6SUB )     , XP ( CN_7SUP , CN_7SUB )     , XP ( CN_8SUP , CN_8SUB ) , XP ( CN_9SUP , CN_9SUB )     , XP ( CN_0SUP , CN_0SUB )     , KC_RCTL ,
         KC_LSFT  , XP ( CS_OCBRA , CS_LHORI ) , XP ( CS_CCBRA , CS_HHORI ) , XP ( CS_DEGREE , CS_CIRCLE ) , XP ( CS_BULLET , CS_PARA ) , XP ( CS_ELLIPS , CS_MIDDOT ) , XP ( CS_LARROW , CS_UARROW ) , XP ( CS_RARROW , CS_DARROW ) , XP ( CQU_INV , CEX_INV ) , XP ( CS_ODABRA , CS_LHORID ) , XP ( CS_CDABRA , CS_HHORID ) , KC_RSFT ,
-//      ----------------------------------------------------------------------------
-        KC_LALT , KC_DEL , DUO_HOLD , KC_ENT , KC_SPC , DUO_HOLD , KC__YGUI , KC__XGUI
-//              ,        ,          ,      <|,>       ,          ,          ,
-//      <1      , <2     , <3       , <4    |, 4>     , 3>       , 2>       , 1>
+//      ------------------------------------------------------------------------------------------
+        KC_LALT J1 J2 , KC_DEL , DUO_HOLD , KC_ENT , KC_SPC , DUO_HOLD , KC__YGUI , J3 J4 KC__XGUI
+//                    ,        ,          ,      <|,>       ,          ,          ,
+//      <1      ±  ±  , <2     , <3       , <4    |, 4>     , 3>       , 2>       , ±  ±  1>
                       ),
 
         /**/
@@ -1042,7 +1079,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *   
      */
 
-    [ _DDD ] = LAYOUT (
+    [ _DDD ] = LAYOUT_redefined (
 
 /*
      Layer _DRA (DRAwings, whatever else (rendering width varies in different applications))
@@ -1055,7 +1092,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      ----------------------------------------------
      LAlt Del   ___   Ent  | Spc   ___   LGUI  RGUI
                 -*-       <|>      -*-                                                   //(hold) on BASE
-     <1   <2    <3    <4   | 4>    3>    2>    1>  
+     <1 ± <2    <3    <4   | 4>    3>    2>  ± 1>  
  */
 //
 //      <pink2      , <pinky     , <ring       , <middl      , <index      , <indx2      |, indx2>      , index>      , middl>     , ring>       , pinky>      , pink2>  ,
@@ -1063,10 +1100,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CTO_BASE    , UN_S_DQUL  , UN_S_DQUH   , UN_S_CURREN , UN_S_NONE   , UN_S_PLUSMIN , UN_S_FLEUR  , UN_S_SMIL   , UN_S_THUP  , UN_S_OPSUBP , UN_S_CPSUBP , KC_BSPC ,
         KC_LCTL     , UN_N_1SUBP , UN_N_2SUBP  , UN_N_3SUBP  , UN_N_4SUBP  , UN_N_5SUBP   , UN_N_6SUBP  , UN_N_7SUBP  , UN_N_8SUBP , UN_N_9SUBP  , UN_N_0SUBP  , KC_RCTL ,
         KC_LSFT     , UN_S_OCBRA , UN_S_CCBRA  , UN_S_DEGREE , UN_S_BULLET , UN_S_ELLIPS  , UN_S_LARROW , UN_S_RARROW , UN_QU_INV  , UN_S_ODABRA , UN_S_CDABRA , KC_RSFT ,
-//      -------------------------------------------------------------------------------
-        KC_LALT , KC_DEL , DUO_HOLD , KC_ENT  , KC_SPC  , DUO_HOLD , KC__YGUI , KC__XGUI
-//              ,        ,          ,       <|,>        ,          ,          ,
-//      <1      , <2     , <3       , <4     |, 4>      , 3>       , 2>       , 1>
+//      --------------------------------------------------------------------------------------------
+        KC_LALT J1 J2 , KC_DEL , DUO_HOLD , KC_ENT  , KC_SPC  , DUO_HOLD , KC__YGUI , J3 J4 KC__XGUI
+//                    ,        ,          ,       <|,>        ,          ,          ,
+//      <1      ±  ±  , <2     , <3       , <4     |, 4>      , 3>       , 2>       , ±  ±  1>
                       ),  
 
 #endif // QWERTY_DVORAK   :   :   ^   :   :   ^   :   :   ^   :   :   ^   :   :   ^   
@@ -1078,7 +1115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *          Toward any layer by toggle. Set 'descramble' mode.
      */
 
-    [ _FUN ] = LAYOUT (
+    [ _FUN ] = LAYOUT_redefined (
 
 /*
      Layer _FUN (F-keys, Layer access, Set BASE key direction)
@@ -1094,7 +1131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            LSft   LAlt   LAlt   | &LAlt                                    
            +xxx   +xxx   +xxx   | +xxx
                                <|>
-     <1    <2     <3     <4     | 4>         3>   2>     1>                
+     <1  ± <2     <3     <4     | 4>         3>   2>  ±  1>                
  */
 //
 //      <pink2   , <pinky   , <ring     , <middl      , <index      , <indx2     |, indx2>   , index>   , middl>  , ring>   , pinky>  , pink2>        ,
@@ -1102,10 +1139,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CTO_BASE , CTO_NUMS , _FUN_STAY , TO ( _MOV ) , TO ( _RAR ) , TO ( _PAD ) , CTO_ACCE , CTO_DRAW , XXXXXXX , XXXXXXX , XXXXXXX , BASE_DESCRMBL ,
         KC_LCTL  , KC_F1    , KC_F2     , KC_F3       , KC_F4       , KC_F5       , KC_F6    , KC_F7    , KC_F8   , KC_F9   , KC_F10  , KC_RCTL       ,
         KC_LSFT  , KC_F11   , KC_F12    , KC_F13      , KC_F14      , KC_F15      , KC_F16   , KC_F17   , KC_F18  , KC_F19  , KC_F20  , KC_RSFT       ,
-//      ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        KC_LALT , MT ( MOD_LCTL | MOD_LSFT, XXXXXXX ) , MT ( MOD_LCTL | MOD_LALT , XXXXXXX ) , MT ( MOD_LSFT | MOD_LALT , XXXXXXX ) , MT ( MOD_LCTL | MOD_LSFT | MOD_LALT , XXXXXXX ) , XXXXXXX , KC__YGUI , KC_RALT
-//              ,                                     ,                                      ,                                    <|,>                                                ,         ,          ,
-//      <1      , <2                                  , <3                                   , <4                                  |, 4>                                              , 3>      , 2>       , 1>
+//      ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        KC_LALT J1 J2 , MT ( MOD_LCTL | MOD_LSFT, XXXXXXX ) , MT ( MOD_LCTL | MOD_LALT , XXXXXXX ) , MT ( MOD_LSFT | MOD_LALT , XXXXXXX ) , MT ( MOD_LCTL | MOD_LSFT | MOD_LALT , XXXXXXX ) , XXXXXXX , KC__YGUI , J3 J4 KC_RALT
+//                    ,                                     ,                                      ,                                    <|,>                                                ,         ,          ,
+//      <1      ±  ±  , <2                                  , <3                                   , <4                                  |, 4>                                              , 3>      , 2>       , ±  ±  1>
                       ),
 
         /**/
@@ -1118,7 +1155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * _FUN layer top row on the first free key to it, and optionally alter the hold 
  * layer switch keys on the base layers. (Check if a new layer will fit on the chip.)
  *
-    [ _??? ] = LAYOUT (
+    [ _??? ] = LAYOUT_redefined (
 
 // <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
 //                                    <|>
@@ -1128,7 +1165,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ---------------------------------------------------------
 // LAlt+Left Del   ___   ___  | ___   ___   ___   RAlt+Right
 //                           <|>
-// <1        <2    <3    <4   | 4>    3>    2>    1>  
+// <1   ±    <2    <3    <4   | 4>    3>    2>  ± 1>  
 //
 //
 //      <pink2      , <pinky  , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>  ,
@@ -1136,10 +1173,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TO ( _LTR ) , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_BSPC ,
         KC_LCTL     , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_RCTL ,
         KC_LSFT     , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_RSFT ,
-//      --------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , KC_DEL , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , RALT_T ( KC_RGHT )
-//                         ,        ,         ,       <|,>        ,         ,         ,
-//      <1                 , <2     , <3      , <4     |, 4>      , 3>      , 2>      , 1>
+//      --------------------------------------------------------------------------------------------------------------
+        LALT_T ( KC_LEFT ) J1 J2 , KC_DEL , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , J3 J4 RALT_T ( KC_RGHT )
+//                               ,        ,         ,       <|,>        ,         ,         ,
+//      <1                 ±  ±  , <2     , <3      , <4     |, 4>      , 3>      , 2>      , ±  ±  1>
                       ),
 */
 

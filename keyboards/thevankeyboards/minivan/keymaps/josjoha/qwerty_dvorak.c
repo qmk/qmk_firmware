@@ -62,7 +62,7 @@ If such optimization is wanted, the user has to do it by hand in _PAD.
      *   space is not dual use (most ued key), neither is hyphen.
      */ 
 
-    [ _LTR ] = LAYOUT (
+    [ _LTR ] = LAYOUT_redefined (
 
 /*
      Layer _LTR (LeTteRs). This is standard Qwerty (#define QWERTY_DVORAK set.)
@@ -76,7 +76,7 @@ If such optimization is wanted, the user has to do it by hand in _PAD.
      Left+LAlt Del;_ACC _NSY(_DRA)  Enter+_MOV| Space  _NSY(_DRA) LGUI    Right;_RAR  // _XYZ is to layer
                hold     hold₍₂₎     hold      |        hold₍₂₎    hold    hold       // Layer switch type
                         ^---------------------+--------^                              // both hold = _DRA
-     <1        <2       <3          <4        | 4>     3>         2>      1>            // Keys by number
+     <1   ±    <2       <3          <4        | 4>     3>         2>   ±  1>            // Keys by number
 
 */
 //
@@ -85,10 +85,10 @@ If such optimization is wanted, the user has to do it by hand in _PAD.
         KC_ESC            , KC_Q , KC_W , KC_E , KC_R , KC_T , KC_Y , KC_U , KC_I    , KC_O   , KC_P    , KC_BSPC       ,
         LCTL_T ( KC_TAB ) , KC_A , KC_S , KC_D , KC_F , KC_G , KC_H , KC_J , KC_K    , KC_L   , KC_SCLN , KC_QUOT       ,
         CHOLTAP_LSHFT     , KC_Z , KC_X , KC_C , KC_V , KC_B , KC_N , KC_M , KC_COMM , KC_DOT , KC_SLSH , CHOLTAP_RSHFT ,
-//      -----------------------------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , CHOLTAP_ACCE , DUO_HOLD , LT ( _MOV , KC_ENT ) , KC_SPC , DUO_HOLD , KC__YGUI , CHOLTAP_LAYR
-//                         ,              ,          ,                    <|,>       ,          ,          ,
-//      <1                 , <2           , <3       , <4                  |, 4>     , 3>       , 2>       , 1>
+//      -----------------------------------------------------------------------------------------------------------------------------
+        LALT_T ( KC_LEFT ) J1 J2 , CHOLTAP_ACCE , DUO_HOLD , LT ( _MOV , KC_ENT ) , KC_SPC , DUO_HOLD , KC__YGUI , J3 J4 CHOLTAP_LAYR
+//                               ,              ,          ,                    <|,>       ,          ,          ,
+//      <1                 ±  ±  , <2           , <3       , <4                  |, 4>     , 3>       , 2>       , ±  ±  1>
                       ),
 
         /**/
@@ -97,7 +97,7 @@ If such optimization is wanted, the user has to do it by hand in _PAD.
      *
      */
 
-    [ _DDL ] = LAYOUT (
+    [ _DDL ] = LAYOUT_redefined (
 
 /*
      Layer _DDL This is a standard Dvorak layer (#define QWERTY_DVORAK set.)
@@ -111,7 +111,7 @@ If such optimization is wanted, the user has to do it by hand in _PAD.
      Left+LAlt Del;_ACC _DDN(DRAW)  Enter+_MOV| Space  _DDN(DRAW) LGUI    Right;_RAR  // _XYZ is to layer
                hold     hold₍₂₎     hold      |        hold₍₂₎    hold    hold       // Layer switch type
                         ^---------------------+--------^                              // both hold = DRAW
-     <1        <2       <3          <4        | 4>     3>         2>      1>            // Keys by number
+     <1   ±    <2       <3          <4        | 4>     3>         2>   ±  1>            // Keys by number
 
 
  */
@@ -122,10 +122,10 @@ If such optimization is wanted, the user has to do it by hand in _PAD.
         KC_ESC            , KC_QUOT , KC_COMM , KC_DOT , KC_P , KC_Y , KC_F , KC_G , KC_C , KC_R , KC_L , KC_BSPC       ,
         LCTL_T ( KC_TAB ) , KC_A    , KC_O    , KC_E   , KC_U , KC_I , KC_D , KC_H , KC_T , KC_N , KC_S , KC_MINS       ,
         CHOLTAP_LSHFT     , KC_SCLN , KC_Q    , KC_J   , KC_K , KC_X , KC_B , KC_M , KC_W , KC_V , KC_Z , CHOLTAP_RSHFT ,
-//      -----------------------------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , CHOLTAP_ACCE , DUO_HOLD , LT ( _MOV , KC_ENT ) , KC_SPC , DUO_HOLD , KC__YGUI , CHOLTAP_LAYR
-//                         ,              ,          ,                    <|,>       ,          ,          ,
-//      <1                 , <2           , <3       , <4                  |, 4>     , 3>       , 2>       , 1>
+//      -----------------------------------------------------------------------------------------------------------------------------
+        LALT_T ( KC_LEFT ) J1 J2 , CHOLTAP_ACCE , DUO_HOLD , LT ( _MOV , KC_ENT ) , KC_SPC , DUO_HOLD , KC__YGUI , J3 J4 CHOLTAP_LAYR
+//                               ,              ,          ,                    <|,>       ,          ,          ,
+//      <1                 ±  ±  , <2           , <3       , <4                  |, 4>     , 3>       , 2>       , ±  ±  1>
                       ),
 
         /**/
@@ -135,7 +135,7 @@ If such optimization is wanted, the user has to do it by hand in _PAD.
      */
     // KC_TILD does not work there, because of a limitation with shifted keys (nov 2019).
 
-    [ _NSY ] = LAYOUT (
+    [ _NSY ] = LAYOUT_redefined (
 
 /*
      Layer _NSY (Numbers and SYmbols). This fits the above Qwerty layer _LTR (#define QWERTY_DVORAK set.)
@@ -149,7 +149,7 @@ If such optimization is wanted, the user has to do it by hand in _PAD.
      -------------------------------------------------------
      Left+LAlt Del   ___   Ent  | .   ___   LGUI  Right+RAlt
                      -*-       <|>    -*-                                         //(hold) Access on _LTR
-       <1      <2    <3    <4   | 4>  3>    2>    1>  
+       <1   ±  <2    <3    <4   | 4>  3>    2>  ± 1>  
 */
 //
 //
@@ -158,10 +158,10 @@ If such optimization is wanted, the user has to do it by hand in _PAD.
         CTO_BASE           , KC_EXLM , KC_AT   , KC_HASH , KC_DLR  , KC_PERC , KC_CIRC , KC_AMPR , KC_ASTR , KC_LPRN , KC_RPRN , KC_BSPC            ,
         LCTL_T ( KC_TAB )  , KC_1    , KC_2    , KC_3    , KC_4    , KC_5    , KC_6    , KC_7    , KC_8    , KC_9    , KC_0    , RCTL_T ( KC_GRV )  , 
         LSFT_T ( KC_MINS ) , KC_LBRC , KC_RBRC , KC_MINS , KC_BSLS , KC_EQL  , KC_PLUS , KC_PIPE , KC_UNDS , KC_LCBR , KC_RCBR , RSFT_T ( KC_TILD ) ,  
-//      -------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , KC_DEL , DUO_HOLD , KC_ENT , KC_DOT , DUO_HOLD , KC__YGUI , RALT_T ( KC_RGHT )
-//                         ,        , -*-      ,      <|,>       , -*-      ,          ,
-//      <1                 , <2     , <3       , <4    |, 4>     , 3>       , 2>       , 1>
+//      ---------------------------------------------------------------------------------------------------------------
+        LALT_T ( KC_LEFT ) J1 J2 , KC_DEL , DUO_HOLD , KC_ENT , KC_DOT , DUO_HOLD , KC__YGUI , J3 J4 RALT_T ( KC_RGHT )
+//                               ,        , -*-      ,      <|,>       , -*-      ,          ,
+//      <1                 ±  ±  , <2     , <3       , <4    |, 4>     , 3>       , 2>       , ±  ±  1>
                       ),
 
         /**/
@@ -173,7 +173,7 @@ If such optimization is wanted, the user has to do it by hand in _PAD.
      */
     // KC_TILD does not work there, because of a limitation with shifted keys (nov 2019).
 
-    [ _DDN ] = LAYOUT (
+    [ _DDN ] = LAYOUT_redefined (
 
 /*
      Layer _DDN (Dvorak numbers/symbols). Fits above _DDL Dvorak (with #define QWERTY_DVORAK set.)
@@ -186,7 +186,7 @@ If such optimization is wanted, the user has to do it by hand in _PAD.
      -------------------------------------------------------
      Left+LAlt Del   ___   Ent  | .   ___   LGUI  Right+RAlt
                      -*-       <|>    -*-                                         //(hold) Access on _LTR
-       <1      <2    <3    <4   | 4>  3>    2>    1>  
+       <1   ±  <2    <3    <4   | 4>  3>    2>  ± 1>  
 */
 //
 //
@@ -196,9 +196,9 @@ If such optimization is wanted, the user has to do it by hand in _PAD.
         LCTL_T ( KC_TAB )  , KC_1    , KC_2    , KC_3    , KC_4    , KC_5    , KC_6    , KC_7    , KC_8    , KC_9    , KC_0    , RCTL_T ( KC_GRV )  , 
         LSFT_T ( KC_MINS ) , KC_LBRC , KC_RBRC , KC_SLSH , KC_BSLS , KC_EQL  , KC_PLUS , KC_PIPE , KC_QUES , KC_LCBR , KC_RCBR , RSFT_T ( KC_TILD ) ,  
 //      -------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , KC_DEL , DUO_HOLD , KC_ENT , KC_DOT , DUO_HOLD , KC__YGUI , RALT_T ( KC_RGHT )
-//                         ,        , -*-      ,      <|,>       , -*-      ,          ,
-//      <1                 , <2     , <3       , <4    |, 4>     , 3>       , 2>       , 1>
+        LALT_T ( KC_LEFT ) J1 J2 , KC_DEL , DUO_HOLD , KC_ENT , KC_DOT , DUO_HOLD , KC__YGUI , J3 J4 RALT_T ( KC_RGHT )
+//                               ,        , -*-      ,      <|,>       , -*-      ,          ,
+//      <1                       , <2     , <3       , <4    |, 4>     , 3>       , 2>       ,       1>
                       ),
 
         /**/
