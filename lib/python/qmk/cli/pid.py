@@ -234,7 +234,7 @@ def pid(cli):
         vid_match, pid_match = get_ids(config_h)
 
         if vid_match is None:
-            cli.log.info('{} is not a keyboard config'.format(config_h))
+            cli.log.info('%s is not a keyboard config', config_h)
             continue
 
         # If vid_match is not none, but pid_match is:
