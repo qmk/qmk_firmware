@@ -1,17 +1,8 @@
-
-/* A QWERTY 3 Layer layout for the Dactyl Manuform 6x6 Keyboard */
-
 #include QMK_KEYBOARD_H
 #include "klackygears.h"
 
 extern keymap_config_t keymap_config;
 
-#define _QWERTY 0
-#define _LOWER 1
-#define _RAISE 2
-
-#define RAISE MO(_RAISE)
-#define LOWER MO(_LOWER)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
