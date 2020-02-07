@@ -17,7 +17,7 @@ After cloning the QMK repo and installing dfu-programmer build and flash with. B
 
 To just test your build with the default keymap
    
-    make default:germ
+    make gergo:default
 
 Gadgets and options can be enabled/disabled in keyboards/gergo/keymaps/default/rules.mk . Copy the default directory and make any changes to your layout, if you think they're worth sharing submit a PR!
 
