@@ -4,9 +4,9 @@
 
 A compact layout with the footprint of your typical 65% board, featuring a left mini-numpad.
 
-Keyboard Maintainer: [HoltenC](https://github.com/HoltenC)  
-Hardware Supported: Prime_L_V2 PCBs, ATMega32u4  
-Hardware Availability: [Store Link](https://www.primekb.com)
+* Keyboard Maintainer: [HoltenC](https://github.com/HoltenC)
+* Hardware Supported: Prime_L_V2 PCBs, ATMega32u4
+* Hardware Availability: [Store Link](https://www.primekb.com)
 
 Make example for this keyboard (after setting up your build environment):
 
