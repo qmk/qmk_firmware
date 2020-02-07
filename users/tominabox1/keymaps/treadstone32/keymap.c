@@ -11,9 +11,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,---------------------------------------------------------------------------------------------------.
           KC_Q,     KC_W,     KC_F,     KC_P,     KC_G,     KC_J,     KC_L,     KC_U,     KC_Y,  KC_QUOT, //Y+QUOTE = KC_BSPC
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       KC_CTLA,     KC_R,     KC_S,     KC_T,     KC_D,     KC_H,     KC_N,     KC_E,     KC_I,    KC_O,
+      LGUI_T(KC_A),     LALT_T(KC_R),     LCTL_T(KC_S),     LSFT_T(KC_T),     KC_D,     KC_H,     RSFT_T(KC_N),     RCTL_T(KC_E),     RALT_T(KC_I),     RGUI_T(KC_O),
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       KC_Z_SF,     KC_X,  KC_C_AL,     KC_V,     KC_B,  KC_K_GU, LT(_NAV,KC_M),  KC_COMM,  KC_FDOT, KC_SSLSH,
+       KC_Z,     KC_X,  KC_C,     KC_V,     KC_B,  KC_K, LT(_NAV,KC_M),  KC_COMM,  KC_FDOT, KC_SLSH,
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'
                                                KC_GENT,KC_NUM_SPC
   //                                        `---------|---------'
@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NAV] = LAYOUT(
   //,---------------------------------------------------------------------------------------------------.
-        KC_ESC,KC_MS_BTN1,KC_MS_UP,  KC_MS_BTN2,  DEBUG,  KC_GRV,KC_PGDN,    KC_UP,  KC_PGUP,    KC_COLN,
+        KC_ESC,KC_MS_BTN1,KC_MS_UP,  KC_MS_BTN2,  DEBUG,  KC_GRV,KC_PGDN,    KC_UP,  KC_PGUP,    KC_SCLN,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
       RGB_TOG,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT,SPONGEBOB,KC_HOME, KC_LEFT,  KC_DOWN,  KC_RGHT,   KC_END,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
