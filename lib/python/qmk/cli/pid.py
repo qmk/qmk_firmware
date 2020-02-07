@@ -86,7 +86,7 @@ def atomic_dump(data, json_file):
     It accomplishes this by writing the new json file to a temporary file,
     then using os.replace() to overwrite the old file with the new file.
     os.replace() is atomic as long as the two files are on the same filesystem.
-    In case of an error before os.replace() the temp file isn't removed.
+ 
 
     Args:
         data (dict):
