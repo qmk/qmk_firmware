@@ -243,7 +243,7 @@ def pid(cli):
             return False
 
         if vid_match.group(1) != qmk_vid:
-            cli.log.info("Keyboard does not use QMK VID, or it's not a keyboard config. ({} != {} in {})".format(vid_match.group(1), qmk_vid, config_h))
+            cli.log.info("Keyboard does not use QMK VID, or it's not a keyboard config. (%s != %s in %s)", vid_match.group(1), qmk_vid, config_h)
             continue
         else:
             if not process_config(cli, config_h, pids_json_path, pid_match):
