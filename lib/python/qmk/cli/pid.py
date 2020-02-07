@@ -180,7 +180,7 @@ def process_config(cli, config_path, pids_json_path, pid_match):
                 replace_pid(config_path, pid_new, pid_match)
                 cli.log.warning('\tRe-applying %s to %s', pid_new, keyboard)
         else:
-            cli.log.info('{} already assigned pid 0x{}'.format(keyboard, pid_new))
+            cli.log.info('%s already assigned pid 0x%s', keyboard, pid_new)
             return True
     else:
         cli.log.info('Assigned PID 0x{} to {}'.format(pid_new, keyboard))
