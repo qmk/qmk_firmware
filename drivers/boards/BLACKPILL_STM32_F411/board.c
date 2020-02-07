@@ -67,12 +67,15 @@ const PALConfig pal_default_config = {
 };
 #endif
 
+void enter_bootloader_mode_if_requested(void);
+
 /**
  * @brief   Early initialization code.
  * @details This initialization must be performed just after stack setup
  *          and before any other initialization.
  */
 void __early_init(void) {
+  enter_bootloader_mode_if_requested();
 
   stm32_clock_init();
 }
