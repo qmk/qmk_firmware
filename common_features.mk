@@ -420,6 +420,12 @@ ifeq ($(strip $(LEADER_ENABLE)), yes)
   OPT_DEFS += -DLEADER_ENABLE
 endif
 
+
+ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
+  SRC += $(QUANTUM_DIR)/dip_switch.c
+  OPT_DEFS += -DDIP_SWITCH_ENABLE
+endif
+
 include $(DRIVER_PATH)/qwiic/qwiic.mk
 
 QUANTUM_SRC:= \
@@ -505,12 +511,13 @@ ifeq ($(strip $(MAGIC_ENABLE)), yes)
     OPT_DEFS += -DMAGIC_KEYCODE_ENABLE
 endif
 
+GRAVE_ESC_ENABLE ?= yes
+ifeq ($(strip $(GRAVE_ESC_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/process_keycode/process_grave_esc.c
+    OPT_DEFS += -DGRAVE_ESC_ENABLE
+endif
+
 ifeq ($(strip $(DYNAMIC_MACRO_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_dynamic_macro.c
     OPT_DEFS += -DDYNAMIC_MACRO_ENABLE
-endif
-
-ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
-  SRC += $(QUANTUM_DIR)/dip_switch.c
-  OPT_DEFS += -DDIP_SWITCH_ENABLE
 endif
