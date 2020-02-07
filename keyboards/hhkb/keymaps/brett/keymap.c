@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* HHKB Level: Function Layer
      |---------+------+------+--------+---------+-------+-----------+---------+---------+---------+----------------+--------+------+--------+-----|
-     | PWR     | F1   | F2   | F3     | F4      | F5    | F6        | F7      | F8      | F9      | F10            | F11    | F12  | Ins    | Del |
+     | Flash   | F1   | F2   | F3     | F4      | F5    | F6        | F7      | F8      | F9      | F10            | F11    | F12  | Ins    | Del |
      |---------+------+------+--------+---------+-------+-----------+---------+---------+---------+----------------+--------+------+--------+-----|
      | Caps    | Calc | Mail | Media  | Browser | My PC | Browser   | u       | i       | o       | Print          | [      | ]    | Backsp | *   |
      |         |      |      | Player | Refresh |       | Favorites |         |         |         | Screen         |        |      |        |     |
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 |------+------+----------------------+------+------|
     */
 	[HHKB] = LAYOUT(
-    KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_INS, KC_DEL,
+    FLASH, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_INS, KC_DEL,
     KC_CAPS, KC_CALC, KC_MAIL, KC_MSEL, KC_WREF, KC_MYCM, KC_WFAV, KC_TRNS, KC_TRNS, KC_TRNS, KC_PSCR, KC_TRNS, KC_TRNS, KC_BSPC,
     KC_TRNS, KC_MPRV, KC_MNXT, KC_FIND, KC_TRNS, KC_TRNS, KC_WBAK, KC_WHOM, KC_WSCH, KC_WFWD, KC_TRNS, KC_TRNS, KC_EXEC,
     KC_TRNS, KC__VOLUP, KC_VOLD, KC_MUTE, KC_SLCT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_AGIN, KC_WSCH, KC_TRNS, KC_TRNS,
@@ -73,48 +73,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
     /* Programming Level: Symbols Layer
-     |-------------+----+---+-----+-----+----+------+------+-----+-------+-----+-------+--------+--------+---|
-     | Esc         | 1  | 2 | 3   | 4   | 5  | 6    | 7    | 8   | 9     | 0   | -     | =      | \      | ` |
-     |-------------+----+---+-----+-----+----+------+------+-----+-------+-----+-------+--------+--------+---|
-     | Tab/Mouse   | => | @ | >>= | =<< | ‖  | <>   | <｜> | <*> | <@>   | ｜> | <$    | $>     | Backsp | * |
-     |-------------+----+---+-----+-----+----+------+------+-----+-------+-----+-------+--------+--------+---|
-     | Esc/Control | -> | * | <$> | <#> | && | Left | Down | Up  | Right | ::  | `     | Return | ****** | * |
-     |-------------+----+---+-----+-----+----+------+------+-----+-------+-----+-------+--------+--------+---|
-     | LShift      | z  | x | c   | v   | b  | n    | m    | <-  | ->    | <>  | Shift | HHKB   | ****** | * |
-     |-------------+----+---+-----+-----+----+------+------+-----+-------+-----+-------+--------+--------+---|
+     |--------------+-------+-------+-------+-------+-------+-------+-------+-------+-------+--------+--------+--------+--------+---|
+     | Esc          | TTY 1 | TTY 2 | TTY 3 | TTY 4 | TTY 5 | TTY 6 | TTY 7 | TTY 8 | TTY 9 | TTY 10 | TTY 11 | TTY 12 | \      | ` |
+     |--------------+-------+-------+-------+-------+-------+-------+-------+-------+-------+--------+--------+--------+--------+---|
+     | Tab/Mouse    | =>    | @     | >>=   | =<<   | ‖     | <>    | <｜>  | <*>   | <@>   | ｜>    | <$     | $>     | Backsp | * |
+     |--------------+-------+-------+-------+-------+-------+-------+-------+-------+-------+--------+--------+--------+--------+---|
+     | Toggle Mouse | ->    | *     | <$>   | <#>   | &&    | Left  | Down  | Up    | Right | ::     | `      | Return | ****** | * |
+     |--------------+-------+-------+-------+-------+-------+-------+-------+-------+-------+--------+--------+--------+--------+---|
+     | LShift       | z     | x     | c     | v     | b     | n     | m     | <-    | ->    | <>     | Shift  | HHKB   | ****** | * |
+     |--------------+-------+-------+-------+-------+-------+-------+-------+-------+-------+--------+--------+--------+--------+---|
 
                 |------+------+----------------------------+------+------|
                 | LAlt | LGUI | ******* Space/Prog ******* | RGUI | RAlt |
                 |------+------+----------------------------+------+------|
     */
 	[PROG] = LAYOUT(
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_GESC, LCA(KC_F1), LCA(KC_F2), LCA(KC_F3), LCA(KC_F4), LCA(KC_F5), LCA(KC_F6), LCA(KC_F7), LCA(KC_F8), LCA(KC_F9), LCA(KC_F10), LCA(KC_F11), LCA(KC_F12), KC_TRNS, KC_TRNS,
     KC_TRNS, FAT_ARROW, KC_AT, BIND, BIND_FLIPPED, OR, CONCAT, ALT, APPLY, FLAP, PIPE, VOID_LEFT, VOID_RIGHT, KC_TRNS,
-    KC_TRNS, SKINNY_ARROW, KC_ASTR, MAP, MAP_FLIPPED, AND, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, DOUBLE_COLON, KC_GRV, KC_TRNS,
+    TG(MOUSE), SKINNY_ARROW, KC_ASTR, MAP, MAP_FLIPPED, AND, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, DOUBLE_COLON, KC_GRV, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, REVERSE_ARROW, SKINNY_ARROW, CONCAT, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
 
     /* Mouse Level: Mouse Layer
-     |--------------+---+---+---+---+---+------+------+---------+---------+---------+-----------+-----------------+--------+---|
-     | Esc          | 1 | 2 | 3 | 4 | 5 | 6    | 7    | 8       | 9       | 0       | -         | =               | \      | ` |
-     |--------------+---+---+---+---+---+------+------+---------+---------+---------+-----------+-----------------+--------+---|
-     | Mouse(Tab)   | Q | W | E | R | T | Y    | U    | I       | O       | P       | [         | ]               | Backsp | * |
-     |--------------+---+---+---+---+---+------+------+---------+---------+---------+-----------+-----------------+--------+---|
-     | Control(Esc) | A | S | D | F | G | Left | Down | Up      | Right   | Button1 | Button2   | Control(Return) | ****** | * |
-     |--------------+---+---+---+---+---+------+------+---------+---------+---------+-----------+-----------------+--------+---|
-     | LShift(()    | Z | X | C | V | B | N    | M    | Button5 | Button4 | Button3 | RShift()) | HHKB            | ****** | * |
-     |--------------+---+---+---+---+---+------+------+---------+---------+---------+-----------+-----------------+--------+---|
+     |--------------+---------+---------+---------+---------+---------+-------+-------+---------+---------+---------+-----------+-----------------+--------+---|
+     | Esc          | Speed 1 | Speed 2 | Speed 3 | 4       | 5       | 6     | 7     | 8       | 9       | 0       | -         | =               | \      | ` |
+     |--------------+---------+---------+---------+---------+---------+-------+-------+---------+---------+---------+-----------+-----------------+--------+---|
+     | Mouse(Tab)   | Q       | Up      | Button3 | Button4 | Button5 | Y     | U     | Button3 | Button4 | Button5 | [         | ]               | Backsp | * |
+     |--------------+---------+---------+---------+---------+---------+-------+-------+---------+---------+---------+-----------+-----------------+--------+---|
+     | Control(Esc) | Left    | Down    | Right   | Button1 | Button2 | SLeft | SDown | SUp     | SRight  | Button1 | Button2   | Control(Return) | ****** | * |
+     |--------------+---------+---------+---------+---------+---------+-------+-------+---------+---------+---------+-----------+-----------------+--------+---|
+     | LShift(()    | Z       | X       | C       | V       | B       | N     | M     | Button5 | Button4 | Button3 | RShift()) | HHKB            | ****** | * |
+     |--------------+---------+---------+---------+---------+---------+-------+-------+---------+---------+---------+-----------+-----------------+--------+---|
 
                 |---------+---------+----------------------------+---------+---------|
                 | LAlt([) | LGUI({) | ******* Space/Prog ******* | RGUI(}) | RAlt(]) |
                 |---------+---------+----------------------------+---------+---------|
     */
 	[MOUSE] = LAYOUT(
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_ACL0, KC_ACL1, KC_ACL2, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_MS_U, KC_BTN3, KC_BTN4, KC_BTN5, KC_TRNS, KC_TRNS, KC_BTN3, KC_BTN4, KC_BTN5, KC_TRNS, KC_TRNS, KC_TRNS,
+    TG(MOUSE), KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN1, KC_BTN2, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, KC_BTN1, KC_BTN2, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, KC_BTN2, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN5, KC_BTN4, KC_BTN3, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 };
 

@@ -22,6 +22,7 @@ enum userspace_custom_keycodes {
   VOID_LEFT, // <$
   VOID_RIGHT, // $>
   DOUBLE_COLON, // ::
+  FLASH, // Handle keyboard flashing
   DYNAMIC_MACRO_RANGE // Should always be last
 };
 

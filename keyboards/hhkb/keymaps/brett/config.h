@@ -1,7 +1,6 @@
-#ifndef CONFIG_BRETT_H
-#define CONFIG_BRETT_H
+#pragma once
 
-#include "../../config.h"
+#include QMK_KEYBOARD_H
 
 // Define mousekey settings
 #define MOUSEKEY_DELAY          0
@@ -11,12 +10,10 @@
 #define MOUSEKEY_WHEEL_DELAY    0
 
 #define LSPO_KEY KC_9
-#define RSPC_KEY KC_9
+#define RSPC_KEY KC_0
 #define LSPO_MOD KC_LSHIFT
 #define RSPC_MOD KC_RSHIFT
 
 // This makes it possible to do rolling combos (zx) with keys that convert to other keys on hold (z becomes ctrl when
 // you hold it, and when this option isn't enabled, z rapidly followed by x actually sends Ctrl-x. That's bad.)
 #define IGNORE_MOD_TAP_INTERRUPT
-
-#endif

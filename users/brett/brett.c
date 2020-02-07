@@ -104,6 +104,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case FLASH:
+        if (record->event.pressed) {
+            SEND_STRING("sudo -E make hhkb:brett:dfu");
+            register_code(KC_ENTER);
+            unregister_code(KC_ENTER);
+            reset_keyboard();
+        }
+        return false;
+        break;
   }
   return true;
 }
