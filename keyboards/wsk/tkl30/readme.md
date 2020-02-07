@@ -2,10 +2,10 @@
 
 ![TKL30](https://i.imgur.com/rnhOx87.png)
 
-The TKL30 is a 3 row TKL style board.
+The TKL30 is a three-row TKL-style board.
 
 * Keyboard Maintainer: [worldspawn00](https://github.com/worldspawn00/)
-* Hardware Supported: The TKL30 PCB.
+* Hardware Supported: TKL30 PCB, Pro Micro
 * Hardware Availability: [PCB](https://github.com/worldspawn00/TKL30)
 
 Make example for this keyboard (after setting up your build environment):
