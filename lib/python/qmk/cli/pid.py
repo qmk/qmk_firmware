@@ -170,7 +170,7 @@ def process_config(cli, config_path, pids_json_path, pid_match):
     try:
         pid_new = calculate_pid(chopped_config_path, data)
     except RecursionError as e:
-        cli.log.error("Too many PID collisions ({}) when generating PID for {}. Aborting".format(e, keyboard))
+        cli.log.error("Too many PID collisions (%s) when generating PID for %s. Aborting", e, keyboard)
         return False
 
     if chopped_config_path in data['pids'].values():
