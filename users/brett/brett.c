@@ -1,55 +1,61 @@
 #include "brett.h"
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    bool send(const char *str) {
-        if (record->event.pressed) {
-            send_string(str);
-        }
-        return false;
-    }
+char * get_key(uint16_t keycode) {
     switch (keycode) {
         case FAT_ARROW:
-            return send("=>");
+            return "=>";
         case SKINNY_ARROW:
-            return send("->");
+            return "->";
         case REVERSE_ARROW:
-            return send("<-");
+            return "<-";
         case CONCAT:
-            return send("<>");
+            return "<>";
         case MAP:
-            return send("<$>");
+            return "<$>";
         case MAP_FLIPPED:
-            return send("<#>");
+            return "<#>";
         case FLAP:
-            return send("<@>");
+            return "<@>";
         case PIPE:
-            return send("|>");
+            return "|>";
         case ALT:
-            return send("<|>");
+            return "<|>";
         case APPLY:
-            return send("<*>");
+            return "<*>";
         case AND:
-            return send("&&");
+            return "&&";
         case OR:
-            return send("||");
+            return "||";
         case BIND:
-            return send(">>=");
+            return ">>=";
         case BIND_FLIPPED:
-            return send("=<<");
+            return "=<<";
         case DOUBLE_COLON:
-            return send("::");
+            return "::";
         case VOID_LEFT:
-            return send("<$");
+            return "<$";
         case VOID_RIGHT:
-            return send("$>");
+            return "$>";
+        default:
+            return "";
+    }
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    bool pressed = record->event.pressed;
+    switch (keycode) {
+        case FAT_ARROW ... DOUBLE_COLON:
+            if (pressed) {
+                send_string(get_key(keycode));
+            }
+            return false;
         case FLASH:
-            if (record->event.pressed) {
-                SEND_STRING("sudo -E make hhkb:brett:dfu");
-                register_code(KC_ENTER);
-                unregister_code(KC_ENTER);
+            if (!pressed) {
+                SEND_STRING("make -j8 --output-sync " QMK_KEYBOARD ":" QMK_KEYMAP ":flash" SS_TAP(X_ENTER));
                 reset_keyboard();
             }
             return false;
+        default:
+            return true;
     }
-    return true;
 }
