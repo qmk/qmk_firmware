@@ -8,5 +8,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                                                      KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, 
         KC_LCTL,        KC_LGUI, KC_LALT, MO(1),            KC_GRV,  KC_SPC,  LT(1,KC_DEL),          KC_HOME, KC_END,  KC_BSLS,          KC_LEFT, KC_RGHT, KC_DOWN, KC_UP    
     ),
-	[1] = LAYOUT_3key_2us(KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F12, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PSCR, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, LSFT(KC_HOME), LSFT(KC_END), KC_TRNS, LALT(LSFT(KC_LEFT)), LALT(LSFT(KC_RIGHT)), LALT(LSFT(KC_DOWN)), LALT(LSFT(KC_UP)))
+    [1] = LAYOUT_3key_2us(
+        KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                                    KC_F12,       KC_F7,   KC_F8,   KC_F9,               KC_F10,               KC_F11,              KC_TRNS, 
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                  KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,             KC_TRNS,              KC_PSCR,             KC_TRNS, 
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                  KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,             KC_TRNS,              KC_TRNS,             KC_TRNS, 
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                                         KC_TRNS, KC_TRNS, KC_TRNS,             KC_TRNS,              KC_TRNS,             KC_TRNS,                         
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS,          LSFT(KC_HOME), LSFT(KC_END), KC_TRNS,          LALT(LSFT(KC_LEFT)), LALT(LSFT(KC_RIGHT)), LALT(LSFT(KC_DOWN)), LALT(LSFT(KC_UP))     
+    )
 };
