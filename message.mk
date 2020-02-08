@@ -50,15 +50,12 @@ MSG_EXTENDED_LISTING = Creating Extended Listing:
 MSG_SYMBOL_TABLE = Creating Symbol Table:
 MSG_LINKING = Linking:
 MSG_COMPILING = Compiling:
-MSG_COMPILING_CPP = Compiling:
+MSG_COMPILING_CXX = Compiling:
 MSG_ASSEMBLING = Assembling:
 MSG_CLEANING = Cleaning project:
 MSG_CREATING_LIBRARY = Creating library:
-MSG_SUBMODULE_DIRTY = $(WARN_COLOR)WARNING:$(NO_COLOR)\n \
-	Some git sub-modules are out of date or modified, please consider running:$(BOLD)\n\
-        make git-submodule\n\
-	You can ignore this warning if you are not compiling any ChibiOS keyboards,\n\
-	or if you have modified the ChibiOS libraries yourself. \n\n$(NO_COLOR)
+MSG_SUBMODULE_DIRTY = $(WARN_COLOR)WARNING:$(NO_COLOR) Some git submodules are out of date or modified.\n\
+Please consider running $(BOLD)make git-submodule$(NO_COLOR).\n\n
 MSG_NO_CMP = $(ERROR_COLOR)Error:$(NO_COLOR)$(BOLD) cmp command not found, please install diffutils\n$(NO_COLOR)
 
 define GENERATE_MSG_MAKE_KB

@@ -24,13 +24,15 @@ def cformat(cli):
     if cli.args.files:
         cli.args.files = [os.path.join(os.environ['ORIG_CWD'], file) for file in cli.args.files]
     else:
+        ignores = ['tmk_core/protocol/usb_hid', 'quantum/template']
         for dir in ['drivers', 'quantum', 'tests', 'tmk_core']:
             for dirpath, dirnames, filenames in os.walk(dir):
-                if 'tmk_core/protocol/usb_hid' in dirpath:
+                if any(i in dirpath for i in ignores):
+                    dirnames.clear()
                     continue
 
                 for name in filenames:
-                    if name.endswith('.c') or name.endswith('.h') or name.endswith('.cpp'):
+                    if name.endswith(('.c', '.h', '.cpp')):
                         cli.args.files.append(os.path.join(dirpath, name))
 
     # Run clang-format on the files we've found
