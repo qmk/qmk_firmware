@@ -1,7 +1,5 @@
 #pragma once
 
-#include QMK_KEYBOARD_H
-
 // Define mousekey settings
 #define MOUSEKEY_DELAY          0
 #define MOUSEKEY_INTERVAL       20
