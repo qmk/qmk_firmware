@@ -15,25 +15,3 @@
  */
 #include "rev7.h"
 
-#include "backlight.h"
-#include "led.h"
-#include "printf.h"
-
-backlight_levels_config_t kb_backlight_config = {
-  .enable = true,
-  .breathing = true,
-  .level = BACKLIGHT_LEVELS
-};
-
-uint8_t *o_fb;
-
-uint16_t counterst = 0;
-
-void matrix_init_kb(void) {
-        matrix_init_user();
-        backlight_init_ports();
-}
-
-void matrix_scan_kb(void) {
-	matrix_scan_user();
-}

@@ -17,32 +17,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "pearl.h"
 
-void backlight_init_ports(void) {
-    // initialize pins D0, D1, D4 and D6 as output
-    setPinOutput(D0);
-    setPinOutput(D1);
-    setPinOutput(D4);
-    setPinOutput(D6);
-
-    // turn backlight LEDs on
-    writePinHigh(D0);
-    writePinHigh(D1);
-    writePinHigh(D4);
-    writePinHigh(D6);
+void keyboard_pre_init_kb(void) {
+    led_init_ports();
+    keyboard_pre_init_user();
 }
 
-void backlight_set(uint8_t level) {
-    if (level == 0) {
-        // turn backlight LEDs off
-        writePinLow(D0);
-        writePinLow(D1);
-        writePinLow(D4);
-        writePinLow(D6);
-    } else {
-        // turn backlight LEDs on
-        writePinHigh(D0);
-        writePinHigh(D1);
-        writePinHigh(D4);
-        writePinHigh(D6);
+void led_init_ports(void) {
+    setPinOutput(D0);
+    setPinOutput(D1);
+    setPinOutput(D6);
+}
+
+bool led_update_kb(led_t led_state) {
+    if (led_update_user(led_state)) {
+        writePin(D0, led_state.num_lock);
+        writePin(D1, led_state.caps_lock);
+        writePin(D6, led_state.scroll_lock);
     }
+    return true;
 }
