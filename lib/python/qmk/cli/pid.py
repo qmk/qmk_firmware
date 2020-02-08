@@ -18,7 +18,7 @@ def replace_pid(config_h, id_pid, pid_match):
     """Replace the PID in a config.h file
 
     Args:
-        config_h (str): The config to replace the PID in. The file has to have a "#define PRODUCT_ID 0x0000" the value doesn't matter, but has to be 2 bytes
+        config_h (str): The config to replace the PID in. The file has to have a "#define PRODUCT_ID 0x0000". The hex value doesn't matter.
         id_pid (str): The PID to write in to the file as 4 characters
         pid_match (re.match): The full regex match for the PID string
     """
