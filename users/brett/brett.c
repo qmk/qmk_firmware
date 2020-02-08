@@ -1,118 +1,55 @@
 #include "brett.h"
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch(keycode) {
-    case FAT_ARROW:
-      if (record->event.pressed) {
-        SEND_STRING("=>");
-      }
-      return false;
-      break;
-    case SKINNY_ARROW:
-      if (record->event.pressed) {
-        SEND_STRING("->");
-      }
-      return false;
-      break;
-    case REVERSE_ARROW:
-      if (record->event.pressed) {
-        SEND_STRING("<-");
-      }
-      return false;
-      break;
-    case CONCAT:
-      if (record->event.pressed) {
-        SEND_STRING("<>");
-      }
-      return false;
-      break;
-    case MAP:
-      if (record->event.pressed) {
-        SEND_STRING("<$>");
-      }
-      return false;
-      break;
-    case MAP_FLIPPED:
-      if (record->event.pressed) {
-        SEND_STRING("<#>");
-      }
-      return false;
-      break;
-    case FLAP:
-      if (record->event.pressed) {
-        SEND_STRING("<@>");
-      }
-      return false;
-      break;
-    case PIPE:
-      if (record->event.pressed) {
-        SEND_STRING("|>");
-      }
-      return false;
-      break;
-    case ALT:
-      if (record->event.pressed) {
-        SEND_STRING("<|>");
-      }
-      return false;
-      break;
-    case APPLY:
-      if (record->event.pressed) {
-        SEND_STRING("<*>");
-      }
-      return false;
-      break;
-    case AND:
-      if (record->event.pressed) {
-        SEND_STRING("&&");
-      }
-      return false;
-      break;
-    case OR:
-      if (record->event.pressed) {
-        SEND_STRING("||");
-      }
-      return false;
-      break;
-    case BIND:
-      if (record->event.pressed) {
-        SEND_STRING(">>=");
-      }
-      return false;
-      break;
-    case BIND_FLIPPED:
-      if (record->event.pressed) {
-        SEND_STRING("=<<");
-      }
-      return false;
-      break;
-    case DOUBLE_COLON:
-      if (record->event.pressed) {
-        SEND_STRING("::");
-      }
-      return false;
-      break;
-    case VOID_LEFT:
-      if (record->event.pressed) {
-        SEND_STRING("<$");
-      }
-      return false;
-      break;
-    case VOID_RIGHT:
-      if (record->event.pressed) {
-        SEND_STRING("$>");
-      }
-      return false;
-      break;
-    case FLASH:
+    bool send(const char *str) {
         if (record->event.pressed) {
-            SEND_STRING("sudo -E make hhkb:brett:dfu");
-            register_code(KC_ENTER);
-            unregister_code(KC_ENTER);
-            reset_keyboard();
+            send_string(str);
         }
         return false;
-        break;
-  }
-  return true;
+    }
+    switch (keycode) {
+        case FAT_ARROW:
+            return send("=>");
+        case SKINNY_ARROW:
+            return send("->");
+        case REVERSE_ARROW:
+            return send("<-");
+        case CONCAT:
+            return send("<>");
+        case MAP:
+            return send("<$>");
+        case MAP_FLIPPED:
+            return send("<#>");
+        case FLAP:
+            return send("<@>");
+        case PIPE:
+            return send("|>");
+        case ALT:
+            return send("<|>");
+        case APPLY:
+            return send("<*>");
+        case AND:
+            return send("&&");
+        case OR:
+            return send("||");
+        case BIND:
+            return send(">>=");
+        case BIND_FLIPPED:
+            return send("=<<");
+        case DOUBLE_COLON:
+            return send("::");
+        case VOID_LEFT:
+            return send("<$");
+        case VOID_RIGHT:
+            return send("$>");
+        case FLASH:
+            if (record->event.pressed) {
+                SEND_STRING("sudo -E make hhkb:brett:dfu");
+                register_code(KC_ENTER);
+                unregister_code(KC_ENTER);
+                reset_keyboard();
+            }
+            return false;
+    }
+    return true;
 }

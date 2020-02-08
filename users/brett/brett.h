@@ -1,7 +1,4 @@
-#ifndef USERSPACE
-#define USERSPACE
-
-#include QMK_KEYBOARD_H
+#pragma once
 
 enum userspace_custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // Can always be here
@@ -22,10 +19,7 @@ enum userspace_custom_keycodes {
   VOID_LEFT, // <$
   VOID_RIGHT, // $>
   DOUBLE_COLON, // ::
-  FLASH, // Handle keyboard flashing
-  DYNAMIC_MACRO_RANGE // Should always be last
+  FLASH // Handle keyboard flashing
 };
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
-
-#endif
