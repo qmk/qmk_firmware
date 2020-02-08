@@ -112,32 +112,22 @@ static void send_mouse(report_mouse_t *report) {
     }
 }
 
-typedef struct {
-    uint8_t  report_id;
-    uint16_t usage;
-} __attribute__((packed)) report_extra_t;
-
-static void send_system(uint16_t data) {
+static void send_extra(uint8_t report_id, uint16_t data) {
+    static uint8_t  last_id   = 0;
     static uint16_t last_data = 0;
-    if (data == last_data) return;
+    if ((report_id == last_id) && (data == last_data)) return;
+    last_id   = report_id;
     last_data = data;
 
-    report_extra_t report = {.report_id = REPORT_ID_SYSTEM, .usage = data};
+    report_extra_t report = {.report_id = report_id, .usage = data};
     if (usbInterruptIsReady3()) {
         usbSetInterrupt3((void *)&report, sizeof(report));
     }
 }
 
-static void send_consumer(uint16_t data) {
-    static uint16_t last_data = 0;
-    if (data == last_data) return;
-    last_data = data;
+static void send_system(uint16_t data) { send_extra(REPORT_ID_SYSTEM, data); }
 
-    report_extra_t report = {.report_id = REPORT_ID_CONSUMER, .usage = data};
-    if (usbInterruptIsReady3()) {
-        usbSetInterrupt3((void *)&report, sizeof(report));
-    }
-}
+static void send_consumer(uint16_t data) { send_extra(REPORT_ID_CONSUMER, data); }
 
 /*------------------------------------------------------------------*
  * Request from host                                                *

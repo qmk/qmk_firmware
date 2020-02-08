@@ -1,8 +1,8 @@
 # QMK の設定
 
 <!---
-  original document: 0f43c2652:docs/config_options.md
-  git diff 0f43c2652 HEAD -- docs/config_options.md | cat
+  original document: 9ff61601e:docs/config_options.md
+  git diff 9ff61601e HEAD -- docs/config_options.md | cat
 -->
 
 QMK はほぼ無制限に設定可能です。可能なところはいかなるところでも、やりすぎな程、ユーザーがコードサイズを犠牲にしてでも彼らのキーボードをカスタマイズをすることを許しています。ただし、このレベルの柔軟性により設定が困難になります。
@@ -154,6 +154,8 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
    * タップされた直後に、デュアルロールキーを修飾子として使用できるようにします
    * [Hold after tap](ja/feature_advanced_keycodes.md#tapping-force-hold)を見てください
    * タップトグル機能を無効にします (`TT` あるいは One Shot Tap Toggle)
+* `#define TAPPING_FORCE_HOLD_PER_KEY`
+   * キーごとの `TAPPING_FORCE_HOLD` 設定処理を有効にします。
 * `#define LEADER_TIMEOUT 300`
    * リーダーキーがタイムアウトするまでの時間
       * タイムアウトする前にシーケンスを終了できない場合は、タイムアウトの設定を増やす必要があるかもしれません。あるいは、`LEADER_PER_KEY_TIMING` オプションを有効にすると良いでしょう。これは各キーがタップされた後でタイムアウトを再設定します。
@@ -187,7 +189,7 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 * `#define RGBLIGHT_SPLIT`
    * 分割キーボードの左半分の RGB LED の出力を右半分の RGB LED の入力につなげるかわりに、それぞれの側で個別にコントローラの出力ピンが直接 RGB LED の入力に繋がっているときは、この定義が必要です。
 * `#define RGBLED_SPLIT { 6, 6 }`
-   * 分割キーボードの各半分の `RGB_DI_PIN` に直接配線されている接続されているLEDの数
+   * 分割キーボードの各半分の `RGB_DI_PIN` に直接配線されている接続されている LED の数
    * 最初の値は左半分の LED の数を示し、2番目の値は右半分です。
    * RGBLED_SPLIT が定義されている場合、RGBLIGHT_SPLIT は暗黙的に定義されます。
 * `#define RGBLIGHT_HUE_STEP 12`
@@ -216,7 +218,7 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 
 ### 左右の設定
 
-一つ覚えておかなければならないことは、USB ポートが接続されている側が常にマスター側であるということです。USB に接続されていない側はスレーブです。
+1つ覚えておかなければならないことは、USB ポートが接続されている側が常にマスター側であるということです。USB に接続されていない側はスレーブです。
 
 分割キーボードの左右を設定するには、幾つかの異なる方法があります (優先度の順にリストされています):
 
@@ -260,7 +262,7 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 * `#define SELECT_SOFT_SERIAL_SPEED <speed>` (デフォルトの速度は1です)
    * serial 通信を使う時のプロトコルの速度を設定します。
    * 速度:
-      * 0: 約189kbps (実験目的のみ)
+      * 0: 約 189kbps (実験目的のみ)
       * 1: 約 137kbps (デフォルト)
       * 2: 約 75kbps
       * 3: 約 39kbps

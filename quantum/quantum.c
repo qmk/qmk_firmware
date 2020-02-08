@@ -256,6 +256,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef MAGIC_KEYCODE_ENABLE
             process_magic(keycode, record) &&
 #endif
+#ifdef GRAVE_ESC_ENABLE
+            process_grave_esc(keycode, record) &&
+#endif
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
             process_rgb(keycode, record) &&
 #endif
@@ -313,58 +316,6 @@ bool process_record_quantum(keyrecord_t *record) {
                 backlight_toggle_breathing();
                 return false;
 #endif
-        }
-    }
-
-    // keycodes that depend on both pressed and non-pressed state
-    switch (keycode) {
-        case GRAVE_ESC: {
-            /* true if the last press of GRAVE_ESC was shifted (i.e. GUI or SHIFT were pressed), false otherwise.
-             * Used to ensure that the correct keycode is released if the key is released.
-             */
-            static bool grave_esc_was_shifted = false;
-
-            uint8_t shifted = get_mods() & ((MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT) | MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI)));
-
-#ifdef GRAVE_ESC_ALT_OVERRIDE
-            // if ALT is pressed, ESC is always sent
-            // this is handy for the cmd+opt+esc shortcut on macOS, among other things.
-            if (get_mods() & (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT))) {
-                shifted = 0;
-            }
-#endif
-
-#ifdef GRAVE_ESC_CTRL_OVERRIDE
-            // if CTRL is pressed, ESC is always sent
-            // this is handy for the ctrl+shift+esc shortcut on windows, among other things.
-            if (get_mods() & (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL))) {
-                shifted = 0;
-            }
-#endif
-
-#ifdef GRAVE_ESC_GUI_OVERRIDE
-            // if GUI is pressed, ESC is always sent
-            if (get_mods() & (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI))) {
-                shifted = 0;
-            }
-#endif
-
-#ifdef GRAVE_ESC_SHIFT_OVERRIDE
-            // if SHIFT is pressed, ESC is always sent
-            if (get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
-                shifted = 0;
-            }
-#endif
-
-            if (record->event.pressed) {
-                grave_esc_was_shifted = shifted;
-                add_key(shifted ? KC_GRAVE : KC_ESCAPE);
-            } else {
-                del_key(grave_esc_was_shifted ? KC_GRAVE : KC_ESCAPE);
-            }
-
-            send_keyboard_report();
-            return false;
         }
     }
 

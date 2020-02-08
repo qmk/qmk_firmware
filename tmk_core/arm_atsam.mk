@@ -29,8 +29,8 @@ COMPILEFLAGS += -mthumb
 
 CFLAGS += $(COMPILEFLAGS)
 
-CPPFLAGS += $(COMPILEFLAGS)
-CPPFLAGS += -fno-exceptions -std=c++11
+CXXFLAGS += $(COMPILEFLAGS)
+CXXFLAGS += -fno-exceptions -std=c++11
 
 LDFLAGS +=-Wl,--gc-sections
 LDFLAGS += -Wl,-Map="%OUT%%PROJ_NAME%.map"
