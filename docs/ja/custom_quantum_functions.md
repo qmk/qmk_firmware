@@ -189,7 +189,7 @@ bool led_update_user(led_t led_state) {
 
 Ergodox の実装は、個々の LED をオンあるいはオフにするために `ergodox_right_led_1`/`2`/`3_on`/`off()` と、インデックスによってそれらをオンあるいはオフにするために `ergodox_right_led_on`/`off(uint8_t led)` を提供します。
 
-さらに、LED の明度を指定することができます。全ての LED の場合は `ergodox_led_all_set(uint8_t n)` を使って、個々の LED の場合は `ergodox_right_led_1`/`2`/`3_set(uint8_t n)` を使って、インデックスを指定する場合は `ergodox_right_led_set(uint8_t led, uint8_t n)` を使って指定することができます。
+さらに、LED の明度を指定することができます。全ての LED に同じ明度を指定するなら `ergodox_led_all_set(uint8_t n)` を使い、個別の LED の明度を指定するなら `ergodox_right_led_1`/`2`/`3_set(uint8_t n)` を使い、LED のインデックスを指定して明度を指定するには  `ergodox_right_led_set(uint8_t led, uint8_t n)` を使います。
 
 Ergodox キーボードは、最低の明度として `LED_BRIGHTNESS_LO` を、最高の輝度(これはデフォルトです)として `LED_BRIGHTNESS_HI` も定義しています。
 
