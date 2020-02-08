@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <util/delay.h>
 #include "../serial.h"
 #include "keyboard.h"
-#include "usb.h"
 #include "host.h"
 #include "timer.h"
 #include "print.h"
@@ -32,13 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "sendchar.h"
 #include "suspend.h"
 #include "bluefruit.h"
-#include "pjrc.h"
 
 #define CPU_PRESCALE(n) (CLKPR = 0x80, CLKPR = (n))
-
-#define HOST_DRIVER_NOT_SET 0
-#define BLUEFRUIT_HOST_DRIVER 1
-#define PJRC_HOST_DRIVER 2
 
 int main(void) {
     CPU_PRESCALE(0);
@@ -51,26 +45,10 @@ int main(void) {
 
     print_set_sendchar(sendchar);
 
-    // usb_init();
-    // _delay_ms(2000);
-    // while (!usb_configured()) /* wait */
-
     keyboard_setup();
 
     dprintf("Initializing keyboard...\n");
     keyboard_init();
-
-    // This implementation is pretty simplistic... if the USB connection
-    // is not configured, choose the Bluefruit, otherwise use USB
-    // Definitely would prefer to have this driven by an input pin and make
-    // it switch dynamically - BCG
-    // if (!usb_configured()) {
-
-    //     // Send power to Bluefruit... Adafruit says it takes 27 mA, I think
-    //     // the pins should provide 40 mA, but just in case I switch the
-    //     // Bluefruit using a transistor - BCG
-    //     DDRB   = _BV(PB6);
-    //     PORTB |= _BV(PB6);
 
     dprintf("Setting host driver to bluefruit...\n");
     host_set_driver(bluefruit_driver());
@@ -106,29 +84,4 @@ int main(void) {
     while (1) {
         keyboard_task();
     }
-
-    //     } else {
-
-    //         // I'm not smart enough to get this done with LUFA - BCG
-    //         dprintf("Setting host driver to PJRC...\n");
-    //         host_set_driver(pjrc_driver());
-    // #ifdef SLEEP_LED_ENABLE
-    //     sleep_led_init();
-    // #endif
-    //         // wait an extra second for the PC's operating system
-    //         // to load drivers and do whatever it does to actually
-    //         // be ready for input
-    //         _delay_ms(1000);
-    //         PORTB = ~_BV(PB0);
-    //         dprintf("Starting main loop");
-    //         while (1) {
-    //             while (suspend) {
-    //                 suspend_power_down();
-    //                 if (remote_wakeup && suspend_wakeup_condition()) {
-    //                     usb_remote_wakeup();
-    //                 }
-    //             }
-    //             keyboard_task();
-    //         }
-    //     }
 }
