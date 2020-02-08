@@ -26,7 +26,9 @@
 
 #define IO_RESET 8
 #define IO_ROW 9
+#define IO_INT 11
 #define TB_POW 10
+#define TB_INT 12
 #define CS_PIN_IO 18
 #define CS_PIN_TB 17
 
@@ -130,17 +132,20 @@ static inline void ioexp_init() {
         spim_start(mcp23s_snd, 4, mcp23s_rcv, 4, CS_PIN_IO);
     }
 
-    // set addressing mode of io expanders
+    // enable interrupt for all pins
     {
-        uint8_t mcp23s_snd[] = {0x40 | 0 | 0, 0x0A, (1 << 3) | (1 << 2)};
-        uint8_t mcp23s_rcv[] = {0, 0, 0};
-        spim_start(mcp23s_snd, 3, mcp23s_rcv, 3, CS_PIN_IO);
+        uint8_t mcp23s_snd[] = {0x40 | 0 | 0, 0x04, 0xFF, 0xFF};
+        uint8_t mcp23s_rcv[] = {0, 0, 0, 0};
+        spim_start(mcp23s_snd, 4, mcp23s_rcv, 4, CS_PIN_IO);
     }
 
+    // set addressing mode of io expanders, INT pin mirror, and INT pin open drain
     {
-        uint8_t mcp23s_snd[] = {0x40 | 0 | 1, 0x0A, (1 << 3) | (1 << 2)};
+        uint8_t mcp23s_snd[] = {0x40 | 0 | 0, 0x0A, (1 << 6) | (1 << 3) | (1 << 2)};
         uint8_t mcp23s_rcv[] = {0, 0, 0};
+        spim_start(mcp23s_snd, 3, mcp23s_rcv, 3, CS_PIN_IO);
 
+        // read the register of each IC and check initialization results
         for (int idx = 0; idx < IO_NUM; idx++) {
             mcp23s_snd[0] = 0x40 | (ioexpander_addrs[idx] << 1) | 1;
             spim_start(mcp23s_snd, 3, mcp23s_rcv, 3, CS_PIN_IO);
@@ -203,14 +208,14 @@ void matrix_scan_kb() {
         // read motion data
         {
             // trackball communication packet
-            uint8_t snd[] = {0x02, 0, 0x03, 0, 0x04, 0, 0x05, 0, 0x06, 0};
-            uint8_t rcv[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+            uint8_t snd[] = {0x42, 0, 0, 0, 0, 0};
+            uint8_t rcv[] = {0, 0, 0, 0, 0, 0};
 
-            spim_start(snd, 10, rcv, 10, CS_PIN_TB);
+            spim_start(snd, sizeof(snd), rcv, sizeof(rcv), CS_PIN_TB);
 
-            tb_info.x           = (int16_t)(((int16_t)rcv[3] << 4) | (((int16_t)rcv[7] >> 4) << 12));
-            tb_info.y           = (int16_t)(((int16_t)rcv[5] << 4) | (((int16_t)rcv[7] & 0x0F) << 12));
-            tb_info.surface     = rcv[9];
+            tb_info.x           = (int16_t)(((int16_t)rcv[2] << 4) | (((int16_t)rcv[4] >> 4) << 12));
+            tb_info.y           = (int16_t)(((int16_t)rcv[3] << 4) | (((int16_t)rcv[4] & 0x0F) << 12));
+            tb_info.surface     = rcv[5];
             tb_info.motion_flag = rcv[1];
         }
 
@@ -286,7 +291,7 @@ void reset_adns7530() {
     }
 }
 
-static void kugel_matrix_init() {}
+static void kugel_matrix_init() { setPinInputHigh(IO_INT); }
 
 static uint32_t kugel_matrix_get_row() { return MATRIX_ROWS_DEFAULT; }
 
@@ -300,6 +305,11 @@ static uint32_t kugel_matrix_scan(matrix_row_t *matrix_raw) {
     matrix_row_t row_state;
 
     if (ioexpander_init_flag == false) {
+        return 0;
+    }
+
+    // skip if no pin is changed
+    if (readPin(IO_INT)) {
         return 0;
     }
 
