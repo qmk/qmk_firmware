@@ -1,4 +1,4 @@
-# The testing keymap for Polaris
+# The PCB testing keymap for Polaris
 
 LED control keys are placed on the numrow.  
   
