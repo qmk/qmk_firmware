@@ -92,6 +92,13 @@ def atomic_dump(data, json_file):
 
         json_file (str): The file to dump to
     """
-    with tempfile.NamedTemporaryFile('w', dir=str(Path(json_file).parents[0])) as tf:
-        json.dump(data, tf)
-        os.replace(tf.name, json_file)
+
+    try:
+       with tempfile.NamedTemporaryFile('w', dir=str(Path(json_file).parents[0]), delete=True) as tf:
+            json.dump(data, tf)
+            os.replace(tf.name, json_file)
+    except FileNotFoundError:
+        """ The file is moved by os.replace,
+        but delete=True is required for cleanup in case an error occurs.
+        """
+        pass
