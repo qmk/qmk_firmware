@@ -15,6 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <stdbool.h>
 #include "app_ble_func.h"
 #include "keycode_str_converter.h"
 #include "config_file_util.h"
@@ -155,12 +156,29 @@ _Static_assert(sizeof(report_keyboard_t) == sizeof(bmp_api_key_report_t),
 
 void send_mouse(report_mouse_t *report) {
   if (get_ble_enabled()) {
+    static bool is_zeros_send = false;
+    if (report->buttons == 0 && report->x == 0 && report->y == 0
+        && report->v == 0 && report->h ==0) {
+      if (is_zeros_send) {
+        // skip no move packet if it has been already send
+        return;
+      }
+      else {
+        is_zeros_send = true;
+      }
+    }
+    else {
+      is_zeros_send = false;
+    }
+
     BMPAPI->ble.send_mouse((bmp_api_mouse_report_t*)report);
   }
+
   if (get_usb_enabled()) {
     BMPAPI->usb.send_mouse((bmp_api_mouse_report_t*)report);
   }
 }
+
 _Static_assert(sizeof(report_mouse_t) == sizeof(bmp_api_mouse_report_t),
         "Invalid report definition. Check MOUSE_SHARED_EP options");
 
