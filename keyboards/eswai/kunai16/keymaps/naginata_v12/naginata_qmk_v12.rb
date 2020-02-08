@@ -3,9 +3,9 @@ eiji    = %w(Q W E R T  Y U I O P  A S D F G  H J K L SCLN  Z X C V B  N M COMM 
 eiji_r  = %w(Y U I O P  H J K L SCLN N M COMM DOT SLSH)
 eiji_l  = %w(Q W E R T  A S D F G  Z X C V B)
 
-tanda   = %w(_ き て し < > 削 る す へ ろ け と か っ く あ い う ー ほ ひ は こ そ た な ん ら れ)
+tanda   = %w(_ き て し < > 削 る す へ ろ ひ と か っ く あ い う ー ほ け は こ そ た な ん ら れ)
 
-shifted = %w(_ ね り め < > さ よ え ゆ せ ぬ に ま ち や の も わ つ ほ ひ を 、 み お 。 む ふ れ)
+shifted = %w(_ ね り め < > さ よ え ゆ せ ぬ に ま ち や の も わ つ ほ け を 、 み お 。 む ふ れ)
 
 kana      = %w(あ い う え お か き く け こ さ し す せ そ た ち つ て と な に ぬ ね の は ひ ふ へ ほ ま み む め も や ゆ よ ら り る れ ろ わ を ん ー)
 r_kana    = %w(a i u e o ka ki ku ke ko sa si su se so ta ti tu te to na ni nu ne no ha hi hu he ho ma mi mu me mo ya yu yo ra ri ru re ro wa wo nn -)
@@ -126,8 +126,9 @@ kogaki.each_with_index do |k, i|
   j = tanda.index(t_kogaki[i]) || shifted.index(t_kogaki[i])
   if j && j > 0
     puts teigi(eiji[j], r_kogaki[i], k, "B_Q|")
-    puts teigi(eiji[j], r_kogaki[i], k, "B_V|B_M|")
-    puts teigi(eiji[j], r_kogaki[i], k + "(冗長)", "B_V|B_M|", "|B_SHFT")
+    puts teigi(eiji[j], r_kogaki[i], k, "B_Q|B_SHFT|")
+    # puts teigi(eiji[j], r_kogaki[i], k, "B_V|B_M|")
+    # puts teigi(eiji[j], r_kogaki[i], k + "(冗長)", "B_V|B_M|", "|B_SHFT")
   end
 end
 
