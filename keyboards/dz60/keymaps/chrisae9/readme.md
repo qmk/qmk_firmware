@@ -4,7 +4,7 @@ This is a custom keymap for the layout of the DZ60.
 
 ## Keyboard Picture
 
-![Keyboard Picture](https://i.imgur.com/AKDKAXN.png)
+![Keyboard Picture](https://i.imgur.com/op60iX4.jpg)
 
 ## Keyboard Layout
 
