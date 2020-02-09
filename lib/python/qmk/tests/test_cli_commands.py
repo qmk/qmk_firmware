@@ -30,7 +30,7 @@ def test_kle2json():
 
 
 def test_doctor():
-    result = check_subcommand('doctor')
+    result = check_subcommand('doctor', '-n')
     assert result.returncode == 0
     assert 'QMK Doctor is checking your environment.' in result.stderr
     assert 'QMK is ready to go' in result.stderr
