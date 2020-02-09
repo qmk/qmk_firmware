@@ -96,7 +96,7 @@ def pid(cli):
         cli.log.error("Can't commit changes if changes aren't applied, please use --apply with --commit. This option is only intended for CI/CD")
         return False
 
-    pids_json_path = cli.config.pid.db_path if cli.config.pid.db_path else "quantum/usb_pids.json"
+    pids_json_path = cli.config.pid.db_path if cli.config.pid.db_path else "quantum/product_ids.json"
     qmk_vid = cli.config.pid.qmk_vid if cli.config.pid.qmk_vid else "0x03A8"
 
     # Make a skeleton json file on first run
