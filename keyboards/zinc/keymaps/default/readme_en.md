@@ -95,7 +95,7 @@ make with `zinc:<keymap_name>`
 $ make zinc:default
 ```
 
-To make and flash ProMicro with `:avrdude`
+To make and flash with `:flash`
 
 ```
 $ make zinc:default:avrdude
