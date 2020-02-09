@@ -29,11 +29,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 1
 
+#define DIODE_DIRECTION COL2ROW
+
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
+
+#define TAPPING_TERM 500
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

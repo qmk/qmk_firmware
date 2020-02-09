@@ -14,22 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#ifdef PROTOCOL_LUFA
-#include "lufa.h"
-#include "split_util.h"
-#endif
-
-extern keymap_config_t keymap_config;
-
-#ifdef RGBLIGHT_ENABLE
-//Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-#endif
 
 enum custom_keycodes {
   RGBRST = SAFE_RANGE
 };
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT( \
@@ -48,10 +36,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-// define variables for reactive RGB
-bool TOG_STATUS = false;
-int RGB_current_mode;
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case RGBRST:
@@ -59,22 +43,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
           eeconfig_update_rgblight_default();
           rgblight_enable();
-          RGB_current_mode = rgblight_config.mode;
         }
       #endif
       break;
   }
   return true;
-}
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-void led_set_user(uint8_t usb_led) {
-
 }

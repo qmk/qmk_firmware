@@ -2,13 +2,17 @@
 #include <stdbool.h>
 #include "eeprom.h"
 #include "eeconfig.h"
+#include "action_layer.h"
 
 #ifdef STM32_EEPROM_ENABLE
 #    include "hal.h"
 #    include "eeprom_stm32.h"
 #endif
 
-extern uint32_t default_layer_state;
+#if defined(EEPROM_DRIVER)
+#    include "eeprom_driver.h"
+#endif
+
 /** \brief eeconfig enable
  *
  * FIXME: needs doc
@@ -32,6 +36,9 @@ void eeconfig_init_quantum(void) {
 #ifdef STM32_EEPROM_ENABLE
     EEPROM_Erase();
 #endif
+#if defined(EEPROM_DRIVER)
+    eeprom_driver_erase();
+#endif
     eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_NUMBER);
     eeprom_update_byte(EECONFIG_DEBUG, 0);
     eeprom_update_byte(EECONFIG_DEFAULT_LAYER, 0);
@@ -47,6 +54,16 @@ void eeconfig_init_quantum(void) {
     eeprom_update_byte(EECONFIG_VELOCIKEY, 0);
     eeprom_update_dword(EECONFIG_RGB_MATRIX, 0);
     eeprom_update_byte(EECONFIG_RGB_MATRIX_SPEED, 0);
+
+    // TODO: Remove once ARM has a way to configure EECONFIG_HANDEDNESS
+    //        within the emulated eeprom via dfu-util or another tool
+#if defined INIT_EE_HANDS_LEFT
+#    pragma message "Faking EE_HANDS for left hand"
+    eeprom_update_byte(EECONFIG_HANDEDNESS, 1);
+#elif defined INIT_EE_HANDS_RIGHT
+#    pragma message "Faking EE_HANDS for right hand"
+    eeprom_update_byte(EECONFIG_HANDEDNESS, 0);
+#endif
 
     eeconfig_init_kb();
 }
@@ -70,6 +87,9 @@ void eeconfig_enable(void) { eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_N
 void eeconfig_disable(void) {
 #ifdef STM32_EEPROM_ENABLE
     EEPROM_Erase();
+#endif
+#if defined(EEPROM_DRIVER)
+    eeprom_driver_erase();
 #endif
     eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_NUMBER_OFF);
 }
@@ -153,8 +173,8 @@ uint32_t eeconfig_read_kb(void) { return eeprom_read_dword(EECONFIG_KEYBOARD); }
  *
  * FIXME: needs doc
  */
-
 void eeconfig_update_kb(uint32_t val) { eeprom_update_dword(EECONFIG_KEYBOARD, val); }
+
 /** \brief eeconfig read user
  *
  * FIXME: needs doc
@@ -166,9 +186,24 @@ uint32_t eeconfig_read_user(void) { return eeprom_read_dword(EECONFIG_USER); }
  */
 void eeconfig_update_user(uint32_t val) { eeprom_update_dword(EECONFIG_USER, val); }
 
+/** \brief eeconfig read haptic
+ *
+ * FIXME: needs doc
+ */
 uint32_t eeconfig_read_haptic(void) { return eeprom_read_dword(EECONFIG_HAPTIC); }
-/** \brief eeconfig update user
+/** \brief eeconfig update haptic
  *
  * FIXME: needs doc
  */
 void eeconfig_update_haptic(uint32_t val) { eeprom_update_dword(EECONFIG_HAPTIC, val); }
+
+/** \brief eeconfig read split handedness
+ *
+ * FIXME: needs doc
+ */
+bool eeconfig_read_handedness(void) { return !!eeprom_read_byte(EECONFIG_HANDEDNESS); }
+/** \brief eeconfig update split handedness
+ *
+ * FIXME: needs doc
+ */
+void eeconfig_update_handedness(bool val) { eeprom_update_byte(EECONFIG_HANDEDNESS, !!val); }

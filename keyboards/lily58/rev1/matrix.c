@@ -95,9 +95,8 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
-    debug_enable = true;
-    debug_matrix = true;
-    debug_mouse = true;
+    split_keyboard_setup();
+
     // initialize row and col
     unselect_rows();
     init_cols();

@@ -36,7 +36,11 @@ RGB hsv_to_rgb(HSV hsv) {
 
     h = hsv.h;
     s = hsv.s;
+#ifdef USE_CIE1931_CURVE
+    v = pgm_read_byte(&CIE1931_CURVE[hsv.v]);
+#else
     v = hsv.v;
+#endif
 
     region    = h * 6 / 255;
     remainder = (h * 2 - region * 85) * 3;
@@ -79,11 +83,19 @@ RGB hsv_to_rgb(HSV hsv) {
             break;
     }
 
-#ifdef USE_CIE1931_CURVE
-    rgb.r = pgm_read_byte(&CIE1931_CURVE[rgb.r]);
-    rgb.g = pgm_read_byte(&CIE1931_CURVE[rgb.g]);
-    rgb.b = pgm_read_byte(&CIE1931_CURVE[rgb.b]);
-#endif
-
     return rgb;
 }
+
+#ifdef RGBW
+#    ifndef MIN
+#        define MIN(a, b) ((a) < (b) ? (a) : (b))
+#    endif
+void convert_rgb_to_rgbw(LED_TYPE *led) {
+    // Determine lowest value in all three colors, put that into
+    // the white channel and then shift all colors by that amount
+    led->w = MIN(led->r, MIN(led->g, led->b));
+    led->r -= led->w;
+    led->g -= led->w;
+    led->b -= led->w;
+}
+#endif

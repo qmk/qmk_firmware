@@ -19,7 +19,6 @@
 /* diode directions */
 #define COL2ROW 0
 #define ROW2COL 1
-#define CUSTOM_MATRIX 2 /* Disables built-in matrix scanning code */
 
 // useful for direct pin mapping
 #define NO_PIN (~0)
@@ -133,7 +132,7 @@
 #    endif
 
 #    ifndef __ASSEMBLER__
-#        define _PIN_ADDRESS(p, offset) _SFR_IO8(ADDRESS_BASE + (p >> PORT_SHIFTER) + offset)
+#        define _PIN_ADDRESS(p, offset) _SFR_IO8(ADDRESS_BASE + ((p) >> PORT_SHIFTER) + (offset))
 // Port X Input Pins Address
 #        define PINx_ADDRESS(p) _PIN_ADDRESS(p, 0)
 // Port X Data Direction Register,  0:input 1:output
@@ -175,7 +174,7 @@
 
 // LEDs (only D5/C13 uses an actual LED)
 #        ifdef CONVERT_TO_PROTON_C_RXLED
-#            define D5 PAL_LINE(GPIOC, 13)
+#            define D5 PAL_LINE(GPIOC, 14)
 #            define B0 PAL_LINE(GPIOC, 13)
 #        else
 #            define D5 PAL_LINE(GPIOC, 13)
@@ -293,6 +292,26 @@
 #        define SERIAL_UART_TXD_READY (UCSR1A & _BV(UDRE1))
 #        define SERIAL_UART_INIT()                  \
             do {                                    \
+                /* baud rate */                     \
+                UBRR1L = SERIAL_UART_UBRR;          \
+                /* baud rate */                     \
+                UBRR1H = SERIAL_UART_UBRR >> 8;     \
+                /* enable TX */                     \
+                UCSR1B = _BV(TXEN1);                \
+                /* 8-bit data */                    \
+                UCSR1C = _BV(UCSZ11) | _BV(UCSZ10); \
+                sei();                              \
+            } while (0)
+#    elif (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB1286__))
+#        define SERIAL_UART_BAUD 115200
+#        define SERIAL_UART_DATA UDR1
+/* UBRR should result in ~16 and set UCSR1A = _BV(U2X1) as per rn42 documentation. HC05 needs baudrate configured accordingly */
+#        define SERIAL_UART_UBRR (F_CPU / (8UL * SERIAL_UART_BAUD) - 1)
+#        define SERIAL_UART_RXD_VECT USART1_RX_vect
+#        define SERIAL_UART_TXD_READY (UCSR1A & _BV(UDRE1))
+#        define SERIAL_UART_INIT()                  \
+            do {                                    \
+                UCSR1A = _BV(U2X1);                 \
                 /* baud rate */                     \
                 UBRR1L = SERIAL_UART_UBRR;          \
                 /* baud rate */                     \
