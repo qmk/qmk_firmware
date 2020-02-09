@@ -1,8 +1,14 @@
 # Minivan 
-A 40% keyboard made first by TheVan Keyboards _https://thevankeyboards.com_
-now taken over by TKC _https://thekey.company_  This keymap is for the default
-12x12x12x8 arrangement (44 keys). There are some code tokens to make it
-easier to compile for 45 or 46 keys (see keymap.c below compile options block). 
+A 40% keyboard made first by TheVan Keyboards
+_https://thevankeyboards.com_ now taken over by TKC
+_https://thekey.company_
+
+Minivan 44 keys, 45 keys and 46 keys
+====================================
+This keymap works for the four Minivan hardware variants: _default_
+(44 keys), _Arrow_ and _South Paw_ (45 keys), _Arrow_ _South paw_ combined
+(46 keys). See the configuration block at the top in ![keymap.c](./keymap.c) at
+`#define MORE_KEY__ARROW` etc.
 
 Compile option for: Dvorak² or Qwerty+Dvorak
 ============================================
