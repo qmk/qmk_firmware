@@ -20,10 +20,18 @@
 
 #    include "process_auto_shift.h"
 
-static bool     autoshift_enabled = true;
+static bool autoshift_enabled = true;
 static uint16_t autoshift_time    = 0;
 static uint16_t autoshift_timeout = AUTO_SHIFT_TIMEOUT;
-static uint16_t autoshift_lastkey = KC_NO;
+static int16_t autoshift_lastkey = -1; // -1 is what KC_NO was before - 'not currently autoshifting'.
+static int16_t autoshift_lastkey_shifted = -2; // set in the top of process_auto_shift.
+// process_custom_shifts return values:
+// -2 - not a custom autoshift key
+// -1 - custom key, use default shifted value
+// 0 = KC_NO, allowing for keys to not have an action when held.
+// other - the code to send when timeout exceeded.
+
+__attribute__((weak)) int16_t autoshift_custom_shifts(uint16_t keycode, keyrecord_t *record) { return -2; }
 
 void autoshift_timer_report(void) {
     char display[8];
@@ -33,23 +41,37 @@ void autoshift_timer_report(void) {
     send_string((const char *)display);
 }
 
-void autoshift_on(uint16_t keycode) {
-    autoshift_time    = timer_read();
+bool autoshift_on(uint16_t keycode) {
+    if (!autoshift_enabled) { return true; }
+#    ifndef AUTO_SHIFT_MODIFIERS
+    if (get_mods()) {
+        return true;
+    }
+#    endif
+    autoshift_time = timer_read();
     autoshift_lastkey = keycode;
+
+    // We need some extra handling here for OSL edge cases
+#    if !defined(NO_ACTION_ONESHOT) && !defined(NO_ACTION_TAPPING)
+    clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+#    endif
+    return false;
 }
 
 void autoshift_flush(void) {
-    if (autoshift_lastkey != KC_NO) {
+    if (autoshift_lastkey != -1) {
         uint16_t elapsed = timer_elapsed(autoshift_time);
 
         if (elapsed > autoshift_timeout) {
-            tap_code16(LSFT(autoshift_lastkey));
-        } else {
+            tap_code16((autoshift_lastkey_shifted == -1) ? LSFT(autoshift_lastkey) : autoshift_lastkey_shifted);
+        }
+        else {
             tap_code(autoshift_lastkey);
         }
 
-        autoshift_time    = 0;
-        autoshift_lastkey = KC_NO;
+        autoshift_time = 0;
+        autoshift_lastkey = -1;
+        // no need to reset shifted
     }
 }
 
@@ -75,20 +97,25 @@ uint16_t get_autoshift_timeout(void) { return autoshift_timeout; }
 void set_autoshift_timeout(uint16_t timeout) { autoshift_timeout = timeout; }
 
 bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
+    autoshift_flush();
     if (record->event.pressed) {
+        autoshift_lastkey_shifted = autoshift_custom_shifts(keycode, record);
+        if (autoshift_lastkey_shifted > -2) {
+            return autoshift_on(keycode);
+        }
+        else {
+            autoshift_lastkey_shifted = LSFT(keycode);
+        }
         switch (keycode) {
             case KC_ASUP:
                 autoshift_timeout += 5;
                 return true;
-
             case KC_ASDN:
                 autoshift_timeout -= 5;
                 return true;
-
             case KC_ASRP:
                 autoshift_timer_report();
                 return true;
-
             case KC_ASTG:
                 autoshift_toggle();
                 return true;
@@ -110,28 +137,11 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
             case KC_MINUS ... KC_SLASH:
             case KC_NONUS_BSLASH:
 #    endif
-                autoshift_flush();
-                if (!autoshift_enabled) return true;
-
-#    ifndef AUTO_SHIFT_MODIFIERS
-                if (get_mods()) {
-                    return true;
-                }
-#    endif
-                autoshift_on(keycode);
-
-                // We need some extra handling here for OSL edge cases
-#    if !defined(NO_ACTION_ONESHOT) && !defined(NO_ACTION_TAPPING)
-                clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
-#    endif
-                return false;
+                return autoshift_on(keycode);
 
             default:
-                autoshift_flush();
                 return true;
         }
-    } else {
-        autoshift_flush();
     }
 
     return true;
