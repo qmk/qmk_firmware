@@ -1,8 +1,8 @@
 # QMK CLI
 
 <!---
-  original document: d598f01cb:docs/cli.md
-  git diff d598f01cb HEAD -- docs/cli.md | cat
+  original document: 2fe288d01:docs/cli.md
+  git diff 2fe288d01 HEAD -- docs/cli.md | cat
 -->
 
 このページは QMK CLI のセットアップと使用方法について説明します。
@@ -86,7 +86,7 @@ qmk cformat [file1] [file2] [...] [fileN]
 
 ## `qmk compile`
 
-このコマンドにより、任意のディレクトリからファームウェアをコンパイルすることができます。<https://config.qmk.fm> からエクスポートした JSON をコンパイルするか、リポジトリ内でキーマップをコンパイルすることができます。
+このコマンドにより、任意のディレクトリからファームウェアをコンパイルすることができます。<https://config.qmk.fm> からエクスポートした JSON をコンパイルするか、リポジトリ内でキーマップをコンパイルするか、現在の作業ディレクトリでキーボードをコンパイルすることができます。
 
 **Configurator Exports での使い方**:
 
@@ -98,6 +98,53 @@ qmk compile <configuratorExport.json>
 
 ```
 qmk compile -kb <keyboard_name> -km <keymap_name>
+```
+
+**キーボードディレクトリでの使い方**:  
+
+default キーマップのあるキーボードディレクトリ、キーボードのキーマップディレクトリ、`--keymap <keymap_name>` で与えられるキーマップディレクトリにいなければなりません。
+```
+qmk compile
+```
+
+**例**:
+```
+$ qmk config compile.keymap=default
+$ cd ~/qmk_firmware/keyboards/planck/rev6
+$ qmk compile
+Ψ Compiling keymap with make planck/rev6:default
+...
+```
+あるいはオプションのキーマップ引数を指定して
+
+```
+$ cd ~/qmk_firmware/keyboards/clueboard/66/rev4
+$ qmk compile -km 66_iso
+Ψ Compiling keymap with make clueboard/66/rev4:66_iso
+...
+```
+あるいはキーマップディレクトリで
+
+```
+$ cd ~/qmk_firmware/keyboards/gh60/satan/keymaps/colemak
+$ qmk compile
+Ψ Compiling keymap with make make gh60/satan:colemak
+...
+```
+
+**レイアウトディレクトリでの使い方**:  
+
+`qmk_firmware/layouts/` 以下のキーマップディレクトリにいなければなりません。
+```
+qmk compile -kb <keyboard_name>
+```
+
+**例**:
+```
+$ cd ~/qmk_firmware/layouts/community/60_ansi/mechmerlin-ansi
+$ qmk compile -kb dz60
+Ψ Compiling keymap with make dz60:mechmerlin-ansi
+...
 ```
 
 ## `qmk flash`
