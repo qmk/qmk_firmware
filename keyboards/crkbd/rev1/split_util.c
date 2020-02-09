@@ -20,18 +20,22 @@
 #endif
 
 #ifndef SPLIT_USB_TIMEOUT
-#    define SPLIT_USB_TIMEOUT 2500
+#    define SPLIT_USB_TIMEOUT 2000
+#endif
+
+#ifndef SPLIT_USB_TIMEOUT_POLL
+#    define SPLIT_USB_TIMEOUT_POLL 10
 #endif
 
 volatile bool isLeftHand = true;
 
 bool waitForUsb(void) {
-    for (uint8_t i = 0; i < (SPLIT_USB_TIMEOUT / 100); i++) {
-        // This will return true of a USB connection has been established
+    for (uint8_t i = 0; i < (SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL); i++) {
+        // This will return true if a USB connection has been established
         if (UDADDR & _BV(ADDEN)) {
             return true;
         }
-        wait_ms(100);
+        wait_ms(SPLIT_USB_TIMEOUT_POLL);
     }
 
     // Avoid NO_USB_STARTUP_CHECK - Disable USB as the previous checks seem to enable it somehow
@@ -48,13 +52,13 @@ __attribute__((weak)) bool is_keyboard_left(void) {
 #elif defined(EE_HANDS)
     return eeconfig_read_handedness();
 #elif defined(MASTER_RIGHT)
-    return !is_keyboard_master();
+    return !has_usb();
 #endif
 
-    return is_keyboard_master();
+    return has_usb();
 }
 
-__attribute__((weak)) bool is_keyboard_master(void) {
+__attribute__((weak)) bool has_usb(void) {
     static enum { UNKNOWN, MASTER, SLAVE } usbstate = UNKNOWN;
 
     // only check once, as this is called often
@@ -102,9 +106,4 @@ void split_keyboard_setup(void) {
       keyboard_slave_setup();
    }
    sei();
-}
-
-// backwards compat
-bool has_usb(void) {
-   return is_keyboard_master();
 }

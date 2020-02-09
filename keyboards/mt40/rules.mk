@@ -12,10 +12,10 @@ MCU = atmega32a
 BOOTLOADER = bootloadHID
 
 # build options
-BOOTMAGIC_ENABLE ?= yes # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE ?= no   # Mouse keys(+4700)
-EXTRAKEY_ENABLE ?= yes  # Audio control and System control(+450)
-CONSOLE_ENABLE ?= no    # Console for debug(+400)
+BOOTMAGIC_ENABLE ?= yes # Virtual DIP switch configuration
+MOUSEKEY_ENABLE ?= no   # Mouse keys
+EXTRAKEY_ENABLE ?= yes  # Audio control and System control
+CONSOLE_ENABLE ?= no    # Console for debug
 COMMAND_ENABLE ?= no    # Commands for debug and configuration
 NKRO_ENABLE ?= no       # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ # nkro-doesnt-work
 BACKLIGHT_ENABLE ?= yes # Enable keyboard backlight functionality
@@ -28,10 +28,6 @@ WS2812_DRIVER = i2c
 TAP_DANCE_ENABLE = no
 
 OPT_DEFS = -DDEBUG_LEVEL=0
-
-# custom matrix setup
-CUSTOM_MATRIX = yes
-SRC = matrix.c
 
 LAYOUTS = planck_mit
 LAYOUTS_HAS_RGB = no

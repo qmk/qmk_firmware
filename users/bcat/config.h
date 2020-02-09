@@ -22,6 +22,26 @@
  */
 #define TAPPING_FORCE_HOLD
 
+#if defined(RGB_MATRIX_ENABLE)
+    /* Turn off per-key RGB when the host goes to sleep. */
+    #define RGB_DISABLE_WHEN_USB_SUSPENDED true
+
+    /* Keep per-key RGB increments consistent across keyboards. */
+    #undef RGB_MATRIX_HUE_STEP
+    #undef RGB_MATRIX_SAT_STEP
+    #undef RGB_MATRIX_VAL_STEP
+    #undef RGB_MATRIX_SPD_STEP
+
+    #define RGB_MATRIX_HUE_STEP 8
+    #define RGB_MATRIX_SAT_STEP 17
+    #define RGB_MATRIX_VAL_STEP 17
+    #define RGB_MATRIX_SPD_STEP 17
+
+    /* Turn on additional RGB animations. */
+    #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+    #define RGB_MATRIX_KEYPRESSES
+#endif
+
 #if defined(RGBLIGHT_ENABLE)
     /* Turn off RGB underglow when the host goes to sleep. */
     #define RGBLIGHT_SLEEP

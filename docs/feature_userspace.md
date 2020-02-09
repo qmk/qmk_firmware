@@ -208,15 +208,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             clear_mods(); clear_oneshot_mods();
             SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
     #ifndef FLASH_BOOTLOADER
-            if ( (temp_mod | temp_osm) & MOD_MASK_SHIFT ) 
+            if ((temp_mod | temp_osm) & MOD_MASK_SHIFT)
     #endif
-            { // 
+            {
                 SEND_STRING(":flash");
             }
-            if ( (temp_mod | temp_osm) & MOD_MASK_CTRL) { 
-                SEND_STRING(" -j8 --output-sync"); 
+            if ((temp_mod | temp_osm) & MOD_MASK_CTRL) {
+                SEND_STRING(" -j8 --output-sync");
             }
-            SEND_STRING(SS_TAP(X_ENTER));
+            tap_code(KC_ENT);
             set_mods(temp_mod);
         }
         break;

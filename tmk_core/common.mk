@@ -26,29 +26,11 @@ TMK_COMMON_SRC +=	$(COMMON_DIR)/host.c \
 	$(PLATFORM_COMMON_DIR)/bootloader.c \
 
 ifeq ($(PLATFORM),AVR)
-	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/xprintf.S
+  TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/xprintf.S
 endif
 
 ifeq ($(PLATFORM),CHIBIOS)
-	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/printf.c
-  ifeq ($(MCU_SERIES), STM32F3xx)
-    TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
-    TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
-    TMK_COMMON_DEFS += -DEEPROM_EMU_STM32F303xC
-    TMK_COMMON_DEFS += -DSTM32_EEPROM_ENABLE
-  else ifeq ($(MCU_SERIES), STM32F1xx)
-    TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
-    TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
-    TMK_COMMON_DEFS += -DEEPROM_EMU_STM32F103xB
-    TMK_COMMON_DEFS += -DSTM32_EEPROM_ENABLE
-  else ifeq ($(MCU_SERIES)_$(MCU_LDSCRIPT), STM32F0xx_STM32F072xB)
-    TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
-    TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
-    TMK_COMMON_DEFS += -DEEPROM_EMU_STM32F072xB
-    TMK_COMMON_DEFS += -DSTM32_EEPROM_ENABLE
-  else
-    TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom_teensy.c
-  endif
+  TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/printf.c
   ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
     TMK_COMMON_SRC += $(CHIBIOS)/os/various/syscalls.c
   else ifeq ($(strip $(TERMINAL_ENABLE)), yes)
@@ -57,14 +39,8 @@ ifeq ($(PLATFORM),CHIBIOS)
 endif
 
 ifeq ($(PLATFORM),ARM_ATSAM)
-	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/printf.c
-	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
+  TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/printf.c
 endif
-
-ifeq ($(PLATFORM),TEST)
-	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
-endif
-
 
 
 # Option modules
@@ -185,18 +161,6 @@ endif
 
 ifeq ($(strip $(NO_USB_STARTUP_CHECK)), yes)
     TMK_COMMON_DEFS += -DNO_USB_STARTUP_CHECK
-endif
-
-ifeq ($(strip $(KEYMAP_SECTION_ENABLE)), yes)
-    TMK_COMMON_DEFS += -DKEYMAP_SECTION_ENABLE
-
-    ifeq ($(strip $(MCU)),atmega32u2)
-	TMK_COMMON_LDFLAGS = -Wl,-L$(TMK_DIR),-Tldscript_keymap_avr35.x
-    else ifeq ($(strip $(MCU)),atmega32u4)
-	TMK_COMMON_LDFLAGS = -Wl,-L$(TMK_DIR),-Tldscript_keymap_avr5.x
-    else
-	TMK_COMMON_LDFLAGS = $(error no ldscript for keymap section)
-    endif
 endif
 
 ifeq ($(strip $(SHARED_EP_ENABLE)), yes)

@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "host_driver.h"
 #include "vusb.h"
-#include "bootloader.h"
 #include <util/delay.h>
 
 static uint8_t vusb_keyboard_leds = 0;
@@ -113,39 +112,29 @@ static void send_mouse(report_mouse_t *report) {
     }
 }
 
-typedef struct {
-    uint8_t  report_id;
-    uint16_t usage;
-} __attribute__((packed)) report_extra_t;
-
-static void send_system(uint16_t data) {
+static void send_extra(uint8_t report_id, uint16_t data) {
+    static uint8_t  last_id   = 0;
     static uint16_t last_data = 0;
-    if (data == last_data) return;
+    if ((report_id == last_id) && (data == last_data)) return;
+    last_id   = report_id;
     last_data = data;
 
-    report_extra_t report = {.report_id = REPORT_ID_SYSTEM, .usage = data};
+    report_extra_t report = {.report_id = report_id, .usage = data};
     if (usbInterruptIsReady3()) {
         usbSetInterrupt3((void *)&report, sizeof(report));
     }
 }
 
-static void send_consumer(uint16_t data) {
-    static uint16_t last_data = 0;
-    if (data == last_data) return;
-    last_data = data;
+static void send_system(uint16_t data) { send_extra(REPORT_ID_SYSTEM, data); }
 
-    report_extra_t report = {.report_id = REPORT_ID_CONSUMER, .usage = data};
-    if (usbInterruptIsReady3()) {
-        usbSetInterrupt3((void *)&report, sizeof(report));
-    }
-}
+static void send_consumer(uint16_t data) { send_extra(REPORT_ID_CONSUMER, data); }
 
 /*------------------------------------------------------------------*
  * Request from host                                                *
  *------------------------------------------------------------------*/
 static struct {
     uint16_t len;
-    enum { NONE, BOOTLOADER, SET_LED } kind;
+    enum { NONE, SET_LED } kind;
 } last_req;
 
 usbMsgLen_t usbFunctionSetup(uchar data[8]) {
@@ -173,11 +162,6 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
                 debug("SET_LED: ");
                 last_req.kind = SET_LED;
                 last_req.len  = rq->wLength.word;
-#ifdef BOOTLOADER_SIZE
-            } else if (rq->wValue.word == 0x0301) {
-                last_req.kind = BOOTLOADER;
-                last_req.len  = rq->wLength.word;
-#endif
             }
             return USB_NO_MSG;  // to get data in usbFunctionWrite
         } else {
@@ -202,11 +186,6 @@ uchar usbFunctionWrite(uchar *data, uchar len) {
             debug("\n");
             vusb_keyboard_leds = data[0];
             last_req.len       = 0;
-            return 1;
-            break;
-        case BOOTLOADER:
-            usbDeviceDisconnect();
-            bootloader_jump();
             return 1;
             break;
         case NONE:

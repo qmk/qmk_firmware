@@ -14,6 +14,7 @@ See: https://docs.qmk.fm/#/feature_userspace
 - [Hotdox](../../keyboards/hotdox/keymaps/ninjonas)
 - [Pinky3](../../keyboards/pinky/3/keymaps/ninjonas)
 - [Lily58](../../keyboards/lily58/keymaps/ninjonas)
+- [Kyria](../../keyboards/kyria/keymaps/ninjonas)
 
 ## Features
 ### [Keys](ninjonas.h#L37)
@@ -24,6 +25,7 @@ See: https://docs.qmk.fm/#/feature_userspace
 |K_MDSH | MacOS shortcut to get em-dash `–` |
 |K_RAPP | MacOS shortcut to switch apps to the right |
 |K_LAPP | MacOS shortcut to switch apps to the left |
+|K_CPRF |  + Shift + M. Used for switching Google Chrome profiles | 
 
 ### [Layers](ninjonas.h#L44)
 |Code | Description |
@@ -33,6 +35,8 @@ See: https://docs.qmk.fm/#/feature_userspace
 |LT_LOW + LT_RAI | Hold for ADJUST  |
 |LM_LOW | Dedicated key to momentarily toggle to use LOWER layer |
 |LM_RAI | Dedicated key to momentarily toggle to use RAISE layer |
+|LG_LOW | Press to toggle LOWER layer |
+|LG_RAI | Press to toggle RAISE layer |
 
 ### [Mod-Taps](ninjonas.h#L50)
 |Code | Description |
@@ -59,13 +63,15 @@ Predefined keyboard layout templates to speed up configuring split keyboards
 ### [Macros](process_records.c)
 |Code | Description |
 |---|---|
-|M_PYNV | macro to activate pyenv with the name `jira` |
-|M_MAKE | macro to send QMK make command to compile keyboard |
-|M_FLSH | macro to send QMK make command to compile keyboard with the correct bootloader |
-|M_VRSN | macro to send QMK version |
+|M_PYNV | Macro to activate pyenv with the name `jira` |
+|M_MAKE | Macro to send QMK make command to compile keyboard |
+|M_MALL | Macro to send QMK make command to all [ninjonas](#Supported%20Keyboards) keyboards |
+|M_FLSH | Macro to send QMK make command to compile keyboard with the correct bootloader |
+|M_VRSN | Macro to send QMK version |
 |M_SHFT | Sends  + alt + shift to a keycode to activate [ShiftIt](https://github.com/fikovnik/ShiftIt) |
 |M_CODE | Opens [Visual Studio Code](https://code.visualstudio.com/) on current directory |
 |M_TERM | Launches Spotlight and calls Terminal |
+|M_COPA | Single key copy/paste |
 |M_XXX1 to M_XXX5 | Reserved for secret macros see [Secrets](#secrets)  |
 
 ### [Tap-Dance](tap_dances.h)
