@@ -103,6 +103,41 @@ Do not Auto Shift numeric keys, zero through nine.
 
 Do not Auto Shift alpha characters, which include A through Z.
 
+### Custom Keys and Shifted Keycodes
+Often, with small keyboards (on which Auto Shift is most common), it is convenient to rearrange the shifted values of symbols due to many not being on the base layer. This lead to the creation of `autoshift_custom_shifts`. It is called when any key is pressed, and used to determine whether a key is included in Auto Shift and/or its shifted value.
+
+Here is an example `keymap.c`:
+
+```c
+int16_t autoshift_custom_shifts(uint16_t keycode, keyrecord_t *record) {
+  switch(keycode) {
+    case KC_TAB:
+    case KC_ENT:
+    case KC_QUOT:
+      return -1; // adds the key to Auto Shift with its default shifted action
+    case KC_COMM:
+      return KC_QUES; // send ? when , is held
+    case KC_DOT:
+      return KC_EXLM;
+    case KC_SLSH:
+      return KC_BSLASH;
+    case KC_AMPR:
+      return KC_PIPE;
+    case KC_LPRN:
+      return KC_LBRC;
+    case KC_RPRN:
+      return KC_RBRC;
+    case KC_A:
+      // note you can override the actions of already enabled keys, and KC_NO is supported
+      // which allows you to make keys do nothing when held for longer than the timeout
+      return KC_NO;
+  }
+  return -2; // default - not an Auto Shift key
+}
+```
+
+Returning `-2` indicates that the key press we just processed should continue to be processed as normal (not be included in Auto Shift). `-1` is used to add individual keys to Auto Shift, if there is not a relevant `#define` (or not everything from it is desired, such as `KC_TAB` in the above example). Returning anything else will make that the shifted value for the processed key.
+
 ## Using Auto Shift Setup
 
 This will enable you to define three keys temporarily to increase, decrease and report your `AUTO_SHIFT_TIMEOUT`.
