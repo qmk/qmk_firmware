@@ -16,6 +16,7 @@
 #include "kugel.h"
 
 #include <string.h>
+#include "debug.h"
 
 #include QMK_KEYBOARD_H
 #include "matrix.h"
@@ -195,6 +196,7 @@ void matrix_scan_kb() {
 
             if (trackball_init_flag) {
                 reset_adns7530();
+                setPinInputHigh(TB_INT);
             }
             break;
         } else {
@@ -206,7 +208,7 @@ void matrix_scan_kb() {
         }
 
         // read motion data
-        {
+        if (readPin(TB_INT) == 0 || debug_mouse) {
             // trackball communication packet
             uint8_t snd[] = {0x42, 0, 0, 0, 0, 0};
             uint8_t rcv[] = {0, 0, 0, 0, 0, 0};
@@ -217,6 +219,8 @@ void matrix_scan_kb() {
             tb_info.y           = (int16_t)(((int16_t)rcv[3] << 4) | (((int16_t)rcv[4] & 0x0F) << 12));
             tb_info.surface     = rcv[5];
             tb_info.motion_flag = rcv[1];
+        } else {
+            tb_info.motion_flag = 0;
         }
 
         if (pix_to_read && (tb_info.motion_flag & 0x40)) {
