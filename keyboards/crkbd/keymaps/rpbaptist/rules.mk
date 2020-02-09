@@ -36,3 +36,7 @@ endif
 ifeq ($(strip $(THEME)), pulse)
     OPT_DEFS += -DTHEME_PULSE
 endif
+
+ifeq ($(strip $(THEME)), laser)
+    OPT_DEFS += -DTHEME_LASER
+endif

@@ -132,6 +132,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define THEME_HSV 123, 255, 125
 #endif
 
+#ifdef THEME_LASER
+#   define OLED_FONT_H "keyboards/crkbd/keymaps/rpbaptist/glcdfont_laser.c"
+#   define THEME_HSV HSV_MAGENTA
+#endif
+
 #define NO_ACTION_ONESHOT
 
 #undef PRODUCT
