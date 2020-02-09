@@ -21,7 +21,7 @@
 #    include "process_auto_shift.h"
 
 static bool autoshift_enabled = true;
-static uint16_t autoshift_time    = 0;
+static uint16_t autoshift_time = 0;
 static uint16_t autoshift_timeout = AUTO_SHIFT_TIMEOUT;
 static int16_t autoshift_lastkey = -1; // -1 is what KC_NO was before - 'not currently autoshifting'.
 static int16_t autoshift_lastkey_shifted = -2; // set in the top of process_auto_shift.
@@ -66,7 +66,7 @@ void autoshift_flush(void) {
             tap_code16((autoshift_lastkey_shifted == -1) ? LSFT(autoshift_lastkey) : autoshift_lastkey_shifted);
         }
         else {
-            tap_code(autoshift_lastkey);
+            tap_code16(autoshift_lastkey);
         }
 
         autoshift_time = 0;
