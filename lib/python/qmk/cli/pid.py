@@ -3,7 +3,6 @@
 Generates a PID and replaces the one in the provided config.h files if VID is 0x03A8
 """
 
-import os
 import fileinput
 import subprocess
 from pathlib import Path
@@ -123,4 +122,3 @@ def pid(cli):
             if not process_config(cli, Path(config_h), pids_json_path, pid_match):
                 return False
     return True
-
