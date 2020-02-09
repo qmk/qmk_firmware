@@ -30,6 +30,7 @@ static int16_t autoshift_lastkey_shifted = -2; // set in the top of process_auto
 // -1 - custom key, use default shifted value
 // 0 = KC_NO, allowing for keys to not have an action when held.
 // other - the code to send when timeout exceeded.
+uint8_t permissive_mods;
 
 __attribute__((weak)) int16_t autoshift_custom_shifts(uint16_t keycode, keyrecord_t *record) { return -2; }
 
@@ -62,12 +63,19 @@ void autoshift_flush(void) {
     if (autoshift_lastkey != -1) {
         uint16_t elapsed = timer_elapsed(autoshift_time);
 
+#    ifdef PERMISSIVE_HOLD
+        uint8_t old_weak_mods = get_weak_mods();
+        set_weak_mods(permissive_mods);
+#    endif
         if (elapsed > autoshift_timeout) {
             tap_code16((autoshift_lastkey_shifted == -1) ? LSFT(autoshift_lastkey) : autoshift_lastkey_shifted);
         }
         else {
             tap_code16(autoshift_lastkey);
         }
+#    ifdef PERMISSIVE_HOLD
+        set_weak_mods(old_weak_mods);
+#    endif
 
         autoshift_time = 0;
         autoshift_lastkey = -1;
@@ -99,6 +107,9 @@ void set_autoshift_timeout(uint16_t timeout) { autoshift_timeout = timeout; }
 bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
     autoshift_flush();
     if (record->event.pressed) {
+#    ifdef PERMISSIVE_HOLD
+        permissive_mods = get_weak_mods() | get_mods();
+#    endif
         autoshift_lastkey_shifted = autoshift_custom_shifts(keycode, record);
         if (autoshift_lastkey_shifted > -2) {
             return autoshift_on(keycode);
