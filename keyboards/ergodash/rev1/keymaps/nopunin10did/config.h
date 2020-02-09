@@ -1,5 +1,8 @@
 /*
-Copyright 2011 Jun Wako <wakojun@gmail.com>
+This is the c configuration file for the keymap
+
+Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2015 Jack Humbert
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,11 +18,19 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef PJRC_H
-#define PJRC_H
+#pragma once
 
-#include "host_driver.h"
 
-host_driver_t *pjrc_driver(void);
+/* Use I2C or Serial, not both */
 
-#endif
+#define USE_SERIAL
+// #define USE_I2C
+
+/* Select hand configuration */
+
+#define MASTER_LEFT
+// #define MASTER_RIGHT
+// #define EE_HANDS
+
+#undef TAPPING_TERM
+#define TAPPING_TERM 300
