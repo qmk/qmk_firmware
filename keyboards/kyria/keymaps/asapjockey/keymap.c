@@ -154,7 +154,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         case KC_RBR: {
             if (record->event.pressed) {
-                if (keyboard_report->mods & MODS_SHIFT_MASK) {
+                if ((get_mods() & MODS_SHIFT_MASK) == MOD_MASK_SHIFT) {
                     register_code(KC_0);
                 } else {
                     register_code(KC_RBRC);
