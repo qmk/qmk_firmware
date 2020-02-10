@@ -11,7 +11,6 @@ ESC = Backlight Toggle
 7    = RGB Hue Increase  
 8    = RGB Hue Decrease  
 9    = RGB Saturation Increase  
-10   = RGB Saturation Decrease  
+0    = RGB Saturation Decrease  
 MINS = RGB Value Increase  
 EQL  = RGB Value Decrease  
-
