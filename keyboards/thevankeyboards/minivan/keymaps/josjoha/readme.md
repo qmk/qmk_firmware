@@ -7,7 +7,6 @@ This keymap works on Minivan hardware variants with 44, 45 and
 46 keys. It can be compiled for Dvorak only, or Qwerty + Dvorak.
 
 ![Minivan illustration 0](http://socialism.nl/misc/minivan/minivan_illustration_arrow_southpaw.jpg)
-![Minivan illustration 1](http://socialism.nl/misc/minivan/minivan_illustration_0_3b_arrow_v2.jpg)
 
 make example:
 
@@ -26,7 +25,8 @@ These are the compile options, defined at the top of ![keymap.c](./keymap.c)
 
  - Hardware key configurations: _default_ (44), _arrow_ (45), _south paw_ (45), _arrow_ + _south paw_ (46).
  - What the additional hardware keys for _arrow,_ _south paw_ should be.
- - An arrow cluster for _arrow_ hardware configuration (on a layer).
+ - An arrow cluster for _arrow_ hardware configuration:
+![Minivan illustration 1](http://socialism.nl/misc/minivan/minivan_illustration_0_3b_arrow_v2.jpg)
  - Layouts: Dvorak² or Qwerty+Dvorak (see below).
  - Startup in the alternate BASE layer (for example Qwerty or Dvorak).
  - Navigation cluster in a triangle (WASD) or flat layout.
