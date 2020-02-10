@@ -41,10 +41,12 @@ The right led in Dvorak mode shows when using a layer that is different
 in that mode, analogue to the `_FUN` led indicator for Dvorak.
 
 Layers (text)
-        =============
+=============
+
         ───────────────Qwerty─────────────────
 
 Layer _LTR (LeTteRs). This is standard Qwerty (#define QWERTY_DVORAK set.)
+
                                              | Right hand
      <pink2    <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>    // Keys by finger
      -o-                                    <|>                                    ... // -o- BASE access
