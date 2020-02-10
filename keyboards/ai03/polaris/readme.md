@@ -5,7 +5,7 @@
 A basic 60% keyboard
 
 * Keyboard Maintainer: [ai03](https://github.com/ai03-2725)
-Hardware Supported: Polaris PCB/case
+* Hardware Supported: Polaris PCB/case
 Hardware Availability: Will be posted (here)[https://kb.ai03.me/projects/polaris.html]
 
 Make example for this keyboard (after setting up your build environment):
