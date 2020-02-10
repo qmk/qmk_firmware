@@ -276,8 +276,11 @@ There are a few different ways to set handedness for split keyboards (listed in 
   * Default behavior for ARM
   * Required for AVR Teensy
 
-* `#define SPLIT_USB_TIMEOUT 2500`
+* `#define SPLIT_USB_TIMEOUT 2000`
   * Maximum timeout when detecting master/slave when using `SPLIT_USB_DETECT`
+
+* `#define SPLIT_USB_TIMEOUT_POLL 10`
+  * Poll frequency when detecting master/slave when using `SPLIT_USB_DETECT`
 
 # The `rules.mk` File
 

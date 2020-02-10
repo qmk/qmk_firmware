@@ -90,13 +90,15 @@ void action_exec(keyevent_t event) {
 
     keyrecord_t record = {.event = event};
 
-#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+#ifndef NO_ACTION_ONESHOT
+#    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
     if (has_oneshot_layer_timed_out()) {
         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
     }
     if (has_oneshot_mods_timed_out()) {
         clear_oneshot_mods();
     }
+#    endif
 #endif
 
 #ifndef NO_ACTION_TAPPING

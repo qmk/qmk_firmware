@@ -10,10 +10,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 	[1] = LAYOUT_65_ansi_blocker(
 		KC_GRV,  KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_DEL,  
-		KC_TRNS, KC_TRNS,  RGB_VAI, KC_TRNS, KC_TRNS, RGB_SAI, RGB_HUI, KC_TRNS, KC_TRNS, KC_TRNS, KC_PSCR, KC_SLCK, KC_PAUS, KC_TRNS, KC_END,  
-		KC_TRNS, RGB_SPD,  RGB_VAD, RGB_SPI, KC_TRNS, RGB_SAD, RGB_HUD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 	       KC_VOLU, 
-		KC_TRNS, RGB_RMOD, RGB_TOG, RGB_MOD, KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE, KC_MPRV, KC_MNXT, KC_MPLY, KC_TRNS, 	      KC_PGUP, KC_VOLD, 
-		KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, 						  KC_TRNS, KC_TRNS,	     KC_HOME, KC_PGDN, KC_END   
+		_______, _______,  RGB_VAI, _______, _______, RGB_SAI, RGB_HUI, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, KC_END,  
+		_______, RGB_SPD,  RGB_VAD, RGB_SPI, _______, RGB_SAD, RGB_HUD, _______, _______, _______, _______, _______, _______, 	       KC_VOLU, 
+		_______, RGB_RMOD, RGB_TOG, RGB_MOD, _______, _______, _______, KC_MUTE, KC_MPRV, KC_MNXT, KC_MPLY, _______, 	      KC_PGUP, KC_VOLD, 
+		_______, _______,  _______, _______, 						  _______, _______,	     KC_HOME, KC_PGDN, KC_END   
 	)
 };
 
