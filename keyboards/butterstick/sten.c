@@ -11,18 +11,6 @@ uint32_t pChord 		= 0;		// Previous Chord
 int		 pChordIndex 	= 0;		// Keys in previousachord
 uint32_t pChordState[32];			// Previous chord sate 
 uint32_t stickyBits = 0;			// Or'd with every incoming press
-#ifndef NO_DEBUG
-char debugMsg[32];
-#endif
-
-// StenoLayer
-uint32_t releasedChord	= 0;		// Keys released from current chord
-uint32_t tChord			= 0;		// Protects state of cChord
-
-#ifndef STENOLAYERS
-uint32_t stenoLayers[] = { PWR };
-size_t 	 stenoLayerCount = sizeof(stenoLayers)/sizeof(stenoLayers[0]);
-#endif
 
 // Mode state
 enum MODE { STENO = 0, QWERTY, COMMAND };
@@ -51,6 +39,7 @@ bool	inMouse 		= false;
 int8_t	mousePress;
 
 // All processing done at chordUp goes through here
+// Note, this is a gutted version of the Georgi sten.h
 bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) { 
 	// Check for mousekeys, this is release
 #ifdef MOUSEKEY_ENABLE
@@ -61,21 +50,8 @@ bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) {
 	}
 #endif
 
-	// Toggle Serial/QWERTY steno
-	if (cChord == (PWR | FN | ST1 | ST2)) {
-#ifndef NO_DEBUG
-		uprintf("Fallback Toggle\n");
-#endif
-		QWERSTENO = !QWERSTENO;
-		
-		goto out;
-	}
-
 	// handle command mode
-	if (cChord == (PWR | FN | RD | RZ)) {
-#ifndef NO_DEBUG
-		uprintf("COMMAND Toggle\n");
-#endif
+	if (cChord == (LSU | LSD | RD | RZ)) {
 		if (cMode != COMMAND) {   // Entering Command Mode
 			CMDLEN = 0;
 			pMode = cMode;
@@ -94,7 +70,7 @@ bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) {
 	}
 
 	// Handle Gaming Toggle,
-	if (cChord == (PWR | FN | ST4 | ST3) && keymapsCount > 1) {
+	if (cChord == (LSU | LSD | LFT | LK | RT | RS | RD | RZ) && keymapsCount > 1) {
 #ifndef NO_DEBUG
 		uprintf("Switching to QMK\n");
 #endif
@@ -102,38 +78,11 @@ bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) {
 		goto out;
 	}
 
-	// Lone FN press, toggle QWERTY
-#ifndef ONLYQWERTY
-	if (cChord == FN) {
-		(cMode == STENO) ? (cMode = QWERTY) : (cMode = STENO);
-		goto out;
-	}
-#endif
-
-	// Check for Plover momentary
-	if (cMode == QWERTY && (cChord & FN)) {
-		cChord ^= FN;
-		goto steno;
-	}
-
 	// Do QWERTY and Momentary QWERTY
-	if (cMode == QWERTY || (cMode == COMMAND) || (cChord & (FN | PWR))) {
+	if (cMode == QWERTY || (cMode == COMMAND)) {
 		processChord(false);
 		goto out;
-	}
-
-	// Fallback NKRO Steno
-	if (cMode == STENO && QWERSTENO) {
-		processChord(true);
-		goto out;
-	}
-
-steno:
-	// Hey that's a steno chord!
-	inChord = false;
-	chordIndex = 0;
-	cChord = 0;
-	return true; 
+	} 
 
 out:
 	cChord = 0;
