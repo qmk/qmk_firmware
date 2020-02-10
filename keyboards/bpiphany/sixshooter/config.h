@@ -11,11 +11,14 @@
 #define DESCRIPTION     A PCB for the CM Storm switch tester utilizing a Teensy 2.0.
 
 /* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 6
+#define MATRIX_ROWS 2
+#define MATRIX_COLS 3
 
 /* Keyboard Matrix Assignments */
-#define DIRECT_PINS { { F7, F6, F1, F5, F4, F0 } }
+#define DIRECT_PINS { \
+    { F7, F6, F1 }, \
+    { F5, F4, F0 } \
+}
 #define UNUSED_PINS
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
