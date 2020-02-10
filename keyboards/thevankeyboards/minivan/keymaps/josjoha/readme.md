@@ -3,23 +3,16 @@ A 40% keyboard made first by TheVan Keyboards
 _https://thevankeyboards.com_ now taken over by TKC
 _https://thekey.company_
 
-Minivan 44 keys, 45 keys and 46 keys
-====================================
-This keymap works for the four Minivan hardware variants: _default_
-(44 keys), _Arrow_ and _South Paw_ (45 keys), _Arrow_ _South paw_ combined
-(46 keys). See the configuration block at the top in ![keymap.c](./keymap.c) at
-`#define MORE_KEY__ARROW` etc.
+This keymap works on Minivan hardware variants with 44, 45 and
+46 keys. It can be compiled for Dvorak only, or Qwerty + Dvorak.
 
-Compile option for: Dvorak² or Qwerty+Dvorak
-============================================
+![Minivan illustration 0](http://socialism.nl/misc/minivan/minivan_illustration_arrow_southpaw.jpg)
+![Minivan illustration 1](http://socialism.nl/misc/minivan/minivan_illustration_0_3b_arrow_v2.jpg)
 
-These keymaps can be compiled either in a Dvorak version which also allows typing
-normally on a computer already set to Dvorak (Dvorak²), or in a version that can
-switch between Qwerty and Dvorak. (The compile time options are at the top of
-![keymap.c](./keymap.c) The option to choose Qwerty+Dvorak is *`#define QWERTY_DVORAK`*).
+make example:
 
-     Download the repository, resolve software dependencies.
-     If you want to change compile options (or whatever else): open keymap.c (etc).
+     … Download the repository, resolve software dependencies etc..
+     … If you want to change compile options (or whatever else): open keymap.c (etc).
      > cd […]/qmk_firmware
      > make thevankeyboards/minivan:josjoha
      > su
@@ -27,32 +20,22 @@ switch between Qwerty and Dvorak. (The compile time options are at the top of
      # dfu-programmer atmega32u4 flash thevankeyboards_minivan_josjoha.hex
      # dfu-programmer atmega32u4 start
 
-This readme file assumes the Dvorak with Dvorak-descramble compile version (Dvorak²).
-For the layers in the Qwerty+Dvorak version, see ![qwerty dvorak.md](./qwerty_dvorak.md)
+Compile options ...
+-------------------
+These are the compile options, defined at the top of ![keymap.c](./keymap.c)
 
-This keymap.c was edited from the default, LED support was copied/edited
-from ../jetpacktuxedo/ keymap. 
-                        By Jos B. [contact](https://market.socialism.nl/author/ "get e-mail address there")
+ - Hardware key configurations: _default_ (44), _arrow_ (45), _south paw_ (45), _arrow_ + _south paw_ (46).
+ - What the additional hardware keys for _arrow,_ _south paw_ should be.
+ - An arrow cluster for _arrow_ hardware configuration (on a layer).
+ - Layouts: Dvorak² or Qwerty+Dvorak (see below).
+ - Startup in the alternate BASE layer (for example Qwerty or Dvorak).
+ - Navigation cluster in a triangle (WASD) or flat layout.
+ - Switching the GUIs left/right.  
+ - To what layer should _left shift_ toggle.
+ - Change the symbol 'ƒ' Dutch guilder into a Euro symbol €.
 
-Dvorak² keymaps:
-----------------
-
-![Minivan layout Image 0](http://socialism.nl/misc/minivan/minivan_layer0.jpg)
-![Minivan layout Image 1](http://socialism.nl/misc/minivan/minivan_layer1.jpg)
-![Minivan layout Image 2](http://socialism.nl/misc/minivan/minivan_layer2.jpg)
-![Minivan layout Image 3b](http://socialism.nl/misc/minivan/minivan_layer3b.jpg)
-![Minivan layout Image 4](http://socialism.nl/misc/minivan/minivan_layer4.jpg)
-![Minivan layout Image 5](http://socialism.nl/misc/minivan/minivan_layer5.jpg)
-![Minivan layout Image 6](http://socialism.nl/misc/minivan/minivan_layer6.jpg)
-![Minivan layout Image 7](http://socialism.nl/misc/minivan/minivan_layer7.jpg)
-
-The right led in 'descramble' mode shows when using a layer that is different
-in that mode, analogue to the `_FUN` led indicator for 'descramble' (not shown
-in above graphics).
-
-The 'descramble' system:
-
-![Minivan descramble Dvorak](http://socialism.nl/misc/minivan/minivan_descramble.jpg)
+In addition the symbol 🛠 can be easily reconfigured in `unicode_macros.c`.
+There are some tokens to help port the layout to a board with 47 or 48 keys (`J1_J2`).
 
    
   Overview of layers
@@ -67,7 +50,7 @@ The 'descramble' system:
       • keys like Power, Play,          (Led: purple 2x)       _RAR "RARe keys"
       • number pad symbol versions      (Led: green/blue)      _PAD "numbers PAD"
       • accented characters é, ø, ß ... (Led: cyan 2x)         _ACC "ACCented"
-      • Unicode symbols, etc etc.       (Led: yellow 2x)       _DRA "DRAwings"
+      • Unicode symbols, ¹, ±, ° ...    (Led: yellow 2x)       _DRA "DRAwings"
      Descramble _Computer_ set Dvorak (activate automatic as drop-ins for above layers)
       • Unicode symbols, etc            (Led: cyan/low-white)  _DDD "Descramble Drawings"
       • accented characters             (Led: yellow/low-white)_DDA "Descramble Accented"
@@ -81,6 +64,35 @@ The 'descramble' system:
             • ⁽¹⁾ One led on the _FUN layer is bright white, indicating which descramble
               mode is active (see below).
             • Leds can be switched on/off on the _RAR layer (MLed, SLeds).      
+
+Compile option for: Dvorak² or Qwerty+Dvorak
+--------------------------------------------
+These keymaps can be compiled either in a Dvorak version which also allows typing
+normally on a computer already set to Dvorak (Dvorak²), or in a version that can
+switch between Qwerty and Dvorak. 
+
+This readme file assumes the Dvorak with Dvorak-descramble compile version (Dvorak²).
+For the layers in the Qwerty+Dvorak version, see ![qwerty dvorak.md](./qwerty_dvorak.md)
+
+
+Dvorak² keymaps
+---------------
+![Minivan layout Image 0](http://socialism.nl/misc/minivan/minivan_layer0.jpg)
+![Minivan layout Image 1](http://socialism.nl/misc/minivan/minivan_layer1.jpg)
+![Minivan layout Image 2](http://socialism.nl/misc/minivan/minivan_layer2.jpg)
+![Minivan layout Image 3b](http://socialism.nl/misc/minivan/minivan_layer3b_v2.jpg)
+![Minivan layout Image 4](http://socialism.nl/misc/minivan/minivan_layer4.jpg)
+![Minivan layout Image 5](http://socialism.nl/misc/minivan/minivan_layer5.jpg)
+![Minivan layout Image 6](http://socialism.nl/misc/minivan/minivan_layer6.jpg)
+![Minivan layout Image 7](http://socialism.nl/misc/minivan/minivan_layer7_v2.jpg)
+
+The right led in 'descramble' mode shows when using a layer that is different
+in that mode, analogue to the `_FUN` led indicator for 'descramble' (not shown
+in above graphics).
+
+The 'descramble' system:
+
+![Minivan descramble Dvorak](http://socialism.nl/misc/minivan/minivan_descramble.jpg)
 
 
   Usage
@@ -202,18 +214,28 @@ or staying on the `_FUN` layer. Default: return to BASE.
                         -*-              <|>                                           //(toggle) on _FUN
      BASE   PgDn  Up    PgUp  Home  Btn3  | xxx   WhDn  MsUp  WhU   WhLft Bksp
      LCtl   Left  Down  Right End   Btn1  | Btn1  MsLft MsDn  MsRht WhRht RCtl
-     LSft   xxx   Acc2  Acc1  Acc0  Btn2  | xxx   Btn2  Btn3  Btn4  Btn5  RSft         //(toggle) on BASE
+     LSft   xxx   Acc2  Acc1  Acc0  Btn2  | Btn2  Btn3  Btn4  Btn5  xxx   RSft         //(toggle) on BASE
      ---------------------------------------------
      LAlt Del   Ent   ___ | PgUp  PgDn  LGUI  RAlt
                       -*-<|>                                                             //(hold) on BASE
      <1 ± <2    <3    <4  | 4>    3>    2>  ± 1>  
 
-Remarks. It is fairly easy to switch from this horizontal arrow layout, to a wasd layout which also
+
+Remarks. For the Minivan _arrow_ layout with arrow cluster, you get this on `BASE`:
+     (…)
+     LSht+_PAD ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN
+     -------------------------------------------------------------------------------
+     Left+LAlt Del;_ACC _NSY(_DRA) Enter+_MOV| Space  _NSY(_DRA) LGUI  _MOV  Right;_RAR 
+                                                                       ^^^^           // new key (toggle)
+… and this on `_MOV`. 
+     (…)
+     LSft   xxx   Acc2  Acc1  Acc0  Btn2  | Btn2  Btn3  Btn4  Btn5  UP    RSft
+     -------------------------------------------------------------------------
+     LAlt       Del     Ent      ___      |    PgUp     PgDn  LEFT  DOWN  RIGHT
+                                                                    ^^^^                       // new key
+
+It is fairly easy to switch from this horizontal arrow layout, to a wasd layout which also
 switches left with right hand. See `ARROW_TRIANGLE` and `ARROW_LEFT` #defines at the top of keymap.c.
-
-A memory assist is that the weaker fingers go down and that down is end, it takes power to go up;
-index and middle fingers are stronger than ring and pinky fingers.
-
 - - -
     
     
@@ -255,10 +277,8 @@ assist.
                               <|>
      <1   ±   <2    <3    <4   | 4>     3>    2>  ± 1>  
 
-Remarks: The keys between `.DEL` and `*`, `+` and `RSft` constitute left handed
-navigation clusters. The other keys are on the same locations as their normal
-counter parts. Numlock is on (BASE) 'space', mirroring the special use of that
-key in `_RAR` (as Shift).
+Remarks: The keys between `.DEL` and `*`, `+` and `RSft` constitute sort of
+navigation clusters.
 
 - - -
     
@@ -288,7 +308,7 @@ Remarks. This layer is seamlessly activated with 'descramble'
 
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                         <|>      -*-                                   //(toggle) on _FUN
-     BASE  „“    ”     ¤£    ∅ ¢   ±ƒ    | ❦♥    🙂🙁  👍👎   ⁽₍    ⁾₎    Bspc
+     BASE  „“    ”🛠   ¤£    ∅ ¢   ±ƒ    | ❦♥    🙂🙁  👍👎   ⁽₍    ⁾₎    Bspc
      LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
      LSft 「─    」━   °〇   •§    …·    | ⮘⮙   ⮚⮛     ¿¡    《┄    》┅   RSft
      ----------------------------------------------
@@ -299,10 +319,6 @@ Remarks. This layer is seamlessly activated with 'descramble'
 - - -
    
      Layer _DDD: same as _DRA, but internally coded for 'descramble' mode.
-     (…)
-     LSft 「─    」━   °〇   •§    …·    | ⮘⮙    ⮚⮛    ¿¡    《┄    》┅   RSft //⮙⮛, ┄┅ can be sacrificed
-                                             ^     ^           ^      ^        // to make room on device.
-     (…)                                                                       // See §  Device Space 
 
 Remarks. This layer is seamlessly activated with 'descramble'
     
@@ -358,14 +374,13 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   Why you want this layout
   ========================
 
-  This layout is easy to learn and predictable, assuming you are a
-  Dvorak typer.
+  This layout is easy to learn and predictable. It has a lot on it.
 
-  The Dvorak layer (BASE) is an unaltered standard Dvorak layout. Despite
-  the crammed space, you have left & rigth arrow, GUI, Backspace, Delete
-  and Esc.  The tap keys are typically keys that you do not use when in
-  fluent typing (enter, tab, etc). If you want Qwerty you can compile
-  it for that.
+  The Dvorak/Qwerty layer (BASE) is an unaltered standard Dvorak/Qwerty
+  layout, except what physically cannot fit (numbers, right pinky
+  symbols).  Despite the crammed space, you have left & rigth arrow,
+  GUI, Backspace, Delete and Esc.  The tap keys are typically keys that
+  you do not use when in fluent typing (enter, tab, etc).
 
   Every time you have 0-9 enumerations / numbers, they are on the same
   fingers as a standard keyboard, except on the home row (numbers,
@@ -445,8 +460,7 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
 
 
   Use case
-  ========
-
+  --------
   The use case this keymap is designed for: PCs with GNU/Debian/Linux (etc),
   Linux laptop already set to Dvorak _hence 'descramble'_. Being able on the move
   to operate other operating systems owned by others _hence non-Linux
@@ -466,10 +480,55 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   on `_RAR`.)
 
 
-  BUGS
-  ====
+  Trouble shooting
+  ----------------
+  When you flash your board, suddenly your Unicode doesn't work, or your
+  leds seem to be broken. What seems to happen sometimes is that after
+  flashing the value of a user option ends up in a diffderent state than
+  you expected.
 
+  Leds not working: try going to `_RAR` layer, and hit the key MLeds and SLeds,
+  which switch Leds on/off.
+
+  Unicode is chaos: try going to `_RAR` layer, and hit the Unicode operating
+  system buttons.
+ 
+
+  BUGS
+  ----
   (Unknown at time of this writing.) Only tested on Linux (FIXME).
+
+  Todo
+  ----
+        - Other _ACC, _DDA layers, for different languages or just more funky
+          unicode.
+        - Support for More common layouts like Colemak, Qwertz, Azerty, on
+          the _DDL layer.
+  
+        These could be #defines in the configuration block for the user,
+        and cut out/in the relevant code. To offer something that works
+        only as an alternative to QWERTY_DVORAK (such as a QWERTY_AZERTY
+        option) is fine.  Almost nobody will use the 'descramble' system
+        anyway, and that is a lot of tedious work to remap. It will be
+        nice if a layout follows the common version of that layout as
+        closely as possible. The _LTR/_DDL and _NSY/_DDN layers have the
+        same status, they should both work perfectly with everything.
+
+        Writer of this (Jos B,) will probably not do this, but if someone likes 
+        to contribute something, that should work.
+
+
+  Authors
+  ----
+  This keymap.c was edited from the Minivan default, LED support was
+  copied/edited from ../jetpacktuxedo/ keymap. Thanks to QMK support
+  for their help.  Written on the Minivan 🙂
+
+  Written by: Jos B. [contact](https://market.socialism.nl/author/ "get e-mail address there")
 
   You can let me know if you find any bugs / problems, or if you like using
   it too 👍.
+
+  Contributions to this key map:
+      - …
+

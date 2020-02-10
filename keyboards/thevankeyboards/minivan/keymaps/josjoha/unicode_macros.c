@@ -397,6 +397,8 @@ enum custom_keycodes {
     CHOLTAP_LAYR,
 // Special macro to make F-keys one-shot or not.
     _FUN_STAY,
+// Layer toggle to be guaranteed on up-key.
+    _MOV_UP,
 // These macros protect the critical keys like 'Power' from accidental press.
     C_KC_PWR, 
     C_KC_WAKE,
@@ -790,6 +792,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
+#ifdef MOREKEY2_ARROW_CLUSTER
+        case _MOV_UP: // To be sure it activates on up key, and not trigger the _MOV layer on up-key.
+            if (record->event.pressed) { // key down
+            } else { // key up
+               layer_move (_MOV);
+            }
+            break;
+#endif
+
         // These keys are so dangerous that they are behind a shift lock.
         // Although the layer is already a bit hard to reach, the media keys might be used.
         case C_KC_PWR: 

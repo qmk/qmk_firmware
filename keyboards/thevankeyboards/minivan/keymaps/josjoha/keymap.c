@@ -49,6 +49,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      //                      /* ... */ is also a way to comment out text '...', but this is not used for options here.)
 
 
+        /*                            How many hardware keys 1st row
+         *
+         * These #defines reach all layers.  You can of course edit it (further) by hand. 
+         * (For adding even more hardware keys, see tokens J1_J2, J3_J4.)
+         * 
+         * Here you can define how many keys your keyboard has. */
+         // Default               (12x12x12x8):  comment out both ->> 
+         //'Arrow'               (12x12x12x9):  uncomment ->
+//#define MORE_KEY__ARROW   // Additional key 1st row on the right, called 'Arrow'.
+         //'Command' 'South paw' (12x12x12x9):  uncomment ->
+//#define MORE_KEY__COMMAND // Additional key 1st row on the left, called 'Command' or 'South paw'.
+         //'Arrow' + 'South paw' (12x12x12x10): uncomment both <<-
+        //
+        /*                        Defining the additional key for 'Arrow'
+         *
+         * Here you can create a bit of an arrow-cluster with your additional MORE_key2 hardware key.
+         * To do this on the BASE layer would hurt standard Dvorak/Qwerty, so that is not being done here.
+         * Instead this key toggles to _MOV layer, with the key that on the _MOV layer becomes the down-arrow,
+         * in the middle of an arrow cluster in a triangle format. To do that, uncomment MOREKEY2_ARROW_CLUSTER.
+         * The keys that are normally defined on those keys on _MOV will be overwritten (they are not typically
+         * that much used there, with navigation cluster combinations.).
+         *
+         * If you want that, uncomment MOREKEY2_ARROW_CLUSTER and leave: #define MORE_key2 _MOV_UP
+         * If you don't want that, comment out MOREKEY2_ARROW_CLUSTER, set MORE_key2 to whatever you want.
+         */
+#define MOREKEY2_ARROW_CLUSTER // Arrow cluster on _MOV layer. This is blocked if MORE_KEY__ARROW is not defined..
+        /* Define the key you want on the additional key. */
+#define MORE_key2 _MOV_UP // right side additional key
+        //
+        /*                         Defining the additional key for 'South paw' (or called 'Command')
+         */
+        
+
         /*                            Qwerty
          *
          * Here you can define if you want a pure Dvorak keyboard, also with the ability
@@ -62,27 +95,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          */
 //#define QWERTY_DVORAK // Comment out to have Dvorak on default, and 'descramble Dvorak' on alternate.
                         // Uncomment to have Qwerty on default, and Dvorak on alternate.
-
-
-        /*                            How many hardware keys 1st row
-         *
-         * Here you can define how many keys your keyboard has.
-         * Default               (12x12x12x8):  comment out MORE_KEY__ARROW and MORE_KEY__COMMAND
-         * 'Arrow'               (12x12x12x9):  comment out MORE_KEY__COMMAND, uncomment   MORE_KEY__ARROW  
-         *                       -> One more key on the left, between the last and one before last ones.
-         * 'Command' 'South paw' (12x12x12x9):  uncomment   MORE_KEY__COMMAND, comment out MORE_KEY__ARROW  
-         *                       -> One more key on the right, between the last and one before last ones.
-         * Both                  (12x12x12x10): uncomment MORE_KEY__COMMAND and MORE_KEY__ARROW  
-         */
-//#define MORE_KEY__ARROW   // Additional key 1st row on the right, called 'Arrow'.
-//#define MORE_KEY__COMMAND // Additional key 1st row on the left, called 'Command' or 'South paw'.
-        /* Define the key you want on the additional key on the left side. */
-#define MORE_key1 KC_A // left side key.
-#define MORE_key2 KC_A // right side key.
-        /* These #defines reach all layers.  You can of course edit it (further) by hand. 
-         * (For adding even more hardware keys, see tokens J1_J2, J3_J4.)
-         */
-        
 
 
         /*                           Startup layer
@@ -167,6 +179,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    * are also not compiled in the Qwerty-Dvorak version.
    *
    * The Unicode is in unicode_macros.c/h.
+   *
    */
 
 
@@ -179,9 +192,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // There are also occurences in qwerty_dvorak.c
 
 
+// Prevent likely erroneous configuration. If no 'Arrow' hardware layout, then not patching in an arrow cluster.
+#if !defined(MORE_KEY__ARROW) && defined(MOREKEY2_ARROW_CLUSTER)
+    #undef MOREKEY2_ARROW_CLUSTER
+#endif
+
+
 // Set up user GUI choice:
 #ifndef SWITCH_GUIS
-    #define KC__XGUI KC_LGUI
+    #define KC__XGUI KC_LGUI // Name logic is alphabetic order left to right …X (…) …Y on layout definitions..
     #define KC__YGUI KC_RGUI
 #endif
 #ifdef SWITCH_GUIS
@@ -723,7 +742,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         -*-              <|>                                           //(toggle) on _FUN
      BASE   PgDn  Up    PgUp  Home  Btn3  | xxx   WhDn  MsUp  WhU   WhLft Bksp
      LCtl   Left  Down  Right End   Btn1  | Btn1  MsLft MsDn  MsRht WhRht RCtl
-     LSft*- xxx   Acc2  Acc1  Acc0  Btn2  | xxx   Btn2  Btn3  Btn4  Btn5  RSft         //(toggle) on BASE
+     LSft*- xxx   Acc2  Acc1  Acc0  Btn2  | Btn2  Btn3  Btn4  Btn5  xxx   RSft         //(toggle) on BASE
      ---------------------------------------------
      LAlt Del   Ent   ___ | PgUp  PgDn  LGUI  RAlt
                       -*-<|>                                                             //(hold) on BASE
@@ -809,11 +828,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     #define                                 MOUS_23 KC_MS_D
     #define                                                 MOUS_24 KC_MS_R
     #define                                                                MOUS_25 KC_WH_R
-    #define MOUS_31 XXXXXXX
-    #define                 MOUS_32 KC_BTN2
-    #define                                 MOUS_33 KC_BTN3
-    #define                                                 MOUS_34 KC_BTN4
-    #define                                                                MOUS_35 KC_BTN5
+    #define MOUS_31 KC_BTN2
+    #define                 MOUS_32 KC_BTN3
+    #define                                 MOUS_33 KC_BTN4
+    #define                                                 MOUS_34 KC_BTN5
+    #define                                                                MOUS_35 XXXXXXX
 #endif
 
 // Default left/right layout, meaning arrows right and mouse left.
@@ -883,21 +902,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     #define RGHT_CE MOUS_35
 #endif
 
-//      <pink2   , <pinky  , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>  ,
-//               ,         ,         , -*-     ,         ,       <|,>        ,         ,         ,         ,         ,         ,
-        CTO_BASE , LEFT_AA , LEFT_AB , LEFT_AC , LEFT_AD , LEFT_AE , RGHT_AA , RGHT_AB , RGHT_AC , RGHT_AD , RGHT_AE , KC_BSPC ,
-        KC_LCTL  , LEFT_BA , LEFT_BB , LEFT_BC , LEFT_BD , LEFT_BE , RGHT_BA , RGHT_BB , RGHT_BC , RGHT_BD , RGHT_BE , KC_RCTL ,
-        KC_LSFT  , LEFT_CA , LEFT_CB , LEFT_CC , LEFT_CD , LEFT_CE , RGHT_CA , RGHT_CB , RGHT_CC , RGHT_CD , RGHT_CE , KC_RSFT ,
+// Here the 'Arrow' layout arrow cluster is patched into it.
+// These keys are affected. By default what becomes the up-arrow (row 2, 2nd key from right) is a no-action key on this layer.
+#ifndef MOREKEY2_ARROW_CLUSTER                                // Default 
+    #define _MOV_KEY_ROW2_KEY2           RGHT_CE              // Key counting from the right to the left. 
+    #define _MOV_KEY_ROW1_KEY1                     KC_RALT    //                         ''
+    #define _MOV_KEY_ROW1_KEY2           MORE_key2            //                         ''
+    #define _MOV_KEY_ROW1_KEY3 KC__YGUI                       //                         ''
+#endif                                             
+
+// Patch in the arrows    
+#ifdef MOREKEY2_ARROW_CLUSTER                                 // Arrow cluster
+    #define _MOV_KEY_ROW2_KEY2           KC_UP                //                         ''
+    #define _MOV_KEY_ROW1_KEY1                     KC_RIGHT   //                         ''
+    #define _MOV_KEY_ROW1_KEY2           KC_DOWN              //                         ''
+    #define _MOV_KEY_ROW1_KEY3 KC_LEFT                        //                         ''
+//     <|,>        ,         ,         ,         ,
+//      |, 4>      , 3>      , 2>      , ±       , 1>
+#endif
+
+//      <pink2   , <pinky  , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>             , pink2>  ,
+//               ,         ,         , -*-     ,         ,       <|,>        ,         ,         ,         ,                    ,         ,
+        CTO_BASE , LEFT_AA , LEFT_AB , LEFT_AC , LEFT_AD , LEFT_AE , RGHT_AA , RGHT_AB , RGHT_AC , RGHT_AD , RGHT_AE            , KC_BSPC ,
+        KC_LCTL  , LEFT_BA , LEFT_BB , LEFT_BC , LEFT_BD , LEFT_BE , RGHT_BA , RGHT_BB , RGHT_BC , RGHT_BD , RGHT_BE            , KC_RCTL ,
+        KC_LSFT  , LEFT_CA , LEFT_CB , LEFT_CC , LEFT_CD , LEFT_CE , RGHT_CA , RGHT_CB , RGHT_CC , RGHT_CD , _MOV_KEY_ROW2_KEY2 , KC_RSFT ,
 //      -----------------------------------------------------------------------------------------
         KC_LALT J1_J2 
 #ifdef MORE_KEY__COMMAND
                       , MORE_key1 
 #endif
-                      , KC_DEL  , KC_ENT , _______ , KC_PGUP , KC_PGDN , KC__YGUI
+                      , KC_DEL  , KC_ENT , _______ , KC_PGUP , KC_PGDN , _MOV_KEY_ROW1_KEY3
 #ifdef MORE_KEY__ARROW
-                                                                                  , MORE_key2  
+                                                                                  , _MOV_KEY_ROW1_KEY2
 #endif
-                                                                                  , J3_J4 KC_RALT
+                                                                                  , J3_J4 _MOV_KEY_ROW1_KEY1
 //                    ,         ,        , -*-   <|,>        ,         ,          ,
 //      <1      ±  ±  , <2      , <3     , <4     |, 4>      , 3>      , 2>       , ±  ±  1>
                       ),
@@ -1186,7 +1224,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                         <|>      -*-                                   //(toggle) on _FUN
-     BASE  „“    ”     ¤£    ∅ ¢   ±ƒ    | ❦♥    🙂🙁  👍👎   ⁽₍    ⁾₎    Bspc
+     BASE  „“    ”🛠   ¤£    ∅ ¢   ±ƒ    | ❦♥    🙂🙁  👍👎   ⁽₍    ⁾₎    Bspc
      LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
      LSft 「─    」━   °〇   •§    …·    | ⮘⮙   ⮚⮛     ¿¡    《┄    》┅   RSft
      ----------------------------------------------
