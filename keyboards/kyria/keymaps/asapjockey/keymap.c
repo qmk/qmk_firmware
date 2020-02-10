@@ -143,7 +143,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     register_code(KC_LBRC);
                 }
             } else { // Release the key
-                if (keyboard_report->mods & MODS_SHIFT_MASK) {
+                if ((get_mods() & MODS_SHIFT_MASK) == MOD_MASK_SHIFT) {
                     unregister_code(KC_9);
                 } else {
                     unregister_code(KC_LBRC);
