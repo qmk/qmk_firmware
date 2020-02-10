@@ -222,12 +222,14 @@ or staying on the `_FUN` layer. Default: return to BASE.
 
 
 Remarks. For the Minivan _arrow_ layout with arrow cluster, you get this on `BASE`:
+
      (…)
      LSht+_PAD ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN
      -------------------------------------------------------------------------------
      Left+LAlt Del;_ACC _NSY(_DRA) Enter+_MOV| Space  _NSY(_DRA) LGUI  _MOV  Right;_RAR 
                                                                        ^^^^           // new key (toggle)
 … and this on `_MOV`. 
+
      (…)
      LSft   xxx   Acc2  Acc1  Acc0  Btn2  | Btn2  Btn3  Btn4  Btn5  UP    RSft
      -------------------------------------------------------------------------
