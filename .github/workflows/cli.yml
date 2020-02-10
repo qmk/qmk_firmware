@@ -1,0 +1,28 @@
+name: CLI CI
+
+on:
+  push:
+    branches:
+    - master
+    - future
+  pull_request:
+    paths:
+    - 'lib/python/**'
+    - 'bin/qmk'
+    - 'requirements.txt'
+    - '.github/workflows/cli.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    container: qmkfm/base_container
+
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        submodules: recursive
+    - name: Install dependencies
+      run: pip3 install -r requirements.txt
+    - name: Run tests
+      run: bin/qmk pytest
