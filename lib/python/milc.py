@@ -571,7 +571,7 @@ class MILC(object):
 
         # Move the new config file into place atomically
         if os.path.getsize(tmpfile.name) > 0:
-            os.rename(tmpfile.name, str(self.config_file))
+            os.replace(tmpfile.name, str(self.config_file))
         else:
             self.log.warning('Config file saving failed, not replacing %s with %s.', str(self.config_file), tmpfile.name)
 
