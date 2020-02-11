@@ -31,7 +31,9 @@ def teardown():
     shutil.rmtree(test_dir)
 
 
-def run_qmk_pid(*cfgs, apply=False, commit=False):
+def run_qmk_pid(cfgs, apply=False, commit=False):
+    if isinstance(cfgs, str):
+        cfgs = [cfgs]
     cfgs = [test_dir + c for c in cfgs]
 
     command = []
@@ -44,7 +46,8 @@ def run_qmk_pid(*cfgs, apply=False, commit=False):
     result = subprocess.run(
         [sys.executable, 'bin/qmk', 'pid'] + command,
         stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT
+        stderr=subprocess.STDOUT,
+        universal_newlines=True
     )
     return result
 
