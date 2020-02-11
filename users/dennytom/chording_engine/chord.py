@@ -343,9 +343,9 @@ def O(on_pseudolayer, keycodes_hash, DEFINITION, output_buffer, index):
         return OSL(on_pseudolayer, keycodes_hash, DEFINITION, output_buffer, index)
 
 def add_key(PSEUDOLAYER, KEYCODES_HASH, DEFINITION, output_buffer, index, number_of_strings, strings):
-    if "= {" + KEYCODES_HASH + ", " + PSEUDOLAYER in output_buffer:
-        KEYCODES_HASH = re.sub('H_', '', KEYCODES_HASH)
-        raise Exception("You are trying to register a chord that you already registered (" + KEYCODES_HASH + ", " + PSEUDOLAYER + ")")
+    # if "= {" + KEYCODES_HASH + ", " + PSEUDOLAYER in output_buffer:
+    #     KEYCODES_HASH = re.sub('H_', '', KEYCODES_HASH)
+    #     raise Exception("You are trying to register a chord that you already registered (" + KEYCODES_HASH + ", " + PSEUDOLAYER + ")")
     
     if DEFINITION == "":
         return [output_buffer, index, number_of_strings, strings]
