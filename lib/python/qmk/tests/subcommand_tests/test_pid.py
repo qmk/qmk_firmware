@@ -1,5 +1,4 @@
 import sys
-import os
 import subprocess
 from tempfile import NamedTemporaryFile
 import filecmp
@@ -8,15 +7,17 @@ import shutil
 from nose2.tools.decorators import with_setup, with_teardown
 from milc import cli
 
+from qmk.keyboard import
+
 pre_run_config = cli.config.pid.db_path
 test_files = 'lib/python/qmk/tests/templates/test_pid/'
 test_dir = 'lib/python/qmk/tests/test_pid/'
 
 # The configs to test on, output to check, full sha-1 has of their path.
 configs = [
-    ("config_othervid_comments.h", "Keyboard does not use QMK VID, or it's not a keyboard config", None),
-    ("config_qmkpid_comments.h", "Assigned PID 0x%s", "5749D78610C7B6F1536450B0732E8B8115CF09FC"),
-    ("config_qmkpid_no_comments.h", "Assigned PID 0x%s", "C147BFB525F9A0280BD9D89A1DABEADB3FEB4620")
+    ("othervid_comments/config.h", "Keyboard does not use QMK VID, or it's not a keyboard config", None),
+    ("qmkvid_comments/config.h", "Assigned PID 0x%s", "C147BFB525F9A0280BD9D89A1DABEADB3FEB4620"),
+    ("qmkvid_no_comments/config.h", "Assigned PID 0x%s", "5749D78610C7B6F1536450B0732E8B8115CF09FC")
 ]
 
 
