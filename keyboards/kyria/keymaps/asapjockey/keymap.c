@@ -240,7 +240,7 @@ static void render_status(void) {
     }
 
     // Host Keyboard LED Status
-    uint8_t led_usb_state = host_keyboard_leds();
+    led_t led_state = host_keyboard_led_state();
     oled_write_P(led_state.num_lock ? PSTR("NUMLCK ") : PSTR("       "), false);
     oled_write_P(led_state.caps_lock ? PSTR("CAPLCK ") : PSTR("       "), false);
     oled_write_P(led_state.scroll_lock ? PSTR("SCRLCK ") : PSTR("       "), false);
