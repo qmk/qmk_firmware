@@ -72,11 +72,11 @@ def test_pid():
 
     # Run all at once and apply PID
     result = run_qmk_pid(cfgs, apply=True)
-    assert 'Applying PID' in result
+    assert 'Applying PID' in result.stdout
 
     for config in configs:
-        ref_file = "%sreference_configs/%s.h" % (test_dir, config.split('/')[:-1])
-        assert filecmp("%s%s" % (test_dir, config), ref_file)
+        ref_file = "%sreference_configs/%s.h" % (test_dir, config[0].split('/')[0])
+        assert filecmp.cmp("%s%s" % (test_dir, config[0]), ref_file)
 
 
     # run qmk pid with all but one config and --apply
