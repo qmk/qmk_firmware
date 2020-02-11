@@ -96,16 +96,15 @@ The 'descramble' system:
 
 
   Usage
-  =====
+  -----
  
   Normal layer switching is by thumb buttons on the base layer (hold),
   and on the shifts (those are toggles). The layers can be set to be on
-  persistently through the `_FUN` layer top row toggles. A few layers
-  can only be reached by `_FUN` layer toggle. From each layer one can
-  go back to the BASE layer by pressing the upper/left most button.
+  persistently through the `_FUN` layer top row toggles. From each layer
+  one can go back to the BASE layer by pressing the upper/left most button.
 
   'Descramble' mode
-  -----------------
+  =================
 
   There are several layers for that take care of typing normally on
   a computer already set to Dvorak ('descramble' mode.)  

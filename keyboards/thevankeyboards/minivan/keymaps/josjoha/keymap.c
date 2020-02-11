@@ -186,7 +186,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Porting to a keyboard with 11 or 12 keys on 1st row.
 // You could use these tokens to quickly edit all layers with bulk replace:
 #define J1_J2// Additional key 1st row on the left (one before last).
-#define J3_J4// Additional key 1st row on the right (one before last).
+#define J3_J4// Additional key 1st row on the right (three before last, to avoid messing up 'arrow' layout arrow custer).
 // Example. In an editor: " J1_J2 " becomes " , KC_A "
 //                        " J3_J4 " becomes " KC_A , "
 // There are also occurences in qwerty_dvorak.c
@@ -536,11 +536,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef MORE_KEY__COMMAND
                                  , MORE_key1  
 #endif
-                                 , CHOLTAP_ACCE , DUO_HOLD , LT ( _MOV , KC_ENT ) , KC_SPC , DUO_HOLD , KC__YGUI
+                                 , CHOLTAP_ACCE , DUO_HOLD , LT ( _MOV , KC_ENT ) , KC_SPC , DUO_HOLD , J3_J4 KC__YGUI
 #ifdef MORE_KEY__ARROW
                                                                                                                  , MORE_key2  
 #endif
-                                                                                                                 , J3_J4 CHOLTAP_LAYR
+                                                                                                                 , CHOLTAP_LAYR
 //                               ,              ,          ,                    <|,>       ,          ,          ,
 //      <1                 ±  ±  , <2           , <3       , <4                  |, 4>     , 3>       , 2>       , ±  ±  1>
                       ),
@@ -624,11 +624,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef MORE_KEY__COMMAND
                                  , MORE_key1
 #endif
-                                 , CHOLTAP_ACCE , DUO_HOLD , LT ( _MOV , KC_ENT ) , KC_SPC , DUO_HOLD , KC__YGUI
+                                 , CHOLTAP_ACCE , DUO_HOLD , LT ( _MOV , KC_ENT ) , KC_SPC , DUO_HOLD , J3_J4 KC__YGUI
 #ifdef MORE_KEY__ARROW
                                                                                                                  , MORE_key2  
 #endif
-                                                                                                                 , J3_J4 CHOLTAP_LAYR
+                                                                                                                 , CHOLTAP_LAYR
 //                               ,              ,          ,                    <|,>       ,          ,          ,
 //      <1                 ±  ±  , <2           , <3       , <4                  |, 4>     , 3>       , 2>       , ±  ±  1>
                       ),
@@ -667,11 +667,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef MORE_KEY__COMMAND
                                  , MORE_key1
 #endif
-                                 , KC_DEL , DUO_HOLD , KC_ENT , KC_DOT , DUO_HOLD , KC__YGUI
+                                 , KC_DEL , DUO_HOLD , KC_ENT , KC_DOT , DUO_HOLD , J3_J4 KC__YGUI
 #ifdef MORE_KEY__ARROW
                                                                                              , MORE_key2  
 #endif
-                                                                                             , J3_J4 RALT_T ( KC_RGHT )
+                                                                                             , RALT_T ( KC_RGHT )
 //                               ,        , -*-      ,      <|,>       , -*-      ,          ,
 //      <1                 ±  ±  , <2     , <3       , <4    |, 4>     , 3>       , 2>       , ±  ±  1>
                       ),
@@ -714,11 +714,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef MORE_KEY__COMMAND
                                  , MORE_key1
 #endif
-                                 , KC_DEL , DUO_HOLD , KC_ENT , KC_DOT , DUO_HOLD , KC__YGUI
+                                 , KC_DEL , DUO_HOLD , KC_ENT , KC_DOT , DUO_HOLD , J3_J4 KC__YGUI
 #ifdef MORE_KEY__ARROW
                                                                                              , MORE_key2  
 #endif
-                                                                                             , J3_J4 RALT_T ( KC_RGHT )
+                                                                                             , RALT_T ( KC_RGHT )
 //                               ,        , -*-      ,      <|,>       , -*-      ,          ,
 //      <1                 ±  ±  , <2     , <3       , <4    |, 4>     , 3>       , 2>       , ±  ±  1>
                       ),
@@ -931,11 +931,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef MORE_KEY__COMMAND
                       , MORE_key1 
 #endif
-                      , KC_DEL  , KC_ENT , _______ , KC_PGUP , KC_PGDN , _MOV_KEY_ROW1_KEY3
+                      , KC_DEL  , KC_ENT , _______ , KC_PGUP , KC_PGDN , J3_J4 _MOV_KEY_ROW1_KEY3
 #ifdef MORE_KEY__ARROW
                                                                                   , _MOV_KEY_ROW1_KEY2
 #endif
-                                                                                  , J3_J4 _MOV_KEY_ROW1_KEY1
+                                                                                  , _MOV_KEY_ROW1_KEY1
 //                    ,         ,        , -*-   <|,>        ,         ,          ,
 //      <1      ±  ±  , <2      , <3     , <4     |, 4>      , 3>      , 2>       , ±  ±  1>
                       ),
@@ -988,11 +988,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef MORE_KEY__COMMAND
                       , MORE_key1
 #endif
-                      , LEDS_ON , KC__XGUI , XXXXXXX , KC_RSFT , XXXXXXX , KC__YGUI
+                      , LEDS_ON , KC__XGUI , XXXXXXX , KC_RSFT , XXXXXXX , J3_J4 KC__YGUI
 #ifdef MORE_KEY__ARROW
                                                                                     , MORE_key2  
 #endif
-                                                                                    , J3_J4 _______
+                                                                                    , _______
 //                    ,         ,          ,       <|,>        ,         ,          ,
 //      <1      ±  ±  , <2      , <3       , <4     |, 4>      , 3>      , 2>       , ±  ±  1>
                       ),
@@ -1032,11 +1032,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef MORE_KEY__COMMAND
                       , MORE_key1
 #endif
-                      , KC_DEL , KC_TAB , KC_KP_ENTER , KC_NUMLOCK , XXXXXXX , KC__YGUI
+                      , KC_DEL , KC_TAB , KC_KP_ENTER , KC_NUMLOCK , XXXXXXX , J3_J4 KC__YGUI
 #ifdef MORE_KEY__ARROW
                                                                                         , MORE_key2  
 #endif
-                                                                                        , J3_J4 KC_RALT
+                                                                                        , KC_RALT
 //                    ,        ,        ,           <|,>           ,         ,          ,
 //      <1      ±  ±  , <2     , <3     , <4         |, 4>         , 3>      , 2>       , ±  ±  1>
                       ),
@@ -1107,11 +1107,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef MORE_KEY__COMMAND
                       , MORE_key1
 #endif
-                      , _______ , KC__XGUI , KC_ENT , KC_SPC , XXXXXXX , KC__YGUI
+                      , _______ , KC__XGUI , KC_ENT , KC_SPC , XXXXXXX , J3_J4 KC__YGUI
 #ifdef MORE_KEY__ARROW
                                                                                   , MORE_key2  
 #endif
-                                                                                  , J3_J4 XXXXXXX 
+                                                                                  , XXXXXXX 
 //                    , -*-     ,          ,      <|,>       ,         ,          , 
 //      <1      ±  ±  , <2      , <3       , <4    |, 4>     , 3>      , 2>       , ±  ±  1>
                       ),
@@ -1152,11 +1152,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef MORE_KEY__COMMAND
                       , MORE_key1
 #endif
-                      , _______ , KC__XGUI , KC_ENT , KC_SPC , XXXXXXX , KC__YGUI
+                      , _______ , KC__XGUI , KC_ENT , KC_SPC , XXXXXXX , J3_J4 KC__YGUI
 #ifdef MORE_KEY__ARROW
                                                                                   , MORE_key2  
 #endif
-                                                                                  , J3_J4 XXXXXXX 
+                                                                                  , XXXXXXX 
 //                    , -*-     ,          ,      <|,>       ,         ,          ,
 //      <1      ±  ±  , <2      , <3       , <4    |, 4>     , 3>      , 2>       , ±  ±  1>
                       ),
@@ -1197,11 +1197,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef MORE_KEY__COMMAND
                       , MORE_key1
 #endif
-                      , KC_DEL , DUO_HOLD , KC_ENT , KC_SPC , DUO_HOLD , KC__YGUI
+                      , KC_DEL , DUO_HOLD , KC_ENT , KC_SPC , DUO_HOLD , J3_J4 KC__YGUI
 #ifdef MORE_KEY__ARROW
                                                                                   , MORE_key2  
 #endif
-                                                                                  , J3_J4 KC__XGUI
+                                                                                  , KC__XGUI
 //                    ,        ,          ,      <|,>       ,          ,          ,
 //      <1      ±  ±  , <2     , <3       , <4    |, 4>     , 3>       , 2>       , ±  ±  1>
                       ),
@@ -1243,11 +1243,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef MORE_KEY__COMMAND
                       , MORE_key1
 #endif
-                      , KC_DEL , DUO_HOLD , KC_ENT  , KC_SPC  , DUO_HOLD , KC__YGUI
+                      , KC_DEL , DUO_HOLD , KC_ENT  , KC_SPC  , DUO_HOLD , J3_J4 KC__YGUI
 #ifdef MORE_KEY__ARROW
                                                                                     , MORE_key2  
 #endif
-                                                                                    , J3_J4 KC__XGUI
+                                                                                    , KC__XGUI
 //                    ,        ,          ,       <|,>        ,          ,          ,
 //      <1      ±  ±  , <2     , <3       , <4     |, 4>      , 3>       , 2>       , ±  ±  1>
                       ),  
@@ -1290,11 +1290,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef MORE_KEY__COMMAND
                       , MORE_key1
 #endif
-                      , MT ( MOD_LCTL | MOD_LSFT, XXXXXXX ) , MT ( MOD_LCTL | MOD_LALT , XXXXXXX ) , MT ( MOD_LSFT | MOD_LALT , XXXXXXX ) , MT ( MOD_LCTL | MOD_LSFT | MOD_LALT , XXXXXXX ) , XXXXXXX , KC__YGUI
+                      , MT ( MOD_LCTL | MOD_LSFT, XXXXXXX ) , MT ( MOD_LCTL | MOD_LALT , XXXXXXX ) , MT ( MOD_LSFT | MOD_LALT , XXXXXXX ) , MT ( MOD_LCTL | MOD_LSFT | MOD_LALT , XXXXXXX ) , XXXXXXX , J3_J4 KC__YGUI
 #ifdef MORE_KEY__ARROW
                                                                                                                                                                                                                  , MORE_key2  
 #endif
-                                                                                                                                                                                                                 , J3_J4 KC_RALT
+                                                                                                                                                                                                                 , KC_RALT
 //                    ,                                     ,                                      ,                                    <|,>                                                ,         ,          ,
 //      <1      ±  ±  , <2                                  , <3                                   , <4                                  |, 4>                                              , 3>      , 2>       , ±  ±  1>
                       ),
@@ -1331,11 +1331,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef MORE_KEY__COMMAND
                            MORE_key1 ,
 #endif
-        LALT_T ( KC_LEFT ) J1_J2 , KC_DEL , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX
+        LALT_T ( KC_LEFT ) J1_J2 , KC_DEL , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , J3_J4 XXXXXXX
 #ifdef MORE_KEY__ARROW
                                                                                             , MORE_key2  
 #endif
-                                                                                            , J3_J4 RALT_T ( KC_RGHT )
+                                                                                            , RALT_T ( KC_RGHT )
 //                               ,        ,         ,       <|,>        ,         ,         ,
 //      <1                 ±  ±  , <2     , <3      , <4     |, 4>      , 3>      , 2>      , ±  ±  1>
                       ),

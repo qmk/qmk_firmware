@@ -90,11 +90,11 @@ If such optimization is wanted, the user has to do it by hand in _PAD.
 #ifdef MORE_KEY__COMMAND
                                  , MORE_key1  
 #endif
-                                 , CHOLTAP_ACCE , DUO_HOLD , LT ( _MOV , KC_ENT ) , KC_SPC , DUO_HOLD , KC__YGUI
+                                 , CHOLTAP_ACCE , DUO_HOLD , LT ( _MOV , KC_ENT ) , KC_SPC , DUO_HOLD , J3_J4 KC__YGUI
 #ifdef MORE_KEY__ARROW
                                                                                                                  , MORE_key2  
 #endif
-                                                                                                                 , J3_J4 CHOLTAP_LAYR
+                                                                                                                 , CHOLTAP_LAYR
 //                               ,              ,          ,                    <|,>       ,          ,          ,
 //      <1                 ±  ±  , <2           , <3       , <4                  |, 4>     , 3>       , 2>       , ±  ±  1>
                       ),
@@ -135,11 +135,11 @@ If such optimization is wanted, the user has to do it by hand in _PAD.
 #ifdef MORE_KEY__COMMAND
                                  , MORE_key1  
 #endif
-                                 , CHOLTAP_ACCE , DUO_HOLD , LT ( _MOV , KC_ENT ) , KC_SPC , DUO_HOLD , KC__YGUI
+                                 , CHOLTAP_ACCE , DUO_HOLD , LT ( _MOV , KC_ENT ) , KC_SPC , DUO_HOLD , J3_J4 KC__YGUI
 #ifdef MORE_KEY__ARROW
                                                                                                                  , MORE_key2  
 #endif
-                                                                                                                 , J3_J4 CHOLTAP_LAYR
+                                                                                                                 , CHOLTAP_LAYR
 //                               ,              ,          ,                    <|,>       ,          ,          ,
 //      <1                 ±  ±  , <2           , <3       , <4                  |, 4>     , 3>       , 2>       , ±  ±  1>
                       ),
@@ -179,11 +179,11 @@ If such optimization is wanted, the user has to do it by hand in _PAD.
 #ifdef MORE_KEY__COMMAND
                                  , MORE_key1  
 #endif
-                                 , KC_DEL , DUO_HOLD , KC_ENT , KC_DOT , DUO_HOLD , KC__YGUI
+                                 , KC_DEL , DUO_HOLD , KC_ENT , KC_DOT , DUO_HOLD , J3_J4 KC__YGUI
 #ifdef MORE_KEY__ARROW
                                                                                              , MORE_key2  
 #endif
-                                                                                             , J3_J4 RALT_T ( KC_RGHT )
+                                                                                             , RALT_T ( KC_RGHT )
 //                               ,        , -*-      ,      <|,>       , -*-      ,          ,
 //      <1                 ±  ±  , <2     , <3       , <4    |, 4>     , 3>       , 2>       , ±  ±  1>
                       ),
@@ -224,11 +224,11 @@ If such optimization is wanted, the user has to do it by hand in _PAD.
 #ifdef MORE_KEY__COMMAND
                                  , MORE_key1  
 #endif
-                                 , KC_DEL , DUO_HOLD , KC_ENT , KC_DOT , DUO_HOLD , KC__YGUI
+                                 , KC_DEL , DUO_HOLD , KC_ENT , KC_DOT , DUO_HOLD , J3_J4 KC__YGUI
 #ifdef MORE_KEY__ARROW
                                                                                              , MORE_key2  
 #endif
-                                                                                             , J3_J4 RALT_T ( KC_RGHT )
+                                                                                             , RALT_T ( KC_RGHT )
 //                               ,        , -*-      ,      <|,>       , -*-      ,          ,
 //      <1                       , <2     , <3       , <4    |, 4>     , 3>       , 2>       ,       1>
                       ),
