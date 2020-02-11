@@ -21,3 +21,7 @@
 #define MATRIX_COL_PINS { A3 }
 #define MATRIX_ROW_PINS { A2 }
 #define UNUSED_PINS
+
+/* USB Device descriptor parameter */
+#define VENDOR_ID       0x03A8
+#define PRODUCT_ID      0x03A8
