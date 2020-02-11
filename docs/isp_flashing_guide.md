@@ -1,12 +1,12 @@
 # ISP Flashing Guide
 
-ISP Flashing (also known as ICSP flashing) is the process of programming the microcontroller directly.  This allows you to replace the bootloader, or change the "fuses" on the controller (fuses control a number of hardware and software related functions, such as the speed of the controller, how it boots, and other options).  
+ISP flashing (also known as ICSP flashing) is the process of programming a microcontroller directly.  This allows you to replace the bootloader, or change the "fuses" on the controller, which control a number of hardware- and software-related functions, such as the speed of the controller, how it boots, and other options.  
 
-The main use of ISP Flashing for QMK is flashing or replacing the bootlaoder on your AVR based controller (Pro Micros, or V-USB chips).  
+The main use of ISP flashing for QMK is flashing or replacing the bootloader on your AVR-based controller (Pro Micros, or V-USB chips).  
 
-?> This is only for programming AVR based boards, such as the Pro Micro or other ATMega controllers.  It is not for ARM controllers, such as the Proton C. 
+?> This is only for programming AVR based boards, such as the Pro Micro or other ATmega controllers.  It is not for Arm controllers, such as the Proton C. 
 
-## Corrupted bootloaders
+## Dealing with Corrupted Bootloaders
 
 If you're having trouble flashing/erasing your board, and running into cryptic error messages like any of the following for a DFU based controller:
 
@@ -41,7 +41,7 @@ You're likely going to need to ISP flash your board/device to get it working aga
 
 ## Hardware Needed
 
-You'll need one of the following to actually perform the ISP Flashing (followed by the protocol they use):
+You'll need one of the following to actually perform the ISP flashing (followed by the protocol they use):
 
 * [SparkFun PocketAVR](https://www.sparkfun.com/products/9825) - (USB Tiny)
 * [USBtinyISP AVR Programmer Kit](https://www.adafruit.com/product/46) - (USB Tiny)
@@ -51,16 +51,16 @@ You'll need one of the following to actually perform the ISP Flashing (followed 
 
 There are other devices that can be used to ISP flash, but these are the main ones.  Also, all product links are to the official versions. You can source them elsewhere. 
 
-You'll also need something to wire your "ISP Programmer" to the device that you're programming.  Some PCBs may have ISP headers that you can use directly, but this often isn't the case, so you'll likely need to solder to the controller itself or to different switchs or other components. 
+You'll also need something to wire your "ISP Programmer" to the device that you're programming.  Some PCBs may have ISP headers that you can use directly, but this often isn't the case, so you'll likely need to solder to the controller itself or to different switches or other components. 
 
 ### The ISP Firmware 
 
-The Teensy and Pro Micro controllers will need you to flash the ISP firmware to the controllers before you can use them as an ISP Programmer.  The rest of the hardware should come preprogrammed.  So, for these controllers, download the correct hex file, and flash it first. 
+The Teensy and Pro Micro controllers will need you to flash the ISP firmware to the controllers before you can use them as an ISP programmer.  The rest of the hardware should come preprogrammed.  So, for these controllers, download the correct hex file, and flash it first. 
 
 * Teensy 2.0: [`util/teensy_2.0_ISP_B0.hex`](https://github.com/qmk/qmk_firmware/blob/master/util/teensy_2.0_ISP_B0.hex) (`B0`)
 * Pro Micro: [`util/pro_micro_ISP_B6_10.hex`](https://github.com/qmk/qmk_firmware/blob/master/util/pro_micro_ISP_B6_10.hex) (`10/B6`)
 
-Once you've flashed your controller, you won't need this hex file, anymore. 
+Once you've flashed your controller, you won't need this hex file anymore. 
 
 ## Software Needed
 
@@ -105,18 +105,18 @@ This is pretty straight-forward - we'll be connecting like-things to like-things
 !> Note that the 10/B6 pin on the Pro Micro is wired to the RESET/RST pin on the keyboard's controller.  ***DO NOT*** wire the RESET pin on the Pro Micro to the RESET on the keyboard. 
 
 
-## Flashing your keyboard 
+## Flashing Your Keyboard 
 
-After you have your ISP Programmer set up, and wired to your keyboard, it's time to flash your keyboard.  
+After you have your ISP programmer set up, and wired to your keyboard, it's time to flash your keyboard.  
 
 ### The Bootloader File
 
-The simplest and quickest way to get thigns back to normal is to flash only a bootloader to the keyboard. Once this is done, you can connect the keyboard normally and flash the keyboard like you normally would. 
+The simplest and quickest way to get things back to normal is to flash only a bootloader to the keyboard. Once this is done, you can connect the keyboard normally and flash the keyboard like you normally would. 
 
 You can find the stock bootloaders in the [`util/` folder](https://github.com/qmk/qmk_firmware/tree/master/util). Be sure to flash the correct bootloader for your chip:
 
 * [`atmega32u4`](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_atmega32u4_1_0_0.hex) - Most keyboards, Planck Rev 1-5, Preonic Rev 1-2
-8 [`Pro Micro`](https://github.com/adafruit/Caterina-Bootloader/blob/master/Built%20Firmwares/Caterina-Leonardo.hex) - The default bootloader for Pro Micro controllers
+* [`Pro Micro`](https://github.com/sparkfun/Arduino_Boards/blob/master/sparkfun/avr/bootloaders/caterina/Caterina-promicro16.hex) - The default bootloader for Pro Micro controllers
 * [`at90usb1286`](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_at90usb128x_1_0_1.hex) - Planck Light Rev 1
 * [`atmega32a`](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_atmega32a_1_0_0.hex) - jj40, and other V-USB/ps2avrGB keyboards
 
@@ -140,7 +140,7 @@ To do this the easy way, you can flash the board using the `:production` target 
 * `<keyboard>_<keymap>_bootloader.hex`
 * `<keyboard>_<keymap>_production.hex`
 
-The QMK DFU bootloader has only really been tested on `atmega32u4` controllers (such as the Planck boards, and the Pro Micro), and hasn't been tested on other controllers.  However, it will not work on V-USB controllers, such as the `atmega32a` or `atmega32p`. 
+The QMK DFU bootloader has only really been tested on `atmega32u4` controllers (such as the Planck boards, and the Pro Micro), and hasn't been tested on other controllers.  However, it will not work on V-USB controllers, such as the `atmega32a` or `atmega328p`. 
 
 You can flash either the bootloader or the production firmware file. The production firmware file will take a lot longer to flash, since it's flashing a lot more data. 
 
@@ -154,7 +154,7 @@ If you want to change bootloader types, You'll need to use the command line.
 
 ### QMK Toolbox
 
-1. `AVRISP device connected` or `USB Ttiny device connected` will show up in yellow
+1. `AVRISP device connected` or `USB Tiny device connected` will show up in yellow
 2. Select the correct bootloader/production .hex file with the `Open` dialog (spaces can't be in the path)
 3. Be sure the correct `Microcontroller` option for the keyboard you're flashing (not the ISP programmer) is selected
 4. Hit `Flash`
@@ -201,18 +201,19 @@ Which means everything should be ok! Your board may restart automatically, other
 
 If you're using a SparkFun PocketAVR Programmer, or another USB Tiny based ISP programmer, you will want to use something like this: 
 
-    avrdude -c usbbiny -P usb -p atmega32u4
+    avrdude -c usbtiny -P usb -p atmega32u4
 
 #### Advanced: Changing Fuses
 
 If you're switching bootloaders, such as flashing QMK DFU on a Pro Micro, you will need to change the fuses, in additional to flashing the bootloader hex file.  This is because `caterina` (the Pro Micro bootloader) and `dfu` handle the startup routines differently, and that behavior is controlled by the fuses.  
 
-!> This is one area that it is very important to be careful, as changing fuses is one of the ways that you can perminently brick your controller.  
+!> This is one area that it is very important to be careful, as changing fuses is one of the ways that you can permanently brick your controller.  
 
 For this, we are assuming the 5V 16MHz versions of the `atmega32u4` (such as the 5V Pro Micro).
 
 For DFU on the `atmega32u4`, these are the fuse settings that you want: 
 
+| Fuse     | Setting          |
 |----------|------------------|
 | Low      | `0x5E`           |
 | High     | `0xD9` or `0x99` |
@@ -226,6 +227,7 @@ To set this add `-U lfuse:w:0x5E:m -U hfuse:w:0xD9:m -U efuse:w:0xC3:m` to your 
 
 For Caterina on the `atmega32u4`, these are the fuse settings that you want: 
 
+| Fuse     | Setting|
 |----------|--------|
 | Low      | `0xFF` |
 | High     | `0xD9` |
