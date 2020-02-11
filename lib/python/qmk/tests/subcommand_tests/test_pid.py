@@ -8,8 +8,6 @@ import shutil
 from nose2.tools.decorators import with_setup, with_teardown
 from milc import cli
 
-from qmk.keyboard import get_ids
-
 pre_run_config = cli.config.pid.db_path
 test_files = 'lib/python/qmk/tests/templates/test_pid/'
 test_dir = 'lib/python/qmk/tests/test_pid/'
@@ -23,21 +21,18 @@ configs = [
 
 
 def setup():
-    cli.config.pid.db_path = test_dir + 'test.json'
+    subprocess.run(['bin/qmk', 'config', 'pids.db_path=%stest.json' % (test_dir)])
     shutil.copytree(test_files, test_dir)
 
 
 def teardown():
-    if pre_run_config is None:
-        del cli.config.pid.db_path
-    else:
-        cli.config.pid.db_path = pre_run_config
+    subprocess.run(['bin/qmk', 'config', 'pids.db_path=None'])
 
     shutil.rmtree(test_dir)
 
 
-def run_qmk_pid(apply=False, commit=False, *cfgs):
-    cfgs = (test_dir + c for c in cfgs)
+def run_qmk_pid(*cfgs, apply=False, commit=False):
+    cfgs = [test_dir + c for c in cfgs]
 
     command = []
     if apply:
@@ -47,7 +42,7 @@ def run_qmk_pid(apply=False, commit=False, *cfgs):
     command += cfgs
 
     result = subprocess.run(
-        [sys.executable, 'bin/qmk', 'pid', command],
+        [sys.executable, 'bin/qmk', 'pid'] + command,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT
     )
