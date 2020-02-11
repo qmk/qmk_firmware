@@ -20,11 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0x1080 // Idobo - 1d080 - 1080
 #define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    You
-#define PRODUCT         idobo
+#define PRODUCT         Idobo
 #define DESCRIPTION     A custom keyboard
 
 /* key matrix size */

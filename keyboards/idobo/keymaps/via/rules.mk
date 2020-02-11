@@ -1,0 +1,2 @@
+BOOTMAGIC_ENABLE = light
+VIA_ENABLE = yes
