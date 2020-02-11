@@ -23,5 +23,5 @@
 #define UNUSED_PINS
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0x03A8
 #define PRODUCT_ID      0x03A8
