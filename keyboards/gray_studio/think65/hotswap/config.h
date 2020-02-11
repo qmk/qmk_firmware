@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x4001
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Graystudio
-#define PRODUCT         Graystudio Think6.5 Hotswap
+#define PRODUCT         Think6.5° Hotswap
 #define DESCRIPTION     Graystudio Think6.5 Hotswap
 
 /* key matrix size */
