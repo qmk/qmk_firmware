@@ -78,18 +78,7 @@ def test_pid():
         ref_file = "%sreference_configs/%s.h" % (test_dir, config[0].split('/')[0])
         assert filecmp.cmp("%s%s" % (test_dir, config[0]), ref_file)
 
-
-    # run qmk pid with all but one config and --apply
-    #   check that the correct PIDS are applied
-    #   check that it doesn't apply to other vids than 0x03A8
-    #   check that comments have been carried over
-    # run qmk pid with only one config (the remaining one) and --apply
-    #   check that the pid has been applied
     # force pid collision by renaming assigned keyboard in test.json
     #   verify that it doesn't exceed max tries
     # change PID in already assigned file, run that file again.
     #   verify that it warns about the changed pid and re-applies it
-    # run without --apply
-    #   verify that it generates but doesn't apply PID
-    # run with --commit but not --apply
-    #   verify that it errors out
