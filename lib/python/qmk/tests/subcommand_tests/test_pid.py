@@ -7,6 +7,7 @@ import shutil
 from nose2.tools.decorators import with_setup, with_teardown
 from milc import cli
 
+
 pre_run_config = cli.config.pid.db_path
 test_files = 'lib/python/qmk/tests/templates/test_pid/'
 test_dir = 'lib/python/qmk/tests/test_pid/'
@@ -68,6 +69,15 @@ def test_pid():
             assert config[1] in result.stdout
         else:
             assert config[1] % config[2][0:4] in result.stdout
+
+    # Run all at once and apply PID
+    result = run_qmk_pid(cfgs, apply=True)
+    assert 'Applying PID' in result
+
+    for config in configs:
+        ref_file = "%sreference_configs/%s.h" % (test_dir, config.split('/')[:-1])
+        assert filecmp("%s%s" % (test_dir, config), ref_file)
+
 
     # run qmk pid with all but one config and --apply
     #   check that the correct PIDS are applied
