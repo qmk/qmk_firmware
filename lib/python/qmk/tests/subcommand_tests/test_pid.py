@@ -7,8 +7,6 @@ import shutil
 from nose2.tools.decorators import with_setup, with_teardown
 from milc import cli
 
-from qmk.keyboard import
-
 pre_run_config = cli.config.pid.db_path
 test_files = 'lib/python/qmk/tests/templates/test_pid/'
 test_dir = 'lib/python/qmk/tests/test_pid/'
