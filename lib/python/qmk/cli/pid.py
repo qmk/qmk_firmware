@@ -84,6 +84,7 @@ def process_config(cli, config_path, pids_json_path, pid_match):
 
 @cli.argument('config', nargs='+', arg_only=True, type=str, help='One or more configs to process')
 @cli.argument('--commit', action='store_true', arg_only=True, help='Commit each change to git')
+@cli.argument('--db', type=str, help='Set a custom path to a json database. Meant for CI/CD')
 @cli.argument('--apply', action='store_true', arg_only=True, help='Set this if you want to apply the PIDs to the supplied configs')
 @cli.subcommand('Computes and applies a QMKPID for configs supplied. Intended for CI/CD use')
 def pid(cli):
@@ -95,7 +96,7 @@ def pid(cli):
         cli.log.error("Can't commit changes if changes aren't applied, please use --apply with --commit. This option is only intended for CI/CD")
         return False
 
-    pids_json_path = cli.config.pid.db_path if cli.config.pid.db_path else "quantum/product_ids.json"
+    pids_json_path = cli.args.db if cli.args.db else "quantum/product_ids.json"
     qmk_vid = cli.config.pid.qmk_vid if cli.config.pid.qmk_vid else "0x03A8"
 
     # Make a skeleton json file on first run
