@@ -15,7 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-
 enum layers {
     QWERTY,
     LOWER,
@@ -40,17 +39,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * | LSFT   |   Z  |   X  |   C  |   V  |   B  | Del  | Raise|  |Adjust| Esc  |   N  |   M  | ,  < | . >  | /  ? | LSFT   |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      | LALT |      | Bspc | Lower|  | Enter| Space| [ {  | } ]  |      |
+ *                        |      | LALT |      | Bspc | Lower|  | Enter| Space| [ {  | ] }  |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [QWERTY] = LAYOUT(
-      KC_TAB,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_RCTL,
-      KC_LCTL, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-      KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,     KC_DEL,  RAISE, ADJUST, KC_ESC,     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_LSFT,
-                              XXXXXXX, KC_LALT, XXXXXXX, KC_BSPC, LOWER, KC_ENT, KC_SPC,     KC_LBR,  KC_RBR,  XXXXXXX
+      KC_TAB,  KC_Q,   KC_W,   KC_E,   KC_R,    KC_T,                                                KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_RCTL,
+      KC_LCTL, KC_A,   KC_S,   KC_D,   KC_F,    KC_G,                                                KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+      KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,    KC_B,    KC_DEL,  MO(RAISE), MO(ADJUST), KC_ESC,     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_LSFT,
+                            XXXXXXX,   KC_LALT, XXXXXXX, KC_BSPC, MO(LOWER), KC_ENT,     KC_SPC,     KC_LBR,  KC_RBR,  XXXXXXX
     ),
-    // TODO: Make the brackets output something else on shift, ()
 /*
  * Lower Layer: Numbers, functions, symbols
  *
@@ -69,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
       _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                                     KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
       _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______, _______, _______, _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+                                 _______, _______, _______, _______, _______, _______, _______, KC_LPRN, KC_RPRN, _______
     ),
 /*
  * Raise Layer: Functions, Numbers
@@ -137,13 +135,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_LBR: {
             if (record->event.pressed) {
-                if (get_mods() & MOD_MASK_SHIFT) {
+                if ((get_mods() & MOD_MASK_SHIFT) == MOD_MASK_SHIFT) {
                     register_code(KC_9);
                 } else {
                     register_code(KC_LBRC);
                 }
             } else { // Release the key
-                if ((get_mods() & MODS_SHIFT_MASK) == MOD_MASK_SHIFT) {
+                if ((get_mods() & MOD_MASK_SHIFT) == MOD_MASK_SHIFT) {
                     unregister_code(KC_9);
                 } else {
                     unregister_code(KC_LBRC);
@@ -154,13 +152,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         case KC_RBR: {
             if (record->event.pressed) {
-                if ((get_mods() & MODS_SHIFT_MASK) == MOD_MASK_SHIFT) {
+                if ((get_mods() & MOD_MASK_SHIFT) == MOD_MASK_SHIFT) {
                     register_code(KC_0);
                 } else {
                     register_code(KC_RBRC);
                 }
             } else { // Release the key
-                if ((get_mods() & MODS_SHIFT_MASK) == MOD_MASK_SHIFT) {
+                if ((get_mods() & MOD_MASK_SHIFT) == MOD_MASK_SHIFT) {
                     unregister_code(KC_0);
                 } else {
                     unregister_code(KC_RBRC);
