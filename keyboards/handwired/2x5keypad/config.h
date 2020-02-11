@@ -37,15 +37,15 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+/* Tap dancing params */
+#define TAPPING_TERM 250
+
 /* key combination for command */
 /* DISABLED
 #define IS_COMMAND() ( \
    get_mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 */
-
-/* prevent stuck modifiers */
-
 
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS

@@ -10,16 +10,16 @@ The breaking change period is when we will merge PR's that change QMK in dangero
 
 ## When is the next Breaking Change?
 
-The next Breaking Change is scheduled for Nov 29.
+The next Breaking Change is scheduled for February 29, 2020.
 
 ### Important Dates
 
-* [ ] 2019 Oct 04 - `future` is created. It will be rebased weekly.
-* [ ] 2019 Nov 01 - `future` closed to new PR's.
-* [ ] 2019 Nov 01 - Call for testers.
-* [ ] 2019 Nov 27 - `master` is locked, no PR's merged.
-* [ ] 2019 Nov 29 - Merge `future` to `master`.
-* [ ] 2019 Nov 30 - `master` is unlocked. PR's can be merged again.
+* [x] 2019 Sep 21 - `future` is created. It will be rebased weekly.
+* [x] 2020 Feb 1 - `future` closed to new PR's.
+* [x] 2020 Feb 1 - Call for testers.
+* [ ] 2020 Feb 26 - `master` is locked, no PR's merged.
+* [ ] 2020 Feb 28 - Merge `future` to `master`.
+* [ ] 2020 Feb 29 - `master` is unlocked. PR's can be merged again.
 
 ## What changes will be included?
 
@@ -51,7 +51,9 @@ git rebase master
 git push --force
 ```
 
-## 8 Weeks Before Merge
+## Creating the `future` branch
+
+This happens immediately after the previous `future` branch is merged.
 
 * `qmk_firmware` git commands
     * [ ] `git checkout master`
@@ -65,9 +67,6 @@ git push --force
     * [ ] `git tag <next_version>` # Prevent the breakpoint tag from confusing version incrementing
     * [ ] `git push origin future`
     * [ ] `git push --tags`
-* GitHub Actions
-    * [ ] Switch all [breaking_change PR's](https://github.com/qmk/qmk_firmware/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aopen+label%3Abreaking_change) to `future`
-    * [ ] Any that have a ChangeLog entry may be merged immediately.
 
 ## 4 Weeks Before Merge
 

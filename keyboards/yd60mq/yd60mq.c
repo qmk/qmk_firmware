@@ -6,7 +6,6 @@ void led_set_kb(uint8_t usb_led) {
         writePinLow(F4);
     } else {
         setPinInput(F4);
-        writePinLow(F4);
 	}
 
     led_set_user(usb_led);

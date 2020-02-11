@@ -48,6 +48,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_RGB_MATRIX_SPEED (uint8_t *)32
 // TODO: Combine these into a single word and single block of EEPROM
 #define EECONFIG_KEYMAP_UPPER_BYTE (uint8_t *)33
+// Size of EEPROM being used, other code can refer to this for available EEPROM
+#define EECONFIG_SIZE 34
 /* debug bit */
 #define EECONFIG_DEBUG_ENABLE (1 << 0)
 #define EECONFIG_DEBUG_MATRIX (1 << 1)
@@ -106,5 +108,8 @@ void     eeconfig_update_user(uint32_t val);
 uint32_t eeconfig_read_haptic(void);
 void     eeconfig_update_haptic(uint32_t val);
 #endif
+
+bool eeconfig_read_handedness(void);
+void eeconfig_update_handedness(bool val);
 
 #endif

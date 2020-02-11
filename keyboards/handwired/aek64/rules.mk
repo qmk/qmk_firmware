@@ -1,17 +1,15 @@
-# Target file name (without extension).
-
-# project specific files
-
 # MCU name
 MCU = at90usb1286
 
-# Boot Section Size in *bytes*
-#   Teensy halfKay   512
-#   Teensy++ halfKay 1024
-#   Atmel DFU loader 4096
-#   LUFA bootloader  4096
-#   USBaspLoader     2048
-BOOTLOADER = halfKay
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
+BOOTLOADER = halfkay
 
 # Build Options
 #   change to no to disable the options.
@@ -27,3 +25,4 @@ UNICODE_ENABLE   = yes # Enable support for arrow keys icon on the second layer.
 COMBO_ENABLE     = yes # Enable combo for special function when using multiple keys at once.
 TAP_DANCE_ENABLE = no  # Enable use multiple tap
 NKRO_ENABLE      = yes
+BACKLIGHT_ENABLE = yes

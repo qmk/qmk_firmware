@@ -108,6 +108,8 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld
 else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(TOP_DIR)/drivers/boards/ld/$(MCU_LDSCRIPT).ld)","")
+    LDSCRIPT = $(TOP_DIR)/drivers/boards/ld/$(MCU_LDSCRIPT).ld
 else
     LDSCRIPT = $(STARTUPLD)/$(MCU_LDSCRIPT).ld
 endif
@@ -165,8 +167,8 @@ CFLAGS += $(COMPILEFLAGS)
 
 ASFLAGS += $(THUMBFLAGS)
 
-CPPFLAGS += $(COMPILEFLAGS)
-CPPFLAGS += -fno-rtti
+CXXFLAGS += $(COMPILEFLAGS)
+CXXFLAGS += -fno-rtti
 
 LDFLAGS +=-Wl,--gc-sections
 LDFLAGS +=-Wl,--no-wchar-size-warning
@@ -247,6 +249,21 @@ dfu-util: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
 
 # Legacy alias
 dfu-util-wait: dfu-util
+
+# TODO: Remove once ARM has a way to configure EECONFIG_HANDEDNESS
+#       within the emulated eeprom via dfu-util or another tool
+ifneq (,$(filter $(MAKECMDGOALS),dfu-util-split-left))
+    OPT_DEFS += -DINIT_EE_HANDS_LEFT
+endif
+
+ifneq (,$(filter $(MAKECMDGOALS),dfu-util-split-right))
+    OPT_DEFS += -DINIT_EE_HANDS_RIGHT
+endif
+
+dfu-util-split-left: dfu-util
+
+dfu-util-split-right: dfu-util
+
 
 st-link-cli: $(BUILD_DIR)/$(TARGET).hex sizeafter
 	$(ST_LINK_CLI) $(ST_LINK_ARGS) -q -c SWD -p $(BUILD_DIR)/$(TARGET).hex -Rst
