@@ -285,7 +285,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 break;
         }
     } else if (index == 1) {
-        switch (biton32(layer_state)) {
+        switch (get_highest_layer(layer_state)) {
             case QWERTY:
                 // Scroll by letter horizontally
                 if (clockwise) {
