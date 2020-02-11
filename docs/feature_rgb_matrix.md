@@ -396,18 +396,87 @@ The EEPROM for it is currently shared with the RGBLIGHT system (it's generally a
 
 Where `28` is an unused index from `eeconfig.h`.
 
-## Suspended state :id=suspended-state
+## Functions :id=functions
 
-To use the suspend feature, add this to your `<keyboard>.c`:
+### Direct Operation 
+|Function                                    |Description  |
+|--------------------------------------------|-------------|
+|`rgb_matrix_set_color_all(r, g, b)`         |Set all of the LEDs to the given RGB value, where `r`/`g`/`b` are between 0 and 255 (not written to EEPROM) |
+|`rgb_matrix_set_color(index, r, g, b)`      |Set a single LED to the given RGB value, where `r`/`g`/`b` are between 0 and 255, and `index` is between 0 and `DRIVER_LED_TOTAL` (not written to EEPROM) |
 
-```c
-void suspend_power_down_kb(void)
-{
+### Effect mode changes 
+|Function                                    |Description  |
+|--------------------------------------------|-------------|
+|`rgb_matrix_mode(x)`                        |Set the mode, if RGB animations are enabled |
+|`rgb_matrix_mode_noeeprom(x)`               |Set the mode, if RGB animations are enabled (not written to EEPROM) |
+|`rgb_matrix_step()`                         |Change the mode to the next RGB animation in the list of enabled RGB animations |
+|`rgb_matrix_step_reverse()`                 |Change the mode to the previous RGB animation in the list of enabled RGB animations |
+|`rgb_matrix_increase_speed()`               |Increases the speed of the animations |
+|`rgb_matrix_decrease_speed()`               |Decreases the speed of the animations |
+
+### effects mode disable/enable 
+|Function                                    |Description  |
+|--------------------------------------------|-------------|
+|`rgb_matrix_toggle()`                       |Toggle effect range LEDs between on and off |
+|`rgb_matrix_toggle_noeeprom()`              |Toggle effect range LEDs between on and off (not written to EEPROM) |
+|`rgb_matrix_enable()`                       |Turn effect range LEDs on, based on their previous state |
+|`rgb_matrix_enable_noeeprom()`              |Turn effect range LEDs on, based on their previous state (not written to EEPROM) |
+|`rgb_matrix_disable()`                      |Turn effect range LEDs off |
+|`rgb_matrix_disable_noeeprom()`             |Turn effect range LEDs off (not written to EEPROM) |
+
+### hue, sat, val change
+|Function                                    |Description  |
+|--------------------------------------------|-------------|
+|`rgb_matrix_increase_hue()`                 |Increase the hue for effect range LEDs. This wraps around at maximum hue |
+|`rgb_matrix_decrease_hue()`                 |Decrease the hue for effect range LEDs. This wraps around at minimum hue |
+|`rgb_matrix_increase_sat()`                 |Increase the saturation for effect range LEDs. This wraps around at maximum saturation |
+|`rgb_matrix_decrease_sat()`                 |Decrease the saturation for effect range LEDs. This wraps around at minimum saturation |
+|`rgb_matrix_increase_val()`                 |Increase the value for effect range LEDs. This wraps around at maximum value |
+|`rgb_matrix_decrease_val()`                 |Decrease the value for effect range LEDs. This wraps around at minimum value |
+|`rgb_matrix_sethsv(h, s, v)`                |Set LEDs to the given HSV value where `h`/`s`/`v` are between 0 and 255 |
+|`rgb_matrix_sethsv_noeeprom(h, s, v)`       |Set LEDs to the given HSV value where `h`/`s`/`v` are between 0 and 255 (not written to EEPROM) |
+
+### query
+|Function               |Description      |
+|-----------------------|-----------------|
+|`rgb_matrix_get_mode()`  |Get current mode |
+|`rgb_matrix_get_hue()`   |Get current hue  |
+|`rgb_matrix_get_sat()`   |Get current sat  |
+|`rgb_matrix_get_val()`   |Get current val  |
+
+## Callbacks :id=callbacks
+
+### Indicators :id=indicators
+
+If you want to set custom indiacators, such as an LED for Caps Lock, or layer indication, you can use the `rgb_matrix_indicators_kb` or `rgb_matrix_indicators_user` function for that: 
+```C
+void rgb_matrix_indicators_kb(void) {
+    rgb_matrix_set_color(index, red, green, blue);
+}
+```
+
+### Suspended state :id=suspended-state
+
+To use the suspend feature, make sure that `#define RGB_DISABLE_WHEN_USB_SUSPENDED true` is added to the `config.h` file. 
+
+Additionally add this to your `<keyboard>.c`:
+
+```C
+void suspend_power_down_kb(void) {
     rgb_matrix_set_suspend_state(true);
 }
 
-void suspend_wakeup_init_kb(void)
-{
+void suspend_wakeup_init_kb(void) {
+    rgb_matrix_set_suspend_state(false);
+}
+```
+or add this to your `keymap.c`:
+```C
+void suspend_power_down_user(void) {
+    rgb_matrix_set_suspend_state(true);
+}
+
+void suspend_wakeup_init_user(void) {
     rgb_matrix_set_suspend_state(false);
 }
 ```
