@@ -21,13 +21,10 @@ configs = [
 
 
 def setup():
-    subprocess.run(['bin/qmk', 'config', 'pids.db_path=%stest.json' % (test_dir)])
     shutil.copytree(test_files, test_dir)
 
 
 def teardown():
-    subprocess.run(['bin/qmk', 'config', 'pids.db_path=None'])
-
     shutil.rmtree(test_dir)
 
 
@@ -44,7 +41,7 @@ def run_qmk_pid(cfgs, apply=False, commit=False):
     command += cfgs
 
     result = subprocess.run(
-        [sys.executable, 'bin/qmk', 'pid'] + command,
+        [sys.executable, 'bin/qmk', 'pid', '--db', '%stest.json' % (test_dir)] + command,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         universal_newlines=True
