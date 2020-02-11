@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0x8010
 #define PRODUCT_ID      0x0075
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    You
+#define MANUFACTURER    Generic
 #define PRODUCT         Idobo
 #define DESCRIPTION     A custom keyboard
 
