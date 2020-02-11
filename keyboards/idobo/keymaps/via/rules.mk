@@ -1,2 +1,1 @@
-BOOTMAGIC_ENABLE = lite
 VIA_ENABLE = yes
