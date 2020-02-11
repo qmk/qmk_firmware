@@ -3,10 +3,13 @@
 
 #define TAP_CODE_DELAY 20
 
-/* Extend default tap timeout because I'm too slow. :) */
+/*
+ * Force the default tapping term since some keyboards make it way too short
+ * (*cough*Lily58*cough*).
+ */
 #undef TAPPING_TERM
 
-#define TAPPING_TERM 250
+#define TAPPING_TERM 200
 
 /*
  * Treat mod-tap keys as holds even if the mod-tap key and the key being
