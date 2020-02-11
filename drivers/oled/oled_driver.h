@@ -131,7 +131,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 // unsigned char value of the last character in the font file
 #if !defined(OLED_FONT_END)
-#    define OLED_FONT_END 224
+#    define OLED_FONT_END 223
 #endif
 // Font render width
 #if !defined(OLED_FONT_WIDTH)
