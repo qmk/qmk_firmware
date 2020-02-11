@@ -1,6 +1,5 @@
 import sys
 import subprocess
-from tempfile import NamedTemporaryFile
 import filecmp
 import shutil
 
