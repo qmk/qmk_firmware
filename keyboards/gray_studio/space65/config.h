@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x3000
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Graystudio
-#define PRODUCT         Graystudio Space65
+#define PRODUCT         Space65
 #define DESCRIPTION     Graystudio Space65
 
 /* key matrix size */
