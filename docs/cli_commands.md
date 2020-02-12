@@ -250,13 +250,28 @@ qmk cformat -b branch_name
 
 ## `qmk docs`
 
-This command starts a local HTTP server which you can use for browsing or improving the docs. Default port is 8936.
+This command allows you to generate and serve QMK documentation locally. It can be uses for general browsing or improving the docs. Default HTTP server port is 8936.
 
 **Usage**:
 
 ```
-qmk docs [-p PORT]
+qmk docs [-p PORT] [-s] [-g]
 ```
+
+**Examples**:
+
+Serve the docs with a local HTTP server:
+
+    qmk docs
+
+Perform a production build:
+
+    qmk docs -g
+
+Perform a production build and serve the result with a local HTTP server:
+
+    qmk docs -g -s
+
 
 ## `qmk kle2json`
 

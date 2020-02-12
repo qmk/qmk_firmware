@@ -1,4 +1,4 @@
-"""Serve QMK documentation locally
+"""Interact with QMK documentation locally
 """
 import http.server
 import os
@@ -18,7 +18,7 @@ def serve(dir):
     os.chdir(dir)
 
     with http.server.HTTPServer(('', cli.config.docs.port), http.server.SimpleHTTPRequestHandler) as httpd:
-        cli.log.info("Serving QMK docs at http://localhost:%d/", cli.config.docs.port)
+        cli.log.info("Serving %s QMK docs at http://localhost:%d/", dir, cli.config.docs.port)
         cli.log.info("Press Control+C to exit.")
 
         try:
