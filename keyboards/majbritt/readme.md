@@ -1,12 +1,10 @@
 # majbritt
 
-![majbritt](imgur.com image replace me!)
+An Alice look alike with arrow keys. 
 
-A short description of the keyboard/project
-
-* Keyboard Maintainer: [MechMerlin](https://github.com/yourusername)
-* Hardware Supported: The PCBs, controllers supported
-* Hardware Availability: Links to where you can find this hardware
+* Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)
+* Hardware Supported: Majbritt PCB
+* Hardware Availability: TBD
 
 Make example for this keyboard (after setting up your build environment):
 
