@@ -38,7 +38,7 @@ ________________________________________________________________________________
     /* Layer 1, function layer
 ___________________________________________________________________________________________________________________________________
 |        |        |        |        |        |        |        |        |        |        |        |        |        |            |
-|        |        |        |        |        |        |        |        |        |        |        |        |        |            |
+| RESET  |        |        |        |        |        |        |        |        |        |        |        |        |            |
 |________|________|________|________|________|________|________|________|________|________|________|________|________|____________|
 |        |        |        |        |        |        |        |        |        |        |        |        |        |            |
 |        |        |        |        |        |        |        |        |        |        |        |        |        |            |
@@ -58,7 +58,7 @@ ________________________________________________________________________________
 */
 
   [1] = LAYOUT(
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    RESET,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_HOME, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_TRNS, KC_TRNS, KC_TRNS,
