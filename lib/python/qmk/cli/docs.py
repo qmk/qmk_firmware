@@ -51,7 +51,7 @@ def build():
 @cli.argument('-b', '--build', arg_only=True, action='store_true', help='Build docs.')
 @cli.argument('-s', '--serve', arg_only=True, action='store_true', help='Serve docs locally.')
 @cli.argument('-p', '--port', default=8936, type=int, help='Port number to use.')
-@cli.subcommand('Local interactins wth QMK documentation.', hidden=False if cli.config.user.developer else True)
+@cli.subcommand('Local interactions wth QMK documentation.', hidden=False if cli.config.user.developer else True)
 def docs(cli):
     if cli.args.build:
         build()
