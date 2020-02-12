@@ -30,36 +30,37 @@
 #include "pointing_device.h"
 
 // Helpers
-#define degToRad(angleInDegrees) ((angleInDegrees) * M_PI / 180.0)
-#define radToDeg(angleInRadians) ((angleInRadians) * 180.0 / M_PI)
-#define constrain(amt,low,high) ((amt)<(low)?(low):((amt)>(high)?(high):(amt)))
+#define degToRad(angleInDegrees) ((angleInDegrees)*M_PI / 180.0)
+#define radToDeg(angleInRadians) ((angleInRadians)*180.0 / M_PI)
+#define constrain(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
 
 // Hardware Pin Defs
 #define SPI_OPTION (SPI_SPEED_FCPU_DIV_2 | SPI_SCK_LEAD_FALLING | SPI_SAMPLE_TRAILING | SPI_ORDER_MSB_FIRST | SPI_MODE_MASTER)
-#define MOUSE_LEFT_PIN    D4
-#define MOUSE_RIGHT_PIN   E6
-#define MOUSE_MIDDLE_PIN  D2
-#define MOUSE_BACK_PIN    B5
+#define MOUSE_LEFT_PIN D4
+#define MOUSE_RIGHT_PIN E6
+#define MOUSE_MIDDLE_PIN D2
+#define MOUSE_BACK_PIN B5
 #define MOUSE_FORWARD_PIN D7
-#define SENSOR_CS 				B0
-#define SS_TB							0
+#define SENSOR_CS B0
+#define SS_TB 0
 
 // Sensor defs
-#define OPT_ENC1					F0
-#define OPT_ENC2					F4
-#define OPT_ENC1_MUX			0
-#define OPT_ENC2_MUX			4
-#define OPT_DEBOUNCE			25		// (ms) 			Time between scroll events
-#define OPT_THRES					100		// (0-1024) 	Threshold for actication
-#define OPT_SCALE					1			// Multiplier for wheel
+#define OPT_ENC1 F0
+#define OPT_ENC2 F4
+#define OPT_ENC1_MUX 0
+#define OPT_ENC2_MUX 4
+#ifndef OPT_DEBOUNCE
+#    define OPT_DEBOUNCE 5  // (ms) 			Time between scroll events
+#endif
+#ifndef OPT_THRES
+#    define OPT_THRES 150  // (0-1024) 	Threshold for actication
+#endif
+#ifndef OPT_SCALE
+#    define OPT_SCALE 1  // Multiplier for wheel
+#endif
 
-//function defs
+// function defs
 void process_wheel(void);
 
-#define LAYOUT( \
-    BL, BM, BR, \
-      B4,  B5   \
-) \
-{ \
-    { BL, BM, BR, B4, B5 }, \
-}
+#define LAYOUT(BL, BM, BR, B4, B5) \
+    { {BL, BM, BR, B4, B5}, }

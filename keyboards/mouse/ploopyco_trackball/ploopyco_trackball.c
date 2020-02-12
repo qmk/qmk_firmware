@@ -24,15 +24,13 @@
 // https://wayland.freedesktop.org/libinput/doc/latest/pointer-acceleration.html
 // Compile time accel selection
 // Valid options are ACC_NONE, ACC_LINEAR, ACC_CUSTOM, ACC_QUADRATIC
-#define PROFILE_NONE
 
 // Debug Options
-#define DEBUGMOUSE true  // Slows down scan rate!
+#define DEBUGMOUSE false  // Slows down scan rate!
 #define DEBUGOPTO false  // Slows down scan rate!
 
 // Trackball State
 bool     BurstState   = false;  // init burst state for Trackball module
-bool     DragLock     = false;  // Are we scrolling?
 uint16_t MotionStart  = 0;      // Timer for accel, 0 is resting state
 uint16_t lastScroll   = 0;      // Previous confirmed wheel event
 uint16_t lastMidClick = 0;
@@ -51,54 +49,55 @@ static void process_mouse(bool bMotion, bool* bBurst) {
 
     // Set timer if new motion
     if ((MotionStart == 0) && isMoving) {
-        if (DEBUGMOUSE) uprintf("Starting motion.\n");
+        if (DEBUGMOUSE) dprintf("Starting motion.\n");
         MotionStart = timer_read();
     }
 
     if (DEBUGMOUSE) {
-        uprintf("Delt] d: %d t: %u\n", abs(d.X) + abs(d.Y), MotionStart);
+        dprintf("Delt] d: %d t: %u\n", abs(d.X) + abs(d.Y), MotionStart);
     }
     if (DEBUGMOUSE) {
-        uprintf("Pre ] X: %d, Y: %d\n", d.X, d.Y);
+        dprintf("Pre ] X: %d, Y: %d\n", d.X, d.Y);
     }
 
     // Apply any post processing required
-#ifdef PROFILE_NONE
-#endif
-#ifdef PROFILE_LINEAR
+#if defined(PROFILE_LINEAR)
     float scale = float(timer_elaspsed(MotionStart)) / 1000.0;
     x           = x * scale;
     y           = y * scale;
-#endif
-#ifdef PROFILE_INVERSE
+#elif defined(PROFILE_INVERSE)
+// TODO
+#else
+// no post processing
 #endif
 
     // Wrap to HID size
     int16_t x = constrain(d.X, -127, 127);
     int16_t y = constrain(d.Y, -127, 127);
-    if (DEBUGMOUSE) uprintf("Cons] X: %d, Y: %d\n", x, y);
-    // uprintf("Elapsed:%u, X: %f Y: %\n", i, pgm_read_byte(firmware_data+i));
+    if (DEBUGMOUSE) dprintf("Cons] X: %d, Y: %d\n", x, y);
+    // dprintf("Elapsed:%u, X: %f Y: %\n", i, pgm_read_byte(firmware_data+i));
 
     report_mouse_t currentReport = pointing_device_get_report();
-    if (!DragLock) {
-        currentReport.x = (int)x;
-        currentReport.y = (int)y;
-    } else {
-        currentReport.v = (int)x;
-        currentReport.h = (int)y;
-    }
+    currentReport.x              = (int)x;
+    currentReport.y              = (int)y;
     pointing_device_set_report(currentReport);
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (DEBUGMOUSE) {
-        uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+        dprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
     }
 
     // Update Timer to prevent accidental scrolls
     if ((record->event.key.col == 2) && (record->event.key.row == 0) && (record->event.pressed == 0)) {
         lastMidClick = timer_read();
     }
+
+/* If Mousekeys is disabled, then use handle the mouse button
+ * keycodes.  This makes things simpler, and allows usage of
+ * the keycodes in a consistent manner.  But only do this if
+ * Mousekeys is not enable, so it's not handled twice.
+ */
 #ifndef MOUSEKEY_ENABLE
     if (IS_MOUSEKEY_BUTTON(keycode)) {
         report_mouse_t currentReport = pointing_device_get_report();
@@ -150,7 +149,7 @@ void process_wheel(void) {
     lastScroll  = timer_read();
     uint16_t p1 = adc_read(OPT_ENC1_MUX);
     uint16_t p2 = adc_read(OPT_ENC2_MUX);
-    if (DEBUGOPTO) uprintf("OPT1: %d, OPT2: %d\n", p1, p2);
+    if (DEBUGOPTO) dprintf("OPT1: %d, OPT2: %d\n", p1, p2);
 
     uint8_t dir = 0;
     if (p1 < OPT_THRES && p2 < OPT_THRES) {
@@ -176,9 +175,9 @@ void process_wheel(void) {
 
 // Hardware Setup
 void keyboard_pre_init_kb(void) {
-    debug_enable = false;
-    debug_matrix = true;
-    debug_mouse  = false;
+    // debug_enable = false;
+    // debug_matrix = true;
+    // debug_mouse  = false;
 
     // Set up all the hardware
     setPinOutput(SENSOR_CS);
@@ -238,4 +237,5 @@ void keyboard_pre_init_kb(void) {
 void matrix_scan_kb(void) {
     process_mouse(Motion, &BurstState);
     process_wheel();
+    matrix_scan_user();
 }
