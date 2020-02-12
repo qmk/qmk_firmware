@@ -41,15 +41,11 @@ def build():
 
     shutil.copytree(DOCS_PATH, BUILD_PATH)
 
-    #Generate internal docs
-    try:
-        doxygen = subprocess.run(['doxygen', 'Doxyfile'], check=True)
-        moxygen = subprocess.run(['moxygen', '-q', '-a', '-g', '-o', BUILD_PATH / 'internals_%s.md', 'doxygen/xml'], check=True)
-        cli.log.info('Successfully generated internal docs.')
+    # Generate internal docs
+    subprocess.run(['doxygen', 'Doxyfile'], check=True)
+    subprocess.run(['moxygen', '-q', '-a', '-g', '-o', BUILD_PATH / 'internals_%s.md', 'doxygen/xml'], check=True)
 
-    except subprocess.CalledProcessError:
-        cli.log.error('Error generated internal docs!')
-        return False
+    cli.log.info('Successfully generated internal docs.')
 
 
 @cli.argument('-b', '--build', arg_only=True, action='store_true', help='Build docs.')
