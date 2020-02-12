@@ -231,8 +231,8 @@ void layer_state_set_oryx(layer_state_t state) {
     }
 }
 
-#ifdef DYNAMIC_KEYMAP_ENABLE
 void eeconfig_init_oryx(void) {
+#ifdef DYNAMIC_KEYMAP_ENABLE
     // reread settings from flash into eeprom
     dynamic_keymap_reset();
     dynamic_keymap_macro_reset();
@@ -246,6 +246,5 @@ void matrix_init_oryx(void) {
     if (!memcmp(&temp, &firmware, sizeof(uint8_t)*FIRMWARE_VERSION_SIZE)) {
         eeconfig_init_oryx();
     }
-}
-
 #endif
+}
