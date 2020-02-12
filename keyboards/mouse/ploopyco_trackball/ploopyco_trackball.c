@@ -33,7 +33,7 @@
 bool     BurstState   = false;  // init burst state for Trackball module
 uint16_t MotionStart  = 0;      // Timer for accel, 0 is resting state
 uint16_t lastScroll   = 0;      // Previous confirmed wheel event
-uint16_t lastMidClick = 0;
+uint16_t lastMidClick = 0;      // Stops scrollwheel from being read if it was pressed
 uint8_t  OptLowPin    = OPT_ENC1;
 
 // Mouse Processing

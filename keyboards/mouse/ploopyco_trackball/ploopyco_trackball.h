@@ -49,6 +49,7 @@
 #define OPT_ENC2 F4
 #define OPT_ENC1_MUX 0
 #define OPT_ENC2_MUX 4
+
 #ifndef OPT_DEBOUNCE
 #    define OPT_DEBOUNCE 5  // (ms) 			Time between scroll events
 #endif
