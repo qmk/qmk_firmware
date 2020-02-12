@@ -19,10 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "wait.h"
 #include "util.h"
 #include "matrix.h"
+#include "debounce.h"
+#include "quantum.h"
 #include "split_util.h"
 #include "config.h"
-#include "quantum.h"
-#include "debounce.h"
 #include "transport.h"
 
 #ifdef ENCODER_ENABLE
@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef DIRECT_PINS
 static pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
-#else
+#elif (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
 static pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 #endif
@@ -115,8 +115,11 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
     // For each col...
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
+        // Select the col pin to read (active low)
+        uint8_t pin_state = readPin(col_pins[col_index]);
+
         // Populate the matrix row with the state of the col pin
-        current_matrix[current_row] |= readPin(col_pins[col_index]) ? 0 : (MATRIX_ROW_SHIFTER << col_index);
+        current_matrix[current_row] |= pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);
     }
 
     // Unselect row
@@ -160,12 +163,12 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
         matrix_row_t last_row_value = current_matrix[row_index];
 
         // Check row pin state
-        if (readPin(row_pins[row_index])) {
-            // Pin HI, clear col bit
-            current_matrix[row_index] &= ~(MATRIX_ROW_SHIFTER << current_col);
-        } else {
+        if (readPin(row_pins[row_index]) == 0) {
             // Pin LO, set col bit
             current_matrix[row_index] |= (MATRIX_ROW_SHIFTER << current_col);
+        } else {
+            // Pin HI, clear col bit
+            current_matrix[row_index] &= ~(MATRIX_ROW_SHIFTER << current_col);
         }
 
         // Determine if the matrix changed state
