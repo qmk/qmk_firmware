@@ -60,6 +60,8 @@
 #    define OPT_SCALE 1  // Multiplier for wheel
 #endif
 
+extern float mouse_multiplier;
+
 // function defs
 void process_wheel(void);
 

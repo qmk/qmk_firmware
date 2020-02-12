@@ -35,12 +35,14 @@ uint16_t MotionStart  = 0;      // Timer for accel, 0 is resting state
 uint16_t lastScroll   = 0;      // Previous confirmed wheel event
 uint16_t lastMidClick = 0;      // Stops scrollwheel from being read if it was pressed
 uint8_t  OptLowPin    = OPT_ENC1;
-
+float    mouse_multiplier = 1.0;
 // Mouse Processing
 static void process_mouse(bool bMotion, bool* bBurst) {
     // Read state
     PMWState d        = point_burst_read(bMotion, bBurst);
     bool     isMoving = (d.X != 0) || (d.Y != 0);
+    int16_t  x, y;
+    
     // Reset timer if stopped moving
     if (!isMoving) {
         if (MotionStart != 0) MotionStart = 0;
@@ -63,17 +65,21 @@ static void process_mouse(bool bMotion, bool* bBurst) {
     // Apply any post processing required
 #if defined(PROFILE_LINEAR)
     float scale = float(timer_elaspsed(MotionStart)) / 1000.0;
-    x           = x * scale;
-    y           = y * scale;
+    x           *= scale;
+    y           *= scale;
 #elif defined(PROFILE_INVERSE)
 // TODO
 #else
 // no post processing
 #endif
 
+    // apply multiplier
+    x *= mouse_multiplier;
+    y *= mouse_multiplier;
+
     // Wrap to HID size
-    int16_t x = constrain(d.X, -127, 127);
-    int16_t y = constrain(d.Y, -127, 127);
+    x = constrain(d.X, -127, 127);
+    y = constrain(d.Y, -127, 127);
     if (DEBUGMOUSE) dprintf("Cons] X: %d, Y: %d\n", x, y);
     // dprintf("Elapsed:%u, X: %f Y: %\n", i, pgm_read_byte(firmware_data+i));
 
