@@ -27,7 +27,7 @@ jobs:
         npm install -g moxygen
     - name: Build docs
       run: |
-        bin/qmk docs --build
+        bin/qmk --verbose docs --generate
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:

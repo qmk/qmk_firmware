@@ -29,8 +29,8 @@ def serve(dir):
             httpd.shutdown()
 
 
-def build():
-    """Invoke the docs build process
+def generate():
+    """Invoke the docs generation process
 
     TODO(unclaimed):
         * [ ] Add a real build step... something static docs
@@ -41,22 +41,30 @@ def build():
 
     shutil.copytree(DOCS_PATH, BUILD_PATH)
 
+    # When not verbose we want to hide all output
+    args = {'check': True}
+    if not cli.args.verbose:
+        args.update({'stdout': subprocess.DEVNULL, 'stderr': subprocess.STDOUT})
+
+    cli.log.info('Generating internal docs...')
+
     # Generate internal docs
-    subprocess.run(['doxygen', 'Doxyfile'], check=True)
-    subprocess.run(['moxygen', '-q', '-a', '-g', '-o', BUILD_PATH / 'internals_%s.md', 'doxygen/xml'], check=True)
+    subprocess.run(['doxygen', 'Doxyfile'], **args)
+    subprocess.run(['moxygen', '-q', '-a', '-g', '-o', BUILD_PATH / 'internals_%s.md', 'doxygen/xml'], **args)
 
-    cli.log.info('Successfully generated internal docs.')
+    cli.log.info('Successfully generated internal docs to %s.', BUILD_PATH)
 
 
-@cli.argument('-b', '--build', arg_only=True, action='store_true', help='Build docs.')
+@cli.argument('-g', '--generate', arg_only=True, action='store_true', help='Generate docs.')
 @cli.argument('-s', '--serve', arg_only=True, action='store_true', help='Serve docs locally.')
 @cli.argument('-p', '--port', default=8936, type=int, help='Port number to use.')
 @cli.subcommand('Local interactions wth QMK documentation.', hidden=False if cli.config.user.developer else True)
 def docs(cli):
-    if cli.args.build:
-        build()
+    if cli.args.generate:
+        generate()
+        # have we been asked to just serve the just generated docs?
         if cli.args.serve:
             serve(BUILD_PATH)
     else:
-        # default to just serve the docs folder
+        # if --serve or invoked with no args
         serve(DOCS_PATH)
