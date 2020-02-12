@@ -75,7 +75,7 @@
                 {"label":"Ctrl", "x":13.75, "y":4, "w":1.25}
             ]
         },
-        "LAYOUT_60_ansi_tsangan_split_rshift": {
+        "LAYOUT_60_tsangan_hhkb": {
             "layout": [
                 {"label":"~", "x":0, "y":0},
                 {"label":"!", "x":1, "y":0},

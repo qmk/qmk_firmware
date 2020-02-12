@@ -83,7 +83,7 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 * `#define BACKLIGHT_PIN B7`
    * バックライトのピン
 * `#define BACKLIGHT_LEVELS 3`
-   * バックライトのレベル数 (off を除いて最大15)
+   * バックライトのレベル数 (off を除いて最大31)
 * `#define BACKLIGHT_BREATHING`
    * バックライトのブレスを有効にします
 * `#define BREATHING_PERIOD 6`
