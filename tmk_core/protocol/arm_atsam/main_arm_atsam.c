@@ -130,7 +130,6 @@ void send_extra(uint8_t report_id, uint16_t data) {
 
 void send_system(uint16_t data) {
 #ifdef EXTRAKEY_ENABLE
-    if (data != 0) data = data - SYSTEM_POWER_DOWN + 1;
     send_extra(REPORT_ID_SYSTEM, data);
 #endif  // EXTRAKEY_ENABLE
 }
