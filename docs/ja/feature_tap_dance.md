@@ -440,7 +440,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 ### 例6: タップダンスを一時的なレイヤー切り替えとレイヤートグルキーに使う
 
-タップダンスは、MO(layer) and TG(layer) 機能を擬態することにも使用できます。例えば、1回タップすると `KC_QUOT` を、1回押してそのまま押し続けたら `MO(_MY_LAYER)` を、そして、2回タップしたときは `TG(_MY_LAYER)` となるキーを設定しましょう。
+タップダンスは、MO(layer) と TG(layer) 機能を模倣することにも使用できます。この例では、1回タップすると `KC_QUOT` 、1回押してそのまま押し続けたら `MO(_MY_LAYER)` 、2回タップしたときは `TG(_MY_LAYER)` として機能するキーを設定します。
 
 最初のステップは、あなたの `keymap.c` ファイルの最初のあたりに以下のコードを追加します。
 
@@ -450,7 +450,7 @@ typedef struct {
   int state;
 } tap;
 
-//タップダンスの状態を必要なだけ定義します
+//必要な数のタップダンス状態のタイプを定義します
 enum {
   SINGLE_TAP = 1,
   SINGLE_HOLD = 2,
@@ -459,15 +459,15 @@ enum {
 
 enum {
   QUOT_LAYR = 0
-  //カスタムタップダンスキーは、この enum に追加します
+  //カスタムタップダンスキー。他のタップダンスキーはこの列挙型に追加します
 };
 
-//タップダンスで使われる関数群を明らかにします
+//タップダンスキーで使われる関数を宣言します
 
-//関数を全てのタップダンスに結び付けます
+//全てのタップダンスに関連する関数
 int cur_dance (qk_tap_dance_state_t *state);
 
-//関数を個別のタップダンスに結び付けます
+//個別のタップダンスに関連する関数
 void ql_finished (qk_tap_dance_state_t *state, void *user_data);
 void ql_reset (qk_tap_dance_state_t *state, void *user_data);
 ```
@@ -489,13 +489,13 @@ int cur_dance (qk_tap_dance_state_t *state) {
   else return 8;
 }
 
-//この例のタップダンスキーに関連づけて "tap" 構造体を初期化します
+//この例のタップダンスキーに関連付けられた "tap" 構造体を初期化します
 static tap ql_tap_state = {
   .is_press_action = true,
   .state = 0
 };
 
-//関数は、タップダンスキーの動作をコントロールします
+//タップダンスキーの動作をコントロールする関数
 void ql_finished (qk_tap_dance_state_t *state, void *user_data) {
   ql_tap_state.state = cur_dance(state);
   switch (ql_tap_state.state) {
@@ -526,19 +526,19 @@ void ql_reset (qk_tap_dance_state_t *state, void *user_data) {
   ql_tap_state.state = 0;
 }
 
-//タップダンスキーを関数に関連付けます
+//タップダンスキーを機能に関連付けます
 qk_tap_dance_action_t tap_dance_actions[] = {
   [QUOT_LAYR] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 275)
 };
 ```
 
-上記のコードは、前の例で使われたコードに似ています。注意する1つのポイントは、現在アクティブなレイヤーを記録し続けるための変数を宣言する必要があるということです。その理由を手短に見てみましょう。それは、引数で与えた `layer` がアクティブなら `true` を返す `layer_state_is( layer )`  を使うためです。
+上記のコードは、前の例で使われたコードに似ています。注意する1つのポイントは、必要に応じてレイヤーを切り替えられるように、どのレイヤーがアクティブになっているかいつでも確認できる必要があることです。これを実現するために、引数で与えられた `layer` がアクティブなら `true` を返す `layer_state_is( layer )`  を使います。
 
-`cur_dance()` and `ql_tap_state` の使い方は、上の例と似ています。
+`cur_dance()` と `ql_tap_state` の使い方は、上の例と似ています。
 
-`ql_finished` 関数にある `case:SINGLE_TAP` in  は、上の例と似ています。`case:SINGLE_HOLD` は、`ql_reset()` と協力してタップダンスキーを押している間 `_MY_LAYER` にスイッチし、キーを話した時に `_MY_LAYER` から離れます。これは、`MO(_MY_LAYER)` に似ています。`case:DOUBLE_TAP` は、`_MY_LAYER` がアクティブレイヤーかどうかを確認することによって動きます。そして、その結果に基づいてレイヤーのオン・オフをトグルします。これは `TG(_MY_LAYER)` に似ています。
+`ql_finished` 関数における `case:SINGLE_TAP` は、上の例と似ています。`case:SINGLE_HOLD` は、`ql_reset()` と連動してタップダンスキーを押している間 `_MY_LAYER` に切り替わり、キーを離した時に `_MY_LAYER` から離れます。これは、`MO(_MY_LAYER)` に似ています。`case:DOUBLE_TAP` は、`_MY_LAYER` がアクティブレイヤーかどうかを確認することによって動きます。そして、その結果に基づいてレイヤーのオン・オフをトグルします。これは `TG(_MY_LAYER)` に似ています。
 
-`tap_dance_actions[]` は、上の例に似ています。 `ACTION_TAP_DANCE_FN_ADVANCED()`　の代わりに `ACTION_TAP_DANCE_FN_ADVANCED_TIME()` を使ったことに気付いてください。
-この理由は、私は、非タップダンスキーを使うにあたり `TAPPING_TERM` が短い(~175ミリ秒)方が好きなのですが、期待通りのタップダンスのアクションを実現するためには短すぎます——従って、時間を275ミリ秒に増やすためです。
+`tap_dance_actions[]` は、上の例に似ています。 `ACTION_TAP_DANCE_FN_ADVANCED()` の代わりに `ACTION_TAP_DANCE_FN_ADVANCED_TIME()` を使ったことに注意してください。
+この理由は、私は、非タップダンスキーを使うにあたり `TAPPING_TERM` が短い(175ミリ秒以内)方が好きなのですが、タップダンスのアクションを確実に完了させるには短すぎるとわかったからです——そのため、ここでは時間を275ミリ秒に増やしています。
 
 最後に、このタップダンスキーを動かすため、忘れずに `TD(QUOT_LAYR)` を `keymaps[]` に加えてください。 
