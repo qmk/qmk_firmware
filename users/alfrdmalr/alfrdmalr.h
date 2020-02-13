@@ -164,11 +164,11 @@ enum alfrdmalr_keycodes {
  * ,-----------------------------------------------------------------------------------.
  * | TRNS |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | TRNS |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | TRNS |   #  |   $  |   {  |   }  |      |      |   ^  |   *  |   |  |   ~  | DEL  |
+ * | TRNS |   !  |   @  |   {  |   }  |      |      |   ^  |   $  |   &  |   |  | DEL  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | TRNS |   <  |   >  |   (  |   )  |      |      |   -  |   +  |   &  |   \  |  `   |
+ * | TRNS |   <  |   >  |   (  |   )  |      |      |   -  |   +  |   =  |   \  |  `   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | TRNS |   !  |   @  |   [  |   ]  |      |      |   _  |   =  |   %  |   /  | TRNS |
+ * | TRNS |   ~  |   #  |   [  |   ]  |      |      |   _  |   *  |   %  |   /  | TRNS |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | TRNS | TRNS | TRNS | TRNS | TRNS |    TRNS     | TRNS | TRNS | TRNS | TRNS | TRNS |
  * `-----------------------------------------------------------------------------------'
@@ -176,9 +176,9 @@ enum alfrdmalr_keycodes {
 
 // LEFT
 // - CORE
-#define ____SYMBOL_L1____    KC_HASH,     KC_DOLLAR,  KC_LCBR,  KC_RCBR,  KC_NO
-#define ____SYMBOL_L2____    KC_LABK,     KC_RABK,    KC_LPRN,  KC_RPRN,  KC_NO
-#define ____SYMBOL_L3____    KC_EXCLAIM,  KC_AT,      KC_LBRC,  KC_RBRC,  KC_NO
+#define ____SYMBOL_L1____    KC_EXCLAIM,  KC_AT,    KC_LCBR,  KC_RCBR,  KC_NO
+#define ____SYMBOL_L2____    KC_LABK,     KC_RABK,  KC_LPRN,  KC_RPRN,  KC_NO
+#define ____SYMBOL_L3____    KC_TILD,     KC_HASH,  KC_LBRC,  KC_RBRC,  KC_NO
 
 // - MODS
 #define ____SYMBOL_L4____    ______TRANS______
@@ -190,9 +190,9 @@ enum alfrdmalr_keycodes {
 
 // RIGHT
 // - CORE
-#define ____SYMBOL_R1____    KC_NO,  KC_CIRC,  KC_ASTR,  KC_PIPE,  KC_TILD
-#define ____SYMBOL_R2____    KC_NO,  KC_MINS,  KC_PLUS,  KC_AMPR,  KC_BSLS
-#define ____SYMBOL_R3____    KC_NO,  KC_UNDS,  KC_EQL,   KC_PERC,  KC_SLSH
+#define ____SYMBOL_R1____    KC_NO,  KC_CIRC,  KC_DOLLAR,  KC_AMPR, KC_PIPE
+#define ____SYMBOL_R2____    KC_NO,  KC_MINS,  KC_PLUS,    KC_EQL,  KC_BSLS
+#define ____SYMBOL_R3____    KC_NO,  KC_UNDS,  KC_ASTR,    KC_PERC, KC_SLSH
 
 // - MODS
 #define ____SYMBOL_R4____    ______TRANS______
