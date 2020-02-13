@@ -101,6 +101,10 @@ void midi_ep_task(void);
 //   }
 // }
 
+void _putchar(char character) {
+    sendchar(character);
+}
+
 /* Main thread
  */
 int main(void) {
@@ -121,7 +125,7 @@ int main(void) {
     init_usb_driver(&USB_DRIVER);
 
     /* init printf */
-    init_printf(NULL, sendchar_pf);
+    //init_printf(NULL, sendchar_pf);
 
 #ifdef MIDI_ENABLE
     setup_midi();
