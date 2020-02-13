@@ -52,7 +52,7 @@ def flash(cli):
         print_bootloader_help()
         return False
 
-    elif cli.args.keymap and not cli.args.keyboard:
+    elif cli.config.flash.keymap and not cli.config.flash.keyboard:
         # If only a keymap was given but no keyboard, suggest listing keyboards
         cli.echo('usage: qmk flash [-h] [-b] [-kb KEYBOARD] [-km KEYMAP] [-bl BOOTLOADER] [filename]')
         cli.log.error('run \'qmk list_keyboards\' to find out the supported keyboards')
@@ -70,7 +70,7 @@ def flash(cli):
 
         cli.log.info('Wrote keymap to {fg_cyan}%s/%s/keymap.c', keymap_path, user_keymap['keymap'])
 
-    elif cli.args.keyboard and cli.args.keymap:
+    elif cli.config.flash.keyboard and cli.config.flash.keymap:
         # Generate the make command for a specific keyboard/keymap.
         command = create_make_command(cli.config.flash.keyboard, cli.config.flash.keymap, cli.args.bootloader)
 
