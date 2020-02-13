@@ -2,7 +2,7 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x445A
-#define PRODUCT_ID      0x1220
+#define PRODUCT_ID      0x1221
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    DZTECH
 #define PRODUCT         DZ60RGB_ANSI
