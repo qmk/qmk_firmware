@@ -78,7 +78,7 @@ This is a C header file that is one of the first things included, and will persi
 * `#define BACKLIGHT_PIN B7`
   * pin of the backlight
 * `#define BACKLIGHT_LEVELS 3`
-  * number of levels your backlight will have (maximum 15 excluding off)
+  * number of levels your backlight will have (maximum 31 excluding off)
 * `#define BACKLIGHT_BREATHING`
   * enables backlight breathing
 * `#define BREATHING_PERIOD 6`
@@ -276,8 +276,11 @@ There are a few different ways to set handedness for split keyboards (listed in 
   * Default behavior for ARM
   * Required for AVR Teensy
 
-* `#define SPLIT_USB_TIMEOUT 2500`
+* `#define SPLIT_USB_TIMEOUT 2000`
   * Maximum timeout when detecting master/slave when using `SPLIT_USB_DETECT`
+
+* `#define SPLIT_USB_TIMEOUT_POLL 10`
+  * Poll frequency when detecting master/slave when using `SPLIT_USB_DETECT`
 
 # The `rules.mk` File
 
