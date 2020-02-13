@@ -55,7 +55,7 @@ ifneq ($(findstring STM32F072, $(MCU)),)
 
   # Board: it should exist either in <chibios>/os/hal/boards/,
   # <keyboard_dir>/boards/, or drivers/boards/
-  BOARD ?= ST_STM32F072B_DISCOVERY
+  BOARD ?= GENERIC_STM32_F072XB
 
   USE_FPU ?= no
 
