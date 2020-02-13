@@ -89,7 +89,6 @@ extern "C"
 #            define uprintf printf
 
 #        else /* NORMAL PRINT */
-#pragma message("NORMAL PRINT")
 // Create user & normal print defines
 #            define print(s) printf(s)
 #            define println(s) printf(s "\r\n")
