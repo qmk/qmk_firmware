@@ -27,8 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 6
 
 // wiring of each half
-#define MATRIX_COL_PINS { D4, C6, D7, E6, B4, B5 }
-#define MATRIX_ROW_PINS { F6, F7, B1, B3, B2, B6 }
+#define MATRIX_ROW_PINS { B6, B2, B3, B1, F7, F6 }
+#define MATRIX_COL_PINS { B5, B4, E6, D7, C6, D4 }
 
 #define DIODE_DIRECTION COL2ROW
 
@@ -41,7 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION     A split keyboard
 
 /* mouse config */
-#define MOUSEKEY_INTERVAL       20
+#define MOUSEKEY_INTERVAL       16
 #define MOUSEKEY_DELAY          0
 #define MOUSEKEY_TIME_TO_MAX    60
 #define MOUSEKEY_MAX_SPEED      7

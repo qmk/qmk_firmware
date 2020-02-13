@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ONE_GRV,KC_QUOT,ALT_SHFT,KC_LEFT,KC_RGHT,KC_SPC ,                                       KC_ENT , KC_UP  ,KC_DOWN,KC_LBRC,KC_RBRC,TT(_LOWER),
                                                 KC_BSPC,ALT_MENU,KC_LGUI,       KC_RALT,CTL_ESC,KC_TAB ,
                                                                 KC_HOME,        KC_PGUP,
-                                                                KC_END ,        KC_PGDN
+                                                                KC_END ,        KC_PGDN, KC_1, KC_2
     ),
     [_LOWER] = LAYOUT_6x6(
         _______,KC_F1  ,KC_F2  ,KC_F3  ,KC_F4  ,KC_F5  ,                                       KC_F6  ,KC_F7  ,KC_F8  ,KC_F9  ,KC_F10 ,KC_F11 ,
@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RESET  ,_______,_______,_______,_______,_______,                                       _______,_______,KC_PDOT,KC_P0  ,KC_PEQL,_______,
                                                 _______,_______,_______,       _______,_______,_______,
                                                                 _______,       _______,
-                                                                _______,       _______
+                                                                KC_END ,        KC_PGDN, KC_1, KC_2
     ),
     [_RAISE] = LAYOUT_6x6(
         _______,_______,_______,_______,_______,_______,                                       _______,_______,_______,_______,_______,_______,
@@ -46,6 +46,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RESET  ,_______,_______,KC_BTN1,KC_BTN2,_______,                                       KC_WBAK,KC_VOLU,KC_VOLD,KC_MUTE,_______,_______,
                                                 _______,_______,_______,       _______,_______,_______,
                                                                 _______,       _______,
-                                                                _______,       _______
+                                                                KC_END ,        KC_PGDN, KC_1, KC_2
     )
 };
+// Debug functions
+void keyboard_post_init_user(void) {
+  // Customise these values to desired behaviour
+  debug_enable=true;
+  debug_matrix=true;
+  //debug_keyboard=true;
+  //debug_mouse=true;
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // If console is enabled, it will print the matrix position and status of each key pressed
+
+    xprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+
+  return true;
+}
+
+
