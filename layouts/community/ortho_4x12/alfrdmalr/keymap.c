@@ -10,8 +10,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   K40,     _____BASE_L4_____, _____BASE_R4_____, K4B
 ),
 
-// SYMBOLS 
-[_SYMBOLS] = LAYOUT_ortho_4x12_wrapper(
+// SYMBOL 
+[_SYMBOL] = LAYOUT_ortho_4x12_wrapper(
   K10_SYM, ____SYMBOL_L1____, ____SYMBOL_R1____, K1B_SYM,
   K20_SYM, ____SYMBOL_L2____, ____SYMBOL_R2____, K2B_SYM,
   K30_SYM, ____SYMBOL_L3____, ____SYMBOL_R3____, K3B_SYM,
