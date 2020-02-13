@@ -1,5 +1,5 @@
 /*
-    ChibiOS - Copyright (C) 2006..2016 Giovanni Di Sirio
+    ChibiOS - Copyright (C) 2006..2018 Giovanni Di Sirio
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -21,6 +21,10 @@
 
 #ifndef BOARD_H
 #define BOARD_H
+
+/*===========================================================================*/
+/* Driver constants.                                                         */
+/*===========================================================================*/
 
 /*
  * Setup for Generic STM32_F072 Board
@@ -167,11 +171,9 @@
 #define LINE_USB_DP PAL_LINE(GPIOA, 12U)
 #define LINE_SWDIO PAL_LINE(GPIOA, 13U)
 #define LINE_SWCLK PAL_LINE(GPIOA, 14U)
-
 #define LINE_SPI2_SCK PAL_LINE(GPIOB, 13U)
 #define LINE_SPI2_MISO PAL_LINE(GPIOB, 14U)
 #define LINE_SPI2_MOSI PAL_LINE(GPIOB, 15U)
-
 #define LINE_MEMS_CS PAL_LINE(GPIOC, 0U)
 #define LINE_LED_RED PAL_LINE(GPIOC, 6U)
 #define LINE_LED_BLUE PAL_LINE(GPIOC, 7U)
@@ -179,9 +181,24 @@
 #define LINE_LED_GREEN PAL_LINE(GPIOC, 9U)
 #define LINE_OSC32_IN PAL_LINE(GPIOC, 14U)
 #define LINE_OSC32_OUT PAL_LINE(GPIOC, 15U)
-
 #define LINE_OSC_IN PAL_LINE(GPIOF, 0U)
 #define LINE_OSC_OUT PAL_LINE(GPIOF, 1U)
+
+/*===========================================================================*/
+/* Driver pre-compile time settings.                                         */
+/*===========================================================================*/
+
+/*===========================================================================*/
+/* Derived constants and error checks.                                       */
+/*===========================================================================*/
+
+/*===========================================================================*/
+/* Driver data structures and types.                                         */
+/*===========================================================================*/
+
+/*===========================================================================*/
+/* Driver macros.                                                            */
+/*===========================================================================*/
 
 /*
  * I/O ports initial setup, this configuration is established soon after reset
@@ -372,6 +389,10 @@
 #define VAL_GPIOF_ODR (PIN_ODR_HIGH(GPIOF_OSC_IN) | PIN_ODR_HIGH(GPIOF_OSC_OUT) | PIN_ODR_HIGH(GPIOF_PIN2) | PIN_ODR_HIGH(GPIOF_PIN3) | PIN_ODR_HIGH(GPIOF_PIN4) | PIN_ODR_HIGH(GPIOF_PIN5) | PIN_ODR_HIGH(GPIOF_PIN6) | PIN_ODR_HIGH(GPIOF_PIN7) | PIN_ODR_HIGH(GPIOF_PIN8) | PIN_ODR_HIGH(GPIOF_PIN9) | PIN_ODR_HIGH(GPIOF_PIN10) | PIN_ODR_HIGH(GPIOF_PIN11) | PIN_ODR_HIGH(GPIOF_PIN12) | PIN_ODR_HIGH(GPIOF_PIN13) | PIN_ODR_HIGH(GPIOF_PIN14) | PIN_ODR_HIGH(GPIOF_PIN15))
 #define VAL_GPIOF_AFRL (PIN_AFIO_AF(GPIOF_OSC_IN, 0U) | PIN_AFIO_AF(GPIOF_OSC_OUT, 0U) | PIN_AFIO_AF(GPIOF_PIN2, 0U) | PIN_AFIO_AF(GPIOF_PIN3, 0U) | PIN_AFIO_AF(GPIOF_PIN4, 0U) | PIN_AFIO_AF(GPIOF_PIN5, 0U) | PIN_AFIO_AF(GPIOF_PIN6, 0U) | PIN_AFIO_AF(GPIOF_PIN7, 0U))
 #define VAL_GPIOF_AFRH (PIN_AFIO_AF(GPIOF_PIN8, 0U) | PIN_AFIO_AF(GPIOF_PIN9, 0U) | PIN_AFIO_AF(GPIOF_PIN10, 0U) | PIN_AFIO_AF(GPIOF_PIN11, 0U) | PIN_AFIO_AF(GPIOF_PIN12, 0U) | PIN_AFIO_AF(GPIOF_PIN13, 0U) | PIN_AFIO_AF(GPIOF_PIN14, 0U) | PIN_AFIO_AF(GPIOF_PIN15, 0U))
+
+/*===========================================================================*/
+/* External declarations.                                                    */
+/*===========================================================================*/
 
 #if !defined(_FROM_ASM_)
 #    ifdef __cplusplus
