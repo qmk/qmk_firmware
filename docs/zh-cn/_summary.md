@@ -1,4 +1,7 @@
-* [完全菜鸟指南](zh-cn/newbs.md)
+<!--源文件：https://github.com/qmk/qmk_firmware/blob/d0d106cef75b4121374020fca633e8fc2628cef0/docs/_summary.md 
+    源提交哈希：d0d106cef75b4121374020fca633e8fc2628cef0-->
+<!--翻译时间:20200213-15:30(GMT+8)-->
+* [菜鸟入门指南](zh-cn/newbs.md)
   * [入门](zh-cn/newbs_getting_started.md)
   * [构建你的第一个固件](zh-cn/newbs_building_firmware.md)
   * [刷新固件](zh-cn/newbs_flashing.md)
@@ -25,7 +28,7 @@
   * [一般问题](zh-cn/faq_general.md)
   * [构建/编译](zh-cn/faq_build.md)
   * [调试/故障排除](zh-cn/faq_debug.md)
-  * [布局](zh-cn/faq_keymap.md)
+  * [映射](zh-cn/faq_keymap.md)
   * [Zadig驱动安装](zh-cn/driver_installation_zadig.md)
 
 * 详细指南
@@ -34,7 +37,7 @@
   * [构建/编译指南](zh-cn/getting_started_make_guide.md)
   * [刷新固件](zh-cn/flashing.md)
   * [定制功能](zh-cn/custom_quantum_functions.md)
-  * [布局概述](zh-cn/keymap.md)
+  * [映射概述](zh-cn/keymap.md)
 
 * [硬件](zh-cn/hardware.md)
   * [兼容的单片机](zh-cn/compatible_microcontrollers.md)
@@ -128,5 +131,3 @@
   * [Midi工具库](zh-cn/internals_midi_util.md)
   * [发送函数](zh-cn/internals_send_functions.md)
   * [Sysex工具](zh-cn/internals_sysex_tools.md)
-<!--fromen:20200126-6:03AM(GMT+8)-->
-<!--cn:20200211-11:04AM(GMT+8)-->
