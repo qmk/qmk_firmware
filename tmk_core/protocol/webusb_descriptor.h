@@ -15,7 +15,9 @@
 
 #define WEBUSB_LANDING_PAGE_PROTOCOL 1 /* 0: http  1: https forced to 1 since https is a requirement to connect over webusb */
 
-#define WEBUSB_LANDING_PAGE_INDEX 1
+#ifndef WEBUSB_LANDING_PAGE_INDEX
+#  define WEBUSB_LANDING_PAGE_INDEX 0
+#endif
 
 #define WEBUSB_VERSION VERSION_BCD(1, 0, 0)
 
