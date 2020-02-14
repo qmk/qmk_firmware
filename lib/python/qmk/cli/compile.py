@@ -4,7 +4,6 @@ You can compile a keymap already in the repo or using a QMK Configurator export.
 """
 import subprocess
 from argparse import FileType
-from pathlib import Path
 
 from milc import cli
 
