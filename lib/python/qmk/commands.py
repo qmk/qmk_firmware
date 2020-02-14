@@ -6,7 +6,7 @@ from pathlib import Path
 from milc import cli
 
 import qmk.keymap
-from qmk.path import is_keyboard, is_keymap_dir, keymap, under_qmk_firmware
+from qmk.path import is_keyboard, is_keymap_dir, under_qmk_firmware
 
 
 def create_make_command(keyboard, keymap, target=None):
