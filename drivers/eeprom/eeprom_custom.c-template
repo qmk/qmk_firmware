@@ -18,35 +18,29 @@
 #include <string.h>
 
 #include "eeprom_driver.h"
-#include "eeprom_transient.h"
 
-__attribute__((aligned(4))) static uint8_t transientBuffer[TRANSIENT_EEPROM_SIZE] = {0};
+void eeprom_driver_init(void) {
+    /* Any initialisation code */
+ }
 
-size_t clamp_length(intptr_t offset, size_t len) {
-    if (offset + len > TRANSIENT_EEPROM_SIZE) {
-        len = TRANSIENT_EEPROM_SIZE - offset;
-    }
-
-    return len;
+void eeprom_driver_erase(void) {
+    /* Wipe out the EEPROM, setting values to zero */
 }
 
-void eeprom_driver_init(void) { eeprom_driver_erase(); }
-
-void eeprom_driver_erase(void) { memset(transientBuffer, 0x00, TRANSIENT_EEPROM_SIZE); }
-
 void eeprom_read_block(void *buf, const void *addr, size_t len) {
-    intptr_t offset = (intptr_t)addr;
-    memset(buf, 0x00, len);
-    len = clamp_length(offset, len);
-    if (len > 0) {
-        memcpy(buf, &transientBuffer[offset], len);
-    }
+    /*
+        Read a block of data:
+            buf: target buffer
+            addr: 0-based offset within the EEPROM
+            len: length to read
+     */
 }
 
 void eeprom_write_block(const void *buf, void *addr, size_t len) {
-    intptr_t offset = (intptr_t)addr;
-    len             = clamp_length(offset, len);
-    if (len > 0) {
-        memcpy(&transientBuffer[offset], buf, len);
-    }
+    /*
+        Write a block of data:
+            buf: target buffer
+            addr: 0-based offset within the EEPROM
+            len: length to write
+     */
 }

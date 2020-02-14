@@ -76,11 +76,11 @@ void eeprom_read_block(void *buf, const void *addr, size_t len) {
     i2c_receive(EXTERNAL_EEPROM_I2C_ADDRESS((intptr_t)addr), buf, len, 100);
 
 #ifdef DEBUG_EEPROM_OUTPUT
-    uprintf("[EEPROM R] 0x%04X: ", ((int)addr));
+    dprintf("[EEPROM R] 0x%04X: ", ((int)addr));
     for (size_t i = 0; i < len; ++i) {
-        uprintf(" %02X", (int)(((uint8_t *)buf)[i]));
+        dprintf(" %02X", (int)(((uint8_t *)buf)[i]));
     }
-    uprintf("\n");
+    dprintf("\n");
 #endif  // DEBUG_EEPROM_OUTPUT
 }
 
@@ -103,11 +103,11 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
         }
 
 #ifdef DEBUG_EEPROM_OUTPUT
-        uprintf("[EEPROM W] 0x%04X: ", ((int)target_addr));
+        dprintf("[EEPROM W] 0x%04X: ", ((int)target_addr));
         for (uint8_t i = 0; i < write_length; i++) {
-            uprintf(" %02X", (int)(read_buf[i]));
+            dprintf(" %02X", (int)(read_buf[i]));
         }
-        uprintf("\n");
+        dprintf("\n");
 #endif  // DEBUG_EEPROM_OUTPUT
 
         i2c_transmit(EXTERNAL_EEPROM_I2C_ADDRESS((intptr_t)addr), complete_packet, EXTERNAL_EEPROM_ADDRESS_SIZE + write_length, 100);
