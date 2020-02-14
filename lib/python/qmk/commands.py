@@ -6,7 +6,7 @@ from pathlib import Path
 from milc import cli
 
 import qmk.keymap
-from qmk.path import is_keyboard, is_keymap_dir, under_qmk_firmware
+from qmk.path import is_keyboard, is_keymap_dir, keymap, under_qmk_firmware
 
 
 def create_make_command(keyboard, keymap, target=None):
@@ -73,7 +73,6 @@ def find_keyboard_keymap():
         * Configuration
             * cli.config.<subcommand>.keyboard
             * cli.config.<subcommand>.keymap
-    """
     # Check to make sure their copy of MILC supports config_source
     if not hasattr(cli, 'config_source'):
         cli.log.error("Your QMK CLI is out of date. Please upgrade using pip3 or your package manager.")
