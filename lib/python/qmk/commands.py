@@ -59,7 +59,7 @@ def compile_configurator_json(user_keymap, bootloader=None):
     return create_make_command(user_keymap['keyboard'], user_keymap['keymap'], bootloader)
 
 
-def find_keyboard_keymap(subcommand_name):
+def find_keyboard_keymap():
     """Returns `(keyboard_name, keymap_name)` based on the user's current environment.
 
     This determines the keyboard and keymap name using the following precedence order:
@@ -69,15 +69,10 @@ def find_keyboard_keymap(subcommand_name):
             * `keyboards/<keyboard_name>`
             * `keyboards/<keyboard_name>/keymaps/<keymap_name>`
             * `layouts/**/<keymap_name>`
-            * `users/<keymap_name`
+            * `users/<keymap_name>`
         * Configuration
-            * cli.config[subcommand_name]['keyboard']
-            * cli.config[subcommand_name]['keymap']
-
-    Args:
-
-        subcommand_name
-            The name of your subcommand so we can look up the appropriate config variable
+            * cli.config.<subcommand>.keyboard
+            * cli.config.<subcommand>.keymap
     """
     # Check to make sure their copy of MILC supports config_source
     if not hasattr(cli, 'config_source'):
@@ -90,10 +85,10 @@ def find_keyboard_keymap(subcommand_name):
     keymap_name = ""
 
     # If the keyboard or keymap are passed as arguments use that in preference to anything else
-    if cli.config_source[subcommand_name]['keyboard'] == 'argument':
-        keyboard_name = cli.config[subcommand_name]['keyboard']
-    if cli.config_source[subcommand_name]['keymap'] == 'argument':
-        keymap_name = cli.config[subcommand_name]['keymap']
+    if cli.config_source[cli._entrypoint.__name__]['keyboard'] == 'argument':
+        keyboard_name = cli.config[cli._entrypoint.__name__]['keyboard']
+    if cli.config_source[cli._entrypoint.__name__]['keymap'] == 'argument':
+        keymap_name = cli.config[cli._entrypoint.__name__]['keymap']
 
     if not keyboard_name or not keymap_name:
         # If we don't have a keyboard_name and keymap_name from arguments try to derive one or both
@@ -120,11 +115,11 @@ def find_keyboard_keymap(subcommand_name):
                 keymap_name = relative_cwd.parts[1]
 
     # If we still don't have a keyboard and keymap check the config
-    if not keyboard_name and cli.config[subcommand_name]['keyboard']:
-        keyboard_name = cli.config[subcommand_name]['keyboard']
+    if not keyboard_name and cli.config[cli._entrypoint.__name__]['keyboard']:
+        keyboard_name = cli.config[cli._entrypoint.__name__]['keyboard']
 
-    if not keymap_name and cli.config[subcommand_name]['keymap']:
-        keymap_name = cli.config[subcommand_name]['keymap']
+    if not keymap_name and cli.config[cli._entrypoint.__name__]['keymap']:
+        keymap_name = cli.config[cli._entrypoint.__name__]['keymap']
 
     return (keyboard_name, keymap_name)
 

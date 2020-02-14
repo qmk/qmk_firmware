@@ -33,7 +33,7 @@ def compile(cli):
 
     else:
         # Perform the action the user specified
-        user_keyboard, user_keymap = find_keyboard_keymap('compile')
+        user_keyboard, user_keymap = find_keyboard_keymap()
         if user_keyboard and user_keymap:
             # Generate the make command for a specific keyboard/keymap.
             command = create_make_command(user_keyboard, user_keymap)
