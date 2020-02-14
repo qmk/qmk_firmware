@@ -135,10 +135,12 @@ uint16_t get_tapping_term(uint16_t keycode) {
       return 225;
     case LCTL_T(KC_TAB):
       return 120;
-    case KC_Z_SF:
-      return 115;
+    case LSFT_T(KC_T):
+      return 200;
     case LALT_T(KC_C):
       return 200;
+	case RGUI_T(KC_O):
+	  return 300;
     default:
       return TAPPING_TERM;
   }
@@ -148,8 +150,8 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
   switch (keycode) {
     case KC_Z_SF:
       return true;
-    case TD(TD_QUES_ENT):
-      return true;
+    case LSFT_T(KC_T):
+      return false;
     default:
       return false;
   }
