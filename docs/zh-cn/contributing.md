@@ -1,3 +1,6 @@
+<!--源文件：https://raw.githubusercontent.com/qmk/qmk_firmware/3c190f8927f8676febb5e247908d2bdfd574a54b/docs/contributing.md 
+    源提交哈希：3c190f8927f8676febb5e247908d2bdfd574a54b-->
+<!--翻译时间:20200214-17:44(GMT+8)-->
 # 如何做贡献
 
 👍🎉 首先感谢各位百忙之中抽空阅读本文档，并为我们无私奉献。给您点赞啦！ 🎉👍
@@ -23,7 +26,7 @@
 
 # 项目概况
 
-Q酱很大一部分是用C语言组成的，不过有一小部分特性是C++的。怎么说呢，都是我的一部分，两个我都爱。Q酱一般是在键盘上的嵌入式处理器那里工作的，尤其与AVR([LUFA](http://www.fourwalledcubicle.com/LUFA.php))和ARM ([ChibiOS](http://www.chibios.com))两小哥哥搭配，干活不累，嘻嘻。如果您精通Arduino的话您会发现很多熟悉的概念，但也有点不爽，因为您以前的经验可能没法用来帮助Q酱。
+Q酱很大一部分是用C语言组成的，不过有一小部分特性是C++的。怎么说呢，都是我的一部分，两个我都爱。Q酱一般是在键盘上的嵌入式处理器那里工作的，尤其与AVR([LUFA](http://www.fourwalledcubicle.com/LUFA.php))和ARM ([ChibiOS](http://www.chibios.com))两小哥哥搭配，干活不累，嘻嘻。如果您精通Arduino的话您会发现很多熟悉的概念， 不过您以前的经验可能没法用来帮助Q酱。
 
 <!-- 需要修正: 这里放些学习C语言的资源。另外感谢修正的小可爱。谢谢您了。-->
 
@@ -54,61 +57,10 @@ Q酱很大一部分是用C语言组成的，不过有一小部分特性是C++的
 
 # 代码规范
 
-其实也没有什么特别严格的规范啦，但是俗话说的好：没有规矩，不成方圆。您可以看一下您的要改动的代码周围的画风，然后保持队形。如果你感觉周围都不知道是什么牛鬼蛇神的话就看看下面的建议：
+我们的大多数风格您都是能接受的，如果您会C或者Python的话我们的代码都会让您有家一样的感觉。
 
-* 我们用肆(4)个空格来缩进(软件中也可以设置到Tab键)
-* 我们使用改良的1TBS(允许单行样式)
-  * 左大括号: 在开放性语句块那行的末尾
-  * 右大括号: 和开放性语句块第一个字母对齐
-  * Else If: 将右大括号放在行的开头，下一个左大括号放在同一行的结尾
-  * 可选大括号: 可选大括号是必选的
-    * 应该这样: if (condition) { return false; }
-    * 不应该这样: if (condition) return false;
-* 建议使用C语言风格的注释: `/* */`
-  * 把注释想象成一个描述特征的故事
-  * 充分使用注释来描述你为何这样修改
-  * 有些公认的东西就不要写到注释里面了
-  * 如果你不知道注释是否多余,看下面
-* 一般不要主动换行，主动换行的话每行不要超过76列
-* 要把 `#pragma once` 放到头文件的开始哦，抛弃老土的(`#ifndef THIS_FILE_H`, `#define THIS_FILE_H`, ..., `#endif`)吧
-* 下面两种预处理命令都可以用: `#ifdef DEFINED` 还有 `#if defined(DEFINED)`
-  * 以上那句对处女座不是很友好哈，处女座的朋友们就别纠结了，直接 `#if defined(DEFINED)` 。
-  * 还有就是选好一种风格就一直用，一直用一直爽，不要朝三暮四, 除非你要变化到多重条件的 `#if`。
-  * `#` 和 `if`要挨在一起哦，再让本空格在中间冒充电灯泡本空格会生气的。
-  * 以下是缩进规则:
-    * 首先考虑可读性，强迫症的朋友们总想要保持代码的高一致性，这样可不好。
-    * 保证文件已有风格不变。如果代码本来就是杂糅风格，那就见机行事，让你的修改更有意义些。
-    * 其实你也可以在缩进的时候看看周围其他代码，然后范水模山，预处理命令可以有自己的缩进风格。
-
-可以参照下面:
-
-```c
-/* foo 的 Enums*/
-enum foo_state {
-  FOO_BAR,
-  FOO_BAZ,
-};
-
-/* 有返回值的情况 */
-int foo(void) {
-  if (some_condition) {
-    return FOO_BAR;
-  } else {
-    return -1;
-  }
-}
-```
-
-# Clang-format的自动格式化
-[Clang-format](https://clang.llvm.org/docs/ClangFormat.html) 是LLVM的一部分，可以帮你自动格式化代码。我们给你准备好了一个适用于以上规范的配置文件，会帮你调整缩进和换行，你只需要写好括号就好。有了它，你再也不用担心调整代码格式太耗时，没有时间陪伴自己（虚构）的另一半了。
-
-使用[LLVM 完整安装](http://llvm.org/builds/)可以在Windows上安装clang-format, Ubuntu用户要用`sudo apt install clang-format`。
-
-命令行的朋友们, 加上 `-style=file`选项就会自动在QMK的根目录寻找.clang-format配置文件了。
-
-VSCode用户, 标准的 C/C++ 插件就支持clang-format, 或者可以用[独立扩展](https://marketplace.visualstudio.com/items?itemName=LLVMExtensions.ClangFormat)也行。
-
-有些东西(比如LAYOUT宏) 会被clang-format打乱，所以那些文件就别用clang-format了,这里就教您一个小窍门，在`// clang-format off` 和 `//clang-format on`之间装上会被搞乱的代码就好了。
+* [代码规范 - C](zh-cn/coding_conventions_c.md)
+* [代码规范 - Python](zh-cn/coding_conventions_python.md)
 
 # 一般教程
 
@@ -130,11 +82,13 @@ The kerpleplork was intermittently failing with error code 23. The root cause wa
 Limited experimentation on the devices I have available shows that 7 is high enough to avoid confusing the kerpleplork, but I'd like to get some feedback from people with ARM devices to be sure.
 ```
 
+!> **重点来了:** 如果您想为用户代码做漏洞修复或者改进，比如改进一下非默认的映射、用户空间或布局什么的，请务必标注你的PR中代码的原始提交者。有好些开发者小可爱就因为自己的代码在不知情的情况下被修改了，都急哭了，他们中还有很多是平常表现很坚强的大神哦。
+
 ## 文档
 
 想帮助Q酱当然是先看文档最简单了。找到这个文档哪里错了然后改正它对于你来说超级简单! 我们也对有写文档能力的人求贤若渴，如果你是对的人[点这个](#Q酱，我在哪能帮助你嘞?)!
 
-文档呢，都静静的放在`qmk_firmware/docs` 目录里, 也或者您想为网页做贡献的话也是可以的哦。
+文档呢，都静静的放在`qmk_firmware/docs` 目录里, 您如果习惯网页的话也是可以的哦，点击 https://docs.qmk.fm/ 页面下面的"Edit this page"就可以啦。
 
 在文档中附代码案例时, 先观察文档其他地方的命名规范。比如, 把enums的名字都改成像`my_layers`或者`my_keycodes`来防止名字不一致的enums被当作特务枪毙:
 
@@ -150,14 +104,26 @@ enum my_keycodes {
 };
 ```
 
-## 布局
+### 预览布局
 
-大多数QMK新手都从创建一个自己的布局开始。我们尽力保证布局规范宽松 (毕竟布局是个性的体现) 不过建议遵守以下准则，这样可以让别人更好理解你的代码
+在做出PR之前，你可以先预览一下文档。如果你安装了开大环境的话，在 `qmk_firmware/` 文件夹下使用下列命令:
+
+    ./bin/qmk docs
+
+或者你安装了Python3的话使用:
+
+    python3 -m http.server 8936
+
+然后访问 `http://localhost:8936/`.
+
+## 映射
+
+大多数QMK新手都从创建一个自己的映射开始。我们尽力保证映射规范宽松 (毕竟映射是个性的体现) 不过建议遵守以下准则，这样可以让别人更好理解你的代码
 
 * 用 [模板](documentation_templates.md)写个`readme.md`。
-* 所有的布局PR都会被squash, 如果你想知道你的提交是怎么被squash的那你就自己来吧
-* 不要把新特性和布局一起PR。可以分别PR他们
-* 布局文件夹就不要放`Makefile`了，这个操作都过时啦
+* 所有的映射PR都会被squash, 如果你想知道你的提交是怎么被squash的那你就自己来吧
+* 不要把新特性和映射一起PR。可以分别PR他们
+* 映射文件夹就不要放`Makefile`了，这个操作都过时啦
 * 更新文件头部的copyrights(看`%YOUR_NAME%`那)
 
 ## 键盘
