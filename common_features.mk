@@ -175,7 +175,9 @@ ifneq ($(strip $(LED_MATRIX_ENABLE)), no)
     ifeq ($(filter $(LED_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
         $(error LED_MATRIX_ENABLE="$(LED_MATRIX_ENABLE)" is not a valid matrix type)
     else
-        OPT_DEFS += -DLED_MATRIX_ENABLE -DBACKLIGHT_ENABLE -DBACKLIGHT_CUSTOM_DRIVER
+        BACKLIGHT_ENABLE = yes
+        BACKLIGHT_DRIVER = custom
+        OPT_DEFS += -DLED_MATRIX_ENABLE
         SRC += $(QUANTUM_DIR)/led_matrix.c
         SRC += $(QUANTUM_DIR)/led_matrix_drivers.c
     endif
@@ -341,6 +343,10 @@ ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
     ifeq ($(strip $(WS2812_DRIVER)), i2c)
         QUANTUM_LIB_SRC += i2c_master.c
     endif
+endif
+
+ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
+    CIE1931_CURVE := yes
 endif
 
 ifeq ($(strip $(CIE1931_CURVE)), yes)
