@@ -21,6 +21,8 @@ enum custom_keycodes
   ADJUST,
   // Macros
   ARROW,
+  IARROW,
+  CLN_EQ,
   F_ARROW,
   GREP,
   // Accented characters
@@ -40,16 +42,6 @@ enum custom_keycodes
   LOWER,
   RAISE,
   MAC_TGL,
-  // START OF VSC DECLARATIONS
-  MACRO_START,
-  T_TERM,
-  FIX_ALL,
-  BLK_CMNT,
-  LN_CMNT,
-  CMD_S_P,
-  TRI_TICKS,
-  MACRO_END,
-  // END OF VSC DECLARATIONS
   INC_MACROS_START,
   INC_MACROS_END,
 };

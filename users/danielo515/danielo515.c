@@ -3,8 +3,8 @@
 bool onMac = true;
 // Send control or GUI depending if we are on windows or mac
 bool CMD(uint16_t kc) {
-  if(onMac){ tap_code16(LGUI(kc)); } else { tap_code16(LCTL(kc)); }
-  return false;
+    if(onMac){ tap_code16(LGUI(kc)); } else { tap_code16(LCTL(kc)); }
+    return false;
 }
 
 //**************** Handle keys function *********************//
@@ -12,22 +12,19 @@ bool altPressed = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
-  bool pressed = record->event.pressed;
-  if(pressed){
-    refresh_incremental_macros(keycode);
-    if(process_incremental_macro(keycode)){
-      return false;
+    bool pressed = record->event.pressed;
+    if(pressed){
+        refresh_incremental_macros(keycode);
+        if(process_incremental_macro(keycode)){
+            return false;
+        }
+        switch (keycode) {
+            case MAC_TGL:
+            onMac = !onMac;
+            onMac ? SEND_STRING("On mac") : SEND_STRING("Not on MAC");
+            return false;
+        }
     }
-    if(is_macro(keycode)){
-      return handle_macro(keycode);
-    }
-   switch (keycode) {
-        case MAC_TGL:
-        onMac = !onMac;
-        onMac ? SEND_STRING("On mac") : SEND_STRING("Not on MAC");
-        return false;
-      }
-  }
 
   switch (keycode)
   {
@@ -61,14 +58,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
         }
         return false;
  // == Macros START ===
-  case ARROW:
-    if (record->event.pressed) SEND_STRING("->");
-    return false;
-  case F_ARROW:
-    if (record->event.pressed) SEND_STRING("=>");
-    return false;
-  case GREP:
-    if (record->event.pressed) SEND_STRING(" | grep "); return false;
+    case IARROW: if (record->event.pressed) SEND_STRING("<-"); return false;
+    case ARROW: if (record->event.pressed) SEND_STRING("->"); return false;
+    case F_ARROW: if (record->event.pressed) SEND_STRING("=>"); return false;
+    case GREP: if (record->event.pressed) SEND_STRING(" | grep "); return false;
+    case CLN_EQ: if (record->event.pressed) SEND_STRING(":="); return false;
  // == Macros END ===
  // == Multi Os START ===
   case KC_HOME:// make the home behave the same on OSX
@@ -335,35 +329,9 @@ void refresh_incremental_macros (uint16_t kc) {
 
 // ======== VISUAL STUDIO CODE SHORTCUTS STUFF
 
-bool is_macro (uint16_t kc){
-  return kc > MACRO_START && kc < MACRO_END;
-};
-
 bool command_shift_p (bool isMac) {
    isMac
    ? SEND_STRING(SS_DOWN(X_LSHIFT)SS_LGUI("p")SS_UP(X_LSHIFT))
    : SEND_STRING(SS_DOWN(X_LSHIFT)SS_LCTRL("p")SS_UP(X_LSHIFT));
    return false;
-};
-
-bool VSCommand(bool isMac, char *cmd)
-{
-  command_shift_p (isMac);
-  send_string(cmd);
-  SEND_STRING(SS_TAP(X_ENTER));
-  return false;
-};
-
-bool handle_macro(uint16_t kc)
-{
-  switch (kc)
-  {
-    case T_TERM: return VSCommand(onMac, "toit");
-    case FIX_ALL: return VSCommand(onMac, "faap");
-    case BLK_CMNT: return VSCommand(onMac, "tbc");
-    case LN_CMNT: return VSCommand(onMac, "tlic");
-    case CMD_S_P: return command_shift_p(onMac);
-    case TRI_TICKS: SEND_STRING("[[[ "); break;
-  }
-  return false;
 };
