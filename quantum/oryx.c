@@ -195,7 +195,7 @@ void oryx_layer_event(void) {
 #endif
 }
 
-bool is_oryx_live_training_enabled(void) { return oryx_state_live_training_enabled; }
+bool is_oryx_live_training_enabled(void) { return (oryx_state_live_training_enabled && webusb_state.paired); }
 
 bool process_record_oryx(uint16_t keycode, keyrecord_t *record) {
     if(is_oryx_live_training_enabled()) {
