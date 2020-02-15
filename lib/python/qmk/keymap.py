@@ -121,7 +121,7 @@ def list_keymaps(keyboard_name):
         while kb_path != keyboards_dir:
             keymaps_dir = kb_path / "keymaps"
             if keymaps_dir.exists():
-                names = names.union([keymap for keymap in os.listdir(keymaps_dir) if (keymaps_dir / keymap / "keymap.c").is_file()])
+                names = names.union([keymap for keymap in os.listdir(str(keymaps_dir)) if (keymaps_dir / keymap / "keymap.c").is_file()])
             kb_path = kb_path.parent
 
         # if community layouts are supported, get them
@@ -129,6 +129,6 @@ def list_keymaps(keyboard_name):
             for layout in rules_mk["LAYOUTS"].split():
                 cl_path = Path.cwd() / "layouts" / "community" / layout
                 if cl_path.exists():
-                    names = names.union([keymap for keymap in os.listdir(cl_path) if (cl_path / keymap / "keymap.c").is_file()])
+                    names = names.union([keymap for keymap in os.listdir(str(cl_path)) if (cl_path / keymap / "keymap.c").is_file()])
 
     return sorted(names)
