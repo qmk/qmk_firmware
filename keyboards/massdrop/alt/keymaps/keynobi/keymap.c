@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+//#include keynobi.h
 
 enum alt_keycodes {
     U_T_AUTO = SAFE_RANGE, //USB Extra Port Toggle Auto Detect / Always Active
@@ -9,6 +10,8 @@ enum alt_keycodes {
     DBG_MOU,               //DEBUG Toggle Mouse Prints
     MD_BOOT,               //Restart into bootloader after hold timeout
 };
+
+#define TG_NKRO MAGIC_TOGGLE_NKRO //Toggle 6KRO / NKRO mode
 
 keymap_config_t keymap_config;
 
@@ -21,11 +24,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LALT, KC_LGUI,                            KC_SPC,                             KC_RGUI, MO(1),   KC_LEFT, KC_DOWN, KC_RGHT  \
     ),
     [1] = LAYOUT(
-        KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_PWR,  \
-        RGB_TOG, RGB_MOD, RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, _______, U_T_AUTO,U_T_AGCR,_______, KC_PSCR, KC_SLCK, KC_PAUS, _______, KC_VOLU, \
-        _______, RGB_RMOD,RGB_VAD, RGB_SPD, RGB_HUD, RGB_SAD, _______, _______, _______, _______, _______, _______,          _______, KC_VOLD, \
-        _______, _______, _______, _______, _______, MD_BOOT, NK_TOGG, DBG_TOG, _______, _______, _______, _______,          KC_PGUP, KC_MUTE, \
-        _______, _______, _______,                            _______,                            _______, _______, KC_MPRV, KC_MPLY, KC_MNXT  \
+        KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,    KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL , KC_PWR,  \
+        RGB_TOG, RGB_MOD, RGB_SPI, RGB_HUI, RGB_SAI, RGB_VAI, _______, U_T_AUTO, U_T_AGCR,_______, KC_PSCR, KC_SLCK, KC_PAUS, MD_BOOT, KC_VOLU, \
+        _______, RGB_RMOD,RGB_SPD, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______,  _______, _______, _______, _______,          _______, KC_VOLD, \
+        _______, _______, _______, _______, _______, _______, NK_TOGG, DBG_TOG,  _______, _______, _______, _______,          KC_PGUP, KC_MUTE, \
+        _______, _______, _______,                            _______,                             _______, _______, KC_MPRV, KC_MPLY, KC_MNXT  \
     ),
     /*
     [X] = LAYOUT(

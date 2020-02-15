@@ -22,3 +22,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_STARTUP_HUE 169
 #define RGB_MATRIX_STARTUP_SAT 255
 #define RGB_MATRIX_STARTUP_VAL 255
+
+#define RGB_MATRIX_TOG_LAYERS
