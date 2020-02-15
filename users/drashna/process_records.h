@@ -13,37 +13,22 @@ enum userspace_custom_keycodes {
     KC_COLEMAK,                     // Sets default layer to COLEMAK
     KC_DVORAK,                      // Sets default layer to DVORAK
     KC_WORKMAN,                     // Sets default layer to WORKMAN
-    KC_NORMAN,                      // Sets default layer to NORMAN
-    KC_MALTRON,                     // Sets default layer to MALTRON
-    KC_EUCALYN,                     // Sets default layer to EUCALYN
-    KC_CARPLAX,                     // Sets default layer to CARPLAX
     KC_DIABLO_CLEAR,                // Clears all Diablo Timers
-    KC_OVERWATCH,                   // Toggles game macro input mode (so in OW, it defaults to game chat)
-    KC_SALT,                        // See drashna.c for details
-    KC_MORESALT,
-    KC_SALTHARD,
-    KC_GOODGAME,
-    KC_SYMM,
-    KC_JUSTGAME,
-    KC_GLHF,
-    KC_TORB,
-    KC_AIM,
-    KC_C9,
-    KC_GGEZ,
-    KC_MAKE,        // Run keyboard's customized make command
-    KC_RGB_T,       // Toggles RGB Layer Indication mode
-    KC_SECRET_1,    // test1
-    KC_SECRET_2,    // test2
-    KC_SECRET_3,    // test3
-    KC_SECRET_4,    // test4
-    KC_SECRET_5,    // test5
-    KC_CCCV,        // Hold to copy, tap to paste
-    KC_NUKE,        // NUCLEAR LAUNCH DETECTED!!!
-    UC_FLIP,        // (ಠ痊ಠ)┻━┻
-    UC_TABL,        // ┬─┬ノ( º _ ºノ)
-    UC_SHRG,        // ¯\_(ツ)_/¯
-    UC_DISA,        // ಠ_ಠ
-    NEW_SAFE_RANGE  // use "NEWPLACEHOLDER for keymap specific codes
+    KC_MAKE,                        // Run keyboard's customized make command
+    KC_RGB_T,                       // Toggles RGB Layer Indication mode
+    RGB_IDL,                        // RGB Idling animations
+    KC_SECRET_1,                    // test1
+    KC_SECRET_2,                    // test2
+    KC_SECRET_3,                    // test3
+    KC_SECRET_4,                    // test4
+    KC_SECRET_5,                    // test5
+    KC_CCCV,                        // Hold to copy, tap to paste
+    KC_NUKE,                        // NUCLEAR LAUNCH DETECTED!!!
+    UC_FLIP,                        // (ಠ痊ಠ)┻━┻
+    UC_TABL,                        // ┬─┬ノ( º _ ºノ)
+    UC_SHRG,                        // ¯\_(ツ)_/¯
+    UC_DISA,                        // ಠ_ಠ
+    NEW_SAFE_RANGE                  // use "NEWPLACEHOLDER for keymap specific codes
 };
 
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
@@ -72,9 +57,11 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define KC_RST KC_RESET
 
 #ifdef SWAP_HANDS_ENABLE
-#    define KC_C1R3 SH_TT
+#    define KC_C1R3 SH_T(KC_TAB)
+#elif defined(DRASHNA_LP)
+#    define KC_C1R3 TG(_GAMEPAD)
 #else  // SWAP_HANDS_ENABLE
-#    define KC_C1R3 KC_BSPC
+#    define KC_C1R3 KC_TAB
 #endif  // SWAP_HANDS_ENABLE
 
 #define BK_LWER LT(_LOWER, KC_BSPC)
@@ -94,7 +81,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define OS_RCTL OSM(MOD_RCTL)
 #define OS_LALT OSM(MOD_LALT)
 #define OS_RALT OSM(MOD_RALT)
-#define OS_MEH  OSM(MOD_MEH)
+#define OS_MEH OSM(MOD_MEH)
 #define OS_HYPR OSM(MOD_HYPR)
 
 #define ALT_APP ALT_T(KC_APP)

@@ -1,6 +1,5 @@
 os: linux
 dist: trusty
-sudo: required
 group: edge
 language: c
 branches:
@@ -13,21 +12,27 @@ env:
   - MAKEFLAGS="-j3 --output-sync"
 services:
   - docker
-install:
-  - npm install -g moxygen
-script:
-  - git rev-parse --short HEAD
-  - bash util/travis_test.sh
-  - bash util/travis_build.sh
-  - bash util/travis_docs.sh
 addons:
   apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - llvm-toolchain-trusty-7
     packages:
     - pandoc
     - diffutils
     - dos2unix
     - doxygen
-after_success:
+    - clang-format-7
+    - libstdc++-7-dev
+install:
+  - npm install -g moxygen
+script:
+  - git rev-parse --short HEAD
+  - git diff --name-only HEAD $TRAVIS_BRANCH
+  - bash util/travis_test.sh
+  - bash util/travis_build.sh
+  - bash util/travis_docs.sh
+after_script:
   bash util/travis_compiled_push.sh
 notifications:
   webhooks:

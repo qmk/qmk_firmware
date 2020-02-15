@@ -53,6 +53,8 @@ ARMV = 7
 # The CORTEX_VTOR... is needed only for MCHCK/Infinity KB
 OPT_DEFS = -DCORTEX_VTOR_INIT=0x00001000
 
+BOOTLOADER = dfu
+
 # Build Options
 #   comment out to disable the options.
 #
@@ -71,3 +73,7 @@ NKRO_ENABLE = yes	    # USB Nkey Rollover
 CUSTOM_MATRIX = yes # Custom matrix file
 
 LAYOUTS = 60_ansi_split_bs_rshift
+
+
+# Enter lower-power sleep mode when on the ChibiOS idle thread
+OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE

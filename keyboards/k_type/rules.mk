@@ -59,6 +59,8 @@ OPT_DEFS =
 DFU_ARGS = -d 1c11:b007
 DFU_SUFFIX_ARGS = -p b007 -v 1c11
 
+BOOTLOADER = dfu
+
 # Build Options
 #   comment out to disable the options.
 #
@@ -72,3 +74,7 @@ SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes	    # USB Nkey Rollover
 CUSTOM_MATRIX = yes # Custom matrix file
 DEBUG_ENABLE = yes
+
+
+# Enter lower-power sleep mode when on the ChibiOS idle thread
+OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE

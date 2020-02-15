@@ -1,5 +1,9 @@
 # Python requirements
 # milc FIXME(skullydazed): Included in the repo for now.
+appdirs
 argcomplete
 colorama
-#halo
+hjson
+nose2
+flake8
+pep8-naming

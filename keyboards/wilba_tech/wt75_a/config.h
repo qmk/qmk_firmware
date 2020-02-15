@@ -179,24 +179,30 @@
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 1
 
-#define WT_MONO_BACKLIGHT
+// enable the mono backlight
+#define MONO_BACKLIGHT_ENABLED 1
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
+// enable the RGB indicator for WT75-A
+#define MONO_BACKLIGHT_WT75_A
 
-// EEPROM usage
+// disable backlight when USB suspended (PC sleep/hibernate/shutdown)
+#define MONO_BACKLIGHT_DISABLE_WHEN_USB_SUSPENDED 0
 
-// TODO: refactor with new user EEPROM code (coming soon)
-#define EEPROM_MAGIC 0x451F
-#define EEPROM_MAGIC_ADDR 32
-// Bump this every time we change what we store
-// This will automatically reset the EEPROM with defaults
-// and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x08
-#define EEPROM_VERSION_ADDR 34
+// disable backlight after timeout in minutes, 0 = no timeout
+#define MONO_BACKLIGHT_DISABLE_AFTER_TIMEOUT 0
 
-// Dynamic keymap starts after EEPROM version
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 35
-// Dynamic macro starts after dynamic keymaps (35+(4*6*15*2)) = (35+720)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 755
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 269
-#define DYNAMIC_KEYMAP_MACRO_COUNT 16
+// the default brightness
+#define MONO_BACKLIGHT_BRIGHTNESS 255
+
+// the default effect
+#define MONO_BACKLIGHT_EFFECT 1
+
+// the default effect speed (0-3)
+#define MONO_BACKLIGHT_EFFECT_SPEED 0
+
+// Backlight config starts after VIA's EEPROM usage,
+// dynamic keymaps start after this.
+#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 7
+
+// VIA lighting is handled by the keyboard-level code
+#define VIA_CUSTOM_LIGHTING_ENABLE

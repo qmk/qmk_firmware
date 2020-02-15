@@ -37,14 +37,19 @@
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-/* Note: These are not used for arm boards. They're here purely as documentation.
- * #define MATRIX_ROW_PINS { PB0, PB1, PB2, PA15, PA10 }
- * #define MATRIX_COL_PINS { PA2, PA3, PA6, PB14, PB15, PA8, PA9, PA7, PB3, PB4, PC14, PC15, PC13, PB5, PB6 }
- * #define UNUSED_PINS
- */
+/* Note: These are not used for arm boards. They're here purely as documentation. */
+#undef MATRIX_ROW_PINS
+#undef MATRIX_COL_PINS
+
+#define MATRIX_ROW_PINS { A10, A9, A8, B15, C13, C14, C15, A2 }
+#define MATRIX_COL_PINS { B11, B10, B2, B1, A7, B0 }
+
+#define UNUSED_PINS
 
 #define ENCODERS_PAD_A { B12 }
 #define ENCODERS_PAD_B { B13 }
+
+#define DIP_SWITCH_PINS { B14, A15, A0, B9 }
 
 #define MUSIC_MAP
 #undef AUDIO_VOICES
@@ -120,14 +125,17 @@
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 1
 
-#define WS2812_LED_N 2
-#define RGBLED_NUM WS2812_LED_N
-#define WS2812_TIM_N 2
-#define WS2812_TIM_CH 2
-#define PORT_WS2812     GPIOA
-#define PIN_WS2812      1
-#define WS2812_DMA_STREAM STM32_DMA1_STREAM2  // DMA stream for TIMx_UP (look up in reference manual under DMA Channel selection)
+// #define WS2812_LED_N 2
+// #define RGBLED_NUM WS2812_LED_N
+// #define WS2812_TIM_N 2
+// #define WS2812_TIM_CH 2
+// #define PORT_WS2812     GPIOA
+// #define PIN_WS2812      1
+// #define WS2812_DMA_STREAM STM32_DMA1_STREAM2  // DMA stream for TIMx_UP (look up in reference manual under DMA Channel selection)
 //#define WS2812_DMA_CHANNEL 7                  // DMA channel for TIMx_UP
 //#define WS2812_EXTERNAL_PULLUP
+#define RGB_DI_PIN A1
+#define RGBLED_NUM 9
+#define RGBLIGHT_ANIMATIONS
 
 #endif
