@@ -32,48 +32,50 @@ enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   NUM,
   LOWER,
+  // SP_LOW,
   RAISE,
   ADJUST
 };
 
 #define TG_NUM  TG(_NUM)
 #define SP_LOW  LT(_LOWER, KC_SPC)
+#define SP_GUI  MT(MOD_LALT, KC_SPC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
-      KC_ESC, KC_GRV, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,               KC_PSLS,KC_PAST,TG_NUM,              KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSPC, \
+      KC_ESC, KC_GRV, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,               KC_PSLS,KC_PAST,TG_NUM,                  KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSPC, \
               KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,       KC_P7,  KC_P8,  KC_P9,  KC_PMNS,                 KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,KC_RBRC,KC_BSLS, \
               KC_LCTL,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,       KC_MRWD,KC_MPLY,KC_MFFD,KC_PPLS,                 KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,KC_ENT, \
               KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   LOWER,      KC_MUTE,KC_VOLD,KC_VOLU,KC_PENT,                 KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_RSFT,KC_UP, \
-              RAISE,                  KC_LALT,KC_LGUI,KC_SPC,             KC_P0,          KC_PDOT,                         SP_LOW, KC_LGUI,KC_LALT,        LOWER,KC_LEFT,KC_DOWN,KC_RGHT \
+              RAISE,                  KC_LALT,KC_LGUI,KC_SPC,             KC_P0,          KC_PDOT,                         LOWER,  SP_GUI, KC_LALT,        RAISE,KC_LEFT,KC_DOWN,KC_RGHT \
     ),
     [_NUM] = LAYOUT(
       _______, KC_GRV, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,               KC_PSLS,KC_PAST,TG_NUM,              KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSPC, \
               KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,       KC_P7,  KC_P8,  KC_P9,  KC_PMNS,                 KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,KC_RBRC,KC_BSLS, \
               KC_LCTL,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,       KC_P4,  KC_P5,  KC_P6,  KC_PPLS,                 KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,KC_ENT, \
               KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   LOWER,      KC_P1,  KC_P2,  KC_P3,  KC_PENT,                 KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_RSFT,KC_UP, \
-              RAISE,                  KC_LALT,KC_LGUI,KC_SPC,             KC_P0,          KC_PDOT,                         _______,KC_LGUI,KC_LALT,_______,KC_LEFT,KC_DOWN,KC_RGHT \
+              RAISE,                  KC_LALT,KC_LGUI,KC_SPC,             KC_P0,          KC_PDOT,                         _______,_______,_______,        _______,KC_LEFT,KC_DOWN,KC_RGHT \
     ),
     [_LOWER] = LAYOUT(
     _______,_______,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,                 _______,_______,_______,            KC_F7,  KC_F8,  KC_F9,KC_F10,   KC_F11, KC_F12, KC_DEL, \
               _______,_______,_______,LCTL(KC_E),_______,_______,_______,    _______,_______,_______,_______,            _______,_______,_______,_______,KC_UP,  _______,_______,_______, \
               _______,LCTL(KC_A),_______,KC_DEL, KC_RGHT,KC_ESC, KC_BSPC,    _______,_______,_______,_______,            KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,_______,_______,_______, \
               _______,_______,_______,_______,_______,KC_LEFT,_______,       _______,_______,_______,_______,            KC_DOWN,KC_LEFT,KC_DOWN,KC_RGHT,_______,_______,_______, \
-              _______,                _______,_______,_______,               _______,        _______,                    _______,_______,_______,_______,_______,_______,_______ \
+              _______,                _______,_______,_______,               _______,        _______,                    _______,_______,_______,        _______,_______,_______,_______ \
     ),
     [_RAISE] = LAYOUT(
       _______, KC_GRV, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,               KC_PSLS,KC_PAST,KC_PMNS,              KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSPC, \
               KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,          KC_P7,  KC_P8,  KC_P9,  KC_PMNS,                 KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,KC_RBRC,KC_BSLS, \
               KC_LCTL,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,          KC_P4,  KC_P5,  KC_P6,  KC_PPLS,                 KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,KC_ENT, \
               KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   _______,       KC_P1,  KC_P2,  KC_P3,  KC_PENT,                 KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_UP,  KC_RSFT, \
-              _______,                  KC_LALT,KC_LGUI,KC_SPC,              KC_P0,          KC_PDOT,                         _______,KC_LGUI,KC_LALT,_______,KC_LEFT,KC_DOWN,KC_RGHT \
+              _______,                  KC_LALT,KC_LGUI,KC_SPC,              KC_P0,          KC_PDOT,                         _______,_______,_______,        _______,KC_LEFT,KC_DOWN,KC_RGHT \
     ),
     [_ADJUST] = LAYOUT(
       _______, KC_GRV, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,              KC_PSLS,KC_PAST,KC_PMNS,             KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSPC, \
               _______, KC_Q,   KC_W,   KC_E,   RESET,   KC_T,   KC_Y,        RGB_TOG,RGB_MOD,RGB_RMOD,  KC_PMNS,                KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,KC_RBRC,KC_BSLS, \
               KC_LCTL,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,          RGB_HUI,RGB_SAI,RGB_VAI,  KC_PPLS,                 KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,KC_ENT, \
               KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   _______,       RGB_HUD,RGB_SAD,RGB_VAD,  KC_PENT,                 KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_UP,  KC_RSFT, \
-              _______,                  KC_LALT,KC_LGUI,KC_SPC,              KC_P0,          KC_PDOT,                           _______,KC_LGUI,KC_LALT,_______,KC_LEFT,KC_DOWN,KC_RGHT \
+              _______,                  KC_LALT,KC_LGUI,KC_SPC,              KC_P0,          KC_PDOT,                           _______,_______,_______,        _______,KC_LEFT,KC_DOWN,KC_RGHT \
     )
 };
 
@@ -88,23 +90,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case TG_NUM:
       if (record->event.pressed) {
         if (IS_LAYER_ON(_NUM)) {
-          // #ifdef RGBLIGHT_ENABLE
-          // rgblight_sethsv(0, 0, 0);
-          // #endif
         } else {
-          // #ifdef RGBLIGHT_ENABLE
-          // rgblight_sethsv(30, 255, 100);
-          // #endif
         }
       }
       return true;
       break;
     case LOWER:
       if (record->event.pressed) {
-        // #ifdef RGBLIGHT_ENABLE
-        // rgblight_sethsv(0, 255, 100);
-        // #endif
-
         lower_pressed = true;
         lower_pressed_time = record->event.time;
 
@@ -125,19 +117,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           unregister_code(KC_LANG2);
         }
         lower_pressed = false;
-
-        // #ifdef RGBLIGHT_ENABLE
-        // rgblight_sethsv(0, 0, 0);
-        // #endif
       }
       return false;
       break;
     case RAISE:
       if (record->event.pressed) {
-        // #ifdef RGBLIGHT_ENABLE
-        // rgblight_sethsv(170, 255, 100);
-        // #endif
-
         raise_pressed = true;
         raise_pressed_time = record->event.time;
 
@@ -158,10 +142,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           unregister_code(KC_LANG1);
         }
         raise_pressed = false;
-
-        // #ifdef RGBLIGHT_ENABLE
-        // rgblight_sethsv(0, 0, 0);
-        // #endif
       }
       return false;
       break;
@@ -184,6 +164,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+// レイヤー切り替えにともなって、インジケータLEDを発光
 layer_state_t layer_state_set_user(layer_state_t state) {
   #ifdef RGBLIGHT_ENABLE
     switch (get_highest_layer(state)) {
