@@ -18,7 +18,7 @@
 
 /* Happy Hacker Keyboard */
 
-enum layer_names { _BL, _FL }
+enum layer_names { _BL, _FL };
 
 #define _______ KC_TRNS
 
