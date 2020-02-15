@@ -33,6 +33,8 @@
 #define _LOWER 3
 #define _RAISE 4
 #define _ADJUST 5
+#define _ADJUST 5
+#define _NUMPAD 6
 
 // Shortcut Keys
 #define K_LOCK LGUI(LCTL(KC_Q)) // Locks screen on MacOS
@@ -47,6 +49,7 @@
 #define LM_RAI MO(_RAISE)
 #define LG_LOW TG(_LOWER)
 #define LG_RAI TG(_RAISE)
+#define LG_NUM TG(_NUMPAD)
 #define LT_LOW LT(_LOWER, KC_ENT)
 #define LT_RAI LT(_RAISE, KC_SPC)
 
@@ -114,6 +117,10 @@
   #define _____________________ADJUST_R3______________________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 #endif
 #define _____________________ADJUST_R2______________________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+
+#define _____________________NUMPAD_1_______________________ XXXXXXX, KC_P7, KC_P8, KC_P9, KC_PPLS, KC_PAST
+#define _____________________NUMPAD_2_______________________ XXXXXXX, KC_P4, KC_P5, KC_P6, KC_PMNS, KC_PSLS
+#define _____________________NUMPAD_3_______________________ KC_P0, KC_P1, KC_P2, KC_P3, KC_PDOT, KC_COLN
 
 #define _______________NAV_1______________ KC_PGUP, KC_HOME, KC_UP, KC_END
 #define _______________NAV_2______________ KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT

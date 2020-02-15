@@ -17,7 +17,7 @@ See: https://docs.qmk.fm/#/feature_userspace
 - [Kyria](../../keyboards/kyria/keymaps/ninjonas)
 
 ## Features
-### [Keys](ninjonas.h#L37)
+### [Keys](ninjonas.h)
 |Code | Description |
 |---|---|
 |K_LOCK | MacOS shortcut to execute lock command  + CTRL + Q |
@@ -27,7 +27,7 @@ See: https://docs.qmk.fm/#/feature_userspace
 |K_LAPP | MacOS shortcut to switch apps to the left |
 |K_CPRF |  + Shift + M. Used for switching Google Chrome profiles | 
 
-### [Layers](ninjonas.h#L44)
+### [Layers](ninjonas.h)
 |Code | Description |
 |---|---|
 |LT_LOW | Tap for ENTER, hold for RAISE |
@@ -38,13 +38,13 @@ See: https://docs.qmk.fm/#/feature_userspace
 |LG_LOW | Press to toggle LOWER layer |
 |LG_RAI | Press to toggle RAISE layer |
 
-### [Mod-Taps](ninjonas.h#L50)
+### [Mod-Taps](ninjonas.h)
 |Code | Description |
 |---|---|
 |MT_DEL | Tap for Delete, hold for  + ALT + SHIFT |
 |MT_EQL | Tap for =, hold for ALT + SHIFT |
 
-### [Layout Blocks](ninjonas.h#L54)
+### [Layout Blocks](ninjonas.h)
 Predefined keyboard layout templates to speed up configuring split keyboards
 
 |Code | Description |
@@ -59,6 +59,7 @@ Predefined keyboard layout templates to speed up configuring split keyboards
 |MOUSE | Mouse Cluster |
 |MEDIA | Media Cluster |
 |MOD | Modifier Cluster |
+|NUMPAD | Numpad Cluster |
 
 ### [Macros](process_records.c)
 |Code | Description |
@@ -85,6 +86,7 @@ Predefined keyboard layout templates to speed up configuring split keyboards
 |T_GUI | Tap once for , double to open spotlight |
 |T_W | Tap for W, double tap for  + W |
 |T_Q | Tap for Q, double tap for  + Q |
+|T_CPNU | Tap for  + V, hold for  + C, double tap for NUMPAD layer |
 
 ### Secrets
 There's times where you have macros you don't want to share like emails, an address you need but you always forget, passwords 😱, & and private strings. Based off [drashna's secret macros](https://github.com/qmk/qmk_firmware/blob/master/users/drashna/readme_secrets.md), it's now possible to do this. All you need to do is create a `secrets.c` file. Below is an example of how this is used.

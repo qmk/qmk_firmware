@@ -1,6 +1,17 @@
 #pragma once
 #include "ninjonas.h"
 
+typedef struct {
+  bool is_press_action;
+  int state;
+} tap;
+
+enum tapdance_types{
+  SINGLE_TAP = 1,
+  SINGLE_HOLD = 2,
+  DOUBLE_TAP = 3
+};
+
 enum custom_tapdances{
   TD_ESC_CAPS = 0,
   TD_LBRC_BACK,
@@ -10,6 +21,7 @@ enum custom_tapdances{
   TD_GUI_GUISPC,
   TD_W_CTRLW,
   TD_Q_GUIQ,
+  TD_COPY_PASTE_NUMPAD
 };
 
 #define T_ESC  TD(TD_ESC_CAPS)    // Tap for ESC, double tap for CAPSLOCK
@@ -20,3 +32,4 @@ enum custom_tapdances{
 #define T_GUI  TD(TD_GUI_GUISPC)  // Tap for , double tap for  + Space
 #define T_W    TD(TD_W_CTRLW)     // Tap for W, double tap for  + W
 #define T_Q    TD(TD_Q_GUIQ)      // Tap for Q, double tap for  + Q
+#define T_CPNU TD(TD_COPY_PASTE_NUMPAD)  // Tap for paste, hold for copy, double tap for NUMPAD
