@@ -87,6 +87,7 @@ Predefined keyboard layout templates to speed up configuring split keyboards
 |T_W | Tap for W, double tap for  + W |
 |T_Q | Tap for Q, double tap for  + Q |
 |T_CPNU | Tap for  + V, hold for  + C, double tap for NUMPAD layer |
+|T_Y | Tap for Y, double tap for NUMPAD layer |
 
 ### Secrets
 There's times where you have macros you don't want to share like emails, an address you need but you always forget, passwords 😱, & and private strings. Based off [drashna's secret macros](https://github.com/qmk/qmk_firmware/blob/master/users/drashna/readme_secrets.md), it's now possible to do this. All you need to do is create a `secrets.c` file. Below is an example of how this is used.

@@ -1,5 +1,6 @@
 #include "ninjonas.h"
 
+//// BEGIN: Advanced Tap Dances
 int cur_dance (qk_tap_dance_state_t *state) {
   if (state->count == 1) {
     if (!state->pressed) {
@@ -42,7 +43,44 @@ void copy_paste_numpad_finished (qk_tap_dance_state_t *state, void *user_data) {
 void copy_paste_numpad_reset (qk_tap_dance_state_t *state, void *user_data) {
   copy_paste_numpad_tap_state.state = 0;
 }
-//END: Copy, Paste, NUMPAD
+// END: Copy, Paste, NUMPAD
+
+// BEGIN: Y, NUMPAD
+static tap y_numpad_tap_state = {
+  .is_press_action = true,
+  .state = 0
+};
+
+void y_numpad_finished (qk_tap_dance_state_t *state, void *user_data) {
+  y_numpad_tap_state.state = cur_dance(state);
+  switch (y_numpad_tap_state.state) {
+    case SINGLE_TAP: 
+      tap_code(KC_Y); 
+      break;
+    case SINGLE_HOLD: 
+      register_code16(KC_Y);
+      break;
+    case DOUBLE_TAP: 
+      if (layer_state_is(_NUMPAD)) {
+        layer_off(_NUMPAD);
+      } else { 
+        layer_on(_NUMPAD);
+      }
+      break;
+  }
+}
+
+void y_numpad_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (y_numpad_tap_state.state) {
+    case SINGLE_HOLD:
+      unregister_code16(KC_Y); 
+      break;
+  }
+  y_numpad_tap_state.state = 0;
+}
+// END: Y, NUMPAD
+
+//// END: Advanced Tap Dances
 
 qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_ESC_CAPS]     = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
@@ -55,5 +93,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_Q_GUIQ]       = ACTION_TAP_DANCE_DOUBLE(KC_Q, LGUI(KC_Q)),
 
   // Advanced Tap Dances
-  [TD_COPY_PASTE_NUMPAD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, copy_paste_numpad_finished, copy_paste_numpad_reset)
+  [TD_COPY_PASTE_NUMPAD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, copy_paste_numpad_finished, copy_paste_numpad_reset),
+  [TD_Y_NUMPAD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, y_numpad_finished, y_numpad_reset),
 };
