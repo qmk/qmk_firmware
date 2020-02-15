@@ -141,8 +141,6 @@ inline bool board_is_master(board_info_t* board) {
     return false;
 }
 
-inline uint8_t matrix_rows(void) { return MATRIX_ROWS; }
-
 inline uint8_t matrix2board(uint8_t row) { return row % NUM_ROWS; }
 
 inline uint8_t board_index(uint8_t row) { return row / NUM_ROWS; }

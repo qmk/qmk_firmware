@@ -1,9 +1,5 @@
 # MCU name
 MCU = atmega328p
-ARCH = AVR8
-F_USB = $(F_CPU)
-
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 # Bootloader selection
 #   Teensy       halfkay
@@ -36,7 +32,7 @@ AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no        # Enable support for HD44780 based LCDs
 
-CUSTOM_MATRIX = yes
+CUSTOM_MATRIX = lite
 
 # project specific files
 SRC += matrix.c
