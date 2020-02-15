@@ -3,7 +3,7 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define PRODUCT_ID      0x2011
+#define PRODUCT_ID      0x5357
 #define DEVICE_VER      0x0001
 
 /* key matrix pins */
