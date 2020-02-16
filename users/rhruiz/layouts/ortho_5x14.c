@@ -36,14 +36,14 @@
 #    define KC_RSAI RGB_SAI
 #    define KC_RSAD RGB_SAD
 #else
-#    define KC_RVAD KC_TRNS
-#    define KC_RVAI KC_TRNS
-#    define KC_RTOG KC_TRNS
-#    define KC_RMOD KC_TRNS
-#    define KC_RHUI KC_TRNS
-#    define KC_RHUD KC_TRNS
-#    define KC_RSAI KC_TRNS
-#    define KC_RSAD KC_TRNS
+#    define KC_RVAD KC_NO
+#    define KC_RVAI KC_NO
+#    define KC_RTOG KC_NO
+#    define KC_RMOD KC_NO
+#    define KC_RHUI KC_NO
+#    define KC_RHUD KC_NO
+#    define KC_RSAI KC_NO
+#    define KC_RSAD KC_NO
 #endif
 
 // clang-format off
