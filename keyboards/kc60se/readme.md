@@ -33,7 +33,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ### DIP switches enable/disable GUI keys, the second keys from the ends on the bottom row:
   * K41/K4C are WIN/GUI and will disrupt games;
-  * this can be done by mapping a key to toggle these keys
+  * Add keycodes GUI_ON and GUI_OFF to your function layer to switch on/off GUI keys. It is eaier than flipping the dip switches;
 
  ```
   dip      keys
@@ -43,7 +43,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
   0   1   1   0
   0   0   0   0    both keys disabled
   ```
-### ISP header next to the Atmega32u4:
+### SPI header next to the Atmega32u4:
   * if you can't get into bootloader, while keyboard is on, momentary jump pad 5 to pad 6
 
   ```
