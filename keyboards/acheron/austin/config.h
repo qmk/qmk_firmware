@@ -52,10 +52,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define RGB_DI_PIN B15
-#define RGBLED_NUM 14
-#define WS2812_SPI SPID2
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
