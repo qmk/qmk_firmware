@@ -39,7 +39,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-/* not a hardware pwm pin, works, but throws warning*/
 #define BACKLIGHT_PIN F5
 /* number of backlight levels */
 #define BACKLIGHT_LEVELS 6
