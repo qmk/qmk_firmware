@@ -60,11 +60,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 // #define LOCKING_RESYNC_ENABLE
 
-/* debug: emable COMMAND_ENABLE and CONSOLE_ENABLE in rules.mk and run hid_listen */
-#define IS_COMMAND() ( \
-  keyboard_report->mods == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) \
-)
-
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
  * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
  */
