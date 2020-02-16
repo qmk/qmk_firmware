@@ -11,25 +11,25 @@
 Waiting for device:.........
 ```
 
-插入设备后，*hid_listen*找到该设备，您将收到以下消息：
+插入设备后，*hid_listen* 找到该设备，您将收到以下消息：
 
 ```
 Waiting for new device:.........................
 Listening:
 ```
 
-如果您无法获得这条“Listening:”消息，请尝试在[Makefile]中使用 `CONSOLE_ENABLE=yes`
+如果您无法获得这条“Listening:”消息，请在编译时尝试在[Makefile]中加入 `CONSOLE_ENABLE=yes`
 
 在Linux这样的操作系统上，你可能需要一些权限。
 - 使用`sudo hid_listen`
 
 ## 控制台没有返回消息
 检查:
-- *hid_listen* 找到了你的设备。看前面。
-- 输入**Magic**+d打开调试。详见[Magic Commands](https://github.com/tmk/tmk_keyboard#magic-commands)。
-- 设置`debug_enable=true` ，一般存在于**matrix.c**的`matrix_init()`中。
+- *hid_listen* 找到了你的设备。详见上方。
+- 输入 **Magic**+d 打开调试。详见[Magic Commands](https://github.com/tmk/tmk_keyboard#magic-commands)。
+- 设置`debug_enable=true` 。详见 [测试与调试](newbs_testing_debugging.md#调试)
 - 尝试使用'print'函数而不要用调试输出。详见**common/print.h**。
-- 断开其他有控制台功能的设备。 详见[Issue #97](https://github.com/tmk/tmk_keyboard/issues/97)。
+- 断开其他具有控制台功能的设备。 详见[Issue #97](https://github.com/tmk/tmk_keyboard/issues/97)。
 
 ## Linux或UNIX这样的系统如何请求超级用户权限
 用'sudo'来执行*hid_listen*就有权限了。
@@ -41,7 +41,7 @@ $ sudo hid_listen
 
 文件: /etc/udev/rules.d/52-tmk-keyboard.rules(在Ubuntu系统的情况下)
 ```
-# tmk keyboard products     https://github.com/tmk/tmk_keyboard
+# tmk键盘产品     https://github.com/tmk/tmk_keyboard
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
 ```
 
@@ -50,15 +50,20 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
 # 其他
 ## 安全注意事项
 
-你应该不想要把你的键盘变成"砖头"吧，就是变成没法重写固件的那种。
-下面讲解一些参数来告诉你什么风险很大（其实也不是很大）。
+你应该不想要把你的键盘变成"砖头"吧，
+就是变成没法重写固件的那种黑砖。
+下面讲解一些参数来告诉你哪些风险很大（其实也不是很大）。
 
-- 假如你键盘表面没有设计重置键"RESET", 那你要进入bootloader的话就要按PCB上的RESET了。
-  按PCB上的RESET要拧开键盘底部。
-- 如果 tmk_core / common 里面的文件丢失键盘可能失灵。
-- .hex太大可能不太好; `make dfu` 会删除块，检验大小（咦?好像反了...）。
+- 假如你键盘表面没有设计重置键"RESET", 
+  那你要进入DFU的话就要按PCB上的RESET了，
+  一般需要卸下底部螺丝才能看到。
+- 如果 tmk_core / common 里面的文件丢失，键盘可能失灵。
+- .hex太大可能不太好; 
+  `make dfu` 会删除块，检验大小（咦?好像顺序反了...）。
   一但出错，刷新键盘失败的话就困在DFU出不去了。
-  - 所以, 要知道大小限制。 Planck键盘上.hex文件最大大小是 is 7000h (十进制是28672)
+  - 所以, 要知道大小限制。 
+    Planck键盘上.hex文件最大大小是7000h (十进制是28672)
+
 
 ```
 Linking: .build/planck_rev4_cbbrowne.elf                                                            [OK]
@@ -69,20 +74,26 @@ Size after:
       0   22396       0   22396    577c planck_rev4_cbbrowne.hex
 ```
 
-  - 上面那个文件大小是 22396/577ch，比28672/7000h小
-  - 当你有一个合适的.hex文件时，你就要重试加载那个了
-  - 您在键盘Makefile中的某些选项可能消耗额外内存；注意以下这几个
+  - 上面那个文件大小是 22396/577ch，
+    比28672/7000h小
+  - 当你有一个合适的.hex文件时，
+    你就要重试加载那个了
+  - 您在键盘Makefile中的某些选项可能消耗额外内存；
+    注意以下这几个
     BOOTMAGIC_ENABLE, MOUSEKEY_ENABLE, EXTRAKEY_ENABLE, CONSOLE_ENABLE, API_SYSEX_ENABLE
-- DFU 工具/不/可以写入bootloader (unless you throw in extra fruit salad of options), 
+- DFU 工具 /不/ 可以写入bootloader (unless you throw in extra fruit salad of options), 
   所以还是有点危险的
-- EEPROM大概有100000次循环寿命。不要总是频繁重写固件；EEPROM会玩坏的。
+  要注意
+- EEPROM大概有100000次循环寿命。
+  不要总是频繁重写固件；
+  总覆写EEPROM会玩坏的。
+
 ## 全键无冲不好用
 首先你要在**Makefile**用如下命令编译固件`NKRO_ENABLE`。
 
 全键无冲还不好用的话试着用`Magic` **N** 命令(默认是`LShift+RShift+N`)。这个命令会在**全键无冲**和**六键无冲**之间临时切换。有些情况**全键无冲**不好用你就需要使用**六键无冲**模式，尤其是在BIOS中。
 
-如果你的固件使用`BOOTMAGIC_ENABLE`编译的你要用`BootMagic` **N** 命令(默认`Space+N`)打开开关。这个设置保存在EEPROM中并保存在电源循环中。
-<!--翻译问题：上面这句翻译的不贴切 -->
+如果你的固件使用`BOOTMAGIC_ENABLE`编译的你要用`BootMagic` **N** 命令(默认`Space+N`)打开开关。这个设置保存在EEPROM中，于是无惧切断电源。
 
 https://github.com/tmk/tmk_keyboard#boot-magic-configuration---virtual-dip-switch
 
@@ -123,6 +134,16 @@ EXTRAKEY_ENABLE = yes          # 音频控制和系统控制
 
 Arduino Leonardo和micro使用**ATMega32U4**，该芯片TMK可用，但Arduino的bootloader会导致问题。
 
+## 使能 JTAG
+
+默认情况下,在键盘启动时，JTAG接口将会失效。 支持JTAG的MCU出场时会有`JTAGEN`保险丝设置，JTAG会接管实际上被用作开关矩阵、LED或其他功能的引脚。
+
+如果你想要JYAG保持使能状态，将以下代码添加到 `config.h`即可:
+
+```c
+#define NO_JTAG_DISABLE
+```
+
 ## USB 3 兼容性
 据传说有些人用USB3接口会有问题，用USB2的试试。
 
@@ -135,7 +156,7 @@ https://geekhack.org/index.php?topic=14290.msg1884034#msg1884034
 ## 对于BIOS (UEFI)/恢复(睡眠和唤醒)/重新启动 有问题
 有人说他们的键盘在BIOS中，或许是恢复(睡眠和唤醒)后不工作.
 
-截止至目前，其根本原因未知，不排除与某些构建选项有关。试着在Makefile中失能`CONSOLE_ENABLE`, `NKRO_ENABLE`, `SLEEP_LED_ENABLE`这样的选项，也试试其他的。
+截止至目前，其根本原因未知，不排除与某些构建选项有关。试着在Makefile中禁用`CONSOLE_ENABLE`, `NKRO_ENABLE`, `SLEEP_LED_ENABLE`这样的选项，也试试其他的。
 
 https://github.com/tmk/tmk_keyboard/issues/266
 https://geekhack.org/index.php?topic=41989.msg1967778#msg1967778
@@ -146,3 +167,8 @@ https://geekhack.org/index.php?topic=41989.msg1967778#msg1967778
 ### `AtLibUsbDfu.dll` 未找到
 从设备管理器中删除当前驱动程序并在设备管理器重新安装一个FLIP提供的程序。
 http://imgur.com/a/bnwzy
+https://raw.githubusercontent.com/qmk/qmk_firmware/a52e55ec09c587ca58a156a6c174d51e0ad228b4/docs/faq_build.md
+
+<!--源文件：https://raw.githubusercontent.com/qmk/qmk_firmware/770a4ee7291095aaa6548d3e988633bf2ae6e6c0/docs/faq_debug.md 
+    源提交哈希：770a4ee7291095aaa6548d3e988633bf2ae6e6c0-->
+<!--翻译时间:20200216-21:54(GMT+8)-->
