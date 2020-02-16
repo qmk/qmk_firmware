@@ -97,7 +97,7 @@ void led_set_user(uint8_t usb_led) {
 
 // Runs whenever there is a layer state change.
 layer_state_t layer_state_set_user(layer_state_t state) {
-  uint8_t layer = biton32(state);
+  uint8_t layer = get_highest_layer(state);
     
   gp100_led_off();
   //gp103_led_off();
