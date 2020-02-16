@@ -20,12 +20,12 @@ See: https://docs.qmk.fm/#/feature_userspace
 ### [Keys](ninjonas.h)
 |Code | Description |
 |---|---|
-|K_LOCK | MacOS shortcut to execute lock command &#8984; + CTRL + Q |
+|K_LOCK | MacOS shortcut to execute lock command Cmd + CTRL + Q |
 |K_CSCN | MacOS shortcut to copy a portion of the screen to the clipboard |
 |K_MDSH | MacOS shortcut to get em-dash `–` |
 |K_RAPP | MacOS shortcut to switch apps to the right |
 |K_LAPP | MacOS shortcut to switch apps to the left |
-|K_CPRF | &#8984; + Shift + M. Used for switching Google Chrome profiles | 
+|K_CPRF | Cmd + Shift + M. Used for switching Google Chrome profiles | 
 
 ### [Layers](ninjonas.h)
 |Code | Description |
@@ -41,7 +41,7 @@ See: https://docs.qmk.fm/#/feature_userspace
 ### [Mod-Taps](ninjonas.h)
 |Code | Description |
 |---|---|
-|MT_DEL | Tap for Delete, hold for &#8984; + ALT + SHIFT |
+|MT_DEL | Tap for Delete, hold for Cmd + ALT + SHIFT |
 |MT_EQL | Tap for =, hold for ALT + SHIFT |
 
 ### [Layout Blocks](ninjonas.h)
@@ -69,7 +69,7 @@ Predefined keyboard layout templates to speed up configuring split keyboards
 |M_MALL | Macro to send QMK make command to all [ninjonas](#Supported%20Keyboards) keyboards |
 |M_FLSH | Macro to send QMK make command to compile keyboard with the correct bootloader |
 |M_VRSN | Macro to send QMK version |
-|M_SHFT | Sends &#8984; + alt + shift to a keycode to activate [ShiftIt](https://github.com/fikovnik/ShiftIt) |
+|M_SHFT | Sends Cmd + alt + shift to a keycode to activate [ShiftIt](https://github.com/fikovnik/ShiftIt) |
 |M_CODE | Opens [Visual Studio Code](https://code.visualstudio.com/) on current directory |
 |M_TERM | Launches Spotlight and calls Terminal |
 |M_COPA | Single key copy/paste |
@@ -82,11 +82,11 @@ Predefined keyboard layout templates to speed up configuring split keyboards
 |T_LBRC | Tap once for [, double for back browser |
 |T_RBRC | Tap once for ], double for forward browser |
 |T_TAB | Tap once for TAB, double for CTRL + TAB |
-|T_GRV | Tap once for GRV, double for &#8984; + GRV |
-|T_GUI | Tap once for &#8984;, double to open spotlight |
-|T_W | Tap for W, double tap for &#8984; + W |
-|T_Q | Tap for Q, double tap for &#8984; + Q |
-|T_CPNU | Tap for &#8984; + V, hold for &#8984; + C, double tap for NUMPAD layer |
+|T_GRV | Tap once for GRV, double for Cmd + GRV |
+|T_GUI | Tap once for Cmd, double to open spotlight |
+|T_W | Tap for W, double tap for Cmd + W |
+|T_Q | Tap for Q, double tap for Cmd + Q |
+|T_CPNU | Tap for Cmd + V, hold for Cmd + C, double tap for NUMPAD layer |
 |T_Y | Tap for Y, double tap for NUMPAD layer |
 
 ### Secrets

@@ -25,10 +25,10 @@ void copy_paste_numpad_finished (qk_tap_dance_state_t *state, void *user_data) {
   copy_paste_numpad_tap_state.state = cur_dance(state);
   switch (copy_paste_numpad_tap_state.state) {
     case SINGLE_TAP: 
-      tap_code16(LGUI(KC_V)); // Tap  + V
+      tap_code16(LGUI(KC_V)); // Tap Cmd + V
       break;
     case SINGLE_HOLD: 
-      tap_code16(LGUI(KC_C)); // Hold  + C
+      tap_code16(LGUI(KC_C)); // Hold Cmd + C
       break;
     case DOUBLE_TAP: 
       if (layer_state_is(_NUMPAD)) {
