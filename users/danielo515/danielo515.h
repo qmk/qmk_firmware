@@ -66,31 +66,31 @@ enum layers {
 };
 
 // Function letters
-#define FN_F LT(_F,KC_F)
-#define FN_D LT(_D,KC_D)
-#define FN_S LT(_S,KC_S)
-#define FN_A LT(_A,KC_A)
-#define FN_K LT(_K,KC_K)
-#define FN_J LT(_J,KC_J)
-#define KC_FN_D FN_D
-#define KC_FN_S FN_S
-#define KC_FN_F FN_F
+# define FN_F LT(_F,KC_F)
+# define FN_D LT(_D,KC_D)
+# define FN_S LT(_S,KC_S)
+# define FN_A LT(_A,KC_A)
+# define FN_K LT(_K,KC_K)
+# define FN_J LT(_J,KC_J)
+# define KC_FN_D FN_D
+# define KC_FN_S FN_S
+# define KC_FN_F FN_F
 
-#define KC_MACROS OSL(_MACROS)
+# define KC_MACROS OSL(_MACROS)
 
 
-#define KC_E_COLN LSFT(KC_DOT)
-#define KC_E_EQL ES_EQL
-#define KC_GUI OSM(MOD_RGUI)
-#define KC_R_NUB S(KC_NUBS)
-#define KC_E_LT KC_NUBS
-#define KC_E_GT S(KC_NUBS)
-#define KC_E_TILD ES_TILD
-#define KC_E_MINS ES_MINS
-#define KC_S_SPC SFT_T(KC_SPC)  // Tap for Space, hold for Shift
-#define KC_E_OVRR ES_OVRR
-#define KC_E_APOS ES_APOS
-#define KC_E_IEXL ES_IEXL
+# define KC_E_COLN LSFT(KC_DOT)
+# define KC_E_EQL ES_EQL
+# define KC_GUI OSM(MOD_RGUI)
+# define KC_R_NUB S(KC_NUBS)
+# define KC_E_LT KC_NUBS
+# define KC_E_GT S(KC_NUBS)
+# define KC_E_TILD ES_TILD
+# define KC_E_MINS ES_MINS
+# define KC_S_SPC SFT_T(KC_SPC)  // Tap for Space, hold for Shift
+# define KC_E_OVRR ES_OVRR
+# define KC_E_APOS ES_APOS
+# define KC_E_IEXL ES_IEXL
 // Short hand for complex key combinations
 # define WIN_LEFT_HALF LALT(LGUI(KC_LEFT))
 # define WIN_RIGHT_HALF LALT(LGUI(KC_RIGHT))
@@ -98,6 +98,8 @@ enum layers {
 # define WIN_TO_RIGHT LALT(LSFT( LGUI(KC_RIGHT) ))
 # define SHIFT OSM(MOD_LSFT)
 # define HYPR_H HYPR_T(KC_H)
+# define CTL_K RCTL_T(KC_K)
+# define ALT_J ALT_T(KC_J)
 // Ready to use Tap dance definitions, just put them on your layout
 
 #ifdef TAP_DANCE_ENABLE
