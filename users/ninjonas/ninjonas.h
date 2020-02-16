@@ -33,7 +33,6 @@
 #define _LOWER 3
 #define _RAISE 4
 #define _ADJUST 5
-#define _ADJUST 5
 #define _NUMPAD 6
 
 // Shortcut Keys
