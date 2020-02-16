@@ -17,6 +17,8 @@
 #pragma once
 
 #ifdef OLED_DRIVER_ENABLE
+  #define OLED_TIMEOUT_DISABLE
+  #define OLED_TIMEOUT 30000
   #define OLED_DISPLAY_128X64
 #endif
 
