@@ -20,7 +20,6 @@
 
 enum layer_names { _BL, _FL };
 
-#define _______ KC_TRNS
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format off
