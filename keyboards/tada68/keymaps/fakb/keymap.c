@@ -5,8 +5,6 @@
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 #define LCTL_MA LCTL_T(KC_UP)
 #define LSFT_MA LSFT_T(KC_DOWN)
 #define RSFT_MA SFT_T(KC_UP)

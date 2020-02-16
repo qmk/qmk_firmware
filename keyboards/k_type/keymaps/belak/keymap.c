@@ -1,7 +1,5 @@
 #include "k_type.h"
 
-#define _______ KC_TRNS
-
 #define _QW 0
 #define _L1 1
 

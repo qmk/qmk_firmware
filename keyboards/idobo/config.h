@@ -20,11 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
+#define VENDOR_ID       0x6964 // ID
+#define PRODUCT_ID      0x0075
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    You
-#define PRODUCT         idobo
+#define MANUFACTURER    Generic
+#define PRODUCT         Idobo
 #define DESCRIPTION     A custom keyboard
 
 /* key matrix size */
@@ -45,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F6, F5, F4, F1, E6, D5, D3, D2, D1, D0, D4, D6, D7, B4, B5 }
 #define UNUSED_PINS
 
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
+/* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
 #define BACKLIGHT_PIN B7
@@ -62,7 +62,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST

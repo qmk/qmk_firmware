@@ -27,15 +27,9 @@ enum preonic_keycodes {
   RGBLED_DECREASE_SAT,
   RGBLED_INCREASE_VAL,
   RGBLED_DECREASE_VAL,
+  DEMOMACRO
 };
 
-enum macro_keycodes {
-  KC_DEMOMACRO,
-};
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 // Custom macros
 #define CTL_ESC     CTL_T(KC_ESC)               // Tap for Esc, hold for Ctrl
 #define CTL_TTAB    CTL_T(KC_TAB)               // Tap for Esc, hold for Ctrl
@@ -44,8 +38,6 @@ enum macro_keycodes {
 // Requires KC_TRNS/_______ for the trigger key in the destination layer
 #define LT_MC(kc)   LT(_MOUSECURSOR, kc)        // L-ayer T-ap M-ouse C-ursor
 #define LT_RAI(kc)  LT(_RAISE, kc)              // L-ayer T-ap to Raise
-#define DEMOMACRO   M(KC_DEMOMACRO)            // Sample for macros
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -178,20 +170,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust (Lower + Raise)
  * ,------+------+------+------+------+------------------------------------------------.
- * |  Esc |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |   -  |
+ * | Reset|HPT TG|HPT FB|HPT M+|HPT M-|HPT RS|      |      |      |      |      |EEP RS|
  * |------+------+------+------+------+------+------+------+------+------+------+------+--------------------.
- * | Reset|RGB TG|RGB ST|RGBH -|RGBH +|RGBS -|RGBS +|RGBV -|RGBV +|      |      |      |      |      |  Del |
+ * |      |RGB TG|RGB ST|RGBH -|RGBH +|RGBS -|RGBS +|RGBV -|RGBV +|      |      |      |      |      |  Del |
  * |------+------+------+------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |Aud on|Audoff|AGnorm|      |      |      |AGswap|Qwerty|Colemk|      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |Voice-|Voice+|Mus on|Musoff|      |      |      |      |      |      |      | BL + |BL ST |BL TG |
+ * |      |Voice-|Voice+|Mus on|Musoff|      |      |      |      |      |      |BL -  | BL + |BL ST |BL TG |
  * |------+------+------+------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |      |      |      |      |      |      |      |      |      |      |CK RS |CK -  |CK +  |CK TG |
  * `--------------------------------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT(
-  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
-  RESET,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, _______, _______, KC_DEL, \
+  RESET,   HPT_TOG, HPT_FBK, HPT_MODI, HPT_MODD, HPT_RST , _______, _______, _______, _______, _______, EEP_RST, \
+  _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, _______, _______, KC_DEL, \
   _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, _______, _______, _______, AG_SWAP, QWERTY,  COLEMAK, _______,  _______,  _______, \
   _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF, _______, _______, _______,  _______, BL_DEC,  BL_INC,  BL_STEP, BL_TOGG, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, CK_RST,  CK_DOWN, CK_UP,   CK_TOGG\
@@ -201,7 +193,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
@@ -251,6 +243,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case DEMOMACRO:
+      if (record->event.pressed) {
+        SEND_STRING("hello world");
+      }
   }
   return true;
 }
@@ -265,31 +261,9 @@ bool music_mask_user(uint16_t keycode) {
   }
 }
 
-
-/*
- * Macro definition
- */
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    if (!eeconfig_is_enabled()) {
-      eeconfig_init();
-    }
-
-    switch (id) {
-      case KC_DEMOMACRO:
-        if (record->event.pressed){
-          return MACRO (I(1), T(H),T(E),T(L), T(L), T(O), T(SPACE), T(W), T(O), T(R), T(L), T(D),  END);
-        }
-    }
-
-    return MACRO_NONE;
-}
-
-
 void matrix_init_user(void) {
 }
 
 
 void matrix_scan_user(void) {
 }
-

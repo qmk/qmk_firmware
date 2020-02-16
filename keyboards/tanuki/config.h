@@ -36,6 +36,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS {  F7 , B1 , D4 , D0 }
 #define UNUSED_PINS
 
+#define DIODE_DIRECTION COL2ROW
+
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
@@ -48,11 +50,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 #define RGB_DI_PIN D1
+#ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 5
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
+#define RGBLIGHT_SLEEP
+#endif
 
 #define TAPPING_TERM 200
 /*

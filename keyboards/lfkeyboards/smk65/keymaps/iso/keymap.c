@@ -1,9 +1,5 @@
 #include QMK_KEYBOARD_H
 
-// readability
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 enum keymap_layout {
     VANILLA = 0,
     FUNC,
@@ -62,16 +58,6 @@ const uint16_t PROGMEM fn_actions[] = {
     [4] = ACTION_FUNCTION(LFK_CLICK_TIME_SHORTER),                  // FN4 - Decrease length of audio click
     [5] = ACTION_FUNCTION(LFK_CLICK_TOGGLE),                        // FN5 - Toggle audio click
   };
-
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-      }
-    return MACRO_NONE;
-};
-
 
 void matrix_init_user(void) {
 

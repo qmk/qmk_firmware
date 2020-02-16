@@ -15,8 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-
-#define _______ KC_TRNS
 #define OOOOOOO KC_TRNS
 
 #define C_LCTL MT(MOD_LCTL, KC_QUOT)

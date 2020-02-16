@@ -54,16 +54,19 @@ ARMV = 7
 # The CORTEX_VTOR... is needed only for MCHCK/Infinity KB
 OPT_DEFS += -DCORTEX_VTOR_INIT=0x00002000
 
+BOOTLOADER = dfu
+
 # Build Options
 #   comment out to disable the options.
 #
 
 DFU_ARGS = -d 1c11:b007
+DFU_SUFFIX_ARGS = -p b007 -v 1c11
 
-BOOTMAGIC_ENABLE = no  # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE  = yes # Mouse keys(+4700)
-EXTRAKEY_ENABLE  = yes # Audio control and System control(+450)
-CONSOLE_ENABLE   = no  # Console for debug(+400)
+BOOTMAGIC_ENABLE = no  # Virtual DIP switch configuration
+MOUSEKEY_ENABLE  = yes # Mouse keys
+EXTRAKEY_ENABLE  = yes # Audio control and System control
+CONSOLE_ENABLE   = no  # Console for debug
 COMMAND_ENABLE   = yes # Commands for debug and configuration
 CUSTOM_MATRIX    = yes # Custom matrix file for the ErgoDox EZ
 SLEEP_LED_ENABLE = yes # Breathing sleep LED during USB suspend
@@ -76,6 +79,7 @@ SERIAL_LINK_ENABLE = yes
 VISUALIZER_ENABLE = yes
 LCD_ENABLE = yes
 BACKLIGHT_ENABLE = yes
+BACKLIGHT_DRIVER = custom
 LCD_BACKLIGHT_ENABLE = yes
 MIDI_ENABLE = no
 RGBLIGHT_ENABLE = no

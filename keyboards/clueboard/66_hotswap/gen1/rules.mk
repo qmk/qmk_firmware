@@ -1,24 +1,24 @@
-EXTRAFLAGS += -flto
-LAYOUTS = 66_ansi
-MCU = atmega32u4
-F_CPU = 16000000
-ARCH = AVR8
-F_USB = $(F_CPU)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
+# MCU name
+MCU = STM32F303
+
+# LED Configuration
+LED_MATRIX_ENABLE = IS31FL3731
 
 # Build Options
 #   comment out to disable the options.
 #
-BACKLIGHT_ENABLE = yes
-BOOTMAGIC_ENABLE = no
-MOUSEKEY_ENABLE = no
-EXTRAKEY_ENABLE = yes
-CONSOLE_ENABLE = yes
-COMMAND_ENABLE = no
-NKRO_ENABLE = yes
+BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
+## (Note that for BOOTMAGIC on Teensy LC you have to use a custom .ld script.)
+MOUSEKEY_ENABLE = yes	# Mouse keys
+EXTRAKEY_ENABLE = yes	# Audio control and System control
+CONSOLE_ENABLE = yes	# Console for debug
+COMMAND_ENABLE = yes    # Commands for debug and configuration
+#SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
+NKRO_ENABLE = yes	    # USB Nkey Rollover
+#CUSTOM_MATRIX = yes # Custom matrix file
 AUDIO_ENABLE = yes
-RGBLIGHT_ENABLE = yes
-MIDI_ENABLE = no
-UNICODE_ENABLE = no
-BLUETOOTH_ENABLE = no
+# SERIAL_LINK_ENABLE = yes
+
+# project specific files
+SRC =	led.c
+LAYOUTS += 66_ansi

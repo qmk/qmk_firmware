@@ -11,11 +11,11 @@ People often define custom names using `#define`. For example:
 #define ALT_TAB LALT(KC_TAB)
 ```
 
-This will allow you to use `FN_CAPS` and `ALT_TAB` in your `KEYMAP()`, keeping it more readable.
+This will allow you to use `FN_CAPS` and `ALT_TAB` in your keymap, keeping it more readable.
 
 ## Caveats
 
-Currently, `LT()` and `MT()` are limited to the [Basic Keycode set](keycodes_basic.md), meaning you can't use keycodes like `LCTL()`, `KC_TILD`, or anything greater than `0xFF`. Modifiers specified as part of a Layer Tap or Mod Tap's keycode will be ignored.
+Currently, `LT()` and `MT()` are limited to the [Basic Keycode set](keycodes_basic.md), meaning you can't use keycodes like `LCTL()`, `KC_TILD`, or anything greater than `0xFF`. Modifiers specified as part of a Layer Tap or Mod Tap's keycode will be ignored. If you need to apply modifiers to your tapped keycode, [Tap Dance](feature_tap_dance.md#example-5-using-tap-dance-for-advanced-mod-tap-and-layer-tap-keys) can be used to accomplish this.
 
 Additionally, if at least one right-handed modifier is specified in a Mod Tap or Layer Tap, it will cause all modifiers specified to become right-handed, so it is not possible to mix and match the two.
 
@@ -146,7 +146,7 @@ Additionally, hitting keys five times in a short period will lock that key. This
 You can control the behavior of one shot keys by defining these in `config.h`:
 
 ```c
-#define ONESHOT_TAP_TOGGLE 5  /* Tapping this number of times holds the key until tapped this number of times again. */
+#define ONESHOT_TAP_TOGGLE 5  /* Tapping this number of times holds the key until tapped once again. */
 #define ONESHOT_TIMEOUT 5000  /* Time (in ms) before the one shot key is released */
 ```
 
@@ -155,7 +155,7 @@ You can control the behavior of one shot keys by defining these in `config.h`:
 
 Sometimes, you want to activate a one-shot key as part of a macro or tap dance routine.  
 
-For one shot layers, you need to call `set_oneshot_layer(LAYER, ONESHOT_START)` on key down, and `set_oneshot_layer(ONESHOT_PRESSED)` on key up. If you want to cancel the oneshot, call `reset_oneshot_layer()`.
+For one shot layers, you need to call `set_oneshot_layer(LAYER, ONESHOT_START)` on key down, and `clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED)` on key up. If you want to cancel the oneshot, call `reset_oneshot_layer()`.
 
 For one shot mods, you need to call `set_oneshot_mods(MOD)` to set it, or `clear_oneshot_mods()` to cancel it.
 
@@ -256,10 +256,10 @@ If you press a Mod Tap key, tap another key (press and release) and then release
 
 For Instance:
 
-- `SHFT_T(KC_A)` Down
+- `SFT_T(KC_A)` Down
 - `KC_X` Down
 - `KC_X` Up
-- `SHFT_T(KC_A)` Up
+- `SFT_T(KC_A)` Up
 
 Normally, if you do all this within the `TAPPING_TERM` (default: 200ms) this will be registered as `ax` by the firmware and host system. With permissive hold enabled, this modifies how this is handled by considering the Mod Tap keys as a Mod if another key is tapped, and would registered as `X` (`SHIFT`+`x`). 
 
@@ -279,9 +279,9 @@ Setting `Ignore Mod Tap Interrupt` requires  holding both keys for the `TAPPING_
 
 For Instance:
 
-- `SHFT_T(KC_A)` Down
+- `SFT_T(KC_A)` Down
 - `KC_X` Down
-- `SHFT_T(KC_A)` Up
+- `SFT_T(KC_A)` Up
 - `KC_X` Up
 
 Normally, this would send `X` (`SHIFT`+`x`). With `Ignore Mod Tap Interrupt` enabled, holding both keys are required for the `TAPPING_TERM` to register the hold action. A quick tap will output `ax` in this case, while a hold on both will still output `X`  (`SHIFT`+`x`).
@@ -290,6 +290,25 @@ Normally, this would send `X` (`SHIFT`+`x`). With `Ignore Mod Tap Interrupt` ena
 ?> __Note__: This only concerns modifiers and not layer switching keys.
 
 ?> If you have `Permissive Hold` enabled, as well, this will modify how both work. The regular key has the modifier added if the first key is released first or if both keys are held longer than the `TAPPING_TERM`.
+
+For more granular control of this feature, you can add the following to your `config.h`:
+
+```c
+#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
+```
+
+You can then add the following function to your keymap:
+
+```c
+bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
+  switch (keycode) {
+    case SFT_T(KC_SPC):
+      return true;
+    default:
+      return false;
+  }
+}
+```
 
 ## Tapping Force Hold
 
@@ -303,17 +322,36 @@ When the user holds a key after tap, this repeats the tapped key rather to hold 
 
 Example:
 
-- SHFT_T(KC_A) Down
-- SHFT_T(KC_A) Up
-- SHFT_T(KC_A) Down
+- SFT_T(KC_A) Down
+- SFT_T(KC_A) Up
+- SFT_T(KC_A) Down
 - wait more than tapping term...
-- SHFT_T(KC_A) Up
+- SFT_T(KC_A) Up
 
 With default settings, `a` will be sent on the first release, then `a` will be sent on the second press allowing the computer to trigger its auto repeat function.
 
 With `TAPPING_FORCE_HOLD`, the second press will be interpreted as a Shift, allowing to use it as a modifier shortly after having used it as a tap.
 
 !> `TAPPING_FORCE_HOLD` will break anything that uses tapping toggles (Such as the `TT` layer keycode, and the One Shot Tapping Toggle).
+
+For more granular control of this feature, you can add the following to your `config.h`:
+
+```c
+#define TAPPING_FORCE_HOLD_PER_KEY
+```
+
+You can then add the following function to your keymap:
+
+```c
+bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case LT(1, KC_BSPC):
+      return true;
+    default:
+      return false;
+  }
+}
+```
 
 ## Retro Tapping
 

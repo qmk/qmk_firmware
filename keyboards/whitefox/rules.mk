@@ -55,6 +55,9 @@ ARMV = 7
 OPT_DEFS =
 
 DFU_ARGS = -d 1c11:b007
+DFU_SUFFIX_ARGS = -p b007 -v 1c11
+
+BOOTLOADER = dfu
 
 # Build Options
 #   comment out to disable the options.
@@ -69,8 +72,13 @@ COMMAND_ENABLE = yes    # Commands for debug and configuration
 NKRO_ENABLE = yes	    # USB Nkey Rollover
 CUSTOM_MATRIX = yes # Custom matrix file
 BACKLIGHT_ENABLE = yes
+BACKLIGHT_DRIVER = custom
 VISUALIZER_ENABLE = yes
 
 LED_DRIVER = is31fl3731c
 LED_WIDTH = 16
 LED_HEIGHT = 5
+
+
+# Enter lower-power sleep mode when on the ChibiOS idle thread
+OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE

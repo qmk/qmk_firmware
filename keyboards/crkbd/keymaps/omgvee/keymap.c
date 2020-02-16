@@ -22,9 +22,9 @@ extern uint8_t is_master;
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _QWERTY 0
-#define _LOWER 3
-#define _RAISE 4
-#define _ADJUST 16
+#define _LOWER 1
+#define _RAISE 2
+#define _ADJUST 3
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------.                ,-----------------------------------------.
         RST,  LRST, XXXXX, XXXXX, XXXXX, ERST,                    MNXT,  MPRV,  MFFD,  MRWD, XXXXX,  EJCT,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LTOG,  LHUI,  LSAI,  LVAI,  PGUP, HOME,                    LEFT,  DOWN,    UP, RIGHT, XXXXX, XXXXX,\
+       LTOG,  LHUI,  LSAI,  LVAI,  PGUP, HOME,                    LEFT,  DOWN,    UP, RIGHT, XXXXX,   INS,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LMOD,  LHUD,  LSAD,  LVAD,  PGDN,  END,                    BRID,  BRIU,  VOLD,  VOLU,  MUTE,  MPLY,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
@@ -240,4 +240,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
-

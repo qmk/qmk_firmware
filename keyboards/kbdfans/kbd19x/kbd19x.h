@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef KBD19X_H
-#define KBD19X_H
+#pragma once
 
 #include "quantum.h"
 #include "led.h"
@@ -100,4 +99,3 @@ inline void kbd19x_nmlk_led_off(void)   { DDRB &= ~(1<<2); PORTB &= ~(1<<2); }
   {k05, k06, k07, k08, k15, k16, k17, k18, k25, k26, k27, k28, k36},\
   {XXX, k1e, k0e, k2e, k4e, k37, k38, k39, k45, k46, k47, k48, XXX},\
 }
-#endif
