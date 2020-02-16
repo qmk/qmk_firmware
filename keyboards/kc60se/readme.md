@@ -43,7 +43,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
   0   1   1   0
   0   0   0   0    both keys disabled
   ```
-### SPI header next to the Atmega32u4:
+### ISP header next to the ATmega32U4:
   * if you can't get into bootloader, while keyboard is on, momentary jump pad 5 to pad 6
 
   ```
