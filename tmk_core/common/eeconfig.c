@@ -2,13 +2,13 @@
 #include <stdbool.h>
 #include "eeprom.h"
 #include "eeconfig.h"
+#include "action_layer.h"
 
 #ifdef STM32_EEPROM_ENABLE
 #    include "hal.h"
 #    include "eeprom_stm32.h"
 #endif
 
-extern uint32_t default_layer_state;
 /** \brief eeconfig enable
  *
  * FIXME: needs doc
@@ -47,6 +47,16 @@ void eeconfig_init_quantum(void) {
     eeprom_update_byte(EECONFIG_VELOCIKEY, 0);
     eeprom_update_dword(EECONFIG_RGB_MATRIX, 0);
     eeprom_update_byte(EECONFIG_RGB_MATRIX_SPEED, 0);
+
+    // TODO: Remove once ARM has a way to configure EECONFIG_HANDEDNESS
+    //        within the emulated eeprom via dfu-util or another tool
+#if defined INIT_EE_HANDS_LEFT
+#    pragma message "Faking EE_HANDS for left hand"
+    eeprom_update_byte(EECONFIG_HANDEDNESS, 1);
+#elif defined INIT_EE_HANDS_RIGHT
+#    pragma message "Faking EE_HANDS for right hand"
+    eeprom_update_byte(EECONFIG_HANDEDNESS, 0);
+#endif
 
     eeconfig_init_kb();
 }

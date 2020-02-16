@@ -1,6 +1,2 @@
-BOOTLOADER = caterina
-COMMAND_ENABLE = no
-
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif
+COMMAND_ENABLE = no # disables command support, enabled in ergo42/rules.mk
+CUSTOM_MOUSEKEY = yes

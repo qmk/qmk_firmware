@@ -15,8 +15,10 @@
  */
 
 /* Author: Wojciech Siewierski < wojciech dot siewierski at onet dot pl > */
-#ifndef DYNAMIC_MACROS_H
-#define DYNAMIC_MACROS_H
+#pragma once
+
+/* Warn users that this is now deprecated and they should use the core feature instead. */
+#pragma message "Dynamic Macros is now a core feature. See updated documentation to see how to configure it: https://docs.qmk.fm/#/feature_dynamic_macros"
 
 #include "action_layer.h"
 
@@ -32,18 +34,6 @@
  */
 #    define DYNAMIC_MACRO_SIZE 128
 #endif
-
-/* DYNAMIC_MACRO_RANGE must be set as the last element of user's
- * "planck_keycodes" enum prior to including this header. This allows
- * us to 'extend' it.
- */
-enum dynamic_macro_keycodes {
-    DYN_REC_START1 = DYNAMIC_MACRO_RANGE,
-    DYN_REC_START2,
-    DYN_REC_STOP,
-    DYN_MACRO_PLAY1,
-    DYN_MACRO_PLAY2,
-};
 
 /* Blink the LEDs to notify the user about some event. */
 void dynamic_macro_led_blink(void) {
@@ -272,5 +262,3 @@ bool process_record_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
 #undef DYNAMIC_MACRO_CURRENT_SLOT
 #undef DYNAMIC_MACRO_CURRENT_LENGTH
 #undef DYNAMIC_MACRO_CURRENT_CAPACITY
-
-#endif

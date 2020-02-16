@@ -1,113 +1,68 @@
-#include "pollux.h"
+#include QMK_KEYBOARD_H
 
-extern uint8_t is_master;
+/* LAYERS */
 
-/* GLOBAL VARS */
+enum layer_number {
+  BASE = 0,
+  RAISE,
+  FUNCTION
+};
 
-#define BASE      0
-#define RAISE     1
-#define FUNCTION  2
-#define TENKEY    3
-#define MOUSE     4
-#define WHEEL     5
-
-#define L_BASE      0
-#define L_RAISE     (2 << (RAISE - 1))
-#define L_FUNCTION  (2 << (FUNCTION - 1))
-#define L_TENKEY    (2 << (TENKEY - 1))
-#define L_MOUSE     (2 << (MOUSE - 1))
-#define L_WHEEL     (2 << (WHEEL - 1))
-
-/* FEATURES */
-
-#ifdef RGBLIGHT_ENABLE
-#include "./rgb.c"
-#endif
-
-/* KEYCODE DEFINITIONS */
+/* KEYCODES */
 
 #define KC_____ KC_TRNS
 #define KC_XXXX KC_NO
 
-#define KC_D_MOUS  LT(MOUSE, KC_D)
-#define KC_WEEL    MO(WHEEL)
-#define KC_FUNC    MO(FUNCTION)
-#define KC_BASE    TO(BASE)
-#define KC_TENKEY  TG(TENKEY)
-#define KC_ALT_ES  LALT_T(KC_ESC)
-#define KC_ALT_SP  LALT_T(KC_ENT)
-#define KC_CTL_TB  LCTL_T(KC_TAB)
-#define KC_RAI_EN  LT(RAISE, KC_ENT)
+#define KC_FUNC   MO(FUNCTION)
+#define KC_ALT_ES LALT_T(KC_ESC)
+#define KC_RAI_EN LT(RAISE, KC_ENT)
 
 #define KC_RST  RESET
-#define KC_MUP  KC_MS_U
-#define KC_MDN  KC_MS_D
-#define KC_MLFT KC_MS_L
-#define KC_MRGT KC_MS_R
-#define KC_WUP  KC_WH_U
-#define KC_WDN  KC_WH_D
-#define KC_WLFT KC_WH_L
-#define KC_WRGT KC_WH_R
 #define KC_ZNHN A(KC_ZKHK)
+
+#ifdef RGBLIGHT_ENABLE
+#    define KC_TOGG RGB_TOG
+#    define KC_MODE RGB_MOD
+#    define KC_H_UP RGB_HUI
+#    define KC_H_DN RGB_HUD
+#    define KC_S_UP RGB_SAI
+#    define KC_S_DN RGB_SAD
+#    define KC_V_UP RGB_VAI
+#    define KC_V_DN RGB_VAD
+#else
+#    define KC_TOGG KC_TRNS
+#    define KC_MODE KC_TRNS
+#    define KC_H_UP KC_TRNS
+#    define KC_H_DN KC_TRNS
+#    define KC_S_UP KC_TRNS
+#    define KC_S_DN KC_TRNS
+#    define KC_V_UP KC_TRNS
+#    define KC_V_DN KC_TRNS
+#endif
 
 /* KEYMAPS */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [BASE] = LAYOUT_kc(                                                   \
-    JYEN, Q,    W, E,      R, T,      Y,  /**/ Y,   U, I,   O,    P,   MINS, EQL, \
-    LCTL, A,    S, D_MOUS, F, G,          /**/      H, J,   K,    L,   SCLN, QUOT, \
-    LSFT, FUNC ,Z, X,      C, V,      B,  /**/ B,   N, M,   COMM, DOT, SLSH, BSLS, \
-    /*                     */ ALT_ES, SPC,     TAB, RAI_EN              \
+    JYEN, Q,    W, E, R, T,      Y,  /**/ Y,   U,      I,   O,    P,   MINS, EQL, \
+    LCTL, A,    S, D, F, G,          /**/      H,      J,   K,    L,   SCLN, QUOT, \
+    LSFT, FUNC ,Z, X, C, V,      B,  /**/ B,   N,      M,   COMM, DOT, SLSH, BSLS, \
+    /*                */ ALT_ES, SPC,     TAB, RAI_EN              \
   ),
 
   [RAISE] = LAYOUT_kc(                                                  \
-    ZNHN, 1,    2,    3,    4,     5,     6,   /**/ 6,    7,     8,    9,    0,    ____, BSPC, \
-    ____, ____, ____, LCBR, LPRN,  LBRC,       /**/       RBRC,  RPRN, RCBR, ____, UP,   ____, \
+    ZNHN, 1,    2,    3,    4,    5,     6,    /**/ 6,    7,     8,    9,    0,    ____, BSPC, \
+    ____, ____, ____, LCBR, LPRN, LBRC,        /**/       RBRC,  RPRN, RCBR, ____, UP,   ____, \
     ____, ____, EXLM, AT,   HASH, DLR,   PERC, /**/ PERC, CIRC,  AMPR, ASTR, LEFT, DOWN, RGHT, \
-    /*                           */ LANG2, LANG1,   ____, ____        \
+    /*                         */ LANG2, LANG1,     ____, ____          \
   ),
 
   [FUNCTION] = LAYOUT_kc(                                               \
     ____, F1,   F2,   F3,   F4,   F5,   F6,   /**/ F6,   F7,    F8,   F9,   PSCR, ____, ____, \
-    RST,  ____, ____, ____, ____, LGUI,       /**/       ____,  ____, ____, ____, PGUP, ____, \
-    ____, ____, ____, ____, ____, ____, ____, /**/ ____, ____,  ____, ____, HOME, PGDN, END, \
-    /*                         */ ____, ____,      ____, ____           \
-  ),
-
-  [MOUSE] = LAYOUT_kc(                                               \
-    ____, ____, ____, ____, ____, ____, ____, /**/ ____, ____, ____, ____, ____, ____, ____, \
-    ____, ____, WEEL, ____, ACL0, ____,       /**/       MLFT, MDN,  MUP,  MRGT, ____, ____, \
-    ____, ____, ____, ____, BTN1, BTN2, ____, /**/ ____, ____, ____, ____, ____, ____, ____, \
-    /*                         */ ____, ____,      ____, ____           \
-  ),
-
-  [WHEEL] = LAYOUT_kc(                                               \
-    ____, ____, ____, ____, ____, ____, ____, /**/ ____, ____, ____, ____, ____, ____, ____, \
-    ____, ____, ____, ____, ____, ____,       /**/       WRGT, WUP,  WDN,  WLFT, ____, ____, \
-    ____, ____, ____, ____, ____, ____, ____, /**/ ____, ____, ____, ____, ____, ____, ____, \
+    RST,  TOGG, H_UP, S_UP, V_UP, LGUI,       /**/       ____,  ____, ____, ____, PGUP, ____, \
+    ____, XXXX, MODE, H_DN, S_DN, V_DN, ____, /**/ ____, ____,  ____, ____, HOME, PGDN, END, \
     /*                         */ ____, ____,      ____, ____           \
   ),
 
 };
-
-/* USER TASKS */
-
-void matrix_scan_user (void) {
- #ifdef RGBLIGHT_ENABLE
-  rgb_update(false);
- #endif
-}
-
-void keybaord_post_init_user (void) {
- #ifdef RGBLIGHT_ENABLE
-  rgb_update(false);
- #endif
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
- #ifdef RGBLIGHT_ENABLE
-  rgb_process_record(keycode, record);
- #endif
-  return true;
-}

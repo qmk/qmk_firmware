@@ -20,13 +20,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "mousekey.h"
 #include "command.h"
 #include "led.h"
-#include "backlight.h"
 #include "action_layer.h"
 #include "action_tapping.h"
 #include "action_macro.h"
 #include "action_util.h"
 #include "action.h"
 #include "wait.h"
+
+#ifdef BACKLIGHT_ENABLE
+#    include "backlight.h"
+#endif
 
 #ifdef DEBUG_ACTION
 #    include "debug.h"
@@ -44,28 +47,9 @@ int retro_tapping_counter = 0;
 #    include <fauxclicky.h>
 #endif
 
-#ifndef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-  #ifdef IGNORE_MOD_TAP_INTERRUPT
-    #define IS_IGNORE_MOD_TAP_INTERRUPT(r) 1
-  #else
-    #define IS_IGNORE_MOD_TAP_INTERRUPT(r) 0
-  #endif
-#else
-#define IS_IGNORE_MOD_TAP_INTERRUPT(r) (get_ignore_mod_tap_interrupt(get_event_keycode(r->event)))
-__attribute__ ((weak))
-bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
-  #ifdef IGNORE_MOD_TAP_INTERRUPT
-    return true;
-  #else
-    return false;
-  #endif
-}
-#endif
-
 #ifndef TAP_CODE_DELAY
 #    define TAP_CODE_DELAY 0
 #endif
-
 #ifndef TAP_HOLD_CAPS_DELAY
 #    define TAP_HOLD_CAPS_DELAY 80
 #endif
@@ -322,25 +306,11 @@ void process_action(keyrecord_t *record, action_t action) {
                                 unregister_mods(mods);
                             }
                         }
-                        break;
-                    default:
-                        if (event.pressed) {
-                            if (tap_count > 0) {
-#if !defined(IGNORE_MOD_TAP_INTERRUPT) && !defined(IGNORE_MOD_TAP_INTERRUPT_PER_KEY)
-                                if (!IS_IGNORE_MOD_TAP_INTERRUPT(record) && record->tap.interrupted) {
-                                    dprint("mods_tap: tap: cancel: add_mods\n");
-                                    // ad hoc: set 0 to cancel tap
-                                    record->tap.count = 0;
-                                    register_mods(mods);
-                                } else
-#endif
-                                {
-                                    dprint("MODS_TAP: Tap: register_code\n");
-                                    register_code(action.key.code);
-                                }
-                            } else {
-                                dprint("MODS_TAP: No tap: add_mods\n");
-                                register_mods(mods);
+                   } else {
+                        if (tap_count > 0) {
+                            dprint("MODS_TAP: Tap: unregister_code\n");
+                            if (action.layer_tap.code == KC_CAPS) {
+                                wait_ms(TAP_HOLD_CAPS_DELAY);
                             }
                         } else {
                             if (tap_count > 0) {
@@ -568,7 +538,7 @@ void process_action(keyrecord_t *record, action_t action) {
             action_macro_play(action_get_macro(record, action.func.id, action.func.opt));
             break;
 #endif
-#if defined(BACKLIGHT_ENABLE) | defined(LED_MATRIX_ENABLE)
+#if defined(BACKLIGHT_ENABLE) || defined(LED_MATRIX_ENABLE)
         case ACT_BACKLIGHT:
             if (!event.pressed) {
                 switch (action.backlight.opt) {
@@ -887,9 +857,9 @@ void tap_code(uint8_t code) {
     unregister_code(code);
 }
 
-/** \brief Utilities for actions. (FIXME: Needs better description)
+/** \brief Adds the given physically pressed modifiers and sends a keyboard report immediately.
  *
- * FIXME: Needs documentation.
+ * \param mods A bitfield of modifiers to unregister.
  */
 void register_mods(uint8_t mods) {
     if (mods) {
@@ -898,13 +868,35 @@ void register_mods(uint8_t mods) {
     }
 }
 
-/** \brief Utilities for actions. (FIXME: Needs better description)
+/** \brief Removes the given physically pressed modifiers and sends a keyboard report immediately.
  *
- * FIXME: Needs documentation.
+ * \param mods A bitfield of modifiers to unregister.
  */
 void unregister_mods(uint8_t mods) {
     if (mods) {
         del_mods(mods);
+        send_keyboard_report();
+    }
+}
+
+/** \brief Adds the given weak modifiers and sends a keyboard report immediately.
+ *
+ * \param mods A bitfield of modifiers to register.
+ */
+void register_weak_mods(uint8_t mods) {
+    if (mods) {
+        add_weak_mods(mods);
+        send_keyboard_report();
+    }
+}
+
+/** \brief Removes the given weak modifiers and sends a keyboard report immediately.
+ *
+ * \param mods A bitfield of modifiers to unregister.
+ */
+void unregister_weak_mods(uint8_t mods) {
+    if (mods) {
+        del_weak_mods(mods);
         send_keyboard_report();
     }
 }

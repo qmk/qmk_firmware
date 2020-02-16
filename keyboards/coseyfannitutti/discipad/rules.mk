@@ -2,15 +2,17 @@
 MCU = atmega328p
 
 # Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
 BOOTLOADER = USBasp
-
-# Flash program via avrdude, but default command is not suitable.
-# You can use coseyfannitutti/discipad:default:program
-PROGRAM_CMD = avrdude -c usbasp -p m328p -U flash:w:$(BUILD_DIR)/$(TARGET).hex
 
 # disable debug code
 OPT_DEFS = -DDEBUG_LEVEL=0
-
 
 # Build Options
 #   change yes to no to disable

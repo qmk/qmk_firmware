@@ -1,4 +1,4 @@
-#include "crkbd.h"
+#include QMK_KEYBOARD_H
 
 extern uint8_t is_master;
 
@@ -34,12 +34,39 @@ extern uint8_t is_master;
 #include "./oled.c"
 #endif
 
-/* KEYCODE DEFINITIONS */
+/* TAPDANCE ACTIONS */
 
-enum custom_keycodes {
-  KC_ACEL = SAFE_RANGE,
-  KC_WEEL
+#ifdef TAP_DANCE_ENABLE
+enum tapdance_actions {
+  TD_ESC_FUNC,
+  TD_GARAKE1,
+  TD_GARAKE2,
+  TD_GARAKE3,
+  TD_GARAKE4,
+  TD_GARAKE5,
+  TD_GARAKE6,
+  TD_GARAKE7,
+  TD_GARAKE8,
+  TD_GARAKE9,
+  TD_GARAKE0_RAISE
 };
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [TD_ESC_FUNC]      = ACTION_TAP_DANCE_FN_ADVANCED(NULL, esc_finished,  esc_reset),
+  [TD_GARAKE7]       = ACTION_TAP_DANCE_FN(garake7),
+  [TD_GARAKE8]       = ACTION_TAP_DANCE_FN(garake8),
+  [TD_GARAKE9]       = ACTION_TAP_DANCE_FN(garake9),
+  [TD_GARAKE4]       = ACTION_TAP_DANCE_FN(garake4),
+  [TD_GARAKE5]       = ACTION_TAP_DANCE_FN(garake5),
+  [TD_GARAKE6]       = ACTION_TAP_DANCE_FN(garake6),
+  [TD_GARAKE1]       = ACTION_TAP_DANCE_FN(garake1),
+  [TD_GARAKE2]       = ACTION_TAP_DANCE_FN(garake2),
+  [TD_GARAKE3]       = ACTION_TAP_DANCE_FN(garake3),
+  [TD_GARAKE0_RAISE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, garake0_finished, garake0_reset)
+};
+#endif
+
+/* KEYCODE DEFINITIONS */
 
 #define KC_____ KC_TRNS
 #define KC_XXXX KC_NO
@@ -50,12 +77,12 @@ enum custom_keycodes {
 #define KC_BASE   TO(BASE)
 #define KC_GARAKE TG(GARAKE)
 #define KC_TENKEY TG(TENKEY)
+#define KC_WEEL   MO(WHEEL)
 #define KC_SFT_EN LSFT_T(KC_ENT)
 #define KC_CTR_SP LCTL_T(KC_SPC)
 
 #ifdef TAP_DANCE_ENABLE
 #define KC_ESC_FN  TD(TD_ESC_FUNC)
-#define KC_SFCL    TD(TD_SHIFT_CAPS)
 #define KC_GK1     TD(TD_GARAKE1)
 #define KC_GK2     TD(TD_GARAKE2)
 #define KC_GK3     TD(TD_GARAKE3)
@@ -68,7 +95,6 @@ enum custom_keycodes {
 #define KC_GK0R    TD(TD_GARAKE0_RAISE)
 #else
 #define KC_ESC_FN  LT(FUNCTION, KC_ESC)
-#define KC_SFCL    KC_LSFT
 #define KC_GK1     KC_1
 #define KC_GK2     KC_2
 #define KC_GK3     KC_3
@@ -90,6 +116,7 @@ enum custom_keycodes {
 #define KC_WDN  KC_WH_D
 #define KC_WLFT KC_WH_L
 #define KC_WRGT KC_WH_R
+#define KC_ACEL KC_MS_ACCEL0
 
 /* KEYMAPS */
 
@@ -101,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|------+------+------+------+------+------|                |------+------+------+------+------+------|
     LCTL , A    , S    ,D_MOUS, F    , G    ,                  H    , J    , K    , L    , SCLN , QUOT , \
 //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-    SFCL , Z    , X    , C    , V    , B    ,                  B    , N    , M    , COMM , DOT  , SLSH , \
+    LSFT , Z    , X    , C    , V    , B    ,                  B    , N    , M    , COMM , DOT  , SLSH , \
 //`------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------|
                                L2_ALT, SPC  ,ESC_FN,    TAB  , ENT  ,L1_RAI \
 //                            `--------------------'  `--------------------'
@@ -216,37 +243,9 @@ void matrix_scan_user(void) {
   #endif
 }
 
-extern uint8_t mk_time_to_max, mk_wheel_time_to_max, mk_max_speed, mk_wheel_max_speed, mk_delay, mk_interval;
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
  #ifdef SSD1306OLED
   oled_record_event(keycode, record);
  #endif
-  switch (keycode) {
-   case KC_ACEL:
-    if (record->event.pressed) {
-      mk_max_speed = MOUSEKEY_ACL_MAX_SPEED;
-      mk_wheel_max_speed = MOUSEKEY_ACL_WHEEL_MAX_SPEED;
-      mk_time_to_max = 0;
-      mk_wheel_time_to_max = 0;
-    } else {
-      mk_max_speed = MOUSEKEY_MAX_SPEED;
-      mk_wheel_max_speed = MOUSEKEY_WHEEL_MAX_SPEED;
-      mk_time_to_max = MOUSEKEY_TIME_TO_MAX;
-      mk_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
-    }
-    return false;
-   case KC_WEEL:
-    if (record->event.pressed) {
-      mk_delay = MOUSEKEY_WHEEL_DELAY / 10;
-      mk_interval = MOUSEKEY_WHEEL_INTERVAL;
-      layer_on(WHEEL);
-    } else {
-      mk_delay = MOUSEKEY_DELAY / 10;
-      mk_interval = MOUSEKEY_INTERVAL;
-      layer_off(WHEEL);
-    }
-    return false;
-  }
   return true;
 }

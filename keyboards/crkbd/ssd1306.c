@@ -15,17 +15,23 @@
 
 extern const unsigned char font[] PROGMEM;
 
+// Set this to 1 to help diagnose early startup problems
+// when testing power-on with ble.  Turn it off otherwise,
+// as the latency of printing most of the debug info messes
+// with the matrix scan, causing keys to drop.
+#define DEBUG_TO_SCREEN 0
+
 //static uint16_t last_battery_update;
 //static uint32_t vbat;
 //#define BatteryUpdateInterval 10000 /* milliseconds */
 
 // 'last_flush' is declared as uint16_t,
-// so this must be less than 65535
+// so this must be less than 65535 
 #define ScreenOffInterval 60000 /* milliseconds */
+#if DEBUG_TO_SCREEN
+static uint8_t displaying;
+#endif
 static uint16_t last_flush;
-
-static bool overwrite_mode = false;
-static bool progmem_mode = false;
 
 static bool force_dirty = true;
 
@@ -82,7 +88,6 @@ static inline bool _send_cmd3(uint8_t cmd, uint8_t opr1, uint8_t opr2) {
 
 static void clear_display(void) {
   matrix_clear(&display);
-  matrix_clear(&background);
 
   // Clear all of the display bits (there can be random noise
   // in the RAM on startup)
@@ -103,19 +108,23 @@ static void clear_display(void) {
   }
 
   display.dirty = false;
-  background.dirty = false;
 
 done:
   i2c_master_stop();
 }
 
-void set_overwrite_mode (bool value) {
-  overwrite_mode = value;
-}
+#if DEBUG_TO_SCREEN
+#undef sendchar
+static int8_t capture_sendchar(uint8_t c) {
+  sendchar(c);
+  iota_gfx_write_char(c);
 
-void set_progmem_mode (bool value) {
-  progmem_mode = value;
+  if (!displaying) {
+    iota_gfx_flush();
+  }
+  return 0;
 }
+#endif
 
 bool iota_gfx_init(bool rotate) {
   bool success = false;
@@ -159,6 +168,10 @@ bool iota_gfx_init(bool rotate) {
 
   iota_gfx_flush();
 
+#if DEBUG_TO_SCREEN
+  print_set_sendchar(capture_sendchar);
+#endif
+
 done:
   return success;
 }
@@ -183,134 +196,93 @@ done:
   return success;
 }
 
-void matrix_reset_cursor(struct CharacterMatrix *matrix) {
-  matrix->cursor = &matrix->display[0][0];
-}
+void matrix_write_char_inner(struct CharacterMatrix *matrix, uint8_t c) {
+  *matrix->cursor = c;
+  ++matrix->cursor;
 
-static inline void _matrix_maybe_scroll(struct CharacterMatrix *matrix) {
   if (matrix->cursor - &matrix->display[0][0] == sizeof(matrix->display)) {
     // We went off the end; scroll the display upwards by one line
     memmove(&matrix->display[0], &matrix->display[1],
-            DisplayWidth * (MatrixRows - 1));
+            MatrixCols * (MatrixRows - 1));
     matrix->cursor = &matrix->display[MatrixRows - 1][0];
-    memset(matrix->cursor, 0, DisplayWidth);
+    memset(matrix->cursor, ' ', MatrixCols);
   }
 }
 
-static inline void matrix_write_byte(struct CharacterMatrix *matrix, uint8_t byte) {
-  *matrix->cursor = overwrite_mode ? *matrix->cursor | byte : byte;
-  ++matrix->cursor;
-  _matrix_maybe_scroll(matrix);
-}
+void matrix_write_char(struct CharacterMatrix *matrix, uint8_t c) {
+  matrix->dirty = true;
 
-static inline void matrix_write_char(struct CharacterMatrix *matrix, uint8_t c) {
-  const uint8_t *glyph = font + c * FontWidth;
-  for (uint8_t glyphCol = 0; glyphCol < FontWidth; ++glyphCol) {
-    uint8_t colBits = pgm_read_byte(glyph + glyphCol);
-    matrix_write_byte(matrix, colBits);
-  }
-}
+  if (c == '\n') {
+    // Clear to end of line from the cursor and then move to the
+    // start of the next line
+    uint8_t cursor_col = (matrix->cursor - &matrix->display[0][0]) % MatrixCols;
 
-static inline void matrix_write_char_delimited(struct CharacterMatrix *matrix, uint8_t c, uint8_t from, uint8_t width) {
-  const uint8_t *glyph = font + c * FontWidth;
-  for (; width--; ++from) {
-    uint8_t colBits = pgm_read_byte(glyph + from);
-    matrix_write_byte(matrix, colBits);
-  }
-}
-
-void matrix_newline(struct CharacterMatrix *matrix) {
-  if (overwrite_mode) {
-    uint8_t cursor_row = (matrix->cursor - &matrix->display[0][0]) / DisplayWidth;
-    matrix->cursor = &matrix->display[cursor_row + 1][0];
-    _matrix_maybe_scroll(matrix);
-  } else {
-    uint8_t cursor_col = (matrix->cursor - &matrix->display[0][0]) % DisplayWidth;
-    while (cursor_col++ < DisplayWidth) {
-      matrix_write_byte(matrix, 0);
+    while (cursor_col++ < MatrixCols) {
+      matrix_write_char_inner(matrix, ' ');
     }
+    return;
   }
+
+  matrix_write_char_inner(matrix, c);
 }
 
-void matrix_return(struct CharacterMatrix *matrix) {
-  uint8_t cursor_row = (matrix->cursor - &matrix->display[0][0]) / DisplayWidth;
-  matrix->cursor = &matrix->display[cursor_row][0];
+void iota_gfx_write_char(uint8_t c) {
+  matrix_write_char(&display, c);
 }
 
 void matrix_write(struct CharacterMatrix *matrix, const char *data) {
-  char ch;
-  while ((ch = progmem_mode ? pgm_read_byte(data) : *data)) {
-    matrix_write_char(matrix, ch);
+  const char *end = data + strlen(data);
+  while (data < end) {
+    matrix_write_char(matrix, *data);
     ++data;
   }
 }
 
-void matrix_write_range(struct CharacterMatrix *matrix, const char *data, uint8_t from, uint8_t width) {
-  data += from / FontWidth;
-  from %= FontWidth;
-
-  if (from) {
-    if (width <= FontWidth) {
-      matrix_write_char_delimited(matrix, progmem_mode ? pgm_read_byte(data) : *data, from, width);
-      return;
-    } else {
-      matrix_write_char_delimited(matrix, progmem_mode ? pgm_read_byte(data) : *data, from, FontWidth - from);
-      width -= FontWidth - from;
-      data++;
-    }
-  }
-
-  while (width >= FontWidth) {
-    matrix_write_char(matrix, progmem_mode ? pgm_read_byte(data) : *data);
-    width -= FontWidth;
-    data++;
-  }
-
-  if (width) {
-    matrix_write_char_delimited(matrix, progmem_mode ? pgm_read_byte(data) : *data, 0, width);
-  }
-}
-
 void matrix_write_ln(struct CharacterMatrix *matrix, const char *data) {
-  matrix_write(matrix, data);
-  matrix_newline(matrix);
+  char data_ln[strlen(data)+2];
+  snprintf(data_ln, sizeof(data_ln), "%s\n", data);
+  matrix_write(matrix, data_ln);
 }
 
-void matrix_write_range_ln(struct CharacterMatrix *matrix, const char *data, uint8_t from, uint8_t width) {
-  matrix_write_range(matrix, data, from, width);
-  matrix_newline(matrix);
+void iota_gfx_write(const char *data) {
+  matrix_write(&display, data);
+}
+
+void matrix_write_P(struct CharacterMatrix *matrix, const char *data) {
+  while (true) {
+    uint8_t c = pgm_read_byte(data);
+    if (c == 0) {
+      return;
+    }
+    matrix_write_char(matrix, c);
+    ++data;
+  }
+}
+
+void iota_gfx_write_P(const char *data) {
+  matrix_write_P(&display, data);
 }
 
 void matrix_clear(struct CharacterMatrix *matrix) {
-  memset(matrix->display, 0, sizeof(matrix->display));
+  memset(matrix->display, ' ', sizeof(matrix->display));
   matrix->cursor = &matrix->display[0][0];
+  matrix->dirty = true;
 }
 
 void iota_gfx_clear_screen(void) {
   matrix_clear(&display);
 }
 
-void matrix_push(const struct CharacterMatrix *matrix) {
-  if (memcmp(display.display, matrix->display, sizeof(display.display))) {
-    memcpy(display.display, matrix->display, sizeof(display.display));
-    display.dirty = true;
-  }
-}
-
-void matrix_push_background(const struct CharacterMatrix *matrix) {
-  if (memcmp(background.display, matrix->display, sizeof(background.display))) {
-    memcpy(background.display, matrix->display, sizeof(background.display));
-    background.dirty = true;
-  }
-}
-
-void matrix_render(struct CharacterMatrix *fg, struct CharacterMatrix *bg) {
+void matrix_render(struct CharacterMatrix *matrix) {
   last_flush = timer_read();
   iota_gfx_on();
+#if DEBUG_TO_SCREEN
+  ++displaying;
+#endif
 
   // Move to the home position
   send_cmd3(PageAddr, 0, MatrixRows - 1);
-  send_cmd3(ColumnAddr, 0, DisplayWidth - 1);
+  send_cmd3(ColumnAddr, 0, (MatrixCols * FontWidth) - 1);
 
   if (i2c_start_write(SSD1306_ADDRESS)) {
     goto done;
@@ -321,20 +293,30 @@ void matrix_render(struct CharacterMatrix *fg, struct CharacterMatrix *bg) {
   }
 
   for (uint8_t row = 0; row < MatrixRows; ++row) {
-    for (uint8_t col = 0; col < DisplayWidth; ++col) {
-      i2c_master_write(fg->display[row][col] | bg->display[row][col]);
+    for (uint8_t col = 0; col < MatrixCols; ++col) {
+      const uint8_t *glyph = font + (matrix->display[row][col] * FontWidth);
+
+      for (uint8_t glyphCol = 0; glyphCol < FontWidth; ++glyphCol) {
+        uint8_t colBits = pgm_read_byte(glyph + glyphCol);
+        i2c_master_write(colBits);
+      }
+
+      // 1 column of space between chars (it's not included in the glyph)
+      //i2c_master_write(0);
     }
   }
 
-  fg->dirty = false;
-  bg->dirty = false;
+  matrix->dirty = false;
 
 done:
   i2c_master_stop();
+#if DEBUG_TO_SCREEN
+  --displaying;
+#endif
 }
 
 void iota_gfx_flush(void) {
-  matrix_render(&display, &background);
+  matrix_render(&display);
 }
 
 __attribute__ ((weak))
@@ -344,7 +326,7 @@ void iota_gfx_task_user(void) {
 void iota_gfx_task(void) {
   iota_gfx_task_user();
 
-  if (display.dirty || background.dirty || force_dirty) {
+  if (display.dirty|| force_dirty) {
     iota_gfx_flush();
     force_dirty = false;
   }

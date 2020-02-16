@@ -44,7 +44,7 @@ qmk setup  # This will clone `qmk/qmk_firmware` and optionally set up your build
 We are looking for people to create and maintain a `qmk` package for more operating systems. If you would like to create a package for your OS please follow these guidelines:
 
 * Follow best practices for your OS when they conflict with these guidelines
-    * Documment why in a comment when you do deviate
+    * Document why in a comment when you do deviate
 * Install using a virtualenv
 * Instruct the user to set the environment variable `QMK_HOME` to have the firmware source checked out somewhere other than `~/qmk_firmware`.
 
@@ -69,6 +69,16 @@ There are some limitations to the local CLI compared to the global CLI:
 
 # CLI Commands
 
+## `qmk cformat`
+
+This command formats C code using clang-format. Run it with no arguments to format all core code, or pass filenames on the command line to run it on specific files.
+
+**Usage**:
+
+```
+qmk cformat [file1] [file2] [...] [fileN]
+```
+
 ## `qmk compile`
 
 This command allows you to compile firmware from any directory. You can compile JSON exports from <https://config.qmk.fm> or compile keymaps in the repo.
@@ -85,14 +95,28 @@ qmk compile <configuratorExport.json>
 qmk compile -kb <keyboard_name> -km <keymap_name>
 ```
 
-## `qmk cformat`
+## `qmk flash`
 
-This command formats C code using clang-format. Run it with no arguments to format all core code, or pass filenames on the command line to run it on specific files.
+This command is similar to `qmk compile`, but can also target a bootloader. The bootloader is optional, and is set to `:flash` by default.
+To specify a different bootloader, use `-bl <bootloader>`. Visit <https://docs.qmk.fm/#/flashing>
+for more details of the available bootloaders.
 
-**Usage**:
+**Usage for Configurator Exports**:
 
 ```
-qmk cformat [file1] [file2] [...] [fileN]
+qmk flash <configuratorExport.json> -bl <bootloader>
+```
+
+**Usage for Keymaps**:
+
+```
+qmk flash -kb <keyboard_name> -km <keymap_name> -bl <bootloader>
+```
+
+**Listing the Bootloaders**
+
+```
+qmk flash -b
 ```
 
 ## `qmk config`
@@ -105,6 +129,16 @@ This command lets you configure the behavior of QMK. For the full `qmk config` d
 qmk config [-ro] [config_token1] [config_token2] [...] [config_tokenN]
 ```
 
+## `qmk docs`
+
+This command starts a local HTTP server which you can use for browsing or improving the docs. Default port is 8936.
+
+**Usage**:
+
+```
+qmk docs [-p PORT]
+```
+
 ## `qmk doctor`
 
 This command examines your environment and alerts you to potential build or flash problems.
@@ -113,6 +147,48 @@ This command examines your environment and alerts you to potential build or flas
 
 ```
 qmk doctor
+```
+
+## `qmk json-keymap`
+
+Creates a keymap.c from a QMK Configurator export.
+
+**Usage**:
+
+```
+qmk json-keymap [-o OUTPUT] filename
+```
+
+## `qmk kle2json`
+
+This command allows you to convert from raw KLE data to QMK Configurator JSON. It accepts either an absolute file path, or a file name in the current directory. By default it will not overwrite `info.json` if it is already present. Use the `-f` or `--force` flag to overwrite.
+
+**Usage**:
+
+```
+qmk kle2json [-f] <filename>
+```
+
+**Examples**:
+
+```
+$ qmk kle2json kle.txt 
+☒ File info.json already exists, use -f or --force to overwrite.
+```
+
+```
+$ qmk kle2json -f kle.txt -f
+Ψ Wrote out to info.json
+```
+
+## `qmk list-keyboards`
+
+This command lists all the keyboards currently defined in `qmk_firmware`
+
+**Usage**:
+
+```
+qmk list-keyboards
 ```
 
 ## `qmk new-keymap`
