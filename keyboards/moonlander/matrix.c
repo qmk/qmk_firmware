@@ -64,7 +64,6 @@ uint8_t mcp23018_rx[1];
 
 void mcp23018_init(void) {
     i2c_init();
-    i2c_start(MCP23018_DEFAULT_ADDRESS << 1);
 
     // #define MCP23_ROW_PINS { GPB5, GBP4, GBP3, GBP2, GBP1, GBP0 }       outputs
     // #define MCP23_COL_PINS { GPA0, GBA1, GBA2, GBA3, GBA4, GBA5, GBA6 } inputs
