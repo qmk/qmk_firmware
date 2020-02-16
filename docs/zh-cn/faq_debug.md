@@ -166,6 +166,8 @@ https://geekhack.org/index.php?topic=41989.msg1967778#msg1967778
 ## FLIP 不工作
 ### `AtLibUsbDfu.dll` 未找到
 从设备管理器中删除当前驱动程序并在设备管理器重新安装一个FLIP提供的程序。
+http://imgur.com/a/bnwzy
+
 
 <!--源文件：https://raw.githubusercontent.com/qmk/qmk_firmware/770a4ee7291095aaa6548d3e988633bf2ae6e6c0/docs/faq_debug.md 
     源提交哈希：770a4ee7291095aaa6548d3e988633bf2ae6e6c0-->
