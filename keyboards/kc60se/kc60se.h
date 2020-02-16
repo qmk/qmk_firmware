@@ -63,4 +63,5 @@
     { K40, K41, K42, ___, ___, K45, ___, ___, ___, K49, K4A, K4B, K4C, K4D }  \
 }
 
+#define LAYOUT LAYOUT_all
 // clang-format on
