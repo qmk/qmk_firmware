@@ -25,56 +25,56 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = LAYOUT( \
+  [_QWERTY] = LAYOUT(
   //,-----------------------------------------.                ,-----------------------------------------.
-     KC_TAB,  KC_Q,  KC_W,  KC_E,  KC_R,  KC_T,                   KC_Y,  KC_U,  KC_I,  KC_O,  KC_P,KC_BSPC,\
+     LT(_ADJUST,KC_TAB),  KC_Q,  KC_W,  KC_E,  KC_R,  KC_T,                   KC_Y,  KC_U,  KC_I,  KC_O,  KC_P,KC_BSPC,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-    LT(_ADJUST, KC_ESC),  KC_A,  KC_S,  KC_D,  LT(_RAISE,KC_F),  MT(MOD_LCTL,KC_G), KC_H,  KC_J,  KC_K,  KC_L,TD(TD1),TD(TD2),\
+    LSFT_T(KC_ESC),  KC_A,  KC_S,  KC_D,  LT(3,KC_F), KC_G, KC_H,  KC_J,  KC_K,  KC_L,TD(TD1),TD(TD2),
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-    KC_LCTL,  KC_Z,  KC_X,  KC_C,  KC_V,  KC_B,                   KC_N,  KC_M,KC_COMM,KC_DOT,TD(TD3),KC_SFTENT,\
+    KC_LCTL,  KC_Z,  KC_X,  KC_C,  KC_V,  KC_B,                   KC_N,  KC_M,KC_COMM,KC_DOT,TD(TD3),KC_SFTENT,
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                KC_LGUI, LOWER,MT(MOD_LSFT, KC_SPC),   LT(_RAISE,KC_ENT), RAISE,KC_LALT \
+                                KC_LGUI, LT(1,KC_SPC),MT(MOD_LSFT, KC_SPC),   MT(MOD_LSFT,KC_ENT), LT(2,KC_SPC),KC_LALT 
                               //`--------------------'  `--------------------'
   ),
   
-  [_RAISE] = LAYOUT( \
+  [_RAISE] = LAYOUT( 
   //,-----------------------------------------.                ,-----------------------------------------.
-     KC_TAB,  KC_1,  KC_2,  KC_3,  KC_4,  KC_5,                   KC_6,  KC_7,  KC_8,  KC_9,  KC_0,KC_BSPC,\
+     KC_GRV,  KC_1,  KC_2,  KC_3,  KC_4,  KC_5,                   KC_6,  KC_7,  KC_8,  KC_9,  KC_0,KC_BSPC,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-    KC_ESC, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                KC_LEFT,KC_DOWN,KC_UP, KC_RIGHT,KC_NO, KC_DEL,\
+    KC_DEL, _______, _______, _______, _______, _______,                _______,KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-    KC_LCTL, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                  KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_NO, KC_NO,\
+    KC_LCTL, _______, _______, _______, _______, _______,                  _______, KC_UNDS, KC_PLUS,  KC_LCBR, KC_RCBR, KC_PIPE, 
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                KC_LGUI, LOWER,MT(MOD_LSFT, KC_SPC),   LT(_RAISE,KC_ENT), RAISE,KC_LALT \
+                                _______, _______, _______, _______, _______, _______ 
                               //`--------------------'  `--------------------'
   ),
 
-  [_LOWER] = LAYOUT( \
+  [_LOWER] = LAYOUT(
   //,-----------------------------------------.                ,-----------------------------------------.
-     KC_TAB,KC_EXLM,KC_AT,KC_HASH,KC_DLR,KC_PERC,              KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,KC_BSPC,\
+     KC_TAB,KC_EXLM,KC_AT,KC_HASH,KC_DLR,KC_PERC,              KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,KC_BSPC,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-    KC_ESC, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                KC_MINS,KC_EQL,KC_LCBR,KC_RCBR,KC_PIPE,KC_GRV,\
+    KC_DEL, _______, _______, _______, _______, _______, _______,KC_UNDS, KC_PLUS,  KC_LCBR, KC_RCBR, KC_BSLS,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-    KC_LCTL, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                KC_UNDS,KC_PLUS,KC_LBRC,KC_RBRC,KC_BSLS,KC_TILD,\
+    KC_LCTL, _______, _______, _______, _______, _______, _______,  KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_TILD, 
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                KC_LGUI, LOWER,MT(MOD_LSFT, KC_SPC),   LT(_RAISE,KC_ENT), RAISE,KC_LALT \
+                                _______, _______, _______, _______, _______, _______ 
                               //`--------------------'  `--------------------'
   ),
 
-  [_ADJUST] = LAYOUT( \
+  [_ADJUST] = LAYOUT(
   //,-----------------------------------------.                ,-----------------------------------------.
-      KC_F1,KC_F2, KC_F3, KC_F4, KC_F5, KC_F6,                  KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12,\
+      _______,KC_F2, KC_F3, KC_F4, KC_F5, KC_F6,                  KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-    KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,                 KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,\
+    KC_F1,_______,_______,D_NAVI,_______,_______,                 KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, _______, _______,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-    RESET,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,                 KC_MPLY, KC_MNXT, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT,\
+    RESET,KC_PSCR,_______,_______,_______,_______,                 KC_HOME, KC_PGDN, KC_PGUP, KC_END, _______, _______,
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                KC_LGUI, LOWER,MT(MOD_LSFT, KC_SPC),   LT(_RAISE,KC_ENT), RAISE,KC_LALT \
+                                _______, KC_VOLD,KC_MPLY, KC_MNXT, KC_VOLU,_______ 
                               //`--------------------'  `--------------------'
   )
 };
 
-int RGB_current_mode;
+int RGB_current_mode; 
 
 // Setting ADJUST layer RGB back to default
 void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {

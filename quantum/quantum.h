@@ -138,6 +138,10 @@ extern layer_state_t layer_state;
 #    include "process_magic.h"
 #endif
 
+#ifdef GRAVE_ESC_ENABLE
+#    include "process_grave_esc.h"
+#endif
+
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
 #    include "process_rgb.h"
 #endif
@@ -162,11 +166,19 @@ extern layer_state_t layer_state;
 #    include "process_dynamic_macro.h"
 #endif
 
+#ifdef DYNAMIC_KEYMAP_ENABLE
+#    include "dynamic_keymap.h"
+#endif
+
+#ifdef VIA_ENABLE
+#    include "via.h"
+#endif
+
 // Function substitutions to ease GPIO manipulation
 #if defined(__AVR__)
 typedef uint8_t pin_t;
 
-#    define setPinInput(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF))
+#    define setPinInput(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
 #    define setPinInputHigh(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
 #    define setPinInputLow(pin) _Static_assert(0, "AVR processors cannot implement an input as pull low")
 #    define setPinOutput(pin) (DDRx_ADDRESS(pin) |= _BV((pin)&0xF))
@@ -176,6 +188,7 @@ typedef uint8_t pin_t;
 #    define writePin(pin, level) ((level) ? writePinHigh(pin) : writePinLow(pin))
 
 #    define readPin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
+
 #elif defined(PROTOCOL_CHIBIOS)
 typedef ioline_t pin_t;
 
@@ -242,30 +255,6 @@ void shutdown_user(void);
 void register_code16(uint16_t code);
 void unregister_code16(uint16_t code);
 void tap_code16(uint16_t code);
-
-#ifdef BACKLIGHT_ENABLE
-void backlight_init_ports(void);
-void backlight_task(void);
-void backlight_task_internal(void);
-void backlight_on(pin_t backlight_pin);
-void backlight_off(pin_t backlight_pin);
-
-#    ifdef BACKLIGHT_BREATHING
-void breathing_task(void);
-void breathing_enable(void);
-void breathing_pulse(void);
-void breathing_disable(void);
-void breathing_self_disable(void);
-void breathing_toggle(void);
-bool is_breathing(void);
-
-void breathing_intensity_default(void);
-void breathing_period_default(void);
-void breathing_period_set(uint8_t value);
-void breathing_period_inc(void);
-void breathing_period_dec(void);
-#    endif
-#endif
 
 void     send_dword(uint32_t number);
 void     send_word(uint16_t number);
