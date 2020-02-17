@@ -16,12 +16,15 @@
 
 #include QMK_KEYBOARD_H
 
-void led_set_kb(uint8_t usb_led) {
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        setPinOutput(B2);
-        writePinLow(B2);
-    } else {
-        setPinInput(B2);
-    }
-    led_set_user(usb_led);
+void matrix_init_kb(void){
+    setPinOutput(B2);
 }
+
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        writePin(B2, !led_state.caps_lock);
+    }
+    return res;
+}
+
