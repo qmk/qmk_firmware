@@ -62,10 +62,10 @@ fi
 while true; do
     echo
     echo "Which USB drivers do you want to install?"
-    echo "(A)all - All supported drivers will be installed"
+    echo "(A)ll - All supported drivers will be installed"
     echo "(C)onnected - Only drivers for connected keyboards (in bootloader/flashing mode)"
     echo "              will be installed"
-    echo "(F)force - Like all, but will also override existing drivers for connected"
+    echo "(F)orce - Like all, but will also override existing drivers for connected"
     echo "           keyboards"
     echo "(N)one - No drivers will be installed,"
     echo "         flashing your keyboard will most likely not work"
