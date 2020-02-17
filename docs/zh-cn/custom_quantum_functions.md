@@ -1,13 +1,10 @@
-<!--源文件：https://raw.githubusercontent.com/qmk/qmk_firmware/7f388b65530b06779089be6cb4ddc56b2ecb36ff/docs/custom_quantum_functions.md 
-    源提交哈希：7f388b65530b06779089be6cb4ddc56b2ecb36ff-->
-<!--翻译时间:20200214-21:44(GMT+8)-->
 # 如何定制你键盘的功能
 
 对于很多人来说客制化键盘可不只是向你的电脑发送你按了那个件这么简单。你肯定想实现比简单按键和宏更复杂的功能。QMK有能让你注入代码的钩子, 覆盖功能, 另外，还可以自定义键盘在不同情况下的行为。
 
-本页不假定任何特殊的QMK知识，但阅读[理解QMK](understanding_qmk.md)将会在更基础的层面帮你理解发生了什么。
+本页不假定任何特殊的QMK知识，但阅读[理解QMK](zh-cn/understanding_qmk.md)将会在更基础的层面帮你理解发生了什么。
 
-## 内核、键盘、布局
+## 内核、键盘、映射
 
 我们把qmk组织成一个层次结构：
 
@@ -15,7 +12,7 @@
   * Keyboard/Revision (`_kb`)
     * Keymap (`_user`)
 
-下面描述的每一个函数都可以在定义上加一个`_kb()`或 `_user()` 后缀。 建议在键盘/修订层使用`_kb()`后缀，在布局层使用`_user()`后缀。
+下面描述的每一个函数都可以在定义上加一个`_kb()`或 `_user()` 后缀。 建议在键盘/修订层使用`_kb()`后缀，在映射层使用`_user()`后缀。
 
 在键盘/修订层定义函数时，`_kb()`在执行任何代码前必须先调用`_user()`，不然映射层函数将不被调用。
 
@@ -28,7 +25,7 @@
 创建键码第一步，先枚举出它全部，也就是给键码起个名字并分配唯一数值。QMK没有直接限制最大键码值大小，而是提供了一个`SAFE_RANGE`宏。你可以在枚举时用`SAFE_RANGE`来保证你取得了唯一的键码值。
 
 
-这有枚举两个键码的例子。把这块加到`keymap.c`的话你就在布局中能用`FOO`和`BAR`了。
+这有枚举两个键码的例子。把这块加到`keymap.c`的话你就映射中能用`FOO`和`BAR`了。
 
 ```c
 enum my_keycodes {
@@ -74,7 +71,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 * 键盘/修订: `bool process_record_kb(uint16_t keycode, keyrecord_t *record)`
 * 映射: `bool process_record_user(uint16_t keycode, keyrecord_t *record)`
 
-`keycode(键码)`参数是在布局上定义的，比如`MO(1)`, `KC_L`, 等等。 你要用 `switch...case` 块来处理这些事件。
+`keycode(键码)`参数是在映射上定义的，比如`MO(1)`, `KC_L`, 等等。 你要用 `switch...case` 块来处理这些事件。
 
 `record`参数含有实际按键的信息：
 
@@ -122,7 +119,7 @@ qmk提供了读取HID规范包含的5个LED的方法。:
 
 示例如下:
 
-  - 可以覆写这些LED，让他们拥有其他功能，例如布局层指示
+  - 可以覆写这些LED，让他们拥有其他功能，例如映射层指示
     - 返回 `false` 会避免 `_kb()` 这个函数运行, 因为该函数会覆写你层的行为
   - 在LED亮起或熄灭时发出声音
     - 返回 `true` 会使 `_kb` 这个函数运行, 因为发出声音是默认的LED行为之外的。
@@ -352,7 +349,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 * 映射: `uint32_t layer_state_set_user(uint32_t state)`
 
 
-其中`state`是活动层的位掩码, 详见[布局概述](zh-cn/keymap.md#布局的层状态)
+其中`state`是活动层的位掩码, 详见[映射概述](zh-cn/keymap.md#映射的层状态)
 
 
 # 掉电保存配置 (EEPROM)
@@ -367,7 +364,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 ### 实现示例
 
-本例讲解了如何添加设置，并且读写。本里使用了用户布局。这是一个复杂的函数，有很多事情要做。实际上，它使用了很多上述函数来工作！
+本例讲解了如何添加设置，并且读写。本里使用了用户映射。这是一个复杂的函数，有很多事情要做。实际上，它使用了很多上述函数来工作！
 
 
 在你的keymap.c文件中，将以下代码添加至顶部:
@@ -389,7 +386,7 @@ user_config_t user_config;
 首先要使用`keyboard_post_init_user`，你要加入`eeconfig_read_user()`来填充你刚刚创建的结构体。然后您可以立即使用这个结构来控制您的映射中的功能。就像这样： 
 ```c
 void keyboard_post_init_user(void) {
-  // 调用布局级别的矩阵初始化
+  // 调映射级别的矩阵初始化
 
   // 从EEPROM读用户配置
   user_config.raw = eeconfig_read_user();
@@ -542,3 +539,7 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
 ### `get_tapping_term` 函数文档
 
 不像这篇的其他功能,这个不需要(也没有理由需要)quantum或者键盘级别的函数，只要用户级函数即可，所以不需要太关注这些。
+
+<!--源文件：https://raw.githubusercontent.com/qmk/qmk_firmware/7f388b65530b06779089be6cb4ddc56b2ecb36ff/docs/custom_quantum_functions.md 
+    源提交哈希：7f388b65530b06779089be6cb4ddc56b2ecb36ff-->
+<!--翻译时间:20200217-18:32(GMT+8)-->

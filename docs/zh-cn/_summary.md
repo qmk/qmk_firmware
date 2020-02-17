@@ -1,6 +1,3 @@
-<!--源文件：https://github.com/qmk/qmk_firmware/blob/d0d106cef75b4121374020fca633e8fc2628cef0/docs/_summary.md 
-    源提交哈希：d0d106cef75b4121374020fca633e8fc2628cef0-->
-<!--翻译时间:20200213-15:30(GMT+8)-->
 * [菜鸟入门指南](zh-cn/newbs.md)
   * [入门](zh-cn/newbs_getting_started.md)
   * [构建你的第一个固件](zh-cn/newbs_building_firmware.md)
@@ -131,3 +128,7 @@
   * [Midi工具库](zh-cn/internals_midi_util.md)
   * [发送函数](zh-cn/internals_send_functions.md)
   * [Sysex工具](zh-cn/internals_sysex_tools.md)
+
+<!--源文件：https://github.com/qmk/qmk_firmware/blob/d0d106cef75b4121374020fca633e8fc2628cef0/docs/_summary.md 
+    源提交哈希：d0d106cef75b4121374020fca633e8fc2628cef0-->
+<!--翻译时间:20200217-18:18(GMT+8)-->
