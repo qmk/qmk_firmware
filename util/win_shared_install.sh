@@ -37,7 +37,7 @@ function install_utils {
 function install_drivers {
     pushd "$download_dir"
     cp -f "$dir/drivers.txt" .
-    echo 
+    echo
     cmd.exe //c "qmk_driver_installer.exe $1 $2 drivers.txt"
     popd > /dev/null
 }
@@ -71,7 +71,7 @@ while true; do
     echo "         flashing your keyboard will most likely not work"
     read -p "(A/C/F/N)? " res
     case $res in
-        [Aa]* ) install_drivers --all; break;;
+        [AaYy]* ) install_drivers --all; break;;
         [Cc]* ) install_drivers; break;;
         [Ff]* ) install_drivers --all --force; break;;
         [Nn]* ) break;;
