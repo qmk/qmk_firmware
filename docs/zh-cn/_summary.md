@@ -129,6 +129,6 @@
   * [发送函数](zh-cn/internals_send_functions.md)
   * [Sysex工具](zh-cn/internals_sysex_tools.md)
 
-<!--源文件：https://github.com/qmk/qmk_firmware/blob/d0d106cef75b4121374020fca633e8fc2628cef0/docs/_summary.md 
+<!--源文件：https://raw.githubusercontent.com/qmk/qmk_firmware/d0d106cef75b4121374020fca633e8fc2628cef0/docs/_summary.md 
     源提交哈希：d0d106cef75b4121374020fca633e8fc2628cef0-->
 <!--翻译时间:20200217-18:18(GMT+8)-->
