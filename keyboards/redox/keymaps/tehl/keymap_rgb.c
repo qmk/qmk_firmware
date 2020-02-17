@@ -1,7 +1,5 @@
 #include "keymap.h"
 #include "keymap_rgb.h"
-#include "rgblight.h"
-#include "util.h"
 
 bool is_default_rgb_state = false;
 

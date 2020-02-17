@@ -1,5 +1,5 @@
 #pragma once
-#include "quantum.h"
+#include QMK_KEYBOARD_H
 
 enum layer_names {
     _BASE,
