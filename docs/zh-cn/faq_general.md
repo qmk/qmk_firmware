@@ -1,19 +1,19 @@
-# ��������
+# 常见问题
 
-## QMK��ʲô?
+## QMK是什么?
 
-[QMK](https://github.com/qmk), �����ӻ�е����(Quantum Mechanical Keyboard)����д����һȺ��Դ������Ϊ���Ƽ��̿����Ĺ��ߡ����Ǵ�[QMK�̼�](https://github.com/qmk/qmk_firmware)��ʼ������[TMK](https://github.com/tmk/tmk_keyboard)��ħ�ķֲ档
+[QMK](https://github.com/qmk), 是量子机械键盘(Quantum Mechanical Keyboard)的缩写，是一群开源爱好者为定制键盘开发的工具。我们从[QMK固件](https://github.com/qmk/qmk_firmware)开始，这是[TMK](https://github.com/tmk/tmk_keyboard)的魔改分叉。
 
-### Ϊʲô������(Quantum)?
+## QMK和TMK有什么区别?
 
-<!-- ���޸� �����²ۣ��ĵ����߾�ȻҲ��֪��Ϊɶ������ -->
+TMK最初由[Jun Wako](https://github.com/tmk)设计和执行。QMK始于[Jack Humbert](https://github.com/jackhumbert)为Planck键盘创建的TMK分叉。一段时间后，Jack的分叉就和TMK相去甚远了，于是在2015年，Jack决定将他的分叉改名QMK。
 
-## QMK��TMK��ʲô����?
+从技术观点来讲，QMK是TMK添加一些新功能而成的。尤其是QMK扩展了可用的键码，使高级功能进一步丰富比如 `S()`, `LCTL()`, 和 `MO()`。全部键码见[键码](zh-cn/keycodes.md).
 
-TMK�����[Jun Wako](https://github.com/tmk)��ƺ�ִ�С�QMKʼ��[Jack Humbert](https://github.com/jackhumbert)ΪPlanck���̴�����TMK�ֲ档һ��ʱ���Jack�ķֲ�ͺ�TMK��ȥ��Զ�ˣ�������2015�꣬Jack��������QMK��
+从工程的社区管理来讲TMK自己维护了所有官方支持的键盘，只有很小一部分社区支持。独立社区维护已存在分叉或为其他键盘创建的分叉。默认支持很少的映射，所以用户通常不会与他人分享映射。QMK鼓励通过集中管理仓库分享映射和键盘，我们会采纳所有符合质量标准的PR。这就极大的保证了社区维护，同时QMK小组也会在必要时给予帮助。
 
-�Ӽ����۵�������QMK��TMK����һЩ�¹��ܶ��ɵġ�������QMK��չ�˿��õļ��룬ʹ�߼����ܽ�һ���ḻ���� `S()`, `LCTL()`, �� `MO()`��ȫ�������[����](keycodes.md).
+这两种方法都有其优点和缺点，并且代码在有意义时在TMK和QMK之间自由流动。
 
-�ӹ��̵�������������TMK�Լ�ά�������йٷ�֧�ֵļ��̣�ֻ�к�Сһ��������֧�֡���������ά���Ѵ��ڷֲ��Ϊ�������̴����ķֲ档Ĭ��֧�ֺ��ٵļ��룬�����û�ͨ�����������˷������֡�QMK����ͨ�����й����ֿ�������ֺͼ��̣����ǻ�������з���������׼��PR����ͼ���ı�֤������ά����ͬʱQMKС��Ҳ���ڱ�Ҫʱ���������
-
-�����ַ����������ŵ��ȱ�㣬���Ҵ�����������ʱ��TMK��QMK֮������������
+<!--源文件：https://raw.githubusercontent.com/qmk/qmk_firmware/5bb3fe7a3517e426ba3827a5b889e69bd222bf10/docs/faq_general.md 
+    源提交哈希：5bb3fe7a3517e426ba3827a5b889e69bd222bf10-->
+<!--翻译时间:20200217-19:04(GMT+8)-->
