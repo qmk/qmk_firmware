@@ -70,12 +70,12 @@ endif
 SRC += tominabox1.c
 endif
 
-ifeq ($(strip $(KEYBOARD)), brutal33)
+ifeq ($(strip $(KEYBOARD)), handwired/brutal33)
 TAP_DANCE_ENABLE = yes
 COMBO_ENABLE = yes
 NKRO_ENABLE = yes
-RGBLIGHT_ENABLE = yes
-LED_ANIMATIONS = yes
+RGBLIGHT_ENABLE = no
+LED_ANIMATIONS = no
 ifeq ($(strip $(LED_ANIMATIONS)), yes)
     # OPT_DEFS += -DRGBLIGHT_ANIMATIONS
     OPT_DEFS += -DLED_ANIMATIONS

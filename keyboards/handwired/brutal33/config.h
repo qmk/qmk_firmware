@@ -25,7 +25,7 @@
  *
  */
 #define MATRIX_ROW_PINS { C7, F1, F0, B6 }
-#define MATRIX_COL_PINS { C6, D7, E6, B4, B7, B3, B1, F7, F6, F5 }
+#define MATRIX_COL_PINS { C6, D7, E6, B4, B7, B3, F7, B1, F6, F5 }
 #define UNUSED_PINS { }
 
 /* COL2ROW, ROW2COL*/
