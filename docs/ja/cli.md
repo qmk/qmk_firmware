@@ -1,8 +1,8 @@
 # QMK CLI
 
 <!---
-  original document: 2fe288d01:docs/cli.md
-  git diff 2fe288d01 HEAD -- docs/cli.md | cat
+  original document: 79e6b7866:docs/cli.md
+  git diff 79e6b7866 HEAD -- docs/cli.md | cat
 -->
 
 このページは QMK CLI のセットアップと使用方法について説明します。
@@ -255,6 +255,16 @@ $ qmk kle2json -f kle.txt -f
 
 ```
 qmk list-keyboards
+```
+
+## `qmk list-keymaps`
+
+このコマンドは指定されたキーボード(とリビジョン)の全てのキーマップをリスト化します。
+
+**使用法**:
+
+```
+qmk list-keymaps -kb planck/ez
 ```
 
 ## `qmk new-keymap`
