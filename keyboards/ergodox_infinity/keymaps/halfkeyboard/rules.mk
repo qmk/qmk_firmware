@@ -1,4 +1,3 @@
-
 # project specific files
 SRC =	matrix.c \
 	led.c
