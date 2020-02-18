@@ -4,8 +4,8 @@
 
 A handwired modified version of the Keebio BDN9 macropad to support BLE through the Adafruit Feather 32u4 Bluefruit LE.
 
-Keyboard Maintainer: [merlin04/KeyPCB](https://github.com/merlin04)  
-Hardware Supported: Adafruit Feather 32u4 Bluefruit LE  
+* Keyboard Maintainer: [merlin04/KeyPCB](https://github.com/merlin04)
+* Hardware Supported: Adafruit Feather 32u4 Bluefruit LE
 
 Make example for this keyboard (after setting up your build environment):
 

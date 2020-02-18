@@ -15,7 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-#define ______ KC_TRNS
 
 // Enable test mode, which sets the keys to letters A-I.
 //#define TESTMODE
@@ -43,8 +42,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ------------------------------------------------------------------------
      */
     [1] = LAYOUT(
-        ______,  OUT_AUTO, RESET,
-        BL_STEP, OUT_USB,  ______,
-        BL_TOGG, OUT_BT,   ______
+        _______, OUT_AUTO, RESET,
+        BL_STEP, OUT_USB, _______,
+        BL_TOGG, OUT_BT,  _______
     )
 };
