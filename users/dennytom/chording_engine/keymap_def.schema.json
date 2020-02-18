@@ -59,73 +59,55 @@
           "type": "integer",
           "title": "The Chord Timeout",
           "description": "The time in ms you have to press additional keys before the engine assumes you finished pressing keys that are part of a chord.",
-          "examples": [
-            100
-          ]
+          "default": 100
         },
         "dance_timeout": {
           "type": "integer",
           "title": "The Dance Timeout",
           "description": "The time in ms you have to repeatedly activate a chord before the engine assumes you finished a dance.",
-          "examples": [
-            200
-          ]
+          "default": 200
         },
         "leader_timeout": {
           "type": "integer",
           "title": "The Leader Timeout",
           "description": "The time in ms you have to activate additional chords before the engine assumes you finished adding chords to a leader sequence.",
-          "examples": [
-            750
-          ]
+          "default": 750
         },
         "tap_timeout": {
           "type": "integer",
           "title": "The Tap Timeout",
           "description": "The time in ms you have to finish pressing a chord before the engine assumes that you didn't just tap it but are holding it down.",
-          "examples": [
-            50
-          ]
+          "default": 50
         },
         "command_max_length": {
           "type": "integer",
           "title": "Command Max Length",
           "description": "The maximum length for chords buffered in command mode.",
-          "examples": [
-            5
-          ]
+          "default": 5
         },
         "leader_max_length": {
           "type": "integer",
           "title": "Leader Max Length",
           "description": "The maximum length of leader sequences you can define in your keymap",
-          "examples": [
-            5
-          ]
+          "default": 5
         },
         "dynamic_macro_max_length": {
           "type": "integer",
           "title": "Dynamic Macro Max Length",
           "description": "The maximum number of chords (including Dynamic Macro Next) you can record to a Dynamic Macro",
-          "examples": [
-            20
-          ]
+          "default": 20
         },
         "string_max_length": {
           "type": "integer",
           "title": "String Max Length",
           "description": "The maximum length of a string that the STR() chord can accept.",
-          "examples": [
-            16
-          ]
+          "default": 16
         },
         "long_press_multiplier": {
           "type": "integer",
           "title": "Long Press Multiplier",
           "description": "How many times does the chord timer have expire before a chord is registered as not only held but in a long press (for example for Autoshift). Has to be integer.",
-          "examples": [
-            3
-          ]
+          "default": 3
         },
         "default_pseudolayer": {
           "type": "string",
@@ -338,7 +320,9 @@
     "extra_code": {
       "type": "string",
       "label": "Extra Code",
-      "description": "C code to be inserted into the generated keymap"
+      "description": "C code to be inserted into the generated keymap",
+      "examples": ["void fn_L1(void) {\n    SEND(KC_LCTL);\n    SEND(KC_LALT);\n    SEND(KC_DEL);\n}\n"],
+      "default": ""
     },
     "extra_dependencies": {
       "type": "array",
@@ -346,7 +330,8 @@
       "description": "List of files to be #include'd in the generated keymap",
       "examples": [
         "[\"user_functions.c\"]"
-      ]
+      ],
+      "default": ""
     }
   }
 }
