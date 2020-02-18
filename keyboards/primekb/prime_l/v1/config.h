@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define DEVICE_VER      0x0001
-#define PRODUCT         Prime_L
+#define PRODUCT         Prime_L V1
 
 /* Keyboard Matrix Assignments */
 #define MATRIX_ROW_PINS { D1, D0, B7, B3, B2 }

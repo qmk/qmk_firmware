@@ -1,1 +1,1 @@
-BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality on B7 by default
+BACKLIGHT_ENABLE = yes

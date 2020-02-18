@@ -1,1 +1,1 @@
-BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
+BACKLIGHT_ENABLE = no
