@@ -1,13 +1,13 @@
 # バックライト
 
 <!---
-  original document: 0d3f0889c:docs/flashing.md
-  git diff 0d3f0889c HEAD -- docs/flashing.md | cat
+  original document: 0d3f0889c:docs/feature_backlight.md
+  git diff 0d3f0889c HEAD -- docs/feature_backlight.md | cat
 -->
 
-多くのキーボードは、キースイッチを通して、あるいはその下に配置された個々の LED によって、バックライトキーをサポートします。この機能は通常スイッチごとに単一の色しか使用できないため、[RGB アンダーグロー](feature_rgblight.md)および [RGB マトリックス](feature_rgb_matrix.md)機能のどちらとも異なりますが、明らかにキーボードに複数の異なる単一色の LED を取り付けることができます。
+多くのキーボードは、キースイッチを通して、あるいはその下に配置された個々の LED によって、バックライトキーをサポートします。この機能は通常スイッチごとに単一の色しか使用できないため、[RGB アンダーグロー](ja/feature_rgblight.md)および [RGB マトリックス](ja/feature_rgb_matrix.md)機能のどちらとも異なりますが、明らかにキーボードに複数の異なる単一色の LED を取り付けることができます。
 
-QMKはこれらの LED を特定の比率、*Pulse Width Modulation* または PWM として知られている技術で急速にオンおよびオフを切り替えることで、これらの LED の明度を制御できます。PWM 信号のデューティサイクルを変えることで、調光の錯覚を起こすことができます。
+QMK はこれらの LED を特定の比率、*Pulse Width Modulation* または PWM として知られている技術で急速にオンおよびオフを切り替えることで、これらの LED の明度を制御できます。PWM 信号のデューティサイクルを変えることで、調光の錯覚を起こすことができます。
 
 MCU は GPIO ピンにのみ大量の電流を供給することができます。MCU から直接バックライトに給電せずに、バックライトピンは LED への電力を切り替えるトランジスタあるいは MOSFET に接続されます。
 
@@ -85,7 +85,7 @@ BACKLIGHT_DRIVER = software # 有効なドライバの値は 'pwm,software,no' �
 
 ## AVRドライバ
 
-On AVR boards, the default driver currently sniffs the configuration to pick the best scenario. ドライバはデフォルトで設定されますが、rules.mk 内の同等の設定は以下の通りです:
+AVR ボードでは、デフォルトのドライバは現在のところ最善のシナリオを選択するために構成を探っています。ドライバはデフォルトで設定されますが、rules.mk 内の同等の設定は以下の通りです:
 ```makefile
 BACKLIGHT_DRIVER = pwm
 ```
@@ -107,7 +107,7 @@ BACKLIGHT_DRIVER = pwm
 | `D4` |  |  |  | Timer 1 |  |
 | `D5` |  |  |  | Timer 1 |  |
 
-他の全てのピンはソフトウェア PWM を使います。[オーディオ](feature_audio.md)機能が無効あるいは1つのタイマだけを使っている場合は、ハードウェアタイマによってバックライト PWM を引き起こすことができます:
+他の全てのピンはソフトウェア PWM を使います。[オーディオ](ja/feature_audio.md)機能が無効あるいは1つのタイマだけを使っている場合は、ハードウェアタイマによってバックライト PWM を引き起こすことができます:
 
 | オーディオピン | オーディオタイマ | ソフトウェア PWM タイマ |
 |---------|-----------|------------------|
@@ -172,7 +172,7 @@ BACKLIGHT_DRIVER = pwm
 
 現在のところ、ハードウェア PWM のみがサポートされ、タイマーはアシストされず、自動設定は提供されません。
 
-?> Backlight support for STMF072 has had limited testing, YMMV. If unsure, set `BACKLIGHT_ENABLE = no` in your rules.mk.
+?> STMF072 のバックライトサポートのテストは制限されています。人によって違うかもしれません。不明な場合は、rules.mk で `BACKLIGHT_ENABLE = no` を設定します。
 
 ### ARM 設定
 
