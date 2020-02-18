@@ -317,17 +317,20 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "string"
+            "type": "string",
+            "examples": ["fn_L1"]
           },
           "function": {
             "type": "string",
-            "description": "C code the sequence should run. Instead of here, can be defined in extra_dependencies or extra_code"
+            "description": "C code the sequence should run. Instead of here, can be defined in extra_dependencies or extra_code",
+            "examples": ["void fn_L1(void) { SEND(KC_LCTL); SEND(KC_LALT); SEND(KC_DEL); }"]
           },
           "sequence": {
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "examples": [["KC_Q", "KC_Z"]]
           }
         }
       }
