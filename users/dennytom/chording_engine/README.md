@@ -8,26 +8,27 @@ Why does this exist? Typing on tiny keyboards can be challenging and you will en
 
 ## TOC
 
-* [About](#about)
-- [TOC](#toc)
-- [Start here](#start-here)
-- [Steps](#steps)
-- [Features](#features)
-  + [Chords](#chords)
-  + [Tap-Dance](#tap-dance)
-  + [Pseudolayers](#pseudolayers)
-  + [Control chords](#control-chords)
-- [Settings up JSON definition](#settings-up-json-definition)
-  + [Keyboard and engine parameters](#keyboard-and-engine-parameters)
-  + [Pseudolayers](#pseudolayers-1)
-  + [Supported keycodes](#supported-keycodes)
-  + [Leader Key](#leader-key)
-  + [Extra code](#extra-code)
-- [Further details](#further-details)
-  + [Implementation](#implementation)
-  + [Internal keycodes](#internal-keycodes)
-  + [Chords](#chords-1)
-- [Caveats](#caveats)
+- [README](#readme)
+  - [About](#about)
+  - [TOC](#toc)
+  - [Start here](#start-here)
+  - [Steps](#steps)
+  - [Features](#features)
+    - [Chords](#chords)
+    - [Tap-Dance](#tap-dance)
+    - [Pseudolayers](#pseudolayers)
+    - [Control chords](#control-chords)
+  - [Settings up JSON definition](#settings-up-json-definition)
+    - [Keyboard and engine parameters](#keyboard-and-engine-parameters)
+    - [Pseudolayers](#pseudolayers-1)
+    - [Supported keycodes](#supported-keycodes)
+    - [Leader Key](#leader-key)
+    - [Extra code](#extra-code)
+  - [Further details](#further-details)
+    - [Implementation](#implementation)
+    - [Internal keycodes](#internal-keycodes)
+    - [Chords](#chords-1)
+  - [Caveats](#caveats)
 
 ## Start here
 
@@ -308,7 +309,7 @@ Extra C code needed to define custom chords can be added by quoting in in the `e
 
 ### Implementation
 
-The source files are split into several files. `engine_part1.in` and `engine_part2.in` contain C code that defines the Chord structure, implementations for all provided functions and the engine itself. `parser.py` generates keyboard and keymap dependent code. I rarely write in python, if you have improvements, let me know, *please*.
+The source files are split into several files. `engine.part.1`, `engine.part.2` and `engine.part.3` contain C code that defines the Chord structure, implementations for all provided functions and the engine itself. `parser.py` generates keyboard and keymap dependent code. The file `chord.py` contains most of the logic required to properly translate chords from the JSON to the C code. I rarely write in python, if you have improvements, let me know, *please*.
 
 ### Internal keycodes
 
@@ -361,7 +362,12 @@ All chords have to be added to `list_of_chord` array that gets regularly scanned
 * `FINISHED_FROM_ACTIVE`:  Happens *after* `PRESS_FROM_HOLD` if the chord is still active when the dance timer expires for the second time. Can be combined with the `counter` to recognize even longer presses. Useful if you want to recognize long presses, for example for autoshift functionality. In `keyboard.inc` you can set `LONG_PRESS_MULTIPLIER` to set how many times does dance timer have to expire for the autoshift to trigger.
 * `RESTART`: The dance is done. Happens immediately after `FINISHED` or on chord deactivation from `FINISHED_FROM_ACTIVE`. Anything you have to do to get the chord into `IDLE` mode happens here.
 
-The chords change states based on external and internal events. Anytime a chord's function is activated, it may change it's own state. Also, on certain events, the chording engine will trigger the functions of all chords in a specific state and *if the chords' state hasn't changed* it will then change it appropriately. I will check in a diagram of the chord states.
+The chords change states based on external and internal events. Anytime a chord's function is activated, it may change it's own state. Also, on certain events, the chording engine will trigger the functions of all chords in a specific state and *if the chords' state hasn't changed* it will then change it appropriately. The default behavior when a chord changes state is described by the following diagram:
+
+![state machine diagram](state_machine.png)
+The colors differentiate in which function the change happens, see `state_machine.dot` for a bit more detail. Black arrows happen in more than one function. Arrows without a label happen immediately.
+
+You can see that the diagram is not exhaustive. For example nothing leads into `IN_ONE_SHOT`. That is because the chord's function can change the chord's state. This is useful for some advanced chords that break the default behavir (one-shots) and for optimization (chords that just send `KC_X` do not need to ever go into dance).
 
 ## Caveats
 
