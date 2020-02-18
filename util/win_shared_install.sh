@@ -69,12 +69,12 @@ while true; do
     echo "           keyboards"
     echo "(N)one - No drivers will be installed,"
     echo "         flashing your keyboard will most likely not work"
-    read -p "(A/C/F/N)? " res
+    read -p "(a/c/f/N)? " res
     case $res in
         [AaYy]* ) install_drivers --all; break;;
         [Cc]* ) install_drivers; break;;
         [Ff]* ) install_drivers --all --force; break;;
-        [Nn]* ) break;;
+        [Nn]* | "" ) break;;
         * ) echo "Invalid answer";;
     esac
 done
