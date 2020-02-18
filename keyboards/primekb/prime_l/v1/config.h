@@ -1,4 +1,5 @@
 /*
+Copyright 2018 Jumail Mundekkat
 Copyright 2020 Holten Campbell
 
 This program is free software: you can redistribute it and/or modify
@@ -20,29 +21,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x4024
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    PrimeKB
-#define PRODUCT         Prime_L_V2
-#define DESCRIPTION     Custom layout keyboard
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
+#define PRODUCT         Prime_L
 
 /* Keyboard Matrix Assignments */
-#define MATRIX_ROW_PINS { E6, B2, B1, B0, B6 }
-#define MATRIX_COL_PINS { C6, C7, F7, F6, F5, F4, F1, F0, D4, D0, D1, D2, D3, D5, B7, B3 }
+#define MATRIX_ROW_PINS { D1, D0, B7, B3, B2 }
+#define MATRIX_COL_PINS { D2, D3, D5, D4, D6, D7, B4, B5, C7, C6, F7, F6, F5, F4, F1, F0 }
 #define UNUSED_PINS
 
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
+#define BACKLIGHT_PIN B6
+/*#define BACKLIGHT_BREATHING*/
+#define BACKLIGHT_LEVELS 4
