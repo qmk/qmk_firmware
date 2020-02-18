@@ -81,7 +81,7 @@ qmk cformat [file1] [file2] [...] [fileN]
 
 ## `qmk compile`
 
-This command allows you to compile firmware from any directory. You can compile JSON exports from <https://config.qmk.fm> or compile keymaps in the repo.
+This command allows you to compile firmware from any directory. You can compile JSON exports from <https://config.qmk.fm>, compile keymaps in the repo, or compile the keyboard in the current working directory.
 
 **Usage for Configurator Exports**:
 
@@ -93,6 +93,53 @@ qmk compile <configuratorExport.json>
 
 ```
 qmk compile -kb <keyboard_name> -km <keymap_name>
+```
+
+**Usage in Keyboard Directory**:  
+
+Must be in keyboard directory with a default keymap, or in keymap directory for keyboard, or supply one with `--keymap <keymap_name>`
+```
+qmk compile
+```
+
+**Example**:
+```
+$ qmk config compile.keymap=default
+$ cd ~/qmk_firmware/keyboards/planck/rev6
+$ qmk compile
+Ψ Compiling keymap with make planck/rev6:default
+...
+```
+or with optional keymap argument
+
+```
+$ cd ~/qmk_firmware/keyboards/clueboard/66/rev4 
+$ qmk compile -km 66_iso
+Ψ Compiling keymap with make clueboard/66/rev4:66_iso
+...
+```
+or in keymap directory
+
+```
+$ cd ~/qmk_firmware/keyboards/gh60/satan/keymaps/colemak
+$ qmk compile
+Ψ Compiling keymap with make make gh60/satan:colemak
+...
+```
+
+**Usage in Layout Directory**:  
+
+Must be under `qmk_firmware/layouts/`, and in a keymap folder.
+```
+qmk compile -kb <keyboard_name>
+```
+
+**Example**:
+```
+$ cd ~/qmk_firmware/layouts/community/60_ansi/mechmerlin-ansi
+$ qmk compile -kb dz60
+Ψ Compiling keymap with make dz60:mechmerlin-ansi
+...
 ```
 
 ## `qmk flash`
@@ -203,6 +250,16 @@ This command lists all the keyboards currently defined in `qmk_firmware`
 
 ```
 qmk list-keyboards
+```
+
+## `qmk list-keymaps`
+
+This command lists all the keymaps for a specified keyboard (and revision).
+
+**Usage**:
+
+```
+qmk list-keymaps -kb planck/ez
 ```
 
 ## `qmk new-keymap`

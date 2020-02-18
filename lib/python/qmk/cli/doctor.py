@@ -170,7 +170,7 @@ def doctor(cli):
     # Determine our OS and run platform specific tests
     OS = platform.platform().lower()  # noqa (N806), uppercase name is ok in this instance
 
-    if 'darwin' in OS:
+    if 'darwin' or 'macos' in OS:
         if not os_test_macos():
             ok = False
     elif 'linux' in OS:
