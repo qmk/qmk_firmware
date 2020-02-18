@@ -1,3 +1,5 @@
+![DZ65RGBv2 Layout Image - MAIN](https://res.cloudinary.com/drootz/image/upload/c_scale,w_800/v1582000645/drootz_dz65rgb_layer_0_main_n61oxl.jpg)
+
 # Drootz's DZ65RGBv2 ANSI Layout
 
 This layout fit best people who mainly type in English but regularly need to type in French _(using an English keyboard in OS setting)_. There are also some cool LED indicator effects and tons of Leader Key bindings/macros designed to work on both Mac and Windows OS. I tried to keep things as simple as possible from a usability perspective. Enjoy!
@@ -68,13 +70,13 @@ This layout fit best people who mainly type in English but regularly need to typ
 - \_NO keys are ignored (nothing happens)
 
 ### [Layer 0: \_MAIN](http://www.keyboard-layout-editor.com/#/gists/67c22220856a927766bd3e0331ed782a)
-![Layer 0 \_MAIN Visual](https://res.cloudinary.com/drootz/image/upload/c_scale,w_800/v1582000645/drootz_dz65rgb_layer_0_main_n61oxl.jpg)
+![DZ65RGBv2 Layout Image - MAIN](https://res.cloudinary.com/drootz/image/upload/c_scale,w_800/v1582000645/drootz_dz65rgb_layer_0_main_n61oxl.jpg)
 
 ### [Layer 1: \_MAC](http://www.keyboard-layout-editor.com/#/gists/4a32d80c67c778658febf28524fb5000)
-![Layer 1: \_MAC](https://res.cloudinary.com/drootz/image/upload/c_scale,w_800/v1582000653/drootz_dz65rgb_layer_1_mac_z4tsaw.jpg)
+![DZ65RGBv2 Layout Image - MAC](https://res.cloudinary.com/drootz/image/upload/c_scale,w_800/v1582000653/drootz_dz65rgb_layer_1_mac_z4tsaw.jpg)
 
 ### [Layer 2: \_FN](http://www.keyboard-layout-editor.com/#/gists/b583bd7cc5b0a75b4610bbda18fba65e)
-![Layer 1: \_MAC](https://res.cloudinary.com/drootz/image/upload/c_scale,w_800/v1582000661/drootz_dz65rgb_layer_2_fn_zv8yte.jpg)
+![DZ65RGBv2 Layout Image - FN](https://res.cloudinary.com/drootz/image/upload/c_scale,w_800/v1582000661/drootz_dz65rgb_layer_2_fn_zv8yte.jpg)
 
 ## LEADER KEY BINDINGS
 
@@ -203,7 +205,7 @@ The Leader Key on this layout is triggered by tapping the Capslock key once. Onc
 
 ## STEP BY STEP FLASH INSTRUCTIONS
 1. Build the Firmware. Run build command in directory: `make dztech/dz65rgb/v2:drootz`
-	- Approximate firmware size: 27870/28672 (97%, 802 bytes free)
+	- Approximate firmware size: 27868/28672 (97%, 804 bytes free)
 2. Flash the Firmware:
     - Open QMK Toolbox Application
     - Open firmware file: dztech_dz65rgb_v2_drootz.hex

@@ -1,5 +1,6 @@
 DYNAMIC_MACRO_ENABLE = yes
 LEADER_ENABLE = yes
+
 # Firmware size Optimizations
 EXTRAFLAGS += -flto
 MOUSEKEY_ENABLE = no
