@@ -42,12 +42,12 @@ uint32_t layer_state_set_keymap(uint32_t state){
   uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
   uint8_t led1r = 0; uint8_t led1g = 0; uint8_t led1b = 0;
   if (layer_state_cmp(state, _NUM_SYM)) {
-    led0r = 25;
-    led0g = 25;
+    led0r = 100;
+    led0g = 200;
   }
   if (layer_state_cmp(state, _NAV)) {
-    led1g = 25;
-    led1b = 25;
+    led1g = 50;
+    led1b = 50;
   }
 
   if (layer_state_cmp(state, _FKEY)) {
