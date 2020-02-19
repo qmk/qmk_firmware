@@ -1,24 +1,48 @@
 #include QMK_KEYBOARD_H
+#include "cjuniet.h"
+
+enum layers {
+    _COLEMAK = 0,
+    _SYMBOLS,
+    _NUMBERS,
+    _SPECIALS
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	[0] = LAYOUT(
+    [_COLEMAK] = LAYOUT(
         KC_ESC, KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_BSLS,
         LCTL_T(KC_BSPC), KC_A, KC_R, KC_S, KC_T, KC_D, KC_H, KC_N, KC_E, KC_I, KC_O, KC_QUOT,
-        LSFT_T(KC_TAB), KC_Z, KC_X, KC_C, KC_V, KC_B, KC_LPRN, KC_LBRC, KC_RBRC, KC_RPRN, KC_K, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_MINS,
-        KC_DEL, KC_LGUI, MO(1), LSFT_T(KC_SPC), LALT_T(KC_ENT), RALT_T(KC_ENT), RSFT_T(KC_SPC), MO(2), KC_RGUI, KC_LEAD),
-	[1] = LAYOUT(
-        KC_TILD, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_GRV,
-        KC_TRNS, KC_MPLY, KC_MS_L, KC_MS_U, KC_MS_R, KC_WH_U, KC_PGUP, KC_LEFT, KC_UP, KC_RGHT, KC_VOLU, KC_PPLS,
-        KC_TRNS, KC_MUTE, KC_BTN1, KC_MS_D, KC_BTN2, KC_WH_D, KC_LT, KC_LCBR, KC_RCBR, KC_GT, KC_PGDN, KC_HOME, KC_DOWN, KC_END, KC_VOLD, KC_PEQL,
+        LSFT_T(KC_TAB), KC_Z, KC_X, KC_C, KC_V, KC_B, KC_LAPO, LGUI_T(KC_LBRC), RGUI_T(KC_RBRC), KC_RAPC, KC_K, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_MINS,
+        KC_DEL, KC_LGUI, TT(_SYMBOLS), LSFT_T(KC_SPC), LCTL_T(KC_ENT), RCTL_T(KC_ENT), RSFT_T(KC_SPC), TT(_NUMBERS), KC_RGUI, KC_LEAD),
+    [_SYMBOLS] = LAYOUT(
+        KC_TRNS, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_TILD,
+        KC_TRNS, KC_MPLY, KC_MS_L, KC_MS_U, KC_MS_R, KC_WH_U, KC_PGUP, KC_LEFT, KC_UP, KC_RGHT, KC_VOLU, KC_GRV,
+        KC_TRNS, KC_MUTE, KC_BTN1, KC_MS_D, KC_BTN2, KC_WH_D, KC_LT, KC_TRNS, KC_TRNS, KC_GT, KC_PGDN, KC_HOME, KC_DOWN, KC_END, KC_VOLD, KC_EQL,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
-	[2] = LAYOUT(
-        KC_ESC, KC_PSCR, KC_F7, KC_F8, KC_F9, KC_F10, KC_PGUP, KC_P7, KC_P8, KC_P9, KC_PPLS, KC_PMNS,
+    [_NUMBERS] = LAYOUT(
+        KC_TRNS, KC_PSCR, KC_F7, KC_F8, KC_F9, KC_F10, KC_PGUP, KC_P7, KC_P8, KC_P9, KC_PPLS, KC_PMNS,
         KC_TRNS, KC_SLCK, KC_F4, KC_F5, KC_F6, KC_F11, KC_TAB, KC_P4, KC_P5, KC_P6, KC_PAST, KC_PSLS,
-        KC_TRNS, KC_PAUS, KC_F1, KC_F2, KC_F3, KC_F12, KC_LPRN, KC_LT, KC_GT, KC_RPRN, KC_PGDN, KC_P1, KC_P2, KC_P3, KC_PEQL, KC_PENT,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0, KC_PDOT)
+        KC_TRNS, KC_PAUS, KC_F1, KC_F2, KC_F3, KC_F12, KC_LPRN, KC_LT, KC_GT, KC_RPRN, KC_PGDN, KC_P1, KC_P2, KC_P3, KC_EQL, KC_PENT,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0, KC_PDOT),
+    [_SPECIALS] = LAYOUT(
+        KC_TRNS, KC_NLCK, KC_CAPS, KC_SLCK, KC_LANG1, KC_LANG2, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI, RGB_MOD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
 };
 
 LEADER_EXTERNS();
+
+void keyboard_post_init_user(void) {
+    led_t led_state = host_keyboard_led_state();
+    if (!led_state.num_lock) {
+        tap_code(KC_NLCK);
+    }
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    return update_tri_layer_state(state, _SYMBOLS, _NUMBERS, _SPECIALS);
+}
 
 void matrix_scan_user(void) {
     LEADER_DICTIONARY() {
@@ -63,27 +87,32 @@ static void render_qmk_logo(void) {
 
 static void render_status(void) {
     render_qmk_logo();
-    oled_write_P(PSTR("\nChris's Kyria\n\n"), false);
+    oled_write_ln_P(PSTR("      Chris's Kyria\n"), false);
 
-    oled_write_P(PSTR("Layer: "), false);
+    oled_write_P(PSTR("      "), false);
     switch (get_highest_layer(layer_state)) {
-        case 0:
-            oled_write_P(PSTR("Colemak\n"), false);
+        case _COLEMAK:
+            oled_write_P(PSTR("Colemak"), false);
             break;
-        case 1:
-            oled_write_P(PSTR("Symbols & Nav\n"), false);
+        case _SYMBOLS:
+            oled_write_P(PSTR("Symbols"), false);
             break;
-        case 2:
-            oled_write_P(PSTR("Numbers & Fnc\n"), false);
+        case _NUMBERS:
+            oled_write_P(PSTR("Numbers"), false);
+            break;
+        case _SPECIALS:
+            oled_write_P(PSTR("Special"), false);
             break;
         default:
-            oled_write_P(PSTR("Undefined\n"), false);
+            oled_write_P(PSTR("Undefined"), false);
     }
+    oled_write_ln_P(PSTR(" Layer\n"), false);
 }
 
 void oled_task_user(void) {
     if (is_keyboard_master()) {
         render_status();
+        render_status_bar();
     } else {
         render_kyria_logo();
     }

@@ -18,6 +18,7 @@
 
 #ifdef OLED_DRIVER_ENABLE
   #define OLED_DISPLAY_128X64
+  #define OLED_FONT_H "users/cjuniet/glcdfont.c"
 #endif
 
 #ifdef RGBLIGHT_ENABLE
@@ -32,3 +33,5 @@
 
 #define LEADER_PER_KEY_TIMING
 #define LEADER_TIMEOUT 250
+
+#define TAPPING_TOGGLE 2
