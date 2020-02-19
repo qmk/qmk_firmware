@@ -1,6 +1,7 @@
 # crkbd用 薙刀式日本語入力キーマップ
 
 薙刀式日本語入力をQMKで実現します。薙刀式v11完成版に準拠しています。
+(薙刀式v12対応版は[こちら](https://github.com/eswai/qmk_firmware/tree/master/keyboards/crkbd/keymaps/naginata_v12))
 Windows用の編集モード1、2(ただし横書き用に修正)は実装が完了しました。編集モードの記号を使用するには、
 
 1. Windowsのキーボード設定を106キーボードにする。
