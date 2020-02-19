@@ -1,8 +1,7 @@
 BOOTMAGIC_ENABLE   = lite
-TAP_DANCE_ENABLE   = no
-SLEEP_LED_ENABLE   = no  # Breathing sleep LED during USB suspend
+TAP_DANCE_ENABLE   = yes
 COMMAND_ENABLE     = no  # Commands for debug and configuration
-CONSOLE_ENABLE     = no
+CONSOLE_ENABLE     =
 SPACE_CADET_ENABLE = no
 
 ifeq ($(strip $(KEYBOARD)), ergodox_ez)
@@ -10,7 +9,7 @@ ifeq ($(strip $(KEYBOARD)), ergodox_ez)
     RGB_MATRIX_ENABLE  = yes
     RGBLIGHT_TWINKLE   = no
     INDICATOR_LIGHTS   = no
-    RGBLIGHT_STARTUP_ANIMATION = no
+    RGBLIGHT_STARTUP_ANIMATION = yes
 endif
 
 UNICODE_ENABLE     = yes
