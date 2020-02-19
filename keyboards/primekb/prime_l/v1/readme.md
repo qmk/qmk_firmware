@@ -1,6 +1,6 @@
 # Prime_L V1
 
-![Prime_L](https://i.imgur.com/jUWhjOD.jpg)
+![Prime_L V1](https://i.imgur.com/jUWhjOD.jpg)
 
 A compact layout with the footprint of your typical 65% board, featuring a left mini-numpad. Pre-drilled and counter sunk holes for use with optional feet for a slight tilt. Switches are oriented so that back light LEDs are on the top of the switch.
 
