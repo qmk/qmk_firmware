@@ -132,7 +132,7 @@ The Leader Key on this layout is triggered by tapping the Capslock key once. Onc
 | `ê`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `Ê`¶ | `LDR  E  E` | Will output upper character if Capslock enabled. |
 | `ê`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `Ê`¶ | `LDR  [  E` | Will output upper character if Capslock enabled. Mimic French keyboard shortcut. |
 | `é`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `É`¶ | `LDR  /` | Will output upper character if Capslock enabled |
-| `é`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `É`¶ | `LDR  E  E` | Will output upper character if Capslock enabled. |
+| `é`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `É`¶ | `LDR  E  E  E` | Will output upper character if Capslock enabled. |
 | `î`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `Î`¶ | `LDR  I  I` | Will output upper character if Capslock enabled. |
 | `î`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `Î`¶ | `LDR  [  I` | Will output upper character if Capslock enabled. Mimic French keyboard shortcut. |
 | `ô`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `Ô`¶ | `LDR  O  O` | Will output upper character if Capslock enabled. |
