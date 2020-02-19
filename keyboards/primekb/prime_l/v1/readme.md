@@ -1,4 +1,4 @@
-# Prime_L
+# Prime_L V1
 
 ![Prime_L](https://i.imgur.com/jUWhjOD.jpg)
 
