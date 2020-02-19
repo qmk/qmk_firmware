@@ -16,9 +16,10 @@
 #include QMK_KEYBOARD_H
 
 #ifdef OLED_DRIVER_ENABLE
-static uint32_t oled_timer = 0;
-static uint32_t oled_animation_timer = 0;
+static uint32_t animation_frame = 0;
 static uint32_t oled_frame = 0;
+static uint32_t oled_animation_timer = 0;
+
 // 'totoro-animated-frame-0', 128x64px
 static const char PROGMEM totoro_frame_0[] = {
 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 
@@ -263,8 +264,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
       KC_GESC,        KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
       LSFT_T(KC_TAB), KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_RSPC,
-      C(S(KC_L)),        KC_Z,     KC_X,   KC_C,   KC_V,   KC_B,   KC_LALT, KC_NO,   KC_NO, TD(TD_COPY_PASTE),         KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_RCTL, KC_CAPSLOCK,
-              KC_MUTE, KC_LCMD, LT(_NUM_SCHAR, KC_ENT), LT(_NAV_MEDIA, KC_F3), KC_LCPO, KC_RCMD, LT(_NUM_SCHAR, KC_F6), LT(_NAV_MEDIA, KC_SPC),  KC_RALT, KC_MPLY
+      KC_LCPO,        KC_Z,     KC_X,   KC_C,   KC_V,   KC_B,   KC_LALT, KC_NO,   KC_NO, TD(TD_COPY_PASTE),         KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_RALT, TD(TD_SCREENSHOT),
+              KC_MUTE, KC_LCMD, LT(_NUM_SCHAR, KC_ENT), LT(_NAV_MEDIA, KC_F3), C(S(KC_L)), KC_RCMD, LT(_NUM_SCHAR, KC_F6), LT(_NAV_MEDIA, KC_SPC),  KC_RCTL, KC_MPLY
     ),
 /*
  * Raise Layer: Number keys, special keys
@@ -282,7 +283,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NUM_SCHAR] = LAYOUT(
       _______, KC_1, 	KC_2,    KC_3,    KC_4,    KC_5,                                        KC_6,    KC_7,    KC_8,   KC_9,    KC_0,    _______,
       _______, _______, _______, KC_QUOT, KC_LBRC, KC_RBRC,                                     KC_BSLS, KC_MINS, KC_EQL, KC_SLSH, _______, _______,
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, TD(TD_SCREENSHOT),
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_CAPSLOCK,
                                  _______, _______, _______, _______, _______, _______, KC_F5,   _______, _______, _______
     ),
 /*
@@ -350,14 +351,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void keyboard_post_init_user(void) {
   //rainbow_swirl supports additional numbers 0-5
   rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL + 4);
-  oled_timer = timer_read32();
   oled_animation_timer = timer_read32();
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        oled_timer = timer_read32();
-    }
     return true;
 }
 
@@ -380,11 +377,18 @@ static void render_qmk_logo(void) {
 }
 
 static void render_totoro_frame(void) {
-    if (timer_elapsed(oled_timer) > OLED_TIMEOUT) {
-        return;
-    }
     if (timer_elapsed(oled_animation_timer) > 250) {
-        switch (oled_frame) {
+        oled_animation_timer = timer_read();
+        oled_frame++;
+        if (oled_frame > 59 && oled_frame < 69) {
+            oled_off();
+            return;
+        }
+        if(oled_frame == 69) {
+            oled_frame = 0;
+            oled_on();
+        }
+        switch (animation_frame) {
             case 0:
                 oled_write_raw_P(totoro_frame_0, sizeof(totoro_frame_0));
                 break;
@@ -398,8 +402,7 @@ static void render_totoro_frame(void) {
                 oled_write_raw_P(totoro_frame_1, sizeof(totoro_frame_1));
                 break;
         }
-        oled_frame = (oled_frame + 1) % 4;
-        oled_animation_timer = timer_read();
+        animation_frame = (animation_frame + 1) % 4;
     }
 }
 
@@ -446,15 +449,7 @@ static void render_status(void) {
 }
 
 void oled_task_user(void) {
-    if (timer_elapsed(oled_timer) > OLED_TIMEOUT) {
-        oled_off();
-        return;
-    }
-    else {
-        oled_on();
-    }
     if (is_keyboard_master()) {
-        // Renders the current keyboard state (layer, lock, caps, scroll, etc)
         render_status(); 
     } else {
         render_totoro_frame();
