@@ -11,8 +11,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef CONFIG_H
-#define CONFIG_H
 
 #include "config_common.h"
 
@@ -26,11 +24,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key matrix size */
 #define MATRIX_ROWS 5
-#define MATRIX_COLS 16
+#define MATRIX_COLS 17
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { F1, C7, D5, B7, B5 }
-#define MATRIX_COL_PINS { F0, B6, B2, B3, B1, F7, F6, F5, F4, B4, E6, D7, C6, D4, D0, D1 }
+#define MATRIX_COL_PINS { F0, B6, B2, B3, B1, F7, F6, F5, F4, B4, E6, D7, C6, D4, D0, D1, B0 }
 #define UNUSED_PINS
 /* encoder direct pins */
 #define ENCODERS_PAD_A { D2 }
@@ -47,17 +45,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
-//#ifdef RGB_DI_PIN
-//#define RGBLIGHT_ANIMATIONS
-//#define RGBLED_NUM 0
-//#define RGBLIGHT_HUE_STEP 8
-//#define RGBLIGHT_SAT_STEP 8
-//#define RGBLIGHT_VAL_STEP 8
-//#endif

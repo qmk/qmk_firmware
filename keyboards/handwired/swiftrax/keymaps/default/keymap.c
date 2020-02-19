@@ -15,50 +15,108 @@
  */
 
 #include QMK_KEYBOARD_H
+#define FN MO(2)
+#define SWAPQ TO(0)
+#define SWAPD TO(1)
 
 static const char * const ANSWERS[] = {
-// "Yes" answers
-"It is certain\n",
-"It is decidedly so\n",
-"Without a doubt\n",
-"Yes definitely\n",
-"You may rely on it\n",
-"As I see it, yes\n",
-"Most likely\n",
-"Outlook good\n",
-"Yes\n",
-"Signs point to yes\n",
-// Uncertain answers, index 10
-"Reply hazy try again\n",
-"Ask again later\n",
-"Better not tell you now\n",
-"Cannot predict now\n",
-"Concentrate and ask again\n",
-// "No" answers, index 15
-"Don't count on it\n",
-"My reply is no\n",
-"My sources say no\n",
-"Outlook not so good\n",
-"Very doubtful\n"
+"You know what they say, dogs can't swim with lead shoes\n",
+"You can butter up a cat and throw it in the oven. Just don't call it biscuits.\n",
+"It smells like up dog in here.\n",
+"I disagree.\n",
+"It really be like that sometimes.\n"
 };
 
-#define NUM_ANSWERS sizeof(ANSWERS)
-enum{ //Tap Dance Declarations 
-    TD_RALT_RGUI = 0,
-    TD_LALT_LGUI
+#define NUM_ANSWERS 5 
+
+enum custom_keycodes{
+	TASK = SAFE_RANGE,
+	WIND,
+	WINL,
+	RAGE,
+	RAND
 };
 
-#define RALT_RG TD(TD_RALT_RGUI)
-#define LALT_LG TD(TD_LALT_LGUI)
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+	  case TASK:
+      if (record->event.pressed) { //open task manager
+        // when keycode TASK is pressed
+        register_code(KC_LSFT);
+		register_code(KC_LCTL);
+		register_code(KC_ESC);
+      } else {
+        // when keycode TASK is released
+		unregister_code(KC_LSFT);
+		unregister_code(KC_LCTL);
+		unregister_code(KC_ESC);
+      }
+      break;
+    case WIND:
+      if (record->event.pressed) { //go to desktop
+        // when keycode WIND is pressed
+        register_code(KC_LGUI);
+		tap_code(KC_D);
+      } else {
+        // when keycode WIND is released
+		unregister_code(KC_LGUI);
+      }
+      break;
+    case WINL:
+      if (record->event.pressed) { //lock computer
+        // when keycode WINL is pressed
+        register_code(KC_LGUI);
+		tap_code(KC_L);
+      } else {
+        // when keycode WINL is released
+		unregister_code(KC_LGUI);
+      }
+      break;
+	case RAGE:
+      if (record->event.pressed) { //ALT + F4
+        // when keycode RAGE is pressed
+        register_code(KC_LALT);
+		tap_code(KC_F4);
+      } else {
+        // when keycode RAGE is released
+		unregister_code(KC_LALT);
+      }
+      break;
+	 case RAND:
+      if (record->event.pressed) { //RAND String
+        // when keycode RAND is pressed
+        uint8_t num = rand() / (RAND_MAX / NUM_ANSWERS + 1);
+		send_string(ANSWERS[num]);
+      } else {
+        // when keycode RAND is released
+      }
+	  break;
+  }
+  return true;
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT(
-		KC_F1, KC_F13, KC_ESC, 	KC_1, 	KC_2, 	KC_3, 	KC_4, 	KC_5, 	KC_6, 	KC_7, 	KC_8, 	KC_9, 	KC_0, 	 KC_MINS, 	KC_EQL, KC_GRV, KC_BSLS, 
-		KC_F2, KC_F14, KC_TAB, 	KC_Q, 	KC_W, 	KC_E, 	KC_R, 	KC_T, 	KC_Y, 	KC_U, 	KC_I, 	KC_O, 	KC_P, 	 KC_LBRC, 	KC_RBRC,KC_BSPC,KC_DEL, 
-		KC_F3, KC_F15, KC_LCTL, KC_A, 	KC_S, 	KC_D, 	KC_F, 	KC_G, 	KC_H, 	KC_J, 	KC_K, 	KC_L, 	KC_SCLN, KC_QUOT, 	KC_ENT, 		KC_PGUP, 
-		KC_F4, KC_F16, KC_LSFT, KC_Z, 	KC_X, 	KC_C, 	KC_V, 	KC_B, 	KC_N, 	KC_M,   KC_COMM,KC_DOT, KC_SLSH, KC_NO, 	KC_UP, 			KC_PGDN, 
-		KC_F5, KC_F17, KC_LCTL, LALT_LG, 				KC_SPC, 			RALT_RG, 	KC_RCTL, 				   KC_LEFT, KC_DOWN, KC_RGHT),
-
+	[0] = LAYOUT( /*base layer*/
+		RAGE, RAND, KC_ESC, 	KC_1, 	KC_2, 	KC_3, 	KC_4, 	KC_5, 	KC_6, 	KC_7, 	KC_8, 	KC_9, 	KC_0, 	 KC_MINS, 	KC_EQL, KC_GRV, KC_BSLS, 
+		TASK, SWAPD, KC_TAB, 	KC_Q, 	KC_W, 	KC_E, 	KC_R, 	KC_T, 	KC_Y, 	KC_U, 	KC_I, 	KC_O, 	KC_P, 	 KC_LBRC, 	KC_RBRC,KC_BSPC,KC_DEL, 
+		WIND, KC_F15, KC_LCTL, KC_A, 	KC_S, 	KC_D, 	KC_F, 	KC_G, 	KC_H, 	KC_J, 	KC_K, 	KC_L, 	KC_SCLN, KC_QUOT, 	KC_ENT, KC_MUTE, KC_PGUP, 
+		WINL, KC_F16, KC_LSFT, KC_Z, 	KC_X, 	KC_C, 	KC_V, 	KC_B, 	KC_N, 	KC_M,   KC_COMM,KC_DOT, KC_SLSH, KC_RSFT, 	KC_UP, 			KC_PGDN, 
+		KC_LGUI, KC_F17, KC_LCTL, KC_LALT, 				KC_SPC, 			KC_RALT, 	FN, 				   	  KC_LEFT, KC_DOWN, KC_RGHT), 
+		
+	[1] = LAYOUT( /*dvorak*/
+		RAGE, RAND, KC_ESC, 	KC_1, 	KC_2, 	KC_3, 	KC_4, 	KC_5, 	KC_6, 	KC_7, 	KC_8, 	KC_9, 	KC_0, 	 KC_RBRC, 	KC_LBRC, KC_GRV, KC_BSLS, 
+		TASK, SWAPQ, KC_TAB, 	KC_QUOT, 	KC_COMM, 	KC_DOT, 	KC_P, 	KC_Y, 	KC_F, 	KC_G, 	KC_C, 	KC_R, 	KC_L, 	 KC_SLSH, 	KC_EQL,KC_BSPC,KC_DEL, 
+		WIND, KC_F15, KC_LCTL, KC_A, 	KC_O, 	KC_E, 	KC_U, 	KC_I, 	KC_D, 	KC_H, 	KC_T, 	KC_N, 	KC_S, KC_MINS, 	KC_ENT, KC_MUTE, KC_PGUP, 
+		WINL, KC_F16, KC_LSFT, KC_SCLN, 	KC_Q, 	KC_J, 	KC_K, 	KC_X, 	KC_B, 	KC_M,   KC_W,	KC_V, KC_Z, KC_RSFT, 	KC_UP, 			KC_PGDN, 
+		KC_LGUI, KC_F17, KC_LCTL, KC_LALT, 				KC_SPC, 			KC_RALT, 	FN, 				   	  KC_LEFT, KC_DOWN, KC_RGHT), 
+	
+	[2] = LAYOUT( /*fn layer*/
+		_______, _______, _______, 	KC_F1, 	KC_F2, 	KC_F3, 	KC_F4, 	KC_F5, 	KC_F6, 	KC_F7, 	KC_F8, 	KC_F9, 	KC_F10, 	 KC_F11, 	KC_F12, _______, _______, 
+		_______, _______, _______, 	_______, 	_______, 	_______, 	_______, 	_______, 	_______, 	_______, 	_______, 	_______, 	_______, 	 _______, 	_______,_______,_______, 
+		_______, _______, KC_CAPS, _______, 	_______, 	_______, 	_______, 	_______, 	_______, 	_______, 	_______, 	_______, 	_______, _______, 	_______, _______, _______, 
+		_______, _______, _______, _______, 	_______, 	_______, 	_______, 	_______, 	_______, 	_______,   _______,_______, _______, _______, 	_______, 			_______, 
+		_______, KC_PSCR, _______, _______, 				_______, 			_______, 	_______, 				   _______, _______, _______
+	),
 };
 
 void encoder_update_user(uint8_t index, bool clockwise) {
@@ -70,10 +128,3 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
     }
 }
-// Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for L-Alt, twice for L-GUI
-    //[TD_LALT_LGUI] = ACTION_TAP_DANCE_DOUBLE(KC_LALT, KC_LGUI),
-    // Tap once for R-Alt, twice for R-GUI
-    [TD_RALT_RGUI] = ACTION_TAP_DANCE_DOUBLE(KC_RALT, KC_RGUI)
-};
