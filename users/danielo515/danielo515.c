@@ -9,6 +9,8 @@ bool CMD(uint16_t kc) {
 
 //**************** Handle keys function *********************//
 bool altPressed = false;
+__attribute__ ((weak)) void alt_tab_activated(void){};
+__attribute__ ((weak)) void alt_tab_deactivated(void){};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
@@ -122,6 +124,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     break;
     //First time alt + tab, and alt stays sticky. Next press we just send tab. Any other key releases the alt
 #endif
+// =============== ALT_TAB single key handling
   case ALT_TAB:
     if (record->event.pressed)
     {
@@ -132,9 +135,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       else
       {
         altPressed = true;
-        layer_on(7); // go to movement layer
         onMac ? register_code(KC_LGUI) : register_code(KC_LALT);
         tap_code(KC_TAB);
+        alt_tab_activated();
       }
     }
     return false;
@@ -150,9 +153,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   {
     onMac ?  unregister_code(KC_LGUI) : unregister_code(KC_LALT);
     altPressed = false;
-    layer_off(7);
+    alt_tab_deactivated();
     return false;
   }
+// =============== ALT_TAB single key handling end
   return true;
 };
 

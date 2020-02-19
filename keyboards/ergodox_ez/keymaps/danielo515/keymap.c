@@ -316,3 +316,11 @@ void oneshot_mods_changed_user(uint8_t mods) {
 void oneshot_locked_mods_changed_user(uint8_t mods) {
     oneshot_mods_changed_user(mods);
 }
+
+//=============== alt_tab callbacks
+void alt_tab_activated(void){
+    layer_on(7); // activate motion layer
+}
+void alt_tab_deactivated(void){
+    layer_off(7); // activate motion layer
+}

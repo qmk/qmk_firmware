@@ -7,6 +7,8 @@ bool handle_macro(uint16_t kc);
 bool is_macro (uint16_t kc);
 bool process_incremental_macro (uint16_t);
 void refresh_incremental_macros (uint16_t);
+
+
 //**************** KEYCODES *********************//
 
 enum custom_keycodes
