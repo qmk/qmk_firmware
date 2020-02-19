@@ -30,13 +30,8 @@ enum planck_layers {
 // 薙刀式
   _NAGINATA, // 薙刀式入力レイヤー
 // 薙刀式
-  _EDIT1R,
-  _EDIT1L,
-  _EDIT2R,
-  _EDIT2L,
   _LOWER,
   _RAISE,
-  _NUMBER,
   _ADJUST,
 };
 
@@ -59,38 +54,16 @@ enum planck_keycodes {
 enum combo_events {
   NAGINATA_ON_CMB,
   NAGINATA_OFF_CMB,
-  EDITR1_CMB,
-  EDITL1_CMB,
-  EDITR2_CMB,
-  EDITL2_CMB,
-  ENTER_CMB,
 };
 
-#if defined(DWORKMAN)
-const uint16_t PROGMEM ngon_combo[] = {KC_G, KC_T, COMBO_END};
-const uint16_t PROGMEM ngoff_combo[] = {KC_I, KC_U, COMBO_END};
-const uint16_t PROGMEM editr1_combo[] = {KC_E, KC_I, COMBO_END};
-const uint16_t PROGMEM editl1_combo[] = {KC_T, KC_K, COMBO_END};
-const uint16_t PROGMEM editr2_combo[] = {KC_C, KC_V, COMBO_END};
-const uint16_t PROGMEM editl2_combo[] = {KC_H, KC_J, COMBO_END};
-#else
-const uint16_t PROGMEM ngon_combo[] = {KC_H, KC_J, COMBO_END};
-const uint16_t PROGMEM ngoff_combo[] = {KC_F, KC_G, COMBO_END};
-#endif
-const uint16_t PROGMEM enter_combo[] = {KC_V, KC_H, COMBO_END};
+const uint16_t PROGMEM ngon_combo[] = {KC_P, KC_N, COMBO_END};
+const uint16_t PROGMEM ngoff_combo[] = {KC_E, KC_M, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [NAGINATA_ON_CMB] = COMBO_ACTION(ngon_combo),
   [NAGINATA_OFF_CMB] = COMBO_ACTION(ngoff_combo),
-  [EDITR1_CMB] = COMBO_ACTION(editr1_combo),
-  [EDITL1_CMB] = COMBO_ACTION(editl1_combo),
-  [EDITR2_CMB] = COMBO_ACTION(editr2_combo),
-  [EDITL2_CMB] = COMBO_ACTION(editl2_combo),
-  [ENTER_CMB] = COMBO(enter_combo, KC_ENT),
 };
-// 薙刀式
 
-// 薙刀式
 // IME ONのcombo
 void process_combo_event(uint8_t combo_index, bool pressed) {
   switch(combo_index) {
@@ -102,34 +75,6 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
     case NAGINATA_OFF_CMB:
       if (pressed) {
         naginata_off();
-      }
-      break;
-    case EDITR1_CMB:
-      if (pressed) {
-        layer_on(_EDIT1R);
-      } else {
-        layer_off(_EDIT1R);
-      }
-      break;
-    case EDITL1_CMB:
-      if (pressed) {
-        layer_on(_EDIT1L);
-      } else {
-        layer_off(_EDIT1L);
-      }
-      break;
-    case EDITR2_CMB:
-      if (pressed) {
-        layer_on(_EDIT2R);
-      } else {
-        layer_off(_EDIT2R);
-      }
-      break;
-    case EDITL2_CMB:
-      if (pressed) {
-        layer_on(_EDIT2L);
-      } else {
-        layer_off(_EDIT2L);
       }
       break;
   }
@@ -170,82 +115,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   +------+------+------+------+------+------+------+------+------+------+------+------+
 */
   [_WORKMAN] = LAYOUT_planck_grid(
-    KC_ESC ,KC_Q   ,KC_D   ,KC_R   ,KC_W   ,KC_B   ,KC_J   ,KC_F   ,KC_U   ,KC_P   ,KC_SCLN,KC_BSPC, \
-    KC_TAB ,KC_A   ,KC_S   ,KC_H   ,KC_T   ,KC_G   ,KC_Y   ,KC_N   ,KC_E   ,KC_O   ,KC_I   ,KC_ENT , \
-    ALPH   ,KC_Z   ,KC_X   ,KC_M   ,KC_C   ,KC_V   ,KC_K   ,KC_L   ,KC_COMM,KC_DOT ,KC_SLSH,SALPH  , \
-    KC_LCMD,XXXXXXX,XXXXXXX,XXXXXXX,LOWER  ,SFTSPC ,SFTSPC ,RAISE  ,XXXXXXX,XXXXXXX,XXXXXXX,KC_RCMD
-  ),
-
-/* _EDIT1L
-  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  |     |G(Q) |G(W) |G(N) | F2  |     |     |     |     |     |     |     |
-  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  |     |G(Y) |G(S) |PGDN |PGUP |     | __  | __  |     |     |     |     |
-  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  |     |G(Z) |G(X) |G(C) |G(V) |     |     |     |     |     |     |     |
-  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  |
-  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-*/
-  [_EDIT1L] = LAYOUT_planck_grid(
-    XXXXXXX,G(KC_Q),G(KC_W),G(KC_N),KC_F2  ,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
-    XXXXXXX,G(KC_Y),G(KC_S),KC_PGDN,KC_PGUP,XXXXXXX,_______,_______,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
-    XXXXXXX,G(KC_Z),G(KC_X),G(KC_C),G(KC_V),XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
-    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
-  ),
-
-/* _EDIT1R
-  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-  |       |       |       |       |       |       |       | DELE  |       |       |       |       |
-  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-  |       |       |       |       |  __   |  __   |G(LEFT)| LEFT  |S(LEFT)|  UP   |       |       |
-  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-  |       |       |       |       |       |       |G(RGHT)| RGHT  |S(RGHT)| DOWN  |       |       |
-  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-  |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |
-  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-*/
-  [_EDIT1R] = LAYOUT_planck_grid(
-    XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,DELE      ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   , \
-    XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,_______   ,_______   ,G(KC_LEFT),KC_LEFT   ,S(KC_LEFT),KC_UP     ,XXXXXXX   ,XXXXXXX   , \
-    XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,G(KC_RGHT),KC_RGHT   ,S(KC_RGHT),KC_DOWN   ,XXXXXXX   ,XXXXXXX   , \
-    _______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______
-  ),
-
-/* _EDIT2L
-  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  |     |  ~  |  @  |  #  |  $  |  %  |     |     |     |     |     |     |
-  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  |     |  ^  |  &  |  !  |  ?  |  \  | __  | __  |     |     |     |     |
-  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  |     |  |  |  `  |  '  |  "  |  _  |     |     |     |     |     |     |
-  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  |
-  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-*/
-  [_EDIT2L] = LAYOUT_planck_grid(
-    XXXXXXX,KC_TILD,KC_AT  ,KC_HASH,KC_DLR ,KC_PERC,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
-    XXXXXXX,KC_CIRC,KC_AMPR,KC_EXLM,KC_QUES,KC_BSLS,_______,_______,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
-    XXXXXXX,KC_PIPE,KC_GRV ,KC_QUOT,KC_DQT ,KC_UNDS,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
-    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
-  ),
-
-/* _EDIT2R
-  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  |     |     |     |     |     |     |     |DELA |  +  |  -  |  =  |     |
-  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  |     |     |     |     | __  | __  |  :  |  (  |  [  |  {  |  <  |     |
-  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  |     |     |     |     |     |     |  ;  |  )  |  ]  |  }  |  >  |     |
-  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  |
-  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-*/
-  [_EDIT2R] = LAYOUT_planck_grid(
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,DELA   ,KC_PLUS,KC_MINS,KC_EQL ,XXXXXXX, \
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______,_______,KC_COLN,KC_LPRN,KC_LBRC,KC_LCBR,KC_LT  ,XXXXXXX, \
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_SCLN,KC_RPRN,KC_RBRC,KC_RCBR,KC_GT  ,XXXXXXX, \
-    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
+    KC_ESC ,KC_COMM,KC_S   ,KC_R   ,KC_L   ,KC_B   ,KC_Y   ,KC_BSPC,KC_I   ,KC_D   ,KC_DOT ,KC_QUOT, \
+    KC_TAB ,KC_W   ,KC_H   ,KC_T   ,KC_E   ,KC_M   ,KC_P   ,KC_N   ,KC_A   ,KC_O   ,KC_X   ,KC_ENT , \
+    KC_LCMD,KC_V   ,KC_Q   ,KC_K   ,KC_G   ,KC_U   ,KC_C   ,KC_F   ,KC_J   ,KC_SLSH,KC_Z   ,SALPH  , \
+    KC_LCTL,KC_LALT,KC_LSFT,XXXXXXX,LOWER  ,SFTSPC ,SFTENT ,RAISE  ,KC_LEFT,KC_UP  ,KC_DOWN,KC_RGHT
   ),
 
 /* _LOWER
@@ -400,12 +273,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   // 薙刀式
-  bool a = true;
-  if (naginata_state()) {
-    naginata_mode(keycode, record);
-    a = process_naginata(keycode, record);
-  }
-  return a;
+    if (!process_naginata(keycode, record))
+      return false;
   // 薙刀式
 
   return true;
@@ -484,6 +353,12 @@ void dip_update(uint8_t index, bool active) {
 void matrix_init_user(void) {
   // 薙刀式
   set_naginata(_NAGINATA);
+  #ifdef NAGINATA_EDIT_MAC
+  set_unicode_input_mode(UC_OSX);
+  #endif
+  #ifdef NAGINATA_EDIT_WIN
+  set_unicode_input_mode(UC_WINC);
+  #endif
   // 薙刀式
 }
 
