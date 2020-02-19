@@ -89,14 +89,7 @@ void get_this_led_blinking(uint16_t led_index, bool speed, uint16_t hue, uint16_
         reset_blink_cycle();
     }
     rgb_matrix_set_color(led_index, recording_r, recording_g, recording_b);
-}
-
-/* Mac require a short delay before Capslock register in macros */
-void registerCapsLock(void) {
-    register_code(KC_CAPSLOCK);
-    wait_ms(80);
-    unregister_code(KC_CAPSLOCK);
-}
+} 
 
 /**************** LAYOUT *********************/
 
@@ -188,7 +181,8 @@ void rgb_matrix_indicators_user(void) {
     } 
 
     /* Current layer LED indicator */
-    rgb_matrix_set_color(layers_leds_map[biton32(layer_state)], WHITE_HSV_DIM[0], WHITE_HSV_DIM[1], WHITE_HSV_DIM[2]); 
+    rgb_matrix_set_color(layers_leds_map[get_highest_layer(layer_state)], WHITE_HSV_DIM[0], WHITE_HSV_DIM[1], WHITE_HSV_DIM[2]); 
+
 
     /* Leader Key LED under-glow */
     if (isLeader) {
@@ -257,11 +251,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 LEADER_EXTERNS();
 
 /* éÉ */
-void send_e_aigu(void) {
+void lk_send_e_aigu(void) {
     if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
         if (onMac) {
             SEND_STRING(SS_TAP(X_CAPSLOCK) SS_LALT("e") SS_LSFT("e"));
-            registerCapsLock();
+            tap_code(KC_CAPS);
         } else {
             SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P2) SS_TAP(X_P0) SS_TAP(X_P1) SS_UP(X_LALT));
         }
@@ -275,7 +269,7 @@ void lk_send_a_grave(void) {
     if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
         if (onMac) {
             SEND_STRING(SS_TAP(X_CAPSLOCK) SS_LALT("`") SS_LSFT("a"));
-            registerCapsLock();
+            tap_code(KC_CAPS);
         } else {
             SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P1) SS_TAP(X_P9) SS_TAP(X_P2) SS_UP(X_LALT));
         }
@@ -289,7 +283,7 @@ void lk_send_e_grave(void) {
     if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
         if (onMac) {
             SEND_STRING(SS_TAP(X_CAPSLOCK) SS_LALT("`") SS_LSFT("e"));
-            registerCapsLock();
+            tap_code(KC_CAPS);
         } else {
             SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P2) SS_TAP(X_P0) SS_TAP(X_P0) SS_UP(X_LALT));
         }
@@ -303,7 +297,7 @@ void lk_send_u_grave(void) {
     if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
         if (onMac) {
             SEND_STRING(SS_TAP(X_CAPSLOCK) SS_LALT("`") SS_LSFT("u"));
-            registerCapsLock();
+            tap_code(KC_CAPS);
         } else {
             SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P2) SS_TAP(X_P1) SS_TAP(X_P7) SS_UP(X_LALT));
         }
@@ -317,7 +311,7 @@ void lk_send_a_circonflexe(void) {
     if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
         if (onMac) {
             SEND_STRING(SS_TAP(X_CAPSLOCK) SS_LALT("i") SS_LSFT("a"));
-            registerCapsLock();
+            tap_code(KC_CAPS);
         } else {
             SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P1) SS_TAP(X_P9) SS_TAP(X_P4) SS_UP(X_LALT));
         }
@@ -331,7 +325,7 @@ void lk_send_e_circonflexe(void) {
     if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
         if (onMac) {
             SEND_STRING(SS_TAP(X_CAPSLOCK) SS_LALT("i") SS_LSFT("e"));
-            registerCapsLock();
+            tap_code(KC_CAPS);
         } else {
             SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P2) SS_TAP(X_P0) SS_TAP(X_P2) SS_UP(X_LALT));
         }
@@ -345,7 +339,7 @@ void lk_send_i_circonflexe(void) {
     if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
         if (onMac) {
             SEND_STRING(SS_TAP(X_CAPSLOCK) SS_LALT("i") SS_LSFT("i"));
-            registerCapsLock();
+            tap_code(KC_CAPS);
         } else {
             SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P2) SS_TAP(X_P0) SS_TAP(X_P6) SS_UP(X_LALT));
         }
@@ -359,7 +353,7 @@ void lk_send_o_circonflexe(void) {
     if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
         if (onMac) {
             SEND_STRING(SS_TAP(X_CAPSLOCK) SS_LALT("i") SS_LSFT("o"));
-            registerCapsLock();
+            tap_code(KC_CAPS);
         } else {
             SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P2) SS_TAP(X_P1) SS_TAP(X_P2) SS_UP(X_LALT));
         }
@@ -373,7 +367,7 @@ void lk_send_u_circonflexe(void) {
     if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
         if (onMac) {
             SEND_STRING(SS_TAP(X_CAPSLOCK) SS_LALT("i") SS_LSFT("u"));
-            registerCapsLock();
+            tap_code(KC_CAPS);
         } else {
             SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P2) SS_TAP(X_P1) SS_TAP(X_P9) SS_UP(X_LALT));
         }
@@ -434,11 +428,11 @@ void matrix_scan_user(void)
         /* Sequences on layer _MAIN & _MAC */
         /*  éÉ      => LdrKey > / */
         SEQ_ONE_KEY(KC_SLSH) {
-            send_e_aigu();
+            lk_send_e_aigu();
         }
         /*  éÉ      => LdrKey > E > E > E */
         SEQ_THREE_KEYS(KC_E, KC_E, KC_E) {
-            send_e_aigu();
+            lk_send_e_aigu();
         }
         /*  àÀ      => LdrKey > ; > A */
         SEQ_TWO_KEYS(KC_SCLN, KC_A) {
@@ -514,7 +508,7 @@ void matrix_scan_user(void)
         }
         /*  CapsLock */
         SEQ_ONE_KEY(KC_LEAD) {
-            registerCapsLock();
+            tap_code(KC_CAPS);
         }
         /*  ±       => LdrKey > = > - */
         SEQ_TWO_KEYS(KC_EQL, KC_MINS) { 

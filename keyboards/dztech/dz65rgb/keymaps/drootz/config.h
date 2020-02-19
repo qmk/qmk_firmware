@@ -1,5 +1,8 @@
+#pragma once
+
 #define LEADER_PER_KEY_TIMING
 #define LEADER_TIMEOUT 425
+#define TAP_HOLD_CAPS_DELAY 80
 
 #ifdef RGB_MATRIX_ENABLE
 /* Reset default from dz65rgb/v2 config.h */
