@@ -258,17 +258,17 @@ void x_reset (qk_tap_dance_state_t *state, void *user_data);
 次に、`keymap.c` ファイルの末尾に、次のコードを追加する必要があります。
 
 ```c
-/* Return an integer that corresponds to what kind of tap dance should be executed.
+/* 実行されるタップダンスの種類に対応する整数を返します。
  *
- * How to figure out tap dance state: interrupted and pressed.
+ * タップダンスの状態を判別する方法: 割り込みと押下。
  *
- * Interrupted: If the state of a dance dance is "interrupted", that means that another key has been hit
- *  under the tapping term. This is typically indicitive that you are trying to "tap" the key.
+ * 割り込み: タップダンスの状態が「割り込み」の場合、他のキーがタップ時間中に押されたことを意味します。
+ *  これは通常、キーを「タップ」しようとしていることを示します。
  *
- * Pressed: Whether or not the key is still being pressed. If this value is true, that means the tapping term
- *  has ended, but the key is still being pressed down. This generally means the key is being "held".
+ * 押下: キーがまだ押されているかどうか。この値が true の場合、タップ時間が終了したことを意味しますが、
+ *  キーはまだ押されたままです。これは通常、キーが「ホールド」されていることを意味します。
  *
- * One thing that is currenlty not possible with qmk software in regards to tap dance is to mimic the "permissive hold"
+ * タップダンスに関して、qmk ソフトウェアで現在不可能なことの1つは、"permissive hold" 機能を模倣することです。
  *  feature. In general, advanced tap dances do not work well if they are used with commonly typed letters.
  *  For example "A". Tap dances are best used on non-letter keys that are not hit while typing letters.
  *
