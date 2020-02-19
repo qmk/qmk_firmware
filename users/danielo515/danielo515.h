@@ -65,7 +65,7 @@ enum layers {
   _SAFE_LAYER
 };
 
-// Function letters
+//===== Function letters
 # define FN_F LT(_F,KC_F)
 # define FN_D LT(_D,KC_D)
 # define FN_S LT(_S,KC_S)
@@ -91,15 +91,17 @@ enum layers {
 # define KC_E_OVRR ES_OVRR
 # define KC_E_APOS ES_APOS
 # define KC_E_IEXL ES_IEXL
-// Short hand for complex key combinations
+//==========  Short hand for complex key combinations
 # define WIN_LEFT_HALF LALT(LGUI(KC_LEFT))
 # define WIN_RIGHT_HALF LALT(LGUI(KC_RIGHT))
 # define WIN_TO_LEFT LALT(LSFT( LGUI(KC_LEFT) ))
 # define WIN_TO_RIGHT LALT(LSFT( LGUI(KC_RIGHT) ))
+// ========== Modifiers!!
 # define SHIFT OSM(MOD_LSFT)
 # define HYPR_H HYPR_T(KC_H)
 # define CTL_K RCTL_T(KC_K)
 # define ALT_J ALT_T(KC_J)
+# define CMD_QUOT GUI_T(KC_QUOTE)
 // Ready to use Tap dance definitions, just put them on your layout
 
 #ifdef TAP_DANCE_ENABLE
