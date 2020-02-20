@@ -117,7 +117,7 @@
 * 其他话题
   * [使用Eclipse开发QMK](zh-cn/other_eclipse.md)
   * [使用VSCode开发QMK](zh-cn/other_vscode.md)
-  * [支持](zh-cn/support.md)
+  * [支持](zh-cn/getting_started_getting_help.md)
   * [翻译QMK文档](zh-cn/translating.md)
 
 * QMK 内构 (正在编写)

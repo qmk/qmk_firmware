@@ -108,7 +108,7 @@
 * Other Topics
   * [Using Eclipse with QMK](pt-br/other_eclipse.md)
   * [Using VSCode with QMK](pt-br/other_vscode.md)
-  * [Support](pt-br/support.md)
+  * [Support](pt-br/getting_started_getting_help.md)
   * [How to add translations](pt-br/translating.md)
 
 * QMK Internals (In Progress)

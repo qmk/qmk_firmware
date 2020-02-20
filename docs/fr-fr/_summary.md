@@ -112,7 +112,7 @@
 * Autres sujets
   * [Utiliser Eclipse avec QMK](fr-fr/other_eclipse.md)
   * [Utiliser VSCode avec QMK](fr-fr/other_vscode.md)
-  * [Support](fr-fr/support.md)
+  * [Support](fr-fr/getting_started_getting_help.md)
   * [Comment ajouter des traductions](fr-fr/translating.md)
 
 * À l’intérieur de QMK (En cours de documentation)

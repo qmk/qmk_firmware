@@ -117,7 +117,7 @@
 * 他の話題
    * [Eclipse で QMK を使用](ja/other_eclipse.md)
    * [VSCode で QMK を使用](ja/other_vscode.md)
-   * [サポート](ja/support.md)
+   * [サポート](ja/getting_started_getting_help.md)
    * [翻訳を追加する方法](ja/translating.md)
 
 * QMK の内部詳細(作成中)
