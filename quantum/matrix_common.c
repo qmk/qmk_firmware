@@ -1,5 +1,6 @@
 #include "matrix.h"
 #include "debounce.h"
+#include "wait.h"
 #include "print.h"
 #include "debug.h"
 
