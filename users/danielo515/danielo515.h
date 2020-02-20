@@ -103,7 +103,7 @@ enum layers {
 # define HYPR_H HYPR_T(KC_H)
 # define CTL_K RCTL_T(KC_K)
 # define ALT_J ALT_T(KC_J)
-# define CMD_QUOT GUI_T(KC_QUOTE)
+# define CMD_QUOT GUI_T(KC_QUOTE) // tap ' hold cmd
 // Ready to use Tap dance definitions, just put them on your layout
 
 #ifdef TAP_DANCE_ENABLE
