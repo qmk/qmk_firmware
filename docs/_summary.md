@@ -20,7 +20,7 @@
   * [Driver Installation with Zadig](driver_installation_zadig.md)
 
 * Using QMK
-  * [Support](support.md)
+  * [Support](getting_started_getting_help.md)
   * Guides
     * [ARM Debugging Guide](arm_debugging.md)
     * [Best Git Practices](newbs_git_best_practices.md)
@@ -37,7 +37,8 @@
     * [Vagrant Guide](getting_started_vagrant.md)
 
   * QMK Features
-    * [Keycodes](keycodes.md)
+    * Keycodes
+      * [Full List](keycodes.md)
       * [Basic Keycodes](keycodes_basic.md)
       * [US ANSI Shifted Keys](keycodes_us_ansi_shifted.md)
       * [Quantum Keycodes](quantum_keycodes.md)

@@ -9,7 +9,7 @@
 
 ## What is QMK Firmware?
 
-QMK (*Quantum Mechanical Keyboard*) is an open source community centered around developing computer input devices. Early on the community was keyboard focused, but has now grown to include mice and MIDI devices as well. The community maintains [QMK Firmware](https://github.com/qmk/qmk_firmware), [QMK Configurator](https://config.qmk.fm), [QMK Toolbox](https://github.com/qmk/qmk_toolbox), [qmk.fm](https://qmk.fm), and this documentation.
+QMK (*Quantum Mechanical Keyboard*) is an open source community centered around developing computer input devices. The community encompasses all sorts of input devices, such as keyboards, mice, and MIDI devices. A core group of collaborators maintains [QMK Firmware](https://github.com/qmk/qmk_firmware), [QMK Configurator](https://config.qmk.fm), [QMK Toolbox](https://github.com/qmk/qmk_toolbox), [qmk.fm](https://qmk.fm), and this documentation with the help of community members like you.
 
 ## Get Started
 
@@ -18,9 +18,24 @@ Totally new to QMK? There are two ways to get started:
 * Basic: [QMK Configurator](https://config.qmk.fm)
     * Just select your keyboard from the dropdown and program your keyboard.
     * We have an [introductory video](https://www.youtube.com/watch?v=-imgglzDMdY) you can watch.
+    * There is also an overview [document you can read](newbs_building_firmware_configurator.md).
 * Advanced: [Use The Source](newbs.md)
     * More powerful, but harder to use
 
 ## Make It Yours
 
 QMK has lots of [features](features.md) to explore, and a good deal of reference documentation to dig through. Most features are taken advantage of by modifying your [keymap](keymap.md), and changing the [keycodes](keycodes.md).
+
+## Need help?
+
+Check out the [support page](getting_started_getting_help.md) to see how you can get help using QMK.
+
+## Give Back
+
+There are a lot of ways you can contribute to the QMK Community. The easiest way to get started is to use it and spread the word to your friends.
+
+* Help people out on our forums and chat rooms:
+    * [/r/olkb](https://www.reddit.com/r/olkb/)
+    * [Discord Server](https://discord.gg/Uq7gcHh)
+* Contribute to our documentation by clicking "Edit This Page" at the bottom
+* [Translate our documentation into your language](translating.md)

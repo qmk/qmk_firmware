@@ -124,7 +124,7 @@
 * נושאים נוספים
   * [שימוש ב - Eclipse עם QMK](he-il/other_eclipse.md)
   * [שימוש ב - VSCode עם QMK](he-il/other_vscode.md)
-  * [תמיכה](he-il/support.md)
+  * [תמיכה](he-il/getting_started_getting_help.md)
   * [כיצד להוסיף תרגום](he-il/translating.md)
 
 * QMK מבפנים (בתהליך)

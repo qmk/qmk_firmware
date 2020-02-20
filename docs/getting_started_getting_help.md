@@ -2,9 +2,11 @@
 
 There are a lot of resources for getting help with QMK.
 
+Please read our [Code of Conduct](https://qmk.fm/coc/) before participating in any of our community spaces.
+
 ## Realtime Chat
 
-You can find QMK developers and users on our main [Discord server](https://discord.gg/Uq7gcHh). There are specific channels in the server for chatting about the firmware, Toolbox, hardware, and configurator.
+If you need help with something, the best place to get quick support is going to be on our [Discord Server](https://discord.gg/Uq7gcHh).  There is usually somebody online, and there are a bunch of very helpful people there.
 
 ## OLKB Subreddit
 

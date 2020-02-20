@@ -4,15 +4,7 @@ Once you've flashed your keyboard with a custom firmware you're ready to test it
 
 ## Testing
 
-Testing your keyboard is usually pretty straightforward. Press every single key and make sure it sends the keys you expect. There are even programs that will help you make sure that no key is missed.
-
-Note: These programs are not provided by or endorsed by QMK.
-
-* [QMK Configurator](https://config.qmk.fm/#/test/) (Web Based)
-* [Switch Hitter](https://web.archive.org/web/20190413233743/https://elitekeyboards.com/switchhitter.php) (Windows Only)
-* [Keyboard Viewer](https://www.imore.com/how-use-keyboard-viewer-your-mac) (Mac Only)
-* [Keyboard Tester](http://www.keyboardtester.com) (Web Based)
-* [Keyboard Checker](http://keyboardchecker.com) (Web Based)
+Testing your keyboard is usually pretty straightforward. Press every single key and make sure it sends the keys you expect. You can use [QMK Configurator](https://config.qmk.fm/#/test/)'s test mode to check your keyboard, even if it doesn't run QMK.
 
 ## Debugging
 
