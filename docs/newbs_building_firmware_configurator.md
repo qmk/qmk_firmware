@@ -9,15 +9,15 @@ Watch the [Video Tutorial](https://youtu.be/tx54jkRC9ZY)
 The QMK Configurator works best with Chrome/Firefox.
 
 
-!> **Files from other tools such as KLE, or kbfirmware will not be compatible with QMK Configurator. Do not load them, do not import them. QMK Configurator is a DIFFERENT tool. **
+!> **Files from other tools such as KLE, or kbfirmware will not be compatible with QMK Configurator. Do not load them, do not import them. QMK Configurator is a DIFFERENT tool.**
 
 ## Selecting your keyboard
 
 Click the drop down box and select the keyboard you want to create a keymap for.
 
-?> If your keyboard has several versions, make sure you select the correct one.**
+?> If your keyboard has several versions, make sure you select the correct one.
 
-I'll say that again because it's important
+I'll say that again because it's important:
 
 !> **MAKE SURE YOU SELECT THE RIGHT VERSION!**
 
