@@ -19,19 +19,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCA04
-#define PRODUCT_ID      0xDB60
+#define PRODUCT_ID      0xDE57
 #define DEVICE_VER      0x0001
 /* in python2: list(u"whatever".encode('utf-16-le')) */
 /*   at most 32 characters or the ugly hack in usb_main.c borks */
 #define MANUFACTURER CannonKeys
-#define PRODUCT DB60
-#define DESCRIPTION DB60 Keyboard
+#define PRODUCT DevastatingTKL
+#define DESCRIPTION Devastating Keyboard
 
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
+#define MATRIX_ROWS 6
+#define MATRIX_COLS 18
 
-#define MATRIX_COL_PINS { B11, B10, B2, A9, A15, B3, B4, B5, B6, B7, B8, B9, C13, C14, C15 }
-#define MATRIX_ROW_PINS { B1, B0, A7, A5, A4 }
+#define MATRIX_COL_PINS { B1, B2, B11, B10, B12, B14, A8, A9, A10, A3, A1, A7, A0, B4, B6, B7 }
+#define MATRIX_ROW_PINS { A15, B3, B5, A4, A5, F1 }
 #define DIODE_DIRECTION COL2ROW
 
 
