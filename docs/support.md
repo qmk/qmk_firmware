@@ -6,13 +6,13 @@ Don't forget to read our [Code of Conduct](https://qmk.fm/coc/).
 
 ## Help! I don't know where to start! 
 
-If this is the case, then you should start with our [Newbs Guide](https://docs.qmk.fm/#/newbs). There is a lot of great info there, and that should cover everything you need to get started.
+If this is the case, then you should start with our [Newbs Guide](newbs.md). There is a lot of great info there, and that should cover everything you need to get started.
 
 If that's an issue, hop onto the [QMK Configurator](https://config.qmk.fm), as that will handle a majority of what you need there. 
 
 ## Help! I'm having issues flashing!
 
-First, head to the [Compiling/Flashing FAQ Page](https://docs.qmk.fm/#/faq_build). There is a good deal of info there, and you'll find a bunch of solutions to common issues there. 
+First, head to the [Compiling/Flashing FAQ Page](faq_build.md). There is a good deal of info there, and you'll find a bunch of solutions to common issues there. 
 
 ## Help, I have an issue that isn't covered by the links above
 
@@ -26,9 +26,9 @@ Then please open an [issue](https://github.com/qmk/qmk_firmware/issues/new), and
 
 ## But `git` and `GitHub` are intimidating! 
 
-Don't worry, we have some pretty nice [Guidelines](https://docs.qmk.fm/#/newbs_best_practices) on how to start using `git` and GitHub to make things easier to develop. 
+Don't worry, we have some pretty nice [Guidelines](newbs_git_best_practices.md) on how to start using `git` and GitHub to make things easier to develop. 
 
-Additionally, you can find additional `git` and GitHub related links [here](https://docs.qmk.fm/#/newbs_learn_more_resources).
+Additionally, you can find additional `git` and GitHub related links [here](newbs_learn_more_resources.md).
 
 ## I have a Keyboard that I want to add support for
 
