@@ -7,5 +7,5 @@ https://sites.google.com/site/xaelous/keyboards/handwired-keyboard
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/xealous-brown:default
+    make handwired/xealousbrown:default
 
