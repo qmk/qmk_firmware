@@ -3,6 +3,10 @@
 #include "print.h"
 #include "debug.h"
 
+#ifndef MATRIX_IO_DELAY
+#    define MATRIX_IO_DELAY 30
+#endif
+
 /* matrix state(1:on, 0:off) */
 matrix_row_t raw_matrix[MATRIX_ROWS];
 matrix_row_t matrix[MATRIX_ROWS];
@@ -77,6 +81,8 @@ uint8_t matrix_key_count(void) {
     }
     return count;
 }
+
+__attribute__((weak)) void matrix_io_delay(void) { wait_us(MATRIX_IO_DELAY); }
 
 // CUSTOM MATRIX 'LITE'
 __attribute__((weak)) void matrix_init_custom(void) {}

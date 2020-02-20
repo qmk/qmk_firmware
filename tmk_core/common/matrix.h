@@ -40,10 +40,6 @@ typedef uint32_t matrix_col_t;
 #    error "MATRIX_ROWS: invalid value"
 #endif
 
-#ifndef MATRIX_IO_DELAY
-#    define MATRIX_IO_DELAY 30
-#endif
-
 #define MATRIX_ROW_SHIFTER ((matrix_row_t)1)
 
 #define MATRIX_IS_ON(row, col) (matrix_get_row(row) && (1 << col))
@@ -70,6 +66,8 @@ bool matrix_is_on(uint8_t row, uint8_t col);
 matrix_row_t matrix_get_row(uint8_t row);
 /* print matrix for debug */
 void matrix_print(void);
+/* delay between changing matrix pin state and reading values */
+void matrix_io_delay(void);
 
 /* power control */
 void matrix_power_up(void);
