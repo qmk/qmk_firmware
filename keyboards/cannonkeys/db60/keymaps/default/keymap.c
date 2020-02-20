@@ -21,8 +21,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _BASE 0
-#define _FN1 1
+enum layer_names {
+    _BASE,
+    _FN1
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_60_ansi(
@@ -37,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GESC, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,
     RGB_TOG, RGB_MOD, KC_UP,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     BL_BRTG, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-    BL_INC,  BL_DEC,  BL_TOGG, _______, _______, _______, _______, _______, _______, _______, _______,                   _______, 
+    BL_INC,  BL_DEC,  BL_TOGG, _______, _______, _______, _______, _______, _______, _______, _______,                   _______,
     KC_GRV,  _______, _______,                            _______,                            _______, _______, _______, RESET
   )
 };
