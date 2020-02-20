@@ -53,6 +53,8 @@ This is a C header file that is one of the first things included, and will persi
   * pins of the rows, from top to bottom
 * `#define MATRIX_COL_PINS { F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7 }`
   * pins of the columns, from left to right
+* `#define MATRIX_IO_DELAY 30`
+  * the delay in microseconds when between changing matrix pin state and reading values
 * `#define UNUSED_PINS { D1, D2, D3, B1, B2, B3 }`
   * pins unused by the keyboard for reference
 * `#define MATRIX_HAS_GHOST`
