@@ -89,7 +89,6 @@ enum layers {
 # define KC_E_GT S(KC_NUBS)
 # define KC_E_TILD ES_TILD
 # define KC_E_MINS ES_MINS
-# define KC_S_SPC SFT_T(KC_SPC)  // Tap for Space, hold for Shift
 # define KC_E_OVRR ES_OVRR
 # define KC_E_APOS ES_APOS
 # define KC_E_IEXL ES_IEXL
@@ -98,11 +97,15 @@ enum layers {
 # define WIN_RIGHT_HALF LALT(LGUI(KC_RIGHT))
 # define WIN_TO_LEFT LALT(LSFT( LGUI(KC_LEFT) ))
 # define WIN_TO_RIGHT LALT(LSFT( LGUI(KC_RIGHT) ))
+# define ALL_WIN LCTL(KC_DOWN)
+# define EXPOSE LGUI(KC_DOWN)
 // ========== Modifiers!!
 # define SHIFT OSM(MOD_LSFT)
+//=============== tap for key hold for mod
 # define HYPR_H HYPR_T(KC_H)
 # define CTL_K RCTL_T(KC_K)
 # define ALT_J ALT_T(KC_J)
+# define SFT_MINS LSFT_T(KC_MINS) // tap - hold shift
 # define CMD_QUOT GUI_T(KC_QUOTE) // tap ' hold cmd
 //=============== Movement modified
 # define CTL_LEFT LCTL(KC_LEFT)
