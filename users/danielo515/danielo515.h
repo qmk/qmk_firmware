@@ -104,7 +104,12 @@ enum layers {
 # define CTL_K RCTL_T(KC_K)
 # define ALT_J ALT_T(KC_J)
 # define CMD_QUOT GUI_T(KC_QUOTE) // tap ' hold cmd
-// Ready to use Tap dance definitions, just put them on your layout
+//=============== Movement modified
+# define CTL_LEFT LCTL(KC_LEFT)
+# define CTL_RIGHT LCTL(KC_RIGHT)
+
+# define SFT_LEFT LSFT(KC_LEFT)
+# define SFT_RIGHT LSFT(KC_RIGHT)
 
 #ifdef TAP_DANCE_ENABLE
     #include "tap_dance.h"
