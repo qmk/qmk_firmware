@@ -40,10 +40,10 @@ Keycode Entry is accomplished in 3 ways.
 2. Clicking on an empty spot on the layout and clicking the keycode you desire
 3. Clicking on an empty spot on the layout, pressing the physical key on your keyboard.
 
-Hover your mouse over a key and a short blurb will tell you what that keycode does. For a more verbose description please see
+Hover your mouse over a key and a short blurb will tell you what that keycode does. For a more verbose description please see:
 
-[Basic Keycode Reference](keycodes_basic.md)    
-[Advanced Keycode Reference](feature_advanced_keycodes.md)    
+* [Basic Keycode Reference](keycodes_basic.md)
+* [Advanced Keycode Reference](feature_advanced_keycodes.md)
 
 In the event that you can't find a layout that supports your keymap, for example three spots for spacebar, or two spots for backspace, or 2 spots for shift etc etc, Fill them ALL up.
 
@@ -91,10 +91,10 @@ If you're referring to having three spots for space bar, the best course of acti
 
 #### What is the keycode for.......
 
-Please see
+Please see:
 
-[Basic Keycode Reference](keycodes_basic.md)    
-[Advanced Keycode Reference](feature_advanced_keycodes.md)    
+* [Basic Keycode Reference](keycodes_basic.md)
+* [Advanced Keycode Reference](feature_advanced_keycodes.md)
 
 #### It won't compile
 
