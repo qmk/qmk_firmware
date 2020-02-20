@@ -42,9 +42,9 @@
       * [US ANSI Shifted Keys](keycodes_us_ansi_shifted.md)
       * [Quantum Keycodes](quantum_keycodes.md)
       * [Advanced Keycodes](feature_advanced_keycodes.md)
-      * [Auto Shift](feature_auto_shift.md)
 
     * Software Features
+      * [Auto Shift](feature_auto_shift.md)
       * [Combos](feature_combo.md)
       * [Command](feature_command.md)
       * [Debounce API](feature_debounce_type.md)
