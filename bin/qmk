@@ -13,8 +13,8 @@ qmk_dir = script_dir.parent
 python_lib_dir = Path(qmk_dir / 'lib' / 'python').resolve()
 sys.path.append(str(python_lib_dir))
 
-# QMK CLI user config file
-config_file = Path(Path.home() / '.config/qmk/qmk.ini')
+# Setup the CLI
+import milc  # noqa
 
 
 def _check_modules(requirements):
@@ -24,7 +24,7 @@ def _check_modules(requirements):
         for line in fd.readlines():
             line = line.strip().replace('<', '=').replace('>', '=')
 
-            if line[0] == '#':
+            if len(line) == 0 or line[0] == '#' or '-r' in line:
                 continue
 
             if '#' in line:
@@ -53,12 +53,10 @@ developer = False
 _check_modules('requirements.txt')
 
 # For developers additional modules are needed
-if config_file.exists() and 'developer = True' in config_file.read_text():
+if milc.cli.config.user.developer:
     developer = True
     _check_modules('requirements-dev.txt')
 
-# Setup the CLI
-import milc  # noqa
 
 milc.EMOJI_LOGLEVELS['INFO'] = '{fg_blue}Ψ{style_reset_all}'
 
