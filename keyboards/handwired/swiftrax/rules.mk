@@ -20,3 +20,4 @@ COMMAND_ENABLE = no        	# Commands for debug and configuration
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes           # USB Nkey Rollover
 ENCODER_ENABLE = yes
+EXTRAKEY_ENABLE = yes
