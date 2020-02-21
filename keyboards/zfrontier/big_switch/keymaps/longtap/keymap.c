@@ -33,7 +33,7 @@ void keyboard_post_init_user(void) {
     print("zFrontier S01.6 boot...\n");
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING);
-    rgblight_setrgb(128,0,0);
+    rgblight_sethsv_noeeprom(0,0,128);
 }
 
 
