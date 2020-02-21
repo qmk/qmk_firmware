@@ -79,27 +79,27 @@ void encoder_init(void) {
 }
 
 static void encoder_update(int8_t index, uint8_t state) {
-    encoder_pulses[index] += encoder_LUT[state & 0xF];
-    if (encoder_pulses[index] >= ENCODER_RESOLUTION) {
+    uint8_t i = index;
+#ifdef SPLIT_KEYBOARD
+    index += thisHand;
+#endif
+    encoder_pulses[i] += encoder_LUT[state & 0xF];
+    if (encoder_pulses[i] >= ENCODER_RESOLUTION) {
         encoder_value[index]++;
         encoder_update_kb(index, true);
     }
-    if (encoder_pulses[index] <= -ENCODER_RESOLUTION) {  // direction is arbitrary here, but this clockwise
+    if (encoder_pulses[i] <= -ENCODER_RESOLUTION) {  // direction is arbitrary here, but this clockwise
         encoder_value[index]--;
         encoder_update_kb(index, false);
     }
-    encoder_pulses[index] %= ENCODER_RESOLUTION;
+    encoder_pulses[i] %= ENCODER_RESOLUTION;
 }
 
 void encoder_read(void) {
-    for (int i = 0; i < NUMBER_OF_ENCODERS; i++) {
+    for (uint8_t i = 0; i < NUMBER_OF_ENCODERS; i++) {
         encoder_state[i] <<= 2;
         encoder_state[i] |= (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
-#if SPLIT_KEYBOARD
-        encoder_update(i + thisHand, encoder_state[i]);
-#else
         encoder_update(i, encoder_state[i]);
-#endif
     }
 }
 
@@ -107,7 +107,7 @@ void encoder_read(void) {
 void encoder_state_raw(uint8_t* slave_state) { memcpy(slave_state, &encoder_value[thisHand], sizeof(uint8_t) * NUMBER_OF_ENCODERS); }
 
 void encoder_update_raw(uint8_t* slave_state) {
-    for (int i = 0; i < NUMBER_OF_ENCODERS; i++) {
+    for (uint8_t i = 0; i < NUMBER_OF_ENCODERS; i++) {
         uint8_t index = i + thatHand;
         int8_t  delta = slave_state[i] - encoder_value[index];
         while (delta > 0) {

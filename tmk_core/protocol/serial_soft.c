@@ -68,7 +68,6 @@ POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 /* debug for signal timing, see debug pin with oscilloscope */
-#define SERIAL_SOFT_DEBUG
 #ifdef SERIAL_SOFT_DEBUG
 #    define SERIAL_SOFT_DEBUG_INIT() (DDRD |= 1 << 7)
 #    define SERIAL_SOFT_DEBUG_TGL() (PORTD ^= 1 << 7)
@@ -169,7 +168,7 @@ void serial_send(uint8_t data) {
 /* detect edge of start bit */
 ISR(SERIAL_SOFT_RXD_VECT) {
     SERIAL_SOFT_DEBUG_TGL();
-    SERIAL_SOFT_RXD_INT_ENTER()
+    SERIAL_SOFT_RXD_INT_ENTER();
 
     uint8_t data = 0;
 
