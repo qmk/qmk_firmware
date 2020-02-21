@@ -72,7 +72,7 @@ static uint8_t micro_oled_screen_current[LCDWIDTH * LCDHEIGHT / 8] = {0};
   */
 
 #if LCDWIDTH == 64
-#    if LCDWIDTH == 48
+#    if LCDHEIGHT == 48
 static uint8_t micro_oled_screen_buffer[] = {
     // QMK Logo - generated at http://www.majer.ch/lcd/adf_bitmap.php
     // 64x48 image
