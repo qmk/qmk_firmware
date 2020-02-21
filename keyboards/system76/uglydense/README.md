@@ -1,7 +1,7 @@
 ## Flashing firmware:
 * Clone this repository and `cd` into the `qmk_firmware` directory.
 * After cloning, you probably need to run `make git-submodule`.
-   - You may also need to install dependencies: `sudo apt install avrdude gcc-avr`
+   - You may also need to install dependencies: `sudo apt install avrdude gcc-avr avr-libc`
 * To build the firmware without flashing the keyboard, use `make (keyboard name):(layout name)`
    - For example, if I want to build Levi's layout for the uglydense keyboard, I will run:
    `make system76/uglydense:levi`
