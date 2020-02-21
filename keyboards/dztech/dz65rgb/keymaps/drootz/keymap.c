@@ -260,18 +260,18 @@ enum french_letter {
     _U
 };
 
-enum french_accent {
-    _GRAVE,
-    _CIRCUMFLEX,
-    _ACUTE
-};
-
 const uint8_t french_letter_index[5] = {
     [_A] = 0,
     [_E] = 1,
     [_I] = 2,
     [_O] = 3,
     [_U] = 4
+};
+
+enum french_accent {
+    _CIRCUMFLEX,
+    _GRAVE,
+    _ACUTE
 };
 
 const uint8_t french_accent_index[3] = {
@@ -293,28 +293,25 @@ const uint8_t french_decimal_unicodes[5][3][2] = { /*[Letter][Accent][Case]*/
         {
             131,    // â
             194     // Â
-        },
-        {
+        },{
             133,    // à
             192     // À
-        } 
+        }
     },{
         {
             136,    // ê
             202     // Ê
-        },
-        {
+        },{
             138,    // è
             200     // È
-        }, 
-        {
+        },{
             130,    // é
             201     // É
         }
     },{
         {
-            140,    // î
-            206     // Î
+            140,    // î    
+            206     // Î 
         }
     },{
         {
@@ -325,8 +322,7 @@ const uint8_t french_decimal_unicodes[5][3][2] = { /*[Letter][Accent][Case]*/
         {
             150,    // û
             219     // Û
-        },
-        {
+        },{
             151,    // ù
             217     // Ù
         }
@@ -366,8 +362,11 @@ void send_french_accent(uint8_t letter, uint8_t accent) {
 
     /*Map to mod keys for French Mac shortcuts*/
     const uint16_t osx_mod_key_map[3] = {
-        KC_GRAVE, KC_I, KC_E
+        KC_I, // _CIRCUMFLEX
+        KC_GRAVE, // _GRAVE
+        KC_E // _ACUTE
     };
+
 
     /*
     Function to tap the correct keycodes in sequence for the 
