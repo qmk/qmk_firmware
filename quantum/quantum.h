@@ -210,9 +210,19 @@ typedef ioline_t pin_t;
 #ifndef USE_PACKED_KEYCODE_LUT
 extern const bool    ascii_to_shift_lut[128];
 extern const bool    ascii_to_altgr_lut[128];
+#define KCLUT_ENTRY(a, b, c, d, e, f, g, h) (a), (b), (c), (d), (e), (f), (g), (h)
 #else
 extern const uint8_t ascii_to_shift_lutp[16];
 extern const uint8_t ascii_to_altgr_lutp[16];
+#define KCLUT_ENTRY(a, b, c, d, e, f, g, h) \
+    ( ((a) ? 1 : 0) << 7 \
+    | ((a) ? 1 : 0) << 6 \
+    | ((a) ? 1 : 0) << 5 \
+    | ((a) ? 1 : 0) << 4 \
+    | ((a) ? 1 : 0) << 3 \
+    | ((a) ? 1 : 0) << 2 \
+    | ((a) ? 1 : 0) << 1 \
+    | ((a) ? 1 : 0) << 0 )
 #endif
 extern const uint8_t ascii_to_keycode_lut[128];
 
