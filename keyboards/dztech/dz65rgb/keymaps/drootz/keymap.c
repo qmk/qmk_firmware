@@ -11,19 +11,19 @@ bool isPlaying = false;
 static uint16_t blink_cycle_timer, 
                 blink_fade_in_timer, 
                 blink_fade_out_timer, 
-                blink_hsv_value,
-                macro_play_blink_timer = 2000,
                 macro_one_play_timer,
-                macro_two_play_timer;
+                macro_two_play_timer,
+                macro_play_blink_timer = 2000;
 static uint8_t  fade_in_step_counter, 
                 fade_out_step_counter, 
+                blink_hsv_value,
                 recording_r, 
                 recording_g, 
                 recording_b;
 
-/**************** HELPER FUNCTIONS *********************/
+/**************** LED BLINK HELPER FUNCTIONS *********************/
 
-uint8_t get_blink_rgb(uint16_t h, uint16_t s, uint16_t v, uint8_t output) {
+uint8_t get_blink_rgb(uint8_t h, uint8_t s, uint8_t v, uint8_t output) {
     HSV hsv = {h, s, v * ((ledDimRatio / 2) + ledDimRatio)};
     RGB rgb = hsv_to_rgb(hsv);
     const uint8_t HSV_RGB[3] = {rgb.r, rgb.g, rgb.b};
@@ -42,7 +42,7 @@ uint8_t get_blink_rgb(uint16_t h, uint16_t s, uint16_t v, uint8_t output) {
     }
 }
 
-void set_blink_rgb(uint16_t h, uint16_t s, uint16_t v) {
+void set_blink_rgb(uint8_t h, uint8_t s, uint8_t v) {
     recording_r = get_blink_rgb(h, s, v, 0);
     recording_g = get_blink_rgb(h, s, v, 1);
     recording_b = get_blink_rgb(h, s, v, 2);
@@ -63,7 +63,7 @@ void reset_blink_status(void) {
     isBlinking = false;
 }
 
-void get_this_led_blinking(uint16_t led_index, bool speed, uint16_t hue, uint16_t sat) {
+void get_this_led_blinking(uint8_t led_index, bool speed, uint8_t hue, uint8_t sat) {
     const uint16_t static_on_time = speed ? 200 : 500;
     const uint16_t static_off_time = speed ? 200 : 500;
     const uint8_t fade_timing = speed ? 100 : 150;
@@ -89,7 +89,8 @@ void get_this_led_blinking(uint16_t led_index, bool speed, uint16_t hue, uint16_
         reset_blink_cycle();
     }
     rgb_matrix_set_color(led_index, recording_r, recording_g, recording_b);
-} 
+}
+
 
 /**************** LAYOUT *********************/
 
@@ -248,175 +249,208 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef LEADER_ENABLE
 
-LEADER_EXTERNS();
+/******* FRENCH ACCENT HELPER FUNCTIONS & DECLARATIONS *************/
+/*Most comonly used accents only*/
 
-/* éÉ */
-void lk_send_e_aigu(void) {
-    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
-        if (onMac) {
-            SEND_STRING(SS_TAP(X_CAPSLOCK) SS_LALT("e") SS_LSFT("e"));
-            tap_code(KC_CAPS);
-        } else {
-            SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P2) SS_TAP(X_P0) SS_TAP(X_P1) SS_UP(X_LALT));
-        }
-    } else {
-        onMac ? SEND_STRING(SS_LALT("e") SS_TAP(X_E)) : SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P1) SS_TAP(X_P3) SS_TAP(X_P0) SS_UP(X_LALT));
-    }
-}
+enum french_letter {
+    _A,
+    _E,
+    _I,
+    _O,
+    _U
+};
 
-/* àÀ */
-void lk_send_a_grave(void) {
-    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
-        if (onMac) {
-            SEND_STRING(SS_TAP(X_CAPSLOCK) SS_LALT("`") SS_LSFT("a"));
-            tap_code(KC_CAPS);
-        } else {
-            SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P1) SS_TAP(X_P9) SS_TAP(X_P2) SS_UP(X_LALT));
-        }
-    } else {
-        onMac ? SEND_STRING(SS_LALT("`") SS_TAP(X_A)) : SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P1) SS_TAP(X_P3) SS_TAP(X_P3) SS_UP(X_LALT));
-    }
-}
+enum french_accent {
+    _GRAVE,
+    _CIRCUMFLEX,
+    _ACUTE
+};
 
-/* èÈ */
-void lk_send_e_grave(void) {
-    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
-        if (onMac) {
-            SEND_STRING(SS_TAP(X_CAPSLOCK) SS_LALT("`") SS_LSFT("e"));
-            tap_code(KC_CAPS);
-        } else {
-            SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P2) SS_TAP(X_P0) SS_TAP(X_P0) SS_UP(X_LALT));
-        }
-    } else {
-        onMac ? SEND_STRING(SS_LALT("`") SS_TAP(X_E)) : SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P1) SS_TAP(X_P3) SS_TAP(X_P8) SS_UP(X_LALT));
-    }
-}
+const uint8_t french_letter_index[5] = {
+    [_A] = 0,
+    [_E] = 1,
+    [_I] = 2,
+    [_O] = 3,
+    [_U] = 4
+};
 
-/* ùÙ */
-void lk_send_u_grave(void) {
-    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
-        if (onMac) {
-            SEND_STRING(SS_TAP(X_CAPSLOCK) SS_LALT("`") SS_LSFT("u"));
-            tap_code(KC_CAPS);
-        } else {
-            SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P2) SS_TAP(X_P1) SS_TAP(X_P7) SS_UP(X_LALT));
-        }
-    } else {
-        onMac ? SEND_STRING(SS_LALT("`") SS_TAP(X_U)) : SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P1) SS_TAP(X_P5) SS_TAP(X_P1) SS_UP(X_LALT));
-    }
-}
+const uint8_t french_accent_index[3] = {
+    [_CIRCUMFLEX] = 0,
+    [_GRAVE] = 1,
+    [_ACUTE] = 2
+};
 
-/* âÂ */
-void lk_send_a_circonflexe(void) {
-    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
-        if (onMac) {
-            SEND_STRING(SS_TAP(X_CAPSLOCK) SS_LALT("i") SS_LSFT("a"));
-            tap_code(KC_CAPS);
-        } else {
-            SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P1) SS_TAP(X_P9) SS_TAP(X_P4) SS_UP(X_LALT));
-        }
-    } else {
-        onMac ? SEND_STRING(SS_LALT("i") SS_TAP(X_A)) : SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P1) SS_TAP(X_P3) SS_TAP(X_P1) SS_UP(X_LALT));
-    }
-}
-
-/* êÊ */
-void lk_send_e_circonflexe(void) {
-    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
-        if (onMac) {
-            SEND_STRING(SS_TAP(X_CAPSLOCK) SS_LALT("i") SS_LSFT("e"));
-            tap_code(KC_CAPS);
-        } else {
-            SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P2) SS_TAP(X_P0) SS_TAP(X_P2) SS_UP(X_LALT));
-        }
-    } else {
-        onMac ? SEND_STRING(SS_LALT("i") SS_TAP(X_E)) : SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P1) SS_TAP(X_P3) SS_TAP(X_P6) SS_UP(X_LALT));
-    }
-}
-
-/* íÍ */
-void lk_send_i_circonflexe(void) {
-    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
-        if (onMac) {
-            SEND_STRING(SS_TAP(X_CAPSLOCK) SS_LALT("i") SS_LSFT("i"));
-            tap_code(KC_CAPS);
-        } else {
-            SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P2) SS_TAP(X_P0) SS_TAP(X_P6) SS_UP(X_LALT));
-        }
-    } else {
-        onMac ? SEND_STRING(SS_LALT("i") SS_TAP(X_I)) : SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P1) SS_TAP(X_P4) SS_TAP(X_P0) SS_UP(X_LALT));
-    }
-}
-
-/* ôÔ */
-void lk_send_o_circonflexe(void) {
-    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
-        if (onMac) {
-            SEND_STRING(SS_TAP(X_CAPSLOCK) SS_LALT("i") SS_LSFT("o"));
-            tap_code(KC_CAPS);
-        } else {
-            SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P2) SS_TAP(X_P1) SS_TAP(X_P2) SS_UP(X_LALT));
-        }
-    } else {
-        onMac ? SEND_STRING(SS_LALT("i") SS_TAP(X_O)) : SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P1) SS_TAP(X_P4) SS_TAP(X_P7) SS_UP(X_LALT));
-    }
-}
-
-/* ûÛ */
-void lk_send_u_circonflexe(void) {
-    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
-        if (onMac) {
-            SEND_STRING(SS_TAP(X_CAPSLOCK) SS_LALT("i") SS_LSFT("u"));
-            tap_code(KC_CAPS);
-        } else {
-            SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P2) SS_TAP(X_P1) SS_TAP(X_P9) SS_UP(X_LALT));
-        }
-    } else {
-        onMac ? SEND_STRING(SS_LALT("i") SS_TAP(X_U)) : SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P1) SS_TAP(X_P5) SS_TAP(X_P0) SS_UP(X_LALT));
-    }
-}
-
-/* çÇ */
-void lk_send_c_cedille(void) {
-    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) 
+/* 
+All upper case windows alt codes are 4 digits with a leading 0. 
+I removed the leading 0 so that it doesn't get ignored when placing int in array.
+All codes in this array should be of size 3
+All accent codes have the same index position as in the french_accent_index Array
+*/
+const uint8_t french_win_alt_codes[5][3][2] = { /*[Letter][Accent][Case]*/
     {
-        onMac ? SEND_STRING(SS_LALT("c")) : SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P1) SS_TAP(X_P2) SS_TAP(X_P8) SS_UP(X_LALT));
-    } else 
-    {
-        onMac ? SEND_STRING(SS_LALT("c")) : SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P1) SS_TAP(X_P3) SS_TAP(X_P5) SS_UP(X_LALT));
+        {
+            131,    // â
+            194     // Â
+        },
+        {
+            133,    // à
+            192     // À
+        } 
+    },{
+        {
+            136,    // ê
+            202     // Ê
+        },
+        {
+            138,    // è
+            200     // È
+        }, 
+        {
+            130,    // é
+            201     // É
+        }
+    },{
+        {
+            140,    // î
+            206     // Î
+        }
+    },{
+        {
+            147,    // ô
+            212     // Ô
+        }
+    },{
+        {
+            150,    // û
+            219     // Û
+        },
+        {
+            151,    // ù
+            217     // Ù
+        }
+    }
+};
+
+void break_int_in_array(uint8_t int_code, uint8_t size, uint8_t *array) {
+    uint8_t i;
+    i = size;
+    while (i--) {
+        array[i] = int_code%10;
+        int_code /= 10;
     }
 }
 
-/* (|) */
-void lk_send_paranthesis_wrap_ini(void) {
+/*
+Function meant to be used in Leader Key macros to output most commonly used french accents
+=> accept french_letter and french_accent enum's as argument
+*/
+void send_french_accent(uint8_t letter, uint8_t accent) {
+    
+    bool isCaps;
+    uint8_t win_alt_code_in;
+    uint8_t win_alt_code_size = 3;
+    uint8_t win_alt_code_out[win_alt_code_size];
+
+    /*Map to numpad keycodes*/
+    const uint16_t numpad_keys[10] = {
+        KC_P0, KC_P1, KC_P2, KC_P3, KC_P4, KC_P5, KC_P6, KC_P7, KC_P8, KC_P9
+    };
+
+    /*Map to letter keycodes*/
+    const uint16_t letter_keys[5] = {
+        KC_A, KC_E, KC_I, KC_O, KC_U
+    };
+
+    /*Map to mod keys for French Mac shortcuts*/
+    const uint16_t mod_keys[3] = {
+        KC_GRAVE, KC_I, KC_E
+    };
+
+    /*Function to tap the correct keycodes in sequence for the Windows alt code requested*/
+    void tap_win_alt_code(void) {
+        if (isCaps) {
+            tap_code(numpad_keys[0]); // Leading 0 on all upper case Windows alt code
+        }
+        for (int i = 0; i < win_alt_code_size; ++i) {
+            tap_code(numpad_keys[win_alt_code_out[i]]);
+        }
+    }
+    
+    isCaps = IS_HOST_LED_ON(USB_LED_CAPS_LOCK) ? true : false;
+
+    if (onMac) {
+        if (isCaps) {
+            SEND_STRING(SS_TAP(X_CAPSLOCK));
+            register_code(KC_LALT);
+            tap_code(mod_keys[accent]);
+            unregister_code(KC_LALT);
+            register_code(KC_LSFT);
+            tap_code(letter_keys[letter]);
+            unregister_code(KC_LSFT);
+            tap_code(KC_CAPS);
+        } else {
+            register_code(KC_LALT);
+            tap_code(mod_keys[accent]);
+            unregister_code(KC_LALT);
+            tap_code(letter_keys[letter]);
+        }
+    } else {
+        win_alt_code_in = isCaps ? french_win_alt_codes[letter][accent][1] : french_win_alt_codes[letter][accent][0];
+        break_int_in_array(win_alt_code_in, win_alt_code_size, win_alt_code_out);
+        register_code(KC_LALT);
+        tap_win_alt_code();
+        unregister_code(KC_LALT);
+    }
+}
+
+/*Couple functions used to output the same macro on two different sequences*/
+
+/* (|) */ 
+void ldrkey_send_paranthesis_wrap_ini(void) {
     SEND_STRING("()" SS_TAP(X_LEFT));
 }
 
 /* (X) */
-void lk_send_paranthesis_wrap_word(void) {
+void ldrkey_send_paranthesis_wrap_word(void) {
     onMac ? SEND_STRING(SS_LALT(SS_TAP(X_LEFT)) "(" SS_LALT(SS_TAP(X_RIGHT)) ")") : SEND_STRING(SS_LCTL(SS_TAP(X_LEFT)) "(" SS_LCTL(SS_TAP(X_RIGHT)) ")");
 }
 
+/* (selection) */ 
+void ldrkey_send_paranthesis_wrap_selection(void) {
+    onMac ? SEND_STRING(SS_LGUI(SS_TAP(X_C)) SS_TAP(X_DEL) "()" SS_TAP(X_LEFT) SS_LGUI(SS_TAP(X_V)) SS_TAP(X_RIGHT)) : SEND_STRING(SS_LCTL(SS_TAP(X_C)) SS_TAP(X_DEL) "()" SS_TAP(X_LEFT) SS_LCTL(SS_TAP(X_V)) SS_TAP(X_RIGHT));
+}
+
 /* [|] */
-void lk_send_bracket_wrap_ini(void) {
+void ldrkey_send_bracket_wrap_ini(void) {
     SEND_STRING("[]" SS_TAP(X_LEFT));
 }
 
 /* [X] */
-void lk_send_bracket_wrap_word(void) {
+void ldrkey_send_bracket_wrap_word(void) {
     onMac ? SEND_STRING(SS_LALT(SS_TAP(X_LEFT)) "[" SS_LALT(SS_TAP(X_RIGHT)) "]") : SEND_STRING(SS_LCTL(SS_TAP(X_LEFT)) "[" SS_LCTL(SS_TAP(X_RIGHT)) "]");
 }
 
-/* [|] */
-void lk_send_curlybrace_wrap_ini(void) {
+/* [selection] */
+void ldrkey_send_bracket_wrap_selection(void) {
+    onMac ? SEND_STRING(SS_LGUI(SS_TAP(X_C)) SS_TAP(X_DEL) "[]" SS_TAP(X_LEFT) SS_LGUI(SS_TAP(X_V)) SS_TAP(X_RIGHT)) : SEND_STRING(SS_LCTL(SS_TAP(X_C)) SS_TAP(X_DEL) "[]" SS_TAP(X_LEFT) SS_LCTL(SS_TAP(X_V)) SS_TAP(X_RIGHT));
+}
+
+/* {|} */
+void ldrkey_send_curlybrace_wrap_ini(void) {
     SEND_STRING("{}" SS_TAP(X_LEFT));
 }
 
-/* [X] */
-void lk_send_curlybrace_wrap_word(void) {
+/* {X} */
+void ldrkey_send_curlybrace_wrap_word(void) {
     onMac ? SEND_STRING(SS_LALT(SS_TAP(X_LEFT)) "{" SS_LALT(SS_TAP(X_RIGHT)) "}") : SEND_STRING(SS_LCTL(SS_TAP(X_LEFT)) "{" SS_LCTL(SS_TAP(X_RIGHT)) "}");
 }
 
+/* {selection} */
+void ldrkey_send_curlybrace_wrap_selection(void) {
+    onMac ? SEND_STRING(SS_LGUI(SS_TAP(X_C)) SS_TAP(X_DEL) "{}" SS_TAP(X_LEFT) SS_LGUI(SS_TAP(X_V)) SS_TAP(X_RIGHT)) : SEND_STRING(SS_LCTL(SS_TAP(X_C)) SS_TAP(X_DEL) "{}" SS_TAP(X_LEFT) SS_LCTL(SS_TAP(X_V)) SS_TAP(X_RIGHT));
+}
+
+LEADER_EXTERNS();
 
 void matrix_scan_user(void) 
 {
@@ -428,83 +462,47 @@ void matrix_scan_user(void)
         /* Sequences on layer _MAIN & _MAC */
         /*  éÉ      => LdrKey > / */
         SEQ_ONE_KEY(KC_SLSH) {
-            lk_send_e_aigu();
-        }
-        /*  éÉ      => LdrKey > E > E > E */
-        SEQ_THREE_KEYS(KC_E, KC_E, KC_E) {
-            lk_send_e_aigu();
-        }
-        /*  àÀ      => LdrKey > ; > A */
-        SEQ_TWO_KEYS(KC_SCLN, KC_A) {
-            lk_send_a_grave();
+            send_french_accent(_E, _ACUTE);
         }
         /*  àÀ      => LdrKey > A */
         SEQ_ONE_KEY(KC_A) {
-            lk_send_a_grave();
-        }
-        /*  èÈ      => LdrKey > ; > E */
-        SEQ_TWO_KEYS(KC_SCLN, KC_E) {
-            lk_send_e_grave();
+            send_french_accent(_A, _GRAVE);
         }
         /*  èÈ      => LdrKey > E */
         SEQ_ONE_KEY(KC_E) {
-            lk_send_e_grave();
-        }
-        /*  ùÙ      => LdrKey > ; > U */
-        SEQ_TWO_KEYS(KC_SCLN, KC_U) {
-            lk_send_u_grave();
+            send_french_accent(_E, _GRAVE);
         }
         /*  ùÙ      => LdrKey > U */
         SEQ_ONE_KEY(KC_U) {
-            lk_send_u_grave();
-        }
-        /*  âÂ      => LdrKey > [ > A */
-        SEQ_TWO_KEYS(KC_LBRC, KC_A) {
-            lk_send_a_circonflexe();
+            send_french_accent(_U, _GRAVE);
         }
         /*  âÂ      => LdrKey > A > A */
         SEQ_TWO_KEYS(KC_A, KC_A) {
-            lk_send_a_circonflexe();
-        }
-        /*  êÊ      => LdrKey > [ > E */
-        SEQ_TWO_KEYS(KC_LBRC, KC_E) {
-            lk_send_e_circonflexe();
+            send_french_accent(_A, _CIRCUMFLEX);
         }
         /*  êÊ      => LdrKey > E > E */
         SEQ_TWO_KEYS(KC_E, KC_E) {
-            lk_send_e_circonflexe();
-        }
-        /*  îÎ      => LdrKey > [ > I */
-        SEQ_TWO_KEYS(KC_LBRC, KC_I) {
-            lk_send_i_circonflexe();
+            send_french_accent(_E, _CIRCUMFLEX);
         }
         /*  îÎ      => LdrKey > I > I */
         SEQ_TWO_KEYS(KC_I, KC_I) {
-            lk_send_i_circonflexe();
-        }
-        /*  ôÔ      => LdrKey > [ > O */
-        SEQ_TWO_KEYS(KC_LBRC, KC_O) {
-            lk_send_o_circonflexe();
+            send_french_accent(_I, _CIRCUMFLEX);
         }
         /*  ôÔ      => LdrKey > O > O */
         SEQ_TWO_KEYS(KC_O, KC_O) {
-            lk_send_o_circonflexe();
-        }
-        /*  ûÛ      => LdrKey > [ > U */
-        SEQ_TWO_KEYS(KC_LBRC, KC_U) {
-            lk_send_u_circonflexe();
+            send_french_accent(_O, _CIRCUMFLEX);
         }
         /*  ûÛ      => LdrKey > U > U */
         SEQ_TWO_KEYS(KC_U, KC_U) {
-            lk_send_u_circonflexe();
-        }
-        /*  çÇ      => LdrKey > ] > C */
-        SEQ_TWO_KEYS(KC_RBRC, KC_C) {
-            lk_send_c_cedille();
+            send_french_accent(_U, _CIRCUMFLEX);
         }
         /*  çÇ      => LdrKey > C */
         SEQ_ONE_KEY(KC_C) {
-            lk_send_c_cedille();
+            if (onMac) {
+                SEND_STRING(SS_LALT("c"));
+            } else {
+                IS_HOST_LED_ON(USB_LED_CAPS_LOCK) ? SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P1) SS_TAP(X_P2) SS_TAP(X_P8) SS_UP(X_LALT)) : SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P1) SS_TAP(X_P3) SS_TAP(X_P5) SS_UP(X_LALT));
+            }
         }
         /*  CapsLock */
         SEQ_ONE_KEY(KC_LEAD) {
@@ -583,11 +581,7 @@ void matrix_scan_user(void)
         SEQ_ONE_KEY(KC_Q) {
             onMac ? SEND_STRING(SS_LGUI(SS_TAP(X_Q))) : SEND_STRING(SS_LALT(SS_TAP(X_F4)));
         }
-        /*  Show Desktop            => LdrKey > D */
-        SEQ_ONE_KEY(KC_D) {
-            onMac ? SEND_STRING(SS_LGUI(SS_TAP(X_SPC)) "Mission" SS_TAP(X_ENT)) : SEND_STRING(SS_LGUI(SS_TAP(X_D)));
-        }
-        /*  "           => LdrKey > ' */
+        /*  "           => LdrKey > ' */ 
         SEQ_ONE_KEY(KC_QUOT) {
             SEND_STRING("\"");
         }
@@ -609,19 +603,27 @@ void matrix_scan_user(void)
         }
         /*  (|)         => LdrKey > Left Shift > Left Shift */
         SEQ_TWO_KEYS(KC_LSFT, KC_LSFT) {
-            lk_send_paranthesis_wrap_ini();
+            ldrkey_send_paranthesis_wrap_ini();
         }
         /*  (|)         => LdrKey > Right Shift > Right Shift */
         SEQ_TWO_KEYS(KC_RSFT, KC_RSFT) {
-            lk_send_paranthesis_wrap_ini();
+            ldrkey_send_paranthesis_wrap_ini();
         }
         /*  (X) wrap    => LdrKey > Left Shift > Left Shift > Left Shift */
-        SEQ_THREE_KEYS(KC_LSFT, KC_LSFT, KC_LSFT) {
-            lk_send_paranthesis_wrap_word();
+        SEQ_TWO_KEYS(KC_LSFT, KC_W) {
+            ldrkey_send_paranthesis_wrap_word();
         }
         /*  (X) wrap    => LdrKey > Right Shift > Right Shift > Right Shift */
-        SEQ_THREE_KEYS(KC_RSFT, KC_RSFT, KC_RSFT) {
-            lk_send_paranthesis_wrap_word();
+        SEQ_TWO_KEYS(KC_RSFT, KC_W) {
+            ldrkey_send_paranthesis_wrap_word();
+        }
+        /*  (X) wrap selection    => LdrKey > Left Shift > W > W */
+        SEQ_THREE_KEYS(KC_LSFT, KC_W, KC_W) {
+            ldrkey_send_paranthesis_wrap_selection();
+        }
+        /*  (X) wrap selection    => LdrKey > Right Shift > W > W */
+        SEQ_THREE_KEYS(KC_RSFT, KC_W, KC_W) {
+            ldrkey_send_paranthesis_wrap_selection();
         }
         /*  [           => LdrKey > Left CTL */
         SEQ_ONE_KEY(KC_LCTL) {
@@ -633,19 +635,27 @@ void matrix_scan_user(void)
         }
         /*  [|]         => LdrKey > Left CTL > Left CTL */
         SEQ_TWO_KEYS(KC_LCTL, KC_LCTL) {
-            lk_send_bracket_wrap_ini();
+            ldrkey_send_bracket_wrap_ini();
         }
         /*  [|]         => LdrKey > Right CTL > Right CTL */
         SEQ_TWO_KEYS(KC_RCTL, KC_RCTL) {
-            lk_send_bracket_wrap_ini();
+            ldrkey_send_bracket_wrap_ini();
         }
         /*  [X] wrap    => LdrKey > Left CTL > Left CTL > Left CTL */
-        SEQ_THREE_KEYS(KC_LCTL, KC_LCTL, KC_LCTL) {
-            lk_send_bracket_wrap_word();
+        SEQ_TWO_KEYS(KC_LCTL, KC_W) {
+            ldrkey_send_bracket_wrap_word();
         }
         /*  [X] wrap    => LdrKey > Right CTL > Right CTL > Right CTL */
-        SEQ_THREE_KEYS(KC_RCTL, KC_RCTL, KC_RCTL) {
-            lk_send_bracket_wrap_word();
+        SEQ_TWO_KEYS(KC_RCTL, KC_W) {
+            ldrkey_send_bracket_wrap_word();
+        }
+        /*  [X] wrap selection    => LdrKey > Left CTL > W > W */
+        SEQ_THREE_KEYS(KC_LCTL, KC_W, KC_W) {
+            ldrkey_send_bracket_wrap_selection();
+        }
+        /*  [X] wrap selection    => LdrKey > Right CTL > W > W */
+        SEQ_THREE_KEYS(KC_RCTL, KC_W, KC_W) {
+            ldrkey_send_bracket_wrap_selection();
         }
         /*  {           => LdrKey > Left ALT */
         SEQ_ONE_KEY(KC_LALT) {
@@ -657,19 +667,27 @@ void matrix_scan_user(void)
         }
         /*  {|}         => LdrKey > Left ALT > Left ALT */
         SEQ_TWO_KEYS(KC_LALT, KC_LALT) {
-            lk_send_curlybrace_wrap_ini();
+            ldrkey_send_curlybrace_wrap_ini();
         }
         /*  {|}         => LdrKey > Right ALT > Right ALT */
         SEQ_TWO_KEYS(KC_RALT, KC_RALT) {
-            lk_send_curlybrace_wrap_ini();
+            ldrkey_send_curlybrace_wrap_ini();
         }
         /*  {X} wrap    => LdrKey > Left ALT > Left ALT > Left ALT */
-        SEQ_THREE_KEYS(KC_LALT, KC_LALT, KC_LALT) {
-            lk_send_curlybrace_wrap_word();
+        SEQ_TWO_KEYS(KC_LALT, KC_W) {
+            ldrkey_send_curlybrace_wrap_word();
         }
         /*  {X} wrap    => LdrKey > Right ALT > Right ALT > Right ALT */
-        SEQ_THREE_KEYS(KC_RALT, KC_RALT, KC_RALT) {
-            lk_send_curlybrace_wrap_word();
+        SEQ_TWO_KEYS(KC_RALT, KC_W) {
+            ldrkey_send_curlybrace_wrap_word();
+        }
+        /*  {X} wrap selection    => LdrKey > Left ALT > W > W */
+        SEQ_THREE_KEYS(KC_LALT, KC_W, KC_W) {
+            ldrkey_send_curlybrace_wrap_selection();
+        }
+        /*  {X} wrap selection    => LdrKey > Right ALT > W > W */
+        SEQ_THREE_KEYS(KC_RALT, KC_W, KC_W) {
+            ldrkey_send_curlybrace_wrap_selection();
         }
         /*  Select everything on this line before cursor => LdrKey > Left */
         SEQ_ONE_KEY(KC_LEFT) { 
@@ -714,6 +732,10 @@ void matrix_scan_user(void)
         /*  @gmail  => LdrKey > M > L > T */
         SEQ_THREE_KEYS(KC_M, KC_L, KC_T) { 
             SEND_STRING("mailto." SS_TAP(X_D) SS_TAP(X_A) SS_TAP(X_N) SS_TAP(X_I) SS_TAP(X_E) SS_TAP(X_L) SS_TAP(X_R) SS_TAP(X_A) SS_TAP(X_C) SS_TAP(X_I) SS_TAP(X_N) SS_TAP(X_E) "@gmail.com"); 
+        }
+        /*  Show Desktop            => LdrKey > D */
+        SEQ_ONE_KEY(KC_D) {
+            onMac ? SEND_STRING(SS_LGUI(SS_TAP(X_SPC)) "Mission" SS_TAP(X_ENT)) : SEND_STRING(SS_LGUI(SS_TAP(X_D)));
         }
     }
 }

@@ -80,7 +80,7 @@ This layout fit best people who mainly type in English but regularly need to typ
 
 ## LEADER KEY BINDINGS
 
-The Leader Key on this layout is triggered by tapping the Capslock key once. Once triggered, we have 450ms to type any one of the key sequences listed below. All sequences are designed to work on both Mac and Windows with an English keyboard OS setting.
+The Leader Key on this layout is triggered by tapping the Capslock key once. Once triggered, we have 450ms between each key press to type any one of the sequences listed below. All sequences are designed to work on both Mac and Windows with an English keyboard OS setting.
 
 - [OS and Keyboard Macros](#OS-and-Keyboard-Macros)
 - [French Accents](#French-Accents)
@@ -122,25 +122,15 @@ The Leader Key on this layout is triggered by tapping the Capslock key once. Onc
 | Output | Sequence | Description
 | :--- | :--- | :--- |
 | `à`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `À`¶ | `LDR  A` | Will output upper character if Capslock enabled. |
-| `à`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `À`¶ | `LDR  ;  A` | Will output upper character if Capslock enabled. Mimic French keyboard shortcut. |
 | `â`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `Â`¶ | `LDR  A  A` | Will output upper character if Capslock enabled. |
-| `â`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `Â`¶ | `LDR  [  A` | Will output upper character if Capslock enabled. Mimic French keyboard shortcut. |
 | `ç`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `Ç`¶ | `LDR  C` | Will output upper character if Capslock enabled. |
-| `ç`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `Ç`¶ | `LDR  ]  C` | Will output upper character if Capslock enabled. Mimic French keyboard shortcut. |
 | `è`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `È`¶ | `LDR  E` | Will output upper character if Capslock enabled. |
-| `è`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `È`¶ | `LDR  ;  E` | Will output upper character if Capslock enabled. Mimic French keyboard shortcut. |
 | `ê`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `Ê`¶ | `LDR  E  E` | Will output upper character if Capslock enabled. |
-| `ê`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `Ê`¶ | `LDR  [  E` | Will output upper character if Capslock enabled. Mimic French keyboard shortcut. |
 | `é`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `É`¶ | `LDR  /` | Will output upper character if Capslock enabled |
-| `é`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `É`¶ | `LDR  E  E  E` | Will output upper character if Capslock enabled. |
 | `î`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `Î`¶ | `LDR  I  I` | Will output upper character if Capslock enabled. |
-| `î`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `Î`¶ | `LDR  [  I` | Will output upper character if Capslock enabled. Mimic French keyboard shortcut. |
 | `ô`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `Ô`¶ | `LDR  O  O` | Will output upper character if Capslock enabled. |
-| `ô`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `Ô`¶ | `LDR  [  O` | Will output upper character if Capslock enabled. Mimic French keyboard shortcut. |
 | `ù`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `Ù`¶ | `LDR  U` | Will output upper character if Capslock enabled. |
-| `ù`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `Ù`¶ | `LDR  ;  U` | Will output upper character if Capslock enabled. Mimic French keyboard shortcut. |
 | `û`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `Û`¶ | `LDR  U  U` | Will output upper character if Capslock enabled. |
-| `û`¶ &nbsp;&nbsp;or&nbsp;&nbsp; `Û`¶ | `LDR  [  U` | Will output upper character if Capslock enabled. Mimic French keyboard shortcut. |
 
 ### Special Characters and Punctuation
 
@@ -180,20 +170,26 @@ The Leader Key on this layout is triggered by tapping the Capslock key once. Onc
 | `)`¶ | `LDR  RIGHT-SFT` | Will output single right parenthesis |
 | `(`¶`)` | `LDR  LEFT-SFT  LEFT-SFT` | Will wrap cursor between two parenthesis' |
 | `(`¶`)` | `LDR  RIGHT-SFT  RIGHT-SFT` | Will wrap cursor between two parenthesis' |
-| `(`WORD`)`¶ | `LDR  LEFT-SFT  LEFT-SFT  LEFT-SFT` | Will wrap word on cursor between two parenthesis' |
-| `(`WORD`)`¶ | `LDR  RIGHT-SFT  RIGHT-SFT  RIGHT-SFT` | Will wrap word on cursor between two parenthesis' |
+| `(`WORD`)`¶ | `LDR  LEFT-SFT  W` | Will wrap word on cursor between two parenthesis' |
+| `(`WORD`)`¶ | `LDR  RIGHT-SFT  W` | Will wrap word on cursor between two parenthesis' |
+| `(`SELECTION`)`¶ | `LDR  LEFT-SFT  W  W` | Will wrap selection between two parenthesis' |
+| `(`SELECTION`)`¶ | `LDR  RIGHT-SFT  W  W` | Will wrap selection between two parenthesis' |
 | `[`¶ | `LDR  LEFT-CTL` | Will output single left bracket |
 | `]`¶ | `LDR  RIGHT-CTL` | Will output single right bracket |
 | `[`¶`]` | `LDR  LEFT-CTL  LEFT-CTL` | Will wrap cursor between two brackets' |
 | `[`¶`]` | `LDR  RIGHT-CTL  RIGHT-CTL` | Will wrap cursor between two brackets' |
-| `[`WORD`]`¶ | `LDR  LEFT-CTL  LEFT-CTL  LEFT-CTL` | Will wrap word on cursor between two brackets' |
-| `[`WORD`]`¶ | `LDR  RIGHT-CTL  RIGHT-CTL  RIGHT-CTL` | Will wrap word on cursor between two brackets' |
+| `[`WORD`]`¶ | `LDR  LEFT-CTL  W` | Will wrap word on cursor between two brackets' |
+| `[`WORD`]`¶ | `LDR  RIGHT-CTL  W` | Will wrap word on cursor between two brackets' |
+| `[`SELECTION`]`¶ | `LDR  LEFT-CTL  W  W` | Will wrap selection between two brackets' |
+| `[`SELECTION`]`¶ | `LDR  RIGHT-CTL  W  W` | Will wrap selection between two brackets' |
 | `{`¶ | `LDR  LEFT-ALT` | Will output single left curly brace |
 | `}`¶ | `LDR  RIGHT-ALT` | Will output single right curly brace |
 | `{`¶`}` | `LDR  LEFT-ALT  LEFT-ALT` | Will wrap cursor between two curly braces' |
 | `{`¶`}` | `LDR  RIGHT-ALT  RIGHT-ALT` | Will wrap cursor between two curly braces' |
-| `{`WORD`}`¶ | `LDR  LEFT-ALT  LEFT-ALT  LEFT-ALT` | Will wrap word on cursor between two curly braces' |
-| `{`WORD`}`¶ | `LDR  RIGHT-ALT  RIGHT-ALT  RIGHT-ALT` | Will wrap word on cursor between two curly braces' |
+| `{`WORD`}`¶ | `LDR  LEFT-ALT  W` | Will wrap word on cursor between two curly braces' |
+| `{`WORD`}`¶ | `LDR  RIGHT-ALT  W` | Will wrap word on cursor between two curly braces' |
+| `{`SELECTION`}`¶ | `LDR  LEFT-ALT  W  W` | Will wrap selection between two curly braces' |
+| `{`SELECTION`}`¶ | `LDR  RIGHT-ALT  W  W` | Will wrap selection between two curly braces' |
 
 ### Text Expanders
 
@@ -205,7 +201,7 @@ The Leader Key on this layout is triggered by tapping the Capslock key once. Onc
 
 ## STEP BY STEP FLASH INSTRUCTIONS
 1. Build the Firmware. Run build command in directory: `make dztech/dz65rgb/v2:drootz`
-	- Approximate firmware size: 27868/28672 (97%, 804 bytes free)
+	- Approximate firmware size: 27370/28672 (95%, 1302 bytes free)
 2. Flash the Firmware:
     - Open QMK Toolbox Application
     - Open firmware file: dztech_dz65rgb_v2_drootz.hex
