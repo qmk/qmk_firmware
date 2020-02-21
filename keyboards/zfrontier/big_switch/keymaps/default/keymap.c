@@ -26,10 +26,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void keyboard_post_init_user(void) {
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING);
-    rgblight_setrgb(128,0,0);
+    rgblight_sethsv_noeeprom(0,0,128);
 }
 
 #ifdef TAP_DANCE_ENABLE
 qk_tap_dance_action_t tap_dance_actions[0];
 #endif
-
