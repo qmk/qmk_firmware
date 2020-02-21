@@ -281,12 +281,14 @@ const uint8_t french_accent_index[3] = {
 };
 
 /* 
-All upper case windows alt codes are 4 digits with a leading 0. 
+This represent unicode decimal values
+All upper case codes are 4 digits with a leading 0. 
 I removed the leading 0 so that it doesn't get ignored when placing int in array.
+Each index will be mapped to numpad keycode to out put the correct sequence
 All codes in this array should be of size 3
 All accent codes have the same index position as in the french_accent_index Array
 */
-const uint8_t french_win_alt_codes[5][3][2] = { /*[Letter][Accent][Case]*/
+const uint8_t french_decimal_unicodes[5][3][2] = { /*[Letter][Accent][Case]*/
     {
         {
             131,    // â
@@ -342,37 +344,41 @@ void break_int_in_array(uint8_t int_code, uint8_t size, uint8_t *array) {
 
 /*
 Function meant to be used in Leader Key macros to output most commonly used french accents
+This is designed and work on an English language keyboard setting on both Windows and Mac
 => accept french_letter and french_accent enum's as argument
 */
 void send_french_accent(uint8_t letter, uint8_t accent) {
     
     bool isCaps;
-    uint8_t win_alt_code_in;
-    uint8_t win_alt_code_size = 3;
-    uint8_t win_alt_code_out[win_alt_code_size];
+    uint8_t decimal_unicode_in;
+    uint8_t decimal_unicode_size = 3;
+    uint8_t decimal_unicode_out[decimal_unicode_size];
 
     /*Map to numpad keycodes*/
-    const uint16_t numpad_keys[10] = {
+    const uint16_t numpad_key_map[10] = {
         KC_P0, KC_P1, KC_P2, KC_P3, KC_P4, KC_P5, KC_P6, KC_P7, KC_P8, KC_P9
     };
 
     /*Map to letter keycodes*/
-    const uint16_t letter_keys[5] = {
+    const uint16_t french_letter_key_map[5] = {
         KC_A, KC_E, KC_I, KC_O, KC_U
     };
 
     /*Map to mod keys for French Mac shortcuts*/
-    const uint16_t mod_keys[3] = {
+    const uint16_t osx_mod_key_map[3] = {
         KC_GRAVE, KC_I, KC_E
     };
 
-    /*Function to tap the correct keycodes in sequence for the Windows alt code requested*/
+    /*
+    Function to tap the correct keycodes in sequence for the 
+    "Windows Alt Code" requested, aka Decimal Unicodes
+    */
     void tap_win_alt_code(void) {
         if (isCaps) {
-            tap_code(numpad_keys[0]); // Leading 0 on all upper case Windows alt code
+            tap_code(numpad_key_map[0]); // Leading 0 on all upper case "Windows alt codes"
         }
-        for (int i = 0; i < win_alt_code_size; ++i) {
-            tap_code(numpad_keys[win_alt_code_out[i]]);
+        for (int i = 0; i < decimal_unicode_size; ++i) {
+            tap_code(numpad_key_map[decimal_unicode_out[i]]);
         }
     }
     
@@ -382,21 +388,22 @@ void send_french_accent(uint8_t letter, uint8_t accent) {
         if (isCaps) {
             SEND_STRING(SS_TAP(X_CAPSLOCK));
             register_code(KC_LALT);
-            tap_code(mod_keys[accent]);
+            tap_code(osx_mod_key_map[accent]);
             unregister_code(KC_LALT);
             register_code(KC_LSFT);
-            tap_code(letter_keys[letter]);
+            tap_code(french_letter_key_map[letter]);
             unregister_code(KC_LSFT);
             tap_code(KC_CAPS);
         } else {
             register_code(KC_LALT);
-            tap_code(mod_keys[accent]);
+            tap_code(osx_mod_key_map[accent]);
             unregister_code(KC_LALT);
-            tap_code(letter_keys[letter]);
+            tap_code(french_letter_key_map[letter]);
         }
     } else {
-        win_alt_code_in = isCaps ? french_win_alt_codes[letter][accent][1] : french_win_alt_codes[letter][accent][0];
-        break_int_in_array(win_alt_code_in, win_alt_code_size, win_alt_code_out);
+        /*get the correct decimal unicode*/
+        decimal_unicode_in = isCaps ? french_decimal_unicodes[letter][accent][1] : french_decimal_unicodes[letter][accent][0];
+        break_int_in_array(decimal_unicode_in, decimal_unicode_size, decimal_unicode_out);
         register_code(KC_LALT);
         tap_win_alt_code();
         unregister_code(KC_LALT);
