@@ -4,9 +4,6 @@ MCU = STM32F072
 # Build Options
 #   comment out to disable the options.
 #
-
-# project specific files
-
 BOOTMAGIC_ENABLE = lite	# Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes	# Mouse keys
 EXTRAKEY_ENABLE = yes	# Audio control and System control
