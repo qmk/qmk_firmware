@@ -33,7 +33,7 @@
 
 #if defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) || defined(__AVR_ATmega328P__)
 #    define UDRn UDR0
-#    define UBRRn UBRR0
+#    define UBRRnL UBRR0L
 #    define UCSRnA UCSR0A
 #    define UCSRnB UCSR0B
 #    define UCSRnC UCSR0C
@@ -44,11 +44,11 @@
 #    define UCSZn1 UCSZ01
 #    define UCSZn0 UCSZ00
 #    define UDRIEn UDRIE0
-#    define UDRE_vect USART_UDRE_vect
-#    define RX_vect USART_RX_vect
-#elif defined(__AVR_ATmega32U4__) || defined(__AVR_ATmega32U2__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
+#    define USARTn_UDRE_vect USART_UDRE_vect
+#    define USARTn_RX_vect USART_RX_vect
+#elif defined(__AVR_ATmega32U4__) || defined(__AVR_ATmega32U2__) || defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
 #    define UDRn UDR1
-#    define UBRRn UBRR1
+#    define UBRRnL UBRR1L
 #    define UCSRnA UCSR1A
 #    define UCSRnB UCSR1B
 #    define UCSRnC UCSR1C
@@ -59,8 +59,23 @@
 #    define UCSZn1 UCSZ11
 #    define UCSZn0 UCSZ10
 #    define UDRIEn UDRIE1
-#    define UDRE_vect USART1_UDRE_vect
-#    define RX_vect USART1_RX_vect
+#    define USARTn_UDRE_vect USART1_UDRE_vect
+#    define USARTn_RX_vect USART1_RX_vect
+#elif defined(__AVR_ATmega32A__)
+#    define UDRn UDR
+#    define UBRRnL UBRRL
+#    define UCSRnA UCSRA
+#    define UCSRnB UCSRB
+#    define UCSRnC UCSRC
+#    define U2Xn U2X
+#    define RXENn RXEN
+#    define TXENn TXEN
+#    define RXCIEn RXCIE
+#    define UCSZn1 UCSZ1
+#    define UCSZn0 UCSZ0
+#    define UDRIEn UDRIE
+#    define USARTn_UDRE_vect USART_UDRE_vect
+#    define USARTn_RX_vect USART_RX_vect
 #endif
 
 // These buffers may be any size from 2 to 256 bytes.
@@ -77,7 +92,7 @@ static volatile uint8_t rx_buffer_tail;
 // Initialize the UART
 void uart_init(uint32_t baud) {
     cli();
-    UBRRn          = (F_CPU / 4 / baud - 1) / 2;
+    UBRRnL         = (F_CPU / 4 / baud - 1) / 2;
     UCSRnA         = (1 << U2Xn);
     UCSRnB         = (1 << RXENn) | (1 << TXENn) | (1 << RXCIEn);
     UCSRnC         = (1 << UCSZn1) | (1 << UCSZn0);
@@ -99,7 +114,7 @@ void uart_putchar(uint8_t c) {
     // cli();
     tx_buffer[i]   = c;
     tx_buffer_head = i;
-    UCSRB          = (1 << RXENn) | (1 << TXENn) | (1 << RXCIEn) | (1 << UDRIEn);
+    UCSRnB          = (1 << RXENn) | (1 << TXENn) | (1 << RXCIEn) | (1 << UDRIEn);
     // sei();
 }
 
@@ -129,7 +144,7 @@ uint8_t uart_available(void) {
 }
 
 // Transmit Interrupt
-ISR(UDRE_vect) {
+ISR(USARTn_UDRE_vect) {
     uint8_t i;
 
     if (tx_buffer_head == tx_buffer_tail) {
@@ -138,13 +153,13 @@ ISR(UDRE_vect) {
     } else {
         i = tx_buffer_tail + 1;
         if (i >= TX_BUFFER_SIZE) i = 0;
-        UDR0           = tx_buffer[i];
+        UDRn           = tx_buffer[i];
         tx_buffer_tail = i;
     }
 }
 
 // Receive Interrupt
-ISR(RX_vect) {
+ISR(USARTn_RX_vect) {
     uint8_t c, i;
 
     c = UDRn;
