@@ -141,6 +141,8 @@ uint16_t get_tapping_term(uint16_t keycode) {
       return 200;
 	case RGUI_T(KC_O):
 	  return 300;
+	case LGUI_T(KC_A):
+	  return 300;  
     default:
       return TAPPING_TERM;
   }
