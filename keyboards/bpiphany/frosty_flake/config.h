@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * Keyboard Matrix Assignments
  */
-#define UNUSED_PINS { B0, C4, D3 }
+#define UNUSED_PINS { C0, C1, C2, C3, C4, D2, D7 }
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
