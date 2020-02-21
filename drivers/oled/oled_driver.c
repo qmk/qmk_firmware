@@ -446,7 +446,7 @@ void oled_pan(bool left) {
             }
         }
     }
-    oled_dirty = 65535;
+    oled_dirty = ~((OLED_BLOCK_TYPE)0);
 }
 
 void oled_write_raw_byte(const char data, uint16_t index) {
