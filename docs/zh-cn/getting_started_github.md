@@ -1,18 +1,18 @@
 # 如何在QMK中使用Github
 
-Github can be a little tricky to those that aren't familiar with it - this guide will walk through each step of forking, cloning, and submitting a pull request with QMK.
+对于不熟悉的人来说，Github可是个棘手的问题 - 本指南将一步一步介绍介绍QMK的fork、克隆和提交PR。
 
-?> 本教程假设您已安装GitHub，并且您喜欢使用命令行工作。
+?> 本教程假设您已安装Git，并且您喜欢使用命令行工作。
 
 首先 [Github上的QMK页面](https://github.com/qmk/qmk_firmware), 您能看到右上方有个按钮写着"Fork":
 
-![从Github上分叉](http://i.imgur.com/8Toomz4.jpg)
+![从Github上fork](http://i.imgur.com/8Toomz4.jpg)
 
-如果你是某组织成员，你将需要选择分叉到哪个账户。一般情况下, 你是想要分叉到你的私人账户下。当你完成分叉 (有时需要等一会), 点击"Clone or Download" 按钮:
+如果你是某组织成员，你将需要选择fork到哪个账户。一般情况下, 你是想要fork到你的私人账户下。当你完成fork (有时需要等一会), 点击"Clone or Download" 按钮:
 
 !从Github下载](http://i.imgur.com/N1NYcSz.jpg)
 
-你要选择 "HTTPS", 然后选择链接复制:
+你要选择 "HTTPS", 然后选择链接并复制:
 
 ![HTTPS链接](http://i.imgur.com/eGO0ohO.jpg)
 
@@ -35,7 +35,7 @@ Submodule path 'lib/lufa': checked out 'ce10f7642b0459e409839b23cc91498945119b4d
 Submodule path 'lib/ugfx': checked out '3e97b74e03c93631cdd3ddb2ce43b963fdce19b2'
 ```
 
-现在你本地计算机有QMK的分叉了,你可以添加你的布局了, 为你的键盘编译并刷新固件吧。如果你觉得你的修改很不错, 你可以添加,提交,然后想你的分叉推出（pull）你的改变，像这样:
+现在你本地计算机有QMK的分叉了,你可以添加你的映射了, 为你的键盘编译并刷新固件吧。如果你觉得你的修改很不错, 你可以添加,提交,然后想你的分叉pull你的改变，像这样:
 
 ```
 user@computer:~$ git add .
@@ -54,7 +54,7 @@ To https://github.com/whoeveryouare/qmk_firmware.git
  + 20043e64...7da94ac5 master -> master
 ```
 
-现在你的改动已经在你Github上的分支中了 - 如果你回到这 (`https://github.com/你的GitHub账户名/qmk_firmware`) ,你可以点击下方所示按钮创建 "New Pull Request":
+现在你的改动已经在你Github上的分叉中了 - 如果你回到这 (`https://github.com/你的GitHub账户名/qmk_firmware`) ,你可以点击下方所示按钮创建 "New Pull Request":
 
 ![新的 Pull Request](http://i.imgur.com/DxMHpJ8.jpg)
 
@@ -63,3 +63,7 @@ To https://github.com/whoeveryouare/qmk_firmware.git
 ![创建Pull Request](http://i.imgur.com/Ojydlaj.jpg)
 
 提交后,我们会开跟你说你的改动,要求您进行更改, 并最终接受您的更改!感谢您为QMK做的贡献 :)
+
+<!--源文件：https://raw.githubusercontent.com/qmk/qmk_firmware/52c18ef0265a8bb4b521b787f425c906a9180ef9/docs/getting_started_github.md 
+    源提交哈希：52c18ef0265a8bb4b521b787f425c906a9180ef9-->
+<!--翻译时间:20200219-16:44(GMT+8)-->

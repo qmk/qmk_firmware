@@ -1,9 +1,9 @@
-# 布局常见问题
+# 映射常见问题
 
-本页本页包含人们经常遇到的关于布局的问题。如果你觉得没什么问题，请先看[布局概览](keymap.md)。
+本页本页包含人们经常遇到的关于布局的问题。如果你觉得没什么问题，请先看[映射概览](zh-cn/keymap.md)。
 
 ## 我能用什么键码?
-看[键码](keycodes.md)你可以找到你能用的键码索引。可以的话这些链接可以连接到更广泛的文档。
+看[键码](zh-cn/keycodes.md)你可以找到你能用的键码索引。可以的话这些链接可以连接到更广泛的文档。
 
 键码实际上定义在[common/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/keycode.h).
 
@@ -20,15 +20,15 @@ QMK有两个功能，Bootmagic和命令行，它允许您在运行中更改键�
 
 快速解决方法是插入键盘时按住`Space`+`Backspace`。该操作将重置已保存设置，让这些键回复初始功能。这招不好用的话参阅下方：
 
-* [Bootmagic](feature_bootmagic.md)
-* [命令](feature_command.md) 
+* [Bootmagic](zh-cn/feature_bootmagic.md)
+* [命令](zh-cn/feature_command.md) 
 
 ## 菜单键不好用
 
 现在大多数键盘 `KC_RGUI`和`KC_RCTL`中间的键子叫做`KC_APP`。这是因为在这个键子发明之前相关标准里就已经有键叫做`MENU(菜单)`了，所以微软叫他`APP(应用)`键。
 
 ## `KC_SYSREQ` 不工作
-使用抓屏的键码(`KC_PSCREEN`或`KC_PSCR`)而不用`KC_SYSREQ`。组合键'Alt + Print Screen'会被当作'System request'。
+使用抓屏的键码(`KC_PSCREEN`或`KC_PSCR`)而不用`KC_SYSREQ`。组合键'Alt + Print Screen'会被当作'系统请求'。
 
 见[issue #168](https://github.com/tmk/tmk_keyboard/issues/168)和
 * http://en.wikipedia.org/wiki/Magic_SysRq_key
@@ -36,7 +36,7 @@ QMK有两个功能，Bootmagic和命令行，它允许您在运行中更改键�
 
 ## 电源键不工作
 
-这有点让人困惑,QMK有两个"Power(电源)"键码: `KC_POWER` 在键盘/小键盘的HID使用页面中，`KC_SYSTEM_POWER` (或者叫`KC_PWR`)在用户页。
+这有点让人困惑,QMK有两个"Power(电源)"键码: `KC_POWER` 在键盘/小键盘的HID使用页中，`KC_SYSTEM_POWER` (或者叫`KC_PWR`)在用户页。
 
 前者只能被macOS识别，但是后者，即`KC_SLEP`和`KC_WAKE`三大主要操作系统全都支持，所以推荐使用这两个。Windows下这些键立即生效，macOS要长按直到弹出对话框。
 
@@ -47,14 +47,15 @@ https://github.com/tmk/tmk_keyboard/issues/67
 ## 修改 键/层 卡住
 除非正确配置层切换，否则修改键或层可能会卡住。
 对于修改键和图层操作，必须把`KC_TRANS`放到目标层的相同位置，用于注销修改键或在释放事件时返回到上一层。
+
 * https://github.com/tmk/tmk_core/blob/master/doc/keymap.md#31-momentary-switching
 * http://geekhack.org/index.php?topic=57008.msg1492604#msg1492604
 * https://github.com/tmk/tmk_keyboard/issues/248
 
 
-## 机械自锁开关支持Mechanical Lock Switch Support
+## 机械自锁开关支持
 
-本功能用于*机械自锁开关*比如[this Alps one](http://deskthority.net/wiki/Alps_SKCL_Lock)。你可以通过向`config.h`添加以下宏来使能该功能：
+本功能用于*机械自锁开关*比如[Alps牌的自锁开关](http://deskthority.net/wiki/Alps_SKCL_Lock)。你可以通过向`config.h`添加以下宏来使能该功能：
 
 ```
 #define LOCKING_SUPPORT_ENABLE
@@ -67,7 +68,7 @@ https://github.com/tmk/tmk_keyboard/issues/67
 
 ## 输入ASCII之外的特殊字符比如Cédille 'Ç'
 
-请见[Unicode](feature_unicode.md)功能。
+请见[Unicode](zh-cn/feature_unicode.md)功能。
 
 ## macOS上的`Fn` 
 
@@ -78,28 +79,21 @@ QMK官方支持这个会被律师函的，所以就当我没说过。
 
 详见[issue#2179](https://github.com/qmk/qmk_firmware/issues/2179)。
 
-
-## Mac OSX的媒体控制键
-#### KC_MNXT 和 KC_MPRV 在Mac上不好用
-使用 `KC_MFFD`(`KC_MEDIA_FAST_FORWARD`) 和 `KC_MRWD`(`KC_MEDIA_REWIND`)，不要用 `KC_MNXT` 和 `KC_MPRV`.
-详见 https://github.com/tmk/tmk_keyboard/issues/195
-
-
-## Mac OSX中支持那些键?
+## 在Mac OSX中的支持性
 你可以从此源码中获知在OSX中支持哪些键码
 
 `usb_2_adb_keymap` 阵列映射 键盘/小键盘 页用于ADB扫描码(OSX内部键码).
 
 https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-606.1.7/IOHIDFamily/Cosmo_USB2ADB.c
 
-`IOHIDConsumer::dispatchConsumerEvent`会处理用户页面用法。
-<!--翻译问题：上面那两句翻译的不好-> handles Consumer page usages. -->
+而且`IOHIDConsumer::dispatchConsumerEvent`会处理用户页面用法。<!--TODO：上面那两句翻译的不好-> handles Consumer page usages. 用户页面这个词不贴切-->
+
 https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-606.1.7/IOHIDFamily/IOHIDConsumer.cpp
 
 
 ## Mac OSX中的JIS键
-岛国特别键比如`無変換(Muhenkan)`, `変換(Henkan)`, `ひらがな(hiragana)`OSX是不是别的。You can use **Seil** to enable those keys, try following options.
-<!--翻译问题：以上“岛国特别键”没有任何地域歧视的意思 -->
+岛国特别键比如`無変換(Muhenkan)`, `変換(Henkan)`, `ひらがな(hiragana)`OSX是不识别的。可以使用 **Seil** 来使能这些键，以下为步骤。
+<!--注意：以上“岛国特别键”没有任何地域歧视的意思 -->
 * 在电脑键盘上使能NFER键
 * 在电脑键盘上使能XFER键
 * 在电脑键盘上使能KATAKAN键
@@ -118,13 +112,13 @@ https://github.com/tekezo/Karabiner/issues/403
 
 ## Esc 和 <code>&#96;</code> 双功能键
 
-请见[Grave Escape](feature_grave_esc.md)功能。
+请见[重音号Esc复合键](zh-cn/feature_grave_esc.md)功能。
 
 ## Mac OSX的弹出键
-`KC_EJCT` 键码在OSX可以使用 https://github.com/tmk/tmk_keyboard/issues/250
+`KC_EJCT` 键码在OSX可以使用。 https://github.com/tmk/tmk_keyboard/issues/250
 似乎Windows10会忽略该键码，Linux/Xorg可以识别该键码但默认不映射。
 
-目前尚不清楚如何在真正的苹果键盘按出弹出键。HHKB使用`F20`用于弹出键(`Fn+f`)，该功能在MAC模式有效但不保证与苹果弹出键码相符。
+目前尚不清楚如何在真正的苹果键盘按弹出键。HHKB使用`F20`用于弹出键(`Fn+f`)，该功能在MAC模式有效但不保证与苹果弹出键码相符。
 
 
 ## `action_util.c`中的 `weak_mods`和`real_mods`是什么
@@ -149,3 +143,7 @@ real_mods 还是保持在修改状态。
 
 weak_mods和real_mods现已全部加入键盘数据包发送豪华套餐。
 https://github.com/tmk/tmk_core/blob/master/common/action_util.c#L57
+
+<!--源文件：https://raw.githubusercontent.com/qmk/qmk_firmware/770a4ee7291095aaa6548d3e988633bf2ae6e6c0/docs/faq_keymap.md 
+    源提交哈希：770a4ee7291095aaa6548d3e988633bf2ae6e6c0-->
+<!--翻译时间:20200217-19:04(GMT+8)-->
