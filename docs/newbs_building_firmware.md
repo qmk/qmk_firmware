@@ -51,11 +51,11 @@ If you did not configure your environment, or you have multiple keyboards, you c
 While this compiles you will have a lot of output going to the screen informing you of what files are being compiled. It should end with output that looks similar to this:
 
 ```
-Linking: .build/planck_rev5_xyverz.elf                                                              [OK]
-Creating load file for flashing: .build/planck_rev5_xyverz.hex                                      [OK]
-Copying planck_rev5_xyverz.hex to qmk_firmware folder                                               [OK]
-Checking file size of planck_rev5_xyverz.hex                                                        [OK]
- * File size is fine - 18392/28672
+Linking: .build/planck_rev5_default.elf                                                             [OK]
+Creating load file for flashing: .build/planck_rev5_default.hex                                     [OK]
+Copying planck_rev5_default.hex to qmk_firmware folder                                              [OK]
+Checking file size of planck_rev5_default.hex                                                       [OK]
+ * The firmware size is fine - 27312/28672 (95%, 1360 bytes free)
 ```
 
 ## Flash Your Firmware
