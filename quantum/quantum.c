@@ -322,17 +322,12 @@ bool process_record_quantum(keyrecord_t *record) {
     return process_action_kb(record);
 }
 
-/* Two versions of the keycode conversion:
- *   fast, but uses more flash
- *   not-as-fast, as requires a few instructions to do a lookup
- */
-
 // clang-format off
-#ifndef USE_PACKED_KEYCODE_LUT
-__attribute__((weak)) const bool ascii_to_shift_lut[128] PROGMEM =
-#else
-__attribute__((weak)) const uint8_t ascii_to_shift_lutp[16] PROGMEM =
-#endif
+
+/* Bit-Packed look-up table to convert an ASCII character to whether
+ * [Shift] needs to be sent with the keycode.
+ */
+__attribute__((weak)) const uint8_t ascii_to_shift_lut[16] PROGMEM =
 {
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
@@ -353,11 +348,10 @@ __attribute__((weak)) const uint8_t ascii_to_shift_lutp[16] PROGMEM =
     KCLUT_ENTRY(0, 0, 0, 1, 1, 1, 1, 0),
 };
 
-#ifndef USE_PACKED_KEYCODE_LUT
-__attribute__((weak)) const bool ascii_to_altgr_lut[128] PROGMEM =
-#else
-__attribute__((weak)) const uint8_t ascii_to_altgr_lutp[16] PROGMEM =
-#endif
+/* Bit-Packed look-up table to convert an ASCII character to whether
+ * [AltGr] needs to be sent with the keycode.
+ */
+__attribute__((weak)) const uint8_t ascii_to_altgr_lut[16] PROGMEM =
 {
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
@@ -378,6 +372,8 @@ __attribute__((weak)) const uint8_t ascii_to_altgr_lutp[16] PROGMEM =
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
 };
 
+/* Look-up table to convert an ASCII character to a keycode.
+ */
 __attribute__((weak)) const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // NUL   SOH      STX      ETX      EOT      ENQ      ACK      BEL
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -413,8 +409,10 @@ __attribute__((weak)) const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // x     y        z        {        |        }        ~        DEL
     KC_X, KC_Y, KC_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV, KC_DEL
 };
+
 // clang-format on
 
+// Note: we bit-pack in "reverse" order to optimize loading
 #define PGM_LOADBIT(mem, pos) ((pgm_read_byte(&((mem)[(pos) / 8])) >> ((pos) % 8)) & 0x01)
 
 void send_string(const char *str) { send_string_with_delay(str, 0); }
@@ -488,13 +486,8 @@ void send_char(char ascii_code) {
 #endif
 
     uint8_t keycode    = pgm_read_byte(&ascii_to_keycode_lut[(uint8_t)ascii_code]);
-#ifndef USE_PACKED_KEYCODE_LUT
-    bool    is_shifted = pgm_read_byte(&ascii_to_shift_lut[(uint8_t)ascii_code]);
-    bool    is_altgred = pgm_read_byte(&ascii_to_altgr_lut[(uint8_t)ascii_code]);
-#else
-    bool    is_shifted = PGM_LOADBIT(ascii_to_shift_lutp, (uint8_t)ascii_code);
-    bool    is_altgred = PGM_LOADBIT(ascii_to_altgr_lutp, (uint8_t)ascii_code);
-#endif
+    bool    is_shifted = PGM_LOADBIT(ascii_to_shift_lut, (uint8_t)ascii_code);
+    bool    is_altgred = PGM_LOADBIT(ascii_to_altgr_lut, (uint8_t)ascii_code);
 
     if (is_shifted) {
         register_code(KC_LSFT);

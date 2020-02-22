@@ -23,12 +23,7 @@
 
 // clang-format off
 
-#ifndef USE_PACKED_KEYCODE_LUT
-const bool ascii_to_shift_lut[128] PROGMEM =
-#else
-const uint8_t ascii_to_shift_lutp[16] PROGMEM =
-#endif
-{
+const uint8_t ascii_to_shift_lut[16] PROGMEM = {
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
