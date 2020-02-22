@@ -5,9 +5,9 @@
 bool onMac = false;
 bool isLeader = false;
 bool isBlinking = false;
-const float ledDimRatio = 0.50; 
 bool isRecording = false;
 bool isPlaying = false;
+const float led_dim_ratio = 0.50; 
 static uint16_t blink_cycle_timer, 
                 blink_fade_in_timer, 
                 blink_fade_out_timer, 
@@ -15,38 +15,24 @@ static uint16_t blink_cycle_timer,
                 macro_two_play_timer,
                 macro_play_blink_timer = 2000;
 static uint8_t  fade_in_step_counter, 
-                fade_out_step_counter, 
-                blink_hsv_value,
-                recording_r, 
-                recording_g, 
-                recording_b;
+                fade_out_step_counter,
+                blink_hsv_value;
 
 /**************** LED BLINK HELPER FUNCTIONS *********************/
 
-uint8_t get_blink_rgb(uint8_t h, uint8_t s, uint8_t v, uint8_t output) {
-    HSV hsv = {h, s, v * ((ledDimRatio / 2) + ledDimRatio)};
-    RGB rgb = hsv_to_rgb(hsv);
-    const uint8_t HSV_RGB[3] = {rgb.r, rgb.g, rgb.b};
-    switch (output) {
-        case 0:
-            return HSV_RGB[0];
-            break;
-        case 1:
-            return HSV_RGB[1];
-            break;
-        case 2:
-            return HSV_RGB[2];
-            break;
-        default:
-            return false;
-    }
-}
-
-void set_blink_rgb(uint8_t h, uint8_t s, uint8_t v) {
-    recording_r = get_blink_rgb(h, s, v, 0);
-    recording_g = get_blink_rgb(h, s, v, 1);
-    recording_b = get_blink_rgb(h, s, v, 2);
-}
+/*
+Function to set color with hsv arguments
+- "hue", "sat" and "val" arguments above 255 will get value from rgb matrix config
+- "val_ratio" is used to adjust brightness ratio
+*/
+void rgb_matrix_set_color_hsv(uint8_t led, uint16_t hue, uint16_t sat, uint16_t val, float val_ratio) {
+    const uint8_t h = hue <= 255 ? hue : rgb_matrix_config.hsv.h;    
+    const uint8_t s = sat <= 255 ? sat : rgb_matrix_config.hsv.s;
+    const uint8_t v = val <= 255 ? val * val_ratio : rgb_matrix_config.hsv.v * val_ratio;
+    HSV hsv_in = {h, s, v};
+    RGB rgb_out = hsv_to_rgb(hsv_in);
+    rgb_matrix_set_color(led, rgb_out.r, rgb_out.g, rgb_out.b);
+} 
 
 void reset_blink_cycle(void) {
     blink_cycle_timer = timer_read();
@@ -68,27 +54,27 @@ void get_this_led_blinking(uint8_t led_index, bool speed, uint8_t hue, uint8_t s
     const uint16_t static_off_time = speed ? 200 : 500;
     const uint8_t fade_timing = speed ? 100 : 150;
     const uint8_t fade_step = speed ? 10 : 15;
-    const uint8_t fade_value_decrement_size = rgb_matrix_config.hsv.v / fade_step;
+    const uint8_t fade_value_step_size = rgb_matrix_config.hsv.v / fade_step;
     const uint8_t fade_cycle_time_elapsed = fade_timing / fade_step;
     if (timer_elapsed(blink_cycle_timer) < static_on_time) {
         if (timer_elapsed(blink_fade_in_timer) > fade_cycle_time_elapsed && fade_in_step_counter < fade_step) {
-            blink_hsv_value = blink_hsv_value + fade_value_decrement_size;
-            set_blink_rgb(hue, sat, blink_hsv_value);
+            blink_hsv_value = blink_hsv_value + fade_value_step_size;
             fade_in_step_counter = fade_in_step_counter + 1;
             blink_fade_in_timer = timer_read();
         }
     } else {
         if (timer_elapsed(blink_fade_out_timer) > fade_cycle_time_elapsed && fade_out_step_counter < fade_step) {
-            blink_hsv_value = blink_hsv_value - fade_value_decrement_size;
-            set_blink_rgb(hue, sat, blink_hsv_value);
+            blink_hsv_value = blink_hsv_value - fade_value_step_size;
             fade_out_step_counter = fade_out_step_counter + 1;
             blink_fade_out_timer = timer_read();
         }
     }
+
+    rgb_matrix_set_color_hsv(led_index, hue, sat, blink_hsv_value, 0.75);
+
     if (timer_elapsed(blink_cycle_timer) > static_on_time + static_off_time) {
         reset_blink_cycle();
     }
-    rgb_matrix_set_color(led_index, recording_r, recording_g, recording_b);
 }
 
 
@@ -152,46 +138,24 @@ void rgb_matrix_indicators_user(void) {
 
     #ifdef RGB_MATRIX_ENABLE
 
-    HSV hsvConfig = {rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v};
-    RGB rgbConfig = hsv_to_rgb(hsvConfig);
-    const uint8_t CONFIG_HSV[3] = {rgbConfig.r, rgbConfig.g, rgbConfig.b};
-
-    HSV hsvConfigDim = {rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v * ledDimRatio};
-    RGB rgbConfigDim = hsv_to_rgb(hsvConfigDim);
-    const uint8_t CONFIG_HSV_DIM[3] = {rgbConfigDim.r, rgbConfigDim.g, rgbConfigDim.b};
-
-    HSV hsvWhiteDim = {rgb_matrix_config.hsv.h, 0, rgb_matrix_config.hsv.v * ledDimRatio};
-    RGB rgbWhiteDim = hsv_to_rgb(hsvWhiteDim);
-    const uint8_t WHITE_HSV_DIM[3] = {rgbWhiteDim.r, rgbWhiteDim.g, rgbWhiteDim.b};
-
-    HSV hsvRed = {0, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v};
-    RGB rgbRed = hsv_to_rgb(hsvRed);
-    const uint8_t RED_HSV[3] = {rgbRed.r, rgbRed.g, rgbRed.b};
-
-    HSV hsvRedDim = {0, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v * ledDimRatio};
-    RGB rgbRedDim = hsv_to_rgb(hsvRedDim);
-    const uint8_t RED_HSV_DIM[3] = {rgbRedDim.r, rgbRedDim.g, rgbRedDim.b};
-
-    HSV hsvGreenDim = {85, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v * ledDimRatio};
-    RGB rgbGreenDim = hsv_to_rgb(hsvGreenDim);
-    const uint8_t GREEN_HSV_DIM[3] = {rgbGreenDim.r, rgbGreenDim.g, rgbGreenDim.b};
+    /*Ensure some leds don't completeley turn off if hsv value setting is below 100 in the rgb matrix config */
+    const uint8_t led_constant_val = rgb_matrix_config.hsv.v < 100 ? 100 : rgb_matrix_config.hsv.v;
 
     /* CapsLock LED indicator */
     if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
-        rgb_matrix_set_color(30, 0xFF, 0xFF, 0xFF);
+        rgb_matrix_set_color_hsv(30, 999, 0, led_constant_val, 0.75); // WHITE
     } 
 
     /* Current layer LED indicator */
-    rgb_matrix_set_color(layers_leds_map[get_highest_layer(layer_state)], WHITE_HSV_DIM[0], WHITE_HSV_DIM[1], WHITE_HSV_DIM[2]); 
-
+    rgb_matrix_set_color_hsv(layers_leds_map[get_highest_layer(layer_state)], 999, 0, led_constant_val, led_dim_ratio); // WHITE
 
     /* Leader Key LED under-glow */
     if (isLeader) {
-        rgb_matrix_set_color(14, CONFIG_HSV[0], CONFIG_HSV[1], CONFIG_HSV[2]);
-        rgb_matrix_set_color(30, CONFIG_HSV[0], CONFIG_HSV[1], CONFIG_HSV[2]);
+        rgb_matrix_set_color_hsv(14, 999, 999, 999, 1); // CONFIG
+        rgb_matrix_set_color_hsv(30, 999, 999, 999, 1); // CONFIG
     } else {
-        rgb_matrix_set_color(14, CONFIG_HSV_DIM[0], CONFIG_HSV_DIM[1], CONFIG_HSV_DIM[2]);
-    }
+        rgb_matrix_set_color_hsv(14, 999, 999, 999, led_dim_ratio); // CONFIG
+    }   
 
     /* Blinking LED indicator when recording Dynamic Macro */
     if (isRecording && isBlinking) {
@@ -214,16 +178,16 @@ void rgb_matrix_indicators_user(void) {
         case _FN:
             /* Dynamic Macro LED indicator */
             if (isRecording) {
-                rgb_matrix_set_color(0, RED_HSV[0], RED_HSV[1], RED_HSV[2]); /* macro stop */
+                rgb_matrix_set_color_hsv(0, 0, 999, 999, 1); /* RED macro stop */
             } else {
-                rgb_matrix_set_color(43, RED_HSV_DIM[0], RED_HSV_DIM[1], RED_HSV_DIM[2]); /* macro 1 record */
-                rgb_matrix_set_color(29, RED_HSV_DIM[0], RED_HSV_DIM[1], RED_HSV_DIM[2]); /* macro 2 record */
-                rgb_matrix_set_color(42, GREEN_HSV_DIM[0], GREEN_HSV_DIM[1], GREEN_HSV_DIM[2]); /* macro 1 play */
-                rgb_matrix_set_color(28, GREEN_HSV_DIM[0], GREEN_HSV_DIM[1], GREEN_HSV_DIM[2]); /* macro 2 play */
+                rgb_matrix_set_color_hsv(43, 0, 999, 999, led_dim_ratio); /* RED macro 1 record */
+                rgb_matrix_set_color_hsv(29, 0, 999, 999, led_dim_ratio); /* RED macro 2 record */
+                rgb_matrix_set_color_hsv(42, 85, 999, 999, led_dim_ratio); /* GREEN macro 1 play */
+                rgb_matrix_set_color_hsv(28, 85, 999, 999, led_dim_ratio); /* GREEN macro 2 play */
             }
             /* Layer LED indicators */
-            rgb_matrix_set_color(45, WHITE_HSV_DIM[0], WHITE_HSV_DIM[1], WHITE_HSV_DIM[2]); /* Layer _MAIN */
-            rgb_matrix_set_color(46, WHITE_HSV_DIM[0], WHITE_HSV_DIM[1], WHITE_HSV_DIM[2]); /* Layer _MAC */
+            rgb_matrix_set_color_hsv(45, 999, 0, led_constant_val, led_dim_ratio); /* WHITE Layer _MAIN */
+            rgb_matrix_set_color_hsv(46, 999, 0, led_constant_val, led_dim_ratio); /* WHITE Layer _MAC */
             break; 
     }
 
@@ -282,8 +246,6 @@ const uint8_t french_accent_index[3] = {
 
 /* 
 This represent unicode decimal values
-All upper case codes are 4 digits with a leading 0. 
-I removed the leading 0 so that it doesn't get ignored when placing int in array.
 Each index will be mapped to numpad keycode to out put the correct sequence
 All codes in this array should be of size 3
 All accent codes have the same index position as in the french_accent_index Array
@@ -367,7 +329,6 @@ void send_french_accent(uint8_t letter, uint8_t accent) {
         KC_E // _ACUTE
     };
 
-
     /*
     Function to tap the correct keycodes in sequence for the 
     "Windows Alt Code" requested, aka Decimal Unicodes
@@ -423,7 +384,7 @@ void ldrkey_send_paranthesis_wrap_word(void) {
 
 /* (selection) */ 
 void ldrkey_send_paranthesis_wrap_selection(void) {
-    onMac ? SEND_STRING(SS_LGUI(SS_TAP(X_C)) SS_TAP(X_DEL) "()" SS_TAP(X_LEFT) SS_LGUI(SS_TAP(X_V)) SS_TAP(X_RIGHT)) : SEND_STRING(SS_LCTL(SS_TAP(X_C)) SS_TAP(X_DEL) "()" SS_TAP(X_LEFT) SS_LCTL(SS_TAP(X_V)) SS_TAP(X_RIGHT));
+    onMac ? SEND_STRING(SS_LGUI(SS_TAP(X_X)) "()" SS_TAP(X_LEFT) SS_LGUI(SS_TAP(X_V)) SS_TAP(X_RIGHT)) : SEND_STRING(SS_LCTL(SS_TAP(X_X)) "()" SS_TAP(X_LEFT) SS_LCTL(SS_TAP(X_V)) SS_TAP(X_RIGHT));
 }
 
 /* [|] */
@@ -438,7 +399,7 @@ void ldrkey_send_bracket_wrap_word(void) {
 
 /* [selection] */
 void ldrkey_send_bracket_wrap_selection(void) {
-    onMac ? SEND_STRING(SS_LGUI(SS_TAP(X_C)) SS_TAP(X_DEL) "[]" SS_TAP(X_LEFT) SS_LGUI(SS_TAP(X_V)) SS_TAP(X_RIGHT)) : SEND_STRING(SS_LCTL(SS_TAP(X_C)) SS_TAP(X_DEL) "[]" SS_TAP(X_LEFT) SS_LCTL(SS_TAP(X_V)) SS_TAP(X_RIGHT));
+    onMac ? SEND_STRING(SS_LGUI(SS_TAP(X_X)) "[]" SS_TAP(X_LEFT) SS_LGUI(SS_TAP(X_V)) SS_TAP(X_RIGHT)) : SEND_STRING(SS_LCTL(SS_TAP(X_X)) "[]" SS_TAP(X_LEFT) SS_LCTL(SS_TAP(X_V)) SS_TAP(X_RIGHT));
 }
 
 /* {|} */
@@ -453,7 +414,7 @@ void ldrkey_send_curlybrace_wrap_word(void) {
 
 /* {selection} */
 void ldrkey_send_curlybrace_wrap_selection(void) {
-    onMac ? SEND_STRING(SS_LGUI(SS_TAP(X_C)) SS_TAP(X_DEL) "{}" SS_TAP(X_LEFT) SS_LGUI(SS_TAP(X_V)) SS_TAP(X_RIGHT)) : SEND_STRING(SS_LCTL(SS_TAP(X_C)) SS_TAP(X_DEL) "{}" SS_TAP(X_LEFT) SS_LCTL(SS_TAP(X_V)) SS_TAP(X_RIGHT));
+    onMac ? SEND_STRING(SS_LGUI(SS_TAP(X_X)) "{}" SS_TAP(X_LEFT) SS_LGUI(SS_TAP(X_V)) SS_TAP(X_RIGHT)) : SEND_STRING(SS_LCTL(SS_TAP(X_X)) "{}" SS_TAP(X_LEFT) SS_LCTL(SS_TAP(X_V)) SS_TAP(X_RIGHT));
 }
 
 LEADER_EXTERNS();
@@ -615,11 +576,11 @@ void matrix_scan_user(void)
         SEQ_TWO_KEYS(KC_RSFT, KC_RSFT) {
             ldrkey_send_paranthesis_wrap_ini();
         }
-        /*  (X) wrap    => LdrKey > Left Shift > Left Shift > Left Shift */
+        /*  (X) wrap    => LdrKey > Left Shift > W */
         SEQ_TWO_KEYS(KC_LSFT, KC_W) {
             ldrkey_send_paranthesis_wrap_word();
         }
-        /*  (X) wrap    => LdrKey > Right Shift > Right Shift > Right Shift */
+        /*  (X) wrap    => LdrKey > Right Shift > W */
         SEQ_TWO_KEYS(KC_RSFT, KC_W) {
             ldrkey_send_paranthesis_wrap_word();
         }
@@ -647,11 +608,11 @@ void matrix_scan_user(void)
         SEQ_TWO_KEYS(KC_RCTL, KC_RCTL) {
             ldrkey_send_bracket_wrap_ini();
         }
-        /*  [X] wrap    => LdrKey > Left CTL > Left CTL > Left CTL */
+        /*  [X] wrap    => LdrKey > Left CTL > W */
         SEQ_TWO_KEYS(KC_LCTL, KC_W) {
             ldrkey_send_bracket_wrap_word();
         }
-        /*  [X] wrap    => LdrKey > Right CTL > Right CTL > Right CTL */
+        /*  [X] wrap    => LdrKey > Right CTL > W */
         SEQ_TWO_KEYS(KC_RCTL, KC_W) {
             ldrkey_send_bracket_wrap_word();
         }
@@ -679,11 +640,11 @@ void matrix_scan_user(void)
         SEQ_TWO_KEYS(KC_RALT, KC_RALT) {
             ldrkey_send_curlybrace_wrap_ini();
         }
-        /*  {X} wrap    => LdrKey > Left ALT > Left ALT > Left ALT */
+        /*  {X} wrap    => LdrKey > Left ALT > W */
         SEQ_TWO_KEYS(KC_LALT, KC_W) {
             ldrkey_send_curlybrace_wrap_word();
         }
-        /*  {X} wrap    => LdrKey > Right ALT > Right ALT > Right ALT */
+        /*  {X} wrap    => LdrKey > Right ALT > W */
         SEQ_TWO_KEYS(KC_RALT, KC_W) {
             ldrkey_send_curlybrace_wrap_word();
         }

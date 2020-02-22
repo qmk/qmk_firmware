@@ -201,7 +201,7 @@ The Leader Key on this layout is triggered by tapping the Capslock key once. Onc
 
 ## STEP BY STEP FLASH INSTRUCTIONS
 1. Build the Firmware. Run build command in directory: `make dztech/dz65rgb/v2:drootz`
-	- Approximate firmware size: 27370/28672 (95%, 1302 bytes free)
+	- Approximate firmware size: 27302/28672 (95%, 1370 bytes free)
 2. Flash the Firmware:
     - Open QMK Toolbox Application
     - Open firmware file: dztech_dz65rgb_v2_drootz.hex
