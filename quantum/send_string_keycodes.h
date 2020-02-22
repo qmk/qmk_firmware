@@ -341,6 +341,24 @@
 #define X_BRIGHTNESS_UP      bd
 #define X_BRIGHTNESS_DOWN    be
 
+/* Mouse Buttons */
+#define X_MS_UP              f0
+#define X_MS_DOWN            f1
+#define X_MS_LEFT            f2
+#define X_MS_RIGHT           f3
+#define X_MS_BTN1            f4
+#define X_MS_BTN2            f5
+#define X_MS_BTN3            f6
+#define X_MS_BTN4            f7
+#define X_MS_BTN5            f8
+#define X_MS_WH_UP           f9
+#define X_MS_WH_DOWN         fa
+#define X_MS_WH_LEFT         fb
+#define X_MS_WH_RIGHT        fc
+#define X_MS_ACCEL0          fd
+#define X_MS_ACCEL1          fe
+#define X_MS_ACCEL2          ff
+
 // Send string macros
 #define STRINGIZE(z) #z
 #define ADD_SLASH_X(y) STRINGIZE(\x##y)
