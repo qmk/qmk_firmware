@@ -415,7 +415,7 @@ __attribute__((weak)) const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
 };
 // clang-format on
 
-#define PGM_LOADBIT(mem, pos) ((pgm_read_byte(&((mem)[(pos) / 8])) >> (7 - ((pos) % 8))) & 0x01)
+#define PGM_LOADBIT(mem, pos) ((pgm_read_byte(&((mem)[(pos) / 8])) >> ((pos) % 8)) & 0x01)
 
 void send_string(const char *str) { send_string_with_delay(str, 0); }
 
