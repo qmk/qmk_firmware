@@ -137,6 +137,24 @@
 #define X_BRMU X_PAUSE
 #define X_BRMD X_SCROLLLOCK
 
+/* Mouse Keys */
+#define X_MS_U X_MS_UP
+#define X_MS_D X_MS_DOWN
+#define X_MS_L X_MS_LEFT
+#define X_MS_R X_MS_RIGHT
+#define X_BTN1 X_MS_BTN1
+#define X_BTN2 X_MS_BTN2
+#define X_BTN3 X_MS_BTN3
+#define X_BTN4 X_MS_BTN4
+#define X_BTN5 X_MS_BTN5
+#define X_WH_U X_MS_WH_UP
+#define X_WH_D X_MS_WH_DOWN
+#define X_WH_L X_MS_WH_LEFT
+#define X_WH_R X_MS_WH_RIGHT
+#define X_ACL0 X_MS_ACCEL0
+#define X_ACL1 X_MS_ACCEL1
+#define X_ACL2 X_MS_ACCEL2
+
 /* Keyboard/Keypad Page (0x07) */
 #define X_A                  04
 #define X_B                  05
@@ -341,7 +359,7 @@
 #define X_BRIGHTNESS_UP      bd
 #define X_BRIGHTNESS_DOWN    be
 
-/* Mouse Buttons */
+/* Mouse Buttons (unallocated range in HID spec) */
 #define X_MS_UP              f0
 #define X_MS_DOWN            f1
 #define X_MS_LEFT            f2
