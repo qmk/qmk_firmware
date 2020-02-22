@@ -59,11 +59,11 @@ int main(void) {
 #endif
     keyboard_setup();
 
-    keyboard_init();
     host_set_driver(vusb_driver());
-
     debug("initForUsbConnectivity()\n");
     initForUsbConnectivity();
+
+    keyboard_init();
 
     debug("main loop\n");
     while (1) {
