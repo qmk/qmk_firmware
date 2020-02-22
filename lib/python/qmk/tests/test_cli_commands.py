@@ -30,7 +30,7 @@ def test_kle2json():
 
 
 def test_doctor():
-    result = check_subcommand('doctor')
+    result = check_subcommand('doctor', '-n')
     assert result.returncode == 0
     assert 'QMK Doctor is checking your environment.' in result.stderr
     assert 'QMK is ready to go' in result.stderr
@@ -54,3 +54,15 @@ def test_list_keyboards():
     # check to see if a known keyboard is returned
     # this will fail if handwired/onekey/pytest is removed
     assert 'handwired/onekey/pytest' in result.stdout
+
+
+def test_list_keymaps():
+    result = check_subcommand("list-keymaps", "-kb", "handwired/onekey/pytest")
+    assert result.returncode == 0
+    assert "default" and "test" in result.stdout
+
+
+def test_list_keymaps_no_keyboard_found():
+    result = check_subcommand("list-keymaps", "-kb", "asdfghjkl")
+    assert result.returncode == 0
+    assert "does not exist" in result.stdout

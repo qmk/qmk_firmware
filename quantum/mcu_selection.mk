@@ -1,3 +1,85 @@
+ifneq ($(findstring MKL26Z64, $(MCU)),)
+  # Cortex version
+  MCU = cortex-m0plus
+
+  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+  ARMV = 6
+
+  ## chip/board settings
+  # - the next two should match the directories in
+  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  MCU_FAMILY = KINETIS
+  MCU_SERIES = KL2x
+
+  # Linker script to use
+  # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
+  #   or <keyboard_dir>/ld/
+  # - NOTE: a custom ld script is needed for EEPROM on Teensy LC
+  MCU_LDSCRIPT ?= MKL26Z64
+
+  # Startup code to use
+  #  - it should exist in <chibios>/os/common/ports/ARMCMx/compilers/GCC/mk/
+  MCU_STARTUP ?= kl2x
+
+  # Board: it should exist either in <chibios>/os/hal/boards/,
+  # <keyboard_dir>/boards/, or drivers/boards/
+  BOARD ?= PJRC_TEENSY_LC
+endif
+
+ifneq ($(findstring MK20DX128, $(MCU)),)
+  # Cortex version
+  MCU = cortex-m4
+
+  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+  ARMV = 7
+
+  ## chip/board settings
+  # - the next two should match the directories in
+  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  MCU_FAMILY = KINETIS
+  MCU_SERIES = K20x
+
+  # Linker script to use
+  # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
+  #   or <keyboard_dir>/ld/
+  MCU_LDSCRIPT ?= MK20DX128
+
+  # Startup code to use
+  #  - it should exist in <chibios>/os/common/ports/ARMCMx/compilers/GCC/mk/
+  MCU_STARTUP ?= k20x5
+
+  # Board: it should exist either in <chibios>/os/hal/boards/,
+  # <keyboard_dir>/boards/, or drivers/boards/
+  BOARD ?= PJRC_TEENSY_3
+endif
+
+ifneq ($(findstring MK20DX256, $(MCU)),)
+  # Cortex version
+  MCU = cortex-m4
+
+  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+  ARMV = 7
+
+  ## chip/board settings
+  # - the next two should match the directories in
+  #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  MCU_FAMILY = KINETIS
+  MCU_SERIES = K20x
+
+  # Linker script to use
+  # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
+  #   or <keyboard_dir>/ld/
+  MCU_LDSCRIPT ?= MK20DX256
+
+  # Startup code to use
+  #  - it should exist in <chibios>/os/common/ports/ARMCMx/compilers/GCC/mk/
+  MCU_STARTUP ?= k20x7
+
+  # Board: it should exist either in <chibios>/os/hal/boards/,
+  # <keyboard_dir>/boards/, or drivers/boards/
+  BOARD ?= PJRC_TEENSY_3_1
+endif
+
 ifneq ($(findstring STM32F303, $(MCU)),)
   # Cortex version
   MCU = cortex-m4
@@ -55,7 +137,7 @@ ifneq ($(findstring STM32F072, $(MCU)),)
 
   # Board: it should exist either in <chibios>/os/hal/boards/,
   # <keyboard_dir>/boards/, or drivers/boards/
-  BOARD ?= ST_STM32F072B_DISCOVERY
+  BOARD ?= GENERIC_STM32_F072XB
 
   USE_FPU ?= no
 

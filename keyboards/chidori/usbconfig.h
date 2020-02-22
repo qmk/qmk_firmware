@@ -109,20 +109,9 @@ section at the end of this file).
  * (e.g. HID), but never want to send any data. This option saves a couple
  * of bytes in flash memory and the transmit buffers in RAM.
  */
-#define USB_CFG_INTR_POLL_INTERVAL      1
-/* If you compile a version with endpoint 1 (interrupt-in), this is the poll
- * interval. The value is in milliseconds and must not be less than 10 ms for
- * low speed devices.
- */
 #define USB_CFG_IS_SELF_POWERED         0
 /* Define this to 1 if the device has its own power supply. Set it to 0 if the
  * device is powered from the USB bus.
- */
-// max power draw with maxed white underglow measured at 120 mA (peaks)
-#define USB_CFG_MAX_BUS_POWER           100
-/* Set this variable to the maximum USB bus power consumption of your device.
- * The value is in milliamperes. [It will be divided by two since USB
- * communicates power requirements in units of 2 mA.]
  */
 #define USB_CFG_IMPLEMENT_FN_WRITE      1
 /* Set this to 1 if you want usbFunctionWrite() to be called for control-out
@@ -219,7 +208,7 @@ section at the end of this file).
 
 /* -------------------------- Device Description --------------------------- */
 
-#define USB_CFG_VENDOR_ID       (VENDOR_ID & 0xED), ((VENDOR_ID >> 8) & 0xFE)
+#define USB_CFG_VENDOR_ID       (VENDOR_ID & 0xFF), ((VENDOR_ID >> 8) & 0xFF)
 /* USB vendor ID for the device, low byte first. If you have registered your
  * own Vendor ID, define it here. Otherwise you may use one of obdev's free
  * shared VID/PID pairs. Be sure to read USB-IDs-for-free.txt for rules!
@@ -228,7 +217,7 @@ section at the end of this file).
  * with libusb: 0x16c0/0x5dc.  Use this VID/PID pair ONLY if you understand
  * the implications!
  */
-#define USB_CFG_DEVICE_ID       (PRODUCT_ID & 0x00), ((PRODUCT_ID >> 8) & 0x00)
+#define USB_CFG_DEVICE_ID       (PRODUCT_ID & 0xFF), ((PRODUCT_ID >> 8) & 0xFF)
 /* This is the ID of the product, low byte first. It is interpreted in the
  * scope of the vendor ID. If you have registered your own VID with usb.org
  * or if you have licensed a PID from somebody else, define it here. Otherwise
@@ -239,10 +228,10 @@ section at the end of this file).
  * with libusb: 0x16c0/0x5dc.  Use this VID/PID pair ONLY if you understand
  * the implications!
  */
-#define USB_CFG_DEVICE_VERSION  0x00, 0x01
+#define USB_CFG_DEVICE_VERSION  (DEVICE_VER & 0xFF), ((DEVICE_VER >> 8) & 0xFF)
 /* Version number of the device: Minor number first, then major number.
  */
-#define USB_CFG_VENDOR_NAME     'k','a','g','i','z','a','r','a','y','a'
+#define USB_CFG_VENDOR_NAME     'K','a','g','i','z','a','r','a','y','a'
 #define USB_CFG_VENDOR_NAME_LEN 10
 /* These two values define the vendor name returned by the USB device. The name
  * must be given as a list of characters under single quotes. The characters
@@ -258,8 +247,8 @@ section at the end of this file).
  * the macros. See the file USB-IDs-for-free.txt before you assign a name if
  * you use a shared VID/PID.
  */
-//#define USB_CFG_SERIAL_NUMBER   'd','m','9','r','e','c','o','r','d','s','.','c','o','m',':','p','1'
-//#define USB_CFG_SERIAL_NUMBER_LEN   17
+/*#define USB_CFG_SERIAL_NUMBER   'N', 'o', 'n', 'e' */
+/*#define USB_CFG_SERIAL_NUMBER_LEN   0 */
 /* Same as above for the serial number. If you don't want a serial number,
  * undefine the macros.
  * It may be useful to provide the serial number through other means than at

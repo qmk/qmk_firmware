@@ -53,18 +53,18 @@ They're positioned below the parens on the Raise layer for easy recall.
 
 ## Lower layer
 
-![Lower layer layout](https://i.imgur.com/6ms2ll7.png)
+![Lower layer layout](https://i.imgur.com/d0J2lum.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/19ad0d3b5d745fbb2818db09740f5a11))
 
 ## Raise layer
 
-![Raise layer layout](https://i.imgur.com/HBowZ0w.png)
+![Raise layer layout](https://i.imgur.com/Ue8tu1v.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/912be7955f781cdaf692cc4d4c0b5823))
 
 ## Adjust layer
 
-![Adjust layer layout](https://i.imgur.com/udhzfON.png)
+![Adjust layer layout](https://i.imgur.com/Rv6jQtC.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/8f6a3f08350a9bbe1d414b22bca4e6c7))

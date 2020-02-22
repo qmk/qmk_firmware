@@ -1,8 +1,8 @@
 # QMK の設定
 
 <!---
-  original document: 9ff61601e:docs/config_options.md
-  git diff 9ff61601e HEAD -- docs/config_options.md | cat
+  original document: 2fe288d01:docs/config_options.md
+  git diff 2fe288d01 HEAD -- docs/config_options.md | cat
 -->
 
 QMK はほぼ無制限に設定可能です。可能なところはいかなるところでも、やりすぎな程、ユーザーがコードサイズを犠牲にしてでも彼らのキーボードをカスタマイズをすることを許しています。ただし、このレベルの柔軟性により設定が困難になります。
@@ -83,7 +83,7 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 * `#define BACKLIGHT_PIN B7`
    * バックライトのピン
 * `#define BACKLIGHT_LEVELS 3`
-   * バックライトのレベル数 (off を除いて最大15)
+   * バックライトのレベル数 (off を除いて最大31)
 * `#define BACKLIGHT_BREATHING`
    * バックライトのブレスを有効にします
 * `#define BREATHING_PERIOD 6`
@@ -274,8 +274,11 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
    * ARM についてはデフォルトの挙動
    * AVR Teensy については必須
 
-* `#define SPLIT_USB_TIMEOUT 2500`
+* `#define SPLIT_USB_TIMEOUT 2000`
    * `SPLIT_USB_DETECT` を使う時のマスタ/スレーブを検出する場合の最大タイムアウト
+
+* `#define SPLIT_USB_TIMEOUT_POLL 10`
+   * `SPLIT_USB_DETECT` を使う時のマスタ/スレーブを検出する場合のポーリング頻度
 
 # `rules.mk` ファイル
 
