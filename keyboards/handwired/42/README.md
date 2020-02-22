@@ -1,11 +1,11 @@
-# 42
+# 42 Keyboard
 
-42-keys ergonomic keyboard running on Adafruit Feather BLE.
+42-keys splittable keyboard running on the Proton C.
 
 ![42](https://github.com/nglgzz/42/raw/master/42.jpg)
 
 Keyboard Maintainer: [Angelo Gazzola (nglgzz)](https://github.com/nglgzz)  
-Hardware Supported: 42 (rev2, rev3), Feather 32u4 BLE  
+Hardware Supported: 42 (rev4), Proton C + MCP23017  
 Hardware Availability: [GitHub](https://github.com/nglgzz/42/)
 
 Make example for this keyboard (after setting up your build environment):
