@@ -45,7 +45,7 @@
 #define STM32_HSI48_ENABLED                 FALSE
 #define STM32_LSI_ENABLED                   TRUE
 #define STM32_HSE_ENABLED                   FALSE
-#define STM32_LSE_ENABLED                   TRUE
+#define STM32_LSE_ENABLED                   FALSE
 #define STM32_SW                            STM32_SW_PLL
 #define STM32_PLLSRC                        STM32_PLLSRC_HSI_DIV2
 #define STM32_PREDIV_VALUE                  1
@@ -61,7 +61,7 @@
 #define STM32_CECSW                         STM32_CECSW_HSI
 #define STM32_I2C1SW                        STM32_I2C1SW_HSI
 #define STM32_USART1SW                      STM32_USART1SW_PCLK
-#define STM32_RTCSEL                        STM32_RTCSEL_LSE
+#define STM32_RTCSEL                        STM32_RTCSEL_NOCLOCK
 
 /*
  * ADC driver system settings.

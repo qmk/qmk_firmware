@@ -220,32 +220,3 @@
     { k40, k41, k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4c, k4d, k4e, k4f, XXX, k4h, k4i, k4j }, \
     { k50, XXX, k52, XXX, k54, k55, k56, k57, XXX, XXX, k5a, k5b, k5c, k5d, k5e, k5f, XXX, k5h, k5i, k5j } \
 }
-
-
-
-typedef union {
-    uint8_t raw;
-    struct {
-        bool    enable : 1;
-        bool    breathing : 1;
-        uint8_t level : 6;
-    };
-} backlight_config_t;
-
-// Keyboard Information
-extern volatile uint8_t led_numlock;
-extern volatile uint8_t led_capslock;
-extern volatile uint8_t led_scrolllock;
-extern uint8_t          layer;
-
-// Backlighting
-extern backlight_config_t kb_backlight_config;
-extern bool               kb_backlight_breathing;
-
-void backlight_init_ports(void);
-void backlight_set(uint8_t level);
-bool is_breathing(void);
-void breathing_enable(void);
-void breathing_disable(void);
-void custom_config_load(void);
-void backlight_config_save(void);

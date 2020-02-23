@@ -5,12 +5,6 @@
 #include "ch.h"
 #include "hal.h"
 
-backlight_config_t kb_backlight_config = {
-    .enable = true,
-    .breathing = true,
-    .level = BACKLIGHT_LEVELS
-};
-
 void keyboard_pre_init_user(void) {
     // Initialize indicator LED pins
     setPinOutput(A14); // Num Lock
@@ -30,7 +24,6 @@ bool led_update_kb(led_t led_state) {
 }
 
 void matrix_init_kb(void) {
-    backlight_init_ports();
     matrix_init_user();
 }
 

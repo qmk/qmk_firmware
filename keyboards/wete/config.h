@@ -36,6 +36,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 //LEDS A6, RGB B15
+#define BACKLIGHT_PIN A6
+#define BACKLIGHT_PWM_DRIVER PWMD3
+#define BACKLIGHT_PWM_CHANNEL 1
+#define BACKLIGHT_PAL_MODE 1
 #define BACKLIGHT_LEVELS 24
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 6
