@@ -1,11 +1,11 @@
 # Wete
 
-![Wete Keyboard]()
+![Wete Keyboard](https://i.imgur.com/dZ4FRar.jpg)
 
 A southpaw full-sized keyboard.
 
-Keyboard Maintainer: [Ramon Imbao](https://github.com/ramonimbao)  
-Hardware Supported: STM32F072CBT6  
+* Keyboard Maintainer: [Ramon Imbao](https://github.com/ramonimbao)  
+* Hardware Supported: STM32F072CBT6  
 
 Make example for this keyboard (after setting up your build environment):
 
