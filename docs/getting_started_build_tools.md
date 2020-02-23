@@ -56,6 +56,14 @@ By default, this will download compilers for both AVR and ARM. If you don't need
 
     nix-shell --arg arm false
 
+## Guix
+
+If your're on [Guix](http://guix.gnu.org/) or have Guix installed in your Linux, you can use a guix environment in order to work in the project making use of the manifest file provided by the repository.
+
+```
+guix environment --manifest=guix-manifest.scm
+```
+
 ## macOS
 If you're using [Homebrew](http://brew.sh/), you can use the following commands:
 
