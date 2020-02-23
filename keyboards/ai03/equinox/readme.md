@@ -4,7 +4,7 @@
 
 Compact Tabbed Gasket-PCB Gravity Mount WKL High-End Keyboard
 
-Keyboard Maintainer: [ai03](https://github.com/ai03-2725), [Ion Keyboards](https://ionkeyboards.com/)  
+* Keyboard Maintainer: [ai03](https://github.com/ai03-2725), [Ion Keyboards](https://ionkeyboards.com/)
 * Hardware Supported: The Equinox keyboard kit
 * Hardware Availability: [CannonKeys](https://cannonkeys.com/products/gb-equinox-keyboard); other proxy vendors
 
