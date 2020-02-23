@@ -62,10 +62,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MORE_KEY__COMMAND // Additional key 1st row on the left, called 'Command' or 'South paw'.
          //'Arrow' + 'South paw' (12x12x12x10): uncomment both <<-
         //
-        /*                        Defining the additional key for 'Arrow'
+        /*                        Defining the additional key for 'Arrow' ('Command')
          *
          * Here you can create a bit of an arrow-cluster with your additional MORE_key2 hardware key.
-         * To do this on the BASE layer would hurt standard Dvorak/Qwerty, so that is not being done here.
+         * To do this on the BASE layer would hurt standard Dvorak/Qwerty, so that is not being done.
          * Instead this key toggles to _MOV layer, with the key that on the _MOV layer becomes the down-arrow,
          * in the middle of an arrow cluster in a triangle format. To do that, uncomment MOREKEY2_ARROW_CLUSTER.
          * The keys that are normally defined on those keys on _MOV will be overwritten (they are not typically
@@ -74,13 +74,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * If you want that, uncomment MOREKEY2_ARROW_CLUSTER and leave: #define MORE_key2 _MOV_UP
          * If you don't want that, comment out MOREKEY2_ARROW_CLUSTER, set MORE_key2 to whatever you want.
          */
-#define MOREKEY2_ARROW_CLUSTER // Arrow cluster on _MOV layer. This is blocked if MORE_KEY__ARROW is not defined..
-        /* Define the key you want on the additional key. */
-#define MORE_key2 _MOV_UP // right side additional key
+#define MOREKEY2_ARROW_CLUSTER // Arrow cluster on _MOV layer. This is ignored if MORE_KEY__ARROW is not defined.
+        /* Define the key you want on the additional key: */
+#define MORE_key2 _MOV_UP // Right side additional key. This is ignored if MORE_KEY__ARROW is not defined.
         //
         /*                         Defining the additional key for 'South paw' (or called 'Command')
          */
-        
+#define MORE_key1 KC_DEL // Left side additional key. This is ignored if MORE_KEY__COMMAND is not defined.
+      
 
         /*                            Qwerty
          *

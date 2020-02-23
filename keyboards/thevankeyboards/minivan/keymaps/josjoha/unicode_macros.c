@@ -588,6 +588,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case CTO_BASE:
         // User pressed upper/left button (escape from a layer to BASE layer)
             if (record->event.pressed) { // key down
+                ;
+            }
+            else { // key up
                 if (descramble) { // go to the descramble version (bit of a hack maybe, but all descramble
                        // ... modes are non-zero, and all use _DDL layer)
                     layer_move (_DDL); // activates descrambled num-sys layer
@@ -600,6 +603,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 // It seems best to first enable the chosen layer on key-down, then stop others on key-up.
                 // Alternatives gave some issues. Other keymaps seem to do it this way (IIRC).
             if (record->event.pressed) { // key down
+                ;
+            }
+            else { // key up
                 if (descramble) { // go to the descramble version
                     layer_move (_DDN); // activates descrambled num-sys layer
                 } else {
@@ -613,6 +619,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break; 
         case CTO_ACCE: // Unicode layer
             if (record->event.pressed) { // key down
+                ;
+            }
+            else { // key up
 #ifndef QWERTY_DVORAK // normal mode keyboard: Dvorak with Dvorak-descramble
                 if (_FULL_ == descramble) { // go to the descramble version
                     layer_move (_DDA); // activates descrambled accented layer
@@ -628,6 +637,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break; 
         case CTO_DRAW: // Unicode layer
             if (record->event.pressed) { // key down
+                ;
+            }
+            else { // key up
 #ifndef QWERTY_DVORAK 
                 if (_FULL_ == descramble) { // go to the descramble version
                     layer_move (_DDD); // activates descrambled drawings layer
