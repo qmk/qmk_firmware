@@ -7,7 +7,8 @@ def check_subcommand(command, *args):
 
 
 def test_cformat():
-    assert check_subcommand('cformat', 'tmk_core/common/keyboard.c').returncode == 0
+    result = check_subcommand('cformat', 'quantum/matrix.c')
+    assert result.returncode == 0
 
 
 def test_compile():
