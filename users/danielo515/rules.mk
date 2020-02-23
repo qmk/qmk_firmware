@@ -1,4 +1,4 @@
-SRC += danielo515.c
+SRC +=  alt_tab.c danielo515.c
 
 ifeq ($(strip $(COMBO_ENABLE)), yes)
     SRC += combo.c

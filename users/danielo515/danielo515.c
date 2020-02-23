@@ -1,4 +1,5 @@
 #include "danielo515.h"
+#include "alt_tab.h"
 
 bool onMac = true;
 // Send control or GUI depending if we are on windows or mac
@@ -8,9 +9,7 @@ bool CMD(uint16_t kc) {
 }
 
 //**************** Handle keys function *********************//
-bool altPressed = false;
-__attribute__ ((weak)) void alt_tab_activated(void){};
-__attribute__ ((weak)) void alt_tab_deactivated(void){};
+
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
@@ -124,40 +123,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     break;
     //First time alt + tab, and alt stays sticky. Next press we just send tab. Any other key releases the alt
 #endif
+  }
 // =============== ALT_TAB single key handling
-  case ALT_TAB:
-    if (record->event.pressed)
-    {
-      if (altPressed)
-      {
-        tap_code(KC_TAB);
-      }
-      else
-      {
-        altPressed = true;
-        onMac ? register_code(KC_LGUI) : register_code(KC_LALT);
-        tap_code(KC_TAB);
-        alt_tab_activated();
-      }
-    }
-    return false;
-  // avoid alt releasing if the key is of movement
-  case KC_RIGHT ... KC_UP:
-    if (altPressed)
-    {
-      return true; // yes QMK, do your stuff
-    }
-  }
-  // Reset sticky alt tab
-  if (altPressed)
-  {
-    onMac ?  unregister_code(KC_LGUI) : unregister_code(KC_LALT);
-    altPressed = false;
-    alt_tab_deactivated();
-    return false;
-  }
-// =============== ALT_TAB single key handling end
-  return true;
+  return process_alt_tab(keycode, record);
 };
 
 //**************** LEADER *********************//
