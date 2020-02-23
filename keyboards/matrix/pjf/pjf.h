@@ -6,6 +6,11 @@
 
 #include "quantum.h"
 
+enum pjf_keycodes {
+  PJF_MODE = SAFE_RANGE,
+  NEW_SAFE_RANGE
+};
+
 #define LAYOUT_default( \
   k001, k002, k003, k004, k005, k006, k007, k008, k009, k010, k011, k012, k013, k014,       k015, k016, k017, k018,\
 	k101, k102, k103, k104, k105, k106, k107, k108, k109, k110, k111, k112, k113, k114, k115, k116, k117, k118,\

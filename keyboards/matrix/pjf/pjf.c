@@ -37,7 +37,7 @@ void rgblight_set(void) {
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch(keycode) {
-    case KC_F24:
+    case PJF_MODE:
         pjf_led_mode = !pjf_led_mode;
         return false;
     default:
