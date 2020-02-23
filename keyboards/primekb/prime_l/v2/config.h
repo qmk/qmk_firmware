@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-
+#define PRODUCT_ID      0x5042
 #define DEVICE_VER      0x0002
 #define PRODUCT         Prime_L V2
 
