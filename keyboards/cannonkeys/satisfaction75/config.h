@@ -35,8 +35,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B3, B4, A0, A2, A4, A3 }
 #define DIODE_DIRECTION COL2ROW
 
-#define ENCODERS_PAD_A { B9 }
-#define ENCODERS_PAD_B { B8 }
+#define ENCODERS_PAD_A { B8 }
+#define ENCODERS_PAD_B { B9 }
+
+#define ENCODER_RESOLUTION 2
 
 //LEDS A6, RGB B15
 #define BACKLIGHT_LEVELS 24
@@ -72,6 +74,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // 1 for OLED default mode (1 byte)
 // 6 for 3x custom encoder settings, left, right, and press (18 bytes)
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 21
+
+// VIA lighting is handled by the keyboard-level code
+#define VIA_CUSTOM_LIGHTING_ENABLE
 
 /*
  * Feature disable options

@@ -14,12 +14,12 @@ BOOTLOADER = bootloadHID
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = yes	# Mouse keys(+4700)
-EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
-CONSOLE_ENABLE = yes	# Console for debug(+400)
+BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
+MOUSEKEY_ENABLE = yes	# Mouse keys
+EXTRAKEY_ENABLE = yes	# Audio control and System control
+CONSOLE_ENABLE = no	# Console for debug
 COMMAND_ENABLE = yes    # Commands for debug and configuration
-BACKLIGHT_ENABLE = no  # Enable keyboard backlight functionality
+BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes
 WS2812_DRIVER = i2c
 

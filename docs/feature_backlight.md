@@ -167,7 +167,7 @@ BACKLIGHT_DRIVER = pwm
 
 Currently only hardware PWM is supported, not timer assisted, and does not provide automatic configuration.
 
-?> STMF072 support is being investigated.
+?> Backlight support for STMF072 has had limited testing, YMMV. If unsure, set `BACKLIGHT_ENABLE = no` in your rules.mk.
 
 ### ARM Configuration
 

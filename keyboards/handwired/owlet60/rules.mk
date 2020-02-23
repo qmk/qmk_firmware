@@ -1,8 +1,5 @@
-SRC += matrix.c
-
 # MCU name
 MCU = atmega32u4
-
 
 # Bootloader selection
 #   Teensy       halfkay
@@ -10,19 +7,9 @@ MCU = atmega32u4
 #   Atmel DFU    atmel-dfu
 #   LUFA DFU     lufa-dfu
 #   QMK DFU      qmk-dfu
-#   atmega32a    bootloadHID
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
 BOOTLOADER = caterina
-
-
-# If you don't know the bootloader type, then you can specify the
-# Boot Section Size in *bytes* by uncommenting out the OPT_DEFS line
-#   Teensy halfKay      512
-#   Teensy++ halfKay    1024
-#   Atmel DFU loader    4096
-#   LUFA bootloader     4096
-#   USBaspLoader        2048
-# OPT_DEFS += -DBOOTLOADER_SIZE=4096
-
 
 # Build Options
 #   change yes to no to disable
@@ -46,3 +33,5 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
 CUSTOM_MATRIX = yes
 OLED_DRIVER_ENABLE = no
+
+SRC += matrix.c

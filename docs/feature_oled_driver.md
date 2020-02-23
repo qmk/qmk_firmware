@@ -1,139 +1,142 @@
 # OLED Driver
 
-## OLED Supported Hardware
+## Supported Hardware
 
 OLED modules using SSD1306 or SH1106 driver ICs, communicating over I2C.
 Tested combinations:
 
-| IC driver |   Size | Keyboard Platform | Notes                    |
-|-----------|--------|-------------------|--------------------------|
-| SSD1306   | 128x32 | AVR               | Primary support          |
-| SSD1306   | 128x64 | AVR               | Verified working         |
-| SSD1306   | 128x32 | ARM               |                          |
-| SH1106    | 128x64 | AVR               | No rotation or scrolling |
+|IC       |Size  |Platform|Notes                   |
+|---------|------|--------|------------------------|
+|SSD1306  |128x32|AVR     |Primary support         |
+|SSD1306  |128x64|AVR     |Verified working        |
+|SSD1306  |128x32|Arm     |                        |
+|SH1106   |128x64|AVR     |No rotation or scrolling|
 
-Hardware configurations using ARM-based microcontrollers or different sizes of OLED modules may be compatible, but are untested.
+Hardware configurations using Arm-based microcontrollers or different sizes of OLED modules may be compatible, but are untested.
 
-!> Warning: This OLED Driver currently uses the new i2c_master driver from split common code. If your split keyboard uses I2C to communicate between sides, this driver could cause an address conflict (serial is fine). Please contact your keyboard vendor and ask them to migrate to the latest split common code to fix this. In addition, the display timeout system to reduce OLED burn-in also uses split common to detect keypresses, so you will need to implement custom timeout logic for non-split common keyboards.
+!> Warning: This OLED driver currently uses the new i2c_master driver from Split Common code. If your split keyboard uses I2C to communicate between sides, this driver could cause an address conflict (serial is fine). Please contact your keyboard vendor and ask them to migrate to the latest Split Common code to fix this. In addition, the display timeout system to reduce OLED burn-in also uses Split Common to detect keypresses, so you will need to implement custom timeout logic for non-Split Common keyboards.
 
 ## Usage
 
-To enable the OLED feature, there are three steps. First, when compiling your keyboard, you'll need to set `OLED_DRIVER_ENABLE=yes` in `rules.mk`, e.g.:
+To enable the OLED feature, there are three steps. First, when compiling your keyboard, you'll need to add the following to your `rules.mk`:
 
-```
+```make
 OLED_DRIVER_ENABLE = yes
 ```
 
-This enables the feature and the `OLED_DRIVER_ENABLE` define. Then in your `keymap.c` file, you will need to implement the user task call, e.g:
+Then in your `keymap.c` file, implement the OLED task call. This example assumes your keymap has three layers named `_QWERTY`, `_FN` and `_ADJ`:
 
-```C++
+```c
 #ifdef OLED_DRIVER_ENABLE
 void oled_task_user(void) {
-  // Host Keyboard Layer Status
-  oled_write_P(PSTR("Layer: "), false);
-  switch (get_highest_layer(layer_state)) {
-    case _QWERTY:
-      oled_write_P(PSTR("Default\n"), false);
-      break;
-    case _FN:
-      oled_write_P(PSTR("FN\n"), false);
-      break;
-    case _ADJ:
-      oled_write_P(PSTR("ADJ\n"), false);
-      break;
-    default:
-      // Or use the write_ln shortcut over adding '\n' to the end of your string
-      oled_write_ln_P(PSTR("Undefined"), false);
-  }
+    // Host Keyboard Layer Status
+    oled_write_P(PSTR("Layer: "), false);
 
-  // Host Keyboard LED Status
-  uint8_t led_usb_state = host_keyboard_leds();
-  oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK) ? PSTR("NUMLCK ") : PSTR("       "), false);
-  oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("CAPLCK ") : PSTR("       "), false);
-  oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
+    switch (get_highest_layer(layer_state)) {
+        case _QWERTY:
+            oled_write_P(PSTR("Default\n"), false);
+            break;
+        case _FN:
+            oled_write_P(PSTR("FN\n"), false);
+            break;
+        case _ADJ:
+            oled_write_P(PSTR("ADJ\n"), false);
+            break;
+        default:
+            // Or use the write_ln shortcut over adding '\n' to the end of your string
+            oled_write_ln_P(PSTR("Undefined"), false);
+    }
+
+    // Host Keyboard LED Status
+    led_t led_state = host_keyboard_led_state();
+    oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
+    oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
 }
 #endif
 ```
 
 ## Logo Example
 
-In the default font, ranges in the font file are reserved for a QMK Logo. To Render this logo to the oled screen, use the following code example:
+In the default font, certain ranges of characters are reserved for a QMK logo. To render this logo to the OLED screen, use the following code example:
 
-```C++
+```c
 static void render_logo(void) {
-  static const char PROGMEM qmk_logo[] = {
-    0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
-    0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
-    0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,0};
+    static const char PROGMEM qmk_logo[] = {
+        0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91, 0x92, 0x93, 0x94,
+        0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1, 0xB2, 0xB3, 0xB4,
+        0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0xC5, 0xC6, 0xC7, 0xC8, 0xC9, 0xCA, 0xCB, 0xCC, 0xCD, 0xCE, 0xCF, 0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0x00
+    };
 
-  oled_write_P(qmk_logo, false);
+    oled_write_P(qmk_logo, false);
 }
 ```
 
 ## Other Examples
 
-In split keyboards, it is very common to have two OLED displays that each render different content and oriented flipped differently. You can do this by switching which content to render by using the return from `is_keyboard_master()` or `is_keyboard_left()` found in `split_util.h`, e.g:
+In split keyboards, it is very common to have two OLED displays that each render different content and are oriented or flipped differently. You can do this by switching which content to render by using the return value from `is_keyboard_master()` or `is_keyboard_left()` found in `split_util.h`, e.g:
 
-```C++
+```c
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-  if (!is_keyboard_master())
-    return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
-  return rotation;
+    if (!is_keyboard_master()) {
+        return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
+    }
+
+    return rotation;
 }
 
 void oled_task_user(void) {
-  if (is_keyboard_master()) {
-    render_status();     // Renders the current keyboard state (layer, lock, caps, scroll, etc)
-  } else {
-    render_logo();       // Renders a statuc logo
-    oled_scroll_left();  // Turns on scrolling
-  }
+    if (is_keyboard_master()) {
+        render_status();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+    } else {
+        render_logo();  // Renders a static logo
+        oled_scroll_left();  // Turns on scrolling
+    }
 }
 #endif
 ```
 
+## Basic Configuration
 
- ## Basic Configuration
-
-| Define                     | Default           | Description                                                                                                                |
-|----------------------------|-------------------|----------------------------------------------------------------------------------------------------------------------------|
-| `OLED_DISPLAY_ADDRESS`     | `0x3C`            | The i2c address of the OLED Display                                                                                        |
-| `OLED_FONT_H`              | `"glcdfont.c"`    | The font code file to use for custom fonts                                                                                 |
-| `OLED_FONT_START`          | `0`               | The starting characer index for custom fonts                                                                               |
-| `OLED_FONT_END`            | `224`             | The ending characer index for custom fonts                                                                                 |
-| `OLED_FONT_WIDTH`          | `6`               | The font width                                                                                                             |
-| `OLED_FONT_HEIGHT`         | `8`               | The font height (untested)                                                                                                 |
-| `OLED_TIMEOUT`             | `60000`           | Turns off the OLED screen after 60000ms of keyboard inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.            |
-| `OLED_SCROLL_TIMEOUT`      | `0`               | Scrolls the OLED screen after 0ms of OLED inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.                      |
-| `OLED_SCROLL_TIMEOUT_RIGHT`| *Not defined*     | Scroll timeout direction is right when defined, left when undefined.                                                       |
-| `OLED_IC`                  | `OLED_IC_SSD1306` | Set to `OLED_IC_SH1106` if you're using the SH1106 OLED controller.                                                        |
-| `OLED_COLUMN_OFFSET`       | `0`               | (SH1106 only.) Shift output to the right this many pixels.<br />Useful for 128x64 displays centered on a 132x64 SH1106 IC. |
+|Define                     |Default          |Description                                                                                                               |
+|---------------------------|-----------------|--------------------------------------------------------------------------------------------------------------------------|
+|`OLED_DISPLAY_ADDRESS`     |`0x3C`           |The i2c address of the OLED Display                                                                                       |
+|`OLED_FONT_H`              |`"glcdfont.c"`   |The font code file to use for custom fonts                                                                                |
+|`OLED_FONT_START`          |`0`              |The starting characer index for custom fonts                                                                              |
+|`OLED_FONT_END`            |`223`            |The ending characer index for custom fonts                                                                                |
+|`OLED_FONT_WIDTH`          |`6`              |The font width                                                                                                            |
+|`OLED_FONT_HEIGHT`         |`8`              |The font height (untested)                                                                                                |
+|`OLED_TIMEOUT`             |`60000`          |Turns off the OLED screen after 60000ms of keyboard inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.           |
+|`OLED_SCROLL_TIMEOUT`      |`0`              |Scrolls the OLED screen after 0ms of OLED inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.                     |
+|`OLED_SCROLL_TIMEOUT_RIGHT`|*Not defined*    |Scroll timeout direction is right when defined, left when undefined.                                                      |
+|`OLED_IC`                  |`OLED_IC_SSD1306`|Set to `OLED_IC_SH1106` if you're using the SH1106 OLED controller.                                                       |
+|`OLED_COLUMN_OFFSET`       |`0`              |(SH1106 only.) Shift output to the right this many pixels.<br />Useful for 128x64 displays centered on a 132x64 SH1106 IC.|
 
  ## 128x64 & Custom sized OLED Displays
 
  The default display size for this feature is 128x32 and all necessary defines are precalculated with that in mind. We have added a define, `OLED_DISPLAY_128X64`, to switch all the values to be used in a 128x64 display, as well as added a custom define, `OLED_DISPLAY_CUSTOM`, that allows you to provide the necessary values to the driver.
 
-|Define                 |Default        |Description                                                      |
-|-----------------------|---------------|-----------------------------------------------------------------|
-|`OLED_DISPLAY_128X64`  |*Not defined*  |Changes the display defines for use with 128x64 displays.        |
-|`OLED_DISPLAY_CUSTOM`  |*Not defined*  |Changes the display defines for use with custom displays.<br />Requires user to implement the below defines. |
-|`OLED_DISPLAY_WIDTH`   |`128`          |The width of the OLED display.                                   |
-|`OLED_DISPLAY_HEIGHT`  |`32`           |The height of the OLED display.                                  |
-|`OLED_MATRIX_SIZE`     |`512`          |The local buffer size to allocate.<br />`(OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH)`. |
-|`OLED_BLOCK_TYPE`      |`uint16_t`     |The unsigned integer type to use for dirty rendering. |
-|`OLED_BLOCK_COUNT`     |`16`           |The number of blocks the display is divided into for dirty rendering.<br />`(sizeof(OLED_BLOCK_TYPE) * 8)`. |
-|`OLED_BLOCK_SIZE`      |`32`           |The size of each block for dirty rendering<br />`(OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)`. |
-|`OLED_COM_PINS`        |`COM_PINS_SEQ` |How the SSD1306 chip maps it's memory to display.<br />Options are `COM_PINS_SEQ`, `COM_PINS_ALT`, `COM_PINS_SEQ_LR`, & `COM_PINS_ALT_LR`. |
-|`OLED_SOURCE_MAP`      |`{ 0, ... N }` |Precalculated source array to use for mapping source buffer to target OLED memory in 90 degree rendering.         |
-|`OLED_TARGET_MAP`      |`{ 24, ... N }`|Precalculated target array to use for mapping source buffer to target OLED memory in 90 degree rendering.         |
+|Define               |Default        |Description                                                                                                                             |
+|---------------------|---------------|----------------------------------------------------------------------------------------------------------------------------------------|
+|`OLED_DISPLAY_128X64`|*Not defined*  |Changes the display defines for use with 128x64 displays.                                                                               |
+|`OLED_DISPLAY_CUSTOM`|*Not defined*  |Changes the display defines for use with custom displays.<br>Requires user to implement the below defines.                              |
+|`OLED_DISPLAY_WIDTH` |`128`          |The width of the OLED display.                                                                                                          |
+|`OLED_DISPLAY_HEIGHT`|`32`           |The height of the OLED display.                                                                                                         |
+|`OLED_MATRIX_SIZE`   |`512`          |The local buffer size to allocate.<br>`(OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH)`.                                                 |
+|`OLED_BLOCK_TYPE`    |`uint16_t`     |The unsigned integer type to use for dirty rendering.                                                                                   |
+|`OLED_BLOCK_COUNT`   |`16`           |The number of blocks the display is divided into for dirty rendering.<br>`(sizeof(OLED_BLOCK_TYPE) * 8)`.                               |
+|`OLED_BLOCK_SIZE`    |`32`           |The size of each block for dirty rendering<br>`(OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)`.                                                  |
+|`OLED_COM_PINS`      |`COM_PINS_SEQ` |How the SSD1306 chip maps it's memory to display.<br>Options are `COM_PINS_SEQ`, `COM_PINS_ALT`, `COM_PINS_SEQ_LR`, & `COM_PINS_ALT_LR`.|
+|`OLED_SOURCE_MAP`    |`{ 0, ... N }` |Precalculated source array to use for mapping source buffer to target OLED memory in 90 degree rendering.                               |
+|`OLED_TARGET_MAP`    |`{ 24, ... N }`|Precalculated target array to use for mapping source buffer to target OLED memory in 90 degree rendering.                               |
 
 
-### 90 Degree Rotation - Technical Mumbo Jumbo 
+### 90 Degree Rotation - Technical Mumbo Jumbo
 
 !> Rotation is unsupported on the SH1106.
 
-```C
+```c
 // OLED Rotation enum values are flags
 typedef enum {
     OLED_ROTATION_0   = 0,
@@ -143,9 +146,9 @@ typedef enum {
 } oled_rotation_t;
 ```
 
- OLED displays driven by SSD1306 drivers only natively support in hard ware 0 degree and 180 degree rendering. This feature is done in software and not free. Using this feature will increase the time to calculate what data to send over i2c to the OLED. If you are strapped for cycles, this can cause keycodes to not register. In testing however, the rendering time on an `atmega32u4` board only went from 2ms to 5ms and keycodes not registering was only noticed once we hit 15ms. 
- 
- 90 Degree Rotated Rendering is achieved by using bitwise operations to rotate each 8 block of memory and uses two precalculated arrays to remap buffer memory to OLED memory. The memory map defines are precalculated for remap performance and are calculated based on the OLED Height, Width, and Block Size. For example, in the 128x32 implementation with a `uint8_t` block type, we have a 64 byte block size. This gives us eight 8 byte blocks that need to be rotated and rendered. The OLED renders horizontally two 8 byte blocks before moving down a page, e.g:
+OLED displays driven by SSD1306 drivers only natively support in hardware 0 degree and 180 degree rendering. This feature is done in software and not free. Using this feature will increase the time to calculate what data to send over i2c to the OLED. If you are strapped for cycles, this can cause keycodes to not register. In testing however, the rendering time on an ATmega32U4 board only went from 2ms to 5ms and keycodes not registering was only noticed once we hit 15ms.
+
+90 degree rotation is achieved by using bitwise operations to rotate each 8 block of memory and uses two precalculated arrays to remap buffer memory to OLED memory. The memory map defines are precalculated for remap performance and are calculated based on the display height, width, and block size. For example, in the 128x32 implementation with a `uint8_t` block type, we have a 64 byte block size. This gives us eight 8 byte blocks that need to be rotated and rendered. The OLED renders horizontally two 8 byte blocks before moving down a page, e.g:
 
 |   |   |   |   |   |   |
 |---|---|---|---|---|---|
@@ -167,8 +170,8 @@ So those precalculated arrays just index the memory offsets in the order in whic
 
 ## OLED API
 
-```C++
-// OLED Rotation enum values are flags
+```c
+// OLED rotation enum values are flags
 typedef enum {
     OLED_ROTATION_0   = 0,
     OLED_ROTATION_90  = 1,
@@ -272,26 +275,26 @@ uint8_t oled_max_lines(void);
 
 !> Scrolling and rotation are unsupported on the SH1106.
 
-## SSD1306.h driver conversion guide
+## SSD1306.h Driver Conversion Guide
 
-|Old API                    |Recommended New API                |
-|---------------------------|-----------------------------------|
-|`struct CharacterMatrix`   |*removed - delete all references*  |
-|`iota_gfx_init`            |`oled_init`                        |
-|`iota_gfx_on`              |`oled_on`                          |
-|`iota_gfx_off`             |`oled_off`                         |
-|`iota_gfx_flush`           |`oled_render`                      |
-|`iota_gfx_write_char`      |`oled_write_char`                  |
-|`iota_gfx_write`           |`oled_write`                       |
-|`iota_gfx_write_P`         |`oled_write_P`                     |
-|`iota_gfx_clear_screen`    |`oled_clear`                       |
-|`matrix_clear`             |*removed - delete all references*  |
-|`matrix_write_char_inner`  |`oled_write_char`                  |
-|`matrix_write_char`        |`oled_write_char`                  |
-|`matrix_write`             |`oled_write`                       |
-|`matrix_write_ln`          |`oled_write_ln`                    |
-|`matrix_write_P`           |`oled_write_P`                     |
-|`matrix_write_ln_P`        |`oled_write_ln_P`                  |
-|`matrix_render`            |`oled_render`                      |
-|`iota_gfx_task`            |`oled_task`                        |
-|`iota_gfx_task_user`       |`oled_task_user`                   |
+|Old API                  |Recommended New API              |
+|-------------------------|---------------------------------|
+|`struct CharacterMatrix` |*removed - delete all references*|
+|`iota_gfx_init`          |`oled_init`                      |
+|`iota_gfx_on`            |`oled_on`                        |
+|`iota_gfx_off`           |`oled_off`                       |
+|`iota_gfx_flush`         |`oled_render`                    |
+|`iota_gfx_write_char`    |`oled_write_char`                |
+|`iota_gfx_write`         |`oled_write`                     |
+|`iota_gfx_write_P`       |`oled_write_P`                   |
+|`iota_gfx_clear_screen`  |`oled_clear`                     |
+|`matrix_clear`           |*removed - delete all references*|
+|`matrix_write_char_inner`|`oled_write_char`                |
+|`matrix_write_char`      |`oled_write_char`                |
+|`matrix_write`           |`oled_write`                     |
+|`matrix_write_ln`        |`oled_write_ln`                  |
+|`matrix_write_P`         |`oled_write_P`                   |
+|`matrix_write_ln_P`      |`oled_write_ln_P`                |
+|`matrix_render`          |`oled_render`                    |
+|`iota_gfx_task`          |`oled_task`                      |
+|`iota_gfx_task_user`     |`oled_task_user`                 |
