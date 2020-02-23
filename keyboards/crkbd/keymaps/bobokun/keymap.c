@@ -13,17 +13,18 @@ extern uint8_t is_master;
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _QWERTY 0
+#define _DJMAX 1
 #define _LOWER 2
 #define _RAISE 3
 #define _ADJUST 4
-#define _DJMAX 1
+
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
+  DJMAX,
   LOWER,
   RAISE,
-  ADJUST,
-  DJMAX
+  ADJUST
 };
 
 enum {
@@ -49,9 +50,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 LCTL_T(KC_TAB),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-	  KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,\
+	     KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                        KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,   LOWER,  KC_SPC,     KC_ENT,  RAISE,  KC_RALT \
+                                          KC_LGUI,  KC_SPC,  LOWER,     RAISE,  KC_ENT,  KC_RALT \
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -64,7 +65,7 @@ LCTL_T(KC_TAB),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                     
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_MPRV, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,                       KC_BSLS,  KC_GRV, KC_LBRC, KC_RBRC, XXXXXXX, KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,   LOWER,  KC_SPC,     KC_ENT,   RAISE, KC_RALT \
+                                          KC_LGUI,  KC_SPC,  LOWER,     RAISE,  KC_ENT,  KC_RALT \
                                       //`--------------------------'  `--------------------------'
     ),
 
@@ -76,7 +77,7 @@ LCTL_T(KC_TAB),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                     
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_VOLD,  KC_F11,  KC_F12, RGB_TOG, RGB_MOD,   RESET,                      EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,   LOWER,  KC_SPC,     KC_ENT,   RAISE, KC_RALT \
+                                          KC_LGUI,  KC_SPC,  LOWER,     RAISE,  KC_ENT,  KC_RALT \
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -88,7 +89,7 @@ LCTL_T(KC_TAB),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                     
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,   LOWER,  KC_SPC,     KC_ENT,   RAISE, KC_RALT \
+                                          KC_LGUI,  KC_SPC,  LOWER,     RAISE,  KC_ENT,  KC_RALT \
                                       //`--------------------------'  `--------------------------'
   ),
   
@@ -100,7 +101,7 @@ LCTL_T(KC_TAB),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                     
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 	  KC_LSFT,   KC_F8, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LALT,   LOWER,  KC_SPC,     KC_ENT,  RAISE,  KC_RALT \
+                                          KC_LGUI,  KC_SPC,  LOWER,     RAISE,  KC_ENT,  KC_RALT \
                                       //`--------------------------'  `--------------------------'
 
   )
@@ -226,24 +227,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;	
 		
-    /* case RGB_MOD:
-      #ifdef RGBLIGHT_ENABLE
-        if (record->event.pressed) {
-          rgblight_mode(RGB_current_mode);
-          rgblight_step();
-          RGB_current_mode = rgblight_config.mode;
-        }
-      #endif
-      return false; */
-    /* case RGBRST:
-      #ifdef RGBLIGHT_ENABLE
-        if (record->event.pressed) {
-          eeconfig_update_rgblight_default();
-          rgblight_enable();
-          RGB_current_mode = rgblight_config.mode;
-        }
-      #endif
-      break; */
+  // case RGB_MOD:
+  //     #ifdef RGBLIGHT_ENABLE
+  //       if (record->event.pressed) {
+  //         rgblight_mode(RGB_current_mode);
+  //         rgblight_step();
+  //         RGB_current_mode = rgblight_config.mode;
+  //       }
+  //     #endif
+  //     return false;
+  // case RGBRST:
+  //     #ifdef RGBLIGHT_ENABLE
+  //       if (record->event.pressed) {
+  //         eeconfig_update_rgblight_default();
+  //         rgblight_enable();
+  //         RGB_current_mode = rgblight_config.mode;
+  //       }
+  //     #endif
+  //     break;
   }
   return true;
 }
