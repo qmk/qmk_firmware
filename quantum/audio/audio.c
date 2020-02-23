@@ -174,9 +174,6 @@ void play_note(float freq, int vol) {
     }
 
     if (audio_config.enable && voices < 8) {
-        // Cancel notes if notes are playing
-        if (playing_notes) stop_all_notes();
-
         playing_note = true;
 
         envelope_index = 0;
