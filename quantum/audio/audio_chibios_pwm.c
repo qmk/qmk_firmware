@@ -142,7 +142,7 @@ void audio_initialize_hardware(void) {
     // on STM32F103C8B: PA8.alternate0 = output of TIM1-CH1
     palSetPadMode(GPIOA, 8, PAL_MODE_STM32_ALTERNATE_PUSHPULL);
 #else
-    palSetLineMode(AUDIO_PIN, PAL_MODE_OUTPUT_OPENDRAIN);
+    palSetLineMode(AUDIO_PIN, PAL_MODE_OUTPUT_PUSHPULL);
     palClearLine(AUDIO_PIN);
 
     pwmEnablePeriodicNotification(&PWMD1);  // enable pwm callbacks
