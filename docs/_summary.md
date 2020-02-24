@@ -6,12 +6,6 @@
   * [Testing and Debugging](newbs_testing_debugging.md)
   * [Getting Help](getting_started_getting_help.md)
 
-* Breaking Changes
-  * [Overview](breaking_changes.md)
-  * [My Pull Request Was Flagged](breaking_changes_instructions.md)
-  * History
-    * [2019 Aug 30](ChangeLog/20190830.md)
-
 * FAQs
   * [General FAQ](faq_general.md)
   * [Build/Compile QMK](faq_build.md)
@@ -19,8 +13,14 @@
   * [Keymap](faq_keymap.md)
   * [Driver Installation with Zadig](driver_installation_zadig.md)
 
+* Configurator
+  * [Overview](newbs_building_firmware_configurator.md)
+  * [Keyboard Support](reference_configurator_support.md)
+  * QMK API
+    * [Overview](api_overview.md)
+    * [API Documentation](api_docs.md)
+
 * Using QMK
-  * [Support](getting_started_getting_help.md)
   * Guides
     * [ARM Debugging Guide](arm_debugging.md)
     * [Best Git Practices](newbs_git_best_practices.md)
@@ -89,8 +89,13 @@
     * [Using Eclipse with QMK](other_eclipse.md)
     * [Using VSCode with QMK](other_vscode.md)
 
-
 * Developing QMK
+  * Breaking Changes
+    * [Overview](breaking_changes.md)
+    * [My Pull Request Was Flagged](breaking_changes_instructions.md)
+    * History
+      * [2019 Aug 30](ChangeLog/20190830.md)
+
   * QMK Reference
     * [Translating the QMK Docs](translating.md)
     * [Config Options](config_options.md)
@@ -101,7 +106,6 @@
     * [Community Layouts](feature_layouts.md)
     * [Unit Testing](unit_testing.md)
     * [Useful Functions](ref_functions.md)
-    * [Configurator Support](reference_configurator_support.md)
     * [info.json Format](reference_info_json.md)
 
   * C Development
@@ -120,6 +124,11 @@
     * [Coding Conventions](coding_conventions_python.md)
     * [QMK CLI Config](cli_configuration.md)
     * [Python CLI Development](cli_development.md)
+
+  * Configurator Development
+    * QMK API
+      * [Development Environment](api_development_environment.md)
+      * [Architecture Overview](api_development_overview.md)
 
   * For a Deeper Understanding
     * [How Keyboards Work](how_keyboards_work.md)
