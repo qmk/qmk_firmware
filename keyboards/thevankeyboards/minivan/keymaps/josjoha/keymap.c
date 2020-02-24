@@ -54,9 +54,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * Define how many keys your keyboard has. */
          // Default               (12x12x12x8 keys):  _remove_ both ->> 
          //'Arrow'                (12x12x12x9 keys):  _activate_ only ->
-#define MORE_KEY__ARROW   // Additional key 1st row on the right, called 'Arrow'.
+//#define MORE_KEY__ARROW   // Additional key 1st row on the right, called 'Arrow'.
          //'Command' 'South paw'  (12x12x12x9 keys):  _activate_ only ->
-#define MORE_KEY__COMMAND // Additional key 1st row on the left, called 'Command' or 'South paw'.
+//#define MORE_KEY__COMMAND // Additional key 1st row on the left, called 'Command' or 'South paw'.
          //'Arrow' + 'South paw'  (12x12x12x10 keys): _activate_ both <<-
          //
         /*                        Defining the additional key for 'Arrow' ('Command')
