@@ -2,7 +2,7 @@
 
 A hotswap 60% RGB keyboard.
 
-Keyboard Maintainer: MILLER  
+* Keyboard Maintainer: MILLER
 Hardware Supported: MILLER 
 Hardware Availability: MILLER
 
