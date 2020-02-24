@@ -2,9 +2,10 @@ SRC += drashna.c \
        process_records.c
 
 ifneq ($(PLATFORM),CHIBIOS)
-    LTO_ENABLE            = yes
+    LTO_ENABLE        = yes
 endif
 SPACE_CADET_ENABLE    = no
+GRAVE_ESC_ENABLE      = no
 
 ifneq ($(strip $(NO_SECRETS)), yes)
     ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
