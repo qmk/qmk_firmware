@@ -195,7 +195,7 @@ By default, when the keyboard boots, it will initialize the input mode to the la
 
 ## `send_unicode_string()`
 
-This function is much like `send_string()` but allows you to input UTF-8 characters directly, currently up to code point U+FFFF. Make sure your `keymap.c` is formatted in UTF-8 encoding.
+This function is much like `send_string()` but allows you to input UTF-8 characters directly, and supports all code points (provided the selected input method also supports it). Make sure your `keymap.c` is formatted in UTF-8 encoding.
 
 ```c
 send_unicode_string("(ノಠ痊ಠ)ノ彡┻━┻");
@@ -210,7 +210,6 @@ send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B"
 ```
 
 An easy way to convert your Unicode string to this format is by using [this site](https://r12a.github.io/app-conversion/), and taking the result in the "Hex/UTF-32" section.
-Unlike `send_unicode_string()` this function supports code points up to U+10FFFF.
 
 ## Additional Language Support
 

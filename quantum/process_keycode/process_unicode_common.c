@@ -150,6 +150,24 @@ void register_hex(uint16_t hex) {
     }
 }
 
+void register_hex32(uint32_t hex) {
+    bool onzerostart = true;
+    for (int i = 7; i >= 0; i--) {
+        if (i <= 3) {
+            onzerostart = false;
+        }
+        uint8_t digit = ((hex >> (i * 4)) & 0xF);
+        if (digit == 0) {
+            if (!onzerostart) {
+                tap_code(hex_to_keycode(digit));
+            }
+        } else {
+            tap_code(hex_to_keycode(digit));
+            onzerostart = false;
+        }
+    }
+}
+
 void send_unicode_hex_string(const char *str) {
     if (!str) {
         return;
@@ -192,9 +210,7 @@ const char *decode_utf8(const char *str, int32_t *code_point) {
         *code_point = ((int32_t)(str[0] & 0x0F) << 12) | ((int32_t)(str[1] & 0x3F) << 6) | ((int32_t)(str[2] & 0x3F) << 0);
         next        = str + 3;
     } else if ((str[0] & 0xF8) == 0xF0 && (str[0] <= 0xF4)) {  // U+10000-10FFFF
-        // Skip for now - register_hex() only takes a uint16
-        //*code_point = ((int32_t)(str[0] & 0x07) << 18) | ((int32_t)(str[1] & 0x3F) << 12) | ((int32_t)(str[2] & 0x3F) << 6) | ((int32_t)(str[3] & 0x3F) << 0);
-        *code_point = -1;
+        *code_point = ((int32_t)(str[0] & 0x07) << 18) | ((int32_t)(str[1] & 0x3F) << 12) | ((int32_t)(str[2] & 0x3F) << 6) | ((int32_t)(str[3] & 0x3F) << 0);
         next        = str + 4;
     } else {
         *code_point = -1;
@@ -221,7 +237,7 @@ void send_unicode_string(const char *str) {
 
         if (code_point >= 0) {
             unicode_input_start();
-            register_hex(code_point);
+            register_hex32(code_point);
             unicode_input_finish();
         }
     }
