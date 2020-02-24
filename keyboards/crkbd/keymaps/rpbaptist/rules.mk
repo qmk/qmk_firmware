@@ -6,8 +6,8 @@ LINK_TIME_OPTIMIZATION_ENABLE = yes
 #the appropriate keymap folder that will get included automatically
 #
 EXTRAKEY_ENABLE    = yes  # Audio control and System control(+450)
-MOUSEKEY_ENABLE    = yes  # Mouse keys(+4700)
 
+MOUSEKEY_ENABLE    = no  # Mouse keys(+4700)
 NKRO_ENABLE        = no  # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 RGBLIGHT_ENABLE    = no   # Enable WS2812 RGB underlight.
 BOOTMAGIC_ENABLE   = no   # Virtual DIP switch configuration(+1000)
