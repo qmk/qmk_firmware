@@ -15,7 +15,7 @@ enum layer_names {
 
 enum custom_keycodes {
     BSP_DEL = SAFE_RANGE,
-    RGB_RST,
+    RGB_RST,  // Reset RGB
     RGB_UND,  // Toggle RGB underglow as layer indicator
     RGB_IDL,  // RGB Idling animations
     RGB_MAP,  // RGB_MATRIX_TYPING_HEATMAP
