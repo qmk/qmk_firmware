@@ -70,7 +70,6 @@ typedef union {
         bool    rgb_layer_change     :1;
         bool    is_overwatch         :1;
         bool    nuke_switch          :1;
-        uint8_t unicode_mod          :4;
         bool    swapped_numbers      :1;
         bool    rgb_matrix_idle_anim :1;
     };

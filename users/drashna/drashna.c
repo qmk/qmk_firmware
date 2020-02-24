@@ -18,12 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "drashna.h"
 
 userspace_config_t userspace_config;
-#if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-#    define DRASHNA_UNICODE_MODE UC_WIN
-#else
-// set to 2 for UC_WIN, set to 4 for UC_WINC
-#    define DRASHNA_UNICODE_MODE 2
-#endif
 
 bool mod_key_press_timer(uint16_t code, uint16_t mod_code, bool pressed) {
     static uint16_t this_timer;
@@ -93,11 +87,6 @@ void matrix_init_user(void) {
     DDRB &= ~(1 << 0);
     PORTB &= ~(1 << 0);
 #endif
-
-#if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-    set_unicode_input_mode(DRASHNA_UNICODE_MODE);
-    get_unicode_input_mode();
-#endif  // UNICODE_ENABLE
     matrix_init_keymap();
 }
 
@@ -200,12 +189,6 @@ void eeconfig_init_user(void) {
     userspace_config.raw              = 0;
     userspace_config.rgb_layer_change = true;
     eeconfig_update_user(userspace_config.raw);
-#if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-    set_unicode_input_mode(DRASHNA_UNICODE_MODE);
-    get_unicode_input_mode();
-#else
-    eeprom_update_byte(EECONFIG_UNICODEMODE, DRASHNA_UNICODE_MODE);
-#endif
     eeconfig_init_keymap();
     keyboard_init();
 }
