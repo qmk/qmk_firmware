@@ -293,6 +293,16 @@ void render_kyria_logo(void) {
     };
     oled_write_raw_P(kyria_logo, sizeof(kyria_logo));
 }
+#else
+void render_status_secondary(void) {
+    /* Show Keyboard Layout  */
+    render_logo();
+    render_default_layer_state();
+    render_layer_state();
+    render_mod_status(get_mods() | get_oneshot_mods());
+
+    render_keylogger_status();
+}
 #    endif
 // clang-format on
 
@@ -302,16 +312,6 @@ void render_status_main(void) {
     render_keylock_status(host_keyboard_leds());
     render_bootmagic_status();
     render_user_status();
-
-    render_keylogger_status();
-}
-
-void render_status_secondary(void) {
-    /* Show Keyboard Layout  */
-    render_logo();
-    render_default_layer_state();
-    render_layer_state();
-    render_mod_status(get_mods() | get_oneshot_mods());
 
     render_keylogger_status();
 }
