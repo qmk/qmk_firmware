@@ -7,8 +7,8 @@ enum layer_names {
   _COLEMAKDHM,
   _GAMING,
   _GAMING_EXT,
-  _MOUSE,
-  _NUM,
+  _NUMPAD,
+  _SYM,
   _NAV,
   _UTIL
 };
@@ -49,12 +49,12 @@ user_config_t user_config;
 #define T_NAV TT(_NAV)
 #define S_NAV MO(_NAV)
 
-#define T_NUM TT(_NUM)
-#define S_NUM MO(_NUM)
+#define T_SYM TT(_SYM)
+#define S_SYM MO(_SYM)
 
 // Layer keys with functionality on tap
 #define NAV_0 LT(_NAV, KC_0)
-#define TAB_MS LT(_MOUSE, KC_TAB)
+#define TAB_MS LT(_NUMPAD, KC_TAB)
 
 #define EXT_SF LT(_GAMING_EXT, KC_LSHIFT)
 
@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       LCTL_BR,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH, RCTL_BR,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LALT,   T_NUM, SFT_SPC,    SFT_ENT,   T_NAV, KC_RGUI \
+                                          KC_LALT,   T_SYM, SFT_SPC,    SFT_ENT,   T_NAV, KC_RGUI \
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -116,27 +116,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   ),
 
-  [_MOUSE] = LAYOUT( \
+  [_NUMPAD] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_INS,                      KC_WH_U, KC_BTN1, KC_MS_U, KC_BTN2, XXXXXXX, KC_BSPC,\
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_INS,                       KC_EUR,   KC_P7,   KC_P8,   KC_P9, XXXXXXX, KC_BSPC,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_CAPS,                      KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, _______,\
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_CAPS,                      KC_UNDS,   KC_P4,   KC_P5,   KC_P6, KC_PMNS, KC_PPLS,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR, KC_NLCK,                      XXXXXXX, KC_WH_L, XXXXXXX, KC_WH_R, XXXXXXX, KC_RCTL,\
+      KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR, KC_NLCK,                       KC_EQL,   KC_P1,   KC_P2,   KC_P3, KC_PSLS, KC_PAST,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______, _______,    _______, KC_ACL2, KC_ACL0 \
+                                          _______, _______, _______,    _______,   KC_P0,  KC_DOT \
                                       //`--------------------------'  `--------------------------'
   ),
 
-  [_NUM] = LAYOUT( \
+  [_SYM] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,\
+       KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSLS,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_TILD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_PLUS,    KC_4,    KC_5,    KC_6, KC_MINS, KC_UNDS,\
+      KC_TILD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_UNDS, KC_MINS, KC_PLUS,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      LCT_PRN, KC_CIRC, KC_AMPR, KC_EUR,  KC_PIPE,  KC_EQL,                      KC_ASTR,    KC_1,    KC_2,    KC_3, _______, RCT_PRN,\
+      LCT_PRN, XXXXXXX, XXXXXXX, XXXXXXX,  KC_EUR, XXXXXXX,                       KC_EQL, KC_PIPE, XXXXXXX, XXXXXXX, KC_BSLS, RCT_PRN,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______,   S_NUM, _______,    _______,   NAV_0, KC_DOT \
+                                          _______,   S_SYM, _______,    _______, _______, _______ \
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -168,7 +168,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(default_layer_state)) {
         case _COLEMAKDHM:
-            state = update_tri_layer_state(state, _NUM, _NAV, _UTIL);
+            state = update_tri_layer_state(state, _SYM, _NAV, _UTIL);
             break;
         case _GAMING:
             state = update_tri_layer_state(state, _GAMING_EXT, _NAV, _UTIL);
@@ -233,8 +233,8 @@ void render_status(void) {
         case 0:
             oled_write_P(PSTR("     "), false);
             break;
-        case _NUM:
-            oled_write_P(PSTR("Num  "), false);
+        case _SYM:
+            oled_write_P(PSTR("Sym  "), false);
             break;
         case _NAV:
             oled_write_P(PSTR("Nav  "), false);
@@ -242,8 +242,8 @@ void render_status(void) {
         case _GAMING_EXT:
             oled_write_P(PSTR("Ext  "), false);
             break;
-        case _MOUSE:
-            oled_write_P(PSTR("Mouse"), false);
+        case _NUMPAD:
+            oled_write_P(PSTR("Num  "), false);
             break;
         case _UTIL:
             oled_write_P(PSTR("Util "), false);
@@ -350,7 +350,7 @@ void rgb_matrix_indicators_user(void) {
             case _GAMING_EXT:
                 rgb_matrix_layer_helper(HSV_PURPLE, LED_FLAG_UNDERGLOW);
                 break;
-            case _NUM:
+            case _SYM:
                 rgb_matrix_layer_helper(HSV_GOLDENROD, LED_FLAG_UNDERGLOW);
                 break;
             case _NAV:
@@ -359,7 +359,7 @@ void rgb_matrix_indicators_user(void) {
             case _UTIL:
                 rgb_matrix_layer_helper(HSV_PINK, LED_FLAG_UNDERGLOW);
                 break;
-            case _MOUSE:
+            case _NUMPAD:
                 rgb_matrix_layer_helper(HSV_CORAL, LED_FLAG_UNDERGLOW);
                 break;
             default: {
