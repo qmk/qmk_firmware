@@ -29,6 +29,3 @@ void keyboard_post_init_user(void) {
     rgblight_sethsv_noeeprom(0,0,128);
 }
 
-#ifdef TAP_DANCE_ENABLE
-qk_tap_dance_action_t tap_dance_actions[0];
-#endif
