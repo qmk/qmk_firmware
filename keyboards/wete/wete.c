@@ -17,11 +17,3 @@ bool led_update_kb(led_t led_state) {
 
     return res;
 }
-
-void matrix_init_kb(void) {
-    matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-    matrix_scan_user();
-}
