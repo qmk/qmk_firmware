@@ -106,7 +106,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * manufacturer specs.
  */
 
-#define DEBOUNCE 30
+#define DEBOUNCE 60
 
 #define USB_MAX_POWER_CONSUMPTION 500
 
