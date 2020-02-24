@@ -99,7 +99,7 @@ void suspend_wakeup_init_kb(void) {
 __attribute__ ((weak))
 void rgb_matrix_indicators_user(void)
 {
-    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK))
+    if (host_keyboard_led_state().caps_lock)
     {
         rgb_matrix_set_color(28, 0xFF, 0xFF, 0xFF);
     }
