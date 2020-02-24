@@ -4,7 +4,7 @@
 
 An ergonomic 45% keyboard with a numrow and macro/numpad added to the left side.
 
-Keyboard Maintainer: [Holtenc](https://github.com/holtenc/)
+* Keyboard Maintainer: [Holtenc](https://github.com/holtenc/)
 Hardware Supported: Prime_EXL Plus PCB, ATMega32u4
 Hardware Availability: Prototype/personal project
 
