@@ -7,7 +7,6 @@ bool oryx_state_live_training_enabled;
 bool webusb_receive_oryx(uint8_t *data, uint8_t length) {
     uint8_t command = data[0];
     uint8_t *param   = &(data[1]);
-    oryx_state_live_training_enabled = false;
 
     switch (command) {
         case ORYX_GET_LAYER:
