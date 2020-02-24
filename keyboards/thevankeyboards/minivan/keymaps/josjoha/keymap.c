@@ -95,16 +95,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * to be a Colemak or other layout.
          *
          * Technical details: The keymap in general has two BASE layers, that you can
-         * switch between. From there all other layers can equally be reached. Each
-         * of the two BASE layer comes with its own Numerical/Symbols layer, but
-         * other layers may be shared between the BASE layers, You can define one
-         * BASE layer as Qwerty, and the other as Dvorak, and they both bring you
-         * to the same layer that has your navigation and mouse keys, they both
-         * bring you to to the same layout for accented and Unicode characters, the
-         * same function key layer, etc.  Both BASE layers are perfectly the same
-         * in functionality. (It gets a little more complex for Unicode layers if
-         * you compile for 'descramble', in which case one of the BASE layers can
-         * point to either a special set of them, or the same set; see 'descramble'.)
+         *   switch between. From there all other layers can equally be reached. Each
+         *   of the two BASE layer comes with its own Numerical/Symbols layer, but
+         *   other layers may be shared between the BASE layers. 
+         *
+         *   You can define one BASE layer as Qwerty, and the other as Dvorak. They
+         *   both bring you to the same layer that has your navigation and mouse keys.
+         *   They both bring you to to the same layout for accented and Unicode
+         *   characters, to the same function key layer, etc.  Both BASE layers are
+         *   perfectly the same in functionality. (It gets a little more complex for
+         *   Unicode layers if you compile for 'descramble', in which case one of the
+         *   BASE layers can point to either a special set of them, or the same set,
+         *   as the user requires; see 'descramble'.)
          *
          */
 //#define QWERTY_DVORAK // _Activate_ to have Dvorak with 'descramble Dvorak' as the BASE layers.
