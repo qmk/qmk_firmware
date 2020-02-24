@@ -7,6 +7,7 @@ LINK_TIME_OPTIMIZATION_ENABLE = yes
 #
 EXTRAKEY_ENABLE    = yes  # Audio control and System control(+450)
 NKRO_ENABLE        = yes  # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+DYNAMIC_MACRO_ENABLE = yes
 
 MOUSEKEY_ENABLE    = no   # Mouse keys(+4700)
 RGBLIGHT_ENABLE    = no   # Enable WS2812 RGB underlight.
