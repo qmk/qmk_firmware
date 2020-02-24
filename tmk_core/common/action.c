@@ -48,7 +48,7 @@ int retro_tapping_counter = 0;
 #endif
 
 #ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-__attribute__ ((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode) { return false; }
+__attribute__((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode) { return false; }
 #endif
 
 #ifndef TAP_CODE_DELAY
@@ -90,13 +90,15 @@ void action_exec(keyevent_t event) {
 
     keyrecord_t record = {.event = event};
 
-#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+#ifndef NO_ACTION_ONESHOT
+#    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
     if (has_oneshot_layer_timed_out()) {
         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
     }
     if (has_oneshot_mods_timed_out()) {
         clear_oneshot_mods();
     }
+#    endif
 #endif
 
 #ifndef NO_ACTION_TAPPING

@@ -208,24 +208,11 @@ This is a reference only. Each group of keys links to the page documenting their
 
 ## [Quantum Keycodes](quantum_keycodes.md#qmk-keycodes)
 
-|Key            |Aliases    |Description                                                          |
-|---------------|-----------|---------------------------------------------------------------------|
-|`RESET`        |           |Put the keyboard into DFU mode for flashing                          |
-|`DEBUG`        |           |Toggle debug mode                                                    |
-|`EEPROM_RESET` |`EEP_RST`  |Resets EEPROM state by reinitializing it                             |
-|`KC_GESC`      |`GRAVE_ESC`|Escape when tapped, <code>&#96;</code> when pressed with Shift or GUI|
-|`KC_LSPO`      |           |Left Shift when held, `(` when tapped                                |
-|`KC_RSPC`      |           |Right Shift when held, `)` when tapped                               |
-|`KC_LCPO`      |           |Left Control when held, `(` when tapped                              |
-|`KC_RCPC`      |           |Right Control when held, `)` when tapped                             |
-|`KC_LAPO`      |           |Left Alt when held, `(` when tapped                                  |
-|`KC_RAPC`      |           |Right Alt when held, `)` when tapped                                 |
-|`KC_SFTENT`    |           |Right Shift when held, Enter when tapped                             |
-|`KC_LEAD`      |           |The [Leader key](feature_leader_key.md)                              |
-|`KC_LOCK`      |           |The [Lock key](feature_key_lock.md)                                  |
-|`FUNC(n)`      |`F(n)`     |Call `fn_action(n)` (deprecated)                                     |
-|`M(n)`         |           |Call macro `n`                                                       |
-|`MACROTAP(n)`  |           |Macro-tap `n` idk FIXME                                              |
+|Key           |Aliases  |Description                                            |
+|--------------|---------|-------------------------------------------------------|
+|`RESET`       |         |Put the keyboard into bootloader mode for flashing     |
+|`DEBUG`       |         |Toggle debug mode                                      |
+|`EEPROM_RESET`|`EEP_RST`|Reinitializes the keyboard's EEPROM (persistent memory)|
 
 ## [Audio Keys](feature_audio.md)
 
@@ -299,13 +286,25 @@ This is a reference only. Each group of keys links to the page documenting their
 
 ## [Dynamic Macros](feature_dynamic_macros.md)
 
-|Key              |Alias    |Description                                       |
+|Key              |Aliases  |Description                                       |
 |-----------------|---------|--------------------------------------------------|
 |`DYN_REC_START1` |`DM_REC1`|Start recording Macro 1                           |
 |`DYN_REC_START2` |`DM_REC2`|Start recording Macro 2                           |
 |`DYN_MACRO_PLAY1`|`DM_PLY1`|Replay Macro 1                                    |
 |`DYN_MACRO_PLAY2`|`DM_PLY2`|Replay Macro 2                                    |
 |`DYN_REC_STOP`   |`DM_RSTP`|Finish the macro that is currently being recorded.|
+
+## [Grave Escape](feature_grave_esc.md)
+
+|Key        |Aliases  |Description                                                       |
+|-----------|---------|------------------------------------------------------------------|
+|`GRAVE_ESC`|`KC_GESC`|Escape when pressed, <code>&#96;</code> when Shift or GUI are held|
+
+## [Key Lock](feature_key_lock.md)
+
+|Key      |Description                                                   |
+|---------|--------------------------------------------------------------|
+|`KC_LOCK`|Hold down the next key pressed, until the key is pressed again|
 
 ## [Layer Switching](feature_advanced_keycodes.md#switching-and-toggling-layers)
 
@@ -319,6 +318,12 @@ This is a reference only. Each group of keys links to the page documenting their
 |`TG(layer)`     |Toggle `layer` on or off                                                          |
 |`TO(layer)`     |Turns on `layer` and turns off all other layers, except the default layer |
 |`TT(layer)`     |Normally acts like MO unless it's tapped multiple times, which toggles `layer` on |
+
+## [Leader Key](feature_leader_key.md)
+
+|Key      |Description             |
+|---------|------------------------|
+|`KC_LEAD`|Begins a leader sequence|
 
 ## [Mouse Keys](feature_mouse_keys.md)
 
@@ -460,6 +465,18 @@ This is a reference only. Each group of keys links to the page documenting their
 |------------|----------------------------------|
 |`OSM(mod)`  |Hold `mod` for one keypress       |
 |`OSL(layer)`|Switch to `layer` for one keypress|
+
+## [Space Cadet](feature_space_cadet.md)
+
+|Key        |Description                             |
+|-----------|----------------------------------------|
+|`KC_LCPO`  |Left Control when held, `(` when tapped |
+|`KC_RCPC`  |Right Control when held, `)` when tapped|
+|`KC_LSPO`  |Left Shift when held, `(` when tapped   |
+|`KC_RSPC`  |Right Shift when held, `)` when tapped  |
+|`KC_LAPO`  |Left Alt when held, `(` when tapped     |
+|`KC_RAPC`  |Right Alt when held, `)` when tapped    |
+|`KC_SFTENT`|Right Shift when held, Enter when tapped|
 
 ## [Swap Hands](feature_swap_hands.md)
 
