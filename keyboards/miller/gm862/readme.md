@@ -4,7 +4,7 @@ A hotswap 60% RGB keyboard.
 
 * Keyboard Maintainer: MILLER
 * Hardware Supported: MILLER
-Hardware Availability: MILLER
+* Hardware Availability: MILLER
 
 Make example for this keyboard (after setting up your build environment):
 
