@@ -44,35 +44,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //                                 Configuration:
 // --------------------------------------v---------------------------------------
 
-     // (For the non-coders: "comment out" means to place '//' in front. The rest of the line becomes a comment.
-     //                      "uncomment"   means to *remove* the two '//' in front, now it is program text.
-     //                      /* ... */ is also a way to comment out text '...', but this is not used for options here.)
+     // (For the non-coders: "_Remove_" means to place '//' in front. The rest of the line becomes a comment.
+     //                      "_Activate_"   means to *remove* the two '//' in front, now it is part of the program.
+     //                      /* ... */ is also a way to remove text '...' from being compiled.)
 
 
         /*                            How many hardware keys 1st row
          *
-         * These #defines reach all layers.  You can of course edit it (further) by hand. 
-         * (For adding even more hardware keys, see tokens J1_J2, J3_J4.)
-         * 
-         * Here you can define how many keys your keyboard has. */
-         // Default               (12x12x12x8):  comment out both ->> 
-         //'Arrow'               (12x12x12x9):  uncomment ->
-//#define MORE_KEY__ARROW   // Additional key 1st row on the right, called 'Arrow'.
-         //'Command' 'South paw' (12x12x12x9):  uncomment ->
-//#define MORE_KEY__COMMAND // Additional key 1st row on the left, called 'Command' or 'South paw'.
-         //'Arrow' + 'South paw' (12x12x12x10): uncomment both <<-
-        //
+         * Define how many keys your keyboard has. */
+         // Default               (12x12x12x8 keys):  _remove_ both ->> 
+         //'Arrow'                (12x12x12x9 keys):  _activate_ only ->
+#define MORE_KEY__ARROW   // Additional key 1st row on the right, called 'Arrow'.
+         //'Command' 'South paw'  (12x12x12x9 keys):  _activate_ only ->
+#define MORE_KEY__COMMAND // Additional key 1st row on the left, called 'Command' or 'South paw'.
+         //'Arrow' + 'South paw'  (12x12x12x10 keys): _activate_ both <<-
+         //
         /*                        Defining the additional key for 'Arrow' ('Command')
          *
-         * Here you can create a bit of an arrow-cluster with your additional MORE_key2 hardware key.
+         * You can create a bit of an arrow-cluster with your additional MORE_key2 hardware key.
          * To do this on the BASE layer would hurt standard Dvorak/Qwerty, so that is not being done.
          * Instead this key toggles to _MOV layer, with the key that on the _MOV layer becomes the down-arrow,
          * in the middle of an arrow cluster in a triangle format. To do that, uncomment MOREKEY2_ARROW_CLUSTER.
          * The keys that are normally defined on those keys on _MOV will be overwritten (they are not typically
          * that much used there, with navigation cluster combinations.).
          *
-         * If you want that, uncomment MOREKEY2_ARROW_CLUSTER and leave: #define MORE_key2 _MOV_UP
-         * If you don't want that, comment out MOREKEY2_ARROW_CLUSTER, set MORE_key2 to whatever you want.
+         * Arrow cluster for 'arrow' layout: _activate_ MOREKEY2_ARROW_CLUSTER and _activate_ #define MORE_key2 _MOV_UP
+         * No arrow cluster for 'arrow' layout: _remove_ MOREKEY2_ARROW_CLUSTER, and set MORE_key2 to whatever you want.
          */
 #define MOREKEY2_ARROW_CLUSTER // Arrow cluster on _MOV layer. This is ignored if MORE_KEY__ARROW is not defined.
         /* Define the key you want on the additional key: */
@@ -81,67 +78,84 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         /*                         Defining the additional key for 'South paw' (or called 'Command')
          */
 #define MORE_key1 KC_DEL // Left side additional key. This is ignored if MORE_KEY__COMMAND is not defined.
+        /*
+         * (For adding even more hardware keys (other keyboards), editor tokens J1_J2, J3_J4 can come in handy.)
+         */
       
 
         /*                            Qwerty
          *
-         * Here you can define if you want a pure Dvorak keyboard, also with the ability
+         * You can define if you want a pure Dvorak keyboard, also with the ability
          * to connect seamlessly with a computer which is alreaedy set to Dvorak ('descramble
          * mode'), or if you want the default keymap to be in Qwerty, and the 'descramble' keymaps
          * to be in normal Dvorak.
+         *
          * If you choose Qwerty and still want to change something, you can open qwerty_dvorak.c 
-         * to edit the letters and numbers/symbols keymaps there, because those will be dropped
-         * in place instead of those programmed in this file (below).
+         * to edit the letters and numbers/symbols keymaps there. You can of course change that
+         * to be a Colemak or other layout.
+         *
+         * Technical details: The keymap in general has two BASE layers, that you can
+         * switch between. From there all other layers can equally be reached. Each
+         * of the two BASE layer comes with its own Numerical/Symbols layer, but
+         * other layers may be shared between the BASE layers, You can define one
+         * BASE layer as Qwerty, and the other as Dvorak, and they both bring you
+         * to the same layer that has your navigation and mouse keys, they both
+         * bring you to to the same layout for accented and Unicode characters, the
+         * same function key layer, etc.  Both BASE layers are perfectly the same
+         * in functionality. (It gets a little more complex for Unicode layers if
+         * you compile for 'descramble', in which case one of the BASE layers can
+         * point to either a special set of them, or the same set; see 'descramble'.)
          *
          */
-//#define QWERTY_DVORAK // Comment out to have Dvorak on default, and 'descramble Dvorak' on alternate.
-                        // Uncomment to have Qwerty on default, and Dvorak on alternate.
+//#define QWERTY_DVORAK // _Activate_ to have Dvorak with 'descramble Dvorak' as the BASE layers.
+                        // _Remove_ to have Qwerty with Dvorak.
 
 
         /*                           Startup layer
          *
-         * Here you can define which of the two BASE layer is active when powering up the keyboard.
+         * You can define which of the two BASE layer is on when powering up the keyboard.
          * For starting up in 'descramble' for non-Linux, fix the variable 'short descramble' in the code by hand to _HALF_.
          */
-//#define STARTUP_ALTERNATE // For QWERTY_DVORAK *is* defined: comment out is startup in Qwerty, #defined is
+//#define STARTUP_ALTERNATE // For QWERTY_DVORAK *is* defined: _remove_ is startup in Qwerty, _active_ is
                           //     startup in Dvorak
-                          // For QWERTY_DVORAK *not* defined: comment out is startup in normal Dvorak,
-                          //   #defined is startup in 'descramble' Dvorak Linux mode.
+                          // For QWERTY_DVORAK *not* defined: _remove_ is startup in normal Dvorak,
+                          //   _active_ is startup in 'descramble' Dvorak Linux mode.
 
 
         /*       Navigation cluster configuration
          * 
-         * Here you can "easily" define what navigation type layout you like.
-         * There are two basic settings: - Arrows in a triangle, or in a row.
-         * - Arrows on left or right hand (mouse on the other). 
+         * You can "easily" define what navigation type layout you like.
+         * There are two basic settings: 
+         * - Arrows in a triangle, or in a row.
+         * - Arrows on left or right hand (mouse on the other). (This gets tricky.)
          * Left/right hand setting affects if the less usable center column is left 
          * or right on that hand (see code below at _MOV layer to understand).
-         * If you are uncommenting both below settings, you probably do not have
+         * If you are _activating_ both below settings, you probably do not have
          * to edit anything. If you only use one, you may want to swap the edge 
          * columns by hand.
          *
          * By default the arrows are in a row, and on the right hand.
          * The alternative layout is configured for arrows in a triangle, on the left hand.
          *
-         * Uncomment below line to use a "WASD" type layout.
-         * Comment out if you prefer a flat type layout, with arrows in a row.
+         * _Activate_ below line to use a "WASD" type layout (on the spot where WASD is in Qwerty).
+         * _Remove_ if you prefer a flat type layout, with arrows in a row.
          */
-#define ARROWS_TRIANGLE // implies mouse is also similarly in a triangle.
-         /* Uncomment below line to put the arrows on the left, comment out to have arrows right. */
-#define ARROWS_LEFT // implies mouse is right
+#define ARROWS_TRIANGLE // Implies mouse is also similarly in a triangle.
+         /* _Activate_ below line to put the arrows on the left, comment out to have arrows right. */
+#define ARROWS_LEFT // Implies mouse is right
 
 
         /*     GUI left/right 
          *
-         * Uncomment below line to have LGUI (also called OS or Win key, etc) where RGUI is, 
-         * and RGUI where LGUI is. This does not affect placement, only what that key is.
+         * _Activate_ below line to have LGUI (also called OS or Win key, etc) where RGUI is, 
+         * and RGUI where LGUI is.
          */
-#define SWITCH_GUIS // Set this if you want LGUI on the BASE layer rather than RGUI, and so consistently on all layers (default).
+#define SWITCH_GUIS // _Activate_ this if you want LGUI on the BASE layer rather than RGUI, despite that spot being on the right.
 
 
         /*      'Left Shift' key on BASE layer, activates layer ...
          *
-         * Uncomment one of the below lines, determining where L-shift tap-toggles to on the 
+         * _Activate_ one of the below lines, determining where L-shift tap-toggles to on the 
          * BASE layer. 
          */
 //#define LSHIFT_LAYER_RAR // Be warned and don't hold it against me if you accidentally hit 'Power' at the wrong moment.
@@ -155,14 +169,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         /*      Alternate currency symbol
          *
-         * Uncomment the below to get a Euro symbol, where ƒ (Dutch Guilder) is on the default map (_DRA, _DDD layers).
-         * (Additionally: in unicode_macros.c at the top, the symbol 🛠can be changed easily.)
+         * _Activate_ the below to get a Euro symbol, where ƒ (Dutch Guilder) is on the default map (_DRA, _DDD layers).
+         * (Additionally: in unicode_macros.c at the top, the symbol 🛠 can be changed easily. Beyond that you need to
+         * start editing the code.)
          */
 
 //#define UNICODE_CURRENCY 0x20ac // Hex number, euro symbol €. The unicode hex number for position ƒ in the default keymap.
 //#define UNICODE_CURRENCY_DESCRAMBLE "20ai" // String, euro symbol €. Same as above, but for 'descramble' mode. 
     // If you change this to whatever, you need to recode the hex number *letters* like so: 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y
-    // You can ignore UNICODE_CURRENCY_DESCRAMBLE if you compile with QWERTY_DVORAK set.
+    // You can ignore UNICODE_CURRENCY_DESCRAMBLE if you compile with QWERTY_DVORAK _activated_.
 
 
 // --------------------------------------^---------------------------------------
