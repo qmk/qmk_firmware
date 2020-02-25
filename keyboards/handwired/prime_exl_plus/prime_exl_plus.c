@@ -57,5 +57,5 @@ layer_state_t layer_state_set_kb(layer_state_t state)
 	} else {
 		writePinLow(B2);
     }
-    return state;
+    return layer_state_set_user(state);
 }
