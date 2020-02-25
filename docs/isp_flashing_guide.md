@@ -140,7 +140,7 @@ To do this the easy way, you can flash the board using the `:production` target 
 * `<keyboard>_<keymap>_bootloader.hex`
 * `<keyboard>_<keymap>_production.hex`
 
-The QMK DFU bootloader has only really been tested on `atmega32u4` controllers (such as the Planck boards, and the Pro Micro), and hasn't been tested on other controllers.  However, it will not work on V-USB controllers, such as the `atmega32a` or `atmega328p`. 
+The QMK DFU bootloader has only really been tested on `atmega32u4` controllers (such as the AVR based Planck boards, and the Pro Micro), and hasn't been tested on other controllers.  However, it will definitely not work on V-USB controllers, such as the `atmega32a` or `atmega328p`.
 
 You can flash either the bootloader or the production firmware file. The production firmware file will take a lot longer to flash, since it's flashing a lot more data. 
 
