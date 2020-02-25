@@ -1,1 +1,1 @@
-# The default keymap for prime_m
+# The numpad keymap for Prime_M
