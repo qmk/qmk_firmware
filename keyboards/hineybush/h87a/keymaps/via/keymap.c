@@ -50,14 +50,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
 };
-
-void led_init_ports(void) {
-    setPinOutput(D5);
-    setPinOutput(E6);
-}
-
-bool led_update_user(led_t led_state) {
-    writePin(D5, !led_state.caps_lock);
-    writePin(E6, !led_state.scroll_lock);
-    return true;
-}
