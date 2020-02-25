@@ -52,7 +52,7 @@ LCTL_T(KC_TAB),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                     
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 	     KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                        KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,  KC_SPC,  LOWER,     RAISE,  KC_ENT,  KC_RALT \
+                                    KC_LGUI, LALT_T(KC_SPC), LOWER,     RAISE,  KC_ENT,  KC_RALT \
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -65,7 +65,7 @@ LCTL_T(KC_TAB),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                     
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_MPRV, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,                       KC_BSLS,  KC_GRV, KC_LBRC, KC_RBRC, XXXXXXX, KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,  KC_SPC,  LOWER,     RAISE,  KC_ENT,  KC_RALT \
+                                  KC_LGUI, LALT_T(KC_SPC),  LOWER,     RAISE,  KC_ENT,  KC_RALT \
                                       //`--------------------------'  `--------------------------'
     ),
 
@@ -77,7 +77,7 @@ LCTL_T(KC_TAB),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                     
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_VOLD,  KC_F11,  KC_F12, RGB_TOG, RGB_MOD,   RESET,                      EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,  KC_SPC,  LOWER,     RAISE,  KC_ENT,  KC_RALT \
+                                  KC_LGUI, LALT_T(KC_SPC),  LOWER,     RAISE,  KC_ENT,  KC_RALT \
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -89,7 +89,7 @@ LCTL_T(KC_TAB),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                     
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,  KC_SPC,  LOWER,     RAISE,  KC_ENT,  KC_RALT \
+                                  KC_LGUI, LALT_T(KC_SPC),  LOWER,     RAISE,  KC_ENT,  KC_RALT \
                                       //`--------------------------'  `--------------------------'
   ),
   
@@ -101,7 +101,7 @@ LCTL_T(KC_TAB),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                     
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 	  KC_LSFT,   KC_F8, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                          KC_F5, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,  KC_SPC,  LOWER,     RAISE,  KC_ENT,  KC_RALT \
+                                          KC_SPC, KC_LALT,  LOWER,       RAISE, KC_RALT , KC_ENT  \
                                       //`--------------------------'  `--------------------------'
 
   )
@@ -158,7 +158,7 @@ void matrix_render_user(struct CharacterMatrix *matrix) {
     matrix_write_ln(matrix, read_layer_state());
     matrix_write_ln(matrix, read_keylog());
     //matrix_write_ln(matrix, read_keylogs());
-    //matrix_write_ln(matrix, read_mode_icon(keymap_config.swap_lalt_lgui));
+    //matrix_write_ln(matrix, read_mode_icon(keymap_config.swap_              lalt_TlguiL));
     //matrix_write_ln(matrix, read_host_led_state());
     //matrix_write_ln(matrix, read_timelog());
   } else {
@@ -226,25 +226,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		  update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
         }
         return false;	
-		
-  // case RGB_MOD:
-  //     #ifdef RGBLIGHT_ENABLE
-  //       if (record->event.pressed) {
-  //         rgblight_mode(RGB_current_mode);
-  //         rgblight_step();
-  //         RGB_current_mode = rgblight_config.mode;
-  //       }
-  //     #endif
-  //     return false;
-  // case RGBRST:
-  //     #ifdef RGBLIGHT_ENABLE
-  //       if (record->event.pressed) {
-  //         eeconfig_update_rgblight_default();
-  //         rgblight_enable();
-  //         RGB_current_mode = rgblight_config.mode;
-  //       }
-  //     #endif
-  //     break;
   }
   return true;
 }
