@@ -13,8 +13,9 @@
   <meta property="og:image" content="https://i.imgur.com/svjvIrw.jpg">
   <meta property="og:url" content="https://docs.qmk.fm">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css" title="light">
-  <link rel="stylesheet" href="qmk.css" title="dark" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/buble.css" title="light">
+  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/dark.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//unpkg.com/docsify-toc@1.0.0/dist/toc.css">
   <link rel="stylesheet" href="sidebar.css" />
 </head>
 <body>
@@ -46,7 +47,6 @@
       mergeNavbar: true,
       auto2top: true,
       autoHeader: true,
-      subMaxLevel: 2,
       fallbackLanguages: [
         'de',
         'es',
@@ -76,6 +76,36 @@
         },
         depth: 6
       },
+      markdown: {
+        smartypants: true,
+        smartLists: true,
+      },
+      copyCode: {
+        buttonText: {
+          '/zh-cn/': '点击复制',
+          '/ru/'   : 'Скопировать в буфер обмена',
+          '/de-de/': 'Klicken Sie zum Kopieren',
+          '/es/'   : 'Haga clic para copiar',
+          '/'      : 'Copy to clipboard'
+        },
+        errorText: {
+          '/zh-cn/': '错误',
+          '/ru/'   : 'ошибка',
+          '/'      : 'Error'
+        },
+        successText: {
+          '/zh-cn/': '复制',
+          '/ru/'   : 'Скопировано',
+          '/de-de/': 'Kopiert',
+          '/es/'   : 'Copiado',
+          '/'      : 'Copied'
+        }
+      },
+      toc: {
+        scope: '.markdown-section',
+        headings: 'h1, h2, h3, h4, h5, h6',
+        title: 'Table of Contents',
+      },
       plugins: [
         function (hook, vm) {
           hook.beforeEach(function (html) {
@@ -98,6 +128,8 @@
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
   <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
   <script src="//unpkg.com/docsify/lib/plugins/emoji.min.js"></script>
+  <script src="//unpkg.com/docsify-copy-code@2"></script>
+  <script src="//unpkg.com/docsify-toc@1.0.0/dist/toc.js"></script>
   <script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
   <script src="//unpkg.com/prismjs/components/prism-c.min.js"></script>
   <script src="//unpkg.com/prismjs/components/prism-cpp.min.js"></script>
