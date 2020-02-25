@@ -29,24 +29,14 @@ void matrix_init_kb(void) {
     matrix_init_user();
 }
 
-void led_set_user(uint8_t usb_led) {
-  if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-    writePinHigh(B1);
-  } else {
-    writePinLow(B1);
-  }
-  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-    writePinHigh(B0);
-  } else {
-    writePinLow(B0);
-  }
-  /*
-  if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-    writePinHigh(B2;
-  } else {
-    writePinLow(B2);
-  }
-  */
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        writePin(B1, led_state.num_lock);
+        writePin(B0, led_state.caps_lock);
+        //writePin(B2, led_state.scroll_lock);
+    }
+    return res;
 }
 
 //function for layer indicator LED
