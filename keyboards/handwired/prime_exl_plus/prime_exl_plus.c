@@ -15,7 +15,7 @@
  */
 #include "prime_exl_plus.h"
 
-void matrix_init_user(void) {
+void matrix_init_kb(void) {
   // set CapsLock LED to output and low
   setPinOutput(B0);
   writePinLow(B0);
