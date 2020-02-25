@@ -14,7 +14,8 @@
   * [General FAQ](faq_general.md)
   * [Build/Compile QMK](faq_build.md)
   * [Debugging/Troubleshooting QMK](faq_debug.md)
-  * [Keymap](faq_keymap.md)
+  * [Keymap FAQ](faq_keymap.md)
+  * [Glossary](reference_glossary.md)
 
 * Configurator
   * [Overview](newbs_building_firmware_configurator.md)
@@ -138,7 +139,6 @@
     * [Make Documentation](getting_started_make_guide.md)
     * [Documentation Best Practices](documentation_best_practices.md)
     * [Documentation Templates](documentation_templates.md)
-    * [Glossary](reference_glossary.md)
     * [Community Layouts](feature_layouts.md)
     * [Unit Testing](unit_testing.md)
     * [Useful Functions](ref_functions.md)
