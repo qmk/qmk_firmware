@@ -29,7 +29,7 @@ Linux and macOS come with unix shells you can execute already. You will only nee
 
 On Windows you will need to install MSYS2 or WSL and use those environments. Instructions for setting up MSYS2 are provided below.
 
-## Prepare Your Build Environment
+## 2. Prepare Your Build Environment
 
 We've tried to make QMK as easy to set up as possible. You only have to prepare your Linux or Unix environment, then let QMK install the rest.
 
@@ -66,7 +66,7 @@ You will need to install Git and Python. It's very likely that you already have 
 * Fedora / Red Hat / CentOS: `yum install git python3 && python3 -m pip install qmk`
 * Arch: `pacman -S qmk`
 
-## 2. Run QMK Setup
+## 3. Run QMK Setup
 
 After installing QMK you can set it up with this command:
 
@@ -76,7 +76,7 @@ In most situations you will want to answer Yes to all of the prompts.
 
 ?> If you already know [how to use GitHub](getting_started_github.md), we recommend that you create your own fork and use `qmk setup <github_username>` to clone your personal fork. If you don't know what that means you can safely ignore this message.
 
-## 3. Test Your Build Environment
+## 4. Test Your Build Environment
 
 Now that your QMK build environment is set up, you can build a firmware for your keyboard. Start by trying to build the keyboard's default keymap. You should be able to do that with a command in this format:
 
@@ -96,7 +96,7 @@ Checking file size of clueboard_66_rev3_default.hex                             
  * The firmware size is fine - 26356/28672 (2316 bytes free)
 ```
 
-## 4. Configure Your Build Environment (Optional)
+## 5. Configure Your Build Environment (Optional)
 
 You can configure your build environment to set the defaults and make working with QMK less tedious. Let's do that now!
 
