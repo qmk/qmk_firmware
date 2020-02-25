@@ -8,17 +8,17 @@ This page covers how to properly support keyboards in the [QMK Configurator](htt
 To understand how the Configurator understands keyboards, first one must understand layout macros. For this exercise, we're going to imagine a 17-key numpad PCB, which we're going to call `numpad`.
 
 ```
-┌───┬───┬───┬───┐
-│NLk│ / │ * │ - │
-├───┼───┼───┼───┤
-│7  │8  │9  │ + │
-├───┼───┼───┤   │
-│4  │5  │6  │   │
-├───┼───┼───┼───┤
-│1  │2  │3  │Ent│
-├───┴───┼───┤   │
-│0      │ . │   │
-└───────┴───┴───┘
+|---------------|
+|NLk| / | * | - |
+|---+---+-------|
+|7  |8  |9  | + |
+|---+---+---|   │
+|4  |5  |6  |   |
+|---+---+-------|
+|1  |2  |3  |Ent|
+|-------+---|   |
+|0      | . |   |
+|---------------|
 ```
 
 ?> For more on layout macros, see [Understanding QMK: Matrix Scanning](understanding_qmk.md?id=matrix-scanning) and [Understanding QMK: Matrix to Physical Layout Map](understanding_qmk.md?id=matrix-to-physical-layout-map).
