@@ -190,7 +190,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 #endif
 
 void matrix_init(void) {
-    keyboard_split_setup();
+    split_pre_init();
 
     // Set pinout for right half if pinout for that half is defined
     if (!isLeftHand) {
@@ -231,6 +231,8 @@ void matrix_init(void) {
     debounce_init(ROWS_PER_HAND);
 
     matrix_init_quantum();
+
+    split_post_init();
 }
 
 void matrix_post_scan(void) {
