@@ -25,6 +25,8 @@ void matrix_init_kb(void) {
   // set ScrollLock LED to output and low
   setPinOutput(B2);
   writePinLow(B2);
+
+    matrix_init_user();
 }
 
 void led_set_user(uint8_t usb_led) {
