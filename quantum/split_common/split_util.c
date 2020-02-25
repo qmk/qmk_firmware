@@ -103,7 +103,7 @@ void split_pre_init(void) {
 }
 
 // this code runs after the keyboard is fully initialized
-//   - avoids race condidion during matrix_init_quantum where slave can start
+//   - avoids race condition during matrix_init_quantum where slave can start
 //     receiving before the init process has completed
 void split_post_init(void) {
     if (!is_keyboard_master()) {
