@@ -14,3 +14,46 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "prime_exl_plus.h"
+
+void matrix_init_user(void) {
+  // set CapsLock LED to output and low
+  setPinOutput(B0);
+  writePinLow(B0);
+  // set NumLock LED to output and low
+  setPinOutput(B1);
+  writePinLow(B1);
+  // set ScrollLock LED to output and low
+  setPinOutput(B2);
+  writePinLow(B2);
+}
+
+void led_set_user(uint8_t usb_led) {
+  if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
+    writePinHigh(B1);
+  } else {
+    writePinLow(B1);
+  }
+  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+    writePinHigh(B0);
+  } else {
+    writePinLow(B0);
+  }
+  /*
+  if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
+    writePinHigh(B2;
+  } else {
+    writePinLow(B2);
+  }
+  */
+}
+
+//function for layer indicator LED
+layer_state_t layer_state_set_user(layer_state_t state)
+{
+    if (get_highest_layer(state) == 1) {
+    writePinHigh(B2);
+	} else {
+		writePinLow(B2);
+    }
+    return state;
+}
