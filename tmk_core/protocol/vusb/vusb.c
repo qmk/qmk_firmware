@@ -130,7 +130,7 @@ static void send_extra(uint8_t report_id, uint16_t data) {
 
 static void send_system(uint16_t data) {
 #ifdef EXTRAKEY_ENABLE
-    send_extra(REPORT_ID_SYSTEM, data - SYSTEM_POWER_DOWN + 1);
+    send_extra(REPORT_ID_SYSTEM, data);
 #endif
 }
 
@@ -262,7 +262,9 @@ const PROGMEM uchar keyboard_hid_report[] = {
     0xC0         // End Collection
 };
 
-const PROGMEM uchar mouse_hid_report[] = {
+#if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
+const PROGMEM uchar mouse_extra_hid_report[] = {
+#    ifdef MOUSE_ENABLE
     // Mouse report descriptor
     0x05, 0x01,             // Usage Page (Generic Desktop)
     0x09, 0x02,             // Usage (Mouse)
@@ -311,17 +313,18 @@ const PROGMEM uchar mouse_hid_report[] = {
     0x81, 0x06,        //     Input (Data, Variable, Relative)
     0xC0,              //   End Collection
     0xC0,              // End Collection
+#    endif
 
-#ifdef EXTRAKEY_ENABLE
+#    ifdef EXTRAKEY_ENABLE
     // Extrakeys report descriptor
     0x05, 0x01,              // Usage Page (Generic Desktop)
     0x09, 0x80,              // Usage (System Control)
     0xA1, 0x01,              // Collection (Application)
     0x85, REPORT_ID_SYSTEM,  //   Report ID
-    0x1A, 0x81, 0x00,        //   Usage Minimum (System Power Down)
-    0x2A, 0x83, 0x00,        //   Usage Maximum (System Wake Up)
-    0x16, 0x01, 0x00,        //   Logical Minimum
-    0x26, 0x03, 0x00,        //   Logical Maximum
+    0x19, 0x01,              //   Usage Minimum (Pointer)
+    0x2A, 0xB7, 0x00,        //   Usage Maximum (System Display LCD Autoscale)
+    0x15, 0x01,              //   Logical Minimum
+    0x26, 0xB7, 0x00,        //   Logical Maximum
     0x95, 0x01,              //   Report Count (1)
     0x75, 0x10,              //   Report Size (16)
     0x81, 0x00,              //   Input (Data, Array, Absolute)
@@ -331,16 +334,17 @@ const PROGMEM uchar mouse_hid_report[] = {
     0x09, 0x01,                // Usage (Consumer Control)
     0xA1, 0x01,                // Collection (Application)
     0x85, REPORT_ID_CONSUMER,  //   Report ID
-    0x1A, 0x01, 0x00,          //   Usage Minimum (Consumer Control)
-    0x2A, 0x9C, 0x02,          //   Usage Maximum (AC Distribute Vertically)
-    0x16, 0x01, 0x00,          //   Logical Minimum
-    0x26, 0x9C, 0x02,          //   Logical Maximum
+    0x19, 0x01,                //   Usage Minimum (Consumer Control)
+    0x2A, 0xA0, 0x02,          //   Usage Maximum (AC Desktop Show All Applications)
+    0x15, 0x01,                //   Logical Minimum
+    0x26, 0xA0, 0x02,          //   Logical Maximum
     0x95, 0x01,                //   Report Count (1)
     0x75, 0x10,                //   Report Size (16)
     0x81, 0x00,                //   Input (Data, Array, Absolute)
     0xC0                       // End Collection
-#endif
+#    endif
 };
+#endif
 
 #ifndef USB_MAX_POWER_CONSUMPTION
 #    define USB_MAX_POWER_CONSUMPTION 500
@@ -361,10 +365,19 @@ const PROGMEM char usbDescriptorConfiguration[] = {
     /* USB configuration descriptor */
     9,               /* sizeof(usbDescriptorConfiguration): length of descriptor in bytes */
     USBDESCR_CONFIG, /* descriptor type */
-    9 + (9 + 9 + 7) + (9 + 9 + 7), 0,
+#    if defined (MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
+    59, // 9 + (9 + 9 + 7) + (9 + 9 + 7)
+#else
+    34, // 9 + (9 + 9 + 7)
+#    endif
+    0,
     // 18 + 7 * USB_CFG_HAVE_INTRIN_ENDPOINT + 7 * USB_CFG_HAVE_INTRIN_ENDPOINT3 + 9, 0,
     /* total length of data returned (including inlined descriptors) */
+#    if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
     2, /* number of interfaces in this configuration */
+#    else
+    1,
+#endif
     1, /* index of this configuration */
     0, /* configuration name string index */
 #    if USB_CFG_IS_SELF_POWERED
@@ -402,8 +415,9 @@ const PROGMEM char usbDescriptorConfiguration[] = {
     USB_POLLING_INTERVAL_MS,         /* in ms */
 #    endif
 
+#    if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
     /*
-     * Mouse interface
+     * Mouse/extrakeys interface
      */
     /* Interface descriptor */
     9,                             /* sizeof(usbDescrInterface): length of descriptor in bytes */
@@ -422,8 +436,8 @@ const PROGMEM char usbDescriptorConfiguration[] = {
     0x00,                             /* target country code */
     0x01,                             /* number of HID Report (or other HID class) Descriptor infos to follow */
     0x22,                             /* descriptor type: report */
-    sizeof(mouse_hid_report), 0,      /* total length of report descriptor */
-#    if USB_CFG_HAVE_INTRIN_ENDPOINT3 /* endpoint descriptor for endpoint 3 */
+    sizeof(mouse_extra_hid_report), 0,      /* total length of report descriptor */
+#        if USB_CFG_HAVE_INTRIN_ENDPOINT3 /* endpoint descriptor for endpoint 3 */
     /* Endpoint descriptor */
     7,                                 /* sizeof(usbDescrEndpoint) */
     USBDESCR_ENDPOINT,                 /* descriptor type = endpoint */
@@ -431,6 +445,7 @@ const PROGMEM char usbDescriptorConfiguration[] = {
     0x03,                              /* attrib: Interrupt endpoint */
     8, 0,                              /* maximum packet size */
     USB_POLLING_INTERVAL_MS,           /* in ms */
+#        endif
 #    endif
 };
 #endif
@@ -459,10 +474,12 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
                     usbMsgPtr = (unsigned char *)(usbDescriptorConfiguration + 9 + 9);
                     len       = 9;
                     break;
+#if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
                 case 1:
                     usbMsgPtr = (unsigned char *)(usbDescriptorConfiguration + 9 + (9 + 9 + 7) + 9);
                     len       = 9;
                     break;
+#endif
             }
             break;
         case USBDESCR_HID_REPORT:
@@ -472,10 +489,12 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
                     usbMsgPtr = (unsigned char *)keyboard_hid_report;
                     len       = sizeof(keyboard_hid_report);
                     break;
+#if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
                 case 1:
-                    usbMsgPtr = (unsigned char *)mouse_hid_report;
-                    len       = sizeof(mouse_hid_report);
+                    usbMsgPtr = (unsigned char *)mouse_extra_hid_report;
+                    len       = sizeof(mouse_extra_hid_report);
                     break;
+#endif
             }
             break;
     }
