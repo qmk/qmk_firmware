@@ -1,4 +1,4 @@
-* Complete Newbs Guide
+* Tutorial
   * [Introduction](newbs.md)
   * [Setup](newbs_getting_started.md)
   * [Building Your First Firmware](newbs_building_firmware.md)
@@ -18,10 +18,13 @@
 
 * Configurator
   * [Overview](newbs_building_firmware_configurator.md)
-  * [Keyboard Support](reference_configurator_support.md)
+  * [Step by Step](configurator_step_by_step.md)
+  * [Troubleshooting](configurator_troubleshooting.md)
+  * [Problems and Bugs](configurator_problems.md)
   * QMK API
     * [Overview](api_overview.md)
     * [API Documentation](api_docs.md)
+    * [Keyboard Support](reference_configurator_support.md)
 
 * CLI
     * [Overview](cli.md)
@@ -35,8 +38,8 @@
     * [Keymap Overview](keymap.md)
     * [Vagrant Guide](getting_started_vagrant.md)
     * Flashing
+      * [Flashing](flashing.md)
       * [Flashing ATmega32A (ps2avrgb)](flashing_bootloadhid.md)
-      * [Flashing Firmware](flashing.md)
     * Git Best Practices
       * [Introduction](newbs_git_best_practices.md)
       * [Your Fork](newbs_git_using_your_master_branch.md)
@@ -53,7 +56,6 @@
     * [Quantum Keycodes](quantum_keycodes.md)
 
   * Advanced Keycodes
-    * [Auto Shift](feature_auto_shift.md)
     * [Command](feature_command.md)
     * [Dynamic Macros](feature_dynamic_macros.md)
     * [Grave Escape](feature_grave_esc.md)
@@ -64,6 +66,7 @@
     * [US ANSI Shifted Keys](keycodes_us_ansi_shifted.md)
 
   * Software Features
+    * [Auto Shift](feature_auto_shift.md)
     * [Combos](feature_combo.md)
     * [Debounce API](feature_debounce_type.md)
     * [Key Lock](feature_key_lock.md)

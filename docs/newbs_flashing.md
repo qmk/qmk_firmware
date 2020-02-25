@@ -6,7 +6,7 @@ Now that you've built a custom firmware file you'll want to flash your keyboard.
 
 The simplest way to flash your keyboard will be with the [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases). 
 
-However, the QMK Toolbox is only available for Windows and macOS currently.  If you're using Linux (or just wish to flash the firmware from the command line), you'll have to use the [method outlined below](newbs_flashing.md#flash-your-keyboard-from-the-command-line).
+However, the QMK Toolbox is only available for Windows and macOS currently.  If you're using Linux (or just wish to flash the firmware from the command line), proceed down to [Flash Your Keyboard From The Command Line](newbs_flashing.md#flash-your-keyboard-from-the-command-line).
 
 ### Load The File Into QMK Toolbox
 
@@ -100,26 +100,10 @@ However, this does rely on the bootloader being set by the keyboard.  If this in
 
     WARNING: This board's bootloader is not specified or is not supported by the ":flash" target at this time.
 
-In this case, you'll have to fall back on specifying the bootloader.
-
-There are five main bootloaders that are used. Pro Micro and clones use Caterina, Teensys use HalfKay, OLKB's AVR boards use QMK-DFU, other ATmega32U4 boards use DFU, and most ARM boards use ARM DFU.
-
-You can find more information about the bootloaders in the [Flashing Instructions and Bootloader Information](flashing.md) page. 
-
-If you know what bootloader that you're using you can specify that in your flash command:
-
-    qmk flash -bl <bootloader>
-
-Run this command to get a list of valid bootloaders:
-
-    qmk flash --bootloaders
-
-### More information
-
-See the Flashing documentation for more information on esoteric flashing situations.
+In this case, you'll have to fall back on specifying the bootloader. See the [Flashing Firmware](flashing.md) Guide for more details.
 
 ## Test It Out!
 
 Congrats! Your custom firmware has been programmed to your keyboard!
 
-Give it a try and make sure everything works the way you want it to. We've written [Testing and Debugging](newbs_testing_debugging.md) to round out this Newbie Guide, so head over there to learn about validating your firmware and how to troubleshoot your custom functionality.
+Give it a try and make sure everything works the way you want it to. We've written [Testing and Debugging](newbs_testing_debugging.md) to round out this guide, so head over there to learn about validating your firmware and how to troubleshoot your custom functionality.

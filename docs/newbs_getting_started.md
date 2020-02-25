@@ -1,16 +1,10 @@
-# Getting Started
-
-Your computer keyboard has a processor inside of it, similar to the one inside your computer. This processor runs software that is responsible for detecting button presses and informing the computer when keys are pressed. QMK fills the role of that software, detecting button presses and passing that information on to the host computer. When you build your custom keymap, you are creating an executable program for your keyboard.
-
-QMK tries to put a lot of power into your hands by making easy things easy, and hard things possible. You don't have to know how to program to create powerful keymaps — you only have to follow a few simple syntax rules.
-
-# Prerequisites
+# Setting Up Your QMK Environment
 
 Before you can build keymaps, you need to install some software and set up your build environment. This only has to be done once no matter how many keyboards you plan to compile firmware for.
 
-If you would prefer a more graphical user interface approach, please consider using the online [QMK Configurator](newbs_building_firmware_configurator.md).
+## 1. Download Software
 
-## Download Software
+There are a few pieces of software you'll need to get started.
 
 ### Text Editor
 
@@ -29,7 +23,13 @@ QMK Toolbox is an optional graphical program for Windows and macOS that allows y
 * For Windows: `qmk_toolbox.exe` (portable) or `qmk_toolbox_install.exe` (installer)
 * For macOS: `QMK.Toolbox.app.zip` (portable) or `QMK.Toolbox.pkg` (installer)
 
-## Set Up Your Environment
+### A Unix-like Environment
+
+Linux and macOS come with unix shells you can execute already. You will only need to setup your build environment.
+
+On Windows you will need to install MSYS2 or WSL and use those environments. Instructions for setting up MSYS2 are provided below.
+
+## Prepare Your Build Environment
 
 We've tried to make QMK as easy to set up as possible. You only have to prepare your Linux or Unix environment, then let QMK install the rest.
 
@@ -48,7 +48,6 @@ After opening a new MSYS2 MinGW 64-bit terminal run these commands:
 
     pacman -S git python3-pip
     python3 -m pip install qmk
-    qmk setup
 
 ### macOS
 
@@ -58,7 +57,6 @@ After Homebrew is installed run these commands:
 
     brew tap qmk/qmk
     brew install qmk
-    qmk setup
 
 ### Linux
 
@@ -68,13 +66,17 @@ You will need to install Git and Python. It's very likely that you already have 
 * Fedora / Red Hat / CentOS: `yum install git python3 && python3 -m pip install qmk`
 * Arch: `pacman -S qmk`
 
+## 2. Run QMK Setup
+
 After installing QMK you can set it up with this command:
 
     qmk setup
 
+In most situations you will want to answer Yes to all of the prompts.
+
 ?> If you already know [how to use GitHub](getting_started_github.md), we recommend that you create your own fork and use `qmk setup <github_username>` to clone your personal fork. If you don't know what that means you can safely ignore this message.
 
-## Test Your Build Environment
+## 3. Test Your Build Environment
 
 Now that your QMK build environment is set up, you can build a firmware for your keyboard. Start by trying to build the keyboard's default keymap. You should be able to do that with a command in this format:
 
@@ -94,7 +96,7 @@ Checking file size of clueboard_66_rev3_default.hex                             
  * The firmware size is fine - 26356/28672 (2316 bytes free)
 ```
 
-## Configure Your Build Environment
+## 4. Configure Your Build Environment (Optional)
 
 You can configure your build environment to set the defaults and make working with QMK less tedious. Let's do that now!
 
@@ -105,6 +107,10 @@ Most people new to QMK only have 1 keyboard. You can set this keyboard as your d
 You can also set your default keymap name. Most people use their github username here, and we recommend that you do too.
 
     qmk config user.keymap=<github_username>
+
+After this you can leave those arguments off and compile your keyboard like this:
+
+    qmk compile
 
 # Creating Your Keymap
 
