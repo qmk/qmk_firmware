@@ -1,12 +1,42 @@
 #include QMK_KEYBOARD_H
 
-
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
 extern rgblight_config_t rgblight_config;
 #endif
 
 extern uint8_t is_master;
+
+#ifdef OLED_DRIVER_ENABLE
+#    define KEYLOGGER_LENGTH 5
+static uint32_t oled_timer                       = 0;
+static char     keylog_str[KEYLOGGER_LENGTH + 1] = {"\n"};
+static uint16_t log_timer                        = 0;
+// clang-format off
+static const char PROGMEM code_to_name[0xFF] = {
+//   0    1    2    3    4    5    6    7    8    9    A    B    c    D    E    F
+    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',  // 0x
+    'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2',  // 1x
+    '3', '4', '5', '6', '7', '8', '9', '0',  20,  19,  27,  26,  22, '-', '=', '[',  // 2x
+    ']','\\', '#', ';','\'', '`', ',', '.', '/', 128, ' ', ' ', ' ', ' ', ' ', ' ',  // 3x
+    ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'S', ' ', ' ', ' ', ' ',  16, ' ', ' ', ' ',  // 4x
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 5x
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 6x
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 7x
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 8x
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 9x
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Ax
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Bx
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Cx
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Dx
+    'C', 'S', 'A', 'C', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Ex
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '        // Fx
+};
+
+void add_keylog(uint16_t keycode);
+#endif
+
+
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -27,22 +57,6 @@ enum custom_keycodes {
   ADJUST
 };
 
-enum {
-  TD_ESC_TAB = 0
-};
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-  //Tap once for Esc, twice for Caps Lock
-  [TD_ESC_TAB]  = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_TAB)
-// Other declarations would go here, separated by commas, if you have them
-};
-
-#define ESC_TAB TD(TD_ESC_TAB)
-
-enum macro_keycodes {
-  KC_SAMPLEMACRO,
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
@@ -52,7 +66,7 @@ LCTL_T(KC_TAB),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                     
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 	     KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                        KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                    KC_LGUI, LALT_T(KC_SPC), LOWER,     RAISE,  KC_ENT,  KC_RALT \
+                                  KC_LGUI, LALT_T(KC_SPC),  LOWER,     RAISE,  KC_ENT,  KC_RALT \
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -107,6 +121,153 @@ LCTL_T(KC_TAB),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                     
   )
 };
 
+uint16_t get_tapping_term(uint16_t keycode) {
+  switch (keycode) {
+    case LALT_T(KC_SPC):
+      return TAPPING_TERM + 100;
+    default:
+      return TAPPING_TERM;
+  }
+}
+
+// clang-format on
+
+// bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+//     if (record->event.pressed) {
+// #ifdef OLED_DRIVER_ENABLE
+//         oled_timer = timer_read32();
+//         add_keylog(keycode);
+// #endif
+// #ifndef SPLIT_KEYBOARD
+//         if (keycode == RESET && !is_master) {
+//             return false;
+//         }
+// #endif
+//     }
+//     return true;
+// }
+
+#ifdef OLED_DRIVER_ENABLE
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    if (is_master) {
+        return OLED_ROTATION_270;  // flips the display 270 degrees if master
+    }
+    return rotation;
+}
+
+static void render_logo(void) {
+    static const char PROGMEM qmk_logo[] = {
+        0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91, 0x92, 0x93, 0x94,
+        0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1, 0xB2, 0xB3, 0xB4,
+        0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0xC5, 0xC6, 0xC7, 0xC8, 0xC9, 0xCA, 0xCB, 0xCC, 0xCD, 0xCE, 0xCF, 0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0x00
+    };
+
+    oled_write_P(qmk_logo, false);
+}
+
+void add_keylog(uint16_t keycode) {
+    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) || (keycode >= QK_MODS && keycode <= QK_MODS_MAX)) {
+        keycode = keycode & 0xFF;
+    } else if (keycode > 0xFF) {
+        keycode = 0;
+    }
+
+    for (uint8_t i = (KEYLOGGER_LENGTH - 1); i > 0; --i) {
+        keylog_str[i] = keylog_str[i - 1];
+    }
+
+    if (keycode < (sizeof(code_to_name) / sizeof(char))) {
+        keylog_str[0] = pgm_read_byte(&code_to_name[keycode]);
+    }
+
+    log_timer = timer_read();
+}
+
+void update_log(void) {
+    if (timer_elapsed(log_timer) > 750) {
+        // add_keylog(0);
+    }
+}
+
+void render_keylogger_status(void) {
+    oled_write_P(PSTR("KLogr"), false);
+    oled_write(keylog_str, false);
+}
+
+void render_default_layer_state(void) {
+    oled_write_P(PSTR("Lyout"), false);
+    switch (get_highest_layer(default_layer_state)) {
+        case _QWERTY:
+            oled_write_P(PSTR(" QRTY"), false);
+            break;
+        case _DJMAX:
+            oled_write_P(PSTR(" DJMX"), false);
+            break;
+    }
+}
+
+void render_layer_state(void) {
+    oled_write_P(PSTR("LAYER"), false);
+    oled_write_P(PSTR("Lower"), layer_state_is(_LOWER));
+    oled_write_P(PSTR("Raise"), layer_state_is(_RAISE));
+}
+
+void render_keylock_status(uint8_t led_usb_state) {
+    oled_write_P(PSTR("Lock:"), false);
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR("N"), led_usb_state & (1 << USB_LED_NUM_LOCK));
+    oled_write_P(PSTR("C"), led_usb_state & (1 << USB_LED_CAPS_LOCK));
+    oled_write_ln_P(PSTR("S"), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
+}
+
+void render_mod_status(uint8_t modifiers) {
+    oled_write_P(PSTR("Mods:"), false);
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR("S"), (modifiers & MOD_MASK_SHIFT));
+    oled_write_P(PSTR("C"), (modifiers & MOD_MASK_CTRL));
+    oled_write_P(PSTR("A"), (modifiers & MOD_MASK_ALT));
+    oled_write_P(PSTR("G"), (modifiers & MOD_MASK_GUI));
+}
+
+
+void render_status_main(void) {
+    /* Show Keyboard Layout  */
+    render_default_layer_state();
+    render_keylock_status(host_keyboard_leds());
+    render_layer_state();
+    render_mod_status(get_mods() | get_oneshot_mods());
+    render_keylogger_status();
+}
+
+void render_status_secondary(void) {
+    /* Show Keyboard Layout  */
+    render_logo();  // Renders a static logo
+    oled_scroll_left();  // Turns on scrolling
+}
+
+void oled_task_user(void) {
+    if (timer_elapsed32(oled_timer) > 30000) {
+        oled_off();
+        return;
+    }
+#    ifndef SPLIT_KEYBOARD
+    else {
+        oled_on();
+    }
+#    endif
+
+    update_log();
+    if (is_master) {
+        render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+    } else {
+        render_status_secondary();
+    }
+}
+
+#endif
+
+
+
 int RGB_current_mode;
 
 void persistent_default_layer_set(uint16_t default_layer) {
@@ -123,72 +284,8 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   }
 }
 
-void matrix_init_user(void) {
-    #ifdef RGBLIGHT_ENABLE
-      RGB_current_mode = rgblight_config.mode;
-    #endif
-    //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-    #ifdef SSD1306OLED
-        iota_gfx_init(!has_usb());   // turns on the display
-    #endif
-}
-
-//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
-
-// When add source files to SRC in rules.mk, you can use functions.
-const char *read_layer_state(void);
-const char *read_logo(void);
-void set_keylog(uint16_t keycode, keyrecord_t *record);
-const char *read_keylog(void);
-const char *read_keylogs(void);
-
-// const char *read_mode_icon(bool swap);
-// const char *read_host_led_state(void);
-// void set_timelog(void);
-// const char *read_timelog(void);
-
-void matrix_scan_user(void) {
-   iota_gfx_task();
-}
-
-void matrix_render_user(struct CharacterMatrix *matrix) {
-  if (is_master) {
-    // If you want to change the display of OLED, you need to change here
-    matrix_write_ln(matrix, read_layer_state());
-    matrix_write_ln(matrix, read_keylog());
-    //matrix_write_ln(matrix, read_keylogs());
-    //matrix_write_ln(matrix, read_mode_icon(keymap_config.swap_              lalt_TlguiL));
-    //matrix_write_ln(matrix, read_host_led_state());
-    //matrix_write_ln(matrix, read_timelog());
-  } else {
-    matrix_write(matrix, read_logo());
-  }
-}
-
-void matrix_update(struct CharacterMatrix *dest, const struct CharacterMatrix *source) {
-  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-    memcpy(dest->display, source->display, sizeof(dest->display));
-    dest->dirty = true;
-  }
-}
-
-void iota_gfx_task_user(void) {
-  struct CharacterMatrix matrix;
-  matrix_clear(&matrix);
-  matrix_render_user(&matrix);
-  matrix_update(&display, &matrix);
-}
-#endif//SSD1306OLED
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-#ifdef SSD1306OLED
-    set_keylog(keycode, record);
-#endif
-    // set_timelog();
-  }
-
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
@@ -223,9 +320,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	case DJMAX:
         if (record->event.pressed) {
           persistent_default_layer_set(1UL<<_DJMAX);
-		  update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
+		      update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
         }
         return false;	
   }
-  return true;
+          if (record->event.pressed) {
+      #ifdef OLED_DRIVER_ENABLE
+              oled_timer = timer_read32();
+              add_keylog(keycode);
+      #endif
+      #ifndef SPLIT_KEYBOARD
+              if (keycode == RESET && !is_master) {
+                  return false;
+              }
+      #endif
+          }
+          return true;
 }

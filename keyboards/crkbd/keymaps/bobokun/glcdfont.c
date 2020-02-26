@@ -10,7 +10,7 @@
 #endif
 
 // Helidox 8x6 font with QMK Firmware Logo
-// Online editor: http://teripom.x0.com/
+// Online editor: https://helixfonteditor.netlify.com/
 
 const unsigned char font[] PROGMEM = {
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
