@@ -42,27 +42,29 @@ There are some tokens to help port the layout to a board with 47 or 48 keys (`J1
   - - - - - - - - - 
 
      Basic layers are:
-      • letters (normal Dvorak layout), (Led: low-white/off)   _LTR "LeTteRs"
-      • numbers with remaining symbols, (Led: blue 2x)         _NSY "Numbers SYmbols"
-      • function keys,                  (Led: red & white ⁽¹⁾) _FUN "FUNction keys"
-      • and a movement layer            (Led: green 2x)        _MOV "MOVement"
+      • letters (normal Dvorak layout),  Led: low-white/off⁽¹⁾ _LTR "LeTteRs"
+      • numbers with remaining symbols,  Led: blue 2x)         _NSY "Numbers SYmbols"
+      • function keys,                   Led: red & white ⁽²⁾  _FUN "FUNction keys"
+      • and a movement layer             Led: green 2x)        _MOV "MOVement"
      Extra layers: 
-      • keys like Power, Play,          (Led: purple 2x)       _RAR "RARe keys"
-      • number pad symbol versions      (Led: green/blue)      _PAD "numbers PAD"
-      • accented characters é, ø, ß ... (Led: cyan 2x)         _ACC "ACCented"
-      • Unicode symbols, ¹, ±, ° ...    (Led: yellow 2x)       _DRA "DRAwings"
+      • keys like Power, Play,           Led: purple 2x)       _RAR "RARe keys"
+      • number pad symbol versions       Led: green/blue ⁽³⁾   _PAD "numbers PAD"
+      • accented characters é, ø, ß ...  Led: cyan 2x          _ACC "ACCented"
+      • Unicode symbols, ¹, ±, ° ...     Led: yellow 2x        _DRA "DRAwings"
      Descramble _Computer_ set Dvorak (activate automatic as drop-ins for above layers)
-      • Unicode symbols, etc            (Led: cyan/low-white)  _DDD "Descramble Drawings"
-      • accented characters             (Led: yellow/low-white)_DDA "Descramble Accented"
-      • numbers                         (Led: blue/low-white)  _DDL "Descramble Numbers"
-      • letters                         (Led: off/low-white)   _DDN "Descramble Letters"
+      • Unicode symbols, etc             Led: cyan/low-white   _DDD "Descramble Drawings"
+      • accented characters              Led: yellow/low-white _DDA "Descramble Accented"
+      • numbers                          Led: blue/low-white   _DDL "Descramble Numbers"
+      • letters                          Led: off/low-white    _DDN "Descramble Letters"
 
 
       Leds: • Breathing effect on the middle LED in color of last active non base layer.
               There is no particular reason for this (fun & games).
             • Leds left and right indicate active layer.
-            • ⁽¹⁾ One led on the _FUN layer is bright white, indicating which descramble
+            • ⁽¹⁾ The led is bright when capslock is on.
+            • ⁽²⁾ One led on the _FUN layer is bright white, indicating which descramble
               mode is active (see below).
+            • ⁽³⁾ The colors are reversed when numlock is on.
             • Leds can be switched on/off on the _RAR layer (MLed, SLeds).      
 
 Compile option for: Dvorak² or Qwerty+Dvorak

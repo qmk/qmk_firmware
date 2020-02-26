@@ -55,7 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          // Default               (12x12x12x8 keys):  _remove_ both ->> 
          //'Arrow'                (12x12x12x9 keys):  _activate_ only ->
 //#define MORE_KEY__ARROW   // Additional key 1st row on the right, called 'Arrow'.
-         //'Command' 'South paw'  (12x12x12x9 keys):  _activate_ only ->
+       //'Command' 'South paw'  (12x12x12x9 keys):  _activate_ only ->
 //#define MORE_KEY__COMMAND // Additional key 1st row on the left, called 'Command' or 'South paw'.
          //'Arrow' + 'South paw'  (12x12x12x10 keys): _activate_ both <<-
          //
@@ -294,7 +294,9 @@ bool shift_ison = 0; // keep track of the state of shift (Capslock is ignored). 
 bool _fun_stay = FALSE; // for making _FUN layer not return to BASE after pressing f-key
 bool leds_on = TRUE; // toggle leds on/off
 bool isolate_trigger = FALSE; // detects if _FUN layer shift was pressed and no other key 
-
+bool capslock; // keeps track of capslock state
+bool numlock; // keeps track of numlock state
+layer_state_t state_recall; // We are calling the function set_led_colors_ from this file as well.
 
 /* This file contains mostly the Unicode and special macros.
    It contains the function: process_record_user(...)
@@ -397,15 +399,14 @@ void leds_show_off (void) {
 }
 
 
-// pre-existing function
-// Only deals with setting led colors.
-layer_state_t layer_state_set_user (layer_state_t state) {
-  #ifdef RGBLIGHT_ENABLE
+// Sets led colors, for layer switches and Capslock/Numlock changes.
+void set_led_colors_ (layer_state_t state) {
+#ifdef RGBLIGHT_ENABLE
     uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
     uint8_t led2r = 0; uint8_t led2g = 0; uint8_t led2b = 0;
     short color_ddl = 28 ;
 
-    if (!leds_on) return state; // leds are off
+    if (!leds_on) return; // leds are off
         
 
     // The order should be the reverse of the #defines of layer number of the layers on top
@@ -413,7 +414,7 @@ layer_state_t layer_state_set_user (layer_state_t state) {
     /* _LTR 0 _DDL 1 _NSY 2 _DDN 3 _MOV 4 _RAR 5 _PAD 6 _ACC 7 _DDA 8 _DRA 9 _DDD 10 _FUN 11 */
     if (layer_state_cmp (state, _FUN)) { // F-keys, and layer toggles
         indicate_scramble (); // this function already does it all
-        return state; // 
+        return; // 
     } 
     //--- (pair)
     else if (layer_state_cmp (state, _DDD)) {  // double Dvorak descramble, Unicode drawings
@@ -448,9 +449,14 @@ layer_state_t layer_state_set_user (layer_state_t state) {
         rgblight_sethsv_noeeprom (HSV_TURQUOISE); // cyan
     }
     //---
-    else if (layer_state_cmp (state, _PAD)) { // reverse hands layer
-        led0g = 255; // green for nagivation left hand
-        led2b = 255; // blue for symbols right hand
+    else if (layer_state_cmp (state, _PAD)) { // numbers pad layer
+        if (numlock) {
+            led0b = 255; // Blue for the numbers part 
+            led2g = 255; // Green for the navigation part
+        }else{
+            led0g = 255; // reversed 
+            led2b = 255; //
+        }
         rgblight_sethsv_noeeprom (60, 20, 100); // yellow (low saturation)
     }
     //---
@@ -483,22 +489,61 @@ layer_state_t layer_state_set_user (layer_state_t state) {
     //--- (pair)
     // Alternate BASE layer (descramble)
     else if (layer_state_cmp (state, _DDL)) { // double Dvorak descramble, letters
-        led2r = color_ddl; // A bit of a white not too bright color on rightaaaa111oooonnnooo
-        led2g = color_ddl; // 
-        led2b = color_ddl; // 
+        if (capslock){
+           led2r = 255; // Brighter version to indicate capslock
+           led2g = 255; // 
+           led2b = 255; // 
+        }else{
+           led2r = color_ddl; // A bit of a white not too bright color on right
+           led2g = color_ddl; // 
+           led2b = color_ddl; // 
+        }
     }
     // Default layer (generally), normal BASE layer
     else if (layer_state_cmp (state, _LTR)) { // symbols and numbers
-        led0r = 28; // A bit of a weak white color on left 
-        led0g = 28; // 
-        led0b = 28; // 
+        if (capslock){
+            led0r = 255; // Brighter version to indicate capslock
+            led0g = 255; // 
+            led0b = 255; // 
+        }else{
+            led0r = 28; // A bit of a weak white color on left 
+            led0g = 28; // 
+            led0b = 28; // 
+        }
     }
     //---
 
     setrgb (led0r, led0g, led0b, (LED_TYPE *)&led[0]); // Led 0
     setrgb (led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
     rgblight_set ();
-  #endif //RGBLIGHT_ENABLE
+#endif //RGBLIGHT_ENABLE
+}
+
+// Pre-existing QMK function, called when NumLock/CapsLock key is pressed, including on another keyboard.
+// This function sets two booleans that keep track of the current capslock/numlock state, for use in layer led colors.
+bool led_update_user(led_t led_state) {
+    if (led_state.num_lock) { // This doesn't look at the keyboard leds or any other actual leds. It seems to look at whether
+                              // or not the computer has numlock in the on/off state.
+        numlock = TRUE;
+    }else{
+        numlock = FALSE;
+    }
+    if (led_state.caps_lock) {
+        capslock = TRUE;
+    }else{
+        capslock = FALSE;
+    }
+    //layer_state_set_user 
+    set_led_colors_ (state_recall); // Update leds
+    return true ;
+}
+
+
+// pre-existing function, called when layer changes
+layer_state_t layer_state_set_user (layer_state_t state) {
+
+  set_led_colors_ (state); // Update leds 
+  state_recall = state; // Recall this, for calling set_led_colors_(…) on Num/Capslock changes in led_update_user(…)
   return state;
 }
 
