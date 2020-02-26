@@ -45,7 +45,7 @@ But the larger and more complicated your keyboard, the more complex the matrix. 
 
  Bear in mind that the number of rows plus the number of columns can not exceed the number of I/O pins on your controller.  So the fullsize matrix shown above would be possible on a Proton C or Teensy++, but not on a regular Teensy or Pro Micro
 
-#### Common Microcontroller Boards
+### Common Microcontroller Boards
 
 | Board         | Controller    | # I/O  | Pinout |
 | :------------ |:-------------:| ------:| ------ |
@@ -111,24 +111,11 @@ When you come to apply the solder, hold the soldering iron against the two surfa
 
 Don't hold the iron on the solder/joint longer than necessary. Heat will be conducted through the surfaces and can damage components (melt switch housings etc.).  Also, solder contains flux, which aids in ["wetting"](https://en.m.wikipedia.org/wiki/Wetting).  The longer heat is applied to the solder the more flux will evaporate meaning you may end up with a bad solder joint with peaks which, apart from looking bad, may also increase the risk of electrical shorts.
 
-The following collapsible section describes in detail how to solder rows using the bent diode technique and columns using short lengths of wire.
-
-<details>
-
-<summary>Click for details</summary>
-
-## Soldering the Diodes
+#### Soldering the Diodes
 
 Starting at the top-left switch, place the diode (with tweezers if you have them) on the switch so that the diode itself is vertically aligned, and the black line is facing toward you. The straight end of the diode should be touching the left contact on the switch, and the bent end should be facing to the right and resting on the switch there, like this:
 
-```
-     │o
-    ┌┴┐         o
-    │ │    O
-    ├─┤
-    └┬┘
-     └─────────────
-```
+![soldering-diodes-01.png](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/docs/hand_wire/soldering-diodes-01.png)
 
 Letting the diode rest, grab your solder, and touch both it and the soldering iron to the left contact at the same time - the rosin in the solder should make it easy for the solder to flow over both the diode and the keyswitch contact. The diode may move a little, and if it does, carefully position it back it place by grabbing the bent end of the diode - the other end will become hot very quickly. If you find that it's moving too much, using needle-nose pliers of some sort may help to keep the diode still when soldering.
 
@@ -138,20 +125,13 @@ After soldering things in place, it may be helpful to blow on the joint to push 
 
 When the first diode is complete, the next one will need to be soldered to both the keyswitch, and the previous diode at the new elbow. That will look something like this:
 
-```
-     │o               │o
-    ┌┴┐         o    ┌┴┐         o
-    │ │    O         │ │    O
-    ├─┤              ├─┤
-    └┬┘              └┬┘
-     └────────────────┴─────────────
-```
+![soldering-diodes-02.png](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/docs/hand_wire/soldering-diodes-02.png)
 
 After completing a row, use the wire cutters to trim the excess wire from the tops of the diodes, and from the right side on the final switch. This process will need to completed for each row you have.
 
 When all of the diodes are completely soldered, it's a good idea to quickly inspect each one to ensure that your solder joints are solid and sturdy - repairing things after this is possible, but more difficult.
 
-## Soldering the Columns
+#### Soldering the Columns
 
 You'll have some options in the next process - it's a good idea to insulate the column wires (since the diodes aren't), but if you're careful enough, you can use exposed wires for the columns - it's not recommended, though. If you're using single-cored wire, stripping the plastic off of the whole wire and feeding it back on is probably the best option, but can be difficult depending on the size and materials. You'll want to leave parts of the wire exposed where you're going to be solder it onto the keyswitch.
 
@@ -161,9 +141,7 @@ Before beginning to solder, it helps to have your wire pre-bent (if using single
 
 If you're not using any insulation, you can try to keep the column wires elevated, and solder them near the tips of the keyswitch contacts - if the wires are sturdy enough, they won't short out to the row wiring an diodes.
 
-</details>
-
-# Wiring up the controller
+## Wiring up the controller
 
 Now that the matrix itself is complete, it's time to connect what you've done to the microcontroller board.
 
@@ -171,15 +149,15 @@ Place the microcontroller where you want it to be located, give thought to mount
 
 Find the pinout/documentation for your microcontroller board ([links here](#common-microcontroller-boards)) and make a note of all the digital I/O pins on it (note that on some controllers, like the teensy, analogue I/O can double as digital) as these are the pins you want to connect your wires to.
 
-<details>
+<aside>
 
-<summary>Specific instructions for the Teensy 2.0</summary>
+### Specific instructions for the Teensy 2.0
 
- There are some pins on the Teensy that are special, like D6 (the LED on the chip), or some of the UART, SPI, I2C, or PWM channels, but only avoid those if you're planning something in addition to a keyboard. If you're unsure about wanting to add something later, you should have enough pins in total to avoid a couple.
+There are some pins on the Teensy that are special, like D6 (the LED on the chip), or some of the UART, SPI, I2C, or PWM channels, but only avoid those if you're planning something in addition to a keyboard. If you're unsure about wanting to add something later, you should have enough pins in total to avoid a couple.
 
 The pins you'll absolutely have to avoid, as with any controller, are: GND, VCC, AREF, and RST - all the others are usable and accessible in the firmware.
 
-</details>
+</aside>
 
 Cut wires to the length of the distance from the a point on each column/row to the controller.  You can solder anywhere along the row, as long as it's after the diode - soldering before the diode (on the keyswitch side) will cause that row not to work.
 
@@ -193,7 +171,7 @@ As you move along, be sure that the controller is staying in place - recutting a
 
 
 
-# Getting Some Basic Firmware Set Up
+## Getting Some Basic Firmware Set Up
 
 From here, you should have a working keyboard once you program a firmware.
 
@@ -202,9 +180,7 @@ Simple firmware can be created easily using the [Keyboard Firmware Builder](http
 Go through the rest of the tabs, assigning keys until you get to the last one where you can compile and download your firmware.  The .hex file can be flashed straight onto your keyboard, and the .zip of source files can be modified for advanced functionality and compiled locally using the method described in the collapsable section below, or using the more comprehensive [getting started guide.](newbs_getting_started)
 
 
-<details>
-
-<summary>Creating and compiling your firmware locally (command line method)</summary>
+### Creating and compiling your firmware locally (command line method)
 
 To start out, download [the firmware](https://github.com/qmk/qmk_firmware/) - We'll be doing a lot from the Terminal/command prompt, so get that open, along with a decent text editor like [Sublime Text](http://www.sublimetext.com/) (paid) or [Visual Studio Code](https://code.visualstudio.com) (free).
 
@@ -220,77 +196,57 @@ You'll want to navigate to the `keyboards/<project_name>/` folder by typing, lik
 cd keyboards/<project_name>
 ```
 
-### `config.h`
+#### `config.h`
 
 The first thing you're going to want to modify is the `config.h` file. Find `MATRIX_ROWS` and `MATRIX_COLS` and change their definitions to match the dimensions of your keyboard's matrix.
 
 Farther down are `MATRIX_ROW_PINS` and `MATRIX_COL_PINS`. Change their definitions to match how you wired up your matrix (looking from the top of the keyboard, the rows run top-to-bottom and the columns run left-to-right). Likewise, change the definition of `UNUSED_PINS` to match the pins you did not use (this will save power).
 
-### `<project_name>.h`
+#### `<project_name>.h`
 
 The next file you'll want to look at is `<project_name>.h`. You're going to want to rewrite the `LAYOUT` definition - the format and syntax here is extremely important, so pay attention to how things are setup. The first half of the definition are considered the arguments - this is the format that you'll be following in your keymap later on, so you'll want to have as many k*xy* variables here as you do keys. The second half is the part that the firmware actually looks at, and will contain gaps depending on how you wired your matrix.
 
 We'll dive into how this will work with the following example. Say we have a keyboard like this:
 
-```
-    ┌───┬───┬───┐
-    │   │   │   │
-    ├───┴─┬─┴───┤
-    │     │     │
-    └─────┴─────┘
-```
+![firmware-setup-01.png](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/docs/hand_wire/firmware-setup-01.png)
 
 This can be described by saying the top row is 3 1u keys, and the bottom row is 2 1.5u keys. The difference between the two rows is important, because the bottom row has an unused column spot (3 v 2). Let's say that this is how we wired the columns:
 
-```
-    ┌───┬───┬───┐
-    │ ┋ │ ┋ │ ┋ │
-    ├─┋─┴─┬─┴─┋─┤
-    │ ┋   │   ┋ │
-    └─────┴─────┘
-```
+![firmware-setup-02.png](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/docs/hand_wire/firmware-setup-02.png)
 
 The middle column is unused on the bottom row in this example. Our `LAYOUT` definition would look like this:
 
 ```
-    #define LAYOUT( \
-        k00, k01, k02, \
-          k10,  k11,   \
-    ) \
-    { \
-        { k00, k01,   k02 }, \
-        { k10, KC_NO, k11 }, \
-    }
+#define LAYOUT( \
+    k00, k01, k02, \
+      k10,  k11    \
+) { \
+    { k00, k01,   k02 }, \
+    { k10, KC_NO, k11 }  \
+}
 ```
 
 Notice how the top half is spaced to resemble our physical layout - this helps us understand which keys are associated with which columns. The bottom half uses the keycode `KC_NO` where there is no keyswitch wired in. It's easiest to keep the bottom half aligned in a grid to help us make sense of how the firmware actually sees the wiring.
 
 Let's say that instead, we wired our keyboard like this (a fair thing to do):
 
-```
-    ┌───┬───┬───┐
-    │ ┋ │  ┋│ ┋ │
-    ├─┋─┴─┬┋┴───┤
-    │ ┋   │┋    │
-    └─────┴─────┘
-```
+![firmware-setup-03.png](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/docs/hand_wire/firmware-setup-03.png)
 
 This would require our `LAYOUT` definition to look like this:
 
 ```
-    #define LAYOUT( \
-        k00, k01, k02, \
-          k10,  k11,   \
-    ) \
-    { \
-        { k00, k01, k02   }, \
-        { k10, k11, KC_NO }, \
-    }
+#define LAYOUT( \
+    k00, k01, k02, \
+      k10,  k11    \
+) \
+    { k00, k01, k02   }, \
+    { k10, k11, KC_NO }  \
+}
 ```
 
-Notice how the `k11` and `KC_NO` switched places to represent the wiring, and the unused final column on the bottom row. Sometimes it'll make more sense to put a keyswitch on a particular column, but in the end, it won't matter, as long as all of them are accounted for. You can use this process to write out the `LAYOUT` for your entire keyboard - be sure to remember that your keyboard is actually backwards when looking at the underside of it.
+Notice how the `k11` and `KC_NO` switched places in the bottom portion to represent the wiring, and the unused final column on the bottom row. Sometimes it'll make more sense to put a keyswitch on a particular column, but in the end, it won't matter, as long as all of them are accounted for. You can use this process to write out the `LAYOUT` for your entire keyboard - be sure to remember that your keyboard is actually backwards when looking at the underside of it.
 
-### `keymaps/<variant>/default.c`
+#### `keymaps/<variant>/default.c`
 
 This is the actual keymap for your keyboard, and the main place you'll make changes as you perfect your layout. `default.c` is the file that gets pull by default when typing `make`, but you can make other files as well, and specify them by typing `make handwired/<keyboard>:<variant>`, which will pull `keymaps/<variant>/keymap.c`.
 
@@ -298,21 +254,15 @@ The basis of a keymap is its layers - by default, layer 0 is active. You can act
 
 Using our previous example, let's say we want to create the following layout:
 
-```
-    ┌───┬───┬───┐
-    │ A │ 1 │ H │
-    ├───┴─┬─┴───┤
-    │ TAB │ SPC │
-    └─────┴─────┘
-```
+![firmware-setup-01.png](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/docs/hand_wire/firmware-setup-01.png)
 
 This can be accomplished by using the following `keymaps` definition:
 
 ```
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT( /* Base */
-      KC_A,  KC_1,  KC_H, \
-        KC_TAB,  KC_SPC   \
+      KC_ESC,  KC_F1,   KC_F11, \
+         KC_TAB,  KC_BSPC \
     ),
 };
 ```
@@ -321,7 +271,7 @@ Note that the layout of the keycodes is similar to the physical layout of our ke
 
 It's also important to use the `LAYOUT` function we defined earlier - this is what allows the firmware to associate our intended readable keymap with the actual wiring.
 
-## Compiling Your Firmware
+#### Compiling Your Firmware
 
 After you've written out your entire keymap, you're ready to get the firmware compiled and onto your Teensy. Before compiling, you'll need to get your [development environment set-up](getting_started_build_tools.md) - you can skip the dfu-programmer instructions, but you'll need to download and install the [Teensy Loader](https://www.pjrc.com/teensy/loader.html) to get the firmware on your Teensy.
 
@@ -329,11 +279,11 @@ Once everything is installed, running `make` in the terminal should get you some
 
 Once you have your `<project_name>.hex` file, open up the Teensy loader application, and click the file icon. From here, navigate to your `QMK/keyboards/<project_name>/` folder, and select the `<project_name>.hex` file. Plug in your keyboard and press the button on the Teensy - you should see the LED on the device turn off once you do. The Teensy Loader app will change a little, and the buttons should be clickable - click the download button (down arrow), and then the reset button (right arrow), and your keyboard should be ready to go!
 
-</details>
+----
 
 ## Flashing the Firmware
 
-Install [QMK toolbox](https://github.com/qmk/qmk_toolbox).
+Install [QMK Toolbox](https://github.com/qmk/qmk_toolbox).
 
 ![QMK Toolbox](https://i.imgur.com/86Cz30H.png)
 
@@ -344,20 +294,20 @@ Plug in your keyboard and press the reset button (or short the Reset and Ground 
 
 ## Testing Your Firmware
 
-Use a website such as [keyboard tester](https://www.keyboardtester.com/tester.html)/[keyboard checker](http://keyboardchecker.com/) or just open a text editor and try typing - you should get the characters that you put into your keymap. Test each key, and make a note of the ones that aren't working. Here's a quick trouble-shooting guide for non-working keys:
+Use a website such as [QMK Configurator's Keyboard Tester](https://config.qmk.fm/#/test), [Keyboard Tester](https://www.keyboardtester.com/tester.html), or [Keyboard Checker](http://keyboardchecker.com/) or just open a text editor and try typing - you should get the characters that you put into your keymap. Test each key, and make a note of the ones that aren't working. Here's a quick trouble-shooting guide for non-working keys:
 
-0. Flip the keyboard back over and short the keyswitch's contacts with a piece wire - this will eliminate the possibility of the keyswitch being bad and needing to be replaced.
-1. Check the solder points on the keyswitch - these need to be plump and whole. If you touch it with a moderate amount of force and it comes apart, it's not strong enough.
-2. Check the solder joints on the diode - if the diode is loose, part of your row may register, while the other may not.
-3. Check the solder joints on the columns - if your column wiring is loose, part or all of the column may not work.
-4. Check the solder joints on both sides of the wires going to/from the Teensy - the wires need to be fully soldered and connect to both sides.
-5. Check the `<project_name>.h` file for errors and incorrectly placed `KC_NO`s - if you're unsure where they should be, instead duplicate a k*xy* variable.
-6. Check to make sure you actually compiled the firmware and flashed the Teensy correctly. Unless you got error messages in the terminal, or a pop-up during flashing, you probably did everything correctly.
-7. Use a multimeter to check that the switch is actually closing when actuated (completing the circuit when pressed down).
+1. Flip the keyboard back over and short the keyswitch's contacts with a piece wire - this will eliminate the possibility of the keyswitch being bad and needing to be replaced.
+2. Check the solder points on the keyswitch - these need to be plump and whole. If you touch it with a moderate amount of force and it comes apart, it's not strong enough.
+3. Check the solder joints on the diode - if the diode is loose, part of your row may register, while the other may not.
+4. Check the solder joints on the columns - if your column wiring is loose, part or all of the column may not work.
+5. Check the solder joints on both sides of the wires going to/from the Teensy - the wires need to be fully soldered and connect to both sides.
+6. Check the `<project_name>.h` file for errors and incorrectly placed `KC_NO`s - if you're unsure where they should be, instead duplicate a k*xy* variable.
+7. Check to make sure you actually compiled the firmware and flashed the Teensy correctly. Unless you got error messages in the terminal, or a pop-up during flashing, you probably did everything correctly.
+8. Use a multimeter to check that the switch is actually closing when actuated (completing the circuit when pressed down).
 
 If you've done all of these things, keep in mind that sometimes you might have had multiple things affecting the keyswitch, so it doesn't hurt to test the keyswitch by shorting it out at the end.
 
-# Finishing up
+## Finishing up
 
 Once you have confirmed that the keyboard is working, if you have used a seperate (non handwire specific) controller you will want to secure it in place.  This can be done in many different ways e.g. hot glue, double sided sticky tape, 3D printed caddy, electrical tape.
 
@@ -365,7 +315,7 @@ If you found this fullfilling you could experiment by adding additional features
 
 There are a lot of possibilities inside the firmware - explore [docs.qmk.fm](http://docs.qmk.fm) for a full feature list, and dive into the different keyboards to see how people use all of them. You can always stop by [the OLKB subreddit](http://reddit.com/r/olkb) or [QMK Discord](https://discord.gg/Uq7gcHh) for help!
 
-# Links to other guides:
+## Links to Other Guides
 
 - [matt3o's step by step guide (BrownFox build)](https://deskthority.net/viewtopic.php?f=7&t=6050) also his [website](https://matt3o.com/hand-wiring-a-custom-keyboard/) and [video guide](https://www.youtube.com/watch?v=LVzpsjFWPP4)
 - [Cribbit's "Modern hand wiring guide - stronger, cleaner, easier"](https://geekhack.org/index.php?topic=87689.0) 
