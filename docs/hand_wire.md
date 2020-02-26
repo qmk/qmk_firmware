@@ -285,7 +285,7 @@ Once you have your `<project_name>.hex` file, open up the Teensy loader applicat
 
 Install [QMK Toolbox](https://github.com/qmk/qmk_toolbox).
 
-![QMK Toolbox](https://i.imgur.com/86Cz30H.png)
+![QMK Toolbox](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/docs/hand_wire/qmk_toolbox.png "QMK Toolbox 0.0.16 on Windows 8.1")
 
 Under "Local File" navigate to your newly created .hex file.  Under "Microcontroller", select the corresponding one for your controller board (common ones available [here](#common-microcontroller-boards)).
 
