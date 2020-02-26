@@ -12,3 +12,7 @@
 .markdown-section h3 {
   margin-top: 16px;
 }
+
+.sidebar, .sidebar-nav {
+  line-height: 1.5em !important;
+}
