@@ -21,3 +21,4 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes           # USB Nkey Rollover
 ENCODER_ENABLE = yes
 EXTRAKEY_ENABLE = yes
+MOUSEKEY_ENABLE = yes
