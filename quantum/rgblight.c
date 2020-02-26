@@ -627,16 +627,6 @@ void rgblight_sethsv_slave(uint8_t hue, uint8_t sat, uint8_t val) { rgblight_set
 #endif  // ifndef RGBLIGHT_SPLIT
 
 #ifdef RGBLIGHT_LAYERS
-static bool rgblight_is_static_mode(void) {
-    uint8_t mode = rgblight_status.base_mode;
-    bool is_static = 
-#   ifdef RGBLIGHT_EFFECT_STATIC_GRADIENT
-                    mode == RGBLIGHT_MODE_STATIC_GRADIENT ||
-#   endif
-                    mode == RGBLIGHT_MODE_STATIC_LIGHT;
-    return is_static;
-}
-
 void rgblight_set_layer_state(uint8_t layer, bool enabled) {
     uint8_t mask = 1 << layer;
     if (enabled) {
@@ -646,14 +636,14 @@ void rgblight_set_layer_state(uint8_t layer, bool enabled) {
     }
     RGBLIGHT_SPLIT_SET_CHANGE_LAYERS;
     // Static modes don't have a ticker running to update the LEDs
-    if (rgblight_is_static_mode()) {
-        rgblight_mode_noeeprom(rgblight_get_mode());
+    if (rgblight_status.timer_enabled == false) {
+        rgblight_mode_noeeprom(rgblight_config.mode);
     }
 }
 
 bool rgblight_get_layer_state(uint8_t layer) {
     uint8_t mask = 1 << layer;
-    return (rgblight_status.enabled_layer_mask & mask) > 0;
+    return (rgblight_status.enabled_layer_mask & mask) != 0;
 }
 
 // Write any enabled LED layers into the buffer
