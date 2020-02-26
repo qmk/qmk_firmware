@@ -6,29 +6,37 @@
 
 刷新键盘的最简单方法是使用[QMK 工具箱](https://github.com/qmk/qmk_toolbox/releases). 
 
-但是，QMK工具箱目前仅适用于Windows和MacOS。如果您使用的是Linux（或者只是希望从命令行刷新固件），则必须使用 [方法概述](newbs_flashing.md#flash-your-keyboard-from-the-command-line).
+但是，QMK工具箱目前仅适用于Windows和MacOS。如果您使用的是Linux（或者只是希望从命令行刷新固件），则必须使用 [方法概述](zh-cn/newbs_flashing.md#使用命令行刷新你的键盘).
 
 ### 将文件加载到QMK工具箱中
 
 首先打开QMK工具箱应用程序。您将要在访达或资源管理器中找到固件文件。您的键盘固件可能是两种格式之一`.hex`或`.bin`。qmk会尝试将键盘的相应文件复制到“qmk_firmware”根目录中。
 
-?> 如果您在Windows或MacOS上，可以使用以下命令轻松地在资源管理器或访达中打开当前固件文件夹。
+如果您在Windows或MacOS上，可以使用以下命令轻松地在资源管理器或访达中打开当前固件文件夹。
 
-?> Windows:
+#### Windows
 
-    start .
+```
+start .
+```
 
-?> macOS:
+#### macOS
 
-    open .
+```
+open .
+```
 
 固件文件始终遵循此命名格式:
 
-    <keyboard_name>_<keymap_name>.{bin,hex}
+```
+<keyboard_name>_<keymap_name>.{bin,hex}
+```
 
-例如，使用 `default` 布局的 `plank/rev5` 将使用以下名字：
+例如，使用 `default` 映射的 `plank/rev5` 将使用以下名字：
 
-    planck_rev5_default.hex
+```
+planck_rev5_default.hex
+```
 
 找到固件文件后，将其拖到QMK工具箱中的“Local file”框中，或单击“Open”并导航到固件文件的存储位置。
 
@@ -41,7 +49,7 @@
 * 按住两个shift键并按 `Pause`
 * 按住两个shift键并按 `B`
 * 拔下键盘插头, 同时按住空格键和 `B` , 插上键盘然后等一会再放开按键
-* 按下PCB底部的 `RESET` 物理键
+* 按下PCB底部的 `RESET` 物理按键
 * 找到PCB上标记有 `BOOT0` 或 `RESET`的金属点, 在插入PCB的同时短接它们
 
 成功后，您将在QMK工具箱中看到类似以下内容的消息:
@@ -78,17 +86,33 @@
 
 ## 使用命令行刷新键盘
 
-首先，您需要知道您的键盘使用的是哪个bootloader。通常是以下四个常见的bootloader。Pro-Micro 和 clones 使用 CATERINA, Teensy 使用 Halfkay, OLKB 键盘使用 QMK-DFU, 其他的atmega32u4芯片使用DFU。
+与过去相比，这已变得非常简单。当比准备好编译并刷新固件时，打开命令刚窗口并运行构建命令： 
 
-您可以在以下文章中了解更多关于bootloader[刷新指令和Bootloader信息](flashing.md)。 
+    make <my_keyboard>:<my_keymap>:flash
 
-如果您知道正在使用的bootloader是哪种，那么在编译固件时，可以向“make”命令里添加一些额外参数，以自动执行刷新过程。
+比如，如果映射叫做"xyverz"并且该映射是rev5 planck的，使用以下命令：
+
+    make planck/rev5:xyverz:flash
+
+这将会检查键盘的配置并尝试基于指定bootloader刷新键盘。也就是说你无须知道你的键盘使用的是哪种bootloader。只需运行该命令，编译刷新一蹴而就。
+
+但是这依赖于键盘设置的bootloader。如果该信息未配置或你的键盘板并没有支持的目标来刷新，你将会见到以下错误<!--TODO：翻译不准确，原文为： If this information is not configured, or you're using a board that doesn't have a supported target to flash it, you will see this error>
+
+    WARNING: This board's bootloader is not specified or is not supported by the ":flash" target at this time.
+
+出现这种情况，说明你搞错了bootloader的种类。
+
+一般来说可能会使用五种bootloader之一。Pro Micro 和其他兼容板使用Caterina, Teensys使用HalfKay, OLKB的AVR板使用QMK-DFU，其他ATmega32U4板使用DFU，大多数ARM板使用ARM DFU.
+
+欲了解更多，详见[刷新说明和bootloader信息](zh-cn/flashing.md)。 
+
+如果你知道你用的是何种bootloader，当你编译固件时，你可以向 `make`命令添加其他参数来自动化刷新过程。<!--译者注：添加啥啊，你也没说> 
 
 ### DFU
 
 对于DFU引导加载程序，当您准备好编译和刷新固件时，打开终端窗口并运行构建命令: 
 
-    make <my_keyboard>:<my_keymap>:dfu
+    make <键盘名>:<映射名>:dfu
 
 例如，如果您的布局名为“xyverz”，并且您正在为rev5 planck构建一个布局，那么您可以使用此命令：
 
@@ -127,9 +151,7 @@ Checking file size of planck_rev5_xyverz.hex
 >>> dfu-programmer atmega32u4 reset
 ```
 
-如果您对此有任何问题，您可能需要这样做：
-
-    sudo make <my_keyboard>:<my_keymap>:dfu
+?> 如果你对此有任何问题 - 比如 `dfu-programmer: no device present` - 详见 [常见的构建问题](zh-cn/faq_build.md)。
 
 #### DFU命令
 
@@ -143,7 +165,7 @@ Checking file size of planck_rev5_xyverz.hex
 
 ### Caterina 
 
-对于Arduino板以及其克隆版来说(比如SparkFun和ProMicro), 准备好编译和刷新固件后，打开终端窗口并运行构建命令: 
+对于Arduino板以及其兼容板来说(比如SparkFun和ProMicro), 准备好编译和刷新固件后，打开终端窗口并运行构建命令: 
 
     make <my_keyboard>:<my_keymap>:avrdude
 
@@ -207,21 +229,24 @@ avrdude.exe done.  Thank you.
 ```
 如果您对此有任何问题，您可能需要这样做：
 
-    sudo make <my_keyboard>:<my_keymap>:avrdude
+    sudo make <键盘名>:<映射名>:avrdude
 
 
-此外，如果要刷新多个板，请使用以下命令：
+#### Caterina命令
 
-    make <keyboard>:<keymap>:avrdude-loop
+有很多DFU命令，你可以使用它们刷新DFU设备的固件：
 
-当你完成了刷新后，你需要按下ctrl+c或者其他正确的按键来让你的操作系统终止循环。
+* `:avrdude` - 这是个正常选项，用于等待直到Caterina设备可用(检测到一个新的COM口)，然后刷新固件。
+* `:avrdude-loop` - 该命令会运行与`:avrdude`相同的命令，但当设备刷新后，它将会尝试再次刷新。适用于批量刷新。 _该循环命令需要手动终止，快捷键为Control+C._
+* `:avrdude-split-left` - 该命令刷新正常的固件，就像默认选项 (`:avrdude`)。但是，也会为分体式键盘刷新"左侧"EEPROM文件。 _该命令完美适配基于Pro Micro的分体键盘。_
+* `:avrdude-split-right` - 该命令刷新正常的固件，就像默认选项 (`:avrdude`)。但是，也会为分体式键盘刷新"右侧"EEPROM文件。 _该命令完美适配基于Pro Micro的分体键盘。_
 
 
 ## HalfKay
 
 对于PJRC设备（Teensy），当您准备好编译和刷新固件时，打开终端窗口并运行构建命令: 
 
-    make <my_keyboard>:<my_keymap>:teensy
+    make <键盘名>:<映射名>:teensy
 
 比如, 如果你的布局叫做"xyverz"你想创建Ergodox or Ergodox EZ的布局,你要使用以下命令:
 
@@ -254,9 +279,9 @@ Booting
 
 对于大多数ARM板（包括Proton C、Planck Rev 6和Preonic Rev 3），当您准备好编译和刷新固件时，打开终端窗口并运行构建命令：
 
-    make <my_keyboard>:<my_keymap>:dfu-util
+    make <键盘名>:<映射名>:dfu-util
 
-例如，如果您的keymap被命名为“xyverz”，并且您正在为Planck Revision 6键盘构建一个布局，那么您需要使用以下命令，然后将键盘重新启动到bootloader（在完成编译之前）：
+例如，如果您的keymap被命名为“xyverz”，并且您正在为Planck Revision 6键盘构建一个布局，那么您需要使用以下命令，然后手动将键盘重新启动到bootloader（在完成编译之前）：
 
     make planck/rev6:xyverz:dfu-util
 
@@ -300,8 +325,58 @@ File downloaded successfully
 Transitioning to dfuMANIFEST state
 ```
 
+#### STM32命令
+
+有一些DFU命令你可以用于刷新STM32设备：
+
+* `:dfu-util` - 刷新STM32设备的默认命令，会等待直到STM32的bootloader可用. .<!--TODO：present不知道什么意思，自己理解翻译的，原文为：and will wait until an STM32 bootloader is present. .>  
+* `:dfu-util-split-left` - 刷新正常的固件，就像默认选项(`:dfu-util`)那样。但是也会为分体式键盘配置"左侧"EEPROM设置。
+* `:dfu-util-split-right` - 刷新正常的固件，就像默认选项(`:dfu-util`)那样。但是也会为分体式键盘配置"右侧"EEPROM设置。
+* `:st-link-cli` - 该命令允许你是通过ST-LINK的命令行实用程序刷新固件，而不是用DFU实用程序。
+
+
+### BootloadHID
+
+对于基于Bootmapper Client(BMC)/bootloadHID/ATmega32A的键盘，当你准备好编译并刷新固件时，打开终端窗口并运行构建命令： 
+
+    make <键盘名>:<映射名>:bootloaderHID
+
+比如你的映射名叫做"xyverz"，对应键盘是jj40，使用以下命令：
+
+    make jj40:xyverz:bootloaderHID
+
+当你的固件完成编译后会有类似如下的输出：
+
+```
+Linking: .build/jj40_default.elf                                                                   [OK]
+Creating load file for flashing: .build/jj40_default.hex                                           [OK]
+Copying jj40_default.hex to qmk_firmware folder                                                    [OK]
+Checking file size of jj40_default.hex                                                             [OK]
+ * The firmware size is fine - 21920/28672 (6752 bytes free)
+```
+
+在这之后，构建脚本会每5秒寻找一次DFU bootloader。如下回显将在找到设备或你取消之前一直重复。 
+
+```
+Error opening HIDBoot device: The specified device was not found
+Trying again in 5s.
+```
+
+完成此操作后，您将需要重置控制器。回显类似如下： 
+
+```
+Page size   = 128 (0x80)
+Device size = 32768 (0x8000); 30720 bytes remaining
+Uploading 22016 (0x5600) bytes starting at 0 (0x0)
+0x05580 ... 0x05600
+```
+
 ## 试一试吧!
 
 恭喜您! 您的自定义固件已经刷写到您的键盘
 
-试一试，确保一切按你想的方式进行。我们写了[测试和调试](newbs_testing_debugging.md)来完善新手引导。 因此，请前往那里了解如何排除自定义功能的故障。
+试一试，确保一切按你想的方式进行。我们写了[测试和调试](zh-cn/newbs_testing_debugging.md)来完善新手引导。 因此，请前往那里了解如何排除自定义功能的故障。
+
+<!--源文件：https://raw.githubusercontent.com/qmk/qmk_firmware/0e6f78547eca1e7bbb093265e79c26a301e6635a/docs/newbs_flashing.md 
+    源提交哈希：0e6f78547eca1e7bbb093265e79c26a301e6635a-->
+<!--翻译时间:20200226-18:28(GMT+8)-->
