@@ -8,16 +8,20 @@ QMK是为你机械硬盘设计的的一个强大的开源固件。使用QMK可�
 
 这个教程有7个主要部分：
 
-* [新手上路](newbs_getting_started.md)
-* [用命令行构建你的第一个固件](newbs_building_firmware.md)
-* [用在线界面构建你的第一个固件](newbs_building_firmware_configurator.md)
-* [刷新固件](newbs_flashing.md)
-* [测试和调试](newbs_testing_debugging.md)
-* [Git最佳实践](newbs_best_practices.md)
-* [其他学习资源](newbs_learn_more_resources.md)
+* [新手上路](zh-cn/newbs_getting_started.md)
+* [用命令行构建你的第一个固件](zh-cn/newbs_building_firmware.md)
+* [用在线界面构建你的第一个固件](zh-cn/newbs_building_firmware_configurator.md)
+* [刷新固件](zh-cn/newbs_flashing.md)
+* [测试和调试](zh-cn/newbs_testing_debugging.md)
+* [Git最佳实践](zh-cn/newbs_git_best_practices.md)
+* [其他学习资源](zh-cn/newbs_learn_more_resources.md)
 
-这份教程旨在帮助没有固件构建经验的人，也是根据该目的做出选择和建议。这些程序有很多替代方法，大部分替代我们都支持。如果你对完成一个任务有疑问，可以[向我们寻求帮助](getting_started_getting_help.md).
+这份教程旨在帮助没有固件构建经验的人，也是根据该目的做出选择和建议。这些程序有很多替代方法，大部分替代我们都支持。如果你对完成一个任务有疑问，可以[向我们寻求帮助](zh-cn/getting_started_getting_help.md).
 
 ## 其他资源
 
-* [Thomas Baart的 QMK基础博客](https://thomasbaart.nl/category/mechanical-keyboards/firmware/qmk/qmk-basics/) – 这是一个用户创建的博客，涵盖了为新手准备的使用QMK的基础知识。
+* [Thomas Baart的QMK基础博客](https://thomasbaart.nl/category/mechanical-keyboards/firmware/qmk/qmk-basics/) – 这是一个用户创建的博客，涵盖了为新手准备的使用QMK的基础知识。
+
+<!--源文件：https://raw.githubusercontent.com/qmk/qmk_firmware/b54722cc639c5c1c6a4ed8e09e881a1c7a2806a2/docs/newbs.md 
+    源提交哈希：b54722cc639c5c1c6a4ed8e09e881a1c7a2806a2-->
+<!--翻译时间:20200219-18:32(GMT+8)-->
