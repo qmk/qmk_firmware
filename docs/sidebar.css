@@ -20,3 +20,11 @@
 .sidebar, .sidebar-nav {
   line-height: 1.5em !important;
 }
+
+.markdown-section ul ul {
+  margin: 0;
+}
+
+.markdown-section pre {
+  padding: 0;
+}
