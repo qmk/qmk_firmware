@@ -148,6 +148,7 @@
 
   * For a Deeper Understanding
     * [How Keyboards Work](how_keyboards_work.md)
+    * [How a Matrix Works](how_a_matrix_works.md)
     * [Understanding QMK](understanding_qmk.md)
 
   * QMK Internals (In Progress)
