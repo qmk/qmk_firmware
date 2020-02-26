@@ -9,8 +9,12 @@
   margin-top: 40px;
 }
 
+.markdown-section h2 {
+  padding-top: 0.25rem;
+}
+
 .markdown-section h3 {
-  margin-top: 16px;
+  margin-top: 0.25rem;
 }
 
 .sidebar, .sidebar-nav {
