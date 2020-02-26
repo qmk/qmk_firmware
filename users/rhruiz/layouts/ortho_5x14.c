@@ -4,8 +4,6 @@
 
 #define KC_ENTS LSFT(KC_ENTER)
 #define KC__RST RESET
-#define KC__FN1 MO(_FN1)
-#define KC__FN2 MO(_FN2)
 #define KC_FNUM MO(_NUM)
 #define KC_LRAL RALT_T(KC_LEFT)
 #define KC_RNUM LT(_NUM, KC_RGHT)
@@ -13,8 +11,6 @@
 #define KC_BFN2 BKSFN2
 #define KC_CESC CTRLESC
 #define KC_MISS MISCTRL
-#define KC__VUP KC__VOLUP
-#define KC__VDN KC__VOLDOWN
 #define KC_ KC_TRNS
 #define KC__TGN TG(_NUM)
 #define KC__TGM TG(_GAME)
