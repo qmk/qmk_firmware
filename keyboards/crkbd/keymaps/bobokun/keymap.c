@@ -121,6 +121,8 @@ LCTL_T(KC_TAB),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                     
   )
 };
 
+// clang-format on
+
 uint16_t get_tapping_term(uint16_t keycode) {
   switch (keycode) {
     case LALT_T(KC_SPC):
@@ -129,23 +131,6 @@ uint16_t get_tapping_term(uint16_t keycode) {
       return TAPPING_TERM;
   }
 }
-
-// clang-format on
-
-// bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-//     if (record->event.pressed) {
-// #ifdef OLED_DRIVER_ENABLE
-//         oled_timer = timer_read32();
-//         add_keylog(keycode);
-// #endif
-// #ifndef SPLIT_KEYBOARD
-//         if (keycode == RESET && !is_master) {
-//             return false;
-//         }
-// #endif
-//     }
-//     return true;
-// }
 
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -324,7 +309,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;	
   }
-          if (record->event.pressed) {
+  if (record->event.pressed) {
       #ifdef OLED_DRIVER_ENABLE
               oled_timer = timer_read32();
               add_keylog(keycode);
@@ -334,6 +319,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   return false;
               }
       #endif
-          }
-          return true;
+  }
+  return true;
 }
