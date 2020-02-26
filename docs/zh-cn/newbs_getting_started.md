@@ -8,7 +8,7 @@ QMK试图通过使简单的事情变得更简单，使使不可能成为可能�
 
 在你能创建布局前,你要安装一些软件来建立你的开发环境。无论你想编译多少固件，这个操作都只需要进行一次。
 
-如果您更喜欢图形化界面, 请考虑使用在线工具[QMK配置器](https://config.qmk.fm)。 请参考 [使用在线GUI构建您的第一个固件](newbs_building_firmware_configurator.md)。
+如果您更喜欢图形化界面, 请考虑使用在线工具[QMK配置器](https://config.qmk.fm)。 请参考 [使用在线GUI构建您的第一个固件](zh-cn/newbs_building_firmware_configurator.md)。
 
 
 ## 下载软件
@@ -60,7 +60,7 @@ QMK 工具箱 是一种可选的Windows和macOS下的图形化工具，它可以
 * Fedora / Red Hat / CentOS: `yum install git`
 * Arch: `pacman -S git`
 
-?> 无论你使用哪种平台，Docker都可以是你的选择[点这里进一步了解](getting_started_build_tools.md#docker)
+?> 无论你使用哪种平台，Docker都可以是你的选择[点这里进一步了解](zh-cn/getting_started_build_tools.md#docker)
 
 ## 同步QMK工程
 
@@ -71,7 +71,7 @@ git clone --recurse-submodules https://github.com/qmk/qmk_firmware.git
 cd qmk_firmware
 ```
 
-?> 如果您已经知道[如何使用GitHub](getting_started_github.md), 我们推荐您创建您自己的分支并克隆。 如果您不知道这是什么, 您完全可以忽略这句无关紧要的话。
+?> 如果您已经知道[如何使用GitHub](zh-cn/getting_started_github.md), 我们推荐您创建您自己的分支并克隆。 如果您不知道这是什么, 您完全可以忽略这句无关紧要的话。
 
 QMK附带一个脚本，可帮助您设置剩余的所需内容.您可以通过输入此命令来运行它:
 
@@ -99,4 +99,8 @@ Checking file size of clueboard_66_rev3_default.hex                             
 
 # 创建你的布局
 
-现在你可以创建属于你自己的布局了! 请移步 [构建你的第一个固件](newbs_building_firmware.md)来继续。
+现在你可以创建属于你自己的布局了! 请移步 [构建你的第一个固件](zh-cn/newbs_building_firmware.md)来继续。
+
+<!--源文件：https://raw.githubusercontent.com/qmk/qmk_firmware/161d469f2c9cf0ddf7aa5907eb2329d6df1ede85/docs/newbs_getting_started.md 
+    源提交哈希：161d469f2c9cf0ddf7aa5907eb2329d6df1ede85-->
+<!--翻译时间:20200226-18:35(GMT+8)-->
