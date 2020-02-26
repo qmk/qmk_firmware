@@ -5,10 +5,7 @@
   * [Flashing Firmware](newbs_flashing.md)
   * [Testing and Debugging](newbs_testing_debugging.md)
   * [Getting Help](getting_started_getting_help.md)
-  * Other Topics
-    * [Learning Resources](newbs_learn_more_resources.md)
-    * [Using Eclipse with QMK](other_eclipse.md)
-    * [Using VSCode with QMK](other_vscode.md)
+  * [Other Resources](newbs_learn_more_resources.md)
 
 * FAQs
   * [General FAQ](faq_general.md)
@@ -41,6 +38,9 @@
     * Flashing
       * [Flashing](flashing.md)
       * [Flashing ATmega32A (ps2avrgb)](flashing_bootloadhid.md)
+    * IDEs
+      * [Using Eclipse with QMK](other_eclipse.md)
+      * [Using VSCode with QMK](other_vscode.md)
     * Git Best Practices
       * [Introduction](newbs_git_best_practices.md)
       * [Your Fork](newbs_git_using_your_master_branch.md)
