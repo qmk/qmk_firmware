@@ -47,12 +47,14 @@
 #    define RGBLIGHT_SPLIT_SET_CHANGE_MODE rgblight_status.change_flags |= RGBLIGHT_STATUS_CHANGE_MODE
 #    define RGBLIGHT_SPLIT_SET_CHANGE_HSVS rgblight_status.change_flags |= RGBLIGHT_STATUS_CHANGE_HSVS
 #    define RGBLIGHT_SPLIT_SET_CHANGE_MODEHSVS rgblight_status.change_flags |= (RGBLIGHT_STATUS_CHANGE_MODE | RGBLIGHT_STATUS_CHANGE_HSVS)
+#    define RGBLIGHT_SPLIT_SET_CHANGE_LAYERS rgblight_status.change_flags |= RGBLIGHT_STATUS_CHANGE_LAYERS
 #    define RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE rgblight_status.change_flags |= RGBLIGHT_STATUS_CHANGE_TIMER
 #    define RGBLIGHT_SPLIT_ANIMATION_TICK rgblight_status.change_flags |= RGBLIGHT_STATUS_ANIMATION_TICK
 #else
 #    define RGBLIGHT_SPLIT_SET_CHANGE_MODE
 #    define RGBLIGHT_SPLIT_SET_CHANGE_HSVS
 #    define RGBLIGHT_SPLIT_SET_CHANGE_MODEHSVS
+#    define RGBLIGHT_SPLIT_SET_CHANGE_LAYERS
 #    define RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE
 #    define RGBLIGHT_SPLIT_ANIMATION_TICK
 #endif
@@ -642,9 +644,7 @@ void rgblight_set_layer_state(uint8_t layer, bool enabled) {
     } else {
         rgblight_status.enabled_layer_mask &= ~mask;
     }
-#    ifdef RGBLIGHT_SPLIT
-    rgblight_status.change_flags |= RGBLIGHT_STATUS_CHANGE_LAYERS;
-#    endif
+    RGBLIGHT_SPLIT_SET_CHANGE_LAYERS;
     // Static modes don't have a ticker running to update the LEDs
     if (rgblight_is_static_mode()) {
         rgblight_mode_noeeprom(rgblight_get_mode());
