@@ -1,22 +1,22 @@
 # 构建第一个固件
 
-现在您已经建立了构建环境，就可以开始构建自定义固件了。对于本指南的这一部分，我们将在3个程序之间切换——文件管理器、文本编辑器和终端窗口。请保持所有3个程序打开，直到您完成并对键盘固件满意。
+现在您已经建立了构建环境，就可以开始构建自定义固件了。对于本指南的这一部分，我们将在3个程序之间切换 —— 文件管理器、文本编辑器和终端窗口。请保持所有3个程序打开，直到您完成并对键盘固件满意。
 
 如果您在按照指南第一部分的操作之后关闭并重新打开了终端窗口，请不要忘记输入“cd qmk_firmware”，来使您的终端位于正确的目录。
 
 ## 导航到您的keymaps文件夹
 
-首先导航到键盘的 `keymaps` 文件夹.
+首先导航到键盘的 `keymaps` 文件夹。
 
-?> 如果您使用的是MacOS或Windows，可以使用以下命令轻松地打开keymaps文件夹。
+如果您使用的是MacOS或Windows，可以使用以下命令轻松地打开keymaps文件夹。
 
-?> macOS:
+### macOS:
 
-    open keyboards/<keyboard_folder>/keymaps
+``` open keyboards/<keyboard_folder>/keymaps ```
 
-?> Windows:
+### Windows:
 
-    start .\\keyboards\\<keyboard_folder>\\keymaps
+``` start .\\keyboards\\<keyboard_folder>\\keymaps ```
 
 ## 创建`default` 布局副本
 
@@ -42,7 +42,7 @@
 
     const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-从这一行开始便是层列表。这行下面你会看到包括 `LAYOUT` 或 `KEYMAP`这两个词的几行, 从这些行开始就是层。在这一行下面是组成该特定层的键的列表。
+从这一行开始便是层列表。这行下面你会看到包括 `LAYOUT` 或 `KEYMAP`这两个词的几行, 从这些行开始就是层。在这一行下面是组成特定层的键的列表。
 
 !> 编辑您的keymap文件时，注意不要添加或删除任何逗号。如果这样做，您将阻止您的固件编译，并且您可能不容易找出多余的或缺少的逗号在哪里。
 
@@ -50,9 +50,9 @@
 
 如何完成这一步骤完全取决于您。改变一直困扰着你的问题，或者完全重做所有的事情。如果您不需要全部图层，可以删除图层，或者将图层总数增加到32个。查看以下文档，了解可以在此处定义的内容:
 
-* [键码](keycodes.md)
-* [特性](features.md)
-* [问题与解答](faq.md)
+* [键码](zh-cn/keycodes.md)
+* [特性](zh-cn/features.md)
+* [问题与解答](zh-cn/faq.md)
 
 ?> 当你明白布局是怎么工作时，您也要让每次改变尽可能小。一次改变很大在调试时找出问题会十分困难。
 
@@ -78,4 +78,8 @@ Checking file size of planck_rev5_xyverz.hex                                    
 
 ## 刷新你的固件
 
-请移步 [Flashing Firmware](newbs_flashing.md) 来继续。
+请移步 [Flashing Firmware](zh-cn/newbs_flashing.md) 来继续。
+
+<!--源文件：https://raw.githubusercontent.com/qmk/qmk_firmware/dd04079098a17e22693e83de227001fe548c1606/docs/newbs_building_firmware.md 
+    源提交哈希：dd04079098a17e22693e83de227001fe548c1606-->
+<!--翻译时间:20200225-18:10(GMT+8)-->
