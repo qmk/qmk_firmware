@@ -78,5 +78,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	{ K500,  KC_NO, K502,  K503,  K504,  K505,  K506,  K507,  K508,  K509,  K510,  K511,  KC_NO, K513,  KC_NO, K516,  KC_NO }, \
 	{ K600,  K601,  K603,  KC_NO, KC_NO, KC_NO, K606,  KC_NO, KC_NO, K610,  K611,  K612,  KC_NO, K614,  K615,  K616,  K617 }  \
 }
-
-#endif
