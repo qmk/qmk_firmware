@@ -1,6 +1,6 @@
-# majbritt
+# Majbritt
 
-An Alice look alike with arrow keys. 
+An Alice style keyboard with arrow keys. 
 
 * Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)
 * Hardware Supported: Majbritt PCB
@@ -8,6 +8,6 @@ An Alice look alike with arrow keys.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make majbritt:default
+    make sidderskb/majbritt:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
