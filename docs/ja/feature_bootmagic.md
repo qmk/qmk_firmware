@@ -7,7 +7,7 @@
 
 再書き込みせずにキーボードの挙動を変更することができる、3つの独立した関連する機能があります。それぞれは似たような機能を持ちますが、キーボードがどのように設定されているかによって異なる方法でアクセスされます。
 
-**ブートマジック**は初期化の間にキーボードを設定するためのシステムです。ブートマジックコマンドを引き起こすには、ブートマジックキーと1つ以上のコマンドキーを押し続けます。
+**ブートマジック**は初期化の間にキーボードを設定するためのシステムです。ブートマジックコマンドを起動するには、ブートマジックキーと1つ以上のコマンドキーを押し続けます。
 
 **ブートマジックキーコード** は前に `MAGIC_` が付いており、キーボードが初期化された*後で*ブートマジックの機能にアクセスすることができます。キーコードを使うには、他のキーコードと同じようにそれらをキーマップに割り当てます。
 
@@ -19,9 +19,9 @@
 BOOTMAGIC_ENABLE = full
 ```
 
-?> `full` の代わりに `yes` があるかもしれませんが、これは問題ありません。ただし、`yes` は非推奨で、理想的には `full` (あるいは`lite`) が使われるべきです。
+?> `full` の代わりに `yes` が使われていることがあるかもしれませんが、これは問題ありません。ただし、`yes` は非推奨で、理想的には `full` (あるいは`lite`) が使われるべきです。
 
-さらに、以下を `rules.mk` ファイルに追加することで、[ブートマジック Lite](#bootmagic-lite) (スケールダウンした、とても基本的なバージョンのブートマジック)を使うことができます:
+さらに、以下を `rules.mk` ファイルに追加することで、[ブートマジックライト](#bootmagic-lite) (スケールダウンした、とても基本的なバージョンのブートマジック)を使うことができます:
 
 ```make
 BOOTMAGIC_ENABLE = lite
@@ -35,29 +35,29 @@ BOOTMAGIC_ENABLE = lite
 |------------------|---------------------------------------------|
 | エスケープ | EEPROM のブートマジック設定を無視します |
 | `B` | ブートローダに入ります |
-| `D` | シリアルを介してデバッグを切り替え |
-| `X` | キーマトリックスデバッグの切り替え |
-| `K` | キーボードデバッグの切り替え |
-| `M` | マウスデバッグの切り替え |
-| `L` | EE_HANDS 左右設定に、"左側"を設定 |
-| `R` | EE_HANDS 左右設定に、"右側"を設定 |
+| `D` | シリアルを介するデバッグ出力を切り替え |
+| `X` | キーマトリックスのデバッグ出力の切り替え |
+| `K` | キーボードのデバッグの切り替え |
+| `M` | マウスのデバッグの切り替え |
+| `L` | EE_HANDS 左右設定に、"左手"を設定 |
+| `R` | EE_HANDS 左右設定に、"右手"を設定 |
 | Backspace | EEPROM をクリア |
-| Caps Lock | Caps Lock の扱いを左コントロールとして切り替えます |
-| 左コントロール | Caps Lock と左コントロールの入れ替えを切り替えます |
+| Caps Lock | Caps Lock を左コントロールとして扱うかを切り替えます |
+| 左 Control | Caps Lock と左コントロールの入れ替えを切り替えます |
 | 左 Alt | 左 Alt と左 GUI の入れ替えを切り替えます |
 | 右 Alt | 右 Alt と右 GUI の入れ替えを切り替えます |
-| 左 GUI | GUI キーを切り替えます (ゲームの時に便利です) |
+| 左 GUI | GUI キーの有効・無効を切り替えます (ゲームの時に便利です) |
 | <code>&#96;</code> | <code>&#96;</code> とエスケープの入れ替えを切り替えます |
 | `\` | `\` とバックスペースの入れ替えを切り替えます |
-| `N` | N キーロールオーバー (NKRO) を切り替え |
-| `0` | layer 0 をデフォルトレイヤーにする |
-| `1` | layer 1 をデフォルトレイヤーにする |
-| `2` | layer 2 をデフォルトレイヤーにする |
-| `3` | layer 3 をデフォルトレイヤーにする |
-| `4` | layer 4 をデフォルトレイヤーにする |
-| `5` | layer 5 をデフォルトレイヤーにする |
-| `6` | layer 6 をデフォルトレイヤーにする |
-| `7` | layer 7 をデフォルトレイヤーにする |
+| `N` | N キーロールオーバー (NKRO) の有効・無効を切り替え |
+| `0` | レイヤー 0 をデフォルトレイヤーにする |
+| `1` | レイヤー 1 をデフォルトレイヤーにする |
+| `2` | レイヤー 2 をデフォルトレイヤーにする |
+| `3` | レイヤー 3 をデフォルトレイヤーにする |
+| `4` | レイヤー 4 をデフォルトレイヤーにする |
+| `5` | レイヤー 5 をデフォルトレイヤーにする |
+| `6` | レイヤー 6 をデフォルトレイヤーにする |
+| `7` | レイヤー 7 をデフォルトレイヤーにする |
 
 ## キーコード
 
@@ -81,17 +81,17 @@ BOOTMAGIC_ENABLE = lite
 | `MAGIC_SWAP_ALT_GUI` | `AG_SWAP` | 両側の Alt と GUI の入れ替え |
 | `MAGIC_UNSWAP_ALT_GUI` | `AG_NORM` | 両側の Alt と GUI の入れ替えを解除 |
 | `MAGIC_TOGGLE_ALT_GUI` | `AG_TOGG` | 両側の Alt と GUI の入れ替えの切り替え |
-| `MAGIC_NO_GUI` | `GUI_OFF` | GUI キーを無効 |
+| `MAGIC_NO_GUI` | `GUI_OFF` | GUI キーを無効にする |
 | `MAGIC_UNNO_GUI` | `GUI_ON` | GUI キーを有効にする |
 | `MAGIC_SWAP_GRAVE_ESC` | `GE_SWAP` | <code>&#96;</code> とエスケープを入れ替えます |
 | `MAGIC_UNSWAP_GRAVE_ESC` | `GE_NORM` | <code>&#96;</code> とエスケープの入れ替えを解除します |
 | `MAGIC_SWAP_BACKSLASH_BACKSPACE` | `BS_SWAP` | `\` とバックスペースを入れ替えます |
 | `MAGIC_UNSWAP_BACKSLASH_BACKSPACE` | `BS_NORM` | `\` とバックスペースの入れ替えを解除します |
 | `MAGIC_HOST_NKRO` | `NK_ON` | N キーロールオーバーを有効にする |
-| `MAGIC_UNHOST_NKRO` | `NK_OFF` | N キーロールオーバーを無効 |
-| `MAGIC_TOGGLE_NKRO` | `NK_TOGG` | N キーロールオーバー を切り替えます |
-| `MAGIC_EE_HANDS_LEFT` | `EH_LEFT` | 分割キーボードのマスター側を左側に設定します(`EE_HANDS` 用) |
-| `MAGIC_EE_HANDS_RIGHT` | `EH_RGHT` | 分割キーボードのマスター側を右側に設定します(`EE_HANDS` 用) |
+| `MAGIC_UNHOST_NKRO` | `NK_OFF` | N キーロールオーバーを無効にする |
+| `MAGIC_TOGGLE_NKRO` | `NK_TOGG` | N キーロールオーバーの有効・無効を切り替えます |
+| `MAGIC_EE_HANDS_LEFT` | `EH_LEFT` | 分割キーボードのマスター側を左手に設定します(`EE_HANDS` 用) |
+| `MAGIC_EE_HANDS_RIGHT` | `EH_RGHT` | 分割キーボードのマスター側を右手に設定します(`EE_HANDS` 用) |
 
 ## 設定
 
@@ -103,32 +103,32 @@ BOOTMAGIC_ENABLE = lite
 | `BOOTMAGIC_KEY_SKIP` | `KC_ESC` | EEPROM のブートマジック設定を無視します |
 | `BOOTMAGIC_KEY_EEPROM_CLEAR` | `KC_BSPACE` | EEPROM 設定をクリアします |
 | `BOOTMAGIC_KEY_BOOTLOADER` | `KC_B` | ブートローダに入ります |
-| `BOOTMAGIC_KEY_DEBUG_ENABLE` | `KC_D` | シリアルを介してデバッグを切り替え |
+| `BOOTMAGIC_KEY_DEBUG_ENABLE` | `KC_D` | シリアルを介するデバッグ出力を切り替え |
 | `BOOTMAGIC_KEY_DEBUG_MATRIX` | `KC_X` | マトリックスのデバッグを切り替えます |
-| `BOOTMAGIC_KEY_DEBUG_KEYBOARD` | `KC_K` | キーボードデバッグの切り替え |
-| `BOOTMAGIC_KEY_DEBUG_MOUSE` | `KC_M` | マウスデバッグの切り替え |
-| `BOOTMAGIC_KEY_EE_HANDS_LEFT` | `KC_L` | EE_HANDS 左右設定に、"左側"を設定 |
-| `BOOTMAGIC_KEY_EE_HANDS_RIGHT` | `KC_R` | EE_HANDS 左右設定に、"右側"を設定 |
+| `BOOTMAGIC_KEY_DEBUG_KEYBOARD` | `KC_K` | キーボードのデバッグの切り替え |
+| `BOOTMAGIC_KEY_DEBUG_MOUSE` | `KC_M` | マウスのデバッグの切り替え |
+| `BOOTMAGIC_KEY_EE_HANDS_LEFT` | `KC_L` | EE_HANDS 左右設定に、"左手"を設定 |
+| `BOOTMAGIC_KEY_EE_HANDS_RIGHT` | `KC_R` | EE_HANDS 左右設定に、"右手"を設定 |
 | `BOOTMAGIC_KEY_SWAP_CONTROL_CAPSLOCK` | `KC_LCTRL` | 左コントロールと Caps Lock を入れ替えます |
-| `BOOTMAGIC_KEY_CAPSLOCK_TO_CONTROL` | `KC_CAPSLOCK` | Caps Lock の扱いを左コントロールとして切り替えます |
+| `BOOTMAGIC_KEY_CAPSLOCK_TO_CONTROL` | `KC_CAPSLOCK` | Caps Lock を左コントロールとして扱うかを切り替えます |
 | `BOOTMAGIC_KEY_SWAP_LALT_LGUI` | `KC_LALT` | 左 Alt と左 GUI の入れ替えを切り替えます (macOS 用) |
 | `BOOTMAGIC_KEY_SWAP_RALT_RGUI` | `KC_RALT` | 右 Alt と右 GUI の入れ替えを切り替えます (macOS 用) |
-| `BOOTMAGIC_KEY_NO_GUI` | `KC_LGUI` | GUI キーを切り替えます (ゲームの時に便利です) |
+| `BOOTMAGIC_KEY_NO_GUI` | `KC_LGUI` | GUI キーの有効・無効を切り替えます (ゲームの時に便利です) |
 | `BOOTMAGIC_KEY_SWAP_GRAVE_ESC` | `KC_GRAVE` | <code>&#96;</code> とエスケープの入れ替えを切り替えます |
 | `BOOTMAGIC_KEY_SWAP_BACKSLASH_BACKSPACE` | `KC_BSLASH` | `\` とバックスペースの入れ替えを切り替えます |
-| `BOOTMAGIC_HOST_NKRO` | `KC_N` | N キーロールオーバー (NKRO) を切り替え |
-| `BOOTMAGIC_KEY_DEFAULT_LAYER_0` | `KC_0` | layer 0 をデフォルトレイヤーにする |
-| `BOOTMAGIC_KEY_DEFAULT_LAYER_1` | `KC_1` | layer 1 をデフォルトレイヤーにする |
-| `BOOTMAGIC_KEY_DEFAULT_LAYER_2` | `KC_2` | layer 2 をデフォルトレイヤーにする |
-| `BOOTMAGIC_KEY_DEFAULT_LAYER_3` | `KC_3` | layer 3 をデフォルトレイヤーにする |
-| `BOOTMAGIC_KEY_DEFAULT_LAYER_4` | `KC_4` | layer 4 をデフォルトレイヤーにする |
-| `BOOTMAGIC_KEY_DEFAULT_LAYER_5` | `KC_5` | layer 5 をデフォルトレイヤーにする |
-| `BOOTMAGIC_KEY_DEFAULT_LAYER_6` | `KC_6` | layer 6 をデフォルトレイヤーにする |
-| `BOOTMAGIC_KEY_DEFAULT_LAYER_7` | `KC_7` | layer 7 をデフォルトレイヤーにする |
+| `BOOTMAGIC_HOST_NKRO` | `KC_N` | N キーロールオーバー (NKRO) の有効・無効を切り替え |
+| `BOOTMAGIC_KEY_DEFAULT_LAYER_0` | `KC_0` | レイヤー 0 をデフォルトレイヤーにする |
+| `BOOTMAGIC_KEY_DEFAULT_LAYER_1` | `KC_1` | レイヤー 1 をデフォルトレイヤーにする |
+| `BOOTMAGIC_KEY_DEFAULT_LAYER_2` | `KC_2` | レイヤー 2 をデフォルトレイヤーにする |
+| `BOOTMAGIC_KEY_DEFAULT_LAYER_3` | `KC_3` | レイヤー 3 をデフォルトレイヤーにする |
+| `BOOTMAGIC_KEY_DEFAULT_LAYER_4` | `KC_4` | レイヤー 4 をデフォルトレイヤーにする |
+| `BOOTMAGIC_KEY_DEFAULT_LAYER_5` | `KC_5` | レイヤー 5 をデフォルトレイヤーにする |
+| `BOOTMAGIC_KEY_DEFAULT_LAYER_6` | `KC_6` | レイヤー 6 をデフォルトレイヤーにする |
+| `BOOTMAGIC_KEY_DEFAULT_LAYER_7` | `KC_7` | レイヤー 7 をデフォルトレイヤーにする |
 
-# ブートマジック Lite :id=bootmagic-lite
+# ブートマジックライト :id=bootmagic-lite
 
-本格的なブートマジック機能の他に、ブートローダへのジャンプのみを処理するブートマジック lite があります。これは、物理的なリセットボタンが無くブートローダにジャンプする方法が必要だが、ブートマジックが引き起こす問題を扱いたくない場合に適しています。
+本格的なブートマジック機能の他に、ブートローダへのジャンプのみを処理するブートマジックライトがあります。これは、物理的なリセットボタンが無くブートローダにジャンプする方法が必要だが、ブートマジックが引き起こす問題を扱いたくないキーボードに適しています。
 
 ブートマジックのこのバージョンを有効にするには、以下を使って `rules.mk` で有効にする必要があります:
 
@@ -136,7 +136,7 @@ BOOTMAGIC_ENABLE = lite
 BOOTMAGIC_ENABLE = lite
 ```
 
-さらに、どのキーを使うかを指定したいかもしれません。これは普通ではないメトリクスを持つキーボードで特に便利です。そのためには、使いたいキーの列と行を指定する必要があります。`config.h` ファイルにこれらのエントリを追加します:
+さらに、どのキーを使うかを指定したいかもしれません。これは普通ではないマトリックスを持つキーボードで特に便利です。そのためには、使いたいキーの行と列を指定する必要があります。`config.h` ファイルにこれらのエントリを追加します:
 
 ```c
 #define BOOTMAGIC_LITE_ROW 0
@@ -147,11 +147,11 @@ BOOTMAGIC_ENABLE = lite
 
 ブートローダを起動するには、キーボードを接続する時にこのキーを押し続けます。たった1つのキーです。
 
-!> ブートマジック lite の使用は、EEPROM を**常にリセットします**。つまり保存された全ての設定は失われます。
+!> ブートマジックライトを使用すると、EEPROM を**常にリセットします**。つまり保存された全ての設定は失われます。
 
-## 高度なブートマジック lite
+## 高度なブートマジックライト
 
-`bootmagic_lite` の関数は必要に応じてコード内で置き換えることができるように、弱く定義されています。これの良い例は Zeal60 ボードで、追加の処理が必要です。
+`bootmagic_lite` 関数は必要に応じてコード内で置き換えることができるように、弱く定義されています。これの良い例は Zeal60 キーボードで、追加の処理が必要です。
 
 関数を置き換えるには、以下のようなものをコードに追加するだけです:
 
@@ -168,4 +168,4 @@ void bootmagic_lite(void) {
 }
 ```
 
-追加の機能をここに追加することができます。例えば、eeprom の再設定、あるいはブートマジックを起動するために押される追加のキーを必要とします。`bootmagic_lite` はファームウェア内で大部分の機能が初期化される前に呼ばれることに注意してください。
+追加の機能をここに追加することができます。例えば、eeprom のリセットやブートマジックを起動するために押す必要がある追加のキーです。`bootmagic_lite` はファームウェア内で大部分の機能が初期化される前に呼ばれることに注意してください。
