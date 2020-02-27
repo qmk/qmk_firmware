@@ -1,11 +1,5 @@
 #include "brandonschlack.h"
 
-#if defined(TAP_CODE_DELAY)
-    #define SS_DELAY TAP_CODE_DELAY
-#else
-    #define SS_DELAY 5
-#endif
-
 // Super CMD↯TAB
 bool is_cmd_tab_active = false;
 uint16_t cmd_tab_timer = 0;
@@ -45,17 +39,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case QM_VRSN:  // Prints firmware version
             if (record->event.pressed) {
-                send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), SS_DELAY);
+                SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
             }
             break;
         case QM_KYBD:  // Prints keyboard path
             if (record->event.pressed) {
-                send_string_with_delay_P(PSTR("keyboards/" QMK_KEYBOARD "/"), SS_DELAY);
+                SEND_STRING("keyboards/" QMK_KEYBOARD "/");
             }
             break;
         case QM_KYMP:  // Prints keymap path
             if (record->event.pressed) {
-                send_string_with_delay_P(PSTR("keyboards/" QMK_KEYBOARD "/keymaps/" QMK_KEYMAP "/keymap.c"), SS_DELAY);
+                SEND_STRING("keyboards/" QMK_KEYBOARD "/keymaps/" QMK_KEYMAP "/keymap.c");
             }
             break;
         case CMD_TAB: // Super CMD↯TAB
@@ -135,23 +129,23 @@ void matrix_scan_cmd_tab(void) {
  * Sends FORCE_LAYOUT parameter if built with FORCE_LAYOUT
  */
 void send_make_command(bool flash_bootloader) {
-    send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), SS_DELAY);
+    SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
     if (flash_bootloader) {
 #if defined(KEYBOARD_massdrop_alt) // only run for Massdrop ALT
-        send_string_with_delay_P(PSTR(" && mdlflash " QMK_KEYBOARD " " QMK_KEYMAP), SS_DELAY);
+        SEND_STRING(" && mdlflash " QMK_KEYBOARD " " QMK_KEYMAP);
 #elif defined(KEYBOARD_coseyfannitutti_discipline) // only run for Discipline 65
-        send_string_with_delay_P(PSTR(":program"), SS_DELAY);
+        SEND_STRING(":program");
 #else // use universal flash command
-        send_string_with_delay_P(PSTR(":flash"), SS_DELAY);
+        SEND_STRING(":flash");
 #endif
 #if defined(FORCE_LAYOUT) // Add layout string if built with FORCE_LAYOUT
-        send_string_with_delay_P(PSTR(" FORCE_LAYOUT=" FORCE_LAYOUT), SS_DELAY);
+        SEND_STRING(" FORCE_LAYOUT=" FORCE_LAYOUT);
 #endif
 #if defined(CONVERT_TO_PROTON_C) // Add CTPC if built with CONVERT_TO_PROTON_C
-        send_string_with_delay_P(PSTR(" CTPC=" CONVERT_TO_PROTON_C), SS_DELAY);
+        SEND_STRING(" CTPC=" CONVERT_TO_PROTON_C);
 #endif
     }
-    send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), SS_DELAY);
+    SEND_STRING(SS_TAP(X_ENTER));
     if (flash_bootloader) {
         reset_keyboard();
     }
