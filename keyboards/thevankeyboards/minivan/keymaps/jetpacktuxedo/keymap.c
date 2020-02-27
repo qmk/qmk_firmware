@@ -1,9 +1,9 @@
 #include QMK_KEYBOARD_H
 
-enum Tigerstripes_td {
+enum {
     TD_COL = 0,
-    BE_TD_CTL, //not used; kept here for formatting reminder
-    BE_TD_ALT,  //not used; kept here for formatting reminder
+    //BE_TD_CTL, //not used; kept here for formatting reminder
+    //BE_TD_ALT,  //not used; kept here for formatting reminder
 };
 
 //Tap Dance Definitions
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [4] = LAYOUT_arrow_command( /* hold left fn LAYER 4 for right hand numberpad */
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P7, KC_P8, KC_P9, KC_PMNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P4, KC_P5, KC_P6, KC_PPLUS, KC_DEL,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P4, KC_P5, KC_P6, KC_PPLS, KC_DEL,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P1, KC_P2, KC_P3, KC_PENT, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_NO,          KC_P0, KC_PDOT, KC_PENT, KC_TRNS
   ),
