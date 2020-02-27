@@ -178,6 +178,18 @@ Simple firmware can be created easily using the [Keyboard Firmware Builder](http
 
 Go through the rest of the tabs, assigning keys until you get to the last one where you can compile and download your firmware.  The .hex file can be flashed straight onto your keyboard, and the .zip of source files can be modified for advanced functionality and compiled locally using the method described in [Building Your First Firmware](newbs_building_firmware?id=build-your-firmware).
 
+The source given by Keyboard Firmware Builder is QMK, but is based on a version of QMK from early 2017. To compile the code from your .zip file in a modern version of QMK Firmware, you'll need to open the .zip and follow these instructions:
+
+1. Extract the `kb` folder to `qmk_firmware/keyboards/handwired/`.
+2. Open the extracted `kb` folder, then proceed to the `keymaps/default/` folder, and open `keymap.c`.
+   * Locate and delete the `action_get_macro` code block:
+   ```
+    const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
+        ...
+        return MACRO_NONE;
+    }
+   ```
+   * Save and close `keymap.c`.
 
 ## Flashing the Firmware
 
