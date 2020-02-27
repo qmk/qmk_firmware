@@ -33,6 +33,8 @@ void matrix_scan_cmd_tab(void);
 /* Layer Aliases */
 #define FN_LYR    MO(_FN1)             // Hold for FN Layer
 #define LOWER     MO(_LOWER)           // Hold for LOWER Layer
+#define SPC_LWR   LT(_LOWER, KC_SPC)   // Tap for Space, Hold for LOWER Layer
+#define SPC_RAI   LT(_RAISE, KC_SPC)   // Tap for Space, Hold for RAISE Layer
 #define RAISE     MO(_RAISE)           // Hold for RAISE Layer
 #define MCO_LYR   MO(_MACRO)           // Hold for MACRO Layer
 #define TG_ADJT   TG(_ADJUST)          // Toggle ADJUST Layer
