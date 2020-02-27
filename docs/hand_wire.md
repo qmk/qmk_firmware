@@ -183,14 +183,14 @@ The source given by Keyboard Firmware Builder is QMK, but is based on a version 
 
 1. Extract the `kb` folder to `qmk_firmware/keyboards/handwired/`.
 2. Open the extracted `kb` folder, then proceed to the `keymaps/default/` folder, and open `keymap.c`.
-   * Locate and delete the `action_get_macro` code block:
+3. Locate and delete the `action_get_macro` code block:
    ```
     const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
         ...
         return MACRO_NONE;
     }
    ```
-   * Save and close `keymap.c`.
+4. Save and close `keymap.c`.
 
 ## Flashing the Firmware
 
