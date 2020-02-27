@@ -114,9 +114,9 @@ enum action_kind_id {
     ACT_LAYER_TAP     = 0b1010, /* Layer  0-15 */
     ACT_LAYER_TAP_EXT = 0b1011, /* Layer 16-31 */
     /* Extensions */
-    ACT_MACRO     = 0b1100,
-    ACT_COMMAND   = 0b1110,
-    ACT_FUNCTION  = 0b1111
+    ACT_MACRO    = 0b1100,
+    ACT_COMMAND  = 0b1110,
+    ACT_FUNCTION = 0b1111
 };
 
 /** \brief Action Code Struct
