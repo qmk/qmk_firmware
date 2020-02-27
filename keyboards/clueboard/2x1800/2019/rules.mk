@@ -5,7 +5,7 @@ ARCH = AVR8
 F_USB = $(F_CPU)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 OPT_DEFS += -DBOOTLOADER_SIZE=1024
-
+BOOTLOADER = halfkay
 
 # Build Options
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration

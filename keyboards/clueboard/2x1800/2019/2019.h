@@ -252,3 +252,6 @@ enum TWOx1800_keycodes {
 // Encoder update function that returns true/false
 __attribute__ ((weak))
 bool encoder_update_keymap(int8_t index, bool clockwise);
+
+// Encoder button combo check
+void check_encoder_buttons(void);

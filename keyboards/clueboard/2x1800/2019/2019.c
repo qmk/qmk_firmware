@@ -30,10 +30,33 @@ void matrix_init_kb(void) {
     matrix_init_user();
 }
 
+void check_encoder_buttons(void) {
+    if (!all_4_pressed && btn1_pressed && btn2_pressed && btn3_pressed && btn4_pressed) {
+        // All 4 buttons pressed, toggle drawing mode
+        all_4_pressed = true;
+	if (drawing_mode) {
+            drawing_mode = false;
+	    // FIXME: Release the mouse button
+	} else {
+            drawing_mode = true;
+	    // FIXME: Press the mouse button
+	}
+    }
+}
+
 #ifdef SHAKE_ENABLE
 uint8_t tilt_state = 0x11;
 uint8_t detected_shakes = 0;
 static uint16_t shake_timer;
+#endif
+
+#ifdef DRAWING_ENABLE
+bool drawing_mode = false;
+bool all_4_pressed = false;
+bool btn1_pressed = false;
+bool btn2_pressed = false;
+bool btn3_pressed = false;
+bool btn4_pressed = false;
 #endif
 
 void matrix_scan_kb(void) {
@@ -64,11 +87,36 @@ void matrix_scan_kb(void) {
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        if (keycode == ENC_BTN1) {
-            
-        }
+#ifdef DRAWING_ENABLE
+    if (keycode == ENC_BTN1) {
+        if (record->event.pressed) {
+            btn1_pressed = true;
+	} else {
+            btn1_pressed = false;
+	}
     }
+    if (keycode == ENC_BTN2) {
+        if (record->event.pressed) {
+            btn2_pressed = true;
+	} else {
+            btn2_pressed = false;
+	}
+    }
+    if (keycode == ENC_BTN3) {
+        if (record->event.pressed) {
+            btn3_pressed = true;
+	} else {
+            btn3_pressed = false;
+	}
+    }
+    if (keycode == ENC_BTN4) {
+        if (record->event.pressed) {
+            btn4_pressed = true;
+	} else {
+            btn4_pressed = false;
+	}
+    }
+#endif
 
     return process_record_user(keycode, record);
 }
