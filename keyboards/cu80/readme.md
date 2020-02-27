@@ -4,9 +4,9 @@
 
 A customizable 60% keyboard.
 
-Keyboard Maintainer: [aHolland909](https://github.com/aholland909)  
-Hardware Supported: CU80  
-Hardware Availability: [CapsUnlocked](https://caps-unlocked.com/group-buy-cu80/)
+* Keyboard Maintainer: [aHolland909](https://github.com/aholland909)
+* Hardware Supported: CU80
+* Hardware Availability: [CapsUnlocked](https://caps-unlocked.com/group-buy-cu80/)
 
 Make example for this keyboard (after setting up your build environment):
 
