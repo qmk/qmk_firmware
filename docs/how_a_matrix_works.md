@@ -1,16 +1,10 @@
-## Preamble: How a Keyboard Matrix Works (and why we need diodes)
+# How a Keyboard Matrix Works
 
-The collapsible section below covers why keyboards are wired the way they are, as outlined in this guide.  It isn't required reading to make your own hand wired keyboard, but provides background information.
+Keyboard switch matrices are arranged in rows and columns. Without a matrix circuit, each switch would require its own wire directly to the controller.
 
-<details>
+When the circuit is arranged in rows and columns, if a key is pressed, a column wire makes contact with a row wire and completes a circuit. The keyboard controller detects this closed circuit and registers it as a key press.
 
-<summary>Click for details</summary>
-
-Without a matrix circuit each switch would require its own wire directly to the controller.
-
-Simply put, when the circuit is arranged in rows and columns, if a key is pressed, a column wire makes contact with a row wire and completes a circuit. The keyboard controller detects this closed circuit and registers it as a key press.
-
-The microcontroller will be setup up via the firmware to send a logical 1 to the columns, one at a time, and read from the rows, all at once - this process is called matrix scanning. The matrix is a bunch of open switches that, by default, don't allow any current to pass through - the firmware will read this as no keys being pressed. As soon as you press one key down, the logical 1 that was coming from the column the keyswitch is attached to gets passed through the switch and to the corresponding row - check out the following 2x2 example:
+The microcontroller will be set up via the firmware to send a logical 1 to the columns, one at a time, and read from the rows, all at once - this process is called matrix scanning. The matrix is a bunch of open switches that, by default, don't allow any current to pass through - the firmware will read this as no keys being pressed. As soon as you press one key down, the logical 1 that was coming from the column the keyswitch is attached to gets passed through the switch and to the corresponding row - check out the following 2x2 example:
 
         Column 0 being scanned     Column 1 being scanned
                   x                                   x
@@ -32,7 +26,7 @@ When we press `key0`, `col0` gets connected to `row0`, so the values that the fi
                   |        |                 |        |
         row1 ---(key2)---(key3)    row1 ---(key2)---(key3)
 
-We can now see that `row0` has an `x`, so has the value of 1. As a whole, the data the firmware receives when `key0` is pressed is
+We can now see that `row0` has an `x`, so has the value of 1. As a whole, the data the firmware receives when `key0` is pressed is:
 
     col0: 0b01
     col1: 0b00
@@ -103,5 +97,3 @@ Further reading:
 - [Keyboard Matrix Help by Dave Dribin (2000)](https://www.dribin.org/dave/keyboard/one_html/)
 - [How Key Matrices Works by PCBheaven](http://pcbheaven.com/wikipages/How_Key_Matrices_Works/) (animated examples)
 - [How keyboards work - QMK documentation](how_keyboards_work.md)
-
-</details>
