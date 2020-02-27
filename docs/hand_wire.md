@@ -32,29 +32,29 @@ Start by installing the switches and stabilisers in the plate. Depending on the 
 
 If you are following a pre-existing handwire guide (e.g. for the keyboards in the [handwire firmware section](https://github.com/qmk/qmk_firmware/tree/master/keyboards/handwired) you can skip this step, just ensure you wire the matrix as described.
 
-What you want to achieve is one leg from each switch being attached to the corresponding switches next to it (rows) and the other leg being attached to the switches above and below it (columns) and a diode to one of the legs, mosy commonly this will be the leg attached to the rows, and the diode will face away from it (Column to Row) i.e. with the wire furthest from the black line on the diode connected to the switch (as current will only travel in one direction through a diode)
+What you want to achieve is one leg from each switch being attached to the corresponding switches next to it (rows) and the other leg being attached to the switches above and below it (columns) and a diode to one of the legs, mosy commonly this will be the leg attached to the rows, and the diode will face away from it (Column to Row) i.e. with the wire furthest from the black line on the diode connected to the switch (as current will only travel in one direction through a diode).
 
 It is fairly simple to plan for an ortholinear keyboard (like a Planck).
 
-![Example planck matrix](https://i.imgur.com/FRShcLD.png)
+![Example Planck matrix](https://i.imgur.com/FRShcLD.png)
 Image from [RoastPotatoes' "How to hand wire a Planck"](https://blog.roastpotatoes.co/guide/2015/11/04/how-to-handwire-a-planck/)
 
 But the larger and more complicated your keyboard, the more complex the matrix.  [Keyboard Firmware Builder](https://kbfirmware.com/) can help you plan your matrix layout (shown here with a basic fullsize ISO keyboard imported from [Keyboard Layout Editor](http://www.keyboard-layout-editor.com).
 
 ![Example ISO matrix](https://i.imgur.com/UlJ4ZDP.png)
 
- Bear in mind that the number of rows plus the number of columns can not exceed the number of I/O pins on your controller.  So the fullsize matrix shown above would be possible on a Proton C or Teensy++, but not on a regular Teensy or Pro Micro
+Bear in mind that the number of rows plus the number of columns can not exceed the number of I/O pins on your controller.  So the fullsize matrix shown above would be possible on a Proton C or Teensy++, but not on a regular Teensy or Pro Micro.
 
 ### Common Microcontroller Boards
 
 | Board         | Controller    | # I/O  | Pinout |
 | :------------ |:-------------:| ------:| ------ |
-| Pro Micro*     | ATmega32u4    |     20 | [link](https://learn.sparkfun.com/tutorials/pro-micro--fio-v3-hookup-guide/hardware-overview-pro-micro#Teensy++_2.0)       |
+| Pro Micro*    | ATmega32u4    |     20 | [link](https://learn.sparkfun.com/tutorials/pro-micro--fio-v3-hookup-guide/hardware-overview-pro-micro#Teensy++_2.0)       |
 | Teensy 2.0    | ATmega32u4    |     25 | [link](https://www.pjrc.com/teensy/pinout.html)       |
 | [QMK Proton C](https://qmk.fm/proton-c/)      | STM32F303xC   |     36 | [link 1](https://i.imgur.com/RhtrAlc.png), [2](https://deskthority.net/wiki/QMK_Proton_C)       |
 | Teensy++ 2.0  | AT90USB1286   |     46 | [link](https://www.pjrc.com/teensy/pinout.html#Teensy_2.0)       |
 
-*Elite C is essentially the same as a pro micro with a USB-C instead of Micro-USB
+*Elite C is essentially the same as a Pro Micro with a USB-C instead of Micro-USB
 
 There are also a number of boards designed specifically for handwiring that mount directly to a small number of switches and offer pinouts for the rest.  Though these are generally more expensive and may be more difficult to get hold of.
 
@@ -95,7 +95,7 @@ If you are planning a split keyboard (e.g. Dactyl) each half will require a cont
 
 There are a lot of soldering guides and tips available elsewhere but here are some of the most useful and relevant for hand wiring:
 
-To ensure a strong solder joint you want a good amount of contact between the solder and the 2 peices of metal you are connecting, a good way of doing this (though not required) is looping around pins or twisting wires together before applying solder.
+To ensure a strong solder joint you want a good amount of contact between the solder and the two pieces of metal you are connecting. A good way of doing this (though not required) is looping around pins or twisting wires together before applying solder.
 
 <img src="https://i.imgur.com/eHJjmnU.jpg" alt="Looped around rod" width="200"/> <img src="https://i.imgur.com/8nbxmmr.jpg?1" alt="Looped diode leg" width="200"/>
 
@@ -113,7 +113,7 @@ Don't hold the iron on the solder/joint longer than necessary. Heat will be cond
 
 #### Soldering the Diodes
 
-Starting at the top-left switch, place the diode (with tweezers if you have them) on the switch so that the diode itself is vertically aligned, and the black line is facing toward you. The straight end of the diode should be touching the left contact on the switch, and the bent end should be facing to the right and resting on the switch there, like this:
+Starting at the top-left switch, place the diode (with tweezers if you have them) on the switch so that the diode itself is vertically aligned, and the black line is facing toward you. The input lead of the diode should be touching the left contact on the switch, and the bent, output end should be facing to the right and resting on the switch there, like this:
 
 ![soldering-diodes-01.png](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/docs/hand_wire/soldering-diodes-01.png)
 
@@ -149,7 +149,7 @@ Place the microcontroller where you want it to be located, give thought to mount
 
 Find the pinout/documentation for your microcontroller board ([links here](#common-microcontroller-boards)) and make a note of all the digital I/O pins on it (note that on some controllers, like the teensy, analogue I/O can double as digital) as these are the pins you want to connect your wires to.
 
-<aside>
+----
 
 ### Specific instructions for the Teensy 2.0
 
@@ -157,7 +157,8 @@ There are some pins on the Teensy that are special, like D6 (the LED on the chip
 
 The pins you'll absolutely have to avoid, as with any controller, are: GND, VCC, AREF, and RST - all the others are usable and accessible in the firmware.
 
-</aside>
+----
+
 
 Cut wires to the length of the distance from the a point on each column/row to the controller.  You can solder anywhere along the row, as long as it's after the diode - soldering before the diode (on the keyswitch side) will cause that row not to work.
 
