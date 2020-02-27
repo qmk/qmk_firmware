@@ -52,11 +52,13 @@ void matrix_scan_cmd_tab(void);
 /**
  * Arrow Mod-Tap
  * Use the Mod-Tap feature for arrow keys
- * Mostly used for 60% layouts
+ * Mostly used for 40-60% layouts
  */
 #define UP_RSFT   RSFT_T(KC_UP)        // Tap Right Shift for Up
 #define LFT_ALT   RALT_T(KC_LEFT)      // Tap Right Alt for Left
+#define LFT_GUI   RGUI_T(KC_LEFT)      // Tap Right GUI for Left
 #define DWN_FN1   LT(1, KC_DOWN)       // Tap Fn for Down
+#define DWN_ALT   RALT_T(KC_DOWN)      // Tap Right Alt for Down
 #define RGT_CTL   RCTL_T(KC_RGHT)      // Tap Right Ctrl for Right
 /**
  * Nav Mod-Tap
