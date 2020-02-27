@@ -20,12 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
+#define VENDOR_ID       0x534B // SB
+#define PRODUCT_ID      0x0001
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    [EDIT_THIS]
-#define PRODUCT         [EDIT_THIS] Majbritt Finished Default
-#define DESCRIPTION     [EDIT_THIS] A QMK-powered custom keyboard
+#define MANUFACTURER    SiddersKB
+#define PRODUCT         Majbritt
+#define DESCRIPTION     Alice style keyboard with arrows
 
 /* key matrix size */
 #define MATRIX_ROWS 5
