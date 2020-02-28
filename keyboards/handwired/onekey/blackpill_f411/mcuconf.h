@@ -1,5 +1,5 @@
 /*
-    ChibiOS - Copyright (C) 2006..2016 Giovanni Di Sirio
+    ChibiOS - Copyright (C) 2006..2018 Giovanni Di Sirio
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -65,6 +65,24 @@
 #define STM32_BKPRAM_ENABLE                 FALSE
 
 /*
+ * IRQ system settings.
+ */
+#define STM32_IRQ_EXTI0_PRIORITY            6
+#define STM32_IRQ_EXTI1_PRIORITY            6
+#define STM32_IRQ_EXTI2_PRIORITY            6
+#define STM32_IRQ_EXTI3_PRIORITY            6
+#define STM32_IRQ_EXTI4_PRIORITY            6
+#define STM32_IRQ_EXTI5_9_PRIORITY          6
+#define STM32_IRQ_EXTI10_15_PRIORITY        6
+#define STM32_IRQ_EXTI16_PRIORITY           6
+#define STM32_IRQ_EXTI17_PRIORITY           15
+#define STM32_IRQ_EXTI18_PRIORITY           6
+#define STM32_IRQ_EXTI19_PRIORITY           6
+#define STM32_IRQ_EXTI20_PRIORITY           6
+#define STM32_IRQ_EXTI21_PRIORITY           15
+#define STM32_IRQ_EXTI22_PRIORITY           15
+
+/*
  * ADC driver system settings.
  */
 #define STM32_ADC_ADCPRE                    ADC_CCR_ADCPRE_DIV4
@@ -73,22 +91,6 @@
 #define STM32_ADC_ADC1_DMA_PRIORITY         2
 #define STM32_ADC_IRQ_PRIORITY              6
 #define STM32_ADC_ADC1_DMA_IRQ_PRIORITY     6
-
-/*
- * EXT driver system settings.
- */
-#define STM32_EXT_EXTI0_IRQ_PRIORITY        6
-#define STM32_EXT_EXTI1_IRQ_PRIORITY        6
-#define STM32_EXT_EXTI2_IRQ_PRIORITY        6
-#define STM32_EXT_EXTI3_IRQ_PRIORITY        6
-#define STM32_EXT_EXTI4_IRQ_PRIORITY        6
-#define STM32_EXT_EXTI5_9_IRQ_PRIORITY      6
-#define STM32_EXT_EXTI10_15_IRQ_PRIORITY    6
-#define STM32_EXT_EXTI16_IRQ_PRIORITY       6
-#define STM32_EXT_EXTI17_IRQ_PRIORITY       15
-#define STM32_EXT_EXTI18_IRQ_PRIORITY       6
-#define STM32_EXT_EXTI19_IRQ_PRIORITY       6
-#define STM32_EXT_EXTI22_IRQ_PRIORITY       15
 
 /*
  * GPT driver system settings.
@@ -181,7 +183,7 @@
  * SERIAL driver system settings.
  */
 #define STM32_SERIAL_USE_USART1             FALSE
-#define STM32_SERIAL_USE_USART2             TRUE
+#define STM32_SERIAL_USE_USART2             FALSE
 #define STM32_SERIAL_USE_USART6             FALSE
 #define STM32_SERIAL_USART1_PRIORITY        12
 #define STM32_SERIAL_USART2_PRIORITY        12
@@ -190,8 +192,8 @@
 /*
  * SPI driver system settings.
  */
-#define STM32_SPI_USE_SPI1                  TRUE
-#define STM32_SPI_USE_SPI2                  TRUE
+#define STM32_SPI_USE_SPI1                  FALSE
+#define STM32_SPI_USE_SPI2                  FALSE
 #define STM32_SPI_USE_SPI3                  FALSE
 #define STM32_SPI_SPI1_RX_DMA_STREAM        STM32_DMA_STREAM_ID(2, 0)
 #define STM32_SPI_SPI1_TX_DMA_STREAM        STM32_DMA_STREAM_ID(2, 3)
