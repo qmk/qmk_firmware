@@ -4,8 +4,13 @@
 //Following line allows macro to read current RGB settings
 extern rgblight_config_t rgblight_config;
 #endif
+#ifdef RGB_MATRIX_ENABLE
+//Following line allows macro to read current RGB settings
+extern rgb_config_t rgb_matrix_config;
+#endif
 
 extern uint8_t is_master;
+
 
 #ifdef OLED_DRIVER_ENABLE
 #    define KEYLOGGER_LENGTH 5
@@ -46,6 +51,9 @@ void add_keylog(uint16_t keycode);
 #define _RAISE 3
 #define _ADJUST 4
 
+uint8_t prev = _QWERTY;
+uint32_t check;
+uint32_t desired = RGB_MATRIX_CYCLE_LEFT_RIGHT;
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -212,6 +220,14 @@ void render_mod_status(uint8_t modifiers) {
     oled_write_P(PSTR("G"), (modifiers & MOD_MASK_GUI));
 }
 
+void render_rgb_status(void) {
+    oled_write_P(PSTR("RGB:"), false);
+    static char temp[20] = {0};
+    snprintf(temp, sizeof(temp) + 1, "M:%3dH:%3dS:%3dV:%3d", rgb_matrix_config.mode, rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
+    oled_write_P(temp, false);
+}
+
+
 
 void render_status_main(void) {
     /* Show Keyboard Layout  */
@@ -219,6 +235,9 @@ void render_status_main(void) {
     render_keylock_status(host_keyboard_leds());
     render_layer_state();
     render_mod_status(get_mods() | get_oneshot_mods());
+// #    if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+//     render_rgb_status();
+// #    endif
     render_keylogger_status();
 }
 
@@ -272,6 +291,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
+        desired = RGB_MATRIX_CYCLE_LEFT_RIGHT;
+        rgb_matrix_mode_noeeprom(desired);
         persistent_default_layer_set(1UL<<_QWERTY);
       }
       return false;
@@ -300,13 +321,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           layer_off(_ADJUST);
         }
         return false;
-	case DJMAX:
-        if (record->event.pressed) {
-          persistent_default_layer_set(1UL<<_DJMAX);
-		      update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
-        }
-        return false;	
+    case DJMAX:
+          if (record->event.pressed) {
+            desired = RGB_MATRIX_TYPING_HEATMAP;
+            persistent_default_layer_set(1UL<<_DJMAX);
+            update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
+          }
+          return false;	
   }
+
   if (record->event.pressed) {
       #ifdef OLED_DRIVER_ENABLE
               oled_timer = timer_read32();
@@ -319,4 +342,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       #endif
   }
   return true;
+}
+
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+    case _RAISE:
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
+        rgb_matrix_sethsv_noeeprom(128, 255, rgb_matrix_config.hsv.v);
+        break;
+    case _LOWER:
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
+        rgb_matrix_sethsv_noeeprom(28, 255, rgb_matrix_config.hsv.v);
+        break;
+    case _ADJUST:
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
+        rgb_matrix_sethsv_noeeprom(0, 0, rgb_matrix_config.hsv.v);
+        break;
+    default: //  for any other layers, or the default layer
+        rgb_matrix_mode_noeeprom(desired);
+        break;
+    }
+  return state;
 }
