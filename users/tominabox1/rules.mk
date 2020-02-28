@@ -26,6 +26,7 @@ ifeq ($(strip $(KEYBOARD)), thevankeyboards/minivan)
 EXTRAKEY_ENABLE = yes
 TAP_DANCE_ENABLE = yes
 COMBO_ENABLE = yes
+RGBLIGHT_ENABLE = yes
 SRC += tominabox1.c
 endif
 
@@ -74,7 +75,7 @@ ifeq ($(strip $(KEYBOARD)), handwired/brutal33)
 TAP_DANCE_ENABLE = yes
 COMBO_ENABLE = yes
 NKRO_ENABLE = yes
-RGBLIGHT_ENABLE = yes
+RGBLIGHT_ENABLE = no
 LED_ANIMATIONS = no
 ifeq ($(strip $(LED_ANIMATIONS)), yes)
     # OPT_DEFS += -DRGBLIGHT_ANIMATIONS
