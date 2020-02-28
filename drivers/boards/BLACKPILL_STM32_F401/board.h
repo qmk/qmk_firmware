@@ -1,5 +1,5 @@
 /*
-    ChibiOS - Copyright (C) 2006..2016 Giovanni Di Sirio
+    ChibiOS - Copyright (C) 2006..2018 Giovanni Di Sirio
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -21,6 +21,10 @@
 
 #ifndef BOARD_H
 #define BOARD_H
+
+/*===========================================================================*/
+/* Driver constants.                                                         */
+/*===========================================================================*/
 
 /*
  * Setup for STM32F401CCU6 black pill board.
@@ -230,12 +234,10 @@
 #define LINE_OTG_FS_DP              PAL_LINE(GPIOA, 12U)
 #define LINE_SWDIO                  PAL_LINE(GPIOA, 13U)
 #define LINE_SWCLK                  PAL_LINE(GPIOA, 14U)
-
 #define LINE_SWO                    PAL_LINE(GPIOB, 3U)
 #define LINE_LSM303DLHC_SCL         PAL_LINE(GPIOB, 6U)
 #define LINE_LSM303DLHC_SDA         PAL_LINE(GPIOB, 9U)
 #define LINE_MP45DT02_CLK_IN        PAL_LINE(GPIOB, 10U)
-
 #define LINE_OTG_FS_POWER_ON        PAL_LINE(GPIOC, 0U)
 #define LINE_CS43L22_AIN4x          PAL_LINE(GPIOC, 3U)
 #define LINE_MP45DT02_PDM_OUT       PAL_LINE(GPIOC, 3U)
@@ -244,26 +246,36 @@
 #define LINE_CS43L22_SDIN           PAL_LINE(GPIOC, 12U)
 #define LINE_OSC32_IN               PAL_LINE(GPIOC, 14U)
 #define LINE_OSC32_OUT              PAL_LINE(GPIOC, 15U)
-
 #define LINE_CS43L22_RESET          PAL_LINE(GPIOD, 4U)
 #define LINE_OverCurrent            PAL_LINE(GPIOD, 5U)
 #define LINE_LED4                   PAL_LINE(GPIOD, 12U)
 #define LINE_LED3                   PAL_LINE(GPIOD, 13U)
 #define LINE_LED5                   PAL_LINE(GPIOD, 14U)
 #define LINE_LED6                   PAL_LINE(GPIOD, 15U)
-
 #define LINE_L3GD20_INT1            PAL_LINE(GPIOE, 0U)
 #define LINE_L3GD20_INT2            PAL_LINE(GPIOE, 1U)
 #define LINE_LSM303DLHC_DRDY        PAL_LINE(GPIOE, 2U)
 #define LINE_L3GD20_CS              PAL_LINE(GPIOE, 3U)
 #define LINE_LSM303DLHC_INT1        PAL_LINE(GPIOE, 4U)
 #define LINE_LSM303DLHC_INT2        PAL_LINE(GPIOE, 5U)
-
-
-
 #define LINE_OSC_IN                 PAL_LINE(GPIOH, 0U)
 #define LINE_OSC_OUT                PAL_LINE(GPIOH, 1U)
 
+/*===========================================================================*/
+/* Driver pre-compile time settings.                                         */
+/*===========================================================================*/
+
+/*===========================================================================*/
+/* Derived constants and error checks.                                       */
+/*===========================================================================*/
+
+/*===========================================================================*/
+/* Driver data structures and types.                                         */
+/*===========================================================================*/
+
+/*===========================================================================*/
+/* Driver macros.                                                            */
+/*===========================================================================*/
 
 /*
  * I/O ports initial setup, this configuration is established soon after reset
@@ -1340,6 +1352,9 @@
                                      PIN_AFIO_AF(GPIOI_PIN14, 0U) |         \
                                      PIN_AFIO_AF(GPIOI_PIN15, 0U))
 
+/*===========================================================================*/
+/* External declarations.                                                    */
+/*===========================================================================*/
 
 #if !defined(_FROM_ASM_)
 #ifdef __cplusplus

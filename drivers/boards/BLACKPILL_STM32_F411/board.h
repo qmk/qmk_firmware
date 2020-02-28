@@ -1,5 +1,5 @@
 /*
-    ChibiOS - Copyright (C) 2006..2016 Giovanni Di Sirio
+    ChibiOS - Copyright (C) 2006..2018 Giovanni Di Sirio
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -22,15 +22,19 @@
 #ifndef BOARD_H
 #define BOARD_H
 
+/*===========================================================================*/
+/* Driver constants.                                                         */
+/*===========================================================================*/
+
 /*
- * Setup for STMicroelectronics STM32 Nucleo64-F411RE board.
+ * Setup for STM32F411CEU6 black pill board.
  */
 
 /*
  * Board identifier.
  */
-#define BOARD_ST_NUCLEO64_F411RE
-#define BOARD_NAME                  "STMicroelectronics STM32 Nucleo64-F411RE"
+#define BOARD_BLACKPILL_STM32_F411
+#define BOARD_NAME                  "STM32F411CEU6 blackpill"
 
 /*
  * Allow Board to boot USB without extra A9 hardware/software config
@@ -48,8 +52,7 @@
 #define STM32_HSECLK                25000000U
 #endif
 
-
-//#define STM32_HSE_BYPASS
+#define STM32_HSE_BYPASS
 
 /*
  * Board voltages.
@@ -252,7 +255,6 @@
 #define LINE_OTG_FS_DP              PAL_LINE(GPIOA, 12U)
 #define LINE_SWDIO                  PAL_LINE(GPIOA, 13U)
 #define LINE_SWCLK                  PAL_LINE(GPIOA, 14U)
-
 #define LINE_ARD_A3                 PAL_LINE(GPIOB, 0U)
 #define LINE_ADC1_IN8               PAL_LINE(GPIOB, 0U)
 #define LINE_SWO                    PAL_LINE(GPIOB, 3U)
@@ -263,7 +265,6 @@
 #define LINE_ARD_D15                PAL_LINE(GPIOB, 8U)
 #define LINE_ARD_D14                PAL_LINE(GPIOB, 9U)
 #define LINE_ARD_D6                 PAL_LINE(GPIOB, 10U)
-
 #define LINE_ARD_A5                 PAL_LINE(GPIOC, 0U)
 #define LINE_ADC1_IN10              PAL_LINE(GPIOC, 0U)
 #define LINE_ARD_A4                 PAL_LINE(GPIOC, 1U)
@@ -272,14 +273,24 @@
 #define LINE_BUTTON                 PAL_LINE(GPIOC, 13U)
 #define LINE_OSC32_IN               PAL_LINE(GPIOC, 14U)
 #define LINE_OSC32_OUT              PAL_LINE(GPIOC, 15U)
-
-
-
-
-
 #define LINE_OSC_IN                 PAL_LINE(GPIOH, 0U)
 #define LINE_OSC_OUT                PAL_LINE(GPIOH, 1U)
 
+/*===========================================================================*/
+/* Driver pre-compile time settings.                                         */
+/*===========================================================================*/
+
+/*===========================================================================*/
+/* Derived constants and error checks.                                       */
+/*===========================================================================*/
+
+/*===========================================================================*/
+/* Driver data structures and types.                                         */
+/*===========================================================================*/
+
+/*===========================================================================*/
+/* Driver macros.                                                            */
+/*===========================================================================*/
 
 /*
  * I/O ports initial setup, this configuration is established soon after reset
@@ -1356,6 +1367,9 @@
                                      PIN_AFIO_AF(GPIOI_PIN14, 0U) |         \
                                      PIN_AFIO_AF(GPIOI_PIN15, 0U))
 
+/*===========================================================================*/
+/* External declarations.                                                    */
+/*===========================================================================*/
 
 #if !defined(_FROM_ASM_)
 #ifdef __cplusplus
