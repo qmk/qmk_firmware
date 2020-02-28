@@ -82,7 +82,7 @@
    * [マクロ](ja/feature_macros.md)
    * [マウスキー](ja/feature_mouse_keys.md)
    * [OLED ドライバ](ja/feature_oled_driver.md)
-   * [One Shot Keys](ja/feature_advanced_keycodes.md#one-shot-keys)
+   * [One Shot Keys](ja/one_shot_keys.md)
    * [ポインティング デバイス](ja/feature_pointing_device.md)
    * [PS/2 マウス](ja/feature_ps2_mouse.md)
    * [RGB ライト](ja/feature_rgblight.md)

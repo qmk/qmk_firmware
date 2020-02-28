@@ -39,7 +39,7 @@ How to complete this step is entirely up to you. Make the one change that's been
 
 ?> While you get a feel for how keymaps work, keep each change small. Bigger changes make it harder to debug any problems that arise.
 
-## Build Your Firmware
+## Build Your Firmware :id=build-your-firmware
 
 When your changes to the keymap are complete you will need to build the firmware. To do so go back to your terminal window and run the compile command:
 

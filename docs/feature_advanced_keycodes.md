@@ -1,4 +1,4 @@
-# Switching and Toggling Layers
+# Switching and Toggling Layers :id=switching-and-toggling-layers
 
 These functions allow you to activate layers in various ways. Note that layers are not generally independent layouts -- multiple layers can be activated at once, and it's typical for layers to use `KC_TRNS` to allow keypresses to pass through to lower layers. For a detailed explanation of layers, see [Keymap Overview](keymap.md#keymap-and-layers). When using momentary layer switching with MO(), LM(), TT(), or LT(), make sure to leave the key on the above layers transparent or it may not work as intended.
 
@@ -6,7 +6,7 @@ These functions allow you to activate layers in various ways. Note that layers a
 * `MO(layer)` - momentarily activates *layer*. As soon as you let go of the key, the layer is deactivated. 
 * `LM(layer, mod)` - Momentarily activates *layer* (like `MO`), but with modifier(s) *mod* active. Only supports layers 0-15 and the left modifiers: `MOD_LCTL`, `MOD_LSFT`, `MOD_LALT`, `MOD_LGUI` (note the use of `MOD_` constants instead of `KC_`). These modifiers can be combined using bitwise OR, e.g. `LM(_RAISE, MOD_LCTL | MOD_LALT)`.
 * `LT(layer, kc)` - momentarily activates *layer* when held, and sends *kc* when tapped. Only supports layers 0-15.
-* `OSL(layer)` - momentarily activates *layer* until the next key is pressed. See [One Shot Keys](#one-shot-keys) for details and additional functionality.
+* `OSL(layer)` - momentarily activates *layer* until the next key is pressed. See [One Shot Keys](one_shot_keys.md) for details and additional functionality.
 * `TG(layer)` - toggles *layer*, activating it if it's inactive and vice versa
 * `TO(layer)` - activates *layer* and de-activates all other layers (except your default layer). This function is special, because instead of just adding/removing one layer to your active layer stack, it will completely replace your current active layers, uniquely allowing you to replace higher layers with a lower one. This is activated on keydown (as soon as the key is pressed).
 * `TT(layer)` - Layer Tap-Toggle. If you hold the key down, *layer* is activated, and then is de-activated when you let go (like `MO`). If you repeatedly tap it, the layer will be toggled on or off (like `TG`). It needs 5 taps by default, but you can change this by defining `TAPPING_TOGGLE` -- for example, `#define TAPPING_TOGGLE 2` to toggle on just two taps.
@@ -41,7 +41,7 @@ Layers stack on top of each other in numerical order. When determining what a ke
 
 Sometimes, you might want to switch between layers in a macro or as part of a tap dance routine. `layer_on` activates a layer, and `layer_off` deactivates it. More layer-related functions can be found in [action_layer.h](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/action_layer.h).
 
-# Modifier Keys
+# Modifier Keys :id=modifier-keys
 
 These allow you to combine a modifier with a keycode. When pressed, the keydown event for the modifier, then `kc` will be sent. On release, the keyup event for `kc`, then the modifier will be sent.
 

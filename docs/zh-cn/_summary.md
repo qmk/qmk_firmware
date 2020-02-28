@@ -82,7 +82,7 @@
   * [宏指令](zh-cn/feature_macros.md)
   * [鼠标键](zh-cn/feature_mouse_keys.md)
   * [OLED驱动](zh-cn/feature_oled_driver.md)
-  * [一键功能](zh-cn/feature_advanced_keycodes.md#one-shot-keys)
+  * [一键功能](zh-cn/one_shot_keys.md)
   * [指针设备](zh-cn/feature_pointing_device.md)
   * [PS/2鼠标](zh-cn/feature_ps2_mouse.md)
   * [RGB灯光](zh-cn/feature_rgblight.md)

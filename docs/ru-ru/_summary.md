@@ -78,7 +78,7 @@
   * [Macros](ru-ru/feature_macros.md)
   * [Mouse Keys](ru-ru/feature_mouse_keys.md)
   * [OLED Driver](ru-ru/feature_oled_driver.md)
-  * [One Shot Keys](ru-ru/feature_advanced_keycodes.md#one-shot-keys)
+  * [One Shot Keys](ru-ru/one_shot_keys.md)
   * [Pointing Device](ru-ru/feature_pointing_device.md)
   * [PS/2 Mouse](ru-ru/feature_ps2_mouse.md)
   * [RGB Lighting](ru-ru/feature_rgblight.md)
