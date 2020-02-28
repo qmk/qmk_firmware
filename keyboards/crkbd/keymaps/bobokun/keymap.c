@@ -53,7 +53,8 @@ void add_keylog(uint16_t keycode);
 
 uint8_t prev = _QWERTY;
 uint32_t check;
-uint32_t desired = RGB_MATRIX_CYCLE_LEFT_RIGHT;
+uint32_t desired;
+uint32_t prev_desired;
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -137,6 +138,12 @@ uint16_t get_tapping_term(uint16_t keycode) {
       return TAPPING_TERM;
   }
 }
+
+void matrix_init_user(void) {
+  desired = rgb_matrix_config.mode;
+  prev_desired = rgb_matrix_config.mode;
+}
+
 
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -291,7 +298,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        desired = RGB_MATRIX_CYCLE_LEFT_RIGHT;
+        //desired = RGB_MATRIX_CYCLE_LEFT_RIGHT;
+        //eeconfig_read_rgb_matrix();
+        desired = prev_desired;
         rgb_matrix_mode_noeeprom(desired);
         persistent_default_layer_set(1UL<<_QWERTY);
       }
@@ -328,6 +337,50 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
           }
           return false;	
+    case RGB_MOD:
+          if (record->event.pressed) {
+             uint8_t shifted = get_mods() & (MOD_MASK_SHIFT);
+                if (shifted) {
+#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
+                    rgblight_step_reverse();
+#        endif
+#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
+                    rgb_matrix_step_reverse();
+#        endif
+                } else {
+#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
+                    rgblight_step();
+#        endif
+#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
+                    rgb_matrix_step();
+#        endif
+                }
+            prev_desired = rgb_matrix_config.mode;
+            desired = prev_desired;
+            rgb_matrix_mode_noeeprom(desired);
+          }
+    case RGB_RMOD:
+          if (record->event.pressed) {
+             uint8_t shifted = get_mods() & (MOD_MASK_SHIFT);
+                if (shifted) {
+#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
+                    rgblight_step();
+#        endif
+#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
+                    rgb_matrix_step();
+#        endif
+                } else {
+#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
+                    rgblight_step_reverse();
+#        endif
+#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
+                    rgb_matrix_step_reverse();
+#        endif
+                }
+            prev_desired = rgb_matrix_config.mode;
+            desired = prev_desired;
+            rgb_matrix_mode_noeeprom(desired);
+          }
   }
 
   if (record->event.pressed) {
@@ -345,23 +398,53 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) {
-    case _RAISE:
-        rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
-        rgb_matrix_sethsv_noeeprom(128, 255, rgb_matrix_config.hsv.v);
-        break;
-    case _LOWER:
-        rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
-        rgb_matrix_sethsv_noeeprom(28, 255, rgb_matrix_config.hsv.v);
-        break;
-    case _ADJUST:
-        rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
-        rgb_matrix_sethsv_noeeprom(0, 0, rgb_matrix_config.hsv.v);
-        break;
-    default: //  for any other layers, or the default layer
-        rgb_matrix_mode_noeeprom(desired);
-        break;
-    }
+// layer_state_t layer_state_set_user(layer_state_t state) {
+// switch (get_highest_layer(state)) {
+//     case _RAISE:
+//         rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
+//         rgb_matrix_sethsv_noeeprom(128, 255, rgb_matrix_config.hsv.v);
+//         break;
+//     case _LOWER:
+//         rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
+//         rgb_matrix_sethsv_noeeprom(28, 255, rgb_matrix_config.hsv.v);
+//         break;
+//     case _ADJUST:
+//         rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
+//         rgb_matrix_sethsv_noeeprom(0, 0, rgb_matrix_config.hsv.v);
+//         break;
+//     default: //  for any other layers, or the default layer
+//         rgb_matrix_mode_noeeprom(desired);
+//         break;
+//     }
+//   return state;
+// }
+
+uint32_t layer_state_set_user(uint32_t state) {
+  uint8_t layer = biton32(state);
+  if (prev!=_ADJUST || prev!=_RAISE || prev!=_LOWER) {
+	  switch (layer) {
+        case _RAISE:
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
+            rgb_matrix_sethsv_noeeprom(128, 255, rgb_matrix_config.hsv.v);
+            break;
+        case _LOWER:
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
+            rgb_matrix_sethsv_noeeprom(28, 255, rgb_matrix_config.hsv.v);
+            break;
+        case _ADJUST:
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
+            rgb_matrix_sethsv_noeeprom(0, 0, rgb_matrix_config.hsv.v);
+            break;
+        default: //  for any other layers, or the default layer
+            rgb_matrix_mode_noeeprom(desired);
+            break;
+	  }
+  } else {
+        if (layer!=_DJMAX) {
+            prev_desired = rgb_matrix_config.mode;
+	        desired = rgb_matrix_config.mode;
+        } 
+  }
+  prev = layer;
   return state;
 }
