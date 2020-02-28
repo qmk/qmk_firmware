@@ -14,13 +14,13 @@
 * [Keyboard Tester](http://www.keyboardtester.com) (网页版)
 * [Keyboard Checker](http://keyboardchecker.com) (网页版)
 
-## 使用QMK工具箱进行调试
+## 调试
 
-[QMK工具箱](https://github.com/qmk/qmk_toolbox) 将会在你的`rules.mk`中有`CONSOLE_ENABLE = yes`的时候显示你键盘发来的消息。 默认情况下，输出极为有限，不过您可以打开调试模式来增加输出信息量。使用你键盘布局中的`DEBUG`键码,使用 [命令](feature_command.md) 特性来使能调试模式, 或者向你的布局中添加以下代码。
+如果在你的`rules.mk`中有`CONSOLE_ENABLE = yes`的话你的键盘将会输出调试信息。默认情况下输出非常有限，但是打开调试模式会让调试输出更多。使用你映射中的`DEBUG`键码，使用 [命令](zh-cn/feature_command.md)特性来使能调试模式，或添加以下代码到你的映射中。
 
 ```c
 void keyboard_post_init_user(void) {
-  // Customise these values to desired behaviour
+  // 自己设置这些值来达到你想要的效果
   debug_enable=true;
   debug_matrix=true;
   //debug_keyboard=true;
@@ -28,11 +28,19 @@ void keyboard_post_init_user(void) {
 }
 ```
 
-<!-- 需要修改之处:这里要添加调试回显。 -->
+### 使用QMK工具箱进行调试
+
+对于兼容平台，[QMK工具箱](https://github.com/qmk/qmk_toolbox)可以用于显示键盘调试信息。
+
+### 使用hid_listen调试
+
+你更喜欢使用终端的解决方案？[hid_listen](https://www.pjrc.com/teensy/hid_listen.html)，是由PJRC提供的，可以用于显示调试信息。Windows，Linux，和MacOS的预构建的二进制文件都可使用。
+
+<!-- 待完善: 此处应有调试信息。译者注：上面那段文字最后一句我不理解，瞎翻译的，应该翻译没错，只是不理解。 -->
 
 ## 发送您自己的调试消息
 
-有时用[custom code](custom_quantum_functions.md)发送自定义调试信息很有用. 这么做很简单. 首先在你文件头部包含`print.h`:
+有时用[custom code](zh-cn/custom_quantum_functions.md)发送自定义调试信息很有用. 这么做很简单. 首先在你文件头部包含`print.h`:
 
     #include <print.h>
 
@@ -42,3 +50,55 @@ void keyboard_post_init_user(void) {
 * `uprintf("%s string", var)`: 打印格式化字符串
 * `dprint("string")`: 仅在调试模式使能时打印简单字符串
 * `dprintf("%s string", var)`: 仅在调试模式使能时打印格式化字符串
+
+## 调试示例
+
+以下就是一组实际挑食示例。欲了解更多，请参考[QMK的调试/故障排除](zh-cn/faq_debug.md).
+
+### 这次击键在矩阵的哪个位置？
+
+当移植或诊断PCB问题时，能知道一次击键是否被正确扫描是极为有用的。为这种情况启用日志记录，需要添加以下代码到你的映射`keymap.c`
+
+```c
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // 如果已经使能控制台，就会输出矩阵位置和每一个按下的键的状态
+#ifdef CONSOLE_ENABLE
+    uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+#endif 
+  return true;
+}
+```
+
+输出示例如下
+```text
+Waiting for device:.......
+Listening:
+KL: kc: 169, col: 0, row: 0, pressed: 1
+KL: kc: 169, col: 0, row: 0, pressed: 0
+KL: kc: 174, col: 1, row: 0, pressed: 1
+KL: kc: 174, col: 1, row: 0, pressed: 0
+KL: kc: 172, col: 2, row: 0, pressed: 1
+KL: kc: 172, col: 2, row: 0, pressed: 0
+```
+
+### 扫描一次击键要多长时间？
+
+当测试性能问题时，了解扫描开关矩阵的频率是有用的。为这种情况启用日志记录，需要添加以下代码到你的映射 `config.h`
+
+```c
+#define DEBUG_MATRIX_SCAN_RATE
+```
+
+输出示例如下
+```text
+  > matrix scan frequency: 315
+  > matrix scan frequency: 313
+  > matrix scan frequency: 316
+  > matrix scan frequency: 316
+  > matrix scan frequency: 316
+  > matrix scan frequency: 316
+```
+
+<!--源文件：https://raw.githubusercontent.com/qmk/qmk_firmware/feb116c4f33d1c4f451f3eecbf3d8f80be80e557/docs/newbs_testing_debugging.md 
+    源提交哈希：feb116c4f33d1c4f451f3eecbf3d8f80be80e557-->
+<!--翻译时间:20200227-16:29(GMT+8)-->
