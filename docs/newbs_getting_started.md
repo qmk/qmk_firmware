@@ -29,7 +29,7 @@ Linux and macOS come with unix shells you can execute already. You will only nee
 
 On Windows you will need to install MSYS2 or WSL and use those environments. Instructions for setting up MSYS2 are provided below.
 
-## 2. Prepare Your Build Environment
+## 2. Prepare Your Build Environment :id=set-up-your-environment
 
 We've tried to make QMK as easy to set up as possible. You only have to prepare your Linux or Unix environment, then let QMK install the rest.
 
@@ -66,7 +66,7 @@ You will need to install Git and Python. It's very likely that you already have 
 * Fedora / Red Hat / CentOS: `yum install git python3 && python3 -m pip install qmk`
 * Arch: `pacman -S qmk`
 
-## 3. Run QMK Setup
+## 3. Run QMK Setup :id=set-up-qmk
 
 After installing QMK you can set it up with this command:
 

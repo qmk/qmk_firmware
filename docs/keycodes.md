@@ -312,8 +312,8 @@ This is a reference only. Each group of keys links to the page documenting their
 |----------------|----------------------------------------------------------------------------------|
 |`DF(layer)`     |Set the base (default) layer                                                      |
 |`MO(layer)`     |Momentarily turn on `layer` when pressed (requires `KC_TRNS` on destination layer)|
-|`OSL(layer)`    |Momentarily activates `layer` until a key is pressed. See [One Shot Keys](feature_advanced_keycodes#one-shot-keys) for details. |
-|`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well.  Where `mod` is a mods_bit.  Mods can be viewed [here](feature_advanced_keycodes#mod-tap).  Example Implementation: `LM(LAYER_1, MOD_LALT)`|
+|`OSL(layer)`    |Momentarily activates `layer` until a key is pressed. See [One Shot Keys](one_shot_keys.md) for details. |
+|`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well.  Where `mod` is a mods_bit.  Mods can be viewed [here](mod_tap.md).  Example Implementation: `LM(LAYER_1, MOD_LALT)`|
 |`LT(layer, kc)` |Turn on `layer` when held, `kc` when tapped                                       |
 |`TG(layer)`     |Toggle `layer` on or off                                                          |
 |`TO(layer)`     |Turns on `layer` and turns off all other layers, except the default layer |
@@ -366,7 +366,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_MEH`  |                               |Left Control, Shift and Alt                         |
 |`KC_HYPR` |                               |Left Control, Shift, Alt and GUI                    |
 
-## [Mod-Tap Keys](feature_advanced_keycodes.md#mod-tap)
+## [Mod-Tap Keys](mod_tap.md)
 
 |Key          |Aliases                                                          |Description                                            |
 |-------------|-----------------------------------------------------------------|-------------------------------------------------------|
@@ -459,7 +459,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_RIGHT_ANGLE_BRACKET`|`KC_RABK`, `KC_GT` |`>`        |
 |`KC_QUESTION`           |`KC_QUES`          |`?`        |
 
-## [One Shot Keys](feature_advanced_keycodes.md#one-shot-keys)
+## [One Shot Keys](one_shot_keys.md)
 
 |Key         |Description                       |
 |------------|----------------------------------|
