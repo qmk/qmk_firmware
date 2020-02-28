@@ -1,3 +1,5 @@
+![Layout Images](https://imgur.com/a/k95XQlP)
+
 # Don Gato's programming Layout
 
 The default Preonic layout is suited to general english typing but not very convent to program on. This is my custom layout to re-optimise the keyboard for programming tasks.
@@ -14,3 +16,4 @@ I have been programming with this keyboard layout at work and I found it much fa
 - Added delete to the backspace key on RAISE / LOWER
 - Removed backlight and added an ADJUST key. As the Massdrop kits don't come with backlighting default, I think this is more useful for most users.
 - I have left the Colemak and Dvorak alternate layouts, but they won't map up as conveniently to the other layers.
+- I have included the keyboard layouts so that those wishing to make modifications or new versions of this layout can quickly update their images.
