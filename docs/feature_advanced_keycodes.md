@@ -265,6 +265,25 @@ Normally, if you do all this within the `TAPPING_TERM` (default: 200ms) this wil
 
 ?> If you have `Ignore Mod Tap Interrupt` enabled, as well, this will modify how both work. The regular key has the modifier added if the first key is released first or if both keys are held longer than the `TAPPING_TERM`.
 
+For more granular control of this feature, you can add the following to your `config.h`:
+
+```c
+#define PERMISSIVE_HOLD_PER_KEY
+```
+
+You can then add the following function to your keymap:
+
+```c
+bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case SFT_T(KC_A):
+      return true;
+    default:
+      return false;
+  }
+}
+```
+
 ## Ignore Mod Tap Interrupt
 
 To enable this setting, add this to your `config.h`:

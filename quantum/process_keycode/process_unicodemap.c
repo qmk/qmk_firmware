@@ -16,26 +16,6 @@
 
 #include "process_unicodemap.h"
 
-void register_hex32(uint32_t hex) {
-    bool onzerostart = true;
-    for (int i = 7; i >= 0; i--) {
-        if (i <= 3) {
-            onzerostart = false;
-        }
-        uint8_t digit = ((hex >> (i * 4)) & 0xF);
-        if (digit == 0) {
-            if (!onzerostart) {
-                register_code(hex_to_keycode(digit));
-                unregister_code(hex_to_keycode(digit));
-            }
-        } else {
-            register_code(hex_to_keycode(digit));
-            unregister_code(hex_to_keycode(digit));
-            onzerostart = false;
-        }
-    }
-}
-
 __attribute__((weak)) uint16_t unicodemap_index(uint16_t keycode) {
     if (keycode >= QK_UNICODEMAP_PAIR) {
         // Keycode is a pair: extract index based on Shift / Caps Lock state
