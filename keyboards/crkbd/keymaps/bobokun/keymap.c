@@ -349,7 +349,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
     case _RAISE:
         rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
-<<<<<<< HEAD
         rgb_matrix_sethsv_noeeprom(128, 255, rgb_matrix_config.hsv.v);
         break;
     case _LOWER:
@@ -359,17 +358,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case _ADJUST:
         rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
         rgb_matrix_sethsv_noeeprom(0, 0, rgb_matrix_config.hsv.v);
-=======
-        rgb_matrix_sethsv_noeeprom(128, 255, 255);
-        break;
-    case _LOWER:
-        rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
-        rgb_matrix_sethsv_noeeprom(28, 255, 255);
-        break;
-    case _ADJUST:
-        rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
-        rgb_matrix_sethsv_noeeprom(0, 0, 255);
->>>>>>> 224ca812192c1ccff08854a9bc44fc5104888e38
         break;
     default: //  for any other layers, or the default layer
         rgb_matrix_mode_noeeprom(desired);
