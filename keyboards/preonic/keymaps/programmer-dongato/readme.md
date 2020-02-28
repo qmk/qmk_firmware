@@ -1,4 +1,4 @@
-![Layout Images](https://imgur.com/a/k95XQlP)
+[Layout Images](https://imgur.com/a/k95XQlP)
 
 # Don Gato's programming Layout
 
