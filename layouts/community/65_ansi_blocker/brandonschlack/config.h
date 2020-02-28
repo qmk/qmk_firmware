@@ -40,9 +40,10 @@
 #define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
 #define QMK_KEYS_PER_SCAN 4
+
+#define USB_LED_CAPS_LOCK_SCANCODE      30
 #endif
 
 #ifdef KEYBOARD_massdrop_alt
 #undef USB_LED_INDICATOR_ENABLE
-#define USB_LED_CAPS_LOCK_SCANCODE      30
 #endif

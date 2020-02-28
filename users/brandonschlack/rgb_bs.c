@@ -106,7 +106,7 @@ void rgb_matrix_cycle_flag (void) {
             break;
         default:
             rgb_matrix_set_flags(LED_FLAG_ALL);
-            rgb_matrix_enable_noeeprom();
+            rgb_matrix_enable();
             break;
     }
 }
