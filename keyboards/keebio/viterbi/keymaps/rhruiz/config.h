@@ -26,6 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* #define SWAP_HANDS_ENABLE */
 
+
+#define PERMISSIVE_HOLD
+
 #undef RGBLED_NUM
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 12
