@@ -15,32 +15,37 @@
  */
 #include "ut47.h"
 #ifdef LED_ENABLE
-  #include "protocol/serial.h"
+    #include "protocol/serial.h"
 #endif
 
 void matrix_init_kb(void) {
-	// put your keyboard start-up code here
-	// runs once when the firmware starts up
+    // put your keyboard start-up code here
+    // runs once when the firmware starts up
 
-	matrix_init_user();
+    matrix_init_user();
 }
 
 void matrix_scan_kb(void) {
-	// put your looping keyboard code here
-	// runs every cycle (a lot)
+    // put your looping keyboard code here
+    // runs every cycle (a lot)
 
-	matrix_scan_user();
+    matrix_scan_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-	// put your per-action keyboard code here
-	// runs for every action, just before processing by the firmware
-  if (record->event.pressed) {
-    #ifdef LED_ENABLE
-      serial_send((record->event.key.row*16)+record->event.key.col);
-    #endif
-  }
-	return process_record_user(keycode, record);
+    // put your per-action keyboard code here
+    // runs for every action, just before processing by the firmware
+    /* FIXME(skullydazed): 
+     *     Originally this code always ran no matter what process_record_user() did.
+     *     With this PR it will only run if process_record_user() returns true. We
+     *     should think through the implications here.
+     */
+    if (record->event.pressed) {
+#ifdef LED_ENABLE
+        serial_send((record->event.key.row*16)+record->event.key.col);
+#endif
+    }
+    return true;  
 }
 
 void led_set_kb(uint8_t usb_led) {

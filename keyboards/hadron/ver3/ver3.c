@@ -176,11 +176,6 @@ uint32_t layer_state_set_kb(uint32_t state) {
   return state;
 }
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  queue_for_send = true;
-  return process_record_user(keycode, record);
-}
-
 void encoder_update_kb(uint8_t index, bool clockwise) {
   encoder_value = (encoder_value + (clockwise ? 1 : -1)) % 64;
   queue_for_send = true;

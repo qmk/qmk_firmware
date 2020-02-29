@@ -247,6 +247,11 @@ uint32_t layer_state_set_kb(uint32_t state) {
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    /* FIXME(skullydazed):
+     *     Originally this code always ran no matter what process_record_user() did.
+     *     With this PR it will only run if process_record_user() returns true. We
+     *     should think through the implications here.
+     */
   queue_for_send = true;
   switch (keycode) {
     case OLED_TOGG:
@@ -291,7 +296,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
       break;
   }
 
-  return process_record_user(keycode, record);
+  return true;
 }
 
 

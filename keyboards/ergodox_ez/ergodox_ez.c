@@ -337,6 +337,11 @@ void keyboard_post_init_kb(void) {
 
 #ifdef ORYX_CONFIGURATOR
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    /* FIXME(skullydazed):
+     *     Originally this code always ran no matter what process_record_user() did.
+     *     With this PR it will only run if process_record_user() returns true. We
+     *     should think through the implications here.
+     */
     switch (keycode) {
         case LED_LEVEL:
             if (record->event.pressed) {
@@ -378,7 +383,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return false;
 #endif
     }
-    return process_record_user(keycode, record);
+    return true;
 }
 #endif
 

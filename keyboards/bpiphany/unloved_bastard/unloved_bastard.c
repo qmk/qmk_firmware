@@ -29,12 +29,6 @@ void matrix_scan_kb(void) {
 	matrix_scan_user();
 }
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    // put your per-action keyboard code here
-    // runs for every action, just before processing by the firmware
-    return process_record_user(keycode, record);
-}
-
 // C5 left
 // C6 middle led
 // B7 right led
