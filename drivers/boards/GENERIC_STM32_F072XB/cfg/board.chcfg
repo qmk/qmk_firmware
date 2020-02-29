@@ -6,7 +6,7 @@
   <configuration_settings>
     <templates_path>resources/gencfg/processors/boards/stm32f0xx/templates</templates_path>
     <output_path>..</output_path>
-    <hal_version>3.0.x</hal_version>
+    <hal_version>5.0.x</hal_version>
   </configuration_settings>
   <board_name>ST STM32F072B-Discovery</board_name>
   <board_id>ST_STM32F072B_DISCOVERY</board_id>
