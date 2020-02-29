@@ -143,7 +143,7 @@ typedef struct {
 // 順序なしロング
 typedef struct {
   uint32_t key;
-  char kana[15];
+  char kana[22];
 } naginata_keymap_long;
 
 // 順序なしUNICODE
@@ -448,8 +448,6 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_U               , .kana = SS_TAP(X_BSPACE)},
   {.key = B_T               , .kana = SS_TAP(NGLT)},
   {.key = B_Y               , .kana = SS_TAP(NGRT)},
-  {.key = B_T|B_SHFT        , .kana = SS_LSFT(SS_TAP(NGLT))},
-  {.key = B_Y|B_SHFT        , .kana = SS_LSFT(SS_TAP(NGRT))},
 
   // enter
   {.key = B_V|B_M           , .kana = SS_TAP(X_ENTER)},
@@ -540,6 +538,8 @@ const PROGMEM naginata_keymap ngmap[] = {
 };
 
 const PROGMEM naginata_keymap_long ngmapl[] = {
+  {.key = B_T|B_SHFT        , .kana = SS_LSFT(SS_TAP(NGLT))},
+  {.key = B_Y|B_SHFT        , .kana = SS_LSFT(SS_TAP(NGRT))},
   {.key = B_SHFT|B_T        , .kana = SS_LSFT(SS_TAP(NGLT))},
   {.key = B_SHFT|B_Y        , .kana = SS_LSFT(SS_TAP(NGRT))},
 
@@ -840,19 +840,24 @@ bool naginata_lookup(int nt, bool shifted) {
 
   switch (keycomb_buf) {
     // send_stringできないキー、長すぎるマクロはここで定義
+    case B_H|B_J:
+      naginata_on();
+      compress_buffer(nt);
+      return true;
+      break;
     case B_F|B_G:
       naginata_off();
       compress_buffer(nt);
       return true;
       break;
     case B_J|B_K|B_D: // wheel up
-      for (int i = 0; i < 5; i++)
+      for (int i = 0; i < 3; i++)
         tap_code(KC_MS_WH_UP);
       compress_buffer(nt);
       return true;
       break;
     case B_J|B_K|B_F: // wheel down
-      for (int i = 0; i < 5; i++)
+      for (int i = 0; i < 3; i++)
         tap_code(KC_MS_WH_DOWN);
       compress_buffer(nt);
       return true;
