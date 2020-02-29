@@ -603,6 +603,7 @@ void matrix_init_quantum() {
 #endif
 
     matrix_init_kb();
+    matrix_init_user();
 }
 
 void matrix_scan_quantum() {
@@ -639,6 +640,7 @@ void matrix_scan_quantum() {
 #endif
 
     matrix_scan_kb();
+    matrix_scan_user();
 }
 
 #ifdef HD44780_ENABLED
@@ -724,7 +726,7 @@ __attribute__((weak)) bool led_update_user(led_t led_state) { return true; }
  *
  * \return Ignored for now.
  */
-__attribute__((weak)) bool led_update_kb(led_t led_state) { return led_update_user(led_state); }
+__attribute__((weak)) bool led_update_kb(led_t led_state) { return true; }
 
 __attribute__((weak)) void led_init_ports(void) {}
 
@@ -748,7 +750,9 @@ __attribute__((weak)) void led_set(uint8_t usb_led) {
 #endif
 
     led_set_kb(usb_led);
+    led_set_user(usb_led);
     led_update_kb((led_t)usb_led);
+    led_update_user((led_t)usb_led);
 }
 
 //------------------------------------------------------------------------------
