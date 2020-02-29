@@ -36,9 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
-/* number of backlight levels */
-#define BACKLIGHT_LEVELS 1
-
 #define RGBLIGHT_ANIMATIONS
 #define RGB_DI_PIN D6
 #define RGBLED_NUM 17
