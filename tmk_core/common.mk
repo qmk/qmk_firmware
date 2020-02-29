@@ -172,11 +172,16 @@ ifeq ($(strip $(LTO_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(LINK_TIME_OPTIMIZATION_ENABLE)), yes)
+    ifeq ($(PLATFORM),CHIBIOS)
+        $(info Enabling LTO on ChibiOS-targeting boards is known to have a high likelihood of failure.)
+        $(info If unsure, set LINK_TIME_OPTIMIZATION_ENABLE = no.)
+    endif
     EXTRAFLAGS += -flto
     TMK_COMMON_DEFS += -DLINK_TIME_OPTIMIZATION_ENABLE
     TMK_COMMON_DEFS += -DNO_ACTION_MACRO
     TMK_COMMON_DEFS += -DNO_ACTION_FUNCTION
 endif
+
 # Bootloader address
 ifdef STM32_BOOTLOADER_ADDRESS
     TMK_COMMON_DEFS += -DSTM32_BOOTLOADER_ADDRESS=$(STM32_BOOTLOADER_ADDRESS)
