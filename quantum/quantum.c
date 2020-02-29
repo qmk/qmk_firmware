@@ -217,8 +217,8 @@ bool process_record_quantum(keyrecord_t *record) {
 #if defined(VIA_ENABLE)
             process_record_via(keycode, record) &&
 #endif
-            process_record_user(keycode, record) &&
             process_record_kb(keycode, record) &&
+            process_record_user(keycode, record) &&
 #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
             process_midi(keycode, record) &&
 #endif
