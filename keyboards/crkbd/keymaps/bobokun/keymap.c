@@ -52,9 +52,8 @@ void add_keylog(uint16_t keycode);
 #define _ADJUST 4
 
 uint8_t prev = _QWERTY;
-uint32_t check;
 uint32_t desired;
-uint32_t prev_desired;
+uint32_t default_desired;
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -118,11 +117,11 @@ LCTL_T(KC_TAB),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                     
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       KC_GESC,   KC_F1,  KC_F10,    KC_E,    KC_E,    KC_1,                         KC_2,    KC_I,    KC_I, XXXXXXX, KC_PGUP, QWERTY,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_TAB,   KC_F9,    KC_S,    KC_D,    KC_F, KC_LSFT,                      KC_RSFT,    KC_J,    KC_K,    KC_L, KC_PGDN, KC_DEL,\
+       KC_TAB,   KC_F9,    KC_S,    KC_D,    KC_F, XXXXXXX,                        KC_F5,    KC_J,    KC_K,    KC_L, KC_PGDN, KC_DEL,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-	  KC_LSFT,   KC_F8, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                          KC_F5, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_RSFT,\
+	    KC_LSFT,   KC_F8, XXXXXXX, XXXXXXX, KC_LALT, XXXXXXX,                      XXXXXXX, KC_RALT, XXXXXXX, XXXXXXX, XXXXXXX,KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_SPC, KC_LALT,  LOWER,       RAISE, KC_RALT , KC_ENT  \
+                                          KC_SPC, KC_LCTL,  LOWER,       RAISE, KC_RCTL , KC_ENT  \
                                       //`--------------------------'  `--------------------------'
 
   )
@@ -141,7 +140,7 @@ uint16_t get_tapping_term(uint16_t keycode) {
 
 void matrix_init_user(void) {
   desired = rgb_matrix_config.mode;
-  prev_desired = rgb_matrix_config.mode;
+  default_desired = rgb_matrix_config.mode;
 }
 
 
@@ -298,9 +297,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        //desired = RGB_MATRIX_CYCLE_LEFT_RIGHT;
-        //eeconfig_read_rgb_matrix();
-        desired = prev_desired;
+        desired = default_desired;
         rgb_matrix_mode_noeeprom(desired);
         persistent_default_layer_set(1UL<<_QWERTY);
       }
@@ -355,9 +352,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     rgb_matrix_step();
 #        endif
                 }
-            prev_desired = rgb_matrix_config.mode;
-            desired = prev_desired;
-            rgb_matrix_mode_noeeprom(desired);
+            desired = rgb_matrix_config.mode;
+            default_desired = desired;
           }
     case RGB_RMOD:
           if (record->event.pressed) {
@@ -377,9 +373,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     rgb_matrix_step_reverse();
 #        endif
                 }
-            prev_desired = rgb_matrix_config.mode;
-            desired = prev_desired;
-            rgb_matrix_mode_noeeprom(desired);
+            desired = rgb_matrix_config.mode;
+            default_desired = desired;
           }
   }
 
@@ -397,31 +392,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-
-// layer_state_t layer_state_set_user(layer_state_t state) {
-// switch (get_highest_layer(state)) {
-//     case _RAISE:
-//         rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
-//         rgb_matrix_sethsv_noeeprom(128, 255, rgb_matrix_config.hsv.v);
-//         break;
-//     case _LOWER:
-//         rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
-//         rgb_matrix_sethsv_noeeprom(28, 255, rgb_matrix_config.hsv.v);
-//         break;
-//     case _ADJUST:
-//         rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
-//         rgb_matrix_sethsv_noeeprom(0, 0, rgb_matrix_config.hsv.v);
-//         break;
-//     default: //  for any other layers, or the default layer
-//         rgb_matrix_mode_noeeprom(desired);
-//         break;
-//     }
-//   return state;
-// }
-
 uint32_t layer_state_set_user(uint32_t state) {
   uint8_t layer = biton32(state);
-  if (prev!=_ADJUST || prev!=_RAISE || prev!=_LOWER) {
 	  switch (layer) {
         case _RAISE:
             rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
@@ -439,12 +411,5 @@ uint32_t layer_state_set_user(uint32_t state) {
             rgb_matrix_mode_noeeprom(desired);
             break;
 	  }
-  } else {
-        if (layer!=_DJMAX) {
-            prev_desired = rgb_matrix_config.mode;
-	        desired = rgb_matrix_config.mode;
-        } 
-  }
-  prev = layer;
   return state;
 }
