@@ -124,7 +124,8 @@ CHIBISRC = $(STARTUPSRC) \
        $(PLATFORMSRC) \
        $(PLATFORMSRC_CONTRIB) \
        $(BOARDSRC) \
-       $(STREAMSSRC)
+       $(STREAMSSRC) \
+       $(CHIBIOS)/os/various/syscalls.c
 
 # Ensure the ASM files are not subjected to LTO -- it'll strip out interrupt handlers otherwise.
 QUANTUM_LIB_SRC += $(STARTUPASM) $(PORTASM) $(OSALASM)
