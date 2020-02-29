@@ -5,7 +5,7 @@
 The Prime_M is a premium input device that is designed to be flexible so that it can cover many needs. The case is milled from a solid block of aluminum and features an integrated switch plate, which is 4.75mm thick yet designed to allow MX style switches to properly snap in. The bottom cover is machine from solid brass and is pre-drilled/countersunk for use with optional feet to give the device a slight tilt.
 
 * Keyboard Maintainer: [holtenc](https://github.com/holtenc), [MxBlue](https://github.com/MxBlu)
-* Hardware Supported: Prime_M PCB, ATMega32u2  
+* Hardware Supported: Prime_M PCB, ATMega32u2
 * Hardware Availability: [GB Post](https://geekhack.org/index.php?topic=91821.0), [B-Stock Listing](https://www.primekb.com/products/prime_m)
 
 Make example for this keyboard (after setting up your build environment):
