@@ -116,8 +116,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
   [_WORKMAN] = LAYOUT_planck_grid(
     KC_ESC ,KC_COMM,KC_S   ,KC_R   ,KC_L   ,KC_B   ,KC_Y   ,KC_BSPC,KC_I   ,KC_D   ,KC_DOT ,KC_QUOT, \
-    KC_TAB ,KC_W   ,KC_H   ,KC_T   ,KC_E   ,KC_M   ,KC_P   ,KC_N   ,KC_A   ,KC_O   ,KC_X   ,KC_ENT , \
-    KC_LCMD,KC_V   ,KC_Q   ,KC_K   ,KC_G   ,KC_U   ,KC_C   ,KC_F   ,KC_J   ,KC_SLSH,KC_Z   ,SALPH  , \
+    KC_TAB ,KC_W   ,KC_H   ,KC_T   ,KC_E   ,KC_M   ,KC_P   ,KC_N   ,KC_A   ,KC_O   ,KC_K   ,KC_ENT , \
+    KC_LCMD,KC_V   ,KC_Q   ,KC_QUOT,KC_G   ,KC_U   ,KC_C   ,KC_F   ,KC_Z   ,KC_J   ,KC_X   ,SALPH  , \
     KC_LCTL,KC_LALT,KC_LSFT,XXXXXXX,LOWER  ,SFTSPC ,SFTENT ,RAISE  ,KC_LEFT,KC_UP  ,KC_DOWN,KC_RGHT
   ),
 

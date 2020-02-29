@@ -30,9 +30,8 @@ NGKEYS naginata_keys;
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
   QWERTY = NG_SAFE_RANGE,
-  EUCALYN,
-  WORKMAN,
   QGMLWY,
+  ESWAI,
   RAISE,
   LOWER,
   NUMBER,
@@ -52,6 +51,7 @@ enum custom_keycodes {
 // Layers
 enum kepmap_layers {
   _QGMLWY,
+  _ESWAI,
   _SHIFT,
 // 薙刀式
   _NAGINATA,
@@ -92,9 +92,9 @@ enum combo_events {
 };
 
 #if defined(DQGMLWY)
-const uint16_t PROGMEM ngon_combo[] = {KC_I, KC_A, COMBO_END};
-const uint16_t PROGMEM ngoff_combo[] = {KC_N, KC_R, COMBO_END};
-const uint16_t PROGMEM enter_combo[] = {KC_V, KC_H, COMBO_END};
+const uint16_t PROGMEM ngon_combo[] = {KC_P, KC_N, COMBO_END};
+const uint16_t PROGMEM ngoff_combo[] = {KC_E, KC_M, COMBO_END};
+const uint16_t PROGMEM enter_combo[] = {KC_G, KC_F, COMBO_END};
 #endif
 
 combo_t key_combos[COMBO_COUNT] = {
@@ -107,37 +107,37 @@ combo_t key_combos[COMBO_COUNT] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* _QGMLWY
   +-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+
-  |        Q        |        G        |        M        |        L        |        W        |        Y        |        F        |        U        |        B        |      BSPC       |
+  |        ,        |        S        |        R        |        L        |        B        |        Y        |      BSPC       |        I        |        D        |        .        |
   +-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+
-  |        D        |        S        |        T        |        N        |        R        |        I        |        A        |        E        |        O        |       ENT       |
+  |        W        |        H        |        T        |        E        |        M        |        P        |        N        |        A        |        O        |        Z        |
   +-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+
-  |        Z        |        X        |        C        |        V        |        J        |        K        |        H        |        P        |        ,        |        .        |
+  |        V        |        ’        |        K        |        G        |        C        |        U        |        F        |        J        |        X        |        Q        |
   +-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+
   |                 |                 |      LCMD       |      LOWER      |LT(_SHIFT,KC_SPC)|LT(_SHIFT,KC_ENT)|      RAISE      |      RCTL       |                 |                 |
   +-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+
 */
   [_QGMLWY] = LAYOUT(
-    KC_Q             ,KC_G             ,KC_M             ,KC_L             ,KC_W             ,KC_Y             ,KC_F             ,KC_U             ,KC_B             ,KC_BSPC          , \
-    KC_D             ,KC_S             ,KC_T             ,KC_N             ,KC_R             ,KC_I             ,KC_A             ,KC_E             ,KC_O             ,KC_ENT           , \
-    KC_Z             ,KC_X             ,KC_C             ,KC_V             ,KC_J             ,KC_K             ,KC_H             ,KC_P             ,KC_COMM          ,KC_DOT           , \
+    KC_COMM          ,KC_S             ,KC_R             ,KC_L             ,KC_B             ,KC_Y             ,KC_BSPC          ,KC_I             ,KC_D             ,KC_DOT           , \
+    KC_W             ,KC_H             ,KC_T             ,KC_E             ,KC_M             ,KC_P             ,KC_N             ,KC_A             ,KC_O             ,KC_Z             , \
+    KC_V             ,KC_QUOT          ,KC_K             ,KC_G             ,KC_C             ,KC_U             ,KC_F             ,KC_J             ,KC_X             ,KC_Q             , \
                                         KC_LCMD          ,LOWER            ,LT(_SHIFT,KC_SPC),LT(_SHIFT,KC_ENT),RAISE            ,KC_RCTL
   ),
 
 /* _SHIFT
   +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  |S(Q) |S(G) |S(M) |S(L) |S(W) |S(Y) |S(F) |S(U) |S(B) | DEL |
+  |  <  |S(S) |S(R) |S(L) |S(B) |S(Y) | DEL |S(I) |S(D) |  >  |
   +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  |S(D) |S(S) |S(T) |S(N) |S(R) |S(I) |S(A) |S(E) |S(O) |  :  |
+  |S(W) |S(H) |S(T) |S(E) |S(M) |S(P) |S(N) |S(A) |S(O) |S(Z) |
   +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  |S(Z) |S(X) |S(C) |S(V) |S(J) |S(K) |S(H) |S(P) |  /  |  ?  |
+  |S(V) |  "  |S(K) |S(G) |S(C) |S(U) |S(F) |S(J) |S(X) |S(Q) |
   +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
   |     |     | __  | __  | __  | __  | __  | __  |     |     |
   +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
 */
   [_SHIFT] = LAYOUT(
-    S(KC_Q),S(KC_G),S(KC_M),S(KC_L),S(KC_W),S(KC_Y),S(KC_F),S(KC_U),S(KC_B),KC_DEL , \
-    S(KC_D),S(KC_S),S(KC_T),S(KC_N),S(KC_R),S(KC_I),S(KC_A),S(KC_E),S(KC_O),KC_COLN, \
-    S(KC_Z),S(KC_X),S(KC_C),S(KC_V),S(KC_J),S(KC_K),S(KC_H),S(KC_P),KC_SLSH,KC_QUES, \
+    KC_LT  ,S(KC_S),S(KC_R),S(KC_L),S(KC_B),S(KC_Y),KC_DEL ,S(KC_I),S(KC_D),KC_GT  , \
+    S(KC_W),S(KC_H),S(KC_T),S(KC_E),S(KC_M),S(KC_P),S(KC_N),S(KC_A),S(KC_O),S(KC_Z), \
+    S(KC_V),KC_DQT ,S(KC_K),S(KC_G),S(KC_C),S(KC_U),S(KC_F),S(KC_J),S(KC_X),S(KC_Q), \
                     _______,_______,_______,_______,_______,_______
   ),
 
@@ -159,15 +159,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     _______,_______,_______,_______,_______,_______
   ),
 
-/* "
+/* _RAISE
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   |   ~   |   @   |   #   |   $   |   %   | HOME  | S(UP) |  UP   |       | BSPC  |
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   |   ^   |   &   |   !   |   ?   |   ¥   |  END  | LEFT  | DOWN  | RGHT  |       |
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   |   |   |   `   |   '   |   "   |   _   |       |S(LEFT)|S(DOWN)|S(RGHT)|       |
-  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-  |ndefine|ndefine|ndefine|ndefine|ndefine|ndefine|ndefine|ndefine|ndefine|ndefine|
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   |       |       |  __   |  __   |  __   |  __   |  __   |  __   |       |       |
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
@@ -181,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* _ADJUST
   +------+------+------+------+------+------+------+------+------+------+
-  |      |      | MAIL |      | WAKE |      |      |      |      |QWERTY|
+  |      |      | MAIL |      | WAKE |      |      |      |      |ESWAI |
   +------+------+------+------+------+------+------+------+------+------+
   |      | SLEP |      |      |RESET |      |      | MYCM |      |QGMLWY|
   +------+------+------+------+------+------+------+------+------+------+
@@ -191,7 +189,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   +------+------+------+------+------+------+------+------+------+------+
 */
   [_ADJUST] = LAYOUT(
-    XXXXXXX,XXXXXXX,KC_MAIL,XXXXXXX,KC_WAKE,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,QWERTY , \
+    XXXXXXX,XXXXXXX,KC_MAIL,XXXXXXX,KC_WAKE,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,ESWAI  , \
     XXXXXXX,KC_SLEP,XXXXXXX,XXXXXXX,RESET  ,XXXXXXX,XXXXXXX,KC_MYCM,XXXXXXX,QGMLWY , \
     XXXXXXX,XXXXXXX,KC_CALC,XXXXXXX,XXXXXXX,XXXXXXX,KC_PWR ,XXXXXXX,XXXXXXX,XXXXXXX, \
                     _______,_______,_______,_______,_______,_______
@@ -270,6 +268,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QGMLWY:
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<_QGMLWY);
+      }
+      return false;
+      break;
+    case ESWAI:
+      if (record->event.pressed) {
+        persistent_default_layer_set(1UL<<_ESWAI);
       }
       return false;
       break;
