@@ -1,6 +1,6 @@
 #include "omnikeyish.h"
 
-void keyboard_pre_init_user(void) {
+void keyboard_pre_init_kb(void) {
   /* Configure LED driving pins as output pins */
   setPinOutput(NUMLOCKLEDPIN);
   setPinOutput(CAPSLOCKLEDPIN);
@@ -9,7 +9,7 @@ void keyboard_pre_init_user(void) {
   dynamic_macro_init();
 }
 
-void keyboard_post_init_user(void) {
+void keyboard_post_init_kb(void) {
   /* Customise these values to desired behaviour */
   //debug_enable = true;
   //debug_matrix=true;
@@ -26,7 +26,7 @@ void keyboard_post_init_user(void) {
   unregister_code(KC_NUMLOCK);
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
   if (!process_record_dynamic_macro(keycode, record)) {
     return false;
   }
@@ -34,7 +34,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void led_set_user(uint8_t usb_led) {
+void led_set_kb(uint8_t usb_led) {
   if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
     writePinHigh(NUMLOCKLEDPIN);
   } else {
@@ -52,4 +52,5 @@ void led_set_user(uint8_t usb_led) {
   } else {
     writePinLow(SCROLLLOCKLEDPIN);
   }
+  led_set_user();
 }

@@ -15,33 +15,10 @@
  */
 #include "4pack.h"
 
-// Optional override functions below.
-// You can leave any or all of these undefined.
-// These are only required if you want to perform custom actions.
-
 void matrix_init_kb(void) {
   // put your keyboard start-up code here
   // runs once when the firmware starts up
 
   setPinOutput(F4); // cathodes
   setPinOutput(F5); // cathodes
-
-  // Do the rest
-  matrix_init_user();
 }
-
-/*
-void matrix_scan_kb(void) {
-  // put your looping keyboard code here
-  // runs every cycle (a lot)
-
-  matrix_scan_user();
-}
-
-void led_set_kb(uint8_t usb_led) {
-  // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-
-  led_set_user(usb_led);
-}
-
-*/

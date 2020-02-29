@@ -22,14 +22,6 @@ void matrix_init_kb(void) {
     setPinOutput(C6);
     setPinOutput(E6);
     setPinOutput(C7);
-    matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-    // put your looping keyboard code here
-    // runs every cycle (a lot)
-
-    matrix_scan_user();
 }
 
 void led_set_kb(uint8_t usb_led) {
@@ -52,6 +44,4 @@ void led_set_kb(uint8_t usb_led) {
     } else {
         writePinHigh(C7);
     }
-
-    led_set_user(usb_led);
 }

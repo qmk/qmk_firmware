@@ -23,20 +23,6 @@ void matrix_init_kb(void) {
     matrix_init_user();
 }
 
-void matrix_scan_kb(void) {
-    // put your looping keyboard code here
-    // runs every cycle (a lot)
-
-    matrix_scan_user();
-}
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    // put your per-action keyboard code here
-    // runs for every action, just before processing by the firmware
-
-    return process_record_user(keycode, record);
-}
-
 void led_init_ports(void) {
 	DDRD |= (1<<2) | (1<<3) | (1<<4); // OUT
 	DDRB |= (1<<7); // OUT
@@ -44,8 +30,7 @@ void led_init_ports(void) {
 }
 
 void led_set_kb(uint8_t usb_led) {
-//    led_set_user(usb_led);
-	if (usb_led & (1<<USB_LED_NUM_LOCK)) {
+    if (usb_led & (1<<USB_LED_NUM_LOCK)) {
         // Turn numlock on
 		PORTD |= (1<<2);
     } else {
@@ -66,4 +51,5 @@ void led_set_kb(uint8_t usb_led) {
         // Turn scrolllock off
 		PORTD &= ~(1<<4);
     }
+    led_set_user(usb_led);
 }

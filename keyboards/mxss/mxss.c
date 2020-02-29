@@ -49,7 +49,7 @@ void matrix_scan_kb(void) {
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     // Handle custom keycodes for front LED operation
     process_record_fled(keycode, record);
-	return process_record_user(keycode, record);
+    return true;
 }
 
 bool led_update_kb(led_t led_state) {

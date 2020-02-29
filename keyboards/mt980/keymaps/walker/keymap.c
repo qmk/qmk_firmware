@@ -89,7 +89,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [ALT_L1] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,alt_finished, alt_reset)
 };
 
-void led_set_keymap(uint8_t usb_led) {
+void led_set_user(uint8_t usb_led) {
   if (usb_led & (1<<USB_LED_NUM_LOCK)) {
     numlock_on = true;
   }
@@ -98,7 +98,7 @@ void led_set_keymap(uint8_t usb_led) {
   }
 }
 
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   switch (keycode) {
     case KC_TRNS:

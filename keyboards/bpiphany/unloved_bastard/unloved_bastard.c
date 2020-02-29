@@ -19,14 +19,6 @@ void matrix_init_kb(void) {
 	// put your keyboard start-up code here
 	// runs once when the firmware starts up
 	led_init_ports();
-	matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-	// put your looping keyboard code here
-	// runs every cycle (a lot)
-
-	matrix_scan_user();
 }
 
 // C5 left
@@ -59,6 +51,4 @@ void led_set_kb(uint8_t usb_led) {
         PORTC &= ~(1<<6);
     else
         PORTC |=  (1<<6);
-
-    led_set_user(usb_led);
 }

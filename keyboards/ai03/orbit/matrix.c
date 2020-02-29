@@ -66,15 +66,6 @@ static matrix_row_t raw_matrix[ROWS_PER_HAND];
 uint8_t thisHand, thatHand;
 
 // user-defined overridable functions
-
-__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
-
-__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
-
-__attribute__((weak)) void matrix_init_user(void) {}
-
-__attribute__((weak)) void matrix_scan_user(void) {}
-
 __attribute__((weak)) void matrix_slave_scan_user(void) {}
 
 // helper functions

@@ -18,11 +18,6 @@ void matrix_scan_kb(void) {
     matrix_scan_user();
 }
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-
-    return process_record_user(keycode, record);
-}
-
 void led_set_kb(uint8_t usb_led) {
     if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
         writePinHigh(A10);

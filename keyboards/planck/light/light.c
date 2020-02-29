@@ -105,11 +105,6 @@ void matrix_init_kb(void) {
     matrix_init_user();
 }
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record)
-{
-    return process_record_user(keycode, record);
-}
-
 uint8_t rgb_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t *led_i) {
     // Spacebar has 2 leds 41 & 42, so add 42 to the array here, and 41 will be added
     // by the default lookup code that runs after this

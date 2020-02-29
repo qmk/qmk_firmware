@@ -112,6 +112,11 @@ void click(uint16_t freq, uint16_t duration){
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record)
 {
+    /* FIXME(skullydazed):
+     *     Originally this code always ran no matter what process_record_user() did.
+     *     With this PR it will only run if process_record_user() returns true. We
+     *     should think through the implications here.
+     */
     if (click_toggle && record->event.pressed){
         click(click_hz, click_time);
     }
@@ -119,7 +124,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record)
         reset_keyboard_kb();
     } else {
     }
-    return process_record_user(keycode, record);
+    return true;
 }
 
 void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)

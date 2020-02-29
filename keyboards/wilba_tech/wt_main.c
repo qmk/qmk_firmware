@@ -89,7 +89,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record)
     process_record_backlight(keycode, record);
 #endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 
-    return process_record_user(keycode, record);
+    return true;
 }
 
 void led_set_kb(uint8_t usb_led)

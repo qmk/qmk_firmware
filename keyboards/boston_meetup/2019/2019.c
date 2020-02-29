@@ -152,7 +152,7 @@ void draw_ui(void) {
   send_buffer();
 }
 
-void led_set_user(uint8_t usb_led) {
+void led_set_kb(uint8_t usb_led) {
     if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
       if (led_numlock == false){led_numlock = true;}
     } else {
@@ -186,7 +186,6 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
 
 void matrix_init_kb(void) {
   queue_for_send = true;
-	matrix_init_user();
 }
 
 void matrix_scan_kb(void) {
@@ -206,5 +205,4 @@ if (queue_for_send) {
   }
   counterst = (counterst + 1) % 1024;
   //rgblight_task();
-	matrix_scan_user();
 }
