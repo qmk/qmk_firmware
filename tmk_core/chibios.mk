@@ -180,6 +180,7 @@ LDFLAGS += -mno-thumb-interwork -mthumb
 LDSYMBOLS =,--defsym=__process_stack_size__=$(USE_PROCESS_STACKSIZE)
 LDSYMBOLS :=$(LDSYMBOLS),--defsym=__main_stack_size__=$(USE_EXCEPTIONS_STACKSIZE)
 LDFLAGS += -Wl,--script=$(LDSCRIPT)$(LDSYMBOLS)
+LDFLAGS += --specs=nano.specs
 
 OPT_DEFS += -DPROTOCOL_CHIBIOS
 
