@@ -229,6 +229,12 @@ uint8_t matrix_scan(void) {
     return (uint8_t)changed;
 }
 
+__attribute__((weak))
+void matrix_scan_user(void) {}
+
+__attribute__((weak))
+void matrix_init_user(void) {}
+
 // Customisations for the encoders
 void matrix_init_kb(void){
     setPinInput(SWITCH_1);
