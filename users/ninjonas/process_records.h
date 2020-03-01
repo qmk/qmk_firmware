@@ -14,6 +14,8 @@ enum custom_keycodes {
   M_FLSH,
   M_VRSN,
   M_CODE,
+  M_TERM,
+  M_COPA,
   // Secret Macros
   M_XXX1,
   M_XXX2,

@@ -56,37 +56,37 @@ Hold down the Bootmagic key (Space by default) and the desired hotkey while plug
 
 ## Keycodes
 
-|Keycode                           |Aliases  |Description                               |
-|----------------------------------|---------|------------------------------------------|
-|`MAGIC_CAPSLOCK_TO_CONTROL`       |         |Treat Caps Lock as Left Control           |
-|`MAGIC_UNCAPSLOCK_TO_CONTROL`     |         |Stop treating Caps Lock as Left Control   |
-|`MAGIC_HOST_NKRO`                 |         |Force N-Key Rollover (NKRO) on            |
-|`MAGIC_UNHOST_NKRO`               |         |Force NKRO off                            |
-|`MAGIC_TOGGLE_NKRO`               |         |Turn NKRO on or off                       |
-|`MAGIC_NO_GUI`                    |         |Disable the GUI keys (useful when gaming) |
-|`MAGIC_UNNO_GUI`                  |         |Enable the GUI keys                       |
-|`MAGIC_SWAP_ALT_GUI`              |`AG_SWAP`|Swap Alt and GUI on both sides (for macOS)|
-|`MAGIC_UNSWAP_ALT_GUI`            |`AG_NORM`|Unswap Alt and GUI                        |
-|`MAGIC_TOGGLE_ALT_GUI`            |`AG_TOGG`|Toggle Alt and GUI swap                   |
-|`MAGIC_SWAP_CTL_GUI`              |`CG_SWAP`|Swap Ctrl and GUI on both sides (for macOS)|
-|`MAGIC_UNSWAP_CTL_GUI`            |`CG_NORM`|Unswap Ctrl and GUI                       |
-|`MAGIC_TOGGLE_CTL_GUI`            |`CG_TOGG`|Toggle Ctrl and GUI swap                  |
-|`MAGIC_SWAP_BACKSLASH_BACKSPACE`  |         |Swap `\` and Backspace                    |
-|`MAGIC_UNSWAP_BACKSLASH_BACKSPACE`|         |Unswap `\` and Backspace                  |
-|`MAGIC_SWAP_CONTROL_CAPSLOCK`     |         |Swap Left Control and Caps Lock           |
-|`MAGIC_UNSWAP_CONTROL_CAPSLOCK`   |         |Unswap Left Control and Caps Lock         |
-|`MAGIC_SWAP_GRAVE_ESC`            |         |Swap <code>&#96;</code> and Escape        |
-|`MAGIC_UNSWAP_GRAVE_ESC`          |         |Unswap <code>&#96;</code> and Escape      |
-|`MAGIC_SWAP_LALT_LGUI`            |         |Swap Left Alt and Left GUI                |
-|`MAGIC_UNSWAP_LALT_LGUI`          |         |Unswap Left Alt and Left GUI              |
-|`MAGIC_SWAP_RALT_RGUI`            |         |Swap Right Alt and Right GUI              |
-|`MAGIC_UNSWAP_RALT_RGUI`          |         |Unswap Right Alt and Right GUI            |
-|`MAGIC_SWAP_LCTL_LGUI`            |         |Swap Left Control and Left GUI            |
-|`MAGIC_UNSWAP_LCTL_LGUI`          |         |Unswap Left Control and Left GUI          |
-|`MAGIC_SWAP_RCTL_RGUI`            |         |Swap Right Control and Right GUI          |
-|`MAGIC_UNSWAP_RCTL_RGUI`          |         |Unswap Right Control and Right GUI        |
-|`MAGIC_EE_HANDS_LEFT`             |         |Set "Left Hand" for EE_HANDS handedness   |
-|`MAGIC_EE_HANDS_RIGHT`            |         |Set "Right Hand" for EE_HANDS handedness  |
+|Key                               |Aliases  |Description                                                               |
+|----------------------------------|---------|--------------------------------------------------------------------------|
+|`MAGIC_SWAP_CONTROL_CAPSLOCK`     |`CL_SWAP`|Swap Caps Lock and Left Control                                           |
+|`MAGIC_UNSWAP_CONTROL_CAPSLOCK`   |`CL_NORM`|Unswap Caps Lock and Left Control                                         |
+|`MAGIC_CAPSLOCK_TO_CONTROL`       |`CL_CTRL`|Treat Caps Lock as Control                                                |
+|`MAGIC_UNCAPSLOCK_TO_CONTROL`     |`CL_CAPS`|Stop treating Caps Lock as Control                                        |
+|`MAGIC_SWAP_LCTL_LGUI`            |`LCG_SWP`|Swap Left Control and GUI                                                 |
+|`MAGIC_UNSWAP_LCTL_LGUI`          |`LCG_NRM`|Unswap Left Control and GUI                                               |
+|`MAGIC_SWAP_RCTL_RGUI`            |`RCG_SWP`|Swap Right Control and GUI                                                |
+|`MAGIC_UNSWAP_RCTL_RGUI`          |`RCG_NRM`|Unswap Right Control and GUI                                              |
+|`MAGIC_SWAP_CTL_GUI`              |`CG_SWAP`|Swap Control and GUI on both sides                                        |
+|`MAGIC_UNSWAP_CTL_GUI`            |`CG_NORM`|Unswap Control and GUI on both sides                                      |
+|`MAGIC_TOGGLE_CTL_GUI`            |`CG_TOGG`|Toggle Control and GUI swap on both sides                                 |
+|`MAGIC_SWAP_LALT_LGUI`            |`LAG_SWP`|Swap Left Alt and GUI                                                     |
+|`MAGIC_UNSWAP_LALT_LGUI`          |`LAG_NRM`|Unswap Left Alt and GUI                                                   |
+|`MAGIC_SWAP_RALT_RGUI`            |`RAG_SWP`|Swap Right Alt and GUI                                                    |
+|`MAGIC_UNSWAP_RALT_RGUI`          |`RAG_NRM`|Unswap Right Alt and GUI                                                  |
+|`MAGIC_SWAP_ALT_GUI`              |`AG_SWAP`|Swap Alt and GUI on both sides                                            |
+|`MAGIC_UNSWAP_ALT_GUI`            |`AG_NORM`|Unswap Alt and GUI on both sides                                          |
+|`MAGIC_TOGGLE_ALT_GUI`            |`AG_TOGG`|Toggle Alt and GUI swap on both sides                                     |
+|`MAGIC_NO_GUI`                    |`GUI_OFF`|Disable the GUI keys                                                      |
+|`MAGIC_UNNO_GUI`                  |`GUI_ON` |Enable the GUI keys                                                       |
+|`MAGIC_SWAP_GRAVE_ESC`            |`GE_SWAP`|Swap <code>&#96;</code> and Escape                                        |
+|`MAGIC_UNSWAP_GRAVE_ESC`          |`GE_NORM`|Unswap <code>&#96;</code> and Escape                                      |
+|`MAGIC_SWAP_BACKSLASH_BACKSPACE`  |`BS_SWAP`|Swap `\` and Backspace                                                    |
+|`MAGIC_UNSWAP_BACKSLASH_BACKSPACE`|`BS_NORM`|Unswap `\` and Backspace                                                  |
+|`MAGIC_HOST_NKRO`                 |`NK_ON`  |Enable N-key rollover                                                     |
+|`MAGIC_UNHOST_NKRO`               |`NK_OFF` |Disable N-key rollover                                                    |
+|`MAGIC_TOGGLE_NKRO`               |`NK_TOGG`|Toggle N-key rollover                                                     |
+|`MAGIC_EE_HANDS_LEFT`             |`EH_LEFT`|Set the master half of a split keyboard as the left hand (for `EE_HANDS`) |
+|`MAGIC_EE_HANDS_RIGHT`            |`EH_RGHT`|Set the master half of a split keyboard as the right hand (for `EE_HANDS`)|
 
 ## Configuration
 

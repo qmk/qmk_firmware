@@ -90,6 +90,8 @@ void unregister_code(uint8_t code);
 void tap_code(uint8_t code);
 void register_mods(uint8_t mods);
 void unregister_mods(uint8_t mods);
+void register_weak_mods(uint8_t mods);
+void unregister_weak_mods(uint8_t mods);
 // void set_mods(uint8_t mods);
 void clear_keyboard(void);
 void clear_keyboard_but_mods(void);

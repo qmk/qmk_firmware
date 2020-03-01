@@ -268,7 +268,7 @@ uint8_t layer_switch_get_layer(keypos_t key) {
     /* fall back to layer 0 */
     return 0;
 #else
-    return biton32(default_layer_state);
+    return get_highest_layer(default_layer_state);
 #endif
 }
 

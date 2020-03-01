@@ -120,7 +120,8 @@ static void putchw(void* putp, putcf putf, int n, char z, char* bf) {
 }
 
 void tfp_format(void* putp, putcf putf, char* fmt, va_list va) {
-    char bf[12];
+    // This used to handle max of 12, but binary support jumps this to at least 32
+    char bf[36];
 
     char ch;
 
@@ -185,6 +186,15 @@ void tfp_format(void* putp, putcf putf, char* fmt, va_list va) {
                     break;
                 case 's':
                     putchw(putp, putf, w, 0, va_arg(va, char*));
+                    break;
+                case 'b':
+#ifdef PRINTF_LONG_SUPPORT
+                    if (lng)
+                        uli2a(va_arg(va, unsigned long int), 2, 0, bf);
+                    else
+#endif
+                        ui2a(va_arg(va, unsigned int), 2, 0, bf);
+                    putchw(putp, putf, w, lz, bf);
                     break;
                 case '%':
                     putf(putp, ch);

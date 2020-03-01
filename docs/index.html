@@ -6,7 +6,7 @@
   <link rel="icon" type="image/png" href="gitbook/images/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="Description">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">  
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta property="og:title" content="QMK Firmware Docs">
   <meta property="og:type" content="website">
   <meta property="og:description" content="The full documentation of the open-source firmware">
@@ -21,7 +21,7 @@
   <div id="app"></div>
   <script>
     window.$docsify = {
-      alias : {
+      alias: {
         '/en/(.*)': '/$1',
         '/en-us/(.*)': '/$1',
         '/en-gb/(.*)': '/$1',
@@ -29,21 +29,47 @@
       },
       basePath: '/',
       name: 'QMK Firmware',
-      nameLink: '/',
+      nameLink: {
+        '/de/': '/#/de/',
+        '/es/': '/#/es/',
+        '/fr-fr/': '/#/fr-fr/',
+        '/he-il/': '/#/he-il/',
+        '/ja/': '/#/ja/',
+        '/pt-br/': '/#/pt-br/',
+        '/ru-ru/': '/#/ru-ru/',
+        '/zh-cn/': '/#/zh-cn/',
+        '/': '/#/'
+      },
       repo: 'qmk/qmk_firmware',
       loadSidebar: '_summary.md',
       loadNavbar: '_langs.md',
       mergeNavbar: true,
       auto2top: true,
+      fallbackLanguages: [
+        'de',
+        'es',
+        'fr-fr',
+        'he-il',
+        'ja',
+        'pt-br',
+        'ru-ru',
+        'zh-cn'
+      ],
       formatUpdated: '{YYYY}/{MM}/{DD} {HH}:{mm}',
       search: {
         paths: 'auto',
         placeholder: {
+          '/es/': 'Buscar',
           '/zh-cn/': '搜索',
+          '/ja/': '検索',
+          '/pt-br/': 'Busca',
           '/': 'Search'
         },
         noData: {
+          '/es/': '¡Ningún resultado!',
           '/zh-cn/': '没有结果!',
+          '/ja/': '見つかりません!',
+          '/pt-br/': 'Nenhum resultado!',
           '/': 'No results!'
         },
         depth: 6
@@ -56,9 +82,9 @@
                 .replace('raw.githubusercontent.com', 'github.com')
                 .replace(/\/master/, '/blob/master')
             } else {
-              url = 'https://github.com/qmk/qmk_firmware/blob/master/docs/' + vm.route.file
+              url = 'https://github.com/qmk/qmk_firmware/edit/master/docs/' + vm.route.file
             }
-            var editHtml = '[:memo: Edit Document](' + url + ')\n'
+            var editHtml = ':pencil2: [Edit this page](' + url + ')\n'
             return html
               + '\n\n----\n\n'
               + editHtml

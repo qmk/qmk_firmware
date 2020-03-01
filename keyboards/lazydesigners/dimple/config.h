@@ -58,9 +58,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	/* #define RGBLIGHT_SAT_STEP 8 */
 	/* #define RGBLIGHT_VAL_STEP 8 */
 #endif
-
-/* CapsLock LED */
-#define BACKLIGHT_PIN E6
-#ifdef BACKLIGHT_PIN
-	#define BACKLIGHT_LEVELS 6
-#endif

@@ -16,8 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IS31FL3733_DRIVER_H
-#define IS31FL3733_DRIVER_H
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -32,8 +31,8 @@ typedef struct is31_led {
 extern const is31_led g_is31_leds[DRIVER_LED_TOTAL];
 
 void IS31FL3733_init(uint8_t addr, uint8_t sync);
-void IS31FL3733_write_register(uint8_t addr, uint8_t reg, uint8_t data);
-void IS31FL3733_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
+bool IS31FL3733_write_register(uint8_t addr, uint8_t reg, uint8_t data);
+bool IS31FL3733_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
 
 void IS31FL3733_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 void IS31FL3733_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
@@ -250,5 +249,3 @@ void IS31FL3733_update_led_control_registers(uint8_t addr, uint8_t index);
 #define L_14 0xBD
 #define L_15 0xBE
 #define L_16 0xBF
-
-#endif  // IS31FL3733_DRIVER_H
