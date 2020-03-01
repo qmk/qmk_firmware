@@ -89,16 +89,23 @@ __attribute__((weak)) uint16_t dac_value_generate(void) {
 
 /**
  * DAC streaming callback. Does all of the main computing for playing songs.
+ *
+ * Note: chibios calls this CB twice: during the 'half buffer event', and the 'full buffer event'.
  */
-static void dac_end(DACDriver *dacp, dacsample_t *sample_p, size_t sample_count) {
-    (void)dacp;
+static void dac_end(DACDriver *dacp){
+    dacsample_t *sample_p = (dacp)->samples;
 
-    for (uint8_t s = 0; s < sample_count; s++) {
+    // work on the other half of the buffer
+    if (dacIsBufferComplete(dacp)) {
+        sample_p += DAC_BUFFER_SIZE/2; // 'half_index'
+    }
+
+    for (uint8_t s = 0; s < DAC_BUFFER_SIZE/2; s++) {
         sample_p[s] = dac_value_generate();
     }
 
     if (playing_notes) {
-        note_position += sample_count;
+        note_position += DAC_BUFFER_SIZE/2;
 
         // End of the note - 35 is arbitary here, but gets us close to AVR's timing
         if ((note_position >= (note_length * DAC_SAMPLE_RATE / 35))) {
