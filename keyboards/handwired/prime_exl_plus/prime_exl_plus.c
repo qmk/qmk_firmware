@@ -31,6 +31,7 @@ bool led_update_kb(led_t led_state) {
     writePin(B1, led_state.num_lock);
     writePin(B0, led_state.caps_lock);
     //writePin(B2, led_state.scroll_lock);
+    return true;
 }
 
 //function for layer indicator LED
