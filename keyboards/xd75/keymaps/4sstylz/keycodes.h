@@ -25,9 +25,7 @@
  */
 void select_all(keyrecord_t *record) {
     if (record->event.pressed) {
-        register_code(KC_LCTL);
-        tap_code(KC_A);
-        unregister_code(KC_LCTL);
+        tap_code16(C(KC_A));
     }
 }
 
@@ -98,4 +96,3 @@ void windows_lock(void) {
     tap_code(KC_O);
     unregister_code(KC_LGUI);
 }
-
