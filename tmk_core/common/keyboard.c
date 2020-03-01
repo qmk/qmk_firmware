@@ -179,7 +179,7 @@ __attribute__((weak)) void keyboard_pre_init_user(void) {}
  *
  * FIXME: needs doc
  */
-__attribute__((weak)) void keyboard_pre_init_kb(void) { keyboard_pre_init_user(); }
+__attribute__((weak)) void keyboard_pre_init_kb(void) {}
 
 /** \brief keyboard_post_init_user
  *
@@ -193,7 +193,7 @@ __attribute__((weak)) void keyboard_post_init_user() {}
  * FIXME: needs doc
  */
 
-__attribute__((weak)) void keyboard_post_init_kb(void) { keyboard_post_init_user(); }
+__attribute__((weak)) void keyboard_post_init_kb(void) { }
 
 /** \brief keyboard_setup
  *
@@ -205,6 +205,7 @@ void keyboard_setup(void) {
 #endif
     matrix_setup();
     keyboard_pre_init_kb();
+    keyboard_pre_init_user();
 }
 
 /** \brief is_keyboard_master
@@ -262,7 +263,9 @@ void keyboard_init(void) {
     keymap_config.nkro = 1;
     eeconfig_update_keymap(keymap_config.raw);
 #endif
-    keyboard_post_init_kb(); /* Always keep this last */
+    /* Always keep these last. */
+    keyboard_post_init_kb();
+    keyboard_post_init_user();
 }
 
 /** \brief Keyboard task: Do keyboard routine jobs

@@ -40,7 +40,7 @@ __attribute__((weak)) void suspend_power_down_user(void) {}
  *
  * FIXME: needs doc
  */
-__attribute__((weak)) void suspend_power_down_kb(void) { suspend_power_down_user(); }
+__attribute__((weak)) void suspend_power_down_kb(void) {}
 
 /** \brief suspend power down
  *
@@ -62,6 +62,7 @@ void suspend_power_down(void) {
 #endif
 
     suspend_power_down_kb();
+    suspend_power_down_user();
     // on AVR, this enables the watchdog for 15ms (max), and goes to
     // SLEEP_MODE_PWR_DOWN
 
@@ -94,7 +95,7 @@ __attribute__((weak)) void suspend_wakeup_init_user(void) {}
  *
  * FIXME: needs doc
  */
-__attribute__((weak)) void suspend_wakeup_init_kb(void) { suspend_wakeup_init_user(); }
+__attribute__((weak)) void suspend_wakeup_init_kb(void) {}
 
 /** \brief suspend wakeup condition
  *
@@ -131,4 +132,5 @@ void suspend_wakeup_init(void) {
 #    endif
 #endif
     suspend_wakeup_init_kb();
+    suspend_wakeup_init_user();
 }

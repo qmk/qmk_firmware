@@ -71,7 +71,7 @@ __attribute__((weak)) void suspend_power_down_user(void) {}
  *
  * FIXME: needs doc
  */
-__attribute__((weak)) void suspend_power_down_kb(void) { suspend_power_down_user(); }
+__attribute__((weak)) void suspend_power_down_kb(void) {}
 
 #ifndef NO_SUSPEND_POWER_DOWN
 /** \brief Power down MCU with watchdog timer
@@ -132,6 +132,7 @@ static void power_down(uint8_t wdto) {
     }
 #    endif
     suspend_power_down_kb();
+    suspend_power_down_user();
 
     // TODO: more power saving
     // See PicoPower application note
@@ -156,6 +157,7 @@ static void power_down(uint8_t wdto) {
  */
 void suspend_power_down(void) {
     suspend_power_down_kb();
+    suspend_power_down_user();
 
 #ifndef NO_SUSPEND_POWER_DOWN
     power_down(WDTO_15MS);
@@ -184,7 +186,7 @@ __attribute__((weak)) void suspend_wakeup_init_user(void) {}
  *
  * FIXME: needs doc
  */
-__attribute__((weak)) void suspend_wakeup_init_kb(void) { suspend_wakeup_init_user(); }
+__attribute__((weak)) void suspend_wakeup_init_kb(void) {}
 /** \brief run immediately after wakeup
  *
  * FIXME: needs doc
@@ -209,6 +211,7 @@ void suspend_wakeup_init(void) {
 #    endif
 #endif
     suspend_wakeup_init_kb();
+    suspend_wakeup_init_user();
 }
 
 #ifndef NO_SUSPEND_POWER_DOWN

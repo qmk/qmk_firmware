@@ -20,7 +20,7 @@ __attribute__((weak)) void suspend_power_down_user(void) {}
  *
  * FIXME: needs doc
  */
-__attribute__((weak)) void suspend_power_down_kb(void) { suspend_power_down_user(); }
+__attribute__((weak)) void suspend_power_down_kb(void) {}
 
 /** \brief Suspend power down
  *
@@ -32,6 +32,7 @@ void suspend_power_down(void) {
 #endif
 
     suspend_power_down_kb();
+    suspend_power_down_user();
 }
 
 __attribute__((weak)) void matrix_power_up(void) {}
@@ -56,7 +57,7 @@ __attribute__((weak)) void suspend_wakeup_init_user(void) {}
  *
  * FIXME: needs doc
  */
-__attribute__((weak)) void suspend_wakeup_init_kb(void) { suspend_wakeup_init_user(); }
+__attribute__((weak)) void suspend_wakeup_init_kb(void) {}
 
 /** \brief run immediately after wakeup
  *
@@ -74,4 +75,5 @@ void suspend_wakeup_init(void) {
 #endif
 
     suspend_wakeup_init_kb();
+    suspend_wakeup_init_user();
 }

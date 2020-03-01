@@ -25,8 +25,6 @@ __attribute__((weak)) void eeconfig_init_user(void) {
 __attribute__((weak)) void eeconfig_init_kb(void) {
     // Reset Keyboard EEPROM value to blank, rather than to a set value
     eeconfig_update_kb(0);
-
-    eeconfig_init_user();
 }
 
 /*
@@ -66,6 +64,7 @@ void eeconfig_init_quantum(void) {
 #endif
 
     eeconfig_init_kb();
+    eeconfig_init_user();
 }
 
 /** \brief eeconfig initialization
