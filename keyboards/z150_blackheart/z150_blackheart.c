@@ -4,8 +4,6 @@ void matrix_init_kb(void) {
     setPinOutput(B0);
     setPinOutput(E6);
     setPinOutput(E7);
-
-    matrix_init_user();
 };
 
 void led_set_kb(uint8_t usb_led) {
@@ -27,6 +25,4 @@ void led_set_kb(uint8_t usb_led) {
     } else {
         writePinLow(E6);
     }
-
-    led_set_user(usb_led);
 }

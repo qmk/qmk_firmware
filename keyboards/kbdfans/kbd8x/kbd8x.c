@@ -23,20 +23,6 @@ extern inline void num_led_on(void);
 extern inline void scroll_led_off(void);
 extern inline void scroll_led_on(void);
 
-void matrix_init_kb(void) {
-	// put your keyboard start-up code here
-	// runs once when the firmware starts up
-
-	matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-	// put your looping keyboard code here
-	// runs every cycle (a lot)
-
-	matrix_scan_user();
-}
-
 void led_set_kb(uint8_t usb_led) {
 	// put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
 
@@ -60,6 +46,4 @@ void led_set_kb(uint8_t usb_led) {
     } else {
         scroll_led_off();
     }
-
-	led_set_user(usb_led);
 }

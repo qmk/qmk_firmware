@@ -38,8 +38,6 @@ void matrix_init_kb(void) {
 	//RGB data output low
 	DDRB |= (1<<3);
 	PORTB &= ~(1<<3);
-	
-	matrix_init_user();
 }
 
 void led_set_kb(uint8_t usb_led) {
@@ -54,6 +52,4 @@ void led_set_kb(uint8_t usb_led) {
         DDRD |= (1<<4);
         PORTD |= (1<<4);
     }
-
-	led_set_user(usb_led);
 }

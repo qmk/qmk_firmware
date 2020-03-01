@@ -50,13 +50,7 @@ void rgblight_set(void) {
 }
 #endif
 
-void matrix_scan_kb(void) { matrix_scan_user(); }
-
 void matrix_init_kb(void) {
-  matrix_init_user();
-}
-__attribute__((weak))
-void matrix_init_user(void) {
 #ifdef RGBLIGHT_ENABLE
   rgblight_enable();
 #endif
@@ -66,8 +60,7 @@ void matrix_init_user(void) {
 #endif
 }
 
-__attribute__((weak))
-void matrix_scan_user(void) {
+void matrix_scan_kb(void) {
 #ifdef RGBLIGHT_ENABLE
   rgblight_task();
 #endif

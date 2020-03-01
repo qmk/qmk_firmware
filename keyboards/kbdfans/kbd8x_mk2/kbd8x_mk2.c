@@ -24,8 +24,6 @@ void matrix_init_kb(void) {
   
   setPinOutput(B2);
   setPinOutput(E6);
-
-  matrix_init_user();
 }
 
 void led_set_kb(uint8_t usb_led) {
@@ -44,21 +42,4 @@ void led_set_kb(uint8_t usb_led) {
   } else {
     writePinHigh(B2);
   }
-
-  led_set_user(usb_led);
 }
-
-// Optional override functions below.
-// You can leave any or all of these undefined.
-// These are only required if you want to perform custom actions.
-
-/*
-
-void matrix_scan_kb(void) {
-  // put your looping keyboard code here
-  // runs every cycle (a lot)
-
-  matrix_scan_user();
-}
-
-*/

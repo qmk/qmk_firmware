@@ -27,7 +27,6 @@ static uint8_t softpwm_buff[3] = {0};
 
 void matrix_init_kb(void) {
 	rgb_init();
-	matrix_init_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {

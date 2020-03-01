@@ -28,20 +28,7 @@ void matrix_init_kb(void) {
 
   setPinOutput(CAPS_PIN);
   setPinOutput(SCROLL_PIN);
-
-  matrix_init_user();
 }
-
-/*
-
-void matrix_scan_kb(void) {
-  // put your looping keyboard code here
-  // runs every cycle (a lot)
-
-  matrix_scan_user();
-}
-
-*/
 
 void led_set_kb(uint8_t usb_led) {
   // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
@@ -57,6 +44,4 @@ void led_set_kb(uint8_t usb_led) {
   } else {
     writePinLow(SCROLL_PIN);
   }
-
-  led_set_user(usb_led);
 }

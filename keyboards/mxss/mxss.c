@@ -35,15 +35,6 @@ void matrix_init_kb(void) {
     fled_init();
     via_eeprom_set_valid(true);
 #endif // VIA_ENABLE
-
-	matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-	// put your looping keyboard code here
-	// runs every cycle (a lot)
-
-	matrix_scan_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
@@ -54,7 +45,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
 bool led_update_kb(led_t led_state) {
     fled_lock_update(led_state);
-	return led_update_user(led_state);
+    return true;
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {

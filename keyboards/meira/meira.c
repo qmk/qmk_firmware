@@ -36,10 +36,6 @@ void matrix_init_kb(void)
     // we should get a flashing red light
     wdt_enable(WDTO_500MS);
 #endif
-
-    // put your keyboard start-up code here
-    // runs once when the firmware starts up
-    matrix_init_user();
 }
 
 void matrix_scan_kb(void)
@@ -71,27 +67,15 @@ void matrix_scan_kb(void)
         twi_last_ready++;
     }
 #endif
-    matrix_scan_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     // Test code that turns on the switch led for the key that is pressed
     // set_backlight_by_keymap(record->event.key.col, record->event.key.row);
-    /* FIXME(skullydazed):
-     *     Originally this code always ran no matter what process_record_user() did.
-     *     With this PR it will only run if process_record_user() returns true. We
-     *     should think through the implications here.
-     */
     if (keycode == RESET) {
         reset_keyboard_kb();
-    } else {
     }
     return true;
-}
-
-void led_set_kb(uint8_t usb_led) {
-	// put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-	led_set_user(usb_led);
 }
 
 void reset_keyboard_kb(){

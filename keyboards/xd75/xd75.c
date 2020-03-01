@@ -28,8 +28,6 @@ void matrix_init_kb(void) {
 	gp100_led_init();
 	gp103_led_init();
 	keycaps_led_init();
-
-	matrix_init_user();
 }
 
 void capslock_led_init(void) {

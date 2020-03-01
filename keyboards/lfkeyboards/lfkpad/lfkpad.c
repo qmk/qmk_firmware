@@ -13,8 +13,6 @@ uint16_t click_time = CLICK_MS;
 uint8_t click_toggle = CLICK_ENABLED;
 
 void matrix_init_kb(void) {
-    matrix_init_user();
-
 #ifndef AUDIO_ENABLE
     // If we're not using the audio pin, drive it low
     setPinOutput(C6);
@@ -64,8 +62,6 @@ void matrix_scan_kb(void) {
         twi_last_ready++;
     }
 #endif
-
-    matrix_scan_user();
 }
 
 void click(uint16_t freq, uint16_t duration) {
@@ -83,11 +79,6 @@ void click(uint16_t freq, uint16_t duration) {
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
-    /* FIXME(skullydazed):
-     *     Originally this code always ran no matter what process_record_user() did.
-     *     With this PR it will only run if process_record_user() returns true. We
-     *     should think through the implications here.
-     */
     if (click_toggle && record->event.pressed) {
         click(click_hz, click_time);
     }

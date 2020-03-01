@@ -30,10 +30,6 @@ combo_t key_combos[COMBO_COUNT] = {
 
 bool led_adjust_active = false;
 
-void matrix_init_kb(void) {
-    matrix_init_user();
-}
-
 void process_combo_event(uint8_t combo_index, bool pressed) {
     if (combo_index == LED_ADJUST) {
         led_adjust_active = pressed;

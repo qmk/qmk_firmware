@@ -70,8 +70,6 @@ void matrix_init_kb(void)
     via_init_kb();
     via_eeprom_set_valid(true);
 #endif // VIA_ENABLE
-
-    matrix_init_user();
 }
 
 void matrix_scan_kb(void)
@@ -80,7 +78,6 @@ void matrix_scan_kb(void)
     // This only updates the LED driver buffers if something has changed.
     backlight_update_pwm_buffers();
 #endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
-    matrix_scan_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record)
@@ -97,7 +94,6 @@ void led_set_kb(uint8_t usb_led)
 #if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
     backlight_set_indicator_state(usb_led);
 #endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
-    led_set_user(usb_led);
 }
 
 void suspend_power_down_kb(void)

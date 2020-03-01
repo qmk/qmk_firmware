@@ -17,8 +17,6 @@ void matrix_init_kb(void) {
 	setPinOutput(E6);
 	writePinHigh(E6);
 	#endif
-
-	matrix_init_user();
 }
 
 const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_planck_grid(

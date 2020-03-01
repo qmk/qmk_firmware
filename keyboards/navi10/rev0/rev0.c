@@ -16,15 +16,9 @@
 #include "rev0.h"
 
 void matrix_init_kb(void) {
-  // put your keyboard start-up code here
-  // runs once when the firmware starts up
-
   //set the indicator LED pin to Output
   setPinOutput(B5);
   //set HIGH for off.
   writePinHigh(B5);
-
-  //call any user functions
-  matrix_init_user();
 }
 

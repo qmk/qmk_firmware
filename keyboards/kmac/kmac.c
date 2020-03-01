@@ -29,20 +29,7 @@ void matrix_init_kb(void) {
     // runs once when the firmware starts up
     setPinOutput(CAPS_PIN);
     setPinOutput(SCROLL_PIN);
-
-    matrix_init_user();
 }
-
-/*
-
-void matrix_scan_kb(void) {
-  // put your looping keyboard code here
-  // runs every cycle (a lot)
-
-  matrix_scan_user();
-}
-
-*/
 
 /* LED pin configuration
  * Scroll Lock: Low PE6
@@ -60,8 +47,6 @@ void led_set_kb(uint8_t usb_led) {
     } else {
         writePinHigh(SCROLL_PIN);
     }
-
-    led_set_user(usb_led);
 }
 
 void backlight_init_ports(void) {

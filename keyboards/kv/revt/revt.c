@@ -20,6 +20,4 @@ void matrix_init_kb(void) {
   // Turn status LED on
   setPinOutput(C14);
   writePinHigh(C14);
-
-  matrix_init_user();
 }

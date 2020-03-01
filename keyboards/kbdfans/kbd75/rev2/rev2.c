@@ -7,11 +7,8 @@ void led_set_kb(uint8_t usb_led) {
   } else {
     writePinHigh(B2);
   }
-
-  led_set_user(usb_led);
 }
 
 void matrix_init_kb(void) {
   setPinOutput(B2);
-  matrix_init_user();
 }

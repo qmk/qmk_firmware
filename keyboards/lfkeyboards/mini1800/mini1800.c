@@ -30,9 +30,6 @@ const Layer_Info layer_info[] = {
 
 void matrix_init_kb(void)
 {
-    // put your keyboard start-up code here
-    // runs once when the firmware starts up
-    matrix_init_user();
     set_rgb(31, 0x00, 0x00, 0x00);  // Caps lock
     set_rgb(32, 0xFF, 0x00, 0x00);  // Layer indicator, start red
 #ifndef AUDIO_ENABLE
@@ -95,7 +92,6 @@ void matrix_scan_kb(void)
             }
         }
     }
-    matrix_scan_user();
 }
 
 void click(uint16_t freq, uint16_t duration){
@@ -112,11 +108,6 @@ void click(uint16_t freq, uint16_t duration){
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record)
 {
-    /* FIXME(skullydazed):
-     *     Originally this code always ran no matter what process_record_user() did.
-     *     With this PR it will only run if process_record_user() returns true. We
-     *     should think through the implications here.
-     */
     if (click_toggle && record->event.pressed){
         click(click_hz, click_time);
     }
@@ -205,7 +196,6 @@ void led_set_kb(uint8_t usb_led)
     }else{
         set_rgb(31, 0x00, 0x00, 0x00);
     }
-    led_set_user(usb_led);
 }
 
 // Lighting info, see lighting.h for details

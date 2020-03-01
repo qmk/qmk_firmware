@@ -25,6 +25,4 @@ void matrix_init_kb(void) {
 
     DDRD |= (1<<3);
     PORTD &= ~(1<<3);
-
-    matrix_init_user();
 };

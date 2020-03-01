@@ -67,20 +67,10 @@ void blink_all_leds(void)
 
  void matrix_init_kb(void) {
 	  blink_all_leds();
-	  matrix_init_user();
 }
 
-
-void matrix_scan_kb(void) {
-	// put your looping keyboard code here
-	// runs every cycle (a lot)
-	
-	matrix_scan_user();
-}
 
 void led_set_kb(uint8_t usb_led) {
-	// put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-
 //Copyright 2014 Warren Janssens <warren.janssens@gmail.com>
    uint8_t leds = 0xF0;
     if (usb_led & 1 << USB_LED_NUM_LOCK)
@@ -90,9 +80,6 @@ void led_set_kb(uint8_t usb_led) {
     if (usb_led & 1 << USB_LED_SCROLL_LOCK)
         leds &= ~0x20;
     PORTD = (PORTD & 0x0F) | leds;
-
-	led_set_user(usb_led);
-
 }
 
 

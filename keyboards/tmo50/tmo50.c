@@ -27,8 +27,6 @@ void matrix_init_kb(void) {
   PORTB |= (1<<PB2);
   DDRB |= (1 << PB3);
   PORTB |= (1<<PB3);
-
-	matrix_init_user();
 }
 
 uint32_t layer_state_set_kb(uint32_t state)

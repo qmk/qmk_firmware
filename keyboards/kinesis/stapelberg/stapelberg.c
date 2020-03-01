@@ -8,15 +8,6 @@ void matrix_init_kb(void) {
     DDRF |= (1<<1); // ScrLock LED
     DDRF |= (1<<2); // NumLock LED
     DDRF |= (1<<3); // CapsLock LED
-
-	matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-	// put your looping keyboard code here
-	// runs every cycle (a lot)
-
-	matrix_scan_user();
 }
 
 void led_init_ports() {
