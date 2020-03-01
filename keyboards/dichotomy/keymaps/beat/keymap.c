@@ -1,10 +1,12 @@
 #include QMK_KEYBOARD_H
 
-#define _QWERTY 0
-#define _LOWER 1
-#define _RAISE 2
-#define _MOUSE 8
-#define _ADJUST 16
+enum layer_names {
+    _QWERTY,
+    _LOWER,
+    _RAISE,
+    _MOUSE,
+    _ADJUST
+};
 
 enum dichotomy_keycodes
 {
@@ -56,11 +58,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-uint32_t layer_state_set_user(uint32_t state) {
-    //uprintf("%X layer_state_set_user\n", state);
-    red_led(state & (1<<(_LOWER)));
-    grn_led(state & (1<<(_RAISE)));
-    blu_led(state & (1<<(_MOUSE)));
+layer_state_t layer_state_set_user(layer_state_t state) {
+    red_led(layer_state_cmp(state, _LOWER));
+    grn_led(layer_state_cmp(state, _RAISE));
+    blu_led(layer_state_cmp(state, _MOUSE));
     return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
