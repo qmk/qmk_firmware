@@ -5,24 +5,10 @@
 #include "e6_rgb.h"
 
 #ifdef RGB_MATRIX_ENABLE
-__attribute__ ((weak))
 void matrix_init_kb(void) {
-    matrix_init_user();
-}
-
-__attribute__ ((weak))
-void matrix_scan_kb(void) {
-    matrix_scan_user();
-}
-
-__attribute__ ((weak))
-void matrix_init_user(void) {
   setPinOutput(D5);
   writePinHigh(D5);
-}
-
-__attribute__ ((weak))
-void matrix_scan_user(void) {
+  matrix_init_user();
 }
 
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
@@ -190,3 +176,30 @@ led_config_t g_led_config = { {
 } };
 
 #endif
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        switch(keycode) {
+#if defined(RGBLIGHT_ENABLE) && defined(RGB_MATRIX_ENABLE)
+            case KC_F13: // toggle rgb matrix
+                rgb_matrix_toggle();
+                return false;
+            case KC_F14:
+                rgb_matrix_step();
+                return false;
+            case KC_F15:
+                rgb_matrix_increase_hue();
+                return false;
+            case KC_F16:
+                rgb_matrix_increase_sat();
+                return false;
+            case KC_F17:
+                rgb_matrix_increase_val();
+                return false;
+#endif
+            default:
+                break;
+        }
+    }
+  return true;
+}

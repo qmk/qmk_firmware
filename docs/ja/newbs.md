@@ -2,8 +2,8 @@
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
-  original document: ed0575fc8:docs/newbs.md
-  git diff ed0575fc8 HEAD docs/newbs.md | cat
+  original document: adf4acf59:docs/newbs.md
+  git diff adf4acf59 HEAD -- docs/newbs.md | cat
 -->
 
 QMK は、メカニカルキーボード用の強力なオープンソースファームウェアです。
@@ -24,7 +24,7 @@ QMK は[多くの趣味のキーボード](http://qmk.fm/keyboards/)をサポー
 * [オンライン GUI を使用して初めてのファームウェアを構築する](ja/newbs_building_firmware_configurator.md)
 * [ファームウェアを書きこむ](ja/newbs_flashing.md)
 * [テストとデバッグ](ja/newbs_testing_debugging.md)
-* [QMK における Git 運用作法](ja/newbs_best_practices.md)
+* [QMK における Git 運用作法](ja/newbs_git_best_practices.md)
 * [さらに学ぶための学習リソース](ja/newbs_learn_more_resources.md)
 
 このガイドは、これまでソフトウェアをコンパイルしたことがない人を支援することに特化しています。

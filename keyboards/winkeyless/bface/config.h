@@ -35,15 +35,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4, C3, C2, D7}
 #define UNUSED_PINS
 
+#define DIODE_DIRECTION COL2ROW
+
 #define RGBLED_NUM 16
 #define RGBLIGHT_ANIMATIONS
 
 #define NO_UART 1
 
-#ifdef BACKLIGHT_ENABLE
-	// the backlight PWM does not work (yet). Therefore, we only have two backlight levels (on/off)
-	#define BACKLIGHT_LEVELS 1
-	#define LED_PIN PORTD
-	#define BACKLIGHT_PORT_NUM (1 << 4)
-#endif
-
+#define BACKLIGHT_PIN D4
+#define BACKLIGHT_LEVELS 3

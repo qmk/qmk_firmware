@@ -38,7 +38,7 @@ To configure a keyboard where each switch is connected to a separate pin and gro
 
 `BACKLIGHT_BREATHING` is a fancier backlight feature that adds breathing/pulsing/fading effects to the backlight. It uses the same timer as the normal backlight. These breathing effects must be called by code in your keymap.
 
-`BACKLIGHT_LEVELS` is how many levels exist for your backlight - max is 15, and they are computed automatically from this number.
+`BACKLIGHT_LEVELS` is how many levels exist for your backlight - max is 31, and they are computed automatically from this number.
 
 ## `/keyboards/<keyboard>/Makefile`
 
