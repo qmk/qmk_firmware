@@ -315,11 +315,6 @@ bool process_record_quantum(keyrecord_t *record) {
                 set_output(OUTPUT_BLUETOOTH);
                 return false;
 #endif
-#if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_BREATHING)
-            case BL_BRTG:
-                backlight_toggle_breathing();
-                return false;
-#endif
         }
     }
 
