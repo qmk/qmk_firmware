@@ -20,16 +20,16 @@ enum layers {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_LAYER0] = {{KC_A, KC_B, KC_C}, {KC_D, KC_E, KC_F}, {KC_G, KC_H, KC_I}, {KC_NO, KC_NO, KC_J}},
-  [_LAYER1] = {{KC_A, KC_B, KC_C}, {KC_D, KC_E, KC_F}, {KC_G, KC_H, KC_I}, {KC_NO, KC_NO, KC_J}},
-  [_LAYER2] = {{KC_A, KC_B, KC_C}, {KC_D, KC_E, KC_F}, {KC_G, KC_H, KC_I}, {KC_NO, KC_NO, KC_J}},
-  [_LAYER3] = {{KC_A, KC_B, KC_C}, {KC_D, KC_E, KC_F}, {KC_G, KC_H, KC_I}, {KC_NO, KC_NO, KC_J}},
-  [_LAYER4] = {{KC_A, KC_B, KC_C}, {KC_D, KC_E, KC_F}, {KC_G, KC_H, KC_I}, {KC_NO, KC_NO, KC_J}},
-  [_LAYER5] = {{KC_A, KC_B, KC_C}, {KC_D, KC_E, KC_F}, {KC_G, KC_H, KC_I}, {KC_NO, KC_NO, KC_J}},
-  [_LAYER6] = {{KC_A, KC_B, KC_C}, {KC_D, KC_E, KC_F}, {KC_G, KC_H, KC_I}, {KC_NO, KC_NO, KC_J}},
-  [_LAYER7] = {{KC_A, KC_B, KC_C}, {KC_D, KC_E, KC_F}, {KC_G, KC_H, KC_I}, {KC_NO, KC_NO, KC_J}},
-  [_LAYER8] = {{KC_A, KC_B, KC_C}, {KC_D, KC_E, KC_F}, {KC_G, KC_H, KC_I}, {KC_NO, KC_NO, KC_J}},
-  [_LAYER9] = {{KC_A, KC_B, KC_C}, {KC_D, KC_E, KC_F}, {KC_G, KC_H, KC_I}, {KC_NO, KC_NO, KC_J}}
+  [_LAYER0] = LAYOUT(KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G, KC_H, KC_I, KC_NO, KC_NO, KC_J),
+  [_LAYER1] = LAYOUT(KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G, KC_H, KC_I, KC_NO, KC_NO, KC_J),
+  [_LAYER2] = LAYOUT(KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G, KC_H, KC_I, KC_NO, KC_NO, KC_J),
+  [_LAYER3] = LAYOUT(KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G, KC_H, KC_I, KC_NO, KC_NO, KC_J),
+  [_LAYER4] = LAYOUT(KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G, KC_H, KC_I, KC_NO, KC_NO, KC_J),
+  [_LAYER5] = LAYOUT(KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G, KC_H, KC_I, KC_NO, KC_NO, KC_J),
+  [_LAYER6] = LAYOUT(KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G, KC_H, KC_I, KC_NO, KC_NO, KC_J),
+  [_LAYER7] = LAYOUT(KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G, KC_H, KC_I, KC_NO, KC_NO, KC_J),
+  [_LAYER8] = LAYOUT(KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G, KC_H, KC_I, KC_NO, KC_NO, KC_J),
+  [_LAYER9] = LAYOUT(KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G, KC_H, KC_I, KC_NO, KC_NO, KC_J)
 };
 
 void matrix_init_user(void) {
