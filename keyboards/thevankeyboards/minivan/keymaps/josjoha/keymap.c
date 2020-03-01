@@ -1087,7 +1087,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //
 //      <pink2   , <pinky  , <ring   , <middl      , <index  , <indx2     |, indx2>     , index>  , middl>         , ring>   , pinky>  , pink2>      ,
 //               ,         ,         ,             ,         , -*-       <|,>           ,         ,                ,         ,         ,             ,
-        CTO_BASE , XXXXXXX , XXXXXXX , KC_DOT      , KC_KP_4 , KC_KP_2     , KC_KP_8    , KC_KP_6 , KC_KP_ASTERISK , XXXXXXX , XXXXXXX , KC_BSPC     ,
+        CTO_BASE , XXXXXXX , XXXXXXX , KC_KP_DOT   , KC_KP_4 , KC_KP_2     , KC_KP_8    , KC_KP_6 , KC_KP_ASTERISK , XXXXXXX , XXXXXXX , KC_BSPC     ,
         KC_LCTL  , KC_KP_1 , KC_KP_2 , KC_KP_3     , KC_KP_4 , KC_KP_5     , KC_KP_6    , KC_KP_7 , KC_KP_8        , KC_KP_9 , KC_KP_0 , KC_KP_MINUS ,
         KC_LSFT  , XXXXXXX , XXXXXXX , KC_KP_SLASH , XXXXXXX , KC_KP_EQUAL , KC_KP_PLUS , KC_KP_3 , KC_KP_1        , KC_KP_7 , KC_KP_9 , KC_RSFT     ,
 //      ------------------------------------------------------------------------------------------------
