@@ -57,17 +57,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 uint32_t layer_state_set_user(uint32_t state) {
-  //uprintf("%X layer_state_set_user\n", state);
-  red_led(state & (1<<(_LOWER)));
-  grn_led(state & (1<<(_RAISE)));
-  blu_led(state & (1<<(_MOUSE)));
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+    //uprintf("%X layer_state_set_user\n", state);
+    red_led(state & (1<<(_LOWER)));
+    grn_led(state & (1<<(_RAISE)));
+    blu_led(state & (1<<(_MOUSE)));
+    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
 #define SetBitMask(variable, mask, on) if (on) variable |= mask; else variable &= ~mask
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  report_mouse_t currentReport;
+    report_mouse_t currentReport;
 	switch (keycode) {
 		//mouse buttons, for 1-3, to update the mouse report:
 		//MOUSE_BTN1-3 are consts defined in report.h
@@ -86,29 +86,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			SetBitMask(currentReport.buttons, MOUSE_BTN3, record->event.pressed);
 			pointing_device_set_report(currentReport);
 			return false;
-    case KC_WH_U:
+        case KC_WH_U:
 			currentReport = pointing_device_get_report();
-      if(record->event.pressed)
-      {
-        currentReport.v += 1;
-      }
-      else
-      {
-        currentReport.v = 0;
-      }
+            if(record->event.pressed) {
+                currentReport.v += 1;
+            }
+            else {
+                currentReport.v = 0;
+            }
 			pointing_device_set_report(currentReport);
 			return false;
-    case KC_WH_D:
+        case KC_WH_D:
 			currentReport = pointing_device_get_report();
-      if(record->event.pressed)
-      {
-        currentReport.v -= 1;
-      }
-      else
-      {
-        currentReport.v = 0;
-      }
-      pointing_device_set_report(currentReport);
+            if(record->event.pressed) {
+                currentReport.v -= 1;
+            }
+            else {
+                currentReport.v = 0;
+            }
+            pointing_device_set_report(currentReport);
 			return false;
 	}
 	return true;
