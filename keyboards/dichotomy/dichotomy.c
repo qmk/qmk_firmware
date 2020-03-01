@@ -63,10 +63,11 @@ void pointing_device_task(void){
 }
 
 void led_init(void) {
-	DDRD  |= (1<<1);
+    DDRD |= (1<<1);
+    DDRF |= (1<<5) | (1<<6);
+
 	PORTD |= (1<<1);
-	DDRF  |= (1<<4) | (1<<5);
-	PORTF |= (1<<4) | (1<<5);
+	PORTF |= (1<<5) | (1<<6);
 }
 
 
