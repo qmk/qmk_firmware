@@ -50,6 +50,9 @@ void rgblight_set(void) {
 }
 #endif
 
+__attribute__((weak))
+void matrix_init_user(void) {}
+
 void matrix_init_kb(void) {
 #ifdef RGBLIGHT_ENABLE
   rgblight_enable();
@@ -59,6 +62,9 @@ void matrix_init_kb(void) {
   rgb_matrix_disable();
 #endif
 }
+
+__attribute__((weak))
+void matrix_scan_user(void) {}
 
 void matrix_scan_kb(void) {
 #ifdef RGBLIGHT_ENABLE
