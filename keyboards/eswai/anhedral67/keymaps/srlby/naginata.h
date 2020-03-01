@@ -27,6 +27,10 @@ void naginata_on(void);
 void naginata_off(void);
 bool naginata_state(void);
 
+void mac_live_conversion_toggle(void);
+void mac_live_conversion_on(void);
+void mac_live_conversion_off(void);
+
 bool process_naginata(uint16_t, keyrecord_t *);
 void set_naginata(uint8_t);
 
