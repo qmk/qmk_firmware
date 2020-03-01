@@ -1,10 +1,10 @@
 # The default keymap for PRKL30
 
-https://imgur.com/GjoB6Ht
+[Imgur](https://i.imgur.com/GjoB6Ht.png)
 default
-https://imgur.com/sOegfVo
+[Imgur](https://i.imgur.com/sOegfVo.png)
 lower
-https://imgur.com/x5t6lmf
+[Imgur](https://i.imgur.com/x5t6lmf.png)
 raise
-https://imgur.com/l2mCZFM
+[Imgur](https://i.imgur.com/l2mCZFM.png)
 fn
