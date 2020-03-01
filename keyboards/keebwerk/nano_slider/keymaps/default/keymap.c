@@ -25,9 +25,22 @@ enum custom_keycodes { QMKBEST = SAFE_RANGE, QMKURL };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [_BASE] = LAYOUT(TO(_FN), KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_0),
-    [_FN]   = LAYOUT(TO(_DEMO), RGB_TOG, RGB_MOD, RGB_VAI, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
-    [_DEMO] = LAYOUT(TO(_BASE), QMKBEST, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, QMKURL)};
+    [_BASE] = LAYOUT(
+        TO(_FN),
+        KC_1,    KC_2,    KC_3,
+        KC_4,    KC_5,    KC_6,    KC_0
+    ),
+    [_FN] = LAYOUT(
+        TO(_DEMO),
+        RGB_TOG, RGB_MOD, RGB_VAI,
+        _______, _______, _______, _______
+    ),
+    [_DEMO] = LAYOUT(
+        TO(_BASE),
+        QMKBEST, _______, _______,
+        _______, _______, _______, QMKURL
+    )
+};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
