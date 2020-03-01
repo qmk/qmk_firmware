@@ -4,7 +4,7 @@
   * [Building Your First Firmware](newbs_building_firmware.md)
   * [Flashing Firmware](newbs_flashing.md)
   * [Testing and Debugging](newbs_testing_debugging.md)
-  * [Getting Help](getting_started_getting_help.md)
+  * [Getting Help/Support](support.md)
   * [Other Resources](newbs_learn_more_resources.md)
 
 * FAQs

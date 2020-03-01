@@ -62,3 +62,19 @@ These allow you to combine a modifier with a keycode. When pressed, the keydown 
 |`HYPR(kc)`|                               |Hold Left Control, Shift, Alt and GUI and press `kc`|
 
 You can also chain them, for example `LCTL(LALT(KC_DEL))` makes a key that sends Control+Alt+Delete with a single keypress.
+
+# Legacy Content
+
+This page used to encompass a large set of features. We have moved many sections that used to be part of this page to their own pages. Everything below this point is simply a redirect so that people following old links on the web find what they're looking for.
+
+## Mod-Tap :id=mod-tap
+
+* [Mod-Tap](mod_tap.md)
+
+## One Shot Keys :id=one-shot-keys
+
+* [One Shot Keys](one_shot_keys.md)
+
+## Tap-Hold Configuration Options :id=tap-hold-configuration-options
+
+* [Tap-Hold Configuration Options](tap_hold.md)

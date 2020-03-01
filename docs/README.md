@@ -28,7 +28,7 @@ QMK has lots of [features](features.md) to explore, and a good deal of reference
 
 ## Need help?
 
-Check out the [support page](getting_started_getting_help.md) to see how you can get help using QMK.
+Check out the [support page](support.md) to see how you can get help using QMK.
 
 ## Give Back
 
