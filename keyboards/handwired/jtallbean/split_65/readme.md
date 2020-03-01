@@ -2,7 +2,7 @@
 
 ![split_65](https://i.imgur.com/hUTqwmv.png)
 
-A short description of the keyboard/project
+split_65 is a split, 65% layout keyboard with left function column designed for improved ergonomics and comfort.
 
 * Keyboard Maintainer: [jtallbean](https://github.com/samlli)
 * Hardware Supported: split_65
