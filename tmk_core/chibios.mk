@@ -80,7 +80,8 @@ ifeq ("$(wildcard $(BOARD_MK))","")
 endif
 
 include $(BOARD_MK)
-include $(CHIBIOS)/os/hal/osal/rt/osal.mk
+-include $(CHIBIOS)/os/hal/osal/rt/osal.mk         # ChibiOS <= 19.x
+-include $(CHIBIOS)/os/hal/osal/rt-nil/osal.mk     # ChibiOS >= 20.x
 # RTOS files (optional).
 include $(CHIBIOS)/os/rt/rt.mk
 # Compability with old version
@@ -112,6 +113,7 @@ else ifneq ("$(wildcard $(TOP_DIR)/drivers/boards/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(TOP_DIR)/drivers/boards/ld/$(MCU_LDSCRIPT).ld
 else ifneq ("$(wildcard $(STARTUPLD_CONTRIB)/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(STARTUPLD_CONTRIB)/$(MCU_LDSCRIPT).ld
+    USE_CHIBIOS_CONTRIB = yes
 else
     LDSCRIPT = $(STARTUPLD)/$(MCU_LDSCRIPT).ld
 endif
@@ -122,7 +124,6 @@ CHIBISRC = $(STARTUPSRC) \
        $(OSALSRC) \
        $(HALSRC) \
        $(PLATFORMSRC) \
-       $(PLATFORMSRC_CONTRIB) \
        $(BOARDSRC) \
        $(STREAMSSRC) \
        $(CHIBIOS)/os/various/syscalls.c
@@ -134,8 +135,31 @@ CHIBISRC := $(patsubst $(TOP_DIR)/%,%,$(CHIBISRC))
 
 EXTRAINCDIRS += $(CHIBIOS)/os/license $(CHIBIOS)/os/oslib/include \
          $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
-         $(HALINC) $(PLATFORMINC) $(PLATFORMINC_CONTRIB) $(BOARDINC) $(TESTINC) \
+         $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
          $(STREAMSINC) $(CHIBIOS)/os/various $(COMMON_VPATH)
+
+#
+# ChibiOS-Contrib
+##############################################################################
+
+# Work out if we're using ChibiOS-Contrib by checking if halconf_community.h exists
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/halconf_community.h)","")
+    USE_CHIBIOS_CONTRIB = yes
+else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/halconf_community.h)","")
+    USE_CHIBIOS_CONTRIB = yes
+else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/halconf_community.h)","")
+    USE_CHIBIOS_CONTRIB = yes
+else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/halconf_community.h)","")
+    USE_CHIBIOS_CONTRIB = yes
+else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/halconf_community.h)","")
+    USE_CHIBIOS_CONTRIB = yes
+endif
+
+ifeq ($(strip $(USE_CHIBIOS_CONTRIB)),yes)
+	include $(CHIBIOS_CONTRIB)/os/hal/hal.mk
+	CHIBISRC += $(PLATFORMSRC_CONTRIB) $(HALSRC_CONTRIB)
+	EXTRAINCDIRS += $(PLATFORMINC_CONTRIB) $(HALINC_CONTRIB) $(CHIBIOS_CONTRIB)/os/various
+endif
 
 #
 # Project, sources and paths
