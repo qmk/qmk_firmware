@@ -15,6 +15,7 @@ UNICODE_ENABLE             = no  # Unicode
 BLUETOOTH_ENABLE           = no  # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE            = no  # Enable WS2812 RGB underlight.
 SWAP_HANDS_ENABLE          = no  # Enable one-hand typing
+TAP_DANCE_ENABLE 		   = yes # Enable double tapping function
 RGB_MATRIX_ENABLE = WS2812
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
