@@ -14,8 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include <keycodes.h>
-#include <leds.h>
+#include "keycodes.h"
+#include "leds.h"
 
 // Implement Super-alt↯tab
 // See https://docs.qmk.fm/#/feature_macros?id=super-alt↯tab

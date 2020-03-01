@@ -39,9 +39,7 @@ void select_all(keyrecord_t *record) {
 void select_row(keyrecord_t *record) {
     if (record->event.pressed) {
         tap_code(KC_HOME);
-        register_code(KC_LSFT);
-        tap_code(KC_END);
-        unregister_code(KC_LSFT);
+        tap_code16(S(KC_END));
     }
 }
 
@@ -60,9 +58,7 @@ void select_word(keyrecord_t *record) {
     if (record->event.pressed) {
         register_code(KC_LCTL);
         tap_code(KC_LEFT);
-        register_code(KC_LSFT);
-        tap_code(KC_RIGHT);
-        unregister_code(KC_LSFT);
+        tap_code16(S(KC_RGHT));
         unregister_code(KC_LCTL);
     }
 }
@@ -77,10 +73,8 @@ void select_word(keyrecord_t *record) {
  */
 void insert_00(keyrecord_t *record) {
     if (record->event.pressed) {
-        register_code(KC_LSFT);
-        tap_code(KC_0);
-        tap_code(KC_0);
-        unregister_code(KC_LSFT);
+        tap_code16(S(KC_0));
+        tap_code16(S(KC_0));
     }
 }
 
@@ -92,7 +86,5 @@ void insert_00(keyrecord_t *record) {
  * @return void
  */
 void windows_lock(void) {
-    register_code(KC_LGUI);
-    tap_code(KC_O);
-    unregister_code(KC_LGUI);
+    tap_code16(G(KC_O));
 }

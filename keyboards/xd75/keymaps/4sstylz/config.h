@@ -18,8 +18,6 @@
 
 // place overrides here
 
-#include "config_common.h"
-
 /* Enable the space-cadet options */
 #define RSPC_KEYS KC_RSFT, KC_TRNS, KC_PGUP
 #define RCPC_KEYS KC_RCTL, KC_TRNS, KC_PGDOWN
