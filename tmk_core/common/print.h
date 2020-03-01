@@ -72,9 +72,7 @@ extern "C"
 
 #    elif defined(PROTOCOL_CHIBIOS) /* PROTOCOL_CHIBIOS */
 
-//#        ifndef TERMINAL_ENABLE
-#            include "printf.h" // lib/printf/printf.h
-//#        endif
+#        include "printf.h"  // lib/printf/printf.h
 
 #        ifdef USER_PRINT /* USER_PRINT */
 
