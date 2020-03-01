@@ -34,5 +34,6 @@ bool led_update_kb(led_t led_state) {
     // This behavior depends on whether the LED is between the pin
     // and VCC or the pin and GND.
     writePin(C7, !led_state.caps_lock);
+    return true;
 }
 
