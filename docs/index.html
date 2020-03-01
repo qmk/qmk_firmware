@@ -23,10 +23,26 @@
   <script>
     window.$docsify = {
       alias: {
+        // Translation aliases
         '/en/(.*)': '/$1',
         '/en-us/(.*)': '/$1',
         '/en-gb/(.*)': '/$1',
         '/.*/_langs.md': '/_langs.md',
+
+        // Moved pages
+        '/adding_a_keyboard_to_qmk': '/hardware_keyboard_guidelines',
+        '/build_environment_setup': '/getting_started_build_tools',
+        '/dynamic_macros': '/feature_dynamic_macros',
+        '/feature_common_shortcuts': '/feature_advanced_keycodes',
+        '/glossary': '/reference_glossary',
+        '/key_lock': '/feature_key_lock',
+        '/make_instructions': '/getting_started_make_guide',
+        '/porting_your_keyboard_to_qmk': '/hardware_avr',
+        '/space_cadet_shift': '/feature_space_cadet_shift',
+        '/getting_started_getting_help': '/support',
+        '/tap_dance': '/feature_tap_dance',
+        '/unicode': '/feature_unicode',
+        '/python_development': '/cli_development',
       },
       basePath: '/',
       name: 'QMK Firmware',
@@ -136,7 +152,8 @@
   <script src="//unpkg.com/prismjs/components/prism-json.min.js"></script>
   <script src="//unpkg.com/prismjs/components/prism-makefile.min.js"></script>
   <script>
-    // Register the offline cache worker
+    // Register the cache worker for offline viewing mode
+    // https://docsify.now.sh/pwa
     if (typeof navigator.serviceWorker !== 'undefined') {
       navigator.serviceWorker.register('sw.js')
     }
