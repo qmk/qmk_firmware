@@ -52,5 +52,4 @@ void led_set_kb(uint8_t usb_led) {
   } else {
     writePinLow(SCROLLLOCKLEDPIN);
   }
-  led_set_user();
 }
