@@ -29,9 +29,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key matrix size */
 #define MATRIX_ROWS 4
-#define MATRIX_COLS 15
+#define MATRIX_COLS 16
 
-#define MATRIX_COL_PINS { B14, A14, C13, C14, C15, F0, F1, B9, B8, B7, B6, B5, B4, B3, A15 }
+#define MATRIX_COL_PINS { B14, A14, B1, C13, C14, C15, F0, F1, B9, B8, B7, B6, B5, B4, B3, A15 }
 #define MATRIX_ROW_PINS { A10, A9, A8, B12 }
 #define DIODE_DIRECTION COL2ROW
 

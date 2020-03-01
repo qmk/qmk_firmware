@@ -88,6 +88,10 @@ extern layer_state_t layer_state;
 #    include "process_music.h"
 #endif
 
+#ifdef BACKLIGHT_ENABLE
+#    include "process_backlight.h"
+#endif
+
 #ifdef LEADER_ENABLE
 #    include "process_leader.h"
 #endif
@@ -138,6 +142,10 @@ extern layer_state_t layer_state;
 #    include "process_magic.h"
 #endif
 
+#ifdef GRAVE_ESC_ENABLE
+#    include "process_grave_esc.h"
+#endif
+
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
 #    include "process_rgb.h"
 #endif
@@ -174,7 +182,7 @@ extern layer_state_t layer_state;
 #if defined(__AVR__)
 typedef uint8_t pin_t;
 
-#    define setPinInput(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF))
+#    define setPinInput(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
 #    define setPinInputHigh(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
 #    define setPinInputLow(pin) _Static_assert(0, "AVR processors cannot implement an input as pull low")
 #    define setPinOutput(pin) (DDRx_ADDRESS(pin) |= _BV((pin)&0xF))
@@ -184,6 +192,7 @@ typedef uint8_t pin_t;
 #    define writePin(pin, level) ((level) ? writePinHigh(pin) : writePinLow(pin))
 
 #    define readPin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
+
 #elif defined(PROTOCOL_CHIBIOS)
 typedef ioline_t pin_t;
 

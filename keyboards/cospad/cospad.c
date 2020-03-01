@@ -1,5 +1,4 @@
-    
-/* Copyright 2019
+/* Copyright 2020
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,18 +15,18 @@
  */
 #include "cospad.h"
 
-#ifdef BACKLIGHT_ENABLE
-
-void backlight_init_ports(void) {
-  setPinOutput(F7);
+void keyboard_pre_init_kb(void) {
+    led_init_ports();
+    keyboard_pre_init_user();
 }
 
-void backlight_set(uint8_t level) {
-  writePin(F7, !!level);
+void led_init_ports(void) {
+    setPinOutput(B2);
 }
 
-void backlight_task(void) {
-    // do nothing - as default implementation of software PWM does not work
+bool led_update_kb(led_t led_state) {
+    if (led_update_user(led_state)) {
+        writePin(B2, !led_state.num_lock);
+    }
+    return true;
 }
-
-#endif //BACKLIGHT_ENABLE

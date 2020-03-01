@@ -26,46 +26,12 @@ TMK_COMMON_SRC +=	$(COMMON_DIR)/host.c \
 	$(PLATFORM_COMMON_DIR)/bootloader.c \
 
 ifeq ($(PLATFORM),AVR)
-	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/xprintf.S
+  TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/xprintf.S
+else ifeq ($(PLATFORM),CHIBIOS)
+  TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/printf.c
+else ifeq ($(PLATFORM),ARM_ATSAM)
+  TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/printf.c
 endif
-
-ifeq ($(PLATFORM),CHIBIOS)
-	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/printf.c
-  ifeq ($(MCU_SERIES), STM32F3xx)
-    TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
-    TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
-    TMK_COMMON_DEFS += -DEEPROM_EMU_STM32F303xC
-    TMK_COMMON_DEFS += -DSTM32_EEPROM_ENABLE
-  else ifeq ($(MCU_SERIES), STM32F1xx)
-    TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
-    TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
-    TMK_COMMON_DEFS += -DEEPROM_EMU_STM32F103xB
-    TMK_COMMON_DEFS += -DSTM32_EEPROM_ENABLE
-  else ifeq ($(MCU_SERIES)_$(MCU_LDSCRIPT), STM32F0xx_STM32F072xB)
-    TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
-    TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
-    TMK_COMMON_DEFS += -DEEPROM_EMU_STM32F072xB
-    TMK_COMMON_DEFS += -DSTM32_EEPROM_ENABLE
-  else
-    TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom_teensy.c
-  endif
-  ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
-    TMK_COMMON_SRC += $(CHIBIOS)/os/various/syscalls.c
-  else ifeq ($(strip $(TERMINAL_ENABLE)), yes)
-    TMK_COMMON_SRC += $(CHIBIOS)/os/various/syscalls.c
-  endif
-endif
-
-ifeq ($(PLATFORM),ARM_ATSAM)
-	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/printf.c
-	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
-endif
-
-ifeq ($(PLATFORM),TEST)
-	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
-endif
-
-
 
 # Option modules
 BOOTMAGIC_ENABLE ?= no
@@ -196,11 +162,16 @@ ifeq ($(strip $(LTO_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(LINK_TIME_OPTIMIZATION_ENABLE)), yes)
+    ifeq ($(PLATFORM),CHIBIOS)
+        $(info Enabling LTO on ChibiOS-targeting boards is known to have a high likelihood of failure.)
+        $(info If unsure, set LINK_TIME_OPTIMIZATION_ENABLE = no.)
+    endif
     EXTRAFLAGS += -flto
     TMK_COMMON_DEFS += -DLINK_TIME_OPTIMIZATION_ENABLE
     TMK_COMMON_DEFS += -DNO_ACTION_MACRO
     TMK_COMMON_DEFS += -DNO_ACTION_FUNCTION
 endif
+
 # Bootloader address
 ifdef STM32_BOOTLOADER_ADDRESS
     TMK_COMMON_DEFS += -DSTM32_BOOTLOADER_ADDRESS=$(STM32_BOOTLOADER_ADDRESS)

@@ -110,40 +110,33 @@ void send_mouse(report_mouse_t *report) {
 #endif  // MOUSEKEY_ENABLE
 }
 
-void send_system(uint16_t data) {
 #ifdef EXTRAKEY_ENABLE
+void send_extra(uint8_t report_id, uint16_t data) {
     uint32_t irqflags;
 
     irqflags = __get_PRIMASK();
     __disable_irq();
     __DMB();
 
-    udi_hid_exk_report.desc.report_id = REPORT_ID_SYSTEM;
-    if (data != 0) data = data - SYSTEM_POWER_DOWN + 1;
+    udi_hid_exk_report.desc.report_id   = report_id;
     udi_hid_exk_report.desc.report_data = data;
     udi_hid_exk_b_report_valid          = 1;
     udi_hid_exk_send_report();
 
     __DMB();
     __set_PRIMASK(irqflags);
+}
+#endif  // EXTRAKEY_ENABLE
+
+void send_system(uint16_t data) {
+#ifdef EXTRAKEY_ENABLE
+    send_extra(REPORT_ID_SYSTEM, data);
 #endif  // EXTRAKEY_ENABLE
 }
 
 void send_consumer(uint16_t data) {
 #ifdef EXTRAKEY_ENABLE
-    uint32_t irqflags;
-
-    irqflags = __get_PRIMASK();
-    __disable_irq();
-    __DMB();
-
-    udi_hid_exk_report.desc.report_id   = REPORT_ID_CONSUMER;
-    udi_hid_exk_report.desc.report_data = data;
-    udi_hid_exk_b_report_valid          = 1;
-    udi_hid_exk_send_report();
-
-    __DMB();
-    __set_PRIMASK(irqflags);
+    send_extra(REPORT_ID_CONSUMER, data);
 #endif  // EXTRAKEY_ENABLE
 }
 

@@ -90,13 +90,15 @@ void action_exec(keyevent_t event) {
 
     keyrecord_t record = {.event = event};
 
-#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+#ifndef NO_ACTION_ONESHOT
+#    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
     if (has_oneshot_layer_timed_out()) {
         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
     }
     if (has_oneshot_mods_timed_out()) {
         clear_oneshot_mods();
     }
+#    endif
 #endif
 
 #ifndef NO_ACTION_TAPPING
@@ -558,32 +560,6 @@ void process_action(keyrecord_t *record, action_t action) {
 #ifndef NO_ACTION_MACRO
         case ACT_MACRO:
             action_macro_play(action_get_macro(record, action.func.id, action.func.opt));
-            break;
-#endif
-#if defined(BACKLIGHT_ENABLE) || defined(LED_MATRIX_ENABLE)
-        case ACT_BACKLIGHT:
-            if (!event.pressed) {
-                switch (action.backlight.opt) {
-                    case BACKLIGHT_INCREASE:
-                        backlight_increase();
-                        break;
-                    case BACKLIGHT_DECREASE:
-                        backlight_decrease();
-                        break;
-                    case BACKLIGHT_TOGGLE:
-                        backlight_toggle();
-                        break;
-                    case BACKLIGHT_STEP:
-                        backlight_step();
-                        break;
-                    case BACKLIGHT_ON:
-                        backlight_level(BACKLIGHT_LEVELS);
-                        break;
-                    case BACKLIGHT_OFF:
-                        backlight_level(0);
-                        break;
-                }
-            }
             break;
 #endif
         case ACT_COMMAND:
