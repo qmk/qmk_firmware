@@ -14,6 +14,6 @@ I have been programming with this keyboard layout at work and I found it much fa
     - \ and | have beeb moved to the /? key. Easy to remember as / and \ are together.
 - Moved backspace to make room for +=.
 - Added delete to the backspace key on RAISE / LOWER
-- Removed backlight and added an ADJUST key. As the Massdrop kits don't come with backlighting default, I think this is more useful for most users.
+- Removed backlight, from the main layer, and added an ADJUST key. As the Massdrop kits don't come with backlighting default, I think this is more useful for most users.
 - I have left the Colemak and Dvorak alternate layouts, but they won't map up as conveniently to the other layers.
 - I have included the keyboard layouts so that those wishing to make modifications or new versions of this layout can quickly update their images.
