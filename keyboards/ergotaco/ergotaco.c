@@ -24,8 +24,6 @@ void matrix_init_kb(void) {
 
     DDRF  &= ~(1<<0 | 1<<1 | 1<<4 | 1<<6 | 1<<7);
     PORTF |=  (1<<0 | 1<<1 | 1<<4 | 1<<6 | 1<<7);
-
-    matrix_init_user();
 }
 
 

@@ -109,21 +109,10 @@ void matrix_scan_user(void) {
 
 
 void matrix_init_kb(void) {
-	// put your keyboard start-up code here
-	// runs once when the firmware starts up
-
-	matrix_init_user();
 	// The backlight always has to be initialized, otherwise it will stay lit
 #ifndef VISUALIZER_ENABLE
 	lcd_backlight_hal_init();
 #endif
-}
-
-void matrix_scan_kb(void) {
-	// put your looping keyboard code here
-	// runs every cycle (a lot)
-
-	matrix_scan_user();
 }
 
 bool is_keyboard_master(void) {

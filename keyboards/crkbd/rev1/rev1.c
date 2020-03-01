@@ -68,9 +68,6 @@ led_config_t g_led_config = { {
 } };
 #endif
 
-__attribute__((weak))
-void matrix_init_user(void) {}
-
 void matrix_init_kb(void) {
 
 #ifdef RGB_MATRIX_ENABLE
@@ -105,5 +102,4 @@ void matrix_init_kb(void) {
         } };
     }
 #endif
-    matrix_init_user();
 }

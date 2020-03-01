@@ -21,8 +21,6 @@ void dk60_blink_all_leds(void)
 void matrix_init_kb(void) {
     led_init_ports();
     dk60_blink_all_leds();
-
-    matrix_init_user();
 }
 
 void led_init_ports(void) {
@@ -39,6 +37,4 @@ void led_set_kb(uint8_t usb_led) {
 		// Turn capslock off
 		dk60_caps_led_off();
 	}
-
-	led_set_user(usb_led);
 }

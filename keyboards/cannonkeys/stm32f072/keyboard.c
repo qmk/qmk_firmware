@@ -74,15 +74,9 @@ void matrix_scan_kb(void)
   #ifdef RGBLIGHT_ENABLE
     rgblight_task();
   #endif
-    matrix_scan_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    /* FIXME(skullydazed):
-     *     Originally this code always ran no matter what process_record_user() did.
-     *     With this PR it will only run if process_record_user() returns true. We
-     *     should think through the implications here.
-     */
   switch (keycode) {
     case BL_INC:
       if (record->event.pressed) {

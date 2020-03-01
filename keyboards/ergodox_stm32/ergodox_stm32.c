@@ -20,8 +20,6 @@ void matrix_init_kb(void)
     palSetPadMode(GPIOA, 8, PAL_MODE_OUTPUT_PUSHPULL); // LED 3
 
     ergodox_blink_all_leds();
-
-    matrix_init_user();
 }
 
 void ergodox_blink_all_leds(void)

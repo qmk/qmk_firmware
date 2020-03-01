@@ -22,11 +22,6 @@
 void matrix_init_kb(void) {
   setPinOutput(B3);
   setPinOutput(B0);
-  matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-  matrix_scan_user();
 }
 
 void led_set_kb(uint8_t usb_led) {
@@ -35,5 +30,4 @@ void led_set_kb(uint8_t usb_led) {
     } else {
         writePinHigh(B3);
     }
-  led_set_user(usb_led);
 }

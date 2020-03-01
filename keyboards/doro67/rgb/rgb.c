@@ -26,14 +26,6 @@ void matrix_init_kb(void) {
   // put your keyboard start-up code here
   // runs once when the firmware starts up
   setPinOutput(E6);
-  matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-  // put your looping keyboard code here
-  // runs every cycle (a lot)
-
-  matrix_scan_user();
 }
 
 void led_set_kb(uint8_t usb_led) {
@@ -43,7 +35,6 @@ void led_set_kb(uint8_t usb_led) {
   } else {
     writePinHigh(E6);
   }
-	led_set_user(usb_led);
 }
 
 led_config_t g_led_config = { {

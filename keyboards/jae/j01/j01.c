@@ -15,31 +15,3 @@
  */
 
 #include "j01.h"
-
-// Optional override functions below.
-// You can leave any or all of these undefined.
-// These are only required if you want to perform custom actions.
-
-
-void matrix_init_kb(void) {
-    // put your keyboard start-up code here
-    // runs once when the firmware starts up
-
-    matrix_init_user();
-    setPinOutput(E6);
-}
-
-void matrix_scan_kb(void) {
-    // put your looping keyboard code here
-    // runs every cycle (a lot)
-
-    matrix_scan_user();
-}
-
-bool led_update_kb(led_t led_state) {
-    if(led_update_user(led_state)) {
-        writePin(E6, !led_state.caps_lock);
-    }
-
-    return true;
-}

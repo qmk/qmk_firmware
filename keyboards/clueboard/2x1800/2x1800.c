@@ -20,13 +20,6 @@ void matrix_init_kb(void) {
 	DDRB |= (1<<4);  // Numlock
 	DDRB |= (1<<5);  // Capslock
 	DDRB |= (1<<6);  // Scroll Lock
-
-	// Run the keymap level init
-	matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-	matrix_scan_user();
 }
 
 void led_set_kb(uint8_t usb_led) {

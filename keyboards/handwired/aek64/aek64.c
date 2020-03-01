@@ -20,9 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * Hardware function pre initialisation.
  * See https://docs.qmk.fm/#/custom_quantum_functions?id=example-keyboard_pre_init_user-implementation
  */
-void keyboard_pre_init_user(void) {
-  // Call the keyboard pre init code.
-
+void keyboard_pre_init_kb(void) {
   // Set our LED pins as output
   setPinOutput(C3);
 }

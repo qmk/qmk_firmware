@@ -22,14 +22,6 @@ void matrix_init_kb(void) {
 
   setPinOutput(E6);
   setPinOutput(B2);
-  matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-    // put your looping keyboard code here
-    // runs every cycle (a lot)
-
-    matrix_scan_user();
 }
 
 bool led_update_kb(led_t led_state) {
@@ -37,5 +29,4 @@ bool led_update_kb(led_t led_state) {
         writePin(E6, !led_state.caps_lock);
         writePin(B2, !led_state.scroll_lock);
     }
-    return true;
 }

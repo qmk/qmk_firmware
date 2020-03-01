@@ -28,15 +28,6 @@ void matrix_init_kb(void) {
 #ifdef ACTUATION_DEPTH_ADJUSTMENT
     adjust_actuation_point(ACTUATION_DEPTH_ADJUSTMENT);
 #endif
-
-	matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-	// put your looping keyboard code here
-	// runs every cycle (a lot)
-
-	matrix_scan_user();
 }
 
 void led_set_kb(uint8_t usb_led) {
@@ -55,6 +46,4 @@ void led_set_kb(uint8_t usb_led) {
     } else {
         PORTB &= ~(1<<6);
     }
-
-	led_set_user(usb_led);
 }

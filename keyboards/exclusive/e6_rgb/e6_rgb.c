@@ -8,7 +8,6 @@
 void matrix_init_kb(void) {
   setPinOutput(D5);
   writePinHigh(D5);
-  matrix_init_user();
 }
 
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {

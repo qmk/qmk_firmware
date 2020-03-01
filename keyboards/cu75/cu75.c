@@ -22,8 +22,6 @@ void matrix_init_kb(void)
 {
     // put your keyboard start-up code here
     // runs once when the firmware starts up
-    matrix_init_user();
-
 #ifdef AUDIO_ENABLE
     audio_init();
     PLAY_NOTE_ARRAY(test_sound, false, STACCATO);
@@ -69,7 +67,6 @@ void matrix_scan_kb(void)
         twi_last_ready++;
     }
 #endif
-    matrix_scan_user();
 }
 
 void click(uint16_t freq, uint16_t duration){
@@ -86,11 +83,6 @@ void click(uint16_t freq, uint16_t duration){
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record)
 {
-    /* FIXME(skullydazed):
-     *     Originally this code always ran no matter what process_record_user() did.
-     *     With this PR it will only run if process_record_user() returns true. We
-     *     should think through the implications here.
-     */
     // Test code that turns on the switch led for the key that is pressed
     // set_backlight_by_keymap(record->event.key.col, record->event.key.row);
     if (click_toggle && record->event.pressed){
@@ -166,13 +158,6 @@ void reset_keyboard_kb(){
     wdt_reset();
 #endif
     reset_keyboard();
-}
-
-void led_set_kb(uint8_t usb_led)
-{
-    // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-
-    led_set_user(usb_led);
 }
 
 // LFK lighting info

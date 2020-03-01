@@ -374,17 +374,6 @@ void matrix_init_kb(void) {
 		// Save the magic number last, in case saving was interrupted
 		eeprom_set_valid(true);
 	}*/
-
-	matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-
-	matrix_scan_user();
-}
-
-void led_set_kb(uint8_t usb_led) {
-	//backlight_set_indicator_state(usb_led);
 }
 
 void suspend_power_down_kb(void)

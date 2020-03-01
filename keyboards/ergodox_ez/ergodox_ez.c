@@ -56,8 +56,6 @@ void matrix_init_kb(void) {
 #endif
 
     ergodox_blink_all_leds();
-
-    matrix_init_user();
 }
 
 void ergodox_blink_all_leds(void)
@@ -330,18 +328,12 @@ void suspend_power_down_kb(void) {
 #ifdef ORYX_CONFIGURATOR
 void keyboard_post_init_kb(void) {
     rgb_matrix_enable_noeeprom();
-    keyboard_post_init_user();
 }
 #endif
 #endif
 
 #ifdef ORYX_CONFIGURATOR
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    /* FIXME(skullydazed):
-     *     Originally this code always ran no matter what process_record_user() did.
-     *     With this PR it will only run if process_record_user() returns true. We
-     *     should think through the implications here.
-     */
     switch (keycode) {
         case LED_LEVEL:
             if (record->event.pressed) {
@@ -392,5 +384,4 @@ void eeconfig_init_kb(void) {  // EEPROM is getting reset!
     keyboard_config.led_level = 4;
     keyboard_config.rgb_matrix_enable = true;
     eeconfig_update_kb(keyboard_config.raw);
-    eeconfig_init_user();
 }

@@ -23,8 +23,6 @@ void matrix_init_kb(void) {
     //Turn the red LED on as power indicator.
     send_data = 0x10;
     i2c_writeReg((PORT_EXPANDER_ADDRESS << 1), 0x09, &send_data, 1, 20);
-
-    matrix_init_user();
 }
 
 void led_set_kb(uint8_t usb_led) {
@@ -35,6 +33,4 @@ void led_set_kb(uint8_t usb_led) {
         send_data = 0x10;
     }
     i2c_writeReg((PORT_EXPANDER_ADDRESS << 1), 0x09, &send_data, 1, 20);
-
-    led_set_user(usb_led);
 }

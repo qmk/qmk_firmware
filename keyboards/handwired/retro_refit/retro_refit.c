@@ -8,8 +8,6 @@ void matrix_init_kb(void) {
     // Disable status LED on KB, enable status LED on Teensy (KB_STATUS = !TEENSY_STATUS)
     DDRD |= (1<<6);
     PORTD |= (1<<6);
-
-    matrix_init_user();
 };
 
 void led_set_kb(uint8_t usb_led) {
@@ -42,6 +40,4 @@ void led_set_kb(uint8_t usb_led) {
         DDRC &= ~(1<<6);
         PORTC &= ~(1<<6);
     }
-
-    led_set_user(usb_led);
 };

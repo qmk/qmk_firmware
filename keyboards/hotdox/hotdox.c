@@ -20,7 +20,6 @@ void ergodox_blink_all_leds(void);
 
 void matrix_init_kb(void) {
   ergodox_blink_all_leds();
-  matrix_init_user();
 }
 
 void ergodox_blink_all_leds(void)

@@ -8,7 +8,4 @@ void matrix_init_kb(void) {
 	
 	DDRD |= (1<<4);
 	PORTD &= ~(1<<4);
-	
-	matrix_init_user();
-	
 }

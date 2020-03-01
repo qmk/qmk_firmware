@@ -21,10 +21,6 @@ __attribute__ ((weak))
 void battery_poll(uint8_t level) {
 }
 
-void matrix_init_kb(void) {
-	matrix_init_user();
-}
-
 void matrix_scan_kb(void) {
     static uint16_t counter = BATTERY_POLL;
     counter++;
@@ -33,15 +29,4 @@ void matrix_scan_kb(void) {
         counter = 0;
         battery_poll(battery_level());
     }
-
-    matrix_scan_user();
 }
-
-void led_set_kb(uint8_t usb_led) {
-    led_set_user(usb_led);
-}
-
-__attribute__ ((weak))
-void led_set_user(uint8_t usb_led) {
-}
-

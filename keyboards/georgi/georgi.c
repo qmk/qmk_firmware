@@ -18,8 +18,6 @@ void matrix_init_kb(void) {
     PORTC |=  (1<<7);
     PORTD |=  (1<<5 | 1<<4 | 1<<6 | 1<<7);
     PORTE |=  (1<<6);
-
-    matrix_init_user();
 }
 
 

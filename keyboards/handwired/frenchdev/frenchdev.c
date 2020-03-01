@@ -43,8 +43,6 @@ void matrix_init_kb(void) {
     frenchdev_blink_all_leds();
     frenchdev_blink_all_leds();
     frenchdev_blink_all_leds();
-
-    matrix_init_user();
 }
 
 void frenchdev_blink_all_leds(void)
