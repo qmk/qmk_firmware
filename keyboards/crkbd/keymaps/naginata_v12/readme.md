@@ -6,10 +6,17 @@ Windows用の編集モードも実装しています。編集モードの記号�
 1. Windowsのキーボード設定を106キーボードにする。
 2. [WinCompose](http://wincompose.info/)をインストールする。
 
-MacOSで使うためにはconfig.hで`NAGINATA_EDIT_WIN`をコメントアウトし、`#define NAGINATA_EDIT_MODE_MAC`を有効にしてください。
-MacOSでの編集モードはカーソル移動など一部に対応しますが、記号入力にはUnicode Hex Inputへマウスを使った切り替えが必要で、実用的ではないため、記号入力は無効にしています。
+MacOS, iOSで使うためには
 
-標準では本家の通り縦書きのためのカーソル移動方向になっていますが、横書き用にするにはconfig.hの`NAGINATA_TATEGAKI`をコメントアウトし、`NAGINATA_YOKOGAKI`を有効にしてください。
+1. config.hで`NAGINATA_EDIT_WIN`をコメントアウトし、`#define NAGINATA_EDIT_MODE_MAC`を有効にしてください。
+2. ライプ変換を使っている場合は`#define MAC_LIVE_CONVERSION`を有効にしてください。
+   動的にライブ変換対応をオンオフすることもできます。
+   カスタムキーを定義して、mac_live_conversion_toggle(), mac_live_conversion_on(), mac_live_conversion_off()を呼びし出してください。
+3. naginata_dictionary.plistを使って辞書登録してください。
+
+標準では本家の通り縦書きのためのカーソル移動方向になっていますが、
+横書き用にするにはconfig.hの`NAGINATA_TATEGAKI`をコメントアウトし、
+`NAGINATA_YOKOGAKI`を有効にしてください。
 
 ### 薙刀式とは
 
@@ -19,3 +26,8 @@ http://oookaworks.seesaa.net/article/456099128.html
 ### キーマップ
 
 ![My keymap](keymap.svg "Crkbd")
+
+### 他のキーボードのサポート
+
+* [MiniAxe](https://github.com/eswai/qmk_firmware/tree/master/keyboards/miniaxe/keymaps/naginata_v12)
+* [Planck](https://github.com/eswai/qmk_firmware/tree/master/keyboards/planck/keymaps/naginata)
