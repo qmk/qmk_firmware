@@ -87,19 +87,42 @@
 
 /* Shifted symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │   │   │   │   │   │   │   │   │   │   │   │   │   │       │
+ * │ ~ │ ! │ @ │ # │ $ │ % │ ^ │ & │ * │ ( │ ) │ _ │ + │       │
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │   │   │   │   │   │   │   │   │   │ : │   │   │     │
+ * │     │   │   │   │   │   │   │   │   │   │ : │ { │ } │  |  │
  * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
- * │      │   │   │   │   │   │   │   │   │   │   │   │        │
+ * │      │   │   │   │   │   │   │   │   │   │   │ " │        │
  * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────────┤
- * │        │   │   │   │   │   │   │   │   │   │   │          │
+ * │        │   │   │   │   │   │   │   │ < │ > │ ? │          │
  * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
  * │    │    │    │                        │    │    │    │    │
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
+// Row 1
+#define WK_TILD S(WK_GRV)  // ~
+#define WK_EXLM S(WK_1)    // !
+#define WK_AT   S(WK_2)    // @
+#define WK_HASH S(WK_3)    // #
+#define WK_DLR  S(WK_4)    // $
+#define WK_PERC S(WK_5)    // %
+#define WK_CIRC S(WK_6)    // ^
+#define WK_AMPR S(WK_7)    // &
+#define WK_ASTR S(WK_8)    // *
+#define WK_LPRN S(WK_9)    // (
+#define WK_RPRN S(WK_0)    // )
+#define WK_UNDS S(WK_MINS) // _
+#define WK_PLUS S(WK_EQL)  // +
 // Row 2
 #define WK_COLN S(WK_SCLN) // :
+#define WK_LCBR S(WK_LBRC) // {
+#define WK_RCBR S(WK_RBRC) // }
+#define WK_PIPE S(WK_BSLS) // |
+// Row 3
+#define WK_DQUO S(WK_QUOT) // "
+// Row 4
+#define WK_LABK S(WK_COMM) // <
+#define WK_RABK S(WK_DOT)  // >
+#define WK_QUES S(WK_SLSH) // ?
 
 // DEPRECATED
 #define KC_WK_Q    WK_Q
