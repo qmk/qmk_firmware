@@ -35,8 +35,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B3, B4, A0, A2, A4, A3 }
 #define DIODE_DIRECTION COL2ROW
 
-#define ENCODERS_PAD_A { B9 }
-#define ENCODERS_PAD_B { B8 }
+#define ENCODERS_PAD_A { B8 }
+#define ENCODERS_PAD_B { B9 }
+
+#define ENCODER_RESOLUTION 2
 
 //LEDS A6, RGB B15
 #define BACKLIGHT_LEVELS 24

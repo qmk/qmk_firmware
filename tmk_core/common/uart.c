@@ -31,9 +31,41 @@
 
 #include "uart.h"
 
+#if defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) || defined(__AVR_ATmega328P__)
+#    define UDRn UDR0
+#    define UBRRn UBRR0
+#    define UCSRnA UCSR0A
+#    define UCSRnB UCSR0B
+#    define UCSRnC UCSR0C
+#    define U2Xn U2X0
+#    define RXENn RXEN0
+#    define TXENn TXEN0
+#    define RXCIEn RXCIE0
+#    define UCSZn1 UCSZ01
+#    define UCSZn0 UCSZ00
+#    define UDRIEn UDRIE0
+#    define UDRE_vect USART_UDRE_vect
+#    define RX_vect USART_RX_vect
+#elif defined(__AVR_ATmega32U4__) || defined(__AVR_ATmega32U2__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
+#    define UDRn UDR1
+#    define UBRRn UBRR1
+#    define UCSRnA UCSR1A
+#    define UCSRnB UCSR1B
+#    define UCSRnC UCSR1C
+#    define U2Xn U2X1
+#    define RXENn RXEN1
+#    define TXENn TXEN1
+#    define RXCIEn RXCIE1
+#    define UCSZn1 UCSZ11
+#    define UCSZn0 UCSZ10
+#    define UDRIEn UDRIE1
+#    define UDRE_vect USART1_UDRE_vect
+#    define RX_vect USART1_RX_vect
+#endif
+
 // These buffers may be any size from 2 to 256 bytes.
 #define RX_BUFFER_SIZE 64
-#define TX_BUFFER_SIZE 40
+#define TX_BUFFER_SIZE 256
 
 static volatile uint8_t tx_buffer[TX_BUFFER_SIZE];
 static volatile uint8_t tx_buffer_head;
@@ -45,10 +77,10 @@ static volatile uint8_t rx_buffer_tail;
 // Initialize the UART
 void uart_init(uint32_t baud) {
     cli();
-    UBRR0          = (F_CPU / 4 / baud - 1) / 2;
-    UCSR0A         = (1 << U2X0);
-    UCSR0B         = (1 << RXEN0) | (1 << TXEN0) | (1 << RXCIE0);
-    UCSR0C         = (1 << UCSZ01) | (1 << UCSZ00);
+    UBRRn          = (F_CPU / 4 / baud - 1) / 2;
+    UCSRnA         = (1 << U2Xn);
+    UCSRnB         = (1 << RXENn) | (1 << TXENn) | (1 << RXCIEn);
+    UCSRnC         = (1 << UCSZn1) | (1 << UCSZn0);
     tx_buffer_head = tx_buffer_tail = 0;
     rx_buffer_head = rx_buffer_tail = 0;
     sei();
@@ -60,12 +92,14 @@ void uart_putchar(uint8_t c) {
 
     i = tx_buffer_head + 1;
     if (i >= TX_BUFFER_SIZE) i = 0;
+    // return immediately to avoid deadlock when interrupt is disabled(called from ISR)
+    if (tx_buffer_tail == i && (SREG & (1 << SREG_I)) == 0) return;
     while (tx_buffer_tail == i)
         ;  // wait until space in buffer
     // cli();
     tx_buffer[i]   = c;
     tx_buffer_head = i;
-    UCSR0B         = (1 << RXEN0) | (1 << TXEN0) | (1 << RXCIE0) | (1 << UDRIE0);
+    UCSRB          = (1 << RXENn) | (1 << TXENn) | (1 << RXCIEn) | (1 << UDRIEn);
     // sei();
 }
 
@@ -95,12 +129,12 @@ uint8_t uart_available(void) {
 }
 
 // Transmit Interrupt
-ISR(USART_UDRE_vect) {
+ISR(UDRE_vect) {
     uint8_t i;
 
     if (tx_buffer_head == tx_buffer_tail) {
         // buffer is empty, disable transmit interrupt
-        UCSR0B = (1 << RXEN0) | (1 << TXEN0) | (1 << RXCIE0);
+        UCSRnB = (1 << RXENn) | (1 << TXENn) | (1 << RXCIEn);
     } else {
         i = tx_buffer_tail + 1;
         if (i >= TX_BUFFER_SIZE) i = 0;
@@ -110,10 +144,10 @@ ISR(USART_UDRE_vect) {
 }
 
 // Receive Interrupt
-ISR(USART_RX_vect) {
+ISR(RX_vect) {
     uint8_t c, i;
 
-    c = UDR0;
+    c = UDRn;
     i = rx_buffer_head + 1;
     if (i >= RX_BUFFER_SIZE) i = 0;
     if (i != rx_buffer_tail) {

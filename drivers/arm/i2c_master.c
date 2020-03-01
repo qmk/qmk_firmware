@@ -29,6 +29,8 @@
 #include <string.h>
 #include <hal.h>
 
+static uint8_t i2c_address;
+
 static const I2CConfig i2cconfig = {
 #ifdef USE_I2CV1
     I2C1_OPMODE,
@@ -69,49 +71,27 @@ __attribute__((weak)) void i2c_init(void) {
 }
 
 i2c_status_t i2c_start(uint8_t address) {
-#if I2C_USE_MUTUAL_EXCLUSION
-    i2cAcquireBus(&I2C_DRIVER);
-#endif
-
+    i2c_address = address;
     i2cStart(&I2C_DRIVER, &i2cconfig);
     return I2C_STATUS_SUCCESS;
 }
 
 i2c_status_t i2c_transmit(uint8_t address, const uint8_t* data, uint16_t length, uint16_t timeout) {
-#if I2C_USE_MUTUAL_EXCLUSION
-    i2cAcquireBus(&I2C_DRIVER);
-#endif
-
+    i2c_address = address;
     i2cStart(&I2C_DRIVER, &i2cconfig);
-    msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (address >> 1), data, length, 0, 0, MS2ST(timeout));
-
-#if I2C_USE_MUTUAL_EXCLUSION
-    i2cReleaseBus(&I2C_DRIVER);
-#endif
-
+    msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), data, length, 0, 0, TIME_MS2I(timeout));
     return chibios_to_qmk(&status);
 }
 
 i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout) {
-#if I2C_USE_MUTUAL_EXCLUSION
-    i2cAcquireBus(&I2C_DRIVER);
-#endif
-
+    i2c_address = address;
     i2cStart(&I2C_DRIVER, &i2cconfig);
-    msg_t status = i2cMasterReceiveTimeout(&I2C_DRIVER, (address >> 1), data, length, MS2ST(timeout));
-
-#if I2C_USE_MUTUAL_EXCLUSION
-    i2cReleaseBus(&I2C_DRIVER);
-#endif
-
+    msg_t status = i2cMasterReceiveTimeout(&I2C_DRIVER, (i2c_address >> 1), data, length, TIME_MS2I(timeout));
     return chibios_to_qmk(&status);
 }
 
 i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout) {
-#if I2C_USE_MUTUAL_EXCLUSION
-    i2cAcquireBus(&I2C_DRIVER);
-#endif
-
+    i2c_address = devaddr;
     i2cStart(&I2C_DRIVER, &i2cconfig);
 
     uint8_t complete_packet[length + 1];
@@ -120,34 +100,15 @@ i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, const uint8_t* data,
     }
     complete_packet[0] = regaddr;
 
-    msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (devaddr >> 1), complete_packet, length + 1, 0, 0, MS2ST(timeout));
-
-#if I2C_USE_MUTUAL_EXCLUSION
-    i2cReleaseBus(&I2C_DRIVER);
-#endif
-
+    msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), complete_packet, length + 1, 0, 0, TIME_MS2I(timeout));
     return chibios_to_qmk(&status);
 }
 
 i2c_status_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout) {
-#if I2C_USE_MUTUAL_EXCLUSION
-    i2cAcquireBus(&I2C_DRIVER);
-#endif
-
+    i2c_address = devaddr;
     i2cStart(&I2C_DRIVER, &i2cconfig);
-    msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (devaddr >> 1), &regaddr, 1, data, length, MS2ST(timeout));
-
-#if I2C_USE_MUTUAL_EXCLUSION
-    i2cReleaseBus(&I2C_DRIVER);
-#endif
-
+    msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), &regaddr, 1, data, length, TIME_MS2I(timeout));
     return chibios_to_qmk(&status);
 }
 
-void i2c_stop(void) {
-    i2cStop(&I2C_DRIVER);
-
-#if I2C_USE_MUTUAL_EXCLUSION
-    i2cReleaseBus(&I2C_DRIVER);
-#endif
-}
+void i2c_stop(void) { i2cStop(&I2C_DRIVER); }

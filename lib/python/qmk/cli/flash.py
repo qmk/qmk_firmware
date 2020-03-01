@@ -8,7 +8,7 @@ from argparse import FileType
 
 import qmk.path
 from milc import cli
-from qmk.commands import compile_configurator_json, create_make_command, parse_configurator_json
+from qmk.commands import compile_configurator_json, create_make_command, find_keyboard_keymap, parse_configurator_json
 
 
 def print_bootloader_help():
@@ -45,39 +45,31 @@ def flash(cli):
     If bootloader is omitted, the one according to the rules.mk will be used.
 
     """
-    command = []
     if cli.args.bootloaders:
         # Provide usage and list bootloaders
         cli.echo('usage: qmk flash [-h] [-b] [-kb KEYBOARD] [-km KEYMAP] [-bl BOOTLOADER] [filename]')
         print_bootloader_help()
         return False
 
-    elif cli.config.flash.keymap and not cli.config.flash.keyboard:
-        # If only a keymap was given but no keyboard, suggest listing keyboards
-        cli.echo('usage: qmk flash [-h] [-b] [-kb KEYBOARD] [-km KEYMAP] [-bl BOOTLOADER] [filename]')
-        cli.log.error('run \'qmk list_keyboards\' to find out the supported keyboards')
-        return False
-
-    elif cli.args.filename:
-        # Get keymap path to log info
+    if cli.args.filename:
+        # Handle compiling a configurator JSON
         user_keymap = parse_configurator_json(cli.args.filename)
         keymap_path = qmk.path.keymap(user_keymap['keyboard'])
-
-        cli.log.info('Creating {fg_cyan}%s{style_reset_all} keymap in {fg_cyan}%s', user_keymap['keymap'], keymap_path)
-
-        # Convert the JSON into a C file and write it to disk.
         command = compile_configurator_json(user_keymap, cli.args.bootloader)
 
         cli.log.info('Wrote keymap to {fg_cyan}%s/%s/keymap.c', keymap_path, user_keymap['keymap'])
 
-    elif cli.config.flash.keyboard and cli.config.flash.keymap:
-        # Generate the make command for a specific keyboard/keymap.
-        command = create_make_command(cli.config.flash.keyboard, cli.config.flash.keymap, cli.args.bootloader)
-
     else:
-        cli.echo('usage: qmk flash [-h] [-b] [-kb KEYBOARD] [-km KEYMAP] [-bl BOOTLOADER] [filename]')
-        cli.log.error('You must supply a configurator export or both `--keyboard` and `--keymap`. You can also specify a bootloader with --bootloader. Use --bootloaders to list the available bootloaders.')
-        return False
+        # Perform the action the user specified
+        user_keyboard, user_keymap = find_keyboard_keymap()
+        if user_keyboard and user_keymap:
+            # Generate the make command for a specific keyboard/keymap.
+            command = create_make_command(user_keyboard, user_keymap, cli.args.bootloader)
+
+        else:
+            cli.log.error('You must supply a configurator export or both `--keyboard` and `--keymap`.')
+            cli.echo('usage: qmk flash [-h] [-b] [-kb KEYBOARD] [-km KEYMAP] [-bl BOOTLOADER] [filename]')
+            return False
 
     cli.log.info('Flashing keymap with {fg_cyan}%s\n\n', ' '.join(command))
     subprocess.run(command)
