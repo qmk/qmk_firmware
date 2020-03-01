@@ -25,8 +25,8 @@ NGKEYS naginata_keys;
 extern keymap_config_t keymap_config;
 
 enum planck_layers {
-  _WORKMAN,
-  _QWERTY,
+  _SRLBY,
+  _SHIFT,
 // 薙刀式
   _NAGINATA, // 薙刀式入力レイヤー
 // 薙刀式
@@ -36,7 +36,7 @@ enum planck_layers {
 };
 
 enum planck_keycodes {
-  WORKMAN = NG_SAFE_RANGE,
+  SRLBY = NG_SAFE_RANGE,
   QWERTY,
   PLOVER,
   BACKLIT,
@@ -48,6 +48,7 @@ enum planck_keycodes {
   SALPH,
   KANA2,
   EISU,
+  LCTOGL,
 };
 
 // 薙刀式
@@ -103,75 +104,93 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
 #define GTE   UC(0x2265)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* _WORKMAN
-  +------+------+------+------+------+------+------+------+------+------+------+------+
-  | ESC  |  Q   |  D   |  R   |  W   |  B   |  J   |  F   |  U   |  P   |  ;   | BSPC |
-  +------+------+------+------+------+------+------+------+------+------+------+------+
-  | TAB  |  A   |  S   |  H   |  T   |  G   |  Y   |  N   |  E   |  O   |  I   | ENT  |
-  +------+------+------+------+------+------+------+------+------+------+------+------+
-  | ALPH |  Z   |  X   |  M   |  C   |  V   |  K   |  L   |  ,   |  .   |  /   |SALPH |
-  +------+------+------+------+------+------+------+------+------+------+------+------+
-  | LCMD |      |      |      |LOWER |SFTSPC|SFTSPC|RAISE |      |      |      | RCMD |
-  +------+------+------+------+------+------+------+------+------+------+------+------+
+/* _SRLBY
+  +-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+
+  |       ESC       |        ,        |        S        |        R        |        L        |        B        |        Y        |      BSPC       |        I        |        D        |        .        |        /        |
+  +-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+
+  |       TAB       |        W        |        H        |        T        |        E        |        M        |        P        |        N        |        A        |        O        |        Z        |       ENT       |
+  +-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+
+  |      ALPH       |        V        |        ’        |        K        |        G        |        C        |        U        |        F        |        J        |        X        |        Q        |      SALPH      |
+  +-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+
+  |      LCMD       |      LALT       |      LSFT       |      LCTL       |      LOWER      |LT(_SHIFT,KC_SPC)|LT(_SHIFT,KC_ENT)|      RAISE      |      LEFT       |       UP        |      DOWN       |      RGHT       |
+  +-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+
 */
-  [_WORKMAN] = LAYOUT_planck_grid(
-    KC_ESC ,KC_COMM,KC_S   ,KC_R   ,KC_L   ,KC_B   ,KC_Y   ,KC_BSPC,KC_I   ,KC_D   ,KC_DOT ,KC_QUOT, \
-    KC_TAB ,KC_W   ,KC_H   ,KC_T   ,KC_E   ,KC_M   ,KC_P   ,KC_N   ,KC_A   ,KC_O   ,KC_K   ,KC_ENT , \
-    KC_LCMD,KC_V   ,KC_Q   ,KC_QUOT,KC_G   ,KC_U   ,KC_C   ,KC_F   ,KC_Z   ,KC_J   ,KC_X   ,SALPH  , \
-    KC_LCTL,KC_LALT,KC_LSFT,XXXXXXX,LOWER  ,SFTSPC ,SFTENT ,RAISE  ,KC_LEFT,KC_UP  ,KC_DOWN,KC_RGHT
+  [_SRLBY] = LAYOUT_planck_grid(
+    KC_ESC           ,KC_COMM          ,KC_S             ,KC_R             ,KC_L             ,KC_B             ,KC_Y             ,KC_BSPC          ,KC_I             ,KC_D             ,KC_DOT           ,KC_SLSH          , \
+    KC_TAB           ,KC_W             ,KC_H             ,KC_T             ,KC_E             ,KC_M             ,KC_P             ,KC_N             ,KC_A             ,KC_O             ,KC_Z             ,KC_ENT           , \
+    ALPH             ,KC_V             ,KC_QUOT          ,KC_K             ,KC_G             ,KC_C             ,KC_U             ,KC_F             ,KC_J             ,KC_X             ,KC_Q             ,SALPH            , \
+    KC_LCMD          ,KC_LALT          ,KC_LSFT          ,KC_LCTL          ,MO(_LOWER)       ,LT(_SHIFT,KC_SPC),LT(_SHIFT,KC_ENT),MO(_RAISE)       ,KC_LEFT          ,KC_UP            ,KC_DOWN          ,KC_RGHT
+  ),
+
+/* _SHIFT
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | __  |  <  |S(S) |S(R) |S(L) |S(B) |S(Y) | DEL |S(I) |S(D) |  >  | __  |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | __  |S(W) |S(H) |S(T) |S(E) |S(M) |S(P) |S(N) |S(A) |S(O) |S(Z) | __  |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | __  |S(V) |  "  |S(K) |S(G) |S(C) |S(U) |S(F) |S(J) |S(X) |S(Q) | __  |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+*/
+  [_SHIFT] = LAYOUT_planck_grid(
+    _______,KC_LT  ,S(KC_S),S(KC_R),S(KC_L),S(KC_B),S(KC_Y),KC_DEL ,S(KC_I),S(KC_D),KC_GT  ,_______, \
+    _______,S(KC_W),S(KC_H),S(KC_T),S(KC_E),S(KC_M),S(KC_P),S(KC_N),S(KC_A),S(KC_O),S(KC_Z),_______, \
+    _______,S(KC_V),KC_DQT ,S(KC_K),S(KC_G),S(KC_C),S(KC_U),S(KC_F),S(KC_J),S(KC_X),S(KC_Q),_______, \
+    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
   ),
 
 /* _LOWER
   +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  |     |     |     | UP  |     |     |  /  |  7  |  8  |  9  |  -  |  :  |
+  | __  | ESC |     |     |  :  |  ;  |  /  |  7  |  8  |  9  |  -  | __  |
   +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  |     |     |LEFT |DOWN |RGHT |     |  *  |  4  |  5  |  6  |  +  |  .  |
+  | __  | TAB |  {  |  [  |  (  |  <  |  *  |  4  |  5  |  6  |  +  | __  |
   +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  |     |     |     |     |     |     |  0  |  1  |  2  |  3  |  =  |  ,  |
+  | __  |     |  }  |  ]  |  )  |  >  |  0  |  1  |  2  |  3  |  =  | __  |
   +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  | __  | __  | __  | __  | __  | __  |KANA2| __  | __  | __  | __  | __  |
+  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  |
   +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
 */
   [_LOWER] = LAYOUT_planck_grid(
-    XXXXXXX,XXXXXXX,XXXXXXX,KC_UP  ,XXXXXXX,XXXXXXX,KC_SLSH,KC_7   ,KC_8   ,KC_9   ,KC_MINS,KC_COLN, \
-    XXXXXXX,XXXXXXX,KC_LEFT,KC_DOWN,KC_RGHT,XXXXXXX,KC_ASTR,KC_4   ,KC_5   ,KC_6   ,KC_PLUS,KC_DOT , \
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_0   ,KC_1   ,KC_2   ,KC_3   ,KC_EQL ,KC_COMM, \
-    _______,_______,_______,_______,_______,_______,KANA2  ,_______,_______,_______,_______,_______
+    _______,KC_ESC ,XXXXXXX,XXXXXXX,KC_COLN,KC_SCLN,KC_SLSH,KC_7   ,KC_8   ,KC_9   ,KC_MINS,_______, \
+    _______,KC_TAB ,KC_LCBR,KC_LBRC,KC_LPRN,KC_LT  ,KC_ASTR,KC_4   ,KC_5   ,KC_6   ,KC_PLUS,_______, \
+    _______,XXXXXXX,KC_RCBR,KC_RBRC,KC_RPRN,KC_GT  ,KC_0   ,KC_1   ,KC_2   ,KC_3   ,KC_EQL ,_______, \
+    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
   ),
 
 /* _RAISE
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-  |       |       |       |       |       |       |       |       |  UP   |       |       |       |
+  |  __   |   ~   |   @   |   #   |   $   |   %   | HOME  | S(UP) |  UP   |       | BSPC  |  __   |
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-  |       |       |       |       |       |       |       | LEFT  | DOWN  | RGHT  |       |       |
+  |  __   |   ^   |   &   |   !   |   ?   |   ¥   |  END  | LEFT  | DOWN  | RGHT  |       |  __   |
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-  |       |       |       |       |       |       |       |S(LEFT)|       |S(RGHT)|       |       |
-  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-  |  __   |  __   |  __   |  __   |  __   | EISU  |  __   |  __   |  __   |  __   |  __   |  __   |
-  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-*/
-  [_RAISE] = LAYOUT_planck_grid(
-    XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,KC_UP     ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   , \
-    XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,KC_LEFT   ,KC_DOWN   ,KC_RGHT   ,XXXXXXX   ,XXXXXXX   , \
-    XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,S(KC_LEFT),XXXXXXX   ,S(KC_RGHT),XXXXXXX   ,XXXXXXX   , \
-    _______   ,_______   ,_______   ,_______   ,_______   ,EISU      ,_______   ,_______   ,_______   ,_______   ,_______   ,_______
-  ),
-
-/* _ADJUST
-  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-  |       |       |KC_WAKE|       | RESET |       |       |       |       |       |KC_PWR |EUCALYN|
-  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-  |       |       |       |       |EEP_RST|       |       |       |       |       |       |WORKMAN|
-  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-  |       |       |KC_SLEP|KC_CALC|       |       |       |       |       |       |       |       |
+  |  __   |   |   |   `   |   '   |   "   |   _   |       |S(LEFT)|S(DOWN)|S(RGHT)|       |  __   |
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 */
+  [_RAISE] = LAYOUT_planck_grid(
+    _______   ,KC_TILD   ,KC_AT     ,KC_HASH   ,KC_DLR    ,KC_PERC   ,KC_HOME   ,S(KC_UP)  ,KC_UP     ,XXXXXXX   ,KC_BSPC   ,_______   , \
+    _______   ,KC_CIRC   ,KC_AMPR   ,KC_EXLM   ,KC_QUES   ,KC_JYEN   ,KC_END    ,KC_LEFT   ,KC_DOWN   ,KC_RGHT   ,XXXXXXX   ,_______   , \
+    _______   ,KC_PIPE   ,KC_GRV    ,KC_QUOT   ,KC_DQT    ,KC_UNDS   ,XXXXXXX   ,S(KC_LEFT),S(KC_DOWN),S(KC_RGHT),XXXXXXX   ,_______   , \
+    _______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______
+  ),
+
+/* _ADJUST
+  +------+------+------+------+------+------+------+------+------+------+------+------+
+  |  __  |      |      | MAIL |      | WAKE |      |      |      |      |ESWAI |  __  |
+  +------+------+------+------+------+------+------+------+------+------+------+------+
+  |  __  |      | SLEP |      |      |RESET |      |      | MYCM |      |QGMLWY|  __  |
+  +------+------+------+------+------+------+------+------+------+------+------+------+
+  |  __  |      |      | CALC |      |      |      | PWR  |      |      |      |  __  |
+  +------+------+------+------+------+------+------+------+------+------+------+------+
+  |  __  |  __  |  __  |  __  |  __  |  __  |  __  |  __  |  __  |  __  |  __  |  __  |
+  +------+------+------+------+------+------+------+------+------+------+------+------+
+*/
   [_ADJUST] = LAYOUT_planck_grid(
-    XXXXXXX,XXXXXXX,KC_WAKE,XXXXXXX,RESET  ,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_PWR ,QWERTY, \
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,EEP_RST,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,WORKMAN, \
-    XXXXXXX,XXXXXXX,KC_SLEP,KC_CALC,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
+    _______,LCTOGL ,XXXXXXX,KC_MAIL,XXXXXXX,KC_WAKE,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX  ,_______, \
+    _______,XXXXXXX,KC_SLEP,XXXXXXX,XXXXXXX,RESET  ,XXXXXXX,XXXXXXX,KC_MYCM,XXXXXXX,XXXXXXX ,_______, \
+    _______,XXXXXXX,XXXXXXX,KC_CALC,XXXXXXX,XXXXXXX,XXXXXXX,KC_PWR ,XXXXXXX,XXXXXXX,XXXXXXX,_______, \
     _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
   ),
 
@@ -185,14 +204,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   |  __   |  __   |  __   |  __   |  __   |NG_SHFT|NG_SHFT|  __   |  __   |  __   |  __   |  __   |
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-  |       |       |       |       |       |       |       |       |       |       |       |       |
-  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 */
   [_NAGINATA] = LAYOUT_planck_grid(
     _______,NG_Q   ,NG_W   ,NG_E   ,NG_R   ,NG_T   ,NG_Y   ,NG_U   ,NG_I   ,NG_O   ,NG_P   ,_______, \
     _______,NG_A   ,NG_S   ,NG_D   ,NG_F   ,NG_G   ,NG_H   ,NG_J   ,NG_K   ,NG_L   ,NG_SCLN,_______, \
     ALPH   ,NG_Z   ,NG_X   ,NG_C   ,NG_V   ,NG_B   ,NG_N   ,NG_M   ,NG_COMM,NG_DOT ,NG_SLSH,SALPH  , \
-    _______,_______,_______,_______,_______,NG_SHFT,NG_SHFT,_______,_______,_______,_______,_______ \
+    _______,_______,_______,_______,_______,NG_SHFT,NG_SHFT,_______,_______,_______,_______,_______
   ),
 
 };
@@ -210,16 +227,9 @@ static bool nstate = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QWERTY:
+    case SRLBY:
       if (record->event.pressed) {
-        print("mode just switched to qwerty and this is a huge string\n");
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
-    case WORKMAN:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_WORKMAN);
+        set_single_persistent_default_layer(_SRLBY);
       }
       return false;
       break;
@@ -249,6 +259,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case EISU:
       if (record->event.pressed) {
         naginata_off();
+      }
+      return false;
+      break;
+    case LCTOGL:
+      if (record->event.pressed) {
+        mac_live_conversion_toggle();
       }
       return false;
       break;

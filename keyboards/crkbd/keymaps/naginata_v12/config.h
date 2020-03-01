@@ -24,6 +24,7 @@
 // #define NAGINATA_YOKOGAKI
 #define NAGINATA_EDIT_WIN // JP106
 // #define NAGINATA_EDIT_MAC // JP106
+// #define MAC_LIVE_CONVERSION // Macでライブ変換をオンにしている場合
 #define COMBO_COUNT 2
 // 薙刀式
 

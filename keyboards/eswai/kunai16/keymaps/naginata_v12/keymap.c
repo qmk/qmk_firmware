@@ -46,6 +46,7 @@ enum custom_keycodes {
   DELE,
   ALPH,
   SALPH,
+  LCTOGL,
 };
 
 // Layers
@@ -189,7 +190,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   +------+------+------+------+------+------+------+------+------+------+
 */
   [_ADJUST] = LAYOUT(
-    XXXXXXX,XXXXXXX,KC_MAIL,XXXXXXX,KC_WAKE,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,ESWAI  , \
+    LCTOGL ,XXXXXXX,KC_MAIL,XXXXXXX,KC_WAKE,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,ESWAI  , \
     XXXXXXX,KC_SLEP,XXXXXXX,XXXXXXX,RESET  ,XXXXXXX,XXXXXXX,KC_MYCM,XXXXXXX,QGMLWY , \
     XXXXXXX,XXXXXXX,KC_CALC,XXXXXXX,XXXXXXX,XXXXXXX,KC_PWR ,XXXXXXX,XXXXXXX,XXXXXXX, \
                     _______,_______,_______,_______,_______,_______
@@ -335,6 +336,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_LSFT);
         if (nstate) naginata_on();
       }
+      break;
+    case LCTOGL:
+      if (record->event.pressed) {
+        mac_live_conversion_toggle();
+      }
+      return false;
       break;
     }
 

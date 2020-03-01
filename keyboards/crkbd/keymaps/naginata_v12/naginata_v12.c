@@ -134,23 +134,29 @@ const uint32_t ng_key[] = {
   [NG_SHFT - NG_Q] = B_SHFT,
 };
 
-// 順序なし
+// カナ変換テーブル
 typedef struct {
   uint32_t key;
   char kana[7];
 } naginata_keymap;
 
-// 順序なしロング
+// ロング
 typedef struct {
   uint32_t key;
   char kana[22];
 } naginata_keymap_long;
 
-// 順序なしUNICODE
+// UNICODE
 typedef struct {
   uint32_t key;
   char kana[10];
 } naginata_keymap_unicode;
+
+// IME変換する文字列
+typedef struct {
+  uint32_t key;
+  char kana[25];
+} naginata_keymap_ime;
 
 const PROGMEM naginata_keymap ngmap[] = {
   // 清音
@@ -559,8 +565,8 @@ const PROGMEM naginata_keymap_long ngmapl[] = {
 
   // {.key = B_J|B_K|B_A       , .kana = ""},
   // {.key = B_J|B_K|B_S       , .kana = ""},
-  // {.key = B_J|B_K|B_D       , .kana = ""},
-  // {.key = B_J|B_K|B_F       , .kana = ""},
+  {.key = B_J|B_K|B_D       , .kana = SS_TAP(X_MS_WH_UP)SS_TAP(X_MS_WH_UP)SS_TAP(X_MS_WH_UP)}, // wheel up
+  {.key = B_J|B_K|B_F       , .kana = SS_TAP(X_MS_WH_DOWN)SS_TAP(X_MS_WH_DOWN)SS_TAP(X_MS_WH_DOWN)}, // wheel down
   // {.key = B_J|B_K|B_G       , .kana = ""},
 
   {.key = B_D|B_F|B_H       , .kana = SS_TAP(X_ENTER)SS_TAP(X_END)},
@@ -596,8 +602,8 @@ const PROGMEM naginata_keymap_long ngmapl[] = {
 
   // {.key = B_J|B_K|B_A       , .kana = ""},
   // {.key = B_J|B_K|B_S       , .kana = ""},
-  // {.key = B_J|B_K|B_D       , .kana = ""},
-  // {.key = B_J|B_K|B_F       , .kana = ""},
+  {.key = B_J|B_K|B_D       , .kana = SS_TAP(X_MS_WH_UP)SS_TAP(X_MS_WH_UP)SS_TAP(X_MS_WH_UP)}, // wheel up
+  {.key = B_J|B_K|B_F       , .kana = SS_TAP(X_MS_WH_DOWN)SS_TAP(X_MS_WH_DOWN)SS_TAP(X_MS_WH_DOWN)}, // wheel down
   // {.key = B_J|B_K|B_G       , .kana = ""},
 
   {.key = B_D|B_F|B_H       , .kana = SS_TAP(X_ENTER)SS_LCMD(SS_TAP(NGDN))},
@@ -621,14 +627,8 @@ const PROGMEM naginata_keymap_long ngmapl[] = {
 
   // 編集モード2
 #ifdef NAGINATA_EDIT_WIN
-  {.key = B_M|B_COMM|B_T    , .kana = SS_TAP(X_HOME)" "SS_TAP(X_END)},
   {.key = B_M|B_COMM|B_G    , .kana = SS_TAP(X_HOME)"   "SS_TAP(X_END)},
   {.key = B_C|B_V|B_U       , .kana = SS_DOWN(X_LSHIFT)SS_TAP(X_HOME)SS_UP(X_LSHIFT)SS_LCTRL("x")},
-#endif
-#ifdef NAGINATA_EDIT_MAC
-  {.key = B_M|B_COMM|B_T    , .kana = SS_LCMD(SS_TAP(NGUP))" "SS_LCMD(SS_TAP(X_RIGHT))},
-  {.key = B_M|B_COMM|B_G    , .kana = SS_LCMD(SS_TAP(NGUP))"   "SS_LCMD(SS_TAP(X_RIGHT))},
-  {.key = B_C|B_V|B_U       , .kana = SS_LSFT(SS_LCMD(SS_TAP(NGUP)))SS_LGUI("x")},
 #endif
 
 };
@@ -660,6 +660,41 @@ const PROGMEM naginata_keymap_unicode ngmapu[] = {
   {.key = B_C|B_V|B_COMM    , .kana = "300F"}, // 』
   {.key = B_C|B_V|B_DOT     , .kana = "300B"}, // 》
   {.key = B_C|B_V|B_SLSH    , .kana = "FF09"}, // ）
+#endif
+};
+
+const PROGMEM naginata_keymap_ime ngmapi[] = {
+  // 編集モード2
+#ifdef NAGINATA_EDIT_MAC
+  {.key = B_M|B_COMM|B_Q    , .kana = "naginaname"}, // ／
+  {.key = B_M|B_COMM|B_W    , .kana = ":"}, // ：
+  {.key = B_M|B_COMM|B_E    , .kana = "nagibatu"}, // xxx
+  {.key = B_M|B_COMM|B_R    , .kana = "nagimaru"}, // 〇
+
+  {.key = B_C|B_V|B_I       , .kana = "nagichuutenn"}, // ・
+  {.key = B_C|B_V|B_O       , .kana = "nagitatesenn"}, // ｜
+
+  {.key = B_M|B_COMM|B_A    , .kana = "nagikakkohi1"}, // 【
+  {.key = B_M|B_COMM|B_S    , .kana = "nagikakkohi2"}, // 〈
+
+  {.key = B_C|B_V|B_J       , .kana = "nagikakkohi3"}, // 「
+  {.key = B_C|B_V|B_K       , .kana = "nagikakkohi4"}, // 『
+  {.key = B_C|B_V|B_L       , .kana = "nagikakkohi5"}, // 《
+  {.key = B_C|B_V|B_SCLN    , .kana = "nagikakkohi6"}, // （
+
+  {.key = B_M|B_COMM|B_Z    , .kana = "nagikakkomi1"}, // 】
+  {.key = B_M|B_COMM|B_X    , .kana = "nagikakkomi2"}, // 〉
+  {.key = B_M|B_COMM|B_C    , .kana = "nagitentenn"}, // ……
+  {.key = B_M|B_COMM|B_V    , .kana = "nagisensenn"}, // ──
+
+  {.key = B_C|B_V|B_M       , .kana = "nagikakkomi3"}, // 」
+  {.key = B_C|B_V|B_COMM    , .kana = "nagikakkomi4"}, // 』
+  {.key = B_C|B_V|B_DOT     , .kana = "nagikakkomi5"}, // 》
+  {.key = B_C|B_V|B_SLSH    , .kana = "nagikakkomi6"}, // ）
+
+  {.key = B_M|B_COMM|B_T    , .kana = SS_LCMD(SS_TAP(NGUP))" "SS_LCMD(SS_TAP(X_RIGHT))},
+  {.key = B_M|B_COMM|B_G    , .kana = SS_LCMD(SS_TAP(NGUP))"   "SS_LCMD(SS_TAP(X_RIGHT))},
+  {.key = B_C|B_V|B_U       , .kana = SS_LSFT(SS_LCMD(SS_TAP(NGUP)))SS_LGUI("x")},
 #endif
 };
 
@@ -727,6 +762,29 @@ void compress_buffer(int n) {
   ng_chrcount -= n;
 }
 
+#ifdef MAC_LIVE_CONVERSION
+static bool is_live_conv = true;
+#else
+static bool is_live_conv = false;
+#endif
+
+void mac_live_conversion_toggle() {
+  is_live_conv = !is_live_conv;
+}
+
+void mac_live_conversion_on() {
+  is_live_conv = true;
+}
+
+void mac_live_conversion_off() {
+  is_live_conv = false;
+}
+
+void mac_send_string(const char *str) {
+  send_string(str);
+  if (!is_live_conv) tap_code(KC_SPC);
+  tap_code(KC_ENT);
+}
 
 // modifierが押されたら薙刀式レイヤーをオフしてベースレイヤーに戻す
 // get_mods()がうまく動かない
@@ -812,6 +870,7 @@ bool naginata_lookup(int nt, bool shifted) {
   naginata_keymap bngmap; // PROGMEM buffer
   naginata_keymap_long bngmapl; // PROGMEM buffer
   naginata_keymap_unicode bngmapu; // PROGMEM buffer
+  naginata_keymap_ime bngmapi; // PROGMEM buffer
 
   // keycomb_bufはバッファ内のキーの組み合わせ、keycombはリリースしたキーを含んでいない
   uint32_t keycomb_buf = 0UL;
@@ -847,18 +906,6 @@ bool naginata_lookup(int nt, bool shifted) {
       break;
     case B_F|B_G:
       naginata_off();
-      compress_buffer(nt);
-      return true;
-      break;
-    case B_J|B_K|B_D: // wheel up
-      for (int i = 0; i < 3; i++)
-        tap_code(KC_MS_WH_UP);
-      compress_buffer(nt);
-      return true;
-      break;
-    case B_J|B_K|B_F: // wheel down
-      for (int i = 0; i < 3; i++)
-        tap_code(KC_MS_WH_DOWN);
       compress_buffer(nt);
       return true;
       break;
@@ -909,6 +956,38 @@ bool naginata_lookup(int nt, bool shifted) {
       return true;
       break;
 #endif
+#ifdef NAGINATA_EDIT_MAC
+    case B_C|B_V|B_P: // ここから末までふりがな定義
+      mac_send_string("nagitatesenn");
+      tap_code(KC_ENT);
+      tap_code(KC_END);
+      mac_send_string("nagikakkohi5");
+      mac_send_string("nagikakkomi5");
+      tap_code(KC_LEFT);
+      compress_buffer(nt);
+      return true;
+      break;
+    case B_C|B_V|B_Y: // 会話とじ次段落
+      mac_send_string("nagikakkomi3");
+      tap_code(KC_ENT);
+      tap_code(KC_SPC);
+      compress_buffer(nt);
+      return true;
+      break;
+    case B_C|B_V|B_H: // 会話とじ次ひらき
+      mac_send_string("nagikakkomi3");
+      tap_code(KC_ENT);
+      mac_send_string("nagikakkohi3");
+      compress_buffer(nt);
+      return true;
+      break;
+    case B_C|B_V|B_N: // 会話とじ次行の文
+      mac_send_string("nagikakkomi3");
+      tap_code(KC_ENT);
+      compress_buffer(nt);
+      return true;
+      break;
+#endif
     default:
       // キーから仮名に変換して出力する
 
@@ -936,6 +1015,15 @@ bool naginata_lookup(int nt, bool shifted) {
         if (keycomb_buf == bngmapu.key) {
           send_unicode_hex_string(bngmapu.kana);
           tap_code(KC_ENT);
+          compress_buffer(nt);
+          return true;
+        }
+      }
+      // IME変換する文字
+      for (int i = 0; i < sizeof ngmapi / sizeof bngmapi; i++) {
+        memcpy_P(&bngmapi, &ngmapi[i], sizeof(bngmapi));
+        if (keycomb_buf == bngmapi.key) {
+          mac_send_string(bngmapi.kana);
           compress_buffer(nt);
           return true;
         }
