@@ -1,4 +1,4 @@
-/* Copyright 2018 Jumail Mundekkat
+/* Copyright 2020 Holten Campbell
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,5 +38,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______, _______, _______, _______, _______, _______,
 		_______, _______, _______, _______, _______, KC_VOLU,
 		_______, _______, _______, _______, KC_MUTE, KC_VOLD
+    ),
+
+    [3] = LAYOUT_ortho_5x6(
+		_______, _______, _______, _______, _______, _______,
+		_______, _______, _______, _______, _______, _______,
+		_______, _______, _______, _______, _______, _______,
+		_______, _______, _______, _______, _______, _______,
+		_______, _______, _______, _______, _______, _______
     )
+
 };

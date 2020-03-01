@@ -15,7 +15,7 @@ The next Breaking Change is scheduled for May 30, 2020.
 
 ### Important Dates
 
-* [x] 2019 Feb 29 - `future` is created. It will be rebased weekly.
+* [x] 2020 Feb 29 - `future` is created. It will be rebased weekly.
 * [ ] 2020 May 2 - `future` closed to new PR's.
 * [ ] 2020 May 2 - Call for testers.
 * [ ] 2020 May 28 - `master` is locked, no PR's merged.
