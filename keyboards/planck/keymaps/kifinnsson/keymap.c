@@ -24,7 +24,47 @@ extern keymap_config_t keymap_config;
 
 enum planck_layers { _COLEMAK, _LOWER, _RAISE, _EXTEND, _MACRO, _ADJUST };
 
-enum planck_keycodes { COLEMAK = SAFE_RANGE, KI_BSPC, KI_COMM, KI_DOT, KI_ESC, KI_QUOT, KI_SCLN, KI_SLSH, KI_TAB, KI_A, KI_B, KI_C, KI_D, KI_E, KI_F, KI_G, KI_H, KI_I, KI_J, KI_K, KI_L, KI_M, KI_N, KI_O, KI_P, KI_Q, KI_R, KI_S, KI_T, KI_U, KI_V, KI_W, KI_X, KI_Y, KI_Z, KI_WLFT, KI_WRGT, KI_WUP, KI_WDN };
+enum planck_keycodes {
+    COLEMAK = SAFE_RANGE,
+    KI_BSPC,
+    KI_COMM,
+    KI_DOT,
+    KI_ESC,
+    KI_QUOT,
+    KI_SCLN,
+    KI_SLSH,
+    KI_TAB,
+    KI_A,
+    KI_B,
+    KI_C,
+    KI_D,
+    KI_E,
+    KI_F,
+    KI_G,
+    KI_H,
+    KI_I,
+    KI_J,
+    KI_K,
+    KI_L,
+    KI_M,
+    KI_N,
+    KI_O,
+    KI_P,
+    KI_Q,
+    KI_R,
+    KI_S,
+    KI_T,
+    KI_U,
+    KI_V,
+    KI_W,
+    KI_X,
+    KI_Y,
+    KI_Z,
+    KI_WLFT,
+    KI_WRGT,
+    KI_WUP,
+    KI_WDN
+    };
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
@@ -165,7 +205,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_BSPC:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED Backspace");
+                //SEND_STRING("RESERVED Backspace");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -174,7 +214,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_COMM:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED Comma");
+                //SEND_STRING("RESERVED Comma");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -183,7 +223,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_DOT:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED Dot");
+                //SEND_STRING("RESERVED Dot");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -192,14 +232,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_ESC:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED Escape");
+                //SEND_STRING("RESERVED Escape");
             } else {
             }
         // 'Quote' Macro
         case KI_QUOT:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED Quote");
+                //SEND_STRING("RESERVED Quote");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -208,7 +248,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_SCLN:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED Semicolon");
+                //SEND_STRING("RESERVED Semicolon");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -217,7 +257,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_SLSH:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED Slash");
+                //SEND_STRING("RESERVED Slash");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -226,7 +266,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_TAB:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED Tab");
+                //SEND_STRING("RESERVED Tab");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -238,7 +278,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_A:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED A");
+                //SEND_STRING("RESERVED A");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -247,7 +287,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_B:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED B");
+                //SEND_STRING("RESERVED B");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -256,7 +296,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_C:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED C");
+                //SEND_STRING("RESERVED C");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -265,7 +305,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_D:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED D");
+                //SEND_STRING("RESERVED D");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -274,7 +314,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_E:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED E");
+                //SEND_STRING("RESERVED E");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -283,7 +323,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_F:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED F");
+                //SEND_STRING("RESERVED F");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -292,7 +332,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_G:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED G");
+                //SEND_STRING("RESERVED G");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -301,7 +341,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_H:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED H");
+                //SEND_STRING("RESERVED H");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -310,7 +350,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_I:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED I");
+                //SEND_STRING("RESERVED I");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -319,7 +359,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_J:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED J");
+                //SEND_STRING("RESERVED J");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -328,7 +368,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_K:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED K");
+                //SEND_STRING("RESERVED K");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -337,7 +377,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_L:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED L");
+                //SEND_STRING("RESERVED L");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -346,7 +386,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_M:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED M");
+                //SEND_STRING("RESERVED M");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -355,7 +395,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_N:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED N");
+                //SEND_STRING("RESERVED N");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -364,7 +404,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_O:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED O");
+                //SEND_STRING("RESERVED O");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -373,7 +413,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_P:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED P");
+                //SEND_STRING("RESERVED P");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -382,7 +422,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_Q:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED Q");
+                //SEND_STRING("RESERVED Q");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -391,7 +431,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_R:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED R");
+                //SEND_STRING("RESERVED R");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -400,7 +440,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_S:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED S");
+                //SEND_STRING("RESERVED S");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -409,7 +449,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_T:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED T");
+                //SEND_STRING("RESERVED T");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -418,7 +458,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_U:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED U");
+                //SEND_STRING("RESERVED U");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -427,7 +467,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_V:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED V");
+                //SEND_STRING("RESERVED V");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -436,7 +476,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_W:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED W");
+                //SEND_STRING("RESERVED W");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -445,7 +485,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_X:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED X");
+                //SEND_STRING("RESERVED X");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -454,7 +494,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_Y:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED Y");
+                //SEND_STRING("RESERVED Y");
             } else {
             }
             return false;  // Skip all further processing of this key
@@ -463,7 +503,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KI_Z:
             if (record->event.pressed) {
                 // Reserved for future use
-                SEND_STRING("RESERVED Z");
+                //SEND_STRING("RESERVED Z");
             } else {
             }
             return false;  // Skip all further processing of this key
