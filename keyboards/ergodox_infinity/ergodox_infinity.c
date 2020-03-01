@@ -115,6 +115,11 @@ void matrix_init_kb(void) {
 #endif
 }
 
+void matrix_scan_kb(void) {
+	// put your looping keyboard code here
+	// runs every cycle (a lot)
+}
+
 bool is_keyboard_master(void) {
     return is_serial_link_master();
 }
