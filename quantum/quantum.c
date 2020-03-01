@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <ctype.h>
 #include "quantum.h"
 
 #ifdef PROTOCOL_LUFA
@@ -223,6 +224,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef AUDIO_ENABLE
             process_audio(keycode, record) &&
 #endif
+#ifdef BACKLIGHT_ENABLE
+            process_backlight(keycode, record) &&
+#endif
 #ifdef STENO_ENABLE
             process_steno(keycode, record) &&
 #endif
@@ -255,6 +259,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #ifdef MAGIC_KEYCODE_ENABLE
             process_magic(keycode, record) &&
+#endif
+#ifdef GRAVE_ESC_ENABLE
+            process_grave_esc(keycode, record) &&
 #endif
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
             process_rgb(keycode, record) &&
@@ -316,58 +323,6 @@ bool process_record_quantum(keyrecord_t *record) {
         }
     }
 
-    // keycodes that depend on both pressed and non-pressed state
-    switch (keycode) {
-        case GRAVE_ESC: {
-            /* true if the last press of GRAVE_ESC was shifted (i.e. GUI or SHIFT were pressed), false otherwise.
-            * Used to ensure that the correct keycode is released if the key is released.
-            */
-            static bool grave_esc_was_shifted = false;
-
-            uint8_t shifted = get_mods() & ((MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT) | MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI)));
-
-#ifdef GRAVE_ESC_ALT_OVERRIDE
-            // if ALT is pressed, ESC is always sent
-            // this is handy for the cmd+opt+esc shortcut on macOS, among other things.
-            if (get_mods() & (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT))) {
-                shifted = 0;
-            }
-#endif
-
-#ifdef GRAVE_ESC_CTRL_OVERRIDE
-            // if CTRL is pressed, ESC is always sent
-            // this is handy for the ctrl+shift+esc shortcut on windows, among other things.
-            if (get_mods() & (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL))) {
-                shifted = 0;
-            }
-#endif
-
-#ifdef GRAVE_ESC_GUI_OVERRIDE
-            // if GUI is pressed, ESC is always sent
-            if (get_mods() & (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI))) {
-                shifted = 0;
-            }
-#endif
-
-#ifdef GRAVE_ESC_SHIFT_OVERRIDE
-            // if SHIFT is pressed, ESC is always sent
-            if (get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
-                shifted = 0;
-            }
-#endif
-
-            if (record->event.pressed) {
-                grave_esc_was_shifted = shifted;
-                add_key(shifted ? KC_GRAVE : KC_ESCAPE);
-            } else {
-                del_key(grave_esc_was_shifted ? KC_GRAVE : KC_ESCAPE);
-            }
-
-            send_keyboard_report();
-            return false;
-        }
-    }
-
     return process_action_kb(record);
 }
 
@@ -379,6 +334,7 @@ __attribute__((weak)) const bool ascii_to_altgr_lut[128] PROGMEM = {0, 0, 0, 0, 
 
                                                                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
+// clang-format off
 __attribute__((weak)) const uint8_t ascii_to_keycode_lut[128] PROGMEM = {// NUL   SOH      STX      ETX      EOT      ENQ      ACK      BEL
                                                                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                                                          // BS    TAB      LF       VT       FF       CR       SO       SI
@@ -412,6 +368,7 @@ __attribute__((weak)) const uint8_t ascii_to_keycode_lut[128] PROGMEM = {// NUL 
                                                                          KC_P, KC_Q, KC_R, KC_S, KC_T, KC_U, KC_V, KC_W,
                                                                          // x     y        z        {        |        }        ~        DEL
                                                                          KC_X, KC_Y, KC_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV, KC_DEL};
+// clang-format on
 
 void send_string(const char *str) { send_string_with_delay(str, 0); }
 
@@ -421,19 +378,32 @@ void send_string_with_delay(const char *str, uint8_t interval) {
     while (1) {
         char ascii_code = *str;
         if (!ascii_code) break;
-        if (ascii_code == SS_TAP_CODE) {
-            // tap
-            uint8_t keycode = *(++str);
-            register_code(keycode);
-            unregister_code(keycode);
-        } else if (ascii_code == SS_DOWN_CODE) {
-            // down
-            uint8_t keycode = *(++str);
-            register_code(keycode);
-        } else if (ascii_code == SS_UP_CODE) {
-            // up
-            uint8_t keycode = *(++str);
-            unregister_code(keycode);
+        if (ascii_code == SS_QMK_PREFIX) {
+            ascii_code = *(++str);
+            if (ascii_code == SS_TAP_CODE) {
+                // tap
+                uint8_t keycode = *(++str);
+                register_code(keycode);
+                unregister_code(keycode);
+            } else if (ascii_code == SS_DOWN_CODE) {
+                // down
+                uint8_t keycode = *(++str);
+                register_code(keycode);
+            } else if (ascii_code == SS_UP_CODE) {
+                // up
+                uint8_t keycode = *(++str);
+                unregister_code(keycode);
+            } else if (ascii_code == SS_DELAY_CODE) {
+                // delay
+                int     ms      = 0;
+                uint8_t keycode = *(++str);
+                while (isdigit(keycode)) {
+                    ms *= 10;
+                    ms += keycode - '0';
+                    keycode = *(++str);
+                }
+                while (ms--) wait_ms(1);
+            }
         } else {
             send_char(ascii_code);
         }
@@ -450,19 +420,32 @@ void send_string_with_delay_P(const char *str, uint8_t interval) {
     while (1) {
         char ascii_code = pgm_read_byte(str);
         if (!ascii_code) break;
-        if (ascii_code == SS_TAP_CODE) {
-            // tap
-            uint8_t keycode = pgm_read_byte(++str);
-            register_code(keycode);
-            unregister_code(keycode);
-        } else if (ascii_code == SS_DOWN_CODE) {
-            // down
-            uint8_t keycode = pgm_read_byte(++str);
-            register_code(keycode);
-        } else if (ascii_code == SS_UP_CODE) {
-            // up
-            uint8_t keycode = pgm_read_byte(++str);
-            unregister_code(keycode);
+        if (ascii_code == SS_QMK_PREFIX) {
+            ascii_code = pgm_read_byte(++str);
+            if (ascii_code == SS_TAP_CODE) {
+                // tap
+                uint8_t keycode = pgm_read_byte(++str);
+                register_code(keycode);
+                unregister_code(keycode);
+            } else if (ascii_code == SS_DOWN_CODE) {
+                // down
+                uint8_t keycode = pgm_read_byte(++str);
+                register_code(keycode);
+            } else if (ascii_code == SS_UP_CODE) {
+                // up
+                uint8_t keycode = pgm_read_byte(++str);
+                unregister_code(keycode);
+            } else if (ascii_code == SS_DELAY_CODE) {
+                // delay
+                int     ms      = 0;
+                uint8_t keycode = pgm_read_byte(++str);
+                while (isdigit(keycode)) {
+                    ms *= 10;
+                    ms += keycode - '0';
+                    keycode = pgm_read_byte(++str);
+                }
+                while (ms--) wait_ms(1);
+            }
         } else {
             send_char(ascii_code);
         }
@@ -477,7 +460,7 @@ void send_string_with_delay_P(const char *str, uint8_t interval) {
 
 void send_char(char ascii_code) {
 #if defined(AUDIO_ENABLE) && defined(SENDSTRING_BELL)
-    if (ascii_code == '\a') { // BEL
+    if (ascii_code == '\a') {  // BEL
         PLAY_SONG(bell_song);
         return;
     }
@@ -634,12 +617,8 @@ void matrix_scan_quantum() {
     matrix_scan_combo();
 #endif
 
-#if defined(BACKLIGHT_ENABLE)
-#    if defined(LED_MATRIX_ENABLE)
+#ifdef LED_MATRIX_ENABLE
     led_matrix_task();
-#    elif defined(BACKLIGHT_PIN) || defined(BACKLIGHT_PINS)
-    backlight_task();
-#    endif
 #endif
 
 #ifdef RGB_MATRIX_ENABLE

@@ -29,6 +29,4 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 #OPT_DEFS = -DDEBUG_LEVEL=0
 
-SRC = backlight.c
-
 LAYOUTS = ortho_5x12

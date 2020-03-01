@@ -15,10 +15,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "config_common.h"
+#pragma once
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#include "config_common.h"
 
 #define VENDOR_ID       0x20A0
 #define PRODUCT_ID      0x422D
@@ -37,8 +36,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
+#define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 12
-// #define BACKLIGHT_BREATHING  // works, but BL_TOGG might not work
+#define BACKLIGHT_BREATHING
 
 #define TAPPING_TOGGLE 3
 
@@ -52,5 +52,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM 5
 #define RGB_DI_PIN E2 // NOTE: for PS2AVRGB boards, underglow commands are sent via I2C to 0xB0.
 #define RGBLIGHT_ANIMATIONS
-
-#endif

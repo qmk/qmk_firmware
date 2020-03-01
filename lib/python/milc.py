@@ -178,11 +178,21 @@ class ConfigurationSection(Configuration):
 
     def __getitem__(self, key):
         """Returns a config value, pulling from the `user` section as a fallback.
+        This is called when the attribute is accessed either via the get method or through [ ] index.
         """
-        if key in self._config:
+        if key in self._config and self._config.get(key) is not None:
             return self._config[key]
 
         elif key in self.parent.user:
+            return self.parent.user[key]
+
+        return None
+
+    def __getattr__(self, key):
+        """Returns the config value from the `user` section.
+        This is called when the attribute is accessed via dot notation but does not exists.
+        """
+        if key in self.parent.user:
             return self.parent.user[key]
 
         return None
@@ -263,7 +273,7 @@ class MILC(object):
         self._inside_context_manager = False
         self.ansi = ansi_colors
         self.arg_only = []
-        self.config = None
+        self.config = self.config_source = None
         self.config_file = None
         self.default_arguments = {}
         self.version = 'unknown'
@@ -463,6 +473,7 @@ class MILC(object):
         """
         self.acquire_lock()
         self.config = Configuration()
+        self.config_source = Configuration()
         self.config_file = self.find_config_file()
 
         if self.config_file and self.config_file.exists():
@@ -488,6 +499,7 @@ class MILC(object):
                             value = int(value)
 
                     self.config[section][option] = value
+                    self.config_source[section][option] = 'config_file'
 
         self.release_lock()
 
@@ -501,7 +513,10 @@ class MILC(object):
 
             if argument not in self.arg_only:
                 # Find the argument's section
-                if self._entrypoint.__name__ in self.default_arguments and argument in self.default_arguments[self._entrypoint.__name__]:
+                # Underscores in command's names are converted to dashes during initialization.
+                # TODO(Erovia) Find a better solution
+                entrypoint_name = self._entrypoint.__name__.replace("_", "-")
+                if entrypoint_name in self.default_arguments and argument in self.default_arguments[entrypoint_name]:
                     argument_found = True
                     section = self._entrypoint.__name__
                 if argument in self.default_arguments['general']:
@@ -513,13 +528,18 @@ class MILC(object):
                     exit(1)
 
                 # Merge this argument into self.config
-                if argument in self.default_arguments:
+                if argument in self.default_arguments['general'] or argument in self.default_arguments[entrypoint_name]:
                     arg_value = getattr(self.args, argument)
-                    if arg_value:
+                    if arg_value is not None:
                         self.config[section][argument] = arg_value
+                        self.config_source[section][argument] = 'argument'
                 else:
-                    if argument not in self.config[section]:
-                        self.config[section][argument] = getattr(self.args, argument)
+                    if argument not in self.config[entrypoint_name]:
+                        # Check if the argument exist for this section
+                        arg = getattr(self.args, argument)
+                        if arg is not None:
+                            self.config[section][argument] = arg
+                            self.config_source[section][argument] = 'argument'
 
         self.release_lock()
 
@@ -555,7 +575,7 @@ class MILC(object):
 
         # Move the new config file into place atomically
         if os.path.getsize(tmpfile.name) > 0:
-            os.rename(tmpfile.name, str(self.config_file))
+            os.replace(tmpfile.name, str(self.config_file))
         else:
             self.log.warning('Config file saving failed, not replacing %s with %s.', str(self.config_file), tmpfile.name)
 

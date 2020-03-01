@@ -48,8 +48,10 @@ bool    is_backlight_enabled(void);
 void    backlight_step(void);
 void    backlight_increase(void);
 void    backlight_decrease(void);
+void    backlight_level_noeeprom(uint8_t level);
 void    backlight_level(uint8_t level);
 uint8_t get_backlight_level(void);
+void    eeconfig_update_backlight_current(void);
 
 // implementation specific
 void backlight_init_ports(void);
