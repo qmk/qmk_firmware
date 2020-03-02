@@ -26,6 +26,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    error "Maximum value of BACKLIGHT_LEVELS is 31"
 #endif
 
+#ifndef BACKLIGHT_ON_STATE
+#    define BACKLIGHT_ON_STATE 1
+#endif
+
 #ifndef BREATHING_PERIOD
 #    define BREATHING_PERIOD 6
 #endif
@@ -39,6 +43,10 @@ typedef union {
         uint8_t level : 5;
     };
 } backlight_config_t;
+
+void backlight_init_pins(void);
+void backlight_pins_on(void);
+void backlight_pins_off(void);
 
 void    backlight_init(void);
 void    backlight_toggle(void);
