@@ -22,15 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <string.h>
 
-#if defined(__AVR__)
-#    include <avr/io.h>
-#    include <avr/pgmspace.h>
-#elif defined(ESP8266)
-#    include <pgmspace.h>
-#else  // defined(ESP8266)
-#    define PROGMEM
+#include "progmem.h"
+#ifndef __AVR__
 #    define memcpy_P(des, src, len) memcpy(des, src, len)
-#endif  // defined(__AVR__)
+#endif
 
 // Used commands from spec sheet: https://cdn-shop.adafruit.com/datasheets/SSD1306.pdf
 // for SH1106: https://www.velleman.eu/downloads/29/infosheets/sh1106_datasheet.pdf

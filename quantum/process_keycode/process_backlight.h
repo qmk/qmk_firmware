@@ -1,4 +1,4 @@
-/* Copyright 2018 Jumail Mundekkat
+/* Copyright 2019
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,4 +16,6 @@
 
 #pragma once
 
-// place overrides here
+#include "quantum.h"
+
+bool process_backlight(uint16_t keycode, keyrecord_t *record);

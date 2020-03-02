@@ -224,6 +224,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef AUDIO_ENABLE
             process_audio(keycode, record) &&
 #endif
+#ifdef BACKLIGHT_ENABLE
+            process_backlight(keycode, record) &&
+#endif
 #ifdef STENO_ENABLE
             process_steno(keycode, record) &&
 #endif
@@ -310,11 +313,6 @@ bool process_record_quantum(keyrecord_t *record) {
                 return false;
             case OUT_BT:
                 set_output(OUTPUT_BLUETOOTH);
-                return false;
-#endif
-#if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_BREATHING)
-            case BL_BRTG:
-                backlight_toggle_breathing();
                 return false;
 #endif
         }
@@ -644,7 +642,7 @@ void matrix_scan_quantum() {
 // Functions for spitting out values
 //
 
-void send_dword(uint32_t number) {  // this might not actually work
+void send_dword(uint32_t number) {
     uint16_t word = (number >> 16);
     send_word(word);
     send_word(number & 0xFFFFUL);
