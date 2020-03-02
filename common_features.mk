@@ -264,7 +264,7 @@ ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
     BACKLIGHT_DRIVER := custom
 endif
 
-VALID_BACKLIGHT_TYPES := pwm software custom
+VALID_BACKLIGHT_TYPES := pwm timer software custom
 
 BACKLIGHT_ENABLE ?= no
 BACKLIGHT_DRIVER ?= pwm
