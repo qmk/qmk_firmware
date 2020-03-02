@@ -3,9 +3,9 @@ SRC += brandonschlack.c \
 
 SPACE_CADET_ENABLE = no
 
-# Use LTO except for Massdrop boards
-ifeq (, $(findstring massdrop, $(KEYBOARD)))
-	LTO_ENABLE = yes
+# Use LTO except for ChibiOS
+ifneq ($(PLATFORM),CHIBIOS)
+    LTO_ENABLE            = yes
 endif
 
 ifeq ($(strip $(IS_MACROPAD)), yes)
