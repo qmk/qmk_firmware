@@ -35,25 +35,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef RGBLIGHT_ENABLE 
-/* void keyboard_post_init_keymap(void) {
+void keyboard_post_init_keymap(void) {
   #ifdef RGBLIGHT_ENABLE
+    eeconfig_init();
     setrgb(0, 0, 0, (LED_TYPE *)&led[0]);
     setrgb(0, 0, 0, (LED_TYPE *)&led[1]);
 	setrgb(0, 0, 0, (LED_TYPE *)&led[2]);
     rgblight_set();
   #endif //RGBLIGHT_ENABLE
-} */
+} 
 
 uint32_t layer_state_set_keymap(uint32_t state){
   #ifdef RGBLIGHT_ENABLE
     uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
     uint8_t led1r = 0; uint8_t led1g = 0; uint8_t led1b = 0;
 	uint8_t led2r = 0; uint8_t led2g = 0; uint8_t led2b = 0;
-	
-	if (layer_state_cmp(state, 0)) {
-      led0r = 0;
+
+    if (layer_state_cmp(state, 0)) {
+      led2g = 255;
     }
-	
+
     if (layer_state_cmp(state, 1)) {
       led0g = 255;
     }
