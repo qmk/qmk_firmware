@@ -97,6 +97,7 @@
   * [Unicode](feature_unicode.md)
   * [Userspace](feature_userspace.md)
   * [Velocikey](feature_velocikey.md)
+  * [WPM Calculation](feature_wpm.md)
 
 * For Makers and Modders
   * [Hand Wiring Guide](hand_wire.md)
