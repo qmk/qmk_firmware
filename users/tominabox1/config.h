@@ -11,7 +11,7 @@
 #define PERMISSIVE_HOLD_PER_KEY
 
 // Combos
-#define COMBO_COUNT 10
+#define COMBO_COUNT 11
 #define COMBO_TERM 200
 
 // RGB LEDs

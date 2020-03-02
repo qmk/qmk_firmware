@@ -2,6 +2,7 @@
 #include QMK_KEYBOARD_H
 #include "quantum.h"
 #include "tominabox1.h"
+#define RGBLIGHT_EFFECT_BREATHING
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_brutal_wrap(
@@ -24,70 +25,54 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     AESTHETIC,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,  KC_COMM,   KC_DOT,  KC_BSLS,
     KC_TRNS,   KC_TRNS,  KC_TRNS
   ),
+  
+  [_GAME] = LAYOUT_brutal(
+	KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_L, KC_U, KC_Y, TO(_BASE),
+	KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_N, KC_E, KC_I, KC_O,
+	KC_LCTRL, KC_A, KC_S, KC_D, KC_F, KC_G, KC_M, KC_COMM, KC_DOT, KC_SLSH,
+    KC_LSFT, KC_SPACE, KC_NAV_ENT
+  ),
 };
 
-#ifdef RGBLIGHT_ENABLE
-const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {100, 30, 5, 1};
-
-void keyboard_post_init_user(void) {
-  // rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-  // Init the LEDs to a static color
-  // rgblight_sethsv_at(0, 0, 0, 0);
-  // rgblight_sethsv_at(0, 0, 0, 1);
-  // rgblight_sethsv_at(0, 0, 0, 2);
-  setrgb(0, 0, 0, (LED_TYPE *)&led[0]);
-  setrgb(0, 0, 0, (LED_TYPE *)&led[1]);
-  setrgb(0, 0, 0, (LED_TYPE *)&led[2]);
-  rgblight_set();
-}
+#ifdef RGBLIGHT_ENABLE 
+/* void keyboard_post_init_keymap(void) {
+  #ifdef RGBLIGHT_ENABLE
+    setrgb(0, 0, 0, (LED_TYPE *)&led[0]);
+    setrgb(0, 0, 0, (LED_TYPE *)&led[1]);
+	setrgb(0, 0, 0, (LED_TYPE *)&led[2]);
+    rgblight_set();
+  #endif //RGBLIGHT_ENABLE
+} */
 
 uint32_t layer_state_set_keymap(uint32_t state){
-  // uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
-  // uint8_t led1r = 0; uint8_t led1g = 0; uint8_t led1b = 0;
-  if (layer_state_cmp(state, _NUM_SYM)) {
-    // led0r = 100;
-    // led0g = 200;
-    rgblight_setrgb_at(100, 200, 0, 0);
-  }
-  if (layer_state_cmp(state, _NAV)) {
-    // led1g = 50;
-    // led1b = 50;
-    rgblight_setrgb_at(0, 50, 50, 1);
-  }
+  #ifdef RGBLIGHT_ENABLE
+    uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
+    uint8_t led1r = 0; uint8_t led1g = 0; uint8_t led1b = 0;
+	uint8_t led2r = 0; uint8_t led2g = 0; uint8_t led2b = 0;
+	
+	if (layer_state_cmp(state, 0)) {
+      led0r = 0;
+    }
+	
+    if (layer_state_cmp(state, 1)) {
+      led0g = 255;
+    }
 
-  if (layer_state_cmp(state, _BASE)) {
-    rgblight_setrgb_at(0, 0, 0, 0);
-    rgblight_setrgb_at(0, 0, 0, 1);
-  }
+    if (layer_state_cmp(state, 5)) {
+      led1b = 255;
+    }
+	
+    if (layer_state_cmp(state, 7)) {
+      led1r = 255;
+	  led1b = 255;
+    }
 
-  // setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]);
-  // setrgb(led1r, led1g, led1b, (LED_TYPE *)&led[1]);
-  rgblight_set();
-
+    setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]);
+    setrgb(led1r, led1g, led1b, (LED_TYPE *)&led[1]);
+	setrgb(led2r, led2g, led2b, (LED_TYPE *)&led[2]);
+    rgblight_set();
+  #endif //RGBLIGHT_ENABLE
   return state;
 }
 
-bool led_update_kb(led_t led_state){
-  if(led_state.caps_lock){
-      rgblight_setrgb_at(10, 10, 0, 2);
-      rgblight_set();
-  } else{
-      rgblight_sethsv_at(0, 0, 0, 2);
-      rgblight_set();
-  }
-    return true;
-}
-//
-// void led_set_user(uint8_t usb_led){
-//   if(usb_led & (1<<USB_LED_CAPS_LOCK)){
-//     rgblight_set_effect_range(2, 1);
-//     rgblight_sethsv_noeeprom(180, 200, 150);
-//     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-//     rgblight_set();
-//   } else{
-//     rgblight_set_effect_range(2, 1);
-//     rgblight_sethsv_noeeprom(180, 200, 0);
-//     rgblight_set();
-//   }
-// }
 #endif //RGBLIGHT_ENABLE

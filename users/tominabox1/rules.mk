@@ -75,7 +75,7 @@ ifeq ($(strip $(KEYBOARD)), handwired/brutal33)
 TAP_DANCE_ENABLE = yes
 COMBO_ENABLE = yes
 NKRO_ENABLE = yes
-RGBLIGHT_ENABLE = no
+RGBLIGHT_ENABLE = yes
 LED_ANIMATIONS = no
 ifeq ($(strip $(LED_ANIMATIONS)), yes)
     # OPT_DEFS += -DRGBLIGHT_ANIMATIONS

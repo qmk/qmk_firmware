@@ -14,7 +14,7 @@ enum layers {
   _NUMPAD,
   _NAV,
   _FKEY,
-  _GAMER,
+  _GAME,
   _NP,
   _ADJUST
 };
