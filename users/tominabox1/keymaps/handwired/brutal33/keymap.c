@@ -35,45 +35,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef RGBLIGHT_ENABLE 
+
 void keyboard_post_init_keymap(void) {
-  #ifdef RGBLIGHT_ENABLE
-    eeconfig_init();
-    setrgb(0, 0, 0, (LED_TYPE *)&led[0]);
-    setrgb(0, 0, 0, (LED_TYPE *)&led[1]);
-	setrgb(0, 0, 0, (LED_TYPE *)&led[2]);
-    rgblight_set();
-  #endif //RGBLIGHT_ENABLE
+   rgblight_disable_noeeprom();
+   rgblight_sethsv_at(0, 0, 0, 0);
+   rgblight_sethsv_at(0, 0, 0, 1);
+   rgblight_sethsv_at(0, 0, 0, 2);
+   rgblight_enable_noeeprom();
 } 
 
 uint32_t layer_state_set_keymap(uint32_t state){
-  #ifdef RGBLIGHT_ENABLE
-    uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
-    uint8_t led1r = 0; uint8_t led1g = 0; uint8_t led1b = 0;
-	uint8_t led2r = 0; uint8_t led2g = 0; uint8_t led2b = 0;
-
-    if (layer_state_cmp(state, 0)) {
-      led2g = 255;
+    //uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
+    //uint8_t led1r = 0; uint8_t led1g = 0; uint8_t led1b = 0;
+	if (layer_state_cmp(state, 0)) {
+      rgblight_sethsv_range(0,0,0,0,2);
     }
-
     if (layer_state_cmp(state, 1)) {
-      led0g = 255;
+      rgblight_sethsv_at(HSV_SPRINGGREEN,0);
     }
 
     if (layer_state_cmp(state, 5)) {
-      led1b = 255;
+      rgblight_sethsv_at(HSV_MAGENTA,1);
     }
 	
     if (layer_state_cmp(state, 7)) {
-      led1r = 255;
-	  led1b = 255;
+      rgblight_sethsv_at(HSV_GOLD,1);
     }
 
-    setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]);
-    setrgb(led1r, led1g, led1b, (LED_TYPE *)&led[1]);
-	setrgb(led2r, led2g, led2b, (LED_TYPE *)&led[2]);
-    rgblight_set();
-  #endif //RGBLIGHT_ENABLE
   return state;
-}
+} 
 
+bool led_update_kb(led_t led_state){
+  if(led_state.caps_lock){
+      rgblight_sethsv_at(HSV_CYAN, 2);
+  } else{
+      rgblight_sethsv_at(0, 0, 0, 2);
+  }
+    return true;
+}
 #endif //RGBLIGHT_ENABLE
