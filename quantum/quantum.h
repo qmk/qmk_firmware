@@ -213,14 +213,14 @@ extern const uint8_t ascii_to_shift_lut[16];
 extern const uint8_t ascii_to_altgr_lut[16];
 // clang-format off
 #define KCLUT_ENTRY(a, b, c, d, e, f, g, h) \
-            ( ((a) ? 1 : 0) << 0 \
-            | ((b) ? 1 : 0) << 1 \
-            | ((c) ? 1 : 0) << 2 \
-            | ((d) ? 1 : 0) << 3 \
-            | ((e) ? 1 : 0) << 4 \
-            | ((f) ? 1 : 0) << 5 \
-            | ((g) ? 1 : 0) << 6 \
-            | ((h) ? 1 : 0) << 7 )
+    ( ((a) ? 1 : 0) << 0 \
+    | ((b) ? 1 : 0) << 1 \
+    | ((c) ? 1 : 0) << 2 \
+    | ((d) ? 1 : 0) << 3 \
+    | ((e) ? 1 : 0) << 4 \
+    | ((f) ? 1 : 0) << 5 \
+    | ((g) ? 1 : 0) << 6 \
+    | ((h) ? 1 : 0) << 7 )
 // clang-format on
 
 void send_string(const char *str);
