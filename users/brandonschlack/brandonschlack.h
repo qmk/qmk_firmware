@@ -52,7 +52,3 @@ void suspend_wakeup_init_keymap(void);
 void matrix_scan_keymap(void);
 layer_state_t default_layer_state_set_keymap(layer_state_t state);
 layer_state_t layer_state_set_keymap(layer_state_t state);
-
-#ifdef ENCODER_ENABLE
-void encoder_update_keymap(uint8_t index, bool clockwise);
-#endif
