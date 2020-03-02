@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT_planck_grid_wrapper(
     _______, KC_EXLM, KC_AMPR, KC_UP,   _______,  KC_GRV,  _______, ____CRBRACES____, KC_UNDS, _______, KC_PIPE,
     _______, KC_DEL,  KC_LEFT, KC_DOWN, KC_RIGHT, KC_TILD, KC_EQL,  _____PARENS_____, KC_PLUS, KC_COLN, KC_DQT ,
-    _______, _______, KC_MRWD, KC_MPLY, KC_MFFD,  _______, KC_MINS, ___SQBRACKETS___, _______, KC_QUES, _______,
+    _______, _______, KC_MPRV, KC_MPLY, KC_MNXT,  _______, KC_MINS, ___SQBRACKETS___, _______, KC_QUES, _______,
     _______, _______, _______, _______, _______,  _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
 ),
 
