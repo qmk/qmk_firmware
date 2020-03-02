@@ -2,7 +2,9 @@
 #include "backlight.h"
 #include "debug.h"
 
-#if defined(BACKLIGHT_ENABLE) && (defined(BACKLIGHT_PIN) || defined(BACKLIGHT_PINS))
+#if !defined(BACKLIGHT_PIN) && !defined(BACKLIGHT_PINS)
+#    error "Backlight pin/pins not defined. Please configure."
+#endif
 
 // This logic is a bit complex, we support 3 setups:
 //
@@ -86,12 +88,80 @@
 #            define COMxx1 COM1A1
 #            define OCRxx OCR1A
 #        endif
-#    elif defined(__AVR_ATmega32A__) && (BACKLIGHT_PIN == D4 || BACKLIGHT_PIN == D5)
-#        define HARDWARE_PWM
-#        define ICRx ICR1
-#        define TCCRxA TCCR1A
-#        define TCCRxB TCCR1B
-#        define TIMERx_OVF_vect TIMER1_OVF_vect
+#    elif BACKLIGHT_PIN == C6
+#        define COMxx0 COM3A0
+#        define COMxx1 COM3A1
+#        define OCRxx OCR3A
+#    endif
+#elif (defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__)) && (BACKLIGHT_PIN == B7 || BACKLIGHT_PIN == C5 || BACKLIGHT_PIN == C6)
+#    define HARDWARE_PWM
+#    define ICRx ICR1
+#    define TCCRxA TCCR1A
+#    define TCCRxB TCCR1B
+#    define TIMERx_OVF_vect TIMER1_OVF_vect
+#    define TIMSKx TIMSK1
+#    define TOIEx TOIE1
+
+#    if BACKLIGHT_PIN == B7
+#        define COMxx0 COM1C0
+#        define COMxx1 COM1C1
+#        define OCRxx OCR1C
+#    elif BACKLIGHT_PIN == C5
+#        define COMxx0 COM1B0
+#        define COMxx1 COM1B1
+#        define OCRxx OCR1B
+#    elif BACKLIGHT_PIN == C6
+#        define COMxx0 COM1A0
+#        define COMxx1 COM1A1
+#        define OCRxx OCR1A
+#    endif
+#elif defined(__AVR_ATmega32A__) && (BACKLIGHT_PIN == D4 || BACKLIGHT_PIN == D5)
+#    define HARDWARE_PWM
+#    define ICRx ICR1
+#    define TCCRxA TCCR1A
+#    define TCCRxB TCCR1B
+#    define TIMERx_OVF_vect TIMER1_OVF_vect
+#    define TIMSKx TIMSK
+#    define TOIEx TOIE1
+
+#    if BACKLIGHT_PIN == D4
+#        define COMxx0 COM1B0
+#        define COMxx1 COM1B1
+#        define OCRxx OCR1B
+#    elif BACKLIGHT_PIN == D5
+#        define COMxx0 COM1A0
+#        define COMxx1 COM1A1
+#        define OCRxx OCR1A
+#    endif
+#elif defined(__AVR_ATmega328P__) && (BACKLIGHT_PIN == B1 || BACKLIGHT_PIN == B2)
+#    define HARDWARE_PWM
+#    define ICRx ICR1
+#    define TCCRxA TCCR1A
+#    define TCCRxB TCCR1B
+#    define TIMERx_OVF_vect TIMER1_OVF_vect
+#    define TIMSKx TIMSK1
+#    define TOIEx TOIE1
+
+#    if BACKLIGHT_PIN == B1
+#        define COMxx0 COM1A0
+#        define COMxx1 COM1A1
+#        define OCRxx OCR1A
+#    elif BACKLIGHT_PIN == B2
+#        define COMxx0 COM1B0
+#        define COMxx1 COM1B1
+#        define OCRxx OCR1B
+#    endif
+#elif !defined(B5_AUDIO) && !defined(B6_AUDIO) && !defined(B7_AUDIO)
+// Timer 1 is not in use by Audio feature, Backlight can use it
+#    pragma message "Using hardware timer 1 with software PWM"
+#    define HARDWARE_PWM
+#    define BACKLIGHT_PWM_TIMER
+#    define ICRx ICR1
+#    define TCCRxA TCCR1A
+#    define TCCRxB TCCR1B
+#    define TIMERx_COMPA_vect TIMER1_COMPA_vect
+#    define TIMERx_OVF_vect TIMER1_OVF_vect
+#    if defined(__AVR_ATmega32A__)  // This MCU has only one TIMSK register
 #        define TIMSKx TIMSK
 #        define TOIEx TOIE1
 
@@ -123,50 +193,9 @@
 #            define OCRxx OCR1B
 #        endif
 #    else
-#        if !defined(BACKLIGHT_CUSTOM_DRIVER)
-#            if !defined(B5_AUDIO) && !defined(B6_AUDIO) && !defined(B7_AUDIO)
-// Timer 1 is not in use by Audio feature, Backlight can use it
-#                pragma message "Using hardware timer 1 with software PWM"
-#                define HARDWARE_PWM
-#                define BACKLIGHT_PWM_TIMER
-#                define ICRx ICR1
-#                define TCCRxA TCCR1A
-#                define TCCRxB TCCR1B
-#                define TIMERx_COMPA_vect TIMER1_COMPA_vect
-#                define TIMERx_OVF_vect TIMER1_OVF_vect
-#                if defined(__AVR_ATmega32A__)  // This MCU has only one TIMSK register
-#                    define TIMSKx TIMSK
-#                else
-#                    define TIMSKx TIMSK1
-#                endif
-#                define TOIEx TOIE1
-
-#                define OCIExA OCIE1A
-#                define OCRxx OCR1A
-#            elif !defined(C6_AUDIO) && !defined(C5_AUDIO) && !defined(C4_AUDIO)
-#                pragma message "Using hardware timer 3 with software PWM"
-// Timer 3 is not in use by Audio feature, Backlight can use it
-#                define HARDWARE_PWM
-#                define BACKLIGHT_PWM_TIMER
-#                define ICRx ICR1
-#                define TCCRxA TCCR3A
-#                define TCCRxB TCCR3B
-#                define TIMERx_COMPA_vect TIMER3_COMPA_vect
-#                define TIMERx_OVF_vect TIMER3_OVF_vect
-#                define TIMSKx TIMSK3
-#                define TOIEx TOIE3
-
-#                define OCIExA OCIE3A
-#                define OCRxx OCR3A
-#            else
-#                pragma message "Audio in use - using pure software PWM"
-#                define NO_HARDWARE_PWM
-#            endif
-#        else
-#            pragma message "Custom driver defined - using pure software PWM"
-#            define NO_HARDWARE_PWM
-#        endif
+#        define TIMSKx TIMSK1
 #    endif
+#    define TOIEx TOIE1
 
 #    ifndef BACKLIGHT_ON_STATE
 #        define BACKLIGHT_ON_STATE 1
@@ -188,25 +217,25 @@ void backlight_off(pin_t backlight_pin) {
 #    endif
 }
 
-#    if defined(NO_HARDWARE_PWM) || defined(BACKLIGHT_PWM_TIMER)  // pwm through software
+#ifdef BACKLIGHT_PWM_TIMER  // pwm through software
 
 // we support multiple backlight pins
-#        ifndef BACKLIGHT_LED_COUNT
-#            define BACKLIGHT_LED_COUNT 1
-#        endif
+#    ifndef BACKLIGHT_LED_COUNT
+#        define BACKLIGHT_LED_COUNT 1
+#    endif
 
-#        if BACKLIGHT_LED_COUNT == 1
-#            define BACKLIGHT_PIN_INIT \
-                { BACKLIGHT_PIN }
-#        else
-#            define BACKLIGHT_PIN_INIT BACKLIGHT_PINS
-#        endif
+#    if BACKLIGHT_LED_COUNT == 1
+#        define BACKLIGHT_PIN_INIT \
+            { BACKLIGHT_PIN }
+#    else
+#        define BACKLIGHT_PIN_INIT BACKLIGHT_PINS
+#    endif
 
-#        define FOR_EACH_LED(x)                                 \
-            for (uint8_t i = 0; i < BACKLIGHT_LED_COUNT; i++) { \
-                pin_t backlight_pin = backlight_pins[i];        \
-                { x }                                           \
-            }
+#    define FOR_EACH_LED(x)                                 \
+        for (uint8_t i = 0; i < BACKLIGHT_LED_COUNT; i++) { \
+            pin_t backlight_pin = backlight_pins[i];        \
+            { x }                                           \
+        }
 
 static const pin_t backlight_pins[BACKLIGHT_LED_COUNT] = BACKLIGHT_PIN_INIT;
 
@@ -232,42 +261,29 @@ static inline void disable_pwm(void) {
 static const pin_t backlight_pin = BACKLIGHT_PIN;
 #        define FOR_EACH_LED(x) x
 
+static inline void enable_pwm(void) {
+#    if BACKLIGHT_ON_STATE == 1
+    TCCRxA |= _BV(COMxx1);
+#    else
+    TCCRxA |= _BV(COMxx1) | _BV(COMxx0);
 #    endif
-
-#    ifdef NO_HARDWARE_PWM
-void backlight_init_ports(void) {
-    // Setup backlight pin as output and output to on state.
-    FOR_EACH_LED(setPinOutput(backlight_pin); backlight_on(backlight_pin);)
-
-#        ifdef BACKLIGHT_BREATHING
-    if (is_backlight_breathing()) {
-        breathing_enable();
-    }
-#        endif
 }
 
-uint8_t backlight_tick = 0;
-
-#        ifndef BACKLIGHT_CUSTOM_DRIVER
-void backlight_task(void) {
-    if ((0xFFFF >> ((BACKLIGHT_LEVELS - get_backlight_level()) * ((BACKLIGHT_LEVELS + 1) / 2))) & (1 << backlight_tick)) {
-        FOR_EACH_LED(backlight_on(backlight_pin);)
-    } else {
-        FOR_EACH_LED(backlight_off(backlight_pin);)
-    }
-    backlight_tick = (backlight_tick + 1) % 16;
+static inline void disable_pwm(void) {
+#    if BACKLIGHT_ON_STATE == 1
+    TCCRxA &= ~(_BV(COMxx1));
+#    else
+    TCCRxA &= ~(_BV(COMxx1) | _BV(COMxx0));
+#    endif
 }
-#        endif
 
-#        ifdef BACKLIGHT_BREATHING
-#            ifndef BACKLIGHT_CUSTOM_DRIVER
-#                error "Backlight breathing only available with hardware PWM. Please disable."
-#            endif
-#        endif
+// we support only one backlight pin
+static const pin_t backlight_pin = BACKLIGHT_PIN;
+#    define FOR_EACH_LED(x) x
 
-#    else  // hardware pwm through timer
+#endif
 
-#        ifdef BACKLIGHT_PWM_TIMER
+#ifdef BACKLIGHT_PWM_TIMER
 
 // The idea of software PWM assisted by hardware timers is the following
 // we use the hardware timer in fast PWM mode like for hardware PWM, but
@@ -288,11 +304,11 @@ ISR(TIMERx_COMPA_vect) { FOR_EACH_LED(backlight_off(backlight_pin);) }
 // Triggered when the counter reaches the TOP value
 // this one triggers at F_CPU/65536 =~ 244 Hz
 ISR(TIMERx_OVF_vect) {
-#            ifdef BACKLIGHT_BREATHING
+#    ifdef BACKLIGHT_BREATHING
     if (is_breathing()) {
         breathing_task();
     }
-#            endif
+#    endif
     // for very small values of OCRxx (or backlight level)
     // we can't guarantee this whole code won't execute
     // at the same time as the compare match interrupt
@@ -306,9 +322,9 @@ ISR(TIMERx_OVF_vect) {
     }
 }
 
-#        endif
+#endif
 
-#        define TIMER_TOP 0xFFFFU
+#define TIMER_TOP 0xFFFFU
 
 // See http://jared.geek.nz/2013/feb/linear-led-pwm
 static uint16_t cie_lightness(uint16_t v) {
@@ -329,28 +345,27 @@ static uint16_t cie_lightness(uint16_t v) {
 // range for val is [0..TIMER_TOP]. PWM pin is high while the timer count is below val.
 static inline void set_pwm(uint16_t val) { OCRxx = val; }
 
-#        ifndef BACKLIGHT_CUSTOM_DRIVER
 void backlight_set(uint8_t level) {
     if (level > BACKLIGHT_LEVELS) level = BACKLIGHT_LEVELS;
 
     if (level == 0) {
-#            ifdef BACKLIGHT_PWM_TIMER
+#ifdef BACKLIGHT_PWM_TIMER
         if (OCRxx) {
             TIMSKx &= ~(_BV(OCIExA));
             TIMSKx &= ~(_BV(TOIEx));
         }
-#            else
+#else
         // Turn off PWM control on backlight pin
         disable_pwm();
 #            endif
         FOR_EACH_LED(backlight_off(backlight_pin);)
     } else {
-#            ifdef BACKLIGHT_PWM_TIMER
+#ifdef BACKLIGHT_PWM_TIMER
         if (!OCRxx) {
             TIMSKx |= _BV(OCIExA);
             TIMSKx |= _BV(TOIEx);
         }
-#            else
+#else
         // Turn on PWM control of backlight pin
         enable_pwm();
 #            endif
@@ -360,57 +375,56 @@ void backlight_set(uint8_t level) {
 }
 
 void backlight_task(void) {}
-#        endif  // BACKLIGHT_CUSTOM_DRIVER
 
-#        ifdef BACKLIGHT_BREATHING
+#ifdef BACKLIGHT_BREATHING
 
-#            define BREATHING_NO_HALT 0
-#            define BREATHING_HALT_OFF 1
-#            define BREATHING_HALT_ON 2
-#            define BREATHING_STEPS 128
+#    define BREATHING_NO_HALT 0
+#    define BREATHING_HALT_OFF 1
+#    define BREATHING_HALT_ON 2
+#    define BREATHING_STEPS 128
 
-static uint8_t breathing_halt = BREATHING_NO_HALT;
+static uint8_t  breathing_halt    = BREATHING_NO_HALT;
 static uint16_t breathing_counter = 0;
 
-#            ifdef BACKLIGHT_PWM_TIMER
+#    ifdef BACKLIGHT_PWM_TIMER
 static bool breathing = false;
 
 bool is_breathing(void) { return breathing; }
 
-#                define breathing_interrupt_enable() \
-                    do {                             \
-                        breathing = true;            \
-                    } while (0)
-#                define breathing_interrupt_disable() \
-                    do {                              \
-                        breathing = false;            \
-                    } while (0)
-#            else
+#        define breathing_interrupt_enable() \
+            do {                             \
+                breathing = true;            \
+            } while (0)
+#        define breathing_interrupt_disable() \
+            do {                              \
+                breathing = false;            \
+            } while (0)
+#    else
 
 bool is_breathing(void) { return !!(TIMSKx & _BV(TOIEx)); }
 
-#                define breathing_interrupt_enable() \
-                    do {                             \
-                        TIMSKx |= _BV(TOIEx);        \
-                    } while (0)
-#                define breathing_interrupt_disable() \
-                    do {                              \
-                        TIMSKx &= ~_BV(TOIEx);        \
-                    } while (0)
-#            endif
+#        define breathing_interrupt_enable() \
+            do {                             \
+                TIMSKx |= _BV(TOIEx);        \
+            } while (0)
+#        define breathing_interrupt_disable() \
+            do {                              \
+                TIMSKx &= ~_BV(TOIEx);        \
+            } while (0)
+#    endif
 
-#            define breathing_min()        \
-                do {                       \
-                    breathing_counter = 0; \
-                } while (0)
-#            define breathing_max()                                       \
-                do {                                                      \
-                    breathing_counter = get_breathing_period() * 244 / 2; \
-                } while (0)
+#    define breathing_min()        \
+        do {                       \
+            breathing_counter = 0; \
+        } while (0)
+#    define breathing_max()                                       \
+        do {                                                      \
+            breathing_counter = get_breathing_period() * 244 / 2; \
+        } while (0)
 
 void breathing_enable(void) {
     breathing_counter = 0;
-    breathing_halt = BREATHING_NO_HALT;
+    breathing_halt    = BREATHING_NO_HALT;
     breathing_interrupt_enable();
 }
 
@@ -451,20 +465,20 @@ static const uint8_t breathing_table[BREATHING_STEPS] PROGMEM = {0, 0, 0, 0, 0, 
 // Use this before the cie_lightness function.
 static inline uint16_t scale_backlight(uint16_t v) { return v / BACKLIGHT_LEVELS * get_backlight_level(); }
 
-#            ifdef BACKLIGHT_PWM_TIMER
+#    ifdef BACKLIGHT_PWM_TIMER
 void breathing_task(void)
-#            else
+#    else
 /* Assuming a 16MHz CPU clock and a timer that resets at 64k (ICR1), the following interrupt handler will run
  * about 244 times per second.
  */
 ISR(TIMERx_OVF_vect)
-#            endif
+#    endif
 {
-    uint8_t breathing_period = get_breathing_period();
-    uint16_t interval = (uint16_t)breathing_period * 244 / BREATHING_STEPS;
+    uint8_t  breathing_period = get_breathing_period();
+    uint16_t interval         = (uint16_t)breathing_period * 244 / BREATHING_STEPS;
     // resetting after one period to prevent ugly reset at overflow.
     breathing_counter = (breathing_counter + 1) % (breathing_period * 244);
-    uint8_t index = breathing_counter / interval % BREATHING_STEPS;
+    uint8_t index     = breathing_counter / interval % BREATHING_STEPS;
 
     if (((breathing_halt == BREATHING_HALT_ON) && (index == BREATHING_STEPS / 2)) || ((breathing_halt == BREATHING_HALT_OFF) && (index == BREATHING_STEPS - 1))) {
         breathing_interrupt_disable();
@@ -473,7 +487,7 @@ ISR(TIMERx_OVF_vect)
     set_pwm(cie_lightness(scale_backlight((uint16_t)pgm_read_byte(&breathing_table[index]) * 0x0101U)));
 }
 
-#        endif  // BACKLIGHT_BREATHING
+#endif  // BACKLIGHT_BREATHING
 
 void backlight_init_ports(void) {
     // Setup backlight pin as output and output to on state.
@@ -483,12 +497,12 @@ void backlight_init_ports(void) {
     // Go read the ATmega32u4 datasheet.
     // And this: http://blog.saikoled.com/post/43165849837/secret-konami-cheat-code-to-high-resolution-pwm-on
 
-#        ifdef BACKLIGHT_PWM_TIMER
+#ifdef BACKLIGHT_PWM_TIMER
     // TimerX setup, Fast PWM mode count to TOP set in ICRx
     TCCRxA = _BV(WGM11);  // = 0b00000010;
     // clock select clk/1
     TCCRxB = _BV(WGM13) | _BV(WGM12) | _BV(CS10);  // = 0b00011001;
-#        else  // hardware PWM
+#else                                              // hardware PWM
     // Pin PB7 = OCR1C (Timer 1, Channel C)
     // Compare Output Mode = Clear on compare match, Channel C = COM1C1=1 COM1C0=0
     // (i.e. start high, go low when counter matches.)
@@ -512,13 +526,9 @@ void backlight_init_ports(void) {
     ICRx = TIMER_TOP;
 
     backlight_init();
-#        ifdef BACKLIGHT_BREATHING
+#ifdef BACKLIGHT_BREATHING
     if (is_backlight_breathing()) {
         breathing_enable();
     }
-#        endif
+#endif
 }
-
-#    endif  // hardware backlight
-
-#endif  // backlight
