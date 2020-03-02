@@ -1,16 +1,7 @@
-#pragma once
+#include "progmem.h"
 
-#ifdef __AVR__
-#    include <avr/io.h>
-#    include <avr/pgmspace.h>
-#elif defined(ESP8266)
-#    include <pgmspace.h>
-#else
-#    define PROGMEM
-#endif
-
-// Helidox 8x6 font with QMK Firmware Logo
-// Online editor: http://teripom.x0.com/
+// Custom 8x6 font with Custom Logo
+// Online editor: https://javl.github.io/image2cpp/
 
 static const unsigned char font[] PROGMEM = {
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3e, 0x5b, 0x4f, 0x5b, 0x3e, 0x00, 0x3e, 0x6b, 0x4f, 0x6b, 
