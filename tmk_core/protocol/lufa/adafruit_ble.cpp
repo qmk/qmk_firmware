@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <alloca.h>
-#include <util/delay.h>
 #include <util/atomic.h>
 #include "debug.h"
 #include "pincontrol.h"
@@ -10,6 +9,7 @@
 #include "action_util.h"
 #include "ringbuffer.hpp"
 #include <string.h>
+#include "wait.h"
 #include "analog.h"
 
 // These are the pin assignments for the 32u4 boards.
@@ -241,7 +241,7 @@ static bool sdep_send_pkt(const struct sdep_msg *msg, uint16_t timeout) {
 
         // Release it and let it initialize
         digitalWrite(AdafruitBleCSPin, PinLevelHigh);
-        _delay_us(SdepBackOff);
+        wait_us(SdepBackOff);
         digitalWrite(AdafruitBleCSPin, PinLevelLow);
     } while (timer_elapsed(timerStart) < timeout);
 
@@ -279,7 +279,7 @@ static bool sdep_recv_pkt(struct sdep_msg *msg, uint16_t timeout) {
         if (ready) {
             break;
         }
-        _delay_us(1);
+        wait_us(1);
     } while (timer_elapsed(timerStart) < timeout);
 
     if (ready) {
@@ -293,7 +293,7 @@ static bool sdep_recv_pkt(struct sdep_msg *msg, uint16_t timeout) {
             if (msg->type == SdepSlaveNotReady || msg->type == SdepSlaveOverflow) {
                 // Release it and let it initialize
                 digitalWrite(AdafruitBleCSPin, PinLevelHigh);
-                _delay_us(SdepBackOff);
+                wait_us(SdepBackOff);
                 digitalWrite(AdafruitBleCSPin, PinLevelLow);
                 continue;
             }
@@ -361,7 +361,7 @@ static void send_buf_send_one(uint16_t timeout = SdepTimeout) {
         dprintf("send_buf_send_one: have %d remaining\n", (int)send_buf.size());
     } else {
         dprint("failed to send, will retry\n");
-        _delay_ms(SdepTimeout);
+        wait_ms(SdepTimeout);
         resp_buf_read_one(true);
     }
 }
@@ -392,10 +392,10 @@ static bool ble_init(void) {
     pinMode(AdafruitBleResetPin, PinDirectionOutput);
     digitalWrite(AdafruitBleResetPin, PinLevelHigh);
     digitalWrite(AdafruitBleResetPin, PinLevelLow);
-    _delay_ms(10);
+    wait_ms(10);
     digitalWrite(AdafruitBleResetPin, PinLevelHigh);
 
-    _delay_ms(1000);  // Give it a second to initialize
+    wait_ms(1000);  // Give it a second to initialize
 
     state.initialized = true;
     return state.initialized;
