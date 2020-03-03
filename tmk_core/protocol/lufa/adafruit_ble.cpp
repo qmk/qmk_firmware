@@ -140,7 +140,7 @@ enum ble_system_event_bits {
 #define BatteryUpdateInterval 10000 /* milliseconds */
 
 static bool at_command(const char *cmd, char *resp, uint16_t resplen, bool verbose, uint16_t timeout = SdepTimeout);
-static bool at_command_P(const char *cmd, char *resp, uint16_t resplen, bool verbose = true);
+static bool at_command_P(const char *cmd, char *resp, uint16_t resplen, bool verbose = false);
 
 // Send a single SDEP packet
 static bool sdep_send_pkt(const struct sdep_msg *msg, uint16_t timeout) {
