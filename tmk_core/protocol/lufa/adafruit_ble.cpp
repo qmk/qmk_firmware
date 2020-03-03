@@ -3,12 +3,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <alloca.h>
-#include <util/atomic.h>
 #include "debug.h"
 #include "timer.h"
 #include "action_util.h"
 #include "ringbuffer.hpp"
 #include <string.h>
+#include "spi_master.h"
 #include "wait.h"
 #include "analog.h"
 
@@ -140,101 +140,17 @@ enum ble_system_event_bits {
 #define BatteryUpdateInterval 10000 /* milliseconds */
 
 static bool at_command(const char *cmd, char *resp, uint16_t resplen, bool verbose, uint16_t timeout = SdepTimeout);
-static bool at_command_P(const char *cmd, char *resp, uint16_t resplen, bool verbose = false);
-
-struct SPI_Settings {
-    uint8_t spcr, spsr;
-};
-
-static struct SPI_Settings spi;
-
-// Initialize 4Mhz MSBFIRST MODE0
-void SPI_init(struct SPI_Settings *spi) {
-    spi->spcr = _BV(SPE) | _BV(MSTR);
-#if F_CPU == 8000000
-    // For MCUs running at 8MHz (such as Feather 32U4, or 3.3V Pro Micros) we set the SPI doublespeed bit
-    spi->spsr = _BV(SPI2X);
-#endif
-
-    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-        // Ensure that SS is OUTPUT High
-        writePinHigh(B0);
-        setPinOutput(B0)
-
-        SPCR |= _BV(MSTR);
-        SPCR |= _BV(SPE);
-        setPinOutput(B1); // SCK
-        setPinOutput(B2); // MOSI
-    }
-}
-
-static inline void SPI_begin(struct SPI_Settings *spi) {
-    SPCR = spi->spcr;
-    SPSR = spi->spsr;
-}
-
-static inline uint8_t SPI_TransferByte(uint8_t data) {
-    SPDR = data;
-    asm volatile("nop");
-    while (!(SPSR & _BV(SPIF))) {
-        ;  // wait
-    }
-    return SPDR;
-}
-
-static inline void spi_send_bytes(const uint8_t *buf, uint8_t len) {
-    if (len == 0) return;
-    const uint8_t *end = buf + len;
-    while (buf < end) {
-        SPDR = *buf;
-        while (!(SPSR & _BV(SPIF))) {
-            ;  // wait
-        }
-        ++buf;
-    }
-}
-
-static inline uint16_t spi_read_byte(void) { return SPI_TransferByte(0x00 /* dummy */); }
-
-static inline void spi_recv_bytes(uint8_t *buf, uint8_t len) {
-    const uint8_t *end = buf + len;
-    if (len == 0) return;
-    while (buf < end) {
-        SPDR = 0;  // write a dummy to initiate read
-        while (!(SPSR & _BV(SPIF))) {
-            ;  // wait
-        }
-        *buf = SPDR;
-        ++buf;
-    }
-}
-
-#if 0
-static void dump_pkt(const struct sdep_msg *msg) {
-  print("pkt: type=");
-  print_hex8(msg->type);
-  print(" cmd=");
-  print_hex8(msg->cmd_high);
-  print_hex8(msg->cmd_low);
-  print(" len=");
-  print_hex8(msg->len);
-  print(" more=");
-  print_hex8(msg->more);
-  print("\n");
-}
-#endif
+static bool at_command_P(const char *cmd, char *resp, uint16_t resplen, bool verbose = true);
 
 // Send a single SDEP packet
 static bool sdep_send_pkt(const struct sdep_msg *msg, uint16_t timeout) {
-    SPI_begin(&spi);
-
     writePinLow(AdafruitBleCSPin);
     uint16_t timerStart = timer_read();
     bool     success    = false;
     bool     ready      = false;
 
     do {
-        ready = SPI_TransferByte(msg->type) != SdepSlaveNotReady;
+        ready = spi_write(msg->type, 100) != SdepSlaveNotReady;
         if (ready) {
             break;
         }
@@ -247,7 +163,7 @@ static bool sdep_send_pkt(const struct sdep_msg *msg, uint16_t timeout) {
 
     if (ready) {
         // Slave is ready; send the rest of the packet
-        spi_send_bytes(&msg->cmd_low, sizeof(*msg) - (1 + sizeof(msg->payload)) + msg->len);
+        spi_transmit(&msg->cmd_low, sizeof(*msg) - (1 + sizeof(msg->payload)) + msg->len, 100);
         success = true;
     }
 
@@ -283,13 +199,11 @@ static bool sdep_recv_pkt(struct sdep_msg *msg, uint16_t timeout) {
     } while (timer_elapsed(timerStart) < timeout);
 
     if (ready) {
-        SPI_begin(&spi);
-
         writePinLow(AdafruitBleCSPin);
 
         do {
             // Read the command type, waiting for the data to be ready
-            msg->type = spi_read_byte();
+            msg->type = spi_read(100);
             if (msg->type == SdepSlaveNotReady || msg->type == SdepSlaveOverflow) {
                 // Release it and let it initialize
                 writePinHigh(AdafruitBleCSPin);
@@ -299,11 +213,11 @@ static bool sdep_recv_pkt(struct sdep_msg *msg, uint16_t timeout) {
             }
 
             // Read the rest of the header
-            spi_recv_bytes(&msg->cmd_low, sizeof(*msg) - (1 + sizeof(msg->payload)));
+            spi_receive(&msg->cmd_low, sizeof(*msg) - (1 + sizeof(msg->payload)), 100);
 
             // and get the payload if there is any
             if (msg->len <= SdepMaxPayload) {
-                spi_recv_bytes(msg->payload, msg->len);
+                spi_receive(msg->payload, msg->len, 100);
             }
             success = true;
             break;
@@ -386,7 +300,7 @@ static bool ble_init(void) {
     setPinOutput(AdafruitBleCSPin);
     writePinHigh(AdafruitBleCSPin);
 
-    SPI_init(&spi);
+    spi_init();
 
     // Perform a hardware reset
     setPinOutput(AdafruitBleResetPin);
