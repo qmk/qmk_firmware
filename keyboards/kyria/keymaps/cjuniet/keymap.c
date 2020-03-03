@@ -27,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_SPECIALS] = LAYOUT(
         KC_TRNS, KC_NLCK, KC_CAPS, KC_SLCK, KC_LANG1, KC_LANG2, KC_TRNS, KC_PSCR, KC_SLCK, KC_PAUS, KC_TRNS, KC_TRNS,
         KC_TRNS, RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI, RGB_MOD, KC_TRNS, KC_INS, KC_HOME, KC_PGUP, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_DEL, KC_END, KC_PGDN, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_NO, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_DEL, KC_END, KC_PGDN, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
 };
 
@@ -49,11 +49,19 @@ void matrix_scan_user(void) {
         leading = false;
         leader_end();
 
+        // Lock screen (macOS)
         SEQ_ONE_KEY(KC_ESC) {
-            SEND_STRING(SS_LCTL(SS_LGUI("q")));
+            tap_code16(LCTL(LGUI(KC_Q)));
         }
+
+        // Escape-Shift-Z-Z (VIM)
         SEQ_ONE_KEY(KC_Z) {
             SEND_STRING(SS_TAP(X_ESC) SS_LSFT("zz"));
+        }
+
+        // Dead grave accent (macOS)
+        SEQ_ONE_KEY(KC_E) {
+            tap_code16(LALT(KC_GRAVE));
         }
     }
 }
