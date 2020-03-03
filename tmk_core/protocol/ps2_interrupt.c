@@ -51,8 +51,8 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #include "ps2.h"
 #include "ps2_io.h"
- #include "print.h"
- #include "wait.h"
+#include "print.h"
+#include "wait.h"
 
 #define WAIT(stat, us, err)     \
     do {                        \
@@ -70,36 +70,22 @@ static inline bool    pbuf_has_data(void);
 static inline void    pbuf_clear(void);
 
 #if defined(PROTOCOL_CHIBIOS)
-//------------------------------------------------
-// LEGACY EXT driver, for external interrupts
-// (with newer chibios we could use palLineEnableEvent and so forth...)
-// see: http://www.chibios.com/forum/viewtopic.php?t=3355#p25518 https://www.playembedded.org/blog/buttons-stm32/ 3.2.3 event/callback
-//
 void ps2_interrupt_service_routine(void);
-void extcb(EXTDriver *extp, expchannel_t channel) {
+void palCallback(void *arg) {
     ps2_interrupt_service_routine();
 }
 
-/*
-  16 slots, one for each pin...
-  currently configured to listen on external changes on pad A8
- */
-static EXTConfig extcfg = {0};
-
-#define ExtModePort(pin) (((uint32_t)PAL_PORT(pin) & 0x0000FF00U) >> 6)
-static EXTChannelConfig ext_clock_channel_config = {EXT_CH_MODE_FALLING_EDGE | EXT_CH_MODE_AUTOSTART | ExtModePort(PS2_CLOCK) , extcb};
-#define PS2_INT_INIT() { \
-        extStart(&EXTD1, &extcfg); /*activate config, to be able to select the appropriate channel */ \
-        extSetChannelModeI(&EXTD1, PAL_PAD(PS2_CLOCK), &ext_clock_channel_config); \
+#define PS2_INT_INIT() {                                  \
+        palSetLineMode(PS2_CLOCK, PAL_MODE_INPUT);        \
     } while(0)
-#define PS2_INT_ON() { \
-        extStart(&EXTD1, &extcfg);              \
+#define PS2_INT_ON(){                                               \
+        palEnableLineEvent(PS2_CLOCK, PAL_EVENT_MODE_FALLING_EDGE); \
+        palSetLineCallback(PS2_CLOCK, palCallback, NULL);           \
     } while(0)
-#define PS2_INT_OFF() { \
-        extStop(&EXTD1);                        \
+#define PS2_INT_OFF() {                         \
+        palDisableLineEvent(PS2_CLOCK);         \
     } while(0)
-#endif
-
+#endif // PROTOCOL_CHIBIOS
 
 
 

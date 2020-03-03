@@ -108,7 +108,7 @@ In your keyboard config.h:
 
 And in the chibios specifig halconf.h:
 ```c
-#define HAL_USE_EXT                 TRUE
+#define PAL_USE_CALLBACKS TRUE
 ```
 
 
