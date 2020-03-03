@@ -44,7 +44,7 @@ typedef union {
     };
 } backlight_config_t;
 
-void backlight_init_pins(void);
+void backlight_pins_init(void);
 void backlight_pins_on(void);
 void backlight_pins_off(void);
 

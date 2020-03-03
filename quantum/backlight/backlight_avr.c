@@ -385,7 +385,7 @@ ISR(TIMERx_OVF_vect)
 
 void backlight_init_ports(void) {
     // Setup backlight pin as output and output to on state.
-    backlight_init_pins();
+    backlight_pins_init();
 
     // I could write a wall of text here to explain... but TL;DW
     // Go read the ATmega32u4 datasheet.

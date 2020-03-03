@@ -35,7 +35,7 @@ static const uint16_t backlight_duty_table[] = {
 
 static uint8_t scale_backlight(uint8_t v) { return v * (backlight_duty_table_size - 1) / BACKLIGHT_LEVELS; }
 
-void backlight_init_ports(void) { backlight_init_pins(); }
+void backlight_init_ports(void) { backlight_pins_init(); }
 
 void backlight_set(uint8_t level) { s_duty_pattern = backlight_duty_table[scale_backlight(level)]; }
 

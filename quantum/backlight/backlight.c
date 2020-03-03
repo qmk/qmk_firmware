@@ -61,7 +61,7 @@ static inline void backlight_off(pin_t backlight_pin) {
 #    endif
 }
 
-void backlight_init_pins(void) {
+void backlight_pins_init(void) {
     // Setup backlight pin as output and output to off state.
     FOR_EACH_LED(setPinOutput(backlight_pin); backlight_off(backlight_pin);)
 }
