@@ -273,7 +273,7 @@ class MILC(object):
         self._inside_context_manager = False
         self.ansi = ansi_colors
         self.arg_only = []
-        self.config = None
+        self.config = self.config_source = None
         self.config_file = None
         self.default_arguments = {}
         self.version = 'unknown'
@@ -473,6 +473,7 @@ class MILC(object):
         """
         self.acquire_lock()
         self.config = Configuration()
+        self.config_source = Configuration()
         self.config_file = self.find_config_file()
 
         if self.config_file and self.config_file.exists():
@@ -498,6 +499,7 @@ class MILC(object):
                             value = int(value)
 
                     self.config[section][option] = value
+                    self.config_source[section][option] = 'config_file'
 
         self.release_lock()
 
@@ -530,12 +532,14 @@ class MILC(object):
                     arg_value = getattr(self.args, argument)
                     if arg_value is not None:
                         self.config[section][argument] = arg_value
+                        self.config_source[section][argument] = 'argument'
                 else:
                     if argument not in self.config[entrypoint_name]:
                         # Check if the argument exist for this section
                         arg = getattr(self.args, argument)
                         if arg is not None:
                             self.config[section][argument] = arg
+                            self.config_source[section][argument] = 'argument'
 
         self.release_lock()
 

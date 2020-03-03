@@ -23,7 +23,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
-    // Sends  + alt + shift to a keycode to activate shiftit. See: https://github.com/fikovnik/ShiftIt
+    // Sends Cmd + alt + shift to a keycode to activate shiftit. See: https://github.com/fikovnik/ShiftIt
     case M_SHFT:
       if (record->event.pressed) {
         register_code(KC_LGUI);
@@ -98,9 +98,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           copy_paste_timer = timer_read();
       } else {
           if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {  
-              tap_code16(LGUI(KC_C)); // Hold  + C
+              tap_code16(LGUI(KC_C)); // Hold Cmd + C
           } else {  
-              tap_code16(LGUI(KC_V)); // Tap  + V
+              tap_code16(LGUI(KC_V)); // Tap Cmd + V
           }
       }
 
