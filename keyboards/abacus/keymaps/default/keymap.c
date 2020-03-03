@@ -21,8 +21,8 @@
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
     _BASE,
-    _UPPER,
-    _LOWER
+    _UP_1,
+    _UP_2
 };
 
 // Defines the keycodes used by our macros in process_record_user
@@ -65,19 +65,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESCAPE, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPACE,
         KC_TAB, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCOLON, KC_BSLASH,
         KC_LSHIFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMMA, KC_DOT, KC_UP, KC_DELETE,
-        KC_LCTRL, KC_LGUI, MO(_LOWER), KC_SPACE, KC_ENTER, MO(_UPPER), KC_LEFT, KC_DOWN, KC_RIGHT
+        KC_LCTRL, KC_LGUI, MO(_UP_1), KC_SPACE, KC_ENTER, KC_LALT, KC_LEFT, KC_DOWN, KC_RIGHT
     ),
-    [_LOWER] = LAYOUT(
+    [_UP_1] = LAYOUT(
         KC_GRAVE, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, _______,
         KC_CAPS, _______, _______, _______, _______, _______, _______, _______, KC_LBRACKET, KC_RBRACKET, KC_QUOTE, KC_SLASH,
-        _______, _______, _______, _______, _______, _______, _______, _______, KC_MINUS, KC_EQUAL, _______, _______,
-        _______, KC_LALT, _______, _______, _______, _______, KC_HOME, _______, KC_END
+        _______, _______, _______, _______, _______, _______, _______, _______, KC_MINUS, KC_EQUAL, MO(_UP_2), _______,
+        _______, _______, _______, _______, _______, _______, KC_HOME, _______, KC_END
     ),
-    [_UPPER] = LAYOUT(
+    [_UP_2] = LAYOUT(
         NICKURL, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, _______,
-        _______, X(LOVEEYES), X(THINK), X(UPSIDEDOWN), X(NOMOUTH), X(PARTY), X(PEACH), X(HEART), X(EGGPLANT), X(EMOJI100), X(EMOJIB), RGB_TOG,
-        _______, RGB_MODE_PLAIN, RGB_MODE_BREATHE, RGB_MODE_RAINBOW, RGB_MODE_SWIRL, RGB_MODE_SNAKE, RGB_MODE_KNIGHT, RGB_MODE_GRADIENT, XXXXXXX, RGB_HUI, RGB_SAI, RGB_VAI,
-        _______, _______, _______, _______, _______, _______, RGB_HUD, RGB_SAD, RGB_VAD
+        _______, KC_F11, KC_F12, RGB_MODE_PLAIN, RGB_MODE_BREATHE, RGB_MODE_RAINBOW, RGB_MODE_SWIRL, RGB_MODE_SNAKE, RGB_MODE_KNIGHT, RGB_MODE_GRADIENT, XXXXXXX, RGB_TOG, 
+        _______, X(LOVEEYES), X(THINK), X(UPSIDEDOWN), X(NOMOUTH), X(PARTY), X(PEACH), X(HEART), X(EGGPLANT), X(EMOJI100), X(EMOJIB), _______,
+        _______, _______, _______, _______, _______, _______, RGB_HUI, RGB_SAI, RGB_VAI
     )
  
  
@@ -94,16 +94,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return true;
             break;
-
-        case KC_LALT:
-            // allow for it to be windows key if layer not pressed in right order
-            if ( ((record->event.pressed) && (biton32(layer_state) == _LOWER)) ) {
-                // need to change as above is only considered once, not updated
-                register_code(KC_LGUI);      
-            } else {
-                unregister_code(KC_LGUI);
-            }
-            return false;
 
         default:
             return true;
@@ -122,10 +112,10 @@ void dip_switch_update_user(uint8_t index, bool active) {
                     tap_code(KC_F);
                     unregister_code(KC_LCTRL);
                     break;
-                case _LOWER:
+                case _UP_1:
                     tap_code(KC_MUTE);
                     break;
-                case _UPPER:
+                case _UP_2:
                     tap_code(KC_MEDIA_PLAY_PAUSE);
                     break;
                 }
@@ -144,10 +134,10 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         case _BASE:
             clockwise ? tap_code(KC_PGUP) : tap_code(KC_PGDN);
             break;
-        case _LOWER:
+        case _UP_1:
             clockwise ? tap_code(KC_VOLD) : tap_code(KC_VOLU);
             break;
-        case _UPPER:
+        case _UP_2:
             clockwise ? tap_code(KC_MEDIA_NEXT_TRACK) : tap_code(KC_MEDIA_PREV_TRACK);
             break;
         }
