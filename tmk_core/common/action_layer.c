@@ -99,10 +99,10 @@ __attribute__((weak)) layer_state_t layer_state_set_kb(layer_state_t state) { re
  * Sets the layer to match the specifed state (a bitmask)
  */
 void layer_state_set(layer_state_t state) {
+    state = layer_state_set_kb(state);
 #ifdef ORYX_ENABLE
     layer_state_set_oryx(state);
 #endif
-    state = layer_state_set_kb(state);
     dprint("layer_state: ");
     layer_debug();
     dprint(" to ");
