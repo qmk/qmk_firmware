@@ -1,10 +1,10 @@
 #include "adafruit_ble.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <alloca.h>
 #include <util/atomic.h>
 #include "debug.h"
-#include "pincontrol.h"
 #include "timer.h"
 #include "action_util.h"
 #include "ringbuffer.hpp"
@@ -158,13 +158,13 @@ void SPI_init(struct SPI_Settings *spi) {
 
     ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
         // Ensure that SS is OUTPUT High
-        digitalWrite(B0, PinLevelHigh);
-        pinMode(B0, PinDirectionOutput);
+        writePinHigh(B0);
+        setPinOutput(B0)
 
         SPCR |= _BV(MSTR);
         SPCR |= _BV(SPE);
-        pinMode(B1 /* SCK */, PinDirectionOutput);
-        pinMode(B2 /* MOSI */, PinDirectionOutput);
+        setPinOutput(B1); // SCK
+        setPinOutput(B2); // MOSI
     }
 }
 
@@ -228,7 +228,7 @@ static void dump_pkt(const struct sdep_msg *msg) {
 static bool sdep_send_pkt(const struct sdep_msg *msg, uint16_t timeout) {
     SPI_begin(&spi);
 
-    digitalWrite(AdafruitBleCSPin, PinLevelLow);
+    writePinLow(AdafruitBleCSPin);
     uint16_t timerStart = timer_read();
     bool     success    = false;
     bool     ready      = false;
@@ -240,9 +240,9 @@ static bool sdep_send_pkt(const struct sdep_msg *msg, uint16_t timeout) {
         }
 
         // Release it and let it initialize
-        digitalWrite(AdafruitBleCSPin, PinLevelHigh);
+        writePinHigh(AdafruitBleCSPin);
         wait_us(SdepBackOff);
-        digitalWrite(AdafruitBleCSPin, PinLevelLow);
+        writePinLow(AdafruitBleCSPin);
     } while (timer_elapsed(timerStart) < timeout);
 
     if (ready) {
@@ -251,7 +251,7 @@ static bool sdep_send_pkt(const struct sdep_msg *msg, uint16_t timeout) {
         success = true;
     }
 
-    digitalWrite(AdafruitBleCSPin, PinLevelHigh);
+    writePinHigh(AdafruitBleCSPin);
 
     return success;
 }
@@ -275,7 +275,7 @@ static bool sdep_recv_pkt(struct sdep_msg *msg, uint16_t timeout) {
     bool     ready      = false;
 
     do {
-        ready = digitalRead(AdafruitBleIRQPin);
+        ready = readPin(AdafruitBleIRQPin);
         if (ready) {
             break;
         }
@@ -285,16 +285,16 @@ static bool sdep_recv_pkt(struct sdep_msg *msg, uint16_t timeout) {
     if (ready) {
         SPI_begin(&spi);
 
-        digitalWrite(AdafruitBleCSPin, PinLevelLow);
+        writePinLow(AdafruitBleCSPin);
 
         do {
             // Read the command type, waiting for the data to be ready
             msg->type = spi_read_byte();
             if (msg->type == SdepSlaveNotReady || msg->type == SdepSlaveOverflow) {
                 // Release it and let it initialize
-                digitalWrite(AdafruitBleCSPin, PinLevelHigh);
+                writePinHigh(AdafruitBleCSPin);
                 wait_us(SdepBackOff);
-                digitalWrite(AdafruitBleCSPin, PinLevelLow);
+                writePinLow(AdafruitBleCSPin);
                 continue;
             }
 
@@ -309,7 +309,7 @@ static bool sdep_recv_pkt(struct sdep_msg *msg, uint16_t timeout) {
             break;
         } while (timer_elapsed(timerStart) < timeout);
 
-        digitalWrite(AdafruitBleCSPin, PinLevelHigh);
+        writePinHigh(AdafruitBleCSPin);
     }
     return success;
 }
@@ -320,7 +320,7 @@ static void resp_buf_read_one(bool greedy) {
         return;
     }
 
-    if (digitalRead(AdafruitBleIRQPin)) {
+    if (readPin(AdafruitBleIRQPin)) {
         struct sdep_msg msg;
 
     again:
@@ -331,7 +331,7 @@ static void resp_buf_read_one(bool greedy) {
                 dprintf("recv latency %dms\n", TIMER_DIFF_16(timer_read(), last_send));
             }
 
-            if (greedy && resp_buf.peek(last_send) && digitalRead(AdafruitBleIRQPin)) {
+            if (greedy && resp_buf.peek(last_send) && readPin(AdafruitBleIRQPin)) {
                 goto again;
             }
         }
@@ -382,18 +382,18 @@ static bool ble_init(void) {
     state.configured   = false;
     state.is_connected = false;
 
-    pinMode(AdafruitBleIRQPin, PinDirectionInput);
-    pinMode(AdafruitBleCSPin, PinDirectionOutput);
-    digitalWrite(AdafruitBleCSPin, PinLevelHigh);
+    setPinInput(AdafruitBleIRQPin);
+    setPinOutput(AdafruitBleCSPin);
+    writePinHigh(AdafruitBleCSPin);
 
     SPI_init(&spi);
 
     // Perform a hardware reset
-    pinMode(AdafruitBleResetPin, PinDirectionOutput);
-    digitalWrite(AdafruitBleResetPin, PinLevelHigh);
-    digitalWrite(AdafruitBleResetPin, PinLevelLow);
+    setPinOutput(AdafruitBleResetPin);
+    writePinHigh(AdafruitBleResetPin);
+    writePinLow(AdafruitBleResetPin);
     wait_ms(10);
-    digitalWrite(AdafruitBleResetPin, PinLevelHigh);
+    writePinHigh(AdafruitBleResetPin);
 
     wait_ms(1000);  // Give it a second to initialize
 
@@ -596,7 +596,7 @@ void adafruit_ble_task(void) {
     resp_buf_read_one(true);
     send_buf_send_one(SdepShortTimeout);
 
-    if (resp_buf.empty() && (state.event_flags & UsingEvents) && digitalRead(AdafruitBleIRQPin)) {
+    if (resp_buf.empty() && (state.event_flags & UsingEvents) && readPin(AdafruitBleIRQPin)) {
         // Must be an event update
         if (at_command_P(PSTR("AT+EVENTSTATUS"), resbuf, sizeof(resbuf))) {
             uint32_t mask = strtoul(resbuf, NULL, 16);
