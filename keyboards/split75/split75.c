@@ -73,6 +73,7 @@ void matrix_scan_kb(void) {
 
   rgblight_task();
 #else
+
 void matrix_scan_kb(void) {
 #endif
   matrix_scan_user();
@@ -84,72 +85,45 @@ void matrix_init_user(void) {
 
 }
 
-
-// __attribute__((weak)) // overridable
-// void matrix_scan_user(void) {
-
-// }
-
 void keyboard_post_init_user(void) {
   // Customise these values to desired behaviour
   //debug_keyboard=true;
   //debug_mouse=true;
-  // led_set_user(0);
-  writePinLow(D0);
-  writePinLow(D1);
-  writePinLow(D4);
-  writePinLow(D6);
+  led_set_user(0);
 }
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
-
-    uint8_t layer = biton32(layer_state);
-
-  writePinLow(D0);
-  writePinLow(D1);
-  writePinLow(D4);
-  writePinLow(D6);
-    switch (layer) {
-        case 1:
-              writePinHigh(D0);
-  writePinHigh(D4);
-                writePinHigh(D1);
-  writePinHigh(D6);
-            break;
-        default:
-            break;
-    }
 };
 
-// #if defined(LED_INDICATORS)
-// void led_set_user(uint8_t usb_led) {
+#if defined(LED_INDICATORS)
+void led_set_user(uint8_t usb_led) {
+  if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
+    writePinHigh(D0);
+  }
+  else {
+    writePinLow(D0);
+  }
 
-  // if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-    // writePinHigh(D0);
-  // }
-  // else {
-    // writePinLow(D0);
-  // }
+  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+    writePinHigh(D1);
+#if defined(BL_AS_CAPSLOCK)
+    writePinHigh(D4);
+#endif
+  }
+  else {
+    writePinLow(D1);
+#if defined(BL_AS_CAPSLOCK)
+    writePinLow(D4);
+#endif
+  }
 
-  // if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-    // writePinHigh(D1);
-// #if defined(BL_AS_CAPSLOCK)
-    // writePinHigh(D4);
-// #endif
-  // }
-  // else {
-    // writePinLow(D1);
-// #if defined(BL_AS_CAPSLOCK)
-    // writePinLow(D4);
-// #endif
-  // }
-
-  // if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-    // writePinHigh(D6);
-  // }
-  // else {
-    // writePinLow(D6);
-  // }
-// }
-// #endif
+  if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
+    writePinHigh(D6);
+  }
+  else {
+    writePinLow(D6);
+  }
+	
+}
+#endif
