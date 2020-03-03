@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     AESTHETIC,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,  KC_COMM,   KC_DOT,  KC_BSLS,
     KC_TRNS,   KC_TRNS,  KC_TRNS
   ),
-  
+
   [_GAME] = LAYOUT_brutal(
 	KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_L, KC_U, KC_Y, TO(_BASE),
 	KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_N, KC_E, KC_I, KC_O,
@@ -34,15 +34,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-#ifdef RGBLIGHT_ENABLE 
+#ifdef RGBLIGHT_ENABLE
+void keyboard_pre_init_user(void){
+  rgblight_disable_noeeprom();
+}
 
-void keyboard_post_init_keymap(void) {
-   rgblight_disable_noeeprom();
-   rgblight_sethsv_at(0, 0, 0, 0);
-   rgblight_sethsv_at(0, 0, 0, 1);
-   rgblight_sethsv_at(0, 0, 0, 2);
-   rgblight_enable_noeeprom();
-} 
+void keyboard_post_init_user(void) {
+  //rgblight_enable_noeeprom();
+  sethsv(HSV_WHITE, (LED_TYPE *)&led[0]); // led 0
+  sethsv(HSV_RED,   (LED_TYPE *)&led[1]); // led 1
+  sethsv(HSV_GREEN, (LED_TYPE *)&led[2]); // led 2
+  rgblight_mode_noeeprom(0);
+  rgblight_set(); // Utility functions do not call rgblight_set() automatically, so they need to be called explicitly.
+  layer_state_set_user(layer_state);
+}
 
 uint32_t layer_state_set_keymap(uint32_t state){
     //uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
@@ -57,13 +62,13 @@ uint32_t layer_state_set_keymap(uint32_t state){
     if (layer_state_cmp(state, 5)) {
       rgblight_sethsv_at(HSV_MAGENTA,1);
     }
-	
+
     if (layer_state_cmp(state, 7)) {
       rgblight_sethsv_at(HSV_GOLD,1);
     }
-
+ rgblight_set();
   return state;
-} 
+}
 
 bool led_update_kb(led_t led_state){
   if(led_state.caps_lock){

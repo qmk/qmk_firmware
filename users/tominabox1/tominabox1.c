@@ -20,14 +20,14 @@ layer_state_t layer_state_set_user (layer_state_t state) {
 // bool led_update_user(led_t led_state){
 //   return led_update_kb (led_state);
 
-__attribute__((weak)) void keyboard_pre_init_keymap(void) {}
-
-void keyboard_pre_init_user(void) {
-	keyboard_pre_init_keymap();
-}
-
-__attribute__((weak)) void keyboard_post_init_keymap(void) {}
-
-void keyboard_post_init_user(void) {
-	keyboard_post_init_keymap();
-}
+// __attribute__((weak)) void keyboard_pre_init_keymap(void) {}
+//
+// void keyboard_pre_init_user(void) {
+// 	keyboard_pre_init_keymap();
+// }
+//
+// __attribute__((weak)) void keyboard_post_init_keymap(void) {}
+//
+// void keyboard_post_init_user(void) {
+// 	keyboard_post_init_keymap();
+// }
