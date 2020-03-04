@@ -23,8 +23,7 @@ enum layer_names {
     _ADJUST
 };
 
-enum dichotomy_keycodes
-{
+enum dichotomy_keycodes {
   MS_BTN1 = SAFE_RANGE,
   MS_BTN2,
   MS_BTN3
