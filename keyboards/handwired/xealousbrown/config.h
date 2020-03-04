@@ -31,6 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 13
 #define DEBOUNCE 10
 #define USB_POLLING_INTERVAL_MS 1
+/* layer optimization */
+#define LAYER_STATE_8BIT
 /*
  * Keyboard Matrix Assignments
  *
