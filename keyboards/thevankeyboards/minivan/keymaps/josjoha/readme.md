@@ -6,7 +6,7 @@ _https://thekey.company_
 This keymap works on Minivan hardware variants with 44, 45 and
 46 keys. It can be compiled for Dvorak only, or Qwerty + Dvorak.
 
-![Minivan illustration 0](http://socialism.nl/misc/minivan/minivan_illustration_arrow_southpaw.jpg)
+![Minivan layout all](http://socialism.nl/misc/minivan/minivan-all-layers-visualization2_600x.jpg)
 
 make example:
 
@@ -66,6 +66,8 @@ There are some tokens to help port the layout to a board with 47 or 48 keys (`J1
               mode is active (see below).
             • ⁽³⁾ The colors are reversed when numlock is on.
             • Leds can be switched on/off on the _RAR layer (MLed, SLeds).      
+
+![Minivan illustration 0](http://socialism.nl/misc/minivan/minivan_illustration_arrow_southpaw.jpg)
 
 Compile option for: Dvorak² or Qwerty+Dvorak
 --------------------------------------------
