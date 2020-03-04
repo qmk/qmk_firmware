@@ -537,14 +537,17 @@ bool adafruit_ble_enable_keyboard(void) {
     // processing time on my macbook.  Keeping it constrained to that
     // feels reasonable to type to.
     static const char kGapIntervals[] PROGMEM = "AT+GAPINTERVALS=10,30,,";
-
+    
+    // Enable GATT Battery Service
+    static const char kBattEnOn[] PROGMEM = "AT+BLEBATTEN=1";
+    
     // Reset the device so that it picks up the above changes
     static const char kATZ[] PROGMEM = "ATZ";
 
     // Turn down the power level a bit
     static const char  kPower[] PROGMEM             = "AT+BLEPOWERLEVEL=-12";
     static PGM_P const configure_commands[] PROGMEM = {
-        kEcho, kGapIntervals, kGapDevName, kHidEnOn, kPower, kATZ,
+        kEcho, kGapIntervals, kGapDevName, kHidEnOn, kPower, kBattEnOn, kATZ,
     };
 
     uint8_t i;
@@ -589,7 +592,8 @@ static void set_connected(bool connected) {
 
 void adafruit_ble_task(void) {
     char resbuf[48];
-
+    char cmdbuf[48];
+    
     if (!state.configured && !adafruit_ble_enable_keyboard()) {
         return;
     }
@@ -642,7 +646,17 @@ void adafruit_ble_task(void) {
     if (timer_elapsed(state.last_battery_update) > BatteryUpdateInterval && resp_buf.empty()) {
         state.last_battery_update = timer_read();
 
-        state.vbat = analogRead(BATTERY_LEVEL_PIN);
+        state.vbat = analogReadPin(BATTERY_LEVEL_PIN);
+        
+        if (state.vbat >= 862) // around 4.17V, li-ion can charge usually to max of 4.19V
+            state.vbat = 100;
+        else if (state.vbat < 820) // around 3.55V, anything below cannot be trusted as 3.5v=816, 3.35v=814, 3.3v=815, 3.2v=816, 3v=817
+            state.vbat = 0;
+        else
+            state.vbat = (state.vbat - 820) * 99 / 41;
+        snprintf(cmdbuf, sizeof(cmdbuf), "AT+BLEBATTVAL=%d", state.vbat);
+        at_command(cmdbuf, NULL, 0, false);
+
     }
 #endif
 }
