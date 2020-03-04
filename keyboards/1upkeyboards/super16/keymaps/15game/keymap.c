@@ -35,10 +35,12 @@ enum my_keycodes {
 /* just a simple way to give each key a unique code */
 //clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT_ortho_4x4(/* Base */                                                   K00, K01, K02, K03,
-	K04, K05, K06, K07,
-	K08, K09, K10, K11,
-	K12, K13, K14, K15
+    /* Base */
+    [0] = LAYOUT_ortho_4x4(
+        K00, K01, K02, K03,
+        K04, K05, K06, K07,
+        K08, K09, K10, K11,
+        K12, K13, K14, K15
     )
 };
 /* flags describing current free square/0 */
