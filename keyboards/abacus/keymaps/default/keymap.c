@@ -96,7 +96,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
         case ALTTAB:
             if (record->event.pressed) {
-                tap_code16(LALT(KC_TAB));
+                tap_code16(A(KC_TAB));
             }
             return true;
             break;
