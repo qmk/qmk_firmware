@@ -113,9 +113,9 @@ void pins_init(void) {
 #endif
 
 /* check that the other side isn't powered up. 
-    test=digitalRead(DCD_PIN);
+    test=readPin(DCD_PIN);
     xprintf("b%02X:", test);
-    test=digitalRead(RTS_PIN);
+    test=readPin(RTS_PIN);
     xprintf("%02X\n", test);
 */
  
@@ -128,12 +128,12 @@ uint8_t rts_reset(void) {
 // On boot, we keep rts as input, then switch roles here
 // on leaving sleep, we toggle the same way
 
-    firstread=digitalRead(RTS_PIN);
+    firstread=readPin(RTS_PIN);
    // printf("r%02X:", firstread);
 
     setPinOutput(RTS_PIN);
 
-    if (firstread == PinLevelHigh) {
+    if (firstread) {
         writePinLow(RTS_PIN);
     } 
      _delay_ms(10);
@@ -141,7 +141,7 @@ uint8_t rts_reset(void) {
     
 
 /* the future is Arm 
-    if (palReadPad(RTS_PIN_IOPRT) == PinLevelLow)
+    if (!palReadPad(RTS_PIN_IOPRT))
   {
     _delay_ms(10);
     palSetPadMode(RTS_PINn_IOPORT, PinDirectionOutput_PUSHPULL);
@@ -264,7 +264,7 @@ void matrix_init(void)
     }
 
 #else  /// Palm / HP  device with DCD
-    while( digitalRead(DCD_PIN) != PinLevelHigh ) {;} 
+    while( !readPin(DCD_PIN) ) {;} 
     print("dcd\n");
 
     rts_reset(); // at this point the keyboard should think all is well. 
