@@ -33,21 +33,52 @@ enum my_keycodes {
     K15,
 };
 /* just a simple way to give each key a unique code */
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[0] = LAYOUT_ortho_4x4(/* Base */
-                                                                                     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K10, K11, K12, K13, K14, K15)};
+//clang-format off
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [0] = LAYOUT_ortho_4x4(/* Base */                                                   K00, K01, K02, K03,
+	K04, K05, K06, K07,
+	K08, K09, K10, K11,
+	K12, K13, K14, K15
+    )
+};
 /* flags describing current free square/0 */
 uint8_t current = 0;
-
 /* r g and b describe the colors for the initial map,
-currently blank for free, and even spaced hues with maximum sat/value  */
-const uint8_t r[16] = {0x00, 0xFF, 0xFF, 0xFF, 0xCC, 0x66, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x66, 0xCC, 0xFF, 0xFF};
-const uint8_t g[16] = {0x00, 0x00, 0x66, 0xCC, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xCC, 0x66, 0x00, 0x00, 0x00, 0x00, 0x00};
-const uint8_t b[16] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x66, 0xCC, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xCC, 0x66};
+currently blank for free, and evenly spaced hues with maximum sat/value  */
+const uint8_t r[16] = {
+   0x00, 0xFF, 0xFF, 0xFF,
+   0xCC, 0x66, 0x00, 0x00,
+   0x00, 0x00, 0x00, 0x00,
+   0x66, 0xCC, 0xFF, 0xFF
+};
+const uint8_t g[16] = {
+   0x00, 0x00, 0x66, 0xCC,
+   0xFF, 0xFF, 0xFF, 0xFF,
+   0xFF, 0xCC, 0x66, 0x00,
+   0x00, 0x00, 0x00, 0x00
+};
+const uint8_t b[16] = {
+   0x00, 0x00, 0x00, 0x00,
+   0x00, 0x00, 0x00, 0x66,
+   0xCC, 0xFF, 0xFF, 0xFF,
+   0xFF, 0xFF, 0xCC, 0x66
+};
 /* pos contains the current positions, could technically be compressed to 4 bits per, but not worth it
    index into pos is the position we're looking at, output is the tile that is currently there */
-uint8_t tiles[16] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+uint8_t tiles[16] = {
+    0, 1, 2, 3,
+    4, 5, 6, 7,
+    8, 9, 10, 11,
+    12, 13, 14, 15
+};
 /* default led array for super 16 has them in a snake, so we must do some remapping/flipping of the 2nd and 4th rows */
-uint8_t remap[16] = {0, 1, 2, 3, 7, 6, 5, 4, 8, 9, 10, 11, 15, 14, 13, 12};
+uint8_t remap[16] = {
+    0, 1, 2, 3,
+    7, 6, 5, 4,
+    8, 9, 10, 11,
+    15, 14, 13, 12
+};
+//clang-format on
 /* function to refresh the led coloring with the positions with current tiles */
 void refresh_leds(void) {
     for (uint8_t index = 0; index < 16; ++index) {
