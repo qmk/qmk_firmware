@@ -58,8 +58,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_RAISE] = LAYOUT(
     NO_TILD, NO_SECT, NO_AT, NO_PND, NO_DLR,  KC_PERC, NO_AMPR, NO_LCBR, NO_LBRC, NO_RBRC,
-    _______, _______, _______, _______, _______, _______, _______, NO_BSLS, KC_UNDS, KC_PLUS,
-    _______, NO_PIPE, _______, _______, _______, _______, _______, _______, KC_LCBR, KC_M,
+    _______, _______, _______, KC_UP, _______, _______, _______, NO_BSLS, KC_UNDS, KC_PLUS,
+    _______, NO_PIPE, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, _______, KC_LCBR, KC_M,
     NO_RCBR, NO_QUES, LSFT(NO_LBRC), _______, _______, LSFT(NO_RBRC), _______, _______
 ),
 
