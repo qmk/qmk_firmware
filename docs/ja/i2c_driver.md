@@ -55,7 +55,7 @@ ARM MCU 用の設定はしばしば非常に複雑です。これは、多くの
 |`#STM32_I2C_BUSY_TIMEOUT`     |レスポンスの受信がない場合に I2C コマンドを中断するまでの時間 (ms)                         |50     |
 |`#STM32_I2C_XXX_IRQ_PRIORITY` |ハードウェアドライバ XXX の割り込み優先度（上級者向けの設定）                                        |10     |
 |`#STM32_I2C_USE_DMA`          |MCUがデータ送信をDMAユニットにオフロードする機能の有効化/無効化                                |TRUE   |
-|`#STM32_I2C_XXX_DMA_PRIORITY` |ハードウェアドライバ XXX に使用する DMA ユニットの優先度（上級者向け）                         |1      |
+|`#STM32_I2C_XXX_DMA_PRIORITY` |ハードウェアドライバ XXX に使用する DMA ユニットの優先度（上級者向けの設定）                         |1      |
 
 
 次に `halconf.h` ファイル内で `#define HAL_USE_I2C` を `TRUE` にします。これにより ChibiOS が I2C ドライバを読み込みます。
