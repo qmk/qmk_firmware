@@ -7,6 +7,10 @@ enum layers {
   _FN
 };
 
+enum custom_keycodes {
+    PRKL = SAFE_RANGE,
+};
+
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 #define FN MO(_FN)
@@ -28,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,
     KC_LCTL,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    LT(_LOWER, KC_SPC),  _______,    KC_B,    KC_N,    KC_M,
-    KC_P,    NO_QUOT, KC_BSPC, NO_AE,   NO_OSLH,    LT(_FN, KC_ENT), KC_COMM, LT(_RAISE, KC_DOT)
+    KC_P,    NO_QUOT, KC_BSPC, NO_AE,   NO_OSLH, LT(_FN, KC_ENT), KC_COMM, LT(_RAISE, KC_DOT)
 ),
 
 /* Lower - Numbers and some symbols
@@ -58,8 +62,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_RAISE] = LAYOUT(
     NO_TILD, NO_SECT, NO_AT, NO_PND, NO_DLR,  KC_PERC, NO_AMPR, NO_LCBR, NO_LBRC, NO_RBRC,
-    _______, _______, _______, KC_UP, _______, _______, _______, NO_BSLS, KC_UNDS, KC_PLUS,
-    _______, NO_PIPE, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, _______, KC_LCBR, KC_M,
+    _______, _______, _______, KC_UP, _______, _______, _______, _______, _______, _______,
+    _______, NO_HALF, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, _______, _______, _______,
     NO_RCBR, NO_QUES, LSFT(NO_LBRC), _______, _______, LSFT(NO_RBRC), _______, _______
 ),
 
@@ -76,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     RESET, KC_F1, KC_F2, KC_F3, KC_F4,  KC_F5, KC_F6, KC_F7, KC_F8, KC_F9,
     _______, RGB_M_P, RGB_HUD, RGB_HUI, KC_VOLD, KC_MPRV, KC_MNXT, KC_VOLU, _______, _______,
     RGB_MOD, RGB_VAD, RGB_VAI, RGB_TOG, _______, KC_MPLY, _______, _______, _______, _______,
-    KC_F10, KC_F11, KC_F12, _______, _______, _______, LCA(KC_DEL), _______
+    KC_F10, KC_F11, KC_F12, _______, PRKL, _______, LCA(KC_DEL), _______
 ),
 
 
@@ -89,3 +93,15 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       tap_code(KC_PGUP);
     }
 }
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case PRKL:
+      if (record->event.pressed) {
+        // when keycode QMKBEST is pressed
+        SEND_STRING("PERKELE");
+      }
+      break;
+  }
+  return true;
+};
