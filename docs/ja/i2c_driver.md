@@ -100,7 +100,7 @@ STM32 MCU の I2Cv1 では、クロック周波数とデューティ比を次の
 
 #### I2Cv2
 
-STM32 の I2Cv2 では、信号のタイミングパラメタを次の変数で変更できます。詳しくは <https://www.st.com/en/embedded-software/stsw-stm32126.html> を参照してください。
+STM32 MCU の I2Cv2 では、信号のタイミングパラメータを次の変数で変更できます。詳しくは <https://www.st.com/en/embedded-software/stsw-stm32126.html> を参照してください。
 
 | 変数                  | 既定値  |
 |-----------------------|---------|
