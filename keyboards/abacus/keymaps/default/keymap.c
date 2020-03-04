@@ -21,8 +21,8 @@
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
     _BASE,
-    _UP_1,
-    _UP_2
+    _UPPER,
+    _LOWER
 };
 
 // Defines the keycodes used by our macros in process_record_user
@@ -65,19 +65,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESCAPE, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPACE,
         KC_TAB, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCOLON, KC_BSLASH,
         KC_LSHIFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMMA, KC_DOT, KC_UP, KC_DELETE,
-        KC_LCTRL, KC_LGUI, MO(_UP_1), KC_SPACE, KC_ENTER, MO(_UP_2), KC_LEFT, KC_DOWN, KC_RIGHT
+        KC_LCTRL, KC_LGUI, MO(_UPPER), KC_SPACE, KC_ENTER, MO(_LOWER), KC_LEFT, KC_DOWN, KC_RIGHT
     ),
-    [_UP_1] = LAYOUT(
+    [_UPPER] = LAYOUT(
         KC_GRAVE, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, _______,
         ALTTAB, _______, _______, _______, _______, _______, _______, _______, KC_LBRACKET, KC_RBRACKET, KC_QUOTE, KC_SLASH,
-        KC_LALT, _______, _______, _______, _______, _______, _______, _______, KC_MINUS, KC_EQUAL, _______, _______,
-        KC_CAPS, _______, _______, _______, _______, _______, KC_HOME, _______, KC_END
+        _______, _______, _______, _______, _______, _______, _______, _______, KC_MINUS, KC_EQUAL, _______, _______,
+        KC_LALT, _______, _______, _______, _______, _______, KC_HOME, _______, KC_END
     ),
-    [_UP_2] = LAYOUT(
+    [_LOWER] = LAYOUT(
         NICKURL, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, _______,
         _______, KC_F11, KC_F12, RGB_MODE_PLAIN, RGB_MODE_BREATHE, RGB_MODE_RAINBOW, RGB_MODE_SWIRL, RGB_MODE_SNAKE, RGB_MODE_KNIGHT, RGB_MODE_GRADIENT, XXXXXXX, RGB_TOG, 
         _______, X(LOVEEYES), X(THINK), X(UPSIDEDOWN), X(NOMOUTH), X(PARTY), X(PEACH), X(HEART), X(EGGPLANT), X(EMOJI100), X(EMOJIB), RGB_HUI,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______
+        KC_CAPS, _______, _______, _______, _______, _______, _______, _______, _______
     )
  
  
@@ -96,9 +96,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
         case ALTTAB:
             if (record->event.pressed) {
-                register_key(KC_LALT);
-                tap_code(KC_TAB);
-                unregister_key(KC_LALT);
+                tap_code16(LALT(KC_TAB));
             }
             return true;
             break;
@@ -116,12 +114,12 @@ void dip_switch_update_user(uint8_t index, bool active) {
             if(active) {
                 switch(get_highest_layer(layer_state)) {
                 case _BASE:
-                    tap_code(C(KC_F));
+                    tap_code16(LCTL(KC_F));
                     break;
-                case _UP_1:
+                case _UPPER:
                     tap_code(KC_MUTE);
                     break;
-                case _UP_2:
+                case _LOWER:
                     tap_code(KC_MEDIA_PLAY_PAUSE);
                     break;
                 }
@@ -138,12 +136,12 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 
     switch(biton32(layer_state)) {
         case _BASE:
-            clockwise ? tap_code(KC_PGUP) : tap_code(KC_PGDN);
+            clockwise ? tap_code(KC_PGDN) : tap_code(KC_PGUP);
             break;
-        case _UP_1:
-            clockwise ? tap_code(KC_VOLD) : tap_code(KC_VOLU);
+        case _UPPER:
+            clockwise ? tap_code(KC_VOLU) : tap_code(KC_VOLD);
             break;
-        case _UP_2:
+        case _LOWER:
             clockwise ? tap_code(KC_MEDIA_NEXT_TRACK) : tap_code(KC_MEDIA_PREV_TRACK);
             break;
         }
