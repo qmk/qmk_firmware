@@ -28,19 +28,19 @@
   #define NGUP X_UP
   #define NGDN X_DOWN
   #define NGLT X_LEFT
-  #define NGRT X_RGHT
+  #define NGRT X_RIGHT
   #define NGKUP KC_UP
   #define NGKDN KC_DOWN
   #define NGKLT KC_LEFT
-  #define NGKRT KC_RGHT
+  #define NGKRT KC_RIGHT
 #endif
 #ifdef NAGINATA_YOKOGAKI
   #define NGUP X_LEFT
-  #define NGDN X_RGHT
+  #define NGDN X_RIGHT
   #define NGLT X_UP
   #define NGRT X_DOWN
   #define NGKUP KC_LEFT
-  #define NGKDN KC_RGHT
+  #define NGKDN KC_RIGHT
   #define NGKLT KC_UP
   #define NGKRT KC_DOWN
 #endif
