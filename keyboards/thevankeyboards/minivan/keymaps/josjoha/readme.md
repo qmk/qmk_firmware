@@ -26,7 +26,7 @@ These are the compile options, defined at the top of ![keymap.c](./keymap.c)
  - Hardware key configurations: _default_ (44), _arrow_ (45), _south paw_ (45), _arrow_ + _south paw_ (46).
  - What the additional hardware keys for _arrow,_ _south paw_ should be.
  - An arrow cluster for _arrow_ hardware configuration:
-![Minivan illustration 1](http://socialism.nl/misc/minivan/minivan_layer_illustration_0_3b_arrow_v3.jpg)
+ - Navigation keys around _arrow_ hardware configuration arrow cluster.
  - Layouts: Dvorak² or Qwerty+Dvorak (see below).
  - Startup in the alternate BASE layer (for example Qwerty or Dvorak).
  - Navigation cluster in a triangle (WASD) or flat layout.
@@ -79,20 +79,80 @@ For the layers in the Qwerty+Dvorak version, see ![qwerty dvorak.md](./qwerty_dv
 
 Dvorak² keymaps
 ---------------
+See below for other compile variants of `_MOV`.
+
 ![Minivan layout Image 0](http://socialism.nl/misc/minivan/minivan_layer0.jpg)
+
 ![Minivan layout Image 1](http://socialism.nl/misc/minivan/minivan_layer1.jpg)
+
 ![Minivan layout Image 2](http://socialism.nl/misc/minivan/minivan_layer2.jpg)
+
 ![Minivan layout Image 3b](http://socialism.nl/misc/minivan/minivan_layer3b_v2.jpg)
+
+There is an alternative flat arrow configuration for this layer (see below),
+and options to compile with the 'arrow' hardware layout.
+
 ![Minivan layout Image 4](http://socialism.nl/misc/minivan/minivan_layer4.jpg)
+
 ![Minivan layout Image 5](http://socialism.nl/misc/minivan/minivan_layer5.jpg)
+
 ![Minivan layout Image 6](http://socialism.nl/misc/minivan/minivan_layer6.jpg)
+
 ![Minivan layout Image 7](http://socialism.nl/misc/minivan/minivan_layer7_v2.jpg)
 
 The right led in 'descramble' mode shows when using a layer that is different
 in that mode, analogue to the `_FUN` led indicator for 'descramble' (not shown
 in above graphics).
 
-The 'descramble' system:
+
+Movement layer options
+----------------------
+
+The movement layer (`_MOV`) has quite a few configuration options. You
+can either have _triangle_ configuration arrows on the _left_ hand
+(with navigation keys around it), or a _flat_ arrow configuration on
+the _right_ hand (with navigation above it).
+
+You can configure for the _arrow_ hardware layout (one additional hardware
+key on the right). The additional key toggles to the movement layer, and
+than becomes part of the arrow cluster. For both versions (_triangle_
+arrows left hand or _flat_ arrows right hand) you can compile this
+second arrow cluster to be completed with navigation keys (Home, End,
+PageUp, PageDown).
+
+Compile keymap.c with: 
+
+…
+
+![Minivan layout Image MOV 3 defaultf](http://socialism.nl/misc/minivan/minivan_layer3.jpg)
+
+`#define ARROWS_TRIANGLE`:
+
+![Minivan layout Image MOV 3b default](http://socialism.nl/misc/minivan/minivan_layer3b_v2.jpg)
+
+Illustration of accessing the arrows/navigation with a key on the BASE layer:
+
+![Minivan illustration BASE towards 3](http://socialism.nl/misc/minivan/minivan_layer_illustration_0_3b_arrow_v3.jpg)
+
+`#define ARROWS_TRIANGLE`, `MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`, `MORE_key2 _MOV_UP`:
+
+![Minivan layout Image MOV 3b + arrow](http://socialism.nl/misc/minivan/minivan_layer3b_hardw-arrow_triangle.jpg)
+
+`#define ARROWS_TRIANGLE`, `MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`, `MOREKEY2_ADD_NAVIGATION`, `MORE_key2 _MOV_UP` (note change on previously BTN2/3):
+
+![Minivan layout Image MOV 3b + navig](http://socialism.nl/misc/minivan/minivan_layer3b_hardw-arrow_triangle_addnav.jpg)
+
+`#define MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`, `MORE_key2 _MOV_UP`:
+
+![Minivan layout Image MOV 3 + arrows](http://socialism.nl/misc/minivan/minivan_layer3_hardw-arrow_flat.jpg)
+
+`#define MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`, `MOREKEY2_ADD_NAVIGATION`, `MORE_key2 _MOV_UP` (note change on previously BTN2/3):
+
+![Minivan layout Image MOV 3 + naviga](http://socialism.nl/misc/minivan/minivan_layer3_hardw-arrow_flat_addnav.jpg)
+
+
+The 'descramble' system
+-----------------------
 
 ![Minivan descramble Dvorak](http://socialism.nl/misc/minivan/minivan_descramble.jpg)
 
@@ -208,7 +268,8 @@ or staying on the `_FUN` layer. Default: return to BASE.
 
 - - -
     
-    
+This is the _triangle_ configuration for arrows, arrow are on left hand (WASD):
+
      Layer _MOV (MOVement, mouse movement on right hand)
     
      <pinky2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
@@ -222,23 +283,70 @@ or staying on the `_FUN` layer. Default: return to BASE.
      <1 ± <2    <3    <4  | 4>    3>    2>  ± 1>  
 
 
-Remarks. For the Minivan _arrow_ layout with arrow cluster, you get this on `BASE`:
+Remarks. For the Minivan _arrow_ hardware layout with arrow cluster, you get this on `BASE`:
 
      (…)
      LSht+_PAD ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht+_FUN
      -------------------------------------------------------------------------------
      Left+LAlt Del;_ACC _NSY(_DRA) Enter+_MOV| Space  _NSY(_DRA) LGUI  _MOV  Right;_RAR 
                                                                        ^^^^           // new key (toggle)
-… and this on `_MOV`. 
+… and this on `_MOV` for the _triangle_ configuration:
 
      (…)
-     LSft   xxx   Acc2  Acc1  Acc0  Btn2  | Btn2  Btn3  Btn4  Btn5  UP    RSft
-     -------------------------------------------------------------------------
-     LAlt       Del     Ent      ___      |    PgUp     PgDn  LEFT  DOWN  RIGHT
-                                                                    ^^^^                       // new key
+     LSft*- xxx   Acc2  Acc1  Acc0  Btn2  | Btn2  Btn3  Btn4  Btn5  _Up_  RSft         //(toggle) on BASE
+     ---------------------------------------------------------------------------
+                     LAlt Del   Ent   ___ | PgUp       PgDn  _Left__Down__Right_
+                                      -*-<|>                                              //(hold) on BASE
+                     <1 ± <2    <3    <4  | 4>         3>     2>   _±_    1>  
 
-It is fairly easy to switch from this horizontal arrow layout, to a wasd layout which also
-switches left with right hand. See `ARROW_TRIANGLE` and `ARROW_LEFT` #defines at the top of keymap.c.
+… or this on `_MOV` for the _triangle_ arrow configuration with additional _navigation_ keys:
+
+     BASE   PgDn  Up    PgUp  Home _Btn4_ | xxx   WhDn  MsUp  WhU   WhLft Bksp
+     LCtl   Left  Down  Right End   Btn1  | Btn1  MsLft MsDn  MsRht WhRht RCtl
+     LSft*- xxx   Acc2  Acc1  Acc0 _Btn5_ | Btn2  Btn3 _Home__PgUp_ _Up_ _PgDn_        //(toggle) on BASE
+     ---------------------------------------------------------------------------
+                     LAlt Del   Ent   ___ | PgUp      _End_  _Left__Down__Right_
+                                      -*-<|>                                              //(hold) on BASE
+                     <1 ± <2    <3    <4  | 4>         3>     2>   _±_    1>  
+
+
+This is the _flat_ configuration for arrows, arrow are on right hand:
+
+     <pinky2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
+                        -*-              <|>                                           //(toggle) on _FUN
+     BASE   WLft  WDn   WUp   WRht  xxx   | Btn3  PgUp  Home  End   PgDn  Bksp
+     LCtl   MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
+     LSft*- Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSft         //(toggle) on BASE
+     ---------------------------------------------
+     LAlt Del   Ent   ___ | PgUp  PgDn  LGUI  RAlt
+                      -*-<|>                                                             //(hold) on BASE
+     <1 ± <2    <3    <4  | 4>    3>    2>  ± 1>  
+
+For the Minivan _arrow_ hardware layout with _flat_ arrow cluster, you get this on `_MOV`:
+
+     (…)
+     LSft*- Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSft         //(toggle) on BASE
+     ---------------------------------------------------------------------------
+                     LAlt Del   Ent   ___ | PgUp      _Left_ _UP_  _Down__Right_
+                                      -*-<|>                                           //(hold) on BASE
+                     <1 ± <2    <3    <4  | 4>         3>     2>   _±_    1>  
+
+… or this on `_MOV` for the _flat_ arrow configuration with additional _navigation_ keys:
+
+     BASE   WLft  WDn   WUp   WRht  xxx   |_Acc2_ PgUp  Home  End   PgDn  Bksp
+     LCtl   MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
+     LSft*- Btn5  Btn4  Btn3  Butn2 xxx   |_Acc1_ Acc0 _PgUp__Home__End_ _PgDn_        //(toggle) on BASE
+     ---------------------------------------------------------------------------
+                     LAlt Del   Ent   ___ | PgUp      _Left_ _UP_  _Down__Right_
+                                      -*-<|>                                           //(hold) on BASE
+                     <1 ± <2    <3    <4  | 4>         3>     2>   _±_    1>  
+
+The #defines for these various compile variations are at the top of keymap.c.
+For the 'arrow' hardware layout (additional key on the right), keys on the first
+row are sacrificed and lost. The right most key on the second row is also lost.
+The two keys on places 3 and 4 when counting from the right on the second row,
+are being moved to the spots for Btn2 and Btn3 on the hand that also has the 
+arrows (those keys are otherwise twice defined for left and right hand).
 - - -
     
     

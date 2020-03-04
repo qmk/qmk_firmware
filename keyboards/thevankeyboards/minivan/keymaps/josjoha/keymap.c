@@ -72,8 +72,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * No arrow cluster for 'arrow' layout: _remove_ MOREKEY2_ARROW_CLUSTER, and set MORE_key2 to whatever you want.
          */
 #define MOREKEY2_ARROW_CLUSTER // Arrow cluster on _MOV layer. This is ignored if MORE_KEY__ARROW is not defined.
-        /* Define the key you want on the additional key: */
+                             // This will cost you 'Right Alt' and 'GUI' on the _MOV layer.
+#define MOREKEY2_ADD_NAVIGATION // Additional navigation keys around arrow cluster MOREKEY2_ARROW_CLUSTER. Ignored if MOREKEY2_ARROW_CLUSTER is not defined.
+                                // This will cause mouse buttons 'BTN4' and 'BTN5' on the _MOV layer to be moved.
+        /*
+         * Define the key you want on the additional key (leave it to _MOV_UP if you want an arrow cluster): */
 #define MORE_key2 _MOV_UP // Right side additional key. This is ignored if MORE_KEY__ARROW is not defined.
+//#define MORE_key2 TO(_MOV) // Try this if you want this key to switch to the _MOV layer, and you do not have the arrow cluster defined.
         //
         /*                         Defining the additional key for 'South paw' (or called 'Command')
          */
@@ -81,6 +86,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         /*
          * (For adding even more hardware keys (other keyboards), editor tokens J1_J2, J3_J4 can come in handy.)
          */
+
+
+        /*       Navigation cluster configuration
+         * 
+         * _Activate_ below line to use a "WASD" type layout (on the spot where WASD is in Qwerty).
+         * _Remove_ if you prefer a flat type layout, with arrows in a row, on the right.
+         */
+#define ARROWS_TRIANGLE // Implies mouse is also similarly in a triangle.
       
 
         /*                            Qwerty
@@ -122,29 +135,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                           //     startup in Dvorak
                           // For QWERTY_DVORAK *not* defined: _remove_ is startup in normal Dvorak,
                           //   _active_ is startup in 'descramble' Dvorak Linux mode.
-
-
-        /*       Navigation cluster configuration
-         * 
-         * You can "easily" define what navigation type layout you like.
-         * There are two basic settings: 
-         * - Arrows in a triangle, or in a row.
-         * - Arrows on left or right hand (mouse on the other). (This gets tricky.)
-         * Left/right hand setting affects if the less usable center column is left 
-         * or right on that hand (see code below at _MOV layer to understand).
-         * If you are _activating_ both below settings, you probably do not have
-         * to edit anything. If you only use one, you may want to swap the edge 
-         * columns by hand.
-         *
-         * By default the arrows are in a row, and on the right hand.
-         * The alternative layout is configured for arrows in a triangle, on the left hand.
-         *
-         * _Activate_ below line to use a "WASD" type layout (on the spot where WASD is in Qwerty).
-         * _Remove_ if you prefer a flat type layout, with arrows in a row.
-         */
-#define ARROWS_TRIANGLE // Implies mouse is also similarly in a triangle.
-         /* _Activate_ below line to put the arrows on the left, comment out to have arrows right. */
-#define ARROWS_LEFT // Implies mouse is right
 
 
         /*     GUI left/right 
@@ -214,7 +204,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if !defined(MORE_KEY__ARROW) && defined(MOREKEY2_ARROW_CLUSTER)
     #undef MOREKEY2_ARROW_CLUSTER
 #endif
+#if !defined(MORE_KEY__ARROW) && defined(MOREKEY2_ADD_NAVIGATION)
+    #undef MOREKEY2_ADD_NAVIGATION
+#endif
+#if !defined(MOREKEY2_ARROW_CLUSTER) && defined(MOREKEY2_ADD_NAVIGATION)
+    #undef MOREKEY2_ADD_NAVIGATION // Only navigation keys, when the are arrows defined.
+#endif
 
+// When choosing 'triangle' arrows, then they go left, otherwise right.
+#ifdef ARROWS_TRIANGLE
+         /* _Activate_ below line to put the arrows on the left, comment out to have arrows right. */
+    #define ARROWS_LEFT // Implies mouse is right
+#endif
 
 // Set up user GUI choice:
 #ifndef SWITCH_GUIS
@@ -734,7 +735,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef MORE_KEY__ARROW
                                                                                              , MORE_key2  
 #endif
-                                                                                             , RALT_T ( KC_RGHT )
+                                                                                             , RALT_T ( KC_RIGHT )
 //                               ,        , -*-      ,      <|,>       , -*-      ,          ,
 //      <1                 ±  ±  , <2     , <3       , <4    |, 4>     , 3>       , 2>       , ±  ±  1>
                       ),
@@ -781,7 +782,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef MORE_KEY__ARROW
                                                                                              , MORE_key2  
 #endif
-                                                                                             , RALT_T ( KC_RGHT )
+                                                                                             , RALT_T ( KC_RIGHT )
 //                               ,        , -*-      ,      <|,>       , -*-      ,          ,
 //      <1                 ±  ±  , <2     , <3       , <4    |, 4>     , 3>       , 2>       , ±  ±  1>
                       ),
@@ -798,8 +799,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ _MOV ] = LAYOUT_redefined (
 
 /*
-     triangle layout:
      Layer _MOV (MOVement, mouse movement on right hand)
+
+     triangle layout (mouse right hand):
     
      <pinky2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                         -*-              <|>                                           //(toggle) on _FUN
@@ -810,6 +812,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      LAlt Del   Ent   ___ | PgUp  PgDn  LGUI  RAlt
                       -*-<|>                                                             //(hold) on BASE
      <1 ± <2    <3    <4  | 4>    3>    2>  ± 1>  
+
+     triangle layout, 'arrow' additional hardware key, with arrow cluster (difference marked _):
+    
+     <pinky2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
+                        -*-              <|>                                           //(toggle) on _FUN
+     BASE   PgDn  Up    PgUp  Home  Btn3  | xxx   WhDn  MsUp  WhU   WhLft Bksp
+     LCtl   Left  Down  Right End   Btn1  | Btn1  MsLft MsDn  MsRht WhRht RCtl
+     LSft*- xxx   Acc2  Acc1  Acc0  Btn2  | Btn2  Btn3  Btn4  Btn5  _Up_  RSft         //(toggle) on BASE
+     ---------------------------------------------------------------------------
+                     LAlt Del   Ent   ___ | PgUp       PgDn  _Left__Down__Right_
+                                      -*-<|>                                              //(hold) on BASE
+                     <1 ± <2    <3    <4  | 4>         3>     2>   _±_    1>  
+
+     triangle layout, 'arrow' additional hardware key, with arrow cluster and navigation keys:
+    
+     <pinky2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
+                        -*-              <|>                                           //(toggle) on _FUN
+     BASE   PgDn  Up    PgUp  Home _Btn4_ | xxx   WhDn  MsUp  WhU   WhLft Bksp
+     LCtl   Left  Down  Right End   Btn1  | Btn1  MsLft MsDn  MsRht WhRht RCtl
+     LSft*- xxx   Acc2  Acc1  Acc0 _Btn5_ | Btn2  Btn3 _Home__PgUp_ _Up_ _PgDn_        //(toggle) on BASE
+     ---------------------------------------------------------------------------
+                     LAlt Del   Ent   ___ | PgUp      _End_  _Left__Down__Right_
+                                      -*-<|>                                              //(hold) on BASE
+                     <1 ± <2    <3    <4  | 4>         3>     2>   _±_    1>  
+
 
      flat layout (mouse movement on left hand):
     
@@ -822,6 +849,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      LAlt Del   Ent   ___ | PgUp  PgDn  LGUI  RAlt
                       -*-<|>                                                             //(hold) on BASE
      <1 ± <2    <3    <4  | 4>    3>    2>  ± 1>  
+
+     flat layout, 'arrow' additional hardware key, with arrow cluster (difference marked _)
+   
+     <pinky2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
+                        -*-              <|>                                           //(toggle) on _FUN
+     BASE   WLft  WDn   WUp   WRht  xxx   | Btn3  PgUp  Home  End   PgDn  Bksp
+     LCtl   MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
+     LSft*- Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSft         //(toggle) on BASE
+     ---------------------------------------------------------------------------
+                     LAlt Del   Ent   ___ | PgUp      _Left_ _UP_  _Down__Right_
+                                      -*-<|>                                           //(hold) on BASE
+                     <1 ± <2    <3    <4  | 4>         3>     2>   _±_    1>  
+
+     flat layout, 'arrow' additional hardware key, with arrow cluster and additional navigation keys:
+   
+     <pinky2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
+                        -*-              <|>                                           //(toggle) on _FUN
+     BASE   WLft  WDn   WUp   WRht  xxx   |_Acc2_ PgUp  Home  End   PgDn  Bksp
+     LCtl   MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
+     LSft*- Btn5  Btn4  Btn3  Butn2 xxx   |_Acc1_ Acc0 _PgUp__Home__End_ _PgDn_        //(toggle) on BASE
+     ---------------------------------------------------------------------------
+                     LAlt Del   Ent   ___ | PgUp      _Left_ _UP_  _Down__Right_
+                                      -*-<|>                                           //(hold) on BASE
+                     <1 ± <2    <3    <4  | 4>         3>     2>   _±_    1>  
  */
 
          /* Inner default navigation/mouse layout. 11 means row 1, column 1, etc.
@@ -965,36 +1016,181 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     #define RGHT_CE MOUS_35
 #endif
 
-// Here the 'Arrow' layout arrow cluster is patched into it.
-// These keys are affected. By default what becomes the up-arrow (row 2, 2nd key from right) is a no-action key on this layer.
-#ifndef MOREKEY2_ARROW_CLUSTER                                // Default 
-    #define _MOV_KEY_ROW2_KEY2           RGHT_CE              // Key counting from the right to the left. 
-    #define _MOV_KEY_ROW1_KEY1                     KC_RALT    //                         ''
-    #define _MOV_KEY_ROW1_KEY2           MORE_key2            //                         ''
-    #define _MOV_KEY_ROW1_KEY3 KC__YGUI                       //                         ''
-#endif                                             
+/* Definition of the additional arrow cluster with optional navigation keys, for the 'arrow' hardware layout.
+ *
+ * By default what becomes the up-arrow (row 2, 2nd key from right) is a no-action key on this layer,
+ * which can be displaced without worry.
+ * Keys that are displaced for the larger arrow cluster with navigation keys, get moved to the second definition
+ * of KC_BTN2 and KC_BTN3, which is on the non-mouse hand.
+ *
+ * Only the version where the triangle arrows are defined for the left hand, or the version where the flat line
+ * arrows are defined for the right hand, are supported.
+ *
+ * There are several configurations, worked down in order to keep this mess under control.
+ *                
+ *                                           v----------------------not-defined-------------v----------------v
+ *                                 !MOREKEY2_ARROW_CLUSTER   !MOREKEY2_ADD_NAVIGATION  !ARROWS_TRIANGLE  !ARROWS_LEFT             
+ * defined MOREKEY2_ARROW_CLUSTER   ......................            yes                    yes            yes
+ * defined MOREKEY2_ADD_NAVIGATION        yes                 .......................        yes          only for flat arrows
+ * defined ARROWS_TRIANGLE                yes                         yes               ...............      no  
+ * defined ARROWS_LEFT                    yes                    only for triangle          yes           ...........
+ *                                  MOREKEY2_ARROW_CLUSTER    MOREKEY2_ADD_NAVIGATION   ARROWS_TRIANGLE   ARROWS_LEFT             
+ *                                           ^--------------------------defined-------------^----------------^
+ *
+ * Definition order:
+ *  0 no arrow cluster (and therefore no additional navigation keys either)
+ *  1 triangle arrows with arrow cluster
+ *  2    ''                  ''          + additional navigation and repositioning displaced keys
+ *  3 flat arrows with arrow cluster
+ *  4    ''                  ''          + additional navigation and repositioning displaced keys
+ */
 
-// Patch in the arrows    
-#ifdef MOREKEY2_ARROW_CLUSTER                                 // Arrow cluster
-    #define _MOV_KEY_ROW2_KEY2           KC_UP                //                         ''
-    #define _MOV_KEY_ROW1_KEY1                     KC_RIGHT   //                         ''
-    #define _MOV_KEY_ROW1_KEY2           KC_DOWN              //                         ''
-    #define _MOV_KEY_ROW1_KEY3 KC_LEFT                        //                         ''
-//     <|,>        ,         ,         ,         ,
-//      |, 4>      , 3>      , 2>      , ±       , 1>
+                                               /* 0 (Nothing special, just the default keys)*/
+
+// Default layout without arrow cluster. (With a little imagination you can visualize the keyboard.)
+#if !defined(MOREKEY2_ARROW_CLUSTER) 
+                                                                        // Default 
+    #define _MOV_KEY_ROW2_KEY1                               KC_RSFT    
+    #define _MOV_KEY_ROW2_KEY2                     RGHT_CE              // Key counting from the right to the left. 
+    #define _MOV_KEY_ROW2_KEY3           RGHT_CD                        
+    #define _MOV_KEY_ROW2_KEY4 RGHT_CC                                  
+    //                        ------------------------------------------
+    #define _MOV_KEY_ROW1_KEY1                               KC_RALT    //                         ''
+    #define _MOV_KEY_ROW1_KEY2                     MORE_key2            //                         ''
+    #define _MOV_KEY_ROW1_KEY3           KC__YGUI                       //                         ''                 (etc)
+    #define _MOV_KEY_ROW1_KEY4 KC_PGDN                                  
+//               <|,>        ,         ,         ,         ,
+//                |, 4>      , 3>      , 2>      , ±       , 1>         // ± is the additional hardware key
+#endif                                                       
+
+                                              /* 1 (triangle arrows with arrow cluster) */
+
+// Patch in the arrows for arrow triangle layout
+#if defined(MOREKEY2_ARROW_CLUSTER) && defined(ARROWS_TRIANGLE)
+                                                                        // Arrow cluster
+    #define _MOV_KEY_ROW2_KEY2                     KC_UP                
+    //                        ------------------------------------------
+    #define _MOV_KEY_ROW1_KEY1                               KC_RIGHT   
+    #define _MOV_KEY_ROW1_KEY2                     KC_DOWN              
+    #define _MOV_KEY_ROW1_KEY3           KC_LEFT                        
+//               <|,>        ,         ,         ,         ,
+//                |, 4>      , 3>      , 2>      , ±       , 1> 
+#endif
+// The default layout around the arrows
+#if defined(MOREKEY2_ARROW_CLUSTER) && !defined(MOREKEY2_ADD_NAVIGATION) && defined(ARROWS_TRIANGLE)      
+                                                                        // Default keys
+    #define _MOV_KEY_ROW2_KEY1                               KC_RSFT    
+    #define _MOV_KEY_ROW2_KEY3           RGHT_CD                        
+    #define _MOV_KEY_ROW2_KEY4 RGHT_CC                                  
+    //                        ------------------------------------------
+    #define _MOV_KEY_ROW1_KEY4 KC_PGDN                                  
+//               <|,>        ,         ,         ,         ,
+//                |, 4>      , 3>      , 2>      , ±       , 1> 
+#endif                                     
+                                           
+                                              /*  2 (  ''                  ''          + additional navigation and repositioning displaced keys) */
+
+// Patch in the navigation keys for the arrow in triangle layout.
+#if defined(MOREKEY2_ADD_NAVIGATION) && defined(ARROWS_TRIANGLE)        // Navigation additional keys (arrows implied).
+    #define _MOV_KEY_ROW2_KEY1                               KC_PGDN    
+    #define _MOV_KEY_ROW2_KEY3           KC_PGUP                        
+    #define _MOV_KEY_ROW2_KEY4 KC_HOME                                  
+    //                        ------------------------------------------
+    #define _MOV_KEY_ROW1_KEY4 KC_END                                   
+//               <|,>        ,         ,         ,         ,
+//                |, 4>      , 3>      , 2>      , ±       , 1>         
+#endif
+// We have now overwritten the positions of RGHT_CC and RGHT_CD, which could be useful keys.
+// You don't want to mess with BTN1 on the other hand, because it needs to select together with mouse moving in many applications.
+#if defined(MOREKEY2_ADD_NAVIGATION) && defined(ARROWS_TRIANGLE) && defined(ARROWS_LEFT)  // ARROWS_LEFT because the wider map is edited
+    // ... spelling this out to keep brain for exploding:
+    // Overwritten (copied from above):
+    //  #define RGHT_CC MOUS_33
+    //  #define                                 MOUS_33 KC_BTN4
+    //  #define RGHT_CD MOUS_34
+    //  #define                                                 MOUS_34 KC_BTN5
+    // 'BTN4' and 'BTN5' are overwritten.
+    // Where are KC_BTN2 and KC_BTN3 on the non-mouse hand:
+    //  #define                                                                 NAVI_15 KC_BTN3
+    //  #define LEFT_AE NAVI_15
+    //  #define                                                                 NAVI_35 KC_BTN2
+    //  #define LEFT_CE NAVI_35
+    // 'LEFT_AE' and 'LEFT_CE' provide room.
+    #undef  LEFT_AE
+    #define LEFT_AE KC_BTN4
+    #undef  LEFT_CE
+    #define LEFT_CE KC_BTN5
 #endif
 
-//      <pink2   , <pinky  , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>             , pink2>  ,
-//               ,         ,         , -*-     ,         ,       <|,>        ,         ,         ,         ,                    ,         ,
-        CTO_BASE , LEFT_AA , LEFT_AB , LEFT_AC , LEFT_AD , LEFT_AE , RGHT_AA , RGHT_AB , RGHT_AC , RGHT_AD , RGHT_AE            , KC_BSPC ,
-        KC_LCTL  , LEFT_BA , LEFT_BB , LEFT_BC , LEFT_BD , LEFT_BE , RGHT_BA , RGHT_BB , RGHT_BC , RGHT_BD , RGHT_BE            , KC_RCTL ,
-        KC_LSFT  , LEFT_CA , LEFT_CB , LEFT_CC , LEFT_CD , LEFT_CE , RGHT_CA , RGHT_CB , RGHT_CC , RGHT_CD , _MOV_KEY_ROW2_KEY2 , KC_RSFT ,
-//      -----------------------------------------------------------------------------------------
+                                              /* 3 (flat arrows with arrow cluster) */
+
+#if defined(MOREKEY2_ARROW_CLUSTER) && !defined(ARROWS_TRIANGLE)
+                                                                        // arrow cluster
+    #define _MOV_KEY_ROW1_KEY1                               KC_RIGHT                                 
+    #define _MOV_KEY_ROW1_KEY2                     KC_DOWN                        
+    #define _MOV_KEY_ROW1_KEY3           KC_UP                
+    #define _MOV_KEY_ROW1_KEY4 KC_LEFT    
+//               <|,>        ,         ,         ,         ,
+//                |, 4>      , 3>      , 2>      , ±       , 1> 
+#endif
+// The default layout around the arrows
+#if defined(MOREKEY2_ARROW_CLUSTER) && !defined(MOREKEY2_ADD_NAVIGATION) && !defined(ARROWS_TRIANGLE)      
+                                                                        // Default 
+    #define _MOV_KEY_ROW2_KEY1                               KC_RSFT    
+    #define _MOV_KEY_ROW2_KEY2                     RGHT_CE              // Key counting from the right to the left. 
+    #define _MOV_KEY_ROW2_KEY3           RGHT_CD                        
+    #define _MOV_KEY_ROW2_KEY4 RGHT_CC                                  
+//               <|,>        ,         ,         ,         ,
+//                |, 4>      , 3>      , 2>      , ±       , 1> 
+#endif
+
+
+                                              /* 4 (   ''                  ''          + additional navigation and repositioning displaced keys) */
+
+// The definitions for the additional navigation keys (HOME, etc)
+#if defined(MOREKEY2_ADD_NAVIGATION) && !defined(ARROWS_TRIANGLE)
+                                                                        // Additional navigation keys: flat
+    #define _MOV_KEY_ROW2_KEY1                               KC_PGDN                                  
+    #define _MOV_KEY_ROW2_KEY2                     KC_END                         
+    #define _MOV_KEY_ROW2_KEY3           KC_HOME              
+    #define _MOV_KEY_ROW2_KEY4 KC_PGUP    
+//               <|,>        ,         ,         ,         ,
+//                |, 4>      , 3>      , 2>      , ±       , 1>         
+#endif
+// Replace the overwritten key positions:
+#if defined(MOREKEY2_ADD_NAVIGATION) && !defined(ARROWS_TRIANGLE) && !defined(ARROWS_LEFT)   // !ARROWS_LEFT because the wider map is edited
+    // Overwritten (copied from above):
+    //  #define RGHT_CC NAVI_33
+    //  #define                                 NAVI_33 KC_ACL1
+    //  #define RGHT_CD NAVI_34
+    //  #define                                                 NAVI_34 KC_ACL2
+    // 'KC_ACL1' and 'KC_ACL2' are overwritten.
+    // Where are BTN2 and BTN3 on the non-mouse hand:
+    //  #define NAVI_11 KC_BTN3
+    //  #define RGHT_AA NAVI_11
+    //  #define NAVI_31 KC_BTN2
+    //  #define RGHT_CA NAVI_31
+    // 'RGHT_AA' and 'RGHT_CA' provide room.
+    //  It seems best to count the acceleration keys from right to left/up on the keyboard.
+    #undef  RGHT_AA
+    #define RGHT_AA KC_ACL2
+    #undef  RGHT_CA
+    #define RGHT_CA KC_ACL1
+#endif
+
+// (If you want to alter something in detail just for your keyboard, it is probably smart to just write in the keycodes (like KC_PGUP) in the final definitions here below.)
+//
+//      <pink2   , <pinky  , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>  , middl>             , ring>              , pinky>             , pink2>             ,
+//               ,         ,         , -*-     ,         ,       <|,>        ,         ,                    ,                    ,                    ,                    ,
+        CTO_BASE , LEFT_AA , LEFT_AB , LEFT_AC , LEFT_AD , LEFT_AE , RGHT_AA , RGHT_AB , RGHT_AC            , RGHT_AD            , RGHT_AE            , KC_BSPC            ,
+        KC_LCTL  , LEFT_BA , LEFT_BB , LEFT_BC , LEFT_BD , LEFT_BE , RGHT_BA , RGHT_BB , RGHT_BC            , RGHT_BD            , RGHT_BE            , KC_RCTL            ,
+        KC_LSFT  , LEFT_CA , LEFT_CB , LEFT_CC , LEFT_CD , LEFT_CE , RGHT_CA , RGHT_CB , _MOV_KEY_ROW2_KEY4 , _MOV_KEY_ROW2_KEY3 , _MOV_KEY_ROW2_KEY2 , _MOV_KEY_ROW2_KEY1 ,
+//      ----------------------------------------------------------------------------------------------------
         KC_LALT J1_J2 
 #ifdef MORE_KEY__COMMAND
                       , MORE_key1 
 #endif
-                      , KC_DEL  , KC_ENT , _______ , KC_PGUP , KC_PGDN , J3_J4 _MOV_KEY_ROW1_KEY3
+                      , KC_DEL  , KC_ENT , _______ , KC_PGUP , _MOV_KEY_ROW1_KEY4 , J3_J4 _MOV_KEY_ROW1_KEY3
 #ifdef MORE_KEY__ARROW
                                                                                   , _MOV_KEY_ROW1_KEY2
 #endif
@@ -1398,7 +1594,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef MORE_KEY__ARROW
                                                                                             , MORE_key2  
 #endif
-                                                                                            , RALT_T ( KC_RGHT )
+                                                                                            , RALT_T ( KC_RIGHT )
 //                               ,        ,         ,       <|,>        ,         ,         ,
 //      <1                 ±  ±  , <2     , <3      , <4     |, 4>      , 3>      , 2>      , ±  ±  1>
                       ),
