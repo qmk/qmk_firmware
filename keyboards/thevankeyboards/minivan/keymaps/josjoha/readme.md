@@ -85,7 +85,7 @@ See below for other compile variants of `_MOV`.
 
 ![Minivan layout Image 0](http://socialism.nl/misc/minivan/minivan_layer0.jpg)
 
-![Minivan layout Image 1](http://socialism.nl/misc/minivan/minivan_layer1.jpg)
+![Minivan layout Image 1](http://socialism.nl/misc/minivan/minivan_layer1_v2.jpg)
 
 ![Minivan layout Image 2](http://socialism.nl/misc/minivan/minivan_layer2.jpg)
 
@@ -94,7 +94,7 @@ See below for other compile variants of `_MOV`.
 There is an alternative flat arrow configuration for this layer (see below),
 and options to compile with the 'arrow' hardware layout.
 
-![Minivan layout Image 4](http://socialism.nl/misc/minivan/minivan_layer4.jpg)
+![Minivan layout Image 4](http://socialism.nl/misc/minivan/minivan_layer4_v2.jpg)
 
 ![Minivan layout Image 5](http://socialism.nl/misc/minivan/minivan_layer5.jpg)
 
@@ -555,7 +555,7 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   (), and quotation marks on the same keys as on the BASE layer, while
   others have vague or no logic to their placement such as ° (Degrees
   symbol), 🙂 and others, which would have to be learned. You also have
-  'correct' quotation marks for some languages. Dutch: „he said” English:
+  correct quotation marks for some languages. Dutch: „he said” English:
   “he said”.
  
   With the 'descramble' mode, you never have to fear not being able to
@@ -566,6 +566,8 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   a use for both, but not for 'descramble' (typing Dvorak on a computer
   already set to Dvorak). Keymap.c has an option to easily change
   ƒ into €.
+
+  On average every key has 9.5 meanings (including upper/lower case).
 
   Conclusion: most is as normal or has some logic to it to help you
   remember, a bunch is better than your normal keyboard, some things
@@ -629,7 +631,7 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
         closely as possible. The _LTR/_DDL and _NSY/_DDN layers have the
         same status, they should both work perfectly with everything.
 
-        Writer of this (Jos B,) will probably not do this, but if someone likes 
+        Writer of this (Jos B,) will probably not do it, but if someone likes 
         to contribute something, that should work.
 
 

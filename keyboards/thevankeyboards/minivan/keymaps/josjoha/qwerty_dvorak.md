@@ -23,13 +23,13 @@ Qwerty+Dvorak keymaps
 
 ![Minivan layout Image 0](http://socialism.nl/misc/minivan/minivan_layer0_qwerty.jpg)
 
-![Minivan layout Image 1](http://socialism.nl/misc/minivan/minivan_layer1_qwerty.jpg)
+![Minivan layout Image 1](http://socialism.nl/misc/minivan/minivan_layer1_qwerty_v2.jpg)
 
 ──────────Dvorak───────────────
 
 ![Minivan layout Image 0](http://socialism.nl/misc/minivan/minivan_layer0_qwerty_dvorak.jpg)
 
-![Minivan layout Image 1](http://socialism.nl/misc/minivan/minivan_layer1_qwerty_dvorak.jpg)
+![Minivan layout Image 1](http://socialism.nl/misc/minivan/minivan_layer1_qwerty_dvorak_v2.jpg)
 
 ──────────in common────────────
 
@@ -40,7 +40,7 @@ Qwerty+Dvorak keymaps
 There is an alternative flat arrow configuration for this layer (see below),
 and options to compile with the 'arrow' hardware layout.
 
-![Minivan layout Image 4](http://socialism.nl/misc/minivan/minivan_layer4.jpg)
+![Minivan layout Image 4](http://socialism.nl/misc/minivan/minivan_layer4_v2.jpg)
 
 ![Minivan layout Image 5](http://socialism.nl/misc/minivan/minivan_layer5.jpg)
 
