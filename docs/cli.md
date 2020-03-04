@@ -71,12 +71,34 @@ There are some limitations to the local CLI compared to the global CLI:
 
 ## `qmk cformat`
 
-This command formats C code using clang-format. Run it with no arguments to format all core code, or pass filenames on the command line to run it on specific files.
+This command formats C code using clang-format. 
 
-**Usage**:
+Run it with no arguments to format all core code that has been changed. Default checks `origin/master` with `git diff`, branch can be changed using `-b <branch_name>`
+
+Run it with `-a` to format all core code, or pass filenames on the command line to run it on specific files.
+
+**Usage for specified files**:
 
 ```
 qmk cformat [file1] [file2] [...] [fileN]
+```
+
+**Usage for all core files**:
+
+```
+qmk cformat -a
+```
+
+**Usage for only changed files against origin/master**:
+
+```
+qmk cformat
+```
+
+**Usage for only changed files against branch_name**:
+
+```
+qmk cformat -b branch_name
 ```
 
 ## `qmk compile`
