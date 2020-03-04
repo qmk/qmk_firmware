@@ -28,7 +28,7 @@ enum layer_names {
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
     NICKURL = SAFE_RANGE,
-    QMKURL
+    ALTTAB
 };
 
 enum unicode_names {
@@ -65,13 +65,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESCAPE, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPACE,
         KC_TAB, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCOLON, KC_BSLASH,
         KC_LSHIFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMMA, KC_DOT, KC_UP, KC_DELETE,
-        KC_LCTRL, KC_LGUI, MO(_UP_1), KC_SPACE, KC_ENTER, KC_LALT, KC_LEFT, KC_DOWN, KC_RIGHT
+        KC_LCTRL, KC_LGUI, MO(_UP_1), KC_SPACE, KC_ENTER, MO(_UP_2), KC_LEFT, KC_DOWN, KC_RIGHT
     ),
     [_UP_1] = LAYOUT(
         KC_GRAVE, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, _______,
-        KC_CAPS, _______, _______, _______, _______, _______, _______, _______, KC_LBRACKET, KC_RBRACKET, KC_QUOTE, KC_SLASH,
-        _______, _______, _______, _______, _______, _______, _______, _______, KC_MINUS, KC_EQUAL, MO(_UP_2), _______,
-        _______, _______, _______, _______, _______, _______, KC_HOME, _______, KC_END
+        ALTTAB, _______, _______, _______, _______, _______, _______, _______, KC_LBRACKET, KC_RBRACKET, KC_QUOTE, KC_SLASH,
+        KC_LALT, _______, _______, _______, _______, _______, _______, _______, KC_MINUS, KC_EQUAL, _______, _______,
+        KC_CAPS, _______, _______, _______, _______, _______, KC_HOME, _______, KC_END
     ),
     [_UP_2] = LAYOUT(
         NICKURL, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, _______,
@@ -91,7 +91,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             } else {
                 tap_code(KC_ENTER);
             }
-            return false;
+            return true;
+            break;
+        
+        case ALTTAB:
+            if (record->event.pressed) {
+                register_key(KC_LALT);
+                tap_code(KC_TAB);
+                unregister_key(KC_LALT);
+            }
+            return true;
+            break;
 
         default:
             return true;
@@ -104,9 +114,9 @@ void dip_switch_update_user(uint8_t index, bool active) {
     switch (index) {
         case 0:
             if(active) {
-                switch(biton32(layer_state)) {
+                switch(get_highest_layer(layer_state)) {
                 case _BASE:
-                    tap_code16(C(KC_F));
+                    tap_code(C(KC_F));
                     break;
                 case _UP_1:
                     tap_code(KC_MUTE);

@@ -1,12 +1,13 @@
 # abacus
 
-![abacus](imgur.com image replace me!)
+![abacus](https://i.imgur.com/IFtuWaK.jpg)
 
-A short description of the keyboard/project
+A first attempt at a PCB design for a mechanical keyboard. Includes encoder and RGB
 
-* Keyboard Maintainer: [nickolaij](https://github.com/yourusername)
-* Hardware Supported: The PCBs, controllers supported
-* Hardware Availability: Links to where you can find this hardware
+* PCB Files: [Abacus PCB Github](https://github.com/nickolaij/Abacus_Rev2)
+* Keyboard Maintainer: [nickolaij](https://github.com/nickolaij)
+* Hardware Supported: [Elite C Microcontroller](https://keeb.io/products/elite-c-usb-c-pro-micro-replacement-arduino-compatible-atmega32u4) or Pro Micro Microcontroller (Elite C has additional pins for encoder)
+* Hardware Availability: https://github.com/nickolaij
 
 Make example for this keyboard (after setting up your build environment):
 
