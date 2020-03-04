@@ -203,6 +203,8 @@ The 'descramble' system
   Layers (text)
   =============
  
+     Layer _LTR (LeTteRs, standard Dvorak)
+
                                              | Right hand
      <pink2    <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pinky2>    // Keys by finger
      -o-                                    <|>                                    ... // -o- BASE access
