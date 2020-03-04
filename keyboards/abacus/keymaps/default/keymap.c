@@ -107,9 +107,7 @@ void dip_switch_update_user(uint8_t index, bool active) {
             if(active) {
                 switch(biton32(layer_state)) {
                 case _BASE:
-                    register_code(KC_LCTRL);
-                    tap_code(KC_F);
-                    unregister_code(KC_LCTRL);
+                    tap_code16(C(KC_F));
                     break;
                 case _UP_1:
                     tap_code(KC_MUTE);
