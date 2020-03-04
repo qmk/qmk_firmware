@@ -87,7 +87,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case NICKURL:
             if (record->event.pressed) {
-                // when keycode QMKBEST is pressed
                 SEND_STRING("https://www.github.com/nickolaij");
             } else {
                 tap_code(KC_ENTER);
