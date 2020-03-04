@@ -58,7 +58,7 @@ ARM MCU 用の設定はしばしば非常に複雑です。これは、多くの
 |`#STM32_I2C_XXX_DMA_PRIORITY` |ハードウェアドライバ XXX に使用する DMA ユニットの優先度（上級者向け）                         |1      |
 
 
-次に `halconf.h` 内で `#define HAL_USE_I2C` を `TRUE` にします。これにより ChibiOS が I2C ドライバを読み込みます。
+次に `halconf.h` ファイル内で `#define HAL_USE_I2C` を `TRUE` にします。これにより ChibiOS が I2C ドライバを読み込みます。
 
 
 最後に、使用したい I2C ハードウェアドライバに応じて正しい GPIO ピンを割り当てます。
