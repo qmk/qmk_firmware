@@ -1,20 +1,20 @@
 # The default keymap for PRKL30
 
-![prkl30 default layout image](https://i.imgur.com/at3N1SQ.png "default")
+![prkl30 default layout image](https://i.imgur.com/tekFaHW.png "default")
 
 default layout
 
 
-![prkl30 lower layout image](https://i.imgur.com/i0hHPJM.png "lower")
+![prkl30 lower layout image](https://i.imgur.com/NzLcXrU.png "lower")
 
 lower layout
 
 
-![prkl30 raise layout image](https://i.imgur.com/Rzgs1gH.png "raise")
+![prkl30 raise layout image](https://i.imgur.com/BpC8T6p.png "raise")
 
 raise layout
 
 
-![prkl30 fn layout image](https://i.imgur.com/wAqetLH.png "fn")
+![prkl30 fn layout image](https://i.imgur.com/gwgIKqj.png "fn")
 
 fn layout
