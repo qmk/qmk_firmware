@@ -2,7 +2,7 @@
 
 ![abacus](https://i.imgur.com/IFtuWaK.jpg)
 
-A first attempt at a PCB design for a mechanical keyboard. Includes encoder and RGB
+A first attempt at a PCB design for a mechanical keyboard. Includes rotary encoder and RGB underglow.
 
 * PCB Files: [Abacus PCB Github](https://github.com/nickolaij/Abacus_Rev2)
 * Keyboard Maintainer: [nickolaij](https://github.com/nickolaij)
