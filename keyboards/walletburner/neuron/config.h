@@ -4,7 +4,7 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x5742 // WB
-#define PRODUCT_ID      0x6e75 // NU
+#define PRODUCT_ID      0x6E75 // NU
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Walletburner
 #define PRODUCT         Neuron
@@ -47,4 +47,3 @@
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
 #endif
-
