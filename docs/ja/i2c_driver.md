@@ -1,5 +1,11 @@
 # I2C マスタドライバ
 
+<!---
+  grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
+  original document: 85041ff05:docs/i2c_driver.md
+  git diff 85041ff05 HEAD -- docs/i2c_driver.md | cat
+-->
+
 QMK で使われる I2C マスタドライバには、MCU 間のポータビリティを提供するための一連の関数が用意されています。
 
 ## 使用できる関数
