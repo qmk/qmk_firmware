@@ -2,8 +2,8 @@
 
 A hotswap 60% RGB keyboard.
 
-* Keyboard Maintainer: MILLER
-* Hardware Supported: MILLER
+* Keyboard Maintainer: [moyi4681](https://github.com/moyi4681)
+* Hardware Supported: MILLER GM-862
 * Hardware Availability: MILLER
 
 Make example for this keyboard (after setting up your build environment):
