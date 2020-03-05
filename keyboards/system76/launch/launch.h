@@ -1,5 +1,5 @@
-#ifndef LRRR_H
-#define LRRR_H
+#ifndef LAUNCH_H
+#define LAUNCH_H
 
 #include "quantum.h"
 
@@ -21,4 +21,4 @@
     { K50, K51, K52, K53, K54, ___, K56, K57, K58, K59, K5A, K5B, K5C, ___, ___ }, \
 }
 
-#endif // UGLYDENSE_H
+#endif // LAUNCH_H

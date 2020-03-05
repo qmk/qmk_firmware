@@ -8,8 +8,8 @@
 #define PRODUCT_ID      0x1776
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    System76
-#define PRODUCT         Lrrr
-#define DESCRIPTION     Lrrr Keyboard
+#define PRODUCT         Launch
+#define DESCRIPTION     Launch Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 6
