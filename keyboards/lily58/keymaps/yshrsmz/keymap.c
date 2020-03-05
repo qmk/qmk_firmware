@@ -71,11 +71,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   `----------------------------'           '------''--------------------'
  */
 [_LOWER] = LAYOUT(
-  KC_TILD, S(KC_1), S(KC_2), S(KC_3), S(KC_4), S(KC_5),                   S(KC_6), S(KC_7), S(KC_8),S(KC_9), S(KC_0), S(KC_EQL),
+  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR,KC_LPRN, KC_RPRN, KC_PLUS,
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,
   _______, _______, _______, _______, _______, _______,                   KC_LEFT, KC_DOWN, KC_UP,  KC_RGHT, KC_PGUP, _______,
   _______, _______, _______, _______, _______, _______, KC_LCBR, KC_RCBR, KC_HOME, KC_END,  LALT(KC_LEFT), LALT(KC_RGHT), KC_PGDN, _______,
-                             _______, _______, _______, _______, _______,  _______, _______, _______
+                             _______, _______, _______, _______, _______, _______, _______, _______
 ),
 /* RAISE
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -93,11 +93,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_RAISE] = LAYOUT(
-  KC_GRV,  S(KC_1), S(KC_2), S(KC_3), S(KC_4), S(KC_5),                     S(KC_6), S(KC_7), S(KC_8), S(KC_9), S(KC_0), S(KC_EQL),
-  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                       _______, _______, _______, _______, _______, _______,
-  KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,                      KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_PGUP, _______,
-  _______, _______, _______, _______, _______, _______,  KC_LCBR, KC_RCBR,  KC_HOME, KC_END,  LALT(KC_LEFT), LALT(KC_RGHT), KC_PGDN, _______,
-                             _______, _______, _______,  KC_DEL,  _______,  _______, _______, _______
+  KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR,KC_LPRN, KC_RPRN, KC_PLUS,
+  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     _______, _______, _______, _______, _______, _______,
+  KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,                    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_PGUP, _______,
+  _______, _______, _______, _______, _______, _______, KC_LCBR, KC_RCBR, KC_HOME, KC_END,  LALT(KC_LEFT), LALT(KC_RGHT), KC_PGDN, _______,
+                             _______, _______, _______, KC_DEL,  _______, _______, _______, _______
 ),
 /* ADJUST
  * ,-----------------------------------------.                    ,-----------------------------------------.
