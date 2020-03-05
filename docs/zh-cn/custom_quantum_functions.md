@@ -381,7 +381,7 @@ user_config_t user_config;
 
 以上代码建立了一个32位结构体，该结构体可以存储设置在内存中并可用于写入EEPROM。如此这般将无需定义变量，因为在结构体中已然定义。要记住`bool` (布尔)值使用1位, `uint8_t`使用8位, `uint16_t`使用16位。你可以混合搭配使用，但是顺序记错可能会招致麻烦，因为那会改变写入写出的值。 
 
- `layer_state_set_*`函数中使用了`rgb_layer_change`，使用了`keyboard_post_init_user`和`process_record_user`来配置一切。<!--TODO：本行需要改进，可能在函数包含关系上含有错误>
+ `layer_state_set_*`函数中使用了`rgb_layer_change`，使用了`keyboard_post_init_user`和`process_record_user`来配置一切。<!--TODO：本行需要改进，可能在函数包含关系上含有错误-->
 
 首先要使用`keyboard_post_init_user`，你要加入`eeconfig_read_user()`来填充你刚刚创建的结构体。然后您可以立即使用这个结构来控制您的映射中的功能。就像这样： 
 ```c
