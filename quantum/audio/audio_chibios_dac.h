@@ -86,9 +86,10 @@
 /**
  * choose pins for the speaker
  */
-#ifndef A4_AUDIO
-#    define A4_AUDIO
-//#define A5_AUDIO
+#if !defined(A4_AUDIO) && !defined(A5_AUDIO)
+#    pragma message "Audio feature enabled, but not pin selected - see docs/feature_audio under the ARM DAC settings. Falling back to A5_AUDIO"
+#    define A5_AUDIO
+//TODO: go through a breaking change, and add A5_AUDIO to all keyboards currently using AUDIO on STM32 based boards
 #endif
 
 uint8_t  dac_number_of_voices(void);
