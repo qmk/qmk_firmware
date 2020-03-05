@@ -63,11 +63,13 @@ void pointing_device_task(void){
 }
 
 void led_init(void) {
-    DDRD |= (1<<1);
-    DDRF |= (1<<5) | (1<<6);
+    setPinOutput(D1);
+    setPinOutput(F5);
+    setPinOutput(F6);
 
-	PORTD |= (1<<1);
-	PORTF |= (1<<5) | (1<<6);
+	writePinHigh(D1);
+    writePinHigh(F5);
+    writePinHigh(F6);
 }
 
 
