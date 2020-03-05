@@ -19,17 +19,18 @@
 #ifndef CONFIG_H
 
 /* USB Device descriptor parameter */
-#define DEVICE_VER      0x0001
+#define VENDOR_ID       0xE0E0
+#define PRODUCT_ID      0x0030
+#define DEVICE_VER      0x0002
 #define MANUFACTURER    Ergorius & Tooni Skyy
 #define PRODUCT         PRKL30
-#define DESCRIPTION     Mechanical keyboard
+#define DESCRIPTION     30% Mechanical keyboard
 
 /* PRKL30 feather pinout */
 #define MATRIX_ROW_PINS { F4, F1, F0, D2}
 #define MATRIX_COL_PINS { D3, D1, B7, D6, C7, B6, B5, D7, C6, D0}
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-#define NUMBER_OF_ENCODERS 1
 #define ENCODERS_PAD_A { F7 }
 #define ENCODERS_PAD_B { F6 }
 #define ENCODER_RESOLUTION 4
@@ -46,7 +47,7 @@
 
 #define RGB_DI_PIN D1
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 6
+#define RGBLED_NUM 13
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
