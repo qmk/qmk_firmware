@@ -69,7 +69,7 @@ STM32 MCU では、使用するハードウェアドライバにより、さま�
 | `I2C1_SDA_BANK`       | SDA に使うピンのバンク (`GPIOA`, `GPIOB`, `GPIOC`)                                               | `GPIOB` |
 | `I2C1_SCL`            | SCL のピン番号 (0-9)                                                                             | `6`     |
 | `I2C1_SDA`            | SDA のピン番号 (0-9)                                                                             | `7`     |
-| `I2C1_BANK`（非推奨） | `GPIOA`, `GPIOB`, `GPIOC` で使用するピンのバンク。後継は `I2C1_SCL_BANK`, `I2C1_SDA_BANK` です。 | `GPIOB` |
+| `I2C1_BANK`（非推奨） | 使用するピンのバンク (`GPIOA`, `GPIOB`, `GPIOC`)。後継は `I2C1_SCL_BANK`, `I2C1_SDA_BANK` です。 | `GPIOB` |
 
 ChibiOS I2C ドライバの設定項目は STM32 MCU の種類に依存します。
 
