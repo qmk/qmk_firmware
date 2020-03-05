@@ -96,7 +96,7 @@ planck_rev5_default.hex
 
 这将会检查键盘的配置并尝试基于指定bootloader刷新键盘。也就是说你无须知道你的键盘使用的是哪种bootloader。只需运行该命令，编译刷新一蹴而就。
 
-但是这依赖于键盘设置的bootloader。如果该信息未配置或你的键盘板并没有支持的目标来刷新，你将会见到以下错误<!--TODO：翻译不准确，原文为： If this information is not configured, or you're using a board that doesn't have a supported target to flash it, you will see this error>
+但是这依赖于键盘设置的bootloader。如果该信息未配置或你的键盘板并没有支持的目标来刷新，你将会见到以下错误<!--TODO：翻译不准确，原文为： If this information is not configured, or you're using a board that doesn't have a supported target to flash it, you will see this error-->
 
     WARNING: This board's bootloader is not specified or is not supported by the ":flash" target at this time.
 
@@ -106,7 +106,7 @@ planck_rev5_default.hex
 
 欲了解更多，详见[刷新说明和bootloader信息](zh-cn/flashing.md)。 
 
-如果你知道你用的是何种bootloader，当你编译固件时，你可以向 `make`命令添加其他参数来自动化刷新过程。<!--译者注：添加啥啊，你也没说> 
+如果你知道你用的是何种bootloader，当你编译固件时，你可以向 `make`命令添加其他参数来自动化刷新过程。<!--译者注：添加啥啊，你也没说--> 
 
 ### DFU
 
@@ -329,7 +329,7 @@ Transitioning to dfuMANIFEST state
 
 有一些DFU命令你可以用于刷新STM32设备：
 
-* `:dfu-util` - 刷新STM32设备的默认命令，会等待直到STM32的bootloader可用. .<!--TODO：present不知道什么意思，自己理解翻译的，原文为：and will wait until an STM32 bootloader is present. .>  
+* `:dfu-util` - 刷新STM32设备的默认命令，会等待直到STM32的bootloader可用. .<!--TODO：present不知道什么意思，自己理解翻译的，原文为：and will wait until an STM32 bootloader is present. .-->  
 * `:dfu-util-split-left` - 刷新正常的固件，就像默认选项(`:dfu-util`)那样。但是也会为分体式键盘配置"左侧"EEPROM设置。
 * `:dfu-util-split-right` - 刷新正常的固件，就像默认选项(`:dfu-util`)那样。但是也会为分体式键盘配置"右侧"EEPROM设置。
 * `:st-link-cli` - 该命令允许你是通过ST-LINK的命令行实用程序刷新固件，而不是用DFU实用程序。
