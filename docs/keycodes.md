@@ -4,7 +4,9 @@ When defining a [keymap](keymap.md) each key needs a valid key definition. This 
 
 This is a reference only. Each group of keys links to the page documenting their functionality in more detail.
 
-## [Basic Keycodes](keycodes_basic.md)
+## Basic Keycodes
+
+See also: [Basic Keycodes](keycodes_basic.md)
 
 |Key                    |Aliases                       |Description                                    |
 |-----------------------|------------------------------|-----------------------------------------------|
@@ -206,7 +208,9 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_BRIGHTNESS_UP`     |`KC_BRIU`                     |Brightness Up                                  |
 |`KC_BRIGHTNESS_DOWN`   |`KC_BRID`                     |Brightness Down                                |
 
-## [Quantum Keycodes](quantum_keycodes.md#qmk-keycodes)
+## Quantum Keycodes
+
+See also: [Quantum Keycodes](quantum_keycodes.md#qmk-keycodes)
 
 |Key           |Aliases  |Description                                            |
 |--------------|---------|-------------------------------------------------------|
@@ -214,7 +218,9 @@ This is a reference only. Each group of keys links to the page documenting their
 |`DEBUG`       |         |Toggle debug mode                                      |
 |`EEPROM_RESET`|`EEP_RST`|Reinitializes the keyboard's EEPROM (persistent memory)|
 
-## [Audio Keys](feature_audio.md)
+## Audio Keys
+
+See also: [Audio](feature_audio.md)
 
 |Key             |Aliases  |Description                       |
 |----------------|---------|----------------------------------|
@@ -230,7 +236,9 @@ This is a reference only. Each group of keys links to the page documenting their
 |`MU_TOG`        |         |Toggles Music Mode                |
 |`MU_MOD`        |         |Cycles through the music modes    |
 
-## [Backlighting](feature_backlight.md)
+## Backlighting
+
+See also: [Backlighting](feature_backlight.md)
 
 |Key      |Description                               |
 |---------|------------------------------------------|
@@ -242,7 +250,9 @@ This is a reference only. Each group of keys links to the page documenting their
 |`BL_DEC` |Decrease the backlight level              |
 |`BL_BRTG`|Toggle backlight breathing                |
 
-## [Bootmagic](feature_bootmagic.md)
+## Bootmagic
+
+See also: [Bootmagic](feature_bootmagic.md)
 
 |Key                               |Aliases  |Description                                                               |
 |----------------------------------|---------|--------------------------------------------------------------------------|
@@ -276,7 +286,9 @@ This is a reference only. Each group of keys links to the page documenting their
 |`MAGIC_EE_HANDS_LEFT`             |`EH_LEFT`|Set the master half of a split keyboard as the left hand (for `EE_HANDS`) |
 |`MAGIC_EE_HANDS_RIGHT`            |`EH_RGHT`|Set the master half of a split keyboard as the right hand (for `EE_HANDS`)|
 
-## [Bluetooth](feature_bluetooth.md)
+## Bluetooth
+
+See also: [Bluetooth](feature_bluetooth.md)
 
 |Key       |Description                                   |
 |----------|----------------------------------------------|
@@ -284,7 +296,9 @@ This is a reference only. Each group of keys links to the page documenting their
 |`OUT_USB` |USB only                                      |
 |`OUT_BT`  |Bluetooth only                                |
 
-## [Dynamic Macros](feature_dynamic_macros.md)
+## Dynamic Macros
+
+See also: [Dynamic Macros](feature_dynamic_macros.md)
 
 |Key              |Aliases  |Description                                       |
 |-----------------|---------|--------------------------------------------------|
@@ -294,19 +308,25 @@ This is a reference only. Each group of keys links to the page documenting their
 |`DYN_MACRO_PLAY2`|`DM_PLY2`|Replay Macro 2                                    |
 |`DYN_REC_STOP`   |`DM_RSTP`|Finish the macro that is currently being recorded.|
 
-## [Grave Escape](feature_grave_esc.md)
+## Grave Escape
+
+See also: [Grave Escape](feature_grave_esc.md)
 
 |Key        |Aliases  |Description                                                       |
 |-----------|---------|------------------------------------------------------------------|
 |`GRAVE_ESC`|`KC_GESC`|Escape when pressed, <code>&#96;</code> when Shift or GUI are held|
 
-## [Key Lock](feature_key_lock.md)
+## Key Lock
+
+See also: [Key Lock](feature_key_lock.md)
 
 |Key      |Description                                                   |
 |---------|--------------------------------------------------------------|
 |`KC_LOCK`|Hold down the next key pressed, until the key is pressed again|
 
-## [Layer Switching](feature_advanced_keycodes.md#switching-and-toggling-layers)
+## Layer Switching
+
+See also: [Layer Switching](feature_advanced_keycodes.md#switching-and-toggling-layers)
 
 |Key             |Description                                                                       |
 |----------------|----------------------------------------------------------------------------------|
@@ -319,13 +339,17 @@ This is a reference only. Each group of keys links to the page documenting their
 |`TO(layer)`     |Turns on `layer` and turns off all other layers, except the default layer |
 |`TT(layer)`     |Normally acts like MO unless it's tapped multiple times, which toggles `layer` on |
 
-## [Leader Key](feature_leader_key.md)
+## Leader Key
+
+See also: [Leader Key](feature_leader_key.md)
 
 |Key      |Description             |
 |---------|------------------------|
 |`KC_LEAD`|Begins a leader sequence|
 
-## [Mouse Keys](feature_mouse_keys.md)
+## Mouse Keys
+
+See also: [Mouse Keys](feature_mouse_keys.md)
 
 |Key             |Aliases  |Description                |
 |----------------|---------|---------------------------|
@@ -346,7 +370,9 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_MS_ACCEL1`  |`KC_ACL1`|Set mouse acceleration to 1|
 |`KC_MS_ACCEL2`  |`KC_ACL2`|Set mouse acceleration to 2|
 
-## [Modifiers](feature_advanced_keycodes.md#modifier-keys)
+## Modifiers
+
+See also: [Modifier Keys](feature_advanced_keycodes.md#modifier-keys)
 
 |Key       |Aliases                        |Description                                         |
 |----------|-------------------------------|----------------------------------------------------|
@@ -366,7 +392,9 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_MEH`  |                               |Left Control, Shift and Alt                         |
 |`KC_HYPR` |                               |Left Control, Shift, Alt and GUI                    |
 
-## [Mod-Tap Keys](mod_tap.md)
+## Mod-Tap Keys
+
+See also: [Mod-Tap](mod_tap.md)
 
 |Key          |Aliases                                                          |Description                                            |
 |-------------|-----------------------------------------------------------------|-------------------------------------------------------|
@@ -387,7 +415,9 @@ This is a reference only. Each group of keys links to the page documenting their
 |`MEH_T(kc)`  |                                                                 |Left Control, Shift and Alt when held, `kc` when tapped|
 |`HYPR_T(kc)` |`ALL_T(kc)`                                                      |Left Control, Shift, Alt and GUI when held, `kc` when tapped - more info [here](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
 
-## [RGB Lighting](feature_rgblight.md)
+## RGB Lighting
+
+See also: [RGB Lighting](feature_rgblight.md)
 
 |Key                |Aliases   |Description                                                         |
 |-------------------|----------|--------------------------------------------------------------------|
@@ -410,7 +440,9 @@ This is a reference only. Each group of keys links to the page documenting their
 |`RGB_MODE_GRADIENT`|`RGB_M_G` |Static gradient animation mode                                      |
 |`RGB_MODE_RGBTEST` |`RGB_M_T` |Red,Green,Blue test animation mode                                  |
 
-## [RGB Matrix Lighting](feature_rgb_matrix.md)
+## RGB Matrix Lighting
+
+See also: [RGB Matrix Lighting](feature_rgb_matrix.md)
 
 |Key                |Aliases   |Description                                                                           |
 |-------------------|----------|--------------------------------------------------------------------------------------|
@@ -426,14 +458,18 @@ This is a reference only. Each group of keys links to the page documenting their
 |`RGB_SPI`          |          |Increase effect speed (does not support eeprom yet), decrease speed when Shift is held|
 |`RGB_SPD`          |          |Decrease effect speed (does not support eeprom yet), increase speed when Shift is held|
 
-## [Thermal Printer](feature_thermal_printer.md)
+## Thermal Printer
+
+See also: [Thermal Printer](feature_thermal_printer.md)
 
 |Key        |Description                             |
 |-----------|----------------------------------------|
 |`PRINT_ON` |Start printing everything the user types|
 |`PRINT_OFF`|Stop printing everything the user types |
 
-## [US ANSI Shifted Symbols](keycodes_us_ansi_shifted.md)
+## US ANSI Shifted Symbols
+
+See also: [US ANSI Shifted Symbols](keycodes_us_ansi_shifted.md)
 
 |Key                     |Aliases            |Description|
 |------------------------|-------------------|-----------|
@@ -459,14 +495,18 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_RIGHT_ANGLE_BRACKET`|`KC_RABK`, `KC_GT` |`>`        |
 |`KC_QUESTION`           |`KC_QUES`          |`?`        |
 
-## [One Shot Keys](one_shot_keys.md)
+## One Shot Keys
+
+See also: [One Shot Keys](one_shot_keys.md)
 
 |Key         |Description                       |
 |------------|----------------------------------|
 |`OSM(mod)`  |Hold `mod` for one keypress       |
 |`OSL(layer)`|Switch to `layer` for one keypress|
 
-## [Space Cadet](feature_space_cadet.md)
+## Space Cadet
+
+See also: [Space Cadet](feature_space_cadet.md)
 
 |Key        |Description                             |
 |-----------|----------------------------------------|
@@ -478,7 +518,9 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_RAPC`  |Right Alt when held, `)` when tapped    |
 |`KC_SFTENT`|Right Shift when held, Enter when tapped|
 
-## [Swap Hands](feature_swap_hands.md)
+## Swap Hands
+
+See also: [Swap Hands](feature_swap_hands.md)
 
 |Key        |Description                                                              |
 |-----------|-------------------------------------------------------------------------|
@@ -490,7 +532,9 @@ This is a reference only. Each group of keys links to the page documenting their
 |`SH_TG`    |Toggles swap on and off with every key press.                            |
 |`SH_TT`    |Toggles with a tap; momentary when held.                                 |
 
-## [Unicode Support](feature_unicode.md)
+## Unicode Support
+
+See also: [Unicode Support](feature_unicode.md)
 
 |Key                   |Aliases  |Description                                                     |
 |----------------------|---------|----------------------------------------------------------------|
