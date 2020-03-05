@@ -16,8 +16,6 @@
 #pragma once
 #include "config_common.h"
 
-#define CONFIG_H
-
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xE0E0
 #define PRODUCT_ID      0x0030
