@@ -662,17 +662,17 @@ static void send_mouse(report_mouse_t *report) {
 #endif
 }
 
-/** \brief Send System
+/** \brief Send Extra
  *
  * FIXME: Needs doc
  */
-static void send_system(uint16_t data) {
 #ifdef EXTRAKEY_ENABLE
+static void send_extra(uint8_t report_id, uint16_t data) {
     uint8_t timeout = 255;
 
     if (USB_DeviceState != DEVICE_STATE_Configured) return;
 
-    report_extra_t r = {.report_id = REPORT_ID_SYSTEM, .usage = data - SYSTEM_POWER_DOWN + 1};
+    report_extra_t r = {.report_id = report_id, .usage = data};
     Endpoint_SelectEndpoint(SHARED_IN_EPNUM);
 
     /* Check if write ready for a polling interval around 10ms */
@@ -681,6 +681,16 @@ static void send_system(uint16_t data) {
 
     Endpoint_Write_Stream_LE(&r, sizeof(report_extra_t), NULL);
     Endpoint_ClearIN();
+}
+#endif
+
+/** \brief Send System
+ *
+ * FIXME: Needs doc
+ */
+static void send_system(uint16_t data) {
+#ifdef EXTRAKEY_ENABLE
+    send_extra(REPORT_ID_SYSTEM, data);
 #endif
 }
 
@@ -690,8 +700,7 @@ static void send_system(uint16_t data) {
  */
 static void send_consumer(uint16_t data) {
 #ifdef EXTRAKEY_ENABLE
-    uint8_t timeout = 255;
-    uint8_t where   = where_to_send();
+    uint8_t where = where_to_send();
 
 #    ifdef BLUETOOTH_ENABLE
     if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
@@ -729,15 +738,7 @@ static void send_consumer(uint16_t data) {
         return;
     }
 
-    report_extra_t r = {.report_id = REPORT_ID_CONSUMER, .usage = data};
-    Endpoint_SelectEndpoint(SHARED_IN_EPNUM);
-
-    /* Check if write ready for a polling interval around 10ms */
-    while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
-    if (!Endpoint_IsReadWriteAllowed()) return;
-
-    Endpoint_Write_Stream_LE(&r, sizeof(report_extra_t), NULL);
-    Endpoint_ClearIN();
+    send_extra(REPORT_ID_CONSUMER, data);
 #endif
 }
 
@@ -869,7 +870,7 @@ void virtser_recv(uint8_t c) {
 void virtser_task(void) {
     uint16_t count = CDC_Device_BytesReceived(&cdc_device);
     uint8_t  ch;
-    if (count) {
+    for (; count; --count) {
         ch = CDC_Device_ReceiveByte(&cdc_device);
         virtser_recv(ch);
     }
