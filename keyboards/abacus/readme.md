@@ -1,4 +1,4 @@
-# abacus
+# Abacus
 
 ![abacus](https://i.imgur.com/IFtuWaK.jpg)
 
