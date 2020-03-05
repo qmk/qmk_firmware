@@ -6,13 +6,13 @@
   git diff c9e3fa6f7 HEAD -- docs/hardware_avr.md | cat
 -->
 
-このページでは QMK における AVR マイコンのサポートについて説明します。AVR マイコンには、Atmel 社製の atmega32u4、atmega32u2、at90usb1286 やその他のマイコンを含みます。AVR マイコンは8ビットの MCU で簡単に動かせるよう設計されています。キーボードでよく使用される AVR マイコンには USB 機能や大きなキーボードマトリクスのためのたくさんの GPIO を搭載しています。現在、キーボード用の MCU として最も一般的に使われています。
+このページでは QMK における AVR マイコンのサポートについて説明します。AVR マイコンには、Atmel 社製の atmega32u4、atmega32u2、at90usb1286 やその他のマイコンを含みます。AVR マイコンは、簡単に動かせるよう設計された8ビットの MCU です。キーボードでよく使用される AVR マイコンには USB 機能や大きなキーボードマトリクスのためのたくさんの GPIO を搭載しています。これらは、現在、キーボードで使われる最も一般的な MCU です。
 
 もし[キーボードガイドライン](ja/hardware_keyboard_guidelines.md)をまだ読んでいなければ、先に目を通すとあなたのキーボードを QMK に対応させる方法をさっと理解できるかもしれません。
 
 ## AVR を使用したキーボードを QMK に追加する
 
-QMK は AVR を使ったキーボードを簡単に動かすための機能をいくつか実装しています。大体のキーボードでは1行もコードを書く必要がありません。まずはじめに、`util/new_keyboard.sh` を実行します。
+QMK は AVR を使ったキーボードを簡単に動かすための機能をいくつか実装しています。大体のキーボードでは1行もコードを書く必要がありません。まずはじめに、`util/new_keyboard.sh` スクリプトを実行します。
 
 ```
 $ ./util/new_keyboard.sh
@@ -38,7 +38,7 @@ or open the directory in your favourite text editor.
 
 ## `readme.md`
 
-このファイルではキーボードに関する説明を記述します。[キーボード Readme テンプレート](ja/documentation_templates.md#keyboard-readmemd-template)に従って `readme.md` を記入して下さい。`readme.md` に画像を載せる場合は、画像をホスティングするための外部サービス、[Imgur](http://imgur.com) などを利用して下さい。
+このファイルではキーボードに関する説明を記述します。[キーボード Readme テンプレート](ja/documentation_templates.md#keyboard-readmemd-template)に従って `readme.md` を記入して下さい。`readme.md` の冒頭に画像を載せる場合は、[Imgur](http://imgur.com) のような画像をホスティングするための外部サービスを利用して下さい。
 
 ## `<keyboard>.c`
 
@@ -63,11 +63,11 @@ or open the directory in your favourite text editor.
 
 それぞれの `k__` 変数はユニークでなければいけません。通常は `k<row><col>` というフォーマットに従って記述されます。
 
-物理マトリクス（後半部）では、`MATRIX_ROWS` に等しい行数が必要であり、各行には正確な数の `MATRIX_COLS` 要素が含まれていなければいけません。物理キーが存在しない場合は、`KC_NO` を使用して空白を埋める事ができます。
+物理マトリクス（後半部）では、`MATRIX_ROWS` に等しい行数が必要であり、各行には正確に `MATRIX_COLS` と等しい数の要素が含まれていなければいけません。物理キーが存在しない場合は、`KC_NO` を使用して空白を埋める事ができます。
 
 ## `config.h`
 
-`config.h` には、ハードウェアや機能の設定を記述します。このファイルで設定できるオプションはたくさんありますが、ここでリストにするには多すぎます。利用できるオプションの概要は[設定オプション](ja/config_options.md)を参照して下さい。
+`config.h` ファイルには、ハードウェアや機能の設定を記述します。このファイルで設定できるオプションはたくさんありますが、ここで列挙にするには多すぎます。利用できるオプションの概要は[設定オプション](ja/config_options.md)を参照して下さい。
 
 ### ハードウェアの設定
 
@@ -88,7 +88,7 @@ or open the directory in your favourite text editor.
 
 ### キーボードマトリクスの設定
 
-`config.h`の次のセクションではキーボードのマトリクスを扱います。最初に設定するのはマトリクスのサイズです。これは通常、常にではありませんが、物理キー配置と同じ数の行・列になります。
+`config.h` ファイルの次のセクションではキーボードのマトリクスを扱います。最初に設定するのはマトリクスのサイズです。これは通常、常にではありませんが、物理キー配置と同じ数の行・列になります。
 
 ```c
 #define MATRIX_ROWS 2
@@ -104,7 +104,7 @@ or open the directory in your favourite text editor.
 ```
 
 
-`MATRIX_ROW_PINS` の要素の数は `MATRIX_ROWS` に定義した数と同じでなければいけません。同様に `MATRIX_COL_PINS` の要素の数も `MATRIX_COLS` と等しい必要があります。`UNUSED_PINS` は定義しなくても問題ありませんがどのピンが空いているのか記録しておきたい場合はできます。
+`MATRIX_ROW_PINS` の要素の数は `MATRIX_ROWS` に定義した数と同じでなければいけません。同様に `MATRIX_COL_PINS` の要素の数も `MATRIX_COLS` と等しい必要があります。`UNUSED_PINS` は定義しなくても問題ありませんがどのピンが空いているのか記録しておきたい場合は定義できます。
 
 最後にダイオードの方向を定義します。これには `COL2ROW` か `ROW2COL` を設定します。
 
@@ -114,7 +114,7 @@ or open the directory in your favourite text editor.
 
 #### ダイレクトピンマトリクス
 
-各スイッチで列と行を共有する代わりに、それぞれ個別のピンとグランドに接続されているキーボードを定義するには、`DIRECT_PINS` を使用します。マッピング定義では列と行で左から右に定義します。`MATRIX_ROWS` と `MATRIX_COLS` 内のサイズに準拠する必要があり、空白を埋めるには `NO_PIN` を使用します。これによって `DIODE_DIRECTION`、`MATRIX_ROW_PINS` と `MATRIX_COL_PINS` の動作を上書きします。
+各スイッチが、列と行のピンを共有する代わりに、それぞれ個別のピンとグランドに接続されているキーボードを定義するには、`DIRECT_PINS` を使用します。マッピング定義では、列と行の各スイッチのピンを左から右の順に定義します。`MATRIX_ROWS` と `MATRIX_COLS` 内のサイズに準拠する必要があり、空白を埋めるには `NO_PIN` を使用します。これによって `DIODE_DIRECTION`、`MATRIX_ROW_PINS`、`MATRIX_COL_PINS` の動作を上書きします。
 
 ```c
 // #define MATRIX_ROW_PINS { D0, D5 }
@@ -148,7 +148,7 @@ QMK では GPIO ピンでのバックライト制御をサポートしていま�
 
 ## `rules.mk`
 
-`rules.mk` を使用して、ビルドするファイルや有効にする機能をQMKへ指示します。atmega32u4 を使っている場合、これらのオプションはデフォルトのままにしておくことが出来ます。他の MCU を使用している場合はいくつかのパラメータを調整する必要があります。
+`rules.mk` ファイルを使用して、ビルドするファイルや有効にする機能をQMKへ指示します。atmega32u4 を使っている場合、これらのオプションはデフォルトのままにしておくことが出来ます。他の MCU を使用している場合はいくつかのパラメータを調整する必要があります。
 
 ### MCU オプション
 
