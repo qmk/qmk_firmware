@@ -1,5 +1,11 @@
 # The default keymap for PRKL30
 
+## Note !
+Due to the main target audience being a small Finnish community, 
+this board's default layout uses nordic keycodes.
+-----
+
+
 ![prkl30 default layout image](https://i.imgur.com/tekFaHW.png "default")
 
 default layout
