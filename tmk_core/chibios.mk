@@ -80,7 +80,8 @@ ifeq ("$(wildcard $(BOARD_MK))","")
 endif
 
 include $(BOARD_MK)
-include $(CHIBIOS)/os/hal/osal/rt/osal.mk
+-include $(CHIBIOS)/os/hal/osal/rt/osal.mk         # ChibiOS <= 19.x
+-include $(CHIBIOS)/os/hal/osal/rt-nil/osal.mk     # ChibiOS >= 20.x
 # RTOS files (optional).
 include $(CHIBIOS)/os/rt/rt.mk
 # Compability with old version
@@ -110,6 +111,9 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld
 else ifneq ("$(wildcard $(TOP_DIR)/drivers/boards/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(TOP_DIR)/drivers/boards/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(STARTUPLD_CONTRIB)/$(MCU_LDSCRIPT).ld)","")
+    LDSCRIPT = $(STARTUPLD_CONTRIB)/$(MCU_LDSCRIPT).ld
+    USE_CHIBIOS_CONTRIB = yes
 else
     LDSCRIPT = $(STARTUPLD)/$(MCU_LDSCRIPT).ld
 endif
@@ -122,16 +126,40 @@ CHIBISRC = $(STARTUPSRC) \
        $(PLATFORMSRC) \
        $(BOARDSRC) \
        $(STREAMSSRC) \
-	   $(STARTUPASM) \
-	   $(PORTASM) \
-	   $(OSALASM)
+       $(CHIBIOS)/os/various/syscalls.c
+
+# Ensure the ASM files are not subjected to LTO -- it'll strip out interrupt handlers otherwise.
+QUANTUM_LIB_SRC += $(STARTUPASM) $(PORTASM) $(OSALASM)
 
 CHIBISRC := $(patsubst $(TOP_DIR)/%,%,$(CHIBISRC))
 
-EXTRAINCDIRS += $(CHIBIOS)/os/license \
+EXTRAINCDIRS += $(CHIBIOS)/os/license $(CHIBIOS)/os/oslib/include \
          $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
          $(STREAMSINC) $(CHIBIOS)/os/various $(COMMON_VPATH)
+
+#
+# ChibiOS-Contrib
+##############################################################################
+
+# Work out if we're using ChibiOS-Contrib by checking if halconf_community.h exists
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/halconf_community.h)","")
+    USE_CHIBIOS_CONTRIB = yes
+else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/halconf_community.h)","")
+    USE_CHIBIOS_CONTRIB = yes
+else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/halconf_community.h)","")
+    USE_CHIBIOS_CONTRIB = yes
+else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/halconf_community.h)","")
+    USE_CHIBIOS_CONTRIB = yes
+else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/halconf_community.h)","")
+    USE_CHIBIOS_CONTRIB = yes
+endif
+
+ifeq ($(strip $(USE_CHIBIOS_CONTRIB)),yes)
+	include $(CHIBIOS_CONTRIB)/os/hal/hal.mk
+	CHIBISRC += $(PLATFORMSRC_CONTRIB) $(HALSRC_CONTRIB)
+	EXTRAINCDIRS += $(PLATFORMINC_CONTRIB) $(HALINC_CONTRIB) $(CHIBIOS_CONTRIB)/os/various
+endif
 
 #
 # Project, sources and paths
@@ -176,8 +204,12 @@ LDFLAGS += -mno-thumb-interwork -mthumb
 LDSYMBOLS =,--defsym=__process_stack_size__=$(USE_PROCESS_STACKSIZE)
 LDSYMBOLS :=$(LDSYMBOLS),--defsym=__main_stack_size__=$(USE_EXCEPTIONS_STACKSIZE)
 LDFLAGS += -Wl,--script=$(LDSCRIPT)$(LDSYMBOLS)
+LDFLAGS += --specs=nano.specs
 
 OPT_DEFS += -DPROTOCOL_CHIBIOS
+
+# Workaround to stop ChibiOS from complaining about new GCC -- it's been fixed for 7/8/9 already
+OPT_DEFS += -DPORT_IGNORE_GCC_VERSION_CHECK=1
 
 MCUFLAGS = -mcpu=$(MCU)
 
