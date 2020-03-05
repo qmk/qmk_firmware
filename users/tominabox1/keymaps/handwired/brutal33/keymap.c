@@ -35,47 +35,54 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef RGBLIGHT_ENABLE
-void keyboard_pre_init_user(void){
-  rgblight_disable_noeeprom();
-}
+const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {100, 30, 5, 1};
 
 void keyboard_post_init_user(void) {
-  //rgblight_enable_noeeprom();
-  sethsv(HSV_WHITE, (LED_TYPE *)&led[0]); // led 0
-  sethsv(HSV_RED,   (LED_TYPE *)&led[1]); // led 1
-  sethsv(HSV_GREEN, (LED_TYPE *)&led[2]); // led 2
-  rgblight_mode_noeeprom(0);
-  rgblight_set(); // Utility functions do not call rgblight_set() automatically, so they need to be called explicitly.
-  layer_state_set_user(layer_state);
+  rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+  // Init the LEDs to a static color
+  setrgb(0, 0, 0, (LED_TYPE *)&led[0]);
+  setrgb(0, 0, 0, (LED_TYPE *)&led[1]);
+  setrgb(0, 0, 0, (LED_TYPE *)&led[2]);
+  rgblight_set();
 }
 
 uint32_t layer_state_set_keymap(uint32_t state){
-    //uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
-    //uint8_t led1r = 0; uint8_t led1g = 0; uint8_t led1b = 0;
-	if (layer_state_cmp(state, 0)) {
-      rgblight_sethsv_range(0,0,0,0,2);
-    }
-    if (layer_state_cmp(state, 1)) {
-      rgblight_sethsv_at(HSV_SPRINGGREEN,0);
-    }
+  uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
+  uint8_t led1r = 0; uint8_t led1g = 0; uint8_t led1b = 0;
+  if (layer_state_cmp(state, _NUM_SYM)) {
+    led0g = 200;
+    led0b = 200;
+  }
+  if (layer_state_cmp(state, _NAV)) {
+    led1r = 50;
+    led1b = 50;
+  }
 
-    if (layer_state_cmp(state, 5)) {
-      rgblight_sethsv_at(HSV_MAGENTA,1);
-    }
+  if (layer_state_cmp(state, _GAME)) {
+    led0g = 50;
+    led0r = 25;
+    led1b = 25;
+    led1r = 100;
+  }
 
-    if (layer_state_cmp(state, 7)) {
-      rgblight_sethsv_at(HSV_GOLD,1);
-    }
- rgblight_set();
+  setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]);
+  setrgb(led1r, led1g, led1b, (LED_TYPE *)&led[1]);
+  rgblight_set();
+
   return state;
 }
 
 bool led_update_kb(led_t led_state){
   if(led_state.caps_lock){
-      rgblight_sethsv_at(HSV_CYAN, 2);
+    rgblight_set_effect_range(2, 1);
+    rgblight_sethsv_noeeprom(HSV_SPRINGGREEN);
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+    rgblight_set();
   } else{
-      rgblight_sethsv_at(0, 0, 0, 2);
+    rgblight_set_effect_range(2, 1);
+    rgblight_sethsv_noeeprom(180, 200, 0);
+    rgblight_set();
   }
-    return true;
+  return true;
 }
 #endif //RGBLIGHT_ENABLE
