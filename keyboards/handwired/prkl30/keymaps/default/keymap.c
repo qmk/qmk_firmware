@@ -15,7 +15,6 @@ enum custom_keycodes {
 #define RAISE MO(_RAISE)
 #define FN MO(_FN)
 
-#define _______ KC_TRNS
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
