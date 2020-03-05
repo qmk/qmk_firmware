@@ -15,8 +15,8 @@
  */
 
 #pragma once
-#define XXX KC_NO
 #include "quantum.h"
+#define XXX KC_NO
 
 
 /* This is a shortcut to help you visually see your layout.
