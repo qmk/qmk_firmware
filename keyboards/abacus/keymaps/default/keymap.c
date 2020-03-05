@@ -134,7 +134,7 @@ void matrix_init_user(void) {
 
 void encoder_update_user(uint8_t index, bool clockwise) {
 
-    switch(biton32(layer_state)) {
+    switch(get_highest_layer(layer_state)) {
         case _BASE:
             clockwise ? tap_code(KC_PGDN) : tap_code(KC_PGUP);
             break;
