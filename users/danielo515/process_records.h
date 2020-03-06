@@ -3,8 +3,7 @@
 
 enum custom_keycodes
 {
-  PLACEHOLDER = SAFE_RANGE, // can always be here
-    EPRM,
+    EPRM = SAFE_RANGE, 
     RGB_SLD,
     ALT_TAB,
     QWERTY,
