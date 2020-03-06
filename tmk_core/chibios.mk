@@ -75,8 +75,8 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/bootloader_defs.h)","")
     OPT_DEFS += -include $(KEYBOARD_PATH_1)/bootloader_defs.h
 else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/boards/$(BOARD)/bootloader_defs.h)","")
     OPT_DEFS += -include $(KEYBOARD_PATH_1)/boards/$(BOARD)/bootloader_defs.h
-else ifneq ("$(wildcard $(TOP_DIR)/drivers/boards/$(BOARD)/bootloader_defs.h)","")
-    OPT_DEFS += -include $(TOP_DIR)/drivers/boards/$(BOARD)/bootloader_defs.h
+else ifneq ("$(wildcard $(BOARD_PATH)/configs/bootloader_defs.h)","")
+    OPT_DEFS += -include $(BOARD_PATH)/configs/bootloader_defs.h
 endif
 
 BOARD_MK :=
@@ -96,9 +96,9 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/boards/$(BOARD)/board.mk)","")
 else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/boards/$(BOARD)/board.mk)","")
     BOARD_PATH = $(KEYBOARD_PATH_1)
     BOARD_MK += $(KEYBOARD_PATH_1)/boards/$(BOARD)/board.mk
-else ifneq ("$(wildcard $(TOP_DIR)/drivers/boards/$(BOARD)/board.mk)","")
-    BOARD_PATH = $(TOP_DIR)/drivers
-    BOARD_MK += $(TOP_DIR)/drivers/boards/$(BOARD)/board.mk
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/$(BOARD)/board/board.mk)","")
+    BOARD_PATH = $(TOP_DIR)/platforms/chibios/$(BOARD)
+    BOARD_MK += $(TOP_DIR)/platforms/chibios/$(BOARD)/board/board.mk
 endif
 
 ifeq ("$(wildcard $(BOARD_MK))","")
@@ -107,6 +107,49 @@ ifeq ("$(wildcard $(BOARD_MK))","")
 		BOARD_MK = $(CHIBIOS_CONTRIB)/os/hal/boards/$(BOARD)/board.mk
 	endif
 endif
+
+# Work out the config file directories
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/chconf.h)","")
+    CHCONFDIR = $(KEYBOARD_PATH_5)
+else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/chconf.h)","")
+    CHCONFDIR = $(KEYBOARD_PATH_4)
+else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/chconf.h)","")
+    CHCONFDIR = $(KEYBOARD_PATH_3)
+else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/chconf.h)","")
+    CHCONFDIR = $(KEYBOARD_PATH_2)
+else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/chconf.h)","")
+    CHCONFDIR = $(KEYBOARD_PATH_1)
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/$(BOARD)/configs/chconf.h)","")
+    CHCONFDIR = $(TOP_DIR)/platforms/chibios/$(BOARD)/configs
+endif
+
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/halconf.h)","")
+    HALCONFDIR = $(KEYBOARD_PATH_5)
+else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/halconf.h)","")
+    HALCONFDIR = $(KEYBOARD_PATH_4)
+else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/halconf.h)","")
+    HALCONFDIR = $(KEYBOARD_PATH_3)
+else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/halconf.h)","")
+    HALCONFDIR = $(KEYBOARD_PATH_2)
+else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/halconf.h)","")
+    HALCONFDIR = $(KEYBOARD_PATH_1)
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/$(BOARD)/configs/halconf.h)","")
+    HALCONFDIR = $(TOP_DIR)/platforms/chibios/$(BOARD)/configs
+endif
+
+# HAL-OSAL files (optional).
+include $(CHIBIOS)/os/hal/hal.mk
+
+ifeq ("$(PLATFORM_NAME)","")
+	PLATFORM_NAME = platform
+endif
+
+PLATFORM_MK = $(CHIBIOS)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
+ifeq ("$(wildcard $(PLATFORM_MK))","")
+PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
+endif
+include $(PLATFORM_MK)
+
 
 include $(BOARD_MK)
 -include $(CHIBIOS)/os/hal/osal/rt/osal.mk         # ChibiOS <= 19.x
@@ -138,8 +181,8 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld
 else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld
-else ifneq ("$(wildcard $(TOP_DIR)/drivers/boards/ld/$(MCU_LDSCRIPT).ld)","")
-    LDSCRIPT = $(TOP_DIR)/drivers/boards/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/ld/$(MCU_LDSCRIPT).ld)","")
+    LDSCRIPT = $(TOP_DIR)/platforms/chibios/ld/$(MCU_LDSCRIPT).ld
 else ifneq ("$(wildcard $(STARTUPLD_CONTRIB)/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(STARTUPLD_CONTRIB)/$(MCU_LDSCRIPT).ld
     USE_CHIBIOS_CONTRIB = yes
@@ -163,6 +206,7 @@ QUANTUM_LIB_SRC += $(STARTUPASM) $(PORTASM) $(OSALASM)
 CHIBISRC := $(patsubst $(TOP_DIR)/%,%,$(CHIBISRC))
 
 EXTRAINCDIRS += $(CHIBIOS)/os/license $(CHIBIOS)/os/oslib/include \
+         $(TOP_DIR)/platforms/chibios/$(BOARD)/configs \
          $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
          $(STREAMSINC) $(CHIBIOS)/os/various $(COMMON_VPATH)
@@ -181,6 +225,8 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/halconf_community.h)","")
 else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/halconf_community.h)","")
     USE_CHIBIOS_CONTRIB = yes
 else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/halconf_community.h)","")
+    USE_CHIBIOS_CONTRIB = yes
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/$(BOARD)/configs/halconf_community.h)","")
     USE_CHIBIOS_CONTRIB = yes
 endif
 
