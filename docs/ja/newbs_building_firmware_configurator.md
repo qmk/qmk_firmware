@@ -10,7 +10,7 @@
 
 ?> **次の手順を順番に実行してください。**
 
-[Video Tutorial](https://youtu.be/tx54jkRC9ZY) を見てください。
+[Video Tutorial](https://www.youtube.com/watch?v=-imgglzDMdY) を見てください。
 
 QMK Configurator は Chrome/Firefox で最適に動作します。
 

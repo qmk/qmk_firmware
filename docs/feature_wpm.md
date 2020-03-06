@@ -20,6 +20,6 @@ This function returns the current WPM as an unsigned integer.
 
 By default, the WPM score only includes letters, numbers, space and some
 punctuation.  If you want to change the set of characters considered as part of
-the WPM calculation, you can implement `wpm_keycode_user(uiunt16_t keycode)`
+the WPM calculation, you can implement `wpm_keycode_user(uint16_t keycode)`
 and return true for any characters you would like included in the calculation,
 or false to not count that particular keycode.

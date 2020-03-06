@@ -53,6 +53,8 @@ This is a C header file that is one of the first things included, and will persi
   * pins of the rows, from top to bottom
 * `#define MATRIX_COL_PINS { F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7 }`
   * pins of the columns, from left to right
+* `#define MATRIX_IO_DELAY 30`
+  * the delay in microseconds when between changing matrix pin state and reading values
 * `#define UNUSED_PINS { D1, D2, D3, B1, B2, B3 }`
   * pins unused by the keyboard for reference
 * `#define MATRIX_HAS_GHOST`
@@ -78,7 +80,7 @@ This is a C header file that is one of the first things included, and will persi
 * `#define BACKLIGHT_PIN B7`
   * pin of the backlight
 * `#define BACKLIGHT_LEVELS 3`
-  * number of levels your backlight will have (maximum 15 excluding off)
+  * number of levels your backlight will have (maximum 31 excluding off)
 * `#define BACKLIGHT_BREATHING`
   * enables backlight breathing
 * `#define BREATHING_PERIOD 6`
@@ -134,20 +136,22 @@ If you define these options you will enable the associated feature, which may in
   * enables handling for per key `TAPPING_TERM` settings
 * `#define RETRO_TAPPING`
   * tap anyway, even after TAPPING_TERM, if there was no other key interruption between press and release
-  * See [Retro Tapping](feature_advanced_keycodes.md#retro-tapping) for details
+  * See [Retro Tapping](#retro-tapping) for details
 * `#define TAPPING_TOGGLE 2`
   * how many taps before triggering the toggle
 * `#define PERMISSIVE_HOLD`
   * makes tap and hold keys trigger the hold if another key is pressed before releasing, even if it hasn't hit the `TAPPING_TERM`
-  * See [Permissive Hold](feature_advanced_keycodes.md#permissive-hold) for details
+  * See [Permissive Hold](#permissive-hold) for details
+* `#define PERMISSIVE_HOLD_PER_KEY`
+  * enabled handling for per key `PERMISSIVE_HOLD` settings
 * `#define IGNORE_MOD_TAP_INTERRUPT`
   * makes it possible to do rolling combos (zx) with keys that convert to other keys on hold, by enforcing the `TAPPING_TERM` for both keys.
-  * See [Mod tap interrupt](feature_advanced_keycodes.md#ignore-mod-tap-interrupt) for details
+  * See [Mod tap interrupt](#ignore-mod-tap-interrupt) for details
 * `#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY`
   * enables handling for per key `IGNORE_MOD_TAP_INTERRUPT` settings
 * `#define TAPPING_FORCE_HOLD`
   * makes it possible to use a dual role key as modifier shortly after having been tapped
-  * See [Hold after tap](feature_advanced_keycodes.md#tapping-force-hold)
+  * See [Hold after tap](#tapping-force-hold)
   * Breaks any Tap Toggle functionality (`TT` or the One Shot Tap Toggle)
 * `#define TAPPING_FORCE_HOLD_PER_KEY`
   * enables handling for per key `TAPPING_FORCE_HOLD` settings
@@ -276,8 +280,11 @@ There are a few different ways to set handedness for split keyboards (listed in 
   * Default behavior for ARM
   * Required for AVR Teensy
 
-* `#define SPLIT_USB_TIMEOUT 2500`
+* `#define SPLIT_USB_TIMEOUT 2000`
   * Maximum timeout when detecting master/slave when using `SPLIT_USB_DETECT`
+
+* `#define SPLIT_USB_TIMEOUT_POLL 10`
+  * Poll frequency when detecting master/slave when using `SPLIT_USB_DETECT`
 
 # The `rules.mk` File
 
@@ -328,7 +335,7 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
   * `bootloadHID`
   * `USBasp`
 
-## Feature Options
+## Feature Options :id=feature-options
 
 Use these to enable or disable building certain features. The more you have enabled the bigger your firmware will be, and you run the risk of building a firmware too large for your MCU.
 
