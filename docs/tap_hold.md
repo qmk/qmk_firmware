@@ -1,6 +1,6 @@
 # Tap-Hold Configuration Options
 
-While Tap-Hold options are fantastic, they are not without their issues.  We have tried to configure them with reasonal defaults, but that may still cause issues for some people. 
+While Tap-Hold options are fantastic, they are not without their issues.  We have tried to configure them with reasonable defaults, but that may still cause issues for some people. 
 
 These options let you modify the behavior of the Tap-Hold keys.
 
