@@ -24,6 +24,10 @@
 #define PRODUCT         PRKL30
 #define DESCRIPTION     30% Mechanical keyboard
 
+/* key matrix size */
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 10
+
 /* PRKL30 feather pinout */
 #define MATRIX_ROW_PINS { F4, F1, F0, D2}
 #define MATRIX_COL_PINS { D3, D1, B7, D6, C7, B6, B5, D7, C6, D0}
