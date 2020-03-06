@@ -104,7 +104,7 @@ void oled_task_user(void) {
 |`OLED_DISPLAY_ADDRESS`     |`0x3C`           |The i2c address of the OLED Display                                                                                       |
 |`OLED_FONT_H`              |`"glcdfont.c"`   |The font code file to use for custom fonts                                                                                |
 |`OLED_FONT_START`          |`0`              |The starting characer index for custom fonts                                                                              |
-|`OLED_FONT_END`            |`224`            |The ending characer index for custom fonts                                                                                |
+|`OLED_FONT_END`            |`223`            |The ending characer index for custom fonts                                                                                |
 |`OLED_FONT_WIDTH`          |`6`              |The font width                                                                                                            |
 |`OLED_FONT_HEIGHT`         |`8`              |The font height (untested)                                                                                                |
 |`OLED_TIMEOUT`             |`60000`          |Turns off the OLED screen after 60000ms of keyboard inactivity. Helps reduce OLED Burn-in. Set to 0 to disable.           |
