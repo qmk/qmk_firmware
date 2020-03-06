@@ -41,10 +41,6 @@
 #define AdafruitBleIRQPin E6
 #define UNUSED_PINS
 
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 10
-
 /* RGB Light Configuration */
 
 #define RGB_DI_PIN D1
