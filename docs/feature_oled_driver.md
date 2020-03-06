@@ -222,6 +222,9 @@ void oled_write(const char *data, bool invert);
 void oled_write_ln(const char *data, bool invert);
 
 // Pans the buffer to the right (or left by passing true) by moving contents of the buffer
+// Useful for moving the screen in preparation for new drawing 
+// oled_scroll_left or oled_scroll_right should be preferred for all cases of moving a static
+// image such as a logo or to avoid burn-in as it's much, much less cpu intensive
 void oled_pan(bool left);
 
 // Writes a PROGMEM string to the buffer at current cursor position
