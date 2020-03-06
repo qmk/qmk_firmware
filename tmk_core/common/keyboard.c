@@ -29,87 +29,110 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "sendchar.h"
 #include "eeconfig.h"
-#include "backlight.h"
 #include "action_layer.h"
+#ifdef BACKLIGHT_ENABLE
+#    include "backlight.h"
+#endif
 #ifdef BOOTMAGIC_ENABLE
-#   include "bootmagic.h"
+#    include "bootmagic.h"
 #else
-#   include "magic.h"
+#    include "magic.h"
 #endif
 #ifdef MOUSEKEY_ENABLE
-#   include "mousekey.h"
+#    include "mousekey.h"
 #endif
 #ifdef PS2_MOUSE_ENABLE
-#   include "ps2_mouse.h"
+#    include "ps2_mouse.h"
 #endif
 #ifdef SERIAL_MOUSE_ENABLE
-#   include "serial_mouse.h"
+#    include "serial_mouse.h"
 #endif
 #ifdef ADB_MOUSE_ENABLE
-#   include "adb.h"
+#    include "adb.h"
 #endif
 #ifdef RGBLIGHT_ENABLE
-#   include "rgblight.h"
+#    include "rgblight.h"
 #endif
 #ifdef STENO_ENABLE
-#   include "process_steno.h"
+#    include "process_steno.h"
 #endif
 #ifdef FAUXCLICKY_ENABLE
-#   include "fauxclicky.h"
+#    include "fauxclicky.h"
 #endif
 #ifdef SERIAL_LINK_ENABLE
-#   include "serial_link/system/serial_link.h"
+#    include "serial_link/system/serial_link.h"
 #endif
 #ifdef VISUALIZER_ENABLE
-#   include "visualizer/visualizer.h"
+#    include "visualizer/visualizer.h"
 #endif
 #ifdef POINTING_DEVICE_ENABLE
-#   include "pointing_device.h"
+#    include "pointing_device.h"
 #endif
 #ifdef MIDI_ENABLE
-#   include "process_midi.h"
+#    include "process_midi.h"
 #endif
 #ifdef HD44780_ENABLE
-#   include "hd44780.h"
+#    include "hd44780.h"
 #endif
 #ifdef QWIIC_ENABLE
-#   include "qwiic.h"
+#    include "qwiic.h"
 #endif
 #ifdef OLED_DRIVER_ENABLE
-    #include "oled_driver.h"
+#    include "oled_driver.h"
 #endif
 #ifdef VELOCIKEY_ENABLE
-  #include "velocikey.h"
+#    include "velocikey.h"
+#endif
+#ifdef VIA_ENABLE
+#    include "via.h"
+#endif
+
+// Only enable this if console is enabled to print to
+#if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)
+static uint32_t matrix_timer      = 0;
+static uint32_t matrix_scan_count = 0;
+
+void matrix_scan_perf_task(void) {
+    matrix_scan_count++;
+
+    uint32_t timer_now = timer_read32();
+    if (TIMER_DIFF_32(timer_now, matrix_timer) > 1000) {
+        dprintf("matrix scan frequency: %d\n", matrix_scan_count);
+
+        matrix_timer      = timer_now;
+        matrix_scan_count = 0;
+    }
+}
+#else
+#    define matrix_scan_perf_task()
 #endif
 
 #ifdef MATRIX_HAS_GHOST
 extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
-static matrix_row_t get_real_keys(uint8_t row, matrix_row_t rowdata){
+static matrix_row_t   get_real_keys(uint8_t row, matrix_row_t rowdata) {
     matrix_row_t out = 0;
     for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-        //read each key in the row data and check if the keymap defines it as a real key
-        if (pgm_read_byte(&keymaps[0][row][col]) && (rowdata & (1<<col))){
-            //this creates new row data, if a key is defined in the keymap, it will be set here
-            out |= 1<<col;
+        // read each key in the row data and check if the keymap defines it as a real key
+        if (pgm_read_byte(&keymaps[0][row][col]) && (rowdata & (1 << col))) {
+            // this creates new row data, if a key is defined in the keymap, it will be set here
+            out |= 1 << col;
         }
     }
     return out;
 }
 
-static inline bool popcount_more_than_one(matrix_row_t rowdata)
-{
-    rowdata &= rowdata-1; //if there are less than two bits (keys) set, rowdata will become zero
+static inline bool popcount_more_than_one(matrix_row_t rowdata) {
+    rowdata &= rowdata - 1;  // if there are less than two bits (keys) set, rowdata will become zero
     return rowdata;
 }
 
-static inline bool has_ghost_in_row(uint8_t row, matrix_row_t rowdata)
-{
+static inline bool has_ghost_in_row(uint8_t row, matrix_row_t rowdata) {
     /* No ghost exists when less than 2 keys are down on the row.
     If there are "active" blanks in the matrix, the key can't be pressed by the user,
     there is no doubt as to which keys are really being pressed.
     The ghosts will be ignored, they are KC_NO.   */
     rowdata = get_real_keys(row, rowdata);
-    if ((popcount_more_than_one(rowdata)) == 0){
+    if ((popcount_more_than_one(rowdata)) == 0) {
         return false;
     }
     /* Ghost occurs when the row shares a column line with other row,
@@ -119,8 +142,8 @@ static inline bool has_ghost_in_row(uint8_t row, matrix_row_t rowdata)
     at least two of another row's real keys, the row will be ignored. Keep in mind,
     we are checking one row at a time, not all of them at once.
     */
-    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
-        if (i != row && popcount_more_than_one(get_real_keys(i, matrix_get_row(i)) & rowdata)){
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+        if (i != row && popcount_more_than_one(get_real_keys(i, matrix_get_row(i)) & rowdata)) {
             return true;
         }
     }
@@ -130,10 +153,13 @@ static inline bool has_ghost_in_row(uint8_t row, matrix_row_t rowdata)
 #endif
 
 void disable_jtag(void) {
-// To use PORTF disable JTAG with writing JTD bit twice within four cycles.
-#if (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega32U4__))
+// To use PF4-7 (PC2-5 on ATmega32A), disable JTAG by writing JTD bit twice within four cycles.
+#if (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
     MCUCR |= _BV(JTD);
     MCUCR |= _BV(JTD);
+#elif defined(__AVR_ATmega32A__)
+    MCUCSR |= _BV(JTD);
+    MCUCSR |= _BV(JTD);
 #endif
 }
 
@@ -141,50 +167,42 @@ void disable_jtag(void) {
  *
  * FIXME: needs doc
  */
-__attribute__ ((weak))
-void matrix_setup(void) {
-}
+__attribute__((weak)) void matrix_setup(void) {}
 
 /** \brief keyboard_pre_init_user
  *
  * FIXME: needs doc
  */
-__attribute__ ((weak))
-void keyboard_pre_init_user(void) { }
+__attribute__((weak)) void keyboard_pre_init_user(void) {}
 
 /** \brief keyboard_pre_init_kb
  *
  * FIXME: needs doc
  */
-__attribute__ ((weak))
-void keyboard_pre_init_kb(void) {
-  keyboard_pre_init_user();
-}
+__attribute__((weak)) void keyboard_pre_init_kb(void) { keyboard_pre_init_user(); }
 
 /** \brief keyboard_post_init_user
  *
  * FIXME: needs doc
  */
 
-__attribute__ ((weak))
-void keyboard_post_init_user() {}
+__attribute__((weak)) void keyboard_post_init_user() {}
 
 /** \brief keyboard_post_init_kb
  *
  * FIXME: needs doc
  */
 
-__attribute__ ((weak))
-void keyboard_post_init_kb(void) {
-  keyboard_post_init_user();
-}
+__attribute__((weak)) void keyboard_post_init_kb(void) { keyboard_post_init_user(); }
 
 /** \brief keyboard_setup
  *
  * FIXME: needs doc
  */
 void keyboard_setup(void) {
+#ifndef NO_JTAG_DISABLE
     disable_jtag();
+#endif
     matrix_setup();
     keyboard_pre_init_kb();
 }
@@ -193,10 +211,7 @@ void keyboard_setup(void) {
  *
  * FIXME: needs doc
  */
-__attribute__((weak))
-bool is_keyboard_master(void) {
-    return true;
-}
+__attribute__((weak)) bool is_keyboard_master(void) { return true; }
 
 /** \brief keyboard_init
  *
@@ -205,6 +220,9 @@ bool is_keyboard_master(void) {
 void keyboard_init(void) {
     timer_init();
     matrix_init();
+#ifdef VIA_ENABLE
+    via_init();
+#endif
 #ifdef QWIIC_ENABLE
     qwiic_init();
 #endif
@@ -242,6 +260,7 @@ void keyboard_init(void) {
 #endif
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
     keymap_config.nkro = 1;
+    eeconfig_update_keymap(keymap_config.raw);
 #endif
     keyboard_post_init_kb(); /* Always keep this last */
 }
@@ -258,12 +277,11 @@ void keyboard_init(void) {
  *
  * This is repeatedly called as fast as possible.
  */
-void keyboard_task(void)
-{
+void keyboard_task(void) {
     static matrix_row_t matrix_prev[MATRIX_ROWS];
-    static uint8_t led_status = 0;
-    matrix_row_t matrix_row = 0;
-    matrix_row_t matrix_change = 0;
+    static uint8_t      led_status    = 0;
+    matrix_row_t        matrix_row    = 0;
+    matrix_row_t        matrix_change = 0;
 #ifdef QMK_KEYS_PER_SCAN
     uint8_t keys_processed = 0;
 #endif
@@ -276,28 +294,29 @@ void keyboard_task(void)
 
     if (is_keyboard_master()) {
         for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
-            matrix_row = matrix_get_row(r);
+            matrix_row    = matrix_get_row(r);
             matrix_change = matrix_row ^ matrix_prev[r];
             if (matrix_change) {
 #ifdef MATRIX_HAS_GHOST
-                if (has_ghost_in_row(r, matrix_row)) { continue; }
+                if (has_ghost_in_row(r, matrix_row)) {
+                    continue;
+                }
 #endif
                 if (debug_matrix) matrix_print();
-                for (uint8_t c = 0; c < MATRIX_COLS; c++) {
-                    if (matrix_change & ((matrix_row_t)1<<c)) {
+                matrix_row_t col_mask = 1;
+                for (uint8_t c = 0; c < MATRIX_COLS; c++, col_mask <<= 1) {
+                    if (matrix_change & col_mask) {
                         action_exec((keyevent_t){
-                            .key = (keypos_t){ .row = r, .col = c },
-                            .pressed = (matrix_row & ((matrix_row_t)1<<c)),
-                            .time = (timer_read() | 1) /* time should not be 0 */
+                            .key = (keypos_t){.row = r, .col = c}, .pressed = (matrix_row & col_mask), .time = (timer_read() | 1) /* time should not be 0 */
                         });
                         // record a processed key
-                        matrix_prev[r] ^= ((matrix_row_t)1<<c);
+                        matrix_prev[r] ^= col_mask;
 #ifdef QMK_KEYS_PER_SCAN
                         // only jump out if we have processed "enough" keys.
                         if (++keys_processed >= QMK_KEYS_PER_SCAN)
 #endif
-                        // process a key per task call
-                        goto MATRIX_LOOP_END;
+                            // process a key per task call
+                            goto MATRIX_LOOP_END;
                     }
                 }
             }
@@ -308,9 +327,23 @@ void keyboard_task(void)
     // we can get here with some keys processed now.
     if (!keys_processed)
 #endif
-    action_exec(TICK);
+        action_exec(TICK);
 
 MATRIX_LOOP_END:
+
+#ifdef DEBUG_MATRIX_SCAN_RATE
+    matrix_scan_perf_task();
+#endif
+
+#if defined(RGBLIGHT_ANIMATIONS) && defined(RGBLIGHT_ENABLE)
+    rgblight_task();
+#endif
+
+#if defined(BACKLIGHT_ENABLE)
+#    if defined(BACKLIGHT_PIN) || defined(BACKLIGHT_PINS)
+    backlight_task();
+#    endif
+#endif
 
 #ifdef QWIIC_ENABLE
     qwiic_task();
@@ -318,11 +351,10 @@ MATRIX_LOOP_END:
 
 #ifdef OLED_DRIVER_ENABLE
     oled_task();
-#ifndef OLED_DISABLE_TIMEOUT
+#    ifndef OLED_DISABLE_TIMEOUT
     // Wake up oled if user is using those fabulous keys!
-    if (ret)
-        oled_on();
-#endif
+    if (ret) oled_on();
+#    endif
 #endif
 
 #ifdef MOUSEKEY_ENABLE
@@ -343,7 +375,7 @@ MATRIX_LOOP_END:
 #endif
 
 #ifdef SERIAL_LINK_ENABLE
-	serial_link_update();
+    serial_link_update();
 #endif
 
 #ifdef VISUALIZER_ENABLE
@@ -359,7 +391,9 @@ MATRIX_LOOP_END:
 #endif
 
 #ifdef VELOCIKEY_ENABLE
-    if (velocikey_enabled()) { velocikey_decelerate();  }
+    if (velocikey_enabled()) {
+        velocikey_decelerate();
+    }
 #endif
 
     // update LED
@@ -373,8 +407,11 @@ MATRIX_LOOP_END:
  *
  * FIXME: needs doc
  */
-void keyboard_set_leds(uint8_t leds)
-{
-    if (debug_keyboard) { debug("keyboard_set_led: "); debug_hex8(leds); debug("\n"); }
+void keyboard_set_leds(uint8_t leds) {
+    if (debug_keyboard) {
+        debug("keyboard_set_led: ");
+        debug_hex8(leds);
+        debug("\n");
+    }
     led_set(leds);
 }

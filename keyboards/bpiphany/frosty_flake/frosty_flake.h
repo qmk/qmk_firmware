@@ -34,16 +34,25 @@
   KA4, KP2, KC6,                KK6,                KC0, KM3, KD0, KA1,   KO0, KK0, KL0,   KL6,      KQ6       \
 ) \
 { \
-/* Columns and rows need to be swapped in the below definition */ \
-/*          A       B       C       D       E       F       G       H       I       J       K       L       M       N       O       P       Q       R       */ \
-/* 0 */ {   KC_NO,  KB0,    KC0,    KD0,    KC_NO,  KF0,    KG0,    KC_NO,  KC_NO,  KC_NO,  KK0,    KL0,    KC_NO,  KC_NO,  KO0,    KC_NO,  KQ0,    KR0     }, \
-/* 1 */ {   KA1,    KB1,    KC_NO,  KD1,    KE1,    KF1,    KG1,    KH1,    KI1,    KJ1,    KK1,    KL1,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KQ1,    KC_NO   }, \
-/* 2 */ {   KC_NO,  KB2,    KC_NO,  KD2,    KE2,    KF2,    KG2,    KH2,    KI2,    KJ2,    KK2,    KL2,    KC_NO,  KN2,    KC_NO,  KP2,    KQ2,    KR2     }, \
-/* 3 */ {   KC_NO,  KB3,    KC_NO,  KD3,    KE3,    KF3,    KG3,    KH3,    KI3,    KJ3,    KK3,    KL3,    KM3,    KN3,    KO3,    KC_NO,  KQ3,    KR3     }, \
-/* 4 */ {   KA4,    KB4,    KC_NO,  KD4,    KE4,    KF4,    KG4,    KH4,    KI4,    KJ4,    KK4,    KL4,    KC_NO,  KC_NO,  KO4,    KC_NO,  KQ4,    KR4     }, \
-/* 5 */ {   KA5,    KC_NO,  KC5,    KD5,    KE5,    KF5,    KG5,    KH5,    KI5,    KJ5,    KK5,    KL5,    KC_NO,  KC_NO,  KO5,    KC_NO,  KQ5,    KR5     }, \
-/* 6 */ {   KC_NO,  KB6,    KC6,    KC_NO,  KE6,    KF6,    KG6,    KH6,    KI6,    KJ6,    KK6,    KL6,    KC_NO,  KC_NO,  KO6,    KC_NO,  KQ6,    KR6     }, \
-/* 7 */ {   KA7,    KB7,    KC7,    KD7,    KE7,    KF7,    KG7,    KH7,    KI7,    KJ7,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KO7,    KC_NO,  KQ7,    KR7     }  \
+/*        0        1        2        3        4        5        6        7        */ \
+/* A */ { KC_NO,   KA1,     KC_NO,   KC_NO,   KA4,     KA5,     KC_NO,   KA7,     }, \
+/* B */ { KB0,     KB1,     KB2,     KB3,     KB4,     KC_NO,   KB6,     KB7,     }, \
+/* C */ { KC0,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC5,     KC6,     KC7,     }, \
+/* D */ { KD0,     KD1,     KD2,     KD3,     KD4,     KD5,     KC_NO,   KD7,     }, \
+/* E */ { KC_NO,   KE1,     KE2,     KE3,     KE4,     KE5,     KE6,     KE7,     }, \
+/* F */ { KF0,     KF1,     KF2,     KF3,     KF4,     KF5,     KF6,     KF7,     }, \
+/* G */ { KG0,     KG1,     KG2,     KG3,     KG4,     KG5,     KG6,     KG7,     }, \
+/* H */ { KC_NO,   KH1,     KH2,     KH3,     KH4,     KH5,     KH6,     KH7,     }, \
+/* I */ { KC_NO,   KI1,     KI2,     KI3,     KI4,     KI5,     KI6,     KI7,     }, \
+/* J */ { KC_NO,   KJ1,     KJ2,     KJ3,     KJ4,     KJ5,     KJ6,     KJ7,     }, \
+/* K */ { KK0,     KK1,     KK2,     KK3,     KK4,     KK5,     KK6,     KC_NO,   }, \
+/* L */ { KL0,     KL1,     KL2,     KL3,     KL4,     KL5,     KL6,     KC_NO,   }, \
+/* M */ { KC_NO,   KC_NO,   KC_NO,   KM3,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   }, \
+/* N */ { KC_NO,   KC_NO,   KN2,     KN3,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   }, \
+/* O */ { KO0,     KC_NO,   KC_NO,   KO3,     KO4,     KO5,     KO6,     KO7,     }, \
+/* P */ { KC_NO,   KC_NO,   KP2,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   }, \
+/* Q */ { KQ0,     KQ1,     KQ2,     KQ3,     KQ4,     KQ5,     KQ6,     KQ7,     }, \
+/* R */ { KR0,     KC_NO,   KR2,     KR3,     KR4,     KR5,     KR6,     KR7,     }, \
 }
 
 /*
@@ -74,16 +83,25 @@
   KA4, KP2, KC6,                KK6,                KC0, KM3, KD0, KA1,   KO0, KK0, KL0  \
 ) \
 { \
-/* Columns and rows need to be swapped in the below definition */ \
-/*          A       B       C       D       E       F       G       H       I       J       K       L       M       N       O       P       Q       R       */ \
-/* 0 */ {   KC_NO,  KB0,    KC0,    KD0,    KC_NO,  KF0,    KG0,    KC_NO,  KC_NO,  KC_NO,  KK0,    KL0,    KC_NO,  KC_NO,  KO0,    KC_NO,  KC_NO,  KR0     }, \
-/* 1 */ {   KA1,    KB1,    KC_NO,  KD1,    KE1,    KF1,    KG1,    KH1,    KI1,    KJ1,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO   }, \
-/* 2 */ {   KC_NO,  KB2,    KC_NO,  KD2,    KE2,    KF2,    KG2,    KH2,    KI2,    KJ2,    KC_NO,  KC_NO,  KC_NO,  KN2,    KC_NO,  KP2,    KC_NO,  KR2     }, \
-/* 3 */ {   KC_NO,  KB3,    KC_NO,  KD3,    KE3,    KF3,    KG3,    KH3,    KI3,    KJ3,    KC_NO,  KC_NO,  KM3,    KN3,    KC_NO,  KC_NO,  KC_NO,  KR3     }, \
-/* 4 */ {   KA4,    KB4,    KC_NO,  KD4,    KE4,    KF4,    KG4,    KH4,    KI4,    KJ4,    KK4,    KL4,    KC_NO,  KC_NO,  KO4,    KC_NO,  KQ4,    KR4     }, \
-/* 5 */ {   KA5,    KC_NO,  KC5,    KD5,    KE5,    KF5,    KG5,    KH5,    KI5,    KJ5,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KR5     }, \
-/* 6 */ {   KC_NO,  KB6,    KC6,    KC_NO,  KE6,    KF6,    KG6,    KH6,    KI6,    KJ6,    KK6,    KC_NO,  KC_NO,  KC_NO,  KO6,    KC_NO,  KC_NO,  KR6     }, \
-/* 7 */ {   KA7,    KB7,    KC7,    KD7,    KE7,    KF7,    KG7,    KH7,    KI7,    KJ7,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KO7,    KC_NO,  KQ7,    KR7     }  \
+/*        0        1        2        3        4        5        6        7        */ \
+/* A */ { KC_NO,   KA1,     KC_NO,   KC_NO,   KA4,     KA5,     KC_NO,   KA7,     }, \
+/* B */ { KB0,     KB1,     KB2,     KB3,     KB4,     KC_NO,   KB6,     KB7,     }, \
+/* C */ { KC0,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC5,     KC6,     KC7,     }, \
+/* D */ { KD0,     KD1,     KD2,     KD3,     KD4,     KD5,     KC_NO,   KD7,     }, \
+/* E */ { KC_NO,   KE1,     KE2,     KE3,     KE4,     KE5,     KE6,     KE7,     }, \
+/* F */ { KF0,     KF1,     KF2,     KF3,     KF4,     KF5,     KF6,     KF7,     }, \
+/* G */ { KG0,     KG1,     KG2,     KG3,     KG4,     KG5,     KG6,     KG7,     }, \
+/* H */ { KC_NO,   KH1,     KH2,     KH3,     KH4,     KH5,     KH6,     KH7,     }, \
+/* I */ { KC_NO,   KI1,     KI2,     KI3,     KI4,     KI5,     KI6,     KI7,     }, \
+/* J */ { KC_NO,   KJ1,     KJ2,     KJ3,     KJ4,     KJ5,     KJ6,     KJ7,     }, \
+/* K */ { KK0,     KC_NO,   KC_NO,   KC_NO,   KK4,     KC_NO,   KK6,     KC_NO,   }, \
+/* L */ { KL0,     KC_NO,   KC_NO,   KC_NO,   KL4,     KC_NO,   KC_NO,   KC_NO,   }, \
+/* M */ { KC_NO,   KC_NO,   KC_NO,   KM3,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   }, \
+/* N */ { KC_NO,   KC_NO,   KN2,     KN3,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   }, \
+/* O */ { KO0,     KC_NO,   KC_NO,   KC_NO,   KO4,     KC_NO,   KO6,     KO7,     }, \
+/* P */ { KC_NO,   KC_NO,   KP2,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   }, \
+/* Q */ { KC_NO,   KC_NO,   KC_NO,   KC_NO,   KQ4,     KC_NO,   KC_NO,   KQ7,     }, \
+/* R */ { KR0,     KC_NO,   KR2,     KR3,     KR4,     KR5,     KR6,     KR7,     }, \
 }
 
 #define LAYOUT_tkl_ansi( \

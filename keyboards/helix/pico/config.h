@@ -16,8 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef PICO_CONFIG_H
-#define PICO_CONFIG_H
+#pragma once
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
@@ -34,6 +33,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_I2C
 #define USE_SERIAL
 //#define USE_MATRIX_I2C
+
+/* Soft Serial defines */
+#define SOFT_SERIAL_PIN D2
+#define SERIAL_SLAVE_BUFFER_LENGTH  ((MATRIX_ROWS)/2)
+#define SERIAL_MASTER_BUFFER_LENGTH ((MATRIX_ROWS)/2)
 
 /* Select hand configuration */
 #define MASTER_LEFT
@@ -138,5 +142,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-#endif

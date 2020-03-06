@@ -20,6 +20,8 @@ endif
 
 ifeq ($(strip $(FULLHAND_ENABLE)), yes)
     OPT_DEFS += -DFULLHAND_ENABLE
+else ifeq ($(strip $(SF_ENABLE)), yes)
+    OPT_DEFS += -DSF_ENABLE
 endif
 
 ifeq ($(strip $(EXTRA_ENCODERS_ENABLE)), yes)

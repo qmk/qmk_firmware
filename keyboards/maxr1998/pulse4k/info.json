@@ -6,7 +6,7 @@
   "width": 3,
   "height": 2,
   "layouts": {
-    "LAYOUT_pulse4k": {
+    "LAYOUT": {
       "key_count": 6,
       "layout": [ 
         { "w": 1, "x": 0, "y": 0 }, 

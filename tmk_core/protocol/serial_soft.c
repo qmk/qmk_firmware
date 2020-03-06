@@ -49,37 +49,34 @@ POSSIBILITY OF SUCH DAMAGE.
  *  TODO: delay is not accurate enough. Instruction cycle should be counted and inline assemby is needed.
  */
 
-#define WAIT_US     (1000000L/SERIAL_SOFT_BAUD)
+#define WAIT_US (1000000L / SERIAL_SOFT_BAUD)
 
 #ifdef SERIAL_SOFT_LOGIC_NEGATIVE
-    #define SERIAL_SOFT_RXD_IN()        !(SERIAL_SOFT_RXD_READ())
-    #define SERIAL_SOFT_TXD_ON()        SERIAL_SOFT_TXD_LO()
-    #define SERIAL_SOFT_TXD_OFF()       SERIAL_SOFT_TXD_HI()
+#    define SERIAL_SOFT_RXD_IN() !(SERIAL_SOFT_RXD_READ())
+#    define SERIAL_SOFT_TXD_ON() SERIAL_SOFT_TXD_LO()
+#    define SERIAL_SOFT_TXD_OFF() SERIAL_SOFT_TXD_HI()
 #else
-    #define SERIAL_SOFT_RXD_IN()        !!(SERIAL_SOFT_RXD_READ())
-    #define SERIAL_SOFT_TXD_ON()        SERIAL_SOFT_TXD_HI()
-    #define SERIAL_SOFT_TXD_OFF()       SERIAL_SOFT_TXD_LO()
+#    define SERIAL_SOFT_RXD_IN() !!(SERIAL_SOFT_RXD_READ())
+#    define SERIAL_SOFT_TXD_ON() SERIAL_SOFT_TXD_HI()
+#    define SERIAL_SOFT_TXD_OFF() SERIAL_SOFT_TXD_LO()
 #endif
 
 #ifdef SERIAL_SOFT_PARITY_EVEN
-    #define SERIAL_SOFT_PARITY_VAL      0
+#    define SERIAL_SOFT_PARITY_VAL 0
 #elif defined(SERIAL_SOFT_PARITY_ODD)
-    #define SERIAL_SOFT_PARITY_VAL      1
+#    define SERIAL_SOFT_PARITY_VAL 1
 #endif
 
 /* debug for signal timing, see debug pin with oscilloscope */
-#define SERIAL_SOFT_DEBUG
 #ifdef SERIAL_SOFT_DEBUG
-    #define SERIAL_SOFT_DEBUG_INIT()    (DDRD |= 1<<7)
-    #define SERIAL_SOFT_DEBUG_TGL()     (PORTD ^= 1<<7)
+#    define SERIAL_SOFT_DEBUG_INIT() (DDRD |= 1 << 7)
+#    define SERIAL_SOFT_DEBUG_TGL() (PORTD ^= 1 << 7)
 #else
-    #define SERIAL_SOFT_DEBUG_INIT()
-    #define SERIAL_SOFT_DEBUG_TGL()
+#    define SERIAL_SOFT_DEBUG_INIT()
+#    define SERIAL_SOFT_DEBUG_TGL()
 #endif
 
-
-void serial_init(void)
-{
+void serial_init(void) {
     SERIAL_SOFT_DEBUG_INIT();
 
     SERIAL_SOFT_RXD_INIT();
@@ -87,46 +84,42 @@ void serial_init(void)
 }
 
 /* RX ring buffer */
-#define RBUF_SIZE   8
+#define RBUF_SIZE 8
 static uint8_t rbuf[RBUF_SIZE];
 static uint8_t rbuf_head = 0;
 static uint8_t rbuf_tail = 0;
 
-
-uint8_t serial_recv(void)
-{
+uint8_t serial_recv(void) {
     uint8_t data = 0;
     if (rbuf_head == rbuf_tail) {
         return 0;
     }
 
-    data = rbuf[rbuf_tail];
+    data      = rbuf[rbuf_tail];
     rbuf_tail = (rbuf_tail + 1) % RBUF_SIZE;
     return data;
 }
 
-int16_t serial_recv2(void)
-{
+int16_t serial_recv2(void) {
     uint8_t data = 0;
     if (rbuf_head == rbuf_tail) {
         return -1;
     }
 
-    data = rbuf[rbuf_tail];
+    data      = rbuf[rbuf_tail];
     rbuf_tail = (rbuf_tail + 1) % RBUF_SIZE;
     return data;
 }
 
-void serial_send(uint8_t data)
-{
+void serial_send(uint8_t data) {
     /* signal state: IDLE: ON, START: OFF, STOP: ON, DATA0: OFF, DATA1: ON */
 
 #ifdef SERIAL_SOFT_BIT_ORDER_MSB
-    #ifdef SERIAL_SOFT_DATA_7BIT
+#    ifdef SERIAL_SOFT_DATA_7BIT
     uint8_t mask = 0x40;
-    #else
+#    else
     uint8_t mask = 0x80;
-    #endif
+#    endif
 #else
     uint8_t mask = 0x01;
 #endif
@@ -138,11 +131,11 @@ void serial_send(uint8_t data)
     _delay_us(WAIT_US);
 
 #ifdef SERIAL_SOFT_DATA_7BIT
-    while (mask&0x7F) {
+    while (mask & 0x7F) {
 #else
-    while (mask&0xFF) {
+    while (mask & 0xFF) {
 #endif
-        if (data&mask) {
+        if (data & mask) {
             SERIAL_SOFT_TXD_ON();
             parity ^= 1;
         } else {
@@ -173,19 +166,18 @@ void serial_send(uint8_t data)
 }
 
 /* detect edge of start bit */
-ISR(SERIAL_SOFT_RXD_VECT)
-{
+ISR(SERIAL_SOFT_RXD_VECT) {
     SERIAL_SOFT_DEBUG_TGL();
-    SERIAL_SOFT_RXD_INT_ENTER()
+    SERIAL_SOFT_RXD_INT_ENTER();
 
     uint8_t data = 0;
 
 #ifdef SERIAL_SOFT_BIT_ORDER_MSB
-    #ifdef SERIAL_SOFT_DATA_7BIT
+#    ifdef SERIAL_SOFT_DATA_7BIT
     uint8_t mask = 0x40;
-    #else
+#    else
     uint8_t mask = 0x80;
-    #endif
+#    endif
 #else
     uint8_t mask = 0x01;
 #endif
@@ -193,13 +185,13 @@ ISR(SERIAL_SOFT_RXD_VECT)
     uint8_t parity = 0;
 
     /* to center of start bit */
-    _delay_us(WAIT_US/2);
+    _delay_us(WAIT_US / 2);
     SERIAL_SOFT_DEBUG_TGL();
     do {
         /* to center of next bit */
         _delay_us(WAIT_US);
 
-    SERIAL_SOFT_DEBUG_TGL();
+        SERIAL_SOFT_DEBUG_TGL();
         if (SERIAL_SOFT_RXD_IN()) {
             data |= mask;
             parity ^= 1;
@@ -210,15 +202,17 @@ ISR(SERIAL_SOFT_RXD_VECT)
         mask <<= 1;
 #endif
 #ifdef SERIAL_SOFT_DATA_7BIT
-    } while (mask&0x7F);
+    } while (mask & 0x7F);
 #else
-    } while (mask&0xFF);
+    } while (mask & 0xFF);
 #endif
 
 #if defined(SERIAL_SOFT_PARITY_EVEN) || defined(SERIAL_SOFT_PARITY_ODD)
     /* to center of parity bit */
     _delay_us(WAIT_US);
-    if (SERIAL_SOFT_RXD_IN()) { parity ^= 1; }
+    if (SERIAL_SOFT_RXD_IN()) {
+        parity ^= 1;
+    }
     SERIAL_SOFT_DEBUG_TGL();
 #endif
 
@@ -232,7 +226,7 @@ ISR(SERIAL_SOFT_RXD_VECT)
     if (next != rbuf_tail) {
 #endif
         rbuf[rbuf_head] = data;
-        rbuf_head = next;
+        rbuf_head       = next;
     }
 
     SERIAL_SOFT_RXD_INT_EXIT();

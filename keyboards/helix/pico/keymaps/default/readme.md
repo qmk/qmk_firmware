@@ -95,16 +95,15 @@
 see `qmk_firmware/keyboards/helix/pico/keymaps/default/rules.mk`
 
 ```
-# Helix keyboard customize
-# you can edit follows 6 Variables
-#  jp: 以下の6つの変数を必要に応じて編集します。
-OLED_ENABLE = no            # OLED_ENABLE
-LOCAL_GLCDFONT = no         # use each keymaps "helixfont.h" insted of "common/glcdfont.c"
-LED_BACK_ENABLE = no        # LED backlight (Enable WS2812 RGB underlight.)
-LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight.)
-LED_ANIMATIONS = yes        # LED animations
-IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
-
+# Helix Spacific Build Options
+# you can uncomment and edit follows 6 Variables
+#  jp: 以下の6つの変数を必要に応じて編集し、コメントアウトをはずします。
+# OLED_ENABLE = no            # OLED_ENABLE
+# LOCAL_GLCDFONT = no         # use each keymaps "helixfont.h" insted of "common/glcdfont.c"
+# LED_BACK_ENABLE = no        # LED backlight (Enable WS2812 RGB underlight.)
+# LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight.)
+# LED_ANIMATIONS = yes        # LED animations
+# IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
 ```
 ## Compile
 
@@ -116,11 +115,18 @@ $ cd qmk_firmware
 build
 ```
 $ make helix/pico:default
+$ make helix/pico/back:default               # with backlight
+$ make HELIX=no_ani helix/pico/back:default  # with backlight without animation
+$ make helix/pico/under:default              # with underglow
 ```
 
 flash to keyboard
 ```
-$ make helix/pico:default:avrdude
+$ make helix/pico:default:flash
+$ make helix/pico/back:default:flash               # with backlight
+$ make HELIX=no_ani helix/pico/back:default:flash  # with backlight without animation
+$ make helix/pico/under:default:flash              # with underglow
+
 ```
 
 ## Link

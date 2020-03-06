@@ -17,34 +17,71 @@
 #ifndef KEYMAP_SWEDISH_H
 #define KEYMAP_SWEDISH_H
 
-#include "keymap_nordic.h"
+#include "keymap.h"
 
-// There are slight differrences in the keyboards in the nordic contries
+// Normal characters
+#define SE_HALF KC_GRV
+#define SE_PLUS KC_MINS
+#define SE_ACUT KC_EQL
 
-// Swedish redifinitions from the nordic keyset
-#undef  NO_AE
-#define NO_AE   KC_QUOT  // ä
-#undef  NO_CIRC
-#define NO_CIRC LSFT(KC_RBRC)  // ^
-#undef  NO_OSLH
-#define NO_OSLH KC_SCLN  // ö
+#define SE_AM KC_LBRC
+#define SE_QUOT KC_RBRC  // this is the "umlaut" char on Nordic keyboards, Apple layout
+#define SE_AE KC_QUOT    // ä
+#define SE_OSLH KC_SCLN  // ö
+#define SE_APOS KC_NUHS
 
-// Additional Swedish keys not defined in the nordic keyset
-#define NO_AA   KC_LBRC  // å
-#define NO_ASTR LSFT(KC_BSLS)  // *
+#define SE_LESS KC_NUBS
+#define SE_MINS KC_SLSH
+
+// Shifted characters
+#define SE_SECT LSFT(SE_HALF)
+#define SE_QUO2 LSFT(KC_2)
+#define SE_BULT LSFT(KC_4)
+#define SE_AMPR LSFT(KC_6)
+#define SE_SLSH LSFT(KC_7)
+#define SE_LPRN LSFT(KC_8)
+#define SE_RPRN LSFT(KC_9)
+#define SE_EQL LSFT(KC_0)
+#define SE_QUES LSFT(SE_PLUS)
+#define SE_GRV LSFT(SE_ACUT)
+
+#define SE_CIRC LSFT(KC_RBRC)  // ^
+
+#define SE_GRTR LSFT(SE_LESS)
+#define SE_SCLN LSFT(KC_COMM)
+#define SE_COLN LSFT(KC_DOT)
+#define SE_UNDS LSFT(SE_MINS)
+
+// Alt Gr-ed characters
+#define SE_AT ALGR(KC_2)
+#define SE_PND ALGR(KC_3)
+#define SE_DLR ALGR(KC_4)
+#define SE_LCBR ALGR(KC_7)
+#define SE_LBRC ALGR(KC_8)
+#define SE_RBRC ALGR(KC_9)
+#define SE_RCBR ALGR(KC_0)
+#define SE_PIPE ALGR(KC_NUBS)
+
+#define SE_EURO ALGR(KC_E)
+#define SE_TILD ALGR(SE_QUOT)
+
+#define SE_BSLS ALGR(KC_MINS)
+#define SE_MU ALGR(KC_M)
+
+#define SE_AA KC_LBRC          // å
+#define SE_ASTR LSFT(KC_BSLS)  // *
 
 // Norwegian unique MAC characters (not vetted for Swedish)
-#define NO_ACUT_MAC KC_EQL  // =
-#define NO_APOS_MAC KC_NUBS  // '
-#define NO_AT_MAC   KC_BSLS  // @
-#define NO_BSLS_MAC ALGR(LSFT(KC_7)) // '\'
-#define NO_DLR_MAC  LSFT(KC_4) // $
-#define NO_GRV_MAC ALGR(NO_BSLS) // `
-#define NO_GRTR_MAC LSFT(KC_GRV)  // >
-#define NO_LCBR_MAC ALGR(LSFT(KC_8))  // {
-#define NO_LESS_MAC KC_GRV  // <
-#define NO_PIPE_MAC ALGR(KC_7)  // |
-#define NO_RCBR_MAC ALGR(LSFT(KC_9))  // }
+#define SE_ACUT_MAC KC_EQL            // =
+#define SE_APOS_MAC KC_NUBS           // '
+#define SE_AT_MAC KC_BSLS             // @
+#define SE_BSLS_MAC ALGR(LSFT(KC_7))  // '\'
+#define SE_DLR_MAC ALGR(KC_4)         // $
+#define SE_GRV_MAC ALGR(SE_BSLS)      // `
+#define SE_GRTR_MAC LSFT(KC_GRV)      // >
+#define SE_LCBR_MAC ALGR(LSFT(KC_8))  // {
+#define SE_LESS_MAC KC_GRV            // <
+#define SE_PIPE_MAC ALGR(KC_7)        // |
+#define SE_RCBR_MAC ALGR(LSFT(KC_9))  // }
 
 #endif
-

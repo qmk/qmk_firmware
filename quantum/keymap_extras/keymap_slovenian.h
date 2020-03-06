@@ -20,11 +20,11 @@
 
 #include "keymap.h"
 
-//Swapped Z and Y
+// Swapped Z and Y
 #define SI_Z KC_Y
 #define SI_Y KC_Z
 
-//Special characters
+// Special characters
 #define SI_CV KC_SCLN
 #define SI_SV KC_LBRC
 #define SI_ZV KC_BSLS
@@ -68,40 +68,40 @@
 #define SI_DOT KC_DOT
 #define SI_COMM KC_COMM
 
-#define SI_PLUS KC_EQL // + and * and ~
-#define SI_QOT KC_MINS // Single quote
-#define SI_MINS KC_SLSH // - and _
+#define SI_PLUS KC_EQL   // + and * and ~
+#define SI_QOT KC_MINS   // Single quote
+#define SI_MINS KC_SLSH  // - and _
 
 // shifted characters
-#define SI_EXLM LSFT(KC_1) // !
-#define SI_DQOT LSFT(KC_2) // "
-#define SI_HASH LSFT(KC_3) // #
-#define SI_DLR  LSFT(KC_4) // $
-#define SI_PERC LSFT(KC_5) // %
-#define SI_AMPR LSFT(KC_6) // &
-#define SI_SLSH LSFT(KC_7) // /
-#define SI_LPRN LSFT(KC_8) // (
-#define SI_RPRN LSFT(KC_9) // )
-#define SI_EQL  LSFT(KC_0) // =
-#define SI_QST  LSFT(SI_QOT) // ?
-#define SI_ASTR LSFT(SI_PLUS) // *
-#define SI_COLN LSFT(KC_DOT) // :
-#define SI_SCLN LSFT(KC_COMM) // ;
-#define SI_UNDS LSFT(SI_MINS) // _
+#define SI_EXLM LSFT(KC_1)     // !
+#define SI_DQOT LSFT(KC_2)     // "
+#define SI_HASH LSFT(KC_3)     // #
+#define SI_DLR LSFT(KC_4)      // $
+#define SI_PERC LSFT(KC_5)     // %
+#define SI_AMPR LSFT(KC_6)     // &
+#define SI_SLSH LSFT(KC_7)     // /
+#define SI_LPRN LSFT(KC_8)     // (
+#define SI_RPRN LSFT(KC_9)     // )
+#define SI_EQL LSFT(KC_0)      // =
+#define SI_QST LSFT(SI_QOT)    // ?
+#define SI_ASTR LSFT(SI_PLUS)  // *
+#define SI_COLN LSFT(KC_DOT)   // :
+#define SI_SCLN LSFT(KC_COMM)  // ;
+#define SI_UNDS LSFT(SI_MINS)  // _
 
 // Alt Gr-ed characters
-#define SI_CIRC ALGR(KC_3) // ^
-#define SI_DEG ALGR(KC_5) // °
-#define SI_GRV ALGR(KC_7) // `
-#define SI_ACCU ALGR(KC_9) // ´
-#define SI_LCBR ALGR(KC_B) // {
-#define SI_RCBR ALGR(KC_N) // }
-#define SI_LBRC ALGR(KC_F) // [
-#define SI_RBRC ALGR(KC_G) // ]
-#define SI_BSLS ALGR(KC_Q) // backslash
-#define SI_AT  ALGR(KC_V) // @
-#define SI_EURO ALGR(KC_E) // €
-#define SI_TILD ALGR(KC_1) // ~
-#define SI_PIPE ALGR(KC_W) // |
+#define SI_CIRC ALGR(KC_3)  // ^
+#define SI_DEG ALGR(KC_5)   // °
+#define SI_GRV ALGR(KC_7)   // `
+#define SI_ACCU ALGR(KC_9)  // ´
+#define SI_LCBR ALGR(KC_B)  // {
+#define SI_RCBR ALGR(KC_N)  // }
+#define SI_LBRC ALGR(KC_F)  // [
+#define SI_RBRC ALGR(KC_G)  // ]
+#define SI_BSLS ALGR(KC_Q)  // backslash
+#define SI_AT ALGR(KC_V)    // @
+#define SI_EURO ALGR(KC_E)  // €
+#define SI_TILD ALGR(KC_1)  // ~
+#define SI_PIPE ALGR(KC_W)  // |
 
 #endif

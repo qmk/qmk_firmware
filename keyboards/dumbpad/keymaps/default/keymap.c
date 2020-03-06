@@ -28,14 +28,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    |             |---------|---------|---------|---------|
    |             |    1    |    2    |    3    |   Tab   |
    |-------------|---------|---------|---------|---------|
-   | Left mouse  | MO(SUB) |    0    |    .    |  Enter  |
+   | Left mouse  | TT(SUB) |    0    |    .    |  Enter  |
    \-----------------------------------------------------'
   */
-  [_BASE] = LAYOUT( /* Base */
+  [_BASE] = LAYOUT(
                    KC_7,      KC_8,    KC_9,     KC_BSPC, 
                    KC_4,      KC_5,    KC_6,     KC_ESC, 
                    KC_1,      KC_2,    KC_3,     KC_TAB, 
-    KC_BTN1,       MO(_SUB),  KC_0,    KC_DOT,   KC_ENTER
+    KC_BTN1,       TT(_SUB),  KC_0,    KC_DOT,   KC_ENTER
   ),
   /*
         SUB LAYER
@@ -88,19 +88,34 @@ void led_set_user(uint8_t usb_led) {
 }
 
 void encoder_update_user(uint8_t index, bool clockwise) {
+  /*  Custom encoder control - handles CW/CCW turning of encoder
+   *  Default behavior:
+   *    main layer:
+   *       CW: move mouse right
+   *      CCW: move mouse left
+   *    other layers:
+   *       CW: = (equals/plus - increase slider in Adobe products)
+   *      CCW: - (minus/underscore - decrease slider in adobe products)
+   */
   if (index == 0) {
-    if (layer_state && 0x1) {
-      if (clockwise) {
-        tap_code(KC_VOLU);
-      } else {
-        tap_code(KC_VOLD);
-      }
-    } else {
-      if (clockwise) {
-        tap_code(KC_MS_R);
-      } else {
-        tap_code(KC_MS_L);
-      }
+    switch (biton32(layer_state)) {
+      case _BASE:
+        // main layer - move mouse right (CW) and left (CCW)
+        if (clockwise) {
+          tap_code(KC_MS_R);
+        } else {
+          tap_code(KC_MS_L);
+        }
+        break;
+
+      default:
+        // other layers - =/+ (quals/plus) (CW) and -/_ (minus/underscore) (CCW)
+        if (clockwise) {
+          tap_code(KC_EQL);
+        } else {
+          tap_code(KC_MINS);
+        }
+        break;
     }
   }
 }

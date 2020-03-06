@@ -60,13 +60,16 @@ void planck_ez_left_led_level(uint8_t level);
 
 enum planck_ez_keycodes {
     LED_LEVEL = SAFE_RANGE,
+    TOGGLE_LAYER_COLOR,
     EZ_SAFE_RANGE,
 };
 
 typedef union {
   uint32_t raw;
   struct {
-    uint8_t    led_level :3;
+    uint8_t      led_level :3;
+    bool         disable_layer_led   :1;
+    bool         rgb_matrix_enable   :1;
   };
 } keyboard_config_t;
 

@@ -7,7 +7,7 @@ The I2C Master drivers used in QMK have a set of common functions to allow porta
 |Function                                                                                                          |Description                                                                                                                                                                  |
 |------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |`void i2c_init(void);`                                                                                            |Initializes the I2C driver. This function should be called once before any transaction is initiated.                                                                         |
-|`uint8_t i2c_start(uint8_t address);`                                                                             |Starts an I2C transaction. Address is the 7-bit slave address without the direction bit.                                                                                     |
+|`uint8_t i2c_start(uint8_t address, uint16_t timeout);`                                                                             |Starts an I2C transaction. Address is the 7-bit slave address without the direction bit.                                                                                     |
 |`uint8_t i2c_transmit(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout);`                        |Transmit data over I2C. Address is the 7-bit slave address without the direction. Returns status of transaction.                                                             |
 |`uint8_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout);`                         |Receive data over I2C. Address is the 7-bit slave address without the direction. Saves number of bytes specified by `length` in `data` array. Returns status of transaction. |
 |`uint8_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);`       |Same as the `i2c_transmit` function but `regaddr` sets where in the slave the data will be written.                                                                          |
@@ -34,7 +34,6 @@ The following defines can be used to configure the I2C master driver.
 |Variable          |Description                                        |Default|
 |------------------|---------------------------------------------------|-------|
 |`F_SCL`           |Clock frequency in Hz                              |400KHz |
-|`Prescaler`       |Divides master clock to aid in I2C clock selection |1      |
 
 AVRs usually have set GPIO which turn into I2C pins, therefore no further configuration is required.
 

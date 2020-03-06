@@ -202,17 +202,11 @@ uint8_t matrix_scan(void)
     }else{
         matrix_slave_scan();
 
-//        if(serial_slave_DATA_CORRUPT()){
-//          TXLED0;
           int offset = (isLeftHand) ? ROWS_PER_HAND : 0;
 
           for (int i = 0; i < ROWS_PER_HAND; ++i) {
               matrix[offset+i] = serial_master_buffer[i];
           }
-
-//        }else{
-//          TXLED1;
-//        }
 
         matrix_scan_quantum();
     }

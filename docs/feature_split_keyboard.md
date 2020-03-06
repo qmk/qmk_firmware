@@ -47,7 +47,7 @@ The 3 wires of the TRS/TRRS cable need to connect GND, VCC, and D0 (aka PDO or p
 
 The 4 wires of the TRRS cable need to connect GND, VCC, and SCL and SDA (aka PD0/pin 3 and PD1/pin 2, respectively) between the two Pro Micros. 
 
-The pull-up resistors may be placed on either half. It is also possible to use 4 resistors and have the pull-ups in both halves, but this is unnecessary in simple use cases.
+The pull-up resistors may be placed on either half. If you wish to use the halves independently, it is also possible to use 4 resistors and have the pull-ups in both halves.
 
 ![I2C wiring](https://i.imgur.com/Hbzhc6E.png)
 
@@ -96,6 +96,8 @@ However, you'll have to flash the EEPROM files for the correct hand to each cont
 * `:avrdude-split-right`
 * `:dfu-split-left`
 * `:dfu-split-right`
+* `:dfu-util-split-left`
+* `:dfu-util-split-right`
 
 This setting is not changed when re-initializing the EEPROM using the `EEP_RST` key, or using the `eeconfig_init()` function.  However, if you reset the EEPROM outside of the firmware's built in options (such as flashing a file that overwrites the `EEPROM`, like how the [QMK Toolbox]()'s "Reset EEPROM" button works), you'll need to re-flash the controller with the `EEPROM` files. 
 
@@ -167,6 +169,13 @@ This allows you to specify a different set of pins for the matrix on the right s
 This allows you to specify a different set of direct pins for the right side.
 
 ```c
+#define ENCODERS_PAD_A_RIGHT { encoder1a, encoder2a }
+#define ENCODERS_PAD_B_RIGHT { encoder1b, encoder2b }
+```
+
+This allows you to specify a different set of encoder pins for the right side.
+
+```c
 #define RGBLIGHT_SPLIT
 ```
 
@@ -180,6 +189,23 @@ This sets how many LEDs are directly connected to each controller.  The first nu
 
 ?> This setting implies that `RGBLIGHT_SPLIT` is enabled, and will forcibly enable it, if it's not.
 
+
+```c
+#define SPLIT_USB_DETECT
+```
+This option changes the startup behavior to detect an active USB connection when delegating master/slave. If this operation times out, then the half is assume to be a slave. This is the default behavior for ARM, and required for AVR Teensy boards (due to hardware limitations).
+
+?> This setting will stop the ability to demo using battery packs.
+
+```c
+#define SPLIT_USB_TIMEOUT 2000
+```
+This sets the maximum timeout when detecting master/slave when using `SPLIT_USB_DETECT`.
+
+```c
+#define SPLIT_USB_TIMEOUT_POLL 10
+```
+This sets the poll frequency when detecting master/slave when using `SPLIT_USB_DETECT`
 
 ## Additional Resources
 

@@ -43,7 +43,7 @@
  */
 
 #ifndef UTILS_COMPILER_H_INCLUDED
-#define UTILS_COMPILER_H_INCLUDED
+#    define UTILS_COMPILER_H_INCLUDED
 
 /**
  * \defgroup group_sam0_utils Compiler abstraction layer and code utilities
@@ -54,38 +54,38 @@
  * @{
  */
 
-#if (defined __ICCARM__)
-#  include <intrinsics.h>
-#endif
+#    if (defined __ICCARM__)
+#        include <intrinsics.h>
+#    endif
 
-#include <stddef.h>
+#    include <stddef.h>
 //#include <parts.h>
 //#include <status_codes.h>
 //#include <preprocessor.h>
 //#include <io.h>
 
-#ifndef __ASSEMBLY__
+#    ifndef __ASSEMBLY__
 
-#include <stdio.h>
-#include <stdbool.h>
-#include <stdint.h>
-#include <stdlib.h>
+#        include <stdio.h>
+#        include <stdbool.h>
+#        include <stdint.h>
+#        include <stdlib.h>
 
 /**
  * \def UNUSED
  * \brief Marking \a v as a unused parameter or value.
  */
-#define UNUSED(v)          (void)(v)
+#        define UNUSED(v) (void)(v)
 
 /**
  * \def barrier
  * \brief Memory barrier
  */
-#ifdef __GNUC__
-#  define barrier()        asm volatile("" ::: "memory")
-#else
-#  define barrier()        asm ("")
-#endif
+#        ifdef __GNUC__
+#            define barrier() asm volatile("" ::: "memory")
+#        else
+#            define barrier() asm("")
+#        endif
 
 /**
  * \brief Emit the compiler pragma \a arg.
@@ -93,38 +93,37 @@
  * \param[in] arg  The pragma directive as it would appear after \e \#pragma
  *             (i.e. not stringified).
  */
-#define COMPILER_PRAGMA(arg)          _Pragma(#arg)
+#        define COMPILER_PRAGMA(arg) _Pragma(#        arg)
 
 /**
  * \def COMPILER_PACK_SET(alignment)
  * \brief Set maximum alignment for subsequent struct and union definitions to \a alignment.
  */
-#define COMPILER_PACK_SET(alignment)  COMPILER_PRAGMA(pack(alignment))
+#        define COMPILER_PACK_SET(alignment) COMPILER_PRAGMA(pack(alignment))
 
 /**
  * \def COMPILER_PACK_RESET()
  * \brief Set default alignment for subsequent struct and union definitions.
  */
-#define COMPILER_PACK_RESET()         COMPILER_PRAGMA(pack())
-
+#        define COMPILER_PACK_RESET() COMPILER_PRAGMA(pack())
 
 /**
  * \brief Set aligned boundary.
  */
-#if (defined __GNUC__) || (defined __CC_ARM)
-#   define COMPILER_ALIGNED(a)        __attribute__((__aligned__(a)))
-#elif (defined __ICCARM__)
-#   define COMPILER_ALIGNED(a)        COMPILER_PRAGMA(data_alignment = a)
-#endif
+#        if (defined __GNUC__) || (defined __CC_ARM)
+#            define COMPILER_ALIGNED(a) __attribute__((__aligned__(a)))
+#        elif (defined __ICCARM__)
+#            define COMPILER_ALIGNED(a) COMPILER_PRAGMA(data_alignment = a)
+#        endif
 
 /**
  * \brief Set word-aligned boundary.
  */
-#if (defined __GNUC__) || defined(__CC_ARM)
-#define COMPILER_WORD_ALIGNED         __attribute__((__aligned__(4)))
-#elif (defined __ICCARM__)
-#define COMPILER_WORD_ALIGNED         COMPILER_PRAGMA(data_alignment = 4)
-#endif
+#        if (defined __GNUC__) || defined(__CC_ARM)
+#            define COMPILER_WORD_ALIGNED __attribute__((__aligned__(4)))
+#        elif (defined __ICCARM__)
+#            define COMPILER_WORD_ALIGNED COMPILER_PRAGMA(data_alignment = 4)
+#        endif
 
 /**
  * \def __always_inline
@@ -134,15 +133,15 @@
  * heuristics and inline the function no matter how big it thinks it
  * becomes.
  */
-#if !defined(__always_inline)
-#if defined(__CC_ARM)
-#  define __always_inline             __forceinline
-#elif (defined __GNUC__)
-#  define __always_inline             __attribute__((__always_inline__))
-#elif (defined __ICCARM__)
-#  define __always_inline             _Pragma("inline=forced")
-#endif
-#endif
+#        if !defined(__always_inline)
+#            if defined(__CC_ARM)
+#                define __always_inline __forceinline
+#            elif (defined __GNUC__)
+#                define __always_inline __attribute__((__always_inline__))
+#            elif (defined __ICCARM__)
+#                define __always_inline _Pragma("inline=forced")
+#            endif
+#        endif
 
 /**
  * \def __no_inline
@@ -152,14 +151,13 @@
  * heuristics and not inline the function no matter how small it thinks it
  * becomes.
  */
-#if defined(__CC_ARM)
-#  define __no_inline                 __attribute__((noinline))
-#elif (defined __GNUC__)
-#  define __no_inline                 __attribute__((noinline))
-#elif (defined __ICCARM__)
-#  define __no_inline                 _Pragma("inline=never")
-#endif
-
+#        if defined(__CC_ARM)
+#            define __no_inline __attribute__((noinline))
+#        elif (defined __GNUC__)
+#            define __no_inline __attribute__((noinline))
+#        elif (defined __ICCARM__)
+#            define __no_inline _Pragma("inline=never")
+#        endif
 
 /** \brief This macro is used to test fatal errors.
  *
@@ -170,212 +168,201 @@
  *
  * \param[in] expr  Expression to evaluate and supposed to be nonzero.
  */
-#if defined(_ASSERT_ENABLE_)
-#  if defined(TEST_SUITE_DEFINE_ASSERT_MACRO)
-#    include "unit_test/suite.h"
-#  else
-#    undef TEST_SUITE_DEFINE_ASSERT_MACRO
-#    define Assert(expr) \
-        {\
-           if (!(expr)) asm("BKPT #0");\
-        }
-#  endif
-#else
-#  define Assert(expr) ((void) 0)
-#endif
+#        if defined(_ASSERT_ENABLE_)
+#            if defined(TEST_SUITE_DEFINE_ASSERT_MACRO)
+#                include "unit_test/suite.h"
+#            else
+#                undef TEST_SUITE_DEFINE_ASSERT_MACRO
+#                define Assert(expr)                 \
+                    {                                \
+                        if (!(expr)) asm("BKPT #0"); \
+                    }
+#            endif
+#        else
+#            define Assert(expr) ((void)0)
+#        endif
 
 /* Define WEAK attribute */
-#if defined   ( __CC_ARM   )
-#   define WEAK __attribute__ ((weak))
-#elif defined ( __ICCARM__ )
-#   define WEAK __weak
-#elif defined (  __GNUC__  )
-#   define WEAK __attribute__ ((weak))
-#endif
+#        if defined(__CC_ARM)
+#            define WEAK __attribute__((weak))
+#        elif defined(__ICCARM__)
+#            define WEAK __weak
+#        elif defined(__GNUC__)
+#            define WEAK __attribute__((weak))
+#        endif
 
 /* Define NO_INIT attribute */
-#if defined   ( __CC_ARM   )
-#   define NO_INIT __attribute__((zero_init))
-#elif defined ( __ICCARM__ )
-#   define NO_INIT __no_init
-#elif defined (  __GNUC__  )
-#   define NO_INIT __attribute__((section(".no_init")))
-#endif
+#        if defined(__CC_ARM)
+#            define NO_INIT __attribute__((zero_init))
+#        elif defined(__ICCARM__)
+#            define NO_INIT __no_init
+#        elif defined(__GNUC__)
+#            define NO_INIT __attribute__((section(".no_init")))
+#        endif
 
 //#include "interrupt.h"
 
 /** \name Usual Types
  * @{ */
-#ifndef __cplusplus
-#  if !defined(__bool_true_false_are_defined)
-typedef unsigned char           bool;
-#  endif
-#endif
-typedef uint16_t                le16_t;
-typedef uint16_t                be16_t;
-typedef uint32_t                le32_t;
-typedef uint32_t                be32_t;
-typedef uint32_t                iram_size_t;
+#        ifndef __cplusplus
+#            if !defined(__bool_true_false_are_defined)
+typedef unsigned char bool;
+#            endif
+#        endif
+typedef uint16_t le16_t;
+typedef uint16_t be16_t;
+typedef uint32_t le32_t;
+typedef uint32_t be32_t;
+typedef uint32_t iram_size_t;
 /** @} */
 
 /** \name Aliasing Aggregate Types
  * @{ */
 
 /** 16-bit union. */
-typedef union
-{
-  int16_t  s16;
-  uint16_t u16;
-  int8_t   s8[2];
-  uint8_t  u8[2];
+typedef union {
+    int16_t  s16;
+    uint16_t u16;
+    int8_t   s8[2];
+    uint8_t  u8[2];
 } Union16;
 
 /** 32-bit union. */
-typedef union
-{
-  int32_t  s32;
-  uint32_t u32;
-  int16_t  s16[2];
-  uint16_t u16[2];
-  int8_t   s8[4];
-  uint8_t  u8[4];
+typedef union {
+    int32_t  s32;
+    uint32_t u32;
+    int16_t  s16[2];
+    uint16_t u16[2];
+    int8_t   s8[4];
+    uint8_t  u8[4];
 } Union32;
 
 /** 64-bit union. */
-typedef union
-{
-  int64_t  s64;
-  uint64_t u64;
-  int32_t  s32[2];
-  uint32_t u32[2];
-  int16_t  s16[4];
-  uint16_t u16[4];
-  int8_t   s8[8];
-  uint8_t  u8[8];
+typedef union {
+    int64_t  s64;
+    uint64_t u64;
+    int32_t  s32[2];
+    uint32_t u32[2];
+    int16_t  s16[4];
+    uint16_t u16[4];
+    int8_t   s8[8];
+    uint8_t  u8[8];
 } Union64;
 
 /** Union of pointers to 64-, 32-, 16- and 8-bit unsigned integers. */
-typedef union
-{
-  int64_t  *s64ptr;
-  uint64_t *u64ptr;
-  int32_t  *s32ptr;
-  uint32_t *u32ptr;
-  int16_t  *s16ptr;
-  uint16_t *u16ptr;
-  int8_t   *s8ptr;
-  uint8_t  *u8ptr;
+typedef union {
+    int64_t * s64ptr;
+    uint64_t *u64ptr;
+    int32_t * s32ptr;
+    uint32_t *u32ptr;
+    int16_t * s16ptr;
+    uint16_t *u16ptr;
+    int8_t *  s8ptr;
+    uint8_t * u8ptr;
 } UnionPtr;
 
 /** Union of pointers to volatile 64-, 32-, 16- and 8-bit unsigned integers. */
-typedef union
-{
-  volatile int64_t  *s64ptr;
-  volatile uint64_t *u64ptr;
-  volatile int32_t  *s32ptr;
-  volatile uint32_t *u32ptr;
-  volatile int16_t  *s16ptr;
-  volatile uint16_t *u16ptr;
-  volatile int8_t   *s8ptr;
-  volatile uint8_t  *u8ptr;
+typedef union {
+    volatile int64_t * s64ptr;
+    volatile uint64_t *u64ptr;
+    volatile int32_t * s32ptr;
+    volatile uint32_t *u32ptr;
+    volatile int16_t * s16ptr;
+    volatile uint16_t *u16ptr;
+    volatile int8_t *  s8ptr;
+    volatile uint8_t * u8ptr;
 } UnionVPtr;
 
 /** Union of pointers to constant 64-, 32-, 16- and 8-bit unsigned integers. */
-typedef union
-{
-  const int64_t  *s64ptr;
-  const uint64_t *u64ptr;
-  const int32_t  *s32ptr;
-  const uint32_t *u32ptr;
-  const int16_t  *s16ptr;
-  const uint16_t *u16ptr;
-  const int8_t   *s8ptr;
-  const uint8_t  *u8ptr;
+typedef union {
+    const int64_t * s64ptr;
+    const uint64_t *u64ptr;
+    const int32_t * s32ptr;
+    const uint32_t *u32ptr;
+    const int16_t * s16ptr;
+    const uint16_t *u16ptr;
+    const int8_t *  s8ptr;
+    const uint8_t * u8ptr;
 } UnionCPtr;
 
 /** Union of pointers to constant volatile 64-, 32-, 16- and 8-bit unsigned integers. */
-typedef union
-{
-  const volatile int64_t  *s64ptr;
-  const volatile uint64_t *u64ptr;
-  const volatile int32_t  *s32ptr;
-  const volatile uint32_t *u32ptr;
-  const volatile int16_t  *s16ptr;
-  const volatile uint16_t *u16ptr;
-  const volatile int8_t   *s8ptr;
-  const volatile uint8_t  *u8ptr;
+typedef union {
+    const volatile int64_t * s64ptr;
+    const volatile uint64_t *u64ptr;
+    const volatile int32_t * s32ptr;
+    const volatile uint32_t *u32ptr;
+    const volatile int16_t * s16ptr;
+    const volatile uint16_t *u16ptr;
+    const volatile int8_t *  s8ptr;
+    const volatile uint8_t * u8ptr;
 } UnionCVPtr;
 
 /** Structure of pointers to 64-, 32-, 16- and 8-bit unsigned integers. */
-typedef struct
-{
-  int64_t  *s64ptr;
-  uint64_t *u64ptr;
-  int32_t  *s32ptr;
-  uint32_t *u32ptr;
-  int16_t  *s16ptr;
-  uint16_t *u16ptr;
-  int8_t   *s8ptr;
-  uint8_t  *u8ptr;
+typedef struct {
+    int64_t * s64ptr;
+    uint64_t *u64ptr;
+    int32_t * s32ptr;
+    uint32_t *u32ptr;
+    int16_t * s16ptr;
+    uint16_t *u16ptr;
+    int8_t *  s8ptr;
+    uint8_t * u8ptr;
 } StructPtr;
 
 /** Structure of pointers to volatile 64-, 32-, 16- and 8-bit unsigned integers. */
-typedef struct
-{
-  volatile int64_t  *s64ptr;
-  volatile uint64_t *u64ptr;
-  volatile int32_t  *s32ptr;
-  volatile uint32_t *u32ptr;
-  volatile int16_t  *s16ptr;
-  volatile uint16_t *u16ptr;
-  volatile int8_t   *s8ptr;
-  volatile uint8_t  *u8ptr;
+typedef struct {
+    volatile int64_t * s64ptr;
+    volatile uint64_t *u64ptr;
+    volatile int32_t * s32ptr;
+    volatile uint32_t *u32ptr;
+    volatile int16_t * s16ptr;
+    volatile uint16_t *u16ptr;
+    volatile int8_t *  s8ptr;
+    volatile uint8_t * u8ptr;
 } StructVPtr;
 
 /** Structure of pointers to constant 64-, 32-, 16- and 8-bit unsigned integers. */
-typedef struct
-{
-  const int64_t  *s64ptr;
-  const uint64_t *u64ptr;
-  const int32_t  *s32ptr;
-  const uint32_t *u32ptr;
-  const int16_t  *s16ptr;
-  const uint16_t *u16ptr;
-  const int8_t   *s8ptr;
-  const uint8_t  *u8ptr;
+typedef struct {
+    const int64_t * s64ptr;
+    const uint64_t *u64ptr;
+    const int32_t * s32ptr;
+    const uint32_t *u32ptr;
+    const int16_t * s16ptr;
+    const uint16_t *u16ptr;
+    const int8_t *  s8ptr;
+    const uint8_t * u8ptr;
 } StructCPtr;
 
 /** Structure of pointers to constant volatile 64-, 32-, 16- and 8-bit unsigned integers. */
-typedef struct
-{
-  const volatile int64_t  *s64ptr;
-  const volatile uint64_t *u64ptr;
-  const volatile int32_t  *s32ptr;
-  const volatile uint32_t *u32ptr;
-  const volatile int16_t  *s16ptr;
-  const volatile uint16_t *u16ptr;
-  const volatile int8_t   *s8ptr;
-  const volatile uint8_t  *u8ptr;
+typedef struct {
+    const volatile int64_t * s64ptr;
+    const volatile uint64_t *u64ptr;
+    const volatile int32_t * s32ptr;
+    const volatile uint32_t *u32ptr;
+    const volatile int16_t * s16ptr;
+    const volatile uint16_t *u16ptr;
+    const volatile int8_t *  s8ptr;
+    const volatile uint8_t * u8ptr;
 } StructCVPtr;
 
 /** @} */
 
-#endif  /* #ifndef __ASSEMBLY__ */
+#    endif /* #ifndef __ASSEMBLY__ */
 
 /** \name Usual Constants
  * @{ */
-//kmod #define DISABLE   0
-//kmod #define ENABLE    1
+// kmod #define DISABLE   0
+// kmod #define ENABLE    1
 
-#ifndef __cplusplus
-#  if !defined(__bool_true_false_are_defined)
-#    define false     0
-#    define true      1
-#  endif
-#endif
+#    ifndef __cplusplus
+#        if !defined(__bool_true_false_are_defined)
+#            define false 0
+#            define true 1
+#        endif
+#    endif
 /** @} */
 
-#ifndef __ASSEMBLY__
+#    ifndef __ASSEMBLY__
 
 /** \name Optimization Control
  * @{ */
@@ -384,17 +371,17 @@ typedef struct
  * \def likely(exp)
  * \brief The expression \a exp is likely to be true
  */
-#if !defined(likely) || defined(__DOXYGEN__)
-#   define likely(exp)    (exp)
-#endif
+#        if !defined(likely) || defined(__DOXYGEN__)
+#            define likely(exp) (exp)
+#        endif
 
 /**
  * \def unlikely(exp)
  * \brief The expression \a exp is unlikely to be true
  */
-#if !defined(unlikely) || defined(__DOXYGEN__)
-#   define unlikely(exp)  (exp)
-#endif
+#        if !defined(unlikely) || defined(__DOXYGEN__)
+#            define unlikely(exp) (exp)
+#        endif
 
 /**
  * \def is_constant(exp)
@@ -404,11 +391,11 @@ typedef struct
  *
  * \return true if \a exp is constant, false otherwise.
  */
-#if (defined __GNUC__) || (defined __CC_ARM)
-#   define is_constant(exp)       __builtin_constant_p(exp)
-#else
-#   define is_constant(exp)       (0)
-#endif
+#        if (defined __GNUC__) || (defined __CC_ARM)
+#            define is_constant(exp) __builtin_constant_p(exp)
+#        else
+#            define is_constant(exp) (0)
+#        endif
 
 /** @} */
 
@@ -422,7 +409,7 @@ typedef struct
  *
  * \return Read bits.
  */
-#define Rd_bits( value, mask)        ((value) & (mask))
+#        define Rd_bits(value, mask) ((value) & (mask))
 
 /** \brief Writes the bits of a C lvalue specified by a given bit-mask.
  *
@@ -432,8 +419,7 @@ typedef struct
  *
  * \return Resulting value with written bits.
  */
-#define Wr_bits(lvalue, mask, bits)  ((lvalue) = ((lvalue) & ~(mask)) |\
-                                                 ((bits  ) &  (mask)))
+#        define Wr_bits(lvalue, mask, bits) ((lvalue) = ((lvalue) & ~(mask)) | ((bits) & (mask)))
 
 /** \brief Tests the bits of a value specified by a given bit-mask.
  *
@@ -442,7 +428,7 @@ typedef struct
  *
  * \return \c 1 if at least one of the tested bits is set, else \c 0.
  */
-#define Tst_bits( value, mask)  (Rd_bits(value, mask) != 0)
+#        define Tst_bits(value, mask) (Rd_bits(value, mask) != 0)
 
 /** \brief Clears the bits of a C lvalue specified by a given bit-mask.
  *
@@ -451,7 +437,7 @@ typedef struct
  *
  * \return Resulting value with cleared bits.
  */
-#define Clr_bits(lvalue, mask)  ((lvalue) &= ~(mask))
+#        define Clr_bits(lvalue, mask) ((lvalue) &= ~(mask))
 
 /** \brief Sets the bits of a C lvalue specified by a given bit-mask.
  *
@@ -460,7 +446,7 @@ typedef struct
  *
  * \return Resulting value with set bits.
  */
-#define Set_bits(lvalue, mask)  ((lvalue) |=  (mask))
+#        define Set_bits(lvalue, mask) ((lvalue) |= (mask))
 
 /** \brief Toggles the bits of a C lvalue specified by a given bit-mask.
  *
@@ -469,7 +455,7 @@ typedef struct
  *
  * \return Resulting value with toggled bits.
  */
-#define Tgl_bits(lvalue, mask)  ((lvalue) ^=  (mask))
+#        define Tgl_bits(lvalue, mask) ((lvalue) ^= (mask))
 
 /** \brief Reads the bit-field of a value specified by a given bit-mask.
  *
@@ -478,7 +464,7 @@ typedef struct
  *
  * \return Read bit-field.
  */
-#define Rd_bitfield( value, mask)           (Rd_bits( value, mask) >> ctz(mask))
+#        define Rd_bitfield(value, mask) (Rd_bits(value, mask) >> ctz(mask))
 
 /** \brief Writes the bit-field of a C lvalue specified by a given bit-mask.
  *
@@ -488,10 +474,9 @@ typedef struct
  *
  * \return Resulting value with written bit-field.
  */
-#define Wr_bitfield(lvalue, mask, bitfield) (Wr_bits(lvalue, mask, (uint32_t)(bitfield) << ctz(mask)))
+#        define Wr_bitfield(lvalue, mask, bitfield) (Wr_bits(lvalue, mask, (uint32_t)(bitfield) << ctz(mask)))
 
 /** @} */
-
 
 /** \name Zero-Bit Counting
  *
@@ -513,43 +498,11 @@ typedef struct
  *
  * \return The count of leading zero bits in \a u.
  */
-#if (defined __GNUC__) || (defined __CC_ARM)
-#   define clz(u)              ((u) ? __builtin_clz(u) : 32)
-#else
-#   define clz(u)              (((u) == 0)          ? 32 : \
-                                ((u) & (1ul << 31)) ?  0 : \
-                                ((u) & (1ul << 30)) ?  1 : \
-                                ((u) & (1ul << 29)) ?  2 : \
-                                ((u) & (1ul << 28)) ?  3 : \
-                                ((u) & (1ul << 27)) ?  4 : \
-                                ((u) & (1ul << 26)) ?  5 : \
-                                ((u) & (1ul << 25)) ?  6 : \
-                                ((u) & (1ul << 24)) ?  7 : \
-                                ((u) & (1ul << 23)) ?  8 : \
-                                ((u) & (1ul << 22)) ?  9 : \
-                                ((u) & (1ul << 21)) ? 10 : \
-                                ((u) & (1ul << 20)) ? 11 : \
-                                ((u) & (1ul << 19)) ? 12 : \
-                                ((u) & (1ul << 18)) ? 13 : \
-                                ((u) & (1ul << 17)) ? 14 : \
-                                ((u) & (1ul << 16)) ? 15 : \
-                                ((u) & (1ul << 15)) ? 16 : \
-                                ((u) & (1ul << 14)) ? 17 : \
-                                ((u) & (1ul << 13)) ? 18 : \
-                                ((u) & (1ul << 12)) ? 19 : \
-                                ((u) & (1ul << 11)) ? 20 : \
-                                ((u) & (1ul << 10)) ? 21 : \
-                                ((u) & (1ul <<  9)) ? 22 : \
-                                ((u) & (1ul <<  8)) ? 23 : \
-                                ((u) & (1ul <<  7)) ? 24 : \
-                                ((u) & (1ul <<  6)) ? 25 : \
-                                ((u) & (1ul <<  5)) ? 26 : \
-                                ((u) & (1ul <<  4)) ? 27 : \
-                                ((u) & (1ul <<  3)) ? 28 : \
-                                ((u) & (1ul <<  2)) ? 29 : \
-                                ((u) & (1ul <<  1)) ? 30 : \
-                                31)
-#endif
+#        if (defined __GNUC__) || (defined __CC_ARM)
+#            define clz(u) ((u) ? __builtin_clz(u) : 32)
+#        else
+#            define clz(u) (((u) == 0) ? 32 : ((u) & (1ul << 31)) ? 0 : ((u) & (1ul << 30)) ? 1 : ((u) & (1ul << 29)) ? 2 : ((u) & (1ul << 28)) ? 3 : ((u) & (1ul << 27)) ? 4 : ((u) & (1ul << 26)) ? 5 : ((u) & (1ul << 25)) ? 6 : ((u) & (1ul << 24)) ? 7 : ((u) & (1ul << 23)) ? 8 : ((u) & (1ul << 22)) ? 9 : ((u) & (1ul << 21)) ? 10 : ((u) & (1ul << 20)) ? 11 : ((u) & (1ul << 19)) ? 12 : ((u) & (1ul << 18)) ? 13 : ((u) & (1ul << 17)) ? 14 : ((u) & (1ul << 16)) ? 15 : ((u) & (1ul << 15)) ? 16 : ((u) & (1ul << 14)) ? 17 : ((u) & (1ul << 13)) ? 18 : ((u) & (1ul << 12)) ? 19 : ((u) & (1ul << 11)) ? 20 : ((u) & (1ul << 10)) ? 21 : ((u) & (1ul << 9)) ? 22 : ((u) & (1ul << 8)) ? 23 : ((u) & (1ul << 7)) ? 24 : ((u) & (1ul << 6)) ? 25 : ((u) & (1ul << 5)) ? 26 : ((u) & (1ul << 4)) ? 27 : ((u) & (1ul << 3)) ? 28 : ((u) & (1ul << 2)) ? 29 : ((u) & (1ul << 1)) ? 30 : 31)
+#        endif
 
 /** \brief Counts the trailing zero bits of the given value considered as a 32-bit integer.
  *
@@ -557,46 +510,13 @@ typedef struct
  *
  * \return The count of trailing zero bits in \a u.
  */
-#if (defined __GNUC__) || (defined __CC_ARM)
-#   define ctz(u)              ((u) ? __builtin_ctz(u) : 32)
-#else
-#   define ctz(u)              ((u) & (1ul <<  0) ?  0 : \
-                                (u) & (1ul <<  1) ?  1 : \
-                                (u) & (1ul <<  2) ?  2 : \
-                                (u) & (1ul <<  3) ?  3 : \
-                                (u) & (1ul <<  4) ?  4 : \
-                                (u) & (1ul <<  5) ?  5 : \
-                                (u) & (1ul <<  6) ?  6 : \
-                                (u) & (1ul <<  7) ?  7 : \
-                                (u) & (1ul <<  8) ?  8 : \
-                                (u) & (1ul <<  9) ?  9 : \
-                                (u) & (1ul << 10) ? 10 : \
-                                (u) & (1ul << 11) ? 11 : \
-                                (u) & (1ul << 12) ? 12 : \
-                                (u) & (1ul << 13) ? 13 : \
-                                (u) & (1ul << 14) ? 14 : \
-                                (u) & (1ul << 15) ? 15 : \
-                                (u) & (1ul << 16) ? 16 : \
-                                (u) & (1ul << 17) ? 17 : \
-                                (u) & (1ul << 18) ? 18 : \
-                                (u) & (1ul << 19) ? 19 : \
-                                (u) & (1ul << 20) ? 20 : \
-                                (u) & (1ul << 21) ? 21 : \
-                                (u) & (1ul << 22) ? 22 : \
-                                (u) & (1ul << 23) ? 23 : \
-                                (u) & (1ul << 24) ? 24 : \
-                                (u) & (1ul << 25) ? 25 : \
-                                (u) & (1ul << 26) ? 26 : \
-                                (u) & (1ul << 27) ? 27 : \
-                                (u) & (1ul << 28) ? 28 : \
-                                (u) & (1ul << 29) ? 29 : \
-                                (u) & (1ul << 30) ? 30 : \
-                                (u) & (1ul << 31) ? 31 : \
-                                32)
-#endif
+#        if (defined __GNUC__) || (defined __CC_ARM)
+#            define ctz(u) ((u) ? __builtin_ctz(u) : 32)
+#        else
+#            define ctz(u) ((u) & (1ul << 0) ? 0 : (u) & (1ul << 1) ? 1 : (u) & (1ul << 2) ? 2 : (u) & (1ul << 3) ? 3 : (u) & (1ul << 4) ? 4 : (u) & (1ul << 5) ? 5 : (u) & (1ul << 6) ? 6 : (u) & (1ul << 7) ? 7 : (u) & (1ul << 8) ? 8 : (u) & (1ul << 9) ? 9 : (u) & (1ul << 10) ? 10 : (u) & (1ul << 11) ? 11 : (u) & (1ul << 12) ? 12 : (u) & (1ul << 13) ? 13 : (u) & (1ul << 14) ? 14 : (u) & (1ul << 15) ? 15 : (u) & (1ul << 16) ? 16 : (u) & (1ul << 17) ? 17 : (u) & (1ul << 18) ? 18 : (u) & (1ul << 19) ? 19 : (u) & (1ul << 20) ? 20 : (u) & (1ul << 21) ? 21 : (u) & (1ul << 22) ? 22 : (u) & (1ul << 23) ? 23 : (u) & (1ul << 24) ? 24 : (u) & (1ul << 25) ? 25 : (u) & (1ul << 26) ? 26 : (u) & (1ul << 27) ? 27 : (u) & (1ul << 28) ? 28 : (u) & (1ul << 29) ? 29 : (u) & (1ul << 30) ? 30 : (u) & (1ul << 31) ? 31 : 32)
+#        endif
 
 /** @} */
-
 
 /** \name Bit Reversing
  * @{ */
@@ -607,7 +527,7 @@ typedef struct
  *
  * \return Value resulting from \a u8 with reversed bits.
  */
-#define bit_reverse8(u8)    ((U8)(bit_reverse32((U8)(u8)) >> 24))
+#        define bit_reverse8(u8) ((U8)(bit_reverse32((U8)(u8)) >> 24))
 
 /** \brief Reverses the bits of \a u16.
  *
@@ -615,7 +535,7 @@ typedef struct
  *
  * \return Value resulting from \a u16 with reversed bits.
  */
-#define bit_reverse16(u16)  ((uint16_t)(bit_reverse32((uint16_t)(u16)) >> 16))
+#        define bit_reverse16(u16) ((uint16_t)(bit_reverse32((uint16_t)(u16)) >> 16))
 
 /** \brief Reverses the bits of \a u32.
  *
@@ -623,7 +543,7 @@ typedef struct
  *
  * \return Value resulting from \a u32 with reversed bits.
  */
-#define bit_reverse32(u32)   __RBIT(u32)
+#        define bit_reverse32(u32) __RBIT(u32)
 
 /** \brief Reverses the bits of \a u64.
  *
@@ -631,11 +551,9 @@ typedef struct
  *
  * \return Value resulting from \a u64 with reversed bits.
  */
-#define bit_reverse64(u64)  ((uint64_t)(((uint64_t)bit_reverse32((uint64_t)(u64) >> 32)) |\
-                                   ((uint64_t)bit_reverse32((uint64_t)(u64)) << 32)))
+#        define bit_reverse64(u64) ((uint64_t)(((uint64_t)bit_reverse32((uint64_t)(u64) >> 32)) | ((uint64_t)bit_reverse32((uint64_t)(u64)) << 32)))
 
 /** @} */
-
 
 /** \name Alignment
  * @{ */
@@ -647,7 +565,7 @@ typedef struct
  *
  * \return \c 1 if the number \a val is aligned with the \a n boundary, else \c 0.
  */
-#define Test_align(val, n) (!Tst_bits( val, (n) - 1     )   )
+#        define Test_align(val, n) (!Tst_bits(val, (n)-1))
 
 /** \brief Gets alignment of the number \a val with respect to the \a n boundary.
  *
@@ -656,7 +574,7 @@ typedef struct
  *
  * \return Alignment of the number \a val with respect to the \a n boundary.
  */
-#define Get_align(val, n) (  Rd_bits( val, (n) - 1     )   )
+#        define Get_align(val, n) (Rd_bits(val, (n)-1))
 
 /** \brief Sets alignment of the lvalue number \a lval to \a alg with respect to the \a n boundary.
  *
@@ -666,7 +584,7 @@ typedef struct
  *
  * \return New value of \a lval resulting from its alignment set to \a alg with respect to the \a n boundary.
  */
-#define Set_align(lval, n, alg) (  Wr_bits(lval, (n) - 1, alg)   )
+#        define Set_align(lval, n, alg) (Wr_bits(lval, (n)-1, alg))
 
 /** \brief Aligns the number \a val with the upper \a n boundary.
  *
@@ -675,7 +593,7 @@ typedef struct
  *
  * \return Value resulting from the number \a val aligned with the upper \a n boundary.
  */
-#define Align_up(  val, n) (((val) + ((n) - 1)) & ~((n) - 1))
+#        define Align_up(val, n) (((val) + ((n)-1)) & ~((n)-1))
 
 /** \brief Aligns the number \a val with the lower \a n boundary.
  *
@@ -684,10 +602,9 @@ typedef struct
  *
  * \return Value resulting from the number \a val aligned with the lower \a n boundary.
  */
-#define Align_down(val, n) ( (val)              & ~((n) - 1))
+#        define Align_down(val, n) ((val) & ~((n)-1))
 
 /** @} */
-
 
 /** \name Mathematics
  *
@@ -710,9 +627,9 @@ typedef struct
  *
  * \note More optimized if only used with values known at compile time.
  */
-#define Abs(a)              (((a) <  0 ) ? -(a) : (a))
+#        define Abs(a) (((a) < 0) ? -(a) : (a))
 
-#ifndef __cplusplus
+#        ifndef __cplusplus
 /** \brief Takes the minimal value of \a a and \a b.
  *
  * \param[in] a Input value.
@@ -722,7 +639,7 @@ typedef struct
  *
  * \note More optimized if only used with values known at compile time.
  */
-#define Min(a, b)           (((a) < (b)) ?  (a) : (b))
+#            define Min(a, b) (((a) < (b)) ? (a) : (b))
 
 /** \brief Takes the maximal value of \a a and \a b.
  *
@@ -733,7 +650,7 @@ typedef struct
  *
  * \note More optimized if only used with values known at compile time.
  */
-#define Max(a, b)           (((a) > (b)) ?  (a) : (b))
+#            define Max(a, b) (((a) > (b)) ? (a) : (b))
 
 /** \brief Takes the minimal value of \a a and \a b.
  *
@@ -744,7 +661,7 @@ typedef struct
  *
  * \note More optimized if only used with values unknown at compile time.
  */
-#define min(a, b)   Min(a, b)
+#            define min(a, b) Min(a, b)
 
 /** \brief Takes the maximal value of \a a and \a b.
  *
@@ -755,11 +672,10 @@ typedef struct
  *
  * \note More optimized if only used with values unknown at compile time.
  */
-#define max(a, b)   Max(a, b)
-#endif
+#            define max(a, b) Max(a, b)
+#        endif
 
 /** @} */
-
 
 /** \brief Calls the routine at address \a addr.
  *
@@ -772,37 +688,35 @@ typedef struct
  *
  * \note It may be used as a long jump opcode in some special cases.
  */
-#define Long_call(addr)                   ((*(void (*)(void))(addr))())
-
+#        define Long_call(addr) ((*(void (*)(void))(addr))())
 
 /** \name MCU Endianism Handling
  *  ARM is MCU little endian.
  *
  * @{ */
-#define  BE16(x)        swap16(x)
-#define  LE16(x)        (x)
+#        define BE16(x) swap16(x)
+#        define LE16(x) (x)
 
-#define  le16_to_cpu(x) (x)
-#define  cpu_to_le16(x) (x)
-#define  LE16_TO_CPU(x) (x)
-#define  CPU_TO_LE16(x) (x)
+#        define le16_to_cpu(x) (x)
+#        define cpu_to_le16(x) (x)
+#        define LE16_TO_CPU(x) (x)
+#        define CPU_TO_LE16(x) (x)
 
-#define  be16_to_cpu(x) swap16(x)
-#define  cpu_to_be16(x) swap16(x)
-#define  BE16_TO_CPU(x) swap16(x)
-#define  CPU_TO_BE16(x) swap16(x)
+#        define be16_to_cpu(x) swap16(x)
+#        define cpu_to_be16(x) swap16(x)
+#        define BE16_TO_CPU(x) swap16(x)
+#        define CPU_TO_BE16(x) swap16(x)
 
-#define  le32_to_cpu(x) (x)
-#define  cpu_to_le32(x) (x)
-#define  LE32_TO_CPU(x) (x)
-#define  CPU_TO_LE32(x) (x)
+#        define le32_to_cpu(x) (x)
+#        define cpu_to_le32(x) (x)
+#        define LE32_TO_CPU(x) (x)
+#        define CPU_TO_LE32(x) (x)
 
-#define  be32_to_cpu(x) swap32(x)
-#define  cpu_to_be32(x) swap32(x)
-#define  BE32_TO_CPU(x) swap32(x)
-#define  CPU_TO_BE32(x) swap32(x)
+#        define be32_to_cpu(x) swap32(x)
+#        define cpu_to_be32(x) swap32(x)
+#        define BE32_TO_CPU(x) swap32(x)
+#        define CPU_TO_BE32(x) swap32(x)
 /** @} */
-
 
 /** \name Endianism Conversion
  *
@@ -824,8 +738,7 @@ typedef struct
  *
  * \note More optimized if only used with values known at compile time.
  */
-#define Swap16(u16) ((uint16_t)(((uint16_t)(u16) >> 8) |\
-                           ((uint16_t)(u16) << 8)))
+#        define Swap16(u16) ((uint16_t)(((uint16_t)(u16) >> 8) | ((uint16_t)(u16) << 8)))
 
 /** \brief Toggles the endianism of \a u32 (by swapping its bytes).
  *
@@ -835,8 +748,7 @@ typedef struct
  *
  * \note More optimized if only used with values known at compile time.
  */
-#define Swap32(u32) ((uint32_t)(((uint32_t)Swap16((uint32_t)(u32) >> 16)) |\
-                           ((uint32_t)Swap16((uint32_t)(u32)) << 16)))
+#        define Swap32(u32) ((uint32_t)(((uint32_t)Swap16((uint32_t)(u32) >> 16)) | ((uint32_t)Swap16((uint32_t)(u32)) << 16)))
 
 /** \brief Toggles the endianism of \a u64 (by swapping its bytes).
  *
@@ -846,8 +758,7 @@ typedef struct
  *
  * \note More optimized if only used with values known at compile time.
  */
-#define Swap64(u64) ((uint64_t)(((uint64_t)Swap32((uint64_t)(u64) >> 32)) |\
-                           ((uint64_t)Swap32((uint64_t)(u64)) << 32)))
+#        define Swap64(u64) ((uint64_t)(((uint64_t)Swap32((uint64_t)(u64) >> 32)) | ((uint64_t)Swap32((uint64_t)(u64)) << 32)))
 
 /** \brief Toggles the endianism of \a u16 (by swapping its bytes).
  *
@@ -857,7 +768,7 @@ typedef struct
  *
  * \note More optimized if only used with values unknown at compile time.
  */
-#define swap16(u16) Swap16(u16)
+#        define swap16(u16) Swap16(u16)
 
 /** \brief Toggles the endianism of \a u32 (by swapping its bytes).
  *
@@ -867,11 +778,11 @@ typedef struct
  *
  * \note More optimized if only used with values unknown at compile time.
  */
-#if (defined __GNUC__)
-#  define swap32(u32) ((uint32_t)__builtin_bswap32((uint32_t)(u32)))
-#else
-#  define swap32(u32) Swap32(u32)
-#endif
+#        if (defined __GNUC__)
+#            define swap32(u32) ((uint32_t)__builtin_bswap32((uint32_t)(u32)))
+#        else
+#            define swap32(u32) Swap32(u32)
+#        endif
 
 /** \brief Toggles the endianism of \a u64 (by swapping its bytes).
  *
@@ -881,30 +792,28 @@ typedef struct
  *
  * \note More optimized if only used with values unknown at compile time.
  */
-#if (defined __GNUC__)
-#  define swap64(u64) ((uint64_t)__builtin_bswap64((uint64_t)(u64)))
-#else
-#  define swap64(u64) ((uint64_t)(((uint64_t)swap32((uint64_t)(u64) >> 32)) |\
-                         ((uint64_t)swap32((uint64_t)(u64)) << 32)))
-#endif
+#        if (defined __GNUC__)
+#            define swap64(u64) ((uint64_t)__builtin_bswap64((uint64_t)(u64)))
+#        else
+#            define swap64(u64) ((uint64_t)(((uint64_t)swap32((uint64_t)(u64) >> 32)) | ((uint64_t)swap32((uint64_t)(u64)) << 32)))
+#        endif
 
 /** @} */
-
 
 /** \name Target Abstraction
  *
  * @{ */
 
-#define _GLOBEXT_           extern      /**< extern storage-class specifier. */
-#define _CONST_TYPE_        const       /**< const type qualifier. */
-#define _MEM_TYPE_SLOW_                 /**< Slow memory type. */
-#define _MEM_TYPE_MEDFAST_              /**< Fairly fast memory type. */
-#define _MEM_TYPE_FAST_                 /**< Fast memory type. */
+#        define _GLOBEXT_ extern   /**< extern storage-class specifier. */
+#        define _CONST_TYPE_ const /**< const type qualifier. */
+#        define _MEM_TYPE_SLOW_    /**< Slow memory type. */
+#        define _MEM_TYPE_MEDFAST_ /**< Fairly fast memory type. */
+#        define _MEM_TYPE_FAST_    /**< Fast memory type. */
 
-#define memcmp_ram2ram      memcmp      /**< Target-specific memcmp of RAM to RAM. */
-#define memcmp_code2ram     memcmp      /**< Target-specific memcmp of RAM to NVRAM. */
-#define memcpy_ram2ram      memcpy      /**< Target-specific memcpy from RAM to RAM. */
-#define memcpy_code2ram     memcpy      /**< Target-specific memcpy from NVRAM to RAM. */
+#        define memcmp_ram2ram memcmp  /**< Target-specific memcmp of RAM to RAM. */
+#        define memcmp_code2ram memcmp /**< Target-specific memcmp of RAM to NVRAM. */
+#        define memcpy_ram2ram memcpy  /**< Target-specific memcpy from RAM to RAM. */
+#        define memcpy_code2ram memcpy /**< Target-specific memcpy from NVRAM to RAM. */
 
 /** @} */
 
@@ -917,159 +826,162 @@ typedef struct
  *
  * \return (\a a / \a b) rounded up to the nearest integer.
  */
-#define div_ceil(a, b)      (((a) + (b) - 1) / (b))
+#        define div_ceil(a, b) (((a) + (b)-1) / (b))
 
-#endif  /* #ifndef __ASSEMBLY__ */
-#ifdef __ICCARM__
+#    endif /* #ifndef __ASSEMBLY__ */
+#    ifdef __ICCARM__
 /** \name Compiler Keywords
  *
  * Port of some keywords from GCC to IAR Embedded Workbench.
  *
  * @{ */
 
-#define __asm__             asm
-#define __inline__          inline
-#define __volatile__
+#        define __asm__ asm
+#        define __inline__ inline
+#        define __volatile__
 
 /** @} */
 
-#endif
+#    endif
 
-#define FUNC_PTR                            void *
+#    define FUNC_PTR void *
 /**
  * \def unused
  * \brief Marking \a v as a unused parameter or value.
  */
-#define unused(v)          do { (void)(v); } while(0)
+#    define unused(v)  \
+        do {           \
+            (void)(v); \
+        } while (0)
 
 /* Define RAMFUNC attribute */
-#if defined   ( __CC_ARM   ) /* Keil uVision 4 */
-#   define RAMFUNC __attribute__ ((section(".ramfunc")))
-#elif defined ( __ICCARM__ ) /* IAR Ewarm 5.41+ */
-#   define RAMFUNC __ramfunc
-#elif defined (  __GNUC__  ) /* GCC CS3 2009q3-68 */
-#   define RAMFUNC __attribute__ ((section(".ramfunc")))
-#endif
+#    if defined(__CC_ARM) /* Keil uVision 4 */
+#        define RAMFUNC __attribute__((section(".ramfunc")))
+#    elif defined(__ICCARM__) /* IAR Ewarm 5.41+ */
+#        define RAMFUNC __ramfunc
+#    elif defined(__GNUC__) /* GCC CS3 2009q3-68 */
+#        define RAMFUNC __attribute__((section(".ramfunc")))
+#    endif
 
 /* Define OPTIMIZE_HIGH attribute */
-#if defined   ( __CC_ARM   ) /* Keil uVision 4 */
-#   define OPTIMIZE_HIGH _Pragma("O3")
-#elif defined ( __ICCARM__ ) /* IAR Ewarm 5.41+ */
-#   define OPTIMIZE_HIGH _Pragma("optimize=high")
-#elif defined (  __GNUC__  ) /* GCC CS3 2009q3-68 */
-#   define OPTIMIZE_HIGH __attribute__((optimize("s")))
-#endif
-//kmod #define PASS      0
-//kmod #define FAIL      1
-//kmod #define LOW       0
-//kmod #define HIGH      1
+#    if defined(__CC_ARM) /* Keil uVision 4 */
+#        define OPTIMIZE_HIGH _Pragma("O3")
+#    elif defined(__ICCARM__) /* IAR Ewarm 5.41+ */
+#        define OPTIMIZE_HIGH _Pragma("optimize=high")
+#    elif defined(__GNUC__) /* GCC CS3 2009q3-68 */
+#        define OPTIMIZE_HIGH __attribute__((optimize("s")))
+#    endif
+// kmod #define PASS      0
+// kmod #define FAIL      1
+// kmod #define LOW       0
+// kmod #define HIGH      1
 
-typedef int8_t                  S8 ;  //!< 8-bit signed integer.
-typedef uint8_t                 U8 ;  //!< 8-bit unsigned integer.
-typedef int16_t                 S16;  //!< 16-bit signed integer.
-typedef uint16_t                U16;  //!< 16-bit unsigned integer.
-typedef int32_t                 S32;  //!< 32-bit signed integer.
-typedef uint32_t                U32;  //!< 32-bit unsigned integer.
-typedef int64_t                 S64;  //!< 64-bit signed integer.
-typedef uint64_t                U64;  //!< 64-bit unsigned integer.
-typedef float                   F32;  //!< 32-bit floating-point number.
-typedef double                  F64;  //!< 64-bit floating-point number.
+typedef int8_t   S8;   //!< 8-bit signed integer.
+typedef uint8_t  U8;   //!< 8-bit unsigned integer.
+typedef int16_t  S16;  //!< 16-bit signed integer.
+typedef uint16_t U16;  //!< 16-bit unsigned integer.
+typedef int32_t  S32;  //!< 32-bit signed integer.
+typedef uint32_t U32;  //!< 32-bit unsigned integer.
+typedef int64_t  S64;  //!< 64-bit signed integer.
+typedef uint64_t U64;  //!< 64-bit unsigned integer.
+typedef float    F32;  //!< 32-bit floating-point number.
+typedef double   F64;  //!< 64-bit floating-point number.
 
-#define  MSB(u16)       (((U8  *)&(u16))[1]) //!< Most significant byte of \a u16.
-#define  LSB(u16)       (((U8  *)&(u16))[0]) //!< Least significant byte of \a u16.
+#    define MSB(u16) (((U8 *)&(u16))[1])  //!< Most significant byte of \a u16.
+#    define LSB(u16) (((U8 *)&(u16))[0])  //!< Least significant byte of \a u16.
 
-#define  MSH(u32)       (((U16 *)&(u32))[1]) //!< Most significant half-word of \a u32.
-#define  LSH(u32)       (((U16 *)&(u32))[0]) //!< Least significant half-word of \a u32.
-#define  MSB0W(u32)     (((U8  *)&(u32))[3]) //!< Most significant byte of 1st rank of \a u32.
-#define  MSB1W(u32)     (((U8  *)&(u32))[2]) //!< Most significant byte of 2nd rank of \a u32.
-#define  MSB2W(u32)     (((U8  *)&(u32))[1]) //!< Most significant byte of 3rd rank of \a u32.
-#define  MSB3W(u32)     (((U8  *)&(u32))[0]) //!< Most significant byte of 4th rank of \a u32.
-#define  LSB3W(u32)     MSB0W(u32)           //!< Least significant byte of 4th rank of \a u32.
-#define  LSB2W(u32)     MSB1W(u32)           //!< Least significant byte of 3rd rank of \a u32.
-#define  LSB1W(u32)     MSB2W(u32)           //!< Least significant byte of 2nd rank of \a u32.
-#define  LSB0W(u32)     MSB3W(u32)           //!< Least significant byte of 1st rank of \a u32.
+#    define MSH(u32) (((U16 *)&(u32))[1])   //!< Most significant half-word of \a u32.
+#    define LSH(u32) (((U16 *)&(u32))[0])   //!< Least significant half-word of \a u32.
+#    define MSB0W(u32) (((U8 *)&(u32))[3])  //!< Most significant byte of 1st rank of \a u32.
+#    define MSB1W(u32) (((U8 *)&(u32))[2])  //!< Most significant byte of 2nd rank of \a u32.
+#    define MSB2W(u32) (((U8 *)&(u32))[1])  //!< Most significant byte of 3rd rank of \a u32.
+#    define MSB3W(u32) (((U8 *)&(u32))[0])  //!< Most significant byte of 4th rank of \a u32.
+#    define LSB3W(u32) MSB0W(u32)           //!< Least significant byte of 4th rank of \a u32.
+#    define LSB2W(u32) MSB1W(u32)           //!< Least significant byte of 3rd rank of \a u32.
+#    define LSB1W(u32) MSB2W(u32)           //!< Least significant byte of 2nd rank of \a u32.
+#    define LSB0W(u32) MSB3W(u32)           //!< Least significant byte of 1st rank of \a u32.
 
-#define  MSW(u64)       (((U32 *)&(u64))[1]) //!< Most significant word of \a u64.
-#define  LSW(u64)       (((U32 *)&(u64))[0]) //!< Least significant word of \a u64.
-#define  MSH0(u64)      (((U16 *)&(u64))[3]) //!< Most significant half-word of 1st rank of \a u64.
-#define  MSH1(u64)      (((U16 *)&(u64))[2]) //!< Most significant half-word of 2nd rank of \a u64.
-#define  MSH2(u64)      (((U16 *)&(u64))[1]) //!< Most significant half-word of 3rd rank of \a u64.
-#define  MSH3(u64)      (((U16 *)&(u64))[0]) //!< Most significant half-word of 4th rank of \a u64.
-#define  LSH3(u64)      MSH0(u64)            //!< Least significant half-word of 4th rank of \a u64.
-#define  LSH2(u64)      MSH1(u64)            //!< Least significant half-word of 3rd rank of \a u64.
-#define  LSH1(u64)      MSH2(u64)            //!< Least significant half-word of 2nd rank of \a u64.
-#define  LSH0(u64)      MSH3(u64)            //!< Least significant half-word of 1st rank of \a u64.
-#define  MSB0D(u64)     (((U8  *)&(u64))[7]) //!< Most significant byte of 1st rank of \a u64.
-#define  MSB1D(u64)     (((U8  *)&(u64))[6]) //!< Most significant byte of 2nd rank of \a u64.
-#define  MSB2D(u64)     (((U8  *)&(u64))[5]) //!< Most significant byte of 3rd rank of \a u64.
-#define  MSB3D(u64)     (((U8  *)&(u64))[4]) //!< Most significant byte of 4th rank of \a u64.
-#define  MSB4D(u64)     (((U8  *)&(u64))[3]) //!< Most significant byte of 5th rank of \a u64.
-#define  MSB5D(u64)     (((U8  *)&(u64))[2]) //!< Most significant byte of 6th rank of \a u64.
-#define  MSB6D(u64)     (((U8  *)&(u64))[1]) //!< Most significant byte of 7th rank of \a u64.
-#define  MSB7D(u64)     (((U8  *)&(u64))[0]) //!< Most significant byte of 8th rank of \a u64.
-#define  LSB7D(u64)     MSB0D(u64)           //!< Least significant byte of 8th rank of \a u64.
-#define  LSB6D(u64)     MSB1D(u64)           //!< Least significant byte of 7th rank of \a u64.
-#define  LSB5D(u64)     MSB2D(u64)           //!< Least significant byte of 6th rank of \a u64.
-#define  LSB4D(u64)     MSB3D(u64)           //!< Least significant byte of 5th rank of \a u64.
-#define  LSB3D(u64)     MSB4D(u64)           //!< Least significant byte of 4th rank of \a u64.
-#define  LSB2D(u64)     MSB5D(u64)           //!< Least significant byte of 3rd rank of \a u64.
-#define  LSB1D(u64)     MSB6D(u64)           //!< Least significant byte of 2nd rank of \a u64.
-#define  LSB0D(u64)     MSB7D(u64)           //!< Least significant byte of 1st rank of \a u64.
+#    define MSW(u64) (((U32 *)&(u64))[1])   //!< Most significant word of \a u64.
+#    define LSW(u64) (((U32 *)&(u64))[0])   //!< Least significant word of \a u64.
+#    define MSH0(u64) (((U16 *)&(u64))[3])  //!< Most significant half-word of 1st rank of \a u64.
+#    define MSH1(u64) (((U16 *)&(u64))[2])  //!< Most significant half-word of 2nd rank of \a u64.
+#    define MSH2(u64) (((U16 *)&(u64))[1])  //!< Most significant half-word of 3rd rank of \a u64.
+#    define MSH3(u64) (((U16 *)&(u64))[0])  //!< Most significant half-word of 4th rank of \a u64.
+#    define LSH3(u64) MSH0(u64)             //!< Least significant half-word of 4th rank of \a u64.
+#    define LSH2(u64) MSH1(u64)             //!< Least significant half-word of 3rd rank of \a u64.
+#    define LSH1(u64) MSH2(u64)             //!< Least significant half-word of 2nd rank of \a u64.
+#    define LSH0(u64) MSH3(u64)             //!< Least significant half-word of 1st rank of \a u64.
+#    define MSB0D(u64) (((U8 *)&(u64))[7])  //!< Most significant byte of 1st rank of \a u64.
+#    define MSB1D(u64) (((U8 *)&(u64))[6])  //!< Most significant byte of 2nd rank of \a u64.
+#    define MSB2D(u64) (((U8 *)&(u64))[5])  //!< Most significant byte of 3rd rank of \a u64.
+#    define MSB3D(u64) (((U8 *)&(u64))[4])  //!< Most significant byte of 4th rank of \a u64.
+#    define MSB4D(u64) (((U8 *)&(u64))[3])  //!< Most significant byte of 5th rank of \a u64.
+#    define MSB5D(u64) (((U8 *)&(u64))[2])  //!< Most significant byte of 6th rank of \a u64.
+#    define MSB6D(u64) (((U8 *)&(u64))[1])  //!< Most significant byte of 7th rank of \a u64.
+#    define MSB7D(u64) (((U8 *)&(u64))[0])  //!< Most significant byte of 8th rank of \a u64.
+#    define LSB7D(u64) MSB0D(u64)           //!< Least significant byte of 8th rank of \a u64.
+#    define LSB6D(u64) MSB1D(u64)           //!< Least significant byte of 7th rank of \a u64.
+#    define LSB5D(u64) MSB2D(u64)           //!< Least significant byte of 6th rank of \a u64.
+#    define LSB4D(u64) MSB3D(u64)           //!< Least significant byte of 5th rank of \a u64.
+#    define LSB3D(u64) MSB4D(u64)           //!< Least significant byte of 4th rank of \a u64.
+#    define LSB2D(u64) MSB5D(u64)           //!< Least significant byte of 3rd rank of \a u64.
+#    define LSB1D(u64) MSB6D(u64)           //!< Least significant byte of 2nd rank of \a u64.
+#    define LSB0D(u64) MSB7D(u64)           //!< Least significant byte of 1st rank of \a u64.
 
-#define LSB0(u32)           LSB0W(u32)  //!< Least significant byte of 1st rank of \a u32.
-#define LSB1(u32)           LSB1W(u32)  //!< Least significant byte of 2nd rank of \a u32.
-#define LSB2(u32)           LSB2W(u32)  //!< Least significant byte of 3rd rank of \a u32.
-#define LSB3(u32)           LSB3W(u32)  //!< Least significant byte of 4th rank of \a u32.
-#define MSB3(u32)           MSB3W(u32)  //!< Most significant byte of 4th rank of \a u32.
-#define MSB2(u32)           MSB2W(u32)  //!< Most significant byte of 3rd rank of \a u32.
-#define MSB1(u32)           MSB1W(u32)  //!< Most significant byte of 2nd rank of \a u32.
-#define MSB0(u32)           MSB0W(u32)  //!< Most significant byte of 1st rank of \a u32.
+#    define LSB0(u32) LSB0W(u32)  //!< Least significant byte of 1st rank of \a u32.
+#    define LSB1(u32) LSB1W(u32)  //!< Least significant byte of 2nd rank of \a u32.
+#    define LSB2(u32) LSB2W(u32)  //!< Least significant byte of 3rd rank of \a u32.
+#    define LSB3(u32) LSB3W(u32)  //!< Least significant byte of 4th rank of \a u32.
+#    define MSB3(u32) MSB3W(u32)  //!< Most significant byte of 4th rank of \a u32.
+#    define MSB2(u32) MSB2W(u32)  //!< Most significant byte of 3rd rank of \a u32.
+#    define MSB1(u32) MSB1W(u32)  //!< Most significant byte of 2nd rank of \a u32.
+#    define MSB0(u32) MSB0W(u32)  //!< Most significant byte of 1st rank of \a u32.
 
-#if defined(__ICCARM__)
-#define SHORTENUM           __packed
-#elif defined(__GNUC__)
-#define SHORTENUM           __attribute__((packed))
-#endif
+#    if defined(__ICCARM__)
+#        define SHORTENUM __packed
+#    elif defined(__GNUC__)
+#        define SHORTENUM __attribute__((packed))
+#    endif
 
 /* No operation */
-#if defined(__ICCARM__)
-#define nop()               __no_operation()
-#elif defined(__GNUC__)
-#define nop()               (__NOP())
-#endif
+#    if defined(__ICCARM__)
+#        define nop() __no_operation()
+#    elif defined(__GNUC__)
+#        define nop() (__NOP())
+#    endif
 
-#define FLASH_DECLARE(x)  const x
-#define FLASH_EXTERN(x) extern const x
-#define PGM_READ_BYTE(x) *(x)
-#define PGM_READ_WORD(x) *(x)
-#define MEMCPY_ENDIAN memcpy
-#define PGM_READ_BLOCK(dst, src, len) memcpy((dst), (src), (len))
+#    define FLASH_DECLARE(x) const x
+#    define FLASH_EXTERN(x) extern const x
+#    define PGM_READ_BYTE(x) *(x)
+#    define PGM_READ_WORD(x) *(x)
+#    define MEMCPY_ENDIAN memcpy
+#    define PGM_READ_BLOCK(dst, src, len) memcpy((dst), (src), (len))
 
 /*Defines the Flash Storage for the request and response of MAC*/
-#define CMD_ID_OCTET    (0)
+#    define CMD_ID_OCTET (0)
 
 /* Converting of values from CPU endian to little endian. */
-#define CPU_ENDIAN_TO_LE16(x)   (x)
-#define CPU_ENDIAN_TO_LE32(x)   (x)
-#define CPU_ENDIAN_TO_LE64(x)   (x)
+#    define CPU_ENDIAN_TO_LE16(x) (x)
+#    define CPU_ENDIAN_TO_LE32(x) (x)
+#    define CPU_ENDIAN_TO_LE64(x) (x)
 
 /* Converting of values from little endian to CPU endian. */
-#define LE16_TO_CPU_ENDIAN(x)   (x)
-#define LE32_TO_CPU_ENDIAN(x)   (x)
-#define LE64_TO_CPU_ENDIAN(x)   (x)
+#    define LE16_TO_CPU_ENDIAN(x) (x)
+#    define LE32_TO_CPU_ENDIAN(x) (x)
+#    define LE64_TO_CPU_ENDIAN(x) (x)
 
 /* Converting of constants from little endian to CPU endian. */
-#define CLE16_TO_CPU_ENDIAN(x)  (x)
-#define CLE32_TO_CPU_ENDIAN(x)  (x)
-#define CLE64_TO_CPU_ENDIAN(x)  (x)
+#    define CLE16_TO_CPU_ENDIAN(x) (x)
+#    define CLE32_TO_CPU_ENDIAN(x) (x)
+#    define CLE64_TO_CPU_ENDIAN(x) (x)
 
 /* Converting of constants from CPU endian to little endian. */
-#define CCPU_ENDIAN_TO_LE16(x)  (x)
-#define CCPU_ENDIAN_TO_LE32(x)  (x)
-#define CCPU_ENDIAN_TO_LE64(x)  (x)
+#    define CCPU_ENDIAN_TO_LE16(x) (x)
+#    define CCPU_ENDIAN_TO_LE32(x) (x)
+#    define CCPU_ENDIAN_TO_LE64(x) (x)
 
-#define ADDR_COPY_DST_SRC_16(dst, src)  ((dst) = (src))
-#define ADDR_COPY_DST_SRC_64(dst, src)  ((dst) = (src))
+#    define ADDR_COPY_DST_SRC_16(dst, src) ((dst) = (src))
+#    define ADDR_COPY_DST_SRC_64(dst, src) ((dst) = (src))
 
 /**
  * @brief Converts a 64-Bit value into  a 8 Byte array
@@ -1078,14 +990,12 @@ typedef double                  F64;  //!< 64-bit floating-point number.
  * @param[out] data Pointer to the 8 Byte array to be updated with 64-Bit value
  * @ingroup apiPalApi
  */
-static inline void convert_64_bit_to_byte_array(uint64_t value, uint8_t *data)
-{
+static inline void convert_64_bit_to_byte_array(uint64_t value, uint8_t *data) {
     uint8_t index = 0;
 
-    while (index < 8)
-    {
+    while (index < 8) {
         data[index++] = value & 0xFF;
-        value = value >> 8;
+        value         = value >> 8;
     }
 }
 
@@ -1096,22 +1006,19 @@ static inline void convert_64_bit_to_byte_array(uint64_t value, uint8_t *data)
  * @param[out] data Pointer to the 2 Byte array to be updated with 16-Bit value
  * @ingroup apiPalApi
  */
-static inline void convert_16_bit_to_byte_array(uint16_t value, uint8_t *data)
-{
+static inline void convert_16_bit_to_byte_array(uint16_t value, uint8_t *data) {
     data[0] = value & 0xFF;
     data[1] = (value >> 8) & 0xFF;
 }
 
 /* Converts a 16-Bit value into a 2 Byte array */
-static inline void convert_spec_16_bit_to_byte_array(uint16_t value, uint8_t *data)
-{
+static inline void convert_spec_16_bit_to_byte_array(uint16_t value, uint8_t *data) {
     data[0] = value & 0xFF;
     data[1] = (value >> 8) & 0xFF;
 }
 
 /* Converts a 16-Bit value into a 2 Byte array */
-static inline void convert_16_bit_to_byte_address(uint16_t value, uint8_t *data)
-{
+static inline void convert_16_bit_to_byte_address(uint16_t value, uint8_t *data) {
     data[0] = value & 0xFF;
     data[1] = (value >> 8) & 0xFF;
 }
@@ -1124,24 +1031,18 @@ static inline void convert_16_bit_to_byte_address(uint16_t value, uint8_t *data)
  * @return 16-Bit value
  * @ingroup apiPalApi
  */
-static inline uint16_t convert_byte_array_to_16_bit(uint8_t *data)
-{
-    return (data[0] | ((uint16_t)data[1] << 8));
-}
+static inline uint16_t convert_byte_array_to_16_bit(uint8_t *data) { return (data[0] | ((uint16_t)data[1] << 8)); }
 
 /* Converts a 4 Byte array into a 32-Bit value */
-static inline uint32_t convert_byte_array_to_32_bit(uint8_t *data)
-{
-    union
-    {
+static inline uint32_t convert_byte_array_to_32_bit(uint8_t *data) {
+    union {
         uint32_t u32;
-        uint8_t u8[4];
+        uint8_t  u8[4];
     } long_addr;
 
     uint8_t index;
 
-    for (index = 0; index < 4; index++)
-    {
+    for (index = 0; index < 4; index++) {
         long_addr.u8[index] = *data++;
     }
 
@@ -1156,18 +1057,15 @@ static inline uint32_t convert_byte_array_to_32_bit(uint8_t *data)
  * @return 64-Bit value
  * @ingroup apiPalApi
  */
-static inline uint64_t convert_byte_array_to_64_bit(uint8_t *data)
-{
-    union
-    {
+static inline uint64_t convert_byte_array_to_64_bit(uint8_t *data) {
+    union {
         uint64_t u64;
-        uint8_t u8[8];
+        uint8_t  u8[8];
     } long_addr;
 
     uint8_t index;
 
-    for (index = 0; index < 8; index++)
-    {
+    for (index = 0; index < 8; index++) {
         long_addr.u8[index] = *data++;
     }
 
