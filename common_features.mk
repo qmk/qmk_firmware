@@ -309,14 +309,17 @@ ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
 
     ifeq ($(strip $(BACKLIGHT_DRIVER)), custom)
         OPT_DEFS += -DBACKLIGHT_CUSTOM_DRIVER
-    else ifeq ($(strip $(BACKLIGHT_DRIVER)), pwm)
-        ifeq ($(PLATFORM),AVR)
-            SRC += $(QUANTUM_DIR)/backlight/backlight_avr.c
-        else
-            SRC += $(QUANTUM_DIR)/backlight/backlight_arm.c
-        endif
     else
-        SRC += $(QUANTUM_DIR)/backlight/backlight_$(strip $(BACKLIGHT_DRIVER)).c
+        SRC += $(QUANTUM_DIR)/backlight/backlight_driver_common.c
+        ifeq ($(strip $(BACKLIGHT_DRIVER)), pwm)
+            ifeq ($(PLATFORM),AVR)
+                SRC += $(QUANTUM_DIR)/backlight/backlight_avr.c
+            else
+                SRC += $(QUANTUM_DIR)/backlight/backlight_arm.c
+            endif
+        else
+            SRC += $(QUANTUM_DIR)/backlight/backlight_$(strip $(BACKLIGHT_DRIVER)).c
+        endif
     endif
 endif
 
