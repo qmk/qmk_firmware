@@ -82,7 +82,7 @@
   * [宏指令](zh-cn/feature_macros.md)
   * [鼠标键](zh-cn/feature_mouse_keys.md)
   * [OLED驱动](zh-cn/feature_oled_driver.md)
-  * [一键功能](zh-cn/feature_advanced_keycodes.md#one-shot-keys)
+  * [一键功能](zh-cn/one_shot_keys.md)
   * [指针设备](zh-cn/feature_pointing_device.md)
   * [PS/2鼠标](zh-cn/feature_ps2_mouse.md)
   * [RGB灯光](zh-cn/feature_rgblight.md)
@@ -117,7 +117,7 @@
 * 其他话题
   * [使用Eclipse开发QMK](zh-cn/other_eclipse.md)
   * [使用VSCode开发QMK](zh-cn/other_vscode.md)
-  * [支持](zh-cn/support.md)
+  * [支持](zh-cn/getting_started_getting_help.md)
   * [翻译QMK文档](zh-cn/translating.md)
 
 * QMK 内构 (正在编写)
