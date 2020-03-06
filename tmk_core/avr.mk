@@ -21,7 +21,9 @@ COMPILEFLAGS += -fdata-sections
 COMPILEFLAGS += -fpack-struct
 COMPILEFLAGS += -fshort-enums
 
-CFLAGS += $(COMPILEFLAGS)
+ASFLAGS += $(AVR_ASFLAGS)
+
+CFLAGS += $(COMPILEFLAGS) $(AVR_CFLAGS)
 CFLAGS += -fno-inline-small-functions
 CFLAGS += -fno-strict-aliasing
 
