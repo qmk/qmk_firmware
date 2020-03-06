@@ -4,9 +4,9 @@
 
 A small eight key macropad with slider.
 
-* Keyboard Maintainer: [Duckle](https://github.com/yourusername)
-* Hardware Supported: The PCBs, controllers supported
-* Hardware Availability: Links to where you can find this hardware
+* Keyboard Maintainer: [Duckle29](https://github.com/Duckle29)
+* Hardware Supported: nano. slider PCB, ATmega32U4
+* Hardware Availability: [keebwerk.](https://www.keebwerk.com/product/nano-slider-keyboard/)
 
 Make example for this keyboard (after setting up your build environment):
 
