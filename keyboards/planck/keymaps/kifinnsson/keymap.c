@@ -20,7 +20,6 @@
 bool     is_lgui_active = false;
 uint16_t lgui_timer     = 0;
 
-extern keymap_config_t keymap_config;
 
 enum planck_layers { _COLEMAK, _LOWER, _RAISE, _EXTEND, _MACRO, _ADJUST };
 
