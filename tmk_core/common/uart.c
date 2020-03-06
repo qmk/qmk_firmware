@@ -114,7 +114,7 @@ void uart_putchar(uint8_t c) {
     // cli();
     tx_buffer[i]   = c;
     tx_buffer_head = i;
-    UCSRnB          = (1 << RXENn) | (1 << TXENn) | (1 << RXCIEn) | (1 << UDRIEn);
+    UCSRnB         = (1 << RXENn) | (1 << TXENn) | (1 << RXCIEn) | (1 << UDRIEn);
     // sei();
 }
 
