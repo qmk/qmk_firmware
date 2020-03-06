@@ -18,16 +18,36 @@
 #include "qmk_midi.h"
 
 // Defines names for use in layer keycodes and the keymap
-enum layer_names { _BASE, _FN, _DEMO };
+enum layer_names {
+    _BASE,
+    _FN,
+    _DEMO
+};
 
 // Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes { QMKBEST = SAFE_RANGE, QMKURL };
+enum custom_keycodes {
+    QMKBEST = SAFE_RANGE,
+    QMKURL
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [_BASE] = LAYOUT(TO(_FN), KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_0),
-    [_FN]   = LAYOUT(TO(_DEMO), RGB_TOG, RGB_MOD, RGB_VAI, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
-    [_DEMO] = LAYOUT(TO(_BASE), QMKBEST, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, QMKURL)};
+    [_BASE] = LAYOUT(
+        TO(_FN),
+        KC_1,    KC_2,    KC_3,
+        KC_4,    KC_5,    KC_6,    KC_0
+    ),
+    [_FN] = LAYOUT(
+        TO(_DEMO),
+        RGB_TOG, RGB_MOD, RGB_VAI,
+        _______, _______, _______, _______
+    ),
+    [_DEMO] = LAYOUT(
+        TO(_BASE),
+        QMKBEST, _______, _______,
+        _______, _______, _______, QMKURL
+    )
+};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -51,13 +71,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void matrix_init_user(void) {
-    // Set up the ADC for the slider
-    analogReference(ADC_REF_POWER);
-}
+uint8_t divisor = 0;
 
-uint8_t divisor           = 0;
-void    slider(void) {
+void slider(void) {
     if (divisor++) { // only run the slider function 1/256 times it's called
         return;
     }
@@ -65,4 +81,6 @@ void    slider(void) {
     midi_send_cc(&midi_device, 2, 0x3E, 0x7F - (analogReadPin(SLIDER_PIN) >> 3));
 }
 
-void matrix_scan_user(void) { slider(); }
+void matrix_scan_user(void) {
+    slider();
+}

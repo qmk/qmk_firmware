@@ -34,10 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * Keyboard Matrix Assignments
  */
-#define MATRIX_ROW_PINS \
-    { F0, F1 }
-#define MATRIX_COL_PINS \
-    { B0, B1, B2, B3 }
+#define MATRIX_ROW_PINS { F0, F1 }
+#define MATRIX_COL_PINS { B0, B1, B2, B3 }
 #define UNUSED_PINS
 
 #define SLIDER_PIN D4
