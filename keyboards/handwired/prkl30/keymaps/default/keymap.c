@@ -59,11 +59,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |   <  | LEFT | DOWN | RIGHT|             |      |      |      |      |      |
  * `------+------+------+------+------+------+------+------+------+------+------+------'
  */
-[_RAISE] = LAYOUT(
-    NO_TILD, NO_SECT, NO_AT, NO_PND, NO_DLR,  KC_PERC, NO_AMPR, NO_LCBR, NO_LBRC, NO_RBRC,
-    _______, _______, _______, KC_UP, _______, _______, _______, _______, _______, _______,
-    _______, NO_HALF, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, _______, _______, _______,
-    NO_RCBR, NO_QUES, LSFT(NO_LBRC), _______, _______, LSFT(NO_RBRC), _______, _______
+[_RAISE] = LAYOUT_all(
+    NO_TILD, NO_SECT, NO_AT,   NO_PND,  NO_DLR,  KC_PERC, NO_AMPR, NO_LCBR, NO_LBRC, NO_RBRC, NO_RCBR, NO_QUES, LSFT(NO_LBRC),
+    _______, _______, _______, KC_UP,   _______, _______, _______, _______, _______, _______, _______, _______, LSFT(NO_RBRC),
+    _______, NO_HALF, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, _______, _______
 ),
 
  /* FN
