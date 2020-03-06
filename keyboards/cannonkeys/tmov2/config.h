@@ -21,17 +21,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xCA04
 #define PRODUCT_ID      0x70F2
 #define DEVICE_VER      0x0001
-/* in python2: list(u"whatever".encode('utf-16-le')) */
-/*   at most 32 characters or the ugly hack in usb_main.c borks */
 #define MANUFACTURER CannonKeys
 #define PRODUCT TMOv2
 #define DESCRIPTION TMOv2 Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4
-#define MATRIX_COLS 15
+#define MATRIX_COLS 16
 
-#define MATRIX_COL_PINS { B14, A14, C13, C14, C15, F0, F1, B9, B8, B7, B6, B5, B4, B3, A15 }
+#define MATRIX_COL_PINS { B14, A14, B1, C13, C14, C15, F0, F1, B9, B8, B7, B6, B5, B4, B3, A15 }
 #define MATRIX_ROW_PINS { A10, A9, A8, B12 }
 #define DIODE_DIRECTION COL2ROW
 

@@ -82,7 +82,7 @@
    * [マクロ](ja/feature_macros.md)
    * [マウスキー](ja/feature_mouse_keys.md)
    * [OLED ドライバ](ja/feature_oled_driver.md)
-   * [One Shot Keys](ja/feature_advanced_keycodes.md#one-shot-keys)
+   * [One Shot Keys](ja/one_shot_keys.md)
    * [ポインティング デバイス](ja/feature_pointing_device.md)
    * [PS/2 マウス](ja/feature_ps2_mouse.md)
    * [RGB ライト](ja/feature_rgblight.md)
@@ -117,7 +117,7 @@
 * 他の話題
    * [Eclipse で QMK を使用](ja/other_eclipse.md)
    * [VSCode で QMK を使用](ja/other_vscode.md)
-   * [サポート](ja/support.md)
+   * [サポート](ja/getting_started_getting_help.md)
    * [翻訳を追加する方法](ja/translating.md)
 
 * QMK の内部詳細(作成中)
