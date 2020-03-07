@@ -11,7 +11,14 @@ from milc import cli
 from qmk import submodules
 from qmk.questions import yesno
 
-ESSENTIAL_BINARIES = ['dfu-programmer', 'avrdude', 'dfu-util', 'avr-gcc', 'arm-none-eabi-gcc', 'bin/qmk']
+ESSENTIAL_BINARIES = {
+    'dfu-programmer': {},
+    'avrdude': {},
+    'dfu-util': {},
+    'avr-gcc': {},
+    'arm-none-eabi-gcc': {},
+    'bin/qmk': {},
+}
 ESSENTIAL_SUBMODULES = ['lib/chibios', 'lib/lufa']
 
 
@@ -29,7 +36,7 @@ def check_binaries():
     """
     ok = True
 
-    for binary in ESSENTIAL_BINARIES:
+    for binary in sorted(ESSENTIAL_BINARIES):
         if not is_executable(binary):
             ok = False
 
@@ -116,7 +123,9 @@ def is_executable(command):
         return False
 
     # Make sure the command can be executed
-    check = subprocess.run([command, '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5)
+    check = subprocess.run([command, '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5, universal_newlines=True)
+    ESSENTIAL_BINARIES[command]['output'] = check.stdout
+
     if check.returncode in [0, 1]:  # Older versions of dfu-programmer exit 1
         cli.log.debug('Found {fg_cyan}%s', command)
         return True
@@ -195,6 +204,22 @@ def doctor(cli):
         cli.log.info('All dependencies are installed.')
     else:
         ok = False
+
+    # Make sure the tools are at the correct version
+    if 'output' in ESSENTIAL_BINARIES['avr-gcc']:
+        first_line = ESSENTIAL_BINARIES['avr-gcc']['output'].split('\n')[0]
+        version_number = first_line.split()[2]
+        major, minor, rest = version_number.split('.', 2)
+        if int(major) > 8:
+            cli.log.error('We do not recommend avr-gcc newer than 8. Recommend you downgrade.')
+        else:
+            cli.log.info('Found avr-gcc version %s', version_number)
+
+    if 'output' in ESSENTIAL_BINARIES['arm-none-eabi-gcc']:
+        first_line = ESSENTIAL_BINARIES['arm-none-eabi-gcc']['output'].split('\n')[0]
+        second_half = first_line.split(')', 1)[1].strip()
+        version_number = second_half.split()[0]
+        cli.log.info('Found arm-none-eabi-gcc version %s', version_number)
 
     # Check out the QMK submodules
     sub_ok = check_submodules()
