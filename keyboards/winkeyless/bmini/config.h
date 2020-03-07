@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef BMINI_CONFIG_H
-#define BMINI_CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -37,6 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGBLIGHT_ANIMATIONS
 
-#define NO_UART 1
+#define BACKLIGHT_PIN D4
+#define BACKLIGHT_LEVELS 3
 
-#endif
+#define NO_UART 1

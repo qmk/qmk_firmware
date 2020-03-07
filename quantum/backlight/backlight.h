@@ -26,6 +26,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    error "Maximum value of BACKLIGHT_LEVELS is 31"
 #endif
 
+#ifndef BACKLIGHT_ON_STATE
+#    define BACKLIGHT_ON_STATE 1
+#endif
+
 #ifndef BREATHING_PERIOD
 #    define BREATHING_PERIOD 6
 #endif
@@ -40,6 +44,10 @@ typedef union {
     };
 } backlight_config_t;
 
+void backlight_pins_init(void);
+void backlight_pins_on(void);
+void backlight_pins_off(void);
+
 void    backlight_init(void);
 void    backlight_toggle(void);
 void    backlight_enable(void);
@@ -48,8 +56,10 @@ bool    is_backlight_enabled(void);
 void    backlight_step(void);
 void    backlight_increase(void);
 void    backlight_decrease(void);
+void    backlight_level_noeeprom(uint8_t level);
 void    backlight_level(uint8_t level);
 uint8_t get_backlight_level(void);
+void    eeconfig_update_backlight_current(void);
 
 // implementation specific
 void backlight_init_ports(void);
