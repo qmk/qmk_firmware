@@ -297,24 +297,27 @@ VALID_BACKLIGHT_TYPES := pwm software custom
 BACKLIGHT_ENABLE ?= no
 BACKLIGHT_DRIVER ?= pwm
 ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_backlight.c
     ifeq ($(filter $(BACKLIGHT_DRIVER),$(VALID_BACKLIGHT_TYPES)),)
         $(error BACKLIGHT_DRIVER="$(BACKLIGHT_DRIVER)" is not a valid backlight type)
     endif
 
     COMMON_VPATH += $(QUANTUM_DIR)/backlight
     SRC += $(QUANTUM_DIR)/backlight/backlight.c
+    SRC += $(QUANTUM_DIR)/process_keycode/process_backlight.c
     OPT_DEFS += -DBACKLIGHT_ENABLE
 
     ifeq ($(strip $(BACKLIGHT_DRIVER)), custom)
         OPT_DEFS += -DBACKLIGHT_CUSTOM_DRIVER
-    else ifeq ($(strip $(BACKLIGHT_DRIVER)), software)
-        SRC += $(QUANTUM_DIR)/backlight/backlight_soft.c
     else
-        ifeq ($(PLATFORM),AVR)
-            SRC += $(QUANTUM_DIR)/backlight/backlight_avr.c
+        SRC += $(QUANTUM_DIR)/backlight/backlight_driver_common.c
+        ifeq ($(strip $(BACKLIGHT_DRIVER)), pwm)
+            ifeq ($(PLATFORM),AVR)
+                SRC += $(QUANTUM_DIR)/backlight/backlight_avr.c
+            else
+                SRC += $(QUANTUM_DIR)/backlight/backlight_arm.c
+            endif
         else
-            SRC += $(QUANTUM_DIR)/backlight/backlight_arm.c
+            SRC += $(QUANTUM_DIR)/backlight/backlight_$(strip $(BACKLIGHT_DRIVER)).c
         endif
     endif
 endif
