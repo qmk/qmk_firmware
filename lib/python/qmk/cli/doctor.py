@@ -162,6 +162,36 @@ def os_test_windows():
     return True
 
 
+def check_avr_gcc_version():
+    """Returns True if the avr-gcc version is not known to cause problems.
+    """
+    if 'output' in ESSENTIAL_BINARIES['avr-gcc']:
+        first_line = ESSENTIAL_BINARIES['avr-gcc']['output'].split('\n')[0]
+        version_number = first_line.split()[2]
+
+        major, minor, rest = version_number.split('.', 2)
+        if int(major) > 8:
+            cli.log.error('We do not recommend avr-gcc newer than 8. Recommend you downgrade.')
+            return False
+
+        cli.log.info('Found avr-gcc version %s', version_number)
+        return True
+
+    return False
+
+
+def check_arm_gcc_version():
+    """Returns True if the arm-none-eabi-gcc version is not known to cause problems.
+    """
+    if 'output' in ESSENTIAL_BINARIES['arm-none-eabi-gcc']:
+        first_line = ESSENTIAL_BINARIES['arm-none-eabi-gcc']['output'].split('\n')[0]
+        second_half = first_line.split(')', 1)[1].strip()
+        version_number = second_half.split()[0]
+        cli.log.info('Found arm-none-eabi-gcc version %s', version_number)
+
+    return True  # Right now all known arm versions are ok
+
+
 @cli.argument('-y', '--yes', action='store_true', arg_only=True, help='Answer yes to all questions.')
 @cli.argument('-n', '--no', action='store_true', arg_only=True, help='Answer no to all questions.')
 @cli.subcommand('Basic QMK environment checks')
@@ -206,20 +236,11 @@ def doctor(cli):
         ok = False
 
     # Make sure the tools are at the correct version
-    if 'output' in ESSENTIAL_BINARIES['avr-gcc']:
-        first_line = ESSENTIAL_BINARIES['avr-gcc']['output'].split('\n')[0]
-        version_number = first_line.split()[2]
-        major, minor, rest = version_number.split('.', 2)
-        if int(major) > 8:
-            cli.log.error('We do not recommend avr-gcc newer than 8. Recommend you downgrade.')
-        else:
-            cli.log.info('Found avr-gcc version %s', version_number)
+    if not check_arm_gcc_version():
+        ok = False
 
-    if 'output' in ESSENTIAL_BINARIES['arm-none-eabi-gcc']:
-        first_line = ESSENTIAL_BINARIES['arm-none-eabi-gcc']['output'].split('\n')[0]
-        second_half = first_line.split(')', 1)[1].strip()
-        version_number = second_half.split()[0]
-        cli.log.info('Found arm-none-eabi-gcc version %s', version_number)
+    if not check_avr_gcc_version():
+        ok = False
 
     # Check out the QMK submodules
     sub_ok = check_submodules()
