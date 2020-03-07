@@ -1,9 +1,6 @@
 #include "quantum.h"
 #include "backlight.h"
-
-#if !defined(BACKLIGHT_PIN) && !defined(BACKLIGHT_PINS)
-#    error "Backlight pin/pins not defined. Please configure."
-#endif
+#include "backlight_driver_common.h"
 
 #ifdef BACKLIGHT_BREATHING
 #    error "Backlight breathing is not available for software PWM. Please disable."

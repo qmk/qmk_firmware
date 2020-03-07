@@ -44,10 +44,6 @@ typedef union {
     };
 } backlight_config_t;
 
-void backlight_pins_init(void);
-void backlight_pins_on(void);
-void backlight_pins_off(void);
-
 void    backlight_init(void);
 void    backlight_toggle(void);
 void    backlight_enable(void);
@@ -79,11 +75,11 @@ void    breathing_period_default(void);
 void    breathing_period_inc(void);
 void    breathing_period_dec(void);
 
+void breathing_toggle(void);
+
 // implementation specific
 void breathing_enable(void);
 void breathing_disable(void);
-void breathing_toggle(void);
 bool is_breathing(void);
 void breathing_pulse(void);
-void breathing_task(void);
 #endif
