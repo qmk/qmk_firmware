@@ -158,13 +158,6 @@ void breathing_self_disable(void) {
         breathing_halt = BREATHING_HALT_ON;
 }
 
-void breathing_toggle(void) {
-    if (is_breathing())
-        breathing_disable();
-    else
-        breathing_enable();
-}
-
 /* To generate breathing curve in python:
  * from math import sin, pi; [int(sin(x/128.0*pi)**4*255) for x in range(128)]
  */

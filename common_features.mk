@@ -159,7 +159,6 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/color.c
     SRC += $(QUANTUM_DIR)/rgblight.c
     CIE1931_CURVE := yes
-    LED_BREATHING_TABLE := yes
     RGB_KEYCODES_ENABLE := yes
     ifeq ($(strip $(RGBLIGHT_CUSTOM_DRIVER)), yes)
         OPT_DEFS += -DRGBLIGHT_CUSTOM_DRIVER
@@ -348,11 +347,6 @@ endif
 
 ifeq ($(strip $(CIE1931_CURVE)), yes)
     OPT_DEFS += -DUSE_CIE1931_CURVE
-    LED_TABLES := yes
-endif
-
-ifeq ($(strip $(LED_BREATHING_TABLE)), yes)
-    OPT_DEFS += -DUSE_LED_BREATHING_TABLE
     LED_TABLES := yes
 endif
 
