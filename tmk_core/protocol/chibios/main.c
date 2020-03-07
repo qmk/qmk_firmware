@@ -112,8 +112,7 @@ __attribute__((weak)) void early_hardware_init_post(void) {
 #endif
 }
 
-__attribute__((weak)) void board_init(void) {
-}
+__attribute__((weak)) void board_init(void) {}
 
 // This overrides what's normally in ChibiOS board definitions
 void __early_init(void) {
