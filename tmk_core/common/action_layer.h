@@ -24,22 +24,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if defined(LAYER_STATE_8BIT)
 typedef uint8_t layer_state_t;
 #    define MAX_LAYER_BITS 3
-#    ifndef NUM_LAYERS
-#        define NUM_LAYERS 8
+#    ifndef MAX_LAYER
+#        define MAX_LAYER 8
 #    endif
 #    define get_highest_layer(state) biton(state)
 #elif defined(LAYER_STATE_16BIT)
 typedef uint16_t layer_state_t;
 #    define MAX_LAYER_BITS 4
-#    ifndef NUM_LAYERS
-#        define NUM_LAYERS 16
+#    ifndef MAX_LAYER
+#        define MAX_LAYER 16
 #    endif
 #    define get_highest_layer(state) biton16(state)
 #else
 typedef uint32_t layer_state_t;
 #    define MAX_LAYER_BITS 5
-#    ifndef NUM_LAYERS
-#        define NUM_LAYERS 32
+#    ifndef MAX_LAYER
+#        define MAX_LAYER 32
 #    endif
 #    define get_highest_layer(state) biton32(state)
 #endif
