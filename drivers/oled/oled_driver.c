@@ -430,16 +430,16 @@ void oled_write_ln(const char *data, bool invert) {
 
 void oled_pan(bool left) {
     uint16_t i = 0;
-    for (uint16_t y = 0; y < OLED_DISPLAY_HEIGHT/8; y++) {
-        if(left) {
+    for (uint16_t y = 0; y < OLED_DISPLAY_HEIGHT / 8; y++) {
+        if (left) {
             for (uint16_t x = 0; x < OLED_DISPLAY_WIDTH - 1; x++) {
-                i = y * OLED_DISPLAY_WIDTH + x;
-                oled_buffer[i] = oled_buffer[i+1];
+                i              = y * OLED_DISPLAY_WIDTH + x;
+                oled_buffer[i] = oled_buffer[i + 1];
             }
         } else {
-            for (uint16_t x = OLED_DISPLAY_WIDTH -1; x > 0; x--) {
-                i = y * OLED_DISPLAY_WIDTH + x;
-                oled_buffer[i] = oled_buffer[i-1];
+            for (uint16_t x = OLED_DISPLAY_WIDTH - 1; x > 0; x--) {
+                i              = y * OLED_DISPLAY_WIDTH + x;
+                oled_buffer[i] = oled_buffer[i - 1];
             }
         }
     }
