@@ -24,8 +24,7 @@ uint16_t lgui_timer     = 0;
 enum planck_layers { _COLEMAK, _LOWER, _RAISE, _EXTEND, _MACRO, _ADJUST };
 
 enum planck_keycodes {
-    COLEMAK = SAFE_RANGE,
-    KI_BSPC,
+    KI_BSPC = SAFE_RANGE,
     KI_COMM,
     KI_DOT,
     KI_ESC,
