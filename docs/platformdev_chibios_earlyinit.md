@@ -1,49 +1,47 @@
 # Arm/ChibiOS Early Initialization
 
-QMK uses ChibiOS as the underlying layer to support a multitude of Arm-based devices. Each ChibiOS-supported board has a low-level board layer, which is responsible for initialising hardware peripherals such as the clocks, and GPIOs.
+This page describes a part of QMK that is a somewhat advanced concept, and is only relevant to board designers.
 
-If your board needs extra initialisation at a very early stage, consider overriding the following APIs.
+QMK uses ChibiOS as the underlying layer to support a multitude of Arm-based devices. Each ChibiOS-supported board has a low-level board definition which is responsible for initializing hardware peripherals such as the clocks, and GPIOs.
+
+Older QMK revisions required duplication of these board definitions inside your keyboard's directory in order to override such early initialization points; this is now abstracted into the following APIs, and allows usage of the board definitions supplied with ChibiOS itself. Check `<qmk_firmware>/lib/chibios/os/hal/boards` for the list of official definitions. If your board needs extra initialization at a very early stage, consider providing board-level overrides of the following APIs:
 
 ## `early_hardware_init_pre()`
 
-The function `early_hardware_init_pre` is the earliest possible code that can be executed by a board firmware. This is executed before clocks or GPIOs are configured, so any preparation using GPIOs is not likely to work at this point.
+The function `early_hardware_init_pre` is the earliest possible code that can be executed by a board firmware. This is intended as a replacement for the ChibiOS board definition's `__early_init` function, and is the equivalent of executing at the start of the function.
 
-ChibiOS has not yet been initialized either, so functionality such as delays are unlikely to work.
+This is executed before RAM gets cleared, and before clocks or GPIOs are configured; any delays or preparation using GPIOs is not likely to work at this point. After executing this function, RAM on the MCU may be zero'ed. Assigning values to variables during execution of this function may be overwritten.
 
-If you wish to override this API, consider limiting use to writing to low-level registers and/or initialising variables.
-
-The default implementation of this function is to jump to bootloader, if the bootloader address has been specified in your board's `rules.mk`.
+As such, if you wish to override this API consider limiting use to writing to low-level registers. The default implementation of this function is to do nothing.
 
 To implement your own version of this function, in your board's source files:
 
     void early_hardware_init_pre(void) {
-        // do things with registers and variables
+        // do things with registers
     }
 
 ## `early_hardware_init_post()`
 
-The function `early_hardware_init_post` is the next earliest possible code that can be executed by a board firmware. This is executed after clocks and GPIOs are configured.
+The function `early_hardware_init_post` is the next earliest possible code that can be executed by a board firmware. This is executed after RAM has been cleared, and clocks and GPIOs are configured. This is intended as a replacement for the ChibiOS board definition's `__early_init` function, and is the equivalent of executing at the end of the function.
 
-Much like `early_hardware_init_pre`, ChibiOS has not yet been initialized either, so the same restrictions apply.
+Much like `early_hardware_init_pre`, ChibiOS has not yet been initialized either, so the same restrictions on delays and timing apply.
 
-If you wish to override this API, the same recommendation above applies, with the exception of modifying GPIOs.
-
-The default implementation of this function is to do nothing.
+If you wish to override this API, consider limiting functionality to register writes, variable initialization, and GPIO toggling. The default implementation of this function is to do nothing.
 
 To implement your own version of this function, in your board's source files:
 
     void early_hardware_init_post(void) {
-        // toggle GPIO pins and things
+        // toggle GPIO pins and write to variables
     }
 
 ## `board_init()`
 
-The function `board_init` is executed directly after the ChibiOS initialisation routines have completed. At this stage, all normal low-level functionality should be available for use, with the assumption that USB is not yet connected.
+The function `board_init` is executed directly after the ChibiOS initialization routines have completed. At this stage, all normal low-level functionality should be available for use (including timers and delays), with the restriction that USB is not yet connected. This is intended as a replacement for the ChibiOS board definition's `boardInit` function.
 
 The default implementation of this function is to do nothing.
 
 To implement your own version of this function, in your board's source files:
 
     void board_init(void) {
-        // initialize low-level ChibiOS devices
+        // initialize anything that requires ChibiOS
     }
