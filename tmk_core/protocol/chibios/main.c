@@ -103,14 +103,14 @@ void midi_ep_task(void);
 
 /* Early initialisation
  */
-__attribute__((weak)) void early_hardware_init_pre(void) {}
-
-__attribute__((weak)) void early_hardware_init_post(void) {
+__attribute__((weak)) void early_hardware_init_pre(void) {
 #ifdef STM32_BOOTLOADER_ADDRESS
     void enter_bootloader_mode_if_requested(void);
     enter_bootloader_mode_if_requested();
 #endif
 }
+
+__attribute__((weak)) void early_hardware_init_post(void) {}
 
 __attribute__((weak)) void board_init(void) {}
 
