@@ -96,6 +96,10 @@ extern layer_state_t layer_state;
 #    include "process_leader.h"
 #endif
 
+#ifdef COMPOSE_ONBOARD_ENABLE
+#   include "process_compose_onboard.h"
+#endif
+
 #ifdef UNICODE_ENABLE
 #    include "process_unicode.h"
 #endif

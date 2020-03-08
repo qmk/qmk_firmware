@@ -509,6 +509,11 @@ ifeq ($(strip $(LEADER_ENABLE)), yes)
     OPT_DEFS += -DLEADER_ENABLE
 endif
 
+ifeq ($(strip $(COMPOSE_ONBOARD_ENABLE)), yes)
+  SRC += $(QUANTUM_DIR)/process_keycode/process_compose_onboard.c
+  OPT_DEFS += -DCOMPOSE_ONBOARD_ENABLE
+endif
+
 ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_auto_shift.c
     OPT_DEFS += -DAUTO_SHIFT_ENABLE

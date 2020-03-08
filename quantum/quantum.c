@@ -257,6 +257,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef LEADER_ENABLE
             process_leader(keycode, record) &&
 #endif
+#ifdef COMPOSE_ONBOARD_ENABLE
+            process_compose_onboard(keycode, record) &&
+#endif
 #ifdef COMBO_ENABLE
             process_combo(keycode, record) &&
 #endif

@@ -123,6 +123,11 @@ enum quantum_keycodes {
     KC_LEAD,
 #endif
 
+#ifdef COMPOSE_ONBOARD_ENABLE
+    KC_COMPOSE_ONBOARD,
+    KC_COMPOB = KC_COMPOSE_ONBOARD,
+#endif
+
     // Auto Shift setup
     KC_ASUP,
     KC_ASDN,
