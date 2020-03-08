@@ -1,4 +1,4 @@
-# Arm/ChibiOS Early Initialization
+# Arm/ChibiOS Early Initialization :id=chibios-early-init
 
 This page describes a part of QMK that is a somewhat advanced concept, and is only relevant to keyboard designers.
 
@@ -6,7 +6,7 @@ QMK uses ChibiOS as the underlying layer to support a multitude of Arm-based dev
 
 Older QMK revisions required duplication of these board definitions inside your keyboard's directory in order to override such early initialization points; this is now abstracted into the following APIs, and allows usage of the board definitions supplied with ChibiOS itself. Check `<qmk_firmware>/lib/chibios/os/hal/boards` for the list of official definitions. If your keyboard needs extra initialization at a very early stage, consider providing keyboard-level overrides of the following APIs:
 
-## `early_hardware_init_pre()`
+## `early_hardware_init_pre()` :id=early-hardware-init-pre
 
 The function `early_hardware_init_pre` is the earliest possible code that can be executed by a keyboard firmware. This is intended as a replacement for the ChibiOS board definition's `__early_init` function, and is the equivalent of executing at the start of the function.
 
@@ -16,11 +16,13 @@ As such, if you wish to override this API consider limiting use to writing to lo
 
 To implement your own version of this function, in your keyboard's source files:
 
-    void early_hardware_init_pre(void) {
-        // do things with registers
-    }
+```c
+void early_hardware_init_pre(void) {
+    // do things with registers
+}
+```
 
-## `early_hardware_init_post()`
+## `early_hardware_init_post()` :id=early-hardware-init-post
 
 The function `early_hardware_init_post` is the next earliest possible code that can be executed by a keyboard firmware. This is executed after RAM has been cleared, and clocks and GPIOs are configured. This is intended as a replacement for the ChibiOS board definition's `__early_init` function, and is the equivalent of executing at the end of the function.
 
@@ -30,11 +32,13 @@ If you wish to override this API, consider limiting functionality to register wr
 
 To implement your own version of this function, in your keyboard's source files:
 
-    void early_hardware_init_post(void) {
-        // toggle GPIO pins and write to variables
-    }
+```c
+void early_hardware_init_post(void) {
+    // toggle GPIO pins and write to variables
+}
+```
 
-## `board_init()`
+## `board_init()` :id=board-init
 
 The function `board_init` is executed directly after the ChibiOS initialization routines have completed. At this stage, all normal low-level functionality should be available for use (including timers and delays), with the restriction that USB is not yet connected. This is intended as a replacement for the ChibiOS board definition's `boardInit` function.
 
@@ -42,6 +46,8 @@ The default implementation of this function is to do nothing.
 
 To implement your own version of this function, in your keyboard's source files:
 
-    void board_init(void) {
-        // initialize anything that requires ChibiOS
-    }
+```c
+void board_init(void) {
+    // initialize anything that requires ChibiOS
+}
+```
