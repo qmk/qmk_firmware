@@ -30,7 +30,7 @@
 #endif
 
 #if !STM32_ADC_USE_ADC1 && !STM32_ADC_USE_ADC2 && !STM32_ADC_USE_ADC3 && !STM32_ADC_USE_ADC4
-#error "You need to set one of the 'ATM32_ADC_USE_ADCX' settings to TRUE in your mcuconf.h to use the ADC."
+#error "You need to set one of the 'STM32_ADC_USE_ADCx' settings to TRUE in your mcuconf.h to use the ADC."
 #endif
 
 #if STM32_ADC_DUAL_MODE
