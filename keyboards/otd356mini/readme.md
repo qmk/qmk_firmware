@@ -2,9 +2,9 @@
 
 A compact 60% keyboard.
 
-Keyboard Maintainer: QMK Community  
-Hardware Supported: /u/niceandcreamy PCB  
-Hardware Availability: Not available
+* Keyboard Maintainer: QMK Community
+* Hardware Supported: /u/niceandcreamy PCB
+* Hardware Availability: Not available
 
 Make example for this keyboard (after setting up your build environment):
 

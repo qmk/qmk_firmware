@@ -15,10 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-// DIP switch bit alias
-#define BIT(x) (1UL<<x)
-
-extern keymap_config_t keymap_config;
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name
@@ -44,17 +40,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |Ctrl |Gui|Alt  |         Space         |Alt  |  Fn   |Ctrl |
      * `-----------------------------------------------------------'
      */
-  [_QWERTY] = LAYOUT(
-      KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,          KC_6,
-      KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,          KC_Y,
-      KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,          KC_H,
-               KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,          KC_B,
-      KC_LCTL, KC_LGUI, KC_LALT,
-      KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,        KC_BSPC,
-      KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC,       KC_BSLS,
-      KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,        KC_NO,
-      KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,       KC_NO,
-      KC_SPC,                    KC_NO,   KC_RALT, MO(_FUNCTION), KC_RCTL),
+    [_QWERTY] = LAYOUT(
+        KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,        KC_BSPC,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC,       KC_BSLS,
+        KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,        KC_NO,
+        KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,       KC_NO,
+        KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_NO,   KC_RALT, MO(_FUNCTION), KC_RCTL
+    ),
 
   /* Keymap _MAC: Mac Layout
      * ,-----------------------------------------------------------.
@@ -69,17 +61,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |Ctrl |Opt|Cmd  |         Space         |Cmd  |  Fn   |Ctrl |
      * `-----------------------------------------------------------'
      */
-  [_MAC] = LAYOUT(
-      KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,          KC_6,
-      KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,          KC_Y,
-      KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,          KC_H,
-               KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,          KC_B,
-      KC_LCTL, KC_LALT, KC_LGUI,
-      KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,        KC_BSPC,
-      KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC,       KC_BSLS,
-      KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,        KC_NO,
-      KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,       KC_NO,
-      KC_SPC,                    KC_NO,   KC_RGUI, MO(_FUNCTION), KC_RCTL),
+    [_MAC] = LAYOUT(
+        KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,        KC_BSPC,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC,       KC_BSLS,
+        KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,        KC_NO,
+        KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,       KC_NO,
+        KC_LCTL, KC_LALT, KC_LGUI,                            KC_SPC,                             KC_NO,   KC_RGUI, MO(_FUNCTION), KC_RCTL
+    ),
 
   /* Keymap _DVORAK: Dvorak Layout
      * ,-----------------------------------------------------------.
@@ -94,17 +82,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |Ctrl |Gui|Alt  |         Space         |Alt  |  Fn   |Ctrl |
      * `-----------------------------------------------------------'
      */
-  [_DVORAK] = LAYOUT(
-      KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,          KC_6,
-      KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,          KC_F,
-      KC_CAPS, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,          KC_D,
-               KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,          KC_X,
-      KC_LCTL, KC_LGUI, KC_LALT,
-      KC_7,    KC_8,    KC_9,    KC_0,    KC_LBRC, KC_RBRC,       KC_BSPC,
-      KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH, KC_EQL,        KC_BSLS,
-      KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, KC_ENT,        KC_NO,
-      KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,       KC_NO,
-      KC_SPC,                    KC_NO,   KC_RALT, MO(_FUNCTION), KC_RCTL),
+    [_DVORAK] = LAYOUT(
+        KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_LBRC, KC_RBRC,       KC_BSPC,
+        KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH, KC_EQL,        KC_BSLS,
+        KC_CAPS, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, KC_ENT,        KC_NO,
+        KC_LSFT,          KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,       KC_NO,
+        KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_NO,   KC_RALT, MO(_FUNCTION), KC_RCTL
+    ),
 
   /* Keymap _COLEMAK: Colemak Layer
      * ,-----------------------------------------------------------.
@@ -119,36 +103,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |Ctrl |Gui|Alt  |         Space         |Alt  |  Fn   |Ctrl |
      * `-----------------------------------------------------------'
      */
-  [_COLEMAK] = LAYOUT(
-      KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,          KC_6,
-      KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,          KC_J,
-      KC_CAPS, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,          KC_H,
-               KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,          KC_B,
-      KC_LCTL, KC_LGUI, KC_LALT,
-      KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,        KC_BSPC,
-      KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_LBRC, KC_RBRC,       KC_BSLS,
-      KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT, KC_ENT,        KC_NO,
-      KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,       KC_NO,
-      KC_SPC,                    KC_NO,   KC_RALT, MO(_FUNCTION), KC_RCTL),
+    [_COLEMAK] = LAYOUT(
+        KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,        KC_BSPC,
+        KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_LBRC, KC_RBRC,       KC_BSLS,
+        KC_CAPS, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT, KC_ENT,        KC_NO,
+        KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,       KC_NO,
+        KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_NO,   KC_RALT, MO(_FUNCTION), KC_RCTL
+    ),
 
   /* Keymap _FUNCTION: Function Layer
   */
-  [_FUNCTION] = LAYOUT(
-      KC_GRV,  KC_F1,   KC_F2,   KC_F3,    KC_F4,   KC_F5,   KC_F6,
-      _______, _______, KC_UP,   _______,  RESET,   _______,       _______,
-      _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______,       _______,
-               _______, _______, _______,  _______, _______,       _______,
-      _______, _______, _______,
-      KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,  KC_F12,        _______,
-      _______, _______, _______, _______,  _______, _______,       _______,
-      _______, _______, _______, _______,  _______, _______,       _______,
-      _______, _______, _______, _______,  _______, _______,       _______,
-      _______,                   _______,  _______, MO(_FUNCTION), _______),
+    [_FUNCTION] = LAYOUT(
+        KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,        _______,
+        _______, _______, KC_UP,   _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______,       _______,
+        _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, _______, _______, _______, _______,       _______,
+        _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,       _______,
+        _______, _______, _______,                            _______,                            _______, _______, MO(_FUNCTION), _______
+    ),
 };
 
 /* Set DIP switch options here
  *
- * BIT(x) represents the x position of the switch,
+ * _BV(x) represents the x position of the switch,
  * where 0 is the leftmost postiion.
  *
  * Use bitwise operators to check if one or more
@@ -157,37 +133,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * See the docs for more info: docs/feature_dip_switch.md
  */
 void dip_switch_update_mask_user(uint32_t state) {
-  if ((state & (BIT(0) | BIT(1))) == (BIT(0) | BIT(1))) {
+  if ((state & (_BV(0) | _BV(1))) == (_BV(0) | _BV(1))) {
     layer_on(_COLEMAK);
   } else {
     layer_off(_COLEMAK); // Guard against layer being active
-    if ((state & BIT(0)) == BIT(0)) {
+    if ((state & _BV(0)) == _BV(0)) {
       layer_on(_MAC);
     } else {
       layer_off(_MAC);
     }
-    if ((state & BIT(1)) == BIT(1)) {
+    if ((state & _BV(1)) == _BV(1)) {
       layer_on(_DVORAK);
     } else {
       layer_off(_DVORAK);
     }
   }
 
-  if ((state & BIT(2)) == BIT(2)) {
+  if ((state & _BV(2)) == _BV(2)) {
     keymap_config.capslock_to_control = true;
   } else {
     keymap_config.capslock_to_control = false;
   }
-}
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-void led_set_user(uint8_t usb_led) {
-
 }
