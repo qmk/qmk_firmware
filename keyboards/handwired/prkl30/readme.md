@@ -10,10 +10,10 @@
 
 Make example for this keyboard with Pro Micro controller (after setting up your build environment):
 
-    make prkl30/promicro:default
+    make handwired/prkl30/promicro:default
 
 Make example for this keyboard with Feather controller (after setting up your build environment):
 
-    make prkl30/feather:default
+    make handwired/prkl30/feather:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
