@@ -1,0 +1,266 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+ /** \page Page_KnownIssues Known Issues
+  *  The following are known issues present in each official LUFA release. This list should contain all known
+  *  issues in the library. Most of these issues should be corrected in the future release - see
+  *  \ref Page_FutureChanges for a list of planned changes in future releases.
+  *
+  *  \section Sec_KnownIssuesXXXXXX Version XXXXXX
+  *  - AVR8 Architecture
+  *    - No known issues.
+  *  - UC3 Architecture
+  *    \warning The UC3 device support is currently <b>experimental</b> (incomplete and/or non-functional), and is included for preview purposes only. \n
+  *
+  *    - No demos, bootloaders or projects have been ported for the UC3 devices in the current release,
+  *      although the architecture is supported in the LUFA core library.
+  *    - DMA transfers to and from the USB controller are not yet implemented for this release.
+  *    - The UC3C, UC3D and UC3L sub-families of UC3 are not currently supported by the library due to their
+  *      altered USB controller design.
+  *    - The various \c *_CreateStream() functions for creating standard \c <stdio.h> compatible virtual file
+  *      streams are not available on the UC3 architecture, due to a lack of suitable library support.
+  *  - XMEGA Architecture
+  *    \warning The XMEGA device support is currently <b>experimental</b> (incomplete and/or non-functional), and is included for preview purposes only.
+  *
+  *    - Endpoints of more than 64 bytes are not currently supported in this release.
+  *    - Isochronous endpoints are not currently supported in this release. As a result, the audio class
+  *      cannot be used on XMEGA devices.
+  *    - Multiple-bank endpoints are not currently supported in this release.
+  *    - Early silicon revisions of the ATXMEGA128A1U are incompatible with LUFA, due to their various errata
+  *      relating to the USB controller.
+  *  - Architecture Independent
+  *    - The LUFA library is not watchdog aware, and thus timeouts are possible if short periods are used
+  *      and a lengthy USB operation is initiated.
+  *    - No LUFA provided driver INF files for Windows are signed, and thus may fail to install on systems where driver signing is enforced (e.g. Windows 8/10).
+  *  - Build System
+  *    - No known issues.
+  *  - Atmel Studio Integration
+  *    - Not all devices are listed in the "Supported Parts" screen when selecting a device. To select an alternative device, change the "Show Device" drop-down to "All Parts".
+  *    - When switching boards after changing the device selection, a second conflicting \c BOARD symbol definition can be created that prevents successful compilation. To fix, open the project properties window (<i>Project->Project {name} Properties...</i> menu item), click the "Toolchain" tab, click "Symbols" under the "AVR/GNU C Compiler" section and remove the incorrect definition.
+  *
+  *  \section Sec_KnownIssues170418 Version 170418
+  *  - AVR8 Architecture
+  *    - No known issues.
+  *  - UC3 Architecture
+  *    \warning The UC3 device support is currently <b>experimental</b> (incomplete and/or non-functional), and is included for preview purposes only. \n
+  *
+  *    - No demos, bootloaders or projects have been ported for the UC3 devices in the current release,
+  *      although the architecture is supported in the LUFA core library.
+  *    - DMA transfers to and from the USB controller are not yet implemented for this release.
+  *    - The UC3C, UC3D and UC3L sub-families of UC3 are not currently supported by the library due to their
+  *      altered USB controller design.
+  *    - The various \c *_CreateStream() functions for creating standard \c <stdio.h> compatible virtual file
+  *      streams are not available on the UC3 architecture, due to a lack of suitable library support.
+  *  - XMEGA Architecture
+  *    \warning The XMEGA device support is currently <b>experimental</b> (incomplete and/or non-functional), and is included for preview purposes only.
+  *
+  *    - Endpoints of more than 64 bytes are not currently supported in this release.
+  *    - Isochronous endpoints are not currently supported in this release. As a result, the audio class
+  *      cannot be used on XMEGA devices.
+  *    - Multiple-bank endpoints are not currently supported in this release.
+  *    - Early silicon revisions of the ATXMEGA128A1U are incompatible with LUFA, due to their various errata
+  *      relating to the USB controller.
+  *  - Architecture Independent
+  *    - The LUFA library is not watchdog aware, and thus timeouts are possible if short periods are used
+  *      and a lengthy USB operation is initiated.
+  *    - No LUFA provided driver INF files for Windows are signed, and thus may fail to install on systems where driver signing is enforced (e.g. Windows 8/10).
+  *  - Build System
+  *    - No known issues.
+  *  - Atmel Studio Integration
+  *    - Not all devices are listed in the "Supported Parts" screen when selecting a device. To select an alternative device, change the "Show Device" drop-down to "All Parts".
+  *    - When switching boards after changing the device selection, a second conflicting \c BOARD symbol definition can be created that prevents successful compilation. To fix, open the project properties window (<i>Project->Project {name} Properties...</i> menu item), click the "Toolchain" tab, click "Symbols" under the "AVR/GNU C Compiler" section and remove the incorrect definition.
+  *
+  *  \section Sec_KnownIssues151115 Version 151115
+  *  - AVR8 Architecture
+  *    - No known issues.
+  *  - UC3 Architecture
+  *    \warning The UC3 device support is currently <b>experimental</b> (incomplete and/or non-functional), and is included for preview purposes only. \n
+  *
+  *    - No demos, bootloaders or projects have been ported for the UC3 devices in the current release,
+  *      although the architecture is supported in the LUFA core library.
+  *    - DMA transfers to and from the USB controller are not yet implemented for this release.
+  *    - The UC3C, UC3D and UC3L sub-families of UC3 are not currently supported by the library due to their
+  *      altered USB controller design.
+  *    - The various \c *_CreateStream() functions for creating standard \c <stdio.h> compatible virtual file
+  *      streams are not available on the UC3 architecture, due to a lack of suitable library support.
+  *  - XMEGA Architecture
+  *    \warning The XMEGA device support is currently <b>experimental</b> (incomplete and/or non-functional), and is included for preview purposes only.
+  *
+  *    - Endpoints of more than 64 bytes are not currently supported in this release.
+  *    - Isochronous endpoints are not currently supported in this release. As a result, the audio class
+  *      cannot be used on XMEGA devices.
+  *    - Multiple-bank endpoints are not currently supported in this release.
+  *    - Early silicon revisions of the ATXMEGA128A1U are incompatible with LUFA, due to their various errata
+  *      relating to the USB controller.
+  *  - Architecture Independent
+  *    - The LUFA library is not watchdog aware, and thus timeouts are possible if short periods are used
+  *      and a lengthy USB operation is initiated.
+  *    - No LUFA provided driver INF files for Windows are signed, and thus may fail to install on systems where driver signing is enforced (e.g. Windows 8).
+  *  - Build System
+  *    - No known issues.
+  *  - Atmel Studio Integration
+  *    - Not all devices are listed in the "Supported Parts" screen when selecting a device. To select an alternative device, change the "Show Device" drop-down to "All Parts".
+  *    - When switching boards after changing the device selection, a second conflicting \c BOARD symbol definition can be created that prevents successful compilation. To fix, open the project properties window (<i>Project->Project {name} Properties...</i> menu item), click the "Toolchain" tab, click "Symbols" under the "AVR/GNU C Compiler" section and remove the incorrect definition.
+  *
+  *  \section Sec_KnownIssues140928 Version 140928
+  *  - AVR8 Architecture
+  *    - No known issues.
+  *  - UC3 Architecture
+  *    \warning The UC3 device support is currently <b>experimental</b> (incomplete and/or non-functional), and is included for preview purposes only. \n
+  *
+  *    - No demos, bootloaders or projects have been ported for the UC3 devices in the current release,
+  *      although the architecture is supported in the LUFA core library.
+  *    - DMA transfers to and from the USB controller are not yet implemented for this release.
+  *    - The UC3C, UC3D and UC3L sub-families of UC3 are not currently supported by the library due to their
+  *      altered USB controller design.
+  *    - The various \c *_CreateStream() functions for creating standard \c <stdio.h> compatible virtual file
+  *      streams are not available on the UC3 architecture, due to a lack of suitable library support.
+  *  - XMEGA Architecture
+  *    \warning The XMEGA device support is currently <b>experimental</b> (incomplete and/or non-functional), and is included for preview purposes only.
+  *
+  *    - Endpoints of more than 64 bytes are not currently supported in this release.
+  *    - Isochronous endpoints are not currently supported in this release. As a result, the audio class
+  *      cannot be used on XMEGA devices.
+  *    - Multiple-bank endpoints are not currently supported in this release.
+  *    - Early silicon revisions of the ATXMEGA128A1U are incompatible with LUFA, due to their various errata
+  *      relating to the USB controller.
+  *  - Architecture Independent
+  *    - The LUFA library is not watchdog aware, and thus timeouts are possible if short periods are used
+  *      and a lengthy USB operation is initiated.
+  *    - No LUFA provided driver INF files for Windows are signed, and thus may fail to install on systems where driver signing is enforced (e.g. Windows 8).
+  *  - Build System
+  *    - No known issues.
+  *  - Atmel Studio Integration
+  *    - Not all devices are listed in the "Supported Parts" screen when selecting a device. To select an alternative device, change the "Show Device" drop-down to "All Parts".
+  *    - When switching boards after changing the device selection, a second conflicting \c BOARD symbol definition can be created that prevents successful compilation. To fix, open the project properties window (<i>Project->Project {name} Properties...</i> menu item), click the "Toolchain" tab, click "Symbols" under the "AVR/GNU C Compiler" section and remove the incorrect definition.
+  *
+  *  \section Sec_KnownIssues140302 Version 140302
+  *  - AVR8 Architecture
+  *    - No known issues.
+  *  - UC3 Architecture
+  *    \warning The UC3 device support is currently <b>experimental</b> (incomplete and/or non-functional), and is included for preview purposes only. \n
+  *
+  *    - No demos, bootloaders or projects have been ported for the UC3 devices in the current release,
+  *      although the architecture is supported in the LUFA core library.
+  *    - DMA transfers to and from the USB controller are not yet implemented for this release.
+  *    - The UC3C, UC3D and UC3L sub-families of UC3 are not currently supported by the library due to their
+  *      altered USB controller design.
+  *    - The various \c *_CreateStream() functions for creating standard \c <stdio.h> compatible virtual file
+  *      streams are not available on the UC3 architecture, due to a lack of suitable library support.
+  *  - XMEGA Architecture
+  *    \warning The XMEGA device support is currently <b>experimental</b> (incomplete and/or non-functional), and is included for preview purposes only.
+  *
+  *    - Endpoints of more than 64 bytes are not currently supported in this release.
+  *    - Isochronous endpoints are not currently supported in this release. As a result, the audio class
+  *      cannot be used on XMEGA devices.
+  *    - Multiple-bank endpoints are not currently supported in this release.
+  *    - Early silicon revisions of the ATXMEGA128A1U are incompatible with LUFA, due to their various errata
+  *      relating to the USB controller.
+  *  - Architecture Independent
+  *    - The LUFA library is not watchdog aware, and thus timeouts are possible if short periods are used
+  *      and a lengthy USB operation is initiated.
+  *    - No LUFA provided driver INF files for Windows are signed, and thus may fail to install on systems where driver signing is enforced (e.g. Windows 8).
+  *  - Build System
+  *    - No known issues.
+  *  - Atmel Studio Integration
+  *    - Not all devices are listed in the "Supported Parts" screen when selecting a device. To select an alternative device, change the "Show Device" drop-down to "All Parts".
+  *    - When switching boards after changing the device selection, a second conflicting BOARD symbol definition can be created that prevents successful compilation. To fix, open the project properties window (<i>Project->Project {name} Properties...</i> menu item), click the Toolchain tab, click "Symbols" under the "AVR/GNU C Compiler" section and remove the incorrect definition.
+  *
+  *  \section Sec_KnownIssues130901 Version 130901
+  *  - AVR8 Architecture
+  *    - No known issues.
+  *  - UC3 Architecture
+  *    \warning The UC3 device support is currently <b>experimental</b> (incomplete and/or non-functional), and is included for preview purposes only. \n
+  *
+  *    - No demos, bootloaders or projects have been ported for the UC3 devices in the current release,
+  *      although the architecture is supported in the LUFA core library.
+  *    - DMA transfers to and from the USB controller are not yet implemented for this release.
+  *    - The UC3C, UC3D and UC3L sub-families of UC3 are not currently supported by the library due to their
+  *      altered USB controller design.
+  *    - The various \c *_CreateStream() functions for creating standard \c <stdio.h> compatible virtual file
+  *      streams are not available on the UC3 architecture, due to a lack of suitable library support.
+  *  - XMEGA Architecture
+  *    \warning The XMEGA device support is currently <b>experimental</b> (incomplete and/or non-functional), and is included for preview purposes only.
+  *
+  *    - Endpoints of more than 64 bytes are not currently supported in this release.
+  *    - Isochronous endpoints are not currently supported in this release. As a result, the audio class
+  *      cannot be used on XMEGA devices.
+  *    - Multiple-bank endpoints are not currently supported in this release.
+  *    - Early silicon revisions of the ATXMEGA128A1U are incompatible with LUFA, due to their various errata
+  *      relating to the USB controller.
+  *  - Architecture Independent
+  *    - The LUFA library is not watchdog aware, and thus timeouts are possible if short periods are used
+  *      and a lengthy USB operation is initiated.
+  *    - No LUFA provided driver INF files for Windows are signed, and thus may fail to install on systems where driver signing is enforced (e.g. Windows 8).
+  *  - Build System
+  *    - No known issues.
+  *  - Atmel Studio Integration
+  *    - Not all devices are listed in the "Supported Parts" screen when selecting a device. To select an alternative device, change the "Show Device" drop-down to "All Parts".
+  *    - When switching boards after changing the device selection, a second conflicting BOARD symbol definition can be created that prevents successful compilation. To fix, open the project properties window (<i>Project->Project {name} Properties...</i> menu item), click the Toolchain tab, click "Symbols" under the "AVR/GNU C Compiler" section and remove the incorrect definition.
+  *
+  *  \section Sec_KnownIssues130303 Version 130303
+  *  - AVR8 Architecture
+  *    - No known issues.
+  *  - UC3 Architecture
+  *    \warning The UC3 device support is currently <b>experimental</b> (incomplete and/or non-functional), and is included for preview purposes only. \n
+  *
+  *    - No demos, bootloaders or projects have been ported for the UC3 devices in the current release,
+  *      although the architecture is supported in the LUFA core library.
+  *    - DMA transfers to and from the USB controller are not yet implemented for this release.
+  *    - The UC3C, UC3D and UC3L sub-families of UC3 are not currently supported by the library due to their
+  *      altered USB controller design.
+  *    - The various \c CreateStream() functions for creating standard \c <stdio.h> compatible virtual file
+  *      streams are not available on the UC3 architecture, due to a lack of suitable library support.
+  *  - XMEGA Architecture
+  *    \warning The XMEGA device support is currently <b>experimental</b> (incomplete and/or non-functional), and is included for preview purposes only.
+  *
+  *    - No demos, bootloaders or projects have been ported for the XMEGA devices in the current release,
+  *      although the architecture is supported in the LUFA core library.
+  *    - Endpoints of more than 64 bytes are not currently supported in this release.
+  *    - Isochronous endpoints are not currently supported in this release. As a result, the audio class
+  *      cannot be used on XMEGA devices.
+  *    - Multiple-bank endpoints are not currently supported in this release.
+  *    - Early revisions of the ATXMEGA128A1U are incompatible with LUFA, due to their various errata
+  *      relating to the USB controller.
+  *  - Architecture Independent
+  *    - The LUFA library is not watchdog aware, and thus timeouts are possible if short periods are used
+  *      and a lengthy USB operation is initiated.
+  *    - No LUFA provided driver INF files for Windows are signed, and thus may fail to install on systems where driver signing is enforced (e.g. Windows 8).
+  *  - Build System
+  *    - No known issues.
+  *
+  *  \section Sec_KnownIssues120730 Version 120730
+  *  - AVR8 Architecture
+  *    - No known issues.
+  *  - UC3 Architecture
+  *    \warning The UC3 device support is currently <b>experimental</b> (incomplete and/or non-functional), and is included for preview purposes only. \n
+  *
+  *    - No demos, bootloaders or projects have been ported for the UC3 devices in the current release,
+  *      although the architecture is supported in the LUFA core library.
+  *    - DMA transfers to and from the USB controller are not yet implemented for this release.
+  *    - The UC3C, UC3D and UC3L sub-families of UC3 are not currently supported by the library due to their
+  *      altered USB controller design.
+  *    - The various \c CreateStream() functions for creating standard \c <stdio.h> compatible virtual file
+  *      streams are not available on the UC3 architecture, due to a lack of suitable library support.
+  *  - XMEGA Architecture
+  *    \warning The XMEGA device support is currently <b>experimental</b> (incomplete and/or non-functional), and is included for preview purposes only.
+  *
+  *    - No demos, bootloaders or projects have been ported for the XMEGA devices in the current release,
+  *      although the architecture is supported in the LUFA core library.
+  *    - Endpoints of more than 64 bytes are not currently supported in this release.
+  *    - Isochronous endpoints are not currently supported in this release. As a result, the audio class
+  *      cannot be used on XMEGA devices.
+  *    - Multiple-bank endpoints are not currently supported in this release.
+  *    - Early revisions of the ATXMEGA128A1U are incompatible with LUFA, due to their various errata
+  *      relating to the USB controller.
+  *  - Architecture Independent
+  *    - The LUFA library is not watchdog aware, and thus timeouts are possible if short periods are used
+  *      and a lengthy USB operation is initiated.
+  *    - No LUFA provided driver INF files for Windows are signed, and thus may fail to install on systems where driver signing is enforced (e.g. Windows 8).
+  *  - Build System
+  *    - No known issues.
+  */
+

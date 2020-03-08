@@ -1,0 +1,22 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/**
+ *  \page Page_Donating Donating to Support This Project
+ *
+ *  \image html Images/Author.jpg "Dean Camera, LUFA Developer"
+ *
+ *  I am a software developer working on LUFA in my spare time. The development and support of this library requires
+ *  much effort from myself, as I am the sole developer, maintainer and supporter. Please consider donating a small
+ *  amount to support this and my future Open Source projects - All donations are <i>greatly</i> appreciated.
+ *
+ *  Note that commercial entities can remove the attribution portion of the LUFA license by a one-time fee - see
+ *  \ref Page_LicenseInfo for more details (<b>Note: Please do NOT pay this in advance through the donation link below -
+ *  contact author for payment details.</b>).
+ *
+ *  <a href="http://www.fourwalledcubicle.com">Donate to this project (via PayPal)</a> - Thanks in Advance!
+ */
+

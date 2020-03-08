@@ -1,0 +1,50 @@
+<asf xmlversion="1.0">
+	<project caption="Mouse HID Host Demo (Low Level APIs)" id="lufa.demos.host.lowlevel.mouse.example.avr8">
+		<require idref="lufa.demos.host.lowlevel.mouse"/>
+		<require idref="lufa.boards.dummy.avr8"/>
+		<generator value="as5_8"/>
+
+		<device-support value="at90usb1287"/>
+		<config name="lufa.drivers.board.name" value="none"/>
+
+		<build type="define" name="F_CPU" value="16000000UL"/>
+		<build type="define" name="F_USB" value="16000000UL"/>
+	</project>
+
+	<module type="application" id="lufa.demos.host.lowlevel.mouse" caption="Mouse HID Host Demo (Low Level APIs)">
+		<info type="description" value="summary">
+		Keyboard HID Host demo, implementing a basic USB mouse host that can display movement data on the board LEDs. This demo uses the Low Level LUFA APIs to manually implement a USB Class for demonstration purposes without using the simpler in-built LUFA Class Driver APIs.
+		</info>
+
+ 		<info type="gui-flag" value="move-to-root"/>
+
+		<info type="keyword" value="Technology">
+			<keyword value="Low Level APIs"/>
+			<keyword value="USB Host"/>
+			<keyword value="HID Class"/>
+		</info>
+
+		<device-support-alias value="lufa_avr8"/>
+		<device-support-alias value="lufa_xmega"/>
+		<device-support-alias value="lufa_uc3"/>
+
+		<build type="distribute" subtype="user-file" value="doxyfile"/>
+		<build type="distribute" subtype="user-file" value="MouseHost.txt"/>
+
+		<build type="c-source" value="MouseHost.c"/>
+		<build type="c-source" value="ConfigDescriptor.c"/>
+		<build type="header-file" value="MouseHost.h"/>
+		<build type="header-file" value="ConfigDescriptor.h"/>
+
+		<build type="module-config" subtype="path" value="Config"/>
+		<build type="header-file" value="Config/LUFAConfig.h"/>
+
+		<require idref="lufa.common"/>
+		<require idref="lufa.platform"/>
+		<require idref="lufa.drivers.usb"/>
+		<require idref="lufa.drivers.peripheral.usart"/>
+		<require idref="lufa.drivers.misc.ansi"/>
+		<require idref="lufa.drivers.board"/>
+		<require idref="lufa.drivers.board.leds"/>
+	</module>
+</asf>

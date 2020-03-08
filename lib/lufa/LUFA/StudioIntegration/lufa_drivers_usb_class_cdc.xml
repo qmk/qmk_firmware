@@ -1,0 +1,99 @@
+<!--
+             LUFA Library
+     Copyright (C) Dean Camera, 2019.
+
+  dean [at] fourwalledcubicle [dot] com
+           www.lufa-lib.org
+-->
+
+<!-- Atmel Studio framework integration file -->
+
+<lufa>
+	<asf>
+		<select-by-config id="lufa.drivers.usb.class.cdc" name="lufa.drivers.usb.class.cdc.mode" default="host_device" caption="LUFA USB Class Driver - CDC">
+			<build type="doxygen-entry-point" value="Group_USBClassCDC"/>
+
+			<info type="gui-flag" value="hidden"/>
+
+			<module type="service" id="lufa.drivers.usb.class.cdc#host_device" caption="LUFA USB Class Driver - CDC (Host/Device)">
+				<info type="description" value="summary">
+					Common definitions and Host/Device mode implementations of the CDC USB class.
+				</info>
+
+				<build type="doxygen-entry-point" value="Group_USBClassCDC"/>
+
+				<info type="gui-flag" value="hidden"/>
+
+				<device-support-alias value="lufa_avr8"/>
+				<device-support-alias value="lufa_xmega"/>
+				<device-support-alias value="lufa_uc3"/>
+
+				<build type="header-file" value="Drivers/USB/Class/CDCClass.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Common/CDCClassCommon.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Device/CDCClassDevice.h"/>
+				<build type="c-source"    value="Drivers/USB/Class/Device/CDCClassDevice.c"/>
+				<build type="header-file" value="Drivers/USB/Class/Host/CDCClassHost.h"/>
+				<build type="c-source"    value="Drivers/USB/Class/Host/CDCClassHost.c"/>
+			</module>
+
+			<module type="service" id="lufa.drivers.usb.class.cdc#host" caption="LUFA USB Class Driver - CDC (Host)">
+				<info type="description" value="summary">
+					Common definitions and Host mode implementation of the CDC USB class.
+				</info>
+
+				<build type="doxygen-entry-point" value="Group_USBClassCDC"/>
+
+				<info type="gui-flag" value="hidden"/>
+
+				<device-support-alias value="lufa_avr8"/>
+				<device-support-alias value="lufa_xmega"/>
+				<device-support-alias value="lufa_uc3"/>
+
+				<build type="header-file" value="Drivers/USB/Class/CDCClass.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Common/CDCClassCommon.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Device/CDCClassDevice.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Host/CDCClassHost.h"/>
+				<build type="c-source"    value="Drivers/USB/Class/Host/CDCClassHost.c"/>
+			</module>
+
+			<module type="service" id="lufa.drivers.usb.class.cdc#device" caption="LUFA USB Class Driver - CDC (Device)">
+				<info type="description" value="summary">
+					Common definitions and Device mode implementation of the CDC USB class.
+				</info>
+
+				<build type="doxygen-entry-point" value="Group_USBClassCDC"/>
+
+				<info type="gui-flag" value="hidden"/>
+
+				<device-support-alias value="lufa_avr8"/>
+				<device-support-alias value="lufa_xmega"/>
+				<device-support-alias value="lufa_uc3"/>
+
+				<build type="header-file" value="Drivers/USB/Class/CDCClass.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Common/CDCClassCommon.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Device/CDCClassDevice.h"/>
+				<build type="c-source"    value="Drivers/USB/Class/Device/CDCClassDevice.c"/>
+				<build type="header-file" value="Drivers/USB/Class/Host/CDCClassHost.h"/>
+			</module>
+
+			<module type="service" id="lufa.drivers.usb.class.cdc#definitions_only" caption="LUFA USB Class Driver - CDC (Definitions Only)">
+				<info type="description" value="summary">
+					Common definitions only (no implementations) of the CDC USB class.
+				</info>
+
+				<build type="doxygen-entry-point" value="Group_USBClassCDC"/>
+
+				<info type="gui-flag" value="hidden"/>
+
+				<device-support-alias value="lufa_avr8"/>
+				<device-support-alias value="lufa_xmega"/>
+				<device-support-alias value="lufa_uc3"/>
+
+				<build type="header-file" value="Drivers/USB/Class/CDCClass.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Common/CDCClassCommon.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Device/CDCClassDevice.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Host/CDCClassHost.h"/>
+			</module>
+		</select-by-config>
+	</asf>
+</lufa>

@@ -1,0 +1,74 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \mainpage Mouse Host Demo
+ *
+ *  \section Sec_Compat Demo Compatibility:
+ *
+ *  The following list indicates what microcontrollers are compatible with this demo.
+ *
+ *  \li Series 7 USB AVRs (AT90USBxxx7)
+ *
+ *  \section Sec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>USB Mode:</b></td>
+ *    <td>Host</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Class:</b></td>
+ *    <td>Human Interface Device (HID)</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Subclass:</b></td>
+ *    <td>N/A</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Relevant Standards:</b></td>
+ *    <td>USBIF HID Specification \n
+ *        USBIF HID Usage Tables</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Supported USB Speeds:</b></td>
+ *    <td>Low Speed Mode \n
+ *        Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section Sec_Description Project Description:
+ *
+ *  Mouse host demonstration application. This gives a simple reference
+ *  application for implementing a USB Mouse host, for USB mice using
+ *  the standard mouse HID profile.
+ *
+ *  Mouse movement and button presses are displayed on the board LEDs,
+ *  as well as printed out the serial terminal as formatted dY, dY and
+ *  button status information.
+ *
+ *  This uses a naive method where the mouse is set to Boot Protocol mode, so
+ *  that the report structure is fixed and known. A better implementation
+ *  uses the HID report parser for correct report data processing across
+ *  all compatible mice with advanced characteristics, as shown in the
+ *  MouseHostWithParser demo application.
+ *
+ *  Currently only single interface mice are supported.
+ *
+ *  \section Sec_Options Project Options
+ *
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <td>
+ *     None
+ *    </td>
+ *   </tr>
+ *  </table>
+ */
+

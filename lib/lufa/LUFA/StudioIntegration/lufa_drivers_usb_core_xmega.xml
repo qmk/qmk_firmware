@@ -1,0 +1,36 @@
+<!--
+             LUFA Library
+     Copyright (C) Dean Camera, 2019.
+
+  dean [at] fourwalledcubicle [dot] com
+           www.lufa-lib.org
+-->
+
+<!-- Atmel Studio framework integration file -->
+
+<lufa>
+	<asf>
+		<module type="driver" id="lufa.drivers.usb.core.xmega" caption="LUFA USB Core Driver for XMEGA">
+			<device-support-alias value="lufa_xmega"/>
+
+			<info type="gui-flag" value="hidden"/>
+
+			<build type="doxygen-entry-point" value="Group_USBManagement_XMEGA"/>
+
+			<build type="c-source"    value="Drivers/USB/Core/XMEGA/Template/Template_Endpoint_Control_R.c"/>
+			<build type="c-source"    value="Drivers/USB/Core/XMEGA/Template/Template_Endpoint_Control_W.c"/>
+			<build type="c-source"    value="Drivers/USB/Core/XMEGA/Template/Template_Endpoint_RW.c"/>
+			<build type="c-source"    value="Drivers/USB/Core/XMEGA/Device_XMEGA.c"/>
+			<build type="header-file" value="Drivers/USB/Core/XMEGA/Device_XMEGA.h"/>
+			<build type="c-source"    value="Drivers/USB/Core/XMEGA/Endpoint_XMEGA.c"/>
+			<build type="header-file" value="Drivers/USB/Core/XMEGA/Endpoint_XMEGA.h"/>
+			<build type="c-source"    value="Drivers/USB/Core/XMEGA/Pipe_XMEGA.c"/>
+			<build type="c-source"    value="Drivers/USB/Core/XMEGA/USBController_XMEGA.c"/>
+			<build type="header-file" value="Drivers/USB/Core/XMEGA/USBController_XMEGA.h"/>
+			<build type="c-source"    value="Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.c"/>
+			<build type="header-file" value="Drivers/USB/Core/XMEGA/USBInterrupt_XMEGA.h"/>
+			<build type="c-source"    value="Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.c"/>
+			<build type="header-file" value="Drivers/USB/Core/XMEGA/EndpointStream_XMEGA.h"/>
+		</module>
+	</asf>
+</lufa>

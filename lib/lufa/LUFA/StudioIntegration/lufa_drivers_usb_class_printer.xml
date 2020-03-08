@@ -1,0 +1,99 @@
+<!--
+             LUFA Library
+     Copyright (C) Dean Camera, 2019.
+
+  dean [at] fourwalledcubicle [dot] com
+           www.lufa-lib.org
+-->
+
+<!-- Atmel Studio framework integration file -->
+
+<lufa>
+	<asf>
+		<select-by-config id="lufa.drivers.usb.class.printer" name="lufa.drivers.usb.class.printer.mode" default="host_device" caption="LUFA USB Class Driver - Printer">
+			<build type="doxygen-entry-point" value="Group_USBClassPrinter"/>
+
+			<info type="gui-flag" value="hidden"/>
+
+			<module type="service" id="lufa.drivers.usb.class.printer#host_device" caption="LUFA USB Class Driver - Printer (Host/Device)">
+				<info type="description" value="summary">
+					Common definitions and Host/Device mode implementations of the Printer USB class.
+				</info>
+
+				<build type="doxygen-entry-point" value="Group_USBClassPrinter"/>
+
+				<info type="gui-flag" value="hidden"/>
+
+				<device-support-alias value="lufa_avr8"/>
+				<device-support-alias value="lufa_xmega"/>
+				<device-support-alias value="lufa_uc3"/>
+
+				<build type="header-file" value="Drivers/USB/Class/PrinterClass.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Common/PrinterClassCommon.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Device/PrinterClassDevice.h"/>
+				<build type="c-source"    value="Drivers/USB/Class/Device/PrinterClassDevice.c"/>
+				<build type="header-file" value="Drivers/USB/Class/Host/PrinterClassHost.h"/>
+				<build type="c-source"    value="Drivers/USB/Class/Host/PrinterClassHost.c"/>
+			</module>
+
+			<module type="service" id="lufa.drivers.usb.class.printer#host" caption="LUFA USB Class Driver - Printer (Host)">
+				<info type="description" value="summary">
+					Common definitions and Host mode implementation of the Printer USB class.
+				</info>
+
+				<build type="doxygen-entry-point" value="Group_USBClassPrinter"/>
+
+				<info type="gui-flag" value="hidden"/>
+
+				<device-support-alias value="lufa_avr8"/>
+				<device-support-alias value="lufa_xmega"/>
+				<device-support-alias value="lufa_uc3"/>
+
+				<build type="header-file" value="Drivers/USB/Class/PrinterClass.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Common/PrinterClassCommon.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Device/PrinterClassDevice.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Host/PrinterClassHost.h"/>
+				<build type="c-source"    value="Drivers/USB/Class/Host/PrinterClassHost.c"/>
+			</module>
+
+			<module type="service" id="lufa.drivers.usb.class.printer#device" caption="LUFA USB Class Driver - Printer (Device)">
+				<info type="description" value="summary">
+					Common definitions and Device mode implementation of the Printer USB class.
+				</info>
+
+				<build type="doxygen-entry-point" value="Group_USBClassPrinter"/>
+
+				<info type="gui-flag" value="hidden"/>
+
+				<device-support-alias value="lufa_avr8"/>
+				<device-support-alias value="lufa_xmega"/>
+				<device-support-alias value="lufa_uc3"/>
+
+				<build type="header-file" value="Drivers/USB/Class/PrinterClass.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Common/PrinterClassCommon.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Device/PrinterClassDevice.h"/>
+				<build type="c-source"    value="Drivers/USB/Class/Device/PrinterClassDevice.c"/>
+				<build type="header-file" value="Drivers/USB/Class/Host/PrinterClassHost.h"/>
+			</module>
+
+			<module type="service" id="lufa.drivers.usb.class.printer#definitions_only" caption="LUFA USB Class Driver - Printer (Definitions Only)">
+				<info type="description" value="summary">
+					Common definitions only (no implementations) of the Printer USB class.
+				</info>
+
+				<build type="doxygen-entry-point" value="Group_USBClassPrinter"/>
+
+				<info type="gui-flag" value="hidden"/>
+
+				<device-support-alias value="lufa_avr8"/>
+				<device-support-alias value="lufa_xmega"/>
+				<device-support-alias value="lufa_uc3"/>
+
+				<build type="header-file" value="Drivers/USB/Class/PrinterClass.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Common/PrinterClassCommon.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Device/PrinterClassDevice.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Host/PrinterClassHost.h"/>
+			</module>
+		</select-by-config>
+	</asf>
+</lufa>

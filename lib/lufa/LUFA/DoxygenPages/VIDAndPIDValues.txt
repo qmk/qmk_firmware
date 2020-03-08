@@ -1,0 +1,199 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \page Page_VIDPID VID and PID values
+ *
+ *  \section Sec_VIDPID_Allocations VID and PID Allocations
+ *  The LUFA library uses VID/PID combinations generously donated by Atmel. The following VID/PID combinations
+ *  are used within the LUFA demos, and thus may be re-used by derivations of each demo. Free PID values may be
+ *  used by future LUFA demo projects.
+ *
+ *  <b>These VID/PID values should not be used in commercial designs under any circumstances.</b> Private projects
+ *  may use the following values freely, but must accept any collisions due to other LUFA derived private projects
+ *  sharing identical values. It is suggested that private projects using interfaces compatible with existing
+ *  demos share the same VID/PID value.
+ *
+ *  <table>
+ *   <tr>
+ *    <th>VID</th>
+ *    <th>PID</th>
+ *    <th>Usage</th>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x2040</td>
+ *    <td>Test VID/PID (See \ref Sec_Test_VIDPID)</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x2041</td>
+ *    <td>Mouse Demo Application</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x2042</td>
+ *    <td>Keyboard Demo Application</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x2043</td>
+ *    <td>Joystick Demo Application</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x2044</td>
+ *    <td>CDC Demo Application</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x2045</td>
+ *    <td>Mass Storage Demo Application</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x2046</td>
+ *    <td>Audio Output Demo Application</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x2047</td>
+ *    <td>Audio Input Demo Application</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x2048</td>
+ *    <td>MIDI Demo Application</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x2049</td>
+ *    <td>MagStripe Project</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x204A</td>
+ *    <td>CDC Class Bootloader</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x204B</td>
+ *    <td>USB to Serial Demo Application</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x204C</td>
+ *    <td>RNDIS Demo Application</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x204D</td>
+ *    <td>Combined Keyboard and Mouse Demo Application</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x204E</td>
+ *    <td>Dual CDC Demo Application</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>
+ *     0x204F
+ *    </td>
+ *    <td>Generic HID Demo Application</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x2060</td>
+ *    <td>Benito Programmer Project</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x2061</td>
+ *    <td>Combined Mass Storage and Keyboard Demo</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x2062</td>
+ *    <td>Combined CDC and Mouse Demo</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x2063</td>
+ *    <td>Mass Storage/HID Interface Datalogger Project</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x2064</td>
+ *    <td>Interfaceless Control-Only LUFA Devices</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x2065</td>
+ *    <td>Test and Measurement Demo</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>
+ *     0x2066
+ *    </td>
+ *    <td>Multiple Report Keyboard/Mouse HID Demo</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x2067</td>
+ *    <td>HID Class Bootloader</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x2068</td>
+ *    <td>Virtual Serial/Mass Storage Demo</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>
+ *     0x2069
+ *    </td>
+ *    <td>Webserver Project</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x206A</td>
+ *    <td>Media Control Project</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x206B</td>
+ *    <td>Printer Class Bootloader</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x206C</td>
+ *    <td>Bulk Vendor Demo Application</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x206D</td>
+ *    <td>Dual MIDI Demo Application</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x206E</td>
+ *    <td>CCID Class Demo Application</td>
+ *   </tr>
+ *   <tr>
+ *    <td>0x03EB</td>
+ *    <td>0x206F</td>
+ *    <td><i>Currently Unallocated</i></td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section Sec_Test_VIDPID The Test VID/PID Combination
+ *  For use in testing of LUFA powered devices during development only, by non-commercial entities.
+ *  All devices must accept collisions on this VID/PID range (from other in-development LUFA devices)
+ *  to be resolved by using a unique release number in the Device Descriptor. No devices using this
+ *  VID/PID combination may be released to the general public.
+ */
+

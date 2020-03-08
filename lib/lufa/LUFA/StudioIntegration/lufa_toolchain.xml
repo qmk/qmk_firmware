@@ -1,0 +1,45 @@
+<!--
+             LUFA Library
+     Copyright (C) Dean Camera, 2019.
+
+  dean [at] fourwalledcubicle [dot] com
+           www.lufa-lib.org
+-->
+
+<!-- Atmel Studio framework integration file -->
+
+<lufa>
+	<asf>
+		<select-by-device id="common.utils.toolchain_config" caption="Toolchain configuration defaults">
+			<module type="build-specific" id="common.utils.toolchain_config#avr" caption="Toolchain configuration defaults for 8-bit AVR">
+				<info type="gui-flag" value="hidden"/>
+				<device-support value="avr"/>
+
+				<toolchain-config name="avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned" value="True" toolchain="avrgcc"/>
+				<toolchain-config name="avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned" value="True" toolchain="avrgcc"/>
+				<toolchain-config name="avrgcc.compiler.optimization.OtherFlags" value="-fdata-sections" toolchain="avrgcc"/>
+				<toolchain-config name="avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection" value="True" toolchain="avrgcc"/>
+				<toolchain-config name="avrgcc.compiler.warnings.AllWarnings" value="True" toolchain="avrgcc"/>
+				<toolchain-config name="avrgcc.compiler.miscellaneous.OtherFlags" value="-mrelax -std=gnu99 -fno-strict-aliasing -fno-jump-tables" toolchain="avrgcc"/>
+				<toolchain-config name="avrgcc.linker.optimization.GarbageCollectUnusedSections" value="True" toolchain="avrgcc"/>
+				<toolchain-config name="avrgcc.linker.optimization.RelaxBranches" value="True" toolchain="avrgcc"/>
+				<toolchain-config name="avrgcc.linker.miscellaneous.LinkerFlags" value="-Wl,--relax" toolchain="avrgcc"/>
+			</module>
+		</select-by-device>
+
+		<module type="build-specific" id="common.utils.toolchain_config#uc3" caption="Toolchain configuration defaults for 32-bit AVR">
+			<info type="gui-flag" value="hidden"/>
+			<device-support value="uc3"/>
+
+			<toolchain-config name="avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned" value="True" toolchain="avr32gcc"/>
+			<toolchain-config name="avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned" value="True" toolchain="avr32gcc"/>
+			<toolchain-config name="avr32gcc.compiler.optimization.OtherFlags" value="-fdata-sections" toolchain="avr32gcc"/>
+			<toolchain-config name="avr32gcc.compiler.optimization.PrepareFunctionsForGarbageCollection" value="True" toolchain="avr32gcc"/>
+			<toolchain-config name="avr32gcc.compiler.warnings.AllWarnings" value="True" toolchain="avr32gcc"/>
+			<toolchain-config name="avr32gcc.compiler.miscellaneous.OtherFlags" value="-mrelax -std=gnu99 -fno-strict-aliasing -mno-cond-exec-before-reload" toolchain="avr32gcc"/>
+			<toolchain-config name="avr32gcc.linker.optimization.GarbageCollectUnusedSections" value="True" toolchain="avr32gcc"/>
+			<toolchain-config name="avr32gcc.linker.optimization.RelaxBranches" value="True" toolchain="avr32gcc"/>
+			<toolchain-config name="avr32gcc.linker.miscellaneous.LinkerFlags" value="-Wl,--relax" toolchain="avr32gcc"/>
+		</module>
+	</asf>
+</lufa>

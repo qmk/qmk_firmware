@@ -1,0 +1,35 @@
+#
+#             LUFA Library
+#     Copyright (C) Dean Camera, 2019.
+#
+#  dean [at] fourwalledcubicle [dot] com
+#           www.lufa-lib.org
+#
+# --------------------------------------
+#         LUFA Project Makefile.
+# --------------------------------------
+
+# Run "make help" for target help.
+
+MCU          =
+ARCH         =
+BOARD        =
+F_CPU        = $(F_USB)
+F_USB        = 8000000
+OPTIMIZATION = 1
+TARGET       = Test
+SRC          = $(TARGET).c
+LUFA_PATH    = ../../LUFA
+CC_FLAGS     = -Werror
+DEBUG_LEVEL  = 0
+
+
+# Include LUFA-specific DMBS extension modules
+DMBS_LUFA_PATH ?= $(LUFA_PATH)/Build/LUFA
+include $(DMBS_LUFA_PATH)/lufa-sources.mk
+include $(DMBS_LUFA_PATH)/lufa-gcc.mk
+
+# Include common DMBS build system modules
+DMBS_PATH      ?= $(LUFA_PATH)/Build/DMBS/DMBS
+include $(DMBS_PATH)/core.mk
+include $(DMBS_PATH)/gcc.mk

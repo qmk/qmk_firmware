@@ -1,0 +1,65 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \mainpage CCID Device Demo
+ *
+ *  \section Sec_Compat Demo Compatibility:
+ *
+ *  The following list indicates what microcontrollers are compatible with this demo.
+ *
+ *  \li Series 7 USB AVRs (AT90USBxxx7)
+ *  \li Series 6 USB AVRs (AT90USBxxx6)
+ *  \li Series 4 USB AVRs (ATMEGAxxU4)
+ *  \li Series 2 USB AVRs (AT90USBxx2, ATMEGAxxU2)
+ *  \li Series AU XMEGA AVRs (ATXMEGAxxxAxU)
+ *  \li Series B XMEGA AVRs (ATXMEGAxxxBx)
+ *  \li Series C XMEGA AVRs (ATXMEGAxxxCx)
+ *
+ *  \section Sec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>USB Mode:</b></td>
+ *    <td>Device</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Class:</b></td>
+ *    <td>CCID Class</td>
+ *   </tr>
+  *   <tr>
+ *    <td><b>USB Subclass:</b></td>
+ *    <td>None</td>
+ *   </tr>
+ *    <td><b>Relevant Standards:</b></td>
+ *    <td>USB CCID 1.1 Specification for Integrated Circuit(s) Cards Interface Devices</td>
+ *    <td>ISO 7816-3</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Supported USB Speeds:</b></td>
+ *    <td>Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section Sec_Description Project Description:
+ *
+ *  CCID demonstration application. This gives a simple reference
+ *  application for implementing a USB CCID device. If you want to test this
+ *  in Linux, you must change the following file:
+ *  /usr/lib/pcsc/drivers/ifd-ccid.bundle/Contents/Info.plist
+ *  and add a VID, PID and friendly name.
+ *
+ *  This device was not tested on Windows.
+ *
+ *  On start-up the system will automatically enumerate and function
+ *  as a CCID device with one slot already inserted. Upon detection, the device
+ *  will send an ATR to the device, which can use it to determine
+ *  host capabilities. Developers can use user applications to send APDUs
+ *  back and forth to the device
+ *
+ */
+

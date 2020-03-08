@@ -1,0 +1,42 @@
+<!--
+             LUFA Library
+     Copyright (C) Dean Camera, 2019.
+
+  dean [at] fourwalledcubicle [dot] com
+           www.lufa-lib.org
+-->
+
+<!-- Atmel Studio framework integration file -->
+
+<lufa>
+	<asf>
+		<module type="driver" id="lufa.drivers.usb.core.uc3" caption="LUFA USB Core Driver for UC3">
+			<device-support-alias value="lufa_uc3"/>
+
+			<info type="gui-flag" value="hidden"/>
+
+			<build type="doxygen-entry-point" value="Group_USBManagement_UC3"/>
+
+			<build type="c-source"    value="Drivers/USB/Core/UC3/Template/Template_Endpoint_Control_R.c"/>
+			<build type="c-source"    value="Drivers/USB/Core/UC3/Template/Template_Endpoint_Control_W.c"/>
+			<build type="c-source"    value="Drivers/USB/Core/UC3/Template/Template_Endpoint_RW.c"/>
+			<build type="c-source"    value="Drivers/USB/Core/UC3/Template/Template_Pipe_RW.c"/>
+			<build type="c-source"    value="Drivers/USB/Core/UC3/Device_UC3.c"/>
+			<build type="header-file" value="Drivers/USB/Core/UC3/Device_UC3.h"/>
+			<build type="c-source"    value="Drivers/USB/Core/UC3/Endpoint_UC3.c"/>
+			<build type="header-file" value="Drivers/USB/Core/UC3/Endpoint_UC3.h"/>
+			<build type="c-source"    value="Drivers/USB/Core/UC3/Host_UC3.c"/>
+			<build type="header-file" value="Drivers/USB/Core/UC3/Host_UC3.h"/>
+			<build type="c-source"    value="Drivers/USB/Core/UC3/Pipe_UC3.c"/>
+			<build type="header-file" value="Drivers/USB/Core/UC3/Pipe_UC3.h"/>
+			<build type="c-source"    value="Drivers/USB/Core/UC3/USBController_UC3.c"/>
+			<build type="header-file" value="Drivers/USB/Core/UC3/USBController_UC3.h"/>
+			<build type="c-source"    value="Drivers/USB/Core/UC3/USBInterrupt_UC3.c"/>
+			<build type="header-file" value="Drivers/USB/Core/UC3/USBInterrupt_UC3.h"/>
+			<build type="c-source"    value="Drivers/USB/Core/UC3/EndpointStream_UC3.c"/>
+			<build type="header-file" value="Drivers/USB/Core/UC3/EndpointStream_UC3.h"/>
+			<build type="c-source"    value="Drivers/USB/Core/UC3/PipeStream_UC3.c"/>
+			<build type="header-file" value="Drivers/USB/Core/UC3/PipeStream_UC3.h"/>
+		</module>
+	</asf>
+</lufa>

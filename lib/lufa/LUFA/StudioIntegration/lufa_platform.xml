@@ -1,0 +1,60 @@
+<!--
+             LUFA Library
+     Copyright (C) Dean Camera, 2019.
+
+  dean [at] fourwalledcubicle [dot] com
+           www.lufa-lib.org
+-->
+
+<!-- Atmel Studio framework integration file -->
+
+<lufa>
+	<asf>
+		<select-by-device id="lufa.platform" caption="LUFA Platform Specific Support">
+			<module type="service" id="lufa.platform#avr8" caption="LUFA Platform Specific Support - AVR8">
+				<device-support-alias value="lufa_avr8"/>
+
+				<build type="define" name="ARCH" value="ARCH_AVR8"/>
+
+				<build type="doxygen-entry-point" value="Group_PlatformDrivers"/>
+
+				<build type="include-path" value=".."/>
+				<build type="header-file" subtype="api" value="Platform/Platform.h"/>
+
+				<require idref="lufa.common"/>
+			</module>
+
+			<module type="service" id="lufa.platform#xmega" caption="LUFA Platform Specific Support - XMEGA">
+				<device-support-alias value="lufa_xmega"/>
+
+				<build type="define" name="ARCH" value="ARCH_XMEGA"/>
+
+				<build type="doxygen-entry-point" value="Group_PlatformDrivers"/>
+
+				<build type="include-path" value=".."/>
+				<build type="header-file" subtype="api" value="Platform/Platform.h"/>
+
+				<build type="distribute" value="Platform/XMEGA/XMEGAExperimentalInfo.txt" subtype="license"/>
+
+				<require idref="lufa.platform.xmega"/>
+				<require idref="lufa.common"/>
+			</module>
+
+			<module type="service" id="lufa.platform#uc3" caption="LUFA Platform Specific Support - UC3">
+				<device-support-alias value="lufa_uc3"/>
+
+				<build type="define" name="ARCH" value="ARCH_UC3"/>
+
+				<build type="doxygen-entry-point" value="Group_PlatformDrivers"/>
+
+				<build type="include-path" value=".."/>
+				<build type="header-file" subtype="api" value="Platform/Platform.h"/>
+
+				<build type="distribute" value="Platform/UC3/UC3ExperimentalInfo.txt" subtype="license"/>
+
+				<require idref="lufa.platform.uc3"/>
+				<require idref="lufa.common"/>
+			</module>
+		</select-by-device>
+	</asf>
+</lufa>
