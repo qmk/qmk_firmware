@@ -53,33 +53,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |   TAB  |   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |  Bksp  |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |   NUM  |   A  |   S  |  D   |   F  |   G  |                              |   H  |   J  |   K  |   L  | ;  : |  ' "   |
+ * |   NAV  |   A  |   S  |  D   |   F  |   G  |                              |   H  |   J  |   K  |   L  | ;  : |  ' "   |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |Enter |  ESC |  |ADJUST|Space |   N  |   M  | ,  < | . >  | /  ? |  Del   |
  * `----------------------+------+------+------+      +------|  |------+      +------+------+------+----------------------'
- *                        | LCTL | GUI  | SYMB |      | NAV  |  | NAV  |      | SYMB | NUM  |LEADER|
+ *                        | LCTL | GUI  | SYMB |      | NUM  |  | NUM  |      | SYMB | NAV  |LEADER|
  *                        |      |      |      | RAlt |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_MACBASE] = LAYOUT(
       KC_TAB  , KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                               KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-      TT(_NUM), KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                               KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-      KC_LSFT , KC_Z,   KC_X,   KC_C,   KC_V,   KC_B, XXXXXXX      ,   KC_ESC,     MO(_ADJUST), XXXXXXX, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, RSFT_T(KC_DEL),
-                     KC_LCTL, KC_LGUI, MO(_SYMBOLS), RALT_T(KC_ENT), MO(_MACNAV),  MO(_MACNAV), KC_SPC, MO(_SYMBOLS), TT(_NUM), KC_LEAD
+      MO(_MACNAV), KC_A,   KC_S,   KC_D,   KC_F, KC_G,                                               KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+      KC_LSFT , KC_Z,   KC_X,   KC_C,   KC_V,   KC_B, XXXXXXX   ,   KC_ESC,    MO(_ADJUST), XXXXXXX, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, RSFT_T(KC_DEL),
+                   KC_LCTL, KC_LGUI, MO(_SYMBOLS), RALT_T(KC_ENT), TT(_NUM),  TT(_NUM), KC_SPC, MO(_SYMBOLS), TT(_NUM), KC_LEAD
     ),
     [_WINBASE] = LAYOUT(
       KC_TAB  , KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                               KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-      TT(_NUM), KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                               KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-      KC_LSFT , KC_Z,   KC_X,   KC_C,   KC_V,   KC_B, XXXXXXX      ,   KC_ESC,     MO(_ADJUST), XXXXXXX, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, RSFT_T(KC_DEL),
-                     KC_LCTL, KC_LGUI, MO(_SYMBOLS), RALT_T(KC_ENT), MO(_WINNAV),  MO(_WINNAV), KC_SPC, MO(_SYMBOLS), MO(_NUM), KC_LEAD
+      MO(_WINNAV), KC_A,   KC_S,   KC_D,   KC_F, KC_G,                                            KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+      KC_LSFT , KC_Z,   KC_X,   KC_C,   KC_V,   KC_B, XXXXXXX    ,   KC_ESC,    MO(_ADJUST), XXXXXXX, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, RSFT_T(KC_DEL),
+                    KC_LCTL, KC_LGUI, MO(_SYMBOLS), RALT_T(KC_ENT), TT(_NUM),  TT(_NUM), KC_SPC, MO(_SYMBOLS), MO(_WINNAV), KC_LEAD
     ),
 /*
  * Navigation Layer: Cursor, Text Navigation
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |      |WheelU|      |      |      |                              |      |PrevW |  Up  |NextW |      |        |
+ * |        |      |      |WheelU|      |      |                              |      |PrevW |  Up  |NextW |      |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        | LCTL |WheelD| LSFT |      |      |                              | Bksp | Left | Down |Right | Del  |        |
+ * |        |       | LCTL |WheelD|LSFT |      |                              | Bksp | Left | Down |Right | Del  |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |        | Undo | Cut  | Copy |Paste |      |      |      |  |      |      |      | Home |      | End  |      |        |
  * `----------------------+------+------+------+      +------|  |------+      +------+------+------+----------------------'
@@ -88,16 +88,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_MACNAV] = LAYOUT(
-      _______, _______, KC_WH_U, _______, _______, _______,                                     _______, M_PRVWD, KC_UP, M_NXTWD, _______, _______,
-      _______, KC_LCTL, KC_WH_D, KC_LSFT, _______, _______,                                     KC_BSPC, KC_LEFT, KC_DOWN, KC_RIGHT, KC_DEL, _______,
+      _______, _______, _______, KC_WH_U, _______, _______,                                     _______, M_PRVWD, KC_UP, M_NXTWD, _______, _______,
+      _______, _______, KC_LCTL, KC_WH_D, KC_LSFT, _______,                                     KC_BSPC, KC_LEFT, KC_DOWN, KC_RIGHT, KC_DEL, _______,
       _______, M_UNDO , M_CUT  , M_COPY , M_PASTE, _______, XXXXXXX, _______, _______, XXXXXXX, _______, KC_HOME, _______, KC_END, _______, _______,
                                  _______, _______, _______, _______, KC_TRNS, KC_TRNS, _______, _______, _______, _______
     ),
     [_WINNAV] = LAYOUT(
-      _______, _______, KC_WH_U, _______, _______, _______,                                     _______, W_PRVWD, KC_UP, W_NXTWD, _______, _______,
-      _______, KC_LCTL, KC_WH_D, KC_LSFT, _______, _______,                                     KC_BSPC, KC_LEFT, KC_DOWN, KC_RIGHT, KC_DEL, _______,
+      _______, _______, _______, KC_WH_U, _______, _______,                                     _______, M_PRVWD, KC_UP, M_NXTWD, _______, _______,
+      KC_TRNS, _______, KC_LCTL, KC_WH_D, KC_LSFT, _______,                                     KC_BSPC, KC_LEFT, KC_DOWN, KC_RIGHT, KC_DEL, _______,
       _______, W_UNDO , W_CUT  , W_COPY , W_PASTE, _______, XXXXXXX, _______, _______, XXXXXXX, _______, KC_HOME, _______, KC_END, _______, _______,
-                                 _______, _______, _______, _______, KC_TRNS, KC_TRNS, _______, _______, _______, _______
+                                 _______, _______, _______, _______, _______, _______, _______, _______, KC_TRNS, _______
     ),
 /*
  * Symbol Layer
@@ -123,9 +123,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Num Layer: Numblock and Function keys
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |  F9  | F10  | F11  | F12  |      |                              |  /   |  7 & |  8 * |  9 ( |  -   | Space  |
+ * |        |  F9  | F10  | F11  | F12  |      |                              |  /   |  7 & |  8 * |  9 ( |  -   |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * | Trans  |  F5  |  F6  |  F7  |  F8  |      |                              |  *   |  4 $ |  5 % |  6 ^ |  +   | Enter  |
+ * | Trans  |  F5  |  F6  |  F7  |  F8  |      |                              |  *   |  4 $ |  5 % |  6 ^ |  +   | Space  |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |        |  F1  |  F2  |  F3  |  F4  |      |      |      |  |      |      |  0 ) |  1 ! |  2 @ |  3 # |  ,   |   =    |
  * `----------------------+------+------+------+      +------|  |------+      +------+------+------+----------------------'
@@ -134,10 +134,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_NUM] = LAYOUT(
-      _______,  KC_F9 , KC_F10 , KC_F11 , KC_F12 , _______,                                     KC_PSLS,  KC_7  ,  KC_8  ,  KC_9  , KC_PMNS, KC_SPC,
-      KC_TRNS,  KC_F5 ,  KC_F6 ,  KC_F7 ,  KC_F8 , _______,                                     KC_PAST,  KC_4  ,  KC_5  ,  KC_6  , KC_PLUS, KC_ENT,
+      _______,  KC_F9 , KC_F10 , KC_F11 , KC_F12 , _______,                                     KC_PSLS,  KC_7  ,  KC_8  ,  KC_9  , KC_PMNS, _______,
+      _______,  KC_F5 ,  KC_F6 ,  KC_F7 ,  KC_F8 , _______,                                     KC_PAST,  KC_4  ,  KC_5  ,  KC_6  , KC_PLUS, KC_SPC ,
       _______,  KC_F1 ,  KC_F2 ,  KC_F3 ,  KC_F4 , _______, XXXXXXX, _______, _______, XXXXXXX,  KC_0  ,  KC_1  ,  KC_2  ,  KC_3  , KC_PCMM, KC_PEQL,
-                                 _______, KC_LCTL, _______, KC_LALT, _______, _______, _______, _______, KC_TRNS, KC_PDOT
+                                 _______, KC_LCTL, _______, KC_LALT, KC_TRNS, KC_TRNS, _______, _______, _______, KC_PDOT
     ),
 /*
  * Adjust Layer: Media, Mouse movement
