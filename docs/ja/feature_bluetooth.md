@@ -23,9 +23,9 @@
 
 ### Adafruit BLE SPI Friend
 現在のところ QMK によってサポートされている唯一の bluetooth チップセットは、Adafruit Bluefruit SPI Friend です。Adafruit のカスタムファームウェアを実行する Nordic nRF5182 ベースのチップです。データは Hardware SPI を介した Adafruit の SDEP を使って転送されます。[Feather 32u4 Bluefruit LE](https://www.adafruit.com/product/2829) は Adafruit ファームウェアを搭載した Nordic BLE チップに SPI 経由で接続された AVR mcu であるため、サポートされます。SPI friend を使ってカスタムボードを構築する場合、32u4 feather が使用するピン選択を使うのが最も簡単ですが、以下の定義で config.h オプションでピンを変更することができます:
-* # define AdafruitBleResetPin D4
-* # define AdafruitBleCSPin    B4
-* # define AdafruitBleIRQPin   E6
+* #define AdafruitBleResetPin D4
+* #define AdafruitBleCSPin    B4
+* #define AdafruitBleIRQPin   E6
 
 Bluefruit UART friend は SPI friend に変換することができますが、これには再書き込みと MDBT40 チップへ直接はんだ付けする[必要があります](https://github.com/qmk/qmk_firmware/issues/2274)。
 
