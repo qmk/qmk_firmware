@@ -2,7 +2,7 @@
 
 There are a lot of hidden functions in QMK that are incredible useful, or may add a bit of functionality that you've been wanting.  Functions that are specific to certain features are not included here, as those will be on their respective feature page.
 
-## (OLKB) Tri Layers
+## (OLKB) Tri Layers :id=olkb-tri-layers
 
 There are actually separate functions that you can use there, depending on what you're after.
 

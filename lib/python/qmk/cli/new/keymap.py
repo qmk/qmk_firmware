@@ -1,8 +1,9 @@
 """This script automates the copying of the default keymap into your own keymap.
 """
-import os
 import shutil
+from pathlib import Path
 
+import qmk.path
 from milc import cli
 
 
@@ -17,24 +18,27 @@ def new_keymap(cli):
     keymap = cli.config.new_keymap.keymap if cli.config.new_keymap.keymap else input("Keymap Name: ")
 
     # generate keymap paths
-    kb_path = os.path.join(os.getcwd(), "keyboards", keyboard)
-    keymap_path_default = os.path.join(kb_path, "keymaps/default")
-    keymap_path = os.path.join(kb_path, "keymaps/%s" % keymap)
+    kb_path = Path('keyboards') / keyboard
+    keymap_path = qmk.path.keymap(keyboard)
+    keymap_path_default = keymap_path / 'default'
+    keymap_path_new = keymap_path / keymap
 
     # check directories
-    if not os.path.exists(kb_path):
+    if not kb_path.exists():
         cli.log.error('Keyboard %s does not exist!', kb_path)
         exit(1)
-    if not os.path.exists(keymap_path_default):
+
+    if not keymap_path_default.exists():
         cli.log.error('Keyboard default %s does not exist!', keymap_path_default)
         exit(1)
-    if os.path.exists(keymap_path):
-        cli.log.error('Keymap %s already exists!', keymap_path)
+
+    if keymap_path_new.exists():
+        cli.log.error('Keymap %s already exists!', keymap_path_new)
         exit(1)
 
     # create user directory with default keymap files
-    shutil.copytree(keymap_path_default, keymap_path, symlinks=True)
+    shutil.copytree(str(keymap_path_default), str(keymap_path_new), symlinks=True)
 
     # end message to user
-    cli.log.info("%s keymap directory created in: %s", keymap, keymap_path)
-    cli.log.info("Compile a firmware with your new keymap by typing: \n" + "qmk compile -kb %s -km %s", keyboard, keymap)
+    cli.log.info("%s keymap directory created in: %s", keymap, keymap_path_new)
+    cli.log.info("Compile a firmware with your new keymap by typing: \n\n\tqmk compile -kb %s -km %s\n", keyboard, keymap)

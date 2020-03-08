@@ -31,11 +31,10 @@ def template(keyboard):
         keyboard
             The keyboard to return a template for.
     """
-    template_name = 'keyboards/%s/templates/keymap.c' % keyboard
+    template_file = Path('keyboards/%s/templates/keymap.c' % keyboard)
 
-    if os.path.exists(template_name):
-        with open(template_name, 'r') as fd:
-            return fd.read()
+    if template_file.exists():
+        return template_file.read_text()
 
     return DEFAULT_KEYMAP_C
 
@@ -85,15 +84,10 @@ def write(keyboard, keymap, layout, layers):
             An array of arrays describing the keymap. Each item in the inner array should be a string that is a valid QMK keycode.
     """
     keymap_c = generate(keyboard, layout, layers)
-    keymap_path = qmk.path.keymap(keyboard)
-    keymap_dir = os.path.join(keymap_path, keymap)
-    keymap_file = os.path.join(keymap_dir, 'keymap.c')
+    keymap_file = qmk.path.keymap(keyboard) / keymap / 'keymap.c'
 
-    if not os.path.exists(keymap_dir):
-        os.makedirs(keymap_dir)
-
-    with open(keymap_file, 'w') as keymap_fd:
-        keymap_fd.write(keymap_c)
+    keymap_file.parent.mkdir(parents=True, exist_ok=True)
+    keymap_file.write_text(keymap_c)
 
     return keymap_file
 

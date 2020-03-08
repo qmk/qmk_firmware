@@ -221,6 +221,12 @@ void oled_write(const char *data, bool invert);
 // Advances the cursor to the next page, wiring ' ' to the remainder of the current page
 void oled_write_ln(const char *data, bool invert);
 
+// Pans the buffer to the right (or left by passing true) by moving contents of the buffer
+// Useful for moving the screen in preparation for new drawing 
+// oled_scroll_left or oled_scroll_right should be preferred for all cases of moving a static
+// image such as a logo or to avoid burn-in as it's much, much less cpu intensive
+void oled_pan(bool left);
+
 // Writes a PROGMEM string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
 // Remapped to call 'void oled_write(const char *data, bool invert);' on ARM
@@ -234,6 +240,9 @@ void oled_write_ln_P(const char *data, bool invert);
 
 // Writes a string to the buffer at current cursor position
 void oled_write_raw(const char *data, uint16_t size);
+
+// Writes a single byte into the buffer at the specified index
+void oled_write_raw_byte(const char data, uint16_t index);
 
 // Writes a PROGMEM string to the buffer at current cursor position
 void oled_write_raw_P(const char *data, uint16_t size);
