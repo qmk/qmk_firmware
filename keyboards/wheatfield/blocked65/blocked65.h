@@ -16,6 +16,3 @@
   { K30, _x_, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D, K3E }, \
   { K40, K41, K42, _x_, _x_, _x_, K46, _x_, _x_, _x_, K4A, K4B, K4C, K4D, K4E }, \
 }
-
-void matrix_init_user(void);
-void matrix_scan_user(void);
