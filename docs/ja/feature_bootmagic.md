@@ -33,22 +33,22 @@ BOOTMAGIC_ENABLE = lite
 
 | ホットキー | 説明 |
 |------------------|---------------------------------------------|
-| エスケープ | EEPROM のブートマジック設定を無視します |
-| `B` | ブートローダに入ります |
-| `D` | シリアルを介するデバッグ出力を切り替え |
+| エスケープ | EEPROM のブートマジック設定を無視する |
+| `B` | ブートローダに入る |
+| `D` | シリアルを介するデバッグ出力の切り替え |
 | `X` | キーマトリックスのデバッグ出力の切り替え |
 | `K` | キーボードのデバッグの切り替え |
 | `M` | マウスのデバッグの切り替え |
 | `L` | EE_HANDS 左右設定に、"左手"を設定 |
 | `R` | EE_HANDS 左右設定に、"右手"を設定 |
 | Backspace | EEPROM をクリア |
-| Caps Lock | Caps Lock を左コントロールとして扱うかを切り替えます |
-| 左 Control | Caps Lock と左コントロールの入れ替えを切り替えます |
-| 左 Alt | 左 Alt と左 GUI の入れ替えを切り替えます |
-| 右 Alt | 右 Alt と右 GUI の入れ替えを切り替えます |
-| 左 GUI | GUI キーの有効・無効を切り替えます (ゲームの時に便利です) |
-| <code>&#96;</code> | <code>&#96;</code> とエスケープの入れ替えを切り替えます |
-| `\` | `\` とバックスペースの入れ替えを切り替えます |
+| Caps Lock | Caps Lock を左コントロールとして扱うかを切り替え |
+| 左 Control | Caps Lock と左コントロールの入れ替えを切り替え |
+| 左 Alt | 左 Alt と左 GUI の入れ替えを切り替え |
+| 右 Alt | 右 Alt と右 GUI の入れ替えを切り替え |
+| 左 GUI | GUI キーの有効・無効を切り替え (ゲームの時に便利です) |
+| <code>&#96;</code> | <code>&#96;</code> とエスケープの入れ替えを切り替え |
+| `\` | `\` とバックスペースの入れ替えを切り替え |
 | `N` | N キーロールオーバー (NKRO) の有効・無効を切り替え |
 | `0` | レイヤー 0 をデフォルトレイヤーにする |
 | `1` | レイヤー 1 をデフォルトレイヤーにする |
@@ -83,15 +83,15 @@ BOOTMAGIC_ENABLE = lite
 | `MAGIC_TOGGLE_ALT_GUI` | `AG_TOGG` | 両側の Alt と GUI の入れ替えの切り替え |
 | `MAGIC_NO_GUI` | `GUI_OFF` | GUI キーを無効にする |
 | `MAGIC_UNNO_GUI` | `GUI_ON` | GUI キーを有効にする |
-| `MAGIC_SWAP_GRAVE_ESC` | `GE_SWAP` | <code>&#96;</code> とエスケープを入れ替えます |
-| `MAGIC_UNSWAP_GRAVE_ESC` | `GE_NORM` | <code>&#96;</code> とエスケープの入れ替えを解除します |
-| `MAGIC_SWAP_BACKSLASH_BACKSPACE` | `BS_SWAP` | `\` とバックスペースを入れ替えます |
-| `MAGIC_UNSWAP_BACKSLASH_BACKSPACE` | `BS_NORM` | `\` とバックスペースの入れ替えを解除します |
+| `MAGIC_SWAP_GRAVE_ESC` | `GE_SWAP` | <code>&#96;</code> とエスケープの入れ替え |
+| `MAGIC_UNSWAP_GRAVE_ESC` | `GE_NORM` | <code>&#96;</code> とエスケープの入れ替えを解除 |
+| `MAGIC_SWAP_BACKSLASH_BACKSPACE` | `BS_SWAP` | `\` とバックスペースを入れ替え |
+| `MAGIC_UNSWAP_BACKSLASH_BACKSPACE` | `BS_NORM` | `\` とバックスペースの入れ替えを解除する |
 | `MAGIC_HOST_NKRO` | `NK_ON` | N キーロールオーバーを有効にする |
 | `MAGIC_UNHOST_NKRO` | `NK_OFF` | N キーロールオーバーを無効にする |
-| `MAGIC_TOGGLE_NKRO` | `NK_TOGG` | N キーロールオーバーの有効・無効を切り替えます |
-| `MAGIC_EE_HANDS_LEFT` | `EH_LEFT` | 分割キーボードのマスター側を左手に設定します(`EE_HANDS` 用) |
-| `MAGIC_EE_HANDS_RIGHT` | `EH_RGHT` | 分割キーボードのマスター側を右手に設定します(`EE_HANDS` 用) |
+| `MAGIC_TOGGLE_NKRO` | `NK_TOGG` | N キーロールオーバーの有効・無効を切り替え |
+| `MAGIC_EE_HANDS_LEFT` | `EH_LEFT` | 分割キーボードのマスター側を左手に設定(`EE_HANDS` 用) |
+| `MAGIC_EE_HANDS_RIGHT` | `EH_RGHT` | 分割キーボードのマスター側を右手に設定(`EE_HANDS` 用) |
 
 ## 設定
 
@@ -100,22 +100,22 @@ BOOTMAGIC_ENABLE = lite
 | 定義 | デフォルト | 説明 |
 |----------------------------------------|-------------|---------------------------------------------------|
 | `BOOTMAGIC_KEY_SALT` | `KC_SPACE` | ブートマジックキー |
-| `BOOTMAGIC_KEY_SKIP` | `KC_ESC` | EEPROM のブートマジック設定を無視します |
-| `BOOTMAGIC_KEY_EEPROM_CLEAR` | `KC_BSPACE` | EEPROM 設定をクリアします |
-| `BOOTMAGIC_KEY_BOOTLOADER` | `KC_B` | ブートローダに入ります |
-| `BOOTMAGIC_KEY_DEBUG_ENABLE` | `KC_D` | シリアルを介するデバッグ出力を切り替え |
-| `BOOTMAGIC_KEY_DEBUG_MATRIX` | `KC_X` | マトリックスのデバッグを切り替えます |
+| `BOOTMAGIC_KEY_SKIP` | `KC_ESC` | EEPROM のブートマジック設定を無視する |
+| `BOOTMAGIC_KEY_EEPROM_CLEAR` | `KC_BSPACE` | EEPROM 設定をクリアする |
+| `BOOTMAGIC_KEY_BOOTLOADER` | `KC_B` | ブートローダに入る |
+| `BOOTMAGIC_KEY_DEBUG_ENABLE` | `KC_D` | シリアルを介するデバッグ出力の切り替え |
+| `BOOTMAGIC_KEY_DEBUG_MATRIX` | `KC_X` | マトリックスのデバッグを切り替え |
 | `BOOTMAGIC_KEY_DEBUG_KEYBOARD` | `KC_K` | キーボードのデバッグの切り替え |
 | `BOOTMAGIC_KEY_DEBUG_MOUSE` | `KC_M` | マウスのデバッグの切り替え |
 | `BOOTMAGIC_KEY_EE_HANDS_LEFT` | `KC_L` | EE_HANDS 左右設定に、"左手"を設定 |
 | `BOOTMAGIC_KEY_EE_HANDS_RIGHT` | `KC_R` | EE_HANDS 左右設定に、"右手"を設定 |
-| `BOOTMAGIC_KEY_SWAP_CONTROL_CAPSLOCK` | `KC_LCTRL` | 左コントロールと Caps Lock を入れ替えます |
-| `BOOTMAGIC_KEY_CAPSLOCK_TO_CONTROL` | `KC_CAPSLOCK` | Caps Lock を左コントロールとして扱うかを切り替えます |
-| `BOOTMAGIC_KEY_SWAP_LALT_LGUI` | `KC_LALT` | 左 Alt と左 GUI の入れ替えを切り替えます (macOS 用) |
-| `BOOTMAGIC_KEY_SWAP_RALT_RGUI` | `KC_RALT` | 右 Alt と右 GUI の入れ替えを切り替えます (macOS 用) |
-| `BOOTMAGIC_KEY_NO_GUI` | `KC_LGUI` | GUI キーの有効・無効を切り替えます (ゲームの時に便利です) |
-| `BOOTMAGIC_KEY_SWAP_GRAVE_ESC` | `KC_GRAVE` | <code>&#96;</code> とエスケープの入れ替えを切り替えます |
-| `BOOTMAGIC_KEY_SWAP_BACKSLASH_BACKSPACE` | `KC_BSLASH` | `\` とバックスペースの入れ替えを切り替えます |
+| `BOOTMAGIC_KEY_SWAP_CONTROL_CAPSLOCK` | `KC_LCTRL` | 左コントロールと Caps Lock の入れ替え |
+| `BOOTMAGIC_KEY_CAPSLOCK_TO_CONTROL` | `KC_CAPSLOCK` | Caps Lock を左コントロールとして扱うかを切り替え |
+| `BOOTMAGIC_KEY_SWAP_LALT_LGUI` | `KC_LALT` | 左 Alt と左 GUI の入れ替えを切り替え (macOS 用) |
+| `BOOTMAGIC_KEY_SWAP_RALT_RGUI` | `KC_RALT` | 右 Alt と右 GUI の入れ替えを切り替え (macOS 用) |
+| `BOOTMAGIC_KEY_NO_GUI` | `KC_LGUI` | GUI キーの有効・無効を切り替え (ゲームの時に便利です) |
+| `BOOTMAGIC_KEY_SWAP_GRAVE_ESC` | `KC_GRAVE` | <code>&#96;</code> とエスケープの入れ替えを切り替え |
+| `BOOTMAGIC_KEY_SWAP_BACKSLASH_BACKSPACE` | `KC_BSLASH` | `\` とバックスペースの入れ替えを切り替え |
 | `BOOTMAGIC_HOST_NKRO` | `KC_N` | N キーロールオーバー (NKRO) の有効・無効を切り替え |
 | `BOOTMAGIC_KEY_DEFAULT_LAYER_0` | `KC_0` | レイヤー 0 をデフォルトレイヤーにする |
 | `BOOTMAGIC_KEY_DEFAULT_LAYER_1` | `KC_1` | レイヤー 1 をデフォルトレイヤーにする |
@@ -136,7 +136,7 @@ BOOTMAGIC_ENABLE = lite
 BOOTMAGIC_ENABLE = lite
 ```
 
-さらに、どのキーを使うかを指定したいかもしれません。これは普通ではないマトリックスを持つキーボードで特に便利です。そのためには、使いたいキーの行と列を指定する必要があります。`config.h` ファイルにこれらのエントリを追加します:
+さらに、どのキーを使うかを指定したほうが良いかもしれません。これは普通ではないマトリックスを持つキーボードで特に便利です。そのためには、使いたいキーの行と列を指定する必要があります。`config.h` ファイルにこれらのエントリを追加します:
 
 ```c
 #define BOOTMAGIC_LITE_ROW 0
