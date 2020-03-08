@@ -6,9 +6,7 @@ extern keymap_config_t keymap_config;
 #define _L 1
 #define _R 2
 
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE
-};
+enum custom_keycodes { QWERTY = SAFE_RANGE };
 
 #define KC_TL LCTL(KC_PGUP)
 #define KC_TR LCTL(KC_PGDN)
@@ -60,32 +58,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void keyboard_post_init_user(void) {
-  rgblight_sethsv_noeeprom(HSV_BLUE);
+    rgblight_sethsv_noeeprom(HSV_BLUE);
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case KC_LSFT:
+            if (record->event.pressed) {
+                rgblight_sethsv_range(HSV_WHITE, 0, 3);
+            } else {
+                rgblight_sethsv_range(HSV_BLUE, 0, 3);
+            }
+            return true;
+        default:
+            return true;
+    }
 }
 
 void update_led(void) {
     switch (biton32(layer_state)) {
-    case _BASE:
-      rgblight_sethsv_noeeprom(HSV_BLUE);
-      break;
-    case _L:
-      rgblight_sethsv_noeeprom(HSV_CORAL);
-      break;
-    case _R:
-      rgblight_sethsv_noeeprom(HSV_MAGENTA);
-      break;
+        case _BASE:
+            rgblight_sethsv_noeeprom(HSV_BLUE);
+            break;
+        case _L:
+            rgblight_sethsv_noeeprom(HSV_CORAL);
+            break;
+        case _R:
+            rgblight_sethsv_noeeprom(HSV_MAGENTA);
+            break;
     }
-  if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
-    rgblight_sethsv_range(HSV_WHITE,0,3);
-    rgblight_sethsv_range(HSV_WHITE,9,12);
-  }
+    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+        rgblight_sethsv_range(HSV_WHITE, 0, 3);
+        rgblight_sethsv_range(HSV_WHITE, 9, 12);
+    }
 }
 
 uint32_t layer_state_set_user(uint32_t state) {
-  update_led();
-  return state;
+    update_led();
+    return state;
 }
 
 void led_set_user(uint8_t usb_led) {
-  update_led();
+    update_led();
 }
