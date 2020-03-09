@@ -77,6 +77,7 @@
   * [Touche à verrou / Lock-key](fr-fr/feature_key_lock.md)
   * [Dispositions / layouts](fr-fr/feature_layouts.md)
   * [Touche leader](fr-fr/feature_leader_key.md)
+  * [Compose Onboard](fr-fr/feature_compose_onboard.md)
   * [Matrice LED](fr-fr/feature_led_matrix.md)
   * [Macros](fr-fr/feature_macros.md)
   * [Boutons de souris](fr-fr/feature_mouse_keys.md)

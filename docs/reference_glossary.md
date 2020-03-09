@@ -78,6 +78,11 @@ A feature that allows you to tap the leader key followed by a sequence of 1, 2, 
 
 * [Leader Key Documentation](feature_leader_key.md)
 
+## Compose Onboard
+Allows composing directly on the keyboard. After pressing the compose onboard key, the following keystrokes trigger a preconfigured action like pressing other keys, inserting a character, or any other quantum features.
+
+* [Compose Onboard Documentation](feature_compose_onboard.md)
+
 ## LED
 Light Emitting Diode, the most common device used for indicators on a keyboard.
 

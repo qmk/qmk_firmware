@@ -162,6 +162,11 @@ If you define these options you will enable the associated feature, which may in
   * sets the timer for leader key chords to run on each key press rather than overall
 * `#define LEADER_KEY_STRICT_KEY_PROCESSING`
   * Disables keycode filtering for Mod-Tap and Layer-Tap keycodes. Eg, if you enable this, you would need to specify `MT(MOD_CTL, KC_A)` if you want to use `KC_A`.
+* `#define COMPOSE_ONBOARD_ABORT KC_COMPOSE_ONBOARD`
+  * which key to use to abort the current composing sequence (defaults to `KC_COMPOSE_ONBOARD`)
+* `#define COMPOSE_ONBOARD_LEN 5`
+  * how many keys should be recorded at maximum in the composing sequence (defaults to `5`)
+  * should be equal to the largest configured input sequence in the compose dictionary
 * `#define ONESHOT_TIMEOUT 300`
   * how long before oneshot times out
 * `#define ONESHOT_TAP_TOGGLE 2`
@@ -361,6 +366,8 @@ Use these to enable or disable building certain features. The more you have enab
   * Enable keyboard underlight functionality
 * `LEADER_ENABLE`
   * Enable leader key chording
+* `COMPOSE_ONBOARD_ENABLE`
+  * Enable composing onboard directly on the keyboard
 * `MIDI_ENABLE`
   * MIDI controls
 * `UNICODE_ENABLE`

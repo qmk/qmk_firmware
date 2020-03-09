@@ -61,6 +61,7 @@
     * [Dynamic Macros](feature_dynamic_macros.md)
     * [Grave Escape](feature_grave_esc.md)
     * [Leader Key](feature_leader_key.md)
+    * [Compose Onboard](feature_compose_onboard.md)
     * [Mod-Tap](mod_tap.md)
     * [Macros](feature_macros.md)
     * [Mouse Keys](feature_mouse_keys.md)

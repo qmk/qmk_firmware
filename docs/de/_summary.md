@@ -73,6 +73,7 @@
   * [Key Lock](de/feature_key_lock.md)
   * [Layouts](de/feature_layouts.md)
   * [Leader Key](de/feature_leader_key.md)
+  * [Compose Onboard](de/feature_compose_onboard.md)
   * [LED Matrix](de/feature_led_matrix.md)
   * [Macros](de/feature_macros.md)
   * [Mouse Keys](de/feature_mouse_keys.md)

@@ -60,6 +60,7 @@
     * [動的マクロ](ja/feature_dynamic_macros.md)
     * [グレイブ エスケープ](ja/feature_grave_esc.md)
     * [リーダーキー](ja/feature_leader_key.md)
+    * [Compose Onboard](ja/feature_compose_onboard.md)
     * [モッドタップ](ja/mod_tap.md)
     * [マクロ](ja/feature_macros.md)
     * [マウスキー](ja/feature_mouse_keys.md)

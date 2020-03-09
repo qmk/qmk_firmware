@@ -78,6 +78,7 @@
   * [自锁键](zh-cn/feature_key_lock.md)
   * [布局](zh-cn/feature_layouts.md)
   * [前导键](zh-cn/feature_leader_key.md)
+  * [Compose Onboard](zh-cn/feature_compose_onboard.md)
   * [LED阵列](zh-cn/feature_led_matrix.md)
   * [宏指令](zh-cn/feature_macros.md)
   * [鼠标键](zh-cn/feature_mouse_keys.md)

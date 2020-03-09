@@ -347,6 +347,14 @@ See also: [Leader Key](feature_leader_key.md)
 |---------|------------------------|
 |`KC_LEAD`|Begins a leader sequence|
 
+## Compose Onboard :id=compose-onboard
+
+See also: [Compose Onboard](feature_compose_onboard.md)
+
+|Key                 |Aliases    |Description                              |
+|--------------------|-----------|-----------------------------------------|
+|`KC_COMPOSE_ONBOARD`|`KC_COMPOB`|Begins Composing directly on the keyboard|
+
 ## Mouse Keys :id=mouse-keys
 
 See also: [Mouse Keys](feature_mouse_keys.md)

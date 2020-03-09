@@ -154,6 +154,7 @@ The `process_record()` function itself is deceptively simple, but hidden within 
         * [`bool process_unicodemap(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_unicodemap.c#L46)
         * [`bool process_ucis(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_ucis.c#L95)
     * [`bool process_leader(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_leader.c#L51)
+    * [`bool process_compose_onboard(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/a0f2e292946c9a5535c70d9f2dfebb3055f1652a/quantum/process_keycode/process_compose_onboard.c#L24)
     * [`bool process_combo(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_combo.c#L115)
     * [`bool process_printer(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_printer.c#L77)
     * [`bool process_auto_shift(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_auto_shift.c#L94)
