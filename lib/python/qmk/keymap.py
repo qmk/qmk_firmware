@@ -2,6 +2,7 @@
 """
 import os
 from pathlib import Path
+import shutil
 
 import qmk.path
 import qmk.makefile
@@ -64,6 +65,33 @@ def generate(keyboard, layout, layers):
     keymap_c = template(keyboard)
 
     return keymap_c.replace('__KEYMAP_GOES_HERE__', keymap)
+
+
+def copy_default(keyboard, keymap, keymap_only=False):
+    """
+    Create user directory with default keymap files
+
+    Args:
+        keyboard
+            The name of the keyboard
+
+        keymap
+            The name of the new keymap
+
+        keymap_only
+            If 'True', only copy the 'keymap.c' file
+
+    Raises:
+        FileExistsError: if keymap_only and the keymap dir already exists
+    """
+    keymap_path = qmk.path.keymap(keyboard)
+    keymap_path_default = keymap_path / 'default'
+    keymap_path_new = keymap_path / keymap
+    if keymap_only:
+        keymap_path_new.mkdir()
+        shutil.copy(str(keymap_path_default / 'keymap.c'), str(keymap_path_new / 'keymap.c'), follow_symlinks=True)
+    else:
+        shutil.copytree(str(keymap_path_default), str(keymap_path_new), symlinks=True)
 
 
 def write(keyboard, keymap, layout, layers):
