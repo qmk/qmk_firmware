@@ -98,6 +98,11 @@ layer_state_t rhruiz_layer_state_set_user(layer_state_t state) {
             case _FN1:
             case _FN2:
                 state = state | (1UL << _VIM_EMACS) | (1UL << _MOUSE) | (1UL << _KEY_OVERRIDE);
+                break;
+
+            case _GAMEFN1:
+                state = update_tri_layer_state(state, _GAMEFN1, _FN2, _CFG);
+                break;
 
             default:
                 break;

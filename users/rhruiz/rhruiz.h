@@ -1,16 +1,11 @@
 #pragma once
 
-enum rhruiz_layers { _BL, _GAME, _NUM, _VIM_EMACS, _MOUSE, _KEY_OVERRIDE, _FN1, _FN2, _CFG };
+enum rhruiz_layers { _BL, _GAME, _VIM_EMACS, _NUM, _MOUSE, _KEY_OVERRIDE, _FN1, _FN2, _GAMEFN1, _CFG };
 
 enum custom_keycodes { KC_MAKE = SAFE_RANGE, KC_EPIP, NEW_SAFE_RANGE };
 
 /* mission control */
 #define MISCTRL LCTL(KC_UP)
-
-#define KC__FN1 MO(_FN1)
-#define KC__FN2 MO(_FN2)
-#define KC__VUP KC__VOLUP
-#define KC__VDN KC__VOLDOWN
 
 /* tap to esc, hold to ctrl */
 #define CTRLESC LCTL_T(KC_ESC)

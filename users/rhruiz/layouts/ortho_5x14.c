@@ -1,46 +1,10 @@
 #include QMK_KEYBOARD_H
 #include "quantum.h"
 #include "rhruiz.h"
+#include "rhruiz_kc_keys.h"
 
-#define KC_ENTS LSFT(KC_ENTER)
-#define KC__RST RESET
-#define KC_FNUM MO(_NUM)
-#define KC_LRAL RALT_T(KC_LEFT)
 #define KC_RNUM LT(_NUM, KC_RGHT)
-#define KC_SFN1 LT(_FN1, KC_SPC)
-#define KC_BFN2 BKSFN2
-#define KC_CESC CTRLESC
-#define KC_MISS MISCTRL
-#define KC_ KC_TRNS
-#define KC__TGN TG(_NUM)
-#define KC__TGM TG(_GAME)
-#define KC__WN LCMD(KC_GRV)
-#define KC__STP LCMD(KC_UP)
-#define KC__SBT LCMD(KC_DOWN)
-#define KC__BCK LCMD(KC_LBRC)
-#define KC__FWD LCMD(KC_RBRC)
-#define KC__TAN LCMD(KC_RCBR)
-#define KC__TAP LCMD(KC_LCBR)
-
-#ifdef RGBLIGHT_ENABLE
-#    define KC_RVAD RGB_VAD
-#    define KC_RVAI RGB_VAI
-#    define KC_RTOG RGB_TOG
-#    define KC_RMOD RGB_MOD
-#    define KC_RHUI RGB_HUI
-#    define KC_RHUD RGB_HUD
-#    define KC_RSAI RGB_SAI
-#    define KC_RSAD RGB_SAD
-#else
-#    define KC_RVAD KC_NO
-#    define KC_RVAI KC_NO
-#    define KC_RTOG KC_NO
-#    define KC_RMOD KC_NO
-#    define KC_RHUI KC_NO
-#    define KC_RHUD KC_NO
-#    define KC_RSAI KC_NO
-#    define KC_RSAD KC_NO
-#endif
+#define KC_LRAL RALT_T(KC_LEFT)
 
 // clang-format off
 #ifndef LAYOUT_ortho_5x14_kc
