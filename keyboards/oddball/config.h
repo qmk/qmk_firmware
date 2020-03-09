@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID 0xCA49
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Alexander Tulloh
-#define PRODUCT oddball
+#define PRODUCT Oddball
 #define DESCRIPTION A ballin keyboard
 
 /* key matrix size */
