@@ -30,7 +30,7 @@ enum ctrl_keycodes {
 #define TG_NKRO MAGIC_TOGGLE_NKRO //Toggle 6KRO / NKRO mode
 #define LT_CAPS LT(_NAV, KC_CAPS)
 #define _V_V_V_ KC_TRNS
-extern bool autoshift_enabled;
+//extern bool autoshift_enabled;
 
 
 keymap_config_t keymap_config;
@@ -172,7 +172,7 @@ void rgb_matrix_indicators_user(void)
 			rgb_matrix_set_color(14, 0x00, 0xFF, 0x00); // KC_MSEL
 			rgb_matrix_set_color(31, 0x00, 0xFF, 0x00); // KC_MPLY
 
-			if (this_led & (1 << !autoshift_enabled)) {
+			if (this_led) {
 				rgb_matrix_set_color(15, 0xFF, 0x00, 0x00); // KC_ASTG
 			} else {
 				rgb_matrix_set_color(15, 0xFF, 0xFF, 0x00);
@@ -216,7 +216,6 @@ void rgb_matrix_indicators_user(void)
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void)
 {
-	autoshift_disable();
 	rgb_matrix_sethsv(128, 255, 255);
 	// rgb_matrix_sethsv(192, 112, 255);
 	// rgb_matrix_mode(4);

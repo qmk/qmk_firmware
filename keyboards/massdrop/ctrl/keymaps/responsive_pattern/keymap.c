@@ -311,7 +311,7 @@ void led_matrix_run(void)
                 }
 
                 float pomod;
-                pomod = (float)(g_tick % (uint32_t)(1000.0f / led_animation_speed)) / 10.0f * led_animation_speed;
+                pomod = (float)((uint32_t)(1000.0f / led_animation_speed)) / 10.0f * led_animation_speed;
 
                 //Add in any moving effects
                 if ((!led_animation_direction && f[fcur].ef & EF_SCR_R) || (led_animation_direction && (f[fcur].ef & EF_SCR_L)))
