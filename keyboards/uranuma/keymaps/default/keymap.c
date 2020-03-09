@@ -4,7 +4,6 @@ enum layer_number {
   _BASE,
   _LOWER,
   _RAISE,
-  _ADJUST,
 };
 
 enum custom_keycodes {
