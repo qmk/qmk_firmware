@@ -18,6 +18,18 @@
 
 typedef int16_t spi_status_t;
 
+// Hardware SS pin is defined in the header so that user code can refer to it
+#if defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__) || defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
+#    define SPI_SS_PIN B0
+#elif defined(__AVR_ATmega32A__)
+#    define SPI_SS_PIN B4
+#elif defined(__AVR_ATmega328P__)
+#    define SPI_SS_PIN B2
+#endif
+
+#define SPI_MSB_FIRST 0
+#define SPI_LSB_FIRST 1
+
 #define SPI_STATUS_SUCCESS (0)
 #define SPI_STATUS_ERROR (-1)
 #define SPI_STATUS_TIMEOUT (-2)

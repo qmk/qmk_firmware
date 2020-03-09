@@ -130,10 +130,6 @@ enum ble_system_event_bits {
     BleSystemMidiRx       = 10,
 };
 
-// The SDEP.md file says 2MHz but the web page and the sample driver
-// both use 4MHz
-#define SpiBusSpeed 4000000
-
 #define SdepTimeout 150             /* milliseconds */
 #define SdepShortTimeout 10         /* milliseconds */
 #define SdepBackOff 25              /* microseconds */
