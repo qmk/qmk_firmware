@@ -3,3 +3,8 @@ class NoSuchKeyboardError(Exception):
     """
     def __init__(self, message):
         self.message = message
+
+
+class KeymapAlreadyExistsError(Exception):
+    """Raised when the keymap for a keyboard already exists.
+    """

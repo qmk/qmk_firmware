@@ -5,6 +5,7 @@ from pathlib import Path
 
 import qmk.path
 import qmk.makefile
+from qmk.errors import KeymapAlreadyExistsError
 
 # The `keymap.c` template to use when a keyboard doesn't have its own
 DEFAULT_KEYMAP_C = """#include QMK_KEYBOARD_H
@@ -83,8 +84,10 @@ def write(keyboard, keymap, layout, layers):
         layers
             An array of arrays describing the keymap. Each item in the inner array should be a string that is a valid QMK keycode.
     """
-    keymap_c = generate(keyboard, layout, layers)
     keymap_file = qmk.path.keymap(keyboard) / keymap / 'keymap.c'
+    if keymap_file.exists():
+        raise KeymapAlreadyExistsError('The %s keymap for %s already exists!' % (keymap, keyboard))
+    keymap_c = generate(keyboard, layout, layers)
 
     keymap_file.parent.mkdir(parents=True, exist_ok=True)
     keymap_file.write_text(keymap_c)
