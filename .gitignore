@@ -16,6 +16,8 @@
 *.swp
 tags
 *~
+bin/mdloader
+bin/applet-flash-samd51j18a.bin
 build/
 .build/
 *.bak
