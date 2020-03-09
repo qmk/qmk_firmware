@@ -126,6 +126,9 @@ uint8_t adns_read(uint8_t reg_addr){
 
 void pointing_device_init(void) {
 
+    if(!is_keyboard_master())
+        return;
+
     // interrupt 2
     EICRA &= ~(1 << 4);
     EICRA |= (1 << 5);
@@ -213,6 +216,9 @@ void pointing_device_init(void) {
 }
 
 void pointing_device_task(void) {
+
+    if(!is_keyboard_master())
+        return;
 
     report_mouse_t report = pointing_device_get_report();
 
