@@ -34,60 +34,9 @@
 #    define SPI_MISO_PIN B4
 #endif
 
-#ifndef SPI_ENDIANNESS
-#    define SPI_ENDIANNESS SPI_MSB_FIRST
-#endif
-
-#if SPI_ENDIANNESS == SPI_MSB_FIRST
-#    define SPI_ORDER_FLAGS 0
-#elif SPI_ENDIANNESS == SPI_LSB_FIRST
-#    define SPI_ORDER_FLAGS _BV(DORD)
-#else
-#    error "Invalid SPI endianness defined!"
-#endif
-
-#ifndef SPI_MODE
-#    define SPI_MODE 0
-#endif
-
-#if SPI_MODE == 0
-#    define SPI_MODE_FLAGS 0
-#elif SPI_MODE == 1
-#    define SPI_MODE_FLAGS _BV(CPHA)
-#elif SPI_MODE == 2
-#    define SPI_MODE_FLAGS _BV(CPOL)
-#elif SPI_MODE == 3
-#    define SPI_MODE_FLAGS (_BV(CPOL) | _BV(CPHA))
-#else
-#    error "Invalid SPI mode defined!"
-#endif
-
-#ifndef SPI_CLOCK_DIVISOR
-#    define SPI_CLOCK_DIVISOR 4
-#endif
-
-#if SPI_CLOCK_DIVISOR == 4
-#    define SPI_CLOCK_FLAGS 0
-#elif SPI_CLOCK_DIVISOR == 16
-#    define SPI_CLOCK_FLAGS _BV(SPR0)
-#elif SPI_CLOCK_DIVISOR == 64
-#    define SPI_CLOCK_FLAGS _BV(SPR1)
-#elif SPI_CLOCK_DIVISOR == 128
-#    define SPI_CLOCK_FLAGS (_BV(SPR1) | _BV(SPR0))
-#elif SPI_CLOCK_DIVISOR == 2
-#    define SPI_CLOCK_2X
-#    define SPI_CLOCK_FLAGS 0
-#elif SPI_CLOCK_DIVISOR == 8
-#    define SPI_CLOCK_2X
-#    define SPI_CLOCK_FLAGS _BV(SPR0)
-#elif SPI_CLOCK_DIVISOR == 32
-#    define SPI_CLOCK_2X
-#    define SPI_CLOCK_FLAGS _BV(SPR1)
-#else
-#    error "Invalid SPI clock divisor defined!"
-#endif
-
 static pin_t currentSlavePin = NO_PIN;
+static uint8_t currentSlaveConfig = 0;
+static bool currentSlave2X = false;
 
 void spi_init(void) {
     writePinHigh(SPI_SS_PIN);
@@ -95,14 +44,49 @@ void spi_init(void) {
     setPinOutput(SPI_MOSI_PIN);
     setPinInput(SPI_MISO_PIN);
 
-#ifdef SPI_CLOCK_2X
-    SPSR = _BV(SPI2X);
-#endif
-    SPCR = (_BV(SPE) | SPI_ORDER_FLAGS | _BV(MSTR) | SPI_MODE_FLAGS | SPI_CLOCK_FLAGS);
+    SPCR = (_BV(SPE) | _BV(MSTR));
 }
 
-void spi_start(pin_t slavePin) {
+void spi_start(pin_t slavePin, bool lsbFirst, spi_mode_t mode, spi_clock_divisor_t divisor) {
     if (currentSlavePin == NO_PIN && slavePin != NO_PIN) {
+        if (lsbFirst) {
+            currentSlaveConfig |= _BV(DORD);
+        }
+
+        switch (mode) {
+            case SPI_MODE_0:
+                break;
+            case SPI_MODE_1:
+                currentSlaveConfig |= _BV(CPHA);
+                break;
+            case SPI_MODE_2:
+                currentSlaveConfig |= _BV(CPOL);
+                break;
+            case SPI_MODE_3:
+                currentSlaveConfig |= (_BV(CPOL) | _BV(CPHA));
+                break;
+        }
+
+        switch (divisor) {
+            case SPI_CLOCK_DIVISOR_4:
+                break;
+            case SPI_CLOCK_DIVISOR_16:
+                currentSlaveConfig |= _BV(SPR0);
+            case SPI_CLOCK_DIVISOR_64:
+                currentSlaveConfig |= _BV(SPR1);
+            case SPI_CLOCK_DIVISOR_128:
+                currentSlaveConfig |= (_BV(SPR1) | _BV(SPR0));
+            case SPI_CLOCK_DIVISOR_2:
+                currentSlave2X = true;
+            case SPI_CLOCK_DIVISOR_8:
+                currentSlave2X = true;
+                currentSlaveConfig |= _BV(SPR0);
+            case SPI_CLOCK_DIVISOR_32:
+                currentSlave2X = true;
+                currentSlaveConfig |= _BV(SPR1);
+        }
+
+        SPSR |= currentSlaveConfig;
         currentSlavePin = slavePin;
         setPinOutput(currentSlavePin);
         writePinLow(currentSlavePin);
@@ -164,5 +148,9 @@ void spi_stop(void) {
         setPinOutput(currentSlavePin);
         writePinHigh(currentSlavePin);
         currentSlavePin = NO_PIN;
+        SPCR &= ~(currentSlaveConfig);
+        currentSlaveConfig = 0;
+        SPSR = 0;
+        currentSlave2X = false;
     }
 }

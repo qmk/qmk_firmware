@@ -29,9 +29,6 @@ typedef int16_t spi_status_t;
 #    define SPI_SS_PIN B2
 #endif
 
-#define SPI_MSB_FIRST 0
-#define SPI_LSB_FIRST 1
-
 #define SPI_STATUS_SUCCESS (0)
 #define SPI_STATUS_ERROR (-1)
 #define SPI_STATUS_TIMEOUT (-2)
@@ -39,12 +36,29 @@ typedef int16_t spi_status_t;
 #define SPI_TIMEOUT_IMMEDIATE (0)
 #define SPI_TIMEOUT_INFINITE (0xFFFF)
 
+typedef enum {
+    SPI_MODE_0,
+    SPI_MODE_1,
+    SPI_MODE_2,
+    SPI_MODE_3
+} spi_mode_t;
+
+typedef enum {
+    SPI_CLOCK_DIVISOR_4 = 4,
+    SPI_CLOCK_DIVISOR_16 = 16,
+    SPI_CLOCK_DIVISOR_64 = 64,
+    SPI_CLOCK_DIVISOR_128 = 128,
+    SPI_CLOCK_DIVISOR_2 = 2,
+    SPI_CLOCK_DIVISOR_8 = 8,
+    SPI_CLOCK_DIVISOR_32 = 32
+} spi_clock_divisor_t;
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 void spi_init(void);
 
-void spi_start(pin_t slavePin);
+void spi_start(pin_t slavePin, bool lsbFirst, spi_mode_t mode, spi_clock_divisor_t divisor);
 
 spi_status_t spi_write(uint8_t data, uint16_t timeout);
 

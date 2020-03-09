@@ -140,7 +140,7 @@ static bool at_command_P(const char *cmd, char *resp, uint16_t resplen, bool ver
 
 // Send a single SDEP packet
 static bool sdep_send_pkt(const struct sdep_msg *msg, uint16_t timeout) {
-    spi_start(AdafruitBleCSPin);
+    spi_start(AdafruitBleCSPin, false, SPI_MODE_0, (spi_clock_divisor_t)AdafruitBleSpiClockDivisor);
     uint16_t timerStart = timer_read();
     bool     success    = false;
     bool     ready      = false;
@@ -154,7 +154,7 @@ static bool sdep_send_pkt(const struct sdep_msg *msg, uint16_t timeout) {
         // Release it and let it initialize
         spi_stop();
         wait_us(SdepBackOff);
-        spi_start(AdafruitBleCSPin);
+        spi_start(AdafruitBleCSPin, false, SPI_MODE_0, (spi_clock_divisor_t)AdafruitBleSpiClockDivisor);
     } while (timer_elapsed(timerStart) < timeout);
 
     if (ready) {
@@ -195,7 +195,7 @@ static bool sdep_recv_pkt(struct sdep_msg *msg, uint16_t timeout) {
     } while (timer_elapsed(timerStart) < timeout);
 
     if (ready) {
-        spi_start(AdafruitBleCSPin);
+        spi_start(AdafruitBleCSPin, false, SPI_MODE_0, (spi_clock_divisor_t)AdafruitBleSpiClockDivisor);
 
         do {
             // Read the command type, waiting for the data to be ready
@@ -204,7 +204,7 @@ static bool sdep_recv_pkt(struct sdep_msg *msg, uint16_t timeout) {
                 // Release it and let it initialize
                 spi_stop();
                 wait_us(SdepBackOff);
-                spi_start(AdafruitBleCSPin);
+                spi_start(AdafruitBleCSPin, false, SPI_MODE_0, (spi_clock_divisor_t)AdafruitBleSpiClockDivisor);
                 continue;
             }
 
