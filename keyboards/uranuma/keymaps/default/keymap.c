@@ -22,13 +22,6 @@ enum custom_keycodes {
 #define KC_MNSF  LSFT_T(KC_MINS)
 #define KC_ESCT  LCTL_T(KC_ESC)
 #define KC_TBAL  LALT_T(KC_TAB)
-#define KC_ALAL  LALT_T(KC_A)
-#define KC_ALAP  LALT_T(KC_APP)
-#define KC_JEQL  LSFT(KC_MINS)
-#define KC_WLCK  LALT(KC_L)
-#define KC_SFEQ  LSFT(KC_MINS)
-#define KC_SFPL  LSFT(KC_SCLN)
-#define KC_SFAS  LSFT(KC_QUOT)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT(
