@@ -192,7 +192,7 @@ To change the behavior of the backlighting, `#define` these in your `config.h`:
 |`BACKLIGHT_PWM_CHANNEL` |`3`          |The PWM channel to use, see ST datasheets for pin to PWM channel mapping. Unless you are designing your own keyboard, you shouldn't need to change this|
 |`BACKLIGHT_PAL_MODE`    |`2`          |The pin alternative function to use, see ST datasheets for pin AF mapping. Unless you are designing your own keyboard, you shouldn't need to change this|
 
-## Software PWM Driver
+## Software PWM Driver :id=software-pwm-driver
 
 Emulation of PWM while running other keyboard tasks, it offers maximum hardware compatibility without extra platform configuration. The tradeoff is the backlight might jitter when the keyboard is busy. To enable, add this to your rules.mk:
 ```makefile

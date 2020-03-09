@@ -77,7 +77,7 @@
   * [Macros](es/feature_macros.md)
   * [Teclas del ratón](es/feature_mouse_keys.md)
   * [Driver OLED](es/feature_oled_driver.md)
-  * [Teclas One Shot](es/feature_advanced_keycodes.md#one-shot-keys)
+  * [Teclas One Shot](es/one_shot_keys.md)
   * [Dispositivo de apuntado](es/feature_pointing_device.md)
   * [Ratón PS/2](es/feature_ps2_mouse.md)
   * [Iluminación RGB](es/feature_rgblight.md)
@@ -108,7 +108,7 @@
 * Otros temas
   * [Usando Eclipse con QMK](es/other_eclipse.md)
   * [Usando VSCode con QMK](es/other_vscode.md)
-  * [Soporte](es/support.md)
+  * [Soporte](es/getting_started_getting_help.md)
   * [Cómo añadir traducciones](es/translating.md)
 
 * QMK Internals (En progreso)
