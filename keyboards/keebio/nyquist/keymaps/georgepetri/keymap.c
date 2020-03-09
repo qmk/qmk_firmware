@@ -24,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //├────────┼────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┼────────┤
     KC_LSFT, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   ,   KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_ENT ,
 //├────────┼────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┼────────┤
-    KC_CAPS, KC_LCTL, KC_LGUI, KC_LALT, MO(_L) , KC_SPC ,   KC_SPC , TG(_R) , KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT  
+    KC_CAPS, KC_LCTL, KC_LGUI, KC_LALT, MO(_L) , KC_SPC ,   KC_RSFT, TG(_R) , KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT  
 //└────────┴────────┴────────┴────────┴────────┴────────┘ └────────┴────────┴────────┴────────┴────────┴────────┘
   ),
   
@@ -57,6 +57,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
+//docs.qmk.fm/#/custom_quantum_functions?id=keyboard-idlingwake-code/
+//todo idea: impl hjkl as compose or leader 
+//github.com/qmk/qmk_firmware/pull/5338/files  //might not work on split kbs
+//todo idea use TT on left layer
 void keyboard_post_init_user(void) {
     rgblight_sethsv_noeeprom(HSV_BLUE);
 }
@@ -92,30 +96,13 @@ void update_led(void) {
         rgblight_sethsv_range(HSV_WHITE, 9, 12);
     }
     //rgblight_sethsv_range(HSV_RED, 0, 6); //YES
-    //rgblight_sethsv_range(HSV_ORANGE, 6, 12); //YES
+    rgblight_sethsv_range(HSV_ORANGE, 6, 12); //YES
 
-    //rgblight_sethsv_range(HSV_CORAL, 0, 6);  //NO
-    //rgblight_sethsv_range(HSV_GOLDENROD, 6, 12); //NO
-    
     //rgblight_sethsv_range(HSV_GOLD, 0, 6); //YES
-    //rgblight_sethsv_range(HSV_YELLOW, 6, 12); //NO
     
-    //rgblight_sethsv_range(HSV_CHARTREUSE, 0, 6); //NO
     //rgblight_sethsv_range(HSV_GREEN, 6, 12); //YES
     
-    //rgblight_sethsv_range(HSV_SPRINGGREEN, 0, 6); //YES //YES
-    //rgblight_sethsv_range(HSV_TURQUOISE, 6, 12); //NO
-    
-    //rgblight_sethsv_range(HSV_TEAL, 0, 6); //NO
-    //rgblight_sethsv_range(HSV_CYAN, 6, 12); //NO
-    
-    //rgblight_sethsv_range(HSV_AZURE, 0, 6); //NO
-    //rgblight_sethsv_range(HSV_BLUE, 6, 12); //NO
-    
-    //rgblight_sethsv_range(HSV_PURPLE, 0, 6); //NO
-    //rgblight_sethsv_range(HSV_MAGENTA, 6, 12); //NO
-    
-    rgblight_setrgb_range(RGB_PINK, 0, 6); //NO
+    rgblight_sethsv_range(HSV_SPRINGGREEN, 0, 6); //YES //YES
 }
 
 uint32_t layer_state_set_user(uint32_t state) {
