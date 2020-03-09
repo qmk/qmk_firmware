@@ -193,7 +193,7 @@ All RGB keycodes are currently shared with the RGBLIGHT system:
 
 * `RGB_MODE_*` keycodes will generally work, but not all of the modes are currently mapped to the correct effects for the RGB Matrix system.
 
-`RGB_MODE_PLAIN`, `RGB_MODE_BREATHE`, `RGB_MODE_RAINBOW`, and 
+`RGB_MODE_PLAIN`, `RGB_MODE_BREATHE`, `RGB_MODE_RAINBOW`, and `RGB_MATRIX_SWIRL` are the only ones that are mapped properly. The rest don't have a direct equivalent, and are not mapped. 
 
 !> By default, if you have both the [RGB Light](feature_rgblight.md) and the RGB Matrix feature enabled, these keycodes will work for both features, at the same time. You can disable the keycode functionality by defining the `*_DISABLE_KEYCODES` option for the specific feature.
 
