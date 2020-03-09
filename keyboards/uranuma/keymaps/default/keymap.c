@@ -7,10 +7,7 @@ enum layer_number {
 };
 
 enum custom_keycodes {
-  BASE = SAFE_RANGE,
-  KANJI,
-  LOWER,
-  RAISE,
+  KANJI = SAFE_RANGE,
 };
 
 // Layer Mode aliases
