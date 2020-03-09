@@ -126,5 +126,3 @@ Receive multiple bytes from the selected SPI device.
 ### `void spi_stop(void)`
 
 End the current SPI transaction. This will deassert the slave select pin and reset the endianness, mode and divisor configured by `spi_start()`.
-
----
