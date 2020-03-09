@@ -122,7 +122,7 @@ bool process_tapping(keyrecord_t *keyp) {
 #    if defined(TAPPING_TERM_PER_KEY) || (TAPPING_TERM >= 500) || defined(PERMISSIVE_HOLD) || defined(PERMISSIVE_HOLD_PER_KEY)
                 else if (
 #        ifdef TAPPING_TERM_PER_KEY
-                    (get_tapping_term(get_event_keycode(tapping_key.event, false)) >= 500) &&
+                    (get_tapping_term(get_event_keycode(tapping_key.event, false), keyp) >= 500) &&
 #        endif
 #        ifdef PERMISSIVE_HOLD_PER_KEY
                     !get_permissive_hold(get_event_keycode(tapping_key.event, false), keyp) &&
