@@ -1,5 +1,5 @@
 /*
-Copyright 2019 Ethan Durrant (emdarcher)
+Copyright 2020 Lorenz Wellmer
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,24 +17,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define VENDOR_ID       0x20A0
-#define PRODUCT_ID      0x422D
-#define DEVICE_VER      0x0200
-// You can edit those at usbconfig.h about line 250. These values will
-// unforunatly be ignored so far
-#define MANUFACTURER    YMDK
-#define PRODUCT         bface
+#include "config_common.h"
 
-/* matrix size */
-#define MATRIX_ROWS 5
+/* USB Device descriptor parameter */
+#define VENDOR_ID 0xFEED
+#define PRODUCT_ID 0xC583
+#define DEVICE_VER 0x0102
+#define MANUFACTURER EVE
+#define PRODUCT Kira80
+
+/* key matrix size */
+#define MATRIX_ROWS 7
 #define MATRIX_COLS 15
 
-//                        0   1   2   3   4   5   6   7   8   9   A   B   C   D   E
-#define MATRIX_ROW_PINS { B7, B6, B5, B4, B3}
-#define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4, C3, C2, D7}
+#define MATRIX_ROW_PINS { B1, B2, B3, B5, B6, B7, B0 }
+#define MATRIX_COL_PINS { A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4, C3, A0, C2, D7 }
 #define UNUSED_PINS
 
+/* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
+#define DEBOUNCE 5
 
-#define BACKLIGHT_PIN       D4
-#define BACKLIGHT_LEVELS    6
+#define BACKLIGHT_PIN D4
+#define BACKLIGHT_BREATHING
+#define BACKLIGHT_LEVELS 3
