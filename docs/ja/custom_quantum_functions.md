@@ -511,7 +511,7 @@ void eeconfig_init_user(void) {  // EEPROM がリセットされます！
 キーコードに基づいて `TAPPING_TERM` を変更するには、次のようなものを `keymap.c` ファイルに追加します:
 
 ```c
-uint16_t get_tapping_term(uint16_t keycode) {
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case SFT_T(KC_SPC):
       return TAPPING_TERM + 1250;
