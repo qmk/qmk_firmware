@@ -15,6 +15,9 @@ enum custom_keycodes {
 #define KC_MNSF  LSFT_T(KC_MINS)
 #define KC_ESCT  LCTL_T(KC_ESC)
 #define KC_TBAL  LALT_T(KC_TAB)
+#define ALT_GRV  LALT(KC_GRV)
+#define LOWER    MO(_LOWER)
+#define RAISE    MO(_RAISE)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT(
