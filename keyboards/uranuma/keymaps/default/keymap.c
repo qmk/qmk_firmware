@@ -11,13 +11,6 @@ enum custom_keycodes {
 };
 
 // Layer Mode aliases
-#define KC_LOWER LOWER
-#define KC_RAISE RAISE
-#define KC_ADUJST ADJUST
-#define KC_DLBS BASE //DF(_BASE)
-
-#define KC_RST   RESET
-#define KC_SUSFT SUSFT
 #define KC_ZSFT  LSFT_T(KC_Z)
 #define KC_MNSF  LSFT_T(KC_MINS)
 #define KC_ESCT  LCTL_T(KC_ESC)
