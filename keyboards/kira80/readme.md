@@ -25,7 +25,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Controller: ATmega32A
 
-##### Pinout:
+### Pinout:
 
 |Pin|Use||Pin|Use
 |-|-|-|-|-|
