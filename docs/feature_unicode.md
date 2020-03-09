@@ -114,6 +114,13 @@ The following input modes are available:
   To enable, install the [latest release](https://github.com/samhocevar/wincompose/releases/latest). Once installed, WinCompose will automatically run on startup. Works reliably under all version of Windows supported by the app.
   By default, this mode uses right Alt (`KC_RALT`) as the Compose key, but this can be changed in the WinCompose settings and by defining [`UNICODE_KEY_WINC`](#input-key-configuration) with another keycode.
 
+* **`UC_EMACS`**: GNU Emacs Unicode input.
+
+  By default, this mode uses Ctrl+X 8 Enter (`LCTL(KC_X)` + `KC_8` + `KC_ENTER`) to start Unicode input.
+  
+  
+  
+
 ### Switching Input Modes
 
 There are two ways to set the input mode for Unicode: by keycode or by function. Keep in mind that both methods write to persistent storage (EEPROM), and are loaded each time the keyboard starts. So once you've set it the first time, you don't need to set it again unless you want to change it, or you've reset the EEPROM settings.
@@ -129,6 +136,7 @@ You can switch the input mode at any time by using one of the following keycodes
 |`UNICODE_MODE_WIN`    |`UC_M_WI`|`UC_WIN`    |Switch to Windows input                                       |
 |`UNICODE_MODE_BSD`    |`UC_M_BS`|`UC_BSD`    |Switch to BSD input (not implemented)                         |
 |`UNICODE_MODE_WINC`   |`UC_M_WC`|`UC_WINC`   |Switch to Windows input using WinCompose                      |
+|`UNICODE_MODE_EMACS`  |`UC_M_EM`|`UC_EMACS`  |Switch to GNU Emacs input                                     |
 
 You can also switch the input mode by calling `set_unicode_input_mode(x)` in your code, where _x_ is one of the above input mode constants (e.g. `UC_LNX`). Since the function only needs to be called once, it's recommended that you do it in `eeconfig_init_user()` (or a similar function). For example:
 
@@ -180,7 +188,7 @@ You can customize the keys used to trigger Unicode input for macOS, Linux and Wi
 You can choose which input modes are available for cycling through. By default, this is disabled. If you want to enable it, limiting it to just the modes you use makes sense. Note that the values in the list are comma-delimited.
 
 ```c
-#define UNICODE_SELECTED_MODES UC_OSX, UC_LNX, UC_WIN, UC_WINC
+#define UNICODE_SELECTED_MODES UC_OSX, UC_LNX, UC_WIN, UC_WINC, UC_EMACS
 ```
 
 You can cycle through the selected modes by using the `UC_MOD`/`UC_RMOD` keycodes, or by calling `cycle_unicode_input_mode(offset)` in your code (`offset` is how many modes to move forward by, so +1 corresponds to `UC_MOD`).

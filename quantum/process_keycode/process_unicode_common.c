@@ -84,6 +84,11 @@ __attribute__((weak)) void unicode_input_start(void) {
         case UC_LNX:
             tap_code16(UNICODE_KEY_LNX);
             break;
+        case UC_EMACS:
+            tap_code16(LCTL(KC_X));
+            tap_code16(KC_8);
+            tap_code16(KC_ENTER);
+            break;
         case UC_WIN:
             register_code(KC_LALT);
             tap_code(KC_PPLS);
@@ -105,6 +110,9 @@ __attribute__((weak)) void unicode_input_finish(void) {
         case UC_LNX:
             tap_code(KC_SPC);
             break;
+        case UC_EMACS:
+            tap_code16(KC_ENTER);
+            break;
         case UC_WIN:
             unregister_code(KC_LALT);
             break;
@@ -122,6 +130,7 @@ __attribute__((weak)) void unicode_input_cancel(void) {
             unregister_code(UNICODE_KEY_OSX);
             break;
         case UC_LNX:
+        case UC_EMACS:
         case UC_WINC:
             tap_code(KC_ESC);
             break;
@@ -266,6 +275,13 @@ bool process_unicode_common(uint16_t keycode, keyrecord_t *record) {
                 static float song_lnx[][2] = UNICODE_SONG_LNX;
                 PLAY_SONG(song_lnx);
 #endif
+                break;
+            case UNICODE_MODE_EMACS:
+                set_unicode_input_mode(UC_EMACS);
+// #if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_LNX)
+//                 static float song_lnx[][2] = UNICODE_SONG_LNX;
+//                 PLAY_SONG(song_lnx);
+// #endif
                 break;
             case UNICODE_MODE_WIN:
                 set_unicode_input_mode(UC_WIN);

@@ -29,6 +29,9 @@
 #ifndef UNICODE_KEY_LNX
 #    define UNICODE_KEY_LNX LCTL(LSFT(KC_U))
 #endif
+#ifndef UNICODE_KEY_EMACS
+#    define UNICODE_KEY_EMACS LCTL(LSFT(KC_U))
+#endif
 #ifndef UNICODE_KEY_WINC
 #    define UNICODE_KEY_WINC KC_RALT
 #endif
@@ -52,6 +55,7 @@
 enum unicode_input_modes {
     UC_OSX,    // Mac OS X using Unicode Hex Input
     UC_LNX,    // Linux using IBus
+    UC_EMACS,  // Thus, GNU Emacs is an operating system
     UC_WIN,    // Windows using EnableHexNumpad
     UC_BSD,    // BSD (not implemented)
     UC_WINC,   // Windows using WinCompose (https://github.com/samhocevar/wincompose)
