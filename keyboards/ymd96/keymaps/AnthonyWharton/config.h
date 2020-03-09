@@ -47,7 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN E2 // NOTE: for PS2AVRGB boards, underglow commands are send
                       //       via I2C to 0xB0
 
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_ANIMATIONS_ALL
 
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85 // 1.0-2.7
 #define RGBLIGHT_EFFECT_BREATHE_MAX 255     // 1-255
