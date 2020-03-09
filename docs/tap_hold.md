@@ -183,3 +183,7 @@ For instance, holding and releasing `LT(2, KC_SPACE)` without hitting another ke
 One thing that you may notice is that we include the key record for all of the "per key" functions, and may be wondering why we do that. 
 
 Well, it's simply really: customization.  But specifically, it depends on how your keyboard is wired up.  For instance, if each row is actually using a row in the keyboard's matrix, then it may be simpler to use `if (record->event.row == 3)` instead of checking a whole bunch of keycodes.  Which is especially good for those people using the Tap Hold type keys on the home row. So you could fine tune those to not interfere with your normal typing. 
+
+## Why is there no `*_kb` or `*_user` functions?!
+
+Unlike many of the other functions here, there isn't a need (or even reason) to have a quantum or keyboard level function. Only user level functions are useful here, so no need to mark them as such.	zs
