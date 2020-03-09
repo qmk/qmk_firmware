@@ -72,18 +72,24 @@ void spi_start(pin_t slavePin, bool lsbFirst, spi_mode_t mode, spi_clock_divisor
                 break;
             case SPI_CLOCK_DIVISOR_16:
                 currentSlaveConfig |= _BV(SPR0);
+                break;
             case SPI_CLOCK_DIVISOR_64:
                 currentSlaveConfig |= _BV(SPR1);
+                break;
             case SPI_CLOCK_DIVISOR_128:
                 currentSlaveConfig |= (_BV(SPR1) | _BV(SPR0));
+                break;
             case SPI_CLOCK_DIVISOR_2:
                 currentSlave2X = true;
+                break;
             case SPI_CLOCK_DIVISOR_8:
                 currentSlave2X = true;
                 currentSlaveConfig |= _BV(SPR0);
+                break;
             case SPI_CLOCK_DIVISOR_32:
                 currentSlave2X = true;
                 currentSlaveConfig |= _BV(SPR1);
+                break;
         }
 
         SPSR |= currentSlaveConfig;
