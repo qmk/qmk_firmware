@@ -1,5 +1,4 @@
-#ifndef PROCESS_COMPOSE_ONBOARD_H
-#define PROCESS_COMPOSE_ONBOARD_H
+#pragma once
 
 #include "quantum.h"
 
@@ -56,4 +55,3 @@ int compose_onboard_compare_input(uint16_t* input, uint8_t input_len, uint16_t* 
         register_code16(actions[i]); \
         unregister_code16(actions[i]); \
     }
-#endif
