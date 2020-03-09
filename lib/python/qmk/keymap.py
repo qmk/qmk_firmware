@@ -3,6 +3,7 @@
 import os
 from pathlib import Path
 import shutil
+import re
 
 import qmk.path
 import qmk.makefile
@@ -157,3 +158,32 @@ def list_keymaps(keyboard_name):
                     names = names.union([keymap for keymap in os.listdir(str(cl_path)) if (cl_path / keymap / "keymap.c").is_file()])
 
     return sorted(names)
+
+
+def parse(keyboard, keymap):
+    """ Parse a 'keymap.c' file
+
+    Args:
+        keyboard
+            The name of the keyboard
+
+        keymap
+            The name of the keymap
+
+    Returns:
+        A dictionary with the following keys:
+            layers: The layers in the keymap
+    """
+    keymap_file = (qmk.path.keymap(keyboard) / keymap / 'keymap.c').read_text()
+    keymap = dict()
+    # Capture group 1: Name of the layout
+    # Capture group 2: Macro's name (optional)
+    # Capture group 3: Keycodes
+    found_layers = re.findall(r'\s*\[(\w+)\]\s*=\s*LAYOUT(?:_(\w+))?\s*\((.*?)\)(?!,\s+KC)', keymap_file, re.S)
+    if found_layers:
+        layers = list()
+        for layer in found_layers:
+            layers.append(dict(name=layer[0], layout=layer[1], keycodes=[kc.strip() for kc in layer[2].split(',')]))
+        keymap['layers'] = layers
+
+    return keymap
