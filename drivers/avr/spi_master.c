@@ -47,46 +47,47 @@ void spi_init(void) {
     SPCR = (_BV(SPE) | _BV(MSTR));
 }
 
-void spi_start(pin_t slavePin, bool lsbFirst, spi_mode_t mode, spi_clock_divisor_t divisor) {
+void spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint8_t divisor) {
     if (currentSlavePin == NO_PIN && slavePin != NO_PIN) {
         if (lsbFirst) {
             currentSlaveConfig |= _BV(DORD);
         }
 
         switch (mode) {
-            case SPI_MODE_0:
-                break;
-            case SPI_MODE_1:
+            case 1:
                 currentSlaveConfig |= _BV(CPHA);
                 break;
-            case SPI_MODE_2:
+            case 2:
                 currentSlaveConfig |= _BV(CPOL);
                 break;
-            case SPI_MODE_3:
+            case 3:
                 currentSlaveConfig |= (_BV(CPOL) | _BV(CPHA));
                 break;
         }
 
-        switch (divisor) {
-            case SPI_CLOCK_DIVISOR_4:
-                break;
-            case SPI_CLOCK_DIVISOR_16:
+        uint8_t roundedDivisor = 1;
+        while (roundedDivisor < divisor) {
+            roundedDivisor <<= 1;
+        }
+
+        switch (roundedDivisor) {
+            case 16:
                 currentSlaveConfig |= _BV(SPR0);
                 break;
-            case SPI_CLOCK_DIVISOR_64:
+            case 64:
                 currentSlaveConfig |= _BV(SPR1);
                 break;
-            case SPI_CLOCK_DIVISOR_128:
+            case 128:
                 currentSlaveConfig |= (_BV(SPR1) | _BV(SPR0));
                 break;
-            case SPI_CLOCK_DIVISOR_2:
+            case 2:
                 currentSlave2X = true;
                 break;
-            case SPI_CLOCK_DIVISOR_8:
+            case 8:
                 currentSlave2X = true;
                 currentSlaveConfig |= _BV(SPR0);
                 break;
-            case SPI_CLOCK_DIVISOR_32:
+            case 32:
                 currentSlave2X = true;
                 currentSlaveConfig |= _BV(SPR1);
                 break;
