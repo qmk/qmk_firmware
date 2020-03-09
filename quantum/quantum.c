@@ -595,12 +595,21 @@ __attribute__((weak)) void bootmagic_lite(void) {
 #endif
     matrix_scan();
 
-    // If the Esc and space bar are held down on power up,
+    // If the configured key (commonly Esc) is held down on power up,
     // reset the EEPROM valid state and jump to bootloader.
-    // Assumes Esc is at [0,0].
     // This isn't very generalized, but we need something that doesn't
     // rely on user's keymaps in firmware or EEPROM.
-    if (matrix_get_row(BOOTMAGIC_LITE_ROW) & (1 << BOOTMAGIC_LITE_COLUMN)) {
+    uint8_t row = BOOTMAGIC_LITE_ROW;
+    uint8_t col = BOOTMAGIC_LITE_COLUMN;
+#if defined(BOOTMAGIC_LITE_ROW_RIGHT) && defined(BOOTMAGIC_LITE_COLUMN_RIGHT)
+    bool is_keyboard_left(void);
+    if (!is_keyboard_left()) {
+        row = BOOTMAGIC_LITE_ROW_RIGHT;
+        col = BOOTMAGIC_LITE_COLUMN_RIGHT;
+    }
+#endif
+
+    if (matrix_get_row(row) & (1 << col)) {
         eeconfig_disable();
         // Jump to bootloader.
         bootloader_jump();
