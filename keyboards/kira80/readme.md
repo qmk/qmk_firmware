@@ -1,7 +1,7 @@
 # Kira 80/TKL
 
-![kira80](https://i.imgur.com/QnGKnam.jpg)
-![kira80pcb](https://i.imgur.com/wrEZhg5.jpg)
+![kira80](https://i.imgur.com/QnGKnaml.jpg)
+![kira80pcb](https://i.imgur.com/wrEZhg5l.jpg)
 
 Custom TKL keyboard designed and made by Thesiscamper and EVE
 
