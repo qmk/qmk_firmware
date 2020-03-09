@@ -16,6 +16,8 @@
 
 #pragma once
 
+#include "quantum.h"
+
 typedef int16_t spi_status_t;
 
 // Hardware SS pin is defined in the header so that user code can refer to it
@@ -42,6 +44,8 @@ extern "C" {
 #endif
 void spi_init(void);
 
+void spi_start(pin_t slavePin);
+
 spi_status_t spi_write(uint8_t data, uint16_t timeout);
 
 spi_status_t spi_read(uint16_t timeout);
@@ -49,6 +53,8 @@ spi_status_t spi_read(uint16_t timeout);
 spi_status_t spi_transmit(const uint8_t *data, uint16_t length, uint16_t timeout);
 
 spi_status_t spi_receive(uint8_t *data, uint16_t length, uint16_t timeout);
+
+void spi_stop(void);
 #ifdef __cplusplus
 }
 #endif

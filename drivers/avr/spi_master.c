@@ -87,6 +87,8 @@
 #    error "Invalid SPI clock divisor defined!"
 #endif
 
+static pin_t currentSlavePin = NO_PIN;
+
 void spi_init(void) {
     writePinHigh(SPI_SS_PIN);
     setPinOutput(SPI_SCK_PIN);
@@ -97,6 +99,14 @@ void spi_init(void) {
     SPSR = _BV(SPI2X);
 #endif
     SPCR = (_BV(SPE) | SPI_ORDER_FLAGS | _BV(MSTR) | SPI_MODE_FLAGS | SPI_CLOCK_FLAGS);
+}
+
+void spi_start(pin_t slavePin) {
+    if (currentSlavePin == NO_PIN && slavePin != NO_PIN) {
+        currentSlavePin = slavePin;
+        setPinOutput(currentSlavePin);
+        writePinLow(currentSlavePin);
+    }
 }
 
 spi_status_t spi_write(uint8_t data, uint16_t timeout) {
@@ -147,4 +157,12 @@ spi_status_t spi_receive(uint8_t *data, uint16_t length, uint16_t timeout) {
     }
 
     return (status < 0) ? status : SPI_STATUS_SUCCESS;
+}
+
+void spi_stop(void) {
+    if (currentSlavePin != NO_PIN) {
+        setPinOutput(currentSlavePin);
+        writePinHigh(currentSlavePin);
+        currentSlavePin = NO_PIN;
+    }
 }

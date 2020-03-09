@@ -140,7 +140,7 @@ static bool at_command_P(const char *cmd, char *resp, uint16_t resplen, bool ver
 
 // Send a single SDEP packet
 static bool sdep_send_pkt(const struct sdep_msg *msg, uint16_t timeout) {
-    writePinLow(AdafruitBleCSPin);
+    spi_start(AdafruitBleCSPin);
     uint16_t timerStart = timer_read();
     bool     success    = false;
     bool     ready      = false;
@@ -152,9 +152,9 @@ static bool sdep_send_pkt(const struct sdep_msg *msg, uint16_t timeout) {
         }
 
         // Release it and let it initialize
-        writePinHigh(AdafruitBleCSPin);
+        spi_stop();
         wait_us(SdepBackOff);
-        writePinLow(AdafruitBleCSPin);
+        spi_start(AdafruitBleCSPin);
     } while (timer_elapsed(timerStart) < timeout);
 
     if (ready) {
@@ -163,7 +163,7 @@ static bool sdep_send_pkt(const struct sdep_msg *msg, uint16_t timeout) {
         success = true;
     }
 
-    writePinHigh(AdafruitBleCSPin);
+    spi_stop();
 
     return success;
 }
@@ -195,16 +195,16 @@ static bool sdep_recv_pkt(struct sdep_msg *msg, uint16_t timeout) {
     } while (timer_elapsed(timerStart) < timeout);
 
     if (ready) {
-        writePinLow(AdafruitBleCSPin);
+        spi_start(AdafruitBleCSPin);
 
         do {
             // Read the command type, waiting for the data to be ready
             msg->type = spi_read(100);
             if (msg->type == SdepSlaveNotReady || msg->type == SdepSlaveOverflow) {
                 // Release it and let it initialize
-                writePinHigh(AdafruitBleCSPin);
+                spi_stop();
                 wait_us(SdepBackOff);
-                writePinLow(AdafruitBleCSPin);
+                spi_start(AdafruitBleCSPin);
                 continue;
             }
 
@@ -219,7 +219,7 @@ static bool sdep_recv_pkt(struct sdep_msg *msg, uint16_t timeout) {
             break;
         } while (timer_elapsed(timerStart) < timeout);
 
-        writePinHigh(AdafruitBleCSPin);
+        spi_stop();
     }
     return success;
 }
@@ -293,8 +293,6 @@ static bool ble_init(void) {
     state.is_connected = false;
 
     setPinInput(AdafruitBleIRQPin);
-    setPinOutput(AdafruitBleCSPin);
-    writePinHigh(AdafruitBleCSPin);
 
     spi_init();
 
