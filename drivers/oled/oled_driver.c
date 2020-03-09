@@ -428,6 +428,31 @@ void oled_write_ln(const char *data, bool invert) {
     oled_advance_page(true);
 }
 
+void oled_pan(bool left) {
+    uint16_t i = 0;
+    for (uint16_t y = 0; y < OLED_DISPLAY_HEIGHT / 8; y++) {
+        if (left) {
+            for (uint16_t x = 0; x < OLED_DISPLAY_WIDTH - 1; x++) {
+                i              = y * OLED_DISPLAY_WIDTH + x;
+                oled_buffer[i] = oled_buffer[i + 1];
+            }
+        } else {
+            for (uint16_t x = OLED_DISPLAY_WIDTH - 1; x > 0; x--) {
+                i              = y * OLED_DISPLAY_WIDTH + x;
+                oled_buffer[i] = oled_buffer[i - 1];
+            }
+        }
+    }
+    oled_dirty = ~((OLED_BLOCK_TYPE)0);
+}
+
+void oled_write_raw_byte(const char data, uint16_t index) {
+    if (index > OLED_MATRIX_SIZE) index = OLED_MATRIX_SIZE;
+    if (oled_buffer[index] == data) return;
+    oled_buffer[index] = data;
+    oled_dirty |= (1 << (index / OLED_BLOCK_SIZE));
+}
+
 void oled_write_raw(const char *data, uint16_t size) {
     if (size > OLED_MATRIX_SIZE) size = OLED_MATRIX_SIZE;
     for (uint16_t i = 0; i < size; i++) {

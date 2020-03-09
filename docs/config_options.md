@@ -136,22 +136,22 @@ If you define these options you will enable the associated feature, which may in
   * enables handling for per key `TAPPING_TERM` settings
 * `#define RETRO_TAPPING`
   * tap anyway, even after TAPPING_TERM, if there was no other key interruption between press and release
-  * See [Retro Tapping](#retro-tapping) for details
+  * See [Retro Tapping](tap_hold.md#retro-tapping) for details
 * `#define TAPPING_TOGGLE 2`
   * how many taps before triggering the toggle
 * `#define PERMISSIVE_HOLD`
   * makes tap and hold keys trigger the hold if another key is pressed before releasing, even if it hasn't hit the `TAPPING_TERM`
-  * See [Permissive Hold](#permissive-hold) for details
+  * See [Permissive Hold](tap_hold.md#permissive-hold) for details
 * `#define PERMISSIVE_HOLD_PER_KEY`
   * enabled handling for per key `PERMISSIVE_HOLD` settings
 * `#define IGNORE_MOD_TAP_INTERRUPT`
   * makes it possible to do rolling combos (zx) with keys that convert to other keys on hold, by enforcing the `TAPPING_TERM` for both keys.
-  * See [Mod tap interrupt](#ignore-mod-tap-interrupt) for details
+  * See [Ignore Mod Tap Interrupt](tap_hold.md#ignore-mod-tap-interrupt) for details
 * `#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY`
   * enables handling for per key `IGNORE_MOD_TAP_INTERRUPT` settings
 * `#define TAPPING_FORCE_HOLD`
   * makes it possible to use a dual role key as modifier shortly after having been tapped
-  * See [Hold after tap](#tapping-force-hold)
+  * See [Tapping Force Hold](tap_hold.md#tapping-force-hold)
   * Breaks any Tap Toggle functionality (`TT` or the One Shot Tap Toggle)
 * `#define TAPPING_FORCE_HOLD_PER_KEY`
   * enables handling for per key `TAPPING_FORCE_HOLD` settings
