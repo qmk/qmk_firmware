@@ -27,6 +27,10 @@
 #    define AdafruitBleIRQPin E6
 #endif
 
+#ifndef AdafruitBleSpiClockDivisor
+#    define AdafruitBleSpiClockDivisor 4
+#endif
+
 #define SAMPLE_BATTERY
 #define ConnectionUpdateInterval 1000 /* milliseconds */
 
