@@ -45,6 +45,6 @@ Controller: ATmega32A
 |C2|Column 13||D3|USB D-|
 |D7|Column 14|
 
-##### Layout matrix:
+### Layout matrix:
 
 ![matrix](https://i.imgur.com/FqjTNQS.png)
