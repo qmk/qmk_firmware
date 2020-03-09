@@ -23,7 +23,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Hardware Information
 
-Controller: Atmega32a
+Controller: ATmega32A
 
 ##### Pinout:
 
