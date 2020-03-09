@@ -42,8 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 1
 #define RGBLIGHT_ANIMATIONS
 
-#define NO_UART 1
-
 /* disable these deprecated features by default */
 #ifndef LINK_TIME_OPTIMIZATION_ENABLE
   #define NO_ACTION_MACRO
