@@ -121,6 +121,7 @@
     * [ドライバ](ja/hardware_drivers.md)
       * [ADC ドライバ](ja/adc_driver.md)
       * [I2C ドライバ](ja/i2c_driver.md)
+      * [SPI ドライバ](ja/spi_driver.md)
       * [WS2812 ドライバ](ja/ws2812_driver.md)
       * [EEPROM ドライバ](ja/eeprom_driver.md)
     * [GPIO コントロール](ja/internals_gpio_control.md)

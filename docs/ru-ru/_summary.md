@@ -99,6 +99,7 @@
   * [ISP Flashing Guide](ru-ru/isp_flashing_guide.md)
   * [ARM Debugging Guide](ru-ru/arm_debugging.md)
   * [I2C Driver](ru-ru/i2c_driver.md)
+  * [SPI Driver](ru-ru/spi_driver.md)
   * [WS2812 Driver](ru-ru/ws2812_driver.md)
   * [GPIO Controls](ru-ru/internals_gpio_control.md)
   * [Proton C Conversion](ru-ru/proton_c_conversion.md)
