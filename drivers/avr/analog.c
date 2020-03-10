@@ -97,6 +97,7 @@ uint8_t pinToMux(pin_t pin) {
 #endif
             // clang-format on
     }
+    return 0;
 }
 
 int16_t adc_read(uint8_t mux) {

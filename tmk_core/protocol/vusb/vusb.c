@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "host_driver.h"
 #include "vusb.h"
-#include "joystick.h"
 #include <util/delay.h>
 
 static uint8_t vusb_keyboard_leds = 0;
@@ -138,70 +137,6 @@ static void send_consumer(uint16_t data) {
 #ifdef EXTRAKEY_ENABLE
     send_extra(REPORT_ID_CONSUMER, data);
 #endif
-}
-
-typedef struct {
-    uint8_t report_id;
-
-#if JOYSTICK_AXES_COUNT > 0
-    int8_t axes[JOYSTICK_AXES_COUNT];
-#endif
-
-#if JOYSTICK_BUTTON_COUNT > 0
-    uint8_t buttons[(JOYSTICK_BUTTON_COUNT - 1) / 8 + 1];
-#endif
-} __attribute__((packed)) vusb_joystick_report_t;
-
-void send_joystick_packet(joystick_t *status) {
-    vusb_joystick_report_t r = {
-        .report_id = REPORT_ID_JOYSTICK,
-#if JOYSTICK_AXES_COUNT > 0
-        .axes = {status->axes[0]
-
-#    if JOYSTICK_AXES_COUNT >= 2
-                 ,
-                 status->axes[1]
-#    endif
-#    if JOYSTICK_AXES_COUNT >= 3
-                 ,
-                 status->axes[2]
-#    endif
-#    if JOYSTICK_AXES_COUNT >= 4
-                 ,
-                 status->axes[3]
-#    endif
-#    if JOYSTICK_AXES_COUNT >= 5
-                 ,
-                 status->axes[4]
-#    endif
-#    if JOYSTICK_AXES_COUNT >= 6
-                 ,
-                 status->axes[5]
-#    endif
-        },
-#endif  // JOYSTICK_AXES_COUNT>0
-
-#if JOYSTICK_BUTTON_COUNT > 0
-        .buttons = {status->buttons[0]
-
-#    if JOYSTICK_BUTTON_COUNT > 8
-                    ,
-                    status->buttons[1]
-#    endif
-#    if JOYSTICK_BUTTON_COUNT > 16
-                    ,
-                    status->buttons[2]
-#    endif
-#    if JOYSTICK_BUTTON_COUNT > 24
-                    ,
-                    status->buttons[3]
-#    endif
-        }
-#endif  // JOYSTICK_BUTTON_COUNT>0
-    };
-    if (usbInterruptIsReady3()) {
-        usbSetInterrupt3((void *)&r, sizeof(vusb_joystick_report_t));
-    }
 }
 
 /*------------------------------------------------------------------*
@@ -316,7 +251,7 @@ const PROGMEM uchar keyboard_hid_report[] = {
     0xC0         // End Collection
 };
 
-#if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE) || defined(JOYSTICK_ENABLE)
+#if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
 const PROGMEM uchar mouse_extra_hid_report[] = {
 #    ifdef MOUSE_ENABLE
     // Mouse report descriptor
@@ -397,58 +332,6 @@ const PROGMEM uchar mouse_extra_hid_report[] = {
     0x81, 0x00,                //   Input (Data, Array, Absolute)
     0xC0                       // End Collection
 #    endif
-#    if JOYSTICK_ENABLE
-    0x05,
-    0x01,                      // USAGE_PAGE (Generic Desktop)
-    0x09, 0x04,                // USAGE (Joystick)
-    0xa1, 0x01,                // COLLECTION (Application)
-    0x85, REPORT_ID_JOYSTICK,  //   REPORT_ID (6)
-    0x09, 0x01,                //   USAGE (Pointer)
-    0xa1, 0x00,                //   COLLECTION (Physical)
-#        if JOYSTICK_AXES_COUNT > 0
-#            if JOYSTICK_AXES_COUNT >= 1
-    0x09, 0x30,  //     USAGE (X)
-#            endif
-#            if JOYSTICK_AXES_COUNT >= 2
-    0x09, 0x31,  //     USAGE (Y)
-#            endif
-#            if JOYSTICK_AXES_COUNT >= 3
-    0x09, 0x32,  //     USAGE (Z)
-#            endif
-#            if JOYSTICK_AXES_COUNT >= 4
-    0x09, 0x33,  //     USAGE (RX)
-#            endif
-#            if JOYSTICK_AXES_COUNT >= 5
-    0x09, 0x34,  //     USAGE (RY)
-#            endif
-#            if JOYSTICK_AXES_COUNT >= 6
-    0x09, 0x35,  //     USAGE (RZ)
-#            endif
-    0x15, 0x81,                 //   LOGICAL_MINIMUM (-127)
-    0x25, 0x7f,                 //   LOGICAL_MAXIMUM (127)
-    0x75, 0x08,                 //   REPORT_SIZE (8)
-    0x95, JOYSTICK_AXES_COUNT,  //   REPORT_COUNT (JOYSTICK_AXES_COUNT)
-    0x81, 0x02,                 //   INPUT (Data,Var,Abs)
-#        endif
-#        if JOYSTICK_BUTTON_COUNT > 0
-    0x05, 0x09,                   // USAGE_PAGE (Button)
-    0x19, 0x01,                   //   USAGE_MINIMUM (Button 1)
-    0x29, JOYSTICK_BUTTON_COUNT,  //   USAGE_MAXIMUM
-    0x15, 0x00,                   //   LOGICAL_MINIMUM (0)
-    0x25, 0x01,                   //   LOGICAL_MAXIMUM (1)
-    0x75, 0x01,                   // REPORT_SIZE (1)
-    0x95, JOYSTICK_BUTTON_COUNT,  // REPORT_COUNT
-    0x81, 0x02,                   // INPUT (Data,Var,Abs)
-// fill up report to get it byte-aligned
-#            if (JOYSTICK_BUTTON_COUNT % 8) != 0
-    0x75, 0x01,                             // REPORT_SIZE (1)
-    0x95, 8 - (JOYSTICK_BUTTON_COUNT % 8),  // REPORT_COUNT
-    0x81, 0x01,                             // INPUT (Data,Var,Abs)
-#            endif
-#        endif
-    0xc0,   // END_COLLECTION
-    0xc0    // END_COLLECTION
-#    endif  // JOYSTICK_ENABLE
 };
 #endif
 
@@ -471,19 +354,19 @@ const PROGMEM char usbDescriptorConfiguration[] = {
     /* USB configuration descriptor */
     9,               /* sizeof(usbDescriptorConfiguration): length of descriptor in bytes */
     USBDESCR_CONFIG, /* descriptor type */
-#    if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
-    59,  // 9 + (9 + 9 + 7) + (9 + 9 + 7)
-#    else
-    34,  // 9 + (9 + 9 + 7)
+#    if defined (MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
+    59, // 9 + (9 + 9 + 7) + (9 + 9 + 7)
+#else
+    34, // 9 + (9 + 9 + 7)
 #    endif
     0,
-// 18 + 7 * USB_CFG_HAVE_INTRIN_ENDPOINT + 7 * USB_CFG_HAVE_INTRIN_ENDPOINT3 + 9, 0,
-/* total length of data returned (including inlined descriptors) */
+    // 18 + 7 * USB_CFG_HAVE_INTRIN_ENDPOINT + 7 * USB_CFG_HAVE_INTRIN_ENDPOINT3 + 9, 0,
+    /* total length of data returned (including inlined descriptors) */
 #    if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
     2, /* number of interfaces in this configuration */
 #    else
     1,
-#    endif
+#endif
     1, /* index of this configuration */
     0, /* configuration name string index */
 #    if USB_CFG_IS_SELF_POWERED
@@ -536,13 +419,13 @@ const PROGMEM char usbDescriptorConfiguration[] = {
     0,                             /* PROTOCOL: none */
     0,                             /* string index for interface */
     /* HID descriptor */
-    9,                                    /* sizeof(usbDescrHID): length of descriptor in bytes */
-    USBDESCR_HID,                         /* descriptor type: HID */
-    0x01, 0x01,                           /* BCD representation of HID version */
-    0x00,                                 /* target country code */
-    0x01,                                 /* number of HID Report (or other HID class) Descriptor infos to follow */
-    0x22,                                 /* descriptor type: report */
-    sizeof(mouse_extra_hid_report), 0,    /* total length of report descriptor */
+    9,                                /* sizeof(usbDescrHID): length of descriptor in bytes */
+    USBDESCR_HID,                     /* descriptor type: HID */
+    0x01, 0x01,                       /* BCD representation of HID version */
+    0x00,                             /* target country code */
+    0x01,                             /* number of HID Report (or other HID class) Descriptor infos to follow */
+    0x22,                             /* descriptor type: report */
+    sizeof(mouse_extra_hid_report), 0,      /* total length of report descriptor */
 #        if USB_CFG_HAVE_INTRIN_ENDPOINT3 /* endpoint descriptor for endpoint 3 */
     /* Endpoint descriptor */
     7,                                 /* sizeof(usbDescrEndpoint) */

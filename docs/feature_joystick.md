@@ -4,9 +4,11 @@ The keyboard can be made to be recognized as a joystick HID device by the Operat
 
 This is enabled by adding the following to `rules.mk`
 
-```
+```makefile
 JOYSTICK_ENABLE = yes
 ```
+
+!> Joystick support is not currently available on V-USB devices.
 
 The joystick feature provides two services :
  * reading an analog input device
@@ -29,7 +31,7 @@ feeding the power input and ground connection through pins and using diodes to a
 
 The default joystick has 2 axes and and 8 buttons. This can be changed from the config.h file :
 
-```
+```c
 //max 32 for JOYSTICK_BUTTON_COUNT
 #define JOYSTICK_BUTTON_COUNT 16
 //max 6 for JOYSTICK_AXES_COUNT
@@ -57,7 +59,7 @@ In practice, you have to provide the lowest/highest raw adc reading, and the raw
 
 For instance, an axes configuration can be defined in the following way :
 
-```
+```c
 //joystick config
 joystick_config_t joystick_axes[JOYSTICK_AXES_COUNT] = {
   [0] = JOYSTICK_AXIS_IN_OUT_GROUND(A4, B0, A7, 900, 575, 285)
@@ -74,7 +76,7 @@ You assign a value by writing to joystick_status.axes[axis_index] a signed 8bit 
 
 The following example writes two axes based on keypad presses, with KP_5 as a precision modifier :
 
-```
+```c
 #ifdef JOYSTICK_ENABLE
 static uint8_t precision_val = 70;
 static uint8_t axesFlags = 0;
