@@ -4,11 +4,13 @@ import os
 from pathlib import Path
 import shutil
 import re
+import math
 
 import qmk.path
 import qmk.makefile
-from qmk.constants import VIA_NUMBER_OF_LAYERS
-from qmk.errors import KeymapAlreadyExistsError
+from qmk.constants import DYNAMIC_KEYMAP_EEPROM_SIZE, VIA_DEFAULT_NUMBER_OF_LAYERS
+from qmk.errors import KeymapAlreadyExistsError, NoSuchKeyboardError
+
 
 # The `keymap.c` template to use when a keyboard doesn't have its own
 DEFAULT_KEYMAP_C = """#include QMK_KEYBOARD_H
@@ -104,18 +106,25 @@ def via_keymap(keyboard):
             The name of the keyboard
     """
     default_keymap = parse(keyboard, 'default')
+    config_h = parse_config_h(keyboard)
     layers = list()
     # Use the default keymap's first layer as first layer
     layers.append([kc if kc.startswith('KC_') else 'KC_NO' for kc in default_keymap['layers'][0]['keycodes']])
     # Create empty layer
     empty_layer = ['KC_NO'] * len(default_keymap['layers'][0]['keycodes'])
+    # Calculate how many layers can be used with the given keyboard
+    recommended_layer_number = math.floor(DYNAMIC_KEYMAP_EEPROM_SIZE / (2 * int(config_h['rows']) * int(config_h['cols'])))
+    if recommended_layer_number > VIA_DEFAULT_NUMBER_OF_LAYERS:
+        recommended_layer_number = VIA_DEFAULT_NUMBER_OF_LAYERS
     # Use the empty layer to fill up the keymaps array
-    for i in range(0, VIA_NUMBER_OF_LAYERS - 1):
+    for i in range(1, recommended_layer_number):
         layers.append(empty_layer)
     layout = 'LAYOUT'
     if default_keymap['layers'][0]['layout']:
         layout += '_%s' % default_keymap['layers'][0]['layout']
     write(keyboard, 'via', layout, layers)
+    if recommended_layer_number != VIA_DEFAULT_NUMBER_OF_LAYERS:
+        write_config_h(keyboard, ['DYNAMIC_KEYMAP_LAYER_COUNT %s' % recommended_layer_number], 'via')
 
     rules_mk = Path(qmk.path.keymap(keyboard) / 'via' / 'rules.mk')
     rules_mk.touch()
@@ -225,3 +234,43 @@ def parse(keyboard, keymap):
         keymap['layers'] = layers
 
     return keymap
+
+
+def parse_config_h(keyboard, keymap = None):
+    if keymap:
+        config_h_file = Path('keyboards') / keyboard / 'keymaps' / keymap / 'config.h'
+    else:
+        config_h_file = Path('keyboards') / keyboard / 'config.h'
+    if config_h_file.exists():
+        config_h = config_h_file.read_text().split('\n')
+        content = dict(name = "", vid = "", pid = "", rows = "", cols = "")
+        for line in config_h:
+            l = line.strip().split()
+            if len(l) == 3 and l[0].startswith('#'):
+                if not content['vid'] and l[1] == 'VENDOR_ID':
+                    content['vid'] = l[2]
+                elif not content['pid'] and l[1] == 'PRODUCT_ID':
+                    content['pid'] = l[2]
+                elif not content['rows'] and l[1] == 'MATRIX_ROWS':
+                    content['rows'] = l[2]
+                elif not content['cols'] and l[1] == 'MATRIX_COLS':
+                    content['cols'] = l[2]
+                elif l[1] == 'MANUFACTURER':
+                    content['name'] = ('%s %s' % (l[2], content['name'])).strip()
+                elif l[1] == 'PRODUCT':
+                    content['name'] = ('%s %s' % (content['name'], l[2])).strip()
+        return content
+    else:
+        raise NoSuchKeyboardError
+
+
+def write_config_h(keyboard, content, keymap = None):
+    if keymap:
+        config_h_file = Path('keyboards') / keyboard / 'keymaps' / keymap / 'config.h'
+    else:
+        config_h_file = Path('keyboards') / keyboard / 'config.h'
+    if not config_h_file.exists():
+        if isinstance(content, list):
+            content = ['#define %s' % i for i in content]
+            content.insert(0, '#pragma once')
+            config_h_file.write_text('\n'.join(content))
