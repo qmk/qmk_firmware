@@ -211,9 +211,7 @@ void rgblight_init(void) {
 
     eeconfig_debug_rgblight();  // display current eeprom values
 
-#ifdef RGBLIGHT_USE_TIMER
     rgblight_timer_init();  // setup the timer
-#endif
 
     if (rgblight_config.enable) {
         rgblight_mode_noeeprom(rgblight_config.mode);
@@ -230,9 +228,7 @@ void rgblight_update_dword(uint32_t dword) {
     if (rgblight_config.enable)
         rgblight_mode_noeeprom(rgblight_config.mode);
     else {
-#ifdef RGBLIGHT_USE_TIMER
         rgblight_timer_disable();
-#endif
         rgblight_set();
     }
 }
@@ -300,13 +296,9 @@ void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
         dprintf("rgblight mode [NOEEPROM]: %u\n", rgblight_config.mode);
     }
     if (is_static_effect(rgblight_config.mode)) {
-#ifdef RGBLIGHT_USE_TIMER
         rgblight_timer_disable();
-#endif
     } else {
-#ifdef RGBLIGHT_USE_TIMER
         rgblight_timer_enable();
-#endif
     }
 #ifdef RGBLIGHT_USE_TIMER
     animation_status.restart = true;
@@ -354,9 +346,7 @@ void rgblight_disable(void) {
     rgblight_config.enable = 0;
     eeconfig_update_rgblight(rgblight_config.raw);
     dprintf("rgblight disable [EEPROM]: rgblight_config.enable = %u\n", rgblight_config.enable);
-#ifdef RGBLIGHT_USE_TIMER
     rgblight_timer_disable();
-#endif
     RGBLIGHT_SPLIT_SET_CHANGE_MODE;
     wait_ms(50);
     rgblight_set();
@@ -365,9 +355,7 @@ void rgblight_disable(void) {
 void rgblight_disable_noeeprom(void) {
     rgblight_config.enable = 0;
     dprintf("rgblight disable [NOEEPROM]: rgblight_config.enable = %u\n", rgblight_config.enable);
-#ifdef RGBLIGHT_USE_TIMER
     rgblight_timer_disable();
-#endif
     RGBLIGHT_SPLIT_SET_CHANGE_MODE;
     wait_ms(50);
     rgblight_set();
