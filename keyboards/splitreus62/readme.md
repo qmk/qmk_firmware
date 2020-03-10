@@ -1,6 +1,6 @@
 # splitreus62
 
-![splitreus62](imgur.com image replace me!)
+[splitreus62](https://imgur.com/xMhkjio)
 
 A short description of the keyboard/project
 
