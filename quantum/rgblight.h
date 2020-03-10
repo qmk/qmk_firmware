@@ -16,8 +16,6 @@
 #ifndef RGBLIGHT_H
 #define RGBLIGHT_H
 
-#include "rgblight_reconfig.h"
-
 /***** rgblight_mode(mode)/rgblight_mode_noeeprom(mode) ****
 
  old mode number (before 0.6.117) to new mode name table
@@ -63,6 +61,39 @@
 |       36        | RGBLIGHT_MODE_ALTERNATING         |
 |-----------------|-----------------------------------|
  *****/
+
+#ifdef RGBLIGHT_ANIMATIONS
+// for backward compatibility
+#    define RGBLIGHT_EFFECT_BREATHING
+#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#    define RGBLIGHT_EFFECT_SNAKE
+#    define RGBLIGHT_EFFECT_KNIGHT
+#    define RGBLIGHT_EFFECT_CHRISTMAS
+#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#    define RGBLIGHT_EFFECT_RGB_TEST
+#    define RGBLIGHT_EFFECT_ALTERNATING
+#endif
+
+#ifdef RGBLIGHT_STATIC_PATTERNS
+#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#endif
+
+// clang-format off
+
+// check dynamic animation effects chose ?
+#if  defined(RGBLIGHT_EFFECT_BREATHING)     \
+  || defined(RGBLIGHT_EFFECT_RAINBOW_MOOD)  \
+  || defined(RGBLIGHT_EFFECT_RAINBOW_SWIRL) \
+  || defined(RGBLIGHT_EFFECT_SNAKE)         \
+  || defined(RGBLIGHT_EFFECT_KNIGHT)        \
+  || defined(RGBLIGHT_EFFECT_CHRISTMAS)     \
+  || defined(RGBLIGHT_EFFECT_RGB_TEST)      \
+  || defined(RGBLIGHT_EFFECT_ALTERNATING)
+#    define RGBLIGHT_USE_TIMER
+#endif
+
+// clang-format on
 
 #define _RGBM_SINGLE_STATIC(sym) RGBLIGHT_MODE_##sym,
 #define _RGBM_SINGLE_DYNAMIC(sym) RGBLIGHT_MODE_##sym,
@@ -263,12 +294,19 @@ void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom);
 #    define EZ_RGB(val) rgblight_show_solid_color((val >> 16) & 0xFF, (val >> 8) & 0xFF, val & 0xFF)
 void rgblight_show_solid_color(uint8_t r, uint8_t g, uint8_t b);
 
+#ifdef RGBLIGHT_USE_TIMER
 void rgblight_task(void);
-
 void rgblight_timer_init(void);
 void rgblight_timer_enable(void);
 void rgblight_timer_disable(void);
 void rgblight_timer_toggle(void);
+#else
+#define rgblight_task()
+#define rgblight_timer_init()
+#define rgblight_timer_enable()
+#define rgblight_timer_disable()
+#define rgblight_timer_toggle()
+#endif
 
 #    ifdef RGBLIGHT_SPLIT
 #        define RGBLIGHT_STATUS_CHANGE_MODE (1 << 0)
