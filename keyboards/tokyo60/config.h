@@ -7,8 +7,8 @@
 #define PRODUCT_ID      0x6060 // Tokyo60
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Tokyo Keyboard
-#define PRODUCT         Tokyo Keyboard Tokyo60
-#define DESCRIPTION     Tokyo Keyboard Tokyo60
+#define PRODUCT         Tokyo60
+#define DESCRIPTION     q.m.k. keyboard firmware for Tokyo60
 
 /* key matrix size */
 #define MATRIX_ROWS 5
