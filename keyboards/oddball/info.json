@@ -2,19 +2,19 @@
     "keyboard_name": "Oddball",
     "url": "https://atulloh.github.io/oddball",
     "maintainer": "Alexander Tulloh",
-    "width": 15,
+    "width": 14,
     "height": 4.75,
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"label":"sw1", "x":0, "y":0.37}, {"label":"sw2", "x":1, "y":0.37}, {"label":"sw3", "x":2, "y":0.12}, {"label":"sw4", "x":3, "y":0}, {"label":"sw5", "x":4, "y":0.12}, {"label":"sw6", "x":4, "y":0.25},
-                {"label":"sw6", "x":9, "y":0.25}, {"label":"sw5", "x":10, "y":0.12}, {"label":"sw4", "x":11, "y":0}, {"label":"sw3", "x":12, "y":0.12}, {"label":"sw2", "x":13, "y":0.37}, {"label":"sw1", "x":14, "y":0.27},
-                {"label":"sw7", "x":0, "y":1.37}, {"label":"sw8", "x":1, "y":1.37}, {"label":"sw9", "x":2, "y":1.12}, {"label":"sw10", "x":3, "y":1}, {"label":"sw11", "x":4, "y":1.12}, {"label":"sw12", "x":4, "y":1.25},
-                {"label":"sw12", "x":9, "y":1.25}, {"label":"sw11", "x":10, "y":1.12}, {"label":"sw10", "x":11, "y":1}, {"label":"sw9", "x":12, "y":1.12}, {"label":"sw8", "x":13, "y":1.37}, {"label":"sw7", "x":14, "y":1.27},
-                {"label":"sw13", "x":0, "y":2.37}, {"label":"sw14", "x":1, "y":2.37}, {"label":"sw15", "x":2, "y":2.12}, {"label":"sw16", "x":3, "y":2}, {"label":"sw17", "x":4, "y":2.12}, {"label":"sw18", "x":4, "y":2.25},
-                {"label":"sw18", "x":9, "y":2.25}, {"label":"sw17", "x":10, "y":2.12}, {"label":"sw16", "x":11, "y":2}, {"label":"sw15", "x":12, "y":2.12}, {"label":"sw14", "x":13, "y":2.37}, {"label":"sw13", "x":14, "y":1.27},
-                {"label":"sw19", "x":4.5, "y":3.5, "height":1.25}, {"label":"sw20", "x":5.5, "y":3.5, "height":1.25},
-                {"label":"sw19", "x":9.5, "y":3.5, "height":1.25}
+                {"label":"sw1", "x":0, "y":0.37}, {"label":"sw2", "x":1, "y":0.37}, {"label":"sw3", "x":2, "y":0.12}, {"label":"sw4", "x":3, "y":0}, {"label":"sw5", "x":4, "y":0.12}, {"label":"sw6", "x":5, "y":0.25},
+                {"label":"sw6", "x":8 , "y":0.25}, {"label":"sw5", "x":9 , "y":0.12}, {"label":"sw4", "x":10, "y":0}, {"label":"sw3", "x":11, "y":0.12}, {"label":"sw2", "x":12, "y":0.37}, {"label":"sw1", "x":13, "y":0.37},
+                {"label":"sw7", "x":0, "y":1.37}, {"label":"sw8", "x":1, "y":1.37}, {"label":"sw9", "x":2, "y":1.12}, {"label":"sw10", "x":3, "y":1}, {"label":"sw11", "x":4, "y":1.12}, {"label":"sw12", "x":5, "y":1.25},
+                {"label":"sw12", "x":8, "y":1.25}, {"label":"sw11", "x":9, "y":1.12}, {"label":"sw10", "x":10, "y":1}, {"label":"sw9", "x":11, "y":1.12}, {"label":"sw8", "x":12, "y":1.37}, {"label":"sw7", "x":13, "y":1.37},
+                {"label":"sw13", "x":0, "y":2.37}, {"label":"sw14", "x":1, "y":2.37}, {"label":"sw15", "x":2, "y":2.12}, {"label":"sw16", "x":3, "y":2}, {"label":"sw17", "x":4, "y":2.12}, {"label":"sw18", "x":5, "y":2.25},
+                {"label":"sw18", "x":8, "y":2.25}, {"label":"sw17", "x":9, "y":2.12}, {"label":"sw16", "x":10, "y":2}, {"label":"sw15", "x":11, "y":2.12}, {"label":"sw14", "x":12, "y":2.37}, {"label":"sw13", "x":13, "y":2.37},
+                {"label":"sw19", "x":4.5, "y":3.5, "h":1.25}, {"label":"sw20", "x":5.5, "y":3.5, "h":1.25},
+                {"label":"sw20", "x":7.5, "y":3.5, "h":1.25}, {"label":"sw19", "x":8.5, "y":3.5, "h":1.25}
             ]
         }
     }
