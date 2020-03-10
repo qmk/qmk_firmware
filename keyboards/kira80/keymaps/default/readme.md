@@ -1,1 +1,1 @@
-# The default keymap for kira80
+# The default keymap for Kira 80
