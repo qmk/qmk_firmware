@@ -86,6 +86,12 @@ In additional to the functions that you can call, there are a number of callback
 
 ?> For additional details on how you can use these callbacks, check out the [Layer Change Code](custom_quantum_function.md#layer-change-code) document.
 
+|Check functions                                                  |Description                                                                   |
+|-------------------------------------------|------------------------------------------------------------------------------|
+| `layer_state_cmp(cmp_layer_state, layer)` | This checks the `cmp_layer_state` to see if the specific `layer` is enabled. This is meant for use with the layer callbacks. |
+| `layer_state_is(layer)`                   | This checks the layer state to see if the specific `layer` is enabled. (calls `layer_state_cmp` for the global layer state). |
+
+!> There is `IS_LAYER_ON(layer)` as well, however the `layer_state_cmp` function has some additional handling to ensure that on layer 0 that it returns the correct value. Otherwise, if you check to see if layer 0 is on, you may get an incorrect value returned. 
 
 # Modifier Keys :id=modifier-keys
 
