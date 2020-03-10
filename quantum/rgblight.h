@@ -170,6 +170,29 @@ enum RGBLIGHT_EFFECT_MODE {
 #        include <avr/pgmspace.h>
 #    endif
 
+#    ifdef RGBLIGHT_LAYERS
+typedef struct {
+    uint8_t index;      // The first LED to light
+    uint8_t count;      // The number of LEDs to light
+    uint8_t hue;
+    uint8_t sat;
+    uint8_t val;
+} rgblight_segment_t;
+
+#        define RGBLIGHT_END_SEGMENT_INDEX      (255)
+#        define RGBLIGHT_END_SEGMENTS {RGBLIGHT_END_SEGMENT_INDEX, 0, 0, 0}
+#        define RGBLIGHT_MAX_LAYERS 8
+#        define RGBLIGHT_LAYER_SEGMENTS(...) { __VA_ARGS__, RGBLIGHT_END_SEGMENTS }
+#        define RGBLIGHT_LAYERS_LIST(...) { __VA_ARGS__, NULL }
+
+// Get/set enabled rgblight layers
+void rgblight_set_layer_state(uint8_t layer, bool enabled);
+bool rgblight_get_layer_state(uint8_t layer);
+
+// Point this to an array of rgblight_segment_t arrays in keyboard_post_init_user to use rgblight layers
+extern const rgblight_segment_t * const * rgblight_layers;
+#    endif
+
 extern LED_TYPE led[RGBLED_NUM];
 
 extern const uint8_t  RGBLED_BREATHING_INTERVALS[4] PROGMEM;
@@ -198,6 +221,9 @@ typedef struct _rgblight_status_t {
     bool    timer_enabled;
 #    ifdef RGBLIGHT_SPLIT
     uint8_t change_flags;
+#    endif
+#    ifdef RGBLIGHT_LAYERS
+    uint8_t enabled_layer_mask;
 #    endif
 } rgblight_status_t;
 
@@ -313,6 +339,7 @@ void rgblight_timer_toggle(void);
 #        define RGBLIGHT_STATUS_CHANGE_HSVS (1 << 1)
 #        define RGBLIGHT_STATUS_CHANGE_TIMER (1 << 2)
 #        define RGBLIGHT_STATUS_ANIMATION_TICK (1 << 3)
+#        define RGBLIGHT_STATUS_CHANGE_LAYERS (1 << 4)
 
 typedef struct _rgblight_syncinfo_t {
     rgblight_config_t config;
