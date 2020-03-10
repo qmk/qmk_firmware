@@ -24,16 +24,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Select hand configuration */
 
-// #define MASTER_LEFT
-// #define MASTER_RIGHT
 #define EE_HANDS
 
-#define SSD1306OLED
+#ifdef OLED_DRIVER_ENABLE
+#    undef SSD1306OLED
+#endif
 
+#undef USE_I2C
 #define USE_SERIAL_PD2
 
 #undef TAPPING_TERM
 #define TAPPING_TERM 150
+#define PERMISSIVE_HOLD
+#define IGNORE_MOD_TAP_INTERRUPT
+
+#define NO_ACTION_ONESHOT
 
 #ifdef RGBLIGHT_ENABLE
     #undef RGBLED_NUM

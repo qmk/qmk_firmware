@@ -10,7 +10,13 @@ __attribute__((weak)) bool rhruiz_process_record(uint16_t keycode, keyrecord_t *
 
 __attribute__((weak)) void keyboard_post_init_keymap(void) {}
 
-__attribute__((weak)) bool rhruiz_is_layer_indicator_led(uint8_t index) { return index == 0 || index == RGBLED_NUM / 2 - 1; }
+__attribute__((weak)) bool rhruiz_is_layer_indicator_led(uint8_t index) {
+#ifdef RGBLIGHT_ENABLE
+    return index == 0 || index == RGBLED_NUM / 2 - 1;
+#else
+    return false;
+#endif
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -35,9 +41,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_MAKE:
             if (!record->event.pressed) {
                 uint8_t temp_mod = mod_config(get_mods());
-                uint8_t temp_osm = mod_config(get_oneshot_mods());
                 clear_mods();
+#               ifndef NO_ACTION_ONESHOT
+                uint8_t temp_osm = mod_config(get_oneshot_mods());
                 clear_oneshot_mods();
+#               else
+                uint8_t temp_osm = 0U;
+#               endif
 
                 bool should_flash = ((temp_mod | temp_osm) & MOD_MASK_SHIFT);
 
