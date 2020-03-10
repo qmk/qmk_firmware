@@ -1,8 +1,5 @@
 /*
-This is the c configuration file for the keymap
-
-Copyright 2012 Jun Wako <wakojun@gmail.com>
-Copyright 2015 Jack Humbert
+Copyright 2020 Lorenz Wellmer
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,4 +17,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define USE_I2C
+#include "config_common.h"
+
+/* USB Device descriptor parameter */
+#define VENDOR_ID 0xFEED
+#define PRODUCT_ID 0xC583
+#define DEVICE_VER 0x0102
+#define MANUFACTURER EVE
+#define PRODUCT Kira80
+
+/* key matrix size */
+#define MATRIX_ROWS 7
+#define MATRIX_COLS 15
+
+#define MATRIX_ROW_PINS { B1, B2, B3, B5, B6, B7, B0 }
+#define MATRIX_COL_PINS { A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4, C3, A0, C2, D7 }
+#define UNUSED_PINS
+
+/* COL2ROW, ROW2COL*/
+#define DIODE_DIRECTION COL2ROW
+#define DEBOUNCE 5
+
+#define BACKLIGHT_PIN D4
+#define BACKLIGHT_BREATHING
+#define BACKLIGHT_LEVELS 3
