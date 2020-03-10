@@ -233,6 +233,11 @@ bool led_update_user(led_t led_state) {
 If you need to change your RGB lighting in code, for example in a macro to change the color whenever you switch layers, QMK provides a set of functions to assist you. See [`rgblight.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight.h) for the full list, but the most commonly used functions include:
 
 ### Utility Functions
+|Function                                    |Description                                                        |
+|--------------------------------------------|-------------------------------------------------------------------|
+|`sethsv(hue, sat, val, ledbuf)`             |Set ledbuf to the given HSV value                                  |
+|`sethsv_raw(hue, sat, val, ledbuf)`         |Set ledbuf to the given HSV value without RGBLIGHT_LIMIT_VAL check |
+|`setrgb(r, g, b, ledbuf)`                   |Set ledbuf to the given RGB value where `r`/`g`/`b`                |
 
 ### Low level Functions
 |Function                                    |Description                                |
