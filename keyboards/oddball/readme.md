@@ -4,7 +4,7 @@ A split keyboard with trackball support.
 
 * Keyboard Maintainer: [Alexander Tulloh](https://github.com/atulloh)
 * Hardware Supported: Oddball PCB and plates, and using an [ADNS9800 and breakout board for mouse](https://www.tindie.com/products/jkicklighter/adns-9800-laser-motion-sensor/)
-* Hardware Availability: [](https://atulloh.github.io/oddball)
+* Hardware Availability: [atulloh.github.io/oddball](https://atulloh.github.io/oddball)
 
 Make example for this keyboard (after setting up your build environment):
 
