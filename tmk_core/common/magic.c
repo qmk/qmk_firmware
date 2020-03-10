@@ -35,5 +35,5 @@ void magic(void) {
     default_layer_set((layer_state_t)default_layer);
 
     /* Also initialize layer state to trigger callback functions for layer_state */
-    layer_clear();
+    layer_state_set_kb(layer_state);
 }
