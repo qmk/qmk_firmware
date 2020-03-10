@@ -1,1 +1,1 @@
-# Dummy rules.mk, rev1 uses parent rules.mk as is
+# Dummy rules.mk, rev0 uses parent rules.mk as is
