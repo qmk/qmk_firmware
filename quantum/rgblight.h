@@ -170,6 +170,32 @@ enum RGBLIGHT_EFFECT_MODE {
 #        include <avr/pgmspace.h>
 #    endif
 
+#    ifdef RGBLIGHT_LAYERS
+typedef struct {
+    uint8_t index;  // The first LED to light
+    uint8_t count;  // The number of LEDs to light
+    uint8_t hue;
+    uint8_t sat;
+    uint8_t val;
+} rgblight_segment_t;
+
+#        define RGBLIGHT_END_SEGMENT_INDEX (255)
+#        define RGBLIGHT_END_SEGMENTS \
+            { RGBLIGHT_END_SEGMENT_INDEX, 0, 0, 0 }
+#        define RGBLIGHT_MAX_LAYERS 8
+#        define RGBLIGHT_LAYER_SEGMENTS(...) \
+            { __VA_ARGS__, RGBLIGHT_END_SEGMENTS }
+#        define RGBLIGHT_LAYERS_LIST(...) \
+            { __VA_ARGS__, NULL }
+
+// Get/set enabled rgblight layers
+void rgblight_set_layer_state(uint8_t layer, bool enabled);
+bool rgblight_get_layer_state(uint8_t layer);
+
+// Point this to an array of rgblight_segment_t arrays in keyboard_post_init_user to use rgblight layers
+extern const rgblight_segment_t *const *rgblight_layers;
+#    endif
+
 extern LED_TYPE led[RGBLED_NUM];
 
 extern const uint8_t  RGBLED_BREATHING_INTERVALS[4] PROGMEM;
@@ -198,6 +224,9 @@ typedef struct _rgblight_status_t {
     bool    timer_enabled;
 #    ifdef RGBLIGHT_SPLIT
     uint8_t change_flags;
+#    endif
+#    ifdef RGBLIGHT_LAYERS
+    uint8_t enabled_layer_mask;
 #    endif
 } rgblight_status_t;
 
@@ -294,25 +323,26 @@ void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom);
 #    define EZ_RGB(val) rgblight_show_solid_color((val >> 16) & 0xFF, (val >> 8) & 0xFF, val & 0xFF)
 void rgblight_show_solid_color(uint8_t r, uint8_t g, uint8_t b);
 
-#ifdef RGBLIGHT_USE_TIMER
+#    ifdef RGBLIGHT_USE_TIMER
 void rgblight_task(void);
 void rgblight_timer_init(void);
 void rgblight_timer_enable(void);
 void rgblight_timer_disable(void);
 void rgblight_timer_toggle(void);
-#else
-#define rgblight_task()
-#define rgblight_timer_init()
-#define rgblight_timer_enable()
-#define rgblight_timer_disable()
-#define rgblight_timer_toggle()
-#endif
+#    else
+#        define rgblight_task()
+#        define rgblight_timer_init()
+#        define rgblight_timer_enable()
+#        define rgblight_timer_disable()
+#        define rgblight_timer_toggle()
+#    endif
 
 #    ifdef RGBLIGHT_SPLIT
 #        define RGBLIGHT_STATUS_CHANGE_MODE (1 << 0)
 #        define RGBLIGHT_STATUS_CHANGE_HSVS (1 << 1)
 #        define RGBLIGHT_STATUS_CHANGE_TIMER (1 << 2)
 #        define RGBLIGHT_STATUS_ANIMATION_TICK (1 << 3)
+#        define RGBLIGHT_STATUS_CHANGE_LAYERS (1 << 4)
 
 typedef struct _rgblight_syncinfo_t {
     rgblight_config_t config;
