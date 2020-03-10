@@ -19,22 +19,6 @@
 void left_encoder_cw(void) {
     switch (get_highest_layer(layer_state)) {
         case _LOWER:
-            tap_code16(SGUI(KC_TAB));
-            break;
-        case _RAISE:
-            tap_code(KC_PGUP);
-            break;
-        case _ADJUST:
-            rgblight_increase_hue();
-            break;
-        default:
-            tap_code(KC_BRIU);
-            break;
-        }
-}
-void left_encoder_acw(void) {
-    switch (get_highest_layer(layer_state)) {
-        case _LOWER:
             tap_code16(LGUI(KC_TAB));
             break;
         case _RAISE:
@@ -48,23 +32,23 @@ void left_encoder_acw(void) {
             break;
         }
 }
-void right_encoder_cw(void) {
+void left_encoder_acw(void) {
     switch (get_highest_layer(layer_state)) {
         case _LOWER:
-            tap_code(KC_UP);
+            tap_code16(SGUI(KC_TAB));
             break;
         case _RAISE:
-            tap_code16(LCTL(KC_TAB));
+            tap_code(KC_PGUP);
             break;
         case _ADJUST:
-            rgblight_increase_val();
+            rgblight_increase_hue();
             break;
         default:
-            tap_code(KC_VOLU);
+            tap_code(KC_BRIU);
             break;
         }
 }
-void right_encoder_acw(void) {
+void right_encoder_cw(void) {
     switch (get_highest_layer(layer_state)) {
         case _LOWER:
             tap_code(KC_DOWN);
@@ -77,6 +61,22 @@ void right_encoder_acw(void) {
             break;
         default:
             tap_code(KC_VOLD);
+            break;
+        }
+}
+void right_encoder_acw(void) {
+    switch (get_highest_layer(layer_state)) {
+        case _LOWER:
+            tap_code(KC_UP);
+            break;
+        case _RAISE:
+            tap_code16(LCTL(KC_TAB));
+            break;
+        case _ADJUST:
+            rgblight_increase_val();
+            break;
+        default:
+            tap_code(KC_VOLU);
             break;
         }
 }
