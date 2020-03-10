@@ -9,6 +9,7 @@ from . import doctor
 from . import flash
 from . import hello
 from . import json
+from . import json2c
 from . import list
 from . import kle2json
 from . import new
