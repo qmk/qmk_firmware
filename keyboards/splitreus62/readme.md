@@ -1,5 +1,5 @@
 # splitreus62
-
+![splitreus62](https://raw.githubusercontent.com/Na-Cly/splitreus62/master/splitreus62.jpg)
 [splitreus62](https://imgur.com/xMhkjio)
 
 A Split version of the Atreus62. You can copy keymaps from Atreus62 and use them with this keyboard.
