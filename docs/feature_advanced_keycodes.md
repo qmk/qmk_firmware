@@ -2,7 +2,7 @@
 
 One of the most powerful and well used features of QMK Firmware is the ability to use layers.  For most people, this amounts to a function key that allows for different keys, much like what you would see on a laptop or tablet keyboard. 
 
-For a detailed explanation of how the layer stack works, checkout the [Keymap and Layer](keymap.md#keymap-and-layers). However, a simple method to visualize the layers, is to look at it as a stack of paper.  Each layer is a sheet. Transparent sections are cutouts on that sheet that let you see and use the layer(s) below it, and keys and `NO`s blocking the layers below. 
+For a detailed explanation of how the layer stack works, checkout [Keymap Overview](keymap.md#keymap-and-layers). However, a simple method to visualize the layers, is to look at it as a stack of paper.  Each layer is a sheet. Transparent sections are cutouts on that sheet that let you see and use the layer(s) below it, and keys and `NO`s blocking the layers below. 
 
 ## Switching and Toggling Layers :id=switching-and-toggling-layers
 
@@ -19,9 +19,9 @@ These functions allow you to activate layers in various ways. Note that layers a
 
 ### Caveats :id=caveats
 
-Currently, `LT()` and `MT()` are limited to the [Basic Keycode set](keycodes_basic.md), meaning you can't use keycodes like `LCTL()`, `KC_TILD`, or anything greater than `0xFF`. Specifically, Specifically, dual function keys like `LT` and `MT` use a 16 bit keycode. 4 bits are used for the function identifier, the next 12 are divided into the parameters. Layer Tap uses 4 bits for the layer (and is why it's limited to layers 0-16, actually), while Mod Tap does the same, 4 bits for the identifier, 4 bits for which mods are used, and all of them use 8 bits for the keycode. Because of this, the keycode used is limited to `0xFF` (0-255), which are the basic keycodes, only. 
+Currently, `LT()` and `MT()` are limited to the [Basic Keycode set](keycodes_basic.md), meaning you can't use keycodes like `LCTL()`, `KC_TILD`, or anything greater than `0xFF`. Specifically, dual function keys like `LT` and `MT` use a 16 bit keycode. 4 bits are used for the function identifier, the next 12 are divided into the parameters. Layer Tap uses 4 bits for the layer (and is why it's limited to layers 0-16, actually), while Mod Tap does the same, 4 bits for the identifier, 4 bits for which mods are used, and all of them use 8 bits for the keycode. Because of this, the keycode used is limited to `0xFF` (0-255), which are the basic keycodes only. 
 
-Expanding this would be ... complicated, at best. Moving to a 32 bit keycode would solve a lot of this, but would double the amount of space that the keymap matrix uses. And it could potentially cause issues, too. If you need to apply modifiers to your tapped keycode, [Tap Dance](feature_tap_dance.md#example-5-using-tap-dance-for-advanced-mod-tap-and-layer-tap-keys) can be used to accomplish this.
+Expanding this would be complicated, at best. Moving to a 32-bit keycode would solve a lot of this, but would double the amount of space that the keymap matrix uses. And it could potentially cause issues, too. If you need to apply modifiers to your tapped keycode, [Tap Dance](feature_tap_dance.md#example-5-using-tap-dance-for-advanced-mod-tap-and-layer-tap-keys) can be used to accomplish this.
 
 Additionally, if at least one right-handed modifier is specified in a Mod Tap or Layer Tap, it will cause all modifiers specified to become right-handed, so it is not possible to mix and match the two.
 
@@ -84,7 +84,7 @@ In additional to the functions that you can call, there are a number of callback
 | `default_layer_state_set_kb(layer_state_t state)`   | Callback for default layer functions, for keyboard. Called on keyboard initialization. |
 | `default_layer_state_set_user(layer_state_t state)` | Callback for default layer functions, for users. Called on keyboard initialization.    |
 
-?> For additional details on how you can use these callbacks, check out the [Layer Change Code](custom_quantum_function.md#layer-change-code) document.
+?> For additional details on how you can use these callbacks, check out the [Layer Change Code](custom_quantum_functions.md#layer-change-code) document.
 
 |Check functions                                                  |Description                                                                   |
 |-------------------------------------------|------------------------------------------------------------------------------|
