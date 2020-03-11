@@ -24,9 +24,9 @@ You can also chain them, for example `LCTL(LALT(KC_DEL))` makes a key that sends
 
 This page used to encompass a large set of features. We have moved many sections that used to be part of this page to their own pages. Everything below this point is simply a redirect so that people following old links on the web find what they're looking for.
 
-## Layers :id=layers
+## Layers :id=switching-and-toggling-layers
 
-* [Layers]
+* [Layers](feature_layers.md)
 
 ## Mod-Tap :id=mod-tap
 
