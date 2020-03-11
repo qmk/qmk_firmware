@@ -6,8 +6,7 @@ A short description of the keyboard/project
 
 * Keyboard Maintainer: [NaCly](https://github.com/Na-Cly)
 * Hardware Supported: The PCBs, controllers supported
-* Hardware Availability: Links to where you can find this hardware
-
+* Hardware Availability: https://github.com/Na-Cly/splitreus62
 Make example for this keyboard (after setting up your build environment):
 
     make splitreus62:default
