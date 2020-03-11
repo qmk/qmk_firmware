@@ -1,6 +1,8 @@
 # splitreus62
-![splitreus62](https://raw.githubusercontent.com/Na-Cly/splitreus62/master/splitreus62.jpg)
-[splitreus62](https://imgur.com/xMhkjio)
+
+- https://github.com/Na-Cly/splitreus62
+- [Atreus](https://github.com/technomancy/atreus) Phil Hagelberg
+- [Atreus62](https://github.com/profet23/atreus62) Profet23
 
 A Split version of the Atreus62. You can copy keymaps from Atreus62 and use them with this keyboard.
 
