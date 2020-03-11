@@ -21,23 +21,23 @@
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-  // #define RGBLIGHT_ANIMATIONS
+  #define RGBLIGHT_ANIMATIONS
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8
 #endif
 
-// Allows to use either side as the master. Look at the documentation for info:
-// https://docs.qmk.fm/#/config_options?id=setting-handedness
-#define EE_HANDS
-
 // The Leader key allows to flexibly assign macros to key sequences.
 #define LEADER_PER_KEY_TIMING
-#define LEADER_TIMEOUT 300
+#define LEADER_TIMEOUT 350
 
 #define TAPPING_TERM 200
 
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
 #define WAIT_FOR_USB
-// #define SPLIT_USB_DETECT
+#define SPLIT_USB_DETECT
 #define NO_USB_STARTUP_CHECK
+
+// Allows to use either side as the master. Look at the documentation for info:
+// https://docs.qmk.fm/#/config_options?id=setting-handedness
+#define EE_HANDS
