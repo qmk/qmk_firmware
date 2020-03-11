@@ -2,7 +2,7 @@
 
 [splitreus62](https://imgur.com/xMhkjio)
 
-A short description of the keyboard/project
+A Split version of the Atreus62. You can copy keymaps from Atreus62 and use them with this keyboard.
 
 * Keyboard Maintainer: [NaCly](https://github.com/Na-Cly)
 * Hardware Supported: The PCBs, controllers supported
