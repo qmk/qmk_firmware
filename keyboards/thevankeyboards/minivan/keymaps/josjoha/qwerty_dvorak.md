@@ -100,6 +100,9 @@ Illustration of accessing the arrows/navigation with a key on the BASE layer:
 
 ![Minivan layout Image MOV 3 + naviga](http://socialism.nl/misc/minivan/minivan_layer3_hardw-arrow_flat_addnav.jpg)
 
+`#define` \[`MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`\] `VI_SWITCHERYDOO`, `#undef ARROWS_TRIANGLE`
+
+![Minivan layout Image MOV 3 vi arrow](http://socialism.nl/misc/minivan/minivan_layer3_vi_.jpg)
 
 Layers (text)
 =============
@@ -260,6 +263,18 @@ For the Minivan _arrow_ hardware layout with _flat_ arrow cluster, you get this 
      LSft*- Btn5  Btn4  Btn3  Butn2 xxx   |_Acc1_ Acc0 _PgUp__Home__End_ _PgDn_        //(toggle) on BASE
      ---------------------------------------------------------------------------
                      LAlt Del   Ent   ___ | PgUp      _Left_ _UP_  _Down__Right_
+                                      -*-<|>                                           //(hold) on BASE
+                     <1 ± <2    <3    <4  | 4>         3>     2>   _±_    1>  
+
+… or this on `_MOV` for the _flat_ arrow configuration, […], and vi(1) layout:
+
+     <pinky2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
+                        -*-              <|>                                           //(toggle) on _FUN
+     BASE   WLft  WDn   WUp   WRht  xxx   |_Acc2_ PgUp  Home  End   PgDn  Bksp
+     LCtl   MLft  MDn   MUp   MRht  Btn1  | Left  Down  Up    Right Btn1  RCtl         // vi as in Qwerty
+     LSft*- Btn5  Btn4  Btn3  Butn2 xxx   |_Acc1_ Acc0 _PgUp__Home__End_ _PgDn_        //(toggle) on BASE
+     ---------------------------------------------------------------------------
+                     LAlt Del   Ent   ___ | PgUp      _Left_ _Down__Up_  _Right_       // vi as in Qwerty
                                       -*-<|>                                           //(hold) on BASE
                      <1 ± <2    <3    <4  | 4>         3>     2>   _±_    1>  
 

@@ -94,6 +94,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
          * _Remove_ if you prefer a flat type layout, with arrows in a row, on the right.
          */
 #define ARROWS_TRIANGLE // Implies mouse is also similarly in a triangle.
+        /*
+         *       VI editor arrows
+         *
+         * This modifies the flat arrows layout on the right hand, to be like the HJKL (in Qwerty)
+         * arrows in the editor vi(1).
+         * The arrows on the additional MOREKEY2_ARROW_CLUSTER also get harmonized to Left/Down/Up/Right.
+         */
+//#define VI_SWITCHERYDOO //  You have to _remove_ ARROWS_TRIANGLE, or this gets ignored.
       
 
         /*                            Qwerty
@@ -873,6 +881,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                      LAlt Del   Ent   ___ | PgUp      _Left_ _UP_  _Down__Right_
                                       -*-<|>                                           //(hold) on BASE
                      <1 ± <2    <3    <4  | 4>         3>     2>   _±_    1>  
+
+     flat layout, 'arrow' additional hardware key, with arrow cluster, additional navigation keys, vi(1) layout:
+   
+     <pinky2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
+                        -*-              <|>                                           //(toggle) on _FUN
+     BASE   WLft  WDn   WUp   WRht  xxx   |_Acc2_ PgUp  Home  End   PgDn  Bksp
+     LCtl   MLft  MDn   MUp   MRht  Btn1  | Left  Down  Up    Right Btn1  RCtl
+     LSft*- Btn5  Btn4  Btn3  Butn2 xxx   |_Acc1_ Acc0 _PgUp__Home__End_ _PgDn_        //(toggle) on BASE
+     ---------------------------------------------------------------------------
+                     LAlt Del   Ent   ___ | PgUp      _Left_ _Down__Up_  _Right_
+                                      -*-<|>                                           //(hold) on BASE
+                     <1 ± <2    <3    <4  | 4>         3>     2>   _±_    1>  
  */
 
          /* Inner default navigation/mouse layout. 11 means row 1, column 1, etc.
@@ -1176,6 +1196,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     #define RGHT_AA KC_ACL2
     #undef  RGHT_CA
     #define RGHT_CA KC_ACL1
+#endif
+
+// Changes the home row on the right hand to become HJKL (as in Qwerty) vi(1) arrow keys,
+// and causes the arrow block to move one key to the left. The key lost on the left is
+// put back on the other end (pinky).
+// Row 3
+#if defined(VI_SWITCHERYDOO) && !defined(ARROWS_TRIANGLE) // For all hardware variants
+//               |, indx2>  , index>  , middl>   , ring>     , pinky>    , pink2>    ,
+//              <|,>        ,         ,          ,           ,           ,           ,
+    #undef  RGHT_BA
+    #define RGHT_BA KC_LEFT
+    #undef  RGHT_BB
+    #define RGHT_BB           KC_DOWN
+    #undef  RGHT_BC
+    #define RGHT_BC                     KC_UP
+    #undef  RGHT_BD
+    #define RGHT_BD                                KC_RIGHT
+    #undef  RGHT_BE
+    #define RGHT_BE                                            KC_BTN1
+#endif
+// Row 1
+#if defined(VI_SWITCHERYDOO) && !defined(ARROWS_TRIANGLE) && defined(MOREKEY2_ARROW_CLUSTER) // Only for 'arrow' hardware
+                                                                        // arrow cluster
+    #undef  _MOV_KEY_ROW1_KEY1 
+    #define _MOV_KEY_ROW1_KEY1                               KC_RIGHT                                 
+    #undef  _MOV_KEY_ROW1_KEY2
+    #define _MOV_KEY_ROW1_KEY2                     KC_UP                          
+    #undef  _MOV_KEY_ROW1_KEY3
+    #define _MOV_KEY_ROW1_KEY3           KC_DOWN              
+    #undef  _MOV_KEY_ROW1_KEY4
+    #define _MOV_KEY_ROW1_KEY4 KC_LEFT    
+//               <|,>        ,         ,         ,         ,
+//                |, 4>      , 3>      , 2>      , ±       , 1>         
 #endif
 
 // (If you want to alter something in detail just for your keyboard, it is probably smart to just write in the keycodes (like KC_PGUP) in the final definitions here below.)
