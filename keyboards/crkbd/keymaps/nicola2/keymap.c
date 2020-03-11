@@ -57,7 +57,9 @@ enum keymap_layers {
 };
 
 enum custom_keycodes {
-  KC_QWERTY = NG_SAFE_RANGE,
+// NICOLA親指シフト
+  KC_QWERTY = NG_SAFE_RANGE, // SAFE_RANGE を NG_SAFE_RANGE に変更してください
+// NICOLA親指シフト
   KC_EUCALYN,
   KC_EUCALYNK,
   KC_EISU,
