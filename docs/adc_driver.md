@@ -2,7 +2,7 @@
 
 QMK can leverage the Analog-to-Digital Converter (ADC) on supported MCUs to measure voltages on certain pins. This can be useful for implementing things such as battery level indicators for Bluetooth keyboards, or volume controls using a potentiometer, as opposed to a [rotary encoder](feature_encoders.md).
 
-This driver currently supports both AVR and a limited selection of ARM devices. On AVR devices, the values returned are 10-bit integers (0-1023) mapped between 0V and VCC (usually 5V or 3.3V). On supported ARM devices, there is more flexibility in control of operation through `#define`s, but by default the values returned are 12-bit integers (0-4095) mapped between 0V and VCC (usually 3.3V).
+This driver currently supports both AVR and a limited selection of ARM devices. On AVR devices, the values returned are 10-bit integers (0-1023) mapped between 0V and VCC (usually 5V or 3.3V). On supported ARM devices, the values returned are 10-bit integers (0-1023) mapped between 0V and VCC (usually 3.3V), however there is more flexibility in control of operation through `#define`s if you need something like more precision.
 
 ## Usage
 
