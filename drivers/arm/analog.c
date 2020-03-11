@@ -75,6 +75,16 @@
 #    endif
 #endif
 
+// otherwise assume V3
+#if defined(STM32F0XX) || defined(STM32L0XX)
+#    define USE_ADCV1
+#elif defined(STM32F1XX) || defined(STM32F4XX)
+#    define USE_ADCV2
+#endif
+
+// #ifdef USE_ADCV2
+// static 
+
 static ADCConfig   adcCfg = {};
 static adcsample_t sampleBuffer[ADC_NUM_CHANNELS * ADC_BUFFER_DEPTH];
 
@@ -155,11 +165,13 @@ static ADCConversionGroup adcConversionGroup = {
     (uint16_t)(ADC_NUM_CHANNELS),
     NULL,  // No end callback
     NULL,  // No error callback
-#if defined(STM32F0XX)
+#if defined(USE_ADCV1)
     ADC_CFGR1_CONT | ADC_RESOLUTION,
     ADC_TR(0, 0).ADC_SAMPLING_RATE,
     NULL,  // Doesn't specify a default channel
-#elif defined(STM32F3XX)
+#elif defined(USE_ADCV2)
+    // TODO: add config....
+#else
     ADC_CFGR_CONT | ADC_RESOLUTION,
     ADC_TR(0, 4095),
     {
@@ -229,19 +241,24 @@ int16_t analogReadPinAdc(pin_t pin, uint8_t adc) {
 }
 
 int16_t adc_read(adc_mux mux) {
-#if defined(STM32F0XX)
+#if defined(USE_ADCV1)
     adcConversionGroup.sqr = ADC_CHSELR_CHSEL1;
-#elif defined(STM32F3XX)
-    adcConversionGroup.sqr[0] = ADC_SQR1_SQ1_N(mux.input);
 #else
-#    error "adc_read has not been updated to support this ARM microcontroller."
+    adcConversionGroup.sqr[0] = ADC_SQR1_SQ1_N(mux.input);
 #endif
 
     ADCDriver* targetDriver = intToADCDriver(mux.adc);
     manageAdcInitializationDriver(mux.adc, targetDriver);
 
     adcConvert(targetDriver, &adcConversionGroup, &sampleBuffer[0], ADC_BUFFER_DEPTH);
-    adcsample_t* result = sampleBuffer;
+    adcsample_t result = *sampleBuffer;
 
-    return *result;
+#ifdef USE_ADCV2
+    // fake 10 bit scale
+    const int8_t default_bits = 12;
+    int8_t target_bits = 10;
+    result = result >> (default_bits - target_bits)
+#endif
+
+    return result;
 }
