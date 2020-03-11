@@ -14,8 +14,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "analog.h"
 #include "quantum.h"
+#include "analog.h"
+#include "ch.h"
+#include <hal.h>
+
+#if !defined(STM32F0XX) && !defined(STM32F3XX)
+#    error "Only STM23F0 and STM32F3 devices have ADC support in QMK at this time."
+#endif
+
+#if !HAL_USE_ADC
+#    error "You need to set HAL_USE_ADC to TRUE in your halconf.h to use the ADC."
+#endif
+
+#if !STM32_ADC_USE_ADC1 && !STM32_ADC_USE_ADC2 && !STM32_ADC_USE_ADC3 && !STM32_ADC_USE_ADC4
+#    error "You need to set one of the 'STM32_ADC_USE_ADCx' settings to TRUE in your mcuconf.h to use the ADC."
+#endif
+
+#if STM32_ADC_DUAL_MODE
+#    error "STM32 ADC Dual Mode is not supported at this time."
+#endif
+
+#if STM32_ADCV3_OVERSAMPLING
+#    error "STM32 ADCV3 Oversampling is not supported at this time."
+#endif
 
 /* User configurable ADC options */
 #ifndef ADC_CIRCULAR_BUFFER
@@ -39,20 +61,94 @@
 
 // Options are 12, 10, 8, and 6 bit.
 #ifndef ADC_RESOLUTION
-#    define ADC_RESOLUTION ADC_CFGR1_RES_12BIT
+#    define ADC_RESOLUTION ADC_CFGR1_RES_10BIT
+#endif
+
+#ifndef ADC_COUNT
+#    if defined(STM32F0XX)
+#        define ADC_COUNT 1
+#    elif defined(STM32F3XX)
+#        define ADC_COUNT 4
+#    else
+#        error "ADC_COUNT has not been set for this ARM microcontroller."
+#        define ADC_COUNT 1
+#    endif
 #endif
 
 static ADCConfig   adcCfg = {};
 static adcsample_t sampleBuffer[ADC_NUM_CHANNELS * ADC_BUFFER_DEPTH];
 
 // Initialize to max number of ADCs, set to empty object to initialize all to false.
+static bool adcInitialized[ADC_COUNT] = {};
+
+typedef struct {
+    pin_t   pin;
+    adc_mux mux;
+} pin_to_mux;
+
+__attribute__((weak)) const pin_to_mux pin_to_mux_lookup[] = {
+// clang-format off
 #if defined(STM32F0XX)
-static bool adcInitialized[1] = {};
+    A0,  TO_MUX( ADC_CHANNEL_IN0,  0 ),
+    A1,  TO_MUX( ADC_CHANNEL_IN1,  0 ),
+    A2,  TO_MUX( ADC_CHANNEL_IN2,  0 ),
+    A3,  TO_MUX( ADC_CHANNEL_IN3,  0 ),
+    A4,  TO_MUX( ADC_CHANNEL_IN4,  0 ),
+    A5,  TO_MUX( ADC_CHANNEL_IN5,  0 ),
+    A6,  TO_MUX( ADC_CHANNEL_IN6,  0 ),
+    A7,  TO_MUX( ADC_CHANNEL_IN7,  0 ),
+    B0,  TO_MUX( ADC_CHANNEL_IN8,  0 ),
+    B1,  TO_MUX( ADC_CHANNEL_IN9,  0 ),
+    C0,  TO_MUX( ADC_CHANNEL_IN10, 0 ),
+    C1,  TO_MUX( ADC_CHANNEL_IN11, 0 ),
+    C2,  TO_MUX( ADC_CHANNEL_IN12, 0 ),
+    C3,  TO_MUX( ADC_CHANNEL_IN13, 0 ),
+    C4,  TO_MUX( ADC_CHANNEL_IN14, 0 ),
+    C5,  TO_MUX( ADC_CHANNEL_IN15, 0 ),
 #elif defined(STM32F3XX)
-static bool adcInitialized[4] = {};
-#else
-#    error "adcInitialized has not been implemented for this ARM microcontroller."
+    A0,  TO_MUX( ADC_CHANNEL_IN1,  0 ),
+    A1,  TO_MUX( ADC_CHANNEL_IN2,  0 ),
+    A2,  TO_MUX( ADC_CHANNEL_IN3,  0 ),
+    A3,  TO_MUX( ADC_CHANNEL_IN4,  0 ),
+    A4,  TO_MUX( ADC_CHANNEL_IN1,  1 ),
+    A5,  TO_MUX( ADC_CHANNEL_IN2,  1 ),
+    A6,  TO_MUX( ADC_CHANNEL_IN3,  1 ),
+    A7,  TO_MUX( ADC_CHANNEL_IN4,  1 ),
+    B0,  TO_MUX( ADC_CHANNEL_IN12, 2 ),
+    B1,  TO_MUX( ADC_CHANNEL_IN1,  2 ),
+    B2,  TO_MUX( ADC_CHANNEL_IN12, 1 ),
+    B12, TO_MUX( ADC_CHANNEL_IN2,  3 ),
+    B13, TO_MUX( ADC_CHANNEL_IN3,  3 ),
+    B14, TO_MUX( ADC_CHANNEL_IN4,  3 ),
+    B15, TO_MUX( ADC_CHANNEL_IN5,  3 ),
+    C0,  TO_MUX( ADC_CHANNEL_IN6,  0 ), // Can also be ADC2
+    C1,  TO_MUX( ADC_CHANNEL_IN7,  0 ), // Can also be ADC2
+    C2,  TO_MUX( ADC_CHANNEL_IN8,  0 ), // Can also be ADC2
+    C3,  TO_MUX( ADC_CHANNEL_IN9,  0 ), // Can also be ADC2
+    C4,  TO_MUX( ADC_CHANNEL_IN5,  1 ),
+    C5,  TO_MUX( ADC_CHANNEL_IN11, 1 ),
+    D8,  TO_MUX( ADC_CHANNEL_IN12, 3 ),
+    D9,  TO_MUX( ADC_CHANNEL_IN13, 3 ),
+    D10, TO_MUX( ADC_CHANNEL_IN7,  2 ), // Can also be ADC4
+    D11, TO_MUX( ADC_CHANNEL_IN8,  2 ), // Can also be ADC4
+    D12, TO_MUX( ADC_CHANNEL_IN9,  2 ), // Can also be ADC4
+    D13, TO_MUX( ADC_CHANNEL_IN10, 2 ), // Can also be ADC4
+    D14, TO_MUX( ADC_CHANNEL_IN11, 2 ), // Can also be ADC4
+    E7,  TO_MUX( ADC_CHANNEL_IN13, 2 ),
+    E8,  TO_MUX( ADC_CHANNEL_IN6,  2 ), // Can also be ADC4
+    E9,  TO_MUX( ADC_CHANNEL_IN2,  2 ),
+    E10, TO_MUX( ADC_CHANNEL_IN14, 2 ),
+    E11, TO_MUX( ADC_CHANNEL_IN15, 2 ),
+    E12, TO_MUX( ADC_CHANNEL_IN16, 2 ),
+    E13, TO_MUX( ADC_CHANNEL_IN3,  2 ),
+    E14, TO_MUX( ADC_CHANNEL_IN1,  3 ),
+    E15, TO_MUX( ADC_CHANNEL_IN2,  3 ),
+    F2,  TO_MUX( ADC_CHANNEL_IN10, 0 ), // Can also be ADC2
+    F4,  TO_MUX( ADC_CHANNEL_IN5,  0 ),
 #endif
+    // clang-format on
+};
+#define pin_to_mux_lookup_len (sizeof(pin_to_mux_lookup) / sizeof(pin_to_mux_lookup[0]))
 
 static ADCConversionGroup adcConversionGroup = {
     ADC_CIRCULAR_BUFFER,
@@ -112,87 +208,31 @@ static inline void manageAdcInitializationDriver(uint8_t adc, ADCDriver* adcDriv
 
 static inline void manageAdcInitialization(uint8_t adc) { manageAdcInitializationDriver(adc, intToADCDriver(adc)); }
 
-pin_and_adc pinToMux(pin_t pin) {
-    switch (pin) {
-        // clang-format off
-#if defined(STM32F0XX)
-        case A0:  return (pin_and_adc){ ADC_CHANNEL_IN0,  0 };
-        case A1:  return (pin_and_adc){ ADC_CHANNEL_IN1,  0 };
-        case A2:  return (pin_and_adc){ ADC_CHANNEL_IN2,  0 };
-        case A3:  return (pin_and_adc){ ADC_CHANNEL_IN3,  0 };
-        case A4:  return (pin_and_adc){ ADC_CHANNEL_IN4,  0 };
-        case A5:  return (pin_and_adc){ ADC_CHANNEL_IN5,  0 };
-        case A6:  return (pin_and_adc){ ADC_CHANNEL_IN6,  0 };
-        case A7:  return (pin_and_adc){ ADC_CHANNEL_IN7,  0 };
-        case B0:  return (pin_and_adc){ ADC_CHANNEL_IN8,  0 };
-        case B1:  return (pin_and_adc){ ADC_CHANNEL_IN9,  0 };
-        case C0:  return (pin_and_adc){ ADC_CHANNEL_IN10, 0 };
-        case C1:  return (pin_and_adc){ ADC_CHANNEL_IN11, 0 };
-        case C2:  return (pin_and_adc){ ADC_CHANNEL_IN12, 0 };
-        case C3:  return (pin_and_adc){ ADC_CHANNEL_IN13, 0 };
-        case C4:  return (pin_and_adc){ ADC_CHANNEL_IN14, 0 };
-        case C5:  return (pin_and_adc){ ADC_CHANNEL_IN15, 0 };
-#elif defined(STM32F3XX)
-        case A0:  return (pin_and_adc){ ADC_CHANNEL_IN1,  0 };
-        case A1:  return (pin_and_adc){ ADC_CHANNEL_IN2,  0 };
-        case A2:  return (pin_and_adc){ ADC_CHANNEL_IN3,  0 };
-        case A3:  return (pin_and_adc){ ADC_CHANNEL_IN4,  0 };
-        case A4:  return (pin_and_adc){ ADC_CHANNEL_IN1,  1 };
-        case A5:  return (pin_and_adc){ ADC_CHANNEL_IN2,  1 };
-        case A6:  return (pin_and_adc){ ADC_CHANNEL_IN3,  1 };
-        case A7:  return (pin_and_adc){ ADC_CHANNEL_IN4,  1 };
-        case B0:  return (pin_and_adc){ ADC_CHANNEL_IN12, 2 };
-        case B1:  return (pin_and_adc){ ADC_CHANNEL_IN1,  2 };
-        case B2:  return (pin_and_adc){ ADC_CHANNEL_IN12, 1 };
-        case B12: return (pin_and_adc){ ADC_CHANNEL_IN2,  3 };
-        case B13: return (pin_and_adc){ ADC_CHANNEL_IN3,  3 };
-        case B14: return (pin_and_adc){ ADC_CHANNEL_IN4,  3 };
-        case B15: return (pin_and_adc){ ADC_CHANNEL_IN5,  3 };
-        case C0:  return (pin_and_adc){ ADC_CHANNEL_IN6,  0 }; // Can also be ADC2
-        case C1:  return (pin_and_adc){ ADC_CHANNEL_IN7,  0 }; // Can also be ADC2
-        case C2:  return (pin_and_adc){ ADC_CHANNEL_IN8,  0 }; // Can also be ADC2
-        case C3:  return (pin_and_adc){ ADC_CHANNEL_IN9,  0 }; // Can also be ADC2
-        case C4:  return (pin_and_adc){ ADC_CHANNEL_IN5,  1 };
-        case C5:  return (pin_and_adc){ ADC_CHANNEL_IN11, 1 };
-        case D8:  return (pin_and_adc){ ADC_CHANNEL_IN12, 3 };
-        case D9:  return (pin_and_adc){ ADC_CHANNEL_IN13, 3 };
-        case D10: return (pin_and_adc){ ADC_CHANNEL_IN7,  2 }; // Can also be ADC4
-        case D11: return (pin_and_adc){ ADC_CHANNEL_IN8,  2 }; // Can also be ADC4
-        case D12: return (pin_and_adc){ ADC_CHANNEL_IN9,  2 }; // Can also be ADC4
-        case D13: return (pin_and_adc){ ADC_CHANNEL_IN10, 2 }; // Can also be ADC4
-        case D14: return (pin_and_adc){ ADC_CHANNEL_IN11, 2 }; // Can also be ADC4
-        case E7:  return (pin_and_adc){ ADC_CHANNEL_IN13, 2 };
-        case E8:  return (pin_and_adc){ ADC_CHANNEL_IN6,  2 }; // Can also be ADC4
-        case E9:  return (pin_and_adc){ ADC_CHANNEL_IN2,  2 };
-        case E10: return (pin_and_adc){ ADC_CHANNEL_IN14, 2 };
-        case E11: return (pin_and_adc){ ADC_CHANNEL_IN15, 2 };
-        case E12: return (pin_and_adc){ ADC_CHANNEL_IN16, 2 };
-        case E13: return (pin_and_adc){ ADC_CHANNEL_IN3,  2 };
-        case E14: return (pin_and_adc){ ADC_CHANNEL_IN1,  3 };
-        case E15: return (pin_and_adc){ ADC_CHANNEL_IN2,  3 };
-        case F2:  return (pin_and_adc){ ADC_CHANNEL_IN10, 0 }; // Can also be ADC2
-        case F4:  return (pin_and_adc){ ADC_CHANNEL_IN5,  0 };
-#else
-#error "An ADC pin-to-mux configuration has not been specified for this microcontroller."
-#endif
-        default:  return (pin_and_adc){ 0, 0 };
-            // clang-format on
+adc_mux pinToMux(pin_t pin) {
+    for (uint8_t index = 0; index < pin_to_mux_lookup_len; index++) {
+        const pin_to_mux cur = pin_to_mux_lookup[index];
+        if (cur.pin == pin) {
+            return cur.mux;
+        }
     }
+
+    // TODO: better error case
+    return TO_MUX(0, 0);
 }
 
-adcsample_t analogReadPin(pin_t pin) { return adc_read(pinToMux(pin)); }
+int16_t analogReadPin(pin_t pin) { return adc_read(pinToMux(pin)); }
 
-adcsample_t analogReadPinAdc(pin_t pin, uint8_t adc) {
-    pin_and_adc target = pinToMux(pin);
-    target.adc         = adc;
+int16_t analogReadPinAdc(pin_t pin, uint8_t adc) {
+    adc_mux target = pinToMux(pin);
+    target.adc     = adc;
     return adc_read(target);
 }
 
-adcsample_t adc_read(pin_and_adc mux) {
+int16_t adc_read(adc_mux mux) {
 #if defined(STM32F0XX)
     adcConversionGroup.sqr = ADC_CHSELR_CHSEL1;
 #elif defined(STM32F3XX)
-    adcConversionGroup.sqr[0] = ADC_SQR1_SQ1_N(mux.pin);
+    adcConversionGroup.sqr[0] = ADC_SQR1_SQ1_N(mux.input);
 #else
 #    error "adc_read has not been updated to support this ARM microcontroller."
 #endif
