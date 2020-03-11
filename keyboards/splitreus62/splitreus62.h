@@ -2,15 +2,6 @@
 
 #include "quantum.h"
 
-#ifdef USE_I2C
-#include <stddef.h>
-#ifdef __AVR__
-    #include <avr/io.h>
-    #include <avr/interrupt.h>
-#endif
-#endif
-
-
 #define LAYOUT(\
     L00, L01, L02, L03, L04, L05,                       R05, R04, R03, R02, R01, R00, \
     L10, L11, L12, L13, L14, L15,                       R15, R14, R13, R12, R11, R10, \
