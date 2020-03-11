@@ -20,35 +20,32 @@
 #include "ch.h"
 #include <hal.h>
 
-
 #if !defined(STM32F0XX) && !defined(STM32F3XX)
-#error "Only STM23F0 and STM32F3 devices have ADC support in QMK at this time."
+#    error "Only STM23F0 and STM32F3 devices have ADC support in QMK at this time."
 #endif
 
 #if !HAL_USE_ADC
-#error "You need to set HAL_USE_ADC to TRUE in your halconf.h to use the ADC."
+#    error "You need to set HAL_USE_ADC to TRUE in your halconf.h to use the ADC."
 #endif
 
 #if !STM32_ADC_USE_ADC1 && !STM32_ADC_USE_ADC2 && !STM32_ADC_USE_ADC3 && !STM32_ADC_USE_ADC4
-#error "You need to set one of the 'STM32_ADC_USE_ADCx' settings to TRUE in your mcuconf.h to use the ADC."
+#    error "You need to set one of the 'STM32_ADC_USE_ADCx' settings to TRUE in your mcuconf.h to use the ADC."
 #endif
 
 #if STM32_ADC_DUAL_MODE
-#error "STM32 ADC Dual Mode is not supported at this time."
+#    error "STM32 ADC Dual Mode is not supported at this time."
 #endif
 
 #if STM32_ADCV3_OVERSAMPLING
-#error "STM32 ADCV3 Oversampling is not supported at this time."
+#    error "STM32 ADCV3 Oversampling is not supported at this time."
 #endif
 
-
-
 typedef struct {
-    pin_t pin;
+    pin_t   pin;
     uint8_t adc;
 } pin_and_adc;
-#define PIN_AND_ADC(p,a) (pin_and_adc){p,a}
-
+#define PIN_AND_ADC(p, a) \
+    (pin_and_adc) { p, a }
 
 // analogReference has been left un-defined for ARM devices.
 // void analogReference(uint8_t mode);

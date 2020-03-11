@@ -17,35 +17,32 @@
 #include "analog.h"
 #include "quantum.h"
 
-
 /* User configurable ADC options */
 #ifndef ADC_CIRCULAR_BUFFER
-#define ADC_CIRCULAR_BUFFER FALSE
+#    define ADC_CIRCULAR_BUFFER FALSE
 #endif
 
 #ifndef ADC_NUM_CHANNELS
-#define ADC_NUM_CHANNELS 1
+#    define ADC_NUM_CHANNELS 1
 #elif ADC_NUM_CHANNELS != 1
-#error "The ARM ADC implementation currently only supports reading one channel at a time."
+#    error "The ARM ADC implementation currently only supports reading one channel at a time."
 #endif
 
 #ifndef ADC_BUFFER_DEPTH
-#define ADC_BUFFER_DEPTH 2
+#    define ADC_BUFFER_DEPTH 2
 #endif
 
 // For more sampling rate options, look at hal_adc_lld.h in ChibiOS
 #ifndef ADC_SAMPLING_RATE
-#define ADC_SAMPLING_RATE ADC_SMPR_SMP_1P5
+#    define ADC_SAMPLING_RATE ADC_SMPR_SMP_1P5
 #endif
 
 // Options are 12, 10, 8, and 6 bit.
 #ifndef ADC_RESOLUTION
-#define ADC_RESOLUTION ADC_CFGR1_RES_12BIT
+#    define ADC_RESOLUTION ADC_CFGR1_RES_12BIT
 #endif
 
-
-
-static ADCConfig adcCfg = {};
+static ADCConfig   adcCfg = {};
 static adcsample_t sampleBuffer[ADC_NUM_CHANNELS * ADC_BUFFER_DEPTH];
 
 // Initialize to max number of ADCs, set to empty object to initialize all to false.
@@ -54,21 +51,18 @@ static bool adcInitialized[1] = {};
 #elif defined(STM32F3XX)
 static bool adcInitialized[4] = {};
 #else
-#error "adcInitialized has not been implemented for this ARM microcontroller."
+#    error "adcInitialized has not been implemented for this ARM microcontroller."
 #endif
-
-
 
 static ADCConversionGroup adcConversionGroup = {
     ADC_CIRCULAR_BUFFER,
     (uint16_t)(ADC_NUM_CHANNELS),
-    NULL, // No end callback
-    NULL, // No error callback
+    NULL,  // No end callback
+    NULL,  // No error callback
 #if defined(STM32F0XX)
     ADC_CFGR1_CONT | ADC_RESOLUTION,
-    ADC_TR(0, 0).
-    ADC_SAMPLING_RATE,
-    NULL, // Doesn't specify a default channel
+    ADC_TR(0, 0).ADC_SAMPLING_RATE,
+    NULL,  // Doesn't specify a default channel
 #elif defined(STM32F3XX)
     ADC_CFGR_CONT | ADC_RESOLUTION,
     ADC_TR(0, 4095),
@@ -77,7 +71,7 @@ static ADCConversionGroup adcConversionGroup = {
         ADC_SAMPLING_RATE,
     },
     {
-        0, // Doesn't specify a default channel
+        0,  // Doesn't specify a default channel
         0,
         0,
         0,
@@ -85,10 +79,7 @@ static ADCConversionGroup adcConversionGroup = {
 #endif
 };
 
-
-
 static inline ADCDriver* intToADCDriver(uint8_t adcInt) {
-
     ADCDriver* target;
 
     switch (adcInt) {
@@ -106,7 +97,7 @@ static inline ADCDriver* intToADCDriver(uint8_t adcInt) {
         case 3: target = &ADCD4; break;
 #endif
         default: target = NULL; break;
-        // clang-format on
+            // clang-format on
     }
 
     return target;
@@ -119,12 +110,10 @@ static inline void manageAdcInitializationDriver(uint8_t adc, ADCDriver* adcDriv
     }
 }
 
-static inline void manageAdcInitialization(uint8_t adc) {
-    manageAdcInitializationDriver(adc, intToADCDriver(adc));
-}
+static inline void manageAdcInitialization(uint8_t adc) { manageAdcInitializationDriver(adc, intToADCDriver(adc)); }
 
 pin_and_adc pinToMux(pin_t pin) {
-    switch(pin) {
+    switch (pin) {
         // clang-format off
 #if defined(STM32F0XX)
         case A0:  return (pin_and_adc){ ADC_CHANNEL_IN0,  0 };
@@ -187,17 +176,15 @@ pin_and_adc pinToMux(pin_t pin) {
 #error "An ADC pin-to-mux configuration has not been specified for this microcontroller."
 #endif
         default:  return (pin_and_adc){ 0, 0 };
-        // clang-format on
+            // clang-format on
     }
 }
 
-adcsample_t analogReadPin(pin_t pin) {
-    return adc_read(pinToMux(pin));
-}
+adcsample_t analogReadPin(pin_t pin) { return adc_read(pinToMux(pin)); }
 
 adcsample_t analogReadPinAdc(pin_t pin, uint8_t adc) {
     pin_and_adc target = pinToMux(pin);
-    target.adc = adc;
+    target.adc         = adc;
     return adc_read(target);
 }
 
@@ -207,7 +194,7 @@ adcsample_t adc_read(pin_and_adc mux) {
 #elif defined(STM32F3XX)
     adcConversionGroup.sqr[0] = ADC_SQR1_SQ1_N(mux.pin);
 #else
-#error "adc_read has not been updated to support this ARM microcontroller."
+#    error "adc_read has not been updated to support this ARM microcontroller."
 #endif
 
     ADCDriver* targetDriver = intToADCDriver(mux.adc);
