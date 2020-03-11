@@ -19,9 +19,9 @@
 #include "ch.h"
 #include <hal.h>
 
-#if !defined(STM32F0XX) && !defined(STM32F3XX)
-#    error "Only STM23F0 and STM32F3 devices have ADC support in QMK at this time."
-#endif
+// #if !defined(STM32F0XX) && !defined(STM32F3XX)
+// #    error "Only STM23F0 and STM32F3 devices have ADC support in QMK at this time."
+// #endif
 
 #if !HAL_USE_ADC
 #    error "You need to set HAL_USE_ADC to TRUE in your halconf.h to use the ADC."
@@ -54,6 +54,41 @@
 #    define ADC_BUFFER_DEPTH 2
 #endif
 
+// otherwise assume V3
+#if defined(STM32F0XX) || defined(STM32L0XX)
+#    define USE_ADCV1
+#elif defined(STM32F1XX) || defined(STM32F4XX)
+#    define USE_ADCV2
+#endif
+
+#ifndef ADC_COUNT
+#    if defined(STM32F0XX) || defined(STM32F1XX) || defined(STM32F4XX)
+#        define ADC_COUNT 1
+#    elif defined(STM32F3XX)
+#        define ADC_COUNT 4
+#    else
+#        error "ADC_COUNT has not been set for this ARM microcontroller."
+#    endif
+#endif
+
+// BODGE to make v2 look like v1,3 and 4
+#ifdef USE_ADCV2
+#define ADC_SMPR_SMP_1P5        ADC_SAMPLE_3
+#define ADC_SMPR_SMP_7P5        ADC_SAMPLE_15
+#define ADC_SMPR_SMP_13P5       ADC_SAMPLE_28
+#define ADC_SMPR_SMP_28P5       ADC_SAMPLE_56
+#define ADC_SMPR_SMP_41P5       ADC_SAMPLE_84
+#define ADC_SMPR_SMP_55P5       ADC_SAMPLE_112
+#define ADC_SMPR_SMP_71P5       ADC_SAMPLE_144
+#define ADC_SMPR_SMP_239P5      ADC_SAMPLE_480
+
+// we still sample at 12bit, but scale down to the requested bit range
+#define ADC_CFGR1_RES_12BIT     12
+#define ADC_CFGR1_RES_10BIT     10
+#define ADC_CFGR1_RES_8BIT      8
+#define ADC_CFGR1_RES_6BIT      6
+#endif
+
 // For more sampling rate options, look at hal_adc_lld.h in ChibiOS
 #ifndef ADC_SAMPLING_RATE
 #    define ADC_SAMPLING_RATE ADC_SMPR_SMP_1P5
@@ -62,24 +97,6 @@
 // Options are 12, 10, 8, and 6 bit.
 #ifndef ADC_RESOLUTION
 #    define ADC_RESOLUTION ADC_CFGR1_RES_10BIT
-#endif
-
-#ifndef ADC_COUNT
-#    if defined(STM32F0XX)
-#        define ADC_COUNT 1
-#    elif defined(STM32F3XX)
-#        define ADC_COUNT 4
-#    else
-#        error "ADC_COUNT has not been set for this ARM microcontroller."
-#        define ADC_COUNT 1
-#    endif
-#endif
-
-// otherwise assume V3
-#if defined(STM32F0XX) || defined(STM32L0XX)
-#    define USE_ADCV1
-#elif defined(STM32F1XX) || defined(STM32F4XX)
-#    define USE_ADCV2
 #endif
 
 // #ifdef USE_ADCV2
@@ -155,6 +172,10 @@ __attribute__((weak)) const pin_to_mux pin_to_mux_lookup[] = {
     E15, TO_MUX( ADC_CHANNEL_IN2,  3 ),
     F2,  TO_MUX( ADC_CHANNEL_IN10, 0 ), // Can also be ADC2
     F4,  TO_MUX( ADC_CHANNEL_IN5,  0 ),
+#elif defined(STM32F4XX) // TODO: add all pins
+    A0,  TO_MUX( ADC_CHANNEL_IN0,  0 ),
+#elif defined(STM32F1XX) // TODO: add all pins
+    A0,  TO_MUX( ADC_CHANNEL_IN0,  0 ),
 #endif
     // clang-format on
 };
@@ -167,16 +188,18 @@ static ADCConversionGroup adcConversionGroup = {
     NULL,  // No error callback
 #if defined(USE_ADCV1)
     ADC_CFGR1_CONT | ADC_RESOLUTION,
-    ADC_TR(0, 0).ADC_SAMPLING_RATE,
+    ADC_TR(0, 0),
+    0/*ADC_SAMPLING_RATE*/,
     NULL,  // Doesn't specify a default channel
 #elif defined(USE_ADCV2)
-    // TODO: add config....
+    0, 0, // TR
+    
 #else
     ADC_CFGR_CONT | ADC_RESOLUTION,
-    ADC_TR(0, 4095),
+    ADC_TR(0, 0),
     {
-        ADC_SAMPLING_RATE,
-        ADC_SAMPLING_RATE,
+        0/*ADC_SAMPLING_RATE*/,
+        0/*ADC_SAMPLING_RATE*/,
     },
     {
         0,  // Doesn't specify a default channel
@@ -255,9 +278,7 @@ int16_t adc_read(adc_mux mux) {
 
 #ifdef USE_ADCV2
     // fake 10 bit scale
-    const int8_t default_bits = 12;
-    int8_t target_bits = 10;
-    result = result >> (default_bits - target_bits)
+    result = result >> (12 - ADC_RESOLUTION)
 #endif
 
     return result;
