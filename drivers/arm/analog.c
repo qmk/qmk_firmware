@@ -51,7 +51,7 @@
 #endif
 
 #ifndef ADC_BUFFER_DEPTH
-#    define ADC_BUFFER_DEPTH 2
+#    define ADC_BUFFER_DEPTH 8
 #endif
 
 // otherwise assume V3
@@ -73,14 +73,14 @@
 
 // BODGE to make v2 look like v1,3 and 4
 #ifdef USE_ADCV2
-#define ADC_SMPR_SMP_1P5        ADC_SAMPLE_3
-#define ADC_SMPR_SMP_7P5        ADC_SAMPLE_15
-#define ADC_SMPR_SMP_13P5       ADC_SAMPLE_28
-#define ADC_SMPR_SMP_28P5       ADC_SAMPLE_56
-#define ADC_SMPR_SMP_41P5       ADC_SAMPLE_84
-#define ADC_SMPR_SMP_55P5       ADC_SAMPLE_112
-#define ADC_SMPR_SMP_71P5       ADC_SAMPLE_144
-#define ADC_SMPR_SMP_239P5      ADC_SAMPLE_480
+// #define ADC_SMPR_SMP_1P5        ADC_SAMPLE_3
+// #define ADC_SMPR_SMP_7P5        ADC_SAMPLE_15
+// #define ADC_SMPR_SMP_13P5       ADC_SAMPLE_28
+// #define ADC_SMPR_SMP_28P5       ADC_SAMPLE_56
+// #define ADC_SMPR_SMP_41P5       ADC_SAMPLE_84
+// #define ADC_SMPR_SMP_55P5       ADC_SAMPLE_112
+// #define ADC_SMPR_SMP_71P5       ADC_SAMPLE_144
+// #define ADC_SMPR_SMP_239P5      ADC_SAMPLE_480
 
 // we still sample at 12bit, but scale down to the requested bit range
 #define ADC_CFGR1_RES_12BIT     12
@@ -191,9 +191,23 @@ static ADCConversionGroup adcConversionGroup = {
     ADC_TR(0, 0),
     0/*ADC_SAMPLING_RATE*/,
     NULL,  // Doesn't specify a default channel
+#elif defined(STM32F1XX)
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
 #elif defined(USE_ADCV2)
+    0,
+    ADC_CR2_SWSTART,
+    0,
+    ADC_SMPR2_SMP_AN0(ADC_SAMPLE_3),
     0, 0, // TR
-    
+    0,
+    0,
+    0,
 #else
     ADC_CFGR_CONT | ADC_RESOLUTION,
     ADC_TR(0, 0),
@@ -236,26 +250,34 @@ static inline ADCDriver* intToADCDriver(uint8_t adcInt) {
 
 static inline void manageAdcInitializationDriver(uint8_t adc, ADCDriver* adcDriver) {
     if (!adcInitialized[adc]) {
+        printf("before adcstart\n");
         adcStart(adcDriver, &adcCfg);
+        printf("after adcstart\n");
         adcInitialized[adc] = true;
     }
 }
 
-static inline void manageAdcInitialization(uint8_t adc) { manageAdcInitializationDriver(adc, intToADCDriver(adc)); }
+//static inline void manageAdcInitialization(uint8_t adc) { manageAdcInitializationDriver(adc, intToADCDriver(adc)); }
 
 adc_mux pinToMux(pin_t pin) {
     for (uint8_t index = 0; index < pin_to_mux_lookup_len; index++) {
         const pin_to_mux cur = pin_to_mux_lookup[index];
         if (cur.pin == pin) {
+            printf("found pin!!\n");
             return cur.mux;
         }
     }
 
     // TODO: better error case
+    printf("failed to find pin...\n");
     return TO_MUX(0, 0);
 }
 
-int16_t analogReadPin(pin_t pin) { return adc_read(pinToMux(pin)); }
+int16_t analogReadPin(pin_t pin) {
+    //palSetGroupMode(GPIOA, PAL_PORT_BIT(0) | PAL_PORT_BIT(1), 0, PAL_MODE_INPUT_ANALOG);
+
+    return adc_read(pinToMux(pin));
+}
 
 int16_t analogReadPinAdc(pin_t pin, uint8_t adc) {
     adc_mux target = pinToMux(pin);
@@ -266,6 +288,8 @@ int16_t analogReadPinAdc(pin_t pin, uint8_t adc) {
 int16_t adc_read(adc_mux mux) {
 #if defined(USE_ADCV1)
     adcConversionGroup.sqr = ADC_CHSELR_CHSEL1;
+#elif defined(USE_ADCV2)
+    adcConversionGroup.sqr3 = ADC_SQR3_SQ1_N(mux.input);
 #else
     adcConversionGroup.sqr[0] = ADC_SQR1_SQ1_N(mux.input);
 #endif
@@ -273,13 +297,19 @@ int16_t adc_read(adc_mux mux) {
     ADCDriver* targetDriver = intToADCDriver(mux.adc);
     manageAdcInitializationDriver(mux.adc, targetDriver);
 
-    adcConvert(targetDriver, &adcConversionGroup, &sampleBuffer[0], ADC_BUFFER_DEPTH);
+printf("before adcConvert\n");
+    if(adcConvert(targetDriver, &adcConversionGroup, &sampleBuffer[0], ADC_BUFFER_DEPTH) != MSG_OK)
+        return -1;
+
     adcsample_t result = *sampleBuffer;
+printf("after ret convert\n");
 
 #ifdef USE_ADCV2
-    // fake 10 bit scale
-    result = result >> (12 - ADC_RESOLUTION)
+    // fake 12-bit -> N-bit scale
+    result = result >> (12 - ADC_RESOLUTION);
 #endif
+
+printf("before return\n");
 
     return result;
 }
