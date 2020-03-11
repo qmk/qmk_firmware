@@ -13,18 +13,18 @@ more details on the principles that went into the layout.
 
 ## Lower layer
 
-![Lower layer layout](https://i.imgur.com/v4DjXM6.png)
+![Lower layer layout](https://i.imgur.com/rDlSmrA.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/c3fba5eaa2cd70fdfbdbc0f9e34d3bc0))
 
 ## Raise layer
 
-![Raise layer layout](https://i.imgur.com/Wr6Ptyy.png)
+![Raise layer layout](https://i.imgur.com/cVoKygg.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/08b44355d4ca85d294bad9e2821f91d7))
 
 ## Adjust layer
 
-![Adjust layer layout](https://i.imgur.com/9OtGLCT.png)
+![Adjust layer layout](https://i.imgur.com/LEHM4DU.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/77e7572e077b36a23eb2086017e16fee))

@@ -32,9 +32,8 @@
 #include "sendchar.h"
 #include "debug.h"
 #include "printf.h"
-#include "rgblight_reconfig.h"
 
-#if (defined(RGB_MIDI) || defined(RGBLIGHT_ANIMATIONS)) && defined(RGBLIGHT_ENABLE)
+#if defined(RGBLIGHT_ENABLE)
 #    include "rgblight.h"
 #endif
 #ifdef SLEEP_LED_ENABLE
@@ -80,6 +79,9 @@ void raw_hid_task(void);
 
 #ifdef CONSOLE_ENABLE
 void console_task(void);
+#endif
+#ifdef MIDI_ENABLE
+void midi_ep_task(void);
 #endif
 
 /* TESTING
@@ -213,6 +215,9 @@ int main(void) {
         keyboard_task();
 #ifdef CONSOLE_ENABLE
         console_task();
+#endif
+#ifdef MIDI_ENABLE
+        midi_ep_task();
 #endif
 #ifdef VIRTSER_ENABLE
         virtser_task();

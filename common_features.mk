@@ -159,7 +159,6 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/color.c
     SRC += $(QUANTUM_DIR)/rgblight.c
     CIE1931_CURVE := yes
-    LED_BREATHING_TABLE := yes
     RGB_KEYCODES_ENABLE := yes
     ifeq ($(strip $(RGBLIGHT_CUSTOM_DRIVER)), yes)
         OPT_DEFS += -DRGBLIGHT_CUSTOM_DRIVER
@@ -175,7 +174,9 @@ ifneq ($(strip $(LED_MATRIX_ENABLE)), no)
     ifeq ($(filter $(LED_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
         $(error LED_MATRIX_ENABLE="$(LED_MATRIX_ENABLE)" is not a valid matrix type)
     else
-        OPT_DEFS += -DLED_MATRIX_ENABLE -DBACKLIGHT_ENABLE -DBACKLIGHT_CUSTOM_DRIVER
+        BACKLIGHT_ENABLE = yes
+        BACKLIGHT_DRIVER = custom
+        OPT_DEFS += -DLED_MATRIX_ENABLE
         SRC += $(QUANTUM_DIR)/led_matrix.c
         SRC += $(QUANTUM_DIR)/led_matrix_drivers.c
     endif
@@ -300,23 +301,23 @@ ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
         $(error BACKLIGHT_DRIVER="$(BACKLIGHT_DRIVER)" is not a valid backlight type)
     endif
 
-    ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
-        CIE1931_CURVE := yes
-    endif
-
     COMMON_VPATH += $(QUANTUM_DIR)/backlight
     SRC += $(QUANTUM_DIR)/backlight/backlight.c
+    SRC += $(QUANTUM_DIR)/process_keycode/process_backlight.c
     OPT_DEFS += -DBACKLIGHT_ENABLE
 
     ifeq ($(strip $(BACKLIGHT_DRIVER)), custom)
         OPT_DEFS += -DBACKLIGHT_CUSTOM_DRIVER
-    else ifeq ($(strip $(BACKLIGHT_DRIVER)), software)
-        SRC += $(QUANTUM_DIR)/backlight/backlight_soft.c
     else
-        ifeq ($(PLATFORM),AVR)
-            SRC += $(QUANTUM_DIR)/backlight/backlight_avr.c
+        SRC += $(QUANTUM_DIR)/backlight/backlight_driver_common.c
+        ifeq ($(strip $(BACKLIGHT_DRIVER)), pwm)
+            ifeq ($(PLATFORM),AVR)
+                SRC += $(QUANTUM_DIR)/backlight/backlight_avr.c
+            else
+                SRC += $(QUANTUM_DIR)/backlight/backlight_arm.c
+            endif
         else
-            SRC += $(QUANTUM_DIR)/backlight/backlight_arm.c
+            SRC += $(QUANTUM_DIR)/backlight/backlight_$(strip $(BACKLIGHT_DRIVER)).c
         endif
     endif
 endif
@@ -343,13 +344,12 @@ ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
     endif
 endif
 
-ifeq ($(strip $(CIE1931_CURVE)), yes)
-    OPT_DEFS += -DUSE_CIE1931_CURVE
-    LED_TABLES := yes
+ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
+    CIE1931_CURVE := yes
 endif
 
-ifeq ($(strip $(LED_BREATHING_TABLE)), yes)
-    OPT_DEFS += -DUSE_LED_BREATHING_TABLE
+ifeq ($(strip $(CIE1931_CURVE)), yes)
+    OPT_DEFS += -DUSE_CIE1931_CURVE
     LED_TABLES := yes
 endif
 
@@ -418,6 +418,12 @@ ifeq ($(strip $(LEADER_ENABLE)), yes)
   OPT_DEFS += -DLEADER_ENABLE
 endif
 
+
+ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
+  SRC += $(QUANTUM_DIR)/dip_switch.c
+  OPT_DEFS += -DDIP_SWITCH_ENABLE
+endif
+
 include $(DRIVER_PATH)/qwiic/qwiic.mk
 
 QUANTUM_SRC:= \
@@ -469,8 +475,10 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
         QUANTUM_SRC += $(QUANTUM_DIR)/split_common/transport.c
         # Functions added via QUANTUM_LIB_SRC are only included in the final binary if they're called.
         # Unused functions are pruned away, which is why we can add multiple drivers here without bloat.
-        QUANTUM_LIB_SRC += i2c_master.c \
-                           i2c_slave.c
+        ifeq ($(PLATFORM),AVR)
+            QUANTUM_LIB_SRC += i2c_master.c \
+                               i2c_slave.c
+        endif
 
         SERIAL_DRIVER ?= bitbang
         ifeq ($(strip $(SERIAL_DRIVER)), bitbang)
@@ -501,12 +509,13 @@ ifeq ($(strip $(MAGIC_ENABLE)), yes)
     OPT_DEFS += -DMAGIC_KEYCODE_ENABLE
 endif
 
+GRAVE_ESC_ENABLE ?= yes
+ifeq ($(strip $(GRAVE_ESC_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/process_keycode/process_grave_esc.c
+    OPT_DEFS += -DGRAVE_ESC_ENABLE
+endif
+
 ifeq ($(strip $(DYNAMIC_MACRO_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_dynamic_macro.c
     OPT_DEFS += -DDYNAMIC_MACRO_ENABLE
-endif
-
-ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
-  SRC += $(QUANTUM_DIR)/dip_switch.c
-  OPT_DEFS += -DDIP_SWITCH_ENABLE
 endif
