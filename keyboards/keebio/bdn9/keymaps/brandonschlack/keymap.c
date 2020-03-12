@@ -208,7 +208,7 @@ void keyboard_post_init_keymap(void){
  */
 const uint16_t PROGMEM encoders[][2][2] = {
     [_REEDER] = {{ KC_J, KC_K }, { KC_N, KC_P }},
-    [_MEDIA] = {{ KC_VOLU, KC_VOLD }, { KC_MFFD, KC_MRWD }},
+    [_MEDIA] = {{ KC_VOLU, KC_VOLD }, { KC_MNXT, KC_MPRV }},
     [_NAVI] = {{ MC_WH_D, MC_WH_U }, { NXT_TAB, PRV_TAB }},
     [_KARABINER] = {{ KC_PPLS, KC_PMNS }, { KC_PEQL, KC_PDOT }},
     [LR_NAV] = {{ KC_EQL, KC_MINS }, { KC_PGUP, KC_PGDN }},

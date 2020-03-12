@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_FN1] = LAYOUT_tkl_ansi( \
     QM_MAKE,          KC_BRMD, KC_BRMU, MC_MSSN, MC_LHPD, RGB_VAD, RGB_VAI, _______, _______, _______, _______, _______, _______,          _______, _______, KC_MUTE, \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DELT,          KC_MPLY, MC_SLPD, KC_VOLU, \
-    RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_MRWD, KC_MFFD, KC_VOLD, \
+    RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_MPRV, KC_MNXT, KC_VOLD, \
     RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, _______, _______, _______, _______, _______, _______, _______,          _______,                                     \
     _______,          RGB_LYR, RGB_THM, _______, _______, RESET,   _______, _______, _______, _______, _______,          _______,                   KC_PGUP,          \
     _______, _______, _______,                           _______,                             _______, _______, _______, _______,          KC_HOME, KC_PGDN, KC_END   \

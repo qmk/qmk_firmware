@@ -49,8 +49,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_MEDIA] = LAYOUT( \
     KC_MUTE, KC_MPLY, \
-    KC_VOLU, KC_MFFD, \
-    KC_VOLD, KC_MRWD, \
+    KC_VOLU, KC_MNXT, \
+    KC_VOLD, KC_MPRV, \
     TD(TD_SHLD_LGHT), TD(TD_SHLD_ADJT) \
 ),
 

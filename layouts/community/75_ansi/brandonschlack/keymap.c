@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * └────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┴───┘
  */
 [_FN1] = LAYOUT_75_ansi( \
-    QM_MAKE, KC_BRMD, KC_BRMU, MC_MSSN, MC_LHPD, RGB_VAD, RGB_VAI, _______, _______, _______, _______, _______, _______, KC_MRWD, KC_MFFD, KC_MPLY, \
+    QM_MAKE, KC_BRMD, KC_BRMU, MC_MSSN, MC_LHPD, RGB_VAD, RGB_VAI, _______, _______, _______, _______, _______, _______, KC_MPRV, KC_MNXT, KC_MPLY, \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_DELT, MC_SLPD, \
     RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_VOLU, \
     RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, _______, _______, _______, _______, _______, _______, _______,                   _______, KC_VOLD, \
