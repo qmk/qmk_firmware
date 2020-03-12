@@ -23,3 +23,7 @@
 .page_toc code {
     background-color: #555;
 }
+
+.markdown-section hr, .search {
+    border-bottom: 1px solid #777 !important;
+}
