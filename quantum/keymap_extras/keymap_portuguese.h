@@ -112,7 +112,7 @@
 #define PT_RPRN S(PT_9)    // )
 #define PT_EQL  S(PT_0)    // =
 #define PT_QUES S(PT_QUOT) // ?
-#define PT_RADQ S(PT_LADQ) // »
+#define PT_RDAQ S(PT_LDAQ) // »
 // Row 2
 #define PT_ASTR S(PT_PLUS) // *
 #define PT_GRV  S(PT_ACUT) // ` (dead)
