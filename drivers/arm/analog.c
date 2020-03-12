@@ -39,36 +39,11 @@
 #    error "STM32 ADCV3 Oversampling is not supported at this time."
 #endif
 
-/* User configurable ADC options */
-#ifndef ADC_CIRCULAR_BUFFER
-#    define ADC_CIRCULAR_BUFFER FALSE
-#endif
-
-#ifndef ADC_NUM_CHANNELS
-#    define ADC_NUM_CHANNELS 1
-#elif ADC_NUM_CHANNELS != 1
-#    error "The ARM ADC implementation currently only supports reading one channel at a time."
-#endif
-
-#ifndef ADC_BUFFER_DEPTH
-#    define ADC_BUFFER_DEPTH 8
-#endif
-
 // otherwise assume V3
 #if defined(STM32F0XX) || defined(STM32L0XX)
 #    define USE_ADCV1
-#elif defined(STM32F1XX) || defined(STM32F4XX)
+#elif defined(STM32F1XX) || defined(STM32F2XX) || defined(STM32F4XX)
 #    define USE_ADCV2
-#endif
-
-#ifndef ADC_COUNT
-#    if defined(STM32F0XX) || defined(STM32F1XX) || defined(STM32F4XX)
-#        define ADC_COUNT 1
-#    elif defined(STM32F3XX)
-#        define ADC_COUNT 4
-#    else
-#        error "ADC_COUNT has not been set for this ARM microcontroller."
-#    endif
 #endif
 
 // BODGE to make v2 look like v1,3 and 4
@@ -83,10 +58,31 @@
 // #define ADC_SMPR_SMP_239P5      ADC_SAMPLE_480
 
 // we still sample at 12bit, but scale down to the requested bit range
-#define ADC_CFGR1_RES_12BIT     12
-#define ADC_CFGR1_RES_10BIT     10
-#define ADC_CFGR1_RES_8BIT      8
-#define ADC_CFGR1_RES_6BIT      6
+#    define ADC_CFGR1_RES_12BIT 12
+#    define ADC_CFGR1_RES_10BIT 10
+#    define ADC_CFGR1_RES_8BIT 8
+#    define ADC_CFGR1_RES_6BIT 6
+#endif
+
+/* User configurable ADC options */
+#ifndef ADC_COUNT
+#    if defined(STM32F0XX) || defined(STM32F1XX) || defined(STM32F4XX)
+#        define ADC_COUNT 1
+#    elif defined(STM32F3XX)
+#        define ADC_COUNT 4
+#    else
+#        error "ADC_COUNT has not been set for this ARM microcontroller."
+#    endif
+#endif
+
+#ifndef ADC_NUM_CHANNELS
+#    define ADC_NUM_CHANNELS 1
+#elif ADC_NUM_CHANNELS != 1
+#    error "The ARM ADC implementation currently only supports reading one channel at a time."
+#endif
+
+#ifndef ADC_BUFFER_DEPTH
+#    define ADC_BUFFER_DEPTH 1
 #endif
 
 // For more sampling rate options, look at hal_adc_lld.h in ChibiOS
@@ -98,9 +94,6 @@
 #ifndef ADC_RESOLUTION
 #    define ADC_RESOLUTION ADC_CFGR1_RES_10BIT
 #endif
-
-// #ifdef USE_ADCV2
-// static 
 
 static ADCConfig   adcCfg = {};
 static adcsample_t sampleBuffer[ADC_NUM_CHANNELS * ADC_BUFFER_DEPTH];
@@ -181,100 +174,65 @@ __attribute__((weak)) const pin_to_mux pin_to_mux_lookup[] = {
 };
 #define pin_to_mux_lookup_len (sizeof(pin_to_mux_lookup) / sizeof(pin_to_mux_lookup[0]))
 
-static ADCConversionGroup adcConversionGroup = {
-    ADC_CIRCULAR_BUFFER,
-    (uint16_t)(ADC_NUM_CHANNELS),
-    NULL,  // No end callback
-    NULL,  // No error callback
-#if defined(USE_ADCV1)
-    ADC_CFGR1_CONT | ADC_RESOLUTION,
-    ADC_TR(0, 0),
-    0/*ADC_SAMPLING_RATE*/,
-    NULL,  // Doesn't specify a default channel
-#elif defined(STM32F1XX)
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-#elif defined(USE_ADCV2)
-    0,
-    ADC_CR2_SWSTART,
-    0,
-    ADC_SMPR2_SMP_AN0(ADC_SAMPLE_3),
-    0, 0, // TR
-    0,
-    0,
-    0,
-#else
-    ADC_CFGR_CONT | ADC_RESOLUTION,
-    ADC_TR(0, 0),
-    {
-        0/*ADC_SAMPLING_RATE*/,
-        0/*ADC_SAMPLING_RATE*/,
-    },
-    {
-        0,  // Doesn't specify a default channel
-        0,
-        0,
-        0,
-    },
-#endif
-};
-
-static inline ADCDriver* intToADCDriver(uint8_t adcInt) {
-    ADCDriver* target;
-
-    switch (adcInt) {
-        // clang-format off
-#if STM32_ADC_USE_ADC1
-        case 0: target = &ADCD1; break;
-#endif
-#if STM32_ADC_USE_ADC2
-        case 1: target = &ADCD2; break;
-#endif
-#if STM32_ADC_USE_ADC3
-        case 2: target = &ADCD3; break;
-#endif
-#if STM32_ADC_USE_ADC4
-        case 3: target = &ADCD4; break;
-#endif
-        default: target = NULL; break;
-            // clang-format on
-    }
-
-    return target;
-}
-
-static inline void manageAdcInitializationDriver(uint8_t adc, ADCDriver* adcDriver) {
-    if (!adcInitialized[adc]) {
-        printf("before adcstart\n");
-        adcStart(adcDriver, &adcCfg);
-        printf("after adcstart\n");
-        adcInitialized[adc] = true;
-    }
-}
-
-//static inline void manageAdcInitialization(uint8_t adc) { manageAdcInitializationDriver(adc, intToADCDriver(adc)); }
-
 adc_mux pinToMux(pin_t pin) {
     for (uint8_t index = 0; index < pin_to_mux_lookup_len; index++) {
         const pin_to_mux cur = pin_to_mux_lookup[index];
         if (cur.pin == pin) {
-            printf("found pin!!\n");
+            // printf("found pin!!\n");
             return cur.mux;
         }
     }
 
-    // TODO: better error case
-    printf("failed to find pin...\n");
-    return TO_MUX(0, 0);
+    // return an adc that would never be used so intToADCDriver will bail out
+    return TO_MUX(0, 0xFF);
+}
+
+// TODO: add back TR handling???
+static ADCConversionGroup adcConversionGroup = {
+    .circular     = FALSE,
+    .num_channels = (uint16_t)(ADC_NUM_CHANNELS),
+#if defined(USE_ADCV1)
+    .cfgr1 = ADC_CFGR1_CONT | ADC_RESOLUTION,
+#elif defined(STM32F1XX)
+// do nothing
+#elif defined(USE_ADCV2)
+    .cr2 = ADC_CR2_SWSTART,
+#else
+    .cfgr = ADC_CFGR_CONT | ADC_RESOLUTION,
+#endif
+};
+
+static inline ADCDriver* intToADCDriver(uint8_t adcInt) {
+    switch (adcInt) {
+        // clang-format off
+#if STM32_ADC_USE_ADC1
+        case 0: return &ADCD1;
+#endif
+#if STM32_ADC_USE_ADC2
+        case 1: return &ADCD2;
+#endif
+#if STM32_ADC_USE_ADC3
+        case 2: return &ADCD3;
+#endif
+#if STM32_ADC_USE_ADC4
+        case 3: return &ADCD4;
+#endif
+            // clang-format on
+    }
+
+    return NULL;
+}
+
+static inline void manageAdcInitializationDriver(uint8_t adc, ADCDriver* adcDriver) {
+    if (!adcInitialized[adc]) {
+        adcStart(adcDriver, &adcCfg);
+        adcInitialized[adc] = true;
+    }
 }
 
 int16_t analogReadPin(pin_t pin) {
-    //palSetGroupMode(GPIOA, PAL_PORT_BIT(0) | PAL_PORT_BIT(1), 0, PAL_MODE_INPUT_ANALOG);
+    // TODO: f401 needed - add docs??
+    // palSetGroupMode(GPIOA, PAL_PORT_BIT(0) | PAL_PORT_BIT(1), 0, PAL_MODE_INPUT_ANALOG);
 
     return adc_read(pinToMux(pin));
 }
@@ -287,7 +245,8 @@ int16_t analogReadPinAdc(pin_t pin, uint8_t adc) {
 
 int16_t adc_read(adc_mux mux) {
 #if defined(USE_ADCV1)
-    adcConversionGroup.sqr = ADC_CHSELR_CHSEL1;
+    // TODO: fix previous assumption of only 1 input...
+    adcConversionGroup.sqr = 1 << mux.input; /*no macro to convert N to ADC_CHSELR_CHSEL1*/
 #elif defined(USE_ADCV2)
     adcConversionGroup.sqr3 = ADC_SQR3_SQ1_N(mux.input);
 #else
@@ -295,21 +254,20 @@ int16_t adc_read(adc_mux mux) {
 #endif
 
     ADCDriver* targetDriver = intToADCDriver(mux.adc);
+    if (!targetDriver) {
+        return 0;
+    }
+
     manageAdcInitializationDriver(mux.adc, targetDriver);
-
-printf("before adcConvert\n");
-    if(adcConvert(targetDriver, &adcConversionGroup, &sampleBuffer[0], ADC_BUFFER_DEPTH) != MSG_OK)
-        return -1;
-
-    adcsample_t result = *sampleBuffer;
-printf("after ret convert\n");
+    if (adcConvert(targetDriver, &adcConversionGroup, &sampleBuffer[0], ADC_BUFFER_DEPTH) != MSG_OK) {
+        return 0;
+    }
 
 #ifdef USE_ADCV2
     // fake 12-bit -> N-bit scale
-    result = result >> (12 - ADC_RESOLUTION);
+    return (*sampleBuffer) >> (12 - ADC_RESOLUTION);
+#else
+    // already handled as part of adcConvert
+    return *sampleBuffer;
 #endif
-
-printf("before return\n");
-
-    return result;
 }
