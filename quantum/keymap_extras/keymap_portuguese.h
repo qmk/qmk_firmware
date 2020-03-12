@@ -148,5 +148,4 @@
 #define PT_RBRC ALGR(PT_9)    // ]
 #define PT_RCBR ALGR(PT_0)    // }
 // Row 2
-#define PT_EUR2 ALGR(PT_E)    // €
 #define PT_DIAE ALGR(PT_PLUS) // ¨ (dead)
