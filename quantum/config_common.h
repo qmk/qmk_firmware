@@ -29,43 +29,7 @@
 #    endif
 #    define PORT_SHIFTER 4  // this may be 4 for all AVR chips
 
-// If you want to add more to this list, reference the PINx definitions in these header
-// files: https://github.com/vancegroup-mirrors/avr-libc/tree/master/avr-libc/include/avr
-
-#    if defined(__AVR_ATmega32U4__) || defined(__AVR_ATmega16U4__)
-#        define ADDRESS_BASE 0x00
-#        define PINB_ADDRESS 0x3
-#        define PINC_ADDRESS 0x6
-#        define PIND_ADDRESS 0x9
-#        define PINE_ADDRESS 0xC
-#        define PINF_ADDRESS 0xF
-#    elif defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega16U2__)
-#        define ADDRESS_BASE 0x00
-#        define PINB_ADDRESS 0x3
-#        define PINC_ADDRESS 0x6
-#        define PIND_ADDRESS 0x9
-#    elif defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__)
-#        define ADDRESS_BASE 0x00
-#        define PINA_ADDRESS 0x0
-#        define PINB_ADDRESS 0x3
-#        define PINC_ADDRESS 0x6
-#        define PIND_ADDRESS 0x9
-#        define PINE_ADDRESS 0xC
-#        define PINF_ADDRESS 0xF
-#    elif defined(__AVR_ATmega32A__)
-#        define ADDRESS_BASE 0x10
-#        define PIND_ADDRESS 0x0
-#        define PINC_ADDRESS 0x3
-#        define PINB_ADDRESS 0x6
-#        define PINA_ADDRESS 0x9
-#    elif defined(__AVR_ATmega328P__)
-#        define ADDRESS_BASE 0x00
-#        define PINB_ADDRESS 0x3
-#        define PINC_ADDRESS 0x6
-#        define PIND_ADDRESS 0x9
-#    else
-#        error "Pins are not defined"
-#    endif
+#    include "avr_portaddress_defs.h"
 
 /* I/O pins */
 #    define PINDEF(port, pin) ((PIN##port##_ADDRESS << PORT_SHIFTER) | pin)
@@ -129,6 +93,26 @@
 #        define F5 PINDEF(F, 5)
 #        define F6 PINDEF(F, 6)
 #        define F7 PINDEF(F, 7)
+#    endif
+#    ifdef PORTG
+#        define G0 PINDEF(G, 0)
+#        define G1 PINDEF(G, 1)
+#        define G2 PINDEF(G, 2)
+#        define G3 PINDEF(G, 3)
+#        define G4 PINDEF(G, 4)
+#        define G5 PINDEF(G, 5)
+#        define G6 PINDEF(G, 6)
+#        define G7 PINDEF(G, 7)
+#    endif
+#    ifdef PORTH
+#        define H0 PINDEF(H, 0)
+#        define H1 PINDEF(H, 1)
+#        define H2 PINDEF(H, 2)
+#        define H3 PINDEF(H, 3)
+#        define H4 PINDEF(H, 4)
+#        define H5 PINDEF(H, 5)
+#        define H6 PINDEF(H, 6)
+#        define H7 PINDEF(H, 7)
 #    endif
 
 #    ifndef __ASSEMBLER__
