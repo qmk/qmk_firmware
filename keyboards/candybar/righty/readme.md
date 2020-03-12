@@ -8,7 +8,6 @@ The Key Company Candybar is a staggered 40% board with a numpad utilizing the ST
 * Hardware Supported: TKC Candybar
 * Hardware Availability: [TheKey.Company](https://thekey.company/collections/candybar)
 
-
 Make example for this keyboard (after setting up your build environment):
 
     make candybar/righty:default:dfu-util
