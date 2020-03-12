@@ -32,3 +32,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
 };
+
+// adc_mux pinToMux(pin_t pin) {
+//     return TO_MUX( ADC_CHANNEL_IN1,  0 );
+// };

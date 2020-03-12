@@ -101,92 +101,6 @@ static adcsample_t sampleBuffer[ADC_NUM_CHANNELS * ADC_BUFFER_DEPTH];
 // Initialize to max number of ADCs, set to empty object to initialize all to false.
 static bool adcInitialized[ADC_COUNT] = {};
 
-typedef struct {
-    pin_t   pin;
-    adc_mux mux;
-} pin_to_mux;
-
-__attribute__((weak)) const pin_to_mux pin_to_mux_lookup[] = {
-// clang-format off
-#if defined(STM32F0XX)
-    A0,  TO_MUX( ADC_CHANNEL_IN0,  0 ),
-    A1,  TO_MUX( ADC_CHANNEL_IN1,  0 ),
-    A2,  TO_MUX( ADC_CHANNEL_IN2,  0 ),
-    A3,  TO_MUX( ADC_CHANNEL_IN3,  0 ),
-    A4,  TO_MUX( ADC_CHANNEL_IN4,  0 ),
-    A5,  TO_MUX( ADC_CHANNEL_IN5,  0 ),
-    A6,  TO_MUX( ADC_CHANNEL_IN6,  0 ),
-    A7,  TO_MUX( ADC_CHANNEL_IN7,  0 ),
-    B0,  TO_MUX( ADC_CHANNEL_IN8,  0 ),
-    B1,  TO_MUX( ADC_CHANNEL_IN9,  0 ),
-    C0,  TO_MUX( ADC_CHANNEL_IN10, 0 ),
-    C1,  TO_MUX( ADC_CHANNEL_IN11, 0 ),
-    C2,  TO_MUX( ADC_CHANNEL_IN12, 0 ),
-    C3,  TO_MUX( ADC_CHANNEL_IN13, 0 ),
-    C4,  TO_MUX( ADC_CHANNEL_IN14, 0 ),
-    C5,  TO_MUX( ADC_CHANNEL_IN15, 0 ),
-#elif defined(STM32F3XX)
-    A0,  TO_MUX( ADC_CHANNEL_IN1,  0 ),
-    A1,  TO_MUX( ADC_CHANNEL_IN2,  0 ),
-    A2,  TO_MUX( ADC_CHANNEL_IN3,  0 ),
-    A3,  TO_MUX( ADC_CHANNEL_IN4,  0 ),
-    A4,  TO_MUX( ADC_CHANNEL_IN1,  1 ),
-    A5,  TO_MUX( ADC_CHANNEL_IN2,  1 ),
-    A6,  TO_MUX( ADC_CHANNEL_IN3,  1 ),
-    A7,  TO_MUX( ADC_CHANNEL_IN4,  1 ),
-    B0,  TO_MUX( ADC_CHANNEL_IN12, 2 ),
-    B1,  TO_MUX( ADC_CHANNEL_IN1,  2 ),
-    B2,  TO_MUX( ADC_CHANNEL_IN12, 1 ),
-    B12, TO_MUX( ADC_CHANNEL_IN2,  3 ),
-    B13, TO_MUX( ADC_CHANNEL_IN3,  3 ),
-    B14, TO_MUX( ADC_CHANNEL_IN4,  3 ),
-    B15, TO_MUX( ADC_CHANNEL_IN5,  3 ),
-    C0,  TO_MUX( ADC_CHANNEL_IN6,  0 ), // Can also be ADC2
-    C1,  TO_MUX( ADC_CHANNEL_IN7,  0 ), // Can also be ADC2
-    C2,  TO_MUX( ADC_CHANNEL_IN8,  0 ), // Can also be ADC2
-    C3,  TO_MUX( ADC_CHANNEL_IN9,  0 ), // Can also be ADC2
-    C4,  TO_MUX( ADC_CHANNEL_IN5,  1 ),
-    C5,  TO_MUX( ADC_CHANNEL_IN11, 1 ),
-    D8,  TO_MUX( ADC_CHANNEL_IN12, 3 ),
-    D9,  TO_MUX( ADC_CHANNEL_IN13, 3 ),
-    D10, TO_MUX( ADC_CHANNEL_IN7,  2 ), // Can also be ADC4
-    D11, TO_MUX( ADC_CHANNEL_IN8,  2 ), // Can also be ADC4
-    D12, TO_MUX( ADC_CHANNEL_IN9,  2 ), // Can also be ADC4
-    D13, TO_MUX( ADC_CHANNEL_IN10, 2 ), // Can also be ADC4
-    D14, TO_MUX( ADC_CHANNEL_IN11, 2 ), // Can also be ADC4
-    E7,  TO_MUX( ADC_CHANNEL_IN13, 2 ),
-    E8,  TO_MUX( ADC_CHANNEL_IN6,  2 ), // Can also be ADC4
-    E9,  TO_MUX( ADC_CHANNEL_IN2,  2 ),
-    E10, TO_MUX( ADC_CHANNEL_IN14, 2 ),
-    E11, TO_MUX( ADC_CHANNEL_IN15, 2 ),
-    E12, TO_MUX( ADC_CHANNEL_IN16, 2 ),
-    E13, TO_MUX( ADC_CHANNEL_IN3,  2 ),
-    E14, TO_MUX( ADC_CHANNEL_IN1,  3 ),
-    E15, TO_MUX( ADC_CHANNEL_IN2,  3 ),
-    F2,  TO_MUX( ADC_CHANNEL_IN10, 0 ), // Can also be ADC2
-    F4,  TO_MUX( ADC_CHANNEL_IN5,  0 ),
-#elif defined(STM32F4XX) // TODO: add all pins
-    A0,  TO_MUX( ADC_CHANNEL_IN0,  0 ),
-#elif defined(STM32F1XX) // TODO: add all pins
-    A0,  TO_MUX( ADC_CHANNEL_IN0,  0 ),
-#endif
-    // clang-format on
-};
-#define pin_to_mux_lookup_len (sizeof(pin_to_mux_lookup) / sizeof(pin_to_mux_lookup[0]))
-
-adc_mux pinToMux(pin_t pin) {
-    for (uint8_t index = 0; index < pin_to_mux_lookup_len; index++) {
-        const pin_to_mux cur = pin_to_mux_lookup[index];
-        if (cur.pin == pin) {
-            // printf("found pin!!\n");
-            return cur.mux;
-        }
-    }
-
-    // return an adc that would never be used so intToADCDriver will bail out
-    return TO_MUX(0, 0xFF);
-}
-
 // TODO: add back TR handling???
 static ADCConversionGroup adcConversionGroup = {
     .circular     = FALSE,
@@ -201,6 +115,78 @@ static ADCConversionGroup adcConversionGroup = {
     .cfgr = ADC_CFGR_CONT | ADC_RESOLUTION,
 #endif
 };
+
+__attribute__((weak)) adc_mux pinToMux(pin_t pin) {
+    switch (pin) {
+        // clang-format off
+#if defined(STM32F0XX)
+        case A0:  return TO_MUX( ADC_CHANNEL_IN0,  0 );
+        case A1:  return TO_MUX( ADC_CHANNEL_IN1,  0 );
+        case A2:  return TO_MUX( ADC_CHANNEL_IN2,  0 );
+        case A3:  return TO_MUX( ADC_CHANNEL_IN3,  0 );
+        case A4:  return TO_MUX( ADC_CHANNEL_IN4,  0 );
+        case A5:  return TO_MUX( ADC_CHANNEL_IN5,  0 );
+        case A6:  return TO_MUX( ADC_CHANNEL_IN6,  0 );
+        case A7:  return TO_MUX( ADC_CHANNEL_IN7,  0 );
+        case B0:  return TO_MUX( ADC_CHANNEL_IN8,  0 );
+        case B1:  return TO_MUX( ADC_CHANNEL_IN9,  0 );
+        case C0:  return TO_MUX( ADC_CHANNEL_IN10, 0 );
+        case C1:  return TO_MUX( ADC_CHANNEL_IN11, 0 );
+        case C2:  return TO_MUX( ADC_CHANNEL_IN12, 0 );
+        case C3:  return TO_MUX( ADC_CHANNEL_IN13, 0 );
+        case C4:  return TO_MUX( ADC_CHANNEL_IN14, 0 );
+        case C5:  return TO_MUX( ADC_CHANNEL_IN15, 0 );
+#elif defined(STM32F3XX)
+        case A0:  return TO_MUX( ADC_CHANNEL_IN1,  0 );
+        case A1:  return TO_MUX( ADC_CHANNEL_IN2,  0 );
+        case A2:  return TO_MUX( ADC_CHANNEL_IN3,  0 );
+        case A3:  return TO_MUX( ADC_CHANNEL_IN4,  0 );
+        case A4:  return TO_MUX( ADC_CHANNEL_IN1,  1 );
+        case A5:  return TO_MUX( ADC_CHANNEL_IN2,  1 );
+        case A6:  return TO_MUX( ADC_CHANNEL_IN3,  1 );
+        case A7:  return TO_MUX( ADC_CHANNEL_IN4,  1 );
+        case B0:  return TO_MUX( ADC_CHANNEL_IN12, 2 );
+        case B1:  return TO_MUX( ADC_CHANNEL_IN1,  2 );
+        case B2:  return TO_MUX( ADC_CHANNEL_IN12, 1 );
+        case B12: return TO_MUX( ADC_CHANNEL_IN2,  3 );
+        case B13: return TO_MUX( ADC_CHANNEL_IN3,  3 );
+        case B14: return TO_MUX( ADC_CHANNEL_IN4,  3 );
+        case B15: return TO_MUX( ADC_CHANNEL_IN5,  3 );
+        case C0:  return TO_MUX( ADC_CHANNEL_IN6,  0 ); // Can also be ADC2
+        case C1:  return TO_MUX( ADC_CHANNEL_IN7,  0 ); // Can also be ADC2
+        case C2:  return TO_MUX( ADC_CHANNEL_IN8,  0 ); // Can also be ADC2
+        case C3:  return TO_MUX( ADC_CHANNEL_IN9,  0 ); // Can also be ADC2
+        case C4:  return TO_MUX( ADC_CHANNEL_IN5,  1 );
+        case C5:  return TO_MUX( ADC_CHANNEL_IN11, 1 );
+        case D8:  return TO_MUX( ADC_CHANNEL_IN12, 3 );
+        case D9:  return TO_MUX( ADC_CHANNEL_IN13, 3 );
+        case D10: return TO_MUX( ADC_CHANNEL_IN7,  2 ); // Can also be ADC4
+        case D11: return TO_MUX( ADC_CHANNEL_IN8,  2 ); // Can also be ADC4
+        case D12: return TO_MUX( ADC_CHANNEL_IN9,  2 ); // Can also be ADC4
+        case D13: return TO_MUX( ADC_CHANNEL_IN10, 2 ); // Can also be ADC4
+        case D14: return TO_MUX( ADC_CHANNEL_IN11, 2 ); // Can also be ADC4
+        case E7:  return TO_MUX( ADC_CHANNEL_IN13, 2 );
+        case E8:  return TO_MUX( ADC_CHANNEL_IN6,  2 ); // Can also be ADC4
+        case E9:  return TO_MUX( ADC_CHANNEL_IN2,  2 );
+        case E10: return TO_MUX( ADC_CHANNEL_IN14, 2 );
+        case E11: return TO_MUX( ADC_CHANNEL_IN15, 2 );
+        case E12: return TO_MUX( ADC_CHANNEL_IN16, 2 );
+        case E13: return TO_MUX( ADC_CHANNEL_IN3,  2 );
+        case E14: return TO_MUX( ADC_CHANNEL_IN1,  3 );
+        case E15: return TO_MUX( ADC_CHANNEL_IN2,  3 );
+        case F2:  return TO_MUX( ADC_CHANNEL_IN10, 0 ); // Can also be ADC2
+        case F4:  return TO_MUX( ADC_CHANNEL_IN5,  0 );
+#elif defined(STM32F4XX) // TODO: add all pins
+        case A0:  return TO_MUX( ADC_CHANNEL_IN0,  0 );
+        //case A1:  return TO_MUX( ADC_CHANNEL_IN1,  0 );
+#elif defined(STM32F1XX) // TODO: add all pins
+        case A0:  return TO_MUX( ADC_CHANNEL_IN0,  0 );
+#endif
+    }
+
+    // return an adc that would never be used so intToADCDriver will bail out
+    return TO_MUX(0, 0xFF);
+}
 
 static inline ADCDriver* intToADCDriver(uint8_t adcInt) {
     switch (adcInt) {
