@@ -23,7 +23,7 @@ extern "C" {
 #endif
 
 typedef struct {
-    uint8_t input;
+    uint16_t input;
     uint8_t adc;
 } adc_mux;
 #define TO_MUX(i, a) \

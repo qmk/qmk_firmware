@@ -133,22 +133,22 @@ static ADCConversionGroup adcConversionGroup = {
 __attribute__((weak)) adc_mux pinToMux(pin_t pin) {
     switch (pin) {
 #if defined(STM32F0XX)
-        case A0:  return TO_MUX( ADC_CHANNEL_IN0,  0 );
-        case A1:  return TO_MUX( ADC_CHANNEL_IN1,  0 );
-        case A2:  return TO_MUX( ADC_CHANNEL_IN2,  0 );
-        case A3:  return TO_MUX( ADC_CHANNEL_IN3,  0 );
-        case A4:  return TO_MUX( ADC_CHANNEL_IN4,  0 );
-        case A5:  return TO_MUX( ADC_CHANNEL_IN5,  0 );
-        case A6:  return TO_MUX( ADC_CHANNEL_IN6,  0 );
-        case A7:  return TO_MUX( ADC_CHANNEL_IN7,  0 );
-        case B0:  return TO_MUX( ADC_CHANNEL_IN8,  0 );
-        case B1:  return TO_MUX( ADC_CHANNEL_IN9,  0 );
-        case C0:  return TO_MUX( ADC_CHANNEL_IN10, 0 );
-        case C1:  return TO_MUX( ADC_CHANNEL_IN11, 0 );
-        case C2:  return TO_MUX( ADC_CHANNEL_IN12, 0 );
-        case C3:  return TO_MUX( ADC_CHANNEL_IN13, 0 );
-        case C4:  return TO_MUX( ADC_CHANNEL_IN14, 0 );
-        case C5:  return TO_MUX( ADC_CHANNEL_IN15, 0 );
+        case A0:  return TO_MUX( ADC_CHSELR_CHSEL0,  0 );
+        case A1:  return TO_MUX( ADC_CHSELR_CHSEL1,  0 );
+        case A2:  return TO_MUX( ADC_CHSELR_CHSEL2,  0 );
+        case A3:  return TO_MUX( ADC_CHSELR_CHSEL3,  0 );
+        case A4:  return TO_MUX( ADC_CHSELR_CHSEL4,  0 );
+        case A5:  return TO_MUX( ADC_CHSELR_CHSEL5,  0 );
+        case A6:  return TO_MUX( ADC_CHSELR_CHSEL6,  0 );
+        case A7:  return TO_MUX( ADC_CHSELR_CHSEL7,  0 );
+        case B0:  return TO_MUX( ADC_CHSELR_CHSEL8,  0 );
+        case B1:  return TO_MUX( ADC_CHSELR_CHSEL9,  0 );
+        case C0:  return TO_MUX( ADC_CHSELR_CHSEL10, 0 );
+        case C1:  return TO_MUX( ADC_CHSELR_CHSEL11, 0 );
+        case C2:  return TO_MUX( ADC_CHSELR_CHSEL12, 0 );
+        case C3:  return TO_MUX( ADC_CHSELR_CHSEL13, 0 );
+        case C4:  return TO_MUX( ADC_CHSELR_CHSEL14, 0 );
+        case C5:  return TO_MUX( ADC_CHSELR_CHSEL15, 0 );
 #elif defined(STM32F3XX)
         case A0:  return TO_MUX( ADC_CHANNEL_IN1,  0 );
         case A1:  return TO_MUX( ADC_CHANNEL_IN2,  0 );
@@ -249,7 +249,7 @@ int16_t analogReadPinAdc(pin_t pin, uint8_t adc) {
 int16_t adc_read(adc_mux mux) {
 #if defined(USE_ADCV1)
     // TODO: fix previous assumption of only 1 input...
-    adcConversionGroup.sqr = 1 << mux.input; /*no macro to convert N to ADC_CHSELR_CHSEL1*/
+    adcConversionGroup.chselr = 1 << mux.input; /*no macro to convert N to ADC_CHSELR_CHSEL1*/
 #elif defined(USE_ADCV2)
     adcConversionGroup.sqr3 = ADC_SQR3_SQ1_N(mux.input);
 #else
