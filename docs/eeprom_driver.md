@@ -10,6 +10,8 @@ Driver                             | Description
 
 ## Vendor Driver Configuration
 
+!> Resetting EEPROM using an STM32L0/L1 device takes up to 1 second for every 1kB of internal EEPROM used.
+
 No configurable options are available.
 
 ## I2C Driver Configuration
