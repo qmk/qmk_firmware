@@ -14,3 +14,8 @@
 .markdown-section td, .markdown-section th {
     border: 1px solid #555;
 }
+
+.markdown-section p.tip code {
+    background-color: #555;
+    color: #fff;
+}
