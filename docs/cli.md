@@ -231,14 +231,14 @@ Check your environment and report problems only:
 
     qmk doctor -n
 
-## `qmk json-keymap`
+## `qmk json2c`
 
 Creates a keymap.c from a QMK Configurator export.
 
 **Usage**:
 
 ```
-qmk json-keymap [-o OUTPUT] filename
+qmk json2c [-o OUTPUT] filename
 ```
 
 ## `qmk kle2json`
