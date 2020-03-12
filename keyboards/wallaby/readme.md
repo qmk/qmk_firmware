@@ -1,12 +1,10 @@
 # wallaby
 
-![wallaby](imgur.com image replace me!)
+A Tenkeyless PCB for YMDK aluminium case compatible with Filco
 
-A short description of the keyboard/project
-
-* Keyboard Maintainer: [Koichi Katano](https://github.com/yourusername)
-* Hardware Supported: The PCBs, controllers supported
-* Hardware Availability: Links to where you can find this hardware
+* Keyboard Maintainer: [Koichi Katano](https://github.com/kkatano)
+* Hardware Supported: Wallaby PCB
+* Hardware Availability: https://github.com/kkatano/wallaby
 
 Make example for this keyboard (after setting up your build environment):
 
