@@ -25,7 +25,7 @@
  */
 static const uint8_t breathing_table[64] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 6, 10, 15, 23, 32, 44, 58, 74, 93, 113, 135, 157, 179, 199, 218, 233, 245, 252, 255, 252, 245, 233, 218, 199, 179, 157, 135, 113, 93, 74, 58, 44, 32, 23, 15, 10, 6, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-void sleep_led_callback(void) {
+void sleep_led_timer_callback(void) {
     /* Software PWM
      * timer:1111 1111 1111 1111
      *       \_____/\/ \_______/____  count(0-255)
@@ -62,17 +62,6 @@ void sleep_led_callback(void) {
 /* Use Low Power Timer (LPTMR) */
 #    define TIMER_INTERRUPT_VECTOR KINETIS_LPTMR0_IRQ_VECTOR
 #    define RESET_COUNTER LPTMR0->CSR |= LPTMRx_CSR_TCF
-/* interrupt handler */
-OSAL_IRQ_HANDLER(TIMER_INTERRUPT_VECTOR) {
-    OSAL_IRQ_PROLOGUE();
-
-    sleep_led_callback();
-
-    /* Reset the counter */
-    RESET_COUNTER;
-
-    OSAL_IRQ_EPILOGUE();
-}
 
 /* LPTMR clock options */
 #    define LPTMR_CLOCK_MCGIRCLK 0 /* 4MHz clock */
@@ -84,6 +73,18 @@ OSAL_IRQ_HANDLER(TIMER_INTERRUPT_VECTOR) {
 #    if !defined(SIM_SCGC5_LPTMR)
 #        define SIM_SCGC5_LPTMR SIM_SCGC5_LPTIMER
 #    endif
+
+/* interrupt handler */
+OSAL_IRQ_HANDLER(TIMER_INTERRUPT_VECTOR) {
+    OSAL_IRQ_PROLOGUE();
+
+    sleep_led_timer_callback();
+
+    /* Reset the counter */
+    RESET_COUNTER;
+
+    OSAL_IRQ_EPILOGUE();
+}
 
 /* Initialise the timer */
 void sleep_led_init(void) {
@@ -160,17 +161,21 @@ void sleep_led_toggle(void) {
 
 #elif defined(SLEEP_LED_GPT_DRIVER)
 
-/* Initialise the timer */
-void sleep_led_init(void) {
-    static const GPTConfig gptcfg = {1000000, gptTimerCallback, 0, 0};
-    gptStart(&SLEEP_LED_GPT_DRIVER, &gptcfg);
+static void gptTimerCallback(GPTDriver *gptp) {
+    (void)gptp;
+    sleep_led_timer_callback();
 }
 
-void sleep_led_enable(void) { gptStartContinuous(&BACKLIGHT_GPT_DRIVER, gptcfg.frequency / 0xFFFF); }
+static const GPTConfig gptcfg = {1000000, gptTimerCallback, 0, 0};
 
-void sleep_led_disable(void) { gptStopTimer(&BACKLIGHT_GPT_DRIVER); }
+/* Initialise the timer */
+void sleep_led_init(void) { gptStart(&SLEEP_LED_GPT_DRIVER, &gptcfg); }
 
-void sleep_led_toggle(void) { BACKLIGHT_GPT_DRIVER->state == GPT_READY ? sleep_led_enable() : sleep_led_disable(); }
+void sleep_led_enable(void) { gptStartContinuous(&SLEEP_LED_GPT_DRIVER, gptcfg.frequency / 0xFFFF); }
+
+void sleep_led_disable(void) { gptStopTimer(&SLEEP_LED_GPT_DRIVER); }
+
+void sleep_led_toggle(void) { (SLEEP_LED_GPT_DRIVER.state == GPT_READY) ? sleep_led_enable() : sleep_led_disable(); }
 
 #else /* platform selection: not on familiar chips */
 
