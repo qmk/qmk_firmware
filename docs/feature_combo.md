@@ -101,3 +101,14 @@ In addition to the keycodes, there are a few functions that you can use to set t
 | `combo_disable()`    | Disables the combo feature, and clears the combo buffer |
 | `combo_toggle()`     | Toggles the state of the combo feature                  |
 | `is_combo_enabled()` | Returns the status of the combo feature state (true or false) |
+
+## Tools
+
+Here is a tool to help you build combos and generat the code for you
+
+<p class="codepen" data-height="265" data-theme-id="dark" data-default-tab="js,result" data-user="mvaneijgen" data-slug-hash="LYEVQXp" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="Key Combo Generator | QMK">
+  <span>See the Pen <a href="https://codepen.io/mvaneijgen/pen/LYEVQXp">
+  Key Combo Generator | QMK</a> by Mitchel van Eijgen (<a href="https://codepen.io/mvaneijgen">@mvaneijgen</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
