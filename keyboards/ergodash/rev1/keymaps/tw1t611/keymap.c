@@ -5,13 +5,13 @@
 #define _MOD 1
 
 enum custom_keycodes {
-  QWERTZ = SAFE_RANGE,
-  MOD,
+  _QWERTZ = SAFE_RANGE,
+  _MOD,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTZ] = LAYOUT( \
-    _______ ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,_______ ,                        KC_RCTL ,KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,_______ , \
+    _______ ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,_______ ,                        KC_RSFT ,KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,_______ , \
     KC_ESC  ,KC_Q    ,KC_W    ,KC_E    ,KC_R    ,KC_T    ,KC_BSPC ,                        KC_DEL  ,KC_Y    ,KC_U    ,KC_I    ,KC_O    ,KC_P    ,DE_AE   , \
     KC_TAB  ,KC_A    ,KC_S    ,KC_D    ,KC_F    ,KC_G    ,DE_UNDS ,                        KC_LALT ,KC_H    ,KC_J    ,KC_K    ,KC_L    ,DE_EQL  ,DE_OE   , \
     _______ ,KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,KC_SPC  ,                        KC_ENT  ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,DE_SS   ,DE_UE   , \
