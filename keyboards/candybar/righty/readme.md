@@ -1,5 +1,4 @@
-The Key Company Candybar
-===
+# The Key Company Candybar
 
 ![Candybar](https://cdn.shopify.com/s/files/1/1679/2319/articles/CandyBar_Promo_400x225_1000x.jpg?v=1538150501)
 
