@@ -16,6 +16,7 @@
 
 #pragma once
 
+#include <stdint.h>
 #include "quantum.h"
 
 #ifdef __cplusplus
@@ -28,9 +29,6 @@ typedef struct {
 } adc_mux;
 #define TO_MUX(i, a) \
     (adc_mux) { i, a }
-
-// analogReference has been left un-defined for ARM devices.
-// void analogReference(uint8_t mode);
 
 int16_t analogReadPin(pin_t pin);
 int16_t analogReadPinAdc(pin_t pin, uint8_t adc);
