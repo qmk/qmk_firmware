@@ -48,6 +48,7 @@ void matrix_scan_cmd_tab(void);
 #define PLY_GUI   RGUI_T(KC_MPLY)      // Tap Right GUI for Play/Pause
 #define FFD_ALT   RALT_T(KC_MFFD)      // Tap Right Alt for Next Track
 #define PLY_FN1   LT(1, KC_MPLY)       // Tap Fn for Play/Pause
+#define PLY_FN2   LT(2, KC_MPLY)       // Tap Fn2 for Play/Pause
 #define PLY_MCO   LT(_MACRO, KC_MPLY)  // Tap MacroFn for Play/Pause
 #define MUT_SFT   RSFT_T(KC_MUTE)      // Tap Right Shift for Mute
 /**
