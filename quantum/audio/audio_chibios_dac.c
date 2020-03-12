@@ -186,6 +186,22 @@ void audio_initialize_hardware() {
     dacStartConversion(&DACD2, &dac_conv_cfg, dac_buffer_empty, DAC_BUFFER_SIZE);
 #endif
 
+    /* enable the output buffer, to directly drive external loads with no additional circuitry
+     *
+     * see: AN4566 Application note: Extending the DAC performance of STM32 microcontrollers
+     * Note: Buffer-Off bit -> has to be set 0 to enable the output buffer
+     * Note: enabling the output buffer imparts an additional dc-offset of a couple mV
+     *
+     * this is done here, reaching directly into the stm32 registers since chibios has not implemented BOFF handling yet
+     * (see: chibios/os/hal/ports/STM32/todo.txt '- BOFF handling in DACv1.'
+     */
+#if defined(A4_AUDIO)
+    DACD1.params->dac->CR &= ~DAC_CR_BOFF1;
+#endif
+#if defined(A5_AUDIO)
+    DACD2.params->dac->CR &= ~DAC_CR_BOFF2;
+#endif
+
     gptStart(&GPTD6, &gpt6cfg1);
     gptStartContinuous(&GPTD6, 2U);
 }
