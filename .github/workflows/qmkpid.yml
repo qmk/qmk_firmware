@@ -1,0 +1,44 @@
+name: Generate QMKPID
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  generate_pid:
+    runs-on: ubuntu-latest
+    container: qmkfm/base_container
+
+    steps:
+    - name: Check out
+      uses: actions/checkout@v1
+
+    - name: Install python dependencies
+      run: |
+        pip3 install -r requirements.txt
+
+    - name: Set up git config
+      run: |
+        git config --global user.email "hello@qmk.fm"
+        git config --global user.name "QMK Bot"
+
+    - name: Get keyboard config
+      if: github.event.pull_request.merged
+      id: get_config
+      shell: bash
+      run: |
+        configs=$((git diff-tree --no-commit-id -m --name-only -r ${{ github.sha }} | grep config.h | grep -v keymaps || echo 'No keyboards added') | paste -sd ' ')
+        echo "##[set-output name=configs;]$configs"
+
+    - name: Generate QMKPID
+      if: steps.get_config.outputs.configs != 'No keyboards added'
+      id: generate_qmkpid
+      run: |
+        /usr/bin/env python3 bin/qmk pid --apply --commit ${{ steps.get_config.outputs.configs }}
+
+    - name: Push changes
+      if: 1 == 0
+      uses: qmk/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}

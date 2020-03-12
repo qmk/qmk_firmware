@@ -87,17 +87,29 @@ Re-running the QMK installation script (`./util/qmk_install.sh` from the `qmk_fi
 
 If that doesn't work, then you may need to download and run Zadig. See [Bootloader Driver Installation with Zadig](driver_installation_zadig.md) for more detailed information.
 
-## USB VID and PID
+## VID and PID
 You can use any ID you want with editing `config.h`. Using any presumably unused ID will be no problem in fact except for very low chance of collision with other product.
 
-Most boards in QMK use `0xFEED` as the vendor ID. You should look through other keyboards to make sure you pick a unique Product ID.
+Since third-party tools for QMK has started relying on keyboards having a unique ID pair, it's important to ensure that the ID pair you choose isn't used by another keyboard.
 
-Also see this.
-https://github.com/tmk/tmk_keyboard/issues/150
+If you're making a new keyboard with the intention of submitting a PR to QMK, then using the unicode value for Ψ as the VID (0x03A8), will ensure you get a unique-to-qmk PID, and you won't have to worry about it.
 
-You can buy a really unique VID:PID here. I don't think you need this for personal use.
+If you need to know the PID before-hand, or if you're not going to submit the keyboard to QMK, then you
+can use the pid subcommand for the qmk cli.  
+`qmk pid [--apply] keyboards/your_keyboard/config.h`  
+The optional argument `--apply` writes this new PID to your config.
+Your config.h has to have the `0x03A8` VID set, and a place-holder PID, and the command has to be called from a qmk_firmware folder.
+
+While this tool will most likely provide a unique ID, it can only do so if `quantum/product_ids.json` is up to date with qmk. Even then, if your keyboard isn't merged to qmk, then there's a small chance that other keyboards added to QMK in the future will end up using the PID assigned for your board.
+
+If you want to be entirely certain, then you can buy a really unique ID pair here:
 - http://www.obdev.at/products/vusb/license.html
 - http://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
+
+Or obtain a unique Product ID for open source projects here:
+- https://pid.codes
+  
+Neither being really necesarry for personal use.
 
 ## BOOTLOADER_SIZE for AVR
 Note that Teensy2.0++ bootloader size is 2048byte. Some Makefiles may have wrong comment.

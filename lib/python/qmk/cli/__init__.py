@@ -16,3 +16,4 @@ from . import kle2json
 from . import new
 from . import pyformat
 from . import pytest
+from . import pid
