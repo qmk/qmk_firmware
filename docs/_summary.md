@@ -18,7 +18,6 @@
   * [Overview](newbs_building_firmware_configurator.md)
   * [Step by Step](configurator_step_by_step.md)
   * [Troubleshooting](configurator_troubleshooting.md)
-  * [Problems and Bugs](configurator_problems.md)
   * QMK API
     * [Overview](api_overview.md)
     * [API Documentation](api_docs.md)
@@ -128,7 +127,6 @@
   * Python Development
     * [Coding Conventions](coding_conventions_python.md)
     * [QMK CLI Development](cli_development.md)
-    * [QMK CLI Config](cli_dev_configuration.md)
 
   * Configurator Development
     * QMK API
