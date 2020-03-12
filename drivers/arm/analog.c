@@ -19,10 +19,6 @@
 #include "ch.h"
 #include <hal.h>
 
-// #if !defined(STM32F0XX) && !defined(STM32F3XX)
-// #    error "Only STM23F0 and STM32F3 devices have ADC support in QMK at this time."
-// #endif
-
 #if !HAL_USE_ADC
 #    error "You need to set HAL_USE_ADC to TRUE in your halconf.h to use the ADC."
 #endif
@@ -39,7 +35,7 @@
 #    error "STM32 ADCV3 Oversampling is not supported at this time."
 #endif
 
-// otherwise assume V3
+// Otherwise assume V3
 #if defined(STM32F0XX) || defined(STM32L0XX)
 #    define USE_ADCV1
 #elif defined(STM32F1XX) || defined(STM32F2XX) || defined(STM32F4XX)
@@ -48,14 +44,27 @@
 
 // BODGE to make v2 look like v1,3 and 4
 #ifdef USE_ADCV2
-// #define ADC_SMPR_SMP_1P5        ADC_SAMPLE_3
-// #define ADC_SMPR_SMP_7P5        ADC_SAMPLE_15
-// #define ADC_SMPR_SMP_13P5       ADC_SAMPLE_28
-// #define ADC_SMPR_SMP_28P5       ADC_SAMPLE_56
-// #define ADC_SMPR_SMP_41P5       ADC_SAMPLE_84
-// #define ADC_SMPR_SMP_55P5       ADC_SAMPLE_112
-// #define ADC_SMPR_SMP_71P5       ADC_SAMPLE_144
-// #define ADC_SMPR_SMP_239P5      ADC_SAMPLE_480
+#    if !defined(ADC_SMPR_SMP_1P5) && defined(ADC_SAMPLE_3)
+#        define ADC_SMPR_SMP_1P5 ADC_SAMPLE_3
+#        define ADC_SMPR_SMP_7P5 ADC_SAMPLE_15
+#        define ADC_SMPR_SMP_13P5 ADC_SAMPLE_28
+#        define ADC_SMPR_SMP_28P5 ADC_SAMPLE_56
+#        define ADC_SMPR_SMP_41P5 ADC_SAMPLE_84
+#        define ADC_SMPR_SMP_55P5 ADC_SAMPLE_112
+#        define ADC_SMPR_SMP_71P5 ADC_SAMPLE_144
+#        define ADC_SMPR_SMP_239P5 ADC_SAMPLE_480
+#    endif
+
+#    if !defined(ADC_SMPR_SMP_1P5) && defined(ADC_SAMPLE_1P5)
+#        define ADC_SMPR_SMP_1P5 ADC_SAMPLE_1P5
+#        define ADC_SMPR_SMP_7P5 ADC_SAMPLE_7P5
+#        define ADC_SMPR_SMP_13P5 ADC_SAMPLE_13P5
+#        define ADC_SMPR_SMP_28P5 ADC_SAMPLE_28P5
+#        define ADC_SMPR_SMP_41P5 ADC_SAMPLE_41P5
+#        define ADC_SMPR_SMP_55P5 ADC_SAMPLE_55P5
+#        define ADC_SMPR_SMP_71P5 ADC_SAMPLE_71P5
+#        define ADC_SMPR_SMP_239P5 ADC_SAMPLE_239P5
+#    endif
 
 // we still sample at 12bit, but scale down to the requested bit range
 #    define ADC_CFGR1_RES_12BIT 12
@@ -107,18 +116,22 @@ static ADCConversionGroup adcConversionGroup = {
     .num_channels = (uint16_t)(ADC_NUM_CHANNELS),
 #if defined(USE_ADCV1)
     .cfgr1 = ADC_CFGR1_CONT | ADC_RESOLUTION,
-#elif defined(STM32F1XX)
-// do nothing
+    .smpr  = ADC_SAMPLING_RATE,
 #elif defined(USE_ADCV2)
-    .cr2 = ADC_CR2_SWSTART,
+#    if !defined(STM32F1XX)
+    .cr2   = ADC_CR2_SWSTART, // F103 seem very unhappy with, F401 seems very unhappy without...
+#    endif
+    .smpr2 = ADC_SMPR2_SMP_AN0(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN1(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN2(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN3(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN4(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN5(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN6(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN7(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN8(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN9(ADC_SAMPLING_RATE),
+    .smpr1 = ADC_SMPR1_SMP_AN10(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN11(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN12(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN13(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN14(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN15(ADC_SAMPLING_RATE),
 #else
     .cfgr = ADC_CFGR_CONT | ADC_RESOLUTION,
+    .smpr = {ADC_SMPR1_SMP_AN0(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN1(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN2(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN3(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN4(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN5(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN6(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN7(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN8(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN9(ADC_SAMPLING_RATE), ADC_SMPR2_SMP_AN10(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN11(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN12(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN13(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN14(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN15(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN16(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN17(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN18(ADC_SAMPLING_RATE)},
 #endif
 };
 
+// clang-format off
 __attribute__((weak)) adc_mux pinToMux(pin_t pin) {
     switch (pin) {
-        // clang-format off
 #if defined(STM32F0XX)
         case A0:  return TO_MUX( ADC_CHANNEL_IN0,  0 );
         case A1:  return TO_MUX( ADC_CHANNEL_IN1,  0 );
@@ -187,23 +200,26 @@ __attribute__((weak)) adc_mux pinToMux(pin_t pin) {
     // return an adc that would never be used so intToADCDriver will bail out
     return TO_MUX(0, 0xFF);
 }
+// clang-format on
 
 static inline ADCDriver* intToADCDriver(uint8_t adcInt) {
     switch (adcInt) {
-        // clang-format off
 #if STM32_ADC_USE_ADC1
-        case 0: return &ADCD1;
+        case 0:
+            return &ADCD1;
 #endif
 #if STM32_ADC_USE_ADC2
-        case 1: return &ADCD2;
+        case 1:
+            return &ADCD2;
 #endif
 #if STM32_ADC_USE_ADC3
-        case 2: return &ADCD3;
+        case 2:
+            return &ADCD3;
 #endif
 #if STM32_ADC_USE_ADC4
-        case 3: return &ADCD4;
+        case 3:
+            return &ADCD4;
 #endif
-            // clang-format on
     }
 
     return NULL;
@@ -217,13 +233,14 @@ static inline void manageAdcInitializationDriver(uint8_t adc, ADCDriver* adcDriv
 }
 
 int16_t analogReadPin(pin_t pin) {
-    // TODO: f401 needed - add docs??
-    // palSetGroupMode(GPIOA, PAL_PORT_BIT(0) | PAL_PORT_BIT(1), 0, PAL_MODE_INPUT_ANALOG);
+    palSetLineMode(pin, PAL_MODE_INPUT_ANALOG);
 
     return adc_read(pinToMux(pin));
 }
 
 int16_t analogReadPinAdc(pin_t pin, uint8_t adc) {
+    palSetLineMode(pin, PAL_MODE_INPUT_ANALOG);
+
     adc_mux target = pinToMux(pin);
     target.adc     = adc;
     return adc_read(target);
