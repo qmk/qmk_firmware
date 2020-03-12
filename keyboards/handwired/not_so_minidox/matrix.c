@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "split_util.h"
 #include "config.h"
+#include "quantum.h"
 
 #ifdef USE_I2C
 #  include "i2c.h"
