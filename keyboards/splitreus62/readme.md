@@ -9,7 +9,8 @@ A Split version of the Atreus62. You can copy keymaps from Atreus62 and use them
 * Keyboard Maintainer: [NaCly](https://github.com/Na-Cly)
 * Hardware Supported: The PCBs, controllers supported
 * Hardware Availability: https://github.com/Na-Cly/splitreus62 
-### Make example for this keyboard (after setting up your build environment):
+
+Make example for this keyboard (after setting up your build environment):
 
     make splitreus62:default
 
