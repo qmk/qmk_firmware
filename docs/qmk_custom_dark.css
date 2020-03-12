@@ -1,0 +1,16 @@
+.sidebar li.active {
+    background-color: #555;
+}
+
+.markdown-section p.tip,
+.markdown-section tr:nth-child(2n) {
+ background-color:#444;
+}
+
+.markdown-section tr {
+    border-top: 1px solid #555;
+}
+
+.markdown-section td, .markdown-section th {
+    border: 1px solid #555;
+}
