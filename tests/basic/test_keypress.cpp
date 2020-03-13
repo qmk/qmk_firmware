@@ -18,6 +18,7 @@
 
 using testing::_;
 using testing::Return;
+using testing::InSequence;
 
 class KeyPress : public TestFixture {};
 
@@ -121,4 +122,119 @@ TEST_F(KeyPress, RightShiftLeftControlAndCharWithTheSameKey) {
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_RSFT, KC_RCTRL)));
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
     keyboard_task();
+}
+
+TEST_F(KeyPress, PressPlusEqualReleaseBeforePress) {
+  TestDriver driver;
+  InSequence s;
+
+  press_key(1, 1); // KC_PLUS
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_EQL)));
+  run_one_scan_loop();
+  testing::Mock::VerifyAndClearExpectations(&driver);
+
+  release_key(1, 1); // KC_PLUS
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+  run_one_scan_loop();
+  testing::Mock::VerifyAndClearExpectations(&driver);
+
+  press_key(0, 1); // KC_EQL
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_EQL)));
+  run_one_scan_loop();
+  testing::Mock::VerifyAndClearExpectations(&driver);
+
+  release_key(0, 1); // KC_EQL
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+  run_one_scan_loop();
+  testing::Mock::VerifyAndClearExpectations(&driver);
+}
+
+TEST_F(KeyPress, PressPlusEqualDontReleaseBeforePress) {
+  TestDriver driver;
+  InSequence s;
+
+  press_key(1, 1); // KC_PLUS
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_EQL)));
+  run_one_scan_loop();
+  testing::Mock::VerifyAndClearExpectations(&driver);
+
+  press_key(0, 1); // KC_EQL
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_EQL)));
+  run_one_scan_loop();
+  testing::Mock::VerifyAndClearExpectations(&driver);
+
+  release_key(1, 1); //KC_PLS
+  // BUG: Should really still return KC_EQL, but this is fine too
+  // It's also called twice for some reason
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(2);
+  run_one_scan_loop();
+  testing::Mock::VerifyAndClearExpectations(&driver);
+
+  release_key(0, 1); // KC_EQL
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+  run_one_scan_loop();
+  testing::Mock::VerifyAndClearExpectations(&driver);
+}
+
+TEST_F(KeyPress, PressEqualPlusReleaseBeforePress) {
+  TestDriver driver;
+  InSequence s;
+
+  press_key(0, 1); // KC_EQL
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_EQL)));
+  run_one_scan_loop();
+  testing::Mock::VerifyAndClearExpectations(&driver);
+
+  release_key(0, 1); // KQ_EQL
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+  run_one_scan_loop();
+  testing::Mock::VerifyAndClearExpectations(&driver);
+
+  press_key(1, 1); // KC_PLUS
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_EQL)));
+  run_one_scan_loop();
+  testing::Mock::VerifyAndClearExpectations(&driver);
+
+  release_key(1, 1); // KC_PLUS
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+  run_one_scan_loop();
+  testing::Mock::VerifyAndClearExpectations(&driver);
+}
+
+TEST_F(KeyPress, PressEqualPlusDontReleaseBeforePress) {
+  TestDriver driver;
+  InSequence s;
+
+  press_key(0, 1); // KC_EQL
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_EQL)));
+  run_one_scan_loop();
+  testing::Mock::VerifyAndClearExpectations(&driver);
+
+  press_key(1, 1); // KC_PLUS
+  // BUG: The sequence is a bit strange, but it works, the end result is that
+  // KC_PLUS is sent
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_EQL)));
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_EQL)));
+  run_one_scan_loop();
+  testing::Mock::VerifyAndClearExpectations(&driver);
+
+  release_key(0, 1); //KC_EQL
+  // I guess it's fine to still report shift here
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
+  run_one_scan_loop();
+  testing::Mock::VerifyAndClearExpectations(&driver);
+
+  release_key(1, 1); // KC_PLUS
+  // This report is not needed
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+  run_one_scan_loop();
+  testing::Mock::VerifyAndClearExpectations(&driver);
 }
