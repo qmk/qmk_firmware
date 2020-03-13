@@ -1,4 +1,4 @@
-/* Copyright 2018 Daniel Rodríguez
+/* Copyright 2019
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,11 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Sendstring lookup tables for Spanish layouts
+// Sendstring lookup tables for Swedish layouts
 
 #pragma once
 
-#include "keymap_spanish.h"
+#include "keymap_swedish.h"
 #include "quantum.h"
 
 // clang-format off
@@ -29,7 +29,7 @@ const uint8_t ascii_to_shift_lut[16] PROGMEM = {
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
 
-    KCLUT_ENTRY(0, 1, 1, 0, 1, 1, 1, 0),
+    KCLUT_ENTRY(0, 1, 1, 1, 0, 1, 1, 0),
     KCLUT_ENTRY(1, 1, 1, 0, 0, 0, 0, 1),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 1, 1, 0, 1, 1, 1),
@@ -37,7 +37,7 @@ const uint8_t ascii_to_shift_lut[16] PROGMEM = {
     KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
     KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
     KCLUT_ENTRY(1, 1, 1, 0, 0, 0, 1, 1),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(1, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0)
@@ -49,7 +49,7 @@ const uint8_t ascii_to_altgr_lut[16] PROGMEM = {
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
 
-    KCLUT_ENTRY(0, 0, 0, 1, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 1, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
@@ -74,27 +74,27 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     //       !        "        #        $        %        &        '
-    KC_SPC,  ES_1,    ES_2,    ES_3,    ES_4,    ES_5,    ES_6,    ES_QUOT,
+    KC_SPC,  SE_1,    SE_2,    SE_3,    SE_4,    SE_5,    SE_6,    SE_QUOT,
     // (     )        *        +        ,        -        .        /
-    ES_8,    ES_9,    ES_PLUS, ES_PLUS, ES_COMM, ES_MINS, ES_DOT,  ES_7,
+    SE_8,    SE_9,    SE_QUOT, SE_PLUS, SE_COMM, SE_MINS, SE_DOT,  SE_7,
     // 0     1        2        3        4        5        6        7
-    ES_0,    ES_1,    ES_2,    ES_3,    ES_4,    ES_5,    ES_6,    ES_7,
+    SE_0,    SE_1,    SE_2,    SE_3,    SE_4,    SE_5,    SE_6,    SE_7,
     // 8     9        :        ;        <        =        >        ?
-    ES_8,    ES_9,    ES_DOT,  ES_COMM, ES_LABK, ES_0,    ES_LABK, ES_QUOT,
+    SE_8,    SE_9,    SE_DOT,  SE_COMM, SE_LABK, SE_0,    SE_LABK, SE_PLUS,
     // @     A        B        C        D        E        F        G
-    ES_2,    ES_A,    ES_B,    ES_C,    ES_D,    ES_E,    ES_F,    ES_G,
+    SE_2,    SE_A,    SE_B,    SE_C,    SE_D,    SE_E,    SE_F,    SE_G,
     // H     I        J        K        L        M        N        O
-    ES_H,    ES_I,    ES_J,    ES_K,    ES_L,    ES_M,    ES_N,    ES_O,
+    SE_H,    SE_I,    SE_J,    SE_K,    SE_L,    SE_M,    SE_N,    SE_O,
     // P     Q        R        S        T        U        V        W
-    ES_P,    ES_Q,    ES_R,    ES_S,    ES_T,    ES_U,    ES_V,    ES_W,
+    SE_P,    SE_Q,    SE_R,    SE_S,    SE_T,    SE_U,    SE_V,    SE_W,
     // X     Y        Z        [        \        ]        ^        _
-    ES_X,    ES_Y,    ES_Z,    ES_GRV,  ES_MORD, ES_PLUS, ES_GRV,  ES_MINS,
+    SE_X,    SE_Y,    SE_Z,    SE_8,    SE_PLUS, SE_9,    SE_DIAE, SE_MINS,
     // `     a        b        c        d        e        f        g
-    ES_GRV,  ES_A,    ES_B,    ES_C,    ES_D,    ES_E,    ES_F,    ES_G,
+    SE_ACUT, SE_A,    SE_B,    SE_C,    SE_D,    SE_E,    SE_F,    SE_G,
     // h     i        j        k        l        m        n        o
-    ES_H,    ES_I,    ES_J,    ES_K,    ES_L,    ES_M,    ES_N,    ES_O,
+    SE_H,    SE_I,    SE_J,    SE_K,    SE_L,    SE_M,    SE_N,    SE_O,
     // p     q        r        s        t        u        v        w
-    ES_P,    ES_Q,    ES_R,    ES_S,    ES_T,    ES_U,    ES_V,    ES_W,
+    SE_P,    SE_Q,    SE_R,    SE_S,    SE_T,    SE_U,    SE_V,    SE_W,
     // x     y        z        {        |        }        ~        DEL
-    ES_X,    ES_Y,    ES_Z,    ES_ACUT, ES_1,    ES_CCED, ES_NTIL, KC_DEL
+    SE_X,    SE_Y,    SE_Z,    SE_7,    SE_LABK, SE_0,    SE_DIAE, KC_DEL
 };
