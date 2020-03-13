@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_CFG] = LAYOUT_kc(
   //,-----------------------------------.                    ,-----------------------------------.
-      _RST, RTOG, RMOD,     , RSAI, RVAD,                          ,     ,     ,     ,     , _RST,
+      _RST, RTOG, RMOD,     , RSAI, RVAD,                          , _WL , _STP, _SBT, _WR , _RST,
   //|-----+-----+-----+-----+-----+-----|                    |-----+-----+-----+-----+-----+-----|
       MAKE, _VUP, _VDN, MUTE, RHUI, RHUD,                          , HOME, PGDN, PGUP, END , _TGN,
   //|-----+-----+-----+-----+-----+-----|                    |-----+-----+-----+-----+-----+-----|
