@@ -142,7 +142,6 @@
 #define PT_AT   ALGR(PT_2)    // @
 #define PT_PND  ALGR(PT_3)    // £
 #define PT_SECT ALGR(PT_4)    // §
-#define PT_EURO ALGR(PT_5)    // €
 #define PT_LCBR ALGR(PT_7)    // {
 #define PT_LBRC ALGR(PT_8)    // [
 #define PT_RBRC ALGR(PT_9)    // ]
