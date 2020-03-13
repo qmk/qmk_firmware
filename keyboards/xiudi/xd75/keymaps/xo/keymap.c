@@ -30,8 +30,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_P7, KC_P8, KC_P9, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12,
     LCTL(KC_GRV), KC_F13, KC_F14, KC_F15, KC_F16, KC_F17, KC_P4, KC_P5, KC_P6, KC_PPLS, KC_PMNS, KC_F17, KC_F18, KC_F19, KC_F20,
     KC_CAPS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_P1, KC_P2, KC_P3, KC_PAST, KC_PSLS, KC_NO, KC_MUTE, KC_VOLD, KC_VOLU,
-    MO(2), KC_NO, KC_NO, KC_NO, KC_NO, KC_BSPC, KC_P0, KC_SLSH, KC_PDOT, KC_PENT, KC_NO, KC_NO, KC_MPRV, KC_MPLY, KC_MNXT,
-    TG(1), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_ASTR, KC_PENT, KC_PENT, MO(1), KC_TRNS, KC_TRNS, TG(1)),
+    KC_TRNS, KC_NO, KC_NO, LCMD(KC_LEFT), LCMD(KC_RIGHT), KC_BSPC, KC_P0, KC_SLSH, KC_PDOT, KC_PENT, KC_NO, KC_NO, KC_MRWD, KC_MPLY, KC_MFFD,
+    TG(1), KC_TRNS, KC_TRNS, KC_TRNS, MO(2), KC_NO, KC_NO, KC_NO, KC_ASTR, KC_PENT, KC_PENT, MO(1), KC_TRNS, KC_TRNS, TG(1)),
   [2] = LAYOUT_ortho_5x15(
     QK_BOOT, LALT(LGUI(KC_SLEP)), KC_WAKE, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
@@ -54,7 +54,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   if (IS_MOD(keycode)) {
     if (record->event.pressed) {
-      rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+      /* rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT); */
       rgblight_sethsv_noeeprom(HSV_RED);
     } else {
       restore_default_rgb();
@@ -71,11 +71,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       restore_default_rgb();;
       break;
     case 1:
-      rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+      /* rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT); */
       rgblight_sethsv_noeeprom(HSV_GREEN);
       break;
     case 2:
-      rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+      /* rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT); */
       rgblight_sethsv_noeeprom(HSV_PURPLE);
       break;
     }
@@ -84,7 +84,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 void suspend_power_down_user(void) {
-  rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+  /* rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT); */
   rgblight_sethsv_noeeprom(DIM_COLOR);
 }
 
