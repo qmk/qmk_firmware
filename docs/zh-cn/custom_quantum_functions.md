@@ -322,7 +322,7 @@ void suspend_wakeup_init_user(void) {
 本例使用了Planck键盘示范了如何设置 [RGB背光灯](zh-cn/feature_rgblight.md)使之与层对应
 
 ```c
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     switch (biton32(state)) {
     case _RAISE:
         rgblight_setrgb (0x00,  0x00, 0xFF);
