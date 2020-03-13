@@ -37,6 +37,7 @@ These are defaults based on what has been implemented for ARM boards.
 | [Backlight](feature_backlight.md)   | Forces [task driven PWM](feature_backlight.md#software-pwm-driver) until ARM can provide automatic configuration |
 | USB Host (e.g. USB-USB converter)   | Not supported (USB host code is AVR specific and is not currently supported on ARM)                              |
 | [Split keyboards](feature_split_keyboard.md) | Not supported yet                                                                                       |
+
 ## Manual Conversion
 
 To use the Proton C natively, without having to specify `CTPC=yes`, you need to change the `MCU` line in `rules.mk`:
@@ -48,7 +49,6 @@ MCU = STM32F303
 Remove these variables if they exist:
 
 * `BOOTLOADER`
-* `LINK_TIME_OPTIMIZATION_ENABLE`
 * `EXTRA_FLAGS`
 
 Finally convert all pin assignments in `config.h` to the stm32 equivalents.
@@ -83,7 +83,7 @@ You can also make use of several new pins on the extended portion of the Proton 
 Notes:
 
 1. On a Pro Micro VCC can be 3.3v or 5v.
-2. When `CTPC=yes` is used `B0` on the Pro Micro will be assigned to `C13` on the Proton C. If `CONVERT_TO_PROTON_C_RXLED` is defined in `config.h` the `D5` pin will be assigned to `C13` on the Proton C instead.
+2. A Proton C only has one onboard LED, not two like a Pro Micro. The Pro Micro has an RX LED on `D5` and a TX LED on `B0`.
 3. `A4` is shared with the speaker.
 4. `A5` is shared with the speaker.
 5. `A13` and `A14` are used for hardware debugging (SWD). You can also use them for GPIO, but should use them last.
