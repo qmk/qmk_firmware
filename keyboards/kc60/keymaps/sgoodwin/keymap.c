@@ -1,5 +1,5 @@
 
-#include "kc60.h"
+#include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*
@@ -27,10 +27,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TRNS,  KC_NO,    KC_MPRV,  KC_MPLY,   KC_MNXT,  KC_VOLD,  KC_VOLU,  KC_MUTE,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_NO,   KC_TRNS,  \
       KC_TRNS,  KC_TRNS,  KC_TRNS,                       KC_SPC,                                 KC_NO,    DEBUG,    RESET,     KC_TRNS, KC_NO     \
       ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

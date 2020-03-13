@@ -42,15 +42,15 @@ TEST_F(KeyPress, CorrectKeysAreReportedWhenTwoKeysArePressed) {
     TestDriver driver;
     press_key(1, 0);
     press_key(0, 3);
-    //Note that QMK only processes one key at a time
-    //See issue #1476 for more information
+    // Note that QMK only processes one key at a time
+    // See issue #1476 for more information
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_B)));
     keyboard_task();
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_B, KC_C)));
     keyboard_task();
     release_key(1, 0);
     release_key(0, 3);
-    //Note that the first key released is the first one in the matrix order
+    // Note that the first key released is the first one in the matrix order
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_C)));
     keyboard_task();
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));

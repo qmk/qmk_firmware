@@ -39,11 +39,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN F7
-#define RGBLIGHT_TIMER
+
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 6    // Number of LEDs
-#define ws2812_PORTREG  PORTD
-#define ws2812_DDRREG   DDRD
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

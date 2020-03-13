@@ -1,10 +1,4 @@
-#include "planck.h"
-#include "action_layer.h"
-#include "eeconfig.h"
-#ifdef BACKLIGHT_ENABLE
-  #include "backlight.h"
-#endif
-#define PREVENT_STUCK_MODIFIERS
+#include QMK_KEYBOARD_H
 extern keymap_config_t keymap_config;
 
 // Symbolic names for macro IDs.
@@ -40,8 +34,8 @@ extern keymap_config_t keymap_config;
 #define CUT     M(_CUT)
 
 // Func macro definitions.
-#define LWR_PGDN FUNC(0) // Tap for PgDn, hold for LOWER
-#define RSE_PGUP FUNC(1) // Tap for PgUp, hold for RAISE
+#define LWR_PGDN LT(_LOWER, KC_PGDN) // Tap for PgDn, hold for LOWER
+#define RSE_PGUP LT(_RAISE, KC_PGUP) // Tap for PgUp, hold for RAISE
 #define CTL_CAPS FUNC(2) // Tap for Caps, hold for Ctrl (DOESN'T SEEM TO WORK)
 #define SFT_ENT  FUNC(3) // Tap for Enter, hold for Shift
 #define ZM_NRM   FUNC(4) // Zoom normal
@@ -50,8 +44,6 @@ extern keymap_config_t keymap_config;
 
 // Enable these functions using FUNC(n) macro.
 const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_LAYER_TAP_KEY(_LOWER, KC_PGDN),
-    [1] = ACTION_LAYER_TAP_KEY(_RAISE, KC_PGUP),
     [2] = ACTION_MODS_TAP_KEY(MOD_LCTL, KC_CAPS),
     [3] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_ENT),
     [4] = ACTION_MODS_KEY(MOD_LCTL, KC_0),
@@ -62,30 +54,30 @@ const uint16_t PROGMEM fn_actions[] = {
 
 // This config can be found at Keyboard layout editor site: https://goo.gl/cF7uIO
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_QWERTY] = { /* QWERTY */
-    {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
-    {KC_DEL,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT},
-    {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_ENT},
-    {KC_LCTL, KC_ESC,  KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
-},
-[_LOWER] = { /* LOWER */
-    {KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_TRNS},
-    {KC_TRNS, KC_TRNS, KC_TRNS, KC_UNDS, KC_LPRN, KC_RPRN, KC_LCBR, KC_RCBR, KC_MINS, KC_TRNS, KC_TRNS, KC_TRNS},
-    {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LBRC, KC_RBRC, KC_QUOT, KC_DQT,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
-    {KC_TRNS, ZM_NRM,  ZM_IN,   ZM_OUT,  KC_TRNS, KC_PGDN, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
-},
-[_RAISE] = { /* RAISE */
-    {KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN,    KC_RPRN,    KC_UNDS, KC_TRNS},
-    {KC_TRNS, KC_TRNS, KC_TRNS, KC_EQL,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PLUS,    KC_TRNS,    KC_TRNS, KC_TRNS},
-    {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSLS, KC_PIPE, KC_GRV,  KC_TILD, S(KC_COMM), S(KC_DOT),  KC_BSLS, KC_TRNS},
-    {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_PGUP, KC_TRNS, KC_MNXT,    KC_VOLD,    KC_VOLU, KC_MPLY}
-},
-[_CUSTOM] = { /* CUSTOM */
-    {KC_F1,   KC_F2,   KC_F3,              KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_TRNS},
-    {KC_TRNS, KC_TRNS, KC_TRNS,            KC_TRNS, KC_TRNS, KC_TRNS, CUS0,    CUS3,    CUS4,    KC_TRNS, KC_F12,  KC_TRNS},
-    {KC_TRNS, KC_TRNS, CUT,                COPY,    PASTE,   CUS1,    CUS5,    CUS2,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
-    {BL,      RESET,   LALT(LCTL(KC_DEL)), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
-}
+[_QWERTY] = LAYOUT_planck_grid( /* QWERTY */
+    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+    KC_DEL,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
+    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_ENT,
+    KC_LCTL, KC_ESC,  KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+),
+[_LOWER] = LAYOUT_planck_grid( /* LOWER */
+    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_UNDS, KC_LPRN, KC_RPRN, KC_LCBR, KC_RCBR, KC_MINS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LBRC, KC_RBRC, KC_QUOT, KC_DQT,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, ZM_NRM,  ZM_IN,   ZM_OUT,  KC_TRNS, KC_PGDN, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+),
+[_RAISE] = LAYOUT_planck_grid( /* RAISE */
+    KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN,    KC_RPRN,    KC_UNDS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_EQL,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PLUS,    KC_TRNS,    KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSLS, KC_PIPE, KC_GRV,  KC_TILD, S(KC_COMM), S(KC_DOT),  KC_BSLS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_PGUP, KC_TRNS, KC_MNXT,    KC_VOLD,    KC_VOLU, KC_MPLY
+),
+[_CUSTOM] = LAYOUT_planck_grid( /* CUSTOM */
+    KC_F1,   KC_F2,   KC_F3,              KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS,            KC_TRNS, KC_TRNS, KC_TRNS, CUS0,    CUS3,    CUS4,    KC_TRNS, KC_F12,  KC_TRNS,
+    KC_TRNS, KC_TRNS, CUT,                COPY,    PASTE,   CUS1,    CUS5,    CUS2,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    BL,      RESET,   LALT(LCTL(KC_DEL)), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+)
 };
 
 // Set a layer persistently.
@@ -138,14 +130,14 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 	    return MACRODOWN( DOWN(KC_LSFT), TYPE(KC_I), UP(KC_LSFT), END );
     case _CUS5: // Enter your email here
 	    return MACRODOWN( TYPE(KC_F),
-        DOWN(KC_LSFT), TYPE(KC_2), UP(KC_LSFT), 
+        DOWN(KC_LSFT), TYPE(KC_2), UP(KC_LSFT),
         TYPE(KC_G), TYPE(KC_M), TYPE(KC_A), TYPE(KC_I), TYPE(KC_L), TYPE(KC_DOT), TYPE(KC_C), TYPE(KC_O), TYPE(KC_M), END );
     case _CUT: //cut macro
 	    return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_X), UP(KC_LCTL), END );
     case _COPY: // copy macro
 	    return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_C), UP(KC_LCTL), END );
     case _PASTE: // paste macro
-	    return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_V), UP(KC_LCTL), END ); 
+	    return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_V), UP(KC_LCTL), END );
     };
     return MACRO_NONE;
 }

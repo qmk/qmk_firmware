@@ -1,4 +1,4 @@
-#include "kc60.h"
+#include QMK_KEYBOARD_H
 
 #define _WM 0
 #define _QW 1

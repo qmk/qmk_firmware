@@ -3,10 +3,10 @@
 #   the appropriate keymap folder that will get included automatically
 #
 
-BOOTMAGIC_ENABLE = no           # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = no            # Mouse keys(+4700)
-EXTRAKEY_ENABLE = yes           # Audio control and System control(+450)
-CONSOLE_ENABLE = no            # Console for debug(+400)
+BOOTMAGIC_ENABLE = no           # Virtual DIP switch configuration
+MOUSEKEY_ENABLE = no            # Mouse keys
+EXTRAKEY_ENABLE = yes           # Audio control and System control
+CONSOLE_ENABLE = no            # Console for debug
 COMMAND_ENABLE = no            # Commands for debug and configuration
 NKRO_ENABLE = yes               # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE = yes           # Disable keyboard backlight functionality
@@ -22,10 +22,6 @@ TAP_DANCE_ENABLE = no
 ISSI_ENABLE = yes               # If the I2C pullup resistors aren't install this must be disabled
 WATCHDOG_ENABLE = no           # Resets keyboard if matrix_scan isn't run every 250ms
 
-
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif
 
 ifeq ($(strip $(ISSI_ENABLE)), yes)
     TMK_COMMON_DEFS += -DISSI_ENABLE

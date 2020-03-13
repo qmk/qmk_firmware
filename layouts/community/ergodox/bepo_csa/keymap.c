@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [LR_BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        BP_DLR,     KC_1,      KC_2,    KC_3,      KC_4,     KC_5,    KC_DELT,
+        BP_DLR,     KC_1,      KC_2,    KC_3,      KC_4,     KC_5,    KC_DEL,
         KC_TAB,     BP_B,      BP_ECUT, BP_P,      BP_O,     BP_EGRV, KC_BSPC,
         BP_EQL,     BP_A,      BP_U,    BP_I,      BP_E,     BP_COMM,
         KC_LSFT,    BP_AGRV,   BP_Y,    BP_X,      BP_DOT,   BP_K,    KC_ENT,
@@ -101,11 +101,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                           KC_SPC,  KC_HOME,  KC_PGDN,
 
         // right hand
-        KC_DELT,   KC_6,     KC_7,    KC_8,    KC_9,    KC_0,     BP_W,
+        KC_DEL,    KC_6,     KC_7,    KC_8,    KC_9,    KC_0,     BP_W,
         KC_BSPC,   BP_DCRC,  BP_V,    BP_D,    BP_L,    BP_J,     BP_Z,
                    BP_C,     BP_T,    BP_S,    BP_R,    BP_N,     BP_M,
         KC_ENT,    BP_APOS,  BP_Q,    BP_G,    BP_H,    BP_F,     KC_RSFT,
-                             BP_ALGR, BP_PERC, KC_APP,  BP_CCED,  KC_RCTL,
+                             KC_ALGR, BP_PERC, KC_APP,  BP_CCED,  KC_RCTL,
 
         KC_LEFT, KC_RGHT,
         KC_UP,
@@ -342,7 +342,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        TG(LR_CSA), KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_INS,
        KC_TRNS,    KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_VOLU,
        RESET,      KC_TRNS, KC_TRNS,      KC_CALC,     KC_MAIL,      KC_WHOM,
-       KC_TRNS,    KC_APP,  S(KC_DELT),   LCTL(KC_INS),S(KC_INS),    KC_MUTE, KC_VOLD,
+       KC_TRNS,    KC_APP,  S(KC_DEL),    LCTL(KC_INS),S(KC_INS),    KC_MUTE, KC_VOLD,
        KC_TRNS,    KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,
 
                                            KC_TRNS, KC_TRNS,
@@ -360,9 +360,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
 ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
 };
 
 void hold_shift(void) {
@@ -449,14 +446,14 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                         register_code(KC_1 + (id - M_1));
                         break;
                     case M_DEGR:
-                        return MACRO(DOWN(CSA_ALTGR), D(SCLN), END);
+                        return MACRO(DOWN(KC_ALGR), D(SCLN), END);
                     case M_SCLN:
                         return MACRO(D(SCLN), END);
                     case M_GRV:
-                        return MACRO(I(75), DOWN(CSA_ALTGR), TYPE(CSA_DCRC), UP(CSA_ALTGR), T(SPACE), END);
+                        return MACRO(I(75), DOWN(KC_ALGR), TYPE(CSA_DCRC), UP(KC_ALGR), T(SPACE), END);
                     case M_NBSP:
                         // use weak mod such that pressing another key will not be affected
-                        add_weak_mods(MOD_BIT(CSA_ALTGR));
+                        add_weak_mods(MOD_BIT(KC_ALGR));
                         return MACRO(D(SPACE), END);
                 }
             } else {
@@ -466,11 +463,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                         unregister_code(KC_1 + (id - M_1));
                         break;
                     case M_DEGR:
-                        return MACRO(UP(CSA_ALTGR), U(SCLN), END);
+                        return MACRO(UP(KC_ALGR), U(SCLN), END);
                     case M_SCLN:
                         return MACRO(U(SCLN), END);
                     case M_NBSP:
-                        del_weak_mods(MOD_BIT(CSA_ALTGR));
+                        del_weak_mods(MOD_BIT(KC_ALGR));
                         return MACRO(U(SPACE), END);
                 }
             }

@@ -1,11 +1,7 @@
 {
   "keyboard_name": "KC60",
-  "manufacturer": "",
-  "identifier": "",
   "url": "",
   "maintainer": "qmk",
-  "processor": "atmega32u4",
-  "bootloader": "atmel-dfu",
   "width": 15,
   "height": 5,
   "layouts": {

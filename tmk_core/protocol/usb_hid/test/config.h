@@ -15,9 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
-
+#pragma once
 
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0xCAFE
@@ -25,16 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    t.m.k.
 #define PRODUCT         USB to USB keyboard converter
 
-
 #define DESCRIPTION     Product from t.m.k. keyboard firmware project
-
 
 /* matrix size */
 #define MATRIX_ROWS 32
 #define MATRIX_COLS 8
-
-
-/* key combination for command */
-#define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KB_LSHIFT) | MOD_BIT(KB_RSHIFT))) 
-
-#endif

@@ -1,4 +1,5 @@
 #include "quantum.h"
+#include "command.h"
 #include "action_pseudo_lut.h"
 
 static uint8_t send_key_shift_bit[SHIFT_BIT_SIZE];

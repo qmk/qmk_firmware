@@ -41,18 +41,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ONESHOT_TIMEOUT 500
 
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
  */
-
-#define PREVENT_STUCK_MODIFIERS
 
 /* disable debug print */
 //#define NO_DEBUG

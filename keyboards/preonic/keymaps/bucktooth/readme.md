@@ -1,4 +1,4 @@
-# Bucktooth v1.0 (Mac)
+# Bucktooth v2.0 (Mac)
 
 Bucktooth is an alternate layout that pushes the letters to the edges and puts most punctuation in the center. It's derived in part from my experience with Ergodox boards. I call the main layer layout QWERTSplitlY, you may notice the right side punctuation moving to the center and the control keys missing from the left.
 
@@ -6,13 +6,13 @@ Bucktooth is an alternate layout that pushes the letters to the edges and puts m
 
      QwertSplitly
      ,-----------------------------------------------------------------------------------.
-     |   1  |   2  |   3  |   4  |   5  |   -  |   =  |   6  |   7  |   8  |   9  |   0  |
+     |   1  |   2  |   3  |   4  |   5  |   +  |   `  |   6  |   7  |   8  |   9  |   0  |
      |------+------+------+------+------+------+------+------+------+------+------+------|
      |   Q  |   W  |   E  |   R  |   T  |   [  |   ]  |   Y  |   U  |   I  |   O  |   P  |
      |------+------+------+------+------+-------------+------+------+------+------+------|
-     |   A  |   S  |   D  |   F  |   G  |   `  |   '  |   H  |   J  |   K  |   L  |   ;  |
+     |   A  |   S  |   D  |   F  |   G  |   -  |   '  |   H  |   J  |   K  |   L  |   ;  |
      |------+------+------+------+------+------|------+------+------+------+------+------|
-     |LShift|   Z  |   X  |   C  |   V  |   B  |   \  |   /  |   N  |   M  |   ,  |./RSft|
+     |LShift|   Z  |   X  |   C  |   V  |   \  |   /  |   B  |   N  |   M  |   ,  |./RSft|
      |------+------+------+------+------+------+------+------+------+------+------+------|
      |ESC/fn|LCtrl | LOpt | LCmd |Space | Tab  | BkSp |Space |En/Cmd|<-/fn |CRSR v|CRSR->|
      `-----------------------------------------------------------------------------------'
@@ -24,6 +24,12 @@ That left shift is the only control or modifier key on the top four rows. All th
 
 With all control keys on the bottom row, the ESC key now lives in the bottom left and on my keyboard I actually put a very heavy keyswitch in that space to keep me from hitting it accidentally instead of ctrl. Hold it down and it becomes fn. I usually hit it with my whole hand since it is in the corner, without moving my fingers down to it.
 
+## Revision 2 Changes
+
+The move of B to the right side of the keyboard may be controversial but has felt more and more comfortable to me. Again if you split a staggered layout keyboard down a straight line B has more in common with Y than T. I don't understand breaking the board into left and right on anything but a vertical line despite the long history of bringing the staggered layout slewing left.
+
+Revision 2 also changes the positions of -, =, and ~ for better compatibility with sculpted profile keysets which offer a Dvorak set option that provides the middle row dash because a middle row backtick/tilde is not found anywhere.
+
 ## Function Layer
 
 There are no raise and lower or multiple function pages. The Preonic has enough keys to avoid more than a single function page, and I prefer to have spacebars for both thumbs so the "Bucktooth" name comes from the typical keyset with darker function keys and lighter alphas and space keys giving the keyboard fang-like appearance where the two spaces are.
@@ -31,11 +37,11 @@ There are no raise and lower or multiple function pages. The Preonic has enough 
 
      Fn
      ,-----------------------------------------------------------------------------------.
-     |  F1  |  F2  |  F3  |  F4  |  F5  | Vol- | Vol+ |  F6  |  F7  |  F8  |  F9  |  F10 |
+     |  F1  |  F2  |  F3  |  F4  |  F5  | Vol+ | Mute |  F6  |  F7  |  F8  |  F9  |  F10 |
      |------+------+------+------+------+------+------+------+------+------+------+------|
      |  F11 |  F12 |  F13 |  F14 |  F15 |Track-|Track+|M:WhUp|M:Lclk| M:Up |M:Rclk| PgUp |
      |------+------+------+------+------+-------------+------+------+------+------+------|
-     | Caps |^LPad |^DashB|^Help |^Drawr| Mute | |>|| |M:WhDn|M:Left|M:Down|M:Rght| PgDn |
+     | Caps |^LPad |^DashB|^Help |^Drawr| Vol- | |>|| |M:WhDn|M:Left|M:Down|M:Rght| PgDn |
      |------+------+------+------+------+------|------+------+------+------+------+------|
      |RShift|^Menu |^SMenu|^Dock |^Tools|^Notif|  Ins |M:Slow|M:Norm|M:Fast| Home | End  |
      |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -50,6 +56,6 @@ The cursor keys are a design I stole from the old Commodore computers which had 
 
 On Fn layer ZXCVB and SDFG keys I have set up the default key bindings for Mac OS Keyboard Focus keys since they are obscure and require FKeys mostly. They are pretty convenient for using the keyboard to search the menus, go to the dock, etc. Some like the one to jump to a window's toolbar and the one to jump to a window's accessory drawer are less commonly used.
 
-___
+---
 
-Contributed to QMK and released with the QMK license by J. Eric Mason, 3/16/2018
+Contributed to QMK and released with the QMK license by Jeri C. Mason, 3/16/2018 - Revision 2 2/26/2019

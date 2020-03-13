@@ -21,12 +21,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0007
-#define DEVICE_VER 		0x0001
-#define MANUFACTURER    Machine Industries
-#define PRODUCT         M10-A
-#define DESCRIPTION     RAMA x Machine Industries M10-A
+#define VENDOR_ID       0x5241 // "RA"
+#define PRODUCT_ID      0x00AA // 10-A
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    RAMA WORKS
+#define PRODUCT         RAMA WORKS M10-A
+#define DESCRIPTION     RAMA WORKS M10-A
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -49,17 +49,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 6
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /*
  * Feature disable options

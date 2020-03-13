@@ -1,6 +1,6 @@
 /*
  * About this keymap:
- * 
+ *
  * The Dvorak layout shown herestems from my early Kinesis years, using the Contour PS/2 with a Dvorak
  * software layout. Because of this, the RBRC and LBRC were on opposite sides of the board in the corner
  * keys. I've decided to continue using this layout with my ErgoDox.
@@ -30,11 +30,6 @@ extern keymap_config_t keymap_config;
 #define DVORAK M(_DV)
 #define QWERTY M(_QW)
 #define COLEMAK M(_CM)
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -104,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QW] = LAYOUT_ergodox(
         // left hand
         KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_LEFT,
-        KC_DELT, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    XXXXXXX,
+        KC_DEL,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    XXXXXXX,
         KC_BSPC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    MO(_MD),
         KC_LGUI, KC_GRV,  KC_INS,  KC_LEFT, KC_RGHT,
@@ -143,10 +138,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                               |      |      | End  | | PgDn |      |      |
  *                               `--------------------' `--------------------'
  */
-[_CM] = LAYOUT_ergodox( 
+[_CM] = LAYOUT_ergodox(
         // left hand
         KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_LEFT,
-        KC_DELT, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    XXXXXXX,
+        KC_DEL,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    XXXXXXX,
         KC_BSPC, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    MO(_MD),
         KC_LGUI, KC_GRV,  KC_INS,  KC_LEFT, KC_RGHT,
@@ -247,10 +242,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,
         _______, _______, _______
   ),
-
-};
-
-const uint16_t PROGMEM fn_actions[] = {
 
 };
 

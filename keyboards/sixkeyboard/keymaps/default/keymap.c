@@ -1,21 +1,12 @@
 
-#include "sixkeyboard.h"
+#include QMK_KEYBOARD_H
 #include "matrix.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[0] = {
-	{KC_A, KC_B, KC_C},
-  {KC_D, KC_E, KC_F}
-  }
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    return MACRO_NONE;
+  [0] = LAYOUT(
+    KC_A, KC_B, KC_C, \
+    KC_D, KC_E, KC_F  \
+  )
 };
 
 void matrix_scan_user(void) {

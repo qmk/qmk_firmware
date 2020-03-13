@@ -5,24 +5,30 @@ download_dir=~/qmk_utils
 avrtools=avr8-gnu-toolchain
 armtools=gcc-arm-none-eabi
 installflip=false
+util_dir=$(dirname "$0")
 
 echo "Installing dependencies needed for the installation (quazip)"
-pacman --needed -S msys/unzip msys/p7zip base-devel msys/git mingw-w64-x86_64-toolchain
+pacman --needed --noconfirm --disable-download-timeout -Sy base-devel mingw-w64-x86_64-toolchain mingw-w64-x86_64-clang msys/git msys/p7zip mingw-w64-x86_64-python3-pip msys/unzip
 
 source "$dir/win_shared_install.sh"
 
 function install_avr {
     rm -f -r "$avrtools"
-    wget "http://ww1.microchip.com/downloads/en/DeviceDoc/avr8-gnu-toolchain-installer-3.5.4.91-win32.any.x86.exe"
-    7z x avr8-gnu-toolchain-installer-3.5.4.91-win32.any.x86.exe
-    rm avr8-gnu-toolchain-installer-3.5.4.91-win32.any.x86.exe
-    pacman --needed -S mingw-w64-x86_64-avrdude
+    wget "https://blog.zakkemble.net/download/avr-gcc-8.3.0-x86-mingw.zip"
+    echo "Extracting AVR toolchain..."
+    unzip -q -d . avr-gcc-8.3.0-x86-mingw.zip
+    mv avr-gcc-8.3.0-x86-mingw avr8-gnu-toolchain
+    rm avr8-gnu-toolchain/bin/make.exe
+    rm avr-gcc-8.3.0-x86-mingw.zip
+    pacman --needed --disable-download-timeout -S mingw-w64-x86_64-avrdude
 }
 
 function install_arm {
-    wget -O gcc-arm-none-eabi.zip "https://developer.arm.com/-/media/Files/downloads/gnu-rm/6-2017q2/gcc-arm-none-eabi-6-2017-q2-update-win32.zip?product=GNU%20ARM%20Embedded%20Toolchain,ZIP,,Windows,6-2017-q2-update"
-    unzip -d gcc-arm-none-eabi gcc-arm-none-eabi.zip
-    rm gcc-arm-none-eabi.zip
+    rm -f -r "$armtools"
+    wget -O gcc-arm-none-eabi-8-2019-q3-update-win32.zip "https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2019q3/RC1.1/gcc-arm-none-eabi-8-2019-q3-update-win32.zip"
+    echo "Extracting ARM toolchain..."
+    unzip -q -d gcc-arm-none-eabi gcc-arm-none-eabi-8-2019-q3-update-win32.zip
+    rm gcc-arm-none-eabi-8-2019-q3-update-win32.zip
 }
 
 function extract_flip {
@@ -39,17 +45,10 @@ if [ -f "FlipInstaller.exe" ]; then
 fi
 
 if [ ! -d "$avrtools" ]; then
-    while true; do
-        echo
-        echo "The AVR toolchain is not installed."
-        echo "This is needed for building AVR based keboards."
-        read -p "Do you want to install it? (Y/N) " res
-        case $res in
-            [Yy]* ) install_avr; break;;
-            [Nn]* ) break;;
-            * ) echo "Invalid answer";;
-        esac
-    done
+    echo
+    echo "The AVR toolchain is not installed."
+    echo "This is needed for building AVR based keyboards."
+    install_avr
 else
     while true; do
         echo
@@ -64,17 +63,10 @@ else
 fi
 
 if [ ! -d "$armtools" ]; then
-    while true; do
-        echo
-        echo "The ARM toolchain is not installed."
-        echo "This is needed for building ARM based keboards."
-        read -p "Do you want to install it? (Y/N) " res
-        case $res in
-            [Yy]* ) install_arm; break;;
-            [Nn]* ) break;;
-            * ) echo "Invalid answer";;
-        esac
-    done
+    echo
+    echo "The ARM toolchain is not installed."
+    echo "This is needed for building ARM based keyboards."
+    install_arm
 else
     while true; do
         echo
@@ -89,6 +81,8 @@ else
 fi
 popd
 
+pip3 install -r ${util_dir}/../requirements.txt
+
 cp -f "$dir/activate_msys2.sh" "$download_dir/"
 
 if grep "^source ~/qmk_utils/activate_msys2.sh$" ~/.bashrc
@@ -97,18 +91,10 @@ then
     echo "The line source ~/qmk_utils/activate_msys2.sh is already added to your /.bashrc"
     echo "Not adding it twice!"
 else
-    while true; do
         echo
-        echo "Do you want to add 'source ~/qmk_utils/activate_msys2.sh' to the end of your"
-        echo ".bashrc file? Without this make won't find the needed utils, so if you don't"
-        echo "want to do it automatically, then you have to do it manually later."
-        read -p "(Y/N)? " res
-        case $res in
-            [Yy]* ) echo "source ~/qmk_utils/activate_msys2.sh" >> ~/.bashrc; break;;
-            [Nn]* ) break;;
-            * ) echo "Invalid answer";;
-        esac
-    done
+        echo "Adding 'source ~/qmk_utils/activate_msys2.sh' to the end of your"
+        echo ".bashrc file. Without this make won't find the needed utils."
+        echo "source ~/qmk_utils/activate_msys2.sh" >> ~/.bashrc;
 fi
 
 echo

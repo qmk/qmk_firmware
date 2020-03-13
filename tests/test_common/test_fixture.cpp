@@ -11,14 +11,14 @@ extern "C" {
 }
 
 extern "C" {
-    void set_time(uint32_t t);
-    void advance_time(uint32_t ms);
+void set_time(uint32_t t);
+void advance_time(uint32_t ms);
 }
 
 using testing::_;
 using testing::AnyNumber;
-using testing::Return;
 using testing::Between;
+using testing::Return;
 
 void TestFixture::SetUpTestCase() {
     TestDriver driver;
@@ -26,11 +26,9 @@ void TestFixture::SetUpTestCase() {
     keyboard_init();
 }
 
-void TestFixture::TearDownTestCase() {
-}
+void TestFixture::TearDownTestCase() {}
 
-TestFixture::TestFixture() {
-}
+TestFixture::TestFixture() {}
 
 TestFixture::~TestFixture() {
     TestDriver driver;
@@ -51,7 +49,7 @@ void TestFixture::run_one_scan_loop() {
 }
 
 void TestFixture::idle_for(unsigned time) {
-    for (unsigned i=0; i<time; i++) {
+    for (unsigned i = 0; i < time; i++) {
         run_one_scan_loop();
     }
 }

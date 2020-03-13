@@ -2,27 +2,13 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  # You can only have one config.vm.box uncommented at a time
+  # define a name instead of just 'default'
+  config.vm.define "qmk_firmware"
 
-  # Comment this and uncomment another if you don't want to use the minimal Arch box
-  #config.vm.box = "dragon788/arch-ala-elasticdog"
-
-  # VMware/Virtualbox 64 bit
-  config.vm.box = "phusion/ubuntu-14.04-amd64"
-  #
-  # VMware/Virtualbox 64 bit
-  #config.vm.box = "puphpet/centos65-x64"
-  #
-  # The opensuse boxes don't have dfu-util in their default repositories
-  #
-  # The virtualbox version has tools issues
-  # VMware/Virtualbox 64 bit
-  #config.vm.box = "bento/opensuse-13.2-x86_64"
-  #
-  # Virtualbox only
-  #config.vm.box = "bento/opensuse-13.2-i386"
-  # config.vm.box = ""
-  # config.vm.box = ""
+  # VMware/Virtualbox ( and also Hyperv/Parallels) 64 bit
+  config.vm.box = "generic/debian9"
+  
+  config.vm.synced_folder '.', '/vagrant'
 
   # This section allows you to customize the Virtualbox VM
   # settings, ie showing the GUI or upping the memory
@@ -34,13 +20,16 @@ Vagrant.configure(2) do |config|
     # your Teensy via the VM rather than your host OS
     #vb.customize ['modifyvm', :id, '--usb', 'on']
     #vb.customize ['usbfilter', 'add', '0',
-    #    	  '--target', :id,
-    #    	  '--name', 'teensy',
-    #    	  '--vendorid', '0x16c0',
-    #    	  '--productid','0x0478'
-    #		 ]
+    #         '--target', :id,
+    #         '--name', 'teensy',
+    #         '--vendorid', '0x16c0',
+    #         '--productid','0x0478'
+    #        ]
     # Customize the amount of memory on the VM:
     vb.memory = "512"
+    # Uncomment the below lines if you have time sync
+    # issues with make and incremental builds
+    #vb.customize [ "guestproperty", "set", :id, "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold", 1000 ]
   end
 
   # This section allows you to customize the VMware VM
@@ -63,36 +52,44 @@ Vagrant.configure(2) do |config|
   end
 
   # Docker provider pulls from hub.docker.com respecting docker.image if
-  # config.vm.box is nil. Note that this bind-mounts from the current dir to
+  # config.vm.box is nil. In this case, we adhoc build util/vagrant/Dockerfile.
+  # Note that this bind-mounts from the current dir to
   # /vagrant in the guest, so unless your UID is 1000 to match vagrant in the
   # image, you'll need to: chmod -R a+rw .
   config.vm.provider "docker" do |docker, override|
     override.vm.box = nil
-    docker.image = "jesselang/debian-vagrant:jessie"
+    docker.build_dir = "util/vagrant"
     docker.has_ssh = true
   end
 
-  # This script ensures the required packages for AVR programming are installed
-  # It also ensures the system always gets the latest updates when powered on
-  # If this causes issues you can run a 'vagrant destroy' and then
-  # add a # before ,args: and run 'vagrant up' to get a working
-  # non-updated box and then attempt to troubleshoot or open a Github issue
+  # Unless we are running the docker container directly
+  #   1. run container detached on vm
+  #   2. attach on 'vagrant ssh'
+  ["virtualbox", "vmware_workstation", "vmware_fusion"].each do |type|
+    config.vm.provider type do |virt, override|
+      override.vm.provision "docker" do |d|
+        d.run "qmkfm/base_container",
+          cmd: "tail -f /dev/null",
+          args: "--privileged -v /dev:/dev -v '/vagrant:/vagrant'"
+      end
 
-  config.vm.provision "shell", run: "always", path: "./util/install_dependencies.sh", args: "-update"
+      override.vm.provision "shell", inline: <<-SHELL
+        echo 'docker restart qmkfm-base_container && exec docker exec -it qmkfm-base_container /bin/bash -l' >> ~vagrant/.bashrc
+      SHELL
+    end
+  end
 
   config.vm.post_up_message = <<-EOT
-  Log into the VM using 'vagrant ssh' on OSX or from Git Bash (Win)
-  or 'vagrant ssh-config' and Putty or Bitvise SSH or another SSH tool
 
-  Change directory (cd) to the keyboard you wish to program
-  (Optionally) modify your layout,
-  then run 'make clean'
-  and then 'make' to compile the .eep and .hex files.
+  Log into the environment using 'vagrant ssh'. QMK directory synchronized with
+  host is located at /vagrant
+  To compile the .hex files use make command inside this directory, e.g.
+     cd /vagrant
+     make <keyboard>:default
 
-  Or you can copy and paste the example line below.
-
-  cd /vagrant; cd keyboards; cd ergodox; make clean; make
-
+  Examples:
+     make planck/rev4:default:dfu
+     make planck:default
 
   EOT
 end

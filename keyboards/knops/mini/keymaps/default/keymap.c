@@ -1,104 +1,61 @@
-#include "mini.h"
+#include QMK_KEYBOARD_H
+
+enum custom_keycodes {
+	M_TGLHF = SAFE_RANGE,
+	M_TGG
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	KEYMAP(
+	LAYOUT(
 		LT(3, KC_MSTP), KC_VOLU, KC_MPLY, KC_MPRV, KC_VOLD, KC_MNXT),
 
-	KEYMAP(
-		LT(3, KC_ESC), M(3), M(4), M(5), M(6), M(7)),
+	LAYOUT(
+		LT(3, KC_ESC), C(KC_Z), C(S(KC_Z)), C(KC_X), C(KC_C), C(KC_V)),
 
-	KEYMAP(
-		LT(3, KC_1), KC_2, KC_3, KC_4, M(0), M(1)),
+	LAYOUT(
+		LT(3, KC_1), KC_2, KC_3, KC_4, M_TGLHF, M_TGG),
 
-	KEYMAP(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, RESET, TO(0), TO(1), TO(2)),
 
-	KEYMAP(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	KEYMAP(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	KEYMAP(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	KEYMAP(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	KEYMAP(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	KEYMAP(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	KEYMAP(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	KEYMAP(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	KEYMAP(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	KEYMAP(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	KEYMAP(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	KEYMAP(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
 
 };
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-	//keyevent_t event = record->event;
-
-	switch (id) {
-		case 0:
-			if (record->event.pressed) {
-				return MACRO( T(T), T(G), T(L), T(H), T(F), T(ENT), END );
-			}
-			break;
-		case 1:
-			if (record->event.pressed) {
-				return MACRO( T(T), T(G), T(G), T(ENT), END );
-			}
-			break;
-		case 2:
-			if (record->event.pressed) {
-				return MACRO( D(NO), T(L), U(NO), END );
-			}
-			break;
-		case 3:
-			if (record->event.pressed) {
-				return MACRO( D(LCTL), T(Z), U(LCTL), END );
-			}
-			break;
-		case 4:
-			if (record->event.pressed) {
-				return MACRO( D(LCTL), D(LSFT), T(Z), U(LSFT), U(LCTL), END );
-			}
-			break;
-		case 5:
-			if (record->event.pressed) {
-				return MACRO( D(LCTL), T(X), U(LCTL), END );
-			}
-			break;
-		case 6:
-			if (record->event.pressed) {
-				return MACRO( D(LCTL), T(C), U(LCTL), END );
-			}
-			break;
-		case 7:
-			if (record->event.pressed) {
-				return MACRO( D(LCTL), T(V), U(LCTL), END );
-			}
-			break;
-	}
-	return MACRO_NONE;
-}
 
 void set_switch_led(int ledId, bool state) {
 	if(state) {
@@ -369,6 +326,18 @@ bool process_record_user (uint16_t keycode, keyrecord_t *record) {
         led_set_layer(2);
      }
      break;
+  case M_TGLHF:
+    if (record->event.pressed) {
+      SEND_STRING("tglhf");
+      tap_code(KC_ENT);
+    }
+    return false;
+  case M_TGG:
+    if (record->event.pressed) {
+      SEND_STRING("tgg");
+      tap_code(KC_ENT);
+    }
+    return false;
   }
   return true;
 }

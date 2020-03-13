@@ -1,4 +1,4 @@
-/* Copyright 2017 REPLACE_WITH_YOUR_NAME
+/* Copyright 2017 benlyall, MechMerlin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,25 +15,22 @@
  */
 #include "v60_type_r.h"
 
-#include "rgblight.h"
-
-#include <avr/pgmspace.h>
-
-#include "action_layer.h"
 #include "quantum.h"
 
 // if we've got an RGB underglow!
-#ifdef V60_POLESTAR
+#ifdef RGBLIGHT_ENABLE
+
 #define SOFTPWM_LED_TIMER_TOP F_CPU/(256*64)
 
 extern rgblight_config_t rgblight_config;
 static uint8_t softpwm_buff[3] = {0};
 
-void matrix_init_user(void) {
+void matrix_init_kb(void) {
 	rgb_init();
+	matrix_init_user();
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 	uint8_t r = led[0].r, g = led[0].g, b = led[0].b;
 	switch(keycode) {
 		case RGB_RI:
@@ -98,40 +95,40 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			return false;
 	}
 
-	return true;
+	return process_record_user(keycode, record);
 }
 
 
 void rgb_timer_init(void) {
-    /* Timer1 setup */
+    /* Timer3 setup */
     /* CTC mode */
-    TCCR1B |= (1<<WGM12);
-    /* Clock selelct: clk/8 */
-    TCCR1B |= (1<<CS10);
+    TCCR3B |= _BV(WGM32);
+    /* Clock select: clk/8 */
+    TCCR3B |= _BV(CS30);
     /* Set TOP value */
     uint8_t sreg = SREG;
     cli();
-    OCR1AH = (SOFTPWM_LED_TIMER_TOP >> 8) & 0xff;
-    OCR1AL = SOFTPWM_LED_TIMER_TOP & 0xff;
+    OCR3AH = (SOFTPWM_LED_TIMER_TOP >> 8) & 0xFF;
+    OCR3AL = SOFTPWM_LED_TIMER_TOP & 0xFF;
     SREG = sreg;
 
-    // Enable the compare match interrupt on timer 1
-    TIMSK1 |= (1<<OCIE1A);
+    // Enable the compare match interrupt on timer 3
+    TIMSK3 |= _BV(OCIE3A);
 }
 
 void rgb_init(void) {
-    DDRF  |=  (1<<PF6 | 1<<PF5 | 1<<PF4);
-    PORTF |=  (1<<PF6 | 1<<PF5 | 1<<PF4);
+    DDRF  |= (_BV(PF6) | _BV(PF5) | _BV(PF4));
+    PORTF |= (_BV(PF6) | _BV(PF5) | _BV(PF4));
 
     rgb_timer_init();
 }
 
 void set_rgb_pin_on(uint8_t pin) {
-	PORTF &= ~(1<<pin);
+	PORTF &= ~_BV(pin);
 }
 
 void set_rgb_pin_off(uint8_t pin) {
-	PORTF |= (1<<pin);
+	PORTF |= _BV(pin);
 }
 
 void rgblight_set(void) {
@@ -148,7 +145,7 @@ void rgblight_set(void) {
    //  //xprintf("Red: %u, Green: %u, Blue: %u\n", led[0].r, led[0].g, led[0].b);
 }
 
-ISR(TIMER1_COMPA_vect)
+ISR(TIMER3_COMPA_vect)
 {
     static uint8_t pwm = 0;
     pwm++;
@@ -188,44 +185,4 @@ ISR(TIMER1_COMPA_vect)
     	softpwm_buff[2] = led[0].b;
   	}
 }
-#else
-
-void matrix_init_user(void) {
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	return true;
-}
-
-#endif // V60_POLESTAR
-
-// we need these functions for both versions
-void led_set_kb(uint8_t usb_led) {
-	// put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-
-	led_set_user(usb_led);
-}
-
-void matrix_scan_user(void) {
-}
-
-void matrix_init_kb(void) {
-	// put your keyboard start-up code here
-	// runs once when the firmware starts up
-
-	matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-	// put your looping keyboard code here
-	// runs every cycle (a lot)
-
-	matrix_scan_user();
-}
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-	// put your per-action keyboard code here
-	// runs for every action, just before processing by the firmware
-
-	return process_record_user(keycode, record);
-}
+#endif // RGBLIGHT_ENABLE

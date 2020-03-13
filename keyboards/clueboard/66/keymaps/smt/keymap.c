@@ -1,4 +1,4 @@
-#include "66.h"
+#include QMK_KEYBOARD_H
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -15,9 +15,6 @@ enum planck_keycodes {
   COLEMAK,
   DVORAK
 };
-
-// Helpful defines
-#define XXXXXXX KC_NO
 
 // Custom macros
 #define CTL_ESC     CTL_T(KC_ESC)               // Tap for Esc, hold for Ctrl

@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <stdint.h>
 #include <stdbool.h>
+#include <string.h>
 #include <avr/io.h>
 #include <avr/wdt.h>
 #include <avr/interrupt.h>
@@ -30,12 +31,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "split_util.h"
 #include "pro_micro.h"
-#include "config.h"
 
 #ifdef USE_MATRIX_I2C
 #  include "i2c.h"
 #else // USE_SERIAL
-#  include "serial.h"
+#  include "split_scomm.h"
 #endif
 
 #ifndef DEBOUNCE
@@ -47,7 +47,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static uint8_t debouncing = DEBOUNCE;
 static const int ROWS_PER_HAND = MATRIX_ROWS/2;
 static uint8_t error_count = 0;
-uint8_t is_master = 0 ;
 
 static const uint8_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const uint8_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
@@ -95,22 +94,21 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
-    debug_enable = true;
-    debug_matrix = true;
-    debug_mouse = true;
+    split_keyboard_setup();
+
     // initialize row and col
     unselect_rows();
     init_cols();
 
     TX_RX_LED_INIT;
+    TXLED0;
+    RXLED0;
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
         matrix[i] = 0;
         matrix_debouncing[i] = 0;
     }
-
-    is_master = has_usb();
 
     matrix_init_quantum();
 }
@@ -179,40 +177,33 @@ i2c_error: // the cable is disconnceted, or something else went wrong
 
 #else // USE_SERIAL
 
-int serial_transaction(void) {
+int serial_transaction(int master_changed) {
     int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
+#ifdef SERIAL_USE_MULTI_TRANSACTION
+    int ret=serial_update_buffers(master_changed);
+#else
     int ret=serial_update_buffers();
+#endif
     if (ret ) {
-        if(ret==2)RXLED1;
+        if(ret==2) RXLED1;
         return 1;
     }
-RXLED0;
-    for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        matrix[slaveOffset+i] = serial_slave_buffer[i];
-    }
+    RXLED0;
+    memcpy(&matrix[slaveOffset],
+        (void *)serial_slave_buffer, sizeof(serial_slave_buffer));
     return 0;
 }
 #endif
 
 uint8_t matrix_scan(void)
 {
-    if (is_master) {
+    if (is_helix_master()) {
         matrix_master_scan();
     }else{
         matrix_slave_scan();
-
-//        if(serial_slave_DATA_CORRUPT()){
-//          TXLED0;
-          int offset = (isLeftHand) ? ROWS_PER_HAND : 0;
-
-          for (int i = 0; i < ROWS_PER_HAND; ++i) {
-              matrix[offset+i] = serial_master_buffer[i];
-          }
-
-//        }else{
-//          TXLED1;
-//        }
-
+        int offset = (isLeftHand) ? ROWS_PER_HAND : 0;
+        memcpy(&matrix[offset],
+               (void *)serial_master_buffer, sizeof(serial_master_buffer));
         matrix_scan_quantum();
     }
     return 1;
@@ -222,6 +213,7 @@ uint8_t matrix_scan(void)
 uint8_t matrix_master_scan(void) {
 
     int ret = _matrix_scan();
+    int mchanged = 1;
 
 #ifndef KEYBOARD_helix_rev1
     int offset = (isLeftHand) ? 0 : ROWS_PER_HAND;
@@ -232,16 +224,19 @@ uint8_t matrix_master_scan(void) {
 //        i2c_slave_buffer[i] = matrix[offset+i];
 //    }
 #else // USE_SERIAL
-    for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        serial_master_buffer[i] = matrix[offset+i];
-    }
+  #ifdef SERIAL_USE_MULTI_TRANSACTION
+    mchanged = memcmp((void *)serial_master_buffer,
+		      &matrix[offset], sizeof(serial_master_buffer));
+  #endif
+    memcpy((void *)serial_master_buffer,
+	   &matrix[offset], sizeof(serial_master_buffer));
 #endif
 #endif
 
 #ifdef USE_MATRIX_I2C
     if( i2c_transaction() ) {
 #else // USE_SERIAL
-    if( serial_transaction() ) {
+    if( serial_transaction(mchanged) ) {
 #endif
         // turn on the indicator led when halves are disconnected
         TXLED1;
@@ -275,9 +270,19 @@ void matrix_slave_scan(void) {
         i2c_slave_buffer[i] = matrix[offset+i];
     }
 #else // USE_SERIAL
+  #ifdef SERIAL_USE_MULTI_TRANSACTION
+    int change = 0;
+  #endif
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
+  #ifdef SERIAL_USE_MULTI_TRANSACTION
+        if( serial_slave_buffer[i] != matrix[offset+i] )
+	    change = 1;
+  #endif
         serial_slave_buffer[i] = matrix[offset+i];
     }
+  #ifdef SERIAL_USE_MULTI_TRANSACTION
+    slave_buffer_change_count += change;
+  #endif
 #endif
 }
 

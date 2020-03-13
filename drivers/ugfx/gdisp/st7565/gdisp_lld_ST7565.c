@@ -9,82 +9,89 @@
 
 #if GFX_USE_GDISP
 
-#define GDISP_DRIVER_VMT            GDISPVMT_ST7565_QMK
-#include "gdisp_lld_config.h"
-#include "src/gdisp/gdisp_driver.h"
+#    define GDISP_DRIVER_VMT GDISPVMT_ST7565_QMK
+#    include "gdisp_lld_config.h"
+#    include "src/gdisp/gdisp_driver.h"
 
-#include "board_st7565.h"
+#    include "board_st7565.h"
 
 /*===========================================================================*/
 /* Driver local definitions.                                                 */
 /*===========================================================================*/
 
-#ifndef GDISP_SCREEN_HEIGHT
-#define GDISP_SCREEN_HEIGHT         LCD_HEIGHT
-#endif
-#ifndef GDISP_SCREEN_WIDTH
-#define GDISP_SCREEN_WIDTH          LCD_WIDTH
-#endif
-#ifndef GDISP_INITIAL_CONTRAST
-#define GDISP_INITIAL_CONTRAST      35
-#endif
-#ifndef GDISP_INITIAL_BACKLIGHT
-#define GDISP_INITIAL_BACKLIGHT     100
-#endif
+#    ifndef GDISP_SCREEN_HEIGHT
+#        define GDISP_SCREEN_HEIGHT LCD_HEIGHT
+#    endif
+#    ifndef GDISP_SCREEN_WIDTH
+#        define GDISP_SCREEN_WIDTH LCD_WIDTH
+#    endif
+#    ifndef GDISP_INITIAL_CONTRAST
+#        define GDISP_INITIAL_CONTRAST 35
+#    endif
+#    ifndef GDISP_INITIAL_BACKLIGHT
+#        define GDISP_INITIAL_BACKLIGHT 100
+#    endif
 
-#define GDISP_FLG_NEEDFLUSH         (GDISP_FLG_DRIVER<<0)
+#    define GDISP_FLG_NEEDFLUSH (GDISP_FLG_DRIVER << 0)
 
-#include "st7565.h"
+#    include "st7565.h"
 
 /*===========================================================================*/
 /* Driver config defaults for backward compatibility.                        */
 /*===========================================================================*/
-#ifndef ST7565_LCD_BIAS
-#define ST7565_LCD_BIAS         ST7565_LCD_BIAS_7
-#endif
-#ifndef ST7565_ADC
-#define ST7565_ADC              ST7565_ADC_NORMAL
-#endif
-#ifndef ST7565_COM_SCAN
-#define ST7565_COM_SCAN         ST7565_COM_SCAN_INC
-#endif
-#ifndef ST7565_PAGE_ORDER
-#define ST7565_PAGE_ORDER       0,1,2,3
-#endif
+#    ifndef ST7565_LCD_BIAS
+#        define ST7565_LCD_BIAS ST7565_LCD_BIAS_7
+#    endif
+#    ifndef ST7565_ADC
+#        define ST7565_ADC ST7565_ADC_NORMAL
+#    endif
+#    ifndef ST7565_COM_SCAN
+#        define ST7565_COM_SCAN ST7565_COM_SCAN_INC
+#    endif
+#    ifndef ST7565_PAGE_ORDER
+#        define ST7565_PAGE_ORDER 0, 1, 2, 3
+#    endif
 
 /*===========================================================================*/
 /* Driver local functions.                                                   */
 /*===========================================================================*/
 
-typedef struct{
-    bool_t buffer2;
+typedef struct {
+    bool_t  buffer2;
     uint8_t data_pos;
     uint8_t data[16];
     uint8_t ram[GDISP_SCREEN_HEIGHT * GDISP_SCREEN_WIDTH / 8];
-}PrivData;
+} PrivData;
 
 // Some common routines and macros
-#define PRIV(g)                         ((PrivData*)g->priv)
-#define RAM(g)                          (PRIV(g)->ram)
+#    define PRIV(g) ((PrivData *)g->priv)
+#    define RAM(g) (PRIV(g)->ram)
 
-static GFXINLINE void write_cmd(GDisplay* g, uint8_t cmd) {
-    PRIV(g)->data[PRIV(g)->data_pos++] = cmd;
-}
+static GFXINLINE void write_cmd(GDisplay *g, uint8_t cmd) { PRIV(g)->data[PRIV(g)->data_pos++] = cmd; }
 
-static GFXINLINE void flush_cmd(GDisplay* g) {
+static GFXINLINE void flush_cmd(GDisplay *g) {
     write_data(g, PRIV(g)->data, PRIV(g)->data_pos);
     PRIV(g)->data_pos = 0;
 }
 
-#define write_cmd2(g, cmd1, cmd2)        { write_cmd(g, cmd1); write_cmd(g, cmd2); }
-#define write_cmd3(g, cmd1, cmd2, cmd3)  { write_cmd(g, cmd1); write_cmd(g, cmd2); write_cmd(g, cmd3); }
+#    define write_cmd2(g, cmd1, cmd2) \
+        {                             \
+            write_cmd(g, cmd1);       \
+            write_cmd(g, cmd2);       \
+        }
+#    define write_cmd3(g, cmd1, cmd2, cmd3) \
+        {                                   \
+            write_cmd(g, cmd1);             \
+            write_cmd(g, cmd2);             \
+            write_cmd(g, cmd3);             \
+        }
 
 // Some common routines and macros
-#define delay(us)           gfxSleepMicroseconds(us)
-#define delay_ms(ms)        gfxSleepMilliseconds(ms)
+#    define delay(us) gfxSleepMicroseconds(us)
+#    define delay_ms(ms) gfxSleepMilliseconds(ms)
 
-#define xyaddr(x, y)        ((x) + ((y)>>3)*GDISP_SCREEN_WIDTH)
-#define xybit(y)            (1<<((y)&7))
+#    define xyaddr(x, y) ((x) + ((y) >> 3) * GDISP_SCREEN_WIDTH)
+#    define xybit(y) (1 << ((y)&7))
 
 /*===========================================================================*/
 /* Driver exported functions.                                                */
@@ -99,8 +106,8 @@ static GFXINLINE void flush_cmd(GDisplay* g) {
 
 LLDSPEC bool_t gdisp_lld_init(GDisplay *g) {
     // The private area is the display surface.
-    g->priv = gfxAlloc(sizeof(PrivData));
-    PRIV(g)->buffer2 = false;
+    g->priv           = gfxAlloc(sizeof(PrivData));
+    PRIV(g)->buffer2  = false;
     PRIV(g)->data_pos = 0;
 
     // Initialise the board interface
@@ -139,22 +146,21 @@ LLDSPEC bool_t gdisp_lld_init(GDisplay *g) {
     release_bus(g);
 
     /* Initialise the GDISP structure */
-    g->g.Width = GDISP_SCREEN_WIDTH;
-    g->g.Height = GDISP_SCREEN_HEIGHT;
+    g->g.Width       = GDISP_SCREEN_WIDTH;
+    g->g.Height      = GDISP_SCREEN_HEIGHT;
     g->g.Orientation = GDISP_ROTATE_0;
-    g->g.Powermode = powerOff;
-    g->g.Backlight = GDISP_INITIAL_BACKLIGHT;
-    g->g.Contrast = GDISP_INITIAL_CONTRAST;
+    g->g.Powermode   = powerOff;
+    g->g.Backlight   = GDISP_INITIAL_BACKLIGHT;
+    g->g.Contrast    = GDISP_INITIAL_CONTRAST;
     return TRUE;
 }
 
-#if GDISP_HARDWARE_FLUSH
+#    if GDISP_HARDWARE_FLUSH
 LLDSPEC void gdisp_lld_flush(GDisplay *g) {
-    unsigned    p;
+    unsigned p;
 
     // Don't flush if we don't need it.
-    if (!(g->flags & GDISP_FLG_NEEDFLUSH))
-        return;
+    if (!(g->flags & GDISP_FLG_NEEDFLUSH)) return;
 
     acquire_bus(g);
     enter_cmd_mode(g);
@@ -166,7 +172,7 @@ LLDSPEC void gdisp_lld_flush(GDisplay *g) {
         write_cmd(g, ST7565_RMW);
         flush_cmd(g);
         enter_data_mode(g);
-        write_data(g, RAM(g) + (p*GDISP_SCREEN_WIDTH), GDISP_SCREEN_WIDTH);
+        write_data(g, RAM(g) + (p * GDISP_SCREEN_WIDTH), GDISP_SCREEN_WIDTH);
         enter_cmd_mode(g);
     }
     unsigned line = (PRIV(g)->buffer2 ? 32 : 0);
@@ -177,30 +183,30 @@ LLDSPEC void gdisp_lld_flush(GDisplay *g) {
 
     g->flags &= ~GDISP_FLG_NEEDFLUSH;
 }
-#endif
+#    endif
 
-#if GDISP_HARDWARE_DRAWPIXEL
+#    if GDISP_HARDWARE_DRAWPIXEL
 LLDSPEC void gdisp_lld_draw_pixel(GDisplay *g) {
-    coord_t        x, y;
+    coord_t x, y;
 
-    switch(g->g.Orientation) {
-    default:
-    case GDISP_ROTATE_0:
-        x = g->p.x;
-        y = g->p.y;
-        break;
-    case GDISP_ROTATE_90:
-        x = g->p.y;
-        y = GDISP_SCREEN_HEIGHT-1 - g->p.x;
-        break;
-    case GDISP_ROTATE_180:
-        x = GDISP_SCREEN_WIDTH-1 - g->p.x;
-        y = GDISP_SCREEN_HEIGHT-1 - g->p.y;
-        break;
-    case GDISP_ROTATE_270:
-        x = GDISP_SCREEN_HEIGHT-1 - g->p.y;
-        y = g->p.x;
-        break;
+    switch (g->g.Orientation) {
+        default:
+        case GDISP_ROTATE_0:
+            x = g->p.x;
+            y = g->p.y;
+            break;
+        case GDISP_ROTATE_90:
+            x = g->p.y;
+            y = GDISP_SCREEN_HEIGHT - 1 - g->p.x;
+            break;
+        case GDISP_ROTATE_180:
+            x = GDISP_SCREEN_WIDTH - 1 - g->p.x;
+            y = GDISP_SCREEN_HEIGHT - 1 - g->p.y;
+            break;
+        case GDISP_ROTATE_270:
+            x = GDISP_SCREEN_HEIGHT - 1 - g->p.y;
+            y = g->p.x;
+            break;
     }
     if (gdispColor2Native(g->p.color) != Black)
         RAM(g)[xyaddr(x, y)] |= xybit(y);
@@ -208,53 +214,52 @@ LLDSPEC void gdisp_lld_draw_pixel(GDisplay *g) {
         RAM(g)[xyaddr(x, y)] &= ~xybit(y);
     g->flags |= GDISP_FLG_NEEDFLUSH;
 }
-#endif
+#    endif
 
-#if GDISP_HARDWARE_PIXELREAD
+#    if GDISP_HARDWARE_PIXELREAD
 LLDSPEC color_t gdisp_lld_get_pixel_color(GDisplay *g) {
-    coord_t        x, y;
+    coord_t x, y;
 
-    switch(g->g.Orientation) {
-    default:
-    case GDISP_ROTATE_0:
-        x = g->p.x;
-        y = g->p.y;
-        break;
-    case GDISP_ROTATE_90:
-        x = g->p.y;
-        y = GDISP_SCREEN_HEIGHT-1 - g->p.x;
-        break;
-    case GDISP_ROTATE_180:
-        x = GDISP_SCREEN_WIDTH-1 - g->p.x;
-        y = GDISP_SCREEN_HEIGHT-1 - g->p.y;
-        break;
-    case GDISP_ROTATE_270:
-        x = GDISP_SCREEN_HEIGHT-1 - g->p.y;
-        y = g->p.x;
-        break;
+    switch (g->g.Orientation) {
+        default:
+        case GDISP_ROTATE_0:
+            x = g->p.x;
+            y = g->p.y;
+            break;
+        case GDISP_ROTATE_90:
+            x = g->p.y;
+            y = GDISP_SCREEN_HEIGHT - 1 - g->p.x;
+            break;
+        case GDISP_ROTATE_180:
+            x = GDISP_SCREEN_WIDTH - 1 - g->p.x;
+            y = GDISP_SCREEN_HEIGHT - 1 - g->p.y;
+            break;
+        case GDISP_ROTATE_270:
+            x = GDISP_SCREEN_HEIGHT - 1 - g->p.y;
+            y = g->p.x;
+            break;
     }
     return (RAM(g)[xyaddr(x, y)] & xybit(y)) ? White : Black;
 }
-#endif
+#    endif
 
 LLDSPEC void gdisp_lld_blit_area(GDisplay *g) {
-    uint8_t* buffer = (uint8_t*)g->p.ptr;
-    int linelength = g->p.cx;
+    uint8_t *buffer     = (uint8_t *)g->p.ptr;
+    int      linelength = g->p.cx;
     for (int i = 0; i < g->p.cy; i++) {
-        unsigned dstx = g->p.x;
-        unsigned dsty = g->p.y + i;
-        unsigned srcx = g->p.x1;
-        unsigned srcy = g->p.y1 + i;
+        unsigned dstx   = g->p.x;
+        unsigned dsty   = g->p.y + i;
+        unsigned srcx   = g->p.x1;
+        unsigned srcy   = g->p.y1 + i;
         unsigned srcbit = srcy * g->p.x2 + srcx;
-        for(int j=0; j < linelength; j++) {
-            uint8_t src = buffer[srcbit / 8];
-            uint8_t bit = 7-(srcbit % 8);
-            uint8_t bitset = (src >> bit) & 1;
-            uint8_t* dst = &(RAM(g)[xyaddr(dstx, dsty)]);
+        for (int j = 0; j < linelength; j++) {
+            uint8_t  src    = buffer[srcbit / 8];
+            uint8_t  bit    = 7 - (srcbit % 8);
+            uint8_t  bitset = (src >> bit) & 1;
+            uint8_t *dst    = &(RAM(g)[xyaddr(dstx, dsty)]);
             if (bitset) {
                 *dst |= xybit(dsty);
-            }
-            else {
+            } else {
                 *dst &= ~xybit(dsty);
             }
             dstx++;
@@ -264,66 +269,64 @@ LLDSPEC void gdisp_lld_blit_area(GDisplay *g) {
     g->flags |= GDISP_FLG_NEEDFLUSH;
 }
 
-#if GDISP_NEED_CONTROL && GDISP_HARDWARE_CONTROL
+#    if GDISP_NEED_CONTROL && GDISP_HARDWARE_CONTROL
 LLDSPEC void gdisp_lld_control(GDisplay *g) {
-    switch(g->p.x) {
-    case GDISP_CONTROL_POWER:
-        if (g->g.Powermode == (powermode_t)g->p.ptr)
+    switch (g->p.x) {
+        case GDISP_CONTROL_POWER:
+            if (g->g.Powermode == (powermode_t)g->p.ptr) return;
+            switch ((powermode_t)g->p.ptr) {
+                case powerOff:
+                case powerSleep:
+                case powerDeepSleep:
+                    acquire_bus(g);
+                    enter_cmd_mode(g);
+                    write_cmd(g, ST7565_DISPLAY_OFF);
+                    flush_cmd(g);
+                    release_bus(g);
+                    break;
+                case powerOn:
+                    acquire_bus(g);
+                    enter_cmd_mode(g);
+                    write_cmd(g, ST7565_DISPLAY_ON);
+                    flush_cmd(g);
+                    release_bus(g);
+                    break;
+                default:
+                    return;
+            }
+            g->g.Powermode = (powermode_t)g->p.ptr;
             return;
-        switch((powermode_t)g->p.ptr) {
-        case powerOff:
-        case powerSleep:
-        case powerDeepSleep:
-            acquire_bus(g);
-            enter_cmd_mode(g);
-            write_cmd(g, ST7565_DISPLAY_OFF);
-            flush_cmd(g);
-            release_bus(g);
-            break;
-        case powerOn:
-            acquire_bus(g);
-            enter_cmd_mode(g);
-            write_cmd(g, ST7565_DISPLAY_ON);
-            flush_cmd(g);
-            release_bus(g);
-            break;
-        default:
-            return;
-        }
-        g->g.Powermode = (powermode_t)g->p.ptr;
-        return;
 
         case GDISP_CONTROL_ORIENTATION:
-            if (g->g.Orientation == (orientation_t)g->p.ptr)
-                return;
-            switch((orientation_t)g->p.ptr) {
-            /* Rotation is handled by the drawing routines */
-            case GDISP_ROTATE_0:
-            case GDISP_ROTATE_180:
-                g->g.Height = GDISP_SCREEN_HEIGHT;
-                g->g.Width = GDISP_SCREEN_WIDTH;
-                break;
-            case GDISP_ROTATE_90:
-            case GDISP_ROTATE_270:
-                g->g.Height = GDISP_SCREEN_WIDTH;
-                g->g.Width = GDISP_SCREEN_HEIGHT;
-                break;
-            default:
-                return;
+            if (g->g.Orientation == (orientation_t)g->p.ptr) return;
+            switch ((orientation_t)g->p.ptr) {
+                /* Rotation is handled by the drawing routines */
+                case GDISP_ROTATE_0:
+                case GDISP_ROTATE_180:
+                    g->g.Height = GDISP_SCREEN_HEIGHT;
+                    g->g.Width  = GDISP_SCREEN_WIDTH;
+                    break;
+                case GDISP_ROTATE_90:
+                case GDISP_ROTATE_270:
+                    g->g.Height = GDISP_SCREEN_WIDTH;
+                    g->g.Width  = GDISP_SCREEN_HEIGHT;
+                    break;
+                default:
+                    return;
             }
             g->g.Orientation = (orientation_t)g->p.ptr;
             return;
 
-            case GDISP_CONTROL_CONTRAST:
-                g->g.Contrast = (unsigned)g->p.ptr & 63;
-                acquire_bus(g);
-                enter_cmd_mode(g);
-                write_cmd2(g, ST7565_CONTRAST, g->g.Contrast);
-                flush_cmd(g);
-                release_bus(g);
-                return;
+        case GDISP_CONTROL_CONTRAST:
+            g->g.Contrast = (unsigned)g->p.ptr & 63;
+            acquire_bus(g);
+            enter_cmd_mode(g);
+            write_cmd2(g, ST7565_CONTRAST, g->g.Contrast);
+            flush_cmd(g);
+            release_bus(g);
+            return;
     }
 }
-#endif // GDISP_NEED_CONTROL
+#    endif  // GDISP_NEED_CONTROL
 
-#endif // GFX_USE_GDISP
+#endif  // GFX_USE_GDISP

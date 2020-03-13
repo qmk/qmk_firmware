@@ -18,7 +18,7 @@ or
 
     make meira/featherble:default
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information on generic QMK configuration and setup.
+See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information on generic QMK configuration and setup.
 
 Both the Pro Micro and the Feather BLE use the Catalina bootloader, which is typically programmed using avrdude.
 

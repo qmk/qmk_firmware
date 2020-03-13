@@ -2,15 +2,13 @@
 
 Github can be a little tricky to those that aren't familiar with it - this guide will walk through each step of forking, cloning, and submitting a pull request with QMK.
 
-{% hint style='info' %}
-This guide assumes you're somewhat comfortable with running things at the command line, and have git installed on your system.
-{% endhint %}
+?> This guide assumes you're somewhat comfortable with running things at the command line, and have git installed on your system.
 
 Start on the [QMK Github page](https://github.com/qmk/qmk_firmware), and you'll see a button in the upper right that says "Fork":
 
 ![Fork on Github](http://i.imgur.com/8Toomz4.jpg)
 
-If you're apart of an organization, you'll need to choose which account to fork it to. In most circumstances, you'll want to fork it to your personal account. Once your fork is completed (sometimes this takes a little while), click the "Clone or Download" button:
+If you're a part of an organization, you'll need to choose which account to fork it to. In most circumstances, you'll want to fork it to your personal account. Once your fork is completed (sometimes this takes a little while), click the "Clone or Download" button:
 
 ![Download from Github](http://i.imgur.com/N1NYcSz.jpg)
 
@@ -18,30 +16,34 @@ And be sure to select "HTTPS", and select the link and copy it:
 
 ![HTTPS link](http://i.imgur.com/eGO0ohO.jpg)
 
-From here, enter `git clone ` into the command line, and then paste your link:
+From here, enter `git clone --recurse-submodules ` into the command line, and then paste your link:
 
 ```
-**[terminal]
-**[prompt you@computer]**[path ~]**[delimiter  $ ]**[command git clone https://github.com/whoeveryouare/qmk_firmware.git]
+user@computer:~$ git clone --recurse-submodules https://github.com/whoeveryouare/qmk_firmware.git
 Cloning into 'qmk_firmware'...
-remote: Counting objects: 46625, done.
-remote: Compressing objects: 100% (2/2), done.
-remote: Total 46625 (delta 0), reused 0 (delta 0), pack-reused 46623
-Receiving objects: 100% (46625/46625), 84.47 MiB | 3.14 MiB/s, done.
-Resolving deltas: 100% (29362/29362), done.
-Checking out files: 100% (2799/2799), done.
+remote: Enumerating objects: 9, done.
+remote: Counting objects: 100% (9/9), done.
+remote: Compressing objects: 100% (5/5), done.
+remote: Total 183883 (delta 5), reused 4 (delta 4), pack-reused 183874
+Receiving objects: 100% (183883/183883), 132.90 MiB | 9.57 MiB/s, done.
+Resolving deltas: 100% (119972/119972), done.
+...
+Submodule path 'lib/chibios': checked out '587968d6cbc2b0e1c7147540872f2a67e59ca18b'
+Submodule path 'lib/chibios-contrib': checked out 'ede48346eee4b8d6847c19bc01420bee76a5e486'
+Submodule path 'lib/googletest': checked out 'ec44c6c1675c25b9827aacd08c02433cccde7780'
+Submodule path 'lib/lufa': checked out 'ce10f7642b0459e409839b23cc91498945119b4d'
+Submodule path 'lib/ugfx': checked out '3e97b74e03c93631cdd3ddb2ce43b963fdce19b2'
 ```
 
 You now have your QMK fork on your local machine, and you can add your keymap, compile it and flash it to your board. Once you're happy with your changes, you can add, commit, and push them to your fork like this:
 
 ```
-**[terminal]
-**[prompt you@computer]**[path ~/qmk_firmware]**[delimiter  $ ]**[command git add .]
-**[prompt you@computer]**[path ~/qmk_firmware]**[delimiter  $ ]**[command git commit -m "adding my keymap"]
+user@computer:~$ git add .
+user@computer:~$ git commit -m "adding my keymap"
 [master cccb1608] adding my keymap
  1 file changed, 1 insertion(+)
  create mode 100644 keyboards/planck/keymaps/mine/keymap.c
-**[prompt you@computer]**[path ~/qmk_firmware]**[delimiter  $ ]**[command git push]
+user@computer:~$ git push
 Counting objects: 1, done.
 Delta compression using up to 4 threads.
 Compressing objects: 100% (1/1), done.

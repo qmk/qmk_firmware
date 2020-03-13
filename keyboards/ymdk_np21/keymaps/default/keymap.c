@@ -1,8 +1,7 @@
-#include "ymdk_np21.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 
 #define _NP 0
-#define _BL  1
+#define _BL 1
 
 enum custom_keycodes {
   NP = SAFE_RANGE,
@@ -10,38 +9,24 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* Qwerty
- * ,-----------------------------------------.
- * |   0  |   1  |   4  |   7  | NUM  | ESC  |
- * |------+------+------+------+------+------|
- * |   .  |   2  |   5  |   8  |   /  | TAB  |---,
- * |------+------+------+------+------+------|USB|
- * |  DOT |   3  |   6  |   9  |   *  | BS   |---'
- * |------+------+------+------+------+------|
- * | Enter| Enter|   +  |   +  |   -  | FN   |
- * `-----------------------------------------'
- */
-[_NP] = KEYMAP( \
-  KC_KP_0,     KC_KP_1,     KC_KP_4,    KC_KP_7,    KC_NUMLOCK,     KC_ESC,    \
-  KC_DOT,      KC_KP_2,     KC_KP_5,    KC_KP_8,    KC_KP_SLASH,    KC_TAB,    \
-  KC_KP_DOT,   KC_KP_3,     KC_KP_6,    KC_KP_9,    KC_KP_ASTERISK, KC_BSPACE, \
-  KC_KP_ENTER, KC_KP_ENTER, KC_KP_PLUS, KC_KP_PLUS, KC_KP_MINUS,    MO(_BL)     \
-),
-/* Qwerty
- * ,---------------------------------------------.
- * | BL_BRTG |        |         |        |   |   |
- * |---------+--------+---------+--------+---+---|
- * |         | BL_OFF | BL_TOGG | BL_ON  |   |   |---,
- * |---------+--------+---------+--------+---+---|USB|
- * |         |        |         |        |   |   |---'
- * |---------+--------+---------+--------+---+---|
- * | BL_DEC  | BL_DEC | BL_INC  | BL_INC |   |   |
- * `---------------------------------------------'
- */
-[_BL] = KEYMAP( \
-  BL_BRTG, _______, _______, _______, _______, _______, \
-  _______, BL_OFF,  BL_TOGG, BL_ON,   _______, _______, \
-  _______, _______, _______, _______, _______, _______, \
-  BL_DEC,  BL_DEC,  BL_INC,  BL_INC,  _______, _______  \
-)
+  /* Qwerty */
+
+  [_NP] = LAYOUT_ortho_6x4(
+    KC_ESC,  KC_TAB,  KC_BSPC, MO(_BL),
+    KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
+    KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
+    KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
+    KC_P1,   KC_P2,   KC_P3,   KC_PENT,
+    KC_P0,   KC_DOT,  KC_PDOT, KC_PENT
+  ),
+
+  [_BL] = LAYOUT_ortho_6x4(
+    _______, _______, _______, _______,
+    _______, _______, _______, _______,
+    _______, BL_ON,   _______, BL_INC,
+    _______, BL_TOGG, _______, BL_INC,
+    _______, BL_OFF,  _______, BL_DEC,
+    BL_BRTG, _______, _______, BL_DEC
+  )
+
 };

@@ -1,28 +1,27 @@
 #include QMK_KEYBOARD_H
-#include "action_layer.h"
-#include "eeconfig.h"
 
 extern keymap_config_t keymap_config;
 
-#define _QWERTY 0
-#define _COLEMAK 1
-#define _DVORAK 2
-#define _LOWER 3
-#define _RAISE 4
-#define _FKEYS 5
-#define _ADJUST 16
+enum layer_names {
+    _MAC,
+    _WINDOWS,
+    _TESTMODE,
+    _LOWER,
+    _RAISE,
+    _FKEYS,
+    _ADJUST,
+};
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
+  MAC = SAFE_RANGE,
+  WINDOWS,
+  TESTMODE,
   LOWER,
   RAISE,
   ADJUST,
 };
 
 #define KC_ KC_TRNS
-#define _______ KC_TRNS
 
 #define KC_CAPW LGUI(LSFT(KC_3))        // Capture whole screen
 #define KC_CPYW LGUI(LSFT(LCTL(KC_3)))  // Copy whole screen
@@ -34,79 +33,97 @@ enum custom_keycodes {
 #define KC_GRVF LT(_FKEYS, KC_GRV)
 #define KC_ENTS MT(MOD_LSFT, KC_ENT)
 #define KC_BL_S BL_STEP
+#define KC_BL_T BL_TOGG
+#define KC_RMOD RGB_MOD
+
+#ifndef LAYOUT_kc_ortho_4x12
+#define LAYOUT_kc_ortho_4x12( \
+    L00, L01, L02, L03, L04, L05, R00, R01, R02, R03, R04, R05, \
+    L10, L11, L12, L13, L14, L15, R10, R11, R12, R13, R14, R15, \
+    L20, L21, L22, L23, L24, L25, R20, R21, R22, R23, R24, R25, \
+    L30, L31, L32, L33, L34, L35, R30, R31, R32, R33, R34, R35 \
+    ) \
+    LAYOUT_ortho_4x12( \
+        KC_##L00, KC_##L01, KC_##L02, KC_##L03, KC_##L04, KC_##L05, KC_##R00, KC_##R01, KC_##R02, KC_##R03, KC_##R04, KC_##R05, \
+        KC_##L10, KC_##L11, KC_##L12, KC_##L13, KC_##L14, KC_##L15, KC_##R10, KC_##R11, KC_##R12, KC_##R13, KC_##R14, KC_##R15, \
+        KC_##L20, KC_##L21, KC_##L22, KC_##L23, KC_##L24, KC_##L25, KC_##R20, KC_##R21, KC_##R22, KC_##R23, KC_##R24, KC_##R25, \
+        KC_##L30, KC_##L31, KC_##L32, KC_##L33, KC_##L34, KC_##L35, KC_##R30, KC_##R31, KC_##R32, KC_##R33, KC_##R34, KC_##R35 \
+    )
+
+#endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = KC_LAYOUT_ortho_4x12(
-  //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
+  [_MAC] = LAYOUT_kc_ortho_4x12(
+  //┌────┬────┬────┬────┬────┬────┐    ┌────┬────┬────┬────┬────┬────┐
      TAB , Q  , W  , E  , R  , T  ,      Y  , U  , I  , O  , P  ,MINS,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
      ESCC, A  , S  , D  , F  , G  ,      H  , J  , K  , L  ,SCLN,QUOT,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
      LSFT, Z  , X  , C  , V  , B  ,      N  , M  ,COMM,DOT ,SLSH,ENTS,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
      GRVF,LCTL,LALT,LGUI,LOWR,SPC ,     BSPC,RASE,LEFT,DOWN, UP ,RGHT
-  //`----+----+----+----+----+----'    `----+----+----+----+----+----'
+  //└────┴────┴────┴────┴────┴────┘    └────┴────┴────┴────┴────┴────┘
   ),
 
-  [_COLEMAK] = KC_LAYOUT_ortho_4x12(
-  //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
-     TAB , Q  , W  , F  , P  , G  ,      J  , L  , U  , Y  ,SCLN,MINS,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-     ESCC, A  , R  , S  , T  , D  ,      H  , N  , E  , I  , O  ,QUOT,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-     LSFT, Z  , X  , C  , V  , B  ,      K  , M  ,COMM,DOT ,SLSH,ENTS,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-     GRVF,LCTL,LALT,LGUI,LOWR,SPC ,     BSPC,RASE,LEFT,DOWN, UP ,RGHT
-  //`----+----+----+----+----+----'    `----+----+----+----+----+----'
+  [_WINDOWS] = LAYOUT_kc_ortho_4x12(
+  //┌────┬────┬────┬────┬────┬────┐    ┌────┬────┬────┬────┬────┬────┐
+     TAB , Q  , W  , E  , R  , T  ,      Y  , U  , I  , O  , P  ,MINS,
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
+     ESCC, A  , S  , D  , F  , G  ,      H  , J  , K  , L  ,SCLN,QUOT,
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
+     LSFT, Z  , X  , C  , V  , B  ,      N  , M  ,COMM,DOT ,SLSH,ENTS,
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
+     GRVF,LALT,LGUI,LCTL,LOWR,SPC ,     BSPC,RASE,LEFT,DOWN, UP ,RGHT
+  //└────┴────┴────┴────┴────┴────┘    └────┴────┴────┴────┴────┴────┘
   ),
 
-  [_DVORAK] = KC_LAYOUT_ortho_4x12(
-  //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
-     TAB ,QUOT,COMM,DOT , P  , Y  ,      F  , G  , C  , R  , L  ,MINS,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-     ESCC, A  , O  , E  , U  , I  ,      D  , H  , T  , N  , S  ,SLSH,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-     LSFT,SCLN, Q  , J  , K  , X  ,      B  , M  , W  , V  , Z  ,ENTS,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-     GRVF,LCTL,LALT,LGUI,LOWR,SPC ,     BSPC,RASE,LEFT,DOWN, UP ,RGHT
-  //`----+----+----+----+----+----'    `----+----+----+----+----+----'
+  [_TESTMODE] = LAYOUT_kc_ortho_4x12(
+  //┌────┬────┬────┬────┬────┬────┐    ┌────┬────┬────┬────┬────┬────┐
+     TAB , Q  , W  , E  , R  , T  ,      Y  , U  , I  , O  , P  ,MINS,
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
+     RMOD,BL_S, S  , D  , F  , G  ,     RMOD,BL_S, K  , L  ,SCLN,QUOT,
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
+     LSFT, Z  , X  , C  , V  , B  ,      N  , M  ,COMM,DOT ,SLSH,ENTS,
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
+     GRVF,LALT,LGUI,LCTL,LOWR,SPC ,     BSPC,RASE,LEFT,DOWN, UP ,RGHT
+  //└────┴────┴────┴────┴────┴────┘    └────┴────┴────┴────┴────┴────┘
   ),
 
-  [_LOWER] = KC_LAYOUT_ortho_4x12(
-  //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
+  [_LOWER] = LAYOUT_kc_ortho_4x12(
+  //┌────┬────┬────┬────┬────┬────┐    ┌────┬────┬────┬────┬────┬────┐
          , 1  , 2  , 3  , 4  , 5  ,      6  , 7  , 8  , 9  , 0  ,    ,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
      DEL ,CAPP,LEFT,RGHT, UP ,LBRC,     RBRC, P4 , P5 , P6 ,PLUS,PIPE,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
          ,CPYP,    ,    ,DOWN,LCBR,     RCBR, P1 , P2 , P3 ,MINS,    ,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-     BL_S,    ,    ,    ,    ,DEL ,     DEL ,    , P0 ,PDOT,    ,
-  //`----+----+----+----+----+----'    `----+----+----+----+----+----'
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
+     BL_S,BL_T,    ,    ,    ,DEL ,     DEL ,    , P0 ,PDOT,    ,
+  //└────┴────┴────┴────┴────┴────┘    └────┴────┴────┴────┴────┴────┘
   ),
 
-  [_RAISE] = KC_LAYOUT_ortho_4x12(
-  //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
+  [_RAISE] = LAYOUT_kc_ortho_4x12(
+  //┌────┬────┬────┬────┬────┬────┐    ┌────┬────┬────┬────┬────┬────┐
          ,EXLM, AT ,HASH,DLR ,PERC,     CIRC,AMPR,ASTR,LPRN,RPRN,    ,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
      DEL ,MPRV,MNXT,VOLU,PGUP,UNDS,     EQL ,HOME,    ,    ,    ,BSLS,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
      MUTE,MSTP,MPLY,VOLD,PGDN,MINS,     PLUS,END ,    ,    ,    ,    ,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
          ,    ,    ,    ,    ,    ,         ,    ,    ,    ,    ,
-  //`----+----+----+----+----+----'    `----+----+----+----+----+----'
+  //└────┴────┴────┴────┴────┴────┘    └────┴────┴────┴────┴────┴────┘
   ),
 
-  [_FKEYS] = KC_LAYOUT_ortho_4x12(
-  //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
+  [_FKEYS] = LAYOUT_kc_ortho_4x12(
+  //┌────┬────┬────┬────┬────┬────┐    ┌────┬────┬────┬────┬────┬────┐
      F12 , F1 , F2 , F3 , F4 , F5 ,      F6 , F7 , F8 , F9 ,F10 ,F11 ,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
          ,    ,    ,    ,    ,    ,         ,    ,    ,    ,    ,    ,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
          ,    ,    ,    ,    ,    ,         ,    ,    ,    ,    ,    ,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
          ,    ,    ,    ,    ,    ,         ,    ,    ,    ,    ,
-  //`----+----+----+----+----+----'    `----+----+----+----+----+----'
+  //└────┴────┴────┴────┴────┴────┘    └────┴────┴────┴────┴────┴────┘
   ),
 
 /* Adjust (Lower + Raise)
@@ -121,52 +138,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
   [_ADJUST] = LAYOUT_ortho_4x12( \
-    _______, RESET  , RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, _______, _______, \
-    _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______, _______, \
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+    _______, RESET  , RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI,          RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, _______, _______, \
+    _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM,          AG_SWAP, MAC,     WINDOWS, TESTMODE,_______, _______, \
+    _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______, \
+    _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______ \
   )
 
 
 };
 
-#ifdef AUDIO_ENABLE
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-#endif
-
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QWERTY:
+    case MAC:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
-        #endif
-        persistent_default_layer_set(1UL<<_QWERTY);
+        set_single_persistent_default_layer(_MAC);
       }
       return false;
       break;
-    case COLEMAK:
+    case WINDOWS:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_colemak);
-        #endif
-        persistent_default_layer_set(1UL<<_COLEMAK);
+        set_single_persistent_default_layer(_WINDOWS);
       }
       return false;
       break;
-    case DVORAK:
+    case TESTMODE:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_dvorak);
-        #endif
-        persistent_default_layer_set(1UL<<_DVORAK);
+        set_single_persistent_default_layer(_TESTMODE);
       }
       return false;
       break;

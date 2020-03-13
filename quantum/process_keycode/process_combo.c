@@ -14,27 +14,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "process_combo.h"
 #include "print.h"
+#include "process_combo.h"
 
-
-#define COMBO_TIMER_ELAPSED -1
-
-
-__attribute__ ((weak))
-combo_t key_combos[COMBO_COUNT] = {
+__attribute__((weak)) combo_t key_combos[COMBO_COUNT] = {
 
 };
 
-__attribute__ ((weak))
-void process_combo_event(uint8_t combo_index, bool pressed) {
+__attribute__((weak)) void process_combo_event(uint8_t combo_index, bool pressed) {}
 
-}
+static uint16_t timer               = 0;
+static uint8_t  current_combo_index = 0;
+static bool     drop_buffer         = false;
+static bool     is_active           = false;
+static bool     b_combo_enable      = true;  // defaults to enabled
 
-static uint8_t current_combo_index = 0;
+static uint8_t buffer_size = 0;
+#ifdef COMBO_ALLOW_ACTION_KEYS
+static keyrecord_t key_buffer[MAX_COMBO_LENGTH];
+#else
+static uint16_t key_buffer[MAX_COMBO_LENGTH];
+#endif
 
-static inline void send_combo(uint16_t action, bool pressed)
-{
+static inline void send_combo(uint16_t action, bool pressed) {
     if (action) {
         if (pressed) {
             register_code16(action);
@@ -46,26 +48,50 @@ static inline void send_combo(uint16_t action, bool pressed)
     }
 }
 
-#define ALL_COMBO_KEYS_ARE_DOWN     (((1<<count)-1) == combo->state)
-#define NO_COMBO_KEYS_ARE_DOWN      (0 == combo->state)
-#define KEY_STATE_DOWN(key)         do{ combo->state |= (1<<key); } while(0)
-#define KEY_STATE_UP(key)           do{ combo->state &= ~(1<<key); } while(0)
-static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *record) 
-{
+static inline void dump_key_buffer(bool emit) {
+    if (buffer_size == 0) {
+        return;
+    }
+
+    if (emit) {
+        for (uint8_t i = 0; i < buffer_size; i++) {
+#ifdef COMBO_ALLOW_ACTION_KEYS
+            const action_t action = store_or_get_action(key_buffer[i].event.pressed, key_buffer[i].event.key);
+            process_action(&(key_buffer[i]), action);
+#else
+            register_code16(key_buffer[i]);
+            send_keyboard_report();
+#endif
+        }
+    }
+
+    buffer_size = 0;
+}
+
+#define ALL_COMBO_KEYS_ARE_DOWN (((1 << count) - 1) == combo->state)
+#define KEY_STATE_DOWN(key)         \
+    do {                            \
+        combo->state |= (1 << key); \
+    } while (0)
+#define KEY_STATE_UP(key)            \
+    do {                             \
+        combo->state &= ~(1 << key); \
+    } while (0)
+
+static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *record) {
     uint8_t count = 0;
     uint8_t index = -1;
     /* Find index of keycode and number of combo keys */
-    for (const uint16_t *keys = combo->keys; ;++count) {
+    for (const uint16_t *keys = combo->keys;; ++count) {
         uint16_t key = pgm_read_word(&keys[count]);
         if (keycode == key) index = count;
         if (COMBO_END == key) break;
     }
 
-    /* Return if not a combo key */
+    /* Continue processing if not a combo key */
     if (-1 == (int8_t)index) return false;
 
-    /* The combos timer is used to signal whether the combo is active */
-    bool is_combo_active = COMBO_TIMER_ELAPSED == combo->timer ? false : true;
+    bool is_combo_active = is_active;
 
     if (record->event.pressed) {
         KEY_STATE_DOWN(index);
@@ -73,82 +99,109 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
         if (is_combo_active) {
             if (ALL_COMBO_KEYS_ARE_DOWN) { /* Combo was pressed */
                 send_combo(combo->keycode, true);
-                combo->timer = COMBO_TIMER_ELAPSED;
-            } else { /* Combo key was pressed */
-                combo->timer = timer_read();
-#ifdef COMBO_ALLOW_ACTION_KEYS
-                combo->prev_record = *record;
-#else
-                combo->prev_key = keycode;
-#endif
+                drop_buffer = true;
             }
         }
     } else {
         if (ALL_COMBO_KEYS_ARE_DOWN) { /* Combo was released */
             send_combo(combo->keycode, false);
+        } else {
+            /* continue processing without immediately returning */
+            is_combo_active = false;
         }
 
-        if (is_combo_active) { /* Combo key was tapped */
-#ifdef COMBO_ALLOW_ACTION_KEYS
-            record->event.pressed = true;
-            process_action(record, store_or_get_action(record->event.pressed, record->event.key));
-            record->event.pressed = false;
-            process_action(record, store_or_get_action(record->event.pressed, record->event.key));
-#else
-            register_code16(keycode);
-            send_keyboard_report();
-            unregister_code16(keycode);
-#endif
-            combo->timer = 0;            
-        }
-
-        KEY_STATE_UP(index);        
-    }
-
-    if (NO_COMBO_KEYS_ARE_DOWN) {
-        combo->timer = 0;
+        KEY_STATE_UP(index);
     }
 
     return is_combo_active;
 }
 
-bool process_combo(uint16_t keycode, keyrecord_t *record)
-{
-    bool is_combo_key = false;
+#define NO_COMBO_KEYS_ARE_DOWN (0 == combo->state)
+
+bool process_combo(uint16_t keycode, keyrecord_t *record) {
+    bool is_combo_key          = false;
+    drop_buffer                = false;
+    bool no_combo_keys_pressed = true;
+
+    if (keycode == CMB_ON && record->event.pressed) {
+        combo_enable();
+        return true;
+    }
+
+    if (keycode == CMB_OFF && record->event.pressed) {
+        combo_disable();
+        return true;
+    }
+
+    if (keycode == CMB_TOG && record->event.pressed) {
+        combo_toggle();
+        return true;
+    }
+
+    if (!is_combo_enabled()) {
+        return true;
+    }
 
     for (current_combo_index = 0; current_combo_index < COMBO_COUNT; ++current_combo_index) {
         combo_t *combo = &key_combos[current_combo_index];
         is_combo_key |= process_single_combo(combo, keycode, record);
-    }    
+        no_combo_keys_pressed = no_combo_keys_pressed && NO_COMBO_KEYS_ARE_DOWN;
+    }
+
+    if (drop_buffer) {
+        /* buffer is only dropped when we complete a combo, so we refresh the timer
+         * here */
+        timer = timer_read();
+        dump_key_buffer(false);
+    } else if (!is_combo_key) {
+        /* if no combos claim the key we need to emit the keybuffer */
+        dump_key_buffer(true);
+
+        // reset state if there are no combo keys pressed at all
+        if (no_combo_keys_pressed) {
+            timer     = 0;
+            is_active = true;
+        }
+    } else if (record->event.pressed && is_active) {
+        /* otherwise the key is consumed and placed in the buffer */
+        timer = timer_read();
+
+        if (buffer_size < MAX_COMBO_LENGTH) {
+#ifdef COMBO_ALLOW_ACTION_KEYS
+            key_buffer[buffer_size++] = *record;
+#else
+            key_buffer[buffer_size++] = keycode;
+#endif
+        }
+    }
 
     return !is_combo_key;
 }
 
-void matrix_scan_combo(void)
-{
-    for (int i = 0; i < COMBO_COUNT; ++i) {
-        // Do not treat the (weak) key_combos too strict.
-        #pragma GCC diagnostic push
-        #pragma GCC diagnostic ignored "-Warray-bounds"
-        combo_t *combo = &key_combos[i];
-        #pragma GCC diagnostic pop
-        if (combo->timer &&
-            combo->timer != COMBO_TIMER_ELAPSED && 
-            timer_elapsed(combo->timer) > COMBO_TERM) {
-            
-            /* This disables the combo, meaning key events for this
-             * combo will be handled by the next processors in the chain 
-             */
-            combo->timer = COMBO_TIMER_ELAPSED;
-
-#ifdef COMBO_ALLOW_ACTION_KEYS
-            process_action(&combo->prev_record, 
-                store_or_get_action(combo->prev_record.event.pressed, 
-                                    combo->prev_record.event.key));
-#else
-            unregister_code16(combo->prev_key);
-            register_code16(combo->prev_key);
-#endif
-        }
+void matrix_scan_combo(void) {
+    if (b_combo_enable && is_active && timer && timer_elapsed(timer) > COMBO_TERM) {
+        /* This disables the combo, meaning key events for this
+         * combo will be handled by the next processors in the chain
+         */
+        is_active = false;
+        dump_key_buffer(true);
     }
 }
+
+void combo_enable(void) { b_combo_enable = true; }
+
+void combo_disable(void) {
+    b_combo_enable = is_active = false;
+    timer                      = 0;
+    dump_key_buffer(true);
+}
+
+void combo_toggle(void) {
+    if (b_combo_enable) {
+        combo_disable();
+    } else {
+        combo_enable();
+    }
+}
+
+bool is_combo_enabled(void) { return b_combo_enable; }

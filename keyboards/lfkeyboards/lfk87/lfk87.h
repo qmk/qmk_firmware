@@ -55,85 +55,88 @@ enum action_functions {
 void reset_keyboard_kb(void);
 void click(uint16_t freq, uint16_t duration);
 
-#define k00 KC_NO
+#define ___ KC_NO
+
 #ifdef LFK_TKL_REV_A
-    #ifndef KEYMAP
-        #define KEYMAP( \
-            k11,       k13, k14, k15, k16,    k17, k18, k19, k1a,     k1b, k1c, k1d, k1e,   k1f, k1g, k1h, \
-            k21,  k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d,        k2e,   k2f, k2g, k2h, \
-            k31,    k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d,      k3e,   k3f, k3g, k3h, \
-            k41,     k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4c,          k4d, \
-            k51,      k53, k54, k55, k56, k57, k58, k59, k5a, k5b, k5c,              k5d,        k5g, \
-            k61,   k62,   k63,                 k67,             k6b,   k6c,   k6d,   k6e,   k6f, k6g, k6h  \
+    #ifndef LAYOUT_tkl_ansi
+        #define LAYOUT_tkl_ansi( \
+            k11,       k13, k14, k15, k16,    k17, k18, k19, k1a,    k1b, k1c, k1d, k1e,   k1f, k1g, k1h, \
+            k21,  k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d,       k2e,   k2f, k2g, k2h, \
+            k31,    k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d,     k3e,   k3f, k3g, k3h, \
+            k41,     k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4c,         k4d, \
+            k51,      k53, k54, k55, k56, k57, k58, k59, k5a, k5b, k5c,             k5d,        k5g, \
+            k61,   k62,   k63,                 k67,            k6b,   k6c,   k6d,   k6e,   k6f, k6g, k6h  \
         ) \
         { \
-            {k11, k00, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d, k1e, k1f, k1g, k1h}, \
-            {k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d, k2e, k2f, k2g, k2h}, \
-            {k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d, k3e, k3f, k3g, k3h}, \
-            {k41, k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4c, k4d, k00, k00, k00, k00}, \
-            {k51, k00, k53, k54, k55, k56, k57, k58, k59, k5a, k5b, k5c, k5d, k00, k00, k5g, k00}, \
-            {k61, k62, k63, k00, k00, k00, k67, k00, k00, k00, k6b, k6c, k6d, k6e, k6f, k6g, k6h}, \
+            { k11, ___, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d, k1e, k1f, k1g, k1h }, \
+            { k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d, k2e, k2f, k2g, k2h }, \
+            { k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d, k3e, k3f, k3g, k3h }, \
+            { k41, k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4c, k4d, ___, ___, ___, ___ }, \
+            { k51, ___, k53, k54, k55, k56, k57, k58, k59, k5a, k5b, k5c, k5d, ___, ___, k5g, ___ }, \
+            { k61, k62, k63, ___, ___, ___, k67, ___, ___, ___, k6b, k6c, k6d, k6e, k6f, k6g, k6h }, \
         }
 
-    #endif //!KEYMAP#endif
-    #ifndef ISO_KEYMAP
-        #define ISO_KEYMAP( \
-            k11,       k13, k14, k15, k16,    k17, k18, k19, k1a,     k1b, k1c, k1d, k1e,   k1f, k1g, k1h, \
-            k21,  k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d,        k2e,   k2f, k2g, k2h, \
-            k31,    k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d,      k3e,   k3f, k3g, k3h, \
-            k41,     k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4c,          k4d, \
-            k51, k52, k53, k54, k55, k56, k57, k58, k59, k5a, k5b, k5c,              k5d,        k5g, \
-            k61,   k62,   k63,                 k67,             k6b,   k6c,   k6d,   k6e,   k6f, k6g, k6h  \
+    #endif // !LAYOUT_tkl_ansi
+    #ifndef LAYOUT_tkl_iso
+        #define LAYOUT_tkl_iso( \
+            k11,       k13, k14, k15, k16,    k17, k18, k19, k1a,    k1b, k1c, k1d, k1e,   k1f, k1g, k1h, \
+            k21,  k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d,       k2e,   k2f, k2g, k2h, \
+            k31,    k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d,            k3f, k3g, k3h, \
+            k41,     k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4c, k4d,    k3e, \
+            k51, k52, k53, k54, k55, k56, k57, k58, k59, k5a, k5b, k5c,             k5d,        k5g, \
+            k61,   k62,   k63,                 k67,            k6b,   k6c,   k6d,   k6e,   k6f, k6g, k6h  \
         ) \
         { \
-            {k11, k00, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d, k1e, k1f, k1g, k1h}, \
-            {k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d, k2e, k2f, k2g, k2h}, \
-            {k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d, k3e, k3f, k3g, k3h}, \
-            {k41, k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4c, k4d, k00, k00, k00, k00}, \
-            {k51, k52, k53, k54, k55, k56, k57, k58, k59, k5a, k5b, k5c, k5d, k00, k00, k5g, k00}, \
-            {k61, k62, k63, k00, k00, k00, k67, k00, k00, k00, k6b, k6c, k6d, k6e, k6f, k6g, k6h}, \
+            { k11, ___, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d, k1e, k1f, k1g, k1h }, \
+            { k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d, k2e, k2f, k2g, k2h }, \
+            { k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d, k3e, k3f, k3g, k3h }, \
+            { k41, k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4c, k4d, ___, ___, ___, ___ }, \
+            { k51, k52, k53, k54, k55, k56, k57, k58, k59, k5a, k5b, k5c, k5d, ___, ___, k5g, ___ }, \
+            { k61, k62, k63, ___, ___, ___, k67, ___, ___, ___, k6b, k6c, k6d, k6e, k6f, k6g, k6h }, \
         }
-    #endif //!ISO_KEYMAP
+
+    #endif // !LAYOUT_tkl_iso
 #else  // RevC+ keymaps
-    #ifndef KEYMAP
-        #define KEYMAP( \
-            k71,      k11, k12, k13, k14,      k15, k16, k17, k18,      k19, k1a, k1b, k1c,   k1e, k1f, k1g, \
-            k72, k73, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b,           k2c,   k2e, k2f, k2g, \
-            k74,  k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c,          k3d,   k3e, k3f, k3g, \
-            k61,   k41, k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b,              k4c, \
-            k62,    k52, k53, k54, k55, k56, k57, k58, k59, k5a, k5b,                  k5c,        k5f, \
-            k63,   k64,   k65,                 k67,               k6a,   k6b,   k6c,   k6d,   k6e, k6f, k6g  \
+    #ifndef LAYOUT_tkl_ansi
+        #define LAYOUT_tkl_ansi( \
+            k71,       k11, k12, k13, k14,    k15, k16, k17, k18,    k19, k1a, k1b, k1c,   k1e, k1f, k1g, \
+            k72,  k73, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b,       k2c,   k2e, k2f, k2g, \
+            k74,    k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c,     k3d,   k3e, k3f, k3g, \
+            k61,     k41, k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b,         k4c, \
+            k62,      k52, k53, k54, k55, k56, k57, k58, k59, k5a, k5b,             k5c,        k5f, \
+            k63,   k64,   k65,                 k67,            k6a,   k6b,   k6c,   k6d,   k6e, k6f, k6g  \
         ) \
         { \
-            {k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k00, k1e, k1f, k1g}, \
-            {k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k00, k2e, k2f, k2g}, \
-            {k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d, k3e, k3f, k3g}, \
-            {k41, k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4c, k00, k00, k00, k00}, \
-            {k00, k52, k53, k54, k55, k56, k57, k58, k59, k5a, k5b, k5c, k00, k00, k5f, k00}, \
-            {k61, k62, k63, k64, k65, k00, k67, k00, k00, k6a, k6b, k6c, k6d, k6e, k6f, k6g}, \
-            {k71, k72, k73, k74, k00, k00, k00, k00, k00, k00, k00, k00, k00, k00, k00, k00}, \
+            { k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, ___, k1e, k1f, k1g }, \
+            { k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, ___, k2e, k2f, k2g }, \
+            { k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d, k3e, k3f, k3g }, \
+            { k41, k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4c, ___, ___, ___, ___ }, \
+            { ___, k52, k53, k54, k55, k56, k57, k58, k59, k5a, k5b, k5c, ___, ___, k5f, ___ }, \
+            { k61, k62, k63, k64, k65, ___, k67, ___, ___, k6a, k6b, k6c, k6d, k6e, k6f, k6g }, \
+            { k71, k72, k73, k74, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___ }, \
         }
 
-    #endif //!KEYMAP#endif
-    #ifndef ISO_KEYMAP
-        #define ISO_KEYMAP( \
-            k71,      k11, k12, k13, k14,      k15, k16, k17, k18,      k19, k1a, k1b, k1c,   k1e, k1f, k1g, \
-            k72, k73, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b,           k2c,   k2e, k2f, k2g, \
-            k74,  k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c,          k3d,   k3e, k3f, k3g, \
-            k61,   k41, k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b,              k4c, \
-            k62,  k51, k52, k53, k54, k55, k56, k57, k58, k59, k5a, k5b,               k5c,        k5f, \
-            k63,   k64,   k65,                 k67,               k6a,   k6b,   k6c,   k6d,   k6e, k6f, k6g  \
+    #endif // !LAYOUT_tkl_ansi
+    #ifndef LAYOUT_tkl_iso
+        #define LAYOUT_tkl_iso( \
+            k71,       k11, k12, k13, k14,    k15, k16, k17, k18,    k19, k1a, k1b, k1c,   k1e, k1f, k1g, \
+            k72,  k73, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b,       k2c,   k2e, k2f, k2g, \
+            k74,    k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c,            k3e, k3f, k3g, \
+            k61,     k41, k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4c,    k3d, \
+            k62, k51, k52, k53, k54, k55, k56, k57, k58, k59, k5a, k5b,             k5c,        k5f, \
+            k63,   k64,   k65,                 k67,            k6a,   k6b,   k6c,   k6d,   k6e, k6f, k6g  \
         ) \
         { \
-            {k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k00, k1e, k1f, k1g}, \
-            {k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k00, k2e, k2f, k2g}, \
-            {k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d, k3e, k3f, k3g}, \
-            {k41, k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4c, k00, k00, k00, k00}, \
-            {k51, k52, k53, k54, k55, k56, k57, k58, k59, k5a, k5b, k5c, k00, k00, k5f, k00}, \
-            {k61, k62, k63, k64, k65, k00, k67, k00, k00, k6a, k6b, k6c, k6d, k6e, k6f, k6g}, \
-            {k71, k72, k73, k74, k00, k00, k00, k00, k00, k00, k00, k00, k00, k00, k00, k00}, \
+            { k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, ___, k1e, k1f, k1g }, \
+            { k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, ___, k2e, k2f, k2g }, \
+            { k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d, k3e, k3f, k3g }, \
+            { k41, k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4c, ___, ___, ___, ___ }, \
+            { k51, k52, k53, k54, k55, k56, k57, k58, k59, k5a, k5b, k5c, ___, ___, k5f, ___ }, \
+            { k61, k62, k63, k64, k65, ___, k67, ___, ___, k6a, k6b, k6c, k6d, k6e, k6f, k6g }, \
+            { k71, k72, k73, k74, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___ }, \
         }
-    #endif //!ISO_KEYMAP
+
+    #endif // !LAYOUT_tkl_iso
 #endif //Rev
 
 #endif //LFK87_H

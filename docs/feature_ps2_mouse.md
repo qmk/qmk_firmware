@@ -6,6 +6,24 @@ To hook up a Trackpoint, you need to obtain a Trackpoint module (i.e. harvest fr
 
 There are three available modes for hooking up PS/2 devices: USART (best), interrupts (better) or busywait (not recommended).
 
+### The Cirtuitry between Trackpoint and Controller
+
+To get the things working, a 4.7K drag is needed between the two lines DATA and CLK and the line 5+. 
+
+```
+
+          DATA ----------+--------- PIN
+                         |
+                        4.7K
+                         |
+MODULE    5+  --------+--+--------- PWR   CONTROLLER
+                      |
+                     4.7K
+                      |    
+          CLK   ------+------------ PIN
+```
+
+
 ### Busywait Version
 
 Note: This is not recommended, you may encounter jerky movement or unsent inputs. Please use interrupt or USART version if possible.
@@ -131,7 +149,7 @@ In your keyboard config.h:
 
 #### PS/2 Mouse Features
 
-These enable settings supported by the PS/2 mouse protocol: http://www.computer-engineering.org/ps2mouse/
+These enable settings supported by the PS/2 mouse protocol.
 
 ```
 /* Use remote mode instead of the default stream mode (see link) */
@@ -184,7 +202,7 @@ Note: you can also use `ps2_mouse_set_resolution` for the same effect (not suppo
 #### Scroll Button
 
 If you're using a trackpoint, you will likely want to be able to use it for scrolling.
-Its possible to enable a "scroll button/s" that when pressed will cause the mouse to scroll instead of moving.
+It's possible to enable a "scroll button/s" that when pressed will cause the mouse to scroll instead of moving.
 To enable the feature, you must set a scroll button mask as follows:
 
 ```

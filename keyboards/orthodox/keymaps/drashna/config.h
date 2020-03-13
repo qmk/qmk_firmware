@@ -19,15 +19,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include QMK_KEYBOARD_CONFIG_H
+#pragma once
 
 /* Use I2C or Serial, not both */
 
-#define USE_SERIAL
-#undef USE_I2C
+// #define USE_SERIAL
+#define USE_I2C
 
 /* Select hand configuration */
 
@@ -35,38 +32,51 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 #define EE_HANDS
 
-
-/* key combination for command */
-#ifdef IS_COMMAND
+/* key combination for magic key command */
 #undef IS_COMMAND
-#endif
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_LALT)) \
-)
-
+#define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_LALT)))
 
 #ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN D3
-#define RGBLED_NUM 16     // Number of LEDs
-#define RGBLIGHT_ANIMATIONS
-#define RGBLIGHT_HUE_STEP 12
-#define RGBLIGHT_SAT_STEP 12
-#define RGBLIGHT_VAL_STEP 12
-#define RGBLIGHT_EFFECT_KNIGHT_LENGTH 2
-#define RGBLIGHT_EFFECT_SNAKE_LENGTH 2
-#define RGBLIGHT_EFFECT_BREATHE_CENTER 1
-#endif // RGBLIGHT_ENABLE
+#    define RGB_DI_PIN D3
+#    define RGBLED_NUM 16  // Number of LEDs
+#    define RGBLED_SPLIT \
+        { 8, 8 }
+
+#    define RGBLIGHT_HUE_STEP 12
+#    define RGBLIGHT_SAT_STEP 12
+#    define RGBLIGHT_VAL_STEP 12
+#    define RGBLIGHT_EFFECT_KNIGHT_LENGTH 2
+#    define RGBLIGHT_EFFECT_SNAKE_LENGTH 2
+#endif  // RGBLIGHT_ENABLE
 
 #ifdef AUDIO_ENABLE
-#define C6_AUDIO
-#define NO_MUSIC_MODE
-#endif
+#    define C6_AUDIO
+#    ifdef RGBLIGHT_ENABLE
+#        define NO_MUSIC_MODE
+#    endif
+#endif  // AUDIO_ENABLE
 
 #undef PRODUCT
 #ifdef KEYBOARD_orthodox_rev1
-#define PRODUCT         Drashna Hacked Orthodox Rev.1
+#    define PRODUCT Drashna Hacked Orthodox Rev .1
 #elif KEYBOARD_orthodox_rev3
-#define PRODUCT         Drashna Hacked Orthodox Rev.3
+#    define PRODUCT Drashna Hacked Orthodox Rev .3
 #endif
 
+#define QMK_ESC_OUTPUT D7  // usually COL
+#ifdef KEYBOARD_orthodox_rev1
+#    define QMK_ESC_INPUT D4  // usually ROW
+#else
+#    define QMK_ESC_INPUT D2  // usually ROW
 #endif
+#define QMK_LED B0
+#define QMK_SPEAKER C6
+
+#define SHFT_LED1 5
+#define SHFT_LED2 10
+
+#define CTRL_LED1 6
+#define CTRL_LED2 9
+
+#define GUI_LED1 8
+#define ALT_LED1 7
