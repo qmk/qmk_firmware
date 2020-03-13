@@ -200,7 +200,11 @@ void oled_write(const char *data, bool invert);
 // Advances the cursor to the next page, wiring ' ' to the remainder of the current page
 void oled_write_ln(const char *data, bool invert);
 
+// Pans the buffer to the right (or left by passing true) by moving contents of the buffer
+void oled_pan(bool left);
+
 void oled_write_raw(const char *data, uint16_t size);
+void oled_write_raw_byte(const char data, uint16_t index);
 
 #if defined(__AVR__)
 // Writes a PROGMEM string to the buffer at current cursor position

@@ -20,9 +20,8 @@
 #include "timer.h"
 #include "uart.h"
 #include "debug.h"
-#include "rgblight_reconfig.h"
 
-#if (defined(RGB_MIDI) || defined(RGBLIGHT_ANIMATIONS)) && defined(RGBLIGHT_ENABLE)
+#if defined(RGBLIGHT_ENABLE)
 #    include "rgblight.h"
 #endif
 
@@ -59,11 +58,11 @@ int main(void) {
 #endif
     keyboard_setup();
 
-    keyboard_init();
     host_set_driver(vusb_driver());
-
     debug("initForUsbConnectivity()\n");
     initForUsbConnectivity();
+
+    keyboard_init();
 
     debug("main loop\n");
     while (1) {

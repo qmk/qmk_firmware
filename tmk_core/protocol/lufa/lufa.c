@@ -54,7 +54,6 @@
 #include "quantum.h"
 #include <util/atomic.h>
 #include "outputselect.h"
-#include "rgblight_reconfig.h"
 
 #ifdef NKRO_ENABLE
 #    include "keycode_config.h"
@@ -78,7 +77,7 @@ extern keymap_config_t keymap_config;
 #    include "virtser.h"
 #endif
 
-#if (defined(RGB_MIDI) || defined(RGBLIGHT_ANIMATIONS)) && defined(RGBLIGHT_ENABLE)
+#if defined(RGBLIGHT_ENABLE)
 #    include "rgblight.h"
 #endif
 
@@ -690,7 +689,7 @@ static void send_extra(uint8_t report_id, uint16_t data) {
  */
 static void send_system(uint16_t data) {
 #ifdef EXTRAKEY_ENABLE
-    send_extra(REPORT_ID_SYSTEM, data - SYSTEM_POWER_DOWN + 1);
+    send_extra(REPORT_ID_SYSTEM, data);
 #endif
 }
 
