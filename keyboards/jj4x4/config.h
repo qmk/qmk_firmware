@@ -48,7 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
-#define NO_UART 1
 #define USB_MAX_POWER_CONSUMPTION 100
 
 /* key combination for magic key command */
