@@ -1,4 +1,4 @@
-# sick68
+# SiCK-68
 
 ![sick68](https://cdn.thingiverse.com/renders/f2/af/c2/ce/e6/11b1601df06621e69068389e4fb0d943_preview_featured.JPG)
 
