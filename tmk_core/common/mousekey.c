@@ -39,8 +39,8 @@ static uint16_t       last_timer      = 0;
 
 #ifndef MK_3_SPEED
 
-static uint16_t       last_timer_c    = 0;
-static uint16_t       last_timer_w    = 0;
+static uint16_t last_timer_c = 0;
+static uint16_t last_timer_w = 0;
 
 /*
  * Mouse keys  acceleration algorithm
@@ -62,7 +62,7 @@ uint8_t mk_time_to_max = MOUSEKEY_TIME_TO_MAX;
 /* milliseconds between the initial key press and first repeated motion event (0-2550) */
 uint8_t mk_wheel_delay = MOUSEKEY_WHEEL_DELAY / 10;
 /* milliseconds between repeated motion events (0-255) */
-uint8_t mk_wheel_interval = MOUSEKEY_WHEEL_INTERVAL;
+uint8_t mk_wheel_interval    = MOUSEKEY_WHEEL_INTERVAL;
 uint8_t mk_wheel_max_speed   = MOUSEKEY_WHEEL_MAX_SPEED;
 uint8_t mk_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
 
@@ -105,8 +105,7 @@ static uint8_t wheel_unit(void) {
 void mousekey_task(void) {
     // report cursor and scroll movement independently
     report_mouse_t const tmpmr = mouse_report;
-    if ((mouse_report.x || mouse_report.y) &&
-        timer_elapsed(last_timer_c) > (mousekey_repeat ? mk_interval : mk_delay * 10)) {
+    if ((mouse_report.x || mouse_report.y) && timer_elapsed(last_timer_c) > (mousekey_repeat ? mk_interval : mk_delay * 10)) {
         if (mousekey_repeat != UINT8_MAX) mousekey_repeat++;
         mouse_report.v = 0;
         mouse_report.h = 0;
@@ -117,16 +116,19 @@ void mousekey_task(void) {
         /* diagonal move [1/sqrt(2)] */
         if (mouse_report.x && mouse_report.y) {
             mouse_report.x = times_inv_sqrt2(mouse_report.x);
-            if (mouse_report.x == 0) { mouse_report.x = 1; }
+            if (mouse_report.x == 0) {
+                mouse_report.x = 1;
+            }
             mouse_report.y = times_inv_sqrt2(mouse_report.y);
-            if (mouse_report.y == 0) { mouse_report.y = 1; }
+            if (mouse_report.y == 0) {
+                mouse_report.y = 1;
+            }
         }
         mousekey_send();
         last_timer_c = last_timer;
         mouse_report = tmpmr;
     }
-    if ((mouse_report.v || mouse_report.h) &&
-        timer_elapsed(last_timer_w) > (mousekey_repeat ? mk_wheel_interval: mk_wheel_delay * 10)) {
+    if ((mouse_report.v || mouse_report.h) && timer_elapsed(last_timer_w) > (mousekey_repeat ? mk_wheel_interval : mk_wheel_delay * 10)) {
         if (mousekey_repeat != UINT8_MAX) mousekey_repeat++;
         mouse_report.x = 0;
         mouse_report.y = 0;
@@ -137,9 +139,13 @@ void mousekey_task(void) {
         /* diagonal move [1/sqrt(2)] */
         if (mouse_report.v && mouse_report.h) {
             mouse_report.v = times_inv_sqrt2(mouse_report.v);
-            if (mouse_report.v == 0) { mouse_report.v = 1; }
+            if (mouse_report.v == 0) {
+                mouse_report.v = 1;
+            }
             mouse_report.h = times_inv_sqrt2(mouse_report.h);
-            if (mouse_report.h == 0) { mouse_report.h = 1; }
+            if (mouse_report.h == 0) {
+                mouse_report.h = 1;
+            }
         }
         mousekey_send();
         last_timer_w = last_timer;
