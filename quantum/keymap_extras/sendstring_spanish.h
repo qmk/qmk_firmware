@@ -40,7 +40,7 @@ const uint8_t ascii_to_shift_lut[16] PROGMEM = {
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0)
 };
 
 const uint8_t ascii_to_altgr_lut[16] PROGMEM = {
@@ -60,7 +60,7 @@ const uint8_t ascii_to_altgr_lut[16] PROGMEM = {
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 1, 1, 1, 1, 0),
+    KCLUT_ENTRY(0, 0, 0, 1, 1, 1, 1, 0)
 };
 
 const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
@@ -74,27 +74,27 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     //       !        "        #        $        %        &        '
-    KC_SPC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    ES_APOS,
+    KC_SPC,  ES_1,    ES_2,    ES_3,    ES_4,    ES_5,    ES_6,    ES_QUOT,
     // (     )        *        +        ,        -        .        /
-    KC_8,    KC_9,    ES_PLUS, ES_PLUS, KC_COMM, ES_MINS, KC_DOT,  KC_7,
+    ES_8,    ES_9,    ES_PLUS, ES_PLUS, ES_COMM, ES_MINS, ES_DOT,  ES_7,
     // 0     1        2        3        4        5        6        7
-    KC_0,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,
+    ES_0,    ES_1,    ES_2,    ES_3,    ES_4,    ES_5,    ES_6,    ES_7,
     // 8     9        :        ;        <        =        >        ?
-    KC_8,    KC_9,    KC_DOT,  KC_COMM, ES_LESS, KC_0,    ES_LESS, ES_APOS,
+    ES_8,    ES_9,    ES_DOT,  ES_COMM, ES_LABK, ES_0,    ES_LABK, ES_QUOT,
     // @     A        B        C        D        E        F        G
-    KC_2,    KC_A,    KC_B,    KC_C,    KC_D,    KC_E,    KC_F,    KC_G,
+    ES_2,    ES_A,    ES_B,    ES_C,    ES_D,    ES_E,    ES_F,    ES_G,
     // H     I        J        K        L        M        N        O
-    KC_H,    KC_I,    KC_J,    KC_K,    KC_L,    KC_M,    KC_N,    KC_O,
+    ES_H,    ES_I,    ES_J,    ES_K,    ES_L,    ES_M,    ES_N,    ES_O,
     // P     Q        R        S        T        U        V        W
-    KC_P,    KC_Q,    KC_R,    KC_S,    KC_T,    KC_U,    KC_V,    KC_W,
+    ES_P,    ES_Q,    ES_R,    ES_S,    ES_T,    ES_U,    ES_V,    ES_W,
     // X     Y        Z        [        \        ]        ^        _
-    KC_X,    KC_Y,    KC_Z,    ES_GRV,  ES_OVRR, ES_PLUS, ES_GRV,  ES_MINS,
+    ES_X,    ES_Y,    ES_Z,    ES_GRV,  ES_MORD, ES_PLUS, ES_GRV,  ES_MINS,
     // `     a        b        c        d        e        f        g
-    ES_GRV,  KC_A,    KC_B,    KC_C,    KC_D,    KC_E,    KC_F,    KC_G,
+    ES_GRV,  ES_A,    ES_B,    ES_C,    ES_D,    ES_E,    ES_F,    ES_G,
     // h     i        j        k        l        m        n        o
-    KC_H,    KC_I,    KC_J,    KC_K,    KC_L,    KC_M,    KC_N,    KC_O,
+    ES_H,    ES_I,    ES_J,    ES_K,    ES_L,    ES_M,    ES_N,    ES_O,
     // p     q        r        s        t        u        v        w
-    KC_P,    KC_Q,    KC_R,    KC_S,    KC_T,    KC_U,    KC_V,    KC_W,
+    ES_P,    ES_Q,    ES_R,    ES_S,    ES_T,    ES_U,    ES_V,    ES_W,
     // x     y        z        {        |        }        ~        DEL
-    KC_X,    KC_Y,    KC_Z,    ES_ACUT, KC_1,    ES_CCED, ES_NTIL, KC_DEL
+    ES_X,    ES_Y,    ES_Z,    ES_ACUT, ES_1,    ES_CCED, ES_NTIL, KC_DEL
 };
