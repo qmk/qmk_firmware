@@ -29,6 +29,9 @@
 #define KC__TAN LCMD(KC_RCBR)
 #define KC__TAP LCMD(KC_LCBR)
 
+#define KC__WL LALT(KC_LEFT)
+#define KC__WR LALT(KC_RIGHT)
+
 #ifdef RGBLIGHT_ENABLE
 #    define KC_RVAD RGB_VAD
 #    define KC_RVAI RGB_VAI
