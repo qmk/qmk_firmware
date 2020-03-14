@@ -42,6 +42,8 @@ ifneq ($(strip $(BOOTMAGIC_ENABLE)), no)
   endif
   ifeq ($(strip $(BOOTMAGIC_ENABLE)), lite)
       TMK_COMMON_DEFS += -DBOOTMAGIC_LITE
+      TMK_COMMON_SRC += $(COMMON_DIR)/bootmagic_lite.c
+
       TMK_COMMON_DEFS += -DMAGIC_ENABLE
       TMK_COMMON_SRC += $(COMMON_DIR)/magic.c
   else

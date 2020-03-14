@@ -581,41 +581,6 @@ void tap_random_base64(void) {
     }
 }
 
-__attribute__((weak)) void bootmagic_lite(void) {
-    // The lite version of TMK's bootmagic based on Wilba.
-    // 100% less potential for accidentally making the
-    // keyboard do stupid things.
-
-    // We need multiple scans because debouncing can't be turned off.
-    matrix_scan();
-#if defined(DEBOUNCE) && DEBOUNCE > 0
-    wait_ms(DEBOUNCE * 2);
-#else
-    wait_ms(30);
-#endif
-    matrix_scan();
-
-    // If the configured key (commonly Esc) is held down on power up,
-    // reset the EEPROM valid state and jump to bootloader.
-    // This isn't very generalized, but we need something that doesn't
-    // rely on user's keymaps in firmware or EEPROM.
-    uint8_t row = BOOTMAGIC_LITE_ROW;
-    uint8_t col = BOOTMAGIC_LITE_COLUMN;
-#if defined(BOOTMAGIC_LITE_ROW_RIGHT) && defined(BOOTMAGIC_LITE_COLUMN_RIGHT)
-    bool is_keyboard_left(void);
-    if (!is_keyboard_left()) {
-        row = BOOTMAGIC_LITE_ROW_RIGHT;
-        col = BOOTMAGIC_LITE_COLUMN_RIGHT;
-    }
-#endif
-
-    if (matrix_get_row(row) & (1 << col)) {
-        eeconfig_disable();
-        // Jump to bootloader.
-        bootloader_jump();
-    }
-}
-
 void matrix_init_quantum() {
 #ifdef BOOTMAGIC_LITE
     bootmagic_lite();
