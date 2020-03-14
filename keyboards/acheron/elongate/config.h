@@ -21,12 +21,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x0000
+#define VENDOR_ID 0x4150 //AP for AcheronProject
+#define PRODUCT_ID 0x454C // EL for Elongate
 #define DEVICE_VER 0x0001
-#define MANUFACTURER AcheronProject
+#define MANUFACTURER Acheron Project
 #define PRODUCT Elongate
-#define DESCRIPTION AcheronProject Elongate
+#define DESCRIPTION Acheron Project Elongate
 
 /* key matrix size */
 #define MATRIX_ROWS 5
