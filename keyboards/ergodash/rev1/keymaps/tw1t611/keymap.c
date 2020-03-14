@@ -1,11 +1,8 @@
 #include QMK_KEYBOARD_H
 #include "keymap_german.h"
 
-#define _QWERTZ 0
-#define _MOD 1
-
-enum custom_keycodes {
-  _QWERTZ = SAFE_RANGE,
+enum layers {
+  _QWERTZ,
   _MOD,
 };
 
