@@ -4,6 +4,44 @@
 
 [QMK](https://github.com/qmk), 是量子机械键盘(Quantum Mechanical Keyboard)的缩写，是一群开源爱好者为定制键盘开发的工具。我们从[QMK固件](https://github.com/qmk/qmk_firmware)开始，这是[TMK](https://github.com/tmk/tmk_keyboard)的魔改分叉。
 
+## 我不知道从哪里开始!
+
+在这种情况下，你应该首先看[新手引导](zh-cn/newbs.md)。这个文档有很多有用的信息，几乎包含了所有你着手开发需要的信息。
+
+如果有个问题，请访问[QMK配置工具](https://config.qmk.fm)，这个将会解决一大票你的需求。
+
+## 我怎么才能向键盘刷新我编译的固件?
+
+首先，看[编译/刷新问题页](zh-cn/faq_build.md)。这里有很多信息，你可以发现很多问题的解决方案。
+
+## 那我要是发现这里没有提及的问题呢?
+
+那也不是事。请先检查[GitHub中开放的issue](https://github.com/qmk/qmk_firmware/issues)看看是不是有人发现了相同的问题(请确认不是相似，而是相同)。
+
+如果你还没找到请[打开一个新issue](https://github.com/qmk/qmk_firmware/issues/new)!
+
+## 如果我发现了个bug怎么办?
+
+请打开一个[issue](https://github.com/qmk/qmk_firmware/issues/new)，如果你知道如何修复，请在Github打开一个PR，提交修复。
+
+## 不过`git`和`GitHub`听起来好吓人哦(摊手)!
+
+别担心，我们有超棒的[指南](zh-cn/newbs_git_best_practices.md)告诉你如何让开始使用`git`和`GitHub`，这会让开发变得简单。
+
+而且还有其他`git`和`GitHub`相关链接[在这](zh-cn/newbs_learn_more_resources.md)。
+
+## 我有一个键盘，我想添加支持
+
+那你太棒了!为你的键盘提交PR吧。我们会在检查代码后，并合并到QMK工程中!
+
+### 我想用`QMK`做商标呢?
+
+那我们太开心了!我们很乐意帮助你!
+
+其实，我们有[整页](https://qmk.fm/powered/) 添加到你的键盘和页面专用的图标。这包括很多你需要的(知识和图片)来正式支持QMK.
+
+如果你对这个有疑问打开一个issue或访问[Discord](https://discord.gg/Uq7gcHh).
+
 ## QMK和TMK有什么区别?
 
 TMK最初由[Jun Wako](https://github.com/tmk)设计和执行。QMK始于[Jack Humbert](https://github.com/jackhumbert)为Planck键盘创建的TMK分叉。一段时间后，Jack的分叉就和TMK相去甚远了，于是在2015年，Jack决定将他的分叉改名QMK。
@@ -14,6 +52,6 @@ TMK最初由[Jun Wako](https://github.com/tmk)设计和执行。QMK始于[Jack H
 
 这两种方法都有其优点和缺点，并且代码在有意义时在TMK和QMK之间自由流动。
 
-<!--源文件：https://raw.githubusercontent.com/qmk/qmk_firmware/5bb3fe7a3517e426ba3827a5b889e69bd222bf10/docs/faq_general.md 
-    源提交哈希：5bb3fe7a3517e426ba3827a5b889e69bd222bf10-->
-<!--翻译时间:20200217-19:04(GMT+8)-->
+<!--源文件：https://raw.githubusercontent.com/qmk/qmk_firmware/a701c15d872ad171592335e61e91d7234dbec54a/docs/faq_general.md 
+    源提交哈希：a701c15d872ad171592335e61e91d7234dbec54a-->
+<!--翻译时间:20200314-17:34(GMT+8)-->
