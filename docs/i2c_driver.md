@@ -37,10 +37,6 @@ All the above functions, except `void i2c_init(void);` return the following trut
 |I2C_STATUS_ERROR    | -1   |Operation failed.                           |
 |I2C_STATUS_TIMEOUT  | -2   |Operation timed out.                        |
 
-These are defined in `i2c_master.h` and it is suggestd you use the definitions for future compatibility if
-they change.
-
-
 
 ## AVR
 
