@@ -1,0 +1,315 @@
+#pragma once
+
+
+#ifndef KOP_SFT
+  #define KOP_SFT KC_LSFT
+#endif
+
+#define KC_NUM_1_5       KC_1,KC_2,KC_3,KC_4,KC_5
+#define KC_NUM_6_0       KC_6,KC_7,KC_8,KC_9,KC_0
+#define KC_FN_F1_F5      KC_F1,KC_F2,KC_F3,KC_F4,KC_F5
+#define KC_FN_F6_F10     KC_F6,KC_F7,KC_F8,KC_F9,KC_F10
+#define KC_FN_F11_F15    KC_F11,KC_F12,KC_F13,KC_F14,KC_F15
+#define KC_FN_F16_F20    KC_F16,KC_F17,KC_F18,KC_F19,KC_F20
+
+#define KC_SYM_A         KC_SCLN,K_LPRN,K_RPRN,KC_QUOT,KC_GRV
+#define KC_SYM_B         _______,KC_LBRC,KC_RBRC,_______,_______
+#define KC_SYM_C         KC_QUOT,KC_EQL ,KC_LT  ,KC_GT  ,KC_BSLS
+#define KC_SYM_A_R       KC_COLN,KC_LCBR,KC_RCBR,KC_DQUO,KC_TILD
+#define KC_MOD_R         KC_SPC ,KC_RCTL,KC_RALT,KC_RGUI,KC_RSFT
+#define KC_MOD_L         KC_LSFT,KC_LGUI,KC_LALT,KC_RCTL,_______
+#define KC_CURSOR_ESC    KC_LEFT,KC_DOWN,KC_UP,KC_RIGHT,KC_ESC
+#define KC_HOME_PAGE     KC_HOME,KC_PGDN,KC_PGUP,KC_END,_______
+#define KC_BS_ENT_TAB    KC_BSPC,KC_DEL,KC_ENT,KC_TAB,KC_ESC
+#
+#define KC_TRANS5        _______,_______,_______,_______,_______
+#define KC_TRANS4S       _______,_______,_______,_______,KOP_SFT
+#define KC_SYM_1_5       KC_EXLM,KC_AT,KC_HASH,KC_DLR,KC_PERC
+#define KC_SYM_6_0       KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN
+
+#define KC_WINALT_ARROW LGUI(LALT(KC_LEFT)),LGUI(LALT(KC_DOWN)),LGUI(LALT(KC_UP)),LGUI(LALT(KC_RIGHT)),_______
+
+
+#ifdef HAS_THUMBROW
+    #define KC_TOP_L         KC_Q,            KC_W,           KC_E,           KC_R,           KC_T
+    #define KC_TOP_R         KC_Y,            KC_U,           KC_I,           KC_O,           KC_P
+    #define KC_HOME_L        KC_A,            KC_S,           KC_D,           KC_F,           KC_G
+    #define KC_HOME_R        KC_H,            KC_J,           KC_K,           KC_L,           K_SCLN
+    #define KC_BOTTOM_L      KC_Z,            KC_X,           KC_C,           KC_V,           KC_B
+    #define KC_BOTTOM_R      KC_N,            KC_M,           K_COMM,         K_DOT,          K_SLSH
+#elif defined(HAS_THUMBKEY1)
+    #define KC_TOP_L         KC_Q,            KC_W,           KC_E,           KC_R,           KC_T
+    #define KC_TOP_R         KC_Y,            KC_U,           KC_I,           KC_O,           KC_P
+    #define KC_HOME_L        KC_A,            KC_S,           KC_D,           KC_F,           KC_G
+    #define KC_HOME_R        KC_H,            KC_J,           KC_K,           KC_L,           K_SCLN
+    #define KC_BOTTOM_L      KC_Z,            KC_X,           KC_C,  LT(_Ll2,KC_V),           LT(_Ll1,KC_B)
+    #define KC_BOTTOM_R      LT(_Lr1,KC_N),   LT(_Lr2,KC_M),  K_COMM,         K_DOT,          K_SLSH
+
+#elif defined(NO_THUMBROW)
+    #define KC_TOP_L         KC_Q,            KC_W,           KC_E,           KC_R,           KC_T
+    #define KC_TOP_R         KC_Y,            KC_U,           KC_I,           KC_O,           KC_P
+    #define KC_HOME_L        KC_A,            KC_S,           KC_D,           KC_F,           KC_G
+    #define KC_HOME_R        KC_H,            KC_J,           KC_K,           KC_L,           K_SCLN
+    #define KC_BOTTOM_L      SFT_T(KC_Z),     KC_X,           KC_C,  LT(_Ll2,KC_V),           LT(_Ll1,KC_B)
+    #define KC_BOTTOM_R      LT(_Lr1,KC_N),   LT(_Lr2,KC_M),  K_COMM,         K_DOT,           ,SFT_T(KC_SPC)
+#else
+    #error "THUMB definition is not defined."
+#endif
+
+
+#define LAYOUT_wrapper(...)                  LAYOUT(__VA_ARGS__)
+
+#ifdef TAP_DANCE_ENABLE
+
+#pragma message("# TapDance enabled.")
+#pragma message("# not implemented.")
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+};
+
+#else
+
+#define TD_GUI_R2 MO(_Lr2)
+
+#endif
+
+
+#ifndef K_TL0
+#define K_TL0 KC_LSFT
+#endif
+
+#ifndef K_TL1
+#define K_TL1 LT(_Ll1,KC_BSPC)
+#endif
+
+#ifndef K_TL2
+#define K_TL2 LT(_Ll2, KC_TAB)
+#endif
+
+#ifndef K_CAPS
+#define K_CAPS LT(_Ll2, KC_TAB)
+#endif
+
+
+
+#ifndef K_TR0
+#define K_TR0 KC_SPC
+#endif
+
+#ifndef K_TR1
+#define K_TR1 LT(_Lr1,KC_ENT)
+//#define K_TR1 MO(_Lr1)
+#endif
+
+#ifndef K_TR2
+#define K_TR2 LT(_Lr2,KC_ENT)
+#endif
+
+#ifndef K_ENT
+#define K_ENT LT(_Lr2,KC_ENT)
+#endif
+
+
+#ifndef KC_R2_LH5
+#define KC_R2_LH5 KC_INT1,KC_INT2,KC_INT3,KC_INT4,KC_INT5
+#endif
+
+#ifndef KC_R2_RH5
+//#define KC_R2_RH5 KC_INT6,KC_INT7,KC_INT8,KC_INT9,_______
+#define KC_R2_RH5 KC_LANG1,KC_LANG2,KC_LANG3,KC_LANG4,KC_LANG5
+#endif
+
+
+
+#ifndef LAYOUT_DEF0
+#define LAYOUT_DEF0 LAYOUT_DEF
+#endif
+
+#ifndef LAYOUT_DEF1
+#define LAYOUT_DEF1 LAYOUT_DEF
+#endif
+
+#ifndef LAYOUT_DEF2
+#define LAYOUT_DEF2 LAYOUT_DEF
+#endif
+
+#ifndef LAYOUT_DEF3
+#define LAYOUT_DEF3 LAYOUT_DEF
+#endif
+
+#ifndef LAYOUT_DEF4
+#define LAYOUT_DEF4 LAYOUT_DEF
+#endif
+
+#ifndef LAYOUT_DEF5
+#define LAYOUT_DEF5 LAYOUT_DEF
+#endif
+
+#ifndef LAYOUT_DEF6
+#define LAYOUT_DEF6 LAYOUT_DEF
+#endif
+
+
+
+/*
+//      +    +    +    *                           *    +    +    +
+//4     4    3    2    1     1                1    1    2    3    4    4
+#define LAYOUT_remapper( \
+ESC ,   NL5, NL4, NL3, NL2, NL1,              NR1, NR2, NR3, NR4, NR5,   NR6, NR7, BSPC,  \
+TAB ,   L05, L04, L03, L02, L01,              R01, R02, R03, R04, R05,   R06, R07, BSLS,   \
+CAPS,   L15, L14, L13, L12, L11,              R11, R12, R13, R14, R15,   R16, R17, ENTR,  \
+LSFT,   L25, L24, L23, L22, L21,              R21, R22, R23, R24, R25,   R26,      RSFT,  \
+MOUS,  LCTL,LALT,LGUI,                                            RGUI,RALT,RCTL,   ADJ, \
+                       TL2,                                   TR2,                       \
+       PGUP,                TL1,                         TR1,                UP,         \
+HOME,  PGDN,END ,                  TL0,           TR0,                 LEFT,DOWN,  RIGT, \
+INS ,DEL   ,PRNT,BRK,                                                ZENHN,KANA,MHEN,HENK  \
+  ) \
+  LAYOUT_wrapper( \
+NL6, NL5, NL4, NL3, NL2, NL1,                 NR1, NR2, NR3, NR4, NR5, NR6, \
+L06, L05, L04, L03, L02, L01,                 R01, R02, R03, R04, R05, R06, \
+L16, L15, L14, L13, L12, L11,                 R11, R12, R13, R14, R15, R16, \
+L26, L25, L24, L23, L22, L21,                 R21, R22, R23, R24, R25, R26, \
+TL6, TL5, TL4, TL3, TL2, TL1,                 TR1, TR2, TR3, TR4, TR5, TR6 \
+    )
+
+#define LAYOUT_DEF(...)                  LAYOUT_remapper(__VA_ARGS__)
+*/
+
+
+
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
+  [_MAIN] = LAYOUT_DEF0(
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     KC_ESC ,KC_NUM_1_5                             ,                    KC_NUM_6_0                             ,KC_SCLN,KC_EQL  ,KC_BSPC,
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     KC_TAB ,KC_TOP_L                               ,                    KC_TOP_R                               ,KC_LBRC,KC_RBRC ,KC_BSLS,
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     K_CAPS ,KC_HOME_L                              ,                    KC_HOME_R                              ,KC_QUOT,KC_GRV ,K_ENT,
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     KC_LSFT,KC_BOTTOM_L                            ,                    KC_BOTTOM_R                            ,KC_INT1,KC_RSFT        ,
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+    MO(_MUS),KC_LCTL,KC_LALT,KC_LGUI,                                                    KC_RGUI,KC_RALT,KC_RCTL,MO(_ADJ),
+                                     K_TL2,                                      K_TR2,
+             KC_PGUP,                        K_TL1,                      K_TR1,                          KC_UP  ,
+     KC_HOME,KC_PGDN,KC_END ,                        K_TL0  ,    K_TR0  ,                        KC_LEFT,KC_DOWN,KC_RIGHT,
+     KC_INS ,KC_DEL   ,KC_PSCR,KC_BRK,                                                       JP_MEISU,JP_KANA,JP_MHEN,JP_HENK
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+  ),
+
+  [_Lr1] = LAYOUT_DEF1(
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     KC_F14 ,KC_FN_F1_F5                            ,                    KC_FN_F6_F10                           ,KC_F11 ,KC_F12 ,KC_F13,
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     _______,KC_NUM_1_5                             ,                    KC_NUM_6_0                             ,_______,_______,_______,
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     _______,KC_SYM_A                               ,                    KC_CURSOR_ESC                          ,_______,_______,_______,
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     _______,KC_SYM_B                               ,                    KC_SYM_C                               ,_______,_______,
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     _______,_______,_______,_______,                                                    _______,_______,_______,_______,
+                                     _______,                                    _______,
+             _______,                        MO(_Ll2),                    _______,                        _______,
+     _______,_______,_______,                       _______,      MO(_ADJ),                  _______,_______,_______,
+     _______,_______,_______,_______,                                                    _______,_______,_______,_______
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+  ),
+
+
+  [_Ll1] = LAYOUT_DEF2(
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     _______,KC_FN_F11_F15                          ,                    KC_FN_F16_F20                          ,_______,_______,_______,
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     _______,KC_FN_F1_F5                            ,                    KC_FN_F6_F10                           ,_______,_______,_______,
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     _______,_______,_______,_______,_______,_______,                    KC_BS_ENT_TAB                          ,_______,_______,_______,
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     _______,_______,KC_RGUI,KC_RALT,KC_RCTL,_______,                    _______,KC_LCTL,KC_LALT,KC_LGUI,_______,_______,_______,
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     _______,_______,_______,_______,                                                    _______,_______,_______,_______,
+                                     _______,                                    _______,
+             _______,                        _______,                    MO(_Lr2),                       _______,
+     _______,_______,_______,                       MO(_ADJ),      _______,                       _______,_______,_______,
+     _______,_______,_______,_______,                                                    _______,_______,_______,_______
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+  ),
+
+  [_Lr2] = LAYOUT_DEF3(
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     _______,_______,_______,_______,_______,_______,                    _______,_______,_______,_______,_______,_______,_______,_______,
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     _______,KC_SYM_1_5                             ,                    KC_SYM_6_0                             ,_______,_______,_______,
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     _______,KC_FN_F11_F15                          ,                    KC_FN_F16_F20                          ,_______,_______,_______,
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     _______,_______,_______,_______,_______,_______,                    _______,_______,_______,_______,_______,_______,_______,
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     _______,_______,_______,_______,                                                    _______,_______,_______,_______,
+                                     MO(_ADJ),                                   _______,
+             _______,                        _______,                    _______,                        _______,
+     _______,_______,_______,                       _______,      _______,                       _______,_______,_______,
+     _______,_______,_______,_______,                                                    _______,_______,_______,_______
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+  ),
+
+  [_Ll2] = LAYOUT_DEF4(
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     _______,_______,_______,_______,_______,_______,                    _______,_______,_______,_______,_______,_______,_______,_______,
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     _______,_______,XXXXXXX,XXXXXXX,KC_CAPS,KC_NLCK,                    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______,_______,
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     XXXXXXX,_______,_______,K_IM_EN,K_IM_JP,_______,                    KC_HOME_PAGE                           ,XXXXXXX,XXXXXXX,MO(_ADJ),
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     XXXXXXX,_______,_______,_______,_______,_______,                    _______,_______,_______,_______,_______,XXXXXXX,_______,
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     _______,_______,_______,_______,                                                    _______,_______,_______,_______,
+                                     _______,                                    MO(_ADJ),
+             _______,                        _______,                    _______,                        _______,
+     _______,_______,_______,                       _______,      _______,                       _______,_______,_______,
+     _______,_______,_______,_______,                                                    _______,_______,_______,_______
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+  ),
+
+  [_ADJ] = LAYOUT_DEF5(
+  //|-------+-------+-------+-------+-------+-------+                    +-------+-------+-------+-------+-------+-------|
+     RESET  ,RESET  ,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                     XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+  //|-------+-------+-------+-------+-------+-------+                    +-------+-------+-------+-------+-------+-------|
+     RESET  ,RESET  ,XXXXXXX,XXXXXXX,K_TKANA,K_TROMJ,                    K_AJ_RST,K_AJ_P1,K_AJ_P2,K_AJ_P3,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+  //|-------+-------+-------+-------+-------+-------+                    +-------+-------+-------+-------+-------+-------|
+     _______,K_ENKB ,K_IM_3 ,K_IM_2 ,K_IM_1 ,K_IM_0 ,                     K_REPRT,  K_LNX,  K_WIN,  K_MAC,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+  //|-------+-------+-------+-------+-------+-------+                    +-------+-------+-------+-------+-------+-------|
+     _______,K_JPKB ,K_KB_3 ,K_KB_2 ,K_KB_1 ,K_KB_0 ,                      RGBRST, RGBMOD,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+  //|-------+-------+-------+-------+-------+-------+                    +-------+-------+-------+-------+-------+-------|
+     _______,_______,_______,_______,                                                    _______,_______,_______,_______,
+                                     _______,                                    _______,
+             _______,                        _______,                    _______,                        _______,
+     _______,_______,_______,                        _______,    _______,                        _______,_______,_______,
+     _______,_______,_______,_______,                                                    _______,_______,_______,_______
+  //|-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
+  ),
+
+#ifdef MOUSEKEY_ENABLE
+
+  [_MUS] = LAYOUT_DEF6( \
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     _______,_______,_______,_______,_______,_______,                    _______,_______,_______,_______,_______,_______,XXXXXXX,XXXXXXX,
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     _______,XXXXXXX,XXXXXXX,KC_BTN2,KC_BTN1,KC_BTN3,                    KC_MS_L,KC_MS_D,KC_MS_U,KC_MS_R,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     XXXXXXX,XXXXXXX,KC_WH_L,KC_WH_U,KC_WH_D,KC_WH_R,                    XXXXXXX,KC_ACL0,KC_ACL1,KC_ACL2,XXXXXXX,XXXXXXX,XXXXXXX,
+  //|-------+-------+-------+-------+-------+-------+                   +-------+-------+-------+-------+-------+-------|
+     _______,_______,_______,_______,                                                    _______,_______,_______,_______,
+                                     _______,                                    _______,
+             _______,                        _______,                    _______,                        _______,
+     _______,_______,_______,                        _______,    _______,                        _______,_______,_______,
+     _______,_______,_______,_______,                                                    _______,_______,_______,_______
+  //|-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
+  )
+#endif
+
+
+};

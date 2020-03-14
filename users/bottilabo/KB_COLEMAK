@@ -1,0 +1,8 @@
+#pragma message("#KB_COLEMAK")
+
+#define KB_COLEMAK_NAME "Colamak"
+static const uint8_t MEMCLASS KB_COLEMAK[] = TRANSKEYCODE_DEF( \
+    Q,W,F,P,G, J,L,U   ,Y  ,MINS  ,\
+    A,R,S,T,D, H,N,E   ,I  ,O     ,\
+    Z,X,C,V,B, K,M,COMM,DOT,SLSH  );
+

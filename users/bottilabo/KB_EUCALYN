@@ -1,0 +1,7 @@
+#pragma message("#KB_EUCALYN")
+
+#define KB_EUCALYN_NAME "EUCALYN" 
+static const uint8_t MEMCLASS KB_EUCALYN[] = TRANSKEYCODE_DEF( \
+    Q,W,COMM,DOT,MINS,M,R,D,Y,P   ,\
+    A,O,E   ,I  ,U   ,G,T,K,S,N   ,\
+    Z,X,C   ,V  ,F   ,B,H,J,L,SLSH);

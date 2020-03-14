@@ -1,0 +1,8 @@
+#pragma message("#IM_TRON")
+
+#include "IM_TRON.c"
+
+im_plug_t IM_TRON_PLUG = {
+    IM_TRON_enable,
+    process_TRON
+};

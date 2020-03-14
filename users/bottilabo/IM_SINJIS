@@ -1,0 +1,9 @@
+#pragma message("#IM_SINJIS")
+
+#include "IM_SINJIS.c"
+
+im_plug_t IM_SINJIS_PLUG = {
+    IM_SINJIS_enable,
+    process_SINJIS
+};
+

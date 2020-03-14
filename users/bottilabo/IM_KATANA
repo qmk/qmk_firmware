@@ -1,0 +1,10 @@
+#pragma message("#IM_KATANA")
+
+#include "IM_KATANA.c"
+
+im_plug_t IM_KATANA_PLUG = {
+    IM_KATANA_enable,
+    process_KATANA
+};
+
+

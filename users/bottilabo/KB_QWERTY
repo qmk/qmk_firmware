@@ -1,0 +1,8 @@
+#pragma message("#KB_QWERTY")
+
+#define KB_QWERTY_NAME "QWERTY"
+static const uint8_t MEMCLASS KB_QWERTY[] = TRANSKEYCODE_DEF( \
+    Q,W,E,R,T, Y,U,I,O,P, \
+    A,S,D,F,G, H,J,K,L,MINS, \
+    Z,X,C,V,B, N,M,COMM,DOT,SLSH );
+

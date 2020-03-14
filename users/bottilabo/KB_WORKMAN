@@ -1,0 +1,8 @@
+#pragma message("#KB_WORKMAN")
+
+#define KB_WORKMAN_NAME "Workman"
+static const uint8_t MEMCLASS KB_WORKMAN[] = TRANSKEYCODE_DEF( \
+    Q   ,D,R,W,B, J,F,U   ,P  ,MINS ,\
+    A   ,S,H,T,G, Y,N,E   ,O  ,I    ,\
+    Z   ,X,M,C,V, K,L,COMM,DOT,SLSH);
+

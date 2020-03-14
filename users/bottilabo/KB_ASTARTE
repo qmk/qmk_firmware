@@ -1,0 +1,7 @@
+#pragma message("#KB_ASTARTE")
+
+#define KB_ASTARTE_NAME "Astarte" 
+static const uint8_t MEMCLASS KB_ASTARTE[] = TRANSKEYCODE_DEF( \
+    Q,P,U   ,Y,COMM ,J,D,H,G,W, \
+    I,O,E   ,A,DOT  ,K,T,N,S,R, \
+    Z,X,MINS,C,SLSH ,M,L,F,B,V );

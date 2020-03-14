@@ -1,0 +1,8 @@
+#pragma message("#KB_MSIKI")
+
+#define KB_MSIKI_NAME "M siki"
+static const uint8_t MEMCLASS KB_MSIKI[] = TRANSKEYCODE_DEF( \
+    Q,  L,  J,  F,  C,   M,  Y,  R,  W,  P, \
+    E,  U,  I,  A,  O,   K,  S,  T,  N,  R, \
+ SLSH,  X,  V,SLSH,DOT,  G,  Z,  D,COMM, B );
+

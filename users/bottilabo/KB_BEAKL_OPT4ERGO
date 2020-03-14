@@ -1,0 +1,9 @@
+#pragma message("#KB_BEAKL_OPT4ERGO")
+
+#define KB_BEAKL_OPT4ERGO_NAME "BEAKL opt4ergo" 
+
+static const uint8_t MEMCLASS KB_BEAKL_OPT4ERGO[] = TRANSKEYCODE_DEF( \
+    J,Y   ,O   ,U   ,K   , G,C,M,N,Z ,\
+    H,I   ,E   ,A   ,MINS, D,S,T,R,P ,\
+    Q,COMM,DOT ,SLSH,X   , W,F,L,B,V );
+

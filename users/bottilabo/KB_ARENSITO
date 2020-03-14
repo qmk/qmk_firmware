@@ -1,0 +1,9 @@
+#pragma message("#KB_ARENSITO")
+
+#define KB_ARENSITO_NAME "ARENSITO"
+
+static const uint8_t MEMCLASS KB_ARENSITO[] = TRANSKEYCODE_DEF( \
+    Q,L,COMM,P,MINS, SLSH,F,U,D,K  ,\
+    A,R,E   ,N,B   , G   ,S,I,T,O  ,\
+    Z,W,DOT ,H,J   , V   ,C,Y,M,X  );
+

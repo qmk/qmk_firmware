@@ -1,0 +1,8 @@
+#pragma message("#IM_MSIKI")
+
+#include "IM_MSIKI.c"
+
+im_plug_t IM_MSIKI_PLUG = {
+    IM_MSIKI_enable,
+    process_MSIKI
+};

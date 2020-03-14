@@ -1,0 +1,8 @@
+#pragma message("#KB_QGMLWY")
+
+#define KB_QGMLWY_NAME "QGMLWY"
+static const uint8_t MEMCLASS KB_QGMLWY[] = TRANSKEYCODE_DEF( \
+    Q   ,G,M,L,W, Y,F,U   ,B  ,MINS ,\
+    D   ,S,T,N,R, I,A,E   ,R  ,H    ,\
+    Z   ,X,C,V,J, K,P,COMM,DOT,SLSH);
+

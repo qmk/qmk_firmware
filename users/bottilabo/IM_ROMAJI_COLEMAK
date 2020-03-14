@@ -1,0 +1,8 @@
+#pragma message("#IM_COLEMAK")
+
+#include "IM_ROMAJI_COLEMAK.c"
+
+im_plug_t IM_ROMAJI_COLEMAK_PLUG = {
+    IM_ROMAJI_COLEMAK_enable,
+    process_ROMAJI_COLEMAK
+};

@@ -1,0 +1,8 @@
+#pragma message("#KB_RE_QWERTY")
+
+#define KB_RE_QWERTY_NAME "ReQWERTY"
+static const uint8_t MEMCLASS KB_RE_QWERTY[] = TRANSKEYCODE_DEF( \
+    Q,W,D,F,G, Y,U,K,L,P, \
+    A,S,E,R,T, H,N,I,O,MINS, \
+    Z,X,C,V,B, J,M,COMM,DOT,SLSH );
+

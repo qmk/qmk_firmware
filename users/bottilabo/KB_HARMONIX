@@ -1,0 +1,8 @@
+#pragma message("#KB_HARMONIX")
+
+#define KB_HARMONIX_NAME "Harmonix"
+static const uint8_t MEMCLASS KB_HARMONIX[] = TRANSKEYCODE_DEF( \
+    Q,P,R,L,F, X,U,O,G,J, \
+    W,S,T,N,M, K,I,E,A,Y, \
+    Z,D,C,H,B, V,MINS,COMM,DOT,SLSH );
+

@@ -1,0 +1,8 @@
+#pragma message("#KB_PLUM")
+
+#define KB_PLUM_NAME "PLUM"
+static const uint8_t MEMCLASS KB_PLUM[] = TRANSKEYCODE_DEF( \
+    P   ,L,U,M,MINS,SLSH,C,F   ,G  ,Q ,\
+    R   ,E,A,D,O,      N,T,H   ,I  ,S ,\
+    K   ,J,V,B,COMM, DOT,W,X   ,Y   Z);
+

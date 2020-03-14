@@ -1,0 +1,8 @@
+#pragma message("#KB_CAPEWELL_DVORAK")
+
+#define KB_CAPEWELL_DVORAK_NAME "Capewell Dvorak" 
+static const uint8_t MEMCLASS CAPEWELL_DVORAK[] = TRANSKEYCODE_DEF( \
+    SLSH,COMM,DOT ,P,Y, Q,F,G,R,K ,\
+    O   ,A   ,E   ,I,U, D,H,T,N,S ,\
+    Z   ,X   ,C   ,V,J, L,M,W,B,MINS );
+

@@ -1,0 +1,12 @@
+#pragma message("#IM_NICOLA")
+
+#include "IM_NICOLA.c"
+
+im_plug_t IM_NICOLA_PLUG = {
+    IM_NICOLA_enable,
+    process_NICOLA
+};
+
+#ifndef NICOLA_TERM
+#define NICOLA_TERM STKIN_TERM
+#endif

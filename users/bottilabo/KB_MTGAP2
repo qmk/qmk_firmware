@@ -1,0 +1,8 @@
+#pragma message("#KB_MTGAP2")
+
+#define KB_MTGAP2_NAME "MTGAP2"
+static const uint8_t MEMCLASS KB_MTGAP2[] = TRANSKEYCODE_DEF( \
+    COMM,F,H,D,K, J,C,U   ,L,DOT  ,\
+    O   ,A,N,T,G, M,S,E   ,R,I    ,\
+    Q   ,X,B,P,Z, Y,W,SLSH,V,MINS );
+
