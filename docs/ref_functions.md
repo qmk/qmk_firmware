@@ -8,7 +8,7 @@ There are actually separate functions that you can use there, depending on what 
 
 ### `update_tri_layer(x, y, z)`
 
-The first is the `update_tri_layer(x, y, z)` function.   This function check to see if layers `x` and `y` are both on. If they are both on, then it runs on layer `z`.  Otherwise, if both `x` and `y` are not both on (either only one is, or neither is), then it runs off layer `z`.
+The first is the `update_tri_layer(x, y, z)` function.   This function check to see if layers `x` and `y` are both on. If they are both on, then it runs on layer `z`.  Otherwise, if both `x` and `y` are not both on (either only one is, or neither is), then it turns off layer `z`.
 
 This function is useful if you want to create specific keys that have this functionality, but other layer keycodes won't do this.
 
