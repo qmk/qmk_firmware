@@ -23,12 +23,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID 0xFEED
 #define PRODUCT_ID 0x0000
 #define DEVICE_VER 0x0001
-#define MANUFACTURER e3w2q
-#define PRODUCT 2x3test
+#define MANUFACTURER jpskenn
+#define PRODUCT test_duplex_dp
 #define DESCRIPTION A custom keyboard
 
 /* key matrix size */
-#define MATRIX_ROWS 2*2 // 行数 右手側と左手側があるので、*2
+#define MATRIX_ROWS 1*2 // 右手側と左手側があるので、*2
 #define MATRIX_COLS 3*2 // 列数 Duprex Matrix法により、*2
 
 /*
@@ -41,13 +41,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { F6  }     // 各行に割り当てるピン番号
-#define MATRIX_COL_PINS { D1, D0, D4, D1, D0, D4 } // 各列に割り当てるピン番号
+#define MATRIX_ROW_PINS { F6 }     // 各行に割り当てるピン番号
+#define MATRIX_COL_PINS { D1, D0, D4 } // 各列に割り当てるピン番号
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 // #define DIODE_DIRECTION CUSTOM_MATRIX  // COL（列）のピンからROW（行）のピンに電流が流れるようにダイオードを付けた場合はCOL2ROW、逆向きの場合はROW2COL、独自にマトリクススキャンを行う場合はCUSTOM_MATRIX
-#define DIODE_DIRECTION BOTHWAYS
+// #define DIODE_DIRECTION CUSTOM_MATRIX
 
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
@@ -194,10 +194,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 
 /* disable these deprecated features by default */
-#ifndef LINK_TIME_OPTIMIZATION_ENABLE
-  #define NO_ACTION_MACRO
-  #define NO_ACTION_FUNCTION
-#endif
+// #ifndef LINK_TIME_OPTIMIZATION_ENABLE
+//   #define NO_ACTION_MACRO
+//   #define NO_ACTION_FUNCTION
+// #endif
 /*
  * MIDI options
  */
