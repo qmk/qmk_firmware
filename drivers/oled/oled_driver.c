@@ -108,7 +108,7 @@ bool            oled_active         = false;
 bool            oled_scrolling      = false;
 uint8_t         oled_rotation       = 0;
 uint8_t         oled_rotation_width = 0;
-uint8_t         oled_scroll_speed   = 0; // this holds the speed after being remapped to ssd1306 internal values
+uint8_t         oled_scroll_speed   = 0;  // this holds the speed after being remapped to ssd1306 internal values
 uint8_t         oled_scroll_start   = 0;
 uint8_t         oled_scroll_end     = 7;
 #if OLED_TIMEOUT > 0
@@ -523,7 +523,7 @@ bool oled_off(void) {
 // height of the screen.  For 128x32 screens, rows 4-7 are not used.
 void oled_scroll_set_area(uint8_t start_line, uint8_t end_line) {
     oled_scroll_start = start_line;
-    oled_scroll_end = end_line;
+    oled_scroll_end   = end_line;
 }
 
 void oled_scroll_set_speed(uint8_t speed) {
@@ -540,7 +540,7 @@ void oled_scroll_set_speed(uint8_t speed) {
     // FrameRate256 speed = 3
     // for ease of use these are remaped here to be in order
     static const uint8_t scroll_remap[8] = {7, 4, 5, 0, 6, 1, 2, 3};
-    oled_scroll_speed = scroll_remap[speed];
+    oled_scroll_speed                    = scroll_remap[speed];
 }
 
 bool oled_scroll_right(void) {
