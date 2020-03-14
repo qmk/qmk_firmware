@@ -32,7 +32,7 @@
 
 // This is the default EEPROM max address to use for dynamic keymaps.
 // The default is the ATmega32u4 EEPROM max address.
-// Explicitly override it if the keyboard uses a microcontroller with 
+// Explicitly override it if the keyboard uses a microcontroller with
 // more EEPROM *and* it makes sense to increase it.
 #ifndef DYNAMIC_KEYMAP_EEPROM_MAX_ADDR
 #    define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 1023
