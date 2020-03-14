@@ -12,13 +12,9 @@ shifted to the left (more significant) by one bit.  This is easy to do via the b
 
 You can either do this on each call to the functions below, or once in your definition of the address.  For example if your device has an address of `0x18`:
 
-`#define MY_I2C_ADDRESS 0x18 << 1`
+`#define MY_I2C_ADDRESS (0x18 << 1)`
 
-See: 
-
-https://www.robot-electronics.co.uk/i2c-tutorial 
-
-For more information about I2C addressing and other technial details.
+See https://www.robot-electronics.co.uk/i2c-tutorial for more information about I2C addressing and other technical details.
 
 ## Available functions
 
@@ -36,20 +32,15 @@ For more information about I2C addressing and other technial details.
 
 All the above functions, except `void i2c_init(void);` return the following truth table:
 
-|Return Value   |Description                                        |
-|---------------|---------------------------------------------------|
-|0              |Operation executed successfully.                   |
-|-1             |Operation failed.                                  |
-|-2             |Operation timed out.                               |
+|Return Constant     |Value |Description                                 |
+|--------------------|---------------------------------------------------|
+|I2C_STATUS_SUCCESS  |  0   |Operation executed successfully.            |
+|I2C_STATUS_ERROR    | -1   |Operation failed.                           |
+|I2C_STATUS_TIMEOUT  | -2   |Operation timed out.                        |
 
-These are defined in `i2c_master.h` and it is suggestd you use this definitions for future compatibility if
+These are defined in `i2c_master.h` and it is suggestd you use the definitions for future compatibility if
 they change.
 
-```
-#define I2C_STATUS_SUCCESS (0)
-#define I2C_STATUS_ERROR (-1)
-#define I2C_STATUS_TIMEOUT (-2)
-```
 
 
 ## AVR
