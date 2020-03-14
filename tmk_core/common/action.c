@@ -758,8 +758,8 @@ void register_code(uint8_t code) {
                 // without this, keys with the same keycode, but different
                 // modifiers will be reported incorrectly, see issue #1708
                 if (is_key_pressed(keyboard_report, code)) {
-                  del_key(code);
-                  send_keyboard_report();
+                    del_key(code);
+                    send_keyboard_report();
                 }
                 add_key(code);
                 send_keyboard_report();

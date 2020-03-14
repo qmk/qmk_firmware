@@ -74,24 +74,24 @@ uint8_t get_first_key(report_keyboard_t* keyboard_report) {
  * Note: The function doesn't support modifers currently, and it returns false for KC_NO
  */
 bool is_key_pressed(report_keyboard_t* keyboard_report, uint8_t key) {
-  if (key == KC_NO) {
-    return false;
-  }
-#ifdef NKRO_ENABLE
-  if (keyboard_protocol && keymap_config.nkro) {
-    if ((key>>3) < KEYBOARD_REPORT_BITS) {
-        return keyboard_report->nkro.bits[key>>3] & 1<<(key&7);
-    } else {
-      return false;
+    if (key == KC_NO) {
+        return false;
     }
-  }
+#ifdef NKRO_ENABLE
+    if (keyboard_protocol && keymap_config.nkro) {
+        if ((key >> 3) < KEYBOARD_REPORT_BITS) {
+            return keyboard_report->nkro.bits[key >> 3] & 1 << (key & 7);
+        } else {
+            return false;
+        }
+    }
 #endif
-  for (int i=0; i < KEYBOARD_REPORT_KEYS; i++) {
-      if (keyboard_report->keys[i] == key) {
-          return true;
-      }
-  }
-  return false;
+    for (int i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
+        if (keyboard_report->keys[i] == key) {
+            return true;
+        }
+    }
+    return false;
 }
 
 /** \brief add key byte
