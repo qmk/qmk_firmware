@@ -7,7 +7,7 @@
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    blindassassin111
-#define PRODUCT         AT101_Blackheart PCB
+#define PRODUCT         AT101_BH PCB
 #define DESCRIPTION     Replacement AT101 PCB
 
 /* key matrix size */
