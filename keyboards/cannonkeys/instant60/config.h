@@ -21,8 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xCA04
 #define PRODUCT_ID      0x1600
 #define DEVICE_VER      0x0001
-/* in python2: list(u"whatever".encode('utf-16-le')) */
-/*   at most 32 characters or the ugly hack in usb_main.c borks */
 #define MANUFACTURER CannonKeys
 #define PRODUCT Instant60
 #define DESCRIPTION Instant 60 Keyboard
@@ -58,26 +56,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PIN_WS2812      15
 #define WS2812_SPI SPID2
 
+// Backlight config starts after VIA's EEPROM usage,
+// dynamic keymaps start after this.
+#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 1
 
-// EEPROM usage
-// TODO: refactor with new user EEPROM code (coming soon)
-#define EEPROM_MAGIC 0x451F
-#define EEPROM_MAGIC_ADDR 40
-// Bump this every time we change what we store
-// This will automatically reset the EEPROM with defaults
-// and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x03
-#define EEPROM_VERSION_ADDR 42
+// VIA lighting is handled by the keyboard-level code
+#define VIA_CUSTOM_LIGHTING_ENABLE
 
-
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
-// Dynamic macro starts after dynamic keymaps (35+(4*5*15*2)) = (35+600) = 635
-// start + layer * rows * col * 2
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 43
-#define EEPROM_CUSTOM_BACKLIGHT 644
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 645
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 192
-#define DYNAMIC_KEYMAP_MACRO_COUNT 16
+// Let VIA handle the QMK RGBLIGHT 
+#define VIA_QMK_RGBLIGHT_ENABLE
 
 /*
  * Feature disable options

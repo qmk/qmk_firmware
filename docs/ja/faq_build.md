@@ -1,8 +1,8 @@
 # よくあるビルドの質問
 
 <!---
-  original document: 376419a4f:docs/faq_build.md
-  git diff 376419a4f HEAD docs/faq_build.md | cat
+  original document: 0f43c2652:docs/faq_build.md
+  git diff 0f43c2652 HEAD -- docs/faq_build.md | cat
 -->
 
 このページは QMK のビルドに関する質問を説明します。まだビルドをしていない場合は、[ビルド環境のセットアップ](ja/getting_started_build_tools.md) および [Make 手順](ja/getting_started_make_guide.md)ガイドを読むべきです。
@@ -122,24 +122,28 @@ OPT_DEFS += -DBOOTLOADER_SIZE=2048
 
 ```
 brew rm avr-gcc
+brew rm avr-gcc@8
 brew rm dfu-programmer
 brew rm dfu-util
 brew rm gcc-arm-none-eabi
+brew rm arm-gcc-bin@8
 brew rm avrdude
-brew install avr-gcc
+brew install avr-gcc@8
 brew install dfu-programmer
 brew install dfu-util
-brew install gcc-arm-none-eabi
+brew install arm-gcc-bin@8
 brew install avrdude
+brew link --force avr-gcc@8
+brew link --force arm-gcc-bin@8
 ```
 
-### avr-gcc 8.1 と LUFA
+### `avr-gcc` と LUFA
 
-avr-gcc を 7 より上に更新した場合、LUFA に関連するエラーが表示されるかもしれません。例えば:
+`avr-gcc` を更新し、LUFA に関連するエラーが表示された場合、例えば:
 
 `lib/lufa/LUFA/Drivers/USB/Class/Device/AudioClassDevice.h:380:5: error: 'const' attribute on function returning 'void'`
 
-今のところ、brew で avr-gcc を 7 にロールバックする必要があります。
+今のところ、Homebrew で `avr-gcc` を 8 にロールバックする必要があります。
 
 ```
 brew uninstall --force avr-gcc

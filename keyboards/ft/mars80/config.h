@@ -38,10 +38,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCE 5
 
-#define BACKLIGHT_LEVELS 1
-#define RGBLIGHT_ANIMATIONS
+#define BACKLIGHT_PIN D4
+#define BACKLIGHT_LEVELS 3
 
-#define NO_UART 1
+#define RGBLIGHT_ANIMATIONS
 
 /* key combination for magic key command */
 /* defined by default; to change, uncomment and set to the combination you want */

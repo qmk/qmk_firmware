@@ -2,7 +2,7 @@
 
 <!---
   original document: 376419a4f:docs/faq_keymap.md
-  git diff 376419a4f HEAD docs/faq_keymap.md | cat
+  git diff 376419a4f HEAD -- docs/faq_keymap.md | cat
 -->
 
 このページは人々がキーマップについてしばしば持つ疑問について説明します。まだ読んだことが無い場合には、[キーマップの概要](ja/keymap.md)を最初に読むべきです。

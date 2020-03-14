@@ -10,5 +10,5 @@ SRC +=  ./lib/glcdfont.c \
         # ./lib/timelogger.c \
 
 TAP_DANCE_ENABLE = yes
-EXTRAKEY_ENABLE = yes        # Audio control and System control(+450)
+EXTRAKEY_ENABLE = yes        # Audio control and System control
 # LOCAL_GLCDFONT = yes

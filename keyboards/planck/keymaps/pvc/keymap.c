@@ -1,8 +1,4 @@
-#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
-#include "planck.h"
-#include "action_layer.h"
-#include "eeconfig.h"
-#include "led.h"
+#include QMK_KEYBOARD_H
 #include "mousekey.h"
 
 #ifdef AUDIO_ENABLE
@@ -121,12 +117,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   | LCTRL  | LWIN   | FN     | LALT   | UPPER  | SPACE  | SPACE  | LOWER  | OSHIFT | LEFT   | DOWN   | RIGHT  |
   '-----------------------------------------------------------------------------------------------------------'
 */
-[LAYER_QWERTY] = {
-  { KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_BSPC },
-  { KC_ESC , KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT },
-  { KC_LSFT, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_N   , KC_M   , KC_COMM, KC_DOT , KC_UP  , KC_ENT  },
-  { KC_LCTL, KC_LGUI, M_FUNCT, KC_LALT, M_UPPER, KC_SPC , KC_SPC , M_LOWER, OS_SHFT, KC_LEFT, KC_DOWN, KC_RGHT }
-},
+[LAYER_QWERTY] = LAYOUT_planck_grid(
+   KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_BSPC ,
+   KC_ESC , KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT ,
+   KC_LSFT, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_N   , KC_M   , KC_COMM, KC_DOT , KC_UP  , KC_ENT  ,
+   KC_LCTL, KC_LGUI, M_FUNCT, KC_LALT, M_UPPER, KC_SPC , KC_SPC , M_LOWER, OS_SHFT, KC_LEFT, KC_DOWN, KC_RGHT
+),
 /* LAYER = LAYER_UPPER
   .-----------------------------------------------------------------------------------------------------------.
   | PRINT  | F1     | F2     | F3     | F4     | NUM LK | KP /   | KP 7   | KP 8   | KP 9   | KP -   | DEL    |
@@ -138,12 +134,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   | ______ | ______ | ______ | ______ | UPPER  | KP 0   | KP 0   | ______ | RALT   | KP .   | KP ENT | END    |
   '-----------------------------------------------------------------------------------------------------------'
 */
-[LAYER_UPPER] = {
-  { KC_PSCR, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_NLCK, KC_PSLS, KC_KP_7, KC_KP_8, KC_KP_9, KC_PMNS, KC_DEL  },
-  { KC_PAUS, KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_SLCK, KC_PAST, KC_KP_4, KC_KP_5, KC_KP_6, KC_PPLS, KC_INS  },
-  { _______, KC_F9  , KC_F10 , KC_F11 , KC_F12 , KC_PAUS, KC_KP_0, KC_KP_1, KC_KP_2, KC_KP_3, KC_PENT, KC_HOME },
-  { _______, _______, _______, _______, M_UPPER, KC_KP_0, KC_KP_0, _______, KC_RALT, KC_PDOT, KC_PENT, KC_END  }
-},
+[LAYER_UPPER] = LAYOUT_planck_grid(
+   KC_PSCR, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_NLCK, KC_PSLS, KC_KP_7, KC_KP_8, KC_KP_9, KC_PMNS, KC_DEL  ,
+   KC_PAUS, KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_SLCK, KC_PAST, KC_KP_4, KC_KP_5, KC_KP_6, KC_PPLS, KC_INS  ,
+   _______, KC_F9  , KC_F10 , KC_F11 , KC_F12 , KC_PAUS, KC_KP_0, KC_KP_1, KC_KP_2, KC_KP_3, KC_PENT, KC_HOME ,
+   _______, _______, _______, _______, M_UPPER, KC_KP_0, KC_KP_0, _______, KC_RALT, KC_PDOT, KC_PENT, KC_END
+),
 /* LAYER = LAYER_LOWER
   .-----------------------------------------------------------------------------------------------------------.
   | ______ | $      | {      | [      | (      | %      | #      | )      | ]      | }      | @      | PG UP  |
@@ -155,12 +151,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   | ______ | ______ | ______ | ______ | ______ | ______ | ______ | LOWER  | ______ | ______ | ______ | END    |
   '-----------------------------------------------------------------------------------------------------------'
 */
-[LAYER_LOWER] = {
-  { _______, KC_DLR , KC_LCBR, KC_LBRC, KC_LPRN, KC_PERC, KC_HASH, KC_RPRN, KC_RBRC, KC_RCBR, KC_AT  , KC_PGUP },
-  { _______, KC_CIRC, KC_ASTR, KC_PLUS, KC_MINS, KC_SLSH, KC_BSLS, KC_UNDS, KC_QUOT, KC_DQT , KC_GRV , KC_PGDN },
-  { _______, KC_PIPE, KC_AMPR, KC_EXLM, KC_TILD, KC_SCLN, KC_COLN, KC_EQL , KC_LT  , KC_GT  , KC_QUES, KC_HOME },
-  { _______, _______, _______, _______, _______, _______, _______, M_LOWER, _______, _______, _______, KC_END  }
-},
+[LAYER_LOWER] = LAYOUT_planck_grid(
+   _______, KC_DLR , KC_LCBR, KC_LBRC, KC_LPRN, KC_PERC, KC_HASH, KC_RPRN, KC_RBRC, KC_RCBR, KC_AT  , KC_PGUP ,
+   _______, KC_CIRC, KC_ASTR, KC_PLUS, KC_MINS, KC_SLSH, KC_BSLS, KC_UNDS, KC_QUOT, KC_DQT , KC_GRV , KC_PGDN ,
+   _______, KC_PIPE, KC_AMPR, KC_EXLM, KC_TILD, KC_SCLN, KC_COLN, KC_EQL , KC_LT  , KC_GT  , KC_QUES, KC_HOME ,
+   _______, _______, _______, _______, _______, _______, _______, M_LOWER, _______, _______, _______, KC_END
+),
 /* LAYER = LAYER_FUNCTION
   .-----------------------------------------------------------------------------------------------------------.
   | XXXXXX | F13    | F14    | F15    | F16    | NUM LK | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX |
@@ -172,12 +168,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   | ______ | ______ | FN     | ______ | ______ | PLAY   | PLAY   | ______ | ______ | PREV   | VOL DN | NEXT   |
   '-----------------------------------------------------------------------------------------------------------'
 */
-[LAYER_FUNCTION] = {
-  { XXXXXXX, KC_F13 , KC_F14 , KC_F15 , KC_F16 , KC_NLCK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX },
-  { XXXXXXX, KC_F17 , KC_F18 , KC_F19 , KC_F20 , KC_SLCK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX },
-  { _______, KC_F21 , KC_F22 , KC_F23 , KC_F24 , KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_VOLU, KC_MUTE },
-  { _______, _______, M_FUNCT, _______, _______, KC_MPLY, KC_MPLY, _______, _______, KC_MPRV, KC_VOLD, KC_MNXT }
-},
+[LAYER_FUNCTION] = LAYOUT_planck_grid(
+   XXXXXXX, KC_F13 , KC_F14 , KC_F15 , KC_F16 , KC_NLCK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX ,
+   XXXXXXX, KC_F17 , KC_F18 , KC_F19 , KC_F20 , KC_SLCK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX ,
+   _______, KC_F21 , KC_F22 , KC_F23 , KC_F24 , KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_VOLU, KC_MUTE ,
+   _______, _______, M_FUNCT, _______, _______, KC_MPLY, KC_MPLY, _______, _______, KC_MPRV, KC_VOLD, KC_MNXT
+),
 /* LAYER = LAYER_MOUSE
   .-----------------------------------------------------------------------------------------------------------.
   | ESC    | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | MS UL  | MS U   | MS UR  | MS WHL | MS WHR |
@@ -189,12 +185,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   | ______ | ______ | ______ | ______ | ______ | MS BT1 | MS BT1 | ______ | ______ | MS L   | MS D   | MS R   |
   '-----------------------------------------------------------------------------------------------------------'
 */
-[LAYER_MOUSE] = {
-  { KC_ESC , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, M_MS_UL, KC_MS_U, M_MS_UR, KC_WH_L, KC_WH_R },
-  { XXXXXXX, KC_BTN5, KC_BTN4, KC_BTN3, KC_BTN2, XXXXXXX, XXXXXXX, KC_MS_L, XXXXXXX, KC_MS_R, XXXXXXX, KC_WH_U },
-  { _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, M_MS_DL, KC_MS_D, M_MS_DR, KC_MS_U, KC_WH_D },
-  { _______, _______, _______, _______, _______, KC_BTN1, KC_BTN1, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R }
-},
+[LAYER_MOUSE] = LAYOUT_planck_grid(
+   KC_ESC , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, M_MS_UL, KC_MS_U, M_MS_UR, KC_WH_L, KC_WH_R ,
+   XXXXXXX, KC_BTN5, KC_BTN4, KC_BTN3, KC_BTN2, XXXXXXX, XXXXXXX, KC_MS_L, XXXXXXX, KC_MS_R, XXXXXXX, KC_WH_U ,
+   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, M_MS_DL, KC_MS_D, M_MS_DR, KC_MS_U, KC_WH_D ,
+   _______, _______, _______, _______, _______, KC_BTN1, KC_BTN1, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R
+),
 /* LAYER = LAYER_ADJUST
   .-----------------------------------------------------------------------------------------------------------.
   | XXXXXX | HELP 1 | HELP 2 | HELP 3 | HELP 4 | HELP 5 | HELP 6 | HELP 7 | HELP 8 | HELP 9 | MUSIC  | AUDIO  |
@@ -206,12 +202,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   | XXXXXX | XXXXXX | XXXXXX | XXXXXX | UPPER  | XXXXXX | XXXXXX | LOWER  | XXXXXX | TEMPO- | VOICE- | TEMPO+ |
   '-----------------------------------------------------------------------------------------------------------'
 */
-[LAYER_ADJUST] = {
-  { XXXXXXX, M_HELP1, M_HELP2, M_HELP3, M_HELP4, M_HELP5, M_HELP6, M_HELP7, M_HELP8, M_HELP9, MU_TOG , AU_TOG  },
-  { XXXXXXX, M_BRTOG, M_BSPDU, M_BSPDD, M_BDFLT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX },
-  { XXXXXXX, M_QWRTY, XXXXXXX, XXXXXXX, M_BACKL, RESET  , XXXXXXX, M_MOUSE, XXXXXXX, XXXXXXX, MUV_IN , XXXXXXX },
-  { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, M_UPPER, XXXXXXX, XXXXXXX, M_LOWER, XXXXXXX, TMPO_DN, MUV_DE , TMPO_UP }
-},
+[LAYER_ADJUST] = LAYOUT_planck_grid(
+   XXXXXXX, M_HELP1, M_HELP2, M_HELP3, M_HELP4, M_HELP5, M_HELP6, M_HELP7, M_HELP8, M_HELP9, MU_TOG , AU_TOG  ,
+   XXXXXXX, M_BRTOG, M_BSPDU, M_BSPDD, M_BDFLT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX ,
+   XXXXXXX, M_QWRTY, XXXXXXX, XXXXXXX, M_BACKL, RESET  , XXXXXXX, M_MOUSE, XXXXXXX, XXXXXXX, MUV_IN , XXXXXXX ,
+   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, M_UPPER, XXXXXXX, XXXXXXX, M_LOWER, XXXXXXX, TMPO_DN, MUV_DE , TMPO_UP
+),
 
 };
 
