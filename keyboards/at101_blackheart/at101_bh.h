@@ -1,5 +1,5 @@
-#ifndef at101_blackheart_H
-#define at101_blackheart_H
+#ifndef at101_bh_H
+#define at101_bh_H
 
 #include "quantum.h"
 
