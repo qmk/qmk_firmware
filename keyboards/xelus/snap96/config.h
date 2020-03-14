@@ -29,6 +29,3 @@
 #define LOCKING_SUPPORT_ENABLE
 // Locking resynchronize hack
 #define LOCKING_RESYNC_ENABLE
-
-// 3 layers or else it will not fit in EEPROM
-#define DYNAMIC_KEYMAP_LAYER_COUNT 3
