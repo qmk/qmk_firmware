@@ -31,11 +31,11 @@ See https://www.robot-electronics.co.uk/i2c-tutorial for more information about 
 
 All the above functions, except `void i2c_init(void);` return the following truth table:
 
-|Return Constant     |Value |Description                                 |
-|--------------------|---------------------------------------------------|
-|I2C_STATUS_SUCCESS  |  0   |Operation executed successfully.            |
-|I2C_STATUS_ERROR    | -1   |Operation failed.                           |
-|I2C_STATUS_TIMEOUT  | -2   |Operation timed out.                        |
+|Return Constant     |Value|Description                     |
+|--------------------|-----|--------------------------------|
+|`I2C_STATUS_SUCCESS`|0    |Operation executed successfully.|
+|`I2C_STATUS_ERROR`  |-1   |Operation failed.               |
+|`I2C_STATUS_TIMEOUT`|-2   |Operation timed out.            |
 
 
 ## AVR
