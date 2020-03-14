@@ -327,7 +327,7 @@ typedef struct {
 } udi_hid_exk_desc_t;
 
 typedef struct {
-    uint8_t array[54];
+    uint8_t array[50];
 } udi_hid_exk_report_desc_t;
 
 #    define UDI_HID_EXK_DESC \
@@ -429,7 +429,7 @@ typedef struct {
 } udi_hid_raw_desc_t;
 
 typedef struct {
-    uint8_t array[27];
+    uint8_t array[26];
 } udi_hid_raw_report_desc_t;
 
 #    define UDI_HID_RAW_DESC                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           \

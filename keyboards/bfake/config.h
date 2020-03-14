@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef BFAKE_CONFIG_H
-#define BFAKE_CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -38,9 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCE 5
 
-#define BACKLIGHT_LEVELS 1
+#define BACKLIGHT_PIN D4
+#define BACKLIGHT_LEVELS 3
+
 #define RGBLIGHT_ANIMATIONS
-
-#define NO_UART 1
-
-#endif
