@@ -43,6 +43,8 @@ HD44780_ENABLE = no         # Enable support for HD44780 based LCDs
 
 SPLIT_KEYBOARD = yes
 CUSTOM_MATRIX = yes         # for Duplex-Matrix
-SRC += matrix_apuro.c
+# SRC += matrix_apuro.c
 # SRC += my_matrix.c
 # SRC += matrix2x3.c
+# SRC += matrix_split.c
+SRC += matrix.c
