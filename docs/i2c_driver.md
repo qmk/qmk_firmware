@@ -42,7 +42,7 @@ All the above functions, except `void i2c_init(void);` return the following trut
 |-1             |Operation failed.                                  |
 |-2             |Operation timed out.                               |
 
-These are defined in `i2c_master.h` and it is suggestd you use this definitions for future compatibility if
+These are defined in `i2c_master.h` and it is suggested you use this definitions for future compatibility if
 they change.
 
 ```
