@@ -108,7 +108,7 @@ bool            oled_active         = false;
 bool            oled_scrolling      = false;
 uint8_t         oled_rotation       = 0;
 uint8_t         oled_rotation_width = 0;
-uint8_t         oled_scroll_speed   = 0;
+uint8_t         oled_scroll_speed   = 0; // this holds the speed after being remapped to ssd1306 internal values
 uint8_t         oled_scroll_start   = 0;
 uint8_t         oled_scroll_end     = 7;
 #if OLED_TIMEOUT > 0
