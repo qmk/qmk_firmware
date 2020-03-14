@@ -1,4 +1,4 @@
-#include "z150_blackheart.h"
+#include "z150_bh.h"
 
 void matrix_init_kb(void) {
     setPinOutput(B0);

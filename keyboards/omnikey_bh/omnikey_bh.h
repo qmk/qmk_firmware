@@ -1,5 +1,5 @@
-#ifndef omnikey_blackheart
-#define omnikey_blackheart
+#ifndef omnikey_bh
+#define omnikey_bh
 
 #include "quantum.h"
 
