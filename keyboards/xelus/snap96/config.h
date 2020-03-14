@@ -4,7 +4,7 @@
 
 // USB Device descriptor parameter
 #define VENDOR_ID       0x5845 // XE
-#define PRODUCT_ID      0x0A96 // Snap96
+#define PRODUCT_ID      0x5396 // Snap96
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Xelus
 #define PRODUCT         Snap96
@@ -30,4 +30,5 @@
 // Locking resynchronize hack
 #define LOCKING_RESYNC_ENABLE
 
+// 3 layers or else it will not fit in EEPROM
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3

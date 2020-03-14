@@ -1,4 +1,4 @@
-// Default layout for Sna96
+// Default layout for Snap96
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
