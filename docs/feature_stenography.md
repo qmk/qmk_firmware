@@ -51,7 +51,7 @@ On the display tab click 'Open stroke display'. With Plover disabled you should 
 
 ## Learning Stenography
 
-* [Learn Plover!](https://sites.google.com/site/ploverdoc/)
+* [Learn Plover!](https://sites.google.com/site/learnplover/)
 * [QWERTY Steno](http://qwertysteno.com/Home/)
 * [Steno Jig](https://joshuagrams.github.io/steno-jig/)
 * More resources at the Plover [Learning Stenography](https://github.com/openstenoproject/plover/wiki/Learning-Stenography) wiki
