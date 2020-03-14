@@ -361,7 +361,7 @@ uint8_t matrix_scan(void) {
     debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, changed);
 
     matrix_post_scan();
-    dprintf("\nR+C %d\n" ,changed);
+    // dprintf("\nR+C %d\n" ,changed);
 // dprintf("\nscan raw_matrix[0] = %d\n", raw_matrix[0]);
     return (uint8_t)changed;
 }
