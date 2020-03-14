@@ -7,8 +7,7 @@ The I2C Master drivers used in QMK have a set of common functions to allow porta
 All of the addresses expected by this driver should be pushed to the upper 7 bits of the address byte.  Setting
 the lower bit (indicating read/write) will be done by the respective functions.  Almost all I2C addresses listed 
 on datasheets and the internet will be represented as 7 bits occupying the lower 7 bits and will need to be
-shifted to the left (more significant) by one bit.  This is easy to do via the bitwise shift operator `<< 1`
-
+shifted to the left (more significant) by one bit.  This is easy to do via the bitwise shift operator `<< 1`.
 
 You can either do this on each call to the functions below, or once in your definition of the address.  For example if your device has an address of `0x18`:
 
