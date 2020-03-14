@@ -1,6 +1,5 @@
 # MCU name
 MCU = STM32F072
-BOARD = ST_STM32F072B_DISCOVERY
 
 # Build Options
 #   comment out to disable the options.
