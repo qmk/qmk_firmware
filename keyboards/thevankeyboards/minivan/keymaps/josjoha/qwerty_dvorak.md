@@ -37,12 +37,12 @@ Qwerty+Dvorak keymaps
 
 ![Minivan layout Image 3b](http://socialism.nl/misc/minivan/minivan_layer3b_v2.jpg)
 
-There is an alternative flat arrow configuration for this layer (see below),
+^ There is an alternative flat arrow configuration for this layer (see below),
 and options to compile with the 'arrow' hardware layout.
 
 ![Minivan layout Image 4](http://socialism.nl/misc/minivan/minivan_layer4_v2.jpg)
 
-![Minivan layout Image 5](http://socialism.nl/misc/minivan/minivan_layer5.jpg)
+![Minivan layout Image 5](http://socialism.nl/misc/minivan/minivan_layer5_v2.jpg)
 
 ![Minivan layout Image 6](http://socialism.nl/misc/minivan/minivan_layer6.jpg)
 
@@ -72,37 +72,35 @@ PageUp, PageDown).
 
 Compile keymap.c with: 
 
-…
-
 ![Minivan layout Image MOV 3 defaultf](http://socialism.nl/misc/minivan/minivan_layer3.jpg)
-
-`#define ARROWS_TRIANGLE`:
 
 ![Minivan layout Image MOV 3b default](http://socialism.nl/misc/minivan/minivan_layer3b_v2.jpg)
 
-Illustration of accessing the arrows/navigation with a key on the BASE layer:
+^ `#define ARROWS_TRIANGLE`
 
 ![Minivan illustration BASE towards 3](http://socialism.nl/misc/minivan/minivan_layer_illustration_0_3b_arrow_v3.jpg)
 
-`#define ARROWS_TRIANGLE`, `MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`, `MORE_key2 _MOV_UP`:
+^ Illustration of accessing the arrows/navigation with a key on the BASE layer
 
 ![Minivan layout Image MOV 3b + arrow](http://socialism.nl/misc/minivan/minivan_layer3b_hardw-arrow_triangle.jpg)
 
-`#define ARROWS_TRIANGLE`, `MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`, `MOREKEY2_ADD_NAVIGATION`, `MORE_key2 _MOV_UP` (note change on previously BTN2/3):
+^ `#define ARROWS_TRIANGLE`, `MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`, `MORE_key2 _MOV_UP`
 
 ![Minivan layout Image MOV 3b + navig](http://socialism.nl/misc/minivan/minivan_layer3b_hardw-arrow_triangle_addnav.jpg)
 
-`#define MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`, `MORE_key2 _MOV_UP`:
+^ `#define ARROWS_TRIANGLE`, `MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`, `MOREKEY2_ADD_NAVIGATION`, `MORE_key2 _MOV_UP` (note change on previously BTN2/3)
 
 ![Minivan layout Image MOV 3 + arrows](http://socialism.nl/misc/minivan/minivan_layer3_hardw-arrow_flat.jpg)
 
-`#define MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`, `MOREKEY2_ADD_NAVIGATION`, `MORE_key2 _MOV_UP` (note change on previously BTN2/3):
+^ `#define MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`, `MORE_key2 _MOV_UP`
 
 ![Minivan layout Image MOV 3 + naviga](http://socialism.nl/misc/minivan/minivan_layer3_hardw-arrow_flat_addnav.jpg)
 
-`#define` \[`MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`\] `VI_SWITCHERYDOO`, `#undef ARROWS_TRIANGLE`
+^ `#define MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`, `MOREKEY2_ADD_NAVIGATION`, `MORE_key2 _MOV_UP` (note change on previously BTN2/3)
 
 ![Minivan layout Image MOV 3 vi arrow](http://socialism.nl/misc/minivan/minivan_layer3_vi_.jpg)
+
+^ `#define` \[`MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`\] `VI_SWITCHERYDOO`, `#undef ARROWS_TRIANGLE`
 
 Layers (text)
 =============
@@ -360,6 +358,12 @@ navigation clusters.
 
 - - -
    
+![Minivan illustration layer subsets](http://socialism.nl/misc/minivan/minivan-layer-subsets_qwerty-dvorak.jpg)
+
+^ This is how the layers are activated, depending on mode.
+
+- - -
 
 For the the rest of the readme, see the [regular readme.md file](./readme.md),
-continuing at the chapter below the layer listings: 'Why you want this layout.'
+at chapter _Why you want this layout._
+

@@ -6,7 +6,7 @@ _https://thekey.company_
 This keymap works on Minivan hardware variants with 44, 45 and
 46 keys. It can be compiled for Dvorak only, or Qwerty + Dvorak.
 
-![Minivan layout all](http://socialism.nl/misc/minivan/minivan-all-layers-visualization2_600x.jpg)
+![Minivan layout all](http://socialism.nl/misc/minivan/minivan-all-layers-visualization3_600x.jpg)
 
 make example:
 
@@ -19,8 +19,20 @@ make example:
      # dfu-programmer atmega32u4 flash thevankeyboards_minivan_josjoha.hex
      # dfu-programmer atmega32u4 start
 
+Usage
+-----
+ 
+  Layer switching is by thumb hold buttons on the base layer,
+  and on the shifts (those are toggles). The layers can be set to be on
+  persistently through the `_FUN` layer top row. If toggled, from
+  each layer one can go back to the BASE layer by pressing the upper/left
+  most button. Changing keyboard mode (Dvorak/Dvorak-descramble, or 
+  Qwerty/Dvorak, depending on your compile option choices) is on the `_FUN`
+  layer, top right button.
+
 Compile options ...
--------------------
+===================
+
 These are the compile options, defined at the top of ![keymap.c](./keymap.c)
 
  - Hardware key configurations: _default_ (44), _arrow_ (45), _south paw_ (45), _arrow_ + _south paw_ (46).
@@ -37,9 +49,22 @@ These are the compile options, defined at the top of ![keymap.c](./keymap.c)
 In addition the symbol 🛠 can be easily reconfigured in `unicode_macros.c`.
 There are some tokens to help port the layout to a board with 47 or 48 keys (`J1_J2`).
 
+![Minivan illustration 0](http://socialism.nl/misc/minivan/minivan_illustration_arrow_southpaw.jpg)
+
+Compile option for: Dvorak² or Qwerty+Dvorak
+--------------------------------------------
+These keymaps can be compiled either in a Dvorak version which also allows typing
+normally on a computer already set to Dvorak (Dvorak²), or in a version that can
+switch between Qwerty and Dvorak. 
+
+This readme file assumes the Dvorak with Dvorak-descramble compile version (Dvorak²).
+For the layers in the Qwerty+Dvorak version, see ![qwerty dvorak.md](./qwerty_dvorak.md)
+
    
-  Overview of layers
-  - - - - - - - - - 
+Overview of layers
+==================
+
+![Minivan illustration Overview layers](http://socialism.nl/misc/minivan/minivan-flat-all-layers-visualization.jpg)
 
      Basic layers are:
       • letters (normal Dvorak layout),  Led: low-white/off⁽¹⁾ _LTR "LeTteRs"
@@ -67,18 +92,6 @@ There are some tokens to help port the layout to a board with 47 or 48 keys (`J1
             • ⁽³⁾ The colors are reversed when numlock is on.
             • Leds can be switched on/off on the _RAR layer (MLed, SLeds).      
 
-![Minivan illustration 0](http://socialism.nl/misc/minivan/minivan_illustration_arrow_southpaw.jpg)
-
-Compile option for: Dvorak² or Qwerty+Dvorak
---------------------------------------------
-These keymaps can be compiled either in a Dvorak version which also allows typing
-normally on a computer already set to Dvorak (Dvorak²), or in a version that can
-switch between Qwerty and Dvorak. 
-
-This readme file assumes the Dvorak with Dvorak-descramble compile version (Dvorak²).
-For the layers in the Qwerty+Dvorak version, see ![qwerty dvorak.md](./qwerty_dvorak.md)
-
-
 Dvorak² keymaps
 ---------------
 See below for other compile variants of `_MOV`.
@@ -91,20 +104,28 @@ See below for other compile variants of `_MOV`.
 
 ![Minivan layout Image 3b](http://socialism.nl/misc/minivan/minivan_layer3b_v2.jpg)
 
-There is an alternative flat arrow configuration for this layer (see below),
+^ There is an alternative flat arrow configuration for this layer (see below),
 and options to compile with the 'arrow' hardware layout.
 
 ![Minivan layout Image 4](http://socialism.nl/misc/minivan/minivan_layer4_v2.jpg)
 
-![Minivan layout Image 5](http://socialism.nl/misc/minivan/minivan_layer5.jpg)
+![Minivan layout Image 5](http://socialism.nl/misc/minivan/minivan_layer5_v2.jpg)
 
 ![Minivan layout Image 6](http://socialism.nl/misc/minivan/minivan_layer6.jpg)
 
 ![Minivan layout Image 7](http://socialism.nl/misc/minivan/minivan_layer7_v2.jpg)
 
-The right led in 'descramble' mode shows when using a layer that is different
+^ The right led in 'descramble' mode shows when using a layer that is different
 in that mode, analogue to the `_FUN` led indicator for 'descramble' (not shown
 in above graphics).
+
+![Minivan illustration Overview relationships](http://socialism.nl/misc/minivan/minivan-flat-all-layers-relationships.jpg)
+
+^ Key placement between layers for Dvorak (as shown). It does not work as well for Qwerty.
+
+![Minivan illustration Overview relationships](http://socialism.nl/misc/minivan/minivan-flat-all-layers-activation.jpg)
+
+^ Layers are normally activated from the BASE layer (white). You can toggle them from the `_FUN` layer as well.
 
 
 Movement layer options
@@ -124,54 +145,41 @@ PageUp, PageDown).
 
 Compile keymap.c with: 
 
-…
 
 ![Minivan layout Image MOV 3 defaultf](http://socialism.nl/misc/minivan/minivan_layer3.jpg)
 
-`#define ARROWS_TRIANGLE`:
-
 ![Minivan layout Image MOV 3b default](http://socialism.nl/misc/minivan/minivan_layer3b_v2.jpg)
 
-Illustration of accessing the arrows/navigation with a key on the BASE layer:
+^ `#define ARROWS_TRIANGLE`
 
 ![Minivan illustration BASE towards 3](http://socialism.nl/misc/minivan/minivan_layer_illustration_0_3b_arrow_v3.jpg)
 
-`#define ARROWS_TRIANGLE`, `MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`, `MORE_key2 _MOV_UP`:
+^ Illustration of accessing the arrows/navigation with a key on the BASE layer
 
 ![Minivan layout Image MOV 3b + arrow](http://socialism.nl/misc/minivan/minivan_layer3b_hardw-arrow_triangle.jpg)
 
-`#define ARROWS_TRIANGLE`, `MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`, `MOREKEY2_ADD_NAVIGATION`, `MORE_key2 _MOV_UP` (note change on previously BTN2/3):
+^ `#define ARROWS_TRIANGLE`, `MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`, `MORE_key2 _MOV_UP`
 
 ![Minivan layout Image MOV 3b + navig](http://socialism.nl/misc/minivan/minivan_layer3b_hardw-arrow_triangle_addnav.jpg)
 
-`#define MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`, `MORE_key2 _MOV_UP`:
+^ `#define ARROWS_TRIANGLE`, `MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`, `MOREKEY2_ADD_NAVIGATION`, `MORE_key2 _MOV_UP` (note change on previously BTN2/3)
 
 ![Minivan layout Image MOV 3 + arrows](http://socialism.nl/misc/minivan/minivan_layer3_hardw-arrow_flat.jpg)
 
-`#define MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`, `MOREKEY2_ADD_NAVIGATION`, `MORE_key2 _MOV_UP` (note change on previously BTN2/3):
+^ `#define MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`, `MORE_key2 _MOV_UP`
 
 ![Minivan layout Image MOV 3 + naviga](http://socialism.nl/misc/minivan/minivan_layer3_hardw-arrow_flat_addnav.jpg)
 
-`#define` \[`MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`\] `VI_SWITCHERYDOO`, `#undef ARROWS_TRIANGLE`
+^ `#define MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`, `MOREKEY2_ADD_NAVIGATION`, `MORE_key2 _MOV_UP` (note change on previously BTN2/3)
 
 ![Minivan layout Image MOV 3 vi arrow](http://socialism.nl/misc/minivan/minivan_layer3_vi_.jpg)
 
-The 'descramble' system
------------------------
+^ `#define` \[`MORE_KEY__ARROW`, `MOREKEY2_ARROW_CLUSTER`\] `VI_SWITCHERYDOO`, `#undef ARROWS_TRIANGLE`
+
+'Descramble' mode
+=================
 
 ![Minivan descramble Dvorak](http://socialism.nl/misc/minivan/minivan_descramble.jpg)
-
-
-  Usage
-  -----
- 
-  Normal layer switching is by thumb buttons on the base layer (hold),
-  and on the shifts (those are toggles). The layers can be set to be on
-  persistently through the `_FUN` layer top row toggles. From each layer
-  one can go back to the BASE layer by pressing the upper/left most button.
-
-  'Descramble' mode
-  =================
 
   There are several layers for that take care of typing normally on
   a computer already set to Dvorak ('descramble' mode.)  
@@ -205,8 +213,8 @@ The 'descramble' system
 
   Unicode on Windos may require to install something special.
 
-  Layers (text)
-  =============
+Layers (text)
+=============
  
      Layer _LTR (LeTteRs, standard Dvorak)
 
@@ -500,66 +508,71 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
 
 - - -
    
+![Minivan illustration layer subsets](http://socialism.nl/misc/minivan/minivan-layer-subsets_dvorak-descramble.jpg)
 
-  Why you want this layout
-  ========================
+^ This is how the layers are activated, depending on mode.
 
-  This layout seems easy to learn and predictable. It has a lot on it.
+Why you want this layout
+========================
 
-  The Dvorak/Qwerty layer (BASE) is an unaltered standard Dvorak/Qwerty
+⮚  This layout seems easy to learn and predictable. It has a lot on it.
+
+⮚  The Dvorak/Qwerty layer (BASE) is an unaltered standard Dvorak/Qwerty
   layout, except what physically cannot fit (numbers, right pinky
   symbols).  Despite the crammed space, you have left & rigth arrow,
   GUI, Backspace, Delete and Esc.  The tap keys are typically keys that
   you do not use when in fluent typing (enter, tab, etc).
 
-  Every time you have 0-9 enumerations / numbers, they are on the same
+⮚  Every time you have 0-9 enumerations / numbers, they are on the same
   fingers as a standard keyboard, except on the home row (numbers,
   numpad numbers, F-keys, super- and sub-script numbers).
 
-  The symbols normally reached by shifting a number, are also still on
+⮚  The symbols normally reached by shifting a number, are also still on
   the same fingers: on the third row, accessed by pressing either
   thumb NUMS key.  You can reach the entire alpha-numerical set in two
   layers. There being a NUMS key for each hand makes the NUMS layer
   comfortable to reach left/right handed.
 
-  The lowest symbols row on NUMS copies the logic that the braces are
+⮚  The lowest symbols row on NUMS copies the logic that the braces are
   normally under right hand ring and pinky fingers (numbers 90), and
   therefore on this second row the parathesis and square brackets are
   also on the ring and pinky fingers.  All the unshifted symbols are on
   the left hand, and they mirror over in the shifted form to the right
-  hand. The / next to \ is easier to recall (I think). Then come =+|?,
-  which needs to be learned.
+  hand. This means every finger has one symbol up a row, and one down
+  a row, instead of on a common layout where the right pinky finger has
+  to do much of this work alone. The / next to \ is easier to recall
+  (I think). Then come =+|?, which needs to be learned.
 
-  On all layers possible / needed the modifiers are in their usual spots,
+⮚  On all layers possible / needed the modifiers are in their usual spots,
   and so is backspace, Delete.
 
-  Because one often uses an F-key only once, the layer switches back
+⮚  Because one often uses an F-key only once, the layer switches back
   to BASE after an F-key is used. This can be disabled/enabled with the
   appropriate key stroke on that layer. Because it is hard to touch more
   than 3 keys, there are modifier combination keys on this layer. The
   logic is that they are written left to right, starting from the top
   with Control plus Shift, then Control plus Alt, as if cascading down.
 
-  Leds indicate what layer and mode you are in.
+⮚  Leds indicate what layer and mode you are in. You can switch them off.
 
-  The movement layer has a bunch of layout options, and allows for mouse
+⮚  The movement layer has a bunch of layout options, and allows for mouse
   use. WASD (as in Qwerty) arrow style, or flat on the right hand, or
   flat as in vi(1). With the 'arrow' hardware layout (one more hardware
   key on the right), you can quickly reach an arrow cluster by tapping
   in the center of it from the BASE layer.
 
-  The layer with Power buttons protects you from accidental keystrokes
+⮚  The layer with Power buttons protects you from accidental keystrokes
   on the critical keys. Media keys arrangement you may want to change
   to what you are used to. Otherwise it will have to be learned.
 
-  The number pad layer is quickly in reach on tapping left space. This
+⮚  The number pad layer is quickly in reach on tapping left space. This
   makes it easy to get to modifdiers Control, Shift and Alt without build
   in delays (unlike on BASE layer, where they must share the space with
   other functions). There are some blocks where the number pad navigation
   comes back, which makes it easier to remember where what is, but it
   is not so obvious. This will have to be learned if one uses those keys.
 
-  The accented layer makes it possible to set the keyboard in a mode
+⮚  The accented layer makes it possible to set the keyboard in a mode
   on the computer side without dead-keys. It makes it easy to remember
   where your accented characters are.  The upper row left for example
   has the vowels repeated, with accents going up. The letter 'å'
@@ -568,34 +581,34 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   'near y'). One will have to learn some things by heart. Some things
   are clustered, perhaps vaguely.
 
-  The last layer adds a fair amount of fun stuff to spice up your
-  writing. Some logic is fairly obvious such as ⁽⁾ on the same keys as
-  (), and quotation marks on the same keys as on the BASE layer, while
-  others have vague or no logic to their placement such as ° (Degrees
-  symbol), 🙂 and others, which would have to be learned. You also have
-  correct quotation marks for some languages. Dutch: „he said” English:
-  “he said”.
+⮚  The last layer adds a fair amount of fun stuff to spice up your
+  writing. Write H₂O, 2⁷=128, ±8 °C, §2.1, etc. Some logic is fairly
+  obvious such as ⁽⁾ on the same keys as (), and quotation marks
+  on the same keys as on the BASE layer, while others have vague or no
+  logic to their placement such as ° (Degrees symbol), 🙂 and others,
+  which would have to be learned. You also have correct quotation marks
+  for some languages. Dutch: „he said” English: “he said”.
  
-  With the 'descramble' mode, you never have to fear not being able to
+⮚  With the 'descramble' mode, you never have to fear not being able to
   use your keyboard. This mode is completely seamless, everything works
   exactly the same.
 
-  You could use the Qwerty+Dvorak compile version if you somehow have
+⮚  You could use the Qwerty+Dvorak compile version if you somehow have
   a use for both, but not for 'descramble' (typing Dvorak on a computer
   already set to Dvorak). Keymap.c has an option to easily change
   ƒ into €.
 
-  On average every key has 9 meanings (including upper/lower case).
+⮚  On average every key has 9 meanings (including upper/lower case).
 
-  Conclusion: most is as normal or has some logic to it to help you
+》》 Conclusion: most is as normal or has some logic to it to help you
   remember, a bunch is better than your normal keyboard, some things
-  rarely used will have to be learned.
+  rarely used will have to be learned. 
 
-  …
+  **400% the capability in 40% the size.**
 
 
-  Use case
-  --------
+Use case
+--------
   The use case this keymap is designed for: PCs with GNU/Debian/Linux (etc),
   Linux laptop already set to Dvorak _hence 'descramble'_. Being able on the move
   to operate other operating systems owned by others _hence non-Linux
@@ -615,8 +628,8 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   on `_RAR`.)
 
 
-  Trouble shooting
-  ----------------
+Trouble shooting
+----------------
   When you flash your board, suddenly your Unicode doesn't work, or your
   leds seem to be broken. What seems to happen sometimes is that after
   flashing the value of a user option ends up in a diffderent state than
@@ -627,14 +640,9 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
 
   Unicode is chaos: try going to `_RAR` layer, and hit the Unicode operating
   system buttons.
- 
 
-  BUGS
-  ----
-  (Unknown at time of this writing.) Only tested on Linux (FIXME).
-
-  Todo
-  ----
+Todo
+----
         - Other _ACC, _DDA layers, for different languages or just more funky
           unicode.
         - Support for More common layouts like Colemak, Qwertz, Azerty, on
@@ -653,11 +661,21 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
         to contribute something, that should work.
 
 
-  Authors
-  ----
+BUGS
+----
+  The tilde ~ on the numbers/symbols layer should logically be reached on the second
+  row without the need for _shift,_ however there seems to be a QMK limitation
+  with this. No work around has been attempted as of yet. (It seems to be a minor issue;
+  using shift for once seems OK.)
+
+  Only tested on Linux (FIXME).
+
+
+Authors
+-------
   This keymap.c was edited from the Minivan default, LED support was
   copied/edited from ../jetpacktuxedo/ keymap. Thanks to QMK support
-  for their help.  Written on the Minivan 🙂
+  for their help.  Written on the Minivan 🙂 「Dvorak² 44 ⮚triangle⮘」.
 
   Written by: Jos B. [contact](https://market.socialism.nl/author/ "get e-mail address there")
 
