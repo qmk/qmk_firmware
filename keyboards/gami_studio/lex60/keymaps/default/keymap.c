@@ -17,14 +17,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB,               KC_Q,    KC_W,    KC_E,     KC_R,    KC_T,    KC_Y,    KC_U,          KC_I,    KC_O,     KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,
       MT(MOD_LCTL, KC_ESC), KC_A,    KC_S,    KC_D,     KC_F,    KC_G,    KC_H,    KC_J,          KC_K,    KC_L,     KC_SCLN, KC_QUOT, XXXXXXX, KC_ENT,
       KC_LSFT,              XXXXXXX, KC_Z,    KC_X,     KC_C,    KC_V,    KC_B,    KC_N,          KC_M,    KC_COMM,  KC_DOT,  KC_SLSH, KC_RSFT, MO(3),
-      KC_LCTL,              KC_LALT, KC_LGUI,                    XXXXXXX,          LT(2, KC_SPC),                    KC_RGUI, KC_RALT, MO(3),   KC_RCTL),
+      KC_LCTL,              KC_LALT, KC_LGUI,                    KC_SPC,           LT(2, KC_ENT),                    KC_RGUI, KC_RALT, MO(3),   KC_RCTL),
 
   [_GAMING] = LAYOUT_all(
       KC_GRV,               KC_1,    KC_2,    KC_3,     KC_4,    KC_5,    KC_6,    KC_7,          KC_8,    KC_9,     KC_0,    KC_MINS, KC_EQL,  KC_BSLS,   KC_ESC,
       KC_TAB,               KC_Q,    KC_W,    KC_E,     KC_R,    KC_T,    KC_Y,    KC_U,          KC_I,    KC_O,     KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,
       KC_LCTL,              KC_A,    KC_S,    KC_D,     KC_F,    KC_G,    KC_H,    KC_J,          KC_K,    KC_L,     KC_SCLN, KC_QUOT, XXXXXXX, KC_ENT,
       KC_LSFT,              XXXXXXX, KC_Z,    KC_X,     KC_C,    KC_V,    KC_B,    KC_N,          KC_M,    KC_COMM,  KC_DOT,  KC_SLSH, KC_RSFT, MO(3),
-      KC_LCTL,              KC_LALT, KC_LGUI,                    XXXXXXX,          KC_SPC,                           KC_RGUI, KC_RALT, MO(3),   KC_RCTL),
+      KC_LCTL,              KC_LALT, KC_LGUI,                    KC_SPC,           LT(2, KC_ENT),                    KC_RGUI, KC_RALT, MO(3),   KC_RCTL),
 
   [_FUNCTION] = LAYOUT_all(
       KC_GRV,               KC_F1,   KC_F2,   KC_F3,    KC_F4,   KC_F5,   KC_F6,   KC_F7,         KC_F8,   KC_F9,    KC_F10,  KC_F11,  KC_F12,  KC_BSLS,   KC_DEL,
@@ -34,9 +34,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LCTL,              KC_LALT, KC_LGUI,                    KC_SPC,           LT(2, KC_ENT),                    KC_RGUI, KC_RALT, KC_APP,  KC_RCTRL),
 
   [_FIRMWARE] = LAYOUT_all(
-      RESET,                RGB_TOG, RGB_MOD, RGB_HUD,  RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD,       RGB_VAI, BL_DEC,   BL_TOGG, BL_INC,  XXXXXXX, XXXXXXX,   TG(1),
-      XXXXXXX,              XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,       XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-      XXXXXXX,              XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,       XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      RESET,                XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,       XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   TG(1),
+      RGB_TOG,              RGB_HUI, RGB_SAI, RGB_VAI,  BL_INC,  RGB_MOD, XXXXXXX, XXXXXXX,       XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      BL_TOGG,              RGB_HUD, RGB_SAD, RGB_VAD,  BL_DEC,  XXXXXXX, XXXXXXX, XXXXXXX,       XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       XXXXXXX,              XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,       XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       XXXXXXX,              XXXXXXX, XXXXXXX,                    XXXXXXX,          XXXXXXX,                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX),
 };
