@@ -35,11 +35,11 @@
  
 // Special Layer keycodes
 #define ESC_NUM LT(_NUMBER, KC_ESC)
-#define BSP_REG LT(_REGEX, KC_BSPC)
-#define DEL_REG LT(_REGEX, KC_DEL)
-#define MIN_ARR LT(_ARRANGE, KC_MINS)
+#define BSP_SYM LT(_SYMBOL, KC_BSPC)
+#define DEL_SYM LT(_SYMBOL, KC_DEL)
 #define TAB_SFT LSFT_T(KC_TAB)
-#define SPC_SYM LT(_SYMBOL, KC_SPC)
+#define MIN_ARR LT(_ARRANGE, KC_MINS)
+#define SPC_NAV LT(_NAV, KC_SPC)
 #define ENT_THU LT(_THUMB, KC_ENT)
 #define FUN_L MO(_FUNCTION)
 

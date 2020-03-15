@@ -1,4 +1,4 @@
-# Snowkuma's Planck Layout  v.0.1
+# Snowkuma's Planck Layout  v.0.2
 
 Wide colemak planck layout.  Heavily influenced by the ideas of sdothum and his blog.
 

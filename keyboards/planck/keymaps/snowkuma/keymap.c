@@ -22,7 +22,7 @@
  *
  * https://github.com/snowkuma
  *
- * version 0.1
+ * version 0.2
 */
 
 #include QMK_KEYBOARD_H
@@ -34,9 +34,8 @@ extern keymap_config_t keymap_config;
 
 enum planck_layers {
   _COLEMAK = 0,
+	_NAV,
   _SYMBOL,
-  _SFT_NAV,
-  _REGEX,
   _NUMBER,
   _ARRANGE,
   _FUNCTION,
@@ -49,6 +48,7 @@ enum planck_keycodes {
   EMOJI,
   EXT_PLV,
   ITERM,
+	KRAKEN,
   LESSON,
   TYPE_FU,
   VS_CODE,
@@ -116,18 +116,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |   z    |   x    |   c    |   v    |   b    |        |        |   k    |   m    |   ,    |   .    |   '    |
  * |        |        |        |        |        |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        |        |        |  Esc   | BkSp   |   -    |  Tab   | Space  | Enter  |        |        |
- * |        |        |        |  Num   | Regex  | Arrange| Shift  |  Sym   | Thumb  |        |        |        |
+ * |        |        |        |  Esc   | BkSp   |   TAB  |   -    | Space  | Enter  |        |        |
+ * |        |        |        |  Num   | Symbol |  Shift | Arrange|  Nav   | Thumb  |        |        |        |
  * `--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------'
  */
 [_COLEMAK] = LAYOUT_planck_grid(
     Q_CTL,   W_ALT,   F_GUI,   KC_P,    KC_G,    _______, _______, KC_J,    KC_L,    U_GUI,   Y_ALT,   SCL_CTL,
     KC_A,    KC_R,    KC_S,    T_SFT,   KC_D,    _______, _______, KC_H,    N_SFT,   KC_E,    KC_I,    KC_O,
-    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    _______, _______, KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_QUOT,	
-    _______, _______, _______, ESC_NUM, BSP_REG, MIN_ARR, TAB_SFT, SPC_SYM, ENT_THU, _______, _______, _______
+    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    _______, _______, KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_QUOT,
+    _______, _______, _______, ESC_NUM, BSP_SYM, TAB_SFT, MIN_ARR, SPC_NAV, ENT_THU, _______, _______, _______
 ),
 
-/* Symbol & Cursor Nav layer
+/* NAV
  * ,-----------------------------------------------------------------------------------------------------------.
  * |   !    |   @    |   €    |   &    |   |    |        |        |        |  Home  |   Up   |  End   |  PgUp  |
  * |        |        |        |        |        |        |        |        |        |        |        |        |
@@ -139,35 +139,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |        |        |        |        |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        |        |        |   _    |  Del   |   -    |        |  f()   |        |        |        |        |
- * |        |        |        |        | Mouse  |        |        |  Sym   |Function|        |        |        |
+ * |        |        |        |        | Mouse  |        |        |  Nav   |Function|        |        |        |
  * `--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------'
  */
-[_SYMBOL] = LAYOUT_planck_grid(
+[_NAV] = LAYOUT_planck_grid(
     KC_EXLM, KC_AT,   EURO,    KC_AMPR, KC_PIPE,  _______, _______, _______, KC_HOME, KC_UP,   KC_END, KC_PGUP,
     TD(TD_TILD), KC_LT, KC_PERC, KC_GT, KC_PLUS,  _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,
     KC_GRV,  _______, GBP,     KC_EQL,  KC_MINS,  _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, KC_UNDS, DEL_REG,  KC_MINS, _______, _______, _______, _______, _______, _______
+    _______, _______, _______, _______, DEL_SYM,  _______, _______, _______, _______, _______, _______, _______
 ),
 
-/* Regex layer
+/* SYMBOL
  * ,-----------------------------------------------------------------------------------------------------------.
- * |        |        |        |        |        |        |        |   *    |   [    |   ^    |    ]   |   :    |
+ * |   !    |   @    |   €    |   &    |   |    |        |        |   *    |   [    |   ^    |    ]   |   :    |
  * |        |        |        |        |        |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        |        |        |        |        |        |        |   ?    |   (    |   $    |    )   |   /    |
- * |        |        |        |        |        |        |        |        |        |        |        |        |
+ * |   ~    |   <    |   %    |   >    |   +    |        |        |   ?    |   (    |   $    |    )   |   /    |
+ * |  2x ~/ |        |        |        |        |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        |        |        |        |        |        |        |   |    |   {    |   #    |    }   |   \    |
+ * |   `    |        |   £    |   =    |   -    |        |        |   |    |   {    |   #    |    }   |   \    |
  * |        |        |        |        |        |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        |        |        |        |   f()  |        |        | Space  |        |        |        |
- * |        |        |        |        |  Regex |        |        | Mouse  |  Enter |        |        |        |
+ * |        |        |        |        | Symbol |        |        | Mouse  |  Enter |        |        |        |
  * `--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------'
  */
-[_REGEX] = LAYOUT_planck_grid(
-    _______, _______, _______, _______, _______, _______, _______, KC_ASTR, KC_LBRC, KC_CIRC, KC_RBRC, KC_COLN,
-    _______, _______, _______, _______, _______, _______, _______, KC_QUES, KC_LPRN, KC_DLR,  KC_RPRN, KC_SLSH,
-    _______, _______, _______, _______, _______, _______, _______, KC_PIPE, KC_LCBR, KC_HASH, KC_RCBR, KC_BSLS,
+[_SYMBOL] = LAYOUT_planck_grid(
+    KC_EXLM, KC_AT,   EURO,    KC_AMPR, KC_PIPE, _______, _______, KC_ASTR, KC_LBRC, KC_CIRC, KC_RBRC, KC_COLN,
+    TD(TD_TILD), KC_LT, KC_PERC, KC_GT, KC_PLUS, _______, _______, KC_QUES, KC_LPRN, KC_DLR,  KC_RPRN, KC_SLSH,
+    KC_GRV,  _______, GBP,     KC_EQL,  KC_MINS, _______, _______, KC_PIPE, KC_LCBR, KC_HASH, KC_RCBR, KC_BSLS,
     _______, _______, _______, _______, _______, _______, _______,  _______, KC_ENT,  _______, _______, _______
 ),
 
@@ -183,7 +183,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |        |        |        |        |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        |        |        |  f()   |        |        |        |        |        |        |        |        |
- * |        |        |        | Number |        |        |        | Space  | Enter  |        |        |        |
+ * |        |        |        | Number |        |        |        |        |        |        |        |        |
  * `--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------'
 *
 */
@@ -196,8 +196,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Mouse Layer
  * ,-----------------------------------------------------------------------------------------------------------.
- * |  Ctrl  |  Alt   |  GUI   |        |        |        |        |        |        |   Up   |        |  wUp   |
- * |        |        |        |        |        |        |        |        |        |        |        |        |
+ * |  Ctrl  |  Alt   |  GUI   |        |        |        |        |        | Left   |   Up   | Right  |  wUp   |
+ * |        |        |        |        |        |        |        |        | scrl   |        | scrl   |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |  Btn3  |  Btn2  |  Btn1  | Shift  |        |        |        |        | Left   |  Down  | Right  |  wDn   |
  * |        |        |        |        |        |        |        |        |        |        |        |        |
@@ -210,7 +210,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------'
 */
 [_MOUSE] = LAYOUT_planck_grid(
-    KC_LCTL, KC_LALT, KC_LGUI, _______, _______, _______, _______, _______, _______, KC_MS_U, _______, KC_WH_U,
+    KC_LCTL, KC_LALT, KC_LGUI, _______, _______, _______, _______, _______, KC_WH_L, KC_MS_U, KC_WH_R, KC_WH_U,
     KC_BTN3, KC_BTN2, KC_BTN1, KC_LSFT, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -218,10 +218,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Thumb Layer
  * ,-----------------------------------------------------------------------------------------------------------.
- * | Reset  |        | SC_CAPF| SC_CAPP|        |        |        |        |Input L |        |        |        |
+ * | Reset  |        | SC_CAPF| SC_CAPP|        | KRAKEN |        |        |Input L |        |        | CMD +  |
  * |  (3x)  |        |        |        |        |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        |        |        | TypeFu | CMD +  |        |        |        | Caps   | emoji  | iterm  |        |
+ * |        |        |        | TypeFu | CMD +  |        |        |        | Caps   | emoji  | iterm  | CMD -  |
  * |        |        |        |        |        |        |        |        | Lock   |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        |        | VS_Code|  Vim   | CMD -  |        |        |        |        |        |        |        |
@@ -232,8 +232,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------'
  */
 [_THUMB] = LAYOUT_planck_grid(
-    TD(TD_RESET), _______, SC_CAPF, SC_CAPP, _______, _______, _______, _______, INPUT_L, _______, _______, _______,
-    _______, _______, _______, TYPE_FU, TXT_PLS,  _______, _______, _______, KC_CAPS, EMOJI,   ITERM,   _______,
+    TD(TD_RESET), _______, SC_CAPF, SC_CAPP, _______, KRAKEN, _______, _______, INPUT_L, _______, _______, TXT_PLS,
+    _______, _______, _______, TYPE_FU, TXT_PLS,  _______, _______, _______, KC_CAPS, EMOJI,   ITERM,   TXT_MIN,
     _______, _______, VS_CODE, VIM,     TXT_MIN,  _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______
 ),
@@ -249,8 +249,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Restore|        | Center |        |        |        |        |        | Bottom |        | Bottom |        |
  * |        |        |        |        |        |        |        |        |  Left  |        | Right  |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        |        |        |        |        |  f()   |        |        |        |        |        |
- * |        |        |        |        |        | Arrange|        |        |        |        |        |        |
+ * |        |        |        |        |        |        |  f()   |        |        |        |        |        |
+ * |        |        |        |        |        |        | Arrange|        |        |        |        |        |
  * `--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------'
 */
 [_ARRANGE] = LAYOUT_planck_grid(
@@ -290,8 +290,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #endif
 
 uint32_t layer_state_set_user(uint32_t state) {
-  state = update_tri_layer_state(state, _SYMBOL, _THUMB, _FUNCTION);
-  state = update_tri_layer_state(state, _SYMBOL, _REGEX, _MOUSE);
+  state = update_tri_layer_state(state, _NAV, _THUMB, _FUNCTION);
+  state = update_tri_layer_state(state, _SYMBOL, _NAV, _MOUSE);
   return state;
 }
 
@@ -303,6 +303,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
+		case KRAKEN:
+				if (record->event.pressed) {
+					SEND_STRING(SS_LGUI(" "));
+					SEND_STRING("GitKraken.app" SS_TAP(X_ENTER));
+				}
+				return false;
+				break;
     case ITERM:
         if (record->event.pressed) {
             SEND_STRING(SS_LGUI(" "));
