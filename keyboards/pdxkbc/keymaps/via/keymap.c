@@ -68,7 +68,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case HACKTHEPLANET:
       if (record->event.pressed) {
-        SEND_STRING("HACK THE PLANET!" SS_TAP(X_ENTER));
+        SEND_STRING("HACK THE PLANET!\n");
       }
       break;
   }
