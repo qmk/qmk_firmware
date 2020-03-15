@@ -9,3 +9,5 @@ OLED_DRIVER_ENABLE = yes
 OPT_DEFS += -DOLED_FONT_H=\"common/glcdfont.c\"
 # Xulkal specific oled define
 OPT_DEFS += -DOLED_90ROTATION
+
+SPLIT_KEYBOARD = yes
