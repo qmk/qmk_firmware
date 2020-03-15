@@ -30,19 +30,12 @@ def compile(cli):
     If --keyboard and --keymap are provided this command will build a firmware based on that.
 
     """
-    experimental_mode = False
-
-    if cli.args.filename and cli.args.experimental:
-
-        # Warn the user
-        cli.log.info("{fg_yellow}Compiling in experimental mode!")
-        cont = input('Are you sure? Y/N ')
-
-        experimental_mode = False
-        if (cont.lower() == 'y' or cont.lower() == 'yes'):
-          experimental_mode = True
-
     if cli.args.filename:
+
+        # Warn the user if they are using experimental mode
+        if cli.args.experimental:
+          cli.log.info("{fg_yellow}Compiling in experimental mode! I hope you know what you're doing...")
+
         # Parse the configurator json
         user_keymap = parse_configurator_json(cli.args.filename)
 
@@ -51,9 +44,7 @@ def compile(cli):
         cli.log.info('Creating {fg_cyan}%s{style_reset_all} keymap in {fg_cyan}%s', user_keymap['keymap'], keymap_path)
 
         # Compile the keymap
-        command = compile_configurator_json(user_keymap)
-        if experimental_mode:
-          command = compile_configurator_json_encoders(user_keymap)
+        command = compile_configurator_json(user_keymap, experimental=cli.args.experimental)
 
         cli.log.info('Wrote keymap to {fg_cyan}%s/%s/keymap.c', keymap_path, user_keymap['keymap'])
 

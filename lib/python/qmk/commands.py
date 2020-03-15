@@ -32,7 +32,7 @@ def parse_configurator_json(configurator_file):
     return user_keymap
 
 
-def compile_configurator_json(user_keymap, bootloader=None):
+def compile_configurator_json(user_keymap, bootloader=None, experimental=False):
     """Convert a configurator export JSON file into a C file
 
     Args:
@@ -42,34 +42,17 @@ def compile_configurator_json(user_keymap, bootloader=None):
         bootloader
             A bootloader to flash
 
-    Returns:
-        A command to run to compile and flash the C file.
-    """
-    # Write the keymap C file
-
-    qmk.keymap.write(user_keymap['keyboard'], user_keymap['keymap'], user_keymap['layout'], user_keymap['layers'])
-
-    # Return a command that can be run to make the keymap and flash if given
-    if bootloader is None:
-        return create_make_command(user_keymap['keyboard'], user_keymap['keymap'])
-    return create_make_command(user_keymap['keyboard'], user_keymap['keymap'], bootloader)
-
-def compile_configurator_json_encoders(user_keymap, bootloader=None):
-    """Convert a configurator export JSON file into a C file
-
-    Args:
-        configurator_filename
-            The configurator JSON export file
-
-        bootloader
-            A bootloader to flash
+        experimental
+            True if the user wants to attempt compilation with encoder support.
 
     Returns:
         A command to run to compile and flash the C file.
     """
-    # Write the keymap C file
+    # Find the encoders, if any
+    encoders = None if 'encoders' not in user_keymap.keys() else user_keymap['encoders']
 
-    qmk.keymap.write_with_encoders(user_keymap['keyboard'], user_keymap['keymap'], user_keymap['layout'], user_keymap['layers'], user_keymap['encoders'])
+    # Write the keymap C file
+    qmk.keymap.write(user_keymap['keyboard'], user_keymap['keymap'], user_keymap['layout'], user_keymap['layers'], encoders, experimental)
 
     # Return a command that can be run to make the keymap and flash if given
     if bootloader is None:
