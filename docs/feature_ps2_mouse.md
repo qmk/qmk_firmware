@@ -1,4 +1,4 @@
-## PS/2 Mouse Support
+# PS/2 Mouse Support
 
 Its possible to hook up a PS/2 mouse (for example touchpads or trackpoints) to your keyboard as a composite device.
 
@@ -6,7 +6,7 @@ To hook up a Trackpoint, you need to obtain a Trackpoint module (i.e. harvest fr
 
 There are three available modes for hooking up PS/2 devices: USART (best), interrupts (better) or busywait (not recommended).
 
-### The Cirtuitry between Trackpoint and Controller
+## The Circuitry between Trackpoint and Controller :id=the-circuitry-between-trackpoint-and-controller
 
 To get the things working, a 4.7K drag is needed between the two lines DATA and CLK and the line 5+. 
 
@@ -24,7 +24,7 @@ MODULE    5+  --------+--+--------- PWR   CONTROLLER
 ```
 
 
-### Busywait Version
+## Busywait Version :id=busywait-version
 
 Note: This is not recommended, you may encounter jerky movement or unsent inputs. Please use interrupt or USART version if possible.
 
@@ -50,7 +50,7 @@ In your keyboard config.h:
 #endif
 ```
 
-### Interrupt Version
+## Interrupt Version :id=interrupt-version
 
 The following example uses D2 for clock and D5 for data. You can use any INT or PCINT pin for clock, and any pin for data.
 
@@ -88,7 +88,7 @@ In your keyboard config.h:
 #endif
 ```
 
-### USART Version
+## USART Version :id=usart-version
 
 To use USART on the ATMega32u4, you have to use PD5 for clock and PD2 for data. If one of those are unavailable, you need to use interrupt version.
 
@@ -145,9 +145,9 @@ In your keyboard config.h:
 #endif
 ```
 
-### Additional Settings
+## Additional Settings :id=additional-settings
 
-#### PS/2 Mouse Features
+### PS/2 Mouse Features :id=ps2-mouse-features
 
 These enable settings supported by the PS/2 mouse protocol.
 
@@ -188,7 +188,7 @@ void ps2_mouse_set_resolution(ps2_mouse_resolution_t resolution);
 void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate);
 ```
 
-#### Fine Control
+### Fine Control :id=fine-control
 
 Use the following defines to change the sensitivity and speed of the mouse.
 Note: you can also use `ps2_mouse_set_resolution` for the same effect (not supported on most touchpads).
@@ -199,7 +199,7 @@ Note: you can also use `ps2_mouse_set_resolution` for the same effect (not suppo
 #define PS2_MOUSE_V_MULTIPLIER 1
 ```
 
-#### Scroll Button
+### Scroll Button :id=scroll-button
 
 If you're using a trackpoint, you will likely want to be able to use it for scrolling.
 It's possible to enable a "scroll button/s" that when pressed will cause the mouse to scroll instead of moving.
@@ -245,7 +245,7 @@ Fine control over the scrolling is supported with the following defines:
 #define PS2_MOUSE_SCROLL_DIVISOR_V 2
 ```
 
-#### Invert Mouse and Scroll Axes
+### Invert Mouse and Scroll Axes :id=invert-mouse-and-scroll-axes
 
 To invert the X and Y axes you can put:
 
@@ -265,7 +265,7 @@ To reverse the scroll axes you can put:
 
 into config.h.
 
-#### Debug Settings
+### Debug Settings :id=debug-settings
 
 To debug the mouse, add `debug_mouse = true` or enable via bootmagic.
 
