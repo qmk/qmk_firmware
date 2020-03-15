@@ -15,7 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-#define RGBT RGB_MODE_RGBTEST
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = LAYOUT( /* Base */
@@ -31,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [2] = LAYOUT( /* Base */                                    
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS ,        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, \
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS ,        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, \
-    KC_TRNS,          RGB_TOG, RGB_MOD,  RGB_RMOD,        RGBT,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, \
+    KC_TRNS,          RGB_TOG, RGB_MOD,  RGB_RMOD,        RGB_M_T,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, \
     KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS ,                          KC_SPC,           KC_TRNS, KC_TRNS,  KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS),
 [3] = LAYOUT( /* Base */                                    
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS ,        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, \
