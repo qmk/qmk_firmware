@@ -64,7 +64,7 @@ For the layers in the Qwerty+Dvorak version, see ![qwerty dvorak.md](./qwerty_dv
 Overview of layers
 ==================
 
-![Minivan illustration Overview layers](http://socialism.nl/misc/minivan/minivan-flat-all-layers-visualization.jpg)
+![Minivan illustration Overview layers](http://socialism.nl/misc/minivan/minivan-flat-all-layers-visualization_v2.jpg)
 
      Basic layers are:
       • letters (normal Dvorak layout),  Led: low-white/off⁽¹⁾ _LTR "LeTteRs"
@@ -123,7 +123,7 @@ in above graphics).
 
 ^ Key placement between layers for Dvorak (as shown). It does not work as well for Qwerty.
 
-![Minivan illustration Overview relationships](http://socialism.nl/misc/minivan/minivan-flat-all-layers-activation.jpg)
+![Minivan illustration Overview relationships](http://socialism.nl/misc/minivan/minivan-flat-all-layers-activation_v2.jpg)
 
 ^ Layers are normally activated from the BASE layer (white). You can toggle them from the `_FUN` layer as well.
 
