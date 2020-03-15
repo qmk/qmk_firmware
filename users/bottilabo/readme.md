@@ -7,9 +7,17 @@ Copyright 2019-2020 Bottilabo [twitter @bottilabo]
 - enables change qwerty layout to colemac,dvorak.... dynamically
 - has max 3-layout and 3-IM. You can choose them at compile time.
 
+![atreus42](https://github.com/bottilabo/qmk-harmonize/raw/master/img/bottilabo-atreus42.png)
+
+![crkbd](https://github.com/bottilabo/qmk-harmonize/raw/master/img/bottilabo-crkbd.png)
+
+![nicola](https://github.com/bottilabo/qmk-harmonize/raw/master/img/nicola.png)
+
+![tron](https://github.com/bottilabo/qmk-harmonize/raw/master/img/tron.png)
+
 # IM
 - for now, mainly Japanese KANA input method
-- 
+- simultaneous keying, pre shift, post shift
 
 # how to
 
@@ -31,9 +39,9 @@ choose KBLAYOUT2
 - ADJ + X
 choose KBLAYOUT3
 
-- TL2(CAPS-Lock) + D
+- TL2(CAPS) + D
 normal input mode. No IM. KBLAYOUT is applied.
-- TL2(CAPS-Lock) + F
+- TL2(CAPS) + F
 IM input mode. KBIM is applied.
 
 

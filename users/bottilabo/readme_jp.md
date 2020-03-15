@@ -9,10 +9,13 @@ QMK Harmonizeライブラリは、
 - コンパイル時にキー配列を最大３種類、日本語入力モードを最大３種類設定し、仮想キーボードの配列をベースにして動作時に切り替えることができます。
 - 日本語入力モードのかな配列では、PCへのキー出力を「かな」もしくは「ローマ字」のどちらかを動作中に変更できます。
 
-![atreus42](https://github.com/bottilabo/qmk-harmonize/img/bottilabo-atreus42.png)
-![crkbd](https://github.com/bottilabo/qmk-harmonize/img/bottilabo-crkbd.png)
-![nicola](https://github.com/bottilabo/qmk-harmonize/img/nicola.png)
-![tron](https://github.com/bottilabo/qmk-harmonize/img/tron.png)
+![atreus42](https://github.com/bottilabo/qmk-harmonize/raw/master/img/bottilabo-atreus42.png)
+
+![crkbd](https://github.com/bottilabo/qmk-harmonize/raw/master/img/bottilabo-crkbd.png)
+
+![nicola](https://github.com/bottilabo/qmk-harmonize/raw/master/img/nicola.png)
+
+![tron](https://github.com/bottilabo/qmk-harmonize/raw/master/img/tron.png)
 
 # 操作方法
 
@@ -34,9 +37,9 @@ KBLAYOUT2を使用する。
 - ADJ + X
 KBLAYOUT3を使用する。
 
-- TL2(CAPS-Lock) + D
+- TL2(CAPS) + D
 IMを使用しない通常の入力モード。選択済みのKBLAYOUTが使用されます。
-- TL2(CAPS-Lock) + F
+- TL2(CAPS) + F
 IMを使用する入力モード。選択済みのIMが使用されます。
 
 # IMでの入力方法
