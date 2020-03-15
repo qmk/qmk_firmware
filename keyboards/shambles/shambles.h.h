@@ -1,5 +1,5 @@
-#ifndef KB_H
-#define KB_H
+#ifndef SHAMBLES_H
+#define SHAMBLES_H
 
 #include "quantum.h"
 
