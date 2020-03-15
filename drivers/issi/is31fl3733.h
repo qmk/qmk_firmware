@@ -16,8 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IS31FL3733_DRIVER_H
-#define IS31FL3733_DRIVER_H
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -250,5 +249,3 @@ void IS31FL3733_update_led_control_registers(uint8_t addr, uint8_t index);
 #define L_14 0xBD
 #define L_15 0xBE
 #define L_16 0xBF
-
-#endif  // IS31FL3733_DRIVER_H

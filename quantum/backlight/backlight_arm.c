@@ -6,14 +6,6 @@
 // TODO: remove short term bodge when refactoring BACKLIGHT_CUSTOM_DRIVER out
 #ifdef BACKLIGHT_PIN
 
-#    if defined(STM32F0XX) || defined(STM32F0xx)
-#        error "Backlight support for STMF072 is not available. Please disable."
-#    endif
-
-#    if defined(STM32F1XX) || defined(STM32F1xx)
-#        define USE_GPIOV1
-#    endif
-
 // GPIOV2 && GPIOV3
 #    ifndef BACKLIGHT_PAL_MODE
 #        define BACKLIGHT_PAL_MODE 2
@@ -110,7 +102,6 @@ void backlight_task(void) {}
 #    define BREATHING_HALT_ON 2
 #    define BREATHING_STEPS 128
 
-static uint8_t  breathing_period  = BREATHING_PERIOD;
 static uint8_t  breathing_halt    = BREATHING_NO_HALT;
 static uint16_t breathing_counter = 0;
 
@@ -118,7 +109,7 @@ bool is_breathing(void) { return BACKLIGHT_PWM_DRIVER.config == &pwmCFG_breathin
 
 static inline void breathing_min(void) { breathing_counter = 0; }
 
-static inline void breathing_max(void) { breathing_counter = breathing_period * 256 / 2; }
+static inline void breathing_max(void) { breathing_counter = get_breathing_period() * 256 / 2; }
 
 void breathing_interrupt_enable(void) {
     pwmStop(&BACKLIGHT_PWM_DRIVER);
@@ -163,24 +154,6 @@ void breathing_self_disable(void) {
         breathing_halt = BREATHING_HALT_ON;
 }
 
-void breathing_toggle(void) {
-    if (is_breathing())
-        breathing_disable();
-    else
-        breathing_enable();
-}
-
-void breathing_period_set(uint8_t value) {
-    if (!value) value = 1;
-    breathing_period = value;
-}
-
-void breathing_period_default(void) { breathing_period_set(BREATHING_PERIOD); }
-
-void breathing_period_inc(void) { breathing_period_set(breathing_period + 1); }
-
-void breathing_period_dec(void) { breathing_period_set(breathing_period - 1); }
-
 /* To generate breathing curve in python:
  * from math import sin, pi; [int(sin(x/128.0*pi)**4*255) for x in range(128)]
  */
@@ -191,7 +164,8 @@ static inline uint16_t scale_backlight(uint16_t v) { return v / BACKLIGHT_LEVELS
 
 static void breathing_callback(PWMDriver *pwmp) {
     (void)pwmp;
-    uint16_t interval = (uint16_t)breathing_period * 256 / BREATHING_STEPS;
+    uint8_t  breathing_period = get_breathing_period();
+    uint16_t interval         = (uint16_t)breathing_period * 256 / BREATHING_STEPS;
     // resetting after one period to prevent ugly reset at overflow.
     breathing_counter = (breathing_counter + 1) % (breathing_period * 256);
     uint8_t index     = breathing_counter / interval % BREATHING_STEPS;
@@ -206,13 +180,5 @@ static void breathing_callback(PWMDriver *pwmp) {
     pwmEnableChannelI(&BACKLIGHT_PWM_DRIVER, BACKLIGHT_PWM_CHANNEL - 1, PWM_FRACTION_TO_WIDTH(&BACKLIGHT_PWM_DRIVER, 0xFFFF, duty));
     chSysUnlockFromISR();
 }
-
-#else
-
-__attribute__((weak)) void backlight_init_ports(void) {}
-
-__attribute__((weak)) void backlight_set(uint8_t level) {}
-
-__attribute__((weak)) void backlight_task(void) {}
 
 #endif

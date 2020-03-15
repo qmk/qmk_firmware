@@ -2,27 +2,40 @@
 
 The I2C Master drivers used in QMK have a set of common functions to allow portability between MCUs.
 
+## An important note on I2C Addresses
+
+All of the addresses expected by this driver should be pushed to the upper 7 bits of the address byte.  Setting
+the lower bit (indicating read/write) will be done by the respective functions.  Almost all I2C addresses listed 
+on datasheets and the internet will be represented as 7 bits occupying the lower 7 bits and will need to be
+shifted to the left (more significant) by one bit.  This is easy to do via the bitwise shift operator `<< 1`.
+
+You can either do this on each call to the functions below, or once in your definition of the address.  For example if your device has an address of `0x18`:
+
+`#define MY_I2C_ADDRESS (0x18 << 1)`
+
+See https://www.robot-electronics.co.uk/i2c-tutorial for more information about I2C addressing and other technical details.
+
 ## Available functions
 
 |Function                                                                                                          |Description                                                                                                                                                                  |
 |------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |`void i2c_init(void);`                                                                                            |Initializes the I2C driver. This function should be called once before any transaction is initiated.                                                                         |
-|`uint8_t i2c_start(uint8_t address, uint16_t timeout);`                                                                             |Starts an I2C transaction. Address is the 7-bit slave address without the direction bit.                                                                                     |
-|`uint8_t i2c_transmit(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout);`                        |Transmit data over I2C. Address is the 7-bit slave address without the direction. Returns status of transaction.                                                             |
-|`uint8_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout);`                         |Receive data over I2C. Address is the 7-bit slave address without the direction. Saves number of bytes specified by `length` in `data` array. Returns status of transaction. |
-|`uint8_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);`       |Same as the `i2c_transmit` function but `regaddr` sets where in the slave the data will be written.                                                                          |
-|`uint8_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);`        |Same as the `i2c_receive` function but `regaddr` sets from where in the slave the data will be read.                                                                         |
-|`uint8_t i2c_stop(void);`                                                                                         |Ends an I2C transaction.                                                                                                                                                     |
+|`i2c_status_t i2c_start(uint8_t address, uint16_t timeout);`                                                                             |Starts an I2C transaction. Address is the 7-bit slave address without the direction bit.                                                                                     |
+|`i2c_status_t i2c_transmit(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout);`                        |Transmit data over I2C. Address is the 7-bit slave address without the direction. Returns status of transaction.                                                             |
+|`i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout);`                         |Receive data over I2C. Address is the 7-bit slave address without the direction. Saves number of bytes specified by `length` in `data` array. Returns status of transaction. |
+|`i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);`       |Same as the `i2c_transmit` function but `regaddr` sets where in the slave the data will be written.                                                                          |
+|`i2c_status_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);`        |Same as the `i2c_receive` function but `regaddr` sets from where in the slave the data will be read.                                                                         |
+|`i2c_status_t i2c_stop(void);`                                                                                         |Ends an I2C transaction.                                                                                                                                                     |
 
 ### Function Return
 
 All the above functions, except `void i2c_init(void);` return the following truth table:
 
-|Return Value   |Description                                        |
-|---------------|---------------------------------------------------|
-|0              |Operation executed successfully.                   |
-|-1             |Operation failed.                                  |
-|-2             |Operation timed out.                               |
+|Return Constant     |Value|Description                     |
+|--------------------|-----|--------------------------------|
+|`I2C_STATUS_SUCCESS`|0    |Operation executed successfully.|
+|`I2C_STATUS_ERROR`  |-1   |Operation failed.               |
+|`I2C_STATUS_TIMEOUT`|-2   |Operation timed out.            |
 
 
 ## AVR

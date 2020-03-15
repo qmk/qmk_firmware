@@ -13,7 +13,6 @@
 #define MANUFACTURER    astro
 #define PRODUCT         Dumplings
 #define DESCRIPTION     60% rgb keyboard with ble extension
-#define LANDING_PAGE    yulei.github.io/qmk_webusb_tool/60_wkl.json
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -35,13 +34,6 @@
 /* disable print */
 //#define NO_PRINT
 
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
-
 //rgb light setting
 #define RGBLED_NUM      18
 #define RGB_DI_PIN      D7
@@ -56,33 +48,8 @@
 #define DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 36
 #define DRIVER_2_LED_TOTAL 36
-#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL
+#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
-// tapping setting
-//#define TAPPING_TERM    200
-//#define RETRO_TAPPING
-//#define PERMISSIVE_HOLD
-
-#if defined(WEBUSB_ENABLE) || defined(RAW_ENABLE)
-#define WEBUSB_KEYCOUNT  61
-#define WEBUSB_LAYERCOUNT 2
-//VIA
-#define DYNAMIC_KEYMAP_LAYER_COUNT 2
-// EEPROM usage
-
-// TODO: refactor with new user EEPROM code (coming soon)
-#define EEPROM_MAGIC 0x451F
-#define EEPROM_MAGIC_ADDR 34
-// Bump this every time we change what we store
-// This will automatically reset the EEPROM with defaults
-// and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x08
-#define EEPROM_VERSION_ADDR 36
-
-// Dynamic keymap starts after EEPROM version
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 37
-// Dynamic macro starts after dynamic keymaps (35+(4*10*6*2)) = (35+480)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 637
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 391    // 1024-DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
-#define DYNAMIC_KEYMAP_MACRO_COUNT 16
+#if defined(VIA_ENABLE)
+#   define DYNAMIC_KEYMAP_LAYER_COUNT 2
 #endif
