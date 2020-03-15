@@ -1,4 +1,4 @@
-/* Copyright 2019 kimat
+/* Copyright 2019
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,11 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Sendstring lookup tables for Belgian layouts
+// Sendstring lookup tables for Slovenian layouts
 
 #pragma once
 
-#include "keymap_belgian.h"
+#include "keymap_slovenian.h"
 #include "quantum.h"
 
 // clang-format off
@@ -29,10 +29,10 @@ const uint8_t ascii_to_shift_lut[16] PROGMEM = {
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
 
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 1, 0, 0),
-    KCLUT_ENTRY(0, 0, 1, 1, 0, 0, 1, 1),
-    KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
-    KCLUT_ENTRY(1, 1, 0, 0, 0, 0, 1, 1),
+    KCLUT_ENTRY(0, 1, 1, 1, 1, 1, 1, 0),
+    KCLUT_ENTRY(1, 1, 1, 0, 0, 0, 0, 1),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 1, 1, 0, 1, 1, 1),
     KCLUT_ENTRY(0, 1, 1, 1, 1, 1, 1, 1),
     KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
     KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
@@ -49,7 +49,7 @@ const uint8_t ascii_to_altgr_lut[16] PROGMEM = {
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
 
-    KCLUT_ENTRY(0, 0, 0, 1, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
@@ -74,27 +74,27 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     //       !        "        #        $        %        &        '
-    KC_SPC,  BE_EXLM, BE_DQUO, BE_DQUO, BE_DLR,  BE_UGRV, BE_AMPR, BE_QUOT,
+    KC_SPC,  SI_1,    SI_2,    SI_3,    SI_4,    SI_5,    SI_6,    SI_QUOT,
     // (     )        *        +        ,        -        .        /
-    BE_LPRN, BE_RPRN, BE_DLR,  BE_EQL,  BE_COMM, BE_MINS, BE_SCLN, BE_COLN,
+    SI_8,    SI_9,    SI_PLUS, SI_PLUS, SI_COMM, SI_MINS, SI_DOT,  SI_7,
     // 0     1        2        3        4        5        6        7
-    BE_AGRV, BE_AMPR, BE_EACU, BE_DQUO, BE_QUOT, BE_LPRN, BE_SECT, BE_EGRV,
+    SI_0,    SI_1,    SI_2,    SI_3,    SI_4,    SI_5,    SI_6,    SI_7,
     // 8     9        :        ;        <        =        >        ?
-    BE_EXLM, BE_CCED, BE_COLN, BE_SCLN, BE_LABK, BE_EQL,  BE_LABK, BE_COMM,
+    SI_8,    SI_9,    SI_DOT,  SI_COMM, SI_LABK, SI_0,    SI_LABK, SI_QUOT,
     // @     A        B        C        D        E        F        G
-    BE_EACU, BE_A,    BE_B,    BE_C,    BE_D,    BE_E,    BE_F,    BE_G,
+    SI_V,    SI_A,    SI_B,    SI_C,    SI_D,    SI_E,    SI_F,    SI_G,
     // H     I        J        K        L        M        N        O
-    BE_H,    BE_I,    BE_J,    BE_K,    BE_L,    BE_M,    BE_N,    BE_O,
+    SI_H,    SI_I,    SI_J,    SI_K,    SI_L,    SI_M,    SI_N,    SI_O,
     // P     Q        R        S        T        U        V        W
-    BE_P,    BE_Q,    BE_R,    BE_S,    BE_T,    BE_U,    BE_V,    BE_W,
+    SI_P,    SI_Q,    SI_R,    SI_S,    SI_T,    SI_U,    SI_V,    SI_W,
     // X     Y        Z        [        \        ]        ^        _
-    BE_X,    BE_Y,    BE_Z,    BE_CIRC, BE_LABK, BE_DLR,  BE_SECT, BE_MINS,
+    SI_X,    SI_Y,    SI_Z,    SI_F,    SI_Q,    SI_G,    SI_3,    SI_MINS,
     // `     a        b        c        d        e        f        g
-    BE_MICR, BE_A,    BE_B,    BE_C,    BE_D,    BE_E,    BE_F,    BE_G,
+    SI_7,    SI_A,    SI_B,    SI_C,    SI_D,    SI_E,    SI_F,    SI_G,
     // h     i        j        k        l        m        n        o
-    BE_H,    BE_I,    BE_J,    BE_K,    BE_L,    BE_M,    BE_N,    BE_O,
+    SI_H,    SI_I,    SI_J,    SI_K,    SI_L,    SI_M,    SI_N,    SI_O,
     // p     q        r        s        t        u        v        w
-    BE_P,    BE_Q,    BE_R,    BE_S,    BE_T,    BE_U,    BE_V,    BE_W,
+    SI_P,    SI_Q,    SI_R,    SI_S,    SI_T,    SI_U,    SI_V,    SI_W,
     // x     y        z        {        |        }        ~        DEL
-    BE_X,    BE_Y,    BE_Z,    BE_CCED, BE_AMPR, BE_AGRV, BE_EQL,  KC_DEL
+    SI_X,    SI_Y,    SI_Z,    SI_B,    SI_W,    SI_N,    SI_1,    KC_DEL
 };
