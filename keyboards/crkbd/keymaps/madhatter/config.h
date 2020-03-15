@@ -1,13 +1,8 @@
 #pragma once
 
-#define MASTER_LEFT
+#define EE_HANDS
 
 #define SSD1306OLED
-
-#define USE_SERIAL_PD2
-
-#define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 100
 
 #ifdef RGBLIGHT_ENABLE
     #undef RGBLED_NUM
