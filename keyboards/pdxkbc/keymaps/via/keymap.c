@@ -63,7 +63,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case BADGELIFE:
       if (record->event.pressed) {
-        SEND_STRING("#badgelife" SS_TAP(X_ENTER));
+        SEND_STRING("#badgelife\n");
       }
       break;
     case HACKTHEPLANET:
