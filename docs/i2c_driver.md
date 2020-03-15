@@ -1,4 +1,4 @@
-# I2C Master Driver
+# I2C Master Driver :id=i2c-master-driver
 
 The I2C Master drivers used in QMK have a set of common functions to allow portability between MCUs.
 

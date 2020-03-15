@@ -1,4 +1,4 @@
-# I2C マスタドライバ
+# I2C マスタドライバ :id=i2c-master-driver
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
