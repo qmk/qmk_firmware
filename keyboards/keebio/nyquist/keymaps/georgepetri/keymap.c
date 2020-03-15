@@ -6,8 +6,6 @@ extern keymap_config_t keymap_config;
 #define _L 1
 #define _R 2
 
-enum custom_keycodes { QWERTY = SAFE_RANGE };
-
 #define KC_TL LCTL(KC_PGUP)
 #define KC_TR LCTL(KC_PGDN)
 #define KC_TC LCTL(KC_W)
@@ -57,59 +55,51 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
+const rgblight_segment_t PROGMEM base[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 12, HSV_SPRINGGREEN}
+);
+
+const rgblight_segment_t PROGMEM left[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 12, HSV_RED}
+);
+
+const rgblight_segment_t PROGMEM right[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 12, HSV_GOLD}
+);
+
+const rgblight_segment_t PROGMEM capslock[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 3, HSV_WHITE},
+    {9, 3, HSV_WHITE}
+);
+
+// HSV_SPRINGGREEN //YES //YES
+// HSV_GREEN //YES
+// HSV_GOLD //YES
+// HSV_RED //YES
+// HSV_ORANGE //YES
+// HSV_WHITE //YES
+// todo add shift colors
+const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    base, left, right, capslock
+);
+
 //docs.qmk.fm/#/custom_quantum_functions?id=keyboard-idlingwake-code/
 //todo idea: impl hjkl as compose or leader 
 //github.com/qmk/qmk_firmware/pull/5338/files  //might not work on split kbs
 //todo idea use TT on left layer
 void keyboard_post_init_user(void) {
     rgblight_sethsv_noeeprom(HSV_BLUE);
+    rgblight_layers = rgb_layers;
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case KC_LSFT:
-            if (record->event.pressed) {
-                rgblight_sethsv_range(HSV_WHITE, 0, 3);
-            } else {
-                rgblight_sethsv_range(HSV_BLUE, 0, 3);
-            }
-            return true;
-        default:
-            return true;
-    }
-}
-
-void update_led(void) {
-    switch (biton32(layer_state)) {
-        case _BASE:
-            rgblight_sethsv_noeeprom(HSV_BLUE);
-            break;
-        case _L:
-            rgblight_sethsv_noeeprom(HSV_CORAL);
-            break;
-        case _R:
-            rgblight_sethsv_noeeprom(HSV_MAGENTA);
-            break;
-    }
-    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
-        rgblight_sethsv_range(HSV_WHITE, 0, 3);
-        rgblight_sethsv_range(HSV_WHITE, 9, 12);
-    }
-    //rgblight_sethsv_range(HSV_RED, 0, 6); //YES
-    //rgblight_sethsv_range(HSV_ORANGE, 6, 12); //YES
-
-    rgblight_sethsv_range(HSV_GOLD, 0, 6); //YES
-    
-    rgblight_sethsv_range(HSV_GREEN, 6, 12); //YES
-    
-    //rgblight_sethsv_range(HSV_SPRINGGREEN, 0, 6); //YES //YES
-}
-
-uint32_t layer_state_set_user(uint32_t state) {
-    update_led();
+layer_state_t layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(0, layer_state_cmp(state, 0));
+    rgblight_set_layer_state(1, layer_state_cmp(state, 1));
+    rgblight_set_layer_state(2, layer_state_cmp(state, 2));
     return state;
 }
 
-void led_set_user(uint8_t usb_led) {
-    update_led();
+bool led_update_user(led_t led_state) {
+    rgblight_set_layer_state(3, led_state.caps_lock);
+    return true;
 }
