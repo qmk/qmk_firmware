@@ -239,7 +239,7 @@ section at the end of this file).
  * with libusb: 0x16c0/0x5dc.  Use this VID/PID pair ONLY if you understand
  * the implications!
  */
-#define USB_CFG_DEVICE_VERSION  0x01, 0x00
+#define USB_CFG_DEVICE_VERSION  (DEVICE_VER & 0xFF), ((DEVICE_VER >> 8) & 0xFF)
 /* Version number of the device: Minor number first, then major number.
  */
 #define USB_CFG_VENDOR_NAME     'c','o','s','e','y','f','a','n','n','i','t','u','t','t','i'
