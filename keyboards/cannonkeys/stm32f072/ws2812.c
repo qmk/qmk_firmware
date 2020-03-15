@@ -61,6 +61,7 @@ static THD_FUNCTION(hsv_transThread, arg) {
 #endif
 
 static const SPIConfig spicfg = {
+  false,
   NULL,
   GPIOB,
   15,

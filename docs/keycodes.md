@@ -4,7 +4,9 @@ When defining a [keymap](keymap.md) each key needs a valid key definition. This 
 
 This is a reference only. Each group of keys links to the page documenting their functionality in more detail.
 
-## [Basic Keycodes](keycodes_basic.md)
+## Basic Keycodes :id=basic-keycodes
+
+See also: [Basic Keycodes](keycodes_basic.md)
 
 |Key                    |Aliases                       |Description                                    |
 |-----------------------|------------------------------|-----------------------------------------------|
@@ -206,28 +208,19 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_BRIGHTNESS_UP`     |`KC_BRIU`                     |Brightness Up                                  |
 |`KC_BRIGHTNESS_DOWN`   |`KC_BRID`                     |Brightness Down                                |
 
-## [Quantum Keycodes](quantum_keycodes.md#qmk-keycodes)
+## Quantum Keycodes :id=quantum-keycodes
 
-|Key            |Aliases    |Description                                                          |
-|---------------|-----------|---------------------------------------------------------------------|
-|`RESET`        |           |Put the keyboard into DFU mode for flashing                          |
-|`DEBUG`        |           |Toggle debug mode                                                    |
-|`EEPROM_RESET` |`EEP_RST`  |Resets EEPROM state by reinitializing it                             |
-|`KC_GESC`      |`GRAVE_ESC`|Escape when tapped, <code>&#96;</code> when pressed with Shift or GUI|
-|`KC_LSPO`      |           |Left Shift when held, `(` when tapped                                |
-|`KC_RSPC`      |           |Right Shift when held, `)` when tapped                               |
-|`KC_LCPO`      |           |Left Control when held, `(` when tapped                              |
-|`KC_RCPC`      |           |Right Control when held, `)` when tapped                             |
-|`KC_LAPO`      |           |Left Alt when held, `(` when tapped                                  |
-|`KC_RAPC`      |           |Right Alt when held, `)` when tapped                                 |
-|`KC_SFTENT`    |           |Right Shift when held, Enter when tapped                             |
-|`KC_LEAD`      |           |The [Leader key](feature_leader_key.md)                              |
-|`KC_LOCK`      |           |The [Lock key](feature_key_lock.md)                                  |
-|`FUNC(n)`      |`F(n)`     |Call `fn_action(n)` (deprecated)                                     |
-|`M(n)`         |           |Call macro `n`                                                       |
-|`MACROTAP(n)`  |           |Macro-tap `n` idk FIXME                                              |
+See also: [Quantum Keycodes](quantum_keycodes.md#qmk-keycodes)
 
-## [Audio Keys](feature_audio.md)
+|Key           |Aliases  |Description                                            |
+|--------------|---------|-------------------------------------------------------|
+|`RESET`       |         |Put the keyboard into bootloader mode for flashing     |
+|`DEBUG`       |         |Toggle debug mode                                      |
+|`EEPROM_RESET`|`EEP_RST`|Reinitializes the keyboard's EEPROM (persistent memory)|
+
+## Audio Keys :id=audio-keys
+
+See also: [Audio](feature_audio.md)
 
 |Key             |Aliases  |Description                       |
 |----------------|---------|----------------------------------|
@@ -243,7 +236,9 @@ This is a reference only. Each group of keys links to the page documenting their
 |`MU_TOG`        |         |Toggles Music Mode                |
 |`MU_MOD`        |         |Cycles through the music modes    |
 
-## [Backlighting](feature_backlight.md)
+## Backlighting :id=backlighting
+
+See also: [Backlighting](feature_backlight.md)
 
 |Key      |Description                               |
 |---------|------------------------------------------|
@@ -255,7 +250,9 @@ This is a reference only. Each group of keys links to the page documenting their
 |`BL_DEC` |Decrease the backlight level              |
 |`BL_BRTG`|Toggle backlight breathing                |
 
-## [Bootmagic](feature_bootmagic.md)
+## Bootmagic :id=bootmagic
+
+See also: [Bootmagic](feature_bootmagic.md)
 
 |Key                               |Aliases  |Description                                                               |
 |----------------------------------|---------|--------------------------------------------------------------------------|
@@ -289,7 +286,9 @@ This is a reference only. Each group of keys links to the page documenting their
 |`MAGIC_EE_HANDS_LEFT`             |`EH_LEFT`|Set the master half of a split keyboard as the left hand (for `EE_HANDS`) |
 |`MAGIC_EE_HANDS_RIGHT`            |`EH_RGHT`|Set the master half of a split keyboard as the right hand (for `EE_HANDS`)|
 
-## [Bluetooth](feature_bluetooth.md)
+## Bluetooth :id=bluetooth
+
+See also: [Bluetooth](feature_bluetooth.md)
 
 |Key       |Description                                   |
 |----------|----------------------------------------------|
@@ -297,9 +296,11 @@ This is a reference only. Each group of keys links to the page documenting their
 |`OUT_USB` |USB only                                      |
 |`OUT_BT`  |Bluetooth only                                |
 
-## [Dynamic Macros](feature_dynamic_macros.md)
+## Dynamic Macros :id=dynamic-macros
 
-|Key              |Alias    |Description                                       |
+See also: [Dynamic Macros](feature_dynamic_macros.md)
+
+|Key              |Aliases  |Description                                       |
 |-----------------|---------|--------------------------------------------------|
 |`DYN_REC_START1` |`DM_REC1`|Start recording Macro 1                           |
 |`DYN_REC_START2` |`DM_REC2`|Start recording Macro 2                           |
@@ -307,20 +308,48 @@ This is a reference only. Each group of keys links to the page documenting their
 |`DYN_MACRO_PLAY2`|`DM_PLY2`|Replay Macro 2                                    |
 |`DYN_REC_STOP`   |`DM_RSTP`|Finish the macro that is currently being recorded.|
 
-## [Layer Switching](feature_advanced_keycodes.md#switching-and-toggling-layers)
+## Grave Escape :id=grave-escape
+
+See also: [Grave Escape](feature_grave_esc.md)
+
+|Key        |Aliases  |Description                                                       |
+|-----------|---------|------------------------------------------------------------------|
+|`GRAVE_ESC`|`KC_GESC`|Escape when pressed, <code>&#96;</code> when Shift or GUI are held|
+
+## Key Lock :id=key-lock
+
+See also: [Key Lock](feature_key_lock.md)
+
+|Key      |Description                                                   |
+|---------|--------------------------------------------------------------|
+|`KC_LOCK`|Hold down the next key pressed, until the key is pressed again|
+
+## Layer Switching :id=layer-switching
+
+See also: [Layer Switching](feature_advanced_keycodes.md#switching-and-toggling-layers)
 
 |Key             |Description                                                                       |
 |----------------|----------------------------------------------------------------------------------|
 |`DF(layer)`     |Set the base (default) layer                                                      |
 |`MO(layer)`     |Momentarily turn on `layer` when pressed (requires `KC_TRNS` on destination layer)|
-|`OSL(layer)`    |Momentarily activates `layer` until a key is pressed. See [One Shot Keys](https://docs.qmk.fm/#/feature_advanced_keycodes?id=one-shot-keys) for details. |
-|`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well.  Where `mod` is a mods_bit.  Mods can be viewed [here](https://docs.qmk.fm/#/feature_advanced_keycodes?id=mod-tap).  Example Implementation: `LM(LAYER_1, MOD_LALT)`|
+|`OSL(layer)`    |Momentarily activates `layer` until a key is pressed. See [One Shot Keys](one_shot_keys.md) for details. |
+|`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well.  Where `mod` is a mods_bit.  Mods can be viewed [here](mod_tap.md).  Example Implementation: `LM(LAYER_1, MOD_LALT)`|
 |`LT(layer, kc)` |Turn on `layer` when held, `kc` when tapped                                       |
 |`TG(layer)`     |Toggle `layer` on or off                                                          |
 |`TO(layer)`     |Turns on `layer` and turns off all other layers, except the default layer |
 |`TT(layer)`     |Normally acts like MO unless it's tapped multiple times, which toggles `layer` on |
 
-## [Mouse Keys](feature_mouse_keys.md)
+## Leader Key :id=leader-key
+
+See also: [Leader Key](feature_leader_key.md)
+
+|Key      |Description             |
+|---------|------------------------|
+|`KC_LEAD`|Begins a leader sequence|
+
+## Mouse Keys :id=mouse-keys
+
+See also: [Mouse Keys](feature_mouse_keys.md)
 
 |Key             |Aliases  |Description                |
 |----------------|---------|---------------------------|
@@ -341,7 +370,9 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_MS_ACCEL1`  |`KC_ACL1`|Set mouse acceleration to 1|
 |`KC_MS_ACCEL2`  |`KC_ACL2`|Set mouse acceleration to 2|
 
-## [Modifiers](feature_advanced_keycodes.md#modifier-keys)
+## Modifiers :id=modifiers
+
+See also: [Modifier Keys](feature_advanced_keycodes.md#modifier-keys)
 
 |Key       |Aliases                        |Description                                         |
 |----------|-------------------------------|----------------------------------------------------|
@@ -361,7 +392,9 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_MEH`  |                               |Left Control, Shift and Alt                         |
 |`KC_HYPR` |                               |Left Control, Shift, Alt and GUI                    |
 
-## [Mod-Tap Keys](feature_advanced_keycodes.md#mod-tap)
+## Mod-Tap Keys :id=mod-tap-keys
+
+See also: [Mod-Tap](mod_tap.md)
 
 |Key          |Aliases                                                          |Description                                            |
 |-------------|-----------------------------------------------------------------|-------------------------------------------------------|
@@ -382,7 +415,9 @@ This is a reference only. Each group of keys links to the page documenting their
 |`MEH_T(kc)`  |                                                                 |Left Control, Shift and Alt when held, `kc` when tapped|
 |`HYPR_T(kc)` |`ALL_T(kc)`                                                      |Left Control, Shift, Alt and GUI when held, `kc` when tapped - more info [here](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
 
-## [RGB Lighting](feature_rgblight.md)
+## RGB Lighting :id=rgb-lighting
+
+See also: [RGB Lighting](feature_rgblight.md)
 
 |Key                |Aliases   |Description                                                         |
 |-------------------|----------|--------------------------------------------------------------------|
@@ -405,7 +440,9 @@ This is a reference only. Each group of keys links to the page documenting their
 |`RGB_MODE_GRADIENT`|`RGB_M_G` |Static gradient animation mode                                      |
 |`RGB_MODE_RGBTEST` |`RGB_M_T` |Red,Green,Blue test animation mode                                  |
 
-## [RGB Matrix Lighting](feature_rgb_matrix.md)
+## RGB Matrix Lighting :id=rgb-matrix-lighting
+
+See also: [RGB Matrix Lighting](feature_rgb_matrix.md)
 
 |Key                |Aliases   |Description                                                                           |
 |-------------------|----------|--------------------------------------------------------------------------------------|
@@ -421,14 +458,18 @@ This is a reference only. Each group of keys links to the page documenting their
 |`RGB_SPI`          |          |Increase effect speed (does not support eeprom yet), decrease speed when Shift is held|
 |`RGB_SPD`          |          |Decrease effect speed (does not support eeprom yet), increase speed when Shift is held|
 
-## [Thermal Printer](feature_thermal_printer.md)
+## Thermal Printer :id=thermal-printer
+
+See also: [Thermal Printer](feature_thermal_printer.md)
 
 |Key        |Description                             |
 |-----------|----------------------------------------|
 |`PRINT_ON` |Start printing everything the user types|
 |`PRINT_OFF`|Stop printing everything the user types |
 
-## [US ANSI Shifted Symbols](keycodes_us_ansi_shifted.md)
+## US ANSI Shifted Symbols :id=us-ansi-shifted-symbols
+
+See also: [US ANSI Shifted Symbols](keycodes_us_ansi_shifted.md)
 
 |Key                     |Aliases            |Description|
 |------------------------|-------------------|-----------|
@@ -454,14 +495,32 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_RIGHT_ANGLE_BRACKET`|`KC_RABK`, `KC_GT` |`>`        |
 |`KC_QUESTION`           |`KC_QUES`          |`?`        |
 
-## [One Shot Keys](feature_advanced_keycodes.md#one-shot-keys)
+## One Shot Keys :id=one-shot-keys
+
+See also: [One Shot Keys](one_shot_keys.md)
 
 |Key         |Description                       |
 |------------|----------------------------------|
 |`OSM(mod)`  |Hold `mod` for one keypress       |
 |`OSL(layer)`|Switch to `layer` for one keypress|
 
-## [Swap Hands](feature_swap_hands.md)
+## Space Cadet :id=space-cadet
+
+See also: [Space Cadet](feature_space_cadet.md)
+
+|Key        |Description                             |
+|-----------|----------------------------------------|
+|`KC_LCPO`  |Left Control when held, `(` when tapped |
+|`KC_RCPC`  |Right Control when held, `)` when tapped|
+|`KC_LSPO`  |Left Shift when held, `(` when tapped   |
+|`KC_RSPC`  |Right Shift when held, `)` when tapped  |
+|`KC_LAPO`  |Left Alt when held, `(` when tapped     |
+|`KC_RAPC`  |Right Alt when held, `)` when tapped    |
+|`KC_SFTENT`|Right Shift when held, Enter when tapped|
+
+## Swap Hands :id=swap-hands
+
+See also: [Swap Hands](feature_swap_hands.md)
 
 |Key        |Description                                                              |
 |-----------|-------------------------------------------------------------------------|
@@ -473,7 +532,9 @@ This is a reference only. Each group of keys links to the page documenting their
 |`SH_TG`    |Toggles swap on and off with every key press.                            |
 |`SH_TT`    |Toggles with a tap; momentary when held.                                 |
 
-## [Unicode Support](feature_unicode.md)
+## Unicode Support :id=unicode-support
+
+See also: [Unicode Support](feature_unicode.md)
 
 |Key                   |Aliases  |Description                                                     |
 |----------------------|---------|----------------------------------------------------------------|
