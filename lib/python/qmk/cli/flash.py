@@ -33,6 +33,7 @@ def print_bootloader_help():
 @cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Use this if you dont have a configurator file. Ignored when a configurator file is supplied.')
 @cli.argument('-kb', '--keyboard', help='The keyboard to build a firmware for. Use this if you dont have a configurator file. Ignored when a configurator file is supplied.')
 @cli.argument('-b', '--bootloaders', action='store_true', help='List the available bootloaders.')
+@cli.argument('-x', '--experimental', help='Compiles configurator json with encoder support. Only supported for use with the `filename` parameter')
 @cli.subcommand('QMK Flash.')
 def flash(cli):
     """Compile and or flash QMK Firmware or keyboard/layout
@@ -63,10 +64,16 @@ def flash(cli):
         user_keymap = parse_configurator_json(cli.args.filename)
         keymap_path = qmk.path.keymap(user_keymap['keyboard'])
 
+        use_encoders = False
+        if cli.args.experimental:
+          use_encoders = True
+
         cli.log.info('Creating {fg_cyan}%s{style_reset_all} keymap in {fg_cyan}%s', user_keymap['keymap'], keymap_path)
 
         # Convert the JSON into a C file and write it to disk.
         command = compile_configurator_json(user_keymap, cli.args.bootloader)
+        if cli.args.experimental:
+          command = compile_configurator_json_encoders(users_keymap, cli.args.bootloader)
 
         cli.log.info('Wrote keymap to {fg_cyan}%s/%s/keymap.c', keymap_path, user_keymap['keymap'])
 
