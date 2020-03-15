@@ -37,9 +37,9 @@ KBLAYOUT2を使用する。
 - ADJ + X
 KBLAYOUT3を使用する。
 
-- TL2(CAPS-Lock) + D
+- TL2(CAPS) + D
 IMを使用しない通常の入力モード。選択済みのKBLAYOUTが使用されます。
-- TL2(CAPS-Lock) + F
+- TL2(CAPS) + F
 IMを使用する入力モード。選択済みのIMが使用されます。
 
 # IMでの入力方法
