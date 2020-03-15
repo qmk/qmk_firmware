@@ -10,13 +10,13 @@ If you want to use single color LED's you should use the [LED Matrix Subsystem](
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3731 RGB controller. To enable it, add this to your `rules.mk`:
 
-```C
+```c
 RGB_MATRIX_ENABLE = IS31FL3731
 ```
 
 Configure the hardware via your `config.h`:
 
-```C
+```c
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
 // The address will vary depending on your wiring:
@@ -39,7 +39,7 @@ Currently only 2 drivers are supported, but it would be trivial to support all 4
 
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
-```C
+```c
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
@@ -61,13 +61,13 @@ Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet]
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3733 RGB controller. To enable it, add this to your `rules.mk`:
 
-```C
+```c
 RGB_MATRIX_ENABLE = IS31FL3733
 ```
 
 Configure the hardware via your `config.h`:
 
-```C
+```c
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
 // The address will vary depending on your wiring:
@@ -90,7 +90,7 @@ Currently only a single drivers is supported, but it would be trivial to support
 
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
-```C
+```c
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
@@ -111,13 +111,13 @@ Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](
 
 There is basic support for addressable RGB matrix lighting with a WS2811/WS2812{a,b,c} addressable LED strand. To enable it, add this to your `rules.mk`:
 
-```C
+```c
 RGB_MATRIX_ENABLE = WS2812
 ```
 
 Configure the hardware via your `config.h`:
 
-```C
+```c
 // The pin connected to the data pin of the LEDs
 #define RGB_DI_PIN D7
 // The number of LEDs connected
@@ -128,7 +128,7 @@ Configure the hardware via your `config.h`:
 
 From this point forward the configuration is the same for all the drivers. The `led_config_t` struct provides a key electrical matrix to led index lookup table, what the physical position of each LED is on the board, and what type of key or usage the LED if the LED represents. Here is a brief example:
 
-```C
+```c
 const led_config_t g_led_config = { {
   // Key Matrix to LED Index
   {   5, NO_LED, NO_LED,   0 },
@@ -146,7 +146,7 @@ const led_config_t g_led_config = { {
 
 The first part, `// Key Matrix to LED Index`, tells the system what key this LED represents by using the key's electrical matrix row & col. The second part, `// LED Index to Physical Position` represents the LED's physical `{ x, y }` position on the keyboard. The default expected range of values for `{ x, y }` is the inclusive range `{ 0..224, 0..64 }`. This default expected range is due to effects that calculate the center of the keyboard for their animations. The easiest way to calculate these positions is imagine your keyboard is a grid, and the top left of the keyboard represents `{ x, y }` coordinate `{ 0, 0 }` and the bottom right of your keyboard represents `{ 224, 64 }`. Using this as a basis, you can use the following formula to calculate the physical position:
 
-```C
+```c
 x = 224 / (NUMBER_OF_COLS - 1) * COL_POSITION
 y =  64 / (NUMBER_OF_ROWS - 1) * ROW_POSITION
 ```
@@ -193,7 +193,7 @@ All RGB keycodes are currently shared with the RGBLIGHT system:
 
 All effects have been configured to support current configuration values (Hue, Saturation, Value, & Speed) unless otherwise noted below. These are the effects that are currently available:
 
-```C
+```c
 enum rgb_matrix_effects {
     RGB_MATRIX_NONE = 0,
     RGB_MATRIX_SOLID_COLOR = 1,     // Static single hue, no speed support
@@ -294,7 +294,7 @@ To declare new effects, create a new `rgb_matrix_user/kb.inc` that looks somethi
 `rgb_matrix_user.inc` should go in the root of the keymap directory.
 `rgb_matrix_kb.inc` should go in the root of the keyboard directory.
 
-```C
+```c
 // !!! DO NOT ADD #pragma once !!! //
 
 // Step 1.
@@ -371,7 +371,7 @@ These are defined in [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blo
 
 ## Additional `config.h` Options
 
-```C
+```c
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
 #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
@@ -390,7 +390,7 @@ These are defined in [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blo
 
 The EEPROM for it is currently shared with the RGBLIGHT system (it's generally assumed only one RGB would be used at a time), but could be configured to use its own 32bit address with:
 
-```C
+```c
 #define EECONFIG_RGB_MATRIX (uint32_t *)28
 ```
 
@@ -400,7 +400,7 @@ Where `28` is an unused index from `eeconfig.h`.
 
 To use the suspend feature, add this to your `<keyboard>.c`:
 
-```C
+```c
 void suspend_power_down_kb(void)
 {
     rgb_matrix_set_suspend_state(true);

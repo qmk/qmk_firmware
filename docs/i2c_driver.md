@@ -120,7 +120,7 @@ STM32 MCUs allow for different "alternate function" modes when configuring GPIO 
 #### Other :id=other
 You can also overload the `void i2c_init(void)` function, which has a weak attribute. If you do this the configuration variables above will not be used. Please consult the datasheet of your MCU for the available GPIO configurations. The following is an example initialization function:
 
-```C
+```c
 void i2c_init(void)
 {
   setPinInput(B6); // Try releasing special pins for a short time

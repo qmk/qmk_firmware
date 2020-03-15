@@ -39,7 +39,7 @@ MOUSEKEY_ENABLE = no
 
 In your keymap create a new layer for Plover. You will need to include `keymap_steno.h`. See `planck/keymaps/steno/keymap.c` for an example. Remember to create a key to switch to the layer as well as a key for exiting the layer. If you would like to switch modes on the fly you can use the keycodes `QK_STENO_BOLT` and `QK_STENO_GEMINI`. If you only want to use one of the protocols you may set it up in your initialization function:
 
-```C
+```c
 void matrix_init_user() {
   steno_set_mode(STENO_MODE_GEMINI); // or STENO_MODE_BOLT
 }
@@ -60,19 +60,19 @@ On the display tab click 'Open stroke display'. With Plover disabled you should 
 
 The steno code has three interceptible hooks. If you define these functions, they will be called at certain points in processing; if they return true, processing continues, otherwise it's assumed you handled things.
 
-```C
+```c
 bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]);
 ```
 
 This function is called when a chord is about to be sent. Mode will be one of `STENO_MODE_BOLT` or `STENO_MODE_GEMINI`. This represents the actual chord that would be sent via whichever protocol. You can modify the chord provided to alter what gets sent. Remember to return true if you want the regular sending process to happen.
 
-```C
+```c
 bool process_steno_user(uint16_t keycode, keyrecord_t *record) { return true; }
 ```
 
 This function is called when a keypress has come in, before it is processed. The keycode should be one of `QK_STENO_BOLT`, `QK_STENO_GEMINI`, or one of the `STN_*` key values.
 
-```C
+```c
 bool postprocess_steno_user(uint16_t keycode, keyrecord_t *record, steno_mode_t mode, uint8_t chord[6], int8_t pressed);
 ```
 

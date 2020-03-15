@@ -120,7 +120,7 @@ STM32 MCU では GPIO ピンを設定するとき、別の「代替機能」モ�
 
 `void i2c_init(void)` 関数は `weak` 属性が付いており、オーバーロードすることができます。この場合、上記で設定した変数は使用されません。可能な GPIO の設定については、 MCU のデータシートを参照してください。次に示すのは初期化関数の例です：
 
-```C
+```c
 void i2c_init(void)
 {
   setPinInput(B6); // Try releasing special pins for a short time
