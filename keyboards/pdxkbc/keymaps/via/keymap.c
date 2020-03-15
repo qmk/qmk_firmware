@@ -53,7 +53,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case PDXKBCREDDIT:
       if (record->event.pressed) {
-        SEND_STRING("https://reddit.com/r/pdxkbc" SS_TAP(X_ENTER));
+        SEND_STRING("https://reddit.com/r/pdxkbc\n");
       }
       break;
     case PDXKBCDISCORD:
