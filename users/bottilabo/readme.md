@@ -39,9 +39,9 @@ choose KBLAYOUT2
 - ADJ + X
 choose KBLAYOUT3
 
-- TL2(CAPS-Lock) + D
+- TL2(CAPS) + D
 normal input mode. No IM. KBLAYOUT is applied.
-- TL2(CAPS-Lock) + F
+- TL2(CAPS) + F
 IM input mode. KBIM is applied.
 
 
