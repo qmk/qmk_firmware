@@ -96,13 +96,13 @@ void update_led(void) {
         rgblight_sethsv_range(HSV_WHITE, 9, 12);
     }
     //rgblight_sethsv_range(HSV_RED, 0, 6); //YES
-    rgblight_sethsv_range(HSV_ORANGE, 6, 12); //YES
+    //rgblight_sethsv_range(HSV_ORANGE, 6, 12); //YES
 
-    //rgblight_sethsv_range(HSV_GOLD, 0, 6); //YES
+    rgblight_sethsv_range(HSV_GOLD, 0, 6); //YES
     
-    //rgblight_sethsv_range(HSV_GREEN, 6, 12); //YES
+    rgblight_sethsv_range(HSV_GREEN, 6, 12); //YES
     
-    rgblight_sethsv_range(HSV_SPRINGGREEN, 0, 6); //YES //YES
+    //rgblight_sethsv_range(HSV_SPRINGGREEN, 0, 6); //YES //YES
 }
 
 uint32_t layer_state_set_user(uint32_t state) {
