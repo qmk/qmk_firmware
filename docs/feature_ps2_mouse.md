@@ -30,14 +30,14 @@ Note: This is not recommended, you may encounter jerky movement or unsent inputs
 
 In rules.mk:
 
-```
+```makefile
 PS2_MOUSE_ENABLE = yes
 PS2_USE_BUSYWAIT = yes
 ```
 
 In your keyboard config.h:
 
-```
+```c
 #ifdef PS2_USE_BUSYWAIT
 #   define PS2_CLOCK_PORT  PORTD
 #   define PS2_CLOCK_PIN   PIND
@@ -56,14 +56,14 @@ The following example uses D2 for clock and D5 for data. You can use any INT or 
 
 In rules.mk:
 
-```
+```makefile
 PS2_MOUSE_ENABLE = yes
 PS2_USE_INT = yes
 ```
 
 In your keyboard config.h:
 
-```
+```c
 #ifdef PS2_USE_INT
 #define PS2_CLOCK_PORT  PORTD
 #define PS2_CLOCK_PIN   PIND
@@ -94,14 +94,14 @@ To use USART on the ATMega32u4, you have to use PD5 for clock and PD2 for data. 
 
 In rules.mk:
 
-```
+```makefile
 PS2_MOUSE_ENABLE = yes
 PS2_USE_USART = yes
 ```
 
 In your keyboard config.h:
 
-```
+```c
 #ifdef PS2_USE_USART
 #define PS2_CLOCK_PORT  PORTD
 #define PS2_CLOCK_PIN   PIND
@@ -151,7 +151,7 @@ In your keyboard config.h:
 
 These enable settings supported by the PS/2 mouse protocol.
 
-```
+```c
 /* Use remote mode instead of the default stream mode (see link) */
 #define PS2_MOUSE_USE_REMOTE_MODE
 
@@ -170,7 +170,7 @@ These enable settings supported by the PS/2 mouse protocol.
 
 You can also call the following functions from ps2_mouse.h
 
-```
+```c
 void ps2_mouse_disable_data_reporting(void);
 
 void ps2_mouse_enable_data_reporting(void);
@@ -193,7 +193,7 @@ void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate);
 Use the following defines to change the sensitivity and speed of the mouse.
 Note: you can also use `ps2_mouse_set_resolution` for the same effect (not supported on most touchpads).
 
-```
+```c
 #define PS2_MOUSE_X_MULTIPLIER 3
 #define PS2_MOUSE_Y_MULTIPLIER 3
 #define PS2_MOUSE_V_MULTIPLIER 1
@@ -205,19 +205,19 @@ If you're using a trackpoint, you will likely want to be able to use it for scro
 It's possible to enable a "scroll button/s" that when pressed will cause the mouse to scroll instead of moving.
 To enable the feature, you must set a scroll button mask as follows:
 
-```
+```c
 #define PS2_MOUSE_SCROLL_BTN_MASK (1<<PS2_MOUSE_BUTTON_MIDDLE) /* Default */
 ```
 
 To disable the scroll button feature:
 
-```
+```c
 #define PS2_MOUSE_SCROLL_BTN_MASK 0
 ```
 
 The available buttons are:
 
-```
+```c
 #define PS2_MOUSE_BTN_LEFT      0
 #define PS2_MOUSE_BTN_RIGHT     1
 #define PS2_MOUSE_BTN_MIDDLE    2
@@ -229,18 +229,19 @@ Once you've configured your scroll button mask, you must configure the scroll bu
 This is the interval before which if the scroll buttons were released they would be sent to the host.
 After this interval, they will cause the mouse to scroll and will not be sent.
 
-```
+```c
 #define PS2_MOUSE_SCROLL_BTN_SEND 300 /* Default */
 ```
 
 To disable sending the scroll buttons:
-```
+
+```c
 #define PS2_MOUSE_SCROLL_BTN_SEND 0
 ```
 
 Fine control over the scrolling is supported with the following defines:
 
-```
+```c
 #define PS2_MOUSE_SCROLL_DIVISOR_H 2
 #define PS2_MOUSE_SCROLL_DIVISOR_V 2
 ```
@@ -249,7 +250,7 @@ Fine control over the scrolling is supported with the following defines:
 
 To invert the X and Y axes you can put:
 
-```
+```c
 #define PS2_MOUSE_INVERT_X
 #define PS2_MOUSE_INVERT_Y
 ```
@@ -258,7 +259,7 @@ into config.h.
 
 To reverse the scroll axes you can put:
 
-```
+```c
 #define PS2_MOUSE_INVERT_H
 #define PS2_MOUSE_INVERT_V
 ```
@@ -269,7 +270,7 @@ into config.h.
 
 To debug the mouse, add `debug_mouse = true` or enable via bootmagic.
 
-```
+```c
 /* To debug the mouse reports */
 #define PS2_MOUSE_DEBUG_HID
 #define PS2_MOUSE_DEBUG_RAW
