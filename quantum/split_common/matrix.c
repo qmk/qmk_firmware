@@ -16,13 +16,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include <stdint.h>
 #include <stdbool.h>
-#include "wait.h"
 #include "util.h"
 #include "matrix.h"
+#include "debounce.h"
+#include "quantum.h"
 #include "split_util.h"
 #include "config.h"
-#include "quantum.h"
-#include "debounce.h"
 #include "transport.h"
 
 #ifdef ENCODER_ENABLE
@@ -35,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef DIRECT_PINS
 static pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
-#else
+#elif (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
 static pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 #endif
@@ -79,7 +78,8 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     return (last_row_value != current_matrix[current_row]);
 }
 
-#elif (DIODE_DIRECTION == COL2ROW)
+#elif defined(DIODE_DIRECTION)
+#    if (DIODE_DIRECTION == COL2ROW)
 
 static void select_row(uint8_t row) {
     setPinOutput(row_pins[row]);
@@ -110,12 +110,15 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
     // Select row and wait for row selecton to stabilize
     select_row(current_row);
-    wait_us(30);
+    matrix_io_delay();
 
     // For each col...
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
+        // Select the col pin to read (active low)
+        uint8_t pin_state = readPin(col_pins[col_index]);
+
         // Populate the matrix row with the state of the col pin
-        current_matrix[current_row] |= readPin(col_pins[col_index]) ? 0 : (MATRIX_ROW_SHIFTER << col_index);
+        current_matrix[current_row] |= pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);
     }
 
     // Unselect row
@@ -124,7 +127,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     return (last_row_value != current_matrix[current_row]);
 }
 
-#elif (DIODE_DIRECTION == ROW2COL)
+#    elif (DIODE_DIRECTION == ROW2COL)
 
 static void select_col(uint8_t col) {
     setPinOutput(col_pins[col]);
@@ -151,7 +154,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 
     // Select col and wait for col selecton to stabilize
     select_col(current_col);
-    wait_us(30);
+    matrix_io_delay();
 
     // For each row...
     for (uint8_t row_index = 0; row_index < ROWS_PER_HAND; row_index++) {
@@ -159,12 +162,12 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
         matrix_row_t last_row_value = current_matrix[row_index];
 
         // Check row pin state
-        if (readPin(row_pins[row_index])) {
-            // Pin HI, clear col bit
-            current_matrix[row_index] &= ~(MATRIX_ROW_SHIFTER << current_col);
-        } else {
+        if (readPin(row_pins[row_index]) == 0) {
             // Pin LO, set col bit
             current_matrix[row_index] |= (MATRIX_ROW_SHIFTER << current_col);
+        } else {
+            // Pin HI, clear col bit
+            current_matrix[row_index] &= ~(MATRIX_ROW_SHIFTER << current_col);
         }
 
         // Determine if the matrix changed state
@@ -179,10 +182,15 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     return matrix_changed;
 }
 
+#    else
+#        error DIODE_DIRECTION must be one of COL2ROW or ROW2COL!
+#    endif
+#else
+#    error DIODE_DIRECTION is not defined!
 #endif
 
 void matrix_init(void) {
-    keyboard_split_setup();
+    split_pre_init();
 
     // Set pinout for right half if pinout for that half is defined
     if (!isLeftHand) {
@@ -223,6 +231,8 @@ void matrix_init(void) {
     debounce_init(ROWS_PER_HAND);
 
     matrix_init_quantum();
+
+    split_post_init();
 }
 
 void matrix_post_scan(void) {

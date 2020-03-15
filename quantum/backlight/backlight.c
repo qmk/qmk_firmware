@@ -15,14 +15,21 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "quantum.h"
 #include "backlight.h"
 #include "eeconfig.h"
 #include "debug.h"
 
+#if defined(STM32F0XX) || defined(STM32F0xx)
+#    pragma message("Backlight support for STMF072 has had limited testing, YMMV. If unsure, set 'BACKLIGHT_ENABLE = no' in your rules.mk")
+#endif
+
 backlight_config_t backlight_config;
 
+#ifdef BACKLIGHT_BREATHING
 // TODO: migrate to backlight_config_t
 static uint8_t breathing_period = BREATHING_PERIOD;
+#endif
 
 /** \brief Backlight initialization
  *
@@ -130,17 +137,29 @@ void backlight_step(void) {
     backlight_set(backlight_config.level);
 }
 
+/** \brief Backlight set level without EEPROM update
+ *
+ */
+void backlight_level_noeeprom(uint8_t level) {
+    if (level > BACKLIGHT_LEVELS) level = BACKLIGHT_LEVELS;
+    backlight_config.level  = level;
+    backlight_config.enable = !!backlight_config.level;
+    backlight_set(backlight_config.level);
+}
+
 /** \brief Backlight set level
  *
  * FIXME: needs doc
  */
 void backlight_level(uint8_t level) {
-    if (level > BACKLIGHT_LEVELS) level = BACKLIGHT_LEVELS;
-    backlight_config.level  = level;
-    backlight_config.enable = !!backlight_config.level;
+    backlight_level_noeeprom(level);
     eeconfig_update_backlight(backlight_config.raw);
-    backlight_set(backlight_config.level);
 }
+
+/** \brief Update current backlight state to EEPROM
+ *
+ */
+void eeconfig_update_backlight_current(void) { eeconfig_update_backlight(backlight_config.raw); }
 
 /** \brief Get backlight level
  *
@@ -193,7 +212,6 @@ void backlight_disable_breathing(void) {
  * FIXME: needs doc
  */
 bool is_backlight_breathing(void) { return backlight_config.breathing; }
-#endif
 
 // following are marked as weak purely for backwards compatibility
 __attribute__((weak)) void breathing_period_set(uint8_t value) { breathing_period = value ? value : 1; }
@@ -205,6 +223,15 @@ __attribute__((weak)) void breathing_period_default(void) { breathing_period_set
 __attribute__((weak)) void breathing_period_inc(void) { breathing_period_set(breathing_period + 1); }
 
 __attribute__((weak)) void breathing_period_dec(void) { breathing_period_set(breathing_period - 1); }
+
+__attribute__((weak)) void breathing_toggle(void) {
+    if (is_breathing())
+        breathing_disable();
+    else
+        breathing_enable();
+}
+
+#endif
 
 // defaults for backlight api
 __attribute__((weak)) void backlight_init_ports(void) {}

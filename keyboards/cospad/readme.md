@@ -1,18 +1,15 @@
-COSPAD
-===
+# Cospad
 
-A DIY Keypad Kit sold by KPRepublic, runs TKG natively.
+A DIY keypad kit sold by KPRepublic, runs TKG natively.
 
-Keyboard Maintainer: QMK Community  
-Hardware Supported: COSPAD  
-Hardware Availability: [KPrepublic on Aliexpress](https://aliexpress.com/item/cospad-Custom-Mechanical-Keyboard-Kit-up-tp-24-keys-Supports-TKG-TOOLS-Underglow-RGB-PCB-20/32818383873.html)
-
-Only supports on and off for the backlight leds, as they are not connected to a PWM pin.
+* Keyboard Maintainer: QMK Community
+* Hardware Supported: Cospad PCB
+* Hardware Availability: [KPrepublic on Aliexpress](https://aliexpress.com/item/cospad-Custom-Mechanical-Keyboard-Kit-up-tp-24-keys-Supports-TKG-TOOLS-Underglow-RGB-PCB-20/32818383873.html)
 
 Supported Layouts:
 
-![Numpad Layout of COSPAD](https://i.imgur.com/t03lXJ4.png)
-![Ortholinear Layout of COSPAD](https://i.imgur.com/mliUcCc.png)
+![Numpad layouts](https://i.imgur.com/t03lXJ4.png)
+![Ortholinear layouts](https://i.imgur.com/mliUcCc.png)
 
 Make example for this keyboard (after setting up your build environment):
 

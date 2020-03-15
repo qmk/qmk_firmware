@@ -88,6 +88,10 @@ extern layer_state_t layer_state;
 #    include "process_music.h"
 #endif
 
+#ifdef BACKLIGHT_ENABLE
+#    include "process_backlight.h"
+#endif
+
 #ifdef LEADER_ENABLE
 #    include "process_leader.h"
 #endif
@@ -138,6 +142,10 @@ extern layer_state_t layer_state;
 #    include "process_magic.h"
 #endif
 
+#ifdef GRAVE_ESC_ENABLE
+#    include "process_grave_esc.h"
+#endif
+
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
 #    include "process_rgb.h"
 #endif
@@ -163,18 +171,18 @@ extern layer_state_t layer_state;
 #endif
 
 #ifdef DYNAMIC_KEYMAP_ENABLE
-#   include "dynamic_keymap.h"
+#    include "dynamic_keymap.h"
 #endif
 
 #ifdef VIA_ENABLE
-#   include "via.h"
+#    include "via.h"
 #endif
 
 // Function substitutions to ease GPIO manipulation
 #if defined(__AVR__)
 typedef uint8_t pin_t;
 
-#    define setPinInput(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF))
+#    define setPinInput(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
 #    define setPinInputHigh(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
 #    define setPinInputLow(pin) _Static_assert(0, "AVR processors cannot implement an input as pull low")
 #    define setPinOutput(pin) (DDRx_ADDRESS(pin) |= _BV((pin)&0xF))
@@ -184,6 +192,7 @@ typedef uint8_t pin_t;
 #    define writePin(pin, level) ((level) ? writePinHigh(pin) : writePinLow(pin))
 
 #    define readPin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
+
 #elif defined(PROTOCOL_CHIBIOS)
 typedef ioline_t pin_t;
 
@@ -202,9 +211,21 @@ typedef ioline_t pin_t;
 #define SEND_STRING(string) send_string_P(PSTR(string))
 #define SEND_STRING_DELAY(string, interval) send_string_with_delay_P(PSTR(string), interval)
 
-extern const bool    ascii_to_shift_lut[128];
-extern const bool    ascii_to_altgr_lut[128];
+// Look-Up Tables (LUTs) to convert ASCII character to keycode sequence.
 extern const uint8_t ascii_to_keycode_lut[128];
+extern const uint8_t ascii_to_shift_lut[16];
+extern const uint8_t ascii_to_altgr_lut[16];
+// clang-format off
+#define KCLUT_ENTRY(a, b, c, d, e, f, g, h) \
+    ( ((a) ? 1 : 0) << 0 \
+    | ((b) ? 1 : 0) << 1 \
+    | ((c) ? 1 : 0) << 2 \
+    | ((d) ? 1 : 0) << 3 \
+    | ((e) ? 1 : 0) << 4 \
+    | ((f) ? 1 : 0) << 5 \
+    | ((g) ? 1 : 0) << 6 \
+    | ((h) ? 1 : 0) << 7 )
+// clang-format on
 
 void send_string(const char *str);
 void send_string_with_delay(const char *str, uint8_t interval);
