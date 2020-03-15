@@ -25,8 +25,8 @@
 
 * CLI
     * [Overview](cli.md)
-    * [Configuration](cli_configuration.md)
-    * [Commands](cli_commands.md)
+    * [Configuration](cli_dev_configuration.md)
+    * [Commands](cli.md#cli-commands)
 
 * Using QMK
   * Guides
