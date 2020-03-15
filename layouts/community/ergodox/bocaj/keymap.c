@@ -47,7 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       KC_NUMS, K11, SFT_T(K12),        K13, ALT_T(K14), K15,                                    K16, ALT_T(K17), K18,     SFT_T(K19),    K1A, KC_QUOT,   \
       KC_LSFT, CTL_T(K21), K22,        K23,        K24, K25, HYP_LBK,                 MEH_RBK,  K26, K27,        K28,        K29, CTL_T(K2A), KC_RSFT,   \
        KC_NO,  KC_NO, TT(_LOWER), KC_UP, KC_LEFT,                                                          KC_RIGHT, KC_DOWN, KC_NO, KC_NO , KC_ADJS,    \
-                                                             KC_APP,KC_HOME,    KC_END,KC_ESC,                                                           \
+                                                               KC_APP,KC_HOME,    KC_END,KC_ESC,                                                           \
                                                                       KC_NO,    KC_NO  ,                                                                 \
                                                  KC_SPACE,KC_BSPACE,KC_LEAD,    KC_NO  ,KC_TAB,KC_LWEN                                                   \
 )
@@ -135,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       '-----------------------'                                      '-----------------------'
 */
   [_ADJUST] = LAYOUT_ergodox_pretty_wrapper(
-    KC_MAKE,  ____________________BLANK___________________,  KC_RST,    KC_EPRM, ____________________BLANK___________________, XXXXXXX,
+    KC_MAKE,  CTL_FN1, _______, _______, _______, _______,  KC_RST,    KC_EPRM, ____________________BLANK___________________, XXXXXXX,
     _______, _______, KC_MRWD, KC_MFFD, KC_MPLY,  _______ , _______,    _______, ____________________BLANK___________________, XXXXXXX,
     _______,KC__MUTE,KC__VOLDOWN,KC__VOLUP,MC_LOCK,_______,                      ____________________BLANK___________________, KC_MQWR,
     _______,  ____________________BLANK___________________, _______,    _______, _______, _______, _______, _______,  KC_WWRK, KC_MWRK,

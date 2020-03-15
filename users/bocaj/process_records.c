@@ -16,6 +16,13 @@ void matrix_scan_secrets(void) {}
 // Then runs the _keymap's record handler if not processed here
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+    case CTL_FN1:
+        if (!record->event.pressed) {
+            register_code(KC_LCTRL);
+            tap(KC_F1);
+            unregister_code(KC_LCTRL);
+        }
+        break;
     case MC_PRNS:
         if (!record->event.pressed) {
             uint8_t temp_mod = get_mods();

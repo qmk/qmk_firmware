@@ -26,6 +26,7 @@ enum userspace_custom_keycodes {
   MC_BRCS,
   MC_BPRN,
   MC_BBRC,
+  CTL_FN1,
   NEW_SAFE_RANGE  //use "NEWPLACEHOLDER for keymap specific codes
 };
 
