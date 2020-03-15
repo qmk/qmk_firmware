@@ -1,14 +1,12 @@
-/* Good on you for modifying your layout! if you don't have
- * time to read the QMK docs, a list of keycodes can be found at
- *
- * https://github.com/qmk/qmk_firmware/blob/master/docs/keycodes.md
- *
- * There's also a template for adding new layers at the bottom of this file!
- */
-
-#include QMK_KEYBOARD_H
 #include "drashna.h"
 
+/*
+ * The `LAYOUT_gergo_base` macro is a template to allow the use of identical
+ * modifiers for the default layouts (eg QWERTY, Colemak, Dvorak, etc), so
+ * that there is no need to set them up for each layout, and modify all of
+ * them if I want to change them.  This helps to keep consistency and ease
+ * of use. K## is a placeholder to pass through the individual keycodes
+ */
 // clang-format off
 #define LAYOUT_gergo_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
@@ -17,7 +15,7 @@
   ) \
   LAYOUT_gergo_wrapper( \
     KC_ESC,  K01,    K02,     K03,      K04,     K05,                                                K06,     K07,     K08,     K09,     K0A,    KC_PIPE,      \
-    KC_TAB,  K11,    K12,     K13,      K14,     K15,     _______,                         _______,  K16,     K17,     K18,     K19,     K1A, RALT_T(KC_QUOT), \
+    LALT_T(KC_TAB), K11, K12, K13,      K14,     K15,     _______,                         _______,  K16,     K17,     K18,     K19,     K1A, RALT_T(KC_QUOT), \
     OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,     _______, _______,       _______, _______,  K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT,      \
                                        KC_GRV,   KC_SPC,  BK_LWER, OS_LALT,       OS_RGUI, DL_RAIS, KC_ENT, _______                            \
     )
