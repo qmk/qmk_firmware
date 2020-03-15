@@ -1,4 +1,4 @@
-# GPIO Control
+# GPIO Control :id=gpio-control
 
 QMK has a GPIO control abstraction layer which is microcontroller agnostic. This is done to allow easy access to pin control across different platforms.
 

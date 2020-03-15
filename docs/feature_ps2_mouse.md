@@ -1,4 +1,4 @@
-# PS/2 Mouse Support
+# PS/2 Mouse Support :id=ps2-mouse-support
 
 Its possible to hook up a PS/2 mouse (for example touchpads or trackpoints) to your keyboard as a composite device.
 

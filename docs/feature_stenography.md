@@ -1,16 +1,16 @@
-# Stenography in QMK
+# Stenography in QMK :id=stenography-in-qmk
 
 [Stenography](https://en.wikipedia.org/wiki/Stenotype) is a method of writing most often used by court reports, closed-captioning, and real-time transcription for the deaf. In stenography words are chorded syllable by syllable with a mixture of spelling, phonetic, and shortcut (briefs) strokes. Professional stenographers can reach 200-300 WPM without any of the strain usually found in standard typing and with far fewer errors (>99.9% accuracy).
 
 The [Open Steno Project](http://www.openstenoproject.org/) has built an open-source program called Plover that provides real-time translation of steno strokes into words and commands. It has an established dictionary and supports
 
-## Plover with QWERTY Keyboard
+## Plover with QWERTY Keyboard :id=plover-with-qwerty-keyboard
 
 Plover can work with any standard QWERTY keyboard, although it is more efficient if the keyboard supports NKRO (n-key rollover) to allow Plover to see all the pressed keys at once. An example keymap for Plover can be found in `planck/keymaps/default`. Switching to the `PLOVER` layer adjusts the position of the keyboard to support the number bar.
 
 To use Plover with QMK just enable NKRO and optionally adjust your layout if you have anything other than a standard layout. You may also want to purchase some steno-friendly keycaps to make it easier to hit multiple keys.
 
-## Plover with Steno Protocol
+## Plover with Steno Protocol :id=plover-with-steno-protocol
 
 Plover also understands the language of several steno machines. QMK can speak a couple of these languages, TX Bolt and GeminiPR. An example layout can be found in `planck/keymaps/steno`.
 
@@ -20,15 +20,15 @@ In this mode Plover expects to speak with a steno machine over a serial port so 
 
 > Note: Due to hardware limitations you may not be able to run both a virtual serial port and mouse emulation at the same time.
 
-### TX Bolt
+### TX Bolt :id=tx-bolt
 
 TX Bolt communicates the status of 24 keys over a very simple protocol in variable-sized (1-5 byte) packets.
 
-### GeminiPR
+### GeminiPR :id=geminipr
 
 GeminiPR encodes 42 keys into a 6-byte packet. While TX Bolt contains everything that is necessary for standard stenography, GeminiPR opens up many more options, including supporting non-English theories.
 
-## Configuring QMK for Steno
+## Configuring QMK for Steno :id=configuring-qmk-for-steno
 
 Firstly, enable steno in your keymap's Makefile. You may also need disable mousekeys, extra keys, or another USB endpoint to prevent conflicts. The builtin USB stack for some processors only supports a certain number of USB endpoints and the virtual serial port needed for steno fills 3 of them.
 
@@ -49,14 +49,14 @@ Once you have your keyboard flashed launch Plover. Click the 'Configure...' butt
 
 On the display tab click 'Open stroke display'. With Plover disabled you should be able to hit keys on your keyboard and see them show up in the stroke display window. Use this to make sure you have set up your keymap correctly. You are now ready to steno!
 
-## Learning Stenography
+## Learning Stenography :id=learning-stenography
 
 * [Learn Plover!](https://sites.google.com/site/learnplover/)
 * [QWERTY Steno](http://qwertysteno.com/Home/)
 * [Steno Jig](https://joshuagrams.github.io/steno-jig/)
 * More resources at the Plover [Learning Stenography](https://github.com/openstenoproject/plover/wiki/Learning-Stenography) wiki
 
-## Interfacing with the code
+## Interfacing with the code :id=interfacing-with-the-code
 
 The steno code has three interceptible hooks. If you define these functions, they will be called at certain points in processing; if they return true, processing continues, otherwise it's assumed you handled things.
 
@@ -79,7 +79,7 @@ bool postprocess_steno_user(uint16_t keycode, keyrecord_t *record, steno_mode_t 
 This function is called after a key has been processed, but before any decision about whether or not to send a chord. If `IS_PRESSED(record->event)` is false, and `pressed` is 0 or 1, the chord will be sent shortly, but has not yet been sent. This is where to put hooks for things like, say, live displays of steno chords or keys.
 
 
-## Keycode Reference
+## Keycode Reference :id=keycode-reference
 
 As defined in `keymap_steno.h`.
 
