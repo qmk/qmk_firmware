@@ -81,7 +81,7 @@ else
 fi
 popd
 
-pip3 install -r ${util_dir}/../requirements.txt
+pip3 install -r "${util_dir}/../requirements.txt"
 
 cp -f "$dir/activate_msys2.sh" "$download_dir/"
 
