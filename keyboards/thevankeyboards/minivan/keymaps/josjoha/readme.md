@@ -119,7 +119,7 @@ and options to compile with the 'arrow' hardware layout.
 in that mode, analogue to the `_FUN` led indicator for 'descramble' (not shown
 in above graphics).
 
-![Minivan illustration Overview relationships](http://socialism.nl/misc/minivan/minivan-flat-all-layers-relationships.jpg)
+![Minivan illustration Overview relationships](http://socialism.nl/misc/minivan/minivan-flat-all-layers-relationships_v2.jpg)
 
 ^ Key placement between layers for Dvorak (as shown). It does not work as well for Qwerty.
 
