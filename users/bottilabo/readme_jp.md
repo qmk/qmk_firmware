@@ -1,6 +1,6 @@
 # QMK Harmonizeライブラリ
 
-Copyright 2019-2020 Bottilabo [twitter @bottilabo]
+Copyright 2019-2020 Bottilabo [twitter @bottilabo](https://twitter.com/bottilabo)
                          [https://github.com/bottilabo/qmk]
 
 QMK Harmonizeライブラリは、

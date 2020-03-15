@@ -1,5 +1,5 @@
 # bottilabo layout
- twitter: @bottilabo
+ [twitter: @bottilabo](https://twitter.com/bottilabo)
  https://github.com/bottilabo/qmk-harmonize
  
 ## features
