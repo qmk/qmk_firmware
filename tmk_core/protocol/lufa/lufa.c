@@ -77,10 +77,6 @@ extern keymap_config_t keymap_config;
 #    include "virtser.h"
 #endif
 
-#if defined(RGBLIGHT_ENABLE)
-#    include "rgblight.h"
-#endif
-
 #ifdef MIDI_ENABLE
 #    include "qmk_midi.h"
 #endif
