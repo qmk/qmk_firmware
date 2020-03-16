@@ -1,4 +1,5 @@
 /* Copyright 2019 ENDO Katsuhiro <ka2hiro@kagizaraya.jp>
+ * Copyright 2020 Masaya Uno
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,14 +17,15 @@
 #include QMK_KEYBOARD_H
 
 #include "board.h"
+#include <stdio.h>
 
 enum layer_number { _QWERTY = 0, _COLEMAK, _DVORAK, _LOWER, _RAISE, _ADJUST };
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes { QWERTY = SAFE_RANGE, COLEMAK, DVORAK };
 
-#define LOWER  MO(_LOWER)
-#define RAISE  MO(_RAISE)
+#define LOWER MO(_LOWER)
+#define RAISE MO(_RAISE)
 #define ADJUST MO(_ADJUST)
 
 // clang-format off
@@ -138,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -168,3 +170,59 @@ bool led_update_user(led_t led_state) {
 
     return false;
 }
+
+#ifdef OLED_DRIVER_ENABLE
+
+const char *read_layer_state(void) {
+    // Layer names
+    static const char *LAYER_NAME_QWERTY  = "Qwerty";
+    static const char *LAYER_NAME_COLEMAK = "Colemak";
+    static const char *LAYER_NAME_DVORAK  = "Dvorak";
+    static const char *LAYER_NAME_LOWER   = "Lower";
+    static const char *LAYER_NAME_RAISE   = "Raise";
+    static const char *LAYER_NAME_ADJUST  = "Adjust";
+    static const char *LAYER_NAME_UNDEF   = "Undef";
+    // Default layer
+    const char *default_layer = LAYER_NAME_UNDEF;
+    switch (get_highest_layer(default_layer_state)) {
+        case _QWERTY:
+            default_layer = LAYER_NAME_QWERTY;
+            break;
+        case _COLEMAK:
+            default_layer = LAYER_NAME_COLEMAK;
+            break;
+        case _DVORAK:
+            default_layer = LAYER_NAME_DVORAK;
+            break;
+        default:
+            break;
+    }
+    // Current layer
+    const char *layer = LAYER_NAME_UNDEF;
+    switch (get_highest_layer(layer_state)) {
+        case 0:  // Default layer
+            layer = default_layer;
+            break;
+        case _LOWER:
+            layer = LAYER_NAME_LOWER;
+            break;
+        case _RAISE:
+            layer = LAYER_NAME_RAISE;
+            break;
+        case _ADJUST:
+            layer = LAYER_NAME_ADJUST;
+            break;
+        default:
+            layer = LAYER_NAME_UNDEF;
+            break;
+    }
+    static char layer_str[24];
+    snprintf(layer_str, sizeof(layer_str), "Layer: %s", layer);
+    return layer_str;
+}
+
+void oled_task_user(void) {
+    // If you want to change the display of OLED, you need to change here
+    oled_write_ln(read_layer_state(), false);
+}
+#endif
