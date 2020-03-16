@@ -16,7 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#include "quantum.h"
+#include QMK_KEYBOARD_H
+
 #include "version.h"
 #include "eeprom.h"
 #include "wrappers.h"
@@ -62,6 +63,7 @@ void          led_set_keymap(uint8_t usb_led);
 void          eeconfig_init_keymap(void);
 bool          hasAllBitsInMask(uint8_t value, uint8_t mask);
 
+// clang-format off
 typedef union {
     uint32_t raw;
     struct {
@@ -73,6 +75,7 @@ typedef union {
         bool    rgb_matrix_idle_anim :1;
     };
 } userspace_config_t;
+// clang-format on
 
 extern userspace_config_t userspace_config;
 

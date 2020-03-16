@@ -1,22 +1,22 @@
-# RGB Matrix Lighting
+# RGB Matrix Lighting :id=rgb-matrix-lighting
 
 This feature allows you to use RGB LED matrices driven by external drivers. It hooks into the RGBLIGHT system so you can use the same keycodes as RGBLIGHT to control it.
 
 If you want to use single color LED's you should use the [LED Matrix Subsystem](feature_led_matrix.md) instead.
 
-## Driver configuration
+## Driver configuration :id=driver-configuration
 ---
-### IS31FL3731
+### IS31FL3731 :id=is31fl3731
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3731 RGB controller. To enable it, add this to your `rules.mk`:
 
-```C
+```makefile
 RGB_MATRIX_ENABLE = IS31FL3731
 ```
 
 Configure the hardware via your `config.h`:
 
-```C
+```c
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
 // The address will vary depending on your wiring:
@@ -39,7 +39,7 @@ Currently only 2 drivers are supported, but it would be trivial to support all 4
 
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
-```C
+```c
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
@@ -55,19 +55,19 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](http://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/issi/is31fl3731.h`. The `driver` is the index of the driver you defined in your `config.h` (`0` or `1` right now).
 
 ---
-###  IS31FL3733/IS31FL3737
+### IS31FL3733/IS31FL3737 :id=is31fl3733is31fl3737
 
 !> For the IS31FL3737, replace all instances of `IS31FL3733` below with `IS31FL3737`.
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3733 RGB controller. To enable it, add this to your `rules.mk`:
 
-```C
+```makefile
 RGB_MATRIX_ENABLE = IS31FL3733
 ```
 
 Configure the hardware via your `config.h`:
 
-```C
+```c
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
 // The address will vary depending on your wiring:
@@ -90,7 +90,7 @@ Currently only a single drivers is supported, but it would be trivial to support
 
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
-```C
+```c
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
@@ -107,17 +107,17 @@ Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](
 
 ---
 
-### WS2812
+### WS2812 :id=ws2812
 
 There is basic support for addressable RGB matrix lighting with a WS2811/WS2812{a,b,c} addressable LED strand. To enable it, add this to your `rules.mk`:
 
-```C
+```makefile
 RGB_MATRIX_ENABLE = WS2812
 ```
 
 Configure the hardware via your `config.h`:
 
-```C
+```c
 // The pin connected to the data pin of the LEDs
 #define RGB_DI_PIN D7
 // The number of LEDs connected
@@ -128,7 +128,7 @@ Configure the hardware via your `config.h`:
 
 From this point forward the configuration is the same for all the drivers. The `led_config_t` struct provides a key electrical matrix to led index lookup table, what the physical position of each LED is on the board, and what type of key or usage the LED if the LED represents. Here is a brief example:
 
-```C
+```c
 const led_config_t g_led_config = { {
   // Key Matrix to LED Index
   {   5, NO_LED, NO_LED,   0 },
@@ -146,7 +146,7 @@ const led_config_t g_led_config = { {
 
 The first part, `// Key Matrix to LED Index`, tells the system what key this LED represents by using the key's electrical matrix row & col. The second part, `// LED Index to Physical Position` represents the LED's physical `{ x, y }` position on the keyboard. The default expected range of values for `{ x, y }` is the inclusive range `{ 0..224, 0..64 }`. This default expected range is due to effects that calculate the center of the keyboard for their animations. The easiest way to calculate these positions is imagine your keyboard is a grid, and the top left of the keyboard represents `{ x, y }` coordinate `{ 0, 0 }` and the bottom right of your keyboard represents `{ 224, 64 }`. Using this as a basis, you can use the following formula to calculate the physical position:
 
-```C
+```c
 x = 224 / (NUMBER_OF_COLS - 1) * COL_POSITION
 y =  64 / (NUMBER_OF_ROWS - 1) * ROW_POSITION
 ```
@@ -157,7 +157,7 @@ As mentioned earlier, the center of the keyboard by default is expected to be `{
 
 `// LED Index to Flag` is a bitmask, whether or not a certain LEDs is of a certain type. It is recommended that LEDs are set to only 1 type.
 
-## Flags
+## Flags :id=flags
 
 |Define                              |Description                                |
 |------------------------------------|-------------------------------------------|
@@ -169,32 +169,37 @@ As mentioned earlier, the center of the keyboard by default is expected to be `{
 |`#define LED_FLAG_UNDERGLOW 0x02`   |If the LED is for underglow.               |
 |`#define LED_FLAG_KEYLIGHT  0x04`   |If the LED is for key backlight.           |
 
-## Keycodes
+## Keycodes :id=keycodes
 
 All RGB keycodes are currently shared with the RGBLIGHT system:
 
-* `RGB_TOG` - toggle
-* `RGB_MOD` - cycle through modes
-* `RGB_HUI` - increase hue
-* `RGB_HUD` - decrease hue
-* `RGB_SAI` - increase saturation
-* `RGB_SAD` - decrease saturation
-* `RGB_VAI` - increase value
-* `RGB_VAD` - decrease value
-* `RGB_SPI` - increase speed effect (no EEPROM support)
-* `RGB_SPD` - decrease speed effect (no EEPROM support)
+|Key                |Aliases   |Description                                                                           |
+|-------------------|----------|--------------------------------------------------------------------------------------|
+|`RGB_TOG`          |          |Toggle RGB lighting on or off                                                         |
+|`RGB_MODE_FORWARD` |`RGB_MOD` |Cycle through modes, reverse direction when Shift is held                             |
+|`RGB_MODE_REVERSE` |`RGB_RMOD`|Cycle through modes in reverse, forward direction when Shift is held                  |
+|`RGB_HUI`          |          |Increase hue, decrease hue when Shift is held                                         |
+|`RGB_HUD`          |          |Decrease hue, increase hue when Shift is held                                         |
+|`RGB_SAI`          |          |Increase saturation, decrease saturation when Shift is held                           |
+|`RGB_SAD`          |          |Decrease saturation, increase saturation when Shift is held                           |
+|`RGB_VAI`          |          |Increase value (brightness), decrease value when Shift is held                        |
+|`RGB_VAD`          |          |Decrease value (brightness), increase value when Shift is held                        |
+|`RGB_SPI`          |          |Increase effect speed (does not support eeprom yet), decrease speed when Shift is held|
+|`RGB_SPD`          |          |Decrease effect speed (does not support eeprom yet), increase speed when Shift is held|
+
 * `RGB_MODE_*` keycodes will generally work, but are not currently mapped to the correct effects for the RGB Matrix system
 
-## RGB Matrix Effects
+## RGB Matrix Effects :id=rgb-matrix-effects
 
 All effects have been configured to support current configuration values (Hue, Saturation, Value, & Speed) unless otherwise noted below. These are the effects that are currently available:
 
-```C
+```c
 enum rgb_matrix_effects {
     RGB_MATRIX_NONE = 0,
     RGB_MATRIX_SOLID_COLOR = 1,     // Static single hue, no speed support
     RGB_MATRIX_ALPHAS_MODS,         // Static dual hue, speed is hue for secondary hue
     RGB_MATRIX_GRADIENT_UP_DOWN,    // Static gradient top to bottom, speed controls how much gradient changes
+    RGB_MATRIX_GRADIENT_LEFT_RIGHT,    // Static gradient left to right, speed controls how much gradient changes
     RGB_MATRIX_BREATHING,           // Single hue brightness cycling animation
     RGB_MATRIX_BAND_SAT,        // Single hue band fading saturation scrolling left to right
     RGB_MATRIX_BAND_VAL,        // Single hue band fading brightness scrolling left to right
@@ -280,16 +285,16 @@ You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `con
 |`#define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH`         |Disables `RGB_MATRIX_SOLID_MULTISPLASH`        |
 
 
-## Custom RGB Matrix Effects
+## Custom RGB Matrix Effects :id=custom-rgb-matrix-effects
 
-By setting `RGB_MATRIX_CUSTOM_USER` (and/or `RGB_MATRIX_CUSTOM_KB`) in `rule.mk`, new effects can be defined directly from userspace, without having to edit any QMK core files.
+By setting `RGB_MATRIX_CUSTOM_USER` (and/or `RGB_MATRIX_CUSTOM_KB`) in `rules.mk`, new effects can be defined directly from userspace, without having to edit any QMK core files.
 
 To declare new effects, create a new `rgb_matrix_user/kb.inc` that looks something like this:
 
 `rgb_matrix_user.inc` should go in the root of the keymap directory.
 `rgb_matrix_kb.inc` should go in the root of the keyboard directory.
 
-```C
+```c
 // !!! DO NOT ADD #pragma once !!! //
 
 // Step 1.
@@ -336,7 +341,7 @@ static bool my_cool_effect2(effect_params_t* params) {
 For inspiration and examples, check out the built-in effects under `quantum/rgb_matrix_animation/`
 
 
-## Colors
+## Colors :id=colors
 
 These are shorthands to popular colors. The `RGB` ones can be passed to the `setrgb` functions, while the `HSV` ones to the `sethsv` functions.
 
@@ -364,9 +369,9 @@ These are shorthands to popular colors. The `RGB` ones can be passed to the `set
 These are defined in [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h). Feel free to add to this list!
 
 
-## Additional `config.h` Options
+## Additional `config.h` Options :id=additional-configh-options
 
-```C
+```c
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
 #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
@@ -375,23 +380,27 @@ These are defined in [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blo
 #define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
 #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT // Sets the default mode, if none has been set
+#define RGB_MATRIX_STARTUP_HUE 0 // Sets the default hue value, if none has been set
+#define RGB_MATRIX_STARTUP_SAT 255 // Sets the default saturation value, if none has been set
+#define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
+#define RGB_MATRIX_STARTUP_SPD 127 // Sets the default animation speed, if none has been set
 ```
 
-## EEPROM storage
+## EEPROM storage :id=eeprom-storage
 
 The EEPROM for it is currently shared with the RGBLIGHT system (it's generally assumed only one RGB would be used at a time), but could be configured to use its own 32bit address with:
 
-```C
+```c
 #define EECONFIG_RGB_MATRIX (uint32_t *)28
 ```
 
 Where `28` is an unused index from `eeconfig.h`.
 
-## Suspended state
+## Suspended state :id=suspended-state
 
 To use the suspend feature, add this to your `<keyboard>.c`:
 
-```C
+```c
 void suspend_power_down_kb(void)
 {
     rgb_matrix_set_suspend_state(true);

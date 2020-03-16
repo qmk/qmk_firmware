@@ -65,7 +65,7 @@
 #define IT_COMM KC_COMM  // , and  ;
 #define IT_APOS KC_MINS  // ' and  ?
 #define IT_BSLS KC_GRV   // \ and  |
-#define IT_LESS KC_NUBS// < and  >
+#define IT_LESS KC_NUBS  // < and  >
 #define IT_MINS KC_SLSH  // - and  _
 
 // accented vowels (regular, with shift, with option, with option and shift)
@@ -77,37 +77,37 @@
 #define IT_IACC KC_EQL   // ì, ^, ˆ, ±
 
 // shifted characters
-#define IT_EXLM LSFT(KC_1)  // !
-#define IT_DQOT LSFT(KC_2)  // "
-#define IT_STRL LSFT(KC_3)  // £
-#define IT_DLR LSFT(KC_4)   // $
-#define IT_PERC LSFT(KC_5)  // %
-#define IT_AMPR LSFT(KC_6)  // &
-#define IT_SLSH LSFT(KC_7)  // /
-#define IT_LPRN LSFT(KC_8)  // (
-#define IT_RPRN LSFT(KC_9)  // )
-#define IT_EQL LSFT(KC_0)   // =
-#define IT_DEGR LSFT(IT_AACC) // °
-#define IT_QST LSFT(IT_APOS)  // ?
-#define IT_CRC LSFT(IT_IACC)  // ^
-#define IT_ASTR LSFT(IT_PLUS) // *
-#define IT_MORE LSFT(IT_LESS) // >
-#define IT_COLN LSFT(IT_DOT)  // :
-#define IT_SCLN LSFT(IT_COMM) // ;
-#define IT_UNDS LSFT(IT_MINS) // _
-#define IT_LCBR LSFT(IT_LBRC) // {
-#define IT_RCBR LSFT(IT_RBRC) // }
-#define IT_PIPE LSFT(IT_BSLS) // |
+#define IT_EXLM LSFT(KC_1)     // !
+#define IT_DQOT LSFT(KC_2)     // "
+#define IT_STRL LSFT(KC_3)     // £
+#define IT_DLR LSFT(KC_4)      // $
+#define IT_PERC LSFT(KC_5)     // %
+#define IT_AMPR LSFT(KC_6)     // &
+#define IT_SLSH LSFT(KC_7)     // /
+#define IT_LPRN LSFT(KC_8)     // (
+#define IT_RPRN LSFT(KC_9)     // )
+#define IT_EQL LSFT(KC_0)      // =
+#define IT_DEGR LSFT(IT_AACC)  // °
+#define IT_QST LSFT(IT_APOS)   // ?
+#define IT_CRC LSFT(IT_IACC)   // ^
+#define IT_ASTR LSFT(IT_PLUS)  // *
+#define IT_MORE LSFT(IT_LESS)  // >
+#define IT_COLN LSFT(IT_DOT)   // :
+#define IT_SCLN LSFT(IT_COMM)  // ;
+#define IT_UNDS LSFT(IT_MINS)  // _
+#define IT_LCBR LSFT(IT_LBRC)  // {
+#define IT_RCBR LSFT(IT_RBRC)  // }
+#define IT_PIPE LSFT(IT_BSLS)  // |
 
 // Alt -ed characters
-#define IT_LBRC LALT(IT_EACC)  // [
-#define IT_RBRC LALT(IT_PLUS)  // ]
-#define IT_AT LALT(IT_OACC)    // @
-#define IT_EURO LALT(KC_E)     // €
-#define IT_SHRP LALT(IT_AACC ) // #
-#define IT_ACUT LALT(KC_8)     // ´
-#define IT_GRAVE LALT(KC_9)    // `
-#define IT_TILDE LALT(KC_5)    // ~
+#define IT_LBRC LALT(IT_EACC)        // [
+#define IT_RBRC LALT(IT_PLUS)        // ]
+#define IT_AT LALT(IT_OACC)          // @
+#define IT_EURO LALT(KC_E)           // €
+#define IT_SHRP LALT(IT_AACC)        // #
+#define IT_ACUT LALT(KC_8)           // ´
+#define IT_GRAVE LALT(KC_9)          // `
+#define IT_TILDE LALT(KC_5)          // ~
 #define IT_PLMN LALT(LSFT(IT_IACC))  // ±
 
 #endif
