@@ -52,7 +52,7 @@ enum planck_keycodes {
   LESSON,
   TYPE_FU,
   VS_CODE,
-  VIM
+	SPOTIFY
 };
 
 
@@ -219,12 +219,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Thumb Layer
  * ,-----------------------------------------------------------------------------------------------------------.
  * | Reset  |        | SC_CAPF| SC_CAPP|        | KRAKEN |        |        |Input L |        |        | CMD +  |
- * |  (3x)  |        |        |        |        |        |        |        |        |        |        |        |
+ * |  (3x)  |        |        |        | MUTE   |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        |        |        | TypeFu | CMD +  |        |        |        | Caps   | emoji  | iterm  | CMD -  |
+ * |        |        |        | TypeFu | VOL +  |        |        |        | Caps   | emoji  | iterm  | CMD -  |
  * |        |        |        |        |        |        |        |        | Lock   |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        |        | VS_Code|  Vim   | CMD -  |        |        |        |        |        |        |        |
+ * |        |        | VS_Code|  Vim   | VOL -  |        |        |        |        |        |        |        |
  * |        |        |        |        |        |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        |        |        |        |        |        |        |        |  f()   |        |        |        |
@@ -232,9 +232,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------'
  */
 [_THUMB] = LAYOUT_planck_grid(
-    TD(TD_RESET), _______, SC_CAPF, SC_CAPP, _______, KRAKEN, _______, _______, INPUT_L, _______, _______, TXT_PLS,
-    _______, _______, _______, TYPE_FU, TXT_PLS,  _______, _______, _______, KC_CAPS, EMOJI,   ITERM,   TXT_MIN,
-    _______, _______, VS_CODE, VIM,     TXT_MIN,  _______, _______, _______, _______, _______, _______, _______,
+    TD(TD_RESET), _______, SC_CAPF, SC_CAPP, KC__MUTE, KRAKEN, _______, _______, INPUT_L, _______, _______, TXT_PLS,
+    _______, _______, SPOTIFY, TYPE_FU, KC__VOLUP,   _______, _______, _______, KC_CAPS, EMOJI,   ITERM,   TXT_MIN,
+    _______, _______, VS_CODE, _______, KC__VOLDOWN, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______
 ),
 
@@ -324,13 +324,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
-    case VIM:    
-        if (record->event.pressed) {
-            SEND_STRING(SS_LGUI(" "));
-            SEND_STRING("macvim.app" SS_TAP(X_ENTER));
-        }
-        return false;
-        break;
     case VS_CODE:
         if (record->event.pressed) {
             SEND_STRING(SS_LGUI(" "));
@@ -349,6 +342,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
+		case SPOTIFY:
+				if (record->event.pressed) {
+					SEND_STRING(SS_LGUI(" "));
+					SEND_STRING("spotify.app" SS_TAP(X_ENTER));
+				}
+				return false;
+				break;
   }
   return true;
 }
