@@ -21,7 +21,7 @@ def via_keymap(cli):
             via_json = Path('%s_via.json' % cli.config.via_keymap.keyboard.replace('/', '_'))
             try:
                 config_h = qmk.keymap.parse_config_h(cli.config.via_keymap.keyboard)
-                json_content = { 'name': config_h['name'], 'vendorId': config_h['vid'], 'productId': config_h['pid'], 'lighting': { 'extends': 'none' }, 'matrix': { 'rows': int(config_h['rows']), 'cols': int(config_h['cols']) }, 'layouts': { 'keymap': ["https://caniusevia.com/docs/layouts"] }}
+                json_content = { 'name': config_h['name'], 'vendorId': config_h['vid'], 'productId': config_h['pid'], 'lighting': { 'extends': 'none' }, 'matrix': { 'rows': config_h['rows'], 'cols': config_h['cols'] }, 'layouts': { 'keymap': ["https://caniusevia.com/docs/layouts"] }}
                 via_json.write_text(json.dumps(json_content))
             except NoSuchKeyboardError as e:
                 cli.log.error('%s is not a valid QMK keyboard.', cli.config.via_keymap.keyboard)

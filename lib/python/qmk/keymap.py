@@ -252,9 +252,9 @@ def parse_config_h(keyboard, keymap = None):
                 elif not content['pid'] and l[1] == 'PRODUCT_ID':
                     content['pid'] = l[2]
                 elif not content['rows'] and l[1] == 'MATRIX_ROWS':
-                    content['rows'] = l[2]
+                    content['rows'] = int(l[2])
                 elif not content['cols'] and l[1] == 'MATRIX_COLS':
-                    content['cols'] = l[2]
+                    content['cols'] = int(l[2])
                 elif l[1] == 'MANUFACTURER':
                     content['name'] = ('%s %s' % (l[2], content['name'])).strip()
                 elif l[1] == 'PRODUCT':
