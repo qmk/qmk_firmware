@@ -97,4 +97,4 @@ def test_list_keymaps_no_such_keyboard():
     # check keyboard does not exist
     result = check_subcommand('list-keymaps', '-kb', 'thiskeyboard/does/not/exist')
     assert result.returncode == 0
-    assert 'does not exist' in result.stdout 
+    assert 'does not exist' in result.stdout
