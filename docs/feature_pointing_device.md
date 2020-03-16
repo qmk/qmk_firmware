@@ -1,10 +1,10 @@
-## Pointing Device
+# Pointing Device :id=pointing-device
 
 Pointing Device is a generic name for a feature intended to be generic: moving the system pointer around.  There are certainly other options for it - like mousekeys - but this aims to be easily modifiable and lightweight.  You can implement custom keys to control functionality, or you can gather information from other peripherals and insert it directly here - let QMK handle the processing for you.
 
 To enable Pointing Device, uncomment the following line in your rules.mk:
 
-```
+```makefile
 POINTING_DEVICE_ENABLE = yes
 ```
 
@@ -25,7 +25,7 @@ When the mouse report is sent, the x, y, v, and h values are set to 0 (this is d
 
 In the following example, a custom key is used to click the mouse and scroll 127 units vertically and horizontally, then undo all of that when released - because that's a totally useful function.  Listen, this is an example:
 
-```
+```c
 case MS_SPECIAL:
 	report_mouse_t currentReport = pointing_device_get_report();
     if (record->event.pressed)
