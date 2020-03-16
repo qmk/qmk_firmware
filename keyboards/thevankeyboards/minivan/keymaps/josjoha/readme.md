@@ -121,7 +121,7 @@ in above graphics).
 
 ![Minivan illustration Overview relationships](http://socialism.nl/misc/minivan/minivan-flat-all-layers-relationships_v2.jpg)
 
-^ Key placement between layers for Dvorak (as shown). It does not work as well for Qwerty.
+^ Key placement between layers for Dvorak. It does not work as well for Qwerty.
 
 ![Minivan illustration Overview relationships](http://socialism.nl/misc/minivan/minivan-flat-all-layers-activation_v2.jpg)
 

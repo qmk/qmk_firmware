@@ -15,6 +15,39 @@ Notice LED colors indicating layer.
 
 This Qwerty + Dvorak compile version is a fair amount smaller than the
 Dvorak² version (85% versus 99% of flash memory).
+   
+Overview of layers
+==================
+
+![Minivan illustration Overview layers](http://socialism.nl/misc/minivan/minivan-flat-all-layers-visualization_qwerty.jpg)
+
+![Minivan illustration Overview layers](http://socialism.nl/misc/minivan/minivan-flat-all-layers-visualization_v2.jpg)
+
+     Basic layers are:
+      • letters (normal Qwerty layout),  Led: low-white/off⁽¹⁾ _LTR "LeTteRs"
+      • numbers with remaining symbols,  Led: blue 2x)         _NSY "Numbers SYmbols"
+      • function keys,                   Led: red & white ⁽²⁾  _FUN "FUNction keys"
+      • and a movement layer             Led: green 2x)        _MOV "MOVement"
+     Extra layers: 
+      • keys like Power, Play,           Led: purple 2x)       _RAR "RARe keys"
+      • number pad symbol versions       Led: green/blue ⁽³⁾   _PAD "numbers PAD"
+      • accented characters é, ø, ß ...  Led: cyan 2x          _ACC "ACCented"
+      • Unicode symbols, ¹, ±, ° ...     Led: yellow 2x        _DRA "DRAwings"
+     Descramble _Computer_ set Dvorak (activate automatic as drop-ins for above layers)
+      • Unicode symbols, etc             Led: cyan/low-white   _DDD "Descramble Drawings"
+      • accented characters              Led: yellow/low-white _DDA "Descramble Accented"
+      • numbers                          Led: blue/low-white   _DDL "Descramble Numbers"
+      • letters                          Led: off/low-white    _DDN "Descramble Letters"
+
+
+      Leds: • Breathing effect on the middle LED in color of last active non base layer.
+              There is no particular reason for this (fun & games).
+            • Leds left and right indicate active layer.
+            • ⁽¹⁾ The led is bright when capslock is on.
+            • ⁽²⁾ One led on the _FUN layer is bright white, indicating which layout
+              mode (Qwerty or Dvorak) is active.
+            • ⁽³⁾ The colors are reversed when numlock is on.
+            • Leds can be switched on/off on the _RAR layer (MLed, SLeds).      
 
 Qwerty+Dvorak keymaps
 ---------------------
@@ -54,6 +87,22 @@ letters and numbers/symbols.
 
 The right led in Dvorak mode shows when using a layer that is different
 in that mode, analogue to the `_FUN` led indicator for Dvorak.
+
+![Minivan illustration Overview relationships](http://socialism.nl/misc/minivan/minivan-flat-all-layers-relationships_qwerty.jpg)
+
+^ Key placement between layers for Qwerty.
+
+![Minivan illustration Overview relationships](http://socialism.nl/misc/minivan/minivan-flat-all-layers-relationships_v2.jpg)
+
+^ Key placement between layers for Dvorak. It does not work as well for Qwerty.
+
+![Minivan illustration Overview relationships](http://socialism.nl/misc/minivan/minivan-flat-all-layers-activation_qwerty.jpg)
+
+^ Layers are normally activated from the BASE layer (white). You can toggle them from the `_FUN` layer as well.
+
+![Minivan illustration Overview relationships](http://socialism.nl/misc/minivan/minivan-flat-all-layers-activation_v2.jpg)
+
+^ Layers are normally activated from the BASE layer (white). You can toggle them from the `_FUN` layer as well.
 
 Movement layer options
 ----------------------
