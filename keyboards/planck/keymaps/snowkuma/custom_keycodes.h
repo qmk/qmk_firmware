@@ -32,6 +32,9 @@
 #define TXT_MIN LGUI(KC_MINS)
 #define SC_CAPF LGUI(LSFT(KC_3))  // Capture the full screen to file
 #define SC_CAPP LGUI(LSFT(KC_4))  // Capture portion of screen to file
+#define CUT LGUI(KC_X)
+#define COPY LGUI(KC_C)
+#define PASTE LGUI(KC_V)
  
 // Special Layer keycodes
 #define ESC_NUM LT(_NUMBER, KC_ESC)
