@@ -91,7 +91,7 @@ qmk compile <configuratorExport.json>
 
 **Experimental Usage for Configurator Exports**:
 ```
-qmk compile <configurtorExport.json> -x
+qmk compile <configurtorExport.json> --experimental
 ```
 
 **Usage for Keymaps**:
