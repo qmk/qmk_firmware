@@ -38,7 +38,7 @@ const uint8_t ascii_to_shift_lut[16] PROGMEM = {
     KCLUT_ENTRY(1, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0)
 };
 
 const uint8_t ascii_to_altgr_lut[16] PROGMEM = {
@@ -58,7 +58,7 @@ const uint8_t ascii_to_altgr_lut[16] PROGMEM = {
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 1, 1, 1, 1, 0),
+    KCLUT_ENTRY(0, 0, 0, 1, 1, 1, 1, 0)
 };
 
 const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
@@ -78,7 +78,7 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // 0     1        2        3        4        5        6        7
     DE_0, DE_1, DE_2, DE_3, DE_4, DE_5, DE_6, DE_7,
     // 8     9        :        ;        <        =        >        ?
-    DE_8, DE_9, DE_DOT, DE_COMM, DE_LESS, DE_0, DE_LESS, DE_SS,
+    DE_8,    DE_9,    DE_DOT,  DE_COMM, DE_LABK, DE_0,    DE_LABK, DE_SS,
     // @     A        B        C        D        E        F        G
     DE_Q, DE_A, DE_B, DE_C, DE_D, DE_E, DE_F, DE_G,
     // H     I        J        K        L        M        N        O
@@ -94,4 +94,5 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // p     q        r        s        t        u        v        w
     DE_P, DE_Q, DE_R, DE_S, DE_T, DE_U, DE_V, DE_W,
     // x     y        z        {        |        }        ~        DEL
-    DE_X, DE_Y, DE_Z, DE_7, DE_LESS, DE_0, DE_PLUS, KC_DEL};
+    DE_X,    DE_Y,    DE_Z,    DE_7,    DE_LABK, DE_0,    DE_PLUS, KC_DEL
+};
