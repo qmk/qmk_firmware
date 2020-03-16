@@ -15,6 +15,14 @@
 
 extern const unsigned char font[] PROGMEM;
 
+#ifndef OLED_BLANK_CHAR
+#define OLED_BLANK_CHAR ' '
+#endif
+
+#ifndef OLED_BITS_FILTER
+#define OLED_BITS_FILTER
+#endif
+
 // Set this to 1 to help diagnose early startup problems
 // when testing power-on with ble.  Turn it off otherwise,
 // as the latency of printing most of the debug info messes
@@ -26,8 +34,11 @@ extern const unsigned char font[] PROGMEM;
 //#define BatteryUpdateInterval 10000 /* milliseconds */
 
 // 'last_flush' is declared as uint16_t,
-// so this must be less than 65535 
+// so this must be less than 65535
+#ifndef ScreenOffInterval
 #define ScreenOffInterval 60000 /* milliseconds */
+#endif
+
 #if DEBUG_TO_SCREEN
 static uint8_t displaying;
 #endif
@@ -62,17 +73,14 @@ done:
 }
 
 #define send_cmd1(c) if (!_send_cmd1(c)) {goto done;}
-#define send_cmds(c) if (!_send_cmds(c)) {goto done;}
-#define cmd1(X) 1,X
-#define cmd2(X,Y) 2,X,Y
-#define cmd3(X,Y,Z) 3,X,Y,Z
+#define send_cmds(c) if (!_send_cmds(c,sizeof(c))) {goto done;}
+#define cmd1(X) X
+#define cmd2(X,Y) X,Y
+#define cmd3(X,Y,Z) X,Y,Z
 
-static bool _send_cmds(const uint8_t* p) {
-  while(pgm_read_byte(p)) {
-    int8_t i = pgm_read_byte(p++);
-    for(;0<i;i--) {
-      send_cmd1( pgm_read_byte(p++) );
-    }
+static bool _send_cmds(const uint8_t* p,uint8_t sz) {
+  for(uint8_t i=sz;i;i--) {
+    send_cmd1( pgm_read_byte(p++) );
   }
   return true;
 done:
@@ -98,8 +106,8 @@ static void clear_display(void) {
     // Data mode
     goto done;
   }
-  for (uint8_t row = 0; row < MatrixRows; ++row) {
-    for (uint8_t col = 0; col < DisplayWidth; ++col) {
+  for (uint8_t row = MatrixRows;row; row--) {
+    for (uint8_t col = DisplayWidth; col; col--) {
       i2c_master_write(0);
     }
   }
@@ -152,7 +160,11 @@ bool iota_gfx_init(bool rotate) {
   }
 
   SEND_CMDS( 
-    cmd2(SetComPins, 0x2),
+#ifdef SSD1306_128X64
+	cmd2(SetComPins, 0x12),
+#else
+	cmd2(SetComPins, 0x2),
+#endif
     cmd2(SetContrast, 0x8f),
     cmd2(SetPreCharge, 0xf1),
     cmd2(SetVComDetect, 0x40),
@@ -207,7 +219,7 @@ void matrix_write_char_inner(struct CharacterMatrix *matrix, uint8_t c) {
     memmove(&matrix->display[0], &matrix->display[1],
             MatrixCols * (MatrixRows - 1));
     matrix->cursor = &matrix->display[MatrixRows - 1][0];
-    memset(matrix->cursor, ' ', MatrixCols);
+    memset(matrix->cursor, OLED_BLANK_CHAR, MatrixCols);
   }
 }
 
@@ -220,7 +232,7 @@ void matrix_write_char(struct CharacterMatrix *matrix, uint8_t c) {
     uint8_t cursor_col = (matrix->cursor - &matrix->display[0][0]) % MatrixCols;
 
     while (cursor_col++ < MatrixCols) {
-      matrix_write_char_inner(matrix, ' ');
+      matrix_write_char_inner(matrix, OLED_BLANK_CHAR);
     }
     return;
   }
@@ -264,7 +276,7 @@ void iota_gfx_write_P(const char *data) {
 }
 
 void matrix_clear(struct CharacterMatrix *matrix) {
-  memset(matrix->display, ' ', sizeof(matrix->display));
+  memset(matrix->display, OLED_BLANK_CHAR, sizeof(matrix->display));
   matrix->cursor = &matrix->display[0][0];
   matrix->dirty = true;
 }
@@ -300,7 +312,7 @@ void matrix_render(struct CharacterMatrix *matrix) {
 
       for (uint8_t glyphCol = 0; glyphCol < FontWidth; ++glyphCol) {
         uint8_t colBits = pgm_read_byte(glyph + glyphCol);
-        i2c_master_write(colBits);
+        i2c_master_write(colBits OLED_BITS_FILTER);
       }
 
       // 1 column of space between chars (it's not included in the glyph)
@@ -333,7 +345,7 @@ void iota_gfx_task(void) {
     force_dirty = false;
   }
 
-  if (timer_elapsed(last_flush) > ScreenOffInterval) {
+  if (ScreenOffInterval !=0 && timer_elapsed(last_flush) > ScreenOffInterval) {
     iota_gfx_off();
   }
 }
