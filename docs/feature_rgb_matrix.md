@@ -449,29 +449,30 @@ Where `28` is an unused index from `eeconfig.h`.
 ### Indicators :id=indicators
 
 If you want to set custom indiacators, such as an LED for Caps Lock, or layer indication, you can use the `rgb_matrix_indicators_kb` or `rgb_matrix_indicators_user` function for that: 
-```C
+```c
 void rgb_matrix_indicators_kb(void) {
     rgb_matrix_set_color(index, red, green, blue);
 }
 ```
 
 ### Suspended state :id=suspended-state
-
 To use the suspend feature, make sure that `#define RGB_DISABLE_WHEN_USB_SUSPENDED true` is added to the `config.h` file. 
 
 Additionally add this to your `<keyboard>.c`:
 
-```C
+```c
 void suspend_power_down_kb(void) {
     rgb_matrix_set_suspend_state(true);
+    suspend_power_down_user();
 }
 
 void suspend_wakeup_init_kb(void) {
     rgb_matrix_set_suspend_state(false);
+    suspend_wakeup_init_user();
 }
 ```
 or add this to your `keymap.c`:
-```C
+```c
 void suspend_power_down_user(void) {
     rgb_matrix_set_suspend_state(true);
 }
