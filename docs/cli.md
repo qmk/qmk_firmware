@@ -89,6 +89,11 @@ This command allows you to compile firmware from any directory. You can compile 
 qmk compile <configuratorExport.json>
 ```
 
+**Experimental Usage for Configurator Exports**:
+```
+qmk compile <configurtorExport.json> -x
+```
+
 **Usage for Keymaps**:
 
 ```
@@ -172,7 +177,7 @@ qmk kle2json [-f] <filename>
 **Examples**:
 
 ```
-$ qmk kle2json kle.txt 
+$ qmk kle2json kle.txt
 ☒ File info.json already exists, use -f or --force to overwrite.
 ```
 
