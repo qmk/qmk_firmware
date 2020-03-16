@@ -43,6 +43,7 @@ bool     notes_repeat;
 bool     note_resting = false;
 
 uint16_t current_note = 0;
+uint16_t next_note    = 0;
 uint8_t  rest_counter = 0;
 
 #ifdef VIBRATO_ENABLE
@@ -370,14 +371,20 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
             }
             if (!note_resting) {
                 note_resting = true;
-                current_note--;
-                if ((*notes_pointer)[current_note][0] == (*notes_pointer)[current_note + 1][0]) {
+                if (current_note == 0) {
+                    current_note = notes_count-1;
+                    next_note = 0;
+                } else {
+                    next_note = current_note;
+                    current_note--;
+                }
+
+                if ((*notes_pointer)[current_note][0] == (*notes_pointer)[next_note][0]) {
                     note_frequency = 0;
-                    note_length    = 1;
                 } else {
                     note_frequency = (*notes_pointer)[current_note][0];
-                    note_length    = 1;
                 }
+                note_length    = 1;
             } else {
                 note_resting   = false;
                 envelope_index = 0;
