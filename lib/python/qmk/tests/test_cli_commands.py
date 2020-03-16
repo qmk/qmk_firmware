@@ -1,4 +1,5 @@
 import subprocess
+import os
 
 
 def check_subcommand(command, *args):
@@ -14,6 +15,11 @@ def test_compile():
     assert check_subcommand('compile', '-kb', 'handwired/onekey/pytest', '-km', 'default').returncode == 0
     assert check_subcommand('compile', 'keyboards/handwired/onekey/pytest/keymap.json').returncode == 0
     assert check_subcommand('compile', 'keyboards/handwired/onekey/pytest/keymap.json', '-x').returncode == 0
+
+    # Cleanup
+    test_output = 'keyboards/handwired/onekey/keymaps/pytest/keymap.c'
+    if os.path.exists(test_output):
+        os.remove(test_output)
 
 
 def test_flash():
