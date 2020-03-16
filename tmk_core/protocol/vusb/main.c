@@ -21,7 +21,6 @@
 #include "uart.h"
 #include "debug.h"
 
-
 #define UART_BAUD_RATE 115200
 
 /* This is from main.c of USBaspLoader */
