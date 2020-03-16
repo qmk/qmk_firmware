@@ -103,7 +103,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 bool is_shift_pressed = false;
 
 bool led_update_user(led_t led_state) {
-    rgblight_set_layer_state(3, is_shift_pressed ^ led_state.caps_lock);
+    rgblight_set_layer_state(3, is_shift_pressed != led_state.caps_lock);
     return true;
 }
 
@@ -112,7 +112,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         case KC_LSFT:
         case KC_RSFT:
             is_shift_pressed = record->event.pressed;
-            rgblight_set_layer_state(3, is_shift_pressed ^ host_keyboard_led_state().caps_lock);
+            rgblight_set_layer_state(3, is_shift_pressed != host_keyboard_led_state().caps_lock);
         default:
             return true;
     }
