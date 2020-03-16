@@ -1,4 +1,4 @@
-# i2c_scanner
+#i2c_scanner
 
 Aiming to provide a more qmk friendly version of <https://playground.arduino.cc/Main/I2cScanner/>
 
@@ -7,11 +7,15 @@ Aiming to provide a more qmk friendly version of <https://playground.arduino.cc/
 
 ## Flashing
 
-Pick something aligned to what MCU you want to test:
+Pick a target that is aligned to the MCU you want to test:
 
 ```console
+make handwired/onekey/elite_c:i2c_scanner:flash # also 34u2 + dfu bootloader
 make handwired/onekey/promicro:i2c_scanner:flash
-make handwired/onekey/elite_c:i2c_scanner:flash # can also be used for 34u2 running a dfu bootloader
+make handwired/onekey/teensy_2:i2c_scanner:flash
+
+# ChibiOS is currently 'best effort' and might not report accurate results
+make handwired/onekey/proton_c:i2c_scanner:flash
 ```
 
 others might work with additional configuration.
