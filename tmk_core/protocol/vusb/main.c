@@ -21,10 +21,6 @@
 #include "uart.h"
 #include "debug.h"
 
-#if defined(RGBLIGHT_ENABLE)
-#    include "rgblight.h"
-#endif
-
 #define UART_BAUD_RATE 115200
 
 /* This is from main.c of USBaspLoader */
