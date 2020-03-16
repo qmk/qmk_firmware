@@ -398,23 +398,13 @@ Where `28` is an unused index from `eeconfig.h`.
 
 ## Functions :id=functions
 
-### Direct Operation 
+### Direct Operation :id=direct-operation
 |Function                                    |Description  |
 |--------------------------------------------|-------------|
 |`rgb_matrix_set_color_all(r, g, b)`         |Set all of the LEDs to the given RGB value, where `r`/`g`/`b` are between 0 and 255 (not written to EEPROM) |
 |`rgb_matrix_set_color(index, r, g, b)`      |Set a single LED to the given RGB value, where `r`/`g`/`b` are between 0 and 255, and `index` is between 0 and `DRIVER_LED_TOTAL` (not written to EEPROM) |
 
-### Effect mode changes 
-|Function                                    |Description  |
-|--------------------------------------------|-------------|
-|`rgb_matrix_mode(x)`                        |Set the mode, if RGB animations are enabled |
-|`rgb_matrix_mode_noeeprom(x)`               |Set the mode, if RGB animations are enabled (not written to EEPROM) |
-|`rgb_matrix_step()`                         |Change the mode to the next RGB animation in the list of enabled RGB animations |
-|`rgb_matrix_step_reverse()`                 |Change the mode to the previous RGB animation in the list of enabled RGB animations |
-|`rgb_matrix_increase_speed()`               |Increases the speed of the animations |
-|`rgb_matrix_decrease_speed()`               |Decreases the speed of the animations |
-
-### effects mode disable/enable 
+### Disable/Enable Effects :id=disable-enable-effects
 |Function                                    |Description  |
 |--------------------------------------------|-------------|
 |`rgb_matrix_toggle()`                       |Toggle effect range LEDs between on and off |
@@ -424,7 +414,17 @@ Where `28` is an unused index from `eeconfig.h`.
 |`rgb_matrix_disable()`                      |Turn effect range LEDs off |
 |`rgb_matrix_disable_noeeprom()`             |Turn effect range LEDs off (not written to EEPROM) |
 
-### hue, sat, val change
+### Change Effect Mode :id=change-effect-mode
+|Function                                    |Description  |
+|--------------------------------------------|-------------|
+|`rgb_matrix_mode(mode)`                     |Set the mode, if RGB animations are enabled |
+|`rgb_matrix_mode_noeeprom(mode)`            |Set the mode, if RGB animations are enabled (not written to EEPROM) |
+|`rgb_matrix_step()`                         |Change the mode to the next RGB animation in the list of enabled RGB animations |
+|`rgb_matrix_step_reverse()`                 |Change the mode to the previous RGB animation in the list of enabled RGB animations |
+|`rgb_matrix_increase_speed()`               |Increases the speed of the animations |
+|`rgb_matrix_decrease_speed()`               |Decreases the speed of the animations |
+
+### Change Color :id=change-color
 |Function                                    |Description  |
 |--------------------------------------------|-------------|
 |`rgb_matrix_increase_hue()`                 |Increase the hue for effect range LEDs. This wraps around at maximum hue |
@@ -436,7 +436,7 @@ Where `28` is an unused index from `eeconfig.h`.
 |`rgb_matrix_sethsv(h, s, v)`                |Set LEDs to the given HSV value where `h`/`s`/`v` are between 0 and 255 |
 |`rgb_matrix_sethsv_noeeprom(h, s, v)`       |Set LEDs to the given HSV value where `h`/`s`/`v` are between 0 and 255 (not written to EEPROM) |
 
-### query
+### Query Current Status :id=query-current-status
 |Function               |Description      |
 |-----------------------|-----------------|
 |`rgb_matrix_get_mode()`  |Get current mode |
