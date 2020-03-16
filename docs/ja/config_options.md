@@ -1,8 +1,8 @@
 # QMK の設定
 
 <!---
-  original document: eae21eed7:docs/config_options.md
-  git diff eae21eed7 HEAD docs/config_options.md | cat
+  original document: 2fe288d01:docs/config_options.md
+  git diff 2fe288d01 HEAD -- docs/config_options.md | cat
 -->
 
 QMK はほぼ無制限に設定可能です。可能なところはいかなるところでも、やりすぎな程、ユーザーがコードサイズを犠牲にしてでも彼らのキーボードをカスタマイズをすることを許しています。ただし、このレベルの柔軟性により設定が困難になります。
@@ -83,7 +83,7 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 * `#define BACKLIGHT_PIN B7`
    * バックライトのピン
 * `#define BACKLIGHT_LEVELS 3`
-   * バックライトのレベル数 (off を除いて最大15)
+   * バックライトのレベル数 (off を除いて最大31)
 * `#define BACKLIGHT_BREATHING`
    * バックライトのブレスを有効にします
 * `#define BREATHING_PERIOD 6`
@@ -148,10 +148,14 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 * `#define IGNORE_MOD_TAP_INTERRUPT`
    * 両方のキーに `TAPPING_TERM` を適用することで、ホールド時に他のキーに変換するキーを使ってローリングコンボ (zx) をすることができるようにします
    * 詳細は [Mod tap interrupt](ja/feature_advanced_keycodes.md#ignore-mod-tap-interrupt) を見てください
+* `#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY`
+   * キーごとの `IGNORE_MOD_TAP_INTERRUPT` 設定の処理を有効にします
 * `#define TAPPING_FORCE_HOLD`
    * タップされた直後に、デュアルロールキーを修飾子として使用できるようにします
    * [Hold after tap](ja/feature_advanced_keycodes.md#tapping-force-hold)を見てください
    * タップトグル機能を無効にします (`TT` あるいは One Shot Tap Toggle)
+* `#define TAPPING_FORCE_HOLD_PER_KEY`
+   * キーごとの `TAPPING_FORCE_HOLD` 設定処理を有効にします。
 * `#define LEADER_TIMEOUT 300`
    * リーダーキーがタイムアウトするまでの時間
       * タイムアウトする前にシーケンスを終了できない場合は、タイムアウトの設定を増やす必要があるかもしれません。あるいは、`LEADER_PER_KEY_TIMING` オプションを有効にすると良いでしょう。これは各キーがタップされた後でタイムアウトを再設定します。
@@ -185,7 +189,7 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 * `#define RGBLIGHT_SPLIT`
    * 分割キーボードの左半分の RGB LED の出力を右半分の RGB LED の入力につなげるかわりに、それぞれの側で個別にコントローラの出力ピンが直接 RGB LED の入力に繋がっているときは、この定義が必要です。
 * `#define RGBLED_SPLIT { 6, 6 }`
-   * 分割キーボードの各半分の `RGB_DI_PIN` に直接配線されている接続されているLEDの数
+   * 分割キーボードの各半分の `RGB_DI_PIN` に直接配線されている接続されている LED の数
    * 最初の値は左半分の LED の数を示し、2番目の値は右半分です。
    * RGBLED_SPLIT が定義されている場合、RGBLIGHT_SPLIT は暗黙的に定義されます。
 * `#define RGBLIGHT_HUE_STEP 12`
@@ -214,7 +218,7 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 
 ### 左右の設定
 
-一つ覚えておかなければならないことは、USB ポートが接続されている側が常にマスター側であるということです。USB に接続されていない側はスレーブです。
+1つ覚えておかなければならないことは、USB ポートが接続されている側が常にマスター側であるということです。USB に接続されていない側はスレーブです。
 
 分割キーボードの左右を設定するには、幾つかの異なる方法があります (優先度の順にリストされています):
 
@@ -258,7 +262,7 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 * `#define SELECT_SOFT_SERIAL_SPEED <speed>` (デフォルトの速度は1です)
    * serial 通信を使う時のプロトコルの速度を設定します。
    * 速度:
-      * 0: 約189kbps (実験目的のみ)
+      * 0: 約 189kbps (実験目的のみ)
       * 1: 約 137kbps (デフォルト)
       * 2: 約 75kbps
       * 3: 約 39kbps
@@ -270,8 +274,11 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
    * ARM についてはデフォルトの挙動
    * AVR Teensy については必須
 
-* `#define SPLIT_USB_TIMEOUT 2500`
+* `#define SPLIT_USB_TIMEOUT 2000`
    * `SPLIT_USB_DETECT` を使う時のマスタ/スレーブを検出する場合の最大タイムアウト
+
+* `#define SPLIT_USB_TIMEOUT_POLL 10`
+   * `SPLIT_USB_DETECT` を使う時のマスタ/スレーブを検出する場合のポーリング頻度
 
 # `rules.mk` ファイル
 
@@ -285,8 +292,26 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
    * ビルドの後でルート `qmk_firmware` フォルダにコピーされる形式 (bin, hex) を定義します。
 * `SRC`
    * コンパイル・リンクリストにファイルを追加するために使われます。
+* `LIB_SRC`
+  * コンパイル・リンクリストにライブラリとしてファイルを追加するために使われます。  
+    `LIB_SRC` で指定されたファイルは、`SRC` で指定されたファイルの後にリンクされます。  
+    例えば、次のように指定した場合:
+    ```
+    SRC += a.c
+    LIB_SRC += lib_b.c
+    SRC += c.c
+    LIB_SRC += lib_d.c
+    ```
+    リンク順は以下の通りです。
+    ```
+     ...  a.o c.o  ...  lib_b.a lib_d.a  ...
+    ```
 * `LAYOUTS`
    * このキーボードがサポートする[レイアウト](ja/feature_layouts.md)のリスト
+* `LINK_TIME_OPTIMIZATION_ENABLE`
+   * キーボードをコンパイルする時に、Link Time Optimization (`LTO`) を有効にします。これは処理に時間が掛かりますが、コンパイルされたサイズを大幅に減らします (そして、ファームウェアが小さいため、追加の時間は分からないくらいです)。ただし、`LTO` が有効な場合、古いマクロと関数の機能が壊れるため、自動的にこれらの機能を無効にします。これは `NO_ACTION_MACRO` と `NO_ACTION_FUNCTION` を自動的に定義することで行われます。
+* `LTO_ENABLE`
+   * LINK_TIME_OPTIMIZATION_ENABLE と同じ意味です。`LINK_TIME_OPTIMIZATION_ENABLE` の代わりに `LTO_ENABLE` を使うことができます。
 
 ## AVR MCU オプション
 * `MCU = atmega32u4`
@@ -345,9 +370,6 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
    * キーボードが起動する前に、USB 接続が確立されるのをキーボードに待機させます
 * `NO_USB_STARTUP_CHECK`
    * キーボードの起動後の usb サスペンドチェックを無効にします。通常、キーボードはタスクが実行される前にホストがウェイク アップするのを待ちます。分割キーボードは半分はウェイクアップコールを取得できませんが、マスタにコマンドを送信する必要があるため、役に立ちます。
-* `LINK_TIME_OPTIMIZATION_ENABLE`
-   * キーボードをコンパイルする時に、Link Time Optimization (`LTO`) を有効にします。これは処理に時間が掛かりますが、コンパイルされたサイズを大幅に減らします (そして、ファームウェアが小さいため、追加の時間は分からないくらいです)。ただし、`LTO` が有効な場合、古いマクロと関数の機能が壊れるため、自動的にこれらの機能を無効にします。これは `NO_ACTION_MACRO` と `NO_ACTION_FUNCTION` を自動的に定義することで行われます。
-   * `LINK_TIME_OPTIMIZATION_ENABLE` の代わりに `LTO_ENABLE` を使うことができます。
 
 ## USB エンドポイントの制限
 

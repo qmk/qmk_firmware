@@ -50,24 +50,6 @@
 #define DRIVER_2_LED_TOTAL 36
 #define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
-#if defined(RAW_ENABLE)
-//VIA
-#define DYNAMIC_KEYMAP_LAYER_COUNT 2
-// EEPROM usage
-
-// TODO: refactor with new user EEPROM code (coming soon)
-#define EEPROM_MAGIC 0x451F
-#define EEPROM_MAGIC_ADDR 34
-// Bump this every time we change what we store
-// This will automatically reset the EEPROM with defaults
-// and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x08
-#define EEPROM_VERSION_ADDR 36
-
-// Dynamic keymap starts after EEPROM version
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 37
-// Dynamic macro starts after dynamic keymaps (35+(4*10*6*2)) = (35+480)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 637
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 391    // 1024-DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
-#define DYNAMIC_KEYMAP_MACRO_COUNT 16
+#if defined(VIA_ENABLE)
+#   define DYNAMIC_KEYMAP_LAYER_COUNT 2
 #endif

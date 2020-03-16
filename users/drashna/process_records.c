@@ -80,13 +80,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 copy_paste_timer = timer_read();
             } else {
                 if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {  // Hold, copy
-                    register_code(KC_LCTL);
-                    tap_code(KC_C);
-                    unregister_code(KC_LCTL);
+                    tap_code16(LCTL(KC_C));
                 } else {  // Tap, paste
-                    register_code(KC_LCTL);
-                    tap_code(KC_V);
-                    unregister_code(KC_LCTL);
+                    tap_code16(LCTL(KC_V));
                 }
             }
             break;

@@ -32,11 +32,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION     Preonic-like clone
 
 /* matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 15
-#define DIODE_DIRECTION ROW2COL
+#define MATRIX_ROWS 5
+#define MATRIX_COLS 12
+#define MATRIX_ROW_PINS { B0, B1, B2, B3, B4 }
+#define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4 }
+#define DIODE_DIRECTION COL2ROW
 
-//#define BACKLIGHT_PIN D4
+#define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 12
 
 #define RGB_DI_PIN E2
@@ -45,7 +47,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 15
 #define RGBLIGHT_VAL_STEP 18
-
-#define NO_UART 1
 
 #endif
