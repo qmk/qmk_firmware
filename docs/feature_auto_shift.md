@@ -105,9 +105,10 @@ Do not Auto Shift alpha characters, which include A through Z.
 
 ## Using Auto Shift Setup
 
-This will enable you to define three keys temporarily to increase, decrease and report your `AUTO_SHIFT_TIMEOUT`.
+Add `AUTO_SHIFT_SETUP` to your `config.h` to enable you to define three keys temporarily to increase, decrease and report your `AUTO_SHIFT_TIMEOUT`.
 
 ### Setup
+
 
 Map three keys temporarily in your keymap:
 
