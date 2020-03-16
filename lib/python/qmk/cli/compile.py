@@ -9,7 +9,6 @@ from milc import cli
 from qmk.commands import create_make_command
 from qmk.commands import parse_configurator_json
 from qmk.commands import compile_configurator_json
-from qmk.commands import compile_configurator_json_encoders
 
 import qmk.keymap
 import qmk.path
@@ -34,7 +33,7 @@ def compile(cli):
 
         # Warn the user if they are using experimental mode
         if cli.args.experimental:
-          cli.log.info("{fg_yellow}Compiling in experimental mode! I hope you know what you're doing...")
+            cli.log.info("{fg_yellow}Compiling in experimental mode! I hope you know what you're doing...")
 
         # Parse the configurator json
         user_keymap = parse_configurator_json(cli.args.filename)

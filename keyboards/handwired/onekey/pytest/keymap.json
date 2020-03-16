@@ -1,0 +1,19 @@
+{
+  "keyboard": "handwired/onekey/pytest",
+  "keymap": "pytest",
+  "layout": "LAYOUT",
+  "layers": [
+    [
+      "KC_ENTER"
+    ]
+  ],
+  "author": "",
+  "notes": "",
+  "encoders": [
+    {
+      "index": 0,
+      "clockwise": "KC_UP",
+      "counter": "KC_DOWN"
+    }
+  ]
+}

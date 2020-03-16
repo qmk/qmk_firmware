@@ -12,6 +12,8 @@ def test_cformat():
 
 def test_compile():
     assert check_subcommand('compile', '-kb', 'handwired/onekey/pytest', '-km', 'default').returncode == 0
+    assert check_subcommand('compile', 'keyboards/handwired/onekey/pytest/keymap.json').returncode == 0
+    assert check_subcommand('compile', 'keyboards/handwired/onekey/pytest/keymap.json', '-x').returncode == 0
 
 
 def test_flash():

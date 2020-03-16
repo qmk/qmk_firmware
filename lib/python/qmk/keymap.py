@@ -44,6 +44,7 @@ ENCODER_IF = """\t_ELIF_ (index == _INDEX_) {
 \t}
 """
 
+
 def template(keyboard, experimental=False):
     """Returns the `keymap.c` template for a keyboard.
 
