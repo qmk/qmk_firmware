@@ -5,6 +5,21 @@
 
 #define TIMEOUT 50
 
+// TODO: remove patch
+#ifdef PROTOCOL_CHIBIOS
+#    pragma message("ChibiOS is currently 'best effort' and might not report accurate results")
+
+i2c_status_t i2c_start_bodge(uint8_t address, uint16_t timeout) {
+    i2c_start(address);
+
+    // except on ChibiOS where the only way is do do "something"
+    uint8_t data = 0;
+    return i2c_readReg(address, 0, &data, sizeof(data), TIMEOUT);
+}
+
+#    define i2c_start i2c_start_bodge
+#endif
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LAYOUT(KC_A)  //
 };
@@ -17,17 +32,7 @@ void do_scan(void) {
     for (uint8_t address = 1; address < 127; address++) {
         // The i2c_scanner uses the return value of
         // i2c_start to see if a device did acknowledge to the address.
-#if defined(__AVR__)
         i2c_status_t error = i2c_start(address << 1, TIMEOUT);
-#else
-#    pragma message("ChibiOS is currently 'best effort' and might not report accurate results")
-
-        i2c_start(address << 1);
-
-        // except on ChibiOS where the only way is do do "something"
-        uint8_t      data  = 0;
-        i2c_status_t error = i2c_readReg(address << 1, 0, &data, sizeof(data), TIMEOUT);
-#endif
         if (error == I2C_STATUS_SUCCESS) {
             i2c_stop();
             dprintf("  I2C device found at address 0x%02X\n", address);
