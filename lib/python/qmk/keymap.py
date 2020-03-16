@@ -93,16 +93,17 @@ def write(keyboard, keymap, layout, layers):
     return keymap_file
 
 
-def list_keymaps(kb_name):
+def list_keymaps(keyboard_name):
     """ List the available keymaps for a keyboard.
 
     Args:
-        kb_name: the keyboards full name with vendor and revision if necessary, example: clueboard/66/rev3
+        keyboard_name: the keyboards full name with vendor and revision if necessary, example: clueboard/66/rev3
+
 
     Returns:
         a set with the names of the available keymaps
     """
-    
+
     # parse all the rules.mk files for the keyboard
     rules_mk = qmk.makefile.get_rules_mk(keyboard_name)
     names = set()
@@ -126,5 +127,5 @@ def list_keymaps(kb_name):
                 cl_path = Path.cwd() / "layouts" / "community" / layout
                 if cl_path.exists():
                     names = names.union([keymap for keymap in os.listdir(str(cl_path)) if (cl_path / keymap / "keymap.c").is_file()])
-                    
+
     return sorted(names)

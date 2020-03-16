@@ -69,7 +69,7 @@ def normpath(path):
 
     return Path(os.environ['ORIG_CWD']) / path
 
-  
+
 def c_source_files(dir_names):
     """Returns a list of all *.c, *.h, and *.cpp files for a given list of directories
 
