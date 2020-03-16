@@ -78,7 +78,9 @@ __attribute__((weak)) uint16_t dac_value_generate(void) {
     if (working_voices > 0) {
         uint16_t value_avg = 0;
         for (uint8_t i = 0; i < working_voices; i++) {
-            dac_if[i] = dac_if[i] + ((frequencies[i] * DAC_BUFFER_SIZE) / DAC_SAMPLE_RATE);
+            dac_if[i] = dac_if[i] + ((frequencies[i] * DAC_BUFFER_SIZE) / DAC_SAMPLE_RATE)
+                * 2/3; //TODO: why is this scaling factor necessary to get accurate frequencies on the DAC output? (as measured with an oscilloscope)
+            // possibly: the gpt timer runs with 3*DAC_SAMPLE_RATE; and the DAC callback is called twice per conversion?
 
             // Needed because % doesn't work with floats
             while (dac_if[i] >= (DAC_BUFFER_SIZE)) dac_if[i] = dac_if[i] - DAC_BUFFER_SIZE;
