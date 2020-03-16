@@ -69,7 +69,7 @@ const rgblight_segment_t PROGMEM right[] = RGBLIGHT_LAYER_SEGMENTS(
 
 const rgblight_segment_t PROGMEM capslock[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 3, HSV_GOLD},
-    {9, 3, HSV_GOLD}
+    {6, 3, HSV_GOLD}
 );
 
 // HSV_SPRINGGREEN //YES //YES
