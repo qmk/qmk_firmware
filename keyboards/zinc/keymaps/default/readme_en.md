@@ -98,7 +98,7 @@ $ make zinc:default
 To make and flash with `:flash`
 
 ```
-$ make zinc:default:avrdude
+$ make zinc:default:flash
 ```
 
 
