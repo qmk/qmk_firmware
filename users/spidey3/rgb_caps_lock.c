@@ -21,8 +21,8 @@ void matrix_init_user_rgb(void)
 #endif 
 }
 
-void led_set_user(uint8_t usb_led) {
-  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+bool led_update_user(led_t led_state) {
+  if (led_state.caps_lock) {
     rgb_mode = rgblight_get_mode();
 
     rgb_hue = rgblight_get_hue();
@@ -31,7 +31,7 @@ void led_set_user(uint8_t usb_led) {
     rgb_saved = 1;
 
     rgblight_mode_noeeprom(1);
-    rgblight_setrgb(0xD3, 0x7F, 0xED);
+    rgblight_sethsv_noeeprom(HSV_AZURE);
 
 #ifdef CONSOLE_ENABLE
     if (debug_enable) { uprintf("CAPS_LOCK ON: Saved mode: %u, hue: %u, sat: %u, val: %u\n", rgb_mode, rgb_hue, rgb_sat, rgb_val); }
@@ -46,4 +46,6 @@ void led_set_user(uint8_t usb_led) {
     if (debug_enable) { uprintf("CAPS_LOCK OFF: Restored mode: %u, hue: %u, sat: %u, val: %u\n", rgb_mode, rgb_hue, rgb_sat, rgb_val); }
 #endif 
   }
+
+  return true; // Continue to process the led state change
 }
