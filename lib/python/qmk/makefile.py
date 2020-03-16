@@ -1,8 +1,8 @@
 """ Functions for working with Makefiles
 """
-import os
 
-import qmk.path
+from pathlib import Path
+
 from qmk.errors import NoSuchKeyboardError
 
 
@@ -11,14 +11,16 @@ def parse_rules_mk_file(file, rules_mk=None):
     Args:
         file: path to the rules.mk file
         rules_mk: already parsed rules.mk the new file should be merged with
+
     Returns:
         a dictionary with the file's content
     """
     if not rules_mk:
         rules_mk = {}
 
-    if os.path.exists(file):
-        rules_mk_lines = qmk.path.file_lines(file)
+    file = Path(file)
+    if file.exists():
+        rules_mk_lines = file.read_text().split("\n")
 
         for line in rules_mk_lines:
             # Filter out comments
@@ -61,15 +63,16 @@ def get_rules_mk(keyboard):
         a dictionary with the content of the rules.mk file
     """
     # Start with qmk_firmware/keyboards
-    kb_path = os.path.join(os.getcwd(), "keyboards")
+    kb_path = Path.cwd() / "keyboards"
     # walk down the directory tree
     # and collect all rules.mk files
-    if os.path.exists(os.path.join(kb_path, keyboard)):
+    kb_dir = kb_path / keyboard
+    if kb_dir.exists():
         rules_mk = dict()
-        for directory in keyboard.split(os.path.sep):
-            kb_path = os.path.join(kb_path, directory)
-            rules_mk_path = os.path.join(kb_path, "rules.mk")
-            if os.path.exists(rules_mk_path):
+        for directory in Path(keyboard).parts:
+            kb_path = kb_path / directory
+            rules_mk_path = kb_path / "rules.mk"
+            if rules_mk_path.exists():
                 rules_mk = parse_rules_mk_file(rules_mk_path, rules_mk)
     else:
         raise NoSuchKeyboardError("The requested keyboard and/or revision does not exist.")

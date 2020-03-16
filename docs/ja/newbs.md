@@ -3,7 +3,7 @@
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
   original document: adf4acf59:docs/newbs.md
-  git diff adf4acf59 HEAD docs/newbs.md | cat
+  git diff adf4acf59 HEAD -- docs/newbs.md | cat
 -->
 
 QMK は、メカニカルキーボード用の強力なオープンソースファームウェアです。

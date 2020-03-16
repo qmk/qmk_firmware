@@ -1,6 +1,9 @@
 """Functions that help you work with QMK keymaps.
 """
 import os
+
+from pathlib import Path
+
 import qmk.path
 import qmk.makefile
 
@@ -29,11 +32,10 @@ def template(keyboard):
         keyboard
             The keyboard to return a template for.
     """
-    template_name = 'keyboards/%s/templates/keymap.c' % keyboard
+    template_file = Path('keyboards/%s/templates/keymap.c' % keyboard)
 
-    if os.path.exists(template_name):
-        with open(template_name, 'r') as fd:
-            return fd.read()
+    if template_file.exists():
+        return template_file.read_text()
 
     return DEFAULT_KEYMAP_C
 
@@ -83,15 +85,10 @@ def write(keyboard, keymap, layout, layers):
             An array of arrays describing the keymap. Each item in the inner array should be a string that is a valid QMK keycode.
     """
     keymap_c = generate(keyboard, layout, layers)
-    keymap_path = qmk.path.keymap(keyboard)
-    keymap_dir = os.path.join(keymap_path, keymap)
-    keymap_file = os.path.join(keymap_dir, 'keymap.c')
+    keymap_file = qmk.path.keymap(keyboard) / keymap / 'keymap.c'
 
-    if not os.path.exists(keymap_dir):
-        os.makedirs(keymap_dir)
-
-    with open(keymap_file, 'w') as keymap_fd:
-        keymap_fd.write(keymap_c)
+    keymap_file.parent.mkdir(parents=True, exist_ok=True)
+    keymap_file.write_text(keymap_c)
 
     return keymap_file
 
@@ -105,41 +102,29 @@ def list_keymaps(kb_name):
     Returns:
         a set with the names of the available keymaps
     """
-    # Parse all the rules.mk files for the keyboard
-    rules_mk = qmk.makefile.get_rules_mk(kb_name)
+    
+    # parse all the rules.mk files for the keyboard
+    rules_mk = qmk.makefile.get_rules_mk(keyboard_name)
+    names = set()
 
     if rules_mk:
-        # Start in qmk_firmware/keyboards
-        keyboards_dir = os.path.join(os.getcwd(), "keyboards")
-        # Find the path to the keyboard's directory
-        kb_path = os.path.join(keyboards_dir, kb_name)
-
-        # Traverse the directory tree until keyboards_dir
-        # and collect all directories that contain keymap.c files.
-        names = set()
+        # qmk_firmware/keyboards
+        keyboards_dir = Path.cwd() / "keyboards"
+        # path to the keyboard's directory
+        kb_path = keyboards_dir / keyboard_name
+        # walk up the directory tree until keyboards_dir
+        # and collect all directories' name with keymap.c file in it
         while kb_path != keyboards_dir:
-            keymaps_dir = os.path.join(kb_path, "keymaps")
-            names.update(union_keymaps(keymaps_dir))
-            kb_path = os.path.dirname(kb_path)
+            keymaps_dir = kb_path / "keymaps"
+            if keymaps_dir.exists():
+                names = names.union([keymap for keymap in os.listdir(str(keymaps_dir)) if (keymaps_dir / keymap / "keymap.c").is_file()])
+            kb_path = kb_path.parent
 
-        # If community layouts are supported, get them
+        # if community layouts are supported, get them
         if "LAYOUTS" in rules_mk:
             for layout in rules_mk["LAYOUTS"].split():
-                cl_path = os.path.join(os.getcwd(), "layouts", "community", layout)
-                names.update(union_keymaps(cl_path))
+                cl_path = Path.cwd() / "layouts" / "community" / layout
+                if cl_path.exists():
+                    names = names.union([keymap for keymap in os.listdir(str(cl_path)) if (cl_path / keymap / "keymap.c").is_file()])
+                    
     return sorted(names)
-
-
-def union_keymaps(path):
-    """ Return the set of all of the keymaps in the given directory
-
-    Args:
-        path: The directory to be searched
-
-    Returns:
-        A set of the keymaps in the directory, if any
-    """
-    output = set()
-    if os.path.exists(path):
-        output.update([keymap for keymap in os.listdir(path) if os.path.isfile(os.path.join(path, keymap, 'keymap.c'))])
-    return output

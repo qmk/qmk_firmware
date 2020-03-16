@@ -2,7 +2,7 @@
 
 <!---
   original document: d47809575:docs/contributing.md
-  git diff d47809575 HEAD docs/contributing.md | cat
+  git diff d47809575 HEAD -- docs/contributing.md | cat
 -->
 
 👍🎉 まず、これを読み貢献する時間を作ってくれてありがとうございます！🎉👍

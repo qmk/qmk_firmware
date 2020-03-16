@@ -1,24 +1,14 @@
 # QMK CLI
 
-This page describes how to setup and use the QMK CLI.
-
-# Overview
+## Overview
 
 The QMK CLI makes building and working with QMK keyboards easier. We have provided a number of commands to simplify and streamline tasks such as obtaining and compiling the QMK firmware, creating keymaps, and more.
 
-* [Global CLI](#global-cli)
-* [Local CLI](#local-cli)
-* [CLI Commands](#cli-commands)
+### Requirements
 
-# Requirements
+The CLI requires Python 3.5 or greater. We try to keep the number of requirements small but you will also need to install the packages listed in [`requirements.txt`](https://github.com/qmk/qmk_firmware/blob/master/requirements.txt). These are installed automatically when you install the QMK CLI.
 
-The CLI requires Python 3.5 or greater. We try to keep the number of requirements small but you will also need to install the packages listed in [`requirements.txt`](https://github.com/qmk/qmk_firmware/blob/master/requirements.txt).
-
-# Global CLI
-
-QMK provides an installable CLI that can be used to setup your QMK build environment, work with QMK, and which makes working with multiple copies of `qmk_firmware` easier. We recommend installing and updating this periodically.
-
-## Install Using Homebrew (macOS, some Linux)
+### Install Using Homebrew (macOS, some Linux)
 
 If you have installed [Homebrew](https://brew.sh) you can tap and install QMK:
 
@@ -29,7 +19,7 @@ export QMK_HOME='~/qmk_firmware' # Optional, set the location for `qmk_firmware`
 qmk setup  # This will clone `qmk/qmk_firmware` and optionally set up your build environment
 ```
 
-## Install Using easy_install or pip
+### Install Using easy_install or pip
 
 If your system is not listed above you can install QMK manually. First ensure that you have python 3.5 (or later) installed and have installed pip. Then install QMK with this command:
 
@@ -39,7 +29,7 @@ export QMK_HOME='~/qmk_firmware' # Optional, set the location for `qmk_firmware`
 qmk setup  # This will clone `qmk/qmk_firmware` and optionally set up your build environment
 ```
 
-## Packaging For Other Operating Systems
+### Packaging For Other Operating Systems
 
 We are looking for people to create and maintain a `qmk` package for more operating systems. If you would like to create a package for your OS please follow these guidelines:
 

@@ -52,7 +52,7 @@ void add_keylog(uint16_t keycode);
   LAYOUT_wrapper( \
       KC_ESC,  K01,     K02,     K03,     K04,     K05,                                             K06,     K07,     K08,     K09,     K0A,     KC_MINS, \
    LALT_T(KC_TAB), K11, K12,     K13,     K14,     K15,                                             K16,     K17,     K18,     K19,     K1A, RALT_T(KC_QUOT), \
-      OS_LSFT, CTL_T(K21), K22,  K23,     K24,     K25,     KC_NO,   KC_NO,       KC_NO,   KC_NO,   K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
+      OS_LSFT, CTL_T(K21), K22,  K23,     K24,     K25,     KC_NO,   KC_NO,  MEH(KC_MINS), KC_NO,   K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
                                  KC_MUTE, OS_LALT, KC_GRV,  KC_SPC,  BK_LWER,     DL_RAIS, KC_ENT,  OS_RGUI, UC(0x03A8), UC(0x2E2E) \
     )
 /* Re-pass though to allow templates to be used */
@@ -191,30 +191,14 @@ void render_keylogger_status(void) {
 void render_default_layer_state(void) {
     oled_write_P(PSTR("Layout: "), false);
     switch (get_highest_layer(default_layer_state)) {
-        case _QWERTY:
-            oled_write_ln_P(PSTR("Qwerty "), false);
-            break;
-        case _COLEMAK:
-            oled_write_ln_P(PSTR("Colemak"), false);
-            break;
-        case _DVORAK:
-            oled_write_ln_P(PSTR("Dvorak"), false);
-            break;
-        case _WORKMAN:
-            oled_write_ln_P(PSTR("Workman"), false);
-            break;
-        case _NORMAN:
-            oled_write_ln_P(PSTR("Norman"), false);
-            break;
-        case _MALTRON:
-            oled_write_ln_P(PSTR("Maltron"), false);
-            break;
-        case _EUCALYN:
-            oled_write_ln_P(PSTR("Eucalyn"), false);
-            break;
-        case _CARPLAX:
-            oled_write_ln_P(PSTR("Carplax"), false);
-            break;
+        case _QWERTY:  oled_write_ln_P(PSTR("Qwerty"), false); break;
+        case _COLEMAK: oled_write_ln_P(PSTR("Colemak"), false); break;
+        case _DVORAK:  oled_write_ln_P(PSTR("Dvorak"), false);  break;
+        case _WORKMAN: oled_write_ln_P(PSTR("Workman"), false); break;
+        case _NORMAN:  oled_write_ln_P(PSTR("Norman"), false);  break;
+        case _MALTRON: oled_write_ln_P(PSTR("Maltron"), false); break;
+        case _EUCALYN: oled_write_ln_P(PSTR("Eucalyn"), false); break;
+        case _CARPLAX: oled_write_ln_P(PSTR("Carplax"), false); break;
     }
 }
 
@@ -230,11 +214,11 @@ void render_layer_state(void) {
 
 void render_keylock_status(uint8_t led_usb_state) {
     oled_write_P(PSTR("Lock: "), false);
-    oled_write_P(PSTR("NUM"), led_usb_state & (1 << USB_LED_NUM_LOCK));
+    oled_write_P(PSTR("NUML"), led_usb_state & (1 << USB_LED_NUM_LOCK));
     oled_write_P(PSTR(" "), false);
     oled_write_P(PSTR("CAPS"), led_usb_state & (1 << USB_LED_CAPS_LOCK));
     oled_write_P(PSTR(" "), false);
-    oled_write_ln_P(PSTR("SCL"), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
+    oled_write_ln_P(PSTR("SCLK"), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
 }
 
 void render_mod_status(uint8_t modifiers) {
@@ -255,15 +239,21 @@ void render_bootmagic_status(void) {
         {{0x95, 0x96, 0}, {0xb5, 0xb6, 0}},
     };
     oled_write_P(PSTR("Boot  "), false);
-    oled_write_P(logo[0][0], !keymap_config.swap_lctl_lgui);
-    oled_write_P(logo[1][0], keymap_config.swap_lctl_lgui);
+    if (keymap_config.swap_lctl_lgui) {
+        oled_write_P(logo[1][0], false);
+    } else {
+        oled_write_P(logo[0][0], false);
+    }
     oled_write_P(PSTR(" "), false);
     oled_write_P(PSTR("NKRO"), keymap_config.nkro);
     oled_write_P(PSTR(" "), false);
     oled_write_ln_P(PSTR("GUI"), !keymap_config.no_gui);
     oled_write_P(PSTR("Magic "), false);
-    oled_write_P(logo[0][1], !keymap_config.swap_lctl_lgui);
-    oled_write_P(logo[1][1], keymap_config.swap_lctl_lgui);
+    if (keymap_config.swap_lctl_lgui) {
+        oled_write_P(logo[1][1], false);
+    } else {
+        oled_write_P(logo[0][1], false);
+    }
     oled_write_P(PSTR(" "), false);
     oled_write_P(PSTR("GRV"), keymap_config.swap_grave_esc);
     oled_write_P(PSTR("  "), false);
