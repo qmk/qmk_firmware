@@ -54,13 +54,13 @@ void autoshift_toggle(void) {
   }
 }
 
-#ifndef AUTO_SHIFT_SETUP
-
 void autoshift_enable(void) { autoshift_enabled = true; }
 void autoshift_disable(void) {
   autoshift_enabled = false;
   autoshift_flush();
 }
+
+#ifdef AUTO_SHIFT_SETUP
 void autoshift_timer_report(void) {
   char display[8];
 
@@ -84,25 +84,26 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
                 autoshift_toggle();
                 return true;
 
-#    ifndef AUTO_SHIFT_SETUP
-            case KC_ASUP:
-                autoshift_timeout += 5;
-                return true;
-            case KC_ASDN:
-                autoshift_timeout -= 5;
-                return true;
-
             case KC_ASON:
                 autoshift_enable();
                 return true;
             case KC_ASOFF:
                 autoshift_disable();
                 return true;
+                
+#    ifdef AUTO_SHIFT_SETUP
+                case KC_ASUP:
+                autoshift_timeout += 5;
+                return true;
+                case KC_ASDN:
+                autoshift_timeout -= 5;
+                return true;
 
             case KC_ASRP:
                 autoshift_timer_report();
                 return true;
 #    endif
+
 
 #    ifndef NO_AUTO_SHIFT_ALPHA
             case KC_A ... KC_Z:
