@@ -68,7 +68,10 @@ void safe_reset(qk_tap_dance_state_t *state, void *user_data) {
         // Reset the keyboard if you tap the key more than three times
         reset_keyboard();
         reset_tap_dance(state);
-    }
+    } else {
+				SEND_STRING(SS_LGUI(" "));
+				SEND_STRING("GitKraken.app" SS_TAP(X_ENTER));
+		}
 }; void tilde_home(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count > 2) {
 	register_code(KC_LSFT);
@@ -218,13 +221,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Thumb Layer
  * ,-----------------------------------------------------------------------------------------------------------.
- * | Reset  |        | SC_CAPF| SC_CAPP|        | KRAKEN |        |        |Input L |        |        | CMD +  |
- * |  (3x)  |        |        |        | MUTE   |        |        |        |        |        |        |        |
+ * | Vol +  |        | SC_CAPF| SC_CAPP|        | KRAKEN |        |        |Input L |        |        | CMD +  |
+ * |        |        |        |        | MUTE   |Reset(3x|        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        |        |        | TypeFu | VOL +  |        |        |        | Caps   | emoji  | iterm  | CMD -  |
+ * | Vol -  |        |        | TypeFu | VOL +  |        |        |        | Caps   | emoji  | iterm  | CMD -  |
  * |        |        |        |        |        |        |        |        | Lock   |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        |        | VS_Code|  Vim   | VOL -  |        |        |        |        |        |        |        |
+ * | Mute   |        | VS_Code|  Vim   | VOL -  |        |        |        |        |        |        |        |
  * |        |        |        |        |        |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        |        |        |        |        |        |        |        |  f()   |        |        |        |
@@ -232,9 +235,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------'
  */
 [_THUMB] = LAYOUT_planck_grid(
-    TD(TD_RESET), _______, SC_CAPF, SC_CAPP, KC__MUTE, KRAKEN, _______, _______, INPUT_L, _______, _______, TXT_PLS,
-    _______, _______, SPOTIFY, TYPE_FU, KC__VOLUP,   _______, _______, _______, KC_CAPS, EMOJI,   ITERM,   TXT_MIN,
-    _______, _______, VS_CODE, _______, KC__VOLDOWN, _______, _______, _______, _______, _______, _______, _______,
+    KC__VOLUP, _______, SC_CAPF, SC_CAPP, _______, TD(TD_RESET), _______, _______, INPUT_L, _______, _______, TXT_PLS,
+    KC__VOLDOWN, _______, SPOTIFY, TYPE_FU, _______,   _______, _______, _______, KC_CAPS, EMOJI,   ITERM,   TXT_MIN,
+    KC__MUTE, _______, VS_CODE, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______
 ),
 
@@ -303,13 +306,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
-		case KRAKEN:
-				if (record->event.pressed) {
-					SEND_STRING(SS_LGUI(" "));
-					SEND_STRING("GitKraken.app" SS_TAP(X_ENTER));
-				}
-				return false;
-				break;
     case ITERM:
         if (record->event.pressed) {
             SEND_STRING(SS_LGUI(" "));
