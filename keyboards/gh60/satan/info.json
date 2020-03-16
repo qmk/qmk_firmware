@@ -1,7 +1,10 @@
 {
-  "keyboard_name": "Satan GH60",
-  "url": "",
+  "keyboard_name": "GH60 Satan",
+  "url": "http://qmk.fm/keyboards/gh60",
   "maintainer": "qmk",
+  "keyboard_folder": "gh60",
+  "processor": "atmega32u4",
+  "manufacturer": "SATAN",
   "width": 15,
   "height": 5,
   "layouts": {
