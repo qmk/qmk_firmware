@@ -97,7 +97,7 @@ You'd want to replace the year, name, email and github username with your info.
 
 Additionally, this is a good place to document your code, if you wish to share it with others. 
 
-## Build All User Keymaps
+## Build All Keyboards That Support a Specific Keymap
 
 Want to check all your keymaps build in a single command? You can run:
 

@@ -57,7 +57,7 @@ Must be in keyboard directory with a default keymap, or in keymap directory for 
 qmk compile
 ```
 
-**Usage for building all user keymaps**:
+**Usage for building all keyboards that support a specific keymap**:
 
 ```
 qmk compile -kb all -km <keymap_name>
