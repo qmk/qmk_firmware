@@ -1,4 +1,4 @@
-/* Copyright 2019 Torben Hoffmann
+/* Copyright 2020
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,13 +14,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Sendstring lookup tables for Norman layouts
+// Sendstring lookup tables for Brazilian (ABNT2) layouts
 
 #pragma once
 
-#include "keymap_norman.h"
+#include "keymap_br_abnt2.h"
+#include "quantum.h"
 
 // clang-format off
+
+const uint8_t ascii_to_shift_lut[16] PROGMEM = {
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+
+    KCLUT_ENTRY(0, 1, 1, 1, 1, 1, 1, 0),
+    KCLUT_ENTRY(1, 1, 1, 1, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 1, 0, 1, 0, 1, 1),
+    KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
+    KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
+    KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
+    KCLUT_ENTRY(1, 1, 1, 0, 0, 0, 1, 1),
+    KCLUT_ENTRY(1, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 1, 1, 1, 0, 0)
+};
 
 const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // NUL   SOH      STX      ETX      EOT      ENQ      ACK      BEL
@@ -33,27 +54,27 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     //       !        "        #        $        %        &        '
-    KC_SPC,  NM_1,    NM_QUOT, NM_3,    NM_4,    NM_5,    NM_7,    NM_QUOT,
+    KC_SPC,  BR_1,    BR_QUOT, BR_3,    BR_4,    BR_5,    BR_7,    BR_QUOT,
     // (     )        *        +        ,        -        .        /
-    NM_9,    NM_0,    NM_8,    NM_EQL,  NM_COMM, NM_MINS, NM_DOT,  NM_SLSH,
+    BR_9,    BR_0,    BR_8,    BR_EQL,  BR_COMM, BR_MINS, BR_DOT,  BR_SLSH,
     // 0     1        2        3        4        5        6        7
-    NM_0,    NM_1,    NM_2,    NM_3,    NM_4,    NM_5,    NM_6,    NM_7,
+    BR_0,    BR_1,    BR_2,    BR_3,    BR_4,    BR_5,    BR_6,    BR_7,
     // 8     9        :        ;        <        =        >        ?
-    NM_8,    NM_9,    NM_SCLN, NM_SCLN, NM_COMM, NM_EQL,  NM_DOT,  NM_SLSH,
+    BR_8,    BR_9,    BR_SCLN, BR_SCLN, BR_COMM, BR_EQL,  BR_DOT,  BR_SLSH,
     // @     A        B        C        D        E        F        G
-    NM_2,    NM_A,    NM_B,    NM_C,    NM_D,    NM_E,    NM_F,    NM_G,
+    BR_2,    BR_A,    BR_B,    BR_C,    BR_D,    BR_E,    BR_F,    BR_G,
     // H     I        J        K        L        M        N        O
-    NM_H,    NM_I,    NM_J,    NM_K,    NM_L,    NM_M,    NM_N,    NM_O,
+    BR_H,    BR_I,    BR_J,    BR_K,    BR_L,    BR_M,    BR_N,    BR_O,
     // P     Q        R        S        T        U        V        W
-    NM_P,    NM_Q,    NM_R,    NM_S,    NM_T,    NM_U,    NM_V,    NM_W,
+    BR_P,    BR_Q,    BR_R,    BR_S,    BR_T,    BR_U,    BR_V,    BR_W,
     // X     Y        Z        [        \        ]        ^        _
-    NM_X,    NM_Y,    NM_Z,    NM_LBRC, NM_BSLS, NM_RBRC, NM_6,    NM_MINS,
+    BR_X,    BR_Y,    BR_Z,    BR_LBRC, BR_BSLS, BR_RBRC, BR_TILD, BR_MINS,
     // `     a        b        c        d        e        f        g
-    NM_GRV,  NM_A,    NM_B,    NM_C,    NM_D,    NM_E,    NM_F,    NM_G,
+    BR_ACUT, BR_A,    BR_B,    BR_C,    BR_D,    BR_E,    BR_F,    BR_G,
     // h     i        j        k        l        m        n        o
-    NM_H,    NM_I,    NM_J,    NM_K,    NM_L,    NM_M,    NM_N,    NM_O,
+    BR_H,    BR_I,    BR_J,    BR_K,    BR_L,    BR_M,    BR_N,    BR_O,
     // p     q        r        s        t        u        v        w
-    NM_P,    NM_Q,    NM_R,    NM_S,    NM_T,    NM_U,    NM_V,    NM_W,
+    BR_P,    BR_Q,    BR_R,    BR_S,    BR_T,    BR_U,    BR_V,    BR_W,
     // x     y        z        {        |        }        ~        DEL
-    NM_X,    NM_Y,    NM_Z,    NM_LBRC, NM_BSLS, NM_RBRC, NM_GRV,  KC_DEL
+    BR_X,    BR_Y,    BR_Z,    BR_LBRC, BR_BSLS, BR_RBRC, BR_TILD, KC_DEL
 };

@@ -1,4 +1,4 @@
-/* Copyright 2018 Patrick Hener
+/* Copyright 2019
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,11 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Sendstring lookup tables for German layouts
+// Sendstring lookup tables for Slovenian layouts
 
 #pragma once
 
-#include "keymap_german.h"
+#include "keymap_slovenian.h"
 #include "quantum.h"
 
 // clang-format off
@@ -29,7 +29,7 @@ const uint8_t ascii_to_shift_lut[16] PROGMEM = {
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
 
-    KCLUT_ENTRY(0, 1, 1, 0, 1, 1, 1, 1),
+    KCLUT_ENTRY(0, 1, 1, 1, 1, 1, 1, 0),
     KCLUT_ENTRY(1, 1, 1, 0, 0, 0, 0, 1),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 1, 1, 0, 1, 1, 1),
@@ -37,7 +37,7 @@ const uint8_t ascii_to_shift_lut[16] PROGMEM = {
     KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
     KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
     KCLUT_ENTRY(1, 1, 1, 0, 0, 0, 0, 1),
-    KCLUT_ENTRY(1, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0)
@@ -56,8 +56,8 @@ const uint8_t ascii_to_altgr_lut[16] PROGMEM = {
     KCLUT_ENTRY(1, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 1, 1, 1, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
+    KCLUT_ENTRY(0, 0, 0, 1, 1, 1, 1, 0),
+    KCLUT_ENTRY(1, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 1, 1, 1, 1, 0)
@@ -74,27 +74,27 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     //       !        "        #        $        %        &        '
-    KC_SPC,  DE_1,    DE_2,    DE_HASH, DE_4,    DE_5,    DE_6,    DE_HASH,
+    KC_SPC,  SI_1,    SI_2,    SI_3,    SI_4,    SI_5,    SI_6,    SI_QUOT,
     // (     )        *        +        ,        -        .        /
-    DE_8,    DE_9,    DE_PLUS, DE_PLUS, DE_COMM, DE_MINS, DE_DOT,  DE_7,
+    SI_8,    SI_9,    SI_PLUS, SI_PLUS, SI_COMM, SI_MINS, SI_DOT,  SI_7,
     // 0     1        2        3        4        5        6        7
-    DE_0,    DE_1,    DE_2,    DE_3,    DE_4,    DE_5,    DE_6,    DE_7,
+    SI_0,    SI_1,    SI_2,    SI_3,    SI_4,    SI_5,    SI_6,    SI_7,
     // 8     9        :        ;        <        =        >        ?
-    DE_8,    DE_9,    DE_DOT,  DE_COMM, DE_LABK, DE_0,    DE_LABK, DE_SS,
+    SI_8,    SI_9,    SI_DOT,  SI_COMM, SI_LABK, SI_0,    SI_LABK, SI_QUOT,
     // @     A        B        C        D        E        F        G
-    DE_Q,    DE_A,    DE_B,    DE_C,    DE_D,    DE_E,    DE_F,    DE_G,
+    SI_V,    SI_A,    SI_B,    SI_C,    SI_D,    SI_E,    SI_F,    SI_G,
     // H     I        J        K        L        M        N        O
-    DE_H,    DE_I,    DE_J,    DE_K,    DE_L,    DE_M,    DE_N,    DE_O,
+    SI_H,    SI_I,    SI_J,    SI_K,    SI_L,    SI_M,    SI_N,    SI_O,
     // P     Q        R        S        T        U        V        W
-    DE_P,    DE_Q,    DE_R,    DE_S,    DE_T,    DE_U,    DE_V,    DE_W,
+    SI_P,    SI_Q,    SI_R,    SI_S,    SI_T,    SI_U,    SI_V,    SI_W,
     // X     Y        Z        [        \        ]        ^        _
-    DE_X,    DE_Y,    DE_Z,    DE_8,    DE_SS,   DE_9,    DE_CIRC, DE_MINS,
+    SI_X,    SI_Y,    SI_Z,    SI_F,    SI_Q,    SI_G,    SI_3,    SI_MINS,
     // `     a        b        c        d        e        f        g
-    DE_ACUT, DE_A,    DE_B,    DE_C,    DE_D,    DE_E,    DE_F,    DE_G,
+    SI_7,    SI_A,    SI_B,    SI_C,    SI_D,    SI_E,    SI_F,    SI_G,
     // h     i        j        k        l        m        n        o
-    DE_H,    DE_I,    DE_J,    DE_K,    DE_L,    DE_M,    DE_N,    DE_O,
+    SI_H,    SI_I,    SI_J,    SI_K,    SI_L,    SI_M,    SI_N,    SI_O,
     // p     q        r        s        t        u        v        w
-    DE_P,    DE_Q,    DE_R,    DE_S,    DE_T,    DE_U,    DE_V,    DE_W,
+    SI_P,    SI_Q,    SI_R,    SI_S,    SI_T,    SI_U,    SI_V,    SI_W,
     // x     y        z        {        |        }        ~        DEL
-    DE_X,    DE_Y,    DE_Z,    DE_7,    DE_LABK, DE_0,    DE_PLUS, KC_DEL
+    SI_X,    SI_Y,    SI_Z,    SI_B,    SI_W,    SI_N,    SI_1,    KC_DEL
 };
