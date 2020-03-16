@@ -19,6 +19,7 @@
 #pragma once
 
 #include "keymap_dvp.h"
+#include "quantum.h"
 
 // clang-format off
 
