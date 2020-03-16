@@ -1,4 +1,4 @@
-#i2c_scanner
+# i2c_scanner
 
 Aiming to provide a more qmk friendly version of <https://playground.arduino.cc/Main/I2cScanner/>
 
