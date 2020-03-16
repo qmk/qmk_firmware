@@ -60,16 +60,16 @@ const rgblight_segment_t PROGMEM base[] = RGBLIGHT_LAYER_SEGMENTS(
 );
 
 const rgblight_segment_t PROGMEM left[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 12, HSV_RED}
+    {0, 12, HSV_MAGENTA}
 );
 
 const rgblight_segment_t PROGMEM right[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 12, HSV_GOLD}
+    {0, 12, HSV_RED}
 );
 
 const rgblight_segment_t PROGMEM capslock[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 3, HSV_WHITE},
-    {9, 3, HSV_WHITE}
+    {0, 3, HSV_GOLD},
+    {9, 3, HSV_GOLD}
 );
 
 // HSV_SPRINGGREEN //YES //YES
@@ -78,6 +78,7 @@ const rgblight_segment_t PROGMEM capslock[] = RGBLIGHT_LAYER_SEGMENTS(
 // HSV_RED //YES
 // HSV_ORANGE //YES
 // HSV_WHITE //YES
+// HSV_MAGENTA //YES
 // todo add shift colors
 const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     base, left, right, capslock
@@ -88,18 +89,31 @@ const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 //github.com/qmk/qmk_firmware/pull/5338/files  //might not work on split kbs
 //todo idea use TT on left layer
 void keyboard_post_init_user(void) {
-    rgblight_sethsv_noeeprom(HSV_BLUE);
+    rgblight_sethsv_noeeprom(HSV_SPRINGGREEN);
     rgblight_layers = rgb_layers;
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(0, layer_state_cmp(state, 0));
-    rgblight_set_layer_state(1, layer_state_cmp(state, 1));
-    rgblight_set_layer_state(2, layer_state_cmp(state, 2));
+    rgblight_set_layer_state(0, layer_state_cmp(state, _BASE));
+    rgblight_set_layer_state(1, layer_state_cmp(state, _L));
+    rgblight_set_layer_state(2, layer_state_cmp(state, _R));
     return state;
 }
 
+bool is_shift_pressed = false;
+
 bool led_update_user(led_t led_state) {
-    rgblight_set_layer_state(3, led_state.caps_lock);
+    rgblight_set_layer_state(3, is_shift_pressed ^ led_state.caps_lock);
     return true;
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case KC_LSFT:
+        case KC_RSFT:
+            is_shift_pressed = record->event.pressed;
+            rgblight_set_layer_state(3, is_shift_pressed ^ host_keyboard_led_state().caps_lock);
+        default:
+            return true;
+    }
 }
