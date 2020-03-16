@@ -219,54 +219,54 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case Undo:
             if (record->event.pressed) {
                 if (user_config.osIsWindows == 1) {
-                    SEND_STRING(SS_LCTL("z"));
+                    tap_code16(C(KC_Z));
                 } else if (user_config.osIsWindows == 0) {
-                    SEND_STRING(SS_LGUI("z"));
+                    tap_code16(G(KC_Z));
                 }
             }
             break;
         case Cut:
             if (record->event.pressed) {
                 if (user_config.osIsWindows == 1) {
-                    SEND_STRING(SS_LCTL("x"));
+                    tap_code16(C(KC_X));
                 } else if (user_config.osIsWindows == 0) {
-                    SEND_STRING(SS_LGUI("x"));
+                    tap_code16(G(KC_X));
                 }
             }
             break;
         case Copy:
             if (record->event.pressed) {
                 if (user_config.osIsWindows == 1) {
-                    SEND_STRING(SS_LCTL("c"));
+                    tap_code16(C(KC_C));
                 } else if (user_config.osIsWindows == 0) {
-                    SEND_STRING(SS_LGUI("c"));
+                    tap_code16(G(KC_C));
                 }
             }
             break;
         case Paste:
             if (record->event.pressed) {
                 if (user_config.osIsWindows == 1) {
-                    SEND_STRING(SS_LCTL("v"));
+                    tap_code16(C(KC_V));
                 } else if (user_config.osIsWindows == 0) {
-                    SEND_STRING(SS_LGUI("v"));
+                    tap_code16(G(KC_V));
                 }
             }
             break;
         case PrvWord:
             if (record->event.pressed) {
                 if (user_config.osIsWindows == 1) {
-                    SEND_STRING(SS_LCTL(SS_TAP(X_LEFT())));
+                    tap_code16(C(KC_LEFT));
                 } else if (user_config.osIsWindows == 0) {
-                    SEND_STRING(SS_LALT(SS_TAP(X_LEFT())));
+                    tap_code16(A(KC_LEFT));
                 }
             }
             break;
         case NxtWord:
             if (record->event.pressed) {
                 if (user_config.osIsWindows == 1) {
-                    SEND_STRING(SS_LCTL(SS_TAP(X_RIGHT())));
+                    tap_code16(C(KC_RGHT));
                 } else if (user_config.osIsWindows == 0) {
-                    SEND_STRING(SS_LALT(SS_TAP(X_RIGHT())));
+                    tap_code16(A(KC_RGHT));
                 }
             }
             break;
@@ -296,16 +296,16 @@ void matrix_scan_user(void) {
         // Screenshot
         SEQ_ONE_KEY(KC_S) {
             if (user_config.osIsWindows == 1) {
-                SEND_STRING(SS_LGUI("\nS"));
+                tap_code16(S(G(KC_S)));
             } else if (user_config.osIsWindows == 0) {
-                SEND_STRING(SS_LGUI(SS_LSFT("4")));
+                tap_code16(S(G(KC_4)));
             }
         }
 
         // Video
         SEQ_ONE_KEY(KC_V) {
             if (user_config.osIsWindows == 0) {
-                SEND_STRING(SS_LGUI(SS_LSFT("5")));
+                tap_code16(S(G(KC_5)));
             }
         }
 
@@ -314,7 +314,7 @@ void matrix_scan_user(void) {
             if (user_config.osIsWindows == 1) {
                 SEND_STRING(SS_LGUI("x") "u" "h");
             } else if (user_config.osIsWindows == 0) {
-                SEND_STRING(SS_LGUI(SS_LALT(SS_TAP(X_PWR()))));
+                tap_code16(A(G(KC_PWR)));
             }
         }
     }
