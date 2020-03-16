@@ -15,6 +15,15 @@
  */
 #include QMK_KEYBOARD_H
 
+typedef union {
+    uint32_t raw;
+    struct {
+        bool osIsWindows;
+    };
+} user_config_t;
+
+user_config_t user_config;
+
 enum layers {
     _QWERTY = 0,
     _COLEMAK,
@@ -26,7 +35,13 @@ enum layers {
 
 enum custom_keycodes {
     Qwerty = SAFE_RANGE,
-    Colemak
+    Colemak,
+    Undo,
+    Cut,
+    Copy,
+    Paste,
+    NxtWord,
+    PrvWord
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -87,9 +102,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_NAV] = LAYOUT(
-      _______, _______, _______, KC_WH_U, _______, _______,                                     _______, _______,  KC_UP , _______, _______, _______,
-      _______, _______, KC_LCTL, KC_WH_D, KC_LSFT, KC_BSPC,                                     KC_BSPC, KC_LEFT, KC_DOWN,KC_RIGHT, KC_DEL, _______,
-      _______, KC_UNDO, KC_CUT , KC_COPY,KC_PASTE, _______, XXXXXXX, _______, _______, XXXXXXX, _______, KC_HOME, _______, KC_END, _______, _______,
+      _______, _______, _______, KC_WH_U, _______, _______,                                     _______, PrvWord, KC_UP  , NxtWord, _______, _______,
+      _______, _______, KC_LCTL, KC_WH_D, KC_LSFT, KC_BSPC,                                     KC_BSPC, KC_LEFT, KC_DOWN,KC_RIGHT, KC_DEL , _______,
+      _______,  Undo  ,   Cut  ,  Copy  , Paste  , _______, XXXXXXX, _______, _______, XXXXXXX, _______, KC_HOME, _______, KC_END , _______, _______,
                                  _______, _______, _______, _______, KC_SPC , _______, _______, _______, _______, _______
     ),
 
@@ -179,7 +194,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void keyboard_post_init_user(void) {
     // Call the post init code.
-    rgblight_enable_noeeprom(); // enables Rgb, without saving settings
+
+    // Read the user config from EEPROM
+    user_config.raw = eeconfig_read_user();
+
+    // Default RGB settings, without saving settings
+    rgblight_enable_noeeprom();
     rgblight_sethsv_noeeprom(HSV_CYAN);
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
 }
@@ -196,6 +216,60 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 set_single_persistent_default_layer(_COLEMAK);
             }
             break;
+        case Undo:
+            if (record->event.pressed) {
+                if (user_config.osIsWindows == 1) {
+                    SEND_STRING(SS_LCTL("z"));
+                } else if (user_config.osIsWindows == 0) {
+                    SEND_STRING(SS_LGUI("z"));
+                }
+            }
+            break;
+        case Cut:
+            if (record->event.pressed) {
+                if (user_config.osIsWindows == 1) {
+                    SEND_STRING(SS_LCTL("x"));
+                } else if (user_config.osIsWindows == 0) {
+                    SEND_STRING(SS_LGUI("x"));
+                }
+            }
+            break;
+        case Copy:
+            if (record->event.pressed) {
+                if (user_config.osIsWindows == 1) {
+                    SEND_STRING(SS_LCTL("c"));
+                } else if (user_config.osIsWindows == 0) {
+                    SEND_STRING(SS_LGUI("c"));
+                }
+            }
+            break;
+        case Paste:
+            if (record->event.pressed) {
+                if (user_config.osIsWindows == 1) {
+                    SEND_STRING(SS_LCTL("v"));
+                } else if (user_config.osIsWindows == 0) {
+                    SEND_STRING(SS_LGUI("v"));
+                }
+            }
+            break;
+        case PrvWord:
+            if (record->event.pressed) {
+                if (user_config.osIsWindows == 1) {
+                    SEND_STRING(SS_LCTL(SS_TAP(X_LEFT())));
+                } else if (user_config.osIsWindows == 0) {
+                    SEND_STRING(SS_LALT(SS_TAP(X_LEFT())));
+                }
+            }
+            break;
+        case NxtWord:
+            if (record->event.pressed) {
+                if (user_config.osIsWindows == 1) {
+                    SEND_STRING(SS_LCTL(SS_TAP(X_RIGHT())));
+                } else if (user_config.osIsWindows == 0) {
+                    SEND_STRING(SS_LALT(SS_TAP(X_RIGHT())));
+                }
+            }
+            break;
     }
     return true;
 };
@@ -207,20 +281,41 @@ void matrix_scan_user(void) {
         leading = false;
         leader_end();
 
-        SEQ_TWO_KEYS(KC_M, KC_S) { // Mac screenshot
-              SEND_STRING(SS_LGUI(SS_LSFT("4")));
+        // Set current OS indicator to macOs
+        SEQ_ONE_KEY(KC_M) {
+            user_config.osIsWindows = false;
+            eeconfig_update_user(user_config.raw);
         }
-        SEQ_TWO_KEYS(KC_W, KC_S) { // Win screenshot
-              SEND_STRING(SS_LGUI("\nS"));
+
+        // Set current OS indicator to Windows
+        SEQ_ONE_KEY(KC_W) {
+            user_config.osIsWindows = true;
+            eeconfig_update_user(user_config.raw);
         }
-        SEQ_TWO_KEYS(KC_M, KC_V) { // Mac video
-            SEND_STRING(SS_LGUI(SS_LSFT("5")));
+
+        // Screenshot
+        SEQ_ONE_KEY(KC_S) {
+            if (user_config.osIsWindows == 1) {
+                SEND_STRING(SS_LGUI("\nS"));
+            } else if (user_config.osIsWindows == 0) {
+                SEND_STRING(SS_LGUI(SS_LSFT("4")));
+            }
         }
-        SEQ_TWO_KEYS(KC_M, KC_P) { // Mac Sleep
-            SEND_STRING(SS_LGUI(SS_LALT(SS_TAP(X_PWR()))));
+
+        // Video
+        SEQ_ONE_KEY(KC_V) {
+            if (user_config.osIsWindows == 0) {
+                SEND_STRING(SS_LGUI(SS_LSFT("5")));
+            }
         }
-        SEQ_TWO_KEYS(KC_W, KC_P) { // Win hibernate
-            SEND_STRING(SS_LGUI("x") "u" "h");
+
+        // Sleep
+        SEQ_ONE_KEY(KC_P) {
+            if (user_config.osIsWindows == 1) {
+                SEND_STRING(SS_LGUI("x") "u" "h");
+            } else if (user_config.osIsWindows == 0) {
+                SEND_STRING(SS_LGUI(SS_LALT(SS_TAP(X_PWR()))));
+            }
         }
     }
 }

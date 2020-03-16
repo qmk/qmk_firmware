@@ -33,7 +33,7 @@
 
 #define TAPPING_TERM 200
 
-// Turn off on slave 
+// Turn off on slave
 #define WAIT_FOR_USB
 
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
