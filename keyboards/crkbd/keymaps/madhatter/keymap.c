@@ -36,7 +36,7 @@ void add_keylog(uint16_t keycode);
 
 extern uint8_t is_master;
 
-enum layer {
+enum corny_layers {
     _QWERTY,
     _LOWER,
     _RAISE,
@@ -48,7 +48,6 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   ADJUST,
-  BACKLIT,
   RGBRST
 };
 
