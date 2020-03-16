@@ -52,7 +52,7 @@
   * Simple Keycodes
     * [Full List](keycodes.md)
     * [Basic Keycodes](keycodes_basic.md)
-    * [Modifiers](feature_advanced_keycodes.md)
+    * [Modifier Keys](feature_advanced_keycodes.md)
     * [Quantum Keycodes](quantum_keycodes.md)
 
   * Advanced Keycodes
