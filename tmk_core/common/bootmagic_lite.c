@@ -1,12 +1,5 @@
 #include "quantum.h"
 
-#ifndef BOOTMAGIC_LITE_COLUMN
-#    define BOOTMAGIC_LITE_COLUMN 0
-#endif
-#ifndef BOOTMAGIC_LITE_ROW
-#    define BOOTMAGIC_LITE_ROW 0
-#endif
-
 bool is_keyboard_left(void);
 
 /** \brief The lite version of TMK's bootmagic based on Wilba.
