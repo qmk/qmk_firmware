@@ -19,7 +19,7 @@
 
 /* ---- mousekey */
 
-#ifdef CUSTOM_MOUSEKEY
+#ifdef MOUSEKEY_ENABLE
 
 #define MOUSEKEY_DELAY             48
 #define MOUSEKEY_INTERVAL          24
