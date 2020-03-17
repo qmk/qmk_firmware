@@ -50,6 +50,11 @@ PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLAT
 endif
 include $(PLATFORM_MK)
 
+# Bootloader address
+ifdef STM32_BOOTLOADER_ADDRESS
+    OPT_DEFS += -DSTM32_BOOTLOADER_ADDRESS=$(STM32_BOOTLOADER_ADDRESS)
+endif
+
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/bootloader_defs.h)","")
     OPT_DEFS += -include $(KEYBOARD_PATH_5)/bootloader_defs.h
 else ifneq ("$(wildcard $(KEYBOARD_PATH_5)/boards/$(BOARD)/bootloader_defs.h)","")
