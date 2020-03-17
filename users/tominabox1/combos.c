@@ -21,7 +21,7 @@ enum combo_events {
 const uint16_t PROGMEM caps_combo[] = {KC_M, KC_V, COMBO_END};
 #endif
 #ifndef KEYBOARD_crkbd_rev1
-const uint16_t PROGMEM caps_combo[] = {KC_K, KC_V, COMBO_END};
+const uint16_t PROGMEM caps_combo[] = {KC_D, KC_H, COMBO_END};
 #endif
 const uint16_t PROGMEM cret[] = {KC_QUOT, KC_O, COMBO_END};
 const uint16_t PROGMEM combo_pp[] = {KC_7, KC_9, COMBO_END};
