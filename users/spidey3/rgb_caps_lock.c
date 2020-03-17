@@ -31,7 +31,7 @@ void matrix_init_user_rgb(void)
 
 #ifdef CONSOLE_ENABLE
   uprintf("matrix_init_user: Saved mode: %u, hue: %u, sat: %u, val: %u\n", rgb_mode, rgb_hue, rgb_sat, rgb_val);
-#endif 
+#endif
 }
 
 bool led_update_user(led_t led_state) {
@@ -48,7 +48,7 @@ bool led_update_user(led_t led_state) {
 
 #ifdef CONSOLE_ENABLE
     if (debug_enable) { uprintf("CAPS_LOCK ON: Saved mode: %u, hue: %u, sat: %u, val: %u\n", rgb_mode, rgb_hue, rgb_sat, rgb_val); }
-#endif 
+#endif
 
   } else if (rgb_saved) {
     rgblight_mode(rgb_mode);
@@ -57,7 +57,7 @@ bool led_update_user(led_t led_state) {
 
 #ifdef CONSOLE_ENABLE
     if (debug_enable) { uprintf("CAPS_LOCK OFF: Restored mode: %u, hue: %u, sat: %u, val: %u\n", rgb_mode, rgb_hue, rgb_sat, rgb_val); }
-#endif 
+#endif
   }
 
   return true; // Continue to process the led state change
@@ -69,9 +69,9 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
     case SPI_GLO:
       if (record->event.pressed) {
         spidey_swirl();
-#ifdef CONSOLE_ENABLE                                                                                                                                                                                 
+#ifdef CONSOLE_ENABLE
         if (debug_enable) { print("process_record_user_rgb: FAV_GLO\n"); }
-#endif       
+#endif
       }
       break;
   }
