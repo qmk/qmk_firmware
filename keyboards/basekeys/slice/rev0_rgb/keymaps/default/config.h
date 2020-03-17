@@ -15,11 +15,9 @@
  */
 
 #pragma once
-//#define EE_HANDS
-//#define SPLIT_USB_DETECT
+#define EE_HANDS
 /* Select hand configuration */
 
-#define FLIP_HALF
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 180
-#define MASTER_RIGHT
+//#define MASTER_RIGHT
