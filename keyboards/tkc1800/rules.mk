@@ -1,8 +1,6 @@
 # MCU name
 MCU = at90usb1286
 
-BOARD = LEONARDO
-
 # Bootloader selection
 #   Teensy       halfkay
 #   Pro Micro    caterina
