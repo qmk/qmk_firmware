@@ -93,7 +93,7 @@
   * [Macros](he-il/feature_macros.md)
   * [Mouse Keys](he-il/feature_mouse_keys.md)
   * [OLED Driver](he-il/feature_oled_driver.md)
-  * [One Shot Keys](he-il/feature_advanced_keycodes.md#one-shot-keys)
+  * [One Shot Keys](he-il/one_shot_keys.md)
   * [Pointing Device](he-il/feature_pointing_device.md)
   * [PS/2 Mouse](he-il/feature_ps2_mouse.md)
   * [RGB Lighting](he-il/feature_rgblight.md)
@@ -124,7 +124,7 @@
 * נושאים נוספים
   * [שימוש ב - Eclipse עם QMK](he-il/other_eclipse.md)
   * [שימוש ב - VSCode עם QMK](he-il/other_vscode.md)
-  * [תמיכה](he-il/support.md)
+  * [תמיכה](he-il/getting_started_getting_help.md)
   * [כיצד להוסיף תרגום](he-il/translating.md)
 
 * QMK מבפנים (בתהליך)

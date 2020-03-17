@@ -1,6 +1,5 @@
 #include "curry.h"
 
-#ifdef OLED_DRIVER_ENABLE
 #define KEYLOGGER_LENGTH 5
 static uint32_t oled_timer                       = 0;
 static char     keylog_str[KEYLOGGER_LENGTH + 1] = {"\n"};
@@ -26,6 +25,7 @@ static const char PROGMEM code_to_name[0xFF] = {
     ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '        // Fx
 };
 
+// clang-format on
 void add_keylog(uint16_t keycode);
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
@@ -49,7 +49,7 @@ void add_keylog(uint16_t keycode) {
 }
 
 void render_keylogger_status(void) {
-    oled_write_P(PSTR("Keys"), false);
+    oled_write_P(PSTR("Keys:"), false);
     oled_write(keylog_str, false);
 }
 
@@ -64,6 +64,9 @@ void render_default_layer_state(void) {
             break;
         case _DVORAK:
             oled_write_P(PSTR(" DVRK"), false);
+            break;
+        case _WORKMAN:
+            oled_write_P(PSTR(" WRKM"), false);
             break;
     }
 }
@@ -139,11 +142,11 @@ void oled_task_user(void) {
         oled_off();
         return;
     }
-#    ifndef SPLIT_KEYBOARD
+#if !defined(SPLIT_KEYBOARD)
     else {
         oled_on();
     }
-#    endif
+#endif
     if (is_keyboard_master()) {
         render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
@@ -158,5 +161,3 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
-
-#endif
