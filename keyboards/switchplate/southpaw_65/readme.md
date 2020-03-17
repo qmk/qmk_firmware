@@ -14,7 +14,7 @@ Left Hand Number Pad Keyboard with 85 Keys & RGB LED Underglow
 
 Make example for this keyboard (after setting up your build environment):
 
-    make southpaw_65:default
+    make switchplate/southpaw_65:default
 
 Install examples:
 
