@@ -8,9 +8,9 @@ Left Hand Number Pad Keyboard with 85 Keys & RGB LED Underglow
 - iso and ansi support
 - Uses Kimera core
 
-Keyboard Maintainer: QMK Community
-Hardware Supported: XD85
-Hardware Availability: [Geekhack GB Thread](https://geekhack.org/index.php?topic=92344.0)
+* Keyboard Maintainer: QMK Community
+* Hardware Supported: Southpaw Extended 65%
+* Hardware Availability: [Geekhack GB Thread](https://geekhack.org/index.php?topic=92344.0)
 
 Make example for this keyboard (after setting up your build environment):
 
