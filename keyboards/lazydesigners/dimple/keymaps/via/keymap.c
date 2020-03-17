@@ -13,10 +13,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[3] = LAYOUT(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO)
 };
 
-void led_set_user(uint8_t usb_led) {
-if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-	dimple_led_on();
-	} else {
-	dimple_led_off();
-	}
+void led_update_user(led_t led_state) {
+    if (led_state.caps_lock) {
+        dimple_led_on();
+    } else {
+        dimple_led_off();
+    }
+    return false;
 }
