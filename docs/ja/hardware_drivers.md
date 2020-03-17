@@ -6,7 +6,7 @@
   git diff c9e3fa6f7 HEAD -- docs/hardware_drivers.md | cat
 -->
 
-QMK はたくさんの異なるハードウェアで使われています。最も一般的な MCU とマトリクス構成をサポートしていますが、キーボードへ他のハードウェアを追加し制御するためのドライバーもいくつか用意されています。例えば、マウスやポインティングデバイス、分割キーボード用の IO エキスパンダ、Bluetooth モジュール、LCD、OLED、TFT 液晶などがあります。
+QMK はたくさんの異なるハードウェアで使われています。最も一般的な MCU とマトリックス構成をサポートしていますが、キーボードへ他のハードウェアを追加し制御するためのドライバーもいくつか用意されています。例えば、マウスやポインティングデバイス、分割キーボード用の IO エキスパンダ、Bluetooth モジュール、LCD、OLED、TFT 液晶などがあります。
 
 <!-- FIXME: This should talk about how drivers are integrated into QMK and how you can add your own driver.
 
@@ -34,11 +34,11 @@ WS2811/WS2812{a,b,c} LED のサポート。 詳しくは [RGB ライト](ja/feat
 
 ## IS31FL3731
 
-最大2つの LED ドライバーのサポート。各ドライバーは、I2C を使って個別に LED を制御する2つのチャーリープレクスマトリクスを実装しています。最大144個の単色 LED か32個の RGB LED を使用できます。ドライバーの設定方法の詳細は[RGB マトリクス](ja/feature_rgb_matrix.md)を参照して下さい。
+最大2つの LED ドライバーのサポート。各ドライバーは、I2C を使って個別に LED を制御する2つのチャーリープレクスマトリックスを実装しています。最大144個の単色 LED か32個の RGB LED を使用できます。ドライバーの設定方法の詳細は[RGB マトリックス](ja/feature_rgb_matrix.md)を参照して下さい。
 
 ## IS31FL3733
 
-拡張の余地がある最大1つの LED ドライバーのサポート。各ドライバーは192個の単色 LED か64個の RGB LED を制御できます。ドライバーの設定方法の詳細は [RGB マトリクス](ja/feature_rgb_matrix.md)を参照して下さい。
+拡張の余地がある最大1つの LED ドライバーのサポート。各ドライバーは192個の単色 LED か64個の RGB LED を制御できます。ドライバーの設定方法の詳細は [RGB マトリックス](ja/feature_rgb_matrix.md)を参照して下さい。
 
 ## 24xx シリーズ 外部 I2C EEPROM
 
