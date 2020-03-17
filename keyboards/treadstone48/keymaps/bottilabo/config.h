@@ -22,14 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // place overrides here
 
-#ifdef TAPPING_TERM
-#undef TAPPING_TERM
-#endif
-#define TAPPING_TERM 225
-// #define PREVENT_STUCK_MODIFIERS
-// #define IGNORE_MOD_TAP_INTERRUPT
-#define TAPPING_TERM_PER_KEY
-
 #ifdef MOUSEKEY_ENABLE
   #undef MOUSEKEY_INTERVAL
   #define MOUSEKEY_INTERVAL 1
@@ -60,13 +52,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    //#define RGBLIGHT_EFFECT_ALTERNATING
 #endif
 
-
-//#define PERMISSIVE_HOLD
-//#define TAPPING_FORCE_HOLD   // これがあるとキーリピートが効かない
-//#define RETRO_TAPPING
-//#define IGNORE_MOD_TAP_INTERRUPT
-
-#undef  TAPPING_TERM
-#define TAPPING_TERM 175 
-#define ROMAJI_TERM 75
 

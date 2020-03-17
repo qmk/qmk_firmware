@@ -20,9 +20,3 @@
 // #define USE_SERIAL
 // #define USE_I2C
 
-// #define MASTER_RIGHT
-#undef RETRO_TAPPING
-#undef TAPPING_FORCE_HOLD
-#undef PERMISSIVE_HOLD
-#undef TAPPING_TERM
-#define TAPPING_TERM 300

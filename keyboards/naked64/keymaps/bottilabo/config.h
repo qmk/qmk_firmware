@@ -76,8 +76,3 @@
 #define RGBLIGHT_VAL_STEP 17
 
 
-
-//#define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 250 
-#define TAPPING_TERM_PER_KEY
-#define ROMAJI_TERM 75

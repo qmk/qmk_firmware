@@ -33,17 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define USE_SERIAL_PD2
 
-#undef RETRO_TAPPING
-#undef TAPPING_FORCE_HOLD
-#undef PERMISSIVE_HOLD
-#undef TAPPING_TERM
-#define TAPPING_TERM 300
-
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
-#define DISABLE_LEADER
-
 //#define RGBLIGHT_ENABLE
 
 

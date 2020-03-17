@@ -31,15 +31,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SSD1306OLED
 
 #define USE_SERIAL_PD2
-
-//#define HAS_THUMBROW
-
-#undef PERMISSIVE_HOLD
-#undef TAPPING_FORCE_HOLD   // これがあるとキーリピートが効かない
-#undef RETRO_TAPPING
-#undef IGNORE_MOD_TAP_INTERRUPT
-
-#undef  TAPPING_TERM
-#define TAPPING_TERM 300 
-#define TAPPING_TERM_PER_KEY
-#define ROMAJI_TERM 75

@@ -1,0 +1,24 @@
+#pragma once
+
+#undef PERMISSIVE_HOLD
+#undef TAPPING_FORCE_HOLD   // これがあるとキーリピートが効かない
+#undef RETRO_TAPPING
+#undef IGNORE_MOD_TAP_INTERRUPT
+
+#undef  TAPPING_TERM
+#define TAPPING_TERM 250
+#define TAPPING_TERM_PER_KEY
+
+/*
+#undef NO_ACTION_TAPPING
+#undef NO_ACTION_ONESHOT
+#undef NO_ACTION_MACRO
+#undef NO_ACTION_FUNCTION
+
+#define DISABLE_LEADER
+//#define NO_ACTION_LAYER
+//#define NO_ACTION_TAPPING
+//#define NO_ACTION_ONESHOT
+//#define NO_ACTION_MACRO
+//#define NO_ACTION_FUNCTION
+*/

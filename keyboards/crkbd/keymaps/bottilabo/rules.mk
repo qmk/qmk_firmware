@@ -1,4 +1,4 @@
-MOUSEKEY_ENABLE = no       # Mouse keys(+4700)
+LINK_TIME_OPTIMIZATION_ENABLE = yes  # if firmware size over limit, try this option
 #RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
 
 # If you want to change the display of OLED, you need to change here

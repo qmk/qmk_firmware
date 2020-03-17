@@ -1,5 +1,1 @@
-#MOUSEKEY_ENABLE = yes
-#TAP_DANCE_ENABLE = yes
-BOOTLOADER = caterina
-#UNICODEMAP_ENABLE = yes
-
+LINK_TIME_OPTIMIZATION_ENABLE = no  # if firmware size over limit, try this option

@@ -1,7 +1,7 @@
 #include "keymap_jp.h"
 
 #ifndef NO_REPORT
-#include "print.h"
+#include <stdio.h>
 #endif
 
 void DEFAULTIM_enable(uint8_t modef) {
