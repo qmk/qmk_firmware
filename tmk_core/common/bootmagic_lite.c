@@ -2,6 +2,18 @@
 
 bool is_keyboard_left(void);
 
+/** \brief Reset eeprom
+ * 
+ * ...just incase someone wants to only change the eeprom behaviour
+ */
+__attribute__((weak)) void bootmagic_lite_reset_eeprom(void) {
+#if defined(VIA_ENABLE)
+    via_eeprom_reset();
+#else
+    eeconfig_disable();
+#endif
+}
+
 /** \brief The lite version of TMK's bootmagic based on Wilba.
  *
  *  100% less potential for accidentally making the keyboard do stupid things.
@@ -31,11 +43,8 @@ __attribute__((weak)) void bootmagic_lite(void) {
 #endif
 
     if (matrix_get_row(row) & (1 << col)) {
-#if defined(VIA_ENABLE)
-        via_eeprom_reset();
-#else
-        eeconfig_disable();
-#endif
+        bootmagic_lite_reset_eeprom();
+
         // Jump to bootloader.
         bootloader_jump();
     }
