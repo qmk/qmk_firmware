@@ -124,7 +124,7 @@ enum quantum_keycodes {
 #endif
 
 // Auto Shift setup
-#ifdef AUTO_SHIFT_SETUP
+#ifndef AUTO_SHIFT_NO_SETUP
     KC_ASUP,
     KC_ASDN,
     KC_ASRP,

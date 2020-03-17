@@ -60,7 +60,7 @@ void autoshift_disable(void) {
   autoshift_flush();
 }
 
-#ifdef AUTO_SHIFT_SETUP
+#ifndef AUTO_SHIFT_NO_SETUP
 void autoshift_timer_report(void) {
   char display[8];
 
@@ -90,8 +90,8 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
             case KC_ASOFF:
                 autoshift_disable();
                 return true;
-                
-#    ifdef AUTO_SHIFT_SETUP
+
+#    ifndef AUTO_SHIFT_NO_SETUP
                 case KC_ASUP:
                 autoshift_timeout += 5;
                 return true;
@@ -103,8 +103,6 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
                 autoshift_timer_report();
                 return true;
 #    endif
-
-
 #    ifndef NO_AUTO_SHIFT_ALPHA
             case KC_A ... KC_Z:
 #    endif

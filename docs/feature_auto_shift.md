@@ -105,10 +105,9 @@ Do not Auto Shift alpha characters, which include A through Z.
 
 ## Using Auto Shift Setup
 
-Add `AUTO_SHIFT_SETUP` to your `config.h` to enable you to define three keys temporarily to increase, decrease and report your `AUTO_SHIFT_TIMEOUT`.
+This will enable you to define three keys temporarily to increase, decrease and report your `AUTO_SHIFT_TIMEOUT`.
 
 ### Setup
-
 
 Map three keys temporarily in your keymap:
 
@@ -140,7 +139,7 @@ completely normal and with no intention of shifted keys.
    `KC_ASRP`. The keyboard will type by itself the value of your
    `AUTO_SHIFT_TIMEOUT`.
 7. Update `AUTO_SHIFT_TIMEOUT` in your `config.h` with the value reported.
-8. Remove `AUTO_SHIFT_SETUP` from your `config.h`.
+8. Add `AUTO_SHIFT_NO_SETUP` to your `config.h`.
 9. Remove the key bindings `KC_ASDN`, `KC_ASUP` and `KC_ASRP`.
 10. Compile and upload your new firmware.
 
