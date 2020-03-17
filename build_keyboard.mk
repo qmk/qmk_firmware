@@ -324,23 +324,11 @@ SRC += $(TMK_COMMON_SRC)
 OPT_DEFS += $(TMK_COMMON_DEFS)
 EXTRALDFLAGS += $(TMK_COMMON_LDFLAGS)
 
-ifeq ($(PLATFORM),AVR)
-ifeq ($(strip $(PROTOCOL)), VUSB)
-    include $(TMK_PATH)/protocol/vusb.mk
+include $(TMK_PATH)/$(PLATFORM_KEY).mk
+ifneq ($(strip $(PROTOCOL)),)
+    include $(TMK_PATH)/protocol/$(strip $(shell echo $(PROTOCOL) | tr '[:upper:]' '[:lower:]')).mk
 else
-    include $(TMK_PATH)/protocol/lufa.mk
-endif
-    include $(TMK_PATH)/avr.mk
-endif
-
-ifeq ($(PLATFORM),ARM_ATSAM)
-    include $(TMK_PATH)/arm_atsam.mk
-    include $(TMK_PATH)/protocol/arm_atsam.mk
-endif
-
-ifeq ($(PLATFORM),CHIBIOS)
-    include $(TMK_PATH)/chibios.mk
-    include $(TMK_PATH)/protocol/chibios.mk
+    include $(TMK_PATH)/protocol/$(PLATFORM_KEY).mk
 endif
 
 # TODO: remove this bodge?
