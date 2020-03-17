@@ -209,7 +209,6 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat) {
         note_position  = 0;
 
         audio_start_hardware();
-        //   play_note((*notes_pointer)[current_note][0], 15);
     }
 }
 
