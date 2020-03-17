@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0x424B   // BK
 #define PRODUCT_ID      0x9876
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    2Moons
