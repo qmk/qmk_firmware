@@ -8,8 +8,8 @@ bool process_mousekey_accel (uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
       case KC_MS_ACCEL0:
         if (record->event.pressed) {
-            mk_max_speed = MOUSEKEY_ACL_MAX_SPEED;
-            mk_wheel_max_speed = MOUSEKEY_ACL_WHEEL_MAX_SPEED;
+            mk_max_speed = MOUSEKEY_MAX_SPEED;
+            mk_wheel_max_speed = MOUSEKEY_WHEEL_MAX_SPEED;
             mk_time_to_max = 0;
             mk_wheel_time_to_max = 0;
         } else {
