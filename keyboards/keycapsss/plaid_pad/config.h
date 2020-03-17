@@ -25,7 +25,6 @@
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-#define NO_UART 1
 #define USB_MAX_POWER_CONSUMPTION 100
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */

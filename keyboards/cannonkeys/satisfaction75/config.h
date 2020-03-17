@@ -21,8 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xCA04
 #define PRODUCT_ID      0x57F5
 #define DEVICE_VER      0x0001
-/* in python2: list(u"whatever".encode('utf-16-le')) */
-/*   at most 32 characters or the ugly hack in usb_main.c borks */
 #define MANUFACTURER CannonKeys
 #define PRODUCT Satisfaction75
 #define DESCRIPTION Satisfaction 75 Keyboard
@@ -35,8 +33,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B3, B4, A0, A2, A4, A3 }
 #define DIODE_DIRECTION COL2ROW
 
-#define ENCODERS_PAD_A { B8 }
-#define ENCODERS_PAD_B { B9 }
+#define ENCODERS_PAD_A { B9 }
+#define ENCODERS_PAD_B { B8 }
 
 #define ENCODER_RESOLUTION 2
 

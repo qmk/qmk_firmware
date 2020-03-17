@@ -6,10 +6,6 @@
 // TODO: remove short term bodge when refactoring BACKLIGHT_CUSTOM_DRIVER out
 #ifdef BACKLIGHT_PIN
 
-#    if defined(STM32F0XX) || defined(STM32F0xx)
-#        pragma message("Backlight support for STMF072 has had limited testing, YMMV. If unsure, set 'BACKLIGHT_ENABLE = no' in your rules.mk")
-#    endif
-
 // GPIOV2 && GPIOV3
 #    ifndef BACKLIGHT_PAL_MODE
 #        define BACKLIGHT_PAL_MODE 2
@@ -156,13 +152,6 @@ void breathing_self_disable(void) {
         breathing_halt = BREATHING_HALT_OFF;
     else
         breathing_halt = BREATHING_HALT_ON;
-}
-
-void breathing_toggle(void) {
-    if (is_breathing())
-        breathing_disable();
-    else
-        breathing_enable();
 }
 
 /* To generate breathing curve in python:
