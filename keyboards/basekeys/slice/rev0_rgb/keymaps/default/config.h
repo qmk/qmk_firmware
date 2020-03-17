@@ -22,4 +22,4 @@
 #define FLIP_HALF
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 180
-//#define MASTER_RIGHT
+#define MASTER_RIGHT
