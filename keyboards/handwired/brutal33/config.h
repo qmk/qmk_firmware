@@ -1,5 +1,7 @@
 #pragma once
 
+#define CONFIG_H
+
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
@@ -25,8 +27,8 @@
  *
  */
 #define MATRIX_ROW_PINS { C7, F1, F0, B6 }
-#define MATRIX_COL_PINS { C6, D7, E6, B4, B7, B3, F7, B1, F6, F5 }
-#define UNUSED_PINS { }
+#define MATRIX_COL_PINS { C6, D7, E6, B4, D4, B3, F7, B1, F6, F5 }
+#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
@@ -42,3 +44,7 @@
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0
 // #define BOOTMAGIC_LITE_COLUMN 0
+
+#define RGB_DI_PIN B7
+#define RGBLED_NUM 3
+#define RGBLIGHT_SLEEP
