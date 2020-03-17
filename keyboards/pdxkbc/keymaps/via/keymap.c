@@ -16,9 +16,9 @@
 #include QMK_KEYBOARD_H
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
-      PDXKBCREDDIT, PDXKBCDISCORD,
-      BADGELIFE,    HACKTHEPLANET,
-      KC_VOLU,      KC_VOLD
+      MACRO00, MACRO01,
+      MACRO02, MACRO03,
+      KC_VOLU,  KC_VOLD
     ),
 
     [1] = LAYOUT(
