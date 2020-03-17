@@ -10,9 +10,10 @@ const uint32_t PROGMEM unicode_map[] = {
     [EMDASH]	= 0x2014, // —
 };
 
-void matrix_init_user_unicode(void)
+void eeconfig_init_user_unicode(void)
 {
-  set_unicode_input_mode(UC_LNX); // For now, hard-code to Linux style unicode entry
+  // Default to Linux style
+  set_unicode_input_mode(UC_LNX);
 }
 
 

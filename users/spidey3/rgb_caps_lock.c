@@ -1,5 +1,7 @@
 #include QMK_KEYBOARD_H
 
+#include <spidey3.h>
+
 extern rgblight_config_t rgblight_config;
 
 uint32_t rgb_mode;
@@ -7,6 +9,17 @@ uint16_t rgb_hue;
 uint8_t rgb_sat;
 uint8_t rgb_val;
 bool rgb_saved = 0;
+
+void spidey_swirl(void) {
+  rgblight_enable();
+  rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
+  rgblight_sethsv(213, 255, 128);
+}
+
+void eeconfig_init_user_rgb(void)
+{
+  spidey_swirl();
+}
 
 void matrix_init_user_rgb(void)
 {
@@ -30,7 +43,7 @@ bool led_update_user(led_t led_state) {
     rgb_val = rgblight_get_val();
     rgb_saved = 1;
 
-    rgblight_mode_noeeprom(1);
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
     rgblight_sethsv_noeeprom(HSV_AZURE);
 
 #ifdef CONSOLE_ENABLE
@@ -49,3 +62,20 @@ bool led_update_user(led_t led_state) {
 
   return true; // Continue to process the led state change
 }
+
+bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
+
+  switch (keycode) {
+    case SPI_GLO:
+      if (record->event.pressed) {
+        spidey_swirl();
+#ifdef CONSOLE_ENABLE                                                                                                                                                                                 
+        if (debug_enable) { print("process_record_user_rgb: FAV_GLO\n"); }
+#endif       
+      }
+      break;
+  }
+
+  return true;
+}
+

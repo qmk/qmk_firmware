@@ -1,6 +1,6 @@
 
 SRC += init.c
-SRC += debug.c
+SRC += process_record_user.c
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
   SRC += rgb_caps_lock.c
