@@ -6,7 +6,7 @@ Custom Split TKL
 
 * Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)
 * Hardware Supported: Virgo PCB
-* Hardware Availability: GB TBD
+* Hardware Availability: GB FEB 15th 2020 - to be held on Geekhack
 
 Make example for this keyboard (after setting up your build environment):
 

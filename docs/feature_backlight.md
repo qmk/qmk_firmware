@@ -6,15 +6,13 @@ QMK is able to control the brightness of these LEDs by switching them on and off
 
 The MCU can only supply so much current to its GPIO pins. Instead of powering the backlight directly from the MCU, the backlight pin is connected to a transistor or MOSFET that switches the power to the LEDs.
 
-## Driver configuration
+## Feature Configuration
 
 Most keyboards have backlighting enabled by default if they support it, but if it is not working for you, check that your `rules.mk` includes the following:
 
 ```makefile
-BACKLIGHT_ENABLE = software # Valid driver values are 'yes,software,no'
+BACKLIGHT_ENABLE = yes
 ```
-
-See below for help on individual drivers.
 
 ## Keycodes
 Once enabled the following keycodes below can be used to change the backlight level.
@@ -51,6 +49,16 @@ Once enabled the following keycodes below can be used to change the backlight le
 |`breathing_enable()`  |Turns on backlight breathing           |
 |`breathing_disable()` |Turns off backlight breathing          |
 
+## Driver Configuration
+
+To select which driver to use, configure your `rules.mk` with the following:
+
+```makefile
+BACKLIGHT_DRIVER = software # Valid driver values are 'pwm,software,no'
+```
+
+See below for help on individual drivers.
+
 ## Common Driver Configuration
 
 To change the behavior of the backlighting, `#define` these in your `config.h`:
@@ -72,9 +80,9 @@ This functionality is configured at the keyboard level with the `BACKLIGHT_ON_ST
 
 ## AVR driver
 
-On AVR boards, the default driver currently sniffs the configuration to pick the best scenario. To enable it, add this to your rules.mk:
+On AVR boards, the default driver currently sniffs the configuration to pick the best scenario. The driver is configured by default, however the equivalent setting within rules.mk would be:
 ```makefile
-BACKLIGHT_ENABLE = yes
+BACKLIGHT_DRIVER = pwm
 ```
 
 ### Caveats
@@ -111,10 +119,22 @@ When both timers are in use for Audio, the backlight PWM will not use a hardware
 
 To change the behavior of the backlighting, `#define` these in your `config.h`:
 
-|Define               |Default      |Description                                                                                                   |
-|---------------------|-------------|--------------------------------------------------------------------------------------------------------------|
-|`BACKLIGHT_PIN`      |`B7`         |The pin that controls the LEDs. Unless you are designing your own keyboard, you shouldn't need to change this |
-|`BACKLIGHT_PINS`     |*Not defined*|experimental: see below for more information                                                                  |
+|Define               |Default      |Description                                                                                                  |
+|---------------------|-------------|-------------------------------------------------------------------------------------------------------------|
+|`BACKLIGHT_PIN`      |`B7`         |The pin that controls the LEDs. Unless you are designing your own keyboard, you shouldn't need to change this|
+|`BACKLIGHT_PINS`     |*Not defined*|experimental: see below for more information                                                                 |
+|`BACKLIGHT_LEVELS`   |`3`          |The number of brightness levels (maximum 31 excluding off)                                                   |
+|`BACKLIGHT_CAPS_LOCK`|*Not defined*|Enable Caps Lock indicator using backlight (for keyboards without dedicated LED)                             |
+|`BACKLIGHT_BREATHING`|*Not defined*|Enable backlight breathing, if supported                                                                     |
+|`BREATHING_PERIOD`   |`6`          |The length of one backlight "breath" in seconds                                                              |
+|`BACKLIGHT_ON_STATE` |`1`          |The state of the backlight pin when the backlight is "on" - `1` for high, `0` for low                        |
+
+### Backlight On State
+
+Most backlight circuits are driven by an N-channel MOSFET or NPN transistor. This means that to turn the transistor *on* and light the LEDs, you must drive the backlight pin, connected to the gate or base, *high*.
+Sometimes, however, a P-channel MOSFET, or a PNP transistor is used. In this case, when the transistor is on, the pin is driven *low* instead.
+
+This functionality is configured at the keyboard level with the `BACKLIGHT_ON_STATE` define.
 
 ### Multiple backlight pins
 
@@ -150,16 +170,16 @@ The breathing effect is the same as in the hardware PWM implementation.
 
 ## ARM Driver
 
-While still in its early stages, ARM backlight support aims to eventually have feature parity with AVR. To enable it, add this to your rules.mk:
+While still in its early stages, ARM backlight support aims to eventually have feature parity with AVR. The driver is configured by default, however the equivalent setting within rules.mk would be:
 ```makefile
-BACKLIGHT_ENABLE = yes
+BACKLIGHT_DRIVER = pwm
 ```
 
 ### Caveats
 
 Currently only hardware PWM is supported, not timer assisted, and does not provide automatic configuration.
 
-?> STMF072 support is being investigated.
+?> Backlight support for STMF072 has had limited testing, YMMV. If unsure, set `BACKLIGHT_ENABLE = no` in your rules.mk.
 
 ### ARM Configuration
 
@@ -172,11 +192,11 @@ To change the behavior of the backlighting, `#define` these in your `config.h`:
 |`BACKLIGHT_PWM_CHANNEL` |`3`          |The PWM channel to use, see ST datasheets for pin to PWM channel mapping. Unless you are designing your own keyboard, you shouldn't need to change this|
 |`BACKLIGHT_PAL_MODE`    |`2`          |The pin alternative function to use, see ST datasheets for pin AF mapping. Unless you are designing your own keyboard, you shouldn't need to change this|
 
-## Software PWM Driver
+## Software PWM Driver :id=software-pwm-driver
 
 Emulation of PWM while running other keyboard tasks, it offers maximum hardware compatibility without extra platform configuration. The tradeoff is the backlight might jitter when the keyboard is busy. To enable, add this to your rules.mk:
 ```makefile
-BACKLIGHT_ENABLE = software
+BACKLIGHT_DRIVER = software
 ```
 
 ### Software PWM Configuration
@@ -199,4 +219,30 @@ To activate multiple backlight pins, you need to add something like this to your
 ```c
 #undef BACKLIGHT_PIN
 #define BACKLIGHT_PINS { F5, B2 }
+```
+
+## Custom Driver
+
+To enable, add this to your rules.mk:
+
+```makefile
+BACKLIGHT_DRIVER = custom
+```
+
+When implementing the custom driver API, the provided keyboard hooks are as follows:
+
+```c
+void backlight_init_ports(void) {
+    // Optional - Run on startup
+    //          - usually you want to configure pins here
+}
+void backlight_set(uint8_t level) {
+    // Optional - Run on level change
+    //          - usually you want to respond to the new value
+}
+
+void backlight_task(void) {
+    // Optional - Run periodically
+    //          - long running actions here can cause performance issues
+}
 ```

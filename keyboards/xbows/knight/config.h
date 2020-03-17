@@ -13,7 +13,7 @@
 #define MATRIX_COLS 15
 
 // wiring of each half
-#define MATRIX_ROW_PINS { D2, E6, C7, F7, F6, F5 }
+#define MATRIX_ROW_PINS { D2, E6, E2, F7, F6, F5 }
 #define MATRIX_COL_PINS { B0, B1, B2, B3, F4, F1, C6, B6, B5, B4, D7, D6, D4, D5, D3}
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

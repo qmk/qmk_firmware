@@ -77,7 +77,7 @@
   * [Macros](de/feature_macros.md)
   * [Mouse Keys](de/feature_mouse_keys.md)
   * [OLED Driver](de/feature_oled_driver.md)
-  * [One Shot Keys](de/feature_advanced_keycodes.md#one-shot-keys)
+  * [One Shot Keys](de/one_shot_keys.md)
   * [Pointing Device](de/feature_pointing_device.md)
   * [PS/2 Mouse](de/feature_ps2_mouse.md)
   * [RGB Lighting](de/feature_rgblight.md)
@@ -108,10 +108,10 @@
 * Andere Themen
   * [Eclipse mit QMK](de/other_eclipse.md)
   * [VSCode mit QMK](de/other_vscode.md)
-  * [Support](de/support.md)
+  * [Support](de/getting_started_getting_help.md)
   * [Übersetzungen](de/translating.md)
 
-* QMK Internals (de/In Progress)
+* QMK Internals (In Progress)
   * [Defines](de/internals_defines.md)
   * [Input Callback Reg](de/internals_input_callback_reg.md)
   * [Midi Device](de/internals_midi_device.md)

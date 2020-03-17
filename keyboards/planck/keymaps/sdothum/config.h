@@ -14,7 +14,7 @@
 // #define MOUSEKEY_WHEEL_DELAY 0
 
 // compile time macro string, see functions/hardware planck script (undefine otherwise)
-#define PRIVATE_STRING
+//#define PRIVATE_STRING
 
 // compile time macro string, must be in quotes
 #define PUBLIC_STRING ":%s/arch=(.*)/arch=('any')\n"

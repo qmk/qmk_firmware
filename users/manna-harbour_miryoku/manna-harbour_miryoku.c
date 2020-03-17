@@ -1,12 +1,18 @@
-
-// generated from users/manna-harbour_miryoku/miryoku.org
+// generated from users/manna-harbour_miryoku/miryoku.org  -*- buffer-read-only: t -*-
 
 #include QMK_KEYBOARD_H
 
 #define KC_NP KC_NO // key is not present
 #define KC_NA KC_NO // present but not available for use
 #define KC_NU KC_NO // available but not used
+
+// non-KC_ keycodes
 #define KC_RST RESET
+#define KC_TOG RGB_TOG
+#define KC_MOD RGB_MOD
+#define KC_HUI RGB_HUI
+#define KC_SAI RGB_SAI
+#define KC_VAI RGB_VAI
 
 enum layers { BASE, MEDR, NAVR, MOUR, NSSL, NSL, FUNL };
 
@@ -30,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NP,   KC_NP,   KC_NA,   KC_NA,   KC_NA,   KC_BTN3, KC_BTN1, KC_BTN2, KC_NP,   KC_NP
   ),
   [MEDR] = LAYOUT_miryoku(
-    KC_RST,  KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_NU,   KC_NU,   KC_NU,   KC_NU,   KC_NU,
+    KC_RST,  KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_TOG,  KC_MOD,  KC_HUI,  KC_SAI,  KC_VAI,
     KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_NA,   KC_NU,   KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT,
     KC_NA,   KC_ALGR, KC_NA,   KC_NA,   KC_NA,   KC_NU,   KC_NU,   KC_NU,   KC_NU,   KC_NU,
     KC_NP,   KC_NP,   KC_NA,   KC_NA,   KC_NA,   KC_MSTP, KC_MPLY, KC_MUTE, KC_NP,   KC_NP
