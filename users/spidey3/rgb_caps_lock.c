@@ -11,6 +11,9 @@ uint8_t rgb_val;
 bool rgb_saved = 0;
 
 void spidey_swirl(void) {
+#ifdef CONSOLE_ENABLE
+  if (debug_enable) { print("SPIDEY3: Setting Spidey Swirl!\n"); }
+#endif
   rgblight_enable();
   rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
   rgblight_sethsv(213, 255, 128);
@@ -69,9 +72,6 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
     case SPI_GLO:
       if (record->event.pressed) {
         spidey_swirl();
-#ifdef CONSOLE_ENABLE
-        if (debug_enable) { print("process_record_user_rgb: FAV_GLO\n"); }
-#endif
       }
       break;
   }
