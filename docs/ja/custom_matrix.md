@@ -6,14 +6,14 @@
   git diff 0.8.46 HEAD -- docs/custom_matrix.md | cat
 -->
 
-QMKは、デフォルトのマトリックススキャンルーチンを独自のコードで補完または置換するメカニズムを提供します。
+QMKは、デフォルトのマトリックススキャンルーチンを独自のコードで部分的に入れ替えたり全部入れ替えたりしたりするメカニズムを提供します。
 
 この機能を使用する理由は次のとおりです:
 
-* キーボードのスイッチとMCUピンの間に追加のハードウェアがある場合
+* キーボードのスイッチと MCU ピンの間に追加のハードウェアがある場合
   * I/O マルチプレクサ
   * ラインデコーダー
-* 一般的ではないキースイッチマトリクス
+* 一般的ではないキースイッチマトリックス
   * `COL2ROW` と `ROW2COL` の同時使用
 
 ## 前提条件
@@ -31,7 +31,7 @@ keyboards/<keyboard>/matrix.c
 SRC += matrix.c
 ```
 
-## マトリクスコードの一部補完
+## マトリックスコードの部分的入れ替え
 
 カスタムマトリックスを実装する際、さまざまなスキャン機能のデフォルト実装を提供している定型コードは削減します。
 
@@ -50,14 +50,13 @@ void matrix_init_custom(void) {
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     bool matrix_has_changed = false;
 
-    // TODO: ここで、マトリクススキャンを行なう
+    // TODO: ここで、マトリックススキャンを行なう
 
     return matrix_has_changed;
 }
 ```
 
-
-## マトリクスコードの完全置換
+## マトリックスコードの全部入れ替え
 
 スキャンルーチンをさらに変更する必要がある場合は、完全なスキャンルーチンを実装することを選択できます。
 
@@ -74,7 +73,7 @@ matrix_row_t matrix_get_row(uint8_t row) {
 }
 
 void matrix_print(void) {
-    // TODO: printf() を使って現在のマトリクスの状態をコンソールにダンプします
+    // TODO: printf() を使って現在のマトリックスの状態をコンソールにダンプします
 }
 
 void matrix_init(void) {
@@ -90,7 +89,7 @@ void matrix_init(void) {
 uint8_t matrix_scan(void) {
     bool matrix_has_changed = false;
 
-    // TODO: ここにマトリクススキャンルーチンを追加します
+    // TODO: ここにマトリックススキャンルーチンを追加します
 
     // ハードウェアによるデバウンスがない場合 - 設定されているデバウンスルーチンを使用します
     debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
