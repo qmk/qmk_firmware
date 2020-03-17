@@ -14,11 +14,11 @@ def test_cformat():
 
 def test_compile():
     assert check_subcommand('compile', '-kb', 'handwired/onekey/pytest', '-km', 'default').returncode == 0
-    assert check_subcommand('compile', 'keyboards/handwired/onekey/pytest/keymap.json').returncode == 0
-    assert check_subcommand('compile', 'keyboards/handwired/onekey/pytest/keymap.json', '-x').returncode == 0
+    assert check_subcommand('compile', 'keyboards/handwired/onekey/pytest2/keymap.json').returncode == 0
+    assert check_subcommand('compile', 'keyboards/handwired/onekey/pytest2/keymap.json', '-x').returncode == 0
 
     # Cleanup
-    test_output = 'keyboards/handwired/onekey/keymaps/pytest/keymap.c'
+    test_output = 'keyboards/handwired/onekey/keymaps/pytest2/keymap.c'
     if os.path.exists(test_output):
         os.remove(test_output)
 
