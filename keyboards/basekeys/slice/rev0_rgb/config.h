@@ -52,7 +52,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN D3
 #define RGBLED_NUM 67    // Number of LEDs. backlight x42 + underglow x12
-#define RGBLED_SPLIT { 33, 34 }
+#define RGBLED_SPLIT { 34, 35 }
 #define RGBLIGHT_LIMIT_VAL 120 /* The maximum brightness level */
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
