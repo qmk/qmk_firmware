@@ -68,7 +68,7 @@ static void pwm_audio_period_callback(PWMDriver *pwmp);
 static void pwm_audio_channel_interrupt_callback(PWMDriver *pwmp);
 #endif
 
-static PWMConfig pwmCFG = {.frequency = 100000, /* PWM clock frequency  */
+static PWMConfig pwmCFG = {.frequency = 500000, /* PWM clock frequency  */
                            .period = 0,     /* initial PWM period (in ticks) 1S (1/10kHz=0.1mS 0.1ms*10000 ticks=1S) */
 #if ARM_PWM_USE_PIN_ALTERNATE
                            .callback = NULL, // no callback, the hardware directly toggles the pin
