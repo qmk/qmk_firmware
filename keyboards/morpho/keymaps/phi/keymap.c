@@ -41,14 +41,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_kc( \
     BSPC, JYEN, Q,    W,    E,      R,     T,    Y,    T,    Y,    U,   I,      O,    P,    MINS, ____,
     LCTL, LCTL, A,    S,    D_MOUS, F_CUR, G,    LBRC, RBRC, H,    J,   K,      L,    SCLN, QUOT, ____,
-    LSFT, LSFT, Z,    X,    C,      V,     B,    N,    B,    B,    N,   M,      COMM, DOT,  SLSH, ____,
+    LSFT, LSFT, Z,    X,    C,      V,     B,    N,    B,    N,   M,      COMM, DOT,  SLSH, BSLS, ____,
     /* */ ____, ____, ____, ES_ALT, SPC,   SPC,              TAB,  TAB, RA_ENT, ____, ____, ____
 ),
 
 [RAISE] = LAYOUT_kc( \
     ____, BSPC, 1,    2,    3,     4,     5,     6,    5,    6,     7,   8,    9,    0,    EQL,  ____,
     ____, ____, ____, ____, LCBR,  LPRN,  LBRC,  ____, ____, RBRC, RPRN, RCBR, PIPE, ____, PLUS, ____,
-    ____, ____, EXLM, AT,   HASH,  DLR,   PERC,  CIRC, PERC, CIRC, AMPR, ASTR, ____, ____, BSLS, ____,
+    ____, ____, EXLM, AT,   HASH,  DLR,   PERC,  CIRC, PERC, CIRC, AMPR, ASTR, ____, ____, ____, ____,
     /* */ ____, ____, ____, LANG2, LANG1, LANG1,             RST,  RST,  ____, ____, ____, ____
 ),
 
