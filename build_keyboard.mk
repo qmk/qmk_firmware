@@ -244,34 +244,6 @@ else
     FIRMWARE_FORMAT?=hex
 endif
 
-ifeq ($(PLATFORM),CHIBIOS)
-    include $(TMK_PATH)/chibios.mk
-    OPT_OS = chibios
-    ifneq ("$(wildcard $(KEYBOARD_PATH_5)/bootloader_defs.h)","")
-        OPT_DEFS += -include $(KEYBOARD_PATH_5)/bootloader_defs.h
-     else ifneq ("$(wildcard $(KEYBOARD_PATH_5)/boards/$(BOARD)/bootloader_defs.h)","")
-        OPT_DEFS += -include $(KEYBOARD_PATH_5)/boards/$(BOARD)/bootloader_defs.h
-    else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/bootloader_defs.h)","")
-        OPT_DEFS += -include $(KEYBOARD_PATH_4)/bootloader_defs.h
-     else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/boards/$(BOARD)/bootloader_defs.h)","")
-        OPT_DEFS += -include $(KEYBOARD_PATH_4)/boards/$(BOARD)/bootloader_defs.h
-    else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/bootloader_defs.h)","")
-        OPT_DEFS += -include $(KEYBOARD_PATH_3)/bootloader_defs.h
-     else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/boards/$(BOARD)/bootloader_defs.h)","")
-        OPT_DEFS += -include $(KEYBOARD_PATH_3)/boards/$(BOARD)/bootloader_defs.h
-    else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/bootloader_defs.h)","")
-        OPT_DEFS += -include $(KEYBOARD_PATH_2)/bootloader_defs.h
-     else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/boards/$(BOARD)/bootloader_defs.h)","")
-        OPT_DEFS += -include $(KEYBOARD_PATH_2)/boards/$(BOARD)/bootloader_defs.h
-    else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/bootloader_defs.h)","")
-        OPT_DEFS += -include $(KEYBOARD_PATH_1)/bootloader_defs.h
-     else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/boards/$(BOARD)/bootloader_defs.h)","")
-        OPT_DEFS += -include $(KEYBOARD_PATH_1)/boards/$(BOARD)/bootloader_defs.h
-    else ifneq ("$(wildcard $(TOP_DIR)/drivers/boards/$(BOARD)/bootloader_defs.h)","")
-        OPT_DEFS += -include $(TOP_DIR)/drivers/boards/$(BOARD)/bootloader_defs.h
-    endif
-endif
-
 # Find all of the config.h files and add them to our CONFIG_H define.
 CONFIG_H :=
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/config.h)","")
@@ -306,11 +278,6 @@ endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/post_config.h)","")
     POST_CONFIG_H += $(KEYBOARD_PATH_5)/post_config.h
 endif
-
-# Save the defines and includes here, so we don't include any keymap specific ones
-PROJECT_DEFS := $(OPT_DEFS)
-PROJECT_INC := $(VPATH) $(EXTRAINCDIRS) $(KEYBOARD_PATHS)
-PROJECT_CONFIG := $(CONFIG_H)
 
 # Userspace setup and definitions
 ifeq ("$(USER_NAME)","")
@@ -372,8 +339,14 @@ ifeq ($(PLATFORM),ARM_ATSAM)
 endif
 
 ifeq ($(PLATFORM),CHIBIOS)
+    include $(TMK_PATH)/chibios.mk
     include $(TMK_PATH)/protocol/chibios.mk
 endif
+
+# TODO: remove this bodge?
+PROJECT_DEFS := $(OPT_DEFS)
+PROJECT_INC := $(VPATH) $(EXTRAINCDIRS) $(KEYBOARD_PATHS)
+PROJECT_CONFIG := $(CONFIG_H)
 
 ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
     VISUALIZER_DIR = $(QUANTUM_DIR)/visualizer
