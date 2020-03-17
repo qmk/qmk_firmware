@@ -39,6 +39,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
+#define RGB_KEYBOARD
+
 /* serial.c configuration for split keyboard */
 #define SOFT_SERIAL_PIN D2
 #define SPLIT_HAND_PIN B6
@@ -59,4 +61,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_ANIMATIONS
 #endif
 
-#define OLED_FONT_H "keyboards/basekeys/slice/rev1_rgb/keymaps/2moons/slice_font.c"
+#define OLED_FONT_H "keyboards/basekeys/slice/rev1_rgb/keymaps/2moons_rgb/slice_font.c"
