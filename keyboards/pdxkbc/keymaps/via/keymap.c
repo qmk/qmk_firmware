@@ -48,30 +48,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______
     ),
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case PDXKBCREDDIT:
-      if (record->event.pressed) {
-        SEND_STRING("https://reddit.com/r/pdxkbc\n");
-      }
-      break;
-    case PDXKBCDISCORD:
-      if (record->event.pressed) {
-        SEND_STRING("https://discordapp.com/invite/bHwjHXh\n");
-      }
-      break;
-    case BADGELIFE:
-      if (record->event.pressed) {
-        SEND_STRING("#badgelife\n");
-      }
-      break;
-    case HACKTHEPLANET:
-      if (record->event.pressed) {
-        SEND_STRING("HACK THE PLANET!\n");
-      }
-      break;
-  }
-
-  return true;
-}
