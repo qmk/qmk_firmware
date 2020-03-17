@@ -6,5 +6,5 @@
 #endif
 
 #ifdef KEYBOARD_basekeys_slice_rev1_rgb
-  #include "rev1.h"
+  #include "rev1_rgb.h"
 #endif
