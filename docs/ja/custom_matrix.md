@@ -1,5 +1,11 @@
 # カスタムマトリックス
 
+<!---
+  grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
+  original document: 0.8.46:docs/custom_matrix.md
+  git diff 0.8.46 HEAD -- docs/custom_matrix.md | cat
+-->
+
 QMKは、デフォルトのマトリックススキャンルーチンを独自のコードで補完または置換するメカニズムを提供します。
 
 この機能を使用する理由は次のとおりです:
