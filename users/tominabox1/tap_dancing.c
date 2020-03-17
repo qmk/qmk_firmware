@@ -140,7 +140,7 @@ uint16_t get_tapping_term(uint16_t keycode) {
     case LALT_T(KC_C):
       return 200;
 	case RGUI_T(KC_O):
-	  return 300;
+	  return 400;
 	case LGUI_T(KC_A):
 	  return 300;  
     default:
@@ -172,9 +172,9 @@ bool get_tapping_force_hold(uint16_t keycode) {
 
 bool get_permissive_hold(uint16_t keycode) {
   switch (keycode) {
-    case KC_Z_SF:
-      return false;
-    case TD(TD_QUES_ENT):
+    case RGUI_T(KC_O):
+      return true;
+    case LGUI_T(KC_A):
         return true;
     default:
       return false;
