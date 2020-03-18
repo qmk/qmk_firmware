@@ -29,9 +29,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CONSOLE_ENABLE
 	if (debug_enable) { print("SPIDEY3: SPI_LNX\n"); }
 #endif
-        layer_off(_OSX);
-        eeconfig_update_default_layer(_BASE);
-        default_layer_set(_BASE);
+        set_single_persistent_default_layer(_BASE);
+	layer_off(_OSX);
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
         set_unicode_input_mode(UC_LNX);
 #endif
@@ -40,9 +39,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CONSOLE_ENABLE
 	if (debug_enable) { print("SPIDEY3: SPI_OSX\n"); }
 #endif
-        layer_on(_OSX);
-        eeconfig_update_default_layer(_OSX);
-        default_layer_set(_OSX);
+        set_single_persistent_default_layer(_OSX);
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
         set_unicode_input_mode(UC_OSX);
 #endif
@@ -51,9 +48,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CONSOLE_ENABLE
 	if (debug_enable) { print("SPIDEY3: SPI_WIN\n"); }
 #endif
-        layer_off(_OSX);
-        eeconfig_update_default_layer(_BASE);
-        default_layer_set(_BASE);
+        set_single_persistent_default_layer(_BASE);
+	layer_off(_OSX);
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
         set_unicode_input_mode(UC_WINC);
 #endif
@@ -67,6 +63,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
 
   return true;
+}
+
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+#ifdef RGBLIGHT_ENABLE
+  return default_layer_state_set_user_rgb(state);
+#else
+  return state;
+#endif
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {

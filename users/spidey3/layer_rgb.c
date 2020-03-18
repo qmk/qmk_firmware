@@ -35,35 +35,41 @@ const rgblight_segment_t PROGMEM _layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS( {9, 
 
 // Now define the array of layers. Later layers take precedence
 const rgblight_segment_t* const PROGMEM _rgb_layers[] = RGBLIGHT_LAYERS_LIST( _capslock_layer, _layer1_layer, _layer2_layer );
+const uint8_t PROGMEM _n_rgb_layers = sizeof(_rgb_layers) / sizeof(_rgb_layers[0]) - 1;
 
-void keyboard_post_init_user_rgb(void) {
-
+void do_rgb_layers(layer_state_t state, uint8_t start, uint8_t end) {
 #ifdef CONSOLE_ENABLE
-    uint8_t nLayers = sizeof(_rgb_layers) / sizeof(_rgb_layers[0]) - 1;
-    for (uint8_t i=0u; i<nLayers; i++) {
-      bool is_on = layer_state_cmp(layer_state, i);
-#ifdef CONSOLE_ENABLE
-      if (debug_enable) { uprintf("         layer[%d]=%u\n", i, is_on); }
+    if (debug_enable) { print("SPIDEY3: do_rgb_layers()\n"); }
 #endif
-    }
-#endif
-
-    // Enable the LED layers
-    rgblight_layers = _rgb_layers;
-}
-
-layer_state_t layer_state_set_user_rgb(layer_state_t state) {
-#ifdef CONSOLE_ENABLE
-    if (debug_enable) { print("SPIDEY3: layer_state_set_user_rgb()\n"); }
-#endif
-    uint8_t nLayers = sizeof(_rgb_layers) / sizeof(_rgb_layers[0]) - 1;
-    for (uint8_t i=1u; i<nLayers; i++) { // Assume 0 is for caps lock
+    for (uint8_t i=start; i<end; i++) { 
       bool is_on = layer_state_cmp(state, i);
 #ifdef CONSOLE_ENABLE
       if (debug_enable) { uprintf("         layer[%d]=%u\n", i, is_on); }
 #endif
       rgblight_set_layer_state(i, is_on);
     }
+}
+
+void keyboard_post_init_user_rgb(void) {
+    do_rgb_layers(default_layer_state, 1u, RGB_LAYER_BASE_REGULAR);
+    do_rgb_layers(layer_state, RGB_LAYER_BASE_REGULAR, _n_rgb_layers);
+    // Enable the LED layers
+    rgblight_layers = _rgb_layers;
+}
+
+layer_state_t default_layer_state_set_user_rgb(layer_state_t state) {
+#ifdef CONSOLE_ENABLE
+    if (debug_enable) { print("SPIDEY3: default_layer_state_set_user_rgb()\n"); }
+#endif
+    do_rgb_layers(state, 1u, RGB_LAYER_BASE_REGULAR);
+    return state;
+}
+
+layer_state_t layer_state_set_user_rgb(layer_state_t state) {
+#ifdef CONSOLE_ENABLE
+    if (debug_enable) { print("SPIDEY3: layer_state_set_user_rgb()\n"); }
+#endif
+    do_rgb_layers(state, RGB_LAYER_BASE_REGULAR, _n_rgb_layers);
     return state;
 }
 
