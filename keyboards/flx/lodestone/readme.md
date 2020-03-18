@@ -2,7 +2,7 @@
 
 Lodestone is a keyboard PCB supporting 65% layout with one bottom row blocker, designed by Flex of FLX Keyboards. [More info at proto[Typist]](https://prototypist.net/)
 
-* Keyboard Maintainer: [Flex](https://github.com/Flexerm)
+* Keyboard Maintainer: [Flexerm](https://github.com/Flexerm)
 * Hardware Supported: FLX - Lodestone (LS65) PCB
 * Hardware Availability: [proto[Typist]](https://prototypist.net/)
 
