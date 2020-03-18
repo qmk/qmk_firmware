@@ -1,1 +1,1 @@
-# The default keymap for lodestone
+# The default keymap for Lodestone
