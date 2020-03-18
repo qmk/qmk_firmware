@@ -1,10 +1,6 @@
 # splitreus62
 
-- https://github.com/Na-Cly/splitreus62
-- [Atreus](https://github.com/technomancy/atreus) Phil Hagelberg
-- [Atreus62](https://github.com/profet23/atreus62) Profet23
-
-A Split version of the Atreus62. You can copy keymaps from Atreus62 and use them with this keyboard.
+A split version of the [Atreus62](https://github.com/profet23/atreus62) by Profet23, which itself is based on Phil Hagelberg's [Atreus](https://github.com/technomancy/atreus). You can copy keymaps from Atreus62 and use them with this keyboard.
 
 * Keyboard Maintainer: [NaCly](https://github.com/Na-Cly)
 * Hardware Supported: The PCBs, controllers supported
