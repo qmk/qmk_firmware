@@ -21,4 +21,4 @@
 BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality
 KEY_LOCK_ENABLE = yes	       # Enable key lock functionality
 DYNAMIC_MACRO_ENABLE = yes   # Enable dynamic macros
-DEBOUNCE_TYPE?= eager_pk     # Faster debounce algorithm
+DEBOUNCE_TYPE = eager_pk     # Faster debounce algorithm
