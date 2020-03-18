@@ -95,13 +95,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
  
- [_RAISE] = { /* RAISED */
-  { S(KC_GRV), KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F11,  _______, KC_F12,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  S(KC_EQL)  },
-  { _______,   KC_MPRV, KC_MNXT, KC_VOLU, _______, TERM,    RGB_TOG, _______, KC_PSCR, _______, KC_PGDN, KC_UP,   KC_PGUP, _______, S(KC_RBRC) },
-  { _______,   KC_MPLY, KC_MSTP, KC_VOLD, _______, _______, RGB_MOD, _______, BL_INC, KC_HOME,  KC_LEFT, KC_DOWN, KC_RGHT, _______, S(KC_BSLS) },
-  { _______,   _______, _______, KC_MUTE, _______, _______, DM_REC1, DM_REC2, BL_DEC, KC_END,   IOTECH, _______, _______, _______, _______    }, 
-  { _______,   _______, _______, _______, _______, _______, _______, DM_RSTP, _______, _______, _______, _______, _______, _______, _______    },
- },
+ [_RAISE] = LAYOUT_ortho_5x15( /* RAISED */
+   S(KC_GRV), KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F11,  _______, KC_F12,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  S(KC_EQL),
+   _______,   KC_MPRV, KC_MNXT, KC_VOLU, _______, TERM,    RGB_TOG, _______, KC_PSCR, _______, KC_PGDN, KC_UP,   KC_PGUP, _______, S(KC_RBRC),
+   _______,   KC_MPLY, KC_MSTP, KC_VOLD, _______, _______, RGB_MOD, _______, BL_INC,  KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, _______, S(KC_BSLS),
+   _______,   _______, _______, KC_MUTE, _______, _______, DM_REC1, DM_REC2, BL_DEC,  KC_END,  IOTECH,  _______, _______, _______, _______,
+   _______,   _______, _______, _______, _______, _______, _______, DM_RSTP, _______, _______, _______, _______, _______, _______, _______
+ ),
 
 /* RESET
  * .--------------------------------------------------------------------------------------------------------------------------------------.
