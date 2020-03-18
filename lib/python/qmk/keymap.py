@@ -245,7 +245,12 @@ def parse_config_h(keyboard, keymap = None):
         config_h = config_h_file.read_text().split('\n')
         content = dict(name = "", vid = "", pid = "", rows = "", cols = "")
         for line in config_h:
-            l = line.strip().split()
+            try:
+                line = line[:line.index('//')]
+            except ValueError:
+                """ Nothing to do, just catch when no inline comment is found.
+                """
+            l = line.strip().split(maxsplit=2)
             if len(l) == 3 and l[0].startswith('#'):
                 if not content['vid'] and l[1] == 'VENDOR_ID':
                     content['vid'] = l[2]
