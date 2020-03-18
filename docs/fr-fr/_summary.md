@@ -81,7 +81,7 @@
   * [Macros](fr-fr/feature_macros.md)
   * [Boutons de souris](fr-fr/feature_mouse_keys.md)
   * [Pilotes / Drivers OLED](fr-fr/feature_oled_driver.md)
-  * [Touche one-shot](fr-fr/feature_advanced_keycodes.md#one-shot-keys)
+  * [Touche one-shot](fr-fr/one_shot_keys.md)
   * [Périphériques de pointage](fr-fr/feature_pointing_device.md)
   * [Souris PS/2](fr-fr/feature_ps2_mouse.md)
   * [Éclairage RGB](fr-fr/feature_rgblight.md)
@@ -112,7 +112,7 @@
 * Autres sujets
   * [Utiliser Eclipse avec QMK](fr-fr/other_eclipse.md)
   * [Utiliser VSCode avec QMK](fr-fr/other_vscode.md)
-  * [Support](fr-fr/support.md)
+  * [Support](fr-fr/getting_started_getting_help.md)
   * [Comment ajouter des traductions](fr-fr/translating.md)
 
 * À l’intérieur de QMK (En cours de documentation)
