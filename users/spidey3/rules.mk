@@ -1,9 +1,9 @@
 
 SRC += init.c
-SRC += process_record_user.c
+SRC += spidey3.c
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
-  SRC += rgb_caps_lock.c
+  SRC += rgblight.c
 endif
 ifeq ($(strip $(UNICODEMAP_ENABLE)), yes)
   SRC += unicode.c

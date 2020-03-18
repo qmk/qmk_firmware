@@ -6,5 +6,6 @@
 #define NO_ACTION_MACRO
 #define LED_DISABLE_WHEN_USB_SUSPENDED true
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true
+#define RGBLIGHT_LAYERS
 
 #endif
