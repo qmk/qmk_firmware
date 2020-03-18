@@ -130,7 +130,7 @@ void oled_task_user(void) {
 
     // Host Keyboard LED Status
     led_t led_usb_state = host_keyboard_led_state();
-    oled_write_P(led_usb_state.num_lock PSTR("NUMLCK ") : PSTR("       "), false);
+    oled_write_P(led_usb_state.num_lock ? PSTR("NUMLCK ") : PSTR("       "), false);
     oled_write_P(led_usb_state.caps_lock ? PSTR("CAPLCK ") : PSTR("       "), false);
     oled_write_P(led_usb_state.scroll_lock ? PSTR("SCRLCK ") : PSTR("       "), false);
   } else {
