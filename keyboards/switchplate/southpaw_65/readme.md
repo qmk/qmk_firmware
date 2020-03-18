@@ -14,10 +14,10 @@ Left Hand Number Pad Keyboard with 85 Keys & RGB LED Underglow
 
 Make example for this keyboard (after setting up your build environment):
 
-    make switchplate/southpaw_65:default
+    make switchplate/southpaw_65:default_ansi
 
 Install examples:
 
-    make switchplate/southpaw_65:default:flash
+    make switchplate/southpaw_65:default_ansi:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
