@@ -2,7 +2,7 @@
 #include "unicode.h"
 #include "spidey3.h"
 
-#define SETTINGS (A(S(KC_S)))
+#define SETTINGS A(S(KC_S))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Linux / Win layout
@@ -33,4 +33,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,    _______,    _______,                                    _______,                                            _______,    _______,    _______,    _______,    KC_BRID,    _______
     )
 };
-
