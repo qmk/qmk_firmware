@@ -13,11 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+ 
 #include QMK_KEYBOARD_H
-#include "LUFA/Drivers/Peripheral/TWI.h"
-#include "i2c.h"
-#include "ssd1306.h"
-
 
 //Layers
 
@@ -25,13 +22,6 @@ enum {
   BASE = 0,
   FUNCTION,
 };
-
-bool screenWorks = 0;
-
-//13 characters max without re-writing the "Layer: " format in iota_gfx_task_user()
-static char layer_lookup[][14] = {"Base","Function"};
-
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap BASE: (Base Layer) Default Layer
@@ -71,72 +61,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
+#ifdef OLED_DRIVER_ENABLE
+void oled_task_user(void) {
+    oled_write_P(PSTR("TKC1800\n"),false);
+	// Host Keyboard Layer Status
+    oled_write_P(PSTR("Layer: "), false);
 
-void led_set_user(uint8_t usb_led) {
-
-}
-
-void matrix_init_user(void) {
-  #ifdef USE_I2C
-    i2c_master_init();
-    #ifdef SSD1306OLED
-      // calls code for the SSD1306 OLED
-      _delay_ms(400);
-      TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
-      if ( iota_gfx_init() ) { // turns on the display
-        screenWorks = 1;
-      }
-    #endif
-  #endif
-  #ifdef AUDIO_ENABLE
-    startup_user();
-  #endif
-}
-
-void matrix_scan_user(void) {
-  #ifdef SSD1306OLED
-    if ( screenWorks ) {
-      iota_gfx_task();  // this is what updates the display continuously
-    };
-  #endif
-}
-
-void matrix_update(struct CharacterMatrix *dest,
-                          const struct CharacterMatrix *source) {
-  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-    memcpy(dest->display, source->display, sizeof(dest->display));
-    dest->dirty = true;
-  }
-}
-
-void iota_gfx_task_user(void) {
-  #if DEBUG_TO_SCREEN
-    if (debug_enable) {
-      return;
+    switch (get_highest_layer(layer_state)) {
+        case BASE:
+            oled_write_P(PSTR("Base\n"), false);
+            break;
+        case FUNCTION:
+            oled_write_P(PSTR("Function\n"), false);
+            break;
+        default:
+            // Or use the write_ln shortcut over adding '\n' to the end of your string
+            oled_write_ln_P(PSTR("Undefined"), false);
     }
-  #endif
 
-  struct CharacterMatrix matrix;
-
-  matrix_clear(&matrix);
-  matrix_write_P(&matrix, PSTR("TKC1800"));
-
-  uint8_t layer = biton32(layer_state);
-
-  char buf[40];
-  snprintf(buf,sizeof(buf), "Undef-%d", layer);
-  matrix_write_P(&matrix, PSTR("\nLayer: "));
-  matrix_write(&matrix, layer_lookup[layer]);
-
-  // Host Keyboard LED Status
-  char led[40];
-    snprintf(led, sizeof(led), "\n\n%s  %s  %s",
-            (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
-            (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
-            (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
-  matrix_write(&matrix, led);
-  matrix_update(&display, &matrix);
+    // Host Keyboard LED Status
+    led_t led_state = host_keyboard_led_state();
+    oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
+    oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
 }
+#endif
