@@ -123,8 +123,9 @@ static void dac_end(DACDriver *dacp){
     if (playing_notes) {
         note_position += DAC_BUFFER_SIZE/2;
 
-        // End of the note - 35 is arbitary here, but gets us close to AVR's timing
-        if ((note_position >= (note_length * DAC_SAMPLE_RATE / 35))) {
+        // End of the note -  64 is the number of 'units' of a whole note, 3 comes (probably?) from the gpttimer: DAC_SAMPLE_RATE * 3; with a TEMPO set to 60 a whole note lasts exactly one second
+#define EON (64*2.0f/3)
+        if ((note_position >= (note_length * DAC_SAMPLE_RATE / EON))) {
             stop_note((*notes_pointer)[current_note][0]);
             current_note++;
             if (current_note >= notes_count) {
@@ -135,13 +136,16 @@ static void dac_end(DACDriver *dacp){
                     return;
                 }
             }
-            play_note((*notes_pointer)[current_note][0], 15);
+
+
+            play_note((*notes_pointer)[current_note][0], 0);//Note: second parameter volume is unused
             envelope_index = 0;
-            note_length    = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
+
+            note_length    = ((*notes_pointer)[current_note][1]) * (60.0f / note_tempo);
 
             // Skip forward in the next note's length if we've over shot the last, so
             // the overall length of the song is the same
-            note_position = note_position - (note_length * DAC_SAMPLE_RATE / 35);
+            note_position = note_position - (note_length * DAC_SAMPLE_RATE / EON);
         }
     }
 }

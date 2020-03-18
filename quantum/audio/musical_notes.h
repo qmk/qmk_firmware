@@ -18,7 +18,8 @@
 #define MUSICAL_NOTES_H
 
 // Tempo Placeholder
-#define TEMPO_DEFAULT 100
+#define TEMPO_DEFAULT 60
+// in beats-per-minute
 
 #define SONG(notes...) \
     { notes }
@@ -39,6 +40,8 @@
 #define QUARTER_DOT_NOTE(note) MUSICAL_NOTE(note, 16 + 8)
 #define EIGHTH_DOT_NOTE(note) MUSICAL_NOTE(note, 8 + 4)
 #define SIXTEENTH_DOT_NOTE(note) MUSICAL_NOTE(note, 4 + 2)
+// duration of 64 units == one beat == one whole note
+// with a tempo of 60bpm this comes to a length of one second
 
 // Note Type Shortcuts
 #define M__NOTE(note, duration) MUSICAL_NOTE(note, duration)
