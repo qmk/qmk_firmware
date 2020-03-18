@@ -22,9 +22,9 @@
 #define VENDOR_ID       0x4658 //FX
 #define PRODUCT_ID      0x4C53 //LS
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    flx
-#define PRODUCT         flx lodestone
-#define DESCRIPTION     flx lodestone
+#define MANUFACTURER    FLX
+#define PRODUCT         Lodestone
+#define DESCRIPTION     FLX Lodestone
 
 /* key matrix size */
 #define MATRIX_ROWS 5
