@@ -4,7 +4,6 @@ enum layers {
   _QWERTY,
   _LOWER,
   _RAISE,
-  _GAME
 };
 
 #define LOWER   MO(_LOWER)
