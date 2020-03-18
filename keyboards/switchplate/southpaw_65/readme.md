@@ -4,7 +4,7 @@
 
 Left Hand Number Pad Keyboard with 85 Keys & RGB LED Underglow
 - Designed by Reconsiderit
-- Up to 90 keys
+- Up to 91 keys
 - iso and ansi support
 - Uses Kimera core
 
