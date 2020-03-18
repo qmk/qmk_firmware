@@ -31,9 +31,6 @@
 #    include "audio_chibios_dac.h"
 #endif
 
-// Largely untested PWM audio mode (doesn't sound as good)
-// #define PWM_AUDIO
-
 // #define VIBRATO_ENABLE
 
 // Enable vibrato strength/amplitude - slows down ISR too much
@@ -95,9 +92,6 @@ void decrease_tempo(uint8_t tempo_change);
 
 void audio_init(void);
 
-#ifdef PWM_AUDIO
-void play_sample(uint8_t* s, uint16_t l, bool r);
-#endif
 void play_note(float freq, int vol);
 void stop_note(float freq);
 void stop_all_notes(void);
