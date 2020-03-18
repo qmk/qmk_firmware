@@ -36,7 +36,7 @@
     { K40, K41, K42, ___, ___, ___, K46, ___, ___, ___, K4A, K4B, ___, K4D, K4E, K4F }, \
 }
 
-#define LAYOUT_ansi( \
+#define LAYOUT_65_ansi_blocker_split_bs( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K0E, K0F,   \
      K10,  K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C,  K1D,   K1F,   \
       K20,   K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B,      K2D,  K2F,   \
@@ -50,7 +50,7 @@
     { K40, K41, K42, ___, ___, ___, K46, ___, ___, ___, K4A, K4B, ___, K4D, K4E, K4F }, \
 }
 
-#define LAYOUT_iso( \
+#define LAYOUT_65_iso_blocker_split_bs( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K0E, K0F,   \
      K10,  K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C,         K1F,   \
       K20,   K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, K2D,  K2F,   \

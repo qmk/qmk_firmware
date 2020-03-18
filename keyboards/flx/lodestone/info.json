@@ -79,7 +79,7 @@
                 {"label":"K4F (F4,C7)", "x":15, "y":4}
             ]
         },
-        "LAYOUT_ansi": {
+        "LAYOUT_65_ansi_blocker_split_bs": {
             "layout": [
                 {"label":"K00 (B3,B2)", "x":0, "y":0},
                 {"label":"K01 (B3,F5)", "x":1, "y":0},
@@ -151,7 +151,7 @@
                 {"label":"K4F (F4,C7)", "x":15, "y":4}
             ]
         },
-        "LAYOUT_iso": {
+        "LAYOUT_65_iso_blocker_split_bs": {
             "layout": [
                 {"label":"K00 (B3,B2)", "x":0, "y":0},
                 {"label":"K01 (B3,F5)", "x":1, "y":0},
