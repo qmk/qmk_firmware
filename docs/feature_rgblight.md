@@ -228,6 +228,8 @@ bool led_update_user(led_t led_state) {
 }
 ```
 
+Note: For split keyboards with two controllers, both sides need to be flashed when updating the contents of rgblight_layers.
+
 ## Functions
 
 If you need to change your RGB lighting in code, for example in a macro to change the color whenever you switch layers, QMK provides a set of functions to assist you. See [`rgblight.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight.h) for the full list, but the most commonly used functions include:
