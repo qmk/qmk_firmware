@@ -2,7 +2,7 @@
 
 One of the most powerful and well used features of QMK Firmware is the ability to use layers.  For most people, this amounts to a function key that allows for different keys, much like what you would see on a laptop or tablet keyboard. 
 
-For a detailed explanation of how the layer stack works, checkout [Keymap Overview](keymap.md#keymap-and-layers). However, a simple method to visualize the layers, is to look at it as a stack of paper.  Each layer is a sheet. Transparent sections are cutouts on that sheet that let you see and use the layer(s) below it, and keys and `NO`s blocking the layers below. 
+For a detailed explanation of how the layer stack works, checkout [Keymap Overview](keymap.md#keymap-and-layers).
 
 ## Switching and Toggling Layers :id=switching-and-toggling-layers
 
