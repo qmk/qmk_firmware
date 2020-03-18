@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-       TRNS,  PSCR,  SCRS,   INS,  CAPS,  TRNS,                   MAIL,  WSCH,     8,     9,     0,  TRNS,\
+       TRNS,  PSCR,  SCRS,   INS,  CAPS,  TRNS,                   MAIL,  WSCH,  TRNS,  TRNS,  TRNS,  TRNS,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        TRNS,  MUTE,  LEFT,    UP, RIGHT,  PGUP,                     F1,    F2,    F3,    F4,    F5,    F6,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
