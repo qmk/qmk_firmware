@@ -38,7 +38,7 @@ const uint8_t ascii_to_shift_lut[16] PROGMEM = {
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 0, 1, 1, 1, 1, 0),
+    KCLUT_ENTRY(0, 0, 0, 1, 1, 1, 1, 0)
 };
 
 const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
@@ -52,7 +52,7 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     //       !        "        #        $        %        &        '
-    UK_SPC, UK_1, UK_2, UK_HASH, UK_4, UK_5, UK_7, UK_QUOT,
+    KC_SPC,  UK_1,    UK_2,    UK_HASH, UK_4,    UK_5,    UK_7,    UK_QUOT,
     // (     )        *        +        ,        -        .        /
     UK_9, UK_0, UK_8, UK_EQL, UK_COMM, UK_MINS, UK_DOT, UK_SLSH,
     // 0     1        2        3        4        5        6        7
