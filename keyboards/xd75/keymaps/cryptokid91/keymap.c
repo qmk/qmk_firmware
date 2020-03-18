@@ -21,10 +21,12 @@
 #define MS_US MT(MOD_RSFT, KC_UP)
 
 // Layer shorthand
-#define _QWERTY 0
-#define _LOWER  1
-#define _RAISE  2
-#define _RESET  3
+enum layer_names {
+    _QWERTY,
+    _LOWER,
+    _RAISE,
+    _RESET
+};
 
 enum custom_keycodes {
   MS_P00 = SAFE_RANGE,
@@ -50,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | MENU   | <      | LGUI   | LALT   | LOWER  | SPACE  | NUM00  | NUM0   | NUM.   | ENTER  | RAISE  | RALT   | LEFT   | DOWN   | RIGHT  |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
-							      
+
  [_QWERTY] = LAYOUT_ortho_5x15( /* SPLIT QWERTY */
    KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_PSCR, KC_SLCK, KC_LOCK, KC_6,   KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_P7,   KC_P8,   KC_P9,   KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,
