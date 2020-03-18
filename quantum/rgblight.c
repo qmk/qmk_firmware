@@ -104,7 +104,7 @@ LED_TYPE led[RGBLED_NUM];
 #endif
 
 #ifdef RGBLIGHT_LAYERS
-rgblight_segment_t const * const *rgblight_layers = NULL;
+rgblight_segment_t const *const *rgblight_layers = NULL;
 #endif
 
 static uint8_t clipping_start_pos = 0;
@@ -638,11 +638,11 @@ bool rgblight_get_layer_state(uint8_t layer) {
 static void rgblight_layers_write(void) {
     uint8_t i = 0;
     // For each layer
-    for (const rgblight_segment_t * const *layer_ptr = rgblight_layers; i < RGBLIGHT_MAX_LAYERS; layer_ptr++, i++) {
+    for (const rgblight_segment_t *const *layer_ptr = rgblight_layers; i < RGBLIGHT_MAX_LAYERS; layer_ptr++, i++) {
         if (!rgblight_get_layer_state(i)) {
-            continue;   // Layer is disabled
+            continue;  // Layer is disabled
         }
-        const rgblight_segment_t * segment_ptr = pgm_read_ptr(layer_ptr);
+        const rgblight_segment_t *segment_ptr = pgm_read_ptr(layer_ptr);
         if (segment_ptr == NULL) {
             break;  // No more layers
         }
@@ -654,7 +654,7 @@ static void rgblight_layers_write(void) {
                 break;  // No more segments
             }
             // Write segment.count LEDs
-            LED_TYPE * const limit = &led[MIN(segment.index + segment.count, RGBLED_NUM)];
+            LED_TYPE *const limit = &led[MIN(segment.index + segment.count, RGBLED_NUM)];
             for (LED_TYPE *led_ptr = &led[segment.index]; led_ptr < limit; led_ptr++) {
                 sethsv(segment.hue, segment.sat, segment.val, led_ptr);
             }

@@ -244,30 +244,6 @@ EXTRALIBDIRS = $(RULESPATH)/ld
 DFU_UTIL ?= dfu-util
 ST_LINK_CLI ?= st-link_cli
 
-# Generate a .qmk for the QMK-FF
-qmk: $(BUILD_DIR)/$(TARGET).bin
-	zip $(TARGET).qmk -FSrj $(KEYMAP_PATH)/*
-	zip $(TARGET).qmk -u $<
-	printf "@ $<\n@=firmware.bin\n" | zipnote -w $(TARGET).qmk
-	printf "{\n  \"generated\": \"%s\"\n}" "$$(date)" > $(BUILD_DIR)/$(TARGET).json
-	if [ -f $(KEYBOARD_PATH_5)/info.json ]; then \
-		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_5)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
-	fi
-	if [ -f $(KEYBOARD_PATH_4)/info.json ]; then \
-		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_4)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
-	fi
-	if [ -f $(KEYBOARD_PATH_3)/info.json ]; then \
-		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_3)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
-	fi
-	if [ -f $(KEYBOARD_PATH_2)/info.json ]; then \
-		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_2)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
-	fi
-	if [ -f $(KEYBOARD_PATH_1)/info.json ]; then \
-		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_1)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
-	fi
-	zip $(TARGET).qmk -urj $(BUILD_DIR)/$(TARGET).json
-	printf "@ $(TARGET).json\n@=info.json\n" | zipnote -w $(TARGET).qmk
-
 define EXEC_DFU_UTIL
 	until $(DFU_UTIL) -l | grep -q "Found DFU"; do\
 		printf "$(MSG_BOOTLOADER_NOT_FOUND)" ;\
