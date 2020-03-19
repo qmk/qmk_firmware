@@ -164,11 +164,6 @@ typedef union {
         uint8_t  page : 2;
         uint8_t  kind : 4;
     } usage;
-    struct action_command {
-        uint8_t id : 8;
-        uint8_t opt : 4;
-        uint8_t kind : 4;
-    } command;
     struct action_function {
         uint8_t id : 8;
         uint8_t opt : 4;
