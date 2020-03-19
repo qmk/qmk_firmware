@@ -48,7 +48,7 @@ def new_keyboard(cli):
 
     Files will be placed in `qmk_firmware/keyboards/<project name>/`.""")
     keyboard = input("\nProject Name: ")
-    keyboard = re.sub(r'[^a-z0-9_]', "", keyboard)
+    keyboard = re.sub(r'[^a-z0-9_]', "", keyboard.lower())
 
     #print("Project Name ")
 
