@@ -178,6 +178,5 @@ def new_keyboard(cli):
     rewrite_source("keymaps/default/readme.md")
 
     # end message to user
-    print("\n")
-    cli.log.info("%s keyboard directory created in: %s", keyboard, keyboard_path)
+    cli.log.info("%s keyboard directory created in: %s", keyboard_name, keyboard_path)
     cli.log.info("Compile a firmware with your new keymap by typing: \n" + "qmk compile -kb %s -km default", keyboard)
