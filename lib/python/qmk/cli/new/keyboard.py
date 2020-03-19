@@ -18,6 +18,22 @@ def new_keyboard(cli):
     """Creates a new keyboard project.
     """
 
+    # valid microcontroller choices
+    mcus = {
+        1  : ( 'at90usb1286', 'avr' ),
+        2  : ( 'at90usb646' , 'avr' ),
+        3  : ( 'atmega16u2' , 'avr' ),
+        4  : ( 'atmega16u4' , 'avr' ),
+        5  : ( 'atmega328p' , 'avr' ),
+        6  : ( 'atmega32a'  , 'ps2avrgb' ),
+        7  : ( 'atmega32u2' , 'avr' ),
+        8  : ( 'atmega32u4' , 'avr' ),
+        9  : ( 'STM32F042'  , 'stm32' ),
+        10 : ( 'STM32F072'  , 'stm32' ),
+        11 : ( 'STM32F103'  , 'stm32' ),
+        12 : ( 'STM32F303'  , 'stm32' )
+    }
+
     # Generate the USB Product ID
     def generate_pid(str):
         str = str.encode('utf-8')
@@ -36,6 +52,15 @@ def new_keyboard(cli):
             .replace("%PID%", pid)
         rw_file.write_text(file_contents)
 
+    def print_microcontrollers():
+        for i in range( 1, ( len(mcus) + 1 ) ):
+            print( \
+                "    " + \
+                " " * ( 2 - len(str(i)) ) + \
+                str(i) + ": " + \
+                mcus[i][0]
+            )
+
     # Root path for template files
     template_root_path = Path("quantum/template")
     year = datetime.now().year
@@ -47,31 +72,21 @@ def new_keyboard(cli):
     This will be the name used to compile firmware for your keyboard.
 
     Files will be placed in `qmk_firmware/keyboards/<project name>/`.""")
-    keyboard = input("\nProject Name: ")
+    keyboard = input("\n    Project Name: ")
     keyboard = re.sub(r'[^a-z0-9_]', "", keyboard.lower())
 
     #print("Project Name ")
 
+    # Ask the common name of the keyboard
     print("""\n** What is the keyboard's name? **
 
     This is the name that people will use to refer to your keyboard. It should
     be something human-friendly, like \"Clueboard 66%\" or \"Ergodox EZ\".""")
-    keyboard_name = input("\nName: ")
+    keyboard_name = input("\n    Name: ")
 
     # Ask what microcontroller is being used
-    print("""\n** Select the microcontroller used: **\n
-     (1) atmega16u2
-     (2) atmega32u2
-     (3) atmega16u4
-     (4) atmega32u4
-     (5) at90usb646
-     (6) at90usb1286
-     (7) atmega328p
-     (8) atmega32a
-     (9) STM32F042
-    (10) STM32F072
-    (11) STM32F103
-    (12) STM32F303""")
+    print("\n** Select the microcontroller used: **\n")
+    print_microcontrollers()
 
     # MCUs are saved with lowercase names to make the user input request
     #   case-insensitive
@@ -80,20 +95,14 @@ def new_keyboard(cli):
     mcus_ps2avrgb = ["atmega32a"]
     mcus_stm = ["stm32f042", "stm32f072", "stm32f103", "stm32f303"]
 
-    mcu = input("\nMicrocontroller: ")
+    mcu = int(input("\n    Microcontroller: (1-" + str(len(mcus)) + "): "))
+    arch = mcus[mcu][1]
+    mcu = mcus[mcu][0]
     mcu = mcu.lower()
 
-    # Set the MCU Architecture
-    if mcu in mcus_avr:
-        arch = "avr"
-    elif mcu in mcus_ps2avrgb:
-        arch = "ps2avrgb"
-    elif mcu in mcus_stm:
-        arch = "stm32"
-    else:
-        print("Invalid microcontroller.")
-        exit(1)
+    print("mcu: " + mcu + "; arch: " + arch)
 
+    # Set the path to the MCU architecture's template files
     template_arch_path = Path(template_root_path) / arch
 
     # Ask the user for their name
