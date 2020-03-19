@@ -84,7 +84,6 @@ def new_keyboard(cli):
         mcu_list = [(name, SUPPORTED_MCUS[name]) for name in SUPPORTED_MCUS]
         arch = mcu_list[mcu][1]
         mcu = mcu_list[mcu][0]
-        mcu = mcu.lower()
     # Set the path to the MCU architecture's template files
     template_arch_path = template_root_path / arch
 
