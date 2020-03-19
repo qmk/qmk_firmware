@@ -1,6 +1,5 @@
 """This script automates creating the files necessary for a new QMK keyboard.
 """
-import os
 import shutil
 import hashlib
 import re
