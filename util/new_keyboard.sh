@@ -19,4 +19,3 @@ echo_bold() {
 echo_bold "This script has been deprecated, and will be deleted in future."
 echo_bold "Please use:\n\n    qmk new-keyboard\n"
 qmk new-keyboard
-exit 100
