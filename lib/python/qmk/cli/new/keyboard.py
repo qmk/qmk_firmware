@@ -27,7 +27,7 @@ def new_keyboard(cli):
     # Rewrites the %YEAR%, %YOUR_NAME%, %KEYBOARD% and %PID% placeholders in the
     #   new files.
     def rewrite_source(file):
-        rw_file = Path(os.path.join(kb_path, file))
+        rw_file = Path(kb_path) / file
         file_contents = rw_file.read_text() \
             .replace("%YEAR%", str(year)) \
             .replace("%YOUR_NAME%", user_name) \
@@ -37,7 +37,7 @@ def new_keyboard(cli):
         rw_file.write_text(file_contents)
 
     # Root path for template files
-    template_root_path = os.path.join(os.getcwd(), "quantum/template")
+    template_root_path = Path.cwd() / "quantum/template"
     year = datetime.now().year
 
     # ask for user input if keyboard was not provided in the command line
@@ -84,42 +84,42 @@ def new_keyboard(cli):
         print("Invalid microcontroller.")
         exit(1)
 
-    template_arch_path = os.path.join(template_root_path, arch)
+    template_arch_path = Path(template_root_path) / arch
 
     # Ask the user for their name
     user_name = input("\nYour Name: ")
 
     # generate keymap paths
-    kb_path = os.path.join(os.getcwd(), "keyboards", keyboard)
-    template_base_path = os.path.join(template_root_path, "base")
+    kb_path = Path.cwd() / "keyboards" / keyboard
+    template_base_path = Path(template_root_path) / "base"
 
     # check directories
-    if os.path.exists(kb_path):
+    if Path.exists(kb_path):
         cli.log.error('Keyboard %s already exists!', keyboard)
         exit(1)
 
     # create user directory with default keymap files
     shutil.copytree(template_base_path, kb_path, symlinks=True)
     os.rename( \
-        os.path.join(kb_path, "keyboard.c"), \
-        os.path.join(kb_path, keyboard + ".c")
+        Path(kb_path) / "keyboard.c", \
+        Path(kb_path) / keyboard + ".c" \
     )
     os.rename( \
-        os.path.join(kb_path, "keyboard.h"), \
-        os.path.join(kb_path, keyboard + ".h")
+        Path(kb_path) / "keyboard.h", \
+        Path(kb_path) / keyboard + ".h" \
     )
     # copy architecture files
-    shutil.copy(os.path.join(template_arch_path, "config.h"), kb_path)
-    shutil.copy(os.path.join(template_arch_path, "readme.md"), kb_path)
-    shutil.copy(os.path.join(template_arch_path, "rules.mk"), kb_path)
+    shutil.copy(Path(template_arch_path) / "config.h", kb_path)
+    shutil.copy(Path(template_arch_path) / "readme.md", kb_path)
+    shutil.copy(Path(template_arch_path) / "rules.mk", kb_path)
     if ( arch == "ps2avrgb" ):
-        shutil.copy(os.path.join(template_arch_path, "usbconfig.h"), kb_path)
+        shutil.copy(Path(template_arch_path) / "usbconfig.h", kb_path)
     if ( arch == "stm32" ):
         # STM32 MCUs need their names in uppercase
         mcu = mcu.upper()
 
     # rewrite the rules.mk file with the requested MCU rule
-    rules = Path(os.path.join(kb_path, "rules.mk"))
+    rules = Path(kb_path) / "rules.mk"
     file_contents = rules.read_text()
     file_contents = file_contents.replace("%MCU%", mcu)
     rules.write_text(file_contents)
