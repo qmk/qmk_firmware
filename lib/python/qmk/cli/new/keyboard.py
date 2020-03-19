@@ -18,6 +18,11 @@ def new_keyboard(cli):
     """Creates a new keyboard project.
     """
 
+    def generate_pid(str):
+        str = str.encode('utf-8')
+        str = hashlib.sha1(str).hexdigest()[0:4].upper()
+        return str
+
     # Root path for template files
     template_root_path = os.path.join(os.getcwd(), "quantum/template")
     year = datetime.now().year
@@ -91,7 +96,7 @@ def new_keyboard(cli):
 
     # rewrite the %YEAR%, %YOUR_NAME%, %KEYBOARD% and %PID% placeholders
     # TODO: write a reusable function for all this
-    pid = hashlib.sha1(b'keyboard')
+    pid = generate_pid(keyboard)
 
     # Define the files to rewrite
     config = Path(os.path.join(kb_path, "config.h"))
@@ -106,8 +111,8 @@ def new_keyboard(cli):
     file_contents = config.read_text() \
         .replace("%YEAR%", str(year)) \
         .replace("%YOUR_NAME%", user_name) \
-        .replace("%KEYBOARD%", keyboard)
-        #.replace("%PID%", keyboard)
+        .replace("%KEYBOARD%", keyboard) \
+        .replace("%PID%", pid)
     config.write_text(file_contents)
 
     file_contents = info.read_text() \
