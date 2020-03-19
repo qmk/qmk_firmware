@@ -52,7 +52,7 @@ def new_keyboard(cli):
 
     This is the name that people will use to refer to your keyboard. It should
     be something human-friendly, like \"Clueboard 66%%\" or \"Ergodox EZ\".""")
-        keyboard_name = question("Name: ")
+        keyboard_name = question("Common Name: ")
 
 
     if cli.args.microcontroller:
