@@ -20,7 +20,7 @@ def list_keymaps(cli):
         cli.args.keyboard = input('Keyboard: ')
 
     try:
-        for name in qmk.keymap.list_keymaps(cli.args.keyboard):
+        for name in qmk.keymap.list_keymaps(cli.config.list_keymaps.keyboard):
             # echo instead of config.log.info for easier output piping
             cli.echo('%s', name)
     except NoSuchKeyboardError as e:
