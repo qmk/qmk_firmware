@@ -50,7 +50,8 @@ def new_keyboard(cli):
             .replace("%YOUR_NAME%", user_name) \
             .replace("%KEYBOARD%", keyboard) \
             .replace("%KEYBOARD_NAME%", keyboard_name) \
-            .replace("%PID%", pid)
+            .replace("%PID%", pid) \
+            .replace("%MCU%", mcu)
         rw_file.write_text(file_contents)
 
     def print_microcontrollers():
@@ -153,12 +154,6 @@ def new_keyboard(cli):
         # STM32 MCUs need their names in uppercase
         mcu = mcu.upper()
 
-    # rewrite the rules.mk file with the requested MCU rule
-    rules = Path(keyboard_path) / "rules.mk"
-    file_contents = rules.read_text()
-    file_contents = file_contents.replace("%MCU%", mcu)
-    rules.write_text(file_contents)
-
     # rewrite the %YEAR%, %YOUR_NAME%, %KEYBOARD% and %PID% placeholders
 
     # generate and assign the Product ID value
@@ -168,6 +163,7 @@ def new_keyboard(cli):
     rewrite_source("config.h")
     rewrite_source("info.json")
     rewrite_source("readme.md")
+    rewrite_source("rules.mk")
     rewrite_source(keyboard + ".c")
     rewrite_source(keyboard + ".h")
     rewrite_source("keymaps/default/keymap.c")
