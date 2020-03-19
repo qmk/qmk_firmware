@@ -18,16 +18,29 @@ def new_keyboard(cli):
     """Creates a new keyboard project.
     """
 
+    # Generate the USB Product ID
     def generate_pid(str):
         str = str.encode('utf-8')
         str = hashlib.sha1(str).hexdigest()[0:4].upper()
         return str
+
+    # Rewrites the %YEAR%, %YOUR_NAME%, %KEYBOARD% and %PID% placeholders in the
+    #   new files.
+    def rewrite_source(file):
+        rw_file = Path(os.path.join(kb_path, file))
+        file_contents = rw_file.read_text() \
+            .replace("%YEAR%", str(year)) \
+            .replace("%YOUR_NAME%", user_name) \
+            .replace("%KEYBOARD%", keyboard) \
+            .replace("%PID%", pid)
+        rw_file.write_text(file_contents)
 
     # Root path for template files
     template_root_path = os.path.join(os.getcwd(), "quantum/template")
     year = datetime.now().year
 
     # ask for user input if keyboard was not provided in the command line
+    # TODO: figure out how to get this script to take arguments from CLI
     keyboard = input("\nKeyboard Name: ")
 
     print("\nSelect the microcontroller used:")
@@ -35,6 +48,8 @@ def new_keyboard(cli):
     print("     at90usb646    at90usb1286    atmega32a     atmega328p")
     print("     STM32F042     STM32F072      STM32F103     STM32F303")
 
+    # MCUs are saved with lowercase names to make the user input request
+    #   case-insensitive
     mcus_avr = ["atmega16u2", "atmega32u2", "atmega16u4", "atmega32u4", \
         "at90usb646", "at90usb1286", "atmega328p"]
     mcus_ps2avrgb = ["atmega32a"]
@@ -85,70 +100,30 @@ def new_keyboard(cli):
     if ( arch == "ps2avrgb" ):
         shutil.copy(os.path.join(template_arch_path, "usbconfig.h"), kb_path)
     if ( arch == "stm32" ):
+        # STM32 MCUs need their names in uppercase
         mcu = mcu.upper()
 
-    # TODO: rewrite the rules.mk file with the requested MCU rule
+    # rewrite the rules.mk file with the requested MCU rule
     rules = Path(os.path.join(kb_path, "rules.mk"))
     file_contents = rules.read_text()
     file_contents = file_contents.replace("%MCU%", mcu)
     rules.write_text(file_contents)
-    # edit_file(kb_path, "rules.mk")
 
     # rewrite the %YEAR%, %YOUR_NAME%, %KEYBOARD% and %PID% placeholders
-    # TODO: write a reusable function for all this
+
+    # generate and assign the Product ID value
+    # Required before using rewrite_source()
     pid = generate_pid(keyboard)
 
-    # Define the files to rewrite
-    config = Path(os.path.join(kb_path, "config.h"))
-    info = Path(os.path.join(kb_path, "info.json"))
-    readme = Path(os.path.join(kb_path, "readme.md"))
-    source = Path(os.path.join(kb_path, keyboard + ".c"))
-    header = Path(os.path.join(kb_path, keyboard + ".h"))
-    keymap = Path(os.path.join(kb_path, "keymaps/default", "keymap.c"))
-    keymap2 = Path(os.path.join(kb_path, "keymaps/default", "config.h"))
-    keymap3 = Path(os.path.join(kb_path, "keymaps/default", "readme.md"))
+    rewrite_source("config.h")
+    rewrite_source("info.json")
+    rewrite_source("readme.md")
+    rewrite_source(keyboard + ".c")
+    rewrite_source(keyboard + ".h")
+    rewrite_source("keymaps/default/keymap.c")
+    rewrite_source("keymaps/default/config.h")
+    rewrite_source("keymaps/default/readme.md")
 
-    file_contents = config.read_text() \
-        .replace("%YEAR%", str(year)) \
-        .replace("%YOUR_NAME%", user_name) \
-        .replace("%KEYBOARD%", keyboard) \
-        .replace("%PID%", pid)
-    config.write_text(file_contents)
-
-    file_contents = info.read_text() \
-        .replace("%YOUR_NAME%", user_name) \
-        .replace("%KEYBOARD%", keyboard)
-    info.write_text(file_contents)
-
-    file_contents = readme.read_text() \
-        .replace("%YOUR_NAME%", user_name) \
-        .replace("%KEYBOARD%", keyboard)
-    readme.write_text(file_contents)
-
-    file_contents = source.read_text() \
-        .replace("%YEAR%", str(year)) \
-        .replace("%YOUR_NAME%", user_name) \
-        .replace("%KEYBOARD%", keyboard)
-    source.write_text(file_contents)
-
-    file_contents = header.read_text() \
-        .replace("%YOUR_NAME%", user_name) \
-        .replace("%KEYBOARD%", keyboard)
-    header.write_text(file_contents)
-
-    file_contents = keymap.read_text() \
-        .replace("%YEAR%", str(year)) \
-        .replace("%YOUR_NAME%", user_name)
-    keymap.write_text(file_contents)
-
-    file_contents = keymap2.read_text() \
-        .replace("%YEAR%", str(year)) \
-        .replace("%YOUR_NAME%", user_name)
-    keymap2.write_text(file_contents)
-
-    file_contents = keymap3.read_text() \
-        .replace("%KEYBOARD%", keyboard)
-    keymap3.write_text(file_contents)
 
     # end message to user
     cli.log.info("%s keyboard directory created in: %s", keyboard, kb_path)
