@@ -4,7 +4,7 @@
 
 A short description of the keyboard/project
 
-* Keyboard Maintainer: [%YOUR_NAME%](https://github.com/yourusername)
+* Keyboard Maintainer: [%YOUR_NAME%](https://github.com/%YOUR_NAME%)
 * Hardware Supported: The PCBs, controllers supported
 * Hardware Availability: Links to where you can find this hardware
 

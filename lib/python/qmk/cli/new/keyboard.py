@@ -63,6 +63,7 @@ def new_keyboard(cli):
 
     # Root path for template files
     template_root_path = Path("quantum/template")
+    template_base_path = Path(template_root_path) / "base"
     year = datetime.now().year
 
     # ask for user input if keyboard was not provided in the command line
@@ -100,24 +101,25 @@ def new_keyboard(cli):
     mcu = mcus[mcu][0]
     mcu = mcu.lower()
 
-    print("mcu: " + mcu + "; arch: " + arch)
-
     # Set the path to the MCU architecture's template files
     template_arch_path = Path(template_root_path) / arch
 
-    # Ask the user for their name
-    user_name = input("\nYour Name: ")
+    # Ask the user for their name and GitHub username
+    print("""\n** What is your GitHub username? **
 
-    # generate keymap paths
+    This value will be pasted into the new files in copyright headers, and used
+    as the listed Keyboard Maintainer in the readme file.""")
+    user_name = input("\n    GitHub Username: ")
+
+    # generate keyboard paths
     keyboard_path = Path("keyboards") / keyboard
-    template_base_path = Path(template_root_path) / "base"
 
     # check directories
     if Path.exists(keyboard_path):
         cli.log.error('Keyboard %s already exists!', keyboard)
         exit(1)
 
-    # create user directory with default keymap files
+    # create user directory with default keyboard files
     shutil.copytree(template_base_path, keyboard_path, symlinks=True)
     kb_c = Path(keyboard_path) / "keyboard.c"
     kb_h = Path(keyboard_path) / "keyboard.h"
@@ -129,6 +131,7 @@ def new_keyboard(cli):
     shutil.copy(Path(template_arch_path) / "readme.md", keyboard_path)
     shutil.copy(Path(template_arch_path) / "rules.mk", keyboard_path)
     if ( arch == "ps2avrgb" ):
+        # only ps2avrgb keyboards require this file
         shutil.copy(Path(template_arch_path) / "usbconfig.h", keyboard_path)
     if ( arch == "stm32" ):
         # STM32 MCUs need their names in uppercase
@@ -155,7 +158,7 @@ def new_keyboard(cli):
     rewrite_source("keymaps/default/config.h")
     rewrite_source("keymaps/default/readme.md")
 
-
     # end message to user
+    print("\n")
     cli.log.info("%s keyboard directory created in: %s", keyboard, keyboard_path)
     cli.log.info("Compile a firmware with your new keymap by typing: \n" + "qmk compile -kb %s -km default", keyboard)
