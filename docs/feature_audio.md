@@ -19,19 +19,23 @@ and *optionally*, a secondary voice, using Timer 1, on one of these pins:
 
 
 ## ARM based boards
-STM32F2 upwards can use the builtin DAC unit, to drive Pins A4 or A5, set either:
+STM32F2 upwards can use the builtin DAC unit, to drive Pins A4 or A5:
+add `AUDIO_DRIVER = dac` to `rules.mk` and set in `config.h` either:
 `#define A4_AUDIO`
 OR
 `#define A5_AUDIO`
 
-STM32F1xx have to fall back to using PWM (on the up side: with any pin you choose), either:
-`#define ARM_PWM_USE_PIN_ALTERNATE 1`
-which is the default. Pin PA8 will be used, which is directly connected to the hardware PWM (TIM1_CH1 = PA8)
-OR
-`#define ARM_PWM_USE_PIN_ALTERNATE 0`
-`#define ARM_PWM_AUDIO_PORT GPIOC`
-`#define ARM_PWM_AUDIO_PIN 13`
-to have any other pin output a pwm signal, generated from a timer callback (e.g. toggled in software)
+
+STM32F1xx have to fall back to using PWM (on the up side: with any pin you choose),
+
+either set:
+`AUDIO_SYSTEM = pwm-pin-alternate` in `rules.mk` and
+`#define AUDIO_PIN C13` in `config.h`
+to have the selected pin output a pwm signal, generated from a timer callback (e.g. toggled in software)
+ OR
+`AUDIO_DRIVER PWM_PIN_ALTERNATE` in `rules.mk`
+which will use Timer 1 to directly drive pin PA8 through the PWM hardware (TIM1_CH1 = PA8).
+Should you want to use the pwm-hardware on another pin and timer - be ready to dig into the STM32 datasheet and do the neccessary changes to quantum/audio/audio_arm_pwm.c.
 
 
 ## Songs
