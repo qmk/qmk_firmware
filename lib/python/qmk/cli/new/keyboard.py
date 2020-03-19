@@ -83,7 +83,7 @@ def new_keyboard(cli):
         for i, mcu in enumerate(SUPPORTED_MCUS, 1):
             cli.echo("    %s: %s (%s)", str(i).rjust(2, " "), mcu, SUPPORTED_MCUS[mcu] )
 
-        mcu = int(input("\n    Microcontroller: (1-" + str(len(SUPPORTED_MCUS)) + "): "))
+        mcu = question("Microcontroller: (1-%d): ", len(SUPPORTED_MCUS), answer_type=int)
         # user-facing text is 1-indexed, but data is 0-indexed internally
         mcu -= 1
         # create a list of tuples from the dictionary
