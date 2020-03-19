@@ -1,23 +1,27 @@
-/*
-Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
 #pragma once
 
 #include "quantum.h"
+
+inline void led_1_on(void) {writePinHigh(D0);}
+inline void led_2_on(void) {writePinHigh(D1);} //D4
+inline void led_3_on(void) {writePinHigh(D6);}
+
+inline void led_1_off(void) {writePinLow(D0);}
+inline void led_2_off(void) {writePinLow(D1);} //D4?
+inline void led_3_off(void) {writePinLow(D6);}
+
+  // if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+    // writePinHigh(D1);
+// #if defined(BL_AS_CAPSLOCK)
+    // writePinHigh(D4);
+// #endif
+  // }
+  // else {
+    // writePinLow(D1);
+// #if defined(BL_AS_CAPSLOCK)
+    // writePinLow(D4);
+// #endif
+  // }
 
 #define KEYMAP( \
             K05, K15, K25, K35, K45, K55, K65, K75, K85, K95, K105, K115, K125, K135, K86, K87, \
