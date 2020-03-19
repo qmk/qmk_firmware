@@ -119,6 +119,19 @@ array_contains() {
     return 1
 }
 
+
+# check for presence of Python 3.5 or greater
+# PYTHON_VERSION = $(python --version | )
+
+echo_bold "This script has been deprecated, and will be deleted in future."
+echo_bold "Please use:\n\n    qmk new-keyboard\n"
+qmk new-keyboard
+exit 100
+
+
+# ORIGINAL SCRIPT CONTINUES
+
+
 # If we've been started from util/, we want to be in qmk_firmware/
 [[ "$PWD" == *util ]] && cd ..
 
