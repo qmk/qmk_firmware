@@ -106,7 +106,7 @@ def new_keyboard(cli):
         print_microcontrollers()
 
         mcu = int(input("\n    Microcontroller: (1-" + str(len(mcus)) + "): "))
-        # user-facing text is 1-12, but data is 0-11 internally
+        # user-facing text is 1-indexed, but data is 0-indexed internally
         mcu = mcu - 1
         arch = mcus[mcu][1]
         mcu = mcus[mcu][0]
