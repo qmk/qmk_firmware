@@ -15,7 +15,7 @@ def list_keymaps(cli):
     """
 
     # Prompt the user for a keyboard
-    while not cli.args.keyboard:
+    while not cli.config.list_keymaps.keyboard:
         cli.echo('Specify the keyboard. Example: 1upkeyboards/1up60hse\n')
         cli.args.keyboard = input('Keyboard: ')
 
