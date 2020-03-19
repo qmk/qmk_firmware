@@ -5,11 +5,7 @@
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // If console is enabled, it will print the matrix position and status of each key pressed
-// #ifdef CONSOLE_ENABLE
-//   if (debug_enable) {
-//     uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
-//   }
-// #endif
+// dprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
 
   if (record->event.pressed) {
     switch (keycode) {
@@ -26,9 +22,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
         return false;
       case SPI_LNX:
-#ifdef CONSOLE_ENABLE
-	if (debug_enable) { print("SPIDEY3: SPI_LNX\n"); }
-#endif
+	dprint("SPIDEY3: SPI_LNX\n");
         set_single_persistent_default_layer(_BASE);
 	layer_off(_OSX);
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
@@ -36,18 +30,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
         return false;
       case SPI_OSX:
-#ifdef CONSOLE_ENABLE
-	if (debug_enable) { print("SPIDEY3: SPI_OSX\n"); }
-#endif
+	dprint("SPIDEY3: SPI_OSX\n");
         set_single_persistent_default_layer(_OSX);
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
         set_unicode_input_mode(UC_OSX);
 #endif
         return false;
       case SPI_WIN:
-#ifdef CONSOLE_ENABLE
-	if (debug_enable) { print("SPIDEY3: SPI_WIN\n"); }
-#endif
+	dprint("SPIDEY3: SPI_WIN\n");
         set_single_persistent_default_layer(_BASE);
 	layer_off(_OSX);
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)

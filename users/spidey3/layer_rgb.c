@@ -12,9 +12,7 @@ uint8_t rgb_val;
 bool rgb_saved = 0;
 
 void spidey_swirl(void) {
-#ifdef CONSOLE_ENABLE
-  if (debug_enable) { print("SPIDEY3: Setting Spidey Swirl!\n"); }
-#endif
+  dprint("SPIDEY3: Setting Spidey Swirl!\n");
   rgblight_enable();
   rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
   rgblight_sethsv(213, 255, 128);
@@ -38,14 +36,10 @@ const rgblight_segment_t* const PROGMEM _rgb_layers[] = RGBLIGHT_LAYERS_LIST( _c
 const uint8_t PROGMEM _n_rgb_layers = sizeof(_rgb_layers) / sizeof(_rgb_layers[0]) - 1;
 
 void do_rgb_layers(layer_state_t state, uint8_t start, uint8_t end) {
-#ifdef CONSOLE_ENABLE
-    if (debug_enable) { print("SPIDEY3: do_rgb_layers()\n"); }
-#endif
+    dprint("SPIDEY3: do_rgb_layers()\n");
     for (uint8_t i=start; i<end; i++) { 
       bool is_on = layer_state_cmp(state, i);
-#ifdef CONSOLE_ENABLE
-      if (debug_enable) { uprintf("         layer[%d]=%u\n", i, is_on); }
-#endif
+      dprintf("         layer[%d]=%u\n", i, is_on);
       rgblight_set_layer_state(i, is_on);
     }
 }
@@ -58,25 +52,19 @@ void keyboard_post_init_user_rgb(void) {
 }
 
 layer_state_t default_layer_state_set_user_rgb(layer_state_t state) {
-#ifdef CONSOLE_ENABLE
-    if (debug_enable) { print("SPIDEY3: default_layer_state_set_user_rgb()\n"); }
-#endif
+    dprint("SPIDEY3: default_layer_state_set_user_rgb()\n");
     do_rgb_layers(state, 1u, RGB_LAYER_BASE_REGULAR);
     return state;
 }
 
 layer_state_t layer_state_set_user_rgb(layer_state_t state) {
-#ifdef CONSOLE_ENABLE
-    if (debug_enable) { print("SPIDEY3: layer_state_set_user_rgb()\n"); }
-#endif
+    dprint("SPIDEY3: layer_state_set_user_rgb()\n");
     do_rgb_layers(state, RGB_LAYER_BASE_REGULAR, _n_rgb_layers);
     return state;
 }
 
 bool led_update_user_rgb(led_t led_state) {
-#ifdef CONSOLE_ENABLE
-    if (debug_enable) { uprintf("SPIDEY3: caps_lock=%u\n", led_state.caps_lock); }
-#endif
+    dprintf("SPIDEY3: caps_lock=%u\n", led_state.caps_lock);
     rgblight_set_layer_state(0, led_state.caps_lock);
     return true;
 }
