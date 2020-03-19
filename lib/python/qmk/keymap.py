@@ -2,6 +2,7 @@
 """
 import os
 from pathlib import Path
+import json
 
 import qmk.path
 import qmk.makefile
@@ -21,26 +22,40 @@ __KEYMAP_GOES_HERE__
 """
 
 
-def template(keyboard):
-    """Returns the `keymap.c` template for a keyboard.
+def template(keyboard, type = 'c'):
+    """Returns the `keymap.c` or `keymap.json` template for a keyboard.
 
     If a template exists in `keyboards/<keyboard>/templates/keymap.c` that
     text will be used instead of `DEFAULT_KEYMAP_C`.
 
+    If a template exists in `keyboards/<keyboard>/templates/keymap.json` that
+    text will be used instead of an empty dictionary.
+
     Args:
         keyboard
             The keyboard to return a template for.
+
+        type
+            'json' for `keymap.json` and 'c' (or anything else) for `keymap.c`
     """
-    template_file = Path('keyboards/%s/templates/keymap.c' % keyboard)
+    if type == 'json':
+        template_file = Path('keyboards/%s/templates/keymap.json' % keyboard)
+        if template_file.exists():
+            template = json.loads(template_file.read_text())
+        else:
+            template = {'keyboard': keyboard} 
+    else:
+        template_file = Path('keyboards/%s/templates/keymap.c' % keyboard)
+        if template_file.exists():
+            template = template_file.read_text()
+        else:
+            template = DEFAULT_KEYMAP_C
 
-    if template_file.exists():
-        return template_file.read_text()
-
-    return DEFAULT_KEYMAP_C
+    return template
 
 
-def generate(keyboard, layout, layers):
-    """Returns a keymap.c for the specified keyboard, layout, and layers.
+def generate(keyboard, layout, layers, type = 'c'):
+    """Returns a `keymap.c` or `keymap.json` for the specified keyboard, layout, and layers.
 
     Args:
         keyboard
@@ -51,21 +66,29 @@ def generate(keyboard, layout, layers):
 
         layers
             An array of arrays describing the keymap. Each item in the inner array should be a string that is a valid QMK keycode.
+
+        type
+            'json' for `keymap.json` and 'c' (or anything else) for `keymap.c`
     """
-    layer_txt = []
-    for layer_num, layer in enumerate(layers):
-        if layer_num != 0:
-            layer_txt[-1] = layer_txt[-1] + ','
-        layer_keys = ', '.join(layer)
-        layer_txt.append('\t[%s] = %s(%s)' % (layer_num, layout, layer_keys))
+    new_keymap = template(keyboard, type)
+    if type == 'json':
+        new_keymap['layout'] = layout
+        new_keymap['layers'] = layers
+    else:
+        layer_txt = []
+        for layer_num, layer in enumerate(layers):
+            if layer_num != 0:
+                layer_txt[-1] = layer_txt[-1] + ','
+            layer_keys = ', '.join(layer)
+            layer_txt.append('\t[%s] = %s(%s)' % (layer_num, layout, layer_keys))
 
-    keymap = '\n'.join(layer_txt)
-    keymap_c = template(keyboard)
+        keymap = '\n'.join(layer_txt)
+        new_keymap = new_keymap.replace('__KEYMAP_GOES_HERE__', keymap)
 
-    return keymap_c.replace('__KEYMAP_GOES_HERE__', keymap)
+    return new_keymap
 
 
-def write(keyboard, keymap, layout, layers):
+def write(keyboard, keymap, layout, layers, type = 'c'):
     """Generate the `keymap.c` and write it to disk.
 
     Returns the filename written to.
@@ -82,12 +105,19 @@ def write(keyboard, keymap, layout, layers):
 
         layers
             An array of arrays describing the keymap. Each item in the inner array should be a string that is a valid QMK keycode.
+
+        type
+            'json' for `keymap.json` and 'c' (or anything else) for `keymap.c`
     """
-    keymap_c = generate(keyboard, layout, layers)
-    keymap_file = qmk.path.keymap(keyboard) / keymap / 'keymap.c'
+    keymap_content = generate(keyboard, layout, layers, type)
+    if type == 'json':
+        keymap_file = qmk.path.keymap(keyboard) / keymap / 'keymap.json'
+        keymap_content = json.dumps(keymap_content)
+    else:
+        keymap_file = qmk.path.keymap(keyboard) / keymap / 'keymap.c'
 
     keymap_file.parent.mkdir(parents=True, exist_ok=True)
-    keymap_file.write_text(keymap_c)
+    keymap_file.write_text(keymap_content)
 
     return keymap_file
 
