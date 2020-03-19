@@ -72,6 +72,7 @@ def new_keyboard(cli):
     if ( arch == "ps2avrgb" ):
         shutil.copy(os.path.join(template_arch_path, "usbconfig.h"), kb_path)
     # TODO: rewrite the rules.mk file with the requested MCU rule
+    # TODO: rewrite the %YEAR%, %YOUR_NAME%, and %KEYBOARD% placeholders
 
     # end message to user
     cli.log.info("%s keyboard directory created in: %s", keyboard, kb_path)
