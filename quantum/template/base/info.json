@@ -1,5 +1,5 @@
 {
-    "keyboard_name": "%KEYBOARD%",
+    "keyboard_name": "%KEYBOARD_NAME%",
     "url": "",
     "maintainer": "%YOUR_NAME%",
     "width": 3,

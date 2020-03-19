@@ -21,11 +21,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x03A8  // Ψ in Unicode
-#define PRODUCT_ID      0x%PID%  // TODO: Auto-generate with qmk new-keyboard CLI
+#define PRODUCT_ID      0x%PID%
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    %YOUR_NAME%
-#define PRODUCT         %KEYBOARD%
-#define DESCRIPTION     QMK Firmware: %KEYBOARD%
+#define PRODUCT         %KEYBOARD_NAME%
+#define DESCRIPTION     QMK Firmware: %KEYBOARD_NAME%
 
 /* key matrix size */
 #define MATRIX_ROWS 2

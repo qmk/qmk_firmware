@@ -1,6 +1,6 @@
-# %KEYBOARD%
+# %KEYBOARD_NAME%
 
-![%KEYBOARD%](imgur.com image replace me!)
+![%KEYBOARD_NAME%](imgur.com image replace me!)
 
 A short description of the keyboard/project
 

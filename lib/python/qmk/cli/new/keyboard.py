@@ -3,6 +3,7 @@
 import os
 import shutil
 import hashlib
+import re
 
 from milc import cli
 from pathlib import Path
@@ -31,6 +32,7 @@ def new_keyboard(cli):
             .replace("%YEAR%", str(year)) \
             .replace("%YOUR_NAME%", user_name) \
             .replace("%KEYBOARD%", keyboard) \
+            .replace("%KEYBOARD_NAME%", keyboard_name) \
             .replace("%PID%", pid)
         rw_file.write_text(file_contents)
 
@@ -40,7 +42,21 @@ def new_keyboard(cli):
 
     # ask for user input if keyboard was not provided in the command line
     # TODO: figure out how to get this script to take arguments from CLI
-    keyboard = input("\nKeyboard Name: ")
+    print("""\n** What is the project name? **
+
+    This will be the name used to compile firmware for your keyboard.
+
+    Files will be placed in `qmk_firmware/keyboards/<project name>/`.""")
+    keyboard = input("\nProject Name: ")
+    keyboard = re.sub(r'[^a-z0-9_]', "", keyboard)
+
+    #print("Project Name ")
+
+    print("""\n** What is the keyboard's name? **
+
+    This is the name that people will use to refer to your keyboard. It should
+    be something human-friendly, like \"Clueboard 66%\" or \"Ergodox EZ\".""")
+    keyboard_name = input("\nName: ")
 
     print("\nSelect the microcontroller used:")
     print("     atmega16u2    atmega32u2     atmega16u4    atmega32u4")
@@ -112,7 +128,7 @@ def new_keyboard(cli):
 
     # generate and assign the Product ID value
     # Required before using rewrite_source()
-    pid = generate_pid(keyboard)
+    pid = generate_pid(keyboard_name)
 
     rewrite_source("config.h")
     rewrite_source("info.json")
