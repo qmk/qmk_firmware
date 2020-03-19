@@ -5,6 +5,8 @@
 #   combinations of standard options) into QMK standard options.
 #
 
+KEYBOARD_LOCAL_FEATURES_MK :=
+
 define HELIX_CUSTOMISE_MSG
   $(info Helix Spacific Build Options)
   $(info -  OLED_ENABLE          = $(OLED_ENABLE))
@@ -15,42 +17,79 @@ define HELIX_CUSTOMISE_MSG
   $(info )
 endef
 
+define HELIX_HELP_MSG
+  $(info Helix keyboard convenient command line option)
+  $(info -    make HELIX=<options> helix:<keymap>)
+  $(info -    option= oled | no-oled | back | no-back | under | na | no-ani)
+  $(info -             ios | sc | split-common | scan | verbose)
+  $(info -    ex.)
+  $(info -      make HELIX=no-oled       helix:<keymap>)
+  $(info -      make HELIX=oled,no-back  helix:<keymap>)
+  $(info -      make HELIX=oled,under    helix:<keymap>)
+  $(info -      make HELIX=oled,back,na  helix:<keymap>)
+  $(info -      make HELIX=oled,back,ios helix:<keymap>)
+  $(info )
+endef
+
   ifneq ($(strip $(HELIX)),)
-    ### Helix keyboard keymap: convenient command line option
-    ##    make HELIX=<options> helix:<keymap>
-    ##    option= oled | back | under | na | ios
-    ##    ex.
-    ##      make HELIX=oled          helix:<keymap>
-    ##      make HELIX=oled,back     helix:<keymap>
-    ##      make HELIX=oled,under    helix:<keymap>
-    ##      make HELIX=oled,back,na  helix:<keymap>
-    ##      make HELIX=oled,back,ios helix:<keymap>
-    ##
-    ifeq ($(findstring oled,$(HELIX)), oled)
+    COMMA=,
+    helix_option := $(subst $(COMMA), , $(HELIX))
+    ifneq ($(filter help,$(helix_option)),)
+      $(eval $(call HELIX_HELP_MSG))
+      $(error )
+    endif
+    ifneq ($(filter nooled,$(helix_option)),)
+      OLED_ENABLE = no
+    else ifneq ($(filter no-oled,$(helix_option)),)
+      OLED_ENABLE = no
+    else ifneq ($(filter oled,$(helix_option)),)
       OLED_ENABLE = yes
     endif
-    ifeq ($(findstring back,$(HELIX)), back)
+    ifneq ($(filter noback,$(helix_option)),)
+      LED_BACK_ENABLE = no
+      LED_UNDERGLOW_ENABLE = no
+    else ifneq ($(filter no-back,$(helix_option)),)
+      LED_BACK_ENABLE = no
+      LED_UNDERGLOW_ENABLE = no
+    else ifneq ($(filter nounder,$(helix_option)),)
+      LED_BACK_ENABLE = no
+      LED_UNDERGLOW_ENABLE = no
+    else ifneq ($(filter no-under,$(helix_option)),)
+      LED_BACK_ENABLE = no
+      LED_UNDERGLOW_ENABLE = no
+    else ifneq ($(filter back,$(helix_option)),)
       LED_BACK_ENABLE = yes
-    else ifeq ($(findstring under,$(HELIX)), under)
+      LED_UNDERGLOW_ENABLE = no
+    else ifneq ($(filter under,$(helix_option)),)
+      LED_BACK_ENABLE = no
       LED_UNDERGLOW_ENABLE = yes
     endif
-    ifeq ($(findstring na,$(HELIX)), na)
+    ifneq ($(filter na,$(helix_option)),)
       LED_ANIMATIONS = no
     endif
-    ifeq ($(findstring no_ani,$(HELIX)), no_ani)
+    ifneq ($(filter no_ani,$(helix_option)),)
       LED_ANIMATIONS = no
     endif
-    ifeq ($(findstring ios,$(HELIX)), ios)
+    ifneq ($(filter no-ani,$(helix_option)),)
+      LED_ANIMATIONS = no
+    endif
+    ifneq ($(filter ios,$(helix_option)),)
       IOS_DEVICE_ENABLE = yes
     endif
-    ifeq ($(findstring scan,$(HELIX)), scan)
+    ifneq ($(filter sc,$(helix_option)),)
+      SPLIT_KEYBOARD = yes
+    endif
+    ifneq ($(filter split-common,$(helix_option)),)
+      SPLIT_KEYBOARD = yes
+    endif
+    ifneq ($(filter scan,$(helix_option)),)
       # use DEBUG_MATRIX_SCAN_RATE
       # see docs/newbs_testing_debugging.md
       OPT_DEFS +=  -DDEBUG_MATRIX_SCAN_RATE
       CONSOLE_ENABLE = yes
       SHOW_VERBOSE_INFO = yes
     endif
-    ifeq ($(findstring verbose,$(HELIX)), verbose)
+    ifeq ($(filter verbose,$(helix_option)), verbose)
       SHOW_VERBOSE_INFO = yes
     endif
     SHOW_HELIX_OPTIONS = yes
@@ -119,6 +158,7 @@ ifneq ($(strip $(SHOW_HELIX_OPTIONS)),)
      $(info -- OLED_DRIVER_ENABLE = $(OLED_DRIVER_ENABLE))
      $(info -- CONSOLE_ENABLE     = $(CONSOLE_ENABLE))
      $(info -- OPT_DEFS           = $(OPT_DEFS))
+     $(info -- SPLIT_KEYBOARD     = $(SPLIT_KEYBOARD))
      $(info -- LINK_TIME_OPTIMIZATION_ENABLE = $(LINK_TIME_OPTIMIZATION_ENABLE))
      $(info )
   endif
