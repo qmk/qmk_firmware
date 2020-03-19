@@ -28,13 +28,19 @@ ifeq ($(strip $(API_SYSEX_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/api.c
 endif
 
+AUDIO_ENABLE ?= no
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
     AUDIO_DRIVER ?= pwm
     ifeq ($(PLATFORM),CHIBIOS)
-        ifeq ($(MCU_SERIES),STM32F1xx)
-            AUDIO_DRIVER ?= pwm
-        else ## stm32f2 and f3 have a DAC unit, f1 do not
-            AUDIO_DRIVER ?= dac
+        ## stm32f2 and above have a usable DAC unit, f1 do not
+        ifeq ($(strip $(AUDIO_DRIVER)), dac)
+            OPT_DEFS += -DAUDIO_DRIVER_DAC
+        else ifeq ($(strip $(AUDIO_DRIVER)), pwm-pin-alternate)
+            OPT_DEFS += -DAUDIO_DRIVER_PWM_PIN_ALTERNATE
+            # reset config switch, to end up with the correct filename below
+            AUDIO_DRIVER := pwm
+        else # fallback=pwm
+            OPT_DEFS += -DAUDIO_DRIVER_PWM
         endif
     endif
     OPT_DEFS += -DAUDIO_ENABLE

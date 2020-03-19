@@ -27,7 +27,7 @@
 #include "voices.h"
 #include "quantum.h"
 #include <math.h>
-#if defined(PROTOCOL_CHIBIOS)
+#if defined(AUDIO_DRIVER_DAC)
 #    include "audio_chibios_dac.h"
 #endif
 

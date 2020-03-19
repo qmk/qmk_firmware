@@ -47,38 +47,33 @@ to use another hardware-pwm pin:
 #include <string.h>
 #include "print.h"
 
-/* either use the direct hardware connection of Timer1-Channel1 to GPIOA.8
-   via the pins alternate-function to drive a piezo speaker
-   OR set this define to zero and have the timer callbacks toggle your pin of choice
-*/
-#ifndef ARM_PWM_USE_PIN_ALTERNATE
-#    define ARM_PWM_USE_PIN_ALTERNATE 0
+#if defined (AUDIO_DRIVER_PWM)
+#    if !defined(AUDIO_PIN)
+#        error "Audio feature enabled, but not pin selected - see docs/feature_audio under the ARM PWM settings"
+#    endif
 #endif
 
-#ifndef ARM_PWM_AUDIO_PIN
-#    define ARM_PWM_AUDIO_PIN A10
-#endif
 // -----------------------------------------------------------------------------
 
 extern int  voices;
 extern bool playing_notes;
 
-#if !(ARM_PWM_USE_PIN_ALTERNATE)
+#if defined(AUDIO_DRIVER_PWM)
 static void pwm_audio_period_callback(PWMDriver *pwmp);
 static void pwm_audio_channel_interrupt_callback(PWMDriver *pwmp);
 #endif
 
 static PWMConfig pwmCFG = {.frequency = 500000, /* PWM clock frequency  */
                            .period = 0,     /* initial PWM period (in ticks) 1S (1/10kHz=0.1mS 0.1ms*10000 ticks=1S) */
-#if ARM_PWM_USE_PIN_ALTERNATE
+#if defined(AUDIO_DRIVER_PWM_PIN_ALTERNATE)
                            .callback = NULL, // no callback, the hardware directly toggles the pin
-#else
+#else // AUDIO_DRIVER_PWM
                            .callback = pwm_audio_period_callback,
 #endif
                            .channels = {
-#if ARM_PWM_USE_PIN_ALTERNATE
+#if AUDIO_DRIVER_PWM_PIN_ALTERNATE
                                {PWM_OUTPUT_ACTIVE_HIGH, NULL}, /* channel 0 -> TIM1_CH1 */
-#else
+#else // AUDIO_DRIVER_PWM
                                {PWM_OUTPUT_ACTIVE_HIGH, pwm_audio_channel_interrupt_callback}, /* channel 0 -> TIM1_CH1 */
 #endif
                                {PWM_OUTPUT_DISABLED, NULL}, /* channel 1 -> TIM1_CH2 */
@@ -104,7 +99,7 @@ void channel_1_start(void) {
     pwmStop(&PWMD1);
     pwmStart(&PWMD1, &pwmCFG);
 
-#if !(ARM_PWM_USE_PIN_ALTERNATE)
+#if defined(AUDIO_DRIVER_PWM)
     pwmEnablePeriodicNotification(&PWMD1);
     pwmEnableChannelNotification(&PWMD1, 0);
 #endif
@@ -113,15 +108,15 @@ void channel_1_start(void) {
 void channel_1_stop(void) {
     pwmStop(&PWMD1);
 
-#if !(ARM_PWM_USE_PIN_ALTERNATE)
-    palClearLine(ARM_PWM_AUDIO_PIN); // leave the line low, after last note was played
+#if defined(AUDIO_DRIVER_PWM)
+    palClearLine(AUDIO_PIN); // leave the line low, after last note was played
 #endif
 }
 
-#if !(ARM_PWM_USE_PIN_ALTERNATE)
+#if defined(AUDIO_DRIVER_PWM)
 static void pwm_audio_period_callback(PWMDriver *pwmp) {
     (void)pwmp;
-    palClearLine(ARM_PWM_AUDIO_PIN);
+    palClearLine(AUDIO_PIN);
 
     /* hm, using the pwm callback, instead of the gpt timer does not work :-(
         float freq, freq_alt;
@@ -135,9 +130,9 @@ static void pwm_audio_period_callback(PWMDriver *pwmp) {
 }
 static void pwm_audio_channel_interrupt_callback(PWMDriver *pwmp) {
     (void)pwmp;
-    palSetLine(ARM_PWM_AUDIO_PIN);  // generate a PWM signal on any pin, not neccessarily the one connected to the timer
+    palSetLine(AUDIO_PIN);  // generate a PWM signal on any pin, not neccessarily the one connected to the timer
 }
-#endif
+#endif // AUDIO_DRIVER_PWM
 
 static void gpt_callback(GPTDriver *gptp);
 GPTConfig   gptCFG = {.frequency = 10,
@@ -147,20 +142,20 @@ GPTConfig   gptCFG = {.frequency = 10,
 void audio_initialize_hardware(void) {
     pwmStart(&PWMD1, &pwmCFG);
 
-#if ARM_PWM_USE_PIN_ALTERNATE
-#    ifdef PAL_MODE_STM32_ALTERNATE_PUSHPULL
+#if defined(AUDIO_DRIVER_PWM_PIN_ALTERNATE)
+#    if defined(PAL_MODE_STM32_ALTERNATE_PUSHPULL)
 	//TODO: is there a better way to differentiate between chibios GPIOv1 and GPIOv2?
     palSetLineMode(A8, PAL_MODE_STM32_ALTERNATE_PUSHPULL); //f103 with GPIOv1
 #    else
     palSetLineMode(A8, PAL_STM32_MODE_ALTERNATE | PAL_STM32_ALTERNATE(6) );//f303xx with GPIOV2
 #    endif
-#else
-    palSetLineMode(ARM_PWM_AUDIO_PIN, PAL_MODE_OUTPUT_PUSHPULL);
-    palClearLine(ARM_PWM_AUDIO_PIN);
+#else // AUDIO_DRIVER_PWM
+    palSetLineMode(AUDIO_PIN, PAL_MODE_OUTPUT_PUSHPULL);
+    palClearLine(AUDIO_PIN);
 
     pwmEnablePeriodicNotification(&PWMD1); // enable pwm callbacks
     pwmEnableChannelNotification(&PWMD1, 0);
-#endif
+#endif // AUDIO_DRIVER_PWM
 
     gptStart(&GPTD6, &gptCFG);
 }
