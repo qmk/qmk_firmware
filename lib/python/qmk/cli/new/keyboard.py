@@ -89,15 +89,15 @@ def new_keyboard(cli):
 
     if cli.args.microcontroller:
         mcu = cli.args.microcontroller.lower()
-        #for k, v in enumerate(mcus):
-        #    if mcu in v:
-        #        arch = k
-        #        break
         for key, value in enumerate(mcus):
             if mcu in value[0]:
                 arch = value[1]
                 break
-        #print arch
+            else:
+                arch = ''
+        if arch not in ['avr', 'ps2avrgb', 'stm32']:
+            cli.log.error(mcu + " is not a valid microcontroller option.")
+            exit(1)
     else:
     # Ask what microcontroller is being used
         print("\n** Select the microcontroller used: **\n")
