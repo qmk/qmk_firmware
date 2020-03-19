@@ -105,13 +105,6 @@ def new_keyboard(cli):
         print("\n** Select the microcontroller used: **\n")
         print_microcontrollers()
 
-        # MCUs are saved with lowercase names to make the user input request
-        #   case-insensitive
-        mcus_avr = ["atmega16u2", "atmega32u2", "atmega16u4", "atmega32u4", \
-            "at90usb646", "at90usb1286", "atmega328p"]
-        mcus_ps2avrgb = ["atmega32a"]
-        mcus_stm = ["stm32f042", "stm32f072", "stm32f103", "stm32f303"]
-
         mcu = int(input("\n    Microcontroller: (1-" + str(len(mcus)) + "): "))
         # user-facing text is 1-12, but data is 0-11 internally
         mcu = mcu - 1
