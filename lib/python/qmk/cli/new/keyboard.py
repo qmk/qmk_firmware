@@ -58,21 +58,15 @@ def new_keyboard(cli):
 
     if cli.args.microcontroller:
         mcu = cli.args.microcontroller
-        # Create a case-insensitive regular expression for checking the -mcu
-        #   argument
-        mcu_pattern = re.compile(mcu, re.IGNORECASE)
-
-        # Loop through the list of supported MCUs
-        for i in range(len(SUPPORTED_MCUS)):
-            # If the value of -mcu is a case-insensitive match for a key in
-            #   SUPPORTED_MCUS...
-            if mcu_pattern.fullmatch(list(SUPPORTED_MCUS.keys())[i]):
-                # ... set the mcu to its proper name...
-                mcu = list(SUPPORTED_MCUS.keys())[i]
-                # ... and assign its architecture
-                arch = SUPPORTED_MCUS[mcu]
-                break
-
+        # Currently, AVRs are lowercase and STMs are uppercase. If the makefiles
+        #   are reworked to change the letter case used internally,
+        #   lib/python/qmk/constants.py must be updated to match.
+        if mcu.lower() in SUPPORTED_MCUS:
+            mcu = mcu.lower()
+            arch = SUPPORTED_MCUS[mcu]
+        elif mcu.upper() in SUPPORTED_MCUS:
+            mcu = mcu.upper()
+            arch = SUPPORTED_MCUS[mcu]
         else:
             cli.log.error(mcu + " is not a valid microcontroller option.")
             print("  Valid Options: ", ", ".join(SUPPORTED_MCUS) )
@@ -135,9 +129,6 @@ def new_keyboard(cli):
     if arch == "ps2avrgb":
         # only ps2avrgb keyboards require this file
         shutil.copy(template_arch_path / "usbconfig.h", keyboard_path)
-    if arch == "stm32":
-        # STM32 MCUs need their names in uppercase
-        mcu = mcu.upper()
 
     # rewrite the %YEAR%, %YOUR_NAME%, %KEYBOARD% and %PID% placeholders
 
