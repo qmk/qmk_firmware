@@ -47,6 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MCP23_LED_B GPA7
 
 #define EEPROM_I2C_24LC128
+#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR (1638-1)
 
 // Not needed, is default address:
 // #define EXTERNAL_EEPROM_I2C_BASE_ADDRESS 0b10100000
