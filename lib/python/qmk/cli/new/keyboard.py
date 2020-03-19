@@ -102,8 +102,8 @@ def new_keyboard(cli):
     shutil.copytree(template_base_path, kb_path, symlinks=True)
     kb_c = Path(kb_path) / "keyboard.c"
     kb_h = Path(kb_path) / "keyboard.h"
-    kb_c.rename( Path(kb_path) / keyboard + ".c" )
-    kb_h.rename( Path(kb_path) / keyboard + ".h" )
+    kb_c.rename( Path(kb_path) / Path(keyboard + ".c") )
+    kb_h.rename( Path(kb_path) / Path(keyboard + ".h") )
 
     # copy architecture files
     shutil.copy(Path(template_arch_path) / "config.h", kb_path)
