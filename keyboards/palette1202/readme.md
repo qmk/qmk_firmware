@@ -6,7 +6,7 @@ A left hand device with rotary encoder, for artists.
 
 * Keyboard Maintainer: [niltea](https://github.com/niltea)
 * Hardware Supported: Palette1202
-* Hardware Availability: [Pixiv Booth](https://booth.pm/)
+* Hardware Availability: [Pixiv Booth](https://niltea.booth.pm/)
 * [PCB & Case](https://github.com/niltea/Palette1202)
 
 Make example for this keyboard (after setting up your build environment):
