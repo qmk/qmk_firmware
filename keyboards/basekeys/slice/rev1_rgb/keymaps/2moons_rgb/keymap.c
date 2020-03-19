@@ -3,9 +3,11 @@
 
 extern uint8_t is_master;
 
+#ifdef EE_HANDS
 // OLED_ROTATION_180 for left
 // OLED_ROTATION_0 for right
 #define screen OLED_ROTATION_180
+#endif
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -189,9 +191,31 @@ const char *read_logo(void) {
   return logo;
 }
 
+#ifdef EE_HANDS
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return screen;
 }
+#endif
+
+#ifdef MASTER_RIGHT
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    if (!is_keyboard_master()) {
+        return OLED_ROTATION_180;  // flips the display 0 degrees if offhand
+    }
+
+    return OLED_ROTATION_0;
+}
+#endif
+
+#ifdef MASTER_LEFT
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    if (!is_keyboard_master()) {
+        return OLED_ROTATION_0;  // flips the display 180 degrees if offhand
+    }
+
+    return OLED_ROTATION_180;
+}
+#endif
 
 void oled_task_user(void) {
   if (is_keyboard_master()) {
