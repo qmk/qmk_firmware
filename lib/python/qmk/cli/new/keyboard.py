@@ -56,10 +56,21 @@ def new_keyboard(cli):
 
 
     if cli.args.microcontroller:
-        mcu = cli.args.microcontroller.lower()
+        mcu = cli.args.microcontroller
+        # Create a case-insensitive regular expression for checking the -mcu
+        #   argument
+        mcu_pattern = re.compile(mcu, re.IGNORECASE)
 
-        if mcu in SUPPORTED_MCUS:
-            arch = SUPPORTED_MCUS[mcu]
+        # Loop through the list of supported MCUs
+        for i in range(len(SUPPORTED_MCUS)):
+            # If the value of -mcu is a case-insensitive match for a key in
+            #   SUPPORTED_MCUS...
+            if mcu_pattern.fullmatch(list(SUPPORTED_MCUS.keys())[i]):
+                # ... set the mcu to its proper name...
+                mcu = list(SUPPORTED_MCUS.keys())[i]
+                # ... and assign its architecture
+                arch = SUPPORTED_MCUS[mcu]
+                break
 
         else:
             cli.log.error(mcu + " is not a valid microcontroller option.")
