@@ -1,4 +1,4 @@
-# Acheron Aχξρων 60-SM-S-STM32-MX-HS-WI (codename "Arctic") QMK firmware
+# Acheron Aχξρων 60-SM-S-STM32-MX-HS-WI (codename "KeebsPCB") QMK firmware
 
 <p align="center">
   <img align="middle" src="https://raw.githubusercontent.com/Gondolindrim/acheronLibrary/master/graphics/acheronLong.png"  width="400"> 
