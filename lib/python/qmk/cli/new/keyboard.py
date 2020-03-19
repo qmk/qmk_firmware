@@ -95,10 +95,10 @@ def new_keyboard(cli):
 
 
     # (Erovia) introducing the user.name variable would probably be better
-    if cli.args.username:
+    if cli.config.new_keyboard.username:
+        user_name = cli.config.new_keyboard.username
+    elif cli.args.username:
         user_name = cli.args.username
-    elif cli.config.user.keymap:
-        user_name = cli.config.user.keymap
     else:
         # Ask the user for their GitHub username
         cli.echo("""What is your GitHub username?
