@@ -87,9 +87,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 1100|1111| id(8)      Macro record?
  *
  * 1101|xxxx xxxx xxxx   (reserved)
- *
- * ACT_COMMAND(1110):
- * 1110|opt | id(8)      Built-in Command exec
+ * 1110|xxxx xxxx xxxx   (reserved)
  *
  * ACT_FUNCTION(1111):
  * 1111| address(12)     Function?
@@ -115,7 +113,6 @@ enum action_kind_id {
     ACT_LAYER_TAP_EXT = 0b1011, /* Layer 16-31 */
     /* Extensions */
     ACT_MACRO    = 0b1100,
-    ACT_COMMAND  = 0b1110,
     ACT_FUNCTION = 0b1111
 };
 
@@ -287,8 +284,6 @@ enum layer_param_tap_op {
 #define ACTION_MACRO(id) ACTION(ACT_MACRO, (id))
 #define ACTION_MACRO_TAP(id) ACTION(ACT_MACRO, FUNC_TAP << 8 | (id))
 #define ACTION_MACRO_OPT(id, opt) ACTION(ACT_MACRO, (opt) << 8 | (id))
-/* Command */
-#define ACTION_COMMAND(id, opt) ACTION(ACT_COMMAND, (opt) << 8 | (id))
 /* Function */
 enum function_opts {
     FUNC_TAP = 0x8, /* indciates function is tappable */
