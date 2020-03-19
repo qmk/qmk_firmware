@@ -100,14 +100,11 @@ def new_keyboard(cli):
 
     # create user directory with default keymap files
     shutil.copytree(template_base_path, kb_path, symlinks=True)
-    os.rename( \
-        Path(kb_path) / "keyboard.c", \
-        Path(kb_path) / keyboard + ".c" \
-    )
-    os.rename( \
-        Path(kb_path) / "keyboard.h", \
-        Path(kb_path) / keyboard + ".h" \
-    )
+    kb_c = Path(kb_path) / "keyboard.c"
+    kb_h = Path(kb_path) / "keyboard.h"
+    kb_c.rename( Path(kb_path) / keyboard + ".c" )
+    kb_h.rename( Path(kb_path) / keyboard + ".h" )
+
     # copy architecture files
     shutil.copy(Path(template_arch_path) / "config.h", kb_path)
     shutil.copy(Path(template_arch_path) / "readme.md", kb_path)
