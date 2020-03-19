@@ -19,6 +19,11 @@ def new_keyboard(cli):
     """Creates a new keyboard project.
     """
 
+    # Root path for template files
+    template_root_path = Path("quantum/template")
+    template_base_path = Path(template_root_path) / "base"
+    year = datetime.now().year
+
     # valid microcontroller choices
     mcus = (
         ( 'at90usb1286', 'avr' ),
@@ -57,11 +62,6 @@ def new_keyboard(cli):
     def print_microcontrollers():
         for i, mcu in enumerate(mcus, 1):
             cli.echo("     %s: %s (%s)", str(i).rjust(2, " "), mcu[0], mcu[1] )
-
-    # Root path for template files
-    template_root_path = Path("quantum/template")
-    template_base_path = Path(template_root_path) / "base"
-    year = datetime.now().year
 
 
     if cli.args.keyboard:
