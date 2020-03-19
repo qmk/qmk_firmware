@@ -1,0 +1,12 @@
+{
+  "keyboard": "handwired/onekey",
+  "keymap": "no_encoder",
+  "layout": "LAYOUT",
+  "layers": [
+    [
+      "KC_ENTER"
+    ]
+  ],
+  "author": "",
+  "notes": ""
+}

@@ -12,10 +12,9 @@ from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.commands import compile_configurator_json, create_make_command, parse_configurator_json
 
 
-@cli.argument('filename', nargs='?', type=FileType('r'), help='The configurator export to compile')
+@cli.argument('filename', nargs='?', arg_only=True, type=FileType('r'), help='The configurator export to compile')
 @cli.argument('-kb', '--keyboard', help='The keyboard to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Ignored when a configurator export is supplied.')
-@cli.argument('-x', '--experimental', action='store_true', help='True enables encoder support for configurator export files. Only enabled when a configurator export is supplied.')
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't actually build, just show the make command to be run.")
 @cli.subcommand('Compile a QMK Firmware.')
 @automagic_keyboard
@@ -31,10 +30,6 @@ def compile(cli):
 
     if cli.args.filename:
 
-        # Warn the user if they are using experimental mode
-        if cli.args.experimental:
-            cli.log.info("{fg_yellow}Compiling in experimental mode! I hope you know what you're doing...")
-
         # If a configurator JSON was provided generate a keymap and compile it
         # FIXME(skullydazed): add code to check and warn if the keymap already exists when compiling a json keymap.
 
@@ -43,7 +38,7 @@ def compile(cli):
         keymap_path = qmk.path.keymap(user_keymap['keyboard'])
 
         # Compile the keymap
-        command = compile_configurator_json(user_keymap, experimental=cli.args.experimental)
+        command = compile_configurator_json(user_keymap)
 
         cli.log.info('Wrote keymap to {fg_cyan}%s/%s/keymap.c', keymap_path, user_keymap['keymap'])
 

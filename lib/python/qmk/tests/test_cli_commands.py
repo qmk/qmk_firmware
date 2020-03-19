@@ -1,5 +1,4 @@
 import subprocess
-import os
 
 
 def check_subcommand(command, *args):
@@ -13,14 +12,13 @@ def test_cformat():
 
 
 def test_compile():
+    # keyboard compile
     assert check_subcommand('compile', '-kb', 'handwired/onekey/pytest', '-km', 'default').returncode == 0
-    assert check_subcommand('compile', 'keyboards/handwired/onekey/pytest2/keymap.json').returncode == 0
-    assert check_subcommand('compile', 'keyboards/handwired/onekey/pytest2/keymap.json', '-x').returncode == 0
 
-    # Cleanup
-    test_output = 'keyboards/handwired/onekey/keymaps/pytest2/keymap.c'
-    if os.path.exists(test_output):
-        os.remove(test_output)
+    # json compile
+    test_json = ['encoder', 'no_encoder']
+    for j in test_json:
+        assert check_subcommand('compile', f'keyboards/handwired/onekey/pytest2/{j}.json').returncode == 0  # with encoder
 
 
 def test_flash():
