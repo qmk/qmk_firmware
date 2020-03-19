@@ -113,9 +113,9 @@ def new_keyboard(cli):
         arch = mcus[mcu][1]
         mcu = mcus[mcu][0]
         mcu = mcu.lower()
-
     # Set the path to the MCU architecture's template files
     template_arch_path = Path(template_root_path) / arch
+
 
     # (Erovia) introducing the user.name variable would probably be better
     if cli.args.username:
