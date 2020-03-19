@@ -35,14 +35,15 @@ def new_keyboard(cli):
         cli.echo("""What is the keyboard's project name?
 
     This will be the name used to compile firmware for your keyboard. The
-    project name may only contain lower case letters, numbers, and the
-    underscore character, and must not begin with an underscore.
+    project name may only contain lower-case letters, numbers, underscores, and
+    the forward slash, and must begin with a lower-case letter or a number.
 
     Files will be placed in `qmk_firmware/keyboards/<project_name>/`.""")
         keyboard = question("Project Name: ")
-        #keyboard = Path(re.sub(r'[^a-z0-9_/]', "", keyboard.lower()))
-        keyboard = Path(keyboard.lower())
 
+        while valid_keyboard_name.match(keyboard) == None:
+            cli.echo(keyboard + " is not a valid project name.")
+            keyboard = question("Project Name: ")
 
     if cli.args.project:
         keyboard_name = cli.args.project
