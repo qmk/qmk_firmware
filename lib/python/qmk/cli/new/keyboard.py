@@ -37,7 +37,7 @@ def new_keyboard(cli):
         rw_file.write_text(file_contents)
 
     # Root path for template files
-    template_root_path = Path.cwd() / "quantum/template"
+    template_root_path = Path("quantum/template")
     year = datetime.now().year
 
     # ask for user input if keyboard was not provided in the command line
@@ -90,7 +90,7 @@ def new_keyboard(cli):
     user_name = input("\nYour Name: ")
 
     # generate keymap paths
-    kb_path = Path.cwd() / "keyboards" / keyboard
+    kb_path = Path("keyboards") / keyboard
     template_base_path = Path(template_root_path) / "base"
 
     # check directories
