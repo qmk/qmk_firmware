@@ -117,8 +117,6 @@ def new_keyboard(cli):
         mcu = mcus[mcu][0]
         mcu = mcu.lower()
 
-        print("Debug: " + mcu + ", "+ arch)
-
     # Set the path to the MCU architecture's template files
     template_arch_path = Path(template_root_path) / arch
 
