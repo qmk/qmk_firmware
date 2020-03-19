@@ -1,6 +1,6 @@
 # Southpaw Extended 65%
 
-![Southpaw Extended 65%](https://i.imgur.com/9HSWmml.jpg)
+![Southpaw Extended 65%](https://i.imgur.com/9HSWmmll.jpg)
 
 Left Hand Number Pad Keyboard with 85 Keys & RGB LED Underglow
 - Designed by Reconsiderit
