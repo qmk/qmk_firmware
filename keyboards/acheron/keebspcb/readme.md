@@ -16,7 +16,7 @@ As of may 2020, there is no way to buy an KeebsPCB through a vendor or Group Buy
 
 ## Layouts
 
-The PCB offers a sinfle layout consisting of a default ANSI layout with 7U bottom row.
+The PCB offers a single layout consisting of a default ANSI layout with 7U bottom row.
 
 ## PCB Documentation
 
