@@ -14,14 +14,13 @@ from datetime import datetime
 @cli.argument('-mcu', '--microcontroller', help='Specify the microcontroller used for the keyboard.')
 @cli.argument('-u', '--username', help='Your GitHub username. Will be pasted into generated files.')
 @cli.subcommand('Creates a new keyboard project.')
-
 def new_keyboard(cli):
     """Creates a new keyboard project.
     """
 
     # Root path for template files
     template_root_path = Path("quantum/template")
-    template_base_path = Path(template_root_path) / "base"
+    template_base_path = template_root_path / "base"
     year = datetime.now().year
 
     # valid microcontroller choices
@@ -60,21 +59,18 @@ def new_keyboard(cli):
             .replace("%MCU%", mcu)
         rw_file.write_text(file_contents)
 
-    def print_microcontrollers():
-        for i, mcu in enumerate(mcus, 1):
-            cli.echo("     %s: %s (%s)", str(i).rjust(2, " "), mcu[0], mcu[1] )
-
 
     if cli.args.keyboard:
         keyboard = keyboard_name = cli.args.keyboard
     else:
         # ask for user input if keyboard was not provided in the command line
-        print("""\n** What is the project name? **
+        cli.echo("""What is the keyboard's project name?
 
-        This will be the name used to compile firmware for your keyboard. The
-        project name must match the regular expression `^[a-z0-9][a-z0-9_]+`.
+    This will be the name used to compile firmware for your keyboard. The
+    project name may only contain lower case letters, numbers, and the
+    underscore character, and must not begin with an underscore.
 
-        Files will be placed in `qmk_firmware/keyboards/<project_name>/`.""")
+    Files will be placed in `qmk_firmware/keyboards/<project_name>/`.""")
         keyboard = input("\n    Project Name: ")
         keyboard = Path(re.sub(r'[^a-z0-9_/]', "", keyboard.lower()))
 
@@ -83,10 +79,10 @@ def new_keyboard(cli):
         keyboard_name = cli.args.project
     else:
         # Ask the common name of the keyboard, if not specified by --project
-        print("""\n** What is the keyboard's name? **
+        cli.echo("""What is the keyboard's common name?
 
-        This is the name that people will use to refer to your keyboard. It should
-        be something human-friendly, like \"Clueboard 66%\" or \"Ergodox EZ\".""")
+    This is the name that people will use to refer to your keyboard. It should
+    be something human-friendly, like \"Clueboard 66%%\" or \"Ergodox EZ\".""")
         keyboard_name = input("\n    Name: ")
 
 
@@ -105,17 +101,18 @@ def new_keyboard(cli):
             exit(1)
     else:
     # Ask what microcontroller is being used
-        print("\n** Select the microcontroller used: **\n")
-        print_microcontrollers()
+        cli.echo("Select the microcontroller used:\n")
+        for i, mcu in enumerate(mcus, 1):
+            cli.echo("     %s: %s (%s)", str(i).rjust(2, " "), mcu[0], mcu[1] )
 
         mcu = int(input("\n    Microcontroller: (1-" + str(len(mcus)) + "): "))
         # user-facing text is 1-indexed, but data is 0-indexed internally
-        mcu = mcu - 1
+        mcu -= 1
         arch = mcus[mcu][1]
         mcu = mcus[mcu][0]
         mcu = mcu.lower()
     # Set the path to the MCU architecture's template files
-    template_arch_path = Path(template_root_path) / arch
+    template_arch_path = template_root_path / arch
 
 
     # (Erovia) introducing the user.name variable would probably be better
@@ -125,38 +122,40 @@ def new_keyboard(cli):
         user_name = cli.config.user.keymap
     else:
         # Ask the user for their GitHub username
-        print("""\n** What is your GitHub username? **
+        cli.echo("""What is your GitHub username?
 
-        This value will be pasted into the new files in copyright headers, and used
-        as the listed Keyboard Maintainer in the readme file.""")
+    This value will be pasted into the new files in copyright headers, and used
+    as the listed Keyboard Maintainer in the readme file.""")
         user_name = input("\n    GitHub Username: ")
 
     # generate keyboard paths
     keyboard_path = Path("keyboards") / keyboard
 
     # check directories
-    if Path.exists(keyboard_path):
+    if keyboard_path.exists():
         cli.log.error('Keyboard %s already exists!', keyboard)
         exit(1)
+    # if target directory is a subdirectory (keyboard project name contains a
+    #   forward slash, create the parent directory first
     elif len(keyboard.parts) > 1:
         keyboard.parent.mkdir(parents=True, exist_ok=True)
     final_directory = keyboard.name
 
     # create user directory with default keyboard files
     shutil.copytree(template_base_path, keyboard_path, symlinks=True)
-    kb_c = Path(keyboard_path) / "keyboard.c"
-    kb_h = Path(keyboard_path) / "keyboard.h"
-    kb_c.rename( Path(keyboard_path) / Path(final_directory + ".c") )
-    kb_h.rename( Path(keyboard_path) / Path(final_directory + ".h") )
+    kb_c = keyboard_path / "keyboard.c"
+    kb_h = keyboard_path / "keyboard.h"
+    kb_c.rename( keyboard_path / Path(final_directory + ".c") )
+    kb_h.rename( keyboard_path / Path(final_directory + ".h") )
 
     # copy architecture files
-    shutil.copy(Path(template_arch_path) / "config.h", keyboard_path)
-    shutil.copy(Path(template_arch_path) / "readme.md", keyboard_path)
-    shutil.copy(Path(template_arch_path) / "rules.mk", keyboard_path)
-    if ( arch == "ps2avrgb" ):
+    shutil.copy(template_arch_path / "config.h", keyboard_path)
+    shutil.copy(template_arch_path / "readme.md", keyboard_path)
+    shutil.copy(template_arch_path / "rules.mk", keyboard_path)
+    if arch == "ps2avrgb":
         # only ps2avrgb keyboards require this file
-        shutil.copy(Path(template_arch_path) / "usbconfig.h", keyboard_path)
-    if ( arch == "stm32" ):
+        shutil.copy(template_arch_path / "usbconfig.h", keyboard_path)
+    if arch == "stm32":
         # STM32 MCUs need their names in uppercase
         mcu = mcu.upper()
 
