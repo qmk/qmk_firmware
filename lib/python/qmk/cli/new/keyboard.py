@@ -9,8 +9,10 @@ from pathlib import Path
 from datetime import datetime
 
 
-@cli.argument('-kb', '--keyboard', help='Specify keyboard name. Example: 1upkeyboards/1up60hse')
+@cli.argument('-kb', '--keyboard', help='Specify keyboard name. Example: clueboard/66')
+@cli.argument('-pr', '--project', help='The human-friendly name of the keyboard. Example: Clueboard 66%')
 @cli.argument('-mcu', '--microcontroller', help='Specify the microcontroller used for the keyboard.')
+@cli.argument('-u', '--username', help='Your GitHub username. Will be pasted into generated files.')
 @cli.subcommand('Creates a new keyboard project.')
 
 def new_keyboard(cli):
@@ -60,52 +62,70 @@ def new_keyboard(cli):
     template_base_path = Path(template_root_path) / "base"
     year = datetime.now().year
 
-    # ask for user input if keyboard was not provided in the command line
-    # TODO: figure out how to get this script to take arguments from CLI
-    print("""\n** What is the project name? **
+    if cli.args.keyboard:
+        keyboard = keyboard_name = cli.args.keyboard
+    else:
+        # ask for user input if keyboard was not provided in the command line
+        print("""\n** What is the project name? **
 
-    This will be the name used to compile firmware for your keyboard.
+        This will be the name used to compile firmware for your keyboard. The
+        project name must match the regular expression `^[a-z0-9][a-z0-9_]+`.
 
-    Files will be placed in `qmk_firmware/keyboards/<project name>/`.""")
-    keyboard = input("\n    Project Name: ")
-    keyboard = re.sub(r'[^a-z0-9_]', "", keyboard.lower())
+        Files will be placed in `qmk_firmware/keyboards/<project_name>/`.""")
+        keyboard = input("\n    Project Name: ")
+        keyboard = re.sub(r'[^a-z0-9_]', "", keyboard.lower())
 
-    #print("Project Name ")
+    if cli.args.project:
+        keyboard_name = cli.args.project
+    else:
+        # Ask the common name of the keyboard, if not specified by --project
+        print("""\n** What is the keyboard's name? **
 
-    # Ask the common name of the keyboard
-    print("""\n** What is the keyboard's name? **
+        This is the name that people will use to refer to your keyboard. It should
+        be something human-friendly, like \"Clueboard 66%\" or \"Ergodox EZ\".""")
+        keyboard_name = input("\n    Name: ")
 
-    This is the name that people will use to refer to your keyboard. It should
-    be something human-friendly, like \"Clueboard 66%\" or \"Ergodox EZ\".""")
-    keyboard_name = input("\n    Name: ")
 
+    if cli.args.microcontroller:
+        mcu = cli.args.microcontroller.lower()
+        for k, v in mcus.items():
+            if mcu in v:
+                arch = k
+                break
+    else:
     # Ask what microcontroller is being used
-    print("\n** Select the microcontroller used: **\n")
-    print_microcontrollers()
+        print("\n** Select the microcontroller used: **\n")
+        print_microcontrollers()
 
-    # MCUs are saved with lowercase names to make the user input request
-    #   case-insensitive
-    mcus_avr = ["atmega16u2", "atmega32u2", "atmega16u4", "atmega32u4", \
-        "at90usb646", "at90usb1286", "atmega328p"]
-    mcus_ps2avrgb = ["atmega32a"]
-    mcus_stm = ["stm32f042", "stm32f072", "stm32f103", "stm32f303"]
+        # MCUs are saved with lowercase names to make the user input request
+        #   case-insensitive
+        mcus_avr = ["atmega16u2", "atmega32u2", "atmega16u4", "atmega32u4", \
+            "at90usb646", "at90usb1286", "atmega328p"]
+        mcus_ps2avrgb = ["atmega32a"]
+        mcus_stm = ["stm32f042", "stm32f072", "stm32f103", "stm32f303"]
 
-    mcu = int(input("\n    Microcontroller: (1-" + str(len(mcus)) + "): "))
-    # user-facing text is 1-12, but data is 0-11 internally
-    mcu = mcu - 1
-    arch = mcus[mcu][1]
-    mcu = mcus[mcu][0]
-    mcu = mcu.lower()
+        mcu = int(input("\n    Microcontroller: (1-" + str(len(mcus)) + "): "))
+        # user-facing text is 1-12, but data is 0-11 internally
+        mcu = mcu - 1
+        arch = mcus[mcu][1]
+        mcu = mcus[mcu][0]
+        mcu = mcu.lower()
 
     # Set the path to the MCU architecture's template files
     template_arch_path = Path(template_root_path) / arch
 
-    # Ask the user for their name and GitHub username
-    print("""\n** What is your GitHub username? **
+    # (Erovia) introducing the user.name variable would probably be better
+    if cli.args.username:
+        user_name = cli.args.username
+    elif cli.config.user.keymap:
+        user_name = cli.config.user.keymap
+    else:
+        # Ask the user for their GitHub username
+        print("""\n** What is your GitHub username? **
 
-    This value will be pasted into the new files in copyright headers, and used
-    as the listed Keyboard Maintainer in the readme file.""")
-    user_name = input("\n    GitHub Username: ")
+        This value will be pasted into the new files in copyright headers, and used
+        as the listed Keyboard Maintainer in the readme file.""")
+        user_name = input("\n    GitHub Username: ")
 
     # generate keyboard paths
     keyboard_path = Path("keyboards") / keyboard
