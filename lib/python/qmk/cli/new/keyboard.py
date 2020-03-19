@@ -2,12 +2,11 @@
 """
 import os
 import shutil
+import hashlib
 
 from milc import cli
 from pathlib import Path
 from datetime import datetime
-#from . import edit_file
-import hashlib
 
 
 @cli.argument('-kb', '--keyboard', help='Specify keyboard name. Example: 1upkeyboards/1up60hse')
