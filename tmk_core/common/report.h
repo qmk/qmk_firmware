@@ -46,7 +46,7 @@ enum mouse_buttons {
  * See https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf#page=75
  */
 enum consumer_usages {
-    // 15.5 Display Controls
+    // 15.5 Display Controls (https://www.usb.org/sites/default/files/hutrr41_0.pdf)
     BRIGHTNESS_UP          = 0x06F,
     BRIGHTNESS_DOWN        = 0x070,
     // 15.7 Transport Controls
