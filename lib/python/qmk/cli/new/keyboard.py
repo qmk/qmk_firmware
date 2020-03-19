@@ -18,20 +18,20 @@ def new_keyboard(cli):
     """
 
     # valid microcontroller choices
-    mcus = {
-        1  : ( 'at90usb1286', 'avr' ),
-        2  : ( 'at90usb646' , 'avr' ),
-        3  : ( 'atmega16u2' , 'avr' ),
-        4  : ( 'atmega16u4' , 'avr' ),
-        5  : ( 'atmega328p' , 'avr' ),
-        6  : ( 'atmega32a'  , 'ps2avrgb' ),
-        7  : ( 'atmega32u2' , 'avr' ),
-        8  : ( 'atmega32u4' , 'avr' ),
-        9  : ( 'STM32F042'  , 'stm32' ),
-        10 : ( 'STM32F072'  , 'stm32' ),
-        11 : ( 'STM32F103'  , 'stm32' ),
-        12 : ( 'STM32F303'  , 'stm32' )
-    }
+    mcus = (
+        ( 'at90usb1286', 'avr' ),
+        ( 'at90usb646' , 'avr' ),
+        ( 'atmega16u2' , 'avr' ),
+        ( 'atmega16u4' , 'avr' ),
+        ( 'atmega328p' , 'avr' ),
+        ( 'atmega32a'  , 'ps2avrgb' ),
+        ( 'atmega32u2' , 'avr' ),
+        ( 'atmega32u4' , 'avr' ),
+        ( 'STM32F042'  , 'stm32' ),
+        ( 'STM32F072'  , 'stm32' ),
+        ( 'STM32F103'  , 'stm32' ),
+        ( 'STM32F303'  , 'stm32' ),
+    )
 
     # Generate the USB Product ID
     def generate_pid(str):
@@ -52,13 +52,8 @@ def new_keyboard(cli):
         rw_file.write_text(file_contents)
 
     def print_microcontrollers():
-        for i in range( 1, ( len(mcus) + 1 ) ):
-            print( \
-                "    " + \
-                " " * ( 2 - len(str(i)) ) + \
-                str(i) + ": " + \
-                mcus[i][0]
-            )
+        for i, mcu in enumerate(mcus):
+            cli.echo("     %s: %s (%s)", str(i + 1).rjust(2, " "), mcu[0], mcu[1] )
 
     # Root path for template files
     template_root_path = Path("quantum/template")
@@ -96,6 +91,8 @@ def new_keyboard(cli):
     mcus_stm = ["stm32f042", "stm32f072", "stm32f103", "stm32f303"]
 
     mcu = int(input("\n    Microcontroller: (1-" + str(len(mcus)) + "): "))
+    # user-facing text is 1-12, but data is 0-11 internally
+    mcu = mcu - 1
     arch = mcus[mcu][1]
     mcu = mcus[mcu][0]
     mcu = mcu.lower()
