@@ -117,9 +117,9 @@ def new_keyboard(cli):
         exit(1)
     # if target directory is a subdirectory (keyboard project name contains a
     #   forward slash, create the parent directory first
-    elif len(keyboard.parts) > 1:
-        keyboard.parent.mkdir(parents=True, exist_ok=True)
-    final_directory = keyboard.name
+    elif len(keyboard_path.parts) > 1:
+        keyboard_path.parent.mkdir(parents=True, exist_ok=True)
+    final_directory = keyboard_path.name
 
     # create user directory with default keyboard files
     shutil.copytree(template_base_path, keyboard_path, symlinks=True)
