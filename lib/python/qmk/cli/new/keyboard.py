@@ -10,7 +10,7 @@ from datetime import datetime
 
 
 @cli.argument('-kb', '--keyboard', help='Specify keyboard name. Example: clueboard/66')
-@cli.argument('-pr', '--project', help='The human-friendly name of the keyboard. Example: Clueboard 66%')
+@cli.argument('-pr', '--project', help='The human-friendly name of the keyboard. Example: Clueboard 66%%')
 @cli.argument('-mcu', '--microcontroller', help='Specify the microcontroller used for the keyboard.')
 @cli.argument('-u', '--username', help='Your GitHub username. Will be pasted into generated files.')
 @cli.subcommand('Creates a new keyboard project.')
@@ -53,8 +53,8 @@ def new_keyboard(cli):
         file_contents = rw_file.read_text() \
             .replace("%YEAR%", str(year)) \
             .replace("%YOUR_NAME%", user_name) \
-            .replace("%KEYBOARD%", keyboard) \
-            .replace("%FINAL_DIR%", final_directory) \
+            .replace("%KEYBOARD%", str(keyboard)) \
+            .replace("%FINAL_DIR%", str(final_directory)) \
             .replace("%KEYBOARD_NAME%", keyboard_name) \
             .replace("%PID%", pid) \
             .replace("%MCU%", mcu)
@@ -76,7 +76,7 @@ def new_keyboard(cli):
 
         Files will be placed in `qmk_firmware/keyboards/<project_name>/`.""")
         keyboard = input("\n    Project Name: ")
-        keyboard = re.sub(r'[^a-z0-9_]', "", keyboard.lower())
+        keyboard = Path(re.sub(r'[^a-z0-9_/]', "", keyboard.lower()))
 
 
     if cli.args.project:
@@ -101,7 +101,7 @@ def new_keyboard(cli):
             options = [];
             for i in range(0, len(mcus)):
                 options.append( mcus[i][0] )
-            print("  Valid Options: ", ", ".join(options) )
+            print("  Valid Options: ", ", ".join(mcu[0] for mcu in mcus) )
             exit(1)
     else:
     # Ask what microcontroller is being used
@@ -138,10 +138,9 @@ def new_keyboard(cli):
     if Path.exists(keyboard_path):
         cli.log.error('Keyboard %s already exists!', keyboard)
         exit(1)
-    elif keyboard.count('/') > 0:
-        parent_directory = "/".join(keyboard.split('/')[0:len(keyboard.split('/')) - 1] )
-        Path(parent_directory).mkdir(parents=True, exist_ok=True)
-    final_directory = keyboard.split('/')[-1]
+    elif len(keyboard.parts) > 1:
+        keyboard.parent.mkdir(parents=True, exist_ok=True)
+    final_directory = keyboard.name
 
     # create user directory with default keyboard files
     shutil.copytree(template_base_path, keyboard_path, symlinks=True)
