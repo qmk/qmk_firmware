@@ -92,7 +92,7 @@ def new_keyboard(cli):
     if cli.args.microcontroller:
         mcu = cli.args.microcontroller.lower()
         for key, value in enumerate(mcus):
-            if mcu in value[0]:
+            if re.match( r'^' + value[0] + '$', mcu, re.I ):
                 arch = value[1]
                 break
             else:
