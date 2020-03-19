@@ -3,6 +3,9 @@
 import shutil
 import hashlib
 import re
+from qmk.constants import mcus
+from qmk.keyboard import generate_pid
+from qmk.questions import question
 
 from milc import cli
 from pathlib import Path
@@ -22,28 +25,7 @@ def new_keyboard(cli):
     template_root_path = Path("quantum/template")
     template_base_path = template_root_path / "base"
     year = datetime.now().year
-
-    # valid microcontroller choices
-    mcus = (
-        ( 'at90usb1286', 'avr' ),
-        ( 'at90usb646' , 'avr' ),
-        ( 'atmega16u2' , 'avr' ),
-        ( 'atmega16u4' , 'avr' ),
-        ( 'atmega328p' , 'avr' ),
-        ( 'atmega32a'  , 'ps2avrgb' ),
-        ( 'atmega32u2' , 'avr' ),
-        ( 'atmega32u4' , 'avr' ),
-        ( 'STM32F042'  , 'stm32' ),
-        ( 'STM32F072'  , 'stm32' ),
-        ( 'STM32F103'  , 'stm32' ),
-        ( 'STM32F303'  , 'stm32' ),
-    )
-
-    # Generate the USB Product ID
-    def generate_pid(str):
-        str = str.encode('utf-8')
-        str = hashlib.sha1(str).hexdigest()[0:4].upper()
-        return str
+    valid_keyboard_name = re.compile(r'^[a-z0-9][a-z0-9_/]+$')
 
     # Rewrites the %YEAR%, %YOUR_NAME%, %KEYBOARD% and %PID% placeholders in the
     #   new files.
@@ -71,8 +53,9 @@ def new_keyboard(cli):
     underscore character, and must not begin with an underscore.
 
     Files will be placed in `qmk_firmware/keyboards/<project_name>/`.""")
-        keyboard = input("\n    Project Name: ")
-        keyboard = Path(re.sub(r'[^a-z0-9_/]', "", keyboard.lower()))
+        keyboard = question("Project Name: ")
+        #keyboard = Path(re.sub(r'[^a-z0-9_/]', "", keyboard.lower()))
+        keyboard = Path(keyboard.lower())
 
 
     if cli.args.project:
@@ -83,7 +66,7 @@ def new_keyboard(cli):
 
     This is the name that people will use to refer to your keyboard. It should
     be something human-friendly, like \"Clueboard 66%%\" or \"Ergodox EZ\".""")
-        keyboard_name = input("\n    Name: ")
+        keyboard_name = question("Name: ")
 
 
     if cli.args.microcontroller:
@@ -103,7 +86,7 @@ def new_keyboard(cli):
     # Ask what microcontroller is being used
         cli.echo("Select the microcontroller used:\n")
         for i, mcu in enumerate(mcus, 1):
-            cli.echo("     %s: %s (%s)", str(i).rjust(2, " "), mcu[0], mcu[1] )
+            cli.echo("    %s: %s (%s)", str(i).rjust(2, " "), mcu[0], mcu[1] )
 
         mcu = int(input("\n    Microcontroller: (1-" + str(len(mcus)) + "): "))
         # user-facing text is 1-indexed, but data is 0-indexed internally
@@ -126,7 +109,7 @@ def new_keyboard(cli):
 
     This value will be pasted into the new files in copyright headers, and used
     as the listed Keyboard Maintainer in the readme file.""")
-        user_name = input("\n    GitHub Username: ")
+        user_name = question("GitHub Username: ")
 
     # generate keyboard paths
     keyboard_path = Path("keyboards") / keyboard
