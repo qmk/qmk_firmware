@@ -1,11 +1,5 @@
 #include QMK_KEYBOARD_H
 
-
-#ifdef RGBLIGHT_ENABLE
-//Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-#endif
-
 extern uint8_t is_master;
 
 // OLED_ROTATION_180 for left
@@ -81,14 +75,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           if (record->event.pressed) {
             rgblight_mode(RGB_current_mode);
             rgblight_step();
-            RGB_current_mode = rgblight_config.mode;
+            RGB_current_mode = rgblight_get_mode();
           }
         break;
       case RGB_RST:
           if (record->event.pressed) {
             eeconfig_update_rgblight_default();
             rgblight_enable();
-            RGB_current_mode = rgblight_config.mode;
+            RGB_current_mode = rgblight_get_mode();
           }
         break;
     #endif
