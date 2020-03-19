@@ -95,10 +95,12 @@ def new_keyboard(cli):
             if re.match( r'^' + value[0] + '$', mcu, re.I ):
                 arch = value[1]
                 break
-            else:
-                arch = ''
-        if arch not in ['avr', 'ps2avrgb', 'stm32']:
+        else:
             cli.log.error(mcu + " is not a valid microcontroller option.")
+            options = [];
+            for i in range(0, len(mcus)):
+                options.append( mcus[i][0] )
+            print("  Valid Options: ", ", ".join(options) )
             exit(1)
     else:
     # Ask what microcontroller is being used
