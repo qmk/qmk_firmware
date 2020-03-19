@@ -27,7 +27,7 @@ def new_keyboard(cli):
     # Rewrites the %YEAR%, %YOUR_NAME%, %KEYBOARD% and %PID% placeholders in the
     #   new files.
     def rewrite_source(file):
-        rw_file = Path(kb_path) / file
+        rw_file = Path(keyboard_path) / file
         file_contents = rw_file.read_text() \
             .replace("%YEAR%", str(year)) \
             .replace("%YOUR_NAME%", user_name) \
@@ -90,33 +90,33 @@ def new_keyboard(cli):
     user_name = input("\nYour Name: ")
 
     # generate keymap paths
-    kb_path = Path("keyboards") / keyboard
+    keyboard_path = Path("keyboards") / keyboard
     template_base_path = Path(template_root_path) / "base"
 
     # check directories
-    if Path.exists(kb_path):
+    if Path.exists(keyboard_path):
         cli.log.error('Keyboard %s already exists!', keyboard)
         exit(1)
 
     # create user directory with default keymap files
-    shutil.copytree(template_base_path, kb_path, symlinks=True)
-    kb_c = Path(kb_path) / "keyboard.c"
-    kb_h = Path(kb_path) / "keyboard.h"
-    kb_c.rename( Path(kb_path) / Path(keyboard + ".c") )
-    kb_h.rename( Path(kb_path) / Path(keyboard + ".h") )
+    shutil.copytree(template_base_path, keyboard_path, symlinks=True)
+    kb_c = Path(keyboard_path) / "keyboard.c"
+    kb_h = Path(keyboard_path) / "keyboard.h"
+    kb_c.rename( Path(keyboard_path) / Path(keyboard + ".c") )
+    kb_h.rename( Path(keyboard_path) / Path(keyboard + ".h") )
 
     # copy architecture files
-    shutil.copy(Path(template_arch_path) / "config.h", kb_path)
-    shutil.copy(Path(template_arch_path) / "readme.md", kb_path)
-    shutil.copy(Path(template_arch_path) / "rules.mk", kb_path)
+    shutil.copy(Path(template_arch_path) / "config.h", keyboard_path)
+    shutil.copy(Path(template_arch_path) / "readme.md", keyboard_path)
+    shutil.copy(Path(template_arch_path) / "rules.mk", keyboard_path)
     if ( arch == "ps2avrgb" ):
-        shutil.copy(Path(template_arch_path) / "usbconfig.h", kb_path)
+        shutil.copy(Path(template_arch_path) / "usbconfig.h", keyboard_path)
     if ( arch == "stm32" ):
         # STM32 MCUs need their names in uppercase
         mcu = mcu.upper()
 
     # rewrite the rules.mk file with the requested MCU rule
-    rules = Path(kb_path) / "rules.mk"
+    rules = Path(keyboard_path) / "rules.mk"
     file_contents = rules.read_text()
     file_contents = file_contents.replace("%MCU%", mcu)
     rules.write_text(file_contents)
@@ -138,5 +138,5 @@ def new_keyboard(cli):
 
 
     # end message to user
-    cli.log.info("%s keyboard directory created in: %s", keyboard, kb_path)
+    cli.log.info("%s keyboard directory created in: %s", keyboard, keyboard_path)
     cli.log.info("Compile a firmware with your new keymap by typing: \n" + "qmk compile -kb %s -km default", keyboard)
