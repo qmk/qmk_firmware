@@ -54,6 +54,7 @@ def new_keyboard(cli):
             .replace("%YEAR%", str(year)) \
             .replace("%YOUR_NAME%", user_name) \
             .replace("%KEYBOARD%", keyboard) \
+            .replace("%FINAL_DIR%", final_directory) \
             .replace("%KEYBOARD_NAME%", keyboard_name) \
             .replace("%PID%", pid) \
             .replace("%MCU%", mcu)
@@ -137,13 +138,17 @@ def new_keyboard(cli):
     if Path.exists(keyboard_path):
         cli.log.error('Keyboard %s already exists!', keyboard)
         exit(1)
+    elif keyboard.count('/') > 0:
+        parent_directory = "/".join(keyboard.split('/')[0:len(keyboard.split('/')) - 1] )
+        Path(parent_directory).mkdir(parents=True, exist_ok=True)
+    final_directory = keyboard.split('/')[-1]
 
     # create user directory with default keyboard files
     shutil.copytree(template_base_path, keyboard_path, symlinks=True)
     kb_c = Path(keyboard_path) / "keyboard.c"
     kb_h = Path(keyboard_path) / "keyboard.h"
-    kb_c.rename( Path(keyboard_path) / Path(keyboard + ".c") )
-    kb_h.rename( Path(keyboard_path) / Path(keyboard + ".h") )
+    kb_c.rename( Path(keyboard_path) / Path(final_directory + ".c") )
+    kb_h.rename( Path(keyboard_path) / Path(final_directory + ".h") )
 
     # copy architecture files
     shutil.copy(Path(template_arch_path) / "config.h", keyboard_path)
@@ -166,8 +171,8 @@ def new_keyboard(cli):
     rewrite_source("info.json")
     rewrite_source("readme.md")
     rewrite_source("rules.mk")
-    rewrite_source(keyboard + ".c")
-    rewrite_source(keyboard + ".h")
+    rewrite_source(final_directory + ".c")
+    rewrite_source(final_directory + ".h")
     rewrite_source("keymaps/default/keymap.c")
     rewrite_source("keymaps/default/config.h")
     rewrite_source("keymaps/default/readme.md")
