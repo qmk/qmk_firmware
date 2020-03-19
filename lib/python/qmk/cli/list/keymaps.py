@@ -22,7 +22,7 @@ def list_keymaps(cli):
     try:
         for name in qmk.keymap.list_keymaps(cli.args.keyboard):
             # echo instead of config.log.info for easier output piping
-            cli.echo('%s:%s', cli.args.keyboard, name)
+            cli.echo('%s', name)
     except NoSuchKeyboardError as e:
         cli.echo('{fg_red}%s: %s', cli.args.keyboard, e.message)
     except (FileNotFoundError, PermissionError) as e:
