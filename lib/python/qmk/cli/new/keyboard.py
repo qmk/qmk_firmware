@@ -58,10 +58,20 @@ def new_keyboard(cli):
     be something human-friendly, like \"Clueboard 66%\" or \"Ergodox EZ\".""")
     keyboard_name = input("\nName: ")
 
-    print("\nSelect the microcontroller used:")
-    print("     atmega16u2    atmega32u2     atmega16u4    atmega32u4")
-    print("     at90usb646    at90usb1286    atmega32a     atmega328p")
-    print("     STM32F042     STM32F072      STM32F103     STM32F303")
+    # Ask what microcontroller is being used
+    print("""\n** Select the microcontroller used: **\n
+     (1) atmega16u2
+     (2) atmega32u2
+     (3) atmega16u4
+     (4) atmega32u4
+     (5) at90usb646
+     (6) at90usb1286
+     (7) atmega328p
+     (8) atmega32a
+     (9) STM32F042
+    (10) STM32F072
+    (11) STM32F103
+    (12) STM32F303""")
 
     # MCUs are saved with lowercase names to make the user input request
     #   case-insensitive
