@@ -499,3 +499,18 @@ def c2json(keyboard, keymap, keymap_file, use_cpp=True):
     keymap_json['keyboard'] = keyboard
     keymap_json['keymap'] = keymap
     return keymap_json
+
+# Rewrites the %YEAR%, %YOUR_NAME%, %KEYBOARD% and %PID% placeholders in the
+#   new files.
+def rewrite_source(rw_file, year, user_name, keyboard, final_directory, keyboard_name, pid, mcu):
+    if not isinstance(rw_file, Path):
+        rw_file = Path(rw_file)
+    file_contents = rw_file.read_text() \
+        .replace("%YEAR%", str(year)) \
+        .replace("%YOUR_NAME%", user_name) \
+        .replace("%KEYBOARD%", str(keyboard)) \
+        .replace("%FINAL_DIR%", str(final_directory)) \
+        .replace("%KEYBOARD_NAME%", keyboard_name) \
+        .replace("%PID%", pid) \
+        .replace("%MCU%", mcu)
+    rw_file.write_text(file_contents)

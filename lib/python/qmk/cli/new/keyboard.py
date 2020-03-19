@@ -1,15 +1,16 @@
 """This script automates creating the files necessary for a new QMK keyboard.
 """
 import shutil
-import hashlib
 import re
-from qmk.constants import mcus
-from qmk.keyboard import generate_pid
-from qmk.questions import question
 
 from milc import cli
 from pathlib import Path
 from datetime import datetime
+
+from qmk.constants import SUPPORTED_MCUS
+from qmk.keyboard import generate_pid
+from qmk.questions import question
+from qmk.keymap import rewrite_source
 
 
 @cli.argument('-kb', '--keyboard', help='Specify keyboard name. Example: clueboard/66')
@@ -26,21 +27,6 @@ def new_keyboard(cli):
     template_base_path = template_root_path / "base"
     year = datetime.now().year
     valid_keyboard_name = re.compile(r'^[a-z0-9][a-z0-9_/]+$')
-
-    # Rewrites the %YEAR%, %YOUR_NAME%, %KEYBOARD% and %PID% placeholders in the
-    #   new files.
-    def rewrite_source(file):
-        rw_file = Path(keyboard_path) / file
-        file_contents = rw_file.read_text() \
-            .replace("%YEAR%", str(year)) \
-            .replace("%YOUR_NAME%", user_name) \
-            .replace("%KEYBOARD%", str(keyboard)) \
-            .replace("%FINAL_DIR%", str(final_directory)) \
-            .replace("%KEYBOARD_NAME%", keyboard_name) \
-            .replace("%PID%", pid) \
-            .replace("%MCU%", mcu)
-        rw_file.write_text(file_contents)
-
 
     if cli.args.keyboard:
         keyboard = keyboard_name = cli.args.keyboard
@@ -71,28 +57,27 @@ def new_keyboard(cli):
 
     if cli.args.microcontroller:
         mcu = cli.args.microcontroller.lower()
-        for key, value in enumerate(mcus):
-            if re.match( r'^' + value[0] + '$', mcu, re.I ):
-                arch = value[1]
-                break
+
+        if mcu in SUPPORTED_MCUS:
+            arch = SUPPORTED_MCUS[mcu]
+
         else:
             cli.log.error(mcu + " is not a valid microcontroller option.")
-            options = [];
-            for i in range(0, len(mcus)):
-                options.append( mcus[i][0] )
-            print("  Valid Options: ", ", ".join(mcu[0] for mcu in mcus) )
+            print("  Valid Options: ", ", ".join(SUPPORTED_MCUS) )
             exit(1)
     else:
-    # Ask what microcontroller is being used
+        # Ask what microcontroller is being used
         cli.echo("Select the microcontroller used:\n")
-        for i, mcu in enumerate(mcus, 1):
-            cli.echo("    %s: %s (%s)", str(i).rjust(2, " "), mcu[0], mcu[1] )
+        for i, mcu in enumerate(SUPPORTED_MCUS, 1):
+            cli.echo("    %s: %s (%s)", str(i).rjust(2, " "), mcu, SUPPORTED_MCUS[mcu] )
 
-        mcu = int(input("\n    Microcontroller: (1-" + str(len(mcus)) + "): "))
+        mcu = int(input("\n    Microcontroller: (1-" + str(len(SUPPORTED_MCUS)) + "): "))
         # user-facing text is 1-indexed, but data is 0-indexed internally
         mcu -= 1
-        arch = mcus[mcu][1]
-        mcu = mcus[mcu][0]
+        # create a list of tuples from the dictionary
+        mcu_list = [(name, SUPPORTED_MCUS[name]) for name in SUPPORTED_MCUS]
+        arch = mcu_list[mcu][1]
+        mcu = mcu_list[mcu][0]
         mcu = mcu.lower()
     # Set the path to the MCU architecture's template files
     template_arch_path = template_root_path / arch
@@ -148,15 +133,9 @@ def new_keyboard(cli):
     # Required before using rewrite_source()
     pid = generate_pid(keyboard_name)
 
-    rewrite_source("config.h")
-    rewrite_source("info.json")
-    rewrite_source("readme.md")
-    rewrite_source("rules.mk")
-    rewrite_source(final_directory + ".c")
-    rewrite_source(final_directory + ".h")
-    rewrite_source("keymaps/default/keymap.c")
-    rewrite_source("keymaps/default/config.h")
-    rewrite_source("keymaps/default/readme.md")
+    files = {'config.h', 'info.json', 'readme.md', 'rules.mk', final_directory + '.c', final_directory + '.h', 'keymaps/default/keymap.c', 'keymaps/default/readme.md'}
+    for file in files:
+        rewrite_source(keyboard_path / file, year, user_name, keyboard, final_directory, keyboard_name, pid, mcu)
 
     # end message to user
     cli.log.info("%s keyboard directory created in: %s", keyboard_name, keyboard_path)

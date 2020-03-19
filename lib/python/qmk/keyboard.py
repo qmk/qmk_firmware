@@ -8,6 +8,7 @@ from glob import glob
 
 from qmk.c_parse import parse_config_h_file
 from qmk.makefile import parse_rules_mk_file
+import hashlib
 
 base_path = os.path.join(os.getcwd(), "keyboards") + os.path.sep
 
@@ -129,3 +130,10 @@ def render_layouts(info_json):
         layouts[layout] = render_layout(layout_data)
 
     return layouts
+
+# Generate the USB Product ID
+def generate_pid(str):
+    str = str.encode('utf-8')
+    str = hashlib.sha1(str).hexdigest()[0:4].upper()
+    return str
+
