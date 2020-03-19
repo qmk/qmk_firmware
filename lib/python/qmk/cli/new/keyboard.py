@@ -63,6 +63,7 @@ def new_keyboard(cli):
     template_base_path = Path(template_root_path) / "base"
     year = datetime.now().year
 
+
     if cli.args.keyboard:
         keyboard = keyboard_name = cli.args.keyboard
     else:
@@ -75,6 +76,7 @@ def new_keyboard(cli):
         Files will be placed in `qmk_firmware/keyboards/<project_name>/`.""")
         keyboard = input("\n    Project Name: ")
         keyboard = re.sub(r'[^a-z0-9_]', "", keyboard.lower())
+
 
     if cli.args.project:
         keyboard_name = cli.args.project
