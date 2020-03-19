@@ -57,7 +57,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_ENTER:
       // 当按下回车时播放音符
       if (record->event.pressed) {
-        PLAY_NOTE_ARRAY(tone_qwerty);
+        PLAY_SONG(tone_qwerty);
       }
       return true; // 让QMK触发回车按下/释放事件
     default:
@@ -413,7 +413,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_ENTER:
         // 在按下回车时播放音符
         if (record->event.pressed) {
-            PLAY_NOTE_ARRAY(tone_qwerty);
+            PLAY_SONG(tone_qwerty);
         }
         return true; // 让QMK产生回车按下/释放事件
     case RGB_LYR:  // 本句让underglow作为层指示，或正常使用。
