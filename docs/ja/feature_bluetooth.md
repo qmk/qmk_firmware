@@ -27,7 +27,7 @@
 * #define AdafruitBleCSPin    B4
 * #define AdafruitBleIRQPin   E6
 
-Bluefruit UART friend は SPI friend に変換することができますが、これには再書き込みと MDBT40 チップへ直接はんだ付けする[必要があります](https://github.com/qmk/qmk_firmware/issues/2274)。
+Bluefruit UART friend は SPI friend に変換することができますが、これにはMDBT40 チップへの直接の再書き込みとはんだ付けが[必要です](https://github.com/qmk/qmk_firmware/issues/2274)。
 
 ## Adafruit EZ-Key hid
 これには[ハードウェアの変更](https://www.reddit.com/r/MechanicalKeyboards/comments/3psx0q/the_planck_keyboard_with_bluetooth_guide_and/?ref=search_posts)が必要ですが、Makefile を使って有効にすることができます。ファームウェアは引き続き USB 経由で文字を出力するため、コンピュータ経由で充電する場合は注意してください。任意にオフにするために Bluefruit 上にスイッチを持つことは理にかなっています。

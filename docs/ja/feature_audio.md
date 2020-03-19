@@ -30,7 +30,7 @@ CG_NORM_SONG // CG_NORM キーを押すと再生 (quantum.c)
 CG_SWAP_SONG // CG_SWAP キーを押すと再生 (quantum.c)
 MUSIC_ON_SONG // 音楽モードがアクティブになると再生 (process_music.c)
 MUSIC_OFF_SONG // 音楽モードが非アクティブになると再生 (process_music.c)
-CHROMATIC_SONG // 有彩色音楽モードが選択された時に再生 (process_music.c)
+CHROMATIC_SONG // 半音階音楽モードが選択された時に再生 (process_music.c)
 GUITAR_SONG // ギター音楽モードが選択された時に再生 (process_music.c)
 VIOLIN_SONG // バイオリン音楽モードが選択された時に再生 (process_music.c)
 MAJOR_SONG // メジャー音楽モードが選択された時に再生 (process_music.c)
@@ -44,9 +44,9 @@ MAJOR_SONG // メジャー音楽モードが選択された時に再生 (process
 #endif
 ```
 
-サウンドの完全なリストは、[quantum/audio/song_list.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/audio/song_list.h) で見つかります - このリストに自由に追加してください！利用可能な音符は [quantum/audio/musical_notes.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/audio/musical_notes.h) で見つかります。
+サウンドの完全なリストは、[quantum/audio/song_list.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/audio/song_list.h) で見つかります - このリストに自由に追加してください！利用可能な音は [quantum/audio/musical_notes.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/audio/musical_notes.h) で見つかります。
 
-特定の時にカスタムサウンドを再生するために、以下のように曲を定義することができます(ファイルの上部付近):
+特定の時にカスタムサウンドを再生するために、以下のように曲を定義することができます(ファイルの上部付近に):
 
 ```c
 float my_song[][2] = SONG(QWERTY_SOUND);
@@ -64,7 +64,7 @@ PLAY_SONG(my_song);
 PLAY_LOOP(my_song);
 ```
 
-オーディオがキーボードに組み込まれていない時に問題が起きる事を避けるために、`#ifdef AUDIO_ENABLE` / `#endif` の中に全てのオーディオ機能をラップすることをお勧めします。
+オーディオがキーボードに組み込まれていない時に問題が起きる事を避けるために、`#ifdef AUDIO_ENABLE` / `#endif` で全てのオーディオ機能をくるむことをお勧めします。
 
 オーディオで利用可能なキーコードは以下の通りです:
 
@@ -121,7 +121,7 @@ ARM デバイスの場合、DAC サンプル値を調整できます。キーボ
 
     #define MUSIC_MASK keycode != KC_NO
 
-これは全てのキーコードをキャプチャします - これは、キーボードを再起動するまで、音楽モードで動けなくなることに注意してください！
+これは全てのキーコードを捕捉します - これは、キーボードを再起動するまで、音楽モードで動けなくなることに注意してください！
 
 どのキーコードを引き続き処理するかを制御する、より高度な方法については、`<keyboard>.c` の中の `music_mask_kb(keycode)` および `keymap.c` の中の `music_mask_user(keycode)` を使うことができます:
 
@@ -139,11 +139,11 @@ false を返すものはマスクの一部では無く、常に処理されま�
 
 ### 音楽マップ
 
-デフォルトでは、音楽モードはキーのスケールを決定するために列と行を使います。キーボードレイアウトに一致する長方形のマトリックスを使うキーボードの場合、これで十分です。しかし、(Planck Rev6 あるいは多くの分割キーボードなど)より複雑なマトリックスを使うキーボードの場合、非常に歪んだ感じを受けることになります。
+デフォルトでは、音楽モードはキーのスケールを決定するために列と行を使います。キーボードレイアウトに一致する長方形のマトリックスを使うキーボードの場合、これで十分です。しかし、(Planck Rev6 あるいは多くの分割キーボードなどのように)より複雑なマトリックスを使うキーボードの場合、非常に歪んだ感じを受けることになります。
 
 しかしながら、音楽マップオプションにより、音楽モードのためにスケーリングを再マップすることができるため、レイアウトに一致し、より自然になります。
 
-この機能を使うには、`#define MUSIC_MAP` を `config.h` ファイルに追加します。そして、`キーボードの名前.c` または `keymap.c` に `uint8_t music_map` を追加したいでしょう。
+この機能を使うには、`#define MUSIC_MAP` を `config.h` ファイルに追加します。そして、`キーボードの名前.c` または `keymap.c` に `uint8_t music_map` を追加します。
 
 ```c
 const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_ortho_4x12(
@@ -160,7 +160,7 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_ortho_4x12(
 
 ## オーディオクリック
 
-これは、キーボードからクリック音をシミュレートするために、ボタンを押すたびにクリック音を追加します。キーを押すたびにわずかに音が異なるため、すばやく入力しても長い単一の音のようには聞こえません。
+これは、ボタンを押すたびにクリック音を追加し、キーボードからのクリック音をシミュレートします。キーを押すたびにわずかに音が異なるため、すばやく入力しても長い単一の音のようには聞こえません。
 
 * `CK_TOGG` - ステータスを切り替えます (有効にされた場合、音を再生します)
 * `CK_ON` - オーディオクリックをオンにします (音を再生します)
@@ -184,7 +184,7 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_ortho_4x12(
 | `AUDIO_CLICKY_FREQ_MAX` | 1500.0f | 最大周波数を設定します。高すぎると同僚があなたを攻撃する可能性があります。 |
 | `AUDIO_CLICKY_FREQ_FACTOR` | 1.18921f | UP/DOWN キーコードのステップを設定します。これは掛け算の係数です。デフォルトでは、音楽のマイナーの1/3ずつ、周波数を上げ/下げします。 |
 | `AUDIO_CLICKY_FREQ_RANDOMNESS` | 0.05f | クリックのランダム性の係数を設定します。これを `0f` に設定すると各クリックが同一になり、`1.0f` に設定するとこの音は90年代のコンピュータ画面のスクロール/タイピングの効果があります。 |
-| `AUDIO_CLICKY_DELAY_DURATION` | 1 | 1がテンポの 1/16、または64分音符である整数音符の持続時間 (実装の詳細については、`quantum/audio/musical_notes.h` を見てください)。メインのクリック効果は、この時間だけ遅れます。これらを6-12前後の値に調整すると、大きなスイッチの補正に役立ちます。 |
+| `AUDIO_CLICKY_DELAY_DURATION` | 1 | 1がテンポの 1/16、または64分音符である整数音符の長さ (実装の詳細については、`quantum/audio/musical_notes.h` を見てください)。メインのクリック効果は、この時間だけ遅れます。これらを6-12前後の値に調整すると、うるさいスイッチの補正に役立ちます。 |
 
 
 
@@ -202,8 +202,8 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_ortho_4x12(
 | `AU_OFF` |  | オーディオモードオフ |
 | `AU_TOG` |  | オーディオモードを切り替えます |
 | `CLICKY_TOGGLE` | `CK_TOGG` | オーディオクリックモードを切り替えます |
-| `CLICKY_UP` | `CK_UP` | クリックの周波数を増やします |
-| `CLICKY_DOWN` | `CK_DOWN` | クリックの周波数を減らします |
+| `CLICKY_UP` | `CK_UP` | クリック音の周波数を増やします |
+| `CLICKY_DOWN` | `CK_DOWN` | クリック音の周波数を減らします |
 | `CLICKY_RESET` | `CK_RST` | 周波数をデフォルトに再設定します |
 | `MU_ON` |  | 音楽モードをオンにします |
 | `MU_OFF` |  | 音楽モードをオフにします |
