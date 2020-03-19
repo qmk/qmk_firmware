@@ -55,8 +55,8 @@ def new_keyboard(cli):
         rw_file.write_text(file_contents)
 
     def print_microcontrollers():
-        for i, mcu in enumerate(mcus):
-            cli.echo("     %s: %s (%s)", str(i + 1).rjust(2, " "), mcu[0], mcu[1] )
+        for i, mcu in enumerate(mcus, 1):
+            cli.echo("     %s: %s (%s)", str(i).rjust(2, " "), mcu[0], mcu[1] )
 
     # Root path for template files
     template_root_path = Path("quantum/template")
@@ -89,10 +89,15 @@ def new_keyboard(cli):
 
     if cli.args.microcontroller:
         mcu = cli.args.microcontroller.lower()
-        for k, v in mcus.items():
-            if mcu in v:
-                arch = k
+        #for k, v in enumerate(mcus):
+        #    if mcu in v:
+        #        arch = k
+        #        break
+        for key, value in enumerate(mcus):
+            if mcu in value[0]:
+                arch = value[1]
                 break
+        #print arch
     else:
     # Ask what microcontroller is being used
         print("\n** Select the microcontroller used: **\n")
@@ -111,6 +116,8 @@ def new_keyboard(cli):
         arch = mcus[mcu][1]
         mcu = mcus[mcu][0]
         mcu = mcu.lower()
+
+        print("Debug: " + mcu + ", "+ arch)
 
     # Set the path to the MCU architecture's template files
     template_arch_path = Path(template_root_path) / arch
