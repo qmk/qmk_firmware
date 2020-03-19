@@ -25,4 +25,4 @@ def list_keymaps(cli):
             cli.echo('%s', name)
     except NoSuchKeyboardError as e:
     except (FileNotFoundError, PermissionError) as e:
-        cli.echo('{fg_red}%s: %s', cli.args.keyboard, e)
+        cli.echo('{fg_red}%s: %s', cli.config.list_keymaps.keyboard, e)
