@@ -22,7 +22,7 @@ __KEYMAP_GOES_HERE__
 """
 
 
-def template(keyboard, type = 'c'):
+def template(keyboard, type='c'):
     """Returns the `keymap.c` or `keymap.json` template for a keyboard.
 
     If a template exists in `keyboards/<keyboard>/templates/keymap.c` that
@@ -43,7 +43,7 @@ def template(keyboard, type = 'c'):
         if template_file.exists():
             template = json.loads(template_file.read_text())
         else:
-            template = {'keyboard': keyboard} 
+            template = {'keyboard': keyboard}
     else:
         template_file = Path('keyboards/%s/templates/keymap.c' % keyboard)
         if template_file.exists():
@@ -54,7 +54,7 @@ def template(keyboard, type = 'c'):
     return template
 
 
-def generate(keyboard, layout, layers, type = 'c'):
+def generate(keyboard, layout, layers, type='c'):
     """Returns a `keymap.c` or `keymap.json` for the specified keyboard, layout, and layers.
 
     Args:
@@ -88,7 +88,7 @@ def generate(keyboard, layout, layers, type = 'c'):
     return new_keymap
 
 
-def write(keyboard, keymap, layout, layers, type = 'c'):
+def write(keyboard, keymap, layout, layers, type='c'):
     """Generate the `keymap.c` and write it to disk.
 
     Returns the filename written to.

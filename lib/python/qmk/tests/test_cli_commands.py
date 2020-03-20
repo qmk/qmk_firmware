@@ -15,6 +15,10 @@ def test_compile():
     assert check_subcommand('compile', '-kb', 'handwired/onekey/pytest', '-km', 'default').returncode == 0
 
 
+def test_compile_json():
+    assert check_subcommand('compile', '-kb', 'handwired/onekey/pytest', '-km', 'default_json').returncode == 0
+
+
 def test_flash():
     assert check_subcommand('flash', '-b').returncode == 1
     assert check_subcommand('flash').returncode == 1
@@ -60,7 +64,7 @@ def test_list_keyboards():
 def test_list_keymaps():
     result = check_subcommand("list-keymaps", "-kb", "handwired/onekey/pytest")
     assert result.returncode == 0
-    assert "default" and "test" in result.stdout
+    assert "default" and "default_json" and "test" in result.stdout
 
 
 def test_list_keymaps_no_keyboard_found():
