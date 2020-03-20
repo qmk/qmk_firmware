@@ -2,11 +2,13 @@
 
 #define FORCE_NKRO
 
-#define MOUSEKEY_DELAY             50
-#define MOUSEKEY_INTERVAL          15
+#define MOUSEKEY_DELAY             0
+#define MOUSEKEY_INTERVAL          10
 #define MOUSEKEY_MAX_SPEED         4
-#define MOUSEKEY_TIME_TO_MAX       50
-#define MOUSEKEY_WHEEL_MAX_SPEED   1
+#define MOUSEKEY_TIME_TO_MAX       100
+#define MOUSEKEY_WHEEL_DELAY       0
+#define MOUSEKEY_WHEEL_INTERVAL    50
+#define MOUSEKEY_WHEEL_MAX_SPEED   4
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 50
 
 #define NO_ACTION_FUNCTION
