@@ -19,7 +19,14 @@
 #include "board.h"
 #include <stdio.h>
 
-enum layer_number { _QWERTY = 0, _COLEMAK, _DVORAK, _LOWER, _RAISE, _ADJUST };
+enum layer_number { 
+    _QWERTY,
+     _COLEMAK, 
+     _DVORAK, 
+     _LOWER, 
+     _RAISE, 
+     _ADJUST,
+};
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes { QWERTY = SAFE_RANGE, COLEMAK, DVORAK };
