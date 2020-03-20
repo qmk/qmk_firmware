@@ -10,18 +10,13 @@ inline void led_1_off(void) {writePinLow(D0);}
 inline void led_2_off(void) {writePinLow(D1);} //D4?
 inline void led_3_off(void) {writePinLow(D6);}
 
-  // if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-    // writePinHigh(D1);
-// #if defined(BL_AS_CAPSLOCK)
-    // writePinHigh(D4);
-// #endif
-  // }
-  // else {
-    // writePinLow(D1);
-// #if defined(BL_AS_CAPSLOCK)
-    // writePinLow(D4);
-// #endif
-  // }
+// Number of keys in rows
+// 0 + 7 / 9
+// 2 + 7 / 8
+// 2 + 6 / 9
+// 2 + 6 / 8
+// 2 + 6 / 8
+// 2 + 5 / 7
 
 #define KEYMAP( \
             K05, K15, K25, K35, K45, K55, K65, K75, K85, K95, K105, K115, K125, K135, K86, K87, \

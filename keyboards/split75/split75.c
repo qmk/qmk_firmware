@@ -83,18 +83,16 @@ void keyboard_post_init_user(void) {
   led_set_user(0);
 }
 
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
-};
+
 
 #if defined(LED_INDICATORS)
 void led_set_user(uint8_t usb_led) {
-  if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-    led_1_on();
-  }
-  else {
-    led_1_off();
-  }
+  // if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
+    // led_1_on();
+  // }
+  // else {
+    // led_1_off();
+  // }
 
   if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
     led_2_on();
@@ -103,12 +101,11 @@ void led_set_user(uint8_t usb_led) {
     led_2_off();
   }
 
-  if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-    led_3_on();
-  }
-  else {
-    led_3_off();
-  }
-	
+  // if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
+    // led_3_on();
+  // }
+  // else {
+    // led_3_off();
+  // }
 }
 #endif
