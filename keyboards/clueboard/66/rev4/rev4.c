@@ -1,4 +1,5 @@
 #include "rev4.h"
+//#include "backlight.h"
 
 void matrix_init_kb(void) {
     // put your keyboard start-up code here
@@ -9,17 +10,14 @@ void matrix_init_kb(void) {
 
 void led_init_ports() {
     // Set our LED pins as output
-    setPinOutput(B13); // LED1
-    writePinLow(B13);
-
-    setPinOutput(B14); // LED2
-    writePinLow(B14);
-
-    setPinOutput(B8); // LED3
-    writePinLow(B8);
-
-    setPinOutput(B0); // Capslock LED
-    writePinLow(B0);
+    palSetPadMode(GPIOB, 13, PAL_MODE_OUTPUT_PUSHPULL); // LED1
+    palClearPad(GPIOB, 13);
+    palSetPadMode(GPIOB, 14, PAL_MODE_OUTPUT_PUSHPULL); // LED2
+    palClearPad(GPIOB, 14);
+    palSetPadMode(GPIOA, 8, PAL_MODE_OUTPUT_PUSHPULL); // LED3
+    palClearPad(GPIOA, 8);
+    palSetPadMode(GPIOA, 0, PAL_MODE_OUTPUT_PUSHPULL); // Capslock LED
+    palClearPad(GPIOA, 0);
 }
 
 void led_set_kb(uint8_t usb_led) {

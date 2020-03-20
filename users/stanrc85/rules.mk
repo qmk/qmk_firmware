@@ -14,3 +14,12 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
   # Include my fancy rgb functions source here
   SRC += layer_rgb.c
 endif
+
+ifeq ($(strip $(KEYBOARD)), 1upkeyboards/1up60hse)
+  VIA_ENABLE = yes
+  LTO_ENABLE = yes
+endif
+ifeq ($(strip $(KEYBOARD)), dz60)
+  VIA_ENABLE = yes
+  LTO_ENABLE = yes
+endif

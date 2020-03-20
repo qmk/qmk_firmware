@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define REPORT_H
 
 #include <stdint.h>
+#include <stdbool.h>
 #include "keycode.h"
 
 /* report id */
@@ -151,6 +152,11 @@ typedef union {
 } __attribute__((packed)) report_keyboard_t;
 
 typedef struct {
+    uint8_t  report_id;
+    uint16_t usage;
+} __attribute__((packed)) report_extra_t;
+
+typedef struct {
 #ifdef MOUSE_SHARED_EP
     uint8_t report_id;
 #endif
@@ -162,14 +168,76 @@ typedef struct {
 } __attribute__((packed)) report_mouse_t;
 
 /* keycode to system usage */
-#define KEYCODE2SYSTEM(key) (key == KC_SYSTEM_POWER ? SYSTEM_POWER_DOWN : (key == KC_SYSTEM_SLEEP ? SYSTEM_SLEEP : (key == KC_SYSTEM_WAKE ? SYSTEM_WAKE_UP : 0)))
+static inline uint16_t KEYCODE2SYSTEM(uint8_t key) {
+    switch (key) {
+        case KC_SYSTEM_POWER:
+            return SYSTEM_POWER_DOWN;
+        case KC_SYSTEM_SLEEP:
+            return SYSTEM_SLEEP;
+        case KC_SYSTEM_WAKE:
+            return SYSTEM_WAKE_UP;
+        default:
+            return 0;
+    }
+}
 
 /* keycode to consumer usage */
-#define KEYCODE2CONSUMER(key) \
-    (key == KC_AUDIO_MUTE ? AUDIO_MUTE : (key == KC_AUDIO_VOL_UP ? AUDIO_VOL_UP : (key == KC_AUDIO_VOL_DOWN ? AUDIO_VOL_DOWN : (key == KC_MEDIA_NEXT_TRACK ? TRANSPORT_NEXT_TRACK : (key == KC_MEDIA_PREV_TRACK ? TRANSPORT_PREV_TRACK : (key == KC_MEDIA_FAST_FORWARD ? TRANSPORT_FAST_FORWARD : (key == KC_MEDIA_REWIND ? TRANSPORT_REWIND : (key == KC_MEDIA_STOP ? TRANSPORT_STOP : (key == KC_MEDIA_EJECT ? TRANSPORT_STOP_EJECT : (key == KC_MEDIA_PLAY_PAUSE ? TRANSPORT_PLAY_PAUSE : (key == KC_MEDIA_SELECT ? AL_CC_CONFIG : (key == KC_MAIL ? AL_EMAIL : (key == KC_CALCULATOR ? AL_CALCULATOR : (key == KC_MY_COMPUTER ? AL_LOCAL_BROWSER : (key == KC_WWW_SEARCH ? AC_SEARCH : (key == KC_WWW_HOME ? AC_HOME : (key == KC_WWW_BACK ? AC_BACK : (key == KC_WWW_FORWARD ? AC_FORWARD : (key == KC_WWW_STOP ? AC_STOP : (key == KC_WWW_REFRESH ? AC_REFRESH : (key == KC_BRIGHTNESS_UP ? BRIGHTNESS_UP : (key == KC_BRIGHTNESS_DOWN ? BRIGHTNESS_DOWN : (key == KC_WWW_FAVORITES ? AC_BOOKMARKS : 0)))))))))))))))))))))))
+static inline uint16_t KEYCODE2CONSUMER(uint8_t key) {
+    switch (key) {
+        case KC_AUDIO_MUTE:
+            return AUDIO_MUTE;
+        case KC_AUDIO_VOL_UP:
+            return AUDIO_VOL_UP;
+        case KC_AUDIO_VOL_DOWN:
+            return AUDIO_VOL_DOWN;
+        case KC_MEDIA_NEXT_TRACK:
+            return TRANSPORT_NEXT_TRACK;
+        case KC_MEDIA_PREV_TRACK:
+            return TRANSPORT_PREV_TRACK;
+        case KC_MEDIA_FAST_FORWARD:
+            return TRANSPORT_FAST_FORWARD;
+        case KC_MEDIA_REWIND:
+            return TRANSPORT_REWIND;
+        case KC_MEDIA_STOP:
+            return TRANSPORT_STOP;
+        case KC_MEDIA_EJECT:
+            return TRANSPORT_STOP_EJECT;
+        case KC_MEDIA_PLAY_PAUSE:
+            return TRANSPORT_PLAY_PAUSE;
+        case KC_MEDIA_SELECT:
+            return AL_CC_CONFIG;
+        case KC_MAIL:
+            return AL_EMAIL;
+        case KC_CALCULATOR:
+            return AL_CALCULATOR;
+        case KC_MY_COMPUTER:
+            return AL_LOCAL_BROWSER;
+        case KC_WWW_SEARCH:
+            return AC_SEARCH;
+        case KC_WWW_HOME:
+            return AC_HOME;
+        case KC_WWW_BACK:
+            return AC_BACK;
+        case KC_WWW_FORWARD:
+            return AC_FORWARD;
+        case KC_WWW_STOP:
+            return AC_STOP;
+        case KC_WWW_REFRESH:
+            return AC_REFRESH;
+        case KC_BRIGHTNESS_UP:
+            return BRIGHTNESS_UP;
+        case KC_BRIGHTNESS_DOWN:
+            return BRIGHTNESS_DOWN;
+        case KC_WWW_FAVORITES:
+            return AC_BOOKMARKS;
+        default:
+            return 0;
+    }
+}
 
 uint8_t has_anykey(report_keyboard_t* keyboard_report);
 uint8_t get_first_key(report_keyboard_t* keyboard_report);
+bool    is_key_pressed(report_keyboard_t* keyboard_report, uint8_t key);
 
 void add_key_byte(report_keyboard_t* keyboard_report, uint8_t code);
 void del_key_byte(report_keyboard_t* keyboard_report, uint8_t code);
