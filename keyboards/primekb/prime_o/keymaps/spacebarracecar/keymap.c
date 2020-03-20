@@ -121,10 +121,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_NAV] = LAYOUT(
   _______,  _______,  _______,  _______,  KC_ESC,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-  _______,  _______,  _______,  _______,  ALTF4,    KC_PGDN,  KC_UP,    KC_PGUP,  KC_HOME,  XXXXXXX,  XXXXXXX,  XXXXXXX,  GUIU,     XXXXXXX,  XXXXXXX,  KC_DEL,
+  _______,  _______,  _______,  _______,  _______,  KC_PGDN,  KC_UP,    KC_PGUP,  KC_HOME,  XXXXXXX,  XXXXXXX,  XXXXXXX,  GUIU,     XXXXXXX,  XXXXXXX,  KC_DEL,
   _______,  _______,  _______,  _______,  _______,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_END,   XXXXXXX,  XXXXXXX,  GUIL,     GUID,     GUIR,     EMOJI,   KC_ENT,
   _______,  _______,  _______,  _______,  _______,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_VOLD,  KC_VOLU,  KC_MUTE,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,
-  _______,  _______,  _______,  _______,  RESET,    CU_ESCT,  _______,  _______,  _______,  KC_SPC,   CTLENT,   _______,  _______,  _______,  _______,  CU_GAME
+  _______,  _______,  _______,  _______,  RESET,    ALTF4,    _______,  _______,  _______,  KC_SPC,   CTLENT,   _______,  _______,  _______,  _______,  CU_GAME
 ),
 
 // Can be used to place macros on the numpad
@@ -242,10 +242,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_NAV] = LAYOUT(
   KC_ESC,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-  ALTF4,    KC_PGDN,  KC_UP,    KC_PGUP,  KC_HOME,  XXXXXXX,  _______,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX,  GUIU,     XXXXXXX,  XXXXXXX,  KC_DEL,
+  _______,  KC_PGDN,  KC_UP,    KC_PGUP,  KC_HOME,  XXXXXXX,  _______,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX,  GUIU,     XXXXXXX,  XXXXXXX,  KC_DEL,
   _______,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_END,   XXXXXXX,  _______,  _______,  _______,  _______,  XXXXXXX,  GUIL,     GUID,     GUIR,     EMOJI,    KC_ENT,
   _______,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_VOLD,  KC_VOLU,  _______,  _______,  _______,  _______,  KC_MUTE,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,
-  RESET,    CU_ESCT,  _______,  _______,  _______,  KC_SPC,   _______,  _______,  _______,  _______,  CTLENT,   _______,  _______,  _______,  _______,  CU_GAME
+  RESET,    CU_ESCT,  ALTF4,    _______,  _______,  KC_SPC,   _______,  _______,  _______,  _______,  CTLENT,   _______,  _______,  _______,  _______,  CU_GAME
 ),
 
 // Can be used to place macros on the numpad
@@ -363,10 +363,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_NAV] = LAYOUT(
   KC_ESC,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,  _______,  _______,
-  ALTF4,    KC_PGDN,  KC_UP,    KC_PGUP,  KC_HOME,  XXXXXXX,  XXXXXXX,  XXXXXXX,  GUIU,     XXXXXXX,  XXXXXXX,  KC_DEL,   _______,  _______,  _______,  _______,
+  _______,  KC_PGDN,  KC_UP,    KC_PGUP,  KC_HOME,  XXXXXXX,  XXXXXXX,  XXXXXXX,  GUIU,     XXXXXXX,  XXXXXXX,  KC_DEL,   _______,  _______,  _______,  _______,
   _______,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_END,   XXXXXXX,  XXXXXXX,  GUIL,     GUID,     GUIR,     EMOJI,    KC_ENT,   _______,  _______,  _______,  _______,
   _______,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_VOLD,  KC_VOLU,  KC_MUTE,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,  _______,  _______,  _______,
-  RESET,    CU_ESCT,  _______,  _______,  _______,  KC_SPC,   CTLENT,   _______,  _______,  _______,  _______,  CU_GAME,  _______,  _______,  _______,  _______
+  RESET,    CU_ESCT,  ALTF4,    _______,  _______,  KC_SPC,   CTLENT,   _______,  _______,  _______,  _______,  CU_GAME,  _______,  _______,  _______,  _______
 ),
 
 // Can be used to place macros on the numpad

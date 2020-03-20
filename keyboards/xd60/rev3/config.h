@@ -53,7 +53,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* RGB Underglow
  * F6 PIN for XD60v3 that has pre-soldered LEDs

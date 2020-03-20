@@ -13,21 +13,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------//
         //  TAB                    |      MOD TAP: ALT+SHIFT |       MOD TAP: CTRL+ALT |     MOD TAP: CTRL+SHIFT | P                       | Y                       |                         //
         //                         |                         |                         |                         |                         |                         |                         //
-                   KC_TAB,                TD(NONE_LEAD),            TD(QUOT_DQUO),            TD(DOT_COMM),              ALL_T(KC_P),              MEH_T(KC_Y),            DYN_MACRO_PLAY1,    //
+                   KC_TAB,                TD(NONE_LEAD),            TD(QUOT_DQUO),           TD(DOT_COMM),               LCG_T(KC_P),              LAG_T(KC_Y),            DYN_MACRO_PLAY1,    //
         //                         |                    LEAD |                       " |                       , |                         |                         |                         //
-        //                         |         TAP DANCE: NONE |            TAP DANCE: ' |            TAP DANCE: . |          MOD TAP: HYPER |            MOD TAP: MEH |                         //
+        //                         |         TAP DANCE: NONE |            TAP DANCE: ' |            TAP DANCE: . |       MOD TAP: CTRL+GUI |        MOD TAP: ALT+GUI |                         //
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------|   PLAY DYNAMIC MACRO 1  //
-        //                         |            MOD TAP: ALT |           MOD TAP: CTRL |        LAYER TAP: SHIFT |   LAYER TAP: ARROW KEYS |            MOD TAP: GUI |                         //
+        //                         |            MOD TAP: ALT |           MOD TAP: CTRL |        LAYER TAP: SHIFT | M TAP DANCE: ARROWS/GUI |      MOD TAP: SHIFT+GUI |                         //
         //                         |                         |                         |                         |                       Ü |                         |                         //
-                TD(EQL_PLUS),              ALT_T(KC_A),              CTL_T(KC_O),              SFT_T(KC_E),           LT(ARROWS, KC_U),           LGUI_T(KC_I),      //-----------------------//
+                TD(EQL_PLUS),             LALT_T(KC_A),             LCTL_T(KC_O),             LSFT_T(KC_E),            TD(U_ARR_GUI),             SGUI_T(KC_I),      //-----------------------//
         //                       + |                       Á |                       Ó |                       É |                       Ú |                       Í |                         //
         //            TAP DANCE: = |            TAP DANCE: A |            TAP DANCE: O |            TAP DANCE: E |            TAP DANCE: U |            TAP DANCE: I |                         //
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------|  META                   //
         //          STOP RECORDING |  MOD TAP: GUI+SHIFT+ALT | Q                       | J                       | K                       | X                       |                         //
         //                         |                         |                         |                         |                         |                         |                         //
-                DYN_REC_STOP,             TD(SCLN_COLN),            SGUI_T(KC_Q),          LT(MEDIA_FN, KC_J),        LT(NUMPAD, KC_K),           LCAG_T(KC_X),                KC_LGUI,        //
+                DYN_REC_STOP,             TD(SCLN_COLN),            LCAG_T(KC_Q),             TD(J_MED_MEH),            TD(K_NUM_HYP),            LCSG_T(KC_X),                KC_LGUI,        //
         //                         |                       : |                         |                         |                         |                         |                         //
-        //           DYNAMIC MACRO |            TAP DANCE: ; |      MOD TAP: SHIFT+GUI | LAYER TAP: MEDIA/F-KEYS |   LAYER TAP: ATM NUMPAD |    MOD TAP: CTL+ALT+GUI |                         //
+        //           DYNAMIC MACRO |            TAP DANCE: ; |      MOD TAP: SHIFT+GUI |  M TAP DANCE: MEDIA/MEH |  M TAP DANCE: ATM/HYPER |  MOD TAP: CTL+SHIFT+GUI |                         //
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------//
         //         LAYERS SWITCHER | APPLICATION MENU        |                         |                         |                        //
         //                         |                         |                         |                         |                  SCROLL //
@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                                                                 //-------------------------+-------------------------+------------------------//
                                                                                                                //                          |                         | HOME                    //
                                                                                                                //                          |                         |                         //
-                                                                                                                /*  SPACE                   |  BACKSPACE             */         KC_HOME,        //
+                                                                                                                /*  SPACE                   |  BACKSPACE             */         KC_HOME,       //
                                                                                                                //                          |                         |                         //
                                                                                                                //                          |                         |                         //
                                                                                                                            KC_SPC,                   KC_BSPC,        //-----------------------//
@@ -69,19 +69,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------//
         //                         |                         |                         |                         |                         |                         |                         //
         //                         |                         |                         |                         |                         |                         |                         //
-                DYN_MACRO_PLAY2,           MEH_T(KC_F),               ALL_T(KC_G),            C_S_T(KC_C),                LCA_T(KC_R),             LAS_T(KC_L),             TD(SLSH_BSLS),     //
+                DYN_MACRO_PLAY2,           LAG_T(KC_F),              LCG_T(KC_G),             C_S_T(KC_C),                LCA_T(KC_R),             LAS_T(KC_L),             TD(SLSH_BSLS),     //
         //                         |                         |                         |                         |                         |                         |                         //
         //                         |                         |                         |                         |                         |                         |                         //
         //                         |-------------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------//
         //                         |                         |                         |                         |                         |                         |                         //
         //                         |                         |                         |                         |                         |                         |                         //
-        /*-----------------------*/        LGUI_T(KC_D),           LT(MOUSE, KC_H),            SFT_T(KC_T),             CTL_T(KC_N),               ALT_T(KC_S),             TD(MINS_UNDS),     //
+        /*-----------------------*/        SGUI_T(KC_D),            TD(H_MOU_GUI),            LSFT_T(KC_T),               LCTL_T(KC_N),            LALT_T(KC_S),            TD(MINS_UNDS),     //
         //                         |                         |                         |                         |                         |                         |                         //
         //                         |                         |                         |                         |                         |                         |                         //
         //                         |-------------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------//
         //                         |                         |                         |                         |                         |                         |                         //
         //                         |                         |                         |                         |                         |                         |                         //
-                   KC_LGUI,                LCAG_T(KC_B),           LT(HYPER, KC_M),         LT(MEDIA_FN, KC_W),          SGUI_T(KC_V),            LGAS_T(KC_Z),                COMPOSE,        //
+                   KC_LGUI,                LCSG_T(KC_B),            TD(M_CHO_HYP),            TD(W_MED_MEH),            LCAG_T(KC_V),             LASG_T(KC_Z),                COMPOSE,        //
         //                         |                         |                         |                         |                         |                         |                         //
         //                         |                         |                         |                         |                         |                         | ⎄                      //
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------//
@@ -163,7 +163,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    KC_RBRC,     KC_LEFT,     KC_DOWN, KC_RIGHT, XXXXXXX,
 
         // right thumb
-        KC_MS_BTN5, MO(HYPER),
+        KC_MS_BTN5, MO(CHORD),
         KC_MS_BTN4,
         KC_MS_BTN3, KC_MS_BTN2,   KC_MS_BTN1
     ),
@@ -295,10 +295,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right thumb
         XXXXXXX,   XXXXXXX,
         XXXXXXX,
-        RGB_GREEN, XXXXXXX, XXXXXXX
+        XXXXXXX, XXXXXXX, XXXXXXX
     ),
 
-    [HYPER] = LAYOUT_ergodox(
+    [CHORD] = LAYOUT_ergodox(
         // left hand
         XXXXXXX, HYPR(KC_F1),  HYPR(KC_F2),  HYPR(KC_F3),  HYPR(KC_F4),  HYPR(KC_F5),  XXXXXXX,
         XXXXXXX, HYPR(KC_F6),  HYPR(KC_F7),  HYPR(KC_F8),  HYPR(KC_F9),  HYPR(KC_F10), XXXXXXX,

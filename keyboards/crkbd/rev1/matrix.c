@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "matrix.h"
 #include "split_util.h"
-#include "pro_micro.h"
+#include "quantum.h"
 
 #ifdef USE_MATRIX_I2C
 #  include "i2c.h"
@@ -93,18 +93,54 @@ uint8_t matrix_cols(void)
     return MATRIX_COLS;
 }
 
+void tx_rx_leds_init(void)
+{
+#ifndef NO_DEBUG_LEDS
+    setPinOutput(B0);
+    setPinOutput(D5);
+    writePinHigh(B0);
+    writePinHigh(D5);
+#endif
+}
+
+void tx_led_on(void)
+{
+#ifndef NO_DEBUG_LEDS
+    writePinLow(D5);
+#endif
+}
+
+void tx_led_off(void)
+{
+#ifndef NO_DEBUG_LEDS
+    writePinHigh(D5);
+#endif
+}
+
+void rx_led_on(void)
+{
+#ifndef NO_DEBUG_LEDS
+    writePinLow(B0);
+#endif
+}
+
+void rx_led_off(void)
+{
+#ifndef NO_DEBUG_LEDS
+    writePinHigh(B0);
+#endif
+}
+
+
 void matrix_init(void)
 {
-    debug_enable = true;
-    debug_matrix = true;
-    debug_mouse = true;
+    split_keyboard_setup();
+
     // initialize row and col
     unselect_rows();
     init_cols();
 
-    TX_RX_LED_INIT;
-    TXLED0;
-    RXLED0;
+    tx_rx_leds_init();
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
@@ -189,10 +225,10 @@ int serial_transaction(int master_changed) {
     int ret=serial_update_buffers();
 #endif
     if (ret ) {
-        if(ret==2) RXLED1;
+        if(ret==2) rx_led_on();
         return 1;
     }
-    RXLED0;
+    rx_led_off();
     memcpy(&matrix[slaveOffset],
         (void *)serial_slave_buffer, SERIAL_SLAVE_BUFFER_LENGTH);
     return 0;
@@ -241,7 +277,7 @@ uint8_t matrix_master_scan(void) {
     if( serial_transaction(mchanged) ) {
 #endif
         // turn on the indicator led when halves are disconnected
-        TXLED1;
+        tx_led_on();
 
         error_count++;
 
@@ -254,7 +290,7 @@ uint8_t matrix_master_scan(void) {
         }
     } else {
         // turn off the indicator led on no error
-        TXLED0;
+        tx_led_off();
         error_count = 0;
     }
     matrix_scan_quantum();

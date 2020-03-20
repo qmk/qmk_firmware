@@ -1,38 +1,28 @@
-/*
-This is the keymap for the keyboard
-Copyright 2012 Jun Wako <wakojun@gmail.com>
-Copyright 2015 Jack Humbert
-Copyright 2017 Art Ortenburger
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-#include QMK_KEYBOARD_H
 #include "drashna.h"
 
 #ifdef UNICODEMAP_ENABLE
-#include "drashna_unicode.h"
-#endif // UNICODEMAP_ENABLE
+#    include "drashna_unicode.h"
+#endif  // UNICODEMAP_ENABLE
 #ifndef UNICODE_ENABLE
-#   define UC(x) KC_NO
+#    define UC(x) KC_NO
+#endif
+#ifdef RGBLIGHT_ENABLE
+extern rgblight_config_t rgblight_config;
 #endif
 
-extern userspace_config_t userspace_config;
+enum more_custom_keycodes { KC_SWAP_NUM = NEW_SAFE_RANGE };
 
-enum more_custom_keycodes {
-    KC_SWAP_NUM = NEW_SAFE_RANGE
-};
-
-//define layer change stuff for underglow indicator
+// define layer change stuff for underglow indicator
 bool skip_leds = false;
 
+/*
+ * The `LAYOUT_ergodox_pretty_base` macro is a template to allow the use of
+ * identical modifiers for the default layouts (eg QWERTY, Colemak, Dvorak,
+ * etc), so that there is no need to set them up for each layout, and modify
+ * all of them if I want to change them.  This helps to keep consistency and
+ * ease of use. K## is a placeholder to pass through the individual keycodes
+ */
+// clang-format off
 #define LAYOUT_ergodox_pretty_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
     K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
@@ -40,8 +30,8 @@ bool skip_leds = false;
   ) \
   LAYOUT_ergodox_pretty_wrapper( \
       KC_ESC,  ________________NUMBER_LEFT________________, UC_FLIP,                 UC_TABL, ________________NUMBER_RIGHT_______________, KC_MINS, \
-      KC_TAB,  K01,    K02,     K03,      K04,     K05,     TG(_DIABLO),         TG(_DIABLO), K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
-      KC_C1R3, K11,    K12,     K13,      K14,     K15,                                       K16,     K17,     K18,     K19,     K1A,     KC_QUOT, \
+      LALT_T(KC_TAB), K01, K02, K03,      K04,     K05,     TG(_DIABLO),         TG(_DIABLO), K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
+      KC_C1R3, K11,    K12,     K13,      K14,     K15,                                       K16,     K17,     K18,     K19,     K1A, RALT_T(KC_QUOT), \
       KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     TG(_GAMEPAD),       TG(_GAMEPAD), K26,     K27,     K28,     K29,  RCTL_T(K2A), KC_MRSF, \
       KC_GRV,  OS_MEH, OS_HYPR, KC_LBRC, KC_RBRC,                                            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, UC(0x2E2E),        \
                                                   OS_LALT, OS_LGUI,                 OS_RGUI, CTL_T(KC_ESCAPE),                                      \
@@ -290,10 +280,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             ),
 
   [_ADJUST] = LAYOUT_ergodox_pretty_wrapper(
-             KC_MAKE, _______, _______, _______, _______, _______, _______,                 KC_NUKE, _________________ADJUST_R1_________________, KC_RST,
+             KC_MAKE, _______, _______, _______, _______, _______, UC_MOD,                  KC_NUKE, _________________ADJUST_R1_________________, KC_RST,
              VRSN,    _________________ADJUST_L1_________________, _______,                 _______, _______, _______, _______, _______, _______, EEP_RST,
-             _______, _________________ADJUST_L2_________________,                                   _________________ADJUST_R2_________________, TG(_MODS),
-             _______, _________________ADJUST_L3_________________, _______,                 _______, _________________ADJUST_R3_________________, KC_MPLY,
+             _______, _________________ADJUST_L2_________________,                                   _________________ADJUST_R2_________________, RGB_IDL,
+             _______, _________________ADJUST_L3_________________, _______,                 _______, _________________ADJUST_R3_________________, TG(_MODS),
              _______, _______, _______, _______, _______,                                                     _______, _______, _______, _______, _______,
                                                           _______, _______,                 _______, _______,
                                                                    _______,                 _______,
@@ -301,9 +291,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             ),
 
 };
+// clang-format on
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-
     switch (keycode) {
         case KC_1:
             if (IS_LAYER_ON(_GAMEPAD) && userspace_config.swapped_numbers) {
@@ -332,7 +322,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             }
             break;
     }
-    //switch (keycode) {
+    // switch (keycode) {
     //  case KC_P00:
     //    if (!record->event.pressed) {
     //      register_code(KC_KP_0);
@@ -347,9 +337,9 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_scan_keymap(void) {  // runs frequently to update info
-    uint8_t modifiers = get_mods();
+    uint8_t modifiers     = get_mods();
     uint8_t led_usb_state = host_keyboard_leds();
-    uint8_t one_shot = get_oneshot_mods();
+    uint8_t one_shot      = get_oneshot_mods();
 
     if (!skip_leds) {
         ergodox_board_led_off();
@@ -360,23 +350,20 @@ void matrix_scan_keymap(void) {  // runs frequently to update info
         // Since we're not using the LEDs here for layer indication anymore,
         // then lets use them for modifier indicators.  Shame we don't have 4...
         // Also, no "else", since we want to know each, independently.
-        if ( ( modifiers | one_shot ) & MOD_MASK_SHIFT || led_usb_state & (1<<USB_LED_CAPS_LOCK) ) {
+        if ((modifiers | one_shot) & MOD_MASK_SHIFT || led_usb_state & (1 << USB_LED_CAPS_LOCK)) {
             ergodox_right_led_2_on();
-            ergodox_right_led_2_set( 50 );
+            ergodox_right_led_2_set(50);
         }
-        if ( ( modifiers | one_shot ) & MOD_MASK_CTRL) {
+        if ((modifiers | one_shot) & MOD_MASK_CTRL) {
             ergodox_right_led_1_on();
-            ergodox_right_led_1_set( 10 );
+            ergodox_right_led_1_set(10);
         }
-        if ( ( modifiers | one_shot ) & MOD_MASK_ALT) {
+        if ((modifiers | one_shot) & MOD_MASK_ALT) {
             ergodox_right_led_3_on();
-            ergodox_right_led_3_set( 10 );
+            ergodox_right_led_3_set(10);
         }
-
     }
-
 }
-
 
 bool indicator_is_this_led_used_keyboard(uint8_t index) {
     switch (index) {
@@ -388,76 +375,93 @@ bool indicator_is_this_led_used_keyboard(uint8_t index) {
     }
 }
 
-
 #ifdef RGB_MATRIX_ENABLE
 
-void suspend_power_down_keymap(void) {
-    rgb_matrix_set_suspend_state(true);
-}
+void suspend_power_down_keymap(void) { rgb_matrix_set_suspend_state(true); }
 
-void suspend_wakeup_init_keymap(void) {
-    rgb_matrix_set_suspend_state(false);
-}
+void suspend_wakeup_init_keymap(void) { rgb_matrix_set_suspend_state(false); }
 
 void rgb_matrix_indicators_user(void) {
-    if ( userspace_config.rgb_layer_change &&
-#ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
-        !g_suspend_state &&
-#endif
-#if defined(RGBLIGHT_ENABLE)
-        (!rgblight_config.enable && rgb_matrix_config.enable)
-#else
-        rgb_matrix_config.enable
-#endif
-    ) {
-        switch (biton32(layer_state)) {
-            case _MODS:
-                rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, LED_FLAG_MODIFIER); break;
+    if (g_suspend_state || !rgb_matrix_config.enable) return;
+
+    if (layer_state_is(_GAMEPAD)) {
+        rgb_matrix_set_color(32, 0x00, 0xFF, 0x00);  // Q
+        rgb_matrix_set_color(31, 0x00, 0xFF, 0xFF);  // W
+        rgb_matrix_set_color(30, 0xFF, 0x00, 0x00);  // E
+        rgb_matrix_set_color(29, 0xFF, 0x80, 0x00);  // R
+        rgb_matrix_set_color(37, 0x00, 0xFF, 0xFF);  // A
+        rgb_matrix_set_color(36, 0x00, 0xFF, 0xFF);  // S
+        rgb_matrix_set_color(35, 0x00, 0xFF, 0xFF);  // D
+        rgb_matrix_set_color(34, 0x7A, 0x00, 0xFF);  // F
+
+        rgb_matrix_set_color(userspace_config.swapped_numbers ? 27 : 26, 0xFF, 0xFF, 0xFF);  // 1
+        rgb_matrix_set_color(userspace_config.swapped_numbers ? 26 : 27, 0x00, 0xFF, 0x00);  // 2
+        rgb_matrix_set_color(25, 0x7A, 0x00, 0xFF);                                          // 3
+    }
+
+#    if defined(RGBLIGHT_ENABLE)
+    if (!userspace_config.rgb_layer_change)
+#    else
+    if (userspace_config.rgb_layer_change)
+#    endif
+    {
+        switch (get_highest_layer(layer_state)) {
             case _GAMEPAD:
-                rgb_matrix_layer_helper(0xFF, 0x80, 0x00, LED_FLAG_MODIFIER);
-                rgb_matrix_set_color(32, 0x00, 0xFF, 0x00); // Q
-                rgb_matrix_set_color(31, 0x00, 0xFF, 0xFF); // W
-                rgb_matrix_set_color(30, 0xFF, 0x00, 0x00); // E
-                rgb_matrix_set_color(29, 0xFF, 0x80, 0x00); // R
-                rgb_matrix_set_color(37, 0x00, 0xFF, 0xFF); // A
-                rgb_matrix_set_color(36, 0x00, 0xFF, 0xFF); // S
-                rgb_matrix_set_color(35, 0x00, 0xFF, 0xFF); // D
-                rgb_matrix_set_color(34, 0x7A, 0x00, 0xFF); // F
-
-                rgb_matrix_set_color(userspace_config.swapped_numbers ? 27 : 26, 0xFF, 0xFF, 0xFF); // 1
-                rgb_matrix_set_color(userspace_config.swapped_numbers ? 26 : 27, 0x00, 0xFF, 0x00); // 2
-                rgb_matrix_set_color(25, 0x7A, 0x00, 0xFF); // 3
-
+                rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
                 break;
             case _DIABLO:
-                rgb_matrix_layer_helper(0xFF, 0x00, 0x00, LED_FLAG_MODIFIER); break;
+                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed * 8, LED_FLAG_MODIFIER);
+                break;
             case _RAISE:
-                rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, LED_FLAG_MODIFIER); break;
+                rgb_matrix_layer_helper(HSV_YELLOW, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
             case _LOWER:
-                rgb_matrix_layer_helper(0x00, 0xFF, 0x00, LED_FLAG_MODIFIER); break;
+                rgb_matrix_layer_helper(HSV_GREEN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
             case _ADJUST:
-                rgb_matrix_layer_helper(0xFF, 0x00, 0x00, LED_FLAG_MODIFIER); break;
-            default:
-                switch (biton32(default_layer_state)) {
+                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
+            default: {
+                bool mods_enabled = IS_LAYER_ON(_MODS);
+                switch (get_highest_layer(default_layer_state)) {
                     case _QWERTY:
-                        rgb_matrix_layer_helper(0x00, 0xFF, 0xFF, LED_FLAG_MODIFIER); break;
+                        rgb_matrix_layer_helper(HSV_CYAN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        break;
                     case _COLEMAK:
-                        rgb_matrix_layer_helper(0xFF, 0x00, 0xFF, LED_FLAG_MODIFIER); break;
+                        rgb_matrix_layer_helper(HSV_MAGENTA, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        break;
                     case _DVORAK:
-                        rgb_matrix_layer_helper(0x00, 0xFF, 0x00, LED_FLAG_MODIFIER); break;
+                        rgb_matrix_layer_helper(HSV_SPRINGGREEN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        break;
                     case _WORKMAN:
-                        rgb_matrix_layer_helper(0xD9, 0xA5, 0x21, LED_FLAG_MODIFIER); break;
+                        rgb_matrix_layer_helper(HSV_GOLDENROD, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        break;
                     case _NORMAN:
-                        rgb_matrix_layer_helper(0xFF, 0x7C, 0x4D, LED_FLAG_MODIFIER); break;
+                        rgb_matrix_layer_helper(HSV_CORAL, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        break;
                     case _MALTRON:
-                        rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, LED_FLAG_MODIFIER); break;
+                        rgb_matrix_layer_helper(HSV_YELLOW, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        break;
                     case _EUCALYN:
-                        rgb_matrix_layer_helper(0xFF, 0x80, 0xBF, LED_FLAG_MODIFIER); break;
+                        rgb_matrix_layer_helper(HSV_PINK, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        break;
                     case _CARPLAX:
-                        rgb_matrix_layer_helper(0x00, 0x00, 0xFF, LED_FLAG_MODIFIER); break;
+                        rgb_matrix_layer_helper(HSV_BLUE, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        break;
                 }
+                break;
+            }
         }
     }
 }
 
-#endif //RGB_MATRIX_INIT
+#endif  // RGB_MATRIX_INIT
+
+uint16_t get_tapping_term(uint16_t keycode) {
+    if (keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) {
+        if (mod_config(keycode & 0xf) & MOD_MASK_ALT) {
+            return (2 * TAPPING_TERM);
+        }
+    }
+    return TAPPING_TERM;
+}

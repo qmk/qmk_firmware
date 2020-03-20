@@ -32,10 +32,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION     A Planck clone
 
 /* key matrix size */
-#define MATRIX_ROWS 8
+#define MATRIX_ROWS 7
 #define MATRIX_COLS 15
-
-#define NO_UART 1
 
 #define RGB_DI_PIN C0
 #define RGBLED_NUM 12
@@ -55,12 +53,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* #define CB6 0x37 // B7 */
 /* #define CC7 0x62 // C2 */
 
-#define MATRIX_ROW_PINS { B0, B1, B2, B3, B4, B5, B6, B7 }
-#define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C2, C3, C4, C5, C6, C7, D7 }
+#define MATRIX_ROW_PINS { B0, B1, B2, B3, B4, B6, B7 }
+#define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4, C3, C2, D7 }
 /* #define UNUSED_PINS */
 
 /* COL2ROW, ROW2COL*/
-/* #define DIODE_DIRECTION COL2ROW */
+#define DIODE_DIRECTION COL2ROW
 
 #define BACKLIGHT_PIN D2
 
@@ -68,7 +66,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 3
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-/* #define DEBOUNCING_DELAY 5 */
+/* #define DEBOUNCE 5 */
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST

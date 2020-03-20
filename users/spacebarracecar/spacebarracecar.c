@@ -71,6 +71,11 @@ void timer_timeout(void){
   rshiftp = false;
   #endif
   navesc = false;
+  timer_timeout_keymap();
+}
+
+__attribute__((weak))
+void timer_timeout_keymap(void){
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -339,4 +344,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return process_record_keymap(keycode, record);
   }
+}
+
+__attribute__((weak))
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+  return true;
 }

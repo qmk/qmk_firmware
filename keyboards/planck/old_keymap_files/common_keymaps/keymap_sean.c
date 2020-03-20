@@ -8,6 +8,10 @@ enum planck_layers {
   _ADJUST
 };
 
+#define KC_LOWR MO(_LOWER)
+#define KC_RAIS MO(_RAISE)
+#define KC_ADJS MO(_ADJUST)
+
 const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Dvorak
@@ -25,7 +29,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       QUOT, COMM,  DOT,    P,    Y, SLSH,  EQL,    F,    G,    C,    R,    L,
          A,    O,    E,    U,    I,  ESC, BSPC,    D,    H,    T,    N,    S,
       SCLN,    Q,    J,    K,    X,  TAB,  ENT,    B,    M,    W,    V,    Z,
-      LSFT, LCTL, LALT, LGUI,  FN1,  SPC,        FN2, LEFT, DOWN,   UP, RGHT),
+      LSFT, LCTL, LALT, LGUI,  LOWR, SPC,        RAIS,LEFT, DOWN,   UP, RGHT),
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
@@ -42,7 +46,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         F1,   F2,   F3,   F4,   F5, FN26, FN27,   F6,   F7,   F8,   F9,  F10,
          1,    2,    3,    4,    5, LBRC, RBRC,    6,    7,    8,    9,    0,
        FN23, FN25,  GRV,MINS, FN24, INS,   DEL, FN19, FN20, FN22,  EQL, BSLS,
-      TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,        FN4, HOME, PGDN, PGUP,  END),
+      TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,        ADJS,HOME, PGDN, PGUP,  END),
 
 /* Raise
  * ,-----------------------------------------------------------------------------------.
@@ -59,7 +63,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        F11,  F12,  F13,  F14,  F15,MINS,  FN24,  F16,  F17,  F18,  F19,  F20,
       FN11, FN12, FN13, FN14, FN15,  NO,    NO, FN16, FN17, FN18, FN19, FN20,
        PWR, EJCT,   NO,   NO,   NO,  NO,    NO,   NO,   NO,   NO,   NO,   NO,
-      CAPS, TRNS, TRNS, TRNS,  FN4, TRNS,        FN2,   NO,   NO,   NO,   NO),
+      CAPS, TRNS, TRNS, TRNS,  ADJS,TRNS,        RAIS,  NO,   NO,   NO,   NO),
 /* Adjust (Lower + Raise or SLower + SRaise)
  * ,-----------------------------------------------------------------------------------.
  * |      | Reset|      |      |      |      |      |      |      |      |      |      |
@@ -79,10 +83,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_MOMENTARY(_LOWER),  // to Fn overlay LOWER
-    [2] = ACTION_LAYER_MOMENTARY(_RAISE),  // to Fn overlay RAISE
     [3] = ACTION_DEFAULT_LAYER_SET(_DVRK), 
-    [4] = ACTION_LAYER_MOMENTARY(_ADJUST),  // RAISE + LOWER
     [11] = ACTION_MODS_KEY(MOD_LSFT, KC_1),     //!
     [12] = ACTION_MODS_KEY(MOD_LSFT, KC_2),     //@
     [13] = ACTION_MODS_KEY(MOD_LSFT, KC_3),     //#

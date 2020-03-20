@@ -37,10 +37,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MATRIX_COL_PINS { B5, B4, E6, D7, C6 }
 #define MATRIX_COL_PINS { C6, D7, E6, B4, B5 }
 
+#define DIODE_DIRECTION COL2ROW
+
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
+// WS2812 RGB LED strip input and number of LEDs
+#define RGB_DI_PIN D3
+#define RGBLED_NUM 12
+
 /* number of backlight levels */
 // #define BACKLIGHT_LEVELS 3
-
-

@@ -2,11 +2,11 @@
 
 Custom handwired one key keyboard.
 
-Keyboard Maintainer:  
-Hardware Supported: Custom handwired one key  
+Keyboard Maintainer: QMK Community  
+Hardware Supported: bluepill, Elite-C, Pro Micro, Proton C, Teensy 2.0, Teensy++ 2.0, Teensy LC, Teensy 3.2  
 Hardware Availability: 
 
-Switch must be connected to pins B0 and D0. 
+**See each individual board for pin infomation**
 
 Make example for this keyboard (after setting up your build environment):
 

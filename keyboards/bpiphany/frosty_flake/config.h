@@ -36,16 +36,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /* key matrix size */
-#define MATRIX_ROWS 8   // Row0 - Row7 in the schematic
-#define MATRIX_COLS 18  // ColA - ColR in the schematic
+#define MATRIX_ROWS 18 // ColA - ColR in the schematic
+#define MATRIX_COLS 8  // Row0 - Row7 in the schematic
 
 /*
  * Keyboard Matrix Assignments
  */
-#define UNUSED_PINS { B0, C4, D3 }
+#define UNUSED_PINS { C0, C1, C2, C3, C4, D2, D7 }
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

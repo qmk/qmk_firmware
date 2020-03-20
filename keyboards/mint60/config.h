@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "config_common.h"
-#include <serial_config.h>
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
@@ -27,11 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    Eucalyn
 #define PRODUCT         Mint60
 #define DESCRIPTION     A row staggered split keyboard
-
-#define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 100
-
-#define USE_SERIAL
 
 /* key matrix size */
 #define MATRIX_ROWS 10
@@ -54,12 +48,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
+/*
+ * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
+ */
+#define SOFT_SERIAL_PIN D2
+
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
 // #define BACKLIGHT_LEVELS 3
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST

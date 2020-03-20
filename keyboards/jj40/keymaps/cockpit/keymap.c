@@ -120,11 +120,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  | F10  | F11  | F12  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      | RGB  | RGB  | RGB  | RGB  |  BL  |  BL  |  BL  |      |      |      |      |
- * | Caps | Togl | Hue+ | Sat+ | Brt+ | Togl |Breath| Brt+ |      |      |      | Vol+ |
+ * |      | RGB  | RGB  | RGB  | RGB  |  BL  |  BL  |  BL  |      | Scr  |      |      |
+ * | Caps | Togl | Hue+ | Sat+ | Brt+ | Togl |Breath| Brt+ |      | Brt+ |      | Vol+ |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      | RGB  | RGB  | RGB  | WWW  | WWW  |  BL  |      |      |      |      |
- * |Shift | Term | Hue- | Sat- | Brt- |  <   |  >   | Brt- |      |      |PrScr | Vol- |
+ * |      |      | RGB  | RGB  | RGB  | WWW  | WWW  |  BL  |      | Scr  |      |      |
+ * |Shift | Term | Hue- | Sat- | Brt- |  <   |  >   | Brt- |      | Brt- |PrScr | Vol- |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |||||||| RGB  |      |      |             |      |      |      |      |      |
  * | Ctrl |||Fn||| Mode | Alt  |      |    Space    |MPrev |MStop |MNext |MPlay | Lock |
@@ -132,8 +132,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_FUNC] = LAYOUT_planck_mit( \
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  \
-  KC_CAPS, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, BL_TOGG, BL_BRTG, BL_INC,  _______, _______, _______, KC_VOLU, \
-  KC_LSFT, KC_CALC, RGB_HUD, RGB_SAD, RGB_VAD, KC_WBAK, KC_WFWD, BL_DEC,  _______, _______, KC_PSCR, KC_VOLD, \
+  KC_CAPS, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, BL_TOGG, BL_BRTG, BL_INC,  _______, KC_BRIU, _______, KC_VOLU, \
+  KC_LSFT, KC_CALC, RGB_HUD, RGB_SAD, RGB_VAD, KC_WBAK, KC_WFWD, BL_DEC,  _______, KC_BRID, KC_PSCR, KC_VOLD, \
   KC_LCTL, _______, RGB_MOD, KC_LALT, _______,      KC_SPC,      KC_MPRV, KC_MSTP, KC_MNXT, KC_MPLY, CP_LOCK  \
 )
 };

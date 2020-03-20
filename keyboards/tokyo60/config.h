@@ -1,15 +1,14 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define VENDOR_ID       0x5436 // "T6"
+#define PRODUCT_ID      0x6060 // Tokyo60
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Tokyo Keyboard
-#define PRODUCT         tokyo60
-#define DESCRIPTION     q.m.k. keyboard firmware for tokyo60
+#define PRODUCT         Tokyo60
+#define DESCRIPTION     q.m.k. keyboard firmware for Tokyo60
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -26,7 +25,7 @@
 #define DIODE_DIRECTION ROW2COL
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Set power consumption to work with mobile devices */
 #define USB_MAX_POWER_CONSUMPTION 100
@@ -54,5 +53,3 @@
 /* For Production */
 #define QMK_ESC_OUTPUT F0 // usually COL
 #define QMK_ESC_INPUT D0 // usually ROW
-
-#endif

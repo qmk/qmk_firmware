@@ -7,6 +7,6 @@ enum layers {        // Hacker Dvorak keyboard layers:
     NUMPAD   = 5,    //   * ATM style numpad with symbols and letters that should suffice to input any numeric literal.
     LAYERS   = 6,    //   * Layer switcher used to change between DVORAK, PLOVER and GAMING layers.
     MEDIA_FN = 7,    //   * Media, RGB and function keys from F1 to F24 in symmetric fashion.
-    HYPER    = 8,    //   * Hot keys layer (uses hyper + F1 .. F24) suitable for global shortcut tasks.
+    CHORD    = 8,    //   * Hot keys layer (uses hyper + F1 .. F24) suitable for global shortcut tasks.
     FIRMWARE = 9     //   * Layer with firmware related functionality, like the reset and EEPROM keys.
 };

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "hal.h"
-#include "rgblight_types.h"
+#include "color.h"
 
 
 void set_leds_color_rgb(LED_TYPE color);

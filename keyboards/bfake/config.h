@@ -15,13 +15,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef BFAKE_CONFIG_H
-#define BFAKE_CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
 #define VENDOR_ID       0x20A0
 #define PRODUCT_ID      0x422D
+#define DEVICE_VER      0x0200
 #define MANUFACTURER    NotActuallyWinkeyless
 #define PRODUCT         b.fake
 
@@ -31,16 +31,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 11
 
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, B4, B5, B6, B7 }
-#define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6}
+#define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5 }
 #define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
-#define NO_BACKLIGHT_CLOCK
-#define BACKLIGHT_LEVELS 1
+#define BACKLIGHT_PIN D4
+#define BACKLIGHT_LEVELS 3
+
 #define RGBLIGHT_ANIMATIONS
-
-#define NO_UART 1
-
-#endif

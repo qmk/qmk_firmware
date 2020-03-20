@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Yiancar-Designs
 #define PRODUCT         NK65
-#define DESCRIPTION     A 65-percent, tool-free RGB keyboard
+#define DESCRIPTION     "A 65-percent, tool-free RGB keyboard"
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
@@ -82,6 +82,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
+/* Bootmagic Lite key configuration */
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 0
+
 /* Backlight options */
 
 #define RGB_BACKLIGHT_ENABLED 1
@@ -106,7 +110,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_BACKLIGHT_BRIGHTNESS 255
 
 // the default effect (RGB test)
-#define RGB_BACKLIGHT_EFFECT 255
+#define RGB_BACKLIGHT_EFFECT 6
 
 // the default effect speed (0-3)
 #define RGB_BACKLIGHT_EFFECT_SPEED 0
@@ -134,21 +138,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_BACKLIGHT_LAYER_2_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
 #define RGB_BACKLIGHT_LAYER_3_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
 
-// TODO: refactor with new user EEPROM code (coming soon)
-#define EEPROM_MAGIC 0x451F
-#define EEPROM_MAGIC_ADDR 32
-// Bump this every time we change what we store
-// This will automatically reset the EEPROM with defaults
-// and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x08
-#define EEPROM_VERSION_ADDR 34
+// Backlight config starts after VIA's EEPROM usage,
+// dynamic keymaps start after this.
+#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 32
 
-// Backlight config starts after EEPROM version
-#define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR 35
-// Dynamic keymap starts after backlight config (35+32)
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 67
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
-// Dynamic macro starts after dynamic keymaps (67+(4*5*15*2)) = (67+600)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 667
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 398
-#define DYNAMIC_KEYMAP_MACRO_COUNT 16
+// VIA lighting is handled by the keyboard-level code
+#define VIA_CUSTOM_LIGHTING_ENABLE

@@ -20,12 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
+#define VENDOR_ID       0x4753
+#define PRODUCT_ID      0x3000
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Gray Studio
+#define MANUFACTURER    Graystudio
 #define PRODUCT         Space65
-#define DESCRIPTION     65% custom keyboard
+#define DESCRIPTION     Graystudio Space65
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -80,7 +80,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST

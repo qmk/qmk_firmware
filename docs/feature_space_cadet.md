@@ -43,6 +43,7 @@ By default Space Cadet assumes a US ANSI layout, but if your layout uses differe
 |`LAPO_KEYS`     |`KC_LALT, KC_LSFT, KC_9`       |Send `KC_LALT` when held, the mod `KC_LSFT` with the key `KC_9` when tapped.     |
 |`RAPC_KEYS`     |`KC_RALT, KC_RSFT, KC_0`       |Send `KC_RALT` when held, the mod `KC_RSFT` with the key `KC_0` when tapped.     |
 |`SFTENT_KEYS`   |`KC_RSFT, KC_TRNS, SFTENT_KEY` |Send `KC_RSFT` when held, no mod with the key `SFTENT_KEY` when tapped.          |
+|`SPACE_CADET_MODIFIER_CARRYOVER`   |*Not defined* |Store current modifiers before the hold mod is pressed and use them with the tap mod and keycode. Useful for when you frequently release a modifier before triggering Space Cadet.  |
 
 
 ## Obsolete Configuration

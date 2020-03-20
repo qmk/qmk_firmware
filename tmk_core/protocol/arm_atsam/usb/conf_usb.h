@@ -50,29 +50,29 @@
 #include "compiler.h"
 #include "udi_device_conf.h"
 
-#define  UDI_CDC_DEFAULT_RATE           115200
-#define  UDI_CDC_DEFAULT_STOPBITS       CDC_STOP_BITS_1
-#define  UDI_CDC_DEFAULT_PARITY         CDC_PAR_NONE
-#define  UDI_CDC_DEFAULT_DATABITS       8
+#define UDI_CDC_DEFAULT_RATE 115200
+#define UDI_CDC_DEFAULT_STOPBITS CDC_STOP_BITS_1
+#define UDI_CDC_DEFAULT_PARITY CDC_PAR_NONE
+#define UDI_CDC_DEFAULT_DATABITS 8
 
 //! Device definition (mandatory)
-#define  USB_DEVICE_VENDOR_ID           VENDOR_ID
-#define  USB_DEVICE_PRODUCT_ID          PRODUCT_ID
-#define  USB_DEVICE_VERSION             DEVICE_VER
-#define  USB_DEVICE_POWER               500 // Consumption on Vbus line (mA)
-#define  USB_DEVICE_ATTR                (USB_CONFIG_ATTR_REMOTE_WAKEUP|USB_CONFIG_ATTR_BUS_POWERED)
+#define USB_DEVICE_VENDOR_ID VENDOR_ID
+#define USB_DEVICE_PRODUCT_ID PRODUCT_ID
+#define USB_DEVICE_VERSION DEVICE_VER
+#define USB_DEVICE_POWER 500  // Consumption on Vbus line (mA)
+#define USB_DEVICE_ATTR (USB_CONFIG_ATTR_REMOTE_WAKEUP | USB_CONFIG_ATTR_BUS_POWERED)
 //                                      (USB_CONFIG_ATTR_REMOTE_WAKEUP|USB_CONFIG_ATTR_BUS_POWERED)
 //                                      (USB_CONFIG_ATTR_REMOTE_WAKEUP|USB_CONFIG_ATTR_SELF_POWERED)
 //                                      (USB_CONFIG_ATTR_SELF_POWERED)
 //                                      (USB_CONFIG_ATTR_BUS_POWERED)
 
 //! USB Device string definitions (Optional)
-#define  USB_DEVICE_MANUFACTURE_NAME      MANUFACTURER
-#define  USB_DEVICE_PRODUCT_NAME          PRODUCT
-#define  USB_DEVICE_SERIAL_NAME           SERIAL_NUM
+#define USB_DEVICE_MANUFACTURE_NAME MANUFACTURER
+#define USB_DEVICE_PRODUCT_NAME PRODUCT
+#define USB_DEVICE_SERIAL_NAME SERIAL_NUM
 
-//Comment out USB_DEVICE_SERIAL_USE_BOOTLOADER_SERIAL to prevent ROM lookup of factory programmed serial number
-#define  USB_DEVICE_SERIAL_USE_BOOTLOADER_SERIAL
+// Comment out USB_DEVICE_SERIAL_USE_BOOTLOADER_SERIAL to prevent ROM lookup of factory programmed serial number
+#define USB_DEVICE_SERIAL_USE_BOOTLOADER_SERIAL
 
 /**
  * Device speeds support
@@ -82,9 +82,9 @@
 //#define  USB_DEVICE_LOW_SPEED
 
 //! To authorize the High speed
-#if (UC3A3||UC3A4)
+#if (UC3A3 || UC3A4)
 //#define  USB_DEVICE_HS_SUPPORT
-#elif (SAM3XA||SAM3U)
+#elif (SAM3XA || SAM3U)
 //#define  USB_DEVICE_HS_SUPPORT
 #endif
 //@}
@@ -93,20 +93,19 @@
  * USB Device Callbacks definitions (Optional)
  * @{
  */
-#define  UDC_VBUS_EVENT(b_vbus_high)
-#define  UDC_SOF_EVENT()                  main_sof_action()
-#define  UDC_SUSPEND_EVENT()              main_suspend_action()
-#define  UDC_RESUME_EVENT()               main_resume_action()
+#define UDC_VBUS_EVENT(b_vbus_high)
+#define UDC_SOF_EVENT() main_sof_action()
+#define UDC_SUSPEND_EVENT() main_suspend_action()
+#define UDC_RESUME_EVENT() main_resume_action()
 //! Mandatory when USB_DEVICE_ATTR authorizes remote wakeup feature
-#define  UDC_REMOTEWAKEUP_ENABLE()        main_remotewakeup_enable()
-#define  UDC_REMOTEWAKEUP_DISABLE()       main_remotewakeup_disable()
+#define UDC_REMOTEWAKEUP_ENABLE() main_remotewakeup_enable()
+#define UDC_REMOTEWAKEUP_DISABLE() main_remotewakeup_disable()
 //! When a extra string descriptor must be supported
 //! other than manufacturer, product and serial string
 // #define  UDC_GET_EXTRA_STRING()
 //@}
 
 //@}
-
 
 /**
  * USB Interface Configuration
@@ -118,41 +117,39 @@
  */
 //! Interface callback definition
 #ifdef KBD
-#define  UDI_HID_KBD_ENABLE_EXT()       main_kbd_enable()
-#define  UDI_HID_KBD_DISABLE_EXT()      main_kbd_disable()
+#    define UDI_HID_KBD_ENABLE_EXT() main_kbd_enable()
+#    define UDI_HID_KBD_DISABLE_EXT() main_kbd_disable()
 //#define  UDI_HID_KBD_CHANGE_LED(value)  ui_kbd_led(value)
 #endif
 
 #ifdef NKRO
-#define  UDI_HID_NKRO_ENABLE_EXT()       main_nkro_enable()
-#define  UDI_HID_NKRO_DISABLE_EXT()      main_nkro_disable()
+#    define UDI_HID_NKRO_ENABLE_EXT() main_nkro_enable()
+#    define UDI_HID_NKRO_DISABLE_EXT() main_nkro_disable()
 //#define  UDI_HID_NKRO_CHANGE_LED(value)   ui_kbd_led(value)
 #endif
 
 #ifdef EXK
-#define  UDI_HID_EXK_ENABLE_EXT()       main_exk_enable()
-#define  UDI_HID_EXK_DISABLE_EXT()      main_exk_disable()
+#    define UDI_HID_EXK_ENABLE_EXT() main_exk_enable()
+#    define UDI_HID_EXK_DISABLE_EXT() main_exk_disable()
 #endif
 
 #ifdef CON
-#define  UDI_HID_CON_ENABLE_EXT()       main_con_enable()
-#define  UDI_HID_CON_DISABLE_EXT()      main_con_disable()
+#    define UDI_HID_CON_ENABLE_EXT() main_con_enable()
+#    define UDI_HID_CON_DISABLE_EXT() main_con_disable()
 #endif
 
 #ifdef MOU
-#define  UDI_HID_MOU_ENABLE_EXT()       main_mou_enable()
-#define  UDI_HID_MOU_DISABLE_EXT()      main_mou_disable()
+#    define UDI_HID_MOU_ENABLE_EXT() main_mou_enable()
+#    define UDI_HID_MOU_DISABLE_EXT() main_mou_disable()
 #endif
 
 #ifdef RAW
-#define  UDI_HID_RAW_ENABLE_EXT()       main_raw_enable()
-#define  UDI_HID_RAW_DISABLE_EXT()      main_raw_disable()
+#    define UDI_HID_RAW_ENABLE_EXT() main_raw_enable()
+#    define UDI_HID_RAW_DISABLE_EXT() main_raw_disable()
 #endif
 
-
 //@}
 //@}
-
 
 /**
  * USB Device Driver Configuration
@@ -165,4 +162,4 @@
 #include "usb_main.h"
 #include "ui.h"
 
-#endif // _CONF_USB_H_
+#endif  // _CONF_USB_H_

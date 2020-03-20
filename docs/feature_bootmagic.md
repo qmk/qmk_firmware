@@ -34,6 +34,8 @@ Hold down the Bootmagic key (Space by default) and the desired hotkey while plug
 |`X`               |Toggle key matrix debugging                  |
 |`K`               |Toggle keyboard debugging                    |
 |`M`               |Toggle mouse debugging                       |
+|`L`               |Set "Left Hand" for EE_HANDS handedness      |
+|`R`               |Set "Right Hand" for EE_HANDS handedness     |
 |Backspace         |Clear the EEPROM                             |
 |Caps Lock         |Toggle treating Caps Lock as Left Control    |
 |Left Control      |Toggle swapping Caps Lock and Left Control   |
@@ -52,30 +54,39 @@ Hold down the Bootmagic key (Space by default) and the desired hotkey while plug
 |`6`               |Make layer 6 the default layer               |
 |`7`               |Make layer 7 the default layer               |
 
-## Keycodes
+## Keycodes :id=keycodes
 
-|Keycode                           |Aliases  |Description                               |
-|----------------------------------|---------|------------------------------------------|
-|`MAGIC_CAPSLOCK_TO_CONTROL`       |         |Treat Caps Lock as Left Control           |
-|`MAGIC_UNCAPSLOCK_TO_CONTROL`     |         |Stop treating Caps Lock as Left Control   |
-|`MAGIC_HOST_NKRO`                 |         |Force N-Key Rollover (NKRO) on            |
-|`MAGIC_UNHOST_NKRO`               |         |Force NKRO off                            |
-|`MAGIC_TOGGLE_NKRO`               |         |Turn NKRO on or off                       |
-|`MAGIC_NO_GUI`                    |         |Disable the GUI keys (useful when gaming) |
-|`MAGIC_UNNO_GUI`                  |         |Enable the GUI keys                       |
-|`MAGIC_SWAP_ALT_GUI`              |`AG_SWAP`|Swap Alt and GUI on both sides (for macOS)|
-|`MAGIC_UNSWAP_ALT_GUI`            |`AG_NORM`|Unswap Left Alt and Left GUI              |
-|`MAGIC_TOGGLE_ALT_GUI`            |`AG_TOGG`|Toggle Left Alt and GUI swap              |
-|`MAGIC_SWAP_BACKSLASH_BACKSPACE`  |         |Swap `\` and Backspace                    |
-|`MAGIC_UNSWAP_BACKSLASH_BACKSPACE`|         |Unswap `\` and Backspace                  |
-|`MAGIC_SWAP_CONTROL_CAPSLOCK`     |         |Swap Left Control and Caps Lock           |
-|`MAGIC_UNSWAP_CONTROL_CAPSLOCK`   |         |Unswap Left Control and Caps Lock         |
-|`MAGIC_SWAP_GRAVE_ESC`            |         |Swap <code>&#96;</code> and Escape        |
-|`MAGIC_UNSWAP_GRAVE_ESC`          |         |Unswap <code>&#96;</code> and Escape      |
-|`MAGIC_SWAP_LALT_LGUI`            |         |Swap Left Alt and Left GUI                |
-|`MAGIC_UNSWAP_LALT_LGUI`          |         |Unswap Left Alt and Left GUI              |
-|`MAGIC_SWAP_RALT_RGUI`            |         |Swap Right Alt and Right GUI              |
-|`MAGIC_UNSWAP_RALT_RGUI`          |         |Unswap Right Alt and Right GUI            |
+|Key                               |Aliases  |Description                                                               |
+|----------------------------------|---------|--------------------------------------------------------------------------|
+|`MAGIC_SWAP_CONTROL_CAPSLOCK`     |`CL_SWAP`|Swap Caps Lock and Left Control                                           |
+|`MAGIC_UNSWAP_CONTROL_CAPSLOCK`   |`CL_NORM`|Unswap Caps Lock and Left Control                                         |
+|`MAGIC_CAPSLOCK_TO_CONTROL`       |`CL_CTRL`|Treat Caps Lock as Control                                                |
+|`MAGIC_UNCAPSLOCK_TO_CONTROL`     |`CL_CAPS`|Stop treating Caps Lock as Control                                        |
+|`MAGIC_SWAP_LCTL_LGUI`            |`LCG_SWP`|Swap Left Control and GUI                                                 |
+|`MAGIC_UNSWAP_LCTL_LGUI`          |`LCG_NRM`|Unswap Left Control and GUI                                               |
+|`MAGIC_SWAP_RCTL_RGUI`            |`RCG_SWP`|Swap Right Control and GUI                                                |
+|`MAGIC_UNSWAP_RCTL_RGUI`          |`RCG_NRM`|Unswap Right Control and GUI                                              |
+|`MAGIC_SWAP_CTL_GUI`              |`CG_SWAP`|Swap Control and GUI on both sides                                        |
+|`MAGIC_UNSWAP_CTL_GUI`            |`CG_NORM`|Unswap Control and GUI on both sides                                      |
+|`MAGIC_TOGGLE_CTL_GUI`            |`CG_TOGG`|Toggle Control and GUI swap on both sides                                 |
+|`MAGIC_SWAP_LALT_LGUI`            |`LAG_SWP`|Swap Left Alt and GUI                                                     |
+|`MAGIC_UNSWAP_LALT_LGUI`          |`LAG_NRM`|Unswap Left Alt and GUI                                                   |
+|`MAGIC_SWAP_RALT_RGUI`            |`RAG_SWP`|Swap Right Alt and GUI                                                    |
+|`MAGIC_UNSWAP_RALT_RGUI`          |`RAG_NRM`|Unswap Right Alt and GUI                                                  |
+|`MAGIC_SWAP_ALT_GUI`              |`AG_SWAP`|Swap Alt and GUI on both sides                                            |
+|`MAGIC_UNSWAP_ALT_GUI`            |`AG_NORM`|Unswap Alt and GUI on both sides                                          |
+|`MAGIC_TOGGLE_ALT_GUI`            |`AG_TOGG`|Toggle Alt and GUI swap on both sides                                     |
+|`MAGIC_NO_GUI`                    |`GUI_OFF`|Disable the GUI keys                                                      |
+|`MAGIC_UNNO_GUI`                  |`GUI_ON` |Enable the GUI keys                                                       |
+|`MAGIC_SWAP_GRAVE_ESC`            |`GE_SWAP`|Swap <code>&#96;</code> and Escape                                        |
+|`MAGIC_UNSWAP_GRAVE_ESC`          |`GE_NORM`|Unswap <code>&#96;</code> and Escape                                      |
+|`MAGIC_SWAP_BACKSLASH_BACKSPACE`  |`BS_SWAP`|Swap `\` and Backspace                                                    |
+|`MAGIC_UNSWAP_BACKSLASH_BACKSPACE`|`BS_NORM`|Unswap `\` and Backspace                                                  |
+|`MAGIC_HOST_NKRO`                 |`NK_ON`  |Enable N-key rollover                                                     |
+|`MAGIC_UNHOST_NKRO`               |`NK_OFF` |Disable N-key rollover                                                    |
+|`MAGIC_TOGGLE_NKRO`               |`NK_TOGG`|Toggle N-key rollover                                                     |
+|`MAGIC_EE_HANDS_LEFT`             |`EH_LEFT`|Set the master half of a split keyboard as the left hand (for `EE_HANDS`) |
+|`MAGIC_EE_HANDS_RIGHT`            |`EH_RGHT`|Set the master half of a split keyboard as the right hand (for `EE_HANDS`)|
 
 ## Configuration
 
@@ -91,6 +102,8 @@ If you would like to change the hotkey assignments for Bootmagic, `#define` thes
 |`BOOTMAGIC_KEY_DEBUG_MATRIX`            |`KC_X`       |Toggle matrix debugging                            |
 |`BOOTMAGIC_KEY_DEBUG_KEYBOARD`          |`KC_K`       |Toggle keyboard debugging                          |
 |`BOOTMAGIC_KEY_DEBUG_MOUSE`             |`KC_M`       |Toggle mouse debugging                             |
+|`BOOTMAGIC_KEY_EE_HANDS_LEFT`           |`KC_L`       |Set "Left Hand" for EE_HANDS handedness            |
+|`BOOTMAGIC_KEY_EE_HANDS_RIGHT`          |`KC_R`       |Set "Right Hand" for EE_HANDS handedness           |
 |`BOOTMAGIC_KEY_SWAP_CONTROL_CAPSLOCK`   |`KC_LCTRL`   |Swap Left Control and Caps Lock                    |
 |`BOOTMAGIC_KEY_CAPSLOCK_TO_CONTROL`     |`KC_CAPSLOCK`|Toggle treating Caps Lock as Left Control          |
 |`BOOTMAGIC_KEY_SWAP_LALT_LGUI`          |`KC_LALT`    |Toggle swapping Left Alt and Left GUI (for macOS)  |
@@ -108,7 +121,7 @@ If you would like to change the hotkey assignments for Bootmagic, `#define` thes
 |`BOOTMAGIC_KEY_DEFAULT_LAYER_6`         |`KC_6`       |Make layer 6 the default layer                     |
 |`BOOTMAGIC_KEY_DEFAULT_LAYER_7`         |`KC_7`       |Make layer 7 the default layer                     |
 
-# Bootmagic Lite
+# Bootmagic Lite :id=bootmagic-lite
 
 In addition to the full blown Bootmagic feature, is the Bootmagic Lite feature that only handles jumping into the bootloader.  This is great for boards that don't have a physical reset button but you need a way to jump into the bootloader, and don't want to deal with the headache that Bootmagic can cause.
 
@@ -140,7 +153,7 @@ To replace the function, all you need to do is add something like this to your c
 ```c
 void bootmagic_lite(void) {
     matrix_scan();
-    wait_ms(DEBOUNCING_DELAY * 2);
+    wait_ms(DEBOUNCE * 2);
     matrix_scan();
 
     if (matrix_get_row(BOOTMAGIC_LITE_ROW) & (1 << BOOTMAGIC_LITE_COLUMN)) {

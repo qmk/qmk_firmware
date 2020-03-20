@@ -44,11 +44,10 @@
 #define MATRIX_COL_PINS { B8,  B2,  B10, A0, A1, A2, B0, A3, B1, A6, A7, B12, C13, B11, B9 }
 #define UNUSED_PINS
 
-#define NUMBER_OF_ENCODERS 1
 #define ENCODERS_PAD_A { B13 }
 #define ENCODERS_PAD_B { B14 }
 
- 
+
 //Audio
 #undef AUDIO_VOICES
 #undef C6_AUDIO
@@ -79,7 +78,7 @@
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 6
+// #define DEBOUNCE 6
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 //#define LOCKING_SUPPORT_ENABLE
@@ -155,7 +154,7 @@
 #define FB_LOOPGAIN 1 /* For  Low:0, Medium:1, High:2, Very High:3 */
 
 /* default 3V ERM vibration motor voltage and library*/
-#if FB_ERM_LRA == 0 
+#if FB_ERM_LRA == 0
 #define RATED_VOLTAGE 3
 #define V_RMS 2.3
 #define V_PEAK 3.30

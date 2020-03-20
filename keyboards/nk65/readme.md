@@ -1,7 +1,7 @@
 NK65
 =========
 
-[NK65]()
+![NK65](https://i.imgur.com/EXNbVpL.jpg)
 
 This is a standard fixed layout 65% PCB. It supports VIA and full per-key RGB.
 

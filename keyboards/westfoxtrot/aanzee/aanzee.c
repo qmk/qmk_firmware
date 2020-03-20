@@ -30,23 +30,26 @@
 
 #include "aanzee.h"
 
+void keyboard_pre_init_kb(void) {
+
+    // Call the keyboard pre init code.
+    // Set our LED pins as output
+    setPinOutput(B2);
+
+    keyboard_pre_init_user();
+}
 
 void led_set_kb(uint8_t usb_led) {
 
-if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
 
-// Turn capslock on
+        // Turn capslock on
+        writePinLow(B2);
+    } else {
 
-  writePinLow(B2);
+        // Turn capslock off
+        writePinHigh(B2);
+    }
 
-} else {
-
-// Turn capslock off
-
-  writePinHigh(B2);
-
-}
-
-led_set_user(usb_led);
-
+    led_set_user(usb_led);
 }

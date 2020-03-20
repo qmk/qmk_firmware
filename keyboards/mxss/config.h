@@ -21,12 +21,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define VENDOR_ID       0x4D78 // "Mx" -> MxBlue
+#define PRODUCT_ID      0x5353 // "SS" -> MxSS
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    MxBlue
 #define PRODUCT         MxSS
-#define DESCRIPTION     Custom Polycarb Keyboard
+#define DESCRIPTION     MxSS Polycarb Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -41,7 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Basic RGB configuration */
 #define RGB_DI_PIN C7
@@ -55,6 +55,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+// Just for posterity, define bootlite matrix pos
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 0
+
+// FLED config takes up 1 byte, stored color count takes 1, stored colors take up to 8
+#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 10
 
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
  * This is userful for the Windows task manager shortcut (ctrl+shift+esc).

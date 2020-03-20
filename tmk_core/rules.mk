@@ -65,9 +65,9 @@ CSTANDARD = -std=gnu99
 
 
 # Place -D or -U options here for C++ sources
-#CPPDEFS += -D__STDC_LIMIT_MACROS
-#CPPDEFS += -D__STDC_CONSTANT_MACROS
-#CPPDEFS +=
+#CXXDEFS += -D__STDC_LIMIT_MACROS
+#CXXDEFS += -D__STDC_CONSTANT_MACROS
+#CXXDEFS +=
 
 
 
@@ -111,24 +111,24 @@ CFLAGS += $(CSTANDARD)
 #  -Wa,...:      tell GCC to pass this to the assembler.
 #    -adhlns...: create assembler listing
 ifndef SKIP_DEBUG_INFO
-  CPPFLAGS += -g$(DEBUG)
+  CXXFLAGS += -g$(DEBUG)
 endif
-CPPFLAGS += $(CPPDEFS)
-CPPFLAGS += -O$(OPT)
+CXXFLAGS += $(CXXDEFS)
+CXXFLAGS += -O$(OPT)
 # to supress "warning: only initialized variables can be placed into program memory area"
-CPPFLAGS += -w
-CPPFLAGS += -Wall
-CPPFLAGS += -Wundef
+CXXFLAGS += -w
+CXXFLAGS += -Wall
+CXXFLAGS += -Wundef
 ifneq ($(strip $(ALLOW_WARNINGS)), yes)
-    CPPFLAGS += -Werror
+    CXXFLAGS += -Werror
 endif
-#CPPFLAGS += -mshort-calls
-#CPPFLAGS += -fno-unit-at-a-time
-#CPPFLAGS += -Wstrict-prototypes
-#CPPFLAGS += -Wunreachable-code
-#CPPFLAGS += -Wsign-compare
-CPPFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
-#CPPFLAGS += $(CSTANDARD)
+#CXXFLAGS += -mshort-calls
+#CXXFLAGS += -fno-unit-at-a-time
+#CXXFLAGS += -Wstrict-prototypes
+#CXXFLAGS += -Wunreachable-code
+#CXXFLAGS += -Wsign-compare
+CXXFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
+#CXXFLAGS += $(CSTANDARD)
 
 #---------------- Assembler Options ----------------
 #  -Wa,...:   tell GCC to pass this to the assembler.
@@ -213,7 +213,7 @@ GENDEPFLAGS = -MMD -MP -MF $(patsubst %.o,%.td,$@)
 # Add target processor to flags.
 # You can give extra flags at 'make' command line like: make EXTRAFLAGS=-DFOO=bar
 ALL_CFLAGS = $(MCUFLAGS) $(CFLAGS) $(EXTRAFLAGS)
-ALL_CPPFLAGS = $(MCUFLAGS) -x c++ $(CPPFLAGS) $(EXTRAFLAGS)
+ALL_CXXFLAGS = $(MCUFLAGS) -x c++ $(CXXFLAGS) $(EXTRAFLAGS)
 ALL_ASFLAGS = $(MCUFLAGS) -x assembler-with-cpp $(ASFLAGS) $(EXTRAFLAGS)
 
 define NO_LTO
@@ -222,6 +222,10 @@ endef
 $(foreach LOBJ, $(NO_LTO_OBJ), $(eval $(call NO_LTO,$(LOBJ))))
 
 MOVE_DEP = mv -f $(patsubst %.o,%.td,$@) $(patsubst %.o,%.d,$@)
+
+# Add QMK specific flags
+DFU_SUFFIX ?= dfu-suffix
+DFU_SUFFIX_ARGS ?=
 
 
 elf: $(BUILD_DIR)/$(TARGET).elf
@@ -279,6 +283,10 @@ gccversion :
 	@$(SILENT) || printf "$(MSG_BIN) $@" | $(AWK_CMD)
 	$(eval CMD=$(BIN) $< $@ || exit 0)
 	@$(BUILD_CMD)
+	if [ ! -z "$(DFU_SUFFIX_ARGS)" ]; then \
+		$(DFU_SUFFIX) $(DFU_SUFFIX_ARGS) -a $(BUILD_DIR)/$(TARGET).bin 1>/dev/null ;\
+	fi
+	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
 
 BEGIN = gccversion sizebefore
 
@@ -298,7 +306,7 @@ ifdef $1_CONFIG
 $1_CONFIG_FLAGS += $$(patsubst %,-include %,$$($1_CONFIG))
 endif
 $1_CFLAGS = $$(ALL_CFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS) $$(NOLTO_CFLAGS)
-$1_CPPFLAGS= $$(ALL_CPPFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS) $$(NOLTO_CFLAGS)
+$1_CXXFLAGS= $$(ALL_CXXFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS) $$(NOLTO_CFLAGS)
 $1_ASFLAGS= $$(ALL_ASFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS)
 
 # Compile: create object files from C source files.
@@ -309,16 +317,16 @@ $1/%.o : %.c $1/%.d $1/cflags.txt $1/compiler.txt | $(BEGIN)
 	@$$(BUILD_CMD)
 
 # Compile: create object files from C++ source files.
-$1/%.o : %.cpp $1/%.d $1/cppflags.txt $1/compiler.txt | $(BEGIN)
+$1/%.o : %.cpp $1/%.d $1/cxxflags.txt $1/compiler.txt | $(BEGIN)
 	@mkdir -p $$(@D)
-	@$$(SILENT) || printf "$$(MSG_COMPILING_CPP) $$<" | $$(AWK_CMD)
-	$$(eval CMD=$$(CC) -c $$($1_CPPFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
+	@$$(SILENT) || printf "$$(MSG_COMPILING_CXX) $$<" | $$(AWK_CMD)
+	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
 
-$1/%.o : %.cc $1/%.d $1/cppflags.txt $1/compiler.txt | $(BEGIN)
+$1/%.o : %.cc $1/%.d $1/cxxflags.txt $1/compiler.txt | $(BEGIN)
 	@mkdir -p $$(@D)
-	@$$(SILENT) || printf "$$(MSG_COMPILING_CPP) $$<" | $$(AWK_CMD)
-	$$(eval CMD=$$(CC) -c $$($1_CPPFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
+	@$$(SILENT) || printf "$$(MSG_COMPILING_CXX) $$<" | $$(AWK_CMD)
+	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
 
 # Assemble: create object files from assembler source files.
@@ -339,8 +347,8 @@ $1/force:
 $1/cflags.txt: $1/force
 	echo '$$($1_CFLAGS)' | cmp -s - $$@ || echo '$$($1_CFLAGS)' > $$@
 
-$1/cppflags.txt: $1/force
-	echo '$$($1_CPPFLAGS)' | cmp -s - $$@ || echo '$$($1_CPPFLAGS)' > $$@
+$1/cxxflags.txt: $1/force
+	echo '$$($1_CXXFLAGS)' | cmp -s - $$@ || echo '$$($1_CXXFLAGS)' > $$@
 
 $1/asflags.txt: $1/force
 	echo '$$($1_ASFLAGS)' | cmp -s - $$@ || echo '$$($1_ASFLAGS)' > $$@
@@ -382,14 +390,18 @@ show_path:
 	@echo SRC=$(SRC)
 	@echo OBJ=$(OBJ)
 
+objs-size:
+	for i in $(OBJ); do echo $$i; done | sort | xargs $(SIZE)
+
 ifeq ($(findstring avr-gcc,$(CC)),avr-gcc)
 SIZE_MARGIN = 1024
 
 check-size:
-	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) $(CFLAGS) $(OPT_DEFS) tmk_core/common/avr/bootloader_size.c 2> /dev/null | sed -ne '/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
+	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) $(CFLAGS) $(OPT_DEFS) tmk_core/common/avr/bootloader_size.c 2> /dev/null | sed -ne 's/\r//;/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
 	$(eval CURRENT_SIZE=$(shell if [ -f $(BUILD_DIR)/$(TARGET).hex ]; then $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex | $(AWK) 'NR==2 {print $$4}'; else printf 0; fi))
 	$(eval FREE_SIZE=$(shell expr $(MAX_SIZE) - $(CURRENT_SIZE)))
 	$(eval OVER_SIZE=$(shell expr $(CURRENT_SIZE) - $(MAX_SIZE)))
+	$(eval PERCENT_SIZE=$(shell expr $(CURRENT_SIZE) \* 100 / $(MAX_SIZE)))
 	if [ $(MAX_SIZE) -gt 0 ] && [ $(CURRENT_SIZE) -gt 0 ]; then \
 		$(SILENT) || printf "$(MSG_CHECK_FILESIZE)" | $(AWK_CMD); \
 		if [ $(CURRENT_SIZE) -gt $(MAX_SIZE) ]; then \
@@ -404,7 +416,7 @@ check-size:
 	fi
 else
 check-size:
-	echo "(Firmware size check does not yet support $(MCU) microprocessors; skipping.)"
+	$(SILENT) || echo "(Firmware size check does not yet support $(MCU) microprocessors; skipping.)"
 endif
 
 # Create build directory
@@ -421,4 +433,7 @@ $(eval $(foreach OUTPUT,$(OUTPUTS),$(shell mkdir -p $(OUTPUT) 2>/dev/null)))
 .PHONY : all finish sizebefore sizeafter qmkversion \
 gccversion build elf hex eep lss sym coff extcoff \
 clean clean_list debug gdb-config show_path \
-program teensy dfu flip dfu-ee flip-ee dfu-start
+program teensy dfu flip dfu-ee flip-ee dfu-start \
+flash dfu-split-left dfu-split-right \
+avrdude-split-left avrdude-split-right \
+avrdude-loop usbasp

@@ -18,6 +18,10 @@ function install_utils {
     wget 'https://www.pjrc.com/teensy/teensy_loader_cli_windows.zip'
     unzip teensy_loader_cli_windows.zip
 
+    echo "Installing bootloadHID"
+    wget 'https://www.obdev.at/downloads/vusb/bootloadHID.2012-12-08.zip'
+    unzip bootloadHID.2012-12-08.zip
+
     echo "Installing Atmel Flip"
     wget 'http://ww1.microchip.com/downloads/en/DeviceDoc/Flip%20Installer%20-%203.4.7.112.exe'
     mv Flip\ Installer\ \-\ 3.4.7.112.exe FlipInstaller.exe
@@ -33,8 +37,8 @@ function install_utils {
 function install_drivers {
     pushd "$download_dir"
     cp -f "$dir/drivers.txt" .
-    echo 
-    cmd.exe /c "qmk_driver_installer.exe $1 $2 drivers.txt"
+    echo
+    cmd.exe //c "qmk_driver_installer.exe $1 $2 drivers.txt"
     popd > /dev/null
 }
 
@@ -58,19 +62,19 @@ fi
 while true; do
     echo
     echo "Which USB drivers do you want to install?"
-    echo "(A)all - All supported drivers will be installed"
+    echo "(A)ll - All supported drivers will be installed"
     echo "(C)onnected - Only drivers for connected keyboards (in bootloader/flashing mode)"
     echo "              will be installed"
-    echo "(F)force - Like all, but will also override existing drivers for connected"
+    echo "(F)orce - Like all, but will also override existing drivers for connected"
     echo "           keyboards"
     echo "(N)one - No drivers will be installed,"
     echo "         flashing your keyboard will most likely not work"
-    read -p "(A/C/F/N)? " res
+    read -p "(a/c/f/N)? " res
     case $res in
-        [Aa]* ) install_drivers --all; break;;
+        [AaYy]* ) install_drivers --all; break;;
         [Cc]* ) install_drivers; break;;
         [Ff]* ) install_drivers --all --force; break;;
-        [Nn]* ) break;;
+        [Nn]* | "" ) break;;
         * ) echo "Invalid answer";;
     esac
 done

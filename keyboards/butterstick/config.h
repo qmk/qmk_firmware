@@ -11,7 +11,7 @@
 #define DESCRIPTION     Its a stick of butter
 #define VERSION 		"Paula Deen"
 
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 #define FORCE_NKRO
 
 /* key matrix size */
@@ -23,4 +23,3 @@
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
-

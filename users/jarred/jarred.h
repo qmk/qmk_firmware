@@ -50,6 +50,7 @@ enum {
 
 // Wrappers
 #define LAYOUT_planck_grid_wrapper(...)      LAYOUT_planck_grid(__VA_ARGS__)
+#define LAYOUT_plaid_grid_wrapper(...)      LAYOUT_plaid_grid(__VA_ARGS__)
 #define LAYOUT_atreus62_grid_wrapper(...)      LAYOUT(__VA_ARGS__)
 #define LAYOUT_ergotravel_grid_wrapper(...)      LAYOUT(__VA_ARGS__)
 
