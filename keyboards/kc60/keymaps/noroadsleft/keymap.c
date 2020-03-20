@@ -239,13 +239,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_1 ... KC_0:
             if (record->event.pressed) {
                 if ( get_mods() & MOD_MASK_RALT ) {
-                    register_code( keycode + 0x3b );
+                    register_code( keycode + 0x3B );
                 } else {
                     register_code( keycode );
                 }
             } else {
                 if ( get_mods() & MOD_MASK_RALT ) {
-                    unregister_code( keycode + 0x3b );
+                    unregister_code( keycode + 0x3B );
                 } else {
                     unregister_code( keycode );
                 }
