@@ -1,8 +1,8 @@
 # 自動シフト: なぜシフトキーが必要ですか？
 
 <!---
-  original document: 0d3f0889c:docs/feature_auto_shift.md
-  git diff 0d3f0889c HEAD -- docs/feature_auto_shift.md | cat
+  original document: 5d5ff80:docs/feature_auto_shift.md
+  git diff 5d5ff80 HEAD -- docs/feature_auto_shift.md | cat
 -->
 
 キーをタップすると、その文字を取得します。キーをタップするが、*わずかに*長く押し続けると、シフト状態になります。ほら！シフトキーは必要ありません！

@@ -1,8 +1,8 @@
 # Bluetooth
 
 <!---
-  original document: 0d3f0889c:docs/feature_bluetooth.md
-  git diff 0d3f0889c HEAD -- docs/feature_bluetooth.md | cat
+  original document: 5d5ff80:docs/feature_bluetooth.md
+  git diff 5d5ff80 HEAD -- docs/feature_bluetooth.md | cat
 -->
 
 ## Bluetooth の既知のサポートハードウェア

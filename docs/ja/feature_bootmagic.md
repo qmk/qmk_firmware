@@ -1,8 +1,8 @@
 # ブートマジック
 
 <!---
-  original document: 0d3f0889c:docs/feature_bootmagic.md
-  git diff 0d3f0889c HEAD -- docs/feature_bootmagic.md | cat
+  original document: 5d5ff80:docs/feature_bootmagic.md
+  git diff 5d5ff80 HEAD -- docs/feature_bootmagic.md | cat
 -->
 
 再書き込みせずにキーボードの挙動を変更することができる、3つの独立した関連する機能があります。それぞれは似たような機能を持ちますが、キーボードがどのように設定されているかによって異なる方法でアクセスされます。
