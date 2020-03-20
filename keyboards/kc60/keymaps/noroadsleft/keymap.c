@@ -85,7 +85,6 @@ enum custom_keycodes {
     Q2_GRV,
     MC_UNDO,
     MC_PSTE,
-    NUBS_Z,
     VRSN
 };
 
@@ -216,18 +215,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             };
             return false;
-        case NUBS_Z:
+        case KC_Z:
             if (record->event.pressed) {
                 if ( get_mods() & MOD_MASK_RALT ) {
-                    SEND_STRING( SS_DOWN(X_NONUS_BSLASH) );
+                    register_code(KC_NUBS);
                 } else {
-                    SEND_STRING( SS_DOWN(X_Z) );
+                    register_code(KC_Z);
                 }
             } else {
                 if ( get_mods() & MOD_MASK_RALT ) {
-                    SEND_STRING( SS_UP(X_NONUS_BSLASH) );
+                    unregister_code(KC_NUBS);
                 } else {
-                    SEND_STRING( SS_UP(X_Z) );
+                    unregister_code(KC_Z);
                 }
             };
             return false;
