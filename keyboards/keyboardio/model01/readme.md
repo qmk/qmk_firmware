@@ -2,13 +2,13 @@
 
 A split keyboard.
 
-Keyboard Maintainer: QMK Community  
-Hardware Supported: Keyboardio Model 01  
-Hardware Availability: [Keyboardio](https://shop.keyboard.io)  
+Keyboard Maintainer: QMK Community
+Hardware Supported: Keyboardio Model 01
+Hardware Availability: [Keyboardio](https://shop.keyboard.io)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make model01:default
+    make keyboardio/model01:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
@@ -17,7 +17,7 @@ Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/ne
 
 To program the keyboard, if you have avrdude installed:
 
-    make model01:default:avrdude
+    make keyboardio/model01:default:avrdude
 
 When prompted to reset your keyboard, press the prog key at upper left. If the
 keyboard does not reset, you can hold the prog key while plugging it into your
