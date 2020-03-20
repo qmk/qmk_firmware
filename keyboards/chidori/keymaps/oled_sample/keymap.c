@@ -29,7 +29,11 @@ enum layer_number {
 };
 
 // Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes { QWERTY = SAFE_RANGE, COLEMAK, DVORAK };
+enum custom_keycodes { 
+    QWERTY = SAFE_RANGE, 
+    COLEMAK, 
+    DVORAK,
+};
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
