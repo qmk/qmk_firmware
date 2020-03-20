@@ -225,6 +225,9 @@ void oled_task_user(void) {
     case _QWERTY:
       oled_write_P(PSTR("Default\n"), false);
       break;
+    case _FN:
+      oled_write_P(PSTR("Function\n"), false);
+      break;
     case _LOWER:
       oled_write_P(PSTR("Lower\n"), false);
       break;
