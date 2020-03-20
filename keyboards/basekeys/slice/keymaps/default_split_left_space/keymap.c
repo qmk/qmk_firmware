@@ -141,6 +141,9 @@ void oled_task_user(void) {
     case _QWERTY:
       oled_write_P(PSTR("Default\n"), false);
       break;
+    case _FN:
+      oled_write_P(PSTR("Function\n"), false);
+      break;
     default:
       // Or use the write_ln shortcut over adding '\n' to the end of your string
       oled_write_ln_P(PSTR("Undefined"), false);
