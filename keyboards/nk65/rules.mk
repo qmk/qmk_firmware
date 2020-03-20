@@ -10,7 +10,7 @@ OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 #   comment out to disable the options.
 #
 BACKLIGHT_ENABLE = no              # Enable keyboard backlight functionality
-BOOTMAGIC_ENABLE = no              # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite            # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes              # Mouse keys
 EXTRAKEY_ENABLE = yes              # Audio control and System control
 CONSOLE_ENABLE = no                # Console for debug

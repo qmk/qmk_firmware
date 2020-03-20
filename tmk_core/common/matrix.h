@@ -66,6 +66,8 @@ bool matrix_is_on(uint8_t row, uint8_t col);
 matrix_row_t matrix_get_row(uint8_t row);
 /* print matrix for debug */
 void matrix_print(void);
+/* delay between changing matrix pin state and reading values */
+void matrix_io_delay(void);
 
 /* power control */
 void matrix_power_up(void);

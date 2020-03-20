@@ -46,11 +46,6 @@ __attribute__ ((weak))
 void matrix_scan_user(void) {
 }
 
-void backlight_init_ports(void)
-{
-  
-}
-
 void indicator_init_ports(void) {
 
   // Num LED

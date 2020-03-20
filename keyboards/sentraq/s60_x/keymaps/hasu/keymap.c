@@ -4,6 +4,9 @@
 #define KC_MO6 MO(6)
 #define KC_MO7 MO(7)
 
+#define KC_LT5 LT(5, KC_SLSH)
+#define KC_LT6 LT(6, KC_SCLN)
+
 /*
  * Hasu
  */
@@ -24,8 +27,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	LAYOUT_kc(
          ESC,    1,    2,   3,   4,   5,   6,   7,   8,    9,    0, MINS,  EQL,   NO, BSPC, \
          TAB,    Q,    W,   E,   R,   T,   Y,   U,   I,    O,    P, LBRC, RBRC, BSLS,       \
-        CAPS,    A,    S,   D,   F,   G,   H,   J,   K,    L,  FN2, QUOT,   NO,  ENT,       \
-        LSFT,   NO,    Z,   X,   C,   V,   B,   N,   M, COMM,  DOT,  FN1,   NO,  FN9,   NO, \
+        CAPS,    A,    S,   D,   F,   G,   H,   J,   K,    L,  LT6, QUOT,   NO,  ENT,       \
+        LSFT,   NO,    Z,   X,   C,   V,   B,   N,   M, COMM,  DOT,  LT5,   NO,  FN9,   NO, \
         LCTL, LGUI, LALT,                SPC,                 RALT,  MO6,  MO6,  MO4),
     /* Keymap 1: colemak
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
@@ -173,8 +176,6 @@ Lw: set Workman layout
  * Fn action definition
  */
 const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_KEY(5, KC_SLASH),
-    [2] = ACTION_LAYER_TAP_KEY(6, KC_SCLN),
     [5] = ACTION_DEFAULT_LAYER_SET(0),  // set qwerty layout
     [6] = ACTION_DEFAULT_LAYER_SET(1),  // set colemak layout
     [7] = ACTION_DEFAULT_LAYER_SET(2),  // set dvorak layout

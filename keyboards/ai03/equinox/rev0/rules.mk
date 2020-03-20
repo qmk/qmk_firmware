@@ -1,0 +1,1 @@
+# Dummy rules.mk, rev0 uses parent rules.mk as is
