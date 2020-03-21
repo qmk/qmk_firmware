@@ -42,7 +42,7 @@ endif
 
 RGB_MATRIX_ENABLE ?= no
 ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
-    SRC += rgb_stuff.c
+    SRC += rgb_matrix_stuff.c
 endif
 
 

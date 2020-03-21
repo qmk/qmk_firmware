@@ -2,27 +2,17 @@
 #include "rgb_stuff.h"
 #include "eeprom.h"
 
-#if defined(RGBLIGHT_ENABLE)
 extern rgblight_config_t rgblight_config;
 bool                     has_initialized;
 
 void rgblight_sethsv_default_helper(uint8_t index) { rgblight_sethsv_at(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, index); }
-#endif  // RGBLIGHT_ENABLE
 
-#if defined(RGB_MATRIX_ENABLE)
-static uint32_t hypno_timer;
-#    if defined(SPLIT_KEYBOARD) || defined(KEYBOARD_ergodox_ez) || defined(KEYBOARD_crkbd)
-#        define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN_DUAL
-#    else
-#        define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN
-#    endif
-#endif
+
 
 /* Custom indicators for modifiers.
  * This allows for certain lights to be lit up, based on what mods are active, giving some visual feedback.
  * This is especially useful for One Shot Mods, since it's not always obvious if they're still lit up.
  */
-#ifdef RGBLIGHT_ENABLE
 #    ifdef INDICATOR_LIGHTS
 void set_rgb_indicators(uint8_t this_mod, uint8_t this_led, uint8_t this_osm) {
     if (userspace_config.rgb_layer_change && get_highest_layer(layer_state) == 0) {
@@ -214,21 +204,13 @@ void start_rgb_light(void) {
     rgblight_sethsv_at(light->hue, 255, light->life, light_index);
 }
 #    endif
-#endif  // RGBLIGHT_ENABLE
 
-bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
+bool process_record_user_rgb_light(uint16_t keycode, keyrecord_t *record) {
     uint16_t temp_keycode = keycode;
     // Filter out the actual keycode from MT and LT keys.
     if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
         temp_keycode &= 0xFF;
     }
-
-#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
-    hypno_timer = timer_read32();
-    if (userspace_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_REST_MODE) {
-        rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
-    }
-#endif
 
     switch (temp_keycode) {
 #ifdef RGBLIGHT_TWINKLE
@@ -243,227 +225,18 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 #endif                  // RGBLIGHT_TWINKLE
-        case KC_RGB_T:  // This allows me to use underglow as layer indication, or as normal
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-            if (record->event.pressed) {
-                userspace_config.rgb_layer_change ^= 1;
-                dprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
-                eeconfig_update_user(userspace_config.raw);
-                if (userspace_config.rgb_layer_change) {
-#    if defined(RGBLIGHT_ENABLE) && defined(RGB_MATRIX_ENABLE)
-                    rgblight_enable_noeeprom();
-#    endif
-                    layer_state_set(layer_state);  // This is needed to immediately set the layer color (looks better)
-#    if defined(RGBLIGHT_ENABLE) && defined(RGB_MATRIX_ENABLE)
-                } else {
-                    rgblight_disable_noeeprom();
-#    endif
-                }
-            }
-#endif  // RGBLIGHT_ENABLE
-            break;
-        case RGB_IDL:  // This allows me to use underglow as layer indication, or as normal
-#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
-            if (record->event.pressed) {
-                userspace_config.rgb_matrix_idle_anim ^= 1;
-                dprintf("RGB Matrix Idle Animation [EEPROM]: %u\n", userspace_config.rgb_matrix_idle_anim);
-                eeconfig_update_user(userspace_config.raw);
-                if (userspace_config.rgb_matrix_idle_anim) {
-                    rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
-                }
-            }
-#endif
-            break;
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-        case RGB_TOG:
-            // Split keyboards need to trigger on key-up for edge-case issue
-#    ifndef SPLIT_KEYBOARD
-            if (record->event.pressed) {
-#    else
-            if (!record->event.pressed) {
-#    endif
-#    if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
-                rgblight_toggle();
-#    endif
-#    if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
-                rgb_matrix_toggle();
-#    endif
-            }
-            return false;
-            break;
-        case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT:  // quantum_keycodes.h L400 for definitions
-            if (record->event.pressed) {
-                bool is_eeprom_updated;
-#    if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
-                // This disables layer indication, as it's assumed that if you're changing this ... you want that disabled
-                if (userspace_config.rgb_layer_change) {
-                    userspace_config.rgb_layer_change = false;
-                    dprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
-                    is_eeprom_updated = true;
-                }
-#    endif
-#    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
-                if (userspace_config.rgb_matrix_idle_anim) {
-                    userspace_config.rgb_matrix_idle_anim = false;
-                    dprintf("RGB Matrix Idle Animation [EEPROM]: %u\n", userspace_config.rgb_matrix_idle_anim);
-                    is_eeprom_updated = true;
-                }
-#    endif
-                if (is_eeprom_updated) {
-                    eeconfig_update_user(userspace_config.raw);
-                }
-            }
-
-#    if defined(RGBLIGHT_DISABLE_KEYCODES) || defined(RGB_MATRIX_DISABLE_KEYCODES)
-            if (keycode == RGB_MODE_FORWARD && record->event.pressed) {
-                uint8_t shifted = get_mods() & (MOD_MASK_SHIFT);
-                if (shifted) {
-#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
-                    rgblight_step_reverse();
-#        endif
-#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
-                    rgb_matrix_step_reverse();
-#        endif
-                } else {
-#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
-                    rgblight_step();
-#        endif
-#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
-                    rgb_matrix_step();
-#        endif
-                }
-            } else if (keycode == RGB_MODE_REVERSE && record->event.pressed) {
-                uint8_t shifted = get_mods() & (MOD_MASK_SHIFT);
-                if (shifted) {
-#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
-                    rgblight_step();
-#        endif
-#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
-                    rgb_matrix_step();
-#        endif
-                } else {
-#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
-                    rgblight_step_reverse();
-#        endif
-#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
-                    rgb_matrix_step_reverse();
-#        endif
-                }
-            } else if (keycode == RGB_HUI) {
-#        ifndef SPLIT_KEYBOARD
-                if (record->event.pressed) {
-#        else
-                if (!record->event.pressed) {
-#        endif
-#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
-                    rgblight_increase_hue();
-#        endif
-#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
-                    rgb_matrix_increase_hue();
-#        endif
-                }
-            } else if (keycode == RGB_HUD) {
-#        ifndef SPLIT_KEYBOARD
-                if (record->event.pressed) {
-#        else
-                if (!record->event.pressed) {
-#        endif
-#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
-                    rgblight_decrease_hue();
-#        endif
-#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
-                    rgb_matrix_decrease_hue();
-#        endif
-                }
-            } else if (keycode == RGB_SAI) {
-#        ifndef SPLIT_KEYBOARD
-                if (record->event.pressed) {
-#        else
-                if (!record->event.pressed) {
-#        endif
-#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
-                    rgblight_increase_sat();
-#        endif
-#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
-                    rgb_matrix_increase_sat();
-#        endif
-                }
-            } else if (keycode == RGB_SAD) {
-#        ifndef SPLIT_KEYBOARD
-                if (record->event.pressed) {
-#        else
-                if (!record->event.pressed) {
-#        endif
-#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
-                    rgblight_decrease_sat();
-#        endif
-#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
-                    rgb_matrix_decrease_sat();
-#        endif
-                }
-            } else if (keycode == RGB_VAI) {
-#        ifndef SPLIT_KEYBOARD
-                if (record->event.pressed) {
-#        else
-                if (!record->event.pressed) {
-#        endif
-#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
-                    rgblight_increase_val();
-#        endif
-#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
-                    rgb_matrix_increase_val();
-#        endif
-                }
-            } else if (keycode == RGB_VAD) {
-#        ifndef SPLIT_KEYBOARD
-                if (record->event.pressed) {
-#        else
-                if (!record->event.pressed) {
-#        endif
-#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
-                    rgblight_decrease_val();
-#        endif
-#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
-                    rgb_matrix_decrease_val();
-#        endif
-                }
-            } else if (keycode == RGB_SPI) {
-                if (record->event.pressed) {
-#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
-                    rgblight_increase_speed();
-#        endif
-#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
-                    rgb_matrix_increase_speed();
-#        endif
-                }
-            } else if (keycode == RGB_SPD) {
-                if (record->event.pressed) {
-#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
-                    rgblight_decrease_speed();
-#        endif
-#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
-                    rgb_matrix_decrease_speed();
-#        endif
-                }
-            }
-            return false;
-#    endif
-#endif
-
-            break;
     }
     return true;
 }
 
-void keyboard_post_init_rgb(void) {
-#if defined(RGBLIGHT_ENABLE)
+void keyboard_post_init_rgb_light(void) {
 #    if defined(RGBLIGHT_STARTUP_ANIMATION)
     bool is_enabled = rgblight_config.enable;
     if (userspace_config.rgb_layer_change) {
         rgblight_enable_noeeprom();
     }
     if (rgblight_config.enable) {
-        layer_state_set_user(layer_state);
+        layer_state_set_rgb_light(layer_state);
         uint16_t old_hue = rgblight_config.hue;
         rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
         for (uint16_t i = 255; i > 0; i--) {
@@ -477,16 +250,10 @@ void keyboard_post_init_rgb(void) {
     }
 
 #    endif
-    layer_state_set_user(layer_state);
-#endif
-#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
-    if (userspace_config.rgb_matrix_idle_anim) {
-        rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
-    }
-#endif
+    layer_state_set_rgb_light(layer_state);
 }
 
-void matrix_scan_rgb(void) {
+void matrix_scan_rgb_light(void) {
 #ifdef RGBLIGHT_ENABLE
 #    ifdef RGBLIGHT_TWINKLE
     scan_rgblight_fadeout();
@@ -497,22 +264,15 @@ void matrix_scan_rgb(void) {
 #    endif
 #endif
 
-#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
-    if (userspace_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_TYPING_HEATMAP && timer_elapsed32(hypno_timer) > 15000) {
-        rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
-    }
-#endif
 }
 
-#ifdef RGBLIGHT_ENABLE
 void rgblight_set_hsv_and_mode(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode) {
     rgblight_sethsv_noeeprom(hue, sat, val);
     wait_us(175);  // Add a slight delay between color and mode to ensure it's processed correctly
     rgblight_mode_noeeprom(mode);
 }
-#endif
 
-layer_state_t layer_state_set_rgb(layer_state_t state) {
+layer_state_t layer_state_set_rgb_light(layer_state_t state) {
 #ifdef RGBLIGHT_ENABLE
     if (userspace_config.rgb_layer_change) {
         switch (get_highest_layer(state)) {
@@ -574,40 +334,3 @@ layer_state_t layer_state_set_rgb(layer_state_t state) {
 
     return state;
 }
-
-#ifdef RGB_MATRIX_ENABLE
-#    include "lib/lib8tion/lib8tion.h"
-extern led_config_t g_led_config;
-
-void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode, uint8_t speed, uint8_t led_type) {
-    HSV hsv = {hue, sat, val};
-    if (hsv.v > rgb_matrix_config.hsv.v) {
-        hsv.v = rgb_matrix_config.hsv.v;
-    }
-
-    switch (mode) {
-        case 1:  // breathing
-        {
-            uint16_t time = scale16by8(g_rgb_counters.tick, speed / 8);
-            hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
-            RGB rgb       = hsv_to_rgb(hsv);
-            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-                if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
-                    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-                }
-            }
-            break;
-        }
-        default:  // Solid Color
-        {
-            RGB rgb = hsv_to_rgb(hsv);
-            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-                if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
-                    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-                }
-            }
-            break;
-        }
-    }
-}
-#endif
