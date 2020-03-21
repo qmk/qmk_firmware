@@ -54,9 +54,9 @@ void blink_all_leds(void) {
 }
 
 __attribute__((weak)) // overridable
-void matrix_init_user(void) {
+void matrix_init_user(void) {}
 
-}
+void matrix_scan_kb(void) {}
 
 void keyboard_post_init_user(void) {
   // Customise these values to desired behaviour
