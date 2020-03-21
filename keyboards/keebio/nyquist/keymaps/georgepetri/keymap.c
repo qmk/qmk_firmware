@@ -22,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //├────────┼────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┼────────┤
     KC_LSFT, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   ,   KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_ENT ,
 //├────────┼────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┼────────┤
-    KC_CAPS, KC_LCTL, KC_LGUI, KC_LALT, MO(_L) , KC_SPC ,   KC_RSFT, TG(_R) , KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT  
+    KC_CAPS, KC_LCTL, KC_LGUI, KC_LALT, MO(_L) , KC_SPC ,   KC_RSFT, TG(_R) , KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT
 //└────────┴────────┴────────┴────────┴────────┴────────┘ └────────┴────────┴────────┴────────┴────────┴────────┘
   ),
   
@@ -55,10 +55,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-const rgblight_segment_t PROGMEM base[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 12, HSV_SPRINGGREEN}
-);
-
 const rgblight_segment_t PROGMEM left[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 12, HSV_MAGENTA}
 );
@@ -79,10 +75,7 @@ const rgblight_segment_t PROGMEM capslock[] = RGBLIGHT_LAYER_SEGMENTS(
 // HSV_ORANGE //YES
 // HSV_WHITE //YES
 // HSV_MAGENTA //YES
-// todo add shift colors
-const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    base, left, right, capslock
-);
+const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(left, right, capslock);
 
 //docs.qmk.fm/#/custom_quantum_functions?id=keyboard-idlingwake-code/
 //todo idea: impl hjkl as compose or leader 
@@ -91,19 +84,19 @@ const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 void keyboard_post_init_user(void) {
     rgblight_sethsv_noeeprom(HSV_SPRINGGREEN);
     rgblight_layers = rgb_layers;
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING);
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(0, layer_state_cmp(state, _BASE));
-    rgblight_set_layer_state(1, layer_state_cmp(state, _L));
-    rgblight_set_layer_state(2, layer_state_cmp(state, _R));
+    rgblight_set_layer_state(0, layer_state_cmp(state, _L));
+    rgblight_set_layer_state(1, layer_state_cmp(state, _R));
     return state;
 }
 
 bool is_shift_pressed = false;
 
 bool led_update_user(led_t led_state) {
-    rgblight_set_layer_state(3, is_shift_pressed != led_state.caps_lock);
+    rgblight_set_layer_state(2, is_shift_pressed != led_state.caps_lock);
     return true;
 }
 
@@ -112,7 +105,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         case KC_LSFT:
         case KC_RSFT:
             is_shift_pressed = record->event.pressed;
-            rgblight_set_layer_state(3, is_shift_pressed != host_keyboard_led_state().caps_lock);
+            rgblight_set_layer_state(2, is_shift_pressed != host_keyboard_led_state().caps_lock);
         default:
             return true;
     }
