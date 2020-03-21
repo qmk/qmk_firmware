@@ -14,6 +14,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*
+Audio Driver: PWM
+
+the duty-cycle is always kept at 50%, and the pwm-period is adjusted to match the frequency of a note to be played back.
+
+this driver uses the chibios-PWM system to produce a squarewave on a given output pin.
+Either in software through a pwm callback and set/clear; or through the pwm hardware which directly toggles the pin via its alternate function. see your MCUs datasheet for pin can be driven by a timers T/IMx_CHy.
+
+ */
+
+
 /* STM32F103C Setup:
 halconf.h:
 #define HAL_USE_PWM                 TRUE
@@ -114,19 +125,10 @@ void channel_1_stop(void) {
 }
 
 #if defined(AUDIO_DRIVER_PWM)
+// generate a PWM signal on any pin, not neccessarily the one connected to the timer
 static void pwm_audio_period_callback(PWMDriver *pwmp) {
     (void)pwmp;
     palClearLine(AUDIO_PIN);
-
-    /* hm, using the pwm callback, instead of the gpt timer does not work :-(
-        float freq, freq_alt;
-        pwm_audio_timer_task(&freq, &freq_alt);
-
-        if (playing_notes)
-            channel_1_set_frequency(freq);
-        else
-            channel_1_stop();
-    //*/
 }
 static void pwm_audio_channel_interrupt_callback(PWMDriver *pwmp) {
     (void)pwmp;
@@ -135,8 +137,17 @@ static void pwm_audio_channel_interrupt_callback(PWMDriver *pwmp) {
 #endif // AUDIO_DRIVER_PWM
 
 static void gpt_callback(GPTDriver *gptp);
-GPTConfig   gptCFG = {.frequency = 10,
-                      .callback  = gpt_callback,
+GPTConfig   gptCFG = {
+    /* a whole note is one beat, which is - per definition in musical_notes.h - set to 64 
+       the longest note is BREAVE_DOT=128+64=192, the shortest SIXTEENTH=4
+       the tempo (which might vary!) is in bpm (beats per minute)
+       therefore: if the timer ticks away at .frequency = (60*64)Hz,
+       and the .intervall counts from 64 downwards - all we need to do is increment the
+       note_position on each callback, and have the note_lengt = duration*tempo compare
+       against that; hence: audio_advance_note(step=1, end=1)
+    */
+    .frequency = 60 * 64,
+    .callback  = gpt_callback,
 };
 
 void audio_initialize_hardware(void) {
@@ -144,7 +155,7 @@ void audio_initialize_hardware(void) {
 
 #if defined(AUDIO_DRIVER_PWM_PIN_ALTERNATE)
 #    if defined(PAL_MODE_STM32_ALTERNATE_PUSHPULL)
-	//TODO: is there a better way to differentiate between chibios GPIOv1 and GPIOv2?
+    //TODO: is there a better way to differentiate between chibios GPIOv1 and GPIOv2?
     palSetLineMode(A8, PAL_MODE_STM32_ALTERNATE_PUSHPULL); //f103 with GPIOv1
 #    else
     palSetLineMode(A8, PAL_STM32_MODE_ALTERNATE | PAL_STM32_ALTERNATE(6) );//f303xx with GPIOV2
@@ -163,7 +174,7 @@ void audio_initialize_hardware(void) {
 void audio_start_hardware(void) {
     channel_1_stop();
     channel_1_start();
-    gptStartContinuous(&GPTD6, 3U); // interval-ticks adjusts the note playback rate (++ for slower, -- for faster)
+    gptStartContinuous(&GPTD6, 64);
 }
 
 void audio_stop_hardware(void) {
@@ -175,11 +186,10 @@ void audio_stop_hardware(void) {
  * and updates the pwm to output that frequency
  */
 static void gpt_callback(GPTDriver *gptp) {
-    float freq, freq_alt;
-    pwm_audio_timer_task(&freq, &freq_alt);
+    float freq;// TODO: freq_alt
 
-    if (playing_notes)
-        channel_1_set_frequency(freq);
-    else
-        channel_1_stop();
+    freq = audio_get_single_voice_frequency(1); // freq_alt would be voice=2
+
+    channel_1_set_frequency(freq);
+    audio_advance_note(1, 1);
 }
