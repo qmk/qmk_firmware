@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * | 0  | 00 | .  |    |
      * `-------------------'
      */
-    [_BL] = LAYOUT_numpad2_6x4(
+    [_BL] = LAYOUT_numpad_6x4_split_plus_zero(
         KC_ESC,  KC_TAB,  MO(_FL), KC_BSPC,
         KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
         KC_P7,   KC_P8,   KC_P9,   KC_TILD,
