@@ -33,7 +33,7 @@ BOOTLOADER = atmel-dfu
 # build options
 BOOTMAGIC_ENABLE = full
 MOUSEKEY_ENABLE = no
-EXTRAKEY_ENABLE = no
+EXTRAKEY_ENABLE = yes # Audio control and System control
 CONSOLE_ENABLE = no
 COMMAND_ENABLE = no
 BACKLIGHT_ENABLE = no
