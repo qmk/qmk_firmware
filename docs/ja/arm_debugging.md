@@ -1,8 +1,8 @@
 # Eclipse を使った ARM デバッグ
 
 <!---
-  original document: eae21eed7:docs/arm_debugging.md
-  git diff eae21eed7 HEAD -- docs/arm_debugging.md | cat
+  original document: 0.8.58:docs/arm_debugging.md
+  git diff 0.8.58 HEAD -- docs/arm_debugging.md | cat
 -->
 
 このページでは、SWD アダプタとオープンソース/フリーツールを使って ARM MCU をデバッグするためのセットアップ方法について説明します。このガイドでは、GNU MCU Eclipse IDE for C/C++ Developers および OpenOCD を必要な依存関係と一緒にインストールします。
@@ -70,7 +70,7 @@ Eclipse に QMK をビルドしようとするデバイスを教える必要が�
 
 ### デバッガの接続
 
-ARM MCU は、クロック信号(SWCLK) とデータ信号(SWDIO) で構成される Single Wire Debug (SWD) プロトコルを使います。MCU を 完全に操作するには、この2本のワイヤとグラウンドを接続するだけで十分です。ここでは、キーボードは USB を介して電力が供給されると想定しています。手動でリセットボタンを使えるため、RESET 信号は必要ありません。より高度なセットアップのために printf と scanf をホストに非同期にパイプする SWO 信号を使用できますが、私たちのセットアップでは無視します。
+ARM MCU は、クロック信号(SWCLK) とデータ信号(SWDIO) で構成される Single Wire Debug (SWD) プロトコルを使います。MCU を完全に操作するには、この2本のワイヤとグラウンドを接続するだけで十分です。ここでは、キーボードは USB を介して電力が供給されると想定しています。手動でリセットボタンを使えるため、RESET 信号は必要ありません。より高度なセットアップのために printf と scanf をホストに非同期にパイプする SWO 信号を使用できますが、私たちのセットアップでは無視します。
 
 注意: SWCLK と SWDIO ピンがキーボードのマトリックスで使われていないことを確認してください。もし使われている場合は、一時的に他のピンに切り替えることができます。
 
