@@ -37,10 +37,6 @@ static inline unsigned char i2c_start_write(unsigned char addr) {
 }
 
 // from SSD1306 scrips
-extern unsigned char i2c_rep_start(unsigned char addr);
-extern void i2c_start_wait(unsigned char addr);
-extern unsigned char i2c_readAck(void);
-extern unsigned char i2c_readNak(void);
-extern unsigned char i2c_read(unsigned char ack);
+
 
 #define i2c_read(ack)  (ack) ? i2c_readAck() : i2c_readNak();
