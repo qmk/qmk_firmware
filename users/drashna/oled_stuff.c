@@ -97,7 +97,12 @@ void render_layer_state(void) {
     oled_write_P(PSTR(OLED_RENDER_LAYER_NAME), false);
     oled_write_P(PSTR(OLED_RENDER_LAYER_LOWER), layer_state_is(_LOWER));
     oled_write_P(PSTR(OLED_RENDER_LAYER_RAISE), layer_state_is(_RAISE));
-    oled_write_ln_P(PSTR(OLED_RENDER_LAYER_MODS), layer_state_is(_MODS));
+#if _MODS
+    oled_write_P(PSTR(OLED_RENDER_LAYER_MODS), layer_state_is(_MODS));
+#endif
+#ifdef OLED_DISPLAY_128X64
+    oled_advance_page(true);
+#endif
 }
 
 void render_keylock_status(uint8_t led_usb_state) {
@@ -154,15 +159,13 @@ void render_bootmagic_status(void) {
 #endif
         oled_write_P(logo[0][0], false);
     }
-#ifdef OLED_DISPLAY_128X64
     oled_write_P(PSTR(" "), false);
+#ifdef OLED_DISPLAY_128X64
     oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_NKRO), keymap_config.nkro);
     oled_write_P(PSTR(" "), false);
     oled_write_ln_P(PSTR(OLED_RENDER_BOOTMAGIC_NOGUI), !keymap_config.no_gui);
     oled_write_P(PSTR("Magic "), false);
     if (keymap_config.swap_lctl_lgui)
-#else
-    oled_write_P(PSTR(" "), false);
 #endif
     {
         oled_write_P(logo[1][1], false);
@@ -210,7 +213,6 @@ void render_status_secondary(void) {
 #endif
 #ifdef SPLIT_TRANSPORT_MIRROR
     /* Show Keyboard Layout  */
-    oled_driver_render_logo();
     render_default_layer_state();
     render_layer_state();
     render_mod_status(get_mods() | get_oneshot_mods());
