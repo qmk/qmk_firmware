@@ -421,10 +421,6 @@ ifeq ($(strip $(TERMINAL_ENABLE)), yes)
     OPT_DEFS += -DUSER_PRINT
 endif
 
-ifeq ($(strip $(USB_HID_ENABLE)), yes)
-    include $(TMK_DIR)/protocol/usb_hid.mk
-endif
-
 ifeq ($(strip $(WPM_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/wpm.c
     OPT_DEFS += -DWPM_ENABLE
@@ -457,6 +453,23 @@ ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
     OPT_DEFS += -DDIP_SWITCH_ENABLE
     SRC += $(QUANTUM_DIR)/dip_switch.c
 endif
+
+VALID_MAGIC_TYPES := yes full lite
+BOOTMAGIC_ENABLE ?= no
+ifneq ($(strip $(BOOTMAGIC_ENABLE)), no)
+  ifeq ($(filter $(BOOTMAGIC_ENABLE),$(VALID_MAGIC_TYPES)),)
+    $(error BOOTMAGIC_ENABLE="$(BOOTMAGIC_ENABLE)" is not a valid type of magic)
+  endif
+  ifeq ($(strip $(BOOTMAGIC_ENABLE)), lite)
+      OPT_DEFS += -DBOOTMAGIC_LITE
+      QUANTUM_SRC += $(QUANTUM_DIR)/bootmagic/bootmagic_lite.c
+  else
+    OPT_DEFS += -DBOOTMAGIC_ENABLE
+    QUANTUM_SRC += $(QUANTUM_DIR)/bootmagic/bootmagic_full.c
+  endif
+endif
+COMMON_VPATH += $(QUANTUM_DIR)/bootmagic
+QUANTUM_SRC += $(QUANTUM_DIR)/bootmagic/magic.c
 
 VALID_CUSTOM_MATRIX_TYPES:= yes lite no
 

@@ -24,28 +24,6 @@ else
     include $(TMK_PATH)/$(COMMON_DIR)/lib_printf.mk
 endif
 
-# Option modules
-BOOTMAGIC_ENABLE ?= no
-VALID_MAGIC_TYPES := yes full lite
-ifneq ($(strip $(BOOTMAGIC_ENABLE)), no)
-  ifeq ($(filter $(BOOTMAGIC_ENABLE),$(VALID_MAGIC_TYPES)),)
-    $(error BOOTMAGIC_ENABLE="$(BOOTMAGIC_ENABLE)" is not a valid type of magic)
-  endif
-  ifeq ($(strip $(BOOTMAGIC_ENABLE)), lite)
-      TMK_COMMON_DEFS += -DBOOTMAGIC_LITE
-      TMK_COMMON_SRC += $(COMMON_DIR)/bootmagic_lite.c
-
-      TMK_COMMON_DEFS += -DMAGIC_ENABLE
-      TMK_COMMON_SRC += $(COMMON_DIR)/magic.c
-  else
-    TMK_COMMON_DEFS += -DBOOTMAGIC_ENABLE
-    TMK_COMMON_SRC += $(COMMON_DIR)/bootmagic.c
-  endif
-else
-    TMK_COMMON_DEFS += -DMAGIC_ENABLE
-    TMK_COMMON_SRC += $(COMMON_DIR)/magic.c
-endif
-
 SHARED_EP_ENABLE = no
 MOUSE_SHARED_EP ?= yes
 ifeq ($(strip $(KEYBOARD_SHARED_EP)), yes)

@@ -34,11 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
 #endif
-#ifdef BOOTMAGIC_ENABLE
-#    include "bootmagic.h"
-#else
-#    include "magic.h"
-#endif
 #ifdef MOUSEKEY_ENABLE
 #    include "mousekey.h"
 #endif
@@ -295,11 +290,6 @@ void keyboard_init(void) {
 #endif
 #ifdef ADB_MOUSE_ENABLE
     adb_mouse_init();
-#endif
-#ifdef BOOTMAGIC_ENABLE
-    bootmagic();
-#else
-    magic();
 #endif
 #ifdef BACKLIGHT_ENABLE
     backlight_init();
