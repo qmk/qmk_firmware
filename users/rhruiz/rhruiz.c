@@ -10,6 +10,8 @@ __attribute__((weak)) bool rhruiz_process_record(uint16_t keycode, keyrecord_t *
 
 __attribute__((weak)) void keyboard_post_init_keymap(void) {}
 
+__attribute__((weak)) void matrix_init_keymap(void) {}
+
 __attribute__((weak)) bool rhruiz_is_layer_indicator_led(uint8_t index) {
 #ifdef RGBLIGHT_ENABLE
     return index == 0 || index == RGBLED_NUM / 2 - 1;
@@ -78,6 +80,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return rhruiz_process_record(keycode, record);
 }
+
+void matrix_init_user(void) { matrix_init_keymap(); }
 
 void keyboard_post_init_user() {
     /* TODO: revisit this check if flashed promicros with dfu */

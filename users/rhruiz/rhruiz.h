@@ -30,6 +30,7 @@ bool          rhruiz_is_layer_indicator_led(uint8_t index);
 void          rhruiz_disable_promicro_leds(void);
 bool          rhruiz_process_record(uint16_t keycode, keyrecord_t *record);
 void          keyboard_post_init_keymap(void);
+void          matrix_init_keymap(void);
 
 /* underglow control */
 void rhruiz_rgblight_reset(void);
