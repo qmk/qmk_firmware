@@ -3,7 +3,7 @@
 bool is_keyboard_left(void);
 
 /** \brief Reset eeprom
- * 
+ *
  * ...just incase someone wants to only change the eeprom behaviour
  */
 __attribute__((weak)) void bootmagic_lite_reset_eeprom(void) {
