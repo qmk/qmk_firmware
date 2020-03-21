@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 
 /* 
- *  This keymap is for the numpad2 layout focusing on the "00" key.
+ *  This keymap is for the split Plus and split 0 layout focusing on the "00" key.
  */
 
 enum custom_keycodes {
