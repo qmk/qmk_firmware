@@ -126,7 +126,7 @@
 }
 
 
-/* 6x4 numpad2 layout
+/* 6x4 numpad with split Plus and 0 keys
  * ,-------------------.
  * | 00 | 01 | 02 | 03 |
  * |----|----|----|----|
@@ -141,7 +141,7 @@
  * | 50 | 51 | 52 |    |
  * `-------------------'
  */
-#define LAYOUT_numpad2_6x4( \
+#define LAYOUT_numpad_6x4_split_plus_zero( \
     k00, k01, k02, k03, \
     k10, k11, k12, k13, \
     k20, k21, k22, k23, \
