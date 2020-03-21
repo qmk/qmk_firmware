@@ -6,7 +6,7 @@ This is a port of the QMK firmware for the split75 keyboard, also known as the v
 ps2avrGB firmware, like the [ps2avrGB keyboard](https://www.keyclack.com/product/gb-ps2avrgb/) or the ones sold
 by [Winkeyless](http://winkeyless.kr/product/ps2avrgb-parts/).
 
-Original work performed by Michael L. Walker, all credit goes to him. I've tidied up the keymap (removed 3 extra keys), a couple of functions and this Readme.
+Original work performed by Michael L. Walker, all credit goes to him. I've tidied up the keymap (removed 3 extra keys), a couple of functions, info.json and this Readme.
 
 * Keyboard Maintainer: [Michael L. Walker](https://github.com/walkerstop)
 * Hardware Availability: https://a.aliexpress.com/_BT9raf https://item.taobao.com/item.htm?id=556970472669&toSite=main
