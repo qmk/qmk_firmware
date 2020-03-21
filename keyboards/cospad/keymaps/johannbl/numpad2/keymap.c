@@ -2,7 +2,7 @@
 
 /* 
  *  This keymap is based on the default keymap for the cospad.
- *  It was adapted for the numpad2 layout focusing on the "00" key.
+ *  It was adapted for the split Plus and split 0 layout focusing on the "00" key.
  */
 
 enum custom_keycodes {
