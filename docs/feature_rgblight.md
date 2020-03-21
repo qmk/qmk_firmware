@@ -175,23 +175,23 @@ const uint8_t RGBLED_GRADIENT_RANGES[] PROGMEM = {255, 170, 127, 85, 64};
 ## Lighting Layers
 
 By including `#define RGBLIGHT_LAYERS` in your `config.h` file you can enable lighting layers. These make
-it easy to use your underglow LEDs as status indicators to show which keyboard layer is currently active, or the state of caps lock, all without disrupting any animations. [Here's a video](https://youtu.be/uLGE1epbmdY) showing an example of what you can do. 
+it easy to use your underglow LEDs as status indicators to show which keyboard layer is currently active, or the state of caps lock, all without disrupting any animations. [Here's a video](https://youtu.be/uLGE1epbmdY) showing an example of what you can do.
 
 To define a layer, we modify `keymap.c` to list out LED ranges and the colors we want to overlay on them using an array of `rgblight_segment_t` using the `RGBLIGHT_LAYER_SEGMENTS` macro. We can define multiple layers and enable/disable them independently:
 
 ```c
 // Light LEDs 6 to 9 and 12 to 15 red when caps lock is active. Hard to ignore!
 const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-	{6, 4, HSV_RED},       // Light 4 LEDs, starting with LED 6
-	{12, 4, HSV_RED}       // Light 4 LEDs, starting with LED 12
+    {6, 4, HSV_RED},       // Light 4 LEDs, starting with LED 6
+    {12, 4, HSV_RED}       // Light 4 LEDs, starting with LED 12
 );
 // Light LEDs 9 & 10 in cyan when keyboard layer 1 is active
 const rgblight_segment_t PROGMEM my_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-	{9, 2, HSV_CYAN}
+    {9, 2, HSV_CYAN}
 );
 // Light LEDs 11 & 12 in purple when keyboard layer 2 is active
 const rgblight_segment_t PROGMEM my_layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-	{11, 2, HSV_PURPLE} 
+    {11, 2, HSV_PURPLE}
 );
 // etc..
 ```
@@ -201,14 +201,14 @@ We combine these layers into an array using the `RGBLIGHT_LAYERS_LIST` macro, an
 ```c
 // Now define the array of layers. Later layers take precedence
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-	my_capslock_layer,
-	my_layer1_layer,    // Overrides caps lock layer
-	my_layer2_layer     // Overrides other layers
+    my_capslock_layer,
+    my_layer1_layer,    // Overrides caps lock layer
+    my_layer2_layer     // Overrides other layers
 );
 
 void keyboard_post_init_user(void) {
-	// Enable the LED layers
-	rgblight_layers = my_rgb_layers;
+    // Enable the LED layers
+    rgblight_layers = my_rgb_layers;
 }
 ```
 
@@ -216,15 +216,15 @@ Finally, we enable and disable the lighting layers whenever the state of the key
 
 ```c
 layer_state_t layer_state_set_user(layer_state_t state) {
-	// Both layers will light up if both kb layers are active
-	rgblight_set_layer_state(1, layer_state_cmp(state, 1));
-	rgblight_set_layer_state(2, layer_state_cmp(state, 2));
-	return state;
+    // Both layers will light up if both kb layers are active
+    rgblight_set_layer_state(1, layer_state_cmp(state, 1));
+    rgblight_set_layer_state(2, layer_state_cmp(state, 2));
+    return state;
 }
 
 bool led_update_user(led_t led_state) {
-	rgblight_set_layer_state(0, led_state.caps_lock);
-	return true;
+    rgblight_set_layer_state(0, led_state.caps_lock);
+    return true;
 }
 ```
 
