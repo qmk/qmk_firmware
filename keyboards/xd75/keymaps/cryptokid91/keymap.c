@@ -138,7 +138,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   case NEWTAB:
     if(record->event.pressed) {
-      SEND_STRING(SS_LCTRL("c") SS_LCTRL("t"));
+      tap_code16(C(KC_C));
+      tap_code16(C(KC_T));
       wait_ms(100);
       tap_code16(C(KC_V));
       wait_ms(100);
