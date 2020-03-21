@@ -76,12 +76,16 @@ void backlight_init_ports(void) {
   palSetPadMode(GPIOA, 6, PAL_MODE_ALTERNATE(1));
   pwmStart(&PWMD3, &pwmCFG);
   // pwmEnableChannel(&PWMD3, 0, PWM_FRACTION_TO_WIDTH(&PWMD3, 0xFFFF,cie_lightness(0xFFFF)));
+  // I almost never want the lights on
+#if 0
   if(kb_backlight_config.enable){
     backlight_set(kb_backlight_config.level);
     if(kb_backlight_config.breathing){
       breathing_enable();
     }
-  } else {
+  } else
+#endif
+  {
     backlight_set(0);
   }
 

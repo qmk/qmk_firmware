@@ -77,6 +77,16 @@ void matrix_scan_kb(void)
     matrix_scan_user();
 }
 
+#define ANSI_RIGHT_OF_SPACE_ARE_ARROWS (1 << 1)
+layer_state_t layer_state_set_user(layer_state_t state) {
+    if (state & ANSI_RIGHT_OF_SPACE_ARE_ARROWS) {
+        backlight_set(1);
+    } else {
+        backlight_set(0);
+    }
+    return state;
+}
+
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case BL_INC:
