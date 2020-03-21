@@ -1,5 +1,4 @@
-#ifndef USERSPACE_CONFIG_H
-#define USERSPACE_CONFIG_H
+#pragma once
 
 // Disable action_get_macro , since we don't use these
 // and it saves on space in the firmware.
