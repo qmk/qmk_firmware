@@ -162,7 +162,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case TERM:
     if(record->event.pressed) {
       SEND_STRING(SS_LGUI("r"));
-      _delay_ms(300);
+      wait_ms(300);
       SEND_STRING("powershell");
       _delay_ms(100);
       SEND_STRING(SS_TAP(X_ENTER));
