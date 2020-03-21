@@ -191,7 +191,7 @@ const rgblight_segment_t PROGMEM my_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 );
 // Light LEDs 11 & 12 in purple when keyboard layer 2 is active
 const rgblight_segment_t PROGMEM my_layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-	{11, 2, HSV_PURPLE}, 
+	{11, 2, HSV_PURPLE} 
 );
 // etc..
 ```
