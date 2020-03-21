@@ -19,26 +19,38 @@
 
 #include "eeconfig.h"
 
-uint8_t voices         = 0;
-float   frequencies[8] = {0.0};
+/* audio system:
+ *
+ * audio.[ch] takes care of all overall state, tracking the actively playing
+ *            notes (as polyphonic voices); the notes a SONG consists of;
+ *            ...
+ *
+ * audio_[avr|chibios]_[dac|pwm] take care of the lower hardware dependent parts,
+ *            specific to each platform and the used subsystem/driver to drive
+ *            the output pins/channels with the calculated frequencies for each
+ *
+ */
+
+uint8_t voices         = 0; // nuber of active polyphonic voices
+float   frequencies[8] = {0.0}; // frequencies of each active voice
 
 int   voice_place   = 0;
-float frequency     = 0;
-float frequency_alt = 0;
+float frequency     = 0; // frequency of the current note (down-mixed from the polyphony?)
+float frequency_alt = 0; // frequency for the second speaker
 
-bool     playing_notes  = false;
-bool     playing_note   = false;
+bool     playing_notes  = false; // playing a SONG?
+bool     playing_note   = false; // or multiple polyphonic
 float    note_frequency = 0; // Hz
-float    note_length    = 0;
+float    note_length    = 0; // in 64 parts to a beat
 uint8_t  note_tempo     = TEMPO_DEFAULT; // beats-per-minute
 float    note_timbre    = TIMBRE_DEFAULT;
-uint32_t note_position  = 0;
-float (*notes_pointer)[][2];
-uint16_t notes_count;
-bool     notes_repeat;
-bool     note_resting = false;
+uint32_t note_position  = 0; // where in time, during playback of the current_note
+float (*notes_pointer)[][2]; // SONG, an array of MUSICAL_NOTEs
+uint16_t notes_count; // length of the notes_pointer array
+bool     notes_repeat; // PLAY_SONG or PLAY_LOOP?
+bool     note_resting = false; //?? current note is a pause? or is this supposed to indicate a 'tie'?
 
-uint16_t current_note = 0;
+uint16_t current_note = 0; // index into the array at notes_pointer
 uint16_t next_note    = 0;
 
 
@@ -102,6 +114,31 @@ void audio_init() {
         */
     }
 }
+
+void audio_toggle(void) {
+    audio_config.enable ^= 1;
+    eeconfig_update_audio(audio_config.raw);
+    if (audio_config.enable) {
+        audio_on_user();
+    }
+}
+
+void audio_on(void) {
+    audio_config.enable = 1;
+    eeconfig_update_audio(audio_config.raw);
+    audio_on_user();
+    PLAY_SONG(audio_on_song);
+}
+
+void audio_off(void) {
+    PLAY_SONG(audio_off_song);
+    wait_ms(100);
+    stop_all_notes();
+    audio_config.enable = 0;
+    eeconfig_update_audio(audio_config.raw);
+}
+
+bool is_audio_on(void) { return (audio_config.enable != 0); }
 
 void stop_all_notes() {
     dprintf("audio stop all notes");
@@ -175,6 +212,10 @@ void play_note(float freq, int vol) { //NOTE: vol is unused
     }
 }
 
+/* the two ways to feed the audio system:
+   play_note to add (or start) playing notes simultaniously with multiple voices
+   play_nots to playback a melody, which is just an array of notes (of different frequencies and durations)
+*/
 void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat) {
     if (!audio_initialized) {
         audio_init();
@@ -204,54 +245,16 @@ bool is_playing_note(void) { return playing_note; }
 
 bool is_playing_notes(void) { return playing_notes; }
 
-bool is_audio_on(void) { return (audio_config.enable != 0); }
 
-void audio_toggle(void) {
-    audio_config.enable ^= 1;
-    eeconfig_update_audio(audio_config.raw);
-    if (audio_config.enable) {
-        audio_on_user();
-    }
-}
+uint8_t audio_get_number_of_active_voices(void) { return voices; }
 
-void audio_on(void) {
-    audio_config.enable = 1;
-    eeconfig_update_audio(audio_config.raw);
-    audio_on_user();
-    PLAY_SONG(audio_on_song);
-}
+float audio_get_frequency(uint8_t voice_index) { return frequencies[voice_index]; }
 
-void audio_off(void) {
-    PLAY_SONG(audio_off_song);
-    wait_ms(100);
-    stop_all_notes();
-    audio_config.enable = 0;
-    eeconfig_update_audio(audio_config.raw);
-}
-
-#ifdef VIBRATO_ENABLE
-
-float mod(float a, int b) {
-    float r = fmod(a, b);
-    return r < 0 ? r + b : r;
-}
-
-float vibrato(float average_freq) {
-#    ifdef VIBRATO_STRENGTH_ENABLE
-    float vibrated_freq = average_freq * pow(vibrato_lut[(int)vibrato_counter], vibrato_strength);
-#    else
-    float vibrated_freq = average_freq * vibrato_lut[(int)vibrato_counter];
-#    endif
-    vibrato_counter = mod((vibrato_counter + vibrato_rate * (1.0 + 440.0 / average_freq)), VIBRATO_LUT_LENGTH);
-    return vibrated_freq;
-}
-
-#endif
 
 /* out of a possibly polyphonic setup, retrieve the frequency for a single voice
    to calculate the pwm period and duty-cycle from, relative to the cpy-frequency
  */
-float pwm_audio_get_single_voice_frequency(uint8_t voice) {
+float audio_get_single_voice_frequency(uint8_t voice) {
     float frequency = 0.0;
 
     if (voice > voices) return frequency;
@@ -392,7 +395,20 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
 
 #ifdef VIBRATO_ENABLE
 
-// Vibrato rate functions
+float mod(float a, int b) {
+    float r = fmod(a, b);
+    return r < 0 ? r + b : r;
+}
+
+float vibrato(float average_freq) {
+#    ifdef VIBRATO_STRENGTH_ENABLE
+    float vibrated_freq = average_freq * pow(vibrato_lut[(int)vibrato_counter], vibrato_strength);
+#    else
+    float vibrated_freq = average_freq * vibrato_lut[(int)vibrato_counter];
+#    endif
+    vibrato_counter = mod((vibrato_counter + vibrato_rate * (1.0 + 440.0 / average_freq)), VIBRATO_LUT_LENGTH);
+    return vibrated_freq;
+}
 
 void set_vibrato_rate(float rate) { vibrato_rate = rate; }
 
@@ -430,14 +446,25 @@ void set_timbre(float timbre) { note_timbre = timbre; }
 
 // Tempo functions
 
-void set_tempo(uint8_t tempo) { note_tempo = tempo; }
-
-void decrease_tempo(uint8_t tempo_change) { note_tempo += tempo_change; }
+void set_tempo(uint8_t tempo) {
+    if (tempo < 10)
+        note_tempo = 10;
+//  else if (tempo > 250)
+//      note_tempo = 250;
+    else
+        note_tempo = tempo;
+}
 
 void increase_tempo(uint8_t tempo_change) {
-    if (note_tempo - tempo_change < 10) {
+    if (tempo_change > 255-note_tempo)
+        note_tempo = 255;
+    else
+        note_tempo += tempo_change;
+}
+
+void decrease_tempo(uint8_t tempo_change) {
+    if (tempo_change >= note_tempo-10)
         note_tempo = 10;
-    } else {
+    else
         note_tempo -= tempo_change;
-    }
 }

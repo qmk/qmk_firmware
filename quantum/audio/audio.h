@@ -31,11 +31,6 @@
 #    include "audio_chibios_dac.h"
 #endif
 
-// #define VIBRATO_ENABLE
-
-// Enable vibrato strength/amplitude - slows down ISR too much
-// #define VIBRATO_STRENGTH_ENABLE
-
 typedef union {
     uint8_t raw;
     struct {
@@ -45,20 +40,39 @@ typedef union {
     };
 } audio_config_t;
 
-// implementation in the audio_avr/arm_* parts
+// implementation in the audio_avr/arm_* drivers
 void audio_initialize_hardware(void);
 void audio_start_hardware(void);
 void audio_stop_hardware(void);
 
-bool is_audio_on(void);
+void audio_init(void);
+
 void audio_toggle(void);
 void audio_on(void);
 void audio_off(void);
+bool is_audio_on(void);
 
-float pwm_audio_get_single_voice(uint8_t voice);
+void play_note(float freq, int vol);
+void stop_note(float freq);
+void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat);
+void stop_all_notes(void);
+
+bool is_playing_note(void);
+bool is_playing_notes(void);
+
+uint8_t audio_get_number_of_active_voices(void);
+float audio_get_frequency(uint8_t voice_index);
+
+float audio_get_single_voice_frequency(uint8_t voice);
+
 void  pwm_audio_timer_task(float *freq, float *freq_alt);
 
 // Vibrato rate functions
+
+// #define VIBRATO_ENABLE
+
+// Enable vibrato strength/amplitude - slows down ISR too much (TODO: from/for/on avr only?)
+// #define VIBRATO_STRENGTH_ENABLE
 
 #ifdef VIBRATO_ENABLE
 
@@ -84,18 +98,17 @@ void disable_polyphony(void);
 void increase_polyphony_rate(float change);
 void decrease_polyphony_rate(float change);
 
-void set_timbre(float timbre);
-void set_tempo(uint8_t tempo);
+// Timbre function
 
+void set_timbre(float timbre);
+
+// Tempo functions
+
+void set_tempo(uint8_t tempo);
 void increase_tempo(uint8_t tempo_change);
 void decrease_tempo(uint8_t tempo_change);
 
-void audio_init(void);
 
-void play_note(float freq, int vol);
-void stop_note(float freq);
-void stop_all_notes(void);
-void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat);
 
 #define SCALE \
     (int8_t[]) { 0 + (12 * 0), 2 + (12 * 0), 4 + (12 * 0), 5 + (12 * 0), 7 + (12 * 0), 9 + (12 * 0), 11 + (12 * 0), 0 + (12 * 1), 2 + (12 * 1), 4 + (12 * 1), 5 + (12 * 1), 7 + (12 * 1), 9 + (12 * 1), 11 + (12 * 1), 0 + (12 * 2), 2 + (12 * 2), 4 + (12 * 2), 5 + (12 * 2), 7 + (12 * 2), 9 + (12 * 2), 11 + (12 * 2), 0 + (12 * 3), 2 + (12 * 3), 4 + (12 * 3), 5 + (12 * 3), 7 + (12 * 3), 9 + (12 * 3), 11 + (12 * 3), 0 + (12 * 4), 2 + (12 * 4), 4 + (12 * 4), 5 + (12 * 4), 7 + (12 * 4), 9 + (12 * 4), 11 + (12 * 4), }
@@ -106,8 +119,5 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat);
 #define NOTE_ARRAY_SIZE(x) ((int16_t)(sizeof(x) / (sizeof(x[0]))))
 #define PLAY_SONG(note_array) play_notes(&note_array, NOTE_ARRAY_SIZE((note_array)), false)
 #define PLAY_LOOP(note_array) play_notes(&note_array, NOTE_ARRAY_SIZE((note_array)), true)
-
-bool is_playing_note(void);
-bool is_playing_notes(void);
 
 #endif
