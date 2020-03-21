@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         	RGB_HUD, RGB_SAD, RGB_VAD, RESET
         ),
         
-        [2] = LAYOUT_numpad2_6x4(
+        [2] = LAYOUT_numpad_6x4_split_plus_zero(
         	KC_MPLY, KC_MPRV, KC_MNXT, TO(0), 
         	KC_F13, KC_F14, KC_F15, KC_F16, 
         	KC_F17, KC_F18, KC_F19, KC_F20, 
