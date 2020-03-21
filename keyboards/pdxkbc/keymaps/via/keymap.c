@@ -1,4 +1,4 @@
-/* Copyright 2017 Mathias Andersson <wraul@dbox.se>
+/* Copyright 2019 Franklin Harding
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,12 +13,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include QMK_KEYBOARD_H
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [0] = LAYOUT(
+      MACRO00, MACRO01,
+      MACRO02, MACRO03,
+      KC_VOLU,  KC_VOLD
+    ),
 
-#pragma once
+    [1] = LAYOUT(
+      _______, _______,
+      _______, _______,
+      _______, _______
+    ),
 
-#define USE_I2C
-#define SSD1306OLED
-//#define OLED_ROTATE180
-#define SSD1306_ADDRESS 0x3C
+    [2] = LAYOUT(
+      _______, _______,
+      _______, _______,
+      _______, _______
+    ),
 
-// place overrides here
+    [3] = LAYOUT(
+      _______, _______,
+      _______, _______,
+      _______, _______
+    ),
+};
