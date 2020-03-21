@@ -147,15 +147,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   case ROLL:
     if(record->event.pressed) {
-      SEND_STRING(SS_LSFT("1") "roll 1d100" SS_TAP(X_ENTER));
+      SEND_STRING("!roll 1d100\n");
     }
     return false;
   case IOTECH:
     if(record->event.pressed) {
       SEND_STRING(SS_LCTRL("t"));
-      _delay_ms(100);
+      wait_ms(100);
       SEND_STRING("www.io/tech.fi");
-      _delay_ms(100);
+      wait_ms(100);
       SEND_STRING(SS_TAP(X_ENTER));
     }
     return false;
