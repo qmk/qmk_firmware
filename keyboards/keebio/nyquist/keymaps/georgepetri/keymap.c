@@ -22,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //├────────┼────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┼────────┤
     KC_LSFT, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   ,   KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_ENT ,
 //├────────┼────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┼────────┤
-    KC_CAPS, KC_LCTL, KC_LGUI, KC_LALT, MO(_L) , KC_SPC ,   KC_RSFT, TG(_R) , KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT
+    KC_CAPS, KC_LCTL, KC_LGUI, KC_LALT, MO(_L) , KC_SPC ,   KC_RSFT, TT(_R) , KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT
 //└────────┴────────┴────────┴────────┴────────┴────────┘ └────────┴────────┴────────┴────────┴────────┴────────┘
   ),
   
@@ -80,7 +80,6 @@ const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(left
 //docs.qmk.fm/#/custom_quantum_functions?id=keyboard-idlingwake-code/
 //todo idea: impl hjkl as compose or leader 
 //github.com/qmk/qmk_firmware/pull/5338/files  //might not work on split kbs
-//todo idea use TT on left layer
 void keyboard_post_init_user(void) {
     rgblight_sethsv_noeeprom(HSV_SPRINGGREEN);
     rgblight_layers = rgb_layers;
