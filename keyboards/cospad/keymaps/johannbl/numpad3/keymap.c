@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |    |    |RST |    |
      * `-------------------'
     */
-    [_FL] = LAYOUT_numpad3_6x4(
+    [_FL] = LAYOUT_numpad_6x4_split_zero(
         RGB_TOG, _______, _______, _______,
         RGB_MOD, RGB_M_P, BL_TOGG, _______,
         RGB_HUD, RGB_HUI, BL_ON,
