@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         	DBL_ZRO, KC_P0, KC_PDOT, KC_PENT
         ),
         
-        [1] = LAYOUT_numpad2_6x4(
+        [1] = LAYOUT_numpad_6x4_split_plus_zero(
         	RGB_TOG, RGB_RMOD, RGB_MOD, KC_TRNS, 
         	KC_NO, RGB_SPD, RGB_SPI, KC_NO, 
         	RGB_M_G, RGB_M_SW, RGB_M_K, RGB_M_SN, 
