@@ -18,7 +18,7 @@ inline void led_3_off(void) {writePinLow(D6);}
 // 2 + 6 / 8
 // 2 + 5 / 7
 
-#define KEYMAP( \
+#define LAYOUT( \
             K05, K15, K25, K35, K45, K55, K65, K75, K85, K95, K105, K115, K125, K135, K86, K87, \
   K47, K46, K04, K14, K24, K34, K44, K54, K64, K74, K84, K94, K104, K114, K124,       K96, K97, \
   K37, K36, K03, K13, K23, K33, K43, K53,      K73, K83, K93, K103, K113, K123, K133, K106, K107, \
