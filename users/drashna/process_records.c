@@ -17,6 +17,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     xprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
 #    endif
 #endif  // KEYLOGGER_ENABLE
+#ifdef OLED_DRIVER_ENABLE
+    process_record_user_oled(keycode, record);
+#endif // OLED
+
     if (process_record_keymap(keycode, record)
         && process_record_secrets(keycode, record)
 #ifdef RGB_MATRIX_ENABLE

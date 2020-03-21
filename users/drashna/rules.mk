@@ -20,10 +20,6 @@ ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
     SRC += tap_dances.c
 endif
 
-
-
-
-
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     SRC += rgb_stuff.c
     ifeq ($(strip $(INDICATOR_LIGHTS)), yes)
@@ -61,4 +57,8 @@ endif
 # this should be handled per keyboard, but until that happens ...
 ifeq ($(strip $(PROTOCOL)), VUSB)
     NKRO_ENABLE       = no
+endif
+
+ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
+    SRC += oled_stuff.c
 endif

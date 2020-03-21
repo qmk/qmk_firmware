@@ -31,6 +31,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if defined(RGB_MATRIX_ENABLE)
 #    include "rgb_matrix_stuff.h"
 #endif
+#if defined(OLED_DRIVER_ENABLE)
+#    include "oled_stuff.h"
+#endif
 
 /* Define layer names */
 enum userspace_layers {
