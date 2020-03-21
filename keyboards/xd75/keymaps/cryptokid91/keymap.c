@@ -139,7 +139,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case NEWTAB:
     if(record->event.pressed) {
       SEND_STRING(SS_LCTRL("c") SS_LCTRL("t"));
-      _delay_ms(100);
+      wait_ms(100);
       SEND_STRING(SS_LCTRL("v"));
       _delay_ms(100);
       SEND_STRING(SS_TAP(X_ENTER));
