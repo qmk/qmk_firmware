@@ -1,13 +1,5 @@
 COMMON_DIR = common
-ifeq ($(PLATFORM),AVR)
-	PLATFORM_COMMON_DIR = $(COMMON_DIR)/avr
-else ifeq ($(PLATFORM),CHIBIOS)
-	PLATFORM_COMMON_DIR = $(COMMON_DIR)/chibios
-else ifeq ($(PLATFORM),ARM_ATSAM)
-	PLATFORM_COMMON_DIR = $(COMMON_DIR)/arm_atsam
-else
-	PLATFORM_COMMON_DIR = $(COMMON_DIR)/test
-endif
+PLATFORM_COMMON_DIR = $(COMMON_DIR)/$(PLATFORM_KEY)
 
 TMK_COMMON_SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/keyboard.c \
@@ -42,6 +34,8 @@ ifneq ($(strip $(BOOTMAGIC_ENABLE)), no)
   endif
   ifeq ($(strip $(BOOTMAGIC_ENABLE)), lite)
       TMK_COMMON_DEFS += -DBOOTMAGIC_LITE
+      TMK_COMMON_SRC += $(COMMON_DIR)/bootmagic_lite.c
+
       TMK_COMMON_DEFS += -DMAGIC_ENABLE
       TMK_COMMON_SRC += $(COMMON_DIR)/magic.c
   else
@@ -179,6 +173,4 @@ endif
 
 # Search Path
 VPATH += $(TMK_PATH)/$(COMMON_DIR)
-ifeq ($(PLATFORM),CHIBIOS)
-VPATH += $(TMK_PATH)/$(COMMON_DIR)/chibios
-endif
+VPATH += $(TMK_PATH)/$(PLATFORM_COMMON_DIR)
