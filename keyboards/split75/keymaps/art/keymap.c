@@ -72,7 +72,7 @@ _______,  _______,    TO(QWERTY),_______, _______,  _______,  _______,          
   * |  0  |  1  |  | Ctrl  |  GUI |  Alt |Spac/MEDIA | BSPC|     |      MOD      |  Alt  | MOD | Ctrl  | Left| Down|Right|
   * `-----------'  `---------------------------------------'     `-------------------------------------------------------'
   */
-  [QWERTY] = KEYMAP(
+  [QWERTY] = LAYOUT(
 //--------------------------------Left Hand------------------------------------| |--------------------------------Right Hand------------------------------------------------
                 KC_ESC,   KC_F1,   KC_F2,   KC_F3,  KC_F4,  KC_F5,  KC_F6,                KC_F7,  KC_F8,   KC_F9,  KC_F10,  KC_F11,   KC_F12,   KC_PSCR,  KC_INS,  KC_HOME, \
 KC_8,  KC_9,    KC_GRAVE, KC_1,    KC_2,    LGUI_T(KC_3),   LALT_T(KC_4),   LCTL_T(KC_5),   KC_6,                 KC_7,   LCTL_T(KC_8),    LALT_T(KC_9),   LGUI_T(KC_0),    KC_MINUS, KC_EQUAL, KC_BSPC,           KC_DEL, \
