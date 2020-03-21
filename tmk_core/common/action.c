@@ -562,8 +562,6 @@ void process_action(keyrecord_t *record, action_t action) {
             action_macro_play(action_get_macro(record, action.func.id, action.func.opt));
             break;
 #endif
-        case ACT_COMMAND:
-            break;
 #ifdef SWAP_HANDS_ENABLE
         case ACT_SWAP_HANDS:
             switch (action.swap.code) {
@@ -1040,9 +1038,6 @@ void debug_action(action_t action) {
             break;
         case ACT_MACRO:
             dprint("ACT_MACRO");
-            break;
-        case ACT_COMMAND:
-            dprint("ACT_COMMAND");
             break;
         case ACT_FUNCTION:
             dprint("ACT_FUNCTION");
