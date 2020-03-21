@@ -156,7 +156,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       SEND_STRING(SS_LCTRL("t"));
       wait_ms(100);
       SEND_STRING("www.io/tech.fi");
-      _delay_ms(100);
+      wait_ms(100);
       tap_code(KC_ENT);
     }
     return false;
