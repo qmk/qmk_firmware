@@ -21,13 +21,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include "keycode.h"
 
+// clang-format off
+
 /* HID report IDs */
-enum hid_report_ids { REPORT_ID_KEYBOARD = 1, REPORT_ID_MOUSE, REPORT_ID_SYSTEM, REPORT_ID_CONSUMER, REPORT_ID_NKRO };
+enum hid_report_ids {
+    REPORT_ID_KEYBOARD = 1,
+    REPORT_ID_MOUSE,
+    REPORT_ID_SYSTEM,
+    REPORT_ID_CONSUMER,
+    REPORT_ID_NKRO
+};
 
 /* Mouse buttons */
-enum mouse_buttons { MOUSE_BTN1 = (1 << 0), MOUSE_BTN2 = (1 << 1), MOUSE_BTN3 = (1 << 2), MOUSE_BTN4 = (1 << 3), MOUSE_BTN5 = (1 << 4) };
-
-// clang-format off
+enum mouse_buttons {
+    MOUSE_BTN1 = (1 << 0),
+    MOUSE_BTN2 = (1 << 1),
+    MOUSE_BTN3 = (1 << 2),
+    MOUSE_BTN4 = (1 << 3),
+    MOUSE_BTN5 = (1 << 4)
+};
 
 /* Consumer Page (0x0C)
  *
