@@ -1,5 +1,3 @@
-#include QMK_KEYBOARD_H
-#include "unicode.h"
 #include "spidey3.h"
 
 #define SETTINGS A(S(KC_S))

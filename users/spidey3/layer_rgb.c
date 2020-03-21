@@ -3,8 +3,6 @@
 #include <spidey3.h>
 #include <velocikey.h>
 
-extern rgblight_config_t rgblight_config;
-
 uint32_t rgb_mode;
 uint16_t rgb_hue;
 uint8_t rgb_sat;

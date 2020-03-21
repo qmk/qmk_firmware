@@ -2,6 +2,10 @@
 
 #include QMK_KEYBOARD_H
 
+#ifdef UNICODEMAP_ENABLE
+#include "unicode.h"
+#endif
+
 enum userspace_layers {
   _BASE = 0,
   _OSX,
