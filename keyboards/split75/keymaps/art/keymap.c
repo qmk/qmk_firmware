@@ -131,27 +131,6 @@ _______,  _______,    _______,  _______,  _______,  _______,  _______,          
   )
 };
 
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case KC_TRNS:
-    case KC_NO:
-      /* Always cancel one-shot layer when another key gets pressed */
-      if (record->event.pressed && is_oneshot_layer_active())
-      clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
-      return true;
-    case RESET:
-      /* Don't allow reset from oneshot layer state */
-      if (record->event.pressed && is_oneshot_layer_active()){
-        clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
-        return false;
-      }
-      return true;
-    default:
-      return true;
-  }
-  return true;
-}
-
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 	uint8_t layer = biton32(layer_state);

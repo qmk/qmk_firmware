@@ -31,7 +31,7 @@ F_CPU = 12000000
 BOOTLOADER = atmel-dfu
 
 # build options
-BOOTMAGIC_ENABLE = full
+BOOTMAGIC_ENABLE = no
 MOUSEKEY_ENABLE = no
 EXTRAKEY_ENABLE = yes # Audio control and System control
 CONSOLE_ENABLE = no
