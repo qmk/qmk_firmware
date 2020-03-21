@@ -33,9 +33,6 @@
 #include "debug.h"
 #include "printf.h"
 
-#if defined(RGBLIGHT_ENABLE)
-#    include "rgblight.h"
-#endif
 #ifdef SLEEP_LED_ENABLE
 #    include "sleep_led.h"
 #endif

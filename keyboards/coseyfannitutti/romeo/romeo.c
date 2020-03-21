@@ -1,4 +1,4 @@
-/* Copyright 2017 Mathias Andersson <wraul@dbox.se>
+/* Copyright 2019 coseyfannitutti
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,12 +13,4 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-#pragma once
-
-#define USE_I2C
-#define SSD1306OLED
-//#define OLED_ROTATE180
-#define SSD1306_ADDRESS 0x3C
-
-// place overrides here
+#include "romeo.h"
