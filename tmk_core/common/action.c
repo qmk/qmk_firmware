@@ -1039,9 +1039,6 @@ void debug_action(action_t action) {
         case ACT_MACRO:
             dprint("ACT_MACRO");
             break;
-        case ACT_COMMAND:
-            dprint("ACT_COMMAND");
-            break;
         case ACT_FUNCTION:
             dprint("ACT_FUNCTION");
             break;
