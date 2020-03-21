@@ -140,7 +140,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if(record->event.pressed) {
       SEND_STRING(SS_LCTRL("c") SS_LCTRL("t"));
       wait_ms(100);
-      SEND_STRING(SS_LCTRL("v"));
+      tap_code16(C(KC_V));
       wait_ms(100);
       SEND_STRING(SS_TAP(X_ENTER));
     }
