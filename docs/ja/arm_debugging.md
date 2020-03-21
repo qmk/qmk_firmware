@@ -76,7 +76,7 @@ ARM MCU は、クロック信号(SWCLK) とデータ信号(SWDIO) で構成さ�
 
 ### デバッガの設定
 
-QMK フォルダを右クリックし、Debug As -> Debug Configurations... を選択します。ここで、GDB OpenOCD Debugging をダブルクリックします。Debugger タブを選択し、MCU に必要な設定を入力します。これを見つけるにはいじったりググったりする必要があるかもしれません。STM32F3 用のデフォルトスクリプトは stm32f3discovery.cfg と呼ばれます。OpenOCD に伝えるには、Config options で `-f board/stm32f3discovery.cfg` と入力します。
+QMK フォルダを右クリックし、Debug As -> Debug Configurations... を選択します。ここで、GDB OpenOCD Debugging をダブルクリックします。Debugger タブを選択し、MCU に必要な設定を入力します。これを見つけるにはいじったりググったりする必要があるかもしれません。STM32F3 用のデフォルトスクリプトは `stm32f3discovery.cfg` と呼ばれます。OpenOCD に伝えるには、Config options で `-f board/stm32f3discovery.cfg` と入力します。
 
 注意: 私の場合、この設定スクリプトはリセット操作を無効にするために編集が必要です。スクリプトの場所は、通常はパス `openocd/version/.content/scripts/board` の下の実際の実行可能フィールドの中で見つかります。ここで、私は `reset_config srst_only` を `reset_config none` に編集しました。
 
@@ -86,7 +86,7 @@ Apply and Close を選択します。
 
 キーボードをリセットしてください。
 
-虫アイコンをクリックし、もし全てうまく行けば Debug パースペクティブに移動します。ここでは、main 関数の最初でプログラムカウンタが停止するので、Play ボタンを押します。全てのデバッガのほとんどの機能は ARM MCU で動作しますが、正確な詳細については google があなたのお友達です！
+虫アイコンをクリックし、もし全てうまく行けば Debug パースペクティブに移動します。ここでは、main 関数の最初でプログラムカウンタが停止するので、Play ボタンを押します。全てのデバッガのほとんどの機能は Arm MCU で動作しますが、正確な詳細については Google があなたのお友達です！
 
 
 ハッピーデバッギング！
