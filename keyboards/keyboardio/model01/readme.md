@@ -2,9 +2,9 @@
 
 A split keyboard.
 
-Keyboard Maintainer: QMK Community
-Hardware Supported: Keyboardio Model 01
-Hardware Availability: [Keyboardio](https://shop.keyboard.io)
+* Keyboard Maintainer: QMK Community
+* Hardware Supported: Keyboardio Model 01
+* Hardware Availability: [Keyboardio](https://shop.keyboard.io)
 
 Make example for this keyboard (after setting up your build environment):
 

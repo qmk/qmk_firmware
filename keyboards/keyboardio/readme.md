@@ -11,8 +11,8 @@ and more recently, the Keyboardio
 
 ## Social Media
 
-**Discord:** https://discord.gg/4az77sf
-**Forums:** https://community.keyboard.io/
-**Twitter:** https://twitter.com/keyboardio
-**Facebook:** https://facebook.com/keyboardio
+**Discord:** https://discord.gg/4az77sf  
+**Forums:** https://community.keyboard.io/  
+**Twitter:** https://twitter.com/keyboardio  
+**Facebook:** https://facebook.com/keyboardio  
 **Blog:** https://blog.keyboard.io/
