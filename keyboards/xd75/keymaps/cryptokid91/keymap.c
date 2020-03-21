@@ -164,7 +164,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       SEND_STRING(SS_LGUI("r"));
       wait_ms(300);
       SEND_STRING("powershell");
-      _delay_ms(100);
+      wait_ms(100);
       SEND_STRING(SS_TAP(X_ENTER));
     }
     return false;
