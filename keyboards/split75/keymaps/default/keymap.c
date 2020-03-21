@@ -30,3 +30,5 @@ KC_2,  KC_3,    KC_LSFT,  KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,               
 KC_0,  KC_1,    KC_LCTL,  KC_LGUI, KC_LALT, KC_SPC, KC_SPC,                       KC_SPC,         KC_RALT, _______,KC_RCTL,               KC_LEFT,  KC_DOWN, KC_RIGHT \
   )
 };
+
+void matrix_scan_user(void) {}
