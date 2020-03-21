@@ -184,26 +184,34 @@ void clear_oneshot_layer_state(oneshot_fullfillment_t state) {
  */
 bool is_oneshot_layer_active(void) { return get_oneshot_layer_state(); }
 
+/** \brief set oneshot
+ *
+ * FIXME: needs doc
+ */ 
+void oneshot_set(bool active) {
+    if(oneshot_active != active) {
+        oneshot_active = active;
+        dprintf("Oneshot: active: %d\n", active);
+    }
+}
+
 /** \brief toggle oneshot
  *
  * FIXME: needs doc
  */
-void oneshot_toggle(void) {
-    oneshot_active = !oneshot_active;
-    dprintf("Oneshot: active: %d\n", oneshot_active);
-}
+void oneshot_toggle(void) { oneshot_set(!oneshot_active); }
 
 /** \brief enable oneshot
  *
  * FIXME: needs doc
  */
-void oneshot_enable(void) { oneshot_active = true; }
+void oneshot_enable(void) { oneshot_set(true); }
 
 /** \brief disable oneshot
  *
  * FIXME: needs doc
  */
-void oneshot_disable(void) { oneshot_active = false; }
+void oneshot_disable(void) { oneshot_set(false); }
 #endif
 
 /** \brief Send keyboard report
