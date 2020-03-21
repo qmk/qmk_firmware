@@ -68,11 +68,14 @@
 
 // Notes - # = Octave
 
+/*TODO: huh??
 #ifdef __arm__
 #    define NOTE_REST 1.00f
 #else
 #    define NOTE_REST 0.00f
 #endif
+*/
+#define NOTE_REST 0.00f
 
 /* These notes are currently bugged
 #define NOTE_C0          16.35f

@@ -365,6 +365,7 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
                     return;
                 }
             }
+
             if (!note_resting) {
                 note_resting = true;
                 if (current_note == 0) {
@@ -376,7 +377,7 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
                 }
 
                 if ((*notes_pointer)[current_note][0] == (*notes_pointer)[next_note][0]) {
-                    note_frequency = 0;
+                    note_frequency = 0; //why? this disables the output frequency and makes the next note a 'rest'
                 } else {
                     note_frequency = (*notes_pointer)[current_note][0];
                 }
@@ -404,18 +405,16 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
    @param end: scaling factor multiplied to the note_length. has to match step so that audio.c can determine when a note has finished playing
  */
 void audio_advance_note(uint32_t step, float end) {
+    if (playing_note) {
+        //TODO!
+    }
+
     if (playing_notes) {
         note_position += step;
-
-        if (note_position == (note_length * end)) {
-            palToggleLine(D4);//yellow
-        }
 
         if (note_position >= (note_length * end)) {
             stop_note((*notes_pointer)[current_note][0]);
             current_note++;
-
-palToggleLine(D3);//orange
 
             if (current_note >= notes_count) {
                 if (notes_repeat) {
