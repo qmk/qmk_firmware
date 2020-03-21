@@ -158,7 +158,7 @@
     { k50, k51, k52, ___ } \
 }
 
-/* 6x4 numpad3 layout
+/* 6x4 numpad with split 0 key
  * ,-------------------.
  * | 00 | 01 | 02 | 03 |
  * |----|----|----|----|
@@ -173,7 +173,7 @@
  * | 50 | 51 | 52 |    |
  * `-------------------'
  */
-#define LAYOUT_numpad3_6x4( \
+#define LAYOUT_numpad_6x4_split_zero( \
     k00, k01, k02, k03, \
     k10, k11, k12, k13, \
     k20, k21, k22, \
