@@ -20,25 +20,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-//#define USE_MATRIX_I2C
-
 /* Select hand configuration */
-
-// #define MASTER_LEFT
-// #define MASTER_RIGHT
 #define EE_HANDS
 #define SPLIT_USB_DETECT
 
-// #define SSD1306OLED
 #undef USE_I2C
 #undef SSD1306OLED
+
+#define OLED_TIMEOUT 6000
 
 #define USE_SERIAL_PD2
 
 #define IGNORE_MOD_TAP_INTERRUPT
 #define PERMISSIVE_HOLD
 // #define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 175
+#define TAPPING_TERM 250
 
 #define NO_ACTION_ONESHOT
 
@@ -64,11 +60,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     // #define RGBLIGHT_EFFECT_RGB_TEST
     // #define RGBLIGHT_EFFECT_ALTERNATING
 
-    #define RGBLED_NUM 27
+    #define RGBLED_NUM 6
     #define RGBLIGHT_LIMIT_VAL 120
-    #define RGBLIGHT_HUE_STEP 32
-    #define RGBLIGHT_SAT_STEP 64
-    #define RGBLIGHT_VAL_STEP 64
+    #define RGBLIGHT_HUE_STEP 16
+    #define RGBLIGHT_SAT_STEP 32
+    #define RGBLIGHT_VAL_STEP 32
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
@@ -79,7 +75,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 // #define RGB_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 // #define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
-# define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash. 
+# define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
 # define RGB_MATRIX_HUE_STEP 32
 # define RGB_MATRIX_SAT_STEP 64
 # define RGB_MATRIX_VAL_STEP 64

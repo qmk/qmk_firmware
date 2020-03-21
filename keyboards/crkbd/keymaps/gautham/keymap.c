@@ -1,6 +1,5 @@
 #include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
 extern uint8_t is_master;
 
 #ifdef RGBLIGHT_ENABLE
@@ -67,6 +66,13 @@ enum custom_keycodes {
 #define KC_SFEQ MT(MOD_LSFT, KC_EQL)
 #define KC_SFQT MT(MOD_LSFT, KC_QUOT)
 
+#define KC_SFTA MT(MOD_LSFT, KC_A)
+#define KC_CTLZ MT(MOD_LCTL, KC_Z)
+
+#define KC_SFTSCLN MT(MOD_LSFT, KC_SCLN)
+#define KC_CTLSLSH MT(MOD_LCTL, KC_SLSH)
+
+
 #define KC_LWSP LT(_LOWER, KC_SPC)
 #define KC_RSEQ LT(_RAISE, KC_EQL)
 #define KC_RSENT LT(_RAISE, KC_ENT)
@@ -103,9 +109,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
           TAB,       Q,       W,       E,       R,       T,                            Y,       U,       I,       O,       P,    BSLS,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-         SFEQ,       A,       S,       D,       F,       G,                            H,       J,       K,       L,    SCLN,    SFQT,\
+         SFEQ,    SFTA,       S,       D,       F,       G,                            H,       J,       K,       L, SFTSCLN,    SFQT,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-         LCTL,       Z,       X,       C,       V,       B,                            N,       M,    COMM,     DOT,    SLSH,   ADGRV,\
+         LCTL,    CTLZ,       X,       C,       V,       B,                            N,       M,    COMM,     DOT, CTLSLSH,   ADGRV,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                              LALT,    LWSP,    RSEQ,      RSENT,   LWBSP,    LGUI\
                                       //`--------------------------'  `--------------------------'
@@ -134,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                           _______, _______, _______,    _______, _______, _______\
                                       //`--------------------------'  `--------------------------'
   ),
- 
+
   [_ADJUST] = LAYOUT_kc( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       ___X___,  CK_RST, CK_DOWN,   CK_UP, CK_TOGG, RGB_TOG,                       MU_TOG,     F12,      F7,      F8,      F9, ___X___,\
@@ -342,6 +348,10 @@ void render_status_main(void) {
     oled_write_ln_P(PSTR(""), false);
     #endif
 
+    // static char timer_str[5] = {0};
+    // snprintf(timer_str, sizeof(timer_str), "%5lu", timer_elapsed32(oled_timer));
+    // oled_write_ln(timer_str, false);
+
     render_keylogger_status();
 }
 
@@ -361,7 +371,7 @@ void render_status_secondary(void) {
     #else
       render_mod_status(get_mods() | get_oneshot_mods());
     #endif
-    
+
     oled_write_ln_P(PSTR(""), false);
 
     #ifdef AUDIO_ENABLE
@@ -373,7 +383,7 @@ void render_status_secondary(void) {
 }
 
 void oled_task_user(void) {
-    if (timer_elapsed32(oled_timer) > 30000) {
+    if (timer_elapsed32(oled_timer) > 10000) {
         oled_off();
         return;
     }
