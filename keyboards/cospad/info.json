@@ -103,7 +103,7 @@
                 {"x":3, "y":5}
             ]
         },
-        "LAYOUT_numpad2_6x4": {
+        "LAYOUT_numpad_6x4_split_plus_zero": {
             "key_count": 23,
             "layout": [
                 {"x":0, "y":0},
