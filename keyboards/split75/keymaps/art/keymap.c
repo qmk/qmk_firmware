@@ -24,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * |  0  |  1  |  | Ctrl  |  GUI |  Alt |   Space   |Space|     | Space         |  Alt  |QW_ON| Ctrl  | Left| Down|Right|
   * `-----------'  `---------------------------------------'     `-------------------------------------------------------'
   */
-  [BASE] = KEYMAP(
+  [BASE] = LAYOUT(
 //--------------------------------Left Hand-----------------------------------| |--------------------------------Right Hand------------------------------------------------
                 KC_ESC,   KC_F1,   KC_F2,   KC_F3,  KC_F4,  KC_F5,  KC_F6,                KC_F7,  KC_F8,   KC_F9,  KC_F10,  KC_F11,   KC_F12,   KC_PSCR,  KC_INS,  KC_HOME, \
 KC_8,  KC_9,    KC_GRAVE, KC_1,    KC_2,    KC_3,   KC_4,   KC_5,   KC_6,                 KC_7,   KC_8,    KC_9,   KC_0,    KC_MINUS, KC_EQUAL, KC_BSPC,           KC_DEL, \
@@ -72,7 +72,7 @@ _______,  _______,    TO(QWERTY),_______, _______,  _______,  _______,          
   * |  0  |  1  |  | Ctrl  |  GUI |  Alt |Spac/MEDIA | BSPC|     |      MOD      |  Alt  | MOD | Ctrl  | Left| Down|Right|
   * `-----------'  `---------------------------------------'     `-------------------------------------------------------'
   */
-  [QWERTY] = KEYMAP(
+  [QWERTY] = LAYOUT(
 //--------------------------------Left Hand------------------------------------| |--------------------------------Right Hand------------------------------------------------
                 KC_ESC,   KC_F1,   KC_F2,   KC_F3,  KC_F4,  KC_F5,  KC_F6,                KC_F7,  KC_F8,   KC_F9,  KC_F10,  KC_F11,   KC_F12,   KC_PSCR,  KC_INS,  KC_HOME, \
 KC_8,  KC_9,    KC_GRAVE, KC_1,    KC_2,    LGUI_T(KC_3),   LALT_T(KC_4),   LCTL_T(KC_5),   KC_6,                 KC_7,   LCTL_T(KC_8),    LALT_T(KC_9),   LGUI_T(KC_0),    KC_MINUS, KC_EQUAL, KC_BSPC,           KC_DEL, \
@@ -131,17 +131,13 @@ _______,  _______,    _______,  _______,  _______,  _______,  _______,          
   )
 };
 
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
-	uint8_t layer = biton32(layer_state);
-
+layer_state_t layer_state_set_user(layer_state_t state) {
     led_1_off();
     led_3_off();
-    switch (layer) {
-        case BASE:
-            led_3_on();
-            break;
-        default:
-            break;
+    switch (get_highest_layer(state)) {
+    case BASE:
+        led_3_on();
+        break;
     }
-};
+    return state;
+}
