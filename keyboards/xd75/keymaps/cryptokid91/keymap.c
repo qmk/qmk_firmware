@@ -162,7 +162,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   case TERM:
     if(record->event.pressed) {
-      SEND_STRING(SS_LGUI("r"));
+      tap_code16(G(KC_R));
       wait_ms(300);
       SEND_STRING("powershell");
       wait_ms(100);
