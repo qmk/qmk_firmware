@@ -1,4 +1,4 @@
-#define TAPPING_TERM 300
+#define TAPPING_TERM 150
 
 #undef PRODUCT
 #define PRODUCT "MadHatter's Custom Ilpse"
