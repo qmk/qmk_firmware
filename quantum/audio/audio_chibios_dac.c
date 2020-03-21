@@ -21,20 +21,13 @@
 #include <string.h>
 #include "print.h"
 
-// TODO: move into audio-common state
-extern bool     playing_notes;
-extern uint8_t  voices;
-extern float    frequencies[8];
-extern uint32_t note_position;
-extern float    note_length;
-extern float (*notes_pointer)[][2];
-extern uint16_t current_note;
-extern bool     notes_repeat;
-extern uint16_t notes_count;
-extern uint8_t  note_tempo;
-extern uint16_t envelope_index;
+/*
+  Audio Driver: DAC
 
-// -----------------------------------------------------------------------------
+  which utilizes the dac unit many STM32 are equipped with to output a modulated sinewave from samples stored in the dac_buffer_sine array and are passed to the hardware through DMA
+
+  it ia also possible to have a custom sample-LUT by implementing/overwriding 'dac_value_generate'
+*/
 
 static const dacsample_t dac_buffer_sine[DAC_BUFFER_SIZE] = {
     // 256 values, max 4095
@@ -72,15 +65,19 @@ static float dac_if[8] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
  */
 __attribute__((weak)) uint16_t dac_value_generate(void) {
     uint16_t value          = DAC_OFF_VALUE;
-    uint8_t  working_voices = voices;
+    uint8_t  working_voices = audio_get_number_of_active_voices();
     if (working_voices > DAC_VOICES_MAX) working_voices = DAC_VOICES_MAX;
 
     if (working_voices > 0) {
         uint16_t value_avg = 0;
         for (uint8_t i = 0; i < working_voices; i++) {
-            dac_if[i] = dac_if[i] + ((frequencies[i] * DAC_BUFFER_SIZE) / DAC_SAMPLE_RATE)
-                * 2/3; //TODO: why is this scaling factor necessary to get accurate frequencies on the DAC output? (as measured with an oscilloscope)
-            // possibly: the gpt timer runs with 3*DAC_SAMPLE_RATE; and the DAC callback is called twice per conversion?
+            dac_if[i] = dac_if[i] +
+                ((audio_get_frequency(i) //TODO: replace by glissando+vibrator+.. variant
+                  * DAC_BUFFER_SIZE) / DAC_SAMPLE_RATE)
+                * 2/3; /*Note: necessary to get the correct frequencies on the
+                         DAC output (as measured with an oscilloscope), since
+                         the gpt timer runs with 3*DAC_SAMPLE_RATE; and the DAC
+                         callback is called twice per conversion.*/
 
             // Needed because % doesn't work with floats
             while (dac_if[i] >= (DAC_BUFFER_SIZE)) dac_if[i] = dac_if[i] - DAC_BUFFER_SIZE;
@@ -120,34 +117,15 @@ static void dac_end(DACDriver *dacp){
         sample_p[s] = dac_value_generate();
     }
 
-    if (playing_notes) {
-        note_position += DAC_BUFFER_SIZE/2;
-
-        // End of the note -  64 is the number of 'units' of a whole note, 3 comes (probably?) from the gpttimer: DAC_SAMPLE_RATE * 3; with a TEMPO set to 60 a whole note lasts exactly one second
-#define EON (64*2.0f/3)
-        if ((note_position >= (note_length * DAC_SAMPLE_RATE / EON))) {
-            stop_note((*notes_pointer)[current_note][0]);
-            current_note++;
-            if (current_note >= notes_count) {
-                if (notes_repeat) {
-                    current_note = 0;
-                } else {
-                    playing_notes = false;
-                    return;
-                }
-            }
-
-
-            play_note((*notes_pointer)[current_note][0], 0);//Note: second parameter volume is unused
-            envelope_index = 0;
-
-            note_length    = ((*notes_pointer)[current_note][1]) * (60.0f / note_tempo);
-
-            // Skip forward in the next note's length if we've over shot the last, so
-            // the overall length of the song is the same
-            note_position = note_position - (note_length * DAC_SAMPLE_RATE / EON);
-        }
-    }
+    // update audio internal state (note position, current_note, voices, ...)
+    audio_advance_note(
+        DAC_BUFFER_SIZE/2,
+        DAC_SAMPLE_RATE/ (64*2.0f/3)
+        /* End of the note: 64 is the number of 'units' of a whole note, 3 comes
+           from the gpttimer: DAC_SAMPLE_RATE * 3; 2 from the callback beeing
+           called twice per sample conversion.
+           with a TEMPO set to 60 a whole note lasts exactly one second */
+        );
 }
 
 static void dac_error(DACDriver *dacp, dacerror_t err) {
@@ -215,9 +193,3 @@ void audio_initialize_hardware() {
 void audio_stop_hardware(void) {}
 
 void audio_start_hardware(void) {}
-
-__attribute__((weak)) void dac_setup_note(void) { dac_if[voices] = 0.0f; }
-
-uint8_t dac_number_of_voices(void) { return voices; }
-
-float dac_get_frequency(uint8_t index) { return frequencies[index]; }

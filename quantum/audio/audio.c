@@ -204,6 +204,7 @@ void play_note(float freq, int vol) { //NOTE: vol is unused
 
         envelope_index = 0;
 
+        //TODO: handle pause/rest; freq==0 but with a valid duration
         if (freq > 0) {
             frequencies[voices] = freq;
             voices++;
@@ -234,7 +235,7 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat) {
         current_note = 0;
 
         note_frequency = (*notes_pointer)[current_note][0];
-        note_length    = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
+        note_length    = ((*notes_pointer)[current_note][1]) * (60.0f / note_tempo);
         note_position  = 0;
 
         audio_start_hardware();
@@ -260,15 +261,18 @@ float audio_get_single_voice_frequency(uint8_t voice) {
     if (voice > voices) return frequency;
 
     if (glissando) {
-        if (frequency != 0 && frequency < frequencies[voices - voice] && frequency < frequencies[voices - voice] * pow(2, -440 / frequencies[voices - voice] / 12 / 2)) {
+        if (frequency != 0 && frequency < frequencies[voices - voice]
+            && frequency < frequencies[voices - voice] * pow(2, -440 / frequencies[voices - voice] / 12 / 2)) {
             frequency = frequency * pow(2, 440 / frequency / 12 / 2);
-        } else if (frequency != 0 && frequency > frequencies[voices - voice] && frequency > frequencies[voices - voice] * pow(2, 440 / frequencies[voices - voice] / 12 / 2)) {
+        } else if (frequency != 0 && frequency > frequencies[voices - voice]
+                   && frequency > frequencies[voices - voice] * pow(2, 440 / frequencies[voices - voice] / 12 / 2)) {
             frequency = frequency * pow(2, -440 / frequency / 12 / 2);
         } else {
             frequency = frequencies[voices - voice];
         }
     } else {
-        frequency = frequencies[voices - voice];
+        frequency = frequencies[voices - voice]; //TODO: why not frequencies[voice]?
+        // -> new voices are appended at the end, so the most recent/current is MAX-0
     }
 
 #ifdef VIBRATO_ENABLE
@@ -290,13 +294,14 @@ float audio_get_single_voice_frequency(uint8_t voice) {
     return frequency;
 }
 
+// TODO: remove... AVR specific, and clusterfuck-ish
 void pwm_audio_timer_task(float *freq, float *freq_alt) {
     if (playing_note) {
         if (voices > 0) {
 #ifdef AUDIO1_PIN_SET
             //TODO: untangle avr specific defines
             // speaker for second/alternate voice is available
-            *freq_alt = pwm_audio_get_single_voice_frequency(2);
+            *freq_alt = audio_get_single_voice_frequency(2);
 #else
             *freq_alt = 0.0f;
 #endif
@@ -320,7 +325,7 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
                 *freq = frequencies[voice_place];
 #endif
             } else {
-                *freq = pwm_audio_get_single_voice_frequency(1);
+                *freq = audio_get_single_voice_frequency(1);
             }
         }
     }
@@ -392,6 +397,57 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
         }
     }
 }
+
+/* called by the timer of the audio-driver, which ticks regularly while playing a song = play_notes
+
+   @param step: arbitrary step value, audio.c keeps track of for the audio-driver
+   @param end: scaling factor multiplied to the note_length. has to match step so that audio.c can determine when a note has finished playing
+ */
+void audio_advance_note(uint32_t step, float end) {
+    if (playing_notes) {
+        note_position += step;
+
+        if (note_position == (note_length * end)) {
+            palToggleLine(D4);//yellow
+        }
+
+        if (note_position >= (note_length * end)) {
+            stop_note((*notes_pointer)[current_note][0]);
+            current_note++;
+
+palToggleLine(D3);//orange
+
+            if (current_note >= notes_count) {
+                if (notes_repeat) {
+                    current_note = 0;
+                } else {
+                    playing_notes = false;
+                    return;
+                }
+            }
+
+            play_note(
+                (*notes_pointer)[current_note][0], // frequency only; the duration is handled by calling this function regularly and advancing the note_position
+                0xff);// volume TODO: second parameter is unused... refactor!
+
+            envelope_index = 0;
+
+            // Skip forward in the next note's length if we've over shot the last, so
+            // the overall length of the song is the same
+            note_position = note_position - (note_length * end);
+
+            note_length = ((*notes_pointer)[current_note][1]) * (60.0f / note_tempo);
+        }
+    }
+    //*
+    else
+        stop_all_notes();
+    //TODO: trigger a stop of the hardware or just a stop_note on the last frequency?
+    //*/
+}
+
+
+// Vibrato functions
 
 #ifdef VIBRATO_ENABLE
 
