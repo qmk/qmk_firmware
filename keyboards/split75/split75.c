@@ -22,6 +22,8 @@ extern inline void led_1_off(void);
 extern inline void led_2_off(void);
 extern inline void led_3_off(void);
 
+void blink_all_leds(void);
+
 uint8_t led0 = 0, led1 = 0, led2 = 0;
 
 void indicator_init(void) {
@@ -31,9 +33,9 @@ void indicator_init(void) {
 }
 
 // for keyboard subdirectory level init functions
-// @Override
 void matrix_init_kb(void) {
   // call user level keymaps, if any
+  blink_all_leds();
   matrix_init_user();
 }
 
@@ -68,7 +70,20 @@ void matrix_scan_kb(void) {
 void matrix_scan_kb(void) {
 #endif
   matrix_scan_user();
-  /* Nothing else for now. */
+}
+
+void blink_all_leds(void) {
+    led_1_on();
+    _delay_ms(50);
+    led_2_on();
+    _delay_ms(50);
+    led_3_on();
+    _delay_ms(50);
+    led_1_off();
+    _delay_ms(50);
+    led_2_off();
+    _delay_ms(50);
+    led_3_off();
 }
 
 __attribute__((weak)) // overridable
@@ -82,8 +97,6 @@ void keyboard_post_init_user(void) {
   //debug_mouse=true;
   led_set_user(0);
 }
-
-
 
 #if defined(LED_INDICATORS)
 void led_set_user(uint8_t usb_led) {

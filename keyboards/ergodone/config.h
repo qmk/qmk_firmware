@@ -22,7 +22,7 @@
 #define MOUSEKEY_MAX_SPEED      7
 #define MOUSEKEY_WHEEL_DELAY 0
 
-#define TAPPING_TOGGLE  1
+#define TAPPING_TOGGLE  2
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
