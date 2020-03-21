@@ -138,12 +138,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   case NEWTAB:
     if(record->event.pressed) {
-      tap_code16(C(KC_C));
-      tap_code16(C(KC_T));
+      SEND_STRING(SS_LCTRL("c") SS_LCTRL("t"));
       wait_ms(100);
-      tap_code16(C(KC_V));
+      SEND_STRING(SS_LCTRL("v"));
       wait_ms(100);
-      tap_code(KC_ENT);
+      SEND_STRING(SS_TAP(X_ENTER));
     }
     return false;
   case ROLL:
@@ -157,16 +156,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       _delay_ms(100);
       SEND_STRING("www.io/tech.fi");
       _delay_ms(100);
-      tap_code(KC_ENT);
+      SEND_STRING(SS_TAP(X_ENTER));
     }
     return false;
   case TERM:
     if(record->event.pressed) {
-      tap_code16(G(KC_R));
+      SEND_STRING(SS_LGUI("r"));
       wait_ms(300);
       SEND_STRING("powershell");
       wait_ms(100);
-      tap_code(KC_ENT);
+      SEND_STRING(SS_TAP(X_ENTER));
     }
     return false;
   default:
