@@ -39,39 +39,6 @@ void matrix_init_kb(void) {
   matrix_init_user();
 }
 
-#ifdef RGBLIGHT_ENABLE
-extern rgblight_config_t rgblight_config;
-
-// custom RGB driver
-void rgblight_set(void) {
-  if (!rgblight_config.enable) {
-    for (uint8_t i=0; i<RGBLED_NUM; i++) {
-      led[i].r = 0;
-      led[i].g = 0;
-      led[i].b = 0;
-    }
-  }
-
-  i2c_transmit(0xb0, (uint8_t*)led, 3 * RGBLED_NUM, I2C_TIMEOUT);
-}
-
-bool rgb_init = false;
-
-void matrix_scan_kb(void) {
-  // if LEDs were previously on before poweroff, turn them back on
-  if (rgb_init == false && rgblight_config.enable) {
-    i2c_transmit(0xb0, (uint8_t*)led, 3 * RGBLED_NUM, I2C_TIMEOUT);
-    rgb_init = true;
-  }
-
-  rgblight_task();
-#else
-
-void matrix_scan_kb(void) {
-#endif
-  matrix_scan_user();
-}
-
 void blink_all_leds(void) {
     led_1_on();
     _delay_ms(50);
