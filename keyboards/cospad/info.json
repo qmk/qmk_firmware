@@ -137,7 +137,7 @@
             ]
         },
         "LAYOUT_numpad_6x4_split_zero": {
-            "key_count": 23,
+            "key_count": 22,
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
