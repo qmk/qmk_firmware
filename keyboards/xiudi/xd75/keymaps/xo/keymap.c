@@ -41,25 +41,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void restore_default_rgb(void) {
-    // rgblight_mode_noeeprom(RGBLIGHT_MODE_KNIGHT + 1);
     rgblight_sethsv_noeeprom(BASE_COLOR);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    backlight_level(6);
-  } else {
-    backlight_level(4);
-  }
-
   if (IS_MOD(keycode)) {
     if (record->event.pressed) {
-      /* rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT); */
-      rgblight_sethsv_noeeprom(HSV_RED);
+      switch (keycode) {
+        case KC_LSHIFT:
+        case KC_RSHIFT:
+          rgblight_sethsv_noeeprom(HSV_RED);
+          break;
+        case KC_LCTRL:
+        case KC_RCTRL:
+          rgblight_sethsv_noeeprom(HSV_YELLOW);
+          break;
+        case KC_LALT:
+        case KC_RALT:
+          rgblight_sethsv_noeeprom(HSV_WHITE);
+          break;
+        case KC_LGUI:
+        case KC_RGUI:
+         rgblight_sethsv_noeeprom(HSV_SPRINGGREEN);
+         break;
+      }
     } else {
       restore_default_rgb();
     }
     rgblight_enable();
+  }
+
+  if (record->event.pressed) {
+    backlight_level(5);
+  } else {
+    backlight_level(0);
   }
 
   return true;
@@ -71,11 +86,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       restore_default_rgb();;
       break;
     case 1:
-      /* rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT); */
       rgblight_sethsv_noeeprom(HSV_GREEN);
       break;
     case 2:
-      /* rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT); */
       rgblight_sethsv_noeeprom(HSV_PURPLE);
       break;
     }
@@ -84,7 +97,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 void suspend_power_down_user(void) {
-  /* rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT); */
   rgblight_sethsv_noeeprom(DIM_COLOR);
 }
 
