@@ -35,11 +35,7 @@ ifeq ($(strip $(AUDIO_ENABLE)), yes)
     MUSIC_ENABLE := 1
     SRC += $(QUANTUM_DIR)/process_keycode/process_audio.c
     SRC += $(QUANTUM_DIR)/process_keycode/process_clicky.c
-    ifeq ($(PLATFORM),AVR)
-        SRC += $(QUANTUM_DIR)/audio/audio.c
-    else
-        SRC += $(QUANTUM_DIR)/audio/audio_arm.c
-    endif
+    SRC += $(QUANTUM_DIR)/audio/audio_$(PLATFORM_KEY).c
     SRC += $(QUANTUM_DIR)/audio/voices.c
     SRC += $(QUANTUM_DIR)/audio/luts.c
 endif
@@ -315,11 +311,7 @@ ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     else
         SRC += $(QUANTUM_DIR)/backlight/backlight_driver_common.c
         ifeq ($(strip $(BACKLIGHT_DRIVER)), pwm)
-            ifeq ($(PLATFORM),AVR)
-                SRC += $(QUANTUM_DIR)/backlight/backlight_avr.c
-            else
-                SRC += $(QUANTUM_DIR)/backlight/backlight_arm.c
-            endif
+            SRC += $(QUANTUM_DIR)/backlight/backlight_$(PLATFORM_KEY).c
         else
             SRC += $(QUANTUM_DIR)/backlight/backlight_$(strip $(BACKLIGHT_DRIVER)).c
         endif
