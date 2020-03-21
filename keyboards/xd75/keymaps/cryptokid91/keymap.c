@@ -166,7 +166,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       wait_ms(300);
       SEND_STRING("powershell");
       wait_ms(100);
-      SEND_STRING(SS_TAP(X_ENTER));
+      tap_code(KC_ENT);
     }
     return false;
   default:
