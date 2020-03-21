@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 
-#include <spidey3.h>
-#include <velocikey.h>
+#include "spidey3.h"
+#include "velocikey.h"
 
 uint32_t rgb_mode;
 uint16_t rgb_hue;
@@ -79,4 +79,3 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
 
   return true;
 }
-

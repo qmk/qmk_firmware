@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 
-#include <spidey3.h>
+#include "spidey3.h"
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
@@ -78,4 +78,3 @@ bool led_update_user(led_t led_state) {
   return true;
 #endif
 }
-
