@@ -131,17 +131,13 @@ _______,  _______,    _______,  _______,  _______,  _______,  _______,          
   )
 };
 
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
-	uint8_t layer = biton32(layer_state);
-
+layer_state_t layer_state_set_user(layer_state_t state) {
     led_1_off();
     led_3_off();
-    switch (layer) {
-        case BASE:
-            led_3_on();
-            break;
-        default:
-            break;
+    switch (get_highest_layer(state)) {
+    case BASE:
+        led_3_on();
+        break;
     }
-};
+    return state;
+}
