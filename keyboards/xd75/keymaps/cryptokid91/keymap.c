@@ -141,7 +141,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       SEND_STRING(SS_LCTRL("c") SS_LCTRL("t"));
       wait_ms(100);
       SEND_STRING(SS_LCTRL("v"));
-      _delay_ms(100);
+      wait_ms(100);
       SEND_STRING(SS_TAP(X_ENTER));
     }
     return false;
