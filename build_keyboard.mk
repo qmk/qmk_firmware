@@ -231,13 +231,16 @@ endif
 # We can assume a ChibiOS target When MCU_FAMILY is defined since it's
 # not used for LUFA
 ifdef MCU_FAMILY
-    FIRMWARE_FORMAT?=bin
     PLATFORM=CHIBIOS
+    PLATFORM_KEY=chibios
+    FIRMWARE_FORMAT?=bin
 else ifdef ARM_ATSAM
     PLATFORM=ARM_ATSAM
+    PLATFORM_KEY=arm_atsam
     FIRMWARE_FORMAT=bin
 else
     PLATFORM=AVR
+    PLATFORM_KEY=avr
     FIRMWARE_FORMAT?=hex
 endif
 
