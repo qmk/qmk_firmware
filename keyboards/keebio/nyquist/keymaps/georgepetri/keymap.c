@@ -84,7 +84,6 @@ const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(left
 void keyboard_post_init_user(void) {
     rgblight_sethsv_noeeprom(HSV_SPRINGGREEN);
     rgblight_layers = rgb_layers;
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING);
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
