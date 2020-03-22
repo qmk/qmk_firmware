@@ -22,11 +22,11 @@
 
 /*
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ \ │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ ' │ « │       │
+ * │ § │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ + │ ´ │       │
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │ + │ ´ │     │
+ * │     │ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │ Å │ ¨ │     │
  * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │ A │ S │ D │ F │ G │ H │ J │ K │ L │ Ç │ º │ ~ │    │
+ * │      │ A │ S │ D │ F │ G │ H │ J │ K │ L │ Ö │ Ä │ ' │    │
  * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
  * │    │ < │ Z │ X │ C │ V │ B │ N │ M │ , │ . │ - │          │
  * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
@@ -34,65 +34,65 @@
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 // Row 1
-#define PT_BSLS KC_GRV  // (backslash)
-#define PT_1    KC_1    // 1
-#define PT_2    KC_2    // 2
-#define PT_3    KC_3    // 3
-#define PT_4    KC_4    // 4
-#define PT_5    KC_5    // 5
-#define PT_6    KC_6    // 6
-#define PT_7    KC_7    // 7
-#define PT_8    KC_8    // 8
-#define PT_9    KC_9    // 9
-#define PT_0    KC_0    // 0
-#define PT_QUOT KC_MINS // '
-#define PT_LDAQ KC_EQL  // «
+#define FI_SECT KC_GRV  // §
+#define FI_1    KC_1    // 1
+#define FI_2    KC_2    // 2
+#define FI_3    KC_3    // 3
+#define FI_4    KC_4    // 4
+#define FI_5    KC_5    // 5
+#define FI_6    KC_6    // 6
+#define FI_7    KC_7    // 7
+#define FI_8    KC_8    // 8
+#define FI_9    KC_9    // 9
+#define FI_0    KC_0    // 0
+#define FI_PLUS KC_MINS // +
+#define FI_ACUT KC_EQL  // ´ (dead)
 // Row 2
-#define PT_Q    KC_Q    // Q
-#define PT_W    KC_W    // W
-#define PT_E    KC_E    // E
-#define PT_R    KC_R    // R
-#define PT_T    KC_T    // T
-#define PT_Y    KC_Y    // Y
-#define PT_U    KC_U    // U
-#define PT_I    KC_I    // I
-#define PT_O    KC_O    // O
-#define PT_P    KC_P    // P
-#define PT_PLUS KC_LBRC // +
-#define PT_ACUT KC_RBRC // ´ (dead)
+#define FI_Q    KC_Q    // Q
+#define FI_W    KC_W    // W
+#define FI_E    KC_E    // E
+#define FI_R    KC_R    // R
+#define FI_T    KC_T    // T
+#define FI_Y    KC_Y    // Y
+#define FI_U    KC_U    // U
+#define FI_I    KC_I    // I
+#define FI_O    KC_O    // O
+#define FI_P    KC_P    // P
+#define FI_ARNG KC_LBRC // Å
+#define FI_DIAE KC_RBRC // ¨ (dead)
 // Row 3
-#define PT_A    KC_A    // A
-#define PT_S    KC_S    // S
-#define PT_D    KC_D    // D
-#define PT_F    KC_F    // F
-#define PT_G    KC_G    // G
-#define PT_H    KC_H    // H
-#define PT_J    KC_J    // J
-#define PT_K    KC_K    // K
-#define PT_L    KC_L    // L
-#define PT_CCED KC_SCLN // Ç
-#define PT_MORD KC_QUOT // º
-#define PT_TILD KC_NUHS // ~ (dead)
+#define FI_A    KC_A    // A
+#define FI_S    KC_S    // S
+#define FI_D    KC_D    // D
+#define FI_F    KC_F    // F
+#define FI_G    KC_G    // G
+#define FI_H    KC_H    // H
+#define FI_J    KC_J    // J
+#define FI_K    KC_K    // K
+#define FI_L    KC_L    // L
+#define FI_ODIA KC_SCLN // Ö
+#define FI_ADIA KC_QUOT // Ä
+#define FI_QUOT KC_NUHS // '
 // Row 4
-#define PT_LABK KC_NUBS // <
-#define PT_Z    KC_Z    // Z
-#define PT_X    KC_X    // X
-#define PT_C    KC_C    // C
-#define PT_V    KC_V    // V
-#define PT_B    KC_B    // B
-#define PT_N    KC_N    // N
-#define PT_M    KC_M    // M
-#define PT_COMM KC_COMM // ,
-#define PT_DOT  KC_DOT  // .
-#define PT_MINS KC_SLSH // -
+#define FI_LABK KC_NUBS // <
+#define FI_Z    KC_Z    // Z
+#define FI_X    KC_X    // X
+#define FI_C    KC_C    // C
+#define FI_V    KC_V    // V
+#define FI_B    KC_B    // B
+#define FI_N    KC_N    // N
+#define FI_M    KC_M    // M
+#define FI_COMM KC_COMM // ,
+#define FI_DOT  KC_DOT  // .
+#define FI_MINS KC_SLSH // -
 
 /* Shifted symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │ | │ ! │ " │ # │ $ │ % │ & │ / │ ( │ ) │ = │ ? │ » │       │
+ * │ ½ │ ! │ " │ # │ ¤ │ % │ & │ / │ ( │ ) │ = │ ? │ ` │       │
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │   │   │   │   │   │   │   │   │   │   │ * │ ` │     │
+ * │     │   │   │   │   │   │   │   │   │   │   │   │ ^ │     │
  * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │   │   │   │   │   │   │   │   │   │   │ ª │ ^ │    │
+ * │      │   │   │   │   │   │   │   │   │   │   │   │ * │    │
  * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
  * │    │ > │   │   │   │   │   │   │   │ ; │ : │ _ │          │
  * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
@@ -100,52 +100,54 @@
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 // Row 1
-#define PT_PIPE S(PT_BSLS) // |
-#define PT_EXLM S(PT_1)    // !
-#define PT_DQUO S(PT_2)    // "
-#define PT_HASH S(PT_3)    // #
-#define PT_DLR  S(PT_4)    // $
-#define PT_PERC S(PT_5)    // %
-#define PT_AMPR S(PT_6)    // &
-#define PT_SLSH S(PT_7)    // /
-#define PT_LPRN S(PT_8)    // (
-#define PT_RPRN S(PT_9)    // )
-#define PT_EQL  S(PT_0)    // =
-#define PT_QUES S(PT_QUOT) // ?
-#define PT_RDAQ S(PT_LDAQ) // »
+#define FI_HALF S(FI_SECT) // ½
+#define FI_EXLM S(FI_1)    // !
+#define FI_DQUO S(FI_2)    // "
+#define FI_HASH S(FI_3)    // #
+#define FI_CURR S(FI_4)    // ¤
+#define FI_PERC S(FI_5)    // %
+#define FI_AMPR S(FI_6)    // &
+#define FI_SLSH S(FI_7)    // /
+#define FI_LPRN S(FI_8)    // (
+#define FI_RPRN S(FI_9)    // )
+#define FI_EQL  S(FI_0)    // =
+#define FI_QUES S(FI_PLUS) // ?
+#define FI_GRV  S(FI_ACUT) // ` (dead)
 // Row 2
-#define PT_ASTR S(PT_PLUS) // *
-#define PT_GRV  S(PT_ACUT) // ` (dead)
+#define FI_CIRC S(FI_DIAE) // ^ (dead)
 // Row 3
-#define PT_FORD S(PT_MORD) // ª
-#define PT_CIRC S(PT_TILD) // ^ (dead)
+#define FI_ASTR S(FI_QUOT) // *
 // Row 4
-#define PT_RABK S(PT_LABK) // >
-#define PT_SCLN S(PT_COMM) // ;
-#define PT_COLN S(PT_DOT)  // :
-#define PT_UNDS S(PT_MINS) // _
+#define FI_RABK S(FI_LABK) // >
+#define FI_SCLN S(FI_COMM) // ;
+#define FI_COLN S(FI_DOT)  // :
+#define FI_UNDS S(FI_MINS) // _
 
 /* AltGr symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
- * │   │   │ @ │ £ │ § │   │   │ { │ [ │ ] │ } │   │   │       │
+ * │   │   │ @ │ £ │ $ │ € │   │ { │ [ │ ] │ } │ \ │   │       │
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │   │   │ € │   │   │   │   │   │   │   │ ¨ │   │     │
+ * │     │   │   │   │   │   │   │   │   │   │   │   │ ~ │     │
  * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
  * │      │   │   │   │   │   │   │   │   │   │   │   │   │    │
  * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
- * │    │   │   │   │   │   │   │   │   │   │   │   │          │
+ * │    │ | │   │   │   │   │   │   │ µ │   │   │   │          │
  * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
  * │    │    │    │                        │    │    │    │    │
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 // Row 1
-#define PT_AT   ALGR(PT_2)    // @
-#define PT_PND  ALGR(PT_3)    // £
-#define PT_SECT ALGR(PT_4)    // §
-#define PT_LCBR ALGR(PT_7)    // {
-#define PT_LBRC ALGR(PT_8)    // [
-#define PT_RBRC ALGR(PT_9)    // ]
-#define PT_RCBR ALGR(PT_0)    // }
+#define FI_AT   ALGR(FI_2)    // @
+#define FI_PND  ALGR(FI_3)    // £
+#define FI_DLR  ALGR(FI_4)    // $
+#define FI_EURO ALGR(FI_5)    // €
+#define FI_LCBR ALGR(FI_7)    // {
+#define FI_LBRC ALGR(FI_8)    // [
+#define FI_RBRC ALGR(FI_9)    // ]
+#define FI_RCBR ALGR(FI_0)    // }
+#define FI_BSLS ALGR(FI_PLUS) // (backslash)
 // Row 2
-#define PT_DIAE ALGR(PT_PLUS) // ¨ (dead)
-#define PT_EURO ALGR(PT_E)    // €
+#define FI_TILD ALGR(FI_DIAE) // ~ (dead)
+// Row 4
+#define FI_PIPE ALGR(FI_LABK) // |
+#define FI_MICR ALGR(FI_M)    // µ
