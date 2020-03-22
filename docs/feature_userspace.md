@@ -140,13 +140,25 @@ users/
 ```
 You can view an example of this on [`/users/curry/`](https://github.com/qmk/qmk_firmware/tree/master/users/curry)'s userspace.
 
-# Examples
+## Build All Keyboards That Support a Specific Keymap
+
+Want to check all your keymaps build in a single command? You can run:
+
+    make all:<name>
+
+For example,
+
+    make all:jack
+
+This is ideal for when you want ensure everything compiles successfully when preparing a [_Pull request_](https://github.com/qmk/qmk_firmware/pulls).
+
+## Examples
 
 For a brief example, checkout [`/users/_example/`](https://github.com/qmk/qmk_firmware/tree/master/users/drashna).  
 For a more complicated example, checkout [`/users/drashna/`](https://github.com/qmk/qmk_firmware/tree/master/users/drashna)'s userspace.
 
 
-## Customized Functions
+### Customized Functions
 
 QMK has a bunch of [functions](custom_quantum_functions.md) that have [`_quantum`, `_kb`, and `_user` versions](custom_quantum_functions.md#a-word-on-core-vs-keyboards-vs-keymap) that you can use.  You will pretty much always want to use the user version of these functions.  But the problem is that if you use them in your userspace, then you don't have a version that you can use in your keymap. 
 
@@ -173,7 +185,7 @@ The `_keymap` part here doesn't matter, it just needs to be something other than
 
 You can see a list of this and other common functions in [`template.c`](https://github.com/qmk/qmk_firmware/blob/master/users/drashna/template.c) in [`users/drashna`](https://github.com/qmk/qmk_firmware/tree/master/users/drashna).
 
-## Custom Features
+### Custom Features
 
 Since the Userspace feature can support a staggering number of boards, you may have boards that you want to enable certain functionality for, but not for others. And you can actually create "features" that you can enable or disable in your own userspace.  
 
@@ -209,7 +221,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 ```
 
 
-## Consolidated Macros
+### Consolidated Macros
 
 If you wanted to consolidate macros and other functions into your userspace for all of your keymaps, you can do that.  This builds upon the [Customized Functions](#customized-functions) example above. This lets you maintain a bunch of macros that are shared between the different keyboards, and allow for keyboard specific macros, too. 
 

@@ -215,14 +215,14 @@ qmk doctor [-y] [-n]
 
     qmk doctor -n
 
-## `qmk json-keymap`
+## `qmk json2c`
 
 QMK Configurator からエクスポートしたものから keymap.c を生成します。
 
 **使用法**:
 
 ```
-qmk json-keymap [-o OUTPUT] filename
+qmk json2c [-o OUTPUT] filename
 ```
 
 ## `qmk kle2json`

@@ -6,7 +6,7 @@ All keycodes within quantum are numbers between `0x0000` and `0xFFFF`. Within yo
 
 On this page we have documented keycodes between `0x00FF` and `0xFFFF` which are used to implement advanced quantum features. If you define your own custom keycodes they will be put into this range as well.
 
-## QMK Keycodes
+## QMK Keycodes :id=qmk-keycodes
 
 |Key           |Aliases  |Description                                            |
 |--------------|---------|-------------------------------------------------------|
