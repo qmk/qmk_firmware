@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+SERIAL_PATH := $(QUANTUM_PATH)/serial_link
 
 QUANTUM_SRC += \
     $(QUANTUM_DIR)/quantum.c \
@@ -223,8 +224,6 @@ ifeq ($(strip $(PRINTING_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
-    SERIAL_DIR := $(QUANTUM_DIR)/serial_link
-    SERIAL_PATH := $(QUANTUM_PATH)/serial_link
     SERIAL_SRC := $(wildcard $(SERIAL_PATH)/protocol/*.c)
     SERIAL_SRC += $(wildcard $(SERIAL_PATH)/system/*.c)
     SERIAL_DEFS += -DSERIAL_LINK_ENABLE
