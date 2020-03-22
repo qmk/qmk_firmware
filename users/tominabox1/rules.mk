@@ -86,5 +86,6 @@ RGBLIGHT_ENABLE = yes
 NKRO_ENABLE = no
 LED_ANIMATIONS = yes
 SLEEP_LED_ENABLE = yes
+
 SRC += tominabox1.c
 endif
