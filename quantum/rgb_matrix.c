@@ -401,6 +401,10 @@ void rgb_matrix_task(void) {
             break;
         case RENDERING:
             rgb_task_render(effect);
+            if (!suspend_backlight) {
+                rgb_matrix_indicators();
+                rgb_matrix_indicators_advanced(&rgb_effect_params);
+            }
             break;
         case FLUSHING:
             rgb_task_flush(effect);
@@ -410,9 +414,6 @@ void rgb_matrix_task(void) {
             break;
     }
 
-    if (!suspend_backlight) {
-        rgb_matrix_indicators();
-    }
 }
 
 void rgb_matrix_indicators(void) {
@@ -423,6 +424,15 @@ void rgb_matrix_indicators(void) {
 __attribute__((weak)) void rgb_matrix_indicators_kb(void) {}
 
 __attribute__((weak)) void rgb_matrix_indicators_user(void) {}
+
+void rgb_matrix_indicators_advanced(effect_params_t* params) {
+    rgb_matrix_indicators_advanced_kb(params);
+    rgb_matrix_indicators_advanced_user(params);
+}
+
+__attribute__((weak)) void rgb_matrix_indicators_advanced_kb(effect_params_t* params) {}
+
+__attribute__((weak)) void rgb_matrix_indicators_advanced_user(effect_params_t* params) {}
 
 void rgb_matrix_init(void) {
     rgb_matrix_driver.init();
