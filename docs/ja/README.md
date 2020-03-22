@@ -42,7 +42,7 @@ QMK コミュニティに貢献する方法はたくさんあります。始め�
 * フォーラムやチャットルームで人々を支援します:
     * [/r/olkb](https://www.reddit.com/r/olkb/)
     * [Discord サーバ](https://discord.gg/Uq7gcHh)
-* 下部にある「Edit This Page」をクリックしてドキュメントに貢献します
+* 下にある「Edit This Page」をクリックしてドキュメントに貢献します
 * [ドキュメントをあなたの言語に翻訳します](ja/translating.md)
 * [バグを報告します](https://github.com/qmk/qmk_firmware/issues/new/choose)
 * [プルリクエストを開きます](ja/contributing.md)
