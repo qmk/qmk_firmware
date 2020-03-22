@@ -1,22 +1,9 @@
 #include QMK_KEYBOARD_H
 #include "rhruiz.h"
-
-#define KC_ KC_TRNS
-#define KC__FN1 MO(_FN1)
-#define KC__FN2 MO(_FN2)
-#define KC__CFG MO(_CFG)
-
-#define KC_RST RESET
-#define KC__VUP KC__VOLUP
-#define KC__VDN KC__VOLDOWN
-
-#define KC_SPCFN1 SPCFN1
-#define KC_BKSFN2 BKSFN2
-#define KC_CESC CTRLESC
+#include "rhruiz_kc_keys.h"
 
 #define KC__M DF(_NUM)
 #define KC__BL DF(_BL)
-#define KC_SFQT RSFT_T(KC_QUOT)
 
 // clang-format off
 
