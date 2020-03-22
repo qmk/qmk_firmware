@@ -60,7 +60,7 @@ Java は Eclipse で必要とされるため、[ここ](https://www.oracle.com/t
 
 Eclipse に QMK をビルドしようとするデバイスを教える必要があります。QMK フォルダを右クリック -> Properties -> C/C++ Build -> Settings を選択します。Devices タブを選択し、Devices の下から MCU の適切な種類を選択します。私の例では、STM32F303CC です。
 
-この間に、Build コマンドもセットアップしましょう。C/C++ Build を選択し、Behavior タブを選択します。build コマンドのところで、`all` を必要な make コマンドに置き換えます。例えば、rev6 Planck の default キーマップの場合、これは `planck/rev6:default` になります。Apply and Close を選択します。
+この間に、Build コマンドもセットアップしましょう。C/C++ Build を選択し、Behavior タブを選択します。Build コマンドのところで、`all` を必要な make コマンドに置き換えます。例えば、rev6 Planck の default キーマップの場合、これは `planck/rev6:default` になります。Apply and Close を選択します。
 
 ## ビルド
 
