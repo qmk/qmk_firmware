@@ -56,7 +56,7 @@ void sleep_led_init(void) {
     uint8_t sreg = SREG;
     cli();
     OCRxx = SLEEP_LED_TIMER_TOP;
-    SREG   = sreg;
+    SREG  = sreg;
 }
 
 /** \brief Sleep LED enable
