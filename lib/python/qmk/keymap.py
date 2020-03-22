@@ -103,7 +103,7 @@ def generate(keyboard, layout, layers, encoders=None):
 
 def parse_basic_code(keycode):
     """Performs a simplistic check for a 'basic' keycode. Otherwise it returns 'KC_NO'
-    
+
     Args:
         keycode
             The keycode the user is trying to apply
