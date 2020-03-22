@@ -408,29 +408,22 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     COMMON_VPATH += $(QUANTUM_PATH)/split_common
 endif
 
-VALID_HAPTIC_TYPES:= DRV2605L SOLENOID
-
 HAPTIC_ENABLE ?= no
-
-ifneq ($(strip $(HAPTIC_ENABLE)), no)
-    ifeq ($(filter $(HAPTIC_ENABLE),$(VALID_HAPTIC_TYPES)),)
-        $(error HAPTIC_ENABLE="$(HAPTIC_ENABLE)" is not a haptic driver type)
-    endif
-
+ifneq ($(strip $(HAPTIC_ENABLE)),no)
 	COMMON_VPATH += $(DRIVER_PATH)/haptic
 	SRC += haptic.c
 	OPT_DEFS += -DHAPTIC_ENABLE
+endif
 
-    ifeq ($(strip $(HAPTIC_ENABLE)), DRV2605L)
-        SRC += DRV2605L.c
-        QUANTUM_LIB_SRC += i2c_master.c
-        OPT_DEFS += -DDRV2605L
-    endif
+ifneq ($(filter DRV2605L, $(HAPTIC_ENABLE)), )
+    SRC += DRV2605L.c
+    QUANTUM_LIB_SRC += i2c_master.c
+    OPT_DEFS += -DDRV2605L
+endif
 
-    ifeq ($(strip $(HAPTIC_ENABLE)), SOLENOID)
-        SRC += solenoid.c
-        OPT_DEFS += -DSOLENOID_ENABLE
-    endif
+ifneq ($(filter SOLENOID, $(HAPTIC_ENABLE)), )
+    SRC += solenoid.c
+    OPT_DEFS += -DSOLENOID_ENABLE
 endif
 
 ifeq ($(strip $(HD44780_ENABLE)), yes)
