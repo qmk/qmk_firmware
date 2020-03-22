@@ -27,8 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef USE_I2C
 #undef SSD1306OLED
 
-#define OLED_TIMEOUT 6000
-
 #define USE_SERIAL_PD2
 
 #define IGNORE_MOD_TAP_INTERRUPT
@@ -51,17 +49,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     // #define RGBLIGHT_ANIMATIONS // this enables all effects, or pick from below
     // #define RGBLIGHT_EFFECT_BREATHING
-    // #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+    #define RGBLIGHT_EFFECT_RAINBOW_MOOD
     #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
     // #define RGBLIGHT_EFFECT_SNAKE
-    // #define RGBLIGHT_EFFECT_KNIGHT
+    #define RGBLIGHT_EFFECT_KNIGHT
     // #define RGBLIGHT_EFFECT_CHRISTMAS
     // #define RGBLIGHT_EFFECT_STATIC_GRADIENT
     // #define RGBLIGHT_EFFECT_RGB_TEST
     // #define RGBLIGHT_EFFECT_ALTERNATING
 
     #define RGBLED_NUM 6
-    #define RGBLIGHT_LIMIT_VAL 120
+    #define RGBLIGHT_LIMIT_VAL 150
     #define RGBLIGHT_HUE_STEP 16
     #define RGBLIGHT_SAT_STEP 32
     #define RGBLIGHT_VAL_STEP 32
