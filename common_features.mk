@@ -13,26 +13,24 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SERIAL_DIR := $(QUANTUM_DIR)/serial_link
 SERIAL_PATH := $(QUANTUM_PATH)/serial_link
-SERIAL_SRC := $(wildcard $(SERIAL_PATH)/protocol/*.c)
-SERIAL_SRC += $(wildcard $(SERIAL_PATH)/system/*.c)
-SERIAL_DEFS += -DSERIAL_LINK_ENABLE
-COMMON_VPATH += $(SERIAL_PATH)
+
+QUANTUM_SRC += \
+    $(QUANTUM_DIR)/quantum.c \
+    $(QUANTUM_DIR)/keymap_common.c \
+    $(QUANTUM_DIR)/keycode_config.c
 
 ifeq ($(strip $(API_SYSEX_ENABLE)), yes)
     OPT_DEFS += -DAPI_SYSEX_ENABLE
-    SRC += $(QUANTUM_DIR)/api/api_sysex.c
     OPT_DEFS += -DAPI_ENABLE
-    SRC += $(QUANTUM_DIR)/api.c
     MIDI_ENABLE=yes
+    SRC += $(QUANTUM_DIR)/api/api_sysex.c
+    SRC += $(QUANTUM_DIR)/api.c
 endif
-
-MUSIC_ENABLE := 0
 
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
     OPT_DEFS += -DAUDIO_ENABLE
-    MUSIC_ENABLE := 1
+    MUSIC_ENABLE = yes
     SRC += $(QUANTUM_DIR)/process_keycode/process_audio.c
     SRC += $(QUANTUM_DIR)/process_keycode/process_clicky.c
     SRC += $(QUANTUM_DIR)/audio/audio_$(PLATFORM_KEY).c
@@ -42,17 +40,13 @@ endif
 
 ifeq ($(strip $(MIDI_ENABLE)), yes)
     OPT_DEFS += -DMIDI_ENABLE
-    MUSIC_ENABLE := 1
+    MUSIC_ENABLE = yes
     SRC += $(QUANTUM_DIR)/process_keycode/process_midi.c
 endif
 
-ifeq ($(MUSIC_ENABLE), 1)
+MUSIC_ENABLE ?= no
+ifeq ($(MUSIC_ENABLE), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_music.c
-endif
-
-ifeq ($(strip $(COMBO_ENABLE)), yes)
-    OPT_DEFS += -DCOMBO_ENABLE
-    SRC += $(QUANTUM_DIR)/process_keycode/process_combo.c
 endif
 
 ifeq ($(strip $(STENO_ENABLE)), yes)
@@ -74,28 +68,6 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
     OPT_DEFS += -DPOINTING_DEVICE_ENABLE
     OPT_DEFS += -DMOUSE_ENABLE
     SRC += $(QUANTUM_DIR)/pointing_device.c
-endif
-
-ifeq ($(strip $(UCIS_ENABLE)), yes)
-    OPT_DEFS += -DUCIS_ENABLE
-    UNICODE_COMMON := yes
-    SRC += $(QUANTUM_DIR)/process_keycode/process_ucis.c
-endif
-
-ifeq ($(strip $(UNICODEMAP_ENABLE)), yes)
-    OPT_DEFS += -DUNICODEMAP_ENABLE
-    UNICODE_COMMON := yes
-    SRC += $(QUANTUM_DIR)/process_keycode/process_unicodemap.c
-endif
-
-ifeq ($(strip $(UNICODE_ENABLE)), yes)
-    OPT_DEFS += -DUNICODE_ENABLE
-    UNICODE_COMMON := yes
-    SRC += $(QUANTUM_DIR)/process_keycode/process_unicode.c
-endif
-
-ifeq ($(strip $(UNICODE_COMMON)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c
 endif
 
 VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c
@@ -245,31 +217,18 @@ ifeq ($(strip $(RGB_KEYCODES_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_rgb.c
 endif
 
-ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
-    OPT_DEFS += -DTAP_DANCE_ENABLE
-    SRC += $(QUANTUM_DIR)/process_keycode/process_tap_dance.c
-endif
-
-ifeq ($(strip $(KEY_LOCK_ENABLE)), yes)
-    OPT_DEFS += -DKEY_LOCK_ENABLE
-    SRC += $(QUANTUM_DIR)/process_keycode/process_key_lock.c
-endif
-
 ifeq ($(strip $(PRINTING_ENABLE)), yes)
     OPT_DEFS += -DPRINTING_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_printer.c
     SRC += $(TMK_DIR)/protocol/serial_uart.c
 endif
 
-ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
-    OPT_DEFS += -DAUTO_SHIFT_ENABLE
-    SRC += $(QUANTUM_DIR)/process_keycode/process_auto_shift.c
-    ifeq ($(strip $(AUTO_SHIFT_MODIFIERS)), yes)
-        OPT_DEFS += -DAUTO_SHIFT_MODIFIERS
-    endif
-endif
-
 ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
+    SERIAL_SRC := $(wildcard $(SERIAL_PATH)/protocol/*.c)
+    SERIAL_SRC += $(wildcard $(SERIAL_PATH)/system/*.c)
+    SERIAL_DEFS += -DSERIAL_LINK_ENABLE
+    COMMON_VPATH += $(SERIAL_PATH)
+
     SRC += $(patsubst $(QUANTUM_PATH)/%,%,$(SERIAL_SRC))
     OPT_DEFS += $(SERIAL_DEFS)
     VAPTH += $(SERIAL_PATH)
@@ -368,29 +327,6 @@ ifeq ($(strip $(ENCODER_ENABLE)), yes)
     OPT_DEFS += -DENCODER_ENABLE
 endif
 
-HAPTIC_ENABLE ?= no
-ifneq ($(strip $(HAPTIC_ENABLE)),no)
-	COMMON_VPATH += $(DRIVER_PATH)/haptic
-	SRC += haptic.c
-	OPT_DEFS += -DHAPTIC_ENABLE
-endif
-
-ifneq ($(filter DRV2605L, $(HAPTIC_ENABLE)), )
-    SRC += DRV2605L.c
-    QUANTUM_LIB_SRC += i2c_master.c
-    OPT_DEFS += -DDRV2605L
-endif
-
-ifneq ($(filter SOLENOID, $(HAPTIC_ENABLE)), )
-    SRC += solenoid.c
-    OPT_DEFS += -DSOLENOID_ENABLE
-endif
-
-ifeq ($(strip $(HD44780_ENABLE)), yes)
-    SRC += drivers/avr/hd44780.c
-    OPT_DEFS += -DHD44780_ENABLE
-endif
-
 ifeq ($(strip $(VELOCIKEY_ENABLE)), yes)
     OPT_DEFS += -DVELOCIKEY_ENABLE
     SRC += $(QUANTUM_DIR)/velocikey.c
@@ -409,25 +345,10 @@ ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/dynamic_keymap.c
 endif
 
-ifeq ($(strip $(LEADER_ENABLE)), yes)
-  SRC += $(QUANTUM_DIR)/process_keycode/process_leader.c
-  OPT_DEFS += -DLEADER_ENABLE
-endif
-
-
 ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
-  SRC += $(QUANTUM_DIR)/dip_switch.c
-  OPT_DEFS += -DDIP_SWITCH_ENABLE
+    OPT_DEFS += -DDIP_SWITCH_ENABLE
+    SRC += $(QUANTUM_DIR)/dip_switch.c
 endif
-
-include $(DRIVER_PATH)/qwiic/qwiic.mk
-
-QUANTUM_SRC:= \
-    $(QUANTUM_DIR)/quantum.c \
-    $(QUANTUM_DIR)/keymap_common.c \
-    $(QUANTUM_DIR)/keycode_config.c
-
-
 
 VALID_CUSTOM_MATRIX_TYPES:= yes lite no
 
@@ -486,6 +407,29 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     COMMON_VPATH += $(QUANTUM_PATH)/split_common
 endif
 
+HAPTIC_ENABLE ?= no
+ifneq ($(strip $(HAPTIC_ENABLE)),no)
+    COMMON_VPATH += $(DRIVER_PATH)/haptic
+    SRC += haptic.c
+    OPT_DEFS += -DHAPTIC_ENABLE
+endif
+
+ifneq ($(filter DRV2605L, $(HAPTIC_ENABLE)), )
+    SRC += DRV2605L.c
+    QUANTUM_LIB_SRC += i2c_master.c
+    OPT_DEFS += -DDRV2605L
+endif
+
+ifneq ($(filter SOLENOID, $(HAPTIC_ENABLE)), )
+    SRC += solenoid.c
+    OPT_DEFS += -DSOLENOID_ENABLE
+endif
+
+ifeq ($(strip $(HD44780_ENABLE)), yes)
+    SRC += drivers/avr/hd44780.c
+    OPT_DEFS += -DHD44780_ENABLE
+endif
+
 ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
     OPT_DEFS += -DOLED_DRIVER_ENABLE
     COMMON_VPATH += $(DRIVER_PATH)/oled
@@ -493,10 +437,34 @@ ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
     SRC += oled_driver.c
 endif
 
+include $(DRIVER_PATH)/qwiic/qwiic.mk
+
+ifeq ($(strip $(UCIS_ENABLE)), yes)
+    OPT_DEFS += -DUCIS_ENABLE
+    UNICODE_COMMON := yes
+    SRC += $(QUANTUM_DIR)/process_keycode/process_ucis.c
+endif
+
+ifeq ($(strip $(UNICODEMAP_ENABLE)), yes)
+    OPT_DEFS += -DUNICODEMAP_ENABLE
+    UNICODE_COMMON := yes
+    SRC += $(QUANTUM_DIR)/process_keycode/process_unicodemap.c
+endif
+
+ifeq ($(strip $(UNICODE_ENABLE)), yes)
+    OPT_DEFS += -DUNICODE_ENABLE
+    UNICODE_COMMON := yes
+    SRC += $(QUANTUM_DIR)/process_keycode/process_unicode.c
+endif
+
+ifeq ($(strip $(UNICODE_COMMON)), yes)
+    SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c
+endif
+
 SPACE_CADET_ENABLE ?= yes
 ifeq ($(strip $(SPACE_CADET_ENABLE)), yes)
-  SRC += $(QUANTUM_DIR)/process_keycode/process_space_cadet.c
-  OPT_DEFS += -DSPACE_CADET_ENABLE
+    SRC += $(QUANTUM_DIR)/process_keycode/process_space_cadet.c
+    OPT_DEFS += -DSPACE_CADET_ENABLE
 endif
 
 MAGIC_ENABLE ?= yes
@@ -514,4 +482,32 @@ endif
 ifeq ($(strip $(DYNAMIC_MACRO_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_dynamic_macro.c
     OPT_DEFS += -DDYNAMIC_MACRO_ENABLE
+endif
+
+ifeq ($(strip $(COMBO_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/process_keycode/process_combo.c
+    OPT_DEFS += -DCOMBO_ENABLE
+endif
+
+ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/process_keycode/process_tap_dance.c
+    OPT_DEFS += -DTAP_DANCE_ENABLE
+endif
+
+ifeq ($(strip $(KEY_LOCK_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/process_keycode/process_key_lock.c
+    OPT_DEFS += -DKEY_LOCK_ENABLE
+endif
+
+ifeq ($(strip $(LEADER_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/process_keycode/process_leader.c
+    OPT_DEFS += -DLEADER_ENABLE
+endif
+
+ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/process_keycode/process_auto_shift.c
+    OPT_DEFS += -DAUTO_SHIFT_ENABLE
+    ifeq ($(strip $(AUTO_SHIFT_MODIFIERS)), yes)
+        OPT_DEFS += -DAUTO_SHIFT_MODIFIERS
+    endif
 endif
