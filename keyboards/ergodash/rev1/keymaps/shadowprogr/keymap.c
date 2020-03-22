@@ -1,12 +1,14 @@
 #include QMK_KEYBOARD_H
 
 
-#define _WINDOWS 0
-#define _LINUX 1
-#define _NUMPAD 4
-#define _LOWER 8
-#define _RAISE 9
-#define _ADJUST 16
+enum layers {
+    _WINDOWS,
+    _LINUX, 
+    _NUMPAD,
+    _LOWER,
+    _RAISE,
+    _ADJUST,
+};
 
 enum custom_keycodes {
   WINDOWS = SAFE_RANGE,
@@ -149,15 +151,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, LOWER,   XXXXXXX,          XXXXXXX, RAISE,   XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  \
   )
 };
-
-#ifdef AUDIO_ENABLE
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-#endif
-
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
