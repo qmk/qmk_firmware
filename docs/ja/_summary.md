@@ -52,7 +52,7 @@
   * 単純なキーコード
     * [完全なリスト](ja/keycodes.md)
     * [基本的なキーコード](ja/keycodes_basic.md)
-    * [レイヤー切り替え](ja/feature_advanced_keycodes.md)
+    * [修飾キー](ja/feature_advanced_keycodes.md)
     * [Quantum キーコード](ja/quantum_keycodes.md)
 
   * 高度なキーコード
@@ -71,6 +71,7 @@
     * [コンボ](ja/feature_combo.md)
     * [デバウンス API](ja/feature_debounce_type.md)
     * [キーロック](ja/feature_key_lock.md)
+    * [レイヤー](ja/feature_layers.md)
     * [One Shot Keys](ja/one_shot_keys.md)
     * [ポインティング デバイス](ja/feature_pointing_device.md)
     * [Swap Hands](ja/feature_swap_hands.md)
