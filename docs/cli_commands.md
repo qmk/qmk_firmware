@@ -1,40 +1,6 @@
 # QMK CLI Commands
 
-# CLI Commands
-
-## `qmk cformat`
-
-*(dev mode)*
-
-This command formats C code using clang-format. 
-
-Run it with no arguments to format all core code that has been changed. Default checks `origin/master` with `git diff`, branch can be changed using `-b <branch_name>`
-
-Run it with `-a` to format all core code, or pass filenames on the command line to run it on specific files.
-
-**Usage for specified files**:
-
-```
-qmk cformat [file1] [file2] [...] [fileN]
-```
-
-**Usage for all core files**:
-
-```
-qmk cformat -a
-```
-
-**Usage for only changed files against origin/master**:
-
-```
-qmk cformat
-```
-
-**Usage for only changed files against branch_name**:
-
-```
-qmk cformat -b branch_name
-```
+# User Commands
 
 ## `qmk compile`
 
@@ -138,18 +104,6 @@ This command lets you configure the behavior of QMK. For the full `qmk config` d
 qmk config [-ro] [config_token1] [config_token2] [...] [config_tokenN]
 ```
 
-## `qmk docs`
-
-*(dev mode)*
-
-This command starts a local HTTP server which you can use for browsing or improving the docs. Default port is 8936.
-
-**Usage**:
-
-```
-qmk docs [-p PORT]
-```
-
 ## `qmk doctor`
 
 This command examines your environment and alerts you to potential build or flash problems. It can fix many of them if you want it to.
@@ -184,30 +138,6 @@ Creates a keymap.c from a QMK Configurator export.
 qmk json2c [-o OUTPUT] filename
 ```
 
-## `qmk kle2json`
-
-*(dev mode)*
-
-This command allows you to convert from raw KLE data to QMK Configurator JSON. It accepts either an absolute file path, or a file name in the current directory. By default it will not overwrite `info.json` if it is already present. Use the `-f` or `--force` flag to overwrite.
-
-**Usage**:
-
-```
-qmk kle2json [-f] <filename>
-```
-
-**Examples**:
-
-```
-$ qmk kle2json kle.txt 
-☒ File info.json already exists, use -f or --force to overwrite.
-```
-
-```
-$ qmk kle2json -f kle.txt -f
-Ψ Wrote out to info.json
-```
-
 ## `qmk list-keyboards`
 
 This command lists all the keyboards currently defined in `qmk_firmware`
@@ -238,9 +168,75 @@ This command creates a new keymap based on a keyboard's existing default keymap.
 qmk new-keymap [-kb KEYBOARD] [-km KEYMAP]
 ```
 
-## `qmk pyformat`
+---
 
-*(dev mode)*
+# Developer Commands
+
+## `qmk cformat`
+
+This command formats C code using clang-format. 
+
+Run it with no arguments to format all core code that has been changed. Default checks `origin/master` with `git diff`, branch can be changed using `-b <branch_name>`
+
+Run it with `-a` to format all core code, or pass filenames on the command line to run it on specific files.
+
+**Usage for specified files**:
+
+```
+qmk cformat [file1] [file2] [...] [fileN]
+```
+
+**Usage for all core files**:
+
+```
+qmk cformat -a
+```
+
+**Usage for only changed files against origin/master**:
+
+```
+qmk cformat
+```
+
+**Usage for only changed files against branch_name**:
+
+```
+qmk cformat -b branch_name
+```
+
+## `qmk docs`
+
+This command starts a local HTTP server which you can use for browsing or improving the docs. Default port is 8936.
+
+**Usage**:
+
+```
+qmk docs [-p PORT]
+```
+
+## `qmk kle2json`
+
+This command allows you to convert from raw KLE data to QMK Configurator JSON. It accepts either an absolute file path, or a file name in the current directory. By default it will not overwrite `info.json` if it is already present. Use the `-f` or `--force` flag to overwrite.
+
+**Usage**:
+
+```
+qmk kle2json [-f] <filename>
+```
+
+**Examples**:
+
+```
+$ qmk kle2json kle.txt 
+☒ File info.json already exists, use -f or --force to overwrite.
+```
+
+```
+$ qmk kle2json -f kle.txt -f
+Ψ Wrote out to info.json
+```
+
+## `qmk pyformat`
 
 This command formats python code in `qmk_firmware`.
 
@@ -252,8 +248,6 @@ qmk pyformat
 
 ## `qmk pytest`
 
-*(dev mode)*
-
 This command runs the python test suite. If you make changes to python code you should ensure this runs successfully.
 
 **Usage**:
@@ -261,3 +255,4 @@ This command runs the python test suite. If you make changes to python code you 
 ```
 qmk pytest
 ```
+
