@@ -24,7 +24,7 @@ def _check_modules(requirements):
         for line in fd.readlines():
             line = line.strip().replace('<', '=').replace('>', '=')
 
-            if len(line) == 0 or line[0] == '#' or '-r' in line:
+            if len(line) == 0 or line[0] == '#' or line.startswith('-r'):
                 continue
 
             if '#' in line:
