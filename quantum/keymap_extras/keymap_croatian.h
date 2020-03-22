@@ -100,7 +100,7 @@
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 // Row 1
-#define HR_DIAE S(HR_CEDL) // §
+#define HR_DIAE S(HR_CEDL) // ¨ (dead)
 #define HR_EXLM S(HR_1)    // !
 #define HR_DQUO S(HR_2)    // "
 #define HR_HASH S(HR_3)    // #
