@@ -1,6 +1,3 @@
-SRC += i2c.c
-SRC += serial.c
-
 # if firmware size over limit, try this option
 # CFLAGS += -flto
 
@@ -66,11 +63,10 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
 SUBPROJECT_rev1 = no
-USE_I2C = yes
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
-CUSTOM_MATRIX = yes
+SPLIT_KEYBOARD = yes
 
 DEFAULT_FOLDER = arabica37/rev1

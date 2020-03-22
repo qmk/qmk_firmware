@@ -10,13 +10,8 @@
 #include "ws2812.h"
 #endif
 
-#ifdef USE_I2C
-#include <stddef.h>
-#ifdef __AVR__
-	#include <avr/io.h>
-	#include <avr/interrupt.h>
-#endif
-#endif
+#define has_usb() is_keyboard_master()
+uint8_t is_master;
 
 //void promicro_bootloader_jmp(bool program);
 #define LAYOUT( \
