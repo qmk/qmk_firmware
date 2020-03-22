@@ -357,11 +357,20 @@ const uint32_t PROGMEM unicode_map[] = {
     [CS_DQUL] = 0x201E,  //       ''     ,    ''       , "D" for double, "QU" for quote, "L" for low: „
     [CS_DQUH] = 0x201D,  //       ''     ,    ''       ,      ''       ,       ,,      , "H" for high: ”
     [CS_DQUHR] = 0x201C, //       ''     ,    ''       ,      ''       ,       ,,      , "H" for high, "R" for reverse: “
-    // arrows
+#ifndef CHECKBOXES_ON_POINT
+    // pointers
     [CS_LARROW] = 0x2B98, //      ''     ,    ''       , "L" for Left, "ARROW" for arrow: ⮘
     [CS_UARROW] = 0x2B99, //      ''     ,    ''       , "U" for UP,            ''      : ⮙
     [CS_RARROW] = 0x2B9A, //      ''     ,    ''       , "R" for Right,         ''      : ⮚
     [CS_DARROW] = 0x2B9B, //      ''     ,    ''       , "D" for Down,          ''      : ⮛
+#endif
+#ifdef CHECKBOXES_ON_POINT
+    // checkboxes
+    [CS_LARROW] = 0x02610, //      ''     ,    ''       ,                                : ☐ 
+    [CS_UARROW] = 0x02612, //      ''     ,    ''       ,                                : ☒ 
+    [CS_RARROW] = 0x02611, //      ''     ,    ''       ,                                : ☑ 
+    [CS_DARROW] = 0x1F5F9, //      ''     ,    ''       ,                                : 🗹
+#endif
     // ornamental, heart
     [CS_FLEUR] = 0x2766, //       ''     ,    ''       , "FLEUR" for fleur (flower): ❦
     [CS_HEART] = 0x2665, //       ''     ,    ''       ' "HEART" for heart: ♥
@@ -1280,6 +1289,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unicode_tail ();
             }
           break;
+#ifndef CHECKBOXES_ON_POINT
         case UN_S_LARROW: 
             if (record->event.pressed) { 
                 unicode_lead ();
@@ -1294,6 +1304,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unicode_tail ();
             }
           break;
+#endif
+#ifdef CHECKBOXES_ON_POINT
+        case UN_S_LARROW: 
+            if (record->event.pressed) { 
+                unicode_lead ();
+                if (shift_ison) { SEND_STRING ("02612"); } else { SEND_STRING ("02610"); } // ☒  ☐
+                unicode_tail ();
+            }
+          break;
+        case UN_S_RARROW: 
+            if (record->event.pressed) { 
+                unicode_lead ();
+                if (shift_ison) { SEND_STRING ("1y5y9"); } else { SEND_STRING ("02611");  } // ☑  🗹  
+                unicode_tail ();
+            }
+          break;
+#endif
         case UN_S_FLEUR: 
             if (record->event.pressed) { 
                 unicode_lead ();

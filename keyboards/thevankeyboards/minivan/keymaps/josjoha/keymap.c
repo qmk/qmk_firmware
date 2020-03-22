@@ -179,6 +179,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     // If you change this to whatever, you need to recode the hex number *letters* like so: 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y
     // You can ignore UNICODE_CURRENCY_DESCRAMBLE if you compile with QWERTY_DVORAK _activated_.
 
+       /*       Check boxes or Pointers
+        *
+        * You can have these symbols (checkboxes):  ☐  ☒  ☑  🗹
+        *                     or these (pointers):  ⮘  ⮙  ⮚  ⮛
+        */
+
+#define CHECKBOXES_ON_POINT // _Activate_ to get checkboxes, _remove_ to get pointers on _DRA and _DDD layers.
 
 // --------------------------------------^---------------------------------------
 //            Below here no more comfortable configuration options.....

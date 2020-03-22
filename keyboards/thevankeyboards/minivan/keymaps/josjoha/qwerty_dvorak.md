@@ -14,14 +14,14 @@ then return to BASE with upper/left key. To return to Qwerty, do the same.
 Notice LED colors indicating layer.
 
 This Qwerty + Dvorak compile version is a fair amount smaller than the
-Dvorak² version (85% versus 99% of flash memory).
+Dvorak² version.
    
 Overview of layers
 ==================
 
-![Minivan illustration Overview layers](http://socialism.nl/misc/minivan/minivan-flat-all-layers-visualization_qwerty.jpg)
+![Minivan illustration Overview layers](http://socialism.nl/misc/minivan/minivan-flat-all-layers-visualization_qwerty_v3.jpg)
 
-![Minivan illustration Overview layers](http://socialism.nl/misc/minivan/minivan-flat-all-layers-visualization_v2.jpg)
+![Minivan illustration Overview layers](http://socialism.nl/misc/minivan/minivan-flat-all-layers-visualization_v3.jpg)
 
      Basic layers are:
       • letters (normal Qwerty layout),  Led: low-white/off⁽¹⁾ _LTR "LeTteRs"
@@ -79,7 +79,7 @@ and options to compile with the 'arrow' hardware layout.
 
 ![Minivan layout Image 6](http://socialism.nl/misc/minivan/minivan_layer6.jpg)
 
-![Minivan layout Image 7](http://socialism.nl/misc/minivan/minivan_layer7_v2.jpg)
+![Minivan layout Image 7](http://socialism.nl/misc/minivan/minivan_layer7_v3.jpg)
 
 With the right/upper key in layer `_FUN` you can switch between layers 
 for Qwerty or Dvorak being active. This only affects the layers containting
@@ -88,19 +88,19 @@ letters and numbers/symbols.
 The right led in Dvorak mode shows when using a layer that is different
 in that mode, analogue to the `_FUN` led indicator for Dvorak.
 
-![Minivan illustration Overview relationships](http://socialism.nl/misc/minivan/minivan-flat-all-layers-relationships_qwerty.jpg)
+![Minivan illustration Overview relationships](http://socialism.nl/misc/minivan/minivan-flat-all-layers-relationships_qwerty_v3.jpg)
 
 ^ Key placement between layers for Qwerty.
 
-![Minivan illustration Overview relationships](http://socialism.nl/misc/minivan/minivan-flat-all-layers-relationships_v2.jpg)
+![Minivan illustration Overview relationships](http://socialism.nl/misc/minivan/minivan-flat-all-layers-relationships_v3.jpg)
 
 ^ Key placement between layers for Dvorak. It does not work as well for Qwerty.
 
-![Minivan illustration Overview relationships](http://socialism.nl/misc/minivan/minivan-flat-all-layers-activation_qwerty.jpg)
+![Minivan illustration Overview relationships](http://socialism.nl/misc/minivan/minivan-flat-all-layers-activation_qwerty_v3.jpg)
 
 ^ Layers are normally activated from the BASE layer (white). You can toggle them from the `_FUN` layer as well.
 
-![Minivan illustration Overview relationships](http://socialism.nl/misc/minivan/minivan-flat-all-layers-activation_v2.jpg)
+![Minivan illustration Overview relationships](http://socialism.nl/misc/minivan/minivan-flat-all-layers-activation_v3.jpg)
 
 ^ Layers are normally activated from the BASE layer (white). You can toggle them from the `_FUN` layer as well.
 
@@ -393,13 +393,13 @@ navigation clusters.
 - - -
     
     
-     Layer _DRA (DRAwings, whatever else (rendering width varies in different applications))
+     Layer _DRA (DRAwings, whatever else (rendering width might vary in different applications))
 
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                         <|>      -*-                                   //(toggle) on _FUN
      BASE  „“    ”🛠   ¤£    ∅ ¢   ±ƒ    | ❦♥    🙂🙁  👍👎   ⁽₍    ⁾₎    Bspc
      LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
-     LSft 「─    」━   °〇   •§    …·    | ⮘⮙   ⮚⮛     ¿¡    《┄    》┅   RSft
+     LSft 「─    」━   °〇   •§    …·    | ☐ ☒   ☑ 🗹   ¿¡    《┄    》┅   RSft         // ☐☒☑🗹 or ⮘⮙⮚⮛
      ----------------------------------------------
      LAlt Del   ___   Ent  | Spc   ___   LGUI  RGUI
                 -*-       <|>      -*-                                                   //(hold) on BASE

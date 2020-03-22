@@ -44,7 +44,8 @@ These are the compile options, defined at the top of ![keymap.c](./keymap.c)
  - Navigation cluster in a triangle (WASD), flat layout or vi(1) layout.
  - Switching the GUIs left/right.  
  - To what layer should _left shift_ toggle.
- - Change the symbol 'ƒ' Dutch guilder into a Euro symbol €.
+ - Compile with symbols ☐ ☒ ☑ 🗹 (checkboxes) or ⮘ ⮙ ⮚ ⮛ (pointers).
+ - You can change the symbol 'ƒ' Dutch guilder into a Euro symbol €.
 
 In addition the symbol 🛠 can be easily reconfigured in `unicode_macros.c`.
 There are some tokens to help port the layout to a board with 47 or 48 keys (`J1_J2`).
@@ -64,7 +65,7 @@ For the layers in the Qwerty+Dvorak version, see ![qwerty dvorak.md](./qwerty_dv
 Overview of layers
 ==================
 
-![Minivan illustration Overview layers](http://socialism.nl/misc/minivan/minivan-flat-all-layers-visualization_v2.jpg)
+![Minivan illustration Overview layers](http://socialism.nl/misc/minivan/minivan-flat-all-layers-visualization_v3.jpg)
 
      Basic layers are:
       • letters (normal Dvorak layout),  Led: low-white/off⁽¹⁾ _LTR "LeTteRs"
@@ -113,17 +114,17 @@ and options to compile with the 'arrow' hardware layout.
 
 ![Minivan layout Image 6](http://socialism.nl/misc/minivan/minivan_layer6.jpg)
 
-![Minivan layout Image 7](http://socialism.nl/misc/minivan/minivan_layer7_v2.jpg)
+![Minivan layout Image 7](http://socialism.nl/misc/minivan/minivan_layer7_v3.jpg)
 
 ^ The right led in 'descramble' mode shows when using a layer that is different
 in that mode, analogue to the `_FUN` led indicator for 'descramble' (not shown
 in above graphics).
 
-![Minivan illustration Overview relationships](http://socialism.nl/misc/minivan/minivan-flat-all-layers-relationships_v2.jpg)
+![Minivan illustration Overview relationships](http://socialism.nl/misc/minivan/minivan-flat-all-layers-relationships_v3.jpg)
 
 ^ Key placement between layers for Dvorak. It does not work as well for Qwerty.
 
-![Minivan illustration Overview relationships](http://socialism.nl/misc/minivan/minivan-flat-all-layers-activation_v2.jpg)
+![Minivan illustration Overview relationships](http://socialism.nl/misc/minivan/minivan-flat-all-layers-activation_v3.jpg)
 
 ^ Layers are normally activated from the BASE layer (white). You can toggle them from the `_FUN` layer as well.
 
@@ -442,13 +443,13 @@ Remarks. This layer is seamlessly activated with 'descramble'
 - - -
     
     
-     Layer _DRA (DRAwings, whatever else (rendering width varies in different applications))
+     Layer _DRA (DRAwings, whatever else (rendering width might vary in different applications))
 
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                         <|>      -*-                                   //(toggle) on _FUN
      BASE  „“    ”🛠   ¤£    ∅ ¢   ±ƒ    | ❦♥    🙂🙁  👍👎   ⁽₍    ⁾₎    Bspc
      LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
-     LSft 「─    」━   °〇   •§    …·    | ⮘⮙   ⮚⮛     ¿¡    《┄    》┅   RSft
+     LSft 「─    」━   °〇   •§    …·    | ☐ ☒   ☑ 🗹   ¿¡    《┄    》┅   RSft          // ☐☒☑🗹 or ⮘⮙⮚⮛
      ----------------------------------------------
      LAlt Del   ___   Ent  | Spc   ___   LGUI  RGUI
                 -*-       <|>      -*-                                                   //(hold) on BASE
@@ -582,12 +583,12 @@ Why you want this layout
   are clustered, perhaps vaguely.
 
 ⮚  The last layer adds a fair amount of fun stuff to spice up your
-  writing. Write H₂O, 2⁷=128, ±8 °C, §2.1, etc. Some logic is fairly
-  obvious such as ⁽⁾ on the same keys as (), and quotation marks
-  on the same keys as on the BASE layer, while others have vague or no
-  logic to their placement such as ° (Degrees symbol), 🙂 and others,
-  which would have to be learned. You also have correct quotation marks
-  for some languages. Dutch: „he said” English: “he said”.
+  writing. Write H₂O, 2⁷·⁰=128, ±8 °C, §2.1, 2 ³/₈" etc. Some logic
+  is fairly obvious such as ⁽⁾ on the same keys as (), and quotation
+  marks on the same keys as on the BASE layer, while others have vague
+  or no logic to their placement such as ° (Degrees symbol), 🙂 and
+  others, which would have to be learned. You also have correct quotation
+  marks for some languages. Dutch: „he said” English: “he said”.
  
 ⮚  With the 'descramble' mode, you never have to fear not being able to
   use your keyboard. This mode is completely seamless, everything works
