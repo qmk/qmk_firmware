@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "audio.h"
-#include "keymap.h"
 #include "wait.h"
 
 #include "eeconfig.h"
@@ -141,8 +140,6 @@ void audio_off(void) {
 bool is_audio_on(void) { return (audio_config.enable != 0); }
 
 void stop_all_notes() {
-    dprintf("audio stop all notes");
-
     if (!audio_initialized) {
         audio_init();
     }
@@ -161,8 +158,6 @@ void stop_all_notes() {
 }
 
 void stop_note(float freq) {
-    dprintf("audio stop note freq=%d", (int)freq);
-
     if (playing_note) {
         if (!audio_initialized) {
             audio_init();
@@ -193,8 +188,6 @@ void stop_note(float freq) {
 }
 
 void play_note(float freq, int vol) { //NOTE: vol is unused
-    dprintf("audio play note freq=%d", (int)freq);
-
     if (!audio_initialized) {
         audio_init();
     }

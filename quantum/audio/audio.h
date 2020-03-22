@@ -21,7 +21,6 @@
 #if defined(__AVR__)
 #    include <avr/io.h>
 #endif
-#include "wait.h"
 #include "musical_notes.h"
 #include "song_list.h"
 #include "voices.h"

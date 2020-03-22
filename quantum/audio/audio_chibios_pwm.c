@@ -55,8 +55,6 @@ to use another hardware-pwm pin:
 #include "ch.h"
 #include "hal.h"
 
-#include <string.h>
-#include "print.h"
 
 #if defined (AUDIO_DRIVER_PWM)
 #    if !defined(AUDIO_PIN)
@@ -138,7 +136,7 @@ static void pwm_audio_channel_interrupt_callback(PWMDriver *pwmp) {
 
 static void gpt_callback(GPTDriver *gptp);
 GPTConfig   gptCFG = {
-    /* a whole note is one beat, which is - per definition in musical_notes.h - set to 64 
+    /* a whole note is one beat, which is - per definition in musical_notes.h - set to 64
        the longest note is BREAVE_DOT=128+64=192, the shortest SIXTEENTH=4
        the tempo (which might vary!) is in bpm (beats per minute)
        therefore: if the timer ticks away at .frequency = (60*64)Hz,
@@ -154,10 +152,9 @@ void audio_initialize_hardware(void) {
     pwmStart(&PWMD1, &pwmCFG);
 
 #if defined(AUDIO_DRIVER_PWM_PIN_ALTERNATE)
-#    if defined(PAL_MODE_STM32_ALTERNATE_PUSHPULL)
-    //TODO: is there a better way to differentiate between chibios GPIOv1 and GPIOv2?
+#    if defined(USE_GPIOV1)
     palSetLineMode(A8, PAL_MODE_STM32_ALTERNATE_PUSHPULL); //f103 with GPIOv1
-#    else
+#    else // GPIOv2 (or GPIOv3 for f4xx, which is the same/compatible at this command)
     palSetLineMode(A8, PAL_STM32_MODE_ALTERNATE | PAL_STM32_ALTERNATE(6) );//f303xx with GPIOV2
 #    endif
 #else // AUDIO_DRIVER_PWM
