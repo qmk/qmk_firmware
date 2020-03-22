@@ -6,7 +6,7 @@ _https://thekey.company_
 This keymap works on Minivan hardware variants with 44, 45 and
 46 keys. It can be compiled for Dvorak only, or Qwerty + Dvorak.
 
-![Minivan layout all](http://socialism.nl/misc/minivan/minivan-all-layers-visualization3_600x.jpg)
+![Minivan layout all](http://socialism.nl/misc/minivan/minivan-all-layers-visualization_v3.jpg)
 
 make example:
 
