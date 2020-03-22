@@ -282,57 +282,56 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM ConsoleReport[] = {
 #if JOYSTICK_AXES_COUNT == 0 && JOYSTICK_BUTTON_COUNT == 0
     #error Need at least one axis or button for joystick
 #endif
-const USB_Descriptor_HIDReport_Datatype_t PROGMEM JoystickReport[] =
-{
-    HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
-    HID_RI_USAGE(8, 0x04), /* Joystick */
-    HID_RI_COLLECTION(8, 0x01), /* Application */
-        HID_RI_COLLECTION(8, 0x00), /* Physical */
-            HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
-            #if JOYSTICK_AXES_COUNT >= 1
-                HID_RI_USAGE(8, 0x30),     //     USAGE (X)
-            #endif
-            #if JOYSTICK_AXES_COUNT >= 2
-                HID_RI_USAGE(8, 0x31),     //     USAGE (Y)
-            #endif
-            #if JOYSTICK_AXES_COUNT >= 3
-                HID_RI_USAGE(8, 0x32),     //     USAGE (Z)
-            #endif
-            #if JOYSTICK_AXES_COUNT >= 4
-                HID_RI_USAGE(8, 0x33),     //     USAGE (RX)
-            #endif
-            #if JOYSTICK_AXES_COUNT >= 5
-                HID_RI_USAGE(8, 0x34),     //     USAGE (RY)
-            #endif
-            #if JOYSTICK_AXES_COUNT >= 6
-                HID_RI_USAGE(8, 0x35),     //     USAGE (RZ)
-            #endif
-            #if JOYSTICK_AXES_COUNT >= 1
-                HID_RI_LOGICAL_MINIMUM(8, -127),
-                HID_RI_LOGICAL_MAXIMUM(8, 127),
-                HID_RI_REPORT_COUNT(8, JOYSTICK_AXES_COUNT),
-                HID_RI_REPORT_SIZE(8, 0x08),
-                HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
-            #endif
+const USB_Descriptor_HIDReport_Datatype_t PROGMEM JoystickReport[] = {
+    HID_RI_USAGE_PAGE(8, 0x01),         // Generic Desktop
+    HID_RI_USAGE(8, 0x04),              // Joystick
+    HID_RI_COLLECTION(8, 0x01),         // Application
+        HID_RI_COLLECTION(8, 0x00),     // Physical
+            HID_RI_USAGE_PAGE(8, 0x01), // Generic Desktop
+#    if JOYSTICK_AXES_COUNT >= 1
+            HID_RI_USAGE(8, 0x30),      // X
+#    endif
+#    if JOYSTICK_AXES_COUNT >= 2
+            HID_RI_USAGE(8, 0x31),      // Y
+#    endif
+#    if JOYSTICK_AXES_COUNT >= 3
+            HID_RI_USAGE(8, 0x32),      // Z
+#    endif
+#    if JOYSTICK_AXES_COUNT >= 4
+            HID_RI_USAGE(8, 0x33),      // Rx
+#    endif
+#    if JOYSTICK_AXES_COUNT >= 5
+            HID_RI_USAGE(8, 0x34),      // Ry
+#    endif
+#    if JOYSTICK_AXES_COUNT >= 6
+            HID_RI_USAGE(8, 0x35),      // Rz
+#    endif
+#    if JOYSTICK_AXES_COUNT >= 1
+            HID_RI_LOGICAL_MINIMUM(8, -127),
+            HID_RI_LOGICAL_MAXIMUM(8, 127),
+            HID_RI_REPORT_COUNT(8, JOYSTICK_AXES_COUNT),
+            HID_RI_REPORT_SIZE(8, 0x08),
+            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+#    endif
 
-            #if JOYSTICK_BUTTON_COUNT >= 1
-                HID_RI_USAGE_PAGE(8, 0x09), /* Button */
-                HID_RI_USAGE_MINIMUM(8, 0x01),  /* Button 1 */
-                HID_RI_USAGE_MAXIMUM(8, JOYSTICK_BUTTON_COUNT),  /* Button max */
-                HID_RI_LOGICAL_MINIMUM(8, 0x00),
-                HID_RI_LOGICAL_MAXIMUM(8, 0x01),
-                HID_RI_REPORT_COUNT(8, JOYSTICK_BUTTON_COUNT),
-                HID_RI_REPORT_SIZE(8, 0x01),
-                HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+#    if JOYSTICK_BUTTON_COUNT >= 1
+            HID_RI_USAGE_PAGE(8, 0x09), // Button
+            HID_RI_USAGE_MINIMUM(8, 0x01),
+            HID_RI_USAGE_MAXIMUM(8, JOYSTICK_BUTTON_COUNT),
+            HID_RI_LOGICAL_MINIMUM(8, 0x00),
+            HID_RI_LOGICAL_MAXIMUM(8, 0x01),
+            HID_RI_REPORT_COUNT(8, JOYSTICK_BUTTON_COUNT),
+            HID_RI_REPORT_SIZE(8, 0x01),
+            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
 
-                #if (JOYSTICK_BUTTON_COUNT % 8) != 0
-                    HID_RI_REPORT_SIZE(8, 0x01),
-                    HID_RI_REPORT_COUNT(8, 8 - (JOYSTICK_BUTTON_COUNT % 8)),
-                    HID_RI_INPUT(8, HID_IOF_CONSTANT),
-                #endif
-            #endif
+#        if (JOYSTICK_BUTTON_COUNT % 8) != 0
+            HID_RI_REPORT_COUNT(8, 8 - (JOYSTICK_BUTTON_COUNT % 8)),
+            HID_RI_REPORT_SIZE(8, 0x01),
+            HID_RI_INPUT(8, HID_IOF_CONSTANT),
+#        endif
+#    endif
         HID_RI_END_COLLECTION(0),
-    HID_RI_END_COLLECTION(0),
+    HID_RI_END_COLLECTION(0)
 };
 #endif
 
