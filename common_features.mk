@@ -409,9 +409,9 @@ endif
 
 HAPTIC_ENABLE ?= no
 ifneq ($(strip $(HAPTIC_ENABLE)),no)
-	COMMON_VPATH += $(DRIVER_PATH)/haptic
-	SRC += haptic.c
-	OPT_DEFS += -DHAPTIC_ENABLE
+    COMMON_VPATH += $(DRIVER_PATH)/haptic
+    SRC += haptic.c
+    OPT_DEFS += -DHAPTIC_ENABLE
 endif
 
 ifneq ($(filter DRV2605L, $(HAPTIC_ENABLE)), )
