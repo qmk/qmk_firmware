@@ -146,7 +146,7 @@
 #ifdef RAW
 #    define UDI_HID_RAW_ENABLE_EXT() main_raw_enable()
 #    define UDI_HID_RAW_DISABLE_EXT() main_raw_disable()
-#define  UDI_HID_RAW_RECEIVE(buffer, len) main_raw_receive(buffer, len)
+#    define UDI_HID_RAW_RECEIVE(buffer, len) main_raw_receive(buffer, len)
 #endif
 
 //@}
