@@ -26,7 +26,7 @@
 
   which utilizes the dac unit many STM32 are equipped with to output a modulated sinewave from samples stored in the dac_buffer_sine array and are passed to the hardware through DMA
 
-  it ia also possible to have a custom sample-LUT by implementing/overwriding 'dac_value_generate'
+  it ia also possible to have a custom sample-LUT by implementing/overriding 'dac_value_generate'
 */
 
 static const dacsample_t dac_buffer_sine[DAC_BUFFER_SIZE] = {

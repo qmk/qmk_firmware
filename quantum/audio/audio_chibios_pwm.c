@@ -37,7 +37,7 @@ mcuconf.h:
 
 used pin: PA8 (alternate0: Tim1_Ch1)
 
-from the datasheet for STM32F104C8B: alternate function of pin
+from the datasheet for STM32F103C8: alternate function of pin
 TIM1_CH1 = PA8
 TIM1_CH2 = PA9
 TIM1_CH3 = PA10
@@ -60,7 +60,7 @@ to use another hardware-pwm pin:
 
 #if defined (AUDIO_DRIVER_PWM)
 #    if !defined(AUDIO_PIN)
-#        error "Audio feature enabled, but not pin selected - see docs/feature_audio under the ARM PWM settings"
+#        error "Audio feature enabled, but no pin selected - see docs/feature_audio under the ARM PWM settings"
 #    endif
 #endif
 
