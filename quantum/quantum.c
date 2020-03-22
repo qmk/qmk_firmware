@@ -192,6 +192,12 @@ bool process_record_quantum(keyrecord_t *record) {
     }
 #endif
 
+#ifdef WPM_ENABLE
+    if (record->event.pressed) {
+	update_wpm(keycode);
+    }
+#endif
+
 #ifdef TAP_DANCE_ENABLE
     preprocess_tap_dance(keycode, record);
 #endif
@@ -643,6 +649,10 @@ void matrix_scan_quantum() {
 
 #ifdef ENCODER_ENABLE
     encoder_read();
+#endif
+
+#ifdef WPM_ENABLE
+  decay_wpm();
 #endif
 
 #ifdef HAPTIC_ENABLE
