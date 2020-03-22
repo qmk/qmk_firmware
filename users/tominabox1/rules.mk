@@ -78,3 +78,13 @@ NKRO_ENABLE = yes
 RGBLIGHT_ENABLE = yes
 SRC += tominabox1.c
 endif
+
+ifeq ($(strip $(KEYBOARD)), jj40)
+TAP_DANCE_ENABLE = yes
+COMBO_ENABLE = yes
+RGBLIGHT_ENABLE = yes
+NKRO_ENABLE = no
+LED_ANIMATIONS = yes
+SLEEP_LED_ENABLE = yes
+SRC += tominabox1.c
+endif

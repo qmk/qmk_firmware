@@ -19,7 +19,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[_NAV] = LAYOUT_wrapper(
     KC_NO, ___________________NAV1____________________, KC_NO,
-    KC_NO,___________________NAV2____________________, KC_NO,
+    KC_NO,___________________NAV2____________________, KC_BSLS,
     KC_LTOG,   ___________________NO______________________,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 	),
@@ -40,6 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void keyboard_post_init_user(void) {
+    rgblight_sethsv_range(0,0,0,0, 50);
 		rgblight_sethsv_at(0, 0, 0, 24);
 		rgblight_set();
 		writePinHigh(E6);
@@ -47,10 +48,12 @@ void keyboard_post_init_user(void) {
 
 bool led_update_kb(led_t led_state){
   if(led_state.caps_lock){
-      rgblight_setrgb_at(145, 255, 0, 24);
+      rgblight_setrgb_at(122, 255, 50, 38);
       rgblight_mode_noeeprom(0);
+      rgblight_sethsv_range(0,0,0,0, 50);
   } else{
-      rgblight_sethsv_at(0, 0, 0, 24);
+      rgblight_sethsv_at(0, 0, 0, 38);
+
   }
     return true;
 }
