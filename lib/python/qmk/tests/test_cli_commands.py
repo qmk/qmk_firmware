@@ -60,16 +60,16 @@ def test_list_keyboards():
 # list-keymaps CLI tests
 def test_list_keymaps_short():
     # check short arg format
-    result = check_subcommand('list-keymaps', '-kb', 'planck/ez')
+    result = check_subcommand('list-keymaps', '-kb', 'handwired/onekey/pytest')
     assert result.returncode == 0
-    assert 'default' and 'drashna' in result.stdout
+    assert 'default' and 'rgb' in result.stdout
 
 
 def test_list_keymaps_long():
     # check long arg format
-    result = check_subcommand('list-keymaps', '--keyboard', 'planck/ez')
+    result = check_subcommand('list-keymaps', '--keyboard', 'handwired/onekey/pytest')
     assert result.returncode == 0
-    assert 'default' and 'drashna' in result.stdout
+    assert 'default' and 'rgb' in result.stdout
 
 
 def test_list_keymaps_kb_only():
