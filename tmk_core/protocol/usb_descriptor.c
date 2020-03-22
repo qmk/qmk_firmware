@@ -279,9 +279,9 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM ConsoleReport[] = {
 #endif
 
 #ifdef JOYSTICK_ENABLE
-#if JOYSTICK_AXES_COUNT == 0 && JOYSTICK_BUTTON_COUNT == 0
-    #error Need at least one axis or button for joystick
-#endif
+#    if JOYSTICK_AXES_COUNT == 0 && JOYSTICK_BUTTON_COUNT == 0
+#        error Need at least one axis or button for joystick
+#    endif
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM JoystickReport[] = {
     HID_RI_USAGE_PAGE(8, 0x01),         // Generic Desktop
     HID_RI_USAGE(8, 0x04),              // Joystick
