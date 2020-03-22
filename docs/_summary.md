@@ -18,7 +18,6 @@
   * [Overview](newbs_building_firmware_configurator.md)
   * [Step by Step](configurator_step_by_step.md)
   * [Troubleshooting](configurator_troubleshooting.md)
-  * [Problems and Bugs](configurator_problems.md)
   * QMK API
     * [Overview](api_overview.md)
     * [API Documentation](api_docs.md)
@@ -53,7 +52,7 @@
   * Simple Keycodes
     * [Full List](keycodes.md)
     * [Basic Keycodes](keycodes_basic.md)
-    * [Layer Switching](feature_advanced_keycodes.md)
+    * [Modifier Keys](feature_advanced_keycodes.md)
     * [Quantum Keycodes](quantum_keycodes.md)
 
   * Advanced Keycodes
@@ -72,6 +71,7 @@
     * [Combos](feature_combo.md)
     * [Debounce API](feature_debounce_type.md)
     * [Key Lock](feature_key_lock.md)
+    * [Layers](feature_layers.md)
     * [One Shot Keys](one_shot_keys.md)
     * [Pointing Device](feature_pointing_device.md)
     * [Swap Hands](feature_swap_hands.md)
@@ -128,7 +128,6 @@
   * Python Development
     * [Coding Conventions](coding_conventions_python.md)
     * [QMK CLI Development](cli_development.md)
-    * [QMK CLI Config](cli_dev_configuration.md)
 
   * Configurator Development
     * QMK API
