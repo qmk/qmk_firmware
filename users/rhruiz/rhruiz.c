@@ -2,6 +2,9 @@
 #include "quantum.h"
 #include "rhruiz.h"
 
+#define _I(x) __I(x)
+#define __I(x) #x
+
 __attribute__((weak)) void rhruiz_update_layer_colors(layer_state_t state) {}
 
 __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) { return rhruiz_layer_state_set_user(state); }
@@ -18,6 +21,30 @@ __attribute__((weak)) bool rhruiz_is_layer_indicator_led(uint8_t index) {
 #else
     return false;
 #endif
+}
+
+void rhruiz_send_make_args(bool should_flash, bool parallel) {
+    SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
+    if (should_flash) {
+        SEND_STRING(":flash");
+    }
+    if (parallel) {
+        SEND_STRING(" -j8");
+    }
+#ifndef OLED_DRIVER_ENABLE
+    SEND_STRING(" OLED_DRIVER_ENABLE=no");
+#endif
+}
+
+void rhruiz_send_make(bool should_flash, bool parallel) {
+#ifndef BOOTLOADER_CATERINA
+    if (should_flash) {
+        rhruiz_send_make_args(false, parallel);
+        SEND_STRING(" && VID=" _I(VENDOR_ID) " PID=" _I(PRODUCT_ID));
+        SEND_STRING(" ~/dev/keyboard/hid_send/hid_send bootloader && ");
+    }
+#endif
+    rhruiz_send_make_args(should_flash, parallel);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -44,34 +71,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (!record->event.pressed) {
                 uint8_t temp_mod = mod_config(get_mods());
                 clear_mods();
-#               ifndef NO_ACTION_ONESHOT
+#ifndef NO_ACTION_ONESHOT
                 uint8_t temp_osm = mod_config(get_oneshot_mods());
                 clear_oneshot_mods();
-#               else
+#else
                 uint8_t temp_osm = 0U;
-#               endif
-
-                bool should_flash = ((temp_mod | temp_osm) & MOD_MASK_SHIFT);
-
-#ifndef BOOTLOADER_CATERINA
-                if (should_flash) {
-                    SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
-                    char env[26];
-                    sprintf(env, " && VID=%04hx PID=%04hx ", VENDOR_ID, PRODUCT_ID);
-                    send_string(env);
-                    SEND_STRING("~/dev/keyboard/hid_send/hid_send bootloader && ");
-                }
 #endif
 
-                SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
+                bool should_flash = ((temp_mod | temp_osm) & MOD_MASK_SHIFT);
+                bool parallel     = (temp_mod | temp_osm) & MOD_MASK_CTRL;
 
-                if (should_flash) {
-                    SEND_STRING(":flash");
-                }
-
-                if ((temp_mod | temp_osm) & MOD_MASK_CTRL) {
-                    SEND_STRING(" -j8 --output-sync");
-                }
+                rhruiz_send_make(should_flash, parallel);
 
                 SEND_STRING(SS_TAP(X_ENTER));
                 set_mods(temp_mod);
