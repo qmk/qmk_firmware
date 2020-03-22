@@ -84,16 +84,31 @@ def generate(keyboard, layout, layers, encoders=None):
     if encoders:
         encoders_txt = []
         for encoder_set in encoders:
-            curr_encoder = ENCODER_IF.replace('_ELIF_', 'if' if encoder_set['index'] == 0 else 'else if')
-            curr_encoder = curr_encoder.replace('_INDEX_', str(encoder_set['index']))
-            curr_encoder = curr_encoder.replace('_CLOCKWISE_', encoder_set['clockwise'])
-            curr_encoder = curr_encoder.replace('_COUNTER_', encoder_set['counter'])
+            curr_encoder = ENCODER_IF.replace('_ELIF_', 'if' if encoder_set.get('index') == 0 else 'else if')
+            curr_encoder = curr_encoder.replace('_INDEX_', str(encoder_set.get('index')))
+
+            clockwise = parse_basic_code(encoder_set.get('clockwise'))
+            counter = parse_basic_code(encoder_set.get('counter'))
+
+            curr_encoder = curr_encoder.replace('_CLOCKWISE_', clockwise)
+            curr_encoder = curr_encoder.replace('_COUNTER_', counter)
+
             encoders_txt.append(curr_encoder)
+
         encoder_func = '\n'.join(encoders_txt)[:-1]
 
     keymap_c = keymap_c.replace('__ENCODERS_GO_HERE__', encoder_func)
-
     return keymap_c
+
+
+def parse_basic_code(keycode):
+    """Performs a simplistic check for a 'basic' keycode. Otherwise it returns 'KC_NO'
+    
+    Args:
+        keycode
+            The keycode the user is trying to apply
+    """
+    return keycode if keycode[:2].lower() == 'kc' else 'KC_NO'
 
 
 def write(keyboard, keymap, layout, layers, encoders=None):
