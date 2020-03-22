@@ -19,8 +19,7 @@ and *optionally*, a secondary voice, using Timer 1, on one of these pins:
 
 
 ## ARM based boards
-STM32F2 upwards can use the builtin DAC unit, to drive Pins A4 or A5:
-add `AUDIO_DRIVER = dac` to `rules.mk` and set in `config.h` either:
+Most STM32 MCUs have DAC peripherals, with a notable exception of the STM32F1xx series. Generally, the DAC peripheral drives pins A4 or A5. To enable DAC-based audio output on STM32 devices, add `AUDIO_DRIVER = dac` to `rules.mk` and set in `config.h` either:
 `#define A4_AUDIO`
 OR
 `#define A5_AUDIO`
@@ -39,7 +38,7 @@ Should you want to use the pwm-hardware on another pin and timer - be ready to d
 
 
 ## Songs
-There's a couple different sounds that will automatically be enabled without any other configuration:
+There's a couple of different sounds that will automatically be enabled without any other configuration:
 ```
 STARTUP_SONG // plays when the keyboard starts up (audio.c)
 GOODBYE_SONG // plays when you press the RESET key (quantum.c)
