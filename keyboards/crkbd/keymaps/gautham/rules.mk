@@ -1,6 +1,6 @@
 
 # If you want to change the display of OLED, you need to change here
-SRC +=  ./lib/glcdfont.c
+SRC +=  keyboards/crkbd/keymaps/gautham/glcdfont.c #./lib/glcdfont.c
 
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in
