@@ -213,6 +213,8 @@ ifneq ($(findstring STM32F103, $(MCU)),)
 endif
 
 ifneq (,$(filter $(MCU),atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 at90usb1286))
+  PROTOCOL = LUFA
+
   # Processor frequency.
   #     This will define a symbol, F_CPU, in all source code files equal to the
   #     processor frequency in Hz. You can then use this symbol in your source code to
