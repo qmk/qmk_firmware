@@ -676,7 +676,7 @@ Authors
 -------
   This keymap.c was edited from the Minivan default, LED support was
   copied/edited from ../jetpacktuxedo/ keymap. Thanks to QMK support
-  for their help.  Written on the Minivan 🙂 「Dvorak² 44 ⮚triangle⮘」.
+  for their help.  Written on the Minivan 「Dvorak² 44 WASD ƒ 🛠 ☑」.
 
   Written by: Jos B. [contact](https://market.socialism.nl/author/ "get e-mail address there")
 
