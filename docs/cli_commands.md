@@ -4,6 +4,8 @@
 
 ## `qmk cformat`
 
+*(dev mode)*
+
 This command formats C code using clang-format. 
 
 Run it with no arguments to format all core code that has been changed. Default checks `origin/master` with `git diff`, branch can be changed using `-b <branch_name>`
@@ -138,6 +140,8 @@ qmk config [-ro] [config_token1] [config_token2] [...] [config_tokenN]
 
 ## `qmk docs`
 
+*(dev mode)*
+
 This command starts a local HTTP server which you can use for browsing or improving the docs. Default port is 8936.
 
 **Usage**:
@@ -181,6 +185,8 @@ qmk json2c [-o OUTPUT] filename
 ```
 
 ## `qmk kle2json`
+
+*(dev mode)*
 
 This command allows you to convert from raw KLE data to QMK Configurator JSON. It accepts either an absolute file path, or a file name in the current directory. By default it will not overwrite `info.json` if it is already present. Use the `-f` or `--force` flag to overwrite.
 
@@ -234,6 +240,8 @@ qmk new-keymap [-kb KEYBOARD] [-km KEYMAP]
 
 ## `qmk pyformat`
 
+*(dev mode)*
+
 This command formats python code in `qmk_firmware`.
 
 **Usage**:
@@ -243,6 +251,8 @@ qmk pyformat
 ```
 
 ## `qmk pytest`
+
+*(dev mode)*
 
 This command runs the python test suite. If you make changes to python code you should ensure this runs successfully.
 
