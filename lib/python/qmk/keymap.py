@@ -89,7 +89,7 @@ def generate(keyboard, layout, layers, encoders=None):
             curr_encoder = curr_encoder.replace('_CLOCKWISE_', encoder_set['clockwise'])
             curr_encoder = curr_encoder.replace('_COUNTER_', encoder_set['counter'])
             encoders_txt.append(curr_encoder)
-        encoder_func = '\n'.join(encoders_txt)
+        encoder_func = '\n'.join(encoders_txt)[:-1]
 
     keymap_c = keymap_c.replace('__ENCODERS_GO_HERE__', encoder_func)
 
