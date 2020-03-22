@@ -1,4 +1,4 @@
-/* Copyright 2019
+/* Copyright 2020
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,11 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Sendstring lookup tables for Danish layouts
+// Sendstring lookup tables for Finnish layouts
 
 #pragma once
 
-#include "keymap_danish.h"
+#include "keymap_finnish.h"
 #include "quantum.h"
 
 // clang-format off
@@ -74,27 +74,27 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     //       !        "        #        $        %        &        '
-    KC_SPC,  DK_1,    DK_2,    DK_3,    DK_4,    DK_5,    DK_6,    DK_QUOT,
+    KC_SPC,  FI_1,    FI_2,    FI_3,    FI_4,    FI_5,    FI_6,    FI_QUOT,
     // (     )        *        +        ,        -        .        /
-    DK_8,    DK_9,    DK_QUOT, DK_PLUS, DK_COMM, DK_MINS, DK_DOT,  DK_7,
+    FI_8,    FI_9,    FI_QUOT, FI_PLUS, FI_COMM, FI_MINS, FI_DOT,  FI_7,
     // 0     1        2        3        4        5        6        7
-    DK_0,    DK_1,    DK_2,    DK_3,    DK_4,    DK_5,    DK_6,    DK_7,
+    FI_0,    FI_1,    FI_2,    FI_3,    FI_4,    FI_5,    FI_6,    FI_7,
     // 8     9        :        ;        <        =        >        ?
-    DK_8,    DK_9,    DK_DOT,  DK_COMM, DK_LABK, DK_0,    DK_LABK, DK_PLUS,
+    FI_8,    FI_9,    FI_DOT,  FI_COMM, FI_LABK, FI_0,    FI_LABK, FI_PLUS,
     // @     A        B        C        D        E        F        G
-    DK_2,    DK_A,    DK_B,    DK_C,    DK_D,    DK_E,    DK_F,    DK_G,
+    FI_2,    FI_A,    FI_B,    FI_C,    FI_D,    FI_E,    FI_F,    FI_G,
     // H     I        J        K        L        M        N        O
-    DK_H,    DK_I,    DK_J,    DK_K,    DK_L,    DK_M,    DK_N,    DK_O,
+    FI_H,    FI_I,    FI_J,    FI_K,    FI_L,    FI_M,    FI_N,    FI_O,
     // P     Q        R        S        T        U        V        W
-    DK_P,    DK_Q,    DK_R,    DK_S,    DK_T,    DK_U,    DK_V,    DK_W,
+    FI_P,    FI_Q,    FI_R,    FI_S,    FI_T,    FI_U,    FI_V,    FI_W,
     // X     Y        Z        [        \        ]        ^        _
-    DK_X,    DK_Y,    DK_Z,    DK_8,    DK_LABK, DK_9,    DK_DIAE, DK_MINS,
+    FI_X,    FI_Y,    FI_Z,    FI_8,    FI_PLUS, FI_9,    FI_DIAE, FI_MINS,
     // `     a        b        c        d        e        f        g
-    DK_ACUT, DK_A,    DK_B,    DK_C,    DK_D,    DK_E,    DK_F,    DK_G,
+    FI_ACUT, FI_A,    FI_B,    FI_C,    FI_D,    FI_E,    FI_F,    FI_G,
     // h     i        j        k        l        m        n        o
-    DK_H,    DK_I,    DK_J,    DK_K,    DK_L,    DK_M,    DK_N,    DK_O,
+    FI_H,    FI_I,    FI_J,    FI_K,    FI_L,    FI_M,    FI_N,    FI_O,
     // p     q        r        s        t        u        v        w
-    DK_P,    DK_Q,    DK_R,    DK_S,    DK_T,    DK_U,    DK_V,    DK_W,
+    FI_P,    FI_Q,    FI_R,    FI_S,    FI_T,    FI_U,    FI_V,    FI_W,
     // x     y        z        {        |        }        ~        DEL
-    DK_X,    DK_Y,    DK_Z,    DK_7,    DK_ACUT, DK_0,    DK_DIAE, KC_DEL
+    FI_X,    FI_Y,    FI_Z,    FI_7,    FI_LABK, FI_0,    FI_DIAE, KC_DEL
 };

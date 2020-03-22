@@ -140,15 +140,15 @@
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 // Row 1
-#define UK_BRKP ALGR(UK_GRV) // ¦
-#define UK_EURO ALGR(UK_4)   // €
+#define UK_BRKP ALGR(UK_GRV)  // ¦
+#define UK_EURO ALGR(UK_4)    // €
 // Row 2
-#define UK_EACU ALGR(KC_E)   // É
-#define UK_UACU ALGR(KC_U)   // Ú
-#define UK_IACU ALGR(KC_I)   // Í
-#define UK_OACU ALGR(KC_O)   // Ó
+#define UK_EACU ALGR(KC_E)    // É
+#define UK_UACU ALGR(KC_U)    // Ú
+#define UK_IACU ALGR(KC_I)    // Í
+#define UK_OACU ALGR(KC_O)    // Ó
 // Row 3
-#define UK_AACU ALGR(KC_A)   // Á
+#define UK_AACU ALGR(KC_A)    // Á
 
 // DEPRECATED
 #define UK_ESC  KC_ESC
