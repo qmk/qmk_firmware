@@ -92,36 +92,6 @@ void via_eeprom_reset(void) {
     eeconfig_disable();
 }
 
-// Override bootmagic_lite() so it can flag EEPROM as invalid
-// as well as jump to bootloader, thus performing a "factory reset"
-// of dynamic keymaps and optionally backlight/other settings.
-void bootmagic_lite(void) {
-    // The lite version of TMK's bootmagic based on Wilba.
-    // 100% less potential for accidentally making the
-    // keyboard do stupid things.
-
-    // We need multiple scans because debouncing can't be turned off.
-    matrix_scan();
-#if defined(DEBOUNCE) && DEBOUNCE > 0
-    wait_ms(DEBOUNCE * 2);
-#else
-    wait_ms(30);
-#endif
-    matrix_scan();
-
-    // If the Esc and space bar are held down on power up,
-    // reset the EEPROM valid state and jump to bootloader.
-    // Assumes Esc is at [0,0].
-    // This isn't very generalized, but we need something that doesn't
-    // rely on user's keymaps in firmware or EEPROM.
-    if (matrix_get_row(BOOTMAGIC_LITE_ROW) & (1 << BOOTMAGIC_LITE_COLUMN)) {
-        // This is the only difference from the default implementation.
-        via_eeprom_reset();
-        // Jump to bootloader.
-        bootloader_jump();
-    }
-}
-
 // Override this at the keyboard code level to check
 // VIA's EEPROM valid state and reset to defaults as needed.
 // Used by keyboards that store their own state in EEPROM,
