@@ -273,11 +273,6 @@ static void Console_Task(void) {
 #ifdef JOYSTICK_ENABLE
 void send_joystick_packet(joystick_t *joystick) {
     uint8_t timeout = 255;
-    uint8_t where   = where_to_send();
-
-    if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
-        return;
-    }
 
     joystick_report_t r = {
 #    if JOYSTICK_AXES_COUNT > 0
