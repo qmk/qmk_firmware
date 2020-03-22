@@ -72,7 +72,7 @@ uint8_t get_backlight_level(void){
 }
 
 void backlight_init_ports(void) {
-  printf("backlight_init_ports()\n");
+  dprintf("backlight_init_ports()\n");
   palSetPadMode(GPIOA, 6, PAL_MODE_ALTERNATE(1));
   pwmStart(&PWMD3, &pwmCFG);
   // pwmEnableChannel(&PWMD3, 0, PWM_FRACTION_TO_WIDTH(&PWMD3, 0xFFFF,cie_lightness(0xFFFF)));
@@ -92,9 +92,9 @@ void backlight_init_ports(void) {
 }
 
 void backlight_set(uint8_t level) {
-    printf("backlight_set(%d)\n", level);
+    dprintf("backlight_set(%d)\n", level);
     uint32_t duty = (uint32_t)(cie_lightness(0xFFFF * (uint32_t) level / BACKLIGHT_LEVELS));
-    printf("duty: (%d)\n", duty);
+    dprintf("duty: (%d)\n", duty);
     if (level == 0) {
         // Turn backlight off
         pwmDisableChannel(&PWMD3, 0);
@@ -170,7 +170,7 @@ void breathing_pulse(void)
 
 void breathing_disable(void)
 {
-    printf("breathing_disable()\n");
+    dprintf("breathing_disable()\n");
     breathing_interrupt_disable();
     // Restore backlight level
     backlight_set(get_backlight_level());
@@ -186,10 +186,10 @@ void breathing_self_disable(void)
 
 void breathing_toggle(void) {
   if (is_breathing()){
-    printf("disable breathing\n");
+    dprintf("disable breathing\n");
     breathing_disable();
   } else {
-    printf("enable breathing\n");
+    dprintf("enable breathing\n");
     breathing_enable();
   }
 }
