@@ -120,6 +120,14 @@ __attribute__((weak)) bool process_record_kb(uint16_t keycode, keyrecord_t *reco
 
 __attribute__((weak)) bool process_record_user(uint16_t keycode, keyrecord_t *record) { return true; }
 
+__attribute__ ((weak))
+void post_process_record_kb(uint16_t keycode, keyrecord_t *record) {
+  post_process_record_user(keycode, record);
+}
+
+__attribute__ ((weak))
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {}
+
 void reset_keyboard(void) {
     clear_keyboard();
 #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
@@ -172,9 +180,15 @@ uint16_t get_event_keycode(keyevent_t event) {
         return keymap_key_to_keycode(layer_switch_get_layer(event.key), event.key);
 }
 
-/* Main keycode processing function. Hands off handling to other functions,
- * then processes internal Quantum keycodes, then processes ACTIONs.
- */
+/* Get keycode, and then call keyboard function */
+void post_process_record_quantum(keyrecord_t *record) {
+  uint16_t keycode = get_record_keycode(record);
+  post_process_record_kb(keycode, record);
+}
+
+/* Core keycode function, hands off handling to other functions,
+    then processes internal quantum keycodes, and then processes
+    ACTIONs.                                                      */
 bool process_record_quantum(keyrecord_t *record) {
     uint16_t keycode = get_record_keycode(record);
 

@@ -162,6 +162,15 @@ The `process_record()` function itself is deceptively simple, but hidden within 
 
 At any step during this chain of events a function (such as `process_record_kb()`) can `return false` to halt all further processing.
 
+After this is called, `post_process_record()` is called, which can be used to handle additional cleanup that needs to be run after the keycode is normally handled. 
+
+* [`void post_process_record(keyrecord_t *record)`]()
+  * [`void post_process_record_quantum(keyrecord_t *record)`]()
+    * [Map this record to a keycode]()
+    * [`void post_process_clicky(uint16_t keycode, keyrecord_t *record)`]()
+    * [`void post_process_record_kb(uint16_t keycode, keyrecord_t *record)`]()
+      * [`void post_process_record_user(uint16_t keycode, keyrecord_t *record)`]()
+      
 <!--
 #### Mouse Handling
 
