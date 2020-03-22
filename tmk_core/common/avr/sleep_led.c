@@ -5,15 +5,29 @@
 #include "led.h"
 #include "sleep_led.h"
 
-#define TCCRxB TCCR1B
-#define TIMERx_COMPA_vect TIMER1_COMPA_vect
-#if defined(__AVR_ATmega32A__)  // This MCU has only one TIMSK register
-#    define TIMSKx TIMSK
-#else
-#    define TIMSKx TIMSK1
+#ifndef SLEEP_LED_TIMER
+#    define SLEEP_LED_TIMER 1
 #endif
-#define OCIExA OCIE1A
-#define OCRxx OCR1A
+
+#if SLEEP_LED_TIMER == 1
+#    define TCCRxB TCCR1B
+#    define TIMERx_COMPA_vect TIMER1_COMPA_vect
+#    if defined(__AVR_ATmega32A__)  // This MCU has only one TIMSK register
+#        define TIMSKx TIMSK
+#    else
+#        define TIMSKx TIMSK1
+#    endif
+#    define OCIExA OCIE1A
+#    define OCRxx OCR1A
+#elif SLEEP_LED_TIMER == 3
+#    define TCCRxB TCCR3B
+#    define TIMERx_COMPA_vect TIMER3_COMPA_vect
+#    define TIMSKx TIMSK3
+#    define OCIExA OCIE3A
+#    define OCRxx OCR3A
+#else
+error("Invalid SLEEP_LED_TIMER config")
+#endif
 
 /* Software PWM
  *  ______           ______           __
