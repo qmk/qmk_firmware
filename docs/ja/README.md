@@ -14,7 +14,7 @@
 
 ## QMK ファームウェアとは何でしょうか？
 
-QMK (*Quantum Mechanical Keyboard*)は、コンピュータ入力デバイスの開発を中心としたオープンソースコミュニティです。コミュニティには、キーボード、マウス、MIDI デバイスなど、全ての種類の入力デバイスが含まれます。協力者の中心グループは、[QMK ファームウェア](https://github.com/qmk/qmk_firmware)、[QMK Configurator](https://config.qmk.fm)、[QMK ツールボックス](https://github.com/qmk/qmk_toolbox)、[qmk.fm](https://qmk.fm)、このドキュメントを、あなたのようなコミュニティメンバーの助けを借りて保守しています。
+QMK (*Quantum Mechanical Keyboard*)は、コンピュータ入力デバイスの開発を中心としたオープンソースコミュニティです。コミュニティには、キーボード、マウス、MIDI デバイスなど、全ての種類の入力デバイスが含まれます。協力者の中心グループは、[QMK ファームウェア](https://github.com/qmk/qmk_firmware)、[QMK Configurator](https://config.qmk.fm)、[QMK ツールボックス](https://github.com/qmk/qmk_toolbox)、[qmk.fm](https://qmk.fm)、そして、このドキュメントを、あなたのようなコミュニティメンバーの助けを借りて保守しています。
 
 ## 始めましょう
 
@@ -27,9 +27,9 @@ QMK は初めてですか？始めるには2つの方法があります:
 * 発展: [ソースを使用します](ja/newbs.md)
     * より強力ですが、使うのはより困難です。
 
-## あなたのものにします
+## 自分用にアレンジします
 
-QMK には、探求すべき多くの[機能](ja/features.md)と、深堀りするためのリファレンスドキュメントがたくさんあります。ほとんどの機能は[キーマップ](ja/keymap.md)を変更し、[キーコード](ja/keycodes.md)を変更することで活用されます。
+QMK には、探求すべき多くの[機能](ja/features.md)と、深く知るためのリファレンスドキュメントがたくさんあります。ほとんどの機能は[キーマップ](ja/keymap.md)を変更し、[キーコード](ja/keycodes.md)を変更することで活用されます。
 
 ## 手助けが必要ですか？
 
