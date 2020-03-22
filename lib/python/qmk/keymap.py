@@ -26,9 +26,9 @@ __ENCODERS_GO_HERE__
 
 ENCODER_IF = """\t_ELIF_ (index == _INDEX_) {
 \t\tif (clockwise) {
-\t\t\ttap_code(_CLOCKWISE_);
+\t\t\ttap_code16(_CLOCKWISE_);
 \t\t} else {
-\t\t\ttap_code(_COUNTER_);
+\t\t\ttap_code16(_COUNTER_);
 \t\t}
 \t}
 """
