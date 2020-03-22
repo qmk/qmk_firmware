@@ -25,7 +25,7 @@ quantum/version.h
 CMakeLists.txt
 cmake-build-debug
 doxygen/
-.DS_STORE
+.DS_Store
 /util/wsl_downloaded
 /util/win_downloaded
 /keyboards/*/Makefile
@@ -60,13 +60,16 @@ util/Win_Check_Output.txt
 
 # ignore image files
 *.png
-*.jpg
 *.gif
-
-# Do not ignore MiniDox left/right hand eeprom files
-!keyboards/minidox/*.eep
+*.jpg
 
 # things travis sees
 secrets.tar
 id_rsa_*
 /.vs
+
+# python things
+__pycache__
+
+# prerequisites for updating ChibiOS
+/util/fmpp*

@@ -73,4 +73,4 @@ void ui_process(uint16_t framenumber);
  */
 void ui_kbd_led(uint8_t value);
 
-#endif // _UI_H_
+#endif  // _UI_H_

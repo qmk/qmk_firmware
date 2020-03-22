@@ -21,4 +21,4 @@
 
 bool process_key_lock(uint16_t *keycode, keyrecord_t *record);
 
-#endif // PROCESS_KEY_LOCK_H
+#endif  // PROCESS_KEY_LOCK_H

@@ -1,4 +1,5 @@
 #include "satisfaction75.h"
+#include "tmk_core/common/eeprom.h"
 
 void pre_encoder_mode_change(){
   if(encoder_mode == ENC_MODE_CLOCK_SET){
@@ -11,7 +12,7 @@ void pre_encoder_mode_change(){
     timespec.millisecond = (hour_config * 60 + minute_config) * 60 * 1000;
     rtcSetTime(&RTCD1, &timespec);
   } else if (encoder_mode == ENC_MODE_BACKLIGHT){
-    save_backlight_config_to_eeprom();
+    backlight_config_save();
   }
 }
 
@@ -111,6 +112,17 @@ uint16_t handle_encoder_clockwise(){
     case ENC_MODE_BRIGHTNESS:
       mapped_code = KC_BRIGHTNESS_UP;
       break;
+#ifdef DYNAMIC_KEYMAP_ENABLE
+    case ENC_MODE_CUSTOM0:
+      mapped_code = retrieve_custom_encoder_config(0, ENC_CUSTOM_CW);
+      break;
+    case ENC_MODE_CUSTOM1:
+      mapped_code = retrieve_custom_encoder_config(1, ENC_CUSTOM_CW);
+      break;
+    case ENC_MODE_CUSTOM2:
+      mapped_code = retrieve_custom_encoder_config(2, ENC_CUSTOM_CW);
+      break;
+#endif
     case ENC_MODE_CLOCK_SET:
       update_time_config(1);
       queue_for_send = true;
@@ -145,6 +157,18 @@ uint16_t handle_encoder_ccw(){
     case ENC_MODE_BRIGHTNESS:
       mapped_code = KC_BRIGHTNESS_DOWN;
       break;
+#ifdef DYNAMIC_KEYMAP_ENABLE
+    case ENC_MODE_CUSTOM0:
+      mapped_code = retrieve_custom_encoder_config(0, ENC_CUSTOM_CCW);
+      break;
+    case ENC_MODE_CUSTOM1:
+      mapped_code = retrieve_custom_encoder_config(1, ENC_CUSTOM_CCW);
+      break;
+    case ENC_MODE_CUSTOM2:
+      mapped_code = retrieve_custom_encoder_config(2, ENC_CUSTOM_CCW);
+      break;
+#endif
+
     case ENC_MODE_CLOCK_SET:
       update_time_config(-1);
       queue_for_send = true;
@@ -159,6 +183,7 @@ uint16_t handle_encoder_press(){
     case ENC_MODE_VOLUME:
       mapped_code = KC_MUTE;
       break;
+    default:
     case ENC_MODE_MEDIA:
       mapped_code = KC_MEDIA_PLAY_PAUSE;
       break;
@@ -174,11 +199,42 @@ uint16_t handle_encoder_press(){
         breathing_enable();
       }
       break;
+#ifdef DYNAMIC_KEYMAP_ENABLE
+    case ENC_MODE_CUSTOM0:
+      mapped_code = retrieve_custom_encoder_config(0, ENC_CUSTOM_PRESS);
+      break;
+    case ENC_MODE_CUSTOM1:
+      mapped_code = retrieve_custom_encoder_config(1, ENC_CUSTOM_PRESS);
+      break;
+    case ENC_MODE_CUSTOM2:
+      mapped_code = retrieve_custom_encoder_config(2, ENC_CUSTOM_PRESS);
+      break;
+#endif
     case ENC_MODE_CLOCK_SET:
       time_config_idx = (time_config_idx + 1) % 5;
-    default:
     case ENC_MODE_BRIGHTNESS:
       break;
   }
   return mapped_code;
+}
+
+
+uint16_t retrieve_custom_encoder_config(uint8_t encoder_idx, uint8_t behavior){
+#ifdef DYNAMIC_KEYMAP_ENABLE
+    void* addr = (void*)(EEPROM_CUSTOM_ENCODER + (encoder_idx * 6) + (behavior * 2));
+    //big endian
+    uint16_t keycode = eeprom_read_byte(addr) << 8;
+    keycode |= eeprom_read_byte(addr + 1);
+    return keycode;
+#else
+    return 0;
+#endif
+}
+
+void set_custom_encoder_config(uint8_t encoder_idx, uint8_t behavior, uint16_t new_code){
+#ifdef DYNAMIC_KEYMAP_ENABLE
+    void* addr = (void*)(EEPROM_CUSTOM_ENCODER + (encoder_idx * 6) + (behavior * 2));
+    eeprom_update_byte(addr, (uint8_t)(new_code >> 8));
+    eeprom_update_byte(addr + 1, (uint8_t)(new_code & 0xFF));
+#endif
 }

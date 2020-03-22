@@ -1,7 +1,6 @@
 #include "melody96.h"
 
-void led_set_user(uint8_t usb_led) {
-
+void led_set_kb(uint8_t usb_led) {
 	if (usb_led & (1 << USB_LED_NUM_LOCK)) {
 		DDRC |= (1 << 6); PORTC &= ~(1 << 6);
 	} else {
@@ -19,4 +18,6 @@ void led_set_user(uint8_t usb_led) {
 	} else {
 		DDRB &= ~(1 << 5); PORTB &= ~(1 << 5);
 	}
+
+    led_set_user(usb_led);
 }

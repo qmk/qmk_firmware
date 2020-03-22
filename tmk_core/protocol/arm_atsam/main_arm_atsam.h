@@ -20,4 +20,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 uint8_t keyboard_leds(void);
 
-#endif //_MAIN_ARM_ATSAM_H_
+#endif  //_MAIN_ARM_ATSAM_H_

@@ -61,9 +61,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
      ESC , A  , S  , D  , F  , G  ,      H  , J  , K  , L  ,SCLN,QUOT,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-     LSFT, Z  , X  , C  , V  , B  ,      N  , M  ,COMM,DOT ,SLSH, X4 ,
+     LSFT, Z  , X  , C  , V  , B  ,      N  , M  ,COMM,DOT , UP ,ENT ,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-      X3 ,LCTL,LALT,LGUI, X2 , SPC,     SPC , X1 ,LEFT,DOWN, UP ,RGHT
+     LCTL, X3 ,LGUI,LALT,SPC , X2 ,     BSPC, X1 ,SLSH,LEFT,DOWN,RGHT
   //`----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
 
@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+------+----+----+----+----|    |----+----+----+----+----+----|
      CAPS,SELECT,LEFT,DOWN,RGHT,DEL ,     PGDN, END,LBRC,RBRC,MINS,UNDS,
   //|----+------+----+----+----+----|    |----+----+----+----+----+----|
-     LSFT, UNDO ,CUT ,COPY,PASTE,   ,     LEFT,RGHT,LCBR,RCBR,PLUS,PEQL,
+     LSFT, UNDO ,CUT ,COPY,PASTE,   ,     LEFT,RGHT,LCBR,RCBR,PLUS, EQL,
   //|----+------+----+----+----+----|    |----+----+----+----+----+----|
          ,      ,    ,    ,    ,LALT,         ,    ,    ,    ,    ,
   //`----+------+----+----+----+----'    `----+----+----+----+----+----'

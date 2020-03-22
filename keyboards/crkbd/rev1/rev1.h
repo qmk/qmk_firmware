@@ -1,24 +1,27 @@
 #pragma once
 
-#include "../crkbd.h"
+#include "crkbd.h"
 
-//void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
 
-#ifdef RGBLIGHT_ENABLE
-//rgb led driver
-#include "ws2812.h"
+#ifdef PROTOCOL_LUFA
+    #include "lufa.h"
+    #include "split_util.h"
+#endif
+
+#ifdef SSD1306OLED
+    #include "ssd1306.h"
 #endif
 
 #ifdef USE_I2C
-#include <stddef.h>
-#ifdef __AVR__
-	#include <avr/io.h>
-	#include <avr/interrupt.h>
-#endif
+    #include <stddef.h>
+    #ifdef __AVR__
+        #include <avr/interrupt.h>
+        #include <avr/io.h>
+    #endif
 #endif
 
-//void promicro_bootloader_jmp(bool program);
+// clang-format off
 #define LAYOUT( \
   L00, L01, L02, L03, L04, L05,           R00, R01, R02, R03, R04, R05, \
   L10, L11, L12, L13, L14, L15,           R10, R11, R12, R13, R14, R15, \
@@ -48,3 +51,4 @@
     KC_##L20, KC_##L21, KC_##L22, KC_##L23, KC_##L24, KC_##L25,                     KC_##R20, KC_##R21, KC_##R22, KC_##R23, KC_##R24, KC_##R25, \
                                             KC_##L30, KC_##L31, KC_##L32, KC_##R30, KC_##R31, KC_##R32 \
   )
+// clang-format on
