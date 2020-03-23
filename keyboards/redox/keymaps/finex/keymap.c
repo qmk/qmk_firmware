@@ -139,7 +139,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 // --- Right half:
 #define KC_CTAB RCTL_T(KC_TAB)        // Tab / Right Ctrl
 #define KC_SYSP LT(_SYMB, KC_SPC)     // Space / _symbols
-#define KC_ALEN RALT_T(KC_ENT)        // Enter / Right Alt
+#define KC_ALEN LALT_T(KC_ENT)        // Enter / Left Alt
 
 // -- Bottom Keys:
 //#define KC_HYPL HYPR_T(KC_PPLS)       // +  / Hyper (Ctrl + Shift + Alt + Gui)
