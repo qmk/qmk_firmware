@@ -34,7 +34,7 @@ This keyboard laoyut is intended to be used with English (US, intl, with dead
 keys) settings on PC.
 
 #+CAPTION: Redox FiNeX layout
-[[./images/redox-finex.png]]
+[[https://i.imgur.com/WD0TDMf.png]]
 
 ** Keys Legend
 The following scheme describe the meaning of the keys symbols positions.
