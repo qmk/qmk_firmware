@@ -13,9 +13,6 @@ qmk_dir = script_dir.parent
 python_lib_dir = Path(qmk_dir / 'lib' / 'python').resolve()
 sys.path.append(str(python_lib_dir))
 
-# Setup the CLI
-import milc  # noqa
-
 
 def _check_modules(requirements):
     """ Check if the modules in the given requirements.txt are available.
@@ -39,18 +36,19 @@ def _check_modules(requirements):
 
             if not find_spec(module['import']):
                 print('Could not find module %s!' % module['name'])
+                print('Please run `python3 -m pip install -r %s` to install required python dependencies.' % str(qmk_dir / requirements))
                 if developer:
-                    print('Please run `pip3 install -r requirements-dev.txt` to install the python development dependencies or turn off developer mode with `qmk config user.developer=None`.')
-                    print()
-                else:
-                    print('Please run `pip3 install -r requirements.txt` to install the python dependencies.')
-                    print()
-                    exit(255)
+                    print('You can also turn off developer mode: qmk config user.developer=None')
+                print()
+                exit(255)
 
 
 developer = False
 # Make sure our modules have been setup
 _check_modules('requirements.txt')
+
+# Setup the CLI
+import milc  # noqa
 
 # For developers additional modules are needed
 if milc.cli.config.user.developer:
