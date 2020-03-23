@@ -1,14 +1,12 @@
 #include QMK_KEYBOARD_H
 #include "keymap_bepo.h"
 
-extern keymap_config_t keymap_config;
-
-#define TAPPING_TERM 450
-
-#define _BEPO 0
-#define _LOWER 1
-#define _RAISE 2
-#define _ADJUST 3
+enum layers {
+    _BEPO,
+    _LOWER,
+    _RAISE,
+    _ADJUST,
+};
 
 #define TABLO LT(_LOWER, KC_TAB)
 #define ENTRA LT(_RAISE, KC_ENTER)
@@ -106,6 +104,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
