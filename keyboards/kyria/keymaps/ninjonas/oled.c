@@ -105,8 +105,12 @@ void oled_white_space(void){
   oled_write_P(PSTR(" "), false);
 }
 
+void oled_slash_separator(void){
+  oled_write_P(PSTR(" / "), false);
+}
+
 void render_layout_state(void) {
-  oled_write_P(PSTR("\nLayout: "), false);
+  oled_write_P(PSTR("Layout: "), false);
   switch (biton32(default_layer_state)) {
       case _COLEMAK:
         oled_write_P(PSTR("Colemak"), false);
@@ -121,6 +125,37 @@ void render_layout_state(void) {
         oled_write_ln_P(PSTR("Undefined"), false);
   }
 }
+#ifdef ENCODER_ENABLE   
+static void render_encoder_state(void) {
+    oled_write_P(PSTR("\nEnc: "), false);
+    bool lower = layer_state_is(_LOWER) & !layer_state_is(_ADJUST);
+    bool raise = layer_state_is(_RAISE) & !layer_state_is(_ADJUST);
+    bool adjust = layer_state_is(_ADJUST);
+
+    if(lower){ 
+      oled_write_P(PSTR("APPSW"), left_encoder_rotated);
+      oled_slash_separator();
+      oled_write_P(PSTR("UPDN"), right_encoder_rotated);
+    } else if(raise){ 
+      oled_write_P(PSTR("PGUD"), left_encoder_rotated);
+      oled_slash_separator();
+      oled_write_P(PSTR("TABSW"), right_encoder_rotated);
+    } else if(adjust){ 
+      oled_write_P(PSTR("RHUE"), left_encoder_rotated);
+      oled_slash_separator();
+      oled_write_P(PSTR("RBRI"), right_encoder_rotated);
+    } else { 
+      oled_write_P(PSTR("BRI"), left_encoder_rotated);
+      oled_slash_separator();
+      oled_write_P(PSTR("VOL"), right_encoder_rotated);
+    }
+
+    if (timer_elapsed(encoder_rotated_timer) > 200) {  
+      left_encoder_rotated = false;
+      right_encoder_rotated = false;
+    }
+}
+#endif
 
 static void render_layer_state(void) {
     oled_write_P(PSTR("\nLayer:"), false);
@@ -156,6 +191,9 @@ void render_mod_state(uint8_t modifiers) {
 static void render_status(void) {
   render_qmk_logo();
   render_layout_state();
+  #ifdef ENCODER_ENABLE   
+  render_encoder_state();
+  #endif
   render_layer_state();
   render_mod_state(get_mods()|get_oneshot_mods());
 }

@@ -326,7 +326,7 @@ See also: [Key Lock](feature_key_lock.md)
 
 ## Layer Switching :id=layer-switching
 
-See also: [Layer Switching](feature_advanced_keycodes.md#switching-and-toggling-layers)
+See also: [Layer Switching](feature_layers.md#switching-and-toggling-layers)
 
 |Key             |Description                                                                       |
 |----------------|----------------------------------------------------------------------------------|
