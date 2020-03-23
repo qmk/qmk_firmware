@@ -53,7 +53,7 @@ Remove these variables if they exist:
 
 Finally convert all pin assignments in `config.h` to the stm32 equivalents.
 
-| Pro Micro | Proton C | | Proton C | Pro Micro |
+| Pro Micro Left | Proton C Left | | Proton C Right | Pro Micro Right |
 |-----------|----------|-|----------|-----------|
 | `D3` | `A9` | | 5v | RAW (5v) |
 | `D2` | `A10` | | GND | GND |
