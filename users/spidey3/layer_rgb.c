@@ -27,15 +27,23 @@ void eeconfig_init_user_rgb(void)
 
 const rgblight_segment_t PROGMEM _capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 2, HSV_AZURE}, {14, 2, HSV_AZURE} );
 const rgblight_segment_t PROGMEM _layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS( {7, 1, HSV_PURPLE} );
-const rgblight_segment_t PROGMEM _layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS( {9, 2, HSV_GREEN} );
+const rgblight_segment_t PROGMEM _layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS( {10, 3, HSV_MAGENTA} );
+const rgblight_segment_t PROGMEM _layer3_layer[] = RGBLIGHT_LAYER_SEGMENTS( {10, 1, HSV_GREEN} );
 
 // Now define the array of layers. Later layers take precedence
-const rgblight_segment_t* const PROGMEM _rgb_layers[] = RGBLIGHT_LAYERS_LIST( _capslock_layer, _layer1_layer, _layer2_layer );
+const rgblight_segment_t* const PROGMEM _rgb_layers[] =
+    RGBLIGHT_LAYERS_LIST( _capslock_layer, _layer1_layer, _layer2_layer, _layer3_layer );
 const uint8_t PROGMEM _n_rgb_layers = sizeof(_rgb_layers) / sizeof(_rgb_layers[0]) - 1;
+
+void clear_rgb_layers() {
+    for (uint8_t i=0; i<_n_rgb_layers; i++) {
+        rgblight_set_layer_state(i, false);
+    }
+}
 
 void do_rgb_layers(layer_state_t state, uint8_t start, uint8_t end) {
     dprint("SPIDEY3: do_rgb_layers()\n");
-    for (uint8_t i=start; i<end; i++) { 
+    for (uint8_t i=start; i<end; i++) {
       bool is_on = layer_state_cmp(state, i);
       dprintf("         layer[%d]=%u\n", i, is_on);
       rgblight_set_layer_state(i, is_on);

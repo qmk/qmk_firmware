@@ -19,3 +19,12 @@ void eeconfig_init_user(void) {
   eeconfig_init_user_rgb();
 #endif
 }
+
+void shutdown_user() {
+#ifdef RGBLIGHT_ENABLE
+  clear_rgb_layers();
+  rgblight_enable();
+  rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+  rgblight_sethsv_noeeprom(HSV_RED);
+#endif
+}
