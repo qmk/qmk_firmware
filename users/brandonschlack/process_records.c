@@ -133,18 +133,16 @@ void send_make_command(bool flash_bootloader) {
     if (flash_bootloader) {
 #if defined(KEYBOARD_massdrop_alt) // only run for Massdrop ALT
         SEND_STRING(" && mdlflash " QMK_KEYBOARD " " QMK_KEYMAP);
-#elif defined(KEYBOARD_coseyfannitutti_discipline) // only run for Discipline 65
-        SEND_STRING(":program");
 #else // use universal flash command
         SEND_STRING(":flash");
 #endif
+    }
 #if defined(FORCE_LAYOUT) // Add layout string if built with FORCE_LAYOUT
-        SEND_STRING(" FORCE_LAYOUT=" FORCE_LAYOUT);
+    SEND_STRING(" FORCE_LAYOUT=" FORCE_LAYOUT);
 #endif
 #if defined(CONVERT_TO_PROTON_C) // Add CTPC if built with CONVERT_TO_PROTON_C
-        SEND_STRING(" CTPC=" CONVERT_TO_PROTON_C);
+    SEND_STRING(" CTPC=yes");
 #endif
-    }
     SEND_STRING(SS_TAP(X_ENTER));
     if (flash_bootloader) {
         reset_keyboard();
