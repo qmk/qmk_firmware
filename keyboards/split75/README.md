@@ -19,7 +19,7 @@ Flashing example for this keyboard ([after setting up the bootloadHID flashing e
 
     make split75:default:flash
 	or
-	.\bootloadHID -r PATH_TO_FOLDER\split75_default.hex
+	bootloadHID -r PATH_TO_FOLDER\split75_default.hex
 
 **Reset Key**: Hold down the key located at 3rd left position in the bottom row, commonly programmed as Left Control while plugging in the keyboard.
 
