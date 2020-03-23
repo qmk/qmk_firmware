@@ -1,21 +1,19 @@
-# Tartan # Through Hole
+# plaid // Through Hole
 
-![tartan](https://i.imgur.com/1qSrVcs.jpg)
+![plaid](https://i.imgur.com/tTi9yR9h.jpg)
 
-A 60% keyboard with only through hole components.   
+12x4 ortholinear keyboard with only through hole components.   
 
-* Keyboard Maintainer: [hsgw](https://github.com/hsgw)
-* Hardware Supported: ATMEGA328p with vusb [PCB](https://github.com/hsgw/tartan)
-* Hardware Availability: https://5z6p.com/products/tartan/
+Keyboard Maintainer: [hsgw](https://github.com/hsgw)  
+Hardware Supported: ATMEGA328p with vusb [PCB](https://github.com/hsgw/plaid)  
+Hardware Availability: Group buy in r/mk
 
 Make example for this keyboard (after setting up your build environment):
+    make dm9records/plaid:default
 
-    make tartan:default
+Flashing example for this keyboard:
 
-Flash firmware:
-
-    // In bootloader mode
-    make tartan:default:flash
+    make dm9records/plaid:default:flash
 
 ## Bootloader
 use usbasploader in my repository.

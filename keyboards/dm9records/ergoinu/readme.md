@@ -11,11 +11,11 @@ Hardware Availability & Repository: [https://github.com/hsgw/ergoinu](https://gi
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ergoinu:default
+    make dm9records/ergoinu:default
 
     (or)
 
-    make ergoinu:default_jis
+    make dm9records/ergoinu:default_jis
 
 
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
