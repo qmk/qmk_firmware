@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       ___X___,  CK_RST, CK_DOWN,   CK_UP, CK_TOGG, RGB_TOG,                       MU_TOG,     F12,      F7,      F8,      F9, ___X___,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      ___X___, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, RGB_MOD,                       MU_MOD,     F11,      F4,      F5,      F6, ___X___,\
+      ___X___, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, RGB_MOD,                       MU_MOD,     F11,      F4,      F5,      F6,   RESET,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       ___X___, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,  RGBRST,                       AU_TOG,     F10,      F1,      F2,      F3, _______,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -60,11 +60,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   )
 };
-
-// void persistent_default_layer_set(uint16_t default_layer) {
-//   eeconfig_update_default_layer(default_layer);
-//   default_layer_set(default_layer);
-// }
 
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
 uint32_t layer_state_set_user(uint32_t state) {
@@ -85,19 +80,17 @@ void matrix_init_user(void) {
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
+    #ifdef CONSOLE_ENABLE
+        uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+    #endif
   #ifdef OLED_DRIVER_ENABLE
+  if (record->event.pressed) {
     oled_timer = timer_read32();
     add_keylog(keycode);
-  #endif
   }
+  #endif
 
   switch (keycode) {
-    // case QWERTY:
-    //   if (record->event.pressed) {
-    //     persistent_default_layer_set(1UL<<_QWERTY);
-    //   }
-    //   return false;
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
@@ -121,10 +114,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     case RGB_TOG ... RGB_MOD:
-    // case RGB_HUI: case RGB_HUD:
-    // case RGB_SAI: case RGB_SAD:
-    // case RGB_VAI: case RGB_VAD:
-    // case RGB_SPI: case RGB_SPD:
       if (record->event.pressed) {
         restore_rgb_config();
         process_rgb(keycode, record);

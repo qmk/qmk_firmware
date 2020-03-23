@@ -16,6 +16,7 @@ enum custom_keycodes {
 
 #define KC________ KC_TRNS
 #define KC____X___ KC_NO
+#define KC_RESET RESET
 
 #define KC_SFEQ MT(MOD_LSFT, KC_EQL)
 #define KC_SFQT MT(MOD_LSFT, KC_QUOT)
