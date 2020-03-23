@@ -80,6 +80,7 @@
     * [ターミナル](ja/feature_terminal.md)
     * [ユニコード](ja/feature_unicode.md)
     * [ユーザスペース](ja/feature_userspace.md)
+    * [WPM 計算](ja/feature_wpm.md)
 
   * ハードウェア機能
     * 表示
