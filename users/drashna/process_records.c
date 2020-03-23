@@ -19,10 +19,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif  // KEYLOGGER_ENABLE
 #ifdef OLED_DRIVER_ENABLE
     process_record_user_oled(keycode, record);
-#endif // OLED
+#endif  // OLED
 
-    if (process_record_keymap(keycode, record)
-        && process_record_secrets(keycode, record)
+    if (process_record_keymap(keycode, record) && process_record_secrets(keycode, record)
 #ifdef RGB_MATRIX_ENABLE
         && process_record_user_rgb_matrix(keycode, record)
 #endif

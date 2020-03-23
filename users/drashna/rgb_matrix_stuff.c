@@ -81,7 +81,6 @@ bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
             }
 #endif
             break;
-
     }
     return true;
 }
