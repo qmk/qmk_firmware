@@ -63,6 +63,7 @@ void keyboard_post_init_user(void) {
   //debug_keyboard=true;
   //debug_mouse=true;
   led_set_user(0);
+  layer_state_set_user(layer_state);
 }
 
 #if defined(LED_INDICATORS)
