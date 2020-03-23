@@ -71,7 +71,7 @@ Finally convert all pin assignments in `config.h` to the stm32 equivalents.
 
 You can also make use of several new pins on the extended portion of the Proton C:
 
-| Left | | Right | Comments |
+| Left | | Right | 
 |------|-|-------|----------|
 | `A4`<sup>3</sup> | | `B10` |
 | `A5`<sup>4</sup> | | `B11` |
