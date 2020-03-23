@@ -1,4 +1,4 @@
-# 7skb
+# JISplit89
 
 ![jisplit89](https://s2.booth.pm/1d33594d-0c5f-4f93-baf5-2e89e0d99afc/i/1916810/82322b65-7867-4779-b7f4-9076530d9e33_base_resized.jpg)
 
