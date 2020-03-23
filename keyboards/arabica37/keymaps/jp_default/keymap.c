@@ -1,16 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "bootloader.h"
-#ifdef PROTOCOL_LUFA
-  #include "lufa.h"
-  #include "split_util.h"
-#endif
-
-
-
-#ifdef RGBLIGHT_ENABLE
-//Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-#endif
 
 extern uint8_t is_master;
 
@@ -34,9 +22,6 @@ enum custom_keycodes {
   RGBRST
 };
 
-enum macro_keycodes {
-  KC_SAMPLEMACRO,
-};
 
 #define KC______ KC_TRNS
 #define KC_XXXXX KC_NO
@@ -118,19 +103,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 int RGB_current_mode;
 
-
-// Setting ADJUST layer RGB back to default
-void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-  if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
-    layer_on(layer3);
-  } else {
-    layer_off(layer3);
-  }
-}
-
 void matrix_init_user(void) {
     #ifdef RGBLIGHT_ENABLE
-      RGB_current_mode = rgblight_config.mode;
+      RGB_current_mode = rgblight_get_mode();
     #endif
 }
 
@@ -143,20 +118,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_LOWER);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
       break;
     case RAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_RAISE);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
       break;
@@ -173,7 +148,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
           rgblight_mode(RGB_current_mode);
           rgblight_step();
-          RGB_current_mode = rgblight_config.mode;
+          RGB_current_mode = rgblight_get_mode();
         }
       #endif
       return false;
@@ -183,7 +158,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
           eeconfig_update_rgblight_default();
           rgblight_enable();
-          RGB_current_mode = rgblight_config.mode;
+          RGB_current_mode = rgblight_get_mode();
         }
       #endif
       break;
