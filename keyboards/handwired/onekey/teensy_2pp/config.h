@@ -25,3 +25,5 @@
 #define BACKLIGHT_PIN B6
 
 #define RGB_DI_PIN F6
+
+#define ADC_PIN F6

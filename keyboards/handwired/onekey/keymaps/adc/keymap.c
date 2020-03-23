@@ -2,10 +2,6 @@
 #include "analog.h"
 #include <stdio.h>
 
-#ifndef ADC_PIN
-#    define ADC_PIN A0
-#endif
-
 enum custom_keycodes {
     ADC_SAMPLE = SAFE_RANGE,
 };
