@@ -151,6 +151,8 @@ void process_record_nocache(keyrecord_t *record) { process_record(record); }
 
 __attribute__((weak)) bool process_record_quantum(keyrecord_t *record) { return true; }
 
+__attribute__((weak)) void post_process_record_quantum(keyrecord_t *record) {}
+
 #ifndef NO_ACTION_TAPPING
 /** \brief Allows for handling tap-hold actions immediately instead of waiting for TAPPING_TERM or another keypress.
  *
@@ -185,6 +187,11 @@ void process_record(keyrecord_t *record) {
 
     if (!process_record_quantum(record)) return;
 
+    process_record_handler(record);
+    post_process_record_quantum(record);
+}
+
+void process_record_handler(keyrecord_t *record) {
     action_t action = store_or_get_action(record->event.pressed, record->event.key);
     dprint("ACTION: ");
     debug_action(action);
@@ -562,8 +569,6 @@ void process_action(keyrecord_t *record, action_t action) {
             action_macro_play(action_get_macro(record, action.func.id, action.func.opt));
             break;
 #endif
-        case ACT_COMMAND:
-            break;
 #ifdef SWAP_HANDS_ENABLE
         case ACT_SWAP_HANDS:
             switch (action.swap.code) {
@@ -754,6 +759,13 @@ void register_code(uint8_t code) {
 */
 #endif
             {
+                // Force a new key press if the key is already pressed
+                // without this, keys with the same keycode, but different
+                // modifiers will be reported incorrectly, see issue #1708
+                if (is_key_pressed(keyboard_report, code)) {
+                    del_key(code);
+                    send_keyboard_report();
+                }
                 add_key(code);
                 send_keyboard_report();
             }
@@ -983,7 +995,6 @@ bool is_tap_action(action_t action) {
  * FIXME: Needs documentation.
  */
 void debug_event(keyevent_t event) { dprintf("%04X%c(%u)", (event.key.row << 8 | event.key.col), (event.pressed ? 'd' : 'u'), event.time); }
-
 /** \brief Debug print (FIXME: Needs better description)
  *
  * FIXME: Needs documentation.
@@ -1033,9 +1044,6 @@ void debug_action(action_t action) {
             break;
         case ACT_MACRO:
             dprint("ACT_MACRO");
-            break;
-        case ACT_COMMAND:
-            dprint("ACT_COMMAND");
             break;
         case ACT_FUNCTION:
             dprint("ACT_FUNCTION");
