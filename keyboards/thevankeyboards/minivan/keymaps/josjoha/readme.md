@@ -586,12 +586,13 @@ Why you want this layout
   are clustered, perhaps vaguely.
 
 ⮚  The last layer adds a fair amount of fun stuff to spice up your
-  writing. Write H₂O, 2⁷·⁰=128, ±8 °C, §2.1, 2 ³/₈" etc. Some logic
-  is fairly obvious such as ⁽⁾ on the same keys as (), and quotation
-  marks on the same keys as on the BASE layer, while others have vague
-  or no logic to their placement such as ° (Degrees symbol), 🙂 and
-  others, which would have to be learned. You also have correct quotation
-  marks for some languages. Dutch: „he said” English: “he said”.
+  writing. Write H₂O, 2⁷·⁰=128, ±8 °C, §2.1, 2 ³/₈", a note⁴
+  etc. Some logic is fairly obvious such as ⁽⁾ on the same keys as
+  (), and quotation marks on the same keys as on the BASE layer, while
+  others have vague or no logic to their placement such as ° (Degrees
+  symbol), 🙂 and others, which would have to be learned. You also
+  have correct quotation marks for some languages. Dutch: „he said”
+  English: “he said”.
  
 ⮚  With the 'descramble' mode, you never have to fear not being able to
   use your keyboard. This mode is completely seamless, everything works
