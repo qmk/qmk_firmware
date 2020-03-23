@@ -69,8 +69,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Runs just one time when the keyboard initializes.
 #ifdef RGBLIGHT_ENABLE
 void matrix_init_user(void) {
-    rgblight_init();
-    rgblight_setrgb(0x00,  0xFF, 0xFF);
     rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL);
 };
 #endif
