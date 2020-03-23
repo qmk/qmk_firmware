@@ -201,22 +201,33 @@ void render_keylogger_status(void) {
   oled_write(keylog_str, false);
 }
 
-void render_qmk_version(void) {
-    // static char qmk_version[];
-    // snprintf(qmk_version, sizeof(qmk_version), "%5s", QMK_VERSION);
-    oled_write_ln_P(PSTR("-gtm-"), false);
+void render_prompt(void) {
+    bool blink = (timer_read32( ) % 1000) < 500;
+
+    if (layer_state_is(_LOWER)) {
+        oled_write_ln_P(blink ? PSTR("> lo_") : PSTR("> lo "), false);
+    } else if (layer_state_is(_RAISE)) {
+        oled_write_ln_P(blink ? PSTR("> hi_") : PSTR("> hi "), false);
+    } else if (layer_state_is(_ADJUST)) {
+        oled_write_ln_P(blink ? PSTR("> aj_") : PSTR("> aj "), false);
+    } else {
+        oled_write_ln_P(blink ? PSTR("> _  ") : PSTR(">    "), false);
+    }
 };
 
 void render_status_main(void) {
+    oled_write_ln("", false);
     oled_write_ln("", false);
 
     render_kb_split();
 
     oled_write_ln("", false);
     oled_write_ln("", false);
+    oled_write_ln("", false);
 
     render_layer();
 
+    oled_write_ln("", false);
     oled_write_ln("", false);
     oled_write_ln("", false);
 
@@ -229,9 +240,11 @@ void render_status_main(void) {
 
 void render_status_secondary(void) {
     oled_write_ln("", false);
+    oled_write_ln("", false);
 
     render_corne_logo();
 
+    oled_write_ln("", false);
     oled_write_ln("", false);
     oled_write_ln("", false);
 
@@ -239,8 +252,9 @@ void render_status_secondary(void) {
 
     oled_write_ln("", false);
     oled_write_ln("", false);
+    oled_write_ln("", false);
 
-    render_qmk_version();
+    render_prompt();
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -248,7 +262,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 void oled_task_user(void) {
-    if (timer_elapsed32(oled_timer) > 10000) {
+    if (timer_elapsed32(oled_timer) > 100000) {
         oled_off();
         return;
     }
@@ -263,10 +277,4 @@ void oled_task_user(void) {
     } else {
         render_status_secondary();
     }
-
-    // uint32_t elapsed = timer_elapsed32(oled_timer);
-    // uint32_t tmp = elapsed / 100;
-
-    // if (elapsed % 100 == 0) {
-    // }
 }
