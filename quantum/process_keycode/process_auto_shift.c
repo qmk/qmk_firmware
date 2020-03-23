@@ -20,11 +20,11 @@
 
 #    include "process_auto_shift.h"
 
-static bool autoshift_enabled = true;
-static uint16_t autoshift_time = 0;
-static uint16_t autoshift_timeout = AUTO_SHIFT_TIMEOUT;
-static int16_t autoshift_lastkey = -1; // -1 is what KC_NO was before - 'not currently autoshifting'.
-static int16_t autoshift_lastkey_shifted = -2; // set in the top of process_auto_shift.
+static bool     autoshift_enabled         = true;
+static uint16_t autoshift_time            = 0;
+static uint16_t autoshift_timeout         = AUTO_SHIFT_TIMEOUT;
+static int16_t  autoshift_lastkey         = -1;  // -1 is what KC_NO was before - 'not currently autoshifting'.
+static int16_t  autoshift_lastkey_shifted = -2;  // set in the top of process_auto_shift.
 // process_custom_shifts return values:
 // -2 - not a custom autoshift key
 // -1 - custom key, use default shifted value
@@ -42,13 +42,15 @@ void autoshift_timer_report(void) {
 }
 
 bool autoshift_on(uint16_t keycode) {
-    if (!autoshift_enabled) { return true; }
+    if (!autoshift_enabled) {
+        return true;
+    }
 #    ifndef AUTO_SHIFT_MODIFIERS
     if (get_mods()) {
         return true;
     }
 #    endif
-    autoshift_time = timer_read();
+    autoshift_time    = timer_read();
     autoshift_lastkey = keycode;
 
     // We need some extra handling here for OSL edge cases
@@ -68,7 +70,7 @@ void autoshift_flush(void) {
             tap_code16(autoshift_lastkey);
         }
 
-        autoshift_time = 0;
+        autoshift_time    = 0;
         autoshift_lastkey = -1;
         // no need to reset shifted
     }
