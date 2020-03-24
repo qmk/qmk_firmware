@@ -413,7 +413,6 @@ void rgb_matrix_task(void) {
             rgb_task_sync();
             break;
     }
-
 }
 
 void rgb_matrix_indicators(void) {
@@ -425,14 +424,21 @@ __attribute__((weak)) void rgb_matrix_indicators_kb(void) {}
 
 __attribute__((weak)) void rgb_matrix_indicators_user(void) {}
 
-void rgb_matrix_indicators_advanced(effect_params_t* params) {
-    rgb_matrix_indicators_advanced_kb(params);
-    rgb_matrix_indicators_advanced_user(params);
+void rgb_matrix_indicators_advanced(effect_params_t *params) {
+#if defined(RGB_MATRIX_LED_PROCESS_LIMIT) && RGB_MATRIX_LED_PROCESS_LIMIT > 0 && RGB_MATRIX_LED_PROCESS_LIMIT < DRIVER_LED_TOTAL
+    uint8_t min = RGB_MATRIX_LED_PROCESS_LIMIT * (params->iter - 1);
+    uint8_t max = min + RGB_MATRIX_LED_PROCESS_LIMIT;
+    if (max > DRIVER_LED_TOTAL) max = DRIVER_LED_TOTAL;
+#else
+    uint8_t min = 0 uint8_t max = DRIVER_LED_TOTAL;
+#endif
+    rgb_matrix_indicators_advanced_kb(min, max);
+    rgb_matrix_indicators_advanced_user(min, max);
 }
 
-__attribute__((weak)) void rgb_matrix_indicators_advanced_kb(effect_params_t* params) {}
+__attribute__((weak)) void rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {}
 
-__attribute__((weak)) void rgb_matrix_indicators_advanced_user(effect_params_t* params) {}
+__attribute__((weak)) void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {}
 
 void rgb_matrix_init(void) {
     rgb_matrix_driver.init();
