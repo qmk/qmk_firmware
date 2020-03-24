@@ -23,3 +23,7 @@ ifeq ($(strip $(KEYBOARD)), dz60)
   VIA_ENABLE = yes
   LTO_ENABLE = yes
 endif
+ifeq ($(strip $(KEYBOARD)), projectkb/alice)
+  VIA_ENABLE = yes
+  LTO_ENABLE = yes
+endif
