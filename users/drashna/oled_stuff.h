@@ -20,10 +20,10 @@ bool process_record_user_oled(uint16_t keycode, keyrecord_t *record);
 #    define OLED_RENDER_LAYOUT_CARPLAX "Carplax"
 
 #    define OLED_RENDER_LAYER_NAME   "Layer:\n"
-#    define OLED_RENDER_LAYER_LOWER  " Lower"
-#    define OLED_RENDER_LAYER_RAISE  " Raise"
-#    define OLED_RENDER_LAYER_ADJUST " Adjust"
-#    define OLED_RENDER_LAYER_MODS   " Mods"
+#    define OLED_RENDER_LAYER_LOWER  "Lower"
+#    define OLED_RENDER_LAYER_RAISE  "Raise"
+#    define OLED_RENDER_LAYER_ADJUST "Adjust"
+#    define OLED_RENDER_LAYER_MODS   "Mods"
 
 #    define OLED_RENDER_LOCK_NAME "Lock: "
 #    define OLED_RENDER_LOCK_NUML "NUML"
