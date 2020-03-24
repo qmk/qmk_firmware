@@ -13,20 +13,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "southpaw_65.h"
 
-#pragma once
+void keyboard_pre_init_kb(void) {
+  setPinOutput(B6);
 
-#include "config_common.h"
+  keyboard_pre_init_user();
+}
 
-#define MATRIX_COL_PINS { B4 }
-#define MATRIX_ROW_PINS { B5 }
-#define UNUSED_PINS
-
-#define BACKLIGHT_PIN           C8
-#define BACKLIGHT_PWM_DRIVER    PWMD3
-#define BACKLIGHT_PWM_CHANNEL   3
-#define BACKLIGHT_PAL_MODE      0
-
-#define RGB_DI_PIN B15
-
-#define ADC_PIN A0
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        writePin(B6, !led_state.caps_lock);
+    }
+    return res;
+}
