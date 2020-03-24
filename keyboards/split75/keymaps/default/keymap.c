@@ -1,5 +1,3 @@
-#include "split75.h"
-
 #include QMK_KEYBOARD_H
 
 #define BASE 0
