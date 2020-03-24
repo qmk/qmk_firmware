@@ -1,16 +1,14 @@
 #pragma once
 
-#define CONFIG_H
-
 #include "config_common.h"
 
-/* USB Device descriptor parameter */ 
+/* USB Device descriptor parameter */
 #define VENDOR_ID 0xFEED
 #define PRODUCT_ID 0x6a50
 #define DEVICE_VER 0x0001
 #define MANUFACTURER tominabox1
-#define PRODUCT _33
-#define DESCRIPTION "Itty Bitty otho 30"
+#define PRODUCT underscore33
+#define DESCRIPTION "Itty Bitty otho _30"
 
 /* key matrix size */
 #define MATRIX_ROWS 4

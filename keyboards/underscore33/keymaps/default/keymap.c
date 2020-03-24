@@ -1,7 +1,5 @@
 
 #include QMK_KEYBOARD_H
-#include "quantum.h"
-#include "_33.h"
 
 enum layers{
   _BASE,
@@ -20,7 +18,7 @@ enum custom_keycodes{
 #define KC_SF LSFT_T(KC_F)
 #define KC_SJ RSFT_T(KC_J)
 #define KC_CK RCTL_T(KC_K)
-#define KC_AL RALT_T(KC_L) 
+#define KC_AL RALT_T(KC_L)
 #define KC_GSCLN RGUI_T(KC_SCLN)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
