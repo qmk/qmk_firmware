@@ -13,9 +13,6 @@
 #define KC_ALEN LALT_T(KC_ENT)
 #define ES_LIGH LT(_LIGHT, KC_ESC)
 
-#define KG_COPY   LGUI(KC_C)
-#define KG_PASTE  LGUI(KC_V)
-
 #define CT_COPY   LCTL(KC_C)
 #define CT_PASTE  LCTL(KC_V)
 
@@ -68,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Runs just one time when the keyboard initializes.
 #ifdef RGBLIGHT_ENABLE
-void matrix_init_user(void) {
+void keyboard_post_init_user(void) {
     rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL);
 };
 #endif
