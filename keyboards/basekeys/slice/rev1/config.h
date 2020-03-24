@@ -38,9 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
-
-#define DIODE_DIRECTION COL2ROW
-
 /* serial.c configuration for split keyboard */
 #define SOFT_SERIAL_PIN D2
 
