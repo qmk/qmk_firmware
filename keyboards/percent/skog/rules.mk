@@ -21,11 +21,7 @@ BACKLIGHT_ENABLE = yes
 RGBLIGHT_ENABLE = yes
 WS2812_DRIVER = i2c
 
-BACKLIGHT_CUSTOM_DRIVER = yes
-
 OPT_DEFS = -DDEBUG_LEVEL=0
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
-
-SRC = backlight.c

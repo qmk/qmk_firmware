@@ -20,11 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define VENDOR_ID       0x4335
+#define PRODUCT_ID      0x0002
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    SATAN
-#define PRODUCT         GH60
+#define PRODUCT         GH60 Satan
 #define DESCRIPTION     60% keyboard with backlight and WS2812 support
 
 /* key matrix size */

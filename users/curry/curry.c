@@ -53,15 +53,16 @@ void rgb_matrix_update_pwm_buffers(void);
 
 // On RESET, set all RGB to red, shutdown the keymap.
 void shutdown_user(void) {
-#ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE)
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(1);
     rgblight_setrgb_red();
-#endif  // RGBLIGHT_ENABLE
-#ifdef RGB_MATRIX_ENABLE
+#endif
+
+#if defined(RGB_MATRIX_ENABLE)
     rgb_matrix_set_color_all(0xFF, 0x00, 0x00);
     rgb_matrix_update_pwm_buffers();
-#endif  // RGB_MATRIX_ENABLE
+#endif
     shutdown_keymap();
 }
 
@@ -77,7 +78,7 @@ __attribute__((weak)) void matrix_scan_keymap(void) {}
 
 // No global matrix scan code, so just run keymap's matrix
 // scan function
-void matrix_scan_user(void) {
+__attribute__((weak)) void matrix_scan_user(void) {
     static bool has_ran_yet;
     if (!has_ran_yet) {
         has_ran_yet = true;
@@ -96,18 +97,16 @@ __attribute__((weak)) layer_state_t layer_state_set_keymap(layer_state_t state) 
 // On Layer change, run keymap's layer change check
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#if defined(RGBLIGHT_ENABLE)
     state = layer_state_set_rgb(state);
-#endif  // RGBLIGHT_ENABLE
+#endif
     return layer_state_set_keymap(state);
 }
 
 __attribute__((weak)) layer_state_t default_layer_state_set_keymap(layer_state_t state) { return state; }
 
 // Runs state check and changes underglow color and animation
-layer_state_t default_layer_state_set_user(layer_state_t state) {
-    return default_layer_state_set_keymap(state);
-}
+layer_state_t default_layer_state_set_user(layer_state_t state) { return default_layer_state_set_keymap(state); }
 
 __attribute__((weak)) void led_set_keymap(uint8_t usb_led) {}
 

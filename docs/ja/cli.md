@@ -1,8 +1,8 @@
 # QMK CLI
 
 <!---
-  original document: d598f01cb:docs/cli.md
-  git diff d598f01cb HEAD -- docs/cli.md | cat
+  original document: 79e6b7866:docs/cli.md
+  git diff 79e6b7866 HEAD -- docs/cli.md | cat
 -->
 
 このページは QMK CLI のセットアップと使用方法について説明します。
@@ -86,7 +86,7 @@ qmk cformat [file1] [file2] [...] [fileN]
 
 ## `qmk compile`
 
-このコマンドにより、任意のディレクトリからファームウェアをコンパイルすることができます。<https://config.qmk.fm> からエクスポートした JSON をコンパイルするか、リポジトリ内でキーマップをコンパイルすることができます。
+このコマンドにより、任意のディレクトリからファームウェアをコンパイルすることができます。<https://config.qmk.fm> からエクスポートした JSON をコンパイルするか、リポジトリ内でキーマップをコンパイルするか、現在の作業ディレクトリでキーボードをコンパイルすることができます。
 
 **Configurator Exports での使い方**:
 
@@ -98,6 +98,53 @@ qmk compile <configuratorExport.json>
 
 ```
 qmk compile -kb <keyboard_name> -km <keymap_name>
+```
+
+**キーボードディレクトリでの使い方**:  
+
+default キーマップのあるキーボードディレクトリ、キーボードのキーマップディレクトリ、`--keymap <keymap_name>` で与えられるキーマップディレクトリにいなければなりません。
+```
+qmk compile
+```
+
+**例**:
+```
+$ qmk config compile.keymap=default
+$ cd ~/qmk_firmware/keyboards/planck/rev6
+$ qmk compile
+Ψ Compiling keymap with make planck/rev6:default
+...
+```
+あるいはオプションのキーマップ引数を指定して
+
+```
+$ cd ~/qmk_firmware/keyboards/clueboard/66/rev4
+$ qmk compile -km 66_iso
+Ψ Compiling keymap with make clueboard/66/rev4:66_iso
+...
+```
+あるいはキーマップディレクトリで
+
+```
+$ cd ~/qmk_firmware/keyboards/gh60/satan/keymaps/colemak
+$ qmk compile
+Ψ Compiling keymap with make make gh60/satan:colemak
+...
+```
+
+**レイアウトディレクトリでの使い方**:  
+
+`qmk_firmware/layouts/` 以下のキーマップディレクトリにいなければなりません。
+```
+qmk compile -kb <keyboard_name>
+```
+
+**例**:
+```
+$ cd ~/qmk_firmware/layouts/community/60_ansi/mechmerlin-ansi
+$ qmk compile -kb dz60
+Ψ Compiling keymap with make dz60:mechmerlin-ansi
+...
 ```
 
 ## `qmk flash`
@@ -146,22 +193,36 @@ qmk docs [-p PORT]
 
 ## `qmk doctor`
 
-このコマンドは環境を調査し、潜在的なビルドあるいは書き込みの問題について警告します。
+このコマンドは環境を調査し、潜在的なビルドあるいは書き込みの問題について警告します。必要に応じてそれらの多くを修正できます。
 
 **使用法**:
 
 ```
-qmk doctor
+qmk doctor [-y] [-n]
 ```
 
-## `qmk json-keymap`
+**例**:
+
+環境に問題がないか確認し、それらを修正するよう促します:
+
+    qmk doctor
+
+環境を確認し、見つかった問題を自動的に修正します:
+
+    qmk doctor -y
+
+環境を確認し、問題のみをレポートします:
+
+    qmk doctor -n
+
+## `qmk json2c`
 
 QMK Configurator からエクスポートしたものから keymap.c を生成します。
 
 **使用法**:
 
 ```
-qmk json-keymap [-o OUTPUT] filename
+qmk json2c [-o OUTPUT] filename
 ```
 
 ## `qmk kle2json`
@@ -194,6 +255,16 @@ $ qmk kle2json -f kle.txt -f
 
 ```
 qmk list-keyboards
+```
+
+## `qmk list-keymaps`
+
+このコマンドは指定されたキーボード(とリビジョン)の全てのキーマップをリスト化します。
+
+**使用法**:
+
+```
+qmk list-keymaps -kb planck/ez
 ```
 
 ## `qmk new-keymap`
