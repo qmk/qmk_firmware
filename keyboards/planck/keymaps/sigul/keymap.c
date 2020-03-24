@@ -30,10 +30,11 @@ enum planck_layers {
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
   // custom keycodes for personal macros
-  DESK,
-  VIVERE,
-  SVIV,
-  SGCOM,
+  DESK, // personal email
+  VIVERE, // website
+  SVIV, // website email
+  SGCOM, // personal website
+  PHONE, // my phone number
   // custom keycodes for an Italian ANSI layout with accented vowels
   IT_CMLS, // IT_COMM and IT_LESS when combined with shift
   IT_DTMR, // IT_DOT and IT_MORE when combined with shift
@@ -102,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      | SGCOM| DESK |      |      |      |   -  |   +  |   è  |   ì  |  ù   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Caps |      |      | SVIV |VIVERE|MOUSE |NUMPAD|      |      |  [   |   ]  |  \   |
+ * | Caps |      | PHONE| SVIV |VIVERE|MOUSE |NUMPAD|      |      |  [   |   ]  |  \   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      | Home | PgDn | PgUp | End  |
  * `-----------------------------------------------------------------------------------'
@@ -110,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = LAYOUT_ortho_4x12(
     IT_GRAVE, IT_1,    IT_2,    IT_3,	 IT_4,    IT_5,    IT_6,    IT_7,    IT_8,    IT_9,    IT_0,    _______,
     _______,  _______, SGCOM,   DESK,    _______, _______, _______, IT_MINS, IT_PLUS, IT_EACC, IT_IACC, IT_UACC,
-    KC_CAPS,  _______, _______, SVIV,    VIVERE,  MOUSE,   NUMPAD,  _______, _______, IT_LBRC, IT_RBRC, IT_BSLS,
+    KC_CAPS,  _______, PHONE,   SVIV,    VIVERE,  MOUSE,   NUMPAD,  _______, _______, IT_LBRC, IT_RBRC, IT_BSLS,
     _______,  _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
 ),
 
@@ -211,6 +212,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     
+    case PHONE:
+      if (record->event.pressed) {
+          SEND_STRING("3931044785");
+      }
+      return false;
+      break;
     case DESK:
       if (record->event.pressed) {
           SEND_STRING("desk" SS_LALT(";") "silviogulizia.com");
