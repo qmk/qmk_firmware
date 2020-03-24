@@ -21,6 +21,8 @@ Make example for this keyboard (after setting up your build environment):
 - Small buzzer mounted inside (still waiting for the AST1109MLTRQ boys)
 - WS2812 strip (14 LEDs)
 
+Build process: [album](https://imgur.com/gallery/zZZGdDw)
+
 ## Pinout
 
 ![D48 pinout](https://imgur.com/xtYsl2P.jpg)
