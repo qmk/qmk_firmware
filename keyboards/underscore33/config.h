@@ -39,8 +39,5 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-// #define RGB_DI_PIN B6
-// #define RGBLED_NUM 3
-// #define RGBLIGHT_SLEEP
-
-#define TAPPING_TERM 200
+/* #define RGB_DI_PIN B6
+   #define RGBLED_NUM 1  */
