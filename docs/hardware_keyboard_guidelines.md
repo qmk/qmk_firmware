@@ -86,7 +86,7 @@ For example, if you define the `IOS_DEVICE_ENABLE` macro in the `keymaps/a_keyma
   ```
 * `keyboards/top_folder/post_config.h`
   ```c
-  #if !defined(IOS_DEVICE_ENABLE)
+  #ifndef IOS_DEVICE_ENABLE
     // USB_MAX_POWER_CONSUMPTION value for this keyboard
     #define USB_MAX_POWER_CONSUMPTION 400
   #else
@@ -96,12 +96,12 @@ For example, if you define the `IOS_DEVICE_ENABLE` macro in the `keymaps/a_keyma
   #endif
   
   #ifdef RGBLIGHT_ENABLE
-    #ifdef IOS_DEVICE_ENABLE
+    #ifndef IOS_DEVICE_ENABLE
+      #define RGBLIGHT_LIMIT_VAL 200
+      #define RGBLIGHT_VAL_STEP 17
+    #else
       #define RGBLIGHT_LIMIT_VAL 35
       #define RGBLIGHT_VAL_STEP 4
-    #else
-      #define RGBLIGHT_LIMIT_VAL 250
-      #define RGBLIGHT_VAL_STEP 17
     #endif
     #define RGBLIGHT_HUE_STEP 10
     #define RGBLIGHT_SAT_STEP 17
