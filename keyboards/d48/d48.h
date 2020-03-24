@@ -1,5 +1,4 @@
-#ifndef D48_H
-#define D48_H
+#pragma once
 
 #include "quantum.h"
 
@@ -49,6 +48,3 @@ void set_light_mode(light_mode_t value, uint32_t color);
 void process_light_mode(void);
 void update_light_mode(uint32_t color);
 void next_light_mode(uint32_t color);
-
-#endif
-

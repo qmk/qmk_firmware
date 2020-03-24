@@ -265,10 +265,10 @@ void oled_task_user(void) {
     };
 
     char mod_data[13] = "\x9c\x9d\x9c\x9d\x9c\x9d\x9c\x9d \x07\x07\x07\0";
-    if (ctrl_pressed) strncpy(mod_data, mods[0], 2);;
-    if (alt_pressed) strncpy(mod_data + 2, mods[1], 2);;
-    if (gui_pressed) strncpy(mod_data + 4, mods[2], 2);;
-    if (shift_pressed) strncpy(mod_data + 6, mods[3], 2);;
+    if (ctrl_pressed) strncpy(mod_data, mods[0], 2);
+    if (alt_pressed) strncpy(mod_data + 2, mods[1], 2);
+    if (gui_pressed) strncpy(mod_data + 4, mods[2], 2);
+    if (shift_pressed) strncpy(mod_data + 6, mods[3], 2);
     uint8_t led_usb_state = host_keyboard_leds();
     if (led_usb_state & (1 << USB_LED_NUM_LOCK)) mod_data[9] = 'N';
     if (led_usb_state & (1 << USB_LED_CAPS_LOCK)) mod_data[10] = 'C';
@@ -276,11 +276,5 @@ void oled_task_user(void) {
 
     oled_set_cursor(6, 3);
     oled_write(mod_data, false);
-
-    /*[>uint8_t led_usb_state = host_keyboard_leds();<]*/
-    /*[>oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK) ? PSTR("NUMLCK ") : PSTR("       "), false);<]*/
-    /*[>oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("CAPLCK ") : PSTR("       "), false);<]*/
-    /*[>oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);<]*/
 }
 #endif
-
