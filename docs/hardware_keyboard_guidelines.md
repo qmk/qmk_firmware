@@ -97,11 +97,11 @@ For example, if you define the `IOS_DEVICE_ENABLE` macro in the `keymaps/a_keyma
   
   #ifdef RGBLIGHT_ENABLE
     #ifdef IOS_DEVICE_ENABLE
-      #define RGBLIGHT_LIMIT_VAL 250
-      #define RGBLIGHT_VAL_STEP 17
-    #else
       #define RGBLIGHT_LIMIT_VAL 35
       #define RGBLIGHT_VAL_STEP 4
+    #else
+      #define RGBLIGHT_LIMIT_VAL 250
+      #define RGBLIGHT_VAL_STEP 17
     #endif
     #define RGBLIGHT_HUE_STEP 10
     #define RGBLIGHT_SAT_STEP 17
