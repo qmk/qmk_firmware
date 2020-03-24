@@ -61,6 +61,21 @@ This file is used by the [QMK API](https://github.com/qmk/qmk_api). It contains 
 
 All projects need to have a `config.h` file that sets things like the matrix size, product name, USB VID/PID, description and other settings. In general, use this file to set essential information and defaults for your keyboard that will always work.
 
+The `config.h` files can also be placed in sub-folders, and the order in which they are read is as follows
+
+* keuyboards/top_folder/config.h
+  * keuyboards/top_folder/sub_1/config.h
+    * keuyboards/top_folder/sub_1/sub_2/config.h
+      * keuyboards/top_folder/sub_1/sub_2/sub_3/config.h
+        * keuyboards/top_folder/sub_1/sub_2/sub_3/sub_4/config.h
+          * users/an_user_folder/config.h
+          * keuyboards/top_folder/keymaps/an_keymap/config.h
+        * keuyboards/top_folder/sub_1/sub_2/sub_3/sub_4/post_config.h
+      * keuyboards/top_folder/sub_1/sub_2/sub_3/post_config.h
+    * keuyboards/top_folder/sub_1/sub_2/post_config.h
+  * keuyboards/top_folder/sub_1/post_config.h
+* keuyboards/top_folder/post_config.h
+
 ### `rules.mk`
 
 The presence of this file means that the folder is a keyboard target and can be used in `make` commands. This is where you setup the build environment for your keyboard and configure the default set of features.
