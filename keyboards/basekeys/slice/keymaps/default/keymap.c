@@ -1,3 +1,4 @@
+#include QMK_KEYBOARD_H
 extern uint8_t is_master;
 
 #ifdef EE_HANDS

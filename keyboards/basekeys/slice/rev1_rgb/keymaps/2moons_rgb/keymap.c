@@ -1,3 +1,4 @@
+#include QMK_KEYBOARD_H
 #include "keymap_jp.h"
 
 extern uint8_t is_master;

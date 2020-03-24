@@ -19,9 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x424B   // BK
-#define PRODUCT_ID      0x9876
-#define DEVICE_VER      0x0003
+#define VENDOR_ID       0x04D8
+#define PRODUCT_ID      0xEC17
+#define DEVICE_VER      0x0002
 #define MANUFACTURER    2Moons
 #define PRODUCT         Slice
 #define DESCRIPTION     A custom keyboard
