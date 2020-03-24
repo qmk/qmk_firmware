@@ -76,6 +76,38 @@ The `config.h` files can also be placed in sub-folders, and the order in which t
   * `keyboards/top_folder/sub_1/post_config.h`
 * `keyboards/top_folder/post_config.h`
 
+The `post_config.h` file is for additional post-processing depending on what is specified in the `config.h` file.
+
+For example, if you define the `IOS_DEVICE_ENABLE` macro in the `keymaps/a_keymap/config.h` file as follows, you can configure the detailed settings accordingly in the `post_config.h` file.
+
+* `keyboards/top_folder/keymaps/a_keymap/config.h`
+  ```c
+  #define IOS_DEVICE_ENABLE
+  ```
+* `keyboards/top_folder/post_config.h`
+  ```c
+  #if !defined(IOS_DEVICE_ENABLE)
+    // USB_MAX_POWER_CONSUMPTION value for this keyboard
+    #define USB_MAX_POWER_CONSUMPTION 400
+  #else
+    // fix iPhone and iPad power adapter issue
+    // iOS device need lessthan 100
+    #define USB_MAX_POWER_CONSUMPTION 100
+  #endif
+  
+  #ifdef RGBLIGHT_ENABLE
+    #ifdef IOS_DEVICE_ENABLE
+      #define RGBLIGHT_LIMIT_VAL 250
+      #define RGBLIGHT_VAL_STEP 17
+    #else
+      #define RGBLIGHT_LIMIT_VAL 35
+      #define RGBLIGHT_VAL_STEP 4
+    #endif
+    #define RGBLIGHT_HUE_STEP 10
+    #define RGBLIGHT_SAT_STEP 17
+  #endif
+  ```
+
 ### `rules.mk`
 
 The presence of this file means that the folder is a keyboard target and can be used in `make` commands. This is where you setup the build environment for your keyboard and configure the default set of features.
