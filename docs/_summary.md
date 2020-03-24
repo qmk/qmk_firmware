@@ -52,7 +52,7 @@
   * Simple Keycodes
     * [Full List](keycodes.md)
     * [Basic Keycodes](keycodes_basic.md)
-    * [Layer Switching](feature_advanced_keycodes.md)
+    * [Modifier Keys](feature_advanced_keycodes.md)
     * [Quantum Keycodes](quantum_keycodes.md)
 
   * Advanced Keycodes
@@ -71,6 +71,7 @@
     * [Combos](feature_combo.md)
     * [Debounce API](feature_debounce_type.md)
     * [Key Lock](feature_key_lock.md)
+    * [Layers](feature_layers.md)
     * [One Shot Keys](one_shot_keys.md)
     * [Pointing Device](feature_pointing_device.md)
     * [Swap Hands](feature_swap_hands.md)
@@ -79,6 +80,7 @@
     * [Terminal](feature_terminal.md)
     * [Unicode](feature_unicode.md)
     * [Userspace](feature_userspace.md)
+    * [WPM Calculation](feature_wpm.md)
 
   * Hardware Features
     * Displays
