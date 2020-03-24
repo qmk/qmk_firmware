@@ -71,11 +71,11 @@ endif
 SRC += tominabox1.c
 endif
 
-ifeq ($(strip $(KEYBOARD)), handwired/brutal33)
+ifeq ($(strip $(KEYBOARD)), _33)
 TAP_DANCE_ENABLE = yes
 COMBO_ENABLE = yes
 NKRO_ENABLE = yes
-RGBLIGHT_ENABLE = yes
+RGBLIGHT_ENABLE = no
 SRC += tominabox1.c
 endif
 

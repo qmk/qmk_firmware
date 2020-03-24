@@ -12,13 +12,8 @@ enum combo_events {
   COMBO_TAB,
   COMBO_ESC,
   COMBO_ESC2,
-<<<<<<< HEAD
   COMBO_GAMER,
-  COMBO_DEL
-=======
-  COMBO_GAMER, 
   COMBO_DEL,
->>>>>>> c639bf3718a4c075e24fce32a9a6a26f88c6427e
 };
 
 //const uint16_t PROGMEM combo_reset[] = {KC_Q, KC_F, COMBO_END};
@@ -54,10 +49,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [COMBO_ESC2] = COMBO(combo_esc2,KC_ESC),
   [COMBO_GAMER] = COMBO_ACTION(combo_gamer),
   [COMBO_DEL] = COMBO(combo_del,KC_DEL),
-<<<<<<< HEAD
-=======
-  
->>>>>>> c639bf3718a4c075e24fce32a9a6a26f88c6427e
+
 };
 
 __attribute__ ((weak))

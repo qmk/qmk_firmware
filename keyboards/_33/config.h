@@ -6,10 +6,10 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0xB07D
-#define DEVICE_VER 0x0002
+#define PRODUCT_ID 0x6a50
+#define DEVICE_VER 0x0001
 #define MANUFACTURER tominabox1
-#define PRODUCT Brutal33
+#define PRODUCT _33
 #define DESCRIPTION "Itty Bitty otho 30"
 
 /* key matrix size */
@@ -26,8 +26,8 @@
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { C7, F1, F0, B6 }
-#define MATRIX_COL_PINS { C6, D7, E6, B4, D4, B3, F7, B1, F6, F5 }
+#define MATRIX_ROW_PINS { F5, F6, C6, D0 }
+#define MATRIX_COL_PINS { B4, B5, D5, F7, B1, F4, B3, D7, B0, B2 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
@@ -41,10 +41,8 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* Bootmagic Lite key configuration */
-// #define BOOTMAGIC_LITE_ROW 0
-// #define BOOTMAGIC_LITE_COLUMN 0
+// #define RGB_DI_PIN B6
+// #define RGBLED_NUM 3
+// #define RGBLIGHT_SLEEP
 
-#define RGB_DI_PIN B7
-#define RGBLED_NUM 3
-#define RGBLIGHT_SLEEP
+#define TAPPING_TERM 200

@@ -13,7 +13,9 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define LAYOUT_wrapper(...)                  LAYOUT(__VA_ARGS__)
 #define LAYOUT_arrow_wrapper(...) 	         LAYOUT_arrow_command(__VA_ARGS__)
 #define LAYOUT_catalyst(...)                 LAYOUT_arrow(__VA_ARGS__)
-#define LAYOUT_brutal_wrap(...)				 LAYOUT_brutal(__VA_ARGS__)
+#define LAYOUT_brutal_wrap(...)				       LAYOUT_brutal(__VA_ARGS__)
+#define LAYOUT_33_BIG_SPACEwrap(...)         LAYOUT_33_BIG_SPACE(__VA_ARGS__)
+
 
 /* Colemak */
 #define _______________COLEMAK1____________________       KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_SCLN

@@ -5,28 +5,28 @@
 #define RGBLIGHT_EFFECT_BREATHING
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BASE] = LAYOUT_brutal_wrap(
+  [_BASE] = LAYOUT_33_BIG_SPACEwrap(
 	KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_QUOTE,
 	_______________HOMEROW_MOD_________________,
 	_______________COLEMAK3____________________,
     KC_NAV_ENT, KC_NUM_SPC, KC_NAV_ENT
   ),
 
-  [_NUM_SYM] = LAYOUT_brutal_wrap(
+  [_NUM_SYM] = LAYOUT_33_BIG_SPACEwrap(
 	__________________NUM_1____________________,
 	__________________NUM_2____________________,
 	KC_BSLS, __________________NUM_3____________________, KC_DOT, KC_GRV,
     KC_TRNS,   KC_TRNS,  KC_TRNS
   ),
 
-  [_NAV] = LAYOUT_brutal(
+  [_NAV] = LAYOUT_33_BIG_SPACEwrap(
     RESET,  KC_NO,  KC_NO, KC_NO, KC_NO,  KC_NO,  KC_PGDN,    KC_UP,  KC_PGUP,    KC_SCLN,
     SPONGEBOB,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_HOME,  KC_LEFT,  KC_DOWN,  KC_RGHT,   KC_END,
     AESTHETIC,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,  KC_COMM,   KC_DOT,  KC_BSLS,
     KC_TRNS,   KC_TRNS,  KC_TRNS
   ),
 
-  [_GAME] = LAYOUT_brutal(
+  [_GAME] = LAYOUT_33_BIG_SPACEwrap(
 	KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_L, KC_U, KC_Y, TO(_BASE),
 	KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_N, KC_E, KC_I, KC_O,
 	KC_LCTRL, KC_A, KC_S, KC_D, KC_F, KC_G, KC_M, KC_COMM, KC_DOT, KC_SLSH,

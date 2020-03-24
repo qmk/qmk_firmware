@@ -140,9 +140,9 @@ uint16_t get_tapping_term(uint16_t keycode) {
     case LALT_T(KC_C):
       return 200;
 	case RGUI_T(KC_O):
-	  return 400;
+	  return 350;
 	case LGUI_T(KC_A):
-	  return 300;  
+	  return 300;
     default:
       return TAPPING_TERM;
   }
