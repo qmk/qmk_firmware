@@ -3,7 +3,9 @@
 #include "dmc12.h"
 
 #ifdef LIGHTMODE_ENABLE
-// Light modes
+
+/* Light modes switcher */
+
 uint8_t light_mode = SMOOTHLED;
 
 void set_light_mode(light_mode_t value, uint32_t color) {

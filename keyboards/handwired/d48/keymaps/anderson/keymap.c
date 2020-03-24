@@ -4,7 +4,7 @@
 #include "layout_defs.h"
 #include <stdio.h>
 
-// Note: don't forget there's some more code in qmk_firmware/users/anderson dir
+/* Note: don't forget there's some more code in qmk_firmware/users/anderson dir */
 
 #define _MAIN 0
 #define _ALPHA 1
@@ -22,7 +22,7 @@ enum custom_keycodes {
 #ifdef LIGHTMODE_ENABLE
 #endif
 
-// TapHold is my own implementation of the `LT` macro. It's processed in `process_record_user()`.
+/* TapHold is my own implementation of the `LT` macro. It's processed in `process_record_user()`. */
 #define TAPHOLD_CONFIG_SIZE 3
 taphold_t taphold_config[TAPHOLD_CONFIG_SIZE] = {
     {.key=KC_ALPHA, .mode=TAPHOLD_LAYER, .shortAction=KC_ESC, .longAction=_ALPHA},
@@ -32,7 +32,7 @@ taphold_t taphold_config[TAPHOLD_CONFIG_SIZE] = {
 uint16_t taphold_config_size = TAPHOLD_CONFIG_SIZE;
 uint32_t taphold_timeout = 90;
 
-// Seq is implementation of unicode macros similar to UCIS, but with unicode strings.
+/* Seq is implementation of unicode macros similar to UCIS, but with unicode strings. */
 #define SEQ_CONFIG_SIZE 3
 seq_t seq_config[SEQ_CONFIG_SIZE] = {
     {.sequence="temp", .result="42°C"},
@@ -41,7 +41,7 @@ seq_t seq_config[SEQ_CONFIG_SIZE] = {
 };
 uint16_t seq_config_size = SEQ_CONFIG_SIZE;
 
-// Colors
+/* Colors */
 uint32_t layer_colors[3] = {
     [_MAIN] = 0xFF0010,
     [_ALPHA] = 0x4020FF,
@@ -120,8 +120,8 @@ static bool gui_pressed = false;
 static bool is_in_seq = false;
 
 void keyboard_post_init_user(void) {
-    // debug_enable = true;
-    // debug_matrix = true;
+    /* debug_enable = true; */
+    /* debug_matrix = true; */
 }
 
 void eeconfig_init_user(void) {
@@ -172,7 +172,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 #endif
     if (keycode == KC_LCTRL) {
-        // Some Overlay1_Enable fuckery!
+        /* Some Overlay1_Enable fuckery! */
         (record->event.pressed ? register_code : unregister_code)(KC_LCTRL);
         return false;
     }
@@ -184,7 +184,6 @@ uint32_t layer_state_set_user(uint32_t state) {
     uint8_t layer = biton32(state);
     update_light_mode(layer_colors[layer]);
 #endif
-    // smoothled_set(layer_colors[layer]);
     return state;
 }
 
@@ -210,7 +209,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 void oled_task_user(void) {
-    // Host Keyboard Layer Status
+    /* Host Keyboard Layer Status */
     uint8_t current_layer = biton32(layer_state);
 
     static const char PROGMEM icons[4][3][6] = {
@@ -261,7 +260,7 @@ void oled_task_user(void) {
         {0x96, 0x97}, // ALT
         {0x98, 0x99}, // GUI
         {0x9a, 0x9b},  // SFT
-        // {0x9c, 0x9d},  // EMPTY
+        /* {0x9c, 0x9d},  // EMPTY */
     };
 
     char mod_data[13] = "\x9c\x9d\x9c\x9d\x9c\x9d\x9c\x9d \x07\x07\x07\0";

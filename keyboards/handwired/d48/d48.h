@@ -13,19 +13,8 @@
     { K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B }, \
     { K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B } \
 }
-/*
-#define LAYOUT( \
-    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, \
-    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, \
-    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C \
-) { \
-    { K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C }, \
-    { K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C }, \
-    { K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C } \
-}
-*/
-// Used to create a keymap using only KC_ prefixed keys
-//
+
+/* Used to create a keymap using only KC_ prefixed keys */
 
 #define LAYOUT_kc( \
     L00, L01, L02, L03, L04, L05, L06, L07, L08, L09, L0A, L0B, \
@@ -40,7 +29,7 @@
         KC_##L30, KC_##L31, KC_##L32, KC_##L33, KC_##L34, KC_##L35, KC_##L36, KC_##L37, KC_##L38, KC_##L39, KC_##L3A, KC_##L3B \
     )
 
-// Light modes
+/* Light modes */
 enum light_mode_enum { SMOOTHLED, DMC12, LIGHT_MODE_SIZE };
 typedef enum light_mode_enum light_mode_t;
 
