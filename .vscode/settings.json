@@ -17,5 +17,8 @@
       "xstddef": "c",
       "type_traits": "c",
       "utility": "c"
-    }
+    },
+    "editor.formatOnSave": false,
+    "editor.formatOnPaste": false,
+    "editor.wordWrap": "off",
 }
