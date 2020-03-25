@@ -57,7 +57,7 @@
         uint8_t max = DRIVER_LED_TOTAL;
 #endif
 
-#define rgb_matrix_indicator_set_color(i, r, g, b) \
+#define RGB_MATRIX_INDICATOR_SET_COLOR(i, r, g, b) \
     if (index >= led_min && index <= led_max) {    \
         rgb_matrix_set_color(i, r, g, b);          \
     }
