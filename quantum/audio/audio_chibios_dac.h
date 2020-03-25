@@ -110,7 +110,7 @@
 //TODO: go through a breaking change, and add A5_AUDIO to all keyboards currently using AUDIO on STM32 based boards
 #endif
 
-uint8_t  dac_number_of_voices(void);
-float    dac_get_frequency(uint8_t index);
+/**
+ *user overridable sample generation/processing
+ */
 uint16_t dac_value_generate(void);
-void     dac_setup_note(void);

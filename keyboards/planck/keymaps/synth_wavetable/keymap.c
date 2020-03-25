@@ -268,23 +268,20 @@ bool music_mask_user(uint16_t keycode) {
 
 float dac_if[8] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 uint8_t dac_morph = 0;
-// uint8_t dac_morph_flipped = 0;
-// uint16_t dac_morph_counter = 0;
 
-void dac_setup_note(void) {
-  dac_if[dac_number_of_voices()] = 0.0f;
-}
 
 uint16_t dac_value_generate(void) {
   uint16_t value = DAC_OFF_VALUE;
-  uint8_t working_voices = dac_number_of_voices();
-  if (working_voices > DAC_VOICES_MAX)
-    working_voices = DAC_VOICES_MAX;
+  uint8_t working_voices = audio_get_number_of_active_voices();
+  if (working_voices > AUDIO_VOICES_MAX)
+    working_voices = AUDIO_VOICES_MAX;
 
   if (working_voices > 0) {
     uint16_t value_avg = 0;
     for (uint8_t i = 0; i < working_voices; i++) {
-      dac_if[i] = dac_if[i] + ((dac_get_frequency(i) * DAC_BUFFER_SIZE) / DAC_SAMPLE_RATE);
+      dac_if[i] = dac_if[i]
+          + ((audio_get_frequency(i) * DAC_BUFFER_SIZE) / DAC_SAMPLE_RATE)
+          * 2/3; // necessary to adjust for the gpt-timer frequency (three times the sample rate) and the dac-conversion beeing called twice per sample
 
       // Needed because % doesn't work with floats
       while (dac_if[i] >= (DAC_BUFFER_SIZE))

@@ -1,0 +1,3 @@
+AUDIO_ENABLE = yes
+AUDIO_DRIVER = dac
+AUDIO_PIN = A5
