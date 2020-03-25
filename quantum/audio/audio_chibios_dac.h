@@ -29,32 +29,52 @@
 #    define DAC_SAMPLE_MAX 4095U
 #endif
 
-// #define DAC_LOW_QUALITY
+#if !defined(DAC_QUALITY_VERY_LOW) && !defined(DAC_QUALITY_LOW) && !defined(DAC_QUALITY_HIGH) && !defined(DAC_QUALITY_VERY_HIGH)
+#    define DAC_QUALITY_SANE_MINIMUM
+#endif
 
 /**
  * These presets allow you to quickly switch between quality/voice settings for
  * the DAC. The sample rate and number of voices roughly has an inverse
  * relationship - slightly higher sample rates may be possible.
+ *
+ * NOTE: a high samplerate results in a higher cpu-load, which might lead to
+ *       (audible) discontinuities and/or starve other processes of cpu-time
+ *       (like RGB-led backlighting, ...)
  */
-#ifdef DAC_VERY_LOW_QUALITY
+#ifdef DAC_QUALITY_VERY_LOW
 #    define DAC_SAMPLE_RATE 11025U
 #    define DAC_VOICES_MAX 8
 #endif
 
-#ifdef DAC_LOW_QUALITY
+#ifdef DAC_QUALITY_LOW
 #    define DAC_SAMPLE_RATE 22050U
 #    define DAC_VOICES_MAX 4
 #endif
 
-#ifdef DAC_HIGH_QUALITY
+#ifdef DAC_QUALITY_HIGH
 #    define DAC_SAMPLE_RATE 44100U
 #    define DAC_VOICES_MAX 2
 #endif
 
-#ifdef DAC_VERY_HIGH_QUALITY
+#ifdef DAC_QUALITY_VERY_HIGH
 #    define DAC_SAMPLE_RATE 88200U
 #    define DAC_VOICES_MAX 1
 #endif
+
+#ifdef DAC_QUALITY_SANE_MINIMUM
+/* a sane-minimum config: with a tradeoff between cpu-load and tone-range
+ *
+ * the (currently) highest defined note is NOTE_B8 with 7902Hz; if we now
+ * aim for an even even multiple of the buffersize, we end up with:
+ * ( roundUptoPow2(highest note / DAC_BUFFER_SIZE) * nyquist-rate * DAC_BUFFER_SIZE)
+ *                        7902/256 = 30.867        *       2      * 256 ~= 16384
+ * which works out (but the 'scope shows some sampling artifacts with lower harmonics :-P)
+ */
+#    define DAC_SAMPLE_RATE 16384U
+#    define DAC_VOICES_MAX 8
+#endif
+
 
 /**
  * Effective bitrate of the DAC. 44.1khz is the standard for most audio - any

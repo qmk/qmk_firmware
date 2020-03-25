@@ -399,7 +399,7 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
  */
 void audio_advance_note(uint32_t step, float end) {
     if (playing_note) {
-        //TODO!
+        //TODO? playing_note is stopped 'manually'... so no need/sense in 'advanceing' them?
     }
 
     if (playing_notes) {
@@ -431,11 +431,10 @@ void audio_advance_note(uint32_t step, float end) {
             note_length = ((*notes_pointer)[current_note][1]) * (60.0f / note_tempo);
         }
     }
-    //*
-    else
+
+    if (!playing_note && !playing_notes )
         stop_all_notes();
     //TODO: trigger a stop of the hardware or just a stop_note on the last frequency?
-    //*/
 }
 
 

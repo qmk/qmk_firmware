@@ -77,32 +77,29 @@
 */
 #define NOTE_REST 0.00f
 
-/* These notes are currently bugged
-#define NOTE_C0          16.35f
-#define NOTE_CS0         17.32f
-#define NOTE_D0          18.35f
-#define NOTE_DS0         19.45f
-#define NOTE_E0          20.60f
-#define NOTE_F0          21.83f
-#define NOTE_FS0         23.12f
-#define NOTE_G0          24.50f
-#define NOTE_GS0         25.96f
-#define NOTE_A0          27.50f
-#define NOTE_AS0         29.14f
-#define NOTE_B0          30.87f
-#define NOTE_C1          32.70f
-#define NOTE_CS1         34.65f
-#define NOTE_D1          36.71f
-#define NOTE_DS1         38.89f
-#define NOTE_E1          41.20f
-#define NOTE_F1          43.65f
-#define NOTE_FS1         46.25f
-#define NOTE_G1          49.00f
-#define NOTE_GS1         51.91f
-#define NOTE_A1          55.00f
-#define NOTE_AS1         58.27f
-*/
-
+#define NOTE_C0 16.35f
+#define NOTE_CS0 17.32f
+#define NOTE_D0 18.35f
+#define NOTE_DS0 19.45f
+#define NOTE_E0 20.60f
+#define NOTE_F0 21.83f
+#define NOTE_FS0 23.12f
+#define NOTE_G0 24.50f
+#define NOTE_GS0 25.96f
+#define NOTE_A0 27.50f
+#define NOTE_AS0 29.14f
+#define NOTE_B0 30.87f
+#define NOTE_C1 32.70f
+#define NOTE_CS1 34.65f
+#define NOTE_D1 36.71f
+#define NOTE_DS1 38.89f
+#define NOTE_E1 41.20f
+#define NOTE_F1 43.65f
+#define NOTE_FS1 46.25f
+#define NOTE_G1 49.00f
+#define NOTE_GS1 51.91f
+#define NOTE_A1 55.00f
+#define NOTE_AS1 58.27f
 #define NOTE_B1 61.74f
 #define NOTE_C2 65.41f
 #define NOTE_CS2 69.30f
