@@ -110,7 +110,7 @@ The `post_config.h` file can be used for additional post-processing, depending o
   #endif
   ```
 
-NOTE: If you define `post_config.h` in the above example, you should not define USB_MAX_POWER_CONSUMPTION, RGBLIGHT_LIMIT_VAL, RGBLIGHT_VAL_STEP, RGBLIGHT_HUE_STEP and RGBLIGHT_SAT_STEP in keyboard-level `config.h`. And, the user-level `config.h` of this keyboard should not define USB_MAX_POWER_CONSUMPTION, RGBLIGHT_LIMIT_VAL, and RGBLIGHT_VAL_STEP.
+?> If you define options using `post_config.h` as in the above example, you should not define the same options in the keyboard- or user-level `config.h`.
 
 ### `rules.mk`
 
