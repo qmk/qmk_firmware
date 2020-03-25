@@ -20,7 +20,7 @@ Audio Driver: PWM
 the duty-cycle is always kept at 50%, and the pwm-period is adjusted to match the frequency of a note to be played back.
 
 this driver uses the chibios-PWM system to produce a squarewave on a given output pin.
-Either in software through a pwm callback and set/clear; or through the pwm hardware which directly toggles the pin via its alternate function. see your MCUs datasheet for pin can be driven by a timers T/IMx_CHy.
+Either in software through a pwm callback and set/clear; or through the pwm hardware which directly toggles the pin via its alternate function. see your MCUs datasheet for which pin can be driven by what timer - looking for TIMx_CHy and the corresponding alternate function.
 
  */
 
@@ -63,6 +63,7 @@ to use another hardware-pwm pin:
 #endif
 
 // -----------------------------------------------------------------------------
+
 
 extern int  voices;
 extern bool playing_notes;

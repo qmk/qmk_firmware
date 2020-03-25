@@ -18,17 +18,24 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#if defined(__AVR__)
-#    include <avr/io.h>
-#endif
 #include "musical_notes.h"
 #include "song_list.h"
 #include "voices.h"
 #include "quantum.h"
 #include <math.h>
+
+#if defined(__AVR__)
+#    include <avr/io.h>
+#    include "audio_avr_pwm.h"
+#endif
+
+#if defined(AUDIO_DRIVER_PWM) || defined(AUDIO_DRIVER_PWM_PIN_ALTERNATE)
+#    include "audio_chibios_pwm.h"
+#endif
 #if defined(AUDIO_DRIVER_DAC)
 #    include "audio_chibios_dac.h"
 #endif
+
 
 typedef union {
     uint8_t raw;
