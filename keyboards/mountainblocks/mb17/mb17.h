@@ -18,19 +18,18 @@
 
 #include "quantum.h"
 
-/* This is a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
- */
-#define LAYOUT( \
-    k00, k01, k02, \
-      k10,  k12    \
-) \
-{ \
-    { k00, k01,   k02 }, \
-    { k10, KC_NO, k12 }  \
+#define ___ KC_NO
+
+#define LAYOUT_numpad_5x4( \
+    k00, k01, k02, k03,    \
+    k10, k11, k12,         \
+    k20, k21, k22, k23,    \
+    k30, k31, k32,         \
+    k41, k42,      k43     \
+){ \
+    { k00, k01, k02, k03 },  \
+    { k10, k11, k12, ___ },  \
+    { k20, k21, k22, k23 },  \
+    { k30, k31, k32, ___ },  \
+    { ___, k41, k42, k43 }   \
 }

@@ -15,62 +15,46 @@
  */
 #include QMK_KEYBOARD_H
 
-// Defines names for use in layer keycodes and the keymap
-enum layer_names {
-    _BASE,
-    _FN
-};
-
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-    QMKBEST = SAFE_RANGE,
-    QMKURL
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* Base */
-    [_BASE] = LAYOUT(
-        KC_A,    KC_1,    MO(_FN),
-            KC_TAB,   KC_SPC
+    /*
+     * ┌───┬───┬───┬───┐
+     * │TG1│ / │ * │ - │
+     * ├───┼───┼───┼───┤
+     * │ 7 │ 8 │ 9 │   │
+     * ├───┼───┼───┤ + │
+     * │ 4 │ 5 │ 6 │   │
+     * ├───┼───┼───┼───┤
+     * │ 1 │ 2 │ 3 │   │
+     * ├───┴───┼───┤Ent│
+     * │   0   │ . │   │
+     * └───────┴───┴───┘
+     */
+    [0] = LAYOUT_numpad_5x4(
+        TG(1),   KC_PSLS, KC_PAST, KC_PMNS,
+        KC_P7,   KC_P8,   KC_P9,
+        KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
+        KC_P1,   KC_P2,   KC_P3,
+        KC_P0,   KC_PDOT,          KC_PENT
     ),
-    [_FN] = LAYOUT(
-        QMKBEST, QMKURL,  _______,
-            RESET,    XXXXXXX
+
+    /*
+     * ┌───┬───┬───┬───┐
+     * │TG1│ / │ * │ - │
+     * ┌───┬───┬───┐───┤
+     * │Hom│ ↑ │PgU│   │
+     * ├───┼───┼───┤ + │
+     * │ ← │   │ → │   │
+     * ├───┼───┼───┤───┤
+     * │End│ ↓ │PgD│   │
+     * ├───┴───┼───┤Ent│
+     * │Insert │Del│   │
+     * └───────┴───┘───┘
+     */
+    [1] = LAYOUT_numpad_5x4(
+        _______, _______, _______, _______,
+        KC_HOME, KC_UP,   KC_PGUP,
+        KC_LEFT, XXXXXXX, KC_RGHT, _______,
+        KC_END,  KC_DOWN, KC_PGDN,
+        KC_INS,           KC_DEL,  _______
     )
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case QMKBEST:
-            if (record->event.pressed) {
-                // when keycode QMKBEST is pressed
-                SEND_STRING("QMK is the best thing ever!");
-            } else {
-                // when keycode QMKBEST is released
-            }
-            break;
-        case QMKURL:
-            if (record->event.pressed) {
-                // when keycode QMKURL is pressed
-                SEND_STRING("https://qmk.fm/\n");
-            } else {
-                // when keycode QMKURL is released
-            }
-            break;
-    }
-    return true;
-}
-
-/*
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-bool led_update_user(led_t led_state) {
-    return true;
-}
-*/
