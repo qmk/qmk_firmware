@@ -61,7 +61,7 @@ This file is used by the [QMK API](https://github.com/qmk/qmk_api). It contains 
 
 All projects need to have a `config.h` file that sets things like the matrix size, product name, USB VID/PID, description and other settings. In general, use this file to set essential information and defaults for your keyboard that will always work.
 
-The `config.h` files can also be placed in sub-folders, and the order in which they are read is as follows
+The `config.h` files can also be placed in sub-folders, and the order in which they are read is as follows:
 
 * `keyboards/top_folder/config.h`
   * `keyboards/top_folder/sub_1/config.h`
