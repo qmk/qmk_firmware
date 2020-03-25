@@ -30,8 +30,11 @@
  *
  */
 
+#ifndef AUDIO_VOICES_MAX
+#    define AUDIO_VOICES_MAX 8
+#endif
 uint8_t voices         = 0; // nuber of active polyphonic voices
-float   frequencies[8] = {0.0}; // frequencies of each active voice
+float   frequencies[AUDIO_VOICES_MAX] = {0.0}; // frequencies of each active voice
 
 int   voice_place   = 0;
 float frequency     = 0; // frequency of the current note (down-mixed from the polyphony?)
@@ -152,7 +155,7 @@ void stop_all_notes() {
     frequency     = 0;
     frequency_alt = 0;
 
-    for (uint8_t i = 0; i < 8; i++) {
+    for (uint8_t i = 0; i < AUDIO_VOICES_MAX; i++) {
         frequencies[i] = 0;
     }
 }
@@ -162,10 +165,10 @@ void stop_note(float freq) {
         if (!audio_initialized) {
             audio_init();
         }
-        for (int i = 7; i >= 0; i--) {
+        for (int i = AUDIO_VOICES_MAX-1; i >= 0; i--) {
             if (frequencies[i] == freq) {
                 frequencies[i] = 0;
-                for (int j = i; (j < 7); j++) {
+                for (int j = i; (j < AUDIO_VOICES_MAX-1); j++) {
                     frequencies[j]     = frequencies[j + 1];
                     frequencies[j + 1] = 0;
                 }
@@ -192,7 +195,7 @@ void play_note(float freq, int vol) { //NOTE: vol is unused
         audio_init();
     }
 
-    if (audio_config.enable && voices < 8) {
+    if (voices < AUDIO_VOICES_MAX) {
         playing_note = true;
 
         envelope_index = 0;

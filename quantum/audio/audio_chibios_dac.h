@@ -15,8 +15,6 @@
  */
 #pragma once
 
-#include "ch.h"
-
 /**
  * Size of the dac_buffer arrays. All must be the same size.
  */
@@ -44,22 +42,22 @@
  */
 #ifdef DAC_QUALITY_VERY_LOW
 #    define DAC_SAMPLE_RATE 11025U
-#    define DAC_VOICES_MAX 8
+#    define AUDIO_VOICES_MAX 8
 #endif
 
 #ifdef DAC_QUALITY_LOW
 #    define DAC_SAMPLE_RATE 22050U
-#    define DAC_VOICES_MAX 4
+#    define AUDIO_VOICES_MAX 4
 #endif
 
 #ifdef DAC_QUALITY_HIGH
 #    define DAC_SAMPLE_RATE 44100U
-#    define DAC_VOICES_MAX 2
+#    define AUDIO_VOICES_MAX 2
 #endif
 
 #ifdef DAC_QUALITY_VERY_HIGH
 #    define DAC_SAMPLE_RATE 88200U
-#    define DAC_VOICES_MAX 1
+#    define AUDIO_VOICES_MAX 1
 #endif
 
 #ifdef DAC_QUALITY_SANE_MINIMUM
@@ -72,7 +70,7 @@
  * which works out (but the 'scope shows some sampling artifacts with lower harmonics :-P)
  */
 #    define DAC_SAMPLE_RATE 16384U
-#    define DAC_VOICES_MAX 8
+#    define AUDIO_VOICES_MAX 8
 #endif
 
 
@@ -91,8 +89,8 @@
  * is used here, the keyboard will freeze and glitch-out when that many voices
  * are being played.
  */
-#ifndef DAC_VOICES_MAX
-#    define DAC_VOICES_MAX 2
+#ifndef AUDIO_VOICES_MAX
+#    define AUDIO_VOICES_MAX 2
 #endif
 
 /**

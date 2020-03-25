@@ -64,7 +64,7 @@ static float dac_if[8] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 __attribute__((weak)) uint16_t dac_value_generate(void) {
     uint16_t value          = DAC_OFF_VALUE;
     uint8_t  working_voices = audio_get_number_of_active_voices();
-    if (working_voices > DAC_VOICES_MAX) working_voices = DAC_VOICES_MAX;
+    if (working_voices > AUDIO_VOICES_MAX) working_voices = AUDIO_VOICES_MAX;
 
     if (working_voices > 0) {
         uint16_t value_avg = 0;
