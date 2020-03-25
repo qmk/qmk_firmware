@@ -448,7 +448,7 @@ Where `28` is an unused index from `eeconfig.h`.
 
 ### Indicators :id=indicators
 
-If you want to set custom indiacators, such as an LED for Caps Lock, or layer indication, you can use the `rgb_matrix_indicators_kb` or `rgb_matrix_indicators_user` function for that: 
+If you want to set custom indicators, such as an LED for Caps Lock, or layer indication, you can use the `rgb_matrix_indicators_kb` or `rgb_matrix_indicators_user` function for that: 
 ```c
 void rgb_matrix_indicators_kb(void) {
     rgb_matrix_set_color(index, red, green, blue);
