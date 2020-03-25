@@ -5,8 +5,8 @@
 A little bitty 30% (10x4) ortholinear keyboard designed by tominabox1.
 
 * Keyboard Maintainer: [TJ Campie](https://github.com/tominabox1)
-* Hardware Supported: _33 PCB and Plate available <<github link>>
-* Hardware Availability: Open sourced <<>>
+* Hardware Supported: _33 PCB and Plate limited buy (Open source available ca. Apirl 2020)
+* Hardware Availability: [3D printed open sourced](https://github.com/tominabox1/_33-Keyboard)
 
 Make example for this keyboard (after setting up your build environment):
 
