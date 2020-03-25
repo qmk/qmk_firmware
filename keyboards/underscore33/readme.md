@@ -2,7 +2,7 @@
 
 ![_33](https://i.imgur.com/0Wuf8aT.png)
 
-A little bitty 30% (10x4) ortholinear keyboard designed by tominabox1.
+A little bitty 30% (10x4) ortholinear keyboard designed by tominabox1.  The board supports an RGB LED strip with DI on port B6. There is an error on the initial 25 PCBs that incorrectly indicates PF0 for the RGB. The appropriate port is commented out in config.h for proper LED support. 
 
 * Keyboard Maintainer: [TJ Campie](https://github.com/tominabox1)
 * Hardware Supported: _33 PCB and Plate limited buy (Open source available ca. Apirl 2020)
