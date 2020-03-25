@@ -1,5 +1,4 @@
-/*
- * Copyright 2020 Richard Sutherland (rich@brickbots.com)
+/* Copyright 2020 2Moons
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,14 +16,7 @@
 
 #pragma once
 
-#include "quantum.h"
+/* Select hand configuration */
 
-bool wpm_keycode(uint16_t keycode);
-bool wpm_keycode_kb(uint16_t keycode);
-bool wpm_keycode_user(uint16_t keycode);
-
-void    set_current_wpm(uint8_t);
-uint8_t get_current_wpm(void);
-void    update_wpm(uint16_t);
-
-void decay_wpm(void);
+#define TAPPING_FORCE_HOLD
+#define TAPPING_TERM 180
