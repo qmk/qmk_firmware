@@ -234,7 +234,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         if (!alpha_pressed) {
             tap_code(clockwise ? KC_UP : KC_DOWN);
         } else {
-            tap_code(clockwise ? KC_LEFT : KC_RIGHT);
+            tap_code(clockwise ? KC_PGUP : KC_PGDN);
         }
     }
 }
