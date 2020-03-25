@@ -76,9 +76,7 @@ The `config.h` files can also be placed in sub-folders, and the order in which t
   * `keyboards/top_folder/sub_1/post_config.h`
 * `keyboards/top_folder/post_config.h`
 
-The `post_config.h` file is for additional post-processing depending on what is specified in the `config.h` file.
-
-For example, if you define the `IOS_DEVICE_ENABLE` macro in the `keymaps/a_keymap/config.h` file as follows, you can configure the detailed settings accordingly in the `post_config.h` file.
+The `post_config.h` file can be used for additional post-processing, depending on what is specified in the `config.h` file. For example, if you define the `IOS_DEVICE_ENABLE` macro in your keymap-level `config.h` file as follows, you can configure more detailed settings accordingly in the `post_config.h` file:
 
 * `keyboards/top_folder/keymaps/a_keymap/config.h`
   ```c
