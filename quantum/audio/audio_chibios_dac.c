@@ -54,6 +54,7 @@ static const dacsample_t dac_buffer_staircase[DAC_BUFFER_SIZE] = {
 
 static dacsample_t dac_buffer_empty[DAC_BUFFER_SIZE] = {DAC_OFF_VALUE};
 
+/* keep track of the sample position for for each voice/frequency */
 static float dac_if[8] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
 /**
