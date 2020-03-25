@@ -2,7 +2,7 @@
 
 ![Proton C based handwired 40% keyboard](https://i.imgur.com/2wCYuno.jpg)
 
-A Proton C based handwired 48 key keyboard with 2 rotary encoders, I2C OLED & WS2812 strip.
+A Proton C based handwired 48 key keyboard with 2 rotary encoders, I2C OLED, WS2812 strip, buzzer & clock!
 
 - Keyboard Maintainer: Andrew Dunai
 - Hardware Supported: Proton C handwired
@@ -20,12 +20,13 @@ Make example for this keyboard (after setting up your build environment):
 - 0.91" 128x32 I<sup>2</sup>C OLED
 - Small buzzer mounted inside (still waiting for the AST1109MLTRQ boys)
 - WS2812 strip (14 LEDs)
+- DS1307 I<sup>2</sup>C module real-time clock
 
 Build process: [album](https://imgur.com/gallery/zZZGdDw)
 
 ## Pinout
 
-![D48 pinout](https://imgur.com/xtYsl2P.jpg)
+![D48 pinout](https://imgur.com/LgHDQUU.jpg)
 
 ## Challenges
 
@@ -59,6 +60,10 @@ the biggest challenge. Anyway, apart from almost going crazy from those challeng
 ## RGB
 
 I used pin `A15` for my WS28128 RGB strip.
+
+## D1307 real-time clock
+
+Connecting DS1307 RTC was a piece of cake: same I<sup>2</sup> pins as OLED (SDA/SCL), GND to GND and power to Proton C VUSB pin (5v).
 
 ## Other issues
 

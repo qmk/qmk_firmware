@@ -2,6 +2,7 @@
 #include "taphold.h"
 #include "seq.h"
 #include "layout_defs.h"
+#include "ds1307.h"
 #include <stdio.h>
 
 /* Note: don't forget there's some more code in qmk_firmware/users/anderson dir */
@@ -17,7 +18,8 @@ enum custom_keycodes {
 #ifdef LIGHTMODE_ENABLE
     KC_LIGHT_MODE,
 #endif
-    KC_SEQ
+    KC_SEQ,
+    KC_SET_TIME,
 };
 #ifdef LIGHTMODE_ENABLE
 #endif
@@ -91,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        ┣━━━━━╉─────┼─────┼─────┼─────┼─────╂─────┼─────┼─────┼─────┼─────╊━━━━━┫
        ┃L_MOD┃ F1  │ F2  │ F3  │ F4  │ F5  ┃ F6  │ F7  │ F8  │ F9  │ F10 ┃ F11 ┃
        ┣━━━━━╉─────┼─────┼─────┼─────┼─────╂─────┼─────┼─────┼─────┼─────╊━━━━━┫
-       ┃     ┃RESET│DEBUG│     │     │     ┃SLEEP│ SEQ │  {  │  }  │PTSCR┃     ┃
+       ┃     ┃RESET│DEBUG│     │     │TIME ┃SLEEP│ SEQ │  {  │  }  │PTSCR┃     ┃
        ┣━━━━━╉─────┼─────┼─────┼─────┼─────╂─────┼─────┼─────┼─────┼─────╊━━━━━┫
        ┃     ┃     │     │     │     │     ┃     │     │     │     │     ┃     ┃
        ┗━━━━━┻━━━━━┷━━━━━┷━━━━━┷━━━━━┷━━━━━┻━━━━━┷━━━━━┷━━━━━┷━━━━━┷━━━━━┻━━━━━┛
@@ -104,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _____,
 #endif
               F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,   F10,  F11,  \
-        _____,RESET,DEBUG,_____,_____,_____,SLEP, SEQ,  LCBR, RCBR, PSCR, _____,\
+        _____,RESET,DEBUG,_____,_____,SET_TIME,SLEP,SEQ,LCBR, RCBR, PSCR, _____,\
         _____,_____,_____,_____,_____,_____,_____,_____,_____,_____,_____,_____ \
     )
 };
@@ -134,14 +136,28 @@ void matrix_init_user(void) {
 #endif
 }
 
+static uint32_t last_update = 0;
+static uint8_t hours, minutes, seconds;
+
+void matrix_scan_user(void) {
+    uint32_t now = timer_read32();
+    if (now - last_update > 500) {
+        ds1307_get_time(&hours, &minutes, &seconds);
+        last_update = now;
+    }
+}
+
+static bool is_in_set_time = false;
+static char new_time[6];
+static uint8_t new_time_index = 0;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (keycode == KC_SEQ && record->event.pressed) {
         seq_start();
         layer_off(_BETA);
         is_in_seq = true;
         return false;
-    }
-    if (is_in_seq) {
+    } else if (is_in_seq) {
         if (record->event.pressed) {
             if (!seq_feed(keycode)) {
                 is_in_seq = false;
@@ -149,6 +165,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
     }
+    if (keycode == KC_SET_TIME && record->event.pressed) {
+        is_in_set_time = true;
+        new_time_index = 0;
+    } else if (is_in_set_time) {
+        if (!record->event.pressed && keycode >= KC_1 && keycode <= KC_0) {
+            new_time[new_time_index++] = (keycode == KC_0) ? 0 : keycode - KC_1 + 1;
+            if (new_time_index == 6) {
+                is_in_set_time = false;
+                ds1307_set_time(
+                        (new_time[0]) * 10 + (new_time[1]),
+                        (new_time[2]) * 10 + (new_time[3]),
+                        (new_time[4]) * 10 + (new_time[5])
+                );
+                for (int i = 0; i < 6; i++) {
+                    tap_code(KC_BSPACE);
+                }
+            }
+        }
+    }
+
     if (keycode == KC_LCTRL || keycode == KC_RCTRL) {
         ctrl_pressed = record->event.pressed;
     } else if (keycode == KC_LALT) {
@@ -242,7 +278,13 @@ void oled_task_user(void) {
     }
 
     oled_set_cursor(6, 1);
-    oled_write_P(PSTR("-D48 Custom-\n"), false);
+    // oled_write_P(PSTR("-D48 Custom-\n"), false);
+    char buf[16];
+    sprintf(
+            buf,
+            "%02d:%02d:%02d", hours, minutes, seconds
+    );
+    oled_write(buf, false);
 
     uint8_t layer_index = current_layer == _MAIN ? 0 : current_layer == _ALPHA ? 1 : 2;
     const char *layers[3] = {

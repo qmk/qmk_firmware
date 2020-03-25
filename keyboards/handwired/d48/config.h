@@ -82,3 +82,6 @@
 
 /* Custom light modes switcher */
 #define LIGHTMODE_ENABLE
+
+/* DS1307 */
+#define DS1307_ADDR (0x68 << 1)
