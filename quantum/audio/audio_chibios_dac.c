@@ -77,8 +77,7 @@ __attribute__((weak)) uint16_t dac_value_generate(void) {
                          the gpt timer runs with 3*DAC_SAMPLE_RATE; and the DAC
                          callback is called twice per conversion.*/
 
-            // Needed because % doesn't work with floats
-            while (dac_if[i] >= (DAC_BUFFER_SIZE)) dac_if[i] = dac_if[i] - DAC_BUFFER_SIZE;
+            dac_if[i] = fmod(dac_if[i], DAC_BUFFER_SIZE);
 
             // Wavetable generation/lookup
             uint16_t dac_i = (uint16_t)dac_if[i];
