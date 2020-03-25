@@ -4,11 +4,10 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x6a50
+#define PRODUCT_ID 0x6A50
 #define DEVICE_VER 0x0001
 #define MANUFACTURER tominabox1
 #define PRODUCT underscore33
-#define DESCRIPTION "Itty Bitty otho _30"
 
 /* key matrix size */
 #define MATRIX_ROWS 4
