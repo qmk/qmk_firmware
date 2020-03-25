@@ -184,56 +184,42 @@ bool led_update_user(led_t led_state) {
 
 #ifdef OLED_DRIVER_ENABLE
 
-const char *read_layer_state(void) {
-    // Layer names
-    static const char *LAYER_NAME_QWERTY  = "Qwerty";
-    static const char *LAYER_NAME_COLEMAK = "Colemak";
-    static const char *LAYER_NAME_DVORAK  = "Dvorak";
-    static const char *LAYER_NAME_LOWER   = "Lower";
-    static const char *LAYER_NAME_RAISE   = "Raise";
-    static const char *LAYER_NAME_ADJUST  = "Adjust";
-    static const char *LAYER_NAME_UNDEF   = "Undef";
-    // Default layer
-    const char *default_layer = LAYER_NAME_UNDEF;
-    switch (get_highest_layer(default_layer_state)) {
-        case _QWERTY:
-            default_layer = LAYER_NAME_QWERTY;
-            break;
-        case _COLEMAK:
-            default_layer = LAYER_NAME_COLEMAK;
-            break;
-        case _DVORAK:
-            default_layer = LAYER_NAME_DVORAK;
-            break;
-        default:
-            break;
-    }
-    // Current layer
-    const char *layer = LAYER_NAME_UNDEF;
+void oled_write_layer_state(void) {
+    oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
         case 0:  // Default layer
-            layer = default_layer;
+            switch (get_highest_layer(default_layer_state)) {
+                case _QWERTY:
+                    oled_write_ln_P(PSTR("Qwerty"), false);
+                    break;
+                case _COLEMAK:
+                    oled_write_ln_P(PSTR("Colemak"), false);
+                    break;
+                case _DVORAK:
+                    oled_write_ln_P(PSTR("Dvorak"), false);
+                    break;
+                default:
+                    oled_write_ln_P(PSTR("Undef"), false);
+                    break;
+            }
             break;
         case _LOWER:
-            layer = LAYER_NAME_LOWER;
+            oled_write_ln_P(PSTR("Lower"), false);
             break;
         case _RAISE:
-            layer = LAYER_NAME_RAISE;
+            oled_write_ln_P(PSTR("Raise"), false);
             break;
         case _ADJUST:
-            layer = LAYER_NAME_ADJUST;
+            oled_write_ln_P(PSTR("Adjust"), false);
             break;
         default:
-            layer = LAYER_NAME_UNDEF;
+            oled_write_ln_P(PSTR("Undef"), false);
             break;
     }
-    static char layer_str[24];
-    snprintf(layer_str, sizeof(layer_str), "Layer: %s", layer);
-    return layer_str;
 }
 
 void oled_task_user(void) {
     // If you want to change the display of OLED, you need to change here
-    oled_write_ln(read_layer_state(), false);
+    oled_write_layer_state();
 }
 #endif
