@@ -25,7 +25,7 @@ Either in software through a pwm callback and set/clear; or through the pwm hard
  */
 
 
-/* STM32F103C Setup:
+/* STM32F103C8 Setup:
 halconf.h:
 #define HAL_USE_PWM                 TRUE
 #define HAL_USE_PAL                 TRUE
@@ -35,20 +35,18 @@ mcuconf.h:
 #define STM32_PWM_USE_TIM1                  TRUE
 #define STM32_GPT_USE_TIM3                  TRUE
 
-used pin: PA8 (alternate0: Tim1_Ch1)
+used pin: PA8 (alternate0: TIM1_CH1)
 
 from the datasheet for STM32F103C8: alternate function of pin
-TIM1_CH1 = PA8
+TIM1_CH1 = PA8 <-
 TIM1_CH2 = PA9
 TIM1_CH3 = PA10
 TIM1_CH4 = PA11
 
-
-to use another hardware-pwm pin:
-- check the datasheet for the timer_channel and the alternate-function
-- replace PWMDx with the required timer
-- reorder the PCMConfig.channels to match the TIMx_CHy (the stm datasheets usually have CH1 to CH4)
-- set the pin to the appropiate alternate function (beware: differences in chibios GPIOv1, v2, ...)
+so adding to config.h:
+#define AUDIO_PIN A8
+#define AUDIO_PWM_PINALTERNATE_TIMER 1
+#define AUDIO_PWM_PINALTERNATE_TIMERCHANNEL 1
 */
 
 #include "audio.h"
@@ -62,8 +60,11 @@ to use another hardware-pwm pin:
 #    endif
 #endif
 
-// -----------------------------------------------------------------------------
 
+// some preprocessor trickery to get the corresponding chibios-PWMDriver
+#define TO_CHIBIOS_PWMD_PASTE(t) (PWMD##t)
+#define TO_CHIBIOS_PWMD_EVAL(t) TO_CHIBIOS_PWMD_PASTE(t)
+#define PWMD TO_CHIBIOS_PWMD_EVAL(AUDIO_PWM_PINALTERNATE_TIMER)
 
 extern int  voices;
 extern bool playing_notes;
@@ -71,7 +72,7 @@ extern bool playing_notes;
 #if defined(AUDIO_DRIVER_PWM)
 static void pwm_audio_period_callback(PWMDriver *pwmp);
 static void pwm_audio_channel_interrupt_callback(PWMDriver *pwmp);
-#endif
+#endif // AUDIO_DRIVER_PWM
 
 static PWMConfig pwmCFG = {.frequency = 500000, /* PWM clock frequency  */
                            .period = 0,     /* initial PWM period (in ticks) 1S (1/10kHz=0.1mS 0.1ms*10000 ticks=1S) */
@@ -82,41 +83,68 @@ static PWMConfig pwmCFG = {.frequency = 500000, /* PWM clock frequency  */
 #endif
                            .channels = {
 #if AUDIO_DRIVER_PWM_PIN_ALTERNATE
-                               {PWM_OUTPUT_ACTIVE_HIGH, NULL}, /* channel 0 -> TIM1_CH1 */
+#    if AUDIO_PWM_PINALTERNATE_TIMERCHANNEL == 4
+                               {PWM_OUTPUT_DISABLED, NULL},   /* channel 0 -> TIMx_CH1 */
+                               {PWM_OUTPUT_DISABLED, NULL},   /* channel 1 -> TIMx_CH2 */
+                               {PWM_OUTPUT_DISABLED, NULL},   /* channel 2 -> TIMx_CH3 */
+                               {PWM_OUTPUT_ACTIVE_HIGH, NULL} /* channel 3 -> TIMx_CH4 */
+#    elif AUDIO_PWM_PINALTERNATE_TIMERCHANNEL == 3
+                               {PWM_OUTPUT_DISABLED, NULL},
+                               {PWM_OUTPUT_DISABLED, NULL},
+                               {PWM_OUTPUT_ACTIVE_HIGH, NULL}, /* TIMx_CH3 */
+                               {PWM_OUTPUT_DISABLED, NULL}
+#    elif AUDIO_PWM_PINALTERNATE_TIMERCHANNEL == 2
+                               {PWM_OUTPUT_DISABLED, NULL},
+                               {PWM_OUTPUT_ACTIVE_HIGH, NULL}, /* TIMx_CH2 */
+                               {PWM_OUTPUT_DISABLED, NULL},
+                               {PWM_OUTPUT_DISABLED, NULL}
+#    else /*fallback to CH1 */
+                               {PWM_OUTPUT_ACTIVE_HIGH, NULL}, /* TIMx_CH1 */
+                               {PWM_OUTPUT_DISABLED, NULL},
+                               {PWM_OUTPUT_DISABLED, NULL},
+                               {PWM_OUTPUT_DISABLED, NULL}
+#    endif // AUDIO_DRIVER_PWM_PIN_ALTERNATE_CHANNEL
 #else // AUDIO_DRIVER_PWM
-                               {PWM_OUTPUT_ACTIVE_HIGH, pwm_audio_channel_interrupt_callback}, /* channel 0 -> TIM1_CH1 */
+                               // software-PWM just needs another callback on any channel
+                               {PWM_OUTPUT_ACTIVE_HIGH, pwm_audio_channel_interrupt_callback}, /* channel 0 -> TIMx_CH1 */
+                               {PWM_OUTPUT_DISABLED, NULL}, /* channel 1 -> TIMx_CH2 */
+                               {PWM_OUTPUT_DISABLED, NULL}, /* channel 2 -> TIMx_CH3 */
+                               {PWM_OUTPUT_DISABLED, NULL}  /* channel 3 -> TIMx_CH4 */
 #endif
-                               {PWM_OUTPUT_DISABLED, NULL}, /* channel 1 -> TIM1_CH2 */
-                               {PWM_OUTPUT_DISABLED, NULL}, /* channel 2 -> TIM1_CH3 */
-                               {PWM_OUTPUT_DISABLED, NULL}  /* channel 3 -> TIM1_CH4 */
                            },
-                           };
+                       };
+
 
 static float channel_1_frequency = 0.0f;
 void channel_1_set_frequency(float freq) {
-    if (freq == channel_1_frequency) return;
+//    if (freq == channel_1_frequency) return;
+    //TODO: interrupt same-frequency notes?
 
     channel_1_frequency = freq;
 
     pwmcnt_t period = (pwmCFG.frequency / freq);
-    pwmChangePeriod(&PWMD1, period);
-    pwmEnableChannel(&PWMD1, 0, PWM_PERCENTAGE_TO_WIDTH(&PWMD1, 5000));
+    pwmChangePeriod(&PWMD, period);
+    pwmEnableChannel(
+                     &PWMD,
+                     AUDIO_PWM_PINALTERNATE_TIMERCHANNEL -1,
+                     PWM_PERCENTAGE_TO_WIDTH(&PWMD, 5000) /*TODO: adjust by timbre */
+                     );
 }
 
 float channel_1_get_frequency(void) { return channel_1_frequency; }
 
 void channel_1_start(void) {
-    pwmStop(&PWMD1);
-    pwmStart(&PWMD1, &pwmCFG);
+    pwmStop(&PWMD);
+    pwmStart(&PWMD, &pwmCFG);
 
 #if defined(AUDIO_DRIVER_PWM)
-    pwmEnablePeriodicNotification(&PWMD1);
-    pwmEnableChannelNotification(&PWMD1, 0);
+    pwmEnablePeriodicNotification(&PWMD);
+    pwmEnableChannelNotification(&PWMD, AUDIO_PWM_PINALTERNATE_TIMERCHANNEL-1);
 #endif
 }
 
 void channel_1_stop(void) {
-    pwmStop(&PWMD1);
+    pwmStop(&PWMD);
 
 #if defined(AUDIO_DRIVER_PWM)
     palClearLine(AUDIO_PIN); // leave the line low, after last note was played
@@ -150,20 +178,20 @@ GPTConfig   gptCFG = {
 };
 
 void audio_initialize_hardware(void) {
-    pwmStart(&PWMD1, &pwmCFG);
+    pwmStart(&PWMD, &pwmCFG);
 
 #if defined(AUDIO_DRIVER_PWM_PIN_ALTERNATE)
-#    if defined(USE_GPIOV1)
-    palSetLineMode(A8, PAL_MODE_STM32_ALTERNATE_PUSHPULL); //f103 with GPIOv1
+#    if defined(USE_GPIOV1) // STM32F103C8
+    palSetLineMode(AUDIO_PIN, PAL_MODE_STM32_ALTERNATE_PUSHPULL);
 #    else // GPIOv2 (or GPIOv3 for f4xx, which is the same/compatible at this command)
-    palSetLineMode(A8, PAL_STM32_MODE_ALTERNATE | PAL_STM32_ALTERNATE(6) );//f303xx with GPIOV2
+    palSetLineMode(AUDIO_PIN, PAL_STM32_MODE_ALTERNATE | PAL_STM32_ALTERNATE(AUDIO_PWM_PINALTERNATE_FUNCTION));
 #    endif
 #else // AUDIO_DRIVER_PWM
     palSetLineMode(AUDIO_PIN, PAL_MODE_OUTPUT_PUSHPULL);
     palClearLine(AUDIO_PIN);
 
-    pwmEnablePeriodicNotification(&PWMD1); // enable pwm callbacks
-    pwmEnableChannelNotification(&PWMD1, 0);
+    pwmEnablePeriodicNotification(&PWMD); // enable pwm callbacks
+    pwmEnableChannelNotification(&PWMD, AUDIO_PWM_PINALTERNATE_TIMERCHANNEL-1);
 #endif // AUDIO_DRIVER_PWM
 
     gptStart(&GPTD6, &gptCFG);
