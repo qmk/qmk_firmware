@@ -15,7 +15,6 @@
 #include "muse.h"
 #include "keymap_italian_osx_ansi.h"
 
-extern keymap_config_t keymap_config;
 
 enum planck_layers {
   _QWERTY,
