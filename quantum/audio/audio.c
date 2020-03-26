@@ -165,8 +165,10 @@ void stop_note(float freq) {
         if (!audio_initialized) {
             audio_init();
         }
+        bool found = false;
         for (int i = AUDIO_VOICES_MAX-1; i >= 0; i--) {
-            if (frequencies[i] == freq) {
+            found = (frequencies[i] == freq);
+            if (found) {
                 frequencies[i] = 0;
                 for (int j = i; (j < AUDIO_VOICES_MAX-1); j++) {
                     frequencies[j]     = frequencies[j + 1];
@@ -175,6 +177,9 @@ void stop_note(float freq) {
                 break;
             }
         }
+        if (!found)
+            return;
+
         voices--;
         if (voices < 0) voices = 0;
         if (voice_place >= voices) {
@@ -190,23 +195,48 @@ void stop_note(float freq) {
     }
 }
 
+//TODO: rename to play_frequency; since a "note" is the combination of freq+duration (?)
 void play_note(float freq, int vol) { //NOTE: vol is unused
+    if (!audio_config.enable)
+        return;
+
     if (!audio_initialized) {
         audio_init();
     }
 
-    if (voices < AUDIO_VOICES_MAX) {
-        playing_note = true;
-
-        envelope_index = 0;
-
-        //TODO: handle pause/rest; freq==0 but with a valid duration
-        if (freq > 0) {
-            frequencies[voices] = freq;
-            voices++;
+    // roundrobin: shifting out old voices, keeping only uniquie voices
+    if (freq<=0)
+        return;
+    // if the new frequency is already amongst the active voices, shift it to the end
+    bool found = false;
+    for (int i = voices-1; i >= 0; i--) {
+        found = (frequencies[i] == freq);
+        if (found) {
+            for (int j = i; (j < voices-1); j++) {
+                frequencies[j]     = frequencies[j + 1];
+                frequencies[j + 1] = freq;
+            }
+            break;
         }
-        audio_start_hardware();
     }
+    if (found) // since this frequency played already, the hardware was already started
+        return;
+
+    // frequency/voice is actually new, so we queue it to the end
+    voices++;
+    if (voices > AUDIO_VOICES_MAX) {
+        voices = AUDIO_VOICES_MAX;
+        // shift out the oldest voice to make room
+        for (int i=0; i<voices-1; i++) {
+            frequencies[i] = frequencies[i+1];
+        }
+    }
+    playing_note = true;
+    envelope_index = 0; // TODO: does what?
+    frequencies[voices-1] = freq;
+
+    if (voices==1) // sufficient to start when switching from 0 to 1
+        audio_start_hardware();
 }
 
 /* the two ways to feed the audio system:
@@ -214,6 +244,9 @@ void play_note(float freq, int vol) { //NOTE: vol is unused
    play_nots to playback a melody, which is just an array of notes (of different frequencies and durations)
 */
 void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat) {
+    if (!audio_config.enable)
+        return;
+
     if (!audio_initialized) {
         audio_init();
     }
@@ -228,11 +261,11 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat) {
         notes_count   = n_count;
         notes_repeat  = n_repeat;
 
-        current_note = 0;
+        current_note = 0; // note in the melody-array/list at note_pointer
 
         note_frequency = (*notes_pointer)[current_note][0];
         note_length    = ((*notes_pointer)[current_note][1]) * (60.0f / note_tempo);
-        note_position  = 0;
+        note_position  = 0; // position in the currently playing note = "elapsed time" (with no specific unit, depends on how fast/slow the respective audio-driver/hardware ticks)
 
         audio_start_hardware();
     }
@@ -254,7 +287,7 @@ float audio_get_frequency(uint8_t voice_index) { return frequencies[voice_index]
 float audio_get_single_voice_frequency(uint8_t voice) {
     float frequency = 0.0;
 
-    if (voice > voices) return frequency;
+    if ((voice > voices) || (voice == 0)) return 0.0f;
 
     if (glissando) {
         if (frequency != 0 && frequency < frequencies[voices - voice]
@@ -268,7 +301,7 @@ float audio_get_single_voice_frequency(uint8_t voice) {
         }
     } else {
         frequency = frequencies[voices - voice]; //TODO: why not frequencies[voice]?
-        // -> new voices are appended at the end, so the most recent/current is MAX-0
+        // -> new voices are appended at the end, so the most recent/current is MAX-1
     }
 
 #ifdef VIBRATO_ENABLE
@@ -283,9 +316,11 @@ float audio_get_single_voice_frequency(uint8_t voice) {
 
     frequency = voice_envelope(frequency);
 
+    /*TODO: why the cutoff?
     if (frequency < 30.517578125) {
         frequency = 30.52;
     }
+    */
 
     return frequency;
 }
@@ -304,7 +339,8 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
 
             if (polyphony_rate > 0) {
                 if (voices > 1) {
-                    voice_place %= voices;
+                    voice_place %= voices; ///2020-03-26: hm, is the voice_place (plus the polythony_rate?) intended to be used to cycle through active voices, if the number of available hardware channels is insufficient? (like with avr/arm pwm?)
+
                     //                    if (place++ > (frequencies[voice_place] / polyphony_rate / CPU_PRESCALER)) {
                     //                        voice_place = (voice_place + 1) % voices;
                     //                        place = 0.0;
@@ -403,9 +439,8 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
  */
 bool audio_advance_note(uint32_t step, float end) {
     bool goto_next_note = false;
-    if (playing_note) {
-        //TODO? playing_note is stopped 'manually'... so no need/sense in 'advanceing' them?
-    }
+
+    //'playing_note' is stopped manually, so no need to keep track of it here
 
     if (playing_notes) {
         note_position += step;
