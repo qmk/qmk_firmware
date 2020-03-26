@@ -104,10 +104,10 @@
 /**
  * choose pins for the speaker
  */
-#if !defined(A4_AUDIO) && !defined(A5_AUDIO)
-#    pragma message "Audio feature enabled, but not pin selected - see docs/feature_audio under the ARM DAC settings. Falling back to A5_AUDIO"
-#    define A5_AUDIO
-//TODO: go through a breaking change, and add A5_AUDIO to all keyboards currently using AUDIO on STM32 based boards
+#if !defined(AUDIO_PIN_A4) && !defined(AUDIO_PIN_A5)
+#    pragma message "Audio feature enabled, but no pin selected - see docs/feature_audio under the ARM DAC settings for available options. Falling back to A5"
+#    define AUDIO_PIN_A5
+//TODO: go through a breaking change, and add AUDIO_PIN=A5 to all keyboards currently using AUDIO on STM32 based boards
 #endif
 
 /**
