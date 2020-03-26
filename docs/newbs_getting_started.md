@@ -50,7 +50,7 @@ After opening a new MSYS2 MinGW 64-bit terminal, make sure `pacman` is up to dat
 
 You may be asked to close and reopen the window. Do this and keep running the above command until it says `there is nothing to do`. Then run the following:
 
-    pacman -S git python3-pip
+    pacman -S git mingw-w64-x86_64-toolchain mingw-w64-x86_64-python3-pip
     python3 -m pip install qmk
 
 ### macOS
