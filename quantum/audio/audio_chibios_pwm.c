@@ -74,8 +74,9 @@ static void pwm_audio_period_callback(PWMDriver *pwmp);
 static void pwm_audio_channel_interrupt_callback(PWMDriver *pwmp);
 #endif // AUDIO_DRIVER_PWM
 
-static PWMConfig pwmCFG = {.frequency = 500000, /* PWM clock frequency  */
-                           .period = 0,     /* initial PWM period (in ticks) 1S (1/10kHz=0.1mS 0.1ms*10000 ticks=1S) */
+static PWMConfig pwmCFG = {.frequency = 100000, /* PWM clock frequency  */
+                           //CHIBIOS-BUG? can't set the initial period to <2, or the pwm (hard or software) takes ~130ms with .frequency=500000 for a pwmChangePeriod to take effect; with no ouput=silence in the meantime
+                           .period = 2,     /* initial PWM period (in ticks) 1S (1/10kHz=0.1mS 0.1ms*10000 ticks=1S) */
 #if defined(AUDIO_DRIVER_PWM_PIN_ALTERNATE)
                            .callback = NULL, // no callback, the hardware directly toggles the pin
 #else // AUDIO_DRIVER_PWM
@@ -159,7 +160,8 @@ static void pwm_audio_period_callback(PWMDriver *pwmp) {
 }
 static void pwm_audio_channel_interrupt_callback(PWMDriver *pwmp) {
     (void)pwmp;
-    palSetLine(AUDIO_PIN);  // generate a PWM signal on any pin, not neccessarily the one connected to the timer
+    if (channel_1_frequency > 0)
+        palSetLine(AUDIO_PIN);  // generate a PWM signal on any pin, not neccessarily the one connected to the timer
 }
 #endif // AUDIO_DRIVER_PWM
 
