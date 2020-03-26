@@ -206,10 +206,19 @@ void main_subtask_usb_extra_device(void) {
     }
 }
 
+#ifdef RAW_ENABLE
+void main_subtask_raw(void) {
+    udi_hid_raw_receive_report();
+}
+#endif
+
 void main_subtasks(void) {
     main_subtask_usb_state();
     main_subtask_power_check();
     main_subtask_usb_extra_device();
+#ifdef RAW_ENABLE
+    main_subtask_raw();
+#endif
 }
 
 int main(void) {
