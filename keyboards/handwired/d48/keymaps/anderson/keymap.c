@@ -1,4 +1,4 @@
-#include "d48.h"
+#include QMK_KEYBOARD_H
 #include "taphold.h"
 #include "seq.h"
 #include "layout_defs.h"
