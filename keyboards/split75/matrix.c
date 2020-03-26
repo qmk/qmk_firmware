@@ -149,27 +149,28 @@ uint8_t matrix_scan(void) {
 #if defined(RIGHT_HALF)
     uint8_t data;
 #endif
+
     matrix_row_t cols;
 
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         cols = 0;
-	// Select the row to scan
+	    // Select the row to scan
         matrix_set_row_status(row);
 
         _delay_us(5);
-	//Set the local row
+	    //Set the local row
 
 #if defined(RIGHT_HALF)
-	// Initialize to 0x7F in case I2C read fails, 
-	// as 0x75 would be no keys pressed
-	data = 0x7F;
-	// Receive the columns from right half
-        i2c_receive(TWI_ADDR_WRITE, &data, 1, I2C_TIMEOUT);
+		// Initialize to 0x7F in case I2C read fails, 
+		// as 0x75 would be no keys pressed
+		data = 0x7F;
+		// Receive the columns from right half
+		i2c_receive(TWI_ADDR_WRITE, &data, 1, I2C_TIMEOUT);
 #endif
 
         cols |= ((~(PINA | 0x80)) & 0x7F);
 #if defined(RIGHT_HALF)
-	cols |= (((~(data | 0x80)) & 0x7F) << 7);
+		cols |= (((~(data | 0x80)) & 0x7F) << 7);
 #endif
 
 #if defined(DEBOUNCE)
