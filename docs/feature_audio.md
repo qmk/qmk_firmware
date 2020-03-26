@@ -5,36 +5,41 @@ Your keyboard can make sounds! If you've got a Planck, Preonic, or basically any
 To activate this feature, add `AUDIO_ENABLE = yes` to your `rules.mk`.
 
 ## AVR based boards
-Up to two simultaneous audio voices are supported, one driven by timer 1 and another driven by timer 3.  The following pins can be defined as audio outputs in config.h:
+Up to two simultaneous audio voices are supported, one driven by timer 1 and another driven by timer 3.  The following pins can be configured as audio outputs in `rules.mk`:
 
-the primary voice, with Timer 3 on one of these pins:
-`#define C4_AUDIO`
-`#define C5_AUDIO`
-`#define C6_AUDIO`
+for the primary voice, with Timer 3, pick ONE these pins:
+`AUDIO_PIN = C4`
+`AUDIO_PIN = C5`
+`AUDIO_PIN = C6`
 
-and *optionally*, a secondary voice, using Timer 1, on one of these pins:
-`#define B5_AUDIO`
-`#define B6_AUDIO`
-`#define B7_AUDIO`
+and *optionally*, a secondary voice, using Timer 1, on ONE of these pins:
+`AUDIO_PIN_ALT = B5`
+`AUDIO_PIN_ALT = B6`
+`AUDIO_PIN_ALT = B7`
 
 
 ## ARM based boards
-Most STM32 MCUs have DAC peripherals, with a notable exception of the STM32F1xx series. Generally, the DAC peripheral drives pins A4 or A5. To enable DAC-based audio output on STM32 devices, add `AUDIO_DRIVER = dac` to `rules.mk` and set in `config.h` either:
-`#define A4_AUDIO`
+Most STM32 MCUs have DAC peripherals, with a notable exception of the STM32F1xx series. Generally, the DAC peripheral drives pins A4 or A5. To enable DAC-based audio output on STM32 devices, add `AUDIO_DRIVER = dac` to `rules.mk` and set either:`
+`AUDIO_PIN = A4`
 OR
-`#define A5_AUDIO`
+`AUDIO_PIN = A5`
 
 
 STM32F1xx have to fall back to using PWM (on the up side: with any pin you choose),
 
-either set:
-`AUDIO_SYSTEM = pwm-pin-alternate` in `rules.mk` and
-`#define AUDIO_PIN C13` in `config.h`
+Either:
+set in `rules.mk`:
+`AUDIO_SYSTEM = pwm` and
+`AUDIO_PIN = C13` (can be any pin)
 to have the selected pin output a pwm signal, generated from a timer callback (e.g. toggled in software)
  OR
-`AUDIO_DRIVER PWM_PIN_ALTERNATE` in `rules.mk`
+`AUDIO_SYSTEM = pwm-pin-alternate` in `rules.mk` and in `config.h`:
+`#define AUDIO_PIN A8`
+`#define AUDIO_PWM_PINALTERNATE_TIMER 1`
+`#define AUDIO_PWM_PINALTERNATE_TIMERCHANNEL 1`
+(as well as `#define AUDIO_PWM_PINALTERNATE_FUNCTION 42` if you are on STM32F2 or larger)
 which will use Timer 1 to directly drive pin PA8 through the PWM hardware (TIM1_CH1 = PA8).
-Should you want to use the pwm-hardware on another pin and timer - be ready to dig into the STM32 datasheet and do the neccessary changes to quantum/audio/audio_arm_pwm.c.
+Should you want to use the pwm-hardware on another pin and timer - be ready to dig into the STM32 datasheet to pick the right TIMx_CHy and pin-alternate function.
 
 
 ## Songs

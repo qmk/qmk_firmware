@@ -36,10 +36,17 @@ extern float   note_timbre;
 
   and an optional secondary channel_2 on either pin PB5, PB6 or PB7, with a PWM signal from timer1
 
-  in a pinch with only one of the PB pins available as speaker output, they can be used as the primary channel too - by only setting the Bx_AUDIO define, and *none* of the Cx_AUDIO defines
+  in a pinch with only one of the PB pins available as speaker output, they can be used as the primary channel too - by only setting the AUDIO_PIN_ALT_Bx define, and *none* of the AUDIO_PIN_Cx defines
 */
 
-#if defined(C4_AUDIO) || defined(C5_AUDIO) || defined(C6_AUDIO)
+// C6 seems to be the assumed default by many existing keyboard - but sill warn the user
+#if !defined(AUDIO1_PIN_SET) && !defined(AUDIO2_PIN_SET)
+#    pragma message "Audio feature enabled, but no pin selected - see docs/feature_audio under the AVR settings for available options. Falling back to C6"
+#    define AUDIO_PIN_C6
+//TODO: make this an error - go through the breaking-change-process and change all keyboards to the new define
+#endif
+
+#if defined(AUDIO_PIN_C4) || defined(AUDIO_PIN_C5) || defined(AUDIO_PIN_C6)
 #    define AUDIO1_PIN_SET
 #    define AUDIO1_TIMSKx TIMSK3
 #    define AUDIO1_TCCRxA TCCR3A
@@ -53,21 +60,21 @@ extern float   note_timbre;
 #    define AUDIO1_CSx1 CS31
 #    define AUDIO1_CSx2 CS32
 
-#    if defined(C6_AUDIO)
+#    if defined(AUDIO_PIN_C6)
 #        define AUDIO1_COMxy0 COM3A0
 #        define AUDIO1_COMxy1 COM3A1
 #        define AUDIO1_OCIExy OCIE3A
 #        define AUDIO1_OCRxy OCR3A
 #        define AUDIO1_PIN C6
 #        define AUDIO1_TIMERx_COMPy_vect TIMER3_COMPA_vect
-#    elif defined(C5_AUDIO)
+#    elif defined(AUDIO_PIN_C5)
 #        define AUDIO1_COMxy0 COM3B0
 #        define AUDIO1_COMxy1 COM3B1
 #        define AUDIO1_OCIExy OCIE3B
 #        define AUDIO1_OCRxy OCR3B
 #        define AUDIO1_PIN C5
 #        define AUDIO1_TIMERx_COMPy_vect TIMER3_COMPB_vect
-#    elif defined(C4_AUDIO)
+#    elif defined(AUDIO_PIN_C4)
 #        define AUDIO1_COMxy0 COM3C0
 #        define AUDIO1_COMxy1 COM3C1
 #        define AUDIO1_OCIExy OCIE3C
@@ -78,7 +85,7 @@ extern float   note_timbre;
 #endif
 
 
-#if defined(B5_AUDIO) || defined(B6_AUDIO) || defined(B7_AUDIO)
+#if defined(AUDIO_PIN_ALT_B5) || defined(AUDIO_PIN_ALT_B6) || defined(AUDIO_PIN_ALT_B7)
 #    define AUDIO2_PIN_SET
 #    define AUDIO2_TIMSKx TIMSK1
 #    define AUDIO2_TCCRxA TCCR1A
@@ -92,21 +99,21 @@ extern float   note_timbre;
 #    define AUDIO2_CSx1 CS11
 #    define AUDIO2_CSx2 CS12
 
-#    if defined(B5_AUDIO)
+#    if defined(AUDIO_PIN_ALT_B5)
 #        define AUDIO2_COMxy0 COM1A0
 #        define AUDIO2_COMxy1 COM1A1
 #        define AUDIO2_OCIExy OCIE1A
 #        define AUDIO2_OCRxy OCR1A
 #        define AUDIO2_PIN B5
 #        define AUDIO2_TIMERx_COMPy_vect TIMER1_COMPA_vect
-#    elif defined(B6_AUDIO)
+#    elif defined(AUDIO_PIN_ALT_B6)
 #        define AUDIO2_COMxy0 COM1B0
 #        define AUDIO2_COMxy1 COM1B1
 #        define AUDIO2_OCIExy OCIE1B
 #        define AUDIO2_OCRxy OCR1B
 #        define AUDIO2_PIN B6
 #        define AUDIO2_TIMERx_COMPy_vect TIMER1_COMPB_vect
-#    elif defined(B7_AUDIO)
+#    elif defined(AUDIO_PIN_ALT_B7)
 #        define AUDIO2_COMxy0 COM1C0
 #        define AUDIO2_COMxy1 COM1C1
 #        define AUDIO2_OCIExy OCIE1C
@@ -116,10 +123,6 @@ extern float   note_timbre;
 #    endif
 #endif
 
-// C6 seems to be the assumed default by many existing keyboard - but sill warn the user
-#if !defined(AUDIO1_PIN_SET) && !defined(AUDIO2_PIN_SET)
-#    pragma message "audio feature enabled, but no pin selected - see docs/feature_audio for defines to set"
-#endif
 // -----------------------------------------------------------------------------
 
 #ifdef AUDIO1_PIN_SET

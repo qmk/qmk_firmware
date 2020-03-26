@@ -156,12 +156,12 @@ static const DACConfig dac_conf = {.init = DAC_SAMPLE_MAX, .datamode = DAC_DHRM_
 static const DACConversionGroup dac_conv_cfg = {.num_channels = 1U, .end_cb = dac_end, .error_cb = dac_error, .trigger = DAC_TRG(0b000)};
 
 void audio_initialize_hardware() {
-#if defined(A4_AUDIO)
+#if defined(AUDIO_PIN_A4)
     palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_ANALOG);
     dacStart(&DACD1, &dac_conf);
     dacStartConversion(&DACD1, &dac_conv_cfg, dac_buffer_empty, DAC_BUFFER_SIZE);
 #endif
-#if defined(A5_AUDIO)
+#if defined(AUDIO_PIN_A5)
     palSetPadMode(GPIOA, 5, PAL_MODE_INPUT_ANALOG);
     dacStart(&DACD2, &dac_conf);
     dacStartConversion(&DACD2, &dac_conv_cfg, dac_buffer_empty, DAC_BUFFER_SIZE);
@@ -176,10 +176,10 @@ void audio_initialize_hardware() {
      * this is done here, reaching directly into the stm32 registers since chibios has not implemented BOFF handling yet
      * (see: chibios/os/hal/ports/STM32/todo.txt '- BOFF handling in DACv1.'
      */
-#if defined(A4_AUDIO)
+#if defined(AUDIO_PIN_A4)
     DACD1.params->dac->CR &= ~DAC_CR_BOFF1;
 #endif
-#if defined(A5_AUDIO)
+#if defined(AUDIO_PIN_A5)
     DACD2.params->dac->CR &= ~DAC_CR_BOFF2;
 #endif
 

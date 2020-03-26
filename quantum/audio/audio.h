@@ -130,3 +130,40 @@ void decrease_tempo(uint8_t tempo_change);
 #define PLAY_LOOP(note_array) play_notes(&note_array, NOTE_ARRAY_SIZE((note_array)), true)
 
 #endif
+
+
+
+
+// LEGACY defines - TODO: remove and replace these in all keyboards using them
+#ifdef A4_AUDIO
+#    define AUDIO_PIN_A4
+#    define AUDIO_PIN A4
+#endif
+#ifdef A5_AUDIO
+#    define AUDIO_PIN_A5
+#    define AUDIO_PIN A5
+#endif
+#ifdef B5_AUDIO
+#    define AUDIO_PIN_ALT_B5
+#    define AUDIO_PIN_ALT B5
+#endif
+#ifdef B6_AUDIO
+#    define AUDIO_PIN_ALT_B6
+#    define AUDIO_PIN_ALT B6
+#endif
+#ifdef B7_AUDIO
+#    define AUDIO_PIN_ALT_B7
+#    define AUDIO_PIN_ALT B7
+#endif
+#ifdef C4_AUDIO
+#    define AUDIO_PIN_C4
+#    define AUDIO_PIN C4
+#endif
+#ifdef C5_AUDIO
+#    define AUDIO_PIN_C5
+#    define AUDIO_PIN C5
+#endif
+#ifdef C6_AUDIO
+#    define AUDIO_PIN_C6
+#    define AUDIO_PIN C6
+#endif
