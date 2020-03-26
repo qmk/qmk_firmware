@@ -20,11 +20,6 @@
 #include "timer.h"
 #include "uart.h"
 #include "debug.h"
-#include "rgblight_reconfig.h"
-
-#if (defined(RGB_MIDI) || defined(RGBLIGHT_ANIMATIONS)) && defined(RGBLIGHT_ENABLE)
-#    include "rgblight.h"
-#endif
 
 #define UART_BAUD_RATE 115200
 
