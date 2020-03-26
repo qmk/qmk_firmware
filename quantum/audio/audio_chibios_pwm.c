@@ -67,6 +67,7 @@ so adding to config.h:
 #define PWMD TO_CHIBIOS_PWMD_EVAL(AUDIO_PWM_PINALTERNATE_TIMER)
 
 extern int  voices;
+extern bool playing_note;
 extern bool playing_notes;
 
 #if defined(AUDIO_DRIVER_PWM)
@@ -200,9 +201,17 @@ void audio_initialize_hardware(void) {
 }
 
 void audio_start_hardware(void) {
+    float freq;// TODO: freq_alt
     channel_1_stop();
     channel_1_start();
-    gptStartContinuous(&GPTD6, 64);
+
+    if (playing_note) {
+        freq = audio_get_single_voice_frequency(1);
+        channel_1_set_frequency(freq);
+    }
+    if (playing_notes) {
+        gptStartContinuous(&GPTD6, 64);
+    }
 }
 
 void audio_stop_hardware(void) {

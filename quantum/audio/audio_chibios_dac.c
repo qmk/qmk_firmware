@@ -66,6 +66,9 @@ __attribute__((weak)) uint16_t dac_value_generate(void) {
     uint8_t  working_voices = audio_get_number_of_active_voices();
     if (working_voices > AUDIO_VOICES_MAX) working_voices = AUDIO_VOICES_MAX;
 
+    /* doing additive wave synthesis over all currently playing voices = adding up
+     * sine-wave-samples for each frequency, scaled by the number of active voices
+     */
     if (working_voices > 0) {
         uint16_t value_avg = 0;
         for (uint8_t i = 0; i < working_voices; i++) {
