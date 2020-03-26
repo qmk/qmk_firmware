@@ -166,7 +166,7 @@
 
 // DEPRECATED
 #define IT_BKSL IT_BSLS
-#define IT_QUOT IT_APOS
+//#define IT_QUOT IT_APOS
 #define IT_IACC IT_IGRV
 #define IT_EACC IT_EGRV
 #define IT_OACC IT_OGRV
