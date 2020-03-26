@@ -196,9 +196,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 #endif
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
+// original tri layer state
+// layer_state_t layer_state_set_user(layer_state_t state) {
+//  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+//}
+
+// edited tri layer state to include it in userspace
+// layer_state_t layer_state_set_keymap(layer_state_t state) {
+//  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+// }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
