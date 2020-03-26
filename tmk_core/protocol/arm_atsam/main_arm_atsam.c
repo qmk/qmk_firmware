@@ -207,9 +207,7 @@ void main_subtask_usb_extra_device(void) {
 }
 
 #ifdef RAW_ENABLE
-void main_subtask_raw(void) {
-    udi_hid_raw_receive_report();
-}
+void main_subtask_raw(void) { udi_hid_raw_receive_report(); }
 #endif
 
 void main_subtasks(void) {
