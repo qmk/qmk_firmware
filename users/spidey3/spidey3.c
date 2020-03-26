@@ -2,6 +2,8 @@
 
 #include "spidey3.h"
 
+extern keymap_config_t keymap_config;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // If console is enabled, it will print the matrix position and status of each key pressed
@@ -20,39 +22,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         eeconfig_update_debug(debug_config.raw);
 #endif
-        return false;
+        break;
       case SPI_LNX:
-	dprint("SPIDEY3: SPI_LNX\n");
+	dprint("SPI_LNX\n");
         set_single_persistent_default_layer(_BASE);
 	layer_off(_OSX);
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
         set_unicode_input_mode(UC_LNX);
 #endif
-        return false;
+        break;
       case SPI_OSX:
-	dprint("SPIDEY3: SPI_OSX\n");
+	dprint("SPI_OSX\n");
         set_single_persistent_default_layer(_OSX);
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
         set_unicode_input_mode(UC_OSX);
 #endif
-        return false;
+        break;
       case SPI_WIN:
-	dprint("SPIDEY3: SPI_WIN\n");
+	dprint("SPI_WIN\n");
         set_single_persistent_default_layer(_BASE);
 	layer_off(_OSX);
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
         set_unicode_input_mode(UC_WINC);
 #endif
-        return false;
+        break;
     }
   }
 
 #ifdef RGBLIGHT_ENABLE
   bool res = process_record_user_rgb(keycode, record);
-  if (!res) return false;
+  if (res) return true;
 #endif
 
-  return true;
+  return false;
 }
 
 layer_state_t default_layer_state_set_user(layer_state_t state) {

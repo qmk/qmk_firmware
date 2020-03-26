@@ -16,6 +16,7 @@ enum userspace_layers {
 enum rgb_base_layer {
   RGB_LAYER_BASE_DEFAULT = _BASE,
   RGB_LAYER_BASE_REGULAR = _NUMPAD,
+  RGB_LAYER_BASE_ACKS = _FN+1,
 };
 
 enum custom_keycodes {
