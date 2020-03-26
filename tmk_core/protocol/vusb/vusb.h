@@ -20,6 +20,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "host_driver.h"
 
+typedef struct usbDescriptorHeader {
+    uchar bLength;
+    uchar bDescriptorType;
+} __attribute__((packed)) usbDescriptorHeader_t;
+
+typedef struct usbStringDescriptor {
+    usbDescriptorHeader_t header;
+    int                   bString[];
+} __attribute__((packed)) usbStringDescriptor_t;
+
+#define USB_STRING_LEN(s) (sizeof(usbDescriptorHeader_t) + ((s) << 1))
+
 host_driver_t *vusb_driver(void);
 void           vusb_transfer_keyboard(void);
 
