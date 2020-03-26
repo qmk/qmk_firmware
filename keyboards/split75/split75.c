@@ -58,7 +58,7 @@ void matrix_init_user(void) {}
 
 void matrix_scan_kb(void) {}
 
-void keyboard_post_init_user(void) {
+void keyboard_post_init_kb(void) {
   // Customise these values to desired behaviour
   //debug_keyboard=true;
   //debug_mouse=true;
@@ -67,7 +67,7 @@ void keyboard_post_init_user(void) {
 }
 
 #if defined(LED_INDICATORS)
-void led_set_user(uint8_t usb_led) {
+void led_set_kb(uint8_t usb_led) {
   if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
     led_2_on();
   }
