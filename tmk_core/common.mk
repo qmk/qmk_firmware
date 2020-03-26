@@ -10,6 +10,7 @@ TMK_COMMON_SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/action_util.c \
 	$(COMMON_DIR)/print.c \
 	$(COMMON_DIR)/debug.c \
+	$(COMMON_DIR)/sendchar_null.c \
 	$(COMMON_DIR)/util.c \
 	$(COMMON_DIR)/eeconfig.c \
 	$(COMMON_DIR)/report.c \
