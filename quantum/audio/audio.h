@@ -73,7 +73,7 @@ float audio_get_single_voice_frequency(uint8_t voice);
 
 void  pwm_audio_timer_task(float *freq, float *freq_alt);
 
-void audio_advance_note(uint32_t step, float end);
+bool audio_advance_note(uint32_t step, float end);
 
 
 // Vibrato rate functions

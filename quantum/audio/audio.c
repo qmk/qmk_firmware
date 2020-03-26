@@ -399,8 +399,10 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
 
    @param step: arbitrary step value, audio.c keeps track of for the audio-driver
    @param end: scaling factor multiplied to the note_length. has to match step so that audio.c can determine when a note has finished playing
+   @return: true if the melody advanced to its next note, which the driver might need to react to
  */
-void audio_advance_note(uint32_t step, float end) {
+bool audio_advance_note(uint32_t step, float end) {
+    bool goto_next_note = false;
     if (playing_note) {
         //TODO? playing_note is stopped 'manually'... so no need/sense in 'advanceing' them?
     }
@@ -408,7 +410,8 @@ void audio_advance_note(uint32_t step, float end) {
     if (playing_notes) {
         note_position += step;
 
-        if (note_position >= (note_length * end)) {
+        goto_next_note = note_position >= (note_length * end);
+        if (goto_next_note) {
             stop_note((*notes_pointer)[current_note][0]);
             current_note++;
 
@@ -417,7 +420,7 @@ void audio_advance_note(uint32_t step, float end) {
                     current_note = 0;
                 } else {
                     playing_notes = false;
-                    return;
+                    return goto_next_note;
                 }
             }
 
@@ -438,6 +441,8 @@ void audio_advance_note(uint32_t step, float end) {
     if (!playing_note && !playing_notes )
         stop_all_notes();
     //TODO: trigger a stop of the hardware or just a stop_note on the last frequency?
+
+    return goto_next_note;
 }
 
 

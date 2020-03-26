@@ -214,8 +214,8 @@ void audio_stop_hardware(void) {
 static void gpt_callback(GPTDriver *gptp) {
     float freq;// TODO: freq_alt
 
-    freq = audio_get_single_voice_frequency(1); // freq_alt would be voice=2
-
-    channel_1_set_frequency(freq);
-    audio_advance_note(1, 1);
+    if (audio_advance_note(1, 1)) {
+        freq = audio_get_single_voice_frequency(1); // freq_alt would be voice=2
+        channel_1_set_frequency(freq);
+    }
 }
