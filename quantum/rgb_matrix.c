@@ -425,12 +425,18 @@ __attribute__((weak)) void rgb_matrix_indicators_kb(void) {}
 __attribute__((weak)) void rgb_matrix_indicators_user(void) {}
 
 void rgb_matrix_indicators_advanced(effect_params_t *params) {
+    /* special handling is need "params->iter", since it's already been incremented.
+     * Could move the invocations to rgb_task_render, but then it's missing a few checks
+     * and not sure which would be better. Otherwise, this should be called from
+     * rgb_task_render, right before the iter++ line.
+     */
 #if defined(RGB_MATRIX_LED_PROCESS_LIMIT) && RGB_MATRIX_LED_PROCESS_LIMIT > 0 && RGB_MATRIX_LED_PROCESS_LIMIT < DRIVER_LED_TOTAL
     uint8_t min = RGB_MATRIX_LED_PROCESS_LIMIT * (params->iter - 1);
     uint8_t max = min + RGB_MATRIX_LED_PROCESS_LIMIT;
     if (max > DRIVER_LED_TOTAL) max = DRIVER_LED_TOTAL;
 #else
-    uint8_t min = 0 uint8_t max = DRIVER_LED_TOTAL;
+    uint8_t min = 0;
+    uint8_t max = DRIVER_LED_TOTAL;
 #endif
     rgb_matrix_indicators_advanced_kb(min, max);
     rgb_matrix_indicators_advanced_user(min, max);
