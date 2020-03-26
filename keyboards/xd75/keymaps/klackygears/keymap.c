@@ -122,14 +122,14 @@ const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {35, 29, 17};
 
  void matrix_scan_user(void) {
 
-    switch(biton32(layer_state)) {
+   /* switch(biton32(layer_state)) {
       case _GAMER:
         rgblight_setrgb(0xF4,  0x03, 0xFC);
       break;
       case _NUMB:
         rgblight_setrgb_at(RGB_BLUE, 43);
       break;
-    }
+    }*/
 
  }
 
