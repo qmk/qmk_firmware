@@ -97,6 +97,7 @@ void                 main_mou_disable(void);
 extern volatile bool main_b_raw_enable;
 bool                 main_raw_enable(void);
 void                 main_raw_disable(void);
+void                 main_raw_receive(uint8_t *buffer, uint8_t len);
 #endif  // RAW
 
 #endif  // _MAIN_H_
