@@ -20,16 +20,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0x6D6D
-#define PRODUCT_ID 0x5754
+#define VENDOR_ID 0x6D6D // MetaMechs
+#define PRODUCT_ID 0x5754 // TW
 #define DEVICE_VER 0x0001
-#define MANUFACTURER Croktopus
+#define MANUFACTURER MetaMechs
 #define PRODUCT Timber Wolf
-#define DESCRIPTION A custom keyboard
+#define DESCRIPTION Timber Wolf
 
 /* key matrix size */
-#define MATRIX_ROWS 17
-#define MATRIX_COLS 6
+#define MATRIX_COLS 17
+#define MATRIX_ROWS 6
 
 /*
  * Keyboard Matrix Assignments
@@ -41,16 +41,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { B2, B3, B7, D0, D1, D2, B5, B6, C6, C7, F7, F6, F5, F4, F1, F0, E6 }
-#define MATRIX_COL_PINS { D5, D3, D4, D6, D7, B4 }
+#define MATRIX_COL_PINS { B2, B3, B7, D0, D1, D2, B5, B6, C6, C7, F7, F6, F5, F4, F1, F0, E6 }
+#define MATRIX_ROW_PINS { D5, D3, D4, D6, D7, B4 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
 /* Wncoswe pins */
-#define ENCODERS_PAD_A { B12 }
-#define ENCODERS_PAD_B { B13 }
+#define ENCODERS_PAD_A { B1 }
+#define ENCODERS_PAD_B { B0 }
 
 /* Encoder resolution, lower number = more sensitive */
 #define ENCODER_RESOLUTION 4
