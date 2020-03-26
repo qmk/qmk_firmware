@@ -1,0 +1,2 @@
+OPT_DEFS += -DHHKB_JP
+VIA_ENABLE = yes
