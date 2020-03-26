@@ -28,12 +28,3 @@
         KC_##L20, KC_##L21, KC_##L22, KC_##L23, KC_##L24, KC_##L25, KC_##L26, KC_##L27, KC_##L28, KC_##L29, KC_##L2A, KC_##L2B, \
         KC_##L30, KC_##L31, KC_##L32, KC_##L33, KC_##L34, KC_##L35, KC_##L36, KC_##L37, KC_##L38, KC_##L39, KC_##L3A, KC_##L3B \
     )
-
-/* Light modes */
-enum light_mode_enum { SMOOTHLED, DMC12, LIGHT_MODE_SIZE };
-typedef enum light_mode_enum light_mode_t;
-
-void set_light_mode(light_mode_t value, uint32_t color);
-void process_light_mode(void);
-void update_light_mode(uint32_t color);
-void next_light_mode(uint32_t color);

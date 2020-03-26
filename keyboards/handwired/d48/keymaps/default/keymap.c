@@ -3,6 +3,7 @@
 #include "seq.h"
 #include "layout_defs.h"
 #include "ds1307.h"
+#include "lightmode.h"
 #include <stdio.h>
 
 /* Note: don't forget there's some more code in qmk_firmware/users/anderson dir */
