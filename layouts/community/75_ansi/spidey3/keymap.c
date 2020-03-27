@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Numpad
     [_NUMPAD] = LAYOUT_75_ansi(
         XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_NUMLOCK, KC_PEQL,    KC_PSLS,    KC_PAST,    XXXXXXX,    XXXXXXX,    _______,    _______,    _______,
-        XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_PSLS,    XXXXXXX,    XXXXXXX,                _______,    _______,
+        XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_NUMLOCK, XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_PSLS,    KC_PMNS,    KC_PEQL,                _______,    _______,
         _______,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_KP_4,    KC_KP_5,    KC_KP_6,    KC_PAST,    _______,    _______,                _______,    _______,
         _______,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_PMNS,    KC_SCLN,                            KC_PENT,    _______,
         _______,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_KP_0,    KC_PDOT,    KC_PCMM,    KC_PPLS,                            _______,    _______,    _______,
@@ -34,11 +34,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     // FN
     [_FN] = LAYOUT_75_ansi(
-        _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_SLEP,    KC_WAKE,    KC_PWR,
-        _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    X_BUL,      _______,    _______,    X_DASH,     _______,                RESET,      EEP_RST,
-        _______,    RGB_TOG,    RGB_MOD,    RGB_HUD,    RGB_HUI,    RGB_SAD,    RGB_SAI,    RGB_VAD,    RGB_VAI,    RGB_SPD,    RGB_SPI,    VLK_TOG,    _______,                KC_PAUS,    KC_VOLU,
-        _______,    RGB_M_P,    RGB_M_B,    RGB_M_R,    RGB_M_SW,   RGB_M_SN,   RGB_M_K,    RGB_M_G,    RGB_M_T,    SPI_LNX,    _______,    _______,                            _______,    KC_VOLD,
-        _______,    SPI_GLO,    _______,    SPI_WIN,    _______,    NK_TOGG,    TG(_NUMPAD),SPI_OSX,    X(LARR),    X(RARR),    DEBUG,      _______,                            KC_BRIU,    KC_MUTE,
-        _______,    _______,    _______,                                    _______,                                            KC_APP,     _______,    CH_MENU,    _______,    KC_BRID,    KC_SLCK
+        RESET,      _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_SLEP,    KC_WAKE,    KC_PWR,
+        EEP_RST,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    X_BUL,      KC_MPRV,    KC_MNXT,    X_DASH,     _______,                KC_PAUS,    KC_SLCK,
+        _______,    RGB_TOG,    RGB_MOD,    RGB_HUD,    RGB_HUI,    RGB_SAD,    RGB_SAI,    RGB_VAD,    RGB_VAI,    RGB_SPD,    RGB_SPI,    VLK_TOG,    _______,                _______,    KC_BRIU,
+        _______,    RGB_M_P,    RGB_M_B,    RGB_M_R,    RGB_M_SW,   RGB_M_SN,   RGB_M_K,    RGB_M_G,    RGB_M_T,    SPI_LNX,    _______,    _______,                            _______,    KC_BRID,
+        _______,    SPI_GLO,    _______,    SPI_WIN,    _______,    NK_TOGG,    TG(_NUMPAD),SPI_OSX,    X(LARR),    X(RARR),    DEBUG,      _______,                            KC_VOLU,    KC_MUTE,
+        _______,    _______,    _______,                                    KC_MPLY,                                            KC_APP,     _______,    CH_MENU,    KC_MPRV,    KC_VOLD,    KC_MNXT
     )
 };
