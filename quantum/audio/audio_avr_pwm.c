@@ -133,6 +133,9 @@ void         channel_1_set_frequency(float freq) {
 
     channel_1_frequency = freq;
 
+    if (freq == 0.0f) // a pause has freq=0, no need to start the PWM (also avoids division by zero)
+        return;
+
     // set pwm period
     AUDIO1_ICRx  = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
     // and duty cycle
@@ -163,6 +166,9 @@ void         channel_2_set_frequency(float freq) {
     if (freq == channel_2_frequency) return;
 
     channel_2_frequency = freq;
+
+    if (freq == 0.0f) // a pause has freq=0, no need to start the PWM (also avoids division by zero)
+        return;
 
     AUDIO2_ICRx = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
     AUDIO2_OCRxy = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
