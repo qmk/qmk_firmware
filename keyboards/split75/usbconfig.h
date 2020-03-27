@@ -109,11 +109,6 @@ section at the end of this file).
  * (e.g. HID), but never want to send any data. This option saves a couple
  * of bytes in flash memory and the transmit buffers in RAM.
  */
-#define USB_CFG_INTR_POLL_INTERVAL      1
-/* If you compile a version with endpoint 1 (interrupt-in), this is the poll
- * interval. The value is in milliseconds and must not be less than 10 ms for
- * low speed devices.
- */
 #define USB_CFG_IS_SELF_POWERED         0
 /* Define this to 1 if the device has its own power supply. Set it to 0 if the
  * device is powered from the USB bus.
