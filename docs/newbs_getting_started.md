@@ -83,7 +83,7 @@ In most situations you will want to answer Yes to all of the prompts.
 If you're cloning your own fork to Windows, to run CLI from a fresh mingw64 terminal easily, you should clone to `C:/msys64/home/<your-windows-username>` with the following:
     
     cd /c/msys64/home/<your-windows-username>
-    qmk setup <your-github-username>/qmk_firmware
+    qmk clone <your-github-username>/qmk_firmware
 
 ## 4. Test Your Build Environment
 
