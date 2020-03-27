@@ -2,7 +2,6 @@
 
 #include "quantum.h"
 
-
 enum userspace_layers {
   _QWERTY,
   _LOWER, //symbols
