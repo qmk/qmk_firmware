@@ -53,6 +53,9 @@
 // Most tactile encoders have detents every 4 stages
 #define ENCODER_RESOLUTION 4
 
-#define AUTO_SHIFT_TIMEOUT 165
+#define AUTO_SHIFT_TIMEOUT 160
+#define AUTO_SHIFT_REPEAT
+#define RGBLIGHT_LAYERS
 #define LEADER_TIMEOUT 400
 #define LEADER_PER_KEY_TIMING
+#define USB_MAX_POWER_CONSUMPTION 100
