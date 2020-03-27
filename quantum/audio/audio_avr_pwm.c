@@ -260,7 +260,7 @@ ISR(AUDIO1_TIMERx_COMPy_vect) {
 
     if (playing_notes)
         channel_1_set_frequency(
-            audio_get_single_voice_frequency(1)
+            audio_get_voice(1)
             );
     else
         channel_1_stop();
@@ -269,7 +269,7 @@ ISR(AUDIO1_TIMERx_COMPy_vect) {
 #    ifdef AUDIO2_PIN_SET
     if (playing_notes)
         channel_2_set_frequency(
-            audio_get_single_voice_frequency(2)
+            audio_get_voice(2)
             );
     else
         channel_2_stop();
@@ -284,7 +284,7 @@ ISR(AUDIO2_TIMERx_COMPy_vect) {
 
     if (playing_notes)
         channel_2_set_frequency(
-            audio_get_single_voice_frequency(1)
+            audio_get_voice(1)
             );
     else
         channel_2_stop();

@@ -206,7 +206,7 @@ void audio_start_hardware(void) {
     channel_1_start();
 
     if (playing_note) {
-        freq = audio_get_single_voice_frequency(1);
+        freq = audio_get_voice(1);
         channel_1_set_frequency(freq);
     }
     if (playing_notes) {
@@ -226,7 +226,7 @@ static void gpt_callback(GPTDriver *gptp) {
     float freq;// TODO: freq_alt
 
     if (audio_advance_note(1, 1)) {
-        freq = audio_get_single_voice_frequency(1); // freq_alt would be voice=2
+        freq = audio_get_voice(1); // freq_alt would be voice=2
         channel_1_set_frequency(freq);
     }
 }

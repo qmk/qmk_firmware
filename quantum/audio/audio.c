@@ -1,4 +1,4 @@
-/* Copyright 2016-2019 Jack Humbert
+/* Copyright 2016-2020 Jack Humbert
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,42 +21,45 @@
 /* audio system:
  *
  * audio.[ch] takes care of all overall state, tracking the actively playing
- *            notes (as polyphonic voices); the notes a SONG consists of;
+ *            notes/tones (as voices); the notes a SONG consists of;
  *            ...
  *
  * audio_[avr|chibios]_[dac|pwm] take care of the lower hardware dependent parts,
  *            specific to each platform and the used subsystem/driver to drive
  *            the output pins/channels with the calculated frequencies for each
- *
+ *            avtive voice
  */
 
 #ifndef AUDIO_VOICES_MAX
 #    define AUDIO_VOICES_MAX 8
 #endif
-uint8_t voices         = 0; // nuber of active polyphonic voices
-float   frequencies[AUDIO_VOICES_MAX] = {0.0}; // frequencies of each active voice
-
-int   voice_place   = 0;
-float frequency     = 0; // frequency of the current note (down-mixed from the polyphony?)
-float frequency_alt = 0; // frequency for the second speaker
+uint8_t  voices         = 0; // nuber of active/playing frequencies = voices
+float    frequencies[AUDIO_VOICES_MAX] = {0.0}; // frequencies of each active voice
 
 bool     playing_notes  = false; // playing a SONG?
 bool     playing_note   = false; // or multiple polyphonic
-float    note_frequency = 0; // Hz
-float    note_length    = 0; // in 64 parts to a beat
-uint8_t  note_tempo     = TEMPO_DEFAULT; // beats-per-minute
-float    note_timbre    = TIMBRE_DEFAULT;
-uint32_t note_position  = 0; // where in time, during playback of the current_note
-float (*notes_pointer)[][2]; // SONG, an array of MUSICAL_NOTEs
+
+float  (*notes_pointer)[][2]; // SONG, an array of MUSICAL_NOTEs
 uint16_t notes_count; // length of the notes_pointer array
 bool     notes_repeat; // PLAY_SONG or PLAY_LOOP?
-bool     note_resting = false; //?? current note is a pause? or is this supposed to indicate a 'tie'?
-
+float    note_length    = 0; // in 64 parts to a beat
+uint8_t  note_tempo     = TEMPO_DEFAULT; // beats-per-minute
 uint16_t current_note = 0; // index into the array at notes_pointer
 uint16_t next_note    = 0;
+uint32_t note_position  = 0; // where in time, during playback of the current_note
 
 
-#ifdef VIBRATO_ENABLE
+//TODO/REFACTORING: check below variables if/where they are still used
+#ifdef AUDIO_ENABLE_POLYPHONY
+int   voice_place   = 0;
+#endif
+float    note_frequency = 0; // Hz
+float    note_timbre    = TIMBRE_DEFAULT;
+bool     note_resting = false; //?? current note is a pause? or is this supposed to indicate a 'tie'?
+
+
+
+#ifdef AUDIO_ENABLE_VIBRATO
 float vibrato_counter  = 0;
 float vibrato_strength = .5;
 float vibrato_rate     = 0.125;
@@ -110,10 +113,6 @@ void audio_init() {
 
     if (audio_config.enable) {
         PLAY_SONG(startup_song);
-        /*TODO needed? came from where?
-          } else {
-            stop_all_notes();
-        */
     }
 }
 
@@ -152,8 +151,6 @@ void stop_all_notes() {
 
     playing_notes = false;
     playing_note  = false;
-    frequency     = 0;
-    frequency_alt = 0;
 
     for (uint8_t i = 0; i < AUDIO_VOICES_MAX; i++) {
         frequencies[i] = 0;
@@ -182,14 +179,14 @@ void stop_note(float freq) {
 
         voices--;
         if (voices < 0) voices = 0;
+#ifdef AUDIO_ENABLE_POLYPHONY
         if (voice_place >= voices) {
             voice_place = 0;
         }
+#endif
         if (voices == 0) {
             audio_stop_hardware();
 
-            frequency     = 0;
-            frequency_alt = 0;
             playing_note  = false;
         }
     }
@@ -278,13 +275,17 @@ bool is_playing_notes(void) { return playing_notes; }
 
 uint8_t audio_get_number_of_active_voices(void) { return voices; }
 
-float audio_get_frequency(uint8_t voice_index) { return frequencies[voice_index]; }
+float audio_get_frequency(uint8_t index) {
+    if (index >= voices)
+        return 0.0f;
+    return frequencies[index];
+}
 
 
 /* out of a possibly polyphonic setup, retrieve the frequency for a single voice
    to calculate the pwm period and duty-cycle from, relative to the cpy-frequency
  */
-float audio_get_single_voice_frequency(uint8_t voice) {
+float audio_get_voice(uint8_t voice) {
     float frequency = 0.0;
 
     if ((voice > voices) || (voice == 0)) return 0.0f;
@@ -304,7 +305,7 @@ float audio_get_single_voice_frequency(uint8_t voice) {
         // -> new voices are appended at the end, so the most recent/current is MAX-1
     }
 
-#ifdef VIBRATO_ENABLE
+#ifdef AUDIO_ENABLE_VIBRATO
     if (vibrato_strength > 0) {
         frequency = vibrato(frequency);
     }
@@ -325,14 +326,20 @@ float audio_get_single_voice_frequency(uint8_t voice) {
     return frequency;
 }
 
-// TODO: remove... AVR specific, and clusterfuck-ish
+/* REMOVEME
+   the following code block is a leftover of the audio-refactoring, which deduplicated code among the different implementations at the time - boiled down to this function, which was to be called by an avr ISR to do single/dual channel pwm
+
+   there are lots of avr hardware specifica in there, but also some features still that could/should? be refactored into the "new" audio system - like "software polyphonic" audio, which cycles through/time multiplexes the currently active voices, avoiding the hardware limit of one or two pwm outputs/speakers; which by themselve can only render one frequency at a time (unlike the arm-dac implementation, which can do wave-synthesis to combine multiple frequencies)
+
+   most of the logic has been refactored and moved into the different parts of the current implementation though
+
 void pwm_audio_timer_task(float *freq, float *freq_alt) {
     if (playing_note) {
         if (voices > 0) {
 #ifdef AUDIO1_PIN_SET
             //TODO: untangle avr specific defines
             // speaker for second/alternate voice is available
-            *freq_alt = audio_get_single_voice_frequency(2);
+            *freq_alt = audio_get_voice(2);
 #else
             *freq_alt = 0.0f;
 #endif
@@ -347,7 +354,7 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
                     //                    }
                 }
 
-#ifdef VIBRATO_ENABLE
+#ifdef AUDIO_ENABLE_VIBRATO
                 if (vibrato_strength > 0) {
                     *freq = vibrato(frequencies[voice_place]);
                 } else {
@@ -357,14 +364,14 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
                 *freq = frequencies[voice_place];
 #endif
             } else {
-                *freq = audio_get_single_voice_frequency(1);
+                *freq = audio_get_voice(1);
             }
         }
     }
 
     if (playing_notes) {
         if (note_frequency > 0) {
-#ifdef VIBRATO_ENABLE
+#ifdef AUDIO_ENABLE_VIBRATO
             if (vibrato_strength > 0) {
                 *freq = vibrato(note_frequency);
             } else {
@@ -386,7 +393,7 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
             end_of_note = (note_position >= (note_length * 8 - 1));
         else
             end_of_note = (note_position >= (note_length * 8));
-
+// hm... maybe the whole point of the note_resting related parts is to have a slight gap/pause between two consecutive musical_notes with the same frequency. so they can bei distinguished?
         if (end_of_note) {
             current_note++;
             if (current_note >= notes_count) {
@@ -430,13 +437,9 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
         }
     }
 }
+*/
 
-/* called by the timer of the audio-driver, which ticks regularly while playing a song = play_notes
 
-   @param step: arbitrary step value, audio.c keeps track of for the audio-driver
-   @param end: scaling factor multiplied to the note_length. has to match step so that audio.c can determine when a note has finished playing
-   @return: true if the melody advanced to its next note, which the driver might need to react to
- */
 bool audio_advance_note(uint32_t step, float end) {
     bool goto_next_note = false;
 
@@ -482,8 +485,7 @@ bool audio_advance_note(uint32_t step, float end) {
 
 
 // Vibrato functions
-
-#ifdef VIBRATO_ENABLE
+#ifdef AUDIO_ENABLE_VIBRATO
 
 float mod(float a, int b) {
     float r = fmod(a, b);
@@ -491,7 +493,7 @@ float mod(float a, int b) {
 }
 
 float vibrato(float average_freq) {
-#    ifdef VIBRATO_STRENGTH_ENABLE
+#    ifdef AUDIO_ENABLE_VIBRATO_STRENGTH
     float vibrated_freq = average_freq * pow(vibrato_lut[(int)vibrato_counter], vibrato_strength);
 #    else
     float vibrated_freq = average_freq * vibrato_lut[(int)vibrato_counter];
@@ -501,34 +503,23 @@ float vibrato(float average_freq) {
 }
 
 void set_vibrato_rate(float rate) { vibrato_rate = rate; }
-
 void increase_vibrato_rate(float change) { vibrato_rate *= change; }
-
 void decrease_vibrato_rate(float change) { vibrato_rate /= change; }
-
-#    ifdef VIBRATO_STRENGTH_ENABLE
-
+#    ifdef AUDIO_ENABLE_VIBRATO_STRENGTH
 void set_vibrato_strength(float strength) { vibrato_strength = strength; }
-
 void increase_vibrato_strength(float change) { vibrato_strength *= change; }
-
 void decrease_vibrato_strength(float change) { vibrato_strength /= change; }
-
-#    endif /* VIBRATO_STRENGTH_ENABLE */
-
-#endif /* VIBRATO_ENABLE */
+#    endif /* AUDIO_ENABLE_VIBRATO_STRENGTH */
+#endif /* AUDIO_ENABLE_VIBRATO */
 
 // Polyphony functions
-
+#ifdef AUDIO_ENABLE_POLYPHONY
 void set_polyphony_rate(float rate) { polyphony_rate = rate; }
-
 void enable_polyphony(void) { polyphony_rate = 5; }
-
 void disable_polyphony(void) { polyphony_rate = 0; }
-
 void increase_polyphony_rate(float change) { polyphony_rate *= change; }
-
 void decrease_polyphony_rate(float change) { polyphony_rate /= change; }
+#endif
 
 // Timbre function
 
