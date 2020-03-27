@@ -14,7 +14,7 @@
 #include QMK_KEYBOARD_H
 #include "muse.h"
 #include "keymap_italian_osx_ansi.h"
-#include "sigul.c"
+#include "sigul.h"
 
 
 // enum planck_layers {
