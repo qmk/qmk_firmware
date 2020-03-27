@@ -3,19 +3,9 @@
  */
 #include QMK_KEYBOARD_H
 
-enum planck_layers
-{
-    _DEFAULT,
-    _ALTERNATE,
-    _FN,
-    _ADJUST
-};
-
-enum planck_keycodes
-{
-    DEF = SAFE_RANGE,
-    ALT
-};
+#define _DEFAULT 0
+#define _ALTERNATE 1
+#define _FN 2
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* BASE layer: Default Layer
@@ -28,7 +18,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------------------------------------+
      * | Shift     |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  /  | Shift     | fn  |
      * +-----------------------------------------------------------------------------------------+
-     *         | Alt |  Gui   |               Space               | Gui   | Alt |
+     *         | Alt |  Gui   |               Space               | Gui   |RCtrl|
      *         `----------------------------------------------------------------´
      */
     [_DEFAULT] = LAYOUT(
@@ -36,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSPC,
         KC_LCTL, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
         KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, MO(_FN),
-        KC_LALT, KC_LGUI, /*        */ KC_SPC, KC_RGUI, KC_RALT),
+        KC_LALT, KC_LGUI, /*        */ KC_SPC, KC_RGUI, KC_RCTL),
     /* Alternamte layer: swap alt/gui
      * ,-----------------------------------------------------------------------------------------.
      * | Esc |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  |  \  |  `  |
@@ -47,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------------------------------------+
      * | Shift     |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  /  | Shift     | fn  |
      * +-----------------------------------------------------------------------------------------+
-     *         | Gui |  Alt   |               Space               | AltGr | RGui|
+     *         | Gui |  Alt   |               Space               | AltGr |RCtrl|
      *         `----------------------------------------------------------------´
      */
     [_ALTERNATE] = LAYOUT(
@@ -55,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSPC,
         KC_LCTL, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
         KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, MO(_FN),
-        KC_LGUI, KC_LALT, /*        */ KC_SPC, KC_RALT, KC_RGUI),
+        KC_LGUI, KC_LALT, /*        */ KC_SPC, KC_RALT, KC_RCTL),
 
     /* FN Layer
      * ,-----------------------------------------------------------------------------------------.
@@ -75,27 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_CAPS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_VOLD, KC_VOLU, KC_MUTE, KC_EJCT, KC_TRNS, KC_PAST, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT, KC_TRNS,
         KC_TRNS, KC_MPRV, KC_MPLY, KC_MNXT, KC_TRNS, KC_TRNS, KC_PPLS, KC_PMNS, KC_END, KC_PGDN, KC_DOWN, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, TG(_ADJUST), KC_MSTP, KC_TRNS),
-
-    /* SWITCH LAYOUT
-     * ,-----------------------------------------------------------------------------------------.
-     * |     |      |     |     |     |     |     |     |     |     |     |     |     |     |    |
-     * |-----------------------------------------------------------------------------------------+
-     * |        |     |     |     |     |     |     |     |     |     |     |     |     |        |
-     * |-----------------------------------------------------------------------------------------+
-     * |         |     |     |     |     |     |     |     |     |     |      |     |            |
-     * |-----------------------------------------------------------------------------------------+
-     * |           |     |     |     |     |     |     |     |     |     |     |           |     |
-     * +-----------------------------------------------------------------------------------------+
-     *         |     |        |                                   |       |     |
-     *         `----------------------------------------------------------------´
-     */
-    [_ADJUST] = LAYOUT(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        DEF, ALT, KC_TRNS, KC_TRNS, KC_TRNS)};
+        DF(_DEFAULT), DF(_ALTERNATE), KC_TRNS, KC_MSTP, KC_TRNS)};
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
@@ -115,26 +85,3 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     }
     return MACRO_NONE;
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record)
-{
-    switch (keycode)
-    {
-    case DEF:
-        if (record->event.pressed)
-        {
-            print("mode just switched to qwerty and this is a huge string\n");
-            set_single_persistent_default_layer(_DEFAULT);
-        }
-        return false;
-        break;
-    case ALT:
-        if (record->event.pressed)
-        {
-            set_single_persistent_default_layer(_ALTERNATE);
-        }
-        return false;
-        break;
-    }
-    return true;
-}
