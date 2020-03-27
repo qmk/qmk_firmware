@@ -5,9 +5,6 @@
 #include "i2c_master.h"
 
 #include "action_layer.h"
-
-#define I2C_TIMEOUT     10
-
 #define LED_INDICATORS
 
 // Use the backlight as caps lock indicator?
