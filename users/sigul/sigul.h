@@ -2,6 +2,7 @@
 
 #include "quantum.h"
 
+
 enum userspace_layers {
   _QWERTY,
   _LOWER, //symbols
@@ -12,10 +13,11 @@ enum userspace_layers {
   _MOUSE
 };
 
-enum userspace_keycodes {
+enum userspace_custom_keycodes {
   QWERTY = SAFE_RANGE,
+  NEW_SAFE_RANGE,
   // custom keycodes for an Italian ANSI layout with accented vowels
-   IT_CMLS, // IT_COMM and IT_LESS when combined with shift
+  IT_CMLS, // IT_COMM and IT_LESS when combined with shift
   IT_DTMR, // IT_DOT and IT_MORE when combined with shift
   IT_SLQS, // IT_SLSH and IT_QST when combined with shift
   IT_APDQ, // IT_APO and IT_DQOT when combined with shift
