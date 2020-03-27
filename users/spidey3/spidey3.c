@@ -2,8 +2,6 @@
 
 #include "spidey3.h"
 
-extern keymap_config_t keymap_config;
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // If console is enabled, it will print the matrix position and status of each key pressed
