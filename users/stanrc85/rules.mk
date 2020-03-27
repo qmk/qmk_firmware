@@ -25,5 +25,5 @@ ifeq ($(strip $(KEYBOARD)), dz60)
 endif
 ifeq ($(strip $(KEYBOARD)), projectkb/alice)
   VIA_ENABLE = yes
-  LTO_ENABLE = yes
+  LTO_ENABLE = no
 endif
