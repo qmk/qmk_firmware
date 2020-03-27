@@ -41,15 +41,15 @@ void matrix_init_kb(void) {
 
 void blink_all_leds(void) {
     led_1_on();
-    _delay_ms(50);
+    wait_ms(50);
     led_2_on();
-    _delay_ms(50);
+    wait_ms(50);
     led_3_on();
-    _delay_ms(50);
+    wait_ms(50);
     led_1_off();
-    _delay_ms(50);
+    wait_ms(50);
     led_2_off();
-    _delay_ms(50);
+    wait_ms(50);
     led_3_off();
 }
 
