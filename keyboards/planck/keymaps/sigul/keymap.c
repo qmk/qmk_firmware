@@ -14,47 +14,49 @@
 #include QMK_KEYBOARD_H
 #include "muse.h"
 #include "keymap_italian_osx_ansi.h"
+#include "sigul.c"
 
 
-enum planck_layers {
-  _QWERTY,
-  _LOWER, //symbols
-  _RAISE, //numbers
-  _ADJUST, //system
-  _NUMPAD,
-  _FN, 
-  _MOUSE
-};
+// enum planck_layers {
+//   _QWERTY,
+//  _LOWER, //symbols
+//  _RAISE, //numbers
+//  _ADJUST, //system
+//  _NUMPAD,
+//  _FN, 
+//  _MOUSE
+//};
 
-enum planck_keycodes {
-  QWERTY = SAFE_RANGE,
-  // custom keycodes for personal macros
-  DESK, // personal email
-  VIVERE, // website
-  SVIV, // website email
-  SGCOM, // personal website
-  PHONE, // my phone number
+// moved to sigul.c
+// enum planck_keycodes {
+//  QWERTY = SAFE_RANGE,
+  // personal keycodes, moved to sigul.c
+  // DESK, // personal email
+  // VIVERE, // website
+  // SVIV, // website email
+  // SGCOM, // personal website
+  // PHONE, // my phone number
   // custom keycodes for an Italian ANSI layout with accented vowels
-  IT_CMLS, // IT_COMM and IT_LESS when combined with shift
-  IT_DTMR, // IT_DOT and IT_MORE when combined with shift
-  IT_SLQS, // IT_SLSH and IT_QST when combined with shift
-  IT_APDQ, // IT_APO and IT_DQOT when combined with shift
-  IT_SCCL  // IT_SMCL and IT_COLN when combined with shift
+//  IT_CMLS, // IT_COMM and IT_LESS when combined with shift
+//  IT_DTMR, // IT_DOT and IT_MORE when combined with shift
+//  IT_SLQS, // IT_SLSH and IT_QST when combined with shift
+//  IT_APDQ, // IT_APO and IT_DQOT when combined with shift
+//  IT_SCCL  // IT_SMCL and IT_COLN when combined with shift
 
-};
+// };
 
-// Defining Layer Keycodes
-#define QWERTY DF(_QWERTY)
-// For LOWER and RAISE I use TT instead of MO to be able to lock those layer tapping three times the key (TAPPING_TOGGLE 3 has been added in config.h)
-#define LOWER TT(_LOWER)
-#define RAISE TT(_RAISE)
-#define NUMPAD TG(_NUMPAD)
-#define FN MO(_FN)
-#define MOUSE TT(_MOUSE)
-#define TABFN LT(_FN, KC_TAB)
-#define ESCFN LT(_FN, KC_ESC)
-#define FN_D LT(_FN, IT_D)
-#define MS_B LT(_MOUSE, IT_B)
+// Defining Layer Keycodes, moved to sigul.c
+// #define QWERTY DF(_QWERTY)
+// For LOWER and RAISE I use TT instead of MO to be able to lock those layer tapping three times the key (TAPPING_TOGGLE 3 has been added in sigul.h)
+// #define LOWER TT(_LOWER)
+// #define RAISE TT(_RAISE)
+// #define NUMPAD TG(_NUMPAD)
+// #define FN MO(_FN)
+// #define MOUSE TT(_MOUSE)
+// #define TABFN LT(_FN, KC_TAB)
+// #define ESCFN LT(_FN, KC_ESC)
+// #define FN_D LT(_FN, IT_D)
+// #define MS_B LT(_MOUSE, IT_B)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
