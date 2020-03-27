@@ -41,8 +41,7 @@ extern float   note_timbre;
 
 // C6 seems to be the assumed default by many existing keyboard - but sill warn the user
 #if !defined(AUDIO1_PIN_SET) && !defined(AUDIO2_PIN_SET)
-#    pragma message "Audio feature enabled, but no pin selected - see docs/feature_audio under the AVR settings for available options. Falling back to C6"
-#    define AUDIO_PIN_C6
+#    pragma message "Audio feature enabled, but no pin selected - see docs/feature_audio under the AVR settings for available options. Don't expect to hear anything... :-)"
 //TODO: make this an error - go through the breaking-change-process and change all keyboards to the new define
 #endif
 
