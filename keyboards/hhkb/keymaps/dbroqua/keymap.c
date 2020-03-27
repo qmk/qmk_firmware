@@ -3,9 +3,11 @@
  */
 #include QMK_KEYBOARD_H
 
-#define _DEFAULT 0
-#define _ALTERNATE 1
-#define _FN 2
+enum planck_layers {
+  _DEFAULT,
+  _ALTERNATE,
+  _FN
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* BASE layer: Default Layer
