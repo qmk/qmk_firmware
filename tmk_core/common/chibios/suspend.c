@@ -51,9 +51,7 @@ void suspend_power_down(void) {
     // shouldn't power down TPM/FTM if we want a breathing LED
     // also shouldn't power down USB
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
-#    ifdef RGBLIGHT_ANIMATIONS
     rgblight_timer_disable();
-#    endif
     if (!is_suspended) {
         is_suspended     = true;
         rgblight_enabled = rgblight_config.enable;
@@ -126,9 +124,7 @@ void suspend_wakeup_init(void) {
     if (rgblight_enabled) {
         rgblight_enable_noeeprom();
     }
-#    ifdef RGBLIGHT_ANIMATIONS
     rgblight_timer_enable();
-#    endif
 #endif
     suspend_wakeup_init_kb();
 }

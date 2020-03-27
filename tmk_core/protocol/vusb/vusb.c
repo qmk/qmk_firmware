@@ -335,6 +335,10 @@ const PROGMEM uchar mouse_extra_hid_report[] = {
 };
 #endif
 
+#ifndef SERIAL_NUMBER
+#    define SERIAL_NUMBER 0
+#endif
+
 #ifndef USB_MAX_POWER_CONSUMPTION
 #    define USB_MAX_POWER_CONSUMPTION 500
 #endif
@@ -343,6 +347,40 @@ const PROGMEM uchar mouse_extra_hid_report[] = {
 #ifndef USB_POLLING_INTERVAL_MS
 #    define USB_POLLING_INTERVAL_MS 1
 #endif
+
+// clang-format off
+const PROGMEM usbStringDescriptor_t usbDescriptorStringZero = {
+    .header = {
+        .bLength = USB_STRING_LEN(1),
+        .bDescriptorType = USBDESCR_STRING
+    },
+    .bString = {0x0409} // US English
+};
+
+const PROGMEM usbStringDescriptor_t usbDescriptorStringManufacturer = {
+    .header = {
+        .bLength = USB_STRING_LEN(sizeof(STR(MANUFACTURER)) - 1),
+        .bDescriptorType = USBDESCR_STRING
+    },
+    .bString = LSTR(MANUFACTURER)
+};
+
+const PROGMEM usbStringDescriptor_t usbDescriptorStringProduct = {
+    .header = {
+        .bLength = USB_STRING_LEN(sizeof(STR(PRODUCT)) - 1),
+        .bDescriptorType = USBDESCR_STRING
+    },
+    .bString = LSTR(PRODUCT)
+};
+
+const PROGMEM usbStringDescriptor_t usbDescriptorStringSerial = {
+    .header = {
+        .bLength = USB_STRING_LEN(sizeof(STR(SERIAL_NUMBER)) - 1),
+        .bDescriptorType = USBDESCR_STRING
+    },
+    .bString = LSTR(SERIAL_NUMBER)
+};
+// clang-format on
 
 /*
  * Descriptor for compite device: Keyboard + Mouse
@@ -354,19 +392,19 @@ const PROGMEM char usbDescriptorConfiguration[] = {
     /* USB configuration descriptor */
     9,               /* sizeof(usbDescriptorConfiguration): length of descriptor in bytes */
     USBDESCR_CONFIG, /* descriptor type */
-#    if defined (MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
-    59, // 9 + (9 + 9 + 7) + (9 + 9 + 7)
-#else
-    34, // 9 + (9 + 9 + 7)
+#    if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
+    59,  // 9 + (9 + 9 + 7) + (9 + 9 + 7)
+#    else
+    34,  // 9 + (9 + 9 + 7)
 #    endif
     0,
-    // 18 + 7 * USB_CFG_HAVE_INTRIN_ENDPOINT + 7 * USB_CFG_HAVE_INTRIN_ENDPOINT3 + 9, 0,
-    /* total length of data returned (including inlined descriptors) */
+// 18 + 7 * USB_CFG_HAVE_INTRIN_ENDPOINT + 7 * USB_CFG_HAVE_INTRIN_ENDPOINT3 + 9, 0,
+/* total length of data returned (including inlined descriptors) */
 #    if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
     2, /* number of interfaces in this configuration */
 #    else
     1,
-#endif
+#    endif
     1, /* index of this configuration */
     0, /* configuration name string index */
 #    if USB_CFG_IS_SELF_POWERED
@@ -419,13 +457,13 @@ const PROGMEM char usbDescriptorConfiguration[] = {
     0,                             /* PROTOCOL: none */
     0,                             /* string index for interface */
     /* HID descriptor */
-    9,                                /* sizeof(usbDescrHID): length of descriptor in bytes */
-    USBDESCR_HID,                     /* descriptor type: HID */
-    0x01, 0x01,                       /* BCD representation of HID version */
-    0x00,                             /* target country code */
-    0x01,                             /* number of HID Report (or other HID class) Descriptor infos to follow */
-    0x22,                             /* descriptor type: report */
-    sizeof(mouse_extra_hid_report), 0,      /* total length of report descriptor */
+    9,                                    /* sizeof(usbDescrHID): length of descriptor in bytes */
+    USBDESCR_HID,                         /* descriptor type: HID */
+    0x01, 0x01,                           /* BCD representation of HID version */
+    0x00,                                 /* target country code */
+    0x01,                                 /* number of HID Report (or other HID class) Descriptor infos to follow */
+    0x22,                                 /* descriptor type: report */
+    sizeof(mouse_extra_hid_report), 0,    /* total length of report descriptor */
 #        if USB_CFG_HAVE_INTRIN_ENDPOINT3 /* endpoint descriptor for endpoint 3 */
     /* Endpoint descriptor */
     7,                                 /* sizeof(usbDescrEndpoint) */
@@ -457,6 +495,26 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
             len       = sizeof(usbDescriptorConfiguration);
             break;
 #endif
+        case USBDESCR_STRING:
+            switch (rq->wValue.bytes[0]) {
+                case 0:
+                    usbMsgPtr = (unsigned char *)&usbDescriptorStringZero;
+                    len       = usbDescriptorStringZero.header.bLength;
+                    break;
+                case 1:  // iManufacturer
+                    usbMsgPtr = (unsigned char *)&usbDescriptorStringManufacturer;
+                    len       = usbDescriptorStringManufacturer.header.bLength;
+                    break;
+                case 2:  // iProduct
+                    usbMsgPtr = (unsigned char *)&usbDescriptorStringProduct;
+                    len       = usbDescriptorStringProduct.header.bLength;
+                    break;
+                case 3:  // iSerialNumber
+                    usbMsgPtr = (unsigned char *)&usbDescriptorStringSerial;
+                    len       = usbDescriptorStringSerial.header.bLength;
+                    break;
+            }
+            break;
         case USBDESCR_HID:
             switch (rq->wValue.bytes[0]) {
                 case 0:

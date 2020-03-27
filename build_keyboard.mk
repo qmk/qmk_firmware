@@ -231,42 +231,17 @@ endif
 # We can assume a ChibiOS target When MCU_FAMILY is defined since it's
 # not used for LUFA
 ifdef MCU_FAMILY
-    FIRMWARE_FORMAT?=bin
     PLATFORM=CHIBIOS
+    PLATFORM_KEY=chibios
+    FIRMWARE_FORMAT?=bin
 else ifdef ARM_ATSAM
     PLATFORM=ARM_ATSAM
+    PLATFORM_KEY=arm_atsam
     FIRMWARE_FORMAT=bin
 else
     PLATFORM=AVR
+    PLATFORM_KEY=avr
     FIRMWARE_FORMAT?=hex
-endif
-
-ifeq ($(PLATFORM),CHIBIOS)
-    include $(TMK_PATH)/chibios.mk
-    OPT_OS = chibios
-    ifneq ("$(wildcard $(KEYBOARD_PATH_5)/bootloader_defs.h)","")
-        OPT_DEFS += -include $(KEYBOARD_PATH_5)/bootloader_defs.h
-     else ifneq ("$(wildcard $(KEYBOARD_PATH_5)/boards/$(BOARD)/bootloader_defs.h)","")
-        OPT_DEFS += -include $(KEYBOARD_PATH_5)/boards/$(BOARD)/bootloader_defs.h
-    else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/bootloader_defs.h)","")
-        OPT_DEFS += -include $(KEYBOARD_PATH_4)/bootloader_defs.h
-     else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/boards/$(BOARD)/bootloader_defs.h)","")
-        OPT_DEFS += -include $(KEYBOARD_PATH_4)/boards/$(BOARD)/bootloader_defs.h
-    else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/bootloader_defs.h)","")
-        OPT_DEFS += -include $(KEYBOARD_PATH_3)/bootloader_defs.h
-     else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/boards/$(BOARD)/bootloader_defs.h)","")
-        OPT_DEFS += -include $(KEYBOARD_PATH_3)/boards/$(BOARD)/bootloader_defs.h
-    else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/bootloader_defs.h)","")
-        OPT_DEFS += -include $(KEYBOARD_PATH_2)/bootloader_defs.h
-     else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/boards/$(BOARD)/bootloader_defs.h)","")
-        OPT_DEFS += -include $(KEYBOARD_PATH_2)/boards/$(BOARD)/bootloader_defs.h
-    else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/bootloader_defs.h)","")
-        OPT_DEFS += -include $(KEYBOARD_PATH_1)/bootloader_defs.h
-     else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/boards/$(BOARD)/bootloader_defs.h)","")
-        OPT_DEFS += -include $(KEYBOARD_PATH_1)/boards/$(BOARD)/bootloader_defs.h
-    else ifneq ("$(wildcard $(TOP_DIR)/drivers/boards/$(BOARD)/bootloader_defs.h)","")
-        OPT_DEFS += -include $(TOP_DIR)/drivers/boards/$(BOARD)/bootloader_defs.h
-    endif
 endif
 
 # Find all of the config.h files and add them to our CONFIG_H define.
@@ -303,11 +278,6 @@ endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/post_config.h)","")
     POST_CONFIG_H += $(KEYBOARD_PATH_5)/post_config.h
 endif
-
-# Save the defines and includes here, so we don't include any keymap specific ones
-PROJECT_DEFS := $(OPT_DEFS)
-PROJECT_INC := $(VPATH) $(EXTRAINCDIRS) $(KEYBOARD_PATHS)
-PROJECT_CONFIG := $(CONFIG_H)
 
 # Userspace setup and definitions
 ifeq ("$(USER_NAME)","")
@@ -354,23 +324,17 @@ SRC += $(TMK_COMMON_SRC)
 OPT_DEFS += $(TMK_COMMON_DEFS)
 EXTRALDFLAGS += $(TMK_COMMON_LDFLAGS)
 
-ifeq ($(PLATFORM),AVR)
-ifeq ($(strip $(PROTOCOL)), VUSB)
-    include $(TMK_PATH)/protocol/vusb.mk
+include $(TMK_PATH)/$(PLATFORM_KEY).mk
+ifneq ($(strip $(PROTOCOL)),)
+    include $(TMK_PATH)/protocol/$(strip $(shell echo $(PROTOCOL) | tr '[:upper:]' '[:lower:]')).mk
 else
-    include $(TMK_PATH)/protocol/lufa.mk
-endif
-    include $(TMK_PATH)/avr.mk
+    include $(TMK_PATH)/protocol/$(PLATFORM_KEY).mk
 endif
 
-ifeq ($(PLATFORM),ARM_ATSAM)
-    include $(TMK_PATH)/arm_atsam.mk
-    include $(TMK_PATH)/protocol/arm_atsam.mk
-endif
-
-ifeq ($(PLATFORM),CHIBIOS)
-    include $(TMK_PATH)/protocol/chibios.mk
-endif
+# TODO: remove this bodge?
+PROJECT_DEFS := $(OPT_DEFS)
+PROJECT_INC := $(VPATH) $(EXTRAINCDIRS) $(KEYBOARD_PATHS)
+PROJECT_CONFIG := $(CONFIG_H)
 
 ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
     VISUALIZER_DIR = $(QUANTUM_DIR)/visualizer

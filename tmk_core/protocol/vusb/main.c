@@ -20,10 +20,8 @@
 #include "timer.h"
 #include "uart.h"
 #include "debug.h"
-#include "rgblight_reconfig.h"
-
-#if (defined(RGB_MIDI) || defined(RGBLIGHT_ANIMATIONS)) && defined(RGBLIGHT_ENABLE)
-#    include "rgblight.h"
+#ifdef SLEEP_LED_ENABLE
+#    include "sleep_led.h"
 #endif
 
 #define UART_BAUD_RATE 115200
@@ -64,6 +62,9 @@ int main(void) {
     initForUsbConnectivity();
 
     keyboard_init();
+#ifdef SLEEP_LED_ENABLE
+    sleep_led_init();
+#endif
 
     debug("main loop\n");
     while (1) {
@@ -72,10 +73,16 @@ int main(void) {
             suspended   = false;
             usbSofCount = 0;
             last_timer  = timer_read();
+#    ifdef SLEEP_LED_ENABLE
+            sleep_led_disable();
+#    endif
         } else {
             // Suspend when no SOF in 3ms-10ms(7.1.7.4 Suspending of USB1.1)
             if (timer_elapsed(last_timer) > 5) {
                 suspended = true;
+#    ifdef SLEEP_LED_ENABLE
+                sleep_led_enable();
+#    endif
                 /*
                                 uart_putchar('S');
                                 _delay_ms(1);
