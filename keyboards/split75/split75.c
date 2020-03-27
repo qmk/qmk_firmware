@@ -67,12 +67,11 @@ void keyboard_post_init_kb(void) {
 }
 
 #if defined(LED_INDICATORS)
-void led_set_kb(uint8_t usb_led) {
-  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-    led_2_on();
-  }
-  else {
-    led_2_off();
-  }
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        led_state.caps_lock ? led_2_on() : led_2_off();
+    }
+    return res;
 }
 #endif
