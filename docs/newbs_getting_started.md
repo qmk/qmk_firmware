@@ -78,7 +78,12 @@ After installing QMK you can set it up with this command:
 
 In most situations you will want to answer Yes to all of the prompts.
 
-?> If you already know [how to use GitHub](getting_started_github.md), we recommend that you create your own fork and use `qmk setup <github_username>` to clone your personal fork. If you don't know what that means you can safely ignore this message.
+?> If you already know [how to use GitHub](getting_started_github.md), we recommend that you create your own fork and use `qmk setup <github_username>/qmk_firmware` to clone your personal fork. If you don't know what that means you can safely ignore this message.
+
+If you're cloning your own fork to Windows, to run CLI from a fresh mingw64 terminal easily, you should clone to `C:/msys64/home/<your-windows-username>` with the following:
+    
+    cd /c/msys64/home/<your-windows-username>
+    qmk setup <your-github-username>/qmk_firmware
 
 ## 4. Test Your Build Environment
 
