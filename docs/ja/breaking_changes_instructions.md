@@ -27,21 +27,21 @@ QMK のメンバーがあなたのプルリクエストに返信し、あなた�
 
 ### PRを分割することを検討する
 
-If you are contributing core code, and the only reason it needs to go through breaking changes is that you are updating keymaps to match your change, consider whether you can submit your feature in a way that the old keymaps continue to work. Then submit a separate PR that goes through the breaking changes process to remove the old code.
+あなたがコアコードを投稿していて、それが破壊的な変更プロセスを経る必要がある唯一の理由が、あなたの変更に合わせてキーマップを更新している場合、古いキーマップが機能し続けるような方法であなたの機能を投稿できるかどうかを検討してください。そして、古いコードを削除するために、破壊的な変更プロセスを経た別の PR を提出してください。
 
 ### ChangeLog エントリの提供
 
-We require submissions that go through the Breaking Change process to include a changelog entry. The entry should be a short summary of the changes your pull request makes &ndash; [each section here started as a changelog](ChangeLog/20190830.md "n.b. This should link to the 2019 Aug 30 Breaking Changes doc  - @noroadsleft").
+破壊的な変更プロセスを経て提出する際には、変更ログのエントリを含めることを我々は要請します。エントリーは、あなたのプルリクエストが行う変更の短い要約であるべきです &ndash; [ここの各セクションは changelog として開始されました](ja/ChangeLog/20190830.md "n.b. This should link to the 2019 Aug 30 Breaking Changes doc - @noroadsleft")。
 
-Your changelog should be located at `docs/ChangeLog/YYYYMMDD/PR####.md`, where `YYYYMMDD` is the date on which QMK's breaking change branch &ndash; usually named `future` &ndash; will be merged into the `master` branch, and `####` is the number of your pull request.
+変更ログは `docs/ChangeLog/YYYYMMDD/PR####.md` にあるはずです。ここで、`YYYYMMDD` は QMK の変更速報ブランチ &ndash; 通常は `future` &ndash; が `master` ブランチにマージされる日付、`####` はプルリクエストの番号です。
 
-If your submission requires action on the part of users, your changelog should instruct users what action(s) must be taken, or link to a location that does so.
+ユーザー側でのアクションが必要な場合は、どのようなアクションを取らなければならないのかをユーザーに指示するか、そのようなアクションを行う場所にリンクする必要があります。
 
 ### 変更点を文書化する
 
-Understanding the purpose for your submission, and possible implications or actions it will require can make the review process more straightforward. A changelog may suffice for this purpose, but more extensive changes may require a level of detail that is ill-suited for a changelog.
+提出物の目的を理解し、それが必要とする可能性のある意味合いやアクションを理解することで、レビュープロセスをより簡単にすることができます。この目的のためには変更履歴で十分かもしれませんが、より広範囲の変更を行う場合には、変更履歴には不向きな詳細レベルが必要になるかもしれません。
 
-Commenting on your pull request and being responsive to questions, comments, and change requests is much appreciated.
+あなたのプルリクエストにコメントしたり、質問やコメント、変更要求に対応したりすることは、非常にありがたいことです。
 
 ### 助けを求める
 
