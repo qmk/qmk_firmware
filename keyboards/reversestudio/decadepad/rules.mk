@@ -33,4 +33,3 @@ API_SYSEX_ENABLE = no
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 
 LAYOUTS = numpad_6x4
-LAYOUTS_HAS_RGB = no
