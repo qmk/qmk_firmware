@@ -21,8 +21,9 @@ uint8_t led0 = 0, led1 = 0, led2 = 0;
 
 void indicator_init(void) {
     // D0, D1, and D6 are the indicators and D4 is the backlight
-    DDRD |= 0x53;
-    PORTD |= 0x53;
+    setPinOutput(D0);
+    setPinOutput(D1);
+    setPinOutput(D6);
 }
 
 // for keyboard subdirectory level init functions
