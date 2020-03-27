@@ -75,7 +75,3 @@ id_rsa_*
 __pycache__
 
 # custom code added to hide my secret files
-/users/sigul/secrets.c
-/users/sigul/secrets.h
-secrets.c
-secrets.h
