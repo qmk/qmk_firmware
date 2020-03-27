@@ -32,9 +32,9 @@
 #endif
 
 /**
- * These presets allow you to quickly switch between quality/voice settings for
- * the DAC. The sample rate and number of voices roughly has an inverse
- * relationship - slightly higher sample rates may be possible.
+ * These presets allow you to quickly switch between quality settings for
+ * the DAC. The sample rate and maximum number of simultaneous tones roughly
+ * has an inverse relationship - slightly higher sample rates may be possible.
  *
  * NOTE: a high samplerate results in a higher cpu-load, which might lead to
  *       (audible) discontinuities and/or starve other processes of cpu-time
@@ -42,22 +42,22 @@
  */
 #ifdef DAC_QUALITY_VERY_LOW
 #    define DAC_SAMPLE_RATE 11025U
-#    define AUDIO_VOICES_MAX 8
+#    define AUDIO_MAX_SIMULTANEOUS_TONES 8
 #endif
 
 #ifdef DAC_QUALITY_LOW
 #    define DAC_SAMPLE_RATE 22050U
-#    define AUDIO_VOICES_MAX 4
+#    define AUDIO_MAX_SIMULTANEOUS_TONES 4
 #endif
 
 #ifdef DAC_QUALITY_HIGH
 #    define DAC_SAMPLE_RATE 44100U
-#    define AUDIO_VOICES_MAX 2
+#    define AUDIO_MAX_SIMULTANEOUS_TONES 2
 #endif
 
 #ifdef DAC_QUALITY_VERY_HIGH
 #    define DAC_SAMPLE_RATE 88200U
-#    define AUDIO_VOICES_MAX 1
+#    define AUDIO_MAX_SIMULTANEOUS_TONES 1
 #endif
 
 #ifdef DAC_QUALITY_SANE_MINIMUM
@@ -70,14 +70,14 @@
  * which works out (but the 'scope shows some sampling artifacts with lower harmonics :-P)
  */
 #    define DAC_SAMPLE_RATE 16384U
-#    define AUDIO_VOICES_MAX 8
+#    define AUDIO_MAX_SIMULTANEOUS_TONES 8
 #endif
 
 
 /**
  * Effective bitrate of the DAC. 44.1khz is the standard for most audio - any
  * lower will sacrifice perceptible audio quality. Any higher will limit the
- * number of simultaneous voices. In most situations, a tenth (1/10) of the
+ * number of simultaneous tones. In most situations, a tenth (1/10) of the
  * sample rate is where notes become unbearable.
  */
 #ifndef DAC_SAMPLE_RATE
@@ -85,12 +85,12 @@
 #endif
 
 /**
- * The number of voices (in polyphony) that are supported. If too high a value
- * is used here, the keyboard will freeze and glitch-out when that many voices
+ * The number of tones that can be played simultaneously. If too high a value
+ * is used here, the keyboard will freeze and glitch-out when that many tones
  * are being played.
  */
-#ifndef AUDIO_VOICES_MAX
-#    define AUDIO_VOICES_MAX 2
+#ifndef AUDIO_MAX_SIMULTANEOUS_TONES
+#    define AUDIO_MAX_SIMULTANEOUS_TONES 2
 #endif
 
 /**

@@ -54,7 +54,7 @@ static const dacsample_t dac_buffer_staircase[DAC_BUFFER_SIZE] = {
 
 static dacsample_t dac_buffer_empty[DAC_BUFFER_SIZE] = {DAC_OFF_VALUE};
 
-/* keep track of the sample position for for each voice/frequency */
+/* keep track of the sample position for for each frequency */
 static float dac_if[8] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
 /**
@@ -63,15 +63,15 @@ static float dac_if[8] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
  */
 __attribute__((weak)) uint16_t dac_value_generate(void) {
     uint16_t value          = DAC_OFF_VALUE;
-    uint8_t  working_voices = audio_get_number_of_active_voices();
-    if (working_voices > AUDIO_VOICES_MAX) working_voices = AUDIO_VOICES_MAX;
+    uint8_t  active_tones = audio_get_number_of_active_tones();
+    if (active_tones > AUDIO_MAX_SIMULTANEOUS_TONES) active_tones = AUDIO_MAX_SIMULTANEOUS_TONES;
 
-    /* doing additive wave synthesis over all currently playing voices = adding up
-     * sine-wave-samples for each frequency, scaled by the number of active voices
+    /* doing additive wave synthesis over all currently playing tones = adding up
+     * sine-wave-samples for each frequency, scaled by the number of active tones
      */
-    if (working_voices > 0) {
+    if (active_tones > 0) {
         uint16_t value_avg = 0;
-        for (uint8_t i = 0; i < working_voices; i++) {
+        for (uint8_t i = 0; i < active_tones; i++) {
             dac_if[i] = dac_if[i] +
                 ((audio_get_frequency(i) //TODO: replace by glissando+vibrator+.. variant
                   * DAC_BUFFER_SIZE) / DAC_SAMPLE_RATE)
@@ -85,15 +85,15 @@ __attribute__((weak)) uint16_t dac_value_generate(void) {
             // Wavetable generation/lookup
             uint16_t dac_i = (uint16_t)dac_if[i];
             // SINE
-            value_avg += dac_buffer_sine[dac_i] / working_voices;// / 3;
+            value_avg += dac_buffer_sine[dac_i] / active_tones;// / 3;
             // TRIANGLE
-//            value_avg += dac_buffer_triangle[dac_i] / working_voices / 3;
+//            value_avg += dac_buffer_triangle[dac_i] / active_tones / 3;
             // SQUARE
-//            value_avg += dac_buffer_square[dac_i] / working_voices / 3;
+//            value_avg += dac_buffer_square[dac_i] / active_tones / 3;
             //NOTE: combination of these three waveforms is more exemplary - and doesn't sound particularly good :-P
 
             // STAIRS
-            //value_avg = dac_buffer_staircase[dac_i] / working_voices;
+            //value_avg = dac_buffer_staircase[dac_i] / active_tones;
         }
         value = value_avg;
     }
@@ -117,7 +117,7 @@ static void dac_end(DACDriver *dacp){
         sample_p[s] = dac_value_generate();
     }
 
-    // update audio internal state (note position, current_note, voices, ...)
+    // update audio internal state (note position, current_note, ...)
     audio_advance_note(
         DAC_BUFFER_SIZE/2,
         DAC_SAMPLE_RATE/ (64*2.0f/3)

@@ -15,8 +15,9 @@
  */
 #pragma once
 
-// with one pwm channel only one voice is possible (TODO: unless we start cycling through all frequencies[])
-#define AUDIO_VOICES_MAX 1
+// with one pwm channel, only one tone can be played at a time
+// TODO: unless we start doing time-multiplexing...
+#define AUDIO_MAX_SIMULTANEOUS_TONES 1
 
 
 #if !defined(AUDIO_PWM_PINALTERNATE_TIMER)
