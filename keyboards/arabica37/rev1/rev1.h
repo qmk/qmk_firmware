@@ -2,7 +2,6 @@
 
 #include "../arabica37.h"
 
-//void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
 
 #define has_usb() is_keyboard_master()
