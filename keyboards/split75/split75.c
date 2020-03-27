@@ -52,12 +52,6 @@ void blink_all_leds(void) {
     wait_ms(50);
     led_3_off();
 }
-
-__attribute__((weak)) // overridable
-void matrix_init_user(void) {}
-
-void matrix_scan_kb(void) {}
-
 void keyboard_post_init_kb(void) {
   led_set_user(0);
   layer_state_set_user(layer_state);
