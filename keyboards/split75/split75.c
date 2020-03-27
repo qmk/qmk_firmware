@@ -1,8 +1,8 @@
 #include "split75.h"
 #include "rgblight.h"
 
-#include <avr/pgmspace.h>
-#include <i2c_master.h>
+#include "progmem.h"
+#include "i2c_master.h"
 
 #include "action_layer.h"
 
