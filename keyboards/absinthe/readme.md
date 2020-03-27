@@ -1,12 +1,12 @@
 # absinthe
 
-![absinthe](imgur.com image replace me!)
+![absinthe](https://i.imgur.com/fK215Tx.jpg)
 
-A short description of the keyboard/project
+A budget-friendly F-rowless TKL with a rotary encoder
 
-* Keyboard Maintainer: [cfbender](https://github.com/yourusername)
-* Hardware Supported: The PCBs, controllers supported
-* Hardware Availability: Links to where you can find this hardware
+* Keyboard Maintainer: [cfbender](https://cfbender.design)
+* Hardware Supported: Absinthe PCB, Elite-C (for rotary encoder support - alternatively you can use a Pro Micro without an encoder)
+* Hardware Availability: [GitHub](https://github.com/cfbender/keyboards/tree/master/absinthe)
 
 Make example for this keyboard (after setting up your build environment):
 
