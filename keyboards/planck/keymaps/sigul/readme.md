@@ -1,4 +1,4 @@
-# The ANSI Italian Planck Layout
+# An ANSI Italian Planck Layout
 by Silvio Gulizia
 
 - [x] add layer _FN with F keys and VI navigation
