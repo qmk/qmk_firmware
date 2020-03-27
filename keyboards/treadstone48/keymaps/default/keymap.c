@@ -42,7 +42,7 @@ enum custom_keycodes {
 
 #define KC_TBSF  LSFT_T(KC_TAB)
 #define KC_ALAP  LALT_T(KC_APP)
-#define KC_ROSF  RSFT_T(KC_RO)
+#define KC_GRSF  RSFT_T(KC_GRV)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_base( \
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------+--------|
       KC_LCTL, KC_LALT, KC_LGUI,   LOWER,          KC_BSPC,           KC_SPC,   RAISE, KC_ALAP, KC_LEFT, KC_DOWN, KC_RGHT,\
   //`-------------------------------------------------------------------------------------------------------------------'
-      KC_ROSF \
+      KC_GRSF \
   // ExtraKey: This key is an extra key. REV1 is a split back space. REV2 is to the right of the arrow-up key.
   ),
 
