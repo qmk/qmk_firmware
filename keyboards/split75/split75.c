@@ -7,10 +7,6 @@
 #include "action_layer.h"
 #define LED_INDICATORS
 
-// Use the backlight as caps lock indicator?
-// Best used if you only solder an LED under caps lock
-#define BL_AS_CAPSLOCK 
-
 extern inline void led_1_on(void);
 extern inline void led_2_on(void);
 extern inline void led_3_on(void);
