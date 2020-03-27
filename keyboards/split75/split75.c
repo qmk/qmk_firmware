@@ -59,11 +59,10 @@ void matrix_init_user(void) {}
 void matrix_scan_kb(void) {}
 
 void keyboard_post_init_kb(void) {
-  // Customise these values to desired behaviour
-  //debug_keyboard=true;
-  //debug_mouse=true;
   led_set_user(0);
   layer_state_set_user(layer_state);
+
+  keyboard_post_init_user();
 }
 
 #if defined(LED_INDICATORS)
