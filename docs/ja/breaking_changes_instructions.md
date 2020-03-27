@@ -25,11 +25,11 @@ QMK のメンバーがあなたのプルリクエストに返信し、あなた�
 
 提出したものが破壊的な変更だと判断された場合、手続きをスムーズに進めるためにできることがいくつかあります。
 
-### Consider Splitting Up Your PR
+### PRを分割することを検討する
 
 If you are contributing core code, and the only reason it needs to go through breaking changes is that you are updating keymaps to match your change, consider whether you can submit your feature in a way that the old keymaps continue to work. Then submit a separate PR that goes through the breaking changes process to remove the old code.
 
-### Contribute a ChangeLog Entry
+### ChangeLog エントリの提供
 
 We require submissions that go through the Breaking Change process to include a changelog entry. The entry should be a short summary of the changes your pull request makes &ndash; [each section here started as a changelog](ChangeLog/20190830.md "n.b. This should link to the 2019 Aug 30 Breaking Changes doc  - @noroadsleft").
 
@@ -37,12 +37,12 @@ Your changelog should be located at `docs/ChangeLog/YYYYMMDD/PR####.md`, where `
 
 If your submission requires action on the part of users, your changelog should instruct users what action(s) must be taken, or link to a location that does so.
 
-### Document Your Changes
+### 変更点を文書化する
 
 Understanding the purpose for your submission, and possible implications or actions it will require can make the review process more straightforward. A changelog may suffice for this purpose, but more extensive changes may require a level of detail that is ill-suited for a changelog.
 
 Commenting on your pull request and being responsive to questions, comments, and change requests is much appreciated.
 
-### Ask for Help
+### 助けを求める
 
-Having your submission flagged may have caught you off guard. If you find yourself intimidated or overwhelmed, let us know. Comment on your pull request, or [reach out to the QMK team on Discord](https://discord.gg/Uq7gcHh).
+あなたの提出物にフラグが立ったことで、あなたは油断してしまったかもしれません。もし、あなた自身が脅かされたり、圧倒されたりしていることに気付いたら、私たちに知らせてください。プルリクエストについてコメントするか、[DiscordでQMKチームに連絡を取る](https://discord.gg/Uq7gcHh)。
