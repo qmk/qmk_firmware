@@ -26,6 +26,6 @@ WS2812_DRIVER = i2c
 OPT_DEFS = -DDEBUG_LEVEL=0
 
 # custom matrix setup
-CUSTOM_MATRIX = yes
+CUSTOM_MATRIX = lite
 SRC = matrix.c
 QUANTUM_LIB_SRC += i2c_master.c
