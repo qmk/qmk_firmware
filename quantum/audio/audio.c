@@ -204,8 +204,6 @@ void play_note(float freq, int vol) { //NOTE: vol is unused
     }
 
     // roundrobin: shifting out old tones, keeping only uniquie ones
-    if (freq<=0)
-        return;
     // if the new frequency is already amongst the active tones, shift it to the end
     bool found = false;
     for (int i = active_tones-1; i >= 0; i--) {
@@ -278,7 +276,7 @@ bool is_playing_notes(void) { return playing_notes; }
 uint8_t audio_get_number_of_active_tones(void) { return active_tones; }
 
 float audio_get_frequency(uint8_t tone_index) {
-    if ((tone_index >= active_tones)
+    if (tone_index >= active_tones)
         return 0.0f;
     return frequencies[active_tones-tone_index-1];
 }
@@ -289,8 +287,12 @@ float audio_get_processed_frequency(uint8_t tone_index) {
 
     if (tone_index >= active_tones)
         return 0.0f;
+
     uint8_t index = active_tones - tone_index - 1;
     // new tones are appended at the end, so the most recent/current is MAX-1
+
+    if (frequencies[index] <= 0.0f)
+        return 0.0f;
 
     if (glissando) { // see voices.c
         if (frequency != 0 && frequency < frequencies[index]

@@ -124,6 +124,9 @@ void channel_1_set_frequency(float freq) {
 
     channel_1_frequency = freq;
 
+    if (freq <= 0.0) //a pause/rest has freq=0
+        return;
+
     pwmcnt_t period = (pwmCFG.frequency / freq);
     pwmChangePeriod(&PWMD, period);
     pwmEnableChannel(
