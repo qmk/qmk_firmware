@@ -127,7 +127,7 @@ The `rules.mk` file can also be placed in a sub-folders, and its reading order i
           * `users/a_user_folder/rules.mk`
 * `common_features.mk`
 
-Many of the settings written in the `rulse.mk` file are interpreted by `common_features.mk`, which sets the necessary source files and compiler options.
+Many of the settings written in the `rules.mk` file are interpreted by `common_features.mk`, which sets the necessary source files and compiler options.
 
 ?> See `build_keyboard.mk` and `common_features.mk` for more details.
 
