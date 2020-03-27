@@ -272,13 +272,13 @@ uint8_t dac_morph = 0;
 
 uint16_t dac_value_generate(void) {
   uint16_t value = DAC_OFF_VALUE;
-  uint8_t working_voices = audio_get_number_of_active_voices();
-  if (working_voices > AUDIO_VOICES_MAX)
-    working_voices = AUDIO_VOICES_MAX;
+  uint8_t active_tones = audio_get_number_of_active_tones();
+  if (active_tones > AUDIO_MAX_SIMULTANEOUS_TONES)
+    active_tones = AUDIO_MAX_SIMULTANEOUS_TONES;
 
-  if (working_voices > 0) {
+  if (active_tones > 0) {
     uint16_t value_avg = 0;
-    for (uint8_t i = 0; i < working_voices; i++) {
+    for (uint8_t i = 0; i < active_tones; i++) {
       dac_if[i] = dac_if[i]
           + ((audio_get_frequency(i) * DAC_BUFFER_SIZE) / DAC_SAMPLE_RATE)
           * 2/3; // necessary to adjust for the gpt-timer frequency (three times the sample rate) and the dac-conversion beeing called twice per sample
@@ -291,12 +291,12 @@ uint16_t dac_value_generate(void) {
       // #define DAC_MORPH_SPEED_COMPUTED (DAC_SAMPLE_RATE / DAC_WAVETABLE_CUSTOM_LENGTH * (1000 / DAC_MORPH_SPEED))
 
       uint16_t dac_i = (uint16_t)dac_if[i];
-      // value_avg += dac_buffer_custom[dac_morph_flipped][dac_i] / working_voices / 2 * ((dac_morph >= 63) ? 6400 - dac_morph_counter : dac_morph_counter) / 6400;
-      // value_avg += dac_buffer_custom[dac_morph_flipped + 1][dac_i] / working_voices / 2 * ((dac_morph >= 63) ? dac_morph_counter : 6400 - dac_morph_counter) / 6400;
+      // value_avg += dac_buffer_custom[dac_morph_flipped][dac_i] / active_tones / 2 * ((dac_morph >= 63) ? 6400 - dac_morph_counter : dac_morph_counter) / 6400;
+      // value_avg += dac_buffer_custom[dac_morph_flipped + 1][dac_i] / active_tones / 2 * ((dac_morph >= 63) ? dac_morph_counter : 6400 - dac_morph_counter) / 6400;
 
-      // value_avg += dac_wavetable_custom[dac_morph][dac_i] / working_voices / 2 * (DAC_MORPH_SPEED_COMPUTED - dac_morph_counter) / DAC_MORPH_SPEED_COMPUTED;
-      // value_avg += dac_wavetable_custom[dac_morph + 1][dac_i] / working_voices / 2 * dac_morph_counter / DAC_MORPH_SPEED_COMPUTED;
-      value_avg += dac_wavetable_custom[dac_morph][dac_i] / working_voices;
+      // value_avg += dac_wavetable_custom[dac_morph][dac_i] / active_tones / 2 * (DAC_MORPH_SPEED_COMPUTED - dac_morph_counter) / DAC_MORPH_SPEED_COMPUTED;
+      // value_avg += dac_wavetable_custom[dac_morph + 1][dac_i] / active_tones / 2 * dac_morph_counter / DAC_MORPH_SPEED_COMPUTED;
+      value_avg += dac_wavetable_custom[dac_morph][dac_i] / active_tones;
     }
     value = value_avg;
 

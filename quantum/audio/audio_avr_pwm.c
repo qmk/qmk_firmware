@@ -243,7 +243,7 @@ void audio_start_hardware(void) {
 #endif
 #ifdef AUDIO2_PIN_SET
 #    ifdef AUDIO1_PIN_SET
-    if (audio_get_number_of_active_voices() > 1) {
+    if (audio_get_number_of_active_tones() > 1) {
         channel_2_start();
     }
 #    else
@@ -259,16 +259,15 @@ ISR(AUDIO1_TIMERx_COMPy_vect) {
 
     if (playing_notes)
         channel_1_set_frequency(
-            audio_get_voice(1)
+            audio_get_processed_frequency(0)
             );
     else
         channel_1_stop();
 
-// do polyphonic, if a second speaker is available
 #    ifdef AUDIO2_PIN_SET
     if (playing_notes)
         channel_2_set_frequency(
-            audio_get_voice(2)
+            audio_get_processed_frequency(1)
             );
     else
         channel_2_stop();
@@ -283,7 +282,7 @@ ISR(AUDIO2_TIMERx_COMPy_vect) {
 
     if (playing_notes)
         channel_2_set_frequency(
-            audio_get_voice(1)
+            audio_get_processed_frequency(0)
             );
     else
         channel_2_stop();

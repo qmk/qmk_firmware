@@ -21,23 +21,24 @@
 /* audio system:
  *
  * audio.[ch] takes care of all overall state, tracking the actively playing
- *            notes/tones (as voices); the notes a SONG consists of;
+ *            notes/tones; the notes a SONG consists of;
  *            ...
  *
  * audio_[avr|chibios]_[dac|pwm] take care of the lower hardware dependent parts,
  *            specific to each platform and the used subsystem/driver to drive
  *            the output pins/channels with the calculated frequencies for each
- *            avtive voice
+ *            avtive tone
  */
 
-#ifndef AUDIO_VOICES_MAX
-#    define AUDIO_VOICES_MAX 8
+#ifndef AUDIO_MAX_SIMULTANEOUS_TONES
+#    define AUDIO_MAX_SIMULTANEOUS_TONES 8
 #endif
-uint8_t  voices         = 0; // nuber of active/playing frequencies = voices
-float    frequencies[AUDIO_VOICES_MAX] = {0.0}; // frequencies of each active voice
+uint8_t  active_tones         = 0; // nuber of active/playing tones/frequencies
+float    frequencies[AUDIO_MAX_SIMULTANEOUS_TONES] = {0.0}; // frequencies of each active tone
+//TODO: array of musical_tone_t
 
 bool     playing_notes  = false; // playing a SONG?
-bool     playing_note   = false; // or multiple polyphonic
+bool     playing_note   = false; // or (possibly multiple simultanious) tones
 
 float  (*notes_pointer)[][2]; // SONG, an array of MUSICAL_NOTEs
 uint16_t notes_count; // length of the notes_pointer array
@@ -51,7 +52,8 @@ uint32_t note_position  = 0; // where in time, during playback of the current_no
 
 //TODO/REFACTORING: check below variables if/where they are still used
 #ifdef AUDIO_ENABLE_POLYPHONY
-int   voice_place   = 0;
+int   tone_place   = 0;
+float    polyphony_rate = 0;
 #endif
 float    note_frequency = 0; // Hz
 float    note_timbre    = TIMBRE_DEFAULT;
@@ -67,7 +69,6 @@ float vibrato_rate     = 0.125;
 
 uint16_t envelope_index = 0;
 bool     glissando      = true;
-float    polyphony_rate = 0;
 
 
 #ifndef STARTUP_SONG
@@ -145,14 +146,14 @@ void stop_all_notes() {
     if (!audio_initialized) {
         audio_init();
     }
-    voices = 0;
+    active_tones = 0;
 
     audio_stop_hardware();
 
     playing_notes = false;
     playing_note  = false;
 
-    for (uint8_t i = 0; i < AUDIO_VOICES_MAX; i++) {
+    for (uint8_t i = 0; i < AUDIO_MAX_SIMULTANEOUS_TONES; i++) {
         frequencies[i] = 0;
     }
 }
@@ -163,11 +164,11 @@ void stop_note(float freq) {
             audio_init();
         }
         bool found = false;
-        for (int i = AUDIO_VOICES_MAX-1; i >= 0; i--) {
+        for (int i = AUDIO_MAX_SIMULTANEOUS_TONES-1; i >= 0; i--) {
             found = (frequencies[i] == freq);
             if (found) {
                 frequencies[i] = 0;
-                for (int j = i; (j < AUDIO_VOICES_MAX-1); j++) {
+                for (int j = i; (j < AUDIO_MAX_SIMULTANEOUS_TONES-1); j++) {
                     frequencies[j]     = frequencies[j + 1];
                     frequencies[j + 1] = 0;
                 }
@@ -177,14 +178,14 @@ void stop_note(float freq) {
         if (!found)
             return;
 
-        voices--;
-        if (voices < 0) voices = 0;
+        active_tones--;
+        if (active_tones < 0) active_tones = 0;
 #ifdef AUDIO_ENABLE_POLYPHONY
-        if (voice_place >= voices) {
-            voice_place = 0;
+        if (tone_place >= active_tones) {
+            tone_place = 0;
         }
 #endif
-        if (voices == 0) {
+        if (active_tones == 0) {
             audio_stop_hardware();
 
             playing_note  = false;
@@ -192,6 +193,7 @@ void stop_note(float freq) {
     }
 }
 
+//A musical tone is characterized by its duration, pitch, intensity (or loudness), and timbre (or quality)
 //TODO: rename to play_frequency; since a "note" is the combination of freq+duration (?)
 void play_note(float freq, int vol) { //NOTE: vol is unused
     if (!audio_config.enable)
@@ -201,15 +203,15 @@ void play_note(float freq, int vol) { //NOTE: vol is unused
         audio_init();
     }
 
-    // roundrobin: shifting out old voices, keeping only uniquie voices
+    // roundrobin: shifting out old tones, keeping only uniquie ones
     if (freq<=0)
         return;
-    // if the new frequency is already amongst the active voices, shift it to the end
+    // if the new frequency is already amongst the active tones, shift it to the end
     bool found = false;
-    for (int i = voices-1; i >= 0; i--) {
+    for (int i = active_tones-1; i >= 0; i--) {
         found = (frequencies[i] == freq);
         if (found) {
-            for (int j = i; (j < voices-1); j++) {
+            for (int j = i; (j < active_tones-1); j++) {
                 frequencies[j]     = frequencies[j + 1];
                 frequencies[j + 1] = freq;
             }
@@ -219,25 +221,25 @@ void play_note(float freq, int vol) { //NOTE: vol is unused
     if (found) // since this frequency played already, the hardware was already started
         return;
 
-    // frequency/voice is actually new, so we queue it to the end
-    voices++;
-    if (voices > AUDIO_VOICES_MAX) {
-        voices = AUDIO_VOICES_MAX;
-        // shift out the oldest voice to make room
-        for (int i=0; i<voices-1; i++) {
+    // frequency/tone is actually new, so we queue it to the end
+    active_tones++;
+    if (active_tones > AUDIO_MAX_SIMULTANEOUS_TONES) {
+        active_tones = AUDIO_MAX_SIMULTANEOUS_TONES;
+        // shift out the oldest tone to make room
+        for (int i=0; i<active_tones-1; i++) {
             frequencies[i] = frequencies[i+1];
         }
     }
     playing_note = true;
     envelope_index = 0; // TODO: does what?
-    frequencies[voices-1] = freq;
+    frequencies[active_tones-1] = freq;
 
-    if (voices==1) // sufficient to start when switching from 0 to 1
+    if (active_tones==1) // sufficient to start when switching from 0 to 1
         audio_start_hardware();
 }
 
 /* the two ways to feed the audio system:
-   play_note to add (or start) playing notes simultaniously with multiple voices
+   play_note to add (or start) playing notes simultaniously with multiple tones
    play_nots to playback a melody, which is just an array of notes (of different frequencies and durations)
 */
 void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat) {
@@ -273,36 +275,35 @@ bool is_playing_note(void) { return playing_note; }
 bool is_playing_notes(void) { return playing_notes; }
 
 
-uint8_t audio_get_number_of_active_voices(void) { return voices; }
+uint8_t audio_get_number_of_active_tones(void) { return active_tones; }
 
-float audio_get_frequency(uint8_t index) {
-    if (index >= voices)
+float audio_get_frequency(uint8_t tone_index) {
+    if ((tone_index >= active_tones)
         return 0.0f;
-    return frequencies[index];
+    return frequencies[active_tones-tone_index-1];
 }
 
 
-/* out of a possibly polyphonic setup, retrieve the frequency for a single voice
-   to calculate the pwm period and duty-cycle from, relative to the cpy-frequency
- */
-float audio_get_voice(uint8_t voice) {
+float audio_get_processed_frequency(uint8_t tone_index) {
     float frequency = 0.0;
 
-    if ((voice > voices) || (voice == 0)) return 0.0f;
+    if (tone_index >= active_tones)
+        return 0.0f;
+    uint8_t index = active_tones - tone_index - 1;
+    // new tones are appended at the end, so the most recent/current is MAX-1
 
-    if (glissando) {
-        if (frequency != 0 && frequency < frequencies[voices - voice]
-            && frequency < frequencies[voices - voice] * pow(2, -440 / frequencies[voices - voice] / 12 / 2)) {
+    if (glissando) { // see voices.c
+        if (frequency != 0 && frequency < frequencies[index]
+            && frequency < frequencies[index] * pow(2, -440 / frequencies[index] / 12 / 2)) {
             frequency = frequency * pow(2, 440 / frequency / 12 / 2);
-        } else if (frequency != 0 && frequency > frequencies[voices - voice]
-                   && frequency > frequencies[voices - voice] * pow(2, 440 / frequencies[voices - voice] / 12 / 2)) {
+        } else if (frequency != 0 && frequency > frequencies[index]
+                   && frequency > frequencies[index] * pow(2, 440 / frequencies[index] / 12 / 2)) {
             frequency = frequency * pow(2, -440 / frequency / 12 / 2);
         } else {
-            frequency = frequencies[voices - voice];
+            frequency = frequencies[index];
         }
     } else {
-        frequency = frequencies[voices - voice]; //TODO: why not frequencies[voice]?
-        // -> new voices are appended at the end, so the most recent/current is MAX-1
+        frequency = frequencies[index];
     }
 
 #ifdef AUDIO_ENABLE_VIBRATO
@@ -329,42 +330,42 @@ float audio_get_voice(uint8_t voice) {
 /* REMOVEME
    the following code block is a leftover of the audio-refactoring, which deduplicated code among the different implementations at the time - boiled down to this function, which was to be called by an avr ISR to do single/dual channel pwm
 
-   there are lots of avr hardware specifica in there, but also some features still that could/should? be refactored into the "new" audio system - like "software polyphonic" audio, which cycles through/time multiplexes the currently active voices, avoiding the hardware limit of one or two pwm outputs/speakers; which by themselve can only render one frequency at a time (unlike the arm-dac implementation, which can do wave-synthesis to combine multiple frequencies)
+   there are lots of avr hardware specifica in there, but also some features still that could/should? be refactored into the "new" audio system - like "software polyphonic" audio, which cycles through/time multiplexes the currently active tones, avoiding the hardware limit of one or two pwm outputs/speakers; which by themselve can only render one frequency at a time (unlike the arm-dac implementation, which can do wave-synthesis to combine multiple frequencies)
 
    most of the logic has been refactored and moved into the different parts of the current implementation though
 
 void pwm_audio_timer_task(float *freq, float *freq_alt) {
     if (playing_note) {
-        if (voices > 0) {
+        if (active_tones > 0) {
 #ifdef AUDIO1_PIN_SET
             //TODO: untangle avr specific defines
-            // speaker for second/alternate voice is available
-            *freq_alt = audio_get_voice(2);
+            // speaker for second/alternate tone is available
+            *freq_alt = audio_get_processed_frequency(2);
 #else
             *freq_alt = 0.0f;
 #endif
 
             if (polyphony_rate > 0) {
-                if (voices > 1) {
-                    voice_place %= voices; ///2020-03-26: hm, is the voice_place (plus the polythony_rate?) intended to be used to cycle through active voices, if the number of available hardware channels is insufficient? (like with avr/arm pwm?)
+                if (active_tones > 1) {
+                    tone_place %= active_tones; ///2020-03-26: hm, is the tone_place (plus the polythony_rate?) intended to be used to cycle through active tones, if the number of available hardware channels is insufficient? (like with avr/arm pwm?)
 
-                    //                    if (place++ > (frequencies[voice_place] / polyphony_rate / CPU_PRESCALER)) {
-                    //                        voice_place = (voice_place + 1) % voices;
+                    //                    if (place++ > (frequencies[tone_place] / polyphony_rate / CPU_PRESCALER)) {
+                    //                        tone_place = (tone_place + 1) % active_tones;
                     //                        place = 0.0;
                     //                    }
                 }
 
 #ifdef AUDIO_ENABLE_VIBRATO
                 if (vibrato_strength > 0) {
-                    *freq = vibrato(frequencies[voice_place]);
+                    *freq = vibrato(frequencies[tone_place]);
                 } else {
-                    *freq = frequencies[voice_place];
+                    *freq = frequencies[tone_place];
                 }
 #else
-                *freq = frequencies[voice_place];
+                *freq = frequencies[tone_place];
 #endif
             } else {
-                *freq = audio_get_voice(1);
+                *freq = audio_get_processed_frequency(1);
             }
         }
     }

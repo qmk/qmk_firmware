@@ -15,4 +15,4 @@
  */
 #pragma once
 
-#define AUDIO_VOICES_MAX 2
+#define AUDIO_MAX_SIMULTANEOUS_TONES 2

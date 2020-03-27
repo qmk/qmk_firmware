@@ -79,16 +79,20 @@ bool is_audio_on(void);
 
 /**
  * @bried start playback of a tone/frequency
- * @details the 'freq' is appended to an internal 'frequencies' array as a new
- *          "voice" which is played by the hardware until a call to 'stop_note'
- *          with the same frequency. should the frequency already be active, its
- *          entry is pushed to the end of said internal array - so no duplicate
+ * @details the 'freq' is appended to an internal array of active tones, as a
+ *          new tone with indefinite duration, default timbre and the given
+ *          intensity/volume; this tone is played by the hardware until a call
+ *          to 'stop_note'
+ *          should a tone with that frequency already be active, its entry
+ *          is pushed to the end of said internal array - so no duplicate
  *          entries are kept.
  *          'hardware_start' is called upon the first note.
- * @param[in] freq   tone/frequenct to be played
- * @param[in] vol    volume NOTE: currently unused (not possible with PWM, DAC could use it though)
+ * @param[in] frequency frequency of the tone be played
+ * @param[in] intensity volume NOTE: currently unused (not possible with PWM, DAC could use it though)
  */
-void play_note(float freq, int vol);
+void play_note(float frequency, int intensity); /// grm... should be pitch+duration only...
+//TODO: void play_frequency?
+//void play_tone?
 /**
  * @brief stop a given tone/frequency
  * @details removes the given frequency from the 'frequencies' array, stopping
@@ -108,18 +112,18 @@ void stop_note(float freq);
 void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat);
 /**
  * @brief stops all playback
- * @details stops playback of both a meldoy as well as single voices, resetting
+ * @details stops playback of both a meldoy as well as single tones, resetting
  *          the internal state
  */
-void stop_all_notes(void);
+void stop_all_notes(void); //TODO: stop_all
 /**
- * @brief query if one/multiple voices are playing
+ * @brief query if one/multiple tones are playing
  */
-bool is_playing_note(void);
+bool is_playing_note(void); // is_playing_tones?
 /**
  * @brief query if a melody/SONG is playing
  */
-bool is_playing_notes(void);
+bool is_playing_notes(void); // is playing_melody? or _song?
 
 // These macros are used to allow play_notes to play an array of indeterminate
 // length. This works around the limitation of C's sizeof operation on pointers.
@@ -187,34 +191,38 @@ void audio_start_hardware(void);
 void audio_stop_hardware(void);
 
 /**
- * @brief get the number of currently actibe voices
+ * @brief get the number of currently active tones
  * @return number, 0=none active
  */
-uint8_t audio_get_number_of_active_voices(void);
+uint8_t audio_get_number_of_active_tones(void);
 /**
- * @brief access to the raw internal state of the current voices
- * @details each active voice was started as a tone/frequency, the internal
- *          audio state keeps track of.
- *          this function allows access to that array
- * @note: new voices are queued to the end, so the array is populated from 0 to
- *        number_of_active_voices-1, with 0 beeing the "oldest"
+ * @brief access to the raw/unprocessed frequency for a specific tone
+ * @details each active tone has a frequency associated with it, which
+ *          the internal state keeps track of, and is usually influenced
+ *          by various effects
+ * @param[in] tone_index, ranging from 0 to number_of_active_tones-1, with the
+ *            first beeing the most recent and each increment yielding the next
+ *            older one
  * @return frequency in Hz
  */
-float audio_get_frequency(uint8_t index);
+float audio_get_frequency(uint8_t tone_index);
 /**
- * @brief calculate and return the frequency for the requested voice
- * @details
- * @param[in] voice number ranging from 1 to number_of_active_voices, with 1 beeing the most recent voice, with each increment yielding the next older voice
+ * @brief calculate and return the frequency for the requested tone
+ * @details effects like glissando, vibrato, ... are postprocessed onto the
+ *          each active tones 'base'-frequency; this function returns the
+ *          postprocessed result.
+ * @param[in] tone_index, ranging from 0 to number_of_active_tones-1, with the
+ *            first beeing the most recent and each increment yielding the next
+ *            older one
  * @return frequency in Hz
  */
-float audio_get_voice(uint8_t voice);
+float audio_get_processed_frequency(uint8_t tone_index);
 
 /**
- * @brief   update audio internal state: currently playing note, active
- *          voices/frequencies, ...
+ * @brief   update audio internal state: currently playing and active tones,...
  * @details This function is intended to be called by the audio-hardware
  *          specific implementation on a regular basis while a SONG is
- *          playing, to 'advance' the the position/time
+ *          playing, to 'advance' the position/time/internal state
  * @param[in] step arbitrary step value, audio.c keeps track of for the
  *            audio-driver
  * @param[in] end scaling factor multiplied to the note_length. has to match

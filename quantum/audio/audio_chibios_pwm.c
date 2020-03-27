@@ -66,7 +66,7 @@ so adding to config.h:
 #define TO_CHIBIOS_PWMD_EVAL(t) TO_CHIBIOS_PWMD_PASTE(t)
 #define PWMD TO_CHIBIOS_PWMD_EVAL(AUDIO_PWM_PINALTERNATE_TIMER)
 
-extern int  voices;
+extern int  active_tones;
 extern bool playing_note;
 extern bool playing_notes;
 
@@ -206,7 +206,7 @@ void audio_start_hardware(void) {
     channel_1_start();
 
     if (playing_note) {
-        freq = audio_get_voice(1);
+        freq = audio_get_processed_frequency(0);
         channel_1_set_frequency(freq);
     }
     if (playing_notes) {
@@ -226,7 +226,7 @@ static void gpt_callback(GPTDriver *gptp) {
     float freq;// TODO: freq_alt
 
     if (audio_advance_note(1, 1)) {
-        freq = audio_get_voice(1); // freq_alt would be voice=2
+        freq = audio_get_processed_frequency(0); // freq_alt would be index=1
         channel_1_set_frequency(freq);
     }
 }
