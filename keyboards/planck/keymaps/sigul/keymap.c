@@ -7,7 +7,7 @@
  * thanks to SomeBuddyOnReddit, gepeirl, fauxpark, BXO511, drashna, ridingqwerty  ...
  *
  * based on the original Planck layout
- * Italian accented vowels "ò" and "à" have been moved from the QWERTY layer to the LOWER layers, while "è" and "ù" remain respectively on RAISE and LOWER.
+ * Italian accented vowels "�" and "à" have been moved from the QWERTY layer to the LOWER layers, while "è" and "ù" remain respectively on RAISE and LOWER.
  *
  */
 
@@ -15,48 +15,6 @@
 #include "muse.h"
 #include "keymap_italian_osx_ansi.h"
 #include "sigul.h"
-
-
-// enum planck_layers {
-//   _QWERTY,
-//  _LOWER, //symbols
-//  _RAISE, //numbers
-//  _ADJUST, //system
-//  _NUMPAD,
-//  _FN, 
-//  _MOUSE
-//};
-
-// moved to sigul.c
-// enum planck_keycodes {
-//  QWERTY = SAFE_RANGE,
-  // personal keycodes, moved to sigul.c
-  // DESK, // personal email
-  // VIVERE, // website
-  // SVIV, // website email
-  // SGCOM, // personal website
-  // PHONE, // my phone number
-  // custom keycodes for an Italian ANSI layout with accented vowels
-//  IT_CMLS, // IT_COMM and IT_LESS when combined with shift
-//  IT_DTMR, // IT_DOT and IT_MORE when combined with shift
-//  IT_SLQS, // IT_SLSH and IT_QST when combined with shift
-//  IT_APDQ, // IT_APO and IT_DQOT when combined with shift
-//  IT_SCCL  // IT_SMCL and IT_COLN when combined with shift
-
-// };
-
-// Defining Layer Keycodes, moved to sigul.c
-// #define QWERTY DF(_QWERTY)
-// For LOWER and RAISE I use TT instead of MO to be able to lock those layer tapping three times the key (TAPPING_TOGGLE 3 has been added in sigul.h)
-// #define LOWER TT(_LOWER)
-// #define RAISE TT(_RAISE)
-// #define NUMPAD TG(_NUMPAD)
-// #define FN MO(_FN)
-// #define MOUSE TT(_MOUSE)
-// #define TABFN LT(_FN, KC_TAB)
-// #define ESCFN LT(_FN, KC_ESC)
-// #define FN_D LT(_FN, IT_D)
-// #define MS_B LT(_MOUSE, IT_B)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -198,123 +156,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 #endif
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-  
-    case QWERTY:
-      if (record->event.pressed) {
-        print("mode just switched to qwerty and this is a huge string\n");
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
-    
-    case PHONE:
-      if (record->event.pressed) {
-          SEND_STRING("3931044785");
-      }
-      return false;
-      break;
-    case DESK:
-      if (record->event.pressed) {
-          SEND_STRING("desk" SS_LALT(";") "silviogulizia.com");
-      }
-      return false;
-      break;
-    case SGCOM:
-      if (record->event.pressed) {
-          SEND_STRING("https" SS_LSFT(".")SS_LSFT("7")SS_LSFT("7")"silviogulizia.com");
-      }
-      return false;
-      break;
-    case VIVERE:
-      if (record->event.pressed) {
-          SEND_STRING("https" SS_LSFT(".") SS_LSFT("7") SS_LSFT("7") "vivereintenzionalmente.com");
-      }
-      return false;
-      break;
-    
-    case SVIV:
-      if (record->event.pressed) {
-          SEND_STRING("silvio" SS_LALT(";") "vivereintenzionalmente.com");
-      }
-      return false;
-      break;
-    
-    case IT_SCCL:
-      if (record->event.pressed){
-        if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)){
-          register_code16(IT_COLN);
-        } else {
-          register_code16(IT_SCLN);
-        }
-      } else {
-        unregister_code16(IT_COLN);
-        unregister_code16(IT_SCLN);
-      }
-      return false;
-      break;
-
-    case IT_APDQ:
-      if (record->event.pressed){
-        if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)){
-          register_code16(IT_DQOT);
-        } else {
-          register_code16(IT_APOS);
-        }
-      } else {
-        unregister_code16(IT_DQOT);
-        unregister_code16(IT_APOS);
-        }
-      return false;
-      break;
-  
-    case IT_CMLS:
-      if (record->event.pressed){
-        if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)){
-          unregister_code16(KC_LSFT);
-          register_code16(IT_LESS);
-	  register_code16(KC_LSFT);
-        } else {
-          register_code16(IT_COMM);
-        }
-      } else {
-        unregister_code16(IT_LESS);
-        unregister_code16(IT_COMM);
-      }
-      return false;
-      break;
-      
-    case IT_DTMR:
-      if (record->event.pressed){
-        if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)){
-          register_code16(IT_MORE);
-        } else {
-          register_code16(IT_DOT);
-        }
-      } else {
-        unregister_code16(IT_MORE);
-        unregister_code16(IT_DOT);
-      }
-      return false;
-      break;
-      
-    case IT_SLQS:
-      if (record->event.pressed){
-        if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)){
-          register_code16(IT_QST);
-        } else {
-          register_code16(IT_SLSH);
-        }
-      } else {
-        unregister_code16(IT_QST);
-        unregister_code16(IT_SLSH);
-      }
-      return false;
-      break;
-  }
-  return true;
-};
 
 bool muse_mode = false;
 uint8_t last_muse_note = 0;
