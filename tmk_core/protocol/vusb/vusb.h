@@ -41,13 +41,13 @@ typedef struct usbDeviceDescriptor {
 } __attribute__((packed)) usbDeviceDescriptor_t;
 
 typedef struct usbConfigurationDescriptorHeader {
-    usbDescriptorHeader_t    header;
-    unsigned                 wTotalLength;
-    uchar                    bNumInterfaces;
-    uchar                    bConfigurationValue;
-    uchar                    iConfiguration;
-    uchar                    bmAttributes;
-    uchar                    bMaxPower;
+    usbDescriptorHeader_t header;
+    unsigned              wTotalLength;
+    uchar                 bNumInterfaces;
+    uchar                 bConfigurationValue;
+    uchar                 iConfiguration;
+    uchar                 bmAttributes;
+    uchar                 bMaxPower;
 } __attribute__((packed)) usbConfigurationDescriptorHeader_t;
 
 typedef struct usbStringDescriptor {
@@ -88,14 +88,14 @@ typedef struct usbConfigurationDescriptor {
     usbInterfaceDescriptor_t           keyboardInterface;
     usbHIDDescriptor_t                 keyboardHID;
 #ifdef USB_CFG_HAVE_INTRIN_ENDPOINT
-    usbEndpointDescriptor_t            keyboardINEndpoint;
+    usbEndpointDescriptor_t keyboardINEndpoint;
 #endif
 
 #if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
-    usbInterfaceDescriptor_t           mouseExtraInterface;
-    usbHIDDescriptor_t                 mouseExtraHID;
+    usbInterfaceDescriptor_t mouseExtraInterface;
+    usbHIDDescriptor_t       mouseExtraHID;
 #    ifdef USB_CFG_HAVE_INTRIN_ENDPOINT3
-    usbEndpointDescriptor_t            mouseExtraINEndpoint;
+    usbEndpointDescriptor_t mouseExtraINEndpoint;
 #    endif
 #endif
 } __attribute__((packed)) usbConfigurationDescriptor_t;
