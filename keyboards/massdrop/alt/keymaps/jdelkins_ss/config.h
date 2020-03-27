@@ -1,0 +1,1 @@
+#define RGB_MATRIX_STARTUP_SPD 20
