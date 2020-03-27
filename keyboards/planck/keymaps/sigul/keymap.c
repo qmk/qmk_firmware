@@ -4,7 +4,7 @@
  * Version 0.3 
  * 
  * Created by Silvio Gulizia on the basis of the default Planck keymap.
- * thanks to SomeBuddyOnReddit, gepeirl, fauxpark, BXO511,  ...
+ * thanks to SomeBuddyOnReddit, gepeirl, fauxpark, BXO511, drashna, ridingqwerty  ...
  *
  * based on the original Planck layout
  * Italian accented vowels "ò" and "à" have been moved from the QWERTY layer to the LOWER layers, while "è" and "ù" remain respectively on RAISE and LOWER.
