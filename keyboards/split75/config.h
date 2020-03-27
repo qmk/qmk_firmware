@@ -29,3 +29,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGBLED_NUM 8
 #define RGBLIGHT_ANIMATIONS
+
+#define BACKLIGHT_PIN D4
