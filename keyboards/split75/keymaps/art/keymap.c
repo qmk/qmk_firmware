@@ -1,10 +1,12 @@
 #include QMK_KEYBOARD_H
 
-#define BASE 0
-#define QWERTY_ON 1
-#define QWERTY 2
-#define MOD 3
-#define MEDIA 4
+enum layer_names {
+    BASE,
+    QWERTY_ON,
+    QWERTY,
+    MOD,
+    MEDIA
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
