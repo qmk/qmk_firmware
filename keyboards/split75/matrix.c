@@ -15,33 +15,17 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <avr/io.h>
-#include <util/delay.h>
-#include <i2c_master.h>
-#include "matrix.h"
-#include "split75.h"
-#include "pincontrol.h"
-
 #include <string.h>
 #include <stdio.h>
-
-#ifndef DEBOUNCE
-#   define DEBOUNCE    5
-#endif
+#include "quantum.h"
+#include "i2c_master.h"
+#include "split75.h"
 
 #define RIGHT_HALF
 
 extern uint8_t led0, led1, led2;
 
-#if defined(DEBOUNCE)
-static uint8_t debouncing = DEBOUNCE;
-#endif
-
-static matrix_row_t matrix[MATRIX_ROWS];
-static matrix_row_t matrix_debouncing[MATRIX_ROWS];
-
 void matrix_set_row_status(uint8_t row);
-uint8_t bit_reverse(uint8_t x);
 
 static void set_led_val(uint8_t val) {
     led0 = val & 0x1;
@@ -114,7 +98,7 @@ out:
 }
 #endif
 
-void matrix_init(void) {
+void matrix_init_custom(void) {
     // Init indicator LEDs
     indicator_init();
 
@@ -126,12 +110,6 @@ void matrix_init(void) {
     DDRA = 0x00;
     PORTA = 0xFF;
 
-    // initialize matrix state: all keys off
-    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        matrix[row] = 0x00;
-        matrix_debouncing[row] = 0x00;
-    }
-
     // Initialize i2c communication
     i2c_init();
 
@@ -140,30 +118,28 @@ void matrix_init(void) {
     mcp23018_init();
 #endif
 
-    matrix_init_quantum();
     (void)inc_led_val;
     (void)set_led_val;
 }
 
-uint8_t matrix_scan(void) {
-#if defined(RIGHT_HALF)
-    uint8_t data;
-#endif
-
-    matrix_row_t cols;
+bool matrix_scan_custom(matrix_row_t current_matrix[]) {
+    bool matrix_has_changed = false;
 
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        cols = 0;
+        // Store last value of row prior to reading
+        matrix_row_t last_row_value = current_matrix[row];
+
+        matrix_row_t cols = 0;
 	    // Select the row to scan
         matrix_set_row_status(row);
 
-        _delay_us(5);
+        matrix_io_delay();
 	    //Set the local row
 
 #if defined(RIGHT_HALF)
 		// Initialize to 0x7F in case I2C read fails, 
 		// as 0x75 would be no keys pressed
-		data = 0x7F;
+		uint8_t data = 0x7F;
 		// Receive the columns from right half
 		i2c_receive(TWI_ADDR_WRITE, &data, 1, I2C_TIMEOUT);
 #endif
@@ -173,30 +149,11 @@ uint8_t matrix_scan(void) {
 		cols |= (((~(data | 0x80)) & 0x7F) << 7);
 #endif
 
-#if defined(DEBOUNCE)
-        if (matrix_debouncing[row] != cols) {
-            matrix_debouncing[row] = cols;
-            debouncing = DEBOUNCE;
-        }
+        current_matrix[row] = cols;
+        matrix_has_changed |= (last_row_value != current_matrix[row]);
     }
 
-    if (debouncing) {
-        if (--debouncing) {
-            _delay_ms(1);
-        } else {
-            for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-                matrix[i] = matrix_debouncing[i];
-            }
-        }
-    }
-#else
-        matrix[row] = cols;
-    }
-#endif
-
-    matrix_scan_quantum();
-
-    return 1;
+    return matrix_has_changed;
 }
 
 void matrix_set_row_status(uint8_t row) {
@@ -212,18 +169,4 @@ void matrix_set_row_status(uint8_t row) {
     //Set the local row on port B
     DDRB = (1 << row);
     PORTB = ~(1 << row);
-}
-
-uint8_t bit_reverse(uint8_t x) {
-    x = ((x >> 1) & 0x55) | ((x << 1) & 0xaa);
-    x = ((x >> 2) & 0x33) | ((x << 2) & 0xcc);
-    x = ((x >> 4) & 0x0f) | ((x << 4) & 0xf0);
-    return x;
-}
-
-inline matrix_row_t matrix_get_row(uint8_t row) {
-    return matrix[row];
-}
-
-void matrix_print(void) {
 }
