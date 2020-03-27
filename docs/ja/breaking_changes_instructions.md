@@ -6,24 +6,24 @@
   git diff 0.8.75 HEAD -- docs/breaking_changes_instructions.md | cat
 -->
 
-A QMK member may have replied to your pull request stating that your submission is a breaking change. In their judgment, the changes you have proposed have greater implications for either QMK, or its users.
+QMK のメンバーがあなたのプルリクエストに返信し、あなたの提出したものは破壊的な変更であると述べている場合があります。メンバーの判断では、あなたが提案した変更は QMK やその利用者にとってより大きな意味を持つと考えられます。
 
-Some things that may cause a pull request to be flagged are:
+プルリクエストにフラグが立てられる原因となるものには、以下のようなものがあります:
 
-- **Edits to User Keymaps**
-  A user may submit their keymap to QMK, then some time later open a pull request with further updates, only to find it can't be merged because it was edited in the `qmk/qmk_firmware` repository. As not all users are proficient at using Git or GitHub, the user may find themself unable to fix the issue on their own.
-- **Changes to Expected Behavior**
-  Changes to QMK behavior may cause users to believe their hardware or QMK is broken if they flash new firmware that incorporates changes to existing QMK features, and find themselves without a means to restore the desired behavior.
-- **Changes Requiring User Action**
-  Changes may also require action to be taken by users, such as updating a toolchain or taking some action in Git.
-- **Changes Necessitating Increased Scrutiny**
-  On occasion, a submission may have implications for QMK as a project. This could be copyright/licensing issues, coding conventions, large feature overhauls, "high-risk" changes that need wider testing by our community, or something else entirely.
-- **Changes Requiring Communication to End Users**
-  This includes warnings about future deprecations, outdated practices, and anything else that needs to be communicated but doesn't fit into one of the above categories.
+- **ユーザーのキーマップに対する編集**
+  ユーザーが自分のキーマップを QMK に提出した後、しばらくしてさらに更新してプルリクエストを開いたところ、それが `qmk/qmk_firmware` リポジトリで編集されていたためにマージできなかったことに気づくことがあるかもしれません。すべてのユーザーが Git や GitHub を使いこなせるわけではないので、ユーザー自身で問題を修正できないことに気づくかもしれません。
+- **期待される動作の変更**
+  QMK の動作を変更した場合、既存の QMK 機能への変更を組み込んだ新しいファームウェアをフラッシュし、希望する動作を復元する手段がないことに気付いた場合、ユーザーはハードウェアまたは QMK が壊れていると考えるようになる可能性があります。
+- **ユーザーのアクションを必要とする変更**
+  また、ツールチェインを更新したり、Git で何らかのアクションを取るなど、変更はユーザーが行う必要がある場合もあります。
+- **精査が必要な変更**
+  時には、投稿がプロジェクトとしての QMK に影響を与えることもあります。これは、著作権やライセンスの問題、コーディング規約、大規模な機能のオーバーホール、コミュニティによるより広範なテストを必要とする「リスクの高い」変更、あるいは全く別のものである可能性があります。
+- **エンドユーザーとのコミュニケーションを必要とする変更**
+  これには、将来の非推奨化への警告、時代遅れの慣習、その他伝えなければならないが上記のカテゴリのどれかに当てはまらないものが含まれます。
 
-## What Do I Do?
+## 何をすればいいのか?
 
-If it is determined that your submission is a breaking change, there are a few things you can do to smooth the process:
+提出したものが破壊的な変更だと判断された場合、手続きをスムーズに進めるためにできることがいくつかあります。
 
 ### Consider Splitting Up Your PR
 
