@@ -197,6 +197,7 @@ void audio_stop_hardware(void);
 
 /**
  * @brief get the number of currently active tones
+ * @note guaranteed to be below AUDIO_MAX_SIMULTANEOUS_TONES
  * @return number, 0=none active
  */
 uint8_t audio_get_number_of_active_tones(void);
