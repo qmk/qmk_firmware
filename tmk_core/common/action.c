@@ -51,6 +51,10 @@ int retro_tapping_counter = 0;
 __attribute__((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) { return false; }
 #endif
 
+#if defined(COMBO_ENABLE) && defined(COMBO_ALLOW_ACTION_KEYS)
+__attribute__((weak)) bool process_combo(uint16_t keycode, keyrecord_t *record) { return true; }
+#endif
+
 #ifndef TAP_CODE_DELAY
 #    define TAP_CODE_DELAY 0
 #endif
@@ -107,7 +111,13 @@ void action_exec(keyevent_t event) {
 #endif
 
 #ifndef NO_ACTION_TAPPING
+#   if defined(COMBO_ENABLE) && defined(COMBO_ALLOW_ACTION_KEYS)
+    if (IS_NOEVENT(record.event) || process_combo(get_event_keycode(record.event), &record)) {
+        action_tapping_process(record);
+    }
+#   else
     action_tapping_process(record);
+#   endif
 #else
     process_record(&record);
     if (!IS_NOEVENT(record.event)) {

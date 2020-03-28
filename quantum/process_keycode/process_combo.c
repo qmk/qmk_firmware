@@ -16,6 +16,9 @@
 
 #include "print.h"
 #include "process_combo.h"
+#ifdef COMBO_ALLOW_ACTION_KEYS
+#include "action_tapping.h"
+#endif
 
 #ifndef COMBO_VARIABLE_LEN
 __attribute__((weak)) combo_t key_combos[COMBO_COUNT] = {};
@@ -59,8 +62,7 @@ static inline void dump_key_buffer(bool emit) {
     if (emit) {
         for (uint8_t i = 0; i < buffer_size; i++) {
 #ifdef COMBO_ALLOW_ACTION_KEYS
-            const action_t action = store_or_get_action(key_buffer[i].event.pressed, key_buffer[i].event.key);
-            process_action(&(key_buffer[i]), action);
+            action_tapping_process(key_buffer[i]);
 #else
             register_code16(key_buffer[i]);
             send_keyboard_report();

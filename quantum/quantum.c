@@ -253,7 +253,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef LEADER_ENABLE
             process_leader(keycode, record) &&
 #endif
-#ifdef COMBO_ENABLE
+#if defined(COMBO_ENABLE) && !defined(COMBO_ALLOW_ACTION_KEYS)
             process_combo(keycode, record) &&
 #endif
 #ifdef PRINTING_ENABLE
