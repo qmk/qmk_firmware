@@ -195,12 +195,23 @@ By default, when the keyboard boots, it will initialize the input mode to the la
 
 !> Using `UNICODE_SELECTED_MODES` means you don't have to initially set the input mode in `matrix_init_user()` (or a similar function); the Unicode system will do that for you on startup. This has the added benefit of avoiding unnecessary writes to EEPROM.
 
-## `send_unicode_hex_string`
+## `send_unicode_string()`
 
-To type multiple characters for things like (ノಠ痊ಠ)ノ彡┻━┻, you can use `send_unicode_hex_string()` much like `SEND_STRING()` except you would use hex values separate by spaces.
-For example, the table flip seen above would be `send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B")`
+This function is much like `send_string()` but allows you to input UTF-8 characters directly, and supports all code points (provided the selected input method also supports it). Make sure your `keymap.c` is formatted in UTF-8 encoding.
 
-There are many ways to get a hex code, but an easy one is [this site](https://r12a.github.io/app-conversion/). Just make sure to convert to hexadecimal, and that is your string.
+```c
+send_unicode_string("(ノಠ痊ಠ)ノ彡┻━┻");
+```
+
+## `send_unicode_hex_string()`
+
+Similar to `send_unicode_string()`, but the characters are represented by their code point values in ASCII, separated by spaces. For example, the table flip above would be achieved with:
+
+```c
+send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
+```
+
+An easy way to convert your Unicode string to this format is by using [this site](https://r12a.github.io/app-conversion/), and taking the result in the "Hex/UTF-32" section.
 
 ## Additional Language Support
 
@@ -230,6 +241,6 @@ AutoHotkey inserts the Text right of `Send, ` when this combination is pressed.
 
 If you enable the US International layout on the system, it will use punctuation to accent the characters.
 
-For instance, typing "`a" will result in à.
+For instance, typing "\`a" will result in à.
 
 You can find details on how to enable this [here](https://support.microsoft.com/en-us/help/17424/windows-change-keyboard-layout).

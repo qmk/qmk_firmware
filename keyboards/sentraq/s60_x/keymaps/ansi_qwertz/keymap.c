@@ -28,17 +28,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //GamingMode Lock (disables SpaceFn and OneShot LShift)
 //Function
 //Mute microphone
-#define KC_SPACEFN KC_FN0
+#define KC_SPACEFN LT(2, KC_SPACE)
 #define KC_OSLS KC_FN3
 #define KC_GMLK KC_FN1
-#define KC_FUNC KC_FN2
+#define KC_FUNC MO(2)
 #define MICMUTE RCTL(KC_LCTL)
 
 enum function_codes {
-    F_SPACEFN = 0,
     F_OSLS = 3,
     F_GMLK = 1,
-    F_FUNC = 2
 };
 
 enum layer_names {
@@ -152,9 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * Fn action definition
 */
 const uint16_t PROGMEM fn_actions[] = {
-    [F_SPACEFN] = ACTION_LAYER_TAP_KEY(2, KC_SPACE),    // SpaceFn layout 1
     [F_GMLK] = ACTION_LAYER_TOGGLE(1),                  // Disable SpaceFn and Oneshot Shift
-    [F_FUNC] = ACTION_LAYER_MOMENTARY(2),               // SpaceFn layout 1
     [F_OSLS] = ACTION_MODS_ONESHOT(MOD_LSFT)            // Oneshot Leftshift
 };
 

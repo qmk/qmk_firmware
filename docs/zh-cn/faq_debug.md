@@ -101,56 +101,6 @@ https://github.com/tmk/tmk_keyboard#boot-magic-configuration---virtual-dip-switc
 
 http://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad-keyboard-t6181-60.html#p146279
 
-
-## Bootloader跳转不好用
-在**Makefile**中正确配置**Makefile**大小。如果分区大小不正确，引导加载程序可能无法从**Magic command**和**Boot Magic**加载。
-```
-#   bootloader字节数：
-#   Atmel DFU loader(ATmega32U4)   4096
-#   Atmel DFU loader(AT90USB128)   8192
-#   LUFA bootloader(ATmega32U4)    4096
-#   Arduino Caterina(ATmega32U4)   4096
-#   USBaspLoader(ATmega***)        2048
-#   Teensy   halfKay(ATmega32U4)   512
-#   Teensy++ halfKay(AT90USB128)   2048
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
-```
-AVR引导大小是通过**BOOTSZ**熔丝位来设置的。查阅你单片机的datasheet。
-记住，datasheet用的是**Word**(2字节)表示大小和地址，TMK用的是**Byte**。
-
-AVR引导部分位于闪存的末尾，如下所示（Application是应用区，Bootloader是引导区）。
-```
-byte     Atmel/LUFA(ATMega32u4)          byte     Atmel(AT90SUB1286)
-0x0000   +---------------+               0x00000  +---------------+
-         |               |                        |               |
-         |               |                        |               |
-         |  Application  |                        |  Application  |
-         |               |                        |               |
-         =               =                        =               =
-         |               | 32KB-4KB               |               | 128KB-8KB
-0x6000   +---------------+               0x1E000  +---------------+
-         |  Bootloader   | 4KB                    |  Bootloader   | 8KB
-0x7FFF   +---------------+               0x1FFFF  +---------------+
-
-
-byte     Teensy(ATMega32u4)              byte     Teensy++(AT90SUB1286)
-0x0000   +---------------+               0x00000  +---------------+
-         |               |                        |               |
-         |               |                        |               |
-         |  Application  |                        |  Application  |
-         |               |                        |               |
-         =               =                        =               =
-         |               | 32KB-512B              |               | 128KB-2KB
-0x7E00   +---------------+               0x1FC00  +---------------+
-         |  Bootloader   | 512B                   |  Bootloader   | 2KB
-0x7FFF   +---------------+               0x1FFFF  +---------------+
-```
-
-详情请见下方issue。
-https://github.com/tmk/tmk_keyboard/issues/179
-
-如果你使用TeensyUSB, 有一个[已知bug](https://github.com/qmk/qmk_firmware/issues/164)硬件重置按钮阻止软件定义重置键工作。重新插拔键盘就好了。
-
 ## 特殊额外键不起作用(系统，音频控制键)
 你要在`rules.mk`定义`EXTRAKEY_ENABLE`在QMK中使用它们。
 
@@ -172,41 +122,6 @@ EXTRAKEY_ENABLE = yes          # 音频控制和系统控制
 - http://arduino.cc/en/uploads/Main/arduino-micro-schematic.pdf
 
 Arduino Leonardo和micro使用**ATMega32U4**，该芯片TMK可用，但Arduino的bootloader会导致问题。
-
-
-## 在USB AVR使用PF4-7针脚?
-你要置位MCUCR寄存器JTD位来将PF4-7设置为GPIO。这些针脚默认是JTAG功能。 像ATMega*U* or AT90USB*这样的MCU会受影响。
-
-如果是用Teensy的话就不需要了。Tennsy自带JTAGEN位未编程来失能该功能。
-<!--翻译问题：上句可能有错，原文为：Teensy is shipped with JTAGEN fuse bit unprogrammed to disable the function. -->
-代码如下。
-```
-    // F接口JTAG失能。在四个周期内写入两次JTD位。
-    MCUCR |= (1<<JTD);
-    MCUCR |= (1<<JTD);
-```
-https://github.com/tmk/tmk_keyboard/blob/master/keyboard/hbkb/matrix.c#L67
-
-阅读ATMega32U4的datasheet中的**26.5.1 MCU Control Register – MCUCR**。
-
-
-## 为锁定键添加指示灯
-你要自制CapsLock, ScrollLock 和 NumLock指示灯？见下文。
-
-http://deskthority.net/workshop-f7/tmk-keyboard-firmware-collection-t4478-120.html#p191560
-
-## 为Arduino Micro/Leonardo编程
-按下重置键然后在8秒内运行下方这样的命令。
-
-```
-avrdude -patmega32u4 -cavr109 -b57600 -Uflash:w:adb_usb.hex -P/dev/ttyACM0
-```
-
-设备名称因系统而异。
-
-http://arduino.cc/en/Main/ArduinoBoardMicro
-https://geekhack.org/index.php?topic=14290.msg1563867#msg1563867
-
 
 ## USB 3 兼容性
 据传说有些人用USB3接口会有问题，用USB2的试试。

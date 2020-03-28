@@ -10,6 +10,18 @@ SOLUS_INFO="Your tools are now installed. To start using them, open new terminal
 
 util_dir=$(dirname "$0")
 
+# For those distros that do not package bootloadHID
+install_bootloadhid() {
+    if ! command -v bootloadHID >/dev/null; then
+        wget https://www.obdev.at/downloads/vusb/bootloadHID.2012-12-08.tar.gz -O - | tar -xz -C /tmp
+        cd /tmp/bootloadHID.2012-12-08/commandline/
+        if make; then
+            sudo cp bootloadHID /usr/local/bin
+        fi
+        cd -
+    fi
+}
+
 if grep ID /etc/os-release | grep -qE "fedora"; then
 	sudo dnf install \
 		arm-none-eabi-binutils-cs \
@@ -19,6 +31,7 @@ if grep ID /etc/os-release | grep -qE "fedora"; then
 		avr-gcc \
 		avr-libc \
 		binutils-avr32-linux-gnu \
+		clang \
 		dfu-util \
 		dfu-programmer \
 		diffutils \
@@ -27,6 +40,7 @@ if grep ID /etc/os-release | grep -qE "fedora"; then
 		glibc-headers \
 		kernel-devel \
 		kernel-headers \
+		libusb-devel \
 		make \
 		perl \
 		python3 \
@@ -44,6 +58,7 @@ elif grep ID /etc/os-release | grep -qE 'debian|ubuntu'; then
 		avr-libc \
 		binutils-arm-none-eabi \
 		binutils-avr \
+		clang-format \
 		dfu-programmer \
 		dfu-util \
 		diffutils \
@@ -52,34 +67,35 @@ elif grep ID /etc/os-release | grep -qE 'debian|ubuntu'; then
 		gcc-avr \
 		git \
 		libnewlib-arm-none-eabi \
+		libusb-dev \
 		python3 \
+		python3-pip \
 		unzip \
 		wget \
 		zip
 
 elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
-	sudo pacman -U https://archive.archlinux.org/packages/a/avr-gcc/avr-gcc-8.3.0-1-x86_64.pkg.tar.xz
-	sudo pacman -S \
+	sudo pacman --needed -U https://archive.archlinux.org/packages/a/avr-gcc/avr-gcc-8.3.0-1-x86_64.pkg.tar.xz
+	sudo pacman -S --needed \
 		arm-none-eabi-binutils \
 		arm-none-eabi-gcc \
 		arm-none-eabi-newlib \
 		avrdude \
 		avr-binutils \
 		avr-libc \
-		avr-gcc \
 		base-devel \
+		clang \
+		dfu-programmer \
 		dfu-util \
 		diffutils \
 		gcc \
 		git \
+		libusb-compat \
 		python \
+		python-pip \
 		unzip \
 		wget \
 		zip
-	git clone https://aur.archlinux.org/dfu-programmer.git /tmp/dfu-programmer
-	cd /tmp/dfu-programmer || exit 1
-	makepkg -sic
-	rm -rf /tmp/dfu-programmer/
 
 elif grep ID /etc/os-release | grep -q gentoo; then
 	echo "$GENTOO_WARNING" | fmt
@@ -96,6 +112,7 @@ elif grep ID /etc/os-release | grep -q gentoo; then
 			dev-embedded/avrdude \
 			dev-lang/python:3.5 \
 			net-misc/wget \
+			sys-devel/clang \
 			sys-devel/gcc \
 			sys-devel/crossdev
 		sudo crossdev -s4 --stable --g =4.9.4 --portage --verbose --target avr
@@ -112,6 +129,7 @@ elif grep ID /etc/os-release | grep -q sabayon; then
 		dev-embedded/avrdude \
 		dev-lang/python \
 		net-misc/wget \
+		sys-devel/clang \
 		sys-devel/gcc \
 		sys-devel/crossdev
 	sudo crossdev -s4 --stable --g =4.9.4 --portage --verbose --target avr
@@ -126,6 +144,7 @@ elif grep ID /etc/os-release | grep -qE "opensuse|tumbleweed"; then
 	fi
 	sudo zypper install \
 		avr-libc \
+		clang \
 		$CROSS_AVR_GCC \
 		$CROSS_ARM_GCC \
 		cross-avr-binutils \
@@ -134,6 +153,7 @@ elif grep ID /etc/os-release | grep -qE "opensuse|tumbleweed"; then
 		dfu-tool \
 		dfu-programmer \
 		gcc \
+		libusb-devel \
 		python3 \
 		unzip \
 		wget \
@@ -173,12 +193,36 @@ elif grep ID /etc/os-release | grep -q solus; then
 		avrdude \
 		dfu-util \
 		dfu-programmer \
+		libusb-devel \
 		python3 \
 		git \
 		wget \
 		zip \
 		unzip
 	printf "\n$SOLUS_INFO\n"
+
+elif grep ID /etc/os-release | grep -q void; then
+	# musl Void systems don't have glibc cross compilers avaliable in their repos.
+	# glibc Void systems do have musl cross compilers though, for some reason.
+	# So, default to musl, and switch to glibc if it is installed.
+	CROSS_ARM=cross-arm-linux-musleabi
+	if xbps-query glibc > /dev/null; then # Check is glibc if installed
+		CROSS_ARM=cross-arm-linux-gnueabi
+	fi
+
+	sudo xbps-install \
+		avr-binutils \
+		avr-gcc \
+		avr-libc \
+		$CROSS_ARM \
+		dfu-programmer \
+		dfu-util \
+		gcc \
+		git \
+		make \
+		wget \
+		unzip \
+		zip
 
 else
 	echo "Sorry, we don't recognize your OS. Help us by contributing support!"
@@ -187,4 +231,5 @@ else
 fi
 
 # Global install tasks
-pip3 install -r ${util_dir}/../requirements.txt
+install_bootloadhid
+pip3 install --user -r ${util_dir}/../requirements.txt

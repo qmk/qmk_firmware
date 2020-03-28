@@ -21,121 +21,133 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // an enumeration of the chips this driver supports
 #define OLED_IC_SSD1306 0
-#define OLED_IC_SH1106  1
+#define OLED_IC_SH1106 1
 
 #if defined(OLED_DISPLAY_CUSTOM)
-  // Expected user to implement the necessary defines
+// Expected user to implement the necessary defines
 #elif defined(OLED_DISPLAY_128X64)
-  // Double height 128x64
-#ifndef OLED_DISPLAY_WIDTH
-  #define OLED_DISPLAY_WIDTH 128
-#endif
-#ifndef OLED_DISPLAY_HEIGHT
-  #define OLED_DISPLAY_HEIGHT 64
-#endif
-#ifndef OLED_MATRIX_SIZE
-  #define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH) // 1024 (compile time mathed)
-#endif
-#ifndef OLED_BLOCK_TYPE
-  #define OLED_BLOCK_TYPE uint16_t
-#endif
-#ifndef OLED_BLOCK_COUNT
-  #define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8) // 32 (compile time mathed)
-#endif
-#ifndef OLED_BLOCK_SIZE
-  #define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT) // 32 (compile time mathed)
-#endif
-#ifndef OLED_COM_PINS
-  #define OLED_COM_PINS COM_PINS_ALT
-#endif
+// Double height 128x64
+#    ifndef OLED_DISPLAY_WIDTH
+#        define OLED_DISPLAY_WIDTH 128
+#    endif
+#    ifndef OLED_DISPLAY_HEIGHT
+#        define OLED_DISPLAY_HEIGHT 64
+#    endif
+#    ifndef OLED_MATRIX_SIZE
+#        define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH)  // 1024 (compile time mathed)
+#    endif
+#    ifndef OLED_BLOCK_TYPE
+#        define OLED_BLOCK_TYPE uint16_t
+#    endif
+#    ifndef OLED_BLOCK_COUNT
+#        define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8)  // 32 (compile time mathed)
+#    endif
+#    ifndef OLED_BLOCK_SIZE
+#        define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)  // 32 (compile time mathed)
+#    endif
+#    ifndef OLED_COM_PINS
+#        define OLED_COM_PINS COM_PINS_ALT
+#    endif
 
-  // For 90 degree rotation, we map our internal matrix to oled matrix using fixed arrays
-  // The OLED writes to it's memory horizontally, starting top left, but our memory starts bottom left in this mode
-#ifndef OLED_SOURCE_MAP
-  #define OLED_SOURCE_MAP { 0, 8, 16, 24, 32, 40, 48, 56 }
-#endif
-#ifndef OLED_TARGET_MAP
-  #define OLED_TARGET_MAP { 56, 48, 40, 32, 24, 16, 8, 0 }
-#endif
-  // If OLED_BLOCK_TYPE is uint32_t, these tables would look like:
-  // #define OLED_SOURCE_MAP { 32, 40, 48, 56 }
-  // #define OLED_TARGET_MAP { 24, 16, 8, 0 }
-  // If OLED_BLOCK_TYPE is uint16_t, these tables would look like:
-  // #define OLED_SOURCE_MAP { 0, 8, 16, 24, 32, 40, 48, 56 }
-  // #define OLED_TARGET_MAP { 56, 48, 40, 32, 24, 16, 8, 0 }
-  // If OLED_BLOCK_TYPE is uint8_t, these tables would look like:
-  // #define OLED_SOURCE_MAP { 0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 }
-  // #define OLED_TARGET_MAP { 56, 120, 48, 112, 40, 104, 32, 96, 24, 88, 16, 80, 8, 72, 0, 64 }
-#else // defined(OLED_DISPLAY_128X64)
-  // Default 128x32
-#ifndef OLED_DISPLAY_WIDTH
-  #define OLED_DISPLAY_WIDTH 128
-#endif
-#ifndef OLED_DISPLAY_HEIGHT
-  #define OLED_DISPLAY_HEIGHT 32
-#endif
-#ifndef OLED_MATRIX_SIZE
-  #define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH) // 512 (compile time mathed)
-#endif
-#ifndef OLED_BLOCK_TYPE
-  #define OLED_BLOCK_TYPE uint16_t // Type to use for segmenting the oled display for smart rendering, use unsigned types only
-#endif
-#ifndef OLED_BLOCK_COUNT
-  #define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8) // 16 (compile time mathed)
-#endif
-#ifndef OLED_BLOCK_SIZE
-  #define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT) // 32 (compile time mathed)
-#endif
-#ifndef OLED_COM_PINS
-  #define OLED_COM_PINS COM_PINS_SEQ
-#endif
+// For 90 degree rotation, we map our internal matrix to oled matrix using fixed arrays
+// The OLED writes to it's memory horizontally, starting top left, but our memory starts bottom left in this mode
+#    ifndef OLED_SOURCE_MAP
+#        define OLED_SOURCE_MAP \
+            { 0, 8, 16, 24, 32, 40, 48, 56 }
+#    endif
+#    ifndef OLED_TARGET_MAP
+#        define OLED_TARGET_MAP \
+            { 56, 48, 40, 32, 24, 16, 8, 0 }
+#    endif
+// If OLED_BLOCK_TYPE is uint32_t, these tables would look like:
+// #define OLED_SOURCE_MAP { 32, 40, 48, 56 }
+// #define OLED_TARGET_MAP { 24, 16, 8, 0 }
+// If OLED_BLOCK_TYPE is uint16_t, these tables would look like:
+// #define OLED_SOURCE_MAP { 0, 8, 16, 24, 32, 40, 48, 56 }
+// #define OLED_TARGET_MAP { 56, 48, 40, 32, 24, 16, 8, 0 }
+// If OLED_BLOCK_TYPE is uint8_t, these tables would look like:
+// #define OLED_SOURCE_MAP { 0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 }
+// #define OLED_TARGET_MAP { 56, 120, 48, 112, 40, 104, 32, 96, 24, 88, 16, 80, 8, 72, 0, 64 }
+#else  // defined(OLED_DISPLAY_128X64)
+// Default 128x32
+#    ifndef OLED_DISPLAY_WIDTH
+#        define OLED_DISPLAY_WIDTH 128
+#    endif
+#    ifndef OLED_DISPLAY_HEIGHT
+#        define OLED_DISPLAY_HEIGHT 32
+#    endif
+#    ifndef OLED_MATRIX_SIZE
+#        define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH)  // 512 (compile time mathed)
+#    endif
+#    ifndef OLED_BLOCK_TYPE
+#        define OLED_BLOCK_TYPE uint16_t  // Type to use for segmenting the oled display for smart rendering, use unsigned types only
+#    endif
+#    ifndef OLED_BLOCK_COUNT
+#        define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8)  // 16 (compile time mathed)
+#    endif
+#    ifndef OLED_BLOCK_SIZE
+#        define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)  // 32 (compile time mathed)
+#    endif
+#    ifndef OLED_COM_PINS
+#        define OLED_COM_PINS COM_PINS_SEQ
+#    endif
 
-  // For 90 degree rotation, we map our internal matrix to oled matrix using fixed arrays
-  // The OLED writes to it's memory horizontally, starting top left, but our memory starts bottom left in this mode
-#ifndef OLED_SOURCE_MAP
-  #define OLED_SOURCE_MAP { 0, 8, 16, 24 }
-#endif
-#ifndef OLED_TARGET_MAP
-  #define OLED_TARGET_MAP { 24, 16, 8, 0 }
-#endif
-  // If OLED_BLOCK_TYPE is uint8_t, these tables would look like:
-  // #define OLED_SOURCE_MAP { 0, 8, 16, 24, 32, 40, 48, 56 }
-  // #define OLED_TARGET_MAP { 48, 32, 16, 0, 56, 40, 24, 8 }
-#endif // defined(OLED_DISPLAY_CUSTOM)
+// For 90 degree rotation, we map our internal matrix to oled matrix using fixed arrays
+// The OLED writes to it's memory horizontally, starting top left, but our memory starts bottom left in this mode
+#    ifndef OLED_SOURCE_MAP
+#        define OLED_SOURCE_MAP \
+            { 0, 8, 16, 24 }
+#    endif
+#    ifndef OLED_TARGET_MAP
+#        define OLED_TARGET_MAP \
+            { 24, 16, 8, 0 }
+#    endif
+// If OLED_BLOCK_TYPE is uint8_t, these tables would look like:
+// #define OLED_SOURCE_MAP { 0, 8, 16, 24, 32, 40, 48, 56 }
+// #define OLED_TARGET_MAP { 48, 32, 16, 0, 56, 40, 24, 8 }
+#endif  // defined(OLED_DISPLAY_CUSTOM)
 
 #if !defined(OLED_IC)
-  #define OLED_IC OLED_IC_SSD1306
+#    define OLED_IC OLED_IC_SSD1306
 #endif
 
 // the column address corresponding to the first column in the display hardware
 #if !defined(OLED_COLUMN_OFFSET)
-  #define OLED_COLUMN_OFFSET 0
+#    define OLED_COLUMN_OFFSET 0
 #endif
 
 // Address to use for the i2c oled communication
 #if !defined(OLED_DISPLAY_ADDRESS)
-  #define OLED_DISPLAY_ADDRESS 0x3C
+#    define OLED_DISPLAY_ADDRESS 0x3C
 #endif
 
 // Custom font file to use
 #if !defined(OLED_FONT_H)
-  #define OLED_FONT_H "glcdfont.c"
+#    define OLED_FONT_H "glcdfont.c"
 #endif
 // unsigned char value of the first character in the font file
 #if !defined(OLED_FONT_START)
-  #define OLED_FONT_START 0
+#    define OLED_FONT_START 0
 #endif
 // unsigned char value of the last character in the font file
 #if !defined(OLED_FONT_END)
-  #define OLED_FONT_END 224
+#    define OLED_FONT_END 223
 #endif
 // Font render width
 #if !defined(OLED_FONT_WIDTH)
-  #define OLED_FONT_WIDTH 6
+#    define OLED_FONT_WIDTH 6
 #endif
 // Font render height
 #if !defined(OLED_FONT_HEIGHT)
-  #define OLED_FONT_HEIGHT 8
+#    define OLED_FONT_HEIGHT 8
+#endif
+
+#if !defined(OLED_TIMEOUT)
+#    if defined(OLED_DISABLE_TIMEOUT)
+#        define OLED_TIMEOUT 0
+#    else
+#        define OLED_TIMEOUT 60000
+#    endif
 #endif
 
 // OLED Rotation enum values are flags
@@ -143,7 +155,7 @@ typedef enum {
     OLED_ROTATION_0   = 0,
     OLED_ROTATION_90  = 1,
     OLED_ROTATION_180 = 2,
-    OLED_ROTATION_270 = 3, // OLED_ROTATION_90 | OLED_ROTATION_180
+    OLED_ROTATION_270 = 3,  // OLED_ROTATION_90 | OLED_ROTATION_180
 } oled_rotation_t;
 
 // Initialize the oled display, rotating the rendered output based on the define passed in.
@@ -188,6 +200,12 @@ void oled_write(const char *data, bool invert);
 // Advances the cursor to the next page, wiring ' ' to the remainder of the current page
 void oled_write_ln(const char *data, bool invert);
 
+// Pans the buffer to the right (or left by passing true) by moving contents of the buffer
+void oled_pan(bool left);
+
+void oled_write_raw(const char *data, uint16_t size);
+void oled_write_raw_byte(const char data, uint16_t index);
+
 #if defined(__AVR__)
 // Writes a PROGMEM string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
@@ -199,16 +217,20 @@ void oled_write_P(const char *data, bool invert);
 // Advances the cursor to the next page, wiring ' ' to the remainder of the current page
 // Remapped to call 'void oled_write_ln(const char *data, bool invert);' on ARM
 void oled_write_ln_P(const char *data, bool invert);
-#else
-  // Writes a string to the buffer at current cursor position
-  // Advances the cursor while writing, inverts the pixels if true
-  #define oled_write_P(data, invert) oled_write(data, invert)
 
-  // Writes a string to the buffer at current cursor position
-  // Advances the cursor while writing, inverts the pixels if true
-  // Advances the cursor to the next page, wiring ' ' to the remainder of the current page
-  #define oled_write_ln_P(data, invert) oled_write(data, invert)
-#endif // defined(__AVR__)
+void oled_write_raw_P(const char *data, uint16_t size);
+#else
+// Writes a string to the buffer at current cursor position
+// Advances the cursor while writing, inverts the pixels if true
+#    define oled_write_P(data, invert) oled_write(data, invert)
+
+// Writes a string to the buffer at current cursor position
+// Advances the cursor while writing, inverts the pixels if true
+// Advances the cursor to the next page, wiring ' ' to the remainder of the current page
+#    define oled_write_ln_P(data, invert) oled_write(data, invert)
+
+#    define oled_write_raw_P(data, size) oled_write_raw(data, size)
+#endif  // defined(__AVR__)
 
 // Can be used to manually turn on the screen if it is off
 // Returns true if the screen was on or turns on
@@ -223,6 +245,18 @@ void oled_task(void);
 
 // Called at the start of oled_task, weak function overridable by the user
 void oled_task_user(void);
+
+// Set the specific 8 lines rows of the screen to scroll.
+// 0 is the default for start, and 7 for end, which is the entire
+// height of the screen.  For 128x32 screens, rows 4-7 are not used.
+void oled_scroll_set_area(uint8_t start_line, uint8_t end_line);
+
+// Sets scroll speed, 0-7, fastest to slowest. Default is three.
+// Does not take effect until scrolling is either started or restarted
+// the ssd1306 supports 8 speeds with the delay
+// listed below betwen each frame of the scrolling effect
+// 0=2, 1=3, 2=4, 3=5, 4=25, 5=64, 6=128, 7=256
+void oled_scroll_set_speed(uint8_t speed);
 
 // Scrolls the entire display right
 // Returns true if the screen was scrolling or starts scrolling

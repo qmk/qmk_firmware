@@ -21,8 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    exclusive
-#define PRODUCT         e6v2 oe bmc
+#define MANUFACTURER    Exclusive / E-Team
+#define PRODUCT         E6-V2 OE BMC
 #define DESCRIPTION     A custom 60% keyboard
 
 /* key matrix size */
@@ -44,6 +44,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, B4, B5, B6, B7 }
 #define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, C2, C3, C4, C5, D7 }
 #define DIODE_DIRECTION COL2ROW
+
+#define BACKLIGHT_PIN D4
+#define BACKLIGHT_LEVELS 3
 
 #define RGBLED_NUM 6
 #define RGBLIGHT_ANIMATIONS

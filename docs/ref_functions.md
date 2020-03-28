@@ -2,7 +2,7 @@
 
 There are a lot of hidden functions in QMK that are incredible useful, or may add a bit of functionality that you've been wanting.  Functions that are specific to certain features are not included here, as those will be on their respective feature page.
 
-## (OLKB) Tri Layers
+## (OLKB) Tri Layers :id=olkb-tri-layers
 
 There are actually separate functions that you can use there, depending on what you're after.
 
@@ -50,7 +50,7 @@ The caveat to this method is that you cannot access the `z` layer without having
 #### Example
 
 ```c
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 ```
@@ -58,7 +58,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 Alternatively, you don't have to immediately "return" the value.  This is useful if you want to add multiple tri layers, or if you want to add additional effects.
 
 ```c
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
   state = update_tri_layer_state(state, _RAISE, _SYMB, _SPECIAL);
   return state;

@@ -22,12 +22,15 @@
 
 #include "keymap.h"
 
+#define KC_MO1 MO(1)
+#define KC_MO2 MO(2)
+
 const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* 0: dvorak */
   [0] = KEYMAP_GRID( ESC, SCLN, COMM,  DOT,    P,    Y,    F,    G,    C,    R,    L, BSPC,   \
                      GRV,    A,    O,    E,    U,    I,    D,    H,    T,    N,    S, MINS,   \
                      TAB, QUOT,    Q,    J,    K,    X,    B,    M,    W,    V,    Z,  ENT,   \
-                    LCTL, LGUI, LALT, RALT,  FN1, LSFT,  SPC,  FN2, LEFT, DOWN,   UP, RGHT),
+                    LCTL, LGUI, LALT, RALT,  MO1, LSFT,  SPC,  MO2, LEFT, DOWN,   UP, RGHT),
 
   /* 1: lower (FN1) */
   [1] = KEYMAP_GRID( F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12,   \
@@ -44,9 +47,6 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_MOMENTARY(1),               // lower Fn layer
-    [2] = ACTION_LAYER_MOMENTARY(2),               // raise Fn layer
-
     // lower row1
     [17] = ACTION_MODS_KEY(MOD_LSFT, KC_5),        // %
     [18] = ACTION_MODS_KEY(MOD_LSFT, KC_SLASH),    // ?

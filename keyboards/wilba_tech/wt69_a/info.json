@@ -2,7 +2,6 @@
     "keyboard_name": "wilba.tech WT69-A", 
     "url": "https://wilba.tech", 
     "maintainer": "Wilba", 
-    "bootloader": "atmel-dfu", 
     "width": 18.25, 
     "height": 5, 
     "layouts": {
