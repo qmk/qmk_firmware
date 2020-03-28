@@ -36,9 +36,7 @@ def check_arm_gcc_version():
     """Returns True if the arm-none-eabi-gcc version is not known to cause problems.
     """
     if 'output' in ESSENTIAL_BINARIES['arm-none-eabi-gcc']:
-        first_line = ESSENTIAL_BINARIES['arm-none-eabi-gcc']['output'].split('\n')[0]
-        second_half = first_line.split(')', 1)[1].strip()
-        version_number = second_half.split()[0]
+        version_number = ESSENTIAL_BINARIES['arm-none-eabi-gcc']['output'].strip()
         cli.log.info('Found arm-none-eabi-gcc version %s', version_number)
 
     return True  # Right now all known arm versions are ok
@@ -48,8 +46,7 @@ def check_avr_gcc_version():
     """Returns True if the avr-gcc version is not known to cause problems.
     """
     if 'output' in ESSENTIAL_BINARIES['avr-gcc']:
-        first_line = ESSENTIAL_BINARIES['avr-gcc']['output'].split('\n')[0]
-        version_number = first_line.split()[2]
+        version_number = ESSENTIAL_BINARIES['avr-gcc']['output'].strip()
 
         major, minor, rest = version_number.split('.', 2)
         if int(major) > 8:
@@ -154,14 +151,18 @@ def is_executable(command):
         return False
 
     # Make sure the command can be executed
-    check = run([command, '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5, universal_newlines=True)
+    check = subprocess.run([command, '-dumpversion'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5, universal_newlines=True)
+
+    if check.returncode > 1:  # if -dumpversion returns error check with --version instead
+        check = subprocess.run([command, '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5, universal_newlines=True)
+
     ESSENTIAL_BINARIES[command]['output'] = check.stdout
 
     if check.returncode in [0, 1]:  # Older versions of dfu-programmer exit 1
         cli.log.debug('Found {fg_cyan}%s', command)
         return True
 
-    cli.log.error("{fg_red}Can't run `%s --version`", command)
+    cli.log.error("{fg_red}Can't get version number of `%s`", command)
     return False
 
 
