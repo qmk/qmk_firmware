@@ -228,9 +228,6 @@ section at the end of this file).
  * with libusb: 0x16c0/0x5dc.  Use this VID/PID pair ONLY if you understand
  * the implications!
  */
-#define USB_CFG_DEVICE_VERSION  (DEVICE_VER & 0xFF), ((DEVICE_VER >> 8) & 0xFF)
-/* Version number of the device: Minor number first, then major number.
- */
 #define USB_CFG_DEVICE_CLASS        0
 #define USB_CFG_DEVICE_SUBCLASS     0
 /* See USB specification if you want to conform to an existing device class.
