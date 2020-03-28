@@ -4,6 +4,7 @@ import json
 import platform
 import os
 import subprocess
+import shlex
 
 import qmk.keymap
 
@@ -79,6 +80,6 @@ def run(command, *args, **kwargs):
         command = ' '.join(command)
         # On Windows, we want to run stuff (especially scripts)
         # in a Posix shell
-        command = ['/bin/sh', '-c', command]
+        command = ['C:/msys64/usr/bin/sh', '-c', command]
     # Execute the command
     return subprocess.run(command, *args, **kwargs)
