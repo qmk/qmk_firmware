@@ -5,66 +5,27 @@
 #else
 // `PROGMEM const char secret[][x]` may work better, but it takes up more space in the firmware
 // And I'm not familiar enough to know which is better or why...
-static const char * const secret[] = {
+static const char * const secrets[] = { // note that in drashna docs the array is called secret (singular) but I got variable not defined error while compiling
+  "placeholder0",
   "placeholder1",
   "placeholder2",
   "placeholder3",
-  "placeholder4",
-  "placeholder5"
+  "placeholder4"
 };
 #endif
 
+// alias first and last secret in enumeration
+#define KC_SECRET_FIRST SECRET0
+#define KC_SECRET_LAST SECRET4
+
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case PHONE ... SVIV: // Secrets!  Externally defined strings, not stored in repo
+    case KC_SECRET_FIRST ... KC_SECRET_LAST: // Secrets!  Externally defined strings, not stored in repo
       if (!record->event.pressed) {
-        send_string_with_delay(secrets[keycode - PHONE], MACRO_TIMER);
+        send_string_with_delay(secrets[keycode - KC_SECRET_FIRST], MACRO_TIMER); // note: in drashna docs the array here is called secret and in secrets.h secrets
       }
       return false;
       break;
      }
   return true;
 }
-
-bool process_record_recrets(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-  
-    case PHONE:
-      if (record->event.pressed) {
-          SEND_STRING("3931044785");
-      }
-      return false;
-      break;
-
-    case DESK:
-      if (record->event.pressed) {
-          SEND_STRING("desk" SS_LALT(";") "silviogulizia.com");
-      }
-      return false;
-      break;
-
-    case SGCOM:
-      if (record->event.pressed) {
-          SEND_STRING("https" SS_LSFT(".")SS_LSFT("7")SS_LSFT("7")"silviogulizia.com");
-      }
-      return false;
-      break;
-
-    case VIVERE:
-      if (record->event.pressed) {
-          SEND_STRING("https" SS_LSFT(".") SS_LSFT("7") SS_LSFT("7") "vivereintenzionalmente.com");
-      }
-      return false;
-      break;
-    
-    case SVIV:
-      if (record->event.pressed) {
-          SEND_STRING("silvio" SS_LALT(";") "vivereintenzionalmente.com");
-      }
-      return false;
-      break;
-    
-  }
-  return true;
-};
-
