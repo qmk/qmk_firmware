@@ -32,7 +32,7 @@ const uint8_t ascii_to_shift_lut[16] PROGMEM = {
     KCLUT_ENTRY(0, 1, 1, 1, 1, 1, 1, 0),
     KCLUT_ENTRY(1, 1, 1, 0, 0, 0, 0, 1),
     KCLUT_ENTRY(0, 0, 0, 0, 0, 0, 0, 0),
-    KCLUT_ENTRY(0, 0, 1, 1, 0, 1, 0, 1),
+    KCLUT_ENTRY(0, 0, 1, 1, 0, 1, 1, 1),
     KCLUT_ENTRY(0, 1, 1, 1, 1, 1, 1, 1),
     KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
     KCLUT_ENTRY(1, 1, 1, 1, 1, 1, 1, 1),
@@ -80,7 +80,7 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // 0     1        2        3        4        5        6        7
     RS_0,    RS_1,    RS_2,    RS_3,    RS_4,    RS_5,    RS_6,    RS_7,
     // 8     9        :        ;        <        =        >        ?
-    RS_8,    RS_9,    RS_DOT,  RS_COMM, RS_COMM, RS_0,    RS_DOT,  RS_QUOT,
+    RS_8,    RS_9,    RS_DOT,  RS_COMM, RS_LABK, RS_0,    RS_LABK, RS_QUOT,
     // @     A        B        C        D        E        F        G
     RS_V,    RS_A,    RS_B,    RS_C,    RS_D,    RS_E,    RS_F,    RS_G,
     // H     I        J        K        L        M        N        O
