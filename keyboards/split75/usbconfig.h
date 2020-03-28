@@ -217,7 +217,7 @@ section at the end of this file).
  * with libusb: 0x16c0/0x5dc.  Use this VID/PID pair ONLY if you understand
  * the implications!
  */
-#define USB_CFG_DEVICE_ID       (PRODUCT_ID & 0xFF), ((PRODUCT_ID >> 8) & 0xFF)
+#define USB_CFG_DEVICE_ID
 /* This is the ID of the product, low byte first. It is interpreted in the
  * scope of the vendor ID. If you have registered your own VID with usb.org
  * or if you have licensed a PID from somebody else, define it here. Otherwise
