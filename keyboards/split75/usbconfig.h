@@ -309,7 +309,7 @@ section at the end of this file).
  * };
  */
 
-#define USB_CFG_DESCR_PROPS_DEVICE                  0
+#define USB_CFG_DESCR_PROPS_DEVICE                  USB_PROP_IS_DYNAMIC
 #define USB_CFG_DESCR_PROPS_CONFIGURATION           USB_PROP_IS_DYNAMIC
 #define USB_CFG_DESCR_PROPS_STRINGS                 USB_PROP_IS_DYNAMIC
 #define USB_CFG_DESCR_PROPS_STRING_0                USB_PROP_IS_DYNAMIC
