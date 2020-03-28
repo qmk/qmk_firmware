@@ -35,15 +35,6 @@ with open(os.path.join(qmk_dir, 'requirements.txt'), 'r') as fd:
             print('Please run `pip3 install -r requirements.txt` to install the python dependencies.')
             exit(255)
 
-# Figure out our version
-# TODO(skullydazed/anyone): Find a method that doesn't involve git. This is slow in docker and on windows.
-command = ['git', 'describe', '--abbrev=6', '--dirty', '--always', '--tags']
-result = subprocess.run(command, universal_newlines=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-
-if result.returncode == 0:
-    os.environ['QMK_VERSION'] = result.stdout.strip()
-else:
-    os.environ['QMK_VERSION'] = 'nogit-' + strftime('%Y-%m-%d-%H:%M:%S') + '-dirty'
 
 # Setup the CLI
 import milc  # noqa
