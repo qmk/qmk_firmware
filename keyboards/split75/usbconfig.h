@@ -315,7 +315,6 @@ section at the end of this file).
 #define USB_CFG_DESCR_PROPS_STRING_SERIAL_NUMBER    USB_PROP_IS_DYNAMIC
 #define USB_CFG_DESCR_PROPS_HID                     USB_PROP_IS_DYNAMIC
 #define USB_CFG_DESCR_PROPS_HID_REPORT              USB_PROP_IS_DYNAMIC
-//#define USB_CFG_DESCR_PROPS_HID_REPORT              0
 #define USB_CFG_DESCR_PROPS_UNKNOWN                 0
 
 #define usbMsgPtr_t unsigned short
