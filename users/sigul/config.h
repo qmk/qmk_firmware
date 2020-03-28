@@ -1,3 +1,5 @@
+#pragma once
+
 // My custom configurations
 #define TAPPING_TOGGLE 3 // enable tapping toggle, used to lock level with a custom keycode defined by TT (in my case RAISE, LOWER and MOUSE)
 #define USB_MAX_POWER_CONSUMPTION 100 // required to be able to use the keyboard with iPad
