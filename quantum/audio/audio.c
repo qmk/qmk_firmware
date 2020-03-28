@@ -443,7 +443,7 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
 */
 
 
-bool audio_advance_note(uint32_t step, float end) {
+bool audio_advance_state(uint32_t step, float end) {
     bool goto_next_note = false;
 
     //'playing_note' is stopped manually, so no need to keep track of it here

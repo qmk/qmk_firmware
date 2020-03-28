@@ -261,7 +261,7 @@ void audio_start_hardware(void) {
 #ifdef AUDIO1_PIN_SET
 ISR(AUDIO1_TIMERx_COMPy_vect) {
 
-    audio_advance_note(1,channel_1_frequency/CPU_PRESCALER/8);
+    audio_advance_state(1,channel_1_frequency/CPU_PRESCALER/8);
 
     if (playing_notes)
         channel_1_set_frequency(
@@ -284,7 +284,7 @@ ISR(AUDIO1_TIMERx_COMPy_vect) {
 #if !defined(AUDIO1_PIN_SET) && defined(AUDIO2_PIN_SET)
 ISR(AUDIO2_TIMERx_COMPy_vect) {
 
-    audio_advance_note(1,channel_2_frequency/CPU_PRESCALER/8);
+    audio_advance_state(1,channel_2_frequency/CPU_PRESCALER/8);
 
     if (playing_notes)
         channel_2_set_frequency(

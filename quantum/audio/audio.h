@@ -55,9 +55,9 @@ typedef union {
 
 /**
  * @brief one-time initialization called by quantum/quantum.c
- * @details usually done lazy, when some notes are to be played
+ * @details usually done lazy, when some tones are to be played
  *
- * @post audio system (and hardware) initialized and ready to play notes
+ * @post audio system (and hardware) initialized and ready to play tones
  */
 void audio_init(void);
 /**
@@ -226,11 +226,11 @@ float audio_get_processed_frequency(uint8_t tone_index);
  * @param[in] step arbitrary step value, audio.c keeps track of for the
  *            audio-driver
  * @param[in] end scaling factor multiplied to the note_length. has to match
- *            step so that audio.c can determine when a note has finished playing
- * @return true if the melody advanced to its next note, which the driver might
+ *            step so that audio.c can determine when a tone has finished playing
+ * @return true if the melody advanced to its next tone, which the driver might
  *         need/choose to react to
  */
-bool audio_advance_note(uint32_t step, float end);
+bool audio_advance_state(uint32_t step, float end);
 
 
 

@@ -66,7 +66,6 @@ so adding to config.h:
 #define TO_CHIBIOS_PWMD_EVAL(t) TO_CHIBIOS_PWMD_PASTE(t)
 #define PWMD TO_CHIBIOS_PWMD_EVAL(AUDIO_PWM_PINALTERNATE_TIMER)
 
-extern int  active_tones;
 extern bool playing_note;
 extern bool playing_notes;
 
@@ -177,7 +176,7 @@ GPTConfig   gptCFG = {
        therefore: if the timer ticks away at .frequency = (60*64)Hz,
        and the .intervall counts from 64 downwards - all we need to do is increment the
        note_position on each callback, and have the note_lengt = duration*tempo compare
-       against that; hence: audio_advance_note(step=1, end=1)
+       against that; hence: audio_advance_state(step=1, end=1)
     */
     .frequency = 60 * 64,
     .callback  = gpt_callback,
@@ -228,7 +227,7 @@ void audio_stop_hardware(void) {
 static void gpt_callback(GPTDriver *gptp) {
     float freq;// TODO: freq_alt
 
-    if (audio_advance_note(1, 1)) {
+    if (audio_advance_state(1, 1)) {
         freq = audio_get_processed_frequency(0); // freq_alt would be index=1
         channel_1_set_frequency(freq);
     }

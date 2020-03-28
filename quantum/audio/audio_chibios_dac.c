@@ -118,7 +118,7 @@ static void dac_end(DACDriver *dacp){
     }
 
     // update audio internal state (note position, current_note, ...)
-    audio_advance_note(
+    audio_advance_state(
         DAC_BUFFER_SIZE/2,
         DAC_SAMPLE_RATE/ (64*2.0f/3)
         /* End of the note: 64 is the number of 'units' of a whole note, 3 comes
