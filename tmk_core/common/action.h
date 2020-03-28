@@ -53,6 +53,9 @@ typedef struct {
 #ifndef NO_ACTION_TAPPING
     tap_t tap;
 #endif
+#ifdef COMBO_ENABLE
+    uint16_t keycode;
+#endif
 } keyrecord_t;
 
 /* Execute action per keyevent */
@@ -60,6 +63,7 @@ void action_exec(keyevent_t event);
 
 /* action for key */
 action_t action_for_key(uint8_t layer, keypos_t key);
+action_t action_for_keycode(uint16_t keycode);
 
 /* macro */
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt);
@@ -110,6 +114,7 @@ void clear_keyboard_but_mods(void);
 void clear_keyboard_but_mods_and_keys(void);
 void layer_switch(uint8_t new_layer);
 bool is_tap_key(keypos_t key);
+bool is_tap_record(keyrecord_t *record);
 bool is_tap_action(action_t action);
 
 #ifndef NO_ACTION_TAPPING
