@@ -17,7 +17,7 @@ Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/ne
 
 To program the keyboard, if you have avrdude installed:
 
-    make keyboardio/model01:default:avrdude
+    make keyboardio/model01:default:flash
 
 When prompted to reset your keyboard, press the prog key at upper left. If the
 keyboard does not reset, you can hold the prog key while plugging it into your
