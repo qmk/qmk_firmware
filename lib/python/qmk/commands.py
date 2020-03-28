@@ -66,20 +66,19 @@ def parse_configurator_json(configurator_file):
     return user_keymap
 
 
-def run(command, **kwargs):
+def run(command, *args, **kwargs):
     """Run a command with subprocess.run
     """
     OS = platform.platform().lower()  # noqa (N806), uppercase name is ok in this instance
 
+    if isinstance(command, str):
+        raise TypeError('command must be a sequence of items such as list or tuple.')
+
     if 'windows' in OS:
-        # Make sure the command is a string
-        if isinstance(command, list):
-            command = ' '.join(command)
+        command = map(shlex.quote, command)
+        command = ' '.join(command)
         # On Windows, we want to run stuff (especially scripts)
         # in a Posix shell
-        command = [os.environ['SHELL'], '-c', command]
-    elif isinstance(command, str):
-        command = command.split()
-
+        command = ['/bin/sh', '-c', command]
     # Execute the command
-    return subprocess.run(command, **kwargs)
+    return subprocess.run(command, *args, **kwargs)
