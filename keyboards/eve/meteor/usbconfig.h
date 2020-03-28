@@ -197,7 +197,7 @@ section at the end of this file).
 
 /* -------------------------- Device Description --------------------------- */
 
-#define USB_CFG_VENDOR_ID       (VENDOR_ID & 0xFF), ((VENDOR_ID >> 8) & 0xFF)
+#define USB_CFG_VENDOR_ID
 /* USB vendor ID for the device, low byte first. If you have registered your
  * own Vendor ID, define it here. Otherwise you may use one of obdev's free
  * shared VID/PID pairs. Be sure to read USB-IDs-for-free.txt for rules!
@@ -206,7 +206,7 @@ section at the end of this file).
  * with libusb: 0x16c0/0x5dc.  Use this VID/PID pair ONLY if you understand
  * the implications!
  */
-#define USB_CFG_DEVICE_ID       (PRODUCT_ID & 0xFF), ((PRODUCT_ID >> 8) & 0xFF)
+#define USB_CFG_DEVICE_ID
 /* This is the ID of the product, low byte first. It is interpreted in the
  * scope of the vendor ID. If you have registered your own VID with usb.org
  * or if you have licensed a PID from somebody else, define it here. Otherwise
@@ -216,9 +216,6 @@ section at the end of this file).
  * This template uses obdev's shared VID/PID pair for Vendor Class devices
  * with libusb: 0x16c0/0x5dc.  Use this VID/PID pair ONLY if you understand
  * the implications!
- */
-#define USB_CFG_DEVICE_VERSION  (DEVICE_VER & 0xFF), ((DEVICE_VER >> 8) & 0xFF)
-/* Version number of the device: Minor number first, then major number.
  */
 #define USB_CFG_DEVICE_CLASS        0
 #define USB_CFG_DEVICE_SUBCLASS     0
@@ -298,18 +295,15 @@ section at the end of this file).
  * };
  */
 
-#define USB_CFG_DESCR_PROPS_DEVICE                  0
+#define USB_CFG_DESCR_PROPS_DEVICE                  USB_PROP_IS_DYNAMIC
 #define USB_CFG_DESCR_PROPS_CONFIGURATION           USB_PROP_IS_DYNAMIC
-//#define USB_CFG_DESCR_PROPS_CONFIGURATION           0
 #define USB_CFG_DESCR_PROPS_STRINGS                 USB_PROP_IS_DYNAMIC
 #define USB_CFG_DESCR_PROPS_STRING_0                USB_PROP_IS_DYNAMIC
 #define USB_CFG_DESCR_PROPS_STRING_VENDOR           USB_PROP_IS_DYNAMIC
 #define USB_CFG_DESCR_PROPS_STRING_PRODUCT          USB_PROP_IS_DYNAMIC
 #define USB_CFG_DESCR_PROPS_STRING_SERIAL_NUMBER    USB_PROP_IS_DYNAMIC
 #define USB_CFG_DESCR_PROPS_HID                     USB_PROP_IS_DYNAMIC
-//#define USB_CFG_DESCR_PROPS_HID                     0
 #define USB_CFG_DESCR_PROPS_HID_REPORT              USB_PROP_IS_DYNAMIC
-//#define USB_CFG_DESCR_PROPS_HID_REPORT              0
 #define USB_CFG_DESCR_PROPS_UNKNOWN                 0
 
 #define usbMsgPtr_t unsigned short
