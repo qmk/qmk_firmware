@@ -44,6 +44,17 @@ static bool                matrix_need_update;
 #define DEBOUNCE_ELAPSED 251
 #define MAX_DEBOUNCE (DEBOUNCE_ELAPSED - 1)
 
+static uint16_t custom_wrap_timer_reference = 0;
+static uint8_t custom_wrap_timer_last_value = 0;
+
+static uint8_t custom_wrap_timer_read(void) {
+    uint16_t custom_wrap_timer_new_reference = timer_read();
+    uint16_t diff = custom_wrap_timer_new_reference - custom_wrap_timer_reference;
+    custom_wrap_timer_reference = custom_wrap_timer_new_reference;
+    custom_wrap_timer_last_value = (custom_wrap_timer_last_value + diff) % (MAX_DEBOUNCE + 1);
+    return custom_wrap_timer_last_value;
+}
+
 void update_debounce_counters(uint8_t num_rows, uint8_t current_time);
 void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t current_time);
 
@@ -59,7 +70,7 @@ void debounce_init(uint8_t num_rows) {
 }
 
 void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
-    uint8_t current_time = timer_read() % MAX_DEBOUNCE;
+    uint8_t current_time = custom_wrap_timer_read();
     if (counters_need_update) {
         update_debounce_counters(num_rows, current_time);
     }
