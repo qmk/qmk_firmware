@@ -69,14 +69,13 @@ def parse_configurator_json(configurator_file):
 def run(command, *args, **kwargs):
     """Run a command with subprocess.run
     """
-    OS = platform.platform().lower()  # noqa (N806), uppercase name is ok in this instance
-
     if isinstance(command, str):
-        raise TypeError('command must be a sequence of items such as list or tuple.')
+        raise TypeError('`command` must be a sequence such as list or tuple.')
 
-    if 'windows' in OS:
+    platform_id = platform.platform().lower()
+
+    if 'windows' in platform_id:
         command = map(shlex.quote, command)
-        command = ' '.join(command)
         # On Windows, we want to run stuff (especially scripts)
         # in a Posix shell
         command = ['C:/msys64/usr/bin/sh', '-c', command]
