@@ -59,6 +59,8 @@ __attribute__((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrec
 __attribute__((weak)) bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) { return false; }
 #endif
 
+__attribute__((weak)) bool pre_process_record_quantum(keyrecord_t *record) { return true; }
+
 #ifndef TAP_CODE_DELAY
 #    define TAP_CODE_DELAY 0
 #endif
@@ -115,9 +117,13 @@ void action_exec(keyevent_t event) {
 #endif
 
 #ifndef NO_ACTION_TAPPING
-    action_tapping_process(record);
+    if (IS_NOEVENT(record.event) || pre_process_record_quantum(&record)) {
+        action_tapping_process(record);
+    }
 #else
-    process_record(&record);
+    if (IS_NOEVENT(record.event) || pre_process_record_quantum(&record)) {
+        process_record(&record);
+    }
     if (!IS_NOEVENT(record.event)) {
         dprint("processed: ");
         debug_record(record);
@@ -214,7 +220,16 @@ void process_record(keyrecord_t *record) {
 }
 
 void process_record_handler(keyrecord_t *record) {
+#ifdef COMBO_ENABLE
+    action_t action;
+    if (record->keycode) {
+        action = action_for_keycode(record->keycode);
+    } else {
+        action = store_or_get_action(record->event.pressed, record->event.key);
+    }
+#else
     action_t action = store_or_get_action(record->event.pressed, record->event.key);
+#endif
     dprint("ACTION: ");
     debug_action(action);
 #ifndef NO_ACTION_LAYER
@@ -1036,6 +1051,24 @@ void clear_keyboard_but_mods_and_keys() {
  */
 bool is_tap_key(keypos_t key) {
     action_t action = layer_switch_get_action(key);
+    return is_tap_action(action);
+}
+
+/** \brief Utilities for actions. (FIXME: Needs better description)
+ *
+ * FIXME: Needs documentation.
+ */
+bool is_tap_record(keyrecord_t *record) {
+#ifdef COMBO_ENABLE
+    action_t action;
+    if (record->keycode) {
+        action = action_for_keycode(record->keycode);
+    } else {
+        action = layer_switch_get_action(record->event.key);
+    }
+#else
+    action_t action = layer_switch_get_action(record->event.key);
+#endif
     return is_tap_action(action);
 }
 
