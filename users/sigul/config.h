@@ -15,3 +15,5 @@
 // Maximum number of scroll steps per scroll action
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 0
 // Time until maximum scroll speed is reached
+
+#define MACRO_TIMER 5
