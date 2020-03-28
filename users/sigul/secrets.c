@@ -16,47 +16,55 @@ static const char * const secret[] = {
 
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QWERTY: // Secrets!  Externally defined strings, not stored in repo
+    case PHONE ... SVIV: // Secrets!  Externally defined strings, not stored in repo
       if (!record->event.pressed) {
-        send_string_with_delay(secret[keycode - QWERTY], MACRO_TIMER);
+        send_string_with_delay(secrets[keycode - PHONE], MACRO_TIMER);
       }
       return false;
       break;
-  }
-    case PHONE: // Secrets!  Externally defined strings, not stored in repo
-      if (!record->event.pressed) {
-        send_string_with_delay(secret[keycode - PHONE], MACRO_TIMER);
-      }
-      return false;
-      break;
-  }
-    case DESK: // Secrets!  Externally defined strings, not stored in repo
-      if (!record->event.pressed) {
-        send_string_with_delay(secret[keycode - DESK], MACRO_TIMER);
-      }
-      return false;
-      break;
-  }
-    case SGCOM: // Secrets!  Externally defined strings, not stored in repo
-      if (!record->event.pressed) {
-        send_string_with_delay(secret[keycode - SGCOM], MACRO_TIMER);
-      }
-      return false;
-      break;
-  }
-    case VIVERE: // Secrets!  Externally defined strings, not stored in repo
-      if (!record->event.pressed) {
-        send_string_with_delay(secret[keycode - VIVERE], MACRO_TIMER);
-      }
-      return false;
-      break;
-  }
-    case SVIV: // Secrets!  Externally defined strings, not stored in repo
-      if (!record->event.pressed) {
-        send_string_with_delay(secret[keycode - SVIV], MACRO_TIMER);
-      }
-      return false;
-      break;
-  }
+     }
   return true;
 }
+
+bool process_record_recrets(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+  
+    case PHONE:
+      if (record->event.pressed) {
+          SEND_STRING("3931044785");
+      }
+      return false;
+      break;
+
+    case DESK:
+      if (record->event.pressed) {
+          SEND_STRING("desk" SS_LALT(";") "silviogulizia.com");
+      }
+      return false;
+      break;
+
+    case SGCOM:
+      if (record->event.pressed) {
+          SEND_STRING("https" SS_LSFT(".")SS_LSFT("7")SS_LSFT("7")"silviogulizia.com");
+      }
+      return false;
+      break;
+
+    case VIVERE:
+      if (record->event.pressed) {
+          SEND_STRING("https" SS_LSFT(".") SS_LSFT("7") SS_LSFT("7") "vivereintenzionalmente.com");
+      }
+      return false;
+      break;
+    
+    case SVIV:
+      if (record->event.pressed) {
+          SEND_STRING("silvio" SS_LALT(";") "vivereintenzionalmente.com");
+      }
+      return false;
+      break;
+    
+  }
+  return true;
+};
+
