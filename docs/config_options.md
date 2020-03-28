@@ -53,6 +53,8 @@ This is a C header file that is one of the first things included, and will persi
   * pins of the rows, from top to bottom
 * `#define MATRIX_COL_PINS { F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7 }`
   * pins of the columns, from left to right
+* `#define MATRIX_IO_DELAY 30`
+  * the delay in microseconds when between changing matrix pin state and reading values
 * `#define UNUSED_PINS { D1, D2, D3, B1, B2, B3 }`
   * pins unused by the keyboard for reference
 * `#define MATRIX_HAS_GHOST`
@@ -78,7 +80,7 @@ This is a C header file that is one of the first things included, and will persi
 * `#define BACKLIGHT_PIN B7`
   * pin of the backlight
 * `#define BACKLIGHT_LEVELS 3`
-  * number of levels your backlight will have (maximum 15 excluding off)
+  * number of levels your backlight will have (maximum 31 excluding off)
 * `#define BACKLIGHT_BREATHING`
   * enables backlight breathing
 * `#define BREATHING_PERIOD 6`
@@ -134,19 +136,25 @@ If you define these options you will enable the associated feature, which may in
   * enables handling for per key `TAPPING_TERM` settings
 * `#define RETRO_TAPPING`
   * tap anyway, even after TAPPING_TERM, if there was no other key interruption between press and release
-  * See [Retro Tapping](feature_advanced_keycodes.md#retro-tapping) for details
+  * See [Retro Tapping](tap_hold.md#retro-tapping) for details
 * `#define TAPPING_TOGGLE 2`
   * how many taps before triggering the toggle
 * `#define PERMISSIVE_HOLD`
   * makes tap and hold keys trigger the hold if another key is pressed before releasing, even if it hasn't hit the `TAPPING_TERM`
-  * See [Permissive Hold](feature_advanced_keycodes.md#permissive-hold) for details
+  * See [Permissive Hold](tap_hold.md#permissive-hold) for details
+* `#define PERMISSIVE_HOLD_PER_KEY`
+  * enabled handling for per key `PERMISSIVE_HOLD` settings
 * `#define IGNORE_MOD_TAP_INTERRUPT`
   * makes it possible to do rolling combos (zx) with keys that convert to other keys on hold, by enforcing the `TAPPING_TERM` for both keys.
-  * See [Mod tap interrupt](feature_advanced_keycodes.md#ignore-mod-tap-interrupt) for details
+  * See [Ignore Mod Tap Interrupt](tap_hold.md#ignore-mod-tap-interrupt) for details
+* `#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY`
+  * enables handling for per key `IGNORE_MOD_TAP_INTERRUPT` settings
 * `#define TAPPING_FORCE_HOLD`
   * makes it possible to use a dual role key as modifier shortly after having been tapped
-  * See [Hold after tap](feature_advanced_keycodes.md#tapping-force-hold)
+  * See [Tapping Force Hold](tap_hold.md#tapping-force-hold)
   * Breaks any Tap Toggle functionality (`TT` or the One Shot Tap Toggle)
+* `#define TAPPING_FORCE_HOLD_PER_KEY`
+  * enables handling for per key `TAPPING_FORCE_HOLD` settings
 * `#define LEADER_TIMEOUT 300`
   * how long before the leader key times out
     * If you're having issues finishing the sequence before it times out, you may need to increase the timeout setting. Or you may want to enable the `LEADER_PER_KEY_TIMING` option, which resets the timeout after each key is tapped.
@@ -182,6 +190,8 @@ If you define these options you will enable the associated feature, which may in
   * pin the DI on the WS2812 is hooked-up to
 * `#define RGBLIGHT_ANIMATIONS`
   * run RGB animations
+* `#define RGBLIGHT_LAYERS`
+  * Lets you define [lighting layers](feature_rgblight.md) that can be toggled on or off. Great for showing the current keyboard layer or caps lock state.
 * `#define RGBLED_NUM 12`
   * number of LEDs
 * `#define RGBLIGHT_SPLIT`
@@ -196,8 +206,8 @@ If you define these options you will enable the associated feature, which may in
   * units to step when in/decreasing saturation
 * `#define RGBLIGHT_VAL_STEP 12`
   * units to step when in/decreasing value (brightness)
-* `#define RGBW_BB_TWI`
-  * bit-bangs TWI to EZ RGBW LEDs (only required for Ergodox EZ)
+* `#define RGBW`
+  * Enables RGBW LED support
 
 ## Mouse Key Options
 
@@ -267,6 +277,17 @@ There are a few different ways to set handedness for split keyboards (listed in 
     * 4: about 26kbps
     * 5: about 20kbps
 
+* `#define SPLIT_USB_DETECT`
+  * Detect (with timeout) USB connection when delegating master/slave
+  * Default behavior for ARM
+  * Required for AVR Teensy
+
+* `#define SPLIT_USB_TIMEOUT 2000`
+  * Maximum timeout when detecting master/slave when using `SPLIT_USB_DETECT`
+
+* `#define SPLIT_USB_TIMEOUT_POLL 10`
+  * Poll frequency when detecting master/slave when using `SPLIT_USB_DETECT`
+
 # The `rules.mk` File
 
 This is a [make](https://www.gnu.org/software/make/manual/make.html) file that is included by the top-level `Makefile`. It is used to set some information about the MCU that we will be compiling for as well as enabling and disabling certain features.
@@ -279,8 +300,27 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
   * Defines which format (bin, hex) is copied to the root `qmk_firmware` folder after building.
 * `SRC`
   * Used to add files to the compilation/linking list.
+* `LIB_SRC`
+  * Used to add files as a library to the compilation/linking list.  
+    The files specified by `LIB_SRC` is linked after the files specified by `SRC`.  
+    For example, if you specify:
+    ```
+    SRC += a.c
+    LIB_SRC += lib_b.c
+    SRC += c.c
+    LIB_SRC += lib_d.c
+    ```
+    The link order is as follows.
+    ```
+     ...  a.o c.o  ...  lib_b.a lib_d.a  ...
+    ```
 * `LAYOUTS`
   * A list of [layouts](feature_layouts.md) this keyboard supports.
+* `LINK_TIME_OPTIMIZATION_ENABLE`
+  * Enables Link Time Optimization (`LTO`) when compiling the keyboard.  This makes the process take longer, but can significantly reduce the compiled size (and since the firmware is small, the added time is not noticeable).  However, this will automatically disable the old Macros and Functions features automatically, as these break when `LTO` is enabled.
+  It does this by automatically defining `NO_ACTION_MACRO` and `NO_ACTION_FUNCTION`
+* `LTO_ENABLE`
+  * It has the same meaning as LINK_TIME_OPTIMIZATION_ENABLE.  You can use `LTO_ENABLE` instead of `LINK_TIME_OPTIMIZATION_ENABLE`.
 
 ## AVR MCU Options
 * `MCU = atmega32u4`
@@ -297,18 +337,18 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
   * `bootloadHID`
   * `USBasp`
 
-## Feature Options
+## Feature Options :id=feature-options
 
 Use these to enable or disable building certain features. The more you have enabled the bigger your firmware will be, and you run the risk of building a firmware too large for your MCU.
 
 * `BOOTMAGIC_ENABLE`
-  * Virtual DIP switch configuration(+1000)
+  * Virtual DIP switch configuration
 * `MOUSEKEY_ENABLE`
-  * Mouse keys(+4700)
+  * Mouse keys
 * `EXTRAKEY_ENABLE`
-  * Audio control and System control(+450)
+  * Audio control and System control
 * `CONSOLE_ENABLE`
-  * Console for debug(+400)
+  * Console for debug
 * `COMMAND_ENABLE`
   * Commands for debug and configuration
 * `COMBO_ENABLE`
@@ -339,8 +379,6 @@ Use these to enable or disable building certain features. The more you have enab
   * Forces the keyboard to wait for a USB connection to be established before it starts up
 * `NO_USB_STARTUP_CHECK`
   * Disables usb suspend check after keyboard startup. Usually the keyboard waits for the host to wake it up before any tasks are performed. This is useful for split keyboards as one half will not get a wakeup call but must send commands to the master.
-* `LINK_TIME_OPTIMIZATION_ENABLE`
-  = Enables Link Time Optimization (`LTO`) when compiling the keyboard.  This makes the process take longer, but can significantly reduce the compiled size (and since the firmware is small, the added time is not noticable).  However, this will automatically disable the old Macros and Functions features automatically, as these break when `LTO` is enabled.  It does this by automatically defining `NO_ACTION_MACRO` and `NO_ACTION_FUNCTION` 
 
 ## USB Endpoint Limitations
 

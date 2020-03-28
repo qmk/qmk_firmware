@@ -60,11 +60,8 @@ util/Win_Check_Output.txt
 
 # ignore image files
 *.png
-*.jpg
 *.gif
-
-# Do not ignore MiniDox left/right hand eeprom files
-!keyboards/minidox/*.eep
+*.jpg
 
 # things travis sees
 secrets.tar
@@ -74,6 +71,10 @@ id_rsa_*
 # python things
 __pycache__
 
+# prerequisites for updating ChibiOS
+/util/fmpp*
+
+sigul-planck
 # custom code added to hide my secret files
 secrets.c
 secrets.h
