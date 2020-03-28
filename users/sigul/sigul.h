@@ -21,11 +21,11 @@ enum userspace_custom_keycodes {
   IT_SLQS, // IT_SLSH and IT_QST when combined with shift
   IT_APDQ, // IT_APO and IT_DQOT when combined with shift
   IT_SCCL, // IT_SMCL and IT_COLN when combined with shift
+  PHONE, // my phone number
   DESK, // personal email
-  VIVERE, // website
-  SVIV, // website email
   SGCOM, // personal website
-  PHONE // my phone number
+  VIVERE, // website
+  SVIV // website email
 };
 
 // Defining Layer Keycodes
