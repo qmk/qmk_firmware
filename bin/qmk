@@ -2,10 +2,8 @@
 """CLI wrapper for running QMK commands.
 """
 import os
-import subprocess
 import sys
 from importlib.util import find_spec
-from time import strftime
 
 # Add the QMK python libs to our path
 script_dir = os.path.dirname(os.path.realpath(__file__))
@@ -34,7 +32,6 @@ with open(os.path.join(qmk_dir, 'requirements.txt'), 'r') as fd:
             print('Could not find module %s!' % module)
             print('Please run `pip3 install -r requirements.txt` to install the python dependencies.')
             exit(255)
-
 
 # Setup the CLI
 import milc  # noqa
