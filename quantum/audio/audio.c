@@ -51,15 +51,15 @@ uint32_t note_position  = 0; // where in time, during playback of the current_no
 
 
 //TODO/REFACTORING: check below variables if/where they are still used
-#ifdef AUDIO_ENABLE_POLYPHONY
-int   tone_place   = 0;
-float    polyphony_rate = 0;
-#endif
 float    note_frequency = 0; // Hz
 float    note_timbre    = TIMBRE_DEFAULT;
 bool     note_resting = false; //?? current note is a pause? or is this supposed to indicate a 'tie'?
 
-
+#ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
+//TODO: if active, AUDIO_MAX_SIMULTANEOUS_TONES should be set to >>1 for the feature to make sense
+int      tone_place   = 0;
+float    tone_multiplexing_rate = 0;
+#endif
 
 #ifdef AUDIO_ENABLE_VIBRATO
 float vibrato_counter  = 0;
@@ -67,8 +67,9 @@ float vibrato_strength = .5;
 float vibrato_rate     = 0.125;
 #endif
 
+// used by voices.c
 uint16_t envelope_index = 0;
-bool     glissando      = true;
+bool     glissando      = false;
 
 
 #ifndef STARTUP_SONG
@@ -180,7 +181,7 @@ void stop_note(float freq) {
 
         active_tones--;
         if (active_tones < 0) active_tones = 0;
-#ifdef AUDIO_ENABLE_POLYPHONY
+#ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
         if (tone_place >= active_tones) {
             tone_place = 0;
         }
@@ -294,6 +295,7 @@ float audio_get_processed_frequency(uint8_t tone_index) {
     if (frequencies[index] <= 0.0f)
         return 0.0f;
 
+    //TODO make it work and test, currently probably non-functional because it needs some state to keep track of previous tones, the current tone position ...?
     if (glissando) { // see voices.c
         if (frequency != 0 && frequency < frequencies[index]
             && frequency < frequencies[index] * pow(2, -440 / frequencies[index] / 12 / 2)) {
@@ -332,7 +334,10 @@ float audio_get_processed_frequency(uint8_t tone_index) {
 /* REMOVEME
    the following code block is a leftover of the audio-refactoring, which deduplicated code among the different implementations at the time - boiled down to this function, which was to be called by an avr ISR to do single/dual channel pwm
 
-   there are lots of avr hardware specifica in there, but also some features still that could/should? be refactored into the "new" audio system - like "software polyphonic" audio, which cycles through/time multiplexes the currently active tones, avoiding the hardware limit of one or two pwm outputs/speakers; which by themselve can only render one frequency at a time (unlike the arm-dac implementation, which can do wave-synthesis to combine multiple frequencies)
+   there are lots of avr hardware specifica in there, but also some features still that could/should? be refactored into the "new" audio system - like
+   - "software polyphonic" audio, which cycles through/time multiplexes the currently active tones, avoiding the hardware limit of one or two pwm outputs/speakers; which by themselve can only render one frequency at a time (unlike the arm-dac implementation, which can do wave-synthesis to combine multiple frequencies)
+   (according to wikipedia: polyphonic is actually something different: concurrent melodies/voices that play with/against each other
+   - "note_resting": which does a short gab between consecutive tones of the same frequency; to not slurr them together, like making to quarter-notes into one half-note
 
    most of the logic has been refactored and moved into the different parts of the current implementation though
 
@@ -347,11 +352,11 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
             *freq_alt = 0.0f;
 #endif
 
-            if (polyphony_rate > 0) {
+            if (tone_multiplexing_rate > 0) {
                 if (active_tones > 1) {
                     tone_place %= active_tones; ///2020-03-26: hm, is the tone_place (plus the polythony_rate?) intended to be used to cycle through active tones, if the number of available hardware channels is insufficient? (like with avr/arm pwm?)
 
-                    //                    if (place++ > (frequencies[tone_place] / polyphony_rate / CPU_PRESCALER)) {
+                    //                    if (place++ > (frequencies[tone_place] / tone_multiplexing_rate / CPU_PRESCALER)) {
                     //                        tone_place = (tone_place + 1) % active_tones;
                     //                        place = 0.0;
                     //                    }
@@ -515,13 +520,13 @@ void decrease_vibrato_strength(float change) { vibrato_strength /= change; }
 #    endif /* AUDIO_ENABLE_VIBRATO_STRENGTH */
 #endif /* AUDIO_ENABLE_VIBRATO */
 
-// Polyphony functions
-#ifdef AUDIO_ENABLE_POLYPHONY
-void set_polyphony_rate(float rate) { polyphony_rate = rate; }
-void enable_polyphony(void) { polyphony_rate = 5; }
-void disable_polyphony(void) { polyphony_rate = 0; }
-void increase_polyphony_rate(float change) { polyphony_rate *= change; }
-void decrease_polyphony_rate(float change) { polyphony_rate /= change; }
+// Tone-multiplexing functions
+#ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
+void set_tone_multiplexing_rate(float rate) { tone_multiplexing_rate = rate; }
+void enable_tone_multiplexing(void) { tone_multiplexing_rate = AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT; }
+void disable_tone_multiplexing(void) { tone_multiplexing_rate = 0; }
+void increase_tone_multiplexing_rate(float change) { tone_multiplexing_rate *= change; }
+void decrease_tone_multiplexing_rate(float change) { tone_multiplexing_rate /= change; }
 #endif
 
 // Timbre function

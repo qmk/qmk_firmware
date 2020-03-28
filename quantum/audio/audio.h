@@ -157,13 +157,18 @@ void decrease_vibrato_strength(float change);
 #    endif
 #endif
 
-// Polyphony functions
-#ifdef AUDIO_ENABLE_POLYPHONY
-void set_polyphony_rate(float rate);
-void enable_polyphony(void);
-void disable_polyphony(void);
-void increase_polyphony_rate(float change);
-void decrease_polyphony_rate(float change);
+// Tone-Multiplexing functions
+// this feature only makes sense for hardware setups which can't do proper
+// audio-wave synthesis = have no DAC and need to use PWM for tone generation
+#ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
+#    ifndef AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT
+#        define AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT 0
+#    endif
+void set_tone_multiplexing_rate(float rate);
+void enable_tone_multiplexing(void);
+void disable_tone_multiplexing(void);
+void increase_tone_multiplexing_rate(float change);
+void decrease_tone_multiplexing_rate(float change);
 #endif
 
 // Timbre function
