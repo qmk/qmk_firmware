@@ -34,17 +34,17 @@ void matrix_init_kb(void) {
 }
 
 void blink_all_leds(void) {
-    led_1_on();
+    led_3_on();
     wait_ms(50);
     led_2_on();
     wait_ms(50);
-    led_3_on();
+    led_1_on();
     wait_ms(50);
-    led_1_off();
+    led_3_off();
     wait_ms(50);
     led_2_off();
     wait_ms(50);
-    led_3_off();
+    led_1_off();
 }
 void keyboard_post_init_kb(void) {
   led_set_user(0);
