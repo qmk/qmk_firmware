@@ -14,7 +14,7 @@ Most of our style is pretty easy to pick up on, but right now it's not entirely 
   * Think of them as a story describing the feature
   * Use them liberally to explain why particular decisions were made.
   * Do not write obvious comments
-  * If you not sure if a comment is obvious, go ahead and include it.
+  * If you're not sure if a comment is obvious, go ahead and include it.
 * In general we don't wrap lines, they can be as long as needed. If you do choose to wrap lines please do not wrap any wider than 76 columns.
 * We use `#pragma once` at the start of header files rather than old-style include guards (`#ifndef THIS_FILE_H`, `#define THIS_FILE_H`, ..., `#endif`)
 * We accept both forms of preprocessor if's: `#ifdef DEFINED` and `#if defined(DEFINED)`
@@ -31,17 +31,17 @@ Here is an example for easy reference:
 ```c
 /* Enums for foo */
 enum foo_state {
-  FOO_BAR,
-  FOO_BAZ,
+    FOO_BAR,
+    FOO_BAZ,
 };
 
 /* Returns a value */
 int foo(void) {
-  if (some_condition) {
-    return FOO_BAR;
-  } else {
-    return -1;
-  }
+    if (some_condition) {
+        return FOO_BAR;
+    } else {
+        return -1;
+    }
 }
 ```
 

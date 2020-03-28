@@ -2,19 +2,26 @@
 #include <stdio.h>
 #include "ninjonas.h"
 
-#ifdef OLED_DRIVER_ENABLE
+#if defined(OLED_DRIVER_ENABLE) & !defined(KEYBOARD_kyria_rev1)
 
-static uint16_t oled_timer = 0;
+static uint32_t oled_timer = 0;
 extern uint8_t is_master;
 
-bool process_record_oled(uint16_t keycode, keyrecord_t *record) { 
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+  if (is_master) {
+    return OLED_ROTATION_0;
+  }
+  return OLED_ROTATION_180;
+}
+
+bool process_record_oled(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
-        oled_timer = timer_read();
-    }	    
+        oled_timer = timer_read32();
+    }
     return true;
 }
 
-void render_default_layer_state(void) {
+void render_layout_state(void) {
   oled_write_P(PSTR("Layout: "), false);
   switch (biton32(default_layer_state)) {
       case _COLEMAK:
@@ -31,25 +38,46 @@ void render_default_layer_state(void) {
   }
 }
 
-void render_layer_state(void) {
-    oled_write_P(PSTR("\nLayer:"), false);
-    oled_write_P(PSTR(" LOW"), layer_state_is(_LOWER));
-    oled_write_P(PSTR(" RAI"), layer_state_is(_RAISE));
-    oled_write_P(PSTR(" ADJ"), layer_state_is(_ADJUST));
+void oled_white_space(void){
+  oled_write_P(PSTR(" "), false);
 }
 
-void render_mod_status(uint8_t modifiers) {
-    oled_write_P(PSTR("\nMods: "), false);
-    oled_write_P(PSTR("SHF "), (modifiers & MOD_MASK_SHIFT));
-    oled_write_P(PSTR("CTL "), (modifiers & MOD_MASK_CTRL));
-    oled_write_P(PSTR("ALT "), (modifiers & MOD_MASK_ALT));
-    oled_write_P(PSTR("GUI"), (modifiers & MOD_MASK_GUI));
+void render_layer_state(void) {
+  oled_write_P(PSTR("\nLayer:"), false);
+  bool lower = layer_state_is(_LOWER) & !layer_state_is(_ADJUST);
+  bool raise = layer_state_is(_RAISE) & !layer_state_is(_ADJUST);
+  bool adjust = layer_state_is(_ADJUST);
+  bool numpad = layer_state_is(_NUMPAD);
+
+  if(lower){ 
+    oled_write_P(PSTR(" Lower "), true); 
+  } else if(raise){ 
+    oled_write_P(PSTR(" Raise "), true); 
+  } else if(adjust){ 
+      oled_write_P(PSTR(" Adjust "), true); 
+  } else if(numpad) {
+      oled_write_P(PSTR(" Numpad "), true); 
+  } else { 
+    oled_write_P(PSTR(" Default"), false); 
+  }
+}
+
+void render_mod_state(uint8_t modifiers) {
+  oled_write_P(PSTR("\nMods: "), false);
+  oled_write_P(PSTR("SHF"), (modifiers & MOD_MASK_SHIFT));
+  oled_white_space();
+  oled_write_P(PSTR("CTL"), (modifiers & MOD_MASK_CTRL));
+  oled_white_space();
+  oled_write_P(PSTR("ALT"), (modifiers & MOD_MASK_ALT));
+  oled_white_space();
+  oled_write_P(PSTR("GUI"), (modifiers & MOD_MASK_GUI));
 }
 
 void render_status(void){
-  render_default_layer_state();
+  render_layout_state();
+  oled_write_P(PSTR("\n"), false);
   render_layer_state();
-  render_mod_status(get_mods()|get_oneshot_mods());
+  render_mod_state(get_mods()|get_oneshot_mods());
 }
 
 static void render_logo(void) {
@@ -63,19 +91,20 @@ static void render_logo(void) {
 }
 
 void oled_task_user(void) {
-    if (timer_elapsed(oled_timer) > 30000) {
+    if (timer_elapsed32(oled_timer) > 15000) {
         oled_off();
         return;
     }
     #ifndef SPLIT_KEYBOARD
     else { oled_on(); }
     #endif
-    
+
     if (is_master) {
-        render_status();     
+        render_status();
     } else {
-        render_logo();       
-        oled_scroll_left();  
+        render_logo();
+        oled_write_P(PSTR("\n"), false);
+        oled_scroll_left();
     }
 }
 

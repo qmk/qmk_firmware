@@ -1,16 +1,21 @@
-EXTRAFLAGS += -flto
-LAYOUTS = 66_ansi
+# MCU name
 MCU = atmega32u4
-F_CPU = 16000000
-ARCH = AVR8
-F_USB = $(F_CPU)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
+
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
+BOOTLOADER = atmel-dfu
 
 # Build Options
 #   comment out to disable the options.
 #
 BACKLIGHT_ENABLE = yes
+BACKLIGHT_DRIVER = custom
 BOOTMAGIC_ENABLE = no
 MOUSEKEY_ENABLE = no
 EXTRAKEY_ENABLE = yes
@@ -22,3 +27,6 @@ RGBLIGHT_ENABLE = yes
 MIDI_ENABLE = no
 UNICODE_ENABLE = no
 BLUETOOTH_ENABLE = no
+
+EXTRAFLAGS += -flto
+LAYOUTS = 66_ansi

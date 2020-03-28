@@ -3,45 +3,12 @@
 # Use a comma as a separator without spaces
 # Driver can be one of winusb,libusb,libusbk
 # Use Windows Powershell and type [guid]::NewGuid() to generate guids
+winusb,STM32 Bootloader,0483,DF11,6d98a87f-4ecf-464d-89ed-8c684d857a75
+libusb,USBaspLoader,16C0,05DC,e69affdc-0ef0-427c-aefb-4e593c9d2724
 winusb,Kiibohd DFU Bootloader,1C11,B007,aa5a3f86-b81e-4416-89ad-0c1ea1ed63af
-winusb,STM32 Bootloader,0483,df11,6d98a87f-4ecf-464d-89ed-8c684d857a75
-libusb,ATxmega16C4,03EB,2FD8,23266ee7-5423-4cc4-993b-034571c43a90
-libusb,ATxmega32C4,03EB,2FD9,d4b62886-2ac8-4534-aa24-eae0a2c3ce43
-libusb,ATxmega64C3,03EB,2FD6,08467ca7-9b5a-41d2-8d8a-4a26d0b5285b
-libusb,ATxmega128C3,03EB,2FD7,1ca69799-6d95-46cf-be69-5b3d0eb915e6
-libusb,ATxmega256C3,03EB,2FDA,216ddc8b-6c67-4cc0-b934-482829a483a0
-libusb,ATxmega384C3,03EB,2FDB,0e4e3347-6025-4d49-ba80-2375ea690c28
-libusb,ATxmega64A1U,03EB,2FE8,2553d8fa-7de1-44a6-bdbf-57be8bb37e28
-libusb,ATxmega128A1U,03EB,2FED,6d9fd0ff-755d-4e29-bd29-df0a9a7544b9
-libusb,ATxmega64A4U,03EB,2FDD,bcf5e7c3-44a1-4fd1-971f-9ef9843f6291
-libusb,ATxmega128A4U,03EB,2FDE,3f976bb6-36ca-44cc-a728-844bc1d0d168
-libusb,ATxmega64B3,03EB,2FDF,de280c81-c12a-4ca7-bf34-566151786418
-libusb,ATxmega128B3,03EB,2FE0,2ad1ffeb-eb83-4e78-b34a-d5633771991f
-libusb,ATxmega64B1,03EB,2FE1,002874a6-7fc7-413b-9ac4-2b52c5a230bd
-libusb,ATxmega128B1,03EB,2FEA,60ea9d08-2ae6-4434-b743-ce6f73537136
-libusb,ATxmega256A3BU,03EB,2FE2,5949bd0a-8bd4-417b-b1c5-7d249836bf0d
-libusb,ATxmega16A4U,03EB,2FE3,cc3172b0-e86a-4758-914e-951bca6ca7f5
-libusb,ATxmega32A4U,03EB,2FE4,f44c515f-7d17-4612-a532-ee620afb22b2
-libusb,ATxmega64A4U,03EB,2FE5,c1af4f1c-045f-40c9-893a-3ad4adb2e67d
-libusb,ATxmega128A3U,03EB,2FE6,26f275f0-d6b2-46d8-8334-e4de66996c74
-libusb,ATxmega192A3U,03EB,2FE7,b7b50d98-0429-4235-8f08-5466e4f83ed4
-libusb,UC3,03EB,2FDC,972d9af7-d71b-44c7-a895-9340b362f545
-libusb,ATUC3,03EB,2FE9,d5855d0a-f82e-4df5-9c14-2b0b1dcb65bd
-libusb,AT32UC3C,03EB,2FEB,1eeb52aa-fd24-47fd-8a76-056446d1a54f
-libusb,ATxmega256A3U,03EB,2FEC,198fa8ea-3157-4863-b9a8-a3f6fe027367
-libusb,ATmega8U2,03EB,2FEE,14018055-46f4-4c62-aa03-e8fafeedaf72
 libusb,ATmega16U2,03EB,2FEF,007274da-b75f-492e-a288-8fc0aff8339f
 libusb,ATmega32U2,03EB,2FF0,ddc2c572-cb6e-4f61-a6cc-1a5de941f063
-libusb,AT32UC3A3,03EB,2FF1,8b614283-36c0-46a2-890d-65f61b5b6201
-libusb,ATmega32U6,03EB,2FF2,a207dd90-2814-4418-b5b7-4b708fdf1bfd
 libusb,ATmega16U4,03EB,2FF3,3180d426-bf93-4578-a693-2efbc337da8e
 libusb,ATmega32U4,03EB,2FF4,5f9726fd-f9de-487a-9fbd-8b3524a7a56a
-libusb,AT32UC3B,03EB,2FF6,ef90068a-277a-44db-805a-9b83a6beb29a
-libusb,AT90USB82,03EB,2FF7,062fa2ab-f9d8-4a0d-83c1-df0521cfd0f6
-libusb,AT32UC3A,03EB,2FF8,24080a67-3874-4fb8-8808-fb4cc297c466
 libusb,AT90USB64,03EB,2FF9,c6a708ad-e97d-43cd-b04a-3180d737a71b
-libusb,AT90USB162,03EB,2FFA,de67bff5-6e39-4e9c-8dfe-de7fce113716
 libusb,AT90USB128,03EB,2FFB,fd217df3-59d0-440a-a8f3-4c0c8c84daa3
-libusb,AT89C5130,03EB,2FFD,31b69a56-9ac0-4fab-a3ae-cd7bb7021ec5
-libusb,AT8XC5122,03EB,2FFE,395a6118-8568-41b2-913a-d16912722342
-libusb,AT89C5132,03EB,2FFF,266ca4bc-5e59-4a7b-82dc-6e8732373d40

@@ -7,7 +7,7 @@
 #define USB_POLLING_INTERVAL_MS 1
 
 #ifdef AUDIO_ENABLE
-#    if __GNUC__ > 7
+#    if __GNUC__ > 5
 #        if __has_include("drashna_song_list.h")
 #            include "drashna_song_list.h"
 #        endif  // if file exists
@@ -29,11 +29,15 @@
 #endif  // !AUDIO_ENABLE
 
 #ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_SLEEP
 #    undef RGBLIGHT_ANIMATIONS
-#    define RGBLIGHT_EFFECT_BREATHING
-#    define RGBLIGHT_EFFECT_SNAKE
-#    define RGBLIGHT_EFFECT_KNIGHT
+#    if defined(__AVR__) && !defined(__AVR_AT90USB1286__)
+#        define RGBLIGHT_SLEEP
+#        define RGBLIGHT_EFFECT_BREATHING
+#        define RGBLIGHT_EFFECT_SNAKE
+#        define RGBLIGHT_EFFECT_KNIGHT
+#    else
+#        define RGBLIGHT_ANIMATIONS
+#    endif
 #endif  // RGBLIGHT_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE

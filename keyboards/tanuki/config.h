@@ -36,6 +36,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS {  F7 , B1 , D4 , D0 }
 #define UNUSED_PINS
 
+#define DIODE_DIRECTION COL2ROW
+
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 

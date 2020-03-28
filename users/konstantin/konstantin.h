@@ -46,6 +46,7 @@
 #endif
 
 #define LCT_CPS LCTL_T(KC_CAPS)
+#define RSF_SLS RSFT_T(KC_SLSH)
 
 // Clear mods, perform action, restore mods
 #define CLEAN_MODS(action) {       \
