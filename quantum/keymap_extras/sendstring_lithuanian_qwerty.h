@@ -14,11 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Sendstring lookup tables for Lithuanian layouts
+// Sendstring lookup tables for Lithuanian QWERTY layouts
 
 #pragma once
 
-#include "keymap_lithuanian.h"
+#include "keymap_lithuanian_qwerty.h"
 #include "quantum.h"
 
 // clang-format off
