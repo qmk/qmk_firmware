@@ -24,3 +24,4 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 TAP_DANCE_ENABLE = no
 ENCODER_ENABLE = yes
+OLED_DRIVER_ENABLE = yes
