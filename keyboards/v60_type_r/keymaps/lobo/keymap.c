@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	       KC_GRV,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,     KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,   KC_F12,  KC_DEL, \
 	       KC_TRNS,   KC_TRNS,  KC_UP,    RGB_TOG,  RGB_HUI, RGB_SAI, RGB_VAI,   KC_TRNS, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP,    KC_TRNS,          KC_INS, \
 	       KC_TRNS,   KC_LEFT,  KC_DOWN,  KC_RIGHT, RGB_HUD, RGB_SAD, RGB_VAD,   KC_TRNS, KC_HOME, KC_PGUP, KC_LEFT, KC_RIGHT,          KC_TRNS,          \
-	       KC_TRNS,   BL_INC,  BL_STEP,  BL_DEC, KC_TRNS,  KC_VOLD,   KC_VOLU, KC_MUTE, KC_END,  KC_PGDN,  KC_DOWN,           KC_TRNS,  \
+	       KC_TRNS,   BL_DEC,  BL_STEP,  BL_INC, KC_TRNS,  KC_VOLD,   KC_VOLU, KC_MUTE, KC_END,  KC_PGDN,  KC_DOWN,           KC_TRNS,  \
 	       KC_TRNS,   KC_TRNS,  KC_TRNS,            KC_TRNS,                                                           KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS),
 
 /*
@@ -90,8 +90,8 @@ WASD are Up Left Right Down respectively
    
          [2] = LAYOUT_60_ansi(
                 KC_TRNS,   RGB_M_P, RGB_M_B , RGB_M_R , RGB_M_SW , RGB_M_SN , RGB_M_K , RGB_M_X , RGB_M_G , RGB_M_T,   KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS, \
-                KC_TRNS,   KC_BTN1,  KC_MS_U,    KC_BTN2,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS, UC(0x00AA), UC(0x00BA), KC_TRNS, KC_MPLY,    KC_TRNS,          KC_TRNS, \
-                KC_TRNS,   KC_MS_L,  KC_MS_D,  KC_MS_R, KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_MPRV, KC_MNXT,          KC_TRNS,          \
+                KC_TRNS,   KC_BTN1,  KC_MS_U,    KC_BTN2,  KC_TRNS,  KC_TRNS,  KC_TRNS,   UC(0x20AC), UC(0x00AA), UC(0x00BA), KC_TRNS, KC_MPLY,    KC_TRNS,          KC_TRNS, \
+                KC_TRNS,   KC_MS_L,  KC_MS_D,  KC_MS_R, KC_TRNS,  KC_TRNS,  KC_LEFT,   KC_DOWN, KC_UP, KC_RIGHT, KC_MPRV, KC_MNXT,          KC_TRNS,          \
                 KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,           KC_TRNS,  \
                 KC_TRNS,   KC_TRNS,  KC_TRNS,            KC_TRNS,                                                           KC_TRNS,  UC_MOD, KC_TRNS, KC_TRNS),
 
