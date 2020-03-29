@@ -116,7 +116,7 @@ The `post_config.h` file can be used for additional post-processing, depending o
 
 The presence of this file means that the folder is a keyboard target and can be used in `make` commands. This is where you setup the build environment for your keyboard and configure the default set of features.
 
-The `rules.mk` file can also be placed in a sub-folders, and its reading order is as follows:
+The `rules.mk` file can also be placed in a sub-folder, and its reading order is as follows:
 
 * `keyboards/top_folder/rules.mk`
   * `keyboards/top_folder/sub_1/rules.mk`
