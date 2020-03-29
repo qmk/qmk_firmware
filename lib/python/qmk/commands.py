@@ -1,6 +1,7 @@
 """Helper functions for commands.
 """
 import json
+import os
 import platform
 import subprocess
 import shlex
@@ -69,15 +70,15 @@ def parse_configurator_json(configurator_file):
 def run(command, *args, **kwargs):
     """Run a command with subprocess.run
     """
-    if isinstance(command, str):
-        raise TypeError('`command` must be a sequence such as list or tuple.')
-
     platform_id = platform.platform().lower()
 
+    if isinstance(command, str):
+        raise TypeError('`command` must be a non-text sequence such as list or tuple.')
+
     if 'windows' in platform_id:
-        command = map(shlex.quote, command)
-        # On Windows, we want to run stuff (especially scripts)
-        # in a Posix shell
-        command = ['C:/msys64/usr/bin/sh', '-c', command]
-    # Execute the command
+        safecmd = map(shlex.quote, command)
+        safecmd = ' '.join(command)
+        shell = os.environ.get('SHELL', '/bin/sh')
+        command = [shell, '-c', safecmd]
+
     return subprocess.run(command, *args, **kwargs)
