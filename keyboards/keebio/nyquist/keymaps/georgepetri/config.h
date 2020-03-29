@@ -17,12 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// #define USE_I2C
-
-/* Select hand configuration */
-// #define MASTER_RIGHT
-// #define EE_HANDS
-
 #undef RGBLED_NUM
 #define RGBLED_NUM 12
 #define RGBLIGHT_LAYERS
