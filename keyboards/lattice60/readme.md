@@ -1,12 +1,12 @@
 # lattice60
 
-![lattice60](imgur.com image replace me!)
+![lattice60](https://i.imgur.com/1TdrWii.jpg)
 
-An HHKB layout keyboard using only through-hole components.
+A HHKB layout keyboard using only through-hole components.
 
 * Keyboard Maintainer: [emdarcher](https://github.com/emdarcher)  
 * Hardware Supported: LATTICE60 PCB  
-* Hardware Availability: Links to where you can find this hardware   
+* Hardware Availability: [KeyHive](https://keyhive.xyz/)
 
 Make example for this keyboard (after setting up your build environment):
 
