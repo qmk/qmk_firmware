@@ -7,4 +7,4 @@ A compact 4x10 (40%) staggered DIY keyboard kit
 [home](https://pabileonline.blogspot.com/search/label/pabile40)
 
 For default example of layout, run
-    make pabile/p40:default
+    <code>make pabile/p40:default</code>
