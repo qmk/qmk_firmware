@@ -98,9 +98,22 @@ typedef struct usbConfigurationDescriptor {
     usbEndpointDescriptor_t mouseExtraINEndpoint;
 #    endif
 #endif
+
+#if defined(RAW_ENABLE)
+    usbInterfaceDescriptor_t rawInterface;
+    usbHIDDescriptor_t       rawHID;
+#    ifdef USB_CFG_HAVE_INTRIN_ENDPOINT3
+    usbEndpointDescriptor_t rawINEndpoint;
+    usbEndpointDescriptor_t rawOUTEndpoint;
+#    endif
+#endif
 } __attribute__((packed)) usbConfigurationDescriptor_t;
 
 #define USB_STRING_LEN(s) (sizeof(usbDescriptorHeader_t) + ((s) << 1))
 
 host_driver_t *vusb_driver(void);
 void           vusb_transfer_keyboard(void);
+
+#if defined(RAW_ENABLE)
+void raw_hid_task(void);
+#endif
