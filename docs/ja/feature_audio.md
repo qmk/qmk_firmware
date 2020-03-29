@@ -126,13 +126,13 @@ ARM デバイスの場合、DAC サンプル値を調整できます。キーボ
 どのキーコードを引き続き処理するかを制御する、より高度な方法については、`<keyboard>.c` の中の `music_mask_kb(keycode)` および `keymap.c` の中の `music_mask_user(keycode)` を使うことができます:
 
     bool music_mask_user(uint16_t keycode) {
-    switch (keycode) {
-    case RAISE:
-    case LOWER:
-    return false;
-    default:
-    return true;
-    }
+      switch (keycode) {
+        case RAISE:
+        case LOWER:
+          return false;
+        default:
+          return true;
+      }
     }
 
 false を返すものはマスクの一部では無く、常に処理されます。
