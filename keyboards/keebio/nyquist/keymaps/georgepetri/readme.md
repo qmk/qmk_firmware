@@ -1,7 +1,7 @@
 # George Petri's Nyquist layout
 
 ```
-make keebio/nyquist/rev2:georgepetri
+sudo make keebio/nyquist/rev2:georgepetri:dfu
 ```
 
 Features a dedicated navigation layer on rise and current layer status on rgb underglow.  
@@ -17,7 +17,7 @@ Features a dedicated navigation layer on rise and current layer status on rgb un
 ├──────┼──────┼──────┼──────┼──────┼──────┤ ├──────┼──────┼──────┼──────┼──────┼──────┤
 │  LSFT│  Z   │  X   │  C   │  V   │  B   │ │  N   │  M   │ COMM │  DOT │  SLSH│ ENT  │
 ├──────┼──────┼──────┼──────┼──────┼──────┤ ├──────┼──────┼──────┼──────┼──────┼──────┤
-│  CAPS│  LCTL│ LGUI │ LALT │MO(_L)│  SPC │ │ SPC  │MO(_R)│ LEFT │  DOWN│  UP  │ RGHT │
+│  CAPS│  LCTL│ LGUI │ LALT │MO(_L)│  SPC │ │ RSFT │MO(_R)│ LEFT │  DOWN│  UP  │ RGHT │
 └──────┴──────┴──────┴──────┴──────┴──────┘ └──────┴──────┴──────┴──────┴──────┴──────┘
 ```
 
