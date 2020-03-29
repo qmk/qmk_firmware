@@ -208,19 +208,19 @@ def doctor(cli):
     ok = True
 
     # Determine our OS and run platform specific tests
-    OS = platform.platform().lower()  # noqa (N806), uppercase name is ok in this instance
+    platform_id = platform.platform().lower()
 
-    if 'darwin' in OS or 'macos' in OS:
+    if 'darwin' in platform_id or 'macos' in platform_id:
         if not os_test_macos():
             ok = False
-    elif 'linux' in OS:
+    elif 'linux' in platform_id:
         if not os_test_linux():
             ok = False
-    elif 'windows' in OS:
+    elif 'windows' in platform_id:
         if not os_test_windows():
             ok = False
     else:
-        cli.log.error('Unsupported OS detected: %s', OS)
+        cli.log.error('Unsupported OS detected: %s', platform_id)
         ok = False
 
     # Make sure the basic CLI tools we need are available and can be executed.
