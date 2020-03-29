@@ -15,3 +15,43 @@
  */
 
 #include "oddball.h"
+#include "pointing_device.h"
+
+void on_mouse_button(uint8_t mouse_button, bool pressed) {
+    report_mouse_t report = pointing_device_get_report();
+
+    if(pressed)
+        report.buttons |= mouse_button;
+    else
+        report.buttons &= ~mouse_button;
+
+    pointing_device_set_report(report);
+}
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+
+    switch (keycode) {
+        case KC_BTN1:
+            on_mouse_button(MOUSE_BTN1, record->event.pressed);
+            return false;
+
+        case KC_BTN2:
+            on_mouse_button(MOUSE_BTN2, record->event.pressed);
+            return false;
+
+        case KC_BTN3:
+            on_mouse_button(MOUSE_BTN3, record->event.pressed);
+            return false;
+
+        case KC_BTN4:
+            on_mouse_button(MOUSE_BTN4, record->event.pressed);
+            return false;
+
+        case KC_BTN5:
+            on_mouse_button(MOUSE_BTN5, record->event.pressed);
+            return false;
+
+    default:
+      return true;
+  }
+}
