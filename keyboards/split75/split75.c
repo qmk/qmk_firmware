@@ -28,9 +28,9 @@ void indicator_init(void) {
 
 // for keyboard subdirectory level init functions
 void matrix_init_kb(void) {
-  // call user level keymaps, if any
-  blink_all_leds();
-  matrix_init_user();
+    // call user level keymaps, if any
+    blink_all_leds();
+    matrix_init_user();
 }
 
 void blink_all_leds(void) {
@@ -46,11 +46,11 @@ void blink_all_leds(void) {
     wait_ms(50);
     led_1_off();
 }
-void keyboard_post_init_kb(void) {
-  led_set_user(0);
-  layer_state_set_user(layer_state);
 
-  keyboard_post_init_user();
+void keyboard_post_init_kb(void) {
+    led_set_user(0);
+    layer_state_set_user(layer_state);
+    keyboard_post_init_user();
 }
 
 #if defined(LED_INDICATORS)
