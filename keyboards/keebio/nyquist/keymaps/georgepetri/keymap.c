@@ -68,18 +68,8 @@ const rgblight_segment_t PROGMEM capslock[] = RGBLIGHT_LAYER_SEGMENTS(
     {6, 3, HSV_GOLD}
 );
 
-// HSV_SPRINGGREEN //YES //YES
-// HSV_GREEN //YES
-// HSV_GOLD //YES
-// HSV_RED //YES
-// HSV_ORANGE //YES
-// HSV_WHITE //YES
-// HSV_MAGENTA //YES
 const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(left, right, capslock);
 
-//docs.qmk.fm/#/custom_quantum_functions?id=keyboard-idlingwake-code/
-//todo idea: impl hjkl as compose or leader 
-//github.com/qmk/qmk_firmware/pull/5338/files  //might not work on split kbs
 void keyboard_post_init_user(void) {
     rgblight_sethsv_noeeprom(HSV_SPRINGGREEN);
     rgblight_layers = rgb_layers;
@@ -89,6 +79,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(0, layer_state_cmp(state, _L));
     rgblight_set_layer_state(1, layer_state_cmp(state, _R));
     return state;
+}
+
+void suspend_power_down_user(void) {
+    rgblight_disable();
+}
+
+void suspend_wakeup_init_user(void) {
+    rgblight_enable();
 }
 
 bool is_shift_pressed = false;
