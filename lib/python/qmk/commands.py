@@ -77,8 +77,7 @@ def run(command, *args, **kwargs):
 
     if 'windows' in platform_id:
         safecmd = map(shlex.quote, command)
-        safecmd = ' '.join(command)
-        shell = os.environ.get('SHELL', '/bin/sh')
-        command = [shell, '-c', safecmd]
+        safecmd = ' '.join(safecmd)
+        command = [os.environ['SHELL'], '-c', safecmd]
 
     return subprocess.run(command, *args, **kwargs)
