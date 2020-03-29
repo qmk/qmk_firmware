@@ -1,8 +1,10 @@
 # Pabile40
-# Configuration files for a <del>handwired-3d-printed 40%</del> 4x10 keyboard
 
 ![prototype photo1](https://github.com/pabile/Pabile40/blob/master/_bak/web-DSCN9033.jpg)
 
-sample .hex file at _bak folder.
+A compact 4x10 staggered keyboard DIY kit                                                                                                                                                 * [homepage](https://pabileonline.blogspot.com/search/label/pabile40)
 
-https://pabileonline.blogspot.com/search/label/pabile40
+For default example layout of this keyboard, run
+
+        make pabile/p40:default
+
