@@ -67,14 +67,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QMKURL:
       if (record->event.pressed) {
         // when keycode QMKURL is pressed
-        SEND_STRING("https://qmk.fm/" SS_TAP(X_ENTER));
+        SEND_STRING("https://qmk.fm/\n");
       } else {
         // when keycode QMKURL is released
       }
       break;
     case MY_OTHER_MACRO:
       if (record->event.pressed) {
-                SEND_STRING(SS_LCTRL("ac")); // selects all and copies
+                SEND_STRING(SS_LCTL("ac")); // selects all and copies
       }
       break;
   }
@@ -87,6 +87,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   }
 };
 ```
+
+### Advanced Macros
+
+In addition to the `process_record_user()` function, is the `post_process_record_user()` function. This runs after `process_record` and can be used to do things after a keystroke has been sent.  This is useful if you want to have a key pressed before and released after a normal key, for instance. 
+
+In this example, we modify most normal keypresses so that `F22` is pressed before the keystroke is normally sent, and release it __only after__ it's been released.
+
+```c
+static uint8_t f22_tracker;
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case KC_A ... KC_F21: //notice how it skips over F22
+    case KC_F23 ... KC_EXSEL: //exsel is the last one before the modifier keys
+      if (record->event.pressed) {
+        register_code(KC_F22); //this means to send F22 down
+        f22_tracker++;
+        register_code(keycode);
+        return false;
+      }
+      break;
+  }
+  return true;
+}
+
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case KC_A ... KC_F21: //notice how it skips over F22
+    case KC_F23 ... KC_EXSEL: //exsel is the last one before the modifier keys
+      if (!record->event.pressed) {
+        f22_tracker--;
+        if (!f22_tracker) {
+            unregister_code(KC_F22); //this means to send F22 up
+        }
+      }
+      break;
+  }
+}
+```
+
 
 ### TAP, DOWN and UP
 
@@ -107,20 +147,33 @@ Would tap `KC_HOME` - note how the prefix is now `X_`, and not `KC_`. You can al
 
 Which would send "VE" followed by a `KC_HOME` tap, and "LO" (spelling "LOVE" if on a newline).
 
+Delays can be also added to the string:
+
+* `SS_DELAY(msecs)` will delay for the specified number of milliseconds.
+
+For example:
+
+    SEND_STRING("VE" SS_DELAY(1000) SS_TAP(X_HOME) "LO");
+
+Which would send "VE" followed by a 1-second delay, then a `KC_HOME` tap, and "LO" (spelling "LOVE" if on a newline, but delayed in the middle).
+
 There's also a couple of mod shortcuts you can use:
 
-* `SS_LCTRL(string)`
-* `SS_LGUI(string)`
-* `SS_LALT(string)`
+* `SS_LCTL(string)`
 * `SS_LSFT(string)`
-* `SS_RALT(string)`
+* `SS_LALT(string)`
+* `SS_LGUI(string)`, `SS_LCMD(string)` or `SS_LWIN(string)`
+* `SS_RCTL(string)`
+* `SS_RSFT(string)`
+* `SS_RALT(string)` or `SS_ALGR(string)`
+* `SS_RGUI(string)`, `SS_RCMD(string)` or `SS_RWIN(string)`
 
 These press the respective modifier, send the supplied string and then release the modifier.
 They can be used like this:
 
-    SEND_STRING(SS_LCTRL("a"));
+    SEND_STRING(SS_LCTL("a"));
 
-Which would send LCTRL+a (LCTRL down, a, LCTRL up) - notice that they take strings (eg `"k"`), and not the `X_K` keycodes.
+Which would send Left Control+`a` (Left Control down, `a`, Left Control up) - notice that they take strings (eg `"k"`), and not the `X_K` keycodes.
 
 ### Alternative Keymaps
 
@@ -150,6 +203,8 @@ SEND_STRING(".."SS_TAP(X_END));
 ## Advanced Macro Functions
 
 There are some functions you may find useful in macro-writing. Keep in mind that while you can write some fairly advanced code within a macro, if your functionality gets too complex you may want to define a custom keycode instead. Macros are meant to be simple.
+
+?> You can also use the functions described in [Useful function](ref_functions.md) for additional functionality. For example `reset_keyboard()` allows you to reset the keyboard as part of a macro.
 
 ### `record->event.pressed`
 
@@ -195,11 +250,11 @@ This will clear all mods currently pressed.
 
 This will clear all keys besides the mods currently pressed.
 
-## Advanced Example: 
+## Advanced Example:
 
 ### Super ALT↯TAB
 
-This macro will register `KC_LALT` and tap `KC_TAB`, then wait for 1000ms. If the key is tapped again, it will send another `KC_TAB`; if there is no tap, `KC_LALT` will be unregistered, thus allowing you to cycle through windows. 
+This macro will register `KC_LALT` and tap `KC_TAB`, then wait for 1000ms. If the key is tapped again, it will send another `KC_TAB`; if there is no tap, `KC_LALT` will be unregistered, thus allowing you to cycle through windows.
 
 ```c
 bool is_alt_tab_active = false;    # ADD this near the begining of keymap.c
@@ -216,7 +271,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (!is_alt_tab_active) {
           is_alt_tab_active = true;
           register_code(KC_LALT);
-        } 
+        }
         alt_tab_timer = timer_read();
         register_code(KC_TAB);
       } else {
@@ -227,7 +282,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void matrix_scan_user(void) {     # The very important timer. 
+void matrix_scan_user(void) {     # The very important timer.
   if (is_alt_tab_active) {
     if (timer_elapsed(alt_tab_timer) > 1000) {
       unregister_code(KC_LALT);
@@ -316,7 +371,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ```
 
 
-## Advanced Example: 
+## Advanced Example:
 
 ### Single-Key Copy/Paste
 

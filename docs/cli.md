@@ -1,31 +1,39 @@
-# QMK CLI
+# QMK CLI :id=qmk-cli
 
-This page describes how to setup and use the QMK CLI.
+## Overview :id=overview
 
-# Overview
+The QMK CLI makes building and working with QMK keyboards easier. We have provided a number of commands to simplify and streamline tasks such as obtaining and compiling the QMK firmware, creating keymaps, and more.
 
-The QMK CLI makes building and working with QMK keyboards easier. We have provided a number of commands to help you work with QMK:
+### Requirements :id=requirements
 
-* `qmk compile-json`
+The CLI requires Python 3.5 or greater. We try to keep the number of requirements small but you will also need to install the packages listed in [`requirements.txt`](https://github.com/qmk/qmk_firmware/blob/master/requirements.txt). These are installed automatically when you install the QMK CLI.
 
-# Setup
+### Install Using Homebrew (macOS, some Linux) :id=install-using-homebrew
 
-Simply add the `qmk_firmware/bin` directory to your `PATH`. You can run the `qmk` commands from any directory.
-
-```
-export PATH=$PATH:$HOME/qmk_firmware/bin
-```
-
-You may want to add this to your `.profile`, `.bash_profile`, `.zsh_profile`, or other shell startup scripts.
-
-# Commands
-
-## `qmk compile-json`
-
-This command allows you to compile JSON files you have downloaded from <https://config.qmk.fm>.
-
-**Usage**:
+If you have installed [Homebrew](https://brew.sh) you can tap and install QMK:
 
 ```
-qmk compile-json mine.json
+brew tap qmk/qmk
+brew install qmk
+export QMK_HOME='~/qmk_firmware' # Optional, set the location for `qmk_firmware`
+qmk setup  # This will clone `qmk/qmk_firmware` and optionally set up your build environment
 ```
+
+### Install Using easy_install or pip :id=install-using-easy_install-or-pip
+
+If your system is not listed above you can install QMK manually. First ensure that you have python 3.5 (or later) installed and have installed pip. Then install QMK with this command:
+
+```
+pip3 install qmk
+export QMK_HOME='~/qmk_firmware' # Optional, set the location for `qmk_firmware`
+qmk setup  # This will clone `qmk/qmk_firmware` and optionally set up your build environment
+```
+
+### Packaging For Other Operating Systems :id=packaging-for-other-operating-systems
+
+We are looking for people to create and maintain a `qmk` package for more operating systems. If you would like to create a package for your OS please follow these guidelines:
+
+* Follow best practices for your OS when they conflict with these guidelines
+    * Document why in a comment when you do deviate
+* Install using a virtualenv
+* Instruct the user to set the environment variable `QMK_HOME` to have the firmware source checked out somewhere other than `~/qmk_firmware`.

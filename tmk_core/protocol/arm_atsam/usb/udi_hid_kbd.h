@@ -59,59 +59,60 @@ extern "C" {
 //******************************************************************************
 #ifdef KBD
 extern UDC_DESC_STORAGE udi_api_t udi_api_hid_kbd;
-extern bool udi_hid_kbd_b_report_valid;
-extern volatile bool udi_hid_kbd_b_report_trans_ongoing;
-extern uint8_t udi_hid_kbd_report_set;
-bool udi_hid_kbd_send_report(void);
-#endif //KBD
+extern bool                       udi_hid_kbd_b_report_valid;
+extern volatile bool              udi_hid_kbd_b_report_trans_ongoing;
+extern uint8_t                    udi_hid_kbd_report_set;
+bool                              udi_hid_kbd_send_report(void);
+#endif  // KBD
 
 //********************************************************************************************
 // NKRO Keyboard
 //********************************************************************************************
 #ifdef NKRO
 extern UDC_DESC_STORAGE udi_api_t udi_api_hid_nkro;
-extern bool udi_hid_nkro_b_report_valid;
-extern volatile bool udi_hid_nkro_b_report_trans_ongoing;
-bool udi_hid_nkro_send_report(void);
-#endif //NKRO
+extern bool                       udi_hid_nkro_b_report_valid;
+extern volatile bool              udi_hid_nkro_b_report_trans_ongoing;
+bool                              udi_hid_nkro_send_report(void);
+#endif  // NKRO
 
 //********************************************************************************************
 // SYS-CTRL interface
 //********************************************************************************************
 #ifdef EXK
 extern UDC_DESC_STORAGE udi_api_t udi_api_hid_exk;
-extern bool udi_hid_exk_b_report_valid;
-extern uint8_t udi_hid_exk_report_set;
-bool udi_hid_exk_send_report(void);
-#endif //EXK
+extern bool                       udi_hid_exk_b_report_valid;
+extern uint8_t                    udi_hid_exk_report_set;
+bool                              udi_hid_exk_send_report(void);
+#endif  // EXK
 
 //********************************************************************************************
 // CON Console
 //********************************************************************************************
 #ifdef CON
 extern UDC_DESC_STORAGE udi_api_t udi_api_hid_con;
-extern bool udi_hid_con_b_report_valid;
-extern uint8_t udi_hid_con_report_set[UDI_HID_CON_REPORT_SIZE];
-extern volatile bool udi_hid_con_b_report_trans_ongoing;
-bool udi_hid_con_send_report(void);
-#endif //CON
+extern bool                       udi_hid_con_b_report_valid;
+extern uint8_t                    udi_hid_con_report_set[UDI_HID_CON_REPORT_SIZE];
+extern volatile bool              udi_hid_con_b_report_trans_ongoing;
+bool                              udi_hid_con_send_report(void);
+#endif  // CON
 
 //********************************************************************************************
 // MOU Mouse
 //********************************************************************************************
 #ifdef MOU
 extern UDC_DESC_STORAGE udi_api_t udi_api_hid_mou;
-extern bool udi_hid_mou_b_report_valid;
-bool udi_hid_mou_send_report(void);
-#endif //MOU
+extern bool                       udi_hid_mou_b_report_valid;
+bool                              udi_hid_mou_send_report(void);
+#endif  // MOU
 
 //********************************************************************************************
 // RAW Raw
 //********************************************************************************************
 #ifdef RAW
 extern UDC_DESC_STORAGE udi_api_t udi_api_hid_raw;
-bool udi_hid_raw_send_report(void);
-#endif //RAW
+bool                              udi_hid_raw_send_report(void);
+bool                              udi_hid_raw_receive_report(void);
+#endif  // RAW
 
 //@}
 
@@ -119,4 +120,4 @@ bool udi_hid_raw_send_report(void);
 }
 #endif
 
-#endif // _UDC_HID_KBD_H_
+#endif  // _UDC_HID_KBD_H_

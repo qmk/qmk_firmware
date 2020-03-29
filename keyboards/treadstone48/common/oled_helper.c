@@ -1,8 +1,9 @@
-#ifdef SSD1306OLED
+#ifdef OLED_DRIVER_ENABLE
 #include QMK_KEYBOARD_H
-#include "ssd1306.h"
+#include <stdio.h>
+#include <string.h>
 
-void render_logo(struct CharacterMatrix *matrix) {
+void render_logo(void) {
 
   const char logo_buf[]={
     0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
@@ -10,10 +11,10 @@ void render_logo(struct CharacterMatrix *matrix) {
     0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,
     0};
 
-  matrix_write(matrix, logo_buf);
+  oled_write(logo_buf, false);
 }
 
-static char keylog_buf[24] = "Key state ready.";
+static char keylog_buf[24] = "Key state ready.\n";
 const char code_to_name[60] = {
     ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
     'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
@@ -27,14 +28,14 @@ void update_key_status(uint16_t keycode, keyrecord_t *record) {
   if (!record->event.pressed) return;
 
   char name = (keycode < 60) ? code_to_name[keycode] : ' ';
-  snprintf(keylog_buf, sizeof(keylog_buf) - 1, "Key:%dx%d %2x %c",
+  snprintf(keylog_buf, sizeof(keylog_buf) - 1, "Key:%dx%d %2x %c\n",
           record->event.key.row, record->event.key.col,
           (uint16_t)keycode, name);
 }
 
-void render_key_status(struct CharacterMatrix *matrix) {
+void render_key_status(void) {
 
-  matrix_write(matrix, keylog_buf);
+  oled_write(keylog_buf, false);
 }
 
 static char lock_buf[24] = "Lock state ready.\n";
@@ -48,9 +49,9 @@ void update_lock_status(void) {
           num_lock, caps_lock, scrl_lock);
 }
 
-void render_lock_status(struct CharacterMatrix *matrix) {
+void render_lock_status(void) {
 
-  matrix_write(matrix, lock_buf);
+  oled_write(lock_buf, false);
 }
 
 #ifdef RGBLIGHT_ENABLE
@@ -75,9 +76,9 @@ void update_led_status(void) {
   }
 }
 
-void render_led_status(struct CharacterMatrix *matrix) {
+void render_led_status(void) {
 
-  matrix_write(matrix, led_buf);
+  oled_write(led_buf, false);
 }
 #endif
 #endif

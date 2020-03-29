@@ -4,9 +4,9 @@
 
 　デフォルトキーマップの記号類をJISライクな配置に揃えなおしたものです。  
 　オプションのRhymestone用のマップを使用するために拡張しています。RhymestoneのpromicroにもTreadstone48のキーマップを入れてください。  
-　Rhymestoneは基本的には左手側を使うことを想定していますが、右手側を使用する場合はrules.mkにあるRHYMESTONE_RIGHTHAND設定をyesにすれば使えるようになります。  
+　Rhymestoneは基本的には左手側を使うことを想定していますが、右手側を使用する場合はconfig.hの以下の行を有効にしてください。   
 
-```RHYMESTONE_RIGHTHAND=yes```
+```#define RHYMESTONE_RIGHTHAND```
 
 ## キーマップの見かた
 

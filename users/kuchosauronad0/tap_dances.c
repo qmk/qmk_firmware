@@ -1,14 +1,12 @@
 #include "tap_dances.h"
 void td_parenthesis (qk_tap_dance_state_t *state, void *user_data) {
    if (state->count == 1) {
-        SEND_STRING ("\(");
+//        SEND_STRING ("\(");
+        tap_code(KC_QUOT);
         reset_tap_dance (state);
    }
    else if (state->count == 2) {
         SEND_STRING("()" SS_TAP(X_LEFT));
-        //tap_code(KC_2);
-        //tap_code(KC_3);
-        //tap_code(KC_LEFT);
         reset_tap_dance (state);
    }
    else if (state->count == 3) {

@@ -19,10 +19,10 @@
 #include "eeprom.h"
 
 bool process_unicode(uint16_t keycode, keyrecord_t *record) {
-  if (keycode >= QK_UNICODE && keycode <= QK_UNICODE_MAX && record->event.pressed) {
-    unicode_input_start();
-    register_hex(keycode & 0x7FFF);
-    unicode_input_finish();
-  }
-  return true;
+    if (keycode >= QK_UNICODE && keycode <= QK_UNICODE_MAX && record->event.pressed) {
+        unicode_input_start();
+        register_hex(keycode & 0x7FFF);
+        unicode_input_finish();
+    }
+    return true;
 }

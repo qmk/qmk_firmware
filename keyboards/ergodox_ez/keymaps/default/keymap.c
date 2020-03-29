@@ -6,7 +6,11 @@
 #define MDIA 2 // media keys
 
 enum custom_keycodes {
+#ifdef ORYX_CONFIGURATOR
+  EPRM = EZ_SAFE_RANGE,
+#else
   EPRM = SAFE_RANGE,
+#endif
   VRSN,
   RGB_SLD
 };
@@ -36,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_ergodox(
   // left hand
   KC_EQL,          KC_1,        KC_2,          KC_3,    KC_4,    KC_5,    KC_LEFT,
-  KC_DELT,         KC_Q,        KC_W,          KC_E,    KC_R,    KC_T,    TG(SYMB),
+  KC_DEL,          KC_Q,        KC_W,          KC_E,    KC_R,    KC_T,    TG(SYMB),
   KC_BSPC,         KC_A,        KC_S,          KC_D,    KC_F,    KC_G,
   KC_LSFT,         CTL_T(KC_Z), KC_X,          KC_C,    KC_V,    KC_B,    ALL_T(KC_NO),
   LT(SYMB,KC_GRV), KC_QUOT,     LALT(KC_LSFT), KC_LEFT, KC_RGHT,
@@ -164,13 +168,13 @@ void matrix_init_user(void) {
 };
 
 // Runs whenever there is a layer state change.
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   ergodox_board_led_off();
   ergodox_right_led_1_off();
   ergodox_right_led_2_off();
   ergodox_right_led_3_off();
 
-  uint8_t layer = biton32(state);
+  uint8_t layer = get_highest_layer(state);
   switch (layer) {
       case 0:
         #ifdef RGBLIGHT_COLOR_LAYER_0

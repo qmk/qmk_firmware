@@ -28,33 +28,27 @@ SOFTWARE.
 #include "host_driver.h"
 #include <stdbool.h>
 
-void init_serial_link(void);
-void init_serial_link_hal(void);
-bool is_serial_link_connected(void);
-bool is_serial_link_master(void);
+void           init_serial_link(void);
+void           init_serial_link_hal(void);
+bool           is_serial_link_connected(void);
+bool           is_serial_link_master(void);
 host_driver_t* get_serial_link_driver(void);
-void serial_link_update(void);
+void           serial_link_update(void);
 
 #if defined(PROTOCOL_CHIBIOS)
-#include "ch.h"
+#    include "ch.h"
 
-static inline void serial_link_lock(void) {
-    chSysLock();
-}
+static inline void serial_link_lock(void) { chSysLock(); }
 
-static inline void serial_link_unlock(void) {
-    chSysUnlock();
-}
+static inline void serial_link_unlock(void) { chSysUnlock(); }
 
 void signal_data_written(void);
 
 #else
 
-inline void serial_link_lock(void) {
-}
+inline void serial_link_lock(void) {}
 
-inline void serial_link_unlock(void) {
-}
+inline void serial_link_unlock(void) {}
 
 void signal_data_written(void);
 

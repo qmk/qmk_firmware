@@ -1,21 +1,8 @@
-#ifndef REV1_H
-#define REV1_H
+#pragma once
 
 #include "ergo42.h"
 
-//void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
-
-
-#ifdef USE_I2C
-#include <stddef.h>
-#ifdef __AVR__
-	#include <avr/io.h>
-	#include <avr/interrupt.h>
-#endif
-#endif
-
-//void promicro_bootloader_jmp(bool program);
 
 #ifndef FLIP_HALF
 // Standard Keymap
@@ -58,5 +45,3 @@
 #endif
 
 #define LAYOUT LAYOUT_ortho_4x14
-
-#endif
