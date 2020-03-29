@@ -1,5 +1,5 @@
-#ifndef PABILE40_H
-#define PABILE40_H
+#ifndef P40_H
+#define P40_H
 
 #include "quantum.h"
 
