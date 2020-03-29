@@ -43,14 +43,14 @@ static bool                counters_need_update;
 #define DEBOUNCE_ELAPSED 251
 #define MAX_DEBOUNCE (DEBOUNCE_ELAPSED - 1)
 
-static uint16_t custom_wrap_timer_reference = 0;
-static uint8_t custom_wrap_timer_last_value = 0;
+static uint16_t custom_wrap_timer_reference  = 0;
+static uint8_t  custom_wrap_timer_last_value = 0;
 
 static uint8_t custom_wrap_timer_read(void) {
     uint16_t custom_wrap_timer_new_reference = timer_read();
-    uint16_t diff = custom_wrap_timer_new_reference - custom_wrap_timer_reference;
-    custom_wrap_timer_reference = custom_wrap_timer_new_reference;
-    custom_wrap_timer_last_value = (custom_wrap_timer_last_value + diff) % (MAX_DEBOUNCE + 1);
+    uint16_t diff                            = custom_wrap_timer_new_reference - custom_wrap_timer_reference;
+    custom_wrap_timer_reference              = custom_wrap_timer_new_reference;
+    custom_wrap_timer_last_value             = (custom_wrap_timer_last_value + diff) % (MAX_DEBOUNCE + 1);
     return custom_wrap_timer_last_value;
 }
 
@@ -88,7 +88,7 @@ void update_debounce_counters(matrix_row_t raw[], matrix_row_t cooked[], uint8_t
             if (*debounce_pointer != DEBOUNCE_ELAPSED) {
                 if (TIMER_DIFF(current_time, *debounce_pointer, MAX_DEBOUNCE) >= DEBOUNCE) {
                     *debounce_pointer = DEBOUNCE_ELAPSED;
-                    cooked[row] = (cooked[row] & ~(ROW_SHIFTER << col)) | (raw[row] & (ROW_SHIFTER << col));
+                    cooked[row]       = (cooked[row] & ~(ROW_SHIFTER << col)) | (raw[row] & (ROW_SHIFTER << col));
                 } else {
                     counters_need_update = true;
                 }
@@ -102,7 +102,7 @@ void update_debounce_counters(matrix_row_t raw[], matrix_row_t cooked[], uint8_t
 void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t current_time) {
     debounce_counter_t *debounce_pointer = debounce_counters;
     for (uint8_t row = 0; row < num_rows; row++) {
-        matrix_row_t delta        = raw[row] ^ cooked[row];
+        matrix_row_t delta = raw[row] ^ cooked[row];
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
             if (delta & (ROW_SHIFTER << col)) {
                 if (*debounce_pointer == DEBOUNCE_ELAPSED) {
