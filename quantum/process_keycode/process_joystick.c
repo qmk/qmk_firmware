@@ -1,9 +1,7 @@
 #include "joystick.h"
 #include "process_joystick.h"
 
-#ifdef __AVR__
-#    include "analog.h"
-#endif
+#include "analog.h"
 
 #include <string.h>
 #include <math.h>
@@ -107,7 +105,7 @@ bool process_joystick_analogread_quantum() {
 
         wait_us(10);
 
-#    ifdef __AVR__
+#    if defined(__AVR__) || defined(PROTOCOL_CHIBIOS)
         int16_t axis_val = analogReadPin(joystick_axes[axis_index].input_pin);
 #    else
         // default to resting position

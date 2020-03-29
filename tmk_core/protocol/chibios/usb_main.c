@@ -935,7 +935,15 @@ void send_joystick_packet(joystick_t *joystick) {
 #    endif  // JOYSTICK_BUTTON_COUNT>0
     };
 
-    chnWrite(&drivers.joystick_driver.driver, (uint8_t *)&rep, sizeof(rep));
+    // chnWrite(&drivers.joystick_driver.driver, (uint8_t *)&rep, sizeof(rep));
+    osalSysLock();
+    if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
+        osalSysUnlock();
+        return;
+    }
+
+    usbStartTransmitI(&USB_DRIVER, JOYSTICK_IN_EPNUM, (uint8_t *)&rep, sizeof(joystick_report_t));
+    osalSysUnlock();
 }
 
 #endif
