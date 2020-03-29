@@ -215,6 +215,10 @@ void pointing_device_init(void) {
     wait_ms(100);
 }
 
+int8_t clamp_hid(int32_t value){
+    return  value < -127 ? -127 : value > 127 ? 127 : value;
+}
+
 void pointing_device_task(void) {
 
     if(!is_keyboard_master())
@@ -222,11 +226,8 @@ void pointing_device_task(void) {
 
     report_mouse_t report = pointing_device_get_report();
 
-    // clamp deltas from -127 to 127
-    report.x = delta_x < -127 ? 127 : delta_x > 127 ? 127 : delta_x;
-    report.x = -report.x;
-
-    report.y = delta_y < -127 ? 127 : delta_y > 127 ? 127 : delta_y;
+    report.x = -clamp_hid(delta_x);
+    report.y = clamp_hid(delta_y);
 
     // reset deltas
     delta_x = 0;
