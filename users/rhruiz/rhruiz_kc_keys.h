@@ -13,6 +13,7 @@
 
 #define KC_SFN1 SPCFN1
 #define KC_BFN2 BKSFN2
+#define KC_ALBS LALT_T(KC_BSPC)
 
 #define KC__RST RESET
 #define KC_MISS MISCTRL
