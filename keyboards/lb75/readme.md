@@ -1,12 +1,12 @@
 # LB75
 
-![LB75](imgur.com image replace me!)
+![LB75](https://i.imgur.com/UNhskvM.jpg)
 
-A short description of the keyboard/project
+LB75 PCB for QUAD-H
 
-Keyboard Maintainer: [Ryota Goto](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Keyboard Maintainer: [ai03](https://github.com/ai03-2725)  
+Hardware Supported: The LB75 PCB
+Hardware Availability: Private
 
 Make example for this keyboard (after setting up your build environment):
 
