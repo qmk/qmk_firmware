@@ -87,7 +87,7 @@ void vusb_transfer_keyboard(void) {
 #    define RAW_OUTPUT_SIZE (32)
 
 static uint8_t raw_output_buffer[RAW_OUTPUT_SIZE];
-static uint8_t raw_output_recieved_bytes = 0;
+static uint8_t raw_output_received_bytes = 0;
 
 void raw_hid_send(uint8_t *data, uint8_t length) {
     if (length != RAW_INPUT_SIZE) {
@@ -117,9 +117,9 @@ __attribute__((weak)) void raw_hid_receive(uint8_t *data, uint8_t length) {
 }
 
 void raw_hid_task(void) {
-    if (raw_output_recieved_bytes == RAW_OUTPUT_SIZE) {
+    if (raw_output_received_bytes == RAW_OUTPUT_SIZE) {
         raw_hid_receive(raw_output_buffer, RAW_OUTPUT_SIZE);
-        raw_output_recieved_bytes = 0;
+        raw_output_received_bytes = 0;
     }
 }
 
@@ -265,18 +265,18 @@ void usbFunctionWriteOut(uchar *data, uchar len) {
     // Data from host must be divided every 8bytes
     if (len != 8) {
         debug("RAW: invalid length");
-        raw_output_recieved_bytes = 0;
+        raw_output_received_bytes = 0;
         return;
     }
 
-    if (raw_output_recieved_bytes + len > RAW_OUTPUT_SIZE) {
+    if (raw_output_received_bytes + len > RAW_OUTPUT_SIZE) {
         debug("RAW: buffer full");
-        raw_output_recieved_bytes = 0;
+        raw_output_received_bytes = 0;
     } else {
         for (uint8_t i = 0; i < 8; i++) {
-            raw_output_buffer[raw_output_recieved_bytes + i] = data[i];
+            raw_output_buffer[raw_output_received_bytes + i] = data[i];
         }
-        raw_output_recieved_bytes += len;
+        raw_output_received_bytes += len;
     }
 #endif
 }
