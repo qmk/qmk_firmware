@@ -87,7 +87,7 @@ void vusb_transfer_keyboard(void) {
 #    define RAW_OUTPUT_SIZE (32)
 
 static uint8_t raw_output_buffer[RAW_OUTPUT_SIZE];
-static uint8_t raw_output_received_bytes = 0;
+static uint8_t raw_output_recieved_bytes = 0;
 
 void raw_hid_send(uint8_t *data, uint8_t length) {
     if (length != RAW_INPUT_SIZE) {
