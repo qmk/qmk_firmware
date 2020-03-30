@@ -22,8 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0x1234
 #define PRODUCT_ID      0x5679
 #define DEVICE_VER      0x0200
-#define MANUFACTURER    winkeyless.kr
-#define PRODUCT         JC65 PS2AVRGB
+#define MANUFACTURER    RAMA
+#define PRODUCT         JC65 BMC
 
 /* matrix size */
 #define MATRIX_ROWS 7
