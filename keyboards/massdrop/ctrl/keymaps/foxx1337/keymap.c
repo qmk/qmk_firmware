@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "hid_protocol.h"
 
 enum ctrl_keycodes {
     U_T_AUTO = SAFE_RANGE, //USB Extra Port Toggle Auto Detect / Always Active
@@ -130,31 +131,63 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case RGB_TOG:
             if (record->event.pressed) {
-              switch (rgb_matrix_get_flags()) {
-                case LED_FLAG_ALL: {
-                    rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER);
-                    rgb_matrix_set_color_all(0, 0, 0);
-                  }
-                  break;
-                case LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER: {
-                    rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
-                    rgb_matrix_set_color_all(0, 0, 0);
-                  }
-                  break;
-                case LED_FLAG_UNDERGLOW: {
-                    rgb_matrix_set_flags(LED_FLAG_NONE);
-                    rgb_matrix_disable_noeeprom();
-                  }
-                  break;
-                default: {
-                    rgb_matrix_set_flags(LED_FLAG_ALL);
-                    rgb_matrix_enable_noeeprom();
-                  }
-                  break;
-              }
+                switch (rgb_matrix_get_flags()) {
+                    case LED_FLAG_ALL: {
+                        rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER);
+                        rgb_matrix_set_color_all(0, 0, 0);
+                    }
+                    break;
+                    case LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER: {
+                        rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
+                        rgb_matrix_set_color_all(0, 0, 0);
+                    }
+                    break;
+                    case LED_FLAG_UNDERGLOW: {
+                        rgb_matrix_set_flags(LED_FLAG_NONE);
+                        rgb_matrix_disable_noeeprom();
+                    }
+                    break;
+                    default: {
+                        rgb_matrix_set_flags(LED_FLAG_ALL);
+                        rgb_matrix_enable_noeeprom();
+                    }
+                    break;
+                }
             }
             return false;
         default:
             return true; //Process all other keycodes normally
+    }
+}
+
+void raw_hid_say_hello(void) {
+    raw_hid_buffer[0] = CTRL_HID_HELLO;
+    raw_hid_buffer[1] = 'C';
+    raw_hid_buffer[2] = 'T';
+    raw_hid_buffer[3] = 'R';
+    raw_hid_buffer[4] = 'L';
+    raw_hid_buffer[5] = CTRL_HID_EOM;
+
+    raw_hid_perform_send();
+}
+
+void raw_hid_lights_toggle(void) {
+    change_led_state(!is_led_timeout);
+
+    raw_hid_buffer[0] = CTRL_HID_LIGHTS_TOGGLE;
+    raw_hid_buffer[1] = (uint8_t) is_led_timeout;
+    raw_hid_buffer[2] = CTRL_HID_EOM;
+
+    raw_hid_perform_send();
+}
+
+void raw_hid_receive(uint8_t *data, uint8_t length) {
+    switch (*data) {
+        case CTRL_HID_HELLO:
+            raw_hid_say_hello();
+            break;
+        case CTRL_HID_LIGHTS_TOGGLE:
+            raw_hid_lights_toggle();
+            break;
     }
 }
