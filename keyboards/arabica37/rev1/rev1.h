@@ -7,7 +7,6 @@
 #define has_usb() is_keyboard_master()
 uint8_t is_master;
 
-//void promicro_bootloader_jmp(bool program);
 #define LAYOUT( \
  L00, L01, L02, L03, L04, L05,           R00, R01, R02, R03, R04, R05, \
  L10, L11, L12, L13, L14, L15,           R10, R11, R12, R13, R14, R15, \
