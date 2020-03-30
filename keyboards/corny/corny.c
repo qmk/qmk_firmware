@@ -14,10 +14,44 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "corny.h"
+#include "raw_hid.h"
+#include "hid_api.h"
 
 // Optional override functions below.
 // You can leave any or all of these undefined.
 // These are only required if you want to perform custom actions.
+
+layer_state_t state = 0;
+
+layer_state_t layer_state_set_kb(layer_state_t newState) {
+  state = newState;
+  return newState;
+}
+
+
+#ifdef RAW_ENABLE
+void raw_hid_receive(uint8_t *data, uint8_t length) {
+  uint8_t *command = &(data[0]);
+  uint8_t *args = &(data[1]);
+
+  switch(*command) {
+    case id_get_protocol_version: {
+                                    args[0] = API_VERSION >> 8;
+                                    args[1] = API_VERSION & 0xFF;
+                                    break;
+                                  }
+    case id_get_layer_state: {
+                               args[0] = (state >> 24) & 0xFF;
+                               args[1] = (state >> 16) & 0xFF;
+                               args[2] = (state >> 8) & 0xFF;
+                               args[3] = state & 0xFF;
+                             }
+  }
+
+  raw_hid_send(data, length);
+
+}
+#endif 
 
 /*
 

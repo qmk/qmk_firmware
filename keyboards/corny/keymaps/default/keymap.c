@@ -49,8 +49,8 @@ enum custom_keycodes {
 #define LVAI  RGB_VAI
 #define LVAD  RGB_VAD
 #define LMOD  RGB_MOD
-#define CTLTB CTL_T(KC_TAB)
-//#define CTSPC CTL_T(KC_SPC)
+#define CTLTB LCTL_T(KC_TAB)
+#define CTSPC CTL_T(KC_SPC)
 #define CTLEN RCTL_T(KC_ENT)
 #define ZLALT LALT_T(KC_Z)
 #define ZRALT RALT_T(KC_SLSH)
@@ -66,21 +66,22 @@ enum custom_keycodes {
 #define MPLPP KC_MEDIA_PLAY_PAUSE
 #define BRIUP KC_BRIGHTNESS_UP
 #define BRIDN KC_BRIGHTNESS_DOWN 
-#define LBGUI MT(MOD_LGUI, KC_LBRC)
-#define RBGUI MT(MOD_RGUI, KC_RBRC)
+#define LBGUI MT(MOD_LGUI, KC_X)
+#define RBGUI MT(MOD_RGUI, KC_DOT)
 #define MSLU  MSLU
 #define MSRU  MSRU
 #define MSLD  MSLD
 #define MSRD  MSRD
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT( \
   //.-----------------------------------------------------------.                ,-----------------------------------------------------------.
        KC_GESC,     KC_Q,     KC_W,     KC_E,     KC_R,     LRAI,                      RRAI,     KC_U,     KC_I,     KC_O,     KC_P,  KC_BSPC,\
   //|---------+---------+---------+---------+---------+---------|                |---------+---------+---------+---------+---------+---------|
-         CTLTB,     KC_A,     KC_S,     KC_D,     KC_F,     KC_G,                      KC_H,     KC_J,     KC_K,     KC_L,  KC_SCLN,    CTLEN,\
+         CTSPC,     KC_A,     KC_S,     KC_D,     KC_F,     KC_G,                      KC_H,     KC_J,     KC_K,     KC_L,  KC_SCLN,    CTLEN,\
   //|---------+---------+---------+---------+---------+---------|                |---------+---------+---------+---------+---------+---------|
-       KC_LSPO,    ZLALT,     KC_X,     KC_C,     KC_V,     LLOW,                      RLOW,     KC_M,  KC_COMM,   KC_DOT,    ZRALT,  KC_RSPC
+       KC_LSPO,    ZLALT,    LBGUI,     KC_C,     KC_V,     LLOW,                      RLOW,     KC_M,  KC_COMM,    RBGUI,    ZRALT,  KC_RSPC
   //.-----------------------------------------------------------.                ,-----------------------------------------------------------.
   ),
   [_LOWER] = LAYOUT( \
@@ -113,6 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------------.                ,-----------------------------------------------------------.
   )
 };
+
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 /**  switch (keycode) {
