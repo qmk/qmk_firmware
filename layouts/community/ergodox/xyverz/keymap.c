@@ -1,16 +1,25 @@
 /*
  * About this keymap:
- *
+ * 
  * The Dvorak layout shown here stems from my early Kinesis years, using the Contour PS/2 with a Dvorak
  * software layout. Because of this, the RBRC and LBRC were on opposite sides of the board in the corner
- * keys, and the slash and equal were immediately to the right of the Down arrow. For the most part, I'm
- * keeping this layout, but still playing with the corner keys a bit.
+ * keys. When I originally set up this keymap, I'd decided to continue using this layout with my ErgoDox.
+ * I've since modified my layout to be more effective for me and to more closely match my other ortho
+ * keyboard layouts
  *
  * The QWERTY layout shown here is based entirely on the Kinesis Advantage layout, with the additional
  * keys as shown in the diagrams. The Colemak layout is merely an adaptation of that.
  *
  * I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar to the default Planck
  * layouts.
+ *
+ * What's New:
+ * 
+ * I've overhauled this Dvorak layout a bit to more match what I've got on my other Ortho boards. For
+ * some keys, I'm moving away from my old Kinesis keymap and adding the brackets and braces to the
+ * inner column vertical keys. I figure this will help me have better ease of use. In this update, I
+ * have also removed the keypad layer since I no longer use that at all, and have remapped the MEDIA
+ * layer a bit.
  *
  */
 
@@ -23,7 +32,7 @@ enum layer_names {
     _MEDIA,
 };
 
-enum custom_keycodes { DVORAK = SAFE_RANGE, QWERTY, COLEMAK, MEDIA };
+enum custom_keycodes { DVORAK = SAFE_RANGE, QWERTY, COLEMAK };
 
 // Aliases to make the keymap more uniform
 #define GUI_END GUI_T(KC_END)
