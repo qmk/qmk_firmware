@@ -67,15 +67,15 @@
 
 ?> 自動シフトには、この値を素早く取得するのに役立つ3つの特別なキーがあります。詳細は「自動シフトのセットアップ」を見てください！
 
-### NO_AUTO_SHIFT_SPECIAL (simple define)
+### NO_AUTO_SHIFT_SPECIAL (単純にこのように定義します)
 
 -\_, =+, [{, ]}, ;:, '", ,<, .> および /? を含む特殊キーを自動シフトしません
 
-### NO_AUTO_SHIFT_NUMERIC (simple define)
+### NO_AUTO_SHIFT_NUMERIC (単純にこのように定義します)
 
 0から9までの数字キーを自動シフトしません。
 
-### NO_AUTO_SHIFT_ALPHA (simple define)
+### NO_AUTO_SHIFT_ALPHA (単純にこのように定義します)
 
 AからZを含むアルファベット文字を自動シフトしません。
 
