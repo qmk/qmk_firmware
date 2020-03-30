@@ -87,11 +87,7 @@ In addition to the functions that you can call, there are a number of callback f
 
 It is also possible to check the state of a particular layer using the following functions and macros.
 
-|Function/macro                             |Description                                                                                                           |
-|-------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
-| `layer_state_cmp(cmp_layer_state, layer)` | Checks `cmp_layer_state` to see if the specified `layer` is enabled. This is meant for use with the layer callbacks. |
-| `layer_state_is(layer)`                   | Checks if the specified `layer` is currently enabled globally.                                                       |
-| `IS_LAYER_ON(layer)`                      | Checks if the specified `layer` is currently enabled globally (convenience for `layer_state_is`).                    |
-| `IS_LAYER_OFF(layer)`                     | Checks if the specified `layer` is currently disabled globally (convenience for `!layer_state_is`).                  |
-| `IS_LAYER_ON_STATE(state, layer)`         | Checks if the specified `layer` is enabled in `state` (convenience for `layer_state_cmp`). Used in layer callbacks.  |
-| `IS_LAYER_OFF_STATE(state, layer)`        | Checks if the specified `layer` is disabled in `state` (convenience for `!layer_state_cmp`). Used in layer callbacks.|
+|Function                         |Description                                                                                      |Aliases
+|---------------------------------|-------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| `layer_state_is(layer)`         | Checks if the specified `layer` is enabled globally.                                            | `IS_LAYER_ON(layer)`, `IS_LAYER_OFF(layer)`                           |
+| `layer_state_cmp(state, layer)` | Checks `state` to see if the specified `layer` is enabled. Intended for use in layer callbacks. | `IS_LAYER_ON_STATE(state, layer)`, `IS_LAYER_OFF_STATE(state, layer)` |
