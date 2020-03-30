@@ -1,9 +1,9 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "quantum.h"
-#include "pointing_device.h"
 #include "adns9800_srom_A4.h"
 #include "../../lib/lufa/LUFA/Drivers/Peripheral/SPI.h"
+#include "adns.h"
 
 // registers
 #define REG_Product_ID                           0x00
@@ -76,9 +76,7 @@ enum motion_burst_property{
     end_data
 };
 
-// used to track the motion delta between updates
-volatile int32_t delta_x;
-volatile int32_t delta_y;
+report_adns_t report;
 
 void adns_begin(void){
     PORTB &= ~ (1 << NCS);
@@ -124,10 +122,7 @@ uint8_t adns_read(uint8_t reg_addr){
     return data;
 }
 
-void pointing_device_init(void) {
-
-    if(!is_keyboard_master())
-        return;
+void adns_init(void) {
 
     // interrupt 2
     EICRA &= ~(1 << 4);
@@ -215,57 +210,40 @@ void pointing_device_init(void) {
     wait_ms(100);
 }
 
-int8_t clamp_hid(int32_t value){
-    return  value < -127 ? -127 : value > 127 ? 127 : value;
-}
-
-void pointing_device_task(void) {
-
-    if(!is_keyboard_master())
-        return;
-
-    report_mouse_t report = pointing_device_get_report();
-
-    report.x = -clamp_hid(delta_x);
-    report.y = clamp_hid(delta_y);
-
-    // reset deltas
-    delta_x = 0;
-    delta_y = 0;
-
-    pointing_device_set_report(report);
-    pointing_device_send();
-}
-
 int16_t convertDeltaToInt(uint8_t high, uint8_t low){
 
     // join bytes into twos compliment
     uint16_t twos_comp = (high << 8) | low;
 
     // convert twos comp to int
-    if (twos_comp & 0x8000)
-        return -1 * ((twos_comp ^ 0xffff) + 1);
+    if ((twos_comp & 0x8000) != 0)
+        return -1 * (~twos_comp + 1);
 
     return twos_comp;
 }
 
-ISR(INT2_vect) {
-    // called on interrupt 2 when sensed motion
-    // copy burst data from the respective registers
+report_adns_t adns_get_report(void) {
+    return report;
+}
+
+void adns_clear_report(void) {
+    report.x = 0;
+    report.y = 0;
+}
+
+ISR(INT2_vect){
 
     adns_begin();
 
-    // send adress of the register, with MSBit = 1 to indicate it's a write
     SPI_TransferByte(REG_Motion_Burst & 0x7f);
 
     uint8_t burst_data[pixel_sum];
 
-    for (int i = 0; i < pixel_sum; ++i) {
+    for (int i = 0; i < pixel_sum; ++i)
         burst_data[i] = SPI_TransferByte(0);
-    }
 
-    delta_x += convertDeltaToInt(burst_data[delta_x_h], burst_data[delta_x_l]);
-    delta_y += convertDeltaToInt(burst_data[delta_y_h], burst_data[delta_y_l]);
+    report.x += convertDeltaToInt(burst_data[delta_x_h], burst_data[delta_x_l]);
+    report.y += convertDeltaToInt(burst_data[delta_y_h], burst_data[delta_y_l]);
 
     adns_end();
 }

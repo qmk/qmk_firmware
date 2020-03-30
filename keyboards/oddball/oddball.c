@@ -16,6 +16,7 @@
 
 #include "oddball.h"
 #include "pointing_device.h"
+#include "adns.h"
 
 void on_mouse_button(uint8_t mouse_button, bool pressed) {
     report_mouse_t report = pointing_device_get_report();
@@ -28,8 +29,35 @@ void on_mouse_button(uint8_t mouse_button, bool pressed) {
     pointing_device_set_report(report);
 }
 
+void pointing_device_init(void){
+    if(!is_keyboard_master())
+        return;
+
+    adns_init();
+}
+
+int8_t clamp_hid(int16_t value){
+    return  value < -127 ? -127 : value > 127 ? 127 : value;
+}
+
+void pointing_device_task(void){
+    if(!is_keyboard_master())
+        return;
+
+    report_mouse_t mouse_report = pointing_device_get_report();
+    report_adns_t adns_report = adns_get_report();
+    adns_clear_report();
+
+    mouse_report.x = -clamp_hid(adns_report.x);
+    mouse_report.y = clamp_hid(adns_report.y);
+
+    pointing_device_set_report(mouse_report);
+    pointing_device_send();
+}
+
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
+    // handle mouse drag
     switch (keycode) {
         case KC_BTN1:
             on_mouse_button(MOUSE_BTN1, record->event.pressed);
