@@ -49,6 +49,12 @@
 #    define UNICODE_TYPE_DELAY 10
 #endif
 
+#if !defined(UNICODE_SONG_MAC) && defined(UNICODE_SONG_OSX)
+#    define UNICODE_SONG_MAC UNICODE_SONG_OSX  // Deprecated aalias
+#endif
+
+#define UC_OSX UC_MAC  // Deprecated alias
+
 enum unicode_input_modes {
     UC_MAC,    // macOS using Unicode Hex Input
     UC_LNX,    // Linux using IBus
@@ -57,8 +63,6 @@ enum unicode_input_modes {
     UC_WINC,   // Windows using WinCompose (https://github.com/samhocevar/wincompose)
     UC__COUNT  // Number of available input modes (always leave at the end)
 };
-
-#define UC_OSX UC_MAC // Deprecated alias
 
 typedef union {
     uint32_t raw;
