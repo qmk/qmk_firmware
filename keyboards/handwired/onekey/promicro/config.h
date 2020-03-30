@@ -21,3 +21,5 @@
 #define MATRIX_COL_PINS { F4 }
 #define MATRIX_ROW_PINS { F5 }
 #define UNUSED_PINS
+
+#define ADC_PIN F6

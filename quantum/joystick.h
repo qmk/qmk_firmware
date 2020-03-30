@@ -8,6 +8,8 @@
 #    define JOYSTICK_AXES_COUNT 4
 #endif
 
+#include "quantum.h"
+
 #include <stdint.h>
 
 // configure on input_pin of the joystick_axes array entry to JS_VIRTUAL_AXIS
