@@ -778,6 +778,7 @@ enum quantum_keycodes {
 #define UC_RMOD UNICODE_MODE_REVERSE
 
 #define UC_M_MA UNICODE_MODE_MAC
+#define UNICODE_MODE_OSX UNICODE_MODE_MAC // Deprecated alias
 #define UC_M_OS UNICODE_MODE_MAC // Deprecated alias
 #define UC_M_LN UNICODE_MODE_LNX
 #define UC_M_WI UNICODE_MODE_WIN

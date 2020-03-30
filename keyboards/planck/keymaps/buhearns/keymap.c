@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   UC(0xB0), UC(0xB9), UC(0xB2), UC(0xB3), UC(0xDF),   UC(0x20AC), KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
   KC_TRNS,  UC(0xC4), UC(0xD6), UC(0xDC), UC(0xBB),   UC(0xAB),   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
   KC_TRNS,  UC(0xE4), UC(0xF6), UC(0xFC), UC(0x2022), KC_NO,      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS, UC_M_MA, UC_M_LN, UC_M_WI, UC_M_WC
+  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS, UC_M_OS, UC_M_LN, UC_M_WI, UC_M_WC
 )};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
