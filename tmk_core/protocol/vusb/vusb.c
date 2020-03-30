@@ -83,14 +83,14 @@ void vusb_transfer_keyboard(void) {
  * RAW HID
  *------------------------------------------------------------------*/
 #ifdef RAW_ENABLE
-#    define RAW_INPUT_SIZE (32)
-#    define RAW_OUTPUT_SIZE (32)
+#    define RAW_BUFFER_SIZE 32
+#    define RAW_EPSIZE 8
 
-static uint8_t raw_output_buffer[RAW_OUTPUT_SIZE];
+static uint8_t raw_output_buffer[RAW_BUFFER_SIZE];
 static uint8_t raw_output_received_bytes = 0;
 
 void raw_hid_send(uint8_t *data, uint8_t length) {
-    if (length != RAW_INPUT_SIZE) {
+    if (length != RAW_BUFFER_SIZE) {
         return;
     }
 
@@ -117,8 +117,8 @@ __attribute__((weak)) void raw_hid_receive(uint8_t *data, uint8_t length) {
 }
 
 void raw_hid_task(void) {
-    if (raw_output_received_bytes == RAW_OUTPUT_SIZE) {
-        raw_hid_receive(raw_output_buffer, RAW_OUTPUT_SIZE);
+    if (raw_output_received_bytes == RAW_BUFFER_SIZE) {
+        raw_hid_receive(raw_output_buffer, RAW_BUFFER_SIZE);
         raw_output_received_bytes = 0;
     }
 }
@@ -269,7 +269,7 @@ void usbFunctionWriteOut(uchar *data, uchar len) {
         return;
     }
 
-    if (raw_output_received_bytes + len > RAW_OUTPUT_SIZE) {
+    if (raw_output_received_bytes + len > RAW_BUFFER_SIZE) {
         debug("RAW: buffer full");
         raw_output_received_bytes = 0;
     } else {
@@ -416,17 +416,17 @@ const PROGMEM uchar raw_hid_report[] = {
     0x09, 0x61,        // Usage (Vendor Defined)
     0xA1, 0x01,        // Collection (Application)
     // Data to host
-    0x09, 0x62,            //   Usage (Vendor Defined)
-    0x15, 0x00,            //   Logical Minimum (0)
-    0x26, 0xFF, 0x00,      //   Logical Maximum (255)
-    0x95, RAW_INPUT_SIZE,  //   Report Count
-    0x75, 0x08,            //   Report Size (8)
-    0x81, 0x02,            //   Input (Data, Variable, Absolute)
+    0x09, 0x62,             //   Usage (Vendor Defined)
+    0x15, 0x00,             //   Logical Minimum (0)
+    0x26, 0xFF, 0x00,       //   Logical Maximum (255)
+    0x95, RAW_BUFFER_SIZE,  //   Report Count
+    0x75, 0x08,             //   Report Size (8)
+    0x81, 0x02,             //   Input (Data, Variable, Absolute)
     // Data from host
     0x09, 0x63,             //   Usage (Vendor Defined)
     0x15, 0x00,             //   Logical Minimum (0)
     0x26, 0xFF, 0x00,       //   Logical Maximum (255)
-    0x95, RAW_OUTPUT_SIZE,  //   Report Count
+    0x95, RAW_BUFFER_SIZE,  //   Report Count
     0x75, 0x08,             //   Report Size (8)
     0x91, 0x02,             //   Output (Data, Variable, Absolute)
     0xC0,                   // End Collection
@@ -642,7 +642,7 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         },
         .bEndpointAddress    = (USBRQ_DIR_DEVICE_TO_HOST | USB_CFG_EP3_NUMBER),
         .bmAttributes        = 0x03,
-        .wMaxPacketSize      = 8,
+        .wMaxPacketSize      = RAW_EPSIZE,
         .bInterval           = USB_POLLING_INTERVAL_MS
     },
     .rawOUTEndpoint = {
@@ -652,7 +652,7 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         },
         .bEndpointAddress    = (USBRQ_DIR_HOST_TO_DEVICE | USB_CFG_EP3_NUMBER),
         .bmAttributes        = 0x03,
-        .wMaxPacketSize      = 8,
+        .wMaxPacketSize      = RAW_EPSIZE,
         .bInterval           = USB_POLLING_INTERVAL_MS
     }
 #        endif
