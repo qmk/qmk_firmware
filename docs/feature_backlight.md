@@ -1,6 +1,6 @@
 # Backlighting
 
-Many keyboards support backlit keys by way of individual LEDs placed through or underneath the keyswitches. This feature is distinct from both the [RGB underglow](feature_rgblight.md) and [RGB matrix](feature_rgb_matrix.md) features as it usually allows for only a single colour per switch, though you can obviously install multiple different single coloured LEDs on a keyboard.
+Many keyboards support backlight keys by way of individual LEDs placed through or underneath the keyswitches. This feature is distinct from both the [RGB underglow](feature_rgblight.md) and [RGB matrix](feature_rgb_matrix.md) features as it usually allows for only a single colour per switch, though you can obviously install multiple different single coloured LEDs on a keyboard.
 
 QMK is able to control the brightness of these LEDs by switching them on and off rapidly in a certain ratio, a technique known as *Pulse Width Modulation*, or PWM. By altering the duty cycle of the PWM signal, it creates the illusion of dimming.
 
