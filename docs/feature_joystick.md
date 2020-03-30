@@ -17,7 +17,6 @@ The joystick feature provides two services:
 Both services can be used without the other, depending on whether you just want to read a device but not send gamepad reports (for volume control for instance)
 or send gamepad reports based on values computed by the keyboard.
 
-!> Reading analog axes is not currently functional on ARM MCUs.
 
 ### Analog circuit
 
