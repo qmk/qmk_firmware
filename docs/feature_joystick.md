@@ -1,8 +1,8 @@
-## Joystick HID Device
+## Joystick
 
-The keyboard can be made to be recognized as a joystick HID device by the Operating System.
+The keyboard can be made to be recognized as a joystick HID device by the operating system.
 
-This is enabled by adding the following to `rules.mk`
+This is enabled by adding the following to `rules.mk`:
 
 ```makefile
 JOYSTICK_ENABLE = yes
@@ -10,7 +10,7 @@ JOYSTICK_ENABLE = yes
 
 !> Joystick support is not currently available on V-USB devices.
 
-The joystick feature provides two services :
+The joystick feature provides two services:
  * reading an analog input device
  * sending gamepad HID reports
 

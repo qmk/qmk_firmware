@@ -41,7 +41,7 @@ bool process_joystick_buttons(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-uint16_t savePinState(uint32_t pin) {
+uint16_t savePinState(pin_t pin) {
 #ifdef __AVR__
     uint8_t pinNumber = pin & 0xF;
     return ((PORTx_ADDRESS(pin) >> pinNumber) & 0x1) << 1 | ((DDRx_ADDRESS(pin) >> pinNumber) & 0x1);
@@ -62,8 +62,8 @@ uint16_t savePinState(uint32_t pin) {
 #endif
 }
 
-void restorePinState(uint32_t pin, uint16_t restoreState) {
-#ifdef __AVR__
+void restorePinState(pin_t pin, uint16_t restoreState) {
+#if defined(PROTOCOL_LUFA)
     uint8_t pinNumber  = pin & 0xF;
     PORTx_ADDRESS(pin) = (PORTx_ADDRESS(pin) & ~_BV(pinNumber)) | (((restoreState >> 1) & 0x1) << pinNumber);
     DDRx_ADDRESS(pin)  = (DDRx_ADDRESS(pin) & ~_BV(pinNumber)) | ((restoreState & 0x1) << pinNumber);
@@ -135,17 +135,17 @@ bool process_joystick_analogread_quantum() {
         //test the converted value against the lower range
         int32_t ref = joystick_axes[axis_index].mid_digit;
         int32_t range = joystick_axes[axis_index].min_digit;
-        int32_t ranged_val = ((axis_val - ref)* -127)/(range - ref) ;
+        int32_t ranged_val = ((axis_val - ref) * -127) / (range - ref) ;
 
-        if (ranged_val > 0){
+        if (ranged_val > 0) {
             //the value is in the higher range
             range = joystick_axes[axis_index].max_digit;
-            ranged_val = ((axis_val - ref)* 127)/(range - ref);
+            ranged_val = ((axis_val - ref) * 127) / (range - ref);
         }
         
         //clamp the result in the valid range
-        ranged_val = ranged_val<-127 ? -127 : ranged_val;
-        ranged_val = ranged_val>127 ? 127 : ranged_val;
+        ranged_val = ranged_val < -127 ? -127 : ranged_val;
+        ranged_val = ranged_val > 127 ? 127 : ranged_val;
         
         if (ranged_val != joystick_status.axes[axis_index]) {
             joystick_status.axes[axis_index] = ranged_val;

@@ -25,9 +25,9 @@
     { OUTPUT_PIN, INPUT_PIN, GROUND_PIN, LOW, REST, HIGH }
 
 typedef struct {
-    uint32_t output_pin;
-    uint32_t input_pin;
-    uint32_t ground_pin;
+    pin_t output_pin;
+    pin_t input_pin;
+    pin_t ground_pin;
 
     // the AVR ADC offers 10 bit precision, with significant bits on the higher part
     uint16_t min_digit;
