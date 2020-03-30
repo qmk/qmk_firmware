@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #if (defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)) && defined(RAW_ENABLE)
-#    error "can't use mouse/extra key and hid raw at same time on VUSB"
+#    error "Enabling Mousekeys/Extrakeys and Raw HID at the same time is not currently supported on V-USB."
 #endif
 
 static uint8_t vusb_keyboard_leds = 0;
