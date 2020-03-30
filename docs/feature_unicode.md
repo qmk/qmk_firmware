@@ -147,9 +147,9 @@ If you have the [Audio feature](feature_audio.md) enabled on the board, you can 
 For instance, you can add these definitions to your `config.h` file:
 
 ```c
-#define UNICODE_SONG_MAC  COIN_SOUND
+#define UNICODE_SONG_MAC  AUDIO_ON_SOUND
 #define UNICODE_SONG_LNX  UNICODE_LINUX
-#define UNICODE_SONG_BSD  MARIO_GAMEOVER
+#define UNICODE_SONG_BSD  TERMINAL_SOUND
 #define UNICODE_SONG_WIN  UNICODE_WINDOWS
 #define UNICODE_SONG_WINC UNICODE_WINDOWS
 ```
