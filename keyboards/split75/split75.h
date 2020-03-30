@@ -3,11 +3,11 @@
 #include "quantum.h"
 
 inline void led_1_on(void) {writePinHigh(D0);}
-inline void led_2_on(void) {writePinHigh(D1);} //D4
+inline void led_2_on(void) {writePinHigh(D1);}
 inline void led_3_on(void) {writePinHigh(D6);}
 
 inline void led_1_off(void) {writePinLow(D0);}
-inline void led_2_off(void) {writePinLow(D1);} //D4?
+inline void led_2_off(void) {writePinLow(D1);}
 inline void led_3_off(void) {writePinLow(D6);}
 
 // Number of keys in rows
