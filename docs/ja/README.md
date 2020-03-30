@@ -2,7 +2,7 @@
 
 <!---
   original document: eae21eed7:docs/README.md
-  git diff eae21eed7 HEAD docs/README.md | cat
+  git diff eae21eed7 HEAD -- docs/README.md | cat
 -->
 
 [![現在のバージョン](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)

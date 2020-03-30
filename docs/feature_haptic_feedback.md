@@ -2,7 +2,7 @@
 
 ## Haptic feedback rules.mk options
 
-The following options are currently available for haptic feedback in `rule.mk`:
+The following options are currently available for haptic feedback in `rules.mk`:
 
 `HAPTIC_ENABLE += DRV2605L`
 

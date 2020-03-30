@@ -1,5 +1,7 @@
 #include "ninjonas.h"
 
+uint16_t copy_paste_timer;
+
 __attribute__((weak))
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 
@@ -21,7 +23,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
-    // Sends  + alt + shift to a keycode to activate shiftit. See: https://github.com/fikovnik/ShiftIt
+    // Sends Cmd + alt + shift to a keycode to activate shiftit. See: https://github.com/fikovnik/ShiftIt
     case M_SHFT:
       if (record->event.pressed) {
         register_code(KC_LGUI);
@@ -44,7 +46,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Sends QMK make command to compile all keyboards
     case M_MALL:
      if (record->event.pressed) {
-        SEND_STRING("rm -f *.hex && rm -rf .build/ && make crkbd:ninjonas lily58:ninjonas hotdox:ninjonas pinky/3:ninjonas\n");
+        SEND_STRING("rm -f *.hex && rm -rf .build/ && make crkbd:ninjonas lily58:ninjonas hotdox:ninjonas pinky/3:ninjonas kyria:ninjonas\n");
       }
       break;
 
@@ -89,6 +91,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("terminal\n");
       }
       break;
+
+    // Single key copy/paste
+    case M_COPA:  
+      if (record->event.pressed) {
+          copy_paste_timer = timer_read();
+      } else {
+          if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {  
+              tap_code16(LGUI(KC_C)); // Hold Cmd + C
+          } else {  
+              tap_code16(LGUI(KC_V)); // Tap Cmd + V
+          }
+      }
 
     // BEGIN: Layer macros
     case QWERTY:

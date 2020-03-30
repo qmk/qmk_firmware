@@ -1,7 +1,9 @@
 SRC += drashna.c \
        process_records.c
 
-LTO_ENABLE            = yes
+ifneq ($(PLATFORM),CHIBIOS)
+    LTO_ENABLE            = yes
+endif
 SPACE_CADET_ENABLE    = no
 
 ifneq ($(strip $(NO_SECRETS)), yes)

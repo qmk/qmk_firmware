@@ -121,9 +121,13 @@ void shutdown_user(void) {
     rgblight_setrgb_red();
 #endif  // RGBLIGHT_ENABLE
 #ifdef RGB_MATRIX_ENABLE
+#    ifdef __AVR__
     rgb_matrix_set_color_all(0xFF, 0x00, 0x00);
     rgb_matrix_update_pwm_buffers();
-
+#    else
+    rgb_matrix_sethsv_noeeprom(0, 255, 255);
+    rgb_matrix_mode_noeeprom(1);
+#    endif
 #endif  // RGB_MATRIX_ENABLE
     shutdown_keymap();
 }

@@ -16,6 +16,24 @@ Flashing example for this keyboard ([after setting up the bootloadHID flashing e
 
     make jj4x4:default:flash
 
-**Reset Key**: Hold down the key located at *K00*, commonly programmed as *8* while plugging in the keyboard.
+**Reset Key**:
+
+Hold down the key located at *K12*, commonly programmed as *8* while plugging in the keyboard USB cable.
+
+Key *K12* is in the above picture:
+
+Row 2 from the top, Column 2 from the left, see the schematic below:
+
+```
+  ,-----------------------.
+  |     |     |     |     |
+  |-----`-----`-----`-----|
+  |     | K12 |     |     |
+  |-----`-----`-----`-----|
+  |     |     |     |     |
+  |-----`-----`-----`-----|
+  |     |     |     |     |
+  `-----`-----`-----`-----'
+```
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
