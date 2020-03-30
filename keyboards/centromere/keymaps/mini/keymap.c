@@ -13,12 +13,9 @@ enum centromere_layers
     _ADJUST
 };
 
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  LOWER,
-  RAISE,
-  ADJUST,
-};
+// Defines for layer movement
+#define LOWER MO(_LOWER)
+#define RAISE MO(_RAISE)
 
 // Defines for task manager
 #define CALTDEL LCTL(LALT(KC_DEL))
