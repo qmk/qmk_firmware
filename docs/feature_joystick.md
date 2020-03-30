@@ -11,7 +11,7 @@ JOYSTICK_ENABLE = yes
 !> Joystick support is not currently available on V-USB devices.
 
 The joystick feature provides two services:
- * reading an analog input device
+ * reading analog input devices (eg. potentiometers)
  * sending gamepad HID reports
 
 Both services can be used without the other, depending on whether you just want to read a device but not send gamepad reports (for volume control for instance)
@@ -146,4 +146,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 Joystick buttons are normal quantum keycode, defined as JS_BUTTON0 to JS_BUTTON_MAX, which depends on the number of buttons you have configured.
 To trigger a joystick button, just add the corresponding keycode to your keymap.
-
