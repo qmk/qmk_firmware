@@ -77,6 +77,7 @@ enum motion_burst_property{
 };
 
 report_adns_t report;
+volatile uint16_t motion_time;
 
 void adns_begin(void){
     PORTB &= ~ (1 << NCS);
@@ -223,6 +224,25 @@ int16_t convertDeltaToInt(uint8_t high, uint8_t low){
 }
 
 report_adns_t adns_get_report(void) {
+
+    // read motion a frame after sensed to ensure enough delay
+    if(timer_read() > motion_time) {
+
+        adns_begin();
+
+        SPI_TransferByte(REG_Motion_Burst & 0x7f);
+
+        uint8_t burst_data[pixel_sum];
+
+        for (int i = 0; i < pixel_sum; ++i)
+            burst_data[i] = SPI_TransferByte(0);
+
+        report.x = convertDeltaToInt(burst_data[delta_x_h], burst_data[delta_x_l]);
+        report.y = convertDeltaToInt(burst_data[delta_y_h], burst_data[delta_y_l]);
+
+        adns_end();
+    }
+
     return report;
 }
 
@@ -232,18 +252,5 @@ void adns_clear_report(void) {
 }
 
 ISR(INT2_vect){
-
-    adns_begin();
-
-    SPI_TransferByte(REG_Motion_Burst & 0x7f);
-
-    uint8_t burst_data[pixel_sum];
-
-    for (int i = 0; i < pixel_sum; ++i)
-        burst_data[i] = SPI_TransferByte(0);
-
-    report.x += convertDeltaToInt(burst_data[delta_x_h], burst_data[delta_x_l]);
-    report.y += convertDeltaToInt(burst_data[delta_y_h], burst_data[delta_y_l]);
-
-    adns_end();
+    motion_time = timer_read();
 }
