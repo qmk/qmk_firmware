@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../arabica37.h"
+#include "arabica37.h"
 
 #include "quantum.h"
 
