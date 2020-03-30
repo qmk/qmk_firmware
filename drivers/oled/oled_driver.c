@@ -23,9 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string.h>
 
 #include "progmem.h"
-#ifndef __AVR__
-#    define memcpy_P(des, src, len) memcpy(des, src, len)
-#endif
 
 // Used commands from spec sheet: https://cdn-shop.adafruit.com/datasheets/SSD1306.pdf
 // for SH1106: https://www.velleman.eu/downloads/29/infosheets/sh1106_datasheet.pdf
@@ -108,6 +105,9 @@ bool            oled_active         = false;
 bool            oled_scrolling      = false;
 uint8_t         oled_rotation       = 0;
 uint8_t         oled_rotation_width = 0;
+uint8_t         oled_scroll_speed   = 0;  // this holds the speed after being remapped to ssd1306 internal values
+uint8_t         oled_scroll_start   = 0;
+uint8_t         oled_scroll_end     = 7;
 #if OLED_TIMEOUT > 0
 uint32_t oled_timeout;
 #endif
@@ -515,12 +515,37 @@ bool oled_off(void) {
     return !oled_active;
 }
 
+// Set the specific 8 lines rows of the screen to scroll.
+// 0 is the default for start, and 7 for end, which is the entire
+// height of the screen.  For 128x32 screens, rows 4-7 are not used.
+void oled_scroll_set_area(uint8_t start_line, uint8_t end_line) {
+    oled_scroll_start = start_line;
+    oled_scroll_end   = end_line;
+}
+
+void oled_scroll_set_speed(uint8_t speed) {
+    // Sets the speed for scrolling... does not take effect
+    // until scrolling is either started or restarted
+    // the ssd1306 supports 8 speeds
+    // FrameRate2   speed = 7
+    // FrameRate3   speed = 4
+    // FrameRate4   speed = 5
+    // FrameRate5   speed = 0
+    // FrameRate25  speed = 6
+    // FrameRate64  speed = 1
+    // FrameRate128 speed = 2
+    // FrameRate256 speed = 3
+    // for ease of use these are remaped here to be in order
+    static const uint8_t scroll_remap[8] = {7, 4, 5, 0, 6, 1, 2, 3};
+    oled_scroll_speed                    = scroll_remap[speed];
+}
+
 bool oled_scroll_right(void) {
     // Dont enable scrolling if we need to update the display
     // This prevents scrolling of bad data from starting the scroll too early after init
     if (!oled_dirty && !oled_scrolling) {
-        static const uint8_t PROGMEM display_scroll_right[] = {I2C_CMD, SCROLL_RIGHT, 0x00, 0x00, 0x00, 0x0F, 0x00, 0xFF, ACTIVATE_SCROLL};
-        if (I2C_TRANSMIT_P(display_scroll_right) != I2C_STATUS_SUCCESS) {
+        uint8_t display_scroll_right[] = {I2C_CMD, SCROLL_RIGHT, 0x00, oled_scroll_start, oled_scroll_speed, oled_scroll_end, 0x00, 0xFF, ACTIVATE_SCROLL};
+        if (I2C_TRANSMIT(display_scroll_right) != I2C_STATUS_SUCCESS) {
             print("oled_scroll_right cmd failed\n");
             return oled_scrolling;
         }
@@ -533,8 +558,8 @@ bool oled_scroll_left(void) {
     // Dont enable scrolling if we need to update the display
     // This prevents scrolling of bad data from starting the scroll too early after init
     if (!oled_dirty && !oled_scrolling) {
-        static const uint8_t PROGMEM display_scroll_left[] = {I2C_CMD, SCROLL_LEFT, 0x00, 0x00, 0x00, 0x0F, 0x00, 0xFF, ACTIVATE_SCROLL};
-        if (I2C_TRANSMIT_P(display_scroll_left) != I2C_STATUS_SUCCESS) {
+        uint8_t display_scroll_left[] = {I2C_CMD, SCROLL_LEFT, 0x00, oled_scroll_start, oled_scroll_speed, oled_scroll_end, 0x00, 0xFF, ACTIVATE_SCROLL};
+        if (I2C_TRANSMIT(display_scroll_left) != I2C_STATUS_SUCCESS) {
             print("oled_scroll_left cmd failed\n");
             return oled_scrolling;
         }
