@@ -51,4 +51,4 @@ typedef struct {
 extern joystick_t joystick_status;
 
 // to be implemented in the hid protocol library
-void send_joystick_packet(joystick_t* joystick);
+void send_joystick_packet(joystick_t *joystick);
