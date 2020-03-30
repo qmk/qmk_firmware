@@ -276,45 +276,37 @@ void send_joystick_packet(joystick_t *joystick) {
 
     joystick_report_t r = {
 #    if JOYSTICK_AXES_COUNT > 0
-        .axes = {joystick->axes[0]
+        .axes = {joystick->axes[0],
 
 #        if JOYSTICK_AXES_COUNT >= 2
-                 ,
-                 joystick->axes[1]
+                 joystick->axes[1],
 #        endif
 #        if JOYSTICK_AXES_COUNT >= 3
-                 ,
-                 joystick->axes[2]
+                 joystick->axes[2],
 #        endif
 #        if JOYSTICK_AXES_COUNT >= 4
-                 ,
-                 joystick->axes[3]
+                 joystick->axes[3],
 #        endif
 #        if JOYSTICK_AXES_COUNT >= 5
-                 ,
-                 joystick->axes[4]
+                 joystick->axes[4],
 #        endif
 #        if JOYSTICK_AXES_COUNT >= 6
-                 ,
-                 joystick->axes[5]
+                 joystick->axes[5],
 #        endif
         },
 #    endif  // JOYSTICK_AXES_COUNT>0
 
 #    if JOYSTICK_BUTTON_COUNT > 0
-        .buttons = {joystick->buttons[0]
+        .buttons = {joystick->buttons[0],
 
 #        if JOYSTICK_BUTTON_COUNT > 8
-                    ,
-                    joystick->buttons[1]
+                    joystick->buttons[1],
 #        endif
 #        if JOYSTICK_BUTTON_COUNT > 16
-                    ,
-                    joystick->buttons[2]
+                    joystick->buttons[2],
 #        endif
 #        if JOYSTICK_BUTTON_COUNT > 24
-                    ,
-                    joystick->buttons[3]
+                    joystick->buttons[3],
 #        endif
         }
 #    endif  // JOYSTICK_BUTTON_COUNT>0
