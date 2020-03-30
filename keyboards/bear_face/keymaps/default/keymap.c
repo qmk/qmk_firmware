@@ -1,9 +1,11 @@
 #include QMK_KEYBOARD_H
 
-#define _QWER 0
-#define _COLE 1
-#define _DVOR 2
-#define _FN1 3
+enum layers {
+    _QWER,
+    _COLE,
+    _DVOR,
+    _FN1,
+};
 
 #define FN1_CAPS LT(_FN1, KC_CAPS)
 
