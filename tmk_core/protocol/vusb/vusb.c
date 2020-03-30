@@ -87,7 +87,7 @@ void vusb_transfer_keyboard(void) {
 #    define RAW_OUTPUT_SIZE (32)
 
 static uint8_t raw_output_buffer[RAW_OUTPUT_SIZE];
-static uint8_t raw_output_recieved_bytes = 0;
+static uint8_t raw_output_received_bytes = 0;
 
 void raw_hid_send(uint8_t *data, uint8_t length) {
     if (length != RAW_INPUT_SIZE) {
@@ -412,25 +412,23 @@ const PROGMEM uchar mouse_extra_hid_report[] = {
 
 #if defined(RAW_ENABLE)
 const PROGMEM uchar raw_hid_report[] = {
-    0x06, 0x60, 0xFF,  // Usage Page (Vender Defined)
-    0x09, 0x61,        // Usage (Vender Defined)
+    0x06, 0x60, 0xFF,  // Usage Page (Vendor Defined)
+    0x09, 0x61,        // Usage (Vendor Defined)
     0xA1, 0x01,        // Collection (Application)
     // Data to host
-    0x09, 0x62,            //   Vender Defined
-    0x15, 0x00,            //   Logical Minimum
-    0x26, 0xFF, 0x00,      //   Logical Maximum
-    0x95, RAW_INPUT_SIZE,  //   Report Count (8)
+    0x09, 0x62,            //   Usage (Vendor Defined)
+    0x15, 0x00,            //   Logical Minimum (0)
+    0x26, 0xFF, 0x00,      //   Logical Maximum (255)
+    0x95, RAW_INPUT_SIZE,  //   Report Count
     0x75, 0x08,            //   Report Size (8)
     0x81, 0x02,            //   Input (Data, Variable, Absolute)
-                           //   (0 << 0) | (1 << 1) | (0 << 2)
     // Data from host
-    0x09, 0x63,             //   Vender Defined
-    0x15, 0x00,             //   Logical Minimum
-    0x26, 0xFF, 0x00,       //   Logical Maximum
-    0x95, RAW_OUTPUT_SIZE,  //   Report Count (32)
+    0x09, 0x63,             //   Usage (Vendor Defined)
+    0x15, 0x00,             //   Logical Minimum (0)
+    0x26, 0xFF, 0x00,       //   Logical Maximum (255)
+    0x95, RAW_OUTPUT_SIZE,  //   Report Count
     0x75, 0x08,             //   Report Size (8)
-    0x91, 0x02,             //   Output (Data, Variable, Absolute, None-Volatile)
-                            //   (0 << 0) | (1 << 1) | (0 << 2) | (0 << 7)
+    0x91, 0x02,             //   Output (Data, Variable, Absolute)
     0xC0,                   // End Collection
 };
 #endif
@@ -611,11 +609,10 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .bInterval           = USB_POLLING_INTERVAL_MS
     }
 #        endif
-#    endif
-#    if defined(RAW_ENABLE)
-    .rawInterface  = {
+#    elif defined(RAW_ENABLE)
+    .rawInterface = {
         .header = {
-            .bLength = sizeof(usbInterfaceDescriptor_t),
+            .bLength         = sizeof(usbInterfaceDescriptor_t),
             .bDescriptorType = USBDESCR_INTERFACE
         },
         .bInterfaceNumber    = 1,
@@ -637,7 +634,7 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .bDescriptorType     = USBDESCR_HID_REPORT,
         .wDescriptorLength   = sizeof(raw_hid_report)
     },
-#        if USB_CFG_HAVE_INTRIN_ENDPOINT3 /* endpoint descriptor for endpoint 3 */
+#        if USB_CFG_HAVE_INTRIN_ENDPOINT3
     .rawINEndpoint = {
         .header = {
             .bLength         = sizeof(usbEndpointDescriptor_t),
@@ -720,11 +717,10 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
                     usbMsgPtr = (unsigned char *)&usbConfigurationDescriptor.mouseExtraHID;
                     len       = sizeof(usbHIDDescriptor_t);
                     break;
-#endif
-#if defined(RAW_ENABLE)
+#elif defined(RAW_ENABLE)
                 case 1:
                     usbMsgPtr = (unsigned char *)&usbConfigurationDescriptor.rawHID;
-                    len       = 9;
+                    len       = sizeof(usbHIDDescriptor_t);
                     break;
 #endif
             }
@@ -741,8 +737,7 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
                     usbMsgPtr = (unsigned char *)mouse_extra_hid_report;
                     len       = sizeof(mouse_extra_hid_report);
                     break;
-#endif
-#if defined(RAW_ENABLE)
+#elif defined(RAW_ENABLE)
                 case 1:
                     usbMsgPtr = (unsigned char *)raw_hid_report;
                     len       = sizeof(raw_hid_report);

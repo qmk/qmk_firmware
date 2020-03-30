@@ -97,9 +97,7 @@ typedef struct usbConfigurationDescriptor {
 #    ifdef USB_CFG_HAVE_INTRIN_ENDPOINT3
     usbEndpointDescriptor_t mouseExtraINEndpoint;
 #    endif
-#endif
-
-#if defined(RAW_ENABLE)
+#elif defined(RAW_ENABLE)
     usbInterfaceDescriptor_t rawInterface;
     usbHIDDescriptor_t       rawHID;
 #    ifdef USB_CFG_HAVE_INTRIN_ENDPOINT3
