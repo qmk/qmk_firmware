@@ -20,9 +20,9 @@
 #define SCROLL_DIVIDER 8
 #define CLAMP_HID(value) value < -127 ? -127 : value > 127 ? 127 : value
 
-volatile bool scroll_pressed;
-volatile int8_t scroll_h;
-volatile int8_t scroll_v;
+static bool scroll_pressed;
+static int8_t scroll_h;
+static int8_t scroll_v;
 
 void on_mouse_button(uint8_t mouse_button, bool pressed) {
     report_mouse_t report = pointing_device_get_report();
