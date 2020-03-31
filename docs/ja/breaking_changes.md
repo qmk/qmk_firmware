@@ -12,7 +12,7 @@ Breaking change 期間は、QMK を危険または予期しない方法で変更
 
 ## 過去の Breaking change には何が含まれますか？
 
-* [2020年年2月29日](ja/ChangeLog/20200229.md)
+* [2020年2月29日](ja/ChangeLog/20200229.md)
 * [2019年8月30日](ja/ChangeLog/20190830.md)
 
 ## 次の Breaking change はいつですか？
