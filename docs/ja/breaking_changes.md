@@ -68,7 +68,7 @@ git push --force
    * [ ] `git checkout -b future`
    * [ ] Edit `readme.md`
       * [ ] これがテストブランチであることを上部に大きな通知で追加します。
-      * [ ] このドキュメントへのリンクを含める
+      * [ ] このドキュメントへのリンクを含めます
    * [ ] `git commit -m 'Branch point for <DATE> Breaking Change'`
    * [ ] `git tag breakpoint_<YYYY>_<MM>_<DD>`
    * [ ] `git tag <next_version>` # ブレーキング ポイント タグがバージョンの増分を混乱させないようにします
