@@ -12,3 +12,10 @@
 #define MOUSEKEY_TIME_TO_MAX 60
 #define MOUSEKEY_MAX_SPEED 7
 #define MOUSEKEY_WHEEL_DELAY 0
+
+#ifdef COMBO_ENABLE
+    #undef COMBO_COUNT
+    #undef COMBO_TERM
+    #define COMBO_COUNT 5
+    #define COMBO_TERM 60
+#endif
