@@ -1,5 +1,5 @@
 /*
-Copyright 2020 Will Hedges <wshedges@outlook.com> @chemicalwill
+Copyright 2020 chemicalwill <https://github.com/chemicalwill>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
