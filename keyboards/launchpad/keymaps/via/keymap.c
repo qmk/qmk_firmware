@@ -82,11 +82,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |
  * `-------------'
  */
-[_LAYER3] = LAYOUT( \
-    KC_TRNS, KC_TRNS, \
-    KC_TRNS, KC_TRNS, \
-    KC_TRNS, KC_TRNS, \
-    KC_TRNS, KC_TRNS  \
+[_LAYER3] = LAYOUT(
+    KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS
 )
 
 };
