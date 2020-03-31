@@ -26,18 +26,11 @@ MCU = atmega328p
 #   ATmega328P   USBasp
 BOOTLOADER = USBasp
 
-
 # set the processor frequency to 12MHz
 F_CPU = 12000000
 
 # disable the debugging code
 OPT_DEFS = -DDEBUG_LEVEL=0
-
-# custom command for programming via USBasp for the 
-# ATmega328p running USBasploader
-# can be flashed with the following QMK make parameters:
-# make lattice60:default:program
-PROGRAM_CMD = avrdude -c usbasp -p atmega328p -U flash:w:$(BUILD_DIR)/$(TARGET).hex
 
 # If you don't know the bootloader type, then you can specify the
 # Boot Section Size in *bytes* by uncommenting out the OPT_DEFS line
