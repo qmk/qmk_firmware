@@ -38,6 +38,5 @@ enum userspace_custom_keycodes {
 #define MOUSE TT(_MOUSE)
 #define TABFN LT(_FN, KC_TAB)
 #define ESCFN LT(_FN, KC_ESC)
-#define FN_D LT(_FN, IT_D)
 #define MS_B LT(_MOUSE, IT_B)
 
