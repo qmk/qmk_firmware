@@ -163,6 +163,7 @@ void decrease_vibrato_strength(float change);
 #ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
 #    ifndef AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT
 #        define AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT 0
+//       0=off, good starting value is 4; the lower the value the higher the cpu-load
 #    endif
 void set_tone_multiplexing_rate(float rate);
 void enable_tone_multiplexing(void);

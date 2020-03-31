@@ -49,17 +49,16 @@ uint16_t current_note = 0; // index into the array at notes_pointer
 uint16_t next_note    = 0;
 uint32_t note_position  = 0; // where in time, during playback of the current_note
 
+#ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
+float    tone_multiplexing_rate = AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT;
+float    tone_multiplexing_counter = 0.0f; // incremented each state update, and compared to _rate
+uint8_t  tone_multiplexing_index_shift = 0; // offset used on active-tone array access
+#endif
+
 
 //TODO/REFACTORING: check below variables if/where they are still used
 float    note_frequency = 0; // Hz
-float    note_timbre    = TIMBRE_DEFAULT;
 bool     note_resting = false; //?? current note is a pause? or is this supposed to indicate a 'tie'?
-
-#ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
-//TODO: if active, AUDIO_MAX_SIMULTANEOUS_TONES should be set to >>1 for the feature to make sense
-int      tone_place   = 0;
-float    tone_multiplexing_rate = 0;
-#endif
 
 #ifdef AUDIO_ENABLE_VIBRATO
 float vibrato_counter  = 0;
@@ -68,6 +67,7 @@ float vibrato_rate     = 0.125;
 #endif
 
 // used by voices.c
+float    note_timbre    = TIMBRE_DEFAULT;
 uint16_t envelope_index = 0;
 bool     glissando      = false;
 
@@ -182,8 +182,8 @@ void stop_note(float freq) {
         active_tones--;
         if (active_tones < 0) active_tones = 0;
 #ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
-        if (tone_place >= active_tones) {
-            tone_place = 0;
+        if (tone_multiplexing_index_shift >= active_tones) {
+            tone_multiplexing_index_shift = 0;
         }
 #endif
         if (active_tones == 0) {
@@ -204,7 +204,7 @@ void play_note(float freq, int vol) { //NOTE: vol is unused
         audio_init();
     }
 
-    // roundrobin: shifting out old tones, keeping only uniquie ones
+    // roundrobin: shifting out old tones, keeping only unique ones
     // if the new frequency is already amongst the active tones, shift it to the end
     bool found = false;
     for (int i = active_tones-1; i >= 0; i--) {
@@ -230,7 +230,7 @@ void play_note(float freq, int vol) { //NOTE: vol is unused
         }
     }
     playing_note = true;
-    envelope_index = 0; // TODO: does what?
+    envelope_index = 0; // see voices.c // TODO: does what?
     frequencies[active_tones-1] = freq;
 
     if (active_tones==1) // sufficient to start when switching from 0 to 1
@@ -289,8 +289,14 @@ float audio_get_processed_frequency(uint8_t tone_index) {
     if (tone_index >= active_tones)
         return 0.0f;
 
-    uint8_t index = active_tones - tone_index - 1;
+    int8_t index = active_tones - tone_index - 1;
     // new tones are appended at the end, so the most recent/current is MAX-1
+
+#ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
+    index = index - tone_multiplexing_index_shift;
+    if (index < 0) // wrap around
+        index += active_tones;
+#endif
 
     if (frequencies[index] <= 0.0f)
         return 0.0f;
@@ -450,6 +456,22 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
 
 bool audio_advance_state(uint32_t step, float end) {
     bool goto_next_note = false;
+
+    if (playing_note) {
+#ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
+//        tone_multiplexing_counter++; // TODO: use step and end from advance_State instead; so that frequencies are switched in a time-constant manner during playback of different tones (pitch+duration!)
+        tone_multiplexing_counter += step/end;
+        if (tone_multiplexing_counter == tone_multiplexing_rate) {
+//palToggleLine(C10);
+            tone_multiplexing_counter = 0.0f;
+            tone_multiplexing_index_shift++;
+            if (tone_multiplexing_index_shift >= active_tones)
+                tone_multiplexing_index_shift = 0;
+            goto_next_note = true;
+        }
+#endif
+    }
+
 
     //'playing_note' is stopped manually, so no need to keep track of it here
 
