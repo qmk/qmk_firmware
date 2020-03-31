@@ -10,7 +10,7 @@ I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar t
 
 ## What's New:
 
-* I've overhauled this Dvorak layout a bit to more match what I've got on my other Ortho boards. Forsome keys, I'm moving away from my old Kinesis keymap and adding the brackets and braces to the inner column vertical keys. I figure this will help me have better ease of use. In this update, I have also removed the keypad layer since I no longer use that at all, and have remapped the MEDIA layer a bit.
+* I've overhauled this Dvorak layout a bit to more match what I've got on my other Ortho boards. For some keys, I'm moving away from my old Kinesis keymap and adding the brackets and braces to the inner column vertical keys. I figure this will help me have better ease of use. In this update, I have also removed the keypad layer since I no longer use that at all, and have remapped the MEDIA layer a bit.
 
 ## Still to do:
 
@@ -32,7 +32,7 @@ I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar t
  	 |MEDIA |   `  |   ~  | Left | Rght |                             |  Up  |  Dn  |   /  |   =  | MEDIA|
  	 `----------------------------------'                             `----------------------------------'
  	                                    ,-------------. ,-------------.
- 	                                    | LCTL | LALT | | RALT | RCTL |
+ 	                                    | LCTL | LALT | | RGUI | RCTL |
  	                             ,------|------|------| |------+------+------.
  	                             |      |      | Home | | PgUp |      |      |
  	                             | BkSp | Del  |------| |------| Enter| Space|
@@ -95,7 +95,7 @@ I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar t
  	 |      |      |      |      |      |                             |      |      |      |      |      |
  	 `----------------------------------'                             `----------------------------------'
 	                                    ,-------------. ,-------------.
- 	                                    |      |      | |      |      |
+ 	                                    |      |MacLck| |MacLck|      |
  	                             ,------|------|------| |------+------+------.
  	                             |      |      |      | |      |      |      |
  	                             |      |      |------| |------|      |      |
