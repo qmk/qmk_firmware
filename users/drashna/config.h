@@ -1,7 +1,7 @@
 #pragma once
 
 // Use custom magic number so that when switching branches, EEPROM always gets reset
-#define EECONFIG_MAGIC_NUMBER (uint16_t)0x1337
+#define EECONFIG_MAGIC_NUMBER (uint16_t)0x1338
 
 /* Set Polling rate to 1000Hz */
 #define USB_POLLING_INTERVAL_MS 1
@@ -52,6 +52,7 @@
 #    if defined(__AVR__) && !defined(__AVR_AT90USB1286__)
 #        define DISABLE_RGB_MATRIX_ALPHAS_MODS
 #        define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
+#        define DISABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
 #        define DISABLE_RGB_MATRIX_BREATHING
 #        define DISABLE_RGB_MATRIX_BAND_SAT
 #        define DISABLE_RGB_MATRIX_BAND_VAL
