@@ -41,11 +41,11 @@ Breaking change 期間は、QMK を危険または予期しない方法で変更
 
 # チェックリスト
 
-この章では、Breaking change プロセスを実行する時に使用する様々なプロセスについて説明します。
+ここでは、Breaking change プロセスを実行する時に使用する様々なプロセスについて説明します。
 
-## `master`から `future` をリベースします
+## `master` から `future` をリベースします
 
-これは`future`が開いている間、毎週金曜日に実行されます。
+これは `future` が開いている間、毎週金曜日に実行されます。
 
 プロセス:
 
@@ -58,9 +58,9 @@ git rebase master
 git push --force
 ```
 
-## `future`ブランチの作成
+## `future` ブランチの作成
 
-以前の`future`ブランチがマージされた直後に、これが発生します。
+以前の `future` ブランチがマージされた直後に、これが発生します。
 
 * `qmk_firmware` git commands
    * [ ] `git checkout master`
@@ -77,7 +77,7 @@ git push --force
 
 ## マージの 4 週間前
 
-* `future` は新しい PR に対して閉じられ、現在の PR の修正のみがマージされます
+* `future` は新しい PR に対して閉じられ、現在の PR の修正のみがマージされる可能性があります。
 * テスターの呼び出しを投稿します
    * [ ] Discord
    * [ ] GitHub PR
