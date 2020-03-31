@@ -1,2 +1,2 @@
-#define VENDOR_ID 0x1111
-#define PRODUCT_ID 0x1111
+#define VENDOR_ID 0x0d39
+#define PRODUCT_ID 0x0001
