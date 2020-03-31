@@ -16,8 +16,8 @@ ESSENTIAL_BINARIES = {
     'dfu-programmer': {},
     'avrdude': {},
     'dfu-util': {},
-    'avr-gcc': {},
-    'arm-none-eabi-gcc': {},
+    'avr-gcc': {'version_arg': '-dumpversion'},
+    'arm-none-eabi-gcc': {'version_arg': '-dumpversion'},
     'bin/qmk': {},
 }
 ESSENTIAL_SUBMODULES = ['lib/chibios', 'lib/lufa']
@@ -151,10 +151,8 @@ def is_executable(command):
         return False
 
     # Make sure the command can be executed
-    check = subprocess.run([command, '-dumpversion'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5, universal_newlines=True)
-
-    if check.returncode > 1:  # if -dumpversion returns error check with --version instead
-        check = subprocess.run([command, '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5, universal_newlines=True)
+    version_arg = ESSENTIAL_BINARIES[command].get('version_arg', '--version')
+    check = subprocess.run([command, version_arg], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5, universal_newlines=True)
 
     ESSENTIAL_BINARIES[command]['output'] = check.stdout
 
