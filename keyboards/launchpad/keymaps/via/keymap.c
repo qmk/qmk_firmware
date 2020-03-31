@@ -47,10 +47,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-------------'
  */
 [_FUNC] = LAYOUT( \
-    KC_Q,    CALTDEL, \
-    KC_A,    TSKMGR, \
-    KC_Z,    KC_X, \
-    KC_TRNS, KC_C \
+    KC_Q,    CALTDEL,
+    KC_A,    TSKMGR,
+    KC_Z,    KC_X,
+    KC_TRNS, KC_C
 ),
 
 /* Layer 2
