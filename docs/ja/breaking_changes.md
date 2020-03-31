@@ -92,7 +92,7 @@ git push --force
 
 ## マージの 2 日前
 
-* マスターが 2 日間閉じられることを発表します
+* master が 2 日間閉じられることを発表します
    * [ ] Discord
    * [ ] GitHub PR
    * [ ] https://reddit.com/r/olkb
