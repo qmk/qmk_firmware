@@ -1,6 +1,6 @@
 #pragma once
 
-#define VENDOR_ID       0x20A0
+#define VENDOR_ID       0x594D
 #define PRODUCT_ID      0x0001
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Wheatfield
