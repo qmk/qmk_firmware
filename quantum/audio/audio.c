@@ -34,11 +34,13 @@
 #    define AUDIO_MAX_SIMULTANEOUS_TONES 8
 #endif
 uint8_t  active_tones         = 0; // nuber of active/playing tones/frequencies
+uint8_t  active_tones_prev    = 0; // for the state update to keep track of changes
 float    frequencies[AUDIO_MAX_SIMULTANEOUS_TONES] = {0.0}; // frequencies of each active tone
 //TODO: array of musical_tone_t
 
 bool     playing_notes  = false; // playing a SONG?
 bool     playing_note   = false; // or (possibly multiple simultanious) tones
+bool     state_changed  = false; // global flag, which is set if anything changes with the active_tones
 
 float  (*notes_pointer)[][2]; // SONG, an array of MUSICAL_NOTEs
 uint16_t notes_count; // length of the notes_pointer array
@@ -179,6 +181,7 @@ void stop_note(float freq) {
         if (!found)
             return;
 
+        state_changed = true;
         active_tones--;
         if (active_tones < 0) active_tones = 0;
 #ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
@@ -229,6 +232,7 @@ void play_note(float freq, int vol) { //NOTE: vol is unused
             frequencies[i] = frequencies[i+1];
         }
     }
+    state_changed = true;
     playing_note = true;
     envelope_index = 0; // see voices.c // TODO: does what?
     frequencies[active_tones-1] = freq;
@@ -455,7 +459,8 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
 
 
 bool audio_advance_state(uint32_t step, float end) {
-    bool goto_next_note = false;
+    bool goto_next_note = state_changed;
+    state_changed = false;
 
     if (playing_note) {
 #ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
@@ -471,7 +476,6 @@ bool audio_advance_state(uint32_t step, float end) {
         }
 #endif
     }
-
 
     //'playing_note' is stopped manually, so no need to keep track of it here
 

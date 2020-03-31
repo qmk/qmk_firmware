@@ -210,7 +210,7 @@ uint8_t audio_get_number_of_active_tones(void);
  * @param[in] tone_index, ranging from 0 to number_of_active_tones-1, with the
  *            first beeing the most recent and each increment yielding the next
  *            older one
- * @return frequency in Hz
+ * @return a positive frequency, in Hz; or zero if the tone is a pause
  */
 float audio_get_frequency(uint8_t tone_index);
 /**
@@ -221,7 +221,7 @@ float audio_get_frequency(uint8_t tone_index);
  * @param[in] tone_index, ranging from 0 to number_of_active_tones-1, with the
  *            first beeing the most recent and each increment yielding the next
  *            older one
- * @return frequency in Hz
+ * @return a positive frequency, in Hz; or zero if the tone is a pause
  */
 float audio_get_processed_frequency(uint8_t tone_index);
 
@@ -230,6 +230,12 @@ float audio_get_processed_frequency(uint8_t tone_index);
  * @details This function is intended to be called by the audio-hardware
  *          specific implementation on a regular basis while a SONG is
  *          playing, to 'advance' the position/time/internal state
+ *
+ * @note: 'step' and 'end' can be used if the function is to be called from a
+ *        timer/ISR with irregular period - say a pwm-isr - then one could use
+ *        'step=1' with 'end' set to the current pwm-frequency; and still have
+ *        a somewhat regular state progression
+ *
  * @param[in] step arbitrary step value, audio.c keeps track of for the
  *            audio-driver
  * @param[in] end scaling factor multiplied to the note_length. has to match

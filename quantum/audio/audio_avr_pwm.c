@@ -24,6 +24,7 @@
 
 
 // TODO: move into audio-common state
+extern bool    playing_note;
 extern bool    playing_notes;
 extern float   note_timbre;
 
@@ -38,12 +39,6 @@ extern float   note_timbre;
 
   in a pinch with only one of the PB pins available as speaker output, they can be used as the primary channel too - by only setting the AUDIO_PIN_ALT_Bx define, and *none* of the AUDIO_PIN_Cx defines
 */
-
-// C6 seems to be the assumed default by many existing keyboard - but sill warn the user
-#if !defined(AUDIO1_PIN_SET) && !defined(AUDIO2_PIN_SET)
-#    pragma message "Audio feature enabled, but no pin selected - see docs/feature_audio under the AVR settings for available options. Don't expect to hear anything... :-)"
-//TODO: make this an error - go through the breaking-change-process and change all keyboards to the new define
-#endif
 
 #if defined(AUDIO_PIN_C4) || defined(AUDIO_PIN_C5) || defined(AUDIO_PIN_C6)
 #    define AUDIO1_PIN_SET
@@ -122,19 +117,32 @@ extern float   note_timbre;
 #    endif
 #endif
 
+// C6 seems to be the assumed default by many existing keyboard - but sill warn the user
+#if !defined(AUDIO1_PIN_SET) && !defined(AUDIO2_PIN_SET)
+#    pragma message "Audio feature enabled, but no pin selected - see docs/feature_audio under the AVR settings for available options. Don't expect to hear anything... :-)"
+//TODO: make this an error - go through the breaking-change-process and change all keyboards to the new define
+#endif
 // -----------------------------------------------------------------------------
 
 #ifdef AUDIO1_PIN_SET
 static float channel_1_frequency = 0.0f;
 void         channel_1_set_frequency(float freq) {
-    if (freq < 0.0f) freq = 0.0f;
 
+    //TODO: handle consecutive notes with the same frequency, there should be an audible gap inbetween them
     if (freq == channel_1_frequency) return;
 
-    channel_1_frequency = freq;
-
-    if (freq == 0.0f) // a pause has freq=0, no need to start the PWM (also avoids division by zero)
+    if (freq == 0.0f) // a pause/rest is a valid "note" with freq=0
+    {
+        // disable the output, but keep the pwm-ISR going (with the previous
+        // frequency) so the audio-state keeps getting updated
+        // Note: setting the duty-cycle 0 is not possible on non-inverting PWM mode - see the AVR datasheet
+        AUDIO1_TCCRxA &= ~(_BV(AUDIO1_COMxy1) | _BV(AUDIO1_COMxy0));
         return;
+    } else {
+        AUDIO1_TCCRxA |= _BV(AUDIO1_COMxy1);// enable output, PWM mode
+    }
+
+    channel_1_frequency = freq;
 
     // set pwm period
     AUDIO1_ICRx  = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
@@ -161,14 +169,18 @@ void channel_1_stop(void) {
 #ifdef AUDIO2_PIN_SET
 static float channel_2_frequency = 0.0f;
 void         channel_2_set_frequency(float freq) {
-    if (freq < 0.0f) freq = 0.0f;
 
     if (freq == channel_2_frequency) return;
 
-    channel_2_frequency = freq;
-
-    if (freq == 0.0f) // a pause has freq=0, no need to start the PWM (also avoids division by zero)
+    if (freq == 0.0f)
+    {
+        AUDIO2_TCCRxA &= ~(_BV(AUDIO2_COMxy1) | _BV(AUDIO2_COMxy0));
         return;
+    } else {
+        AUDIO2_TCCRxA |= _BV(AUDIO2_COMxy1);
+    }
+
+    channel_2_frequency = freq;
 
     AUDIO2_ICRx = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
     AUDIO2_OCRxy = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
@@ -220,15 +232,11 @@ void audio_initialize_hardware() {
     // initialize timer-counter
     AUDIO1_TCCRxA = (0 << AUDIO1_COMxy1) | (0 << AUDIO1_COMxy0) | (1 << AUDIO1_WGMx1) | (0 << AUDIO1_WGMx0);
     AUDIO1_TCCRxB = (1 << AUDIO1_WGMx3) | (1 << AUDIO1_WGMx2) | (0 << AUDIO1_CSx2) | (1 << AUDIO1_CSx1) | (0 << AUDIO1_CSx0);
-
-    // channel_1_set_frequency(440); // original code set this frequency here... why?
 #endif
 
 #ifdef AUDIO2_PIN_SET
     AUDIO2_TCCRxA = (0 << AUDIO2_COMxy1) | (0 << AUDIO2_COMxy0) | (1 << AUDIO2_WGMx1) | (0 << AUDIO2_WGMx0);
     AUDIO2_TCCRxB = (1 << AUDIO2_WGMx3) | (1 << AUDIO2_WGMx2) | (0 << AUDIO2_CSx2) | (1 << AUDIO2_CSx1) | (0 << AUDIO2_CSx0);
-
-    // channel_2_set_frequency(440); // original code set this frequency here... why?
 #endif
 
 }
@@ -246,51 +254,75 @@ void audio_stop_hardware() {
 void audio_start_hardware(void) {
 #ifdef AUDIO1_PIN_SET
     channel_1_start();
-#endif
-#ifdef AUDIO2_PIN_SET
-#    ifdef AUDIO1_PIN_SET
-    if (audio_get_number_of_active_tones() > 1) {
-        channel_2_start();
-    }
-#    else
-    channel_2_start();
-#    endif
-#endif
-}
-
-#ifdef AUDIO1_PIN_SET
-ISR(AUDIO1_TIMERx_COMPy_vect) {
-
-    audio_advance_state(1,channel_1_frequency/CPU_PRESCALER/8);
-
-    if (playing_notes)
+    if (playing_note)
         channel_1_set_frequency(
             audio_get_processed_frequency(0)
             );
-    else
-        channel_1_stop();
+#endif
 
-#    ifdef AUDIO2_PIN_SET
-    if (playing_notes)
+#if !defined(AUDIO1_PIN_SET) && defined(AUDIO2_PIN_SET)
+    channel_2_start();
+    if (playing_note) {
         channel_2_set_frequency(
-            audio_get_processed_frequency(1)
+            audio_get_processed_frequency(0)
             );
-    else
+    }
+#endif
+}
+
+static volatile uint32_t isr_counter=0;
+#ifdef AUDIO1_PIN_SET
+ISR(AUDIO1_TIMERx_COMPy_vect) {
+    isr_counter++;
+    if (isr_counter < channel_1_frequency/(CPU_PRESCALER*8))
+        return;
+
+    isr_counter=0;
+    bool state_changed = audio_advance_state(1,1);
+
+    if (!playing_note && !playing_notes) {
+        channel_1_stop();
+#    ifdef AUDIO2_PIN_SET
         channel_2_stop();
 #    endif
+        return;
+    }
+
+    if (state_changed){
+        channel_1_set_frequency(
+            audio_get_processed_frequency(0)
+            );
+#    ifdef AUDIO2_PIN_SET
+        if (audio_get_number_of_active_tones() > 1) {
+            channel_2_set_frequency(
+                audio_get_processed_frequency(1)
+                );
+        } else {
+            channel_2_stop();
+        }
+#    endif
+    }
 }
 #endif
 
 #if !defined(AUDIO1_PIN_SET) && defined(AUDIO2_PIN_SET)
 ISR(AUDIO2_TIMERx_COMPy_vect) {
+    isr_counter++;
+    if (isr_counter < channel_2_frequency/(CPU_PRESCALER*8))
+        return;
 
-    audio_advance_state(1,channel_2_frequency/CPU_PRESCALER/8);
+    isr_counter=0;
+    bool state_changed = audio_advance_state(1,1);
 
-    if (playing_notes)
+    if (!playing_note && !playing_notes) {
+        channel_2_stop();
+        return;
+    }
+
+    if (state_changed){
         channel_2_set_frequency(
             audio_get_processed_frequency(0)
             );
-    else
-        channel_2_stop();
+    }
 }
 #endif
