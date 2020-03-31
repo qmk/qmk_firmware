@@ -108,7 +108,7 @@ git push --force
    * [ ] ChangeLog を 1 つのファイルにまとめます。
    * [ ] `git commit -m 'Merge point for <DATE> Breaking Change'`
    * [ ] `git push origin future`
-* Github アクション
+* GitHub Actions
    * [ ] `future`の PR を作成します
    * [ ] travis がクリーンに戻ったことを確認します
    * [ ] `future` PR をマージします
