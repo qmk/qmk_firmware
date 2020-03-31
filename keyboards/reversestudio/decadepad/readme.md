@@ -1,8 +1,10 @@
 # DecadePad
+
 A 6x4 Standard Numpad
 
 * Keyboard Maintainer: [huajijam](https://github.com/huajijam)
 * Hardware Supported: DecadePad
+
 Make example for this keyboard (after setting up your build environment):
 
     make reversestudio/decadepad:default
