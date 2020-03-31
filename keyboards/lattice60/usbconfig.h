@@ -13,6 +13,8 @@
 
 #include "config.h"
 
+#pragma once
+
 /*
 General Description:
 This file is an example configuration (with inline documentation) for the USB
