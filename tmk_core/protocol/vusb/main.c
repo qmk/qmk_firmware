@@ -108,6 +108,13 @@ int main(void) {
                 keyboard_task();
             }
             vusb_transfer_keyboard();
+#ifdef RAW_ENABLE
+            usbPoll();
+
+            if (usbConfiguration && usbInterruptIsReady3()) {
+                raw_hid_task();
+            }
+#endif
         }
     }
 }
