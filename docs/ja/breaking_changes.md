@@ -34,7 +34,8 @@ Breaking change ピリオドとは、QMK を危険または予想外の変更す
 最新の Breaking change 候補を見るには、[`breaking_change` ラベル](https://github.com/qmk/qmk_firmware/pulls?q=is%3Aopen+label%3Abreaking_change+is%3Apr)を参照してください。
 現在から `future` が閉じられるまでの間に新しい変更が追加される可能性があり、そのラベルが適用された PR はマージされることは保証されていません。
 
-このラウンドに Breaking change を含めたい場合は、`breaking_change` ラベルを持つ PR を作成し、`future` が閉じる前に承認する必要があります。`future` が閉じた後は、新しい Breaking change は受け付けられません。
+このラウンドに、あなたの Breaking change を含めたい場合は、`breaking_change` ラベルを持つ PR を作成し、`future` が閉じる前に承認してもらう必要があります。
+`future` が閉じた後は、新しい Breaking change は受け付けられません。
 
 受け入れの基準:
 
