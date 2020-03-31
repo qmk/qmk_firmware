@@ -5,14 +5,6 @@
  * http://github.com/bottilabo/qmk-harmonize
  */
 #include QMK_KEYBOARD_H
-#include "bootloader.h"
-#ifdef PROTOCOL_LUFA
-#include "lufa.h"
-#include "split_util.h"
-#endif
-
-
-extern keymap_config_t keymap_config;
 extern uint8_t is_master;
 
 
@@ -95,4 +87,3 @@ void matrix_init_user(void) {
 void matrix_scan_user(void) {
   HARMONIZE_MATRIX_SCAN_USER;
 }
-
