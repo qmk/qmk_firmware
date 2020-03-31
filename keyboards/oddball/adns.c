@@ -77,7 +77,7 @@ enum motion_burst_property{
 };
 
 report_adns_t report;
-volatile uint16_t motion_time;
+volatile uint32_t motion_time;
 
 void adns_begin(void){
     PORTB &= ~ (1 << NCS);
@@ -252,5 +252,5 @@ void adns_clear_report(void) {
 }
 
 ISR(INT2_vect){
-    motion_time = timer_read();
+    motion_time = timer_read32();
 }
