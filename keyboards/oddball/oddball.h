@@ -42,3 +42,7 @@
         { R25, R24, R23, R22, R21, R20 }, \
         { KC_NO, KC_NO, KC_NO, KC_NO, RT2, RT1 } \
     }
+
+enum custom_keycodes {
+    KC_SCROLL = SAFE_RANGE
+};

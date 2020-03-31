@@ -17,6 +17,12 @@
 #include "oddball.h"
 #include "pointing_device.h"
 #include "adns.h"
+#define SCROLL_DIVIDER 8
+#define CLAMP_HID(value) value < -127 ? -127 : value > 127 ? 127 : value
+
+volatile bool scroll_pressed;
+volatile int8_t scroll_h;
+volatile int8_t scroll_v;
 
 void on_mouse_button(uint8_t mouse_button, bool pressed) {
     report_mouse_t report = pointing_device_get_report();
@@ -36,10 +42,6 @@ void pointing_device_init(void){
     adns_init();
 }
 
-int8_t clamp_hid(int16_t value){
-    return  value < -127 ? -127 : value > 127 ? 127 : value;
-}
-
 void pointing_device_task(void){
     if(!is_keyboard_master())
         return;
@@ -48,8 +50,33 @@ void pointing_device_task(void){
     report_adns_t adns_report = adns_get_report();
     adns_clear_report();
 
-    mouse_report.x = -clamp_hid(adns_report.x);
-    mouse_report.y = clamp_hid(adns_report.y);
+    int8_t clamped_x = CLAMP_HID(adns_report.x);
+    int8_t clamped_y = CLAMP_HID(adns_report.y);
+
+    if(scroll_pressed) {
+        // accumulate scroll
+        scroll_h += clamped_x;
+        scroll_v += clamped_y;
+
+        int8_t scaled_scroll_h = scroll_h / SCROLL_DIVIDER;
+        int8_t scaled_scroll_v = scroll_v / SCROLL_DIVIDER;
+
+        // clear accumulated scroll on assignment
+
+        if(scaled_scroll_h != 0){
+            mouse_report.h = -scaled_scroll_h;
+            scroll_h = 0;
+        }
+
+        if(scaled_scroll_v != 0){
+            mouse_report.v = -scaled_scroll_v;
+            scroll_v = 0;
+        }
+    }
+    else {
+        mouse_report.x = -clamped_x;
+        mouse_report.y = clamped_y;
+    }
 
     pointing_device_set_report(mouse_report);
     pointing_device_send();
@@ -57,7 +84,8 @@ void pointing_device_task(void){
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
-    // handle mouse drag
+    // handle mouse drag and scroll
+
     switch (keycode) {
         case KC_BTN1:
             on_mouse_button(MOUSE_BTN1, record->event.pressed);
@@ -77,6 +105,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
         case KC_BTN5:
             on_mouse_button(MOUSE_BTN5, record->event.pressed);
+            return false;
+
+        case KC_SCROLL:
+            scroll_pressed = record->event.pressed;
             return false;
 
     default:
