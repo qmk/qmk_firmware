@@ -226,7 +226,7 @@ int16_t convertDeltaToInt(uint8_t high, uint8_t low){
 report_adns_t adns_get_report(void) {
 
     // read motion a frame after sensed to ensure enough delay
-    if(timer_read() > motion_time) {
+    if(timer_elapsed32(motion) > 1) {
 
         adns_begin();
 
