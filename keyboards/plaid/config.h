@@ -20,9 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-/* VID & PID from vusb project, see tmk_core/protocol/vusb/USB-IDs-for-free.txt"*/
-#define VENDOR_ID 0x16c0
-#define PRODUCT_ID 0x27db
 #define DEVICE_VER 0x0002
 #define MANUFACTURER dm9records
 #define PRODUCT Plaid
@@ -42,9 +39,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
+// clang-format off
 #define MATRIX_ROW_PINS { B4, B5, B3, D4 }
 #define MATRIX_COL_PINS { B0, D7, D6, D5, B2, B1, C0, C1, C2, C3, D1, D0 }
 #define UNUSED_PINS
+// clang-format on
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
