@@ -85,7 +85,7 @@ git push --force
 
 ## マージの 1 週間前
 
-* マスターが < 2 日前> から終了することを発表します <Day of Merge>
+* master が < 2 日前> から <マージの日> まで閉じられることを発表します
    * [ ] Discord
    * [ ] GitHub PR
    * [ ] https://reddit.com/r/olkb
