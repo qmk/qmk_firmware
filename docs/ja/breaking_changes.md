@@ -104,7 +104,7 @@ git push --force
    * [ ] `git pull --ff-only`
    * [ ] `git rebase origin/master`
    * [ ] Edit `readme.md`
-      * [ ] `future` についてのめもを削除
+      * [ ] `future` についてのメモを削除
    * [ ] ChangeLog を 1 つのファイルにまとめます。
    * [ ] `git commit -m 'Merge point for <DATE> Breaking Change'`
    * [ ] `git push origin future`
