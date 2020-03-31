@@ -76,7 +76,7 @@ enum motion_burst_property{
     end_data
 };
 
-report_adns_t report;
+static report_adns_t report;
 volatile uint32_t motion_time;
 
 void adns_begin(void){
