@@ -16,7 +16,7 @@
 
 This layer overrides the `Fn` keys on whichever base layer is currently enabled, sending the keyboard to the MacOS-oriented Fn layer `_FM`, instead of the Windows Fn layer `_FW`.
 
-![MacOS Overlay](https://i.imgur.com/lxsEVpm.png)
+![MacOS Overlay](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/kc60/keymaps/noroadsleft/layer_03.png)
 
 
 ----

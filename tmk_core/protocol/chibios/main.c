@@ -32,6 +32,7 @@
 #include "sendchar.h"
 #include "debug.h"
 #include "printf.h"
+
 #ifdef SLEEP_LED_ENABLE
 #    include "sleep_led.h"
 #endif
@@ -75,6 +76,9 @@ void raw_hid_task(void);
 
 #ifdef CONSOLE_ENABLE
 void console_task(void);
+#endif
+#ifdef MIDI_ENABLE
+void midi_ep_task(void);
 #endif
 
 /* TESTING
@@ -208,6 +212,9 @@ int main(void) {
         keyboard_task();
 #ifdef CONSOLE_ENABLE
         console_task();
+#endif
+#ifdef MIDI_ENABLE
+        midi_ep_task();
 #endif
 #ifdef VIRTSER_ENABLE
         virtser_task();

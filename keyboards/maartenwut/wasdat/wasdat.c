@@ -29,30 +29,19 @@ void matrix_init_kb(void) {
 
 void led_init_ports(void) {
     setPinOutput(B0);
+    writePinHigh(B0);
     setPinOutput(B1);
+    writePinHigh(B1);
     setPinOutput(B2);
+    writePinHigh(B2);
 }
 
-void led_set_kb(uint8_t usb_led) {
-    // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        writePinLow(B0);
-    } else {
-        writePinHigh(B0);
+bool led_update_kb(led_t led_state) {
+    if(led_update_user(led_state)) {
+        writePin(B0, !led_state.caps_lock);
+        writePin(B1, !led_state.scroll_lock);
+        writePin(B2, !led_state.num_lock);
     }
 
-    if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-        writePinLow(B1);
-    } else {
-        writePinHigh(B1);
-    }
-
-    if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-        writePinLow(B2);
-    } else {
-        writePinHigh(B2);
-    }
-
-    led_set_user(usb_led);
+    return true;
 }
