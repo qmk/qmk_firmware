@@ -16,6 +16,15 @@ void eeconfig_init_keymap(void) {
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+    // Reset RGB on Shift+Toggle
+    case RGB_TOG:
+        if (record->event.pressed && (get_mods() & MOD_MASK_SHIFT)) {
+            eeconfig_init_keymap();
+            return false;
+        }
+        break;
+
+    // Combined RCtrl and layer
     case RCTRL:
         if (record->event.pressed) {
             register_code(KC_RCTRL);
