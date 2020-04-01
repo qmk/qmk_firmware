@@ -72,7 +72,7 @@
 #define PL_L    KC_L    // L
 #define PL_SCLN KC_SCLN // ;
 #define PL_QUOT KC_QUOT // '
-#define PL_BSLS KC_NUBS // (backslash)
+#define PL_BSLS KC_BSLS // (backslash)
 // Row 4
 #define PL_Z    KC_Z    // Z
 #define PL_X    KC_X    // X
