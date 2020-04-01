@@ -4,9 +4,9 @@
 
 A compact high-end split keyboard  
 
-* Keyboard Maintainer: [ai03](https://github.com/ai03-2725)  
-* Hardware Supported: The Orbit-X keyboard PCB  
-* Hardware Availability: Deskeys for official kit; open-source PCB [here](https://github.com/ai03-2725/Orbit/tree/master/OrbitX-PCB)  
+* Keyboard Maintainer: [ai03](https://github.com/ai03-2725)
+* Hardware Supported: The Orbit-X keyboard PCB
+* Hardware Availability: Deskeys for official kit; open-source PCB [here](https://github.com/ai03-2725/Orbit/tree/master/OrbitX-PCB)
 
 Make example for this keyboard (after setting up your build environment):
 
