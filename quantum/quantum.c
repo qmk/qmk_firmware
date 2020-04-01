@@ -288,9 +288,11 @@ bool process_record_quantum(keyrecord_t *record) {
 
     if (record->event.pressed) {
         switch (keycode) {
+#ifndef NO_RESET
             case RESET:
                 reset_keyboard();
                 return false;
+#endif
 #ifndef NO_DEBUG
             case DEBUG:
                 debug_enable ^= 1;

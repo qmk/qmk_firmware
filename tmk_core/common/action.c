@@ -775,11 +775,12 @@ void register_code(uint8_t code) {
             add_mods(MOD_BIT(code));
             send_keyboard_report();
         }
+#ifdef EXTRAKEY_ENABLE
     else if
         IS_SYSTEM(code) { host_system_send(KEYCODE2SYSTEM(code)); }
     else if
         IS_CONSUMER(code) { host_consumer_send(KEYCODE2CONSUMER(code)); }
-
+#endif
 #ifdef MOUSEKEY_ENABLE
     else if
         IS_MOUSEKEY(code) {
