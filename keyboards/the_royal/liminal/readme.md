@@ -1,5 +1,4 @@
 # Liminal
-====
 ![liminal_ec](https://i.imgur.com/9Xe7uEa.jpg)
 
 A 50% keyboard with superb keycap compatibility.
