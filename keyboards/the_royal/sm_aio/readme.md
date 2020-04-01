@@ -4,9 +4,9 @@
 
 A commissioned, All-In-One 50% Keyboard PCB, designed and fabricated for Sam of SMKeyboards.
 
-- Keyboard Maintainer: [TheRoyalSweatshirt](https://github.com/TheRoyalSweatshirt) a.k.a [The_Royal](https://reddit.com/u/The_Royal)
-- Hardware Supported: aio rev 0.3 & rev 1.2 PCBs
-- Hardware Availability: Through Commission or Private Sale
+* Keyboard Maintainer: [TheRoyalSweatshirt](https://github.com/TheRoyalSweatshirt) a.k.a [The_Royal](https://reddit.com/u/The_Royal)
+* Hardware Supported: aio rev 0.3 & rev 1.2 PCBs
+* Hardware Availability: Through Commission or Private Sale
 
 Make example for this keyboard (after setting up your build environment):
 
