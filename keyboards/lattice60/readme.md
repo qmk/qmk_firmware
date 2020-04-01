@@ -4,8 +4,8 @@
 
 A HHKB layout keyboard using only through-hole components.
 
-* Keyboard Maintainer: [emdarcher](https://github.com/emdarcher)  
-* Hardware Supported: LATTICE60 PCB  
+* Keyboard Maintainer: [emdarcher](https://github.com/emdarcher)
+* Hardware Supported: LATTICE60 PCB
 * Hardware Availability: [KeyHive](https://keyhive.xyz/)
 
 Make example for this keyboard (after setting up your build environment):

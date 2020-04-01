@@ -1,18 +1,3 @@
-# Copyright 2019 Ethan Durrant (emdarcher)
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 2 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 # MCU name
 MCU = atmega328p
 
@@ -26,21 +11,11 @@ MCU = atmega328p
 #   ATmega328P   USBasp
 BOOTLOADER = USBasp
 
-# set the processor frequency to 12MHz
+# Processor frequency
 F_CPU = 12000000
 
 # disable the debugging code
 OPT_DEFS = -DDEBUG_LEVEL=0
-
-# If you don't know the bootloader type, then you can specify the
-# Boot Section Size in *bytes* by uncommenting out the OPT_DEFS line
-# Otherwise, delete this section
-#   Teensy halfKay      512
-#   Teensy++ halfKay    1024
-#   Atmel DFU loader    4096
-#   LUFA bootloader     4096
-#   USBaspLoader        2048
-# OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 # Build Options
 #   change yes to no to disable
