@@ -16,7 +16,7 @@
 
 #include "oddball.h"
 #include "pointing_device.h"
-#include "adns.h"
+#include "./adns/adns.h"
 #define SCROLL_DIVIDER 12
 #define CLAMP_HID(value) value < -127 ? -127 : value > 127 ? 127 : value
 
