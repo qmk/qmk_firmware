@@ -22,7 +22,7 @@
 #define CUSTOM_MATRIX 2 /* Disables built-in matrix scanning code */
 
 // useful for direct pin mapping
-#define NO_PIN (~0)
+#define NO_PIN (pin_t)(~0)
 
 #ifdef __AVR__
 #    ifndef __ASSEMBLER__
