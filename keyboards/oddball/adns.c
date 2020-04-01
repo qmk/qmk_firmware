@@ -72,8 +72,6 @@
 extern const uint16_t firmware_length;
 extern const uint8_t firmware_data[];
 
-static report_adns_t report;
-
 void adns_begin(void){
     PORTB &= ~ (1 << NCS);
 }
@@ -207,7 +205,7 @@ int16_t convertDeltaToInt(uint8_t high, uint8_t low){
     uint16_t twos_comp = (high << 8) | low;
 
     // convert twos comp to int
-    if ((twos_comp & 0x8000) != 0)
+    if (twos_comp & 0x8000)
         return -1 * (~twos_comp + 1);
 
     return twos_comp;
@@ -232,15 +230,10 @@ report_adns_t adns_get_report(void) {
     uint8_t delta_y_l = SPI_TransferByte(0);
     uint8_t delta_y_h = SPI_TransferByte(0);
 
-    report.x = convertDeltaToInt(delta_x_h, delta_x_l);
-    report.y = convertDeltaToInt(delta_y_h, delta_y_l);
-
     adns_end();
 
+    report_adns_t report;
+    report.x = convertDeltaToInt(delta_x_h, delta_x_l);
+    report.y = convertDeltaToInt(delta_y_h, delta_y_l);
     return report;
-}
-
-void adns_clear_report(void) {
-    report.x = 0;
-    report.y = 0;
 }

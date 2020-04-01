@@ -17,7 +17,7 @@
 #include "oddball.h"
 #include "pointing_device.h"
 #include "adns.h"
-#define SCROLL_DIVIDER 8
+#define SCROLL_DIVIDER 12
 #define CLAMP_HID(value) value < -127 ? -127 : value > 127 ? 127 : value
 
 static bool scroll_pressed;
@@ -48,7 +48,6 @@ void pointing_device_task(void){
 
     report_mouse_t mouse_report = pointing_device_get_report();
     report_adns_t adns_report = adns_get_report();
-    adns_clear_report();
 
     int8_t clamped_x = CLAMP_HID(adns_report.x);
     int8_t clamped_y = CLAMP_HID(adns_report.y);
