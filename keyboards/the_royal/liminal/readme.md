@@ -4,9 +4,9 @@
 
 A 50% keyboard with superb keycap compatibility.
 
-Keyboard Maintainer: [TheRoyalSweatshirt](https://github.com/TheRoyalSweatshirt) a.k.a [The_Royal](https://reddit.com/u/The_Royal)
-Hardware Supported: rev 0.2 Liminal PCB 
-Hardware Availability: Through GB, Proxy, or Direct Message
+* Keyboard Maintainer: [TheRoyalSweatshirt](https://github.com/TheRoyalSweatshirt) a.k.a [The_Royal](https://reddit.com/u/The_Royal)
+* Hardware Supported: rev 0.2 Liminal PCB
+* Hardware Availability: Through GB, Proxy, or Direct Message
 
 Make example for this keyboard (after setting up your build environment):
 
