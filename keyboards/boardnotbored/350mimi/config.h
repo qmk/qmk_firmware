@@ -54,8 +54,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define WS2812_LED_N 16
 #define RGBLED_NUM WS2812_LED_N
-#define PORT_WS2812     GPIOB
-#define PIN_WS2812      17
+#define PORT_WS2812     GPIOA
+#define PIN_WS2812      8
 #define WS2812_SPI SPID2
 
 // Backlight config starts after VIA's EEPROM usage,
