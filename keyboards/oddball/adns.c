@@ -1,5 +1,3 @@
-#include <avr/io.h>
-#include <avr/interrupt.h>
 #include "quantum.h"
 #include "adns9800_srom_A4.h"
 #include "../../lib/lufa/LUFA/Drivers/Peripheral/SPI.h"
