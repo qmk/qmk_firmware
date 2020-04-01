@@ -32,11 +32,13 @@ QMK のメンバーがあなたのプルリクエストに返信し、あなた�
 
 ### ChangeLog エントリの提供
 
-Breaking change プロセスを経て提出する際には、変更ログのエントリを含めることを我々は要請します。エントリーは、あなたのプルリクエストが行う変更の短い要約であるべきです &ndash; [ここの各セクションは changelog として開始されました](ja/ChangeLog/20190830.md "n.b. This should link to the 2019 Aug 30 Breaking Changes doc - @noroadsleft")。
+Breaking change プロセスを経て提出する際には、変更ログのエントリを含めることを我々は要請します。
+エントリーは、あなたのプルリクエストが行う変更の短い要約としてください &ndash; [ここの各セクションは changelog として開始されました](ja/ChangeLog/20190830.md "n.b. This should link to the 2019 Aug 30 Breaking Changes doc - @noroadsleft")。
 
-変更ログは `docs/ChangeLog/YYYYMMDD/PR####.md` にあるはずです。ここで、`YYYYMMDD` は QMK の変更速報ブランチ &ndash; 通常は `future` &ndash; が `master` ブランチにマージされる日付、`####` はプルリクエストの番号です。
+変更ログは `docs/ChangeLog/YYYYMMDD/PR####.md` に置いてください。
+ここで、`YYYYMMDD` は QMK の breaking change ブランチ &ndash; 通常は `future` という名称 &ndash; が `master` ブランチにマージされる日付、`####` はプルリクエストの番号です。
 
-ユーザー側でのアクションが必要な場合は、どのようなアクションを取らなければならないのかをユーザーに指示するか、そのようなアクションを行う場所にリンクする必要があります。
+ユーザー側でのアクションを必要とする場合、あなたの変更ログは、どのようなアクションを取らなければならないかをユーザーに指示したり、そのようなアクションを行う場所にリンクしたりしなければなりません。
 
 ### 変更点を文書化する
 
