@@ -215,7 +215,7 @@ void render_prompt(void) {
     }
 };
 
-void render_status_main(void) {
+void render_status_secondary(void) {
     oled_write_ln("", false);
     oled_write_ln("", false);
 
@@ -238,7 +238,7 @@ void render_status_main(void) {
     #endif
 };
 
-void render_status_secondary(void) {
+void render_status_main(void) {
     oled_write_ln("", false);
     oled_write_ln("", false);
 
