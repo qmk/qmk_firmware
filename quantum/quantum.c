@@ -145,10 +145,6 @@ void reset_keyboard(void) {
 #ifdef HAPTIC_ENABLE
     haptic_shutdown();
 #endif
-// this is also done later in bootloader.c - not sure if it's neccesary here
-#ifdef BOOTLOADER_CATERINA
-    *(uint16_t *)0x0800 = 0x7777;  // these two are a-star-specific
-#endif
     bootloader_jump();
 }
 
