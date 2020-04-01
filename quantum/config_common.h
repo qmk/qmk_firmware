@@ -21,7 +21,7 @@
 #define ROW2COL 1
 
 // useful for direct pin mapping
-#define NO_PIN (~0)
+#define NO_PIN (pin_t)(~0)
 
 #ifdef __AVR__
 #    ifndef __ASSEMBLER__
