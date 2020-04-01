@@ -24,5 +24,6 @@ typedef struct {
 } report_adns_t;
 
 void adns_init(void);
+
+/* Reads and clears the current delta values on the ADNS sensor */
 report_adns_t adns_get_report(void);
-void adns_clear_report(void);
