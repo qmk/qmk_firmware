@@ -54,8 +54,8 @@ static uint8_t custom_wrap_timer_read(void) {
     return custom_wrap_timer_last_value;
 }
 
-void update_debounce_counters(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t current_time);
-void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t current_time);
+void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t current_time);
+void start_debounce_counters(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t current_time);
 
 // we use num_rows rather than MATRIX_ROWS to support split keyboards
 void debounce_init(uint8_t num_rows) {
@@ -71,16 +71,15 @@ void debounce_init(uint8_t num_rows) {
 void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
     uint8_t current_time = custom_wrap_timer_read();
     if (counters_need_update) {
-        update_debounce_counters(raw, cooked, num_rows, current_time);
+        update_debounce_counters_and_transfer_if_expired(raw, cooked, num_rows, current_time);
     }
 
     if (changed) {
-        transfer_matrix_values(raw, cooked, num_rows, current_time);
+        start_debounce_counters(raw, cooked, num_rows, current_time);
     }
 }
 
-// If the current time is > debounce counter, set the counter to enable input.
-void update_debounce_counters(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t current_time) {
+void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t current_time) {
     counters_need_update                 = false;
     debounce_counter_t *debounce_pointer = debounce_counters;
     for (uint8_t row = 0; row < num_rows; row++) {
@@ -98,8 +97,7 @@ void update_debounce_counters(matrix_row_t raw[], matrix_row_t cooked[], uint8_t
     }
 }
 
-// upload from raw_matrix to final matrix;
-void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t current_time) {
+void start_debounce_counters(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t current_time) {
     debounce_counter_t *debounce_pointer = debounce_counters;
     for (uint8_t row = 0; row < num_rows; row++) {
         matrix_row_t delta = raw[row] ^ cooked[row];
