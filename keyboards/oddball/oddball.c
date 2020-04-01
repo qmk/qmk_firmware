@@ -84,6 +84,9 @@ void pointing_device_task(void){
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
+    if(!process_record_user(keycode, record))
+        return false;
+
     // handle mouse drag and scroll
 
     switch (keycode) {
