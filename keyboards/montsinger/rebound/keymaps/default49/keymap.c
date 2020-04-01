@@ -5,8 +5,7 @@
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 
-enum layer_names
-{
+enum layer_names {
   _QWERTY,
   _COLEMAK,
   _DVORAK,
