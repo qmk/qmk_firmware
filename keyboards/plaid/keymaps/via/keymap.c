@@ -16,8 +16,8 @@
 
 #include QMK_KEYBOARD_H
 
-#define LOWER MO(1)
-#define RAISE MO(2)
+#define LOWER  FN_MO13
+#define RAISE  FN_MO23
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -94,11 +94,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 
 };
-
-uint32_t layer_state_set_user(uint32_t state) {
-  return update_tri_layer_state(state, 1, 2, 3);
-}
-
 bool led_update_user(led_t led_state) {
     writePin(LED_RED, led_state.caps_lock);
     writePin(LED_GREEN, led_state.scroll_lock);
