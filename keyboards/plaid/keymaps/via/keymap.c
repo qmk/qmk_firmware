@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 
-#define LOWER MO(0)
-#define RAISE MO(1)
+#define LOWER MO(1)
+#define RAISE MO(2)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
