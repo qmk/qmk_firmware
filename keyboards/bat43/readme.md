@@ -1,12 +1,12 @@
 # bat43
 
-![bat43](imgur.com image replace me!)
+![bat43](https://user-images.githubusercontent.com/30647434/78112239-e9ef8300-7438-11ea-810b-994a75ffa24e.jpg)
 
-A short description of the keyboard/project
+A 43-key keyboard.
 
-* Keyboard Maintainer: [yfuku](https://github.com/yourusername)
+* Keyboard Maintainer: [yfuku](https://github.com/yfuku)
 * Hardware Supported: The PCBs, controllers supported
-* Hardware Availability: Links to where you can find this hardware
+* Hardware Availability: https://yfuku.booth.pm/
 
 Make example for this keyboard (after setting up your build environment):
 
