@@ -33,7 +33,7 @@
     B1, B2, B3, B4, B5, B6, D1, F1, F2, F3, F4, F5, F6,  \
     C1, C2, C3, C4, C5, C6,     G1, G2, G3, G4, G5, G6,  \
                 D4, D5, D6,     H1, H2, H3,\
-                    D2, D3,     H4, H5, H6\
+                    H5, H6,     H4, D2, D3\
 ) { \
     { A1, A2, A3, A4, A5, A6 }, \
     { B1, B2, B3, B4, B5, B6 }, \
@@ -50,7 +50,7 @@
     B1, B2, B3, B4, B5, B6, D1, F1, F2, F3, F4, F5, F6,  \
     C1, C2, C3, C4, C5, C6,     G1, G2, G3, G4, G5, G6,  \
                 D4, D5, D6,     H1, H2, H3,\
-                    D2, D3,     H4, H5, H6\
+                    H5, H6,     H4, D2, D3\
   ) \
   LAYOUT( \
     KC_##A1, KC_##A2, KC_##A3, KC_##A4, KC_##A5, KC_##A6,          KC_##E1, KC_##E2, KC_##E3, KC_##E4, KC_##E5, KC_##E6, \
