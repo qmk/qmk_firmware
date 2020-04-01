@@ -101,17 +101,17 @@
 // Row 1
 #define PL_TILD S(PL_GRV)  // ~
 #define PL_EXLM S(PL_1)    // !
-#define PL_AT   S(PL_2)    // !
-#define PL_HASH S(PL_3)    // !
-#define PL_DLR  S(PL_4)    // !
-#define PL_PERC S(PL_5)    // !
-#define PL_CIRC S(PL_6)    // !
-#define PL_AMPR S(PL_7)    // !
-#define PL_ASTR S(PL_8)    // !
-#define PL_LPRN S(PL_9)    // !
-#define PL_RPRN S(PL_0)    // !
-#define PL_UNDS S(PL_MINS) // !
-#define PL_PLUS S(PL_EQL)  // !
+#define PL_AT   S(PL_2)    // @
+#define PL_HASH S(PL_3)    // #
+#define PL_DLR  S(PL_4)    // $
+#define PL_PERC S(PL_5)    // %
+#define PL_CIRC S(PL_6)    // ^
+#define PL_AMPR S(PL_7)    // &
+#define PL_ASTR S(PL_8)    // *
+#define PL_LPRN S(PL_9)    // (
+#define PL_RPRN S(PL_0)    // )
+#define PL_UNDS S(PL_MINS) // _
+#define PL_PLUS S(PL_EQL)  // +
 // Row 2
 #define PL_LCBR S(PL_LBRC) // {
 #define PL_RCBR S(PL_RBRC) // }
