@@ -115,10 +115,10 @@
 // Row 2
 #define PL_LCBR S(PL_LBRC) // {
 #define PL_RCBR S(PL_RBRC) // }
+#define PL_PIPE S(PL_BSLS) // |
 // Row 3
 #define PL_COLN S(PL_SCLN) // :
 #define PL_DQUO S(PL_QUOT) // "
-#define PL_PIPE S(PL_BSLS) // |
 // Row 4
 #define PL_LABK S(PL_COMM) // <
 #define PL_RABK S(PL_DOT)  // >
