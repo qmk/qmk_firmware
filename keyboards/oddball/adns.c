@@ -58,26 +58,7 @@
 extern const uint16_t firmware_length;
 extern const uint8_t firmware_data[];
 
-enum motion_burst_property{
-    motion = 0,
-    observation,
-    delta_x_l,
-    delta_x_h,
-    delta_y_l,
-    delta_y_h,
-    squal,
-    pixel_sum,
-    maximum_pixel,
-    minimum_pixel,
-    shutter_upper,
-    shutter_lower,
-    frame_period_upper,
-    frame_period_lower,
-    end_data
-};
-
 static report_adns_t report;
-volatile uint32_t motion_time;
 
 void adns_begin(void){
     PORTB &= ~ (1 << NCS);
@@ -124,11 +105,6 @@ uint8_t adns_read(uint8_t reg_addr){
 }
 
 void adns_init(void) {
-
-    // interrupt 2
-    EICRA &= ~(1 << 4);
-    EICRA |= (1 << 5);
-    EIMSK |= (1<<INT2);
 
     // mode 3
     SPI_Init(
@@ -225,23 +201,27 @@ int16_t convertDeltaToInt(uint8_t high, uint8_t low){
 
 report_adns_t adns_get_report(void) {
 
-    // read motion a frame after sensed to ensure enough delay
-    if(timer_elapsed32(motion) > 1) {
+    adns_begin();
 
-        adns_begin();
+    // start burst mode
+    SPI_TransferByte(REG_Motion_Burst & 0x7f);
 
-        SPI_TransferByte(REG_Motion_Burst & 0x7f);
+    // motion register
+    SPI_TransferByte(0);
 
-        uint8_t burst_data[pixel_sum];
+    // observation register
+    SPI_TransferByte(0);
 
-        for (int i = 0; i < pixel_sum; ++i)
-            burst_data[i] = SPI_TransferByte(0);
+    // delta registers
+    uint8_t delta_x_l = SPI_TransferByte(0);
+    uint8_t delta_x_h = SPI_TransferByte(0);
+    uint8_t delta_y_l = SPI_TransferByte(0);
+    uint8_t delta_y_h = SPI_TransferByte(0);
 
-        report.x = convertDeltaToInt(burst_data[delta_x_h], burst_data[delta_x_l]);
-        report.y = convertDeltaToInt(burst_data[delta_y_h], burst_data[delta_y_l]);
+    report.x = convertDeltaToInt(delta_x_h, delta_x_l);
+    report.y = convertDeltaToInt(delta_y_h, delta_y_l);
 
-        adns_end();
-    }
+    adns_end();
 
     return report;
 }
@@ -249,8 +229,4 @@ report_adns_t adns_get_report(void) {
 void adns_clear_report(void) {
     report.x = 0;
     report.y = 0;
-}
-
-ISR(INT2_vect){
-    motion_time = timer_read32();
 }
