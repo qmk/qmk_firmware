@@ -73,16 +73,13 @@ uint32_t layer_state_set_user(uint32_t state) {
   return state;
 }
 
-void matrix_init_user(void) {
-  save_rgb_config();
-}
 #endif
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    #ifdef CONSOLE_ENABLE
-        uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
-    #endif
+  #ifdef CONSOLE_ENABLE
+    uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+  #endif
   #ifdef OLED_DRIVER_ENABLE
   if (record->event.pressed) {
     oled_timer = timer_read32();
