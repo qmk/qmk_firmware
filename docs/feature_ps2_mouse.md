@@ -266,6 +266,15 @@ To reverse the scroll axes you can put:
 
 into config.h.
 
+### Rotate Mouse Axes :id=rotate-mouse-axes
+
+Rotate the X and Y axes by 90, 180, or 270 degrees to compensate for device
+orientation:
+
+```c
+#define PS2_MOUSE_ROTATE 270 /* trackpoint module rotated clockwise 90 degrees */
+```
+
 ### Debug Settings :id=debug-settings
 
 To debug the mouse, add `debug_mouse = true` or enable via bootmagic.
