@@ -106,8 +106,6 @@ void raw_hid_send(uint8_t *data, uint8_t length) {
         usbPoll();
     }
     usbSetInterrupt3(0, 0);
-    usbPoll();
-    _delay_ms(1);
 }
 
 __attribute__((weak)) void raw_hid_receive(uint8_t *data, uint8_t length) {
