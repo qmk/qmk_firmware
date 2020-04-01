@@ -7,12 +7,6 @@ enum layer_names {
     _OTHER
 };
 
-#define PERMISSIVE_HOLD
-
-#define TAPPING_TERM 200
-
-#define TAPPING_TERM_PER_KEY
-
 
 //Tap Dance Declarations
 enum {

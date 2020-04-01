@@ -8,9 +8,6 @@ enum{
   _FN
 };
 
-#define OLED_DISABLE_TIMEOUT
-#define TAPPING_TERM 200
-
 //Tap Dance Declarations
 enum {
   TD_RST = 0,
