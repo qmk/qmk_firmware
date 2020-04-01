@@ -15,13 +15,6 @@
  */
 #pragma once
 
-// with one pwm channel, only one tone can be played at a time
-// TODO: unless we start doing time-multiplexing...
-#if defined (AUDIO_ENABLE_TONE_MULTIPLEXING)
-#    define AUDIO_MAX_SIMULTANEOUS_TONES 8
-#else
-#    define AUDIO_MAX_SIMULTANEOUS_TONES 1
-#endif
 
 #if !defined(AUDIO_PWM_PINALTERNATE_TIMER)
 //NOTE: Timer2 seems to be used otherwise in QMK, otherwise we could default to A5 (= TIM2_CH1, with PWMD2 and alternate-function(1))

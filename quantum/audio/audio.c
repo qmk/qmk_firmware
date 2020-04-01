@@ -30,13 +30,12 @@
  *            avtive tone
  */
 
-#ifndef AUDIO_MAX_SIMULTANEOUS_TONES
-#    define AUDIO_MAX_SIMULTANEOUS_TONES 8
+#ifndef AUDIO_TONE_STACKSIZE
+#    define AUDIO_TONE_STACKSIZE 8
 #endif
-uint8_t  active_tones         = 0; // nuber of active/playing tones/frequencies
-uint8_t  active_tones_prev    = 0; // for the state update to keep track of changes
-float    frequencies[AUDIO_MAX_SIMULTANEOUS_TONES] = {0.0}; // frequencies of each active tone
-//TODO: array of musical_tone_t
+uint8_t  active_tones         = 0; // nuber of tones pushed onto the stack by play_note - might be more than the harware is able to reproduce at any single time
+float    frequencies[AUDIO_TONE_STACKSIZE] = {0.0}; // frequencies of each active tone
+//TODO: array of musical_tone_t?
 
 bool     playing_notes  = false; // playing a SONG?
 bool     playing_note   = false; // or (possibly multiple simultanious) tones
@@ -52,6 +51,9 @@ uint16_t next_note    = 0;
 uint32_t note_position  = 0; // where in time, during playback of the current_note
 
 #ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
+#    ifndef AUDIO_MAX_SIMULTANEOUS_TONES
+#        define AUDIO_MAX_SIMULTANEOUS_TONES 3
+#    endif
 float    tone_multiplexing_rate = AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT;
 float    tone_multiplexing_counter = 0.0f; // incremented each state update, and compared to _rate
 uint8_t  tone_multiplexing_index_shift = 0; // offset used on active-tone array access
@@ -156,7 +158,7 @@ void stop_all_notes() {
     playing_notes = false;
     playing_note  = false;
 
-    for (uint8_t i = 0; i < AUDIO_MAX_SIMULTANEOUS_TONES; i++) {
+    for (uint8_t i = 0; i < AUDIO_TONE_STACKSIZE; i++) {
         frequencies[i] = 0;
     }
 }
@@ -167,11 +169,11 @@ void stop_note(float freq) {
             audio_init();
         }
         bool found = false;
-        for (int i = AUDIO_MAX_SIMULTANEOUS_TONES-1; i >= 0; i--) {
+        for (int i = AUDIO_TONE_STACKSIZE-1; i >= 0; i--) {
             found = (frequencies[i] == freq);
             if (found) {
                 frequencies[i] = 0;
-                for (int j = i; (j < AUDIO_MAX_SIMULTANEOUS_TONES-1); j++) {
+                for (int j = i; (j < AUDIO_TONE_STACKSIZE-1); j++) {
                     frequencies[j]     = frequencies[j + 1];
                     frequencies[j + 1] = 0;
                 }
@@ -225,8 +227,8 @@ void play_note(float freq, int vol) { //NOTE: vol is unused
 
     // frequency/tone is actually new, so we queue it to the end
     active_tones++;
-    if (active_tones > AUDIO_MAX_SIMULTANEOUS_TONES) {
-        active_tones = AUDIO_MAX_SIMULTANEOUS_TONES;
+    if (active_tones > AUDIO_TONE_STACKSIZE) {
+        active_tones = AUDIO_TONE_STACKSIZE;
         // shift out the oldest tone to make room
         for (int i=0; i<active_tones-1; i++) {
             frequencies[i] = frequencies[i+1];
@@ -457,7 +459,6 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
 }
 */
 
-
 bool audio_advance_state(uint32_t step, float end) {
     bool goto_next_note = state_changed;
     state_changed = false;
@@ -470,7 +471,7 @@ bool audio_advance_state(uint32_t step, float end) {
 //palToggleLine(C10);
             tone_multiplexing_counter = 0.0f;
             tone_multiplexing_index_shift++;
-            if (tone_multiplexing_index_shift >= active_tones)
+            if (tone_multiplexing_index_shift >= MIN(AUDIO_MAX_SIMULTANEOUS_TONES, active_tones))
                 tone_multiplexing_index_shift = 0;
             goto_next_note = true;
         }

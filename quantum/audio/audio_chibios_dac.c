@@ -74,7 +74,7 @@ __attribute__((weak)) uint16_t dac_value_generate(void) {
     if (state_recently_changed) {
         active_tones = dac_previous_active_tones;
     } else {
-        active_tones =  audio_get_number_of_active_tones();
+        active_tones =  MIN(AUDIO_MAX_SIMULTANEOUS_TONES, audio_get_number_of_active_tones());
         dac_previous_active_tones = active_tones;
     }
 
@@ -124,7 +124,7 @@ __attribute__((weak)) uint16_t dac_value_generate(void) {
             state_recently_changed=false;
             /* the waveform sum approaches zero, each sample index can still point
              * to a non-zero value; so all have to be reset
-             * Note: this to work without clocks, the samples have to start at zero
+             * Note: for this to work without clicks, the samples have to start at zero
              */
             for (uint8_t i = 0; i < AUDIO_MAX_SIMULTANEOUS_TONES; i++)
                 dac_if[i] = 0.0f;

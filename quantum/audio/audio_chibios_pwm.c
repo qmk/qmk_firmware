@@ -206,18 +206,9 @@ void audio_start_hardware(void) {
     channel_1_stop();
     channel_1_start();
 
-#ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
     if (playing_note || playing_notes) {
         gptStartContinuous(&GPTD6, 64);
     }
-#else
-    if (playing_note) {
-        channel_1_set_frequency(audio_get_processed_frequency(0));
-    }
-    if (playing_notes) {
-        gptStartContinuous(&GPTD6, 64);
-    }
-#endif
 }
 
 void audio_stop_hardware(void) {
