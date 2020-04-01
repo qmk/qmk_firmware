@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        ┣━━━━━╉─────┼─────┼─────┼─────┼─────╂─────┼─────┼─────┼─────┼─────╊━━━━━┫
        ┃SHIFT┃  Z  │  X  │  C  │  V  │  B  ┃  N  │  M  │  ,  │  .  │  /  ┃CTL/-┃
        ┣━━━━━╉─────┼─────┼─────┼─────┼─────╂─────┼─────┼─────┼─────┼─────╊━━━━━┫
-       ┃LCTRL┃     │     │ ALT │ GUI │SPACE┃SPACE│ 𝛽/= │  '  │     │     ┃     ┃
+       ┃LCTRL┃     │     │ ALT │ GUI │SPACE┃SPACE│ 𝛽/= │  '  │     │     ┃  \  ┃
        ┗━━━━━┻━━━━━┷━━━━━┷━━━━━┷━━━━━┷━━━━━┻━━━━━┷━━━━━┷━━━━━┷━━━━━┷━━━━━┻━━━━━┛
        */
     [_MAIN] = LAYOUT_kc( \
@@ -69,26 +69,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TAB,  Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P,    BSPC, \
         ALPHA,A,    S,    D,    F,    G,    H,    J,    K,    L,    SCLN, ENT,  \
         LSFT, Z,    X,    C,    V,    B,    N,    M,    COMM, DOT,  SLSH, RCTRL,\
-        LCTRL,_____,_____,LALT, LGUI, SPC,  SPC,  BETA, QUOT, _____,_____,_____ \
+        LCTRL,_____,_____,LALT, LGUI, SPC,  SPC,  BETA, QUOT, _____,_____,BSLS  \
     ),
 
     /* Alpha layer (𝛼)
                                                        │     │           │     │
        ┏━━━━━┳━━━━━┯━━━━━┯━━━━━┯━━━━━┯━━━━━┳━━━━━┯━━━━━┯━━━━━┯━━━━━┯━━━━━┳━━━━━┓
-       ┃     ┃PREV │PLAY │NEXT │     │     ┃  -  │ ^^^ │  ^  │ vvv │  ~  ┃ DEL ┃
+       ┃     ┃PREV │PLAY │NEXT │     │NUMLK┃  -  │ ^^^ │  ^  │ vvv │  ~  ┃ DEL ┃
        ┣━━━━━╉─────┼─────┼─────┼─────┼─────╂─────┼─────┼─────┼─────┼─────╊━━━━━┫
-       ┃     ┃     │VOL -│VOL +│     │     ┃HOME │ <-- │  v  │ --> │  `  ┃  \  ┃
+       ┃     ┃     │VOL -│VOL +│     │CPSLK┃HOME │ <-- │  v  │ --> │  `  ┃  \  ┃
        ┣━━━━━╉─────┼─────┼─────┼─────┼─────╂─────┼─────┼─────┼─────┼─────╊━━━━━┫
-       ┃     ┃     │     │     │     │     ┃ END │  =  │  [  │  ]  │  (  ┃  )  ┃
+       ┃     ┃     │     │     │     │SCRLK┃ END │  =  │  [  │  ]  │  (  ┃  )  ┃
        ┣━━━━━╉─────┼─────┼─────┼─────┼─────╂─────┼─────┼─────┼─────┼─────╊━━━━━┫
        ┃     ┃     │     │     │     │     ┃     │     │     │     │     ┃     ┃
        ┗━━━━━┻━━━━━┷━━━━━┷━━━━━┷━━━━━┷━━━━━┻━━━━━┷━━━━━┷━━━━━┷━━━━━┷━━━━━┻━━━━━┛
        */
     [_ALPHA] = LAYOUT_kc( \
                                                         _____,            _____,\
-        _____,MPRV, MPLY, MNXT, _____,_____,MINS, PGUP, UP,   PGDN, TILD, DEL,  \
-        _____,_____,VOLD, VOLU, _____,_____,HOME, LEFT, DOWN, RIGHT,GRV,  BSLS, \
-        _____,_____,_____,_____,_____,_____,END,  EQL,  LBRC, RBRC, LPRN ,RPRN, \
+        _____,MPRV, MPLY, MNXT, _____,NLCK, MINS, PGUP, UP,   PGDN, TILD, DEL,  \
+        _____,_____,VOLD, VOLU, _____,CAPS, HOME, LEFT, DOWN, RIGHT,GRV,  BSLS, \
+        _____,_____,_____,_____,_____,SLCK, END,  EQL,  LBRC, RBRC, LPRN ,RPRN, \
         _____,_____,_____,_____,_____,_____,_____,_____,_____,_____,_____,_____ \
     ),
 
@@ -255,6 +255,7 @@ void oled_task_user(void) {
     /* Host Keyboard Layer Status */
     uint8_t current_layer = biton32(layer_state);
 
+    /* Layer */
     static const char PROGMEM icons[4][3][6] = {
         {
             { 0x80, 0x81, 0x82, 0x83, 0x84, 0 },
@@ -284,7 +285,8 @@ void oled_task_user(void) {
         oled_write_P(icons[icon_index][i], false);
     }
 
-    oled_set_cursor(6, 1);
+    /* Time */
+    oled_set_cursor(6, 0);
     // oled_write_P(PSTR("-D48 Custom-\n"), false);
     char buf[16];
     sprintf(
@@ -293,17 +295,7 @@ void oled_task_user(void) {
     );
     oled_write(buf, false);
 
-    uint8_t layer_index = current_layer == _MAIN ? 0 : current_layer == _ALPHA ? 1 : 2;
-    const char *layers[3] = {
-        PSTR("MAIN"),
-        PSTR("ALPHA"),
-        PSTR("BETA")
-    };
-    oled_set_cursor(6, 2);
-    oled_write_P("Layer: ", false);
-    oled_write_P(layers[layer_index], false);
-    oled_write_P("\n", false);
-
+    /* Modifiers */
     static const char PROGMEM mods[][2] = {
         {0x94, 0x95}, // CTL
         {0x96, 0x97}, // ALT
@@ -322,7 +314,28 @@ void oled_task_user(void) {
     if (led_usb_state & (1 << USB_LED_CAPS_LOCK)) mod_data[10] = 'C';
     if (led_usb_state & (1 << USB_LED_SCROLL_LOCK)) mod_data[11] = 'S';
 
-    oled_set_cursor(6, 3);
+    oled_set_cursor(6, 1);
     oled_write(mod_data, false);
+
+    /* Matrix */
+    static const char PROGMEM matrix_chars[] = {
+        0xb4, // None
+        0xb5, // Upper
+        0xb6, // Lower
+        0xb7  // Both
+    };
+
+    for (uint8_t row = 1; row < MATRIX_ROWS; row += 2) {
+        // Skip first row because it's used by the encoders.
+        uint16_t bits1 = matrix_get_row(row);
+        uint16_t bits2 = matrix_get_row(row + 1);
+
+        for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+            uint8_t matrix_char = matrix_chars[((bits1 & (1 << col)) ? 1 : 0) | ((bits2 & (1 << col)) ? 2 : 0)];
+            oled_set_cursor(6 + col, 2 + (row - 1) / 2);
+            oled_write_char(matrix_char, false);
+        }
+    }
+
 }
 #endif

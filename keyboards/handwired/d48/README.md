@@ -26,7 +26,7 @@ Build process: [album](https://imgur.com/gallery/zZZGdDw)
 
 ## Pinout
 
-![D48 pinout](https://imgur.com/LgHDQUU.jpg)
+![D48 pinout](https://imgur.com/QoStCvD.jpg)
 
 ## Challenges
 
@@ -35,6 +35,17 @@ I'm very happy with the result, but at some point Proton C was driving me nuts.
 I did a lot of trial and error during assembly & programming.
 There were a lot of *yet* undocumented caveats,
 so I'll outline them here so that you guys can avoid the same issues I had.
+
+## Matrix & encoders
+
+Although this is a 48-key board with a 12-col & 4-row matrix, I've decided to add an extra row above the first one
+to make my matrix 12x5 and wire encoders' push buttons as 2 extra keys, thus making it a total of 50 (12x4 + 2 encoders).
+I used 2 columns (9 & 12) for those buttons.
+
+So, a first row actually has 2 buttons on columns 9 & 12 (because encoders are located near those columns).
+Encoders' push buttons are also configured via QMK's keymap.
+
+Check out the `d48.h` & `config.h` for pins used & keymap macro definition.
 
 ## I<sup>2</sup>C/OLED
 
