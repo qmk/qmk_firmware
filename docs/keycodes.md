@@ -543,7 +543,7 @@ See also: [Unicode Support](feature_unicode.md)
 |`XP(i, j)`            |         |Send Unicode code point at index `i`, or `j` if Shift/Caps is on|
 |`UNICODE_MODE_FORWARD`|`UC_MOD` |Cycle through selected input modes                              |
 |`UNICODE_MODE_REVERSE`|`UC_RMOD`|Cycle through selected input modes in reverse                   |
-|`UNICODE_MODE_OSX`    |`UC_M_OS`|Switch to macOS input                                           |
+|`UNICODE_MODE_MAC`    |`UC_M_MA`|Switch to macOS input                                           |
 |`UNICODE_MODE_LNX`    |`UC_M_LN`|Switch to Linux input                                           |
 |`UNICODE_MODE_WIN`    |`UC_M_WI`|Switch to Windows input                                         |
 |`UNICODE_MODE_BSD`    |`UC_M_BS`|Switch to BSD input (not implemented)                           |

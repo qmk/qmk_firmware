@@ -10,6 +10,7 @@ from pathlib import Path
 from milc import cli
 from qmk import submodules
 from qmk.questions import yesno
+from qmk.commands import run
 
 ESSENTIAL_BINARIES = {
     'dfu-programmer': {},
@@ -135,7 +136,7 @@ def check_modem_manager():
     """Returns True if ModemManager is running.
     """
     if shutil.which("systemctl"):
-        mm_check = subprocess.run(["systemctl", "--quiet", "is-active", "ModemManager.service"], timeout=10)
+        mm_check = run(["systemctl", "--quiet", "is-active", "ModemManager.service"], timeout=10)
         if mm_check.returncode == 0:
             return True
 
@@ -153,7 +154,7 @@ def is_executable(command):
         return False
 
     # Make sure the command can be executed
-    check = subprocess.run([command, '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5, universal_newlines=True)
+    check = run([command, '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5, universal_newlines=True)
     ESSENTIAL_BINARIES[command]['output'] = check.stdout
 
     if check.returncode in [0, 1]:  # Older versions of dfu-programmer exit 1
@@ -207,19 +208,19 @@ def doctor(cli):
     ok = True
 
     # Determine our OS and run platform specific tests
-    OS = platform.platform().lower()  # noqa (N806), uppercase name is ok in this instance
+    platform_id = platform.platform().lower()
 
-    if 'darwin' in OS or 'macos' in OS:
+    if 'darwin' in platform_id or 'macos' in platform_id:
         if not os_test_macos():
             ok = False
-    elif 'linux' in OS:
+    elif 'linux' in platform_id:
         if not os_test_linux():
             ok = False
-    elif 'windows' in OS:
+    elif 'windows' in platform_id:
         if not os_test_windows():
             ok = False
     else:
-        cli.log.error('Unsupported OS detected: %s', OS)
+        cli.log.error('Unsupported OS detected: %s', platform_id)
         ok = False
 
     # Make sure the basic CLI tools we need are available and can be executed.
@@ -227,7 +228,7 @@ def doctor(cli):
 
     if not bin_ok:
         if yesno('Would you like to install dependencies?', default=True):
-            subprocess.run(['util/qmk_install.sh'])
+            run(['util/qmk_install.sh'])
             bin_ok = check_binaries()
 
     if bin_ok:
