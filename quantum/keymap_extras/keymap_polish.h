@@ -138,11 +138,11 @@
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 // Row 2
-#define PL_ECED ALGR(PL_E)  // Ę
+#define PL_EOGO ALGR(PL_E)  // Ę
 #define PL_EURO ALGR(PL_U)  // €
 #define PL_OACU ALGR(PL_O)  // Ó
 // Row 3
-#define PL_ACED ALGR(PL_A)  // Ą
+#define PL_AOGO ALGR(PL_A)  // Ą
 #define PL_SACU ALGR(PL_S)  // Ś
 #define PL_LSTR ALGR(PL_L)  // Ł
 // Row 4
