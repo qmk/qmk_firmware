@@ -32,8 +32,16 @@ AUDIO_ENABLE ?= no
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
     ifeq ($(PLATFORM),CHIBIOS)
         AUDIO_DRIVER ?= dac_basic
+        ifeq ($(strip $(AUDIO_DRIVER)), dac_basic)
+            OPT_DEFS += -DAUDIO_DRIVER_DAC
+        else ifeq ($(strip $(AUDIO_DRIVER)), dac_additive)
+            OPT_DEFS += -DAUDIO_DRIVER_DAC
         ## stm32f2 and above have a usable DAC unit, f1 do not, and need to use pwm instead
-        OPT_DEFS += -DAUDIO_DRIVER_DAC
+        else ifeq ($(strip $(AUDIO_DRIVER)), pwm_software)
+            OPT_DEFS += -DAUDIO_DRIVER_PWM
+        else ifeq ($(strip $(AUDIO_DRIVER)), pwm_hardware)
+            OPT_DEFS += -DAUDIO_DRIVER_PWM
+        endif
     else
         # fallback for all other platforms is pwm
         AUDIO_DRIVER ?= pwm_hardware
