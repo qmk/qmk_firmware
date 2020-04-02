@@ -28,5 +28,5 @@ AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no         # Enable support for HD44780 based LCDs
 
-LAYOUTS_HAS_RGB = no
+LAYOUTS = ortho_4x12
 ENCODER_ENABLE = yes
