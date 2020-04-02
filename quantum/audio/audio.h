@@ -46,8 +46,10 @@ typedef union {
     };
 } audio_config_t;
 
-
-#define MIN(a,b) (((a) < (b)) ? (a) : (b))
+//AVR/LUFA has a MIN, arm/chibios does not
+#ifndef MIN
+#    define MIN(a,b) (((a) < (b)) ? (a) : (b))
+#endif
 
 //     ____        __    ___
 //    / __ \__  __/ /_  / (_)____
