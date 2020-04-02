@@ -74,6 +74,7 @@ static bool state_recently_changed = false;
 //TODO have audio.c keep track of a previous state snapshot instead?
 static float dac_previous_frequencies[AUDIO_MAX_SIMULTANEOUS_TONES] = {0.0};
 static uint8_t dac_previous_active_tones = 0;
+static bool should_stop = false;
 
 /**
  * Generation of the waveform being passed to the callback. Declared weak so users
@@ -165,6 +166,12 @@ __attribute__((weak)) uint16_t dac_value_generate(void) {
 static void dac_end(DACDriver *dacp){
     dacsample_t *sample_p = (dacp)->samples;
 
+    // the audio system triggered a stop, now that the sample-conversion is done stop the dac-triggering timer and go into idle
+    if (should_stop) {
+        gptStopTimer(&GPTD6);
+        return;
+    }
+
     // work on the other half of the buffer
     if (dacIsBufferComplete(dacp)) {
         sample_p += DAC_BUFFER_SIZE/2; // 'half_index'
@@ -245,15 +252,11 @@ void audio_driver_initialize() {
 }
 
 void audio_driver_stop(void) {
-/*TODO
-  should_stop = true
-   continue dac until zero-crossing, then stop timer
-   gptStopTimer
-   gptStop
-*/
+    should_stop = true;
 }
 
 void audio_driver_start(void) {
     gptStart(&GPTD6, &gpt6cfg1);
     gptStartContinuous(&GPTD6, 2U);
+    should_stop = false;
 }
