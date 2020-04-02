@@ -4,10 +4,10 @@
  * Version 0.3 
  * 
  * Created by Silvio Gulizia on the basis of the default Planck keymap.
- * thanks to SomeBuddyOnReddit, gepeirl, fauxpark, BXO511, drashna, ridingqwerty  ...
+ * Thanks to SomeBuddyOnReddit, gepeirl, fauxpark, BXO511, drashna, and ridingqwerty.
  *
- * based on the original Planck layout
- * Italian accented vowels "Ã" and "Ã " have been moved from the QWERTY layer to the LOWER layers, while "Ã¨" and "Ã¹" remain respectively on RAISE and LOWER.
+ * The layout is based on the original Planck layout when used with language set to Italian on your Mac. 
+ * Accented vowels have been moverd on RAISE ("è", "ì", and "ù") and LOWER ("é", "ò", and "à")
  *
  */
 
@@ -24,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |Esc/FN|   A  |   S  |  D  |   F   |   G  |   H  |   J  |   K  |   L  |  ;:  |  '"  |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   Z  |   X  |  C   |  V   | FN/B |   N  |   M  |  ,<  |  .>  |  /!  |S/Ent |
+ * | Shift|   Z  |   X  |  C   |  V   | MS/B |   N  |   M  |  ,<  |  .>  |  /!  |S/Ent |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | FN   | Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
@@ -37,13 +37,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 /* Lower
- * added Ã² and Ã  that were on the default Planck Querty layer when used with a device with lang set to Italian
  * ,-----------------------------------------------------------------------------------.
  * |  ~   |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |  (   |  )   | Del  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |  F1  |  F2  |  F3  |  F4  |  F5  |      |   _  |   =  |  Ã©   |  Ã²   |  Ã    |
+ * |      |  F1  |  F2  |  F3  |  F4  |  F5  |      |   _  |   =  |  é   |  ò   |  à   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F6  |  F7  |  F8  |  F9  | MOUSE|NUMPAD|   Â§  |   Â±  |  {   |  }   |  |   |
+ * |      |  F6  |  F7  |  F8  |  F9  |      |NUMPAD|   §  |   ±  |  {   |  }   |  |   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
@@ -52,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT_ortho_4x12(
     IT_TILDE, IT_EXLM, IT_AT,   IT_SHRP, IT_DLR,  IT_PERC, IT_CRC,  IT_AMPR,    IT_ASTR, IT_LPRN,    IT_RPRN, KC_DEL,
     _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______, S(IT_MINS), IT_EQL,  S(IT_EACC), IT_OACC, IT_AACC,
-    _______,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   MOUSE,   NUMPAD,  S(IT_UACC), IT_PLMN, IT_LCBR,    IT_RCBR, IT_PIPE,
+    _______,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   _______, NUMPAD,  S(IT_UACC), IT_PLMN, IT_LCBR,    IT_RCBR, IT_PIPE,
     _______,  _______, _______, _______, _______, _______, _______, _______,    KC_MNXT, KC_VOLD,    KC_VOLU, KC_MPLY
 ),
 
@@ -60,9 +59,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |  `   |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      | SGCOM| DESK |      |      |      |   -  |   +  |   Ã¨  |   Ã¬  |  Ã¹   |
+ * |      |      | SGCOM| DESK |      |      |      |   -  |   +  |   è  |   ì  |  ù   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Caps |      | PHONE| SVIV |VIVERE|MOUSE |NUMPAD|      |      |  [   |   ]  |  \   |
+ * | Caps |      | PHONE| SVIV |VIVERE|      |NUMPAD|      |      |  [   |   ]  |  \   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      | Home | PgDn | PgUp | End  |
  * `-----------------------------------------------------------------------------------'
@@ -70,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = LAYOUT_ortho_4x12(
     IT_GRAVE, IT_1,    IT_2,    IT_3,	 IT_4,    IT_5,    IT_6,    IT_7,    IT_8,    IT_9,    IT_0,    _______,
     _______,  _______, SECRET2, SECRET1, _______, _______, _______, IT_MINS, IT_PLUS, IT_EACC, IT_IACC, IT_UACC,
-    KC_CAPS,  _______, SECRET0, SECRET3, SECRET4,  MOUSE,  NUMPAD,  _______, _______, IT_LBRC, IT_RBRC, IT_BSLS,
+    KC_CAPS,  _______, SECRET0, SECRET3, SECRET4, _______, NUMPAD,  _______, _______, IT_LBRC, IT_RBRC, IT_BSLS,
     _______,  _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
 ),
 
@@ -119,15 +118,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |  F6  |  F7  |  F8  |  F9  | F10  |  F1  |  F2  |  F3  |  F4  | F5   |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      | RAISE|      |      |      |      |
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 
 [_FN] = LAYOUT_ortho_4x12(
-    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,      KC_F7,      KC_F8,   KC_F9,    KC_F10,  KC_DEL,
-    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_LEFT,    KC_DOWN,    KC_UP,   KC_RIGHT, _______, _______,
-    _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F1,      KC_F2,      KC_F3,   KC_F4,    KC_F5,   _______,
-    _______, _______, _______, _______, _______, _______, _______,    TG(_RAISE), _______, _______, _______,  _______
+    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_DEL,
+    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______, _______,
+    _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_F4,    KC_F5,   _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
 ),
 
 /* MOUSE
@@ -136,17 +135,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      | MOUSE|      |      |      |Scr Up|Scr Do|      |
+ * |      |      |      |      |      |      |      |      | But1 |Scr Up|Scr Do| But2 |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |But1  |      |      |But2  | Left | Down | Up   |Right |
+ * |      |      |      |      |      |      |      |      | Left | Down | Up   |Right |
  * `-----------------------------------------------------------------------------------'
  */
 
 [_MOUSE] = LAYOUT_ortho_4x12(
-    _______, _______, _______, _______, _______,    _______, _______, _______,    _______,    _______,       _______,     _______,
-    _______, _______, _______, _______, _______,    _______, _______, _______,    _______,    _______,       _______,     _______,
-    _______, _______, _______, _______, _______,    MOUSE,   _______, _______,    _______,    KC_MS_WH_DOWN, KC_MS_WH_UP, _______,
-    _______, _______, _______, _______, KC_MS_BTN1, _______, _______, KC_MS_BTN2, KC_MS_LEFT, KC_MS_DOWN,    KC_MS_UP,    KC_MS_RIGHT
+    _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______,       _______,     _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______,       _______,     _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, KC_MS_BTN1, KC_MS_WH_DOWN, KC_MS_WH_UP, KC_MS_BTN2,
+    _______, _______, _______, _______, _______, _______, _______, _______, KC_MS_LEFT, KC_MS_DOWN,    KC_MS_UP,    KC_MS_RIGHT
 )
 
 };
