@@ -1,6 +1,6 @@
 # Audio
 
-Your keyboard can make sounds! If you've got a Planck, Preonic, or basically any keyboard that allows access to certain PWM-capable pins, you can hook up a simple speaker and make it beep. You can use those beeps to indicate layer transitions, modifiers, special keys, or just to play some funky 8bit tunes.
+Your keyboard can make sounds! If you've got a spare pin you can hook up a simple speaker and make it beep. You can use those beeps to indicate layer transitions, modifiers, special keys, or just to play some funky 8bit tunes.
 
 To activate this feature, add `AUDIO_ENABLE = yes` to your `rules.mk`.
 
@@ -19,24 +19,34 @@ and *optionally*, a secondary voice, using Timer 1, on ONE of these pins:
 
 
 ## ARM based boards
-Most STM32 MCUs have DAC peripherals, with a notable exception of the STM32F1xx series. Generally, the DAC peripheral drives pins A4 or A5. To enable DAC-based audio output on STM32 devices, add `AUDIO_DRIVER = dac` to `rules.mk` and set either:`
+Most STM32 MCUs have DAC peripherals, with a notable exception of the STM32F1xx series. Generally, the DAC peripheral drives pins A4 or A5. To enable DAC-based audio output on STM32 devices, add `AUDIO_DRIVER = dac_basic` to `rules.mk` and set either:`
 `AUDIO_PIN = A4`
 OR
 `AUDIO_PIN = A5`
+
+Another option, besides dac_basic (which produces sound through a squarewave), is to use the DAC to do additive wave synthesis.
+Eith a number of predefined waveforms or by providing your own implementation to generate samples on the fly.
+To use this feature set `AUDIO_DRIVER = dac_additive` in your `rules.mk`.
+The used waveform defaults to a sine, but can be selected by adding one of the following defines to `config.h`:
+`#define AUDIO_DAC_SAMPLE_WAVEFORM_SINE`
+`#define AUDIO_DAC_SAMPLE_WAVEFORM_TRIANGLE`
+`#define AUDIO_DAC_SAMPLE_WAVEFORM_TRAPEZOID`
+`#define AUDIO_DAC_SAMPLE_WAVEFORM_SQUARE`
+Should you rather choose to generate and use your own sample-table to the DAC unit, implement `uint16_t dac_value_generate(void)` in your keyboard - for an example see keyboards/planck/keymaps/synth_sample or keyboards/planck/keymaps/synth_wavetable
 
 
 STM32F1xx have to fall back to using PWM (on the up side: with any pin you choose),
 
 Either:
 set in `rules.mk`:
-`AUDIO_SYSTEM = pwm` and
+`AUDIO_SYSTEM = pwm_software` and
 `AUDIO_PIN = C13` (can be any pin)
-to have the selected pin output a pwm signal, generated from a timer callback (e.g. toggled in software)
+to have the selected pin output a pwm signal, generated from a timer callback which toggles the pin in software.
  OR
-`AUDIO_SYSTEM = pwm-pin-alternate` in `rules.mk` and in `config.h`:
+`AUDIO_SYSTEM = pwm_hardware` in `rules.mk` and in `config.h`:
 `#define AUDIO_PIN A8`
-`#define AUDIO_PWM_PINALTERNATE_TIMER 1`
-`#define AUDIO_PWM_PINALTERNATE_TIMERCHANNEL 1`
+`#define AUDIO_PWM_TIMER 1`
+`#define AUDIO_PWM_TIMERCHANNEL 1`
 (as well as `#define AUDIO_PWM_PINALTERNATE_FUNCTION 42` if you are on STM32F2 or larger)
 which will use Timer 1 to directly drive pin PA8 through the PWM hardware (TIM1_CH1 = PA8).
 Should you want to use the pwm-hardware on another pin and timer - be ready to dig into the STM32 datasheet to pick the right TIMx_CHy and pin-alternate function.
