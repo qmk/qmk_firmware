@@ -56,11 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 uint32_t layer_state_set_user(uint32_t state) {
   #ifdef JOTANCK_LEDS
-  if (biton32(state) == _RAISE) {
-    writePinHigh(JOTANCK_LED2);
-  } else {
-    writePinLow(JOTANCK_LED2);
-  }
+  writePin(JOTANCK_LED2, (get_highest_layer(state) == _RAISE));
   #endif
   return state;
 }
@@ -74,11 +70,7 @@ bool led_update_user(led_t led_state) {
 
   #ifdef JOTANCK_LEDS
   // CapsLock led
-  if (led_state.caps_lock) {
-    writePinHigh(JOTANCK_LED1);
-  } else {
-    writePinLow(JOTANCK_LED1);
-  }
+  writePin(JOTANCK_LED1, led_state.caps_lock);
   #endif
   return true;
 }
