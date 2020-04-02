@@ -21,9 +21,11 @@
 /*
   Audio Driver: DAC
 
-  which utilizes the dac unit many STM32 are equipped with to output a modulated sinewave from samples stored in the dac_buffer_sine array and are passed to the hardware through DMA
+  which utilizes the dac unit many STM32 are equipped with, to output a modulated waveform from samples stored in the dac_buffer_* array who are passed to the hardware through DMA
 
   it ia also possible to have a custom sample-LUT by implementing/overriding 'dac_value_generate'
+
+  this driver allows for multiple simultaneous tones to be played through one single channel by doing additive wave-synthesis
 */
 
 #if !defined(AUDIO_DAC_SAMPLE_WAVEFORM_SINE) && !defined(AUDIO_DAC_SAMPLE_WAVEFORM_TRIANGLE) && !defined(AUDIO_DAC_SAMPLE_WAVEFORM_SQUARE) && !defined(AUDIO_DAC_SAMPLE_WAVEFORM_TRAPEZOID)
@@ -213,7 +215,7 @@ static const DACConfig dac_conf = {.init = DAC_SAMPLE_MAX, .datamode = DAC_DHRM_
  */
 static const DACConversionGroup dac_conv_cfg = {.num_channels = 1U, .end_cb = dac_end, .error_cb = dac_error, .trigger = DAC_TRG(0b000)};
 
-void audio_initialize_hardware() {
+void audio_driver_initialize() {
 #if defined(AUDIO_PIN_A4)
     palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_ANALOG);
     dacStart(&DACD1, &dac_conf);
@@ -242,7 +244,7 @@ void audio_initialize_hardware() {
 #endif
 }
 
-void audio_stop_hardware(void) {
+void audio_driver_stop(void) {
 /*TODO
   should_stop = true
    continue dac until zero-crossing, then stop timer
@@ -251,7 +253,7 @@ void audio_stop_hardware(void) {
 */
 }
 
-void audio_start_hardware(void) {
+void audio_driver_start(void) {
     gptStart(&GPTD6, &gpt6cfg1);
     gptStartContinuous(&GPTD6, 2U);
 }

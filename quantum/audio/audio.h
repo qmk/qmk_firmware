@@ -26,14 +26,14 @@
 
 #if defined(__AVR__)
 #    include <avr/io.h>
-#    include "audio_avr_pwm.h"
+#    include "driver_avr_pwm.h"
 #endif
 
-#if defined(AUDIO_DRIVER_PWM) || defined(AUDIO_DRIVER_PWM_PIN_ALTERNATE)
-#    include "audio_chibios_pwm.h"
+#if defined(AUDIO_DRIVER_PWM)
+#    include "driver_chibios_pwm.h"
 #endif
 #if defined(AUDIO_DRIVER_DAC)
-#    include "audio_chibios_dac.h"
+#    include "driver_chibios_dac.h"
 #endif
 
 
@@ -196,10 +196,10 @@ void decrease_tempo(uint8_t tempo_change);
 // /_/ /_/\__,_/_/   \__,_/ |__/|__/\__,_/_/   \___/
 // hardware interface
 
-// implementation in the audio_avr/arm_* drivers
-void audio_initialize_hardware(void);
-void audio_start_hardware(void);
-void audio_stop_hardware(void);
+// implementation in the driver_avr/arm_* respective parts
+void audio_driver_initialize(void);
+void audio_driver_start(void);
+void audio_driver_stop(void);
 
 /**
  * @brief get the number of currently active tones

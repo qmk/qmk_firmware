@@ -24,7 +24,7 @@
  *            notes/tones; the notes a SONG consists of;
  *            ...
  *
- * audio_[avr|chibios]_[dac|pwm] take care of the lower hardware dependent parts,
+ * driver_[avr|chibios]_[dac|pwm] take care of the lower hardware dependent parts,
  *            specific to each platform and the used subsystem/driver to drive
  *            the output pins/channels with the calculated frequencies for each
  *            avtive tone
@@ -38,7 +38,7 @@ float    frequencies[AUDIO_TONE_STACKSIZE] = {0.0}; // frequencies of each activ
 //TODO: array of musical_tone_t?
 
 bool     playing_notes  = false; // playing a SONG?
-bool     playing_note   = false; // or (possibly multiple simultanious) tones
+bool     playing_note   = false; // or (possibly multiple simultaneous) tones
 bool     state_changed  = false; // global flag, which is set if anything changes with the active_tones
 
 float  (*notes_pointer)[][2]; // SONG, an array of MUSICAL_NOTEs
@@ -113,7 +113,7 @@ void audio_init() {
 #endif  // ARM EEPROM
 
     if (!audio_initialized) {
-        audio_initialize_hardware();
+        audio_driver_initialize();
         audio_initialized = true;
     }
 
@@ -153,7 +153,7 @@ void stop_all_notes() {
     }
     active_tones = 0;
 
-    audio_stop_hardware();
+    audio_driver_stop();
 
     playing_notes = false;
     playing_note  = false;
@@ -192,7 +192,7 @@ void stop_note(float freq) {
         }
 #endif
         if (active_tones == 0) {
-            audio_stop_hardware();
+            audio_driver_stop();
 
             playing_note  = false;
         }
@@ -240,11 +240,11 @@ void play_note(float freq, int vol) { //NOTE: vol is unused
     frequencies[active_tones-1] = freq;
 
     if (active_tones==1) // sufficient to start when switching from 0 to 1
-        audio_start_hardware();
+        audio_driver_start();
 }
 
 /* the two ways to feed the audio system:
-   play_note to add (or start) playing notes simultaniously with multiple tones
+   play_note to add (or start) playing notes simultaneously with multiple tones
    play_nots to playback a melody, which is just an array of notes (of different frequencies and durations)
 */
 void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat) {
@@ -271,7 +271,7 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat) {
         note_length    = ((*notes_pointer)[current_note][1]) * (60.0f / note_tempo);
         note_position  = 0; // position in the currently playing note = "elapsed time" (with no specific unit, depends on how fast/slow the respective audio-driver/hardware ticks)
 
-        audio_start_hardware();
+        audio_driver_start();
     }
 }
 

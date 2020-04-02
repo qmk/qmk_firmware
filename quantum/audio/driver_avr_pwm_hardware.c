@@ -199,7 +199,7 @@ void channel_2_stop(void) {
 }
 #endif
 
-void audio_initialize_hardware() {
+void audio_driver_initialize() {
 #ifdef AUDIO1_PIN_SET
     channel_1_stop();
     setPinOutput(AUDIO1_PIN);
@@ -241,7 +241,7 @@ void audio_initialize_hardware() {
 
 }
 
-void audio_stop_hardware() {
+void audio_driver_stop() {
 #ifdef AUDIO1_PIN_SET
     channel_1_stop();
 #endif
@@ -251,7 +251,7 @@ void audio_stop_hardware() {
 #endif
 }
 
-void audio_start_hardware(void) {
+void audio_driver_start(void) {
 #ifdef AUDIO1_PIN_SET
     channel_1_start();
     if (playing_note)

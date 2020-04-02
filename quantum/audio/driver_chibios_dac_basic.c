@@ -161,7 +161,7 @@ static void gpt_cb8(GPTDriver *gptp) {
     }
 }
 
-void audio_initialize_hardware() {
+void audio_driver_initialize() {
 //#if defined(AUDIO_PIN_A4)
     palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_ANALOG);
     dacStart(&DACD1, &dac_conf_ch1);
@@ -197,12 +197,12 @@ void audio_initialize_hardware() {
     gptStart(&GPTD8, &gpt8cfg1);
 }
 
-void audio_stop_hardware(void) {
+void audio_driver_stop(void) {
     gptStopTimer(&GPTD6);
     gptStopTimer(&GPTD7);
     gptStopTimer(&GPTD8);
 }
 
-void audio_start_hardware(void) {
+void audio_driver_start(void) {
     gptStartContinuous(&GPTD8, 2U);
 }

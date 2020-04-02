@@ -31,20 +31,13 @@ endif
 AUDIO_ENABLE ?= no
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
     ifeq ($(PLATFORM),CHIBIOS)
-        AUDIO_DRIVER ?= dac
-        ## stm32f2 and above have a usable DAC unit, f1 do not
-        ifeq ($(strip $(AUDIO_DRIVER)), dac)
-            OPT_DEFS += -DAUDIO_DRIVER_DAC
-        else ifeq ($(strip $(AUDIO_DRIVER)), pwm-pin-alternate)
-            OPT_DEFS += -DAUDIO_DRIVER_PWM_PIN_ALTERNATE
-            # reset config switch, to end up with the correct filename below
-            AUDIO_DRIVER := pwm
-        else # fallback=pwm
-            OPT_DEFS += -DAUDIO_DRIVER_PWM
-        endif
+        AUDIO_DRIVER ?= dac_basic
+        ## stm32f2 and above have a usable DAC unit, f1 do not, and need to use pwm instead
+        OPT_DEFS += -DAUDIO_DRIVER_DAC
     else
         # fallback for all other platforms is pwm
-        AUDIO_DRIVER ?= pwm
+        AUDIO_DRIVER ?= pwm_hardware
+        OPT_DEFS += -DAUDIO_DRIVER_PWM
     endif
     ifdef AUDIO_PIN
         OPT_DEFS += -DAUDIO_PIN=$(AUDIO_PIN) -DAUDIO_PIN_$(AUDIO_PIN)
@@ -57,7 +50,7 @@ ifeq ($(strip $(AUDIO_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_audio.c
     SRC += $(QUANTUM_DIR)/process_keycode/process_clicky.c
     SRC += $(QUANTUM_DIR)/audio/audio.c ## common audio code, hardware agnostic
-    SRC += $(QUANTUM_DIR)/audio/audio_$(PLATFORM_KEY)_$(AUDIO_DRIVER).c
+    SRC += $(QUANTUM_DIR)/audio/driver_$(PLATFORM_KEY)_$(AUDIO_DRIVER).c
     SRC += $(QUANTUM_DIR)/audio/voices.c
     SRC += $(QUANTUM_DIR)/audio/luts.c
 endif
