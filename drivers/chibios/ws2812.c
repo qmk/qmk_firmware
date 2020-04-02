@@ -66,7 +66,9 @@ void sendByte(uint8_t byte) {
     }
 }
 
-void ws2812_init(void) { setPinOutput(RGB_DI_PIN); }
+void ws2812_init(void) { //setPinOutput(RGB_DI_PIN); }
+    palSetLineMode(RGB_DI_PIN, PAL_MODE_OUTPUT_OPENDRAIN);
+}
 
 // Setleds for standard RGB
 void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
