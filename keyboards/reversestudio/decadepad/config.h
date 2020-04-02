@@ -21,8 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define VENDOR_ID       0x5253
+#define PRODUCT_ID      0x4450
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    ReverseStudio
 #define PRODUCT         DecadePad
@@ -79,3 +79,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
+
+
+
+//via:
+
+// Dynamic keymap starts after EEPROM version
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 35
+// Dynamic macro starts after dynamic keymaps (35+(4*10*6*2)) = (35+480)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 227     // **** CHANGE THIS BASED ON MATRIX_ROWS & MATRIX_COLS ****
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 797     // **** CHANGE THIS BASED ON 1024-DYNAMIC_KEYMAP_MACRO_EEPRO   _ADDR ****
+#define DYNAMIC_KEYMAP_MACRO_COUNT 16
