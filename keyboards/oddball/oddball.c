@@ -40,6 +40,10 @@ void on_mouse_button(uint8_t mouse_button, bool pressed) {
 
 void on_cpi_button(int16_t cpi) {
 
+    // read cpi first to prevent unnecessary writes to EEPROM
+    if(adns_get_config().cpi == cpi)
+        return;
+
     adns_set_config((config_adns_t){ cpi });
 
     config_oddball_t kb_config;
