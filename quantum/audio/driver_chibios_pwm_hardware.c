@@ -182,7 +182,7 @@ GPTConfig   gptCFG = {
     .callback  = gpt_callback,
 };
 
-void audio_initialize_hardware(void) {
+void audio_driver_initialize(void) {
     pwmStart(&PWMD, &pwmCFG);
 
 #if defined(AUDIO_DRIVER_PWM_PIN_ALTERNATE)
@@ -202,7 +202,7 @@ void audio_initialize_hardware(void) {
     gptStart(&GPTD6, &gptCFG);
 }
 
-void audio_start_hardware(void) {
+void audio_driver_start(void) {
     channel_1_stop();
     channel_1_start();
 
@@ -211,7 +211,7 @@ void audio_start_hardware(void) {
     }
 }
 
-void audio_stop_hardware(void) {
+void audio_driver_stop(void) {
     channel_1_stop();
     gptStopTimer(&GPTD6);
 }
