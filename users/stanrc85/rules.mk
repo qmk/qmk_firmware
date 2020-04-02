@@ -12,7 +12,8 @@ SRC += stanrc85.c
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
   # Include my fancy rgb functions source here
-  SRC += layer_rgb.c
+  # SRC += layer_rgb.c
+  SRC += rgblight_Layers.c
 endif
 
 ifeq ($(strip $(KEYBOARD)), 1upkeyboards/1up60hse)
