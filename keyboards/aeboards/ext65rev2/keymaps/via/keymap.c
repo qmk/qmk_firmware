@@ -17,11 +17,11 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap BASE: (Base Layer) Default Layer
-   * ,-------------------.  ,-------------------------------------------------------------------.     
+   * ,-------------------.  ,-------------------------------------------------------------------.
    * |-   | *  | /  |NmLK|  |Esc| 1 |  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|pipe| ~  | Pscr|
-   * |-------------------|  |-------------------------------------------------------------------| 
+   * |-------------------|  |-------------------------------------------------------------------|
    * |    | 9  | 8  | 7  |  |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]| BSPC  | Del |
-   * |  + |--------------|  |-------------------------------------------------------------------| 
+   * |  + |--------------|  |-------------------------------------------------------------------|
    * |    | 6  | 5  | 4  |  |Caps   |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return   | Pgup|
    * |-------------------|  |-------------------------------------------------------------------|
    * |    | 3  | 2  | 1  |  |Shift    |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift | Up | Pgdn|
@@ -61,3 +61,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                   KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS
   )
 };
+
+
+#ifdef OLED_DRIVER_ENABLE
+
+void render_layer_state(void) {
+    oled_write_ln(PSTR("LAYER"), false);
+    oled_write_ln(PSTR("L1"), layer_state_is(1));
+    oled_write_ln(PSTR("L2"), layer_state_is(2));
+    oled_write_ln(PSTR("L3"), layer_state_is(3));
+    oled_write_ln(PSTR(" "), false);
+}
+
+void render_keylock_status(uint8_t led_usb_state) {
+    oled_write_ln(PSTR("Lock:"), false);
+    oled_write(PSTR("N"), led_usb_state & (1 << USB_LED_NUM_LOCK));
+    oled_write(PSTR("C"), led_usb_state & (1 << USB_LED_CAPS_LOCK));
+    oled_write_ln(PSTR("S"), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
+    oled_write_ln(PSTR(" "), false);
+}
+
+void render_mod_status(uint8_t modifiers) {
+    oled_write_ln(PSTR("Mods:"), false);
+    oled_write(PSTR("S"), (modifiers & MOD_MASK_SHIFT));
+    oled_write(PSTR("C"), (modifiers & MOD_MASK_CTRL));
+    oled_write(PSTR("A"), (modifiers & MOD_MASK_ALT));
+    oled_write_ln(PSTR("G"), (modifiers & MOD_MASK_GUI));
+    oled_write_ln(PSTR(" "), false);
+}
+
+void oled_task_user(void) {
+    render_layer_state();
+    render_keylock_status(host_keyboard_leds());
+    render_mod_status(get_mods()|get_oneshot_mods());
+}
+
+#endif
