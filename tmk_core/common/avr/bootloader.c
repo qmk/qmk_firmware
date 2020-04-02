@@ -237,13 +237,13 @@ void bootloader_jump(void) {
                  "bootloader_startup_loop%=:         \n\t"
                  "rjmp bootloader_startup_loop%=     \n\t"
                  :
-                 : [ mcucsrio ] "I"(_SFR_IO_ADDR(MCUCSR)),
+                 : [mcucsrio] "I"(_SFR_IO_ADDR(MCUCSR)),
 #    if (FLASHEND > 131071)
-                   [ ramendhi ] "M"(((RAMEND - 2) >> 8) & 0xff), [ ramendlo ] "M"(((RAMEND - 2) >> 0) & 0xff), [ bootaddrhi ] "M"((((FLASH_SIZE - BOOTLOADER_SIZE) >> 1) >> 16) & 0xff),
+                   [ramendhi] "M"(((RAMEND - 2) >> 8) & 0xff), [ramendlo] "M"(((RAMEND - 2) >> 0) & 0xff), [bootaddrhi] "M"((((FLASH_SIZE - BOOTLOADER_SIZE) >> 1) >> 16) & 0xff),
 #    else
-                   [ ramendhi ] "M"(((RAMEND - 1) >> 8) & 0xff), [ ramendlo ] "M"(((RAMEND - 1) >> 0) & 0xff),
+                   [ramendhi] "M"(((RAMEND - 1) >> 8) & 0xff), [ramendlo] "M"(((RAMEND - 1) >> 0) & 0xff),
 #    endif
-                   [ bootaddrme ] "M"((((FLASH_SIZE - BOOTLOADER_SIZE) >> 1) >> 8) & 0xff), [ bootaddrlo ] "M"((((FLASH_SIZE - BOOTLOADER_SIZE) >> 1) >> 0) & 0xff));
+                   [bootaddrme] "M"((((FLASH_SIZE - BOOTLOADER_SIZE) >> 1) >> 8) & 0xff), [bootaddrlo] "M"((((FLASH_SIZE - BOOTLOADER_SIZE) >> 1) >> 0) & 0xff));
 
 #else  // Assume remaining boards are DFU, even if the flag isn't set
 
