@@ -1,8 +1,10 @@
+#include "adns.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include "print.h"
 #include "quantum.h"
 #include "pointing_device.h"
-#include "adns9800_srom_A4.h"
+#include "adns9800_srom_A6.h"
 #include "../../lib/lufa/LUFA/Drivers/Peripheral/SPI.h"
 
 // registers
@@ -76,16 +78,21 @@ enum motion_burst_property{
     end_data
 };
 
+
 // used to track the motion delta between updates
-volatile int32_t delta_x;
-volatile int32_t delta_y;
+volatile int16_t delta_x;
+volatile int16_t delta_y;
+volatile uint8_t motion_ind=0;
 
 void adns_begin(void){
-    PORTB &= ~ (1 << NCS);
+
+    writePinLow(F5);
+    //PORTB &= ~ (1 << NCS);
 }
 
 void adns_end(void){
-    PORTB |= (1 << NCS);
+    writePinHigh(F5);
+    //PORTB |= (1 << NCS);
 }
 
 void adns_write(uint8_t reg_addr, uint8_t data){
@@ -125,14 +132,13 @@ uint8_t adns_read(uint8_t reg_addr){
 }
 
 void pointing_device_init(void) {
-
-    if(!is_keyboard_master())
-        return;
+    print("STSARTING INTI"); 
+    setPinOutput(F5);
 
     // interrupt 2
-    EICRA &= ~(1 << 4);
-    EICRA |= (1 << 5);
-    EIMSK |= (1<<INT2);
+    //EICRA &= ~(1 << 4);
+    //EICRA |= (1 << 5);
+    //EIMSK |= (1<<INT2);
 
     // mode 3
     SPI_Init(
@@ -143,7 +149,6 @@ void pointing_device_init(void) {
         SPI_MODE_MASTER);
 
     // set B0 output
-    DDRB |= (1 << 0);
 
     // reset serial port
     adns_end();
@@ -210,18 +215,49 @@ void pointing_device_init(void) {
     // 0x44 = 3400, default
     // 0x8e = 7100
     // 0xA4 = 8200, maximum
-    adns_write(REG_Configuration_I, 0x04);
+    adns_write(REG_Configuration_I, 0x08);
 
     wait_ms(100);
+    print("INIT ENDDED");
 }
 
+int16_t convertDeltaToInt(uint8_t high, uint8_t low){
+
+    // join bytes into twos compliment
+    uint16_t twos_comp = (high << 8) | low;
+
+    // convert twos comp to int
+    if (twos_comp & 0x8000)
+        return -1 * ((twos_comp ^ 0xffff) + 1);
+
+    return twos_comp;
+}
+
+void readSensor(void) {
+
+    adns_begin();
+
+    // send adress of the register, with MSBit = 1 to indicate it's a write
+    SPI_TransferByte(REG_Motion_Burst & 0x7f);
+
+    uint8_t burst_data[pixel_sum];
+
+    for (int i = 0; i < pixel_sum; ++i) {
+        burst_data[i] = SPI_TransferByte(0);
+    }
+
+    delta_x += convertDeltaToInt(burst_data[delta_x_h], burst_data[delta_x_l]);
+    delta_y += convertDeltaToInt(burst_data[delta_y_h], burst_data[delta_y_l]);
+    motion_ind = burst_data[motion];
+    adns_end();
+
+}
 void pointing_device_task(void) {
-
-    if(!is_keyboard_master())
-        return;
-
+    readSensor();
     report_mouse_t report = pointing_device_get_report();
 
+    //if(delta_x + delta_y > 0)
+        //uprintf("M: %d\tX: %d\tY: %d\n", motion_ind, delta_x, delta_y);
     // clamp deltas from -127 to 127
     report.x = delta_x < -127 ? 127 : delta_x > 127 ? 127 : delta_x;
     report.x = -report.x;
@@ -236,17 +272,7 @@ void pointing_device_task(void) {
     pointing_device_send();
 }
 
-int16_t convertDeltaToInt(uint8_t high, uint8_t low){
 
-    // join bytes into twos compliment
-    uint16_t twos_comp = (high << 8) | low;
-
-    // convert twos comp to int
-    if (twos_comp & 0x8000)
-        return -1 * ((twos_comp ^ 0xffff) + 1);
-
-    return twos_comp;
-}
 
 ISR(INT2_vect) {
     // called on interrupt 2 when sensed motion

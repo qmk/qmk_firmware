@@ -1,5 +1,5 @@
 /*
-Copyright 2020 Alexander Tulloh
+Copyright 2020 Richard Sutherland
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,15 +21,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0xCA49
+#define PRODUCT_ID 0xC2F0
 #define DEVICE_VER 0x0001
-#define MANUFACTURER Alexander Tulloh
-#define PRODUCT Oddball
-#define DESCRIPTION A ballin keyboard
+#define MANUFACTURER Richard Sutherland
+#define PRODUCT KBall
+#define DESCRIPTION Buttonless trackball designed for Kyria
 
 /* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 6
+#define MATRIX_ROWS 1
+#define MATRIX_COLS 2
 
 /*
  * Keyboard Matrix Assignments
@@ -41,20 +41,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { F6, B5, B6, F7 }
-#define MATRIX_COL_PINS { D6, D7, B4, D3, C6, C7 }
-#define UNUSED_PINS { B7, D4, D5, E6, F0, F1, F4, F5 }
+#define DIRECT_PINS { { D1, D0} }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-
-/*
- * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
- */
-// #define SOFT_SERIAL_PIN D0  // or D1, D2, D3, E6
-#define USE_I2C
-#define SPLIT_USB_DETECT
-#define MASTER_RIGHT
 
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
