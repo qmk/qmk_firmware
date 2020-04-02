@@ -106,8 +106,6 @@ void raw_hid_send(uint8_t *data, uint8_t length) {
         usbPoll();
     }
     usbSetInterrupt3(0, 0);
-    usbPoll();
-    _delay_ms(1);
 }
 
 __attribute__((weak)) void raw_hid_receive(uint8_t *data, uint8_t length) {
@@ -160,10 +158,12 @@ typedef struct {
 } __attribute__((packed)) vusb_mouse_report_t;
 
 static void send_mouse(report_mouse_t *report) {
+#if defined(MOUSE_ENABLE)
     vusb_mouse_report_t r = {.report_id = REPORT_ID_MOUSE, .report = *report};
     if (usbInterruptIsReady3()) {
         usbSetInterrupt3((void *)&r, sizeof(vusb_mouse_report_t));
     }
+#endif
 }
 
 #ifdef EXTRAKEY_ENABLE
