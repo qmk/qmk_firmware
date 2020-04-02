@@ -440,7 +440,7 @@
  * @note    Disabling this option saves both code and data space.
  */
 #if !defined(SPI_USE_WAIT) || defined(__DOXYGEN__)
-#define SPI_USE_WAIT                        FALSE
+#define SPI_USE_WAIT                        TRUE
 #endif
 
 /**
