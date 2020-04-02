@@ -489,8 +489,8 @@ const PROGMEM usbDeviceDescriptor_t usbDeviceDescriptor = {
         .bDescriptorType = USBDESCR_DEVICE
     },
     .bcdUSB              = 0x0110,
-    .bDeviceClass        = USB_CFG_DEVICE_CLASS,
-    .bDeviceSubClass     = USB_CFG_DEVICE_SUBCLASS,
+    .bDeviceClass        = 0x00,
+    .bDeviceSubClass     = 0x00,
     .bDeviceProtocol     = 0x00,
     .bMaxPacketSize0     = 8,
     .idVendor            = VENDOR_ID,
@@ -540,9 +540,9 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .bInterfaceNumber    = 0,
         .bAlternateSetting   = 0x00,
         .bNumEndpoints       = USB_CFG_HAVE_INTRIN_ENDPOINT,
-        .bInterfaceClass     = USB_CFG_INTERFACE_CLASS,
-        .bInterfaceSubClass  = USB_CFG_INTERFACE_SUBCLASS,
-        .bInterfaceProtocol  = USB_CFG_INTERFACE_PROTOCOL,
+        .bInterfaceClass     = 0x03,
+        .bInterfaceSubClass  = 0x01,
+        .bInterfaceProtocol  = 0x01,
         .iInterface          = 0x00
     },
     .keyboardHID = {

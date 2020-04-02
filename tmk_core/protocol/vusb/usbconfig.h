@@ -41,15 +41,6 @@ section at the end of this file).
  * interrupt, the USB interrupt will also be triggered at Start-Of-Frame
  * markers every millisecond.]
  */
-#define USB_CFG_CLOCK_KHZ       (F_CPU/1000)
-/* Clock rate of the AVR in kHz. Legal values are 12000, 12800, 15000, 16000,
- * 16500, 18000 and 20000. The 12.8 MHz and 16.5 MHz versions of the code
- * require no crystal, they tolerate +/- 1% deviation from the nominal
- * frequency. All other rates require a precision of 2000 ppm and thus a
- * crystal!
- * Since F_CPU should be defined to your actual clock rate anyway, you should
- * not need to modify this setting.
- */
 #define USB_CFG_CHECK_CRC       0
 /* Define this to 1 if you want that the driver checks integrity of incoming
  * data packets (CRC checks). CRC checks cost quite a bit of code size and are
@@ -226,19 +217,6 @@ section at the end of this file).
  * This template uses obdev's shared VID/PID pair for Vendor Class devices
  * with libusb: 0x16c0/0x5dc.  Use this VID/PID pair ONLY if you understand
  * the implications!
- */
-#define USB_CFG_DEVICE_CLASS        0
-#define USB_CFG_DEVICE_SUBCLASS     0
-/* See USB specification if you want to conform to an existing device class.
- * Class 0xff is "vendor specific".
- */
-#define USB_CFG_INTERFACE_CLASS     3   /* HID */
-#define USB_CFG_INTERFACE_SUBCLASS  1   /* Boot */
-#define USB_CFG_INTERFACE_PROTOCOL  1   /* Keyboard */
-/* See USB specification if you want to conform to an existing device class or
- * protocol. The following classes must be set at interface level:
- * HID class is 3, no subclass and protocol required (but may be useful!)
- * CDC class is 2, use subclass 2 and protocol 1 for ACM
  */
 #define USB_CFG_HID_REPORT_DESCRIPTOR_LENGTH    0
 /* Define this to the length of the HID report descriptor, if you implement
