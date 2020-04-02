@@ -24,15 +24,20 @@ Most STM32 MCUs have DAC peripherals, with a notable exception of the STM32F1xx 
 OR
 `AUDIO_PIN = A5`
 
+the other DAC channel can optionally be used with a secondary speaker, just set:
+`AUDIO_PIN_ALT = A4` or `AUDIO_PIN_ALT = A5`
+
+Do note though that the dac_basic driver is only capable of reproducing one tone per speaker/channel at a time, for more tones simultaneously, try the dac_additive driver.
+
 Another option, besides dac_basic (which produces sound through a squarewave), is to use the DAC to do additive wave synthesis.
-Eith a number of predefined waveforms or by providing your own implementation to generate samples on the fly.
+With a number of predefined waveforms or by providing your own implementation to generate samples on the fly.
 To use this feature set `AUDIO_DRIVER = dac_additive` in your `rules.mk`.
 The used waveform defaults to a sine, but can be selected by adding one of the following defines to `config.h`:
 `#define AUDIO_DAC_SAMPLE_WAVEFORM_SINE`
 `#define AUDIO_DAC_SAMPLE_WAVEFORM_TRIANGLE`
 `#define AUDIO_DAC_SAMPLE_WAVEFORM_TRAPEZOID`
 `#define AUDIO_DAC_SAMPLE_WAVEFORM_SQUARE`
-Should you rather choose to generate and use your own sample-table to the DAC unit, implement `uint16_t dac_value_generate(void)` in your keyboard - for an example see keyboards/planck/keymaps/synth_sample or keyboards/planck/keymaps/synth_wavetable
+Should you rather choose to generate and use your own sample-table with the DAC unit, implement `uint16_t dac_value_generate(void)` with your keyboard - for an example implementation see keyboards/planck/keymaps/synth_sample or keyboards/planck/keymaps/synth_wavetable
 
 
 STM32F1xx have to fall back to using PWM (on the up side: with any pin you choose),
