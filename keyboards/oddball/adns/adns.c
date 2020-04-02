@@ -116,7 +116,7 @@ uint8_t adns_read(uint8_t reg_addr){
     return data;
 }
 
-void adns_init(void) {
+void adns_init() {
 
     // mode 3
     SPI_Init(
@@ -188,14 +188,16 @@ void adns_init(void) {
     adns_write(REG_LASER_CTRL0, laser_ctrl0 & 0xf0);
 
     wait_ms(1);
+}
 
-    // set the configuration_I register to set the CPI
-    // 0x01 = 50, minimum
-    // 0x44 = 3400, default
-    // 0x8e = 7100
-    // 0xA4 = 8200, maximum
-    adns_write(REG_Configuration_I, 0x04);
+config_adns_t adns_get_config(void) {
+    uint8_t config_1 = adns_read(REG_Configuration_I);
+    return (config_adns_t){ (config_1 & 0xFF) * 200 };
+}
 
+void adns_set_config(config_adns_t config) {
+    uint8_t config_1 = (config.cpi / 200) & 0xFF;
+    adns_write(REG_Configuration_I, config_1);
     wait_ms(100);
 }
 

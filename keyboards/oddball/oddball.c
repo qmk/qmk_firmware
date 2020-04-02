@@ -18,6 +18,9 @@
 #include "pointing_device.h"
 #include "./adns/adns.h"
 #define SCROLL_DIVIDER 12
+#define CPI_1 200
+#define CPI_2 800
+#define CPI_3 2400
 #define CLAMP_HID(value) value < -127 ? -127 : value > 127 ? 127 : value
 
 static bool scroll_pressed;
@@ -35,11 +38,32 @@ void on_mouse_button(uint8_t mouse_button, bool pressed) {
     pointing_device_set_report(report);
 }
 
+void on_cpi_button(int16_t cpi) {
+
+    adns_set_config((config_adns_t){ cpi });
+
+    config_oddball_t kb_config;
+    kb_config.cpi = cpi;
+    eeconfig_update_kb(kb_config.raw);
+}
+
 void pointing_device_init(void){
     if(!is_keyboard_master())
         return;
 
     adns_init();
+
+    // read config from EEPROM and update if needed
+
+    config_oddball_t kb_config;
+    kb_config.raw = eeconfig_read_kb();
+
+    if(!kb_config.cpi) {
+        kb_config.cpi = CPI_2;
+        eeconfig_update_kb(kb_config.raw);
+    }
+
+    adns_set_config((config_adns_t){ kb_config.cpi });
 }
 
 void pointing_device_task(void){
@@ -53,6 +77,7 @@ void pointing_device_task(void){
     int8_t clamped_y = CLAMP_HID(adns_report.y);
 
     if(scroll_pressed) {
+
         // accumulate scroll
         scroll_h += clamped_x;
         scroll_v += clamped_y;
@@ -111,6 +136,18 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
         case KC_SCROLL:
             scroll_pressed = record->event.pressed;
+            return false;
+
+        case KC_CPI_1:
+            on_cpi_button(CPI_1);
+            return false;
+
+        case KC_CPI_2:
+            on_cpi_button(CPI_2);
+            return false;
+
+        case KC_CPI_3:
+            on_cpi_button(CPI_3);
             return false;
 
     default:
