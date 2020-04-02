@@ -28,7 +28,5 @@ AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no         # Enable support for HD44780 based LCDs
 
-LAYOUTS = ortho_5x12
 LAYOUTS_HAS_RGB = no
-
-DEFAULT_FOLDER = montsinger/rebound/rev2
+ENCODER_ENABLE = yes
