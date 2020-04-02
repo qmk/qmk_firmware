@@ -62,8 +62,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_PWM_DRIVER PWMD1  // default: PWMD2
 #define WS2812_PWM_CHANNEL 3  // default: 2
 #define WS2812_PWM_PAL_MODE 2  // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 2
-#define WS2812_DMA_STREAM STM32_DMA1_STREAM2  // DMA Stream for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
-#define WS2812_DMA_CHANNEL 2  // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
+#define WS2812_DMA_STREAM STM32_DMA1_STREAM4  // DMA Stream for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
+#define WS2812_DMA_CHANNEL 3  // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
 
 /* UPAS CONFIG
 #define WS2812_LED_N 24
