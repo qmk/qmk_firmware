@@ -14,10 +14,16 @@ from qmk.commands import run
 
 ESSENTIAL_BINARIES = {
     'dfu-programmer': {},
-    'avrdude': {},
+    'avrdude': {
+        'version_arg': '-\\?'
+    },
     'dfu-util': {},
-    'avr-gcc': {'version_arg': '-dumpversion'},
-    'arm-none-eabi-gcc': {'version_arg': '-dumpversion'},
+    'avr-gcc': {
+        'version_arg': '-dumpversion'
+    },
+    'arm-none-eabi-gcc': {
+        'version_arg': '-dumpversion'
+    },
     'bin/qmk': {},
 }
 ESSENTIAL_SUBMODULES = ['lib/chibios', 'lib/lufa']
