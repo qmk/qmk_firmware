@@ -53,9 +53,9 @@ static void set_led_color_rgb(LED_TYPE color, int pos) {
 
 void ws2812_init(void) {
 #if defined(USE_GPIOV1)
-    palSetLineMode(RGB_DI_PIN, PAL_MODE_OUTPUT_OPENDRAIN);
+    palSetLineMode(RGB_DI_PIN, PAL_STM32_OTYPE_OPENDRAIN);
 #else
-    palSetLineMode(RGB_DI_PIN, PAL_MODE_ALTERNATE(WS2812_SPI_MOSI_PAL_MODE) | PAL_MODE_OUTPUT_OPENDRAIN );
+    palSetLineMode(RGB_DI_PIN, PAL_MODE_ALTERNATE(WS2812_SPI_MOSI_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN );
 #endif
 
     // TODO: more dynamic baudrate

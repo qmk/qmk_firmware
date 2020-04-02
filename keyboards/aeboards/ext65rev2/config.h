@@ -19,11 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x4145 // "AE"
-#define PRODUCT_ID      0xAE65 // AEboards EXT65
+#define PRODUCT_ID      0xA652 // AEboards EXT65 Rev2
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    AEboards
-#define PRODUCT         AEboards Ext65 STM
-#define DESCRIPTION     AEboards Ext65 STM
+#define PRODUCT         AEboards Ext65 REV 2
+#define DESCRIPTION     AEboards Ext65 REV 2
 
 /* key matrix size */
 /* key matrix size */
@@ -56,14 +56,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //SPI
 #define WS2812_SPI SPID2
 #define WS2812_SPI_MOSI_PAL_MODE 0
-
-//PWM
-
-#define WS2812_PWM_DRIVER PWMD1  // default: PWMD2
-#define WS2812_PWM_CHANNEL 3  // default: 2
-#define WS2812_PWM_PAL_MODE 2  // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 2
-#define WS2812_DMA_STREAM STM32_DMA1_STREAM4  // DMA Stream for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
-#define WS2812_DMA_CHANNEL 5  // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
 
 /* UPAS CONFIG
 #define WS2812_LED_N 24
