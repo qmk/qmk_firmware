@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "vusb.h"
 #include <util/delay.h>
 
-#if defined(RAW_ENABLE)
+#ifdef RAW_ENABLE
 #    include "raw_hid.h"
 #endif
 
@@ -158,7 +158,7 @@ typedef struct {
 } __attribute__((packed)) vusb_mouse_report_t;
 
 static void send_mouse(report_mouse_t *report) {
-#if defined(MOUSE_ENABLE)
+#ifdef MOUSE_ENABLE
     vusb_mouse_report_t r = {.report_id = REPORT_ID_MOUSE, .report = *report};
     if (usbInterruptIsReady3()) {
         usbSetInterrupt3((void *)&r, sizeof(vusb_mouse_report_t));
@@ -410,7 +410,7 @@ const PROGMEM uchar mouse_extra_hid_report[] = {
 };
 #endif
 
-#if defined(RAW_ENABLE)
+#ifdef RAW_ENABLE
 const PROGMEM uchar raw_hid_report[] = {
     0x06, 0x60, 0xFF,  // Usage Page (Vendor Defined)
     0x09, 0x61,        // Usage (Vendor Defined)
@@ -479,7 +479,6 @@ const PROGMEM usbStringDescriptor_t usbStringDescriptorSerial = {
     .bString             = LSTR(SERIAL_NUMBER)
 };
 
-#if USB_CFG_DESCR_PROPS_DEVICE
 /*
  * Device descriptor
  */
@@ -501,9 +500,7 @@ const PROGMEM usbDeviceDescriptor_t usbDeviceDescriptor = {
     .iSerialNumber       = 0x03,
     .bNumConfigurations  = 1
 };
-#endif
 
-#if USB_CFG_DESCR_PROPS_CONFIGURATION
 /*
  * Configuration descriptors
  */
@@ -556,7 +553,6 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .bDescriptorType     = USBDESCR_HID_REPORT,
         .wDescriptorLength   = sizeof(keyboard_hid_report)
     },
-#    ifdef USB_CFG_HAVE_INTRIN_ENDPOINT
     .keyboardINEndpoint = {
         .header = {
             .bLength         = sizeof(usbEndpointDescriptor_t),
@@ -567,7 +563,6 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .wMaxPacketSize      = 8,
         .bInterval           = USB_POLLING_INTERVAL_MS
     },
-#    endif
 
 #    if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
     /*
@@ -597,7 +592,6 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .bDescriptorType     = USBDESCR_HID_REPORT,
         .wDescriptorLength   = sizeof(mouse_extra_hid_report)
     },
-#        if USB_CFG_HAVE_INTRIN_ENDPOINT3
     .mouseExtraINEndpoint = {
         .header = {
             .bLength         = sizeof(usbEndpointDescriptor_t),
@@ -608,7 +602,6 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .wMaxPacketSize      = 8,
         .bInterval           = USB_POLLING_INTERVAL_MS
     }
-#        endif
 #    elif defined(RAW_ENABLE)
     .rawInterface = {
         .header = {
@@ -658,7 +651,6 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
 #        endif
 #    endif
 };
-#endif
 
 // clang-format on
 
@@ -674,18 +666,14 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
         debug_hex16(rq->wLength.word); debug("\n");
     */
     switch (rq->wValue.bytes[1]) {
-#if USB_CFG_DESCR_PROPS_DEVICE
         case USBDESCR_DEVICE:
             usbMsgPtr = (unsigned char *)&usbDeviceDescriptor;
             len       = sizeof(usbDeviceDescriptor_t);
             break;
-#endif
-#if USB_CFG_DESCR_PROPS_CONFIGURATION
         case USBDESCR_CONFIG:
             usbMsgPtr = (unsigned char *)&usbConfigurationDescriptor;
             len       = sizeof(usbConfigurationDescriptor_t);
             break;
-#endif
         case USBDESCR_STRING:
             switch (rq->wValue.bytes[0]) {
                 case 0:
