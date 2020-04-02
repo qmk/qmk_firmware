@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Yiancar-Designs
 #define PRODUCT         Gingham
-#define DESCRIPTION     A 65 persent keyboard with only through hole components
+#define DESCRIPTION     A 60 persent keyboard with only through hole components
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -240,8 +240,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LCD_E_PIN        1            //< pin  for Enable line
 #endif
 */
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
