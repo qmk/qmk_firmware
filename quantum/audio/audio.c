@@ -28,17 +28,30 @@
  *            specific to each platform and the used subsystem/driver to drive
  *            the output pins/channels with the calculated frequencies for each
  *            avtive tone
+ *
+ *
+ * A Note on terminology:
+ * tone and frequency are used somewhat interchangeably, in a strict wikipedia-sense:
+ *    "(Musical) tone, a sound characterized by its duration, pitch (=frequency),
+ *    intensity (=volume), and timbre"
+ * - intensity/volume is currently not handled at all, although the 'dac_additive' driver could do so
+ * - timbre is handled globally (TODO: only by the avr driver at the moment)
+ *
+ * a (musical) note is the combination of a pitch and a duration
+ * musical_notes are used to create SONG arrays; during playback their
+ * frequencies are handled as single successive tones, while the durations are
+ * kept track of in 'audio_advance_state'
  */
 
 #ifndef AUDIO_TONE_STACKSIZE
 #    define AUDIO_TONE_STACKSIZE 8
 #endif
-uint8_t  active_tones         = 0; // nuber of tones pushed onto the stack by play_note - might be more than the harware is able to reproduce at any single time
+uint8_t  active_tones         = 0; // number of tones pushed onto the stack by audio_play_tone - might be more than the harware is able to reproduce at any single time
 float    frequencies[AUDIO_TONE_STACKSIZE] = {0.0}; // frequencies of each active tone
 //TODO: array of musical_tone_t?
 
-bool     playing_notes  = false; // playing a SONG?
-bool     playing_note   = false; // or (possibly multiple simultaneous) tones
+bool     playing_melody  = false; // playing a SONG?
+bool     playing_note   = false; // or (possibly multiple simultaneous) tones  TODO: should this be playing_tone instead, since we don't handle any duration (yet)
 bool     state_changed  = false; // global flag, which is set if anything changes with the active_tones
 
 float  (*notes_pointer)[][2]; // SONG, an array of MUSICAL_NOTEs
@@ -140,14 +153,14 @@ void audio_on(void) {
 void audio_off(void) {
     PLAY_SONG(audio_off_song);
     wait_ms(100);
-    stop_all_notes();
+    audio_stop_all();
     audio_config.enable = 0;
     eeconfig_update_audio(audio_config.raw);
 }
 
-bool is_audio_on(void) { return (audio_config.enable != 0); }
+bool audio_is_on(void) { return (audio_config.enable != 0); }
 
-void stop_all_notes() {
+void audio_stop_all() {
     if (!audio_initialized) {
         audio_init();
     }
@@ -155,7 +168,7 @@ void stop_all_notes() {
 
     audio_driver_stop();
 
-    playing_notes = false;
+    playing_melody = false;
     playing_note  = false;
 
     for (uint8_t i = 0; i < AUDIO_TONE_STACKSIZE; i++) {
@@ -163,14 +176,14 @@ void stop_all_notes() {
     }
 }
 
-void stop_note(float freq) {
+void audio_stop_tone(float frequency) {
     if (playing_note) {
         if (!audio_initialized) {
             audio_init();
         }
         bool found = false;
         for (int i = AUDIO_TONE_STACKSIZE-1; i >= 0; i--) {
-            found = (frequencies[i] == freq);
+            found = (frequencies[i] == frequency);
             if (found) {
                 frequencies[i] = 0;
                 for (int j = i; (j < AUDIO_TONE_STACKSIZE-1); j++) {
@@ -199,9 +212,7 @@ void stop_note(float freq) {
     }
 }
 
-//A musical tone is characterized by its duration, pitch, intensity (or loudness), and timbre (or quality)
-//TODO: rename to play_frequency; since a "note" is the combination of freq+duration (?)
-void play_note(float freq, int vol) { //NOTE: vol is unused
+void audio_play_tone(float frequency) {
     if (!audio_config.enable)
         return;
 
@@ -210,14 +221,14 @@ void play_note(float freq, int vol) { //NOTE: vol is unused
     }
 
     // roundrobin: shifting out old tones, keeping only unique ones
-    // if the new frequency is already amongst the active tones, shift it to the end
+    // if the new frequency is already amongst the active tones, shift it to the top of the stack
     bool found = false;
     for (int i = active_tones-1; i >= 0; i--) {
-        found = (frequencies[i] == freq);
+        found = (frequencies[i] == frequency);
         if (found) {
             for (int j = i; (j < active_tones-1); j++) {
                 frequencies[j]     = frequencies[j + 1];
-                frequencies[j + 1] = freq;
+                frequencies[j + 1] = frequency;
             }
             break;
         }
@@ -225,7 +236,7 @@ void play_note(float freq, int vol) { //NOTE: vol is unused
     if (found) // since this frequency played already, the hardware was already started
         return;
 
-    // frequency/tone is actually new, so we queue it to the end
+    // frequency/tone is actually new, so we put it on the top of the stack
     active_tones++;
     if (active_tones > AUDIO_TONE_STACKSIZE) {
         active_tones = AUDIO_TONE_STACKSIZE;
@@ -237,17 +248,17 @@ void play_note(float freq, int vol) { //NOTE: vol is unused
     state_changed = true;
     playing_note = true;
     envelope_index = 0; // see voices.c // TODO: does what?
-    frequencies[active_tones-1] = freq;
+    frequencies[active_tones-1] = frequency;
 
     if (active_tones==1) // sufficient to start when switching from 0 to 1
         audio_driver_start();
 }
-
-/* the two ways to feed the audio system:
-   play_note to add (or start) playing notes simultaneously with multiple tones
-   play_nots to playback a melody, which is just an array of notes (of different frequencies and durations)
-*/
-void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat) {
+/*
+ * the two ways to feed the audio system:
+ * - audio_play_tone to add (or start) playing notes simultaneously with multiple tones
+ * - audio_play_melody which gets passed a SONG = array of musical-notes (combinations of frequencies and durations)
+ */
+void audio_play_melody(float (*np)[][2], uint16_t n_count, bool n_repeat) {
     if (!audio_config.enable)
         return;
 
@@ -257,9 +268,9 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat) {
 
     if (audio_config.enable) {
         // Cancel note if a note is playing
-        if (playing_note) stop_all_notes();
+        if (playing_note) audio_stop_all();
 
-        playing_notes = true;
+        playing_melody = true;
 
         notes_pointer = np;
         notes_count   = n_count;
@@ -275,12 +286,12 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat) {
     }
 }
 
-bool is_playing_note(void) { return playing_note; }
+bool audio_is_playing_note(void) { return playing_note; }
 
-bool is_playing_notes(void) { return playing_notes; }
-
+bool audio_is_playing_melody(void) { return playing_melody; }
 
 uint8_t audio_get_number_of_active_tones(void) { return active_tones; }
+
 
 float audio_get_frequency(uint8_t tone_index) {
     if (tone_index >= active_tones)
@@ -296,7 +307,7 @@ float audio_get_processed_frequency(uint8_t tone_index) {
         return 0.0f;
 
     int8_t index = active_tones - tone_index - 1;
-    // new tones are appended at the end, so the most recent/current is MAX-1
+    // new tones are stacked on top (= appended at the end), so the most recent/current is MAX-1
 
 #ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
     index = index - tone_multiplexing_index_shift;
@@ -389,7 +400,7 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
         }
     }
 
-    if (playing_notes) {
+    if (playing_melody) {
         if (note_frequency > 0) {
 #ifdef AUDIO_ENABLE_VIBRATO
             if (vibrato_strength > 0) {
@@ -420,7 +431,7 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
                 if (notes_repeat) {
                     current_note = 0;
                 } else {
-                    playing_notes = false;
+                    playing_melody = false;
                     return;
                 }
             }
@@ -452,7 +463,7 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
         }
 
         if (!audio_config.enable) {
-            playing_notes = false;
+            playing_melody = false;
             playing_note  = false;
         }
     }
@@ -480,26 +491,26 @@ bool audio_advance_state(uint32_t step, float end) {
 
     //'playing_note' is stopped manually, so no need to keep track of it here
 
-    if (playing_notes) {
+    if (playing_melody) {
         note_position += step;
 
         goto_next_note = note_position >= (note_length * end);
         if (goto_next_note) {
-            stop_note((*notes_pointer)[current_note][0]);
+            audio_stop_tone((*notes_pointer)[current_note][0]);
             current_note++;
 
             if (current_note >= notes_count) {
                 if (notes_repeat) {
                     current_note = 0;
                 } else {
-                    playing_notes = false;
+                    playing_melody = false;
                     return goto_next_note;
                 }
             }
 
-            play_note(
-                (*notes_pointer)[current_note][0], // frequency only; the duration is handled by calling this function regularly and advancing the note_position
-                0xff);// volume TODO: second parameter is unused... refactor!
+            audio_play_tone(
+                (*notes_pointer)[current_note][0] // frequency only; the duration is handled by calling this function regularly and advancing the note_position
+                );
 
             envelope_index = 0;
 
@@ -511,9 +522,9 @@ bool audio_advance_state(uint32_t step, float end) {
         }
     }
 
-    if (!playing_note && !playing_notes )
-        stop_all_notes();
-    //TODO: trigger a stop of the hardware or just a stop_note on the last frequency?
+    if (!playing_note && !playing_melody )
+        audio_stop_all();
+    //TODO: trigger a stop of the hardware or just a audio_stop_tone on the last frequency?
 
     return goto_next_note;
 }
@@ -537,32 +548,32 @@ float vibrato(float average_freq) {
     return vibrated_freq;
 }
 
-void set_vibrato_rate(float rate) { vibrato_rate = rate; }
-void increase_vibrato_rate(float change) { vibrato_rate *= change; }
-void decrease_vibrato_rate(float change) { vibrato_rate /= change; }
+void audio_set_vibrato_rate(float rate) { vibrato_rate = rate; }
+void audio_increase_vibrato_rate(float change) { vibrato_rate *= change; }
+void audio_decrease_vibrato_rate(float change) { vibrato_rate /= change; }
 #    ifdef AUDIO_ENABLE_VIBRATO_STRENGTH
-void set_vibrato_strength(float strength) { vibrato_strength = strength; }
-void increase_vibrato_strength(float change) { vibrato_strength *= change; }
-void decrease_vibrato_strength(float change) { vibrato_strength /= change; }
+void audio_set_vibrato_strength(float strength) { vibrato_strength = strength; }
+void audio_increase_vibrato_strength(float change) { vibrato_strength *= change; }
+void audio_decrease_vibrato_strength(float change) { vibrato_strength /= change; }
 #    endif /* AUDIO_ENABLE_VIBRATO_STRENGTH */
 #endif /* AUDIO_ENABLE_VIBRATO */
 
 // Tone-multiplexing functions
 #ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
-void set_tone_multiplexing_rate(float rate) { tone_multiplexing_rate = rate; }
-void enable_tone_multiplexing(void) { tone_multiplexing_rate = AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT; }
-void disable_tone_multiplexing(void) { tone_multiplexing_rate = 0; }
-void increase_tone_multiplexing_rate(float change) { tone_multiplexing_rate *= change; }
-void decrease_tone_multiplexing_rate(float change) { tone_multiplexing_rate /= change; }
+void audio_set_tone_multiplexing_rate(float rate) { tone_multiplexing_rate = rate; }
+void audio_enable_tone_multiplexing(void) { tone_multiplexing_rate = AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT; }
+void audio_disable_tone_multiplexing(void) { tone_multiplexing_rate = 0; }
+void audio_increase_tone_multiplexing_rate(float change) { tone_multiplexing_rate *= change; }
+void audio_decrease_tone_multiplexing_rate(float change) { tone_multiplexing_rate /= change; }
 #endif
 
 // Timbre function
 
-void set_timbre(float timbre) { note_timbre = timbre; }
+void audio_set_timbre(float timbre) { note_timbre = timbre; }
 
 // Tempo functions
 
-void set_tempo(uint8_t tempo) {
+void audio_set_tempo(uint8_t tempo) {
     if (tempo < 10)
         note_tempo = 10;
 //  else if (tempo > 250)
@@ -571,14 +582,14 @@ void set_tempo(uint8_t tempo) {
         note_tempo = tempo;
 }
 
-void increase_tempo(uint8_t tempo_change) {
+void audio_increase_tempo(uint8_t tempo_change) {
     if (tempo_change > 255-note_tempo)
         note_tempo = 255;
     else
         note_tempo += tempo_change;
 }
 
-void decrease_tempo(uint8_t tempo_change) {
+void audio_decrease_tempo(uint8_t tempo_change) {
     if (tempo_change >= note_tempo-10)
         note_tempo = 10;
     else

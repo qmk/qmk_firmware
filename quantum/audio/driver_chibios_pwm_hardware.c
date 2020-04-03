@@ -65,7 +65,7 @@ so adding to config.h:
 #define PWMD TO_CHIBIOS_PWMD_EVAL(AUDIO_PWM_TIMER)
 
 extern bool playing_note;
-extern bool playing_notes;
+extern bool playing_melody;
 
 
 static PWMConfig pwmCFG = {.frequency = 100000, /* PWM clock frequency  */
@@ -159,7 +159,7 @@ void audio_driver_start(void) {
     channel_1_stop();
     channel_1_start();
 
-    if (playing_note || playing_notes) {
+    if (playing_note || playing_melody) {
         gptStartContinuous(&GPTD6, 64);
     }
 }

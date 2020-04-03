@@ -39,7 +39,7 @@ this driver uses the chibios-PWM system to produce a squarewave on any given out
 #define PWMD TO_CHIBIOS_PWMD_EVAL(AUDIO_PWM_TIMER)
 
 extern bool playing_note;
-extern bool playing_notes;
+extern bool playing_melody;
 
 
 static void pwm_audio_period_callback(PWMDriver *pwmp);
@@ -136,7 +136,7 @@ void audio_driver_start(void) {
     channel_1_stop();
     channel_1_start();
 
-    if (playing_note || playing_notes) {
+    if (playing_note || playing_melody) {
         gptStartContinuous(&GPTD6, 64);
     }
 }

@@ -80,24 +80,21 @@ void audio_off(void);
 /**
  * @brief query the if audio output is enabled
  */
-bool is_audio_on(void);
+bool audio_is_on(void);
 
 /**
- * @bried start playback of a tone/frequency
- * @details the 'freq' is appended to an internal array of active tones, as a
- *          new tone with indefinite duration, default timbre and the given
- *          intensity/volume; this tone is played by the hardware until a call
- *          to 'stop_note'
+ * @bried start playback of a tone with the given frequency
+ * @details the 'frequency' is appended to an internal stack of active tones,
+ *          as a new tone with indefinite duration. this tone is played by
+ *          the hardware until a call to 'audio_stop_tone'.
  *          should a tone with that frequency already be active, its entry
- *          is pushed to the end of said internal array - so no duplicate
+ *          is put on the top of said internal stack - so no duplicate
  *          entries are kept.
  *          'hardware_start' is called upon the first note.
  * @param[in] frequency frequency of the tone be played
- * @param[in] intensity volume NOTE: currently unused (not possible with PWM, DAC could use it though)
  */
-void play_note(float frequency, int intensity); /// grm... should be pitch+duration only...
-//TODO: void play_frequency?
-//void play_tone?
+void audio_play_tone(float frequency);
+//TODO: add audio_play_note(float pitch, float duration, float intensity, float timbre);
 /**
  * @brief stop a given tone/frequency
  * @details removes the given frequency from the 'frequencies' array, stopping
@@ -105,7 +102,7 @@ void play_note(float frequency, int intensity); /// grm... should be pitch+durat
  *          beeing played.
  * @param[in] freq   tone/frequenct to be stopped
  */
-void stop_note(float freq);
+void audio_stop_tone(float frequency);
 /**
  * @brief play a melody
  * @details starts playback of a melody passed in from a SONG definition - an
@@ -114,34 +111,35 @@ void stop_note(float freq);
  * @param[in] n_count number of MUSICAL_NOTES of the SONG
  * @param[in] n_repeat false for onetime, true for looped playback
  */
-void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat);
+void audio_play_melody(float (*np)[][2], uint16_t n_count, bool n_repeat);
 /**
  * @brief stops all playback
  * @details stops playback of both a meldoy as well as single tones, resetting
  *          the internal state
  */
-void stop_all_notes(void); //TODO: stop_all
+void audio_stop_all(void);
 /**
  * @brief query if one/multiple tones are playing
  */
-bool is_playing_note(void); // is_playing_tones?
+bool audio_is_playing_note(void); // TODO: is_playing_tone?
 /**
  * @brief query if a melody/SONG is playing
  */
-bool is_playing_notes(void); // is playing_melody? or _song?
+bool audio_is_playing_melody(void);
 
-// These macros are used to allow play_notes to play an array of indeterminate
+// These macros are used to allow audio_play_melody to play an array of indeterminate
 // length. This works around the limitation of C's sizeof operation on pointers.
 // The global float array for the song must be used here.
 #define NOTE_ARRAY_SIZE(x) ((int16_t)(sizeof(x) / (sizeof(x[0]))))
 /**
  * @brief convenience macro, to play a melody/SONG once
  */
-#define PLAY_SONG(note_array) play_notes(&note_array, NOTE_ARRAY_SIZE((note_array)), false)
+#define PLAY_SONG(note_array) audio_play_melody(&note_array, NOTE_ARRAY_SIZE((note_array)), false)
+//TODO: a 'song' is a melody plus singing/vocals -> PLAY_MELODY
 /**
- * @brief convenience macro, to play a melody/SONG in a loop, until stopped by 'stop_all_notes'
+ * @brief convenience macro, to play a melody/SONG in a loop, until stopped by 'audio_stop_all'
  */
-#define PLAY_LOOP(note_array) play_notes(&note_array, NOTE_ARRAY_SIZE((note_array)), true)
+#define PLAY_LOOP(note_array) audio_play_melody(&note_array, NOTE_ARRAY_SIZE((note_array)), true)
 
 
 // Vibrato rate functions
@@ -152,13 +150,13 @@ bool is_playing_notes(void); // is playing_melody? or _song?
 // #define VIBRATO_STRENGTH_ENABLE
 
 #ifdef AUDIO_ENABLE_VIBRATO
-void set_vibrato_rate(float rate);
-void increase_vibrato_rate(float change);
-void decrease_vibrato_rate(float change);
+void audio_set_vibrato_rate(float rate);
+void audio_increase_vibrato_rate(float change);
+void audio_decrease_vibrato_rate(float change);
 #    ifdef AUDIO_ENABLE_VIBRATO_STRENGTH
-void set_vibrato_strength(float strength);
-void increase_vibrato_strength(float change);
-void decrease_vibrato_strength(float change);
+void audio_set_vibrato_strength(float strength);
+void audio_increase_vibrato_strength(float change);
+void audio_decrease_vibrato_strength(float change);
 #    endif
 #endif
 
@@ -170,22 +168,22 @@ void decrease_vibrato_strength(float change);
 #        define AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT 0
 //       0=off, good starting value is 4; the lower the value the higher the cpu-load
 #    endif
-void set_tone_multiplexing_rate(float rate);
-void enable_tone_multiplexing(void);
-void disable_tone_multiplexing(void);
-void increase_tone_multiplexing_rate(float change);
-void decrease_tone_multiplexing_rate(float change);
+void audio_set_tone_multiplexing_rate(float rate);
+void audio_enable_tone_multiplexing(void);
+void audio_disable_tone_multiplexing(void);
+void audio_increase_tone_multiplexing_rate(float change);
+void audio_decrease_tone_multiplexing_rate(float change);
 #endif
 
 // Timbre function
 
-void set_timbre(float timbre);
+void audio_set_timbre(float timbre);
 
 // Tempo functions
 
-void set_tempo(uint8_t tempo);
-void increase_tempo(uint8_t tempo_change);
-void decrease_tempo(uint8_t tempo_change);
+void audio_set_tempo(uint8_t tempo);
+void audio_increase_tempo(uint8_t tempo_change);
+void audio_decrease_tempo(uint8_t tempo_change);
 
 
 
@@ -260,7 +258,7 @@ bool audio_advance_state(uint32_t step, float end);
 // legacy and backwarts compatibility stuff
 
 #define PLAY_NOTE_ARRAY(note_array, note_repeat, deprecated_arg)        \
-    play_notes(&note_array, NOTE_ARRAY_SIZE((note_array)), (note_repeat)); \
+    audio_play_melody(&note_array, NOTE_ARRAY_SIZE((note_array)), (note_repeat)); \
     _Pragma("message \"'PLAY_NOTE_ARRAY' macro is deprecated\"")
 
 // LEGACY defines - TODO: remove and replace these in all keyboards using them
@@ -296,6 +294,20 @@ bool audio_advance_state(uint32_t step, float end);
 #    define AUDIO_PIN_C6
 #    define AUDIO_PIN C6
 #endif
+
+
+#define is_audio_on() audio_is_on()
+#define is_playing_notes() audio_is_playing_melody()
+#define is_playing_note() audio_is_playing_note()
+#define stop_all_notes() audio_stop_all()
+#define stop_note(f) audio_stop_tone(f)
+#define play_note(f, v) audio_play_tone(f)
+
+#define set_timbre(t) audio_set_timbre(t)
+#define set_tempo(t) audio_set_tempo(t)
+#define increase_tempo(t) audio_increase_tempo(t)
+#define decrease_tempo(t) audio_decrease_tempo(t)
+// vibrato functions are not used in any keyboards
 
 
 #endif // AUDIO_H
