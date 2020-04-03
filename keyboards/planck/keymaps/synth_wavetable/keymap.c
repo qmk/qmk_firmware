@@ -271,7 +271,7 @@ uint8_t dac_morph = 0;
 
 
 uint16_t dac_value_generate(void) {
-  uint16_t value = DAC_OFF_VALUE;
+  uint16_t value = AUDIO_DAC_OFF_VALUE;
   uint8_t active_tones = audio_get_number_of_active_tones();
   if (active_tones > AUDIO_MAX_SIMULTANEOUS_TONES)
     active_tones = AUDIO_MAX_SIMULTANEOUS_TONES;
@@ -280,32 +280,32 @@ uint16_t dac_value_generate(void) {
     uint16_t value_avg = 0;
     for (uint8_t i = 0; i < active_tones; i++) {
       dac_if[i] = dac_if[i]
-          + ((audio_get_frequency(i) * DAC_BUFFER_SIZE) / DAC_SAMPLE_RATE)
+          + ((audio_get_frequency(i) * AUDIO_DAC_BUFFER_SIZE) / AUDIO_DAC_SAMPLE_RATE)
           * 2/3; // necessary to adjust for the gpt-timer frequency (three times the sample rate) and the dac-conversion beeing called twice per sample
 
       // Needed because % doesn't work with floats
-      while (dac_if[i] >= (DAC_BUFFER_SIZE))
-        dac_if[i] = dac_if[i] - DAC_BUFFER_SIZE;
+      while (dac_if[i] >= (AUDIO_DAC_BUFFER_SIZE))
+        dac_if[i] = dac_if[i] - AUDIO_DAC_BUFFER_SIZE;
 
-      // #define DAC_MORPH_SPEED 372
-      // #define DAC_MORPH_SPEED_COMPUTED (DAC_SAMPLE_RATE / DAC_WAVETABLE_CUSTOM_LENGTH * (1000 / DAC_MORPH_SPEED))
+      // #define AUDIO_DAC_MORPH_SPEED 372
+      // #define AUDIO_DAC_MORPH_SPEED_COMPUTED (AUDIO_DAC_SAMPLE_RATE / AUDIO_DAC_WAVETABLE_CUSTOM_LENGTH * (1000 / AUDIO_DAC_MORPH_SPEED))
 
       uint16_t dac_i = (uint16_t)dac_if[i];
       // value_avg += dac_buffer_custom[dac_morph_flipped][dac_i] / active_tones / 2 * ((dac_morph >= 63) ? 6400 - dac_morph_counter : dac_morph_counter) / 6400;
       // value_avg += dac_buffer_custom[dac_morph_flipped + 1][dac_i] / active_tones / 2 * ((dac_morph >= 63) ? dac_morph_counter : 6400 - dac_morph_counter) / 6400;
 
-      // value_avg += dac_wavetable_custom[dac_morph][dac_i] / active_tones / 2 * (DAC_MORPH_SPEED_COMPUTED - dac_morph_counter) / DAC_MORPH_SPEED_COMPUTED;
-      // value_avg += dac_wavetable_custom[dac_morph + 1][dac_i] / active_tones / 2 * dac_morph_counter / DAC_MORPH_SPEED_COMPUTED;
+      // value_avg += dac_wavetable_custom[dac_morph][dac_i] / active_tones / 2 * (AUDIO_DAC_MORPH_SPEED_COMPUTED - dac_morph_counter) / AUDIO_DAC_MORPH_SPEED_COMPUTED;
+      // value_avg += dac_wavetable_custom[dac_morph + 1][dac_i] / active_tones / 2 * dac_morph_counter / AUDIO_DAC_MORPH_SPEED_COMPUTED;
       value_avg += dac_wavetable_custom[dac_morph][dac_i] / active_tones;
     }
     value = value_avg;
 
     // dac_morph_counter++;
-    // if (dac_morph_counter >= DAC_MORPH_SPEED_COMPUTED) {
+    // if (dac_morph_counter >= AUDIO_DAC_MORPH_SPEED_COMPUTED) {
       // dac_morph_counter = 0;
       // dac_morph = (dac_morph + 1) % 125;
       // dac_morph_flipped = ((dac_morph >= 63) ? (125 - dac_morph) : dac_morph);
-      // dac_morph = (dac_morph + 1) % (DAC_WAVETABLE_CUSTOM_LENGTH - 1);
+      // dac_morph = (dac_morph + 1) % (AUDIO_DAC_WAVETABLE_CUSTOM_LENGTH - 1);
     // }
   }
   return value;
@@ -313,10 +313,10 @@ uint16_t dac_value_generate(void) {
 
 void encoder_update(bool clockwise) {
   if (clockwise) {
-    dac_morph = (dac_morph + 1) % DAC_WAVETABLE_CUSTOM_LENGTH;
+    dac_morph = (dac_morph + 1) % AUDIO_DAC_WAVETABLE_CUSTOM_LENGTH;
   } else {
     if (dac_morph == 0)
-      dac_morph = (DAC_WAVETABLE_CUSTOM_LENGTH - 1);
+      dac_morph = (AUDIO_DAC_WAVETABLE_CUSTOM_LENGTH - 1);
     else
       dac_morph--;
   }

@@ -31,30 +31,30 @@ TODOS:
 
 #if defined(AUDIO_PIN_A4) || defined (AUDIO_PIN_ALT_A4)
 // squarewave
-static const dacsample_t dac_buffer_1[DAC_BUFFER_SIZE] = {
+static const dacsample_t dac_buffer_1[AUDIO_DAC_BUFFER_SIZE] = {
     // First half is max, second half is 0
-    [0 ... DAC_BUFFER_SIZE / 2 - 1]               = DAC_SAMPLE_MAX,
-    [DAC_BUFFER_SIZE / 2 ... DAC_BUFFER_SIZE - 1] = 0,
+    [0 ... AUDIO_DAC_BUFFER_SIZE / 2 - 1]                     = AUDIO_DAC_SAMPLE_MAX,
+    [AUDIO_DAC_BUFFER_SIZE / 2 ... AUDIO_DAC_BUFFER_SIZE - 1] = 0,
 };
 #endif
 #if defined(AUDIO_PIN_A5) || defined (AUDIO_PIN_ALT_A5)
 // squarewave
-static const dacsample_t dac_buffer_2[DAC_BUFFER_SIZE] = {
+static const dacsample_t dac_buffer_2[AUDIO_DAC_BUFFER_SIZE] = {
     // opposite of dac_buffer above
-    [0 ... DAC_BUFFER_SIZE / 2 - 1]               = 0,
-    [DAC_BUFFER_SIZE / 2 ... DAC_BUFFER_SIZE - 1] = DAC_SAMPLE_MAX,
+    [0 ... AUDIO_DAC_BUFFER_SIZE / 2 - 1]                     = 0,
+    [AUDIO_DAC_BUFFER_SIZE / 2 ... AUDIO_DAC_BUFFER_SIZE - 1] = AUDIO_DAC_SAMPLE_MAX,
 };
 #endif
 
 
 #if defined(AUDIO_PIN_A4) || defined (AUDIO_PIN_ALT_A4)
-GPTConfig gpt6cfg1 = {.frequency = 440U * DAC_BUFFER_SIZE,
+GPTConfig gpt6cfg1 = {.frequency = 440U * AUDIO_DAC_BUFFER_SIZE,
                       .callback  = NULL,
                       .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
                       .dier      = 0U};
 #endif
 #if defined(AUDIO_PIN_A5) || defined (AUDIO_PIN_ALT_A5)
-GPTConfig gpt7cfg1 = {.frequency = 440U * DAC_BUFFER_SIZE,
+GPTConfig gpt7cfg1 = {.frequency = 440U * AUDIO_DAC_BUFFER_SIZE,
                       .callback  = NULL,
                       .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
                       .dier      = 0U};
@@ -67,10 +67,10 @@ GPTConfig gpt8cfg1 = {.frequency = 10,
                       .dier      = 0U};
 
 #if defined(AUDIO_PIN_A4) || defined (AUDIO_PIN_ALT_A4)
-static const DACConfig dac_conf_ch1 = {.init = DAC_SAMPLE_MAX, .datamode = DAC_DHRM_12BIT_RIGHT};
+static const DACConfig dac_conf_ch1 = {.init = AUDIO_DAC_SAMPLE_MAX, .datamode = DAC_DHRM_12BIT_RIGHT};
 #endif
 #if defined(AUDIO_PIN_A5) || defined (AUDIO_PIN_ALT_A5)
-static const DACConfig dac_conf_ch2 = {.init = DAC_SAMPLE_MAX, .datamode = DAC_DHRM_12BIT_RIGHT};
+static const DACConfig dac_conf_ch2 = {.init = AUDIO_DAC_SAMPLE_MAX, .datamode = DAC_DHRM_12BIT_RIGHT};
 #endif
 
 /**
@@ -113,7 +113,7 @@ void channel_1_set_frequency(float freq) {
     if (freq <= 0.0) //a pause/rest has freq=0
         return;
 
-    gpt6cfg1.frequency = 2 * freq * DAC_BUFFER_SIZE;
+    gpt6cfg1.frequency = 2 * freq * AUDIO_DAC_BUFFER_SIZE;
     channel_1_start();
 }
 float channel_1_get_frequency(void) { return channel_1_frequency; }
@@ -137,7 +137,7 @@ void channel_2_set_frequency(float freq) {
     if (freq <= 0.0) //a pause/rest has freq=0
         return;
 
-    gpt7cfg1.frequency = 2 * freq * DAC_BUFFER_SIZE;
+    gpt7cfg1.frequency = 2 * freq * AUDIO_DAC_BUFFER_SIZE;
     channel_2_start();
 }
 float channel_2_get_frequency(void) { return channel_2_frequency; }
@@ -175,12 +175,12 @@ void audio_driver_initialize() {
 #if defined(AUDIO_PIN_A4) || defined (AUDIO_PIN_ALT_A4)
     palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_ANALOG);
     dacStart(&DACD1, &dac_conf_ch1);
-    dacStartConversion(&DACD1, &dac_conv_grp_ch1, (dacsample_t *)dac_buffer_1, DAC_BUFFER_SIZE);
+    dacStartConversion(&DACD1, &dac_conv_grp_ch1, (dacsample_t *)dac_buffer_1, AUDIO_DAC_BUFFER_SIZE);
 #endif
 #if defined(AUDIO_PIN_A5) || defined (AUDIO_PIN_ALT_A5)
     palSetPadMode(GPIOA, 5, PAL_MODE_INPUT_ANALOG);
     dacStart(&DACD2, &dac_conf_ch2);
-    dacStartConversion(&DACD2, &dac_conv_grp_ch2, (dacsample_t *)dac_buffer_2, DAC_BUFFER_SIZE);
+    dacStartConversion(&DACD2, &dac_conv_grp_ch2, (dacsample_t *)dac_buffer_2, AUDIO_DAC_BUFFER_SIZE);
 #endif
 
     /* enable the output buffer, to directly drive external loads with no additional circuitry

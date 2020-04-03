@@ -290,9 +290,9 @@ uint32_t dac_sample_custom_counter = 0;
 uint16_t dac_value_generate(void) {
   if (is_playing_note()) {
     uint16_t sample = dac_sample_custom[dac_sample_custom_counter];
-    dac_sample_custom_counter = (dac_sample_custom_counter + 1) % DAC_SAMPLE_CUSTOM_LENGTH;
+    dac_sample_custom_counter = (dac_sample_custom_counter + 1) % AUDIO_DAC_SAMPLE_CUSTOM_LENGTH;
     return sample;
   } else {
-    return DAC_OFF_VALUE;
+    return AUDIO_DAC_OFF_VALUE;
   }
 }
