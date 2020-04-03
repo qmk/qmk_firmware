@@ -144,10 +144,9 @@ bool audio_is_playing_melody(void);
 
 // Vibrato rate functions
 
-// #define VIBRATO_ENABLE
-
+// #define AUDIO_ENABLE_VIBRATO
 // Enable vibrato strength/amplitude - slows down ISR too much (TODO: from/for/on avr only?)
-// #define VIBRATO_STRENGTH_ENABLE
+// #define AUDIO_ENABLE_VIBRATO_STRENGTH
 
 #ifdef AUDIO_ENABLE_VIBRATO
 void audio_set_vibrato_rate(float rate);

@@ -117,8 +117,12 @@ The available keycodes for audio are:
 For ARM devices, you can adjust the DAC sample values. If your board is too loud for you or your coworkers, you can set the max using `AUDIO_DAC_SAMPLE_MAX` in your `config.h`:
 
 ```c
-#define AUDIO_DAC_SAMPLE_MAX 65535U
+#define AUDIO_DAC_SAMPLE_MAX 4095U
 ```
+the DAC usually runs in 12Bit mode, hence a volume of 100% = 4095U
+
+Note: this only adjusts the volume aka 'works' if you stick to WAVEFORM_SQUARE, since its samples are generated on the fly - any other waveform uses a hardcoded/precomputed sample-buffer.
+
 
 ## Music Mode
 
