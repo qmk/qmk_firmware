@@ -156,12 +156,33 @@ _______,  _______,    _______,  _______,  _______,  _______,  _______,          
   )
 };
 
+bool led_update_user(led_t led_state) {
+    writePin(CAPSLOCK_LED_PIN, led_state.caps_lock);
+    return false;
+}
+
+void keyboard_pre_init_user(void) {
+    writePinHigh(SCROLLLOCK_LED_PIN);
+    wait_ms(50);
+    writePinHigh(CAPSLOCK_LED_PIN);
+    wait_ms(50);
+    writePinHigh(NUMLOCK_LED_PIN);
+    wait_ms(50);
+    writePinLow(SCROLLLOCK_LED_PIN);
+    wait_ms(50);
+    writePinLow(CAPSLOCK_LED_PIN);
+    wait_ms(50);
+    writePinLow(NUMLOCK_LED_PIN);
+	
+	layer_state_set_user(layer_state);
+}
+
 layer_state_t layer_state_set_user(layer_state_t state) {
-    led_1_off();
-    led_3_off();
+    writePinLow(NUMLOCK_LED_PIN);
+    writePinLow(SCROLLLOCK_LED_PIN);
     switch (get_highest_layer(state)) {
     case BASE:
-        led_3_on();
+        writePinHigh(SCROLLLOCK_LED_PIN);
         break;
     }
     return state;
