@@ -241,7 +241,7 @@ def render_layouts(info_json):
     layouts = {}
 
     for layout in info_json['layouts']:
-        textpad = [array('u', ' '*width) for x in range(height)]
+        textpad = [array('u', ' ' * width) for x in range(height)]
 
         for key in info_json['layouts'][layout]['layout']:
             x = ceil(key.get('x', 0) * 4)
@@ -249,14 +249,14 @@ def render_layouts(info_json):
             w = ceil(key.get('w', 1) * 4)
             h = ceil(key.get('h', 1) * 3)
 
-            top_line = array('u', '┌' + ('─' * (w - 2)) + '┐')
-            bottom_line = array('u', '└' + ('─' * (w - 2)) + "┘")
-            middle_line = array('u', '│' + ' '*(w-2) + '│')
+            top_line = array('u', '┌' + ('─' * (w-2)) + '┐')
+            bottom_line = array('u', '└' + ('─' * (w-2)) + "┘")
+            middle_line = array('u', '│' + ' ' * (w-2) + '│')
 
-            textpad[y][x:x+w] = top_line
-            for i in range(h-2):
-                textpad[y+i+1][x:x+w] = middle_line
-            textpad[y+h-1][x:x+w] = bottom_line
+            textpad[y][x:x + w] = top_line
+            for i in range(h - 2):
+                textpad[y + i + 1][x:x + w] = middle_line
+            textpad[y + h - 1][x:x + w] = bottom_line
 
         layouts[layout] = textpad
 
