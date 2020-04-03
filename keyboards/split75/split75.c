@@ -3,50 +3,15 @@
 #include "i2c_master.h"
 
 
-extern inline void led_1_on(void);
-extern inline void led_2_on(void);
-extern inline void led_3_on(void);
-
-extern inline void led_1_off(void);
-extern inline void led_2_off(void);
-extern inline void led_3_off(void);
-
-void blink_all_leds(void);
-
-uint8_t led0 = 0, led1 = 0, led2 = 0;
-
-void indicator_init(void) {
-    // D0, D1, and D6 are the indicators and D4 is the backlight
-    setPinOutput(D0);
-    setPinOutput(D1);
-    setPinOutput(D6);
+void keyboard_pre_init_kb(void) {
+    led_init_ports();
+    keyboard_pre_init_user();
 }
 
-// for keyboard subdirectory level init functions
-void matrix_init_kb(void) {
-    // call user level keymaps, if any
-    blink_all_leds();
-    matrix_init_user();
-}
-
-void blink_all_leds(void) {
-    led_3_on();
-    wait_ms(50);
-    led_2_on();
-    wait_ms(50);
-    led_1_on();
-    wait_ms(50);
-    led_3_off();
-    wait_ms(50);
-    led_2_off();
-    wait_ms(50);
-    led_1_off();
-}
-
-void keyboard_post_init_kb(void) {
-    led_set_user(0);
-    layer_state_set_user(layer_state);
-    keyboard_post_init_user();
+void led_init_ports(void) {
+    setPinOutput(NUMLOCK_LED_PIN);
+    setPinOutput(CAPSLOCK_LED_PIN);
+    setPinOutput(SCROLLLOCK_LED_PIN);
 }
 
 bool led_update_kb(led_t led_state) {
