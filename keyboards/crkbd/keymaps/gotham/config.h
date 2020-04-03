@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define AUDIO_CLICKY
 #endif
 
-#define OLED_FONT_H "keyboards/crkbd/keymaps/gautham/glcdfont.c"
+#define OLED_FONT_H "keyboards/crkbd/keymaps/gotham/glcdfont.c"
 
 #define RGBLIGHT_SLEEP
 
