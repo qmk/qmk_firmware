@@ -21,7 +21,12 @@
 #define AUDIO_DAC_BUFFER_SIZE 256U
 
 /**
- * Highest value allowed by our 12bit DAC.
+ * Highest value allowed sample value.
+
+ * since the DAC is limited to 12 bit, the absolute max is 0xfff = 4095U;
+ * lower values adjust the peak-voltage aka volume down.
+ * adjusting this value has only an effect on a sample-buffer whose values are
+ * are NOT pregenerated - see squarewave
  */
 #ifndef AUDIO_DAC_SAMPLE_MAX
 #    define AUDIO_DAC_SAMPLE_MAX 4095U
