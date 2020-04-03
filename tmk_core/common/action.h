@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern "C" {
 #endif
 
+/* Disable macro and function features when LTO is enabled, since they break */
 #ifdef LINK_TIME_OPTIMIZATION_ENABLE
 #    ifndef NO_ACTION_MACRO
 #        define NO_ACTION_MACRO
