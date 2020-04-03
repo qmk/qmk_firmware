@@ -249,9 +249,9 @@ def render_layouts(info_json):
             w = ceil(key.get('w', 1) * 4)
             h = ceil(key.get('h', 1) * 3)
 
-            top_line = array('u', '┌' + ('─' * (w-2)) + '┐')
-            bottom_line = array('u', '└' + ('─' * (w-2)) + "┘")
-            middle_line = array('u', '│' + ' ' * (w-2) + '│')
+            top_line = array('u', '┌' + '─'*(w-2) + '┐')
+            middle_line = array('u', '│' + ' '*(w-2) + '│')
+            bottom_line = array('u', '└' + '─'*(w-2) + "┘")
 
             textpad[y][x:x + w] = top_line
             for i in range(h - 2):
