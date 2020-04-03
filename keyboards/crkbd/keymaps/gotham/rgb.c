@@ -14,11 +14,11 @@
 void save_rgb_config(void) {
   #ifdef RGBLIGHT_ENABLE
     RGB_current_config.enable = rgblight_config.enable;
-    RGB_current_config.mode = rgblight_config.mode;
-    RGB_current_config.speed  = rgblight_config.speed;
-    RGB_current_config.hue = rgblight_config.hue;
-    RGB_current_config.sat = rgblight_config.sat;
-    RGB_current_config.val = rgblight_config.val;
+    RGB_current_config.mode = rgblight_get_mode();
+    RGB_current_config.speed = rgblight_get_speed();
+    RGB_current_config.hue = rgblight_get_hue();
+    RGB_current_config.sat = rgblight_get_sat();
+    RGB_current_config.val = rgblight_get_val();
   #elif RGB_MATRIX_ENABLE
     RGB_current_config.enable = rgb_matrix_config.enable;
     RGB_current_config.mode = rgb_matrix_config.mode;
@@ -31,7 +31,7 @@ void save_rgb_config(void) {
 
 void restore_rgb_config(void) {
   #ifdef RGBLIGHT_ENABLE
-    rgblight_config.speed = RGB_current_config.speed;
+    rgblight_set_speed_noeeprom(RGB_current_config.speed);
     if (rgblight_config.mode != RGB_current_config.mode) {
       rgblight_mode_noeeprom(RGB_current_config.mode);
     }
