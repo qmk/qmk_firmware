@@ -6,7 +6,7 @@
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-  extern rgb_matrix_config_t rgb_matrix_config;
+  extern rgb_config_t rgb_matrix_config;
   rgb_config_t RGB_current_config;
 #endif
 
