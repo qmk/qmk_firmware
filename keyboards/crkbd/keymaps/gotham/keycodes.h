@@ -21,13 +21,13 @@ enum custom_keycodes {
 #define KC_RESET RESET
 
 #define KC_SFEQ MT(MOD_LSFT, KC_EQL)
-#define KC_SFQT MT(MOD_LSFT, KC_QUOT)
+#define KC_SFQT MT(MOD_RSFT, KC_QUOT)
 
 #define KC_SFTA MT(MOD_LSFT, KC_A)
 #define KC_CTLZ MT(MOD_LCTL, KC_Z)
 
-#define KC_SFTSCLN MT(MOD_LSFT, KC_SCLN)
-#define KC_CTLSLSH MT(MOD_LCTL, KC_SLSH)
+#define KC_SFTSCLN MT(MOD_RSFT, KC_SCLN)
+#define KC_CTLSLSH MT(MOD_RCTL, KC_SLSH)
 
 
 #define KC_LWSP LT(_LOWER, KC_SPC)
