@@ -25,7 +25,7 @@
 
 // TODO: move into audio-common state
 extern bool    playing_note;
-extern bool    playing_notes;
+extern bool    playing_melody;
 extern float   note_timbre;
 
 #define CPU_PRESCALER 8
@@ -280,7 +280,7 @@ ISR(AUDIO1_TIMERx_COMPy_vect) {
     isr_counter=0;
     bool state_changed = audio_advance_state(1,1);
 
-    if (!playing_note && !playing_notes) {
+    if (!playing_note && !playing_melody) {
         channel_1_stop();
 #    ifdef AUDIO2_PIN_SET
         channel_2_stop();
@@ -314,7 +314,7 @@ ISR(AUDIO2_TIMERx_COMPy_vect) {
     isr_counter=0;
     bool state_changed = audio_advance_state(1,1);
 
-    if (!playing_note && !playing_notes) {
+    if (!playing_note && !playing_melody) {
         channel_2_stop();
         return;
     }
