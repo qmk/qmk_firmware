@@ -1,5 +1,4 @@
 #include "split75.h"
-#include "rgblight.h"
 
 #include "progmem.h"
 #include "i2c_master.h"
