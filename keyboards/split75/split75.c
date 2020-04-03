@@ -52,7 +52,9 @@ void keyboard_post_init_kb(void) {
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
-        led_state.caps_lock ? led_2_on() : led_2_off();
+        writePin(NUMLOCK_LED_PIN, led_state.num_lock);
+        writePin(CAPSLOCK_LED_PIN, led_state.caps_lock);
+        writePin(SCROLLLOCK_LED_PIN, led_state.scroll_lock);
     }
     return res;
 }
