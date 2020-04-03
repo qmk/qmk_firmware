@@ -115,8 +115,6 @@ void matrix_init_custom(void) {
     mcp23018_init();
 #endif
 
-    (void)inc_led_val;
-    (void)set_led_val;
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
