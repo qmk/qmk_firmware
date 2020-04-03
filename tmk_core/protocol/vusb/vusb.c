@@ -536,7 +536,7 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         },
         .bInterfaceNumber    = 0,
         .bAlternateSetting   = 0x00,
-        .bNumEndpoints       = USB_CFG_HAVE_INTRIN_ENDPOINT,
+        .bNumEndpoints       = 1,
         .bInterfaceClass     = 0x03,
         .bInterfaceSubClass  = 0x01,
         .bInterfaceProtocol  = 0x01,
@@ -575,7 +575,7 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         },
         .bInterfaceNumber    = 1,
         .bAlternateSetting   = 0x00,
-        .bNumEndpoints       = USB_CFG_HAVE_INTRIN_ENDPOINT3,
+        .bNumEndpoints       = 1,
         .bInterfaceClass     = 0x03,
         .bInterfaceSubClass  = 0x00,
         .bInterfaceProtocol  = 0x00,
@@ -627,7 +627,6 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .bDescriptorType     = USBDESCR_HID_REPORT,
         .wDescriptorLength   = sizeof(raw_hid_report)
     },
-#        if USB_CFG_HAVE_INTRIN_ENDPOINT3
     .rawINEndpoint = {
         .header = {
             .bLength         = sizeof(usbEndpointDescriptor_t),
@@ -648,7 +647,6 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .wMaxPacketSize      = RAW_EPSIZE,
         .bInterval           = USB_POLLING_INTERVAL_MS
     }
-#        endif
 #    endif
 };
 
