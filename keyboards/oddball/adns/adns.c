@@ -215,27 +215,32 @@ int16_t convertDeltaToInt(uint8_t high, uint8_t low){
 
 report_adns_t adns_get_report(void) {
 
+    report_adns_t report = {0, 0};
+
     adns_begin();
 
     // start burst mode
     SPI_TransferByte(REG_Motion_Burst & 0x7f);
 
     // motion register
-    SPI_TransferByte(0);
+    uint8_t motion = SPI_TransferByte(0);
 
-    // observation register
-    SPI_TransferByte(0);
+    if(motion & 0x80) {
 
-    // delta registers
-    uint8_t delta_x_l = SPI_TransferByte(0);
-    uint8_t delta_x_h = SPI_TransferByte(0);
-    uint8_t delta_y_l = SPI_TransferByte(0);
-    uint8_t delta_y_h = SPI_TransferByte(0);
+        // clear observation register
+        SPI_TransferByte(0);
+
+        // delta registers
+        uint8_t delta_x_l = SPI_TransferByte(0);
+        uint8_t delta_x_h = SPI_TransferByte(0);
+        uint8_t delta_y_l = SPI_TransferByte(0);
+        uint8_t delta_y_h = SPI_TransferByte(0);
+
+        report.x = convertDeltaToInt(delta_x_h, delta_x_l);
+        report.y = convertDeltaToInt(delta_y_h, delta_y_l);
+    }
 
     adns_end();
 
-    report_adns_t report;
-    report.x = convertDeltaToInt(delta_x_h, delta_x_l);
-    report.y = convertDeltaToInt(delta_y_h, delta_y_l);
     return report;
 }
