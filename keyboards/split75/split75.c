@@ -49,7 +49,6 @@ void keyboard_post_init_kb(void) {
     keyboard_post_init_user();
 }
 
-#if defined(LED_INDICATORS)
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
