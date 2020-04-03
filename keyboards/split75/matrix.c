@@ -99,9 +99,6 @@ out:
 #endif
 
 void matrix_init_custom(void) {
-    // Init indicator LEDs
-    indicator_init();
-
     // Set rows as output starting high
     DDRB = 0xFF;
     PORTB = 0xFF;
