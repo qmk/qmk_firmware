@@ -21,7 +21,7 @@ void save_rgb_config(void) {
     RGB_current_config.val = rgblight_get_val();
   #elif RGB_MATRIX_ENABLE
     RGB_current_config.enable = rgb_matrix_config.enable;
-    RGB_current_config.mode = rgb_matrix_config.mode;
+    RGB_current_config.mode = rgb_matrix_get_mode();
     RGB_current_config.speed  = rgb_matrix_config.speed;
     RGB_current_config.hsv.h = rgb_matrix_config.hsv.h;
     RGB_current_config.hsv.s = rgb_matrix_config.hsv.s;
