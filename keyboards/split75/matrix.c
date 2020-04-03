@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RIGHT_HALF
 
-extern uint8_t led0, led1, led2;
 
 void matrix_set_row_status(uint8_t row);
 
