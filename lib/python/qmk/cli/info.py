@@ -3,9 +3,6 @@
 Compile an info.json for a particular keyboard and pretty-print it.
 """
 import json
-import os
-from pathlib import Path
-from time import strftime
 
 from milc import cli
 
