@@ -26,17 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void matrix_set_row_status(uint8_t row);
 
-static void set_led_val(uint8_t val) {
-    led0 = val & 0x1;
-    led1 = (val & 0x2) >> 1;
-    led2 = (val & 0x4) >> 2;
-}
-
-static uint16_t globalval = 0;
-static void inc_led_val(void) {
-    globalval++;
-    set_led_val(globalval / 8192);
-}
 
 #if defined(RIGHT_HALF)
 #define I2C_TIMEOUT     10
