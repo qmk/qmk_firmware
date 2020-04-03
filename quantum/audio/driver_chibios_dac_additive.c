@@ -69,12 +69,7 @@ static dacsample_t dac_buffer_empty[AUDIO_DAC_BUFFER_SIZE] = {AUDIO_DAC_OFF_VALU
 /* keep track of the sample position for for each frequency */
 static float dac_if[AUDIO_MAX_SIMULTANEOUS_TONES] = {0.0};
 
-/* state-"freezer", so we can continue playing tones until they cross-zero, then switch to the new ones*/
-static bool state_recently_changed = false;
-//TODO have audio.c keep track of a previous state snapshot instead?
-static float dac_previous_frequencies[AUDIO_MAX_SIMULTANEOUS_TONES] = {0.0};
-static uint8_t dac_previous_active_tones = 0;
-static bool should_stop = false;
+static uint8_t hardware_should_stop = 0;
 
 /**
  * Generation of the waveform being passed to the callback. Declared weak so users
@@ -84,12 +79,11 @@ __attribute__((weak)) uint16_t dac_value_generate(void) {
     uint16_t value        = AUDIO_DAC_OFF_VALUE;
     uint8_t  active_tones = 0;
 
-    if (state_recently_changed) {
-        active_tones = dac_previous_active_tones;
-    } else {
-        active_tones =  MIN(AUDIO_MAX_SIMULTANEOUS_TONES, audio_get_number_of_active_tones());
-        dac_previous_active_tones = active_tones;
+    if (hardware_should_stop > 0) {
+        return 0.0f;
     }
+
+    active_tones =  MIN(AUDIO_MAX_SIMULTANEOUS_TONES-1, audio_get_number_of_active_tones());
 
     /* doing additive wave synthesis over all currently playing tones = adding up
      * sine-wave-samples for each frequency, scaled by the number of active tones
@@ -99,12 +93,7 @@ __attribute__((weak)) uint16_t dac_value_generate(void) {
         float frequency = 0.0f;
 
         for (uint8_t i = 0; i < active_tones; i++) {
-            if (state_recently_changed) { // work from freezer, until zero crossing
-                frequency = dac_previous_frequencies[i];
-            } else { // feed the freezer
-                frequency = audio_get_frequency(i); //TODO: replace by glissando+vibrato+.. variant
-                dac_previous_frequencies[i] = frequency;
-            }
+            frequency = audio_get_processed_frequency(i);
 
             dac_if[i] = dac_if[i] +
             ((frequency
@@ -142,18 +131,6 @@ __attribute__((weak)) uint16_t dac_value_generate(void) {
             //value_avg = dac_buffer_staircase[dac_i] / active_tones;
         }
         value = value_avg;
-
-        // zero crossing/proximity => unfreeze
-        if ((value < 0xf) //arbitrary value near zero
-            && state_recently_changed) {
-            state_recently_changed=false;
-            /* the waveform sum approaches zero, each sample index can still point
-             * to a non-zero value; so all have to be reset
-             * Note: for this to work without clicks, the samples have to start at zero
-             */
-            for (uint8_t i = 0; i < AUDIO_MAX_SIMULTANEOUS_TONES; i++)
-                dac_if[i] = 0.0f;
-        }
     }
     return value;
 }
@@ -166,23 +143,29 @@ __attribute__((weak)) uint16_t dac_value_generate(void) {
 static void dac_end(DACDriver *dacp){
     dacsample_t *sample_p = (dacp)->samples;
 
-    // the audio system triggered a stop, now that the sample-conversion is done stop the dac-triggering timer and go into idle
-    if (should_stop) {
-        gptStopTimer(&GPTD6);
-        return;
-    }
-
     // work on the other half of the buffer
     if (dacIsBufferComplete(dacp)) {
         sample_p += AUDIO_DAC_BUFFER_SIZE/2; // 'half_index'
     }
 
-    for (uint8_t s = 0; s < AUDIO_DAC_BUFFER_SIZE/2; s++) {
+    uint8_t s = 0;
+    for (s = 0; s < AUDIO_DAC_BUFFER_SIZE/2; s++) {
         sample_p[s] = dac_value_generate();
     }
 
+    // looking at the last sample of the second buffer-half
+    if ((sample_p[s] < 0x5) //arbitrary value near zero
+        && !dacIsBufferComplete(dacp)) {
+
+        // the audio system triggered a stop, now that the sample-conversion is done stop the dac-triggering timer and go into idle
+        if (hardware_should_stop > 0) {
+            hardware_should_stop=2;
+            gptStopTimer(&GPTD6);
+        }
+    }
+
     // update audio internal state (note position, current_note, ...)
-    state_recently_changed = audio_advance_state(
+    audio_advance_state(
         AUDIO_DAC_BUFFER_SIZE/2,
         AUDIO_DAC_SAMPLE_RATE/ (64*2.0f/3)
         /* End of the note: 64 is the number of 'units' of a whole note, 3 comes
@@ -224,12 +207,11 @@ static const DACConversionGroup dac_conv_cfg = {.num_channels = 1U, .end_cb = da
 
 void audio_driver_initialize() {
 #if defined(AUDIO_PIN_A4)
-    palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_ANALOG);
+    palSetLineMode(A4, PAL_MODE_INPUT_ANALOG);
     dacStart(&DACD1, &dac_conf);
     dacStartConversion(&DACD1, &dac_conv_cfg, dac_buffer_empty, AUDIO_DAC_BUFFER_SIZE);
-#endif
-#if defined(AUDIO_PIN_A5)
-    palSetPadMode(GPIOA, 5, PAL_MODE_INPUT_ANALOG);
+#elif defined(AUDIO_PIN_A5)
+    palSetLineMode(A5, PAL_MODE_INPUT_ANALOG);
     dacStart(&DACD2, &dac_conf);
     dacStartConversion(&DACD2, &dac_conv_cfg, dac_buffer_empty, AUDIO_DAC_BUFFER_SIZE);
 #endif
@@ -245,18 +227,20 @@ void audio_driver_initialize() {
      */
 #if defined(AUDIO_PIN_A4)
     DACD1.params->dac->CR &= ~DAC_CR_BOFF1;
-#endif
-#if defined(AUDIO_PIN_A5)
+#elif defined(AUDIO_PIN_A5)
     DACD2.params->dac->CR &= ~DAC_CR_BOFF2;
 #endif
 }
 
 void audio_driver_stop(void) {
-    should_stop = true;
+    hardware_should_stop=1;
 }
 
 void audio_driver_start(void) {
     gptStart(&GPTD6, &gpt6cfg1);
     gptStartContinuous(&GPTD6, 2U);
-    should_stop = false;
+
+    for (uint8_t i = 0; i < AUDIO_MAX_SIMULTANEOUS_TONES; i++)
+        dac_if[i] = 0.0f;
+    hardware_should_stop = 0;
 }
