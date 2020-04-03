@@ -36,8 +36,8 @@ inline void led_3_off(void) {writePinLow(D6);}
   { K07,    K17,    K27,    K37,    K47,    KC_NO,  KC_NO,  KC_NO,  K87,    K97,    K107,   K117,   K127,   K137 }  \
 }
 
-#define NUMLOCK led0
-#define CAPSLOCK led1
-#define SCROLLOCK led2
+#define NUMLOCK_LED_PIN D0
+#define CAPSLOCK_LED_PIN D1
+#define SCROLLOCK_LED_PIN D6
 
 void indicator_init(void);
