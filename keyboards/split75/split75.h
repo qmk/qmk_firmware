@@ -39,5 +39,3 @@ inline void led_3_off(void) {writePinLow(D6);}
 #define NUMLOCK_LED_PIN D0
 #define CAPSLOCK_LED_PIN D1
 #define SCROLLOCK_LED_PIN D6
-
-void indicator_init(void);
