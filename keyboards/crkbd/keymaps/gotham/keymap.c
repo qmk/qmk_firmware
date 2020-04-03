@@ -62,17 +62,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   if (state == default_layer_state) {
     restore_rgb_config();
   } else {
-    uint8_t layer = biton32(state);
+    uint8_t layer = get_highest_layer(state);
     if (layer_state == default_layer_state) save_rgb_config();
     rgb_by_layer(layer);
   }
   return state;
 }
-
 #endif
 
 
