@@ -47,11 +47,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 #define RGBLIGHT_ANIMATIONS
-
-#define WS2812_SPI SPID1
 #define RGB_DI_PIN A7
 #define RGBLED_NUM 16
-#define WS2812_SPI_MOSI_PAL_MODE 0
+
+//#define WS2812_PWM_DRIVER PWMD3  // default: PWMD2
+//#define WS2812_PWM_CHANNEL 2 // default: 2
+//#define WS2812_PWM_PAL_MODE 1  // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 2
+//#define WS2812_DMA_STREAM STM32_DMA1_STREAM3  // DMA Stream for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
+//#define WS2812_DMA_CHANNEL 3  // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
+//#define WS2812_SPI SPID1
+//#define WS2812_SPI_MOSI_PAL_MODE 0
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
