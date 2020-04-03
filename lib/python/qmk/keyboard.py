@@ -1,6 +1,8 @@
 """Functions that help us work with keyboards.
 """
+from array import array
 from glob import glob
+from math import ceil
 from pathlib import Path
 from os.path import exists
 
@@ -230,3 +232,36 @@ def parse_rules_mk_file(file, rules_mk=None):
                     rules_mk[key.strip()] = value.strip()
 
     return rules_mk
+
+
+def render_layouts(info_json):
+    width = ceil(4 * info_json.get('width', 20))
+    height = ceil(3 * info_json.get('height', 7))
+
+    layouts = {}
+
+    for layout in info_json['layouts']:
+        textpad = [array('u', ' '*width) for x in range(height)]
+
+        for key in info_json['layouts'][layout]['layout']:
+            x = ceil(key.get('x', 0) * 4)
+            y = ceil(key.get('y', 0) * 3)
+            w = ceil(key.get('w', 1) * 4)
+            h = ceil(key.get('h', 1) * 3)
+
+            top_line = array('u', '┌' + ('─' * (w - 2)) + '┐')
+            bottom_line = array('u', '└' + ('─' * (w - 2)) + "┘")
+            middle_line = array('u', '│' + ' '*(w-2) + '│')
+
+            textpad[y][x:x+w] = top_line
+            for i in range(h-2):
+                textpad[y+i+1][x:x+w] = middle_line
+            textpad[y+h-1][x:x+w] = bottom_line
+
+        layouts[layout] = textpad
+
+    for layout in layouts:
+        layouts[layout] = [line.tounicode() for line in layouts[layout]]
+        layouts[layout] = '\n'.join(layouts[layout])
+
+    return layouts
