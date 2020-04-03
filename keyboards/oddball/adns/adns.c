@@ -15,7 +15,7 @@
  */
 
 #include "quantum.h"
-#include "adns9800_srom_A4.h"
+#include "adns9800_srom_A6.h"
 #include "../../lib/lufa/LUFA/Drivers/Peripheral/SPI.h"
 #include "adns.h"
 

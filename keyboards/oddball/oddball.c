@@ -18,9 +18,9 @@
 #include "pointing_device.h"
 #include "./adns/adns.h"
 #define SCROLL_DIVIDER 12
-#define CPI_1 200
-#define CPI_2 800
-#define CPI_3 2400
+#define CPI_1 2000
+#define CPI_2 4000
+#define CPI_3 8000
 #define CLAMP_HID(value) value < -127 ? -127 : value > 127 ? 127 : value
 
 static bool scroll_pressed;
