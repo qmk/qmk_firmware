@@ -45,7 +45,7 @@
 }
 
 
-#define LAYOUT_hhkb( \
+#define LAYOUT_60_hhkb( \
     k00, k04, k10, k14, k20, k24, k30, k34, k40, k44, k50, k54, k60, k64, k65, \
       k01, k05, k11, k15, k21, k25, k31, k35, k41, k45, k51, k55, k61, k66,    \
       k02, k06, k12, k16, k22, k26, k32, k36, k42, k46, k52, k56,    k62,      \
