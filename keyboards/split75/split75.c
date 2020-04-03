@@ -1,6 +1,5 @@
 #include "split75.h"
 
-#include "progmem.h"
 #include "i2c_master.h"
 
 #include "action_layer.h"
