@@ -34,7 +34,7 @@ enum custom_keycodes {
 #define KC_RSEQ LT(_RAISE, KC_EQL)
 #define KC_RSENT LT(_RAISE, KC_ENT)
 #define KC_LWBSP LT(_LOWER, KC_BSPC)
-#define KC_LWDEL LT(_RAISE, KC_DEL)
+#define KC_LWDEL LT(_LOWER, KC_DEL)
 #define KC_ADGRV LT(_ADJUST, KC_GRV)
 #define KC_ANGL LSFT(KC_COMM)
 #define KC_ANGR LSFT(KC_DOT)
