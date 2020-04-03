@@ -67,17 +67,17 @@
 #define REG_Pixel_Burst                          0x64
 
 // pins
-#define NCS 0
+#define NCS B0
 
 extern const uint16_t firmware_length;
 extern const uint8_t firmware_data[];
 
 void adns_begin(void){
-    PORTB &= ~ (1 << NCS);
+    writePinLow(NCS);
 }
 
 void adns_end(void){
-    PORTB |= (1 << NCS);
+    writePinHigh(NCS);
 }
 
 void adns_write(uint8_t reg_addr, uint8_t data){
@@ -126,8 +126,7 @@ void adns_init() {
         SPI_SAMPLE_TRAILING |
         SPI_MODE_MASTER);
 
-    // set B0 output
-    DDRB |= (1 << 0);
+    setPinOutput(NCS);
 
     // reset serial port
     adns_end();
