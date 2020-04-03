@@ -63,6 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
 layer_state_t layer_state_set_user(layer_state_t state) {
+  /* For any layer other than default, save current RGB state and switch to layer-based RGB */
   if (state == default_layer_state) {
     restore_rgb_config();
   } else {
@@ -110,6 +111,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     case RGB_TOG ... RGB_MOD:
+      /* Override layer-based RGB and resume RGB effect to be able to preview changes */
       if (record->event.pressed) {
         restore_rgb_config();
         process_rgb(keycode, record);
