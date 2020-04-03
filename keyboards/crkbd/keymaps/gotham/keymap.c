@@ -110,7 +110,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
     #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-    case RGB_TOG ... RGB_MOD:
+    case RGB_MOD: case RGB_TOG:
+    case RGB_HUI: case RGB_HUD:
+    case RGB_SAI: case RGB_SAD:
+    case RGB_VAI: case RGB_VAD:
+    case RGB_SPI: case RGB_SPD:
       /* Override layer-based RGB and resume RGB effect to be able to preview changes */
       if (record->event.pressed) {
         restore_rgb_config();
