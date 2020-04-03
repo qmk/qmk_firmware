@@ -18,17 +18,17 @@
 /**
  * Size of the dac_buffer arrays. All must be the same size.
  */
-#define DAC_BUFFER_SIZE 256U
+#define AUDIO_DAC_BUFFER_SIZE 256U
 
 /**
  * Highest value allowed by our 12bit DAC.
  */
-#ifndef DAC_SAMPLE_MAX
-#    define DAC_SAMPLE_MAX 4095U
+#ifndef AUDIO_DAC_SAMPLE_MAX
+#    define AUDIO_DAC_SAMPLE_MAX 4095U
 #endif
 
-#if !defined(DAC_QUALITY_VERY_LOW) && !defined(DAC_QUALITY_LOW) && !defined(DAC_QUALITY_HIGH) && !defined(DAC_QUALITY_VERY_HIGH)
-#    define DAC_QUALITY_SANE_MINIMUM
+#if !defined(AUDIO_DAC_QUALITY_VERY_LOW) && !defined(AUDIO_DAC_QUALITY_LOW) && !defined(AUDIO_DAC_QUALITY_HIGH) && !defined(AUDIO_DAC_QUALITY_VERY_HIGH)
+#    define AUDIO_DAC_QUALITY_SANE_MINIMUM
 #endif
 
 /**
@@ -40,36 +40,36 @@
  *       (audible) discontinuities and/or starve other processes of cpu-time
  *       (like RGB-led backlighting, ...)
  */
-#ifdef DAC_QUALITY_VERY_LOW
-#    define DAC_SAMPLE_RATE 11025U
+#ifdef AUDIO_DAC_QUALITY_VERY_LOW
+#    define AUDIO_DAC_SAMPLE_RATE 11025U
 #    define AUDIO_MAX_SIMULTANEOUS_TONES 8
 #endif
 
-#ifdef DAC_QUALITY_LOW
-#    define DAC_SAMPLE_RATE 22050U
+#ifdef AUDIO_DAC_QUALITY_LOW
+#    define AUDIO_DAC_SAMPLE_RATE 22050U
 #    define AUDIO_MAX_SIMULTANEOUS_TONES 4
 #endif
 
-#ifdef DAC_QUALITY_HIGH
-#    define DAC_SAMPLE_RATE 44100U
+#ifdef AUDIO_DAC_QUALITY_HIGH
+#    define AUDIO_DAC_SAMPLE_RATE 44100U
 #    define AUDIO_MAX_SIMULTANEOUS_TONES 2
 #endif
 
-#ifdef DAC_QUALITY_VERY_HIGH
-#    define DAC_SAMPLE_RATE 88200U
+#ifdef AUDIO_DAC_QUALITY_VERY_HIGH
+#    define AUDIO_DAC_SAMPLE_RATE 88200U
 #    define AUDIO_MAX_SIMULTANEOUS_TONES 1
 #endif
 
-#ifdef DAC_QUALITY_SANE_MINIMUM
+#ifdef AUDIO_DAC_QUALITY_SANE_MINIMUM
 /* a sane-minimum config: with a tradeoff between cpu-load and tone-range
  *
  * the (currently) highest defined note is NOTE_B8 with 7902Hz; if we now
  * aim for an even even multiple of the buffersize, we end up with:
- * ( roundUptoPow2(highest note / DAC_BUFFER_SIZE) * nyquist-rate * DAC_BUFFER_SIZE)
- *                        7902/256 = 30.867        *       2      * 256 ~= 16384
+ * ( roundUptoPow2(highest note / AUDIO_DAC_BUFFER_SIZE) * nyquist-rate * AUDIO_DAC_BUFFER_SIZE)
+ *                              7902/256 = 30.867        *       2      * 256 ~= 16384
  * which works out (but the 'scope shows some sampling artifacts with lower harmonics :-P)
  */
-#    define DAC_SAMPLE_RATE 16384U
+#    define AUDIO_DAC_SAMPLE_RATE 16384U
 #    define AUDIO_MAX_SIMULTANEOUS_TONES 8
 #endif
 
@@ -80,8 +80,8 @@
  * number of simultaneous tones. In most situations, a tenth (1/10) of the
  * sample rate is where notes become unbearable.
  */
-#ifndef DAC_SAMPLE_RATE
-#    define DAC_SAMPLE_RATE 44100U
+#ifndef AUDIO_DAC_SAMPLE_RATE
+#    define AUDIO_DAC_SAMPLE_RATE 44100U
 #endif
 
 /**
@@ -95,10 +95,10 @@
 
 /**
  * The default value of the DAC when not playing anything. Certain hardware
- * setups may require a high (DAC_SAMPLE_MAX) or low (0) value here.
+ * setups may require a high (AUDIO_DAC_SAMPLE_MAX) or low (0) value here.
  */
-#ifndef DAC_OFF_VALUE
-#    define DAC_OFF_VALUE DAC_SAMPLE_MAX / 2
+#ifndef AUDIO_DAC_OFF_VALUE
+#    define AUDIO_DAC_OFF_VALUE AUDIO_DAC_SAMPLE_MAX / 2
 #endif
 
 /**

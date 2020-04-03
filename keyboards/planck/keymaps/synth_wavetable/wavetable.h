@@ -1,4 +1,4 @@
-#define DAC_WAVETABLE_CUSTOM_LENGTH 64
+#define AUDIO_DAC_WAVETABLE_CUSTOM_LENGTH 64
 
 static const dacsample_t dac_wavetable_custom[64][256] = {
   {

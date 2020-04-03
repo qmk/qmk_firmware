@@ -1,4 +1,4 @@
-#define DAC_SAMPLE_CUSTOM_LENGTH 30208
+#define AUDIO_DAC_SAMPLE_CUSTOM_LENGTH 30208
 
 static const dacsample_t dac_sample_custom[30208] = {
     2041, 2039, 2039, 2037, 2035, 2037, 2037, 2037, 
