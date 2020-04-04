@@ -274,7 +274,12 @@ def render_layouts(info_json):
         layouts[layout] = textpad
 
     for layout in layouts:
-        layouts[layout] = [line.tounicode() for line in layouts[layout]]
-        layouts[layout] = '\n'.join(layouts[layout])
+        lines = []
+
+        for line in layouts[layout]:
+            if line.tounicode().strip():
+                lines.append(line.tounicode().rstrip())
+
+        layouts[layout] = '\n'.join(lines)
 
     return layouts
