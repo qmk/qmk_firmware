@@ -87,7 +87,18 @@ def test_list_keymaps_no_keyboard_found():
 
 
 def test_info():
-    result = check_subcommand('info', 'handwired/onekey/pytest')
+    result = check_subcommand('info', '-kb', 'handwired/onekey/pytest')
     assert result.returncode == 0
-    assert 'handwired/onekey/pytest:' in result.stdout
-    assert 'processor: STM32F303' in result.stdout
+    assert 'Keyboard Name: handwired/onekey/pytest' in result.stdout
+    assert 'Processor: STM32F303' in result.stdout
+    assert 'LAYOUT:' not in result.stdout
+    assert 'k0' not in result.stdout
+
+
+def test_info_keyboard_render():
+    result = check_subcommand('info', '-kb', 'handwired/onekey/pytest', '-l')
+    assert result.returncode == 0
+    assert 'Keyboard Name: handwired/onekey/pytest' in result.stdout
+    assert 'Processor: STM32F303' in result.stdout
+    assert 'LAYOUT:' in result.stdout
+    assert 'k0' in result.stdout

@@ -46,7 +46,7 @@ def avr_processor_rules(info_data, rules_mk):
     info_data['protocol'] = 'V-USB' if rules_mk.get('MCU') in VUSB_PROCESSORS else 'LUFA'
 
     # FIXME(fauxpark/anyone): Eventually we should detect the protocol by looking at PROTOCOL inherited from mcu_selection.mk:
-    #info_data['protocol'] = 'V-USB' if rules_mk.get('PROTOCOL') == 'VUSB' else 'LUFA'
+    # info_data['protocol'] = 'V-USB' if rules_mk.get('PROTOCOL') == 'VUSB' else 'LUFA'
 
     return info_data
 
