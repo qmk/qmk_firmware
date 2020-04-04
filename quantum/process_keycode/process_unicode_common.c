@@ -24,8 +24,8 @@ uint8_t          unicode_saved_mods;
 
 #if UNICODE_SELECTED_MODES != -1
 static uint8_t selected[]     = {UNICODE_SELECTED_MODES};
-static uint8_t selected_count = sizeof selected / sizeof *selected;
-static uint8_t selected_index;
+static int8_t  selected_count = sizeof selected / sizeof *selected;
+static int8_t  selected_index;
 #endif
 
 void unicode_input_mode_init(void) {
@@ -33,7 +33,7 @@ void unicode_input_mode_init(void) {
 #if UNICODE_SELECTED_MODES != -1
 #    if UNICODE_CYCLE_PERSIST
     // Find input_mode in selected modes
-    uint8_t i;
+    int8_t i;
     for (i = 0; i < selected_count; i++) {
         if (selected[i] == unicode_config.input_mode) {
             selected_index = i;
@@ -60,9 +60,12 @@ void set_unicode_input_mode(uint8_t mode) {
     dprintf("Unicode input mode set to: %u\n", unicode_config.input_mode);
 }
 
-void cycle_unicode_input_mode(uint8_t offset) {
+void cycle_unicode_input_mode(int8_t offset) {
 #if UNICODE_SELECTED_MODES != -1
-    selected_index            = (selected_index + offset) % selected_count;
+    selected_index = (selected_index + offset) % selected_count;
+    if (selected_index < 0) {
+        selected_index += selected_count;
+    }
     unicode_config.input_mode = selected[selected_index];
 #    if UNICODE_CYCLE_PERSIST
     persist_unicode_input_mode();
