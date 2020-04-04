@@ -13,12 +13,15 @@ def test_cformat():
 
 
 def test_compile():
-    assert check_subcommand('compile', '-kb', 'handwired/onekey/pytest', '-km', 'default').returncode == 0
+    assert check_subcommand('compile', '-kb', 'handwired/onekey/pytest', '-km', 'default', '-n').returncode == 0
 
 
 def test_flash():
+    assert check_subcommand('flash', '-kb', 'handwired/onekey/pytest', '-km', 'default', '-n').returncode == 0
+
+
+def test_flash_bootloaders():
     assert check_subcommand('flash', '-b').returncode == 1
-    assert check_subcommand('flash').returncode == 1
 
 
 def test_config():
