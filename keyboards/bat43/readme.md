@@ -5,7 +5,7 @@
 A 43-key keyboard.
 
 * Keyboard Maintainer: [yfuku](https://github.com/yfuku)
-* Hardware Supported: The PCBs, controllers supported
+* Hardware Supported: bat43 PCB, Pro Micro
 * Hardware Availability: https://yfuku.booth.pm/
 
 Make example for this keyboard (after setting up your build environment):
