@@ -43,7 +43,7 @@ static bool                counters_need_update;
 #define DEBOUNCE_ELAPSED 251
 #define MAX_DEBOUNCE (DEBOUNCE_ELAPSED - 1)
 
-static uint8_t wrap_timer_read(void) {
+static uint8_t wrapping_timer_read(void) {
     static uint16_t time = 0;
     static uint8_t  last_result = 0;
     uint16_t new_time = timer_read();
@@ -68,7 +68,7 @@ void debounce_init(uint8_t num_rows) {
 }
 
 void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
-    uint8_t current_time = wrap_timer_read();
+    uint8_t current_time = wrapping_timer_read();
     if (counters_need_update) {
         update_debounce_counters_and_transfer_if_expired(raw, cooked, num_rows, current_time);
     }
