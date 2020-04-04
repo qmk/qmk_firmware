@@ -63,6 +63,32 @@ def check_avr_gcc_version():
     return False
 
 
+def check_avrdude_version():
+    if 'output' in ESSENTIAL_BINARIES['avrdude']:
+        last_line = ESSENTIAL_BINARIES['avrdude']['output'].split('\n')[-2]
+        version_number = last_line.split()[2][:-1]
+        cli.log.info('Found avrdude version %s', version_number)
+
+    return True
+
+
+def check_dfu_util_version():
+    if 'output' in ESSENTIAL_BINARIES['dfu-util']:
+        first_line = ESSENTIAL_BINARIES['dfu-util']['output'].split('\n')[0]
+        version_number = first_line.split()[1]
+        cli.log.info('Found dfu-util version %s', version_number)
+
+    return True
+
+
+def check_dfu_programmer_version():
+    if 'output' in ESSENTIAL_BINARIES['dfu-programmer']:
+        first_line = ESSENTIAL_BINARIES['dfu-programmer']['output'].split('\n')[0]
+        version_number = first_line.split()[1]
+        cli.log.info('Found dfu-programmer version %s', version_number)
+
+    return True
+
 def check_binaries():
     """Iterates through ESSENTIAL_BINARIES and tests them.
     """
@@ -156,7 +182,7 @@ def is_executable(command):
 
     # Make sure the command can be executed
     version_arg = ESSENTIAL_BINARIES[command].get('version_arg', '--version')
-    check = subprocess.run([command, version_arg], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5, universal_newlines=True)
+    check = run([command, version_arg], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=5, universal_newlines=True)
 
     ESSENTIAL_BINARIES[command]['output'] = check.stdout
 
@@ -240,6 +266,10 @@ def doctor(cli):
         ok = False
 
     # Make sure the tools are at the correct version
+    check_avrdude_version()
+    check_dfu_util_version()
+    check_dfu_programmer_version()
+
     if not check_arm_gcc_version():
         ok = False
 
