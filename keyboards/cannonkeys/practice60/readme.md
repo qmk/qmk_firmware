@@ -17,10 +17,3 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Build guide available at: https://docs.cannonkeys.com/bluepill-build/
 Blue Pill flashing guide at: https://docs.cannonkeys.com/flashing/
-Flash using dfu-util:
-
-    dfu-util.exe -d 1eaf:0003 -a 2 -D "\path\to\firmware.bin"
-
-Note: If using MSYS2 and getting gcc-arm-none-eabi errors try running the command below and restarting MSYS2.
-
-    echo "source ~/qmk_utils/activate_msys2.sh" >> ~/.bashrc
