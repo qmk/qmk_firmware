@@ -208,7 +208,7 @@ This function is much like `send_string()`, but it allows you to input UTF-8 cha
 send_unicode_string("(ノಠ痊ಠ)ノ彡┻━┻");
 ```
 
-Example uses include sending Unicode strings from keycodes, as described in [Macros](feature_macros.md).
+Example uses include sending Unicode strings when a key is pressed, as described in [Macros](feature_macros.md).
 
 ### `send_unicode_hex_string()`
 
@@ -223,7 +223,9 @@ An easy way to convert your Unicode string to this format is to use [this site](
 
 ## Additional Language Support
 
-In `quantum/keymap_extras/`, you'll see various language files - these work the same way as the alternative layout ones do. Most are defined by their two letter country/language code followed by an underscore and a 4-letter abbreviation of its name. `FR_UGRV` which will result in a `ù` when using a software-implemented AZERTY layout. It's currently difficult to send such characters in just the firmware.
+In `quantum/keymap_extras`, you'll see various language files — these work the same way as the ones for alternative layouts such as Colemak or BÉPO. When you include one of these language headers, you gain access to keycodes specific to that language / national layout. Such keycodes are defined by a 2-letter country/language code, followed by an underscore and a 4-letter abbreviation of the character to which the key corresponds. For example, including `keymap_french.h` and using `FR_UGRV` in your keymap will output `ù` when typed on a system with a native French AZERTY layout.
+
+If the primary system layout you use on your machine is different from US ANSI, using these language-specific keycodes can help your QMK keymaps better match what will actually be output on the screen. However, keep in mind that these keycodes are just aliases for the corresponding default US keycodes under the hood, and that the HID protocol used by keyboards is itself inherently based on US ANSI.
 
 
 ## International Characters on Windows
