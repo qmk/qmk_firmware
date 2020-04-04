@@ -13,6 +13,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-RGBLIGHT_ENABLE = no
+RGBLIGHT_ENABLE = yes
 TAP_DANCE_ENABLE = yes
 UNICODE_ENABLE = yes 
+SLEEP_LED_ENABLE = no
+BACKLIGHT_ENABLE = no
