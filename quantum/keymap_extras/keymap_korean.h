@@ -46,7 +46,7 @@
 #define KR_9    KC_9    // 9
 #define KR_0    KC_0    // 0
 #define KR_MINS KC_MINS // -
-#define KR_CIRC KC_EQL  // =
+#define KR_EQL  KC_EQL  // =
 // Row 2
 #define KR_Q    KC_Q    // Q
 #define KR_W    KC_W    // W
