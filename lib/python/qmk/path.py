@@ -7,7 +7,7 @@ from pathlib import Path
 
 from milc import cli
 
-from qmk.constants import ARM_PROCESSORS, AVR_PROCESSORS, QMK_FIRMWARE, MAX_KEYBOARD_SUBFOLDERS
+from qmk.constants import ARM_PROCESSORS, AVR_PROCESSORS, MAX_KEYBOARD_SUBFOLDERS, QMK_FIRMWARE, VUSB_PROCESSORS
 from qmk.errors import NoSuchKeyboardError
 from qmk.keyboard import find_all_layouts, parse_rules_mk, parse_rules_mk_file
 
@@ -18,11 +18,14 @@ def arm_processor_rules(info_data, rules_mk):
     info_data['processor_type'] = 'arm'
     info_data['bootloader'] = rules_mk['BOOTLOADER'] if 'BOOTLOADER' in rules_mk else 'unknown'
     info_data['processor'] = rules_mk['MCU'] if 'MCU' in rules_mk else 'unknown'
+    info_data['protocol'] = 'ChibiOS'
+
     if info_data['bootloader'] == 'unknown':
         if 'STM32' in info_data['processor']:
             info_data['bootloader'] = 'stm32-dfu'
         elif info_data.get('manufacturer') == 'Input Club':
             info_data['bootloader'] = 'kiibohd-dfu'
+
     if 'STM32' in info_data['processor']:
         info_data['platform'] = 'STM32'
     elif 'MCU_SERIES' in rules_mk:
@@ -40,17 +43,24 @@ def avr_processor_rules(info_data, rules_mk):
     info_data['bootloader'] = rules_mk['BOOTLOADER'] if 'BOOTLOADER' in rules_mk else 'atmel-dfu'
     info_data['platform'] = rules_mk['ARCH'] if 'ARCH' in rules_mk else 'unknown'
     info_data['processor'] = rules_mk['MCU'] if 'MCU' in rules_mk else 'unknown'
+    info_data['protocol'] = 'V-USB' if rules_mk.get('MCU') in VUSB_PROCESSORS else 'LUFA'
+
+    # FIXME(fauxpark/anyone): Eventually we should detect the protocol by looking at PROTOCOL inherited from mcu_selection.mk:
+    #info_data['protocol'] = 'V-USB' if rules_mk.get('PROTOCOL') == 'VUSB' else 'LUFA'
 
     return info_data
 
 
-def unknown_processor_rules(keyboard_info, rules_mk):
+def unknown_processor_rules(info_data, rules_mk):
     """Setup the default keyboard info for unknown boards.
     """
-    keyboard_info['bootloader'] = 'unknown'
-    keyboard_info['platform'] = 'unknown'
-    keyboard_info['processor'] = 'unknown'
-    keyboard_info['processor_type'] = 'unknown'
+    info_data['bootloader'] = 'unknown'
+    info_data['platform'] = 'unknown'
+    info_data['processor'] = 'unknown'
+    info_data['processor_type'] = 'unknown'
+    info_data['protocol'] = 'unknown'
+
+    return info_data
 
 
 def build_info_data(keyboard):
