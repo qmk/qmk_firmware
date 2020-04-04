@@ -68,6 +68,9 @@ static inline void dump_key_buffer(bool emit) {
             send_keyboard_report();
 #endif
         }
+#ifdef COMBO_ALLOW_ACTION_KEYS
+        clear_combos();
+#endif
     }
 
     buffer_size = 0;
@@ -185,6 +188,22 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
 
     return !is_combo_key;
 }
+
+#ifdef COMBO_ALLOW_ACTION_KEYS
+void clear_combos(void) {
+    uint8_t index = 0;
+#ifndef COMBO_VARIABLE_LEN
+    for (index = 0; index < COMBO_COUNT; ++index) {
+#else
+    for (index = 0; index < COMBO_LEN; ++index) {
+#endif
+        combo_t *combo = &key_combos[index];
+        if (combo->state) {
+            combo->state = 0;
+        }
+    }
+}
+#endif
 
 void matrix_scan_combo(void) {
     if (b_combo_enable && is_active && timer && timer_elapsed(timer) > COMBO_TERM) {
