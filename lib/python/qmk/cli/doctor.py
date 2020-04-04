@@ -89,6 +89,7 @@ def check_dfu_programmer_version():
 
     return True
 
+
 def check_binaries():
     """Iterates through ESSENTIAL_BINARIES and tests them.
     """
