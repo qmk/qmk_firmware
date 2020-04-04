@@ -49,7 +49,7 @@
 #define GR_EQL  KC_EQL  // =
 // Row 2
 #define GR_SCLN KC_Q    // ;
-#define GR_WFSG KC_W    // ς
+#define GR_FSIG KC_W    // ς
 #define GR_EPSL KC_E    // Ε
 #define GR_RHO  KC_R    // Ρ
 #define GR_TAU  KC_T    // Τ
