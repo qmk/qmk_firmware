@@ -267,15 +267,9 @@ def doctor(cli):
         ok = False
 
     # Make sure the tools are at the correct version
-    check_avrdude_version()
-    check_dfu_util_version()
-    check_dfu_programmer_version()
-
-    if not check_arm_gcc_version():
-        ok = False
-
-    if not check_avr_gcc_version():
-        ok = False
+    for check in (check_arm_gcc_version, check_avr_gcc_version, check_avrdude_version, check_dfu_util_version, check_dfu_programmer_version):
+        if not check():
+            ok = False
 
     # Check out the QMK submodules
     sub_ok = check_submodules()
