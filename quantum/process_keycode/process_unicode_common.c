@@ -245,13 +245,12 @@ void send_unicode_string(const char *str) {
 
 bool process_unicode_common(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
-        bool shifted = get_mods() & MOD_MASK_SHIFT;
         switch (keycode) {
             case UNICODE_MODE_FORWARD:
-                cycle_unicode_input_mode(shifted ? -1 : +1);
+                cycle_unicode_input_mode(+1);
                 break;
             case UNICODE_MODE_REVERSE:
-                cycle_unicode_input_mode(shifted ? +1 : -1);
+                cycle_unicode_input_mode(-1);
                 break;
 
             case UNICODE_MODE_MAC:
