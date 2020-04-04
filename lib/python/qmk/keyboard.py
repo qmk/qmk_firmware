@@ -258,7 +258,7 @@ def render_layouts(info_json):
 
             label_blank = ' ' * label_len
             label_border = '─' * label_len
-            label_middle = label + ' '*label_leftover
+            label_middle = label + ' '*label_leftover  # noqa: yapf insists there be no whitespace around *
 
             top_line = array('u', '┌' + label_border + '┐')
             lab_line = array('u', '│' + label_middle + '│')
