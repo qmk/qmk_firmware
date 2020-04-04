@@ -249,14 +249,27 @@ def render_layouts(info_json):
             w = ceil(key.get('w', 1) * 4)
             h = ceil(key.get('h', 1) * 3)
 
-            top_line = array('u', '┌' + '─' * (w - 2) + '┐')
-            middle_line = array('u', '│' + ' ' * (w - 2) + '│')
-            bottom_line = array('u', '└' + '─' * (w - 2) + "┘")
+            label = key.get('label', '')
+            label_len = w - 2
+            label_leftover = label_len - len(label)
+
+            if len(label) > label_len:
+                label = label[:label_len]
+
+            label_blank = ' ' * label_len
+            label_border = '─' * label_len
+            label_middle = label + ' ' * label_leftover
+
+            top_line = array('u', '┌' + label_border + '┐')
+            lab_line = array('u', '│' + label_middle + '│')
+            mid_line = array('u', '│' + label_blank + '│')
+            bot_line = array('u', '└' + label_border + "┘")
 
             textpad[y][x:x + w] = top_line
-            for i in range(h - 2):
-                textpad[y + i + 1][x:x + w] = middle_line
-            textpad[y + h - 1][x:x + w] = bottom_line
+            textpad[y + 1][x:x + w] = lab_line
+            for i in range(h - 3):
+                textpad[y + i + 2][x:x + w] = mid_line
+            textpad[y + h - 1][x:x + w] = bot_line
 
         layouts[layout] = textpad
 
