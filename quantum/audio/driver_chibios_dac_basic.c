@@ -48,13 +48,13 @@ static const dacsample_t dac_buffer_2[AUDIO_DAC_BUFFER_SIZE] = {
 
 
 #if defined(AUDIO_PIN_A4) || defined (AUDIO_PIN_ALT_A4)
-GPTConfig gpt6cfg1 = {.frequency = 440U * AUDIO_DAC_BUFFER_SIZE,
+GPTConfig gpt6cfg1 = {.frequency = AUDIO_DAC_SAMPLE_RATE,
                       .callback  = NULL,
                       .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
                       .dier      = 0U};
 #endif
 #if defined(AUDIO_PIN_A5) || defined (AUDIO_PIN_ALT_A5)
-GPTConfig gpt7cfg1 = {.frequency = 440U * AUDIO_DAC_BUFFER_SIZE,
+GPTConfig gpt7cfg1 = {.frequency = AUDIO_DAC_SAMPLE_RATE,
                       .callback  = NULL,
                       .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
                       .dier      = 0U};
