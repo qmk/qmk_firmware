@@ -14,11 +14,17 @@ void eeconfig_init_keymap(void) {
     rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
 }
 
+bool indicator_light = false;
+
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-    // Reset RGB on Shift+Toggle
-    case RGB_TOG:
-        if (record->event.pressed && (get_mods() & MOD_MASK_SHIFT)) {
+    case RGB_TOG ... RGB_SPD:
+        // Disable RGB controls when Fn/Caps indicator lights are on
+        if (indicator_light) {
+            return false;
+        }
+        // Shift+Toggle = reset RGB
+        if (record->event.pressed && keycode == RGB_TOG && get_mods() & MOD_MASK_SHIFT) {
             eeconfig_init_keymap();
             return false;
         }
@@ -42,17 +48,20 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 static inline void fn_light(void) {
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
     rgblight_sethsv_noeeprom(modern_dolch_red.h, modern_dolch_red.s, rgblight_get_val());
+    indicator_light = true;
 }
 
 static inline void caps_light(void) {
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
     rgblight_sethsv_noeeprom(modern_dolch_cyan.h, modern_dolch_cyan.s, rgblight_get_val());
+    indicator_light = true;
 }
 
 static inline void restore_light(void) {
     rgblight_config_t saved = { .raw = eeconfig_read_rgblight() };
     rgblight_sethsv_noeeprom(saved.hue, saved.sat, saved.val);
     rgblight_mode_noeeprom(saved.mode);
+    indicator_light = false;
 }
 
 static void check_light_layer(uint32_t state) {
