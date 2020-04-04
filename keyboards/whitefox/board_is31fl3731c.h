@@ -100,7 +100,7 @@ static GFXINLINE void set_hardware_shutdown(GDisplay* g, bool shutdown) {
 
 static GFXINLINE void write_data(GDisplay *g, uint8_t* data, uint16_t length) {
 	(void) g;
-	i2cMasterTransmitTimeout(&I2CD1, IS31_ADDR_DEFAULT, data, length, 0, 0, US2ST(IS31_TIMEOUT));
+	i2cMasterTransmitTimeout(&I2CD1, IS31_ADDR_DEFAULT, data, length, 0, 0, TIME_US2I(IS31_TIMEOUT));
 }
 
 #endif /* _GDISP_LLD_BOARD_H */

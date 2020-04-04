@@ -377,39 +377,33 @@ static uint8_t udi_hid_exk_report_trans[UDI_HID_EXK_REPORT_SIZE];
 
 COMPILER_WORD_ALIGNED
 UDC_DESC_STORAGE udi_hid_exk_report_desc_t udi_hid_exk_report_desc = {{
+    // clang-format off
     0x05, 0x01,              // Usage Page (Generic Desktop)
     0x09, 0x80,              // Usage (System Control)
     0xA1, 0x01,              // Collection (Application)
     0x85, REPORT_ID_SYSTEM,  //   Report ID
-    0x1A, 0x81,
-    0x00,  //   Usage Minimum (81) (System Power Down)
-    0x2A, 0x83,
-    0x00,  //   Usage Maximum (83) (System Wake Up)
-    0x16, 0x01,
-    0x00,  //   Logical Minimum (1)
-    0x26, 0x03,
-    0x00,        //   Logical Maximum (3)
-    0x95, 0x01,  //   Report Count (1)
-    0x75, 0x10,  //   Report Size (16)
-    0x81, 0x00,  //   Input (Data, Array, Absolute)
-    0xC0,        // End Collection
+    0x19, 0x01,              //   Usage Minimum (Pointer)
+    0x2A, 0xB7, 0x00,        //   Usage Maximum (System Display LCD Autoscale)
+    0x15, 0x01,              //   Logical Minimum
+    0x26, 0xB7, 0x00,        //   Logical Maximum
+    0x95, 0x01,              //   Report Count (1)
+    0x75, 0x10,              //   Report Size (16)
+    0x81, 0x00,              //   Input (Data, Array, Absolute)
+    0xC0,                    // End Collection
 
     0x05, 0x0C,                // Usage Page (Consumer)
     0x09, 0x01,                // Usage (Consumer Control)
     0xA1, 0x01,                // Collection (Application)
     0x85, REPORT_ID_CONSUMER,  //   Report ID
-    0x1A, 0x01,
-    0x00,  //   Usage Minimum (Consumer Control)
-    0x2A, 0x9C,
-    0x02,  //   Usage Maximum (AC Distribute Vertically)
-    0x16, 0x01,
-    0x00,  //   Logical Minimum
-    0x26, 0x9C,
-    0x02,        //   Logical Maximum
-    0x95, 0x01,  //   Report Count (1)
-    0x75, 0x10,  //   Report Size (16)
-    0x81, 0x00,  //   Input (Data, Array, Absolute)
-    0xC0         // End Collection
+    0x19, 0x01,                //   Usage Minimum (Consumer Control)
+    0x2A, 0xA0, 0x02,          //   Usage Maximum (AC Desktop Show All Applications)
+    0x15, 0x01,                //   Logical Minimum
+    0x26, 0xA0, 0x02,          //   Logical Maximum
+    0x95, 0x01,                //   Report Count (1)
+    0x75, 0x10,                //   Report Size (16)
+    0x81, 0x00,                //   Input (Data, Array, Absolute)
+    0xC0                       // End Collection
+    //clang-format on
 }};
 
 static bool udi_hid_exk_setreport(void);
@@ -647,6 +641,9 @@ COMPILER_WORD_ALIGNED
 static uint8_t udi_hid_raw_report_trans[UDI_HID_RAW_REPORT_SIZE];
 
 COMPILER_WORD_ALIGNED
+static uint8_t udi_hid_raw_report_recv[UDI_HID_RAW_REPORT_SIZE];
+
+COMPILER_WORD_ALIGNED
 UDC_DESC_STORAGE udi_hid_raw_report_desc_t udi_hid_raw_report_desc = {{
     0x06, 0x60, 0xFF,  // Usage Page (Vendor Defined)
     0x09, 0x61,        // Usage (Vendor Defined)
@@ -669,6 +666,7 @@ static bool udi_hid_raw_setreport(void);
 static void udi_hid_raw_setreport_valid(void);
 
 static void udi_hid_raw_report_sent(udd_ep_status_t status, iram_size_t nb_sent, udd_ep_id_t ep);
+static void udi_hid_raw_report_rcvd(udd_ep_status_t status, iram_size_t nb_rcvd, udd_ep_id_t ep);
 
 bool udi_hid_raw_enable(void) {
     // Initialize internal values
@@ -725,7 +723,30 @@ static void udi_hid_raw_report_sent(udd_ep_status_t status, iram_size_t nb_sent,
 
 static void udi_hid_raw_setreport_valid(void) {}
 
-#endif  // RAW
+void raw_hid_send(uint8_t *data, uint8_t length) {
+    if (main_b_raw_enable && !udi_hid_raw_b_report_trans_ongoing && length == UDI_HID_RAW_REPORT_SIZE) {
+        memcpy(udi_hid_raw_report, data, UDI_HID_RAW_REPORT_SIZE);
+        udi_hid_raw_send_report();
+    }
+}
+
+bool udi_hid_raw_receive_report(void) {
+    if (!main_b_raw_enable) {
+        return false;
+    }
+
+    return udd_ep_run(UDI_HID_RAW_EP_OUT | USB_EP_DIR_OUT, false, udi_hid_raw_report_recv, UDI_HID_RAW_REPORT_SIZE, udi_hid_raw_report_rcvd);
+}
+
+static void udi_hid_raw_report_rcvd(udd_ep_status_t status, iram_size_t nb_rcvd, udd_ep_id_t ep) {
+    UNUSED(ep);
+
+    if (status == UDD_EP_TRANSFER_OK && nb_rcvd == UDI_HID_RAW_REPORT_SIZE) {
+        UDI_HID_RAW_RECEIVE(udi_hid_raw_report_recv, UDI_HID_RAW_REPORT_SIZE);
+    }
+}
+
+#endif //RAW
 
 //********************************************************************************************
 // CON

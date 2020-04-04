@@ -9,11 +9,6 @@ function export_variables {
     export PATH=$PATH:$util_dir/flip/bin
     export PATH=$PATH:$util_dir/avr8-gnu-toolchain/bin
     export PATH=$PATH:$util_dir/gcc-arm-none-eabi/bin
-    export PATH=$PATH:/mingw64/bin
 }
 
 export_variables
-
-
-
-

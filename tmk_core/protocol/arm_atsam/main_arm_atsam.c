@@ -130,7 +130,6 @@ void send_extra(uint8_t report_id, uint16_t data) {
 
 void send_system(uint16_t data) {
 #ifdef EXTRAKEY_ENABLE
-    if (data != 0) data = data - SYSTEM_POWER_DOWN + 1;
     send_extra(REPORT_ID_SYSTEM, data);
 #endif  // EXTRAKEY_ENABLE
 }
@@ -207,10 +206,17 @@ void main_subtask_usb_extra_device(void) {
     }
 }
 
+#ifdef RAW_ENABLE
+void main_subtask_raw(void) { udi_hid_raw_receive_report(); }
+#endif
+
 void main_subtasks(void) {
     main_subtask_usb_state();
     main_subtask_power_check();
     main_subtask_usb_extra_device();
+#ifdef RAW_ENABLE
+    main_subtask_raw();
+#endif
 }
 
 int main(void) {

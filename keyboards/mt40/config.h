@@ -27,15 +27,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 
 #define MANUFACTURER    ThomasDehaeze
-#define PRODUCT         mt40
+#define PRODUCT         MT40
 
 #define DESCRIPTION     A Planck clone
 
 /* key matrix size */
 #define MATRIX_ROWS 7
 #define MATRIX_COLS 15
-
-#define NO_UART 1
 
 #define RGB_DI_PIN C0
 #define RGBLED_NUM 12

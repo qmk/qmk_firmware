@@ -1,13 +1,5 @@
 COMMON_DIR = common
-ifeq ($(PLATFORM),AVR)
-	PLATFORM_COMMON_DIR = $(COMMON_DIR)/avr
-else ifeq ($(PLATFORM),CHIBIOS)
-	PLATFORM_COMMON_DIR = $(COMMON_DIR)/chibios
-else ifeq ($(PLATFORM),ARM_ATSAM)
-	PLATFORM_COMMON_DIR = $(COMMON_DIR)/arm_atsam
-else
-	PLATFORM_COMMON_DIR = $(COMMON_DIR)/test
-endif
+PLATFORM_COMMON_DIR = $(COMMON_DIR)/$(PLATFORM_KEY)
 
 TMK_COMMON_SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/keyboard.c \
@@ -27,21 +19,11 @@ TMK_COMMON_SRC +=	$(COMMON_DIR)/host.c \
 
 ifeq ($(PLATFORM),AVR)
   TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/xprintf.S
-endif
-
-ifeq ($(PLATFORM),CHIBIOS)
+else ifeq ($(PLATFORM),CHIBIOS)
   TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/printf.c
-  ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
-    TMK_COMMON_SRC += $(CHIBIOS)/os/various/syscalls.c
-  else ifeq ($(strip $(TERMINAL_ENABLE)), yes)
-    TMK_COMMON_SRC += $(CHIBIOS)/os/various/syscalls.c
-  endif
-endif
-
-ifeq ($(PLATFORM),ARM_ATSAM)
+else ifeq ($(PLATFORM),ARM_ATSAM)
   TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/printf.c
 endif
-
 
 # Option modules
 BOOTMAGIC_ENABLE ?= no
@@ -52,6 +34,8 @@ ifneq ($(strip $(BOOTMAGIC_ENABLE)), no)
   endif
   ifeq ($(strip $(BOOTMAGIC_ENABLE)), lite)
       TMK_COMMON_DEFS += -DBOOTMAGIC_LITE
+      TMK_COMMON_SRC += $(COMMON_DIR)/bootmagic_lite.c
+
       TMK_COMMON_DEFS += -DMAGIC_ENABLE
       TMK_COMMON_SRC += $(COMMON_DIR)/magic.c
   else
@@ -172,18 +156,16 @@ ifeq ($(strip $(LTO_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(LINK_TIME_OPTIMIZATION_ENABLE)), yes)
+    ifeq ($(PLATFORM),CHIBIOS)
+        $(info Enabling LTO on ChibiOS-targeting boards is known to have a high likelihood of failure.)
+        $(info If unsure, set LINK_TIME_OPTIMIZATION_ENABLE = no.)
+    endif
     EXTRAFLAGS += -flto
     TMK_COMMON_DEFS += -DLINK_TIME_OPTIMIZATION_ENABLE
     TMK_COMMON_DEFS += -DNO_ACTION_MACRO
     TMK_COMMON_DEFS += -DNO_ACTION_FUNCTION
 endif
-# Bootloader address
-ifdef STM32_BOOTLOADER_ADDRESS
-    TMK_COMMON_DEFS += -DSTM32_BOOTLOADER_ADDRESS=$(STM32_BOOTLOADER_ADDRESS)
-endif
 
 # Search Path
 VPATH += $(TMK_PATH)/$(COMMON_DIR)
-ifeq ($(PLATFORM),CHIBIOS)
-VPATH += $(TMK_PATH)/$(COMMON_DIR)/chibios
-endif
+VPATH += $(TMK_PATH)/$(PLATFORM_COMMON_DIR)
