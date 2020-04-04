@@ -1,4 +1,5 @@
-/*Copyright 2019 coseyfannitutti
+/*
+Copyright 2019 Ryota Goto
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,16 +19,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x6B62
-#define PRODUCT_ID      0x6869
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    coseyfannitutti
-#define PRODUCT         DISCIPLINE
-#define DESCRIPTION     65% keyboard that can be assembled with only through hole components
+/* USB Device descriptor parameter */
+#define VENDOR_ID 0xA103
+#define PRODUCT_ID 0x0014
+#define DEVICE_VER 0x0001
+#define MANUFACTURER ai03 Design Studio
+#define PRODUCT OrbitX
+#define DESCRIPTION High-end compact ergonomic keyboard
 
 /* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
+#define MATRIX_ROWS 8 // Double the rows for split 
+#define MATRIX_COLS 6
 
 /*
  * Keyboard Matrix Assignments
@@ -39,54 +41,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-
-#define MATRIX_ROW_PINS { B2, A1, B1, A0, B0 }
-#define MATRIX_COL_PINS { A2, B3, A3, B4, A4, D5, D6, C6, C5, C4, C3, C2, C1, C0, D7 }
+#define MATRIX_ROW_PINS { D7, D6, D4, F0 }
+#define MATRIX_COL_PINS { E6, F6, B1, B0, C7, C6 }
+#define MATRIX_ROW_PINS_RIGHT { B5, D7, B4, D4 }
+#define MATRIX_COL_PINS_RIGHT { D6, B6, B1, B0, B3, B2 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-#define USB_MAX_POWER_CONSUMPTION 100
-
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
-// #define SOFT_SERIAL_PIN D0 // or D1, D2, D3, E6
-
-// #define BACKLIGHT_PIN B7
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
-
-// #define RGB_DI_PIN E2
-// #ifdef RGB_DI_PIN
-//   #define RGBLED_NUM 16
-//   #define RGBLIGHT_HUE_STEP 8
-//   #define RGBLIGHT_SAT_STEP 8
-//   #define RGBLIGHT_VAL_STEP 8
-//   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-//   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-// /*== all animations enable ==*/
-//   #define RGBLIGHT_ANIMATIONS
-// /*== or choose animations ==*/
-//   #define RGBLIGHT_EFFECT_BREATHING
-//   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-//   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-//   #define RGBLIGHT_EFFECT_SNAKE
-//   #define RGBLIGHT_EFFECT_KNIGHT
-//   #define RGBLIGHT_EFFECT_CHRISTMAS
-//   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-//   #define RGBLIGHT_EFFECT_RGB_TEST
-//   #define RGBLIGHT_EFFECT_ALTERNATING
-// #endif
+#define SOFT_SERIAL_PIN D0  // or D1, D2, D3, E6
+#define SPLIT_HAND_PIN D5
+#define SPLIT_USB_DETECT
+#define SPLIT_USB_TIMEOUT 2500
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -133,7 +109,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key combination for magic key command */
 /* defined by default; to change, uncomment and set to the combination you want */
-// #define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
+// #define IS_COMMAND() (get_mods() == MOD_MASK_SHIFT)
 
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true
@@ -187,61 +163,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
-/*
- * MIDI options
- */
-
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
-
-/* enable basic MIDI features:
-   - MIDI notes can be sent when in Music mode is on
-*/
-//#define MIDI_BASIC
-
-/* enable advanced MIDI features:
-   - MIDI notes can be added to the keymap
-   - Octave shift and transpose
-   - Virtual sustain, portamento, and modulation wheel
-   - etc.
-*/
-//#define MIDI_ADVANCED
-
-/* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
-//#define MIDI_TONE_KEYCODE_OCTAVES 1
-
-/*
- * HD44780 LCD Display Configuration
- */
-/*
-#define LCD_LINES           2     //< number of visible lines of the display
-#define LCD_DISP_LENGTH    16     //< visibles characters per line of the display
-
-#define LCD_IO_MODE      1            //< 0: memory mapped mode, 1: IO port mode
-
-#if LCD_IO_MODE
-#define LCD_PORT         PORTB        //< port for the LCD lines
-#define LCD_DATA0_PORT   LCD_PORT     //< port for 4bit data bit 0
-#define LCD_DATA1_PORT   LCD_PORT     //< port for 4bit data bit 1
-#define LCD_DATA2_PORT   LCD_PORT     //< port for 4bit data bit 2
-#define LCD_DATA3_PORT   LCD_PORT     //< port for 4bit data bit 3
-#define LCD_DATA0_PIN    4            //< pin for 4bit data bit 0
-#define LCD_DATA1_PIN    5            //< pin for 4bit data bit 1
-#define LCD_DATA2_PIN    6            //< pin for 4bit data bit 2
-#define LCD_DATA3_PIN    7            //< pin for 4bit data bit 3
-#define LCD_RS_PORT      LCD_PORT     //< port for RS line
-#define LCD_RS_PIN       3            //< pin  for RS line
-#define LCD_RW_PORT      LCD_PORT     //< port for RW line
-#define LCD_RW_PIN       2            //< pin  for RW line
-#define LCD_E_PORT       LCD_PORT     //< port for Enable line
-#define LCD_E_PIN        1            //< pin  for Enable line
+/* disable these deprecated features by default */
+#ifndef LINK_TIME_OPTIMIZATION_ENABLE
+  #define NO_ACTION_MACRO
+  #define NO_ACTION_FUNCTION
 #endif
-*/
 
 /* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
+// #define BOOTMAGIC_LITE_ROW 0
+// #define BOOTMAGIC_LITE_COLUMN 0
