@@ -8,6 +8,7 @@ QMK Harmonizeライブラリは、
 - QMKを使った一般的なキーボードであれば、簡単に組み込むことができます。
 - コンパイル時にキー配列を最大３種類、日本語入力モードを最大３種類設定し、仮想キーボードの配列をベースにして動作時に切り替えることができます。
 - 日本語入力モードのかな配列では、PCへのキー出力を「かな」もしくは「ローマ字」のどちらかを動作中に変更できます。
+- コンパイル時にpluginとしてoled,rgblightの機能を組み込むことができます（一部）
 
 ![atreus42](https://github.com/bottilabo/qmk-harmonize/raw/master/img/bottilabo-atreus42.png)
 
@@ -51,11 +52,23 @@ TL0(左の親指。通常はシフト),TR0(右の親指。通常はスペース)
 ```
 cd qmk_firmware
 
-`make crkbd:bottilabo:avrdude EXTRAFLAGS='-DNO_KANA -DKBLAYOUT1=KB_COLEMAK -DKBLAYOUT2=KB_DVORAK -DKBIM1=IM_NICOLA'`
+`make crkbd:bottilabo:avrdude EXTRAFLAGS='-DNO_KANA -DKBLAYOUT1=KB_COLEMAK -DKBLAYOUT2=KB_DVORAK -DKBIM1=IM_NICOLA PLUG1=PLUG_OLED'`
 
+`make claw44:bottilabo:avrdude EXTRAFLAGS='-DNO_KANA -DKBLAYOUT1=KB_COLEMAK -DKBLAYOUT2=KB_DVORAK -DKBIM1=IM_NICOLA PLUG1=PLUG_OLED'`
+
+
+`make naked64:bottilabo:avrdude EXTRAFLAGS='-DNO_KANA -DKBLAYOUT1=KB_COLEMAK -DKBLAYOUT2=KB_DVORAK -DKBIM1=IM_NICOLA PLUG1=PLUG_RGBLIGHT'`
+`make silverbullet44:bottilabo:avrdude EXTRAFLAGS='-DNO_KANA -DKBLAYOUT1=KB_COLEMAK -DKBLAYOUT2=KB_DVORAK -DKBIM1=IM_NICOLA PLUG1=PLUG_RGBLIGHT'`
+
+`make mint60:bottilabo:avrdude EXTRAFLAGS='-DNO_KANA -DKBLAYOUT1=KB_COLEMAK -DKBLAYOUT2=KB_DVORAK -DKBIM1=IM_NICOLA PLUG1=PLUG_RGBLIGHT'`
+
+`make ergo42:bottilabo:avrdude EXTRAFLAGS='-DNO_KANA -DKBLAYOUT1=KB_COLEMAK -DKBLAYOUT2=KB_DVORAK -DKBIM1=IM_NICOLA'`
 `make numatreus:bottilabo:avrdude EXTRAFLAGS='-DNO_KANA -DKBLAYOUT1=KB_COLEMAK -DKBLAYOUT2=KB_DVORAK -DKBIM1=IM_NICOLA'`
-
+`make treadstone48:bottilabo:avrdude EXTRAFLAGS='-DNO_KANA -DKBLAYOUT1=KB_COLEMAK -DKBLAYOUT2=KB_DVORAK -DKBIM1=IM_NICOLA'`
+`make atreus62:bottilabo:avrdude EXTRAFLAGS='-DNO_KANA -DKBLAYOUT1=KB_COLEMAK -DKBLAYOUT2=KB_DVORAK -DKBIM1=IM_NICOLA'`
+`make ergodash/mini:bottilabo:avrdude EXTRAFLAGS='-DNO_KANA -DKBLAYOUT1=KB_COLEMAK -DKBLAYOUT2=KB_DVORAK -DKBIM1=IM_NICOLA'`
 `make projectkb/alice:bottilabo:flash EXTRAFLAGS='-DNO_KANA -DKBLAYOUT1=KB_COLEMAK -DKBLAYOUT2=KB_DVORAK -DKBIM1=IM_NICOLA'`
+`make reviung41:bottilabo:flash EXTRAFLAGS='-DNO_KANA -DKBLAYOUT1=KB_COLEMAK -DKBLAYOUT2=KB_DVORAK -DKBIM1=IM_NICOLA'`
 
 ```
 
@@ -78,7 +91,7 @@ make crkbd:harmonize-crkbd EXTRAFLAGS='-DKBD=KBD_HARMONIZE -DKBLAYOUT1=KB_COLEMA
 ```
 -DNO_KANA
 ```
-かなキーでの出力を無効にし、ローマ字でのみの出力にして使用する容量を削減します
+かなキーでの出力を無効にし、ローマ字のみの出力にして使用する容量を削減します
 。
 
 # 作成済みのキー配列

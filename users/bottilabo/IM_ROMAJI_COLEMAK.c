@@ -29,9 +29,8 @@ static const ROMAJI_BASE_CC_t const romaji_colemak_cctbl2[] MEMCLASS = {
 
 // キーコードから同時押しキーへの変換
 static const ROMAJI_BASE_KEYCODE_BIT_t const romaji_colemak_keycode_bit_tbl[] MEMCLASS = {
-    {KC_SPC,   ROMAJI_BASE_RSHIFT},
-    {KC_LSFT,  ROMAJI_BASE_LSHIFT},
-    {KC_RSFT,  ROMAJI_BASE_LSHIFT},
+    {K_TR0,   ROMAJI_BASE_RSHIFT},
+    {K_TL0,   ROMAJI_BASE_LSHIFT},
 };
 
 

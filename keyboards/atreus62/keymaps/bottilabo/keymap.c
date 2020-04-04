@@ -37,22 +37,3 @@ INS ,DEL   ,PRNT,BRK,                                                ZENHN,KANA,
 #define LAYOUT_DEF(...)                  LAYOUT_remapper(__VA_ARGS__)
 
 #include "harmonize.h"
-
-void matrix_init_user(void) {
-    harmonize_init();
-}
-
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  HARMONIZE_PROC_RECORD_USER;
-  return true;
-}
-
-void matrix_scan_user(void) {
-  HARMONIZE_MATRIX_SCAN_USER;
-}

@@ -3,6 +3,6 @@
 #define KB_MTGAP_NAME "MTGAP" 
 static const uint8_t MEMCLASS KB_MTGAP[] = TRANSKEYCODE_DEF( \
     Y,P,O   ,U  ,J   , K,D,L,C,W  ,\
-    I,N,E   ,A  ,MINS, M,H,T,S,R, ,\
+    I,N,E   ,A  ,MINS, M,H,T,S,R  ,\
     Q,Z,COMM,DOT,SLSH, B,F,G,V,X  );
 

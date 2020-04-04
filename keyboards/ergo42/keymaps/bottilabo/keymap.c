@@ -5,9 +5,6 @@
  * http://github.com/bottilabo/qmk-harmonize
  */
 #include QMK_KEYBOARD_H
-extern uint8_t is_master;
-
-
 
 #define ___ _______
 #define IMM K_XIMMODE
@@ -38,52 +35,3 @@ LGUI, ADJ,LALT,LCTL, TL1, TL0,  ADJ,         ADJ , TR0, TR1, RCTL,RALT,  ADJ,   
 
 #define HAS_THUMBROW
 #include "harmonize.h"
-
-
-
-
-
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
-// Setting ADJUST layer RGB back to default
-void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-  if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
-    layer_on(layer3);
-  } else {
-    layer_off(layer3);
-  }
-}
-
-#define CHANGE_LAYOUT_DEF(X)    \
-    case X:\
-      if (record->event.pressed) {\
-        persistent_default_layer_set(1UL<<_##X);\
-      }\
-      return false;\
-      break;
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  HARMONIZE_PROC_RECORD_USER;
-
-  return true;
-}
-
-void matrix_init_user(void) {
-    //
-    // Always init to default keyboard layout
-    //
-    if (!eeconfig_is_enabled()) {
-        eeconfig_init();
-    }
-    //eeconfig_read_keymap()
-    persistent_default_layer_set(0);
-    harmonize_init();
-}
-
-
-void matrix_scan_user(void) {
-  HARMONIZE_MATRIX_SCAN_USER;
-}

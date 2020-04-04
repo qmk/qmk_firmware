@@ -9,4 +9,10 @@
 
 please refer [qmk_firmware/users/bottilabo/readme.md](../../../../users/bottilabo/readme.md)
 
+## crkbd
+
+### build example
+```
+make crkbd:bottilabo:avrdude EXTRAFLAGS='-DNO_KANA -DKBLAYOUT1=KB_COLEMAK -DKBIM1=IM_TRON -DPLUG1=PLUG_OLED'
+```
 

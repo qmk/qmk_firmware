@@ -1,8 +1,0 @@
-#pragma message("#IM_HIKKY")
-
-#include "IM_HIKKY.c"
-
-im_plug_t IM_HIKKY_PLUG = {
-    IM_HIKKY_enable,
-    process_HIKKY
-};

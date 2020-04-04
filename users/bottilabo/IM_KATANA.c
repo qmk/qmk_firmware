@@ -73,9 +73,8 @@ static const ROMAJI_BASE_KEYCODE_BIT_t const katana_keycode_bit_tbl[] MEMCLASS =
 {KC_DOT,   KATANA_MACRON},
 {KC_SLSH,  KATANA_tu},
 
-{KC_SPC,   ROMAJI_BASE_RSHIFT},
-{KC_LSFT,  ROMAJI_BASE_LSHIFT},
-{KC_RSFT,  ROMAJI_BASE_LSHIFT},
+{K_TR0,   ROMAJI_BASE_RSHIFT},
+{K_TL0,   ROMAJI_BASE_LSHIFT},
 };
 
 // 同時押しキーから文字列への変換

@@ -34,24 +34,3 @@ LGUI,   ADJ,LALT,LCTL, TL1,TL0,    LGUI     ,   RGUI,    TR0,   TR1, RCTL,RALT, 
 
 #define LAYOUT_DEF(...)                  LAYOUT_remapper(__VA_ARGS__)
 #include "harmonize.h"
-
-
-void matrix_init_user(void) {
-    //
-    // Always init to default keyboard layout
-    //
-    if (!eeconfig_is_enabled()) {
-        eeconfig_init();
-    }
-    //eeconfig_read_keymap()
-    //persistent_default_layer_set(0);
-
-    harmonize_init();
-}
-void matrix_scan_user(void) {
-   HARMONIZE_MATRIX_SCAN_USER;
-}
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    HARMONIZE_PROC_RECORD_USER;
-    return true;
-}

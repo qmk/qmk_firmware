@@ -3,18 +3,9 @@
  * http://github.com/bottilabo/qmk-harmonize
  */
 #include QMK_KEYBOARD_H
-#include "bootloader.h"
-#ifdef PROTOCOL_LUFA
-  #include "lufa.h"
-  #include "split_util.h"
-#endif
 
 extern keymap_config_t keymap_config;
 
-#ifdef RGBLIGHT_ENABLE
-//Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-#endif
 
 extern uint8_t is_master;
 
@@ -47,72 +38,31 @@ INS ,DEL   ,PRNT,BRK,                                                ZENHN,KANA,
 #define HAS_THUMBROW
 #include "harmonize.h"
 
-
-
-
-
-// define variables for reactive RGB
-bool TOG_STATUS = false;
-int RGB_current_mode;
-
-void matrix_init_user(void) {
-    harmonize_init();
-
-    #ifdef RGBLIGHT_ENABLE
-      RGB_current_mode = rgblight_config.mode;
-    #endif
-}
-
-/*
 //A description for expressing the layer position in LED mode.
-uint32_t layer_state_set_user(uint32_t state) {
-  state = update_tri_layer_state(state, _RAI, _LWR, _ADJ);
+layer_state_t layer_state_set_user(layer_state_t state) {
+  state = update_tri_layer_state(state, _Lr1, _Ll1, _ADJ);
 #ifdef RGBLIGHT_ENABLE
-    switch (biton32(state)) {
-    case _LWR:
-      setrgb(0, 0, 150, (LED_TYPE *)&led[0]);
-      setrgb(0, 0, 150, (LED_TYPE *)&led[1]);
-      rgblight_set();
+    switch (get_highest_layer(state)) {
+    case _Ll2:
+      rgblight_sethsv_at(HSV_YELLOW, 1);
       break;
-    case _RAI:
-      setrgb(150, 0, 0, (LED_TYPE *)&led[0]);
-      setrgb(150, 0, 0, (LED_TYPE *)&led[1]);
-      rgblight_set();
+    case _Lr2:
+      rgblight_sethsv_range(HSV_CYAN, 0, 2);
+      break;
+    case _Ll1:
+      rgblight_sethsv_range(HSV_BLUE, 0, 2);
+      break;
+    case _Lr1:
+      rgblight_sethsv_range(HSV_RED, 0, 2);
       break;
     case _ADJ:
-      setrgb(100, 0, 100, (LED_TYPE *)&led[0]);
-      setrgb(100, 0, 100, (LED_TYPE *)&led[1]);
-      rgblight_set();
+      rgblight_sethsv_range(HSV_PURPLE, 0, 2);
       break;
     default: //  for any other layers, or the default layer
-      setrgb(0, 0, 0, (LED_TYPE *)&led[0]);
-      setrgb(0, 0, 0, (LED_TYPE *)&led[1]);
-      rgblight_set();
+      rgblight_sethsv_range( 0, 0, 0, 0, 2);
       break;
     }
+    rgblight_set_effect_range( 2, 6);
 #endif
 return state;
-}
-*/
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  HARMONIZE_PROC_RECORD_USER;
-
-  switch (keycode) {
-    case RGB_MOD:
-      #ifdef RGBLIGHT_ENABLE
-        if (record->event.pressed) {
-          rgblight_mode(RGB_current_mode);
-          rgblight_step();
-          RGB_current_mode = rgblight_config.mode;
-        }
-      #endif
-      return false;
-      break;
-  }
-  return true;
-}
-
-void matrix_scan_user(void) {
-   HARMONIZE_MATRIX_SCAN_USER;
 }

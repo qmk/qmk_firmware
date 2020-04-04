@@ -10,10 +10,3 @@
 [qmk_firmware/users/bottilabo/readme_jp.md](../../../../users/bottilabo/readme_jp.md)
 を参照してください。
 
-## crkbd
-
-### build example
-```
-make crkbd:bottilabo:avrdude EXTRAFLAGS='-DNO_KANA -DKBLAYOUT1=KB_COLEMAK -DKBIM1=IM_TRON -DPLUG1=PLUG_OLED'
-```
-

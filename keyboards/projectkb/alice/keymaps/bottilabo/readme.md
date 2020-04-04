@@ -9,10 +9,4 @@
 
 please refer [qmk_firmware/users/bottilabo/readme.md](../../../../users/bottilabo/readme.md)
 
-## Naked64
-
-### bulid example
-```
-sudo make naked64:bottilabo:avrdude EXTRAFLAGS='-DNO_KANA -DKBLAYOUT1=KB_COLEMAK -DKBIM1=IM_TRON'
-```
 

@@ -6,6 +6,7 @@ Copyright 2019-2020 Bottilabo [twitter @bottilabo](https://twitter.com/bottilabo
 # QMK Harmonize library
 - enables change qwerty layout to colemac,dvorak.... dynamically
 - has max 3-layout and 3-IM. You can choose them at compile time.
+- can plugin oled and rgblight function at compile time.
 
 ![atreus42](https://github.com/bottilabo/qmk-harmonize/raw/master/img/bottilabo-atreus42.png)
 

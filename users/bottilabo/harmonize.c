@@ -155,63 +155,6 @@ void harmonize_load(void) {
 bool hamromize_process_record_user(uint16_t keycode, keyrecord_t *record) {
     bool pressed = record->event.pressed;
 
-    XKEY_PROC;
-/*
-    if( keycode != 0 && !record->event.pressed ) {
-        if( _xkey.last_released_key == KC_ESC ) {
-            if( 6000 < _longpress.duration ) {
-                //send_string("6000");
-                reset_keyboard();
-                return true;
-            }
-            else if( 3000 < _longpress.duration ) {
-                //send_string("3000");
-                init_state();
-                return true;
-            }
-        }
-
-        if( _xkey.last_released_key == K_XIMMODE ) {
-            bool imonoff = ! is_im_enabled();
-            switch( _renda.consecutive_count ) {
-                case 0:return true;
-
-                // toggle
-                case 1: break;
-
-                // off
-                case 2:  imonoff = false; break;
-
-                // on
-                case 3:  imonoff = true; break;
-
-                default: return true;
-            }
-            im_mode_key(imonoff,true);
-            im_mode_key(imonoff,false);
-            im_on_off(imonoff);
-        }
-
-        switch( _renda.consecutive_count ) {
-            case 1:
-                if( (_xkey.last_released_key == KC_LALT || _xkey.last_released_key == KC_RALT ) ) {
-                    im_toggle();
-                    return true;
-                }
-                break;
-
-            case 2:
-                if( _xkey.last_released_key == KC_ESC ) {
-                    im_mode_key(false,true);
-                    im_mode_key(false,false);
-                    im_on_off(false);
-                    return true;
-                }
-                break;
-        }
-    }
-*/
-
     if( _harmonize.im_enabled ) {
         if(!_harmonize.im_p->process_record(keycode,record))
             return false;
