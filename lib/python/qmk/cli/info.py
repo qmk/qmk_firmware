@@ -41,7 +41,7 @@ def info(cli):
         if cli.config.info.layouts:
             for layout_name, layout_art in render_layouts(kb_info_json).items():
                 cli.echo('{fg_cyan}%s{fg_reset}:', layout_name)
-                cli.echo(layout_art)
+                print(layout_art)  # Avoid passing dirty data to cli.echo()
 
     elif cli.args.format == 'friendly':
         cli.echo('{fg_blue}Keyboard Name{fg_reset}: %s', kb_info_json.get('keyboard_name', 'Unknown'))
@@ -62,7 +62,7 @@ def info(cli):
         if cli.config.info.layouts:
             for layout_name, layout_art in render_layouts(kb_info_json).items():
                 cli.echo('{fg_cyan}%s{fg_reset}:', layout_name)
-                cli.echo(layout_art)
+                print(layout_art)  # Avoid passing dirty data to cli.echo()
 
     else:
         cli.log.error('Unknown format: %s', cli.args.format)
