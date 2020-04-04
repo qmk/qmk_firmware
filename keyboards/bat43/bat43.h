@@ -7,7 +7,7 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
@@ -29,18 +29,18 @@
 
 
 #define LAYOUT( \
-    A1, A2, A3, A4, A5, A6,     E1, E2, E3, E4, E5, E6,  \
-    B1, B2, B3, B4, B5, B6, D1, F1, F2, F3, F4, F5, F6,  \
-    C1, C2, C3, C4, C5, C6,     G1, G2, G3, G4, G5, G6,  \
-                D4, D5, D6,     H1, H2, H3,\
-                    H5, H6,     H4, D2, D3\
+    k00, k01, k02, k03, k04, k05,      k40, k41, k42, k43, k44, k45, \
+    k10, k11, k12, k13, k14, k15, k30, k50, k51, k52, k53, k54, k55, \
+    k20, k21, k22, k23, k24, k25,      k60, k61, k62, k63, k64, k65, \
+                   k33, k34, k35,      k70, k71, k72, \
+                        k74, k75,      k73, k31, k32 \
 ) { \
-    { A1, A2, A3, A4, A5, A6 }, \
-    { B1, B2, B3, B4, B5, B6 }, \
-    { C1, C2, C3, C4, C5, C6 }, \
-    { D1, D2, D3, D4, D5, D6 }, \
-    { E1, E2, E3, E4, E5, E6 }, \
-    { F1, F2, F3, F4, F5, F6 }, \
-    { G1, G2, G3, G4, G5, G6 }, \
-    { H1, H2, H3, H4, H5, H6}, \
+    { k00, k01, k02, k03, k04, k05 }, \
+    { k10, k11, k12, k13, k14, k15 }, \
+    { k20, k21, k22, k23, k24, k25 }, \
+    { k30, k31, k32, k33, k34, k35 }, \
+    { k40, k41, k42, k43, k44, k45 }, \
+    { k50, k51, k52, k53, k54, k55 }, \
+    { k60, k61, k62, k63, k64, k65 }, \
+    { k70, k71, k72, k73, k74, k75 }, \
 }
