@@ -8,7 +8,7 @@
 #define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    TuckTuckFloof
-#define PRODUCT         EU ISO
+#define PRODUCT         EU ISOlation
 #define DESCRIPTION     A terrible fucking creation involving a quad iso macro pad
 
 /* key matrix size */
