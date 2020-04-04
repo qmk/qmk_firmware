@@ -14,9 +14,7 @@ from qmk.commands import run
 
 ESSENTIAL_BINARIES = {
     'dfu-programmer': {},
-    'avrdude': {
-        'version_arg': '-\\?'
-    },
+    'avrdude': {},
     'dfu-util': {},
     'avr-gcc': {
         'version_arg': '-dumpversion'
@@ -166,7 +164,7 @@ def is_executable(command):
         cli.log.debug('Found {fg_cyan}%s', command)
         return True
 
-    cli.log.error("{fg_red}Can't get version number of `%s`", command)
+    cli.log.error("{fg_red}Can't run `%s %s`", (command, version_arg))
     return False
 
 
