@@ -21,8 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xCA04
 #define PRODUCT_ID      0x1600
 #define DEVICE_VER      0x0001
-/* in python2: list(u"whatever".encode('utf-16-le')) */
-/*   at most 32 characters or the ugly hack in usb_main.c borks */
 #define MANUFACTURER CannonKeys
 #define PRODUCT Instant60
 #define DESCRIPTION Instant 60 Keyboard
@@ -61,6 +59,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Backlight config starts after VIA's EEPROM usage,
 // dynamic keymaps start after this.
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 1
+
+// VIA lighting is handled by the keyboard-level code
+#define VIA_CUSTOM_LIGHTING_ENABLE
+
+// Let VIA handle the QMK RGBLIGHT 
+#define VIA_QMK_RGBLIGHT_ENABLE
 
 /*
  * Feature disable options

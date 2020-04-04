@@ -47,6 +47,10 @@ int retro_tapping_counter = 0;
 #    include <fauxclicky.h>
 #endif
 
+#ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
+__attribute__((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode) { return false; }
+#endif
+
 #ifndef TAP_CODE_DELAY
 #    define TAP_CODE_DELAY 0
 #endif
@@ -86,13 +90,15 @@ void action_exec(keyevent_t event) {
 
     keyrecord_t record = {.event = event};
 
-#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+#ifndef NO_ACTION_ONESHOT
+#    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
     if (has_oneshot_layer_timed_out()) {
         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
     }
     if (has_oneshot_mods_timed_out()) {
         clear_oneshot_mods();
     }
+#    endif
 #endif
 
 #ifndef NO_ACTION_TAPPING
@@ -145,6 +151,8 @@ void process_record_nocache(keyrecord_t *record) { process_record(record); }
 
 __attribute__((weak)) bool process_record_quantum(keyrecord_t *record) { return true; }
 
+__attribute__((weak)) void post_process_record_quantum(keyrecord_t *record) {}
+
 #ifndef NO_ACTION_TAPPING
 /** \brief Allows for handling tap-hold actions immediately instead of waiting for TAPPING_TERM or another keypress.
  *
@@ -179,6 +187,11 @@ void process_record(keyrecord_t *record) {
 
     if (!process_record_quantum(record)) return;
 
+    process_record_handler(record);
+    post_process_record_quantum(record);
+}
+
+void process_record_handler(keyrecord_t *record) {
     action_t action = store_or_get_action(record->event.pressed, record->event.key);
     dprint("ACTION: ");
     debug_action(action);
@@ -308,8 +321,12 @@ void process_action(keyrecord_t *record, action_t action) {
                 default:
                     if (event.pressed) {
                         if (tap_count > 0) {
-#    ifndef IGNORE_MOD_TAP_INTERRUPT
-                            if (record->tap.interrupted) {
+#    if !defined(IGNORE_MOD_TAP_INTERRUPT) || defined(IGNORE_MOD_TAP_INTERRUPT_PER_KEY)
+                            if (
+#        ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
+                                !get_ignore_mod_tap_interrupt(get_event_keycode(record->event)) &&
+#        endif
+                                record->tap.interrupted) {
                                 dprint("mods_tap: tap: cancel: add_mods\n");
                                 // ad hoc: set 0 to cancel tap
                                 record->tap.count = 0;
@@ -552,34 +569,6 @@ void process_action(keyrecord_t *record, action_t action) {
             action_macro_play(action_get_macro(record, action.func.id, action.func.opt));
             break;
 #endif
-#if defined(BACKLIGHT_ENABLE) || defined(LED_MATRIX_ENABLE)
-        case ACT_BACKLIGHT:
-            if (!event.pressed) {
-                switch (action.backlight.opt) {
-                    case BACKLIGHT_INCREASE:
-                        backlight_increase();
-                        break;
-                    case BACKLIGHT_DECREASE:
-                        backlight_decrease();
-                        break;
-                    case BACKLIGHT_TOGGLE:
-                        backlight_toggle();
-                        break;
-                    case BACKLIGHT_STEP:
-                        backlight_step();
-                        break;
-                    case BACKLIGHT_ON:
-                        backlight_level(BACKLIGHT_LEVELS);
-                        break;
-                    case BACKLIGHT_OFF:
-                        backlight_level(0);
-                        break;
-                }
-            }
-            break;
-#endif
-        case ACT_COMMAND:
-            break;
 #ifdef SWAP_HANDS_ENABLE
         case ACT_SWAP_HANDS:
             switch (action.swap.code) {
@@ -770,6 +759,13 @@ void register_code(uint8_t code) {
 */
 #endif
             {
+                // Force a new key press if the key is already pressed
+                // without this, keys with the same keycode, but different
+                // modifiers will be reported incorrectly, see issue #1708
+                if (is_key_pressed(keyboard_report, code)) {
+                    del_key(code);
+                    send_keyboard_report();
+                }
                 add_key(code);
                 send_keyboard_report();
             }
@@ -779,11 +775,12 @@ void register_code(uint8_t code) {
             add_mods(MOD_BIT(code));
             send_keyboard_report();
         }
+#ifdef EXTRAKEY_ENABLE
     else if
         IS_SYSTEM(code) { host_system_send(KEYCODE2SYSTEM(code)); }
     else if
         IS_CONSUMER(code) { host_consumer_send(KEYCODE2CONSUMER(code)); }
-
+#endif
 #ifdef MOUSEKEY_ENABLE
     else if
         IS_MOUSEKEY(code) {
@@ -999,7 +996,6 @@ bool is_tap_action(action_t action) {
  * FIXME: Needs documentation.
  */
 void debug_event(keyevent_t event) { dprintf("%04X%c(%u)", (event.key.row << 8 | event.key.col), (event.pressed ? 'd' : 'u'), event.time); }
-
 /** \brief Debug print (FIXME: Needs better description)
  *
  * FIXME: Needs documentation.
@@ -1049,9 +1045,6 @@ void debug_action(action_t action) {
             break;
         case ACT_MACRO:
             dprint("ACT_MACRO");
-            break;
-        case ACT_COMMAND:
-            dprint("ACT_COMMAND");
             break;
         case ACT_FUNCTION:
             dprint("ACT_FUNCTION");
