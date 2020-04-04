@@ -52,7 +52,9 @@ void unicode_input_mode_init(void) {
     dprintf("Unicode input mode init to: %u\n", unicode_config.input_mode);
 }
 
-uint8_t get_unicode_input_mode(void) { return unicode_config.input_mode; }
+uint8_t get_unicode_input_mode(void) {
+    return unicode_config.input_mode;
+}
 
 void set_unicode_input_mode(uint8_t mode) {
     unicode_config.input_mode = mode;
@@ -178,12 +180,11 @@ void send_unicode_hex_string(const char *str) {
 
     while (*str) {
         // Find the next code point (token) in the string
-        for (; *str == ' '; str++)
-            ;
+        for (; *str == ' '; str++);    // Skip leading spaces
         size_t n = strcspn(str, " ");  // Length of the current token
-        char   code_point[n + 1];
-        strncpy(code_point, str, n);
-        code_point[n] = '\0';  // Make sure it's null-terminated
+        char code_point[n + 1];
+        strncpy(code_point, str, n);   // Copy token into buffer
+        code_point[n] = '\0';          // Make sure it's null-terminated
 
         // Normalize the code point: make all hex digits lowercase
         for (char *p = code_point; *p; p++) {
@@ -234,7 +235,6 @@ void send_unicode_string(const char *str) {
     }
 
     int32_t code_point = 0;
-
     while (*str) {
         str = decode_utf8(str, &code_point);
 
