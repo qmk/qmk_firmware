@@ -10,7 +10,6 @@ A conjoined-split 40% 4x12 ortholinear keyboard made and sold by Montsinger. [Mo
 
 Make example for this keyboard (after setting up your build environment):
 
-    make montsinger/rebound:default
     make montsinger/rebound/rev1:default # for rev1
     make montsinger/rebound/rev2:default # for rev2
 
