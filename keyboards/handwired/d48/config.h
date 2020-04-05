@@ -8,7 +8,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Andrew Dunai
 #define PRODUCT         D48
-#define DESCRIPTION     Proton C based 12x4 ortholinear keyboard with 2 encoders, 128x32 OLED display, WS2812 strip & a buzzer
 
 /* Key matrix size */
 #define MATRIX_ROWS 5
