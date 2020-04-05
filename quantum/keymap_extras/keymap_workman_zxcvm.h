@@ -14,12 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-/* Workman ZXCVM layout - defaults CVM keys to their QWERTY positions
- * to make this layout easier to use with other QWERTY-like layouts
- * installed on the same machine (mainly because of CTRL+X, CTRL+C
- * and CTRL+V shortcuts).
- */
-
 #pragma once
 
 #include "keymap.h"
