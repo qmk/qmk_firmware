@@ -34,57 +34,57 @@
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 // Row 1
-#define FR_SECT KC_GRV  // §
-#define FR_1    KC_1    // 1
-#define FR_2    KC_2    // 2
-#define FR_3    KC_3    // 3
-#define FR_4    KC_4    // 4
-#define FR_5    KC_5    // 5
-#define FR_6    KC_6    // 6
-#define FR_7    KC_7    // 7
-#define FR_8    KC_8    // 8
-#define FR_9    KC_9    // 9
-#define FR_0    KC_0    // 0
-#define FR_QUOT KC_MINS // '
-#define FR_CIRC KC_EQL  // ^ (dead)
+#define CH_SECT KC_GRV  // §
+#define CH_1    KC_1    // 1
+#define CH_2    KC_2    // 2
+#define CH_3    KC_3    // 3
+#define CH_4    KC_4    // 4
+#define CH_5    KC_5    // 5
+#define CH_6    KC_6    // 6
+#define CH_7    KC_7    // 7
+#define CH_8    KC_8    // 8
+#define CH_9    KC_9    // 9
+#define CH_0    KC_0    // 0
+#define CH_QUOT KC_MINS // '
+#define CH_CIRC KC_EQL  // ^ (dead)
 // Row 2
-#define FR_Q    KC_Q    // Q
-#define FR_W    KC_W    // W
-#define FR_E    KC_E    // E
-#define FR_R    KC_R    // R
-#define FR_T    KC_T    // T
-#define FR_Z    KC_Y    // Z
-#define FR_U    KC_U    // U
-#define FR_I    KC_I    // I
-#define FR_O    KC_O    // O
-#define FR_P    KC_P    // P
-#define FR_EGRV KC_LBRC // è
-#define FR_DIAE KC_RBRC // ¨ (dead)
+#define CH_Q    KC_Q    // Q
+#define CH_W    KC_W    // W
+#define CH_E    KC_E    // E
+#define CH_R    KC_R    // R
+#define CH_T    KC_T    // T
+#define CH_Z    KC_Y    // Z
+#define CH_U    KC_U    // U
+#define CH_I    KC_I    // I
+#define CH_O    KC_O    // O
+#define CH_P    KC_P    // P
+#define CH_EGRV KC_LBRC // è
+#define CH_DIAE KC_RBRC // ¨ (dead)
 // Row 3
-#define FR_A    KC_A    // A
-#define FR_S    KC_S    // S
-#define FR_D    KC_D    // D
-#define FR_F    KC_F    // F
-#define FR_G    KC_G    // G
-#define FR_H    KC_H    // H
-#define FR_J    KC_J    // J
-#define FR_K    KC_K    // K
-#define FR_L    KC_L    // L
-#define FR_EACU KC_SCLN // é
-#define FR_AGRV KC_QUOT // à
-#define FR_DLR  KC_NUHS // $
+#define CH_A    KC_A    // A
+#define CH_S    KC_S    // S
+#define CH_D    KC_D    // D
+#define CH_F    KC_F    // F
+#define CH_G    KC_G    // G
+#define CH_H    KC_H    // H
+#define CH_J    KC_J    // J
+#define CH_K    KC_K    // K
+#define CH_L    KC_L    // L
+#define CH_EACU KC_SCLN // é
+#define CH_AGRV KC_QUOT // à
+#define CH_DLR  KC_NUHS // $
 // Row 4
-#define FR_LABK KC_NUBS // <
-#define FR_Y    KC_Z    // Y
-#define FR_X    KC_X    // X
-#define FR_C    KC_C    // C
-#define FR_V    KC_V    // V
-#define FR_B    KC_B    // B
-#define FR_N    KC_N    // N
-#define FR_M    KC_M    // M
-#define FR_COMM KC_COMM // ,
-#define FR_DOT  KC_DOT  // .
-#define FR_MINS KC_SLSH // -
+#define CH_LABK KC_NUBS // <
+#define CH_Y    KC_Z    // Y
+#define CH_X    KC_X    // X
+#define CH_C    KC_C    // C
+#define CH_V    KC_V    // V
+#define CH_B    KC_B    // B
+#define CH_N    KC_N    // N
+#define CH_M    KC_M    // M
+#define CH_COMM KC_COMM // ,
+#define CH_DOT  KC_DOT  // .
+#define CH_MINS KC_SLSH // -
 
 /* Shifted symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
@@ -100,31 +100,31 @@
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 // Row 1
-#define FR_DEG  S(FR_SECT) // °
-#define FR_PLUS S(FR_1)    // +
-#define FR_DQUO S(FR_2)    // "
-#define FR_ASTR S(FR_3)    // *
-#define FR_CCED S(FR_4)    // ç
-#define FR_PERC S(FR_5)    // %
-#define FR_AMPR S(FR_6)    // &
-#define FR_SLSH S(FR_7)    // /
-#define FR_LPRN S(FR_8)    // (
-#define FR_RPRN S(FR_9)    // )
-#define FR_EQL  S(FR_0)    // =
-#define FR_QUES S(FR_QUOT) // ?
-#define FR_GRV  S(FR_CIRC) // ` (dead)
+#define CH_DEG  S(CH_SECT) // °
+#define CH_PLUS S(CH_1)    // +
+#define CH_DQUO S(CH_2)    // "
+#define CH_ASTR S(CH_3)    // *
+#define CH_CCED S(CH_4)    // ç
+#define CH_PERC S(CH_5)    // %
+#define CH_AMPR S(CH_6)    // &
+#define CH_SLSH S(CH_7)    // /
+#define CH_LPRN S(CH_8)    // (
+#define CH_RPRN S(CH_9)    // )
+#define CH_EQL  S(CH_0)    // =
+#define CH_QUES S(CH_QUOT) // ?
+#define CH_GRV  S(CH_CIRC) // ` (dead)
 // Row 2
-#define FR_UDIA S(FR_EGRV) // ü
-#define FR_EXLM S(FR_DIAE) // !
+#define CH_UDIA S(CH_EGRV) // ü
+#define CH_EXLM S(CH_DIAE) // !
 // Row 3
-#define FR_ODIA S(FR_EACU) // ö
-#define FR_ADIA S(FR_AGRV) // ä
-#define FR_PND  S(FR_DLR)  // £
+#define CH_ODIA S(CH_EACU) // ö
+#define CH_ADIA S(CH_AGRV) // ä
+#define CH_PND  S(CH_DLR)  // £
 // Row 4
-#define FR_RABK S(FR_LABK) // >
-#define FR_SCLN S(FR_COMM) // ;
-#define FR_COLN S(FR_DOT)  // :
-#define FR_UNDS S(FR_MINS) // _
+#define CH_RABK S(CH_LABK) // >
+#define CH_SCLN S(CH_COMM) // ;
+#define CH_COLN S(CH_DOT)  // :
+#define CH_UNDS S(CH_MINS) // _
 
 /* AltGr symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
@@ -140,99 +140,99 @@
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 // Row 1
-#define FR_BRKP ALGR(FR_1)    // ¦
-#define FR_AT   ALGR(FR_2)    // @
-#define FR_HASH ALGR(FR_3)    // #
-#define FR_NOT  ALGR(FR_6)    // ¬
-#define FR_PIPE ALGR(FR_7)    // |
-#define FR_CENT ALGR(FR_8)    // ¢
-#define FR_ACUT ALGR(FR_QUOT) // ´ (dead)
-#define FR_TILD ALGR(FR_CIRC) // ~ (dead)
+#define CH_BRKP ALGR(CH_1)    // ¦
+#define CH_AT   ALGR(CH_2)    // @
+#define CH_HASH ALGR(CH_3)    // #
+#define CH_NOT  ALGR(CH_6)    // ¬
+#define CH_PIPE ALGR(CH_7)    // |
+#define CH_CENT ALGR(CH_8)    // ¢
+#define CH_ACUT ALGR(CH_QUOT) // ´ (dead)
+#define CH_TILD ALGR(CH_CIRC) // ~ (dead)
 // Row 2
-#define FR_EURO ALGR(FR_E)    // €
-#define FR_LBRC ALGR(FR_EGRV) // [
-#define FR_RBRC ALGR(FR_DIAE) // ]
+#define CH_EURO ALGR(CH_E)    // €
+#define CH_LBRC ALGR(CH_EGRV) // [
+#define CH_RBRC ALGR(CH_DIAE) // ]
 // Row 3
-#define FR_LCBR ALGR(FR_AGRV) // {
-#define FR_RCBR ALGR(FR_DLR)  // }
+#define CH_LCBR ALGR(CH_AGRV) // {
+#define CH_RCBR ALGR(CH_DLR)  // }
 // Row 4
-#define FR_BSLS ALGR(FR_LABK) // (backslash)
+#define CH_BSLS ALGR(CH_LABK) // (backslash)
 
 // DEPRECATED
-#define FR_CH_Z    FR_Z
-#define FR_CH_Y    FR_Y
-#define FR_CH_A    FR_A
-#define FR_CH_B    FR_B
-#define FR_CH_C    FR_C
-#define FR_CH_D    FR_D
-#define FR_CH_E    FR_E
-#define FR_CH_F    FR_F
-#define FR_CH_G    FR_G
-#define FR_CH_H    FR_H
-#define FR_CH_I    FR_I
-#define FR_CH_J    FR_J
-#define FR_CH_K    FR_K
-#define FR_CH_L    FR_L
-#define FR_CH_M    FR_M
-#define FR_CH_N    FR_N
-#define FR_CH_O    FR_O
-#define FR_CH_P    FR_P
-#define FR_CH_Q    FR_Q
-#define FR_CH_R    FR_R
-#define FR_CH_S    FR_S
-#define FR_CH_T    FR_T
-#define FR_CH_U    FR_U
-#define FR_CH_V    FR_V
-#define FR_CH_W    FR_W
-#define FR_CH_X    FR_X
-#define FR_CH_0    FR_0
-#define FR_CH_1    FR_1
-#define FR_CH_2    FR_2
-#define FR_CH_3    FR_3
-#define FR_CH_4    FR_4
-#define FR_CH_5    FR_5
-#define FR_CH_6    FR_6
-#define FR_CH_7    FR_7
-#define FR_CH_8    FR_8
-#define FR_CH_9    FR_9
-#define FR_CH_DOT  FR_DOT
-#define FR_CH_COMM FR_COMM
-#define FR_CH_QUOT FR_QUOT
-#define FR_CH_AE   FR_AGRV
-#define FR_CH_UE   FR_EGRV
-#define FR_CH_OE   FR_EACU
-#define FR_CH_CIRC FR_CIRC
-#define FR_CH_LESS FR_LABK
-#define FR_CH_MINS FR_MINS
-#define FR_CH_DLR  FR_DLR
-#define FR_CH_PARA FR_SECT
-#define FR_CH_DIAE FR_DIAE
-#define FR_CH_RING FR_DEG
-#define FR_CH_EXLM FR_EXLM
-#define FR_CH_PLUS FR_PLUS
-#define FR_CH_DQOT FR_DQUO
-#define FR_CH_ASTR FR_ASTR
-#define FR_CH_PERC FR_PERC
-#define FR_CH_AMPR FR_AMPR
-#define FR_CH_SLSH FR_SLSH
-#define FR_CH_LPRN FR_LPRN
-#define FR_CH_RPRN FR_RPRN
-#define FR_CH_EQL  FR_EQL
-#define FR_CH_QST  FR_QUES
-#define FR_CH_MORE FR_RABK
-#define FR_CH_COLN FR_COLN
-#define FR_CH_SCLN FR_SCLN
-#define FR_CH_UNDS FR_UNDS
-#define FR_CH_CCED FR_CCED
-#define FR_CH_GRV  FR_GRV
-#define FR_CH_LCBR FR_LCBR
-#define FR_CH_LBRC FR_LBRC
-#define FR_CH_RBRC FR_RBRC
-#define FR_CH_RCBR FR_RCBR
-#define FR_CH_BSLS FR_BSLS
-#define FR_CH_AT   FR_AT
-#define FR_CH_EURO FR_EURO
-#define FR_CH_TILD FR_TILD
-#define FR_CH_PIPE FR_PIPE
-#define FR_CH_HASH FR_HASH
-#define FR_CH_ACUT FR_ACUT
+#define FR_CH_Z    CH_Z
+#define FR_CH_Y    CH_Y
+#define FR_CH_A    CH_A
+#define FR_CH_B    CH_B
+#define FR_CH_C    CH_C
+#define FR_CH_D    CH_D
+#define FR_CH_E    CH_E
+#define FR_CH_F    CH_F
+#define FR_CH_G    CH_G
+#define FR_CH_H    CH_H
+#define FR_CH_I    CH_I
+#define FR_CH_J    CH_J
+#define FR_CH_K    CH_K
+#define FR_CH_L    CH_L
+#define FR_CH_M    CH_M
+#define FR_CH_N    CH_N
+#define FR_CH_O    CH_O
+#define FR_CH_P    CH_P
+#define FR_CH_Q    CH_Q
+#define FR_CH_R    CH_R
+#define FR_CH_S    CH_S
+#define FR_CH_T    CH_T
+#define FR_CH_U    CH_U
+#define FR_CH_V    CH_V
+#define FR_CH_W    CH_W
+#define FR_CH_X    CH_X
+#define FR_CH_0    CH_0
+#define FR_CH_1    CH_1
+#define FR_CH_2    CH_2
+#define FR_CH_3    CH_3
+#define FR_CH_4    CH_4
+#define FR_CH_5    CH_5
+#define FR_CH_6    CH_6
+#define FR_CH_7    CH_7
+#define FR_CH_8    CH_8
+#define FR_CH_9    CH_9
+#define FR_CH_DOT  CH_DOT
+#define FR_CH_COMM CH_COMM
+#define FR_CH_QUOT CH_QUOT
+#define FR_CH_AE   CH_AGRV
+#define FR_CH_UE   CH_EGRV
+#define FR_CH_OE   CH_EACU
+#define FR_CH_CIRC CH_CIRC
+#define FR_CH_LESS CH_LABK
+#define FR_CH_MINS CH_MINS
+#define FR_CH_DLR  CH_DLR
+#define FR_CH_PARA CH_SECT
+#define FR_CH_DIAE CH_DIAE
+#define FR_CH_RING CH_DEG
+#define FR_CH_EXLM CH_EXLM
+#define FR_CH_PLUS CH_PLUS
+#define FR_CH_DQOT CH_DQUO
+#define FR_CH_ASTR CH_ASTR
+#define FR_CH_PERC CH_PERC
+#define FR_CH_AMPR CH_AMPR
+#define FR_CH_SLSH CH_SLSH
+#define FR_CH_LPRN CH_LPRN
+#define FR_CH_RPRN CH_RPRN
+#define FR_CH_EQL  CH_EQL
+#define FR_CH_QST  CH_QUES
+#define FR_CH_MORE CH_RABK
+#define FR_CH_COLN CH_COLN
+#define FR_CH_SCLN CH_SCLN
+#define FR_CH_UNDS CH_UNDS
+#define FR_CH_CCED CH_CCED
+#define FR_CH_GRV  CH_GRV
+#define FR_CH_LCBR CH_LCBR
+#define FR_CH_LBRC CH_LBRC
+#define FR_CH_RBRC CH_RBRC
+#define FR_CH_RCBR CH_RCBR
+#define FR_CH_BSLS CH_BSLS
+#define FR_CH_AT   CH_AT
+#define FR_CH_EURO CH_EURO
+#define FR_CH_TILD CH_TILD
+#define FR_CH_PIPE CH_PIPE
+#define FR_CH_HASH CH_HASH
+#define FR_CH_ACUT CH_ACUT
