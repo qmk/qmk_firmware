@@ -9,7 +9,7 @@ A Proton C based handwired 48 key keyboard with 2 rotary encoders, I2C OLED, WS2
 
 Make example for this keyboard (after setting up your build environment):
 
-    make d48:default:dfu-util
+    make handwired/d48:default:dfu-util
 
 ## Details
 
