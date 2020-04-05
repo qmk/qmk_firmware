@@ -87,17 +87,17 @@ typedef struct usbConfigurationDescriptor {
     usbConfigurationDescriptorHeader_t header;
     usbInterfaceDescriptor_t           keyboardInterface;
     usbHIDDescriptor_t                 keyboardHID;
-    usbEndpointDescriptor_t keyboardINEndpoint;
+    usbEndpointDescriptor_t            keyboardINEndpoint;
 
 #if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
     usbInterfaceDescriptor_t mouseExtraInterface;
     usbHIDDescriptor_t       mouseExtraHID;
-    usbEndpointDescriptor_t mouseExtraINEndpoint;
+    usbEndpointDescriptor_t  mouseExtraINEndpoint;
 #elif defined(RAW_ENABLE)
     usbInterfaceDescriptor_t rawInterface;
     usbHIDDescriptor_t       rawHID;
-    usbEndpointDescriptor_t rawINEndpoint;
-    usbEndpointDescriptor_t rawOUTEndpoint;
+    usbEndpointDescriptor_t  rawINEndpoint;
+    usbEndpointDescriptor_t  rawOUTEndpoint;
 #endif
 } __attribute__((packed)) usbConfigurationDescriptor_t;
 
