@@ -22,6 +22,12 @@
 #    define SPLIT_USB_TIMEOUT_POLL 10
 #endif
 
+#if defined(MATRIX_ROW_PINS_RIGHT) || defined(MATRIX_COL_PINS_RIGHT)
+#    if defined(SPLIT_HAND_MATRIX_GRID)
+#      error SPLIT_HAND_MATRIX_GRID cannot be used in conjunction with MATRIX_ROW_PINS_RIGHT or MATRIX_COL_PINS_RIGHT.
+#    endif
+#endif
+
 volatile bool isLeftHand = true;
 
 bool waitForUsb(void) {
@@ -52,6 +58,12 @@ __attribute__((weak)) bool is_keyboard_left(void) {
     // Test pin SPLIT_HAND_PIN for High/Low, if low it's right hand
     setPinInput(SPLIT_HAND_PIN);
     return readPin(SPLIT_HAND_PIN);
+#elif defined(SPLIT_HAND_MATRIX_GRID)
+#   ifndef SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
+    return peek_matrix(SPLIT_HAND_MATRIX_GRID);
+#   else
+    return ! peek_matrix(SPLIT_HAND_MATRIX_GRID);
+#   endif
 #elif defined(EE_HANDS)
     return eeconfig_read_handedness();
 #elif defined(MASTER_RIGHT)

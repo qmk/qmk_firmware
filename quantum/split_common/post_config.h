@@ -17,3 +17,7 @@
 #        define SERIAL_USE_MULTI_TRANSACTION
 #    endif
 #endif
+
+#ifdef SPLIT_HAND_MATRIX_GRID
+  #define PEEK_MATRIX_ENABLE
+#endif
