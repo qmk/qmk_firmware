@@ -317,6 +317,21 @@ float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 #endif
 
+#ifdef SPLIT_HAND_MATRIX_GRID
+uint8_t  peek0;
+uint8_t  peek1;
+uint8_t  peek2;
+
+uint8_t peek_matrix_intersection(pin_t out_pin, pin_t in_pin);
+void keyboard_pre_init_user(void)
+{
+    peek0 = peek_matrix_intersection(D4,B2);
+    peek1 = peek_matrix_intersection(C6,B2);
+    peek2 = peek_matrix_intersection(D7,B2);
+}
+
+#endif
+
 static int current_default_layer;
 
 uint32_t default_layer_state_set_kb(uint32_t state) {
@@ -476,6 +491,14 @@ void music_scale_user(void)
 //SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
 #ifdef SSD1306OLED
 
+#ifdef SPLIT_HAND_MATRIX_GRID
+void peek_display(struct CharacterMatrix *matrix) {
+  char buf[40];
+  snprintf(buf, sizeof(buf), "p=%d,%d,%d", peek0, peek1, peek2);
+  matrix_write(matrix, buf);
+}
+#endif
+
 void matrix_scan_user(void) {
      iota_gfx_task();  // this is what updates the display continuously
 }
@@ -496,6 +519,9 @@ static void render_logo(struct CharacterMatrix *matrix) {
     0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,
     0};
   matrix_write(matrix, logo);
+#ifdef SPLIT_HAND_MATRIX_GRID
+  peek_display(matrix);
+#else
 #if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_ANIMATIONS)
   char buf[30];
   if(rgblight_config.enable) {
@@ -506,6 +532,7 @@ static void render_logo(struct CharacterMatrix *matrix) {
                rgblight_config.val/RGBLIGHT_VAL_STEP);
       matrix_write(matrix, buf);
   }
+#endif
 #endif
   //matrix_write_P(&matrix, PSTR(" Split keyboard kit"));
 }
@@ -537,6 +564,7 @@ static const char *layer_names[] = {
     [_ADJUST] = Adjust_name
 };
 
+
 void render_status(struct CharacterMatrix *matrix) {
 
   // Render to mode icon
@@ -566,6 +594,9 @@ void render_status(struct CharacterMatrix *matrix) {
       }
   }
 
+#ifdef SPLIT_HAND_MATRIX_GRID
+  peek_display(matrix);
+#else
   // Host Keyboard LED Status
   char led[40];
     snprintf(led, sizeof(led), "\n%s  %s  %s",
@@ -573,6 +604,7 @@ void render_status(struct CharacterMatrix *matrix) {
              (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
              (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
   matrix_write(matrix, led);
+#endif
 }
 
 
@@ -595,3 +627,4 @@ void iota_gfx_task_user(void) {
 }
 
 #endif
+
