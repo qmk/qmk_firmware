@@ -129,32 +129,3 @@
 #define WK_LABK S(WK_COMM) // <
 #define WK_RABK S(WK_DOT)  // >
 #define WK_QUES S(WK_SLSH) // ?
-
-// DEPRECATED
-#define KC_WK_Q    WK_Q
-#define KC_WK_D    WK_D
-#define KC_WK_R    WK_R
-#define KC_WK_W    WK_W
-#define KC_WK_B    WK_B
-#define KC_WK_J    WK_J
-#define KC_WK_F    WK_F
-#define KC_WK_U    WK_U
-#define KC_WK_P    WK_P
-#define KC_WK_SCLN WK_SCLN
-#define KC_WK_A    WK_A
-#define KC_WK_S    WK_S
-#define KC_WK_H    WK_H
-#define KC_WK_T    WK_T
-#define KC_WK_G    WK_G
-#define KC_WK_Y    WK_Y
-#define KC_WK_N    WK_N
-#define KC_WK_E    WK_E
-#define KC_WK_O    WK_O
-#define KC_WK_I    WK_I
-#define KC_WK_Z    WK_Z
-#define KC_WK_X    WK_X
-#define KC_WK_M    WK_M
-#define KC_WK_C    WK_C
-#define KC_WK_V    WK_V
-#define KC_WK_K    WK_K
-#define KC_WK_L    WK_L
