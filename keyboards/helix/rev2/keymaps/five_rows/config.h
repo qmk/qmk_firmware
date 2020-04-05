@@ -44,8 +44,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    //#define RGBLIGHT_EFFECT_ALTERNATING
 #endif
 
-//  #define PEEK_MATRIX_ENABLE
-#define SPLIT_HAND_MATRIX_GRID D7,B2
-//  #define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
-
 #endif /* CONFIG_USER_H */

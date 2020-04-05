@@ -53,8 +53,7 @@ bool waitForUsb(void) {
 #ifdef SPLIT_HAND_MATRIX_GRID
 void matrix_io_delay(void);
 
-//static
-uint8_t peek_matrix_intersection(pin_t out_pin, pin_t in_pin) {
+static uint8_t peek_matrix_intersection(pin_t out_pin, pin_t in_pin) {
     setPinInputHigh(in_pin);
     setPinOutput(out_pin);
     writePinLow(out_pin);
