@@ -1,5 +1,5 @@
 /*
-Copyright 2019 coseyfannitutti
+Copyright 2020 yfuku
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,16 +19,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x6B62
-#define PRODUCT_ID      0x4069
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    coseyfannitutti
-#define PRODUCT         ROMEO
-#define DESCRIPTION     staggered layout 40% keyboard assembled with only through hole components
+/* USB Device descriptor parameter */
+#define VENDOR_ID 0xFEED
+#define PRODUCT_ID 0x1070
+#define DEVICE_VER 0x0001
+#define MANUFACTURER yfuku
+#define PRODUCT bat43
+#define DESCRIPTION 43key keyboard
 
 /* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
+#define MATRIX_ROWS 8
+#define MATRIX_COLS 6
 
 /*
  * Keyboard Matrix Assignments
@@ -40,12 +41,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-
-/* A Custom matrix.c is used to poll the port expander C6 shows that the pins are hardwired there */
-/*                        0   1   2   3   4   5   6   7   8   9  10  11*/
-#define MATRIX_ROW_PINS { B1, B4, B3, B2 }
-#define MATRIX_COL_PINS { C5, C4, C3, D0, C2, D1, C1, C0, D4, B0, D7, D6 }
-#define UNUSED_PINS
+#define MATRIX_ROW_PINS { E6, D7, C6, D4, F7, F6, F5, F4 }
+#define MATRIX_COL_PINS { B6, B2, B3, B1, B5, B4 }
+// #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -53,7 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
-// #define SOFT_SERIAL_PIN D0 // or D1, D2, D3, E6
+// #define SOFT_SERIAL_PIN D0  // or D1, D2, D3, E6
 
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
@@ -79,6 +77,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
 //   #define RGBLIGHT_EFFECT_RGB_TEST
 //   #define RGBLIGHT_EFFECT_ALTERNATING
+// /*== customize breathing effect ==*/
+//   /*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
+//   #define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
+//   /*==== use exp() and sin() ====*/
+//   #define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
+//   #define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
 // #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
@@ -87,12 +91,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
 
-/* number of backlight levels */
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
+// #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
+// #define LOCKING_RESYNC_ENABLE
 
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
  * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
@@ -134,7 +136,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key combination for magic key command */
 /* defined by default; to change, uncomment and set to the combination you want */
-// #define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
+// #define IS_COMMAND() (get_mods() == MOD_MASK_SHIFT)
 
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true
@@ -188,9 +190,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
+/* disable these deprecated features by default */
+#ifndef LINK_TIME_OPTIMIZATION_ENABLE
+  #define NO_ACTION_MACRO
+  #define NO_ACTION_FUNCTION
+#endif
 /*
  * MIDI options
  */
@@ -242,7 +247,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 */
 
-/* Bootmagic Lite key configuration
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-*/
+/* Bootmagic Lite key configuration */
+// #define BOOTMAGIC_LITE_ROW 0
+// #define BOOTMAGIC_LITE_COLUMN 0
