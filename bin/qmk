@@ -4,7 +4,6 @@
 import os
 import sys
 from importlib.util import find_spec
-from time import strftime
 from pathlib import Path
 
 # Add the QMK python libs to our path
@@ -52,9 +51,11 @@ import milc  # noqa
 
 # For developers additional modules are needed
 if milc.cli.config.user.developer:
-    developer = True
-    _check_modules('requirements-dev.txt')
-
+    # Do not run the check for 'config',
+    # so users can turn off developer mode
+    if len(sys.argv) == 1 or (len(sys.argv) > 1 and 'config' != sys.argv[1]):
+        developer = True
+        _check_modules('requirements-dev.txt')
 
 milc.EMOJI_LOGLEVELS['INFO'] = '{fg_blue}Ψ{style_reset_all}'
 
