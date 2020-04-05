@@ -521,11 +521,7 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
 #    endif
         .bConfigurationValue = 0x01,
         .iConfiguration      = 0x00,
-#    if USB_CFG_IS_SELF_POWERED
-        .bmAttributes        = (1 << 7) | USBATTR_SELFPOWER,
-#    else
-        .bmAttributes        = (1 << 7),
-#    endif
+        .bmAttributes        = (1 << 7) | USBATTR_REMOTEWAKE,
         .bMaxPower           = USB_MAX_POWER_CONSUMPTION / 2
     },
 
