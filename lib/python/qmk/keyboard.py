@@ -284,9 +284,6 @@ def render_layout(layout_data, key_labels=None):
 def render_layouts(info_json):
     """Renders all the layouts from an `info_json` structure.
     """
-    width = ceil(4 * info_json.get('width', 20))
-    height = ceil(3 * info_json.get('height', 7))
-
     layouts = {}
 
     for layout in info_json['layouts']:

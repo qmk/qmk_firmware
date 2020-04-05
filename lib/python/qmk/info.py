@@ -1,14 +1,11 @@
 """Functions that help us generate and use info.json files.
 """
 import json
-import logging
-import os
 from pathlib import Path
 
 from milc import cli
 
-from qmk.constants import ARM_PROCESSORS, AVR_PROCESSORS, MAX_KEYBOARD_SUBFOLDERS, QMK_FIRMWARE, VUSB_PROCESSORS
-from qmk.errors import NoSuchKeyboardError
+from qmk.constants import ARM_PROCESSORS, AVR_PROCESSORS, VUSB_PROCESSORS
 from qmk.keyboard import find_all_layouts, parse_rules_mk, parse_rules_mk_file
 
 
