@@ -1,4 +1,3 @@
 VIA_ENABLE = yes
 LTO_ENABLE = yes
-RAW_ENABLE = yes
 EXTRAKEY_ENABLE = no
