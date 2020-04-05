@@ -149,18 +149,21 @@ void reset_keyboard(void) {
 }
 
 /* Convert record into usable keycode via the contained event. */
-uint16_t get_record_keycode(keyrecord_t *record) { return get_event_keycode(record->event); }
+uint16_t get_record_keycode(keyrecord_t *record, bool do_update) { return get_event_keycode(record->event, do_update); }
 
 /* Convert event into usable keycode. Checks the layer cache to ensure that it
  * retains the correct keycode after a layer change, if the key is still pressed.
+ * "do_update" is to ensure that it only updates the layer cache when appropriate,
+ * otherwise, it will update it and cause layer tap (and other keys) from
+ * triggering properly.
  */
-uint16_t get_event_keycode(keyevent_t event) {
+uint16_t get_event_keycode(keyevent_t event, bool do_update) {
 #if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
     /* TODO: Use store_or_get_action() or a similar function. */
     if (!disable_action_cache) {
         uint8_t layer;
 
-        if (event.pressed) {
+        if (event.pressed && do_update) {
             layer = layer_switch_get_layer(event.key);
             update_source_layers_cache(event.key, layer);
         } else {
@@ -174,7 +177,7 @@ uint16_t get_event_keycode(keyevent_t event) {
 
 /* Get keycode, and then call keyboard function */
 void post_process_record_quantum(keyrecord_t *record) {
-    uint16_t keycode = get_record_keycode(record);
+    uint16_t keycode = get_record_keycode(record, false);
     post_process_record_kb(keycode, record);
 }
 
@@ -182,7 +185,7 @@ void post_process_record_quantum(keyrecord_t *record) {
     then processes internal quantum keycodes, and then processes
     ACTIONs.                                                      */
 bool process_record_quantum(keyrecord_t *record) {
-    uint16_t keycode = get_record_keycode(record);
+    uint16_t keycode = get_record_keycode(record, true);
 
     // This is how you use actions here
     // if (keycode == KC_LEAD) {
