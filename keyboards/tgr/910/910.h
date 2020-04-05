@@ -1,4 +1,4 @@
-/* Copyright 2020 halfenergized/poisonking
+/* Copyright 2019 mechmerlin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@
     { ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, k6d }   \
 }
 
-#define LAYOUT_65_ansi( \
+#define LAYOUT_ansi( \
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d,       \
     k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d, k52,  \
     k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2d, k51,       \
@@ -51,7 +51,7 @@
     { ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___ }   \
 }
 
-#define LAYOUT_65_ansi_split_bs( \
+#define LAYOUT_ansi_split_bs( \
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, k6d,  \
     k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d, k52,  \
     k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2d, k51,       \
@@ -67,7 +67,7 @@
     { ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, k6d }   \
 }
 
-#define LAYOUT_65_iso( \
+#define LAYOUT_iso( \
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d,       \
     k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c,  k52,      \
     k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d, k51,  \
