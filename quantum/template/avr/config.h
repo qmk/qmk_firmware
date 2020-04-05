@@ -57,33 +57,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BACKLIGHT_BREATHING
 // #define BACKLIGHT_LEVELS 3
 
-// #define RGB_DI_PIN E2
-// #ifdef RGB_DI_PIN
-//   #define RGBLED_NUM 16
-//   #define RGBLIGHT_HUE_STEP 8
-//   #define RGBLIGHT_SAT_STEP 8
-//   #define RGBLIGHT_VAL_STEP 8
-//   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-//   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-// /*== all animations enable ==*/
-//   #define RGBLIGHT_ANIMATIONS
-// /*== or choose animations ==*/
-//   #define RGBLIGHT_EFFECT_BREATHING
-//   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-//   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-//   #define RGBLIGHT_EFFECT_SNAKE
-//   #define RGBLIGHT_EFFECT_KNIGHT
-//   #define RGBLIGHT_EFFECT_CHRISTMAS
-//   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-//   #define RGBLIGHT_EFFECT_RGB_TEST
-//   #define RGBLIGHT_EFFECT_ALTERNATING
-// /*== customize breathing effect ==*/
-//   /*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
-//   #define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
-//   /*==== use exp() and sin() ====*/
-//   #define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
-//   #define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
-// #endif
+#ifdef RGBLIGHT_ENABLE
+#    define RGB_DI_PIN D3
+#    define RGBLED_NUM 16
+#    define RGBLIGHT_HUE_STEP 8
+#    define RGBLIGHT_SAT_STEP 8
+#    define RGBLIGHT_VAL_STEP 8
+#    define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+#    define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+/*== choose animations ==*/
+#    define RGBLIGHT_EFFECT_BREATHING
+#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#    define RGBLIGHT_EFFECT_SNAKE
+#    define RGBLIGHT_EFFECT_KNIGHT
+#    define RGBLIGHT_EFFECT_CHRISTMAS
+#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#    define RGBLIGHT_EFFECT_RGB_TEST
+#    define RGBLIGHT_EFFECT_ALTERNATING
+/*== customize breathing effect ==*/
+  /*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
+#    define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
+  /*==== use exp() and sin() ====*/
+#    define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
+#    define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
+#endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
@@ -229,21 +227,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LCD_IO_MODE      1            //< 0: memory mapped mode, 1: IO port mode
 
 #if LCD_IO_MODE
-#define LCD_PORT         PORTB        //< port for the LCD lines
-#define LCD_DATA0_PORT   LCD_PORT     //< port for 4bit data bit 0
-#define LCD_DATA1_PORT   LCD_PORT     //< port for 4bit data bit 1
-#define LCD_DATA2_PORT   LCD_PORT     //< port for 4bit data bit 2
-#define LCD_DATA3_PORT   LCD_PORT     //< port for 4bit data bit 3
-#define LCD_DATA0_PIN    4            //< pin for 4bit data bit 0
-#define LCD_DATA1_PIN    5            //< pin for 4bit data bit 1
-#define LCD_DATA2_PIN    6            //< pin for 4bit data bit 2
-#define LCD_DATA3_PIN    7            //< pin for 4bit data bit 3
-#define LCD_RS_PORT      LCD_PORT     //< port for RS line
-#define LCD_RS_PIN       3            //< pin  for RS line
-#define LCD_RW_PORT      LCD_PORT     //< port for RW line
-#define LCD_RW_PIN       2            //< pin  for RW line
-#define LCD_E_PORT       LCD_PORT     //< port for Enable line
-#define LCD_E_PIN        1            //< pin  for Enable line
+#    define LCD_PORT         PORTB        //< port for the LCD lines
+#    define LCD_DATA0_PORT   LCD_PORT     //< port for 4bit data bit 0
+#    define LCD_DATA1_PORT   LCD_PORT     //< port for 4bit data bit 1
+#    define LCD_DATA2_PORT   LCD_PORT     //< port for 4bit data bit 2
+#    define LCD_DATA3_PORT   LCD_PORT     //< port for 4bit data bit 3
+#    define LCD_DATA0_PIN    4            //< pin for 4bit data bit 0
+#    define LCD_DATA1_PIN    5            //< pin for 4bit data bit 1
+#    define LCD_DATA2_PIN    6            //< pin for 4bit data bit 2
+#    define LCD_DATA3_PIN    7            //< pin for 4bit data bit 3
+#    define LCD_RS_PORT      LCD_PORT     //< port for RS line
+#    define LCD_RS_PIN       3            //< pin  for RS line
+#    define LCD_RW_PORT      LCD_PORT     //< port for RW line
+#    define LCD_RW_PIN       2            //< pin  for RW line
+#    define LCD_E_PORT       LCD_PORT     //< port for Enable line
+#    define LCD_E_PIN        1            //< pin  for Enable line
 #endif
 */
 
