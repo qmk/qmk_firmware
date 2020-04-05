@@ -1,6 +1,7 @@
 #include "quantum.h"
 
 #define KC_ KC_TRNS
+#define KC_XXX KC_NO
 
 #define KC_CESC CTRLESC
 
