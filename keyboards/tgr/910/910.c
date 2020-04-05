@@ -1,4 +1,4 @@
-/* Copyright 2018 Jason Williams (Wilba)
+/* Copyright 2020 halfenergized
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,17 +14,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "wt69_a.h"
+#include "910.h"
 
 void keyboard_pre_init_kb(void) {
-    setPinOutput(F1);
-
+    led_init_ports();
     keyboard_pre_init_user();
+}
+
+void led_init_ports(void) {
+    setPinOutput(D0);
+    setPinOutput(D1);
+    setPinOutput(D6);
 }
 
 bool led_update_kb(led_t led_state) {
     if (led_update_user(led_state)) {
-        writePin(F1, led_state.caps_lock);
+        writePin(D0, led_state.num_lock);
+        writePin(D1, led_state.caps_lock);
+        writePin(D6, led_state.scroll_lock);
     }
     return true;
 }
