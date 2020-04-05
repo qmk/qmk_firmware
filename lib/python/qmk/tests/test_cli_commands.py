@@ -19,7 +19,7 @@ def test_compile():
     # json compile
     test_json = ['encoder', 'no_encoder']
     for j in test_json:
-        assert check_subcommand('compile', f'keyboards/handwired/onekey/pytest2/{j}.json').returncode == 0  # with encoder
+        assert check_subcommand('compile', f'keyboards/handwired/onekey/encodertest/{j}.json').returncode == 0  # with encoder
 
 
 def test_flash():
