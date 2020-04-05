@@ -20,6 +20,7 @@
 #include "timer.h"
 #include "uart.h"
 #include "debug.h"
+#include "suspend.h"
 #ifdef SLEEP_LED_ENABLE
 #    include "sleep_led.h"
 #endif
@@ -38,6 +39,23 @@ static void initForUsbConnectivity(void) {
         _delay_ms(1);
     }
     usbDeviceConnect();
+    sei();
+}
+
+void usb_remote_wakeup(void) {
+    cli();
+
+    int8_t ddr_orig = USBDDR;
+    USBOUT |= (1 << USBMINUS);
+    USBDDR = ddr_orig | USBMASK;
+    USBOUT ^= USBMASK;
+
+    _delay_ms(25);
+
+    USBOUT ^= USBMASK;
+    USBDDR = ddr_orig;
+    USBOUT &= ~(1 << USBMINUS);
+
     sei();
 }
 
@@ -115,6 +133,8 @@ int main(void) {
                 raw_hid_task();
             }
 #endif
+        } else if (suspend_wakeup_condition()) {
+            usb_remote_wakeup();
         }
     }
 }
