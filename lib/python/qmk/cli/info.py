@@ -6,16 +6,20 @@ import json
 
 from milc import cli
 
-from qmk.decorators import automagic_keyboard
-from qmk.keyboard import is_keyboard, render_layouts
-from qmk.path import info_json
+from qmk.decorators import automagic_keyboard, automagic_keymap
+from qmk.keyboard import is_keyboard, render_layouts, render_layout
+from qmk.keymap import locate_keymap
+from qmk.info import info_json
+from qmk.path import normpath
 
 
 @cli.argument('-l', '--layouts', action='store_true', help='Render the layouts.')
 @cli.argument('-kb', '--keyboard', help='Keyboard to show info for.')
+@cli.argument('-km', '--keymap', help='Show the layers for a JSON keymap too.')
 @cli.argument('-f', '--format', default='friendly', arg_only=True, help='Format to display the data in (friendly, text, json) (Default: friendly).')
 @cli.subcommand('Keyboard information.')
 @automagic_keyboard
+@automagic_keymap
 def info(cli):
     """Compile an info.json for a particular keyboard and pretty-print it.
     """
@@ -63,6 +67,16 @@ def info(cli):
             for layout_name, layout_art in render_layouts(kb_info_json).items():
                 cli.echo('{fg_cyan}%s{fg_reset}:', layout_name)
                 print(layout_art)  # Avoid passing dirty data to cli.echo()
+
+        if cli.config_source.info.keymap != 'config_file':
+            keymap_path = locate_keymap(cli.config.info.keyboard, cli.config.info.keymap)
+            if keymap_path and keymap_path.suffix == '.json':
+                cli.echo('{fg_blue}Keymap "%s"{fg_reset}:', cli.config.info.keymap)
+                keymap_data = json.load(keymap_path.open())
+                layout_name = keymap_data['layout']
+                for layer_num, layer in enumerate(keymap_data['layers']):
+                    cli.echo('{fg_cyan}Layer %s{fg_reset}:', layer_num)
+                    print(render_layout(kb_info_json['layouts'][layout_name]['layout'], layer))
 
     else:
         cli.log.error('Unknown format: %s', cli.args.format)

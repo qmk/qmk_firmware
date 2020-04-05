@@ -66,8 +66,8 @@ def find_layouts(file):
         macro_name, keymap = keymap.split('(', 1)
         keymap = keymap.split(')', 1)[0]
 
-        # Reject any macros that don't start with `KEYMAP` or `LAYOUT`
-        if not (macro_name.startswith('KEYMAP') or macro_name.startswith('LAYOUT')):
+        # Reject any macros that don't start `LAYOUT`
+        if not macro_name.startswith('LAYOUT'):
             continue
 
         # Parse the keymap entries into naive x/y data
@@ -83,7 +83,7 @@ def find_layouts(file):
         }
 
     for alias, text in aliases.items():
-        if text in parsed_keymaps:
+        if text in parsed_keymaps and not alias.startswith('KEYMAP'):
             parsed_keymaps[alias] = parsed_keymaps[text]
 
     return parsed_keymaps
@@ -234,52 +234,63 @@ def parse_rules_mk_file(file, rules_mk=None):
     return rules_mk
 
 
+def render_layout(layout_data, key_labels=None):
+    """Renders a single layout.
+    """
+    textpad = [array('u', ' ' * 200) for x in range(50)]
+
+    for key in layout_data:
+        x = ceil(key.get('x', 0) * 4)
+        y = ceil(key.get('y', 0) * 3)
+        w = ceil(key.get('w', 1) * 4)
+        h = ceil(key.get('h', 1) * 3)
+
+        if key_labels:
+            label = key_labels.pop(0)
+            if label.startswith('KC_'):
+                label = label[3:]
+        else:
+            label = key.get('label', '')
+
+        label_len = w - 2
+        label_leftover = label_len - len(label)
+
+        if len(label) > label_len:
+            label = label[:label_len]
+
+        label_blank = ' ' * label_len
+        label_border = '─' * label_len
+        label_middle = label + ' '*label_leftover  # noqa: yapf insists there be no whitespace around *
+
+        top_line = array('u', '┌' + label_border + '┐')
+        lab_line = array('u', '│' + label_middle + '│')
+        mid_line = array('u', '│' + label_blank + '│')
+        bot_line = array('u', '└' + label_border + "┘")
+
+        textpad[y][x:x + w] = top_line
+        textpad[y + 1][x:x + w] = lab_line
+        for i in range(h - 3):
+            textpad[y + i + 2][x:x + w] = mid_line
+        textpad[y + h - 1][x:x + w] = bot_line
+
+    lines = []
+    for line in textpad:
+        if line.tounicode().strip():
+            lines.append(line.tounicode().rstrip())
+
+    return '\n'.join(lines)
+
+
 def render_layouts(info_json):
+    """Renders all the layouts from an `info_json` structure.
+    """
     width = ceil(4 * info_json.get('width', 20))
     height = ceil(3 * info_json.get('height', 7))
 
     layouts = {}
 
     for layout in info_json['layouts']:
-        textpad = [array('u', ' ' * width) for x in range(height)]
-
-        for key in info_json['layouts'][layout]['layout']:
-            x = ceil(key.get('x', 0) * 4)
-            y = ceil(key.get('y', 0) * 3)
-            w = ceil(key.get('w', 1) * 4)
-            h = ceil(key.get('h', 1) * 3)
-
-            label = key.get('label', '')
-            label_len = w - 2
-            label_leftover = label_len - len(label)
-
-            if len(label) > label_len:
-                label = label[:label_len]
-
-            label_blank = ' ' * label_len
-            label_border = '─' * label_len
-            label_middle = label + ' '*label_leftover  # noqa: yapf insists there be no whitespace around *
-
-            top_line = array('u', '┌' + label_border + '┐')
-            lab_line = array('u', '│' + label_middle + '│')
-            mid_line = array('u', '│' + label_blank + '│')
-            bot_line = array('u', '└' + label_border + "┘")
-
-            textpad[y][x:x + w] = top_line
-            textpad[y + 1][x:x + w] = lab_line
-            for i in range(h - 3):
-                textpad[y + i + 2][x:x + w] = mid_line
-            textpad[y + h - 1][x:x + w] = bot_line
-
-        layouts[layout] = textpad
-
-    for layout in layouts:
-        lines = []
-
-        for line in layouts[layout]:
-            if line.tounicode().strip():
-                lines.append(line.tounicode().rstrip())
-
-        layouts[layout] = '\n'.join(lines)
+        layout_data = info_json['layouts'][layout]['layout']
+        layouts[layout] = render_layout(layout_data)
 
     return layouts

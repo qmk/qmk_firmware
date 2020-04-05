@@ -2,8 +2,8 @@
 """
 from pathlib import Path
 
-import qmk.path
-import qmk.makefile
+from qmk.path import keymap, is_keyboard
+from qmk.makefile import get_rules_mk
 
 # The `keymap.c` template to use when a keyboard doesn't have its own
 DEFAULT_KEYMAP_C = """#include QMK_KEYBOARD_H
@@ -95,7 +95,7 @@ def write(keyboard, keymap, layout, layers):
             An array of arrays describing the keymap. Each item in the inner array should be a string that is a valid QMK keycode.
     """
     keymap_c = generate(keyboard, layout, layers)
-    keymap_file = qmk.path.keymap(keyboard) / keymap / 'keymap.c'
+    keymap_file = keymap(keyboard) / keymap / 'keymap.c'
 
     keymap_file.parent.mkdir(parents=True, exist_ok=True)
     keymap_file.write_text(keymap_c)
@@ -103,24 +103,59 @@ def write(keyboard, keymap, layout, layers):
     return keymap_file
 
 
-def list_keymaps(keyboard_name):
+def locate_keymap(keyboard, keymap):
+    """Returns the path to a keymap for a specific keyboard.
+    """
+    if not is_keyboard(keyboard):
+        raise KeyError('Invalid keyboard: ' + repr(keyboard))
+
+    # Check the keyboard folder first
+    checked_dirs = ''
+
+    for dir in keyboard.split('/'):
+        if checked_dirs:
+            checked_dirs = '/'.join((checked_dirs, dir))
+        else:
+            checked_dirs = dir
+
+        keymap_dir = Path('keyboards') / checked_dirs / 'keymaps'
+
+        if (keymap_dir / keymap / 'keymap.json').exists():
+            return keymap_dir / keymap / 'keymap.json'
+        if (keymap_dir / keymap / 'keymap.c').exists():
+            return keymap_dir / keymap / 'keymap.c'
+
+    # Check community layouts as a fallback
+    rules_mk = get_rules_mk(keyboard)
+
+    if "LAYOUTS" in rules_mk:
+        for layout in rules_mk["LAYOUTS"].split():
+            community_layout = Path('layouts/community') / layout
+            if community_layout.exists():
+                if community_layout.exists('keymap.json'):
+                    return community_layout / 'keymap.json'
+                if community_layout.exists('keymap.c'):
+                    return community_layout / 'keymap.c'
+
+
+def list_keymaps(keyboard):
     """ List the available keymaps for a keyboard.
 
     Args:
-        keyboard_name: the keyboards full name with vendor and revision if necessary, example: clueboard/66/rev3
+        keyboard: the keyboards full name with vendor and revision if necessary, example: clueboard/66/rev3
 
     Returns:
         a set with the names of the available keymaps
     """
     # parse all the rules.mk files for the keyboard
-    rules_mk = qmk.makefile.get_rules_mk(keyboard_name)
+    rules_mk = get_rules_mk(keyboard)
     names = set()
 
     if rules_mk:
         # qmk_firmware/keyboards
         keyboards_dir = Path.cwd() / "keyboards"
         # path to the keyboard's directory
-        kb_path = keyboards_dir / keyboard_name
+        kb_path = keyboards_dir / keyboard
         # walk up the directory tree until keyboards_dir
         # and collect all directories' name with keymap.c file in it
         while kb_path != keyboards_dir:
@@ -132,7 +167,7 @@ def list_keymaps(keyboard_name):
         # if community layouts are supported, get them
         if "LAYOUTS" in rules_mk:
             for layout in rules_mk["LAYOUTS"].split():
-                cl_path = Path.cwd() / "layouts" / "community" / layout
+                cl_path = Path('layouts/community') / layout
                 if cl_path.exists():
                     names = names.union([keymap for keymap in cl_path.iterdir() if (cl_path / keymap / "keymap.c").is_file()])
 
