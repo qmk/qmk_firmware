@@ -67,18 +67,18 @@ def automagic_keymap(func):
                         while current_path.parent.name != 'keymaps':
                             current_path = current_path.parent
                         cli.config[cli._entrypoint.__name__]['keymap'] = current_path.name
-                        cli.config_source[cli._entrypoint.__name__]['keyboard'] = 'keymap_directory'
+                        cli.config_source[cli._entrypoint.__name__]['keymap'] = 'keymap_directory'
 
                 # If we're in `qmk_firmware/layouts` guess the name from the community keymap they're in
                 elif relative_cwd.parts[0] == 'layouts' and is_keymap_dir(relative_cwd):
                     cli.config[cli._entrypoint.__name__]['keymap'] = relative_cwd.name
-                    cli.config_source[cli._entrypoint.__name__]['keyboard'] = 'layouts_directory'
+                    cli.config_source[cli._entrypoint.__name__]['keymap'] = 'layouts_directory'
 
                 # If we're in `qmk_firmware/users` guess the name from the userspace they're in
                 elif relative_cwd.parts[0] == 'users':
                     # Guess the keymap name based on which userspace they're in
                     cli.config[cli._entrypoint.__name__]['keymap'] = relative_cwd.parts[1]
-                    cli.config_source[cli._entrypoint.__name__]['keyboard'] = 'users_directory'
+                    cli.config_source[cli._entrypoint.__name__]['keymap'] = 'users_directory'
 
         return func(*args, **kwargs)
 
