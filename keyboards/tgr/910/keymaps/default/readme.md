@@ -1,1 +1,1 @@
-# The default keymap for exent
+# The default keymap for TGR-910
