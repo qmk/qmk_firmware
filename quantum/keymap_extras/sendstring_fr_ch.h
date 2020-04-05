@@ -74,27 +74,27 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     //       !        "        #        $        %        &        '
-    KC_SPC,  FR_DIAE, FR_2,    FR_3,    FR_DLR,  FR_5,    FR_6,    FR_QUOT,
+    KC_SPC,  CH_DIAE, CH_2,    CH_3,    CH_DLR,  CH_5,    CH_6,    CH_QUOT,
     // (     )        *        +        ,        -        .        /
-    FR_8,    FR_9,    FR_3,    FR_0,    FR_COMM, FR_MINS, FR_DOT,  FR_7,
+    CH_8,    CH_9,    CH_3,    CH_0,    CH_COMM, CH_MINS, CH_DOT,  CH_7,
     // 0     1        2        3        4        5        6        7
-    FR_0,    FR_1,    FR_2,    FR_3,    FR_4,    FR_5,    FR_6,    FR_7,
+    CH_0,    CH_1,    CH_2,    CH_3,    CH_4,    CH_5,    CH_6,    CH_7,
     // 8     9        :        ;        <        =        >        ?
-    FR_8,    FR_9,    FR_DOT,  FR_COMM, FR_LABK, FR_0,    FR_LABK, FR_QUOT,
+    CH_8,    CH_9,    CH_DOT,  CH_COMM, CH_LABK, CH_0,    CH_LABK, CH_QUOT,
     // @     A        B        C        D        E        F        G
-    FR_2,    FR_A,    FR_B,    FR_C,    FR_D,    FR_E,    FR_F,    FR_G,
+    CH_2,    CH_A,    CH_B,    CH_C,    CH_D,    CH_E,    CH_F,    CH_G,
     // H     I        J        K        L        M        N        O
-    FR_H,    FR_I,    FR_J,    FR_K,    FR_L,    FR_M,    FR_N,    FR_O,
+    CH_H,    CH_I,    CH_J,    CH_K,    CH_L,    CH_M,    CH_N,    CH_O,
     // P     Q        R        S        T        U        V        W
-    FR_P,    FR_Q,    FR_R,    FR_S,    FR_T,    FR_U,    FR_V,    FR_W,
+    CH_P,    CH_Q,    CH_R,    CH_S,    CH_T,    CH_U,    CH_V,    CH_W,
     // X     Y        Z        [        \        ]        ^        _
-    FR_X,    FR_Y,    FR_Z,    FR_EGRV, FR_LABK, FR_DIAE, FR_CIRC, FR_MINS,
+    CH_X,    CH_Y,    CH_Z,    CH_EGRV, CH_LABK, CH_DIAE, CH_CIRC, CH_MINS,
     // `     a        b        c        d        e        f        g
-    FR_CIRC, FR_A,    FR_B,    FR_C,    FR_D,    FR_E,    FR_F,    FR_G,
+    CH_CIRC, CH_A,    CH_B,    CH_C,    CH_D,    CH_E,    CH_F,    CH_G,
     // h     i        j        k        l        m        n        o
-    FR_H,    FR_I,    FR_J,    FR_K,    FR_L,    FR_M,    FR_N,    FR_O,
+    CH_H,    CH_I,    CH_J,    CH_K,    CH_L,    CH_M,    CH_N,    CH_O,
     // p     q        r        s        t        u        v        w
-    FR_P,    FR_Q,    FR_R,    FR_S,    FR_T,    FR_U,    FR_V,    FR_W,
+    CH_P,    CH_Q,    CH_R,    CH_S,    CH_T,    CH_U,    CH_V,    CH_W,
     // x     y        z        {        |        }        ~        DEL
-    FR_X,    FR_Y,    FR_Z,    FR_AGRV, FR_7,    FR_DLR,  FR_CIRC, KC_DEL
+    CH_X,    CH_Y,    CH_Z,    CH_AGRV, CH_7,    CH_DLR,  CH_CIRC, KC_DEL
 };

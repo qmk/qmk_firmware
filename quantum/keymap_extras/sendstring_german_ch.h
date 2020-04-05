@@ -74,27 +74,27 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     //       !        "        #        $        %        &        '
-    KC_SPC,  DE_DIAE, DE_2,    DE_3,    DE_DLR,  DE_5,    DE_6,    DE_QUOT,
+    KC_SPC,  CH_DIAE, CH_2,    CH_3,    CH_DLR,  CH_5,    CH_6,    CH_QUOT,
     // (     )        *        +        ,        -        .        /
-    DE_8,    DE_9,    DE_3,    DE_1,    DE_COMM, DE_MINS, DE_DOT,  DE_7,
+    CH_8,    CH_9,    CH_3,    CH_1,    CH_COMM, CH_MINS, CH_DOT,  CH_7,
     // 0     1        2        3        4        5        6        7
-    DE_0,    DE_1,    DE_2,    DE_3,    DE_4,    DE_5,    DE_6,    DE_7,
+    CH_0,    CH_1,    CH_2,    CH_3,    CH_4,    CH_5,    CH_6,    CH_7,
     // 8     9        :        ;        <        =        >        ?
-    DE_8,    DE_9,    DE_DOT,  DE_COMM, DE_LABK, DE_0,    DE_LABK, DE_QUOT,
+    CH_8,    CH_9,    CH_DOT,  CH_COMM, CH_LABK, CH_0,    CH_LABK, CH_QUOT,
     // @     A        B        C        D        E        F        G
-    DE_2,    DE_A,    DE_B,    DE_C,    DE_D,    DE_E,    DE_F,    DE_G,
+    CH_2,    CH_A,    CH_B,    CH_C,    CH_D,    CH_E,    CH_F,    CH_G,
     // H     I        J        K        L        M        N        O
-    DE_H,    DE_I,    DE_J,    DE_K,    DE_L,    DE_M,    DE_N,    DE_O,
+    CH_H,    CH_I,    CH_J,    CH_K,    CH_L,    CH_M,    CH_N,    CH_O,
     // P     Q        R        S        T        U        V        W
-    DE_P,    DE_Q,    DE_R,    DE_S,    DE_T,    DE_U,    DE_V,    DE_W,
+    CH_P,    CH_Q,    CH_R,    CH_S,    CH_T,    CH_U,    CH_V,    CH_W,
     // X     Y        Z        [        \        ]        ^        _
-    DE_X,    DE_Y,    DE_Z,    DE_UDIA, DE_LABK, DE_DIAE, DE_CIRC, DE_MINS,
+    CH_X,    CH_Y,    CH_Z,    CH_UDIA, CH_LABK, CH_DIAE, CH_CIRC, CH_MINS,
     // `     a        b        c        d        e        f        g
-    DE_CIRC, DE_A,    DE_B,    DE_C,    DE_D,    DE_E,    DE_F,    DE_G,
+    CH_CIRC, CH_A,    CH_B,    CH_C,    CH_D,    CH_E,    CH_F,    CH_G,
     // h     i        j        k        l        m        n        o
-    DE_H,    DE_I,    DE_J,    DE_K,    DE_L,    DE_M,    DE_N,    DE_O,
+    CH_H,    CH_I,    CH_J,    CH_K,    CH_L,    CH_M,    CH_N,    CH_O,
     // p     q        r        s        t        u        v        w
-    DE_P,    DE_Q,    DE_R,    DE_S,    DE_T,    DE_U,    DE_V,    DE_W,
+    CH_P,    CH_Q,    CH_R,    CH_S,    CH_T,    CH_U,    CH_V,    CH_W,
     // x     y        z        {        |        }        ~        DEL
-    DE_X,    DE_Y,    DE_Z,    DE_ADIA, DE_7,    DE_DLR,  DE_CIRC, KC_DEL
+    CH_X,    CH_Y,    CH_Z,    CH_ADIA, CH_7,    CH_DLR,  CH_CIRC, KC_DEL
 };
