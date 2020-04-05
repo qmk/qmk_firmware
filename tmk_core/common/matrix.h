@@ -83,6 +83,10 @@ void matrix_scan_kb(void);
 void matrix_init_user(void);
 void matrix_scan_user(void);
 
+#ifdef PEEK_MATRIX_ENABLE
+bool peek_matrix(uint8_t row_index, uint8_t col_index);
+#endif
+
 #ifdef __cplusplus
 }
 #endif

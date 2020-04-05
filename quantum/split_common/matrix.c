@@ -189,6 +189,34 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 #    error DIODE_DIRECTION is not defined!
 #endif
 
+#ifdef PEEK_MATRIX_ENABLE
+static bool is_matrix_init = false;
+
+bool peek_matrix(uint8_t row_index, uint8_t col_index) {
+    if (is_matrix_init) {
+        return 0 != \
+            (raw_matrix[row_index] & (MATRIX_ROW_SHIFTER << col_index));
+    } else {
+        init_pins();
+#if (DIODE_DIRECTION == ROW2COL)
+        select_col(current_col);
+        matrix_io_delay();
+        uint8_t pin_state = readPin(row_pins[row_index]);
+        unselect_col(current_col);
+        return pin_state? false : true; // LOW:true, HIGH:false
+#elif (DIODE_DIRECTION == COL2ROW)
+        select_row(row_index);
+        matrix_io_delay();
+        uint8_t pin_state = readPin(col_pins[col_index]);
+        unselect_row(row_index);
+        return pin_state? false : true; // LOW:true, HIGH:false
+#else
+#error peek_matrix() does not support DIRECT_PINS.
+#endif
+    }
+}
+#endif /*PEEK_MATRIX_ENABLE*/
+
 void matrix_init(void) {
     split_pre_init();
 
@@ -264,6 +292,10 @@ void matrix_post_scan(void) {
 
 uint8_t matrix_scan(void) {
     bool changed = false;
+
+#ifdef PEEK_MATRIX_ENABLE
+    is_matrix_init = true;
+#endif
 
 #if defined(DIRECT_PINS) || (DIODE_DIRECTION == COL2ROW)
     // Set row, read cols
