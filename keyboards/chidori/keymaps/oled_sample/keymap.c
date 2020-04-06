@@ -17,7 +17,6 @@
 #include QMK_KEYBOARD_H
 
 #include "board.h"
-#include <stdio.h>
 
 enum layer_number { 
     _QWERTY,
