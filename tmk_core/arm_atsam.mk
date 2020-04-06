@@ -55,5 +55,18 @@ bin: $(BUILD_DIR)/$(TARGET).hex
 	$(OBJCOPY) -Iihex -Obinary $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
 
+MDLOADER_CLI ?= mdloader
+define EXEC_MDLOADER
+	$(MDLOADER_CLI) --first --download $(BUILD_DIR)/$(TARGET).bin --restart
+endef
+
+mdloader: bin
+	$(call EXEC_MDLOADER)
+
 flash: bin
-	$(PRINT_OK); $(SILENT) || printf "$(MSG_FLASH_ARCH)"
+ifneq ($(strip $(PROGRAM_CMD)),)
+	$(PROGRAM_CMD)
+else
+	# given only drop boards use atsam - assume mdloader than print out MSG_FLASH_BOOTLOADER
+	$(call EXEC_MDLOADER)
+endif
