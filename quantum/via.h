@@ -37,6 +37,14 @@
 #    define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 1
 #endif
 
+// Allow override of the layout options default value.
+// This requires advanced knowledge of how VIA stores layout options
+// and is only really useful for setting a boolean layout option
+// state to true by default.
+#ifndef VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT
+#    define VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT 0x00000000
+#endif
+
 // The end of the EEPROM memory used by VIA
 // By default, dynamic keymaps will start at this if there is no
 // custom config
