@@ -111,7 +111,7 @@
 #define BE_8    S(BE_EXLM) // 8
 #define BE_9    S(BE_CCED) // 9
 #define BE_0    S(BE_AGRV) // 0
-#define BE_RNGA S(BE_RPRN) // °
+#define BE_DEG  S(BE_RPRN) // °
 #define BE_UNDS S(BE_MINS) // _
 // Row 2
 #define BE_DIAE S(BE_DCIR) // ¨ (dead)
@@ -163,7 +163,7 @@
 #define BE_PARA BE_SECT
 #define BE_MU   BE_MICR
 #define BE_LESS BE_LABK
-#define BE_OVRR BE_RNGA
+#define BE_OVRR BE_DEG
 #define BE_UMLT BE_DIAE
 #define BE_GRTR BE_RABK
 #define BE_LSBR BE_LBRC
