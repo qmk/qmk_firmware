@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const rgblight_segment_t PROGMEM left[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 12, HSV_MAGENTA}
+    {0, 12, HSV_SPRINGGREEN}
 );
 
 const rgblight_segment_t PROGMEM right[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -64,14 +64,15 @@ const rgblight_segment_t PROGMEM right[] = RGBLIGHT_LAYER_SEGMENTS(
 );
 
 const rgblight_segment_t PROGMEM capslock[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 3, HSV_GOLD},
-    {6, 3, HSV_GOLD}
+    {2, 3, HSV_GOLD},
+    {6, 1, HSV_GOLD},
+    {11, 1, HSV_GOLD}
 );
 
 const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(left, right, capslock);
 
 void keyboard_post_init_user(void) {
-    rgblight_sethsv_noeeprom(HSV_SPRINGGREEN);
+    rgblight_sethsv_noeeprom(HSV_BLUE);
     rgblight_layers = rgb_layers;
 }
 
