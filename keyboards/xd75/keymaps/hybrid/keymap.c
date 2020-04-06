@@ -22,7 +22,7 @@ enum layers {
 };
 
 enum {
-  TD_A = 0,
+  TD_A,
   TD_E,
   TD_I,
   TD_O,
@@ -34,68 +34,37 @@ enum {
   TD_QUESTION,
   TD_CEDILLE,
   TD_DOT,
+  
+  TD_A2,
+//  TD_E,
+  TD_I2,
+  TD_O2,
+  TD_U2,
+  TD_C2,
+//  TD_OP_ACCOL,
+//  TD_CL_ACCOL,
+  TD_QUEST2,
 };
 
 
 
 void dance_a_accent (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 2) {
-    /*register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
-    register_code (KC_LALT);
-    register_code (KC_P1);
-    unregister_code (KC_P1);
-    register_code (KC_P3);
-    unregister_code (KC_P3);
-    register_code (KC_P3);
-    unregister_code (KC_P3);
-    unregister_code (KC_LALT);
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
-    */
-    send_unicode_string("à");
+    tap_code (KC_0);
   }
   else {
-    register_code (KC_Q);
-    unregister_code (KC_Q);
+    tap_code (KC_Q);
   }
 }
 void dance_e_accent (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 2) {
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
-    register_code (KC_LALT);
-    register_code (KC_P0);
-    unregister_code (KC_P0);
-    register_code (KC_P2);
-    unregister_code (KC_P2);
-    register_code (KC_P3);
-    unregister_code (KC_P3);
-    register_code (KC_P3);
-    unregister_code (KC_P3);
-    unregister_code (KC_LALT);
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_2);
   }
   else if (state->count == 3) {
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
-    register_code (KC_LALT);
-    register_code (KC_P0);
-    unregister_code (KC_P0);
-    register_code (KC_P2);
-    unregister_code (KC_P2);
-    register_code (KC_P3);
-    unregister_code (KC_P3);
-    register_code (KC_P2);
-    unregister_code (KC_P2);
-    unregister_code (KC_LALT);
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_7);
   }
   else {
-    register_code (KC_E);
-    unregister_code (KC_E);
+    tap_code (KC_E);
   }
 }
 void dance_i_accent (qk_tap_dance_state_t *state, void *user_data) {
@@ -313,22 +282,10 @@ void dance_question (qk_tap_dance_state_t *state, void *user_data) {
 }
 void dance_cedille (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 2) {
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
-    register_code (KC_LALT);
-    register_code (KC_P1);
-    unregister_code (KC_P1);
-    register_code (KC_P3);
-    unregister_code (KC_P3);
-    register_code (KC_P5);
-    unregister_code (KC_P5);
-    unregister_code (KC_LALT);
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_9);
   }
   else {
-    register_code (KC_C);
-    unregister_code (KC_C);
+    tap_code (KC_C);
   }
 }
 void dance_dot (qk_tap_dance_state_t *state, void *user_data) {
@@ -374,6 +331,27 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_QUESTION] = ACTION_TAP_DANCE_FN(dance_question),
   [TD_CEDILLE] = ACTION_TAP_DANCE_FN(dance_cedille),
   [TD_DOT] = ACTION_TAP_DANCE_FN(dance_dot),
+  
+  /*  
+  TD_A2,
+  TD_E,
+  TD_I2,
+  TD_O2,
+  TD_U2,
+  TD_C2,
+  TD_OP_ACCOL,
+  TD_CL_ACCOL,
+  TD_QUEST2,
+  */
+  [TD_A2] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_P0),
+  [TD_E] = ACTION_TAP_DANCE_FN(dance_e_accent),
+//  [TD_I2] = ACTION_TAP_DANCE_DOUBLE(KC_I, KC_XX),
+  [TD_O2] = ACTION_TAP_DANCE_DOUBLE(KC_O, KC_P0),
+//  [TD_U2] = ACTION_TAP_DANCE_DOUBLE(KC_U, KC_XX),
+  [TD_C2] = ACTION_TAP_DANCE_DOUBLE(KC_C, KC_0),
+//  [TD_OP_ACCOL] = ACTION_TAP_DANCE_FN(dance_open_accol),
+//  [TD_CL_ACCOL] = ACTION_TAP_DANCE_FN(dance_close_accol),
+//  [TD_QUEST2] = ACTION_TAP_DANCE_DOUBLE(KC_XX, KC_XX),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
