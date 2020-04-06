@@ -78,8 +78,8 @@ __attribute__((weak)) void unicode_input_start(void) {
     clear_mods();                     // Unregister mods to start from a clean state
 
     switch (unicode_config.input_mode) {
-        case UC_OSX:
-            register_code(UNICODE_KEY_OSX);
+        case UC_MAC:
+            register_code(UNICODE_KEY_MAC);
             break;
         case UC_LNX:
             tap_code16(UNICODE_KEY_LNX);
@@ -99,8 +99,8 @@ __attribute__((weak)) void unicode_input_start(void) {
 
 __attribute__((weak)) void unicode_input_finish(void) {
     switch (unicode_config.input_mode) {
-        case UC_OSX:
-            unregister_code(UNICODE_KEY_OSX);
+        case UC_MAC:
+            unregister_code(UNICODE_KEY_MAC);
             break;
         case UC_LNX:
             tap_code(KC_SPC);
@@ -118,8 +118,8 @@ __attribute__((weak)) void unicode_input_finish(void) {
 
 __attribute__((weak)) void unicode_input_cancel(void) {
     switch (unicode_config.input_mode) {
-        case UC_OSX:
-            unregister_code(UNICODE_KEY_OSX);
+        case UC_MAC:
+            unregister_code(UNICODE_KEY_MAC);
             break;
         case UC_LNX:
         case UC_WINC:
@@ -253,11 +253,11 @@ bool process_unicode_common(uint16_t keycode, keyrecord_t *record) {
                 cycle_unicode_input_mode(-1);
                 break;
 
-            case UNICODE_MODE_OSX:
-                set_unicode_input_mode(UC_OSX);
-#if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_OSX)
-                static float song_osx[][2] = UNICODE_SONG_OSX;
-                PLAY_SONG(song_osx);
+            case UNICODE_MODE_MAC:
+                set_unicode_input_mode(UC_MAC);
+#if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_MAC)
+                static float song_mac[][2] = UNICODE_SONG_MAC;
+                PLAY_SONG(song_mac);
 #endif
                 break;
             case UNICODE_MODE_LNX:

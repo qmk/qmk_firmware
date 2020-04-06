@@ -120,6 +120,10 @@ __attribute__((weak)) bool process_record_kb(uint16_t keycode, keyrecord_t *reco
 
 __attribute__((weak)) bool process_record_user(uint16_t keycode, keyrecord_t *record) { return true; }
 
+__attribute__((weak)) void post_process_record_kb(uint16_t keycode, keyrecord_t *record) { post_process_record_user(keycode, record); }
+
+__attribute__((weak)) void post_process_record_user(uint16_t keycode, keyrecord_t *record) {}
+
 void reset_keyboard(void) {
     clear_keyboard();
 #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
@@ -140,10 +144,6 @@ void reset_keyboard(void) {
 #endif
 #ifdef HAPTIC_ENABLE
     haptic_shutdown();
-#endif
-// this is also done later in bootloader.c - not sure if it's neccesary here
-#ifdef BOOTLOADER_CATERINA
-    *(uint16_t *)0x0800 = 0x7777;  // these two are a-star-specific
 #endif
     bootloader_jump();
 }
@@ -172,9 +172,15 @@ uint16_t get_event_keycode(keyevent_t event) {
         return keymap_key_to_keycode(layer_switch_get_layer(event.key), event.key);
 }
 
-/* Main keycode processing function. Hands off handling to other functions,
- * then processes internal Quantum keycodes, then processes ACTIONs.
- */
+/* Get keycode, and then call keyboard function */
+void post_process_record_quantum(keyrecord_t *record) {
+    uint16_t keycode = get_record_keycode(record);
+    post_process_record_kb(keycode, record);
+}
+
+/* Core keycode function, hands off handling to other functions,
+    then processes internal quantum keycodes, and then processes
+    ACTIONs.                                                      */
 bool process_record_quantum(keyrecord_t *record) {
     uint16_t keycode = get_record_keycode(record);
 
@@ -189,6 +195,12 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef VELOCIKEY_ENABLE
     if (velocikey_enabled() && record->event.pressed) {
         velocikey_accelerate();
+    }
+#endif
+
+#ifdef WPM_ENABLE
+    if (record->event.pressed) {
+        update_wpm(keycode);
     }
 #endif
 
@@ -272,9 +284,11 @@ bool process_record_quantum(keyrecord_t *record) {
 
     if (record->event.pressed) {
         switch (keycode) {
+#ifndef NO_RESET
             case RESET:
                 reset_keyboard();
                 return false;
+#endif
 #ifndef NO_DEBUG
             case DEBUG:
                 debug_enable ^= 1;
@@ -581,32 +595,6 @@ void tap_random_base64(void) {
     }
 }
 
-__attribute__((weak)) void bootmagic_lite(void) {
-    // The lite version of TMK's bootmagic based on Wilba.
-    // 100% less potential for accidentally making the
-    // keyboard do stupid things.
-
-    // We need multiple scans because debouncing can't be turned off.
-    matrix_scan();
-#if defined(DEBOUNCE) && DEBOUNCE > 0
-    wait_ms(DEBOUNCE * 2);
-#else
-    wait_ms(30);
-#endif
-    matrix_scan();
-
-    // If the Esc and space bar are held down on power up,
-    // reset the EEPROM valid state and jump to bootloader.
-    // Assumes Esc is at [0,0].
-    // This isn't very generalized, but we need something that doesn't
-    // rely on user's keymaps in firmware or EEPROM.
-    if (matrix_get_row(BOOTMAGIC_LITE_ROW) & (1 << BOOTMAGIC_LITE_COLUMN)) {
-        eeconfig_disable();
-        // Jump to bootloader.
-        bootloader_jump();
-    }
-}
-
 void matrix_init_quantum() {
 #ifdef BOOTMAGIC_LITE
     bootmagic_lite();
@@ -669,6 +657,10 @@ void matrix_scan_quantum() {
 
 #ifdef ENCODER_ENABLE
     encoder_read();
+#endif
+
+#ifdef WPM_ENABLE
+    decay_wpm();
 #endif
 
 #ifdef HAPTIC_ENABLE
