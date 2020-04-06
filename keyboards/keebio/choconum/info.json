@@ -5,7 +5,7 @@
     "width": 5,
     "height": 4,
     "layouts": {
-        "LAYOUT_numpad": {
+        "LAYOUT_numpad_5x4": {
             "key_count": 17,
             "layout": [
                 {"x":0, "y":0},
@@ -31,7 +31,7 @@
                 {"x":2, "y":4}
             ]
         },
-        "LAYOUT_5x4": {
+        "LAYOUT_ortho_5x4": {
             "key_count": 20,
             "layout": [
                 {"x":0, "y":0},

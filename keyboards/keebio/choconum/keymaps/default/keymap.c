@@ -23,14 +23,14 @@ enum layer_names {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [_BASE] = LAYOUT_numpad(
+    [_BASE] = LAYOUT_numpad_5x4(
         KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
         KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
         KC_P4,   KC_P5,   KC_P6,
         KC_P1,   KC_P2,   KC_P3,   KC_PENT,
         KC_P0,            KC_PDOT
     ),
-    [_FN] = LAYOUT_numpad(
+    [_FN] = LAYOUT_numpad_5x4(
         _______, _______, _______, _______,
         KC_HOME, KC_UP,   KC_PGUP, _______,
         KC_LEFT, _______, KC_RGHT,
