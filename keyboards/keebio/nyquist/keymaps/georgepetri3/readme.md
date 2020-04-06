@@ -1,7 +1,7 @@
-# George Petri's Nyquist layout
+# George Petri's Nyquist rev3 layout
 
 ```
-sudo make keebio/nyquist/rev2:georgepetri:dfu
+sudo make keebio/nyquist/rev3:georgepetri3:dfu
 ```
 
 Features a dedicated navigation layer on rise and current layer status on rgb underglow.  
