@@ -268,11 +268,21 @@ into config.h.
 
 ### Rotate Mouse Axes :id=rotate-mouse-axes
 
-Rotate the X and Y axes by 90, 180, or 270 degrees to compensate for device
-orientation:
+Transform the output of the device with a clockwise rotation of 90, 180, or 270
+degrees.
+
+When compensating for device orientation, rotate the output the same amount in
+the opposite direction.  E.g. if the normal device orientation is considered to
+be North-facing, compensate as follows:
 
 ```c
-#define PS2_MOUSE_ROTATE 270 /* trackpoint module rotated clockwise 90 degrees */
+#define PS2_MOUSE_ROTATE 270 /* Compensate for East-facing device orientation. */
+```
+```c
+#define PS2_MOUSE_ROTATE 180 /* Compensate for South-facing device orientation. */
+```
+```c
+#define PS2_MOUSE_ROTATE 90 /* Compensate for West-facing device orientation. */
 ```
 
 ### Debug Settings :id=debug-settings
