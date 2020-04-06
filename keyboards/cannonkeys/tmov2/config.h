@@ -49,12 +49,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 #define RGBLIGHT_ANIMATIONS
-
-#define WS2812_LED_N 22
-#define RGBLED_NUM WS2812_LED_N
-#define PORT_WS2812     GPIOB
-#define PIN_WS2812      15
+#define RGB_DI_PIN B15
+#define RGBLED_NUM 22
 #define WS2812_SPI SPID2
+#define WS2812_SPI_MOSI_PAL_MODE 0
 
 // Backlight config starts after VIA's EEPROM usage,
 // dynamic keymaps start after this.
