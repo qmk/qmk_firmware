@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "e65.h"
+#include "rev1.h"
 
 void matrix_init_kb(void) {
     // put your keyboard start-up code here
