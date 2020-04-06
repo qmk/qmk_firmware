@@ -34,16 +34,6 @@ enum {
   TD_QUESTION,
   TD_CEDILLE,
   TD_DOT,
-  
-  TD_A2,
-//  TD_E,
-  TD_I2,
-  TD_O2,
-  TD_U2,
-  TD_C2,
-//  TD_OP_ACCOL,
-//  TD_CL_ACCOL,
-  TD_QUEST2,
 };
 
 
@@ -331,27 +321,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_QUESTION] = ACTION_TAP_DANCE_FN(dance_question),
   [TD_CEDILLE] = ACTION_TAP_DANCE_FN(dance_cedille),
   [TD_DOT] = ACTION_TAP_DANCE_FN(dance_dot),
-  
-  /*  
-  TD_A2,
-  TD_E,
-  TD_I2,
-  TD_O2,
-  TD_U2,
-  TD_C2,
-  TD_OP_ACCOL,
-  TD_CL_ACCOL,
-  TD_QUEST2,
-  */
-  [TD_A2] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_P0),
-  [TD_E] = ACTION_TAP_DANCE_FN(dance_e_accent),
-//  [TD_I2] = ACTION_TAP_DANCE_DOUBLE(KC_I, KC_XX),
-  [TD_O2] = ACTION_TAP_DANCE_DOUBLE(KC_O, KC_P0),
-//  [TD_U2] = ACTION_TAP_DANCE_DOUBLE(KC_U, KC_XX),
-  [TD_C2] = ACTION_TAP_DANCE_DOUBLE(KC_C, KC_0),
-//  [TD_OP_ACCOL] = ACTION_TAP_DANCE_FN(dance_open_accol),
-//  [TD_CL_ACCOL] = ACTION_TAP_DANCE_FN(dance_close_accol),
-//  [TD_QUEST2] = ACTION_TAP_DANCE_DOUBLE(KC_XX, KC_XX),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
