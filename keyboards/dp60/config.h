@@ -16,7 +16,7 @@
 
 /* key matrix size */
 #define MATRIX_ROWS 5
-#define MATRIX_COLS 14
+#define MATRIX_COLS 15
 #define UNUSED_PINS
 #define DIODE_DIRECTION COL2ROW
 
