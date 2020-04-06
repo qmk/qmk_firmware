@@ -11,8 +11,7 @@ DFU_SUFFIX_ARGS = -v 1eaf -p 0003
 
 # project specific files
 VPATH += keyboards/cannonkeys/bluepill
-SRC =	led.c \
-      keyboard.c
+SRC = keyboard.c
 
 #BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes	# Mouse keys
@@ -22,7 +21,6 @@ COMMAND_ENABLE = yes    # Commands for debug and configuration
 SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes	    # USB Nkey Rollover
 BACKLIGHT_ENABLE = yes
-BACKLIGHT_DRIVER = custom
 RGBLIGHT_ENABLE = yes
 
 LAYOUTS = ortho_4x12
