@@ -1,9 +1,10 @@
 import subprocess
+from qmk.commands import run
 
 
 def check_subcommand(command, *args):
     cmd = ['bin/qmk', command] + list(args)
-    return subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+    return run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
 
 
 def test_cformat():
