@@ -17,9 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#undef RGBLED_NUM
-#define RGBLED_NUM 12
 #define RGBLIGHT_LAYERS
 
 #define TAPPING_TOGGLE 2
 #define TAPPING_TERM 150
+
+#define USE_I2C
