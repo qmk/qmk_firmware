@@ -1,2 +1,2 @@
-VIA_ENABLE = true
-LTO_ENABLE = true
+VIA_ENABLE = yes
+LTO_ENABLE = yes
