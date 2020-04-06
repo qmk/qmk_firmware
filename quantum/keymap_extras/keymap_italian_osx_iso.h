@@ -180,17 +180,17 @@
 #define IT_HASH A(IT_AGRV) // #
 #define IT_PILC A(IT_UGRV) // ¶
 // Row 4
-#define IT_LTEQ L(IT_LABK) // ≤
-#define IT_NARS L(IT_Z)    // ∑
-#define IT_DAGG L(IT_X)    // †
-#define IT_COPY L(IT_C)    // ©
-#define IT_SQRT L(IT_V)    // √
-#define IT_INTG L(IT_B)    // ∫
-#define IT_STIL L(IT_N)    // ˜ (dead)
-#define IT_MICR L(IT_M)    // µ
-#define IT_ELLP L(IT_COMM) // …
-#define IT_BULT L(IT_DOT)  // •
-#define IT_NDSH L(IT_MINS) // –
+#define IT_LTEQ A(IT_LABK) // ≤
+#define IT_NARS A(IT_Z)    // ∑
+#define IT_DAGG A(IT_X)    // †
+#define IT_COPY A(IT_C)    // ©
+#define IT_SQRT A(IT_V)    // √
+#define IT_INTG A(IT_B)    // ∫
+#define IT_STIL A(IT_N)    // ˜ (dead)
+#define IT_MICR A(IT_M)    // µ
+#define IT_ELLP A(IT_COMM) // …
+#define IT_BULT A(IT_DOT)  // •
+#define IT_NDSH A(IT_MINS) // –
 
 /* Shift+Alted symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
