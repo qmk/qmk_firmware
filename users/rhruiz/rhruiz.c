@@ -113,15 +113,13 @@ layer_state_t rhruiz_layer_state_set_user(layer_state_t state) {
 
         switch (biton32(state)) {
             case _BL:
-            case _VIM_EMACS:
-            case _MOUSE:
             case _KEY_OVERRIDE:
-                state = state & ~(1UL << _VIM_EMACS) & ~(1UL << _MOUSE) & ~(1UL << _KEY_OVERRIDE);
+                state = state & ~(1UL << _KEY_OVERRIDE);
                 break;
 
             case _FN1:
             case _FN2:
-                state = state | (1UL << _VIM_EMACS) | (1UL << _MOUSE) | (1UL << _KEY_OVERRIDE);
+                state = state | (1UL << _KEY_OVERRIDE);
                 break;
 
             case _GAMEFN1:

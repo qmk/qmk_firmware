@@ -1,6 +1,7 @@
 #include "quantum.h"
 
 #define KC_ KC_TRNS
+#define KC_XXX KC_NO
 
 #define KC_CESC CTRLESC
 
@@ -13,6 +14,7 @@
 
 #define KC_SFN1 SPCFN1
 #define KC_BFN2 BKSFN2
+#define KC_EFN2 LT(_FN2, KC_ENTER)
 #define KC_ALBS LALT_T(KC_BSPC)
 
 #define KC__RST RESET
