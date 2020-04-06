@@ -53,7 +53,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_B { B0 }
 
 /* Encoder resolution, lower number = more sensitive */
-#define ENCODER_RESOLUTION 4
+#define ENCODER_RESOLUTION 2
 
 /* Reverse encoder direction */
 // #define ENCODER_DIRECTION_FLIP
