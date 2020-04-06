@@ -15,17 +15,10 @@
  */
 #include QMK_KEYBOARD_H
 
-// Layer shorthand
-#define _MAIN 0
-#define _LY1 1
-#define _LY2 2
-
-
-
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-  QMKBEST = SAFE_RANGE,
-  QMKURL
+enum layers {
+    _MAIN,
+    _LY1,
+    _LY2,
 };
 
 enum {
@@ -47,7 +40,7 @@ enum {
 
 void dance_a_accent (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 2) {
-    register_code (KC_NLCK);
+    /*register_code (KC_NLCK);
     unregister_code (KC_NLCK);
     register_code (KC_LALT);
     register_code (KC_P1);
@@ -59,6 +52,8 @@ void dance_a_accent (qk_tap_dance_state_t *state, void *user_data) {
     unregister_code (KC_LALT);
     register_code (KC_NLCK);
     unregister_code (KC_NLCK);
+    */
+    send_unicode_string("à");
   }
   else {
     register_code (KC_Q);
@@ -383,70 +378,39 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-
-/* QWERTY
- * .--------------------------------------------------------------------------------------------------------------------------------------.
- * | ESC    | 1      | 2      | 3      | 4      | 5      | -      | `      | =      | 6      | 7      | 8      | 9      | 0      | BACKSP |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
- * | TAB    | Q      | W      | E      | R      | T      | [      | \      | ]      | Y      | U      | I      | O      | P      | '      |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------+--------|
- * | CAP LK | A      | S      | D      | F      | G      | HOME   | DEL    | PG UP  | H      | J      | K      | L      | ;      | ENTER  |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------+--------|
- * | LSHIFT | Z      | X      | C      | V      | B      | END    | UP     | PG DN  | N      | M      | ,      | .      | /      | RSHIFT |
- * |--------+--------+--------+--------+--------+-----------------+--------+--------+--------+--------+-----------------+--------+--------|
- * | LCTRL  | LGUI   | LALT   | FN     | SPACE  | SPACE  | LEFT   | DOWN   | RIGHT  | SPACE  | SPACE  | FN     | RALT   | RGUI   | RCTRL  |
- * '--------------------------------------------------------------------------------------------------------------------------------------'
- */
-
+// red led layout
   [_MAIN] = LAYOUT_ortho_5x15(
     KC_ESC, KC_RBRC, KC_1, KC_2, KC_3, KC_4, KC_5, TD(TD_DOT), KC_6, KC_7, KC_8, KC_9, KC_0, TG(1), KC_NO,
     KC_TAB, TD(TD_A), KC_W, TD(TD_E), KC_R, KC_T, KC_Y, KC_ENT, TD(TD_U), TD(TD_I), TD(TD_O), KC_P, RGB_RMOD, TD(TD_OP_ACCOL), TD(TD_CL_ACCOL),
     KC_PGUP, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_ENT, KC_J, KC_K, KC_L, KC_SCLN, KC_UP, KC_NO, RGB_MOD,
     KC_PGDN, KC_Z, KC_X, TD(TD_CEDILLE), KC_V, KC_B, KC_N, KC_COMM, TD(TD_QUESTION), TD(TD_UNDER), TD(TD_SLASH), KC_LEFT, KC_DOWN, KC_RGHT, KC_NO,
-    KC_NO, KC_NO, KC_LALT, KC_LCTL, KC_LSFT, KC_SPC, KC_TRNS, KC_LGUI, TO(_LY1), KC_BSPC, KC_RALT, KC_DEL, KC_PMNS, RGB_M_K, MO(1)
+    KC_NO, KC_NO, KC_LALT, KC_LCTL, KC_LSFT, KC_SPC, KC_HOME, KC_LGUI, KC_END, KC_BSPC, KC_RALT, KC_DEL, KC_PMNS, RGB_M_K, MO(1)
     ),
+
+// green led layout
   [_LY1] = LAYOUT_ortho_5x15(
-    KC_ESC, RGB_TOG, RGB_RMOD, RGB_M_P, RGB_M_B, RGB_M_SW, RGB_M_K, RGB_M_G, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, TG(2), TG(0), 
-    DEBUG, KC_PSCR, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, 
-    RESET, KC_NO, KC_S, KC_D, KC_F, KC_G, KC_Z, KC_J, KC_K, KC_L, KC_M, KC_P7, KC_P8, KC_P9, KC_PPLS, KC_LSFT, 
-    KC_NO, KC_X, KC_C, KC_V, KC_B, KC_N, KC_COMM, KC_SCLN, KC_NO, KC_NO, KC_P4, KC_P5, KC_P6, KC_PEQL, KC_LCBR, 
-    KC_RCBR, KC_LALT, KC_NO, KC_SPC, KC_SPC, KC_SPC, KC_TRNS, KC_NO, TO(_LY2), KC_P0,  KC_P1, KC_P2, KC_P3, KC_TRNS
+    KC_ESC, RGB_TOG, RGB_RMOD, RGB_M_P, RGB_M_B, RGB_M_SW, RGB_M_K, RGB_M_G, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, TG(2), TG(0),
+    DEBUG, KC_PSCR, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
+    RESET, KC_NO, KC_S, KC_D, KC_F, KC_G, KC_Z, KC_J, KC_K, KC_L, KC_M, KC_P7, KC_P8, KC_P9, KC_PPLS, KC_LSFT,
+    KC_NO, KC_X, KC_C, KC_V, KC_B, KC_N, KC_COMM, KC_SCLN, KC_NO, KC_NO, KC_P4, KC_P5, KC_P6, KC_PEQL, KC_LCBR,
+    KC_RCBR, KC_LALT, KC_NO, KC_SPC, KC_SPC, KC_SPC, KC_TRNS, KC_NO, KC_TRNS, KC_P0,  KC_P1, KC_P2, KC_P3, KC_TRNS
     ),
+
+// blue led layout
   [_LY2] = LAYOUT_ortho_5x15(
-    KC_MPRV, KC_MNXT, KC_NO, KC_NO, KC_NO, BL_ON, BL_OFF, KC_NO, KC_NO, KC_NO, RGB_TOG, RGB_RMOD, RGB_MOD, KC_NO, TG(1), 
-    KC_VOLD, KC_VOLU, KC_NO, KC_NO, KC_NO, BL_TOGG, BL_STEP, KC_NO, KC_NO, KC_NO, KC_NO, RGB_HUD, RGB_HUI, RGB_M_P, RGB_M_B, 
-    KC_MPLY, KC_MSTP, KC_MUTE, KC_NO, KC_NO, BL_DEC, BL_INC, KC_NO, KC_NO, KC_NO, KC_NO, RGB_SAD, RGB_SAI, RGB_M_R, RGB_M_SW, 
-    KC_MRWD, KC_MFFD, KC_NO, KC_NO, KC_NO, BL_BRTG, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, RGB_VAD, RGB_VAI, RGB_M_SN, RGB_M_K, 
-    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS, KC_NO, KC_NO, KC_NO, RGB_SPD, RGB_SPI, RGB_M_X, RGB_M_G
-    ) 
-	
+    KC_MPRV, KC_MNXT, KC_NO, KC_NO, KC_NO, BL_ON, BL_OFF, KC_NO, KC_NO, KC_NO, RGB_TOG, RGB_RMOD, RGB_MOD, KC_NO, TG(1),
+    KC_VOLD, KC_VOLU, KC_NO, KC_NO, KC_NO, BL_TOGG, BL_STEP, KC_NO, KC_NO, KC_NO, KC_NO, RGB_HUD, RGB_HUI, RGB_M_P, RGB_M_B,
+    KC_MPLY, KC_MSTP, KC_MUTE, KC_NO, KC_NO, BL_DEC, BL_INC, KC_NO, KC_NO, KC_NO, KC_NO, RGB_SAD, RGB_SAI, RGB_M_R, RGB_M_SW,
+    KC_MRWD, KC_MFFD, KC_NO, KC_NO, KC_NO, BL_BRTG, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, RGB_VAD, RGB_VAI, RGB_M_SN, RGB_M_K,
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO, KC_NO, RGB_SPD, RGB_SPI, RGB_M_X, RGB_M_G
+    )
+
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QMKBEST:
-      if (record->event.pressed) {
-        // when keycode QMKBEST is pressed
-        SEND_STRING("QMK is the best thing ever!");
-      } else {
-        // when keycode QMKBEST is released
-      }
-      break;
-    case QMKURL:
-      if (record->event.pressed) {
-        // when keycode QMKURL is pressed
-        SEND_STRING("https://qmk.fm/" SS_TAP(X_ENTER));
-      } else {
-        // when keycode QMKURL is released
-      }
-      break;
-  }
-  return true;
-}
 
 //Define layer colors
-#define rgblight_setrgb_user_MAIN()  rgblight_sethsv_yellow()
-#define rgblight_setrgb_user_LY1()  rgblight_sethsv_red()
+#define rgblight_setrgb_user_MAIN()  rgblight_sethsv_red()
+#define rgblight_setrgb_user_LY1()  rgblight_sethsv_green()
 #define rgblight_setrgb_user_LY2() rgblight_sethsv_blue()
 
 void matrix_init_user(void) {
@@ -457,8 +421,8 @@ void matrix_init_user(void) {
 
 
 //Set a color based on the layer
-uint32_t layer_state_set_user(uint32_t state) {
-  switch(biton32(state)) {
+layer_state_t layer_state_set_user(layer_state_t state) {
+  switch (get_highest_layer(state)) {
     case _LY1:
       rgblight_setrgb_user_LY1();
       break;
@@ -470,12 +434,4 @@ uint32_t layer_state_set_user(uint32_t state) {
       break;
   }
   return state;
-}
-
-void matrix_scan_user(void) {
-
-}
-
-void led_set_user(uint8_t usb_led) {
-
 }
