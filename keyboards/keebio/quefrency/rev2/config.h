@@ -47,6 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE 5
 
 #define BACKLIGHT_PIN B5
+#define CAPS_LOCK_LED_PIN B6
 
 /* serial.c configuration for split keyboard */
 #define SOFT_SERIAL_PIN D0
