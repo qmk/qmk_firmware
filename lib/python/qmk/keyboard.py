@@ -66,6 +66,10 @@ def find_layouts(file):
         if not macro_name.startswith('LAYOUT'):
             continue
 
+        # Reject LAYOUT_kc macros
+        if macro_name.startswith('LAYOUT_kc'):
+            continue
+
         # Parse the matrix data
         matrix_locations = {}
         for row_num, row in enumerate(matrix.split('},{')):

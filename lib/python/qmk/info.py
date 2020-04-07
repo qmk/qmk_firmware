@@ -7,6 +7,7 @@ from milc import cli
 
 from qmk.constants import ARM_PROCESSORS, AVR_PROCESSORS, VUSB_PROCESSORS
 from qmk.keyboard import find_all_layouts, parse_config_h, parse_rules_mk, parse_rules_mk_file
+from qmk.math import compute
 
 
 def info_json(keyboard):
@@ -35,8 +36,8 @@ def _extract_config_h(info_data):
 
     info_data['diode_direction'] = config_c.get('DIODE_DIRECTION')
     info_data['matrix_size'] = {
-        'rows': int(config_c.get('MATRIX_ROWS', 0)),
-        'cols': int(config_c.get('MATRIX_COLS', 0))
+        'rows': compute(config_c.get('MATRIX_ROWS', '0')),
+        'cols': compute(config_c.get('MATRIX_COLS', '0'))
     }
     info_data['matrix_pins'] = {}
 
