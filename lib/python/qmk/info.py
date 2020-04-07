@@ -35,8 +35,8 @@ def _extract_config_h(info_data):
 
     info_data['diode_direction'] = config_c.get('DIODE_DIRECTION')
     info_data['matrix_size'] = {
-        'rows': int(config_c.get('MATRIX_ROWS')),
-        'cols': int(config_c.get('MATRIX_COLS'))
+        'rows': int(config_c.get('MATRIX_ROWS', 0)),
+        'cols': int(config_c.get('MATRIX_COLS', 0))
     }
     info_data['matrix_pins'] = {}
 
@@ -56,7 +56,7 @@ def _extract_config_h(info_data):
             direct_pin_array.append([])
 
             for pin in row.split(','):
-                if pin == 'NO_KEY':
+                if pin == 'NO_PIN':
                     pin = None
 
                 direct_pin_array[-1].append(pin)
