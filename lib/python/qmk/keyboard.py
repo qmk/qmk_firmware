@@ -38,14 +38,14 @@ def find_layouts(file):
     aliases = {}  # Populated with all `#define`s that aren't functions
     discovered_layouts = []
     parsed_layouts = {}
-    current_layout = []
     writing_layout = False
 
-    for line in file.read_text().split('\n'):
+    # Search the file for LAYOUT macros and aliases
+    for line in file.read_text().replace('\\\n', '').split('\n'):
         if not writing_layout:
             if '#define' in line and '(' in line and 'LAYOUT' in line:
-                # We've found the start of a LAYOUT macro
-                writing_layout = True
+                # We've found a LAYOUT macro
+                discovered_layouts.append(line.strip())
             elif '#define' in line:
                 # Attempt to extract a new layout alias
                 try:
@@ -54,31 +54,36 @@ def find_layouts(file):
                 except ValueError:
                     continue
 
-        if writing_layout:
-            current_layout.append(line.strip() + '\n')
-            if ')' in line:
-                writing_layout = False
-                discovered_layouts.append(''.join(current_layout))
-                current_layout = []
-
     # Clean-up the layout text, extract the macro name, and end up with a list
     # of key entries.
     for layout in discovered_layouts:
+        # Split the LAYOUT macro into its constituent parts
         layout = layout.replace('\\', '').replace(' ', '').replace('\t', '').replace('#define', '')
         macro_name, layout = layout.split('(', 1)
-        layout = layout.split(')', 1)[0]
+        layout, matrix = layout.split(')', 1)
 
         # Reject any macros that don't start `LAYOUT`
         if not macro_name.startswith('LAYOUT'):
             continue
 
-        # Parse the layout entries into naive x/y data
+        # Parse the matrix data
+        matrix_locations = {}
+        for row_num, row in enumerate(matrix.split('},{')):
+            row = row.replace('{', '').replace('}', '')
+            for col_num, identifier in enumerate(row.split(',')):
+                if identifier != 'KC_NO':
+                    matrix_locations[identifier] = (row_num, col_num)
+
+        # Parse the layout entries into a basic structure
         parsed_layout = []
-        default_key_entry['y'] = -1
-        for row in layout.strip().split(',\n'):
-            default_key_entry['x'] = -1
-            default_key_entry['y'] += 1
-            parsed_layout.extend([default_key(key) for key in row.split(',')])
+        default_key_entry['y'] = 0
+        default_key_entry['x'] = -1  # Set to -1 so default_key(key) will increment it to 0
+
+        layout = layout.strip()
+        parsed_layout = [default_key(key) for key in layout.split(',')]
+        for key in parsed_layout:
+            key['matrix'] = matrix_locations[key['label']]
+
         parsed_layouts[macro_name] = {
             'key_count': len(parsed_layout),
             'layout': parsed_layout,
@@ -87,7 +92,7 @@ def find_layouts(file):
 
     # Populate our aliases
     for alias, text in aliases.items():
-        if text in parsed_layouts and not alias.startswith('KEYMAP'):
+        if text in parsed_layouts and 'KEYMAP' not in alias:
             parsed_layouts[alias] = parsed_layouts[text]
 
     return parsed_layouts
