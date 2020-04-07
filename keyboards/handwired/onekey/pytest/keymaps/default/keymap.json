@@ -1,0 +1,9 @@
+{
+	"keyboard":"handwired/onekey/pytest",
+	"keymap":"default",
+	"layout":"LAYOUT",
+	"layers":[["KC_NO"]],
+	"author":"",
+	"notes":"",
+	"version":1
+}
