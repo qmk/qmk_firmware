@@ -1,5 +1,6 @@
 """Functions that help us work with keyboards.
 """
+import re
 from array import array
 from glob import glob
 from math import ceil
@@ -31,6 +32,22 @@ def default_key(label=None):
     return new_key
 
 
+def comment_remover(text):
+    """Remove C/C++ style comments from text.
+
+    Gratefully copied from https://stackoverflow.com/a/241506
+    """
+    def replacer(match):
+        s = match.group(0)
+        if s.startswith('/'):
+            return " " # note: a space and not an empty string
+        else:
+            return s
+
+    pattern = re.compile(r'//.*?$|/\*.*?\*/|\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*"', re.DOTALL | re.MULTILINE)
+    return re.sub(pattern, replacer, text)
+
+
 def find_layouts(file):
     """Returns list of parsed LAYOUT pp macros found in the supplied include file.
     """
@@ -41,9 +58,13 @@ def find_layouts(file):
     writing_layout = False
 
     # Search the file for LAYOUT macros and aliases
-    for line in file.read_text().replace('\\\n', '').split('\n'):
+    file_contents = file.read_text()
+    file_contents = comment_remover(file_contents)
+    file_contents = file_contents.replace('\\\n', '')
+
+    for line in file_contents.split('\n'):
         if not writing_layout:
-            if '#define' in line and '(' in line and 'LAYOUT' in line:
+            if line.startswith('#define') and '(' in line and 'LAYOUT' in line:
                 # We've found a LAYOUT macro
                 discovered_layouts.append(line.strip())
             elif '#define' in line:
@@ -73,6 +94,10 @@ def find_layouts(file):
         # Parse the matrix data
         matrix_locations = {}
         for row_num, row in enumerate(matrix.split('},{')):
+            if row.startswith('LAYOUT'):
+                cli.log.error('%s: %s: Nested layout macro detected. Matrix data not available!', file, macro_name)
+                break
+
             row = row.replace('{', '').replace('}', '')
             for col_num, identifier in enumerate(row.split(',')):
                 if identifier != 'KC_NO':
@@ -86,7 +111,7 @@ def find_layouts(file):
         layout = layout.strip()
         parsed_layout = [default_key(key) for key in layout.split(',')]
         for key in parsed_layout:
-            key['matrix'] = matrix_locations[key['label']]
+            key['matrix'] = matrix_locations.get(key['label'])
 
         parsed_layouts[macro_name] = {
             'key_count': len(parsed_layout),
