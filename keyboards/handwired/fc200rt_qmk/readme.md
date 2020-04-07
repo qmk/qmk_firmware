@@ -1,6 +1,6 @@
 # fc200rt_qmk
 
-![fc200rt_qmk](imgur.com image replace me!)
+![fc200rt_qmk](https://imgur.com/a/JVZtjOy)
 
 A Leopold FC200RT rewired with Teensy 2.0
 
