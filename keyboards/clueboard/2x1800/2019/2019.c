@@ -18,6 +18,7 @@
 
 void matrix_init_kb(void) {
     // Set our LED pins as output
+    setPinOutput(D6);
     setPinOutput(B4);
     setPinOutput(B5);
     setPinOutput(B6);
@@ -30,33 +31,35 @@ void matrix_init_kb(void) {
     matrix_init_user();
 }
 
+#ifdef DRAWING_ENABLE
+bool drawing_mode = false;
+bool btn1_pressed = false;
+bool btn2_pressed = false;
+bool btn3_pressed = false;
+bool btn4_pressed = false;
+
 void check_encoder_buttons(void) {
-    if (!all_4_pressed && btn1_pressed && btn2_pressed && btn3_pressed && btn4_pressed) {
+    if (btn1_pressed && btn2_pressed && btn3_pressed && btn4_pressed) {
         // All 4 buttons pressed, toggle drawing mode
-        all_4_pressed = true;
 	if (drawing_mode) {
+            dprintf("Turning drawing mode off.\n");
             drawing_mode = false;
-	    // FIXME: Release the mouse button
+            writePinLow(D6);
+	    unregister_code(KC_BTN1);
 	} else {
+            dprintf("Turning drawing mode on.\n");
             drawing_mode = true;
-	    // FIXME: Press the mouse button
+            writePinHigh(D6);
+	    register_code(KC_BTN1);
 	}
     }
 }
+#endif
 
 #ifdef SHAKE_ENABLE
 uint8_t tilt_state = 0x11;
 uint8_t detected_shakes = 0;
 static uint16_t shake_timer;
-#endif
-
-#ifdef DRAWING_ENABLE
-bool drawing_mode = false;
-bool all_4_pressed = false;
-bool btn1_pressed = false;
-bool btn2_pressed = false;
-bool btn3_pressed = false;
-bool btn4_pressed = false;
 #endif
 
 void matrix_scan_kb(void) {
@@ -91,33 +94,42 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (keycode == ENC_BTN1) {
         if (record->event.pressed) {
             btn1_pressed = true;
+	    register_code(KC_BTN1);
 	} else {
             btn1_pressed = false;
+	    unregister_code(KC_BTN1);
 	}
     }
     if (keycode == ENC_BTN2) {
         if (record->event.pressed) {
             btn2_pressed = true;
+	    register_code(KC_BTN2);
 	} else {
             btn2_pressed = false;
+	    unregister_code(KC_BTN2);
 	}
     }
     if (keycode == ENC_BTN3) {
         if (record->event.pressed) {
             btn3_pressed = true;
+	    register_code(KC_BTN3);
 	} else {
             btn3_pressed = false;
+	    unregister_code(KC_BTN3);
 	}
     }
     if (keycode == ENC_BTN4) {
         if (record->event.pressed) {
             btn4_pressed = true;
+	    register_code(KC_BTN4);
 	} else {
             btn4_pressed = false;
+	    unregister_code(KC_BTN4);
 	}
     }
 #endif
 
+    check_encoder_buttons();
     return process_record_user(keycode, record);
 }
 
@@ -146,6 +158,7 @@ void led_set_kb(uint8_t usb_led) {
     led_set_user(usb_led);
 }
 
+__attribute__ ((weak))
 bool encoder_update_keymap(int8_t index, bool clockwise) {
     return false;
 }
