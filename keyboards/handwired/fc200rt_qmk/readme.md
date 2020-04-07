@@ -1,7 +1,7 @@
 # fc200rt_qmk
 
-![fc200rt_qmk](https://imgur.com/UWKdIcZ)
-![fc200rt_qmk](https://imgur.com/0d8U8NE)
+![fc200rt_qmk](https://i.imgur.com/UWKdIcZ.jpg)
+![fc200rt_qmk](https://i.imgur.com/0d8U8NE.jpg)
 A Leopold FC200RT rewired with Teensy 2.0
 
 Uses original row and column matrix, so you can wire the teensy 2.0 to the corrosposnding column and row numbers and flash this firmware to the teensy.
