@@ -29,18 +29,40 @@ def _extract_config_h(info_data):
     """Pull some keyboard information from existing rules.mk files
     """
     config_c = parse_config_h(info_data['keyboard_folder'])
-    row_pins = config_c.get('MATRIX_ROW_PINS').replace('{', '').replace('}', '').strip()
-    col_pins = config_c.get('MATRIX_COL_PINS').replace('{', '').replace('}', '').strip()
+    row_pins = config_c.get('MATRIX_ROW_PINS', '').replace('{', '').replace('}', '').strip()
+    col_pins = config_c.get('MATRIX_COL_PINS', '').replace('{', '').replace('}', '').strip()
+    direct_pins = config_c.get('DIRECT_PINS', '').replace(' ', '')[1:-1]
 
     info_data['diode_direction'] = config_c.get('DIODE_DIRECTION')
     info_data['matrix_size'] = {
-        'rows': config_c.get('MATRIX_ROWS'),
-        'cols': config_c.get('MATRIX_COLS')
+        'rows': int(config_c.get('MATRIX_ROWS')),
+        'cols': int(config_c.get('MATRIX_COLS'))
     }
-    info_data['matrix_pins'] = {
-        'rows': row_pins.split(','),
-        'cols': col_pins.split(',')
-    }
+    info_data['matrix_pins'] = {}
+
+    if row_pins:
+        info_data['matrix_pins']['rows'] = row_pins.split(',')
+    if col_pins:
+        info_data['matrix_pins']['cols'] = col_pins.split(',')
+
+    if direct_pins:
+        direct_pin_array = []
+        for row in direct_pins.split('},{'):
+            if row.startswith('{'):
+                row = row[1:]
+            if row.endswith('}'):
+                row = row[:-1]
+
+            direct_pin_array.append([])
+
+            for pin in row.split(','):
+                if pin == 'NO_KEY':
+                    pin = None
+
+                direct_pin_array[-1].append(pin)
+
+        info_data['matrix_pins']['direct'] = direct_pin_array
+
     info_data['usb'] = {
         'vid': config_c.get('VENDOR_ID'),
         'pid': config_c.get('PRODUCT_ID'),

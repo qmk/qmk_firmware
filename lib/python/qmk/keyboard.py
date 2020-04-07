@@ -157,9 +157,10 @@ def parse_config_h_file(file, config_h=None):
     file = Path(file)
 
     if exists(file):
-        config_h_lines = file.read_text().split('\n')
+        config_h_text = file.read_text()
+        config_h_text = config_h_text.replace('\\\n', '')
 
-        for linenum, line in enumerate(config_h_lines):
+        for linenum, line in enumerate(config_h_text.split('\n')):
             line = line.strip()
 
             if '//' in line:
