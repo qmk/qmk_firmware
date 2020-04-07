@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC,
     KC_ESC,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH,
     KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_ENT ,
-    KC_LCTL, FN,   KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+    KC_LCTL, FN,   KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Workman
@@ -118,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,        KC_Q,    KC_D,    KC_R,    KC_W,  KC_B,    KC_J,    KC_F,  KC_U,    KC_P,    KC_SCLN, KC_BSPC,
   KC_ESC,        KC_A,    KC_S,    KC_H,    KC_T,  KC_G,    KC_Y,    KC_N,  KC_E,    KC_O,    KC_I,    KC_QUOT,
   KC_LSFT,       KC_Z,    KC_X,    KC_M,    KC_C,  KC_V,    KC_K,    KC_L,  KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
-  KC_LCTL,       FN,      KC_LALT, KC_LGUI, LOWER, KC_SPC, 	KC_SPC,  RAISE, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+  KC_LCTL,       FN,   KC_LGUI, KC_LALT, LOWER, KC_SPC, 	KC_SPC,  RAISE, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Lower
