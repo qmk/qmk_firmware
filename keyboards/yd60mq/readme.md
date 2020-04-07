@@ -5,7 +5,9 @@
 Customizable 60% PCB by [YMDK](https://ymdk.aliexpress.com/store/429151?spm=2114.10010108.0.0.3ab23641lIkgzm).
 
 * Keyboard Maintainer: QMK Community
-* Hardware Supported: YD60MQ PCB, ATmega32U4
+* Hardware Supported: YD60MQ PCB
+    * 12led (unknown revision number, has 12 RGB LEDs on the back)
+    * 16led (unknown revision number, has 16 RGB LEDs on the back)
 * Hardware Availability: [YMDK on AliExpress](https://www.aliexpress.com/i/32869207240.html)
 
 Make example for this keyboard (after setting up your build environment):
