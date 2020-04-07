@@ -1,5 +1,3 @@
-# [Gergo! By g Heavy Industries](http://gboards.ca)
-
 This is a modified version of the default keymap for Gergo with some changes.
 
 ## Changes:
