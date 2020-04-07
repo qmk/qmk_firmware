@@ -7,7 +7,7 @@
 #define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Pabile
-#define PRODUCT         Pabile40
+#define PRODUCT         Pabile40 Keyboard
 #define DESCRIPTION     4x10key keyboard
 
 /* key matrix size */

@@ -16,12 +16,12 @@
 
 /* pin-out for PROMICRO */
 #define MATRIX_ROW_PINS { D1, D0, D4, C6 }
-#define MATRIX_COL_PINS { D7, E6, B4, B5, D2 }
+#define MATRIX_COL_PINS { D2, D7, E6, B4, B5 }
 #define UNUSED_PINS
  
 /* Encoder position for PROMICRO */
-#define ENCODERS_PAD_A { F5, F6 }
-#define ENCODERS_PAD_B { F4, B6 }
+#define ENCODERS_PAD_A { B6, F6 }
+#define ENCODERS_PAD_B { F4, F5 } 
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
