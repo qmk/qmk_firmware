@@ -5,8 +5,6 @@
 #include "util.h"
 #include "quantum.h"
 
-#include "ws2812.h"
-
 #include "raw_hid.h"
 #include "dynamic_keymap.h"
 #include "tmk_core/common/eeprom.h"
@@ -58,23 +56,9 @@ void matrix_init_kb(void){
 	via_init_kb();
 	via_eeprom_set_valid(true);
 #endif // VIA_ENABLE
-      /* MOSI pin*/
-#ifdef RGBLIGHT_ENABLE
-    palSetPadMode(PORT_WS2812, PIN_WS2812, PAL_MODE_ALTERNATE(0));
-    wait_ms(500);
-    leds_init();
-#endif
     backlight_init_ports();
 
     matrix_init_board();
-}
-
-void matrix_scan_kb(void)
-{
-  #ifdef RGBLIGHT_ENABLE
-    rgblight_task();
-  #endif
-    matrix_scan_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {

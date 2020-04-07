@@ -21,6 +21,7 @@ NKRO_ENABLE = yes	    # USB Nkey Rollover
 CUSTOM_MATRIX = no # Custom matrix file
 # BACKLIGHT_ENABLE = yes # This is broken on 072 for some reason
 RGBLIGHT_ENABLE = yes
+WS2812_DRIVER = spi
 
 LAYOUTS = 60_ansi 60_tsangan_hhkb
 

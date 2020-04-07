@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0x6B62
 #define PRODUCT_ID      0x4069
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    coseyfannitutti
@@ -49,8 +49,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-
-#define NO_UART 1
 
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.

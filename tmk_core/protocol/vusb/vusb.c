@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "vusb.h"
 #include <util/delay.h>
 
-#if defined(RAW_ENABLE)
+#ifdef RAW_ENABLE
 #    include "raw_hid.h"
 #endif
 
@@ -106,8 +106,6 @@ void raw_hid_send(uint8_t *data, uint8_t length) {
         usbPoll();
     }
     usbSetInterrupt3(0, 0);
-    usbPoll();
-    _delay_ms(1);
 }
 
 __attribute__((weak)) void raw_hid_receive(uint8_t *data, uint8_t length) {
@@ -160,10 +158,12 @@ typedef struct {
 } __attribute__((packed)) vusb_mouse_report_t;
 
 static void send_mouse(report_mouse_t *report) {
+#ifdef MOUSE_ENABLE
     vusb_mouse_report_t r = {.report_id = REPORT_ID_MOUSE, .report = *report};
     if (usbInterruptIsReady3()) {
         usbSetInterrupt3((void *)&r, sizeof(vusb_mouse_report_t));
     }
+#endif
 }
 
 #ifdef EXTRAKEY_ENABLE
@@ -410,7 +410,7 @@ const PROGMEM uchar mouse_extra_hid_report[] = {
 };
 #endif
 
-#if defined(RAW_ENABLE)
+#ifdef RAW_ENABLE
 const PROGMEM uchar raw_hid_report[] = {
     0x06, 0x60, 0xFF,  // Usage Page (Vendor Defined)
     0x09, 0x61,        // Usage (Vendor Defined)
@@ -479,7 +479,6 @@ const PROGMEM usbStringDescriptor_t usbStringDescriptorSerial = {
     .bString             = LSTR(SERIAL_NUMBER)
 };
 
-#if USB_CFG_DESCR_PROPS_DEVICE
 /*
  * Device descriptor
  */
@@ -489,8 +488,8 @@ const PROGMEM usbDeviceDescriptor_t usbDeviceDescriptor = {
         .bDescriptorType = USBDESCR_DEVICE
     },
     .bcdUSB              = 0x0110,
-    .bDeviceClass        = USB_CFG_DEVICE_CLASS,
-    .bDeviceSubClass     = USB_CFG_DEVICE_SUBCLASS,
+    .bDeviceClass        = 0x00,
+    .bDeviceSubClass     = 0x00,
     .bDeviceProtocol     = 0x00,
     .bMaxPacketSize0     = 8,
     .idVendor            = VENDOR_ID,
@@ -501,9 +500,7 @@ const PROGMEM usbDeviceDescriptor_t usbDeviceDescriptor = {
     .iSerialNumber       = 0x03,
     .bNumConfigurations  = 1
 };
-#endif
 
-#if USB_CFG_DESCR_PROPS_CONFIGURATION
 /*
  * Configuration descriptors
  */
@@ -521,11 +518,7 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
 #    endif
         .bConfigurationValue = 0x01,
         .iConfiguration      = 0x00,
-#    if USB_CFG_IS_SELF_POWERED
-        .bmAttributes        = (1 << 7) | USBATTR_SELFPOWER,
-#    else
-        .bmAttributes        = (1 << 7),
-#    endif
+        .bmAttributes        = (1 << 7) | USBATTR_REMOTEWAKE,
         .bMaxPower           = USB_MAX_POWER_CONSUMPTION / 2
     },
 
@@ -539,10 +532,10 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         },
         .bInterfaceNumber    = 0,
         .bAlternateSetting   = 0x00,
-        .bNumEndpoints       = USB_CFG_HAVE_INTRIN_ENDPOINT,
-        .bInterfaceClass     = USB_CFG_INTERFACE_CLASS,
-        .bInterfaceSubClass  = USB_CFG_INTERFACE_SUBCLASS,
-        .bInterfaceProtocol  = USB_CFG_INTERFACE_PROTOCOL,
+        .bNumEndpoints       = 1,
+        .bInterfaceClass     = 0x03,
+        .bInterfaceSubClass  = 0x01,
+        .bInterfaceProtocol  = 0x01,
         .iInterface          = 0x00
     },
     .keyboardHID = {
@@ -556,7 +549,6 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .bDescriptorType     = USBDESCR_HID_REPORT,
         .wDescriptorLength   = sizeof(keyboard_hid_report)
     },
-#    ifdef USB_CFG_HAVE_INTRIN_ENDPOINT
     .keyboardINEndpoint = {
         .header = {
             .bLength         = sizeof(usbEndpointDescriptor_t),
@@ -567,7 +559,6 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .wMaxPacketSize      = 8,
         .bInterval           = USB_POLLING_INTERVAL_MS
     },
-#    endif
 
 #    if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
     /*
@@ -580,7 +571,7 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         },
         .bInterfaceNumber    = 1,
         .bAlternateSetting   = 0x00,
-        .bNumEndpoints       = USB_CFG_HAVE_INTRIN_ENDPOINT3,
+        .bNumEndpoints       = 1,
         .bInterfaceClass     = 0x03,
         .bInterfaceSubClass  = 0x00,
         .bInterfaceProtocol  = 0x00,
@@ -597,7 +588,6 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .bDescriptorType     = USBDESCR_HID_REPORT,
         .wDescriptorLength   = sizeof(mouse_extra_hid_report)
     },
-#        if USB_CFG_HAVE_INTRIN_ENDPOINT3
     .mouseExtraINEndpoint = {
         .header = {
             .bLength         = sizeof(usbEndpointDescriptor_t),
@@ -608,7 +598,6 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .wMaxPacketSize      = 8,
         .bInterval           = USB_POLLING_INTERVAL_MS
     }
-#        endif
 #    elif defined(RAW_ENABLE)
     .rawInterface = {
         .header = {
@@ -634,7 +623,6 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .bDescriptorType     = USBDESCR_HID_REPORT,
         .wDescriptorLength   = sizeof(raw_hid_report)
     },
-#        if USB_CFG_HAVE_INTRIN_ENDPOINT3
     .rawINEndpoint = {
         .header = {
             .bLength         = sizeof(usbEndpointDescriptor_t),
@@ -655,10 +643,8 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .wMaxPacketSize      = RAW_EPSIZE,
         .bInterval           = USB_POLLING_INTERVAL_MS
     }
-#        endif
 #    endif
 };
-#endif
 
 // clang-format on
 
@@ -674,18 +660,14 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
         debug_hex16(rq->wLength.word); debug("\n");
     */
     switch (rq->wValue.bytes[1]) {
-#if USB_CFG_DESCR_PROPS_DEVICE
         case USBDESCR_DEVICE:
             usbMsgPtr = (unsigned char *)&usbDeviceDescriptor;
             len       = sizeof(usbDeviceDescriptor_t);
             break;
-#endif
-#if USB_CFG_DESCR_PROPS_CONFIGURATION
         case USBDESCR_CONFIG:
             usbMsgPtr = (unsigned char *)&usbConfigurationDescriptor;
             len       = sizeof(usbConfigurationDescriptor_t);
             break;
-#endif
         case USBDESCR_STRING:
             switch (rq->wValue.bytes[0]) {
                 case 0:
