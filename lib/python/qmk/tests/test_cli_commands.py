@@ -99,7 +99,7 @@ def test_json2c():
 def test_info():
     result = check_subcommand('info', '-kb', 'handwired/onekey/pytest')
     if result.returncode != 0:
-        print('`qmk info -kb handwired/onekey-pytest` stdout:')
+        print('`qmk info -kb handwired/onekey/pytest` stdout:')
         print(result.stdout)
         print('returncode:', result.returncode)
     assert result.returncode == 0

@@ -110,7 +110,7 @@ def info(cli):
         if cli.config.info.matrix:
             show_matrix(kb_info_json, False)
 
-        if cli.config_source.info.keymap != 'config_file':
+        if cli.config_source.info.keymap and cli.config_source.info.keymap != 'config_file':
             show_keymap(kb_info_json, False)
 
     elif cli.args.format == 'friendly':
@@ -135,7 +135,7 @@ def info(cli):
         if cli.config.info.matrix:
             show_matrix(kb_info_json, True)
 
-        if cli.config_source.info.keymap != 'config_file':
+        if cli.config_source.info.keymap and cli.config_source.info.keymap != 'config_file':
             show_keymap(kb_info_json, True)
 
     else:
