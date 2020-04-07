@@ -39,7 +39,7 @@
 #endif
 
 #ifndef SERIAL_USART_CR1
-#    define SERIAL_USART_CR1 (USART_CR1_PCE | USART_CR1_PS | USART_CR1_M0)  // parity enable, odd parity, 9 bit length
+#    define SERIAL_USART_CR1 (USART_CR1_PCE | USART_CR1_PS | USART_CR1_M)  // parity enable, odd parity, 9 bit length
 #endif
 
 #ifndef SERIAL_USART_CR2
