@@ -33,6 +33,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B1, B0, A7, A5, A4 }
 #define DIODE_DIRECTION COL2ROW
 
+#define BACKLIGHT_PIN           A6
+#define BACKLIGHT_PWM_DRIVER    PWMD3
+#define BACKLIGHT_PWM_CHANNEL   1
+#define BACKLIGHT_PAL_MODE      1
 #define BACKLIGHT_LEVELS 6
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 6
@@ -52,16 +56,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN B15
 #define RGBLED_NUM 14
 #define WS2812_SPI SPID2
+#define WS2812_SPI_MOSI_PAL_MODE 0
 
-// Backlight config starts after VIA's EEPROM usage,
-// dynamic keymaps start after this.
-#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 1
-
-// VIA lighting is handled by the keyboard-level code
-#define VIA_CUSTOM_LIGHTING_ENABLE
-
-// Let VIA handle the QMK RGBLIGHT 
-#define VIA_QMK_RGBLIGHT_ENABLE
 
 // 2 bits for 4 layout options
 #define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2
