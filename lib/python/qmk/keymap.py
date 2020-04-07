@@ -132,9 +132,9 @@ def locate_keymap(keyboard, keymap):
         for layout in rules_mk["LAYOUTS"].split():
             community_layout = Path('layouts/community') / layout
             if community_layout.exists():
-                if community_layout.exists('keymap.json'):
+                if (community_layout / 'keymap.json').exists():
                     return community_layout / 'keymap.json'
-                if community_layout.exists('keymap.c'):
+                if (community_layout / 'keymap.c').exists():
                     return community_layout / 'keymap.c'
 
 
