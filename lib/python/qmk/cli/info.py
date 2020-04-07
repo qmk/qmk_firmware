@@ -12,6 +12,10 @@ from qmk.keymap import locate_keymap
 from qmk.info import info_json
 
 
+ROW_LETTERS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnop'
+COL_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijilmnopqrstuvwxyz'
+
+
 def show_keymap(info_json, title_caps=True):
     """Render the keymap in ascii art.
     """
@@ -35,9 +39,32 @@ def show_keymap(info_json, title_caps=True):
             print(render_layout(info_json['layouts'][layout_name]['layout'], layer))
 
 
+def show_matrix(info_json, title_caps=True):
+    """Render the layout with matrix labels in ascii art.
+    """
+    for layout_name, layout in info_json['layouts'].items():
+        # Build our label list
+        labels = []
+        for key in layout['layout']:
+            if key['matrix']:
+                row = ROW_LETTERS[key['matrix'][0]]
+                col = COL_LETTERS[key['matrix'][1]]
+
+                labels.append(row + col)
+
+        # Print the header
+        if title_caps:
+            cli.echo('{fg_blue}Matrix for "%s"{fg_reset}:', layout_name)
+        else:
+            cli.echo('{fg_blue}matrix_%s{fg_reset}:', layout_name)
+
+        print(render_layout(info_json['layouts'][layout_name]['layout'], labels))
+
+
 @cli.argument('-kb', '--keyboard', help='Keyboard to show info for.')
 @cli.argument('-km', '--keymap', help='Show the layers for a JSON keymap too.')
 @cli.argument('-l', '--layouts', action='store_true', help='Render the layouts.')
+@cli.argument('-m', '--matrix', action='store_true', help='Render the layouts with matrix information.')
 @cli.argument('-f', '--format', default='friendly', arg_only=True, help='Format to display the data in (friendly, text, json) (Default: friendly).')
 @cli.subcommand('Keyboard information.')
 @automagic_keyboard
@@ -70,6 +97,9 @@ def info(cli):
                 cli.echo('{fg_cyan}%s{fg_reset}:', layout_name)
                 print(layout_art)  # Avoid passing dirty data to cli.echo()
 
+        if cli.config.info.matrix:
+            show_matrix(kb_info_json, False)
+
         if cli.config_source.info.keymap != 'config_file':
             show_keymap(kb_info_json, False)
 
@@ -93,6 +123,9 @@ def info(cli):
             for layout_name, layout_art in render_layouts(kb_info_json).items():
                 cli.echo('{fg_cyan}%s{fg_reset}:', layout_name)
                 print(layout_art)  # Avoid passing dirty data to cli.echo()
+
+        if cli.config.info.matrix:
+            show_matrix(kb_info_json, True)
 
         if cli.config_source.info.keymap != 'config_file':
             show_keymap(kb_info_json, True)
