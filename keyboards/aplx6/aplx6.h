@@ -1,8 +1,4 @@
-//#ifndef APLX6_H
-//#define APLX6_H
-
 #pragma once
-
 #include "quantum.h"
 
 #define LAYOUT( \
