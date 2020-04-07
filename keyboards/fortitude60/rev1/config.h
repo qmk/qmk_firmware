@@ -44,6 +44,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define SOFT_SERIAL_PIN D2
 
+#define EE_HANDS
+
+#define SPLIT_USB_DETECT
+#define SPLIT_USB_TIMEOUT 1000
+
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
@@ -65,7 +70,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #ifdef RGBLIGHT_ENABLE
   #define RGB_DI_PIN B5
-  
   #define RGBLED_NUM 18    // Number of LEDs */
 #endif
 /*
