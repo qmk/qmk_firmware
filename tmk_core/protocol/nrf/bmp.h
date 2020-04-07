@@ -7,6 +7,36 @@
 
 void bmp_keyboard_task(void);
 void bmp_init(void);
+
+const char* bmp_get_version_info();
+bool        is_safe_mode();
+
+typedef enum {
+    PARSER_CONFIG = 0,
+    PARSER_KEYMAP,
+    PARSER_QMK,
+    PARSER_NONE,
+} parser_type_t;
+
+typedef struct
+{
+  const char* key;
+  char* string_dst;
+  uint32_t dst_len;
+  int (*parse)(void);
+  void (*save)(void);
+} file_string_parser_setting_t;
+
+typedef struct
+{
+    const file_string_parser_setting_t * setting;
+    uint16_t write_idx;
+} file_string_parser_t;
+
+void set_parser(parser_type_t parser_type);
+file_string_parser_t * get_parser();
+
+int stream_write_callback(const uint8_t* dat, uint32_t len);
 bmp_error_t msc_write_callback(const uint8_t* dat, uint32_t len);
 
 void eeprom_get_buffer_addr(uint8_t **buf, uint32_t *len);

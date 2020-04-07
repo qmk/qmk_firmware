@@ -40,7 +40,7 @@ static void uli2a(unsigned long int num, unsigned int base, int uc,char * bf)
     int n=0;
     unsigned int d=1;
     while (num/d >= base)
-        d*=base;         
+        d*=base;
     while (d!=0) {
         int dgt = num / d;
         num%=d;
@@ -69,7 +69,7 @@ static void ui2a(unsigned int num, unsigned int base, int uc,char * bf)
     int n=0;
     unsigned int d=1;
     while (num/d >= base)
-        d*=base;        
+        d*=base;
     while (d!=0) {
         int dgt = num / d;
         num%= d;
@@ -93,7 +93,7 @@ static void i2a (int num, char * bf)
 
 static int a2d(char ch)
     {
-    if (ch>='0' && ch<='9') 
+    if (ch>='0' && ch<='9')
         return ch-'0';
     else if (ch>='a' && ch<='f')
         return ch-'a'+10;
@@ -124,7 +124,7 @@ static void putchw(void* putp,putcf putf,int n, char z, char* bf)
     char* p=bf;
     while (*p++ && n > 0)
         n--;
-    while (n-- > 0) 
+    while (n-- > 0)
         putf(putp,fc);
     while ((ch= *bf++))
         putf(putp,ch);
@@ -133,12 +133,12 @@ static void putchw(void* putp,putcf putf,int n, char z, char* bf)
 void tfp_format(void* putp,putcf putf,char *fmt, va_list va)
     {
     char bf[12];
-    
+
     char ch;
 
 
     while ((ch=*(fmt++))) {
-        if (ch!='%') 
+        if (ch!='%')
             putf(putp,ch);
         else {
             char lz=0;
@@ -161,7 +161,7 @@ void tfp_format(void* putp,putcf putf,char *fmt, va_list va)
             }
 #endif
             switch (ch) {
-                case 0: 
+                case 0:
                     goto abort;
                 case 'u' : {
 #ifdef  PRINTF_LONG_SUPPORT
@@ -183,7 +183,7 @@ void tfp_format(void* putp,putcf putf,char *fmt, va_list va)
                     putchw(putp,putf,w,lz,bf);
                     break;
                     }
-                case 'x': case 'X' : 
+                case 'x': case 'X' :
 #ifdef  PRINTF_LONG_SUPPORT
                     if (lng)
                         uli2a(va_arg(va, unsigned long int),16,(ch=='X'),bf);
@@ -192,10 +192,10 @@ void tfp_format(void* putp,putcf putf,char *fmt, va_list va)
                     ui2a(va_arg(va, unsigned int),16,(ch=='X'),bf);
                     putchw(putp,putf,w,lz,bf);
                     break;
-                case 'c' : 
+                case 'c' :
                     putf(putp,(char)(va_arg(va, int)));
                     break;
-                case 's' : 
+                case 's' :
                     putchw(putp,putf,w,0,va_arg(va, char*));
                     break;
                 case '%' :
@@ -238,3 +238,7 @@ void tfp_sprintf(char* s,char *fmt, ...)
     putcp(&s,0);
     va_end(va);
     }
+
+void xputc(char c) {
+    stdout_putf(NULL, c);
+}

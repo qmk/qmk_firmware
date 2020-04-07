@@ -810,14 +810,11 @@ int32_t get_keymap_from_stream(json_keymap_convert_inst_t* const inst,
 
 int32_t is_json_closed(const char * json, uint32_t len)
 {
-  int32_t paren_cnt = 0;
+  int32_t open_cnt = 0;
+  int32_t close_cnt = 0;
   int32_t in_string = 0;
   int32_t in_escape = 0;
-  if (json[0] == '{')
-  {
-    paren_cnt++;
-  }
-  for (int i=1; i<len && json[i] != '\0'; i++)
+  for (int i=0; i<len && json[i] != '\0'; i++)
   {
     if (!in_escape)
     {
@@ -839,11 +836,11 @@ int32_t is_json_closed(const char * json, uint32_t len)
     {
       if (!in_escape && json[i] == '{')
       {
-        paren_cnt++;
+        open_cnt++;
       }
       else if (!in_escape && json[i] == '}')
       {
-        if (--paren_cnt < 0)
+        if (++close_cnt > open_cnt)
         {
           return -1;
         }
@@ -860,7 +857,7 @@ int32_t is_json_closed(const char * json, uint32_t len)
     }
   }
 
-  if (paren_cnt == 0) {
+  if (open_cnt > 0 && open_cnt == close_cnt) {
     return 0;
   }
   else

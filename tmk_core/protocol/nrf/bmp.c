@@ -237,7 +237,8 @@ MATRIX_LOOP_END:
         reset_counter--;
         if (reset_counter == 0)
         {
-            BMPAPI->app.reset();
+            // reset without safemode flag
+            BMPAPI->app.reset(0);
         }
     }
 }
@@ -307,7 +308,7 @@ const char *strnchr(const char *haystack, char needle, size_t len) {
   return NULL;
 }
 
-void parse_and_save_config(void)
+int parse_config(void)
 {
     bmp_api_config_t config;
     json_config_convert_inst_t inst;
@@ -316,6 +317,7 @@ void parse_and_save_config(void)
     if (res)
     {
         BMPAPI->logger.info("Failed to parse config");
+        return 1;
     }
     else
     {
@@ -323,16 +325,23 @@ void parse_and_save_config(void)
         {
             matrix_init();
             BMPAPI->logger.info("Update config");
-            BMPAPI->app.save_file(0);
         }
         else
         {
             BMPAPI->logger.info("Invalid config");
+            return 2;
         }
     }
+
+    return 0;
 }
 
-void parse_and_save_keymap(void)
+void save_config(void)
+{
+    BMPAPI->app.save_file(0);
+}
+
+int parse_keymap(void)
 {
     uint16_t keymap[512];
     json_keymap_convert_inst_t inst;
@@ -343,110 +352,161 @@ void parse_and_save_keymap(void)
 
     if (json_to_keymap_conv(&inst, keymap_string) == 0)
     {
-        xprintf("Update keymap. length:%d\r\n", inst.keymap_idx);
-        xprintf("%d extended keycodes are found\r\n", inst.ek_num);
-        xprintf("keyboard:%s\r\n", inst.layout_name);
+        xprintf("Update keymap. length:%d\n", inst.keymap_idx);
+        xprintf("%d extended keycodes are found\n", inst.ek_num);
+        xprintf("keyboard:%s\n", inst.layout_name);
         BMPAPI->app.set_keymap(keymap, inst.keymap_idx, inst.layout_name);
         bmp_ex_keycode_num = inst.ek_num;
-        BMPAPI->app.save_file(1);
-
-        save_ex_keycode_file();
     }
     else
     {
         BMPAPI->logger.info("Invalid keymap");
+        return 1;
     }
+
+    return 0;
 }
 
-void parse_and_save_qmk_config(void)
+void save_keymap(void)
 {
-    json_to_tapping_term_config_conv(qmk_config_string,
+    BMPAPI->app.save_file(1);
+    save_ex_keycode_file();
+}
+
+int parse_qmk_config(void)
+{
+    uint32_t res = json_to_tapping_term_config_conv(qmk_config_string,
         &bmp_qmk_config,
         BMPAPI->app.get_config()->keymap.locale);
+
+    if (res == 0)
+    {
+        BMPAPI->logger.info("Failed to update tapping term");
+
+        return 1;
+    }
+
+    BMPAPI->logger.info("Update tapping term");
+    return 0;
+}
+
+void save_qmk_config(void)
+{
     int res = save_tapping_term_file();
     if (res == 0)
     {
-        xprintf("Update tapping term\r\n");
+        BMPAPI->logger.info("Tapping term saved");
     }
     else
     {
-        xprintf("Failed to update tapping term\r\n");
+        BMPAPI->logger.info("Failed to save tapping term");
     }
 }
 
-typedef struct
-{
-  const char* key;
-  char* string_dst;
-  uint32_t dst_len;
-  void (*parse_and_save)(void);
-} file_string_parser_t;
 
-file_string_parser_t file_string_parser[]
+const file_string_parser_setting_t file_string_parser_setting[]
   = {{.key = "\"config\"", .string_dst = config_string,
-    .dst_len = sizeof(config_string), parse_and_save_config},
+    .dst_len = sizeof(config_string), parse_config, save_config},
     {.key = "\"layers\"", .string_dst = keymap_string,
-    .dst_len = sizeof(keymap_string), parse_and_save_keymap},
+    .dst_len = sizeof(keymap_string), parse_keymap, save_keymap},
     {.key = "\"tapping_term\"", .string_dst = qmk_config_string,
-    .dst_len = sizeof(qmk_config_string), parse_and_save_qmk_config }
+    .dst_len = sizeof(qmk_config_string), parse_qmk_config, save_qmk_config }
     };
 
-bmp_error_t msc_write_callback(const uint8_t* dat, uint32_t len)
-{
-  static uint8_t write_mode = 0;
-  static uint16_t write_idx = 0;
-  static char* dst = NULL;
-  static uint32_t dst_len = 0;
-  int32_t json_close;
-  static file_string_parser_t *parser = NULL;
+static file_string_parser_t parser = { NULL, 0 };
 
-  if (write_mode == 0)
+void set_parser(parser_type_t parser_type) {
+    if (parser_type >= PARSER_NONE) {
+        parser.setting = NULL;
+        parser.write_idx = 0;
+    } else {
+        parser.setting = &file_string_parser_setting[parser_type];
+        parser.write_idx = 0;
+    }
+}
+
+file_string_parser_t * get_parser() {
+    return &parser;
+}
+
+int stream_write_callback(const uint8_t* dat, uint32_t len)
+{
+  char* dst = NULL;
+  uint32_t dst_len = 0;
+  int32_t json_close = -1;
+
+  if (parser.setting == NULL)
   {
-    for (int i=0; i<sizeof(file_string_parser)/sizeof(file_string_parser[0]); i++)
+    for (int i=0;
+        i<sizeof(file_string_parser_setting)/sizeof(file_string_parser_setting[0]);
+        i++)
     {
-      if (strnstr((const char*)dat, file_string_parser[i].key, len) != NULL)
+      if (strnstr((const char*)dat, file_string_parser_setting[i].key, len) != NULL)
       {
-        write_mode = i + 1;
-        parser = &file_string_parser[i];
-        dst = parser->string_dst;
-        dst_len = parser->dst_len;
+        set_parser(i);
+        dst = parser.setting->string_dst;
         memcpy(dst, dat, len);
-        write_idx = len;
-        xprintf("Match key: %s\r\n", parser->key);
+        parser.write_idx = len;
+        dprintf("Match key: %s\r\n", parser.setting->key);
       }
     }
   }
   else
   {
-    if (write_idx + len > dst_len)
+    dst = parser.setting->string_dst;
+    dst_len = parser.setting->dst_len;
+
+    if (parser.write_idx + len > dst_len)
     {
-      write_idx = 0;
-      write_mode = 0;
-      return BMP_INVALID_PARAM;
+      parser.write_idx = 0;
+      set_parser(PARSER_NONE);
+
+      return 2;
     }
-    memcpy(dst + write_idx, dat, len);
-    write_idx += len;
+    memcpy(dst + parser.write_idx, dat, len);
+    parser.write_idx += len;
   }
 
-  if (write_mode > 0)
+  if (parser.setting != NULL)
   {
-    json_close = is_json_closed((const char*)dst, write_idx);
+    json_close = is_json_closed((const char*)dst, parser.write_idx);
     if (json_close == 0)
     {
-      parser->parse_and_save();
-      parser = NULL;
-      write_idx = 0;
-      write_mode = 0;
+      int res = parser.setting->parse();
+      parser.write_idx = 0;
       BMPAPI->logger.info("Received json");
+
+      return res == 0 ? 0 : 1;
     }
     else if (json_close == -1)
     {
-      write_idx = 0;
-      write_mode = 0;
+      parser.write_idx = 0;
+      set_parser(PARSER_NONE);
       BMPAPI->logger.info("Invalid json");
+
+      return 1;
     }
   }
-  return BMP_OK;
+
+  // continue
+  return -1;
+}
+
+bmp_error_t msc_write_callback(const uint8_t* dat, uint32_t len)
+{
+    int res = stream_write_callback(dat, len);
+
+    if (res == 0) {
+        if (parser.setting != NULL) {
+            parser.setting->save();
+        }
+        set_parser(PARSER_NONE);
+    } else if (res == 2) {
+        set_parser(PARSER_NONE);
+        return BMP_INVALID_PARAM;
+    }
+
+    return BMP_OK;
 }
 
 bmp_error_t webnus_write_callback(const uint8_t* dat, uint32_t len)
@@ -538,14 +598,19 @@ static inline void update_tapping_term_string(bmp_api_config_t const * config,
 __attribute__ ((weak))
 void create_user_file() { }
 
+static const char bmp_version_info[] =
+                    "API version: " STR(API_VERSION) "\n"
+                    "Config version: " STR(CONFIG_VERSION) "\n"
+                    "Build from: " STR(GIT_DESCRIBE) "\n"
+                    "Build Target: " STR(TARGET);
 static inline void create_info_file()
 {
-  static const char info[] =
-                        "API version: " STR(API_VERSION) "\n"
-                        "Config version: " STR(CONFIG_VERSION) "\n"
-                        "Build from: " STR(GIT_DESCRIBE) "\n"
-                        "Build Target: " STR(TARGET);
-  BMPAPI->usb.create_file("VERSION TXT", (uint8_t*)info, strlen(info));
+  BMPAPI->usb.create_file("VERSION TXT", (uint8_t*)bmp_version_info,
+    strlen(bmp_version_info));
+}
+
+const char* bmp_get_version_info() {
+    return bmp_version_info;
 }
 
 static inline void create_index_html()
@@ -628,7 +693,9 @@ static inline bool checkMscDisableFlag(bmp_api_config_t const * const config)
 
 static bool has_ble = true;
 static bool has_usb = true;
-static bool is_safe_mode = false;
+static bool is_safe_mode_ = false;
+
+bool is_safe_mode() { return is_safe_mode_; }
 
 void bmp_init()
 {
@@ -665,7 +732,7 @@ void bmp_init()
       .keymap = {.locale = KEYMAP_PRIOR_LOCALE, .use_ascii = KEYMAP_ASCII}
   };
 
-  BMPAPI->app.init(&default_config);
+  is_safe_mode_ = (BMPAPI->app.init(&default_config) > 0);
 
   const bmp_api_config_t * config = BMPAPI->app.get_config();
 
@@ -675,25 +742,21 @@ void bmp_init()
     // start in safe mode
     BMPAPI->app.set_config(&default_config);
     config = &default_config;
-    is_safe_mode = true;
+    is_safe_mode_ = true;
   }
 
   BMPAPI->usb.set_msc_write_cb(msc_write_callback);
   BMPAPI->app.set_state_change_cb(bmp_state_change_cb);
 
-  if (!is_safe_mode)
-  {
+  if (!is_safe_mode_) {
 #if defined(ALLOW_MSC_ROW_PIN) && defined(ALLOW_MSC_COL_PIN)
     BMPAPI->usb.init(config, checkMscDisableFlag(config));
 #else
     BMPAPI->usb.init(config, DISABLE_MSC);
 #endif
+  } else {
+      BMPAPI->usb.init(config, DISABLE_MSC);
   }
-  else
-  {
-    BMPAPI->usb.init(config, DISABLE_MSC);
-  }
-
 
   BMPAPI->ble.init(config);
 

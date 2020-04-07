@@ -5,7 +5,7 @@
 
 #include "error_def.h"
 
-#define API_VERSION 5
+#define API_VERSION 6
 #define CONFIG_VERSION 2
 #define PINS_MAX 32
 
@@ -220,8 +220,8 @@ typedef bmp_error_t (*bmp_api_state_change_cb_t)(bmp_api_event_t event);
 
 typedef struct
 {
-  void (*init)(bmp_api_config_t const * const);
-  void (*reset)(void);
+  int32_t (*init)(bmp_api_config_t const * const);
+  void (*reset)(uint32_t flag);
   void (*enter_sleep_mode)(void);
   void (*main_task_start)(void(*main_task)(void*), uint8_t interval_ms);
   void (*process_task)(void);
@@ -250,7 +250,7 @@ typedef struct
   void (*send_consumer)(uint16_t);
   void (*serial_putc)(char);
   char (*serial_getc)(void);
-  void (*serial_puts)(uint8_t*, uint8_t);
+  void (*serial_puts)(const uint8_t*, uint8_t);
   int (*serial_byte_to_read)(void);
   bmp_error_t (*create_file)(const char* sfn, const uint8_t* dat, uint32_t size);
   bmp_error_t (*set_msc_write_cb)(bmp_api_msc_write_cb_t);
@@ -382,6 +382,7 @@ typedef struct
   uint32_t api_version;
   void (*bootloader_jump)(void);
   /////////////////////////
+  const char* (*get_bootloader_info)(void);
   bmp_api_app_t app;
   bmp_api_usb_t usb;
   bmp_api_ble_t ble;
