@@ -32,61 +32,65 @@ def default_key(label=None):
 
 
 def find_layouts(file):
-    """Returns list of parsed layout macros found in the supplied file.
+    """Returns list of parsed LAYOUT pp macros found in the supplied include file.
     """
     file = Path(file)
     aliases = {}  # Populated with all `#define`s that aren't functions
-    writing_keymap = False
-    discovered_keymaps = []
-    parsed_keymaps = {}
-    current_keymap = []
+    discovered_layouts = []
+    parsed_layouts = {}
+    current_layout = []
+    writing_layout = False
 
     for line in file.read_text().split('\n'):
-        if not writing_keymap:
-            if '#define' in line and '(' in line and ('LAYOUT' in line or 'KEYMAP' in line):
-                writing_keymap = True
+        if not writing_layout:
+            if '#define' in line and '(' in line and 'LAYOUT' in line:
+                # We've found the start of a LAYOUT macro
+                writing_layout = True
             elif '#define' in line:
+                # Attempt to extract a new layout alias
                 try:
                     _, pp_macro_name, pp_macro_text = line.strip().split(' ', 2)
                     aliases[pp_macro_name] = pp_macro_text
                 except ValueError:
                     continue
 
-        if writing_keymap:
-            current_keymap.append(line.strip() + '\n')
+        if writing_layout:
+            current_layout.append(line.strip() + '\n')
             if ')' in line:
-                writing_keymap = False
-                discovered_keymaps.append(''.join(current_keymap))
-                current_keymap = []
+                writing_layout = False
+                discovered_layouts.append(''.join(current_layout))
+                current_layout = []
 
-    for keymap in discovered_keymaps:
-        # Clean-up the keymap text, extract the macro name, and end up with a list
-        # of key entries.
-        keymap = keymap.replace('\\', '').replace(' ', '').replace('\t', '').replace('#define', '')
-        macro_name, keymap = keymap.split('(', 1)
-        keymap = keymap.split(')', 1)[0]
+    # Clean-up the layout text, extract the macro name, and end up with a list
+    # of key entries.
+    for layout in discovered_layouts:
+        layout = layout.replace('\\', '').replace(' ', '').replace('\t', '').replace('#define', '')
+        macro_name, layout = layout.split('(', 1)
+        layout = layout.split(')', 1)[0]
 
         # Reject any macros that don't start `LAYOUT`
         if not macro_name.startswith('LAYOUT'):
             continue
 
-        # Parse the keymap entries into naive x/y data
-        parsed_keymap = []
+        # Parse the layout entries into naive x/y data
+        parsed_layout = []
         default_key_entry['y'] = -1
-        for row in keymap.strip().split(',\n'):
+        for row in layout.strip().split(',\n'):
             default_key_entry['x'] = -1
             default_key_entry['y'] += 1
-            parsed_keymap.extend([default_key(key) for key in row.split(',')])
-        parsed_keymaps[macro_name] = {
-            'key_count': len(parsed_keymap),
-            'layout': parsed_keymap,
+            parsed_layout.extend([default_key(key) for key in row.split(',')])
+        parsed_layouts[macro_name] = {
+            'key_count': len(parsed_layout),
+            'layout': parsed_layout,
+            'filename': str(file)
         }
 
+    # Populate our aliases
     for alias, text in aliases.items():
-        if text in parsed_keymaps and not alias.startswith('KEYMAP'):
-            parsed_keymaps[alias] = parsed_keymaps[text]
+        if text in parsed_layouts and not alias.startswith('KEYMAP'):
+            parsed_layouts[alias] = parsed_layouts[text]
 
-    return parsed_keymaps
+    return parsed_layouts
 
 
 def find_all_layouts(keyboard):
@@ -96,7 +100,7 @@ def find_all_layouts(keyboard):
     rules_mk = parse_rules_mk(keyboard)
     keyboard_path = Path(rules_mk.get('DEFAULT_FOLDER', keyboard))
 
-    # Pull in all keymaps defined in the standard files
+    # Pull in all layouts defined in the standard files
     current_path = Path('keyboards/')
     for directory in keyboard_path.parts:
         current_path = current_path / directory

@@ -6,7 +6,7 @@ from pathlib import Path
 from milc import cli
 
 from qmk.constants import ARM_PROCESSORS, AVR_PROCESSORS, VUSB_PROCESSORS
-from qmk.keyboard import find_all_layouts, parse_rules_mk, parse_rules_mk_file
+from qmk.keyboard import find_all_layouts, parse_config_h, parse_rules_mk, parse_rules_mk_file
 
 
 def info_json(keyboard):
@@ -19,18 +19,52 @@ def info_json(keyboard):
             info_data['layouts'][layout_name] = layout_json
 
     info_data = merge_info_jsons(keyboard, info_data)
+    info_data = _extract_config_h(info_data)
+    info_data = _extract_rules_mk(info_data)
 
-    # Pull some keyboard information from existing rules.mk files
-    rules_mk = parse_rules_mk(keyboard)
+    return info_data
 
-    # Setup platform specific keys
+
+def _extract_config_h(info_data):
+    """Pull some keyboard information from existing rules.mk files
+    """
+    config_c = parse_config_h(info_data['keyboard_folder'])
+    row_pins = config_c.get('MATRIX_ROW_PINS').replace('{', '').replace('}', '').strip()
+    col_pins = config_c.get('MATRIX_COL_PINS').replace('{', '').replace('}', '').strip()
+
+    info_data['diode_direction'] = config_c.get('DIODE_DIRECTION')
+    info_data['matrix_size'] = {
+        'rows': config_c.get('MATRIX_ROWS'),
+        'cols': config_c.get('MATRIX_COLS')
+    }
+    info_data['matrix_pins'] = {
+        'rows': row_pins.split(','),
+        'cols': col_pins.split(',')
+    }
+    info_data['usb'] = {
+        'vid': config_c.get('VENDOR_ID'),
+        'pid': config_c.get('PRODUCT_ID'),
+        'device_ver': config_c.get('DEVICE_VER'),
+        'manufacturer': config_c.get('MANUFACTURER'),
+        'product': config_c.get('PRODUCT'),
+        'description': config_c.get('DESCRIPTION'),
+    }
+
+    return info_data
+
+
+def _extract_rules_mk(info_data):
+    """Pull some keyboard information from existing rules.mk files
+    """
+    rules_mk = parse_rules_mk(info_data['keyboard_folder'])
     mcu = rules_mk.get('MCU')
+
     if mcu in ARM_PROCESSORS:
         arm_processor_rules(info_data, rules_mk)
     elif mcu in AVR_PROCESSORS:
         avr_processor_rules(info_data, rules_mk)
     else:
-        cli.log.warning("%s: Unknown MCU: %s" % (keyboard, mcu))
+        cli.log.warning("%s: Unknown MCU: %s" % (info_data['keyboard_folder'], mcu))
         unknown_processor_rules(info_data, rules_mk)
 
     return info_data
@@ -120,10 +154,11 @@ def merge_info_jsons(keyboard, info_data):
             for layout_name, json_layout in new_info_data['layouts'].items():
                 # Only pull in layouts we have a macro for
                 if layout_name in info_data['layouts']:
-                    if len(info_data['layouts'][layout_name]['layout']) != len(json_layout['layout']):
+                    if info_data['layouts'][layout_name]['key_count'] != len(json_layout['layout']):
                         cli.log.error('%s: %s: Number of elements in info.json does not match! info.json:%s != %s:%s', info_data['keyboard_folder'], layout_name, len(json_layout['layout']), layout_name, len(info_data['layouts'][layout_name]['layout']))
                     else:
-                        info_data['layouts'][layout_name]['layout'] = json_layout['layout']
+                        for i, key in enumerate(info_data['layouts'][layout_name]['layout']):
+                            key.update(json_layout['layout'][i])
 
     return info_data
 
