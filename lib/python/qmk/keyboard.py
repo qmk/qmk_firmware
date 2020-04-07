@@ -40,7 +40,7 @@ def comment_remover(text):
     def replacer(match):
         s = match.group(0)
         if s.startswith('/'):
-            return " " # note: a space and not an empty string
+            return " "  # note: a space and not an empty string
         else:
             return s
 
@@ -48,12 +48,39 @@ def comment_remover(text):
     return re.sub(pattern, replacer, text)
 
 
+def _parse_layout_macro(layout_macro):
+    """Split the LAYOUT macro into its constituent parts
+    """
+    layout_macro = layout_macro.replace('\\', '').replace(' ', '').replace('\t', '').replace('#define', '')
+    macro_name, layout = layout_macro.split('(', 1)
+    layout, matrix = layout.split(')', 1)
+
+    return macro_name, layout, matrix
+
+
+def _parse_matrix_locations(matrix, file, macro_name):
+    """Parse raw matrix data into a dictionary keyed by the LAYOUT identifier.
+    """
+    matrix_locations = {}
+
+    for row_num, row in enumerate(matrix.split('},{')):
+        if row.startswith('LAYOUT'):
+            cli.log.error('%s: %s: Nested layout macro detected. Matrix data not available!', file, macro_name)
+            break
+
+        row = row.replace('{', '').replace('}', '')
+        for col_num, identifier in enumerate(row.split(',')):
+            if identifier != 'KC_NO':
+                matrix_locations[identifier] = (row_num, col_num)
+
+    return matrix_locations
+
+
 def find_layouts(file):
     """Returns list of parsed LAYOUT pp macros found in the supplied include file.
     """
     file = Path(file)
     aliases = {}  # Populated with all `#define`s that aren't functions
-    discovered_layouts = []
     parsed_layouts = {}
     writing_layout = False
 
@@ -66,7 +93,30 @@ def find_layouts(file):
         if not writing_layout:
             if line.startswith('#define') and '(' in line and 'LAYOUT' in line:
                 # We've found a LAYOUT macro
-                discovered_layouts.append(line.strip())
+                macro_name, layout, matrix = _parse_layout_macro(line.strip())
+
+                # Reject bad macro names
+                if macro_name.startswith('LAYOUT_kc') or not macro_name.startswith('LAYOUT'):
+                    continue
+
+                # Parse the matrix data
+                matrix_locations = _parse_matrix_locations(matrix, file, macro_name)
+
+                # Parse the layout entries into a basic structure
+                default_key_entry['y'] = 0
+                default_key_entry['x'] = -1  # Set to -1 so default_key(key) will increment it to 0
+                layout = layout.strip()
+                parsed_layout = [default_key(key) for key in layout.split(',')]
+
+                for key in parsed_layout:
+                    key['matrix'] = matrix_locations.get(key['label'])
+
+                parsed_layouts[macro_name] = {
+                    'key_count': len(parsed_layout),
+                    'layout': parsed_layout,
+                    'filename': str(file),
+                }
+
             elif '#define' in line:
                 # Attempt to extract a new layout alias
                 try:
@@ -74,50 +124,6 @@ def find_layouts(file):
                     aliases[pp_macro_name] = pp_macro_text
                 except ValueError:
                     continue
-
-    # Clean-up the layout text, extract the macro name, and end up with a list
-    # of key entries.
-    for layout in discovered_layouts:
-        # Split the LAYOUT macro into its constituent parts
-        layout = layout.replace('\\', '').replace(' ', '').replace('\t', '').replace('#define', '')
-        macro_name, layout = layout.split('(', 1)
-        layout, matrix = layout.split(')', 1)
-
-        # Reject any macros that don't start `LAYOUT`
-        if not macro_name.startswith('LAYOUT'):
-            continue
-
-        # Reject LAYOUT_kc macros
-        if macro_name.startswith('LAYOUT_kc'):
-            continue
-
-        # Parse the matrix data
-        matrix_locations = {}
-        for row_num, row in enumerate(matrix.split('},{')):
-            if row.startswith('LAYOUT'):
-                cli.log.error('%s: %s: Nested layout macro detected. Matrix data not available!', file, macro_name)
-                break
-
-            row = row.replace('{', '').replace('}', '')
-            for col_num, identifier in enumerate(row.split(',')):
-                if identifier != 'KC_NO':
-                    matrix_locations[identifier] = (row_num, col_num)
-
-        # Parse the layout entries into a basic structure
-        parsed_layout = []
-        default_key_entry['y'] = 0
-        default_key_entry['x'] = -1  # Set to -1 so default_key(key) will increment it to 0
-
-        layout = layout.strip()
-        parsed_layout = [default_key(key) for key in layout.split(',')]
-        for key in parsed_layout:
-            key['matrix'] = matrix_locations.get(key['label'])
-
-        parsed_layouts[macro_name] = {
-            'key_count': len(parsed_layout),
-            'layout': parsed_layout,
-            'filename': str(file)
-        }
 
     # Populate our aliases
     for alias, text in aliases.items():

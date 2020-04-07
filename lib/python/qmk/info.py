@@ -37,7 +37,7 @@ def _extract_config_h(info_data):
     info_data['diode_direction'] = config_c.get('DIODE_DIRECTION')
     info_data['matrix_size'] = {
         'rows': compute(config_c.get('MATRIX_ROWS', '0')),
-        'cols': compute(config_c.get('MATRIX_COLS', '0'))
+        'cols': compute(config_c.get('MATRIX_COLS', '0')),
     }
     info_data['matrix_pins'] = {}
 
