@@ -51,6 +51,8 @@ def show_matrix(info_json, title_caps=True):
                 col = COL_LETTERS[key['matrix'][1]]
 
                 labels.append(row + col)
+            else:
+                labels.append('')
 
         # Print the header
         if title_caps:
