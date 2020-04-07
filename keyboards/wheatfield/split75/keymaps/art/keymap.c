@@ -1,4 +1,12 @@
 #include QMK_KEYBOARD_H
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#include <sendstring_workman_zxcvm.h>
+
+const char* unworkmanise(char* str);
+const char transform(const char str);
+const char getConsistentCase(const int isUpper, const char str);
 
 enum layer_names {
     BASE,
@@ -7,6 +15,19 @@ enum layer_names {
     WORKMAN,
     MOD,
     MEDIA
+};
+
+enum custom_keycodes {
+	G_HELP,
+	G_BRCH,
+	G_PULL,
+	G_CHEC,
+	G_MERG,
+	G_STAT,
+	G_STSH,
+	G_COMM,
+	G_PUSH,
+
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -125,10 +146,10 @@ _______,  _______,    TO(BASE), _______,_______,_______, _______,               
 //--------------------------------Left Hand-----------------------------------------------| |--------------------------------Right Hand------------------------------------------------
                       _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______, _______,
 _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,           _______,
-_______,  _______,    _______,  _______,  KC_HOME,  KC_UP,    KC_END,   KC_PGUP,              _______,  KC_MS_BTN1,KC_MS_UP, KC_MS_BTN3,KC_MS_BTN2,_______,_______,  _______,           _______,
-_______,  _______,    _______,  _______,  KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_PGDOWN,              _______,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT,KC_APPLICATION,  _______,  _______,           _______,
-_______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,   _______,  _______,  _______,                      _______, _______,  _______,
-_______,  TO(WORKMAN),TO(BASE), KC_MS_ACCEL0,KC_MS_ACCEL1,KC_MS_ACCEL2, _______,                        _______,             _______, _______,   _______,            _______, _______,  _______
+G_PUSH,  _______,    _______,  _______,  KC_HOME,  KC_UP,    KC_END,   KC_PGUP,              _______,  KC_MS_BTN1,KC_MS_UP, KC_MS_BTN3,KC_MS_BTN2,_______,_______,  _______,           _______,
+_______,  G_COMM,    _______,  _______,  KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_PGDOWN,              _______,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT,KC_APPLICATION,  _______,  _______,           _______,
+G_PULL,  _______,    TO(WORKMAN),_______,_______,  _______,  _______,  _______,              _______,  _______,   _______,  _______,  _______,                      _______, _______,  _______,
+_______,  G_BRCH,TO(BASE), KC_MS_ACCEL0,KC_MS_ACCEL1,KC_MS_ACCEL2, _______,                        _______,             _______, _______,   _______,            _______, _______,  _______
   ),
   
   /*    MEDIA      ,-----------------------------------------.     ,-----------------------------------------------------.
@@ -187,3 +208,138 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     }
     return state;
 }
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case G_HELP:
+		if (record->event.pressed) {
+			SEND_STRING("1=");
+		}
+		break;
+	case G_PUSH:
+		if (record->event.pressed) {
+			SEND_STRING("git push ");
+		};
+		break;
+	case G_PULL:
+		if (record->event.pressed) {
+			if ( get_mods() & MOD_MASK_SHIFT ) {
+				clear_mods();
+				SEND_STRING("git fetch ");
+			} else {
+				SEND_STRING("git pull ");
+			}
+		};
+		break;
+	case G_COMM:
+		if (record->event.pressed) {
+			SEND_STRING("git commit -m \"\"" SS_TAP(X_LEFT));
+		};
+		break;
+	case G_BRCH:
+		if (record->event.pressed) {
+			if ( get_mods() & MOD_MASK_SHIFT ) {
+				clear_mods();
+				SEND_STRING("develop");
+			} else {
+				SEND_STRING("master");
+			}
+		};
+		break;
+	case G_MERG:
+		if (record->event.pressed) {
+			SEND_STRING("git merge ");
+		}
+		break;
+	case G_STAT:
+		if (record->event.pressed) {
+			SEND_STRING("git status ");
+			if ( get_mods() & MOD_MASK_SHIFT ) {
+					clear_mods();
+					SEND_STRING("git status ");
+				} else {
+					SEND_STRING("git diff ");
+				}
+		}
+	break;
+	case G_STSH:
+		if (record->event.pressed) {
+			SEND_STRING("git stash ");
+		}
+		break;
+	case G_CHEC:
+		if (record->event.pressed) {
+			if ( get_mods() & MOD_MASK_SHIFT ) {
+				clear_mods();
+				SEND_STRING("git checkout ");
+			} else {
+				SEND_STRING("git reset ");
+			}
+		};
+		break;
+  }
+  return true;
+};
+
+const char* unworkmanise(char* str) {
+	// char* stringa1 = (char*) malloc((3+1)*sizeof(char));
+	
+    // int i;
+    // for (i = 0; i < strlen(str); i++){
+		// char newChar = transform(str[i]);
+        // strncat(output,&newChar,1);
+        // //printf("%c", transform(str[i]));
+    // }
+	// stringa1[0] = 'B';
+	// stringa1[1] = 'y';
+	// stringa1[2] = 'n';
+	// strncat(stringa1,&ttemp,1);
+	
+    // return ta;
+	
+	char *p = NULL;
+	p = malloc(sizeof(char)*7);
+	p[0] = 'B';
+	p[1] = 't';
+	// strcpy(p, "qa");
+	// strcpy(p, "qa");
+	
+    return p;
+}
+
+// const char transform(const char str) {
+    // int casing = isupper(str);
+
+    // switch (tolower(str)) {
+        // case 'q':
+        // case 'a':
+        // case 's':
+        // case 'z':
+        // case 'x':
+        // case 'c':
+        // case 'v':
+        // case 'g':
+          // return getConsistentCase(casing, str);
+        // case 'd':
+          // return getConsistentCase(casing, 'w');
+        // case 'r':
+          // return getConsistentCase(casing, 'e');
+        // case 'w':
+          // return getConsistentCase(casing, 'r');
+        // case 'b':
+          // return getConsistentCase(casing, 't');
+        // case 'j':
+          // return getConsistentCase(casing, 'y');
+        // case 'f':
+          // return getConsistentCase(casing, 'u');
+        // default:
+          // return ' ';
+    // }
+// }
+
+// const char getConsistentCase(const int casing, const char str) {
+    // if (casing > 0) {
+        // return toupper(str);
+    // }
+    // return str;
+// }
