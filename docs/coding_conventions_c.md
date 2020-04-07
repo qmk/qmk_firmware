@@ -20,11 +20,11 @@ Most of our style is pretty easy to pick up on, but right now it's not entirely 
 * We accept both forms of preprocessor if's: `#ifdef DEFINED` and `#if defined(DEFINED)`
   * If you are not sure which to prefer use the `#if defined(DEFINED)` form.
   * Do not change existing code from one style to the other, except when moving to a multiple condition `#if`.
-  * Do not put whitespace between `#` and `if`.
-  * When deciding how (or if) to indent directives keep these points in mind:
-    * Readability is more important than consistency.
-    * Follow the file's existing style. If the file is mixed follow the style that makes sense for the section you are modifying.
-    * When choosing to indent you can follow the indention level of the surrounding C code, or preprocessor directives can have their own indent level. Choose the style that best communicates the intent of your code.
+* When deciding how (or if) to indent preprocessor directives, keep these points in mind:
+  * Readability is more important than consistency.
+  * Follow the file's existing style. If the file is mixed, follow the style that makes sense for the section you are modifying.
+  * When indenting, keep the hash at the start of the line and add whitespace between `#` and `if`, in increments of 4, starting at the first column after `#`.
+  * You can follow the indention level of the surrounding C code, or preprocessor directives can have their own indentation levels. Choose the style that best communicates the intent of your code.
 
 Here is an example for easy reference:
 
