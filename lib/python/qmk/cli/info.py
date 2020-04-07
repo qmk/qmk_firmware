@@ -11,7 +11,6 @@ from qmk.keyboard import is_keyboard, render_layouts, render_layout
 from qmk.keymap import locate_keymap
 from qmk.info import info_json
 
-
 ROW_LETTERS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnop'
 COL_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijilmnopqrstuvwxyz'
 
@@ -37,6 +36,17 @@ def show_keymap(info_json, title_caps=True):
                 cli.echo('{fg_cyan}layer_%s{fg_reset}:', layer_num)
 
             print(render_layout(info_json['layouts'][layout_name]['layout'], layer))
+
+
+def show_layouts(kb_info_json, title_caps=True):
+    """Render the layouts with info.json labels.
+    """
+    for layout_name, layout_art in render_layouts(kb_info_json).items():
+        if title_caps:
+            cli.echo('{fg_cyan}%s{fg_reset}:', layout_name)
+        else:
+            cli.echo('{fg_cyan}%s{fg_reset}:', layout_name)
+        print(layout_art)  # Avoid passing dirty data to cli.echo()
 
 
 def show_matrix(info_json, title_caps=True):
@@ -95,9 +105,7 @@ def info(cli):
                 cli.echo('{fg_blue}%s{fg_reset}: %s', key, kb_info_json[key])
 
         if cli.config.info.layouts:
-            for layout_name, layout_art in render_layouts(kb_info_json).items():
-                cli.echo('{fg_cyan}%s{fg_reset}:', layout_name)
-                print(layout_art)  # Avoid passing dirty data to cli.echo()
+            show_layouts(kb_info_json, False)
 
         if cli.config.info.matrix:
             show_matrix(kb_info_json, False)
@@ -122,9 +130,7 @@ def info(cli):
         cli.echo('{fg_blue}Bootloader{fg_reset}: %s', kb_info_json.get('bootloader', 'Unknown'))
 
         if cli.config.info.layouts:
-            for layout_name, layout_art in render_layouts(kb_info_json).items():
-                cli.echo('{fg_cyan}%s{fg_reset}:', layout_name)
-                print(layout_art)  # Avoid passing dirty data to cli.echo()
+            show_layouts(kb_info_json, True)
 
         if cli.config.info.matrix:
             show_matrix(kb_info_json, True)

@@ -4,7 +4,8 @@ from qmk.commands import run
 
 def check_subcommand(command, *args):
     cmd = ['bin/qmk', command] + list(args)
-    return run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+    result = run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
+    return result
 
 
 def test_cformat():
@@ -37,20 +38,20 @@ def test_kle2json():
 def test_doctor():
     result = check_subcommand('doctor', '-n')
     assert result.returncode == 0
-    assert 'QMK Doctor is checking your environment.' in result.stderr
-    assert 'QMK is ready to go' in result.stderr
+    assert 'QMK Doctor is checking your environment.' in result.stdout
+    assert 'QMK is ready to go' in result.stdout
 
 
 def test_hello():
     result = check_subcommand('hello')
     assert result.returncode == 0
-    assert 'Hello,' in result.stderr
+    assert 'Hello,' in result.stdout
 
 
 def test_pyformat():
     result = check_subcommand('pyformat')
     assert result.returncode == 0
-    assert 'Successfully formatted the python code' in result.stderr
+    assert 'Successfully formatted the python code' in result.stdout
 
 
 def test_list_keymaps():
@@ -91,6 +92,10 @@ def test_list_keymaps_no_keyboard_found():
 
 def test_info():
     result = check_subcommand('info', '-kb', 'handwired/onekey/pytest')
+    if result.returncode != 0:
+        print('`qmk info -kb handwired/onekey-pytest` stdout:')
+        print(result.stdout)
+        print('returncode:', result.returncode)
     assert result.returncode == 0
     assert 'Keyboard Name: handwired/onekey/pytest' in result.stdout
     assert 'Processor: STM32F303' in result.stdout
