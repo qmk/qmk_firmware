@@ -23,11 +23,16 @@
  * audio.[ch] takes care of all overall state, tracking the actively playing
  *            notes/tones; the notes a SONG consists of;
  *            ...
+ *            = everything audio-related that is platform agnostic
  *
  * driver_[avr|chibios]_[dac|pwm] take care of the lower hardware dependent parts,
  *            specific to each platform and the used subsystem/driver to drive
  *            the output pins/channels with the calculated frequencies for each
  *            avtive tone
+ *            as part of this, the driver has to trigger regular state updates by
+ *            calling 'audio_advance_state' through some sort of timer - be it a
+ *            dedicated one or piggybacking on for example the timer used to
+ *            generate a pwm signal/clock.
  *
  *
  * A Note on terminology:
@@ -62,6 +67,7 @@ uint8_t  note_tempo     = TEMPO_DEFAULT; // beats-per-minute
 uint16_t current_note = 0; // index into the array at notes_pointer
 uint16_t next_note    = 0;
 uint32_t note_position  = 0; // where in time, during playback of the current_note
+bool     note_resting = false; // if a short pause was introduced between too notes with the same frequency while playing a melody
 
 #ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
 #    ifndef AUDIO_MAX_SIMULTANEOUS_TONES
@@ -72,10 +78,6 @@ float    tone_multiplexing_counter = 0.0f; // incremented each state update, and
 uint8_t  tone_multiplexing_index_shift = 0; // offset used on active-tone array access
 #endif
 
-
-//TODO/REFACTORING: check below variables if/where they are still used
-float    note_frequency = 0; // Hz
-bool     note_resting = false; //?? current note is a pause? or is this supposed to indicate a 'tie'?
 
 #ifdef AUDIO_ENABLE_VIBRATO
 float vibrato_counter  = 0;
@@ -273,6 +275,7 @@ void audio_play_melody(float (*np)[][2], uint16_t n_count, bool n_repeat) {
         if (playing_note) audio_stop_all();
 
         playing_melody = true;
+        note_resting   = false;
 
         notes_pointer = np;
         notes_count   = n_count;
@@ -280,7 +283,7 @@ void audio_play_melody(float (*np)[][2], uint16_t n_count, bool n_repeat) {
 
         current_note = 0; // note in the melody-array/list at note_pointer
 
-        note_frequency = (*notes_pointer)[current_note][0];
+        audio_play_tone((*notes_pointer)[current_note][0]); // start first note manually, all remaining are triggered during audio_advance_state
         note_length    = ((*notes_pointer)[current_note][1]) * (60.0f / note_tempo);
         note_position  = 0; // position in the currently playing note = "elapsed time" (with no specific unit, depends on how fast/slow the respective audio-driver/hardware ticks)
 
@@ -360,11 +363,19 @@ float audio_get_processed_frequency(uint8_t tone_index) {
    the following code block is a leftover of the audio-refactoring, which deduplicated code among the different implementations at the time - boiled down to this function, which was to be called by an avr ISR to do single/dual channel pwm
 
    there are lots of avr hardware specifica in there, but also some features still that could/should? be refactored into the "new" audio system - like
-   - "software polyphonic" audio, which cycles through/time multiplexes the currently active tones, avoiding the hardware limit of one or two pwm outputs/speakers; which by themselve can only render one frequency at a time (unlike the arm-dac implementation, which can do wave-synthesis to combine multiple frequencies)
+
+   [X] "software polyphonic" audio, which cycles through/time multiplexes the currently active tones, avoiding the hardware limit of one or two pwm outputs/speakers; which by themselve can only render one frequency at a time (unlike the arm-dac implementation, which can do wave-synthesis to combine multiple frequencies)
    (according to wikipedia: polyphonic is actually something different: concurrent melodies/voices that play with/against each other
-   - "note_resting": which does a short gab between consecutive tones of the same frequency; to not slurr them together, like making to quarter-notes into one half-note
+    -> refactored as AUDIO_ENABLE_TONE_MULTIPLEXING
+
+   [X] "note_resting": which does a short gab between consecutive tones of the same frequency; to not slurr them together, like making to quarter-notes into one half-note
+    -> shortRest added on-the-fly during audio_advance_state
 
    most of the logic has been refactored and moved into the different parts of the current implementation though
+
+
+
+
 
 void pwm_audio_timer_task(float *freq, float *freq_alt) {
     if (playing_note) {
@@ -403,7 +414,7 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
     }
 
     if (playing_melody) {
-        if (note_frequency > 0) {
+        if (note_frequency > 0) { // 'note_frequency' used to be set to the current not in the melody
 #ifdef AUDIO_ENABLE_VIBRATO
             if (vibrato_strength > 0) {
                 *freq = vibrato(note_frequency);
@@ -502,33 +513,59 @@ bool audio_advance_state(uint32_t step, float end) {
 
         goto_next_note = note_position >= (note_length * end);
         if (goto_next_note) {
-            audio_stop_tone((*notes_pointer)[current_note][0]);
+            uint16_t previous_note = current_note;
             current_note++;
+            envelope_index = 0;
 
             if (current_note >= notes_count) {
                 if (notes_repeat) {
                     current_note = 0;
                 } else {
                     playing_melody = false;
+                    audio_stop_tone((*notes_pointer)[previous_note][0]);
                     return true;
                 }
             }
 
-            audio_play_tone(
-                (*notes_pointer)[current_note][0] // frequency only; the duration is handled by calling this function regularly and advancing the note_position
-                );
+            if (!note_resting
+                && (*notes_pointer)[previous_note][0] == (*notes_pointer)[current_note][0]
+                ) {
+                note_resting = true;
 
-            envelope_index = 0;
+                // special handling for successive notes of the same frequency:
+                // insert a short pause to separate them audibly
+                current_note = previous_note;
+                float shortRest[2] = {0.0f, 2 /*duration of a THIRTYTWOTH_NOTE*/};
+                audio_play_tone(shortRest[0]);
+                audio_stop_tone((*notes_pointer)[previous_note][0]);
+                note_position = note_position - (note_length * end);
+                note_length = shortRest[1] * (60.0f / note_tempo);
 
-            // Skip forward in the next note's length if we've over shot the last, so
-            // the overall length of the song is the same
-            note_position = note_position - (note_length * end);
+            } else {
+                note_resting = false;
 
-            note_length = ((*notes_pointer)[current_note][1]) * (60.0f / note_tempo);
+                // need only to pass the frequency - the duration is handled by
+                // calling this function regularly and advancing the note_position
+                audio_play_tone(
+                                (*notes_pointer)[current_note][0]
+                                );
+                // start the next note prior to stopping the previous one, to
+                // allow the hardware to do a clean transition; and avoid a brief
+                // state where active_tones==0 -> driver_stop
+                if ((*notes_pointer)[previous_note][0] != (*notes_pointer)[current_note][0]) {
+                    audio_stop_tone((*notes_pointer)[previous_note][0]);
+                }
+
+                // Skip forward in the next note's length if we've over shot the last, so
+                // the overall length of the song is the same
+                note_position = note_position - (note_length * end);
+
+                note_length = ((*notes_pointer)[current_note][1]) * (60.0f / note_tempo);
+            }
         }
     }
 
-    if (!playing_note && !playing_melody )
+    if (!playing_note && !playing_melody)
         audio_stop_all();
     //TODO: trigger a stop of the hardware or just a audio_stop_tone on the last frequency?
 
