@@ -28,8 +28,7 @@ TODOS:
 - channel_X_stop should respect dac conversion buffer-complete; currently the output might end up 'high' = halfway through a sample conversion
 */
 
-
-#if defined(AUDIO_PIN_A4) || defined (AUDIO_PIN_ALT_A4)
+#if defined(AUDIO_PIN_A4) || defined(AUDIO_PIN_ALT_A4)
 // squarewave
 static const dacsample_t dac_buffer_1[AUDIO_DAC_BUFFER_SIZE] = {
     // First half is max, second half is 0
@@ -37,7 +36,7 @@ static const dacsample_t dac_buffer_1[AUDIO_DAC_BUFFER_SIZE] = {
     [AUDIO_DAC_BUFFER_SIZE / 2 ... AUDIO_DAC_BUFFER_SIZE - 1] = 0,
 };
 #endif
-#if defined(AUDIO_PIN_A5) || defined (AUDIO_PIN_ALT_A5)
+#if defined(AUDIO_PIN_A5) || defined(AUDIO_PIN_ALT_A5)
 // squarewave
 static const dacsample_t dac_buffer_2[AUDIO_DAC_BUFFER_SIZE] = {
     // opposite of dac_buffer above
@@ -46,14 +45,13 @@ static const dacsample_t dac_buffer_2[AUDIO_DAC_BUFFER_SIZE] = {
 };
 #endif
 
-
-#if defined(AUDIO_PIN_A4) || defined (AUDIO_PIN_ALT_A4)
+#if defined(AUDIO_PIN_A4) || defined(AUDIO_PIN_ALT_A4)
 GPTConfig gpt6cfg1 = {.frequency = AUDIO_DAC_SAMPLE_RATE,
                       .callback  = NULL,
                       .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
                       .dier      = 0U};
 #endif
-#if defined(AUDIO_PIN_A5) || defined (AUDIO_PIN_ALT_A5)
+#if defined(AUDIO_PIN_A5) || defined(AUDIO_PIN_ALT_A5)
 GPTConfig gpt7cfg1 = {.frequency = AUDIO_DAC_SAMPLE_RATE,
                       .callback  = NULL,
                       .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
@@ -61,15 +59,15 @@ GPTConfig gpt7cfg1 = {.frequency = AUDIO_DAC_SAMPLE_RATE,
 #endif
 
 static void gpt_cb8(GPTDriver *gptp);
-GPTConfig gpt8cfg1 = {.frequency = 10,
+GPTConfig   gpt8cfg1 = {.frequency = 10,
                       .callback  = gpt_cb8,
                       .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
                       .dier      = 0U};
 
-#if defined(AUDIO_PIN_A4) || defined (AUDIO_PIN_ALT_A4)
+#if defined(AUDIO_PIN_A4) || defined(AUDIO_PIN_ALT_A4)
 static const DACConfig dac_conf_ch1 = {.init = AUDIO_DAC_OFF_VALUE, .datamode = DAC_DHRM_12BIT_RIGHT};
 #endif
-#if defined(AUDIO_PIN_A5) || defined (AUDIO_PIN_ALT_A5)
+#if defined(AUDIO_PIN_A5) || defined(AUDIO_PIN_ALT_A5)
 static const DACConfig dac_conf_ch2 = {.init = AUDIO_DAC_OFF_VALUE, .datamode = DAC_DHRM_12BIT_RIGHT};
 #endif
 
@@ -87,65 +85,59 @@ static const DACConfig dac_conf_ch2 = {.init = AUDIO_DAC_OFF_VALUE, .datamode = 
  * EXTI9      0b110
  * SWTRIG     0b111
  */
-#if defined(AUDIO_PIN_A4) || defined (AUDIO_PIN_ALT_A4)
+#if defined(AUDIO_PIN_A4) || defined(AUDIO_PIN_ALT_A4)
 static const DACConversionGroup dac_conv_grp_ch1 = {.num_channels = 1U, .trigger = DAC_TRG(0b000)};
 #endif
-#if defined(AUDIO_PIN_A5) || defined (AUDIO_PIN_ALT_A5)
+#if defined(AUDIO_PIN_A5) || defined(AUDIO_PIN_ALT_A5)
 static const DACConversionGroup dac_conv_grp_ch2 = {.num_channels = 1U, .trigger = DAC_TRG(0b010)};
 #endif
 
-
-#if defined(AUDIO_PIN_A4) || defined (AUDIO_PIN_ALT_A4)
+#if defined(AUDIO_PIN_A4) || defined(AUDIO_PIN_ALT_A4)
 void channel_1_start(void) {
     gptStart(&GPTD6, &gpt6cfg1);
     gptStartContinuous(&GPTD6, 2U);
 }
 
-void channel_1_stop(void) {
-    gptStopTimer(&GPTD6);
-}
+void channel_1_stop(void) { gptStopTimer(&GPTD6); }
 
 static float channel_1_frequency = 0.0f;
-void channel_1_set_frequency(float freq) {
+void         channel_1_set_frequency(float freq) {
     channel_1_frequency = freq;
 
     channel_1_stop();
-    if (freq <= 0.0) //a pause/rest has freq=0
+    if (freq <= 0.0)  // a pause/rest has freq=0
         return;
 
     gpt6cfg1.frequency = 2 * freq * AUDIO_DAC_BUFFER_SIZE;
     channel_1_start();
 }
 float channel_1_get_frequency(void) { return channel_1_frequency; }
-#endif // AUDIO_PIN(_ALT)_A4
+#endif  // AUDIO_PIN(_ALT)_A4
 
-#if defined(AUDIO_PIN_A5) || defined (AUDIO_PIN_ALT_A5)
+#if defined(AUDIO_PIN_A5) || defined(AUDIO_PIN_ALT_A5)
 void channel_2_start(void) {
     gptStart(&GPTD7, &gpt7cfg1);
     gptStartContinuous(&GPTD7, 2U);
 }
 
-void channel_2_stop(void) {
-    gptStopTimer(&GPTD7);
-}
+void channel_2_stop(void) { gptStopTimer(&GPTD7); }
 
 static float channel_2_frequency = 0.0f;
-void channel_2_set_frequency(float freq) {
+void         channel_2_set_frequency(float freq) {
     channel_2_frequency = freq;
 
     channel_2_stop();
-    if (freq <= 0.0) //a pause/rest has freq=0
+    if (freq <= 0.0)  // a pause/rest has freq=0
         return;
 
     gpt7cfg1.frequency = 2 * freq * AUDIO_DAC_BUFFER_SIZE;
     channel_2_start();
 }
 float channel_2_get_frequency(void) { return channel_2_frequency; }
-#endif // AUDIO_PIN(_ALT)_A5
+#endif  // AUDIO_PIN(_ALT)_A5
 
 static void gpt_cb8(GPTDriver *gptp) {
-    if(audio_advance_state(1,gpt8cfg1.frequency)) {
-
+    if (audio_advance_state(1, gpt8cfg1.frequency)) {
 #if defined(AUDIO_PIN_A4)
         channel_1_set_frequency(audio_get_processed_frequency(0));
 #    if defined(AUDIO_PIN_ALT_A5)
@@ -167,17 +159,16 @@ static void gpt_cb8(GPTDriver *gptp) {
         }
 #    endif
 #endif
-
     }
 }
 
 void audio_driver_initialize() {
-#if defined(AUDIO_PIN_A4) || defined (AUDIO_PIN_ALT_A4)
+#if defined(AUDIO_PIN_A4) || defined(AUDIO_PIN_ALT_A4)
     palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_ANALOG);
     dacStart(&DACD1, &dac_conf_ch1);
     dacStartConversion(&DACD1, &dac_conv_grp_ch1, (dacsample_t *)dac_buffer_1, AUDIO_DAC_BUFFER_SIZE);
 #endif
-#if defined(AUDIO_PIN_A5) || defined (AUDIO_PIN_ALT_A5)
+#if defined(AUDIO_PIN_A5) || defined(AUDIO_PIN_ALT_A5)
     palSetPadMode(GPIOA, 5, PAL_MODE_INPUT_ANALOG);
     dacStart(&DACD2, &dac_conf_ch2);
     dacStartConversion(&DACD2, &dac_conv_grp_ch2, (dacsample_t *)dac_buffer_2, AUDIO_DAC_BUFFER_SIZE);
@@ -192,11 +183,11 @@ void audio_driver_initialize() {
      * this is done here, reaching directly into the stm32 registers since chibios has not implemented BOFF handling yet
      * (see: chibios/os/hal/ports/STM32/todo.txt '- BOFF handling in DACv1.'
      */
-#if defined(AUDIO_PIN_A4) || defined (AUDIO_PIN_ALT_A4)
+#if defined(AUDIO_PIN_A4) || defined(AUDIO_PIN_ALT_A4)
     DACD1.params->dac->CR &= ~DAC_CR_BOFF1;
-    gptStart(&GPTD6, &gpt6cfg1); // initialize the timer used to trigger the DAC conversions
+    gptStart(&GPTD6, &gpt6cfg1);  // initialize the timer used to trigger the DAC conversions
 #endif
-#if defined(AUDIO_PIN_A5) || defined (AUDIO_PIN_ALT_A5)
+#if defined(AUDIO_PIN_A5) || defined(AUDIO_PIN_ALT_A5)
     DACD2.params->dac->CR &= ~DAC_CR_BOFF2;
     gptStart(&GPTD7, &gpt7cfg1);
 #endif
@@ -206,15 +197,13 @@ void audio_driver_initialize() {
 }
 
 void audio_driver_stop(void) {
-#if defined(AUDIO_PIN_A4) || defined (AUDIO_PIN_ALT_A4)
+#if defined(AUDIO_PIN_A4) || defined(AUDIO_PIN_ALT_A4)
     gptStopTimer(&GPTD6);
 #endif
-#if defined(AUDIO_PIN_A5) || defined (AUDIO_PIN_ALT_A5)
+#if defined(AUDIO_PIN_A5) || defined(AUDIO_PIN_ALT_A5)
     gptStopTimer(&GPTD7);
 #endif
     gptStopTimer(&GPTD8);
 }
 
-void audio_driver_start(void) {
-    gptStartContinuous(&GPTD8, 2U);
-}
+void audio_driver_start(void) { gptStartContinuous(&GPTD8, 2U); }

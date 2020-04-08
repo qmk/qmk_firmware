@@ -22,11 +22,10 @@
 
 #include "audio.h"
 
-
 // TODO: move into audio-common state
-extern bool    playing_note;
-extern bool    playing_melody;
-extern float   note_timbre;
+extern bool  playing_note;
+extern bool  playing_melody;
+extern float note_timbre;
 
 #define CPU_PRESCALER 8
 
@@ -78,7 +77,6 @@ extern float   note_timbre;
 #    endif
 #endif
 
-
 #if defined(AUDIO_PIN_ALT_B5) || defined(AUDIO_PIN_ALT_B6) || defined(AUDIO_PIN_ALT_B7)
 #    define AUDIO2_PIN_SET
 #    define AUDIO2_TIMSKx TIMSK1
@@ -120,18 +118,17 @@ extern float   note_timbre;
 // C6 seems to be the assumed default by many existing keyboard - but sill warn the user
 #if !defined(AUDIO1_PIN_SET) && !defined(AUDIO2_PIN_SET)
 #    pragma message "Audio feature enabled, but no pin selected - see docs/feature_audio under the AVR settings for available options. Don't expect to hear anything... :-)"
-//TODO: make this an error - go through the breaking-change-process and change all keyboards to the new define
+// TODO: make this an error - go through the breaking-change-process and change all keyboards to the new define
 #endif
 // -----------------------------------------------------------------------------
 
 #ifdef AUDIO1_PIN_SET
 static float channel_1_frequency = 0.0f;
 void         channel_1_set_frequency(float freq) {
-
-    //TODO: handle consecutive notes with the same frequency, there should be an audible gap inbetween them
+    // TODO: handle consecutive notes with the same frequency, there should be an audible gap inbetween them
     if (freq == channel_1_frequency) return;
 
-    if (freq == 0.0f) // a pause/rest is a valid "note" with freq=0
+    if (freq == 0.0f)  // a pause/rest is a valid "note" with freq=0
     {
         // disable the output, but keep the pwm-ISR going (with the previous
         // frequency) so the audio-state keeps getting updated
@@ -139,13 +136,13 @@ void         channel_1_set_frequency(float freq) {
         AUDIO1_TCCRxA &= ~(_BV(AUDIO1_COMxy1) | _BV(AUDIO1_COMxy0));
         return;
     } else {
-        AUDIO1_TCCRxA |= _BV(AUDIO1_COMxy1);// enable output, PWM mode
+        AUDIO1_TCCRxA |= _BV(AUDIO1_COMxy1);  // enable output, PWM mode
     }
 
     channel_1_frequency = freq;
 
     // set pwm period
-    AUDIO1_ICRx  = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
+    AUDIO1_ICRx = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
     // and duty cycle
     AUDIO1_OCRxy = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
 }
@@ -165,15 +162,12 @@ void channel_1_stop(void) {
 }
 #endif
 
-
 #ifdef AUDIO2_PIN_SET
 static float channel_2_frequency = 0.0f;
 void         channel_2_set_frequency(float freq) {
-
     if (freq == channel_2_frequency) return;
 
-    if (freq == 0.0f)
-    {
+    if (freq == 0.0f) {
         AUDIO2_TCCRxA &= ~(_BV(AUDIO2_COMxy1) | _BV(AUDIO2_COMxy0));
         return;
     } else {
@@ -182,7 +176,7 @@ void         channel_2_set_frequency(float freq) {
 
     channel_2_frequency = freq;
 
-    AUDIO2_ICRx = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
+    AUDIO2_ICRx  = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
     AUDIO2_OCRxy = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
 }
 
@@ -238,7 +232,6 @@ void audio_driver_initialize() {
     AUDIO2_TCCRxA = (0 << AUDIO2_COMxy1) | (0 << AUDIO2_COMxy0) | (1 << AUDIO2_WGMx1) | (0 << AUDIO2_WGMx0);
     AUDIO2_TCCRxB = (1 << AUDIO2_WGMx3) | (1 << AUDIO2_WGMx2) | (0 << AUDIO2_CSx2) | (1 << AUDIO2_CSx1) | (0 << AUDIO2_CSx0);
 #endif
-
 }
 
 void audio_driver_stop() {
@@ -254,31 +247,27 @@ void audio_driver_stop() {
 void audio_driver_start(void) {
 #ifdef AUDIO1_PIN_SET
     channel_1_start();
-    if (playing_note)
-        channel_1_set_frequency(
-            audio_get_processed_frequency(0)
-            );
+    if (playing_note) {
+        channel_1_set_frequency(audio_get_processed_frequency(0));
+    }
 #endif
 
 #if !defined(AUDIO1_PIN_SET) && defined(AUDIO2_PIN_SET)
     channel_2_start();
     if (playing_note) {
-        channel_2_set_frequency(
-            audio_get_processed_frequency(0)
-            );
+        channel_2_set_frequency(audio_get_processed_frequency(0));
     }
 #endif
 }
 
-static volatile uint32_t isr_counter=0;
+static volatile uint32_t isr_counter = 0;
 #ifdef AUDIO1_PIN_SET
 ISR(AUDIO1_TIMERx_COMPy_vect) {
     isr_counter++;
-    if (isr_counter < channel_1_frequency/(CPU_PRESCALER*8))
-        return;
+    if (isr_counter < channel_1_frequency / (CPU_PRESCALER * 8)) return;
 
-    isr_counter=0;
-    bool state_changed = audio_advance_state(1,1);
+    isr_counter        = 0;
+    bool state_changed = audio_advance_state(1, 1);
 
     if (!playing_note && !playing_melody) {
         channel_1_stop();
@@ -288,15 +277,11 @@ ISR(AUDIO1_TIMERx_COMPy_vect) {
         return;
     }
 
-    if (state_changed){
-        channel_1_set_frequency(
-            audio_get_processed_frequency(0)
-            );
+    if (state_changed) {
+        channel_1_set_frequency(audio_get_processed_frequency(0));
 #    ifdef AUDIO2_PIN_SET
         if (audio_get_number_of_active_tones() > 1) {
-            channel_2_set_frequency(
-                audio_get_processed_frequency(1)
-                );
+            channel_2_set_frequency(audio_get_processed_frequency(1));
         } else {
             channel_2_stop();
         }
@@ -308,21 +293,18 @@ ISR(AUDIO1_TIMERx_COMPy_vect) {
 #if !defined(AUDIO1_PIN_SET) && defined(AUDIO2_PIN_SET)
 ISR(AUDIO2_TIMERx_COMPy_vect) {
     isr_counter++;
-    if (isr_counter < channel_2_frequency/(CPU_PRESCALER*8))
-        return;
+    if (isr_counter < channel_2_frequency / (CPU_PRESCALER * 8)) return;
 
-    isr_counter=0;
-    bool state_changed = audio_advance_state(1,1);
+    isr_counter        = 0;
+    bool state_changed = audio_advance_state(1, 1);
 
     if (!playing_note && !playing_melody) {
         channel_2_stop();
         return;
     }
 
-    if (state_changed){
-        channel_2_set_frequency(
-            audio_get_processed_frequency(0)
-            );
+    if (state_changed) {
+        channel_2_set_frequency(audio_get_processed_frequency(0));
     }
 }
 #endif

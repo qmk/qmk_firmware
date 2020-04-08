@@ -27,59 +27,50 @@ this driver uses the chibios-PWM system to produce a squarewave on any given out
 #include "ch.h"
 #include "hal.h"
 
-
 #if !defined(AUDIO_PIN)
 #    error "Audio feature enabled, but no pin selected - see docs/feature_audio under the ARM PWM settings"
 #endif
-
 
 // some preprocessor trickery to get the corresponding chibios-PWMDriver
 #define TO_CHIBIOS_PWMD_PASTE(t) (PWMD##t)
 #define TO_CHIBIOS_PWMD_EVAL(t) TO_CHIBIOS_PWMD_PASTE(t)
 #define PWMD TO_CHIBIOS_PWMD_EVAL(AUDIO_PWM_TIMER)
 
-extern bool playing_note;
-extern bool playing_melody;
+extern bool  playing_note;
+extern bool  playing_melody;
 extern float note_timbre;
-
 
 static void pwm_audio_period_callback(PWMDriver *pwmp);
 static void pwm_audio_channel_interrupt_callback(PWMDriver *pwmp);
 
-
-static PWMConfig pwmCFG = {.frequency = 100000, /* PWM clock frequency  */
-                           //CHIBIOS-BUG? can't set the initial period to <2, or the pwm (hard or software) takes ~130ms with .frequency=500000 for a pwmChangePeriod to take effect; with no ouput=silence in the meantime
-                           .period = 2,     /* initial PWM period (in ticks) 1S (1/10kHz=0.1mS 0.1ms*10000 ticks=1S) */
-                           .callback = pwm_audio_period_callback,
-                           .channels = {
-                               // software-PWM just needs another callback on any channel
-                               {PWM_OUTPUT_ACTIVE_HIGH, pwm_audio_channel_interrupt_callback}, /* channel 0 -> TIMx_CH1 */
-                               {PWM_OUTPUT_DISABLED, NULL}, /* channel 1 -> TIMx_CH2 */
-                               {PWM_OUTPUT_DISABLED, NULL}, /* channel 2 -> TIMx_CH3 */
-                               {PWM_OUTPUT_DISABLED, NULL}  /* channel 3 -> TIMx_CH4 */
-                           },
-                       };
-
+static PWMConfig pwmCFG = {
+    .frequency = 100000, /* PWM clock frequency  */
+    // CHIBIOS-BUG? can't set the initial period to <2, or the pwm (hard or software) takes ~130ms with .frequency=500000 for a pwmChangePeriod to take effect; with no ouput=silence in the meantime
+    .period   = 2, /* initial PWM period (in ticks) 1S (1/10kHz=0.1mS 0.1ms*10000 ticks=1S) */
+    .callback = pwm_audio_period_callback,
+    .channels =
+        {
+            // software-PWM just needs another callback on any channel
+            {PWM_OUTPUT_ACTIVE_HIGH, pwm_audio_channel_interrupt_callback}, /* channel 0 -> TIMx_CH1 */
+            {PWM_OUTPUT_DISABLED, NULL},                                    /* channel 1 -> TIMx_CH2 */
+            {PWM_OUTPUT_DISABLED, NULL},                                    /* channel 2 -> TIMx_CH3 */
+            {PWM_OUTPUT_DISABLED, NULL}                                     /* channel 3 -> TIMx_CH4 */
+        },
+};
 
 static float channel_1_frequency = 0.0f;
-void channel_1_set_frequency(float freq) {
-//    if (freq == channel_1_frequency) return;
-    //TODO: interrupt same-frequency notes?
-
+void         channel_1_set_frequency(float freq) {
     channel_1_frequency = freq;
 
-    if (freq <= 0.0) //a pause/rest has freq=0
+    if (freq <= 0.0)  // a pause/rest has freq=0
         return;
 
     pwmcnt_t period = (pwmCFG.frequency / freq);
     pwmChangePeriod(&PWMD, period);
 
-    pwmEnableChannel(
-                     &PWMD,
-                     AUDIO_PWM_TIMERCHANNEL -1,
+    pwmEnableChannel(&PWMD, AUDIO_PWM_TIMERCHANNEL - 1,
                      // adjust the duty-cycle so that the output is for 'note_timbre' duration HIGH
-                     PWM_PERCENTAGE_TO_WIDTH(&PWMD, (1.0f-note_timbre) * 10000)
-                     );
+                     PWM_PERCENTAGE_TO_WIDTH(&PWMD, (1.0f - note_timbre) * 10000));
 }
 
 float channel_1_get_frequency(void) { return channel_1_frequency; }
@@ -89,13 +80,13 @@ void channel_1_start(void) {
     pwmStart(&PWMD, &pwmCFG);
 
     pwmEnablePeriodicNotification(&PWMD);
-    pwmEnableChannelNotification(&PWMD, AUDIO_PWM_TIMERCHANNEL-1);
+    pwmEnableChannelNotification(&PWMD, AUDIO_PWM_TIMERCHANNEL - 1);
 }
 
 void channel_1_stop(void) {
     pwmStop(&PWMD);
 
-    palClearLine(AUDIO_PIN); // leave the line low, after last note was played
+    palClearLine(AUDIO_PIN);  // leave the line low, after last note was played
 }
 
 // generate a PWM signal on any pin, not neccessarily the one connected to the timer
@@ -105,8 +96,7 @@ static void pwm_audio_period_callback(PWMDriver *pwmp) {
 }
 static void pwm_audio_channel_interrupt_callback(PWMDriver *pwmp) {
     (void)pwmp;
-    if (channel_1_frequency > 0)
-        palSetLine(AUDIO_PIN);  // generate a PWM signal on any pin, not neccessarily the one connected to the timer
+    if (channel_1_frequency > 0) palSetLine(AUDIO_PIN);  // generate a PWM signal on any pin, not neccessarily the one connected to the timer
 }
 
 static void gpt_callback(GPTDriver *gptp);
@@ -129,8 +119,8 @@ void audio_driver_initialize(void) {
     palSetLineMode(AUDIO_PIN, PAL_MODE_OUTPUT_PUSHPULL);
     palClearLine(AUDIO_PIN);
 
-    pwmEnablePeriodicNotification(&PWMD); // enable pwm callbacks
-    pwmEnableChannelNotification(&PWMD, AUDIO_PWM_TIMERCHANNEL-1);
+    pwmEnablePeriodicNotification(&PWMD);  // enable pwm callbacks
+    pwmEnableChannelNotification(&PWMD, AUDIO_PWM_TIMERCHANNEL - 1);
 
     gptStart(&GPTD6, &gptCFG);
 }
@@ -153,10 +143,10 @@ void audio_driver_stop(void) {
  * and updates the pwm to output that frequency
  */
 static void gpt_callback(GPTDriver *gptp) {
-    float freq;// TODO: freq_alt
+    float freq;  // TODO: freq_alt
 
     if (audio_advance_state(1, 1)) {
-        freq = audio_get_processed_frequency(0); // freq_alt would be index=1
+        freq = audio_get_processed_frequency(0);  // freq_alt would be index=1
         channel_1_set_frequency(freq);
     }
 }
