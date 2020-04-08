@@ -21,7 +21,9 @@ COMPILEFLAGS += -fdata-sections
 COMPILEFLAGS += -fpack-struct
 COMPILEFLAGS += -fshort-enums
 
-CFLAGS += $(COMPILEFLAGS)
+ASFLAGS += $(AVR_ASFLAGS)
+
+CFLAGS += $(COMPILEFLAGS) $(AVR_CFLAGS)
 CFLAGS += -fno-inline-small-functions
 CFLAGS += -fno-strict-aliasing
 
@@ -95,34 +97,6 @@ ifndef TEENSY_LOADER_CLI
 		TEENSY_LOADER_CLI ?= teensy_loader_cli
 	endif
 endif
-
-# Generate a .qmk for the QMK-FF
-qmk: $(BUILD_DIR)/$(TARGET).hex
-	zip $(TARGET).qmk -FSrj $(KEYMAP_PATH)/*
-	zip $(TARGET).qmk -u $<
-	printf "@ $<\n@=firmware.hex\n" | zipnote -w $(TARGET).qmk
-	printf "{\n  \"generated\": \"%s\"\n}" "$$(date)" > $(BUILD_DIR)/$(TARGET).json
-	if [ -f $(KEYBOARD_PATH_5)/info.json ]; then \
-		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_5)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
-	fi
-	if [ -f $(KEYBOARD_PATH_4)/info.json ]; then \
-		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_4)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
-	fi
-	if [ -f $(KEYBOARD_PATH_3)/info.json ]; then \
-		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_3)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
-	fi
-	if [ -f $(KEYBOARD_PATH_2)/info.json ]; then \
-		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_2)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
-	fi
-	if [ -f $(KEYBOARD_PATH_1)/info.json ]; then \
-		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_1)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
-	fi
-	zip $(TARGET).qmk -urj $(BUILD_DIR)/$(TARGET).json
-	printf "@ $(TARGET).json\n@=info.json\n" | zipnote -w $(TARGET).qmk
-
-# Program the device.
-program: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep check-size
-	$(PROGRAM_CMD)
 
 define EXEC_TEENSY
 	$(TEENSY_LOADER_CLI) -mmcu=$(MCU) -w -v $(BUILD_DIR)/$(TARGET).hex
@@ -336,7 +310,9 @@ production: $(BUILD_DIR)/$(TARGET).hex bootloader cpfirmware
 	$(SIZE) $(TARGET).hex $(TARGET)_bootloader.hex $(TARGET)_production.hex
 
 flash:  $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
-ifeq ($(strip $(BOOTLOADER)), caterina)
+ifneq ($(strip $(PROGRAM_CMD)),)
+	$(PROGRAM_CMD)
+else ifeq ($(strip $(BOOTLOADER)), caterina)
 	$(call EXEC_AVRDUDE)
 else ifeq ($(strip $(BOOTLOADER)), halfkay)
 	$(call EXEC_TEENSY)

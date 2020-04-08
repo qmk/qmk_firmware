@@ -29,7 +29,7 @@
  * Input:
  *         ledarray:           An array of GRB data describing the LED colors
  *         number_of_leds:     The number of LEDs to write
- *         pinmask (optional): Bitmask describing the output bin. e.g. _BV(PB0)
+ *         pin (optional):     A pin_t definition for the line to drive
  *
  * The functions will perform the following actions:
  *         - Set the data-out pin as output
@@ -37,4 +37,4 @@
  *         - Wait 50us to reset the LEDs
  */
 void ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds);
-void ws2812_setleds_pin(LED_TYPE *ledarray, uint16_t number_of_leds, uint8_t pinmask);
+void ws2812_setleds_pin(LED_TYPE *ledarray, uint16_t number_of_leds, uint8_t pin);

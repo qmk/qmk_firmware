@@ -31,4 +31,4 @@ AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 
-DEFAULT_FOLDER = kudox_game/rev1
+DEFAULT_FOLDER = kudox_game/rev2
