@@ -12,14 +12,18 @@ Customizable 60% PCB by [YMDK](https://ymdk.aliexpress.com/store/429151?spm=2114
 
 Make example for this keyboard (after setting up your build environment):
 
-    make yd60mq:default        # builds the 12 LED variant
-    make yd60mq/12led:default  # also builds the 12 LED variant
-    make yd60mq/16led:default  # builds the 16 LED variant
+```sh
+make yd60mq:default        # builds the 12 LED variant
+make yd60mq/12led:default  # also builds the 12 LED variant
+make yd60mq/16led:default  # builds the 16 LED variant
+```
 
 The keyboard uses a DFU bootloader. To make a keymap and use dfu to flash it:
 
-    make yd60mq:default:flash        # builds and flashes the 12 LED variant
-    make yd60mq/12led:default:flash  # also builds and flashes the 12 LED variant
-    make yd60mq/16led:default:flash  # builds and flashes the 16 LED variant
+```sh
+make yd60mq:default:flash        # builds and flashes the 12 LED variant
+make yd60mq/12led:default:flash  # also builds and flashes the 12 LED variant
+make yd60mq/16led:default:flash  # builds and flashes the 16 LED variant
+```
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
