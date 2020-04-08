@@ -1,7 +1,4 @@
 #include QMK_KEYBOARD_H
-
-extern keymap_config_t keymap_config;
-
 #define _BASE 0
 #define _L 1
 #define _R 2
