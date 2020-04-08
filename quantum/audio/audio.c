@@ -55,19 +55,18 @@ uint8_t  active_tones         = 0; // number of tones pushed onto the stack by a
 float    frequencies[AUDIO_TONE_STACKSIZE] = {-1.0}; // frequencies of each active tone
 //TODO: array of musical_tone_t?
 
-bool     playing_melody  = false; // playing a SONG?
+bool     playing_melody = false; // playing a SONG?
 bool     playing_note   = false; // or (possibly multiple simultaneous) tones  TODO: should this be playing_tone instead, since we don't handle any duration (yet)
 bool     state_changed  = false; // global flag, which is set if anything changes with the active_tones
 
 float  (*notes_pointer)[][2]; // SONG, an array of MUSICAL_NOTEs
 uint16_t notes_count; // length of the notes_pointer array
 bool     notes_repeat; // PLAY_SONG or PLAY_LOOP?
-float    note_length    = 0; // in 64 parts to a beat
-uint8_t  note_tempo     = TEMPO_DEFAULT; // beats-per-minute
-uint16_t current_note = 0; // index into the array at notes_pointer
-uint16_t next_note    = 0;
-uint32_t note_position  = 0; // where in time, during playback of the current_note
-bool     note_resting = false; // if a short pause was introduced between too notes with the same frequency while playing a melody
+float    note_length   = 0; // in 64 parts to a beat
+uint8_t  note_tempo    = TEMPO_DEFAULT; // beats-per-minute
+uint16_t current_note  = 0; // index into the array at notes_pointer
+uint32_t note_position = 0; // position in the currently playing note = "elapsed time" (with no specific unit, depends on how fast/slow the respective audio-driver/hardware ticks)
+bool     note_resting  = false; // if a short pause was introduced between two notes with the same frequency while playing a melody
 
 #ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
 #    ifndef AUDIO_MAX_SIMULTANEOUS_TONES
@@ -278,25 +277,24 @@ void audio_play_melody(float (*np)[][2], uint16_t n_count, bool n_repeat) {
         audio_init();
     }
 
-    if (audio_config.enable) {
-        // Cancel note if a note is playing
-        if (playing_note) audio_stop_all();
+    // Cancel note if a note is playing
+    if (playing_note) audio_stop_all();
 
-        playing_melody = true;
-        note_resting   = false;
+    playing_melody = true;
+    note_resting   = false;
 
-        notes_pointer = np;
-        notes_count   = n_count;
-        notes_repeat  = n_repeat;
+    notes_pointer = np;
+    notes_count   = n_count;
+    notes_repeat  = n_repeat;
 
-        current_note = 0; // note in the melody-array/list at note_pointer
+    current_note = 0; // note in the melody-array/list at note_pointer
 
-        audio_play_tone((*notes_pointer)[current_note][0]); // start first note manually, all remaining are triggered during audio_advance_state
-        note_length    = ((*notes_pointer)[current_note][1]) * (60.0f / note_tempo);
-        note_position  = 0; // position in the currently playing note = "elapsed time" (with no specific unit, depends on how fast/slow the respective audio-driver/hardware ticks)
+    note_length    = ((*notes_pointer)[current_note][1]) * (60.0f / note_tempo);
+    note_position  = 0;
 
-        audio_driver_start();
-    }
+    // start first note manually, which also starts the audio_driver
+    // all following/remaining notes are played by 'audio_advance_state'
+    audio_play_tone((*notes_pointer)[current_note][0]);
 }
 
 bool audio_is_playing_note(void) { return playing_note; }
@@ -363,8 +361,7 @@ float audio_get_processed_frequency(uint8_t tone_index) {
 
 
 bool audio_advance_state(uint32_t step, float end) {
-    bool goto_next_note = state_changed;
-    state_changed = false;
+    bool goto_next_note = false;
 
     if (playing_note) {
 #ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
@@ -443,6 +440,12 @@ bool audio_advance_state(uint32_t step, float end) {
 
     if (!playing_note && !playing_melody)
         audio_stop_all();
+
+    // state-changes have a higher priority, always triggering the hardware to update
+    if (state_changed) {
+        state_changed = false;
+        return true;
+    }
 
     return goto_next_note;
 }
