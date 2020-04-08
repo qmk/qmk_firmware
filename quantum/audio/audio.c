@@ -297,6 +297,30 @@ void audio_play_melody(float (*np)[][2], uint16_t n_count, bool n_repeat) {
     audio_play_tone((*notes_pointer)[current_note][0]);
 }
 
+
+float click[2][2];
+void audio_play_click(float delay, float frequency, float duration) {
+    float duration_tone  = (64/60) * note_tempo * duration;
+    float duration_delay = (64/60) * note_tempo * delay;
+
+    if (delay <= 0.0f) {
+        click[0][0] = frequency;
+        click[0][1] = duration_tone;
+        click[1][0] = 0.0f;
+        click[1][1] = 0.0f;
+        audio_play_melody(&click, 1, false);
+    } else {
+        // first note is a rest/pause
+        click[0][0] = 0.0f;
+        click[0][1] = duration_delay;
+        // second note is the actual click
+        click[1][0] = frequency;
+        click[1][1] = duration_tone;
+        audio_play_melody(&click, 2, false);
+    }
+}
+
+
 bool audio_is_playing_note(void) { return playing_note; }
 
 bool audio_is_playing_melody(void) { return playing_melody; }

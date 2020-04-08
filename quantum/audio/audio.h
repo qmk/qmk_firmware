@@ -118,6 +118,19 @@ void audio_stop_tone(float frequency);
 void audio_play_melody(float (*np)[][2], uint16_t n_count, bool n_repeat);
 
 /**
+ * @brief play a short tone of a specific frequency to emulate a 'click'
+ *
+ * @details constructs a two-note melody (one pause plus a note) and plays it through
+ *          audio_play_melody. very short durations might not quite work due to
+ *          hardware limitations (DAC: added pulses from zero-crossing feature;...)
+ *
+ * @param[in] delay in seconds, lenght for the pause before the pulses, can be zero
+ * @param[in] frequency
+ * @param[in] duration in seconds, length of the 'click'
+ */
+void audio_play_click(float delay, float frequency, float duration);
+
+/**
  * @brief stops all playback
  * @details stops playback of both a meldoy as well as single tones, resetting
  *          the internal state
