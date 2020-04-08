@@ -79,8 +79,10 @@ bool     note_resting = false; //?? current note is a pause? or is this supposed
 
 #ifdef AUDIO_ENABLE_VIBRATO
 float vibrato_counter  = 0;
-float vibrato_strength = .5;
+float vibrato_strength = 0.5;
 float vibrato_rate     = 0.125;
+// forward declataion
+float vibrato(float average_freq);
 #endif
 
 // used by voices.c
@@ -486,6 +488,10 @@ bool audio_advance_state(uint32_t step, float end) {
                 tone_multiplexing_index_shift = 0;
             goto_next_note = true;
         }
+#endif
+#ifdef AUDIO_ENABLE_VIBRATO
+        // force update on each cycle, since vibrato shifts the frequency slightly
+        goto_next_note = true;
 #endif
     }
 
