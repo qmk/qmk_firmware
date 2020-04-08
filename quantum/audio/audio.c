@@ -510,7 +510,7 @@ bool audio_advance_state(uint32_t step, float end) {
                     current_note = 0;
                 } else {
                     playing_melody = false;
-                    return goto_next_note;
+                    return true;
                 }
             }
 

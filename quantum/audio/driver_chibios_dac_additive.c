@@ -69,7 +69,22 @@ static dacsample_t dac_buffer_empty[AUDIO_DAC_BUFFER_SIZE] = {AUDIO_DAC_OFF_VALU
 /* keep track of the sample position for for each frequency */
 static float dac_if[AUDIO_MAX_SIMULTANEOUS_TONES] = {0.0};
 
-static uint8_t hardware_should_stop = 0;
+static float active_tones_snapshot[AUDIO_MAX_SIMULTANEOUS_TONES] = {0,0};
+static uint8_t active_tones_snapshot_length = 0;
+
+typedef enum {
+    OUTPUT_RUN_NORMALY,
+    // path 1: wait for zero, then change/update active tones
+    OUTPUT_TONES_CHANGED,
+    OUTPUT_REACHED_ZERO_BEFORE_TONE_CHANGE,
+    // path 2: hardware should stop, wait for zero then turn output off = stop the timer
+    OUTPUT_SHOULD_STOP,
+    OUTPUT_REACHED_ZERO_BEFORE_OFF,
+    OUTPUT_OFF,
+    number_of_output_states
+} output_states_t;
+output_states_t state = OUTPUT_OFF;
+
 
 /**
  * Generation of the waveform being passed to the callback. Declared weak so users
@@ -77,25 +92,27 @@ static uint8_t hardware_should_stop = 0;
  */
 __attribute__((weak)) uint16_t dac_value_generate(void) {
     uint16_t value        = AUDIO_DAC_OFF_VALUE;
-    uint8_t  active_tones = 0;
 
-    if (hardware_should_stop > 0) {
-        return 0.0f;
+    if (OUTPUT_OFF == state)
+        return AUDIO_DAC_OFF_VALUE;
+
+    if ((0 == active_tones_snapshot_length) && (OUTPUT_REACHED_ZERO_BEFORE_OFF == state)) {
+        state = OUTPUT_OFF;
+        return AUDIO_DAC_OFF_VALUE;
     }
 
-    active_tones =  MIN(AUDIO_MAX_SIMULTANEOUS_TONES-1, audio_get_number_of_active_tones());
 
     /* doing additive wave synthesis over all currently playing tones = adding up
      * sine-wave-samples for each frequency, scaled by the number of active tones
      */
-    if (active_tones > 0) {
-        uint16_t value_avg = 0;
-        float frequency = 0.0f;
+    uint16_t value_avg = 0;
+    float frequency = 0.0f;
 
-        for (uint8_t i = 0; i < active_tones; i++) {
-            frequency = audio_get_processed_frequency(i);
+    for (uint8_t i = 0; i < active_tones_snapshot_length; i++) {
 
-            dac_if[i] = dac_if[i] +
+        frequency = active_tones_snapshot[i];
+
+        dac_if[i] = dac_if[i] +
             ((frequency
               * AUDIO_DAC_BUFFER_SIZE) / AUDIO_DAC_SAMPLE_RATE)
             * 2/3; /*Note: necessary to get the correct frequencies on the
@@ -103,34 +120,66 @@ __attribute__((weak)) uint16_t dac_value_generate(void) {
                          the gpt timer runs with 3*AUDIO_DAC_SAMPLE_RATE; and the DAC
                          callback is called twice per conversion.*/
 
-            dac_if[i] = fmod(dac_if[i], AUDIO_DAC_BUFFER_SIZE);
+        dac_if[i] = fmod(dac_if[i], AUDIO_DAC_BUFFER_SIZE);
 
-            // Wavetable generation/lookup
-            uint16_t dac_i = (uint16_t)dac_if[i];
+        // Wavetable generation/lookup
+        uint16_t dac_i = (uint16_t)dac_if[i];
 
 #if defined(AUDIO_DAC_SAMPLE_WAVEFORM_SINE)
-            value_avg += dac_buffer_sine[dac_i] / active_tones;
+        value_avg += dac_buffer_sine[dac_i] / active_tones_snapshot_length;
 #elif defined(AUDIO_DAC_SAMPLE_WAVEFORM_TRIANGLE)
-            value_avg += dac_buffer_triangle[dac_i] / active_tones;
+        value_avg += dac_buffer_triangle[dac_i] / active_tones_snapshot_length;
 #elif defined(AUDIO_DAC_SAMPLE_WAVEFORM_TRAPEZOID)
-            value_avg += dac_buffer_trapezoid[dac_i] / active_tones;
+        value_avg += dac_buffer_trapezoid[dac_i] / active_tones_snapshot_length;
 #elif defined(AUDIO_DAC_SAMPLE_WAVEFORM_SQUARE)
-            value_avg += dac_buffer_square[dac_i] / active_tones;
+        value_avg += dac_buffer_square[dac_i] / active_tones_snapshot_length;
 #endif
-            /*
-            // SINE
-            value_avg += dac_buffer_sine[dac_i] / active_tones / 3;
-            // TRIANGLE
-            value_avg += dac_buffer_triangle[dac_i] / active_tones / 3;
-            // SQUARE
-            value_avg += dac_buffer_square[dac_i] / active_tones / 3;
-            //NOTE: combination of these three waveforms is more exemplary - and doesn't sound particularly good :-P
-            */
+        /*
+        // SINE
+        value_avg += dac_buffer_sine[dac_i] / active_tones_snapshot_length / 3;
+        // TRIANGLE
+        value_avg += dac_buffer_triangle[dac_i] / active_tones_snapshot_length / 3;
+        // SQUARE
+        value_avg += dac_buffer_square[dac_i] / active_tones_snapshot_length / 3;
+        //NOTE: combination of these three waveforms is more exemplary - and doesn't sound particularly good :-P
+        */
 
-            // STAIRS (mostly usefull as test-pattern)
-            //value_avg = dac_buffer_staircase[dac_i] / active_tones;
+        // STAIRS (mostly usefull as test-pattern)
+        //value_avg = dac_buffer_staircase[dac_i] / active_tones_snapshot_length;
+    }
+    value = value_avg;
+
+
+    /* zero crossing (or approach)
+     *
+     * TODO: what about different values, other than AUDIO_DAC_OFF_VALUE=0, AUDIO_DAC_SAMPLE_MAX or AUDIO_DAC_SAMPLE_MAX/2 ?
+     */
+    if ((OUTPUT_SHOULD_STOP == state)
+        && (value < AUDIO_DAC_SAMPLE_MAX/100)) { //TODO: works only if DAC_OFF_VALUE = 0!
+        state = OUTPUT_REACHED_ZERO_BEFORE_OFF;
+    }
+    else if ((OUTPUT_TONES_CHANGED == state)
+             && (value < AUDIO_DAC_SAMPLE_MAX/100)) { //TODO: works only if DAC_OFF_VALUE = 0!
+        state = OUTPUT_REACHED_ZERO_BEFORE_TONE_CHANGE;
+    }
+
+    if (( OUTPUT_REACHED_ZERO_BEFORE_OFF == state)
+        || (OUTPUT_REACHED_ZERO_BEFORE_TONE_CHANGE == state)){
+        uint8_t active_tones =  MIN(AUDIO_MAX_SIMULTANEOUS_TONES, audio_get_number_of_active_tones());
+
+        active_tones_snapshot_length = 0;
+        // update the snapshot - once, and only on occasion that something changed;
+        // -> saves cpu cycles (?)
+        for (uint8_t i = 0; i < active_tones; i++) {
+            float freq =  audio_get_processed_frequency(i);
+            if (freq > 0) { // disregard 'rest' notes, with valid frequency 0.0f; which would only lower the resulting waveform volume during the additive synthesis step
+                active_tones_snapshot[active_tones_snapshot_length++] = freq;
+            }
         }
-        value = value_avg;
+
+        if (OUTPUT_REACHED_ZERO_BEFORE_TONE_CHANGE == state) {
+            state = OUTPUT_RUN_NORMALY;
+        }
     }
     return value;
 }
@@ -148,31 +197,27 @@ static void dac_end(DACDriver *dacp){
         sample_p += AUDIO_DAC_BUFFER_SIZE/2; // 'half_index'
     }
 
-    uint8_t s = 0;
-    for (s = 0; s < AUDIO_DAC_BUFFER_SIZE/2; s++) {
+    for (uint8_t s = 0; s < AUDIO_DAC_BUFFER_SIZE/2; s++) {
         sample_p[s] = dac_value_generate();
     }
 
-    // looking at the last sample of the second buffer-half
-    if ((sample_p[s] < 0x5) //arbitrary value near zero
-        && !dacIsBufferComplete(dacp)) {
-
-        // the audio system triggered a stop, now that the sample-conversion is done stop the dac-triggering timer and go into idle
-        if (hardware_should_stop > 0) {
-            hardware_should_stop=2;
-            gptStopTimer(&GPTD6);
-        }
-    }
-
     // update audio internal state (note position, current_note, ...)
-    audio_advance_state(
+    if(audio_advance_state(
         AUDIO_DAC_BUFFER_SIZE/2,
         AUDIO_DAC_SAMPLE_RATE/ (64*2.0f/3)
         /* End of the note: 64 is the number of 'units' of a whole note, 3 comes
            from the gpttimer: AUDIO_DAC_SAMPLE_RATE * 3; 2 from the callback beeing
            called twice per sample conversion.
            with a TEMPO set to 60 a whole note lasts exactly one second */
-        );
+                           )
+       ){
+        if (OUTPUT_SHOULD_STOP != state)
+            state = OUTPUT_TONES_CHANGED;
+    }
+
+    if (OUTPUT_OFF == state) {
+        gptStopTimer(&GPTD6);
+    }
 }
 
 static void dac_error(DACDriver *dacp, dacerror_t err) {
@@ -233,14 +278,17 @@ void audio_driver_initialize() {
 }
 
 void audio_driver_stop(void) {
-    hardware_should_stop=1;
+    state = OUTPUT_SHOULD_STOP;
 }
 
 void audio_driver_start(void) {
     gptStart(&GPTD6, &gpt6cfg1);
     gptStartContinuous(&GPTD6, 2U);
 
-    for (uint8_t i = 0; i < AUDIO_MAX_SIMULTANEOUS_TONES; i++)
+    for (uint8_t i = 0; i < AUDIO_MAX_SIMULTANEOUS_TONES; i++) {
         dac_if[i] = 0.0f;
-    hardware_should_stop = 0;
+        active_tones_snapshot[i] = 0.0f;
+    }
+    active_tones_snapshot_length = 0;
+    state = OUTPUT_RUN_NORMALY;
 }
