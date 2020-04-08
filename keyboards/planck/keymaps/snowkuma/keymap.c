@@ -44,15 +44,16 @@ enum planck_layers {
 };
 
 enum planck_keycodes {
-	EMAIL = SAFE_RANGE,
+	BRAVE = SAFE_RANGE,
+	EMAIL,
 	EMOJI,
 	EXT_PLV,
 	ITERM,
 	KRAKEN,
 	LESSON,
+	SPOTIFY,
 	TYPE_FU,
-	VS_CODE,
-	SPOTIFY
+	VS_CODE
 };
 
 
@@ -240,12 +241,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	/* Thumb Layer
 	 * ,-----------------------------------------------------------------------------------------------------------.
 	 * | Vol +  |        | SC_CAPF| SC_CAPP|        | KRAKEN |        |        |Input L |        |        | CMD +  |
-	 * |        |        |        |        | MUTE   |Reset(3x|        |        |        |        |        |        |
+	 * |        |        |        |        | 			  |Reset(3x|        |        |        |        |        |        |
 	 * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
-	 * | Vol -  |        |        | TypeFu | VOL +  |        |        |        | Caps   | emoji  | iterm  | CMD -  |
+	 * | Vol -  |        |        | TypeFu |       	|        |        |        | Caps   | emoji  | iterm  | CMD -  |
 	 * |        |        |        |        |        |        |        |        | Lock   |        |        |        |
 	 * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
-	 * | Mute   |        | VS_Code|  Vim   | VOL -  |        |        |        |        |        |        |        |
+	 * | Mute   |        |        |VS_CODE | BRAVE  |        |        |        |        |        |        |        |
 	 * |        |        |        |        |        |        |        |        |        |        |        |        |
 	 * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
 	 * |        |        |        |        |        |        |        |        |  f()   |        |        |        |
@@ -255,7 +256,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_THUMB] = LAYOUT_planck_grid(
 			KC__VOLUP, _______, SC_CAPF, SC_CAPP, _______, TD(TD_RESET), _______, _______, INPUT_L, _______, _______, TXT_PLS,
 			KC__VOLDOWN, _______, SPOTIFY, TYPE_FU, _______,   _______, _______, _______, KC_CAPS, EMOJI,   ITERM,   TXT_MIN,
-			KC__MUTE, _______, VS_CODE, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+			KC__MUTE, _______, VS_CODE, _______, BRAVE, _______, _______, _______, _______, _______, _______, _______,
 			_______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______
 			),
 
@@ -318,6 +319,13 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
+		case BRAVE:
+			if (record->event.pressed) {
+				SEND_STRING(SS_LGUI(" "));
+				SEND_STRING("brave.app" SS_TAP(X_ENTER));
+			}
+			return false;
+			break;
 		case EMAIL:
 			if (record->event.pressed) {
 				SEND_STRING(MY_EMAIL);
