@@ -95,6 +95,9 @@ bool audio_is_on(void);
  */
 void audio_play_tone(float frequency);
 //TODO: add audio_play_note(float pitch, float duration, float intensity, float timbre);
+// audio_play_note_with_instrument ifdef AUDIO_ENABLE_VOICES
+// audio_play_pulses(frequency, count, delay/initialpause) - for fauxclicky, have pwm output exactly $count pulses
+
 /**
  * @brief stop a given tone/frequency
  * @details removes the given frequency from the 'frequencies' array, stopping
@@ -103,6 +106,7 @@ void audio_play_tone(float frequency);
  * @param[in] freq   tone/frequenct to be stopped
  */
 void audio_stop_tone(float frequency);
+
 /**
  * @brief play a melody
  * @details starts playback of a melody passed in from a SONG definition - an
@@ -112,16 +116,19 @@ void audio_stop_tone(float frequency);
  * @param[in] n_repeat false for onetime, true for looped playback
  */
 void audio_play_melody(float (*np)[][2], uint16_t n_count, bool n_repeat);
+
 /**
  * @brief stops all playback
  * @details stops playback of both a meldoy as well as single tones, resetting
  *          the internal state
  */
 void audio_stop_all(void);
+
 /**
  * @brief query if one/multiple tones are playing
  */
 bool audio_is_playing_note(void); // TODO: is_playing_tone?
+
 /**
  * @brief query if a melody/SONG is playing
  */
@@ -131,6 +138,7 @@ bool audio_is_playing_melody(void);
 // length. This works around the limitation of C's sizeof operation on pointers.
 // The global float array for the song must be used here.
 #define NOTE_ARRAY_SIZE(x) ((int16_t)(sizeof(x) / (sizeof(x[0]))))
+
 /**
  * @brief convenience macro, to play a melody/SONG once
  */
@@ -210,6 +218,7 @@ void audio_driver_stop(void);
  * @return number, 0=none active
  */
 uint8_t audio_get_number_of_active_tones(void);
+
 /**
  * @brief access to the raw/unprocessed frequency for a specific tone
  * @details each active tone has a frequency associated with it, which
@@ -221,6 +230,7 @@ uint8_t audio_get_number_of_active_tones(void);
  * @return a positive frequency, in Hz; or zero if the tone is a pause
  */
 float audio_get_frequency(uint8_t tone_index);
+
 /**
  * @brief calculate and return the frequency for the requested tone
  * @details effects like glissando, vibrato, ... are postprocessed onto the

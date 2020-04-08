@@ -27,12 +27,14 @@
 // Note Types
 #define MUSICAL_NOTE(note, duration) \
     { (NOTE##note), duration }
+
 #define BREVE_NOTE(note) MUSICAL_NOTE(note, 128)
 #define WHOLE_NOTE(note) MUSICAL_NOTE(note, 64)
 #define HALF_NOTE(note) MUSICAL_NOTE(note, 32)
 #define QUARTER_NOTE(note) MUSICAL_NOTE(note, 16)
 #define EIGHTH_NOTE(note) MUSICAL_NOTE(note, 8)
 #define SIXTEENTH_NOTE(note) MUSICAL_NOTE(note, 4)
+#define THIRTYTWOTH_NOTE(note) MUSICAL_NOTE(note, 2) //TODO: still usable?
 
 #define BREVE_DOT_NOTE(note) MUSICAL_NOTE(note, 128 + 64)
 #define WHOLE_DOT_NOTE(note) MUSICAL_NOTE(note, 64 + 32)
@@ -51,6 +53,7 @@
 #define Q__NOTE(n) QUARTER_NOTE(n)
 #define E__NOTE(n) EIGHTH_NOTE(n)
 #define S__NOTE(n) SIXTEENTH_NOTE(n)
+#define T__NOTE(n) THIRTYTWOTH_NOTE(n)
 #define BD_NOTE(n) BREVE_DOT_NOTE(n)
 #define WD_NOTE(n) WHOLE_DOT_NOTE(n)
 #define HD_NOTE(n) HALF_DOT_NOTE(n)

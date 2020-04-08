@@ -350,138 +350,9 @@ float audio_get_processed_frequency(uint8_t tone_index) {
 
     frequency = voice_envelope(frequency);
 
-    /*TODO: why the cutoff?
-    if (frequency < 30.517578125) {
-        frequency = 30.52;
-    }
-    */
-
     return frequency;
 }
 
-/* REMOVEME
-   the following code block is a leftover of the audio-refactoring, which deduplicated code among the different implementations at the time - boiled down to this function, which was to be called by an avr ISR to do single/dual channel pwm
-
-   there are lots of avr hardware specifica in there, but also some features still that could/should? be refactored into the "new" audio system - like
-
-   [X] "software polyphonic" audio, which cycles through/time multiplexes the currently active tones, avoiding the hardware limit of one or two pwm outputs/speakers; which by themselve can only render one frequency at a time (unlike the arm-dac implementation, which can do wave-synthesis to combine multiple frequencies)
-   (according to wikipedia: polyphonic is actually something different: concurrent melodies/voices that play with/against each other
-    -> refactored as AUDIO_ENABLE_TONE_MULTIPLEXING
-
-   [X] "note_resting": which does a short gab between consecutive tones of the same frequency; to not slurr them together, like making to quarter-notes into one half-note
-    -> shortRest added on-the-fly during audio_advance_state
-
-   most of the logic has been refactored and moved into the different parts of the current implementation though
-
-
-
-
-
-void pwm_audio_timer_task(float *freq, float *freq_alt) {
-    if (playing_note) {
-        if (active_tones > 0) {
-#ifdef AUDIO1_PIN_SET
-            //TODO: untangle avr specific defines
-            // speaker for second/alternate tone is available
-            *freq_alt = audio_get_processed_frequency(2);
-#else
-            *freq_alt = 0.0f;
-#endif
-
-            if (tone_multiplexing_rate > 0) {
-                if (active_tones > 1) {
-                    tone_place %= active_tones; ///2020-03-26: hm, is the tone_place (plus the polythony_rate?) intended to be used to cycle through active tones, if the number of available hardware channels is insufficient? (like with avr/arm pwm?)
-
-                    //                    if (place++ > (frequencies[tone_place] / tone_multiplexing_rate / CPU_PRESCALER)) {
-                    //                        tone_place = (tone_place + 1) % active_tones;
-                    //                        place = 0.0;
-                    //                    }
-                }
-
-#ifdef AUDIO_ENABLE_VIBRATO
-                if (vibrato_strength > 0) {
-                    *freq = vibrato(frequencies[tone_place]);
-                } else {
-                    *freq = frequencies[tone_place];
-                }
-#else
-                *freq = frequencies[tone_place];
-#endif
-            } else {
-                *freq = audio_get_processed_frequency(1);
-            }
-        }
-    }
-
-    if (playing_melody) {
-        if (note_frequency > 0) { // 'note_frequency' used to be set to the current not in the melody
-#ifdef AUDIO_ENABLE_VIBRATO
-            if (vibrato_strength > 0) {
-                *freq = vibrato(note_frequency);
-            } else {
-                *freq = note_frequency;
-            }
-#else
-            *freq = note_frequency;
-#endif
-
-            if (envelope_index < 65535) {
-                envelope_index++;
-            }
-            *freq = voice_envelope(*freq);
-        }
-
-        note_position++;
-        bool end_of_note = false;
-        if (!note_resting)
-            end_of_note = (note_position >= (note_length * 8 - 1));
-        else
-            end_of_note = (note_position >= (note_length * 8));
-// hm... maybe the whole point of the note_resting related parts is to have a slight gap/pause between two consecutive musical_notes with the same frequency. so they can bei distinguished?
-        if (end_of_note) {
-            current_note++;
-            if (current_note >= notes_count) {
-                if (notes_repeat) {
-                    current_note = 0;
-                } else {
-                    playing_melody = false;
-                    return;
-                }
-            }
-
-            if (!note_resting) {
-                note_resting = true;
-                if (current_note == 0) {
-                    current_note = notes_count-1;
-                    next_note = 0;
-                } else {
-                    next_note = current_note;
-                    current_note--;
-                }
-
-                if ((*notes_pointer)[current_note][0] == (*notes_pointer)[next_note][0]) {
-                    note_frequency = 0; //why? this disables the output frequency and makes the next note a 'rest'
-                } else {
-                    note_frequency = (*notes_pointer)[current_note][0];
-                }
-                note_length    = 1;
-            } else {
-                note_resting   = false;
-                envelope_index = 0;
-                note_frequency = (*notes_pointer)[current_note][0];
-                note_length    = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
-            }
-
-            note_position = 0;
-        }
-
-        if (!audio_config.enable) {
-            playing_melody = false;
-            playing_note  = false;
-        }
-    }
-}
-*/
 
 bool audio_advance_state(uint32_t step, float end) {
     bool goto_next_note = state_changed;
@@ -489,10 +360,8 @@ bool audio_advance_state(uint32_t step, float end) {
 
     if (playing_note) {
 #ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
-//        tone_multiplexing_counter++; // TODO: use step and end from advance_State instead; so that frequencies are switched in a time-constant manner during playback of different tones (pitch+duration!)
         tone_multiplexing_counter += step/end;
         if (tone_multiplexing_counter == tone_multiplexing_rate) {
-//palToggleLine(C10);
             tone_multiplexing_counter = 0.0f;
             tone_multiplexing_index_shift++;
             if (tone_multiplexing_index_shift >= MIN(AUDIO_MAX_SIMULTANEOUS_TONES, active_tones))
@@ -506,7 +375,6 @@ bool audio_advance_state(uint32_t step, float end) {
 #endif
     }
 
-    //'playing_note' is stopped manually, so no need to keep track of it here
 
     if (playing_melody) {
         note_position += step;
@@ -567,7 +435,6 @@ bool audio_advance_state(uint32_t step, float end) {
 
     if (!playing_note && !playing_melody)
         audio_stop_all();
-    //TODO: trigger a stop of the hardware or just a audio_stop_tone on the last frequency?
 
     return goto_next_note;
 }
@@ -581,6 +448,7 @@ float mod(float a, int b) {
     return r < 0 ? r + b : r;
 }
 
+// TODO: unify with vibrato function/call in voices.c
 float vibrato(float average_freq) {
 #    ifdef AUDIO_ENABLE_VIBRATO_STRENGTH
     float vibrated_freq = average_freq * pow(vibrato_lut[(int)vibrato_counter], vibrato_strength);
