@@ -37,7 +37,7 @@ float voice_envelope(float frequency) {
     switch (voice) {
         case default_voice:
             glissando      = false;
-            note_timbre    = TIMBRE_50;
+            //note_timbre    = TIMBRE_50; //Note: leave the user the possibility to adjust the timbre with 'audio_set_timbre'
             break;
 
 #ifdef AUDIO_VOICES
