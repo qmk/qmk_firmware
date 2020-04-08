@@ -125,9 +125,6 @@ extern float note_timbre;
 #ifdef AUDIO1_PIN_SET
 static float channel_1_frequency = 0.0f;
 void         channel_1_set_frequency(float freq) {
-    // TODO: handle consecutive notes with the same frequency, there should be an audible gap inbetween them
-    if (freq == channel_1_frequency) return;
-
     if (freq == 0.0f)  // a pause/rest is a valid "note" with freq=0
     {
         // disable the output, but keep the pwm-ISR going (with the previous
@@ -165,8 +162,6 @@ void channel_1_stop(void) {
 #ifdef AUDIO2_PIN_SET
 static float channel_2_frequency = 0.0f;
 void         channel_2_set_frequency(float freq) {
-    if (freq == channel_2_frequency) return;
-
     if (freq == 0.0f) {
         AUDIO2_TCCRxA &= ~(_BV(AUDIO2_COMxy1) | _BV(AUDIO2_COMxy0));
         return;
