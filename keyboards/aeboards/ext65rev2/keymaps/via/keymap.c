@@ -30,15 +30,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `------------------------------------------------------------------------------------------'
    */
   [0] = LAYOUT_ext65(
-    BL_INC,  BL_DEC,  BL_TOGG, KC_NLCK, KC_ESC , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   , KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , KC_MINS, KC_EQL , KC_BSLS, KC_GRV , KC_PSCR,
-    RGB_TOG, RGB_MOD, RGB_VAI, RGB_VAD, KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_LBRC, KC_RBRC, KC_BSPC,          KC_DEL ,
+    RGB_M_T, BL_INC , BL_DEC , BL_TOGG, KC_ESC , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   , KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , KC_MINS, KC_EQL , KC_BSLS, KC_GRV , KC_PSCR,
+    RGB_TOG, KC_P9  , KC_P8  , KC_P7  , KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_LBRC, KC_RBRC, KC_BSPC,          KC_DEL ,
     KC_PPLS, KC_P6  , KC_P5  , KC_P4  , KC_CAPS, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT, KC_ENT ,                   KC_PGUP,
     KC_PENT, KC_P3  , KC_P2  , KC_P1  , KC_LSFT, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_RSFT,                   KC_UP  , KC_PGDN,
     KC_PENT, KC_PDOT, KC_P0  , KC_P0  , KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC ,                   MO(1)  , KC_RCTL,                   KC_LEFT, KC_DOWN, KC_RGHT
   ),
 
   [1] = LAYOUT_ext65(
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RESET  , KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS,
@@ -61,39 +61,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                   KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS
   )
 };
-
-
-#ifdef OLED_DRIVER_ENABLE
-
-void render_layer_state(void) {
-    oled_write_ln(PSTR("LAYER"), false);
-    oled_write_ln(PSTR("L1"), layer_state_is(1));
-    oled_write_ln(PSTR("L2"), layer_state_is(2));
-    oled_write_ln(PSTR("L3"), layer_state_is(3));
-    oled_write_ln(PSTR(" "), false);
-}
-
-void render_keylock_status(uint8_t led_usb_state) {
-    oled_write_ln(PSTR("Lock:"), false);
-    oled_write(PSTR("N"), led_usb_state & (1 << USB_LED_NUM_LOCK));
-    oled_write(PSTR("C"), led_usb_state & (1 << USB_LED_CAPS_LOCK));
-    oled_write_ln(PSTR("S"), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
-    oled_write_ln(PSTR(" "), false);
-}
-
-void render_mod_status(uint8_t modifiers) {
-    oled_write_ln(PSTR("Mods:"), false);
-    oled_write(PSTR("S"), (modifiers & MOD_MASK_SHIFT));
-    oled_write(PSTR("C"), (modifiers & MOD_MASK_CTRL));
-    oled_write(PSTR("A"), (modifiers & MOD_MASK_ALT));
-    oled_write_ln(PSTR("G"), (modifiers & MOD_MASK_GUI));
-    oled_write_ln(PSTR(" "), false);
-}
-
-void oled_task_user(void) {
-    render_layer_state();
-    render_keylock_status(host_keyboard_leds());
-    render_mod_status(get_mods()|get_oneshot_mods());
-}
-
-#endif
