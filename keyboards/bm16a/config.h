@@ -19,7 +19,7 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B50  // Adding via support
+#define VENDOR_ID       0x4B50  // "KP"
 #define PRODUCT_ID      0x016A
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KPrepublic
