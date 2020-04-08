@@ -34,9 +34,9 @@
 #    define SPI_MISO_PIN B4
 #endif
 
-static pin_t currentSlavePin = NO_PIN;
+static pin_t   currentSlavePin    = NO_PIN;
 static uint8_t currentSlaveConfig = 0;
-static bool currentSlave2X = false;
+static bool    currentSlave2X     = false;
 
 void spi_init(void) {
     writePinHigh(SPI_SS_PIN);
@@ -114,7 +114,7 @@ spi_status_t spi_write(uint8_t data, uint16_t timeout) {
 }
 
 spi_status_t spi_read(uint16_t timeout) {
-    SPDR = 0x00; // Dummy
+    SPDR = 0x00;  // Dummy
 
     uint16_t timeout_timer = timer_read();
     while (!(SPSR & _BV(SPIF))) {
@@ -157,7 +157,7 @@ void spi_stop(void) {
         currentSlavePin = NO_PIN;
         SPCR &= ~(currentSlaveConfig);
         currentSlaveConfig = 0;
-        SPSR = 0;
-        currentSlave2X = false;
+        SPSR               = 0;
+        currentSlave2X     = false;
     }
 }
