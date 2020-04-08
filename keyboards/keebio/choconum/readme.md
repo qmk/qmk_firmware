@@ -4,7 +4,7 @@
 
 A numpad for Kailh Choc switches
 
-* Keyboard Maintainer: [Keebio](https://github.com/yourusername)
+* Keyboard Maintainer: [Keebio](https://github.com/nooges)
 * Hardware Availability: [Keebio - Choconum](https://keeb.io/products/choconum-kailh-choc-numpad)
 
 Make example for this keyboard (after setting up your build environment):
