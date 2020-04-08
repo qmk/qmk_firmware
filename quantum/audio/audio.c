@@ -52,7 +52,7 @@
 #    define AUDIO_TONE_STACKSIZE 8
 #endif
 uint8_t  active_tones         = 0; // number of tones pushed onto the stack by audio_play_tone - might be more than the harware is able to reproduce at any single time
-float    frequencies[AUDIO_TONE_STACKSIZE] = {0.0}; // frequencies of each active tone
+float    frequencies[AUDIO_TONE_STACKSIZE] = {-1.0}; // frequencies of each active tone
 //TODO: array of musical_tone_t?
 
 bool     playing_melody  = false; // playing a SONG?
@@ -182,11 +182,15 @@ void audio_stop_all() {
     playing_note  = false;
 
     for (uint8_t i = 0; i < AUDIO_TONE_STACKSIZE; i++) {
-        frequencies[i] = 0;
+        frequencies[i] = -1.0f;
     }
 }
 
 void audio_stop_tone(float frequency) {
+    if (frequency < 0.0f) {
+        frequency = -1 * frequency;
+    }
+
     if (playing_note) {
         if (!audio_initialized) {
             audio_init();
@@ -195,10 +199,10 @@ void audio_stop_tone(float frequency) {
         for (int i = AUDIO_TONE_STACKSIZE-1; i >= 0; i--) {
             found = (frequencies[i] == frequency);
             if (found) {
-                frequencies[i] = 0;
+                frequencies[i] = -1.0f;
                 for (int j = i; (j < AUDIO_TONE_STACKSIZE-1); j++) {
                     frequencies[j]     = frequencies[j + 1];
-                    frequencies[j + 1] = 0;
+                    frequencies[j + 1] = -1.0f;
                 }
                 break;
             }
@@ -228,6 +232,10 @@ void audio_play_tone(float frequency) {
 
     if (!audio_initialized) {
         audio_init();
+    }
+
+    if (frequency < 0.0f) {
+        frequency = -1 * frequency;
     }
 
     // roundrobin: shifting out old tones, keeping only unique ones
