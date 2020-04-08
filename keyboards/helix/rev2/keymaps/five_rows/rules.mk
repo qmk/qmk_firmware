@@ -30,9 +30,6 @@ ifneq ($(strip $(HELIX)),)
   endif
 endif
 
-CONSOLE_ENABLE = yes
-DIP_SWITCH_ENABLE = yes
-
 # convert Helix-specific options (that represent combinations of standard options)
 #   into QMK standard options.
 include $(strip $(KEYBOARD_LOCAL_FEATURES_MK))

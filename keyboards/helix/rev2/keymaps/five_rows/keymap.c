@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include <avr/pgmspace.h>
 #include "bootloader.h"
 #ifdef PROTOCOL_LUFA
 #include "lufa.h"
@@ -14,7 +13,6 @@
 #ifdef CONSOLE_ENABLE
   #include <print.h>
 #endif
-#include "timer.h"
 
 extern keymap_config_t keymap_config;
 
@@ -334,14 +332,8 @@ uint32_t default_layer_state_set_kb(uint32_t state) {
     return state;
 }
 
-void dump_pbuf(void);
 void update_base_layer(int base)
 {
-    uprintf("layer\n");
-    dump_pbuf();
-    dip_switch_read(true);
-    uprintf("call dip_switch_read(true)\n");
-    dump_pbuf();
     if( current_default_layer != base ) {
         eeconfig_update_default_layer(1UL<<base);
         default_layer_set(1UL<<base);
@@ -480,16 +472,6 @@ void music_scale_user(void)
 
 #endif
 
-#if 0
-static uint16_t scancount = 0;
-void matrix_scan_user(void) {
-    if( USB_DeviceState == DEVICE_STATE_Configured ) {
-        if( scancount < 10 )
-            uprintf("usb on scan=%d\n", scancount);
-        scancount += 1;
-    }
-}
-#endif
 
 //SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
 #ifdef SSD1306OLED
@@ -613,75 +595,3 @@ void iota_gfx_task_user(void) {
 }
 
 #endif
-
-typedef struct _pr {
-    const char * PROGMEM fmt;
-    uint8_t     arg1;
-    uint8_t     arg2;
-    uint16_t    timer;
-} printbuf_t;
-uint8_t pbuf_count = 0;
-bool    pbuf_overflow = false;
-printbuf_t pbuf[16] = {0};
-
-void dump_pbuf(void) {
-#ifdef CONSOLE_ENABLE
-    if( pbuf_count > 0 ) {
-        uprintf(" dump_pbuf %d\n", pbuf_count);
-        for( uint8_t i = 0; i < pbuf_count; i++ ) {
-            uprintf(" %06d : ", pbuf[i].timer);
-            __xprintf(pbuf[i].fmt, pbuf[i].arg1, pbuf[i].arg2);
-        }
-        pbuf_count = 0;
-        if( pbuf_overflow ) {
-            uprintf(" pbuf overflow \n");
-            pbuf_overflow = false;
-        }
-    }
-#endif
-}
-
-void dip_switch_update_user(uint8_t index, bool active) {
-    if( pbuf_count < sizeof(pbuf)/sizeof(pbuf[0]) ) {
-        pbuf[pbuf_count].fmt = PSTR("dip_switch_update_user(%d,%d)\n");
-        pbuf[pbuf_count].arg1 = index;
-        pbuf[pbuf_count].arg2 = active;
-        pbuf[pbuf_count].timer = timer_read();
-        pbuf_count++;
-    } else {
-        pbuf_overflow = true;
-    }
-}
-
-void dip_switch_update_mask_user(uint32_t state) {
-    if( pbuf_count < sizeof(pbuf)/sizeof(pbuf[0]) ) {
-        pbuf[pbuf_count].fmt = PSTR("dip_switch_update_mask_user(0b%b)\n");
-        pbuf[pbuf_count].arg1 = state;
-        pbuf[pbuf_count].timer = timer_read();
-        pbuf_count++;
-    } else {
-        pbuf_overflow = true;
-    }
-}
-
-void keyboard_pre_init_user(void)
-{
-    if( pbuf_count < sizeof(pbuf)/sizeof(pbuf[0]) ) {
-        pbuf[pbuf_count].fmt = PSTR("keyboard_pre_init_user()\n");
-        pbuf[pbuf_count].timer = timer_read();
-        pbuf_count++;
-    } else {
-        pbuf_overflow = true;
-    }
-}
-
-void keyboard_post_init_user(void)
-{
-    if( pbuf_count < sizeof(pbuf)/sizeof(pbuf[0]) ) {
-        pbuf[pbuf_count].fmt = PSTR("keyboard_post_init_user()\n");
-        pbuf[pbuf_count].timer = timer_read();
-        pbuf_count++;
-    } else {
-        pbuf_overflow = true;
-    }
-}

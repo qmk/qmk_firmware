@@ -27,9 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* when TAPPING_TERM >= 500 same effect PERMISSIVE_HOLD.
    see tmk_core/common/action_tapping.c */
 
-//#define DIP_SWITCH_PINS { B5, B6 }
-#define DIP_SWITCH_PINS { B5, B6, B5, B6 }
-
 // place overrides here
 
 // If you need more program area, try select and reduce rgblight modes to use.
