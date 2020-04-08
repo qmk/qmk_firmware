@@ -1,0 +1,2 @@
+BOOTLOADER = qmk-dfu
+FIRMWARE_FORMAT = hex

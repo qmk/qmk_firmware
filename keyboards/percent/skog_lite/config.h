@@ -21,7 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VENDOR_ID       0x20A0
 #define PRODUCT_ID      0x422D
-#define MANUFACTURER    Percent
+#define DEVICE_VER      0x0200
+#define MANUFACTURER    Percent Studios
 #define PRODUCT         Skog Lite
 
 #define RGBLED_NUM 18
@@ -31,11 +32,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //                         0   1   2   3   4   5   6   7   8   9   A   B   C   D   E
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, B4, B6, B5 }
-#define MATRIX_COL_PINS { C4, C2, D7, C7, C6, A0, A1, A2, A3, A7, A6, A5, A4, C5, C3}
+#define MATRIX_COL_PINS { C4, C2, D7, C7, C6, A0, A1, A2, A3, A7, A6, A4, A5, C5, C3}
 #define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCE 5
 
-#define BACKLIGHT_LEVELS 1
+#define BACKLIGHT_PIN D4
+#define BACKLIGHT_LEVELS 3
+
 #define RGBLIGHT_ANIMATIONS

@@ -14,33 +14,33 @@ enum userspace_custom_keycodes {
     KC_DVORAK,                      // Sets default layer to DVORAK
     KC_WORKMAN,                     // Sets default layer to WORKMAN
     KC_DIABLO_CLEAR,                // Clears all Diablo Timers
-    KC_MAKE,        // Run keyboard's customized make command
-    KC_RGB_T,       // Toggles RGB Layer Indication mode
-    RGB_IDL,        // RGB Idling animations
-    KC_SECRET_1,    // test1
-    KC_SECRET_2,    // test2
-    KC_SECRET_3,    // test3
-    KC_SECRET_4,    // test4
-    KC_SECRET_5,    // test5
-    KC_CCCV,        // Hold to copy, tap to paste
-    KC_NUKE,        // NUCLEAR LAUNCH DETECTED!!!
-    UC_FLIP,        // (ಠ痊ಠ)┻━┻
-    UC_TABL,        // ┬─┬ノ( º _ ºノ)
-    UC_SHRG,        // ¯\_(ツ)_/¯
-    UC_DISA,        // ಠ_ಠ
-    NEW_SAFE_RANGE  // use "NEWPLACEHOLDER for keymap specific codes
+    KC_MAKE,                        // Run keyboard's customized make command
+    KC_RGB_T,                       // Toggles RGB Layer Indication mode
+    RGB_IDL,                        // RGB Idling animations
+    KC_SECRET_1,                    // test1
+    KC_SECRET_2,                    // test2
+    KC_SECRET_3,                    // test3
+    KC_SECRET_4,                    // test4
+    KC_SECRET_5,                    // test5
+    KC_CCCV,                        // Hold to copy, tap to paste
+    KC_NUKE,                        // NUCLEAR LAUNCH DETECTED!!!
+    UC_FLIP,                        // (ಠ痊ಠ)┻━┻
+    UC_TABL,                        // ┬─┬ノ( º _ ºノ)
+    UC_SHRG,                        // ¯\_(ツ)_/¯
+    UC_DISA,                        // ಠ_ಠ
+    NEW_SAFE_RANGE                  // use "NEWPLACEHOLDER for keymap specific codes
 };
 
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 
-#define LOWER MO(_LOWER)
-#define RAISE MO(_RAISE)
-#define ADJUST MO(_ADJUST)
+#define LOWER   MO(_LOWER)
+#define RAISE   MO(_RAISE)
+#define ADJUST  MO(_ADJUST)
 #define TG_MODS TG(_MODS)
 #define TG_GAME TG(_GAMEPAD)
-#define OS_LWR OSL(_LOWER)
-#define OS_RSE OSL(_RAISE)
+#define OS_LWR  OSL(_LOWER)
+#define OS_RSE  OSL(_RAISE)
 
 #define KC_SEC1 KC_SECRET_1
 #define KC_SEC2 KC_SECRET_2
@@ -48,18 +48,20 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define KC_SEC4 KC_SECRET_4
 #define KC_SEC5 KC_SECRET_5
 
-#define QWERTY KC_QWERTY
-#define DVORAK KC_DVORAK
+#define QWERTY  KC_QWERTY
+#define DVORAK  KC_DVORAK
 #define COLEMAK KC_COLEMAK
 #define WORKMAN KC_WORKMAN
 
 #define KC_RESET RESET
-#define KC_RST KC_RESET
+#define KC_RST   KC_RESET
 
 #ifdef SWAP_HANDS_ENABLE
-#    define KC_C1R3 SH_TT
+#    define KC_C1R3 SH_T(KC_TAB)
+#elif defined(DRASHNA_LP)
+#    define KC_C1R3 TG(_GAMEPAD)
 #else  // SWAP_HANDS_ENABLE
-#    define KC_C1R3 KC_BSPC
+#    define KC_C1R3 KC_TAB
 #endif  // SWAP_HANDS_ENABLE
 
 #define BK_LWER LT(_LOWER, KC_BSPC)

@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #if defined(LAYER_STATE_8BIT)
 typedef uint8_t layer_state_t;
-#    define get_highest_layer(state) biton8(state)
+#    define get_highest_layer(state) biton(state)
 #elif defined(LAYER_STATE_16BIT)
 typedef uint16_t layer_state_t;
 #    define get_highest_layer(state) biton16(state)
@@ -82,13 +82,13 @@ void layer_xor(layer_state_t state);
 
 #    define layer_debug()
 #    define layer_clear()
-#    define layer_move(layer)
-#    define layer_on(layer)
-#    define layer_off(layer)
-#    define layer_invert(layer)
-#    define layer_or(state)
-#    define layer_and(state)
-#    define layer_xor(state)
+#    define layer_move(layer) (void)layer
+#    define layer_on(layer) (void)layer
+#    define layer_off(layer) (void)layer
+#    define layer_invert(layer) (void)layer
+#    define layer_or(state) (void)state
+#    define layer_and(state) (void)state
+#    define layer_xor(state) (void)state
 #endif
 
 layer_state_t layer_state_set_user(layer_state_t state);

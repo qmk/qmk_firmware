@@ -1,0 +1,1 @@
+#define FORCE_NKRO
