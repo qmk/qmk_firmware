@@ -232,7 +232,7 @@ static const GPTConfig gpt6cfg1 = {.frequency = AUDIO_DAC_SAMPLE_RATE * 3,
                                    .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.  */
                                    .dier      = 0U};
 
-static const DACConfig dac_conf = {.init = AUDIO_DAC_SAMPLE_MAX, .datamode = DAC_DHRM_12BIT_RIGHT};
+static const DACConfig dac_conf = {.init = AUDIO_DAC_OFF_VALUE, .datamode = DAC_DHRM_12BIT_RIGHT};
 
 /**
  * @note The DAC_TRG(0) here selects the Timer 6 TRGO event, which is triggered

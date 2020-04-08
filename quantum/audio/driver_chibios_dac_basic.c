@@ -67,10 +67,10 @@ GPTConfig gpt8cfg1 = {.frequency = 10,
                       .dier      = 0U};
 
 #if defined(AUDIO_PIN_A4) || defined (AUDIO_PIN_ALT_A4)
-static const DACConfig dac_conf_ch1 = {.init = AUDIO_DAC_SAMPLE_MAX, .datamode = DAC_DHRM_12BIT_RIGHT};
+static const DACConfig dac_conf_ch1 = {.init = AUDIO_DAC_OFF_VALUE, .datamode = DAC_DHRM_12BIT_RIGHT};
 #endif
 #if defined(AUDIO_PIN_A5) || defined (AUDIO_PIN_ALT_A5)
-static const DACConfig dac_conf_ch2 = {.init = AUDIO_DAC_SAMPLE_MAX, .datamode = DAC_DHRM_12BIT_RIGHT};
+static const DACConfig dac_conf_ch2 = {.init = AUDIO_DAC_OFF_VALUE, .datamode = DAC_DHRM_12BIT_RIGHT};
 #endif
 
 /**
