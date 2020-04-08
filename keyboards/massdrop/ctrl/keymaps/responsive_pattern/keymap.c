@@ -39,7 +39,9 @@ enum ctrl_keycodes {
     L_SP_SL,            //LED Splash wave travel speed slower (longer period)
 
     L_CP_PR,            //LED Color Pattern Select Previous
-    L_CP_NX             //LEB Color Pattern Select Next
+    L_CP_NX,            //LEB Color Pattern Select Next
+
+    S_RESET            // reset all parameters
 };
 
 keymap_config_t keymap_config;
@@ -56,14 +58,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            KC_MUTE, _______, _______, \
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   KC_MPLY, KC_MSTP, KC_VOLU, \
-        L_T_BR,  L_PSD,   L_BRI,   L_PSI,   _______, _______, _______, _______, U_T_AGCR,_______, _______, _______, _______, _______,   KC_MPRV, KC_MNXT, KC_VOLD, \
+        L_T_BR,  L_PSD,   L_BRI,   L_PSI,   _______, _______, _______, _______, U_T_AGCR,_______, MO(2),   _______, _______, _______,   KC_MPRV, KC_MNXT, KC_VOLD, \
         L_T_PTD, L_PTP,   L_BRD,   L_PTN,   _______, _______, _______, _______, _______, _______, _______, _______, _______, \
         _______, L_T_MD,  L_T_ONF, _______, _______, MD_BOOT, NK_TOGG, _______, _______, _______, _______, _______,                              _______, \
         _______, _______, _______,                   _______,                            _______, _______, _______, _______,            _______, _______, _______ \
     ),
     [2] = LAYOUT(
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            _______, _______, _______, \
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______, \
+        S_RESET, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            _______, _______, _______, \
+        S_RESET, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______, \
         L_CP_NX, L_SP_SL, L_SP_WD, L_SP_FA, _______, _______, L_CP_NX, L_SP_SL, L_SP_WD, L_SP_FA, _______, _______, _______, _______,   _______, _______, _______, \
         L_CP_PR, L_SP_PR, L_SP_NW, L_SP_NE, _______, _______, L_CP_PR, L_SP_PR, L_SP_NW, L_SP_NE, _______, _______, _______, \
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                              _______, \
@@ -91,7 +93,7 @@ struct {
 } USER_CONFIG = {
     .PATTERN_INDEX = 1,
     .WAVE_WIDTH = 10, // width of the wave in keycaps
-    .WAVE_SPEED = 10, // travel how many keycaps per second
+    .WAVE_SPEED = 15, // travel how many keycaps per second
     .COLOR_PATTERN_INDEX = 0,
     .TRAVEL_DISTANCE = 25,
 };
@@ -540,6 +542,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 
+        case S_RESET:
+            // reset all parameters
+
+            USER_CONFIG.PATTERN_INDEX = 1;
+            USER_CONFIG.WAVE_WIDTH = 10;
+            USER_CONFIG.WAVE_SPEED = 15;
+            USER_CONFIG.COLOR_PATTERN_INDEX = 0;
+            USER_CONFIG.TRAVEL_DISTANCE = 25;
+
+            return false;
         case L_SP_PR: // previous dripple pattern
         case L_SP_NE: // next dripple pattern
             if (record->event.pressed) {
@@ -577,7 +589,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     USER_CONFIG.WAVE_SPEED = 10;
                     break;
                 case 6:
-                    USER_CONFIG.WAVE_WIDTH = 25;
+                    USER_CONFIG.WAVE_WIDTH = 10;
 
                     USER_CONFIG.COLOR_PATTERN_INDEX = 3;
                     USER_CONFIG.TRAVEL_DISTANCE = 2;
@@ -606,7 +618,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if(record->event.pressed){
                 short incre = keycode == L_SP_FA ? -1 : 1;
 
-                USER_CONFIG.WAVE_SPEED += incre * 0.5;
+                USER_CONFIG.WAVE_SPEED += incre;
                 if(USER_CONFIG.WAVE_SPEED > 50){
                     USER_CONFIG.WAVE_SPEED = 50;
                 } else if(USER_CONFIG.WAVE_SPEED < 1){
@@ -699,7 +711,9 @@ led_instruction_t led_instructions[] = {
     // { .flags = LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .id0 = 0xFFFFFFFF, .id1 = 0xFFFFFFFF, .id2 = 0x007FFFFF, .r = 255 },
     // { .flags = LED_FLAG_MATCH_ID | LED_FLAG_USE_ROTATE_PATTERN , .id2 = 0xFF800000, .id3 = 0x00FFFFFF },
 
-     { .flags = LED_FLAG_MATCH_ID | LED_FLAG_MATCH_LAYER, .layer = 2 },
+     { .flags = LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB | LED_FLAG_MATCH_LAYER,
+     .id1 = 0b00001111001111000000011110011110,
+     .r = 0, .g = 255, .b = 60, .layer = 2 },
 
     //end must be set to 1 to indicate end of instruction set
      { .end = 1 }
