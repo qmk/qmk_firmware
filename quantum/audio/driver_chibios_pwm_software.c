@@ -40,6 +40,7 @@ this driver uses the chibios-PWM system to produce a squarewave on any given out
 
 extern bool playing_note;
 extern bool playing_melody;
+extern float note_timbre;
 
 
 static void pwm_audio_period_callback(PWMDriver *pwmp);
@@ -72,10 +73,12 @@ void channel_1_set_frequency(float freq) {
 
     pwmcnt_t period = (pwmCFG.frequency / freq);
     pwmChangePeriod(&PWMD, period);
+
     pwmEnableChannel(
                      &PWMD,
                      AUDIO_PWM_TIMERCHANNEL -1,
-                     PWM_PERCENTAGE_TO_WIDTH(&PWMD, 5000) /*TODO: adjust by timbre */
+                     // adjust the duty-cycle so that the output is for 'note_timbre' duration HIGH
+                     PWM_PERCENTAGE_TO_WIDTH(&PWMD, (1.0f-note_timbre) * 10000)
                      );
 }
 

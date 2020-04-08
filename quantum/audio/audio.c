@@ -569,7 +569,15 @@ void audio_decrease_tone_multiplexing_rate(float change) { tone_multiplexing_rat
 
 // Timbre function
 
-void audio_set_timbre(float timbre) { note_timbre = timbre; }
+void audio_set_timbre(float timbre) {
+    if ((timbre > 0.0f) && (timbre < 1.0f)) {
+        note_timbre = timbre;
+    }
+}
+float audio_get_timbre(void) {
+    return note_timbre;
+}
+
 
 // Tempo functions
 
