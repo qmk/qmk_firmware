@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef AUDIO_H
-#define AUDIO_H
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -36,7 +35,6 @@
 #    include "driver_chibios_dac.h"
 #endif
 
-
 typedef union {
     uint8_t raw;
     struct {
@@ -46,9 +44,9 @@ typedef union {
     };
 } audio_config_t;
 
-//AVR/LUFA has a MIN, arm/chibios does not
+// AVR/LUFA has a MIN, arm/chibios does not
 #ifndef MIN
-#    define MIN(a,b) (((a) < (b)) ? (a) : (b))
+#    define MIN(a, b) (((a) < (b)) ? (a) : (b))
 #endif
 
 //     ____        __    ___
@@ -94,7 +92,7 @@ bool audio_is_on(void);
  * @param[in] frequency frequency of the tone be played
  */
 void audio_play_tone(float frequency);
-//TODO: add audio_play_note(float pitch, float duration, float intensity, float timbre);
+// TODO: add audio_play_note(float pitch, float duration, float intensity, float timbre);
 // audio_play_note_with_instrument ifdef AUDIO_ENABLE_VOICES
 // audio_play_pulses(frequency, count, delay/initialpause) - for fauxclicky, have pwm output exactly $count pulses
 
@@ -140,7 +138,7 @@ void audio_stop_all(void);
 /**
  * @brief query if one/multiple tones are playing
  */
-bool audio_is_playing_note(void); // TODO: is_playing_tone?
+bool audio_is_playing_note(void);  // TODO: is_playing_tone?
 
 /**
  * @brief query if a melody/SONG is playing
@@ -156,12 +154,11 @@ bool audio_is_playing_melody(void);
  * @brief convenience macro, to play a melody/SONG once
  */
 #define PLAY_SONG(note_array) audio_play_melody(&note_array, NOTE_ARRAY_SIZE((note_array)), false)
-//TODO: a 'song' is a melody plus singing/vocals -> PLAY_MELODY
+// TODO: a 'song' is a melody plus singing/vocals -> PLAY_MELODY
 /**
  * @brief convenience macro, to play a melody/SONG in a loop, until stopped by 'audio_stop_all'
  */
 #define PLAY_LOOP(note_array) audio_play_melody(&note_array, NOTE_ARRAY_SIZE((note_array)), true)
-
 
 // Vibrato rate functions
 
@@ -203,7 +200,7 @@ void audio_decrease_tone_multiplexing_rate(float change);
  * @note: using any instrument from voices.[ch] other than 'default' may override the set value
  * @param[in]: timbre: valid range is (0.0,1.0)
  */
-void audio_set_timbre(float timbre);
+void  audio_set_timbre(float timbre);
 float audio_get_timbre(void);
 
 // Tempo functions
@@ -211,8 +208,6 @@ float audio_get_timbre(void);
 void audio_set_tempo(uint8_t tempo);
 void audio_increase_tempo(uint8_t tempo_change);
 void audio_decrease_tempo(uint8_t tempo_change);
-
-
 
 //     __  __               __
 //    / / / /___ __________/ /      ______ __________
@@ -276,8 +271,6 @@ float audio_get_processed_frequency(uint8_t tone_index);
  */
 bool audio_advance_state(uint32_t step, float end);
 
-
-
 //     __
 //    / /   ___  ____ _____ ________  __
 //   / /   / _ \/ __ `/ __ `/ ___/ / / /
@@ -286,7 +279,7 @@ bool audio_advance_state(uint32_t step, float end);
 //            /____/           /____/
 // legacy and backwarts compatibility stuff
 
-#define PLAY_NOTE_ARRAY(note_array, note_repeat, deprecated_arg)        \
+#define PLAY_NOTE_ARRAY(note_array, note_repeat, deprecated_arg)                  \
     audio_play_melody(&note_array, NOTE_ARRAY_SIZE((note_array)), (note_repeat)); \
     _Pragma("message \"'PLAY_NOTE_ARRAY' macro is deprecated\"")
 
@@ -324,7 +317,6 @@ bool audio_advance_state(uint32_t step, float end);
 #    define AUDIO_PIN C6
 #endif
 
-
 #define is_audio_on() audio_is_on()
 #define is_playing_notes() audio_is_playing_melody()
 #define is_playing_note() audio_is_playing_note()
@@ -337,6 +329,3 @@ bool audio_advance_state(uint32_t step, float end);
 #define increase_tempo(t) audio_increase_tempo(t)
 #define decrease_tempo(t) audio_decrease_tempo(t)
 // vibrato functions are not used in any keyboards
-
-
-#endif // AUDIO_H

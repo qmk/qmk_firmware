@@ -32,8 +32,7 @@
 #    define AUDIO_DAC_SAMPLE_MAX 4095U
 #endif
 
-#if !defined(AUDIO_DAC_SAMPLE_RATE) && !defined(AUDIO_MAX_SIMULTANEOUS_TONES) && \
-    !defined(AUDIO_DAC_QUALITY_VERY_LOW) && !defined(AUDIO_DAC_QUALITY_LOW) && !defined(AUDIO_DAC_QUALITY_HIGH) && !defined(AUDIO_DAC_QUALITY_VERY_HIGH)
+#if !defined(AUDIO_DAC_SAMPLE_RATE) && !defined(AUDIO_MAX_SIMULTANEOUS_TONES) && !defined(AUDIO_DAC_QUALITY_VERY_LOW) && !defined(AUDIO_DAC_QUALITY_LOW) && !defined(AUDIO_DAC_QUALITY_HIGH) && !defined(AUDIO_DAC_QUALITY_VERY_HIGH)
 #    define AUDIO_DAC_QUALITY_SANE_MINIMUM
 #endif
 
@@ -79,7 +78,6 @@
 #    define AUDIO_MAX_SIMULTANEOUS_TONES 8
 #endif
 
-
 /**
  * Effective bitrate of the DAC. 44.1khz is the standard for most audio - any
  * lower will sacrifice perceptible audio quality. Any higher will limit the
@@ -113,7 +111,7 @@
 #if !defined(AUDIO_PIN_A4) && !defined(AUDIO_PIN_A5)
 #    pragma message "Audio feature enabled, but no pin selected - see docs/feature_audio under the ARM DAC settings for available options. Falling back to A5"
 #    define AUDIO_PIN_A5
-//TODO: go through a breaking change, and add AUDIO_PIN=A5 to all keyboards currently using AUDIO on STM32 based boards
+// TODO: go through a breaking change, and add AUDIO_PIN=A5 to all keyboards currently using AUDIO on STM32 based boards
 #endif
 
 /**

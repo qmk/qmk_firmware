@@ -36,14 +36,14 @@ float voice_envelope(float frequency) {
 
     switch (voice) {
         case default_voice:
-            glissando      = false;
-            //note_timbre    = TIMBRE_50; //Note: leave the user the possibility to adjust the timbre with 'audio_set_timbre'
+            glissando = false;
+            // note_timbre    = TIMBRE_50; //Note: leave the user the possibility to adjust the timbre with 'audio_set_timbre'
             break;
 
 #ifdef AUDIO_VOICES
 
         case something:
-            glissando      = false;
+            glissando = false;
             switch (compensated_index) {
                 case 0 ... 9:
                     note_timbre = TIMBRE_12;
@@ -64,7 +64,7 @@ float voice_envelope(float frequency) {
             break;
 
         case drums:
-            glissando      = false;
+            glissando = false;
             // switch (compensated_index) {
             //     case 0 ... 10:
             //         note_timbre = 0.5;
@@ -141,7 +141,7 @@ float voice_envelope(float frequency) {
             }
             break;
         case butts_fader:
-            glissando      = true;
+            glissando = true;
             switch (compensated_index) {
                 case 0 ... 9:
                     frequency   = frequency / 4;
@@ -187,7 +187,7 @@ float voice_envelope(float frequency) {
 
         case duty_osc:
             // This slows the loop down a substantial amount, so higher notes may freeze
-            glissando      = true;
+            glissando = true;
             switch (compensated_index) {
                 default:
 #    define OCS_SPEED 10
@@ -201,14 +201,14 @@ float voice_envelope(float frequency) {
             break;
 
         case duty_octave_down:
-            glissando      = true;
-            note_timbre    = (envelope_index % 2) * .125 + .375 * 2;
+            glissando   = true;
+            note_timbre = (envelope_index % 2) * .125 + .375 * 2;
             if ((envelope_index % 4) == 0) note_timbre = 0.5;
             if ((envelope_index % 8) == 0) note_timbre = 0;
             break;
         case delayed_vibrato:
-            glissando      = true;
-            note_timbre    = TIMBRE_50;
+            glissando   = true;
+            note_timbre = TIMBRE_50;
 #    define VOICE_VIBRATO_DELAY 150
 #    define VOICE_VIBRATO_SPEED 50
             switch (compensated_index) {
@@ -260,7 +260,7 @@ float voice_envelope(float frequency) {
             //         note_timbre = 0.25;
             //     break;
 
-#endif // AUDIO_VOICES
+#endif  // AUDIO_VOICES
 
         default:
             break;
