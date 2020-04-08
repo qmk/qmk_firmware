@@ -1,7 +1,12 @@
 #include QMK_KEYBOARD_H
 
 #include <math.h> // sqrtf, powf
+
+#ifdef CONSOLE_ENABLE
+
 #include <print.h>
+
+#endif
 
 enum ctrl_keycodes {
     L_BRI = SAFE_RANGE, //LED Brightness Increase                                   //Working
