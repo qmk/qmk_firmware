@@ -7,7 +7,15 @@ DIP switches are supported by adding this to your `rules.mk`:
 and this to your `config.h`:
 
 ```c
+// Connects each switch in the dip switch to the GPIO pin of the MCU
 #define DIP_SWITCH_PINS { B14, A15, A10, B9 }
+```
+
+or
+
+```c
+// Connect each switch in the DIP switch to an unused intersections in the key matrix.
+#define DIP_SWITCH_MATRIX_GRID { {0,6}, {1,6}, {2,6} } // List of row and col pairs
 ```
 
 ## Callbacks
@@ -87,4 +95,10 @@ void dip_switch_update_mask_user(uint32_t state) {
 
 ## Hardware
 
+### Connects each switch in the dip switch to the GPIO pin of the MCU
+
 One side of the DIP switch should be wired directly to the pin on the MCU, and the other side to ground.  It should not matter which side is connected to which, as it should be functionally the same. 
+
+### Connect each switch in the DIP switch to an unused intersections in the key matrix.
+
+As with the keyswitch, a diode and DIP switch connect the ROW line to the COL line.
