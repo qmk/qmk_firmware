@@ -105,7 +105,7 @@ def new_keyboard(cli):
         cli.log.error('Keyboard %s already exists!', keyboard)
         exit(1)
     # if target directory is a subdirectory (keyboard project name contains a
-    #   forward slash, create the parent directory first
+    #   forward slash), create the parent directory first
     elif len(keyboard_path.parts) > 1:
         keyboard_path.parent.mkdir(parents=True, exist_ok=True)
     final_directory = keyboard_path.name
