@@ -32,3 +32,5 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no         # Enable support for HD44780 based LCDs
 
 LAYOUTS = 60_ansi
+
+DEFAULT_FOLDER = yd60mq/12led
