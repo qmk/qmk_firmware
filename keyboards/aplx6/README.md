@@ -54,6 +54,3 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 [Firmware Builder](https://kbfirmware.com/)      
 
 ---   
-Keyboard Maintainer: Aplyard  
-Hardware Supported: Pro Micro ATmega32U4  
-Hardware Availability: Aplyard
