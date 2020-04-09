@@ -9,7 +9,7 @@ DIP スイッチは、以下を `rules.mk` に追加することでサポート�
 
     DIP_SWITCH_ENABLE = yes
 
-以下を `config.h` に追加します:
+さらに、以下を `config.h` に追加します:
 
 ```c
 #define DIP_SWITCH_PINS { B14, A15, A10, B9 }
@@ -26,7 +26,7 @@ void dip_switch_update_kb(uint8_t index, bool active) {
 ```
 
 
-あるいは `keymap.c`:
+あるいは `keymap.c` に記述することもできます:
 
 ```c
 void dip_switch_update_user(uint8_t index, bool active) { 
@@ -67,7 +67,7 @@ void dip_switch_update_mask_kb(uint32_t state) {
 ```
 
 
-あるいは `keymap.c`:
+あるいは `keymap.c` に記述することもできます:
 
 ```c
 void dip_switch_update_mask_user(uint32_t state) { 
@@ -92,4 +92,4 @@ void dip_switch_update_mask_user(uint32_t state) {
 
 ## ハードウェア
 
-DIP スイッチの片側は MCU のピンへ直接配線し、もう一方の側はグラウンドに配線する必要があります。機能的に同じであるため、どちら側が接続されているかは問題にはならないはずです。
+DIP スイッチの片側は MCU のピンへ直接配線し、もう一方の側はグラウンドに配線する必要があります。機能的に同じであるため、どちら側がどちらに接続されているかは問題にはならないはずです。
