@@ -22,10 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0x20A0
 #define PRODUCT_ID      0x422D
 #define DEVICE_VER      0x0200
-// TODO: share these strings with usbconfig.h
-// Edit usbconfig.h to change these.
-#define MANUFACTURER    Kprepublic
-#define PRODUCT         jj4x4
+#define MANUFACTURER    KPrepublic
+#define PRODUCT         JJ4x4
 
 /* matrix size */
 #define MATRIX_ROWS 4
@@ -48,7 +46,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
-#define NO_UART 1
 #define USB_MAX_POWER_CONSUMPTION 100
 
 /* key combination for magic key command */

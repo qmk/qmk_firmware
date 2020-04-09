@@ -101,7 +101,7 @@ enum my_keycodes {
 };
 ```
 
-### Previewing the Documentation
+### Previewing the Documentation :id=previewing-the-documentation
 
 Before opening a pull request, you can preview your changes if you have set up the development environment by running this command from the `qmk_firmware/` folder:
 
