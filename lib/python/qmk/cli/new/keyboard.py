@@ -16,7 +16,7 @@ from qmk.keymap import rewrite_source
 @cli.argument('-kb', '--keyboard', help='Specify keyboard name. Example: clueboard/66')
 @cli.argument('-pr', '--project', help='The human-friendly name of the keyboard. Example: Clueboard 66%%')
 @cli.argument('-mcu', '--microcontroller', help='Specify the microcontroller used for the keyboard.')
-@cli.argument('-u', '--username', help='Your GitHub username. Will be pasted into generated files.')
+@cli.argument('-u', '--name', help='Your GitHub username. Will be pasted into generated files.')
 @cli.subcommand('Creates a new keyboard project.')
 def new_keyboard(cli):
     """Creates a new keyboard project.
@@ -87,12 +87,8 @@ def new_keyboard(cli):
     # Set the path to the MCU architecture's template files
     template_arch_path = template_root_path / arch
 
-
-    # (Erovia) introducing the user.name variable would probably be better
-    if cli.config.new_keyboard.username:
-        user_name = cli.config.new_keyboard.username
-    elif cli.args.username:
-        user_name = cli.args.username
+    if cli.config.new_keyboard.name:
+        user_name = cli.config.new_keyboard.name
     else:
         # Ask the user for their GitHub username
         cli.echo("""What is your GitHub username?
