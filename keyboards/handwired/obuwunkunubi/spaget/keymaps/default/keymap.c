@@ -52,25 +52,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap BASE: Base Layer
   *
   *      ,---.       ,---.
-  *      |NUM|       |PLY|-----
-  *      `---'       `---'    |
-  *        |                  |
-  *        -----------------  |
-  *      ,---------------. |  |
-  *      |CAL| UP|PRE|NXT| |  |
-  *      |---------------| |  |
-  *      | = | / | * | - | |  |
-  *      |---------------| |  |
-  *      | 7 | 8 | 9 |NUM|--  |
-  *      |---------------|    |
-  *      | 4 | 5 | 6 | + |    |
-  *      |---------------|    |
-  *      | 1 | 2 | 3 |PLY|-----
+  *      |NUM|       |PLY|
+  *      `---'       `---'
+  *      ,---------------.
+  *      |CAL| UP|PRE|NXT|
   *      |---------------|
-  *      | NO| 0 | . |ENT|
+  *      | = | / | * | - |
+  *      |---------------|
+  *      | 7 | 8 | 9 |   |
+  *      |------------ + |
+  *      | 4 | 5 | 6 |   |
+  *      |---------------|
+  *      | 1 | 2 | 3 |   |
+  *      |------------ENT|
+  *      |   0   | . |   |
   *      `---------------'
   */
-  [BASE] = LAYOUT(     \
+  [BASE] = LAYOUT(                      \
     KC_NLCK,                   KC_MPLY, \
     KC_CALC, TO(ONE), KC_MPRV, KC_MNXT, \
     KC_EQL,  KC_PSLS, KC_PAST, KC_MINS, \
@@ -79,61 +77,56 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_P1,   KC_P2,   KC_P3,            \
              KC_P0,   KC_PDOT, KC_PENT  \
   ),
-
+    
   /* Keymap ONE: Util Layer
   *
   *      ,---.       ,---.
-  *      |RST|       |CAD|-----
-  *      `---'       `---'    |
-  *        |                  |
-  *        -----------------  |
-  *      ,---------------. |  |
-  *      |BAS|TWO|MK1|MK2| |  |
-  *      |---------------| |  |
-  *      |DIR|@1 |@2 |OBU| |  |
-  *      |---------------| |  |
-  *      |SWP|AF4|SWN|RST|--  |
-  *      |---------------|    |
-  *      |CPY| U |PST|PSC|    |
-  *      |---------------|    |
-  *      | L | D | R |CAD|-----
+  *      |RST|       |CAD|
+  *      `---'       `---'
+  *      ,---------------.
+  *      |BAS|TWO|MK1|MK2|
   *      |---------------|
-  *      | NO| NO| NO| NO|
+  *      |DIR|@1 |@2 |OBU|
+  *      |---------------|
+  *      |SWP|AF4|SWN|   |
+  *      |------------PSC|
+  *      |CPY| U |PST|   |
+  *      |---------------|
+  *      | L | D | R |   |
+  *      |------------ NO|
+  *      |  NO   | NO|   |
   *      `---------------'
   */
-  [ONE] = LAYOUT(       \
+  [ONE] = LAYOUT(                        \
     RESET,                      KC_CAD,  \
     TO(BASE), TO(TWO), MAKE1,   MAKE2,   \
     DIR,      MAIL1,   MAIL2,   OBUWUN,  \
     SELWP,    KC_AF4,  SELWN,            \
     KC_CPY,   KC_UP,   KC_PST,  KC_PSCR, \
     KC_LEFT,  KC_DOWN, KC_RGHT,          \
-             KC_P0,   KC_PDOT, KC_PENT   \
+              KC_P0,   KC_PDOT, KC_PENT  \
   ),
-
 
   /* Keymap TWO: Emoji Layer
   *
   *      ,---.       ,---.
-  *      | NO|       | NO|-----
-  *      `---'       `---'    |
-  *        |                  |
-  *        -----------------  |
-  *      ,---------------. |  |
-  *      |ONE|BAS| [ | ] | |  |
-  *      |---------------| |  |
-  *      |F13|F14|F15|F16| |  |
-  *      |---------------| |  |
-  *      |EM7|EM8|EM9| NO|--  |
-  *      |---------------|    |
-  *      |EM4|EM5|EM6| NO|    |
-  *      |---------------|    |
-  *      |EM1|EM2|EM3| NO|-----
+  *      | NO|       | NO|
+  *      `---'       `---'
+  *      ,---------------.
+  *      |ONE|BAS| [ | ] |
   *      |---------------|
-  *      | NO| NO| NO| NO|
+  *      |F13|F14|F15|F16|
+  *      |---------------|
+  *      |EM7|EM8|EM9|   |
+  *      |------------ NO|
+  *      |EM4|EM5|EM6|   |
+  *      |---------------|
+  *      |EM1|EM2|EM3|   |
+  *      |------------ NO|
+  *      |  NO   | NO|   |
   *      `---------------'
   */
-  [TWO] = LAYOUT(       \
+  [TWO] = LAYOUT(                        \
     KC_NO,                      KC_NO,   \
     TO(ONE), TO(BASE), KC_LBRC, KC_RBRC, \
     KC_F13,  KC_F14,   KC_F15,  KC_F16,  \
