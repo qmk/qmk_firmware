@@ -5,7 +5,7 @@
     "width": 4,
     "height": 6,
     "layouts": {
-        "LAYOUT_spaget_ortho_6x4": {
+        "LAYOUT": {
             "layout": [
 				{"x":0, "y":0},
 				{"x":1, "y":0},
