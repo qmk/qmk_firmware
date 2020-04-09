@@ -3,9 +3,7 @@
 ![Front](https://i.imgur.com/lUg9GAo.png)  
 ![Back](https://i.imgur.com/iAHtHV7.png)
    
-A stylish (2x3) 6-key MediaPad for your music and browser shortcuts.
-Designed to be assembled as a sandwich with a blank pcb, using m2.5 screws and spacers. 
-Diodes : 1N4148   
+A stylish (2x3) 6-key MediaPad for your music and browser shortcuts. Designed to be assembled as a sandwich with a blank PCB, using M2.5 screws and spacers, your choice of MX- or Alps-compatible switches, and 1N4148 diodes.
 
 ---
 
