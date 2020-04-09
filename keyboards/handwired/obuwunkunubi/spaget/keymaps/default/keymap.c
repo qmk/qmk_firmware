@@ -146,11 +146,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
 
-    case SELWN:
+    case SELWN:  // select and copy next word
     if (record->event.pressed) {
       // when keycode SELWN is pressed
 
-      send_string(SS_DOWN(X_LCTRL)SS_DOWN(X_LSHIFT)SS_TAP(X_RIGHT)SS_UP(X_LSHIFT)"c"SS_UP(X_LCTRL)); // select and copy next word
+      tap_code16(C(S(KC_RGHT)));
+      tap_code16(KC_CPY);
       return false; break;
 
     } else {
@@ -158,11 +159,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     break;
 
-    case SELWP:
+    case SELWP:   // select and copy previous word
     if (record->event.pressed) {
       // when keycode SELWP is pressed
 
-      send_string(SS_DOWN(X_LCTRL)SS_DOWN(X_LSHIFT)SS_TAP(X_LEFT)SS_UP(X_LSHIFT)"c"SS_UP(X_LCTRL)); // select and copy previous word
+      tap_code16(C(S(KC_LEFT)));
+      tap_code16(KC_CPY);
       return false; break;
 
     } else {
