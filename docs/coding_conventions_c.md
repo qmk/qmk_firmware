@@ -51,7 +51,9 @@ int foo(void) {
 
 Use the [full LLVM installer](http://llvm.org/builds/) to get clang-format on Windows, or use `sudo apt install clang-format` on Ubuntu.
 
-If you run it from the command-line, pass `-style=file` as an option and it will automatically find the .clang-format configuration file in the QMK root directory.
+You can use the script `format-dir` to format your code, like `./format-dir users/yourname` and `./format-dir keyboards/keebio/iris/keymaps/yourname` etc.
+
+If you run `clang-format` directly, pass `-style=file` as an option and it will automatically find the .clang-format configuration file in the QMK root directory.
 
 If you use VSCode, the standard C/C++ plugin supports clang-format, alternatively there is a [separate extension](https://marketplace.visualstudio.com/items?itemName=LLVMExtensions.ClangFormat) for it.
 
