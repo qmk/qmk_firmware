@@ -28,23 +28,23 @@ sudo udevadm trigger
 **/etc/udev/rules.d/50-atmel-dfu.rules:**
 ```
 # Atmel ATMega32U4
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff4", MODE:="0660", TAG+="uaccess"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff4", TAG+="uaccess", RUN{builtin}+="uaccess"
 # Atmel USBKEY AT90USB1287
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ffb", MODE:="0660", TAG+="uaccess"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ffb", TAG+="uaccess", RUN{builtin}+="uaccess"
 # Atmel ATMega32U2
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff0", MODE:="0660", TAG+="uaccess"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff0", TAG+="uaccess", RUN{builtin}+="uaccess"
 ```
 
 **/etc/udev/rules.d/52-tmk-keyboard.rules:**
 ```
 # tmk keyboard products     https://github.com/tmk/tmk_keyboard
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0660", TAG+="uaccess"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", TAG+="uaccess", RUN{builtin}+="uaccess"
 ```
 **/etc/udev/rules.d/54-input-club-keyboard.rules:**
 
 ```
 # Input Club keyboard bootloader
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", MODE:="0660", TAG+="uaccess"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", TAG+="uaccess", RUN{builtin}+="uaccess"
 ```
 
 **/etc/udev/rules.d/55-caterina.rules:**
@@ -64,15 +64,15 @@ sudo systemctl restart ModemManager
 **/etc/udev/rules.d/56-dfu-util.rules:**
 ```
 # stm32duino
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="1eaf", ATTRS{idProduct}=="0003", MODE:="0660", TAG+="uaccess"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1eaf", ATTRS{idProduct}=="0003", TAG+="uaccess", RUN{builtin}+="uaccess"
 # Generic stm32
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE:="0660", TAG+="uaccess"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", TAG+="uaccess", RUN{builtin}+="uaccess"
 ```
 
 **/etc/udev/rules.d/57-bootloadhid.rules:**
 ```
 # bootloadHID
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="05df", MODE:="0660", TAG+="uaccess"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="05df", TAG+="uaccess", RUN{builtin}+="uaccess"
 ```
 
 ### Serial device is not detected in bootloader mode on Linux
