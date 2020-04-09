@@ -167,7 +167,6 @@ void spi_stop(void) {
         SPSR &= ~(_BV(SPI2X));
         SPCR &= ~(currentSlaveConfig);
         currentSlaveConfig = 0;
-        SPSR               = 0;
         currentSlave2X     = false;
     }
 }
