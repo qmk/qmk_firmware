@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION     A 75% hotswap keyboard
 
 /* key matrix size */
-#define MATRIX_ROWS 12
+#define MATRIX_ROWS 11
 #define MATRIX_COLS 9
 
 /*
@@ -40,8 +40,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
+ * The matrix description in the vendor-supplied JSON file for kbfirmware.com
+ * had 12 rows:
+ *     { B7, B3, B2, B1, B0, E6, F0, F1, F4, F5, F6, F7 }
+ * However, the row 6 was completely empty, and the pin F0 was not actually
+ * routed anywhere on the PCB, therefore this row was removed to save some
+ * resources (the EEPROM space for dynamic keymaps is especially scarce).
  */
-#define MATRIX_ROW_PINS { B7, B3, B2, B1, B0, E6, F0, F1, F4, F5, F6, F7 }
+#define MATRIX_ROW_PINS { B7, B3, B2, B1, B0, E6, F1, F4, F5, F6, F7 }
 #define MATRIX_COL_PINS { D0, D1, D2, D3, D5, D4, D6, D7, B4 }
 
 #define DIODE_DIRECTION ROW2COL
