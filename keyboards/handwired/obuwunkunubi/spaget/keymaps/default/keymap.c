@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *      | NO| NO| NO| NO|
   *      `---------------'
   */
-  [ONE] = LAYOUT_spaget_ortho_6x4(       \
+  [ONE] = LAYOUT(       \
     TO(BASE), TO(TWO), MAKE1,   MAKE2,   \
     DIR,      MAIL1,   MAIL2,   OBUWUN,  \
     SELWP,    KC_AF4,  SELWN,   RESET,   \
