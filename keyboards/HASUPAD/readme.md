@@ -1,10 +1,10 @@
-# bigopad
+# hasupad
 
-![bigopad](imgur.com image replace me!)
+![hasupad](imgur.com image replace me!)
 
 A short description of the keyboard/project
 
-Keyboard Maintainer: [bigo](https://github.com/yourusername)  
+Keyboard Maintainer: [hasu](https://github.com/yourusername)  
 Hardware Supported: The PCBs, controllers supported  
 Hardware Availability: links to where you can find this hardware
 
