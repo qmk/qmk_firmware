@@ -5,15 +5,6 @@
    
 A stylish (2x3) 6-key MediaPad for your music and browser shortcuts. Designed to be assembled as a sandwich with a blank PCB, using M2.5 screws and spacers, your choice of MX- or Alps-compatible switches, and 1N4148 diodes.
 
----
-
-![Front](https://i.imgur.com/lUg9GAo.png)
-
-![Back](https://i.imgur.com/iAHtHV7.png)
-
-![Blank](https://i.imgur.com/EnqIhSW.png)
-
----
 
 **Can support Rgb underglow (WS2812)** 
 
