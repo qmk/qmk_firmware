@@ -106,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     SELWP,    KC_AF4,  SELWN,   RESET,   \
     KC_CPY,   KC_UP,   KC_PST,  KC_PSCR, \
     KC_LEFT,  KC_DOWN, KC_RGHT, KC_CAD,  \
-    KC_NO,    KC_P0,   KC_PDOT, KC_PENT  \
+             KC_P0,   KC_PDOT, KC_PENT  \
   ),
 
 
