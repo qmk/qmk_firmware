@@ -65,26 +65,32 @@ enum custom_keycodes {
 
 //Tap Dance Declarations
 enum {
-  ALT_GUI = 0
+  ALT_GUI = 0,
+  CTL_ALT,
+  TAB_CTL
 };
 
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
   //Tap once for Alt, twice for GUI
-  [ALT_GUI]  = ACTION_TAP_DANCE_DOUBLE(KC_LALT, KC_LGUI)
+  [ALT_GUI]  = ACTION_TAP_DANCE_DOUBLE(KC_LALT, KC_LGUI),
+  //Tap once for Ctrl, twice for Alt
+  [CTL_ALT]  = ACTION_TAP_DANCE_DOUBLE(KC_RCTL, KC_RALT),
+  //Tap once for Tab, twice for CTL
+  [TAB_CTL]  = ACTION_TAP_DANCE_DOUBLE(KC_TAB, KC_LCTL)
 // Other declarations would go here, separated by commas, if you have them
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_GESC,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,\
+      KC_GESC,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-LCTL_T(KC_TAB),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,\
+  TD(TAB_CTL),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 	     KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                        KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                    TD(ALT_GUI),   KC_SPC,  LOWER,      RAISE,  KC_ENT,  KC_RALT \
+                                    TD(ALT_GUI),   KC_SPC,  LOWER,      RAISE,  KC_ENT,  TD(CTL_ALT) \
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -97,7 +103,7 @@ LCTL_T(KC_TAB),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                     
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_MPRV, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,                       KC_BSLS,  KC_GRV, KC_LBRC, KC_RBRC, XXXXXXX, KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                    TD(ALT_GUI),   KC_SPC,  LOWER,      RAISE,  KC_ENT,  KC_RALT \
+                                    TD(ALT_GUI),   KC_SPC,  LOWER,      RAISE,  KC_ENT,  TD(CTL_ALT) \
                                       //`--------------------------'  `--------------------------'
     ),
 
@@ -109,7 +115,7 @@ LCTL_T(KC_TAB),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                     
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_VOLD,  KC_F11,  KC_F12, RGB_VAD, RGB_TOG, RGB_VAI,                     RGB_RMOD, RGB_MOD, XXXXXXX, XXXXXXX, XXXXXXX, KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                    TD(ALT_GUI),   KC_SPC,  LOWER,      RAISE,  KC_ENT,  KC_RALT \
+                                    TD(ALT_GUI),   KC_SPC,  LOWER,      RAISE,  KC_ENT,  TD(CTL_ALT) \
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -121,7 +127,7 @@ LCTL_T(KC_TAB),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                     
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                    TD(ALT_GUI),   KC_SPC,  LOWER,      RAISE,  KC_ENT,  KC_RALT \
+                                    TD(ALT_GUI),   KC_SPC,  LOWER,      RAISE,  KC_ENT,  TD(CTL_ALT) \
                                       //`--------------------------'  `--------------------------'
   ),
   
