@@ -1,4 +1,4 @@
-/* Copyright 2019 Nick Brassel (tzarc)
+/* Copyright 2020 Nick Brassel (tzarc)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 /*
     Note that the implementations of eeprom_XXXX_YYYY on AVR are normally
     provided by avr-libc. The same functions are reimplemented below and are
-    rerouted to the external i2c equivalent.
+    rerouted to the external SPI equivalent.
 
     Seemingly, as this is compiled from within QMK, the object file generated
     during the build overrides the avr-libc implementation during the linking
@@ -155,13 +155,13 @@ void eeprom_read_block(void *buf, const void *addr, size_t len) {
 void eeprom_write_block(const void *buf, void *addr, size_t len) {
     init_spi_if_required();
 
-    bool     res;
-    uint8_t *read_buf    = (uint8_t *)buf;
+    bool      res;
+    uint8_t * read_buf    = (uint8_t *)buf;
     uintptr_t target_addr = (uintptr_t)addr;
 
     while (len > 0) {
         uintptr_t page_offset  = target_addr % EXTERNAL_EEPROM_PAGE_SIZE;
-        int      write_length = EXTERNAL_EEPROM_PAGE_SIZE - page_offset;
+        int       write_length = EXTERNAL_EEPROM_PAGE_SIZE - page_offset;
         if (write_length > len) {
             write_length = len;
         }

@@ -85,14 +85,14 @@ void eeprom_read_block(void *buf, const void *addr, size_t len) {
 }
 
 void eeprom_write_block(const void *buf, void *addr, size_t len) {
-    uint8_t  complete_packet[EXTERNAL_EEPROM_ADDRESS_SIZE + EXTERNAL_EEPROM_PAGE_SIZE];
-    uint8_t *read_buf    = (uint8_t *)buf;
+    uint8_t   complete_packet[EXTERNAL_EEPROM_ADDRESS_SIZE + EXTERNAL_EEPROM_PAGE_SIZE];
+    uint8_t * read_buf    = (uint8_t *)buf;
     uintptr_t target_addr = (uintptr_t)addr;
 
     init_i2c_if_required();
     while (len > 0) {
         uintptr_t page_offset  = target_addr % EXTERNAL_EEPROM_PAGE_SIZE;
-        int      write_length = EXTERNAL_EEPROM_PAGE_SIZE - page_offset;
+        int       write_length = EXTERNAL_EEPROM_PAGE_SIZE - page_offset;
         if (write_length > len) {
             write_length = len;
         }

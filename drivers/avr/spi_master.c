@@ -99,7 +99,7 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
     }
 
     SPCR = currentSlaveConfig;
-    if(currentSlave2X) {
+    if (currentSlave2X) {
         SPSR |= _BV(SPI2X);
     }
     currentSlavePin = slavePin;

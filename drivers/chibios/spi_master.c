@@ -1,4 +1,4 @@
-/*  Copyright 2020
+/* Copyright 2020 Nick Brassel (tzarc)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -59,7 +59,7 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
         spiConfig.cr1 |= SPI_CR1_LSBFIRST;
     }
 
-    switch(mode) {
+    switch (mode) {
         case 0:
             break;
         case 1:
