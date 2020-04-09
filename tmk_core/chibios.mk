@@ -24,6 +24,7 @@ endif
 #
 
 # Imported source files and paths
+OPT_OS = chibios
 CHIBIOS = $(TOP_DIR)/lib/chibios
 CHIBIOS_CONTRIB = $(TOP_DIR)/lib/chibios-contrib
 # Startup files. Try a few different locations, for compability with old versions and
@@ -49,6 +50,34 @@ PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLAT
 endif
 include $(PLATFORM_MK)
 
+# Bootloader address
+ifdef STM32_BOOTLOADER_ADDRESS
+    OPT_DEFS += -DSTM32_BOOTLOADER_ADDRESS=$(STM32_BOOTLOADER_ADDRESS)
+endif
+
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_5)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_5)/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_5)/boards/$(BOARD)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_4)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_4)/boards/$(BOARD)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_3)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_3)/boards/$(BOARD)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_2)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_2)/boards/$(BOARD)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_1)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_1)/boards/$(BOARD)/bootloader_defs.h
+else ifneq ("$(wildcard $(TOP_DIR)/drivers/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(TOP_DIR)/drivers/boards/$(BOARD)/bootloader_defs.h
+endif
 
 BOARD_MK :=
 
@@ -298,7 +327,9 @@ bin: $(BUILD_DIR)/$(TARGET).bin sizeafter
 
 
 flash: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
-ifeq ($(strip $(BOOTLOADER)),dfu)
+ifneq ($(strip $(PROGRAM_CMD)),)
+	$(PROGRAM_CMD)
+else ifeq ($(strip $(BOOTLOADER)),dfu)
 	$(call EXEC_DFU_UTIL)
 else ifeq ($(strip $(MCU_FAMILY)),KINETIS)
 	$(call EXEC_TEENSY)

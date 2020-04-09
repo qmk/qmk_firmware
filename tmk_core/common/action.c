@@ -151,6 +151,8 @@ void process_record_nocache(keyrecord_t *record) { process_record(record); }
 
 __attribute__((weak)) bool process_record_quantum(keyrecord_t *record) { return true; }
 
+__attribute__((weak)) void post_process_record_quantum(keyrecord_t *record) {}
+
 #ifndef NO_ACTION_TAPPING
 /** \brief Allows for handling tap-hold actions immediately instead of waiting for TAPPING_TERM or another keypress.
  *
@@ -185,6 +187,11 @@ void process_record(keyrecord_t *record) {
 
     if (!process_record_quantum(record)) return;
 
+    process_record_handler(record);
+    post_process_record_quantum(record);
+}
+
+void process_record_handler(keyrecord_t *record) {
     action_t action = store_or_get_action(record->event.pressed, record->event.key);
     dprint("ACTION: ");
     debug_action(action);
@@ -768,11 +775,12 @@ void register_code(uint8_t code) {
             add_mods(MOD_BIT(code));
             send_keyboard_report();
         }
+#ifdef EXTRAKEY_ENABLE
     else if
         IS_SYSTEM(code) { host_system_send(KEYCODE2SYSTEM(code)); }
     else if
         IS_CONSUMER(code) { host_consumer_send(KEYCODE2CONSUMER(code)); }
-
+#endif
 #ifdef MOUSEKEY_ENABLE
     else if
         IS_MOUSEKEY(code) {
@@ -988,7 +996,6 @@ bool is_tap_action(action_t action) {
  * FIXME: Needs documentation.
  */
 void debug_event(keyevent_t event) { dprintf("%04X%c(%u)", (event.key.row << 8 | event.key.col), (event.pressed ? 'd' : 'u'), event.time); }
-
 /** \brief Debug print (FIXME: Needs better description)
  *
  * FIXME: Needs documentation.
