@@ -60,11 +60,19 @@ static inline void fill_target_address(uint8_t *buffer, const void *addr) {
 void eeprom_driver_init(void) {}
 
 void eeprom_driver_erase(void) {
+#ifdef CONSOLE_ENABLE
+    uint32_t start = timer_read32();
+#endif
+
     uint8_t buf[EXTERNAL_EEPROM_PAGE_SIZE];
     memset(buf, 0x00, EXTERNAL_EEPROM_PAGE_SIZE);
-    for (uintptr_t addr = 0; addr < EXTERNAL_EEPROM_BYTE_COUNT; addr += EXTERNAL_EEPROM_PAGE_SIZE) {
-        eeprom_write_block(buf, (void *)addr, EXTERNAL_EEPROM_PAGE_SIZE);
+    for (uint32_t addr = 0; addr < EXTERNAL_EEPROM_BYTE_COUNT; addr += EXTERNAL_EEPROM_PAGE_SIZE) {
+        eeprom_write_block(buf, (void *)(uintptr_t)addr, EXTERNAL_EEPROM_PAGE_SIZE);
     }
+
+#ifdef CONSOLE_ENABLE
+    dprintf("EEPROM erase took %ldms to complete\n", ((long)(timer_read32() - start)));
+#endif
 }
 
 void eeprom_read_block(void *buf, const void *addr, size_t len) {
