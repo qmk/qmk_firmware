@@ -1,1 +1,1 @@
-# The default keymap for bigopad
+# The default keymap for hasupad
