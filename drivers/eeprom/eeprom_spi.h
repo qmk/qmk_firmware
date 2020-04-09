@@ -17,11 +17,11 @@
 #pragma once
 
 /*
-    The chip select pin of the EEPROM.
+    The slave select pin of the EEPROM.
     This needs to be a normal GPIO pin_t value, such as A7.
 */
-#ifndef EXTERNAL_EEPROM_SPI_CHIP_SELECT_PIN
-#    error "No chip select pin defined -- missing EXTERNAL_EEPROM_SPI_CHIP_SELECT_PIN"
+#ifndef EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN
+#    error "No chip select pin defined -- missing EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN"
 #endif
 
 /*
