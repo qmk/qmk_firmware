@@ -32,18 +32,18 @@ def new_keyboard(cli):
         keyboard = keyboard_name = cli.args.keyboard
     else:
         # ask for user input if keyboard was not provided in the command line
-        cli.echo("""What is the keyboard's project name?
+        cli.echo("""What is the keyboard's name?
 
-    This will be the name used to compile firmware for your keyboard. The
-    project name may only contain lower-case letters, numbers, underscores, and
-    the forward slash, and must begin with a lower-case letter or a number.
+    This will be the name used to compile firmware for your keyboard. This name
+    may only contain lower-case letters, numbers, underscores and forward
+    slashes, and must begin with a letter or a number.
 
-    Files will be placed in `qmk_firmware/keyboards/<project_name>/`.""")
-        keyboard = question("Project Name: ")
+    Files will be placed in `qmk_firmware/keyboards/<keyboard_name>/`.""")
+        keyboard = question("Keyboard Name: ")
 
         while valid_keyboard_name.match(keyboard) == None:
-            cli.echo(keyboard + " is not a valid project name.")
-            keyboard = question("Project Name: ")
+            cli.echo(keyboard + " is not a valid keyboard name.")
+            keyboard = question("Keyboard Name: ")
 
     if cli.args.project:
         keyboard_name = cli.args.project
