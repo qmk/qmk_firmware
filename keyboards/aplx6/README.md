@@ -7,11 +7,11 @@ Diodes : 1N4148
 
 ---
 
-![Front](https://i.imgur.com/lUg9GAo.png)
+![Front](https://i.imgur.com/flhSvAG.png)
 
 ![Back](https://i.imgur.com/iAHtHV7.png)
 
-![Blank](https://i.imgur.com/EnqIhSW.png)
+![Pop](https://i.imgur.com/IYnIp4m.png)
 
 ---
 

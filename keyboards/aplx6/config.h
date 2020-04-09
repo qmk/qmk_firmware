@@ -32,8 +32,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 3
 
 /* pin-out */
-#define MATRIX_ROW_PINS { B5, F6 }
-#define MATRIX_COL_PINS { B6, F5, F4 }
+#define MATRIX_ROW_PINS { E6, B3 }
+#define MATRIX_COL_PINS { F&, B6, F4 }
 #define UNUSED_PINS
 
 
