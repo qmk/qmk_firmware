@@ -29,5 +29,3 @@ BLUETOOTH_ENABLE = no    # Enable Bluetooth with the Adafruit EZ-Key HID
 
 OLED_DRIVER_ENABLE = yes # Enable OLED display support
 ENCODER_ENABLE = yes	   # Enable encoder support
-
-LAYOUTS = spaget_ortho_6x4
