@@ -15,7 +15,7 @@
 #define PRODUCT DrashnaDox - Hacked ErgoDox EZ Hybrid Monstrosity
 
 #undef DEBOUNCE
-#define DEBOUNCE 30
+#define DEBOUNCE 60
 
 #define TAPPING_TERM_PER_KEY
 

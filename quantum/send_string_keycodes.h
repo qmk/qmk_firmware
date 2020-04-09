@@ -382,13 +382,17 @@
 #define ADD_SLASH_X(y) STRINGIZE(\x##y)
 #define SYMBOL_STR(x) ADD_SLASH_X(x)
 
+#define SS_QMK_PREFIX 1
+
 #define SS_TAP_CODE 1
 #define SS_DOWN_CODE 2
 #define SS_UP_CODE 3
+#define SS_DELAY_CODE 4
 
-#define SS_TAP(keycode) "\1" SYMBOL_STR(keycode)
-#define SS_DOWN(keycode) "\2" SYMBOL_STR(keycode)
-#define SS_UP(keycode) "\3" SYMBOL_STR(keycode)
+#define SS_TAP(keycode) "\1\1" SYMBOL_STR(keycode)
+#define SS_DOWN(keycode) "\1\2" SYMBOL_STR(keycode)
+#define SS_UP(keycode) "\1\3" SYMBOL_STR(keycode)
+#define SS_DELAY(msecs) "\1\4" STRINGIZE(msecs) "|"
 
 // `string` arguments must not be parenthesized
 #define SS_LCTL(string) SS_DOWN(X_LCTL) string SS_UP(X_LCTL)

@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    DonutCables
 #define PRODUCT         budget96
 
-#define RGBLED_NUM 16
+#define RGBLED_NUM 18
 
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 15

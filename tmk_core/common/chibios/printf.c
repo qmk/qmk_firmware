@@ -96,10 +96,10 @@ static int a2d(char ch) {
         return -1;
 }
 
-static char a2i(char ch, char** src, int base, int* nump) {
-    char* p   = *src;
-    int   num = 0;
-    int   digit;
+static char a2i(char ch, const char** src, int base, int* nump) {
+    const char* p   = *src;
+    int         num = 0;
+    int         digit;
     while ((digit = a2d(ch)) >= 0) {
         if (digit > base) break;
         num = num * base + digit;
@@ -119,7 +119,7 @@ static void putchw(void* putp, putcf putf, int n, char z, char* bf) {
     while ((ch = *bf++)) putf(putp, ch);
 }
 
-void tfp_format(void* putp, putcf putf, char* fmt, va_list va) {
+void tfp_format(void* putp, putcf putf, const char* fmt, va_list va) {
     // This used to handle max of 12, but binary support jumps this to at least 32
     char bf[36];
 
@@ -211,19 +211,23 @@ void init_printf(void* putp, void (*putf)(void*, char)) {
     stdout_putp = putp;
 }
 
-void tfp_printf(char* fmt, ...) {
+int tfp_printf(const char* fmt, ...) {
     va_list va;
     va_start(va, fmt);
     tfp_format(stdout_putp, stdout_putf, fmt, va);
     va_end(va);
+
+    return 1;
 }
 
 static void putcp(void* p, char c) { *(*((char**)p))++ = c; }
 
-void tfp_sprintf(char* s, char* fmt, ...) {
+int tfp_sprintf(char* s, const char* fmt, ...) {
     va_list va;
     va_start(va, fmt);
     tfp_format(&s, putcp, fmt, va);
     putcp(&s, 0);
     va_end(va);
+
+    return 1;
 }
