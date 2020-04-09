@@ -47,57 +47,61 @@ void spi_init(void) {
     SPCR = (_BV(SPE) | _BV(MSTR));
 }
 
-void spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint8_t divisor) {
-    if (currentSlavePin == NO_PIN && slavePin != NO_PIN) {
-        if (lsbFirst) {
-            currentSlaveConfig |= _BV(DORD);
-        }
-
-        switch (mode) {
-            case 1:
-                currentSlaveConfig |= _BV(CPHA);
-                break;
-            case 2:
-                currentSlaveConfig |= _BV(CPOL);
-                break;
-            case 3:
-                currentSlaveConfig |= (_BV(CPOL) | _BV(CPHA));
-                break;
-        }
-
-        uint8_t roundedDivisor = 1;
-        while (roundedDivisor < divisor) {
-            roundedDivisor <<= 1;
-        }
-
-        switch (roundedDivisor) {
-            case 16:
-                currentSlaveConfig |= _BV(SPR0);
-                break;
-            case 64:
-                currentSlaveConfig |= _BV(SPR1);
-                break;
-            case 128:
-                currentSlaveConfig |= (_BV(SPR1) | _BV(SPR0));
-                break;
-            case 2:
-                currentSlave2X = true;
-                break;
-            case 8:
-                currentSlave2X = true;
-                currentSlaveConfig |= _BV(SPR0);
-                break;
-            case 32:
-                currentSlave2X = true;
-                currentSlaveConfig |= _BV(SPR1);
-                break;
-        }
-
-        SPSR |= currentSlaveConfig;
-        currentSlavePin = slavePin;
-        setPinOutput(currentSlavePin);
-        writePinLow(currentSlavePin);
+bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
+    if (currentSlavePin != NO_PIN || slavePin == NO_PIN) {
+        return false;
     }
+
+    if (lsbFirst) {
+        currentSlaveConfig |= _BV(DORD);
+    }
+
+    switch (mode) {
+        case 1:
+            currentSlaveConfig |= _BV(CPHA);
+            break;
+        case 2:
+            currentSlaveConfig |= _BV(CPOL);
+            break;
+        case 3:
+            currentSlaveConfig |= (_BV(CPOL) | _BV(CPHA));
+            break;
+    }
+
+    uint16_t roundedDivisor = 1;
+    while (roundedDivisor < divisor) {
+        roundedDivisor <<= 1;
+    }
+
+    switch (roundedDivisor) {
+        case 16:
+            currentSlaveConfig |= _BV(SPR0);
+            break;
+        case 64:
+            currentSlaveConfig |= _BV(SPR1);
+            break;
+        case 128:
+            currentSlaveConfig |= (_BV(SPR1) | _BV(SPR0));
+            break;
+        case 2:
+            currentSlave2X = true;
+            break;
+        case 8:
+            currentSlave2X = true;
+            currentSlaveConfig |= _BV(SPR0);
+            break;
+        case 32:
+            currentSlave2X = true;
+            currentSlaveConfig |= _BV(SPR1);
+            break;
+    }
+
+    SPSR |= currentSlaveConfig;
+    currentSlavePin = slavePin;
+    setPinOutput(currentSlavePin);
+    writePinLow(currentSlavePin);
+
+    return true;
 }
 
 spi_status_t spi_write(uint8_t data, uint16_t timeout) {

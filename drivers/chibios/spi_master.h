@@ -16,18 +16,39 @@
 
 #pragma once
 
-#include "quantum.h"
+#include <ch.h>
+#include <hal.h>
+#include <quantum.h>
+
+#ifndef SPI_DRIVER
+#    define SPI_DRIVER SPID2
+#endif
+
+#ifndef SPI_SCK_PIN
+#    define SPI_SCK_PIN B13
+#endif
+
+#ifndef SPI_SCK_PAL_MODE
+#    define SPI_SCK_PAL_MODE 5
+#endif
+
+#ifndef SPI_MOSI_PIN
+#    define SPI_MOSI_PIN B15
+#endif
+
+#ifndef SPI_MOSI_PAL_MODE
+#    define SPI_MOSI_PAL_MODE 5
+#endif
+
+#ifndef SPI_MISO_PIN
+#    define SPI_MISO_PIN B14
+#endif
+
+#ifndef SPI_MISO_PAL_MODE
+#    define SPI_MISO_PAL_MODE 5
+#endif
 
 typedef int16_t spi_status_t;
-
-// Hardware SS pin is defined in the header so that user code can refer to it
-#if defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__) || defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
-#    define SPI_SS_PIN B0
-#elif defined(__AVR_ATmega32A__)
-#    define SPI_SS_PIN B4
-#elif defined(__AVR_ATmega328P__)
-#    define SPI_SS_PIN B2
-#endif
 
 #define SPI_STATUS_SUCCESS (0)
 #define SPI_STATUS_ERROR (-1)
