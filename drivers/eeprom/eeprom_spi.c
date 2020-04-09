@@ -77,7 +77,7 @@ static spi_status_t spi_eeprom_wait_while_busy(int timeout) {
     return SPI_STATUS_SUCCESS;
 }
 
-static void spi_eeprom_transmit_address(intptr_t addr) {
+static void spi_eeprom_transmit_address(uintptr_t addr) {
     uint8_t buffer[EXTERNAL_EEPROM_ADDRESS_SIZE];
 
     for (int i = 0; i < EXTERNAL_EEPROM_ADDRESS_SIZE; ++i) {
@@ -99,7 +99,7 @@ void eeprom_driver_erase(void) {
 
     uint8_t buf[EXTERNAL_EEPROM_PAGE_SIZE];
     memset(buf, 0x00, EXTERNAL_EEPROM_PAGE_SIZE);
-    for (intptr_t addr = 0; addr < EXTERNAL_EEPROM_BYTE_COUNT; addr += EXTERNAL_EEPROM_PAGE_SIZE) {
+    for (uintptr_t addr = 0; addr < EXTERNAL_EEPROM_BYTE_COUNT; addr += EXTERNAL_EEPROM_PAGE_SIZE) {
         eeprom_write_block(buf, (void *)addr, EXTERNAL_EEPROM_PAGE_SIZE);
     }
 
@@ -138,7 +138,7 @@ void eeprom_read_block(void *buf, const void *addr, size_t len) {
     }
 
     spi_write(CMD_READ, EXTERNAL_EEPROM_SPI_TIMEOUT);
-    spi_eeprom_transmit_address((intptr_t)addr);
+    spi_eeprom_transmit_address((uintptr_t)addr);
     spi_receive(buf, len, EXTERNAL_EEPROM_SPI_TIMEOUT);
 
 #ifdef DEBUG_EEPROM_OUTPUT
@@ -157,10 +157,10 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
 
     bool     res;
     uint8_t *read_buf    = (uint8_t *)buf;
-    intptr_t target_addr = (intptr_t)addr;
+    uintptr_t target_addr = (uintptr_t)addr;
 
     while (len > 0) {
-        intptr_t page_offset  = target_addr % EXTERNAL_EEPROM_PAGE_SIZE;
+        uintptr_t page_offset  = target_addr % EXTERNAL_EEPROM_PAGE_SIZE;
         int      write_length = EXTERNAL_EEPROM_PAGE_SIZE - page_offset;
         if (write_length > len) {
             write_length = len;
