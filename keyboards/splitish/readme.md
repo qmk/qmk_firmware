@@ -9,7 +9,7 @@ Hardware Supported: Splitish PCB, Pro Micro
 
 Hardware Avaiability: [Gerber files](https://github.com/RSchneyer/splitish/tree/master/gerbers)
 
-Make example for Alpha (after setting up your build environment):
+Make example for splitish (after setting up your build environment):
 
     make splitish:default
 
