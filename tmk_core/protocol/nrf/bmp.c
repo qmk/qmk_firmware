@@ -387,6 +387,20 @@ int parse_qmk_config(void)
     }
 
     BMPAPI->logger.info("Update tapping term");
+
+    // copy settings to bootloader region
+    bmp_qmk_config_t *p_qmk_config;
+    uint32_t qmk_config_file_len;
+    BMPAPI->app.get_file(QMK_RECORD, (uint8_t**)&p_qmk_config, &qmk_config_file_len);
+    if (p_qmk_config == NULL)
+    {
+        BMPAPI->app.save_file(QMK_RECORD);
+        BMPAPI->app.get_file(QMK_RECORD, (uint8_t**)&p_qmk_config, &qmk_config_file_len);
+        if (p_qmk_config == NULL) return 1;
+    }
+
+    memcpy(p_qmk_config, &bmp_qmk_config, sizeof(bmp_qmk_config));
+
     return 0;
 }
 
@@ -887,18 +901,6 @@ int load_tapping_term_file()
 
 int save_tapping_term_file()
 {
-  bmp_qmk_config_t *p_qmk_config;
-  uint32_t qmk_config_file_len;
-  BMPAPI->app.get_file(QMK_RECORD, (uint8_t**)&p_qmk_config, &qmk_config_file_len);
-  if (p_qmk_config == NULL)
-  {
-    BMPAPI->app.save_file(QMK_RECORD);
-    BMPAPI->app.get_file(QMK_RECORD, (uint8_t**)&p_qmk_config, &qmk_config_file_len);
-    if (p_qmk_config == NULL) return 1;
-  }
-
-  memcpy(p_qmk_config, &bmp_qmk_config, sizeof(bmp_qmk_config));
-
   return BMPAPI->app.save_file(QMK_RECORD);
 }
 

@@ -943,6 +943,8 @@ void tapping_term_config_to_json_conv(bmp_qmk_config_t const * const conf,
       break;
     }
   }
-  written = snprintf(json, json_len, "}}");
+
+  // remove trailing comma and close bracket
+  written = snprintf(json - 4, json_len, "\r\n}}");
 }
 
