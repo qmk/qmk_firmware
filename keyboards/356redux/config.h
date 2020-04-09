@@ -1,5 +1,5 @@
 /*
-Copyright 2019 Michael Doo
+Copyright 2020 Michael Doo
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -23,9 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    OTD
-#define PRODUCT         356mini
-#define DESCRIPTION     OTD 356mini
+#define MANUFACTURER    niceandcreamy
+#define PRODUCT         356redux
+#define DESCRIPTION     QMK PCB for OTD 356mini
 
 /* key matrix size */
 #define MATRIX_ROWS 10
