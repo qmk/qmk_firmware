@@ -131,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *      | NO| NO| NO| NO|
   *      `---------------'
   */
-  [TWO] = LAYOUT_spaget_ortho_6x4(       \
+  [TWO] = LAYOUT(       \
     TO(ONE), TO(BASE), KC_LBRC, KC_RBRC, \
     KC_F13,  KC_F14,   KC_F15,  KC_F16,  \
     EM7,     EM8,      EM9,     KC_NO,   \
