@@ -14,7 +14,7 @@ from qmk.keymap import rewrite_source
 
 
 @cli.argument('-kb', '--keyboard', help='Specify keyboard name. Example: clueboard/66')
-@cli.argument('-pr', '--project', help='The human-friendly name of the keyboard. Example: Clueboard 66%%')
+@cli.argument('-cn', '--common', help='The human-friendly name of the keyboard. Example: Clueboard 66%%')
 @cli.argument('-mcu', '--microcontroller', help='Specify the microcontroller used for the keyboard.')
 @cli.argument('-u', '--name', help='Your GitHub username. Will be pasted into generated files.')
 @cli.subcommand('Creates a new keyboard project.')
@@ -29,7 +29,7 @@ def new_keyboard(cli):
     valid_keyboard_name = re.compile(r'^[a-z0-9][a-z0-9_/]+$')
 
     if cli.args.keyboard:
-        keyboard = keyboard_name = cli.args.keyboard
+        keyboard = common_name = cli.args.keyboard
     else:
         # ask for user input if keyboard was not provided in the command line
         cli.echo("""What is the keyboard's name?
@@ -45,15 +45,15 @@ def new_keyboard(cli):
             cli.echo(keyboard + " is not a valid keyboard name.")
             keyboard = question("Keyboard Name: ")
 
-    if cli.args.project:
-        keyboard_name = cli.args.project
+    if cli.args.common:
+        common_name = cli.args.common
     else:
-        # Ask the common name of the keyboard, if not specified by --project
+        # Ask the common name of the keyboard, if not specified by --common
         cli.echo("""What is the keyboard's common name?
 
     This is the name that people will use to refer to your keyboard. It should
     be something human-friendly, like \"Clueboard 66%%\" or \"Ergodox EZ\".""")
-        keyboard_name = question("Common Name: ")
+        common_name = question("Common Name: ")
 
 
     if cli.args.microcontroller:
@@ -129,12 +129,12 @@ def new_keyboard(cli):
 
     # generate and assign the Product ID value
     # Required before using rewrite_source()
-    pid = generate_pid(keyboard_name)
+    pid = generate_pid(common_name)
 
     files = {'config.h', 'info.json', 'readme.md', 'rules.mk', final_directory + '.c', final_directory + '.h', 'keymaps/default/keymap.c', 'keymaps/default/readme.md'}
     for file in files:
-        rewrite_source(keyboard_path / file, year, user_name, keyboard, final_directory, keyboard_name, pid, mcu)
+        rewrite_source(keyboard_path / file, year, user_name, keyboard, final_directory, common_name, pid, mcu)
 
     # end message to user
-    cli.log.info("%s keyboard directory created in: %s", keyboard_name, keyboard_path)
+    cli.log.info("%s keyboard directory created in: %s", common_name, keyboard_path)
     cli.log.info("Compile a firmware with your new keymap by typing: \n" + "qmk compile -kb %s -km default", keyboard)
