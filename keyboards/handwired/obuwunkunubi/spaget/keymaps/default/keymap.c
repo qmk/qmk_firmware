@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     EM7,     EM8,      EM9,     KC_NO,   \
     EM4,     EM5,      EM6,     KC_NO,   \
     EM1,     EM2,      EM3,     KC_NO,   \
-    KC_NO,   KC_NO,    KC_NO,   KC_NO    \
+             KC_NO,    KC_NO,   KC_NO    \
   ),
 
 };
