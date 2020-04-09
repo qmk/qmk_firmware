@@ -1,6 +1,6 @@
 # spaget
 
-![spaget](https://imgur.com/a/pkr8Phk)
+![spaget](https://i.imgur.com/ktlhskZ.jpg)
 
 A hand wired numpad style QMK macropad, with a 128x32 OLED screen and two rotary encoders. Powered by an Arduino Pro Micro.
 
