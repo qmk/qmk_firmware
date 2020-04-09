@@ -19,7 +19,7 @@
 #include "timer.h"
 
 static pin_t     currentSlavePin = NO_PIN;
-static SPIConfig spiConfig       = {false, NULL, 0, 0, SPI_CR1_BR_2 | SPI_CR1_BR_1, 0};
+static SPIConfig spiConfig       = {false, NULL, 0, 0, 0, 0};
 
 __attribute__((weak)) void spi_init(void) {
     // Try releasing special pins for a short time
@@ -33,9 +33,9 @@ __attribute__((weak)) void spi_init(void) {
     palSetPadMode(PAL_PORT(SPI_MOSI_PIN), PAL_PAD(SPI_MOSI_PIN), PAL_MODE_STM32_ALTERNATE_PUSHPULL);
     palSetPadMode(PAL_PORT(SPI_MISO_PIN), PAL_PAD(SPI_MISO_PIN), PAL_MODE_STM32_ALTERNATE_PUSHPULL);
 #else
-    palSetPadMode(PAL_PORT(SPI_SCK_PIN), PAL_PAD(SPI_SCK_PIN), PAL_MODE_ALTERNATE(SPI_SCK_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL);
-    palSetPadMode(PAL_PORT(SPI_MOSI_PIN), PAL_PAD(SPI_MOSI_PIN), PAL_MODE_ALTERNATE(SPI_MOSI_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL);
-    palSetPadMode(PAL_PORT(SPI_MISO_PIN), PAL_PAD(SPI_MISO_PIN), PAL_MODE_ALTERNATE(SPI_MISO_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL);
+    palSetPadMode(PAL_PORT(SPI_SCK_PIN), PAL_PAD(SPI_SCK_PIN), PAL_MODE_ALTERNATE(SPI_SCK_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST);
+    palSetPadMode(PAL_PORT(SPI_MOSI_PIN), PAL_PAD(SPI_MOSI_PIN), PAL_MODE_ALTERNATE(SPI_MOSI_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST);
+    palSetPadMode(PAL_PORT(SPI_MISO_PIN), PAL_PAD(SPI_MISO_PIN), PAL_MODE_ALTERNATE(SPI_MISO_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST);
 #endif
 }
 
@@ -132,7 +132,6 @@ void spi_stop(void) {
     if (currentSlavePin != NO_PIN) {
         spiUnselect(&SPI_DRIVER);
         spiStop(&SPI_DRIVER);
-        setPinInput(currentSlavePin);
         currentSlavePin = NO_PIN;
     }
 }
