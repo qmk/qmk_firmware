@@ -4,30 +4,35 @@
 #include <ctype.h>
 #include <sendstring_workman_zxcvm.h>
 
-const char* unworkmanise(char* str);
-const char transform(const char str);
-const char getConsistentCase(const int isUpper, const char str);
-
 enum layer_names {
     BASE,
     QWERTY_MOD,
     QWERTY,
     WORKMAN,
     MOD,
-    MEDIA
+    MEDIA,
+	GIT,
+	GIT_C,
+	GIT_P,
+	GIT_S
 };
 
 enum custom_keycodes {
-	G_HELP,
+	G_ADD = SAFE_RANGE,
 	G_BRCH,
-	G_PULL,
-	G_CHEC,
-	G_MERG,
-	G_STAT,
-	G_STSH,
+	G_C,
+	G_CHEC,	
 	G_COMM,
+	G_DIFF,
+	G_FTCH,
+	G_MERG,
+	G_P,
+	G_PULL,
 	G_PUSH,
-
+	G_RST,
+	G_S,
+	G_STAT,
+	G_STSH,	
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -100,7 +105,7 @@ _______,  _______,    TO(QWERTY),_______, _______,  _______,  _______,          
 KC_8,  KC_9,    KC_GRAVE, KC_1,    KC_2,    LGUI_T(KC_3),   LALT_T(KC_4),   LCTL_T(KC_5),   KC_6,                 KC_7,   LCTL_T(KC_8),    LALT_T(KC_9),   LGUI_T(KC_0),    KC_MINUS, KC_EQUAL, KC_BSPC,           KC_DEL,
 KC_6,  KC_7,    KC_TAB,   KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,                 KC_Y,   KC_U,   KC_I,    KC_O,   KC_P,    KC_LBRC,  KC_RBRC,  KC_BSLS,           KC_END,
 KC_4,  KC_5,    KC_CAPS,  KC_A,    KC_S ,KC_D ,KC_F ,KC_G,   KC_H,   KC_J, KC_K, KC_L, KC_SCLN,KC_QUOT,KC_ENTER,         KC_PGUP,
-KC_2,  KC_3,    KC_LSFT,  KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,                 KC_N,   KC_M,   KC_COMM, KC_DOT, KC_SLSH,                     KC_RSFT,  KC_UP,   KC_PGDN,
+KC_2,  KC_3,    KC_LSFT,  KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,                 KC_N,   KC_M,   KC_COMM, KC_DOT, LT(GIT,KC_SLSH),                     KC_RSFT,  KC_UP,   KC_PGDN,
 KC_0,  KC_1,    KC_LCTL,  KC_LGUI, KC_LALT, LT(MEDIA, KC_SPC),KC_BSPC,            MO(MOD),        KC_RALT, MO(MOD),KC_RCTL,                     KC_LEFT,  KC_DOWN, KC_RIGHT
   ),
 
@@ -124,7 +129,7 @@ KC_0,  KC_1,    KC_LCTL,  KC_LGUI, KC_LALT, LT(MEDIA, KC_SPC),KC_BSPC,          
 _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,           _______,
 _______,  _______,    _______,  KC_Q,     KC_D,		KC_R,     KC_W,     KC_B,              KC_J,   KC_F,		KC_U,   KC_P,   KC_SCLN,_______,_______,  _______,           _______,
 _______,  _______,    _______,  KC_A,     KC_S,		KC_H,     KC_T,     KC_G,              KC_Y,   KC_N,		KC_E,   KC_O,   KC_I,  _______,  _______,           _______,
-_______,  _______,    _______,  KC_Z,     KC_X,		KC_C,     KC_V,     KC_M,              KC_K,   KC_L,		KC_COMM,KC_DOT, KC_SLSH,                      _______, _______,  _______,
+_______,  _______,    _______,  KC_Z,     KC_X,		KC_C,     KC_V,     KC_M,              KC_K,   KC_L,		KC_COMM,KC_DOT, _______,                      _______, _______,  _______,
 _______,  _______,    TO(BASE), _______,_______,_______, _______,                        _______,             _______, TO(QWERTY),   _______,            _______, _______,  _______
   ),
   
@@ -146,10 +151,10 @@ _______,  _______,    TO(BASE), _______,_______,_______, _______,               
 //--------------------------------Left Hand-----------------------------------------------| |--------------------------------Right Hand------------------------------------------------
                       _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______, _______,
 _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,           _______,
-G_PUSH,  _______,    _______,  _______,  KC_HOME,  KC_UP,    KC_END,   KC_PGUP,              _______,  KC_MS_BTN1,KC_MS_UP, KC_MS_BTN3,KC_MS_BTN2,_______,_______,  _______,           _______,
-_______,  G_COMM,    _______,  _______,  KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_PGDOWN,              _______,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT,KC_APPLICATION,  _______,  _______,           _______,
-G_PULL,  _______,    TO(WORKMAN),_______,_______,  _______,  _______,  _______,              _______,  _______,   _______,  _______,  _______,                      _______, _______,  _______,
-_______,  G_BRCH,TO(BASE), KC_MS_ACCEL0,KC_MS_ACCEL1,KC_MS_ACCEL2, _______,                        _______,             _______, _______,   _______,            _______, _______,  _______
+_______,  _______,    _______,  _______,  KC_HOME,  KC_UP,    KC_END,   KC_PGUP,              _______,  KC_MS_BTN1,KC_MS_UP, KC_MS_BTN3,KC_MS_BTN2,_______,_______,  _______,           _______,
+_______,  _______,    _______,  _______,  KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_PGDOWN,              _______,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT,KC_APPLICATION,  _______,  _______,           _______,
+_______,  _______,    TO(WORKMAN),_______,_______,  _______,  _______,  _______,              _______,  _______,   _______,  _______,  _______,                      _______, _______,  _______,
+_______,  _______,    TO(BASE), KC_MS_ACCEL0,KC_MS_ACCEL1,KC_MS_ACCEL2, _______,                        _______,             _______, _______,   _______,            _______, _______,  _______
   ),
   
   /*    MEDIA      ,-----------------------------------------.     ,-----------------------------------------------------.
@@ -174,7 +179,64 @@ _______,  _______,    _______,  KC_MPRV,  KC_VOLU,  KC_MNXT,  _______,  _______,
 _______,  _______,    _______,  _______,  KC_VOLD,  _______,  _______,  _______,              _______,  _______,   _______,  _______,  _______,  _______,  _______,                     _______,
 _______,  _______,    _______,  _______,  KC_MUTE,  KC_MPLY,  _______,  _______,              _______,  _______,   _______,  _______,  _______,                      _______, _______,  _______,
 _______,  _______,    _______,  _______,  _______,  _______,  _______,                        _______,             _______, _______,   _______,                      _______, _______,  _______
-  )
+  ),
+  
+ /*     git        ,-----------------------------------------.     ,-----------------------------------------------------.
+  *                |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |
+  * ,-----------.  |-----+-----+-----+-----+-----+-----+-----|     |-----+-----+-----+-----+-----+-----+-----------+-----|
+  * |     |     |  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           |     |
+  * |-----+-----|  |-----------------------------------------'  ,--------------------------------------------------+-----|
+  * |     |     |  |       |     |     |     |     |     |     |     |     |     |     |     |     |     |         |     |
+  * |-----+-----|  |---------------------------------------.    `--------------------------------------------------+-----|
+  * |     |     |  |         |     |     |     |     |     |     |     |     |     |     |     |     |             |     |
+  * |-----+-----|  |-----------------------------------------.   `-------------------------------------------------+-----|
+  * |     |     |  |           |    |     |      |     |     |     |     |     |     |     |       |         |     |     |
+  * |-----+-----|  |-----------------------------------------'   ,-------------------------------------------+-----+-----|
+  * |     |     |  |       |      |      |           |     |     |               |       |     |       |     |     |     |
+  * `-----------'  `---------------------------------------'     `-------------------------------------------------------'
+  */
+  [GIT] = LAYOUT(
+//--------------------------------Left Hand-----------------------------------------------| |--------------------------------Right Hand------------------------------------------------
+                      _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______, _______,
+_______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,           _______,
+_______,  _______,    _______,  _______,  _______,  _______,  G_RST,  _______,              _______,  _______,   _______,  _______,  G_P,  _______,  _______,  _______,           _______,
+_______,  _______,    _______,  G_ADD,  G_S,  G_DIFF,  G_FTCH,  _______,              _______,  _______,   _______,  _______,  _______,  _______,  _______,                     _______,
+_______,  _______,    _______,  _______,  _______,  G_C,  _______,  G_BRCH,              _______,  G_MERG,   _______,  _______,  _______,                      _______, _______,  _______,
+_______,  _______,    _______,  _______,  _______,  _______,  _______,                        _______,             _______, _______,   _______,                      _______, _______,  _______
+  ),
+  [GIT_P] = LAYOUT(
+//--------------------------------Left Hand-----------------------------------------------| |--------------------------------Right Hand------------------------------------------------
+                      _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______, _______,
+_______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,           _______,
+_______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,   _______,  _______,  _______,  _______,  _______,  _______,           _______,
+_______,  _______,    _______,  _______,  G_PUSH,  _______,  _______,  _______,              _______,  _______,   _______,  G_PULL,  _______,  _______,  _______,                     _______,
+_______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,   _______,  _______,  _______,                      _______, _______,  _______,
+_______,  _______,    _______,  _______,  _______,  _______,  _______,                        _______,             _______, _______,   _______,                      _______, _______,  _______
+  )  
+  
+ // /*                ,-----------------------------------------.     ,-----------------------------------------------------.
+  // *                |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |
+  // * ,-----------.  |-----+-----+-----+-----+-----+-----+-----|     |-----+-----+-----+-----+-----+-----+-----------+-----|
+  // * |     |     |  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           |     |
+  // * |-----+-----|  |-----------------------------------------'  ,--------------------------------------------------+-----|
+  // * |     |     |  |       |     |     |     |     |     |     |     |     |     |     |     |     |     |         |     |
+  // * |-----+-----|  |---------------------------------------.    `--------------------------------------------------+-----|
+  // * |     |     |  |         |     |     |     |     |     |     |     |     |     |     |     |     |             |     |
+  // * |-----+-----|  |-----------------------------------------.   `-------------------------------------------------+-----|
+  // * |     |     |  |           |    |     |      |     |     |     |     |     |     |     |       |         |     |     |
+  // * |-----+-----|  |-----------------------------------------'   ,-------------------------------------------+-----+-----|
+  // * |     |     |  |       |      |      |           |     |     |               |       |     |       |     |     |     |
+  // * `-----------'  `---------------------------------------'     `-------------------------------------------------------'
+  // */
+  // [] = LAYOUT(
+// //--------------------------------Left Hand-----------------------------------------------| |--------------------------------Right Hand------------------------------------------------
+                      // _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______, _______,
+// _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,           _______,
+// _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,   _______,  _______,  _______,  _______,  _______,  _______,           _______,
+// _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,   _______,  _______,  _______,  _______,  _______,                     _______,
+// _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,   _______,  _______,  _______,                      _______, _______,  _______,
+// _______,  _______,    _______,  _______,  _______,  _______,  _______,                        _______,             _______, _______,   _______,                      _______, _______,  _______
+  // )
 };
 
 bool led_update_user(led_t led_state) {
@@ -211,135 +273,103 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case G_HELP:
+	case G_ADD:
 		if (record->event.pressed) {
-			SEND_STRING("1=");
+			SEND_STRING("git add ");
 		}
-		break;
-	case G_PUSH:
-		if (record->event.pressed) {
-			SEND_STRING("git push ");
-		};
-		break;
-	case G_PULL:
-		if (record->event.pressed) {
-			if ( get_mods() & MOD_MASK_SHIFT ) {
-				clear_mods();
-				SEND_STRING("git fetch ");
-			} else {
-				SEND_STRING("git pull ");
-			}
-		};
-		break;
-	case G_COMM:
-		if (record->event.pressed) {
-			SEND_STRING("git commit -m \"\"" SS_TAP(X_LEFT));
-		};
 		break;
 	case G_BRCH:
 		if (record->event.pressed) {
 			if ( get_mods() & MOD_MASK_SHIFT ) {
 				clear_mods();
-				SEND_STRING("develop");
-			} else {
 				SEND_STRING("master");
+			} else {
+				SEND_STRING("develop");
 			}
-		};
+		}
+		break;
+	case G_C:
+		if (record->event.pressed) {
+			SEND_STRING("git c[heckout/ommit]");
+			layer_on(GIT_P);
+		}
+		break;
+	case G_COMM:
+		if (record->event.pressed) {
+			if ( get_mods() & MOD_MASK_SHIFT ) {
+				clear_mods();
+				SEND_STRING("git commit -am \"\"" SS_TAP(X_LEFT));
+			} else {
+				SEND_STRING("git commit -m \"\"" SS_TAP(X_LEFT));
+			}
+		}
+		break;
+	case G_DIFF:
+		if (record->event.pressed) {
+			SEND_STRING("git diff ");
+		}
+		break;	
+	case G_FTCH:
+		if (record->event.pressed) {
+			SEND_STRING("git fetch ");
+		}
 		break;
 	case G_MERG:
 		if (record->event.pressed) {
 			SEND_STRING("git merge ");
 		}
 		break;
-	case G_STAT:
+	case G_P:
 		if (record->event.pressed) {
-			SEND_STRING("git status ");
-			if ( get_mods() & MOD_MASK_SHIFT ) {
-					clear_mods();
-					SEND_STRING("git status ");
-				} else {
-					SEND_STRING("git diff ");
-				}
-		}
-	break;
-	case G_STSH:
-		if (record->event.pressed) {
-			SEND_STRING("git stash ");
+			SEND_STRING("git pu[ll/sh]");
+			layer_on(GIT_P);
 		}
 		break;
-	case G_CHEC:
+	case G_PULL:
 		if (record->event.pressed) {
-			if ( get_mods() & MOD_MASK_SHIFT ) {
-				clear_mods();
-				SEND_STRING("git checkout ");
-			} else {
-				SEND_STRING("git reset ");
-			}
-		};
+			SEND_STRING("git pull ");
+			layer_off(GIT_P);
+		}
+		break;			
+	case G_PUSH:
+		if (record->event.pressed) {
+			SEND_STRING("sh ");
+			layer_off(GIT_P);
+		}
 		break;
+	case G_RST:
+		if (record->event.pressed) {
+			SEND_STRING("git reset ");
+		}
+		break;
+	case G_S:
+		if (record->event.pressed) {
+			SEND_STRING("git sta[sh/tus]");
+		}
+		break;
+		// case G_STAT:
+		// if (record->event.pressed) {
+			// SEND_STRING("git status ");
+		// }
+		// break;
+	
+	// case G_STSH:
+		// if (record->event.pressed) {
+			// SEND_STRING("git stash ");
+		// }
+		// break;
+	// case G_CHEC:
+		// if (record->event.pressed) {
+			// if ( get_mods() & MOD_MASK_SHIFT ) {
+				// clear_mods();
+				// SEND_STRING("git checkout ");
+			// } else {
+				// SEND_STRING("git reset ");
+			// }
+		// }
+		// break;
+
+
   }
   return true;
 };
-
-const char* unworkmanise(char* str) {
-	// char* stringa1 = (char*) malloc((3+1)*sizeof(char));
-	
-    // int i;
-    // for (i = 0; i < strlen(str); i++){
-		// char newChar = transform(str[i]);
-        // strncat(output,&newChar,1);
-        // //printf("%c", transform(str[i]));
-    // }
-	// stringa1[0] = 'B';
-	// stringa1[1] = 'y';
-	// stringa1[2] = 'n';
-	// strncat(stringa1,&ttemp,1);
-	
-    // return ta;
-	
-	char *p = NULL;
-	p = malloc(sizeof(char)*7);
-	p[0] = 'B';
-	p[1] = 't';
-	// strcpy(p, "qa");
-	// strcpy(p, "qa");
-	
-    return p;
-}
-
-// const char transform(const char str) {
-    // int casing = isupper(str);
-
-    // switch (tolower(str)) {
-        // case 'q':
-        // case 'a':
-        // case 's':
-        // case 'z':
-        // case 'x':
-        // case 'c':
-        // case 'v':
-        // case 'g':
-          // return getConsistentCase(casing, str);
-        // case 'd':
-          // return getConsistentCase(casing, 'w');
-        // case 'r':
-          // return getConsistentCase(casing, 'e');
-        // case 'w':
-          // return getConsistentCase(casing, 'r');
-        // case 'b':
-          // return getConsistentCase(casing, 't');
-        // case 'j':
-          // return getConsistentCase(casing, 'y');
-        // case 'f':
-          // return getConsistentCase(casing, 'u');
-        // default:
-          // return ' ';
-    // }
-// }
-
-// const char getConsistentCase(const int casing, const char str) {
-    // if (casing > 0) {
-        // return toupper(str);
-    // }
-    // return str;
-// }
