@@ -98,10 +98,6 @@ ifndef TEENSY_LOADER_CLI
 	endif
 endif
 
-# Program the device.
-program: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep check-size
-	$(PROGRAM_CMD)
-
 define EXEC_TEENSY
 	$(TEENSY_LOADER_CLI) -mmcu=$(MCU) -w -v $(BUILD_DIR)/$(TARGET).hex
 endef
@@ -314,7 +310,9 @@ production: $(BUILD_DIR)/$(TARGET).hex bootloader cpfirmware
 	$(SIZE) $(TARGET).hex $(TARGET)_bootloader.hex $(TARGET)_production.hex
 
 flash:  $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
-ifeq ($(strip $(BOOTLOADER)), caterina)
+ifneq ($(strip $(PROGRAM_CMD)),)
+	$(PROGRAM_CMD)
+else ifeq ($(strip $(BOOTLOADER)), caterina)
 	$(call EXEC_AVRDUDE)
 else ifeq ($(strip $(BOOTLOADER)), halfkay)
 	$(call EXEC_TEENSY)
