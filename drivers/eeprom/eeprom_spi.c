@@ -99,12 +99,12 @@ void eeprom_driver_erase(void) {
 
     uint8_t buf[EXTERNAL_EEPROM_PAGE_SIZE];
     memset(buf, 0x00, EXTERNAL_EEPROM_PAGE_SIZE);
-    for (uintptr_t addr = 0; addr < EXTERNAL_EEPROM_BYTE_COUNT; addr += EXTERNAL_EEPROM_PAGE_SIZE) {
-        eeprom_write_block(buf, (void *)addr, EXTERNAL_EEPROM_PAGE_SIZE);
+    for (uint32_t addr = 0; addr < EXTERNAL_EEPROM_BYTE_COUNT; addr += EXTERNAL_EEPROM_PAGE_SIZE) {
+        eeprom_write_block(buf, (void *)(uintptr_t)addr, EXTERNAL_EEPROM_PAGE_SIZE);
     }
 
 #ifdef CONSOLE_ENABLE
-    dprintf("EEPROM erase took %dms to complete\n", ((int)(timer_read32() - start)));
+    dprintf("EEPROM erase took %ldms to complete\n", ((long)(timer_read32() - start)));
 #endif
 }
 
@@ -142,7 +142,7 @@ void eeprom_read_block(void *buf, const void *addr, size_t len) {
     spi_receive(buf, len, EXTERNAL_EEPROM_SPI_TIMEOUT);
 
 #ifdef DEBUG_EEPROM_OUTPUT
-    dprintf("[EEPROM R] 0x%04X: ", ((int)addr));
+    dprintf("[EEPROM R] 0x%08lX: ", ((uint32_t)(uintptr_t)addr));
     for (size_t i = 0; i < len; ++i) {
         dprintf(" %02X", (int)(((uint8_t *)buf)[i]));
     }
@@ -201,9 +201,9 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
         }
 
 #ifdef DEBUG_EEPROM_OUTPUT
-        dprintf("[EEPROM W] 0x%04X: ", ((int)target_addr));
-        for (uint8_t i = 0; i < write_length; i++) {
-            dprintf(" %02X", (int)(read_buf[i]));
+        dprintf("[EEPROM W] 0x%08lX: ", ((uint32_t)(uintptr_t)target_addr));
+        for (size_t i = 0; i < write_length; i++) {
+            dprintf(" %02X", (int)(uint8_t)(read_buf[i]));
         }
         dprintf("\n");
 #endif  // DEBUG_EEPROM_OUTPUT

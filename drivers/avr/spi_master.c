@@ -52,6 +52,8 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
         return false;
     }
 
+    currentSlaveConfig = _BV(SPE) | _BV(MSTR);
+
     if (lsbFirst) {
         currentSlaveConfig |= _BV(DORD);
     }
@@ -96,7 +98,10 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
             break;
     }
 
-    SPSR |= currentSlaveConfig;
+    SPCR = currentSlaveConfig;
+    if(currentSlave2X) {
+        SPSR |= _BV(SPI2X);
+    }
     currentSlavePin = slavePin;
     setPinOutput(currentSlavePin);
     writePinLow(currentSlavePin);
@@ -159,6 +164,7 @@ void spi_stop(void) {
         setPinOutput(currentSlavePin);
         writePinHigh(currentSlavePin);
         currentSlavePin = NO_PIN;
+        SPSR &= ~(_BV(SPI2X));
         SPCR &= ~(currentSlaveConfig);
         currentSlaveConfig = 0;
         SPSR               = 0;
