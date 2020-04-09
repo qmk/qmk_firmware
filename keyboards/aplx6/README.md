@@ -14,23 +14,6 @@ Just wire them to any of the unused ProMicro pins. Don't forget to edit-uncommen
 * Hardware Supported: Aplx6 PCB, Pro Micro (ATmega32U4)
 * Hardware Availability: Aplyard
 
-**Default Keymap Layout is [Media](https://github.com/Aplyard/Aplx6/blob/master/qmk/keymaps/Media/keymap.c)** (no RGB shortcuts)
-
-
-
-|Default|Layer|(0)|
-|--|--|--|
-| Play|VolUp|Fn|
-|Prev|VolDown|Next|
-
-=========================
-| Fn |Layer|(1)
-|--|--|--|
-|Calc|PgUp|KC_TRANS|
-|MyPc|PgDown|RESET
-
----
-
 Make example for this keyboard (after setting up your build environment):
 
      make aplx6:default
