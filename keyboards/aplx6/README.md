@@ -8,11 +8,7 @@ A stylish (2x3) 6-key MediaPad for your music and browser shortcuts. Designed to
 
 ## RGB Underglow (WS2812)
 
-Just wire them to any of the unused ProMicro pins.
-Don't forget to edit-uncomment the [config.h](https://github.com/Aplyard/Aplx6/blob/master/qmk/config.h) and the [rules.mk](https://github.com/Aplyard/Aplx6/blob/master/qmk/rules.mk)
-for RGB underglow support or even add your own functions and modes.
-Used pins can be found in [config.h](https://github.com/Aplyard/Aplx6/blob/master/qmk/config.h) or in the [KiCad Schematic](https://github.com/Aplyard/Aplx6/blob/master/kiCad/xd6.sch)
-All ProMicro pins can be found [here](https://golem.hu/article/pro-micro-pinout/) along with the +2 pins mod.
+Just wire them to any of the unused ProMicro pins. Don't forget to edit-uncomment the `config.h` and the `rules.mk` for RGB underglow support, or even add your own functions and modes. Used pins can be found in `config.h` or in the [KiCad Schematic](https://github.com/Aplyard/Aplx6/blob/master/kiCad/xd6.sch). All ProMicro pins can be found [here](https://golem.hu/article/pro-micro-pinout/) along with the +2 pins mod.
 
 ---
 
