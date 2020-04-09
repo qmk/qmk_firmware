@@ -12,7 +12,7 @@ Just wire them to any of the unused ProMicro pins. Don't forget to edit-uncommen
 
 * Keyboard Maintainer: [Aplyard](https://github.com/Aplyard)
 * Hardware Supported: Aplx6 PCB, Pro Micro (ATmega32U4)
-* Hardware Availability: Aplyard
+* Hardware Availability: [GitHub](https://github.com/Aplyard/Aplx6)
 
 Make example for this keyboard (after setting up your build environment):
 
