@@ -59,215 +59,150 @@ void dance_e_accent (qk_tap_dance_state_t *state, void *user_data) {
 }
 void dance_i_accent (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 2) {
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_NLCK);
     register_code (KC_LALT);
-    register_code (KC_P0);
-    unregister_code (KC_P0);
-    register_code (KC_P2);
-    unregister_code (KC_P2);
-    register_code (KC_P3);
-    unregister_code (KC_P3);
-    register_code (KC_P8);
-    unregister_code (KC_P8);
+    tap_code (KC_P0);
+    tap_code (KC_P2);
+    tap_code (KC_P3);
+    tap_code (KC_P8);
     unregister_code (KC_LALT);
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_NLCK);
   }
   else {
-    register_code (KC_I);
-    unregister_code (KC_I);
+    tap_code (KC_I);
+
   }
 }
 void dance_o_accent (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 2) {
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_NLCK);
     register_code (KC_LALT);
-    register_code (KC_P0);
-    unregister_code (KC_P0);
-    register_code (KC_P2);
-    unregister_code (KC_P2);
-    register_code (KC_P4);
-    unregister_code (KC_P4);
-    register_code (KC_P4);
-    unregister_code (KC_P4);
+    tap_code (KC_P0);
+    tap_code (KC_P2);
+    tap_code (KC_P4);
+    tap_code (KC_P4);
     unregister_code (KC_LALT);
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_NLCK);
   }
   else {
-    register_code (KC_O);
-    unregister_code (KC_O);
+    tap_code (KC_O);
   }
 }
 void dance_u_accent (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 2) {
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_NLCK);
     register_code (KC_LALT);
-    register_code (KC_P0);
-    unregister_code (KC_P0);
-    register_code (KC_P2);
-    unregister_code (KC_P2);
-    register_code (KC_P4);
-    unregister_code (KC_P4);
-    register_code (KC_P9);
-    unregister_code (KC_P9);
+    tap_code (KC_P0);
+    tap_code (KC_P2);
+    tap_code (KC_P4);
+    tap_code (KC_P9);
     unregister_code (KC_LALT);
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_NLCK);
   }
   else {
-    register_code (KC_U);
-    unregister_code (KC_U);
+    tap_code (KC_U);
   }
 
 }
 void dance_slash (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 2) {
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_NLCK);
     register_code (KC_LALT);
-    register_code (KC_P0);
-    unregister_code (KC_P0);
-    register_code (KC_P9);
-    unregister_code (KC_P9);
-    register_code (KC_P2);
-    unregister_code (KC_P2);
+    tap_code (KC_P0);
+    tap_code (KC_P9);
+    tap_code (KC_P2);
     unregister_code (KC_LALT);
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_NLCK);
   }
   else {
-    register_code (KC_PSLS);
-    unregister_code (KC_PSLS);
+    tap_code (KC_PSLS);
   }
 }
 void dance_under (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 2) {
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_NLCK);
     register_code (KC_LALT);
-    register_code (KC_P0);
-    unregister_code (KC_P0);
-    register_code (KC_P9);
-    unregister_code (KC_P9);
-    register_code (KC_P5);
-    unregister_code (KC_P5);
+    tap_code (KC_P0);
+    tap_code (KC_P9);
+    tap_code (KC_P5);
     unregister_code (KC_LALT);
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_NLCK);
   }
   else {
-    register_code (KC_6);
-    unregister_code (KC_6);
+    tap_code (KC_6);
   }
 }
 void dance_open_accol (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 2) {
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_NLCK);
     register_code (KC_LALT);
-    register_code (KC_P0);
-    unregister_code (KC_P0);
-    register_code (KC_P1);
-    unregister_code (KC_P1);
-    register_code (KC_P2);
-    unregister_code (KC_P2);
-    register_code (KC_P3);
-    unregister_code (KC_P3);
+    tap_code (KC_P0);
+    tap_code (KC_P1);
+    tap_code (KC_P2);
+    tap_code (KC_P3);
     unregister_code (KC_LALT);
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_NLCK);
   }
   else if (state->count == 3) {
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_NLCK);
     register_code (KC_LALT);
-    register_code (KC_P0);
-    unregister_code (KC_P0);
-    register_code (KC_P9);
-    unregister_code (KC_P9);
-    register_code (KC_P1);
-    unregister_code (KC_P1);
+    tap_code (KC_P0);
+    tap_code (KC_P9);
+    tap_code (KC_P1);
     unregister_code (KC_LALT);
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_NLCK);
   }
   else {
-    register_code (KC_5);
-    unregister_code (KC_5);
+    tap_code (KC_5);
   }
 }
 void dance_close_accol (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 2) {
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_NLCK);
     register_code (KC_LALT);
-    register_code (KC_P0);
-    unregister_code (KC_P0);
-    register_code (KC_P1);
-    unregister_code (KC_P1);
-    register_code (KC_P2);
-    unregister_code (KC_P2);
-    register_code (KC_P5);
-    unregister_code (KC_P5);
+    tap_code (KC_P0);
+    tap_code (KC_P1);
+    tap_code (KC_P2);
+    tap_code (KC_P5);
     unregister_code (KC_LALT);
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_NLCK);
+
   }
   else if (state->count == 3) {
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_NLCK);
     register_code (KC_LALT);
-    register_code (KC_P0);
-    unregister_code (KC_P0);
-    register_code (KC_P9);
-    unregister_code (KC_P9);
-    register_code (KC_P3);
-    unregister_code (KC_P3);
+    tap_code (KC_P0);
+    tap_code (KC_P9);
+    tap_code (KC_P3);
     unregister_code (KC_LALT);
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_NLCK);
   }
   else {
-    register_code (KC_MINS);
-    unregister_code (KC_MINS);
+    tap_code (KC_MINS);
   }
 }
 void dance_question (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 2) {
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_NLCK);
     register_code (KC_LALT);
-    register_code (KC_P0);
-    unregister_code (KC_P0);
-    register_code (KC_P0);
-    unregister_code (KC_P0);
-    register_code (KC_P3);
-    unregister_code (KC_P3);
-    register_code (KC_P3);
-    unregister_code (KC_P3);
+    tap_code (KC_P0);
+    tap_code (KC_P0);
+    tap_code (KC_P3);
+    tap_code (KC_P3);
     unregister_code (KC_LALT);
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_NLCK);
+
   }
   else {
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_NLCK);
     register_code (KC_LALT);
-    register_code (KC_P0);
-    unregister_code (KC_P0);
-    register_code (KC_P0);
-    unregister_code (KC_P0);
-    register_code (KC_P6);
-    unregister_code (KC_P6);
-    register_code (KC_P3);
-    unregister_code (KC_P3);
+    tap_code (KC_P0);
+    tap_code (KC_P0);
+    tap_code (KC_P6);
+    tap_code (KC_P3);
     unregister_code (KC_LALT);
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_NLCK);
+
   }
 }
 void dance_cedille (qk_tap_dance_state_t *state, void *user_data) {
@@ -280,32 +215,22 @@ void dance_cedille (qk_tap_dance_state_t *state, void *user_data) {
 }
 void dance_dot (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 2) {
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_NLCK);
     register_code (KC_LALT);
-    register_code (KC_P0);
-    unregister_code (KC_P0);
-    register_code (KC_P4);
-    unregister_code (KC_P4);
-    register_code (KC_P4);
-    unregister_code (KC_P4);
+    tap_code (KC_P0);
+    tap_code (KC_P4);
+    tap_code (KC_P4);
     unregister_code (KC_LALT);
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_NLCK);
   }
   else {
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_NLCK);
     register_code (KC_LALT);
-    register_code (KC_P0);
-    unregister_code (KC_P0);
-    register_code (KC_P4);
-    unregister_code (KC_P4);
-    register_code (KC_P6);
-    unregister_code (KC_P6);
+    tap_code (KC_P0);
+    tap_code (KC_P4);
+    tap_code (KC_P6);
     unregister_code (KC_LALT);
-    register_code (KC_NLCK);
-    unregister_code (KC_NLCK);
+    tap_code (KC_NLCK);
   }
 }
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -328,10 +253,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // red led layout
   [_MAIN] = LAYOUT_ortho_5x15(
     KC_ESC, KC_RBRC, KC_1, KC_2, KC_3, KC_4, KC_5, TD(TD_DOT), KC_6, KC_7, KC_8, KC_9, KC_0, TG(1), KC_NO,
-    KC_TAB, TD(TD_A), KC_W, TD(TD_E), KC_R, KC_T, KC_Y, KC_ENT, TD(TD_U), TD(TD_I), TD(TD_O), KC_P, RGB_RMOD, TD(TD_OP_ACCOL), TD(TD_CL_ACCOL),
-    KC_PGUP, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_ENT, KC_J, KC_K, KC_L, KC_SCLN, KC_UP, KC_NO, RGB_MOD,
+    KC_TAB, TD(TD_A), KC_W, TD(TD_E), KC_R, KC_T, KC_Y, KC_ENT, TD(TD_U), TD(TD_I), TD(TD_O), KC_P, KC_NO, TD(TD_OP_ACCOL), TD(TD_CL_ACCOL),
+    KC_PGUP, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_ENT, KC_J, KC_K, KC_L, KC_SCLN, KC_UP, KC_NO, KC_NO,
     KC_PGDN, KC_Z, KC_X, TD(TD_CEDILLE), KC_V, KC_B, KC_N, KC_COMM, TD(TD_QUESTION), TD(TD_UNDER), TD(TD_SLASH), KC_LEFT, KC_DOWN, KC_RGHT, KC_NO,
-    KC_NO, KC_NO, KC_LALT, KC_LCTL, KC_LSFT, KC_SPC, KC_HOME, KC_LGUI, KC_END, KC_BSPC, KC_RALT, KC_DEL, KC_PMNS, RGB_M_K, MO(1)
+    KC_NO, KC_NO, KC_LALT, KC_LCTL, KC_LSFT, KC_SPC, KC_HOME, KC_LGUI, KC_END, KC_BSPC, KC_RALT, KC_DEL, KC_PMNS, KC_NO, MO(1)
     ),
 
 // green led layout

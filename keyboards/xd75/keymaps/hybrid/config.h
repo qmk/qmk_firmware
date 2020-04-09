@@ -15,6 +15,6 @@
  */
 
 #pragma once
-#define TAPPING_TERM 190
+#define TAPPING_TERM 170
 //#define RGBLIGHT_LAYERS
 // place overrides here
