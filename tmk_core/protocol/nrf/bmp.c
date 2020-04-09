@@ -456,8 +456,9 @@ int stream_write_callback(const uint8_t* dat, uint32_t len)
     dst = parser.setting->string_dst;
     dst_len = parser.setting->dst_len;
 
-    if (parser.write_idx + len > dst_len)
+    if (parser.write_idx + len + 1 > dst_len)
     {
+      // buffer overflow
       parser.write_idx = 0;
       set_parser(PARSER_NONE);
 
@@ -472,6 +473,7 @@ int stream_write_callback(const uint8_t* dat, uint32_t len)
     json_close = is_json_closed((const char*)dst, parser.write_idx);
     if (json_close == 0)
     {
+      dst[parser.write_idx] = '\0';
       int res = parser.setting->parse();
       parser.write_idx = 0;
       BMPAPI->logger.info("Received json");
