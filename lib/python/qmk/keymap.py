@@ -1,7 +1,6 @@
 """Functions that help you work with QMK keymaps.
 """
 import os
-
 from pathlib import Path
 
 import qmk.path
@@ -111,11 +110,9 @@ def list_keymaps(keyboard_name):
     Args:
         keyboard_name: the keyboards full name with vendor and revision if necessary, example: clueboard/66/rev3
 
-
     Returns:
         a set with the names of the available keymaps
     """
-
     # parse all the rules.mk files for the keyboard
     rules_mk = qmk.makefile.get_rules_mk(keyboard_name)
     names = set()

@@ -1,6 +1,5 @@
 """ Functions for working with Makefiles
 """
-
 from pathlib import Path
 
 from qmk.errors import NoSuchKeyboardError
@@ -55,10 +54,13 @@ def parse_rules_mk_file(file, rules_mk=None):
 
 def get_rules_mk(keyboard):
     """ Get a rules.mk for a keyboard
+
     Args:
         keyboard: name of the keyboard
+
     Raises:
         NoSuchKeyboardError: when the keyboard does not exists
+        
     Returns:
         a dictionary with the content of the rules.mk file
     """
