@@ -17,16 +17,19 @@
 #include "audio.h"
 #include "stdlib.h"
 
-float note_timbre = TIMBRE_DEFAULT;
-bool  glissando   = false;
-#ifdef AUDIO_ENABLE_VIBRATO
-bool  vibrato     = true;
-#else
-bool  vibrato     = false;
-#endif
+float note_timbre      = TIMBRE_DEFAULT;
+bool  glissando        = false;
+bool  vibrato          = false;
+float vibrato_strength = 0.5;
+float vibrato_rate     = 0.125;
+
 uint16_t voices_timer = 0;
 
+#ifdef AUDIO_VOICE_DEFAULT
+voice_type voice = AUDIO_VOICE_DEFAULT;
+#else
 voice_type voice = default_voice;
+#endif
 
 void set_voice(voice_type v) { voice = v; }
 
@@ -41,17 +44,10 @@ float mod(float a, int b) {
     return r < 0 ? r + b : r;
 }
 
-
 float voice_add_vibrato(float average_freq) {
     float vibrato_counter = mod(timer_read() / (100 * vibrato_rate), VIBRATO_LUT_LENGTH);
 
-#    ifdef AUDIO_ENABLE_VIBRATO_STRENGTH
-    float vibrated_freq = average_freq * pow(vibrato_lut[(int)vibrato_counter], vibrato_strength);
-#    else
-    float vibrated_freq = average_freq * vibrato_lut[(int)vibrato_counter];
-#    endif
-    //vibrato_counter = mod((vibrato_counter + vibrato_rate * (1.0 + 440.0 / average_freq)), VIBRATO_LUT_LENGTH);
-    return vibrated_freq;
+    return average_freq * pow(vibrato_lut[(int)vibrato_counter], vibrato_strength);
 }
 #endif
 
@@ -71,6 +67,15 @@ float voice_envelope(float frequency) {
             break;
 
 #ifdef AUDIO_VOICES
+
+        case vibrating:
+            glissando = false;
+            vibrato   = true;
+
+            if (vibrato_strength > 0) {
+                frequency = voice_add_vibrato(frequency);
+            }
+            break;
 
         case something:
             glissando = false;
@@ -245,6 +250,7 @@ float voice_envelope(float frequency) {
                 case 0 ... VOICE_VIBRATO_DELAY:
                     break;
                 default:
+                    //TODO: merge/replace with voice_add_vibrato above
                     frequency = frequency * vibrato_lut[(int)fmod((((float)compensated_index - (VOICE_VIBRATO_DELAY + 1)) / 1000 * VOICE_VIBRATO_SPEED), VIBRATO_LUT_LENGTH)];
                     break;
             }
@@ -298,3 +304,22 @@ float voice_envelope(float frequency) {
 
     return frequency;
 }
+
+
+// Vibrato functions
+
+void voice_set_vibrato_rate(float rate) { vibrato_rate = rate; }
+void voice_increase_vibrato_rate(float change) { vibrato_rate *= change; }
+void voice_decrease_vibrato_rate(float change) { vibrato_rate /= change; }
+void voice_set_vibrato_strength(float strength) { vibrato_strength = strength; }
+void voice_increase_vibrato_strength(float change) { vibrato_strength *= change; }
+void voice_decrease_vibrato_strength(float change) { vibrato_strength /= change; }
+
+// Timbre functions
+
+void voice_set_timbre(float timbre) {
+    if ((timbre > 0.0f) && (timbre < 1.0f)) {
+        note_timbre = timbre;
+    }
+}
+float voice_get_timbre(void) { return note_timbre; }

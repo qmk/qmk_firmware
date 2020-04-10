@@ -84,13 +84,6 @@ float   tone_multiplexing_rate        = AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT;
 uint8_t tone_multiplexing_index_shift = 0;     // offset used on active-tone array access
 #endif
 
-#ifdef AUDIO_ENABLE_VIBRATO
-float vibrato_strength = 0.5;
-float vibrato_rate     = 0.125;
-// forward declataion
-float vibrato(float average_freq);
-#endif
-
 // proviced and used by voices.c
 extern float    note_timbre;
 extern bool     glissando;
@@ -375,12 +368,6 @@ float audio_get_processed_frequency(uint8_t tone_index) {
         frequency = frequencies[index];
     }
 
-#ifdef AUDIO_ENABLE_VIBRATO
-    if (vibrato_strength > 0) {
-        frequency = vibrato(frequency);
-    }
-#endif
-
     frequency = voice_envelope(frequency);
 
     return frequency;
@@ -468,36 +455,6 @@ bool audio_advance_state(uint32_t step, float end) {
     return goto_next_note;
 }
 
-// Vibrato functions
-#ifdef AUDIO_ENABLE_VIBRATO
-
-float mod(float a, int b) {
-    float r = fmod(a, b);
-    return r < 0 ? r + b : r;
-}
-
-// TODO: unify with vibrato calculation in voices.c; which does basically the same
-float vibrato(float average_freq) {
-    float vibrato_counter = mod(timer_read() / (100 * vibrato_rate), VIBRATO_LUT_LENGTH);
-
-#    ifdef AUDIO_ENABLE_VIBRATO_STRENGTH
-    float vibrated_freq = average_freq * pow(vibrato_lut[(int)vibrato_counter], vibrato_strength);
-#    else
-    float vibrated_freq = average_freq * vibrato_lut[(int)vibrato_counter];
-#    endif
-    //vibrato_counter = mod((vibrato_counter + vibrato_rate * (1.0 + 440.0 / average_freq)), VIBRATO_LUT_LENGTH);
-    return vibrated_freq;
-}
-
-void audio_set_vibrato_rate(float rate) { vibrato_rate = rate; }
-void audio_increase_vibrato_rate(float change) { vibrato_rate *= change; }
-void audio_decrease_vibrato_rate(float change) { vibrato_rate /= change; }
-#    ifdef AUDIO_ENABLE_VIBRATO_STRENGTH
-void audio_set_vibrato_strength(float strength) { vibrato_strength = strength; }
-void audio_increase_vibrato_strength(float change) { vibrato_strength *= change; }
-void audio_decrease_vibrato_strength(float change) { vibrato_strength /= change; }
-#    endif /* AUDIO_ENABLE_VIBRATO_STRENGTH */
-#endif     /* AUDIO_ENABLE_VIBRATO */
 
 // Tone-multiplexing functions
 #ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
@@ -508,14 +465,6 @@ void audio_increase_tone_multiplexing_rate(float change) { tone_multiplexing_rat
 void audio_decrease_tone_multiplexing_rate(float change) { tone_multiplexing_rate /= change; }
 #endif
 
-// Timbre function
-
-void audio_set_timbre(float timbre) {
-    if ((timbre > 0.0f) && (timbre < 1.0f)) {
-        note_timbre = timbre;
-    }
-}
-float audio_get_timbre(void) { return note_timbre; }
 
 // Tempo functions
 

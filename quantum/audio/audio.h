@@ -160,22 +160,6 @@ bool audio_is_playing_melody(void);
  */
 #define PLAY_LOOP(note_array) audio_play_melody(&note_array, NOTE_ARRAY_SIZE((note_array)), true)
 
-// Vibrato rate functions
-
-// #define AUDIO_ENABLE_VIBRATO
-// Enable vibrato strength/amplitude - slows down ISR too much (TODO: from/for/on avr only?)
-// #define AUDIO_ENABLE_VIBRATO_STRENGTH
-
-#ifdef AUDIO_ENABLE_VIBRATO
-void audio_set_vibrato_rate(float rate);
-void audio_increase_vibrato_rate(float change);
-void audio_decrease_vibrato_rate(float change);
-#    ifdef AUDIO_ENABLE_VIBRATO_STRENGTH
-void audio_set_vibrato_strength(float strength);
-void audio_increase_vibrato_strength(float change);
-void audio_decrease_vibrato_strength(float change);
-#    endif
-#endif
 
 // Tone-Multiplexing functions
 // this feature only makes sense for hardware setups which can't do proper
@@ -191,17 +175,6 @@ void audio_disable_tone_multiplexing(void);
 void audio_increase_tone_multiplexing_rate(float change);
 void audio_decrease_tone_multiplexing_rate(float change);
 #endif
-
-// Timbre function
-
-/**
- * @brief set the global timbre for tones to be played
- * @note: only applies to pwm implementations - where it adjusts the duty-cycle
- * @note: using any instrument from voices.[ch] other than 'default' may override the set value
- * @param[in]: timbre: valid range is (0.0,1.0)
- */
-void  audio_set_timbre(float timbre);
-float audio_get_timbre(void);
 
 // Tempo functions
 
