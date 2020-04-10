@@ -11,6 +11,8 @@ Driver                             | Description
 
 ## Vendor Driver Configuration :id=vendor-eeprom-driver-configuration
 
+#### STM32 L0/L1 Configuration :id=stm32l0l1-eeprom-driver-configuration
+
 !> Resetting EEPROM using an STM32L0/L1 device takes up to 1 second for every 1kB of internal EEPROM used.
 
 `config.h` override                 | Description                                                                                                              | Default Value
