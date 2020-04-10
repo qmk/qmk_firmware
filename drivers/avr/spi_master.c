@@ -52,7 +52,7 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
         return false;
     }
 
-    currentSlaveConfig = _BV(SPE) | _BV(MSTR);
+    currentSlaveConfig = 0;
 
     if (lsbFirst) {
         currentSlaveConfig |= _BV(DORD);
@@ -98,7 +98,7 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
             break;
     }
 
-    SPCR = currentSlaveConfig;
+    SPCR |= currentSlaveConfig;
     if (currentSlave2X) {
         SPSR |= _BV(SPI2X);
     }
