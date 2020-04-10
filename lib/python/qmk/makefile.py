@@ -7,6 +7,7 @@ from qmk.errors import NoSuchKeyboardError
 
 def parse_rules_mk_file(file, rules_mk=None):
     """Turn a rules.mk file into a dictionary.
+
     Args:
         file: path to the rules.mk file
         rules_mk: already parsed rules.mk the new file should be merged with
@@ -60,7 +61,7 @@ def get_rules_mk(keyboard):
 
     Raises:
         NoSuchKeyboardError: when the keyboard does not exists
-        
+
     Returns:
         a dictionary with the content of the rules.mk file
     """
