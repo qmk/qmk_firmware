@@ -19,21 +19,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter 
-#define VENDOR_ID       0x4C44
-#define PRODUCT_ID      0x0040
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    HASU
-#define PRODUCT         HASUPAD
-#define DESCRIPTION     A 2Encoder Keyboard
 
-*/
-#define VENDOR_ID       0x4443 // "DC" = Don Chiou
-#define PRODUCT_ID      0x5350 // "SP" = Snagpad
+#define VENDOR_ID       0x4444 // "ww" = ww
+#define PRODUCT_ID      0x5350 // "ri" = rich
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    HASUObs
 #define PRODUCT         HASUPad
-#define DESCRIPTION     A 2Encoder Keyboard
+#define DESCRIPTION     A 2 Encoder Keyboard
 
 
 
