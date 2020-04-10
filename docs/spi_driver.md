@@ -51,11 +51,11 @@ Start an SPI transaction.
 
 #### Arguments
 
- - `pin_t slavePin`
+ - `pin_t slavePin`  
    The QMK pin to assert as the slave select pin, eg. `B4`.
- - `bool lsbFirst`
+ - `bool lsbFirst`  
    Determines the endianness of the transmission. If `true`, the least significant bit of each byte is sent first.
- - `uint8_t mode`
+ - `uint8_t mode`  
    The SPI mode to use:
 
    |Mode|Clock Polarity      |Clock Phase            |
@@ -80,9 +80,9 @@ Write a byte to the selected SPI device.
 
 #### Arguments
 
- - `uint8_t data`
+ - `uint8_t data`  
    The byte to write.
- - `uint16_t timeout`
+ - `uint16_t timeout`  
    The amount of time to wait, in milliseconds, before timing out. This value is ignored for ARM.
 
 #### Return Value
@@ -97,7 +97,7 @@ Read a byte from the selected SPI device.
 
 #### Arguments
 
- - `uint16_t timeout`
+ - `uint16_t timeout`  
    The amount of time to wait, in milliseconds, before timing out. This value is ignored for ARM.
 
 #### Return Value
@@ -112,11 +112,11 @@ Send multiple bytes to the selected SPI device.
 
 #### Arguments
 
- - `const uint8_t *data`
+ - `const uint8_t *data`  
    A pointer to the data to write from.
- - `uint16_t length`
+ - `uint16_t length`  
    The number of bytes to write. Take care not to overrun the length of `data`.
- - `uint16_t timeout`
+ - `uint16_t timeout`  
    The amount of time to wait, in milliseconds, before timing out. This value is ignored for ARM.
 
 #### Return Value
@@ -131,11 +131,11 @@ Receive multiple bytes from the selected SPI device.
 
 #### Arguments
 
- - `uint8_t *data`
+ - `uint8_t *data`  
    A pointer to the buffer to read into.
- - `uint16_t length`
+ - `uint16_t length`  
    The number of bytes to read. Take care not to overrun the length of `data`.
- - `uint16_t timeout`
+ - `uint16_t timeout`  
    The amount of time to wait, in milliseconds, before timing out. This value is ignored for ARM.
 
 #### Return Value

@@ -17,5 +17,9 @@
       "xstddef": "c",
       "type_traits": "c",
       "utility": "c"
+    },
+    "[markdown]": {
+        "editor.trimAutoWhitespace": false,
+        "files.trimTrailingWhitespace": false
     }
 }
