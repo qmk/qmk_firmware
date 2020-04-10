@@ -22,8 +22,7 @@ BOOTLOADER = caterina
 
 
 # Build Options
-#   change yes to no to disable
-#
+# change yes to no to disable
 BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = no	# Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
