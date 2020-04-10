@@ -7,7 +7,7 @@ from qmk.decorators import automagic_keyboard
 from qmk.errors import NoSuchKeyboardError
 
 
-@cli.argument("-kb", "--keyboard", help="Specify the keyboard. Example: 1upkeyboards/1up60hse")
+@cli.argument("-kb", "--keyboard", help="Specify keyboard name. Example: 1upkeyboards/1up60hse")
 @cli.subcommand("List the keymaps for a specific keyboard")
 @automagic_keyboard
 def list_keymaps(cli):
