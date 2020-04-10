@@ -17,7 +17,7 @@ Driver                             | Description
 
 `config.h` override                 | Description                                                                                                              | Default Value
 ------------------------------------|--------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------
-`#define STM32_ONBOARD_EEPROM_SIZE` | The size of the EEPROM to use, in bytes. Erase times can be high, so it's configurable here, if not using the whole lot. | Minimum required to cover base _eeconfig_ data, or `1024` if VIA is enabled.
+`#define STM32_ONBOARD_EEPROM_SIZE` | The size of the EEPROM to use, in bytes. Erase times can be high, so it's configurable here, if not using the default value. | Minimum required to cover base _eeconfig_ data, or `1024` if VIA is enabled.
 
 ## I2C Driver Configuration :id=i2c-eeprom-driver-configuration
 
