@@ -40,12 +40,20 @@
  *    "(Musical) tone, a sound characterized by its duration, pitch (=frequency),
  *    intensity (=volume), and timbre"
  * - intensity/volume is currently not handled at all, although the 'dac_additive' driver could do so
- * - timbre is handled globally (TODO: only by the avr driver at the moment)
+ * - timbre is handled globally (TODO: only used with the pwm drivers at the moment)
  *
- * a (musical) note is the combination of a pitch and a duration
- * musical_notes are used to create SONG arrays; during playback their
- * frequencies are handled as single successive tones, while the durations are
+ * in musical_note.h a 'note' is the combination of a pitch and a duration
+ * these are used to create SONG arrays; during playback their frequencies
+ * are handled as single successive tones, while the durations are
  * kept track of in 'audio_advance_state'
+ *
+ * 'voice' as it is used here, equates to a sort of instrument with its own
+ * charactersitic sound and effects
+ * the audio system as-is deals only with (possibly multiple) tones of one
+ * instrument/voice at a time (think: chords). since the number of tones that
+ * can be reproduced depends on the hardware/driver in use: pwm can only
+ * reproduce one tone per output/speaker; DACs can reproduce/mix multiple
+ * when doing additive synthese.
  */
 
 #ifndef AUDIO_TONE_STACKSIZE
@@ -83,10 +91,12 @@ float vibrato_rate     = 0.125;
 float vibrato(float average_freq);
 #endif
 
-// used by voices.c
-float    note_timbre    = TIMBRE_DEFAULT;
-uint16_t envelope_index = 0;
-bool     glissando      = false;
+// proviced and used by voices.c
+extern float    note_timbre;
+extern bool     glissando;
+extern bool     vibrato;
+extern uint16_t voices_timer;
+
 
 #ifndef STARTUP_SONG
 #    define STARTUP_SONG SONG(STARTUP_SOUND)
@@ -256,8 +266,9 @@ void audio_play_tone(float frequency) {
     }
     state_changed                 = true;
     playing_note                  = true;
-    envelope_index                = 0;  // see voices.c // TODO: does what?
     frequencies[active_tones - 1] = frequency;
+
+    voices_timer = timer_read(); // reset to zero, for the effects added by voices.c
 
     if (active_tones == 1)  // sufficient to start when switching from 0 to 1
         audio_driver_start();
@@ -370,10 +381,6 @@ float audio_get_processed_frequency(uint8_t tone_index) {
     }
 #endif
 
-    if (envelope_index < 65535) {
-        envelope_index++;
-    }
-
     frequency = voice_envelope(frequency);
 
     return frequency;
@@ -389,9 +396,10 @@ bool audio_advance_state(uint32_t step, float end) {
             % MIN(AUDIO_MAX_SIMULTANEOUS_TONES, active_tones);
         goto_next_note = true;
 #endif
-#ifdef AUDIO_ENABLE_VIBRATO
-        goto_next_note = true;
-#endif
+        if (vibrato || glissando) {
+            // force update on each cycle, since vibrato shifts the frequency slightly
+            goto_next_note = true;
+        }
     }
 
     if (playing_melody) {
@@ -401,7 +409,7 @@ bool audio_advance_state(uint32_t step, float end) {
         if (goto_next_note) {
             uint16_t previous_note = current_note;
             current_note++;
-            envelope_index = 0;
+            voices_timer = timer_read(); // reset to zero, for the effects added by voices.c
 
             if (current_note >= notes_count) {
                 if (notes_repeat) {

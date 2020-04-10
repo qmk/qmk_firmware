@@ -17,10 +17,14 @@
 #include "audio.h"
 #include "stdlib.h"
 
-// these are imported from audio.c
-extern uint16_t envelope_index;
-extern float    note_timbre;
-extern bool     glissando;
+float note_timbre = TIMBRE_DEFAULT;
+bool  glissando   = false;
+#ifdef AUDIO_ENABLE_VIBRATO
+bool  vibrato     = true;
+#else
+bool  vibrato     = false;
+#endif
+uint16_t voices_timer = 0;
 
 voice_type voice = default_voice;
 
@@ -30,9 +34,35 @@ void voice_iterate() { voice = (voice + 1) % number_of_voices; }
 
 void voice_deiterate() { voice = (voice - 1 + number_of_voices) % number_of_voices; }
 
+
+#ifdef AUDIO_VOICES
+float mod(float a, int b) {
+    float r = fmod(a, b);
+    return r < 0 ? r + b : r;
+}
+
+
+float voice_add_vibrato(float average_freq) {
+    float vibrato_counter = mod(timer_read() / (100 * vibrato_rate), VIBRATO_LUT_LENGTH);
+
+#    ifdef AUDIO_ENABLE_VIBRATO_STRENGTH
+    float vibrated_freq = average_freq * pow(vibrato_lut[(int)vibrato_counter], vibrato_strength);
+#    else
+    float vibrated_freq = average_freq * vibrato_lut[(int)vibrato_counter];
+#    endif
+    //vibrato_counter = mod((vibrato_counter + vibrato_rate * (1.0 + 440.0 / average_freq)), VIBRATO_LUT_LENGTH);
+    return vibrated_freq;
+}
+#endif
+
+
 float voice_envelope(float frequency) {
     // envelope_index ranges from 0 to 0xFFFF, which is preserved at 880.0 Hz
-    __attribute__((unused)) uint16_t compensated_index = (uint16_t)((float)envelope_index * (880.0 / frequency));
+//    __attribute__((unused)) uint16_t compensated_index = (uint16_t)((float)envelope_index * (880.0 / frequency));
+#ifdef AUDIO_VOICES
+    uint16_t envelope_index    = timer_elapsed(voices_timer); //TODO: multiply in some factor?
+    uint16_t compensated_index = envelope_index / 100; // TODO: correct factor would be?
+#endif
 
     switch (voice) {
         case default_voice:
