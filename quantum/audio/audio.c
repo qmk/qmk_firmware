@@ -14,9 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "audio.h"
-#include "wait.h"
-
 #include "eeconfig.h"
+#include "timer.h"
+#include "wait.h"
 
 /* audio system:
  *
@@ -73,12 +73,10 @@ bool     note_resting  = false;          // if a short pause was introduced betw
 #        define AUDIO_MAX_SIMULTANEOUS_TONES 3
 #    endif
 float   tone_multiplexing_rate        = AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT;
-float   tone_multiplexing_counter     = 0.0f;  // incremented each state update, and compared to _rate
 uint8_t tone_multiplexing_index_shift = 0;     // offset used on active-tone array access
 #endif
 
 #ifdef AUDIO_ENABLE_VIBRATO
-float vibrato_counter  = 0;
 float vibrato_strength = 0.5;
 float vibrato_rate     = 0.125;
 // forward declataion
@@ -386,18 +384,12 @@ bool audio_advance_state(uint32_t step, float end) {
 
     if (playing_note) {
 #ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
-        tone_multiplexing_counter += step / end;
-        if (tone_multiplexing_counter == tone_multiplexing_rate) {
-            tone_multiplexing_counter = 0.0f;
-            tone_multiplexing_index_shift++;
-            if (tone_multiplexing_index_shift >= MIN(AUDIO_MAX_SIMULTANEOUS_TONES, active_tones)) {
-                tone_multiplexing_index_shift = 0;
-            }
-            goto_next_note = true;
-        }
+        tone_multiplexing_index_shift =
+            (int)(timer_read() / tone_multiplexing_rate)
+            % MIN(AUDIO_MAX_SIMULTANEOUS_TONES, active_tones);
+        goto_next_note = true;
 #endif
 #ifdef AUDIO_ENABLE_VIBRATO
-        // force update on each cycle, since vibrato shifts the frequency slightly
         goto_next_note = true;
 #endif
     }
@@ -476,14 +468,16 @@ float mod(float a, int b) {
     return r < 0 ? r + b : r;
 }
 
-// TODO: unify with vibrato function/call in voices.c
+// TODO: unify with vibrato calculation in voices.c; which does basically the same
 float vibrato(float average_freq) {
+    float vibrato_counter = mod(timer_read() / (100 * vibrato_rate), VIBRATO_LUT_LENGTH);
+
 #    ifdef AUDIO_ENABLE_VIBRATO_STRENGTH
     float vibrated_freq = average_freq * pow(vibrato_lut[(int)vibrato_counter], vibrato_strength);
 #    else
     float vibrated_freq = average_freq * vibrato_lut[(int)vibrato_counter];
 #    endif
-    vibrato_counter = mod((vibrato_counter + vibrato_rate * (1.0 + 440.0 / average_freq)), VIBRATO_LUT_LENGTH);
+    //vibrato_counter = mod((vibrato_counter + vibrato_rate * (1.0 + 440.0 / average_freq)), VIBRATO_LUT_LENGTH);
     return vibrated_freq;
 }
 
