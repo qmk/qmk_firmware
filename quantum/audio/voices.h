@@ -13,7 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #pragma once
 
 #include <stdint.h>
@@ -28,7 +27,8 @@ float voice_envelope(float frequency);
 
 typedef enum {
     default_voice,
-#ifdef AUDIO_VOICES
+#    ifdef AUDIO_VOICES
+    vibrating,
     something,
     drums,
     butts_fader,
@@ -48,3 +48,21 @@ typedef enum {
 void set_voice(voice_type v);
 void voice_iterate(void);
 void voice_deiterate(void);
+
+// Vibrato functions
+void voice_set_vibrato_rate(float rate);
+void voice_increase_vibrato_rate(float change);
+void voice_decrease_vibrato_rate(float change);
+void voice_set_vibrato_strength(float strength);
+void voice_increase_vibrato_strength(float change);
+void voice_decrease_vibrato_strength(float change);
+
+// Timbre functions
+/**
+ * @brief set the global timbre for tones to be played
+ * @note: only applies to pwm implementations - where it adjusts the duty-cycle
+ * @note: using any instrument from voices.[ch] other than 'default' may override the set value
+ * @param[in]: timbre: valid range is (0.0,1.0)
+ */
+void  voice_set_timbre(float timbre);
+float voice_get_timbre(void);

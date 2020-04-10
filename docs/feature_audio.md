@@ -5,14 +5,14 @@ Your keyboard can make sounds! If you've got a spare pin you can hook up a simpl
 To activate this feature, add `AUDIO_ENABLE = yes` to your `rules.mk`.
 
 ## AVR based boards
-Up to two simultaneous audio voices are supported, one driven by timer 1 and another driven by timer 3.  The following pins can be configured as audio outputs in `rules.mk`:
+Up to two simultaneous tones can be rendered. with one speaker driven by timer 1 and another driven by timer 3.  The following pins can be configured as audio outputs in `rules.mk`:
 
-for the primary voice, with Timer 3, pick ONE these pins:
+for the primary speaker, with Timer 3, pick ONE these pins:
 `AUDIO_PIN = C4`
 `AUDIO_PIN = C5`
 `AUDIO_PIN = C6`
 
-and *optionally*, a secondary voice, using Timer 1, on ONE of these pins:
+and *optionally*, a secondary speaker, using Timer 1, on ONE of these pins:
 `AUDIO_PIN_ALT = B5`
 `AUDIO_PIN_ALT = B6`
 `AUDIO_PIN_ALT = B7`
@@ -122,6 +122,11 @@ For ARM devices, you can adjust the DAC sample values. If your board is too loud
 the DAC usually runs in 12Bit mode, hence a volume of 100% = 4095U
 
 Note: this only adjusts the volume aka 'works' if you stick to WAVEFORM_SQUARE, since its samples are generated on the fly - any other waveform uses a hardcoded/precomputed sample-buffer.
+
+## Voices
+Aka "audio effects", different ones can be enabled by setting in `config.h` these defines:
+`#define AUDIO_VOICES` to enable the feature, and `#define AUDIO_VOICE_DEFAULT something` to select a specific effect
+for details see quantum/audio/voices.h and .c
 
 
 ## Music Mode
