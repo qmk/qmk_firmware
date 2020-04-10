@@ -15,66 +15,83 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REPORT_H
-#define REPORT_H
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
 #include "keycode.h"
 
-/* report id */
-#define REPORT_ID_KEYBOARD 1
-#define REPORT_ID_MOUSE 2
-#define REPORT_ID_SYSTEM 3
-#define REPORT_ID_CONSUMER 4
-#define REPORT_ID_NKRO 5
+// clang-format off
 
-/* mouse buttons */
-#define MOUSE_BTN1 (1 << 0)
-#define MOUSE_BTN2 (1 << 1)
-#define MOUSE_BTN3 (1 << 2)
-#define MOUSE_BTN4 (1 << 3)
-#define MOUSE_BTN5 (1 << 4)
+/* HID report IDs */
+enum hid_report_ids {
+    REPORT_ID_KEYBOARD = 1,
+    REPORT_ID_MOUSE,
+    REPORT_ID_SYSTEM,
+    REPORT_ID_CONSUMER,
+    REPORT_ID_NKRO
+};
 
-/* Consumer Page(0x0C)
- * following are supported by Windows: http://msdn.microsoft.com/en-us/windows/hardware/gg463372.aspx
- * see also https://docs.microsoft.com/en-us/windows-hardware/drivers/hid/display-brightness-control
+/* Mouse buttons */
+enum mouse_buttons {
+    MOUSE_BTN1 = (1 << 0),
+    MOUSE_BTN2 = (1 << 1),
+    MOUSE_BTN3 = (1 << 2),
+    MOUSE_BTN4 = (1 << 3),
+    MOUSE_BTN5 = (1 << 4)
+};
+
+/* Consumer Page (0x0C)
+ *
+ * See https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf#page=75
  */
-#define AUDIO_MUTE 0x00E2
-#define AUDIO_VOL_UP 0x00E9
-#define AUDIO_VOL_DOWN 0x00EA
-#define TRANSPORT_NEXT_TRACK 0x00B5
-#define TRANSPORT_PREV_TRACK 0x00B6
-#define TRANSPORT_STOP 0x00B7
-#define TRANSPORT_STOP_EJECT 0x00CC
-#define TRANSPORT_PLAY_PAUSE 0x00CD
-#define BRIGHTNESS_UP 0x006F
-#define BRIGHTNESS_DOWN 0x0070
-/* application launch */
-#define AL_CC_CONFIG 0x0183
-#define AL_EMAIL 0x018A
-#define AL_CALCULATOR 0x0192
-#define AL_LOCAL_BROWSER 0x0194
-/* application control */
-#define AC_SEARCH 0x0221
-#define AC_HOME 0x0223
-#define AC_BACK 0x0224
-#define AC_FORWARD 0x0225
-#define AC_STOP 0x0226
-#define AC_REFRESH 0x0227
-#define AC_BOOKMARKS 0x022A
-/* supplement for Bluegiga iWRAP HID(not supported by Windows?) */
-#define AL_LOCK 0x019E
-#define TRANSPORT_RECORD 0x00B2
-#define TRANSPORT_FAST_FORWARD 0x00B3
-#define TRANSPORT_REWIND 0x00B4
-#define TRANSPORT_EJECT 0x00B8
-#define AC_MINIMIZE 0x0206
+enum consumer_usages {
+    // 15.5 Display Controls (https://www.usb.org/sites/default/files/hutrr41_0.pdf)
+    BRIGHTNESS_UP          = 0x06F,
+    BRIGHTNESS_DOWN        = 0x070,
+    // 15.7 Transport Controls
+    TRANSPORT_RECORD       = 0x0B2,
+    TRANSPORT_FAST_FORWARD = 0x0B3,
+    TRANSPORT_REWIND       = 0x0B4,
+    TRANSPORT_NEXT_TRACK   = 0x0B5,
+    TRANSPORT_PREV_TRACK   = 0x0B6,
+    TRANSPORT_STOP         = 0x0B7,
+    TRANSPORT_EJECT        = 0x0B8,
+    TRANSPORT_STOP_EJECT   = 0x0CC,
+    TRANSPORT_PLAY_PAUSE   = 0x0CD,
+    // 15.9.1 Audio Controls - Volume
+    AUDIO_MUTE             = 0x0E2,
+    AUDIO_VOL_UP           = 0x0E9,
+    AUDIO_VOL_DOWN         = 0x0EA,
+    // 15.15 Application Launch Buttons
+    AL_CC_CONFIG           = 0x183,
+    AL_EMAIL               = 0x18A,
+    AL_CALCULATOR          = 0x192,
+    AL_LOCAL_BROWSER       = 0x194,
+    AL_LOCK                = 0x19E,
+    // 15.16 Generic GUI Application Controls
+    AC_MINIMIZE            = 0x206,
+    AC_SEARCH              = 0x221,
+    AC_HOME                = 0x223,
+    AC_BACK                = 0x224,
+    AC_FORWARD             = 0x225,
+    AC_STOP                = 0x226,
+    AC_REFRESH             = 0x227,
+    AC_BOOKMARKS           = 0x22A
+};
 
-/* Generic Desktop Page(0x01) - system power control */
-#define SYSTEM_POWER_DOWN 0x0081
-#define SYSTEM_SLEEP 0x0082
-#define SYSTEM_WAKE_UP 0x0083
+/* Generic Desktop Page (0x01)
+ *
+ * See https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf#page=26
+ */
+enum desktop_usages {
+    // 4.5.1 System Controls - Power Controls
+    SYSTEM_POWER_DOWN = 0x81,
+    SYSTEM_SLEEP      = 0x82,
+    SYSTEM_WAKE_UP    = 0x83
+};
+
+// clang-format on
 
 #define NKRO_SHARED_EP
 /* key report size(NKRO or boot mode) */
@@ -252,6 +269,4 @@ void clear_keys_from_report(report_keyboard_t* keyboard_report);
 
 #ifdef __cplusplus
 }
-#endif
-
 #endif
