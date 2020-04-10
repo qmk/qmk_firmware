@@ -299,9 +299,9 @@ void audio_play_melody(float (*np)[][2], uint16_t n_count, bool n_repeat) {
 }
 
 float click[2][2];
-void  audio_play_click(float delay, float frequency, float duration) {
-    float duration_tone  = (64 / 60) * note_tempo * duration;
-    float duration_delay = (64 / 60) * note_tempo * delay;
+void  audio_play_click(uint16_t delay, float frequency, uint16_t duration) {
+    float duration_tone  = (64 / 60) * note_tempo * (duration / 1000.0f);
+    float duration_delay = (64 / 60) * note_tempo * (delay / 1000.0f);
 
     if (delay <= 0.0f) {
         click[0][0] = frequency;

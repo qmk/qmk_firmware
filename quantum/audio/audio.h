@@ -122,11 +122,11 @@ void audio_play_melody(float (*np)[][2], uint16_t n_count, bool n_repeat);
  *          audio_play_melody. very short durations might not quite work due to
  *          hardware limitations (DAC: added pulses from zero-crossing feature;...)
  *
- * @param[in] delay in seconds, lenght for the pause before the pulses, can be zero
+ * @param[in] delay in milliseconds, lenght for the pause before the pulses, can be zero
  * @param[in] frequency
- * @param[in] duration in seconds, length of the 'click'
+ * @param[in] duration in milliseconds, length of the 'click'
  */
-void audio_play_click(float delay, float frequency, float duration);
+void audio_play_click(uint16_t delay, float frequency, uint16_t duration);
 
 /**
  * @brief stops all playback
