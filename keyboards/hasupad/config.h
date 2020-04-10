@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0x4444 // "ww" = ww
 #define PRODUCT_ID      0x5350 // "ri" = rich
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    HASUObs
-#define PRODUCT         HASUPad
+#define MANUFACTURER    rich
+#define PRODUCT         hasupad
 #define DESCRIPTION     A 2 Encoder Keyboard
 
 /* key matrix size */
