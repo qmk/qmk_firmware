@@ -1,4 +1,3 @@
-
 /*  原装 LOGO
     [0] = LAYOUT(RGB_TOG, RGB_MOD, KC_KP_9, KC_PMNS, 
 	             KC_P4, KC_P5, KC_P6, KC_PPLS,
@@ -52,7 +51,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT_hasu_5x4(RGB_TOG, RGB_MOD, RGB_M_K, RGB_M_X, RGB_SAI, RGB_SAD, RGB_HUI, RGB_HUD, RGB_VAI, RGB_VAD, RGB_SPI, RGB_SPD, RGB_SPI, RGB_SPD, RGB_TOG, KC_TRNS, KC_NUMLOCK, KC_CALCULATOR, _______, _______),
 };
 */
-
 
 #include QMK_KEYBOARD_H
 
