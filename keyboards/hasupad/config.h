@@ -16,23 +16,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-
 #include "config_common.h"
-
-
 #define VENDOR_ID       0x4444 // "ww" = ww
 #define PRODUCT_ID      0x5350 // "ri" = rich
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    HASUObs
 #define PRODUCT         HASUPad
 #define DESCRIPTION     A 2 Encoder Keyboard
-
-
-
-
-
-
-
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -99,22 +89,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_STARTUP_SAT 255 // Sets the default saturation value, if none has been set
 #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
 #define RGB_MATRIX_STARTUP_SPD 127 // Sets the default animation speed, if none has been set
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #define DISABLE_RGB_MATRIX_ALPHAS_MODS
 #define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 //#define DISABLE_RGB_MATRIX_BREATHING
