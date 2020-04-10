@@ -41,7 +41,7 @@ def new_keyboard(cli):
     Files will be placed in `qmk_firmware/keyboards/<keyboard_name>/`.""")
         keyboard = question("Keyboard Name: ")
 
-        while valid_keyboard_name.match(keyboard) == None:
+        while valid_keyboard_name.match(keyboard) is None:
             cli.echo(keyboard + " is not a valid keyboard name.")
             keyboard = question("Keyboard Name: ")
 
@@ -54,7 +54,6 @@ def new_keyboard(cli):
     This is the name that people will use to refer to your keyboard. It should
     be something human-friendly, like \"Clueboard 66%%\" or \"Ergodox EZ\".""")
         common_name = question("Common Name: ")
-
 
     if cli.args.microcontroller:
         mcu = cli.args.microcontroller
@@ -69,13 +68,13 @@ def new_keyboard(cli):
             arch = SUPPORTED_MCUS[mcu]
         else:
             cli.log.error(mcu + " is not a valid microcontroller option.")
-            print("  Valid Options: ", ", ".join(SUPPORTED_MCUS) )
+            print("  Valid Options: ", ", ".join(SUPPORTED_MCUS))
             exit(1)
     else:
         # Ask what microcontroller is being used
         cli.echo("Select the microcontroller used:\n")
         for i, mcu in enumerate(SUPPORTED_MCUS, 1):
-            cli.echo("    %s: %s (%s)", str(i).rjust(2, " "), mcu, SUPPORTED_MCUS[mcu] )
+            cli.echo("    %s: %s (%s)", str(i).rjust(2, " "), mcu, SUPPORTED_MCUS[mcu])
 
         mcu = question("Microcontroller: (1-%d): ", len(SUPPORTED_MCUS), answer_type=int)
         # user-facing text is 1-indexed, but data is 0-indexed internally
@@ -114,8 +113,8 @@ def new_keyboard(cli):
     shutil.copytree(template_base_path, keyboard_path, symlinks=True)
     kb_c = keyboard_path / "keyboard.c"
     kb_h = keyboard_path / "keyboard.h"
-    kb_c.rename( keyboard_path / Path(final_directory + ".c") )
-    kb_h.rename( keyboard_path / Path(final_directory + ".h") )
+    kb_c.rename(keyboard_path / Path(final_directory + ".c"))
+    kb_h.rename(keyboard_path / Path(final_directory + ".h"))
 
     # copy architecture files
     shutil.copy(template_arch_path / "config.h", keyboard_path)
