@@ -20,4 +20,4 @@ https://github.com/Pimentoso/Paddino02
 
 ### Default keymap
 
-![Keymap](https://raw.githubusercontent.com/qmk/qmk_firmware/master/keyboard/pimentoso/paddino02/keymap.png)
+![Keymap](https://raw.githubusercontent.com/qmk/qmk_firmware/master/keyboards/pimentoso/paddino02/keymap.png)
