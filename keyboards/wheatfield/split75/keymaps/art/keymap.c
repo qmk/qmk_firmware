@@ -21,16 +21,19 @@ enum custom_keycodes {
 	G_ADD = SAFE_RANGE,
 	G_BRCH,
 	G_C,
+	G_BS_C,
 	G_CHEC,	
 	G_COMM,
 	G_DIFF,
 	G_FTCH,
 	G_MERG,
 	G_P,
+	G_BS_P,
 	G_PULL,
 	G_PUSH,
 	G_RST,
 	G_S,
+	G_BS_S,
 	G_STAT,
 	G_STSH,	
 };
@@ -130,7 +133,7 @@ _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,
 _______,  _______,    _______,  KC_Q,     KC_D,		KC_R,     KC_W,     KC_B,              KC_J,   KC_F,		KC_U,   KC_P,   KC_SCLN,_______,_______,  _______,           _______,
 _______,  _______,    _______,  KC_A,     KC_S,		KC_H,     KC_T,     KC_G,              KC_Y,   KC_N,		KC_E,   KC_O,   KC_I,  _______,  _______,           _______,
 _______,  _______,    _______,  KC_Z,     KC_X,		KC_C,     KC_V,     KC_M,              KC_K,   KC_L,		KC_COMM,KC_DOT, _______,                      _______, _______,  _______,
-_______,  _______,    TO(BASE), _______,_______,_______, _______,                        _______,             _______, TO(QWERTY),   _______,            _______, _______,  _______
+_______,  _______,    _______, _______,_______,_______, _______,                        _______,             _______, TO(QWERTY),   _______,            _______, _______,  _______
   ),
   
   /*    MOD        ,-----------------------------------------.     ,-----------------------------------------------------.
@@ -151,10 +154,10 @@ _______,  _______,    TO(BASE), _______,_______,_______, _______,               
 //--------------------------------Left Hand-----------------------------------------------| |--------------------------------Right Hand------------------------------------------------
                       _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______, _______,
 _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,           _______,
-_______,  _______,    _______,  _______,  KC_HOME,  KC_UP,    KC_END,   KC_PGUP,              _______,  KC_MS_BTN1,KC_MS_UP, KC_MS_BTN3,KC_MS_BTN2,_______,_______,  _______,           _______,
-_______,  _______,    _______,  _______,  KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_PGDOWN,              _______,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT,KC_APPLICATION,  _______,  _______,           _______,
-_______,  _______,    TO(WORKMAN),_______,_______,  _______,  _______,  _______,              _______,  _______,   _______,  _______,  _______,                      _______, _______,  _______,
-_______,  _______,    TO(BASE), KC_MS_ACCEL0,KC_MS_ACCEL1,KC_MS_ACCEL2, _______,                        _______,             _______, _______,   _______,            _______, _______,  _______
+_______,  _______,    _______,  _______,  KC_HOME,  KC_UP,    KC_END,   KC_PGUP,              _______,  _______,_______, _______,_______,_______,_______,  _______,           _______,
+_______,  _______,    _______,  _______,  KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_PGDOWN,              _______,KC_LCTL,KC_LSFT,_______,_______,  _______,  _______,           _______,
+_______,  _______,    TO(WORKMAN),_______,_______,  _______,  KC_DEL,  _______,              _______,  KC_LALT,   _______,  _______,  _______,                      _______, _______,  _______,
+_______,  _______,    TO(BASE), _______,_______,_______, _______,                        _______,             _______, _______,   _______,            _______, _______,  _______
   ),
   
   /*    MEDIA      ,-----------------------------------------.     ,-----------------------------------------------------.
@@ -204,15 +207,33 @@ _______,  _______,    _______,  G_ADD,  G_S,  G_DIFF,  G_FTCH,  _______,        
 _______,  _______,    _______,  _______,  _______,  G_C,  _______,  G_BRCH,              _______,  G_MERG,   _______,  _______,  _______,                      _______, _______,  _______,
 _______,  _______,    _______,  _______,  _______,  _______,  _______,                        _______,             _______, _______,   _______,                      _______, _______,  _______
   ),
+  [GIT_C] = LAYOUT(
+//--------------------------------Left Hand-----------------------------------------------| |--------------------------------Right Hand------------------------------------------------
+                      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,
+XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  G_BS_C,           XXXXXXX,
+XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,  XXXXXXX,   XXXXXXX,  G_COMM,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,           XXXXXXX,
+XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              G_CHEC,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                     XXXXXXX,
+XXXXXXX,  XXXXXXX,    _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,                      _______, XXXXXXX,  XXXXXXX,
+XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                        XXXXXXX,             XXXXXXX, XXXXXXX,   XXXXXXX,                      XXXXXXX, XXXXXXX,  XXXXXXX
+  ),   
   [GIT_P] = LAYOUT(
 //--------------------------------Left Hand-----------------------------------------------| |--------------------------------Right Hand------------------------------------------------
-                      _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______, _______,
-_______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,           _______,
-_______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,   _______,  _______,  _______,  _______,  _______,  _______,           _______,
-_______,  _______,    _______,  _______,  G_PUSH,  _______,  _______,  _______,              _______,  _______,   _______,  G_PULL,  _______,  _______,  _______,                     _______,
-_______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,   _______,  _______,  _______,                      _______, _______,  _______,
-_______,  _______,    _______,  _______,  _______,  _______,  _______,                        _______,             _______, _______,   _______,                      _______, _______,  _______
-  )  
+                      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,
+XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  G_BS_P,           XXXXXXX,
+XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,           XXXXXXX,
+XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  G_PUSH,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,  XXXXXXX,   XXXXXXX,  G_PULL,  XXXXXXX,  XXXXXXX,  XXXXXXX,                     XXXXXXX,
+XXXXXXX,  XXXXXXX,    _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,                      _______, XXXXXXX,  XXXXXXX,
+XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                        XXXXXXX,             XXXXXXX, XXXXXXX,   XXXXXXX,                      XXXXXXX, XXXXXXX,  XXXXXXX
+  ), 
+  [GIT_S] = LAYOUT(
+//--------------------------------Left Hand-----------------------------------------------| |--------------------------------Right Hand------------------------------------------------
+                      XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,
+XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  G_BS_S,           XXXXXXX,
+XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  G_STAT,              XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,           XXXXXXX,
+XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  G_STSH,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,  XXXXXXX,   XXXXXXX,  G_PULL,  XXXXXXX,  XXXXXXX,  XXXXXXX,                     XXXXXXX,
+XXXXXXX,  XXXXXXX,    _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,                      _______, XXXXXXX,  XXXXXXX,
+XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                        XXXXXXX,             XXXXXXX, XXXXXXX,   XXXXXXX,                      XXXXXXX, XXXXXXX,  XXXXXXX
+  ),   
   
  // /*                ,-----------------------------------------.     ,-----------------------------------------------------.
   // *                |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |
@@ -236,7 +257,7 @@ _______,  _______,    _______,  _______,  _______,  _______,  _______,          
 // _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,   _______,  _______,  _______,  _______,  _______,                     _______,
 // _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,   _______,  _______,  _______,                      _______, _______,  _______,
 // _______,  _______,    _______,  _______,  _______,  _______,  _______,                        _______,             _______, _______,   _______,                      _______, _______,  _______
-  // )
+  // ),
 };
 
 bool led_update_user(led_t led_state) {
@@ -290,18 +311,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		break;
 	case G_C:
 		if (record->event.pressed) {
-			SEND_STRING("git c[heckout/ommit]");
-			layer_on(GIT_P);
+			SEND_STRING("git c[Heckout/Ommit]");
+			layer_on(GIT_C);
+		}
+		break;
+	case G_BS_C:
+		if (!record->event.pressed) {
+			SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC));
+			layer_off(GIT_C);
+		}
+		break;
+	case G_CHEC:
+		if (!record->event.pressed) {
+			SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC)"heckout ");
+			layer_off(GIT_C);			
 		}
 		break;
 	case G_COMM:
-		if (record->event.pressed) {
+		if (!record->event.pressed) {
 			if ( get_mods() & MOD_MASK_SHIFT ) {
 				clear_mods();
-				SEND_STRING("git commit -am \"\"" SS_TAP(X_LEFT));
+				SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC)"ommit -am \"\"" SS_TAP(X_LEFT));
 			} else {
-				SEND_STRING("git commit -m \"\"" SS_TAP(X_LEFT));
+				SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC)"ommit -m \"\"" SS_TAP(X_LEFT));
 			}
+			layer_off(GIT_C);
 		}
 		break;
 	case G_DIFF:
@@ -321,19 +355,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		break;
 	case G_P:
 		if (record->event.pressed) {
-			SEND_STRING("git pu[ll/sh]");
+			SEND_STRING("git pu[Ll/Sh]");
 			layer_on(GIT_P);
 		}
 		break;
+	case G_BS_P:
+		if (!record->event.pressed) {
+			SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC));
+			layer_off(GIT_P);
+		}
+		break;
 	case G_PULL:
-		if (record->event.pressed) {
-			SEND_STRING("git pull ");
+		if (!record->event.pressed) {
+			SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC)"ll ");
 			layer_off(GIT_P);
 		}
 		break;			
 	case G_PUSH:
-		if (record->event.pressed) {
-			SEND_STRING("sh ");
+		if (!record->event.pressed) {
+			SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC)"sh ");
 			layer_off(GIT_P);
 		}
 		break;
@@ -343,33 +383,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		}
 		break;
 	case G_S:
-		if (record->event.pressed) {
-			SEND_STRING("git sta[sh/tus]");
+		if (!record->event.pressed) {
+			SEND_STRING("git sta[Sh/Tus]");
+			layer_on(GIT_S);			
 		}
 		break;
-		// case G_STAT:
-		// if (record->event.pressed) {
-			// SEND_STRING("git status ");
-		// }
-		// break;
-	
-	// case G_STSH:
-		// if (record->event.pressed) {
-			// SEND_STRING("git stash ");
-		// }
-		// break;
-	// case G_CHEC:
-		// if (record->event.pressed) {
-			// if ( get_mods() & MOD_MASK_SHIFT ) {
-				// clear_mods();
-				// SEND_STRING("git checkout ");
-			// } else {
-				// SEND_STRING("git reset ");
-			// }
-		// }
-		// break;
-
-
+	case G_BS_S:
+		if (!record->event.pressed) {
+			SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC));
+			layer_off(GIT_S);
+		}
+		break;
+	case G_STSH:
+		if (!record->event.pressed) {
+			SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC)"sh ");
+			layer_off(GIT_S);
+		}
+		break;		
+	case G_STAT:
+		if (!record->event.pressed) {
+			SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC)"tus ");
+			layer_off(GIT_S);
+		}
+		break;
   }
   return true;
 };
