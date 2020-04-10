@@ -23,7 +23,7 @@ enum layers {
     NUMS,
     SYMB,
     FNS
-}
+};
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
