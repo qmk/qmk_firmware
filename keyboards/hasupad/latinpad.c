@@ -13,11 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "latinpad.h"
-
-// Optional override functions below.
-// You can leave any or all of these undefined.
-// These are only required if you want to perform custom actions.    
+#include "latinpad.h"   
 #ifdef RGB_MATRIX_ENABLE
   led_config_t g_led_config = {
   {
