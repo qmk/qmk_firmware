@@ -65,7 +65,7 @@ Start an SPI transaction.
    |`2` |Leading edge falling|Sample on leading edge |
    |`3` |Leading edge falling|Sample on trailing edge|
 
- - `uint16_t divisor`
+ - `uint16_t divisor`  
    The SPI clock divisor, will be rounded up to the nearest power of two. This number can be calculated by dividing the MCU's clock speed by the desired SPI clock speed. For example, an MCU running at 8 MHz wanting to talk to an SPI device at 4 MHz would set the divisor to `2`.
 
 #### Return Value
