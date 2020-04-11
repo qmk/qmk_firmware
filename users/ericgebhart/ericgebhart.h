@@ -307,6 +307,7 @@ enum {
 #define ___4___ ___3___, ___
 #define ___5___ ___4___, ___
 #define ___6___ ___5___, ___
+#define ___14___ ___5___, ___4___,  ___5___
 #define ___15___ ___5___, ___5___,  ___5___
 
 int on_qwerty(void);
@@ -341,6 +342,7 @@ void x_reset (qk_tap_dance_state_t *state, void *user_data);
 #define LAYOUT_wrapper(...)                  LAYOUT(__VA_ARGS__)
 
 #define LAYOUT_ortho_5x15_wrapper(...)       LAYOUT_ortho_5x15(__VA_ARGS__)
+#define LAYOUT_ortho_5x14_wrapper(...)       LAYOUT_ortho_5x14(__VA_ARGS__)
 
 /********************************************************************/
 /**  The Core rows of each given layout.                           **/
@@ -464,6 +466,27 @@ void x_reset (qk_tap_dance_state_t *state, void *user_data);
 #define ___MIDDLE_2_BP___ TO(SYMB_ON_BEPO),  TO(_RGB),      TO(KEYPAD_ON_BEPO)
 #define ___MIDDLE_3_BP___ OSL(SYMB_ON_BEPO), TO(MDIA),      OSL(KEYPAD_ON_BEPO)
 
+// The Viterbi only has 2 keys in the middle.
+#define ___MIDDLE2_T___ OSL(LAYERS),  MDIA_SYMB_KP_LAYERS
+#define ___MIDDLE2_1___ LCTL(KC_C),   LCTL(KC_V)
+#define ___MIDDLE2_2___ TO(SYMB),     TO(KEYPAD)
+#define ___MIDDLE2_3___ OSL(SYMB),    OSL(KEYPAD)
+
+// becomes the upper thumbs, the real 4th row if we throw away
+// the number row at the top
+#define ___MIDDLE2_4___ XXX,    HOME_END,    KC_PGDN, XXX
+// basically the thumb keys like on the ergodox.
+#define ___MIDDLE_THUMBS___ CTL_BSPC, ALT_DEL, XMONAD_ESC,   KC_PGDN, ALT_ENT, CTL_SPC
+
+// The same, for BEPO
+#define ___MIDDLE2_T_BP___ OSL(LAYERS),       MDIA_SYMB_KP_LAYERS
+#define ___MIDDLE2_1_BP___ LCTL(BP_C),        LCTL(BP_V)
+#define ___MIDDLE2_2_BP___ TO(SYMB_ON_BEPO),  TO(KEYPAD_ON_BEPO)
+#define ___MIDDLE2_3_BP___ OSL(SYMB_ON_BEPO), OSL(KEYPAD_ON_BEPO)
+
+#define ___MIDDLE2_4_BP___ XXX,    HOME_END,  KC_PGUP,  XXX
+
+
 /********************************************************************/
 /**  The bottom row and thumbs as needed.                          **/
 /********************************************************************/
@@ -484,8 +507,13 @@ void x_reset (qk_tap_dance_state_t *state, void *user_data);
 #define ___ERGODOX_BOTTOM_LEFT___  LCTL(KC_C),  LCTL(KC_V),  KC_INS,  KC_LEFT, KC_RIGHT
 #define ___ERGODOX_BOTTOM_RIGHT___ KC_UP,  KC_DOWN,  KC_BSLASH,  LCTL(KC_V),  LCTL(KC_C)
 
-#define ___XD75_BOTTOM___     ___ERGODOX_BOTTOM_LEFT___,   ___MIDDLE_4___, ___ERGODOX_BOTTOM_RIGHT_FR___
+#define ___XD75_BOTTOM___     ___ERGODOX_BOTTOM_LEFT___,    ___MIDDLE_4___, ___ERGODOX_BOTTOM_RIGHT___
 #define ___XD75_BOTTOM_FR___  ___ERGODOX_BOTTOM_LEFT_FR___, ___MIDDLE_4___, ___ERGODOX_BOTTOM_RIGHT_FR___
+
+#define ___VITERBI_BOTTOM___    ___ERGODOX_BOTTOM_LEFT___,    ___MIDDLE2_4___, ___ERGODOX_BOTTOM_RIGHT___
+#define ___VITERBI_BOTTOM_FR___ ___ERGODOX_BOTTOM_LEFT_FR___, ___MIDDLE2_4___, ___ERGODOX_BOTTOM_RIGHT_FR___
+#define ___VITERBI_BOTTOM_BP___ ___ERGODOX_BOTTOM_LEFT_BP___, ___MIDDLE2_4___, ___ERGODOX_BOTTOM_RIGHT_BP___
+#define ___VITERBI_THUMBS_BOTTOM___   ___4___, ___MIDDLE_THUMBS___, ___4___
 
 
 #define ___ERGODOX_THUMB_LEFT___                \
