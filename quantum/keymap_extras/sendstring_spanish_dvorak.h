@@ -96,5 +96,5 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // p     q        r        s        t        u        v        w
     DV_P,    DV_Q,    DV_R,    DV_S,    DV_T,    DV_U,    DV_V,    DV_W,
     // x     y        z        {        |        }        ~        DEL
-    DV_X,    DV_Y,    DV_Z,    DV_ACUT, DV_1,    DV_CCED, DV_4, KC_DEL
+    DV_X,    DV_Y,    DV_Z,    DV_ACUT, DV_1,    DV_CCED, DV_4,    KC_DEL
 };
