@@ -27,13 +27,7 @@ When no state changes have occured for DEBOUNCE milliseconds, we push the state.
 #    define DEBOUNCE 5
 #endif
 
-#if (MATRIX_COLS <= 8)
-#    define ROW_SHIFTER ((uint8_t)1)
-#elif (MATRIX_COLS <= 16)
-#    define ROW_SHIFTER ((uint16_t)1)
-#elif (MATRIX_COLS <= 32)
-#    define ROW_SHIFTER ((uint32_t)1)
-#endif
+#define ROW_SHIFTER ((matrix_row_t)1)
 
 #define debounce_counter_t uint8_t
 
