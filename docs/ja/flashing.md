@@ -1,13 +1,13 @@
 # 書き込みの手順とブートローダ情報
 
 <!---
-  original document: 7494490d6:docs/flashing.md
-  git diff 7494490d6 HEAD -- docs/flashing.md | cat
+  original document: 0.8.62:docs/flashing.md
+  git diff 0.8.62 HEAD -- docs/flashing.md | cat
 -->
 
 キーボードが使用するブートローダにはかなり多くの種類があり、ほぼ全てが異なる書き込みの方法を使います。幸いなことに、[QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) のようなプロジェクトは、あまり深く考える必要無しに様々なタイプと互換性を持つことを目指していますが、この文章では様々なタイプのブートローダとそれらを書き込むために利用可能な方法について説明します。
 
-`rules.mk` の `BOOTLOADER` 変数で選択されたブートローダがある場合、QMK は .hex ファイルがデバイスに書き込むのに適切なサイズかどうかを自動的に計算し、合計サイズをバイト単位で(最大値とともに)出力します。この処理を手動で実行するには、`check-size` を付けてコンパイルします。例えば、`make planck/rev4:default:check-size`。
+`rules.mk` の `BOOTLOADER` 変数で選択されたブートローダがある場合、QMK は .hex ファイルがデバイスに書き込むのに適切なサイズかどうかを自動的に計算し、合計サイズをバイト単位で(最大値とともに)出力します。
 
 ## DFU
 
@@ -105,7 +105,7 @@ BOOTLOADER = caterina
     make <keyboard>:<keymap>:avrdude
 
 
-#### Caterina コマンド
+### Caterina コマンド
 
 ファームウェアを DFU デバイスに書き込むために使用できる DFU コマンドがいくつかあります。
 

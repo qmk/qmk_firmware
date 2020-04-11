@@ -36,9 +36,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     OSM(MOD_LSFT)       ,LT(2,KC_BSPACE)     ,OSM(MOD_LGUI)              ,
 
 
-    TO(1)               ,KC_6                ,KC_7                ,KC_8                ,TD_F9               ,LT(3,KC_0)          ,KC_DQUO             ,
+    TO(1)               ,KC_6                ,KC_7                ,KC_8                ,KC_9                ,LT(3,KC_0)          ,KC_DQUO             ,
     KC_UNDS             ,KC_Y                ,KC_U                ,KC_I                ,KC_O                ,KC_P                ,RSFT_T(KC_MINUS)            ,
-    HYPR_T(KC_H)        ,ALT_T(KC_J)         ,RCTL_T(KC_K)        ,LT(6,KC_L)          ,TD_CLN              ,GUI_T(KC_QUOTE)     ,
+    HYPR_H              ,ALT_J               ,CTL_K               ,LT(6,KC_L)          ,TD_CLN              ,CMD_QUOT            ,
     ALT_TAB             ,KC_N                ,MEH_T(KC_M)         ,KC_COMMA            ,KC_DOT              ,KC_SLASH            ,LT(4,KC_KP_ASTERISK),
     LT(4,KC_ENTER)      ,KC_DOWN             ,KC_LBRACKET         ,KC_RBRACKET         ,OSL(2)              ,
     KC_AUDIO_MUTE       ,KC_ESCAPE           ,
@@ -88,14 +88,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_LABK            ,KC_RABK            ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,
     KC_TRANSPARENT     ,KC_AT              ,KC_TRANSPARENT     ,KC_EQL             ,F_ARROW            ,KC_GRAVE           ,
     KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_LBRACKET        ,KC_RBRACKET        ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,
-    KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,
+    KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,IARROW             ,ARROW               ,
     KC_TRANSPARENT     ,KC_TRANSPARENT     ,
     KC_TRANSPARENT     ,
     // Right hand
     KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,
     KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,
     LALT(LSFT(KC_UP))  ,KC_HASH            ,KC_LCBR            ,KC_RCBR            ,KC_KP_ASTERISK     ,KC_PERC            ,KC_DLR             ,
-                        KC_AMPR            ,KC_LPRN            ,KC_RPRN            ,KC_CIRC            ,KC_KP_PLUS         ,KC_PIPE            ,
+                        KC_AMPR            ,KC_LPRN            ,KC_RPRN            ,CLN_EQ             ,KC_KP_PLUS         ,KC_PIPE            ,
     LALT(LSFT(KC_DOWN)),KC_EXLM            ,KC_TILD            ,KC_CIRC            ,ARROW              ,KC_BSLASH          ,KC_BSLASH          ,
     KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,KC_TRANSPARENT     ,
     RESET              ,KC_TRANSPARENT     ,
@@ -315,4 +315,12 @@ void oneshot_mods_changed_user(uint8_t mods) {
 
 void oneshot_locked_mods_changed_user(uint8_t mods) {
     oneshot_mods_changed_user(mods);
+}
+
+//=============== alt_tab callbacks
+void alt_tab_activated(void){
+    layer_on(7); // activate motion layer
+}
+void alt_tab_deactivated(void){
+    layer_off(7); // activate motion layer
 }

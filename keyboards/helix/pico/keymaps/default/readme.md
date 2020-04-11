@@ -120,6 +120,13 @@ $ make HELIX=no_ani helix/pico/back:default  # with backlight without animation
 $ make helix/pico/under:default              # with underglow
 ```
 
+build (experimental use of split_common)
+```
+$ make helix/pico/sc:default
+$ make helix/pico/sc/back:default
+$ make helix/pico/sc/under:default
+```
+
 flash to keyboard
 ```
 $ make helix/pico:default:flash

@@ -14,6 +14,17 @@ There are 3 standard keyboard layouts in use around the world- ANSI, ISO, and JI
 <!-- Source for this image: http://www.keyboard-layout-editor.com/#/gists/bf431647d1001cff5eff20ae55621e9a -->
 ![Keyboard Layout Image](https://i.imgur.com/5wsh5wM.png)
 
+## How Can I Make Custom Names For Complex Keycodes?
+
+Sometimes, for readability's sake, it's useful to define custom names for some keycodes. People often define custom names using `#define`. For example:
+
+```c
+#define FN_CAPS LT(_FL, KC_CAPSLOCK)
+#define ALT_TAB LALT(KC_TAB)
+```
+
+This will allow you to use `FN_CAPS` and `ALT_TAB` in your keymap, keeping it more readable.
+
 ## Some Of My Keys Are Swapped Or Not Working
 
 QMK has two features, Bootmagic and Command, which allow you to change the behavior of your keyboard on the fly. This includes, but is not limited to, swapping Ctrl/Caps, disabling Gui, swapping Alt/Gui, swapping Backspace/Backslash, disabling all keys, and other behavioral modifications. 
