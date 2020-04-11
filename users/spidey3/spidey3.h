@@ -21,9 +21,11 @@ enum rgb_base_layer {
 
 enum custom_keycodes {
   SPI_GLO = SAFE_RANGE,
-  SPI_LNX,
-  SPI_OSX,
-  SPI_WIN,
+  SPI_LNX, // Mode: Linux
+  SPI_OSX, // Mode: Mac
+  SPI_WIN, // Mode: Windows
+  AL_CTRL, // AL Control Panel
+  AL_ASST, // AL Context-aware Desktop Assistant
 };
 
 #ifdef RGBLIGHT_ENABLE

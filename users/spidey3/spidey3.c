@@ -20,7 +20,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         eeconfig_update_debug(debug_config.raw);
 #endif
-        break;
+        return false;
+
+      case AL_CTRL: host_consumer_send(0x019F); return false;
+      case AL_ASST: host_consumer_send(0x01CB); return false; 
+
       case SPI_LNX:
 	dprint("SPI_LNX\n");
         set_single_persistent_default_layer(_BASE);
@@ -44,6 +48,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_unicode_input_mode(UC_WINC);
 #endif
         break;
+    }
+  } else {
+    switch (keycode) {
+      case AL_CTRL:
+      case AL_ASST:
+        host_consumer_send(0);
+        return false;
     }
   }
 
