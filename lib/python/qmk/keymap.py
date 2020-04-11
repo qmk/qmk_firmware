@@ -1,11 +1,17 @@
 """Functions that help you work with QMK keymaps.
 """
 from pathlib import Path
+import shutil
+
+from pygments.lexers.c_cpp import CLexer
+from pygments.token import Token
+from pygments import lex
 
 from milc import cli
 
 from qmk.keyboard import rules_mk
 import qmk.path
+from qmk.commands import run, PIPE
 
 # The `keymap.c` template to use when a keyboard doesn't have its own
 DEFAULT_KEYMAP_C = """#include QMK_KEYBOARD_H
@@ -188,3 +194,152 @@ def list_keymaps(keyboard):
                     names = names.union([keymap.name for keymap in cl_path.iterdir() if is_keymap_dir(keymap)])
 
     return sorted(names)
+
+
+def _c_preprocess(path):
+    """ Run a file through the C pre-processor
+
+    Args:
+        path: path of the keymap.c file
+
+    Returns:
+        the stdout of the pre-processor
+    """
+    pre_processed_keymap = run(['cpp', path], stdout=PIPE, stderr=PIPE, universal_newlines=True)
+    return pre_processed_keymap.stdout
+
+
+def _get_layers(keymap):
+    """ Find the layers in a keymap.c file.
+
+    Args:
+        keymap: the content of the keymap.c file
+
+    Returns:
+        a dictionary containing the parsed keymap
+    """
+    layers = list()
+    opening_braces = '({['
+    closing_braces = ')}]'
+    keymap_certainty = brace_depth = 0
+    is_keymap = is_layer = is_adv_kc = False
+    layer = dict(name=False, layout=False, keycodes=list())
+    for line in lex(keymap, CLexer()):
+        if line[0] is Token.Name:
+            if is_keymap:
+                # If we are inside the keymap array
+                # we know the keymap's name and the layout macro will come,
+                # followed by the keycodes
+                if not layer['name']:
+                    layer['name'] = line[1]
+                elif not layer['layout']:
+                    layer['layout'] = line[1]
+                elif is_layer:
+                    # If we are inside a layout macro,
+                    # collect all keycodes
+                    if line[1] == '_______':
+                        kc = 'KC_TRNS'
+                    elif line[1] == 'XXXXXXX':
+                        kc = 'KC_NO'
+                    else:
+                        kc = line[1]
+                    if is_adv_kc:
+                        # If we are inside an advanced keycode
+                        # collect everything and hope the user
+                        # knew what he/she was doing
+                        layer['keycodes'][-1] += kc
+                    else:
+                        layer['keycodes'].append(kc)
+
+        # The keymaps array's signature:
+        # const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS]
+        #
+        # Only if we've found all 6 keywords in this specific order
+        # can we know for sure that we are inside the keymaps array
+            elif line[1] == 'PROGMEM' and keymap_certainty == 2:
+                keymap_certainty = 3
+            elif line[1] == 'keymaps' and keymap_certainty == 3:
+                keymap_certainty = 4
+            elif line[1] == 'MATRIX_ROWS' and keymap_certainty == 4:
+                keymap_certainty = 5
+            elif line[1] == 'MATRIX_COLS' and keymap_certainty == 5:
+                keymap_certainty = 6
+        elif line[0] is Token.Keyword:
+            if line[1] == 'const' and keymap_certainty == 0:
+                keymap_certainty = 1
+        elif line[0] is Token.Keyword.Type:
+            if line[1] == 'uint16_t' and keymap_certainty == 1:
+                keymap_certainty = 2
+        elif line[0] is Token.Punctuation:
+            if line[1] in opening_braces:
+                brace_depth += 1
+                if is_keymap:
+                    if is_layer:
+                        # We found the beginning of a non-basic keycode
+                        is_adv_kc = True
+                        layer['keycodes'][-1] += line[1]
+                    elif line[1] is '(' and brace_depth == 2:
+                        # We found the beginning of a layer
+                        is_layer = True
+                elif line[1] is '{' and keymap_certainty == 6:
+                    # We found the beginning of the keymaps array
+                    is_keymap = True
+            elif line[1] in closing_braces:
+                brace_depth -= 1
+                if is_keymap:
+                    if is_adv_kc:
+                        layer['keycodes'][-1] += line[1]
+                        if brace_depth == 2:
+                            # We found the end of a non-basic keycode
+                            is_adv_kc = False
+                    elif line[1] is ')' and brace_depth == 1:
+                        # We found the end of a layer
+                        is_layer = False
+                        layers.append(layer)
+                        layer = dict(name=False, layout=False, keycodes=list())
+                    elif line[1] is '}' and brace_depth == 0:
+                        # We found the end of the keymaps array
+                        is_keymap = False
+                        keymap_certainty = 0
+            elif is_adv_kc:
+                # Advanced keycodes can contain other punctuation
+                # e.g.: MT(MOD_LCTL | MOD_LSFT, KC_ESC)
+                layer['keycodes'][-1] += line[1]
+
+        elif line[0] is Token.Literal.Number.Integer and is_keymap:
+            # If the pre-processor finds the 'meaning' of the layer names,
+            # they will be numbers
+            if not layer['name']:
+                layer['name'] = line[1]
+
+        else:
+            # We only care about
+            # operators and such if we
+            # are inside an advanced keycode
+            # e.g.: MT(MOD_LCTL | MOD_LSFT, KC_ESC)
+            if is_adv_kc:
+                layer['keycodes'][-1] += line[1]
+
+    return layers
+
+
+def parse_keymap_c(keymap_file, use_cpp = True):
+    """ Parse a keymap.c file.
+
+    Currently only cares about the keymaps array.
+
+    Args:
+        keymap_file: path of the keymap.c file
+        use_cpp: if True, pre-process the file with the C pre-processor
+
+    Returns:
+        a dictionary containing the parsed keymap
+    """
+    if use_cpp:
+        keymap_file = _c_preprocess(keymap_file)
+    else:
+        keymap_file = keymap_file.read_text()
+
+    keymap = dict()
+    keymap['layers'] = _get_layers(keymap_file)
+    return keymap

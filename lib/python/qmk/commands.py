@@ -4,6 +4,7 @@ import json
 import os
 import platform
 import subprocess
+from subprocess import PIPE
 import shlex
 import shutil
 
