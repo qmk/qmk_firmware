@@ -16,7 +16,7 @@ The following functions can provide basic control of GPIOs and are found in `qua
 | `writePinLow(pin)`     | Set pin level as low, assuming it is an output   | `PORTB &= ~(1<<2)`                              | `palClearLine(pin)`                             |
 | `writePin(pin, level)` | Set pin level, assuming it is an output          | `(level) ? PORTB \|= (1<<2) : PORTB &= ~(1<<2)` | `(level) ? palSetLine(pin) : palClearLine(pin)` |
 | `readPin(pin)`         | Returns the level of the pin                     | `_SFR_IO8(pin >> 4) & _BV(pin & 0xF)`           | `palReadLine(pin)`                              |
-| `togglePin(pin)`       | inverts the output logic level on a pin          | `PORTB ^= (1<<2)`                               | `palToggle(pin)`                                |
+| `togglePin(pin)`       | Invert pin level, assuming it is an output       | `PORTB ^= (1<<2)`                               | `palToggleLine(pin)`                            |
 
 ## Advanced Settings :id=advanced-settings
 
