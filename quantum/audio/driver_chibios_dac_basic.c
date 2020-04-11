@@ -138,25 +138,33 @@ float channel_2_get_frequency(void) { return channel_2_frequency; }
 
 static void gpt_cb8(GPTDriver *gptp) {
     if (audio_update_state()) {
-#if defined(AUDIO_PIN_A4)
+#if (defined (AUDIO_PIN_A4) && defined(AUDIO_PIN_A5)) || (defined(AUDIO_PIN_A4) && defined(AUDIO_PIN_ALT_AS_NEGATIVE) && defined(AUDIO_PIN_ALT_A5) || (defined(AUDIO_PIN_A5) && defined(AUDIO_PIN_ALT_AS_NEGATIVE) && defined(AUDIO_PIN_ALT_A4))
+        // one piezo/speaker connected to both audio pins, the generated squarewaves are inverted
         channel_1_set_frequency(audio_get_processed_frequency(0));
-#    if defined(AUDIO_PIN_ALT_A5)
+        channel_2_set_frequency(audio_get_processed_frequency(0));
+#else // two separate audio outputs/speakers
+        // primary speaker on A4, optional secondary on A5
+#if     defined(AUDIO_PIN_A4)
+        channel_1_set_frequency(audio_get_processed_frequency(0));
+#        if defined(AUDIO_PIN_ALT_A5)
         if (audio_get_number_of_active_tones() > 1) {
             channel_2_set_frequency(audio_get_processed_frequency(1));
         } else {
             channel_2_stop();
         }
+#        endif
 #    endif
-#endif
 
-#if defined(AUDIO_PIN_A5)
+        // primary speaker on A5, optional secondary on A4
+#if     defined(AUDIO_PIN_A5)
         channel_2_set_frequency(audio_get_processed_frequency(0));
-#    if defined(AUDIO_PIN_ALT_A4)
+#        if defined(AUDIO_PIN_ALT_A4)
         if (audio_get_number_of_active_tones() > 1) {
             channel_1_set_frequency(audio_get_processed_frequency(1));
         } else {
             channel_1_stop();
         }
+#        endif
 #    endif
 #endif
     }
