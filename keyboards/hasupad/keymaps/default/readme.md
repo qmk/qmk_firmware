@@ -1,1 +1,1 @@
-# The default keymap for hasupad
+# The default keymap for latinpad
