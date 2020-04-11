@@ -56,13 +56,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #define RGBLIGHT_LIMIT_VAL 255
 #define RGBLIGHT_EFFECT_KNIGHT_OFFSET 20
 
-/*
-#ifdef RGB_MATRIX_ENABLE
-//#define DRIVER_LED_TOTAL RGBLED_NUM
-#define RGB_MATRIX_KEYPRESSES
-#endif
-*/
-
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
 #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
