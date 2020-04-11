@@ -1,6 +1,6 @@
 {
     "keyboard_name": "latinpad",
-    "url": "",
+    "url": "https://github.com/latincompass/qmk_firmware/tree/master/keyboards/hasupad",
     "maintainer": "latin",
 
     "width": 4,
