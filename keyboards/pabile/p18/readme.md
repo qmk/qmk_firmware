@@ -1,6 +1,6 @@
 # P18 
 
-A 18-key DIY Hotswap Macropad
+A 18-key DIY Hotswap Macropad that accepts both Promicro and Bluefruit Feather 32U4 LE
 
 ![render](https://i.imgur.com/CPtGiSL.png)
 
