@@ -20,7 +20,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         eeconfig_update_debug(debug_config.raw);
 #endif
-        break;
+        return false;
       case SPI_LNX:
 	dprint("SPI_LNX\n");
         set_single_persistent_default_layer(_BASE);
@@ -49,10 +49,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef RGBLIGHT_ENABLE
   bool res = process_record_user_rgb(keycode, record);
-  if (res) return true;
+  if (!res) return false;
 #endif
 
-  return false;
+  return true;
+}
+
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+#ifdef RGBLIGHT_ENABLE
+  post_process_record_user_rgb(keycode, record);
+#endif
+  return;
 }
 
 layer_state_t default_layer_state_set_user(layer_state_t state) {

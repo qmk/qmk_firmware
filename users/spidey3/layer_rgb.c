@@ -25,107 +25,118 @@ void eeconfig_init_user_rgb(void)
   spidey_swirl();
 }
 
-const rgblight_segment_t PROGMEM _capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 2, HSV_AZURE}, {14, 2, HSV_AZURE} );
-const rgblight_segment_t PROGMEM _layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS( {7, 1, HSV_PURPLE} );
-const rgblight_segment_t PROGMEM _layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS( {10, 3, HSV_MAGENTA} );
-const rgblight_segment_t PROGMEM _layer3_layer[] = RGBLIGHT_LAYER_SEGMENTS( {10, 1, HSV_GREEN} );
-const rgblight_segment_t PROGMEM _yes_layer[] = RGBLIGHT_LAYER_SEGMENTS( {9, 6, HSV_GREEN} );
-const rgblight_segment_t PROGMEM _no_layer[] = RGBLIGHT_LAYER_SEGMENTS( {9, 6, HSV_RED} );
+const rgblight_segment_t PROGMEM _capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 2, HSV_AZURE}, {RGBLED_NUM-2, 2, HSV_AZURE} ); // 0
+const rgblight_segment_t PROGMEM _scrolllock_layer[] = RGBLIGHT_LAYER_SEGMENTS( {2, 2, HSV_PURPLE}, {RGBLED_NUM-4, 2, HSV_PURPLE} ); // 1
+
+#define LAYER_OFFSET 2
+const rgblight_segment_t PROGMEM _layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS( {RGBLED_NUM/2-1, 1, HSV_PURPLE} ); // 2
+const rgblight_segment_t PROGMEM _layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS( {10, 3, HSV_MAGENTA} ); // 3
+const rgblight_segment_t PROGMEM _layer3_layer[] = RGBLIGHT_LAYER_SEGMENTS( {10, 1, HSV_GREEN} ); // 4
+
+#define ACK_OFFSET 5
+const rgblight_segment_t PROGMEM _no_layer[] = RGBLIGHT_LAYER_SEGMENTS( {9, 6, HSV_RED} ); // 5
+const rgblight_segment_t PROGMEM _yes_layer[] = RGBLIGHT_LAYER_SEGMENTS( {9, 6, HSV_GREEN} ); // 6
+const rgblight_segment_t PROGMEM _startup_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, RGBLED_NUM, HSV_BLUE} ); // 7
 
 // Now define the array of layers. Later layers take precedence
 const rgblight_segment_t* const PROGMEM _rgb_layers[] =
-    RGBLIGHT_LAYERS_LIST( _capslock_layer, _layer1_layer, _layer2_layer, _layer3_layer, _yes_layer, _no_layer );
+    RGBLIGHT_LAYERS_LIST( _capslock_layer, _scrolllock_layer, _layer1_layer, _layer2_layer, _layer3_layer, _no_layer, _yes_layer, _startup_layer );
 const uint8_t PROGMEM _n_rgb_layers = sizeof(_rgb_layers) / sizeof(_rgb_layers[0]) - 1;
 
 void clear_rgb_layers() {
+    dprint("clear_rgb_layers()\n");
     for (uint8_t i=0; i<_n_rgb_layers; i++) {
         rgblight_set_layer_state(i, false);
     }
 }
 
 void do_rgb_layers(layer_state_t state, uint8_t start, uint8_t end) {
-    dprint("do_rgb_layers()\n");
     for (uint8_t i=start; i<end; i++) {
       bool is_on = layer_state_cmp(state, i);
-      dprintf("\tlayer[%d]=%u\n", i, is_on);
-      rgblight_set_layer_state(i, is_on);
+      dprintf("layer[%u]=%u\n", i, is_on);
+      rgblight_set_layer_state(LAYER_OFFSET + i - 1, is_on);
     }
 }
 
 void keyboard_post_init_user_rgb(void) {
-    do_rgb_layers(default_layer_state, 1u, RGB_LAYER_BASE_REGULAR);
-    do_rgb_layers(layer_state, RGB_LAYER_BASE_REGULAR, RGB_LAYER_BASE_ACKS);
-    do_rgb_layers(0, RGB_LAYER_BASE_ACKS, _n_rgb_layers);
     // Enable the LED layers
     rgblight_layers = _rgb_layers;
+    do_rgb_layers(default_layer_state, LAYER_BASE_DEFAULT+1, LAYER_BASE_REGULAR);
+    do_rgb_layers(layer_state, LAYER_BASE_REGULAR, LAYER_BASE_END);
+    rgblight_blink_layer(ACK_OFFSET + 2, RGB_LAYER_WELCOME_DURATION);
 }
 
 layer_state_t default_layer_state_set_user_rgb(layer_state_t state) {
-    dprint("default_layer_state_set_user_rgb()\n");
-    do_rgb_layers(state, 1u, RGB_LAYER_BASE_REGULAR);
+    do_rgb_layers(state, 1u, LAYER_BASE_REGULAR);
     return state;
 }
 
 layer_state_t layer_state_set_user_rgb(layer_state_t state) {
-    dprint("layer_state_set_user_rgb()\n");
-    do_rgb_layers(state, RGB_LAYER_BASE_REGULAR, RGB_LAYER_BASE_ACKS);
+    do_rgb_layers(state, LAYER_BASE_REGULAR, LAYER_BASE_END);
     return state;
 }
 
 bool led_update_user_rgb(led_t led_state) {
-    dprintf("caps_lock=%u\n", led_state.caps_lock);
+    dprintf("num=%u, cap=%u, scl=%u, cmp=%u, kan=%u\n", 
+	led_state.num_lock, led_state.caps_lock, led_state.scroll_lock, 
+	led_state.compose, led_state.kana);
     rgblight_set_layer_state(0, led_state.caps_lock);
+    rgblight_set_layer_state(1, led_state.scroll_lock);
     return true;
 }
 
-void rgb_layer_ack(bool yn, bool pressed) {
-  uint8_t layer = RGB_LAYER_BASE_ACKS + (yn ? 0 : 1);
-  rgblight_set_layer_state(layer, pressed);
+void rgb_layer_ack(bool yn) {
+    uint8_t layer = ACK_OFFSET + (yn?1:0);
+    dprintf("rgb_layer_ack(%u) ==> %u\n", yn, layer);
+    rgblight_blink_layer(layer, RGB_LAYER_ACK_DURATION);
 }
 
 extern keymap_config_t keymap_config;
+extern rgblight_config_t rgblight_config;
 
 bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
-  bool pressed = record->event.pressed;
+    if (record->event.pressed) {
+        switch (keycode) {
+            case SPI_GLO:
+                spidey_swirl();
+                return false;
+        }
+    }
 
-  switch (keycode) {
-    case SPI_GLO:
-      if (pressed) {
-        spidey_swirl();
-      }
-      return false;
+    return true;
+}
 
-    // Acks follow...
-    case DEBUG:
-      rgb_layer_ack(debug_enable, pressed);
-      return false;
+void post_process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
 
-    case SPI_LNX:
-    case SPI_OSX:
-    case SPI_WIN:
-      rgb_layer_ack(true, pressed);
-      return false;
+    switch (keycode) {
+        // Acks follow...
+        case DEBUG:
+            rgb_layer_ack(debug_enable);
+            break;
 
-    // Tricky!
-    // For these, on press the toggle hasn't happened yet,
-    // so we need a little logic to invert, assuming that
-    // on key press the flag WILL be toggled, and on key
-    // release the flag has already been toggled.
+        case SPI_LNX:
+        case SPI_OSX:
+        case SPI_WIN:
+            rgb_layer_ack(true);
+            break;
+
+        case RGB_TOG:
+            rgb_layer_ack(rgblight_config.enable);
+            break;
 
 #ifdef VELOCIKEY_ENABLE
-    case VLK_TOG:
-      rgb_layer_ack(pressed != velocikey_enabled(), pressed);
-      return true;
+        case VLK_TOG:
+            rgb_layer_ack(velocikey_enabled());
+            break;
 #endif
 
 #ifdef NKRO_ENABLE
-    case NK_TOGG:
-    case NK_ON:
-    case NK_OFF:
-      rgb_layer_ack(pressed != keymap_config.nkro, pressed);
-      return true;
+        case NK_TOGG:
+        case NK_ON:
+        case NK_OFF:
+            rgb_layer_ack(keymap_config.nkro);
+            break;
 #endif
-  }
+    }
 
-  return true;
 }
