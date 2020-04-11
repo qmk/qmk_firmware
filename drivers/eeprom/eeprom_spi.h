@@ -74,11 +74,3 @@
 #ifndef EXTERNAL_EEPROM_ADDRESS_SIZE
 #    define EXTERNAL_EEPROM_ADDRESS_SIZE 2
 #endif
-
-/*
-    The write cycle time of the EEPROM in milliseconds, as specified in the
-    datasheet.
-*/
-#ifndef EXTERNAL_EEPROM_WRITE_TIME
-#    define EXTERNAL_EEPROM_WRITE_TIME 5
-#endif
