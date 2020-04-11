@@ -1,4 +1,4 @@
-/* Copyright 2019 HASU
+/* Copyright 2020 latincompass
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
