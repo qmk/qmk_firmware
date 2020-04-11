@@ -193,11 +193,7 @@ static void dac_end(DACDriver *dacp) {
     }
 
     // update audio internal state (note position, current_note, ...)
-    if (audio_advance_state(AUDIO_DAC_BUFFER_SIZE / 2, AUDIO_DAC_SAMPLE_RATE / (64 * 2.0f / 3))) {
-        /* End of the note: 64 is the number of 'units' of a whole note, 3 comes
-         * from the gpttimer: AUDIO_DAC_SAMPLE_RATE * 3; 2 from the callback beeing
-         * called twice per sample conversion.
-         */
+    if (audio_update_state()) {
         if (OUTPUT_SHOULD_STOP != state) {
             state = OUTPUT_TONES_CHANGED;
         }

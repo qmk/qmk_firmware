@@ -262,7 +262,7 @@ ISR(AUDIO1_TIMERx_COMPy_vect) {
     if (isr_counter < channel_1_frequency / (CPU_PRESCALER * 8)) return;
 
     isr_counter        = 0;
-    bool state_changed = audio_advance_state(1, 1);
+    bool state_changed = audio_update_state();
 
     if (!playing_note && !playing_melody) {
         channel_1_stop();
@@ -291,7 +291,7 @@ ISR(AUDIO2_TIMERx_COMPy_vect) {
     if (isr_counter < channel_2_frequency / (CPU_PRESCALER * 8)) return;
 
     isr_counter        = 0;
-    bool state_changed = audio_advance_state(1, 1);
+    bool state_changed = audio_update_state();
 
     if (!playing_note && !playing_melody) {
         channel_2_stop();

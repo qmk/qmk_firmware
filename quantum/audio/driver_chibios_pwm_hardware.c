@@ -125,9 +125,8 @@ GPTConfig   gptCFG = {
        the longest note is BREAVE_DOT=128+64=192, the shortest SIXTEENTH=4
        the tempo (which might vary!) is in bpm (beats per minute)
        therefore: if the timer ticks away at .frequency = (60*64)Hz,
-       and the .intervall counts from 64 downwards - all we need to do is increment the
-       note_position on each callback, and have the note_lengt = duration*tempo compare
-       against that; hence: audio_advance_state(step=1, end=1)
+       and the .intervall counts from 64 downwards - audio_update_state is
+       called just often enough to not miss any notes
     */
     .frequency = 60 * 64,
     .callback  = gpt_callback,
@@ -166,7 +165,7 @@ void audio_driver_stop(void) {
 static void gpt_callback(GPTDriver *gptp) {
     float freq;  // TODO: freq_alt
 
-    if (audio_advance_state(1, 1)) {
+    if (audio_update_state()) {
         freq = audio_get_processed_frequency(0);  // freq_alt would be index=1
         channel_1_set_frequency(freq);
     }
