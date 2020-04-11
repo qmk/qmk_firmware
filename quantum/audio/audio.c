@@ -410,28 +410,6 @@ bool audio_update_state(void) {
     bool goto_next_note = false;
     uint32_t current_time = timer_read32();
 
-    if (playing_note) {
-#ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
-        tone_multiplexing_index_shift =
-            (int)(current_time / tone_multiplexing_rate)
-            % MIN(AUDIO_MAX_SIMULTANEOUS_TONES, active_tones);
-        goto_next_note = true;
-#endif
-        if (vibrato || glissando) {
-            // force update on each cycle, since vibrato shifts the frequency slightly
-            goto_next_note = true;
-        }
-
-        // housekeeping: stop notes that have no playtime left
-        for (int i=0; i < active_tones; i++) {
-            if (tones[i].duration > 0) {
-                if (current_time >= tones[i].time_started + tones[i].duration) {
-                    audio_stop_tone(tones[i].pitch);
-                }
-            }
-        }
-    }
-
     if (playing_melody) {
 
         goto_next_note = current_time >= melody_current_note_end;
@@ -473,6 +451,28 @@ bool audio_update_state(void) {
                 uint16_t duration = audio_duration_to_ms((*notes_pointer)[current_note][1]) - delta;
                 audio_play_note((*notes_pointer)[current_note][0], duration);
                 melody_current_note_end = current_time + duration;
+            }
+        }
+    }
+
+    if (playing_note) {
+#ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
+        tone_multiplexing_index_shift =
+            (int)(current_time / tone_multiplexing_rate)
+            % MIN(AUDIO_MAX_SIMULTANEOUS_TONES, active_tones);
+        goto_next_note = true;
+#endif
+        if (vibrato || glissando) {
+            // force update on each cycle, since vibrato shifts the frequency slightly
+            goto_next_note = true;
+        }
+
+        // housekeeping: stop notes that have no playtime left
+        for (int i=0; i < active_tones; i++) {
+            if (tones[i].duration > 0) {
+                if (current_time >= tones[i].time_started + tones[i].duration) {
+                    audio_stop_tone(tones[i].pitch);
+                }
             }
         }
     }
