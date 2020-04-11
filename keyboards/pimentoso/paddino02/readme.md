@@ -18,9 +18,9 @@ https://github.com/Pimentoso/Paddino02
 
 ### To flash:
 
-`make pimentoso/paddino02/rev2/right:default:avrdude`
-`make pimentoso/paddino02/rev2/left:default:avrdude`
-`make pimentoso/paddino02/rev1:default:avrdude` (legacy version of the PCB)
+`make pimentoso/paddino02/rev2/right:default:flash`
+`make pimentoso/paddino02/rev2/left:default:flash`
+`make pimentoso/paddino02/rev1:default:flash` (legacy version of the PCB)
 
 ### Default keymap
 
