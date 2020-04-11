@@ -1,7 +1,5 @@
 # CannonKeys Rekt1800
 
-Rekt1800 Keyboard
-
 * Keyboard Maintainer: [Andrew Kannan](https://github.com/awkannan)
 * Hardware Supported: STM32F072CBT6
 
