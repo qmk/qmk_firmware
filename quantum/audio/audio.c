@@ -28,15 +28,15 @@
  * driver_[avr|chibios]_[dac|pwm] take care of the lower hardware dependent parts,
  *            specific to each platform and the used subsystem/driver to drive
  *            the output pins/channels with the calculated frequencies for each
- *            avtive tone
+ *            active tone
  *            as part of this, the driver has to trigger regular state updates by
- *            calling 'audio_advance_state' through some sort of timer - be it a
+ *            calling 'audio_update_state' through some sort of timer - be it a
  *            dedicated one or piggybacking on for example the timer used to
  *            generate a pwm signal/clock.
  *
  *
  * A Note on terminology:
- * tone and frequency are used somewhat interchangeably, in a strict wikipedia-sense:
+ * tone, pitch and frequency are used somewhat interchangeably, in a strict wikipedia-sense:
  *    "(Musical) tone, a sound characterized by its duration, pitch (=frequency),
  *    intensity (=volume), and timbre"
  * - intensity/volume is currently not handled at all, although the 'dac_additive' driver could do so
@@ -45,7 +45,7 @@
  * in musical_note.h a 'note' is the combination of a pitch and a duration
  * these are used to create SONG arrays; during playback their frequencies
  * are handled as single successive tones, while the durations are
- * kept track of in 'audio_advance_state'
+ * kept track of in 'audio_update_state'
  *
  * 'voice' as it is used here, equates to a sort of instrument with its own
  * charactersitic sound and effects
@@ -60,21 +60,19 @@
 #    define AUDIO_TONE_STACKSIZE 8
 #endif
 uint8_t active_tones                      = 0;       // number of tones pushed onto the stack by audio_play_tone - might be more than the harware is able to reproduce at any single time
-float   frequencies[AUDIO_TONE_STACKSIZE] = {-1.0};  // frequencies of each active tone
-// TODO: array of musical_tone_t?
+musical_tone_t tones[AUDIO_TONE_STACKSIZE];  // stack of currently active tones
 
 bool playing_melody = false;  // playing a SONG?
-bool playing_note   = false;  // or (possibly multiple simultaneous) tones  TODO: should this be playing_tone instead, since we don't handle any duration (yet)
+bool playing_note   = false;  // or (possibly multiple simultaneous) tones
 bool state_changed  = false;  // global flag, which is set if anything changes with the active_tones
 
-float (*notes_pointer)[][2];             // SONG, an array of MUSICAL_NOTEs
-uint16_t notes_count;                    // length of the notes_pointer array
-bool     notes_repeat;                   // PLAY_SONG or PLAY_LOOP?
-float    note_length   = 0;              // in 64 parts to a beat
-uint8_t  note_tempo    = TEMPO_DEFAULT;  // beats-per-minute
-uint16_t current_note  = 0;              // index into the array at notes_pointer
-uint32_t note_position = 0;              // position in the currently playing note = "elapsed time" (with no specific unit, depends on how fast/slow the respective audio-driver/hardware ticks)
-bool     note_resting  = false;          // if a short pause was introduced between two notes with the same frequency while playing a melody
+float (*notes_pointer)[][2];               // SONG, an array of MUSICAL_NOTEs
+uint16_t notes_count;                      // length of the notes_pointer array
+bool     notes_repeat;                     // PLAY_SONG or PLAY_LOOP?
+uint16_t melody_current_note_end = 0;      // timestamp when the currently playing note in the melody will/should end
+uint8_t  note_tempo      = TEMPO_DEFAULT;  // beats-per-minute
+uint16_t current_note    = 0;              // index into the array at notes_pointer
+bool     note_resting    = false;          // if a short pause was introduced between two notes with the same frequency while playing a melody
 
 #ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
 #    ifndef AUDIO_MAX_SIMULTANEOUS_TONES
@@ -126,6 +124,14 @@ void audio_init() {
 #    endif
 #endif  // ARM EEPROM
 
+    for (uint8_t i = 0; i < AUDIO_TONE_STACKSIZE; i++) {
+        tones[i] = (musical_tone_t){
+            .time_started = 0,
+            .pitch        = -1.0f,
+            .duration     = -1.0f
+        };
+    }
+
     if (!audio_initialized) {
         audio_driver_initialize();
         audio_initialized = true;
@@ -172,14 +178,20 @@ void audio_stop_all() {
     playing_melody = false;
     playing_note   = false;
 
+    melody_current_note_end = 0;
+
     for (uint8_t i = 0; i < AUDIO_TONE_STACKSIZE; i++) {
-        frequencies[i] = -1.0f;
+        tones[i] = (musical_tone_t){
+            .time_started = 0,
+            .pitch        = -1.0f,
+            .duration     = -1.0f
+        };
     }
 }
 
-void audio_stop_tone(float frequency) {
-    if (frequency < 0.0f) {
-        frequency = -1 * frequency;
+void audio_stop_tone(float pitch) {
+    if (pitch < 0.0f) {
+        pitch = -1 * pitch;
     }
 
     if (playing_note) {
@@ -188,12 +200,20 @@ void audio_stop_tone(float frequency) {
         }
         bool found = false;
         for (int i = AUDIO_TONE_STACKSIZE - 1; i >= 0; i--) {
-            found = (frequencies[i] == frequency);
+            found = (tones[i].pitch == pitch);
             if (found) {
-                frequencies[i] = -1.0f;
+                tones[i] = (musical_tone_t){
+                    .time_started = 0,
+                    .pitch        = -1.0f,
+                    .duration     = -1.0f
+                };
                 for (int j = i; (j < AUDIO_TONE_STACKSIZE - 1); j++) {
-                    frequencies[j]     = frequencies[j + 1];
-                    frequencies[j + 1] = -1.0f;
+                    tones[j]     = tones[j + 1];
+                    tones[j + 1] = (musical_tone_t){
+                        .time_started = 0,
+                        .pitch        = -1.0f,
+                        .duration     = -1.0f
+                    };
                 }
                 break;
             }
@@ -218,7 +238,7 @@ void audio_stop_tone(float frequency) {
     }
 }
 
-void audio_play_tone(float frequency) {
+void audio_play_note(float pitch, float duration) {
     if (!audio_config.enable) {
         return;
     }
@@ -227,25 +247,26 @@ void audio_play_tone(float frequency) {
         audio_init();
     }
 
-    if (frequency < 0.0f) {
-        frequency = -1 * frequency;
+    if (pitch < 0.0f) {
+        pitch = -1 * pitch;
     }
 
     // roundrobin: shifting out old tones, keeping only unique ones
     // if the new frequency is already amongst the active tones, shift it to the top of the stack
     bool found = false;
     for (int i = active_tones - 1; i >= 0; i--) {
-        found = (frequencies[i] == frequency);
+        found = (tones[i].pitch == pitch);
         if (found) {
             for (int j = i; (j < active_tones - 1); j++) {
-                frequencies[j]     = frequencies[j + 1];
-                frequencies[j + 1] = frequency;
+                tones[j]     = tones[j + 1];
+                tones[j + 1] = (musical_tone_t){
+                    .time_started = timer_read32(),
+                    .pitch        = pitch,
+                    .duration     = duration
+                };
             }
-            break;
+            return; // since this frequency played already, the hardware was already started
         }
-    }
-    if (found) {  // since this frequency played already, the hardware was already started
-        return;
     }
 
     // frequency/tone is actually new, so we put it on the top of the stack
@@ -254,23 +275,28 @@ void audio_play_tone(float frequency) {
         active_tones = AUDIO_TONE_STACKSIZE;
         // shift out the oldest tone to make room
         for (int i = 0; i < active_tones - 1; i++) {
-            frequencies[i] = frequencies[i + 1];
+            tones[i] = tones[i + 1];
         }
     }
     state_changed                 = true;
     playing_note                  = true;
-    frequencies[active_tones - 1] = frequency;
+    tones[active_tones - 1] = (musical_tone_t){
+        .time_started = timer_read32(),
+        .pitch        = pitch,
+        .duration     = duration
+    };
 
-    voices_timer = timer_read(); // reset to zero, for the effects added by voices.c
+    //TODO: needs to be handled per note/tone -> use its timestamp instead?
+    voices_timer = timer_read32(); // reset to zero, for the effects added by voices.c
 
     if (active_tones == 1)  // sufficient to start when switching from 0 to 1
         audio_driver_start();
 }
-/*
- * the two ways to feed the audio system:
- * - audio_play_tone to add (or start) playing notes simultaneously with multiple tones
- * - audio_play_melody which gets passed a SONG = array of musical-notes (combinations of frequencies and durations)
- */
+
+void audio_play_tone(float pitch) {
+    audio_play_note(pitch, -1.0f);
+}
+
 void audio_play_melody(float (*np)[][2], uint16_t n_count, bool n_repeat) {
     if (!audio_config.enable) {
         return;
@@ -292,21 +318,20 @@ void audio_play_melody(float (*np)[][2], uint16_t n_count, bool n_repeat) {
 
     current_note = 0;  // note in the melody-array/list at note_pointer
 
-    note_length   = ((*notes_pointer)[current_note][1]) * (60.0f / note_tempo);
-    note_position = 0;
-
     // start first note manually, which also starts the audio_driver
-    // all following/remaining notes are played by 'audio_advance_state'
-    audio_play_tone((*notes_pointer)[current_note][0]);
+    // all following/remaining notes are played by 'audio_update_state'
+    audio_play_note((*notes_pointer)[current_note][0], audio_duration_to_ms ((*notes_pointer)[current_note][1])
+);
+    melody_current_note_end = timer_read32() +  audio_duration_to_ms ((*notes_pointer)[current_note][1]);
 }
 
 float click[2][2];
-void  audio_play_click(uint16_t delay, float frequency, uint16_t duration) {
+void  audio_play_click(uint16_t delay, float pitch, uint16_t duration) {
     float duration_tone  = (64 / 60) * note_tempo * (duration / 1000.0f);
     float duration_delay = (64 / 60) * note_tempo * (delay / 1000.0f);
 
     if (delay <= 0.0f) {
-        click[0][0] = frequency;
+        click[0][0] = pitch;
         click[0][1] = duration_tone;
         click[1][0] = 0.0f;
         click[1][1] = 0.0f;
@@ -316,7 +341,7 @@ void  audio_play_click(uint16_t delay, float frequency, uint16_t duration) {
         click[0][0] = 0.0f;
         click[0][1] = duration_delay;
         // second note is the actual click
-        click[1][0] = frequency;
+        click[1][0] = pitch;
         click[1][1] = duration_tone;
         audio_play_melody(&click, 2, false);
     }
@@ -332,11 +357,10 @@ float audio_get_frequency(uint8_t tone_index) {
     if (tone_index >= active_tones) {
         return 0.0f;
     }
-    return frequencies[active_tones - tone_index - 1];
+    return tones[active_tones - tone_index - 1].pitch;
 }
 
 float audio_get_processed_frequency(uint8_t tone_index) {
-    float frequency = 0.0;
 
     if (tone_index >= active_tones) {
         return 0.0f;
@@ -351,10 +375,11 @@ float audio_get_processed_frequency(uint8_t tone_index) {
         index += active_tones;
 #endif
 
-    if (frequencies[index] <= 0.0f) {
+    if (tones[index].pitch <= 0.0f) {
         return 0.0f;
     }
 
+/*
     // TODO make it work and test, currently probably non-functional because it needs some state to keep track of previous tones, the current tone position ...?
     if (glissando) {  // see voices.c
         if (frequency != 0 && frequency < frequencies[index] && frequency < frequencies[index] * pow(2, -440 / frequencies[index] / 12 / 2)) {
@@ -371,15 +396,24 @@ float audio_get_processed_frequency(uint8_t tone_index) {
     frequency = voice_envelope(frequency);
 
     return frequency;
+*/
+
+    return voice_envelope(tones[index].pitch);
 }
 
-bool audio_advance_state(uint32_t step, float end) {
+bool audio_update_state(void) {
+
+    if (!playing_note && !playing_melody) {
+        return false;
+    }
+
     bool goto_next_note = false;
+    uint32_t current_time = timer_read32();
 
     if (playing_note) {
 #ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
         tone_multiplexing_index_shift =
-            (int)(timer_read() / tone_multiplexing_rate)
+            (int)(current_time / tone_multiplexing_rate)
             % MIN(AUDIO_MAX_SIMULTANEOUS_TONES, active_tones);
         goto_next_note = true;
 #endif
@@ -387,24 +421,31 @@ bool audio_advance_state(uint32_t step, float end) {
             // force update on each cycle, since vibrato shifts the frequency slightly
             goto_next_note = true;
         }
+
+        // housekeeping: stop notes that have no playtime left
+        for (int i=0; i < active_tones; i++) {
+            if (tones[i].duration > 0) {
+                if (current_time >= tones[i].time_started + tones[i].duration) {
+                    audio_stop_tone(tones[i].pitch);
+                }
+            }
+        }
     }
 
     if (playing_melody) {
-        note_position += step;
 
-        goto_next_note = note_position >= (note_length * end);
+        goto_next_note = current_time >= melody_current_note_end;
         if (goto_next_note) {
             uint16_t previous_note = current_note;
             current_note++;
-            voices_timer = timer_read(); // reset to zero, for the effects added by voices.c
+            voices_timer = timer_read32(); // reset to zero, for the effects added by voices.c
 
             if (current_note >= notes_count) {
                 if (notes_repeat) {
                     current_note = 0;
                 } else {
-                    playing_melody = false;
-                    audio_stop_tone((*notes_pointer)[previous_note][0]);
-                    return true;
+                    audio_stop_all();
+                    return false;
                 }
             }
 
@@ -413,37 +454,27 @@ bool audio_advance_state(uint32_t step, float end) {
 
                 // special handling for successive notes of the same frequency:
                 // insert a short pause to separate them audibly
-                current_note       = previous_note;
-                float shortRest[2] = {0.0f, 2 /*duration of a THIRTYTWOTH_NOTE*/};
-                audio_play_tone(shortRest[0]);
                 audio_stop_tone((*notes_pointer)[previous_note][0]);
-                note_position = note_position - (note_length * end);
-                note_length   = shortRest[1] * (60.0f / note_tempo);
+                current_note    = previous_note;
+                melody_current_note_end = current_time + audio_duration_to_ms(2);
 
             } else {
                 note_resting = false;
 
-                // need only to pass the frequency - the duration is handled by
-                // calling this function regularly and advancing the note_position
-                audio_play_tone((*notes_pointer)[current_note][0]);
-                // start the next note prior to stopping the previous one, to
-                // allow the hardware to do a clean transition; and avoid a brief
-                // state where active_tones==0 -> driver_stop
-                if ((*notes_pointer)[previous_note][0] != (*notes_pointer)[current_note][0]) {
-                    audio_stop_tone((*notes_pointer)[previous_note][0]);
-                }
+                //TODO: handle glissando here (or remember previous and current tone)
 
                 // Skip forward in the next note's length if we've over shot the last, so
                 // the overall length of the song is the same
-                note_position = note_position - (note_length * end);
+                int delta = current_time - melody_current_note_end; // TODO: what about a timer overflow?
+                if (delta < 0) {
+                    delta = 0;
+                }
 
-                note_length = ((*notes_pointer)[current_note][1]) * (60.0f / note_tempo);
+                uint16_t duration = audio_duration_to_ms((*notes_pointer)[current_note][1]) - delta;
+                audio_play_note((*notes_pointer)[current_note][0], duration);
+                melody_current_note_end = current_time + duration;
             }
         }
-    }
-
-    if (!playing_note && !playing_melody) {
-        audio_stop_all();
     }
 
     // state-changes have a higher priority, always triggering the hardware to update
