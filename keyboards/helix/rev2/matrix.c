@@ -143,11 +143,6 @@ uint8_t _matrix_scan(void)
     return 1;
 }
 
-__attribute__((weak)) bool peek_matrix(uint8_t row_index, uint8_t col_index, bool raw) {
-    return 0 != ( (raw?matrix_debouncing[row_index]:matrix[row_index])
-                  & (MATRIX_ROW_SHIFTER << col_index));
-}
-
 #ifdef USE_MATRIX_I2C
 
 // Get rows from other half over i2c

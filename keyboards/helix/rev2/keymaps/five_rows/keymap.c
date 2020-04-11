@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include <avr/pgmspace.h>
 #include "bootloader.h"
 #ifdef PROTOCOL_LUFA
 #include "lufa.h"
@@ -14,7 +13,6 @@
 #ifdef CONSOLE_ENABLE
   #include <print.h>
 #endif
-#include "timer.h"
 
 extern keymap_config_t keymap_config;
 
@@ -334,34 +332,8 @@ uint32_t default_layer_state_set_kb(uint32_t state) {
     return state;
 }
 
-#if 0
-#ifdef DIP_SWITCH_MATRIX_GRID
-extern bool peek_matrix(uint8_t row_index, uint8_t col_index, bool raw);
-typedef struct matrix_index_t {
-    uint8_t row;
-    uint8_t col;
-} matrix_index_t;
-static matrix_index_t dip_switch_pad[] = DIP_SWITCH_MATRIX_GRID;
-#define NUMBER_OF_DIP_SWITCHES (sizeof(dip_switch_pad) / sizeof(matrix_index_t))
-#endif
-#endif
-
-void dump_pbuf(void);
-
 void update_base_layer(int base)
 {
-#ifdef CONSOLE_ENABLE
-    uprintf("layer\n");
-    dump_pbuf();
-    uprintf("call dip_switch_read(true)\n");
-    dip_switch_read(true);
-#  if 0
-    for (uint8_t i = 0; i < NUMBER_OF_DIP_SWITCHES; i++) {
-        uprintf(" i,r,c = %d %d %d\n", i, dip_switch_pad[i].row, dip_switch_pad[i].col);
-        uprintf("   peek %d\n", peek_matrix(dip_switch_pad[i].row, dip_switch_pad[i].col));
-    }
-#  endif
-#endif
     if( current_default_layer != base ) {
         eeconfig_update_default_layer(1UL<<base);
         default_layer_set(1UL<<base);
@@ -500,14 +472,12 @@ void music_scale_user(void)
 
 #endif
 
+
 //SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
 #ifdef SSD1306OLED
 
-void matrix_scan_pbuf(void);
-
 void matrix_scan_user(void) {
-    matrix_scan_pbuf();
-    iota_gfx_task();  // this is what updates the display continuously
+     iota_gfx_task();  // this is what updates the display continuously
 }
 
 void matrix_update(struct CharacterMatrix *dest,
@@ -625,94 +595,3 @@ void iota_gfx_task_user(void) {
 }
 
 #endif
-
-/*--- dip switch test code ---*/
-#if defined(DIP_SWITCH_MATRIX_GRID) || defined(DIP_SWITCH_PINS)
-void debug_print(const char * PROGMEM fmt, uint8_t a1, uint8_t a2);
-
-void dip_switch_update_user(uint8_t index, bool active) {
-    debug_print(PSTR("dip_switch_update_user(%d,%d)\n"), index, active);
-}
-
-void dip_switch_update_mask_user(uint32_t state) {
-    debug_print(PSTR("dip_switch_update_mask_user(0b%b)\n"), state, 0);
-}
-#endif
-
-void keyboard_pre_init_user(void)
-{
-    debug_print(PSTR("keyboard_pre_init_user()\n"),0,0);
-}
-
-void keyboard_post_init_user(void)
-{
-    debug_print(PSTR("keyboard_post_init_user()\n"),0,0);
-}
-
-/*----------------------- debug print code ------------------------*/
-
-typedef struct _pr {
-    const char * PROGMEM fmt;
-    uint8_t     arg1;
-    uint8_t     arg2;
-    uint16_t    timer;
-} printbuf_t;
-uint8_t pbuf_count = 0;
-bool    pbuf_overflow = false;
-printbuf_t pbuf[50] = {0};
-bool     pbuf_wait = true;
-uint16_t pbuf_timer = 0;
-
-void dump_pbuf(void) {
-    if( pbuf_wait )
-        return;
-
-#ifdef CONSOLE_ENABLE
-    if( pbuf_count > 0 ) {
-        if (pbuf_count > 1)
-            uprintf(" %06d : dump_pbuf %d\n", timer_read(), pbuf_count);
-        for( uint8_t i = 0; i < pbuf_count; i++ ) {
-            uprintf(" %06d : ", pbuf[i].timer);
-            __xprintf(pbuf[i].fmt, pbuf[i].arg1, pbuf[i].arg2);
-        }
-        pbuf_count = 0;
-        if( pbuf_overflow ) {
-            uprintf(" pbuf overflow \n");
-            pbuf_overflow = false;
-        }
-    }
-#endif
-}
-
-void matrix_scan_pbuf(void) {
-    if( pbuf_wait ) {
-        if( pbuf_timer == 0 ) {
-            /* the first scan. */
-            pbuf_timer = timer_read();
-        }
-        if( timer_elapsed(pbuf_timer) < 2000 ) {
-            return;
-        }
-        pbuf_wait = false;
-        dump_pbuf();
-    }
-}
-
-#ifndef SSD1306OLED
-void matrix_scan_user(void) {
-    matrix_scan_pbuf();
-}
-#endif
-
-void debug_print(const char * PROGMEM fmt, uint8_t a1, uint8_t a2) {
-    if( pbuf_count < sizeof(pbuf)/sizeof(pbuf[0]) ) {
-        pbuf[pbuf_count].fmt = fmt;
-        pbuf[pbuf_count].arg1 = a1;
-        pbuf[pbuf_count].arg2 = a2;
-        pbuf[pbuf_count].timer = timer_read();
-        pbuf_count++;
-    } else {
-        pbuf_overflow = true;
-    }
-    dump_pbuf();
-}
