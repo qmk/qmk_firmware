@@ -32,10 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #define UNUSED_PINS
 
 #define DIODE_DIRECTION ROW2COL
-/*
- * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
- */
-//#define SOFT_SERIAL_PIN D0 // or D1, D2, D3, E6
 
 #define SSD1306OLED
 
