@@ -149,21 +149,21 @@ void reset_keyboard(void) {
 }
 
 /* Convert record into usable keycode via the contained event. */
-uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache) { return get_event_keycode(record->event, update_layer_cache); }
+uint16_t get_record_keycode(keyrecord_t *record, bool do_update) { return get_event_keycode(record->event, do_update); }
 
 /* Convert event into usable keycode. Checks the layer cache to ensure that it
  * retains the correct keycode after a layer change, if the key is still pressed.
- * "update_layer_cache" is to ensure that it only updates the layer cache when
- * appropriate, otherwise, it will update it and cause layer tap (and other keys)
- * from triggering properly.
+ * "do_update" is to ensure that it only updates the layer cache when appropriate,
+ * otherwise, it will update it and cause layer tap (and other keys) from
+ * triggering properly.
  */
-uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache) {
+uint16_t get_event_keycode(keyevent_t event, bool do_update) {
 #if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
     /* TODO: Use store_or_get_action() or a similar function. */
     if (!disable_action_cache) {
         uint8_t layer;
 
-        if (event.pressed && update_layer_cache) {
+        if (event.pressed && do_update) {
             layer = layer_switch_get_layer(event.key);
             update_source_layers_cache(event.key, layer);
         } else {
