@@ -14,6 +14,7 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 #include "ericgebhart.h"
 
 #include "quantum.h"
@@ -122,8 +123,6 @@ const uint8_t key_translations[][2][2] = {
   [GR(DB_CIRC)] =   {{BP_AT, MOD_BIT(KC_RALT)}, {BP_AT, MOD_BIT(KC_RALT)}},
   [GR(DB_LESS)] =   {{BP_LGIL, MOD_BIT(KC_RALT)}, {BP_LGIL, MOD_BIT(KC_RALT)}},
   [GR(DB_GRTR)] =   {{BP_RGIL, MOD_BIT(KC_RALT)}, {BP_RGIL, MOD_BIT(KC_RALT)}},
-
-
 };
 
 
@@ -390,13 +389,20 @@ void tap_dance_layer_switch (qk_tap_dance_state_t *state, void *user_data) {
     if(on_qwerty())
       layer_invert(SYMB);
     else
-         layer_invert(SYMB_ON_BEPO);
+      layer_invert(SYMB_ON_BEPO);
     break;
   case 2:
     layer_invert(MDIA);
     break;
   case 3:
     layer_invert(LAYERS);
+    break;
+  case 4:
+    if(on_qwerty())
+      layer_invert(KEYPAD);
+    else
+      layer_invert(KEYPAD_ON_BEPO);
+    break;
   default:
     break;
   }
