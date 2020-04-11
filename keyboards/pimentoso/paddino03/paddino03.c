@@ -1,4 +1,4 @@
-/* Copyright 2019 Chip
+/* Copyright 2020 Michele Ferri <zomgsako@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,12 +21,11 @@ void keyboard_pre_init_kb(void) {
   setPinOutput(LAYER_INDICATOR_LED_1);
   setPinOutput(LAYER_INDICATOR_LED_2);
   setPinOutput(LAYER_INDICATOR_LED_3);
-
   keyboard_pre_init_user();
 }
 
 void shutdown_user() {
-  // Shutdown the layer LEDs
+  // Shutdown all layer LEDs
   writePinLow(LAYER_INDICATOR_LED_0);
   writePinLow(LAYER_INDICATOR_LED_1);
   writePinLow(LAYER_INDICATOR_LED_2);
@@ -34,13 +33,12 @@ void shutdown_user() {
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
-  // Layer LEDs act as binary indication of current layer
+  // Turn on LED of current layer
   uint8_t layer = biton32(state);
   writePin(LAYER_INDICATOR_LED_0, layer == 0);
   writePin(LAYER_INDICATOR_LED_1, layer == 1);
   writePin(LAYER_INDICATOR_LED_2, layer == 2);
   writePin(LAYER_INDICATOR_LED_3, layer == 3);
-
   return layer_state_set_user(state);
 }
 
@@ -51,42 +49,47 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 void matrix_init_kb(void) {
   // put your keyboard start-up code here
   // runs once when the firmware starts up
-//   for (int i = 0; i < 2; i++) {
-//     writePin(LAYER_INDICATOR_LED_0, true);
-//     writePin(LAYER_INDICATOR_LED_1, false);
-//     wait_ms(100);
-//     writePin(LAYER_INDICATOR_LED_0, true);
-//     writePin(LAYER_INDICATOR_LED_1, true);
-//     wait_ms(100);
-//     writePin(LAYER_INDICATOR_LED_0, false);
-//     writePin(LAYER_INDICATOR_LED_1, true);
-//     wait_ms(100);
-//     writePin(LAYER_INDICATOR_LED_0, false);
-//     writePin(LAYER_INDICATOR_LED_1, false);
-//     wait_ms(100);
-//   }
-
+  for (int i = 0; i < 5; i++) {
     writePin(LAYER_INDICATOR_LED_0, true);
-    matrix_init_user();
+    writePin(LAYER_INDICATOR_LED_1, false);
+    writePin(LAYER_INDICATOR_LED_2, false);
+    writePin(LAYER_INDICATOR_LED_3, false);
+    wait_ms(100);
+    writePin(LAYER_INDICATOR_LED_0, false);
+    writePin(LAYER_INDICATOR_LED_1, true);
+    writePin(LAYER_INDICATOR_LED_2, false);
+    writePin(LAYER_INDICATOR_LED_3, false);
+    wait_ms(100);
+    writePin(LAYER_INDICATOR_LED_0, false);
+    writePin(LAYER_INDICATOR_LED_1, false);
+    writePin(LAYER_INDICATOR_LED_2, true);
+    writePin(LAYER_INDICATOR_LED_3, false);
+    wait_ms(100);
+    writePin(LAYER_INDICATOR_LED_0, false);
+    writePin(LAYER_INDICATOR_LED_1, false);
+    writePin(LAYER_INDICATOR_LED_2, false);
+    writePin(LAYER_INDICATOR_LED_3, true);
+    wait_ms(100);
+  }
+
+  writePin(LAYER_INDICATOR_LED_0, true);
+  matrix_init_user();
 }
 
 void matrix_scan_kb(void) {
   // put your looping keyboard code here
   // runs every cycle (a lot)
-
   matrix_scan_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
   // put your per-action keyboard code here
   // runs for every action, just before processing by the firmware
-
   return process_record_user(keycode, record);
 }
 
 void led_set_kb(uint8_t usb_led) {
   // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-
   led_set_user(usb_led);
 }
 
@@ -105,6 +108,5 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
             selected_layer = 3;
         }
     }
-    layer_clear();
-    layer_on(selected_layer);
+    layer_move(selected_layer);
 }

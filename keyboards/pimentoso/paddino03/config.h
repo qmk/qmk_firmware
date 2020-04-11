@@ -1,5 +1,5 @@
 /*
-Copyright 2019 imchipwood
+Copyright 2020 Michele Ferri <zomgsako@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,15 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*
-SCHEMA
-
-3 LED - B3, B2, B6, tutti e 3 a GND
-Encoder - lato con 2 pin - uno a row0 B5, uno a col0 C6
-Encoder - lato con 3 pin - uno a D0, uno a D4, centrale a GND
-Tasto - un pin a row0 B5, un pin a col1 D7
-*/
-
 #pragma once
 
 #include "config_common.h"
@@ -34,7 +25,7 @@ Tasto - un pin a row0 B5, un pin a col1 D7
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Pimentoso
 #define PRODUCT         Paddino03
-#define DESCRIPTION     fuggg :DD
+#define DESCRIPTION     6-keys 4-layer pad with layer-shifting knob
 
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 7
@@ -57,8 +48,7 @@ Tasto - un pin a row0 B5, un pin a col1 D7
 
 /* Bootmagic - hold down rotary encoder pushbutton while plugging in to enter bootloader */
 #define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
+#define BOOTMAGIC_LITE_COLUMN 6
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
