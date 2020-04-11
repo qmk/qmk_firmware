@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #define PRODUCT_ID      0x5350 // "ri" = rich
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    latincompass
-#define PRODUCT         hasupad
+#define PRODUCT         latinpad
 #define DESCRIPTION     dual rotary encoder macro pad
 
 /* key matrix size */
