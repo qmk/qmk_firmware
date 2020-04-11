@@ -36,10 +36,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_LOWER] = LAYOUT_ortho_4x12( \
-    LGUI(KC_SCOLON), LGUI(KC_Q),               LGUI(KC_W),        LALT(LGUI(KC_L)),  LALT(KC_ENTER),   LGUI(KC_T),      KC_CIRC,          KC_AMPR,           KC_ASTR,           LALT(LGUI(KC_O)),    LGUI(KC_P),       KC_TRANSPARENT, \
-    KC_TRANSPARENT,  LGUI(KC_A),               LGUI(KC_S),        KC_TRANSPARENT,    LGUI(KC_F),       LGUI(KC_G),      KC_TRANSPARENT,   KC_UNDS,           KC_PLUS,           KC_EQUAL,            KC_PIPE,          KC_PIPE, \
-    KC_TRANSPARENT,  KC_MAC_UNDO,              KC_MAC_CUT,        KC_MAC_COPY,       KC_MAC_PASTE,     LGUI(KC_B),      LGUI(KC_N),       KC_ENTER,          KC_TRANSPARENT,    KC_GRAVE,            KC_BSLASH,        KC_TRANSPARENT, \
-    KC_LCTRL,        LCTL(LGUI(LSFT(KC_4))),   KC_TRANSPARENT,    KC_TRANSPARENT,    KC_TRANSPARENT,   KC_TRANSPARENT,  KC_NO,            KC_TRANSPARENT,    KC_UNDS,           KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,  KC_TRANSPARENT
+    LGUI(KC_SCOLON), LGUI(KC_Q),               LGUI(KC_W),        LALT(LGUI(KC_L)),  LALT(KC_ENTER),   LGUI(KC_T),      KC_CIRC,          KC_AMPR,                              KC_ASTR,           LALT(LGUI(KC_O)),    LGUI(KC_P),       KC_TRANSPARENT, \
+    KC_TRANSPARENT,  LGUI(KC_A),               LGUI(KC_S),        KC_ENTER,          LGUI(KC_F),       LGUI(KC_G),      KC_TRANSPARENT,   LGUI(LALT(LCTL(LSFT(KC_SPACE)))),   KC_PLUS,           KC_EQUAL,            KC_PIPE,          KC_PIPE, \
+    KC_TRANSPARENT,  KC_MAC_UNDO,              KC_MAC_CUT,        KC_MAC_COPY,       KC_MAC_PASTE,     LGUI(KC_B),      LGUI(KC_N),       KC_ENTER,                             KC_UNDS,           KC_GRAVE,            KC_BSLASH,        KC_TRANSPARENT, \
+    KC_LCTRL,        LCTL(LGUI(LSFT(KC_4))),   KC_TRANSPARENT,    KC_TRANSPARENT,    KC_TRANSPARENT,   KC_TRANSPARENT,  KC_NO,            KC_TRANSPARENT,                       KC_UNDS,           KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,  KC_TRANSPARENT
 ),
 
 [_RAISE] = LAYOUT_ortho_4x12( \
