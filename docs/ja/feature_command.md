@@ -5,7 +5,7 @@
   git diff 0.8.94 HEAD -- docs/feature_command.md | cat
 -->
 
-以前はマジックとして知られていたコマンドは、[ブートマジック](ja/feature_bootmagic.md)を使うために書き込みをしたりプラグを抜いたりすることなくキーボードの挙動を変更する方法です。この機能と[ブートマジックキーコード](feature_bootmagic.md#keycodes)には多くの重複があります。可能な限り、コマンドでは無くブートマジックキーコードの機能を使うことをお勧めします。
+コマンド(旧称:マジック)は、ファームウェアを書き込んだり、[ブートマジック](ja/feature_bootmagic.md)を使うためにプラグを抜いたりすることなくキーボードの挙動を変更する方法です。この機能と[ブートマジックキーコード](feature_bootmagic.md#keycodes)には多くの重複があります。可能な限り、コマンドでは無くブートマジックキーコードの機能を使うことをお勧めします。
 
 一部のキーボードではコマンドがデフォルトで無効になっています。その場合、`rules.mk` 内で明示的に有効にする必要があります:
 
@@ -15,7 +15,7 @@ COMMAND_ENABLE = yes
 
 ## 使用法
 
-コマンドを使うには、`IS_COMMAND()` マクロで定義されたキーの組み合わせを押し続けます。デフォルトでは、これは「左Shift + 右Shift」です。次に、目的のコマンドに対応するキーを押します。例えば、現在の QMK バージョンを QMK ツールボックス コンソールに出力するには、「左Shift + 右Shift + `V`」を押します。
+コマンドを使うには、`IS_COMMAND()` マクロで定義されたキーの組み合わせを押し続けます。デフォルトでは、これは「左Shift + 右Shift」です。次に、目的のコマンドに対応するキーを押します。例えば、現在の QMK バージョンを QMK Toolbox コンソールに出力するには、「左Shift + 右Shift + `V`」を押します。
 
 ## 設定
 
@@ -27,8 +27,8 @@ COMMAND_ENABLE = yes
 | `MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS` | `true` | ファンクション行を使ってデフォルトレイヤーを設定 |
 | `MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS` | `true` | 数字キーでデフォルトレイヤーを設定 |
 | `MAGIC_KEY_SWITCH_LAYER_WITH_CUSTOM` | `false` | `MAGIC_KEY_LAYER0..9` を使ってデフォルトレイヤーを設定 |
-| `MAGIC_KEY_DEBUG` | `D` | シリアルを介するデバッグ出力の切り替え |
-| `MAGIC_KEY_DEBUG_MATRIX` | `X` | キーマトリックスのデバッグ出力の切り替え |
+| `MAGIC_KEY_DEBUG` | `D` | シリアルを介するデバッグの切り替え |
+| `MAGIC_KEY_DEBUG_MATRIX` | `X` | キーマトリックスのデバッグの切り替え |
 | `MAGIC_KEY_DEBUG_KBD` | `K` | キーボードのデバッグの切り替え |
 | `MAGIC_KEY_DEBUG_MOUSE` | `M` | マウスのデバッグの切り替え |
 | `MAGIC_KEY_CONSOLE` | `C` | コマンドコンソールを有効にする |
