@@ -177,6 +177,8 @@ const uint8_t RGBLED_GRADIENT_RANGES[] PROGMEM = {255, 170, 127, 85, 64};
 By including `#define RGBLIGHT_LAYERS` in your `config.h` file you can enable lighting layers. These make
 it easy to use your underglow LEDs as status indicators to show which keyboard layer is currently active, or the state of caps lock, all without disrupting any animations. [Here's a video](https://youtu.be/uLGE1epbmdY) showing an example of what you can do.
 
+### Defining Lighting Layers
+
 To define a layer, we modify `keymap.c` to list out LED ranges and the colors we want to overlay on them using an array of `rgblight_segment_t` using the `RGBLIGHT_LAYER_SEGMENTS` macro. We can define multiple layers and enable/disable them independently:
 
 ```c
@@ -211,8 +213,12 @@ void keyboard_post_init_user(void) {
     rgblight_layers = my_rgb_layers;
 }
 ```
+Note: For split keyboards with two controllers, both sides need to be flashed when updating the contents of rgblight_layers.
 
-Finally, we enable and disable the lighting layers whenever the state of the keyboard changes:
+### Enabling and disabling lighting layers
+
+Everything above just configured the definition of each lighting layer.
+We can now enable and disable the lighting layers whenever the state of the keyboard changes:
 
 ```c
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -228,7 +234,42 @@ bool led_update_user(led_t led_state) {
 }
 ```
 
-Note: For split keyboards with two controllers, both sides need to be flashed when updating the contents of rgblight_layers.
+### Lighting layer blink
+
+By including `#define RGBLIGHT_LAYER_BLINK` in your `config.h` file you can turn a lighting
+layer on for a specified duration. Once the specified number of milliseconds has elapsed
+the layer will be turned off. This is useful, e.g., if you want to acknowledge some
+action (e.g. toggling some setting):
+
+```c
+const rgblight_segment_t PROGMEM _yes_layer[] = RGBLIGHT_LAYER_SEGMENTS( {9, 6, HSV_GREEN} );
+const rgblight_segment_t PROGMEM _no_layer[] = RGBLIGHT_LAYER_SEGMENTS( {9, 6, HSV_RED} );
+
+const rgblight_segment_t* const PROGMEM _rgb_layers[] =
+    RGBLIGHT_LAYERS_LIST( _yes_layer, _no_layer );
+
+void keyboard_post_init_user(void) {
+    rgblight_layers = _rgb_layers;
+}
+
+extern keymap_config_t keymap_config;
+
+// Note we user post_process_record_user because we want the state
+// after the flag has been flipped...
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case DEBUG:
+            rgblight_blink_layer(debug_enable ? 0 : 1, 500);
+            break;
+
+        case NK_TOGG:
+        case NK_ON:
+        case NK_OFF:
+            rgblight_blink_layer(keymap_config.nkro ? 0 : 1, 500);
+            break;
+    }
+}
+```
 
 ## Functions
 

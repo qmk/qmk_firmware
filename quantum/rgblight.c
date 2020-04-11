@@ -662,6 +662,32 @@ static void rgblight_layers_write(void) {
         }
     }
 }
+
+#  ifdef RGBLIGHT_LAYER_BLINK
+uint8_t _blinked_layer_mask = 0;
+uint16_t _blink_duration = 0;
+static uint16_t _blink_timer;
+
+void rgblight_blink_layer(uint8_t layer, uint16_t duration_ms) {
+  rgblight_set_layer_state(layer, true);
+  _blinked_layer_mask |= 1<<layer;
+  _blink_timer = timer_read();
+  _blink_duration = duration_ms;
+}
+
+void rgblight_unblink_layers(void) {
+  if (_blinked_layer_mask != 0 &&
+      timer_elapsed(_blink_timer) > _blink_duration) {
+    for (uint8_t layer = 0; layer < RGBLIGHT_MAX_LAYERS; layer++) {
+      if ((_blinked_layer_mask & 1<<layer) != 0) {
+        rgblight_set_layer_state(layer, false);
+      }
+    }
+    _blinked_layer_mask = 0;
+  }
+}
+#  endif
+
 #endif
 
 #ifndef RGBLIGHT_CUSTOM_DRIVER
@@ -911,6 +937,10 @@ void rgblight_task(void) {
 #    endif
         }
     }
+
+#    ifdef RGBLIGHT_LAYER_BLINK
+    rgblight_unblink_layers();
+#    endif
 }
 
 #endif /* RGBLIGHT_USE_TIMER */

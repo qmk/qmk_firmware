@@ -194,6 +194,12 @@ bool rgblight_get_layer_state(uint8_t layer);
 
 // Point this to an array of rgblight_segment_t arrays in keyboard_post_init_user to use rgblight layers
 extern const rgblight_segment_t *const *rgblight_layers;
+
+#      ifdef RGBLIGHT_LAYER_BLINK
+#        define RGBLIGHT_USE_TIMER
+void rgblight_blink_layer(uint8_t layer, uint16_t duration_ms);
+#      endif
+
 #    endif
 
 extern LED_TYPE led[RGBLED_NUM];
