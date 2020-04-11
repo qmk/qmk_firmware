@@ -1,6 +1,6 @@
 macro 2rotary encoder pad
 
-Keyboard Maintainer: wang
+Keyboard Maintainer: Latincompass
 Hardware Availability: Open Source
 
 Make example for this keyboard (after setting up your build environment):
