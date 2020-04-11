@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Sendstring lookup tables for Spanish's dvorak layout
+// Sendstring lookup tables for Spanish Dvorak layout
 
 #pragma once
 
