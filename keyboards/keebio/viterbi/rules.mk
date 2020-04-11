@@ -30,7 +30,12 @@ RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
+SWAP_HANDS_ENABLE= no # Allow swapping hands of keyboard
+KEY_LOCK_ENABLE  = yes # Enable the KC_LOCK key
+TAP_DANCE_ENABLE = yes # Enable the tap dance feature.
+
+
 SPLIT_KEYBOARD = yes
 
-DEFAULT_FOLDER = keebio/viterbi/rev2
+DEFAULT_FOLDER = keebio/viterbi/rev1
 LAYOUTS = ortho_5x14
