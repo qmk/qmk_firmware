@@ -13,17 +13,21 @@ https://github.com/Pimentoso/Paddino02
 ### To compile:
 
 `make pimentoso/paddino02/rev2/right:default`
+
 `make pimentoso/paddino02/rev2/left:default`
+
 `make pimentoso/paddino02/rev1:default` (legacy version of the PCB)
 
 ### To flash:
 
 `make pimentoso/paddino02/rev2/right:default:flash`
+
 `make pimentoso/paddino02/rev2/left:default:flash`
+
 `make pimentoso/paddino02/rev1:default:flash` (legacy version of the PCB)
 
 ### Default keymap
 
-![Keymap](https://raw.githubusercontent.com/qmk/qmk_firmware/master/keyboards/pimentoso/paddino02/keymap.png)
+![Keymap](https://raw.githubusercontent.com/Pimentoso/qmk_firmware/master/keyboards/pimentoso/paddino02/keymap.png)
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
