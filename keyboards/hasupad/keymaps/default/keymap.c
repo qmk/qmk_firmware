@@ -27,8 +27,8 @@
    */
      /* Keymap _1: (Base Layer) Default Layer
   
-   * .---------------.
-   * |NUMLOCK|计算器 | 
+   * .------------------.
+   * |NUMLOCK|Caculator | 
    * |-------|-------|-----|-----|
    * |RGB_TOG|RGB_MOD|  9  | MO1 |
    * |-------|-------|-----|-----|
