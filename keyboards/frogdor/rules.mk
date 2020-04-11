@@ -15,7 +15,7 @@ BOOTLOADER = atmel-dfu
 #
 BOOTMAGIC_ENABLE = yes      # Virtual DIP switch configuration
 CONSOLE_ENABLE = no        	# Console for debug
-COMMAND_ENABLE = yes      	# Commands for debug and configuration
+COMMAND_ENABLE = no      	# Commands for debug and configuration
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes           # USB Nkey Rollover
 ENCODER_ENABLE = yes
