@@ -432,7 +432,7 @@ bool audio_update_state(void) {
 
                 // special handling for successive notes of the same frequency:
                 // insert a short pause to separate them audibly
-                audio_stop_tone((*notes_pointer)[previous_note][0]);
+                audio_play_note(0.0f, audio_duration_to_ms(2));
                 current_note    = previous_note;
                 melody_current_note_end = current_time + audio_duration_to_ms(2);
 
