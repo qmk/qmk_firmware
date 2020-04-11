@@ -7,7 +7,7 @@
 #define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Pabile
-#define PRODUCT         Pabile18
+#define PRODUCT         P18 Macro Pad
 #define DESCRIPTION     An 18-key DIY macropad kit
 
 /* key matrix size */
