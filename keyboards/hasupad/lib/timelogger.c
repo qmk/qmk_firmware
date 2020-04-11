@@ -1,6 +1,4 @@
 #include <stdio.h>
-#include "crkbd.h"
-
 char timelog_str[24] = {};
 int last_time = 0;
 int elapsed_time = 0;
