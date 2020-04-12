@@ -1,5 +1,4 @@
-#ifndef P40_H
-#define P40_H
+#pragma once
 
 #include "quantum.h"
 
