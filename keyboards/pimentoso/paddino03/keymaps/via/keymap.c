@@ -17,8 +17,13 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [0] = LAYOUT(KC_Q, KC_W, KC_E, KC_A, KC_S, KC_D, KC_ENT),
-  [1] = LAYOUT(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_ENT),
-  [2] = LAYOUT(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_ENT),
-  [3] = LAYOUT(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_ENT),
+  [0] = LAYOUT(KC_Q, KC_W, KC_E, KC_A, KC_S, KC_D, KC_LBRC, KC_RBRC),
+  [1] = LAYOUT(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO),
+  [2] = LAYOUT(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO),
+  [3] = LAYOUT(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO),
 };
+
+void matrix_init_user(void) {
+    // Enable or disable debugging
+    debug_enable = true;
+}
