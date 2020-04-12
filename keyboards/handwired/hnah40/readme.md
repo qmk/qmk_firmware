@@ -10,7 +10,11 @@ Hardware Availability: https://github.com/vuhopkep/PCB/tree/master/Hnah40-Atmega
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/hnah40:default:program
+    make handwired/hnah40:default
+
+Flashing example for this keyboard:
+
+    make handwired/hnah40:default:flash
 
 ## Bootloader 
 use usbasploader from hsgw.

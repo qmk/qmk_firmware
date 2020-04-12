@@ -175,7 +175,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_MPLY KC_MEDIA_PLAY_PAUSE
 #define KC_MSEL KC_MEDIA_SELECT
 #define KC_EJCT KC_MEDIA_EJECT
-#define KC_MAIL KC_MAIL
 #define KC_CALC KC_CALCULATOR
 #define KC_MYCM KC_MY_COMPUTER
 #define KC_WSCH KC_WWW_SEARCH

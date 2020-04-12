@@ -10,6 +10,18 @@ SOLUS_INFO="Your tools are now installed. To start using them, open new terminal
 
 util_dir=$(dirname "$0")
 
+# For those distros that do not package bootloadHID
+install_bootloadhid() {
+    if ! command -v bootloadHID >/dev/null; then
+        wget https://www.obdev.at/downloads/vusb/bootloadHID.2012-12-08.tar.gz -O - | tar -xz -C /tmp
+        cd /tmp/bootloadHID.2012-12-08/commandline/
+        if make; then
+            sudo cp bootloadHID /usr/local/bin
+        fi
+        cd -
+    fi
+}
+
 if grep ID /etc/os-release | grep -qE "fedora"; then
 	sudo dnf install \
 		arm-none-eabi-binutils-cs \
@@ -28,6 +40,7 @@ if grep ID /etc/os-release | grep -qE "fedora"; then
 		glibc-headers \
 		kernel-devel \
 		kernel-headers \
+		libusb-devel \
 		make \
 		perl \
 		python3 \
@@ -54,13 +67,15 @@ elif grep ID /etc/os-release | grep -qE 'debian|ubuntu'; then
 		gcc-avr \
 		git \
 		libnewlib-arm-none-eabi \
+		libusb-dev \
 		python3 \
+		python3-pip \
 		unzip \
 		wget \
 		zip
 
 elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
-	sudo pacman -U https://archive.archlinux.org/packages/a/avr-gcc/avr-gcc-8.3.0-1-x86_64.pkg.tar.xz
+	sudo pacman --needed -U https://archive.archlinux.org/packages/a/avr-gcc/avr-gcc-8.3.0-1-x86_64.pkg.tar.xz
 	sudo pacman -S --needed \
 		arm-none-eabi-binutils \
 		arm-none-eabi-gcc \
@@ -68,7 +83,6 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 		avrdude \
 		avr-binutils \
 		avr-libc \
-		avr-gcc \
 		base-devel \
 		clang \
 		dfu-programmer \
@@ -76,6 +90,7 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 		diffutils \
 		gcc \
 		git \
+		libusb-compat \
 		python \
 		python-pip \
 		unzip \
@@ -90,17 +105,17 @@ elif grep ID /etc/os-release | grep -q gentoo; then
 		sudo touch /etc/portage/package.use/qmkfirmware
 		# tee is used here since sudo doesn't apply to >>
 		echo "sys-devel/gcc multilib" | sudo tee --append /etc/portage/package.use/qmkfirmware >/dev/null
-		sudo emerge -auN \
+		sudo emerge -auN sys-devel/gcc
+		sudo emerge -au --noreplace \
 			app-arch/unzip \
 			app-arch/zip \
 			app-mobilephone/dfu-util \
 			dev-embedded/avrdude \
-			dev-lang/python:3.5 \
 			net-misc/wget \
 			sys-devel/clang \
-			sys-devel/gcc \
 			sys-devel/crossdev
-		sudo crossdev -s4 --stable --g =4.9.4 --portage --verbose --target avr
+		sudo crossdev -s4 --stable --g \<9 --portage --verbose --target avr
+		sudo crossdev -s4 --stable --g \<9 --portage --verbose --target arm-none-eabi
 		echo "Done!"
 	else
 		echo "Quitting..."
@@ -117,7 +132,8 @@ elif grep ID /etc/os-release | grep -q sabayon; then
 		sys-devel/clang \
 		sys-devel/gcc \
 		sys-devel/crossdev
-	sudo crossdev -s4 --stable --g =4.9.4 --portage --verbose --target avr
+	sudo crossdev -s4 --stable --g \<9 --portage --verbose --target avr
+	sudo crossdev -s4 --stable --g \<9 --portage --verbose --target arm-none-eabi
 	echo "Done!"
 
 elif grep ID /etc/os-release | grep -qE "opensuse|tumbleweed"; then
@@ -138,6 +154,7 @@ elif grep ID /etc/os-release | grep -qE "opensuse|tumbleweed"; then
 		dfu-tool \
 		dfu-programmer \
 		gcc \
+		libusb-devel \
 		python3 \
 		unzip \
 		wget \
@@ -177,6 +194,7 @@ elif grep ID /etc/os-release | grep -q solus; then
 		avrdude \
 		dfu-util \
 		dfu-programmer \
+		libusb-devel \
 		python3 \
 		git \
 		wget \
@@ -214,4 +232,5 @@ else
 fi
 
 # Global install tasks
+install_bootloadhid
 pip3 install --user -r ${util_dir}/../requirements.txt

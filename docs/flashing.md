@@ -1,8 +1,8 @@
 # Flashing Instructions and Bootloader Information
 
-There are quite a few different types of bootloaders that keyboards use, and just about all of the use a different flashing method. Luckily, projects like the [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) aim to be compatible with all the different types without having to think about it much, but this article will describe the different types of bootloaders, and available methods for flashing them.
+There are quite a few different types of bootloaders that keyboards use, and just about all of them use a different flashing method. Luckily, projects like the [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) aim to be compatible with all the different types without having to think about it much, but this article will describe the different types of bootloaders, and available methods for flashing them.
 
-If you have a bootloader selected with the `BOOTLOADER` variable in your `rules.mk`, QMK will automatically calculate if your .hex file is the right size to be flashed to the device, and output the total size in bytes (along with the max). To run this process manually, compile with the target `check-size`, eg `make planck/rev4:default:check-size`.
+If you have a bootloader selected with the `BOOTLOADER` variable in your `rules.mk`, QMK will automatically calculate if your .hex file is the right size to be flashed to the device, and output the total size in bytes (along with the max).
 
 ## DFU
 
@@ -100,7 +100,7 @@ or
     make <keyboard>:<keymap>:avrdude
 
 
-#### Caterina commands
+### Caterina commands
 
 There are a number of DFU commands that you can use to flash firmware to a DFU device:
 
@@ -113,7 +113,7 @@ There are a number of DFU commands that you can use to flash firmware to a DFU d
 
 ## Halfkay
 
-Halfkay is a super-slim protocol developed by PJRC that uses HID, and come on all Teensys (namely the 2.0).
+Halfkay is a super-slim protocol developed by PJRC that uses HID, and comes on all Teensys (namely the 2.0).
 
 To ensure compatibility with the Halfkay bootloader, make sure this block is present your `rules.mk`:
 
