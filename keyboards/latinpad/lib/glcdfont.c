@@ -1,4 +1,4 @@
-/ This is the 'classic' fixed-space bitmap font for Adafruit_GFX since 1.0.
+// This is the 'classic' fixed-space bitmap font for Adafruit_GFX since 1.0.
 // See gfxfont.h for newer custom bitmap font info.
 
 #ifndef FONT5X7_H
