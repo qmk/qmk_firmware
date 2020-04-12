@@ -1,8 +1,10 @@
 #include QMK_KEYBOARD_H
-#include <string.h>
-#include <stdio.h>
 #include "taphold.h"
+#include "seq.h"
+#include "layout_defs.h"
 #include "ds1307.h"
+#include "lightmode.h"
+#include <stdio.h>
 
 /* Note: don't forget there's some more code in qmk_firmware/users/anderson dir */
 
@@ -14,8 +16,14 @@ enum custom_keycodes {
     KC_MAIN = SAFE_RANGE,
     KC_ALPHA,
     KC_BETA,
+#ifdef LIGHTMODE_ENABLE
+    KC_LIGHT_MODE,
+#endif
+    KC_SEQ,
     KC_SET_TIME,
 };
+#ifdef LIGHTMODE_ENABLE
+#endif
 
 /* TapHold is my own implementation of the `LT` macro. It's processed in `process_record_user()`. */
 #define TAPHOLD_CONFIG_SIZE 3
@@ -26,6 +34,15 @@ taphold_t taphold_config[TAPHOLD_CONFIG_SIZE] = {
 };
 uint16_t taphold_config_size = TAPHOLD_CONFIG_SIZE;
 uint32_t taphold_timeout = 90;
+
+/* Seq is implementation of unicode macros similar to UCIS, but with unicode strings. */
+#define SEQ_CONFIG_SIZE 3
+seq_t seq_config[SEQ_CONFIG_SIZE] = {
+    {.sequence="temp", .result="42°C"},
+    {.sequence="table", .result="┳━━┳"},
+    {.sequence="shrug", .result="¯\\_(ツ)_/¯"}
+};
+uint16_t seq_config_size = SEQ_CONFIG_SIZE;
 
 /* Colors */
 uint32_t layer_colors[3] = {
@@ -48,7 +65,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        ┗━━━━━┻━━━━━┷━━━━━┷━━━━━┷━━━━━┷━━━━━┻━━━━━┷━━━━━┷━━━━━┷━━━━━┷━━━━━┻━━━━━┛
        */
     [_MAIN] = LAYOUT( \
-                                                                                KC_MUTE,                   _______, \
+                                                                                KC_MUTE,
+#ifdef LIGHT_MODE
+                                                                                                           KC_LIGHT_MODE,
+#else
+                                                                                                           _______,
+#endif
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
         KC_ALPHA,KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,  \
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RCTRL,\
@@ -82,17 +104,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        ┣━━━━━╉─────┼─────┼─────┼─────┼─────╂─────┼─────┼─────┼─────┼─────╊━━━━━┫
        ┃L_MOD┃ F1  │ F2  │ F3  │ F4  │ F5  ┃ F6  │ F7  │ F8  │ F9  │ F10 ┃ F11 ┃
        ┣━━━━━╉─────┼─────┼─────┼─────┼─────╂─────┼─────┼─────┼─────┼─────╊━━━━━┫
-       ┃     ┃RESET│DEBUG│     │     │TIME ┃SLEEP│     │  {  │  }  │PTSCR┃     ┃
+       ┃     ┃RESET│DEBUG│     │     │TIME ┃SLEEP│ SEQ │  {  │  }  │PTSCR┃     ┃
        ┣━━━━━╉─────┼─────┼─────┼─────┼─────╂─────┼─────┼─────┼─────┼─────╊━━━━━┫
        ┃     ┃     │     │     │     │     ┃     │     │     │     │     ┃     ┃
        ┗━━━━━┻━━━━━┷━━━━━┷━━━━━┷━━━━━┷━━━━━┻━━━━━┷━━━━━┷━━━━━┷━━━━━┷━━━━━┻━━━━━┛
        */
     [_BETA] = LAYOUT( \
                                                                                 _______,                   _______, \
-        RGB_TOG, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,     KC_6,    KC_7,   KC_8,    KC_9,    KC_0,    KC_F12,
-        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,  KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  \
-        _______, RESET,   DEBUG,   _______, _______, KC_SET_TIME,KC_SLEP,_______,KC_LCBR,KC_RCBR, KC_PSCR, _______, \
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+        RGB_TOG, KC_1,  KC_2,    KC_3,   KC_4,    KC_5,     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_F12,
+#ifdef LIGHTMODE_ENABLE
+        KC_LIGHT_MODE,
+#else
+        _______,
+#endif
+                 KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  \
+        _______, RESET,   DEBUG,   _______, _______, KC_SET_TIME,KC_SLEP,KC_SEQ,KC_LCBR, KC_RCBR, KC_PSCR, _______, \
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
     )
 };
 
@@ -104,6 +131,8 @@ static bool alt_pressed = false;
 static bool shift_pressed = false;
 static bool gui_pressed = false;
 
+static bool is_in_seq = false;
+
 void keyboard_post_init_user(void) {
     /* debug_enable = true; */
     /* debug_matrix = true; */
@@ -111,6 +140,12 @@ void keyboard_post_init_user(void) {
 
 void eeconfig_init_user(void) {
     set_unicode_input_mode(UC_LNX);
+}
+
+void matrix_init_user(void) {
+#ifdef LIGHTMODE_ENABLE
+    set_light_mode(SMOOTHLED, layer_colors[_MAIN]);
+#endif
 }
 
 static uint32_t last_update = 0;
@@ -129,6 +164,19 @@ static char new_time[6];
 static uint8_t new_time_index = 0;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (keycode == KC_SEQ && record->event.pressed) {
+        seq_start();
+        layer_off(_BETA);
+        is_in_seq = true;
+        return false;
+    } else if (is_in_seq) {
+        if (record->event.pressed) {
+            if (!seq_feed(keycode)) {
+                is_in_seq = false;
+            }
+        }
+        return false;
+    }
     if (keycode == KC_SET_TIME && record->event.pressed) {
         is_in_set_time = true;
         new_time_index = 0;
@@ -166,12 +214,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (keycode == RESET) {
         rgblight_setrgb(255, 255, 0);
     }
+#ifdef LIGHTMODE_ENABLE
+    if (record->event.pressed && keycode == KC_LIGHT_MODE) {
+        next_light_mode(layer_colors[_MAIN]);
+    }
+#endif
     if (keycode == KC_LCTRL) {
         /* Some Overlay1_Enable fuckery! */
         (record->event.pressed ? register_code : unregister_code)(KC_LCTRL);
         return false;
     }
     return taphold_process(keycode, record);
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+#ifdef LIGHTMODE_ENABLE
+    uint8_t layer = get_highest_layer(state);
+    update_light_mode(layer_colors[layer]);
+#endif
+    return state;
 }
 
 void encoder_update_user(uint8_t index, bool clockwise) {

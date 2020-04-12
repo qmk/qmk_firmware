@@ -19,4 +19,4 @@ ENCODER_ENABLE = yes
 OLED_DRIVER_ENABLE = yes
 UNICODE_ENABLE = yes
 
-SRC += ds1307.c
+SRC += ds1307.c taphold.c
