@@ -104,7 +104,7 @@ void midi_ep_task(void);
 /* Early initialisation
  */
 __attribute__((weak)) void early_hardware_init_pre(void) {
-#if FALSE && defined(STM32_BOOTLOADER_ADDRESS) // remove the FALSE when we've migrated all existing __early_init invocations
+#if defined(ENABLE_STM32_BOOTLOADER_ADDRESS) && defined(STM32_BOOTLOADER_ADDRESS) // remove the FALSE when we've migrated all existing __early_init invocations
     void enter_bootloader_mode_if_requested(void);
     enter_bootloader_mode_if_requested();
 #endif
