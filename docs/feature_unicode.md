@@ -2,12 +2,25 @@
 
 Unicode characters can be input straight from your keyboard! There are some limitations, however.
 
-QMK has three different methods for enabling Unicode input and defining keycodes:
+In order to enable Unicode support on your keyboard, you will need to do the following:
+
+1. Choose one of three supported Unicode implementations: [Basic](#basic-unicode), [Unicode Map](#unicode-map), [UCIS](#ucis).
+2. Find which [input mode](#input-modes) is the best match for your operating system and setup.
+3. [Set](#setting-the-input-mode) the appropriate input mode (or modes) in your configuration.
+4. Add Unicode keycodes to your keymap.
 
 
-## Basic Unicode
+## 1. Methods :id=methods
 
-The easiest to use method, albeit somewhat limited. It stores Unicode characters as keycodes in the keymap itself, so it only supports code points up to `0x7FFF`. This covers characters for most modern languages, as well as symbols, but it doesn't cover emoji.
+QMK supports three different methods for enabling Unicode input and adding Unicode characters to your keymap. Each has its pros and cons in terms of flexibility and ease of use. Choose the one that best fits your use case.
+
+The Basic method should be enough for most users. However, if you need a wider range of supported characters (including emoji, rare symbols etc.), you should use Unicode Map.
+
+<br>
+
+### 1.1. Basic Unicode :id=basic-unicode
+
+The easiest to use method, albeit somewhat limited. It stores Unicode characters as keycodes in the keymap itself, so it only supports code points up to `0x7FFF`. This covers characters for most modern languages (including East Asian), as well as symbols, but it doesn't cover emoji.
 
 Add the following to your `rules.mk`:
 
@@ -17,10 +30,11 @@ UNICODE_ENABLE = yes
 
 Then add `UC(c)` keycodes to your keymap, where _c_ is the code point of the desired character (preferably in hexadecimal, up to 4 digits long). For example, `UC(0x40B)` will output [Ћ](https://unicode-table.com/en/040B/), and `UC(0x30C4)` will output [ツ](https://unicode-table.com/en/30C4).
 
+<br>
 
-## Unicode Map
+### 1.2. Unicode Map :id=unicode-map
 
-Unicode characters are stored in a separate mapping table. This method supports all possible code points (up to `0x10FFFF`). You need to maintain a `unicode_map` array in your keymap file, which may contain at most 16384 entries.
+In addition to standard character ranges, this method also covers emoji, ancient scripts, rare symbols etc. In fact, all possible code points (up to `0x10FFFF`) are supported. Here, Unicode characters are stored in a separate mapping table. You need to maintain a `unicode_map` array in your keymap file, which may contain at most 16384 entries.
 
 Add the following to your `rules.mk`:
 
@@ -28,7 +42,7 @@ Add the following to your `rules.mk`:
 UNICODEMAP_ENABLE = yes
 ```
 
-Then add `X(i)` keycodes to your keymap, where _i_ is the desired character's index in the mapping table.
+Then add `X(i)` keycodes to your keymap, where _i_ is the desired character's index in the mapping table. This can be a numeric value, but it's recommended to keep the indices in an enum and access them by name.
 
 ```c
 enum unicode_names {
@@ -46,7 +60,7 @@ const uint32_t PROGMEM unicode_map[] = {
 
 Then you can use `X(BANG)`, `X(SNEK)` etc. in your keymap.
 
-### Lower and Upper Case
+#### Lower and Upper Case
 
 Characters often come in lower and upper case pairs, such as å and Å. To make inputting these characters easier, you can use `XP(i, j)` in your keymap, where _i_ and _j_ are the mapping table indices of the lower and upper case character, respectively. If you're holding down Shift or have Caps Lock turned on when you press the key, the second (upper case) character will be inserted; otherwise, the first (lower case) version will appear.
 
@@ -54,8 +68,9 @@ This is most useful when creating a keymap for an international layout with spec
 
 Due to keycode size constraints, _i_ and _j_ can each only refer to one of the first 128 characters in your `unicode_map`. In other words, 0 ≤ _i_ ≤ 127 and 0 ≤ _j_ ≤ 127. This is enough for most use cases, but if you'd like to customize the index calculation, you can override the [`unicodemap_index()`](https://github.com/qmk/qmk_firmware/blob/71f640d47ee12c862c798e1f56392853c7b1c1a8/quantum/process_keycode/process_unicodemap.c#L36) function. This also allows you to, say, check Ctrl instead of Shift/Caps.
 
+<br>
 
-## UCIS
+### 1.3. UCIS :id=ucis
 
 This method also supports all possible code points. As with the Unicode Map method, you need to maintain a mapping table in your keymap file. However, there are no built-in keycodes for this feature — you have to create a custom keycode or function that invokes this functionality.
 
@@ -77,7 +92,7 @@ const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE(
 
 To use it, call `qk_ucis_start()`. Then, type the mnemonic for the character (such as "rofl"), and hit Space or Enter. QMK should erase the "rofl" text and insert the laughing emoji.
 
-### Customization
+#### Customization
 
 There are several functions that you can define in your keymap to customize the functionality of this feature.
 
@@ -88,7 +103,7 @@ There are several functions that you can define in your keymap to customize the 
 You can find the default implementations of these functions in [`process_ucis.c`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_ucis.c).
 
 
-## Input Modes
+## 2. Input Modes :id=input-modes
 
 Unicode input in QMK works by inputting a sequence of characters to the OS, sort of like a macro. Unfortunately, the way this is done differs for each platform. Specifically, each platform requires a different combination of keys to trigger Unicode input. Therefore, a corresponding input mode has to be set in QMK.
 
@@ -121,7 +136,7 @@ The following input modes are available:
   By default, this mode uses right Alt (`KC_RALT`) as the Compose key, but this can be changed in the WinCompose settings and by defining [`UNICODE_KEY_WINC`](#input-key-configuration) with another keycode.
 
 
-## Setting the Input Mode
+## 3. Setting the Input Mode :id=setting-the-input-mode
 
 To set your desired input mode, add the following define to your `config.h`:
 
@@ -129,7 +144,7 @@ To set your desired input mode, add the following define to your `config.h`:
 #define UNICODE_SELECTED_MODES UC_LNX
 ```
 
-This example sets the board's default input mode to `UC_LNX`. You can replace this with `UC_MAC` or any of the other modes listed above. The board will automatically use the selected mode on startup, unless you manually switch to another mode (see below).
+This example sets the board's default input mode to `UC_LNX`. You can replace this with `UC_MAC` or any of the other modes listed [above](#input-modes). The board will automatically use the selected mode on startup, unless you manually switch to another mode (see [below](#keycodes)).
 
 You can also select multiple input modes, which allows you to easily cycle through them using the `UC_MOD`/`UC_RMOD` keycodes.
 
@@ -139,7 +154,7 @@ You can also select multiple input modes, which allows you to easily cycle throu
 
 Note that the values are separated by commas. The board will remember the last used input mode and will continue using it on next power-up. You can disable this and force it to always start with the first mode in the list by adding `#define UNICODE_CYCLE_PERSIST false` to your `config.h`.
 
-### Keycodes
+#### Keycodes
 
 You can switch the input mode at any time by using the following keycodes. Adding these to your keymap allows you to quickly switch to a specific input mode, including modes not listed in `UNICODE_SELECTED_MODES`.
 
@@ -157,7 +172,7 @@ You can also switch the input mode by calling `set_unicode_input_mode(x)` in you
 
 ?> Using `UNICODE_SELECTED_MODES` is preferred to calling `set_unicode_input_mode()` in `matrix_init_user()` or similar functions, since it's better integrated into the Unicode system and has the added benefit of avoiding unnecessary writes to EEPROM.
 
-### Audio Feedback
+#### Audio Feedback
 
 If you have the [Audio feature](feature_audio.md) enabled on the board, you can set melodies to be played when you press the above keys. That way you can have some audio feedback when switching input modes.
 
@@ -250,8 +265,5 @@ AutoHotkey inserts the Text right of `Send, ` when this combination is pressed.
 
 ### US International
 
-If you enable the US International layout on the system, it will use punctuation to accent the characters.
-
-For instance, typing "\`a" will result in à.
-
+If you enable the US International layout on the system, it will use punctuation to accent the characters. For instance, typing "\`a" will result in à.
 You can find details on how to enable this [here](https://support.microsoft.com/en-us/help/17424/windows-change-keyboard-layout).
