@@ -1,5 +1,4 @@
-#ifndef P18_H
-#define P18_H
+#pragma once
 
 #include "quantum.h"
 
