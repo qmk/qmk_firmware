@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             }
 /* Mouse settings */
 #define MOUSEKEY_INTERVAL 16 // Default is 50, 16 is recommended for 60hz monitors
-#define MOUSEKEY_TIME_TO_MAX 0 // Don't accelerate cursor, but wheel scroling still accelerates
 #define MOUSEKEY_MAX_SPEED 5
 
 /* Use I2C or Serial, not both */
