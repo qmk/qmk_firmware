@@ -22,7 +22,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 ```
 
 The `"raw_hid.h"` header also declares `void raw_hid_send(uint8_t *data, uint8_t length);` 
-which allows sending packets from keyboard to host. It can also be used for debugging when building your host by returning all data back to host to test communication.
+which allows sending packets from keyboard to host. As an example, it can also be used for debugging when building your host application by returning all data back to the host.
 
 ```C
 void raw_hid_receive(uint8_t *data, uint8_t length) {
