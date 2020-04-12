@@ -33,6 +33,11 @@
 #include "debug.h"
 #include "printf.h"
 
+#ifndef EARLY_INIT_PERFORM_BOOTLOADER_JUMP
+// Change this to be TRUE once we've migrated keyboards to the new init system
+#    define EARLY_INIT_PERFORM_BOOTLOADER_JUMP FALSE
+#endif
+
 #ifdef SLEEP_LED_ENABLE
 #    include "sleep_led.h"
 #endif
@@ -104,10 +109,10 @@ void midi_ep_task(void);
 /* Early initialisation
  */
 __attribute__((weak)) void early_hardware_init_pre(void) {
-#if defined(ENABLE_STM32_BOOTLOADER_ADDRESS) && defined(STM32_BOOTLOADER_ADDRESS) // remove the FALSE when we've migrated all existing __early_init invocations
+#if EARLY_INIT_PERFORM_BOOTLOADER_JUMP
     void enter_bootloader_mode_if_requested(void);
     enter_bootloader_mode_if_requested();
-#endif
+#endif  // EARLY_INIT_PERFORM_BOOTLOADER_JUMP
 }
 
 __attribute__((weak)) void early_hardware_init_post(void) {}

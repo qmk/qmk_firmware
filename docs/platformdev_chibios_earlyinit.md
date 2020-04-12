@@ -12,7 +12,7 @@ The function `early_hardware_init_pre` is the earliest possible code that can be
 
 This is executed before RAM gets cleared, and before clocks or GPIOs are configured; any delays or preparation using GPIOs is not likely to work at this point. After executing this function, RAM on the MCU may be zero'ed. Assigning values to variables during execution of this function may be overwritten.
 
-As such, if you wish to override this API consider limiting use to writing to low-level registers. The default implementation of this function is to do nothing.
+As such, if you wish to override this API consider limiting use to writing to low-level registers. The default implementation of this function can be configured to jump to bootloader if a `RESET` key was pressed, by ensuring `#define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE` is in the keyboard's `config.h` file.
 
 To implement your own version of this function, in your keyboard's source files:
 
