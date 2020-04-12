@@ -19,8 +19,7 @@ bool taphold_process(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(config->longAction);
             }
             if (timer_elapsed32(config->time) < taphold_timeout) {
-                register_code(config->shortAction);
-                unregister_code(config->shortAction);
+                tap_code(config->shortAction);
             }
             config->keypos.row = 255;
             return false;
