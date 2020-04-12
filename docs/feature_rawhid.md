@@ -67,7 +67,7 @@ static hid_t *last_hid = NULL;
 You can build your host using any language that has an available HID implementation library if you don't wish to make your own. The ones we know of for popular languages are:
 
 * Node: [node-hid](https://github.com/node-hid/node-hid).
-* C: [hidapi](https://github.com/signal11/hidapi).
+* C: [hidapi](https://github.com/libusb/hidapi).
 * Java: [purejavahidapi](https://github.com/nyholku/purejavahidapi) and [hid4java](https://github.com/gary-rowe/hid4java).
 * Python: [pyhidapi](https://pypi.org/project/hid/).
 
