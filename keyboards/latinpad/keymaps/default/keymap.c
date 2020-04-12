@@ -1,6 +1,5 @@
  /* Keymap _1: (Base Layer) Default Layer
-   * .-----------.
-   * |PGUP | PGDN| 
+
    * |-----|-----|-----|-----|
    * |  7  |  8  |  9  | MO1 |
    * |-----|-----|-----|-----|
@@ -10,10 +9,11 @@
    * |-----|-----|-----|-----|
    * |  0  |  .  | DEL |Enter|
    * .-----------------------.
+   * |PGUP | PGDN| 
+   * .-----------.
    */
      /* Keymap _1: (Base Layer) Default Layer
-   * .------------------.
-   * |NUMLOCK|Caculator | 
+
    * |-------|-------|-----|-----|
    * |RGB_TOG|RGB_MOD|  9  | MO1 |
    * |-------|-------|-----|-----|
@@ -23,7 +23,8 @@
    * |-------|-------|-----|-----|
    * |   0   |   .   | DEL |Enter|
    * .-----------------------.
-   
+   * |NUMLOCK|Caculator | 
+   * .------------------.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT(RGB_MOD, RESET)
 };
