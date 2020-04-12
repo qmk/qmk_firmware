@@ -27,13 +27,14 @@
 #define KC__WN LCMD(KC_GRV)
 #define KC__STP LCMD(KC_UP)
 #define KC__SBT LCMD(KC_DOWN)
+#define KC__EOL LCMD(KC_RIGHT)
+#define KC__BOL LCMD(KC_LEFT)
+#define KC__WL LALT(KC_LEFT)
+#define KC__WR LALT(KC_RIGHT)
 #define KC__BCK LCMD(KC_LBRC)
 #define KC__FWD LCMD(KC_RBRC)
 #define KC__TAN LCMD(KC_RCBR)
 #define KC__TAP LCMD(KC_LCBR)
-
-#define KC__WL LALT(KC_LEFT)
-#define KC__WR LALT(KC_RIGHT)
 
 #ifdef RGBLIGHT_ENABLE
 #    define KC_RVAD RGB_VAD
