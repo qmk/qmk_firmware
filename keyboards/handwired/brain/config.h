@@ -34,6 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { D1, D4, C6, D7, E6, B4, B5 }
 #define MATRIX_ROW_PINS { F4, F5, F6, F7, B1 }
 
+#define MATRIX_COL_PINS_RIGHT { B5, B4, E6, D7, C6, D4, D1 }
+
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
@@ -57,6 +59,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SOFT_SERIAL_PIN D0
 #define EE_HANDS
 
+//#define SPLIT_HAND_PIN B7
+
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
@@ -71,6 +75,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM 28    // Number of LEDs
 
 #define RGBLIGHT_LIMIT_VAL 120
+
+#define RGBLIGHT_SPLIT
 
 /*
  * Feature disable options
