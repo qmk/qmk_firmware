@@ -54,6 +54,11 @@ B0, which is unconnected on the PCB
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
+#define ENCODERS_PAD_A { B7 }
+#define ENCODERS_PAD_B { B6 }
+
+#define TAP_CODE_DELAY 10
+
 #define BACKLIGHT_PIN B0
 #define BACKLIGHT_PWM_DRIVER PWMD3
 #define BACKLIGHT_PWM_CHANNEL 3
