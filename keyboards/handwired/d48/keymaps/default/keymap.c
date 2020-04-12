@@ -222,9 +222,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return taphold_process(keycode, record);
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
 #ifdef LIGHTMODE_ENABLE
-    uint8_t layer = biton32(state);
+    uint8_t layer = get_highest_layer(state);
     update_light_mode(layer_colors[layer]);
 #endif
     return state;
@@ -253,7 +253,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 void oled_task_user(void) {
     /* Host Keyboard Layer Status */
-    uint8_t current_layer = biton32(layer_state);
+    uint8_t current_layer = get_highest_layer(layer_state);
 
     /* Layer */
     static const char PROGMEM icons[4][3][6] = {
@@ -309,10 +309,10 @@ void oled_task_user(void) {
     if (alt_pressed) strncpy(mod_data + 2, mods[1], 2);
     if (gui_pressed) strncpy(mod_data + 4, mods[2], 2);
     if (shift_pressed) strncpy(mod_data + 6, mods[3], 2);
-    uint8_t led_usb_state = host_keyboard_leds();
-    if (led_usb_state & (1 << USB_LED_NUM_LOCK)) mod_data[9] = 'N';
-    if (led_usb_state & (1 << USB_LED_CAPS_LOCK)) mod_data[10] = 'C';
-    if (led_usb_state & (1 << USB_LED_SCROLL_LOCK)) mod_data[11] = 'S';
+    led_t led_usb_state = host_keyboard_led_state();
+    if (led_usb_state.num_lock) mod_data[9] = 'N';
+    if (led_usb_state.caps_lock) mod_data[10] = 'C';
+    if (led_usb_state.scroll_lock) mod_data[11] = 'S';
 
     oled_set_cursor(6, 1);
     oled_write(mod_data, false);
