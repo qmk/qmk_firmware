@@ -15,25 +15,29 @@
  */
 #include "super16.h"
 
-#ifdef RGB_MATRIX_ENABLE
-led_config_t g_led_config = { {
-  // Key Matrix to LED Index
-  {   0,  1,  2,  3 },
-  {   7,  6,  5,  4 },
-  {   8,  9, 10, 11 },
-  {  15, 14, 13, 12 }
-}, {
-  // LED Index to Physical Position
-  { 0,  0 }, { 75,  0 }, { 150,  0 }, { 224,  0 },
-  { 224,  21 }, { 150,  21 }, { 75,  21 }, { 0,  21 },
-  { 0,  43 }, { 75,  43 }, { 150,  43 }, { 224,  43 },
-  { 224,  64 }, { 150,  64 }, { 75,  64 }, { 0,  64 },
+void matrix_init_kb(void) {
+  // put your keyboard start-up code here
+  // runs once when the firmware starts up
 
-}, {
-  // LED Index to Flag
-  4, 4, 4, 4,
-  4, 4, 4, 4,
-  4, 4, 4, 4,
-  4, 4, 4, 4
-} };
-#endif
+  matrix_init_user();
+}
+
+void matrix_scan_kb(void) {
+  // put your looping keyboard code here
+  // runs every cycle (a lot)
+
+  matrix_scan_user();
+}
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+  // put your per-action keyboard code here
+  // runs for every action, just before processing by the firmware
+
+  return process_record_user(keycode, record);
+}
+
+void led_set_kb(uint8_t usb_led) {
+  // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
+
+  led_set_user(usb_led);
+}
