@@ -31,32 +31,9 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
   { {7,4},  {6,4},  {5,4},  {4,4},  {3,4},  {2,4},  {1,4},  {0,4} },
 };
 
-// Pin index in PORTF for each of the LEDs
-uint8_t LED_MASK[5] = { (1<<0), (1<<1), (1<<4), (1<<5), (1<<6) };
+const pin_t LED_PINS[5] = { F0, F1, F4, F5, F6 };
 
-uint32_t scanCount = 0;
-
-/**
- * Custom LED functions
- */
-
-void mass_led_on(uint8_t idx) {
-  if (idx >= 5)
-    return;
-  PORTF |= LED_MASK[idx];
-}
-
-void mass_led_off(uint8_t idx) {
-  if (idx >= 5)
-    return;
-  PORTF &= ~LED_MASK[idx];
-}
-
-void mass_led_toggle(uint8_t idx) {
-  if (idx >= 5)
-    return;
-  PORTF ^= LED_MASK[idx];
-}
+static uint32_t scanCount = 0;
 
 /**
  * QMK keyboard callback functions
@@ -67,29 +44,26 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 
   // Set layer LEDs based on new layer state
   for (uint8_t i = 0; i <= 2; ++i)
-    mass_led_off(i);
-  uint8_t bit = biton32(state);
-  if (bit <= 2)
-    mass_led_on(bit);
+    writePinLow(LED_PINS[i]);
+  uint8_t layer = get_highest_layer(state);
+  if (layer <= 2)
+    writePinHigh(LED_PINS[layer]);
 
   return layer_state_set_user(state);
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed)
-    mass_led_on(3);
-  else
-    mass_led_off(3);
-
   //uprintf("RECORD %u\n", keycode);
+
+  writePin(LED_PINS[3], record->event.pressed);
+
   return process_record_user(keycode, record);
 }
 
 void matrix_init_kb(void) {
-  // Set all LEDs as outputs & initialize them to off
   for (uint8_t i = 0; i <= 4; ++i) {
-    DDRF |= LED_MASK[i];
-    mass_led_off(i);
+    setPinOutput(LED_PINS[i]);
+    writePinLow(LED_PINS[i]);
   }
 
   // Set layer LEDs based on default layer state
@@ -100,11 +74,9 @@ void matrix_init_kb(void) {
 }
 
 void matrix_scan_kb(void) {
-  ++scanCount;
-
   // Blink LED4
-  if (scanCount % 1000 == 0)
-    mass_led_toggle(4);
+  if (++scanCount % 1000 == 0)
+    writePin(LED_PINS[4], ! readPin(LED_PINS[4]));
 
   matrix_scan_user();
 }

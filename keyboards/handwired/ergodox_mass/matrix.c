@@ -16,6 +16,7 @@
 #include "matrix.h"
 
 #include "debounce.h"
+#include "quantum.h"
 
 typedef enum {
   R0 = 0,
@@ -26,10 +27,15 @@ typedef enum {
   L2 = 5
 } GPIOChip_t;
 
+#define SS  B0
+#define SCK B1
+#define SDO B2
+#define SDI B3
+
 // Forward declarations
 void spi_init(void);
 uint8_t spi_send(uint8_t byte);
-uint8_t gpx_control_byte(GPIOChip_t idx, uint8_t read);
+uint8_t gpx_control_byte(GPIOChip_t idx, bool read);
 uint16_t gpx_read_reg(GPIOChip_t idx, uint8_t addr);
 void gpx_write_reg(GPIOChip_t idx, uint8_t addr, uint16_t val);
 
@@ -88,7 +94,7 @@ void matrix_scan_user(void) {
 
 inline
 bool matrix_is_on(uint8_t row, uint8_t col) {
-  return (deb_matrix[row] & ((matrix_row_t)1<col));
+  return (deb_matrix[row] & (matrix_row_t)(1 << col));
 }
 
 inline
@@ -103,7 +109,6 @@ void matrix_print(void) {}
  * Initialize the matrix reading circuitry. Called once at the start
  */
 void matrix_init(void) {
-  // Initialize all switches to off
   for (uint8_t i = 0; i < MATRIX_ROWS; ++i) {
     raw_matrix[i] = 0;
     deb_matrix[i] = 0;
@@ -111,7 +116,6 @@ void matrix_init(void) {
 
   debounce_init(MATRIX_ROWS);
 
-  // Initialize SPI bus
   spi_init();
 
   // Initialize all GPIO expanders
@@ -132,10 +136,9 @@ uint8_t matrix_scan(void) {
   bool rawChanged = false;
 
   for (int i = R0; i <= L2; ++i) {
-    // A bank upper 8 bits, B bank lower 8 bits
+    // A Bank: Upper 8 bits, odd matrix rows
+    // B Bank: Lower 8 bits, even matrix rows
     uint16_t gpio = gpx_read_reg(i, GPX_GPIO);
-
-    // Even matrix rows are bank B, odd are bank A
 
     rawChanged |= (raw_matrix[i*2] != (gpio & 0xFF));
     raw_matrix[i*2] = gpio & 0xFF;
@@ -159,11 +162,11 @@ void spi_init(void) {
   PRR0 &= ~(1<<2); // PRSPI
 
   // Initialize SPI pins
-  DDRB |= (1<<0); // SS
-  PORTB |= (1<<0); // SS
-  DDRB |= (1<<1); // SCK
-  DDRB |= (1<<2); // SDO
-  DDRB &= ~(1<<3); // SDI
+  setPinOutput(SS);
+  writePinHigh(SS);
+  setPinOutput(SCK);
+  setPinOutput(SDO);
+  setPinInput(SDI);
 
   // Initialize SPCR register
   SPCR &= ~(1<<7); // SPIE (No interrupts)
@@ -182,23 +185,16 @@ void spi_init(void) {
  */
 
 uint8_t spi_send(uint8_t byte) {
-  // Write byte to SPI register
   SPDR = byte;
-
-  // Wait for transmission
-  while (!(SPSR & (1<<7)));
-
-  // Read response
-  uint8_t resp = SPDR;
-
-  return resp;
+  while (!(SPSR & (1<<7))); // Wait for transmission
+  return SPDR;
 }
 
 /**
  * GPIO expander fucntions
  */
 
-uint8_t gpx_control_byte(GPIOChip_t idx, uint8_t read) {
+uint8_t gpx_control_byte(GPIOChip_t idx, bool read) {
   uint8_t control = 0b01000000;
   switch (idx) {
     case R0: control |= 0b0010; break;
@@ -214,25 +210,25 @@ uint8_t gpx_control_byte(GPIOChip_t idx, uint8_t read) {
 }
 
 uint16_t gpx_read_reg(GPIOChip_t idx, uint8_t addr) {
-  PORTB &= ~(1<<0);
+  writePinLow(SS);
 
-  spi_send(gpx_control_byte(idx, 1));
+  spi_send(gpx_control_byte(idx, true));
   spi_send(addr);
   uint8_t resp1 = spi_send(0x00);
   uint8_t resp2 = spi_send(0x00);
 
-  PORTB |= (1<<0);
+  writePinHigh(SS);
 
   return resp1 << 8 | resp2;
 }
 
 void gpx_write_reg(GPIOChip_t idx, uint8_t addr, uint16_t val) {
-  PORTB &= ~(1<<0);
+  writePinLow(SS);
 
-  spi_send(gpx_control_byte(idx, 0));
+  spi_send(gpx_control_byte(idx, false));
   spi_send(addr);
   spi_send((val >> 8) & 0xFF);
   spi_send(val & 0xFF);
 
-  PORTB |= (1<<0);
+  writePinHigh(SS);
 }
