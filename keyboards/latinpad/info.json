@@ -1,7 +1,7 @@
 {
     "keyboard_name": "latinpad",
     "url": "https://github.com/latincompass/qmk_firmware/tree/master/keyboards/latinpad",
-    "maintainer": "latin",
+    "maintainer": "latincompass",
 
     "width": 4,
     "height": 5,
