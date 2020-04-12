@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+
 #define LOWER FN_MO13
 #define RAISE FN_MO23
 
