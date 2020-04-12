@@ -80,5 +80,3 @@ Continuing with the example teensy host, the particular function provided to ope
 Note that Vendor ID and Product ID are not actually required to open the device. They are used only to filter to a specific device out of the many HID devices you have plugged in. Many library will give you the option to open the device using Product Name or Manufacturer Name instead, `node-hid` being a prime example. This will create issues however for devices with builtin USB Hub or any extra HID interfaces where you will have multiple interfaces with the same name or from the same manufacturer. The Vendor ID together with Product ID create a unique designation to a single interface and will not exhibit this problem. Therefore, even if your library doesn't require you to, it is best to use them to avoid issues.
 
 Unlike Vendor ID and Product ID though, Usage Page and Usage are necessary for successful communication.
-
-For building a better host with added features, check out [VIA](https://github.com/olivia/via-config).
