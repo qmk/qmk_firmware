@@ -22,7 +22,6 @@
 
 #include "audio.h"
 
-// TODO: move into audio-common state
 extern bool  playing_note;
 extern bool  playing_melody;
 extern float note_timbre;
