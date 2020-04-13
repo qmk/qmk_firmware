@@ -1,21 +1,29 @@
-KC60 with WS2812 RGB Underglow
-======================
+# Adding RGB Underglow to the KC60
 
 ![Image of KC60 with RGB Underglow](https://i.imgur.com/LpUkVqG.jpg)
 
-## Quantum MK Firmware
-For the full Quantum feature list, see [the parent readme.md](/readme.md).
+The KC60 has breakout pins to which one may wire a strip of WS2812-compatible LEDs.
 
-## WS2812 Support
-By default, it is now setup for 16 LEDs on the PF5 breakout pin. See [included image](https://i.imgur.com/TcKL2Sn.jpg) for wiring reference.
+By default, the source is set up for 16 LEDs on the F5 breakout pin. See [included image](https://i.imgur.com/TcKL2Sn.jpg) for wiring reference. If you attach a different number of LEDs, configure your source for the correct number of LEDs by adding a `config.h` file alongside your `keymap.c` file, with the following contents:
 
-### Build
-To build this keymap with WS2812 enabled, simply run `make KEYMAP=ws2812`.
+```c
+#pragma once
 
-### Reference Images
+#undef RGBLED_NUM
+#define RGBLED_NUM <number of leds>
+```
+
+To enable RGB Underglow, simply add a `rules.mk` file containing `RGBLIGHT_ENABLE = yes` alongside your `keymap.c` file, and compile as normal:
+
+```shell
+make kc60:<keymap>
+```
+
+RGB Underglow is a fairly large feature, and your firmware may be too large to be flashed with it enabled. Adding `CONSOLE_ENABLE = no` or `COMMAND_ENABLE = no` to your `rules.mk` file will reduce the size of the firmware greatly, and if you don't use either feature, is very low impact change.
+
+
+## Reference Images
+
 ![Wiring Reference](https://i.imgur.com/TcKL2Sn.jpg)
 ![RGB Strip turned on](https://i.imgur.com/21POu4l.jpg)
 ![RGB Strip turned off](https://i.imgur.com/vAOLYNV.jpg)
-
-### Additional Credits
-Keymap based on work by [TerryMatthews](https://github.com/TerryMathews) for GH60 Satan.
