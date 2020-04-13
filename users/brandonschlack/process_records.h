@@ -60,7 +60,9 @@ void matrix_scan_cmd_tab(void);
 #define LFT_ALT   RALT_T(KC_LEFT)      // Tap Right Alt for Left
 #define LFT_GUI   RGUI_T(KC_LEFT)      // Tap Right GUI for Left
 #define DWN_FN1   LT(1, KC_DOWN)       // Tap Fn for Down
+#define DWN_FN2   LT(2, KC_DOWN)       // Tap Fn2 for Down
 #define DWN_ALT   RALT_T(KC_DOWN)      // Tap Right Alt for Down
+#define RGT_ALT   RALT_T(KC_RGHT)      // Tap Right Alt for Right
 #define RGT_CTL   RCTL_T(KC_RGHT)      // Tap Right Ctrl for Right
 /**
  * Nav Mod-Tap
