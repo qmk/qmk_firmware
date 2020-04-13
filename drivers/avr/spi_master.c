@@ -34,6 +34,10 @@
 #    define SPI_MISO_PIN B4
 #endif
 
+#ifndef SPI_TIMEOUT
+#    define SPI_TIMEOUT 100
+#endif
+
 static pin_t   currentSlavePin    = NO_PIN;
 static uint8_t currentSlaveConfig = 0;
 static bool    currentSlave2X     = false;
@@ -109,12 +113,12 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
     return true;
 }
 
-spi_status_t spi_write(uint8_t data, uint16_t timeout) {
+spi_status_t spi_write(uint8_t data) {
     SPDR = data;
 
     uint16_t timeout_timer = timer_read();
     while (!(SPSR & _BV(SPIF))) {
-        if ((timeout != SPI_TIMEOUT_INFINITE) && ((timer_read() - timeout_timer) >= timeout)) {
+        if ((timer_read() - timeout_timer) >= SPI_TIMEOUT) {
             return SPI_STATUS_TIMEOUT;
         }
     }
@@ -122,12 +126,12 @@ spi_status_t spi_write(uint8_t data, uint16_t timeout) {
     return SPDR;
 }
 
-spi_status_t spi_read(uint16_t timeout) {
+spi_status_t spi_read() {
     SPDR = 0x00;  // Dummy
 
     uint16_t timeout_timer = timer_read();
     while (!(SPSR & _BV(SPIF))) {
-        if ((timeout != SPI_TIMEOUT_INFINITE) && ((timer_read() - timeout_timer) >= timeout)) {
+        if ((timer_read() - timeout_timer) >= SPI_TIMEOUT) {
             return SPI_STATUS_TIMEOUT;
         }
     }
@@ -135,21 +139,21 @@ spi_status_t spi_read(uint16_t timeout) {
     return SPDR;
 }
 
-spi_status_t spi_transmit(const uint8_t *data, uint16_t length, uint16_t timeout) {
+spi_status_t spi_transmit(const uint8_t *data, uint16_t length) {
     spi_status_t status = SPI_STATUS_ERROR;
 
     for (uint16_t i = 0; i < length; i++) {
-        status = spi_write(data[i], timeout);
+        status = spi_write(data[i]);
     }
 
     return status;
 }
 
-spi_status_t spi_receive(uint8_t *data, uint16_t length, uint16_t timeout) {
+spi_status_t spi_receive(uint8_t *data, uint16_t length) {
     spi_status_t status = SPI_STATUS_ERROR;
 
     for (uint16_t i = 0; i < length; i++) {
-        status = spi_read(timeout);
+        status = spi_read();
 
         if (status > 0) {
             data[i] = status;

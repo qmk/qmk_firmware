@@ -110,20 +110,20 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
     return true;
 }
 
-spi_status_t spi_write(uint8_t data, uint16_t timeout) { return spi_transmit(&data, 1, timeout); }
+spi_status_t spi_write(uint8_t data) { return spi_transmit(&data, 1); }
 
-spi_status_t spi_read(uint16_t timeout) {
+spi_status_t spi_read(void) {
     uint8_t data = 0;
-    spi_receive(&data, 1, timeout);
+    spi_receive(&data, 1);
     return data;
 }
 
-spi_status_t spi_transmit(const uint8_t *data, uint16_t length, uint16_t timeout) {
+spi_status_t spi_transmit(const uint8_t *data, uint16_t length) {
     spiSend(&SPI_DRIVER, length, data);
     return SPI_STATUS_SUCCESS;
 }
 
-spi_status_t spi_receive(uint8_t *data, uint16_t length, uint16_t timeout) {
+spi_status_t spi_receive(uint8_t *data, uint16_t length) {
     spiReceive(&SPI_DRIVER, length, data);
     return SPI_STATUS_SUCCESS;
 }

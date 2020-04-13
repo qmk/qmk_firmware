@@ -74,7 +74,7 @@ Start an SPI transaction.
 
 ---
 
-### `spi_status_t spi_write(uint8_t data, uint16_t timeout)`
+### `spi_status_t spi_write(uint8_t data)`
 
 Write a byte to the selected SPI device.
 
@@ -82,8 +82,6 @@ Write a byte to the selected SPI device.
 
  - `uint8_t data`  
    The byte to write.
- - `uint16_t timeout`  
-   The amount of time to wait, in milliseconds, before timing out. This value is ignored for ARM.
 
 #### Return Value
 
@@ -91,14 +89,9 @@ Write a byte to the selected SPI device.
 
 ---
 
-### `spi_status_t spi_read(uint16_t timeout)`
+### `spi_status_t spi_read(void)`
 
 Read a byte from the selected SPI device.
-
-#### Arguments
-
- - `uint16_t timeout`  
-   The amount of time to wait, in milliseconds, before timing out. This value is ignored for ARM.
 
 #### Return Value
 
@@ -106,7 +99,7 @@ Read a byte from the selected SPI device.
 
 ---
 
-### `spi_status_t spi_transmit(const uint8_t *data, uint16_t length, uint16_t timeout)`
+### `spi_status_t spi_transmit(const uint8_t *data, uint16_t length)`
 
 Send multiple bytes to the selected SPI device.
 
@@ -116,8 +109,6 @@ Send multiple bytes to the selected SPI device.
    A pointer to the data to write from.
  - `uint16_t length`  
    The number of bytes to write. Take care not to overrun the length of `data`.
- - `uint16_t timeout`  
-   The amount of time to wait, in milliseconds, before timing out. This value is ignored for ARM.
 
 #### Return Value
 
@@ -125,7 +116,7 @@ Send multiple bytes to the selected SPI device.
 
 ---
 
-### `spi_status_t spi_receive(uint8_t *data, uint16_t length, uint16_t timeout)`
+### `spi_status_t spi_receive(uint8_t *data, uint16_t length)`
 
 Receive multiple bytes from the selected SPI device.
 
@@ -135,12 +126,10 @@ Receive multiple bytes from the selected SPI device.
    A pointer to the buffer to read into.
  - `uint16_t length`  
    The number of bytes to read. Take care not to overrun the length of `data`.
- - `uint16_t timeout`  
-   The amount of time to wait, in milliseconds, before timing out. This value is ignored for ARM.
 
 #### Return Value
 
-`SPI_STATUS_TIMEOUT` if the timeout period elapses, `SPI_STATUS_SUCCESS` on success, or `SPI_STATUS_ERROR` otherwise.
+`SPI_STATUS_TIMEOUT` if the internal transmission timeout period elapses, `SPI_STATUS_SUCCESS` on success, or `SPI_STATUS_ERROR` otherwise.
 
 ---
 

@@ -68,8 +68,8 @@ static spi_status_t spi_eeprom_wait_while_busy(int timeout) {
     uint32_t     deadline = timer_read32() + timeout;
     spi_status_t response;
     do {
-        spi_write(CMD_RDSR, timeout);
-        response = spi_read(timeout);
+        spi_write(CMD_RDSR);
+        response = spi_read();
         if (timer_read32() >= deadline) {
             return SPI_STATUS_TIMEOUT;
         }
@@ -85,7 +85,7 @@ static void spi_eeprom_transmit_address(uintptr_t addr) {
         addr >>= 8;
     }
 
-    spi_transmit(buffer, EXTERNAL_EEPROM_ADDRESS_SIZE, EXTERNAL_EEPROM_SPI_TIMEOUT);
+    spi_transmit(buffer, EXTERNAL_EEPROM_ADDRESS_SIZE);
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -137,9 +137,9 @@ void eeprom_read_block(void *buf, const void *addr, size_t len) {
         return;
     }
 
-    spi_write(CMD_READ, EXTERNAL_EEPROM_SPI_TIMEOUT);
+    spi_write(CMD_READ);
     spi_eeprom_transmit_address((uintptr_t)addr);
-    spi_receive(buf, len, EXTERNAL_EEPROM_SPI_TIMEOUT);
+    spi_receive(buf, len);
 
 #ifdef DEBUG_EEPROM_OUTPUT
     dprintf("[EEPROM R] 0x%08lX: ", ((uint32_t)(uintptr_t)addr));
@@ -189,7 +189,7 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
             return;
         }
 
-        spi_write(CMD_WREN, EXTERNAL_EEPROM_SPI_TIMEOUT);
+        spi_write(CMD_WREN);
         spi_stop();
 
         //-------------------------------------------------
@@ -208,9 +208,9 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
         dprintf("\n");
 #endif  // DEBUG_EEPROM_OUTPUT
 
-        spi_write(CMD_WRITE, EXTERNAL_EEPROM_SPI_TIMEOUT);
+        spi_write(CMD_WRITE);
         spi_eeprom_transmit_address(target_addr);
-        spi_transmit(read_buf, write_length, EXTERNAL_EEPROM_SPI_TIMEOUT);
+        spi_transmit(read_buf, write_length);
         spi_stop();
 
         read_buf += write_length;
@@ -226,6 +226,6 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
         return;
     }
 
-    spi_write(CMD_WRDI, EXTERNAL_EEPROM_SPI_TIMEOUT);
+    spi_write(CMD_WRDI);
     spi_stop();
 }
