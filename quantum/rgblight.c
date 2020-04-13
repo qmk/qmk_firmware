@@ -660,10 +660,15 @@ static void rgblight_layers_write(void) {
 }
 #endif
 
+__attribute__((weak))
+void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds) {
+    ws2812_setleds(start_led, num_leds);
+}
+
 #ifndef RGBLIGHT_CUSTOM_DRIVER
 void rgblight_set(void) {
     LED_TYPE *start_led;
-    uint16_t  num_leds = rgblight_ranges.clipping_num_leds;
+    uint8_t  num_leds = rgblight_ranges.clipping_num_leds;
 
 #    ifdef RGBLIGHT_LAYERS
     if (rgblight_layers != NULL) {
@@ -697,7 +702,7 @@ void rgblight_set(void) {
         convert_rgb_to_rgbw(&start_led[i]);
     }
 #    endif
-    ws2812_setleds(start_led, num_leds);
+    rgblight_call_driver(start_led, num_leds);
 }
 #endif
 
