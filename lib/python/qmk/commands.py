@@ -5,6 +5,7 @@ import os
 import platform
 import subprocess
 import shlex
+import shutil
 
 import qmk.keymap
 
@@ -28,11 +29,7 @@ def create_make_command(keyboard, keymap, target=None):
         A command that can be run to make the specified keyboard and keymap
     """
     make_args = [keyboard, keymap]
-    make_cmd = 'make'
-
-    platform_id = platform.platform().lower()
-    if 'freebsd' in platform_id:
-        make_cmd = 'gmake'
+    make_cmd = 'gmake' if shutil.which('gmake') else 'make'
 
     if target:
         make_args.append(target)
