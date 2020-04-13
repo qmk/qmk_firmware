@@ -24,6 +24,7 @@ enum layer_number {
     _WINBASE,
     _QWERTY,
     _GAMER,
+    _GAMR1,
     _NGMR,
     _NUMB,
     _MNMB,
