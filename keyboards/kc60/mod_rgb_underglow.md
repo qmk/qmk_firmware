@@ -19,6 +19,8 @@ To enable RGB Underglow, simply add a `rules.mk` file containing `RGBLIGHT_ENABL
 make kc60:<keymap>
 ```
 
+The [ws2812 keymap](keymaps/ws2812/) may be copied and used as a starting point.
+
 RGB Underglow is a fairly large feature, and your firmware may be too large to be flashed with it enabled. Adding `CONSOLE_ENABLE = no` or `COMMAND_ENABLE = no` to your `rules.mk` file will reduce the size of the firmware greatly, and if you don't use either feature, is very low impact change.
 
 
