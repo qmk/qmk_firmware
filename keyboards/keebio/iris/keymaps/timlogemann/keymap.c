@@ -3,7 +3,7 @@
 #define _1L 0
 #define _2L 1
 #define _3L 2
-#define _G_AC 3
+// #define _G_AC 3
 
 #define HP_GR HYPR_T(KC_GRAVE)
 #define MH_DT MEH_T(KC_DOT)
@@ -39,10 +39,10 @@
 
 // Combos
 // Toggle Game Layers
-const uint16_t PROGMEM G_AC_COMBO[] = {KC_LGUI, KC_GESC, COMBO_END};
+// const uint16_t PROGMEM G_AC_COMBO[] = {KC_LGUI, KC_GESC, COMBO_END};
 
-// Create Combo map
-combo_t key_combos[COMBO_COUNT] = {COMBO(G_AC_COMBO, KC_ESC)}; // TO(_G_AC)
+// // Create Combo map
+// combo_t key_combos[COMBO_COUNT] = {COMBO(G_AC_COMBO, KC_ESC)}; // TO(_G_AC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -87,17 +87,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                        //└────────┴────────┘    └────────┘        └────────┘    └───────┴────────┘
         ),
 
-    [_G_AC] = LAYOUT(
-        //┌────────┬────────┬────────┬────────┬────────┬────────┐
-            KC_ESC,   KC_1,    KC_2,    KC_3,    KC_4,  KC_GRAVE,                            _, _, _, _, _, _,
-        //├────────┼────────┼────────┼────────┼────────┼────────┤
-            KC_T,     KC_G,    KC_Q,    KC_W,    KC_E,    KC_R,                              _, _, _, _, _, _,
-        //├────────┼────────┼────────┼────────┼────────┼────────┤
-              _,       _,      KC_A,    KC_S,    KC_D,     _,                              _, _, _, _, _, _,
-        //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐
-              KC_M,    KC_Z,   KC_X,    KC_C,     KC_X,     KC_V,      _,                  _, _, _, _, _, _, _,
-        //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┤        ┤
-                                            KC_F,     KC_SPACE,     KC_LSHIFT,              TO(_1L), _, _
+    // [_G_AC] = LAYOUT(
+    //     //┌────────┬────────┬────────┬────────┬────────┬────────┐
+    //         KC_ESC,   KC_1,    KC_2,    KC_3,    KC_4,  KC_GRAVE,                            _, _, _, _, _, _,
+    //     //├────────┼────────┼────────┼────────┼────────┼────────┤
+    //         KC_T,     KC_G,    KC_Q,    KC_W,    KC_E,    KC_R,                              _, _, _, _, _, _,
+    //     //├────────┼────────┼────────┼────────┼────────┼────────┤
+    //           _,       _,      KC_A,    KC_S,    KC_D,     _,                              _, _, _, _, _, _,
+    //     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐
+    //           KC_M,    KC_Z,   KC_X,    KC_C,     KC_X,     KC_V,      _,                  _, _, _, _, _, _, _,
+    //     //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┤        ┤
+    //                                         KC_F,     KC_SPACE,     KC_LSHIFT,              TO(_1L), _, _
                                        //└────────┴────────┘    └────────┘
     )
 
