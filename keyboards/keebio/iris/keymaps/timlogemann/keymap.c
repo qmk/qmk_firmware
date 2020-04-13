@@ -39,10 +39,10 @@
 
 // Combos
 // Toggle Game Layers
-const uint16_t PROGMEM test_combo[] = {KC_LGUI, KC_GESC, KC_ENT, COMBO_END};
+const uint16_t PROGMEM G_AC_COMBO[] = {KC_LGUI, KC_GESC, COMBO_END};
 
 // Create Combo map
-combo_t key_combos[COMBO_COUNT] = {COMBO(test_combo, TO(_G_AC))};
+combo_t key_combos[COMBO_COUNT] = {COMBO(G_AC_COMBO, KC_ESC)}; // TO(_G_AC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -97,8 +97,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐
               KC_M,    KC_Z,   KC_X,    KC_C,     KC_X,     KC_V,      _,                  _, _, _, _, _, _, _,
         //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┤        ┤
-                                            KC_F,     KC_SPACE,     KC_SHIFT,              TO(_1L), _, _
+                                            KC_F,     KC_SPACE,     KC_LSHIFT,              TO(_1L), _, _
                                        //└────────┴────────┘    └────────┘
-    ),
+    )
 
 };
