@@ -7,7 +7,7 @@
     "height": 5,
     "layouts": {
 
-        "LAYOUT_hasu_5x4": {
+        "LAYOUT_ortho_5x4": {
             "layout": [
                 {"label":"Num Lock", "x":0, "y":0},
                 {"label":"/", "x":1, "y":0},
