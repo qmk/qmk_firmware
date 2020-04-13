@@ -57,7 +57,10 @@ bin: $(BUILD_DIR)/$(TARGET).hex
 
 MDLOADER_CLI ?= mdloader
 define EXEC_MDLOADER
-	$(MDLOADER_CLI) --first --download $(BUILD_DIR)/$(TARGET).bin --restart
+	$(eval ABS_BUILD_FILE := $(shell realpath $(BUILD_DIR)/$(TARGET).bin))
+
+	# Assume user has installed applet-flash-*.bin to path to avoid Massdrop/mdloader/issues/21
+	cd $$(dirname $$(which $(MDLOADER_CLI))) && ./$(MDLOADER_CLI) --first --download $(ABS_BUILD_FILE) --restart
 endef
 
 mdloader: bin
