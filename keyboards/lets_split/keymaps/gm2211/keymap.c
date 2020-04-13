@@ -30,6 +30,8 @@ enum custom_keycodes {
 #define KC_MAC_COPY LGUI(KC_C)
 #define KC_MAC_PASTE LGUI(KC_V)
 #define ___ KC_TRANSPARENT
+#define KC_LCA LCA(KC_NO)
+#define KC_LCAG LCAG(KC_NO)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -44,22 +46,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LGUI(KC_SCOLON), LGUI(KC_Q),               LGUI(KC_W),        LALT(LGUI(KC_L)),  LALT(KC_ENTER),   LGUI(KC_T),      KC_CIRC,          KC_AMPR,                            KC_ASTR,           LALT(LGUI(KC_O)),    LGUI(KC_P),       ___,     \
     ___,             LGUI(KC_A),               LGUI(KC_S),        KC_ENTER,          LGUI(KC_F),       LGUI(KC_G),      ___,              LGUI(LALT(LCTL(LSFT(KC_SPACE)))),   KC_PLUS,           KC_EQUAL,            KC_PIPE,          KC_PIPE, \
     MO(8),           KC_MAC_UNDO,              KC_MAC_CUT,        KC_MAC_COPY,       KC_MAC_PASTE,     LGUI(KC_B),      LGUI(KC_N),       KC_ENTER,                           KC_UNDS,           KC_GRAVE,            KC_BSLASH,        ___,     \
-    MO(8),        LCTL(LGUI(LSFT(KC_4))),   ___,               ___,               ___,              ___,             ___,              ___,                                KC_UNDS,           KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,  ___
+    MO(8),           LCTL(LGUI(LSFT(KC_4))),   ___,               ___,               ___,              ___,             ___,              ___,                                KC_UNDS,           KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,  ___
 ),
 
 // If you modify something here, also modify it in _RAISE2 - tried to avoid copy-pasting but constants / macros / #define are super-annoying in c and not worth the time
 [_RAISE] = LAYOUT_ortho_4x12( \
-  KC_GRAVE,       KC_1,            KC_2,     KC_3,     KC_4,     KC_5,            KC_6,      KC_ENTER,       KC_DELETE,            KC_DELETE,          KC_DELETE,        ___,      \
-  ___,            KC_F1,           KC_F2,    KC_F3,    KC_F4,    KC_F5,           KC_LEFT,   KC_DOWN,        KC_UP,                KC_RIGHT,           KC_BSPACE,        MO(8),    \
-  KC_LSHIFT,      KC_F7,           KC_F8,    KC_F9,    KC_F10,   KC_F11,          KC_EQUAL,  KC_ESCAPE,      LCTL(KC_SPACE),       ___,                KC_BSLASH,        KC_ENTER, \
-  KC_LCTRL,       ___,             KC_LALT,  KC_LGUI,  KC_LALT,  LALT(KC_SPACE),  ___,       ___,            KC_MEDIA_NEXT_TRACK,  KC_AUDIO_VOL_DOWN,  KC_AUDIO_VOL_UP,  KC_AUDIO_MUTE
+  KC_GRAVE,   KC_1,    KC_2,     KC_3,     KC_4,     KC_5,            KC_6,      KC_ENTER,       KC_DELETE,            KC_DELETE,          KC_DELETE,        ___,      \
+  ___,        KC_F1,   KC_F2,    KC_F3,    KC_F4,    KC_F5,           KC_LEFT,   KC_DOWN,        KC_UP,                KC_RIGHT,           KC_BSPACE,        MO(8),    \
+  KC_LSHIFT,  KC_F7,   KC_F8,    KC_F9,    KC_F10,   KC_F11,          KC_EQUAL,  KC_ESCAPE,      LCTL(KC_SPACE),       ___,                KC_BSLASH,        KC_ENTER, \
+  ___,        ___,     KC_LALT,  KC_LGUI,  KC_LALT,  LALT(KC_SPACE),  ___,       ___,            KC_MEDIA_NEXT_TRACK,  KC_AUDIO_VOL_DOWN,  KC_AUDIO_VOL_UP,  KC_AUDIO_MUTE
 ),
 
 [_ADJUST] =  LAYOUT_ortho_4x12( \
-      ___,    ___,    ___,      RGB_VAI, RGB_VAD,  RGB_M_P,  RGB_M_SN,  ___,       ___,     ___,     ___,    ___,    \
-      ___,    ___,    RGB_TOG,  RGB_MOD, RGB_RMOD, RGB_M_P,  RGB_M_K,   BL_TOGG,   BL_INC,  BL_DEC,  ___,    RESET,  \
-      ___,    ___,    ___,      RGB_HUI, RGB_HUD,  RGB_M_R,  RGB_M_X,   BL_STEP,   BL_BRTG, ___,     ___,    ___,    \
-      ___,    ___,    ___,      RGB_SAI, RGB_SAD,  RGB_M_SW, RGB_M_G,   KC_TRNS,   ___,     ___,     ___,    ___
+      KC_T,     KC_L,    KC_R,    KC_E,     KC_R,  ___,  ___,   KC_7, KC_8, KC_9,  ___,   ___,    \
+      KC_B,     ___,     ___,     KC_D,     KC_F,  ___,  ___,   KC_4, KC_5, KC_6,  KC_0,  RESET,  \
+      ___,      KC_Z,    KC_X,    KC_C,     ___,   ___,  ___,   KC_1, KC_2, KC_3,  ___,   ___,    \
+      KC_MEH,   KC_HYPR, KC_LCA,  KC_LCAG,  ___,   ___,  KC_N,  ___,  ___,  ___,   ___,   ___
 ),
 
 [_LAYER4] =  LAYOUT_ortho_4x12( \
@@ -92,10 +94,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // This is useful for controlling yabai (tiling window manager for mac os) via skhd shortcuts
 [_LAYER8] =  LAYOUT_ortho_4x12( \
-  ___,             ___,                 ___,             ___,              ___,             ___,             ___,             ___,             ___,             ___,             ___,             ___, \
-  ___,             ___,                 ___,             ___,              ___,             ___,             HYPR(KC_LEFT),   HYPR(KC_DOWN),   HYPR(KC_UP),     HYPR(KC_RIGHT),  ___,             ___, \
-  ___,             ___,                 ___,             ___,              ___,             ___,             ___,             ___,             ___,             ___,             ___,             ___, \
-  ___,             ___,                 ___,             ___,              ___,             ___,             ___,             ___,             ___,             ___,             ___,             ___            
+  ___,      HYPR(KC_T),    MEH(KC_T),   SGUI(KC_E),    SGUI(KC_R),    ___,          HYPR(KC_LEFT),  HYPR(KC_DOWN),   HYPR(KC_UP),     HYPR(KC_RIGHT),  ___,             ___, \
+  ___,      HYPR(KC_B),    MEH(KC_B),   SGUI(KC_D),    SGUI(KC_F),    ___,          MEH(KC_LEFT),   MEH(KC_DOWN),    MEH(KC_UP),      MEH(KC_RIGHT),   ___,             ___, \
+  ___,      HYPR(KC_L),    MEH(KC_L),   HYPR(KC_R),    MEH(KC_R),     ___,          HYPR(KC_N),     HYPR(KC_0),      ___,             ___,             ___,             ___, \
+  ___,      ___,           ___,         ___,           ___,           ___,          ___,            ___,             ___,             ___,             ___,             ___            
 )
 };
 
