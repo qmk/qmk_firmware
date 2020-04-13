@@ -1,5 +1,4 @@
-#ifndef omnikey_bh
-#define omnikey_bh
+#pragma once
 
 #include "quantum.h"
 
