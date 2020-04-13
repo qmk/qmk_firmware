@@ -35,6 +35,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TOGGLE 3
 #define TAPPING_TERM 200
 
+// Combo abilities
+#define COMBO_COUNT 1
+
 // apparantly I'm a fast typist
 #define PERMISSIVE_HOLD
 

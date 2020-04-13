@@ -3,6 +3,7 @@
 #define _1L 0
 #define _2L 1
 #define _3L 2
+#define _G_AC 3
 
 #define HP_GR HYPR_T(KC_GRAVE)
 #define MH_DT MEH_T(KC_DOT)
@@ -35,6 +36,14 @@
 #define MS_SL KC_MS_WH_LEFT
 #define MS_SR KC_MS_WH_RIGHT
 
+
+// Combos
+// Toggle Game Layers
+const uint16_t PROGMEM test_combo[] = {KC_LGUI, KC_GESC, KC_ENT, COMBO_END};
+
+// Create Combo map
+combo_t key_combos[COMBO_COUNT] = {COMBO(test_combo, TO(_G_AC))};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_1L] = LAYOUT(
@@ -55,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
             KC_GESC, KC_F1,    KC_F2, KC_F3,    KC_F4,  KC_F5,                                 KC_F6,   KC_F7,  KC_F8,  KC_F9,  KC_F10,   KC_DEL,
         //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-            KC_TRNS,  KC_F11,        KC_F12,      VOLUP,    _,    TO(_3L),                               _,    KC_PGUP,   KC_UP, KC_PGDN,    _,     KC_MINUS,
+            KC_TRNS,  KC_F11, KC_F12,  VOLUP,    _,    TO(_3L),                               _,    KC_PGUP,   KC_UP, KC_PGDN,    _,     KC_MINUS,
         //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
             KC_TRNS,  _,       RWD,     PLPS,    FWD,      _,                                  _,    KC_LEFT, KC_DOWN, KC_RGHT,    _,     KC_PAST,
         //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
@@ -77,5 +86,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             _,        _,          KC_TRNS,              _,          _,      _
                                        //└────────┴────────┘    └────────┘        └────────┘    └───────┴────────┘
         ),
+
+    [_G_AC] = LAYOUT(
+        //┌────────┬────────┬────────┬────────┬────────┬────────┐
+            KC_ESC,   KC_1,    KC_2,    KC_3,    KC_4,  KC_GRAVE,                            _, _, _, _, _, _,
+        //├────────┼────────┼────────┼────────┼────────┼────────┤
+            KC_T,     KC_G,    KC_Q,    KC_W,    KC_E,    KC_R,                              _, _, _, _, _, _,
+        //├────────┼────────┼────────┼────────┼────────┼────────┤
+              _,       _,      KC_A,    KC_S,    KC_D,     _,                              _, _, _, _, _, _,
+        //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐
+              KC_M,    KC_Z,   KC_X,    KC_C,     KC_X,     KC_V,      _,                  _, _, _, _, _, _, _,
+        //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┤        ┤
+                                            KC_F,     KC_SPACE,     KC_SHIFT,              TO(_1L), _, _
+                                       //└────────┴────────┘    └────────┘
+    ),
 
 };
