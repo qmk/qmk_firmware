@@ -22,134 +22,134 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [DVORAK] = LAYOUT_ortho_5x15_wrapper(
-        KC_GRV,     ___NUMBER_L___,   ___MIDDLE_T___, ___NUMBER_R___,   KC_EQL,
-        KC_LOCK,    ___DVORAK_L1___,  ___MIDDLE_1___, ___DVORAK_R1___,  KC_SLASH,
-        TAB_BKTAB,  ___DVORAK_L2___,  ___MIDDLE_2___, ___DVORAK_R2___,  KC_MINUS,
-        KC_LSFT,    ___DVORAK_L3___,  ___MIDDLE_3___, ___DVORAK_R3___,  KC_RSFT,
-        ___XD75_BOTTOM___
-                                         ),
+        KC_GRV,     ___ORTHO_15_N___, KC_EQL,
+        KC_LOCK,    ___13_DVORAK_1___, KC_SLASH,
+        TAB_BKTAB,  ___13_DVORAK_2___, KC_MINUS,
+        KC_LSFT,    ___13_DVORAK_3___, KC_RSFT,
+        ___ORTHO_15_BOTTOM___
+        ),
 
     [QWERTY] = LAYOUT_ortho_5x15_wrapper(
-        KC_GRV,     ___NUMBER_L___,  ___MIDDLE_T___, ___NUMBER_R___,  KC_EQL,
-        KC_LOCK,    ___QWERTY_L1___, ___MIDDLE_1___, ___QWERTY_R1___, KC_SLASH,
-        TAB_BKTAB,  ___QWERTY_L2___, ___MIDDLE_2___, ___QWERTY_R2___, KC_MINUS,
-        KC_LSFT,    ___QWERTY_L3___, ___MIDDLE_3___, ___QWERTY_R3___, KC_RSFT,
-        ___XD75_BOTTOM___
+        KC_GRV,     ___ORTHO_15_N___, KC_EQL,
+        KC_LOCK,    ___13_QWERTY_1___, KC_SLASH,
+        TAB_BKTAB,  ___13_QWERTY_2___, KC_MINUS,
+        KC_LSFT,    ___13_QWERTY_3___, KC_RSFT,
+        ___ORTHO_15_BOTTOM___
         ),
 
     [COLEMAK] = LAYOUT_ortho_5x15_wrapper(
-        KC_GRV,     ___NUMBER_L___,   ___MIDDLE_T___, ___NUMBER_R___,    KC_EQL,
-        KC_LOCK,    ___COLEMAK_L1___, ___MIDDLE_1___, ___COLEMAK_R1___,  KC_SLASH,
-        TAB_BKTAB,  ___COLEMAK_L2___, ___MIDDLE_2___, ___COLEMAK_R2___,  KC_MINUS,
-        KC_LSFT,    ___COLEMAK_L3___, ___MIDDLE_3___, ___COLEMAK_R3___,  KC_RSFT,
-        ___XD75_BOTTOM___
-                                          ),
+        KC_GRV,     ___ORTHO_15_N___, KC_EQL,
+        KC_LOCK,    ___13_COLEMAK_1___, KC_SLASH,
+        TAB_BKTAB,  ___13_COLEMAK_2___, KC_MINUS,
+        KC_LSFT,    ___13_COLEMAK_3___, KC_RSFT,
+        ___ORTHO_15_BOTTOM___
+        ),
 
     [WORKMAN] = LAYOUT_ortho_5x15_wrapper(
-        KC_GRV,     ___NUMBER_L___,   ___MIDDLE_T___, ___NUMBER_R___,    KC_EQL,
-        KC_LOCK,    ___WORKMAN_L1___, ___MIDDLE_1___, ___WORKMAN_R1___,  KC_SLASH,
-        TAB_BKTAB,  ___WORKMAN_L2___, ___MIDDLE_2___, ___WORKMAN_R2___,  KC_MINUS,
-        KC_LSFT,    ___WORKMAN_L3___, ___MIDDLE_3___, ___WORKMAN_R3___,  KC_RSFT,
-        ___XD75_BOTTOM___
-                                          ),
+        KC_GRV,     ___ORTHO_15_N___, KC_EQL,
+        KC_LOCK,    ___13_WORKMAN_1___, KC_SLASH,
+        TAB_BKTAB,  ___13_WORKMAN_2___, KC_MINUS,
+        KC_LSFT,    ___13_WORKMAN_3___, KC_RSFT,
+        ___ORTHO_15_BOTTOM___
+        ),
 
     [NORMAN] = LAYOUT_ortho_5x15_wrapper(
-        KC_GRV,     ___NUMBER_L___,   ___MIDDLE_T___, ___NUMBER_R___,   KC_EQL,
-        KC_LOCK,    ___NORMAN_L1___,  ___MIDDLE_1___, ___NORMAN_R1___,  KC_SLASH,
-        TAB_BKTAB,  ___NORMAN_L2___,  ___MIDDLE_1___, ___NORMAN_R2___,  KC_MINUS,
-        KC_LSFT,    ___NORMAN_L3___,  ___MIDDLE_1___, ___NORMAN_R3___,  KC_RSFT,
-        ___XD75_BOTTOM___
-                                         ),
+        KC_GRV,     ___ORTHO_15_N___, KC_EQL,
+        KC_LOCK,    ___13_NORMAN_1___,  KC_SLASH,
+        TAB_BKTAB,  ___13_NORMAN_2___,  KC_MINUS,
+        KC_LSFT,    ___13_NORMAN_3___,  KC_RSFT,
+        ___ORTHO_15_BOTTOM___
+        ),
 
     [DVORAK_ON_BEPO] = LAYOUT_ortho_5x15_wrapper(
-        DB_GRV,     ___NUMBER_BEPO_L___, ___MIDDLE_T_BP___, ___NUMBER_BEPO_R___,  DB_EQL,
-        KC_LOCK,    ___DVORAK_FR_L1___,  ___MIDDLE_1_BP___, ___DVORAK_FR_R1___,   DB_SLASH,
-        TAB_BKTAB,  ___DVORAK_FR_L2___,  ___MIDDLE_2_BP___, ___DVORAK_FR_R2___,   DB_MINUS,
-        KC_LSFT,    ___DVORAK_FR_L3___,  ___MIDDLE_3_BP___, ___DVORAK_FR_R3___,   KC_RSFT,
-        ___XD75_BOTTOM_FR___
-                                                 ),
+        DB_GRV, ___ORTHO_15_B_N___, DB_EQL,
+        KC_LOCK,    ___13_DVORAK_B_1___,  DB_SLASH,
+        TAB_BKTAB,  ___13_DVORAK_B_2___,  DB_MINUS,
+        KC_LSFT,    ___13_DVORAK_B_3___,  KC_RSFT,
+        ___ORTHO_15_BOTTOM_FR___
+        ),
 
     [XMONAD] = LAYOUT_ortho_5x15_wrapper(
-        ___FUNC_1_6___,        ___3___, ___FUNC_7_12___,
-        ___,  ___DVORAK_L1___, ___3___, ___DVORAK_R1___,  ___,
-        ___,  ___DVORAK_L2___, ___3___, ___DVORAK_R2___,  ___,
-        ___,  ___DVORAK_L3___, ___3___, ___DVORAK_R3___,  ___,
+        ___ORTHO_15_FUNC_1_12___,
+        ___,  ___13_DVORAK_1___, ___,
+        ___,  ___13_DVORAK_2___, ___,
+        ___,  ___13_DVORAK_3___, ___,
         ___15___
-                                         ),
+        ),
 
     [XMONAD_FR] = LAYOUT_ortho_5x15_wrapper(
-        ___FUNC_1_6___,            ___3___, ___FUNC_7_12___,
-        ___,  ___DVORAK_FR_L1___,  ___3___, ___DVORAK_FR_R1___,   ___,
-        ___,  ___DVORAK_FR_L2___,  ___3___, ___DVORAK_FR_R2___,   ___,
-        ___,  ___DVORAK_FR_L3___,  ___3___, ___DVORAK_FR_R3___,   ___,
+        ___ORTHO_15_FUNC_1_12___,
+        ___,  ___13_DVORAK_B_1___,  ___,
+        ___,  ___13_DVORAK_B_2___,  ___,
+        ___,  ___13_DVORAK_B_3___,  ___,
         ___15___
-                                            ),
+        ),
 
     [BEPO] = LAYOUT_ortho_5x15_wrapper(
-        BP_DLR,      ___SYMBOL_BEPO_L___, ___MIDDLE_T_BP___, ___SYMBOL_BEPO_R___,  BP_EQL,
-        KC_LOCK,        ___BEPO_FR_L1___, ___MIDDLE_1_BP___, ___BEPO_FR_R1___,     BP_W,
-        TAB_BKTAB,      ___BEPO_FR_L2___, ___MIDDLE_2_BP___, ___BEPO_FR_R2___,     BP_CCED,
-        BP_SFT_T_ECRC,  ___BEPO_FR_L3___, ___MIDDLE_3_BP___, ___BEPO_FR_R3___,     BP_SFT_T_W,
-        ___XD75_BOTTOM_FR___
+        ___ORTHO_15_B_SYMB___,
+        KC_LOCK,        ___13_BEPO_1___, BP_W,
+        TAB_BKTAB,      ___13_BEPO_2___, BP_CCED,
+        BP_SFT_T_ECRC,  ___13_BEPO_3___, BP_SFT_T_W,
+        ___ORTHO_15_BOTTOM_BP___
         ),
 
     // SYMBOLS
     [SYMB] = LAYOUT_ortho_5x15_wrapper(
-        ___FUNC_1_6___,    ___3___, ___FUNC_7_12___,
-        ___SYMBOLS6_1___,  ___3___, ___SYMPAD_1___,
-        ___SYMBOLS6_2___,  ___3___, ___SYMPAD_2___,
-        ___SYMBOLS6_3___,  ___3___, ___SYMPAD_3___,
-        ___SYMBOLS6_4___,  ___3___, ___SYMPAD_4___
-                                       ),
+        ___ORTHO_15_FUNC_1_12___,
+        ___15_SYMB_1___,
+        ___15_SYMB_2___,
+        ___15_SYMB_3___,
+        ___15_SYMB_4___
+        ),
 
     [KEYPAD] = LAYOUT_ortho_5x15_wrapper(
-        ___FUNC_1_6___,         ___3___, ___FUNC_7_12___,
-        ___2___,  ___FUNCPAD_T___,  ___5___, ___KEYPAD_1___,  ___,
-        ___2___,  ___FUNCPAD_1___,  ___5___, ___KEYPAD_2___,  ___,
-        ___2___,  ___FUNCPAD_2___,  ___5___, ___KEYPAD_3___,  KC_PENT,
-        ___2___,  ___FUNCPAD_3___,  ___5___, ___KEYPAD_4___,  ___
-                                         ),
+        ___ORTHO_15_FUNC_1_12___,
+        ___15_KP_1___,
+        ___15_KP_2___,
+        ___15_KP_3___,
+        ___15_KP_4___
+        ),
 
     [KEYPAD_ON_BEPO] = LAYOUT_ortho_5x15_wrapper(
-        ___FUNC_1_6___,             ___3___, ___FUNC_7_12___,
-        ___2___,  ___FUNCPAD_T___,  ___5___, ___KEYPAD_1_BP___,  ___,
-        ___2___,  ___FUNCPAD_1___,  ___5___, ___KEYPAD_2_BP___,  ___,
-        ___2___,  ___FUNCPAD_2___,  ___5___, ___KEYPAD_3_BP___,  KC_PENT,
-        ___2___,  ___FUNCPAD_3___,  ___5___, ___KEYPAD_4_BP___,  ___
-                                                 ),
+        ___ORTHO_15_FUNC_1_12___,
+        ___15_KP_B_1___,
+        ___15_KP_B_2___,
+        ___15_KP_B_3___,
+        ___15_KP_B_4___
+        ),
 
     [SYMB_ON_BEPO] = LAYOUT_ortho_5x15_wrapper(
-        ___FUNC_1_6___,       ___3___, ___FUNC_7_12___,
-        ___SYMBOLS6_1_BP___,  ___3___, ___SYMPAD_1_BP___,
-        ___SYMBOLS6_2_BP___,  ___3___, ___SYMPAD_2_BP___,
-        ___SYMBOLS6_3_BP___,  ___3___, ___SYMPAD_3_BP___,
-        ___SYMBOLS6_4_BP___,  ___3___, ___SYMPAD_4_BP___
-                                               ),
+        ___ORTHO_15_FUNC_1_12___,
+        ___15_SYMB_B_1___,
+        ___15_SYMB_B_2___,
+        ___15_SYMB_B_3___,
+        ___15_SYMB_B_4___
+        ),
 
     // MEDIA AND MOUSE
     [MDIA] = LAYOUT_ortho_5x15_wrapper(
-        ___FUNC_1_6___,         ___3___, ___FUNC_7_12___,
-        ___MOUSE_BTNS_L___,     ___4___, KC_VOLU, ___MUTE_PRV_PLAY_NXT_STOP___,
-        ___, ___MOUSE_LDUR___,  ___4___, KC_VOLD, ___VI_ARROWS___, ___,
-        ___, ___MWHEEL_LDUR___, ___4___, KC_PGUP, ___MOUSE_BTNS_R___,
-        ___2___, ___MACCL___,   ___4___, KC_PGDN, ___5___
-                                       ),
+        ___ORTHO_15_FUNC_1_12___,
+        ___15_MDIA_1___,
+        ___15_MDIA_2___,
+        ___15_MDIA_3___,
+        ___15_MDIA_4___
+        ),
 
     [LAYERS] = LAYOUT_ortho_5x15_wrapper(
-        ___FUNC_1_6___,               ___3___,   ___FUNC_7_12___,
-        ___X3___, ___LAYERS_B1_2___,  ___5___,  ___LAYERS_T_BP_3___, ___X2___,
-        ___X3___, ___LAYERS_B2_2___,  ___5___,  ___LAYERS_T_3___,    ___X2___,
-        ___X2___, ___LAYERS_B3_3___,  ___5___,  ___LAYERS_T_DEF___,  ___X2___,
-        ___5___, ___5___,  ___5___
-                                         ),
+        ___ORTHO_15_FUNC_1_12___,
+        ___15_LAYERS_1___,
+        ___15_LAYERS_2___,
+        ___15_LAYERS_3___,
+        ___15___
+        ),
 
     [_RGB] = LAYOUT_ortho_5x15_wrapper(
-        ___FUNC_1_6___,                         ___3___, ___FUNC_7_12___,
-        ___, ___RGB_HUE_SAT_INT_UP___,          ___5___, ___5___,
-        ___, ___RGB_HUE_SAT_INT_DN___, RGB_TOG, ___4___, ___RGB_P_B_R_SW_SN___,
-        ___5___,                                ___5___, ___RGB_KXGT___, ___,
+        ___ORTHO_15_FUNC_1_12___,
+        ___15_RGB_1___,
+        ___15_RGB_2___,
+        ___15_RGB_3___,
         ___15___
-    ),
+        ),
 };
 
 
