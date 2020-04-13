@@ -23,10 +23,7 @@
 #define DIODE_DIRECTION ROW2COL
 
 /* number of backlight levels */
-
-#ifdef BACKLIGHT_PIN
 #define BACKLIGHT_LEVELS 3
-#endif
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
