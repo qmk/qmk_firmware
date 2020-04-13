@@ -36,8 +36,8 @@
 // Row 1
 #define BP_DLR  KC_GRV  // $
 #define BP_DQUO KC_1    // "
-#define BP_LGIL KC_2    // «
-#define BP_RGIL KC_3    // »
+#define BP_LDAQ KC_2    // «
+#define BP_RDAQ KC_3    // »
 #define BP_LPRN KC_4    // (
 #define BP_RPRN KC_5    // )
 #define BP_AT   KC_6    // @
@@ -102,8 +102,8 @@
 // Row 1
 #define BP_HASH S(BP_DLR)  // #
 #define BP_1    S(BP_DQUO) // 1
-#define BP_2    S(BP_LGIL) // 2
-#define BP_3    S(BP_RGIL) // 3
+#define BP_2    S(BP_LDAQ) // 2
+#define BP_3    S(BP_RDAQ) // 3
 #define BP_4    S(BP_LPRN) // 4
 #define BP_5    S(BP_RPRN) // 5
 #define BP_6    S(BP_AT)   // 6
@@ -139,8 +139,8 @@
 // Row 1
 #define BP_NDSH ALGR(BP_DLR)  // –
 #define BP_MDSH ALGR(BP_DQUO) // —
-#define BP_LABK ALGR(BP_LGIL) // <
-#define BP_RABK ALGR(BP_RGIL) // >
+#define BP_LABK ALGR(BP_LDAQ) // <
+#define BP_RABK ALGR(BP_RDAQ) // >
 #define BP_LBRC ALGR(BP_LPRN) // [
 #define BP_RBRC ALGR(BP_RPRN) // ]
 #define BP_CIRC ALGR(BP_AT)   // ^
@@ -205,8 +205,8 @@
 // Row 1
 #define BP_PARA S(ALGR(BP_DLR))  // ¶
 #define BP_DLQU S(ALGR(BP_DQUO)) // „
-#define BP_LDQU S(ALGR(BP_LGIL)) // “
-#define BP_RDQU S(ALGR(BP_RGIL)) // ”
+#define BP_LDQU S(ALGR(BP_LDAQ)) // “
+#define BP_RDQU S(ALGR(BP_RDAQ)) // ”
 #define BP_LEQL S(ALGR(BP_LPRN)) // ≤
 #define BP_GEQL S(ALGR(BP_RPRN)) // ≥
 #define BP_NOT  S(ALGR(BP_PLUS)) // ¬
@@ -243,8 +243,10 @@
 #define BP_DOLLAR BP_DLR
 #define BP_DOUBLE_QUOTE BP_DQUO
 #define BP_DQOT BP_DQUO
-#define BP_LEFT_GUILLEMET BP_LGIL
-#define BP_RIGHT_GUILLEMET BP_RGIL
+#define BP_LEFT_GUILLEMET BP_LDAQ
+#define BP_LGIL BP_LDAQ
+#define BP_RIGHT_GUILLEMET BP_RDAQ
+#define BP_RGIL BP_RDAQ
 #define BP_LEFT_PAREN BP_LPRN
 #define BP_RIGHT_PAREN BP_RPRN
 #define BP_MINUS BP_MINS
