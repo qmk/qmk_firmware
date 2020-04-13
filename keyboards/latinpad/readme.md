@@ -4,7 +4,7 @@ macro 2 rotary encoder pad
 
 * Keyboard Maintainer: Latincompass
 * Hardware Availability: https://github.com/latincompass/2-RotaryEncoder-pad
-
+![FinalversionPicture](https://github.com/latincompass/2-RotaryEncoder-pad/blob/master/1.jpg)
 Make example for this keyboard (after setting up your build environment):
 
     make latinpad:default
