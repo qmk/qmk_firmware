@@ -25,4 +25,4 @@ BACKLIGHT_ENABLE = yes  # Enable per-key backlight LEDs
 AUDIO_ENABLE = no    # There is no speaker on this PCB
 RGBLIGHT_ENABLE = yes # Enable the RGB underglow LEDs
 
-LAYOUTS = 60_ansi 60_ansi_split_bs_rshift 60_hhkb 60_iso 60_abnt2
+LAYOUTS = 60_ansi 60_ansi_split_bs_rshift 60_hhkb 60_iso 60_abnt2 60_tsangan_hhkb

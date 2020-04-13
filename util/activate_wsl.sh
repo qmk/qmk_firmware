@@ -12,7 +12,3 @@ function export_variables {
 }
 
 export_variables
-
-
-
-

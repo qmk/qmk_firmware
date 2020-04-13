@@ -114,6 +114,7 @@
   * [מדריך לצריבת ISP](he-il/isp_flashing_guide.md)
   * [מדריך לדיבאגינג ARM](he-il/arm_debugging.md)
   * [מנהל התקן I2C](he-il/i2c_driver.md)
+  * [מנהל התקן SPI](he-il/spi_driver.md)
   * [בקרת GPIO](he-il/internals_gpio_control.md)
   * [המרת Proton C](he-il/proton_c_conversion.md)
 

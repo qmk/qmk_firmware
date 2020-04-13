@@ -2,51 +2,60 @@
 """CLI wrapper for running QMK commands.
 """
 import os
-import subprocess
 import sys
 from importlib.util import find_spec
-from time import strftime
+from pathlib import Path
 
 # Add the QMK python libs to our path
-script_dir = os.path.dirname(os.path.realpath(__file__))
-qmk_dir = os.path.abspath(os.path.join(script_dir, '..'))
-python_lib_dir = os.path.abspath(os.path.join(qmk_dir, 'lib', 'python'))
-sys.path.append(python_lib_dir)
+script_dir = Path(os.path.realpath(__file__)).parent
+qmk_dir = script_dir.parent
+python_lib_dir = Path(qmk_dir / 'lib' / 'python').resolve()
+sys.path.append(str(python_lib_dir))
 
-# Make sure our modules have been setup
-with open(os.path.join(qmk_dir, 'requirements.txt'), 'r') as fd:
-    for line in fd.readlines():
-        line = line.strip().replace('<', '=').replace('>', '=')
 
-        if line[0] == '#':
-            continue
+def _check_modules(requirements):
+    """ Check if the modules in the given requirements.txt are available.
+    """
+    with Path(qmk_dir / requirements).open() as fd:
+        for line in fd.readlines():
+            line = line.strip().replace('<', '=').replace('>', '=')
 
-        if '#' in line:
-            line = line.split('#')[0]
+            if len(line) == 0 or line[0] == '#' or line.startswith('-r'):
+                continue
 
-        module = line.split('=')[0] if '=' in line else line
+            if '#' in line:
+                line = line.split('#')[0]
 
-        if module in ['pep8-naming']:
+            module = dict()
+            module['name'] = module['import'] = line.split('=')[0] if '=' in line else line
+
             # Not every module is importable by its own name.
-            continue
+            if module['name'] == "pep8-naming":
+                module['import'] = "pep8ext_naming"
 
-        if not find_spec(module):
-            print('Could not find module %s!' % module)
-            print('Please run `pip3 install -r requirements.txt` to install the python dependencies.')
-            exit(255)
+            if not find_spec(module['import']):
+                print('Could not find module %s!' % module['name'])
+                print('Please run `python3 -m pip install -r %s` to install required python dependencies.' % str(qmk_dir / requirements))
+                if developer:
+                    print('You can also turn off developer mode: qmk config user.developer=None')
+                print()
+                exit(255)
 
-# Figure out our version
-# TODO(skullydazed/anyone): Find a method that doesn't involve git. This is slow in docker and on windows.
-command = ['git', 'describe', '--abbrev=6', '--dirty', '--always', '--tags']
-result = subprocess.run(command, universal_newlines=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
-if result.returncode == 0:
-    os.environ['QMK_VERSION'] = result.stdout.strip()
-else:
-    os.environ['QMK_VERSION'] = 'nogit-' + strftime('%Y-%m-%d-%H:%M:%S') + '-dirty'
+developer = False
+# Make sure our modules have been setup
+_check_modules('requirements.txt')
 
 # Setup the CLI
 import milc  # noqa
+
+# For developers additional modules are needed
+if milc.cli.config.user.developer:
+    # Do not run the check for 'config',
+    # so users can turn off developer mode
+    if len(sys.argv) == 1 or (len(sys.argv) > 1 and 'config' != sys.argv[1]):
+        developer = True
+        _check_modules('requirements-dev.txt')
 
 milc.EMOJI_LOGLEVELS['INFO'] = '{fg_blue}Ψ{style_reset_all}'
 
