@@ -78,9 +78,9 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // (     )        *        +        ,        -        .        /
     BP_LPRN, BP_RPRN, BP_ASTR, BP_PLUS, BP_COMM, BP_MINS, BP_DOT,  BP_SLSH,
     // 0     1        2        3        4        5        6        7
-    BP_ASTR, BP_DQUO, BP_LGIL, BP_RGIL, BP_LPRN, BP_RPRN, BP_AT,   BP_PLUS,
+    BP_ASTR, BP_DQUO, BP_LDAQ, BP_RDAQ, BP_LPRN, BP_RPRN, BP_AT,   BP_PLUS,
     // 8     9        :        ;        <        =        >        ?
-    BP_MINS, BP_SLSH, BP_DOT,  BP_COMM, BP_LGIL, BP_EQL,  BP_RGIL, BP_QUOT,
+    BP_MINS, BP_SLSH, BP_DOT,  BP_COMM, BP_LDAQ, BP_EQL,  BP_RDAQ, BP_QUOT,
     // @     A        B        C        D        E        F        G
     BP_AT,   BP_A,    BP_B,    BP_C,    BP_D,    BP_E,    BP_F,    BP_G,
     // H     I        J        K        L        M        N        O
