@@ -120,9 +120,6 @@ def new_keyboard(cli):
     shutil.copy(template_arch_path / "config.h", keyboard_path)
     shutil.copy(template_arch_path / "readme.md", keyboard_path)
     shutil.copy(template_arch_path / "rules.mk", keyboard_path)
-    if arch == "ps2avrgb":
-        # only ps2avrgb keyboards require this file
-        shutil.copy(template_arch_path / "usbconfig.h", keyboard_path)
 
     # rewrite the %YEAR%, %YOUR_NAME%, %KEYBOARD% and %PID% placeholders
 
