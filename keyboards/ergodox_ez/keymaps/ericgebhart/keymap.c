@@ -21,268 +21,298 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [DVORAK] = LAYOUT_ergodox_wrapper(
-                             // left hand
-                             KC_GRV,     ___NUMBER_L___,   DEF_OS_LAYER_SW,
-                             KC_LOCK,    ___DVORAK_L1___,  KC_LBRC,
-                             TAB_BKTAB,  ___DVORAK_L2___,
-                             KC_LSFT,    ___DVORAK_L3___,  KC_LPRN,
+      // left hand
+      KC_GRV,     ___NUMBER_L___,   OSL(LAYERS),
+      KC_LOCK,    ___DVORAK_L1___,  LCTL(KC_C),
+      TAB_BKTAB,  ___DVORAK_L2___,
+      KC_LSFT,    ___DVORAK_L3___,  TO(MDIA),
 
-                             ___ERGODOX_BOTTOM_LEFT___,
-                             ___ERGODOX_THUMB_LEFT___,
+      ___BOTTOM_LEFT___,
+      ___ERGODOX_THUMB_LEFT___,
 
-                             // right hand
-                             MDIA_SYMB,  ___NUMBER_R___,   KC_EQL,
-                             KC_RBRC,    ___DVORAK_R1___,  KC_SLASH,
-                             /*    */    ___DVORAK_R2___,  KC_MINUS,
-                             KC_RPRN,    ___DVORAK_R3___,  KC_RSFT,
+      // right hand
+      MDIA_SYMB_KP_LAYERS,  ___NUMBER_R___,   KC_EQL,
+      LCTL(KC_V),    ___DVORAK_R1___,  KC_SLASH,
+      /*    */    ___DVORAK_R2___,  KC_MINUS,
+      TO(KEYPAD),    ___DVORAK_R3___,  KC_RSFT,
 
-                             ___ERGODOX_BOTTOM_RIGHT___,
-                             ___ERGODOX_THUMB_RIGHT___
-                             ),
+      ___BOTTOM_RIGHT___,
+      ___ERGODOX_THUMB_RIGHT___
+      ),
 
   [XMONAD] = LAYOUT_ergodox_wrapper(
-                             // left hand
-                             ___,  ___FUNC_L___,     ___,
-                             ___,  ___DVORAK_L1___,  ___,
-                             ___,  ___DVORAK_L2___,
-                             ___,  ___DVORAK_L3___,  ___,
+      // left hand
+      ___,  ___FUNC_L___,     ___,
+      ___,  ___DVORAK_L1___,  ___,
+      ___,  ___DVORAK_L2___,
+      ___,  ___DVORAK_L3___,  ___,
 
-                             ___ERGODOX_BOTTOM_LEFT___,
-                             ___ERGODOX_THUMB_LEFT___,
+      ___BOTTOM_LEFT___,
+      ___ERGODOX_THUMB_LEFT___,
 
-                             // right hand
-                             ___,  ___FUNC_R___,     ___,
-                             ___,  ___DVORAK_R1___,  ___,
-                             /**/  ___DVORAK_R2___,  ___,
-                             ___,  ___DVORAK_R3___,  ___,
+      // right hand
+      ___,  ___FUNC_R___,     ___,
+      ___,  ___DVORAK_R1___,  ___,
+      /**/  ___DVORAK_R2___,  ___,
+      ___,  ___DVORAK_R3___,  ___,
 
-                             ___ERGODOX_BOTTOM_RIGHT___,
-                             ___ERGODOX_THUMB_RIGHT___
-                             ),
+      ___BOTTOM_RIGHT___,
+      ___ERGODOX_THUMB_RIGHT___
+      ),
 
   [QWERTY] = LAYOUT_ergodox_wrapper(
                             // left hand
-                            KC_GRV,     ___NUMBER_L___,   DEF_OS_LAYER_SW,
-                            KC_LOCK,    ___QWERTY_L1___,  KC_LBRC,
-                            TAB_BKTAB,  ___QWERTY_L2___,
-                            KC_LSFT,    ___QWERTY_L3___,  KC_LPRN,
+      KC_GRV,     ___NUMBER_L___,   OSL(LAYERS),
+      KC_LOCK,    ___QWERTY_L1___,  LCTL(KC_C),
+      TAB_BKTAB,  ___QWERTY_L2___,
+      KC_LSFT,    ___QWERTY_L3___,  TO(MDIA),
 
-                            ___ERGODOX_BOTTOM_LEFT___,
-                            ___ERGODOX_THUMB_LEFT___,
+      ___BOTTOM_LEFT___,
+      ___ERGODOX_THUMB_LEFT___,
 
-                            // right hand
-                            MDIA_SYMB,  ___NUMBER_R___,   KC_EQL,
-                            KC_RBRC,    ___QWERTY_R1___,  KC_SLASH,
-                            /*       */ ___QWERTY_R2___,  KC_MINUS,
-                            KC_RPRN,    ___QWERTY_R3___,  KC_RSFT,
+      // right hand
+      MDIA_SYMB_KP_LAYERS,  ___NUMBER_R___,   KC_EQL,
+      LCTL(KC_V),    ___QWERTY_R1___,  KC_SLASH,
+      /*       */ ___QWERTY_R2___,  KC_MINUS,
+      TO(KEYPAD),    ___QWERTY_R3___,  KC_RSFT,
 
-                            ___ERGODOX_BOTTOM_RIGHT___,
-                            ___ERGODOX_THUMB_RIGHT___
-                            ),
+      ___BOTTOM_RIGHT___,
+      ___ERGODOX_THUMB_RIGHT___
+          ),
 
   [COLEMAK] = LAYOUT_ergodox_wrapper(
                               // left hand
-                              KC_GRV,     ___NUMBER_L___,    DEF_OS_LAYER_SW,
-                              KC_LOCK,    ___COLEMAK_L1___,  KC_LBRC,
-                              TAB_BKTAB,  ___COLEMAK_L2___,
-                              KC_LSFT,    ___COLEMAK_L3___,  KC_LPRN,
+      KC_GRV,     ___NUMBER_L___,    OSL(LAYERS),
+      KC_LOCK,    ___COLEMAK_L1___,  LCTL(KC_C),
+      TAB_BKTAB,  ___COLEMAK_L2___,
+      KC_LSFT,    ___COLEMAK_L3___,  TO(MDIA),
 
-                              ___ERGODOX_BOTTOM_LEFT___,
-                              ___ERGODOX_THUMB_LEFT___,
+      ___BOTTOM_LEFT___,
+      ___ERGODOX_THUMB_LEFT___,
 
-                              // right hand
-                              MDIA_SYMB,  ___NUMBER_R___,    KC_EQL,
-                              KC_RBRC,    ___COLEMAK_R1___,  KC_SLASH,
-                              /*       */ ___COLEMAK_R2___,  KC_MINUS,
-                              KC_RPRN,    ___COLEMAK_R3___,  KC_RSFT,
+      // right hand
+      MDIA_SYMB_KP_LAYERS,  ___NUMBER_R___,    KC_EQL,
+      LCTL(KC_V),    ___COLEMAK_R1___,  KC_SLASH,
+      /*       */ ___COLEMAK_R2___,  KC_MINUS,
+      TO(KEYPAD),    ___COLEMAK_R3___,  KC_RSFT,
 
-                              ___ERGODOX_BOTTOM_RIGHT___,
-                              ___ERGODOX_THUMB_RIGHT___
-                              ),
+      ___BOTTOM_RIGHT___,
+      ___ERGODOX_THUMB_RIGHT___
+          ),
 
   [WORKMAN] = LAYOUT_ergodox_wrapper(
                               // left hand
-                              KC_GRV,     ___NUMBER_L___,    DEF_OS_LAYER_SW,
-                              KC_LOCK,    ___WORKMAN_L1___,  KC_LBRC,
-                              TAB_BKTAB,  ___WORKMAN_L2___,
-                              KC_LSFT,    ___WORKMAN_L3___,  KC_LPRN,
+      KC_GRV,     ___NUMBER_L___,    OSL(LAYERS),
+      KC_LOCK,    ___WORKMAN_L1___,  LCTL(KC_C),
+      TAB_BKTAB,  ___WORKMAN_L2___,
+      KC_LSFT,    ___WORKMAN_L3___,  TO(MDIA),
 
-                              ___ERGODOX_BOTTOM_LEFT___,
-                              ___ERGODOX_THUMB_LEFT___,
+      ___BOTTOM_LEFT___,
+      ___ERGODOX_THUMB_LEFT___,
 
-                              // right hand
-                              MDIA_SYMB,  ___NUMBER_R___,    KC_EQL,
-                              KC_RBRC,    ___WORKMAN_R1___,  KC_SLASH,
-                              /*    */    ___WORKMAN_R2___,  KC_MINUS,
-                              KC_RPRN,    ___WORKMAN_R3___,  KC_RSFT,
+      // right hand
+      MDIA_SYMB_KP_LAYERS,  ___NUMBER_R___,    KC_EQL,
+      LCTL(KC_V),    ___WORKMAN_R1___,  KC_SLASH,
+      /*    */    ___WORKMAN_R2___,  KC_MINUS,
+      TO(KEYPAD),    ___WORKMAN_R3___,  KC_RSFT,
 
-                              ___ERGODOX_BOTTOM_RIGHT___,
-                              ___ERGODOX_THUMB_RIGHT___
-                              ),
+      ___BOTTOM_RIGHT___,
+      ___ERGODOX_THUMB_RIGHT___
+      ),
 
   [NORMAN] = LAYOUT_ergodox_wrapper(
                             // left hand
-                            KC_GRV,     ___NUMBER_L___,   DEF_OS_LAYER_SW,
-                            KC_LOCK,    ___NORMAN_L1___,  KC_LBRC,
-                            TAB_BKTAB,  ___NORMAN_L2___,
-                            KC_LSFT,    ___NORMAN_L3___,  KC_LPRN,
+      KC_GRV,     ___NUMBER_L___,   OSL(LAYERS),
+      KC_LOCK,    ___NORMAN_L1___,  LCTL(KC_C),
+      TAB_BKTAB,  ___NORMAN_L2___,
+      KC_LSFT,    ___NORMAN_L3___,  TO(MDIA),
 
-                            ___ERGODOX_BOTTOM_LEFT___,
-                            ___ERGODOX_THUMB_LEFT___,
+      ___BOTTOM_LEFT___,
+      ___ERGODOX_THUMB_LEFT___,
 
-                            // right hand
-                            MDIA_SYMB,  ___NUMBER_R___,   KC_EQL,
-                            KC_RBRC,    ___NORMAN_R1___,  KC_SLASH,
-                            /*       */ ___NORMAN_R2___,  KC_MINUS,
-                            KC_RPRN,    ___NORMAN_R3___,  KC_RSFT,
+      // right hand
+      MDIA_SYMB_KP_LAYERS,  ___NUMBER_R___,   KC_EQL,
+      LCTL(KC_V),    ___NORMAN_R1___,  KC_SLASH,
+      /*       */ ___NORMAN_R2___,  KC_MINUS,
+      TO(KEYPAD),    ___NORMAN_R3___,  KC_RSFT,
 
-                            ___ERGODOX_BOTTOM_RIGHT___,
-                            ___ERGODOX_THUMB_RIGHT___
-                            ),
+      ___BOTTOM_RIGHT___,
+      ___ERGODOX_THUMB_RIGHT___
+      ),
 
   [DVORAK_ON_BEPO] = LAYOUT_ergodox_wrapper(
                                     // left hand
-                                    DB_GRV,     ___NUMBER_BEPO_L___,  DEF_OS_LAYER_SW,
-                                    KC_LOCK,    ___DVORAK_FR_L1___,   DB_LBRC,
-                                    TAB_BKTAB,  ___DVORAK_FR_L2___,
-                                    KC_LSFT,    ___DVORAK_FR_L3___,   DB_LPRN,
+      DB_GRV,     ___NUMBER_BEPO_L___,  OSL(LAYERS),
+      KC_LOCK,    ___DVORAK_FR_L1___,   DB_LBRC,
+      TAB_BKTAB,  ___DVORAK_FR_L2___,
+      KC_LSFT,    ___DVORAK_FR_L3___,   DB_LPRN,
 
-                                    ___ERGODOX_BOTTOM_LEFT___,
-                                    ___ERGODOX_THUMB_LEFT___,
-
-
-                                    // right hand
-                                    MDIA_SYMB,   ___NUMBER_BEPO_R___,  DB_EQL,
-                                    DB_RBRC,     ___DVORAK_FR_R1___,   DB_SLASH,
-
-                                    /*      */   ___DVORAK_FR_R2___,   DB_MINUS,
-                                    DB_RPRN,     ___DVORAK_FR_R3___,   KC_RSFT,
-
-                                    ___ERGODOX_BOTTOM_RIGHT_FR___,
-                                    ___ERGODOX_THUMB_RIGHT___
-                                    ),
-
-  [XMONAD_FR] = LAYOUT_ergodox_wrapper(
-                               // left hand
-                               ___,  ___FUNC_L___,        ___,
-                               ___,  ___DVORAK_FR_L1___,  ___,
-                               ___,  ___DVORAK_FR_L2___,
-                               ___,  ___DVORAK_FR_L3___,  ___,
-
-                               ___ERGODOX_BOTTOM_LEFT___,
-                               ___ERGODOX_THUMB_LEFT___,
+      ___BOTTOM_LEFT___,
+      ___ERGODOX_THUMB_LEFT___,
 
 
-                               // right hand
-                               ___,  ___FUNC_R___,         ___,
-                               ___,  ___DVORAK_FR_R1___,   ___,
-                               /**/  ___DVORAK_FR_R2___,   ___,
-                               ___,  ___DVORAK_FR_R3___,   ___,
+      // right hand
+      MDIA_SYMB_KP_LAYERS,   ___NUMBER_BEPO_R___,  DB_EQL,
+      DB_RBRC,     ___DVORAK_FR_R1___,   DB_SLASH,
 
-                               ___ERGODOX_BOTTOM_RIGHT_FR___,
-                               ___ERGODOX_THUMB_RIGHT___
-                               ),
+      /*      */   ___DVORAK_FR_R2___,   DB_MINUS,
+      DB_RPRN,     ___DVORAK_FR_R3___,   KC_RSFT,
+
+      ___BOTTOM_RIGHT_FR___,
+      ___ERGODOX_THUMB_RIGHT___
+      ),
 
   [BEPO] = LAYOUT_ergodox_wrapper(
-                           // Left hand
-                           BP_DLR,         ___SYMBOL_BEPO_L___,  DEF_OS_LAYER_SW,
-                           KC_LOCK,        ___BEPO_FR_L1___,     DB_LBRC,
-                           TAB_BKTAB,      ___BEPO_FR_L2___,
-                           BP_SFT_T_ECRC,  ___BEPO_FR_L3___,     DB_RBRC,
+      // Left hand
+      BP_DLR,         ___SYMBOL_BEPO_L___,  OSL(LAYERS),
+      KC_LOCK,        ___BEPO_FR_L1___,     DB_LBRC,
+      TAB_BKTAB,      ___BEPO_FR_L2___,
+      BP_SFT_T_ECRC,  ___BEPO_FR_L3___,     DB_RBRC,
 
-                           ___ERGODOX_BOTTOM_LEFT___,
-                           ___ERGODOX_THUMB_LEFT___,
+      ___BOTTOM_LEFT___,
+      ___ERGODOX_THUMB_LEFT___,
 
 
-                           // Right hand
-                           MDIA_SYMB,  ___SYMBOL_BEPO_R___,  BP_EQL,
-                           BP_DCRC,    ___BEPO_FR_R1___,     BP_W,
-                           /*     */   ___BEPO_FR_R2___,     BP_CCED,
-                           BP_C,    ___BEPO_FR_R3___,        KC_RSFT,
+      // Right hand
+      MDIA_SYMB_KP_LAYERS,  ___SYMBOL_BEPO_R___,  BP_EQL,
+      BP_DCRC,    ___BEPO_FR_R1___,     BP_W,
+      /*     */   ___BEPO_FR_R2___,     BP_CCED,
+      BP_C,    ___BEPO_FR_R3___,        KC_RSFT,
 
-                           ___ERGODOX_BOTTOM_RIGHT___,
-                           ___ERGODOX_THUMB_RIGHT___
-                           ),
+      ___BOTTOM_RIGHT___,
+      ___ERGODOX_THUMB_RIGHT___
+      ),
+
+  [XMONAD_FR] = LAYOUT_ergodox_wrapper(
+      // left hand
+      ___,  ___FUNC_L___,        ___,
+      ___,  ___DVORAK_FR_L1___,  ___,
+      ___,  ___DVORAK_FR_L2___,
+      ___,  ___DVORAK_FR_L3___,  ___,
+
+      ___BOTTOM_LEFT___,
+      ___ERGODOX_THUMB_LEFT___,
+
+
+      // right hand
+      ___,  ___FUNC_R___,         ___,
+      ___,  ___DVORAK_FR_R1___,   ___,
+      /**/  ___DVORAK_FR_R2___,   ___,
+      ___,  ___DVORAK_FR_R3___,   ___,
+
+      ___BOTTOM_RIGHT_FR___,
+      ___ERGODOX_THUMB_RIGHT___
+      ),
 
   // SYMBOLS
   [SYMB] = LAYOUT_ergodox_wrapper(
                           // left hand
-                          ___,  ___FUNC_L___,     ___,
-                          ___,  ___SYMBOLS_1___,  ___,
-                          ___,  ___SYMBOLS_2___,
-                          ___,  ___SYMBOLS_3___,  ___,
+      ___FUNC_1_6___,    ___,
+      ___SYMBOLS6_1___,  ___,
+      ___SYMBOLS6_2___,
+      ___SYMBOLS6_3___,  ___,
+      ___SYMBOLS5_4___,
+      ___6___,
 
-                          ___ERGODOX_TRANS_BOTTOM___,
-                          ___ERGODOX_TRANS_THUMBS___,
 
-
-                          // right hand
-                          ___,  ___FUNC_R___, KC_F11,
-                          ___,  KC_UP,    ___KEYPAD_1___,  KC_F12,
-                          /**/  KC_DOWN,  ___KEYPAD_2___,  KC_TRNS,
-                          ___,  KC_AMPR,  ___KEYPAD_3___,  KC_PENT,
-                          /*    */        ___KEYPAD_4___,  ___,
-
-                          ___ERGODOX_TRANS_THUMBS___
-                          ),
+      // right hand
+      ___,  ___FUNC_7_12___,
+      ___,  ___SYMPAD_1___,
+      /**/  ___SYMPAD_2___,
+      ___,  ___SYMPAD_3___,
+      /**/  ___5_SYMPAD_4___,
+      ___6___
+      ),
 
   [SYMB_ON_BEPO] = LAYOUT_ergodox_wrapper(
-                                  // left hand
-                                  ___,  ___FUNC_L___,     ___,
-                                  ___,  ___SYMBOLS_1_BP___,  ___,
-                                  ___,  ___SYMBOLS_2_BP___,
-                                  ___,  ___SYMBOLS_3_BP___,  ___,
+      // left hand
+      ___FUNC_1_6___,       ___,
+      ___SYMBOLS6_1_BP___,  ___,
+      ___SYMBOLS6_2_BP___,
+      ___SYMBOLS6_3_BP___,  ___,
+      ___SYMBOLS5_4_BP___,
+      ___6___,
 
-                                  ___ERGODOX_TRANS_BOTTOM___,
-                                  ___ERGODOX_TRANS_THUMBS___,
 
+      // right hand
+      ___,  ___FUNC_7_12___,
+      ___,  ___SYMPAD_1_BP___,
+      /**/  ___SYMPAD_2_BP___,
+      ___,  ___SYMPAD_3_BP___,
+      /**/  ___5_SYMPAD_4_BP___,
+      ___6___
+      ),
 
-                                  // right hand
-                                  ___,  ___FUNC_R___, KC_F11,
-                                  ___,  KC_UP,    ___KEYPAD_1_BP___,  KC_F12,
-                                  /**/  KC_DOWN,  ___KEYPAD_2_BP___,  KC_TRNS,
-                                  ___,  KC_AMPR,  ___KEYPAD_3_BP___,  KC_PENT,
-                                  /*    */        ___KEYPAD_4_BP___,  ___,
+  [KEYPAD] = LAYOUT_ergodox_wrapper(
+      ___FUNC_1_6___,                ___,
+      ___2___, ___FUNCPAD_T___, ___, ___,
+      ___2___, ___FUNCPAD_1___, ___,
+      ___2___, ___FUNCPAD_2___, ___, ___,
+      ___2___, ___FUNCPAD_3___,
+      ___6___,
 
-                                  ___ERGODOX_TRANS_THUMBS___
-                                  ),
+      // right hand
+      ___,  ___FUNC_7_12___,
+      ___, ___, ___KEYPAD_1___, ___,
+      /**/ ___, ___KEYPAD_2___, ___,
+      ___, ___, ___KEYPAD_3___, ___,
+      /*     */ ___KEYPAD_4___, ___,
+      ___6___
+      ),
+
+  [KEYPAD_ON_BEPO] = LAYOUT_ergodox_wrapper(
+      ___FUNC_1_6___,                ___,
+      ___2___, ___FUNCPAD_T___, ___, ___,
+      ___2___, ___FUNCPAD_1___, ___,
+      ___2___, ___FUNCPAD_2___, ___, ___,
+      ___2___, ___FUNCPAD_3___,
+      ___6___,
+
+      // right hand
+      ___,  ___FUNC_7_12___,
+      ___, ___, ___KEYPAD_1_BP___, ___,
+      /**/ ___, ___KEYPAD_2_BP___, ___,
+      ___, ___, ___KEYPAD_3_BP___, ___,
+      /*     */ ___KEYPAD_4_BP___, ___,
+      ___6___
+      ),
 
   // MEDIA AND MOUSE
   [MDIA] = LAYOUT_ergodox_wrapper(
-                          // left hand
-                          ___,  ___FUNC_L___,  ___,
-                          ___MOUSE_BTNS_L___,  ___, ___,
-                          ___,  ___MOUSE_LDUR___,   ___,
-                          ___,  ___MWHEEL_LDUR___,  XXX,  ___,
-                          ___,  ___,  ___MOUSE_ACCL_012___,
-                          ___ERGODOX_TRANS_THUMBS___,
+      // left hand
+      ___FUNC_1_6___,      ___,
+      ___MOUSE_BTNS_L___,  ___, ___,
+      ___,  ___MOUSE_LDUR___,   ___,
+      ___,  ___MWHEEL_LDUR___,  XXX,  ___,
+      ___,  ___,  ___MOUSE_ACCL_012___,
+      ___6___,
 
-                          // right hand
-                          ___,      ___FUNC_R___,                    KC_F11,
-                          KC_VOLU,  ___, ___MUTE_PLAY_STOP___,  ___, KC_F12,
-                          /*    */  KC_PGUP, ___VI_ARROWS___,        ___,
-                          KC_VOLD,  KC_PGDN, ___MOUSE_BTNS_R___,
-                          ___ERGODOX_TRANS_BOTTOM___,
-                          ___ERGODOX_TRANS_THUMBS___
-                          ),
+      // right hand
+      ___,  ___FUNC_7_12___,
+      ___,  KC_VOLU, ___MUTE_PRV_PLAY_NXT_STOP___,
+      /**/  KC_VOLD, ___VI_ARROWS___,     ___,
+      ___,  ___,     ___MOUSE_BTNS_R___,
+      /*          */ KC_PGDN, KC_PGUP, ___3___,
+      ___6___
+      ),
 
   [LAYERS] = LAYOUT_ergodox_wrapper(
-                            // left hand
-                            ___,  ___FUNC_L___,  ___,
-                            XXX,  XXX,  XXX, ___LAYERS_L1___,  XXX, XXX,
-                            XXX,  XXX,  XXX, ___LAYERS_L2___,  XXX,
-                            XXX,  XXX,  ___LAYERS_L3___,       XXX,  XXX,
-                            ___,  ___,  ___LAYERS_L4___,
-                            ___ERGODOX_TRANS_THUMBS___,
+      // left hand
+      ___FUNC_1_6___,                           ___,
+      XXX,  XXX,  XXX, ___2_LAYERS_B1___,  XXX, ___,
+      XXX,  XXX,  XXX, ___2_LAYERS_B2___, XXX,
+      XXX,  XXX,  ___3_LAYERS_B3___,       XXX, ___,
+      ___5___,
+      ___6___,
 
-                            // right hand
-                            ___,      ___FUNC_R___,                    KC_F11,
-                            KC_VOLU,  ___, ___MUTE_PLAY_STOP___,  ___, KC_F12,
-                            /*    */  KC_PGUP, ___VI_ARROWS___,        ___,
-                            KC_VOLD,  KC_PGDN, ___MOUSE_BTNS_R___,
-                            ___ERGODOX_TRANS_BOTTOM___,
-                            ___ERGODOX_TRANS_THUMBS___
-                            ),
+      // right hand
+      ___,  ___FUNC_7_12___,
+      ___,  XXX, ___3_LAYERS_T_BP___,  ___2___,
+      /**/  XXX, ___3_LAYERS_T___,     ___2___,
+      ___,  XXX, ___3_LAYERS_T_CTL___, ___2___,
+      ___5___,
+      ___6___
+      ),
 };
 
 
