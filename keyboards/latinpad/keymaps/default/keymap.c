@@ -1,6 +1,6 @@
- /* Keymap _1: (Base Layer) Default Layer
+ /* Keymap _0: (Base Layer) Default Layer
 
-   * |-----|-----|-----|-----|
+   * .-----------------------.
    * |  7  |  8  |  9  | MO1 |
    * |-----|-----|-----|-----|
    * |  4  |  5  |  6  |  +  |
@@ -12,17 +12,17 @@
    * |PGUP | PGDN| 
    * .-----------.
    */
-     /* Keymap _1: (Base Layer) Default Layer
+     /* Keymap _1: (Second Layer) second Layer
 
-   * |-------|-------|-----|-----|
-   * |RGB_TOG|RGB_MOD|  9  | MO1 |
-   * |-------|-------|-----|-----|
-   * |RGB_M_K|RGB_SAI|  6  |  +  |
-   * |-------|-------|-----|-----|
-   * |RGB_HUI|RGB_VAI|  3  |  —  |
-   * |-------|-------|-----|-----|
-   * |   0   |   .   | DEL |Enter|
-   * .-----------------------.
+   * .---------------------------------.
+   * |RGB_TOG|RGB_MOD|RGB_M_K|RGB_M_X |
+   * |-------|-------|-------|--------|
+   * |RGB_SAI|RGB_SAD|RGB_HUI|RGB_HUD |
+   * |-------|-------|-------|--------|
+   * |RGB_VAI|RGB_VAD|RGB_SPI|RGB_SPD |
+   * |-------|-------|-------|--------|
+   * |RGB_SPI|RGB_SPD|RGB_TOG|KC_TRNS |
+   * .--------------------------------.
    * |NUMLOCK|Caculator | 
    * .------------------.
 */
