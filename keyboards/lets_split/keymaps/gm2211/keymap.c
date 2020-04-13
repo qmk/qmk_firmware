@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT_ortho_4x12( \
     LGUI(KC_SCOLON), LGUI(KC_Q),               LGUI(KC_W),        LALT(LGUI(KC_L)),  LALT(KC_ENTER),   LGUI(KC_T),      KC_CIRC,          KC_AMPR,                            KC_ASTR,           LALT(LGUI(KC_O)),    LGUI(KC_P),       ___,     \
     ___,             LGUI(KC_A),               LGUI(KC_S),        KC_ENTER,          LGUI(KC_F),       LGUI(KC_G),      ___,              LGUI(LALT(LCTL(LSFT(KC_SPACE)))),   KC_PLUS,           KC_EQUAL,            KC_PIPE,          KC_PIPE, \
-    MO(8),           KC_MAC_UNDO,              KC_MAC_CUT,        KC_MAC_COPY,       KC_MAC_PASTE,     LGUI(KC_B),      LGUI(KC_N),       KC_ENTER,                           KC_UNDS,           KC_GRAVE,            KC_BSLASH,        ___,     \
+    KC_LSHIFT,       KC_MAC_UNDO,              KC_MAC_CUT,        KC_MAC_COPY,       KC_MAC_PASTE,     LGUI(KC_B),      LGUI(KC_N),       KC_ENTER,                           KC_UNDS,           KC_GRAVE,            KC_BSLASH,        ___,     \
     MO(8),           LCTL(LGUI(LSFT(KC_4))),   ___,               ___,               ___,              ___,             ___,              ___,                                KC_UNDS,           KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,  ___
 ),
 
