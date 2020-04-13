@@ -13,10 +13,6 @@ echo_bold() {
     echo -e "\033[1m$1\033[m"
 }
 
-# TODO: check for presence of Python 3.5 or greater, maybe
-#   - noroadsleft, 2020-04-13
-# PYTHON_VERSION = $(python --version | )
-
 echo_bold "This script has been deprecated, and will be deleted in future."
 echo_bold "Please use:\n\n    qmk new-keyboard\n"
 qmk new-keyboard
