@@ -241,9 +241,7 @@ typedef struct _rgblight_ranges_t {
     uint8_t effect_num_leds;
 } rgblight_ranges_t;
 
-#    ifdef RGBLIGHT_CUSTOM_DRIVER
 extern rgblight_ranges_t rgblight_ranges;
-#    endif
 
 /* === Utility Functions ===*/
 void sethsv(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1);
