@@ -1,6 +1,6 @@
 {
     "keyboard_name": "latinpad",
-    "url": "https://github.com/latincompass/qmk_firmware/tree/master/keyboards/latinpad",
+    "url": "https://github.com/latincompass/2-RotaryEncoder-pad",
     "maintainer": "latincompass",
 
     "width": 4,
