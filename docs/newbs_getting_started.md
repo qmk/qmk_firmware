@@ -66,9 +66,14 @@ After Homebrew is installed run these commands:
 
 You will need to install Git and Python. It's very likely that you already have both, but if not, one of the following commands should install them:
 
-* Debian / Ubuntu / Devuan: `apt-get install git python3 && python3 -m pip install qmk`
-* Fedora / Red Hat / CentOS: `yum install git python3 && python3 -m pip install qmk`
-* Arch: `yay -S qmk` (or use any other AUR Helper)
+* Debian / Ubuntu / Devuan: `sudo apt-get install git python3 python3-pip`
+* Fedora / Red Hat / CentOS: `sudo yum install git python3 python3-pip`
+* Arch: `sudo pacman -S git python python-pip`
+
+
+Install the global CLI to bootstrap your system:
+
+  `sudo python3 -m pip install qmk` (on Arch-based distros you can also try the `qmk` package from AUR (**note**: it's maintained by a community member): `yay -S qmk`)
 
 ## 3. Run QMK Setup :id=set-up-qmk
 
