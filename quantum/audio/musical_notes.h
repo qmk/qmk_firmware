@@ -13,7 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #pragma once
 
 // Tempo Placeholder
@@ -71,13 +70,6 @@
 #endif
 // Notes - # = Octave
 
-/*TODO: huh??
-#ifdef __arm__
-#    define NOTE_REST 1.00f
-#else
-#    define NOTE_REST 0.00f
-#endif
-*/
 #define NOTE_REST 0.00f
 
 #define NOTE_C0 16.35f
