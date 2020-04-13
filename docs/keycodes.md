@@ -207,6 +207,7 @@ See also: [Basic Keycodes](keycodes_basic.md)
 |`KC_MEDIA_REWIND`      |`KC_MRWD`                     |Previous Track (macOS)                         |
 |`KC_BRIGHTNESS_UP`     |`KC_BRIU`                     |Brightness Up                                  |
 |`KC_BRIGHTNESS_DOWN`   |`KC_BRID`                     |Brightness Down                                |
+|`KC_SCREENSAVER`       |`KC_SCSV`                     |Terminal Lock/Screensaver                      |
 
 ## Quantum Keycodes :id=quantum-keycodes
 

@@ -247,6 +247,8 @@ static inline uint16_t KEYCODE2CONSUMER(uint8_t key) {
             return BRIGHTNESS_DOWN;
         case KC_WWW_FAVORITES:
             return AC_BOOKMARKS;
+        case KC_SCREENSAVER:
+            return AL_LOCK;
         default:
             return 0;
     }
