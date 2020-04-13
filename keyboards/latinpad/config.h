@@ -34,7 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #define DIODE_DIRECTION ROW2COL
 
 #define SSD1306OLED
-
 #define RGB_DI_PIN D3
 
 #ifdef RGB_DI_PIN
