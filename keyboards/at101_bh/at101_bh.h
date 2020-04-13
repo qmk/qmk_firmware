@@ -1,5 +1,4 @@
-#ifndef at101_bh_H
-#define at101_bh_H
+#pragma once
 
 #include "quantum.h"
 
