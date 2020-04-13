@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] =  LAYOUT_ortho_4x12( \
       KC_T,     KC_L,    KC_R,    KC_E,     KC_R,  ___,  ___,   KC_7, KC_8, KC_9,  ___,   ___,    \
       KC_B,     ___,     ___,     KC_D,     KC_F,  ___,  ___,   KC_4, KC_5, KC_6,  KC_0,  RESET,  \
-      ___,      KC_Z,    KC_X,    KC_C,     ___,   ___,  KC_N,  KC_1, KC_2, KC_3,  ___,   ___,    \
+      ___,      KC_Z,    KC_X,    ___,      ___,   ___,  KC_N,  KC_1, KC_2, KC_3,  ___,   ___,    \
       KC_MEH,   KC_HYPR, KC_LCA,  KC_LCAG,  ___,   ___,  ___,   ___,  ___,  ___,   ___,   ___
 ),
 
