@@ -171,7 +171,7 @@ void audio_stop_all(void);
 /**
  * @brief query if one/multiple tones are playing
  */
-bool audio_is_playing_note(void);  // TODO: is_playing_tone?
+bool audio_is_playing_note(void);
 
 /**
  * @brief query if a melody/SONG is playing

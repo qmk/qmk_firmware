@@ -66,13 +66,15 @@ bool playing_melody = false;  // playing a SONG?
 bool playing_note   = false;  // or (possibly multiple simultaneous) tones
 bool state_changed  = false;  // global flag, which is set if anything changes with the active_tones
 
-float (*notes_pointer)[][2];               // SONG, an array of MUSICAL_NOTEs
-uint16_t notes_count;                      // length of the notes_pointer array
-bool     notes_repeat;                     // PLAY_SONG or PLAY_LOOP?
-uint16_t melody_current_note_end = 0;      // timestamp when the currently playing note in the melody will/should end
+// melody/SONG related state variables
+float (*notes_pointer)[][2];                // SONG, an array of MUSICAL_NOTEs
+uint16_t notes_count;                       // length of the notes_pointer array
+bool     notes_repeat;                      // PLAY_SONG or PLAY_LOOP?
+uint16_t melody_current_note_duration = 0;  // duration of the currently playing note from the active melody, in ms
 uint8_t  note_tempo      = TEMPO_DEFAULT;  // beats-per-minute
 uint16_t current_note    = 0;              // index into the array at notes_pointer
 bool     note_resting    = false;          // if a short pause was introduced between two notes with the same frequency while playing a melody
+uint32_t last_timestamp  = 0;
 
 #ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
 #    ifndef AUDIO_MAX_SIMULTANEOUS_TONES
@@ -102,7 +104,8 @@ float startup_song[][2]   = STARTUP_SONG;
 float audio_on_song[][2]  = AUDIO_ON_SONG;
 float audio_off_song[][2] = AUDIO_OFF_SONG;
 
-static bool    audio_initialized = false;
+static bool    audio_initialized    = false;
+static bool    audio_driver_stopped = true;
 audio_config_t audio_config;
 
 void audio_init() {
@@ -140,6 +143,8 @@ void audio_init() {
     if (audio_config.enable) {
         PLAY_SONG(startup_song);
     }
+
+    last_timestamp = timer_read32();
 }
 
 void audio_toggle(void) {
@@ -168,9 +173,10 @@ void audio_off(void) {
 bool audio_is_on(void) { return (audio_config.enable != 0); }
 
 void audio_stop_all() {
-    if (!audio_initialized) {
-        audio_init();
+    if (audio_driver_stopped) {
+        return;
     }
+
     active_tones = 0;
 
     audio_driver_stop();
@@ -178,7 +184,7 @@ void audio_stop_all() {
     playing_melody = false;
     playing_note   = false;
 
-    melody_current_note_end = 0;
+    melody_current_note_duration = 0;
 
     for (uint8_t i = 0; i < AUDIO_TONE_STACKSIZE; i++) {
         tones[i] = (musical_tone_t){
@@ -187,6 +193,8 @@ void audio_stop_all() {
             .duration     = -1.0f
         };
     }
+
+    audio_driver_stopped = true;
 }
 
 void audio_stop_tone(float pitch) {
@@ -232,8 +240,8 @@ void audio_stop_tone(float pitch) {
 #endif
         if (active_tones == 0) {
             audio_driver_stop();
-
-            playing_note = false;
+            audio_driver_stopped = true;
+            playing_note  = false;
         }
     }
 }
@@ -289,8 +297,10 @@ void audio_play_note(float pitch, float duration) {
     //TODO: needs to be handled per note/tone -> use its timestamp instead?
     voices_timer = timer_read32(); // reset to zero, for the effects added by voices.c
 
-    if (active_tones == 1)  // sufficient to start when switching from 0 to 1
+    if (audio_driver_stopped) {
         audio_driver_start();
+        audio_driver_stopped = false;
+    }
 }
 
 void audio_play_tone(float pitch) {
@@ -299,6 +309,7 @@ void audio_play_tone(float pitch) {
 
 void audio_play_melody(float (*np)[][2], uint16_t n_count, bool n_repeat) {
     if (!audio_config.enable) {
+        audio_stop_all();
         return;
     }
 
@@ -322,7 +333,8 @@ void audio_play_melody(float (*np)[][2], uint16_t n_count, bool n_repeat) {
     // all following/remaining notes are played by 'audio_update_state'
     audio_play_note((*notes_pointer)[current_note][0], audio_duration_to_ms ((*notes_pointer)[current_note][1])
 );
-    melody_current_note_end = timer_read32() +  audio_duration_to_ms ((*notes_pointer)[current_note][1]);
+    last_timestamp = timer_read32();
+    melody_current_note_duration = audio_duration_to_ms ((*notes_pointer)[current_note][1]);
 }
 
 float click[2][2];
@@ -412,8 +424,9 @@ bool audio_update_state(void) {
 
     if (playing_melody) {
 
-        goto_next_note = current_time >= melody_current_note_end;
+        goto_next_note = timer_elapsed32(last_timestamp) >= melody_current_note_duration;
         if (goto_next_note) {
+            last_timestamp = current_time;
             uint16_t previous_note = current_note;
             current_note++;
             voices_timer = timer_read32(); // reset to zero, for the effects added by voices.c
@@ -434,7 +447,7 @@ bool audio_update_state(void) {
                 // insert a short pause to separate them audibly
                 audio_play_note(0.0f, audio_duration_to_ms(2));
                 current_note    = previous_note;
-                melody_current_note_end = current_time + audio_duration_to_ms(2);
+                melody_current_note_duration = audio_duration_to_ms(2);
 
             } else {
                 note_resting = false;
@@ -443,14 +456,11 @@ bool audio_update_state(void) {
 
                 // Skip forward in the next note's length if we've over shot the last, so
                 // the overall length of the song is the same
-                int delta = current_time - melody_current_note_end; // TODO: what about a timer overflow?
-                if (delta < 0) {
-                    delta = 0;
-                }
+                int delta = timer_elapsed32(last_timestamp) - melody_current_note_duration;
 
                 uint16_t duration = audio_duration_to_ms((*notes_pointer)[current_note][1]) - delta;
                 audio_play_note((*notes_pointer)[current_note][0], duration);
-                melody_current_note_end = current_time + duration;
+                melody_current_note_duration = duration;
             }
         }
     }
@@ -470,8 +480,8 @@ bool audio_update_state(void) {
         // housekeeping: stop notes that have no playtime left
         for (int i=0; i < active_tones; i++) {
             if (tones[i].duration > 0) {
-                if (current_time >= tones[i].time_started + tones[i].duration) {
-                    audio_stop_tone(tones[i].pitch);
+                if (timer_elapsed32(tones[i].time_started) >= tones[i].duration) {
+                    audio_stop_tone(tones[i].pitch); // also sets 'state_changed=true'
                 }
             }
         }
