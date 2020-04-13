@@ -3,7 +3,7 @@
 macro 2 rotary encoder pad
 
 * Keyboard Maintainer: Latincompass
-* Hardware Availability: https://github.com/latincompass/qmk_firmware/tree/master/keyboards/latinpad
+* Hardware Availability: https://github.com/latincompass/2-RotaryEncoder-pad
 
 Make example for this keyboard (after setting up your build environment):
 
