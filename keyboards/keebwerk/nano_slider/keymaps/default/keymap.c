@@ -21,7 +21,7 @@
 enum layer_names {
     _BASE,
     _FN,
-    _DEMO
+    _MEDIA
 };
 
 // Defines the keycodes used by our macros in process_record_user
@@ -29,6 +29,7 @@ enum custom_keycodes {
     QMKBEST = SAFE_RANGE,
     QMKURL
 };
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
@@ -39,13 +40,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_FN] = LAYOUT(
         TO(_DEMO),
-        RGB_TOG, RGB_MOD, RGB_VAI,
-        _______, _______, _______, _______
+        RGB_TOG, RGB_MOD,  RGB_VAI,
+        QMKURL, RGB_RMOD, RGB_VAD, QMKBEST
     ),
-    [_DEMO] = LAYOUT(
+    [_MEDIA] = LAYOUT(
         TO(_BASE),
-        QMKBEST, _______, _______,
-        _______, _______, _______, QMKURL
+        KC_VOLD, KC_VOLU, KC_F24,
+        KC_MRWD, KC_MFFD, KC_F23, KC_MPLY
     )
 };
 
