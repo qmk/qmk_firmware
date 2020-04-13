@@ -144,7 +144,7 @@ static MSCMD_USER_RESULT usrcmd_bonding_information(MSOPT *msopt,
 
     bmp_api_config_t const * const config = BMPAPI->app.get_config();
 
-    cli_puts("{\"bondig\":[\n");
+    cli_puts("{\"bonding\":[\n");
 
     for (int i = 0; i < peer_cnt; i++) {
         // print mac address
