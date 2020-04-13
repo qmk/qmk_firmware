@@ -56,6 +56,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "configurator.h"
 #include "bmp.h"
 #include "bmp_encoder.h"
+#include "bmp_indicator_led.h"
 
 #ifndef MATRIX_SCAN_TIME_MS
 #define MATRIX_SCAN_TIME_MS 17
@@ -104,6 +105,8 @@ void main_tasks(void* context) {
 //  UNUSED_PARAMETER(p_context);
   /* Main loop */
   timer_tick(MAINTASK_INTERVAL);
+
+  bmp_indicator_task(MAINTASK_INTERVAL);
 
   if (BMPAPI->app.get_config()->mode == SPLIT_SLAVE)
   {
@@ -217,8 +220,12 @@ int main(void) {
   keyboard_init();
   host_set_driver(driver);
 
-  rgblight_set_clipping_range(0, BMPAPI->app.get_config()->led.num);
-  rgblight_set_effect_range(0, BMPAPI->app.get_config()->led.num);
+  const bmp_api_config_t * config = BMPAPI->app.get_config();
+
+  rgblight_set_clipping_range(0, config->led.num);
+  rgblight_set_effect_range(0, config->led.num);
+
+  bmp_indicator_init(config->reserved[1]);
 
   BMPAPI->app.main_task_start(main_tasks, MAINTASK_INTERVAL);
 #ifdef BMP_ENCODER_ENABLE

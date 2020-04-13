@@ -21,6 +21,7 @@ NRF_DIR = $(PROTOCOL_DIR)/nrf
        $(NRF_DIR)/bmp.c \
        $(NRF_DIR)/bmp_extended_keycode_converter.c \
        $(NRF_DIR)/bmp_process_extended_keycode.c \
+       $(NRF_DIR)/bmp_indicator_led.c \
 
 VPATH += $(TMK_PATH)/$(NRF_DIR)/microshell/core
 VPATH += $(TMK_PATH)/$(NRF_DIR)/microshell/util

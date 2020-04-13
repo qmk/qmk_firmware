@@ -3,6 +3,7 @@
 #include "bmp_encoder.h"
 #include "bmp_custom_keycode.h"
 #include "bmp_process_extended_keycode.h"
+#include "bmp_indicator_led.h"
 #include "keycode_str_converter.h"
 
 #include <stdint.h>
@@ -650,6 +651,19 @@ bmp_error_t bmp_state_change_cb(bmp_api_event_t event)
       create_index_html();
       create_user_file();
       break;
+
+    case BLE_ADVERTISING_START:
+      bmp_indicator_set(INDICATOR_ADVERTISING, 0);
+      break;
+
+    case BLE_ADVERTISING_STOP:
+      bmp_indicator_set(INDICATOR_TURN_OFF, 0);
+      break;
+
+    case BLE_CONNECTED:
+      bmp_indicator_set(INDICATOR_CONNECTED, 0);
+      break;
+
     default:
       break;
   }
@@ -764,6 +778,18 @@ void bmp_init()
   BMPAPI->usb.set_msc_write_cb(msc_write_callback);
   BMPAPI->app.set_state_change_cb(bmp_state_change_cb);
 
+  uint16_t vcc_mv = BMPAPI->app.get_vcc_mv();
+  int32_t battery_level = 1;
+  if (vcc_mv > 2700) {
+    battery_level = 3;
+  }
+  else if (vcc_mv > 2400) {
+    battery_level = 2;
+  }
+
+  bmp_indicator_set(INDICATOR_BATTERY, battery_level);
+
+
   if (!is_safe_mode_) {
 #if defined(ALLOW_MSC_ROW_PIN) && defined(ALLOW_MSC_COL_PIN)
     BMPAPI->usb.init(config, checkMscDisableFlag(config));
@@ -809,7 +835,6 @@ void bmp_init()
   {
     BMPAPI->ble.advertise(255);
   }
-
 
   BMPAPI->usb.enable();
   BMPAPI->logger.info("usb enable");

@@ -5,7 +5,7 @@
 
 #include "error_def.h"
 
-#define API_VERSION 6
+#define API_VERSION 7
 #define CONFIG_VERSION 2
 #define PINS_MAX 32
 
@@ -94,6 +94,8 @@ typedef enum {
   USB_DISCONNECTED,
   BLE_CONNECTED,
   BLE_DISCONNECTED,
+  BLE_ADVERTISING_START,
+  BLE_ADVERTISING_STOP,
 } bmp_api_event_t;
 
 typedef enum
@@ -221,7 +223,7 @@ typedef bmp_error_t (*bmp_api_state_change_cb_t)(bmp_api_event_t event);
 typedef struct
 {
   int32_t (*init)(bmp_api_config_t const * const);
-  void (*reset)(uint32_t flag);
+  void (*reset)(uint32_t);
   void (*enter_sleep_mode)(void);
   void (*main_task_start)(void(*main_task)(void*), uint8_t interval_ms);
   void (*process_task)(void);
@@ -250,7 +252,7 @@ typedef struct
   void (*send_consumer)(uint16_t);
   void (*serial_putc)(char);
   char (*serial_getc)(void);
-  void (*serial_puts)(const uint8_t*, uint8_t);
+  void (*serial_puts)(uint8_t const *, uint8_t);
   int (*serial_byte_to_read)(void);
   bmp_error_t (*create_file)(const char* sfn, const uint8_t* dat, uint32_t size);
   bmp_error_t (*set_msc_write_cb)(bmp_api_msc_write_cb_t);
@@ -376,6 +378,14 @@ typedef struct
   void (*info)(const char*);
 } bmp_api_logger_t;
 
+
+typedef struct
+{
+  // void (*init)(void); // initialized in wakeup process
+  int (*config_channel)(uint8_t channel, uint8_t pin);
+  int (*sample_and_convert)(uint8_t channel, int16_t* const result);
+} bmp_api_adc_t;
+
 typedef struct
 {
   //////DO NOT CHANGE///////
@@ -394,6 +404,7 @@ typedef struct
   bmp_api_logger_t logger;
   bmp_api_web_config_t web_config;
   bmp_api_encoder_t encoder;
+  bmp_api_adc_t adc;
 } bmp_api_t;
 
 #define BMPAPI ((bmp_api_t*)0xFDE00)
