@@ -252,8 +252,6 @@ void keyboard_post_init_user(void) {
     rgblight_layers = _rgb_layers;
 }
 
-extern keymap_config_t keymap_config;
-
 // Note we user post_process_record_user because we want the state
 // after the flag has been flipped...
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
