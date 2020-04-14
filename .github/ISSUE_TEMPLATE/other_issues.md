@@ -2,7 +2,7 @@
 name: Other issues
 about: Anything else that doesn't fall into the above categories.
 title: ''
-labels: help wanted, question, discussion
+labels: help wanted, question
 assignees: ''
 
 ---

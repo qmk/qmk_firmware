@@ -14,12 +14,12 @@ the ESDF cluster.
 
 ## Function layer
 
-![Function layer layout](https://i.imgur.com/s2uyH2U.png)
+![Function layer layout](https://i.imgur.com/NdJTW9f.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/f6311fd7e315de781143b80eb040a551))
 
 ## Adjust layer
 
-![Adjust layer layout](https://i.imgur.com/BKNez3Z.png)
+![Adjust layer layout](https://i.imgur.com/XQR4AEf.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/65ac939caec878401603bc36290852d4))

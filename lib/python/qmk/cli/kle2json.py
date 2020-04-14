@@ -1,10 +1,8 @@
 """Convert raw KLE to JSON
-
 """
 import json
 import os
 from pathlib import Path
-from argparse import FileType
 from decimal import Decimal
 from collections import OrderedDict
 
@@ -23,12 +21,12 @@ class CustomJSONEncoder(json.JSONEncoder):
                 return float(obj)
         except TypeError:
             pass
-        return JSONEncoder.default(self, obj)
+        return json.JSONEncoder.default(self, obj)
 
 
 @cli.argument('filename', help='The KLE raw txt to convert')
 @cli.argument('-f', '--force', action='store_true', help='Flag to overwrite current info.json')
-@cli.subcommand('Convert a KLE layout to a Configurator JSON')
+@cli.subcommand('Convert a KLE layout to a Configurator JSON', hidden=False if cli.config.user.developer else True)
 def kle2json(cli):
     """Convert a KLE layout to QMK's layout format.
     """  # If filename is a path

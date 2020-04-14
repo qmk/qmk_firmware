@@ -1,8 +1,9 @@
 # QMK 初心者ガイド
 
 <!---
-  original document: ed0575fc8:docs/newbs.md
-  $ git diff ed0575fc8 HEAD docs/newbs.md
+  grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
+  original document: adf4acf59:docs/newbs.md
+  git diff adf4acf59 HEAD -- docs/newbs.md | cat
 -->
 
 QMK は、メカニカルキーボード用の強力なオープンソースファームウェアです。
@@ -18,18 +19,18 @@ QMK は[多くの趣味のキーボード](http://qmk.fm/keyboards/)をサポー
 
 このガイドには7つの主要なセクションがあります。
 
-* [はじめに](newbs_getting_started.md)
-* [コマンドラインを使用して初めてのファームウェアを構築する](newbs_building_firmware.md)
-* [オンライン GUI を使用して初めてのファームウェアを構築する](newbs_building_firmware_configurator.md)
-* [ファームウェアを書きこむ](newbs_flashing.md)
-* [テストとデバッグ](newbs_testing_debugging.md)
-* [Git の最良の慣行](newbs_best_practices.md)
-* [さらに学ぶための学習リソース](newbs_learn_more_resources.md)
+* [はじめに](ja/newbs_getting_started.md)
+* [コマンドラインを使用して初めてのファームウェアを構築する](ja/newbs_building_firmware.md)
+* [オンライン GUI を使用して初めてのファームウェアを構築する](ja/newbs_building_firmware_configurator.md)
+* [ファームウェアを書きこむ](ja/newbs_flashing.md)
+* [テストとデバッグ](ja/newbs_testing_debugging.md)
+* [QMK における Git 運用作法](ja/newbs_git_best_practices.md)
+* [さらに学ぶための学習リソース](ja/newbs_learn_more_resources.md)
 
 このガイドは、これまでソフトウェアをコンパイルしたことがない人を支援することに特化しています。
 その観点から選択と推奨を行います。
 これらの手順の多くには代替方法があり、これらの代替方法のほとんどをサポートしています。
-タスクを達成する方法について疑問がある場合は、[案内を求めることができます](getting_started_getting_help.md)。
+タスクを達成する方法について疑問がある場合は、[案内を求めることができます](ja/getting_started_getting_help.md)。
 
 ## 追加のリソース(英語)
 

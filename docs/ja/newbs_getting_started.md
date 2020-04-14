@@ -1,8 +1,9 @@
 # イントロダクション
 
 <!---
-  original document: docs/newbs_getting_started.md
-  $ git diff 161d469 HEAD docs/newbs_getting_started.md
+  grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
+  original document: 161d469:docs/newbs_getting_started.md
+  git diff 161d469 HEAD -- docs/newbs_getting_started.md | cat
 -->
 
 キーボードにはプロセッサが入っており、それはコンピュータに入っているものと大して違わないものです。
@@ -11,7 +12,7 @@ QMK は、そのソフトウェアの役割を果たし、ボタンの押下を�
 カスタムキーマップを作るということは、キーボード上で動くプログラムを作るということなのです。
 
 QMK は、簡単なことは簡単に、そして、難しいことを可能なことにすることで、あなたの手にたくさんのパワーをもたらします。
-パワフルなキーマップを作るためにプログラムを作成する方法を知る必要はありません。いくつかのシンプルな文法に従うだけでOKです。
+パワフルなキーマップを作るためにプログラムを作成する方法を知る必要はありません。いくつかのシンプルな文法に従うだけで OK です。
 
 # はじめに
 
@@ -19,7 +20,7 @@ QMK は、簡単なことは簡単に、そして、難しいことを可能な�
 ファームウェアをコンパイルするキーボードの数に関わらず、この作業を一度だけ実行する必要があります。
 
 もし、GUI で作業をしたい場合、オンラインで作業できる [QMK Configurator](https://config.qmk.fm) を使ってください。
-使い方は [Building Your First Firmware using the online GUI](newbs_building_firmware_configurator.md) を参照してください。
+使い方は [オンライン GUI を使用して初めてのファームウェアを構築する](ja/newbs_building_firmware_configurator.md) を参照してください。
 
 ## ソフトウェアのダウンロード
 
@@ -44,7 +45,7 @@ QMK Toolbox は、Windows と macOS で使える GUI を備えたプログラム
 * Windows 版: `qmk_toolbox.exe` (portable) または `qmk_toolbox_install.exe` (installer)
 * macOS 版: `QMK.Toolbox.app.zip` (portable) または `QMK.Toolbox.pkg` (installer)
 
-## 環境構築
+## 環境構築 :id=set-up-your-environment
 
 私たちは、QMK を可能な限り簡単に構築できるように努力しています。
 Linux か Unix 環境を用意するだけで、QMK に残りをインストールさせることができます。
@@ -76,9 +77,9 @@ Git のインストールが必要です。既にインストールされてい�
 * Fedora / Red Hat / CentOS: `yum install git`
 * Arch: `pacman -S git`
 
-?> 全てのプラットフォームにおいて、Docker を使うことも可能です。[詳細はこちらをクリックしてください](getting_started_build_tools.md#docker)。
+?> 全てのプラットフォームにおいて、Docker を使うことも可能です。[詳細はこちらをクリックしてください](ja/getting_started_build_tools.md#docker)。
 
-## QMK の設定
+## QMK の設定 :id=set-up-qmk
 
 Linux/Unix 環境が準備できたら QMK のダウンロードの準備は完了です。Git を使用して QMK のリポジトリを「クローン」することで QMK をダウンロードします。ターミナルか MSYS2 MinGW ウィンドウを開いて、このガイドの残りの部分では開いたままにします。そのウィンドウ内で、次の2つのコマンドを実行します。
 
@@ -87,7 +88,7 @@ git clone --recurse-submodules https://github.com/qmk/qmk_firmware.git
 cd qmk_firmware
 ```
 
-?> 既に [GitHub の使いかた](getting_started_github.md)を知っているなら、clone ではなく fork を勧めます。この一文の意味が分からない場合、このメッセージは無視してかまいません。
+?> 既に [GitHub の使いかた](ja/getting_started_github.md)を知っているなら、clone ではなく fork を勧めます。この一文の意味が分からない場合、このメッセージは無視してかまいません。
 
 QMK には、必要な残りの設定を手助けするスクリプトが含まれています。
 セットアップ作業を完了させるため、次のコマンドを実行します。
@@ -118,4 +119,4 @@ Checking file size of clueboard_66_rev3_default.hex                             
 # キーマップの作成
 
 これであなた専用のキーマップを作成する準備ができました！
-次は [Building Your First Firmware](newbs_building_firmware.md) で専用のキーマップを作成します。
+次は [Building Your First Firmware](ja/newbs_building_firmware.md) で専用のキーマップを作成します。

@@ -18,14 +18,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include QMK_KEYBOARD_CONFIG_H
-
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCB10
 #define PRODUCT_ID      0x1257
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Keebio
-#define PRODUCT         Quefrency
+#define PRODUCT         Quefrency Rev. 1
 #define DESCRIPTION     Split 60/65 percent staggered keyboard
 
 /* key matrix size */
@@ -39,6 +37,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS_RIGHT { F4, D4, D7, E6, B4, B5 }
 #define MATRIX_COL_PINS_RIGHT { F5, F6, F7, B1, B3, B2, B6, C6 }
 #define SPLIT_HAND_PIN D2
+
+#define DIODE_DIRECTION COL2ROW
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
@@ -55,3 +55,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN D3
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 16    // Number of LEDs
+
+// Set 65% column (option 1) and Macro (option 2) on by default
+#define VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT 0x06

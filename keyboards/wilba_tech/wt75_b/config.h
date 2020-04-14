@@ -200,24 +200,9 @@
 // the default effect speed (0-3)
 #define MONO_BACKLIGHT_EFFECT_SPEED 0
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
+// Backlight config starts after VIA's EEPROM usage,
+// dynamic keymaps start after this.
+#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 7
 
-// EEPROM usage
-
-// TODO: refactor with new user EEPROM code (coming soon)
-#define EEPROM_MAGIC 0x4520
-#define EEPROM_MAGIC_ADDR 34
-// Bump this every time we change what we store
-// This will automatically reset the EEPROM with defaults
-// and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x08
-#define EEPROM_VERSION_ADDR 36
-
-// Backlight config starts after EEPROM version
-#define MONO_BACKLIGHT_CONFIG_EEPROM_ADDR 37
-// Dynamic keymap starts after backlight config (37+7)
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 44
-// Dynamic macro starts after dynamic keymaps (44+(4*6*16*2)) = (44+768)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 812
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 212
-#define DYNAMIC_KEYMAP_MACRO_COUNT 16
+// VIA lighting is handled by the keyboard-level code
+#define VIA_CUSTOM_LIGHTING_ENABLE

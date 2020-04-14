@@ -1,8 +1,9 @@
 # テストとデバッグ
 
 <!---
+  grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
   original document: ed0575fc8:docs/newbs_testing_debugging.md
-  $ git diff ed0575fc8 HEAD docs/newbs_testing_debugging.md
+  git diff ed0575fc8 HEAD -- docs/newbs_testing_debugging.md | cat
 -->
 
 カスタムファームウェアをキーボードへ書き込んだら、テストする準備が整います。運が良ければ全て問題なく動作しているはずですが、もしそうでなければこのドキュメントがどこが悪いのか調べるのに役立ちます。
@@ -11,7 +12,7 @@
 
 通常、キーボードをテストするのは非常に簡単です。全てのキーをひとつずつ押して、期待されるキーが送信されていることを確認します。キーを押したことを見逃さないためのプログラムもあります。
 
-メモ：　これらのプログラムはQMKによって提供・承認されたものではありません。
+メモ：　これらのプログラムは QMK によって提供・承認されたものではありません。
 
 * [QMK Configurator](https://config.qmk.fm/#/test/) (Web Based)
 * [Switch Hitter](https://web.archive.org/web/20190413233743/https://elitekeyboards.com/switchhitter.php) (Windows Only)
@@ -21,7 +22,7 @@
 
 ## デバッグ
 
-`rules.mk`へ`CONSOLE_ENABLE = yes`の設定をするとキーボードはデバッグ情報を出力します。デフォルトの出力は非常に限られたものですが、デバッグモードをオンにすることでデバッグ情報の量を増やすことが出来ます。キーマップの`DEBUG`キーコードを使用するか、デバッグモードを有効にする [Command](feature_command.md) 機能を使用するか、以下のコードをキーマップに追加します。
+`rules.mk`へ`CONSOLE_ENABLE = yes`の設定をするとキーボードはデバッグ情報を出力します。デフォルトの出力は非常に限られたものですが、デバッグモードをオンにすることでデバッグ情報の量を増やすことが出来ます。キーマップの`DEBUG`キーコードを使用するか、デバッグモードを有効にする [Command](ja/feature_command.md) 機能を使用するか、以下のコードをキーマップに追加します。
 
 ```c
 void keyboard_post_init_user(void) {
@@ -39,17 +40,17 @@ void keyboard_post_init_user(void) {
 
 ### hid_listenを使ったデバッグ
 
-ターミナルベースの方法がお好みですか？PJRCが提供する[hid_listen](https://www.pjrc.com/teensy/hid_listen.html)もデバッグメッセージの表示に使用できます。ビルド済みの実行ファイルはWindows, Linux, MacOS用が用意されています。
+ターミナルベースの方法がお好みですか？PJRC が提供する[hid_listen](https://www.pjrc.com/teensy/hid_listen.html)もデバッグメッセージの表示に使用できます。ビルド済みの実行ファイルは Windows, Linux, MacOS 用が用意されています。
 
 <!-- FIXME: Describe the debugging messages here. -->
 
 ## 独自のデバッグメッセージを送信する
 
-[custom code](custom_quantum_functions.md)内からデバッグメッセージを出力すると便利な場合があります。それはとても簡単です。ファイルの先頭に`print.h`のインクルードを追加します:
+[custom code](ja/custom_quantum_functions.md)内からデバッグメッセージを出力すると便利な場合があります。それはとても簡単です。ファイルの先頭に`print.h`のインクルードを追加します:
 
     #include <print.h>
 
-そのあとは、いくつかの異なったprint関数を使用することが出来ます。
+そのあとは、いくつかの異なった print 関数を使用することが出来ます。
 
 * `print("string")`: シンプルな文字列を出力します
 * `uprintf("%s string", var)`: フォーマットされた文字列を出力します
@@ -58,7 +59,7 @@ void keyboard_post_init_user(void) {
 
 ## デバッグの例
 
-以下は現実世界での実際のデバッグ手法の例を集めたものです。追加情報は[Debugging/Troubleshooting QMK](faq_debug.md)を参照してください。
+以下は現実世界での実際のデバッグ手法の例を集めたものです。追加情報は[Debugging/Troubleshooting QMK](ja/faq_debug.md)を参照してください。
 
 ### マトリックス上のどの場所でキー押下が起こったか？
 

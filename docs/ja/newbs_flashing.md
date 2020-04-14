@@ -1,8 +1,9 @@
 # ファームウェアを書きこむ
 
 <!---
+  grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
   original document: ed0575fc8:docs/newbs_flashing.md
-  $ git diff ed0575fc8 HEAD docs/newbs_flashing.md
+  git diff ed0575fc8 HEAD -- docs/newbs_flashing.md | cat
 -->
 
 カスタムファームウェアは出来たので、キーボードに書き込みたくなるでしょう/フラッシュしたくなるでしょう。
@@ -12,7 +13,7 @@
 キーボードに書き込む最も簡単な方法は [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) を使うことです。
 
 ただし、QMK Toolbox は、現在は Windows と macOS でしか使えません。
-Linuxを使用している場合(および、コマンドラインでファームウェアを書き込みたい場合)は、下の方で概説する[方法](newbs_flashing.md#コマンドラインでファームウェアを書き込む)で行なう必要があります。
+Linux を使用している場合(および、コマンドラインでファームウェアを書き込みたい場合)は、下の方で概説する[方法](ja/newbs_flashing.md#flash-your-keyboard-from-the-command-line)で行なう必要があります。
 
 ### QMK Toolbox にファイルをロードする
 
@@ -64,7 +65,7 @@ planck_rev5_default.hex
 * 基板(PCB)に付けられている物理的な `RESET` ボタンを押す
 * PCB 上の `BOOT0` か `RESET` のラベルの付いたヘッダピンを探し、PCB 接続中にそれらを互いにショートする
 
-うまくいけば、QMK Toolboxに次のようなメッセージが表示されます。
+うまくいけば、QMK Toolbox に次のようなメッセージが表示されます。
 
 ```
 *** Clueboard - Clueboard 66% HotSwap disconnected -- 0xC1ED:0x2390
@@ -97,7 +98,7 @@ QMK Toolbox の `Flash` ボタンをクリックします。
 *** Clueboard - Clueboard 66% HotSwap connected -- 0xC1ED:0x2390
 ```
 
-## コマンドラインでファームウェアを書き込む
+## コマンドラインでファームウェアを書き込む :id=flash-your-keyboard-from-the-command-line
 
 これは、以前のものと比較して非常に単純になりました。
 ファームウェアをコンパイルして書き込む準備ができたら、ターミナルウィンドウを開いてビルドコマンドを実行します。
@@ -120,9 +121,9 @@ QMK Toolbox の `Flash` ボタンをクリックします。
 この場合、あなたは明示的にブートローダを指定する方法を使わなければなりません。
 
 ブートローダは主に 5 種類のものが使われています。
-Pro Micro とそのクローンは Caterina を、Teensy は HalfKay を、OLKBの AVR ボードは QMK-DFU を、その他の ATmega32U4 ボードは DFU を、そして多くの ARM ボードは ARM DFU を使います。
+Pro Micro とそのクローンは Caterina を、Teensy は HalfKay を、OLKB の AVR ボードは QMK-DFU を、その他の ATmega32U4 ボードは DFU を、そして多くの ARM ボードは ARM DFU を使います。
 
-より詳しいブートローダの情報は、[Flashing Instructions and Bootloader Information](flashing.md) にあります。
+より詳しいブートローダの情報は、[Flashing Instructions and Bootloader Information](ja/flashing.md) にあります。
 
 使用しているブートローダがわかっているならば、ファームウェアをコンパイルするときに、実は `make` コマンドにブートローダを指定するテキストを追加して、書き込みプロセスを自動化できます。
 
@@ -171,16 +172,16 @@ Checking file size of planck_rev5_xyverz.hex
 >>> dfu-programmer atmega32u4 reset
 ```
 
-?> `dfu-programmer：no device present` など、これに関する問題がある場合は、[よくある質問](faq_build.md) を参照してください。
+?> `dfu-programmer：no device present` など、これに関する問題がある場合は、[よくある質問](ja/faq_build.md) を参照してください。
 
 #### DFU コマンド
 
 ファームウェアを DFU デバイスに書き込むために使用できる DFU コマンドがいくつかあります。
 
-* `:dfu` - これが通常のオプションで、DFUデバイスが使用可能になるまで待機したのちファームウェアを書き込みます。5秒ごとに、DFUデバイスが存在するかチェックしています。
+* `:dfu` - これが通常のオプションで、DFU デバイスが使用可能になるまで待機したのちファームウェアを書き込みます。5秒ごとに、DFU デバイスが存在するかチェックしています。
 * `:dfu-ee` - 通常の hex ファイルの代わりに `eep` ファイルを書き込みます。これを使用するのはまれです。
-* `:dfu-split-left` - デフォルトオプション (`:dfu`) と同様に、通常のファームウェアが書き込まれます。ただし、分割キーボードの「左側の」 EEPROMファイルも書き込まれます。_これは、Elite C ベースの分割キーボードに最適です。_
-* `:dfu-split-right` - デフォルトオプション (`:dfu`) と同様に、通常のファームウェアが書き込まれます。ただし、分割キーボードの「右側の」EEPROMファイルも書き込まれます。_これは、Elite C ベースの分割キーボードに最適です。_
+* `:dfu-split-left` - デフォルトオプション (`:dfu`) と同様に、通常のファームウェアが書き込まれます。ただし、分割キーボードの「左側の」 EEPROM ファイルも書き込まれます。_これは、Elite C ベースの分割キーボードに最適です。_
+* `:dfu-split-right` - デフォルトオプション (`:dfu`) と同様に、通常のファームウェアが書き込まれます。ただし、分割キーボードの「右側の」EEPROM ファイルも書き込まれます。_これは、Elite C ベースの分割キーボードに最適です。_
 
 
 ### Caterina 
@@ -258,8 +259,8 @@ avrdude.exe done.  Thank you.
 
 * `:avrdude` - これが通常のオプションで、Caterina デバイスが(新しい COM ポートを検出して)使用可能になるまで待機し、ファームウェアを書き込みます。
 * `:avrdude-loop` - これは `:avrdude` と同じです。ただし書き込みが終了すると再び Caterina デバイスの書き込み待ちに戻ります。これは何台ものデバイスへの書き込みに便利です。_Control+C を押して、手動でこの繰り返しを終了させる必要があります。_
-* `:avrdude-split-left` - デフォルトオプション(`:avrdude`)と同様に通常のファームウェアが書き込まれます。ただし、分割キーボードの「左側の」EEPROMファイルもフラッシュされます。 _これは、Pro Micro ベースの分割キーボードに最適です。_
-* `:avrdude-split-right` - デフォルトオプション(`:avrdude`)と同様に通常のファームウェアが書き込まれます。ただし、分割キーボードの「右側の」EEPROMファイルもフラッシュされます。 _これは、Pro Micro ベースの分割キーボードに最適です。_
+* `:avrdude-split-left` - デフォルトオプション(`:avrdude`)と同様に通常のファームウェアが書き込まれます。ただし、分割キーボードの「左側の」EEPROM ファイルもフラッシュされます。 _これは、Pro Micro ベースの分割キーボードに最適です。_
+* `:avrdude-split-right` - デフォルトオプション(`:avrdude`)と同様に通常のファームウェアが書き込まれます。ただし、分割キーボードの「右側の」EEPROM ファイルもフラッシュされます。 _これは、Pro Micro ベースの分割キーボードに最適です。_
 
 ### HalfKay
 
@@ -396,4 +397,4 @@ Uploading 22016 (0x5600) bytes starting at 0 (0x0)
 おめでとうございます！ カスタムファームウェアがキーボードにプログラムされました！
 
 使ってみて、すべてがあなたの望むように動作するかどうか確認してください。
-この初心者ガイドを完全なものにするために [テストとデバッグ](newbs_testing_debugging.md) を書いたので、カスタム機能のトラブルシューティング方法については、こちらをご覧ください。
+この初心者ガイドを完全なものにするために [テストとデバッグ](ja/newbs_testing_debugging.md) を書いたので、カスタム機能のトラブルシューティング方法については、こちらをご覧ください。
