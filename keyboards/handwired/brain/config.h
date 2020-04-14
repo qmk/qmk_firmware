@@ -102,3 +102,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IGNORE_MOD_TAP_INTERRUPT
 //#define TAPPING_FORCE_HOLD
 
+#define BOOTMAGIC_LITE_ROW 1
+#define BOOTMAGIC_LITE_COLUMN 0
