@@ -32,9 +32,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
       // right hand
       MDIA_SYMB_KP_LAYERS,  ___NUMBER_R___,   KC_EQL,
-      LCTL(KC_V),    ___DVORAK_R1___,  KC_SLASH,
+      LCTL(KC_V), ___DVORAK_R1___,  KC_SLASH,
       /*    */    ___DVORAK_R2___,  KC_MINUS,
-      TO(KEYPAD),    ___DVORAK_R3___,  KC_RSFT,
+      TO(KEYPAD), ___DVORAK_R3___,  KC_RSFT,
 
       ___BOTTOM_RIGHT___,
       ___ERGODOX_THUMB_RIGHT___
@@ -72,16 +72,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
       // right hand
       MDIA_SYMB_KP_LAYERS,  ___NUMBER_R___,   KC_EQL,
-      LCTL(KC_V),    ___QWERTY_R1___,  KC_SLASH,
+      LCTL(KC_V), ___QWERTY_R1___,  KC_SLASH,
       /*       */ ___QWERTY_R2___,  KC_MINUS,
-      TO(KEYPAD),    ___QWERTY_R3___,  KC_RSFT,
+      TO(KEYPAD), ___QWERTY_R3___,  KC_RSFT,
 
       ___BOTTOM_RIGHT___,
       ___ERGODOX_THUMB_RIGHT___
           ),
 
   [COLEMAK] = LAYOUT_ergodox_wrapper(
-                              // left hand
+      // left hand
       KC_GRV,     ___NUMBER_L___,    OSL(LAYERS),
       KC_LOCK,    ___COLEMAK_L1___,  LCTL(KC_C),
       TAB_BKTAB,  ___COLEMAK_L2___,
@@ -92,16 +92,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
       // right hand
       MDIA_SYMB_KP_LAYERS,  ___NUMBER_R___,    KC_EQL,
-      LCTL(KC_V),    ___COLEMAK_R1___,  KC_SLASH,
+      LCTL(KC_V), ___COLEMAK_R1___,  KC_SLASH,
       /*       */ ___COLEMAK_R2___,  KC_MINUS,
-      TO(KEYPAD),    ___COLEMAK_R3___,  KC_RSFT,
+      TO(KEYPAD), ___COLEMAK_R3___,  KC_RSFT,
 
       ___BOTTOM_RIGHT___,
       ___ERGODOX_THUMB_RIGHT___
           ),
 
   [WORKMAN] = LAYOUT_ergodox_wrapper(
-                              // left hand
+      // left hand
       KC_GRV,     ___NUMBER_L___,    OSL(LAYERS),
       KC_LOCK,    ___WORKMAN_L1___,  LCTL(KC_C),
       TAB_BKTAB,  ___WORKMAN_L2___,
@@ -112,16 +112,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
       // right hand
       MDIA_SYMB_KP_LAYERS,  ___NUMBER_R___,    KC_EQL,
-      LCTL(KC_V),    ___WORKMAN_R1___,  KC_SLASH,
+      LCTL(KC_V), ___WORKMAN_R1___,  KC_SLASH,
       /*    */    ___WORKMAN_R2___,  KC_MINUS,
-      TO(KEYPAD),    ___WORKMAN_R3___,  KC_RSFT,
+      TO(KEYPAD), ___WORKMAN_R3___,  KC_RSFT,
 
       ___BOTTOM_RIGHT___,
       ___ERGODOX_THUMB_RIGHT___
       ),
 
   [NORMAN] = LAYOUT_ergodox_wrapper(
-                            // left hand
+      // left hand
       KC_GRV,     ___NUMBER_L___,   OSL(LAYERS),
       KC_LOCK,    ___NORMAN_L1___,  LCTL(KC_C),
       TAB_BKTAB,  ___NORMAN_L2___,
@@ -132,23 +132,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
       // right hand
       MDIA_SYMB_KP_LAYERS,  ___NUMBER_R___,   KC_EQL,
-      LCTL(KC_V),    ___NORMAN_R1___,  KC_SLASH,
+      LCTL(KC_V), ___NORMAN_R1___,  KC_SLASH,
       /*       */ ___NORMAN_R2___,  KC_MINUS,
-      TO(KEYPAD),    ___NORMAN_R3___,  KC_RSFT,
+      TO(KEYPAD), ___NORMAN_R3___,  KC_RSFT,
 
       ___BOTTOM_RIGHT___,
       ___ERGODOX_THUMB_RIGHT___
       ),
 
   [DVORAK_ON_BEPO] = LAYOUT_ergodox_wrapper(
-                                    // left hand
+      // left hand
       DB_GRV,     ___NUMBER_BEPO_L___,  OSL(LAYERS),
       KC_LOCK,    ___DVORAK_FR_L1___,   DB_LBRC,
       TAB_BKTAB,  ___DVORAK_FR_L2___,
       KC_LSFT,    ___DVORAK_FR_L3___,   DB_LPRN,
 
-      ___BOTTOM_LEFT___,
-      ___ERGODOX_THUMB_LEFT___,
+      ___BOTTOM_LEFT_FR___,
+      ___ERGODOX_THUMB_LEFT_BP___,
 
 
       // right hand
@@ -159,7 +159,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       DB_RPRN,     ___DVORAK_FR_R3___,   KC_RSFT,
 
       ___BOTTOM_RIGHT_FR___,
-      ___ERGODOX_THUMB_RIGHT___
+      ___ERGODOX_THUMB_RIGHT_BP___
       ),
 
   [BEPO] = LAYOUT_ergodox_wrapper(
@@ -169,18 +169,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       TAB_BKTAB,      ___BEPO_FR_L2___,
       BP_SFT_T_ECRC,  ___BEPO_FR_L3___,     DB_RBRC,
 
-      ___BOTTOM_LEFT___,
-      ___ERGODOX_THUMB_LEFT___,
+      ___5___,
+      ___6___,
 
 
       // Right hand
       MDIA_SYMB_KP_LAYERS,  ___SYMBOL_BEPO_R___,  BP_EQL,
-      BP_DCRC,    ___BEPO_FR_R1___,     BP_W,
-      /*     */   ___BEPO_FR_R2___,     BP_CCED,
-      BP_C,    ___BEPO_FR_R3___,        KC_RSFT,
+      BP_DCRC, ___BEPO_FR_R1___, BP_W,
+      /*    */ ___BEPO_FR_R2___, BP_CCED,
+      BP_C,    ___BEPO_FR_R3___, KC_RSFT,
 
-      ___BOTTOM_RIGHT___,
-      ___ERGODOX_THUMB_RIGHT___
+      ___5___,
+      ___6___
       ),
 
   [XMONAD_FR] = LAYOUT_ergodox_wrapper(
@@ -190,8 +190,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ___,  ___DVORAK_FR_L2___,
       ___,  ___DVORAK_FR_L3___,  ___,
 
-      ___BOTTOM_LEFT___,
-      ___ERGODOX_THUMB_LEFT___,
+      ___BOTTOM_LEFT_FR___,
+      ___ERGODOX_THUMB_LEFT_BP___,
 
 
       // right hand
@@ -201,7 +201,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ___,  ___DVORAK_FR_R3___,   ___,
 
       ___BOTTOM_RIGHT_FR___,
-      ___ERGODOX_THUMB_RIGHT___
+      ___ERGODOX_THUMB_RIGHT_BP___
       ),
 
   // SYMBOLS

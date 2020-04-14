@@ -54,7 +54,7 @@
 
 // becomes the upper thumbs, the real 4th row if we throw away
 // the number row at the top
-#define ___ORTHO_14_MIDDLE_4___ XXX,    HOME_END,    KC_PGDN, XXX
+#define ___ORTHO_14_MIDDLE_4___ LSFT(KC_TAB),    HOME_END,    KC_PGDN, KC_TAB
 // basically the thumb keys like on the ergodox.
 #define ___MIDDLE_THUMBS___ CTL_BSPC, ALT_DEL, XMONAD_ESC,   KC_PGDN, ALT_ENT, CTL_SPC
 
@@ -64,14 +64,14 @@
 #define ___ORTHO_14_MIDDLE_2_BP___ TO(SYMB_ON_BEPO),  TO(KEYPAD_ON_BEPO)
 #define ___ORTHO_14_MIDDLE_3_BP___ OSL(SYMB_ON_BEPO), OSL(KEYPAD_ON_BEPO)
 
-#define ___ORTHO_14_MIDDLE_4_BP___ XXX,    HOME_END,  KC_PGUP,  XXX
+#define ___ORTHO_14_MIDDLE_4_BP___ LSFT(KC_TAB), HOME_END, KC_PGUP, KC_TAB
 
 
 /********************************************************************/
 /**  The top rows for numbers, symbols and Fkeys.                  **/
 /********************************************************************/
-#define ___ORTHO_15_N___ ___NUMBER_L___,   ___ORTHO_15_MIDDLE_T___, ___NUMBER_R___
-#define ___ORTHO_15_B_N___   ___NUMBER_BEPO_L___, ___ORTHO_15_MIDDLE_T_BP___, ___NUMBER_BEPO_R___
+#define ___ORTHO_15_N___   ___NUMBER_L___,   ___ORTHO_15_MIDDLE_T___, ___NUMBER_R___
+#define ___ORTHO_15_B_N___ ___NUMBER_BEPO_L___, ___ORTHO_15_MIDDLE_T_BP___, ___NUMBER_BEPO_R___
 // the full bepo symbol row.
 #define ___ORTHO_15_B_SYMB___  BP_DLR, ___SYMBOL_BEPO_L___, ___ORTHO_15_MIDDLE_T_BP___, ___SYMBOL_BEPO_R___,  BP_EQL
 
@@ -92,7 +92,7 @@
 
 // for dvorak on bepo
 #define ___BOTTOM_LEFT_FR___  LCTL(BP_C),  LCTL(BP_C),  LCTL(BP_V),  KC_LEFT, KC_RIGHT
-#define ___BOTTOM_RIGHT_FR___ KC_UP,  KC_DOWN,  DB_BACKSLASH,  BP_CCED,  BP_PERC
+#define ___BOTTOM_RIGHT_FR___ KC_UP,  KC_DOWN,  DB_BACKSLASH, LCTL(KC_V),  LCTL(KC_C)
 
 #define ___ORTHO_15_BOTTOM___     ___BOTTOM_LEFT___,    ___ORTHO_15_MIDDLE_4___, ___BOTTOM_RIGHT___
 #define ___ORTHO_15_BOTTOM_FR___  ___BOTTOM_LEFT_FR___, ___ORTHO_15_MIDDLE_4___, ___BOTTOM_RIGHT_FR___
@@ -105,22 +105,24 @@
 
 
 #define ___ERGODOX_THUMB_LEFT___                \
-     OS_RALT, TG(MDIA),                         \
-          HOME_END,                             \
-          CTL_BSPC, ALT_DEL, XMONAD_ESC
+    OSL(SYMB), OSM(KC_LGUI),                    \
+        HOME_END,                               \
+        CTL_BSPC, ALT_DEL, XMONAD_ESC
 
 #define ___ERGODOX_THUMB_RIGHT___               \
-     TG(SYMB), OS_RALT,                         \
-          KC_PGUP,                              \
-          KC_PGDN, ALT_ENT, CTL_SPC
+    XXX, OSL(KEYPAD),                           \
+        KC_PGUP,                                \
+        KC_PGDN, ALT_ENT, CTL_SPC
 
 #define ___ERGODOX_THUMB_RIGHT_BP___            \
-     TG(SYMB_ON_BEPO), OS_RALT,                 \
-          KC_PGUP,                              \
-          KC_PGDN, ALT_ENT, CTL_SPC
+    XXX, OSL(KEYPAD_ON_BEPO),                   \
+        KC_PGUP,                                \
+        KC_PGDN, ALT_ENT, CTL_SPC
 
-#define ___ERGODOX_TRANS_THUMBS___ ___6___
-#define ___TRANS_BOTTOM___  ___5___
+#define ___ERGODOX_THUMB_LEFT_BP___             \
+    OSL(SYMB_ON_BEPO), OSM(KC_LGUI),            \
+        HOME_END,                               \
+        CTL_BSPC, ALT_DEL, XMONAD_ESC
 
 /********************************************************************************/
 /* the interior rows for ortholinear keyboards. the first number is the length  */
