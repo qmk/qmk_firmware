@@ -35,7 +35,7 @@ def cformat_run(files, all_files):
 @cli.argument('-a', '--all-files', arg_only=True, action='store_true', help='Format all core files.')
 @cli.argument('-b', '--base-branch', default='origin/master', help='Branch to compare to diffs to.')
 @cli.argument('files', nargs='*', arg_only=True, help='Filename(s) to format.')
-@cli.subcommand("Format C code according to QMK's style.")
+@cli.subcommand("Format C code according to QMK's style.", hidden=False if cli.config.user.developer else True)
 def cformat(cli):
     """Format C code according to QMK's style.
     """

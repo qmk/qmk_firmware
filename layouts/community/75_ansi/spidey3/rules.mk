@@ -13,3 +13,6 @@ AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = yes
 UNICODEMAP_ENABLE = yes
 VELOCIKEY_ENABLE = yes
+
+# The following disabled to save space
+SPACE_CADET_ENABLE = no
