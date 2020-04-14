@@ -274,7 +274,7 @@ xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record-
     // to save on firmware space, since it's limited.
 #ifdef MACROS_ENABLED
   case KC_OVERWATCH: // Toggle's if we hit "ENTER" or "BACKSPACE" to input macros
-    if (record->event.pressed) { userspace_config.is_overwatch ^= 1; eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw); }
+    if (record->event.pressed) { userspace_config.is_overwatch ^= 1; eeprom_update_byte(EECONFIG_USER, userspace_config.raw); }
     return false; break;
 #endif // MACROS_ENABLED
 
@@ -303,7 +303,7 @@ xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record-
       case CLICKY_TOGGLE:
 #ifdef AUDIO_CLICKY
         userspace_config.clicky_enable = clicky_enable;
-        eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw);
+        eeprom_update_byte(EECONFIG_USER, userspace_config.raw);
 #endif
         break;
 #ifdef UNICODE_ENABLE

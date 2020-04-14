@@ -1,7 +1,24 @@
 #pragma once
+/*
+  Copyright 2018 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include "quantum.h"
 #include "process_keycode/process_tap_dance.h"
+#include "eeconfig.h"
 
 //#define ONESHOT_TAP_TOGGLE 2  /* Tapping this number of times holds the key until tapped once again. */
 
@@ -9,10 +26,8 @@ void tap(uint16_t keycode);
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
 
 
-#define EECONFIG_USERSPACE (uint8_t *)19
-
 typedef union {
-  uint8_t raw;
+    uint8_t raw;
      struct {
           bool     clicky_enable    :1;
           bool     rgb_layer_change :1;

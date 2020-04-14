@@ -1,3 +1,5 @@
+SRC += ericgebhart.c
+
 RGBLIGHT_ENABLE = yes
 RGBLIGHT_ANIMATION = yes
 # BACKLIGHT_ENABLE = yes
