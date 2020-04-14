@@ -23,7 +23,7 @@ MIDI_ENABLE = no
 BLUETOOTH_ENABLE = no
 KEY_LOCK_ENABLE = no
 TERMINAL_ENABLE = no
-OLED_DRIVER_ENABLE = no
+OLED_DRIVER_ENABLE = yes
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread
 OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
