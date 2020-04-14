@@ -2,8 +2,8 @@
 
 This page covers questions about building QMK. If you haven't yet done so, you should read the [Build Environment Setup](getting_started_build_tools.md) and [Make Instructions](getting_started_make_guide.md) guides.
 
-## Can't Program on Linux
-You will need proper permissions to operate a device. For Linux users, see the instructions regarding `udev` rules, below. If you have issues with `udev`, a work-around is to use the `sudo` command. If you are not familiar with this command, check its manual with `man sudo` or [see this webpage](https://linux.die.net/man/8/sudo).
+## Can't Program on Linux or FreeBSD
+You will need proper permissions to operate a device. For Linux users, see the instructions regarding `udev` rules, below. FreeBSD users, see the instructions below regarding `devd` configuration. If you have issues with `udev` or `devd`, a work-around is to use the `sudo` command. If you are not familiar with this command, check its manual with `man sudo` or [see this webpage](https://linux.die.net/man/8/sudo).
 
 An example of using `sudo`, when your controller is ATMega32u4:
 
@@ -73,6 +73,87 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE:="066
 ```
 # bootloadHID
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="05df", MODE:="0666"
+```
+
+### FreeBSD `devd` Configuration
+On FreeBSD, you'll need proper privileges to access the MCU. You can either use
+`sudo` when flashing firmware, or place these files in `/etc/devd/` and create
+a dedicated group that has permissions to write the the MCU.
+
+Create the dedicated group and add your normal user with `yourusername`:
+
+```console
+pw groupadd dfu
+pw groupmod dfu -M yourusername
+```
+
+Once added run the following to restart `devd` service:
+
+```console
+service devd restart
+```
+
+**/etc/devd/50-atmel-dfu.conf:**
+```
+# ATMEL devices ATMega32U4 (02ff4), USBKEY AT90USB1287 (0x2ffb), and ATMega32U2 (0x2ff0)
+notify 1000 {
+        match "system" "USB";
+        match "vendor" "0x03eb";
+        match "product" "0x2ff[04b]";
+        action "chown :dfu /dev/$cdev && chmod 0660 /dev/$cdev";
+};
+
+```
+
+**/etc/devd/52-tmk-keyboard.conf:**
+```
+# tmk keyboard products     https://github.com/tmk/tmk_keyboard
+notify 1000 {
+        match "system" "USB";
+        match "vendor" "0xfeed";
+        action "chown :dfu /dev/$cdev && chmod 0660 /dev/$cdev";
+};
+```
+
+**/etc/devd/54-input-club-keyboard.conf:**
+
+```
+# Input Club keyboard bootloader
+notify 1000 {
+        match "system" "USB";
+        match "vendor" "0x1c11";
+        action "chown :dfu /dev/$cdev && chmod 0660 /dev/$cdev";
+};
+```
+
+**/etc/devd/56-dfu-util.conf:**
+```
+# stm32duino
+notify 1000 {
+        match "system" "USB";
+        match "vendor" "0xleaf";
+        match "product" "0x0003";
+        action "chown :dfu /dev/$cdev && chmod 0660 /dev/$cdev";
+};
+
+# Generic stm32
+notify 1000 {
+        match "system" "USB";
+        match "vendor" "0x0483";
+        match "product" "0xdf11";
+        action "chown :dfu /dev/$cdev && chmod 0660 /dev/$cdev";
+};
+```
+
+**/etc/devd/57-bootloadhid.conf:**
+```
+# bootloadHID
+notify 1000 {
+        match "system" "USB";
+        match "vendor" "0x16c0";
+        match "product" "0x05df";
+        action "chown :dfu /dev/$cdev && chmod 0660 /dev/$cdev";
+};
 ```
 
 ### Serial device is not detected in bootloader mode on Linux
