@@ -14,6 +14,6 @@ Make example for this keyboard (after setting up your build environment):
 
 ## RGB Underglow Support
 
-Build with RGB Underglow support by running `make kc60:ws2812`.
+To add RGB Underglow to the KC60, see [Adding RGB Underglow to the KC60](mod_rgb_underglow.md).
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

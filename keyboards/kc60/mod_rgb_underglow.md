@@ -1,6 +1,6 @@
 # Adding RGB Underglow to the KC60
 
-![Image of KC60 with RGB Underglow](https://i.imgur.com/LpUkVqG.jpg)
+![Image of KC60 with RGB Underglow](https://i.imgur.com/LpUkVqGl.jpg)
 
 The KC60 has breakout pins to which one may wire a strip of WS2812-compatible LEDs.
 
