@@ -70,18 +70,3 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
     }
 }
-
-
-/*  Below is a template for those who want to customize it at the keymap level.
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-bool led_update_user(led_t led_state) {
-    return true;
-}
-*/
