@@ -1,2 +1,1 @@
-DEFAULT_FOLDER = projectkb/alice/rev2
-
+DEFAULT_FOLDER = projectkb/alice/rev1
