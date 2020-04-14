@@ -97,7 +97,7 @@ led_config_t g_led_config = {
         1, 1, 1,          4,       1, 1, 1, 1, 1, 1
     }
 };
-#endif
+
 
 void suspend_power_down_kb(void) {
     rgb_matrix_set_suspend_state(true);
@@ -115,3 +115,4 @@ void rgb_matrix_indicators_user(void) {
         rgb_matrix_set_color(30, 0xFF, 0xFF, 0xFF);
     }
 }
+#endif

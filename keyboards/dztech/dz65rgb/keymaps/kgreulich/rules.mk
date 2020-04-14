@@ -1,6 +1,6 @@
 NKRO_ENABLE = yes                 # USB Nkey Rollover
 
-LINK_TIME_OPTIMIZATION_ENABLE = yes
+LTO_ENABLE = yes
 
-RGBLIGHT_ENABLE = no
+RGB_MATRIX_ENABLE = no
 
