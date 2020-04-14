@@ -94,10 +94,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // This is useful for controlling yabai (tiling window manager for mac os) via skhd shortcuts
 [_LAYER8] =  LAYOUT_ortho_4x12( \
-  ___,      HYPR(KC_T),    MEH(KC_T),   SGUI(KC_E),    SGUI(KC_R),    ___,          HYPR(KC_LEFT),  HYPR(KC_DOWN),   HYPR(KC_UP),     HYPR(KC_RIGHT),  ___,             ___, \
-  ___,      HYPR(KC_B),    MEH(KC_B),   SGUI(KC_D),    SGUI(KC_F),    ___,          MEH(KC_LEFT),   MEH(KC_DOWN),    MEH(KC_UP),      MEH(KC_RIGHT),   ___,             ___, \
-  ___,      HYPR(KC_L),    MEH(KC_L),   HYPR(KC_R),    MEH(KC_R),     ___,          HYPR(KC_N),     HYPR(KC_0),      ___,             ___,             ___,             ___, \
-  ___,      ___,           ___,         ___,           ___,           ___,          ___,            ___,             ___,             ___,             ___,             ___            
+  ___,      HYPR(KC_T),    MEH(KC_T),   LCA(KC_E),     LCA(KC_R),     ___,      HYPR(KC_LEFT),  HYPR(KC_DOWN),   HYPR(KC_UP),     HYPR(KC_RIGHT),  ___,        ___, \
+  ___,      HYPR(KC_B),    MEH(KC_B),   LCA(KC_D),     LCA(KC_F),     ___,      MEH(KC_LEFT),   MEH(KC_DOWN),    MEH(KC_UP),      MEH(KC_RIGHT),   ___,        ___, \
+  ___,      HYPR(KC_L),    MEH(KC_L),   HYPR(KC_R),    MEH(KC_R),     ___,      HYPR(KC_N),     HYPR(KC_0),      ___,             ___,             ___,        ___, \
+  ___,      ___,           ___,         ___,           ___,           ___,      ___,            ___,             ___,             ___,             ___,        ___            
 )
 };
 
