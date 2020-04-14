@@ -34,8 +34,16 @@ enum layer_number {
     _MEME
 };
 
+enum userspace_custom_keycodes {
+  KC_MACBASE = SAFE_RANGE,
+  KC_PROTECT, //for some reason, this position does not work. This is just a placeholder
+  KC_QWERTY,
+  KC_WINBASE,
+  SAFE_RANGE_KEYMAP
+};
+
 enum custom_keycodes {
-  MACBASE = SAFE_RANGE,
+  MACBASE = SAFE_RANGE_KEYMAP,
   WINBASE,
   QWERTY,
   NUMB,
@@ -50,13 +58,6 @@ enum custom_keycodes {
   //DYNAMIC_MACRO_RANGE,
 };
 
-enum userspace_custom_keycodes {
-  KC_MACBASE,
-  KC_PROTECT, //for some reason, this position does not work. This is just a placeholder
-  KC_QWERTY,
-  KC_WINBASE,
-  //NEW_SAFE_RANGE
-};
 
 /*
 #ifdef UNICODEMAP_ENABLE
