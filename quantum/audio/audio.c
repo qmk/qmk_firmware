@@ -426,6 +426,8 @@ bool audio_update_state(void) {
 
         goto_next_note = timer_elapsed32(last_timestamp) >= melody_current_note_duration;
         if (goto_next_note) {
+
+            uint16_t delta = timer_elapsed32(last_timestamp) - melody_current_note_duration;
             last_timestamp = current_time;
             uint16_t previous_note = current_note;
             current_note++;
@@ -454,10 +456,8 @@ bool audio_update_state(void) {
 
                 //TODO: handle glissando here (or remember previous and current tone)
 
-                // Skip forward in the next note's length if we've over shot the last, so
-                // the overall length of the song is the same
-                int delta = timer_elapsed32(last_timestamp) - melody_current_note_duration;
-
+                // '- delta': Skip forward in the next note's length if we'vv over shot
+                //            the last, so the overall length of the song is the same
                 uint16_t duration = audio_duration_to_ms((*notes_pointer)[current_note][1]) - delta;
                 audio_play_note((*notes_pointer)[current_note][0], duration);
                 melody_current_note_duration = duration;
