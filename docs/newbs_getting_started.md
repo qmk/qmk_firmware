@@ -75,6 +75,18 @@ Install the global CLI to bootstrap your system:
 
   `python3 -m pip install --user qmk` (on Arch-based distros you can also try the `qmk` package from AUR (**note**: it's maintained by a community member): `yay -S qmk`)
 
+### FreeBSD
+
+You will need to install Git and Python. It's possible that you already have both, but if not, run the following commands to install them:
+
+    pkg install git python3
+
+Make sure that `$HOME/.local/bin` is added to your `$PATH` so that locally install Python packages are available.
+
+Once installed, you can install QMK CLI:
+
+    python3 -m pip install --user qmk
+
 ## 3. Run QMK Setup :id=set-up-qmk
 
 After installing QMK you can set it up with this command:
@@ -90,6 +102,16 @@ Sadly, Ubuntu reitroduced this bug and is [yet to fix it](https://bugs.launchpad
 Luckily, the fix is easy. Run this as your user: `echo "PATH=$HOME/.local/bin:$PATH" >> $HOME/.bashrc && source $HOME/.bashrc`
 
 ?> If you already know [how to use GitHub](getting_started_github.md), we recommend that you create your own fork and use `qmk setup <github_username>/qmk_firmware` to clone your personal fork. If you don't know what that means you can safely ignore this message.
+
+### Note on FreeBSD Permissions
+
+It is suggested to run `qmk setup` as a non-`root` user to start with, but this will likely identify that packages need to be isntalled to your
+base system using `pkg`. Although you maybe be prompted to install dependencies, this will likely fail due to running as an unprivileged user. To
+manually install the base dependencies, run the following either as `root`, or with `sudo`:
+
+    ./util/qmk_install.sh
+
+Once that completes, re-run `qmk setup` to complete the setup and checks.
 
 ## 4. Test Your Build Environment
 
