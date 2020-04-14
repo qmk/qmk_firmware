@@ -16,3 +16,4 @@ TAP_DANCE_ENABLE = no
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 SPLIT_KEYBOARD = yes        # Must be enabled unless wiring the matrix together with one micro controller
+BOOTLOADER = dfu
