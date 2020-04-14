@@ -27,9 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         hbcp
 #define DESCRIPTION     compact 1800 layout custom keyboard
 
-/* needed because PCBA used the wrong diode part */
-#define EITHERWAY 3 /* Compensation for diode direction dissonance */
-
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 18

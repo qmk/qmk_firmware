@@ -25,20 +25,9 @@ static const pin_t row_pins[] = MATRIX_ROW_PINS;
 static const pin_t col_pins[] = MATRIX_COL_PINS;
 
 /* matrix state(1:on, 0:off) */
-static matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
 static matrix_row_t last_matrix[MATRIX_ROWS];  // raw values of last scan
-static matrix_row_t matrix[MATRIX_ROWS];  // debounced values
 
 // matrix code
-__attribute__((weak)) void matrix_io_delay(void) { wait_us(30); }
-
-__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
-
-__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
-
-__attribute__((weak)) void matrix_init_user(void) {}
-
-__attribute__((weak)) void matrix_scan_user(void) {}
 
  void select_row(uint8_t row) {
     setPinOutput(row_pins[row]);
@@ -127,44 +116,24 @@ __attribute__((weak)) void matrix_scan_user(void) {}
     unselect_cols();
 }
 
-
-void matrix_init(void) {
+void matrix_init_custom(void) {
     // initialize key pins
     init_pins();
-
-    // initialize matrix state: all keys off
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        raw_matrix[i] = 0;
-        matrix[i]     = 0;
-    }
-
-    debounce_init(MATRIX_ROWS);
-
-    matrix_init_quantum();
 }
 
-uint8_t matrix_scan(void) {
+bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     bool changed = false;
-
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
-        last_matrix[current_row] = raw_matrix[current_row];
-        read_cols_on_row(raw_matrix, current_row);
+        last_matrix[current_row] = current_matrix[current_row];
+        read_cols_on_row(current_matrix, current_row);
     }
     for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
-        read_rows_on_col(raw_matrix, current_col);
+        read_rows_on_col(current_matrix, current_col);
     }
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
-        if (last_matrix[current_row] != raw_matrix[current_row]) {
+        if (last_matrix[current_row] != current_matrix[current_row]) {
             changed = true;
         }
     }
-
-    debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
-
-    matrix_scan_quantum();
     return (uint8_t)changed;
 }
-
-inline matrix_row_t matrix_get_row(uint8_t row) { return matrix[row]; }
-
-void matrix_print(void) {}
