@@ -76,8 +76,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
 #    define RGBLIGHT_BREATHE_TABLE_SIZE 256  // 256(default) or 128 or 64
 /*==== use exp() and sin() ====*/
-#    define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
-#    define RGBLIGHT_EFFECT_BREATHE_MAX 255      // 0 to 255
+// #    define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
+// #    define RGBLIGHT_EFFECT_BREATHE_MAX 255      // 0 to 255
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
