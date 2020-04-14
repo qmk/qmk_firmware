@@ -32,7 +32,7 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT(
-        KC_ESCAPE,    KC_HOME, KC_BSPACE,
+        KC_ESCAPE,    KC_HOME, KC_DEL,
         MO(_FN)  ,    KC_UP  , KC_ENTER,
         KC_LEFT  ,    KC_DOWN, KC_RIGHT
     ),
@@ -47,34 +47,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case GITSTTS:
             if (record->event.pressed) {
-                // when keycode QMKBEST is pressed
+                // when keycode GITSTTS is pressed
                 SEND_STRING("git status");
-            } else {
-                // when keycode QMKBEST is released
             }
             break;
         case GITPULL:
             if (record->event.pressed) {
-                // when keycode QMKURL is pressed
+                // when keycode GITPULL is pressed
                 SEND_STRING("git pull");
-            } else {
-                // when keycode QMKURL is released
             }
             break;
        case GITPUSH:
             if (record->event.pressed) {
-                // when keycode QMKURL is pressed
+                // when keycode GITPUSH is pressed
                 SEND_STRING("git push");
-            } else {
-                // when keycode QMKURL is released
             }
             break;
        case GITCOM:
             if (record->event.pressed) {
-                // when keycode QMKURL is pressed
+                // when keycode GITCOM is pressed
                 SEND_STRING("git commit -m ");
-            } else {
-                // when keycode QMKURL is released
             }
             break;
        default:
@@ -83,16 +75,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-/*
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-bool led_update_user(led_t led_state) {
-    return true;
-}
-*/
