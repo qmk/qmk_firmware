@@ -51,7 +51,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BOOTMAGIC_LITE_ROW 1
 #define BOOTMAGIC_LITE_COLUMN 0
 
-#define BOOTMAGIC_LITE_ROW_RIGHT 1
-#define BOOTMAGIC_LITE_COLUMN_RIGHT 0
+
 */
+#define BOOTMAGIC_LITE_ROW 1
+#define BOOTMAGIC_LITE_COLUMN 0
+
 //#define BOOTMAGIC_KEY_BOOTLOADER KC_X
