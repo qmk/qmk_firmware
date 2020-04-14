@@ -55,7 +55,7 @@ typedef union {
  * "A musical tone is characterized by its duration, pitch, intensity (or loudness), and timbre (or quality)"
  */
 typedef struct {
-    uint32_t time_started; // timestamp the tone/note was started, systemtime runs with 1ms resolution -> 16bit timer overflows every ~64 seconds, long enough under normal circumstances; but might be too soon for long-duration notes when the note_tempo is set to a very low value
+    uint16_t time_started; // timestamp the tone/note was started, systemtime runs with 1ms resolution -> 16bit timer overflows every ~64 seconds, long enough under normal circumstances; but might be too soon for long-duration notes when the note_tempo is set to a very low value
     float pitch;     // aka frequency
     float duration;  // in 64parts to a beats, -1 indicates an indefinitly played note
     //float intensity; // aka volume [0,1] TODO: not used at the moment; pwm drivers can't handle it
