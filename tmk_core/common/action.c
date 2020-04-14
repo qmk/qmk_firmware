@@ -112,7 +112,7 @@ void action_exec(keyevent_t event) {
 
 #ifndef NO_ACTION_TAPPING
 #   if defined(COMBO_ENABLE) && defined(COMBO_ALLOW_ACTION_KEYS)
-    if (IS_NOEVENT(record.event) || process_combo(get_event_keycode(record.event), &record)) {
+    if (IS_NOEVENT(record.event) || process_combo(get_event_keycode(record.event, true), &record)) {
         action_tapping_process(record);
     }
 #   else
