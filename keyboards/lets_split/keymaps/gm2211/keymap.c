@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LAYER7] =  LAYOUT_ortho_4x12( \
   ___,             ___,                 ___,             KC_MS_UP,         ___,             ___,             ___,             ___,             ___,             ___,             ___,             ___, \
   ___,             KC_MS_LEFT,          KC_MS_LEFT,      KC_MS_DOWN,       KC_MS_RIGHT,     ___,             ___,             ___,             ___,             ___,             ___,             ___, \
-  ___,             ___,                 ___,             ___,              ___,             ___,             ___,             ___,             ___,             ___,             ___,             ___, \
+  ___,             KC_MS_WH_LEFT,       KC_MS_WH_DOWN,   KC_MS_WH_UP,      KC_MS_WH_RIGHT,  ___,             ___,             ___,             ___,             ___,             ___,             ___, \
   ___,             ___,                 ___,             ___,              KC_MS_BTN2,      KC_MS_BTN1,      ___,             ___,             ___,             ___,             ___,             ___
 ),
 
