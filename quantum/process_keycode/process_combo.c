@@ -212,6 +212,10 @@ void matrix_scan_combo(void) {
          */
         is_active = false;
         dump_key_buffer(true);
+    } else if (b_combo_enable && !is_active && timer && timer_elapsed(timer) > TAPPING_TERM) {
+        /* Re-enable combo processing after TAPPING_TERM so combos are usable
+         * with mods from ModTap keys that are also combo keys */
+        is_active = true;
     }
 }
 
