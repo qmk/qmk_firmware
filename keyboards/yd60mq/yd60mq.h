@@ -30,4 +30,19 @@
     { K40, K41,   K42, KC_NO, KC_NO, KC_NO, KC_NO, K47, KC_NO, K49, K4A, KC_NO, K4C,   K4D,   KC_NO }  \
 }
 
+#define LAYOUT_60_iso( \
+    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C,      K0E, \
+    k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c,      \
+    k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k1d, \
+    k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b,      k3d,      \
+    K40, K41, K42,                  K47,                   K49, K4A, K4C, K4D  \
+) { \
+    { K00, K01,   K02, K03,   K04,   K05,   K06,   K07, K08,   K09, K0A, K0B,   K0C,   KC_NO, K0E   }, \
+    { k10,  k11, k12,   k13,  k14,   k15,   k16,  k17,   k18,   k19,   k1a,  k1b,  k1c,   KC_NO,   }, \
+    { k20,  k21, k22,   k23,  k24,   k25,   k26,  k27,   k28,   k29,   k2a,  k2b,  k2c,  k1d }, \
+    { k30,  k31,   k32,   k33,  k34,   k35,   k36,  k37,   k38,   k39,   k3a,  k3b,  KC_NO, k3d,   KC_NO }, \
+    { K40, K41,   K42, KC_NO, KC_NO, KC_NO, KC_NO, K47, KC_NO, K49, K4A, KC_NO, K4C,   K4D,   KC_NO }  \
+}
+
+
 #define LAYOUT LAYOUT_all
