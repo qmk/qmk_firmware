@@ -1,6 +1,6 @@
 # DDG-56
 
-Keyboard Maintainer: [Rionlion100](https://github.com/rionlion100)  
+* Keyboard Maintainer: [Rionlion100](https://github.com/rionlion100)
 
 Make example for this keyboard (after setting up your build environment):
 
