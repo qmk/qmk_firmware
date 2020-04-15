@@ -11,7 +11,7 @@ from milc import cli
 
 from qmk.keyboard import rules_mk
 import qmk.path
-from qmk.commands import run, PIPE
+import qmk.commands
 
 # The `keymap.c` template to use when a keyboard doesn't have its own
 DEFAULT_KEYMAP_C = """#include QMK_KEYBOARD_H
@@ -231,7 +231,7 @@ def _c_preprocess(path):
     Returns:
         the stdout of the pre-processor
     """
-    pre_processed_keymap = run(['cpp', path], stdout=PIPE, stderr=PIPE, universal_newlines=True)
+    pre_processed_keymap = qmk.commands.run(['cpp', path], stdout=qmk.commands.PIPE, stderr=qmk.commands.PIPE, universal_newlines=True)
     return pre_processed_keymap.stdout
 
 
