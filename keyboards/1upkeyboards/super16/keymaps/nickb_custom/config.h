@@ -18,4 +18,5 @@
 #define ONESHOT_TIMEOUT 3000
 #define RGBLED_NUM 16
 #define RGBLIGHT_LAYERS
+#define TAPPING_TERM 200
 // place overrides here

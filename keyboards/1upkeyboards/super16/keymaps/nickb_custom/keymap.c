@@ -16,7 +16,16 @@
 #include QMK_KEYBOARD_H
 //#define RBG_VAL 16 //Define 16 RGB LEDs
 
+uint16_t copy_paste_timer;
+uint16_t enter_timer;
+
 extern rgblight_config_t rgblight_config;
+
+// Define custom keycodes
+enum my_keycodes {
+	KC_CCCV = SAFE_RANGE,
+	KC_2ENTER
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //Layer 0 - Base Layer (F13 to F24, and One Shot Layer 1,2,3,4)
@@ -55,10 +64,41 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[4] = LAYOUT_ortho_4x4(
 		KC_MPRV, KC_MPLY, KC_MNXT, KC_VOLU, 
 		RGB_TOG, RGB_MOD, RGB_RMOD, KC_MUTE, 
-		TO(0), RESET, MEH(KC_F13), KC_VOLD, 
+		TO(0), RESET, KC_2ENTER, KC_VOLD, 
 	        KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS         //Transparent to let you go between layers
 		),
 };
+
+
+
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case KC_CCCV:  // One key copy/paste
+            if (record->event.pressed) {
+                copy_paste_timer = timer_read();
+            } else {
+                if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {  // Hold, copy
+                    tap_code16(LCTL(KC_C));
+                } else {  // Tap, paste
+                    tap_code16(LCTL(KC_V));
+                }
+            } return true;
+		case KC_2ENTER:
+		    if (record->event.pressed) {
+                enter_timer = timer_read();
+            } else {
+                if (timer_elapsed(enter_timer) > TAPPING_TERM) {  // Hold, shift+enter
+                    tap_code16(LSFT(KC_ENTER));
+                } else {  // Tap, enter
+                    tap_code16(KC_ENTER);
+                }
+            } return true;
+		
+        default:
+            return true;
+    }
+}
 
  void eeconfig_init_user(void) {  // EEPROM is getting reset!
   // use the non noeeprom versions, to write these values to EEPROM too
