@@ -1,4 +1,3 @@
-#pragma once
 /*
   Copyright 2018 Eric Gebhart <e.a.gebhart@gmail.com>
 

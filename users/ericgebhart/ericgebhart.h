@@ -1,10 +1,9 @@
-#pragma once
+#ifndef ericgebhart
+#define ericgebhart
 
 #include QMK_KEYBOARD_H
 #include "base_layers.h"
 
-#ifndef ericgebhart
-#define ericgebhart
 
 //#define ONESHOT_TAP_TOGGLE 2  /* Tapping this number of times holds the key until tapped once again. */
 
