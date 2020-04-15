@@ -20,8 +20,8 @@
 * Game layer to be used as a gamepad
   * Accessed by gui key in raise layer, return with the raise key
   * Same as base layer **except** numbers 1-5 replaced with F1-F5; dual function removed from thumb keys (dedicated lower and space)
-  * Numbers 1-5 replaced with F1-F5, designed to be used with a mouse such as the Naga that has numbers
-  * Lower layer gives access to arrows and F6-F10 as well
+  * Numbers to F1-F5 is designed to be used with a mouse such as the Naga that has numbers
+  * Lower layer gives one-handed access to arrows and F6-F10 as well
 * Navigation on left hand with lower layer
   * D refers to desktop left/right on Win 10 (win+ctrl+left/right)
 * Use of hold/tap dual function keys
