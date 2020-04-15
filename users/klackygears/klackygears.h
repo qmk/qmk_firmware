@@ -20,8 +20,8 @@ extern rgblight_config_t rgblight_config;
 #endif
 
 enum layer_number {
-    _MACBASE = 0,
-    _WINBASE,
+    _WINBASE = 0,
+    _MACBASE,
     _QWERTY,
     _GAMER,
     _GAMR1,
