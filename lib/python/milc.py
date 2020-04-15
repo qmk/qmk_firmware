@@ -438,19 +438,20 @@ class MILC(object):
             raise RuntimeError('You must run this before the with statement!')
 
         def argument_function(handler):
+            subcommand_name = handler.__name__.replace("_", "-")
+
             if kwargs.get('arg_only'):
                 arg_name = self.get_argument_name(*args, **kwargs)
                 if arg_name not in self.arg_only:
                     self.arg_only[arg_name] = []
-                self.arg_only[arg_name].append(handler.__name__)
+                self.arg_only[arg_name].append(subcommand_name)
                 del kwargs['arg_only']
 
-            name = handler.__name__.replace("_", "-")
             if handler is self._entrypoint:
                 self.add_argument(*args, **kwargs)
 
-            elif name in self.subcommands:
-                self.subcommands[name].add_argument(*args, **kwargs)
+            elif subcommand_name in self.subcommands:
+                self.subcommands[subcommand_name].add_argument(*args, **kwargs)
 
             else:
                 raise RuntimeError('Decorated function is not entrypoint or subcommand!')
