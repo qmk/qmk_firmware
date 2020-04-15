@@ -13,6 +13,7 @@ enum layer_names {
     MOD,
     MEDIA,
 	LAYOUT_CHG,
+	CONFIG,
 	GIT,
 	GIT_C,
 	GIT_P,
@@ -20,7 +21,9 @@ enum layer_names {
 };
 
 enum custom_keycodes {
-    CTR_ALT  = SAFE_RANGE,
+    CTR_ALT = SAFE_RANGE,
+	TOG_OS,
+	
 	G_ADD,
 	G_BRCH,
 	G_C,
@@ -43,7 +46,37 @@ enum custom_keycodes {
 	G_SHOW,
 };
 
-const char* const testt[] = {"X_LCTL"};
+bool led_update_user(led_t led_state) {
+    writePin(CAPSLOCK_LED_PIN, led_state.caps_lock);
+    return false;
+}
+
+void keyboard_pre_init_user(void) {
+    writePinHigh(SCROLLLOCK_LED_PIN);
+    wait_ms(50);
+    writePinHigh(CAPSLOCK_LED_PIN);
+    wait_ms(50);
+    writePinHigh(NUMLOCK_LED_PIN);
+    wait_ms(50);
+    writePinLow(SCROLLLOCK_LED_PIN);
+    wait_ms(50);
+    writePinLow(CAPSLOCK_LED_PIN);
+    wait_ms(50);
+    writePinLow(NUMLOCK_LED_PIN);
+	
+	layer_state_set_user(layer_state);
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    writePinLow(NUMLOCK_LED_PIN);
+    writePinLow(SCROLLLOCK_LED_PIN);
+    switch (get_highest_layer(state)) {
+    case BASE:
+        writePinHigh(SCROLLLOCK_LED_PIN);
+        break;
+    }
+    return state;
+}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -111,7 +144,7 @@ _______,  _______,    TO(QWERTY),_______, _______,  _______,  _______,          
   */
   [QWERTY] = LAYOUT(
 //--------------------------------Left Hand------------------------------------| |--------------------------------Right Hand------------------------------------------------
-                KC_ESC,   KC_F1,   KC_F2,   KC_F3,  KC_F4,  KC_F5,  KC_F6,                KC_F7,  KC_F8,   KC_F9,  KC_F10,  KC_F11,   KC_F12,   KC_PSCR,  KC_INS,  KC_HOME,
+                KC_ESC,   KC_F1,   KC_F2,   KC_F3,  KC_F4,  KC_F5,  KC_F6,                KC_F7,  KC_F8,   KC_F9,  KC_F10,  KC_F11,   KC_F12,   LT(CONFIG, KC_PSCR),  KC_INS,  KC_HOME,
 KC_8,  KC_9,    KC_GRAVE, KC_1,    KC_2,    KC_3,   KC_4,   KC_5,   KC_6,                 KC_7,   KC_8,    KC_9,   KC_0,    KC_MINUS, KC_EQUAL, XXXXXXX,           KC_DEL,
 KC_6,  KC_7,    KC_TAB,   KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,                 KC_Y,   KC_U,   KC_I,    KC_O,   KC_P,    KC_LBRC,  KC_RBRC,  KC_BSLS,           KC_END,
 KC_4,  KC_5,    KC_CAPS,  KC_A,    KC_S ,KC_D ,KC_F ,KC_G,   KC_H,   KC_J, KC_K, KC_L, KC_SCLN,KC_QUOT,XXXXXXX,         KC_PGUP,
@@ -162,7 +195,7 @@ _______,  _______,    _______, _______,_______,_______, _______,                
                       _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______, _______,
 _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,           _______,
 _______,  _______,    _______,  _______,  KC_HOME,  KC_UP,    KC_END,   KC_PGUP,              _______,  _______,_______, _______,_______,_______,_______,  _______,           _______,
-_______,  _______,    _______,  _______,  KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_PGDOWN,              CTR_ALT,KC_LCTL,KC_LSFT,_______,_______,  _______,  _______,           _______,
+_______,  _______,    _______,  _______,  KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_PGDOWN,              _______,CTR_ALT,KC_LSFT,_______,_______,  _______,  _______,           _______,
 _______,  _______,    _______,_______,_______,  _______,  KC_DEL,  _______,              _______,  _______,   _______,  _______,  _______,                      _______, _______,  _______,
 _______,  _______,    _______, _______,_______,KC_DEL, _______,                        _______,             _______, _______,   _______,            _______, _______,  _______
   ),
@@ -214,6 +247,16 @@ _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,
 _______,  _______,    TO(WORKMAN),  _______,  _______,  _______,  _______,  _______,              _______,  _______,   _______,  _______,  _______,                      _______, _______,  _______,
 _______,  _______,    TO(BASE),  _______,  _______,  _______,  _______,                        _______,             _______, _______,   _______,                      _______, _______,  _______
   ),  
+  
+  [CONFIG] = LAYOUT(
+//--------------------------------Left Hand-----------------------------------------------| |--------------------------------Right Hand------------------------------------------------
+                      _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______, _______,
+_______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,           _______,
+_______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,   _______,  TOG_OS,  _______,  _______,  _______,  _______,           _______,
+_______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,   _______,  _______,  _______,  _______,  _______,                     _______,
+_______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,   _______,  _______,  _______,                      _______, _______,  _______,
+_______,  _______,    _______,  _______,  _______,  _______,  _______,                        _______,             _______, _______,   _______,                      _______, _______,  _______
+  ),
   
  /*     git        ,-----------------------------------------.     ,-----------------------------------------------------.
   *                |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |
@@ -291,48 +334,25 @@ XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,          
   // ),
 };
 
-bool led_update_user(led_t led_state) {
-    writePin(CAPSLOCK_LED_PIN, led_state.caps_lock);
-    return false;
-}
-
-void keyboard_pre_init_user(void) {
-    writePinHigh(SCROLLLOCK_LED_PIN);
-    wait_ms(50);
-    writePinHigh(CAPSLOCK_LED_PIN);
-    wait_ms(50);
-    writePinHigh(NUMLOCK_LED_PIN);
-    wait_ms(50);
-    writePinLow(SCROLLLOCK_LED_PIN);
-    wait_ms(50);
-    writePinLow(CAPSLOCK_LED_PIN);
-    wait_ms(50);
-    writePinLow(NUMLOCK_LED_PIN);
-	
-	layer_state_set_user(layer_state);
-}
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    writePinLow(NUMLOCK_LED_PIN);
-    writePinLow(SCROLLLOCK_LED_PIN);
-    switch (get_highest_layer(state)) {
-    case BASE:
-        writePinHigh(SCROLLLOCK_LED_PIN);
-        break;
-    }
-    return state;
-}
+bool is_win = false;
+char *key_up[2] = {SS_UP(X_LALT), SS_UP(X_LCTL)};
+char *key_down[2] = {SS_DOWN(X_LALT), SS_DOWN(X_LCTL)};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+	case TOG_OS:
+		if (record->event.pressed) {
+			is_win = ! is_win;
+		}
+        break;
     case CTR_ALT:
-		  // const char* key = testt[0];
-          // if (record->event.pressed) {
-              // send_string(SS_DOWN(key));
-          // } else {
-              // send_string(SS_UP(key));
-          // }
+          if (record->event.pressed) {
+              send_string(key_down[is_win]);
+          } else {
+              send_string(key_up[is_win]);
+          }
           break;
+		  
 	case G_ADD:
 		if (record->event.pressed) {
 			SEND_STRING("git add ");
