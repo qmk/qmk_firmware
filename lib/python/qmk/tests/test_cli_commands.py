@@ -1,10 +1,9 @@
-import subprocess
-from qmk.commands import run
+from qmk.commands import run, PIPE
 
 
 def check_subcommand(command, *args):
     cmd = ['bin/qmk', command] + list(args)
-    result = run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
+    result = run(cmd, stdout=PIPE, stderr=PIPE, universal_newlines=True)
     return result
 
 
@@ -156,3 +155,15 @@ def test_info_matrix_render():
     assert 'LAYOUT_ortho_1x1' in result.stdout
     assert '│0A│' in result.stdout
     assert 'Matrix for "LAYOUT_ortho_1x1"' in result.stdout
+
+
+def test_c2json():
+    result = check_subcommand("c2json", "-kb", "handwired/onekey/pytest", "keyboards/handwired/onekey/keymaps/pytest/keymap.c")
+    assert result.returncode == 0
+    assert result.stdout.strip() == '{"layers": [["KC_ENTER"]], "layout": "LAYOUT", "keyboard": "handwired/onekey/pytest"}'
+
+
+def test_c2json_nocpp():
+    result = check_subcommand("c2json", "--no-cpp", "-kb", "handwired/onekey/pytest", "keyboards/handwired/onekey/keymaps/pytest_nocpp/keymap.c")
+    assert result.returncode == 0
+    assert result.stdout.strip() == '{"layers": [["KC_ENTER"]], "layout": "LAYOUT", "keyboard": "handwired/onekey/pytest"}'
