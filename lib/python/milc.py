@@ -283,7 +283,7 @@ class MILC(object):
         self._entrypoint = None
         self._inside_context_manager = False
         self.ansi = ansi_colors
-        self.arg_only = []
+        self.arg_only = {}
         self.config = self.config_source = None
         self.config_file = None
         self.default_arguments = {}
@@ -388,7 +388,7 @@ class MILC(object):
         self.add_argument('--log-file', help='File to write log messages to')
         self.add_argument('--color', action='store_boolean', default=True, help='color in output')
         self.add_argument('--config-file', help='The location for the configuration file')
-        self.arg_only.append('config_file')
+        self.arg_only['config_file'] = ['general']
 
     def add_subparsers(self, title='Sub-commands', **kwargs):
         if self._inside_context_manager:
@@ -438,9 +438,11 @@ class MILC(object):
             raise RuntimeError('You must run this before the with statement!')
 
         def argument_function(handler):
-            if 'arg_only' in kwargs and kwargs['arg_only']:
+            if kwargs.get('arg_only'):
                 arg_name = self.get_argument_name(*args, **kwargs)
-                self.arg_only.append(arg_name)
+                if arg_name not in self.arg_only:
+                    self.arg_only[arg_name] = []
+                self.arg_only[arg_name].append(handler.__name__)
                 del kwargs['arg_only']
 
             name = handler.__name__.replace("_", "-")
@@ -522,22 +524,22 @@ class MILC(object):
             if argument in ('subparsers', 'entrypoint'):
                 continue
 
-            if argument not in self.arg_only:
-                # Find the argument's section
-                # Underscores in command's names are converted to dashes during initialization.
-                # TODO(Erovia) Find a better solution
-                entrypoint_name = self._entrypoint.__name__.replace("_", "-")
-                if entrypoint_name in self.default_arguments and argument in self.default_arguments[entrypoint_name]:
-                    argument_found = True
-                    section = self._entrypoint.__name__
-                if argument in self.default_arguments['general']:
-                    argument_found = True
-                    section = 'general'
+            # Find the argument's section
+            # Underscores in command's names are converted to dashes during initialization.
+            # TODO(Erovia) Find a better solution
+            entrypoint_name = self._entrypoint.__name__.replace("_", "-")
+            if entrypoint_name in self.default_arguments and argument in self.default_arguments[entrypoint_name]:
+                argument_found = True
+                section = self._entrypoint.__name__
+            if argument in self.default_arguments['general']:
+                argument_found = True
+                section = 'general'
 
-                if not argument_found:
-                    raise RuntimeError('Could not find argument in `self.default_arguments`. This should be impossible!')
-                    exit(1)
+            if not argument_found:
+                raise RuntimeError('Could not find argument in `self.default_arguments`. This should be impossible!')
+                exit(1)
 
+            if argument not in self.arg_only or section not in self.arg_only[argument]:
                 # Determine the arg value and source
                 arg_value = getattr(self.args, argument)
                 if argument in self._config_store_true and arg_value:
