@@ -46,10 +46,9 @@ def template(keyboard, type='c'):
     """
     if type == 'json':
         template_file = Path('keyboards/%s/templates/keymap.json' % keyboard)
+        template = {'keyboard': keyboard}
         if template_file.exists():
-            template = json.loads(template_file.read_text())
-        else:
-            template = {'keyboard': keyboard}
+            template.update(json.loads(template_file.read_text()))
     else:
         template_file = Path('keyboards/%s/templates/keymap.c' % keyboard)
         if template_file.exists():

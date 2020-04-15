@@ -18,7 +18,7 @@ def test_template_onekey_pytest():
 
 def test_template_onekey_pytest_json():
     templ = qmk.keymap.template('handwired/onekey/pytest', type='json')
-    assert templ == {'keyboard': 'handwired/onekey/pytest'}
+    assert templ == {'keyboard': 'handwired/onekey/pytest', "documentation": "This file is a keymap.json file for handwired/onekey/pytest"}
 
 
 def test_generate_onekey_pytest():
@@ -28,7 +28,7 @@ def test_generate_onekey_pytest():
 
 def test_generate_onekey_pytest_json():
     templ = qmk.keymap.generate('handwired/onekey/pytest', 'LAYOUT', [['KC_A']], type='json')
-    assert templ == {'keyboard': 'handwired/onekey/pytest', 'layout': 'LAYOUT', 'layers': [['KC_A']]}
+    assert templ == {"keyboard": "handwired/onekey/pytest", "documentation": "This file is a keymap.json file for handwired/onekey/pytest", "layout": "LAYOUT", "layers": [["KC_A"]]}
 
 
 def test_parse_keymap_c():

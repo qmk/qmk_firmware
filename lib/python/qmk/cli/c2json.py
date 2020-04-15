@@ -37,7 +37,11 @@ def c2json(cli):
     if cli.args.output == ('-'):
         cli.args.output = None
 
+    # Parse the keymap.c
     keymap_json = qmk.keymap.c2json(cli.args.keyboard, cli.args.filename, use_cpp=cli.args.no_cpp)
+
+    # Generate the keymap.json
+    keymap_json = qmk.keymap.generate(keymap_json['keyboard'], keymap_json['layout'], keymap_json['layers'], type='json')
 
     if cli.args.output:
         cli.args.output.parent.mkdir(parents=True, exist_ok=True)
