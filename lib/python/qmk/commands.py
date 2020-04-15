@@ -4,7 +4,7 @@ import json
 import os
 import platform
 import subprocess
-from subprocess import PIPE
+from subprocess import PIPE  # noqa, so other submodules doesn't need to
 import shlex
 import shutil
 

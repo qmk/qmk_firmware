@@ -1,7 +1,6 @@
 """Generate a keymap.json from a keymap.c file.
 """
 import json
-import pdb
 
 from milc import cli
 
@@ -37,7 +36,7 @@ def c2json(cli):
     if cli.args.output == ('-'):
         cli.args.output = None
 
-    keymap_json = qmk.keymap.parse_keymap_c(cli.args.filename, use_cpp = cli.args.no_cpp)
+    keymap_json = qmk.keymap.parse_keymap_c(cli.args.filename, use_cpp=cli.args.no_cpp)
 
     if cli.args.output:
         cli.args.output.parent.mkdir(parents=True, exist_ok=True)

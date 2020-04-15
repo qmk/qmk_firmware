@@ -1,7 +1,6 @@
 """Functions that help you work with QMK keymaps.
 """
 from pathlib import Path
-import shutil
 import json
 
 from pygments.lexers.c_cpp import CLexer
@@ -236,7 +235,7 @@ def _c_preprocess(path):
     return pre_processed_keymap.stdout
 
 
-def _get_layers(keymap):
+def _get_layers(keymap):  # noqa C901 : until someone has a good idea how to simplify/split up this code
     """ Find the layers in a keymap.c file.
 
     Args:
@@ -305,10 +304,10 @@ def _get_layers(keymap):
                         # We found the beginning of a non-basic keycode
                         is_adv_kc = True
                         layer['keycodes'][-1] += line[1]
-                    elif line[1] is '(' and brace_depth == 2:
+                    elif line[1] == '(' and brace_depth == 2:
                         # We found the beginning of a layer
                         is_layer = True
-                elif line[1] is '{' and keymap_certainty == 6:
+                elif line[1] == '{' and keymap_certainty == 6:
                     # We found the beginning of the keymaps array
                     is_keymap = True
             elif line[1] in closing_braces:
@@ -319,12 +318,12 @@ def _get_layers(keymap):
                         if brace_depth == 2:
                             # We found the end of a non-basic keycode
                             is_adv_kc = False
-                    elif line[1] is ')' and brace_depth == 1:
+                    elif line[1] == ')' and brace_depth == 1:
                         # We found the end of a layer
                         is_layer = False
                         layers.append(layer)
                         layer = dict(name=False, layout=False, keycodes=list())
-                    elif line[1] is '}' and brace_depth == 0:
+                    elif line[1] == '}' and brace_depth == 0:
                         # We found the end of the keymaps array
                         is_keymap = False
                         keymap_certainty = 0
@@ -350,7 +349,7 @@ def _get_layers(keymap):
     return layers
 
 
-def parse_keymap_c(keymap_file, use_cpp = True):
+def parse_keymap_c(keymap_file, use_cpp=True):
     """ Parse a keymap.c file.
 
     Currently only cares about the keymaps array.
