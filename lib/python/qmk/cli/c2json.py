@@ -11,6 +11,7 @@ import qmk.path
 @cli.argument('--no-cpp', arg_only=True, action='store_false', help='Do not use \'cpp\' on keymap.c')
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
+@cli.argument('-kb', '--keyboard', arg_only=True, required=True, help='The keyboard\'s name')
 @cli.argument('filename', arg_only=True, help='keymap.c file')
 @cli.subcommand('Creates a keymap.json from a keymap.c file.')
 def c2json(cli):
@@ -36,7 +37,7 @@ def c2json(cli):
     if cli.args.output == ('-'):
         cli.args.output = None
 
-    keymap_json = qmk.keymap.parse_keymap_c(cli.args.filename, use_cpp=cli.args.no_cpp)
+    keymap_json = qmk.keymap.c2json(cli.args.keyboard, cli.args.filename, use_cpp=cli.args.no_cpp)
 
     if cli.args.output:
         cli.args.output.parent.mkdir(parents=True, exist_ok=True)

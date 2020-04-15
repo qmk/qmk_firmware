@@ -356,6 +356,7 @@ def parse_keymap_c(keymap_file, use_cpp=True):
 
     Args:
         keymap_file: path of the keymap.c file
+
         use_cpp: if True, pre-process the file with the C pre-processor
 
     Returns:
@@ -369,3 +370,33 @@ def parse_keymap_c(keymap_file, use_cpp=True):
     keymap = dict()
     keymap['layers'] = _get_layers(keymap_file)
     return keymap
+
+
+def c2json(keyboard, keymap_file, use_cpp=True):
+    """ Convert keymap.c to keymap.json
+
+    Args:
+        keyboard: The name of the keyboard
+
+        layout: The LAYOUT macro this keymap uses.
+
+        keymap_file: path of the keymap.c file
+
+        use_cpp: if True, pre-process the file with the C pre-processor
+
+    Returns:
+        a dictionary in keymap.json format
+    """
+    keymap_json = parse_keymap_c(keymap_file, use_cpp)
+
+    dirty_layers = keymap_json.pop('layers', None)
+    keymap_json['layers'] = list()
+    for layer in dirty_layers:
+        layer.pop('name')
+        layout = layer.pop('layout')
+        if not keymap_json.get('layout', False):
+            keymap_json['layout'] = layout
+        keymap_json['layers'].append(layer.pop('keycodes'))
+
+    keymap_json['keyboard'] = keyboard
+    return keymap_json
