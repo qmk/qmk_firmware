@@ -19,10 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define USE_SERIAL
 
+#define PERMISSIVE_HOLD
+#define PREVENT_STUCK_MODIFIERS
+#define TAPPING_TERM 150
+#define IGNORE_MOD_TAP_INTERRUPT
 
 
-//#define EE_HANDS
-// Rows are doubled-up
 
 
 
@@ -43,14 +45,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
 //   #define RGBLIGHT_EFFECT_RGB_TEST
 //   #define RGBLIGHT_EFFECT_ALTERNATING
-//   #define RGBLIGHT_EFFECT_BEAM
-//   #define RGBLIGHT_EFFECT_HYPERBEAM
-//   #define RGBLIGHT_EFFECT_RAINBOW_SPARKLE
 
-/*
-#define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 0
-#define BOOTMAGIC_LITE_ROW_RIGHT 1
-#define BOOTMAGIC_LITE_COLUMN_RIGHT 6
-*/
-//#define BOOTMAGIC_KEY_BOOTLOADER KC_X
+

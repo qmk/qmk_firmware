@@ -24,9 +24,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Select hand configuration */
 
-#define MASTER_LEFT
+//#define MASTER_LEFT
 // #define MASTER_RIGHT
-// #define EE_HANDS
+#define EE_HANDS
 
 #define SSD1306OLED
 
@@ -50,7 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //#if defined(LED_ANIMATIONS)
   #define RGBLIGHT_EFFECT_BREATHING
-//   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+  #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 //   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 //   #define RGBLIGHT_EFFECT_RAINBOW_SPARKLE
 //     #define RGBLIGHT_EFFECT_SNAKE
@@ -71,3 +71,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT klackygears Corne Keyboard
 
 #define OLED_FONT_H "keyboards/crkbd/keymaps/klackygears/glcdfont.c"
+
+/*
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 0
+#define BOOTMAGIC_LITE_ROW_RIGHT 4
+#define BOOTMAGIC_LITE_COLUMN_RIGHT 0
+*/
