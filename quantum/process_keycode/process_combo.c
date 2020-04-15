@@ -102,9 +102,8 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
     bool is_combo_active = is_active;
 
     if (record->event.pressed) {
-        KEY_STATE_DOWN(index);
-
         if (is_combo_active) {
+            KEY_STATE_DOWN(index);
             if (ALL_COMBO_KEYS_ARE_DOWN) { /* Combo was pressed */
                 send_combo(combo->keycode, true);
                 drop_buffer = true;
