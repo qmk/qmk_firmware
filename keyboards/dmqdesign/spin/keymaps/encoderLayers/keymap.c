@@ -73,7 +73,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 } else {
                     midi_send_cc(&midi_device, 0, 0x1B, 1);
                 }
-                break;             
+                break;
         }
     } else if (index == 1) { /* Second encoder */
         switch (currentLayer) {
