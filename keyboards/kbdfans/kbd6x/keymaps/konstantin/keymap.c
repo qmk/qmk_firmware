@@ -1,9 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "konstantin.h"
 
-enum keycodes_keymap {
-    RCTRL = RANGE_KEYMAP,
-};
+#define RCTRL LM(L_RCTRL, MOD_LCTL)
 
 enum layers_keymap {
     L_RCTRL = L_RANGE_KEYMAP,
@@ -27,17 +25,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed && keycode == RGB_TOG && get_mods() & MOD_MASK_SHIFT) {
             eeconfig_init_keymap();
             return false;
-        }
-        break;
-
-    // Combined RCtrl and layer
-    case RCTRL:
-        if (record->event.pressed) {
-            register_code(KC_RCTRL);
-            layer_on(L_RCTRL);
-        } else {
-            unregister_code(KC_RCTRL);
-            layer_off(L_RCTRL);
         }
         break;
     }
