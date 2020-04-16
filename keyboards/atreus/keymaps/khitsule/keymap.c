@@ -6,7 +6,7 @@
 #define GAME 1
 #define LOWR 2
 #define RAIS 3
-#define ADJS 16
+#define ADJS 4
 
 // enum layers {
 //   ALPH, //alpha qwerty
@@ -15,7 +15,6 @@
 // };
 
 // define any macros here to keep keymap clean and readable
-#define _______ KC_TRNS
 
 #define KM_DLEFT LGUI(LCTL(KC_LEFT))
 #define KM_DRIGHT LGUI(LCTL(KC_RIGHT))
