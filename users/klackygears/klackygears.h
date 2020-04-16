@@ -39,6 +39,7 @@ enum userspace_custom_keycodes {
   KC_PROTECT, //for some reason, this position does not work. This is just a placeholder
   KC_QWERTY,
   KC_WINBASE,
+  KC_GAMER,
   SAFE_RANGE_KEYMAP
 };
 
