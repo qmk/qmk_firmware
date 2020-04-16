@@ -60,19 +60,27 @@ void matrix_scan_cmd_tab(void);
 #define LFT_ALT   RALT_T(KC_LEFT)      // Tap Right Alt for Left
 #define LFT_GUI   RGUI_T(KC_LEFT)      // Tap Right GUI for Left
 #define DWN_FN1   LT(1, KC_DOWN)       // Tap Fn for Down
+#define DWN_LWR   DWN_FN1              // Tap Lower for Down
 #define DWN_FN2   LT(2, KC_DOWN)       // Tap Fn2 for Down
+#define DWN_RAI   DWN_FN2              // Tap Raise for Down
 #define DWN_ALT   RALT_T(KC_DOWN)      // Tap Right Alt for Down
 #define RGT_ALT   RALT_T(KC_RGHT)      // Tap Right Alt for Right
 #define RGT_CTL   RCTL_T(KC_RGHT)      // Tap Right Ctrl for Right
 /**
  * Nav Mod-Tap
  * Use the Mod-Tap feature for nav keys (Home/End, Page Up/Down)
- * Mostly used for 60% layouts, on a function layer
+ * Mostly used for 40-60% layouts, on a function layer
  */
 #define PGU_SFT   RSFT_T(KC_PGUP)      // Tap Right Shift for Page Up
 #define HOM_ALT   RALT_T(KC_HOME)      // Tap Right Alt for Home
+#define HOM_GUI   RGUI_T(KC_HOME)      // Tap Right GUI for Home
+#define PGD_FN1   LT(1, KC_PGDN)       // Tap Fn for Page Down
+#define PGD_LWR   PGD_FN1              // Tap Lower for Page Down
 #define PGD_FN2   LT(2, KC_PGDN)       // Tap Fn2 for Page Down
-#define END_CTL   RCTL_T(KC_END)       // Tap Right Ctrl for End
+#define PGD_RAI   PGD_FN2              // Tap Raise for Page Down
+#define DWN_ALT   RALT_T(KC_PGDN)      // Tap Right Alt for Down
+#define END_ALT   ROPT_T(KC_END)       // Tap Right Option for End
+#define END_CTL   RCTL_T(KC_END)       // Tap Right Control for End
 
 /**
  * MacOS
