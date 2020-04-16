@@ -28,6 +28,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern "C" {
 #endif
 
+/* Disable macro and function features when LTO is enabled, since they break */
+#ifdef LINK_TIME_OPTIMIZATION_ENABLE
+#    ifndef NO_ACTION_MACRO
+#        define NO_ACTION_MACRO
+#    endif
+#    ifndef NO_ACTION_FUNCTION
+#        define NO_ACTION_FUNCTION
+#    endif
+#endif
+
 /* tapping count and state */
 typedef struct {
     bool    interrupted : 1;
@@ -84,12 +94,16 @@ void process_hand_swap(keyevent_t *record);
 
 void process_record_nocache(keyrecord_t *record);
 void process_record(keyrecord_t *record);
+void process_record_handler(keyrecord_t *record);
+void post_process_record_quantum(keyrecord_t *record);
 void process_action(keyrecord_t *record, action_t action);
 void register_code(uint8_t code);
 void unregister_code(uint8_t code);
 void tap_code(uint8_t code);
 void register_mods(uint8_t mods);
 void unregister_mods(uint8_t mods);
+void register_weak_mods(uint8_t mods);
+void unregister_weak_mods(uint8_t mods);
 // void set_mods(uint8_t mods);
 void clear_keyboard(void);
 void clear_keyboard_but_mods(void);

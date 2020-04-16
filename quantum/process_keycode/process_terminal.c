@@ -61,7 +61,7 @@ void enable_terminal(void) {
     memset(cmd_buffer, 0, CMD_BUFF_SIZE * 80);
     for (int i = 0; i < 6; i++) strcpy(arguments[i], "");
     // select all text to start over
-    // SEND_STRING(SS_LCTRL("a"));
+    // SEND_STRING(SS_LCTL("a"));
     send_string(terminal_prompt);
 }
 

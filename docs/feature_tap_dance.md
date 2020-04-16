@@ -333,7 +333,9 @@ And then simply use `TD(X_CTL)` anywhere in your keymap.
 
 If you want to implement this in your userspace, then you may want to check out how [DanielGGordon](https://github.com/qmk/qmk_firmware/tree/master/users/gordon) has implemented this in their userspace.
 
-### Example 5: Using tap dance for advanced mod-tap and layer-tap keys
+> In this configuration "hold" takes place **after** tap dance timeout (see `ACTION_TAP_DANCE_FN_ADVANCED_TIME`). To achieve instant hold, remove `state->interrupted` checks in conditions. As a result you may use comfortable longer tapping periods to have more time for taps and not to wait too long for holds (try starting with doubled `TAPPING_TERM`).
+
+### Example 5: Using tap dance for advanced mod-tap and layer-tap keys :id=example-5-using-tap-dance-for-advanced-mod-tap-and-layer-tap-keys
 
 Tap dance can be used to emulate `MT()` and `LT()` behavior when the tapped code is not a basic keycode. This is useful to send tapped keycodes that normally require `Shift`, such as parentheses or curly braces—or other modified keycodes, such as `Control + X`.
 

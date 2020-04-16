@@ -32,8 +32,10 @@ set_git_username() {
 
 # Copy the template files to the new keyboard directory.
 copy_templates() {
+    mkdir -p "$keyboard_dir"
+
     echo -n "Copying base template files..."
-    cp -r "quantum/template/base" "${keyboard_dir}"
+    cp -r "quantum/template/base/." "${keyboard_dir}"
     echo " done"
 
     echo -n "Copying $keyboard_type template files..."
@@ -41,8 +43,8 @@ copy_templates() {
     echo " done"
 
     echo -n "Renaming keyboard files..."
-    mv "${keyboard_dir}/keyboard.c" "${keyboard_dir}/${keyboard_name}.c"
-    mv "${keyboard_dir}/keyboard.h" "${keyboard_dir}/${keyboard_name}.h"
+    mv "${keyboard_dir}/keyboard.c" "${keyboard_dir}/${keyboard_base_name}.c"
+    mv "${keyboard_dir}/keyboard.h" "${keyboard_dir}/${keyboard_base_name}.h"
     echo " done"
 }
 
@@ -74,8 +76,8 @@ replace_placeholders() {
 replace_year_placeholders() {
     local replace_year_filenames=(
         "${keyboard_dir}/config.h"
-        "${keyboard_dir}/${keyboard_name}.c"
-        "${keyboard_dir}/${keyboard_name}.h"
+        "${keyboard_dir}/${keyboard_base_name}.c"
+        "${keyboard_dir}/${keyboard_base_name}.h"
         "${keyboard_dir}/keymaps/default/config.h"
         "${keyboard_dir}/keymaps/default/keymap.c"
     )
@@ -86,20 +88,22 @@ replace_year_placeholders() {
 replace_keyboard_placeholders() {
     local replace_keyboard_filenames=(
         "${keyboard_dir}/config.h"
+        "${keyboard_dir}/info.json"
         "${keyboard_dir}/readme.md"
-        "${keyboard_dir}/${keyboard_name}.c"
+        "${keyboard_dir}/${keyboard_base_name}.c"
         "${keyboard_dir}/keymaps/default/readme.md"
     )
-    replace_placeholders "%KEYBOARD%" "$keyboard_name" "${replace_keyboard_filenames[@]}"
+    replace_placeholders "%KEYBOARD%" "$keyboard_base_name" "${replace_keyboard_filenames[@]}"
 }
 
 # Replace %YOUR_NAME% with the username.
 replace_name_placeholders() {
     local replace_name_filenames=(
         "${keyboard_dir}/config.h"
+        "${keyboard_dir}/info.json"
         "${keyboard_dir}/readme.md"
-        "${keyboard_dir}/${keyboard_name}.c"
-        "${keyboard_dir}/${keyboard_name}.h"
+        "${keyboard_dir}/${keyboard_base_name}.c"
+        "${keyboard_dir}/${keyboard_base_name}.h"
         "${keyboard_dir}/keymaps/default/config.h"
         "${keyboard_dir}/keymaps/default/keymap.c"
     )
@@ -134,6 +138,7 @@ echo
 while [ -z "$keyboard_name" ]; do
     prompt "Keyboard Name" ""
     keyboard_name=$prompt_return
+    keyboard_base_name=$(basename $keyboard_name)
 done
 
 keyboard_dir="keyboards/$keyboard_name"

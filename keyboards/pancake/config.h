@@ -1,4 +1,4 @@
-/* Copyright 2019 Sebastian Williams
+/* Copyright 2019 Spaceman
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0xB195
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    rionlion100
+#define MANUFACTURER    Spaceman
 #define PRODUCT         Pancake
 #define DESCRIPTION     Choc Ortho Keyboard
 
