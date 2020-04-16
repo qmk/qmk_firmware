@@ -128,19 +128,19 @@ layer_state_t layer_state_set_user(layer_state_t state) { //This will run every 
 
     switch (currentLayer) {
         case _BL:
-            setrgb(RGB_WHITE, (LED_TYPE *)&led[0]); //Set the top LED to white for the bottom layer
-            setrgb(0, 0, 0, (LED_TYPE *)&led[1]);
-            setrgb(0, 0, 0, (LED_TYPE *)&led[2]);
+            setrgb(RGB_WHITE, &led[0]); //Set the top LED to white for the bottom layer
+            setrgb(0, 0, 0, &led[1]);
+            setrgb(0, 0, 0, &led[2]);
             break;
         case _FL:
-            setrgb(0, 0, 0, (LED_TYPE *)&led[0]); //Set the middle LED to white for the middle layer
-            setrgb(RGB_WHITE, (LED_TYPE *)&led[1]);
-            setrgb(0, 0, 0, (LED_TYPE *)&led[2]);
+            setrgb(0, 0, 0, &led[0]); //Set the middle LED to white for the middle layer
+            setrgb(RGB_WHITE, &led[1]);
+            setrgb(0, 0, 0, &led[2]);
             break;
         case _TL:
-            setrgb(0, 0, 0, (LED_TYPE *)&led[0]);
-            setrgb(0, 0, 0, (LED_TYPE *)&led[1]);
-            setrgb(RGB_WHITE, (LED_TYPE *)&led[2]); //Set the bottom LED to white for the top layer
+            setrgb(0, 0, 0, &led[0]);
+            setrgb(0, 0, 0, &led[1]);
+            setrgb(RGB_WHITE, &led[2]); //Set the bottom LED to white for the top layer
             break;
     }
     rgblight_set();
