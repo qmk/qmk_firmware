@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "print.h"
 #include "debug.h"
-
+#include "debounce.h"
 static uint8_t debouncing = DEBOUNCE;
 
 /* matrix state(1:on, 0:off) */
