@@ -18,19 +18,19 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [0] = LAYOUT(
+    [0] = LAYOUT_100u(
         KC_B
     ),
 
-    [1] = LAYOUT(
+    [1] = LAYOUT_100u(
         KC_TRNS
     ),
 
-    [2] = LAYOUT(
+    [2] = LAYOUT_100u(
         KC_TRNS
     ),
 
-    [3] = LAYOUT(
+    [3] = LAYOUT_100u(
         KC_TRNS
     ),
 };
