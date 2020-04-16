@@ -100,6 +100,26 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return process_record_user(keycode, record);
 }
 
+void bmp_check_timeout_extended_keycode() {
+    uint16_t       keycode;
+    exkc_status_t *p_status;
+
+    for (int idx = 0; idx < bmp_ex_keycode_num; idx++) {
+        keycode  = idx + EXKC_START;
+        p_status = &exkc_status[idx];
+
+        if (p_status->state != EXKC_STATE_NONE &&
+            p_status->state != EXKC_STATE_HOLD &&
+            timer_elapsed(p_status->last_event_time) >
+                get_tapping_term(keycode)) {
+            p_status->event = EXKC_OVER_TAPPING_TERM;
+            dprintf("[EXKC]idx:%d:OVER_TT\n", idx);
+        } else {
+            p_status->event = EXKC_NONE;
+        }
+    }
+}
+
 void bmp_action_exec_impl(keyevent_t event) {
     for (int idx = 0; idx < bmp_ex_keycode_num; idx++) {
         state_transition_common(idx);
@@ -241,23 +261,6 @@ static void preprocess_exkc_common(keyevent_t const *const keyevent) {
         } else {
             // set EXKC_NONE in timeout checker
             // exkc_status[idx].event = EXKC_NONE;
-        }
-    }
-}
-
-void bmp_check_timeout_extended_keycode() {
-    uint16_t       keycode;
-    exkc_status_t *p_status;
-
-    for (int idx = 0; idx < bmp_ex_keycode_num; idx++) {
-        keycode  = idx + EXKC_START;
-        p_status = &exkc_status[idx];
-
-        if (p_status->state != EXKC_STATE_NONE && p_status->state != EXKC_STATE_HOLD && timer_elapsed(p_status->last_event_time) > get_tapping_term(keycode)) {
-            p_status->event = EXKC_OVER_TAPPING_TERM;
-            dprintf("[EXKC]idx:%d:OVER_TT\n", idx);
-        } else {
-            p_status->event = EXKC_NONE;
         }
     }
 }

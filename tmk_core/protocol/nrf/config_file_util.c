@@ -27,7 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "bmp_extended_keycode_converter.h"
 #include "bmp_custom_keycode.h"
 
-void json_to_keymap_init(json_keymap_convert_inst_t* const inst, uint16_t* keymap, uint32_t keymap_len) {
+void json_to_keymap_init(json_keymap_convert_inst_t* const inst,
+                         uint16_t* keymap, uint32_t keymap_len) {
     inst->keymap     = keymap;
     inst->keymap_idx = 0;
     inst->keymap_len = keymap_len;
@@ -36,12 +37,14 @@ void json_to_keymap_init(json_keymap_convert_inst_t* const inst, uint16_t* keyma
     memset(inst->layout_name, 0, sizeof(inst->layout_name));
 }
 
-static uint16_t register_ex_kc(json_keymap_convert_inst_t* const inst, bmp_ex_keycode_t const* const ek) {
+static uint16_t register_ex_kc(json_keymap_convert_inst_t* const inst,
+                               bmp_ex_keycode_t const* const     ek) {
     for (int idx = 0; idx < BMP_EX_KC_LEN; idx++) {
         if (inst->bmp_ek[idx].byte[0] == 0) {
             memcpy(&inst->bmp_ek[idx], ek, sizeof(bmp_ex_keycode_t));
             return EXKC_START + idx;
-        } else if (memcmp(&inst->bmp_ek[idx], ek, sizeof(bmp_ex_keycode_t)) == 0) {
+        } else if (memcmp(&inst->bmp_ek[idx], ek, sizeof(bmp_ex_keycode_t)) ==
+                   0) {
             return EXKC_START + idx;
         }
     }
@@ -49,11 +52,13 @@ static uint16_t register_ex_kc(json_keymap_convert_inst_t* const inst, bmp_ex_ke
     return KC_NO;
 }
 
-int32_t get_val_string(const char* json, const char* key, const char** val, uint32_t* len);
+int32_t get_val_string(const char* json, const char* key, const char** val,
+                       uint32_t* len);
 
 // Return quantum keycode from json strings.
 // inst->tail contains partial string if quotation is not closed
-int32_t json_to_keymap_conv(json_keymap_convert_inst_t* const inst, const char* json) {
+int32_t json_to_keymap_conv(json_keymap_convert_inst_t* const inst,
+                            const char*                       json) {
     const char* str;
     const char* str2;
     const char* str3;
@@ -101,8 +106,9 @@ int32_t json_to_keymap_conv(json_keymap_convert_inst_t* const inst, const char* 
         do {
             str3 = strchr(str3 + 1, '\"');  // skip first dbqt and search
         } while ((*(str3 - 1) == '\\') && (*(str3 - 2) != '\\'));
-        uint16_t kc = str2quantum_keycode_locale(inst->tail + 1, str3 - inst->tail - 1,
-                                                 inst->locale);  // skip "
+        uint16_t kc =
+            str2quantum_keycode_locale(inst->tail + 1, str3 - inst->tail - 1,
+                                       inst->locale);  // skip "
 
         if (inst->keymap_idx >= inst->keymap_len) {
             return 1;
@@ -146,7 +152,9 @@ int32_t json_to_keymap_conv(json_keymap_convert_inst_t* const inst, const char* 
             str2bmp_ex_keycode_locale(&ek, str, str2 - str, inst->locale);
             kc = register_ex_kc(inst, &ek);
             if (kc != KC_NO) {
-                inst->ek_num = inst->ek_num > (kc - EXKC_START + 1) ? inst->ek_num : (kc - EXKC_START + 1);
+                inst->ek_num = inst->ek_num > (kc - EXKC_START + 1)
+                                   ? inst->ek_num
+                                   : (kc - EXKC_START + 1);
             }
         }
 
@@ -166,7 +174,8 @@ int32_t json_to_keymap_conv(json_keymap_convert_inst_t* const inst, const char* 
     return 0;
 }
 
-void keymap_to_json_init(keymap_json_convert_inst_t* const inst, const uint16_t* keymap, uint32_t keymap_len) {
+void keymap_to_json_init(keymap_json_convert_inst_t* const inst,
+                         const uint16_t* keymap, uint32_t keymap_len) {
     inst->keymap     = keymap;
     inst->keymap_idx = 0;
     inst->keymap_len = keymap_len;
@@ -177,16 +186,21 @@ void keymap_to_json_init(keymap_json_convert_inst_t* const inst, const uint16_t*
 #define PUT_TAIL_AND_RETURN(inst, str, len) \
     {}
 
-void keymap_to_json_conv(keymap_json_convert_inst_t* const inst, char* json, uint32_t len, uint32_t key_num) {
+void keymap_to_json_conv(keymap_json_convert_inst_t* const inst, char* json,
+                         uint32_t len, uint32_t key_num) {
     char*   dst = json;
     char    str[64];
     uint8_t key_strlen;
     for (; inst->keymap_idx < inst->keymap_len; inst->keymap_idx++) {
         uint16_t kc = inst->keymap[inst->keymap_idx];
         if (EXKC_START <= kc && kc <= EXKC_END) {
-            key_strlen = bmp_ex_keycode2str_locale(&inst->bmp_ek[kc - EXKC_START], str, sizeof(str), inst->locale, inst->use_ascii);
+            key_strlen = bmp_ex_keycode2str_locale(
+                &inst->bmp_ek[kc - EXKC_START], str, sizeof(str), inst->locale,
+                inst->use_ascii);
         } else {
-            key_strlen = quantum_keycode2str_locale(inst->keymap[inst->keymap_idx], str, sizeof(str), inst->locale, inst->use_ascii);
+            key_strlen = quantum_keycode2str_locale(
+                inst->keymap[inst->keymap_idx], str, sizeof(str), inst->locale,
+                inst->use_ascii);
         }
 
         if (key_strlen + 6 > len) {
@@ -229,18 +243,24 @@ void keymap_to_json_conv(keymap_json_convert_inst_t* const inst, char* json, uin
     }
 }
 
-void keymap_to_json_conv_layout(keymap_json_convert_inst_t* const inst, char* json, uint32_t len, uint8_t const* const layout) {
+void keymap_to_json_conv_layout(keymap_json_convert_inst_t* const inst,
+                                char* json, uint32_t len,
+                                uint8_t const* const layout) {
     char*          dst = json;
     char           str[64];
     uint8_t        key_strlen;
     const uint8_t* matrix_pos = layout;
     uint16_t       kc;
-    for (; inst->keymap_idx < inst->keymap_len; inst->keymap_idx++, matrix_pos++) {
+    for (; inst->keymap_idx < inst->keymap_len;
+         inst->keymap_idx++, matrix_pos++) {
         kc = inst->keymap[inst->keymap_idx];
         if (EXKC_START <= kc && kc <= EXKC_END) {
-            key_strlen = bmp_ex_keycode2str_locale(&inst->bmp_ek[kc - EXKC_START], str, sizeof(str), inst->locale, inst->use_ascii);
+            key_strlen = bmp_ex_keycode2str_locale(
+                &inst->bmp_ek[kc - EXKC_START], str, sizeof(str), inst->locale,
+                inst->use_ascii);
         } else {
-            key_strlen = quantum_keycode2str_locale(kc, str, sizeof(str), inst->locale, inst->use_ascii);
+            key_strlen = quantum_keycode2str_locale(
+                kc, str, sizeof(str), inst->locale, inst->use_ascii);
         }
         if (key_strlen + 7 > len) {
             break;
@@ -289,7 +309,8 @@ void keymap_to_json_conv_layout(keymap_json_convert_inst_t* const inst, char* js
     }
 }
 
-int32_t get_val_string(const char* json, const char* key, const char** val, uint32_t* len) {
+int32_t get_val_string(const char* json, const char* key, const char** val,
+                       uint32_t* len) {
     const char* str;
     const char* str2;
     if (key != NULL) {
@@ -365,7 +386,8 @@ int32_t get_val_u8(const char* json, const char* key, uint8_t* const val) {
     return res;
 }
 
-int32_t get_val_u8array(const char* json, const char* key, uint8_t* array, uint32_t* const len) {
+int32_t get_val_u8array(const char* json, const char* key, uint8_t* array,
+                        uint32_t* const len) {
     char* str;
     char* str2;
 
@@ -394,10 +416,10 @@ int32_t get_val_u8array(const char* json, const char* key, uint8_t* array, uint3
     return 0;
 }
 
-void json_to_config_conv_inst_init(json_config_convert_inst_t* const inst, bmp_api_config_t* const config) {
+void json_to_config_conv_inst_init(json_config_convert_inst_t* const inst,
+                                   bmp_api_config_t* const           config) {
     inst->config = config;
     memset(inst->config, 0, sizeof(*inst->config));
-    memset(inst->tail, 0, sizeof(inst->tail));
 }
 
 #define SEEK_KEY(str, key)      \
@@ -416,7 +438,8 @@ void json_to_config_conv_inst_init(json_config_convert_inst_t* const inst, bmp_a
         }                            \
     }
 
-int32_t json_to_config_conv(json_config_convert_inst_t* const inst, const char* json) {
+int32_t json_to_config_conv(json_config_convert_inst_t* const inst,
+                            const char*                       json) {
     const char* str;
     const char* string_val;
     uint32_t    len = 0;
@@ -490,7 +513,8 @@ int32_t json_to_config_conv(json_config_convert_inst_t* const inst, const char* 
     if (res) {
         return 1;
     }
-    res = get_val_u8(str, "diode_direction", &inst->config->matrix.diode_direction);
+    res = get_val_u8(str, "diode_direction",
+                     &inst->config->matrix.diode_direction);
     if (res) {
         return 1;
     }
@@ -519,7 +543,8 @@ int32_t json_to_config_conv(json_config_convert_inst_t* const inst, const char* 
     }
     if (strncmp(string_val, "SPLIT_MASTER", sizeof("SPLIT_MASTER") - 1) == 0) {
         inst->config->mode = SPLIT_MASTER;
-    } else if (strncmp(string_val, "SPLIT_SLAVE", sizeof("SPLIT_SLAVE") - 1) == 0) {
+    } else if (strncmp(string_val, "SPLIT_SLAVE", sizeof("SPLIT_SLAVE") - 1) ==
+               0) {
         inst->config->mode = SPLIT_SLAVE;
     } else {
         inst->config->mode = SINGLE;
@@ -529,29 +554,35 @@ int32_t json_to_config_conv(json_config_convert_inst_t* const inst, const char* 
     res = get_val_int(str, "startup", (int32_t*)&inst->config->startup);
 
     SEEK_KEY_OR_RETURN(str, "peripheral");
-    res = get_val_int(str, "max_interval", (int32_t*)&inst->config->param_peripheral.max_interval);
+    res = get_val_int(str, "max_interval",
+                      (int32_t*)&inst->config->param_peripheral.max_interval);
     if (res) {
         return 1;
     }
-    res = get_val_int(str, "min_interval", (int32_t*)&inst->config->param_peripheral.min_interval);
+    res = get_val_int(str, "min_interval",
+                      (int32_t*)&inst->config->param_peripheral.min_interval);
     if (res) {
         return 1;
     }
-    res = get_val_int(str, "slave_latency", (int32_t*)&inst->config->param_peripheral.slave_latency);
+    res = get_val_int(str, "slave_latency",
+                      (int32_t*)&inst->config->param_peripheral.slave_latency);
     if (res) {
         return 1;
     }
 
     SEEK_KEY_OR_RETURN(str, "central");
-    res = get_val_int(str, "max_interval", (int32_t*)&inst->config->param_central.max_interval);
+    res = get_val_int(str, "max_interval",
+                      (int32_t*)&inst->config->param_central.max_interval);
     if (res) {
         return 1;
     }
-    res = get_val_int(str, "min_interval", (int32_t*)&inst->config->param_central.min_interval);
+    res = get_val_int(str, "min_interval",
+                      (int32_t*)&inst->config->param_central.min_interval);
     if (res) {
         return 1;
     }
-    res = get_val_int(str, "slave_latency", (int32_t*)&inst->config->param_central.slave_latency);
+    res = get_val_int(str, "slave_latency",
+                      (int32_t*)&inst->config->param_central.slave_latency);
     if (res) {
         return 1;
     }
@@ -567,12 +598,13 @@ int32_t json_to_config_conv(json_config_convert_inst_t* const inst, const char* 
     }
 
     SEEK_KEY_OR_RETURN(str, "keymap");
-    res                         = get_val_string(str, "locale", &string_val, &len);
+    res = get_val_string(str, "locale", &string_val, &len);
     inst->config->keymap.locale = str2locale(string_val);
     if (res) {
         return 1;
     }
-    res = get_val_u8(str, "use_ascii", (uint8_t*)&inst->config->keymap.use_ascii);
+    res =
+        get_val_u8(str, "use_ascii", (uint8_t*)&inst->config->keymap.use_ascii);
     if (res) {
         return 1;
     }
@@ -584,7 +616,8 @@ int32_t json_to_config_conv(json_config_convert_inst_t* const inst, const char* 
     return 0;
 }
 
-int32_t config_to_json_conv(bmp_api_config_t const* const config, char* str, uint32_t len) {
+int32_t config_to_json_conv(bmp_api_config_t const* const config, char* str,
+                            uint32_t len) {
     char     row_pins[100];
     char     col_pins[100];
     char     reserved[100];
@@ -602,7 +635,8 @@ int32_t config_to_json_conv(bmp_api_config_t const* const config, char* str, uin
         if (config->matrix.row_pins[i] == 0) {
             break;
         }
-        written = snprintf(str2, sizeof(row_pins), "%d,", config->matrix.row_pins[i]);
+        written =
+            snprintf(str2, sizeof(row_pins), "%d,", config->matrix.row_pins[i]);
         str2 += written;
     }
     if (str2 > row_pins) {
@@ -614,7 +648,8 @@ int32_t config_to_json_conv(bmp_api_config_t const* const config, char* str, uin
         if (config->matrix.col_pins[i] == 0) {
             break;
         }
-        written = snprintf(str2, sizeof(col_pins), "%d,", config->matrix.col_pins[i]);
+        written =
+            snprintf(str2, sizeof(col_pins), "%d,", config->matrix.col_pins[i]);
         str2 += written;
     }
     if (str2 > col_pins) {
@@ -625,7 +660,8 @@ int32_t config_to_json_conv(bmp_api_config_t const* const config, char* str, uin
         if (config->matrix.layout[i] == 0xFF) {
             break;
         }
-        written = snprintf(str2, sizeof(layout), "%3d,", config->matrix.layout[i]);
+        written =
+            snprintf(str2, sizeof(layout), "%3d,", config->matrix.layout[i]);
         str2 += written;
         if (config->matrix.layout[i] == 0x00) {
             written = snprintf(str2, sizeof(layout), "\r\n");
@@ -637,7 +673,8 @@ int32_t config_to_json_conv(bmp_api_config_t const* const config, char* str, uin
     }
 
     str2 = reserved;
-    for (int i = 0; i < sizeof(config->reserved) / sizeof(config->reserved[0]); i++) {
+    for (int i = 0; i < sizeof(config->reserved) / sizeof(config->reserved[0]);
+         i++) {
         written = snprintf(str2, sizeof(reserved), "%d,", config->reserved[i]);
         str2 += written;
     }
@@ -655,23 +692,165 @@ int32_t config_to_json_conv(bmp_api_config_t const* const config, char* str, uin
 
     locale2str(config->keymap.locale, str_locale, sizeof(str_locale));
 
-    snprintf(str, len,
-             "{\"config\":{\"version\":%lu,\r\n\"device_info\":"
-             "{\"vid\":\"0x%04lx\",\"pid\":\"0x%04lx\",\"name\":\"%s\",\"manufacture\":\"%s\",\"description\":\"%s\"},\r\n"
-             "\"matrix\":{\"rows\":%hu,\"cols\":%hu,\"device_rows\":%hu,\"device_cols\":%hu,\"debounce\":%hu,\"is_left_hand\":%hu,\"diode_direction\":%hu,\"row_pins\":[%s],\"col_pins\":[%s],\r\n\"layout\":[\r\n%s]},\r\n"
-             "\"mode\":\"%s\",\"startup\":%d,\r\n"
-             "\"peripheral\":{\"max_interval\":%lu,\"min_interval\":%lu,\"slave_latency\":%lu},\r\n"
-             "\"central\":{\"max_interval\":%lu,\"min_interval\":%lu,\"slave_latency\":%lu},\r\n"
-             "\"led\":{\"pin\":%d,\"num\":%d},\r\n"
-             "\"keymap\":{\"locale\":\"%s\",\"use_ascii\":%d},\r\n"
-             "\"reserved\":[%s]}}",
-             config->version, (uint32_t)config->device_info.vid, (uint32_t)config->device_info.pid, config->device_info.name, config->device_info.manufacture, config->device_info.description, config->matrix.rows, config->matrix.cols, config->matrix.device_rows, config->matrix.device_cols, config->matrix.debounce, config->matrix.is_left_hand, config->matrix.diode_direction, row_pins, col_pins, layout, mode, config->startup, config->param_peripheral.max_interval, config->param_peripheral.min_interval, config->param_peripheral.slave_latency, config->param_central.max_interval, config->param_central.min_interval, config->param_central.slave_latency, config->led.pin, config->led.num, str_locale, config->keymap.use_ascii, reserved);
+    snprintf(
+        str, len,
+        "{\"config\":{\"version\":%lu,\r\n\"device_info\":"
+        "{\"vid\":\"0x%04lx\",\"pid\":\"0x%04lx\",\"name\":\"%s\","
+        "\"manufacture\":\"%s\",\"description\":\"%s\"},\r\n"
+        "\"matrix\":{\"rows\":%hu,\"cols\":%hu,\"device_rows\":%hu,\"device_"
+        "cols\":%hu,\"debounce\":%hu,\"is_left_hand\":%hu,\"diode_direction\":%"
+        "hu,\"row_pins\":[%s],\"col_pins\":[%s],\r\n\"layout\":[\r\n%s]},\r\n"
+        "\"mode\":\"%s\",\"startup\":%d,\r\n"
+        "\"peripheral\":{\"max_interval\":%lu,\"min_interval\":%lu,\"slave_"
+        "latency\":%lu},\r\n"
+        "\"central\":{\"max_interval\":%lu,\"min_interval\":%lu,\"slave_"
+        "latency\":%lu},\r\n"
+        "\"led\":{\"pin\":%d,\"num\":%d},\r\n"
+        "\"keymap\":{\"locale\":\"%s\",\"use_ascii\":%d},\r\n"
+        "\"reserved\":[%s]}}",
+        config->version, (uint32_t)config->device_info.vid,
+        (uint32_t)config->device_info.pid, config->device_info.name,
+        config->device_info.manufacture, config->device_info.description,
+        config->matrix.rows, config->matrix.cols, config->matrix.device_rows,
+        config->matrix.device_cols, config->matrix.debounce,
+        config->matrix.is_left_hand, config->matrix.diode_direction, row_pins,
+        col_pins, layout, mode, config->startup,
+        config->param_peripheral.max_interval,
+        config->param_peripheral.min_interval,
+        config->param_peripheral.slave_latency,
+        config->param_central.max_interval, config->param_central.min_interval,
+        config->param_central.slave_latency, config->led.pin, config->led.num,
+        str_locale, config->keymap.use_ascii, reserved);
     return 0;
 }
 
-int32_t get_config_from_stream(json_config_convert_inst_t* const inst, const char* str, const char last_char, uint32_t len, bool exit_flag) { return 0; }
+int32_t json_to_encoder_config(bmp_encoder_config_t* const encoder_settings,
+                               const char* json, KEYMAP_LOCALE locale) {
+    const char* str;
+    uint32_t    len;
+    const char* action_start;
+    const char* action_end;
 
-int32_t get_keymap_from_stream(json_keymap_convert_inst_t* const inst, const char* str, const char last_char, uint32_t len, bool exit_flag) {
+    str = strstr(json, "encoder");
+    if (str == NULL) {
+        return 1;
+    }
+
+    SEEK_KEY_OR_RETURN(str, "enabled");
+    get_val_int(str, "enabled", (int32_t*)&encoder_settings->enabled);
+
+    for (int encoder_idx = 0;
+         encoder_idx < sizeof(encoder_settings->encoder) /
+                           sizeof(encoder_settings->encoder[0]);
+         encoder_idx++) {
+        bmp_encoder_t* encoder = &encoder_settings->encoder[encoder_idx];
+
+        len = 2;
+        get_val_u8array(str, "pin", encoder->pin, &len);
+        get_val_u8(str, "step", &encoder->step);
+
+        SEEK_KEY_OR_RETURN(str, "action");
+        SEEK_KEY_OR_RETURN(str, "[");
+
+        for (int idx = 0;
+             idx < sizeof(encoder->action) / sizeof(encoder->action[0]);
+             idx++) {
+            for (int dir = 0; dir < 2; dir++) {
+                SEEK_KEY_OR_RETURN(str, "\"");
+                action_start = str + 1;
+                str          = action_start;
+                SEEK_KEY_OR_RETURN(str, "\"");
+                action_end = str;
+                str++;
+
+                // convert action string to action
+                uint16_t keycode = str2quantum_keycode_locale(
+                    action_start, action_end - action_start, locale);
+                encoder->action[idx][dir] = keycode;
+            }
+        }
+    }
+
+    return 0;
+}
+
+void encoder_config_to_json(bmp_encoder_config_t const* const encoder_config,
+                            char* str, uint32_t len) {
+    int written;
+    written = snprintf(str, len,
+                       "{\"encoder\":\n{\"enabled\":%d,\n\"definition\":[\n",
+                       encoder_config->enabled ? 1 : 0);
+
+    len -= written;
+    str += written;
+
+    for (int idx = 0; idx < sizeof(encoder_config->encoder) /
+                                sizeof(encoder_config->encoder[0]);
+         idx++) {
+        const bmp_encoder_t* encoder = &encoder_config->encoder[idx];
+
+        if (idx && encoder->pin[0] == 0 && encoder->pin[1] == 0) {
+            break;
+        }
+
+        written =
+            snprintf(str, len, "{\"pin\":[%d,%d],\"step\":%d,\"action\":[",
+                     encoder->pin[0], encoder->pin[1], encoder->step);
+
+        len -= written;
+        str += written;
+
+        for (int action_idx = 0;
+             action_idx < sizeof(encoder->action) / sizeof(encoder->action[0]);
+             action_idx++) {
+            written = snprintf(str, len, "[\"");
+            len -= written;
+            str += written;
+
+            written = quantum_keycode2str_locale(encoder->action[action_idx][0],
+                                                 str, len, LOCALE_US, false);
+            len -= written;
+            str += written;
+
+            written = snprintf(str, len, "\",\"");
+            len -= written;
+            str += written;
+
+            written = quantum_keycode2str_locale(encoder->action[action_idx][1],
+                                                 str, len, LOCALE_US, false);
+            len -= written;
+            str += written;
+
+            written = snprintf(str, len, "\"], ");
+            len -= written;
+            str += written;
+        }
+
+        // delete trailing comma
+        str -= 2;
+        len += 2;
+        written = snprintf(str, len, "]},\n");
+
+        len -= written;
+        str += written;
+    }
+
+    // delete trailing comma and \n
+    str -= 2;
+    len += 2;
+
+    snprintf(str, len, "\n]}}");
+}
+
+int32_t get_config_from_stream(json_config_convert_inst_t* const inst,
+                               const char* str, const char last_char,
+                               uint32_t len, bool exit_flag) {
+    return 0;
+}
+
+int32_t get_keymap_from_stream(json_keymap_convert_inst_t* const inst,
+                               const char* str, const char last_char,
+                               uint32_t len, bool exit_flag) {
     json_to_keymap_conv(inst, str);
 
     if (exit_flag) {
@@ -740,7 +919,9 @@ int32_t is_json_closed(const char* json, uint32_t len) {
 }
 
 extern bmp_ex_keycode_t bmp_ex_keycodes[];
-uint32_t                json_to_tapping_term_config_conv(const char* json, bmp_qmk_config_t* conf, KEYMAP_LOCALE locale) {
+uint32_t                json_to_tapping_term_config_conv(const char*       json,
+                                                         bmp_qmk_config_t* conf,
+                                                         KEYMAP_LOCALE     locale) {
     const char* pstr;
     const char* pstr2;
     uint32_t    keylen;
@@ -750,10 +931,14 @@ uint32_t                json_to_tapping_term_config_conv(const char* json, bmp_q
     pstr2 = json;
     SEEK_KEY_OR_RETURN(pstr2, "\"tapping_term\"");
     pstr2 += sizeof("\"tapping_term\"");
-    for (i = 0; i < sizeof(conf->tapping_term) / sizeof(conf->tapping_term[0]) && res == 0; i++) {
+    for (i = 0;
+         i < sizeof(conf->tapping_term) / sizeof(conf->tapping_term[0]) &&
+         res == 0;
+         i++) {
         res = get_val_string(pstr2, NULL, &pstr, &keylen);
         if (res == 0) {
-            conf->tapping_term[i].qkc = str2quantum_keycode_locale(pstr, keylen, locale);
+            conf->tapping_term[i].qkc =
+                str2quantum_keycode_locale(pstr, keylen, locale);
 
             if (conf->tapping_term[i].qkc == EXKC_START) {
                 bmp_ex_keycode_t           ek;
@@ -763,7 +948,7 @@ uint32_t                json_to_tapping_term_config_conv(const char* json, bmp_q
                 conf->tapping_term[i].qkc = register_ex_kc(&inst, &ek);
             }
 
-            pstr                               = strchr(pstr, ':') + 1;
+            pstr = strchr(pstr, ':') + 1;
             conf->tapping_term[i].tapping_term = atoi(pstr);
             pstr2                              = pstr;
         } else {
@@ -773,7 +958,9 @@ uint32_t                json_to_tapping_term_config_conv(const char* json, bmp_q
     return i;
 }
 
-void tapping_term_config_to_json_conv(bmp_qmk_config_t const* const conf, char* json, uint32_t json_len, KEYMAP_LOCALE locale, bool use_ascii) {
+void tapping_term_config_to_json_conv(bmp_qmk_config_t const* const conf,
+                                      char* json, uint32_t json_len,
+                                      KEYMAP_LOCALE locale, bool use_ascii) {
     char     key_str[32];
     uint32_t written = 0;
     uint16_t kc;
@@ -784,11 +971,15 @@ void tapping_term_config_to_json_conv(bmp_qmk_config_t const* const conf, char* 
     for (int i = 0; i < 16 && json_len > 0; i++) {
         kc = conf->tapping_term[i].qkc;
         if (EXKC_START <= kc && kc <= EXKC_END) {
-            bmp_ex_keycode2str_locale(&bmp_ex_keycodes[kc - EXKC_START], key_str, sizeof(key_str), locale, use_ascii);
+            bmp_ex_keycode2str_locale(&bmp_ex_keycodes[kc - EXKC_START],
+                                      key_str, sizeof(key_str), locale,
+                                      use_ascii);
         } else {
-            quantum_keycode2str_locale(conf->tapping_term[i].qkc, key_str, sizeof(key_str), locale, use_ascii);
+            quantum_keycode2str_locale(conf->tapping_term[i].qkc, key_str,
+                                       sizeof(key_str), locale, use_ascii);
         }
-        written = snprintf(json, json_len, "\"%s\":%d,\r\n\t", key_str, conf->tapping_term[i].tapping_term);
+        written = snprintf(json, json_len, "\"%s\":%d,\r\n\t", key_str,
+                           conf->tapping_term[i].tapping_term);
         json += written;
         json_len -= written;
 

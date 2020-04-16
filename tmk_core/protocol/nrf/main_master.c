@@ -55,6 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "cli.h"
 #include "configurator.h"
 #include "bmp.h"
+#include "bmp_config.h"
 #include "bmp_encoder.h"
 #include "bmp_indicator_led.h"
 
@@ -228,9 +229,7 @@ int main(void) {
   bmp_indicator_init(config->reserved[1]);
 
   BMPAPI->app.main_task_start(main_tasks, MAINTASK_INTERVAL);
-#ifdef BMP_ENCODER_ENABLE
-  bmp_encoder_init();
-#endif
+  bmp_encoder_init(get_bmp_encoder_config());
 
   for (;;) {
     BMPAPI->app.process_task();

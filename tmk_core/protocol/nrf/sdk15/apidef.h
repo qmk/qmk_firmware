@@ -165,15 +165,14 @@ typedef struct {
 } bmp_qmk_config_t;
 
 typedef struct {
-  uint8_t pin_a;
-  uint8_t pin_b;
-  uint8_t resolution;
-  uint8_t action[5];
+  uint8_t pin[2];
+  uint8_t step;
+  uint16_t action[5][2];
 } bmp_encoder_t;
 
 typedef struct {
-  uint32_t enable;
-  bmp_encoder_t encoder[16];
+  uint32_t enabled;
+  bmp_encoder_t encoder[4];
 } bmp_encoder_config_t;
 
 typedef struct {

@@ -19,9 +19,13 @@ NRF_DIR = $(PROTOCOL_DIR)/nrf
        $(NRF_DIR)/keycode_str_converter.c \
        $(NRF_DIR)/config_file_util.c \
        $(NRF_DIR)/bmp.c \
+       $(NRF_DIR)/bmp_config.c \
        $(NRF_DIR)/bmp_extended_keycode_converter.c \
        $(NRF_DIR)/bmp_process_extended_keycode.c \
        $(NRF_DIR)/bmp_indicator_led.c \
+       $(NRF_DIR)/bmp_encoder_actions.c \
+       $(NRF_DIR)/encoder.c \
+
 
 VPATH += $(TMK_PATH)/$(NRF_DIR)/microshell/core
 VPATH += $(TMK_PATH)/$(NRF_DIR)/microshell/util
@@ -30,13 +34,6 @@ VPATH += $(TMK_PATH)/$(NRF_DIR)/microshell/util
 VPATH += $(TMK_PATH)/$(PROTOCOL_DIR)
 VPATH += $(TMK_PATH)/$(NRF_DIR)
 
-ifeq ($(strip $(ENCODER_ENABLE)), yes)
-  $(error Use BMP_ENCODER_ENABLE instead of ENCODER_ENABLE)
-endif
-ifeq ($(strip $(BMP_ENCODER_ENABLE)), yes)
-  CFLAGS += -DBMP_ENCODER_ENABLE
-  SRC += $(NRF_DIR)/encoder.c
-endif
 
 ifeq ($(strip $(MIDI_ENABLE)), yes)
   include $(TMK_PATH)/protocol/midi.mk

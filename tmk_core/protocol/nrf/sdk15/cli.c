@@ -14,6 +14,7 @@
 #include "eeprom.h"
 
 #include "bmp.h"
+#include "bmp_config.h"
 #include "i2c.h"
 #include "cli.h"
 #include "bootloader.h"
@@ -51,31 +52,33 @@ static MSCMD_USER_RESULT usrcmd_webconfig_enter(MSOPT *msopt, MSCMD_USER_OBJECT 
 static MSCMD_USER_RESULT usrcmd_i2c_test(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 
 static MSCMD_USER_RESULT usrcmd_file_streaming_mode(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
+static MSCMD_USER_RESULT usrcmd_encoder(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 
 static MICROSHELL microshell;
 static MSCMD mscmd;
 
 static const MSCMD_COMMAND_TABLE table[] = {
-    {   "version",   usrcmd_version, "Show version"   },
-    {   "reset",   usrcmd_reset, "Reset system"   },
-    {   "adv",   usrcmd_advertise, "Start advertising"   },
-    {   "dfu",   usrcmd_bootloader, "Jump to bootloader"   },
-    {   "show",   usrcmd_bonding_information, "Show bonded devices"  },
-    {   "del",   usrcmd_delete_bonding, "Delete bond information"   },
-    {   "help",     usrcmd_help, "Show this message"     },
-    {   "map",     usrcmd_keymap, "Show keymap"     },
-    {   "conf",     usrcmd_config, "Show config"     },
-    {   "conv",     usrcmd_keystr_conv, "Show keymap"     },
-    {   "update",     usrcmd_update_file, "Update file"     },
-    {   "remove",     usrcmd_remove_file, "Remove file"     },
-    {   "debug",     usrcmd_debug_enable, "Debug print setting"     },
-    {   "dump",     usrcmd_dump_memory, "Dump memory"     },
-    {   "dumps",     usrcmd_dump_string, "Dump memory"     },
-    {   "led",     usrcmd_led_control, "LED control"     },
-    {   "ee",     usrcmd_eeprom_control, "eeprom control"     },
-    {   "web",     usrcmd_webconfig_enter, "Start web config mode"     },
-    {   "i2c",     usrcmd_i2c_test, "Test i2c"     },
-    {   "file",     usrcmd_file_streaming_mode, "Enter file streaming mode"     },
+    {"version", usrcmd_version, "Show version"},
+    {"reset", usrcmd_reset, "Reset system"},
+    {"adv", usrcmd_advertise, "Start advertising"},
+    {"dfu", usrcmd_bootloader, "Jump to bootloader"},
+    {"show", usrcmd_bonding_information, "Show bonded devices"},
+    {"del", usrcmd_delete_bonding, "Delete bond information"},
+    {"help", usrcmd_help, "Show this message"},
+    {"map", usrcmd_keymap, "Show keymap"},
+    {"conf", usrcmd_config, "Show config"},
+    {"enc", usrcmd_encoder, "Show encoder config"},
+    {"conv", usrcmd_keystr_conv, "Show keymap"},
+    {"update", usrcmd_update_file, "Update file"},
+    {"remove", usrcmd_remove_file, "Remove file"},
+    {"debug", usrcmd_debug_enable, "Debug print setting"},
+    {"dump", usrcmd_dump_memory, "Dump memory"},
+    {"dumps", usrcmd_dump_string, "Dump memory"},
+    {"led", usrcmd_led_control, "LED control"},
+    {"ee", usrcmd_eeprom_control, "eeprom control"},
+    {"web", usrcmd_webconfig_enter, "Start web config mode"},
+    {"i2c", usrcmd_i2c_test, "Test i2c"},
+    {"file", usrcmd_file_streaming_mode, "Enter file streaming mode"},
 #ifdef USER_DEFINED_MSCMD
     USER_DEFINED_MSCMD
 #endif
@@ -215,10 +218,15 @@ static void print_long_string(void *data) {
     }
 }
 
-extern char keymap_string[];
 static MSCMD_USER_RESULT usrcmd_keymap(MSOPT *msopt, MSCMD_USER_OBJECT usrobj) {
     cli_app.func = print_long_string;
-    cli_app.data = keymap_string;
+    cli_app.data = (void*)get_keymap_string();
+    return 0;
+}
+
+static MSCMD_USER_RESULT usrcmd_encoder(MSOPT *msopt, MSCMD_USER_OBJECT usrobj) {
+    cli_app.func = print_long_string;
+    cli_app.data = (void*)get_encoder_string();
     return 0;
 }
 
@@ -246,10 +254,9 @@ static MSCMD_USER_RESULT usrcmd_remove_file(MSOPT *msopt,
     return 0;
 }
 
-extern char config_string[];
 static MSCMD_USER_RESULT usrcmd_config(MSOPT *msopt, MSCMD_USER_OBJECT usrobj) {
     cli_app.func = print_long_string;
-    cli_app.data = config_string;
+    cli_app.data = (void*)get_config_string();
     return 0;
 }
 
@@ -453,6 +460,7 @@ enum {
     APP_UPDATE_KEYMAP,
     APP_UPDATE_CONFIG,
     APP_UPDATE_QMK,
+    APP_UPDATE_ENCODER,
 };
 
 void app_file_upadte(void *dat) {
@@ -525,6 +533,10 @@ static MSCMD_USER_RESULT usrcmd_file_streaming_mode(MSOPT *msopt, MSCMD_USER_OBJ
     else if (strcmp(arg, "tapterm") == 0) {
         cli_app.data = (void*)APP_UPDATE_QMK;
         set_parser(PARSER_QMK);
+    }
+    else if (strcmp(arg, "encoder") == 0) {
+        cli_app.data = (void*)APP_UPDATE_ENCODER;
+        set_parser(PARSER_ENCODER);
     }
     else {
         set_parser(PARSER_NONE);

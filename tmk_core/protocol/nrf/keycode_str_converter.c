@@ -754,7 +754,7 @@ const char *keycode_prefix[] =
   [LOCALE_JP] = "JP_",
 };
 
-uint8_t quantum_keycode2str_locale(uint16_t qk, char* str, uint8_t len,
+uint8_t quantum_keycode2str_locale(uint16_t qk, char* str, uint32_t len,
   KEYMAP_LOCALE locale, bool use_ascii)
 {
   uint8_t kc = qk & 0xFF;
@@ -819,7 +819,11 @@ uint8_t quantum_keycode2str_locale(uint16_t qk, char* str, uint8_t len,
     }
     else
     {
-      modbit2prefix((qk >> 8) & 0x1F, mod_str, sizeof(mod_str));
+      uint8_t found = modbit2prefix((qk >> 8) & 0x1F, mod_str, sizeof(mod_str));
+      if (!found) {
+        copied_len = snprintf(str, len, "ANY(%d)", qk);
+        break;
+      }
     }
     case_proc_qkc(kc, locale, use_ascii, "%s(%s%s)", mod_str, kc_prefix, keycode_str);
     break;
@@ -835,8 +839,11 @@ uint8_t quantum_keycode2str_locale(uint16_t qk, char* str, uint8_t len,
   break;
 
   case QK_MOD_TAP...QK_MOD_TAP_MAX:
-  modbit2prefix((qk >> 8) & 0x1F, mod_str, sizeof(mod_str));
-  case_proc_qkc(kc, locale, use_ascii, "%s_T(%s%s)", mod_str, kc_prefix, keycode_str);
+  if (modbit2prefix((qk >> 8) & 0x1F, mod_str, sizeof(mod_str))) {
+    case_proc_qkc(kc, locale, use_ascii, "%s_T(%s%s)", mod_str, kc_prefix, keycode_str);
+  } else {
+    copied_len = snprintf(str, len, "ANY(%d)", qk);
+  }
   break;
 
   case RGB_TOG...RGB_MODE_RGBTEST:
@@ -860,7 +867,7 @@ uint8_t quantum_keycode2str_locale(uint16_t qk, char* str, uint8_t len,
 }
 
 // default setting
-uint8_t quantum_keycode2str(uint16_t qk, char* str, uint8_t len) {
+uint8_t quantum_keycode2str(uint16_t qk, char* str, uint32_t len) {
   return quantum_keycode2str_locale(qk, str, len, LOCALE_US, false);
 }
 

@@ -209,7 +209,7 @@ uint8_t matrix_scan_impl(matrix_row_t* _matrix){
     }
   }
 
-  return 0;
+  return pop_cnt;
 }
 
 char str[16];
