@@ -100,15 +100,7 @@ uint8_t matrix_scan(void) {
     unselect_cols();
   }
 
-  if (debouncing) {
-    if (--debouncing) {
-      _delay_ms(1);
-    } else {
-      for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        matrix[i] = matrix_debouncing[i];
-      }
-    }
-  }
+  debounce(matrix, matrix_debouncing, MATRIX_ROWS, changed);
 
   matrix_scan_quantum();
   return (uint8_t)changed;
