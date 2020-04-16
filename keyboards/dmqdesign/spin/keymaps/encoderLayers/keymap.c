@@ -29,24 +29,24 @@ uint8_t currentLayer;
 //The below layers are intentionally empty in order to give a good starting point for how to configure multiple layers.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BL] = LAYOUT(/* Base */
-                KC_KP_7, KC_KP_8, KC_KP_9, TO(_BL), \
-                KC_KP_4, KC_KP_5, KC_KP_6, TO(_FL), \
-                KC_KP_1, KC_KP_2, KC_KP_3, TO(_TL), \
-                KC_KP_0, RGB_TOG, RGB_MOD   \
+                KC_KP_7, KC_KP_8, KC_KP_9, TO(_BL),
+                KC_KP_4, KC_KP_5, KC_KP_6, TO(_FL),
+                KC_KP_1, KC_KP_2, KC_KP_3, TO(_TL),
+                KC_KP_0, RGB_TOG, RGB_MOD
                 ),
 
     [_FL] = LAYOUT(/* Base */
-                KC_NO, KC_NO, KC_NO, KC_TRNS,\
-                KC_NO, KC_NO, KC_NO, KC_TRNS,\
-                KC_NO, KC_NO, KC_NO, KC_TRNS, \
-                KC_MS_BTN1, KC_NO, KC_MS_BTN2 \
+                KC_NO, KC_NO, KC_NO, KC_TRNS,
+                KC_NO, KC_NO, KC_NO, KC_TRNS,
+                KC_NO, KC_NO, KC_NO, KC_TRNS,
+                KC_MS_BTN1, KC_NO, KC_MS_BTN2
                 ),
 
     [_TL] = LAYOUT(/* Base */
-                KC_NO, KC_NO, KC_NO, KC_TRNS,\
-                KC_NO, KC_NO, KC_NO, KC_TRNS,\
-                KC_NO, KC_NO, KC_NO, KC_TRNS,\
-                KC_NO, KC_NO, KC_NO  \
+                KC_NO, KC_NO, KC_NO, KC_TRNS,
+                KC_NO, KC_NO, KC_NO, KC_TRNS,
+                KC_NO, KC_NO, KC_NO, KC_TRNS,
+                KC_NO, KC_NO, KC_NO
                 ),      
 };
 
