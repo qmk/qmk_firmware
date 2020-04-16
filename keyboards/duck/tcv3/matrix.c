@@ -91,10 +91,7 @@ uint8_t matrix_scan(void) {
       bool curr_bit = rows & (1<<row);
       if (prev_bit != curr_bit) {
         matrix_debouncing[row] ^= ((matrix_row_t)1<<col);
-        if (debouncing) {
-            dprint("bounce!: "); dprintf("%02X", debouncing); dprintln();
-        }
-        debouncing = DEBOUNCE;
+        changed = true;
       }
     }
     unselect_cols();
