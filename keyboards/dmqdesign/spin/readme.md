@@ -13,11 +13,11 @@ Hardware Availability: The macro pad is available at [DMQdesign.com](www.dmqdesi
 
 Make example for this keyboard (after setting up your build environment):
 
-    make DMQdesign/spin:default
+    make dmqdesign/spin:default
 
     OR
     
-    make DMQdesign/spin:default:dfu
+    make dmqdesign/spin:default:dfu
 
     
 I have two example keymaps available, both the default and the encoderLayers keymap which demonstrates using different encoder functions based on the layer chosen.    
