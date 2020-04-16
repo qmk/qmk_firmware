@@ -17,9 +17,12 @@
 #include "midi.h"
 #include "qmk_midi.h"
 
-#define _BL 0
-#define _FL 1
-#define _TL 15
+enum layers
+{
+  _BL,
+  _FL,
+  _TL
+};
 
 uint8_t currentLayer;
 
