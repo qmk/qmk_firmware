@@ -26,9 +26,21 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
-#define LAYOUT( \
+#define LAYOUT_100u( \
     k00 \
 ) \
 { \
     { k00 } \
 }
+
+#define LAYOUT_125u LAYOUT_100u
+#define LAYOUT_150u LAYOUT_100u
+#define LAYOUT_175u LAYOUT_100u
+#define LAYOUT_200u LAYOUT_100u
+#define LAYOUT_225u LAYOUT_100u
+#define LAYOUT_275u LAYOUT_100u
+#define LAYOUT_300u LAYOUT_100u
+#define LAYOUT_600u LAYOUT_100u
+#define LAYOUT_625u LAYOUT_100u
+#define LAYOUT_700u LAYOUT_100u
+#define LAYOUT_iso  LAYOUT_100u
