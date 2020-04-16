@@ -1,8 +1,6 @@
 # fm2u
 
-![fm2u](imgur.com image replace me!)
-
-A short description of the keyboard/project
+A 1 key macropad with USB C and atmega32u2 microcontroller. 
 
 * Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)
 * Hardware Supported: fm2u PCB
