@@ -158,9 +158,9 @@ def test_info_matrix_render():
 
 
 def test_c2json():
-    result = check_subcommand("c2json", "-kb", "handwired/onekey/pytest", "keyboards/handwired/onekey/keymaps/pytest/keymap.c")
+    result = check_subcommand("c2json", "-kb", "handwired/onekey/pytest", "keyboards/handwired/onekey/keymaps/default/keymap.c")
     assert result.returncode == 0
-    assert result.stdout.strip() == '{"keyboard": "handwired/onekey/pytest", "documentation": "This file is a keymap.json file for handwired/onekey/pytest", "layout": "LAYOUT", "layers": [["KC_ENTER"]]}'
+    assert result.stdout.strip() == '{"keyboard": "handwired/onekey/pytest", "documentation": "This file is a keymap.json file for handwired/onekey/pytest", "layout": "LAYOUT", "layers": [["KC_A"]]}'
 
 
 def test_c2json_nocpp():

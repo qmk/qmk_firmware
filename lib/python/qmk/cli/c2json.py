@@ -1,6 +1,7 @@
 """Generate a keymap.json from a keymap.c file.
 """
 import json
+import sys
 
 from milc import cli
 
@@ -41,7 +42,11 @@ def c2json(cli):
     keymap_json = qmk.keymap.c2json(cli.args.keyboard, cli.args.filename, use_cpp=cli.args.no_cpp)
 
     # Generate the keymap.json
-    keymap_json = qmk.keymap.generate(keymap_json['keyboard'], keymap_json['layout'], keymap_json['layers'], type='json')
+    try:
+        keymap_json = qmk.keymap.generate(keymap_json['keyboard'], keymap_json['layout'], keymap_json['layers'], type='json')
+    except KeyError:
+        cli.log.error('Something went wrong. Try to use --no-cpp.')
+        sys.exit(1)
 
     if cli.args.output:
         cli.args.output.parent.mkdir(parents=True, exist_ok=True)

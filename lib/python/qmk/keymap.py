@@ -256,7 +256,13 @@ def _get_layers(keymap):  # noqa C901 : until someone has a good idea how to sim
                 # we know the keymap's name and the layout macro will come,
                 # followed by the keycodes
                 if not layer['name']:
-                    layer['name'] = line[1]
+                    if line[1].startswith('LAYOUT') or line[1].startswith('KEYMAP'):
+                        # This can happen if the keymap array only has one layer,
+                        # for macropads and such
+                        layer['name'] = '0'
+                        layer['layout'] = line[1]
+                    else:
+                        layer['name'] = line[1]
                 elif not layer['layout']:
                     layer['layout'] = line[1]
                 elif is_layer:
