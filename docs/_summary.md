@@ -136,6 +136,10 @@
       * [Development Environment](api_development_environment.md)
       * [Architecture Overview](api_development_overview.md)
 
+  * Hardware Platform Development
+    * Arm/ChibiOS
+      * [Early initialization](platformdev_chibios_earlyinit.md)
+
   * QMK Reference
     * [Contributing to QMK](contributing.md)
     * [Translating the QMK Docs](translating.md)
