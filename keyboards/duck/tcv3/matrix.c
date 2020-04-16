@@ -109,7 +109,7 @@ uint8_t matrix_scan(void) {
   }
 
   matrix_scan_quantum();
-  return 1;
+  return (uint8_t)changed;
 }
 
 inline matrix_row_t matrix_get_row(uint8_t row) {
