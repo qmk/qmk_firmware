@@ -11,36 +11,36 @@ led_config_t g_led_config = {
         { 12,     14,     16,     18,     20,     22 },
         { 13,     15,     17,     19,     21,     23 },
         { 24,     26,     28,     30,     32,     34 },
-        { 25,     27,     29,     31,     33,     35 },
-        { NO_LED, NO_LED, 37,     39,     41,     NO_LED },
-        { NO_LED, 36,     38,     40,     NO_LED, NO_LED }
+        { 25,     27,     29,     31,     33,     NO_LED },
+        { NO_LED, 35,     37,     39,     NO_LED, NO_LED },
+        { NO_LED, NO_LED, 36,     38,     40,     NO_LED }
     },
     /* led index to physical position */
     {
-        /* backlights - qwer */
+        /* backlights - qwer (0-11) */
         LED_POS(0, 0, 0), LED_POS(1, 0, 0), LED_POS( 2, 0, 0), LED_POS( 3, 0, 0),
         LED_POS(4, 0, 0), LED_POS(5, 0, 0), LED_POS( 6, 0, 0), LED_POS( 7, 0, 0),
         LED_POS(8, 0, 0), LED_POS(9, 0, 0), LED_POS(10, 0, 0), LED_POS(11, 0, 0.5),
-        /* backlights - asdf */
+        /* backlights - asdf (12-23) */
         LED_POS(0, 1, 0.25), LED_POS(1.25, 1, 0), LED_POS(2.25,  1, 0), LED_POS(3.25,  1, 0),
         LED_POS(4.25, 1, 0), LED_POS(5.25, 1, 0), LED_POS(6.25,  1, 0), LED_POS(7.25,  1, 0),
         LED_POS(8.25, 1, 0), LED_POS(9.25, 1, 0), LED_POS(10.25, 1, 0), LED_POS(11.25, 1, 0.25),
-        /* backlights - zxcv */
+        /* backlights - zxcv (24-34) */
         LED_POS(0.25, 2, 0.5), LED_POS(1.75, 2, 0), LED_POS(2.75, 2, 0), LED_POS(3.75, 2, 0),
         LED_POS(4.75, 2, 0),   LED_POS(5.75, 2, 0), LED_POS(6.75, 2, 0), LED_POS(7.75, 2, 0),
         LED_POS(8.75, 2, 0),   LED_POS(9.75, 2, 0), LED_POS(10.75, 2, 0.5),
-        /* backlights - thumbs */
+        /* backlights - thumbs (35-40) */
         LED_POS(2.25, 3, 0.25), LED_POS(3.5, 3, 0), LED_POS(4.5, 3, 0.75),
         LED_POS(6.25, 3, 0.75), LED_POS(8,   3, 0), LED_POS(9,   3, 0.25),
-        /* underglows - bottom */
+        /* underglows - bottom (41-45) */
         LED_POS(8.5, 2.5, 0), LED_POS(7.5, 2.5, 0), LED_POS(5.75, 2.5, 0),
         LED_POS(4, 2.5, 0), LED_POS(3, 2.5, 0),
-        /* underglows - lower */
+        /* underglows - lower (46-55) */
         LED_POS(10.75, 1.5, 0), LED_POS(9.75, 1.5, 0), LED_POS(8.75, 1.5, 0),
         LED_POS(7.75,  1.5, 0), LED_POS(6.75, 1.5, 0), LED_POS(5.75, 1.5, 0),
         LED_POS(4.75,  1.5, 0), LED_POS(3.75, 1.5, 0), LED_POS(2.75, 1.5, 0),
         LED_POS(1.75,  1.5, 0),
-        /* underglows - upper */
+        /* underglows - upper (56-66) */
         LED_POS(11, 0.5, 0), LED_POS(10, 0.5, 0), LED_POS(9, 0.5, 0),
         LED_POS(8,  0.5, 0), LED_POS(7,  0.5, 0), LED_POS(6, 0.5, 0),
         LED_POS(5,  0.5, 0), LED_POS(4,  0.5, 0), LED_POS(3, 0.5, 0),
