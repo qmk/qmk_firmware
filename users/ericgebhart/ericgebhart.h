@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef ericgebhart
 #define ericgebhart
 
