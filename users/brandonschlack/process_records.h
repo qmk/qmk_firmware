@@ -78,7 +78,6 @@ void matrix_scan_cmd_tab(void);
 #define PGD_LWR   PGD_FN1              // Tap Lower for Page Down
 #define PGD_FN2   LT(2, KC_PGDN)       // Tap Fn2 for Page Down
 #define PGD_RAI   PGD_FN2              // Tap Raise for Page Down
-#define DWN_ALT   RALT_T(KC_PGDN)      // Tap Right Alt for Down
 #define END_ALT   ROPT_T(KC_END)       // Tap Right Option for End
 #define END_CTL   RCTL_T(KC_END)       // Tap Right Control for End
 
