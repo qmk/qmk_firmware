@@ -24,8 +24,8 @@ enum custom_keycodes {
   SPI_LNX, // Mode: Linux
   SPI_OSX, // Mode: Mac
   SPI_WIN, // Mode: Windows
-  AL_CTRL, // AL Control Panel
-  AL_ASST, // AL Context-aware Desktop Assistant
+  CH_CPNL, // AL Control Panel
+  CH_ASST, // AL Context-aware Desktop Assistant
 };
 
 #ifdef RGBLIGHT_ENABLE

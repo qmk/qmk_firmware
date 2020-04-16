@@ -22,8 +22,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
         return false;
 
-      case AL_CTRL: host_consumer_send(0x019F); return false;
-      case AL_ASST: host_consumer_send(0x01CB); return false; 
+      case CH_CPNL: host_consumer_send(AL_CONTROL_PANEL); return false;
+      case CH_ASST: host_consumer_send(AL_ASSISTANT); return false; 
 
       case SPI_LNX:
 	dprint("SPI_LNX\n");
@@ -51,8 +51,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
   } else {
     switch (keycode) {
-      case AL_CTRL:
-      case AL_ASST:
+      case CH_CPNL:
+      case CH_ASST:
         host_consumer_send(0);
         return false;
     }
