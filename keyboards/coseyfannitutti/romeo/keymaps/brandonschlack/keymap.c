@@ -36,36 +36,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 /* Lower
 * ┌─────┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
-* │Del  │ F1│ F2│ F3│ F4│ F5│ F6│ F7│ F8│ F9│F10│     │
+* │F1   │ F2│ F3│ F4│ F5│ F6│ F7│ F8│ F9│F10│F11│  F12│
 * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
-* │Caps  │ ← │ ↓ │ ↑ │ → │Mut│{ [│} ]│F11│F12│    Play│
+* │Caps  │ ← │ ↓ │ ↑ │ → │F13│F14│F15│VlD│VlU│    Play│
 * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬──────┤
-* │        │Prv│Nxt│VlD│VlU│~ `│| \│: ;│" '│? /│      │
+* │        │Hom│PgD│PgU│End│   │   │Mut│Prv│Nxt│      │
 * ├────┬───┼───┼───┴───┴───┴───┴───┴───┴┬──┴─┬─┴─┬────┤
 * │    │   │   │                        │    │   │    │
 * └────┴───┴───┴────────────────────────┴────┴───┴────┘
 */
 [_LOWER] = LAYOUT_ansi_40( \
-    KC_DELT, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______, \
-    KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_MUTE, KC_LBRC, KC_RBRC, KC_F11,  KC_F12,           KC_MPLY, \
-    _______,          KC_MPRV, KC_MNXT, KC_VOLD, KC_VOLU, KC_GRV,  KC_BSLS, KC_SCLN, KC_QUOT, KC_EQL,  _______, \
+    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
+    KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_F13,  KC_F14,  KC_F15,  KC_VOLD, KC_VOLU,           KC_MPLY, \
+    _______,          KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______, KC_MUTE, KC_MPRV, KC_MNXT, _______, \
     _______, _______, _______,                            _______,                   _______, _______, _______  \
 ),
 /* Raise
 * ┌─────┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
 * │Del  │! 1│@ 2│# 3│$ 4│% 5│^ 6│& 7│* 8│( 9│) 0│     │
 * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
-* │Caps  │ ← │ ↓ │ ↑ │ → │Mut│{ [│} ]│_ -│+ =│    Play│
+* │Caps  │ ← │ ↓ │ ↑ │ → │{ [│} ]│_ -│+ =│: ;│   " '  │
 * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬──────┤
-* │        │Prv│Nxt│VlD│VlU│~ `│| \│: ;│" '│? /│      │
+* │        │Hom│PgD│PgU│End│   │   │| \│~ `│? /│  ⇞Sft│
 * ├────┬───┼───┼───┴───┴───┴───┴───┴───┴┬──┴─┬─┴─┬────┤
-* │    │   │   │                        │    │   │    │
+* │    │   │   │                        │↖︎Cmd│⇟Fn│↘︎Opt│
 * └────┴───┴───┴────────────────────────┴────┴───┴────┘
 */
 [_RAISE] = LAYOUT_ansi_40( \
     KC_DELT, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______, \
-    KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_MUTE, KC_LBRC, KC_RBRC, KC_MINS, KC_EQL,           KC_MPLY, \
-    _______,          KC_MPRV, KC_MNXT, KC_VOLD, KC_VOLU, KC_GRV,  KC_BSLS, KC_SCLN, KC_QUOT, KC_SLSH, PGU_SFT, \
+    KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_LBRC, KC_RBRC, KC_MINS, KC_EQL,  KC_SCLN,          KC_QUOT, \
+    _______,          KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______, KC_BSLS, KC_GRV,  KC_SLSH, PGU_SFT, \
     _______, _______, _______,                            _______,                   HOM_CMD, PGD_LWR, END_OPT  \
 ),
 /* Adjust/Macro Layer
