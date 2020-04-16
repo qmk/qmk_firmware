@@ -17,16 +17,6 @@
 
 #include "quantum.h"
 
-/* This a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
- * 
- * The k03, k13, and k23 keys are the encoder pushbuttons.
- */
 #define LAYOUT(k00, k01, k02, k03, \
                k10, k11, k12, k13, \
                k20, k21, k22, k23, \
