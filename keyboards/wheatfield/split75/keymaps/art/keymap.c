@@ -6,12 +6,12 @@
 
 enum layer_names {
 	QWERTY, //TODO - MAKE BASE 1ST
-    BASE,
-    QWERTY_MOD,
+  BASE,
+  QWERTY_MOD,
 
-    WORKMAN,
-    MOD,
-    MEDIA,
+  WORKMAN,
+  MOD,
+  MEDIA,
 	COMBOS,
 	STRINGS,
 	LAYOUT_CHG,
@@ -23,11 +23,18 @@ enum layer_names {
 };
 
 enum custom_keycodes {
-    CTR_ALT = SAFE_RANGE,
-    CTRL_CTV,
+  CTRL_CTV = SAFE_RANGE,
 	SARCASM,
+
 	TOG_OS,
-	
+	CTR_ALT,
+
+  ADMINS,
+  PRESCRIPTION,
+  PHONE,
+  FOURS,
+  
+
 	G_ADD,
 	G_BRCH,
 	G_C,
@@ -51,35 +58,35 @@ enum custom_keycodes {
 };
 
 bool led_update_user(led_t led_state) {
-    writePin(CAPSLOCK_LED_PIN, led_state.caps_lock);
-    return false;
+  writePin(CAPSLOCK_LED_PIN, led_state.caps_lock);
+  return false;
 }
 
 void keyboard_pre_init_user(void) {
-    writePinHigh(SCROLLLOCK_LED_PIN);
-    wait_ms(50);
-    writePinHigh(CAPSLOCK_LED_PIN);
-    wait_ms(50);
-    writePinHigh(NUMLOCK_LED_PIN);
-    wait_ms(50);
-    writePinLow(SCROLLLOCK_LED_PIN);
-    wait_ms(50);
-    writePinLow(CAPSLOCK_LED_PIN);
-    wait_ms(50);
-    writePinLow(NUMLOCK_LED_PIN);
+  writePinHigh(SCROLLLOCK_LED_PIN);
+  wait_ms(50);
+  writePinHigh(CAPSLOCK_LED_PIN);
+  wait_ms(50);
+  writePinHigh(NUMLOCK_LED_PIN);
+  wait_ms(50);
+  writePinLow(SCROLLLOCK_LED_PIN);
+  wait_ms(50);
+  writePinLow(CAPSLOCK_LED_PIN);
+  wait_ms(50);
+  writePinLow(NUMLOCK_LED_PIN);
 	
 	layer_state_set_user(layer_state);
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    writePinLow(NUMLOCK_LED_PIN);
-    writePinLow(SCROLLLOCK_LED_PIN);
-    switch (get_highest_layer(state)) {
-    case BASE:
-        writePinHigh(SCROLLLOCK_LED_PIN);
-        break;
-    }
-    return state;
+  writePinLow(NUMLOCK_LED_PIN);
+  writePinLow(SCROLLLOCK_LED_PIN);
+  switch (get_highest_layer(state)) {
+  case BASE:
+      writePinHigh(SCROLLLOCK_LED_PIN);
+      break;
+  }
+  return state;
 }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -185,9 +192,9 @@ _______,  _______,    _______,  _______,  _______,  _______,  _______,          
   [STRINGS] = LAYOUT(
 //--------------------------------Left Hand-----------------------------------------------| |--------------------------------Right Hand------------------------------------------------
                       _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______, _______,
-_______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,           _______,
+_______,  _______,    _______,  PRESCRIPTION,  PHONE,  _______,  FOURS,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,           _______,
 _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,   _______,  _______,  _______,  _______,  _______,  _______,           _______,
-_______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,   _______,  _______,  _______,  _______,  _______,                     _______,
+_______,  _______,    _______,  ADMINS,  _______,  _______,  _______,  _______,              _______,  _______,   _______,  _______,  _______,  _______,  _______,                     _______,
 _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,   _______,  _______,  _______,                      _______, _______,  _______,
 _______,  _______,    _______,  _______,  _______,  _______,  _______,                        _______,             _______, _______,   _______,                      _______, _______,  _______
   ),  
@@ -298,29 +305,75 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }	
 
   switch (keycode) {
-    case CTR_ALT:
-          if (record->event.pressed) {
-              send_string(key_down[is_win]);
-          } else {
-              send_string(key_up[is_win]);
-          }
-          break;
     case CTRL_CTV:
-          if (record->event.pressed) {
-              SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_C) SS_TAP(X_F) SS_TAP(X_V) SS_UP(X_LCTL));
-          }
-          break;
-    case SARCASM:
-        if (record->event.pressed) {
-            sarcasmOn = !sarcasmOn;
+      if (record->event.pressed) {
+        if ( get_mods() & MOD_MASK_SHIFT ) {
+          clear_mods();
+          SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_C) SS_TAP(X_F) SS_TAP(X_V) SS_UP(X_LCTL) SS_TAP(X_ENTER));
+        } else {
+          SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_C) SS_TAP(X_F) SS_TAP(X_V) SS_UP(X_LCTL));
         }
-        break;		  
+      }
+      break;
+    case SARCASM:
+      if (record->event.pressed) {
+          sarcasmOn = !sarcasmOn;
+      }
+      break;
+        
 	case TOG_OS:
 		if (record->event.pressed) {
 			is_win = ! is_win;
 		}
-        break;
+    break;
+    case CTR_ALT:
+      if (record->event.pressed) {
+        send_string(key_down[is_win]);
+      } else {
+        send_string(key_up[is_win]);
+      }
+      break;
 
+    // case :
+    //   if (record->event.pressed) {
+    //     SEND_STRING("");
+    //   }
+    //   break;
+    // case :
+    //   if (record->event.pressed) {
+    //     if ( get_mods() & MOD_MASK_SHIFT ) {
+    //       clear_mods();
+    //       SEND_STRING("");
+    //     } else {
+    //       SEND_STRING("");
+    //     }
+    //   }
+    //   break;
+    case ADMINS:
+      if (record->event.pressed) {
+        if ( get_mods() & MOD_MASK_SHIFT ) {
+          clear_mods();
+          SEND_STRING("/admin");
+        } else {
+          SEND_STRING("/admin/aurora/status");
+        }
+      }
+      break;
+    case PRESCRIPTION:
+      if (record->event.pressed) {
+        SEND_STRING("12122019");
+      }
+      break;
+    case PHONE:
+      if (record->event.pressed) {
+        SEND_STRING("0123456789");
+      }
+      break;
+    case FOURS:
+      if (record->event.pressed) {
+        SEND_STRING("4444333322221111");
+      }
+      break;
 		  
 	case G_ADD:
 		if (record->event.pressed) {
@@ -339,40 +392,40 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		break;
 	case G_C:
 		if (record->event.pressed) {
-            SEND_STRING("git c[Heckout/Ommit]");
+      SEND_STRING("git c[Heckout/Ommit]");
 			layer_on(GIT_C);
 		}
 		break;
 	case G_BS_C:
 		if (!record->event.pressed) {
-            send_n_backspace(20);
+      send_n_backspace(20);
 			layer_off(GIT_C);
 		}
 		break;
 	case G_CHEC:
 		if (!record->event.pressed) {
-            bool shifted = get_mods() & MOD_MASK_SHIFT;
-            clear_mods();
+      bool shifted = get_mods() & MOD_MASK_SHIFT;
+      clear_mods();
             
-            send_n_backspace(15);
+      send_n_backspace(15);
 			SEND_STRING("heckout ");
-            if (shifted) {
+      if (shifted) {
 				SEND_STRING("-b ");
 			}
-            layer_off(GIT_C);
+      layer_off(GIT_C);
 		}
 		break;
 	case G_COMM:
 		if (!record->event.pressed) {
-            bool shifted = get_mods() & MOD_MASK_SHIFT;
-            clear_mods();
-            
-            send_n_backspace(15);
-            SEND_STRING("ommit -");
+        bool shifted = get_mods() & MOD_MASK_SHIFT;
+        clear_mods();
+        
+        send_n_backspace(15);
+        SEND_STRING("ommit -");
 			if (shifted) {
 				SEND_STRING("a");
 			}
-            SEND_STRING("m \"\"" SS_TAP(X_LEFT));
+      SEND_STRING("m \"\"" SS_TAP(X_LEFT));
 			layer_off(GIT_C);
 		}
 		break;
@@ -398,7 +451,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		break;
 	case G_P:
 		if (record->event.pressed) {
-            if ( get_mods() & MOD_MASK_SHIFT ) {
+      if ( get_mods() & MOD_MASK_SHIFT ) {
 				clear_mods();
 				SEND_STRING("git push -u");
 			} else {
@@ -406,24 +459,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			}
 		}
 		break;
-	// case G_BS_P:
-		// if (!record->event.pressed) {
-			// SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC));
-			// layer_off(GIT_P);
-		// }
-		// break;
-	// case G_PULL:
-		// if (!record->event.pressed) {
-			// SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC)"ll ");
-			// layer_off(GIT_P);
-		// }
-		// break;			
-	// case G_PUSH:
-		// if (!record->event.pressed) {
-			// SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC)"sh ");
-			// layer_off(GIT_P);
-		// }
-		// break;
 	case G_RST:
 		if (record->event.pressed) {
 			SEND_STRING("git reset ");
@@ -437,27 +472,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		break;
 	case G_BS_S:
 		if (!record->event.pressed) {
-            send_n_backspace(21);
+      send_n_backspace(21);
 			layer_off(GIT_S);
 		}
 		break;
 	case G_SHOW:
 		if (!record->event.pressed) {
-            send_n_backspace(16);
+      send_n_backspace(16);
 			SEND_STRING("how ");
 			layer_off(GIT_S);
 		}
 		break;			
 	case G_STSH:
 		if (!record->event.pressed) {
-            send_n_backspace(16);
+      send_n_backspace(16);
 			SEND_STRING("tash ");
 			layer_off(GIT_S);
 		}
 		break;		
 	case G_STAT:
 		if (!record->event.pressed) {
-            send_n_backspace(16);
+      send_n_backspace(16);
 			SEND_STRING("tatus ");
 			layer_off(GIT_S);
 		}
