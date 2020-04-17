@@ -298,6 +298,19 @@ void keymap_to_json_conv_layout(keymap_json_convert_inst_t* const inst,
             matrix_pos++;  // skip zero
         }
     }
+
+    if (*matrix_pos != 0xFF) {
+        while (*matrix_pos++ != 0xFF && len > 0) {
+            uint32_t written = snprintf(dst, len, "\"KC_NO\",");
+            dst += written;
+            len -= written;
+        }
+
+        // remove trailing comma
+        dst -= 1;
+        len += 1;
+    }
+
     if (len) {
         if (inst->keymap_idx < inst->keymap_len) {
             memset(dst, ' ', len);
