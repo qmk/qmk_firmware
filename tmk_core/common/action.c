@@ -192,7 +192,14 @@ void process_record(keyrecord_t *record) {
         return;
     }
 
-    if (!process_record_quantum(record)) return;
+    if (!process_record_quantum(record)) {
+#ifndef NO_ACTION_ONESHOT
+        if (is_oneshot_layer_active() && record->event.pressed) {
+            clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+        }
+#endif
+        return;
+    }
 
     process_record_handler(record);
     post_process_record_quantum(record);
