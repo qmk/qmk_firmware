@@ -42,17 +42,21 @@ void render_layer_state(void) {
   // bool raise = layer_state_is(_RAISE) & !layer_state_is(_ADJUST);
   // bool adjust = layer_state_is(_ADJUST);
   bool nav = layer_state_is(_NAV);
+  bool symbol = layer_state_is(_SYMBOL);
+  bool number = layer_state_is(_NUMBER);
+  bool arrange = layer_state_is(_ARRANGE);
 
-  if(nav){ 
+  if(nav) { 
     oled_write_P(PSTR(" Nav "), true); 
+  } else if(symbol) {
+    oled_write_P(PSTR(" Symbol "), true); 
+  }else if(number) {
+    oled_write_P(PSTR(" Number "), true); 
+  } else if(arrange) {
+    oled_write_P(PSTR(" Arrange "), true); 
+  } else {
+    oled_write_P(PSTR(" Snowkuma"), false);
   } 
-  // else if(raise){ 
-  //   // oled_write_P(PSTR(" Raise "), true); 
-  // } else if(adjust){ 
-  //   oled_write_P(PSTR(" Adjust "), true); 
-  // } else { 
-  //   oled_write_P(PSTR(" Default"), false); 
-  // }
 }
 
 void render_mod_state(uint8_t modifiers) {

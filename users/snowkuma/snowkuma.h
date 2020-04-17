@@ -31,7 +31,8 @@ enum layers {
   _COLEMAK = 0,
   _NAV,
   _SYMBOL,
-  _NUMBER
+  _NUMBER,
+  _ARRANGE
 };
 
 // Shortcut Keys
@@ -47,10 +48,41 @@ enum layers {
 #define BSP_SYM LT(_SYMBOL, KC_BSPC)
 #define DEL_SYM LT(_SYMBOL, KC_DEL)
 #define ESC_NUM LT(_NUMBER, KC_ESC)
+#define TAB_SFT LSFT_T(KC_TAB)
+#define MIN_ARR LT(_ARRANGE, KC_MINS)
 
-// Mod-Tap Keys
-#define MT_DEL MT(MOD_LGUI | MOD_LALT | MOD_LSFT, KC_DEL)
-#define MT_EQL MT(MOD_LALT | MOD_LSFT, KC_EQL)
+// magnet keycodes
+#define M_LEFT LCA(KC_LEFT)
+#define M_TOP LCA(KC_UP)
+#define M_BOTT LCA(KC_DOWN)
+#define M_RGHT LCA(KC_RGHT)
+
+#define M_TOPL LCA(KC_U)
+#define M_TOPR LCA(KC_I)
+#define M_BOTL LCA(KC_J)
+#define M_BOTR LCA(KC_K)
+
+#define M_L13 LCA(KC_D)
+#define M_L23 LCA(KC_E)
+#define M_C13 LCA(KC_F)
+#define M_R23 LCA(KC_T)
+#define M_R13 LCA(KC_G)
+
+#define M_1_6 LCA(KC_1)
+#define M_2_6 LCA(KC_2)
+#define M_3_6 LCA(KC_3)
+#define M_4_6 LCA(KC_4)
+#define M_5_6 LCA(KC_5)
+#define M_6_6 LCA(KC_6)
+#define M_L_56 LCA(KC_COMM)
+#define M_R_56 LCA(KC_DOT)
+
+#define M_NEXT LCAG(KC_RGHT)
+#define M_PREV LCAG(KC_LEFT)
+
+#define M_MAX LCA(KC_ENT)
+#define M_CEN LCA(KC_C)
+#define M_REST LCA(KC_BSPC)
 
 // Layout blocks
 #define _________________COLEMAK_L1________________        KC_Q,    KC_W,    KC_F,    KC_P,    KC_G
@@ -89,8 +121,17 @@ enum layers {
 #define ________NUM_R4___________                          KC_BSLS, KC_0,    KC_EQL
 
 
-#define ________MOD_LEFT_________ ESC_NUM,  BSP_SYM, KC_LSFT
-#define ________MOD_RIGHT________ KC_MINS, SPC_NAV, KC_ENT
+#define _________________ARR_L1____________________        M_1_6,   M_2_6,   M_MAX,   M_5_6,   M_6_6
+#define _________________ARR_L2____________________        M_L13,   M_L23,   M_C13,   M_R23,   M_R13
+#define _________________ARR_L3____________________        M_L_56,  M_3_6,   M_REST,  M_4_6,   M_R_56
+
+#define _________________ARR_R1____________________        XXXXXXX, M_TOPL,  M_TOP,   M_TOPR,  XXXXXXX
+#define _________________ARR_R2____________________        M_PREV,  M_LEFT,  M_BOTT,  M_RGHT,  M_NEXT
+#define _________________ARR_R3____________________        XXXXXXX, M_BOTL,  M_CEN,   M_BOTR,  XXXXXXX
+
+
+#define ________MOD_LEFT_________ ESC_NUM, BSP_SYM, TAB_SFT 
+#define ________MOD_RIGHT________ MIN_ARR, SPC_NAV, KC_ENT
 
 #define _________MEDIA_1_________ KC_BRIU, KC_MPLY, KC_MUTE
 #define _________MEDIA_2_________ KC_BRID, KC_MFFD, KC__VOLUP
