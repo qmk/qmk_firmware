@@ -191,7 +191,7 @@ def is_executable(command):
         cli.log.debug('Found {fg_cyan}%s', command)
         return True
 
-    cli.log.error("{fg_red}Can't run `%s %s`", (command, version_arg))
+    cli.log.error("{fg_red}Can't run `%s %s`", command, version_arg)
     return False
 
 

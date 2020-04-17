@@ -58,6 +58,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_SPI SPID2
 #define WS2812_SPI_MOSI_PAL_MODE 0
 
+#define INDICATOR_PIN_0 A0
+#define INDICATOR_PIN_1 A1
+#define INDICATOR_PIN_2 A2
 
 // 2 bits for 4 layout options
 #define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2
