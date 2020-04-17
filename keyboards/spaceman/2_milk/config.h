@@ -20,7 +20,7 @@
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0xB195
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    rionlion100
+#define MANUFACTURER    Spaceman
 #define PRODUCT         2% Milk
 #define DESCRIPTION     A milk themed 2% Keyboard
 
