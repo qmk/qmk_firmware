@@ -105,20 +105,12 @@
 
 #define __________________________________ _______, _______, _______, _______
 
-#define _____________MOD_LEFT_____________ KC_LALT, T_GUI, KC_LCTL, LT_RAI
-#define _____________MOD_RIGHT____________ LT_LOW, KC_BSPC, MT_DEL, LM_LOW
+#define ________MOD_LEFT_________ KC_ESC, KC_BSPC, KC_LSFT
+#define ________MOD_RIGHT________ KC_MINS, KC_SPC, KC_ENT
 
 #define _________MEDIA_1_________ KC_BRIU, KC_MPLY, KC_MUTE
 #define _________MEDIA_2_________ KC_BRID, KC_MFFD, KC__VOLUP
 #define _________MEDIA_3_________ XXXXXXX, KC_MRWD, KC__VOLDOWN
-
-#if defined(KEYBOARD_crkbd_rev1) || defined(KEYBOARD_kyria_rev1)
-  #define ________MOD_LEFT_________ T_GUI, KC_LCTL, LT_RAI
-  #define ________MOD_RIGHT________ LT_LOW, KC_BSPC, MT_DEL
-#else
-  #define ________MOD_LEFT_________ KC_LALT, T_GUI, KC_LCTL
-  #define ________MOD_RIGHT________ KC_BSPC, MT_DEL, LM_LOW
-#endif
 
 // Layout wrappers
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
