@@ -7,6 +7,8 @@ import subprocess
 import shlex
 import shutil
 
+from milc import cli
+
 import qmk.keymap
 
 
@@ -65,6 +67,13 @@ def parse_configurator_json(configurator_file):
     """Open and parse a configurator json export
     """
     user_keymap = json.load(configurator_file)
+
+    # If the json file does not contain a name for the keymap
+    # try to figure one out of the environment
+    if not user_keymap.get('keymap', False):
+        user_keymap['keymap'] = cli.config.user.name
+        if not user_keymap['keymap']:
+            user_keymap['keymap'] = os.environ['USER']
 
     return user_keymap
 
