@@ -111,6 +111,7 @@ enum layers {
 #define COPY G(KC_C)
 #define PASTE G(KC_V)
 #define NXT_WIN G(KC_GRV)
+#define EMOJI G(C(KC_SPC))  // brings up the emoji picker in OSX
 
 // Layout blocks
 #define _________________COLEMAK_L1________________        Q_CTL,   W_ALT,   F_GUI,   KC_P,    KC_G
@@ -167,12 +168,12 @@ enum layers {
 #define _________________MOU_R3____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
 
-#define _________________THU_L1____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
-#define _________________THU_L2____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
-#define _________________THU_L3____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define _________________THU_L1____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, M_XXX2
+#define _________________THU_L2____________________        XXXXXXX, M_XXX4,  M_XXX3,  XXXXXXX, M_XXX1
+#define _________________THU_L3____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, M_BRAVE
 
 #define _________________THU_R1____________________        XXXXXXX, XXXXXXX, INPUT_L, XXXXXXX, TXT_PLS
-#define _________________THU_R2____________________        XXXXXXX, KC_CAPS, XXXXXXX, XXXXXXX, TXT_MIN
+#define _________________THU_R2____________________        XXXXXXX, KC_CAPS, EMOJI,   XXXXXXX, TXT_MIN
 #define _________________THU_R3____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
 

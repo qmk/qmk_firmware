@@ -5,15 +5,9 @@ enum custom_keycodes {
   // Layer Macros
   COLEMAK = SAFE_RANGE,
   // Custom Macros
-  M_PYNV,
-  M_SHFT,
-  M_MAKE,
-  M_MALL,
-  M_FLSH,
-  M_VRSN,
+  M_BRAVE,
   M_CODE,
-  M_TERM,
-  M_COPA,
+  
   // Secret Macros
   M_XXX1,
   M_XXX2,
