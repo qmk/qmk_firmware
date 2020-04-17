@@ -3,6 +3,10 @@
 #include "backlight_driver_common.h"
 #include "debug.h"
 
+#ifdef SPLIT_KEYBOARD
+#    include "split_util.h"
+#endif
+
 // This logic is a bit complex, we support 3 setups:
 //
 //   1. Hardware PWM when backlight is wired to a PWM pin.
@@ -161,6 +165,159 @@ error("Please set 'BACKLIGHT_DRIVER = custom' within rules.mk")
 error("Please set 'BACKLIGHT_DRIVER = software' within rules.mk")
 #endif
 
+#ifdef SPLIT_KEYBOARD
+#if (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)) && (BACKLIGHT_PIN_RIGHT == B5 || BACKLIGHT_PIN_RIGHT == B6 || BACKLIGHT_PIN_RIGHT == B7)
+#    define HARDWARE_PWM_RIGHT
+#    define ICRx_RIGHT ICR1
+#    define TCCRxA_RIGHT TCCR1A
+#    define TCCRxB_RIGHT TCCR1B
+#    define TIMERx_OVF_vect_RIGHT TIMER1_OVF_vect
+#    define TIMSKx_RIGHT TIMSK1
+#    define TOIEx_RIGHT TOIE1
+
+#    if BACKLIGHT_PIN_RIGHT == B5
+#        define COMxx0_RIGHT COM1A0
+#        define COMxx1_RIGHT COM1A1
+#        define OCRxx_RIGHT OCR1A
+#    elif BACKLIGHT_PIN_RIGHT == B6
+#        define COMxx0_RIGHT COM1B0
+#        define COMxx1_RIGHT COM1B1
+#        define OCRxx_RIGHT OCR1B
+#    elif BACKLIGHT_PIN_RIGHT == B7
+#        define COMxx0_RIGHT COM1C0
+#        define COMxx1_RIGHT COM1C1
+#        define OCRxx_RIGHT OCR1C
+#    endif
+#elif (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)) && (BACKLIGHT_PIN_RIGHT == C4 || BACKLIGHT_PIN_RIGHT == C5 || BACKLIGHT_PIN_RIGHT == C6)
+#    define HARDWARE_PWM_RIGHT
+#    define ICRx_RIGHT ICR3
+#    define TCCRxA_RIGHT TCCR3A
+#    define TCCRxB_RIGHT TCCR3B
+#    define TIMERx_OVF_vect_RIGHT TIMER3_OVF_vect
+#    define TIMSKx_RIGHT TIMSK3
+#    define TOIEx_RIGHT TOIE3
+
+#    if BACKLIGHT_PIN_RIGHT == C4
+#        if (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
+#            error This MCU has no C4 pin!
+#        else
+#            define COMxx0_RIGHT COM3C0
+#            define COMxx1_RIGHT COM3C1
+#            define OCRxx_RIGHT OCR3C
+#        endif
+#    elif BACKLIGHT_PIN_RIGHT == C5
+#        if (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
+#            error This MCU has no C5 pin!
+#        else
+#            define COMxx0_RIGHT COM3B0
+#            define COMxx1_RIGHT COM3B1
+#            define OCRxx_RIGHT OCR3B
+#        endif
+#    elif BACKLIGHT_PIN_RIGHT == C6
+#        define COMxx0_RIGHT COM3A0
+#        define COMxx1_RIGHT COM3A1
+#        define OCRxx_RIGHT OCR3A
+#    endif
+#elif (defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__)) && (BACKLIGHT_PIN_RIGHT == B7 || BACKLIGHT_PIN_RIGHT == C5 || BACKLIGHT_PIN_RIGHT == C6)
+#    define HARDWARE_PWM_RIGHT
+#    define ICRx_RIGHT ICR1
+#    define TCCRxA_RIGHT TCCR1A
+#    define TCCRxB_RIGHT TCCR1B
+#    define TIMERx_OVF_vect_RIGHT TIMER1_OVF_vect
+#    define TIMSKx_RIGHT TIMSK1
+#    define TOIEx_RIGHT TOIE1
+
+#    if BACKLIGHT_PIN_RIGHT == B7
+#        define COMxx0_RIGHT COM1C0
+#        define COMxx1_RIGHT COM1C1
+#        define OCRxx_RIGHT OCR1C
+#    elif BACKLIGHT_PIN_RIGHT == C5
+#        define COMxx0_RIGHT COM1B0
+#        define COMxx1_RIGHT COM1B1
+#        define OCRxx_RIGHT OCR1B
+#    elif BACKLIGHT_PIN_RIGHT == C6
+#        define COMxx0_RIGHT COM1A0
+#        define COMxx1_RIGHT COM1A1
+#        define OCRxx_RIGHT OCR1A
+#    endif
+#elif defined(__AVR_ATmega32A__) && (BACKLIGHT_PIN_RIGHT == D4 || BACKLIGHT_PIN_RIGHT == D5)
+#    define HARDWARE_PWM_RIGHT
+#    define ICRx_RIGHT ICR1
+#    define TCCRxA_RIGHT TCCR1A
+#    define TCCRxB_RIGHT TCCR1B
+#    define TIMERx_OVF_vect_RIGHT TIMER1_OVF_vect
+#    define TIMSKx_RIGHT TIMSK
+#    define TOIEx_RIGHT TOIE1
+
+#    if BACKLIGHT_PIN_RIGHT == D4
+#        define COMxx0_RIGHT COM1B0
+#        define COMxx1_RIGHT COM1B1
+#        define OCRxx_RIGHT OCR1B
+#    elif BACKLIGHT_PIN_RIGHT == D5
+#        define COMxx0_RIGHT COM1A0
+#        define COMxx1_RIGHT COM1A1
+#        define OCRxx_RIGHT OCR1A
+#    endif
+#elif defined(__AVR_ATmega328P__) && (BACKLIGHT_PIN_RIGHT == B1 || BACKLIGHT_PIN_RIGHT == B2)
+#    define HARDWARE_PWM_RIGHT
+#    define ICRx_RIGHT ICR1
+#    define TCCRxA_RIGHT TCCR1A
+#    define TCCRxB_RIGHT TCCR1B
+#    define TIMERx_OVF_vect_RIGHT TIMER1_OVF_vect
+#    define TIMSKx_RIGHT TIMSK1
+#    define TOIEx_RIGHT TOIE1
+
+#    if BACKLIGHT_PIN_RIGHT == B1
+#        define COMxx0_RIGHT COM1A0
+#        define COMxx1_RIGHT COM1A1
+#        define OCRxx_RIGHT OCR1A
+#    elif BACKLIGHT_PIN_RIGHT == B2
+#        define COMxx0_RIGHT COM1B0
+#        define COMxx1_RIGHT COM1B1
+#        define OCRxx_RIGHT OCR1B
+#    endif
+#elif !defined(B5_AUDIO_RIGHT) && !defined(B6_AUDIO_RIGHT) && !defined(B7_AUDIO_RIGHT)
+// Timer 1 is not in use by Audio feature, Backlight can use it
+#    pragma message "Using hardware timer 1 with software PWM"
+#    define HARDWARE_PWM_RIGHT
+#    define BACKLIGHT_PWM_TIMER_RIGHT
+#    define ICRx_RIGHT ICR1
+#    define TCCRxA_RIGHT TCCR1A
+#    define TCCRxB_RIGHT TCCR1B
+#    define TIMERx_COMPA_vect_RIGHT TIMER1_COMPA_vect
+#    define TIMERx_OVF_vect_RIGHT TIMER1_OVF_vect
+#    if defined(__AVR_ATmega32A__)  // This MCU has only one TIMSK register
+#        define TIMSKx_RIGHT TIMSK
+#    else
+#        define TIMSKx_RIGHT TIMSK1
+#    endif
+#    define TOIEx_RIGHT TOIE1
+
+#    define OCIExA_RIGHT OCIE1A
+#    define OCRxx_RIGHT OCR1A
+#elif !defined(C6_AUDIO_RIGHT) && !defined(C5_AUDIO_RIGHT) && !defined(C4_AUDIO_RIGHT)
+#    pragma message "Using hardware timer 3 with software PWM"
+// Timer 3 is not in use by Audio feature, Backlight can use it
+#    define HARDWARE_PWM_RIGHT
+#    define BACKLIGHT_PWM_TIMER_RIGHT
+#    define ICRx_RIGHT ICR1
+#    define TCCRxA_RIGHT TCCR3A
+#    define TCCRxB_RIGHT TCCR3B
+#    define TIMERx_COMPA_vect_RIGHT TIMER3_COMPA_vect
+#    define TIMERx_OVF_vect_RIGHT TIMER3_OVF_vect
+#    define TIMSKx_RIGHT TIMSK3
+#    define TOIEx_RIGHT TOIE3
+
+#    define OCIExA_RIGHT OCIE3A
+#    define OCRxx_RIGHT OCR3A
+#elif defined(BACKLIGHT_CUSTOM_DRIVER_RIGHT)
+error("Please set 'BACKLIGHT_DRIVER_RIGHT = custom' within rules.mk")
+#else
+error("Please set 'BACKLIGHT_DRIVER_RIGHT = software' within rules.mk")
+#endif
+
+#endif
+
 #ifndef BACKLIGHT_PWM_TIMER  // pwm through software
 
 static inline void enable_pwm(void) {
@@ -176,6 +333,26 @@ static inline void disable_pwm(void) {
     TCCRxA &= ~(_BV(COMxx1));
 #    else
     TCCRxA &= ~(_BV(COMxx1) | _BV(COMxx0));
+#    endif
+}
+
+#endif
+
+#ifndef BACKLIGHT_PWM_TIMER_RIGHT
+
+static inline void enable_pwm_right(void) {
+#    if BACKLIGHT_ON_STATE == 1
+    TCCRxA_RIGHT |= _BV(COMxx1_RIGHT);
+#    else
+    TCCRxA_RIGHT |= _BV(COMxx1_RIGHT) | _BV(COMxx0_RIGHT);
+#    endif
+}
+
+static inline void disable_pwm_right(void) {
+#    if BACKLIGHT_ON_STATE == 1
+    TCCRxA_RIGHT &= ~(_BV(COMxx1_RIGHT));
+#    else
+    TCCRxA_RIGHT &= ~(_BV(COMxx1_RIGHT) | _BV(COMxx0_RIGHT));
 #    endif
 }
 
@@ -222,6 +399,33 @@ ISR(TIMERx_OVF_vect) {
 
 #endif
 
+#ifdef BACKLIGHT_PWM_TIMER_RIGHT
+// Triggered when the counter reaches the OCRx value
+ISR(TIMERx_COMPA_vect_RIGHT) { backlight_pins_off_right(); }
+
+// Triggered when the counter reaches the TOP value
+// this one triggers at F_CPU/65536 =~ 244 Hz
+ISR(TIMERx_OVF_vect_RIGHT) {
+#    ifdef BACKLIGHT_BREATHING
+    if (is_breathing()) {
+        breathing_task();
+    }
+#    endif
+    // for very small values of OCRxx (or backlight level)
+    // we can't guarantee this whole code won't execute
+    // at the same time as the compare match interrupt
+    // which means that we might turn on the leds while
+    // trying to turn them off, leading to flickering
+    // artifacts (especially while breathing, because breathing_task
+    // takes many computation cycles).
+    // so better not turn them on while the counter TOP is very low.
+    if (OCRxx_RIGHT > 256) {
+        backlight_pins_on_right();
+    }
+}
+
+#endif
+
 #define TIMER_TOP 0xFFFFU
 
 // See http://jared.geek.nz/2013/feb/linear-led-pwm
@@ -243,7 +447,15 @@ static uint16_t cie_lightness(uint16_t v) {
 // range for val is [0..TIMER_TOP]. PWM pin is high while the timer count is below val.
 static inline void set_pwm(uint16_t val) { OCRxx = val; }
 
+#ifdef SPLIT_KEYBOARD
+static inline void set_pwm_right(uint16_t val) { OCRxx_RIGHT = val; }
+#endif
+
+#ifdef SPLIT_KEYBOARD
+void backlight_set_left(uint8_t level) {
+#else
 void backlight_set(uint8_t level) {
+#endif
     if (level > BACKLIGHT_LEVELS) level = BACKLIGHT_LEVELS;
 
     if (level == 0) {
@@ -272,7 +484,52 @@ void backlight_set(uint8_t level) {
     set_pwm(cie_lightness(TIMER_TOP * (uint32_t)level / BACKLIGHT_LEVELS));
 }
 
+#ifdef SPLIT_KEYBOARD
+void backlight_set_right(uint8_t level) {
+    if (level > BACKLIGHT_LEVELS) level = BACKLIGHT_LEVELS;
+
+    if (level == 0) {
+#ifdef BACKLIGHT_PWM_TIMER_RIGHT
+        if (OCRxx_RIGHT) {
+            TIMSKx_RIGHT &= ~(_BV(OCIExA_RIGHT));
+            TIMSKx_RIGHT &= ~(_BV(TOIEx_RIGHT));
+        }
+#else
+        // Turn off PWM control on backlight pin
+        disable_pwm_right();
+#endif
+        backlight_pins_off_right();
+    } else {
+#ifdef BACKLIGHT_PWM_TIMER_RIGHT
+        if (!OCRxx_RIGHT) {
+            TIMSKx_RIGHT |= _BV(OCIExA_RIGHT);
+            TIMSKx_RIGHT |= _BV(TOIEx_RIGHT);
+        }
+#else
+        // Turn on PWM control of backlight pin
+        enable_pwm_right();
+#endif
+    }
+    // Set the brightness
+    set_pwm_right(cie_lightness(TIMER_TOP * (uint32_t)level / BACKLIGHT_LEVELS));
+}
+#endif
+
+#ifdef SPLIT_KEYBOARD
+void backlight_set(uint8_t level) {
+    if (isLeftHand) {
+        backlight_set_left(level);
+    } else {
+        backlight_set_right(level);
+    }
+}
+#endif
+
 void backlight_task(void) {}
+
+#ifdef SPLIT_KEYBOARD
+void backlight_task_right(void) {}
+#endif
 
 #ifdef BACKLIGHT_BREATHING
 
@@ -380,7 +637,11 @@ ISR(TIMERx_OVF_vect)
 
 #endif  // BACKLIGHT_BREATHING
 
+#ifdef SPLIT_KEYBOARD
+void backlight_init_ports_left(void) {
+#else
 void backlight_init_ports(void) {
+#endif
     // Setup backlight pin as output and output to on state.
     backlight_pins_init();
 
@@ -423,3 +684,61 @@ void backlight_init_ports(void) {
     }
 #endif
 }
+
+
+#ifdef SPLIT_KEYBOARD
+
+void backlight_init_ports_right(void) {
+    // Setup backlight pin as output and output to on state.
+    backlight_pins_init_right();
+
+    // I could write a wall of text here to explain... but TL;DW
+    // Go read the ATmega32u4 datasheet.
+    // And this: http://blog.saikoled.com/post/43165849837/secret-konami-cheat-code-to-high-resolution-pwm-on
+
+#ifdef BACKLIGHT_PWM_TIMER_RIGHT
+    // TimerX setup, Fast PWM mode count to TOP set in ICRx
+    TCCRxA_RIGHT = _BV(WGM11);  // = 0b00000010;
+    // clock select clk/1
+    TCCRxB_RIGHT = _BV(WGM13) | _BV(WGM12) | _BV(CS10);  // = 0b00011001;
+#else                                              // hardware PWM
+    // Pin PB7 = OCR1C (Timer 1, Channel C)
+    // Compare Output Mode = Clear on compare match, Channel C = COM1C1=1 COM1C0=0
+    // (i.e. start high, go low when counter matches.)
+    // WGM Mode 14 (Fast PWM) = WGM13=1 WGM12=1 WGM11=1 WGM10=0
+    // Clock Select = clk/1 (no prescaling) = CS12=0 CS11=0 CS10=1
+
+    /*
+    14.8.3:
+    "In fast PWM mode, the compare units allow generation of PWM waveforms on the OCnx pins. Setting the COMnx1:0 bits to two will produce a non-inverted PWM [..]."
+    "In fast PWM mode the counter is incremented until the counter value matches either one of the fixed values 0x00FF, 0x01FF, or 0x03FF (WGMn3:0 = 5, 6, or 7), the value in ICRn (WGMn3:0 = 14), or the value in OCRnA (WGMn3:0 = 15)."
+    */
+#    if BACKLIGHT_ON_STATE == 1
+    TCCRxA_RIGHT = _BV(COMxx1_RIGHT) | _BV(WGM11);
+#    else
+    TCCRxA_RIGHT = _BV(COMxx1_RIGHT) | _BV(COMxx0_RIGHT) | _BV(WGM11);
+#    endif
+
+    TCCRxB_RIGHT = _BV(WGM13) | _BV(WGM12) | _BV(CS10);
+#endif
+    // Use full 16-bit resolution. Counter counts to ICR1 before reset to 0.
+    ICRx_RIGHT = TIMER_TOP;
+
+    backlight_init();
+#ifdef BACKLIGHT_BREATHING
+    if (is_backlight_breathing()) {
+        breathing_enable();
+    }
+#endif
+}
+#endif
+
+#ifdef SPLIT_KEYBOARD
+void backlight_init_ports(void) {
+    if (isLeftHand) {
+        backlight_init_ports_left();
+    } else {
+        backlight_init_ports_right();
+    }
+}
+#endif
