@@ -32,7 +32,8 @@ enum layers {
   _NAV,
   _SYMBOL,
   _NUMBER,
-  _ARRANGE
+  _ARRANGE,
+  _MOUSE
 };
 
 // Shortcut Keys
@@ -48,7 +49,7 @@ enum layers {
 #define BSP_SYM LT(_SYMBOL, KC_BSPC)
 #define DEL_SYM LT(_SYMBOL, KC_DEL)
 #define ESC_NUM LT(_NUMBER, KC_ESC)
-#define TAB_SFT LSFT_T(KC_TAB)
+#define TAB_SFT SFT_T(KC_TAB)
 #define MIN_ARR LT(_ARRANGE, KC_MINS)
 
 // magnet keycodes
@@ -84,18 +85,44 @@ enum layers {
 #define M_CEN LCA(KC_C)
 #define M_REST LCA(KC_BSPC)
 
+// Modifier tapholds
+#define T_SFT SFT_T(KC_T)
+#define N_SFT SFT_T(KC_N)
+#define Q_CTL CTL_T(KC_Q)
+#define W_ALT ALT_T(KC_W)
+#define F_GUI GUI_T(KC_F)
+#define U_GUI GUI_T(KC_U)
+#define Y_ALT ALT_T(KC_Y)
+#define SCL_CTL CTL_T(KC_SCLN)
+
+// Special characters
+#define GBP A(KC_3)
+#define EURO A(S(KC_2))
+
+// Shortcuts
+#define INPUT_L LCAG(KC_SPC)
+#define TXT_PLS G(KC_PLUS)
+#define TXT_MIN G(KC_MINS)
+#define SC_CAPF G(S(KC_3))  // Capture the full screen to file
+#define SC_CAPP G(S(KC_4))  // Capture portion of screen to file
+#define CUT G(KC_X)
+#define COPY G(KC_C)
+#define PASTE G(KC_V)
+
+#define NXT_WIN G(KC_GRV)
+
 // Layout blocks
-#define _________________COLEMAK_L1________________        KC_Q,    KC_W,    KC_F,    KC_P,    KC_G
-#define _________________COLEMAK_L2________________        KC_A,    KC_R,    KC_S,    KC_T,    KC_D
+#define _________________COLEMAK_L1________________        Q_CTL,   W_ALT,   F_GUI,   KC_P,    KC_G
+#define _________________COLEMAK_L2________________        KC_A,    KC_R,    KC_S,    T_SFT,   KC_D
 #define _________________COLEMAK_L3________________        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
 
-#define _________________COLEMAK_R1________________        KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN
-#define _________________COLEMAK_R2________________        KC_H,    KC_N,    KC_E,    KC_I,    KC_O
+#define _________________COLEMAK_R1________________        KC_J,    KC_L,    U_GUI,   Y_ALT,   SCL_CTL
+#define _________________COLEMAK_R2________________        KC_H,    N_SFT,   KC_E,    KC_I,    KC_O
 #define _________________COLEMAK_R3________________        KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_QUOT
 
 #define _________________NAV_L1____________________        KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX, XXXXXXX
 #define _________________NAV_L2____________________        XXXXXXX, XXXXXXX, XXXXXXX, KC_LSFT, XXXXXXX
-#define _________________NAV_L3____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define _________________NAV_L3____________________        NXT_WIN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
 #define _________________NAV_R1____________________        XXXXXXX, KC_HOME, KC_UP,   KC_END,  KC_PGUP
 #define _________________NAV_R2____________________        XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN
@@ -103,17 +130,17 @@ enum layers {
 
 
 #define _________________SYM_L1____________________        KC_EXLM, KC_AT,   KC_ASTR, KC_AMPR, KC_PIPE
-#define _________________SYM_L2____________________        KC_TILD, KC_LT,   KC_PERC, KC_GT,   XXXXXXX
-#define _________________SYM_L3____________________        KC_GRV,  KC_PLUS, KC_MINS, KC_EQL,  XXXXXXX
+#define _________________SYM_L2____________________        KC_TILD, KC_LT,   KC_PERC, KC_GT,   GBP
+#define _________________SYM_L3____________________        KC_GRV,  KC_PLUS, KC_MINS, KC_EQL,  EURO
 
 #define _________________SYM_R1____________________        XXXXXXX, KC_LBRC, KC_CIRC, KC_RBRC, KC_COLN
 #define _________________SYM_R2____________________        KC_QUES, KC_LPRN, KC_DLR,  KC_RPRN, KC_SLSH
 #define _________________SYM_R3____________________        KC_PIPE, KC_LCBR, KC_HASH, KC_RCBR, KC_BSLS
 
 
-#define _________________NUM_L1____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
-#define _________________NUM_L2____________________        KC_COLN, KC_HASH, XXXXXXX, XXXXXXX, XXXXXXX
-#define _________________NUM_L3____________________        KC_COMM, KC_PLUS, KC_MINS, KC_EQL,  XXXXXXX
+#define _________________NUM_L1____________________        XXXXXXX, XXXXXXX, CUT,     XXXXXXX, XXXXXXX
+#define _________________NUM_L2____________________        KC_COLN, KC_HASH, COPY,    PASTE,   GBP
+#define _________________NUM_L3____________________        KC_COMM, KC_PLUS, KC_MINS, KC_EQL,  EURO
 
 #define _________________NUM_R1____________________        KC_SLSH, KC_7,    KC_8,    KC_9,    KC_ASTR
 #define _________________NUM_R2____________________        KC_DOT,  KC_4,    KC_5,    KC_6,    KC_MINS
@@ -130,12 +157,21 @@ enum layers {
 #define _________________ARR_R3____________________        XXXXXXX, M_BOTL,  M_CEN,   M_BOTR,  XXXXXXX
 
 
-#define ________MOD_LEFT_________ ESC_NUM, BSP_SYM, TAB_SFT 
-#define ________MOD_RIGHT________ MIN_ARR, SPC_NAV, KC_ENT
+#define _________________MOU_L1____________________        KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX, XXXXXXX
+#define _________________MOU_L2____________________        KC_BTN3, KC_BTN2, KC_BTN1, KC_LSFT, XXXXXXX
+#define _________________MOU_L3____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
-#define _________MEDIA_1_________ KC_BRIU, KC_MPLY, KC_MUTE
-#define _________MEDIA_2_________ KC_BRID, KC_MFFD, KC__VOLUP
-#define _________MEDIA_3_________ XXXXXXX, KC_MRWD, KC__VOLDOWN
+#define _________________MOU_R1____________________        XXXXXXX, KC_WH_L, KC_MS_U, KC_WH_R, KC_WH_U
+#define _________________MOU_R2____________________        XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D
+#define _________________MOU_R3____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+
+
+#define ________MOD_LEFT_________                          ESC_NUM, BSP_SYM, TAB_SFT 
+#define ________MOD_RIGHT________                          MIN_ARR, SPC_NAV, KC_ENT
+
+#define _________MEDIA_1_________                          KC_BRIU, KC_MPLY, KC_MUTE
+#define _________MEDIA_2_________                          KC_BRID, KC_MFFD, KC__VOLUP
+#define _________MEDIA_3_________                          XXXXXXX, KC_MRWD, KC__VOLDOWN
 
 // Layout wrappers
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)

@@ -45,6 +45,7 @@ void render_layer_state(void) {
   bool symbol = layer_state_is(_SYMBOL);
   bool number = layer_state_is(_NUMBER);
   bool arrange = layer_state_is(_ARRANGE);
+  bool mouse = layer_state_is(_MOUSE);
 
   if(nav) { 
     oled_write_P(PSTR(" Nav "), true); 
@@ -54,6 +55,8 @@ void render_layer_state(void) {
     oled_write_P(PSTR(" Number "), true); 
   } else if(arrange) {
     oled_write_P(PSTR(" Arrange "), true); 
+  } else if(mouse) {
+    oled_write_P(PSTR(" Mouse "), true);
   } else {
     oled_write_P(PSTR(" Snowkuma"), false);
   } 
