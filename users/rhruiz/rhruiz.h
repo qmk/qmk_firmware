@@ -31,6 +31,11 @@ void          rhruiz_disable_promicro_leds(void);
 bool          rhruiz_process_record(uint16_t keycode, keyrecord_t *record);
 void          keyboard_post_init_keymap(void);
 void          matrix_init_keymap(void);
+#ifdef OLED_DRIVER_ENABLE
+oled_rotation_t           oled_init_keymap(oled_rotation_t rotation);
+void          rhruiz_render_logo_and_layer(void);
+void          rhruiz_render_oled(void);
+#endif
 
 /* underglow control */
 void rhruiz_rgblight_reset(void);
