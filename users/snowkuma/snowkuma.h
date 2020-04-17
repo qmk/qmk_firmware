@@ -29,6 +29,7 @@
 
 #define _COLEMAK 0
 #define _NAV 1
+#define _SYMBOL 2
 
 // Shortcut Keys
 #define K_LOCK LGUI(LCTL(KC_Q)) // Locks screen on MacOS
@@ -40,6 +41,8 @@
 
 // Layer Keys
 #define SPC_NAV LT(_NAV, KC_SPC)
+#define BSP_SYM LT(_SYMBOL, KC_BSPC)
+#define DEL_SYM LT(_SYMBOL, KC_DEL)
 
 // Mod-Tap Keys
 #define MT_DEL MT(MOD_LGUI | MOD_LALT | MOD_LSFT, KC_DEL)
@@ -54,7 +57,6 @@
 #define _________________COLEMAK_R2________________        KC_H,    KC_N,    KC_E,    KC_I,    KC_O
 #define _________________COLEMAK_R3________________        KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_QUOT
 
-
 #define _________________NAV_L1____________________        KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX, XXXXXXX
 #define _________________NAV_L2____________________        XXXXXXX, XXXXXXX, XXXXXXX, KC_LSFT, XXXXXXX
 #define _________________NAV_L3____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
@@ -64,7 +66,16 @@
 #define _________________NAV_R3____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
 
-#define ________MOD_LEFT_________ KC_ESC, KC_BSPC, KC_LSFT
+#define _________________SYM_L1____________________        KC_EXLM, KC_AT,   KC_ASTR, KC_AMPR, KC_PIPE
+#define _________________SYM_L2____________________        KC_TILD, KC_LT,   KC_PERC, KC_GT,   XXXXXXX
+#define _________________SYM_L3____________________        KC_GRV,  KC_PLUS, KC_MINS, KC_EQL,  XXXXXXX
+
+#define _________________SYM_R1____________________        XXXXXXX, KC_LBRC, KC_CIRC, KC_RBRC, KC_COLN
+#define _________________SYM_R2____________________        KC_QUES, KC_LPRN, KC_DLR,  KC_RPRN, KC_SLSH
+#define _________________SYM_R3____________________        KC_PIPE, KC_LCBR, KC_HASH, KC_RCBR, KC_BSLS
+
+
+#define ________MOD_LEFT_________ KC_ESC,  BSP_SYM, KC_LSFT
 #define ________MOD_RIGHT________ KC_MINS, SPC_NAV, KC_ENT
 
 #define _________MEDIA_1_________ KC_BRIU, KC_MPLY, KC_MUTE
