@@ -7,7 +7,7 @@ make kugel:default:uf2 -j8
 make kugel:default:zip -j8
 make kugel:no_msc:zip -j8
 
-version=0_5_0
+version=0_5_1
 
 mv ble_micro_pro_default.uf2 ble_micro_pro_default_${version}.uf2
 mv ble_micro_pro_default.zip ble_micro_pro_default_${version}.zip
