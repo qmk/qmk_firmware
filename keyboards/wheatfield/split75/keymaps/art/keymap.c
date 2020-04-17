@@ -135,9 +135,9 @@ _______,  _______,    TO(QWERTY),_______, _______,  _______,  _______,          
   [QWERTY] = LAYOUT(
 //--------------------------------Left Hand------------------------------------| |--------------------------------Right Hand------------------------------------------------
                 KC_ESC,   KC_F1,   KC_F2,   KC_F3,  KC_F4,  KC_F5,  KC_F6,                KC_F7,  KC_F8,   KC_F9,  KC_F10,  KC_F11,   KC_F12,   LT(CONFIG, KC_PSCR),  KC_INS,  KC_HOME,
-KC_8,  KC_9,    KC_GRAVE, KC_1,    KC_2,    KC_3,   KC_4,   KC_5,   KC_6,                 KC_7,   KC_8,    KC_9,   KC_0,    KC_MINUS, KC_EQUAL, XXXXXXX,           KC_DEL,
+KC_8,  KC_9,    KC_GRAVE, KC_1,    KC_2,    KC_3,   KC_4,   KC_5,   KC_6,                 KC_7,   KC_8,    KC_9,   KC_0,    KC_MINUS, KC_EQUAL, KC_BSPC,           KC_DEL,
 KC_6,  KC_7,    KC_TAB,   KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,                 KC_Y,   KC_U,   KC_I,    KC_O,   KC_P,    KC_LBRC,  KC_RBRC,  KC_BSLS,           KC_END,
-KC_4,  KC_5,    LT(STRINGS,KC_CAPS),  KC_A,    KC_S ,KC_D ,KC_F ,KC_G,   KC_H,   KC_J, KC_K, KC_L, KC_SCLN,KC_QUOT,XXXXXXX,         KC_PGUP,
+KC_4,  KC_5,    LT(STRINGS,KC_CAPS),  KC_A,    KC_S ,KC_D ,KC_F ,KC_G,   KC_H,   KC_J, KC_K, KC_L, KC_SCLN,KC_QUOT,KC_ENTER,         KC_PGUP,
 KC_2,  KC_3,    KC_LSFT,  KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,                 KC_N,   KC_M,   KC_COMM, KC_DOT, LT(GIT,KC_SLSH),                     KC_RSFT,  KC_UP,   KC_PGDN,
 KC_0,  KC_1,    KC_LCTL,  KC_LGUI, KC_LALT, LT(MEDIA, KC_SPC),LT(COMBOS,KC_BSPC),            LT(MOD, KC_ENTER),        KC_RALT, MO(LAYOUT_CHG),KC_RCTL,                     KC_LEFT,  KC_DOWN, KC_RIGHT
   ),
@@ -283,6 +283,12 @@ static const char *key_down[2] = {SS_DOWN(X_LALT), SS_DOWN(X_LCTL)};
 static bool sarcasmOn = false;
 static bool sarcasmKey = false;
 
+void send_n_backspace(int times) {
+  for (int i=0; i<times; i++) {
+    SEND_STRING(SS_TAP(X_BSPC));  
+  }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (sarcasmOn) {
     sarcasmKey = ! sarcasmKey;  
@@ -339,24 +345,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		break;
 	case G_BS_C:
 		if (!record->event.pressed) {
-			SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC));
+            send_n_backspace(20);
 			layer_off(GIT_C);
 		}
 		break;
 	case G_CHEC:
 		if (!record->event.pressed) {
-			SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC)"heckout ");
-			layer_off(GIT_C);			
+            bool shifted = get_mods() & MOD_MASK_SHIFT;
+            clear_mods();
+            
+            send_n_backspace(15);
+			SEND_STRING("heckout ");
+            if (shifted) {
+				SEND_STRING("-b ");
+			}
+            layer_off(GIT_C);
 		}
 		break;
 	case G_COMM:
 		if (!record->event.pressed) {
-			if ( get_mods() & MOD_MASK_SHIFT ) {
-				clear_mods();
-				SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC)"ommit -am \"\"" SS_TAP(X_LEFT));
-			} else {
-				SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC)"ommit -m \"\"" SS_TAP(X_LEFT));
+            bool shifted = get_mods() & MOD_MASK_SHIFT;
+            clear_mods();
+            
+            send_n_backspace(15);
+            SEND_STRING("ommit -");
+			if (shifted) {
+				SEND_STRING("a");
 			}
+            SEND_STRING("m \"\"" SS_TAP(X_LEFT));
 			layer_off(GIT_C);
 		}
 		break;
@@ -382,7 +398,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		break;
 	case G_P:
 		if (record->event.pressed) {
-			SEND_STRING("git pu");
+            if ( get_mods() & MOD_MASK_SHIFT ) {
+				clear_mods();
+				SEND_STRING("git push -u");
+			} else {
+				SEND_STRING("git pu");
+			}
 		}
 		break;
 	// case G_BS_P:
@@ -416,25 +437,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		break;
 	case G_BS_S:
 		if (!record->event.pressed) {
-			SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC));
+            send_n_backspace(21);
 			layer_off(GIT_S);
 		}
 		break;
 	case G_SHOW:
 		if (!record->event.pressed) {
-			SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC)"how ");
+            send_n_backspace(16);
+			SEND_STRING("how ");
 			layer_off(GIT_S);
 		}
 		break;			
 	case G_STSH:
 		if (!record->event.pressed) {
-			SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC)"tash ");
+            send_n_backspace(16);
+			SEND_STRING("tash ");
 			layer_off(GIT_S);
 		}
 		break;		
 	case G_STAT:
 		if (!record->event.pressed) {
-			SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC)"tatus ");
+            send_n_backspace(16);
+			SEND_STRING("tatus ");
 			layer_off(GIT_S);
 		}
 		break;
