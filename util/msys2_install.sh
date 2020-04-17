@@ -4,11 +4,10 @@ dir=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
 download_dir=~/qmk_utils
 avrtools=avr8-gnu-toolchain
 armtools=gcc-arm-none-eabi
-installflip=false
 util_dir=$(dirname "$0")
 
 echo "Installing dependencies needed for the installation (quazip)"
-pacman --needed --noconfirm --disable-download-timeout -Sy base-devel mingw-w64-x86_64-toolchain mingw-w64-x86_64-clang msys/git msys/p7zip mingw-w64-x86_64-python3-pip msys/unzip
+pacman --needed --noconfirm --disable-download-timeout -Sy base-devel mingw-w64-x86_64-toolchain mingw-w64-x86_64-clang git mingw-w64-x86_64-python3-pip unzip
 
 source "$dir/win_shared_install.sh"
 
@@ -31,18 +30,7 @@ function install_arm {
     rm gcc-arm-none-eabi-8-2019-q3-update-win32.zip
 }
 
-function extract_flip {
-    rm -f -r flip
-    7z -oflip x FlipInstaller.exe
-}
-
 pushd "$download_dir"
-
-if [ -f "FlipInstaller.exe" ]; then
-    echo
-    echo "Extracting flip"
-    extract_flip
-fi
 
 if [ ! -d "$avrtools" ]; then
     echo
