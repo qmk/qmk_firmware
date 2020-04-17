@@ -26,7 +26,7 @@ where some things are disabled to save space as well.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0xCDCD
+#define VENDOR_ID  0x7844   //78->X, 44->D => XD
 #define PRODUCT_ID 0x0404
 #define DEVICE_VER 0x0001
 // Note: unsure about manufacturer
