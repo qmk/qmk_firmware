@@ -48,9 +48,11 @@ __attribute__((weak)) bool rhruiz_is_layer_indicator_led(uint8_t index) {
 #endif
 }
 
+#ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return oled_init_keymap(rotation);
 }
+#endif
 
 void rhruiz_send_make_args(bool should_flash, bool parallel) {
     SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
