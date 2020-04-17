@@ -23,13 +23,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
-    // Opens Visual Studio Code on current directory
-    case M_CODE:
-      if (record->event.pressed) {
-        SEND_STRING("code .\n");
+    case M_KRAKEN:
+      if (record->event.preesed) {
+        SEND_STRING(SS_LGUI(" "));
+        SEND_STRING("GitKraken.app\n");  
       }
       break;
-
 
     // BEGIN: Layer macros
     case COLEMAK:

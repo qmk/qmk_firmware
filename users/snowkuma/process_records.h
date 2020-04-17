@@ -6,8 +6,8 @@ enum custom_keycodes {
   COLEMAK = SAFE_RANGE,
   // Custom Macros
   M_BRAVE,
-  M_CODE,
-  
+  M_KRAKEN,
+
   // Secret Macros
   M_XXX1,
   M_XXX2,
