@@ -5,7 +5,7 @@
 #ifndef KEYMAP_GERMAN
 #define KEYMAP_GERMAN
 
-#include "keymap.h"
+//#include "keymap.h"
 
 // normal characters
 #define DE_Z KC_Y
@@ -105,10 +105,11 @@ extern uint8_t is_master;
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _COLEMAK 0
+#define _BASE 0
 #define _LOWER 1
 #define _RAISE 2
-#define _CONTROL 3
+#define _ADJUST 3
+#define _CONTRL 4
 
 
 //Tap Dance Declarations
@@ -121,6 +122,13 @@ enum {
   TD_BR_C
 };
 
+enum layer_names {
+  _COLEMAK,
+  _LOWER1,
+  _RAISE2,
+  _ADJUST3,
+  _CONTRL4
+};
 
 void dance_brackets_o (qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
@@ -192,9 +200,8 @@ enum custom_keycodes {
   COLEMAK = SAFE_RANGE,
   LOWER,
   RAISE,
-  CONTROL,
-  BACKLIT,
-  RGBRST
+  ADJUST,
+  CONTRL
 };
 
 enum macro_keycodes {
@@ -203,13 +210,14 @@ enum macro_keycodes {
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
   [_COLEMAK] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_ESC,    TD(TD_Q),    KC_W,    KC_F,    KC_P,    KC_G,                         KC_J,    KC_L,    TD(TD_UE),    DE_Y,   DE_PLUS,  KC_BSPC,\
+       KC_ESC, TD(TD_Q),  KC_W,    KC_F,    KC_P,    KC_G,                         KC_J,    KC_L,    TD(TD_UE),    DE_Y,   DE_PLUS,  KC_BSPC,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      MT(MOD_LSFT, KC_TAB),    TD(TD_AE),    KC_R,    KC_S,    KC_T,    KC_D,                         KC_H,    KC_N,    KC_E,    KC_I, TD(TD_OE), DE_HASH,\
+      MT(MOD_LSFT, KC_TAB), TD(TD_AE),    KC_R,    KC_S,    KC_T,    KC_D,         KC_H,    KC_N,    KC_E,    KC_I, TD(TD_OE), DE_HASH,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL,    DE_Z,    KC_X,    KC_C,    KC_V,    DE_COMM,                         DE_DOT,    KC_B, KC_K,  KC_M, KC_SLSH, KC_RSFT,\
+      KC_LCTL,    DE_Z,    KC_X,    KC_C,    KC_V,    DE_COMM,                   DE_DOT,    KC_B,    KC_K,    KC_M,  KC_SLSH, KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |-------+---------+--------+--------+--------+--------+--------|
                                           KC_LALT,   KC_LGUI,  KC_SPC,     KC_ENT,  LOWER,  RAISE \
                                       //`--------------------------'  `--------------------------'
@@ -220,9 +228,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_COPY,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_PASTE,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      MT(MOD_LSFT, KC_TAB), LALT(KC_L), XXXXXXX, DE_SS, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, KC_UP, XXXXXXX, XXXXXXX, XXXXXXX,\
+      MT(MOD_LSFT, KC_TAB), LALT(KC_L), XXXXXXX, DE_SS, XXXXXXX, XXXXXXX,         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TD(TD_BR_O),                   TD(TD_BR_C), KC_LEFT, KC_DOWN, KC_RIGHT, XXXXXXX, KC_RSFT,\
+      KC_LCTL, XXXXXXX, _______, _______, _______, TD(TD_BR_O),              TD(TD_BR_C), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LALT,   KC_LGUI,  KC_SPC,     KC_ENT,   LOWER, RAISE \
                                       //`--------------------------'  `--------------------------'
@@ -230,54 +238,55 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RAISE] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_ESC, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,\
+       KC_ESC, KC_EXLM,  DE_DQOT , KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, DE_SLSH, DE_HASH, DE_QST, KC_RPRN, KC_BSPC,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_AMPR , KC_AMPR, KC_AMPR, KC_PIPE,  KC_GRV,\
+      MT(MOD_LSFT, KC_TAB), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,        DE_PIPE, DE_TILD , DE_ASTR, KC_AMPR, KC_PIPE,  KC_GRV,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_BSLS, KC_TILD,\
+      KC_LCTL, XXXXXXX, _______, _______, _______, TD(TD_BR_O),                  TD(TD_BR_C), XXXXXXX, XXXXXXX, XXXXXXX, KC_BSLS, KC_TILD,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LALT,   KC_LGUI,  KC_SPC,     KC_ENT,   LOWER, RAISE \
+                                          KC_LALT,   KC_LGUI,  KC_SPC,     KC_ENT,   LOWER, RAISE  \
                                       //`--------------------------'  `--------------------------'
   ),
 
-  [_CONTROL] = LAYOUT( \
+  [_CONTRL] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        RESET,  RGBRST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+      _______, XXXXXXX, KC_MS_WH_DOWN, KC_MS_UP, KC_MS_WH_UP, XXXXXXX,           XXXXXXX, XXXXXXX, KC_UP, XXXXXXX, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+      _______, XXXXXXX, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, XXXXXXX,         XXXXXXX, KC_LEFT, KC_DOWN, KC_RIGHT, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+      TG(_CONTRL), XXXXXXX, _______, _______, _______, XXXXXXX,                  XXXXXXX, KC_MS_BTN1, XXXXXXX, XXXXXXX, KC_MS_BTN2, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,   LOWER,  KC_SPC,     KC_ENT,   RAISE, KC_RALT \
+                                          _______, KC_LGUI, KC_SPC,     KC_ENT,  _______, _______ \
+                                      //`--------------------------'  `--------------------------'
+  ),
+
+  [_ADJUST] = LAYOUT( \
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  LSFT(LGUI(KC_5)), XXXXXXX,              XXXXXXX, XXXXXXX, KC__VOLUP, XXXXXXX, XXXXXXX, XXXXXXX,\
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, XXXXXXX, KC__VOLDOWN, XXXXXXX, XXXXXXX,  XXXXXXX,\
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      TG(_CONTRL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                 KC__MUTE, XXXXXXX, KC_MEDIA_PLAY_PAUSE, XXXXXXX, XXXXXXX, XXXXXXX,\
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                          _______, KC_LGUI,  KC_SPC,     KC_ENT,   LOWER, RAISE \
                                       //`--------------------------'  `--------------------------'
   )
 };
 
-int RGB_current_mode;
+//int RGB_current_mode;
 
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
 
-// Setting CONTROL layer RGB back to default
-void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-  if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
-    layer_on(layer3);
-  } else {
-    layer_off(layer3);
-  }
-}
-
 void matrix_init_user(void) {
-    #ifdef RGBLIGHT_ENABLE
-      RGB_current_mode = rgblight_config.mode;
-    #endif
     //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
     #ifdef SSD1306OLED
         iota_gfx_init(!has_usb());   // turns on the display
     #endif
 }
+
 
 //SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
 #ifdef SSD1306OLED
@@ -298,15 +307,13 @@ void matrix_scan_user(void) {
    iota_gfx_task();
 }
 
+
+
 void matrix_render_user(struct CharacterMatrix *matrix) {
   if (is_master) {
     // If you want to change the display of OLED, you need to change here
     matrix_write_ln(matrix, read_layer_state());
     matrix_write_ln(matrix, read_keylog());
-    //matrix_write_ln(matrix, read_keylogs());
-    //matrix_write_ln(matrix, read_mode_icon(keymap_config.swap_lalt_lgui));
-    //matrix_write_ln(matrix, read_host_led_state());
-    //matrix_write_ln(matrix, read_timelog());
   } else {
     matrix_write(matrix, read_logo());
   }
@@ -329,11 +336,61 @@ void iota_gfx_task_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
+
 #ifdef SSD1306OLED
     set_keylog(keycode, record);
 #endif
     // set_timelog();
   }
+
+#ifdef OLED_DRIVER_ENABLE
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    if (is_master) {
+        return OLED_ROTATION_270;
+    } else {
+        return OLED_ROTATION_180;
+    }
+}
+
+void oled_task_user(void) {
+    // Host Keyboard Layer Status
+    oled_write_P(PSTR("Layer: "), false);
+
+    switch (get_highest_layer(layer_state)) {
+        case _COLEMAK:
+            oled_write_P(PSTR("Colemak\n"), false);
+            break;
+        case _LOWER:
+            oled_write_P(PSTR("Lower\n"), false);
+            break;
+        case _RAISE:
+            oled_write_P(PSTR("Raise\n"), false);
+            break;
+        case _ADJUST:
+            oled_write_P(PSTR("Adjust\n"), false);
+            break;
+        case _CONTRL:
+            oled_write_P(PSTR("Control\n"), false);
+            break;
+        default:
+            // Or use the write_ln shortcut over adding '\n' to the end of your string
+            oled_write_ln_P(PSTR("Undefined"), false);
+    }
+}
+
+void render_crkbd_logo(void) {
+    static const char PROGMEM crkbd_logo[] = {
+        0x82, 0x83, 0xa2, 0xa3, 0xa4, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
+        0xa0, 0xa2, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
+        0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
+        0};
+        // 0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
+        // 0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
+        // 0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
+        // 0};
+    oled_write_P(crkbd_logo, false);
+}
+#    endif
 
   switch (keycode) {
     case COLEMAK:
@@ -344,46 +401,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
-        update_tri_layer_RGB(_LOWER, _RAISE, _CONTROL);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_LOWER);
-        update_tri_layer_RGB(_LOWER, _RAISE, _CONTROL);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
     case RAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
-        update_tri_layer_RGB(_LOWER, _RAISE, _CONTROL);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_RAISE);
-        update_tri_layer_RGB(_LOWER, _RAISE, _CONTROL);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
-    case CONTROL:
+    case ADJUST:
         if (record->event.pressed) {
-          layer_on(_CONTROL);
+          //layer_on(_ADJUST);
+          set_single_persistent_default_layer(_ADJUST);
         } else {
-          layer_off(_CONTROL);
+          layer_off(_ADJUST);
         }
         return false;
-    case RGB_MOD:
-      #ifdef RGBLIGHT_ENABLE
-        if (record->event.pressed) {
-          rgblight_mode(RGB_current_mode);
-          rgblight_step();
-          RGB_current_mode = rgblight_config.mode;
-        }
-      #endif
-      return false;
-    case RGBRST:
-      #ifdef RGBLIGHT_ENABLE
-        if (record->event.pressed) {
-          eeconfig_update_rgblight_default();
-          rgblight_enable();
-          RGB_current_mode = rgblight_config.mode;
-        }
-      #endif
-      break;
   }
   return true;
 }
