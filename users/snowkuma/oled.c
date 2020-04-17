@@ -41,11 +41,12 @@ void render_layer_state(void) {
   // bool lower = layer_state_is(_LOWER) & !layer_state_is(_ADJUST);
   // bool raise = layer_state_is(_RAISE) & !layer_state_is(_ADJUST);
   // bool adjust = layer_state_is(_ADJUST);
-  bool nav = layer_state_is(_NAV);
-  bool symbol = layer_state_is(_SYMBOL);
+  bool nav = layer_state_is(_NAV) & !layer_state_is(_SYMBOL);
+  bool symbol = layer_state_is(_SYMBOL) & ! layer_state_is(_NAV);
   bool number = layer_state_is(_NUMBER);
   bool arrange = layer_state_is(_ARRANGE);
   bool mouse = layer_state_is(_MOUSE);
+  bool thumb = layer_state_is(_THUMB);
 
   if(nav) { 
     oled_write_P(PSTR(" Nav "), true); 
@@ -57,9 +58,11 @@ void render_layer_state(void) {
     oled_write_P(PSTR(" Arrange "), true); 
   } else if(mouse) {
     oled_write_P(PSTR(" Mouse "), true);
+  } else if(thumb) {
+    oled_write_P(PSTR(" Thumb "), true);
   } else {
     oled_write_P(PSTR(" Snowkuma"), false);
-  } 
+  }
 }
 
 void render_mod_state(uint8_t modifiers) {
@@ -100,12 +103,15 @@ void oled_task_user(void) {
     #endif
 
     if (is_master) {
-        // render_status();
+        render_status();
+        // render_logo();
+        // oled_write_P(PSTR("\n"), false);
+        // oled_scroll_left();
+    } else {
         render_logo();
         oled_write_P(PSTR("\n"), false);
         oled_scroll_left();
-    } else {
-        render_status();
+        // render_status();
     }
 }
 

@@ -33,7 +33,8 @@ enum layers {
   _SYMBOL,
   _NUMBER,
   _ARRANGE,
-  _MOUSE
+  _MOUSE,
+  _THUMB
 };
 
 // Shortcut Keys
@@ -51,6 +52,7 @@ enum layers {
 #define ESC_NUM LT(_NUMBER, KC_ESC)
 #define TAB_SFT SFT_T(KC_TAB)
 #define MIN_ARR LT(_ARRANGE, KC_MINS)
+#define ENT_THU LT(_THUMB, KC_ENT)
 
 // magnet keycodes
 #define M_LEFT LCA(KC_LEFT)
@@ -108,7 +110,6 @@ enum layers {
 #define CUT G(KC_X)
 #define COPY G(KC_C)
 #define PASTE G(KC_V)
-
 #define NXT_WIN G(KC_GRV)
 
 // Layout blocks
@@ -121,8 +122,8 @@ enum layers {
 #define _________________COLEMAK_R3________________        KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_QUOT
 
 #define _________________NAV_L1____________________        KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX, XXXXXXX
-#define _________________NAV_L2____________________        XXXXXXX, XXXXXXX, XXXXXXX, KC_LSFT, XXXXXXX
-#define _________________NAV_L3____________________        NXT_WIN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define _________________NAV_L2____________________        NXT_WIN, XXXXXXX, XXXXXXX, KC_LSFT, XXXXXXX
+#define _________________NAV_L3____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
 #define _________________NAV_R1____________________        XXXXXXX, KC_HOME, KC_UP,   KC_END,  KC_PGUP
 #define _________________NAV_R2____________________        XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN
@@ -166,8 +167,17 @@ enum layers {
 #define _________________MOU_R3____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
 
+#define _________________THU_L1____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define _________________THU_L2____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define _________________THU_L3____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+
+#define _________________THU_R1____________________        XXXXXXX, XXXXXXX, INPUT_L, XXXXXXX, TXT_PLS
+#define _________________THU_R2____________________        XXXXXXX, KC_CAPS, XXXXXXX, XXXXXXX, TXT_MIN
+#define _________________THU_R3____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+
+
 #define ________MOD_LEFT_________                          ESC_NUM, BSP_SYM, TAB_SFT 
-#define ________MOD_RIGHT________                          MIN_ARR, SPC_NAV, KC_ENT
+#define ________MOD_RIGHT________                          MIN_ARR, SPC_NAV, ENT_THU
 
 #define _________MEDIA_1_________                          KC_BRIU, KC_MPLY, KC_MUTE
 #define _________MEDIA_2_________                          KC_BRID, KC_MFFD, KC__VOLUP
