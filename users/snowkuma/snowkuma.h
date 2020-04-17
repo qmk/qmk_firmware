@@ -27,9 +27,12 @@
   #include "split_util.h"
 #endif
 
-#define _COLEMAK 0
-#define _NAV 1
-#define _SYMBOL 2
+enum layers {
+  _COLEMAK = 0,
+  _NAV,
+  _SYMBOL,
+  _NUMBER
+};
 
 // Shortcut Keys
 #define K_LOCK LGUI(LCTL(KC_Q)) // Locks screen on MacOS
@@ -43,6 +46,7 @@
 #define SPC_NAV LT(_NAV, KC_SPC)
 #define BSP_SYM LT(_SYMBOL, KC_BSPC)
 #define DEL_SYM LT(_SYMBOL, KC_DEL)
+#define ESC_NUM LT(_NUMBER, KC_ESC)
 
 // Mod-Tap Keys
 #define MT_DEL MT(MOD_LGUI | MOD_LALT | MOD_LSFT, KC_DEL)
@@ -75,7 +79,17 @@
 #define _________________SYM_R3____________________        KC_PIPE, KC_LCBR, KC_HASH, KC_RCBR, KC_BSLS
 
 
-#define ________MOD_LEFT_________ KC_ESC,  BSP_SYM, KC_LSFT
+#define _________________NUM_L1____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define _________________NUM_L2____________________        KC_COLN, KC_HASH, XXXXXXX, XXXXXXX, XXXXXXX
+#define _________________NUM_L3____________________        KC_COMM, KC_PLUS, KC_MINS, KC_EQL,  XXXXXXX
+
+#define _________________NUM_R1____________________        KC_SLSH, KC_7,    KC_8,    KC_9,    KC_ASTR
+#define _________________NUM_R2____________________        KC_DOT,  KC_4,    KC_5,    KC_6,    KC_MINS
+#define _________________NUM_R3____________________        KC_COMM, KC_1,    KC_2,    KC_3,    KC_PLUS
+#define ________NUM_R4___________                          KC_BSLS, KC_0,    KC_EQL
+
+
+#define ________MOD_LEFT_________ ESC_NUM,  BSP_SYM, KC_LSFT
 #define ________MOD_RIGHT________ KC_MINS, SPC_NAV, KC_ENT
 
 #define _________MEDIA_1_________ KC_BRIU, KC_MPLY, KC_MUTE
