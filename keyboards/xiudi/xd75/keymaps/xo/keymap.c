@@ -16,15 +16,17 @@
 // You might want to alter this to something that matches the keycap LED colors
 // you installed.
 #define BASE_COLOR 166, 255, 255
-
+#define NO_GUI_COLOR 5, 255, 255
 #define DIM_COLOR 22, 200, 200
+
+static bool no_gui = false;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_ortho_5x15(
-    KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_PGDN, KC_GRV, KC_PGUP, KC_6, KC_7, KC_8, KC_9, KC_0, KC_RBRC,
+    KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_PGUP, KC_GRV, KC_PGDN, KC_6, KC_7, KC_8, KC_9, KC_0, KC_RBRC,
     KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_ENT, KC_BSLS, LCTL(KC_GRV), KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC,
     KC_BSPC, KC_A, KC_S, KC_D, KC_F, KC_G, KC_MINS, KC_DEL, KC_EQL, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT,
-    KC_LSFT, LCTL_T(KC_Z), LALT_T(KC_X), KC_C, KC_V, KC_B, KC_GRV, KC_UP, KC_PGDN, KC_N, KC_M, KC_COMM, RALT_T(KC_DOT), RCTL_T(KC_SLSH), KC_RSFT,
+    KC_LSFT, LCTL_T(KC_Z), LALT_T(KC_X), KC_C, KC_V, KC_B, KC_GRV, KC_UP, LCTL(KC_GRV), KC_N, KC_M, KC_COMM, RALT_T(KC_DOT), RCTL_T(KC_SLSH), KC_RSFT,
     MO(1), KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, LT(1, KC_SPC), KC_LEFT, KC_DOWN, KC_RGHT, KC_SPC, KC_ENT, KC_RGUI, KC_RALT, KC_RCTL, TT(1)),
   [1] = LAYOUT_ortho_5x15(
     KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_P7, KC_P8, KC_P9, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12,
@@ -34,14 +36,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TG(1), KC_TRNS, KC_TRNS, KC_TRNS, MO(2), KC_NO, KC_NO, KC_NO, KC_ASTR, KC_PENT, KC_PENT, MO(1), KC_TRNS, KC_TRNS, TG(1)),
   [2] = LAYOUT_ortho_5x15(
     QK_BOOT, LALT(LGUI(KC_SLEP)), KC_WAKE, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    MAGIC_NO_GUI, MAGIC_UNNO_GUI, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, BL_DOWN, BL_UP, BL_TOGG,
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, RGB_RMOD, RGB_MOD, RGB_SAD, RGB_SAI, RGB_HUD, RGB_HUI, RGB_VAD, RGB_VAI, RGB_TOG)
 };
 
 void restore_default_rgb(void) {
+  if (no_gui) {
+    rgblight_sethsv_noeeprom(NO_GUI_COLOR);
+  } else {
     rgblight_sethsv_noeeprom(BASE_COLOR);
+  }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -62,8 +68,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           break;
         case KC_LGUI:
         case KC_RGUI:
-         rgblight_sethsv_noeeprom(HSV_SPRINGGREEN);
-         break;
+          rgblight_sethsv_noeeprom(HSV_SPRINGGREEN);
+          break;
+        case MAGIC_NO_GUI:
+          no_gui = true;
+          break;
+        case MAGIC_UNNO_GUI:
+          no_gui = false;
+          break;
       }
     } else {
       restore_default_rgb();
