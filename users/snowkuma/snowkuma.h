@@ -28,10 +28,9 @@
 #endif
 
 #define _COLEMAK 0
-#define _QWERTY 1
-#define _LOWER 2
-#define _RAISE 3
-#define _ADJUST 4
+#define _LOWER 1
+#define _RAISE 2
+#define _ADJUST 3
 
 // Shortcut Keys
 #define K_LOCK LGUI(LCTL(KC_Q)) // Locks screen on MacOS
@@ -54,14 +53,6 @@
 #define MT_EQL MT(MOD_LALT | MOD_LSFT, KC_EQL)
 
 // Layout blocks
-#define _____________________QWERTY_L1______________________ T_TAB, T_Q, KC_W, KC_E, KC_R, KC_T
-#define _____________________QWERTY_L2______________________ T_ESC, KC_A, KC_S, KC_D, KC_F, KC_G
-#define _____________________QWERTY_L3______________________ KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B
-
-#define _____________________QWERTY_R1______________________ KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSLS
-#define _____________________QWERTY_R2______________________ KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT
-#define _____________________QWERTY_R3______________________ KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, MT_EQL
-
 #define _____________________COLEMAK_L1_____________________ T_TAB, KC_Q, KC_W, KC_F, KC_P, KC_G
 #define _____________________COLEMAK_L2_____________________ T_ESC, KC_A, KC_R, KC_S, KC_T, KC_D
 #define _____________________COLEMAK_L3_____________________ KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B
@@ -98,10 +89,10 @@
 #endif
 
 #if defined(RGB_MATRIX_ENABLE) || defined(RGBLIGHT_ENABLE)
-  #define _____________________ADJUST_R1______________________ RGB_TOG, XXXXXXX, XXXXXXX, COLEMAK,  DVORAK, QWERTY
+  #define _____________________ADJUST_R1______________________ RGB_TOG, XXXXXXX, XXXXXXX, COLEMAK, XXXXXXX, XXXXXXX
   #define _____________________ADJUST_R3______________________ RGB_MOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 #else
-  #define _____________________ADJUST_R1______________________ XXXXXXX, XXXXXXX, XXXXXXX, COLEMAK, XXXXXXX, QWERTY
+  #define _____________________ADJUST_R1______________________ XXXXXXX, XXXXXXX, XXXXXXX, COLEMAK, XXXXXXX, XXXXXXX
   #define _____________________ADJUST_R3______________________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 #endif
 #define _____________________ADJUST_R2______________________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX

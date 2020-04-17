@@ -27,9 +27,6 @@ void render_layout_state(void) {
       case _COLEMAK:
         oled_write_P(PSTR("Colemak"), false);
         break;
-      case _QWERTY:
-        oled_write_P(PSTR("Qwerty"), false);
-        break;
       default:
         oled_write_ln_P(PSTR("Undefined"), false);
   }
@@ -94,11 +91,12 @@ void oled_task_user(void) {
     #endif
 
     if (is_master) {
-        render_status();
-    } else {
+        // render_status();
         render_logo();
         oled_write_P(PSTR("\n"), false);
         oled_scroll_left();
+    } else {
+        render_status();
     }
 }
 

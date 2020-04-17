@@ -105,11 +105,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
 
     // BEGIN: Layer macros
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      break;
     case COLEMAK:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_COLEMAK);
