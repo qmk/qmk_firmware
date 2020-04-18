@@ -29,7 +29,7 @@ enum custom_keycodes {
 
 enum {
   TD_HOME_LEFT = 0,
-  TD_END_RIGHT = 0
+  TD_END_RIGHT
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
