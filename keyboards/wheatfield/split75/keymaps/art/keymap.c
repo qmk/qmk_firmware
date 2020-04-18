@@ -25,9 +25,12 @@ enum layer_names {
 enum custom_keycodes {
   CTRL_CTV = SAFE_RANGE,
 	SARCASM,
+  N_BSPACE,
 
 	TOG_OS,
 	CTR_ALT,
+  OS_CTRL,
+  OS_WIN,
   OS_HOME,
   OS_END,
 
@@ -36,7 +39,6 @@ enum custom_keycodes {
   PHONE,
   FOURS,
   
-
 	G_ADD,
 	G_BRCH,
 	G_C,
@@ -109,12 +111,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
   [BASE] = LAYOUT(
 //--------------------------------Left Hand-----------------------------------| |--------------------------------Right Hand------------------------------------------------
-                KC_ESC,   KC_F1,   KC_F2,   KC_F3,  KC_F4,  KC_F5,  KC_F6,                KC_F7,  KC_F8,   KC_F9,  KC_F10,  KC_F11,   KC_F12,   KC_PSCR,  KC_INS,  KC_HOME,
+                KC_ESC,   KC_F1,   KC_F2,   KC_F3,  KC_F4,  KC_F5,  KC_F6,                KC_F7,  KC_F8,   KC_F9,  KC_F10,  KC_F11,   KC_F12,   LT(CONFIG, KC_PSCR),  KC_INS,  KC_HOME,
 KC_8,  KC_9,    KC_GRAVE, KC_1,    KC_2,    KC_3,   KC_4,   KC_5,   KC_6,                 KC_7,   KC_8,    KC_9,   KC_0,    KC_MINUS, KC_EQUAL, KC_BSPC,           KC_DEL,
 KC_6,  KC_7,    KC_TAB,   KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,                 KC_Y,   KC_U,   KC_I,    KC_O,   KC_P,    KC_LBRC,  KC_RBRC,  KC_BSLS,           KC_END,
 KC_4,  KC_5,    KC_CAPS,  KC_A,    KC_S,    KC_D,   KC_F,   KC_G,                 KC_H,   KC_J,   KC_K,    KC_L,   KC_SCLN, KC_QUOT,  KC_ENTER,                    KC_PGUP,
 KC_2,  KC_3,    KC_LSFT,  KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,                 KC_N,   KC_M,   KC_COMM, KC_DOT, KC_SLSH,                     KC_RSFT,  KC_UP,   KC_PGDN,
-KC_0,  KC_1,    KC_LCTL,  KC_LGUI, KC_LALT, KC_SPC, KC_SPC,                       KC_SPC,         KC_RALT, MO(QWERTY_MOD),  KC_RCTL,            KC_LEFT,  KC_DOWN, KC_RIGHT
+KC_0,  KC_1,    OS_CTRL,  OS_WIN,  KC_LALT, KC_SPC, KC_SPC,                       KC_SPC,         KC_RALT, MO(QWERTY_MOD),  KC_RCTL,            KC_LEFT,  KC_DOWN, KC_RIGHT
   ),
 
   [QWERTY_MOD] = LAYOUT(
@@ -144,7 +146,7 @@ _______,  _______,    TO(QWERTY),_______, _______,  _______,  _______,          
   [QWERTY] = LAYOUT(
 //--------------------------------Left Hand------------------------------------| |--------------------------------Right Hand------------------------------------------------
                 KC_ESC,   KC_F1,   KC_F2,   KC_F3,  KC_F4,  KC_F5,  KC_F6,                KC_F7,  KC_F8,   KC_F9,  KC_F10,  KC_F11,   KC_F12,   LT(CONFIG, KC_PSCR),  KC_INS,  KC_HOME,
-KC_8,  KC_9,    KC_GRAVE, KC_1,    KC_2,    KC_3,   KC_4,   KC_5,   KC_6,                 KC_7,   KC_8,    KC_9,   KC_0,    KC_MINUS, KC_EQUAL, KC_BSPC,           KC_DEL,
+KC_8,  KC_9,    KC_GRAVE, KC_1,    KC_2,    KC_3,   KC_4,   KC_5,   KC_6,                 KC_7,   KC_8,    KC_9,   KC_0,    KC_MINUS, KC_EQUAL, N_BSPACE,          KC_DEL,
 KC_6,  KC_7,    KC_TAB,   KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,                 KC_Y,   KC_U,   KC_I,    KC_O,   KC_P,    KC_LBRC,  KC_RBRC,  KC_BSLS,           KC_END,
 KC_4,  KC_5,    LT(STRINGS,KC_CAPS),  KC_A,    KC_S ,KC_D ,KC_F ,KC_G,   KC_H,   KC_J, KC_K, KC_L, KC_SCLN,KC_QUOT,KC_ENTER,         KC_PGUP,
 KC_2,  KC_3,    KC_LSFT,  KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,                 KC_N,   KC_M,   KC_COMM, KC_DOT, LT(GIT,KC_SLSH),                     KC_RSFT,  KC_UP,   KC_PGDN,
@@ -289,8 +291,10 @@ XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,          
 static bool is_win = false;
 static const char *key_up[2] = {SS_UP(X_LALT), SS_UP(X_LCTL)};
 static const char *key_down[2] = {SS_DOWN(X_LALT), SS_DOWN(X_LCTL)};
-static bool sarcasmOn = false;
-static bool sarcasmKey = false;
+
+static int char_to_del = 1;
+static bool sarcasm_on = false;
+static bool sarcasm_key = false;
 
 void send_n_backspace(int times) {
   for (int i=0; i<times; i++) {
@@ -299,12 +303,17 @@ void send_n_backspace(int times) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (sarcasmOn) {
-    sarcasmKey = ! sarcasmKey;  
-    if (sarcasmKey) {
+  if (sarcasm_on) {
+    sarcasm_key = ! sarcasm_key;  
+    if (sarcasm_key) {
       SEND_STRING(SS_TAP(X_CAPS));
     }
   }	
+
+  //Checking all other non-backspace keys to clear the backspace buffer. This is to prevent the bug of deleting N chars sometime after using a macro
+  if (record->event.pressed && (keycode != N_BSPACE && keycode != G_BS_C && keycode != G_BS_S)) {
+    char_to_del = 1;
+  }
 
   switch (keycode) {
     case CTRL_CTV:
@@ -319,20 +328,56 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case SARCASM:
       if (record->event.pressed) {
-          sarcasmOn = !sarcasmOn;
+        sarcasm_on = !sarcasm_on;
+      }
+      break;
+    case N_BSPACE:
+      if (record->event.pressed) {
+        send_n_backspace(char_to_del);
+        char_to_del = 1;
       }
       break;
         
-	case TOG_OS:
-		if (record->event.pressed) {
-			is_win = ! is_win;
-		}
-    break;
+    case TOG_OS:
+      if (record->event.pressed) {
+        is_win = ! is_win;
+      }
+      break;
     case CTR_ALT:
       if (record->event.pressed) {
         send_string(key_down[is_win]);
       } else {
         send_string(key_up[is_win]);
+      }
+      break;
+    case OS_CTRL:
+      if (is_win) {
+        if (record->event.pressed) {
+          SEND_STRING(SS_DOWN(X_LCTL));
+        } else {
+          SEND_STRING(SS_UP(X_LCTL));
+        }
+      } else {
+        if (record->event.pressed) {
+          SEND_STRING(SS_DOWN(X_LGUI));
+        } else {
+          SEND_STRING(SS_UP(X_LGUI));
+        }
+      }
+      break;
+    case OS_WIN:
+      if (is_win) {
+        if (record->event.pressed) {
+          SEND_STRING(SS_DOWN(X_LGUI));
+        } else {
+          SEND_STRING(SS_UP(X_LGUI));
+        }
+      } else {
+        if (record->event.pressed) {
+          SEND_STRING(SS_DOWN(X_LCTL));
+        } else {
+          SEND_STRING(SS_UP(X_LCTL));
+        }
       }
       break;
     case OS_HOME:
@@ -365,6 +410,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // case :
     //   if (record->event.pressed) {
     //     SEND_STRING("");
+    //     char_to_del = ;
     //   }
     //   break;
     // case :
@@ -372,8 +418,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     //     if ( get_mods() & MOD_MASK_SHIFT ) {
     //       clear_mods();
     //       SEND_STRING("");
+    //       char_to_del = ;
     //     } else {
     //       SEND_STRING("");
+    //       char_to_del = ;
     //     }
     //   }
     //   break;
@@ -381,55 +429,68 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         if ( get_mods() & MOD_MASK_SHIFT ) {
           clear_mods();
-          SEND_STRING("/admin");
+          SEND_STRING("admin");
+          char_to_del = 5;
         } else {
-          SEND_STRING("/admin/aurora/status");
+          SEND_STRING("admin/aurora/status");
+          char_to_del = 19;
         }
       }
       break;
     case PRESCRIPTION:
       if (record->event.pressed) {
         SEND_STRING("12122019");
+        char_to_del = 8;
       }
       break;
     case PHONE:
       if (record->event.pressed) {
         SEND_STRING("0123456789");
+        char_to_del = 10;
       }
       break;
     case FOURS:
       if (record->event.pressed) {
         SEND_STRING("4444333322221111");
+          char_to_del = 16;
       }
       break;
 		  
 	case G_ADD:
 		if (record->event.pressed) {
 			SEND_STRING("git add ");
-		}
+            char_to_del = 8;
+        }
 		break;
 	case G_BRCH:
 		if (record->event.pressed) {
 			if ( get_mods() & MOD_MASK_SHIFT ) {
 				clear_mods();
 				SEND_STRING("master");
+                char_to_del = 6;
 			} else {
 				SEND_STRING("develop");
+                char_to_del = 7;
 			}
 		}
 		break;
 	case G_C:
 		if (record->event.pressed) {
       SEND_STRING("git c[Heckout/Ommit]");
-			layer_on(GIT_C);
+      char_to_del = 20;
+      layer_on(GIT_C);
 		}
 		break;
-	case G_BS_C:
-		if (!record->event.pressed) {
-      send_n_backspace(20);
-			layer_off(GIT_C);
-		}
-		break;
+  //These layers are required for sole purpose of switching off _C/S layer before removing chars
+  case G_BS_C:
+  case G_BS_S:
+    if (record->event.pressed) {
+      layer_off(GIT_C);
+      layer_off(GIT_S);
+      send_n_backspace(char_to_del);
+      char_to_del = 1;
+    }
+    break;
 	case G_CHEC:
 		if (!record->event.pressed) {
       bool shifted = get_mods() & MOD_MASK_SHIFT;
@@ -437,8 +498,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             
       send_n_backspace(15);
 			SEND_STRING("heckout ");
+      char_to_del = 13;
       if (shifted) {
 				SEND_STRING("-b ");
+        char_to_del = 16;
 			}
       layer_off(GIT_C);
 		}
@@ -450,8 +513,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
         send_n_backspace(15);
         SEND_STRING("ommit -");
+        char_to_del = 15;
 			if (shifted) {
 				SEND_STRING("a");
+        char_to_del = 16;
 			}
       SEND_STRING("m \"\"" SS_TAP(X_LEFT));
 			layer_off(GIT_C);
@@ -460,21 +525,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	case G_DIFF:
 		if (record->event.pressed) {
 			SEND_STRING("git diff ");
+      char_to_del = 9;
 		}
 		break;	
 	case G_FTCH:
 		if (record->event.pressed) {
 			SEND_STRING("git fetch ");
+      char_to_del = 10;
 		}
 		break;
 	case G_LOG:
 		if (record->event.pressed) {
 			SEND_STRING("git log ");
+      char_to_del = 8;
 		}
 		break;
 	case G_MERG:
 		if (record->event.pressed) {
 			SEND_STRING("git merge ");
+      char_to_del = 10;
 		}
 		break;
 	case G_P:
@@ -482,32 +551,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if ( get_mods() & MOD_MASK_SHIFT ) {
 				clear_mods();
 				SEND_STRING("git push -u");
+        char_to_del = 11;
 			} else {
 				SEND_STRING("git pu");
+        char_to_del = 6;
 			}
 		}
 		break;
 	case G_RST:
 		if (record->event.pressed) {
 			SEND_STRING("git reset ");
+      char_to_del = 10;
 		}
 		break;
 	case G_S:
 		if (!record->event.pressed) {
 			SEND_STRING("git s[How/taSh/taTus]");
+      char_to_del = 21;
 			layer_on(GIT_S);			
-		}
-		break;
-	case G_BS_S:
-		if (!record->event.pressed) {
-      send_n_backspace(21);
-			layer_off(GIT_S);
 		}
 		break;
 	case G_SHOW:
 		if (!record->event.pressed) {
       send_n_backspace(16);
 			SEND_STRING("how ");
+      char_to_del = 9;
 			layer_off(GIT_S);
 		}
 		break;			
@@ -515,6 +583,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		if (!record->event.pressed) {
       send_n_backspace(16);
 			SEND_STRING("tash ");
+      char_to_del = 10;
 			layer_off(GIT_S);
 		}
 		break;		
@@ -522,6 +591,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		if (!record->event.pressed) {
       send_n_backspace(16);
 			SEND_STRING("tatus ");
+      char_to_del = 11;
 			layer_off(GIT_S);
 		}
 		break;
