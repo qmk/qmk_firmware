@@ -17,8 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #pragma once
 
 #include "config_common.h"
-#define VENDOR_ID       0x4444 // "ww" = ww
-#define PRODUCT_ID      0x5350 // "ri" = rich
+#define VENDOR_ID       0x6C63 // "lc" = latincompass
+#define PRODUCT_ID      0x6C70 // "lp" = latinpad
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    latincompass
 #define PRODUCT         latinpad
