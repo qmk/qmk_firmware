@@ -62,7 +62,7 @@ void voice_decrease_vibrato_strength(float change);
  * @brief set the global timbre for tones to be played
  * @note: only applies to pwm implementations - where it adjusts the duty-cycle
  * @note: using any instrument from voices.[ch] other than 'default' may override the set value
- * @param[in]: timbre: valid range is (0.0,1.0)
+ * @param[in]: timbre: valid range is (0,100)
  */
-void  voice_set_timbre(float timbre);
-float voice_get_timbre(void);
+void    voice_set_timbre(uint8_t timbre);
+uint8_t voice_get_timbre(void);

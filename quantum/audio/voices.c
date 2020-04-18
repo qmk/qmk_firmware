@@ -17,7 +17,7 @@
 #include "audio.h"
 #include "stdlib.h"
 
-float note_timbre      = TIMBRE_DEFAULT;
+uint8_t note_timbre      = TIMBRE_DEFAULT;
 bool  glissando        = false;
 bool  vibrato          = false;
 float vibrato_strength = 0.5;
@@ -89,11 +89,11 @@ float voice_envelope(float frequency) {
                     break;
 
                 case 20 ... 200:
-                    note_timbre = .125 + .125;
+                    note_timbre = 12 + 12;
                     break;
 
                 default:
-                    note_timbre = .125;
+                    note_timbre = 12;
                     break;
             }
             break;
@@ -102,10 +102,10 @@ float voice_envelope(float frequency) {
             glissando = false;
             // switch (compensated_index) {
             //     case 0 ... 10:
-            //         note_timbre = 0.5;
+            //         note_timbre = 50;
             //         break;
             //     case 11 ... 20:
-            //         note_timbre = 0.5 * (21 - compensated_index) / 10;
+            //         note_timbre = 50 * (21 - compensated_index) / 10;
             //         break;
             //     default:
             //         note_timbre = 0;
@@ -119,10 +119,10 @@ float voice_envelope(float frequency) {
                 frequency = (rand() % (int)(40)) + 60;
                 switch (envelope_index) {
                     case 0 ... 10:
-                        note_timbre = 0.5;
+                        note_timbre = 50;
                         break;
                     case 11 ... 20:
-                        note_timbre = 0.5 * (21 - envelope_index) / 10;
+                        note_timbre = 50 * (21 - envelope_index) / 10;
                         break;
                     default:
                         note_timbre = 0;
@@ -134,10 +134,10 @@ float voice_envelope(float frequency) {
                 frequency = (rand() % (int)(1000)) + 1000;
                 switch (envelope_index) {
                     case 0 ... 5:
-                        note_timbre = 0.5;
+                        note_timbre = 50;
                         break;
                     case 6 ... 20:
-                        note_timbre = 0.5 * (21 - envelope_index) / 15;
+                        note_timbre = 50 * (21 - envelope_index) / 15;
                         break;
                     default:
                         note_timbre = 0;
@@ -149,10 +149,10 @@ float voice_envelope(float frequency) {
                 frequency = (rand() % (int)(2000)) + 3000;
                 switch (envelope_index) {
                     case 0 ... 15:
-                        note_timbre = 0.5;
+                        note_timbre = 50;
                         break;
                     case 16 ... 20:
-                        note_timbre = 0.5 * (21 - envelope_index) / 5;
+                        note_timbre = 50 * (21 - envelope_index) / 5;
                         break;
                     default:
                         note_timbre = 0;
@@ -164,10 +164,10 @@ float voice_envelope(float frequency) {
                 frequency = (rand() % (int)(2000)) + 3000;
                 switch (envelope_index) {
                     case 0 ... 35:
-                        note_timbre = 0.5;
+                        note_timbre = 50;
                         break;
                     case 36 ... 50:
-                        note_timbre = 0.5 * (51 - envelope_index) / 15;
+                        note_timbre = 50 * (51 - envelope_index) / 15;
                         break;
                     default:
                         note_timbre = 0;
@@ -189,7 +189,7 @@ float voice_envelope(float frequency) {
                     break;
 
                 case 20 ... 200:
-                    note_timbre = .125 - pow(((float)compensated_index - 20) / (200 - 20), 2) * .125;
+                    note_timbre = 12 - (uint8_t)(pow(((float)compensated_index - 20) / (200 - 20), 2) * 12.5);
                     break;
 
                 default:
@@ -230,15 +230,15 @@ float voice_envelope(float frequency) {
                     // sine wave is slow
                     // note_timbre = (sin((float)compensated_index/10000*OCS_SPEED) * OCS_AMP / 2) + .5;
                     // triangle wave is a bit faster
-                    note_timbre = (float)abs((compensated_index * OCS_SPEED % 3000) - 1500) * (OCS_AMP / 1500) + (1 - OCS_AMP) / 2;
+                    note_timbre = (uint8_t)abs((compensated_index * OCS_SPEED % 3000) - 1500) * (OCS_AMP / 1500) + (1 - OCS_AMP) / 2;
                     break;
             }
             break;
 
         case duty_octave_down:
             glissando   = true;
-            note_timbre = (envelope_index % 2) * .125 + .375 * 2;
-            if ((envelope_index % 4) == 0) note_timbre = 0.5;
+            note_timbre = (uint8_t)(100 * (envelope_index % 2) * .125 + .375 * 2);
+            if ((envelope_index % 4) == 0) note_timbre = 50;
             if ((envelope_index % 8) == 0) note_timbre = 0;
             break;
         case delayed_vibrato:
@@ -257,9 +257,9 @@ float voice_envelope(float frequency) {
             break;
             // case delayed_vibrato_octave:
             //     if ((envelope_index % 2) == 1) {
-            //         note_timbre = 0.55;
+            //         note_timbre = 55;
             //     } else {
-            //         note_timbre = 0.45;
+            //         note_timbre = 45;
             //     }
             //     #define VOICE_VIBRATO_DELAY 150
             //     #define VOICE_VIBRATO_SPEED 50
@@ -272,28 +272,28 @@ float voice_envelope(float frequency) {
             //     }
             //     break;
             // case duty_fifth_down:
-            //     note_timbre = 0.5;
+            //     note_timbre = TIMBRE_50;
             //     if ((envelope_index % 3) == 0)
-            //         note_timbre = 0.75;
+            //         note_timbre = TIMBRE_75;
             //     break;
             // case duty_fourth_down:
-            //     note_timbre = 0.0;
+            //     note_timbre = 0;
             //     if ((envelope_index % 12) == 0)
-            //         note_timbre = 0.75;
+            //         note_timbre = TIMBRE_75;
             //     if (((envelope_index % 12) % 4) != 1)
-            //         note_timbre = 0.75;
+            //         note_timbre = TIMBRE_75;
             //     break;
             // case duty_third_down:
-            //     note_timbre = 0.5;
+            //     note_timbre = TIMBRE_50;
             //     if ((envelope_index % 5) == 0)
-            //         note_timbre = 0.75;
+            //         note_timbre = TIMBRE_75;
             //     break;
             // case duty_fifth_third_down:
-            //     note_timbre = 0.5;
+            //     note_timbre = TIMBRE_50;
             //     if ((envelope_index % 5) == 0)
-            //         note_timbre = 0.75;
+            //         note_timbre = TIMBRE_75;
             //     if ((envelope_index % 3) == 0)
-            //         note_timbre = 0.25;
+            //         note_timbre = TIMBRE_25;
             //     break;
 
 #endif  // AUDIO_VOICES
@@ -317,9 +317,9 @@ void voice_decrease_vibrato_strength(float change) { vibrato_strength /= change;
 
 // Timbre functions
 
-void voice_set_timbre(float timbre) {
-    if ((timbre > 0.0f) && (timbre < 1.0f)) {
+void voice_set_timbre(uint8_t timbre) {
+    if ((timbre > 0) && (timbre < 100)) {
         note_timbre = timbre;
     }
 }
-float voice_get_timbre(void) { return note_timbre; }
+uint8_t voice_get_timbre(void) { return note_timbre; }

@@ -85,7 +85,7 @@ uint8_t tone_multiplexing_index_shift = 0;     // offset used on active-tone arr
 #endif
 
 // proviced and used by voices.c
-extern float    note_timbre;
+extern uint8_t  note_timbre;
 extern bool     glissando;
 extern bool     vibrato;
 extern uint16_t voices_timer;

@@ -61,10 +61,10 @@
 
 // Note Timbre
 // Changes how the notes sound
-#define TIMBRE_12 0.125f
-#define TIMBRE_25 0.250f
-#define TIMBRE_50 0.500f
-#define TIMBRE_75 0.750f
+#define TIMBRE_12 12
+#define TIMBRE_25 25
+#define TIMBRE_50 50
+#define TIMBRE_75 75
 #define TIMBRE_DEFAULT TIMBRE_50
 
 // Notes - # = Octave
