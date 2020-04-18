@@ -17,7 +17,7 @@ QMK はその場で作られた一時的なマクロをサポートします。�
 | `DYN_REC_START2` | `DM_REC2` | マクロ 2 の記録を開始します |
 | `DYN_MACRO_PLAY1` | `DM_PLY1` | マクロ 1 を再生します |
 | `DYN_MACRO_PLAY2` | `DM_PLY2` | マクロ 2 を再生します |
-| `DYN_REC_STOP` | `DM_RSTP` | 現在記録されているマクロを終了します。 |
+| `DYN_REC_STOP` | `DM_RSTP` | 現在記録されているマクロを終了します |
 
 これが必要な全てです。
 
