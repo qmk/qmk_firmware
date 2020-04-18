@@ -133,29 +133,15 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return process_record_user(keycode, record);
 }
 
-void led_set_kb(uint8_t usb_led) {
-    // Toggle numlock as needed
-    if (usb_led & (1<<USB_LED_NUM_LOCK)) {
-        writePinHigh(B4);
-    } else {
-        writePinLow(B4);
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        writePin(B4, !led_state.num_lock);
+        writePin(B5, !led_state.caps_lock);
+        writePin(B6, !led_state.scroll_lock);
     }
 
-    // Toggle capslock as needed
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        writePinHigh(B5);
-    } else {
-        writePinLow(B5);
-    }
-
-    // Toggle scrolllock as needed
-    if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
-        writePinHigh(B6);
-    } else {
-        writePinLow(B6);
-    }
-
-    led_set_user(usb_led);
+    return res;
 }
 
 __attribute__ ((weak))
