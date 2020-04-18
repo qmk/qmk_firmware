@@ -35,7 +35,7 @@ def _check_modules(requirements):
 
             if not find_spec(module['import']):
                 print('Could not find module %s!' % module['name'])
-                print('Please run `python3 -m pip install -r %s` to install required python dependencies.' % str(qmk_dir / requirements))
+                print('Please run `python3 -m pip install -r %s` to install required python dependencies.' % (qmk_dir / requirements,))
                 if developer:
                     print('You can also turn off developer mode: qmk config user.developer=None')
                 print()
