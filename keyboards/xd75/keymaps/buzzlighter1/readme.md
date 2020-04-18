@@ -1,41 +1,40 @@
 # XD75 with 7U spacebar for EN-RU gamers
 
-Standard QWERTY oriented on gamers with a Russian alternative input.
-Base layout is as close to classic layout as possible due to RU alphabet having more letters (thus the need for those extra keys remain on the right side).
-Full uncut 2x4 nav cluster.
-Caps Lock and Win keys sent to the Function layer.
-TT(1) - Function layer tap-toggle at CapsLock position provides fast F-keys access in a heat of a battle. As well as easy access to a Numpad.
+Standard QWERTY made for gamers with a Russian alternative input.
+The keys for extra letters in RU alphabet are where they are expected.
+Full 2x4 nav cluster. 
+Volume/mute control are on base layer, Win key is on function layer.
+FN_CAPS provides fast F-keys access while gaming. Lefthanded Numpad operation.
+NKRO is working (forced).
 
-/* QWERTY
+## QWERTY
  * .--------------------------------------------------------------------------------------------------------------------------------------.
  * | GESC   | 1      | 2      | 3      | 4      | 5      | 6      | 7      | 8      | 9      | 0      | -      | =      | Del    | BACKSP |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
  * | TAB    | Q      | W      | E      | R      | T      | Y      | U      | I      | O      | P      | [      | ]      | \      | Mute   |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------+--------|
- * | TT(1)  | A      | S      | D      | F      | G      | H      | J      | K      | L      | ;      | ''     | Vol-   | Vol+   | ENTER  |
+ * | FN(CPS)| A      | S      | D      | F      | G      | H      | J      | K      | L      | ;      | '      | Vol-   | Vol+   | ENTER  |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------+--------|
  * | LSHIFT | Z      | X      | C      | V      | B      | N      | M      | ,      | .      | /      | Home   | PGUP   | UP     | PGDWN  |
  * |--------+--------+--------+--------+--------+-----------------+--------+--------+--------+--------+-----------------+--------+--------|
- * | LCTRL  | Prev   | Next   | LALT   |                                SPACE                         | End    | LEFT   | DOWN   | RIGHT  |
+ * | LCTRL  | Del    | ENTER  | LALT   |                             SPACE                            | End    | LEFT   | DOWN   | RIGHT  |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
- */
 
-/* FUNCTION
+## FUNCTION
  * .--------------------------------------------------------------------------------------------------------------------------------------.
  * | XXXXXXX| F1     | F2     | F3     | F4     | F5     | F6     | F7     | F8     | F9     | F10    | F11    | F12    | _______| _______|
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * | P*     | P7     | P8     | P9     | +      | NumLk  | PR SCR | SCR LK | PAUSE  | XXXXXXX| XXXXXXX| BL_DEC | BL_INC | RGB HD | RGB HI |
+ * | _______| P7     | P8     | P9     | +      | P*     | XXXXXXX| PR SCR | SCR LK | PAUSE  | XXXXXXX| BL_DEC | BL_INC | RGB HD | RGB HI |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * | _______| P4     | P5     | P6     | PENT   | CALC   | XXXXXXX| POWER  | XXXXXXX| RESET  | XXXXXXX| BL_BRTG| BL_STEP| RGB SD | RGB SI |
+ * | _______| P4     | P5     | P6     | NumLk  | CALC   | XXXXXXX| POWER  | XXXXXXX| RESET  | XXXXXXX| BL_BRTG| BL_STEP| RGB SD | RGB SI |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * | P/     | P1     | P2     | P3     | -      | OS     | XXXXXXX| XXXXXXX| XXXXXXX| XXXXXXX| XXXXXXX| BL_OFF | BL_ON  | RGB VD | RGB VI |
+ * | _______| P1     | P2     | P3     | -      | P/     | XXXXXXX| OS     |  PLAY  | PREV   | NXT    | BL_OFF | BL_ON  | RGB VD | RGB VI |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * | CPSLCK | P0     | P.     | _______|                             SPACE                            | BL_TOGG| RGB TG | RGB RMD| RGB MD |
+ * | _______| P0     | P.     | PENT   |                             SPACE                            | BL_TOGG| RGB TG | RGB RMD| RGB MD |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
- */
 
 
-## LED control
+### LEDs ID
 
 Top left LED - Function layer active.
 Mid left LED - CapsLock active.
