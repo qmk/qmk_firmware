@@ -24,7 +24,7 @@
 
 extern bool  playing_note;
 extern bool  playing_melody;
-extern float note_timbre;
+extern uint8_t note_timbre;
 
 #define CPU_PRESCALER 8
 
@@ -140,7 +140,7 @@ void         channel_1_set_frequency(float freq) {
     // set pwm period
     AUDIO1_ICRx = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
     // and duty cycle
-    AUDIO1_OCRxy = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
+    AUDIO1_OCRxy = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre/100);
 }
 
 void channel_1_start(void) {
@@ -171,7 +171,7 @@ void         channel_2_set_frequency(float freq) {
     channel_2_frequency = freq;
 
     AUDIO2_ICRx  = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
-    AUDIO2_OCRxy = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
+    AUDIO2_OCRxy = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre/100);
 }
 
 float channel_2_get_frequency(void) { return channel_2_frequency; }

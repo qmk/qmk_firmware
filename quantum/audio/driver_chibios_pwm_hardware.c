@@ -61,9 +61,9 @@ so adding to config.h:
 #define TO_CHIBIOS_PWMD_EVAL(t) TO_CHIBIOS_PWMD_PASTE(t)
 #define PWMD TO_CHIBIOS_PWMD_EVAL(AUDIO_PWM_TIMER)
 
-extern bool  playing_note;
-extern bool  playing_melody;
-extern float note_timbre;
+extern bool    playing_note;
+extern bool    playing_melody;
+extern uint8_t note_timbre;
 
 static PWMConfig pwmCFG = {
     .frequency = 100000, /* PWM clock frequency  */
@@ -107,7 +107,7 @@ void         channel_1_set_frequency(float freq) {
     pwmChangePeriod(&PWMD, period);
     pwmEnableChannel(&PWMD, AUDIO_PWM_TIMERCHANNEL - 1,
                      // adjust the duty-cycle so that the output is for 'note_timbre' duration HIGH
-                     PWM_PERCENTAGE_TO_WIDTH(&PWMD, (1.0f - note_timbre) * 10000));
+                     PWM_PERCENTAGE_TO_WIDTH(&PWMD, (100 - note_timbre) * 100));
 }
 
 float channel_1_get_frequency(void) { return channel_1_frequency; }

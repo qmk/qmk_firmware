@@ -62,7 +62,7 @@ typedef struct {
     float pitch;     // aka frequency
     float duration;  // in 64parts to a beats, -1 indicates an indefinitly played note
     //float intensity; // aka volume [0,1] TODO: not used at the moment; pwm drivers can't handle it
-    //float timbre;    // range: [0,1] TODO: this currently kept track of globally, should we do this per tone instead?
+    //uint8_t timbre;    // range: [0,100] TODO: this currently kept track of globally, should we do this per tone instead?
 } musical_tone_t;
 
 //     ____        __    ___
