@@ -28,6 +28,8 @@ enum custom_keycodes {
 
 	TOG_OS,
 	CTR_ALT,
+  OS_HOME,
+  OS_END,
 
   ADMINS,
   PRESCRIPTION,
@@ -163,7 +165,7 @@ _______,  _______,    _______, _______,_______,_______, _______,                
 //--------------------------------Left Hand-----------------------------------------------| |--------------------------------Right Hand------------------------------------------------
                       _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______, _______,
 _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,           _______,
-_______,  _______,    _______,  _______,  KC_HOME,  KC_UP,    KC_END,   KC_PGUP,              _______,  _______,_______, _______,_______,_______,_______,  _______,           _______,
+_______,  _______,    _______,  _______,  OS_HOME,  KC_UP,    OS_END,   KC_PGUP,              _______,  _______,_______, _______,_______,_______,_______,  _______,           _______,
 _______,  _______,    _______,  _______,  KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_PGDOWN,              _______,CTR_ALT,KC_LSFT,_______,_______,  _______,  _______,           _______,
 _______,  _______,    _______,_______,_______,  _______,  KC_DEL,  _______,              _______,  _______,   _______,  _______,  _______,                      _______, _______,  _______,
 _______,  _______,    _______, _______,_______,KC_DEL, _______,                        _______,             _______, _______,   _______,            _______, _______,  _______
@@ -309,9 +311,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         if ( get_mods() & MOD_MASK_SHIFT ) {
           clear_mods();
-          SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_C) SS_TAP(X_F) SS_TAP(X_V) SS_UP(X_LCTL) SS_TAP(X_ENTER));
+          SEND_STRING(SS_LCTL("ctv"));
         } else {
-          SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_C) SS_TAP(X_F) SS_TAP(X_V) SS_UP(X_LCTL));
+          SEND_STRING(SS_LCTL("ctv") SS_TAP(X_ENTER));
         }
       }
       break;
@@ -331,6 +333,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         send_string(key_down[is_win]);
       } else {
         send_string(key_up[is_win]);
+      }
+      break;
+    case OS_HOME:
+      if (is_win) {
+        if (record->event.pressed) {
+          SEND_STRING(SS_DOWN(X_HOME));
+        } else {
+          SEND_STRING(SS_UP(X_HOME));
+        }
+      } else {
+        if (record->event.pressed) {
+          SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_LEFT) SS_UP(X_LCTRL));
+        }
+      }
+      break;
+    case OS_END:
+      if (is_win) {
+        if (record->event.pressed) {
+          SEND_STRING(SS_DOWN(X_END));
+        } else {
+          SEND_STRING(SS_UP(X_END));
+        }
+      } else {
+        if (record->event.pressed) {
+          SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_RIGHT) SS_UP(X_LCTRL));
+        }
       }
       break;
 
