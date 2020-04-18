@@ -34,7 +34,7 @@ NKRO is working (forced).
  * '--------------------------------------------------------------------------------------------------------------------------------------'
 
 
-### LEDs ID
+## LEDs ID
 
 Top left LED - Function layer active.
 Mid left LED - CapsLock active.
