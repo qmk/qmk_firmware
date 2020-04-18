@@ -1,5 +1,9 @@
 #pragma once
 
+#ifdef OLED_DRIVER_ENABLE
+#include "oled.h"
+#endif
+
 enum rhruiz_layers { _BL, _GAME, _NUM, _KEY_OVERRIDE, _FN1, _FN2, _GAMEFN1, _CFG };
 
 enum custom_keycodes { KC_MAKE = SAFE_RANGE, KC_EPIP, NEW_SAFE_RANGE };
@@ -31,11 +35,6 @@ void          rhruiz_disable_promicro_leds(void);
 bool          rhruiz_process_record(uint16_t keycode, keyrecord_t *record);
 void          keyboard_post_init_keymap(void);
 void          matrix_init_keymap(void);
-#ifdef OLED_DRIVER_ENABLE
-oled_rotation_t           oled_init_keymap(oled_rotation_t rotation);
-void          rhruiz_render_logo_and_layer(void);
-void          rhruiz_render_oled(void);
-#endif
 
 /* underglow control */
 void rhruiz_rgblight_reset(void);
