@@ -126,9 +126,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 	    unregister_code(KC_BTN4);
 	}
     }
-#endif
 
     check_encoder_buttons();
+#endif
+
     return process_record_user(keycode, record);
 }
 
