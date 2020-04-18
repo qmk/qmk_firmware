@@ -109,8 +109,9 @@ def locate_keymap(keyboard, keymap):
     if not is_keyboard(keyboard):
         raise KeyError('Invalid keyboard: ' + repr(keyboard))
 
-    # Check the keyboard folder first
+    # Check the keyboard folder first, last match wins
     checked_dirs = ''
+    keymap_path = ''
 
     for dir in keyboard.split('/'):
         if checked_dirs:
@@ -120,10 +121,13 @@ def locate_keymap(keyboard, keymap):
 
         keymap_dir = Path('keyboards') / checked_dirs / 'keymaps'
 
-        if (keymap_dir / keymap / 'keymap.json').exists():
-            return keymap_dir / keymap / 'keymap.json'
         if (keymap_dir / keymap / 'keymap.c').exists():
-            return keymap_dir / keymap / 'keymap.c'
+            keymap_path = keymap_dir / keymap / 'keymap.c'
+        if (keymap_dir / keymap / 'keymap.json').exists():
+            keymap_path = keymap_dir / keymap / 'keymap.json'
+
+    if keymap_dir:
+        return keymap_path
 
     # Check community layouts as a fallback
     rules_mk = get_rules_mk(keyboard)
