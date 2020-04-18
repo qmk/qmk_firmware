@@ -33,9 +33,11 @@
 #include "debug.h"
 #include "printf.h"
 
-#if defined(RGBLIGHT_ENABLE)
-#    include "rgblight.h"
+#ifndef EARLY_INIT_PERFORM_BOOTLOADER_JUMP
+// Change this to be TRUE once we've migrated keyboards to the new init system
+#    define EARLY_INIT_PERFORM_BOOTLOADER_JUMP FALSE
 #endif
+
 #ifdef SLEEP_LED_ENABLE
 #    include "sleep_led.h"
 #endif
@@ -103,6 +105,39 @@ void midi_ep_task(void);
 //     chSysPolledDelayX(MS2RTC(STM32_HCLK, time));
 //   }
 // }
+
+/* Early initialisation
+ */
+__attribute__((weak)) void early_hardware_init_pre(void) {
+#if EARLY_INIT_PERFORM_BOOTLOADER_JUMP
+    void enter_bootloader_mode_if_requested(void);
+    enter_bootloader_mode_if_requested();
+#endif  // EARLY_INIT_PERFORM_BOOTLOADER_JUMP
+}
+
+__attribute__((weak)) void early_hardware_init_post(void) {}
+
+__attribute__((weak)) void board_init(void) {}
+
+// This overrides what's normally in ChibiOS board definitions
+void __early_init(void) {
+    early_hardware_init_pre();
+
+    // This is the renamed equivalent of __early_init in the board.c file
+    void __chibios_override___early_init(void);
+    __chibios_override___early_init();
+
+    early_hardware_init_post();
+}
+
+// This overrides what's normally in ChibiOS board definitions
+void boardInit(void) {
+    // This is the renamed equivalent of boardInit in the board.c file
+    void __chibios_override_boardInit(void);
+    __chibios_override_boardInit();
+
+    board_init();
+}
 
 /* Main thread
  */

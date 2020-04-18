@@ -10,13 +10,18 @@ from pathlib import Path
 from milc import cli
 from qmk import submodules
 from qmk.questions import yesno
+from qmk.commands import run
 
 ESSENTIAL_BINARIES = {
     'dfu-programmer': {},
     'avrdude': {},
     'dfu-util': {},
-    'avr-gcc': {},
-    'arm-none-eabi-gcc': {},
+    'avr-gcc': {
+        'version_arg': '-dumpversion'
+    },
+    'arm-none-eabi-gcc': {
+        'version_arg': '-dumpversion'
+    },
     'bin/qmk': {},
 }
 ESSENTIAL_SUBMODULES = ['lib/chibios', 'lib/lufa']
@@ -35,9 +40,7 @@ def check_arm_gcc_version():
     """Returns True if the arm-none-eabi-gcc version is not known to cause problems.
     """
     if 'output' in ESSENTIAL_BINARIES['arm-none-eabi-gcc']:
-        first_line = ESSENTIAL_BINARIES['arm-none-eabi-gcc']['output'].split('\n')[0]
-        second_half = first_line.split(')', 1)[1].strip()
-        version_number = second_half.split()[0]
+        version_number = ESSENTIAL_BINARIES['arm-none-eabi-gcc']['output'].strip()
         cli.log.info('Found arm-none-eabi-gcc version %s', version_number)
 
     return True  # Right now all known arm versions are ok
@@ -47,8 +50,7 @@ def check_avr_gcc_version():
     """Returns True if the avr-gcc version is not known to cause problems.
     """
     if 'output' in ESSENTIAL_BINARIES['avr-gcc']:
-        first_line = ESSENTIAL_BINARIES['avr-gcc']['output'].split('\n')[0]
-        version_number = first_line.split()[2]
+        version_number = ESSENTIAL_BINARIES['avr-gcc']['output'].strip()
 
         major, minor, rest = version_number.split('.', 2)
         if int(major) > 8:
@@ -59,6 +61,33 @@ def check_avr_gcc_version():
         return True
 
     return False
+
+
+def check_avrdude_version():
+    if 'output' in ESSENTIAL_BINARIES['avrdude']:
+        last_line = ESSENTIAL_BINARIES['avrdude']['output'].split('\n')[-2]
+        version_number = last_line.split()[2][:-1]
+        cli.log.info('Found avrdude version %s', version_number)
+
+    return True
+
+
+def check_dfu_util_version():
+    if 'output' in ESSENTIAL_BINARIES['dfu-util']:
+        first_line = ESSENTIAL_BINARIES['dfu-util']['output'].split('\n')[0]
+        version_number = first_line.split()[1]
+        cli.log.info('Found dfu-util version %s', version_number)
+
+    return True
+
+
+def check_dfu_programmer_version():
+    if 'output' in ESSENTIAL_BINARIES['dfu-programmer']:
+        first_line = ESSENTIAL_BINARIES['dfu-programmer']['output'].split('\n')[0]
+        version_number = first_line.split()[1]
+        cli.log.info('Found dfu-programmer version %s', version_number)
+
+    return True
 
 
 def check_binaries():
@@ -135,7 +164,7 @@ def check_modem_manager():
     """Returns True if ModemManager is running.
     """
     if shutil.which("systemctl"):
-        mm_check = subprocess.run(["systemctl", "--quiet", "is-active", "ModemManager.service"], timeout=10)
+        mm_check = run(["systemctl", "--quiet", "is-active", "ModemManager.service"], timeout=10)
         if mm_check.returncode == 0:
             return True
 
@@ -153,14 +182,16 @@ def is_executable(command):
         return False
 
     # Make sure the command can be executed
-    check = subprocess.run([command, '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5, universal_newlines=True)
+    version_arg = ESSENTIAL_BINARIES[command].get('version_arg', '--version')
+    check = run([command, version_arg], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=5, universal_newlines=True)
+
     ESSENTIAL_BINARIES[command]['output'] = check.stdout
 
     if check.returncode in [0, 1]:  # Older versions of dfu-programmer exit 1
         cli.log.debug('Found {fg_cyan}%s', command)
         return True
 
-    cli.log.error("{fg_red}Can't run `%s --version`", command)
+    cli.log.error("{fg_red}Can't run `%s %s`", command, version_arg)
     return False
 
 
@@ -207,19 +238,19 @@ def doctor(cli):
     ok = True
 
     # Determine our OS and run platform specific tests
-    OS = platform.platform().lower()  # noqa (N806), uppercase name is ok in this instance
+    platform_id = platform.platform().lower()
 
-    if 'darwin' in OS or 'macos' in OS:
+    if 'darwin' in platform_id or 'macos' in platform_id:
         if not os_test_macos():
             ok = False
-    elif 'linux' in OS:
+    elif 'linux' in platform_id:
         if not os_test_linux():
             ok = False
-    elif 'windows' in OS:
+    elif 'windows' in platform_id:
         if not os_test_windows():
             ok = False
     else:
-        cli.log.error('Unsupported OS detected: %s', OS)
+        cli.log.error('Unsupported OS detected: %s', platform_id)
         ok = False
 
     # Make sure the basic CLI tools we need are available and can be executed.
@@ -227,7 +258,7 @@ def doctor(cli):
 
     if not bin_ok:
         if yesno('Would you like to install dependencies?', default=True):
-            subprocess.run(['util/qmk_install.sh'])
+            run(['util/qmk_install.sh'])
             bin_ok = check_binaries()
 
     if bin_ok:
@@ -236,11 +267,9 @@ def doctor(cli):
         ok = False
 
     # Make sure the tools are at the correct version
-    if not check_arm_gcc_version():
-        ok = False
-
-    if not check_avr_gcc_version():
-        ok = False
+    for check in (check_arm_gcc_version, check_avr_gcc_version, check_avrdude_version, check_dfu_util_version, check_dfu_programmer_version):
+        if not check():
+            ok = False
 
     # Check out the QMK submodules
     sub_ok = check_submodules()

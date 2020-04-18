@@ -18,7 +18,6 @@
   * [Overview](newbs_building_firmware_configurator.md)
   * [Step by Step](configurator_step_by_step.md)
   * [Troubleshooting](configurator_troubleshooting.md)
-  * [Problems and Bugs](configurator_problems.md)
   * QMK API
     * [Overview](api_overview.md)
     * [API Documentation](api_docs.md)
@@ -53,7 +52,7 @@
   * Simple Keycodes
     * [Full List](keycodes.md)
     * [Basic Keycodes](keycodes_basic.md)
-    * [Layer Switching](feature_advanced_keycodes.md)
+    * [Modifier Keys](feature_advanced_keycodes.md)
     * [Quantum Keycodes](quantum_keycodes.md)
 
   * Advanced Keycodes
@@ -72,6 +71,7 @@
     * [Combos](feature_combo.md)
     * [Debounce API](feature_debounce_type.md)
     * [Key Lock](feature_key_lock.md)
+    * [Layers](feature_layers.md)
     * [One Shot Keys](one_shot_keys.md)
     * [Pointing Device](feature_pointing_device.md)
     * [Swap Hands](feature_swap_hands.md)
@@ -80,6 +80,7 @@
     * [Terminal](feature_terminal.md)
     * [Unicode](feature_unicode.md)
     * [Userspace](feature_userspace.md)
+    * [WPM Calculation](feature_wpm.md)
 
   * Hardware Features
     * Displays
@@ -120,6 +121,7 @@
     * [Drivers](hardware_drivers.md)
       * [ADC Driver](adc_driver.md)
       * [I2C Driver](i2c_driver.md)
+      * [SPI Driver](spi_driver.md)
       * [WS2812 Driver](ws2812_driver.md)
       * [EEPROM Driver](eeprom_driver.md)
     * [GPIO Controls](internals_gpio_control.md)
@@ -128,12 +130,15 @@
   * Python Development
     * [Coding Conventions](coding_conventions_python.md)
     * [QMK CLI Development](cli_development.md)
-    * [QMK CLI Config](cli_dev_configuration.md)
 
   * Configurator Development
     * QMK API
       * [Development Environment](api_development_environment.md)
       * [Architecture Overview](api_development_overview.md)
+
+  * Hardware Platform Development
+    * Arm/ChibiOS
+      * [Early initialization](platformdev_chibios_earlyinit.md)
 
   * QMK Reference
     * [Contributing to QMK](contributing.md)

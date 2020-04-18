@@ -42,11 +42,15 @@ We've tried to make QMK as easy to set up as possible. You only have to prepare 
 You will need to install MSYS2, Git, and the QMK CLI.
 
 * Follow the installation instructions on the [MSYS2 homepage](http://www.msys2.org).
-* Close any open MSYS2 terminals and open a new MSYS2 MinGW 64-bit terminal.
+* Close any open MSYS2 terminals and open a new MSYS2 MinGW 64-bit terminal. NOTE: This is **not** the same as the MSYS terminal that opens when installation is completed.
 
-After opening a new MSYS2 MinGW 64-bit terminal run these commands:
+After opening a new MSYS2 MinGW 64-bit terminal, make sure `pacman` is up to date with:
 
-    pacman -S git python3-pip
+    pacman -Syu
+
+You may be asked to close and reopen the window. Do this and keep running the above command until it says `there is nothing to do`. Then run the following:
+
+    pacman -S git mingw-w64-x86_64-toolchain mingw-w64-x86_64-python3-pip
     python3 -m pip install qmk
 
 ### macOS
@@ -64,7 +68,7 @@ You will need to install Git and Python. It's very likely that you already have 
 
 * Debian / Ubuntu / Devuan: `apt-get install git python3 && python3 -m pip install qmk`
 * Fedora / Red Hat / CentOS: `yum install git python3 && python3 -m pip install qmk`
-* Arch: `pacman -S qmk`
+* Arch: `yay -S qmk` (or use any other AUR Helper)
 
 ## 3. Run QMK Setup :id=set-up-qmk
 
@@ -74,7 +78,7 @@ After installing QMK you can set it up with this command:
 
 In most situations you will want to answer Yes to all of the prompts.
 
-?> If you already know [how to use GitHub](getting_started_github.md), we recommend that you create your own fork and use `qmk setup <github_username>` to clone your personal fork. If you don't know what that means you can safely ignore this message.
+?> If you already know [how to use GitHub](getting_started_github.md), we recommend that you create your own fork and use `qmk setup <github_username>/qmk_firmware` to clone your personal fork. If you don't know what that means you can safely ignore this message.
 
 ## 4. Test Your Build Environment
 

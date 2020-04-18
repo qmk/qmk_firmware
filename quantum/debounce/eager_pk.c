@@ -27,13 +27,7 @@ No further inputs are accepted until DEBOUNCE milliseconds have occurred.
 #    define DEBOUNCE 5
 #endif
 
-#if (MATRIX_COLS <= 8)
-#    define ROW_SHIFTER ((uint8_t)1)
-#elif (MATRIX_COLS <= 16)
-#    define ROW_SHIFTER ((uint16_t)1)
-#elif (MATRIX_COLS <= 32)
-#    define ROW_SHIFTER ((uint32_t)1)
-#endif
+#define ROW_SHIFTER ((matrix_row_t)1)
 
 #define debounce_counter_t uint8_t
 
@@ -43,6 +37,16 @@ static bool                matrix_need_update;
 
 #define DEBOUNCE_ELAPSED 251
 #define MAX_DEBOUNCE (DEBOUNCE_ELAPSED - 1)
+
+static uint8_t wrapping_timer_read(void) {
+    static uint16_t time        = 0;
+    static uint8_t  last_result = 0;
+    uint16_t        new_time    = timer_read();
+    uint16_t        diff        = new_time - time;
+    time                        = new_time;
+    last_result                 = (last_result + diff) % (MAX_DEBOUNCE + 1);
+    return last_result;
+}
 
 void update_debounce_counters(uint8_t num_rows, uint8_t current_time);
 void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t current_time);
@@ -59,7 +63,7 @@ void debounce_init(uint8_t num_rows) {
 }
 
 void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
-    uint8_t current_time = timer_read() % MAX_DEBOUNCE;
+    uint8_t current_time = wrapping_timer_read();
     if (counters_need_update) {
         update_debounce_counters(num_rows, current_time);
     }
