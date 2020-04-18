@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "2019.h"
-#include "encoder.h"
 
 void matrix_init_kb(void) {
     // Set our LED pins as output
