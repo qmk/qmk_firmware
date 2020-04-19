@@ -1,19 +1,20 @@
 #!/bin/sh
 
-make ble_micro_pro:default:uf2 -j8
-make ble_micro_pro:default:zip -j8
-make ble_micro_pro:no_msc:zip -j8
-make kugel:default:uf2 -j8
-make kugel:default:zip -j8
-make kugel:no_msc:zip -j8
+version=0_5_2
 
-version=0_5_1
-
-mv ble_micro_pro_default.uf2 ble_micro_pro_default_${version}.uf2
-mv ble_micro_pro_default.zip ble_micro_pro_default_${version}.zip
-mv ble_micro_pro_no_msc.zip ble_micro_pro_no_msc_${version}.zip
-mv kugel_default.uf2 kugel_default_${version}.uf2
-mv kugel_default.zip kugel_default_${version}.zip
-mv kugel_no_msc.zip kugel_no_msc_${version}.zip
-
+for keyboard in ble_micro_pro kugel
+    do
+        make $keyboard:default:uf2 -j8
+        make $keyboard:default:zip -j8
+        make $keyboard:no_msc:zip -j8
+        mv ${keyboard}_default.uf2 ${keyboard}_default_${version}.uf2
+        mv ${keyboard}_default.zip ${keyboard}_default_${version}.zip
+        mv ${keyboard}_no_msc.zip ${keyboard}_no_msc_${version}.zip
+        unzip -o ${keyboard}_default_${version}.zip
+        mv ${keyboard}_default.bin ${keyboard}_default_${version}.bin
+        mv ${keyboard}_default.dat ${keyboard}_default_${version}.dat
+        unzip -o ${keyboard}_no_msc_${version}.zip
+        mv ${keyboard}_no_msc.bin ${keyboard}_no_msc_${version}.bin
+        mv ${keyboard}_no_msc.dat ${keyboard}_no_msc_${version}.dat
+    done
 
