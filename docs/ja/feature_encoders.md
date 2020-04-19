@@ -25,13 +25,13 @@ ENCODER_ENABLE = yes
 #define ENCODERS_PAD_B { encoder1b, encoder2b }
 ```
 
-エンコーダの時計回りの方向が間違っている場合は、A & B パッド定義を交換することができます。define を使って逆にすることもできます:
+エンコーダの時計回りの方向が間違っている場合は、A と B のパッド定義を交換することができます。define を使って逆にすることもできます:
 
 ```c
 #define ENCODER_DIRECTION_FLIP
 ```
 
-さらに、解像度を同じファイルで指定することができます (デフォルト & お勧めは4):
+さらに、解像度を同じファイルで指定することができます (デフォルトかつお勧めは4):
 
 ```c
 #define ENCODER_RESOLUTION 4
@@ -78,4 +78,4 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 
 ## ハードウェア
 
-エンコーダの A と B のラインは MCU に直接配線し、C/common ラインはグランドに配線する必要があります。
+エンコーダの A と B の線は MCU に直接配線し、C/common 線はグランドに配線する必要があります。
