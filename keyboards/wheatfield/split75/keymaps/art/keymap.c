@@ -296,7 +296,7 @@ static int char_to_del = 1;
 static bool sarcasm_on = false;
 static bool sarcasm_key = false;
 
-void send_n_backspace(int times) {
+void backspace_n_times(int times) {
   for (int i=0; i<times; i++) {
     SEND_STRING(SS_TAP(X_BSPC));  
   }
@@ -311,7 +311,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }	
 
   //Checking all other non-backspace keys to clear the backspace buffer. This is to prevent the bug of deleting N chars sometime after using a macro
-  if (record->event.pressed && (keycode != N_BSPACE && keycode != G_BS_C && keycode != G_BS_S)) {
+  if (record->event.pressed && (keycode != N_BSPACE)) {
     char_to_del = 1;
   }
 
@@ -333,7 +333,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case N_BSPACE:
       if (record->event.pressed) {
-        send_n_backspace(char_to_del);
+        backspace_n_times(char_to_del);
         char_to_del = 1;
       }
       break;
@@ -477,18 +477,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	case G_C:
 		if (record->event.pressed) {
       SEND_STRING("git c[Heckout/Ommit]");
-      char_to_del = 20;
       layer_on(GIT_C);
 		}
 		break;
   //These layers are required for sole purpose of switching off _C/S layer before removing chars
   case G_BS_C:
-  case G_BS_S:
     if (record->event.pressed) {
       layer_off(GIT_C);
-      layer_off(GIT_S);
-      send_n_backspace(char_to_del);
-      char_to_del = 1;
+      //Not setting char_to_del as it's deleted explicitly in G_BS_X
+      backspace_n_times(20);
     }
     break;
 	case G_CHEC:
@@ -496,7 +493,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       bool shifted = get_mods() & MOD_MASK_SHIFT;
       clear_mods();
             
-      send_n_backspace(15);
+      backspace_n_times(15);
 			SEND_STRING("heckout ");
       char_to_del = 13;
       if (shifted) {
@@ -511,7 +508,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         bool shifted = get_mods() & MOD_MASK_SHIFT;
         clear_mods();
         
-        send_n_backspace(15);
+        backspace_n_times(15);
         SEND_STRING("ommit -");
         char_to_del = 15;
 			if (shifted) {
@@ -567,13 +564,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	case G_S:
 		if (!record->event.pressed) {
 			SEND_STRING("git s[How/taSh/taTus]");
+      //Not setting char_to_del as it's deleted explicitly in G_BS_X
       char_to_del = 21;
 			layer_on(GIT_S);			
 		}
 		break;
+  case G_BS_S:
+    if (record->event.pressed) {
+      layer_off(GIT_S);
+      backspace_n_times(21);
+    }
+    break;
 	case G_SHOW:
 		if (!record->event.pressed) {
-      send_n_backspace(16);
+      backspace_n_times(16);
 			SEND_STRING("how ");
       char_to_del = 9;
 			layer_off(GIT_S);
@@ -581,7 +585,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		break;			
 	case G_STSH:
 		if (!record->event.pressed) {
-      send_n_backspace(16);
+      backspace_n_times(16);
 			SEND_STRING("tash ");
       char_to_del = 10;
 			layer_off(GIT_S);
@@ -589,7 +593,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		break;		
 	case G_STAT:
 		if (!record->event.pressed) {
-      send_n_backspace(16);
+      backspace_n_times(16);
 			SEND_STRING("tatus ");
       char_to_del = 11;
 			layer_off(GIT_S);
