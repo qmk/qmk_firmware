@@ -2,17 +2,13 @@
 
 #include QMK_KEYBOARD_H
 
-#define ALPH 0
-#define GAME 1
-#define LOWR 2
-#define RAIS 3
-#define ADJS 4
-
-// enum layers {
-//   ALPH, //alpha qwerty
-//   LOWR, //layer 1: nav and functions
-//   RAIS //layer 2: numpad and symbols
-// };
+enum layers {
+    ALPH,
+    GAME,
+    LOWR,
+    RAIS,
+    ADJS
+};
 
 // define any macros here to keep keymap clean and readable
 

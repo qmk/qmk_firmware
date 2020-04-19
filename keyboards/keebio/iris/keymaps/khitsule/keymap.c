@@ -1,15 +1,17 @@
 #include QMK_KEYBOARD_H
-#define _QWERTY 0
-#define _GAME 1
-#define _LOWER 2
-#define _RAISE 3
-#define _ADJUST 4
+
+enum layers {
+    _QWERTY,
+    _GAME,
+    _LOWER,
+    _RAISE,
+    _ADJUST
+};
 
 // define keycode macros for readability
 #define KM_DLEFT LGUI(LCTL(KC_LEFT))
 #define KM_DRIGHT LGUI(LCTL(KC_RIGHT))
 #define TSKMGR LCTL(LSFT(KC_ESC))
-#define _______ KC_TRNS
 #define KC_LCBR LSFT(KC_LBRC)
 #define KC_RCBR LSFT(KC_RBRC)
 
