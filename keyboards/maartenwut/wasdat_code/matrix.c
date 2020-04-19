@@ -151,7 +151,6 @@ static void select_col(uint8_t col) {
             writePinLow(F0);
             break;
         case 6:
-		//MUX
             writePinHigh(D4);
             writePinHigh(D2);
             writePinHigh(D1);
@@ -164,40 +163,33 @@ static void select_col(uint8_t col) {
             writePinLow(D3);
             break;
         case 9:
-		//MUX
             writePinHigh(D4);
             writePinHigh(D1);
             writePinHigh(D0);
             break;
         case 10:
-		//MUX
             writePinHigh(D4);
             writePinHigh(D2);
             writePinHigh(D0);
             break;
         case 11:
-		//MUX
             writePinHigh(D4);
             writePinHigh(D0);
             break;
         case 12:
-		//MUX
             writePinHigh(D4);
             writePinHigh(D2);
             writePinHigh(D1);
             break;
         case 13:
-		//MUX
             writePinHigh(D4);
             writePinHigh(D1);
             break;
         case 14:
-		//MUX
             writePinHigh(D4);
             writePinHigh(D2);
             break;
         case 15:
-		//MUX
             writePinHigh(D4);
             break;
     }
@@ -224,7 +216,6 @@ static void unselect_col(uint8_t col) {
             writePinHigh(F0);
             break;
         case 6:
-		//MUX
             writePinLow(D4);
             writePinLow(D2);
             writePinLow(D1);
@@ -237,49 +228,42 @@ static void unselect_col(uint8_t col) {
             writePinHigh(D3);
             break;
         case 9:
-		//MUX
             writePinLow(D4);
             writePinLow(D2);
             writePinLow(D1);
             writePinLow(D0);
             break;
         case 10:
-		//MUX
             writePinLow(D4);
             writePinLow(D2);
             writePinLow(D1);
             writePinLow(D0);
             break;
         case 11:
-		//MUX
             writePinLow(D4);
             writePinLow(D2);
             writePinLow(D1);
             writePinLow(D0);
             break;
         case 12:
-		//MUX
             writePinLow(D4);
             writePinLow(D2);
             writePinLow(D1);
             writePinLow(D0);
             break;
         case 13:
-		//MUX
             writePinLow(D4);
             writePinLow(D2);
             writePinLow(D1);
             writePinLow(D0);
             break;
         case 14:
-		//MUX
             writePinLow(D4);
             writePinLow(D2);
             writePinLow(D1);
             writePinLow(D0);
             break;
         case 15:
-		//MUX
             writePinLow(D4);
             writePinLow(D2);
             writePinLow(D1);
@@ -290,20 +274,20 @@ static void unselect_col(uint8_t col) {
 
 static void unselect_cols(void) {
     //Native
-	writePinHigh(F7);
-	writePinHigh(F5);
-	writePinHigh(F6);
-	writePinHigh(F1);
-	writePinHigh(F4);
-	writePinHigh(F0);
-	writePinHigh(D3);
-	writePinHigh(D5);
+    writePinHigh(F7);
+    writePinHigh(F5);
+    writePinHigh(F6);
+    writePinHigh(F1);
+    writePinHigh(F4);
+    writePinHigh(F0);
+    writePinHigh(D3);
+    writePinHigh(D5);
 
     //Demultiplexer
-	writePinLow(D4);
-	writePinLow(D2);
-	writePinLow(D1);
-	writePinLow(D0);
+    writePinLow(D4);
+    writePinLow(D2);
+    writePinLow(D1);
+    writePinLow(D0);
 }
 
 static void init_pins(void) {
@@ -311,19 +295,19 @@ static void init_pins(void) {
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
         setPinInputHigh(row_pins[x]);
     }
-	setPinOutput(D0);
-	setPinOutput(D1);
-	setPinOutput(D2);
-	setPinOutput(D3);
-	setPinOutput(F7);
-	setPinOutput(F5);
-	setPinOutput(F6);
-	setPinOutput(F1);
-	setPinOutput(F4);
-	setPinOutput(F0);
-	setPinOutput(D3);
-	setPinOutput(D5);
-	setPinOutput(D4);
+    setPinOutput(D0);
+    setPinOutput(D1);
+    setPinOutput(D2);
+    setPinOutput(D3);
+    setPinOutput(F7);
+    setPinOutput(F5);
+    setPinOutput(F6);
+    setPinOutput(F1);
+    setPinOutput(F4);
+    setPinOutput(F0);
+    setPinOutput(D3);
+    setPinOutput(D5);
+    setPinOutput(D4);
 }
 
 static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
