@@ -24,7 +24,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 **Designed in:**  
 [KiCad](https://github.com/KiCad)  
 
-**Components Footprints & Libraries :**  
+**Components Footprints & Libraries:**  
 [keebs.pretty](https://github.com/egladman/keebs.pretty)  
 [keyboard_parts.pretty
 ](https://github.com/tmk/keyboard_parts.pretty)  
