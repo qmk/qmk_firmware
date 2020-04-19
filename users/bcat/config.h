@@ -68,23 +68,3 @@
 
     #define BACKLIGHT_LEVELS 7
 #endif
-
-#if defined(MOUSEKEY_ENABLE)
-    /* Make mouse operation smoother. */
-    #undef MOUSEKEY_DELAY
-    #undef MOUSEKEY_INTERVAL
-
-    #define MOUSEKEY_DELAY 0
-    #define MOUSEKEY_INTERVAL 16
-
-    /* Lower mouse speed to adjust for reduced MOUSEKEY_INTERVAL. */
-    #undef MOUSEKEY_MAX_SPEED
-    #undef MOUSEKEY_TIME_TO_MAX
-    #undef MOUSEKEY_WHEEL_MAX_SPEED
-    #undef MOUSEKEY_WHEEL_TIME_TO_MAX
-
-    #define MOUSEKEY_MAX_SPEED 7
-    #define MOUSEKEY_TIME_TO_MAX 150
-    #define MOUSEKEY_WHEEL_MAX_SPEED 3
-    #define MOUSEKEY_WHEEL_TIME_TO_MAX 150
-#endif
