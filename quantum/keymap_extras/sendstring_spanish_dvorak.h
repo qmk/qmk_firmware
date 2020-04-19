@@ -1,4 +1,4 @@
-/* Copyright 2018 Daniel Rodríguez
+/* Copyright 2020 José Andrés García
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,11 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Sendstring lookup tables for Spanish layouts
+// Sendstring lookup tables for Spanish Dvorak layout
 
 #pragma once
 
-#include "keymap_spanish.h"
+#include "keymap_spanish_dvorak.h"
 #include "quantum.h"
 
 // clang-format off
@@ -74,27 +74,27 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     //       !        "        #        $        %        &        '
-    KC_SPC,  ES_1,    ES_2,    ES_3,    ES_4,    ES_5,    ES_6,    ES_QUOT,
+    KC_SPC,  DV_1,    DV_2,    DV_3,    DV_4,    DV_5,    DV_6,    DV_QUOT,
     // (     )        *        +        ,        -        .        /
-    ES_8,    ES_9,    ES_PLUS, ES_PLUS, ES_COMM, ES_MINS, ES_DOT,  ES_7,
+    DV_8,    DV_9,    DV_PLUS, DV_PLUS, DV_COMM, DV_MINS, DV_DOT,  DV_7,
     // 0     1        2        3        4        5        6        7
-    ES_0,    ES_1,    ES_2,    ES_3,    ES_4,    ES_5,    ES_6,    ES_7,
+    DV_0,    DV_1,    DV_2,    DV_3,    DV_4,    DV_5,    DV_6,    DV_7,
     // 8     9        :        ;        <        =        >        ?
-    ES_8,    ES_9,    ES_DOT,  ES_COMM, ES_LABK, ES_0,    ES_LABK, ES_QUOT,
+    DV_8,    DV_9,    DV_DOT,  DV_COMM, DV_LABK, DV_0,    DV_LABK, DV_QUOT,
     // @     A        B        C        D        E        F        G
-    ES_2,    ES_A,    ES_B,    ES_C,    ES_D,    ES_E,    ES_F,    ES_G,
+    DV_2,    DV_A,    DV_B,    DV_C,    DV_D,    DV_E,    DV_F,    DV_G,
     // H     I        J        K        L        M        N        O
-    ES_H,    ES_I,    ES_J,    ES_K,    ES_L,    ES_M,    ES_N,    ES_O,
+    DV_H,    DV_I,    DV_J,    DV_K,    DV_L,    DV_M,    DV_N,    DV_O,
     // P     Q        R        S        T        U        V        W
-    ES_P,    ES_Q,    ES_R,    ES_S,    ES_T,    ES_U,    ES_V,    ES_W,
+    DV_P,    DV_Q,    DV_R,    DV_S,    DV_T,    DV_U,    DV_V,    DV_W,
     // X     Y        Z        [        \        ]        ^        _
-    ES_X,    ES_Y,    ES_Z,    ES_GRV,  ES_MORD, ES_PLUS, ES_GRV,  ES_MINS,
+    DV_X,    DV_Y,    DV_Z,    DV_GRV,  DV_MORD, DV_PLUS, DV_GRV,  DV_MINS,
     // `     a        b        c        d        e        f        g
-    ES_GRV,  ES_A,    ES_B,    ES_C,    ES_D,    ES_E,    ES_F,    ES_G,
+    DV_GRV,  DV_A,    DV_B,    DV_C,    DV_D,    DV_E,    DV_F,    DV_G,
     // h     i        j        k        l        m        n        o
-    ES_H,    ES_I,    ES_J,    ES_K,    ES_L,    ES_M,    ES_N,    ES_O,
+    DV_H,    DV_I,    DV_J,    DV_K,    DV_L,    DV_M,    DV_N,    DV_O,
     // p     q        r        s        t        u        v        w
-    ES_P,    ES_Q,    ES_R,    ES_S,    ES_T,    ES_U,    ES_V,    ES_W,
+    DV_P,    DV_Q,    DV_R,    DV_S,    DV_T,    DV_U,    DV_V,    DV_W,
     // x     y        z        {        |        }        ~        DEL
-    ES_X,    ES_Y,    ES_Z,    ES_ACUT, ES_1,    ES_CCED, ES_4,    KC_DEL
+    DV_X,    DV_Y,    DV_Z,    DV_ACUT, DV_1,    DV_CCED, DV_4,    KC_DEL
 };
