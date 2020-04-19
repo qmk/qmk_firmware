@@ -15,6 +15,7 @@
  */
 #include <math.h>
 #include <string.h>
+#include <stdlib.h>
 #ifdef __AVR__
 #    include <avr/eeprom.h>
 #    include <avr/interrupt.h>
@@ -561,7 +562,7 @@ void rgblight_sethsv_at(uint8_t hue, uint8_t sat, uint8_t val, uint8_t index) {
     rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b, index);
 }
 
-#if defined(RGBLIGHT_EFFECT_BREATHING) || defined(RGBLIGHT_EFFECT_RAINBOW_MOOD) || defined(RGBLIGHT_EFFECT_RAINBOW_SWIRL) || defined(RGBLIGHT_EFFECT_SNAKE) || defined(RGBLIGHT_EFFECT_KNIGHT)
+#if defined(RGBLIGHT_EFFECT_BREATHING) || defined(RGBLIGHT_EFFECT_RAINBOW_MOOD) || defined(RGBLIGHT_EFFECT_RAINBOW_SWIRL) || defined(RGBLIGHT_EFFECT_SNAKE) || defined(RGBLIGHT_EFFECT_KNIGHT) || defined(RGBLIGHT_EFFECT_TWINKLE)
 
 static uint8_t get_interval_time(const uint8_t *default_interval_address, uint8_t velocikey_min, uint8_t velocikey_max) {
     return
@@ -880,6 +881,13 @@ void rgblight_task(void) {
             effect_func   = (effect_func_t)rgblight_effect_alternating;
         }
 #    endif
+#    ifdef RGBLIGHT_EFFECT_TWINKLE
+        else if (rgblight_status.base_mode == RGBLIGHT_MODE_TWINKLE) {
+            interval_time = RGBLIGHT_EFFECT_TWINKLE_INTERVAL_MULTIPLIER * 
+		get_interval_time(&RGBLED_TWINKLE_INTERVALS[delta % 3], 15, 255);
+            effect_func   = (effect_func_t)rgblight_effect_twinkle;
+        }
+#    endif
         if (animation_status.restart) {
             animation_status.restart    = false;
             animation_status.last_timer = timer_read() - interval_time - 1;
@@ -1158,5 +1166,21 @@ void rgblight_effect_alternating(animation_status_t *anim) {
     }
     rgblight_set();
     anim->pos = (anim->pos + 1) % 2;
+}
+#endif
+
+#ifdef RGBLIGHT_EFFECT_TWINKLE
+__attribute__((weak)) const uint8_t RGBLED_TWINKLE_INTERVALS[] PROGMEM = {255, 127, 63};
+
+void rgblight_effect_twinkle(animation_status_t *anim) {
+    bool random_color = anim->delta / 3;
+    for (int i = 0; i < rgblight_ranges.effect_num_leds; i++) {
+        LED_TYPE *ledp = led + i + rgblight_ranges.effect_start_pos;
+        uint8_t val = (float)rand() * rgblight_config.val / RAND_MAX;
+        uint8_t hue = random_color ? rand() % 0xFF : rgblight_config.hue;
+        uint8_t sat = random_color ? rand() % rgblight_config.sat : rgblight_config.sat;
+        sethsv(hue, sat, val, ledp);
+    }
+    rgblight_set();
 }
 #endif
