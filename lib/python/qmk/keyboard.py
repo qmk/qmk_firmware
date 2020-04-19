@@ -25,13 +25,10 @@ def config_h(keyboard):
     Returns:
         a dictionary representing the content of the entire rules.mk tree for a keyboard
     """
-    keyboard = Path(keyboard)
-    rules = rules_mk(keyboard)
-    cur_dir = Path('keyboards')
     config = {}
-
-    if 'DEFAULT_FOLDER' in rules:
-        keyboard = rules['DEFAULT_FOLDER']
+    cur_dir = Path('keyboards')
+    rules = rules_mk(keyboard)
+    keyboard = Path(rules['DEFAULT_FOLDER'] if 'DEFAULT_FOLDER' in rules else keyboard)
 
     for dir in keyboard.parts:
         cur_dir = cur_dir / dir
@@ -51,14 +48,14 @@ def rules_mk(keyboard):
     """
     keyboard = Path(keyboard)
     cur_dir = Path('keyboards')
-    rules = {}
+    rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
 
     if 'DEFAULT_FOLDER' in rules:
-        keyboard = rules['DEFAULT_FOLDER']
+        keyboard = Path(rules['DEFAULT_FOLDER'])
 
-    for dir in keyboard.parts:
+    for i, dir in enumerate(keyboard.parts):
         cur_dir = cur_dir / dir
-        rules = {**rules, **parse_rules_mk_file('keyboards/%s/rules.mk' % keyboard)}
+        rules = {**rules, **parse_rules_mk_file(cur_dir / 'rules.mk')}
 
     return rules
 
