@@ -6,16 +6,21 @@ from pathlib import Path
 from milc import cli
 
 from qmk.constants import ARM_PROCESSORS, AVR_PROCESSORS, VUSB_PROCESSORS
-from qmk.keyboard import find_all_layouts, parse_config_h, parse_rules_mk, parse_rules_mk_file
+from qmk.keyboard import config_h, rules_mk
 from qmk.math import compute
 
 
 def info_json(keyboard):
     """Generate the info.json data for a specific keyboard.
     """
-    info_data = build_info_data(keyboard)
+    info_data = {
+        'keyboard_name': str(keyboard),
+        'keyboard_folder': str(keyboard),
+        'layouts': {},
+        'maintainer': 'qmk',
+    }
 
-    for layout_name, layout_json in find_all_layouts(keyboard).items():
+    for layout_name, layout_json in _find_all_layouts(keyboard).items():
         if not layout_name.startswith('LAYOUT_kc'):
             info_data['layouts'][layout_name] = layout_json
 
@@ -29,7 +34,7 @@ def info_json(keyboard):
 def _extract_config_h(info_data):
     """Pull some keyboard information from existing rules.mk files
     """
-    config_c = parse_config_h(info_data['keyboard_folder'])
+    config_c = config_h(info_data['keyboard_folder'])
     row_pins = config_c.get('MATRIX_ROW_PINS', '').replace('{', '').replace('}', '').strip()
     col_pins = config_c.get('MATRIX_COL_PINS', '').replace('{', '').replace('}', '').strip()
     direct_pins = config_c.get('DIRECT_PINS', '').replace(' ', '')[1:-1]
@@ -79,37 +84,68 @@ def _extract_config_h(info_data):
 def _extract_rules_mk(info_data):
     """Pull some keyboard information from existing rules.mk files
     """
-    rules_mk = parse_rules_mk(info_data['keyboard_folder'])
-    mcu = rules_mk.get('MCU')
+    rules = rules_mk(info_data['keyboard_folder'])
+    mcu = rules.get('MCU')
 
     if mcu in ARM_PROCESSORS:
-        arm_processor_rules(info_data, rules_mk)
+        arm_processor_rules(info_data, rules)
     elif mcu in AVR_PROCESSORS:
-        avr_processor_rules(info_data, rules_mk)
+        avr_processor_rules(info_data, rules)
     else:
         cli.log.warning("%s: Unknown MCU: %s" % (info_data['keyboard_folder'], mcu))
-        unknown_processor_rules(info_data, rules_mk)
+        unknown_processor_rules(info_data, rules)
 
     return info_data
 
 
-def build_info_data(keyboard):
-    """Returns a dictionary describing a keyboard, with default values.
+def _find_all_layouts(keyboard):
+    """Looks for layout macros associated with this keyboard.
     """
-    return {
-        'keyboard_name': str(keyboard),
-        'keyboard_folder': str(keyboard),
-        'layouts': {},
-        'maintainer': 'qmk',
-    }
+    layouts = {}
+    rules = rules_mk(keyboard)
+    keyboard_path = Path(rules.get('DEFAULT_FOLDER', keyboard))
+
+    # Pull in all layouts defined in the standard files
+    current_path = Path('keyboards/')
+    for directory in keyboard_path.parts:
+        current_path = current_path / directory
+        keyboard_h = '%s.h' % (directory,)
+        keyboard_h_path = current_path / keyboard_h
+        if keyboard_h_path.exists():
+            layouts.update(find_layouts(keyboard_h_path))
+
+    if not layouts:
+        # If we didn't find any layouts above we widen our search. This is error
+        # prone which is why we want to encourage people to follow the standard above.
+        cli.log.warning('%s: Falling back to searching for KEYMAP/LAYOUT macros.' % (keyboard))
+        for file in glob('keyboards/%s/*.h' % keyboard):
+            if file.endswith('.h'):
+                these_layouts = find_layouts(file)
+                if these_layouts:
+                    layouts.update(these_layouts)
+
+    if 'LAYOUTS' in rules:
+        # Match these up against the supplied layouts
+        supported_layouts = rules['LAYOUTS'].strip().split()
+        for layout_name in sorted(layouts):
+            if not layout_name.startswith('LAYOUT_'):
+                continue
+            layout_name = layout_name[7:]
+            if layout_name in supported_layouts:
+                supported_layouts.remove(layout_name)
+
+        if supported_layouts:
+            cli.log.error('%s: Missing layout pp macro for %s' % (keyboard, supported_layouts))
+
+    return layouts
 
 
-def arm_processor_rules(info_data, rules_mk):
+def arm_processor_rules(info_data, rules):
     """Setup the default info for an ARM board.
     """
     info_data['processor_type'] = 'arm'
-    info_data['bootloader'] = rules_mk['BOOTLOADER'] if 'BOOTLOADER' in rules_mk else 'unknown'
-    info_data['processor'] = rules_mk['MCU'] if 'MCU' in rules_mk else 'unknown'
+    info_data['bootloader'] = rules['BOOTLOADER'] if 'BOOTLOADER' in rules else 'unknown'
+    info_data['processor'] = rules['MCU'] if 'MCU' in rules else 'unknown'
     info_data['protocol'] = 'ChibiOS'
 
     if info_data['bootloader'] == 'unknown':
@@ -120,30 +156,30 @@ def arm_processor_rules(info_data, rules_mk):
 
     if 'STM32' in info_data['processor']:
         info_data['platform'] = 'STM32'
-    elif 'MCU_SERIES' in rules_mk:
-        info_data['platform'] = rules_mk['MCU_SERIES']
-    elif 'ARM_ATSAM' in rules_mk:
+    elif 'MCU_SERIES' in rules:
+        info_data['platform'] = rules['MCU_SERIES']
+    elif 'ARM_ATSAM' in rules:
         info_data['platform'] = 'ARM_ATSAM'
 
     return info_data
 
 
-def avr_processor_rules(info_data, rules_mk):
+def avr_processor_rules(info_data, rules):
     """Setup the default info for an AVR board.
     """
     info_data['processor_type'] = 'avr'
-    info_data['bootloader'] = rules_mk['BOOTLOADER'] if 'BOOTLOADER' in rules_mk else 'atmel-dfu'
-    info_data['platform'] = rules_mk['ARCH'] if 'ARCH' in rules_mk else 'unknown'
-    info_data['processor'] = rules_mk['MCU'] if 'MCU' in rules_mk else 'unknown'
-    info_data['protocol'] = 'V-USB' if rules_mk.get('MCU') in VUSB_PROCESSORS else 'LUFA'
+    info_data['bootloader'] = rules['BOOTLOADER'] if 'BOOTLOADER' in rules else 'atmel-dfu'
+    info_data['platform'] = rules['ARCH'] if 'ARCH' in rules else 'unknown'
+    info_data['processor'] = rules['MCU'] if 'MCU' in rules else 'unknown'
+    info_data['protocol'] = 'V-USB' if rules.get('MCU') in VUSB_PROCESSORS else 'LUFA'
 
     # FIXME(fauxpark/anyone): Eventually we should detect the protocol by looking at PROTOCOL inherited from mcu_selection.mk:
-    # info_data['protocol'] = 'V-USB' if rules_mk.get('PROTOCOL') == 'VUSB' else 'LUFA'
+    # info_data['protocol'] = 'V-USB' if rules.get('PROTOCOL') == 'VUSB' else 'LUFA'
 
     return info_data
 
 
-def unknown_processor_rules(info_data, rules_mk):
+def unknown_processor_rules(info_data, rules):
     """Setup the default keyboard info for unknown boards.
     """
     info_data['bootloader'] = 'unknown'
@@ -196,11 +232,9 @@ def find_info_json(keyboard):
     info_jsons = [keyboard_path / 'info.json']
 
     # Add DEFAULT_FOLDER before parents, if present
-    rules_mk_path = Path('qmk_firmware/keyboards/%s/rules.mk' % keyboard)
-    if rules_mk_path.exists():
-        rules_mk = parse_rules_mk_file(rules_mk_path)
-        if 'DEFAULT_FOLDER' in rules_mk:
-            info_jsons.append(Path(rules_mk['DEFAULT_FOLDER']) / 'info.json')
+    rules = rules_mk(keyboard)
+    if 'DEFAULT_FOLDER' in rules:
+        info_jsons.append(Path(rules['DEFAULT_FOLDER']) / 'info.json')
 
     # Add in parent folders for least specific
     for _ in range(5):

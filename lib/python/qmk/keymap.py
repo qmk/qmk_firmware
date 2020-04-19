@@ -3,7 +3,7 @@
 from pathlib import Path
 
 from qmk.path import is_keyboard
-from qmk.makefile import get_rules_mk
+from qmk.keyboard import rules_mk
 
 # The `keymap.c` template to use when a keyboard doesn't have its own
 DEFAULT_KEYMAP_C = """#include QMK_KEYBOARD_H
@@ -130,10 +130,10 @@ def locate_keymap(keyboard, keymap):
         return keymap_path
 
     # Check community layouts as a fallback
-    rules_mk = get_rules_mk(keyboard)
+    rules = rules_mk(keyboard)
 
-    if "LAYOUTS" in rules_mk:
-        for layout in rules_mk["LAYOUTS"].split():
+    if "LAYOUTS" in rules:
+        for layout in rules["LAYOUTS"].split():
             community_layout = Path('layouts/community') / layout
             if community_layout.exists():
                 if (community_layout / 'keymap.json').exists():
@@ -152,10 +152,10 @@ def list_keymaps(keyboard):
         a set with the names of the available keymaps
     """
     # parse all the rules.mk files for the keyboard
-    rules_mk = get_rules_mk(keyboard)
+    rules = rules_mk(keyboard)
     names = set()
 
-    if rules_mk:
+    if rules:
         # qmk_firmware/keyboards
         keyboards_dir = Path.cwd() / "keyboards"
         # path to the keyboard's directory
@@ -169,8 +169,8 @@ def list_keymaps(keyboard):
             kb_path = kb_path.parent
 
         # if community layouts are supported, get them
-        if "LAYOUTS" in rules_mk:
-            for layout in rules_mk["LAYOUTS"].split():
+        if "LAYOUTS" in rules:
+            for layout in rules["LAYOUTS"].split():
                 cl_path = Path('layouts/community') / layout
                 if cl_path.exists():
                     names = names.union([keymap for keymap in cl_path.iterdir() if (cl_path / keymap / "keymap.c").is_file()])
