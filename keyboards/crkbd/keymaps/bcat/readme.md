@@ -17,8 +17,8 @@ at the same time.
 
 * Other than Right Shift (which I seldom use), mods aren't rebound on layers.
 
-* Backspace is bound in the same place on every layer to avoid having to let go
-of layer-switch keys to correct mistakes.
+* Likewise, Backspace is not rebound on layers to avoid having to let go of
+layer-switch keys to correct mistakes.
 
 ## Default layer
 
@@ -28,13 +28,13 @@ of layer-switch keys to correct mistakes.
 
 * The alpha keys are a standard QWERTY layout, no funny business there.
 
-* Tab and Backspace in familiar locations from my row-staggered boards (almost
-all of which use HHKB-style split backspace).
+* Tab and Backspace are in familiar locations from my row-staggered boards
+(almost all of which use HHKB-style split backspace).
 
 * Likewise, the Ctrl key is in the same place as on my row-staggered boards
 (where I've been remapping Caps Lock as Ctrl since before even using QMK).
 
-* There are two shift keys, because I do use Right Shift on occasion (even
+* There are two Shift keys, because I do use Right Shift on occasion (even
 though I'm predominately a Left Shift-er).
 
 * Lower and Raise layer-switch keys are below the left and right thumb,
@@ -43,8 +43,8 @@ respectively, when resting my fingers on the home row.
 * Space and Enter are on the big thumb keys so they're easy to press.
 
 * Alt is on the left so I can navigate back (Alt+Raise+H) and forward
-(Alt+Raise+L) having to uncomfortably hit two thumb keys on the same half. This
-puts Super on the right by the process of elimination.
+(Alt+Raise+L) without having to uncomfortably hit two thumb keys on the same
+half. This puts Super on the right by the process of elimination.
 
 * Escape shares a mod-tap key with Ctrl, which is convenient for Vim, but not
 something I'm totally in love with, as even after tweaking `TAPPING_TERM` I
@@ -61,7 +61,7 @@ on a layer, but that'd take some getting used to....)
 
 * Shifted numbers are bound in their usual positions on the top row.
 
-* Hyphen/Underscore and Equals/Plus are in the right index and middle finger
+* Hyphen/Underscore and Equals/Plus are in the right index- and middle-finger
 columns for easy reach. They share the same relative position as on a
 row-staggered keyboard, and the shifted versions are physically above the
 unshifted versions as a mnemonic device.
@@ -72,6 +72,7 @@ bottom row.
 
 * Forward Slash/Pipe and Backtick/Tilde fill out the remaining positions on the
 right half, with the same relative positions as on a row-staggered HHKB layout.
+And yup, the shifted versions are above the unshifted versions.
 
 * Caps Lock is bound in the same position as on an HHKB, for lack of an obvious
 better location.
@@ -112,10 +113,10 @@ be a better place to put them.
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/77e7572e077b36a23eb2086017e16fee))
 
 * Media keys are centered around the ESDF cluster, just like I arrange them on
-row-staggered keyboards. (It's even more sensible on with columnar stagger.)
+row-staggered keyboards. (It's even more sensible with columnar stagger.)
 
-* The navigation and Enter keys are replaced by RGB controls. Again, this
-mirrors the positioning I use on my row-staggered keyboards.
+* The navigation keys are replaced by RGB controls. Again, this mirrors the
+positioning I use on my row-staggered keyboards.
 
 * Finally, reset keys live at the top-left corner of the right half where it's
 reasonably hard to press them by accident.
