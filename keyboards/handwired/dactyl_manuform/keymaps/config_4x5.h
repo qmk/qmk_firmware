@@ -1,16 +1,16 @@
 #pragma once
 
-#include "dactyl_manuform.h"
+#include "config_common.h"
 
-#include "quantum.h"
+/* key matrix size */
+// Rows are doubled-up
+#define MATRIX_ROWS 10
+#define MATRIX_COLS 5
 
-#ifdef USE_I2C
-#include <stddef.h>
-#ifdef __AVR__
-	#include <avr/io.h>
-	#include <avr/interrupt.h>
-#endif
-#endif
+// wiring of each half
+#define MATRIX_ROW_PINS { F7, B1, B3, B2, B6 }
+// #define MATRIX_COL_PINS { B5, B4, E6, D7, C6 }
+#define MATRIX_COL_PINS { C6, D7, E6, B4, B5 }
 
 #ifndef FLIP_HALF
 #define LAYOUT( \
@@ -18,9 +18,9 @@
 	L10, L11, L12, L13, L14,                     R10, R11, R12, R13, R14, \
 	L20, L21, L22, L23, L24,                     R20, R21, R22, R23, R24, \
 	     L31, L32,                                         R32, R33,      \
-                       L33, L34,                     R30, R31,                \
-                                 L44, L43, R41, R40,                          \
-                                 L42, L41, R43, R42                           \
+                   L33, L34,                     R30, R31,                \
+                             L44, L43, R41, R40,                          \
+                             L42, L41, R43, R42                           \
 	) \
 	{ \
 		{ L00, L01, L02, L03, L04 }, \
