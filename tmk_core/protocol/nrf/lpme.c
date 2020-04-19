@@ -150,8 +150,8 @@ static matrix_row_t lpme_read_row(lpme_config_t const * const config, uint8_t ro
 }
 
 extern const uint8_t MAINTASK_INTERVAL;
-uint32_t lpme_scan(lpme_config_t const * const config, matrix_row_t *rows)
-{
+uint32_t lpme_scan(lpme_config_t const *const config, matrix_row_t *rows,
+                   bool wakeup) {
     uint32_t        change                 = 0;
     static uint32_t run_mode               = 0;
     static uint32_t sleep_counter          = 0;
@@ -159,7 +159,14 @@ uint32_t lpme_scan(lpme_config_t const * const config, matrix_row_t *rows)
     const uint32_t  sleep_enter_threthold1 = 10000 / MAINTASK_INTERVAL;
     const uint32_t  sleep1_interval        = 60 / MAINTASK_INTERVAL;
     const uint32_t  sleep_enter_threthold2 = 30000 / MAINTASK_INTERVAL;
-    const uint32_t  sleep2_interval        = 120 / MAINTASK_INTERVAL;
+    const uint32_t  sleep2_interval        = 90 / MAINTASK_INTERVAL;
+
+    if (wakeup) {
+        run_mode            = 0;
+        sleep_enter_counter = 0;
+        sleep_counter       = 0;
+        dprint("LPME wake up\n");
+    }
 
     if (run_mode == 0) {
     } else if (run_mode == 1) {
@@ -228,4 +235,3 @@ uint32_t lpme_scan(lpme_config_t const * const config, matrix_row_t *rows)
 
     return change;
 }
-

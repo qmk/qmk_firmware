@@ -112,7 +112,7 @@ static uint32_t scan_col2row(matrix_row_t *matrix_raw)
     uint32_t change = matrix_func_col2row.scan(matrix_raw);
 
     uint8_t matrix_offset_slave = config->matrix.is_left_hand ?                                 config->matrix.device_rows : 0;
-    change |= lpme_scan(&lpme_config, &matrix_raw[matrix_offset_slave]);
+    change |= lpme_scan(&lpme_config, &matrix_raw[matrix_offset_slave], change);
 
     return change;
 }
@@ -152,7 +152,7 @@ static uint32_t scan_row2col(matrix_row_t *matrix_raw)
     uint32_t change = matrix_func_row2col.scan(matrix_raw);
 
     uint8_t matrix_offset_slave = config->matrix.is_left_hand ?                                 config->matrix.device_rows : 0;
-    change |= lpme_scan(&lpme_config, &matrix_raw[matrix_offset_slave]);
+    change |= lpme_scan(&lpme_config, &matrix_raw[matrix_offset_slave], change);
 
     return change;
 }
