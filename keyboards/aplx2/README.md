@@ -4,7 +4,7 @@
    
 A simple 2% keyboard for osu!. Designed to be assembled as a sandwich with a Pro Micro, using M3 x 16mm screws, your choice of MX- or Alps-compatible switches, and 1N4148 diodes.   
 
-****Layout**:**  
+**Layout:**  
 The default layout is: Z , X .
 Used pins can be found in `config.h`. All ProMicro pins can be found [here](https://golem.hu/article/pro-micro-pinout/).
 
