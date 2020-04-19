@@ -2,11 +2,11 @@
 MCU = atmega32u4
 
 # Boot Section Size in *bytes*
-#   Teensy halfKay   512
-#   Teensy++ halfKay 1024
-#   Atmel DFU loader 4096
-#   LUFA bootloader  4096
-#   USBaspLoader     2048
+#   Teensy halfKay
+#   Teensy++ halfKay
+#   Atmel DFU loader
+#   LUFA bootloader
+#   USBaspLoader
 BOOTLOADER = caterina
 
 # Build Options
