@@ -11,18 +11,18 @@ Download or clone the `qmk_firmware` repo and navigate to its top level director
 Depending on your Layout chose one of the follwing commands:
 
 ```
-$ make handwired/dactyl_manuform/YOUR_LAYOUT:YOUR_KEYMAP_NAME
+$ make handwired/dactyl_manuform:YOUR_KEYMAP_NAME
 ```
 
 example:
 ```
-$ make handwired/dactyl_manuform/4x5:default
+$ make handwired/dactyl_manuform:default_4x5
 ```
 
 If everything worked correctly you will see a file:
 
 ```
-dactyl_manuform_YOUR_LAYOUT_YOUR_KEYMAP_NAME.hex
+handwired_dactyl_manuform_default_4x5.hex
 ```
 
 For more information on customizing keymaps, take a look at the primary documentation for [Customizing Your Keymap](/docs/faq_keymap.md) in the main readme.md.
