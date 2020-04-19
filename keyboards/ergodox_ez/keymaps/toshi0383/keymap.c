@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,     _______,   _______, _______, _______, _______,
         _______,  _______,     _______,   _______, _______, _______,
         _______,  _______,     _______,   _______, _______, _______, _______,
-        KC__MUTE, KC__VOLDOWN, KC__VOLUP, KC_BRID, KC_BRIU, RESET,   _______,
+        KC_MUTE, KC_VOLD, KC_VOLU, KC_BRID, KC_BRIU, RESET,   _______,
         _______, _______, _______, _______, KC_LGUI,
                                                        _______, _______,
                                                                 _______,
