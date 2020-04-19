@@ -66,14 +66,14 @@ After Homebrew is installed run these commands:
 
 You will need to install Git and Python. It's very likely that you already have both, but if not, one of the following commands should install them:
 
-* Debian / Ubuntu / Devuan: `sudo apt-get install git python3 python3-pip`
+* Debian / Ubuntu / Devuan: `sudo apt install git python3 python3-pip`
 * Fedora / Red Hat / CentOS: `sudo yum install git python3 python3-pip`
-* Arch: `sudo pacman -S git python python-pip`
+* Arch / Manjaro: `sudo pacman -S git python python-pip python-setuptools libffi`
 
 
 Install the global CLI to bootstrap your system:
 
-  `sudo python3 -m pip install qmk` (on Arch-based distros you can also try the `qmk` package from AUR (**note**: it's maintained by a community member): `yay -S qmk`)
+  `python3 -m pip install --user qmk` (on Arch-based distros you can also try the `qmk` package from AUR (**note**: it's maintained by a community member): `yay -S qmk`)
 
 ## 3. Run QMK Setup :id=set-up-qmk
 
@@ -82,6 +82,12 @@ After installing QMK you can set it up with this command:
     qmk setup
 
 In most situations you will want to answer Yes to all of the prompts.
+
+?>**Note on Debian, Ubuntu and their derivatives**:
+It's possible, that you will get an error saying something like: `bash: qmk: command not found`.
+This is due to a [bug](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=839155) Debian introduced with their Bash 4.4 release, which removed `$HOME/.local/bin` from the PATH. This bug was later fixed on Debian and Ubuntu.
+Sadly, Ubuntu reitroduced this bug and is [yet to fix it](https://bugs.launchpad.net/ubuntu/+source/bash/+bug/1588562).
+Luckily, the fix is easy. Run this as your user: `echo "PATH=$HOME/.local/bin:$PATH" >> $HOME/.bashrc" && source $HOME/.bashrc`
 
 ?> If you already know [how to use GitHub](getting_started_github.md), we recommend that you create your own fork and use `qmk setup <github_username>/qmk_firmware` to clone your personal fork. If you don't know what that means you can safely ignore this message.
 
