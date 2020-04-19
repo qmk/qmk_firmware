@@ -1,13 +1,10 @@
 """Functions that help us work with keyboards.
 """
 from array import array
-from glob import glob
 from math import ceil
 from pathlib import Path
 
-from milc import cli
-
-from qmk.c_parse import find_layouts, parse_config_h_file
+from qmk.c_parse import parse_config_h_file
 from qmk.makefile import parse_rules_mk_file
 
 

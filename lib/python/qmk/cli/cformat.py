@@ -6,7 +6,7 @@ from shutil import which
 from milc import cli
 
 from qmk.path import normpath
-from c_parse import c_source_files
+from qmk.c_parse import c_source_files
 
 
 def cformat_run(files, all_files):
