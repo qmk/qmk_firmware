@@ -24,9 +24,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x3060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    tshort
-// defined in subfolder
-#define DESCRIPTION     A split keyboard for the cheap makers
+#define MANUFACTURER    "tshort"
+#define PRODUCT         "Dactyl-Manuform"
+#define DESCRIPTION     "A split keyboard for the cheap makers"
 
 /* mouse config */
 #define MOUSEKEY_INTERVAL       20
@@ -66,3 +66,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
+
+#define USE_SERIAL
+
+#define MASTER_LEFT
+// #define MASTER_RIGHT
+//#define EE_HANDS
+// Rows are doubled-up
+
+#define DIODE_DIRECTION COL2ROW
+
+// WS2812 RGB LED strip input and number of LEDs
+#define RGB_DI_PIN D3
+#define RGBLED_NUM 12

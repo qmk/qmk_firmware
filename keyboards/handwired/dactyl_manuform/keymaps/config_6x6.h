@@ -1,16 +1,15 @@
 #pragma once
 
-#include "dactyl_manuform.h"
-#include "quantum.h"
+#include "config_common.h"
 
+/* key matrix size */
+// Rows are doubled-up
+#define MATRIX_ROWS 14
+#define MATRIX_COLS 6
 
-#ifdef USE_I2C
-#include <stddef.h>
-#ifdef __AVR__
-  #include <avr/io.h>
-  #include <avr/interrupt.h>
-#endif
-#endif
+// wiring of each half
+#define MATRIX_COL_PINS { D4, C6, D7, E6, B4, B5 }
+#define MATRIX_ROW_PINS { F5, F6, F7, B1, B3, B2, B6 }
 
 #define LAYOUT_6x6(\
   L00, L01, L02, L03, L04, L05,                          R00, R01, R02, R03, R04, R05, \
