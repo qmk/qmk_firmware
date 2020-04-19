@@ -23,4 +23,3 @@ def list_keymaps(cli):
         cli.echo("{fg_red}%s: %s", cli.config.list_keymaps.keyboard, e)
     except TypeError:
         cli.echo("{fg_red}Something went wrong. Did you specify a keyboard?")
-        
