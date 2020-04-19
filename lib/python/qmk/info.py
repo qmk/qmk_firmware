@@ -1,11 +1,13 @@
 """Functions that help us generate and use info.json files.
 """
 import json
+from glob import glob
 from pathlib import Path
 
 from milc import cli
 
 from qmk.constants import ARM_PROCESSORS, AVR_PROCESSORS, VUSB_PROCESSORS
+from qmk.c_parse import find_layouts
 from qmk.keyboard import config_h, rules_mk
 from qmk.math import compute
 

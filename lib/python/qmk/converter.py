@@ -26,7 +26,7 @@ def kle2qmk(kle):
             if 'name' in key and key['name']:
                 qmk_key['label'] = key['name'].split('\n', 1)[0]
             else:
-                del(qmk_key['label'])
+                del (qmk_key['label'])
 
             layout.append(qmk_key)
 
