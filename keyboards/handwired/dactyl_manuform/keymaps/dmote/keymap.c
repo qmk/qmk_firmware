@@ -1,4 +1,5 @@
-#include "62key.h"
+#include QMK_KEYBOARD_H
+
 #include "rgblight.h"
 #include <keymap_colemak.h>
 #include <sendstring_colemak.h>
