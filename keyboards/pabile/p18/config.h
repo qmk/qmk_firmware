@@ -3,8 +3,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x0000
-#define PRODUCT_ID      0x0000
+#define VENDOR_ID       0x6666
+#define PRODUCT_ID      0xPBLE
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Pabile
 #define PRODUCT         P18 Macro Pad
