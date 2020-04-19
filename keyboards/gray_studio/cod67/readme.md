@@ -39,7 +39,3 @@ After putting your COD67 in bootloader mode, it will show up as a drive.
 * Drag and drop your new `COD67.BIN` to the drive.
 * Wait a few seconds for it to write. The caps lock LED flashes rapidly while writing.
 * Press the `Esc` key or eject the drive in Finder to reset the board. You are now ready to type!
-
-## Notes
-
-The backlight pin is attached to a non PWM pin `D4` so the backlight is only on/off.
