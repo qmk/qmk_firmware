@@ -883,8 +883,7 @@ void rgblight_task(void) {
 #    endif
 #    ifdef RGBLIGHT_EFFECT_TWINKLE
         else if (rgblight_status.base_mode == RGBLIGHT_MODE_TWINKLE) {
-            interval_time = RGBLIGHT_EFFECT_TWINKLE_INTERVAL_MULTIPLIER * 
-		get_interval_time(&RGBLED_TWINKLE_INTERVALS[delta % 3], 15, 255);
+            interval_time = get_interval_time(&RGBLED_TWINKLE_INTERVALS[delta % 3], 5, 100);
             effect_func   = (effect_func_t)rgblight_effect_twinkle;
         }
 #    endif
@@ -1170,17 +1169,65 @@ void rgblight_effect_alternating(animation_status_t *anim) {
 #endif
 
 #ifdef RGBLIGHT_EFFECT_TWINKLE
-__attribute__((weak)) const uint8_t RGBLED_TWINKLE_INTERVALS[] PROGMEM = {255, 127, 63};
+__attribute__((weak)) const uint8_t RGBLED_TWINKLE_INTERVALS[] PROGMEM = {100, 50, 25};
+
+static HSV twinkle[2][RGBLED_NUM];
+static uint8_t current_twinkle = 0;
+static uint8_t twinkle_step = 0;
+
+static void rgblight_set_twinkle(HSV *twinkle, bool random_color) {
+    for (uint8_t i = 0; i < rgblight_ranges.effect_num_leds; i++) {
+        HSV *hsv = &(twinkle[i]);
+        // hsv->h = random_color ? rand() % 0xFF : rgblight_config.hue;
+        // hsv->s = random_color ? rand() % rgblight_config.sat : rgblight_config.sat;
+        // hsv->v = (float)rand() * rgblight_config.val / RAND_MAX;
+        if (rand() < RAND_MAX / 4)  {
+          hsv->h = random_color ? rand() % 0xFF : rgblight_config.hue;
+          hsv->s = random_color ? rand() % rgblight_config.sat : rgblight_config.sat;
+          hsv->v = rgblight_config.val;
+        } else {
+          hsv->v = 0;
+        }
+    }
+}
+
+static uint8_t interpolate(uint8_t from, uint8_t to, uint8_t step, uint8_t steps) {
+    return from + (step * (to - from) / steps);
+}
+
+#define RGBLED_TWINKLE_STEPS 30
 
 void rgblight_effect_twinkle(animation_status_t *anim) {
-    bool random_color = anim->delta / 3;
-    for (int i = 0; i < rgblight_ranges.effect_num_leds; i++) {
-        LED_TYPE *ledp = led + i + rgblight_ranges.effect_start_pos;
-        uint8_t val = (float)rand() * rgblight_config.val / RAND_MAX;
-        uint8_t hue = random_color ? rand() % 0xFF : rgblight_config.hue;
-        uint8_t sat = random_color ? rand() % rgblight_config.sat : rgblight_config.sat;
-        sethsv(hue, sat, val, ledp);
+    if (twinkle_step == 0) {
+	rgblight_set_twinkle(twinkle[current_twinkle], anim->delta / 3);
+	current_twinkle = current_twinkle ? 0 : 1;
+        twinkle_step = RGBLED_TWINKLE_STEPS;
+        dprint("reset twinkle step\n");
     }
+
+    HSV *c_twinkle = twinkle[current_twinkle];
+    HSV *n_twinkle = twinkle[current_twinkle ? 0 : 1];
+
+    for (uint8_t i = 0; i < rgblight_ranges.effect_num_leds; i++) {
+        LED_TYPE *ledp = led + i + rgblight_ranges.effect_start_pos;
+	HSV *c = &(c_twinkle[i]);
+	HSV *n = &(n_twinkle[i]);
+
+        if (i==0) {
+          dprintf("c->v=%u n->v=%u ip=%u, step=%u\n",
+                  c->v, n->v,
+	          interpolate(c->v, n->v, RGBLED_TWINKLE_STEPS - twinkle_step, RGBLED_TWINKLE_STEPS),
+		  twinkle_step);
+        }
+
+        sethsv(interpolate(c->h, n->h, RGBLED_TWINKLE_STEPS - twinkle_step, RGBLED_TWINKLE_STEPS),
+	       interpolate(c->s, n->s, RGBLED_TWINKLE_STEPS - twinkle_step, RGBLED_TWINKLE_STEPS),
+	       interpolate(c->v, n->v, RGBLED_TWINKLE_STEPS - twinkle_step, RGBLED_TWINKLE_STEPS),
+	       ledp);
+    }
+
+    twinkle_step--;
+
     rgblight_set();
 }
 #endif
