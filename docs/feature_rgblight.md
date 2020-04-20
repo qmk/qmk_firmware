@@ -94,6 +94,7 @@ if `RGBLIGHT_EFFECT_xxxx` or `RGBLIGHT_ANIMATIONS` is defined, you also have a n
 |`RGBLIGHT_MODE_STATIC_GRADIENT`| 0,1,..,9        |Static gradient                        |
 |`RGBLIGHT_MODE_RGB_TEST`     | *None*            |RGB Test                               |
 |`RGBLIGHT_MODE_ALTERNATING`  | *None*            |Alternating                            |
+|`RGBLIGHT_MODE_TWINKLE`      | 0,1,2,3,4,5       |Twinkle                                |
 
 Check out [this video](https://youtube.com/watch?v=VKrpPAHlisY) for a demonstration.
 
@@ -103,8 +104,8 @@ Note: For versions older than 0.6.117, The mode numbers were written directly. I
 
 Use these defines to add or remove animations from the firmware. When you are running low on flash space, it can be helpful to disable animations you are not using.
 
-|Define                              |Default      |Description                                                                          |
-|------------------------------------|-------------|-------------------------------------------------------------------------------------|
+|Define                              |Default      |Description                                                              |
+|------------------------------------|-------------|-------------------------------------------------------------------------|
 |`RGBLIGHT_ANIMATIONS`               |*Not defined*|Enable all additional animation modes.                                   |
 |`RGBLIGHT_EFFECT_ALTERNATING`       |*Not defined*|Enable alternating animation mode.                                       |
 |`RGBLIGHT_EFFECT_BREATHING`         |*Not defined*|Enable breathing animation mode.                                         |
@@ -115,6 +116,7 @@ Use these defines to add or remove animations from the firmware. When you are ru
 |`RGBLIGHT_EFFECT_RGB_TEST`          |*Not defined*|Enable RGB test animation mode.                                          |
 |`RGBLIGHT_EFFECT_SNAKE`             |*Not defined*|Enable snake animation mode.                                             |
 |`RGBLIGHT_EFFECT_STATIC_GRADIENT`   |*Not defined*|Enable static gradient mode.                                             |
+|`RGBLIGHT_EFFECT_TWINKLE`           |*Not defined*|Enable twinkle animation mode.                                           |
 
 ### Effect and Animation Settings
 
@@ -131,6 +133,8 @@ The following options are used to tweak the various animations:
 |`RGBLIGHT_EFFECT_KNIGHT_OFFSET`     |`0`          |The number of LEDs to start the "Knight" animation from the start of the strip by    |
 |`RGBLIGHT_RAINBOW_SWIRL_RANGE`      |`255`        |Range adjustment for the rainbow swirl effect to get different swirls                |
 |`RGBLIGHT_EFFECT_SNAKE_LENGTH`      |`4`          |The number of LEDs to light up for the "Snake" animation                             |
+|`RGBLIGHT_EFFECT_TWINKLE_LIFE`      |`75`         |Adjusts how quickly each LED brightens and dims when twinkling (in animation steps)  |
+|`RGBLIGHT_EFFECT_TWINKLE_PROBABILITY`|`1/127`     |Adjusts how likely each LED is to twinkle (on each animation step)                   |
 
 ### Example Usage to Reduce Memory Footprint
   1. Remove `RGBLIGHT_ANIMATIONS` from `config.h`.
@@ -167,6 +171,9 @@ const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {100, 50, 20};
 
 // How long (in milliseconds) to wait between animation steps for each of the "Knight" animations
 const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {127, 63, 31};
+
+// How long (in milliseconds) to wait between animation steps for each of the "Twinkle" animations
+const uint8_t RGBLED_TWINKLE_INTERVALS[] PROGMEM = {50, 25, 10};
 
 // These control which hues are selected for each of the "Static gradient" modes
 const uint8_t RGBLED_GRADIENT_RANGES[] PROGMEM = {255, 170, 127, 85, 64};
