@@ -1208,7 +1208,7 @@ void rgblight_effect_twinkle(animation_status_t *anim) {
 	} else if (rand() < RAND_MAX * RGBLIGHT_EFFECT_TWINKLE_PROBABILITY) {
             // This LED is off, but was randomly selected to start brightening
             c->h = random_color ? rand() % 0xFF : rgblight_config.hue;
-            c->s = random_color ? rand() % rgblight_config.sat : rgblight_config.sat;
+            c->s = random_color ? (rand() % (rgblight_config.sat / 2)) + (rgblight_config.sat / 2) : rgblight_config.sat;
 	    c->v = 0;
 	    t->life = RGBLIGHT_EFFECT_TWINKLE_LIFE;
             t->up = true;
