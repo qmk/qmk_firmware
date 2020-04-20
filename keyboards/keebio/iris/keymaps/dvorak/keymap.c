@@ -1,18 +1,13 @@
 #include QMK_KEYBOARD_H
-
-extern keymap_config_t keymap_config;
-
-#define _DVORAK 0
-#define _LOWER 1
-#define _RAISE 2
-#define _ADJUST 16
-
-enum custom_keycodes {
-  DVORAK = SAFE_RANGE,
-  LOWER,
-  RAISE,
-  ADJUST,
+enum my_layers {
+    _DVORAK,
+    _LOWER,
+    _RAISE,
+    _ADJUST
 };
+
+#define RAISE MO(_RAISE)
+#define LOWER MO(_LOWER)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -73,42 +68,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case DVORAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_DVORAK);
-      }
-      return false;
-      break;
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case RAISE:
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case ADJUST:
-      if (record->event.pressed) {
-        layer_on(_ADJUST);
-      } else {
-        layer_off(_ADJUST);
-      }
-      return false;
-      break;
-  }
-  return true;
+layer_state_t layer_state_set_user(layer_state_t state) {
+  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
