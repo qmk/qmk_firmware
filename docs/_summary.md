@@ -6,6 +6,7 @@
   * [Testing and Debugging](newbs_testing_debugging.md)
   * [Getting Help/Support](support.md)
   * [Other Resources](newbs_learn_more_resources.md)
+  * [Syllabus](syllabus.md)
 
 * FAQs
   * [General FAQ](faq_general.md)
