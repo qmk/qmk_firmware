@@ -91,6 +91,7 @@ static void render_logo(void) {
       0};
 
   oled_write_P(qmk_logo, false);
+  oled_write_P(PSTR("       Snowkuma"), false);
 }
 
 void oled_task_user(void) {
