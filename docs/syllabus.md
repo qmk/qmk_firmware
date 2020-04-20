@@ -4,7 +4,7 @@ This page helps you build up your QMK knowledge by introducing the basics first 
 
 # Beginning Topics
 
-If you read nothing else you should read the documents in this section. After reading the [Tutorial](newbs.md) you should be able to create a basic keymap, complie it, and flash it to your keyboard. The remaining documents will flesh out your knowledge of these basics.
+If you read nothing else you should read the documents in this section. After reading the [Tutorial](newbs.md) you should be able to create a basic keymap, compile it, and flash it to your keyboard. The remaining documents will flesh out your knowledge of these basics.
 
 * **Learn How To Use QMK Tools**
     * [Tutorial](newbs.md)
@@ -16,11 +16,11 @@ If you read nothing else you should read the documents in this section. After re
         * The full list of keycodes you can use. Note that some may require knowledge found in the Intermediate or Advanced Topics.
 * **Configuring IDEs** - Optional
     * [Eclipse](other_eclipse.md)
-    * [VSCode](other_vscode.md)
+    * [VS Code](other_vscode.md)
 
 # Intermediate Topics
 
-These topics start dig into some of the features that QMK supports. You don't have to read all of these documents, but some of the documents in the Advanced Topics section won't make sense if you skip over some of these.
+These topics start to dig into some of the features that QMK supports. You don't have to read all of these documents, but some of the documents in the Advanced Topics section won't make sense if you skip over some of these.
 
 * **Learn How To Configure Features**
     <!-- * Configuration Overview  FIXME(skullydazed/anyone): write this document -->
@@ -62,9 +62,9 @@ Everything below here requires a lot of foundational knowledge. Besides being ab
     * [Pointing Devices](feature_pointing_device.md)
 * **Core Development**
     * [Coding Conventions](coding_conventions_c.md)
-    * [Compatible Microcontrolers](compatible_microcontrollers.md)
+    * [Compatible Microcontrollers](compatible_microcontrollers.md)
     * [Custom Matrix](custom_matrix.md)
-    * [Understandnig QMK](understanding_qmk.md)
+    * [Understanding QMK](understanding_qmk.md)
 * **CLI Development**
     * [Coding Conventions](coding_conventions_python.md)
     * [CLI Development Overview](cli_development.md)
