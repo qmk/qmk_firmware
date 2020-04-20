@@ -112,8 +112,26 @@ enum layers {
 #define PASTE G(KC_V)
 #define NXT_WIN G(KC_GRV)
 #define EMOJI G(C(KC_SPC))  // brings up the emoji picker in OSX
+#define VOLUP KC__VOLUP     // shorter naming for layout tidiness
+#define VOLDOWN KC__VOLDOWN
+#define MUTE KC_MUTE
 
 // Layout blocks
+
+/* COLEMAK
+                     LEFT                                                    RIGHT
+   ,---------------------------------------.               ,---------------------------------------.
+L1 |   Q   |   Q   |   F   |   P   |   G   |           R1  |   J   |   L   |   U   |   Y   |   ;   |
+   |  Ctrl |  Alt  |  GUI  |       |       |               |       |       |  Ctrl |  Alt  |  GUI  |
+   |-------+-------+-------+-------+-------|               |-------+-------+-------+-------+-------|
+L2 |   A   |   R   |   S   |   T   |   D   |           R2  |   H   |   N   |   E   |   I   |   O   |
+   |       |       |       | Shift |       |               |       | Shift |       |       |       |
+   |-------+-------+-------+-------+-------|               |-------+-------+-------+-------+-------|
+L3 |   Z   |   X   |   C   |   V   |   B   |           R3  |   K   |   M   |   ,   |   .   |   '   |
+   |       |       |       |       |       |               |       |       |       |       |       |
+   '-------+-------+-------+-------+-------'               '-------+-------+-------+-------+-------'
+*/
+
 #define _________________COLEMAK_L1________________        Q_CTL,   W_ALT,   F_GUI,   KC_P,    KC_G
 #define _________________COLEMAK_L2________________        KC_A,    KC_R,    KC_S,    T_SFT,   KC_D
 #define _________________COLEMAK_L3________________        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
@@ -122,6 +140,19 @@ enum layers {
 #define _________________COLEMAK_R2________________        KC_H,    N_SFT,   KC_E,    KC_I,    KC_O
 #define _________________COLEMAK_R3________________        KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_QUOT
 
+/* NAV
+                     LEFT                                                    RIGHT
+   ,---------------------------------------.               ,---------------------------------------.
+L1 |  Ctrl |  Alt  |  GUI  |       |       |            R1 |       | Home  |   Up  |  End  | Page  |
+   |       |       |       |       |       |               |       |       |       |       |  Up   |
+   |-------+-------+-------+-------+-------|               |-------+-------+-------+-------+-------|
+L2 | Next  |       |       | Shift |       |            R2 |       | Left  |  Down | Right | Page  |
+   | Window|       |       |       |       |               |       |       |       |       | Down  |
+   |-------+-------+-------+-------+-------|               |-------+-------+-------+-------+-------|
+L3 |       |       |       |       |       |            R3 |       |       |       |       |       |
+   |       |       |       |       |       |               |       |       |       |       |       |
+   '-------+-------+-------+-------+-------'               '-------+-------+-------+-------+-------'
+*/
 #define _________________NAV_L1____________________        KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX, XXXXXXX
 #define _________________NAV_L2____________________        NXT_WIN, XXXXXXX, XXXXXXX, KC_LSFT, XXXXXXX
 #define _________________NAV_L3____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
@@ -130,6 +161,19 @@ enum layers {
 #define _________________NAV_R2____________________        XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN
 #define _________________NAV_R3____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
+/* SYMBOL
+                     LEFT                                                    RIGHT
+   ,---------------------------------------.               ,---------------------------------------.
+L1 |   !   |   @   |   *   |   &   |   |   |            R1 |       |   [   |   ^   |   ]   |   :   |
+   |       |       |       |       |       |               |       |       |       |       |       |
+   |-------+-------+-------+-------+-------|               |-------+-------+-------+-------+-------|
+L2 |   ~   |   <   |   %   |   %   |   £   |            R2 |   ?   |   (   |   $   |   )   |   /   |
+   |       |       |       |       |       |               |       |       |       |       |       |
+   |-------+-------+-------+-------+-------|               |-------+-------+-------+-------+-------|
+L3 |   `   |   +   |   -   |   =   |   €   |            R3 |   |   |   {   |   #   |   }   |   \   |
+   |       |       |       |       |       |               |       |       |       |       |       |
+   '-------+-------+-------+-------+-------'               '-------+-------+-------+-------+-------'
+*/
 
 #define _________________SYM_L1____________________        KC_EXLM, KC_AT,   KC_ASTR, KC_AMPR, KC_PIPE
 #define _________________SYM_L2____________________        KC_TILD, KC_LT,   KC_PERC, KC_GT,   GBP
@@ -140,6 +184,23 @@ enum layers {
 #define _________________SYM_R3____________________        KC_PIPE, KC_LCBR, KC_HASH, KC_RCBR, KC_BSLS
 
 
+/* NUMBER
+                     LEFT                                                    RIGHT
+   ,---------------------------------------.               ,---------------------------------------.
+L1 |       |       |  CUT  |       |       |            R1 |   /   |   7   |   8   |   9   |   *   |
+   |       |       |       |       |       |               |       |       |       |       |       |
+   |-------+-------+-------+-------+-------|               |-------+-------+-------+-------+-------|
+L2 |   ~   |   <   |   %   |   %   |   £   |            R2 |   .   |   4   |   5   |   6   |   -   |
+   |       |       |       |       |       |               |       |       |       |       |       |
+   -------+-------+-------+-------+-------|               |-------+-------+-------+-------+-------|
+L3 |   `   |   +   |   -   |   =   |   €   |            R3 |   ,   |   1   |   2   |   3   |   +   |
+   |       |       |       |       |       |               |       |       |       |       |       |
+   '-------+-------+-------+-------+-------'               |-------+-------+-------+-------+-------'
+                                                        R4 |   \   |   0   |   =   |                
+                                                           |       |       |       |                
+                                                           '-------+-------+-------'
+*/
+
 #define _________________NUM_L1____________________        XXXXXXX, XXXXXXX, CUT,     XXXXXXX, XXXXXXX
 #define _________________NUM_L2____________________        KC_COLN, KC_HASH, COPY,    PASTE,   GBP
 #define _________________NUM_L3____________________        KC_COMM, KC_PLUS, KC_MINS, KC_EQL,  EURO
@@ -149,6 +210,20 @@ enum layers {
 #define _________________NUM_R3____________________        KC_COMM, KC_1,    KC_2,    KC_3,    KC_PLUS
 #define ________NUM_R4___________                          KC_BSLS, KC_0,    KC_EQL
 
+
+/* SYMBOL
+                     LEFT                                                    RIGHT
+   ,---------------------------------------.               ,---------------------------------------.
+L1 |   !   |   @   |   *   |   &   |   |   |            R1 |       |   [   |   ^   |   ]   |   :   |
+   |       |       |       |       |       |               |       |       |       |       |       |
+   |-------+-------+-------+-------+-------|               |-------+-------+-------+-------+-------|
+L2 |   ~   |   <   |   %   |   %   |   £   |            R2 |   ?   |   (   |   $   |   )   |   /   |
+   |       |       |       |       |       |               |       |       |       |       |       |
+   |-------+-------+-------+-------+-------|               |-------+-------+-------+-------+-------|
+L3 |   `   |   +   |   -   |   =   |   €   |            R3 |   |   |   {   |   #   |   }   |   \   |
+   |       |       |       |       |       |               |       |       |       |       |       |
+   '-------+-------+-------+-------+-------'               '-------+-------+-------+-------+-------'
+*/
 
 #define _________________ARR_L1____________________        M_1_6,   M_2_6,   M_MAX,   M_5_6,   M_6_6
 #define _________________ARR_L2____________________        M_L13,   M_L23,   M_C13,   M_R23,   M_R13
@@ -168,22 +243,19 @@ enum layers {
 #define _________________MOU_R3____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
 
-#define _________________THU_L1____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, M_XXX2
-#define _________________THU_L2____________________        XXXXXXX, M_XXX4,  M_XXX3,  XXXXXXX, M_XXX1
+#define _________________THU_L1____________________        XXXXXXX, M_XXX4,  M_XXX3,  XXXXXXX, M_XXX2
+#define _________________THU_L2____________________        XXXXXXX, XXXXXXX, M_SPOTIFY, M_TYPE,  M_XXX1
 #define _________________THU_L3____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, M_BRAVE
 
 #define _________________THU_R1____________________        XXXXXXX, XXXXXXX, INPUT_L, XXXXXXX, TXT_PLS
-#define _________________THU_R2____________________        XXXXXXX, KC_CAPS, EMOJI,   XXXXXXX, TXT_MIN
-#define _________________THU_R3____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define _________________THU_R2____________________        XXXXXXX, KC_CAPS, EMOJI,   M_ITERM, TXT_MIN
+#define _________________THU_R3____________________        XXXXXXX, M_MONEY, XXXXXXX, XXXXXXX, XXXXXXX
 
 
-#define ________MOD_LEFT_________                          ESC_NUM, BSP_SYM, TAB_SFT 
+#define ________MOD_LEFT_________                          ESC_NUM, BSP_SYM, TAB_SFT
 #define ________MOD_RIGHT________                          MIN_ARR, SPC_NAV, ENT_THU
-
-#define _________MEDIA_1_________                          KC_BRIU, KC_MPLY, KC_MUTE
-#define _________MEDIA_2_________                          KC_BRID, KC_MFFD, KC__VOLUP
-#define _________MEDIA_3_________                          XXXXXXX, KC_MRWD, KC__VOLDOWN
 
 // Layout wrappers
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 #define LAYOUT_ergodox_wrapper(...) LAYOUT_ergodox(__VA_ARGS__)
+#define LAYOUT_planck_wrapper(...) LAYOUT(__VA_ARGS__)
