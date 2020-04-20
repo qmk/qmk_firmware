@@ -149,6 +149,14 @@ enum RGBLIGHT_EFFECT_MODE {
 #        define RGBLIGHT_EFFECT_CHRISTMAS_STEP 2
 #    endif
 
+#    ifndef RGBLIGHT_EFFECT_TWINKLE_LIFE
+#        define RGBLIGHT_EFFECT_TWINKLE_LIFE 75
+#    endif
+
+#    ifndef RGBLIGHT_EFFECT_TWINKLE_PROBABILITY
+#        define RGBLIGHT_EFFECT_TWINKLE_PROBABILITY 1/127
+#    endif
+
 #    ifndef RGBLIGHT_HUE_STEP
 #        define RGBLIGHT_HUE_STEP 8
 #    endif
