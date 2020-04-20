@@ -35,10 +35,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     if (layer_state_cmp(state, 1)) {
-        _idb_60_esc_led_on();
+        _idb_60_fn_led_on();
     } else {
-        _idb_60_esc_led_off();
+        _idb_60_fn_led_off();
     }
-	
+
 	return state;
 }
