@@ -31,7 +31,7 @@ const rgblight_segment_t PROGMEM _scrolllock_layer[] = RGBLIGHT_LAYER_SEGMENTS( 
 #define LAYER_OFFSET 2
 const rgblight_segment_t PROGMEM _layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS( {RGBLED_NUM/2-1, 1, HSV_PURPLE} ); // 2
 const rgblight_segment_t PROGMEM _layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS( {10, 3, HSV_MAGENTA} ); // 3
-const rgblight_segment_t PROGMEM _layer3_layer[] = RGBLIGHT_LAYER_SEGMENTS( {10, 1, HSV_GREEN} ); // 4
+const rgblight_segment_t PROGMEM _layer3_layer[] = RGBLIGHT_LAYER_SEGMENTS( {0, 1, HSV_GREEN} , {RGBLED_NUM/2-1, 2, HSV_GREEN}, {RGBLED_NUM-1, 1, HSV_GREEN} ); // 4
 
 #define ACK_OFFSET 5
 const rgblight_segment_t PROGMEM _no_layer[] = RGBLIGHT_LAYER_SEGMENTS( {9, 6, HSV_RED} ); // 5
