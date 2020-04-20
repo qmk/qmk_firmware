@@ -103,7 +103,7 @@ Luckily, the fix is easy. Run this as your user: `echo "PATH=$HOME/.local/bin:$P
 
 ?> If you already know [how to use GitHub](getting_started_github.md), we recommend that you create your own fork and use `qmk setup <github_username>/qmk_firmware` to clone your personal fork. If you don't know what that means you can safely ignore this message.
 
-### Note on FreeBSD Permissions
+### Note on FreeBSD Permissions :id=note-on-freebsd-permissions
 
 It is suggested to run `qmk setup` as a non-`root` user to start with, but this will likely identify that packages need to be isntalled to your
 base system using `pkg`. Although you maybe be prompted to install dependencies, this will likely fail due to running as an unprivileged user. To
