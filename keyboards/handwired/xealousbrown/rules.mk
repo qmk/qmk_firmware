@@ -34,7 +34,7 @@ SPACE_CADET_ENABLE = no             # Unneeded feature.
 # special sauce for this keyboard
 DEBOUNCE_TYPE = eager_pk            # Debounce using eager_pk.
 CUSTOM_MATRIX = lite                # Custom matrix that polls at 7000hz instead of a measly 2000hz.
-LINK_TIME_OPTIMIZATION_ENABLE = yes # smaller binary
+LTO_ENABLE = yes                    # smaller binary
 SRC += matrix.c
 
 # Also remember to open tmk's rules.mk and set compilation optimization to 3
