@@ -178,11 +178,21 @@ class ConfigurationSection(Configuration):
 
     def __getitem__(self, key):
         """Returns a config value, pulling from the `user` section as a fallback.
+        This is called when the attribute is accessed either via the get method or through [ ] index.
         """
-        if key in self._config:
+        if key in self._config and self._config.get(key) is not None:
             return self._config[key]
 
         elif key in self.parent.user:
+            return self.parent.user[key]
+
+        return None
+
+    def __getattr__(self, key):
+        """Returns the config value from the `user` section.
+        This is called when the attribute is accessed via dot notation but does not exists.
+        """
+        if key in self.parent.user:
             return self.parent.user[key]
 
         return None
@@ -232,15 +242,24 @@ class SubparserWrapper(object):
 
         This also stores the default for the argument in `self.cli.default_arguments`.
         """
-        if 'action' in kwargs and kwargs['action'] == 'store_boolean':
+        if kwargs.get('action') == 'store_boolean':
             # Store boolean will call us again with the enable/disable flag arguments
             return handle_store_boolean(self, *args, **kwargs)
 
         self.cli.acquire_lock()
+        argument_name = self.cli.get_argument_name(*args, **kwargs)
+
         self.subparser.add_argument(*args, **kwargs)
+
+        if kwargs.get('action') == 'store_false':
+            self.cli._config_store_false.append(argument_name)
+
+        if kwargs.get('action') == 'store_true':
+            self.cli._config_store_true.append(argument_name)
+
         if self.submodule not in self.cli.default_arguments:
             self.cli.default_arguments[self.submodule] = {}
-        self.cli.default_arguments[self.submodule][self.cli.get_argument_name(*args, **kwargs)] = kwargs.get('default')
+        self.cli.default_arguments[self.submodule][argument_name] = kwargs.get('default')
         self.cli.release_lock()
 
 
@@ -258,12 +277,14 @@ class MILC(object):
 
         # Define some basic info
         self.acquire_lock()
+        self._config_store_true = []
+        self._config_store_false = []
         self._description = None
         self._entrypoint = None
         self._inside_context_manager = False
         self.ansi = ansi_colors
-        self.arg_only = []
-        self.config = None
+        self.arg_only = {}
+        self.config = self.config_source = None
         self.config_file = None
         self.default_arguments = {}
         self.version = 'unknown'
@@ -367,7 +388,7 @@ class MILC(object):
         self.add_argument('--log-file', help='File to write log messages to')
         self.add_argument('--color', action='store_boolean', default=True, help='color in output')
         self.add_argument('--config-file', help='The location for the configuration file')
-        self.arg_only.append('config_file')
+        self.arg_only['config_file'] = ['general']
 
     def add_subparsers(self, title='Sub-commands', **kwargs):
         if self._inside_context_manager:
@@ -417,17 +438,20 @@ class MILC(object):
             raise RuntimeError('You must run this before the with statement!')
 
         def argument_function(handler):
-            if 'arg_only' in kwargs and kwargs['arg_only']:
+            subcommand_name = handler.__name__.replace("_", "-")
+
+            if kwargs.get('arg_only'):
                 arg_name = self.get_argument_name(*args, **kwargs)
-                self.arg_only.append(arg_name)
+                if arg_name not in self.arg_only:
+                    self.arg_only[arg_name] = []
+                self.arg_only[arg_name].append(subcommand_name)
                 del kwargs['arg_only']
 
-            name = handler.__name__.replace("_", "-")
             if handler is self._entrypoint:
                 self.add_argument(*args, **kwargs)
 
-            elif name in self.subcommands:
-                self.subcommands[name].add_argument(*args, **kwargs)
+            elif subcommand_name in self.subcommands:
+                self.subcommands[subcommand_name].add_argument(*args, **kwargs)
 
             else:
                 raise RuntimeError('Decorated function is not entrypoint or subcommand!')
@@ -463,6 +487,7 @@ class MILC(object):
         """
         self.acquire_lock()
         self.config = Configuration()
+        self.config_source = Configuration()
         self.config_file = self.find_config_file()
 
         if self.config_file and self.config_file.exists():
@@ -488,6 +513,7 @@ class MILC(object):
                             value = int(value)
 
                     self.config[section][option] = value
+                    self.config_source[section][option] = 'config_file'
 
         self.release_lock()
 
@@ -499,27 +525,37 @@ class MILC(object):
             if argument in ('subparsers', 'entrypoint'):
                 continue
 
-            if argument not in self.arg_only:
-                # Find the argument's section
-                if self._entrypoint.__name__ in self.default_arguments and argument in self.default_arguments[self._entrypoint.__name__]:
-                    argument_found = True
-                    section = self._entrypoint.__name__
-                if argument in self.default_arguments['general']:
-                    argument_found = True
-                    section = 'general'
+            # Find the argument's section
+            # Underscores in command's names are converted to dashes during initialization.
+            # TODO(Erovia) Find a better solution
+            entrypoint_name = self._entrypoint.__name__.replace("_", "-")
+            if entrypoint_name in self.default_arguments and argument in self.default_arguments[entrypoint_name]:
+                argument_found = True
+                section = self._entrypoint.__name__
+            if argument in self.default_arguments['general']:
+                argument_found = True
+                section = 'general'
 
-                if not argument_found:
-                    raise RuntimeError('Could not find argument in `self.default_arguments`. This should be impossible!')
-                    exit(1)
+            if not argument_found:
+                raise RuntimeError('Could not find argument in `self.default_arguments`. This should be impossible!')
+                exit(1)
+
+            if argument not in self.arg_only or section not in self.arg_only[argument]:
+                # Determine the arg value and source
+                arg_value = getattr(self.args, argument)
+                if argument in self._config_store_true and arg_value:
+                    passed_on_cmdline = True
+                elif argument in self._config_store_false and not arg_value:
+                    passed_on_cmdline = True
+                elif arg_value is not None:
+                    passed_on_cmdline = True
+                else:
+                    passed_on_cmdline = False
 
                 # Merge this argument into self.config
-                if argument in self.default_arguments:
-                    arg_value = getattr(self.args, argument)
-                    if arg_value:
-                        self.config[section][argument] = arg_value
-                else:
-                    if argument not in self.config[section]:
-                        self.config[section][argument] = getattr(self.args, argument)
+                if passed_on_cmdline and (argument in self.default_arguments['general'] or argument in self.default_arguments[entrypoint_name] or argument not in self.config[entrypoint_name]):
+                    self.config[section][argument] = arg_value
+                    self.config_source[section][argument] = 'argument'
 
         self.release_lock()
 
@@ -555,7 +591,7 @@ class MILC(object):
 
         # Move the new config file into place atomically
         if os.path.getsize(tmpfile.name) > 0:
-            os.rename(tmpfile.name, str(self.config_file))
+            os.replace(tmpfile.name, str(self.config_file))
         else:
             self.log.warning('Config file saving failed, not replacing %s with %s.', str(self.config_file), tmpfile.name)
 

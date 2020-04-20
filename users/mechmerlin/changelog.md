@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to my userspace will be documented in this file.
 
+## [0.3.0] - 2020-02-02
+### Changed
+- Added the `_CL` layer to all the boards for access to `EEP_RST` and `RESET` keycodes. This was done primarily to avoid triggering `RESET` accidentally. 
+- Added a placeholder text macro under the custom keycode `KC_MAC`. Currently set to "meow", but will change as needed in the future. 
+
 ## [0.2.2] - 2019-04-22
 ### Fixed
 - `config.h` usage of turning on `RGBLIGHT_ENABLE` when it is not enabled on boards other than my two clueboards were causing issues with boards that didn't have RGB underglow on it. 

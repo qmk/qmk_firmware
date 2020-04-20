@@ -98,30 +98,36 @@ UDC_DESC_STORAGE udi_hid_kbd_report_desc_t udi_hid_kbd_report_desc = {{
     0x05, 0x01,  // Usage Page (Generic Desktop)
     0x09, 0x06,  // Usage (Keyboard)
     0xA1, 0x01,  // Collection (Application)
+    // Modifiers (8 bits)
     0x05, 0x07,  //   Usage Page (Keyboard)
-    0x19, 0xE0,  //   Usage Minimum (224)
-    0x29, 0xE7,  //   Usage Maximum (231)
+    0x19, 0xE0,  //   Usage Minimum (Keyboard Left Control)
+    0x29, 0xE7,  //   Usage Maximum (Keyboard Right GUI)
     0x15, 0x00,  //   Logical Minimum (0)
     0x25, 0x01,  //   Logical Maximum (1)
-    0x75, 0x01,  //   Report Size (1)
     0x95, 0x08,  //   Report Count (8)
+    0x75, 0x01,  //   Report Size (1)
     0x81, 0x02,  //   Input (Data, Variable, Absolute)
+    // Reserved (1 byte)
     0x81, 0x01,  //   Input (Constant)
+    // Keycodes (6 bytes)
     0x19, 0x00,  //   Usage Minimum (0)
     0x29, 0xFF,  //   Usage Maximum (255)
     0x15, 0x00,  //   Logical Minimum (0)
     0x25, 0xFF,  //   Logical Maximum (255)
-    0x75, 0x08,  //   Report Size (8)
     0x95, 0x06,  //   Report Count (6)
-    0x81, 0x00,  //   Input (Data, Array)
+    0x75, 0x08,  //   Report Size (8)
+    0x81, 0x00,  //   Input (Data, Array, Absolute)
+
+    // Status LEDs (5 bits)
     0x05, 0x08,  //   Usage Page (LED)
-    0x19, 0x01,  //   Usage Minimum (1)
-    0x29, 0x05,  //   Usage Maximum (5)
+    0x19, 0x01,  //   Usage Minimum (Num Lock)
+    0x29, 0x05,  //   Usage Maximum (Kana)
     0x15, 0x00,  //   Logical Minimum (0)
     0x25, 0x01,  //   Logical Maximum (1)
-    0x75, 0x01,  //   Report Size (1)
     0x95, 0x05,  //   Report Count (5)
+    0x75, 0x01,  //   Report Size (1)
     0x91, 0x02,  //   Output (Data, Variable, Absolute)
+    // LED padding (3 bits)
     0x95, 0x03,  //   Report Count (3)
     0x91, 0x01,  //   Output (Constant)
     0xC0         // End Collection
@@ -231,43 +237,41 @@ static uint8_t udi_hid_nkro_report_trans[UDI_HID_NKRO_REPORT_SIZE];
 
 COMPILER_WORD_ALIGNED
 UDC_DESC_STORAGE udi_hid_nkro_report_desc_t udi_hid_nkro_report_desc = {{
-    0x05, 0x01,  // Usage Page (Generic Desktop),
-    0x09, 0x06,  // Usage (Keyboard),
-    0xA1, 0x01,  // Collection (Application) - Keyboard,
+    0x05, 0x01,  // Usage Page (Generic Desktop)
+    0x09, 0x06,  // Usage (Keyboard)
+    0xA1, 0x01,  // Collection (Application)
 
-    // Mods
-    0x75, 0x01,  //   Report Size (1),
-    0x95, 0x08,  //   Report Count (8),
-    0x15, 0x00,  //   Logical Minimum (0),
-    0x25, 0x01,  //   Logical Maximum (1),
-    0x05, 0x07,  //   Usage Page (Key Codes),
-    0x19, 0xE0,  //   Usage Minimum (224),
-    0x29, 0xE7,  //   Usage Maximum (231),
-    0x81, 0x02,  //   Input (Data, Variable, Absolute),
+    // Modifiers (8 bits)
+    0x05, 0x07,  //   Usage Page (Keyboard/Keypad)
+    0x19, 0xE0,  //   Usage Minimum (Keyboard Left Control)
+    0x29, 0xE7,  //   Usage Maximum (Keyboard Right GUI)
+    0x15, 0x00,  //   Logical Minimum (0)
+    0x25, 0x01,  //   Logical Maximum (1)
+    0x95, 0x08,  //   Report Count (8)
+    0x75, 0x01,  //   Report Size (1)
+    0x81, 0x02,  //   Input (Data, Variable, Absolute)
+    // Keycodes
+    0x05, 0x07,  //   Usage Page (Keyboard/Keypad)
+    0x19, 0x00,  //   Usage Minimum (0)
+    0x29, 0xF7,  //   Usage Maximum (247)
+    0x15, 0x00,  //   Logical Minimum (0)
+    0x25, 0x01,  //   Logical Maximum (1)
+    0x95, 0xF8,  //   Report Count (248)
+    0x75, 0x01,  //   Report Size (1)
+    0x81, 0x02,  //   Input (Data, Variable, Absolute, Bitfield)
 
-    // LED Report
-    0x75, 0x01,  //   Report Size (1),
-    0x95, 0x05,  //   Report Count (5),
-    0x05, 0x08,  //   Usage Page (LEDs),
-    0x19, 0x01,  //   Usage Minimum (1),
-    0x29, 0x05,  //   Usage Maximum (5),
-    0x91, 0x02,  //   Output (Data, Variable, Absolute),
-
-    // LED Report Padding
-    0x75, 0x03,  //   Report Size (3),
-    0x95, 0x01,  //   Report Count (1),
-    0x91, 0x03,  //   Output (Constant),
-
-    // Main keys
-    0x75, 0x01,  //   Report Size (1),
-    0x95, 0xF8,  //   Report Count (248),
-    0x15, 0x00,  //   Logical Minimum (0),
-    0x25, 0x01,  //   Logical Maximum (1),
-    0x05, 0x07,  //   Usage Page (Key Codes),
-    0x19, 0x00,  //   Usage Minimum (0),
-    0x29, 0xF7,  //   Usage Maximum (247),
-    0x81, 0x02,  //   Input (Data, Variable, Absolute, Bitfield),
-    0xc0,        // End Collection - Keyboard
+    // Status LEDs (5 bits)
+    0x05, 0x08,  //   Usage Page (LED)
+    0x19, 0x01,  //   Usage Minimum (Num Lock)
+    0x29, 0x05,  //   Usage Maximum (Kana)
+    0x95, 0x05,  //   Report Count (5)
+    0x75, 0x01,  //   Report Size (1)
+    0x91, 0x02,  //   Output (Data, Variable, Absolute)
+    // LED padding (3 bits)
+    0x95, 0x01,  //   Report Count (1)
+    0x75, 0x03,  //   Report Size (3)
+    0x91, 0x03,  //   Output (Constant)
+    0xC0         // End Collection
 }};
 
 static bool udi_hid_nkro_setreport(void);
@@ -373,35 +377,33 @@ static uint8_t udi_hid_exk_report_trans[UDI_HID_EXK_REPORT_SIZE];
 
 COMPILER_WORD_ALIGNED
 UDC_DESC_STORAGE udi_hid_exk_report_desc_t udi_hid_exk_report_desc = {{
-    // System Control Collection (8 bits)
+    // clang-format off
+    0x05, 0x01,              // Usage Page (Generic Desktop)
+    0x09, 0x80,              // Usage (System Control)
+    0xA1, 0x01,              // Collection (Application)
+    0x85, REPORT_ID_SYSTEM,  //   Report ID
+    0x19, 0x01,              //   Usage Minimum (Pointer)
+    0x2A, 0xB7, 0x00,        //   Usage Maximum (System Display LCD Autoscale)
+    0x15, 0x01,              //   Logical Minimum
+    0x26, 0xB7, 0x00,        //   Logical Maximum
+    0x95, 0x01,              //   Report Count (1)
+    0x75, 0x10,              //   Report Size (16)
+    0x81, 0x00,              //   Input (Data, Array, Absolute)
+    0xC0,                    // End Collection
 
-    0x05, 0x01,              // Usage Page (Generic Desktop),
-    0x09, 0x80,              // Usage (System Control),
-    0xA1, 0x01,              // Collection (Application),
-    0x85, REPORT_ID_SYSTEM,  //   Report ID (2) (System),
-    0x16, 0x01, 0x00,        //   Logical Minimum (1),
-    0x26, 0x03, 0x00,        //   Logical Maximum (3),
-    0x1A, 0x81, 0x00,        //   Usage Minimum (81) (System Power Down),
-    0x2A, 0x83, 0x00,        //   Usage Maximum (83) (System Wake Up),
-    0x75, 0x10,              //   Report Size (16),
-    0x95, 0x01,              //   Report Count (1),
-    0x81, 0x00,              //   Input (Data, Array),
-    0xC0,                    // End Collection - System Control
-
-    // Consumer Control Collection - Media Keys (16 bits)
-
-    0x05, 0x0C,                // Usage Page (Consumer),
-    0x09, 0x01,                // Usage (Consumer Control),
-    0xA1, 0x01,                // Collection (Application),
-    0x85, REPORT_ID_CONSUMER,  //   Report ID (3) (Consumer),
-    0x16, 0x01, 0x00,          //   Logical Minimum (1),
-    0x26, 0x9C, 0x02,          //   Logical Maximum (668),
-    0x1A, 0x01, 0x00,          //   Usage Minimum (1),
-    0x2A, 0x9C, 0x02,          //   Usage Maximum (668),
-    0x75, 0x10,                //   Report Size (16),
-    0x95, 0x01,                //   Report Count (1),
-    0x81, 0x00,                //   Input (Data, Array),
-    0xC0,                      // End Collection - Consumer Control
+    0x05, 0x0C,                // Usage Page (Consumer)
+    0x09, 0x01,                // Usage (Consumer Control)
+    0xA1, 0x01,                // Collection (Application)
+    0x85, REPORT_ID_CONSUMER,  //   Report ID
+    0x19, 0x01,                //   Usage Minimum (Consumer Control)
+    0x2A, 0xA0, 0x02,          //   Usage Maximum (AC Desktop Show All Applications)
+    0x15, 0x01,                //   Logical Minimum
+    0x26, 0xA0, 0x02,          //   Logical Maximum
+    0x95, 0x01,                //   Report Count (1)
+    0x75, 0x10,                //   Report Size (16)
+    0x81, 0x00,                //   Input (Data, Array, Absolute)
+    0xC0                       // End Collection
+    //clang-format on
 }};
 
 static bool udi_hid_exk_setreport(void);
@@ -506,49 +508,53 @@ static uint8_t udi_hid_mou_report_trans[UDI_HID_MOU_REPORT_SIZE];
 
 COMPILER_WORD_ALIGNED
 UDC_DESC_STORAGE udi_hid_mou_report_desc_t udi_hid_mou_report_desc = {{
-    0x05, 0x01,  // Usage Page (Generic Desktop),
-    0x09, 0x02,  // Usage (Mouse),
-    0xA1, 0x01,  // Collection (Application),
-    0x09, 0x01,  //   Usage (Pointer),
-    0xA1, 0x00,  //   Collection (Physical),
-    0x05, 0x09,  //     Usage Page (Buttons),
-    0x19, 0x01,  //     Usage Minimum (01),
-    0x29, 0x05,  //     Usage Maximun (05),
-    0x15, 0x00,  //     Logical Minimum (0),
-    0x25, 0x01,  //     Logical Maximum (1),
-    0x95, 0x05,  //     Report Count (5),
-    0x75, 0x01,  //     Report Size (1),
-    0x81, 0x02,  //     Input (Data, Variable, Absolute), ;5 button bits
-    0x95, 0x01,  //     Report Count (1),
-    0x75, 0x03,  //     Report Size (3),
-    0x81, 0x01,  //     Input (Constant), ;3 bit padding,
+    0x05, 0x01,  // Usage Page (Generic Desktop)
+    0x09, 0x02,  // Usage (Mouse)
+    0xA1, 0x01,  // Collection (Application)
+    0x09, 0x01,  //   Usage (Pointer)
+    0xA1, 0x00,  //   Collection (Physical)
+    // Buttons (5 bits)
+    0x05, 0x09,  //     Usage Page (Button)
+    0x19, 0x01,  //     Usage Minimum (Button 1)
+    0x29, 0x05,  //     Usage Maximun (Button 5)
+    0x15, 0x00,  //     Logical Minimum (0)
+    0x25, 0x01,  //     Logical Maximum (1)
+    0x95, 0x05,  //     Report Count (5)
+    0x75, 0x01,  //     Report Size (1)
+    0x81, 0x02,  //     Input (Data, Variable, Absolute)
+    // Button padding (3 bits)
+    0x95, 0x01,  //     Report Count (1)
+    0x75, 0x03,  //     Report Size (3)
+    0x81, 0x01,  //     Input (Constant)
 
-    0x05, 0x01,  //     Usage Page (Generic Desktop),
-    0x09, 0x30,  //     Usage (X),
-    0x09, 0x31,  //     Usage (Y),
-    0x15, 0x81,  //     Logical Minimum (-127),
-    0x25, 0x7F,  //     Logical Maximum (127),
-    0x95, 0x02,  //     Report Count (2),
-    0x75, 0x08,  //     Report Size (8),
-    0x81, 0x06,  //     Input (Data, Variable, Relative), ;2 position bytes (X & Y),
+    // X/Y position (2 bytes)
+    0x05, 0x01,  //     Usage Page (Generic Desktop)
+    0x09, 0x30,  //     Usage (X)
+    0x09, 0x31,  //     Usage (Y)
+    0x15, 0x81,  //     Logical Minimum (-127)
+    0x25, 0x7F,  //     Logical Maximum (127)
+    0x95, 0x02,  //     Report Count (2)
+    0x75, 0x08,  //     Report Size (8)
+    0x81, 0x06,  //     Input (Data, Variable, Relative)
 
-    0x09, 0x38,  //     Usage (Wheel),
-    0x15, 0x81,  //     Logical Minimum (-127),
-    0x25, 0x7F,  //     Logical Maximum (127),
-    0x95, 0x01,  //     Report Count (1),
-    0x75, 0x08,  //     Report Size (8),
-    0x81, 0x06,  //     Input (Data, Variable, Relative),
+    // Vertical wheel (1 byte)
+    0x09, 0x38,  //     Usage (Wheel)
+    0x15, 0x81,  //     Logical Minimum (-127)
+    0x25, 0x7F,  //     Logical Maximum (127)
+    0x95, 0x01,  //     Report Count (1)
+    0x75, 0x08,  //     Report Size (8)
+    0x81, 0x06,  //     Input (Data, Variable, Relative)
 
-    0x05, 0x0C,        //     Usage Page (Consumer),
-    0x0A, 0x38, 0x02,  //     Usage (AC Pan (Horizontal wheel)),
-    0x15, 0x81,        //     Logical Minimum (-127),
-    0x25, 0x7F,        //     Logical Maximum (127),
-    0x95, 0x01,        //     Report Count (1),
-    0x75, 0x08,        //     Report Size (8),
-    0x81, 0x06,        //     Input (Data, Variable, Relative),
-
-    0xC0,  //   End Collection,
-    0xC0,  // End Collection
+    // Horizontal wheel (1 byte)
+    0x05, 0x0C,        //     Usage Page (Consumer)
+    0x0A, 0x38, 0x02,  //     Usage (AC Pan)
+    0x15, 0x81,        //     Logical Minimum (-127)
+    0x25, 0x7F,        //     Logical Maximum (127)
+    0x95, 0x01,        //     Report Count (1)
+    0x75, 0x08,        //     Report Size (8)
+    0x81, 0x06,        //     Input (Data, Variable, Relative)
+    0xC0,              //   End Collection
+    0xC0               // End Collection
 }};
 
 static void udi_hid_mou_report_sent(udd_ep_status_t status, iram_size_t nb_sent, udd_ep_id_t ep);
@@ -635,27 +641,32 @@ COMPILER_WORD_ALIGNED
 static uint8_t udi_hid_raw_report_trans[UDI_HID_RAW_REPORT_SIZE];
 
 COMPILER_WORD_ALIGNED
+static uint8_t udi_hid_raw_report_recv[UDI_HID_RAW_REPORT_SIZE];
+
+COMPILER_WORD_ALIGNED
 UDC_DESC_STORAGE udi_hid_raw_report_desc_t udi_hid_raw_report_desc = {{
-    0x06,  // Usage Page (Vendor Defined)
-    0xFF, 0xFF,
-    0x0A,                    // Usage (Mouse)
-    0xFF, 0xFF, 0xA1, 0x01,  // Collection (Application)
-    0x75, 0x08,              //   Report Size (8)
-    0x15, 0x00,              //   Logical Minimum (0)
-    0x25, 0xFF,              //   Logical Maximum (255)
-    0x95, 0x40,              //     Report Count
-    0x09, 0x01,              //     Usage (Input)
-    0x81, 0x02,              //     Input (Data
-    0x95, 0x40,              //     Report Count
-    0x09, 0x02,              //     Usage (Output)
-    0x91, 0x02,              //     Output (Data
-    0xC0,                    // End Collection - Consumer Control
+    0x06, 0x60, 0xFF,  // Usage Page (Vendor Defined)
+    0x09, 0x61,        // Usage (Vendor Defined)
+    0xA1, 0x01,        // Collection (Application)
+    0x75, 0x08,        //   Report Size (8)
+    0x15, 0x00,        //   Logical Minimum (0)
+    0x25, 0xFF,        //   Logical Maximum (255)
+    // Data to host
+    0x09, 0x62,        //     Usage (Vendor Defined)
+    0x95, RAW_EPSIZE,  //     Report Count
+    0x81, 0x02,        //     Input (Data, Variable, Absolute)
+    // Data from host
+    0x09, 0x63,        //     Usage (Vendor Defined)
+    0x95, RAW_EPSIZE,  //     Report Count
+    0x91, 0x02,        //     Output (Data, Variable, Absolute)
+    0xC0               // End Collection
 }};
 
 static bool udi_hid_raw_setreport(void);
 static void udi_hid_raw_setreport_valid(void);
 
 static void udi_hid_raw_report_sent(udd_ep_status_t status, iram_size_t nb_sent, udd_ep_id_t ep);
+static void udi_hid_raw_report_rcvd(udd_ep_status_t status, iram_size_t nb_rcvd, udd_ep_id_t ep);
 
 bool udi_hid_raw_enable(void) {
     // Initialize internal values
@@ -712,7 +723,30 @@ static void udi_hid_raw_report_sent(udd_ep_status_t status, iram_size_t nb_sent,
 
 static void udi_hid_raw_setreport_valid(void) {}
 
-#endif  // RAW
+void raw_hid_send(uint8_t *data, uint8_t length) {
+    if (main_b_raw_enable && !udi_hid_raw_b_report_trans_ongoing && length == UDI_HID_RAW_REPORT_SIZE) {
+        memcpy(udi_hid_raw_report, data, UDI_HID_RAW_REPORT_SIZE);
+        udi_hid_raw_send_report();
+    }
+}
+
+bool udi_hid_raw_receive_report(void) {
+    if (!main_b_raw_enable) {
+        return false;
+    }
+
+    return udd_ep_run(UDI_HID_RAW_EP_OUT | USB_EP_DIR_OUT, false, udi_hid_raw_report_recv, UDI_HID_RAW_REPORT_SIZE, udi_hid_raw_report_rcvd);
+}
+
+static void udi_hid_raw_report_rcvd(udd_ep_status_t status, iram_size_t nb_rcvd, udd_ep_id_t ep) {
+    UNUSED(ep);
+
+    if (status == UDD_EP_TRANSFER_OK && nb_rcvd == UDI_HID_RAW_REPORT_SIZE) {
+        UDI_HID_RAW_RECEIVE(udi_hid_raw_report_recv, UDI_HID_RAW_REPORT_SIZE);
+    }
+}
+
+#endif //RAW
 
 //********************************************************************************************
 // CON
@@ -753,22 +787,24 @@ static uint8_t udi_hid_con_report_trans[UDI_HID_CON_REPORT_SIZE];
 
 COMPILER_WORD_ALIGNED
 UDC_DESC_STORAGE udi_hid_con_report_desc_t udi_hid_con_report_desc = {{
-    0x06, 0x31,           0xFF,  // Vendor Page (PJRC Teensy compatible)
-    0x09, 0x74,                  // Vendor Usage (PJRC Teensy compatible)
-    0xA1, 0x01,                  // Collection (Application)
-    0x09, 0x75,                  //   Usage (Vendor)
-    0x15, 0x00,                  //   Logical Minimum (0x00)
-    0x26, 0xFF,           0x00,  //   Logical Maximum (0x00FF)
-    0x95, CONSOLE_EPSIZE,        //   Report Count
-    0x75, 0x08,                  //   Report Size (8)
-    0x81, 0x02,                  //   Input (Data)
-    0x09, 0x76,                  //   Usage (Vendor)
-    0x15, 0x00,                  //   Logical Minimum (0x00)
-    0x26, 0xFF,           0x00,  //   Logical Maximum (0x00FF)
-    0x95, CONSOLE_EPSIZE,        //   Report Count
-    0x75, 0x08,                  //   Report Size (8)
-    0x91, 0x02,                  //   Output (Data)
-    0xC0,                        // End Collection
+    0x06, 0x31, 0xFF,  // Usage Page (Vendor Defined - PJRC Teensy compatible)
+    0x09, 0x74,        // Usage (Vendor Defined - PJRC Teensy compatible)
+    0xA1, 0x01,        // Collection (Application)
+    // Data to host
+    0x09, 0x75,            //   Usage (Vendor Defined)
+    0x15, 0x00,            //   Logical Minimum (0x00)
+    0x26, 0xFF, 0x00,      //   Logical Maximum (0x00FF)
+    0x95, CONSOLE_EPSIZE,  //   Report Count
+    0x75, 0x08,            //   Report Size (8)
+    0x81, 0x02,            //   Input (Data, Variable, Absolute)
+    // Data from host
+    0x09, 0x76,            //   Usage (Vendor Defined)
+    0x15, 0x00,            //   Logical Minimum (0x00)
+    0x26, 0xFF, 0x00,      //   Logical Maximum (0x00FF)
+    0x95, CONSOLE_EPSIZE,  //   Report Count
+    0x75, 0x08,            //   Report Size (8)
+    0x91, 0x02,            //   Output (Data)
+    0xC0                   // End Collection
 }};
 
 static bool udi_hid_con_setreport(void);
