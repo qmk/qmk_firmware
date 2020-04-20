@@ -23,20 +23,41 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
+    case M_ITERM:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LGUI(" "));
+        SEND_STRING("Iterm.app\n");
+      }
+      break;
+
     case M_KRAKEN:
-      if (record->event.preesed) {
+      if (record->event.pressed) {
         SEND_STRING(SS_LGUI(" "));
         SEND_STRING("GitKraken.app\n");  
       }
       break;
 
-    // BEGIN: Layer macros
-    case COLEMAK:
+    case M_MONEY:
       if (record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
+        SEND_STRING(SS_LGUI(" "));
+        SEND_STRING("MoneyDance.app\n");
       }
       break;
-    // END: Layer macros
+
+    case M_SPOTIFY:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LGUI(" "));
+        SEND_STRING("Spotify.app\n");
+      }
+      break;
+
+    case M_TYPE:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LGUI(" "));
+        SEND_STRING("TypeFu.app\n");
+      }
+      break;
+  
   }
 
   return process_record_keymap(keycode, record) && process_record_secrets(keycode, record)

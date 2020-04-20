@@ -2,11 +2,13 @@
 #include "snowkuma.h"
 
 enum custom_keycodes {
-  // Layer Macros
-  COLEMAK = SAFE_RANGE,
   // Custom Macros
-  M_BRAVE,
+  M_BRAVE = SAFE_RANGE,
+  M_ITERM,
   M_KRAKEN,
+  M_MONEY,
+  M_SPOTIFY,
+  M_TYPE,
 
   // Secret Macros
   M_XXX1,
