@@ -1,7 +1,6 @@
 #!/bin/sh
 util_dir=$(dirname "$0")
-if [ $(id -u) = 0 ]
-then
+if [ $(id -u) = 0 ]; then
 	pkg update
 	pkg install -y \
 		git \
