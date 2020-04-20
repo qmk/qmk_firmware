@@ -2,19 +2,19 @@
 
 #include "quantum.h"
 
-extern inline void _idb_60_caps_led_on(void) {
+inline void _idb_60_caps_led_on(void) {
     writePinHigh(C5);
 }
 
-extern inline void _idb_60_fn_led_on(void) {
+inline void _idb_60_fn_led_on(void) {
     writePinHigh(C4);
 }
 
-extern inline void _idb_60_caps_led_off(void) {
+inline void _idb_60_caps_led_off(void) {
     writePinLow(C5);
 }
 
-extern inline void _idb_60_fn_led_off(void) {
+inline void _idb_60_fn_led_off(void) {
     writePinLow(C4);
 }
 
