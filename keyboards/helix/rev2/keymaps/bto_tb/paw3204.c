@@ -1,5 +1,5 @@
 /*
-Copyright 2020 Sekigon
+Copyright 2019 Sekigon
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,9 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "quantum.h"
 #include "paw3204.h"
-#include "spi.h"
-#include "apidef.h"
 
 #define READ(addr) (addr)
 #define WRITE(addr) (0x80 | addr)
@@ -31,15 +30,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 typedef int (*spi_paw3204_t)(uint8_t *p_tx_buffer, size_t tx_length, uint8_t *p_rx_buffer, size_t rx_length, uint8_t cs_pin);
 
 #ifndef PAW3204_SCLK
-#    define PAW3204_SCLK 6
+#    define PAW3204_SCLK D0
 #endif
 
 #ifndef PAW3204_DATA
-#    define PAW3204_DATA 5
+#    define PAW3204_DATA D1
 #endif
 
 #ifndef PAW3204_POWER
-#    define PAW3204_POWER 7
+// #    define PAW3204_POWER 7
 #endif
 
 int spi_soft_half_duplex(uint8_t *p_tx_buffer, size_t tx_length, uint8_t *p_rx_buffer, size_t rx_length, uint8_t cs_pin) {
@@ -48,34 +47,30 @@ int spi_soft_half_duplex(uint8_t *p_tx_buffer, size_t tx_length, uint8_t *p_rx_b
         return 1;
     }
 
-    // clang-format off
-    bmp_api_spim_config_t config = {
-        .freq = SPI_FREQ_8M,
-        .miso = 0xFF,
-        .mosi = PAW3204_DATA,
-        .sck = PAW3204_SCLK,
-        .mode = CONFIG_SPI_MODE
-    };
-    // clang-format on
+    setPinOutput(PAW3204_DATA);
 
-    // configure data pin as output mode
-    BMPAPI->spim.init(&config);
-    BMPAPI->spim.start(p_tx_buffer, 1, p_rx_buffer, 1, cs_pin);
+    for (int8_t idx = 7; idx >= 0; idx--) {
+        writePinLow(PAW3204_SCLK);
+        writePin(PAW3204_DATA, (p_tx_buffer[0] >> idx) & 1);
+        writePinHigh(PAW3204_SCLK);
+    }
 
-    // configure data pin as input mode
-    config.mosi = 0xFF;
-    config.miso = PAW3204_DATA;
+    setPinInputHigh(PAW3204_DATA);
 
-    BMPAPI->spim.init(&config);
-    return BMPAPI->spim.start(p_tx_buffer + 1, 1, p_rx_buffer + 1, 1, cs_pin);
+    p_rx_buffer[1] = 0;
+    for (int8_t idx = 7; idx >= 0; idx--) {
+        writePinLow(PAW3204_SCLK);
+        writePinHigh(PAW3204_SCLK);
+        p_rx_buffer[1] |= readPin(PAW3204_DATA) << idx;
+    }
+
+    return 0;
 }
 
 // spi_paw3204_t spi_paw3204 = spim_start;
 spi_paw3204_t spi_paw3204 = spi_soft_half_duplex;
 
 uint8_t read_pid_paw3204() {
-    spim_init();
-
     uint8_t snd[] = {READ(REG_PID1), 0xFF};
     uint8_t rcv[] = {0xFF, 0xFF};
 
@@ -86,10 +81,8 @@ uint8_t read_pid_paw3204() {
 
 // powering paw3204 by gpio (not recommended)
 void init_paw3204() {
-    // const bmp_api_gpio_mode_t bmp_gpio_out_pp_hd = {.dir = BMP_MODE_OUTPUT, .pull = BMP_PULL_NONE, .drive = BMP_PIN_H0H1};
-    //
-    // BMPAPI->gpio.set_mode(PAW3204_POWER, &bmp_gpio_out_pp_hd);
-    // BMPAPI->gpio.set_pin(PAW3204_POWER);
+    setPinOutput(PAW3204_SCLK);
+    setPinInputHigh(PAW3204_DATA);
 }
 
 int read_paw3204(uint8_t *stat, int8_t *x, int8_t *y) {

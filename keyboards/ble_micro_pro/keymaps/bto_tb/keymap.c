@@ -54,10 +54,15 @@ void matrix_scan_user() {
 
     if (paw_ready) {
         uint8_t stat;
+        int8_t x, y;
+
+        read_paw3204(&stat, &x, &y);
         mouse_rep.buttons = 0;
         mouse_rep.h       = 0;
         mouse_rep.v       = 0;
-        read_paw3204(&stat, &mouse_rep.x, &mouse_rep.y);
+        mouse_rep.x       = y;
+        mouse_rep.y       = -x;
+
         dprintf("stat:0x%02x x:%4d y:%4d\n", stat, mouse_rep.x, mouse_rep.y);
 
         if (stat & 0x80) {
