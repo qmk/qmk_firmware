@@ -5,6 +5,7 @@ import os
 import platform
 import subprocess
 import shlex
+import shutil
 
 import qmk.keymap
 
@@ -28,11 +29,12 @@ def create_make_command(keyboard, keymap, target=None):
         A command that can be run to make the specified keyboard and keymap
     """
     make_args = [keyboard, keymap]
+    make_cmd = 'gmake' if shutil.which('gmake') else 'make'
 
     if target:
         make_args.append(target)
 
-    return ['make', ':'.join(make_args)]
+    return [make_cmd, ':'.join(make_args)]
 
 
 def compile_configurator_json(user_keymap, bootloader=None):

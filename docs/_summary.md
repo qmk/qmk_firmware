@@ -6,6 +6,7 @@
   * [Testing and Debugging](newbs_testing_debugging.md)
   * [Getting Help/Support](support.md)
   * [Other Resources](newbs_learn_more_resources.md)
+  * [Syllabus](syllabus.md)
 
 * FAQs
   * [General FAQ](faq_general.md)
@@ -135,6 +136,10 @@
     * QMK API
       * [Development Environment](api_development_environment.md)
       * [Architecture Overview](api_development_overview.md)
+
+  * Hardware Platform Development
+    * Arm/ChibiOS
+      * [Early initialization](platformdev_chibios_earlyinit.md)
 
   * QMK Reference
     * [Contributing to QMK](contributing.md)
