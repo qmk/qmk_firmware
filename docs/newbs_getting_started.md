@@ -75,7 +75,7 @@ Install the global CLI to bootstrap your system:
 
   `python3 -m pip install --user qmk` (on Arch-based distros you can also try the `qmk` package from AUR (**note**: it's maintained by a community member): `yay -S qmk`)
 
-### FreeBSD
+### FreeBSD :id=freebsd
 
 You will need to install Git and Python. It's possible that you already have both, but if not, run the following commands to install them:
 
