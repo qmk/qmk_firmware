@@ -233,7 +233,7 @@ __attribute__((weak)) void oled_driver_render_logo(void) {
 }
 
 void render_status_secondary(void) {
-#if !defined(SPLIT_TRANSPORT_MIRROR) || defined(OLED_DRIVER_128x64)
+#if !defined(SPLIT_TRANSPORT_MIRROR) || defined(OLED_DISPLAY_128X64)
     oled_driver_render_logo();
 #endif
 #ifdef SPLIT_TRANSPORT_MIRROR
