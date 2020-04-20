@@ -17,8 +17,9 @@ DEFAULT_KEYMAP_C = """#include QMK_KEYBOARD_H
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 __KEYMAP_GOES_HERE__
 };
+"""
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+ENCODER_SUPPORT = """void encoder_update_user(uint8_t index, bool clockwise) {
 __ENCODERS_GO_HERE__
 };
 """
@@ -29,8 +30,7 @@ ENCODER_IF = """\t_ELIF_ (index == _INDEX_) {
 \t\t} else {
 \t\t\ttap_code16(_COUNTER_);
 \t\t}
-\t}
-"""
+\t}"""
 
 
 def template(keyboard):
@@ -91,12 +91,12 @@ def generate(keyboard, layout, layers, encoders=None):
 
     keymap_c = keymap_c.replace('__KEYMAP_GOES_HERE__', keymap)
 
-    encoder_func = ''
     if encoders:
+        keymap_c += ENCODER_SUPPORT
         encoders_txt = []
-        for encoder_set in encoders:
-            curr_encoder = ENCODER_IF.replace('_ELIF_', 'if' if encoder_set.get('index') == 0 else 'else if')
-            curr_encoder = curr_encoder.replace('_INDEX_', str(encoder_set.get('index')))
+        for encoder_num, encoder_set in enumerate(encoders):
+            curr_encoder = ENCODER_IF.replace('_ELIF_', 'if' if encoder_num == 0 else 'else if')
+            curr_encoder = curr_encoder.replace('_INDEX_', str(encoder_num))
 
             clockwise = parse_basic_code(encoder_set.get('clockwise'))
             counter = parse_basic_code(encoder_set.get('counter'))
@@ -106,9 +106,8 @@ def generate(keyboard, layout, layers, encoders=None):
 
             encoders_txt.append(curr_encoder)
 
-        encoder_func = '\n'.join(encoders_txt)[:-1]
+        keymap_c = keymap_c.replace('ENCODERS_GO_HERE__', '\n'.join(encoders_txt))
 
-    keymap_c = keymap_c.replace('__ENCODERS_GO_HERE__', encoder_func)
     return keymap_c
 
 

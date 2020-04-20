@@ -1,6 +1,6 @@
 {
-  "keyboard": "handwired/onekey",
-  "keymap": "encoder",
+  "keyboard": "handwired/onekey/pytest",
+  "keymap": "encodertest",
   "layout": "LAYOUT",
   "layers": [
     [
@@ -11,7 +11,6 @@
   "notes": "",
   "encoders": [
     {
-      "index": 0,
       "clockwise": "KC_UP",
       "counter": "KC_DOWN"
     }

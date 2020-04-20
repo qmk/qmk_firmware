@@ -12,14 +12,17 @@ def test_cformat():
     assert result.returncode == 0
 
 
+def test_compile_json():
+    assert check_subcommand('compile', 'keyboards/handwired/onekey/keymaps/default_json/keymap.json').returncode == 0
+
+
+def test_compile_json_encoder():
+    assert check_subcommand('compile', 'keyboards/handwired/onekey/keymaps/encodertest/keymap.json').returncode == 0
+
+
 def test_compile():
     # keyboard compile
     assert check_subcommand('compile', '-kb', 'handwired/onekey/pytest', '-km', 'default').returncode == 0
-
-    # json compile
-    test_json = ['encoder', 'no_encoder']
-    for j in test_json:
-        assert check_subcommand('compile', f'keyboards/handwired/onekey/encodertest/{j}.json').returncode == 0  # with encoder
 
 
 def test_flash():

@@ -53,12 +53,12 @@ def compile_configurator_json(user_keymap, bootloader=None):
         A command to run to compile and flash the C file.
     """
     # Write the keymap C file
-    qmk.keymap.write(user_keymap.get('keyboard'), user_keymap.get('keymap'), user_keymap.get('layout'), user_keymap.get('layers'), user_keymap.get('encoders'))
+    qmk.keymap.write(user_keymap['keyboard'], user_keymap['keymap'], user_keymap['layout'], user_keymap['layers'], user_keymap.get('encoders'))
 
-    # Return a command that can be run to make the keymap and flash if given
+    # Return a command that can be run to make the keymap and flashf if given
     if bootloader is None:
-        return create_make_command(user_keymap.get('keyboard'), user_keymap.get('keymap'))
-    return create_make_command(user_keymap.get('keyboard'), user_keymap.get('keymap'), bootloader)
+        return create_make_command(user_keymap['keyboard'], user_keymap['keymap'])
+    return create_make_command(user_keymap['keyboard'], user_keymap['keymap'], bootloader)
 
 
 def parse_configurator_json(configurator_file):

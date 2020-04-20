@@ -1,6 +1,6 @@
 {
-  "keyboard": "handwired/onekey",
-  "keymap": "no_encoder",
+  "keyboard": "handwired/onekey/pytest",
+  "keymap": "default_json",
   "layout": "LAYOUT",
   "layers": [
     [
