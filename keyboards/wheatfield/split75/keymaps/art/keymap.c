@@ -329,7 +329,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case CTRL_LCTV:
       if (record->event.pressed) {
-        SEND_STRING(SS_LCTL("lctv"));
+        if ( get_mods() & MOD_MASK_SHIFT ) {
+          //Firefox
+          SEND_STRING(SS_LCTL("lcPv") SS_TAP(X_ENTER));
+        } else if ( get_mods() & MOD_MASK_CTRL ) {
+          //Chrome
+          SEND_STRING(SS_LCTL("lcNv") SS_TAP(X_ENTER));
+        } else {
+          SEND_STRING(SS_LCTL("lctv"));
+        }
       }
       break;
     case SARCASM:
@@ -459,18 +467,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case G_ADD:
     if (record->event.pressed) {
       SEND_STRING("git add ");
-            char_to_del = 8;
-        }
+        char_to_del = 8;
+    }
     break;
   case G_BRCH:
     if (record->event.pressed) {
       if ( get_mods() & MOD_MASK_SHIFT ) {
         clear_mods();
         SEND_STRING("master");
-                char_to_del = 6;
+        char_to_del = 6;
       } else {
         SEND_STRING("develop");
-                char_to_del = 7;
+        char_to_del = 7;
       }
     }
     break;
