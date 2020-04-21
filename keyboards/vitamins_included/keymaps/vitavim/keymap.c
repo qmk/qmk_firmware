@@ -11,15 +11,6 @@ extern keymap_config_t keymap_config;
 #define _VIM 2
 #define _NUMPAD 3
 #define _CODE 4
-
-enum custom_keycodes {
-  ALPHAS = SAFE_RANGE,
-  MODS,
-  VIM,
-  NUMPAD,
-  CODE
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Alphas
