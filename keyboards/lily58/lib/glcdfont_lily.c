@@ -5,6 +5,7 @@
 
 #ifndef FONT5X7_H
 #define FONT5X7_H
+#endif
 
 #include "progmem.h"
 

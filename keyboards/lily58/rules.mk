@@ -39,11 +39,6 @@ RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 OLED_DRIVER_ENABLE=yes      # OLED display
 
-# A workaround until #7089 is merged.
-#   serial.c must not be compiled with the -lto option.
-#   The current LIB_SRC has a side effect with the -fno-lto option, so use it.
-LIB_SRC += serial.c
-
 # if firmware size over limit, try this option
 # CFLAGS += -flto
 
