@@ -26,11 +26,11 @@ enum layer_names {
 enum custom_keycodes {
   CTRL_CTV = SAFE_RANGE,
   CTRL_LCTV,
-	SARCASM,
+  SARCASM,
   N_BSPACE,
 
-	TOG_OS,
-	CTR_ALT,
+  TOG_OS,
+  CTR_ALT,
   OS_CTRL,
   OS_WIN,
   OS_HOME,
@@ -40,26 +40,26 @@ enum custom_keycodes {
   PRESCRIPTION,
   FOURS,
   
-	G_ADD,
-	G_BRCH,
-	G_C,
-	G_BS_C,
-	G_CHEC,	
-	G_COMM,
-	G_DIFF,
-	G_FTCH,
-	G_LOG,
-	G_MERG,
-	G_P,
-	// G_BS_P,
-	// G_PULL,
-	// G_PUSH,
-	G_RST,
-	G_S,
-	G_BS_S,
-	G_STAT,
-	G_STSH,
-	G_SHOW,
+  G_ADD,
+  G_BRCH,
+  G_C,
+  G_BS_C,
+  G_CHEC,	
+  G_COMM,
+  G_DIFF,
+  G_FTCH,
+  G_LOG,
+  G_MERG,
+  G_P,
+  // G_BS_P,
+  // G_PULL,
+  // G_PUSH,
+  G_RST,
+  G_S,
+  G_BS_S,
+  G_STAT,
+  G_STSH,
+  G_SHOW,
 };
 
 bool led_update_user(led_t led_state) {
@@ -79,8 +79,8 @@ void keyboard_pre_init_user(void) {
   writePinLow(CAPSLOCK_LED_PIN);
   wait_ms(50);
   writePinLow(NUMLOCK_LED_PIN);
-	
-	layer_state_set_user(layer_state);
+  
+  layer_state_set_user(layer_state);
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -264,7 +264,7 @@ XXXXXXX,  XXXXXXX,    _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
 XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                        XXXXXXX,             XXXXXXX, XXXXXXX,   XXXXXXX,                      XXXXXXX, XXXXXXX,  XXXXXXX
   ),   
   
- /*                ,-----------------------------------------.     ,-----------------------------------------------------.
+/*                ,-----------------------------------------.     ,-----------------------------------------------------.
   *                |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |
   * ,-----------.  |-----+-----+-----+-----+-----+-----+-----|     |-----+-----+-----+-----+-----+-----+-----------+-----|
   * |     |     |  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |           |     |
@@ -455,31 +455,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         char_to_del = 16;
       }
       break;
-		  
-	case G_ADD:
-		if (record->event.pressed) {
-			SEND_STRING("git add ");
+      
+  case G_ADD:
+    if (record->event.pressed) {
+      SEND_STRING("git add ");
             char_to_del = 8;
         }
-		break;
-	case G_BRCH:
-		if (record->event.pressed) {
-			if ( get_mods() & MOD_MASK_SHIFT ) {
-				clear_mods();
-				SEND_STRING("master");
+    break;
+  case G_BRCH:
+    if (record->event.pressed) {
+      if ( get_mods() & MOD_MASK_SHIFT ) {
+        clear_mods();
+        SEND_STRING("master");
                 char_to_del = 6;
-			} else {
-				SEND_STRING("develop");
+      } else {
+        SEND_STRING("develop");
                 char_to_del = 7;
-			}
-		}
-		break;
-	case G_C:
-		if (record->event.pressed) {
+      }
+    }
+    break;
+  case G_C:
+    if (record->event.pressed) {
       SEND_STRING("git c[Heckout/Ommit]");
       layer_on(GIT_C);
-		}
-		break;
+    }
+    break;
   //These layers are required for sole purpose of switching off _C/S layer before removing chars
   case G_BS_C:
     if (record->event.pressed) {
@@ -488,117 +488,117 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       backspace_n_times(20);
     }
     break;
-	case G_CHEC:
-		if (!record->event.pressed) {
+  case G_CHEC:
+    if (!record->event.pressed) {
       bool shifted = get_mods() & MOD_MASK_SHIFT;
       clear_mods();
             
       backspace_n_times(15);
-			SEND_STRING("heckout ");
+      SEND_STRING("heckout ");
       char_to_del = 13;
       if (shifted) {
-				SEND_STRING("-b ");
+        SEND_STRING("-b ");
         char_to_del = 16;
-			}
+      }
       layer_off(GIT_C);
-		}
-		break;
-	case G_COMM:
-		if (!record->event.pressed) {
+    }
+    break;
+  case G_COMM:
+    if (!record->event.pressed) {
         bool shifted = get_mods() & MOD_MASK_SHIFT;
         clear_mods();
         
         backspace_n_times(15);
         SEND_STRING("ommit -");
         char_to_del = 15;
-			if (shifted) {
-				SEND_STRING("a");
+      if (shifted) {
+        SEND_STRING("a");
         char_to_del = 16;
-			}
+      }
       SEND_STRING("m \"\"" SS_TAP(X_LEFT));
-			layer_off(GIT_C);
-		}
-		break;
-	case G_DIFF:
-		if (record->event.pressed) {
-			SEND_STRING("git diff ");
+      layer_off(GIT_C);
+    }
+    break;
+  case G_DIFF:
+    if (record->event.pressed) {
+      SEND_STRING("git diff ");
       char_to_del = 9;
-		}
-		break;	
-	case G_FTCH:
-		if (record->event.pressed) {
-			SEND_STRING("git fetch ");
+    }
+    break;	
+  case G_FTCH:
+    if (record->event.pressed) {
+      SEND_STRING("git fetch ");
       char_to_del = 10;
-		}
-		break;
-	case G_LOG:
-		if (record->event.pressed) {
-			SEND_STRING("git log ");
+    }
+    break;
+  case G_LOG:
+    if (record->event.pressed) {
+      SEND_STRING("git log ");
       char_to_del = 8;
-		}
-		break;
-	case G_MERG:
-		if (record->event.pressed) {
-			SEND_STRING("git merge ");
+    }
+    break;
+  case G_MERG:
+    if (record->event.pressed) {
+      SEND_STRING("git merge ");
       char_to_del = 10;
-		}
-		break;
-	case G_P:
-		if (record->event.pressed) {
+    }
+    break;
+  case G_P:
+    if (record->event.pressed) {
       if ( get_mods() & MOD_MASK_SHIFT ) {
-				clear_mods();
-				SEND_STRING("git push -u");
+        clear_mods();
+        SEND_STRING("git push -u");
         char_to_del = 11;
-			} else {
-				SEND_STRING("git pu");
+      } else {
+        SEND_STRING("git pu");
         char_to_del = 6;
-			}
-		}
-		break;
-	case G_RST:
-		if (record->event.pressed) {
-			SEND_STRING("git reset ");
+      }
+    }
+    break;
+  case G_RST:
+    if (record->event.pressed) {
+      SEND_STRING("git reset ");
       char_to_del = 10;
-		}
-		break;
-	case G_S:
-		if (!record->event.pressed) {
-			SEND_STRING("git s[How/taSh/taTus]");
+    }
+    break;
+  case G_S:
+    if (!record->event.pressed) {
+      SEND_STRING("git s[How/taSh/taTus]");
       //Not setting char_to_del as it's deleted explicitly in G_BS_X
       char_to_del = 21;
-			layer_on(GIT_S);			
-		}
-		break;
+      layer_on(GIT_S);			
+    }
+    break;
   case G_BS_S:
     if (record->event.pressed) {
       layer_off(GIT_S);
       backspace_n_times(21);
     }
     break;
-	case G_SHOW:
-		if (!record->event.pressed) {
+  case G_SHOW:
+    if (!record->event.pressed) {
       backspace_n_times(16);
-			SEND_STRING("how ");
+      SEND_STRING("how ");
       char_to_del = 9;
-			layer_off(GIT_S);
-		}
-		break;			
-	case G_STSH:
-		if (!record->event.pressed) {
+      layer_off(GIT_S);
+    }
+    break;			
+  case G_STSH:
+    if (!record->event.pressed) {
       backspace_n_times(16);
-			SEND_STRING("tash ");
+      SEND_STRING("tash ");
       char_to_del = 10;
-			layer_off(GIT_S);
-		}
-		break;		
-	case G_STAT:
-		if (!record->event.pressed) {
+      layer_off(GIT_S);
+    }
+    break;		
+  case G_STAT:
+    if (!record->event.pressed) {
       backspace_n_times(16);
-			SEND_STRING("tatus ");
+      SEND_STRING("tatus ");
       char_to_del = 11;
-			layer_off(GIT_S);
-		}
-		break;
+      layer_off(GIT_S);
+    }
+    break;
   }
   return true;
 };
