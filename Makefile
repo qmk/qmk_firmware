@@ -557,55 +557,38 @@ endef
 # Let's match everything, we handle all the rule parsing ourselves
 .PHONY: %
 %:
-	# Check if we have the CMP tool installed
-	cmp $(ROOT_DIR)/Makefile $(ROOT_DIR)/Makefile >/dev/null 2>&1; if [ $$? -gt 0 ]; then printf "$(MSG_NO_CMP)"; exit 1; fi;
-	# Ensure that python3 is installed. This check can be removed after python is used in more places.
-	if ! python3 --version 1> /dev/null 2>&1; then printf "$(MSG_PYTHON_MISSING)"; fi
-	# Check if the submodules are dirty, and display a warning if they are
-ifndef SKIP_GIT
-	if [ ! -e lib/chibios ]; then git submodule sync lib/chibios && git submodule update --depth 50 --init lib/chibios; fi
-	if [ ! -e lib/chibios-contrib ]; then git submodule sync lib/chibios-contrib && git submodule update --depth 50 --init lib/chibios-contrib; fi
-	if [ ! -e lib/ugfx ]; then git submodule sync lib/ugfx && git submodule update --depth 50 --init lib/ugfx; fi
-	if [ ! -e lib/lufa ]; then git submodule sync lib/lufa && git submodule update --depth 50 --init lib/lufa; fi
-	git submodule status --recursive 2>/dev/null | \
-	while IFS= read -r x; do \
-		case "$$x" in \
-			\ *) ;; \
-			*) printf "$(MSG_SUBMODULE_DIRTY)";break;; \
-		esac \
-	done
-endif
-	rm -f $(ERROR_FILE) > /dev/null 2>&1
-	$(eval $(call PARSE_RULE,$@))
-	$(eval $(call SET_SILENT_MODE))
-	# Run all the commands in the same shell, notice the + at the first line
-	# it has to be there to allow parallel execution of the submake
-	# This always tries to compile everything, even if error occurs in the middle
-	# But we return the error code at the end, to trigger travis failures
-	# The sort at this point is to remove duplicates
-	$(foreach COMMAND,$(sort $(COMMANDS)),$(RUN_COMMAND))
-	if [ -f $(ERROR_FILE) ]; then printf "$(MSG_ERRORS)" & exit 1; fi;
-	$(foreach TEST,$(sort $(TESTS)),$(RUN_TEST))
-	if [ -f $(ERROR_FILE) ]; then printf "$(MSG_ERRORS)" & exit 1; fi;
+#	# Check if we have the CMP tool installed
+#	cmp $(ROOT_DIR)/Makefile $(ROOT_DIR)/Makefile >/dev/null 2>&1; if [ $$? -gt 0 ]; then printf "$(MSG_NO_CMP)"; exit 1; fi;
+#	# Ensure that python3 is installed. This check can be removed after python is used in more places.
+#	if ! python3 --version 1> /dev/null 2>&1; then printf "$(MSG_PYTHON_MISSING)"; fi
+#	# Check if the submodules are dirty, and display a warning if they are
+#ifndef SKIP_GIT
+#	if [ ! -e lib/chibios ]; then git submodule sync lib/chibios && git submodule update --depth 50 --init lib/chibios; fi
+#	if [ ! -e lib/chibios-contrib ]; then git submodule sync lib/chibios-contrib && git submodule update --depth 50 --init lib/chibios-contrib; fi
+#	if [ ! -e lib/ugfx ]; then git submodule sync lib/ugfx && git submodule update --depth 50 --init lib/ugfx; fi
+#	if [ ! -e lib/lufa ]; then git submodule sync lib/lufa && git submodule update --depth 50 --init lib/lufa; fi
+#	git submodule status --recursive 2>/dev/null | \
+#	while IFS= read -r x; do \
+#		case "$$x" in \
+#			\ *) ;; \
+#			*) printf "$(MSG_SUBMODULE_DIRTY)";break;; \
+#		esac \
+#	done
+#endif
+#	rm -f $(ERROR_FILE) > /dev/null 2>&1
+#	$(eval $(call PARSE_RULE,$@))
+#	$(eval $(call SET_SILENT_MODE))
+#	# Run all the commands in the same shell, notice the + at the first line
+#	# it has to be there to allow parallel execution of the submake
+#	# This always tries to compile everything, even if error occurs in the middle
+#	# But we return the error code at the end, to trigger travis failures
+#	# The sort at this point is to remove duplicates
+#	$(foreach COMMAND,$(sort $(COMMANDS)),$(RUN_COMMAND))
+#	if [ -f $(ERROR_FILE) ]; then printf "$(MSG_ERRORS)" & exit 1; fi;
+#	$(foreach TEST,$(sort $(TESTS)),$(RUN_TEST))
+#	if [ -f $(ERROR_FILE) ]; then printf "$(MSG_ERRORS)" & exit 1; fi;
 
-# These no longer work because of the colon system
-
-# All should compile everything
-# .PHONY: all
-# all: all-keyboards test-all
-
-# Define some shortcuts, mostly for compatibility with the old syntax
-# .PHONY: all-keyboards
-# all-keyboards: all\:all\:all
-
-# .PHONY: all-keyboards-defaults
-# all-keyboards-defaults: all\:default
-
-# .PHONY: test
-# test: test-all
-
-# .PHONY: test-clean
-# test-clean: test-all-clean
+	bin/qmk makehandler $@
 
 lib/%:
 	git submodule sync $?

@@ -17,6 +17,7 @@ from . import json
 from . import json2c
 from . import list
 from . import kle2json
+from . import makehandler
 from . import new
 from . import pyformat
 from . import pytest
