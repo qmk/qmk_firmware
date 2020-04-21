@@ -94,11 +94,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |    |     |     |    |     |     |      |      |      |RGBVAD|RBGVAI|RGBMOD|
  * `---------------------------------------------------------------------------'
  */
-[_CODE] =  LAYOUT_ortho_4x12( \
-    KC_GRV,  KC_F11,  KC_F12,  KC_3,    KC_4,    KC_5,    KC_6,    KC_COLN, KC_MINS, KC_GT,   KC_0,    KC_DEL, \
-    KC_TRNS, KC_PSLS, KC_PAST, KC_LCBR, KC_LBRC, KC_LPRN, KC_RPRN, KC_RBRC, KC_RCBR, KC_QUOT, KC_RBRC, KC_BSLS, \
-    KC_TRNS, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_TILD, KC_EQL,  KC_NUBS, RGB_TOG, RGB_HUI, RGB_HUD, \
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RGB_VAD, RGB_VAI, RGB_MOD \
+[_CODE] =  LAYOUT_ortho_4x12(
+    KC_GRV,  KC_F11,  KC_F12,  KC_3,    KC_4,    KC_5,    KC_6,    KC_COLN, KC_MINS, KC_GT,   KC_0,    KC_DEL,
+    KC_TRNS, KC_PSLS, KC_PAST, KC_LCBR, KC_LBRC, KC_LPRN, KC_RPRN, KC_RBRC, KC_RCBR, KC_QUOT, KC_RBRC, KC_BSLS,
+    KC_TRNS, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_TILD, KC_EQL,  KC_NUBS, RGB_TOG, RGB_HUI, RGB_HUD,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RGB_VAD, RGB_VAI, RGB_MOD
 )
 
 };
