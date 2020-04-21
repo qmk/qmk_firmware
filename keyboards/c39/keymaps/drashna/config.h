@@ -10,3 +10,5 @@
 
 #define RGB_DI_PIN B10
 #define RGBLED_NUM 15
+
+#define SOLENOID_PIN B11

@@ -44,7 +44,7 @@ void keyboard_post_init_user(void) {
 uint32_t layer_state_set_user(uint32_t state) {
   switch (biton32(state)) {
     case _RAISE:
-      rgblight_sethsv_noeeprom(240,255,255);
+      rgblight_sethsv_noeeprom(170,255,255);
       rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
       break;
     case _LOWER:

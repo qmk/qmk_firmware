@@ -15,21 +15,17 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef KEYMAP_COMMON_H
-#define KEYMAP_COMMON_H
+#pragma once
 
 #include "quantum.h"
-#include "quantum_keycodes.h"
-#include "keycode.h"
-#include "action.h"
 
-void matrix_init_user(void);  // TODO port this to other PS2AVRGB boards
-
-#define LAYOUT( \
-    K01, K02, K03, K04, K05, K06, \
-    K11, K12, K13, K14, K15, K16, \
-    K21, K22, K23, K24, K25, K26, \
-    K31, K32, K33, K34, K35, K36 \
+#define LAYOUT_ortho_6x4( \
+    K06,  K16,  K26,  K36,  \
+    K05,  K15,  K25,  K35,  \
+    K04,  K14,  K24,  K34,  \
+    K03,  K13,  K23,  K33,  \
+    K02,  K12,  K22,  K32,  \
+    K01,  K11,  K21,  K31   \
 ) \
 { \
   { K06, K05, K04, K03, K02, K01 }, \
@@ -38,4 +34,16 @@ void matrix_init_user(void);  // TODO port this to other PS2AVRGB boards
   { K36, K35, K34, K33, K32, K31 }  \
 }
 
-#endif
+#define LAYOUT( \
+    K01, K02, K03, K04, K05, K06, \
+    K11, K12, K13, K14, K15, K16, \
+    K21, K22, K23, K24, K25, K26, \
+    K31, K32, K33, K34, K35, K36 \
+) LAYOUT_ortho_6x4( \
+    K06,  K16,  K26,  K36,  \
+    K05,  K15,  K25,  K35,  \
+    K04,  K14,  K24,  K34,  \
+    K03,  K13,  K23,  K33,  \
+    K02,  K12,  K22,  K32,  \
+    K01,  K11,  K21,  K31   \
+)
