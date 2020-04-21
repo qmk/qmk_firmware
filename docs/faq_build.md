@@ -47,7 +47,7 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", MODE:="0666"
 ```
 
-**/etc/udev/rules.d/55-catalina.rules:**
+**/etc/udev/rules.d/55-caterina.rules:**
 ```
 # ModemManager should ignore the following devices
 ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"
@@ -69,24 +69,23 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="1eaf", ATTRS{idProduct}=="0003", MODE:="066
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE:="0666"
 ```
 
+**/etc/udev/rules.d/57-bootloadhid.rules:**
+```
+# bootloadHID
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="05df", MODE:="0666"
+```
+
 ### Serial device is not detected in bootloader mode on Linux
 Make sure your kernel has appropriate support for your device. If your device uses USB ACM, such as
 Pro Micro (Atmega32u4), make sure to include `CONFIG_USB_ACM=y`. Other devices may require `USB_SERIAL` and any of its sub options.
 
 ## Unknown Device for DFU Bootloader
 
-Issues encountered when flashing keyboards on Windows are most often due to having the wrong drivers installed for the bootloader. 
+Issues encountered when flashing keyboards on Windows are most often due to having the wrong drivers installed for the bootloader, or none at all.
 
-Re-running the installation script for MSYS2 may help (eg run `util/qmk_install.sh` from MSYS2/WSL) or reinstalling the QMK Toolbox may fix the issue. Alternatively, you can download and run the [`qmk_driver_installer`](https://github.com/qmk/qmk_driver_installer) package.
+Re-running the QMK installation script (`./util/qmk_install.sh` from the `qmk_firmware` directory in MSYS2 or WSL) or reinstalling the QMK Toolbox may fix the issue. Alternatively, you can download and run the [`qmk_driver_installer`](https://github.com/qmk/qmk_driver_installer) package manually.
 
-If that doesn't work, then you may need to grab the [Zadig Utility](https://zadig.akeo.ie/). Download this, and run it on the system.  Then, you will need to reset your board into bootloader mode.  After that, locate the device in question. If the device doesn't show up in the list (or nothing shows up in the list), you may need to enable the `List all devices` option in the `Options` menu.
-
-From here, you will need to know what type of controller the board is using.  You may see it listed in the Device Manager as `ATmega32U4` device (which is an AVR board), or an `STM32` device (Which is an ARM board).  For AVR boards, use `libusb-win32` for the driver. For ARM boards, use the `WinUSB` driver.  Once the correct driver type has been selected, click on the `Replace Driver` button, unplug your board, plug it back in, and reset it again.
-
-
-## WINAVR is Obsolete
-It is no longer recommended and may cause some problem.
-See [TMK Issue #99](https://github.com/tmk/tmk_keyboard/issues/99).
+If that doesn't work, then you may need to download and run Zadig. See [Bootloader Driver Installation with Zadig](driver_installation_zadig.md) for more detailed information.
 
 ## USB VID and PID
 You can use any ID you want with editing `config.h`. Using any presumably unused ID will be no problem in fact except for very low chance of collision with other product.
@@ -99,29 +98,6 @@ https://github.com/tmk/tmk_keyboard/issues/150
 You can buy a really unique VID:PID here. I don't think you need this for personal use.
 - http://www.obdev.at/products/vusb/license.html
 - http://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
-
-## Cortex: `cstddef: No such file or directory`
-GCC 4.8 of Ubuntu 14.04 had this problem and had to update to 4.9 with this PPA.
-https://launchpad.net/~terry.guo/+archive/ubuntu/gcc-arm-embedded
-
-https://github.com/tmk/tmk_keyboard/issues/212
-https://github.com/tmk/tmk_keyboard/wiki/mbed-cortex-porting#compile-error-cstddef
-https://developer.mbed.org/forum/mbed/topic/5205/
-
-## `clock_prescale_set` and `clock_div_1` Not Available
-Your toolchain is too old to support the MCU. For example WinAVR 20100110 doesn't support ATMega32u2.
-
-```
-Compiling C: ../../tmk_core/protocol/lufa/lufa.c
-avr-gcc -c -mmcu=atmega32u2 -gdwarf-2 -DF_CPU=16000000UL -DINTERRUPT_CONTROL_ENDPOINT -DBOOTLOADER_SIZE=4096 -DF_USB=16000000UL -DARCH=ARCH_AVR8 -DUSB_DEVICE_ONLY -DUSE_FLASH_DESCRIPTORS -DUSE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)" -DFIXED_CONTROL_ENDPOINT_SIZE=8  -DFIXED_NUM_CONFIGURATIONS=1 -DPROTOCOL_LUFA -DEXTRAKEY_ENABLE -DCONSOLE_ENABLE -DCOMMAND_ENABLE -DVERSION=unknown -Os -funsigned-char -funsigned-bitfields -ffunction-sections -fdata-sections -fno-inline-small-functions -fpack-struct -fshort-enums -fno-strict-aliasing -Wall -Wstrict-prototypes -Wa,-adhlns=obj_alps64/protocol/lufa/lufa.lst -I. -I../../tmk_core -I../../tmk_core/protocol/lufa -I../../tmk_core/protocol/lufa/LUFA-git -I../../tmk_core/common -std=gnu99 -include config.h -MMD -MP -MF .dep/obj_alps64_protocol_lufa_lufa.o.d  ../../tmk_core/protocol/lufa/lufa.c -o obj_alps64/protocol/lufa/lufa.o
-../../tmk_core/protocol/lufa/lufa.c: In function 'setup_mcu':
-../../tmk_core/protocol/lufa/lufa.c:575: warning: implicit declaration of function 'clock_prescale_set'
-../../tmk_core/protocol/lufa/lufa.c:575: error: 'clock_div_1' undeclared (first use in this function)
-../../tmk_core/protocol/lufa/lufa.c:575: error: (Each undeclared identifier is reported only once
-../../tmk_core/protocol/lufa/lufa.c:575: error: for each function it appears in.)
-make: *** [obj_alps64/protocol/lufa/lufa.o] Error 1
-```
-
 
 ## BOOTLOADER_SIZE for AVR
 Note that Teensy2.0++ bootloader size is 2048byte. Some Makefiles may have wrong comment.
@@ -143,24 +119,29 @@ The solution is to remove and reinstall all affected modules.
 
 ```
 brew rm avr-gcc
+brew rm avr-gcc@8
 brew rm dfu-programmer
 brew rm dfu-util
 brew rm gcc-arm-none-eabi
+brew rm arm-gcc-bin@8
 brew rm avrdude
-brew install avr-gcc
+brew install avr-gcc@8
 brew install dfu-programmer
 brew install dfu-util
-brew install gcc-arm-none-eabi
+brew install arm-gcc-bin@8
 brew install avrdude
+brew link --force avr-gcc@8
+brew link --force arm-gcc-bin@8
+
 ```
 
-### avr-gcc 8.1 and LUFA
+### `avr-gcc` and LUFA
 
-If you updated your avr-gcc to above 7 you may see errors involving LUFA. For example:
+If you updated your `avr-gcc` and you see errors involving LUFA, for example:
 
 `lib/lufa/LUFA/Drivers/USB/Class/Device/AudioClassDevice.h:380:5: error: 'const' attribute on function returning 'void'`
 
-For now, you need to rollback avr-gcc to 7 in brew.
+For now, you need to rollback `avr-gcc` to 8 in Homebrew.
 
 ```
 brew uninstall --force avr-gcc

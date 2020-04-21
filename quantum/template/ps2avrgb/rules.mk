@@ -1,22 +1,26 @@
 # MCU name
 MCU = atmega32a
 
-# Bootloader
-#     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded
-#     automatically (+60). See bootloader.mk for all options.
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
 BOOTLOADER = bootloadHID
 
-# build options
-BOOTMAGIC_ENABLE = no
-MOUSEKEY_ENABLE = no
-EXTRAKEY_ENABLE = yes
-CONSOLE_ENABLE = yes
-COMMAND_ENABLE = yes
-BACKLIGHT_ENABLE = no
-RGBLIGHT_ENABLE = yes
-RGBLIGHT_CUSTOM_DRIVER = yes
+# Build Options
+#   change yes to no to disable
+#
+BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
+MOUSEKEY_ENABLE = no        # Mouse keys
+EXTRAKEY_ENABLE = yes       # Audio control and System control
+CONSOLE_ENABLE = yes        # Console for debug
+COMMAND_ENABLE = yes        # Commands for debug and configuration
+BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
+RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
+WS2812_DRIVER = i2c
 
 OPT_DEFS = -DDEBUG_LEVEL=0
-
-SRC += i2c_master.c

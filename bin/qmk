@@ -2,96 +2,96 @@
 """CLI wrapper for running QMK commands.
 """
 import os
-import subprocess
 import sys
-from glob import glob
-from time import strftime
-from importlib import import_module
 from importlib.util import find_spec
+from pathlib import Path
 
 # Add the QMK python libs to our path
-script_dir = os.path.dirname(os.path.realpath(__file__))
-qmk_dir = os.path.abspath(os.path.join(script_dir, '..'))
-python_lib_dir = os.path.abspath(os.path.join(qmk_dir, 'lib', 'python'))
-sys.path.append(python_lib_dir)
+script_dir = Path(os.path.realpath(__file__)).parent
+qmk_dir = script_dir.parent
+python_lib_dir = Path(qmk_dir / 'lib' / 'python').resolve()
+sys.path.append(str(python_lib_dir))
 
-# Change to the root of our checkout
-os.environ['ORIG_CWD'] = os.getcwd()
-os.chdir(qmk_dir)
 
+def _check_modules(requirements):
+    """ Check if the modules in the given requirements.txt are available.
+    """
+    with Path(qmk_dir / requirements).open() as fd:
+        for line in fd.readlines():
+            line = line.strip().replace('<', '=').replace('>', '=')
+
+            if len(line) == 0 or line[0] == '#' or line.startswith('-r'):
+                continue
+
+            if '#' in line:
+                line = line.split('#')[0]
+
+            module = dict()
+            module['name'] = module['import'] = line.split('=')[0] if '=' in line else line
+
+            # Not every module is importable by its own name.
+            if module['name'] == "pep8-naming":
+                module['import'] = "pep8ext_naming"
+
+            if not find_spec(module['import']):
+                print('Could not find module %s!' % module['name'])
+                print('Please run `python3 -m pip install -r %s` to install required python dependencies.' % (qmk_dir / requirements,))
+                if developer:
+                    print('You can also turn off developer mode: qmk config user.developer=None')
+                print()
+                exit(255)
+
+
+developer = False
 # Make sure our modules have been setup
-with open('requirements.txt', 'r') as fd:
-    for line in fd.readlines():
-        line = line.strip().replace('<', '=').replace('>', '=')
-
-        if line[0] == '#':
-            continue
-
-        if '#' in line:
-            line = line.split('#')[0]
-
-        module = line.split('=')[0] if '=' in line else line
-        if not find_spec(module):
-            print('Your QMK build environment is not fully setup!\n')
-            print('Please run `./util/qmk_install.sh` to setup QMK.')
-            exit(255)
-
-# Figure out our version
-command = ['git', 'describe', '--abbrev=6', '--dirty', '--always', '--tags']
-result = subprocess.run(command, universal_newlines=True, capture_output=True)
-
-if result.returncode == 0:
-    os.environ['QMK_VERSION'] = 'QMK ' + result.stdout.strip()
-else:
-    os.environ['QMK_VERSION'] = 'QMK ' + strftime('%Y-%m-%d-%H:%M:%S')
+_check_modules('requirements.txt')
 
 # Setup the CLI
-import milc
-milc.EMOJI_LOGLEVELS['INFO'] = '{fg_blue}ψ{style_reset_all}'
+import milc  # noqa
 
-# If we were invoked as `qmk <cmd>` massage sys.argv into `qmk-<cmd>`.
-# This means we can't accept arguments to the qmk script itself.
-script_name = os.path.basename(sys.argv[0])
-if script_name == 'qmk':
-    if len(sys.argv) == 1:
-        milc.cli.log.error('No subcommand specified!\n')
+# For developers additional modules are needed
+if milc.cli.config.user.developer:
+    # Do not run the check for 'config',
+    # so users can turn off developer mode
+    if len(sys.argv) == 1 or (len(sys.argv) > 1 and 'config' != sys.argv[1]):
+        developer = True
+        _check_modules('requirements-dev.txt')
 
-    if len(sys.argv) == 1 or sys.argv[1] in ['-h', '--help']:
-        milc.cli.echo('usage: qmk <subcommand> [...]')
-        milc.cli.echo('\nsubcommands:')
-        subcommands = glob(os.path.join(qmk_dir, 'bin', 'qmk-*'))
-        for subcommand in sorted(subcommands):
-            subcommand = os.path.basename(subcommand).split('-', 1)[1]
-            milc.cli.echo('\t%s', subcommand)
-        milc.cli.echo('\nqmk <subcommand> --help for more information')
+milc.EMOJI_LOGLEVELS['INFO'] = '{fg_blue}Ψ{style_reset_all}'
+
+
+@milc.cli.entrypoint('QMK Helper Script')
+def qmk_main(cli):
+    """The function that gets run when no subcommand is provided.
+    """
+    cli.print_help()
+
+
+def main():
+    """Setup our environment and then call the CLI entrypoint.
+    """
+    # Change to the root of our checkout
+    os.environ['ORIG_CWD'] = os.getcwd()
+    os.chdir(qmk_dir)
+
+    # Import the subcommands
+    import qmk.cli  # noqa
+
+    # Execute
+    return_code = milc.cli()
+
+    if return_code is False:
         exit(1)
 
-    if sys.argv[1] in ['-V', '--version']:
-        milc.cli.echo(os.environ['QMK_VERSION'])
-        exit(0)
+    elif return_code is not True and isinstance(return_code, int):
+        if return_code < 0 or return_code > 255:
+            milc.cli.log.error('Invalid return_code: %d', return_code)
+            exit(255)
 
-    sys.argv[0] = script_name = '-'.join((script_name, sys.argv[1]))
-    del sys.argv[1]
+        exit(return_code)
 
-# Look for which module to import
-if script_name == 'qmk':
-    milc.cli.print_help()
     exit(0)
-elif not script_name.startswith('qmk-'):
-    milc.cli.log.error('Invalid symlink, must start with "qmk-": %s', script_name)
-else:
-    subcommand = script_name.replace('-', '.').replace('_', '.').split('.')
-    subcommand.insert(1, 'cli')
-    subcommand = '.'.join(subcommand)
 
-    try:
-        import_module(subcommand)
-    except ModuleNotFoundError as e:
-        if e.__class__.__name__ != subcommand:
-            raise
-
-        milc.cli.log.error('Invalid subcommand! Could not import %s.', subcommand)
-        exit(1)
 
 if __name__ == '__main__':
-    milc.cli()
+    main()

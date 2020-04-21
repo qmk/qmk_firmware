@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    HnahKB
-#define PRODUCT         hnah40
+#define PRODUCT         Hnah40
 #define DESCRIPTION     Custom 40% PCB
 
 /* key matrix size */
@@ -77,6 +77,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
  */
 // #define GRAVE_ESC_CTRL_OVERRIDE
+
+#define USB_MAX_POWER_CONSUMPTION 100
 
 /*
  * Force NKRO

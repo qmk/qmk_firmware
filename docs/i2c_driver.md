@@ -1,49 +1,61 @@
-# I2C Master Driver
+# I2C Master Driver :id=i2c-master-driver
 
 The I2C Master drivers used in QMK have a set of common functions to allow portability between MCUs.
 
-## Available functions
+## An important note on I2C Addresses :id=note-on-i2c-addresses
+
+All of the addresses expected by this driver should be pushed to the upper 7 bits of the address byte.  Setting
+the lower bit (indicating read/write) will be done by the respective functions.  Almost all I2C addresses listed 
+on datasheets and the internet will be represented as 7 bits occupying the lower 7 bits and will need to be
+shifted to the left (more significant) by one bit.  This is easy to do via the bitwise shift operator `<< 1`.
+
+You can either do this on each call to the functions below, or once in your definition of the address.  For example if your device has an address of `0x18`:
+
+`#define MY_I2C_ADDRESS (0x18 << 1)`
+
+See https://www.robot-electronics.co.uk/i2c-tutorial for more information about I2C addressing and other technical details.
+
+## Available functions :id=available-functions
 
 |Function                                                                                                          |Description                                                                                                                                                                  |
 |------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |`void i2c_init(void);`                                                                                            |Initializes the I2C driver. This function should be called once before any transaction is initiated.                                                                         |
-|`uint8_t i2c_start(uint8_t address);`                                                                             |Starts an I2C transaction. Address is the 7-bit slave address without the direction bit.                                                                                     |
-|`uint8_t i2c_transmit(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout);`                        |Transmit data over I2C. Address is the 7-bit slave address without the direction. Returns status of transaction.                                                             |
-|`uint8_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout);`                         |Receive data over I2C. Address is the 7-bit slave address without the direction. Saves number of bytes specified by `length` in `data` array. Returns status of transaction. |
-|`uint8_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);`       |Same as the `i2c_transmit` function but `regaddr` sets where in the slave the data will be written.                                                                          |
-|`uint8_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);`        |Same as the `i2c_receive` function but `regaddr` sets from where in the slave the data will be read.                                                                         |
-|`uint8_t i2c_stop(void);`                                                                                         |Ends an I2C transaction.                                                                                                                                                     |
+|`i2c_status_t i2c_start(uint8_t address, uint16_t timeout);`                                                                             |Starts an I2C transaction. Address is the 7-bit slave address without the direction bit.                                                                                     |
+|`i2c_status_t i2c_transmit(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout);`                        |Transmit data over I2C. Address is the 7-bit slave address without the direction. Returns status of transaction.                                                             |
+|`i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout);`                         |Receive data over I2C. Address is the 7-bit slave address without the direction. Saves number of bytes specified by `length` in `data` array. Returns status of transaction. |
+|`i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);`       |Same as the `i2c_transmit` function but `regaddr` sets where in the slave the data will be written.                                                                          |
+|`i2c_status_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);`        |Same as the `i2c_receive` function but `regaddr` sets from where in the slave the data will be read.                                                                         |
+|`i2c_status_t i2c_stop(void);`                                                                                         |Ends an I2C transaction.                                                                                                                                                     |
 
-### Function Return
+### Function Return :id=function-return
 
 All the above functions, except `void i2c_init(void);` return the following truth table:
 
-|Return Value   |Description                                        |
-|---------------|---------------------------------------------------|
-|0              |Operation executed successfully.                   |
-|-1             |Operation failed.                                  |
-|-2             |Operation timed out.                               |
+|Return Constant     |Value|Description                     |
+|--------------------|-----|--------------------------------|
+|`I2C_STATUS_SUCCESS`|0    |Operation executed successfully.|
+|`I2C_STATUS_ERROR`  |-1   |Operation failed.               |
+|`I2C_STATUS_TIMEOUT`|-2   |Operation timed out.            |
 
 
-## AVR
+## AVR :id=avr
 
-### Configuration
+### Configuration :id=avr-configuration
 
 The following defines can be used to configure the I2C master driver.
 
 |Variable          |Description                                        |Default|
 |------------------|---------------------------------------------------|-------|
 |`F_SCL`           |Clock frequency in Hz                              |400KHz |
-|`Prescaler`       |Divides master clock to aid in I2C clock selection |1      |
 
 AVRs usually have set GPIO which turn into I2C pins, therefore no further configuration is required.
 
-## ARM
+## ARM :id=arm
 
 For ARM the Chibios I2C HAL driver is under the hood.
 This section assumes an STM32 MCU.
 
-### Configuration
+### Configuration :id=arm-configuration
 
 The configuration for ARM MCUs can be quite complex as often there are multiple I2C drivers which can be assigned to a variety of ports.
 
@@ -78,7 +90,7 @@ The ChibiOS I2C driver configuration depends on STM32 MCU:
     STM32F1xx, STM32F2xx, STM32F4xx, STM32L0xx and STM32L1xx use I2Cv1;
     STM32F0xx, STM32F3xx, STM32F7xx and STM32L4xx use I2Cv2;
 
-#### I2Cv1
+#### I2Cv1 :id=i2cv1
 STM32 MCUs allow for different clock and duty parameters when configuring I2Cv1. These can be modified using the following parameters, using <https://www.playembedded.org/blog/stm32-i2c-chibios/#I2Cv1_configuration_structure> as a reference:
 
 | Variable           | Default          |
@@ -87,7 +99,7 @@ STM32 MCUs allow for different clock and duty parameters when configuring I2Cv1.
 | `I2C1_CLOCK_SPEED` | `100000`         |
 | `I2C1_DUTY_CYCLE`  | `STD_DUTY_CYCLE` |
 
-#### I2Cv2
+#### I2Cv2 :id=i2cv2
 STM32 MCUs allow for different timing parameters when configuring I2Cv2. These can be modified using the following parameters, using <https://www.st.com/en/embedded-software/stsw-stm32126.html> as a reference:
 
 | Variable              | Default |
@@ -105,10 +117,10 @@ STM32 MCUs allow for different "alternate function" modes when configuring GPIO 
 | `I2C1_SCL_PAL_MODE` | `4`     |
 | `I2C1_SDA_PAL_MODE` | `4`     |
 
-#### Other
+#### Other :id=other
 You can also overload the `void i2c_init(void)` function, which has a weak attribute. If you do this the configuration variables above will not be used. Please consult the datasheet of your MCU for the available GPIO configurations. The following is an example initialization function:
 
-```C
+```c
 void i2c_init(void)
 {
   setPinInput(B6); // Try releasing special pins for a short time

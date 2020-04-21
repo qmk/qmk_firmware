@@ -1,6 +1,5 @@
 #include "custom_tap_dance.h"
 #include "custom_keycodes.h"
-#include "timer_utils.h"
 
 #ifdef TAP_DANCE_ENABLE
 

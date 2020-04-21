@@ -19,11 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define VENDOR_ID       0x20A0
-#define PRODUCT_ID      0x422D
-// You can edit those at usbconfig.h about line 250. These values will
-// unforunatly be ignored so far
-#define MANUFACTURER    winkeyless.kr
-#define PRODUCT         b.face
+#define PRODUCT_ID      0x4246 // BF
+#define DEVICE_VER      0x0200
+#define MANUFACTURER    Winkeyless
+#define PRODUCT         B.face
 
 /* matrix size */
 #define MATRIX_ROWS 8
@@ -34,15 +33,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4, C3, C2, D7}
 #define UNUSED_PINS
 
+#define DIODE_DIRECTION COL2ROW
+
 #define RGBLED_NUM 16
 #define RGBLIGHT_ANIMATIONS
 
-#define NO_UART 1
-
-#ifdef BACKLIGHT_ENABLE
-	// the backlight PWM does not work (yet). Therefore, we only have two backlight levels (on/off)
-	#define BACKLIGHT_LEVELS 1
-	#define LED_PIN PORTD
-	#define BACKLIGHT_PORT_NUM (1 << 4)
-#endif
-
+#define BACKLIGHT_PIN D4
+#define BACKLIGHT_LEVELS 3

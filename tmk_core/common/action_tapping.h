@@ -17,27 +17,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef ACTION_TAPPING_H
 #define ACTION_TAPPING_H
 
-
-
 /* period of tapping(ms) */
 #ifndef TAPPING_TERM
-#define TAPPING_TERM    200
+#    define TAPPING_TERM 200
 #endif
 
 //#define RETRO_TAPPING // Tap anyway, even after TAPPING_TERM, as long as there was no interruption
 
 /* tap count needed for toggling a feature */
 #ifndef TAPPING_TOGGLE
-#define TAPPING_TOGGLE  5
+#    define TAPPING_TOGGLE 5
 #endif
 
 #define WAITING_BUFFER_SIZE 8
 
-
 #ifndef NO_ACTION_TAPPING
-uint16_t get_event_keycode(keyevent_t event);
+uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache);
 uint16_t get_tapping_term(uint16_t keycode);
-void action_tapping_process(keyrecord_t record);
+void     action_tapping_process(keyrecord_t record);
 #endif
 
 #endif

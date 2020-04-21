@@ -22,36 +22,36 @@
 #include <stdint.h>
 
 #ifdef EXTRA_EXTRA_LONG_COMBOS
-#define MAX_COMBO_LENGTH 32
+#    define MAX_COMBO_LENGTH 32
 #elif EXTRA_LONG_COMBOS
-#define MAX_COMBO_LENGTH 16
+#    define MAX_COMBO_LENGTH 16
 #else
-#define MAX_COMBO_LENGTH 8
+#    define MAX_COMBO_LENGTH 8
 #endif
 
 typedef struct {
-  const uint16_t *keys;
-  uint16_t keycode;
+    const uint16_t *keys;
+    uint16_t        keycode;
 #ifdef EXTRA_EXTRA_LONG_COMBOS
-  uint32_t state;
+    uint32_t state;
 #elif EXTRA_LONG_COMBOS
-  uint16_t state;
+    uint16_t state;
 #else
-  uint8_t state;
+    uint8_t state;
 #endif
 } combo_t;
 
-#define COMBO(ck, ca)                                                          \
-  { .keys = &(ck)[0], .keycode = (ca) }
-#define COMBO_ACTION(ck)                                                       \
-  { .keys = &(ck)[0] }
+#define COMBO(ck, ca) \
+    { .keys = &(ck)[0], .keycode = (ca) }
+#define COMBO_ACTION(ck) \
+    { .keys = &(ck)[0] }
 
 #define COMBO_END 0
 #ifndef COMBO_COUNT
-#define COMBO_COUNT 0
+#    define COMBO_COUNT 0
 #endif
 #ifndef COMBO_TERM
-#define COMBO_TERM TAPPING_TERM
+#    define COMBO_TERM TAPPING_TERM
 #endif
 
 bool process_combo(uint16_t keycode, keyrecord_t *record);

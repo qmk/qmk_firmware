@@ -8,6 +8,8 @@
  * This Revision: $Id: usbportability.h 785 2010-05-30 17:57:07Z cs $
  */
 
+// clang-format off
+
 /*
 General Description:
 This header is intended to contain all (or at least most of) the compiler
