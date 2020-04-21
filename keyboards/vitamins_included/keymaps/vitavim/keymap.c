@@ -1,7 +1,4 @@
 #include QMK_KEYBOARD_H
-
-extern keymap_config_t keymap_config;
-
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -11,15 +8,6 @@ extern keymap_config_t keymap_config;
 #define _VIM 2
 #define _NUMPAD 3
 #define _CODE 4
-
-enum custom_keycodes {
-  ALPHAS = SAFE_RANGE,
-  MODS,
-  VIM,
-  NUMPAD,
-  CODE
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Alphas
@@ -114,40 +102,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 
 };
-
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case ALPHAS:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_ALPHAS);
-        }
-      return false;
-      break;
-    case MODS:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_MODS);
-        }
-      return false;
-      break;
-    case VIM:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_VIM);
-        }
-      return false;
-      break;
-    case NUMPAD:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_NUMPAD);
-        }
-      return false;
-      break;
-    case CODE:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_CODE);
-        }
-      return false;
-      break;
-  }
-  return true;
-}
