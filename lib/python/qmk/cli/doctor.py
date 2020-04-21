@@ -135,16 +135,15 @@ def check_udev_rules():
     }
 
     if udev_dir.exists():
-        udev_rules = [str(rule_file) for rule_file in udev_dir.glob('*.rules')]
+        udev_rules = [rule_file for rule_file in udev_dir.glob('*.rules')]
         current_rules = set()
 
         # Collect all rules from the config files
         for rule_file in udev_rules:
-            with open(rule_file, "r") as fd:
-                for line in fd.readlines():
-                    line = line.strip()
-                    if not line.startswith("#") and len(line):
-                        current_rules.add(line)
+            for line in rule_file.read_text().split('\n'):
+                line = line.strip()
+                if not line.startswith("#") and len(line):
+                    current_rules.add(line)
 
         # Check if the desired rules are among the currently present rules
         for bootloader, rules in desired_rules.items():

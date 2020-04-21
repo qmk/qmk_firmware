@@ -56,8 +56,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #define RGB_DI_PIN F0
 
-#define RGBLED_NUM 12    // Number of LEDs
+#define RGBLED_NUM 12
 #define RGBLIGHT_ANIMATIONS
+#define RGBLED_SPLIT { 6, 6 }
 
 /* Audio settings */
 #ifdef AUDIO_ENABLE
