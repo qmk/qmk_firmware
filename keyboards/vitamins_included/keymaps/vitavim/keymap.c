@@ -76,11 +76,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |Space |Space |   0  |      |      |      |        |
  * `-------------------------------------------------------------------------------------'
  */
-[_NUMPAD] =  LAYOUT_ortho_4x12( \
-    KC_LBRC, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_LPRN, KC_7, KC_8,  KC_9,  KC_RPRN, KC_RBRC, \
-    KC_LCBR, KC_PSLS, KC_PAST, KC_PMNS, KC_PPLS, KC_NO,   KC_EQL,  KC_4, KC_5,  KC_6,  KC_SCLN, KC_RCBR, \
-    KC_LSPO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_1, KC_2,  KC_3,  KC_PEQL, KC_RSPC, \
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_SPC,  KC_0, KC_NO, KC_NO, KC_NO,   KC_NO \
+[_NUMPAD] =  LAYOUT_ortho_4x12(
+    KC_LBRC, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_LPRN, KC_7, KC_8,  KC_9,  KC_RPRN, KC_RBRC,
+    KC_LCBR, KC_PSLS, KC_PAST, KC_PMNS, KC_PPLS, KC_NO,   KC_EQL,  KC_4, KC_5,  KC_6,  KC_SCLN, KC_RCBR,
+    KC_LSPO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_1, KC_2,  KC_3,  KC_PEQL, KC_RSPC,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_SPC,  KC_0, KC_NO, KC_NO, KC_NO,   KC_NO
 ),
 
 /* CODE
