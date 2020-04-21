@@ -4,8 +4,10 @@
 
 #ifdef KEYBOARD_sirius_uni660_rev1
     #include "rev1.h"
-#elif KEYBOARD_sirius_uni660_rev2
-    #include "rev2.h"
+#elif KEYBOARD_sirius_uni660_rev2_iso
+    #include "iso.h"
+#elif KEYBOARD_sirius_uni660_rev2_ansi
+	#include "ansi.h"
 #endif
 
 #define red_led_off   writePinHigh(F5)
