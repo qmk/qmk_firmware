@@ -52,6 +52,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_B { F5 }
 
 
+ /* Set 0 if debouncing isn't needed */
+#define DEBOUNCING_DELAY 5
+
 // Underglow
 /*
 #undef RGBLED_NUM
