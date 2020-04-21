@@ -205,11 +205,11 @@ bool audio_is_playing_melody(void);
 #        define AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT 0
 //       0=off, good starting value is 4; the lower the value the higher the cpu-load
 #    endif
-void audio_set_tone_multiplexing_rate(float rate);
+void audio_set_tone_multiplexing_rate(uint16_t rate);
 void audio_enable_tone_multiplexing(void);
 void audio_disable_tone_multiplexing(void);
-void audio_increase_tone_multiplexing_rate(float change);
-void audio_decrease_tone_multiplexing_rate(float change);
+void audio_increase_tone_multiplexing_rate(uint16_t change);
+void audio_decrease_tone_multiplexing_rate(uint16_t change);
 #endif
 
 // Tempo functions

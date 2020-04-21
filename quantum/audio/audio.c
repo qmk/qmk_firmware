@@ -84,8 +84,8 @@ uint16_t last_timestamp  = 0;
 #    ifndef AUDIO_MAX_SIMULTANEOUS_TONES
 #        define AUDIO_MAX_SIMULTANEOUS_TONES 3
 #    endif
-float   tone_multiplexing_rate        = AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT;
-uint8_t tone_multiplexing_index_shift = 0;     // offset used on active-tone array access
+uint16_t tone_multiplexing_rate        = AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT;
+uint8_t  tone_multiplexing_index_shift = 0;     // offset used on active-tone array access
 #endif
 
 // proviced and used by voices.c
@@ -505,11 +505,19 @@ bool audio_update_state(void) {
 
 // Tone-multiplexing functions
 #ifdef AUDIO_ENABLE_TONE_MULTIPLEXING
-void audio_set_tone_multiplexing_rate(float rate) { tone_multiplexing_rate = rate; }
+void audio_set_tone_multiplexing_rate(uint16_t rate) { tone_multiplexing_rate = rate; }
 void audio_enable_tone_multiplexing(void) { tone_multiplexing_rate = AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT; }
 void audio_disable_tone_multiplexing(void) { tone_multiplexing_rate = 0; }
-void audio_increase_tone_multiplexing_rate(float change) { tone_multiplexing_rate *= change; }
-void audio_decrease_tone_multiplexing_rate(float change) { tone_multiplexing_rate /= change; }
+void audio_increase_tone_multiplexing_rate(uint16_t change) {
+    if ((0xffff - change) > tone_multiplexing_rate) {
+        tone_multiplexing_rate += change;
+    }
+}
+void audio_decrease_tone_multiplexing_rate(uint16_t change) {
+    if (change <= tone_multiplexing_rate) {
+        tone_multiplexing_rate -= change;
+    }
+}
 #endif
 
 
