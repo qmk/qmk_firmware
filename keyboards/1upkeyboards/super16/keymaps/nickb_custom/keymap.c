@@ -32,8 +32,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[0] = LAYOUT_ortho_4x4(
 		KC_F13, KC_F14, KC_F15, KC_F16, 
-		KC_F17, KC_F18, KC_F19, KC_F20, 
-		KC_F21, KC_F22, KC_F23, KC_F24, 
+		KC_F17, KC_CCCV, KC_F19, KC_F20, //Changing KC_F18 to KC_CCCV 
+		KC_F21, KC_F22, KC_F23, KC_2ENTER, //Changing KC_F24 to KC_2ENTER
 		OSL(1), OSL(2), OSL(3), TG(4)  //One Shot Layer Activation
 		),
 //Layer 1 - Alt + Function Key Layer
@@ -81,7 +81,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {  // Hold, copy
                     tap_code16(LCTL(KC_C));
                 } else {  // Tap, paste
-                    tap_code16(LCTL(KC_V));
+                    tap_code16(KC_F18);
                 }
             } return true;
 		case KC_2ENTER:
@@ -91,7 +91,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (timer_elapsed(enter_timer) > TAPPING_TERM) {  // Hold, shift+enter
                     tap_code16(LSFT(KC_ENTER));
                 } else {  // Tap, enter
-                    tap_code16(KC_ENTER);
+                    tap_code16(KC_F24);
                 }
             } return true;
 		
