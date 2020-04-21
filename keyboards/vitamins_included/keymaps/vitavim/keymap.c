@@ -39,11 +39,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl  |      |      |      |      | spc  |  _   |bckspc|      | Home |PgDwn | End  |
  * `------------------------------------------------------------------------------------'
  */
-[_MODS] =  LAYOUT_ortho_4x12( \
-    KC_GRV,          KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_PSCR, \
-    MEH(KC_F7),      KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_QUOT, KC_DQUO, KC_BSLS, \
-    LSFT_T(KC_LCBR), KC_Z,    KC_X,    KC_LBRC, KC_RBRC, KC_B,    KC_MINS, KC_EQL,  KC_SLSH, KC_BSLS, KC_PGUP, RSFT_T(KC_RCBR), \
-    KC_LCTL,         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_SPC,  KC_UNDS, KC_BSPC, KC_NO,   KC_HOME, KC_PGDN, KC_END \
+[_MODS] =  LAYOUT_ortho_4x12(
+    KC_GRV,          KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_PSCR,
+    MEH(KC_F7),      KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_QUOT, KC_DQUO, KC_BSLS,
+    LSFT_T(KC_LCBR), KC_Z,    KC_X,    KC_LBRC, KC_RBRC, KC_B,    KC_MINS, KC_EQL,  KC_SLSH, KC_BSLS, KC_PGUP, RSFT_T(KC_RCBR),
+    KC_LCTL,         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_SPC,  KC_UNDS, KC_BSPC, KC_NO,   KC_HOME, KC_PGDN, KC_END
 ),
 
 /* VIM layer that adds vim navigation by holding the ; key. Includes keys like $,^ for end/beg of line and b,w,e,d,y. Also includes
