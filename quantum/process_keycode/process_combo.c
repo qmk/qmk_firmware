@@ -17,9 +17,12 @@
 #include "print.h"
 #include "process_combo.h"
 
-__attribute__((weak)) combo_t key_combos[COMBO_COUNT] = {
-
-};
+#ifndef COMBO_VARIABLE_LEN
+__attribute__((weak)) combo_t key_combos[COMBO_COUNT] = {};
+#else
+extern combo_t  key_combos[];
+extern int      COMBO_LEN;
+#endif
 
 __attribute__((weak)) void process_combo_event(uint8_t combo_index, bool pressed) {}
 
@@ -141,8 +144,11 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
     if (!is_combo_enabled()) {
         return true;
     }
-
+#ifndef COMBO_VARIABLE_LEN
     for (current_combo_index = 0; current_combo_index < COMBO_COUNT; ++current_combo_index) {
+#else
+    for (current_combo_index = 0; current_combo_index < COMBO_LEN; ++current_combo_index) {
+#endif
         combo_t *combo = &key_combos[current_combo_index];
         is_combo_key |= process_single_combo(combo, keycode, record);
         no_combo_keys_pressed = no_combo_keys_pressed && NO_COMBO_KEYS_ARE_DOWN;

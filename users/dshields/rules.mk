@@ -8,6 +8,7 @@ SLEEP_LED_ENABLE      = no  # Breathing sleep LED during USB suspend
 API_SYSEX_ENABLE      = no
 SPACE_CADET_ENABLE    = no
 LEADER_ENABLE         = no
+DYNAMIC_MACRO_ENABLE  = yes
 
 LINK_TIME_OPTIMIZATION_ENABLE = yes
 

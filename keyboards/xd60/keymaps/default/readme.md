@@ -6,4 +6,8 @@
 Default Keymap for XD60 as indicated on the original sale page.
 
 ## Build
-To build the default keymap, simply run `make xd60:default`.
+
+To build the default keymap, simply run:
+
+    make xd60/rev2:default  # XD60 rev2
+    make xd60/rev3:default  # XD60 rev3

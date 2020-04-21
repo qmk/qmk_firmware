@@ -272,12 +272,14 @@ define PARSE_RULE
     # If the rule starts with all, then continue the parsing from
     # PARSE_ALL_KEYBOARDS
     ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all),true)
+        KEYBOARD_RULE=all
         $$(eval $$(call PARSE_ALL_KEYBOARDS))
     else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,test),true)
         $$(eval $$(call PARSE_TEST))
     # If the rule starts with the name of a known keyboard, then continue
     # the parsing from PARSE_KEYBOARD
     else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYBOARDS)),true)
+        KEYBOARD_RULE=$$(MATCHED_ITEM)
         $$(eval $$(call PARSE_KEYBOARD,$$(MATCHED_ITEM)))
     # Otherwise use the KEYBOARD variable, which is determined either by
     # the current directory you run make from, or passed in as an argument
@@ -380,6 +382,9 @@ define PARSE_KEYBOARD
     # Otherwise try to match the keymap from the current folder, or arguments to the make command
     else ifneq ($$(KEYMAP),)
         $$(eval $$(call PARSE_KEYMAP,$$(KEYMAP)))
+    # Otherwise if we are running make all:<user> just skip
+    else ifeq ($$(KEYBOARD_RULE),all)
+        # $$(info Skipping: No user keymap for $$(CURRENT_KB))
     # Otherwise, make all keymaps, again this is consistent with how it works without
     # any arguments
     else
@@ -558,10 +563,10 @@ endef
 	if ! python3 --version 1> /dev/null 2>&1; then printf "$(MSG_PYTHON_MISSING)"; fi
 	# Check if the submodules are dirty, and display a warning if they are
 ifndef SKIP_GIT
-	if [ ! -e lib/chibios ]; then git submodule sync lib/chibios && git submodule update --depth 1 --init lib/chibios; fi
-	if [ ! -e lib/chibios-contrib ]; then git submodule sync lib/chibios-contrib && git submodule update --depth 1 --init lib/chibios-contrib; fi
-	if [ ! -e lib/ugfx ]; then git submodule sync lib/ugfx && git submodule update --depth 1 --init lib/ugfx; fi
-	if [ ! -e lib/lufa ]; then git submodule sync lib/lufa && git submodule update --depth 1 --init lib/lufa; fi
+	if [ ! -e lib/chibios ]; then git submodule sync lib/chibios && git submodule update --depth 50 --init lib/chibios; fi
+	if [ ! -e lib/chibios-contrib ]; then git submodule sync lib/chibios-contrib && git submodule update --depth 50 --init lib/chibios-contrib; fi
+	if [ ! -e lib/ugfx ]; then git submodule sync lib/ugfx && git submodule update --depth 50 --init lib/ugfx; fi
+	if [ ! -e lib/lufa ]; then git submodule sync lib/lufa && git submodule update --depth 50 --init lib/lufa; fi
 	git submodule status --recursive 2>/dev/null | \
 	while IFS= read -r x; do \
 		case "$$x" in \
@@ -618,13 +623,19 @@ endif
 # Generate the version.h file
 ifndef SKIP_GIT
     GIT_VERSION := $(shell git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")
+    CHIBIOS_VERSION := $(shell cd lib/chibios && git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")
+    CHIBIOS_CONTRIB_VERSION := $(shell cd lib/chibios-contrib && git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")
 else
     GIT_VERSION := NA
+    CHIBIOS_VERSION := NA
+    CHIBIOS_CONTRIB_VERSION := NA
 endif
 ifndef SKIP_VERSION
 BUILD_DATE := $(shell date +"%Y-%m-%d-%H:%M:%S")
 $(shell echo '#define QMK_VERSION "$(GIT_VERSION)"' > $(ROOT_DIR)/quantum/version.h)
 $(shell echo '#define QMK_BUILDDATE "$(BUILD_DATE)"' >> $(ROOT_DIR)/quantum/version.h)
+$(shell echo '#define CHIBIOS_VERSION "$(CHIBIOS_VERSION)"' >> $(ROOT_DIR)/quantum/version.h)
+$(shell echo '#define CHIBIOS_CONTRIB_VERSION "$(CHIBIOS_CONTRIB_VERSION)"' >> $(ROOT_DIR)/quantum/version.h)
 else
 BUILD_DATE := NA
 endif

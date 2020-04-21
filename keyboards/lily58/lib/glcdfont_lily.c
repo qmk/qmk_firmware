@@ -6,14 +6,7 @@
 #ifndef FONT5X7_H
 #define FONT5X7_H
 
-#ifdef __AVR__
- #include <avr/io.h>
- #include <avr/pgmspace.h>
-#elif defined(ESP8266)
- #include <pgmspace.h>
-#else
- #define PROGMEM
-#endif
+#include "progmem.h"
 
 // Standard ASCII 5x7 font
 const unsigned char font[] PROGMEM = {
@@ -242,4 +235,3 @@ const unsigned char font[] PROGMEM = {
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
-#endif // FONT5X7_H

@@ -1,6 +1,10 @@
 #include "ws2812.h"
 #include "i2c_master.h"
 
+#ifdef RGBW
+#    error "RGBW not supported"
+#endif
+
 #ifndef WS2812_ADDRESS
 #    define WS2812_ADDRESS 0xb0
 #endif
@@ -20,12 +24,4 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
     }
 
     i2c_transmit(WS2812_ADDRESS, (uint8_t *)ledarray, sizeof(LED_TYPE) * leds, WS2812_TIMEOUT);
-}
-
-// Setleds for SK6812RGBW
-void ws2812_setleds_rgbw(LED_TYPE *ledarray, uint16_t leds) {
-// not supported - for now error out if its enabled
-#ifdef RGBW
-#    error "RGBW not supported"
-#endif
 }

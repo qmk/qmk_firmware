@@ -22,7 +22,7 @@ Support for SSD1306 based OLED displays. For more information see the [OLED Driv
 
 You can make use of uGFX within QMK to drive character and graphic LCDs, LED arrays, OLED, TFT, and other display technologies. This needs to be better documented, if you are trying to do this and reading the code doesn't help please [open an issue](https://github.com/qmk/qmk_firmware/issues/new) and we can help you through the process.
 
-## WS2812 (AVR Only)
+## WS2812
 
 Support for WS2811/WS2812{a,b,c} LED's. For more information see the [RGB Light](feature_rgblight.md) page.
 
@@ -33,3 +33,7 @@ Support for up to 2 drivers. Each driver impliments 2 charlieplex matrices to in
 ## IS31FL3733
 
 Support for up to a single driver with room for expansion. Each driver can control 192 individual LEDs or 64 RGB LEDs. For more information on how to setup the driver see the [RGB Matrix](feature_rgb_matrix.md) page.
+
+## 24xx series external I2C EEPROM
+
+Support for an external I2C-based EEPROM instead of using the on-chip EEPROM. For more information on how to setup the driver see the [EEPROM Driver](eeprom_driver.md) page.

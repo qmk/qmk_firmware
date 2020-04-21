@@ -131,7 +131,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 // unsigned char value of the last character in the font file
 #if !defined(OLED_FONT_END)
-#    define OLED_FONT_END 224
+#    define OLED_FONT_END 223
 #endif
 // Font render width
 #if !defined(OLED_FONT_WIDTH)
@@ -200,7 +200,11 @@ void oled_write(const char *data, bool invert);
 // Advances the cursor to the next page, wiring ' ' to the remainder of the current page
 void oled_write_ln(const char *data, bool invert);
 
+// Pans the buffer to the right (or left by passing true) by moving contents of the buffer
+void oled_pan(bool left);
+
 void oled_write_raw(const char *data, uint16_t size);
+void oled_write_raw_byte(const char data, uint16_t index);
 
 #if defined(__AVR__)
 // Writes a PROGMEM string to the buffer at current cursor position
@@ -224,6 +228,8 @@ void oled_write_raw_P(const char *data, uint16_t size);
 // Advances the cursor while writing, inverts the pixels if true
 // Advances the cursor to the next page, wiring ' ' to the remainder of the current page
 #    define oled_write_ln_P(data, invert) oled_write(data, invert)
+
+#    define oled_write_raw_P(data, size) oled_write_raw(data, size)
 #endif  // defined(__AVR__)
 
 // Can be used to manually turn on the screen if it is off
@@ -239,6 +245,18 @@ void oled_task(void);
 
 // Called at the start of oled_task, weak function overridable by the user
 void oled_task_user(void);
+
+// Set the specific 8 lines rows of the screen to scroll.
+// 0 is the default for start, and 7 for end, which is the entire
+// height of the screen.  For 128x32 screens, rows 4-7 are not used.
+void oled_scroll_set_area(uint8_t start_line, uint8_t end_line);
+
+// Sets scroll speed, 0-7, fastest to slowest. Default is three.
+// Does not take effect until scrolling is either started or restarted
+// the ssd1306 supports 8 speeds with the delay
+// listed below betwen each frame of the scrolling effect
+// 0=2, 1=3, 2=4, 3=5, 4=25, 5=64, 6=128, 7=256
+void oled_scroll_set_speed(uint8_t speed);
 
 // Scrolls the entire display right
 // Returns true if the screen was scrolling or starts scrolling
