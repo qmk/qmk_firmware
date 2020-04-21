@@ -59,10 +59,10 @@ typedef union {
  */
 typedef struct {
     uint16_t time_started; // timestamp the tone/note was started, systemtime runs with 1ms resolution -> 16bit timer overflows every ~64 seconds, long enough under normal circumstances; but might be too soon for long-duration notes when the note_tempo is set to a very low value
-    float pitch;     // aka frequency
-    float duration;  // in 64parts to a beats, -1 indicates an indefinitly played note
-    //float intensity; // aka volume [0,1] TODO: not used at the moment; pwm drivers can't handle it
-    //uint8_t timbre;    // range: [0,100] TODO: this currently kept track of globally, should we do this per tone instead?
+    float pitch;        // aka frequency, in Hz
+    uint16_t duration;  // in ms, converted from the musical_notes.h unit which has 64parts to a beat, factoring in the current tempo in beats-per-minute
+    //float intensity;    // aka volume [0,1] TODO: not used at the moment; pwm drivers can't handle it
+    //uint8_t timbre;     // range: [0,100] TODO: this currently kept track of globally, should we do this per tone instead?
 } musical_tone_t;
 
 //     ____        __    ___
@@ -107,8 +107,8 @@ bool audio_is_on(void);
  * @param[in] duration in milliseconds, use 'audio_duration_to_ms' to convert
  *                     from the musical_notes.h unit to ms
  */
-void audio_play_note(float pitch, float duration);
-// TODO: audio_play_note(float pitch, float duration, float intensity, float timbre);
+void audio_play_note(float pitch, uint16_t duration);
+// TODO: audio_play_note(float pitch, uint16_t duration, float intensity, float timbre);
 // audio_play_note_with_instrument ifdef AUDIO_ENABLE_VOICES
 
 /**
@@ -219,8 +219,8 @@ void audio_increase_tempo(uint8_t tempo_change);
 void audio_decrease_tempo(uint8_t tempo_change);
 
 // conversion macros, from 64parts-to-a-beat to milliseconds and back
-#define audio_duration_to_ms(d) (d / 64 * (60 / note_tempo) * 1000)
-#define audio_ms_to_duration(t) (t * 64 * (note_tempo / 60) / 1000)
+uint16_t audio_duration_to_ms(uint16_t duration_bpm);
+uint16_t audio_ms_to_duration(uint16_t duration_ms);
 
 //     __  __               __
 //    / / / /___ __________/ /      ______ __________

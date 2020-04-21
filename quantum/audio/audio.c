@@ -54,6 +54,10 @@
  * can be reproduced depends on the hardware/driver in use: pwm can only
  * reproduce one tone per output/speaker; DACs can reproduce/mix multiple
  * when doing additive synthese.
+ *
+ * 'duration' can either be in the beats-per-minute related unit found in
+ * musical_notes.h, OR in ms; keyboards create SONGs with the former, while
+ * the internal state of the audio system does its calculations with the later - ms
  */
 
 #ifndef AUDIO_TONE_STACKSIZE
@@ -131,7 +135,7 @@ void audio_init() {
         tones[i] = (musical_tone_t){
             .time_started = 0,
             .pitch        = -1.0f,
-            .duration     = -1.0f
+            .duration     = 0
         };
     }
 
@@ -190,7 +194,7 @@ void audio_stop_all() {
         tones[i] = (musical_tone_t){
             .time_started = 0,
             .pitch        = -1.0f,
-            .duration     = -1.0f
+            .duration     = 0
         };
     }
 
@@ -213,14 +217,14 @@ void audio_stop_tone(float pitch) {
                 tones[i] = (musical_tone_t){
                     .time_started = 0,
                     .pitch        = -1.0f,
-                    .duration     = -1.0f
+                    .duration     = 0
                 };
                 for (int j = i; (j < AUDIO_TONE_STACKSIZE - 1); j++) {
                     tones[j]     = tones[j + 1];
                     tones[j + 1] = (musical_tone_t){
                         .time_started = 0,
                         .pitch        = -1.0f,
-                        .duration     = -1.0f
+                        .duration     = 0
                     };
                 }
                 break;
@@ -246,7 +250,7 @@ void audio_stop_tone(float pitch) {
     }
 }
 
-void audio_play_note(float pitch, float duration) {
+void audio_play_note(float pitch, uint16_t duration) {
     if (!audio_config.enable) {
         return;
     }
@@ -304,7 +308,7 @@ void audio_play_note(float pitch, float duration) {
 }
 
 void audio_play_tone(float pitch) {
-    audio_play_note(pitch, -1.0f);
+    audio_play_note(pitch, 0xffff);
 }
 
 void audio_play_melody(float (*np)[][2], uint16_t n_count, bool n_repeat) {
@@ -339,8 +343,8 @@ void audio_play_melody(float (*np)[][2], uint16_t n_count, bool n_repeat) {
 
 float click[2][2];
 void  audio_play_click(uint16_t delay, float pitch, uint16_t duration) {
-    float duration_tone  = (64 / 60) * note_tempo * (duration / 1000.0f);
-    float duration_delay = (64 / 60) * note_tempo * (delay / 1000.0f);
+    uint16_t duration_tone  = audio_ms_to_duration(duration);
+    uint16_t duration_delay = audio_ms_to_duration(delay);
 
     if (delay <= 0.0f) {
         click[0][0] = pitch;
@@ -479,7 +483,9 @@ bool audio_update_state(void) {
 
         // housekeeping: stop notes that have no playtime left
         for (int i=0; i < active_tones; i++) {
-            if (tones[i].duration > 0) {
+            if ((tones[i].duration != 0xffff) // indefinetly playing notes, started by 'audio_play_tone'
+                && (tones[i].duration != 0) // 'uninitialized'
+                ) {
                 if (timer_elapsed(tones[i].time_started) >= tones[i].duration) {
                     audio_stop_tone(tones[i].pitch); // also sets 'state_changed=true'
                 }
@@ -529,4 +535,12 @@ void audio_decrease_tempo(uint8_t tempo_change) {
         note_tempo = 10;
     else
         note_tempo -= tempo_change;
+}
+
+
+uint16_t audio_duration_to_ms(uint16_t duration_bpm) {
+    return ((float)duration_bpm * 60 ) / (64 * note_tempo) * 1000;
+}
+uint16_t audio_ms_to_duration(uint16_t duration_ms) {
+    return ((float)duration_ms * 64 * note_tempo) / 60 / 1000;
 }
