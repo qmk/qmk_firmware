@@ -5,7 +5,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-
+bool is_win = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -17,6 +17,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
           SEND_STRING(SS_LCTL("ctv") SS_TAP(X_ENTER));
         }
+      }
+      break;
+
+    case TOG_OS:
+      if (record->event.pressed) {
+        is_win = ! is_win;
       }
       break;
   }

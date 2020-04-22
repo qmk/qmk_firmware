@@ -25,7 +25,6 @@ enum custom_keycodes {
   SARCASM,
   N_BSPACE,
 
-  TOG_OS,
   CTR_ALT,
   OS_CTRL,
   OS_WIN,
@@ -272,7 +271,6 @@ XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,          
   // ),
 };
 
-static bool is_win = false;
 static const char *key_up[2] = {SS_UP(X_LALT), SS_UP(X_LCTL)};
 static const char *key_down[2] = {SS_DOWN(X_LALT), SS_DOWN(X_LCTL)};
 
@@ -325,11 +323,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
       }
       break;
         
-    case TOG_OS:
-      if (record->event.pressed) {
-        is_win = ! is_win;
-      }
-      break;
+
     case CTR_ALT:
       if (record->event.pressed) {
         send_string(key_down[is_win]);
