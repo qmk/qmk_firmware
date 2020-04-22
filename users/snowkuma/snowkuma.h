@@ -317,4 +317,4 @@ Hold   |  NUM  | Symbol| Shift |         |Arrange|  NAV  | Thumb |
 // Layout wrappers
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 #define LAYOUT_ergodox_wrapper(...) LAYOUT_ergodox(__VA_ARGS__)
-#define LAYOUT_planck_wrapper(...) LAYOUT(__VA_ARGS__)
+#define LAYOUT_planck_wrapper(...) LAYOUT_ortho_4x12(__VA_ARGS__)
