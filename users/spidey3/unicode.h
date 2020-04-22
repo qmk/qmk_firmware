@@ -11,6 +11,7 @@ enum unicode_names {
     RARR,
     ENDASH,
     EMDASH,
+    SPIDER,
 };
 
 #define X_BUL (XP(BUL1, BUL2))
