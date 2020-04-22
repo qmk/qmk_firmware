@@ -17,6 +17,7 @@
 
 layer_state_t layer_state_set_user (layer_state_t state) {
   return update_tri_layer_state(state, _NAV, _SYMBOL, _MOUSE);
+  return update_tri_layer_state(state, _NUMBER, _SYMBOL, _FUNCTION);
 }
 
 #ifdef RGBLIGHT_ENABLE
