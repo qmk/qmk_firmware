@@ -245,6 +245,12 @@ void audio_driver_initialize() {
     dacStartConversion(&DACD2, &dac_conv_cfg, dac_buffer_empty, AUDIO_DAC_BUFFER_SIZE);
 #endif
 
+#if defined(AUDIO_PIN_ALT_AS_NEGATIVE)
+    // no inverted/out-of-phase waveform (yet?), only pulling AUDIO_PIN_ALT to ground
+    palSetLineMode(AUDIO_PIN_ALT, PAL_MODE_OUTPUT_PUSHPULL);
+    palClearLine(AUDIO_PIN_ALT);
+#endif
+
     /* enable the output buffer, to directly drive external loads with no additional circuitry
      *
      * see: AN4566 Application note: Extending the DAC performance of STM32 microcontrollers
