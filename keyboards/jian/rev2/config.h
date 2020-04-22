@@ -41,7 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //#define USE_I2C
 #define USE_SERIAL
-#define SOFT_SERIAL_PIN D0
+#define SOFT_SERIAL_PIN D1
 
 #define EE_HANDS
 /* define if matrix has ghost */
