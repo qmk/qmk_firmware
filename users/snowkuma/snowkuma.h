@@ -54,6 +54,7 @@ enum layers {
 #define TAB_SFT SFT_T(KC_TAB)
 #define MIN_ARR LT(_ARRANGE, KC_MINS)
 #define ENT_THU LT(_THUMB, KC_ENT)
+#define EQL_THU LT(_THUMB, KC_EQL)
 
 // magnet keycodes
 #define M_LEFT LCA(KC_LEFT)
@@ -209,7 +210,7 @@ L3 |   `   |   +   |   -   |   =   |   €   |            R3 |   ,   |   1   |  
 #define _________________NUM_R1____________________        KC_SLSH, KC_7,    KC_8,    KC_9,    KC_ASTR
 #define _________________NUM_R2____________________        KC_DOT,  KC_4,    KC_5,    KC_6,    KC_MINS
 #define _________________NUM_R3____________________        KC_COMM, KC_1,    KC_2,    KC_3,    KC_PLUS
-#define ________NUM_R4___________                          KC_BSLS, KC_0,    KC_EQL
+#define ________NUM_R4___________                          KC_BSLS, KC_0,    EQL_THU
 
 
 /* ARRANGE
