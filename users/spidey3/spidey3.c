@@ -6,13 +6,19 @@ uint16_t spi_replace_mode = SPI_NORMAL;
 
 bool process_record_glyph_replacement(uint16_t keycode, keyrecord_t *record, uint32_t baseAlphaLower, uint32_t baseAlphaUpper, uint32_t zeroGlyph, uint32_t baseNumberOne, uint32_t spaceGlyph) {
     uint8_t temp_mod = get_mods();
+#ifndef NO_ACTION_ONESHOT
     uint8_t temp_osm = get_oneshot_mods();
+#else
+    uint8_t temp_osm = 0;
+#endif
     if ((((temp_mod | temp_osm) & (MOD_MASK_CTRL | MOD_MASK_ALT | MOD_MASK_GUI))) == 0) {
         switch (keycode) {
           case KC_A ... KC_Z:
             if (record->event.pressed) {
                 clear_mods();
+#ifndef NO_ACTION_ONESHOT
                 clear_oneshot_mods();
+#endif
 
                 unicode_input_start();
                 uint32_t base = ((temp_mod | temp_osm) & MOD_MASK_SHIFT) ? baseAlphaUpper : baseAlphaLower;
