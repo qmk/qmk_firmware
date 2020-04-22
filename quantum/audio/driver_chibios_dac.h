@@ -106,15 +106,6 @@
 #endif
 
 /**
- * choose pins for the speaker
- */
-#if !defined(AUDIO_PIN_A4) && !defined(AUDIO_PIN_A5)
-#    pragma message "Audio feature enabled, but no pin selected - see docs/feature_audio under the ARM DAC settings for available options. Falling back to A5"
-#    define AUDIO_PIN_A5
-// TODO: go through a breaking change, and add AUDIO_PIN=A5 to all keyboards currently using AUDIO on STM32 based boards
-#endif
-
-/**
  *user overridable sample generation/processing
  */
 uint16_t dac_value_generate(void);

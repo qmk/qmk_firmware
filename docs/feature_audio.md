@@ -5,36 +5,36 @@ Your keyboard can make sounds! If you've got a spare pin you can hook up a simpl
 To activate this feature, add `AUDIO_ENABLE = yes` to your `rules.mk`.
 
 ## AVR based boards
-Up to two simultaneous tones can be rendered. with one speaker driven by timer 1 and another driven by timer 3.  The following pins can be configured as audio outputs in `rules.mk`:
+Up to two simultaneous tones can be rendered. with one speaker driven by timer 1 and another driven by timer 3.  The following pins can be configured as audio outputs in `config.h`:
 
 for the primary speaker, with Timer 3, pick ONE these pins:
-`AUDIO_PIN = C4`
-`AUDIO_PIN = C5`
-`AUDIO_PIN = C6`
+`#define AUDIO_PIN_C4`
+`#define AUDIO_PIN_C5`
+`#define AUDIO_PIN_C6`
 
 and *optionally*, a secondary speaker, using Timer 1, on ONE of these pins:
-`AUDIO_PIN_ALT = B5`
-`AUDIO_PIN_ALT = B6`
-`AUDIO_PIN_ALT = B7`
+`#define AUDIO_PIN_ALT_B5`
+`#define AUDIO_PIN_ALT_B6`
+`#define AUDIO_PIN_ALT_B7`
 
 ### Wiring
-per speaker is - for example with a piezo buzzer - the black lead to Ground, and the red lead connected to the selected AUDIO_PIN for the primary; and similarly with AUDIO_PIN_ALT for the secondary.
+per speaker is - for example with a piezo buzzer - the black lead to Ground, and the red lead connected to the selected AUDIO_PIN_X for the primary; and similarly with AUDIO_PIN_ALT_X for the secondary.
 
 
 ## ARM based boards
 ### DAC (basic)
-Most STM32 MCUs have DAC peripherals, with a notable exception of the STM32F1xx series. Generally, the DAC peripheral drives pins A4 or A5. To enable DAC-based audio output on STM32 devices, add `AUDIO_DRIVER = dac_basic` to `rules.mk` and set either:`
-`AUDIO_PIN = A4`
+Most STM32 MCUs have DAC peripherals, with a notable exception of the STM32F1xx series. Generally, the DAC peripheral drives pins A4 or A5. To enable DAC-based audio output on STM32 devices, add `AUDIO_DRIVER = dac_basic` to `rules.mk` and set in `config.h` either:
+`#define AUDIO_PIN_A4`
 OR
-`AUDIO_PIN = A5`
+`#define AUDIO_PIN_A5`
 
 the other DAC channel can optionally be used with a secondary speaker, just set:
-`AUDIO_PIN_ALT = A4` or `AUDIO_PIN_ALT = A5`
+`#define AUDIO_PIN_ALT_A4` or `#define AUDIO_PIN_ALT_A5`
 
 Do note though that the dac_basic driver is only capable of reproducing one tone per speaker/channel at a time, for more tones simultaneously, try the dac_additive driver.
 
 #### Wiring:
-for two piezos, for example configured as `AUDIO_PIN A4` and `AUDIO_PIN_ALT A5` would be: red lead to A4 and black to Ground, and similarly with the second one: A5 = red, and Ground = black
+for two piezos, for example configured as `AUDIO_PIN_A4` and `AUDIO_PIN_ALT_A5` would be: red lead to A4 and black to Ground, and similarly with the second one: A5 = red, and Ground = black
 
 another alternative is to drive *one* piezo with both DAC pins - for an extra "push".
 wiring red to A4 and black to A5 (or the other way round) and add `#define AUDIO_PIN_ALT_AS_NEGATIVE` to `config.h`
@@ -43,7 +43,8 @@ wiring red to A4 and black to A5 (or the other way round) and add `#define AUDIO
 ### DAC (additive)
 Another option, besides dac_basic (which produces sound through a squarewave), is to use the DAC to do additive wave synthesis.
 With a number of predefined waveforms or by providing your own implementation to generate samples on the fly.
-To use this feature set `AUDIO_DRIVER = dac_additive` in your `rules.mk`.
+To use this feature set `AUDIO_DRIVER = dac_additive` in your `rules.mk`, and select in `config.h` EITHER `#define AUDIO_PIN_A4` or `#define AUDIO_PIN_A5`.
+
 The used waveform defaults to a sine, but can be selected by adding one of the following defines to `config.h`:
 `#define AUDIO_DAC_SAMPLE_WAVEFORM_SINE`
 `#define AUDIO_DAC_SAMPLE_WAVEFORM_TRIANGLE`
@@ -51,23 +52,26 @@ The used waveform defaults to a sine, but can be selected by adding one of the f
 `#define AUDIO_DAC_SAMPLE_WAVEFORM_SQUARE`
 Should you rather choose to generate and use your own sample-table with the DAC unit, implement `uint16_t dac_value_generate(void)` with your keyboard - for an example implementation see keyboards/planck/keymaps/synth_sample or keyboards/planck/keymaps/synth_wavetable
 
+
 ### PWM (software)
-if the DAC pins are unavailable (or the MCU has no usable DAC at all, like STM32F1xx); pwm can be an alternative.
+if the DAC pins are unavailable (or the MCU has no usable DAC at all, like STM32F1xx); PWM can be an alternative.
+Note that there is currently only one speaker/pin supported.
 
 set in `rules.mk`:
-`AUDIO_DRIVER = pwm_software` and
-`AUDIO_PIN = C13` (can be any pin)
+`AUDIO_DRIVER = pwm_software` and in `config.h`
+`#define AUDIO_PIN C13` (can be any pin, NOTE the space in the define!)
 to have the selected pin output a pwm signal, generated from a timer callback which toggles the pin in software.
 
 #### Wiring
 the usual piezo wiring: red goes to the selected AUDIO_PIN, black goes to ground.
 
-OR if you can chose to drive one piezo with two pins, for example `AUDIO_PIN B1`, `AUDIO_PIN_ALT B2` in `rules.mk`, `#define AUDIO_PIN_ALT_AS_NEGATIVE` in `config.h` the red lead could go to B1, the black to B2.
+OR if you can chose to drive one piezo with two pins, for example `#define AUDIO_PIN B1`, `#define AUDIO_PIN_ALT B2` in `config.h`, with `#define AUDIO_PIN_ALT_AS_NEGATIVE` - then the red lead could go to B1, the black to B2.
 
 ### PWM (hardware)
-STM32F1xx have to fall back to using PWM, but can do so in hardware:
+STM32F1xx have to fall back to using PWM, but can do so in hardware; but again on currently only one speaker/pin.
 
-`AUDIO_DRIVER = pwm_hardware` and `AUDIO_PIN A8` in `rules.mk` and in `config.h`:
+`AUDIO_DRIVER = pwm_hardware` in `rules.mk`, and in `config.h`:
+`#define AUDIO_PIN A8`
 `#define AUDIO_PWM_TIMER 1`
 `#define AUDIO_PWM_TIMERCHANNEL 1`
 (as well as `#define AUDIO_PWM_PINALTERNATE_FUNCTION 42` if you are on STM32F2 or larger)
