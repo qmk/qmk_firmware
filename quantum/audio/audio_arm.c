@@ -85,7 +85,7 @@ static bool should_shutoff_dac(void);
 static void shutoff_dac(void);
 static void shutoff_dac_callback(void *arg);
 
-#define PLAY_NOTE_TIMEOUT MS2ST(5)
+#define PLAY_NOTE_TIMEOUT TIME_MS2I(5)
 #define DAC_BUFFER_SIZE 100
 #ifndef DAC_SAMPLE_MAX
 #    define DAC_SAMPLE_MAX 65535U
@@ -583,7 +583,7 @@ static void gpt_cb8(GPTDriver *gptp) {
     }
 }
 
-bool should_shutoff_dac() { return ST2MS(chVTTimeElapsedSinceX(last_note_played_at)) > 5 && dac_on; }
+bool should_shutoff_dac() { return TIME_MS2I(chVTTimeElapsedSinceX(last_note_played_at)) > 5 && dac_on; }
 
 void shutoff_dac() {
     dacStopConversion(&DACD2);
