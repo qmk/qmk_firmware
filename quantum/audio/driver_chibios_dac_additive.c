@@ -28,6 +28,17 @@
   this driver allows for multiple simultaneous tones to be played through one single channel by doing additive wave-synthesis
 */
 
+#if !defined(AUDIO_PIN_A4) && !defined(AUDIO_PIN_A5)
+#    error "Audio feature enabled, but no suitable pin selected as AUDIO_PIN_x - see docs/feature_audio under 'ARM (DAC additive)' for available options."
+#endif
+#if defined(AUDIO_PIN_A4) && defined(AUDIO_PIN_A5)
+#    error "Audio feature: please set either AUDIO_PIN_A4 or AUDIO_PIN_A5, not both."
+#endif
+#if defined(AUDIO_PIN_ALT_A4) && defined(AUDIO_PIN_ALT_A5)
+#    error "Audio feature: please set either AUDIO_PIN_ALT_A4 or AUDIO_PIN_ALT_A5, not both."
+#endif
+
+
 #if !defined(AUDIO_DAC_SAMPLE_WAVEFORM_SINE) && !defined(AUDIO_DAC_SAMPLE_WAVEFORM_TRIANGLE) && !defined(AUDIO_DAC_SAMPLE_WAVEFORM_SQUARE) && !defined(AUDIO_DAC_SAMPLE_WAVEFORM_TRAPEZOID)
 #    define AUDIO_DAC_SAMPLE_WAVEFORM_SINE
 #endif
@@ -245,10 +256,13 @@ void audio_driver_initialize() {
     dacStartConversion(&DACD2, &dac_conv_cfg, dac_buffer_empty, AUDIO_DAC_BUFFER_SIZE);
 #endif
 
-#if defined(AUDIO_PIN_ALT_AS_NEGATIVE)
-    // no inverted/out-of-phase waveform (yet?), only pulling AUDIO_PIN_ALT to ground
-    palSetLineMode(AUDIO_PIN_ALT, PAL_MODE_OUTPUT_PUSHPULL);
-    palClearLine(AUDIO_PIN_ALT);
+// no inverted/out-of-phase waveform (yet?), only pulling AUDIO_PIN_ALT_x to ground
+#if defined(AUDIO_PIN_ALT_A4) && defined(AUDIO_PIN_ALT_AS_NEGATIVE)
+    palSetLineMode(AUDIO_PIN_ALT_A4, PAL_MODE_OUTPUT_PUSHPULL);
+    palClearLine(AUDIO_PIN_ALT_A4);
+#elif defined(AUDIO_PIN_ALT_A5) && defined(AUDIO_PIN_ALT_AS_NEGATIVE)
+    palSetLineMode(AUDIO_PIN_ALT_A5, PAL_MODE_OUTPUT_PUSHPULL);
+    palClearLine(AUDIO_PIN_ALT_A5);
 #endif
 
     /* enable the output buffer, to directly drive external loads with no additional circuitry

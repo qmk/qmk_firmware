@@ -38,6 +38,10 @@ extern uint8_t note_timbre;
   in a pinch with only one of the PB pins available as speaker output, they can be used as the primary channel too - by only setting the AUDIO_PIN_ALT_Bx define, and *none* of the AUDIO_PIN_Cx defines
 */
 
+#if (defined(AUDIO_PIN_C4) && defined(AUDIO_PIN_C5)) || (defined(AUDIO_PIN_C5) && defined(AUDIO_PIN_C6)) || (defined(AUDIO_PIN_C4) && defined(AUDIO_PIN_C6)) || (defined(AUDIO_PIN_C4) && defined(AUDIO_PIN_C5) && defined(AUDIO_PIN_C6))
+#    error "Audio feature: please set only one AUDIO_PIN_Cx."
+#endif
+
 #if defined(AUDIO_PIN_C4) || defined(AUDIO_PIN_C5) || defined(AUDIO_PIN_C6)
 #    define AUDIO1_PIN_SET
 #    define AUDIO1_TIMSKx TIMSK3
@@ -74,6 +78,10 @@ extern uint8_t note_timbre;
 #        define AUDIO1_PIN C4
 #        define AUDIO1_TIMERx_COMPy_vect TIMER3_COMPC_vect
 #    endif
+#endif
+
+#if (defined(AUDIO_PIN_ALT_B5) && defined(AUDIO_PIN_ALT_B6)) || (defined(AUDIO_PIN_ALT_B6) && defined(AUDIO_PIN_ALT_B7)) || (defined(AUDIO_PIN_ALT_B5) && defined(AUDIO_PIN_ALT_B7)) || (defined(AUDIO_PIN_ALT_B5) && defined(AUDIO_PIN_ALT_B6) && defined(AUDIO_PIN_ALT_B7))
+#    error "Audio feature: please set only one AUDIO_PIN_ALT_Bx."
 #endif
 
 #if defined(AUDIO_PIN_ALT_B5) || defined(AUDIO_PIN_ALT_B6) || defined(AUDIO_PIN_ALT_B7)
@@ -116,7 +124,7 @@ extern uint8_t note_timbre;
 
 // C6 seems to be the assumed default by many existing keyboard - but sill warn the user
 #if !defined(AUDIO1_PIN_SET) && !defined(AUDIO2_PIN_SET)
-#    pragma message "Audio feature enabled, but no pin selected - see docs/feature_audio under the AVR settings for available options. Don't expect to hear anything... :-)"
+#    pragma message "Audio feature enabled, but no suitable pin selected - see docs/feature_audio under the AVR settings for available options. Don't expect to hear anything... :-)"
 // TODO: make this an error - go through the breaking-change-process and change all keyboards to the new define
 #endif
 // -----------------------------------------------------------------------------

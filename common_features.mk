@@ -47,12 +47,6 @@ ifeq ($(strip $(AUDIO_ENABLE)), yes)
         AUDIO_DRIVER ?= pwm_hardware
         OPT_DEFS += -DAUDIO_DRIVER_PWM
     endif
-    ifdef AUDIO_PIN
-        OPT_DEFS += -DAUDIO_PIN=$(AUDIO_PIN) -DAUDIO_PIN_$(AUDIO_PIN)
-    endif
-    ifdef AUDIO_PIN_ALT
-        OPT_DEFS += -DAUDIO_PIN_ALT=$(AUDIO_PIN_ALT) -DAUDIO_PIN_ALT_$(AUDIO_PIN_ALT)
-    endif
     OPT_DEFS += -DAUDIO_ENABLE
     MUSIC_ENABLE = yes
     SRC += $(QUANTUM_DIR)/process_keycode/process_audio.c

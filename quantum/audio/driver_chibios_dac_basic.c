@@ -23,10 +23,25 @@
 
   which utilizes both channels of the DAC unit many STM32 are equipped with to output a modulated square-wave, from precomputed samples stored in a buffer, which is passed to the hardware through DMA
 
+  this driver can either be used to drive to separate speakers, wired to A4+Gnd and A5+Gnd, which allows two tones to be played simultaniously
+  OR
+  one speaker wired to A4+A5 with hte AUDIO_PIN_ALT_AS_NEGATIVE define set - see docs/feature_audio
 
 TODOS:
 - channel_X_stop should respect dac conversion buffer-complete; currently the output might end up 'high' = halfway through a sample conversion
 */
+
+#if !defined(AUDIO_PIN_A4) && !defined(AUDIO_PIN_A5) && !defined(AUDIO_PIN_ALT_A4) && !defined(AUDIO_PIN_ALT_A5)
+#    pragma message "Audio feature enabled, but no suitable pin selected as AUDIO_PIN_x or AUDIO_PIN_ALT_x - see docs/feature_audio under 'ARM (DAC basic)' for available options."
+// TODO: make this an 'error' instead; go through a breaking change, and add AUDIO_PIN_A5 to all keyboards currently using AUDIO on STM32 based boards?
+#endif
+#if defined(AUDIO_PIN_A4) && defined(AUDIO_PIN_ALT_A4)
+#    error "Audio feature: please set either AUDIO_PIN_A4 or AUDIO_PIN_ALT_A4, not both."
+#endif
+#if defined(AUDIO_PIN_A5) && defined(AUDIO_PIN_ALT_A5)
+#    error "Audio feature: please set either AUDIO_PIN_A5 or AUDIO_PIN_ALT_A5, not both."
+#endif
+
 
 #if defined(AUDIO_PIN_A4) || defined(AUDIO_PIN_ALT_A4)
 // squarewave
@@ -138,7 +153,7 @@ float channel_2_get_frequency(void) { return channel_2_frequency; }
 
 static void gpt_cb8(GPTDriver *gptp) {
     if (audio_update_state()) {
-#if (defined (AUDIO_PIN_A4) && defined(AUDIO_PIN_A5)) || (defined(AUDIO_PIN_A4) && defined(AUDIO_PIN_ALT_AS_NEGATIVE) && defined(AUDIO_PIN_ALT_A5)) || (defined(AUDIO_PIN_A5) && defined(AUDIO_PIN_ALT_AS_NEGATIVE) && defined(AUDIO_PIN_ALT_A4))
+#if (defined(AUDIO_PIN_A4) && defined(AUDIO_PIN_ALT_AS_NEGATIVE) && defined(AUDIO_PIN_ALT_A5)) || (defined(AUDIO_PIN_A5) && defined(AUDIO_PIN_ALT_AS_NEGATIVE) && defined(AUDIO_PIN_ALT_A4))
         // one piezo/speaker connected to both audio pins, the generated squarewaves are inverted
         channel_1_set_frequency(audio_get_processed_frequency(0));
         channel_2_set_frequency(audio_get_processed_frequency(0));

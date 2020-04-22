@@ -88,7 +88,7 @@ void channel_1_stop(void) {
 
     palClearLine(AUDIO_PIN);  // leave the line low, after last note was played
 
-#if defined(AUDIO_PIN_ALT_AS_NEGATIVE) && defined(AUDIO_PIN_ALT)
+#if defined(AUDIO_PIN_ALT) && defined(AUDIO_PIN_ALT_AS_NEGATIVE)
     palClearLine(AUDIO_PIN_ALT);  // leave the line low, after last note was played
 #endif
 }
@@ -98,7 +98,7 @@ static void pwm_audio_period_callback(PWMDriver *pwmp) {
     (void)pwmp;
     palClearLine(AUDIO_PIN);
 
-#if defined(AUDIO_PIN_ALT_AS_NEGATIVE) && defined(AUDIO_PIN_ALT)
+#if defined(AUDIO_PIN_ALT) && defined(AUDIO_PIN_ALT_AS_NEGATIVE)
     palSetLine(AUDIO_PIN_ALT);
 #endif
 }
@@ -106,7 +106,7 @@ static void pwm_audio_channel_interrupt_callback(PWMDriver *pwmp) {
     (void)pwmp;
     if (channel_1_frequency > 0) {
         palSetLine(AUDIO_PIN);  // generate a PWM signal on any pin, not neccessarily the one connected to the timer
-#if defined(AUDIO_PIN_ALT_AS_NEGATIVE) && defined(AUDIO_PIN_ALT)
+#if defined(AUDIO_PIN_ALT) && defined(AUDIO_PIN_ALT_AS_NEGATIVE)
         palClearLine(AUDIO_PIN_ALT);
 #endif
     }
@@ -131,7 +131,7 @@ void audio_driver_initialize(void) {
     palSetLineMode(AUDIO_PIN, PAL_MODE_OUTPUT_PUSHPULL);
     palClearLine(AUDIO_PIN);
 
-#if defined(AUDIO_PIN_ALT_AS_NEGATIVE) && defined(AUDIO_PIN_ALT)
+#if defined(AUDIO_PIN_ALT) && defined(AUDIO_PIN_ALT_AS_NEGATIVE)
     palSetLineMode(AUDIO_PIN_ALT, PAL_MODE_OUTPUT_PUSHPULL);
     palClearLine(AUDIO_PIN_ALT);
 #endif
