@@ -250,11 +250,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_CONTRL] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, XXXXXXX, KC_MS_WH_DOWN, KC_MS_UP, KC_MS_WH_UP, XXXXXXX,           XXXXXXX, XXXXXXX, KC_UP, XXXXXXX, XXXXXXX, XXXXXXX,\
+      _______, XXXXXXX, KC_MS_WH_DOWN, KC_MS_UP, KC_MS_WH_UP, XXXXXXX,           XXXXXXX, XXXXXXX, KC_UP, XXXXXXX, XXXXXXX, _______,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, XXXXXXX, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, XXXXXXX,         XXXXXXX, KC_LEFT, KC_DOWN, KC_RIGHT, XXXXXXX, XXXXXXX,\
+      _______, XXXXXXX, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, XXXXXXX,         XXXXXXX, KC_LEFT, KC_DOWN, KC_RIGHT, XXXXXXX, KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      TG(_CONTRL), XXXXXXX, _______, _______, _______, XXXXXXX,                  XXXXXXX, KC_MS_BTN1, XXXXXXX, XXXXXXX, KC_MS_BTN2, XXXXXXX,\
+      TG(_CONTRL), XXXXXXX, _______, _______, _______, XXXXXXX,                  XXXXXXX, KC_MS_BTN1, XXXXXXX, KC_MS_BTN2, KC_MS_BTN3, KC_MS_BTN4,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, KC_LGUI, KC_SPC,     KC_ENT,  _______, _______ \
                                       //`--------------------------'  `--------------------------'
@@ -291,8 +291,43 @@ void matrix_init_user(void) {
 //SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
 #ifdef SSD1306OLED
 
+const char *read_layer_state(void) {
+  static char layer_state_str[24];
+  char layer_name[17];
+
+  switch (biton32(layer_state)) {
+    case _COLEMAK:
+      strcpy(layer_name, "C L M K");
+      break;
+    case _RAISE:
+      strcpy(layer_name, "R A I S E");
+      break;
+    case _LOWER:
+      strcpy(layer_name, "L O W E R");
+      break;
+    case _ADJUST:
+      strcpy(layer_name, "A D J S T");
+      break;
+    case _CONTRL:
+      strcpy(layer_name, "C T R L");
+      break;
+    default:
+      snprintf(layer_name, sizeof(layer_name), "U-%ld", layer_state);
+  }
+
+  strcpy(layer_state_str, "[Layer]   ");
+
+  strcat(layer_state_str, layer_name);
+  strcat(layer_state_str, "\n");
+  return layer_state_str;
+}
+
+
+
+
+
 // When add source files to SRC in rules.mk, you can use functions.
-const char *read_layer_state(void);
+
 const char *read_logo(void);
 void set_keylog(uint16_t keycode, keyrecord_t *record);
 const char *read_keylog(void);
@@ -312,10 +347,10 @@ void matrix_scan_user(void) {
 void matrix_render_user(struct CharacterMatrix *matrix) {
   if (is_master) {
     // If you want to change the display of OLED, you need to change here
-    matrix_write_ln(matrix, read_layer_state());
-    matrix_write_ln(matrix, read_keylog());
+      matrix_write_ln(matrix, read_layer_state());
+      matrix_write_ln(matrix, read_keylog());
   } else {
-    matrix_write(matrix, read_logo());
+      // matrix_write(matrix, read_logo());
   }
 }
 
@@ -374,22 +409,10 @@ void oled_task_user(void) {
             break;
         default:
             // Or use the write_ln shortcut over adding '\n' to the end of your string
-            oled_write_ln_P(PSTR("Undefined"), false);
+            oled_write_ln_P(PSTR("Nah"), false);
     }
 }
-
-void render_crkbd_logo(void) {
-    static const char PROGMEM crkbd_logo[] = {
-        0x82, 0x83, 0xa2, 0xa3, 0xa4, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
-        0xa0, 0xa2, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
-        0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
-        0};
-        // 0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
-        // 0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
-        // 0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
-        // 0};
-    oled_write_P(crkbd_logo, false);
-}
+ 
 #    endif
 
   switch (keycode) {
