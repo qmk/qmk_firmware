@@ -33,13 +33,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Rows are doubled-up
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 6
+#define DIODE_DIRECTION COL2ROW
 
 // wiring of each half
 #define MATRIX_ROW_PINS { F4, F5, B1, B3 }
 #define MATRIX_COL_PINS { D3, D2, B4, F6, F7, B2 }
 
+//#define USE_I2C
+#define USE_SERIAL
+#define SOFT_SERIAL_PIN D0
 
-#define USE_I2C
 #define EE_HANDS
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
@@ -74,7 +77,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
 
 #define PHYSICAL_LEDS_ENABLE
 #define IOS_DEVICE_ENABLE

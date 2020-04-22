@@ -16,4 +16,4 @@ NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: ht
 
 LAYOUTS = LAYOUT_jian LAYOUT_handwired
 
-DEFAULT_FOLDER = jian/rev1
+DEFAULT_FOLDER = jian/rev2
