@@ -61,6 +61,7 @@
 #define mins KC_MINS
 #define quot KC_QUOT
 #define esc KC_ESC
+#define escg KC_GESC
 
 #define down KC_DOWN
 #define home G(KC_LEFT)
@@ -159,31 +160,31 @@ enum planck_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_planck_grid(
-        escf,    q,    w,    f,    p,    g,    j,    l,    u,    y, scln, mins,
+         tab,    q,    w,    f,    p,    g,    j,    l,    u,    y, scln, mins,
         bspc,    a,    r,    s,    t,    d,    h,    n,    e,    i,    o, quot,
         lsft,    z,    x,    c,    v,    b,    k,    m, comm,  dot, slsh, rsft,
-        hypr, lctl, lopt,  cmd, move,  ent,  spc, symb,  left,  up, down, rght
+        hypr, lctl, lopt,  cmd, move,  ent,  spc, symb,  cmd, ropt, rctl, func
     ),
 
     [SYMB] = LAYOUT_planck_grid(
-        tild,   n7,   n5,   n3,   n1,   n9,   n8,   n0,   n2,   n4,   n6, dash,
-        bspc, lbrc, lcbr, lprn, hash, pipe, astr,  dlr, rprn, rcbr, rbrc,   at,
-        ____,  grv, exlm, circ, ampr, perc, ampr, plus, mins,  eql, bsls, ____,
-        ____, caps, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
-    ),
-
-    [MOVE] = LAYOUT_planck_grid(
-         tab, xxxx, slup,  dtl,  dtr, xxxx, xxxx, home,   up,  end, xxxx, xxxx,
-         del, xxxx, sldn, tabl, tabr, xxxx, xxxx, left, down, rght, xxxx, xxxx,
-        ____, xxxx, xxxx, back,  fwd, xxxx, xxxx, pgdn, pgup, xxxx, xxxx, ____,
+         esc,   n7,   n5,   n3,   n1,   n9,   n8,   n0,   n2,   n4,   n6, dash,
+         del, lbrc, lcbr, lprn, hash, pipe, astr,  dlr, rprn, rcbr, rbrc,   at,
+        ____,  grv, exlm, circ, tild, perc, ampr, plus, mins,  eql, bsls, ____,
         ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
     ),
 
+    [MOVE] = LAYOUT_planck_grid(
+         esc, xxxx, slup,  dtl,  dtr, xxxx, xxxx, home,   up,  end, xxxx, volu,
+         del, xxxx, sldn, tabl, tabr, xxxx, xxxx, left, down, rght, xxxx, vold,
+        ____, xxxx, xxxx, back,  fwd, xxxx, xxxx, pgdn, pgup, xxxx, xxxx, mute,
+        ____, ____, ____, ____, ____, ____, ____, ____, ____, prev, next, play
+    ),
+
     [FUNC] = LAYOUT_planck_grid(
-        ____,   f7,   f5,   f3,   f1,   f9,   f8,  f10,   f2,   f4,   f6, volu,
-        powr,  f17,  f15,  f13,  f11,  f19,  f18,  f20,  f12,  f14,  f16, vold,
-        brup, ____, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, mute,
-        brdn, ____, ____, ____, ____, rset, ____, ____, ____, prev, next, play
+        rset,   f7,   f5,   f3,   f1,   f9,   f8,  f10,   f2,   f4,   f6, caps,
+        powr,  f17,  f15,  f13,  f11,  f19,  f18,  f20,  f12,  f14,  f16, ____,
+        brup, ____, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, ____,
+        brdn, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
     ),
 };
 
