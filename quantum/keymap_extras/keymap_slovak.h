@@ -36,10 +36,10 @@
 // Row 1
 #define SK_SCLN KC_GRV  // ;
 #define SK_PLUS KC_1    // +
-#define SK_LACU KC_2    // ľ
+#define SK_LCAR KC_2    // ľ
 #define SK_SCAR KC_3    // š
 #define SK_CCAR KC_4    // č
-#define SK_TACU KC_5    // ť
+#define SK_TCAR KC_5    // ť
 #define SK_ZCAR KC_6    // ž
 #define SK_YACU KC_7    // ý
 #define SK_AACU KC_8    // á
@@ -141,10 +141,10 @@
  */
 // Row 1
 #define SK_TILD ALGR(SK_PLUS) // ~
-#define SK_CIRC ALGR(SK_LACU) // ^ (dead)
+#define SK_CIRC ALGR(SK_LCAR) // ^ (dead)
 #define SK_BREV ALGR(SK_SCAR) // ˘ (dead)
 #define SK_RNGA ALGR(SK_CCAR) // ° (dead)
-#define SK_OGON ALGR(SK_TACU) // ˛ (dead)
+#define SK_OGON ALGR(SK_TCAR) // ˛ (dead)
 #define SK_GRV  ALGR(SK_ZCAR) // `
 #define SK_DOTA ALGR(SK_YACU) // ˙ (dead)
 #define SK_DACU ALGR(SK_EACU) // ˝ (dead)
