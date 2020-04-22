@@ -12,6 +12,12 @@ enum unicode_names {
     ENDASH,
     EMDASH,
     SPIDER,
+    SAD,
+    MEH,
+    HAPPY,
+    ANGRY,
+    THUMBUP,
+    THUMBDN,
 };
 
 #define X_BUL (XP(BUL1, BUL2))
