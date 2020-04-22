@@ -129,6 +129,8 @@ void rgb_layer_ack(layer_ack_t n) {
 extern keymap_config_t keymap_config;
 extern rgblight_config_t rgblight_config;
 
+extern uint16_t spi_replace_mode;
+
 bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
@@ -153,6 +155,10 @@ void post_process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
         case SPI_OSX:
         case SPI_WIN:
             rgb_layer_ack(ACK_MEH);
+            break;
+
+        case SPI_NORMAL ... SPI_FRAKTR:
+            rgb_layer_ack_yn(spi_replace_mode != SPI_NORMAL);
             break;
 
         case RGB_TOG:

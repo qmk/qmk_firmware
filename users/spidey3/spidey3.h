@@ -18,6 +18,15 @@ enum custom_keycodes {
   SPI_LNX,
   SPI_OSX,
   SPI_WIN,
+
+  SPI_NORMAL,
+  SPI_WIDE,
+  SPI_SCRIPT,
+  SPI_BLOCKS,
+  SPI_CIRCLE,
+  SPI_SQUARE,
+  SPI_PARENS,
+  SPI_FRAKTR,
 };
 
 #ifdef RGBLIGHT_ENABLE
