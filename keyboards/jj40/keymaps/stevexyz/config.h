@@ -1,6 +1,7 @@
 
 // Behaviors That Can Be Configured
 
+
 #define TAPPING_TERM 250
         // how long before a tap becomes a hold, if set above 500, a key tapped during the tapping term will turn it into a hold too
 
@@ -9,18 +10,18 @@
 #define IGNORE_MOD_TAP_INTERRUPT
         // makes it possible to do rolling combos (zx) with keys that convert to other keys on hold, by enforcing the TAPPING_TERM for both keys.
 
+#define TAPPING_FORCE_HOLD
+        // makes it possible to use a dual role key as modifier shortly after having been tapped (see Hold after tap)
+        // Breaks any Tap Toggle functionality (TT or the One Shot Tap Toggle)
+
+
 /*
     #define TAPPING_TERM_PER_KEY
         // enables handling for per key TAPPING_TERM settings
     #define RETRO_TAPPING
         // tap anyway, even after TAPPING_TERM, if there was no other key interruption between press and release
-        // See Retro Tapping for details
     #define TAPPING_TOGGLE 2
         // how many taps before triggering the toggle
-    #define TAPPING_FORCE_HOLD
-        // makes it possible to use a dual role key as modifier shortly after having been tapped
-        // See Hold after tap
-        // Breaks any Tap Toggle functionality (TT or the One Shot Tap Toggle)
     #define LEADER_TIMEOUT 300
         // how long before the leader key times out
         // If you're having issues finishing the sequence before it times out, you may need to increase the timeout setting. Or you may want to enable the LEADER_PER_KEY_TIMING option, which resets the timeout after each key is tapped.
