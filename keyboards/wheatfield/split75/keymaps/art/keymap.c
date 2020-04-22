@@ -1,7 +1,4 @@
-#include QMK_KEYBOARD_H
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
+#include <art.h>
 #include <sendstring_workman_zxcvm.h>
 
 enum layer_names {
@@ -24,8 +21,7 @@ enum layer_names {
 };
 
 enum custom_keycodes {
-  CTRL_CTV = SAFE_RANGE,
-  CTRL_LCTV,
+  CTRL_LCTV = NEW_SAFE_RANGE,
   SARCASM,
   N_BSPACE,
 
@@ -303,7 +299,7 @@ void backspace_n_times(int times) {
   }
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   if (sarcasm_on) {
     sarcasm_key = ! sarcasm_key;  
     if (sarcasm_key) {
@@ -317,16 +313,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   switch (keycode) {
-    case CTRL_CTV:
-      if (record->event.pressed) {
-        if ( get_mods() & MOD_MASK_SHIFT ) {
-          clear_mods();
-          SEND_STRING(SS_LCTL("ctv"));
-        } else {
-          SEND_STRING(SS_LCTL("ctv") SS_TAP(X_ENTER));
-        }
-      }
-      break;
     case CTRL_LCTV:
       if (record->event.pressed) {
         if ( get_mods() & MOD_MASK_SHIFT ) {
