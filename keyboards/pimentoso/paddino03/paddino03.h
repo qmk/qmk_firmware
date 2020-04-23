@@ -29,8 +29,6 @@ enum encoder_rotation {
 };
 
 uint16_t get_encoder_key(uint8_t rotation);
-uint16_t get_custom_encoder_config(uint8_t rotation);
-void set_custom_encoder_config(uint8_t rotation, uint16_t new_code);
 
 /* This a shortcut to help you visually see your layout.
  *
