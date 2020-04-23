@@ -4,6 +4,7 @@
 enum custom_keycodes {
   // Custom Macros
   M_BRAVE = SAFE_RANGE,
+  M_CHROME,
   M_ITERM,
   M_KRAKEN,
   M_MONEY,

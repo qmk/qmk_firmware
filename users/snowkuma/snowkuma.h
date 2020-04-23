@@ -268,14 +268,14 @@ L1 |       |  P1   |  P2   |       |W_EMAIL|            R1 |       |Input  |    
 L2 |       |       |SPOTIFY|TYPEFU |P_EMAIL|            R2 |       | Caps  | Emoji | Iterm | Txt - |
    |       |       |       |       |       |               |       | Lock  |       |       |       |
    |-------+-------+-------+-------+-------|               |-------+-------+-------+-------+-------|
-L3 |       |       |       |       | BRAVE |            R3 |       | Money |       |       |       |
+L3 |       |       | Chrome|       | BRAVE |            R3 |       | Money |       |       |       |
    |       |       |       |       |       |               |       | Dance |       |       |       |
    '-------+-------+-------+-------+-------'               '-------+-------+-------+-------+-------'
 */
 
-#define _________________THU_L1____________________        XXXXXXX, M_XXX4,  M_XXX3,  XXXXXXX, M_XXX2
-#define _________________THU_L2____________________        XXXXXXX, XXXXXXX, M_SPOTIFY, M_TYPE,  M_XXX1
-#define _________________THU_L3____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, M_BRAVE
+#define _________________THU_L1____________________        XXXXXXX, M_XXX4,  M_XXX3,  XXXXXXX,  M_XXX2
+#define _________________THU_L2____________________        XXXXXXX, XXXXXXX, M_SPOTIFY, M_TYPE, M_XXX1
+#define _________________THU_L3____________________        XXXXXXX, XXXXXXX, M_CHROME, XXXXXXX, M_BRAVE
 
 #define _________________THU_R1____________________        XXXXXXX, XXXXXXX, INPUT_L, XXXXXXX, TXT_PLS
 #define _________________THU_R2____________________        XXXXXXX, KC_CAPS, EMOJI,   M_ITERM, TXT_MIN
