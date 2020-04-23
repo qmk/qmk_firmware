@@ -27,6 +27,9 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
+ 
+#define LAYOUT_all LAYOUT_fullsize_iso
+
 #define LAYOUT_fullsize_ansi( \
     k05,      k64, k62, k22, k02, k31, k0c, k2f, k6f, k6b, k3b, k0b, k5b,      k33, k43, k41,                          \
     k65, k35, k34, k32, k30, k60, k6a, k3a, k3c, k3f, k3d, k6d, k6c, k2b,      k67, k6e, k66,      k78, k77, k76, k56, \
