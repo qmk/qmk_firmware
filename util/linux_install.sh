@@ -67,6 +67,7 @@ elif grep ID /etc/os-release | grep -qE 'debian|ubuntu'; then
 		gcc-avr \
 		git \
 		libnewlib-arm-none-eabi \
+		avrdude \
 		libusb-dev \
 		python3 \
 		python3-pip \
