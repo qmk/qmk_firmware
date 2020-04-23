@@ -994,8 +994,8 @@ void rgblight_effect_snake(animation_status_t *anim) {
     }
 
 #    if defined(RGBLIGHT_SPLIT) && !defined(RGBLIGHT_SPLIT_NO_ANIMATION_SYNC)
-	    if (anim->pos == 0) {  // restart signal
-		if (increment == 1) {
+    if (anim->pos == 0) {  // restart signal
+        if (increment == 1) {
             pos = rgblight_ranges.effect_num_leds - 1;
         } else {
             pos = 0;
@@ -1187,30 +1187,30 @@ void rgblight_effect_twinkle(animation_status_t *anim) {
 
     for (uint8_t i = 0; i < rgblight_ranges.effect_num_leds; i++) {
         TwinkleState *t = &(led_twinkle_state[i]);
-	HSV *c = &(t->hsv);
+        HSV *c = &(t->hsv);
         if (restart) {
             // Restart
             t->life = 0;
-	    t->hsv.v = 0;
+            t->hsv.v = 0;
         } else if (t->life) {
             // This LED is already on, either brightening or dimming
-	    t->life--;
-	    uint8_t on = t->up ? RGBLIGHT_EFFECT_TWINKLE_LIFE - t->life : t->life;
-	    c->v = (uint16_t) rgblight_config.val * on / RGBLIGHT_EFFECT_TWINKLE_LIFE;
-	    if (t->life == 0 && t->up) {
-	        t->up = false;
-	        t->life = RGBLIGHT_EFFECT_TWINKLE_LIFE;
+            t->life--;
+            uint8_t on = t->up ? RGBLIGHT_EFFECT_TWINKLE_LIFE - t->life : t->life;
+            c->v = (uint16_t) rgblight_config.val * on / RGBLIGHT_EFFECT_TWINKLE_LIFE;
+            if (t->life == 0 && t->up) {
+                t->up = false;
+                t->life = RGBLIGHT_EFFECT_TWINKLE_LIFE;
             }
             if (!random_color) {
                 c->h = rgblight_config.hue;
                 c->s = rgblight_config.sat;
             }
-	} else if (rand() < RAND_MAX * RGBLIGHT_EFFECT_TWINKLE_PROBABILITY) {
+        } else if (rand() < RAND_MAX * RGBLIGHT_EFFECT_TWINKLE_PROBABILITY) {
             // This LED is off, but was randomly selected to start brightening
             c->h = random_color ? rand() % 0xFF : rgblight_config.hue;
             c->s = random_color ? (rand() % (rgblight_config.sat / 2)) + (rgblight_config.sat / 2) : rgblight_config.sat;
-	    c->v = 0;
-	    t->life = RGBLIGHT_EFFECT_TWINKLE_LIFE;
+            c->v = 0;
+            t->life = RGBLIGHT_EFFECT_TWINKLE_LIFE;
             t->up = true;
         } else {
             // This LED is off, and was NOT selected to start brightening
