@@ -17,6 +17,17 @@
 
 #include "quantum.h"
 
+enum my_keycodes {
+  ENCODER_PRESS = SAFE_RANGE
+};
+
+enum encoder_rotation {
+    ENCODER_CW = 0,
+    ENCODER_CCW
+};
+
+uint16_t get_encoder_key(uint8_t rotation);
+
 /* This a shortcut to help you visually see your layout.
  *
  * The first section contains all of the arguments representing the physical
@@ -25,6 +36,6 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
-#define LAYOUT(k0, k1, k2, k3, k4, k5, k6) { \
-    { k0, k1, k2, k3, k4, k5, k6 } \
+#define LAYOUT(k0, k1, k2, k3, k4, k5, k7, k8) { \
+    { k0, k1, k2, k3, k4, k5, ENCODER_PRESS, k7, k8 } \
 }

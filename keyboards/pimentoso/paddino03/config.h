@@ -28,15 +28,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION     6-keys 4-layer pad with layer-shifting knob
 
 #define MATRIX_ROWS 1
-#define MATRIX_COLS 7
+#define MATRIX_COLS 9
 #define MATRIX_ROW_PINS { F4 }
-#define MATRIX_COL_PINS { D1, F7, F5, D0, B1, F6, B6 }
+#define MATRIX_COL_PINS { D1, F7, F5, D0, B1, F6, B6, B2, B3 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW // note: no diodes needed
 
-/* Rotary encoder */
+/*
+    Rotary encoder
+    B2/B3 are used as fake pins for encoder ccw/cw
+    B6 is the encoder switch pin
+*/
 #define ENCODERS_PAD_A { C6 }
 #define ENCODERS_PAD_B { D4 }
 

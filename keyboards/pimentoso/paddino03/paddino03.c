@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "paddino03.h"
+#include "tmk_core/common/eeprom.h"
+#include "print.h"
 
 void keyboard_pre_init_kb(void) {
   // Set the layer LED IO as outputs
@@ -41,10 +43,6 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
   writePin(LAYER_INDICATOR_LED_3, layer == 3);
   return layer_state_set_user(state);
 }
-
-// Optional override functions below.
-// You can leave any or all of these undefined.
-// These are only required if you want to perform custom actions.
 
 void matrix_init_kb(void) {
   // put your keyboard start-up code here
@@ -81,23 +79,46 @@ void matrix_init_kb(void) {
 }
 
 uint8_t selected_layer = 0;
-void encoder_update_kb(uint8_t index, bool clockwise) {
-    if (clockwise) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case ENCODER_PRESS:
+      if (record->event.pressed) {
+        // Do something when pressed
+      } else {
+        // Do something else when release
         if (selected_layer < 3) {
             selected_layer ++;
         }
-        // enable this for looping to first layer
-        // else {
-        //     selected_layer = 0;
-        // }
-    } else {
-        if (selected_layer > 0) {
-            selected_layer --;
+        else {
+            selected_layer = 0;
         }
-        // enable this for looping to last layer
-        // else {
-        //     selected_layer = 3;
-        // }
+        layer_move(selected_layer);
+      }
+      return false; // Skip all further processing of this key
+    default:
+      return true; // Process all other keycodes normally
+  }
+}
+
+void encoder_update_kb(uint8_t index, bool clockwise) {
+    uint16_t keycode = get_encoder_key(clockwise ? ENCODER_CW : ENCODER_CCW);
+    if (keycode > 0) {
+        tap_code(keycode);
     }
-    layer_move(selected_layer);
+}
+
+uint16_t get_encoder_key(uint8_t rotation) {
+    // look for the mapped keycode on this layer
+    keyevent_t pressed;
+    switch (rotation) {
+        case ENCODER_CW:
+            // find keycode mapped to fake button at row0, col8
+            pressed = (keyevent_t){ .key = (keypos_t){.row = 0, .col = 8}, .pressed = true, .time = (timer_read() | 1)};
+            break;
+        default:
+            // find keycode mapped to fake button at row0, col7
+            pressed = (keyevent_t){ .key = (keypos_t){.row = 0, .col = 7}, .pressed = true, .time = (timer_read() | 1)};
+            break;
+    }
+    return get_event_keycode(pressed);
 }
