@@ -60,7 +60,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_PIN B7
 #define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 3
+#define BACKLIGHT_LEVELS 5
 
 // #define RGB_DI_PIN E2
 // #ifdef RGB_DI_PIN
@@ -254,3 +254,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 2
 #define BOOTMAGIC_LITE_COLUMN 3
+
+#define DYNAMIC_KEYMAP_LAYER_COUNT 3
