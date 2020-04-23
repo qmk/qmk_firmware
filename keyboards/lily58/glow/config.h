@@ -37,7 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F6, F7, B1, B3, B2, B6 }
 
 /* define tapping term */
-#define TAPPING_TERM 200
+#define TAPPING_TERM 100
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
