@@ -27,7 +27,7 @@
 
 extern rgblight_config_t rgblight_config;
 
-void rgblight_set(void) {
+void rgblight_set_driver(void) {
     if (!rgblight_config.enable) {
         for (uint8_t i = 0; i < RGBLED_NUM; i++) {
             led[i].r = 0;

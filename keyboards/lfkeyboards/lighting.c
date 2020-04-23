@@ -87,7 +87,7 @@ void set_underglow(uint8_t red, uint8_t green, uint8_t blue){
 }
 
 
-void rgblight_set(void) {
+void rgblight_set_driver(void) {
 #ifdef RGBLIGHT_ENABLE
     for(uint8_t i = 0; (i < sizeof(rgb_sequence)) && (i < RGBLED_NUM); i++){
         if(rgblight_config.enable){

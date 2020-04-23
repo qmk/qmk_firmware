@@ -17,7 +17,7 @@ extern rgblight_config_t rgblight_config;
 #endif
 LED_TYPE noah_leds[RGBLED_NUM];
 static bool noah_led_mode = false;
-void rgblight_set(void) {
+void rgblight_set_driver(void) {
     memset(&noah_leds[0], 0, sizeof(noah_leds));
     if (!rgblight_config.enable) {
         for (uint8_t i = 0; i < RGBLED_NUM; i++) {

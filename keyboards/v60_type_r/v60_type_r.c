@@ -131,7 +131,7 @@ void set_rgb_pin_off(uint8_t pin) {
 	PORTF |= _BV(pin);
 }
 
-void rgblight_set(void) {
+void rgblight_set_driver(void) {
 	  // xprintf("Setting RGB underglow\n");
     if (!rgblight_config.enable) {
           led[0].r = 0;
