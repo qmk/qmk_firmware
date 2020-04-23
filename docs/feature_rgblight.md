@@ -23,11 +23,12 @@ RGBLIGHT_ENABLE = yes
 
 At minimum you must define the data pin your LED strip is connected to, and the number of LEDs in the strip, in your `config.h`. If your keyboard has onboard RGB LEDs, and you are simply creating a keymap, you usually won't need to modify these.
 
-|Define         |Description                                                                                              |
-|---------------|---------------------------------------------------------------------------------------------------------|
-|`RGB_DI_PIN`   |The pin connected to the data pin of the LEDs                                                            |
-|`RGBLED_NUM`   |The number of LEDs connected                                                                             |
-|`RGBLED_SPLIT` |(Optional) For split keyboards, the number of LEDs connected on each half directly wired to `RGB_DI_PIN` |
+|Define                   |Description                                                                                                 |
+|-------------------------|------------------------------------------------------------------------------------------------------------|
+|`RGB_DI_PIN`             |The pin connected to the data pin of the LEDs                                                               |
+|`RGBLED_NUM`             |The number of LEDs connected                                                                                |
+|`RGBLED_SPLIT`           |(Optional) For split keyboards, the number of LEDs connected on each half directly wired to `RGB_DI_PIN`    |
+|`RGBLIGHT_CUSTOM_DRIVER` |(Optional) If defined, allows custom implementation of `rgblight_set_driver()` to handle unusual LED setups |
 
 Then you should be able to use the keycodes below to change the RGB lighting to your liking.
 
@@ -245,6 +246,7 @@ If you need to change your RGB lighting in code, for example in a macro to chang
 |Function                                    |Description                                |
 |--------------------------------------------|-------------------------------------------|
 |`rgblight_set()`                            |Flash out led buffers to LEDs              |
+|`rgblight_set_driver()`                     |Should not be called directly. Implements the LED setting. Can be overriden by defining `RGBLIGHT_CUSTOM_DRIVER` (see below) |
 |`rgblight_set_clipping_range(pos, num)`     |Set clipping Range. see [Clipping Range](#clipping-range) |
 
 Example:
@@ -254,6 +256,8 @@ sethsv(HSV_RED,   (LED_TYPE *)&led[1]); // led 1
 sethsv(HSV_GREEN, (LED_TYPE *)&led[2]); // led 2
 rgblight_set(); // Utility functions do not call rgblight_set() automatically, so they need to be called explicitly.
 ```
+
+If your keyboard has an unusal LED hardware setup that is not supported by QMK core code, you can `#define RGBLIGHT_CUSTOM_DRIVER` and implement your own `rgblight_set_driver()` so that when `rgblight_set()` is called, your custom logic will be used.
 
 ### Effects and Animations Functions
 #### effect range setting
