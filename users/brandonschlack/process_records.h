@@ -23,6 +23,14 @@ void matrix_scan_cmd_tab(void);
  * Some meta aliases for QMK features such as Mod-Taps
  * and for cleaner looking Layer Toggles
  */
+/* Control Mod-Tap */
+#define CTL_ESC    CTL_T(KC_ESC)       // Hold Escape for Control
+#define CTL_TAB    CTL_T(KC_TAB)       // Hold Tab for Control
+#define CTL_CAP    CTL_T(KC_CAPS)      // Hold Caps Lock for Control
+/* Command Mod-Tap */
+#define CMD_ESC    CMD_T(KC_ESC)       // Hold Escape for Command
+#define CMD_TAB    CMD_T(KC_TAB)       // Hold Tab for Command
+#define CMD_CAP    CMD_T(KC_CAPS)      // Hold Caps Lock for Command
 /* Hyper Mod-Tap */
 #define HY_ESC    ALL_T(KC_ESC)        // Hold Escape for Hyper (Shift-Control-Option-Command)
 #define HY_TAB    ALL_T(KC_TAB)        // Hold Tab for Hyper (Shift-Control-Option-Command)
@@ -30,6 +38,7 @@ void matrix_scan_cmd_tab(void);
 /* Shift Mod-Tap */
 #define SF_CAPS   LSFT_T(KC_CAPS)      // Hold Caps Lock for Left Shift
 #define SFT_ENT   RSFT_T(KC_ENT)       // Hold Enter for Right Shift
+#define SF_SLSH   RSFT_T(KC_SLSH)      // Tap Right Shift for Slash (/)
 /* Layer Aliases */
 #define FN_LYR    MO(_FN1)             // Hold for FN Layer
 #define LOWER     MO(_LOWER)           // Hold for LOWER Layer
