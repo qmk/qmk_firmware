@@ -189,7 +189,12 @@ enum usb_endpoints {
 
 #ifdef RAW_ENABLE
     RAW_IN_EPNUM  = NEXT_EPNUM,
+    #if STM32_USB_USE_OTG1
+    #define RAW_OUT_EPNUM RAW_IN_EPNUM
+    #else
     RAW_OUT_EPNUM = NEXT_EPNUM,
+    #endif
+
 #endif
 
 #ifdef SHARED_EP_ENABLE
@@ -203,7 +208,11 @@ enum usb_endpoints {
     // ChibiOS has enough memory and descriptor to actually enable the endpoint
     // It could use the same endpoint numbers, as that's supported by ChibiOS
     // But the QMK code currently assumes that the endpoint numbers are different
+    #if STM32_USB_USE_OTG1
+    CONSOLE_OUT_EPNUM = CONSOLE_IN_EPNUM,
+    #else
     CONSOLE_OUT_EPNUM = NEXT_EPNUM,
+    #endif
 #    else
 #        define CONSOLE_OUT_EPNUM CONSOLE_IN_EPNUM
 #    endif
@@ -211,7 +220,11 @@ enum usb_endpoints {
 
 #ifdef MIDI_ENABLE
     MIDI_STREAM_IN_EPNUM  = NEXT_EPNUM,
+    #if STM32_USB_USE_OTG1
+    MIDI_STREAM_OUT_EPNUM = MIDI_STREAM_IN_EPNUM,
+    #else
     MIDI_STREAM_OUT_EPNUM = NEXT_EPNUM,
+    #endif
 #    define MIDI_STREAM_IN_EPADDR (ENDPOINT_DIR_IN | MIDI_STREAM_IN_EPNUM)
 #    define MIDI_STREAM_OUT_EPADDR (ENDPOINT_DIR_OUT | MIDI_STREAM_OUT_EPNUM)
 #endif
@@ -219,7 +232,11 @@ enum usb_endpoints {
 #ifdef VIRTSER_ENABLE
     CDC_NOTIFICATION_EPNUM = NEXT_EPNUM,
     CDC_IN_EPNUM           = NEXT_EPNUM,
+    #if STM32_USB_USE_OTG1
+    CDC_OUT_EPNUM          = CDC_IN_EPNUM,
+    #else
     CDC_OUT_EPNUM          = NEXT_EPNUM,
+    #endif
 #    define CDC_NOTIFICATION_EPADDR (ENDPOINT_DIR_IN | CDC_NOTIFICATION_EPNUM)
 #    define CDC_IN_EPADDR (ENDPOINT_DIR_IN | CDC_IN_EPNUM)
 #    define CDC_OUT_EPADDR (ENDPOINT_DIR_OUT | CDC_OUT_EPNUM)
