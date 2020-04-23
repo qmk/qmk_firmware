@@ -16,8 +16,6 @@
 #pragma once
 
 #include "quantum.h"
-#include "via.h"
-#define EEPROM_ENCODER_VALUES (VIA_EEPROM_CUSTOM_CONFIG_ADDR)
 
 enum my_keycodes {
   ENCODER_PRESS = SAFE_RANGE
