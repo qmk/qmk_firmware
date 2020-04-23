@@ -134,7 +134,11 @@ uint16_t get_tapping_term(uint16_t keycode) {
     case TD(TD_DBQT):
       return 230;
     default:
+#ifndef TAPPING_TERM
       return 200;
+#else 
+      return TAPPING_TERM;
+#endif
   }
 }
 
