@@ -18,6 +18,3 @@
     { k40, k41, k42, ___, ___, ___, k46, ___, ___, ___, k4a, k4b, k4c, k4d, k4e }  \
 }
 
-
-void matrix_init_user(void);
-void matrix_scan_user(void);
