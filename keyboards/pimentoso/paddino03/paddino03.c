@@ -102,91 +102,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void encoder_update_kb(uint8_t index, bool clockwise) {
     uint16_t keycode = get_encoder_key(clockwise ? ENCODER_CW : ENCODER_CCW);
-    tap_code(keycode);
+    if (keycode > 0) {
+        tap_code(keycode);
+    }
 }
 
 uint16_t get_encoder_key(uint8_t rotation) {
-    // TODO look for the mapped keycode on this layer
-    uint16_t keycode = 0;
+    // look for the mapped keycode on this layer
+    keyevent_t pressed;
     switch (rotation) {
         case ENCODER_CW:
-            keycode = KC_AUDIO_VOL_UP;
+            // find keycode mapped to fake button at row0, col8
+            pressed = (keyevent_t){ .key = (keypos_t){.row = 0, .col = 8}, .pressed = true, .time = (timer_read() | 1)};
             break;
-            // TODO get keycode at row0, col8
         default:
-            keycode = KC_AUDIO_VOL_DOWN;
+            // find keycode mapped to fake button at row0, col7
+            pressed = (keyevent_t){ .key = (keypos_t){.row = 0, .col = 7}, .pressed = true, .time = (timer_read() | 1)};
             break;
-            // TODO get keycode at row0, col7
     }
-    return keycode;
-}
-
-void raw_hid_receive_kb( uint8_t *data, uint8_t length )
-{
-  uint8_t *command_id = &(data[0]);
-  uint8_t *command_data = &(data[1]);
-
-  print("inside raw_hid_receive_kb\n");
-  xprintf("%d command_id\n", command_id);
-  xprintf("%d command_data\n", command_data);
-
-  switch ( *command_id )
-  {
-    case id_get_keyboard_value:
-    {
-        switch(command_data[0]) {
-            case 0: {
-                uint16_t keycode = get_custom_encoder_config(ENCODER_CW);
-                command_data[2] =  keycode >> 8;
-                command_data[3] = keycode & 0xFF;
-                keycode = get_custom_encoder_config(ENCODER_CCW);
-                command_data[4] =  keycode >> 8;
-                command_data[5] = keycode & 0xFF;
-                break;
-            }
-            default: {
-                *command_id = id_unhandled;
-                break;
-            }
-        }
-        break;
-    }
-    case id_set_keyboard_value:
-    {
-      switch(command_data[0]) {
-        case 0: {
-          uint8_t rotation = command_data[2];
-          uint16_t keycode = (command_data[3] << 8) | command_data[4];
-          set_custom_encoder_config(rotation, keycode);
-          break;
-        }
-        default: {
-          *command_id = id_unhandled;
-          break;
-        }
-      }
-      break;
-    }
-    default:
-    {
-      // Unhandled message.
-      *command_id = id_unhandled;
-      break;
-    }
-  }
-  // DO NOT call raw_hid_send(data,length) here, let caller do this
-}
-
-uint16_t get_custom_encoder_config(uint8_t rotation){
-    void* addr = (void*)(EEPROM_ENCODER_VALUES + (selected_layer * 4) + (rotation * 2));
-    //big endian
-    uint16_t keycode = eeprom_read_byte(addr) << 8;
-    keycode |= eeprom_read_byte(addr + 1);
-    return keycode;
-}
-
-void set_custom_encoder_config(uint8_t rotation, uint16_t new_code){
-    void* addr = (void*)(EEPROM_ENCODER_VALUES + (selected_layer * 4) + (rotation * 2));
-    eeprom_update_byte(addr, (uint8_t)(new_code >> 8));
-    eeprom_update_byte(addr + 1, (uint8_t)(new_code & 0xFF));
+    return get_event_keycode(pressed);
 }
