@@ -1,11 +1,18 @@
 #include QMK_KEYBOARD_H
 
 #include "spidey3.h"
+#include <stdlib.h>
+
+static bool rand_seeded = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // If console is enabled, it will print the matrix position and status of each key pressed
 // dprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+
+  if (!rand_seeded) {
+    srand(timer_read32() % keycode);
+  }
 
   if (record->event.pressed) {
     switch (keycode) {
