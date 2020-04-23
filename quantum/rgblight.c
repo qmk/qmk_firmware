@@ -664,16 +664,19 @@ static void rgblight_layers_write(void) {
 }
 #endif
 
-#ifndef RGBLIGHT_CUSTOM_DRIVER
 void rgblight_set(void) {
-    LED_TYPE *start_led;
-    uint16_t  num_leds = clipping_num_leds;
-
-#    ifdef RGBLIGHT_LAYERS
+#ifdef RGBLIGHT_LAYERS
     if (rgblight_layers != NULL) {
         rgblight_layers_write();
     }
-#    endif
+#endif
+    rgblight_set_driver();
+}
+
+#ifndef RGBLIGHT_CUSTOM_DRIVER
+void rgblight_set_driver(void) {
+    LED_TYPE *start_led;
+    uint16_t  num_leds = clipping_num_leds;
 
     if (!rgblight_config.enable) {
         for (uint8_t i = effect_start_pos; i < effect_end_pos; i++) {

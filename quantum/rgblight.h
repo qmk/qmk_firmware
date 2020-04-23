@@ -237,6 +237,7 @@ void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1);
 
 /* === Low level Functions === */
 void rgblight_set(void);
+void rgblight_set_driver(void);
 void rgblight_set_clipping_range(uint8_t start_pos, uint8_t num_leds);
 
 /* === Effects and Animations Functions === */
