@@ -14,6 +14,6 @@ Flashing example for this keyboard ([after setting up the bootloadHID flashing e
 
     make tgr/910ce:default:flash
 
-**Reset Key**: Hold down the key located at *LOCATION*, commonly programmed as *KEY* while plugging in the keyboard.
+**Reset Key**: Short the pins labeled `FW_JP` underneath the tab key. This can only be done from the back of the board. 
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
