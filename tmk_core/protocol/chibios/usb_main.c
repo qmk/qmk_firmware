@@ -229,8 +229,8 @@ typedef struct {
             .in_size     = stream##_EPSIZE,                                                     \
             .out_size    = stream##_EPSIZE,                                                     \
             .fixed_size  = fixedsize,                                                           \
-            .ib          = (uint8_t[BQ_BUFFER_SIZE(stream##_IN_CAPACITY, stream##_EPSIZE)]){},  \
-            .ob          = (uint8_t[BQ_BUFFER_SIZE(stream##_OUT_CAPACITY, stream##_EPSIZE)]){}, \
+            .ib          = (__attribute__((aligned(4))) uint8_t[BQ_BUFFER_SIZE(stream##_IN_CAPACITY, stream##_EPSIZE)]){},  \
+            .ob          = (__attribute__((aligned(4))) uint8_t[BQ_BUFFER_SIZE(stream##_OUT_CAPACITY, stream##_EPSIZE)]){}, \
         }                                                                                       \
     }
 #else

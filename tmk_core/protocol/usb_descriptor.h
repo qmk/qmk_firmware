@@ -209,7 +209,7 @@ enum usb_endpoints {
     // It could use the same endpoint numbers, as that's supported by ChibiOS
     // But the QMK code currently assumes that the endpoint numbers are different
     #if STM32_USB_USE_OTG1
-    CONSOLE_OUT_EPNUM = CONSOLE_IN_EPNUM,
+    #define CONSOLE_OUT_EPNUM CONSOLE_IN_EPNUM
     #else
     CONSOLE_OUT_EPNUM = NEXT_EPNUM,
     #endif
@@ -221,7 +221,7 @@ enum usb_endpoints {
 #ifdef MIDI_ENABLE
     MIDI_STREAM_IN_EPNUM  = NEXT_EPNUM,
     #if STM32_USB_USE_OTG1
-    MIDI_STREAM_OUT_EPNUM = MIDI_STREAM_IN_EPNUM,
+    #define MIDI_STREAM_OUT_EPNUM MIDI_STREAM_IN_EPNUM
     #else
     MIDI_STREAM_OUT_EPNUM = NEXT_EPNUM,
     #endif
@@ -233,7 +233,7 @@ enum usb_endpoints {
     CDC_NOTIFICATION_EPNUM = NEXT_EPNUM,
     CDC_IN_EPNUM           = NEXT_EPNUM,
     #if STM32_USB_USE_OTG1
-    CDC_OUT_EPNUM          = CDC_IN_EPNUM,
+    #define CDC_OUT_EPNUM  CDC_IN_EPNUM
     #else
     CDC_OUT_EPNUM          = NEXT_EPNUM,
     #endif
