@@ -1,57 +1,8 @@
 #include <art.h>
 #include <sendstring_workman_zxcvm.h>
 
-enum layer_names {
-  QWERTY,
-  BASE,
-  WORKMAN,
-
-  // All mod layers go after the main ones, the order is important here, not in keymaps
-  QWERTY_MOD,
-  LAYOUT_CHG,
-  MOD,
-  MEDIA,
-  COMBOS,
-  STRINGS,
-  CONFIG,
-  GIT,
-  GIT_C,
-  GIT_P,
-  GIT_S
-};
-
 enum custom_keycodes {
-  CTRL_LCTV = NEW_SAFE_RANGE,
-  SARCASM,
-  N_BSPACE,
-
-  CTR_ALT,
-  OS_CTRL,
-  OS_WIN,
-  OS_HOME,
-  OS_END,
-
-  ADMINS,
-  PRESCRIPTION,
-  FOURS,
-  
-  G_ADD,
-  G_BRCH,
-  G_C,
-  G_BS_C,
-  G_CHEC,	
-  G_COMM,
-  G_DIFF,
-  G_FTCH,
-  G_LOG,
-  G_MERG,
-  G_P,
-  G_RST,
-  G_S,
-  G_BS_S,
-  G_STAT,
-  G_STSH,
-  G_SHOW,
+  keyboardSpecificKeyCode = NEW_SAFE_RANGE //not used
 };
 
 bool led_update_user(led_t led_state) {
@@ -99,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * |-----+-----|  |-----------------------------------------.   `-------------------------------------------------+-----|
   * |  2  |  3  |  | Shift     |  Z  |  X  |  C  |  V  |  B  |     |  N  |  M  |  ,  |  .  |   /   |  Shift  | Up  | PgDn|
   * |-----+-----|  |-----------------------------------------'   ,-------------------------------------------+-----+-----|
-  * |  0  |  1  |  | Ctrl  |  GUI |  Alt |Spac/MEDIA | BSPC|     |      MOD      |  Alt  | MOD | Ctrl  | Left| Down|Right|
+  * |  0  |  1  |  | Ctrl  |  GUI |  Alt |Spac/MEDIA | BSPC|     |      NAV      |  Alt  | NAV | Ctrl  | Left| Down|Right|
   * `-----------'  `---------------------------------------'     `-------------------------------------------------------'
   */
   [QWERTY] = LAYOUT(
@@ -109,7 +60,7 @@ KC_8,  KC_9,    KC_GRAVE, KC_1,    KC_2,    KC_3,   KC_4,   KC_5,   KC_6,       
 KC_6,  KC_7,    KC_TAB,   KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,                 KC_Y,   KC_U,   KC_I,    KC_O,   KC_P,    KC_LBRC,  KC_RBRC,  KC_BSLS,           KC_END,
 KC_4,  KC_5,    LT(STRINGS,KC_CAPS),  KC_A,    KC_S ,KC_D ,KC_F ,KC_G,   KC_H,   KC_J, KC_K, KC_L, KC_SCLN,KC_QUOT,KC_ENTER,         KC_PGUP,
 KC_2,  KC_3,    KC_LSFT,  KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,                 KC_N,   KC_M,   KC_COMM, KC_DOT, LT(GIT,KC_SLSH),                     KC_RSFT,  KC_UP,   KC_PGDN,
-KC_0,  KC_1,    KC_LCTL,  KC_LGUI, KC_LALT, LT(MEDIA, KC_SPC),LT(COMBOS,KC_BSPC),            LT(MOD, KC_ENTER),        KC_RALT, MO(LAYOUT_CHG),KC_RCTL,                     KC_LEFT,  KC_DOWN, KC_RIGHT
+KC_0,  KC_1,    KC_LCTL,  KC_LGUI, KC_LALT, LT(MEDIA, KC_SPC),LT(COMBOS,KC_BSPC),            LT(NAV, KC_ENTER),        KC_RALT, MO(LAYOUT_CHG),KC_RCTL,                     KC_LEFT,  KC_DOWN, KC_RIGHT
   ),
 
   /* Base          ,-----------------------------------------.     ,-----------------------------------------------------.
@@ -146,7 +97,7 @@ _______,  _______,    _______,  KC_Z,     KC_X,		KC_C,     KC_V,     KC_M,      
 _______,  _______,    _______, _______,_______,_______, _______,                        _______,             _______, TO(QWERTY),   _______,            _______, _______,  _______
   ),
   
-  [MOD] = LAYOUT(
+  [NAV] = LAYOUT(
 //--------------------------------Left Hand-----------------------------------------------| |--------------------------------Right Hand------------------------------------------------
                       _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______, _______,
 _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,           _______,
@@ -271,309 +222,9 @@ XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,          
   // ),
 };
 
-static const char *key_up[2] = {SS_UP(X_LALT), SS_UP(X_LCTL)};
-static const char *key_down[2] = {SS_DOWN(X_LALT), SS_DOWN(X_LCTL)};
-
-static int char_to_del = 1;
-static bool sarcasm_on = false;
-static bool sarcasm_key = false;
-
-void backspace_n_times(int times) {
-  for (int i=0; i<times; i++) {
-    SEND_STRING(SS_TAP(X_BSPC));  
-  }
-}
-
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-  if (sarcasm_on) {
-    sarcasm_key = ! sarcasm_key;  
-    if (sarcasm_key) {
-      SEND_STRING(SS_TAP(X_CAPS));
-    }
-  }	
-
-  //Checking all other non-backspace keys to clear the backspace buffer. This is to prevent the bug of deleting N chars sometime after using a macro
-  if (record->event.pressed && (keycode != N_BSPACE)) {
-    char_to_del = 1;
-  }
-
   switch (keycode) {
-    case CTRL_LCTV:
-      if (record->event.pressed) {
-        if ( get_mods() & MOD_MASK_SHIFT ) {
-          //Firefox
-          SEND_STRING(SS_LCTL("lcPv") SS_TAP(X_ENTER));
-        } else if ( get_mods() & MOD_MASK_CTRL ) {
-          //Chrome
-          SEND_STRING(SS_LCTL("lcNv") SS_TAP(X_ENTER));
-        } else {
-          SEND_STRING(SS_LCTL("lctv"));
-        }
-      }
-      break;
-    case SARCASM:
-      if (record->event.pressed) {
-        sarcasm_on = !sarcasm_on;
-      }
-      break;
-    case N_BSPACE:
-      if (record->event.pressed) {
-        backspace_n_times(char_to_del);
-        char_to_del = 1;
-      }
-      break;
-        
 
-    case CTR_ALT:
-      if (record->event.pressed) {
-        send_string(key_down[is_win]);
-      } else {
-        send_string(key_up[is_win]);
-      }
-      break;
-    case OS_CTRL:
-      if (is_win) {
-        if (record->event.pressed) {
-          SEND_STRING(SS_DOWN(X_LCTL));
-        } else {
-          SEND_STRING(SS_UP(X_LCTL));
-        }
-      } else {
-        if (record->event.pressed) {
-          SEND_STRING(SS_DOWN(X_LGUI));
-        } else {
-          SEND_STRING(SS_UP(X_LGUI));
-        }
-      }
-      break;
-    case OS_WIN:
-      if (is_win) {
-        if (record->event.pressed) {
-          SEND_STRING(SS_DOWN(X_LGUI));
-        } else {
-          SEND_STRING(SS_UP(X_LGUI));
-        }
-      } else {
-        if (record->event.pressed) {
-          SEND_STRING(SS_DOWN(X_LCTL));
-        } else {
-          SEND_STRING(SS_UP(X_LCTL));
-        }
-      }
-      break;
-    case OS_HOME:
-      if (is_win) {
-        if (record->event.pressed) {
-          SEND_STRING(SS_DOWN(X_HOME));
-        } else {
-          SEND_STRING(SS_UP(X_HOME));
-        }
-      } else {
-        if (record->event.pressed) {
-          SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_LEFT) SS_UP(X_LCTRL));
-        }
-      }
-      break;
-    case OS_END:
-      if (is_win) {
-        if (record->event.pressed) {
-          SEND_STRING(SS_DOWN(X_END));
-        } else {
-          SEND_STRING(SS_UP(X_END));
-        }
-      } else {
-        if (record->event.pressed) {
-          SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_RIGHT) SS_UP(X_LCTRL));
-        }
-      }
-      break;
-
-    // case :
-    //   if (record->event.pressed) {
-    //     SEND_STRING("");
-    //     char_to_del = ;
-    //   }
-    //   break;
-    // case :
-    //   if (record->event.pressed) {
-    //     if ( get_mods() & MOD_MASK_SHIFT ) {
-    //       clear_mods();
-    //       SEND_STRING("");
-    //       char_to_del = ;
-    //     } else {
-    //       SEND_STRING("");
-    //       char_to_del = ;
-    //     }
-    //   }
-    //   break;
-    case ADMINS:
-      if (record->event.pressed) {
-        if ( get_mods() & MOD_MASK_SHIFT ) {
-          clear_mods();
-          SEND_STRING("admin/aurora/status");
-          char_to_del = 5;
-        } else {
-          SEND_STRING("admin");
-          char_to_del = 19;
-        }
-      }
-      break;
-    case PRESCRIPTION:
-      if (record->event.pressed) {
-        SEND_STRING("55" SS_TAP(X_TAB) "12122019");
-        char_to_del = 8;
-      }
-      break;
-    case FOURS:
-      if (record->event.pressed) {
-        SEND_STRING("4444333322221111" SS_TAP(X_TAB) "1" SS_TAP(X_TAB) "12" SS_TAP(X_TAB) "21" SS_TAP(X_TAB) "123" SS_TAP(X_ENTER));
-        char_to_del = 16;
-      }
-      break;
-      
-  case G_ADD:
-    if (record->event.pressed) {
-      SEND_STRING("git add ");
-        char_to_del = 8;
-    }
-    break;
-  case G_BRCH:
-    if (record->event.pressed) {
-      if ( get_mods() & MOD_MASK_SHIFT ) {
-        clear_mods();
-        SEND_STRING("master");
-        char_to_del = 6;
-      } else {
-        SEND_STRING("develop");
-        char_to_del = 7;
-      }
-    }
-    break;
-  case G_C:
-    if (record->event.pressed) {
-      SEND_STRING("git c[Heckout/Ommit]");
-      layer_on(GIT_C);
-    }
-    break;
-  //These layers are required for sole purpose of switching off _C/S layer before removing chars
-  case G_BS_C:
-    if (record->event.pressed) {
-      layer_off(GIT_C);
-      //Not setting char_to_del as it's deleted explicitly in G_BS_X
-      backspace_n_times(20);
-    }
-    break;
-  case G_CHEC:
-    if (!record->event.pressed) {
-      bool shifted = get_mods() & MOD_MASK_SHIFT;
-      clear_mods();
-            
-      backspace_n_times(15);
-      SEND_STRING("heckout ");
-      char_to_del = 13;
-      if (shifted) {
-        SEND_STRING("-b ");
-        char_to_del = 16;
-      }
-      layer_off(GIT_C);
-    }
-    break;
-  case G_COMM:
-    if (!record->event.pressed) {
-        bool shifted = get_mods() & MOD_MASK_SHIFT;
-        clear_mods();
-        
-        backspace_n_times(15);
-        SEND_STRING("ommit -");
-        char_to_del = 15;
-      if (shifted) {
-        SEND_STRING("a");
-        char_to_del = 16;
-      }
-      SEND_STRING("m \"\"" SS_TAP(X_LEFT));
-      layer_off(GIT_C);
-    }
-    break;
-  case G_DIFF:
-    if (record->event.pressed) {
-      SEND_STRING("git diff ");
-      char_to_del = 9;
-    }
-    break;	
-  case G_FTCH:
-    if (record->event.pressed) {
-      SEND_STRING("git fetch ");
-      char_to_del = 10;
-    }
-    break;
-  case G_LOG:
-    if (record->event.pressed) {
-      SEND_STRING("git log ");
-      char_to_del = 8;
-    }
-    break;
-  case G_MERG:
-    if (record->event.pressed) {
-      SEND_STRING("git merge ");
-      char_to_del = 10;
-    }
-    break;
-  case G_P:
-    if (record->event.pressed) {
-      if ( get_mods() & MOD_MASK_SHIFT ) {
-        clear_mods();
-        SEND_STRING("git push -u");
-        char_to_del = 11;
-      } else {
-        SEND_STRING("git pu");
-        char_to_del = 6;
-      }
-    }
-    break;
-  case G_RST:
-    if (record->event.pressed) {
-      SEND_STRING("git reset ");
-      char_to_del = 10;
-    }
-    break;
-  case G_S:
-    if (!record->event.pressed) {
-      SEND_STRING("git s[How/taSh/taTus]");
-      //Not setting char_to_del as it's deleted explicitly in G_BS_X
-      char_to_del = 21;
-      layer_on(GIT_S);			
-    }
-    break;
-  case G_BS_S:
-    if (record->event.pressed) {
-      layer_off(GIT_S);
-      backspace_n_times(21);
-    }
-    break;
-  case G_SHOW:
-    if (!record->event.pressed) {
-      backspace_n_times(16);
-      SEND_STRING("how ");
-      char_to_del = 9;
-      layer_off(GIT_S);
-    }
-    break;			
-  case G_STSH:
-    if (!record->event.pressed) {
-      backspace_n_times(16);
-      SEND_STRING("tash ");
-      char_to_del = 10;
-      layer_off(GIT_S);
-    }
-    break;		
-  case G_STAT:
-    if (!record->event.pressed) {
-      backspace_n_times(16);
-      SEND_STRING("tatus ");
-      char_to_del = 11;
-      layer_off(GIT_S);
-    }
-    break;
   }
   return true;
 };
