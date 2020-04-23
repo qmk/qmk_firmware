@@ -32,6 +32,7 @@ if grep ID /etc/os-release | grep -qE "fedora"; then
 		avr-libc \
 		binutils-avr32-linux-gnu \
 		clang \
+		avrdude \
 		dfu-util \
 		dfu-programmer \
 		diffutils \
@@ -111,6 +112,7 @@ elif grep ID /etc/os-release | grep -q gentoo; then
 			app-arch/unzip \
 			app-arch/zip \
 			app-mobilephone/dfu-util \
+			dev-embedded/dfu-programmer \
 			dev-embedded/avrdude \
 			net-misc/wget \
 			sys-devel/clang \
@@ -127,6 +129,7 @@ elif grep ID /etc/os-release | grep -q sabayon; then
 		app-arch/unzip \
 		app-arch/zip \
 		app-mobilephone/dfu-util \
+		dev-embedded/dfu-programmer \
 		dev-embedded/avrdude \
 		dev-lang/python \
 		net-misc/wget \
@@ -152,7 +155,8 @@ elif grep ID /etc/os-release | grep -qE "opensuse|tumbleweed"; then
 		cross-avr-binutils \
 		cross-arm-none-newlib-devel \
 		cross-arm-binutils cross-arm-none-newlib-devel \
-		dfu-tool \
+		avrdude \
+		dfu-util \
 		dfu-programmer \
 		gcc \
 		libusb-devel \
@@ -217,6 +221,7 @@ elif grep ID /etc/os-release | grep -q void; then
 		avr-gcc \
 		avr-libc \
 		$CROSS_ARM \
+		avrdude \
 		dfu-programmer \
 		dfu-util \
 		gcc \
