@@ -100,7 +100,7 @@
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 // Row 1
-#define RO_LDQU S(RO_DLQU) // ”
+#define RO_RDQU S(RO_DLQU) // ”
 #define RO_EXLM S(RO_1)    // !
 #define RO_AT   S(RO_2)    // @
 #define RO_HASH S(RO_3)    // #
