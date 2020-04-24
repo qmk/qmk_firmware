@@ -29,6 +29,7 @@
 #define CHCONF_H
 
 #define _CHIBIOS_RT_CONF_
+#define _CHIBIOS_RT_CONF_VER_6_0_
 
 /*===========================================================================*/
 /**
@@ -48,7 +49,37 @@
  * @details Frequency of the system timer that drives the system ticks. This
  *          setting also defines the system tick time unit.
  */
-#define CH_CFG_ST_FREQUENCY                 100000
+#define CH_CFG_ST_FREQUENCY                 1000
+
+
+
+/**
+ * @brief   Time intervals data size.
+ * @note    Allowed values are 16, 32 or 64 bits.
+ */
+#if !defined(CH_CFG_INTERVALS_SIZE)
+#define CH_CFG_INTERVALS_SIZE               32
+#endif
+
+
+/**
+ * @brief   Time types data size.
+ * @note    Allowed values are 16 or 32 bits.
+ */
+#if !defined(CH_CFG_TIME_TYPES_SIZE)
+#define CH_CFG_TIME_TYPES_SIZE              32
+#endif
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * @brief   Time delta constant for the tick-less mode.
@@ -299,6 +330,140 @@
 #define CH_CFG_USE_MEMPOOLS                 TRUE
 
 /**
+ * @brief   Objects FIFOs APIs.
+ * @details If enabled then the objects FIFOs APIs are included
+ *          in the kernel.
+ *
+ * @note    The default is @p TRUE.
+ */
+#if !defined(CH_CFG_USE_OBJ_FIFOS)
+#define CH_CFG_USE_OBJ_FIFOS                TRUE
+#endif
+
+/**
+ * @brief   Pipes APIs.
+ * @details If enabled then the pipes APIs are included
+ *          in the kernel.
+ *
+ * @note    The default is @p TRUE.
+ */
+#if !defined(CH_CFG_USE_PIPES)
+#define CH_CFG_USE_PIPES                    TRUE
+#endif
+
+/**
+ * @brief   Objects Caches APIs.
+ * @details If enabled then the objects caches APIs are included
+ *          in the kernel.
+ *
+ * @note    The default is @p TRUE.
+ */
+#if !defined(CH_CFG_USE_OBJ_CACHES)
+#define CH_CFG_USE_OBJ_CACHES               TRUE
+#endif
+
+/**
+ * @brief   Delegate threads APIs.
+ * @details If enabled then the delegate threads APIs are included
+ *          in the kernel.
+ *
+ * @note    The default is @p TRUE.
+ */
+#if !defined(CH_CFG_USE_DELEGATES)
+#define CH_CFG_USE_DELEGATES                TRUE
+#endif
+
+
+/**
+ * @brief   Jobs Queues APIs.
+ * @details If enabled then the jobs queues APIs are included
+ *          in the kernel.
+ *
+ * @note    The default is @p TRUE.
+ */
+#if !defined(CH_CFG_USE_JOBS)
+#define CH_CFG_USE_JOBS                     TRUE
+#endif
+
+/** @} */
+
+/*===========================================================================*/
+/**
+ * @name Objects factory options
+ * @{
+ */
+/*===========================================================================*/
+
+/**
+ * @brief   Objects Factory APIs.
+ * @details If enabled then the objects factory APIs are included in the
+ *          kernel.
+ *
+ * @note    The default is @p FALSE.
+ */
+#if !defined(CH_CFG_USE_FACTORY)
+#define CH_CFG_USE_FACTORY                  TRUE
+#endif
+
+
+/**
+ * @brief   Maximum length for object names.
+ * @details If the specified length is zero then the name is stored by
+ *          pointer but this could have unintended side effects.
+ */
+#if !defined(CH_CFG_FACTORY_MAX_NAMES_LENGTH)
+#define CH_CFG_FACTORY_MAX_NAMES_LENGTH     8
+#endif
+
+/**
+ * @brief   Enables the registry of generic objects.
+ */
+#if !defined(CH_CFG_FACTORY_OBJECTS_REGISTRY)
+#define CH_CFG_FACTORY_OBJECTS_REGISTRY     TRUE
+#endif
+
+/**
+ * @brief   Enables factory for generic buffers.
+ */
+#if !defined(CH_CFG_FACTORY_GENERIC_BUFFERS)
+#define CH_CFG_FACTORY_GENERIC_BUFFERS      TRUE
+#endif
+
+/**
+ * @brief   Enables factory for semaphores.
+ */
+#if !defined(CH_CFG_FACTORY_SEMAPHORES)
+#define CH_CFG_FACTORY_SEMAPHORES           TRUE
+#endif
+
+/**
+ * @brief   Enables factory for mailboxes.
+ */
+#if !defined(CH_CFG_FACTORY_MAILBOXES)
+#define CH_CFG_FACTORY_MAILBOXES            TRUE
+#endif
+
+/**
+ * @brief   Enables factory for objects FIFOs.
+ */
+#if !defined(CH_CFG_FACTORY_OBJ_FIFOS)
+#define CH_CFG_FACTORY_OBJ_FIFOS            TRUE
+#endif
+
+/**
+ * @brief   Enables factory for Pipes.
+ */
+#if !defined(CH_CFG_FACTORY_PIPES) || defined(__DOXYGEN__)
+#define CH_CFG_FACTORY_PIPES                TRUE
+#endif
+
+
+
+
+
+
+
+/**
  * @brief   Dynamic Threads APIs.
  * @details If enabled then the dynamic threads creation APIs are included
  *          in the kernel.
@@ -410,12 +575,45 @@
  */
 /*===========================================================================*/
 
+
+/**
+ * @brief   System structure extension.
+ * @details User fields added to the end of the @p ch_system_t structure.
+ */
+#define CH_CFG_SYSTEM_EXTRA_FIELDS                                          \
+  /* Add threads custom fields here.*/
+
+
+
+/**
+ * @brief   System initialization hook.
+ * @details User initialization code added to the @p chSysInit() function
+ *          just before interrupts are enabled globally.
+ */
+#define CH_CFG_SYSTEM_INIT_HOOK() {                                         \
+  /* Add threads initialization code here.*/                                \
+}
+
+
+
+
+
+
 /**
  * @brief   Threads descriptor structure extension.
  * @details User fields added to the end of the @p thread_t structure.
  */
 #define CH_CFG_THREAD_EXTRA_FIELDS                                          \
   /* Add threads custom fields here.*/
+
+
+
+
+
+
+
+
+
 
 /**
  * @brief   Threads initialization hook.
