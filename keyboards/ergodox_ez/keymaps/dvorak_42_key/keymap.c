@@ -65,15 +65,17 @@ enum custom_keycodes {
 
 
 #define BASE             0 // base dvorak layer
-#define BASE_ALTERNATE   1 // base dvorak layer, with different layer toggling
-#define KEYNAV           2 // arrow navigation (right hand)
-#define KEYSEL           3 // arrow navigation + shift (allow text selection)
-#define SHELL_NAV        4 // bash shortcuts
-#define SHELL_SCREEN     5 // linux screen shortcuts
-#define SCREEN_NAV       6 // navigate between linux screen tabs
-#define BROWSER_CONTROL  7 // control browser and mouse
-#define COMBINED         8 // combined numbers and symbols layer
-#define ANDROID_STUDIO   9
+#define BASE_ALTERNATE_1 1 // base dvorak layer, with different layer toggling
+#define BASE_ALTERNATE_2 2 // base dvorak layer, with different layer toggling
+#define KEYNAV           3 // arrow navigation (right hand)
+#define KEYSEL           4 // arrow navigation + shift (allow text selection)
+#define SHELL_NAV        5 // bash shortcuts
+#define SHELL_SCREEN     6 // linux screen shortcuts
+#define SCREEN_NAV       7 // navigate between linux screen tabs
+#define BROWSER_CONTROL  8 // control browser and mouse
+#define COMBINED         9 // combined numbers and symbols layer
+#define ANDROID_STUDIO   10 // android studio specific layer
+#define VSCODE           11 // visual studio code specific layer
 
 
 // macros
@@ -116,6 +118,19 @@ enum custom_keycodes {
 #define AS_GO_IMPLEMENTATION LCTL(LALT(KC_B))
 #define AS_CLOSETAB LCTL(KC_F4)
 #define AS_CLOSETOOLWINDOW LCTL(LSFT(KC_F4))
+
+// visual studio code shortcuts
+#define VS_FILE LCTL(KC_P)
+#define VS_LINE LCTL(KC_G)
+#define VS_SYMBOLEDITOR LCTL(LSFT(KC_O))
+#define VS_DEFINITION KC_F12
+#define VS_IMPLEMENTATION LCTL(KC_F12)
+#define VS_BACK LALT(KC_LEFT)
+#define VS_BRACKET LCTL(LSFT(KC_BSLS))
+#define VS_TABLEFT LCTL(LSFT(KC_TAB))
+#define VS_TABRIGHT LCTL(KC_TAB)
+#define VS_CLOSETAB LCTL(KC_W)
+
 
 
 #define MACRO_SCREEN_NUM(MACRO_NAME,NUM) \
@@ -187,12 +202,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
     // alternate base layout
-  [BASE_ALTERNATE] = LAYOUT_ergodox(
+  [BASE_ALTERNATE_1] = LAYOUT_ergodox(
        // left hand
        KC_TRNS,            KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
        KC_TRNS,            KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
        KC_TRNS,            KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,
        OSL(ANDROID_STUDIO),KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+               // bottom row
+               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                                       // thumb cluster
+                                       KC_TRNS,KC_TRNS,
+                                               KC_TRNS,
+                               KC_TRNS,KC_TRNS,KC_TRNS,
+       // right hand
+       KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,          KC_TRNS,                   KC_TRNS,             KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,          KC_TRNS,                   KC_TRNS,             KC_TRNS,
+                KC_TRNS, KC_TRNS,       KC_TRNS,          KC_TRNS,                   KC_TRNS,             KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,          KC_TRNS,                   KC_TRNS,             KC_TRNS,
+                         // bottom row
+                         KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
+       // thumb cluster
+       KC_TRNS, KC_TRNS,
+       KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS
+  ),
+
+    // alternate base layout
+  [BASE_ALTERNATE_2] = LAYOUT_ergodox(
+       // left hand
+       KC_TRNS,            KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_TRNS,            KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_TRNS,            KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,
+       OSL(VSCODE),KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
                // bottom row
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                        // thumb cluster
@@ -242,7 +283,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_TRNS,MEH(KC_L), MEH(KC_M),MEH(KC_N), MEH(KC_O), MEH(KC_P),
            KC_TRNS,MEH(KC_Q), MEH(KC_R),MEH(KC_S), MEH(KC_T), MEH(KC_U), KC_TRNS,
                    // bottom row
-                   RESET,DF(BASE),DF(BASE_ALTERNATE),KC_TRNS,KC_TRNS,
+                   RESET,DF(BASE),DF(BASE_ALTERNATE_1),KC_TRNS,DF(BASE_ALTERNATE_2),
                                            // thumb cluster
                                            KC_TRNS,KC_TRNS,
                                                    KC_TRNS,
@@ -359,6 +400,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS, KC_TRNS,       AS_FINDUSAGE,     AS_GO_DECLARATION,         AS_GO_IMPLEMENTATION, KC_TRNS,
                 KC_TRNS, AS_TABLEFT,    AS_TABRIGHT,      AS_SYMBOL,                 AS_CLASS,             AS_BACK,
        KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,          AS_CLOSETAB,               AS_CLOSETOOLWINDOW,   KC_TRNS,
+                         // bottom row
+                         KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
+       // thumb cluster
+       KC_TRNS, KC_TRNS,
+       KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS
+  ),
+
+    // vscode shortcuts shortcuts
+  [VSCODE] = LAYOUT_ergodox(
+       // left hand
+       KC_NO,  KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+               // bottom row
+               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                                       // thumb cluster
+                                       KC_TRNS,KC_TRNS,
+                                               KC_TRNS,
+                               KC_TRNS,KC_TRNS,KC_TRNS,
+       // right hand
+       KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,          KC_TRNS,                   KC_TRNS,              KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS,       VS_DEFINITION,    VS_IMPLEMENTATION,         VS_LINE,              KC_TRNS,
+                KC_TRNS, VS_TABLEFT,    VS_TABRIGHT,      VS_SYMBOLEDITOR,           VS_FILE,              VS_BACK,
+       KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,          VS_CLOSETAB,               KC_TRNS,              KC_TRNS,
                          // bottom row
                          KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
        // thumb cluster
