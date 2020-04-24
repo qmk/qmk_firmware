@@ -118,5 +118,5 @@ uint16_t get_encoder_key(uint8_t rotation) {
             pressed = (keyevent_t){ .key = (keypos_t){.row = 0, .col = 7}, .pressed = true, .time = (timer_read() | 1)};
             break;
     }
-    return get_event_keycode(pressed);
+    return get_event_keycode(pressed, true);
 }
