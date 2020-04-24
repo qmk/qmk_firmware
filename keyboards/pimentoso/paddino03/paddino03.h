@@ -16,6 +16,7 @@
 #pragma once
 
 #include "quantum.h"
+#include "via.h"
 
 enum my_keycodes {
   ENCODER_PRESS = SAFE_RANGE

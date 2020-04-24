@@ -45,7 +45,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 void matrix_init_kb(void) {
   // put your keyboard start-up code here
   // runs once when the firmware starts up
-  for (int i = 0; i < 4; i++) {
+  for (int i = 0; i < 3; i++) {
     writePin(LAYER_INDICATOR_LED_0, true);
     writePin(LAYER_INDICATOR_LED_1, false);
     writePin(LAYER_INDICATOR_LED_2, false);
