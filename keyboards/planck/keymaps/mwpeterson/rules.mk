@@ -3,5 +3,5 @@ CONSOLE_ENABLE      = no   # Console for debug
 COMMAND_ENABLE      = no   # Disable shift combination, which conflicts with shift-parens
 MOUSEKEY_ENABLE     = yes  # Mouse keys (disabled to save space)
 NKRO_ENABLE         = no   # N-key rollover required for use as a steno board
-AUDIO_ENABLE        = yes  # Audio output on port C6
+AUDIO_ENABLE        = yes  # Audio output (needs a pin configured in config.h, see docs/feature_audio.md)
 UNICODEMAP_ENABLE   = yes   # Enable extended unicode

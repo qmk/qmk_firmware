@@ -4,7 +4,7 @@ ifeq ($(strip $(dfu)), qmk)
     BOOTLOADER = qmk-dfu
 endif
 
-AUDIO_ENABLE = yes           # Audio output on port C6
+AUDIO_ENABLE = yes           # Audio output (needs a pin configured in config.h, see docs/feature_audio.md)
 BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality on B7 by default
 CONSOLE_ENABLE = no 		# Console for debug(+400)
 COMMAND_ENABLE = no 		# Commands for debug and configuration

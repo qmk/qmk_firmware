@@ -1,4 +1,4 @@
-AUDIO_ENABLE = yes         # Audio output on port C6
+AUDIO_ENABLE = yes         # Audio output (needs a pin configured in config.h, see docs/feature_audio.md)
 CONSOLE_ENABLE = no        # Console for debug(+400)
 MIDI_ENABLE = no           # MIDI controls
 MOUSEKEY_ENABLE = no       # Mouse keys(+4700)
