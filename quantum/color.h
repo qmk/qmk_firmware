@@ -64,5 +64,7 @@ typedef struct PACKED {
 #endif
 
 RGB hsv_to_rgb(HSV hsv);
-
+#ifdef RGBW
+void convert_rgb_to_rgbw(LED_TYPE *led);
+#endif
 #endif  // COLOR_H
