@@ -227,32 +227,30 @@ bool process_record_user_rgb_light(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+#if defined(RGBLIGHT_STARTUP_ANIMATION)
+static bool is_enabled;
+static bool is_rgblight_startup;
+static uint8_t old_hue;
+static uint16_t rgblight_startup_loop_timer;
+#endif
+
 void keyboard_post_init_rgb_light(void) {
 #if defined(RGBLIGHT_STARTUP_ANIMATION)
-    bool is_enabled = rgblight_config.enable;
+    is_enabled = rgblight_config.enable;
     if (userspace_config.rgb_layer_change) {
         rgblight_enable_noeeprom();
     }
     if (rgblight_config.enable) {
         layer_state_set_rgb_light(layer_state);
-        uint16_t old_hue = rgblight_config.hue;
+        old_hue = rgblight_config.hue;
         rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-        for (uint16_t i = 255; i > 0; i--) {
-            rgblight_sethsv_noeeprom((i + old_hue) % 255, 255, 255);
-            matrix_scan();
-            wait_ms(10);
-        }
+        is_rgblight_startup = true;
     }
-    if (!is_enabled) {
-        rgblight_disable_noeeprom();
-    }
-
 #endif
     layer_state_set_rgb_light(layer_state);
 }
 
 void matrix_scan_rgb_light(void) {
-#ifdef RGBLIGHT_ENABLE
 #    ifdef RGBLIGHT_TWINKLE
     scan_rgblight_fadeout();
 #    endif  // RGBLIGHT_ENABLE
@@ -260,6 +258,25 @@ void matrix_scan_rgb_light(void) {
 #    ifdef INDICATOR_LIGHTS
     matrix_scan_indicator();
 #    endif
+
+#if defined(RGBLIGHT_STARTUP_ANIMATION)
+    if (is_rgblight_startup) {
+        if (timer_elapsed(rgblight_startup_loop_timer) > 10) {
+            static uint8_t counter;
+            counter++;
+            rgblight_sethsv_noeeprom((counter + old_hue) % 255, 255, 255);
+            rgblight_startup_loop_timer = timer_read();
+            if (counter == 255) {
+                is_rgblight_startup = false;
+                if (!is_enabled) {
+                    rgblight_disable_noeeprom();
+                }
+                if (userspace_config.rgb_layer_change) {
+                    layer_state_set_rgb_light(layer_state);
+                }
+            }
+        }
+    }
 #endif
 }
 
