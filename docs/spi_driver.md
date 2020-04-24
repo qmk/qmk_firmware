@@ -16,7 +16,7 @@ No special setup is required - just connect the `SS`, `SCK`, `MOSI` and `MISO` p
 You may use more than one slave select pin, not just the `SS` pin. This is useful when you have multiple devices connected and need to communicate with them individually.
 `SPI_SS_PIN` can be passed to `spi_start()` to refer to `SS`.
 
-## ARM Configuration
+## ChibiOS/ARM Configuration
 
 ARM support for this driver is not ready yet. Check back later!
 
@@ -28,7 +28,7 @@ Initialize the SPI driver. This function must be called only once, before any of
 
 ---
 
-### `void spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint8_t divisor)`
+### `bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor)`
 
 Start an SPI transaction.
 
@@ -48,12 +48,16 @@ Start an SPI transaction.
    |`2` |Leading edge falling|Sample on leading edge |
    |`3` |Leading edge falling|Sample on trailing edge|
 
- - `uint8_t divisor`  
+ - `uint16_t divisor`  
    The SPI clock divisor, will be rounded up to the nearest power of two. This number can be calculated by dividing the MCU's clock speed by the desired SPI clock speed. For example, an MCU running at 8 MHz wanting to talk to an SPI device at 4 MHz would set the divisor to `2`.
+
+#### Return Value
+
+`false` if the supplied parameters are invalid or the SPI peripheral is already in use, or `true`.
 
 ---
 
-### `spi_status_t spi_write(uint8_t data, uint16_t timeout)`
+### `spi_status_t spi_write(uint8_t data)`
 
 Write a byte to the selected SPI device.
 
@@ -61,8 +65,6 @@ Write a byte to the selected SPI device.
 
  - `uint8_t data`  
    The byte to write.
- - `uint16_t timeout`  
-   The amount of time to wait, in milliseconds, before timing out.
 
 #### Return Value
 
@@ -70,14 +72,9 @@ Write a byte to the selected SPI device.
 
 ---
 
-### `spi_status_t spi_read(uint16_t timeout)`
+### `spi_status_t spi_read(void)`
 
 Read a byte from the selected SPI device.
-
-#### Arguments
-
- - `uint16_t timeout`  
-   The amount of time to wait, in milliseconds, before timing out.
 
 #### Return Value
 
@@ -85,7 +82,7 @@ Read a byte from the selected SPI device.
 
 ---
 
-### `spi_status_t spi_transmit(const uint8_t *data, uint16_t length, uint16_t timeout)`
+### `spi_status_t spi_transmit(const uint8_t *data, uint16_t length)`
 
 Send multiple bytes to the selected SPI device.
 
@@ -95,8 +92,6 @@ Send multiple bytes to the selected SPI device.
    A pointer to the data to write from.
  - `uint16_t length`  
    The number of bytes to write. Take care not to overrun the length of `data`.
- - `uint16_t timeout`  
-   The amount of time to wait, in milliseconds, before timing out.
 
 #### Return Value
 
@@ -104,7 +99,7 @@ Send multiple bytes to the selected SPI device.
 
 ---
 
-### `spi_status_t spi_receive(uint8_t *data, uint16_t length, uint16_t timeout)`
+### `spi_status_t spi_receive(uint8_t *data, uint16_t length)`
 
 Receive multiple bytes from the selected SPI device.
 
@@ -114,12 +109,10 @@ Receive multiple bytes from the selected SPI device.
    A pointer to the buffer to read into.
  - `uint16_t length`  
    The number of bytes to read. Take care not to overrun the length of `data`.
- - `uint16_t timeout`  
-   The amount of time to wait, in milliseconds, before timing out.
 
 #### Return Value
 
-`SPI_STATUS_TIMEOUT` if the timeout period elapses, `SPI_STATUS_SUCCESS` on success, or `SPI_STATUS_ERROR` otherwise.
+`SPI_STATUS_TIMEOUT` if the internal transmission timeout period elapses, `SPI_STATUS_SUCCESS` on success, or `SPI_STATUS_ERROR` otherwise.
 
 ---
 
