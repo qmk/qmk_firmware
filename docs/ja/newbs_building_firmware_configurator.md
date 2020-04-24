@@ -3,14 +3,14 @@
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
   original document: ed0575fc8:docs/newbs_building_firmware_configurator.md
-  git diff ed0575fc8 HEAD docs/newbs_building_firmware_configurator.md | cat
+  git diff ed0575fc8 HEAD -- docs/newbs_building_firmware_configurator.md | cat
 -->
 
 [QMK Configurator](https://config.qmk.fm) は、QMKファームウェアの hex ファイルを生成するオンライングラフィカルユーザーインターフェイスです。
 
 ?> **次の手順を順番に実行してください。**
 
-[Video Tutorial](https://youtu.be/tx54jkRC9ZY) を見てください。
+[Video Tutorial](https://www.youtube.com/watch?v=-imgglzDMdY) を見てください。
 
 QMK Configurator は Chrome/Firefox で最適に動作します。
 
@@ -63,7 +63,7 @@ QMK Configurator は Chrome/Firefox で最適に動作します。
 
 2分割の右シフト: 両方とも右シフトで埋めます。
 
-左シフトとISOサポート用に1つずつ: 両方とも左シフトで埋めます。
+左シフトと ISO サポート用に1つずつ: 両方とも左シフトで埋めます。
 
 5分割だが4キーのみ: 以前やったことがある人を推測して確認するか尋ねてください。
 
@@ -73,7 +73,7 @@ QMK Configurator は Chrome/Firefox で最適に動作します。
 
 後日、`Import Keymap` ボタンを押すことで、この .json ファイルをロードできます。
 
-!> **注意:** このファイルは、kbfirmware.com またはその他のツールに使用される .jsonファイルと同じ形式ではありません。これらのツールにこれを使用したり、QMK Configurator でこれらのツールの .json を使用しようとすると、キーボードが **爆発** する可能性があります。
+!> **注意:** このファイルは、kbfirmware.com またはその他のツールに使用される .json ファイルと同じ形式ではありません。これらのツールにこれを使用したり、QMK Configurator でこれらのツールの .json を使用しようとすると、キーボードが **爆発** する可能性があります。
 
 ## ファームウェアファイルを生成する
 

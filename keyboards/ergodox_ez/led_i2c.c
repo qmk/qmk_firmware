@@ -27,19 +27,6 @@
 
 extern rgblight_config_t rgblight_config;
 
-/*
- * Forward declare internal functions
- *
- * The functions take a byte-array and send to the data output as WS2812 bitstream.
- * The length is the number of bytes to send - three per LED.
- */
-
-void ws2812_sendarray(uint8_t *array, uint16_t length);
-void ws2812_sendarray_mask(uint8_t *array, uint16_t length, uint8_t pinmask);
-
-
-
-
 void rgblight_set(void) {
     if (!rgblight_config.enable) {
         for (uint8_t i = 0; i < RGBLED_NUM; i++) {
@@ -51,7 +38,13 @@ void rgblight_set(void) {
 #endif
         }
     }
-
+#ifdef RGBW
+    else {
+        for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+            convert_rgb_to_rgbw(&led[i]);
+        }
+    }
+#endif
 
     uint8_t led_num = RGBLED_NUM;
     i2c_init();

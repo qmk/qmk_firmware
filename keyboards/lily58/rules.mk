@@ -15,10 +15,10 @@ BOOTLOADER = caterina
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = no       # Mouse keys(+4700)
-EXTRAKEY_ENABLE = no       # Audio control and System control(+450)
-CONSOLE_ENABLE = no         # Console for debug(+400)
+BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
+MOUSEKEY_ENABLE = no       # Mouse keys
+EXTRAKEY_ENABLE = no       # Audio control and System control
+CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no        # Commands for debug and configuration
 NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
@@ -35,6 +35,11 @@ CUSTOM_MATRIX = yes
 SRC += i2c.c
 SRC += serial.c
 SRC += ssd1306.c
+
+# A workaround until #7089 is merged.
+#   serial.c must not be compiled with the -lto option.
+#   The current LIB_SRC has a side effect with the -fno-lto option, so use it.
+LIB_SRC += serial.c
 
 # if firmware size over limit, try this option
 # CFLAGS += -flto
