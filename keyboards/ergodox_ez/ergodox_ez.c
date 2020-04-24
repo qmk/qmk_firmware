@@ -391,8 +391,26 @@ void eeconfig_init_kb(void) {  // EEPROM is getting reset!
 #ifdef ORYX_ENABLE
 static uint16_t loops = 0;
 static bool is_on = false;
+#endif
+
+#ifdef DYNAMIC_MACRO_ENABLE
+static bool is_dynamic_recording = false;
+static uint16_t dynamic_loop_timer;
+
+void dynamic_macro_record_start_user(void) {
+    is_dynamic_recording = true;
+    dynamic_loop_timer = timer_read();
+    ergodox_right_led_1_on();
+}
+
+void dynamic_macro_record_end_user(int8_t direction) {
+    is_dynamic_recording = false;
+    layer_state_set_user(layer_state);
+}
+#endif
 
 void matrix_scan_kb(void) {
+#ifdef ORYX_ENABLE
     if(webusb_state.pairing == true) {
         if(loops == 0) {
             ergodox_right_led_1_off();
@@ -402,8 +420,7 @@ void matrix_scan_kb(void) {
         if(loops % WEBUSB_BLINK_STEPS == 0) {
             if(is_on) {
                 ergodox_right_led_2_off();
-            }
-            else {
+            } else {
                 ergodox_right_led_2_on();
             }
             is_on ^= 1;
@@ -414,12 +431,24 @@ void matrix_scan_kb(void) {
             loops = 0;
         }
         loops++;
+    } else if(loops > 0) {
+        loops = 0;
+        layer_state_set_user(layer_state);
     }
-    else if(loops > 0) {
-      loops = 0;
-      layer_state_set_user(layer_state);
+#endif
+
+#ifdef DYNAMIC_MACRO_ENABLE
+    if (is_dynamic_recording) {
+        ergodox_right_led_1_off();
+        // if (timer_elapsed(dynamic_loop_timer) > 5)
+        {
+            static uint8_t counter;
+            counter++;
+            if (counter > 100) ergodox_right_led_1_on();
+            dynamic_loop_timer = timer_read();
+        }
     }
+#endif
+
     matrix_scan_user();
 }
-
-#endif
