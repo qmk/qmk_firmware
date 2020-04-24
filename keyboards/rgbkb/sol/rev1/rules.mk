@@ -1,14 +1,14 @@
 # RGBKB Sol Rev1 Defaults
 
 # Keycode Options
-BOOTMAGIC_ENABLE        = no        # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE         = no        # Mouse keys(+4700)
-EXTRAKEY_ENABLE         = yes       # Audio control and System control(+450)
+BOOTMAGIC_ENABLE        = no        # Virtual DIP switch configuration
+MOUSEKEY_ENABLE         = no        # Mouse keys
+EXTRAKEY_ENABLE         = yes       # Audio control and System control
 UNICODE_ENABLE          = no        # Unicode keycodes
 NKRO_ENABLE             = no        # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 
 # Debug Options
-CONSOLE_ENABLE          = no        # Console for debug(+400)
+CONSOLE_ENABLE          = no        # Console for debug
 COMMAND_ENABLE          = no        # Commands for debug and configuration
 
 # RGB Options

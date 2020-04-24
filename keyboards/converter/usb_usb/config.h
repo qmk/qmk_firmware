@@ -18,12 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_H
 #define CONFIG_H
 
-// do not #include "config_common.h" because the pin names conflict with the USB HID code.
-// CUSTOM_MATRIX is defined it that file, though, and we need it, so we define it ourselves.
-// It's a hack, yeah...
-
-#define CUSTOM_MATRIX 2
-
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x005B
@@ -35,9 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* size of virtual matrix */
 #define MATRIX_ROWS 16
 #define MATRIX_COLS 16
-
-/* matrix scanning is done in custom_matrix.cpp */
-//#define DIODE_DIRECTION
 
 /*
  * Feature disable options
