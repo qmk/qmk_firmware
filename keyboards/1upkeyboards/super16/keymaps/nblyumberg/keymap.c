@@ -81,7 +81,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {  // Hold, copy
                     tap_code16(LCTL(KC_C));
                 } else {  // Tap, paste
-                    tap_code16(KC_F18);
+                    tap_code16(LCTL(KC_V));
                 }
             } return true;
 		case KC_2ENTER:
