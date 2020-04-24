@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x3060
+#define PRODUCT_ID      0x36E1
 #define DEVICE_VER      0x36e1
 #define MANUFACTURER    Salicylic_Acid
 #define PRODUCT         7skb
