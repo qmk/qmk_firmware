@@ -19,29 +19,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void encoder_update_user(uint8_t index, bool clockwise) {
-  if (index == 0) { /* First encoder */
-    switch(get_highest_layer(layer_state)){
-      case 0: //Layer 0
-        if (!clockwise) { // Remove ! to reverse direction
-          tap_code(KC_VOLU);
-        } else {
-          tap_code(KC_VOLD);
-        }
-        break;
-      case 1: //Layer 1
-        if (!clockwise) {
-          tap_code(KC_WH_U);
-        } else {
-          tap_code(KC_WH_D);
-        }
-        break;
-      default:
-        if (!clockwise) {
-          tap_code(KC_VOLU);
-        } else {
-          tap_code(KC_VOLD);
-        }
-        break;
-    }
+  switch(get_highest_layer(layer_state)){
+    case 1: //Layer 1
+      if (!clockwise) { // Remove ! to reverse direction
+        tap_code(KC_WH_U);
+      } else {
+        tap_code(KC_WH_D);
+      }
+      break;
+    default: //Layer 0
+      if (!clockwise) {
+        tap_code(KC_VOLU);
+      } else {
+        tap_code(KC_VOLD);
+      }
+      break;
   }
 }
