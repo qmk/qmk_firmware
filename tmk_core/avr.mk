@@ -105,13 +105,6 @@ endef
 teensy: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	$(call EXEC_TEENSY)
 
-BATCHISP ?= batchisp
-
-flip: $(BUILD_DIR)/$(TARGET).hex check-size
-	$(BATCHISP) -hardware usb -device $(MCU) -operation erase f
-	$(BATCHISP) -hardware usb -device $(MCU) -operation loadbuffer $(BUILD_DIR)/$(TARGET).hex program
-	$(BATCHISP) -hardware usb -device $(MCU) -operation start reset 0
-
 DFU_PROGRAMMER ?= dfu-programmer
 GREP ?= grep
 
@@ -145,13 +138,6 @@ dfu: $(BUILD_DIR)/$(TARGET).hex cpfirmware check-size
 dfu-start:
 	$(DFU_PROGRAMMER) $(MCU) reset
 	$(DFU_PROGRAMMER) $(MCU) start
-
-flip-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
-	$(COPY) $(BUILD_DIR)/$(TARGET).eep $(BUILD_DIR)/$(TARGET)eep.hex
-	$(BATCHISP) -hardware usb -device $(MCU) -operation memory EEPROM erase
-	$(BATCHISP) -hardware usb -device $(MCU) -operation memory EEPROM loadbuffer $(BUILD_DIR)/$(TARGET)eep.hex program
-	$(BATCHISP) -hardware usb -device $(MCU) -operation start reset 0
-	$(REMOVE) $(BUILD_DIR)/$(TARGET)eep.hex
 
 dfu-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 	if $(DFU_PROGRAMMER) --version 2>&1 | $(GREP) -q 0.7 ; then\
