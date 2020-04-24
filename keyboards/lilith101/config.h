@@ -96,9 +96,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define RGB_DI_PIN E1
 // The number of LEDs connected
 //#define DRIVER_LED_TOTAL 101
-#define ENCODERS_PAD_A { B18 }
+#define ENCODERS_PAD_B { B18 }
 //#define ENCODERS_PAD_B { A4 }
-#define ENCODERS_PAD_B { C5 }
+#define ENCODERS_PAD_A { C5 }
 #define ENCODER_RESOLUTION 4
 
 /*
