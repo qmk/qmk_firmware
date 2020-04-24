@@ -67,7 +67,7 @@ enum custom_keycodes {
 enum {
   ALT_GUI = 0,
   CTL_ALT,
-  TAB_CTL
+  CTL_TAB
 };
 
 //Tap Dance Definitions
@@ -76,8 +76,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [ALT_GUI]  = ACTION_TAP_DANCE_DOUBLE(KC_LALT, KC_LGUI),
   //Tap once for Ctrl, twice for Alt
   [CTL_ALT]  = ACTION_TAP_DANCE_DOUBLE(KC_RCTL, KC_RALT),
-  //Tap once for Tab, twice for CTL
-  [TAB_CTL]  = ACTION_TAP_DANCE_DOUBLE(KC_TAB, KC_LCTL)
+  //Tap once for CTL, twice for TAB
+  [CTL_TAB]  = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, KC_TAB)
 // Other declarations would go here, separated by commas, if you have them
 };
 
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       KC_GESC,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-  TD(TAB_CTL),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,\
+  TD(CTL_TAB),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
 	     KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                        KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
