@@ -6,7 +6,7 @@ A simple 2% keyboard for osu!. Designed to be assembled as a sandwich with a Pro
 
 **Layout:**  
 The default layout is: Z , X .
-Used pins can be found in `config.h`. All ProMicro pins can be found [here](https://golem.hu/article/pro-micro-pinout/).
+Used pins can be found in `config.h`. All ProMicro pins can be found [here](https://cdn.sparkfun.com/datasheets/Dev/Arduino/Boards/ProMicro16MHzv1.pdf).
 
 * Keyboard Maintainer: [Aplyard](https://github.com/Aplyard)
 * Hardware Supported: Pro Micro (ATmega32U4)
