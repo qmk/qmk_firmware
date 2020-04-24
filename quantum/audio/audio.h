@@ -322,7 +322,7 @@ bool audio_update_state(void);
 #define play_note(f, v) audio_play_tone(f)
 
 #define set_timbre(t) voice_set_timbre(t)
-#define set_tempo(t) voice_set_tempo(t)
+#define set_tempo(t) audio_set_tempo(t)
 #define increase_tempo(t) audio_increase_tempo(t)
 #define decrease_tempo(t) audio_decrease_tempo(t)
 // vibrato functions are not used in any keyboards
