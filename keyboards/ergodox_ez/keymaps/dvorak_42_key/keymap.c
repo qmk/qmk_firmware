@@ -130,6 +130,10 @@ enum custom_keycodes {
 #define VS_TABLEFT LCTL(LSFT(KC_TAB))
 #define VS_TABRIGHT LCTL(KC_TAB)
 #define VS_CLOSETAB LCTL(KC_W)
+#define VS_CLOSEPANEL LCTL(LSFT(KC_W))
+#define VS_TERMINAL LCTL(KC_GRAVE)
+#define VS_BUILD LCTL(LSFT(KC_B))
+#define VS_COMMANDS LCTL(LSFT(KC_P))
 
 
 
@@ -181,7 +185,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_ESC,            KC_F1,         KC_F2,      KC_F3,        KC_F4,   KC_F5,   KC_F6,
       OSL(SCREEN_NAV),   KC_QUOTE,      KC_COMMA,   KC_DOT,       KC_P,    KC_Y,    MEH(KC_2),
       OSL(SHELL_NAV),    KC_A,          KC_O,       KC_E,         KC_U,    KC_I,
-      OSL(SHELL_SCREEN), KC_SCOLON,     KC_Q,       KC_J,         KC_K,    KC_X,    MEH(KC_3),
+      OSL(SHELL_SCREEN), KC_SCOLON,     KC_Q,       KC_J,         KC_K,    KC_X,    OSL(VSCODE),
       MEH(KC_1),         OSM(MOD_LSFT), OSM(MOD_LCTL), MO(KEYSEL), MO(BROWSER_CONTROL),
 
       // left thumb cluster
@@ -422,10 +426,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
-       KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,          KC_TRNS,                   KC_TRNS,              KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS,       VS_DEFINITION,    VS_IMPLEMENTATION,         VS_LINE,              KC_TRNS,
-                KC_TRNS, VS_TABLEFT,    VS_TABRIGHT,      VS_SYMBOLEDITOR,           VS_FILE,              VS_BACK,
-       KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,          VS_CLOSETAB,               KC_TRNS,              KC_TRNS,
+       KC_TRNS, KC_TRNS,     KC_TRNS,       KC_TRNS,          KC_TRNS,                   KC_TRNS,              KC_TRNS,
+       KC_TRNS, KC_TRNS,     VS_COMMANDS,   VS_DEFINITION,    VS_IMPLEMENTATION,         VS_LINE,              KC_TRNS,
+                VS_CLOSETAB, VS_TABLEFT,    VS_TABRIGHT,      VS_SYMBOLEDITOR,           VS_FILE,              VS_BACK,
+       KC_TRNS, KC_TRNS,     KC_TRNS,       VS_BUILD,         VS_TERMINAL,               VS_CLOSEPANEL,        KC_TRNS,
                          // bottom row
                          KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
        // thumb cluster
