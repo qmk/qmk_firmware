@@ -14,7 +14,7 @@ RGBLIGHT_ENABLE = yes 			 # Enable WS2812 underglow RGB strip
 MIDI_ENABLE = no            # MIDI controls
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
-AUDIO_ENABLE = no           # Audio output on port C6
+AUDIO_ENABLE = no           # Audio output (needs a pin configured in config.h, see docs/feature_audio.md)
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 # if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work

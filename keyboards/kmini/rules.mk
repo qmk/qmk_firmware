@@ -31,7 +31,7 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 MIDI_ENABLE = no            # MIDI support
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
-AUDIO_ENABLE = no           # Audio output on port C6
+AUDIO_ENABLE = no           # Audio output (needs a pin configured in config.h, see docs/feature_audio.md)
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 
 # Project specific files

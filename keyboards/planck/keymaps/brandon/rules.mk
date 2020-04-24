@@ -4,7 +4,7 @@
 
 COMMAND_ENABLE   = no   # Disable shift combination, which conflicts with shift-parens
 NKRO_ENABLE      = yes  # N-key rollover required for use as a steno board
-AUDIO_ENABLE     = no   # Audio output on port C6
+AUDIO_ENABLE     = no   # Audio output (needs a pin configured in config.h, see docs/feature_audio.md)
 TAP_DANCE_ENABLE = yes
 MOUSEKEY_ENABLE  = yes
 CONSOLE_ENABLE = no

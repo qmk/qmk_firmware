@@ -17,7 +17,7 @@ CONSOLE_ENABLE = no                # Console for debug
 COMMAND_ENABLE = no                # Commands for debug and configuration
 SLEEP_LED_ENABLE = no              # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes                  # USB Nkey Rollover
-AUDIO_ENABLE = no                  # Audio output on port C6
+AUDIO_ENABLE = no                  # Audio output (needs a pin configured in config.h, see docs/feature_audio.md)
 NO_USB_STARTUP_CHECK = no          # Disable initialization only when usb is plugged in
 #SERIAL_LINK_ENABLE = yes
 

@@ -25,7 +25,7 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality on B7 by d
 MIDI_ENABLE = no            # MIDI controls
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
-AUDIO_ENABLE = no           # Audio output on port C6
+AUDIO_ENABLE = no           # Audio output (needs a pin configured in config.h, see docs/feature_audio.md)
 
 LAYOUTS = planck_mit ortho_4x12
 LAYOUTS_HAS_RGB = no

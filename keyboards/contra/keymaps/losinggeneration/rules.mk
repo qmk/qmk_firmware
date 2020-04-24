@@ -2,7 +2,7 @@
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
-AUDIO_ENABLE     = no    # Audio output on port C6
+AUDIO_ENABLE     = no    # Audio output (needs a pin configured in config.h, see docs/feature_audio.md)
 BACKLIGHT_ENABLE = no    # Enable keyboard backlight functionality
 BLUETOOTH_ENABLE = no    # Enable Bluetooth with the Adafruit EZ-Key HID
 BOOTMAGIC_ENABLE = no    # Virtual DIP switch configuration(+1000)
