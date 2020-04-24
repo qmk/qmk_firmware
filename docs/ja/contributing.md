@@ -1,8 +1,8 @@
 # 貢献方法
 
 <!---
-  original document: d47809575:docs/contributing.md
-  git diff d47809575 HEAD docs/contributing.md | cat
+  original document: 0.8.62:docs/contributing.md
+  git diff 0.8.62 HEAD -- docs/contributing.md | cat
 -->
 
 👍🎉 まず、これを読み貢献する時間を作ってくれてありがとうございます！🎉👍
@@ -106,7 +106,7 @@ enum my_keycodes {
 };
 ```
 
-### ドキュメントのプレビュー
+### ドキュメントのプレビュー :id=previewing-the-documentation
 
 開発環境をセットアップした場合は、プルリクエストを開く前に以下のコマンドを `qmk_firmware/` フォルダから実行することで、あなたの変更をプレビューすることができます:
 
@@ -122,7 +122,7 @@ enum my_keycodes {
 
 ほとんどの初めての QMK 貢献者は、個人のキーマップから始めます。キーマップの標準はかなりカジュアルなものにしようとしています(キーマップは結局のところ作成者の性格を反映しています)が、他の人があなたのキーマップを簡単に見つけて学ぶことができるように、これらのガイドラインに従うようにお願いします。
 
-* [the template](documentation_templates.md) を使って `readme.md` を書きます。
+* [テンプレート](documentation_templates.md) を使って `readme.md` を書きます。
 * 全てのキーマップの PR は squash されるため、コミットがどのように squash されるかを気にする場合は、自分で行う必要があります。
 * キーマップの PR に機能をまとめないでください。最初に機能をサブミットし、次にキーマップのための2つ目の PR をサブミットします。
 * `Makefile` をキーマップフォルダに含めないでください(もう使われていません)。
@@ -134,7 +134,7 @@ enum my_keycodes {
 
 また以下のガイドラインに従うことをお願いします:
 
-* [the template](ja/documentation_templates.md) を使って `readme.md` を書きます。
+* [テンプレート](ja/documentation_templates.md) を使って `readme.md` を書きます。
 * コミットの数を適切に保ってください。そうでなければあなたの PR を squash します。
 * コア機能を新しいキーボードにまとめないでください。最初に機能をサブミットし、次にキーボード用に別の PR をサブミットしてください。
 * `.c`/`.h` ファイルにすぐ上の親フォルダに従って名前を付けます。例えば、`/keyboards/<kb1>/<kb2>/<kb2>.[ch]`

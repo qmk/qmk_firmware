@@ -48,7 +48,7 @@
 
 #include "compiler.h"
 
-#ifdef CDC
+#ifdef VIRTSER_ENABLE
 
 #    define CDC_CLASS_DEVICE 0x02  //!< USB Communication Device Class
 #    define CDC_CLASS_COMM 0x02    //!< CDC Communication Class Interface

@@ -1,32 +1,11 @@
 #include "csc027.h"
 
-static const char* git_macros[] = {
-    // Make sure that the macro strings match the order they are declared
-    // in the custom_keycodes enum.
-    "git add ",
-    "git branch ",
-    "git checkout ",
-    "git cherry-pick ",
-    "git commit -m \"\""SS_TAP(X_LEFT),
-    "git diff ",
-    "git fetch ",
-    "git grep ",
-    "git log --decorate --oneline --graph ",
-    "git init ",
-    "git mv ",
-    "git merge ",
-    "git push ",
-    "git pull ",
-    "git rebase ",
-    "git remote ",
-    "git reset ",
-    "git show ",
-    "git stash ",
-    "git status ",
-    "git tag ",
-    SS_LCTL(SS_LALT(SS_TAP(X_HOME)))"\t ",
-    SS_LCTL(SS_LALT(SS_TAP(X_HOME)))"\t\t\t ",
-    SS_LCTL(SS_LALT(SS_TAP(X_HOME)))SS_LALT("\t")
+// Declare the strings in PROGMEM using the convenience macro
+CUSTOM_MACROS(CUSTOM_DEF, CUSTOM_MACRO_STRING, SEMI_DELIM);
+
+static const char* const custom_macros[] PROGMEM = {
+    // Declare the pointer to the strings in PROGMEM
+    CUSTOM_MACROS(CUSTOM_VAR, DROP, COMMA_DELIM)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -34,26 +13,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case LOWER:
             if(record->event.pressed) {
                 layer_on(_LW);
-                update_tri_layer(_LW, _RS, _MS);
             } else {
                 layer_off(_LW);
-                update_tri_layer(_LW, _RS, _MS);
             }
+            update_tri_layer(_LW, _RS, _MS);
             return false;
         case RAISE:
             if(record->event.pressed) {
                 layer_on(_RS);
-                update_tri_layer(_LW, _RS, _MS);
             } else {
                 layer_off(_RS);
-                update_tri_layer(_LW, _RS, _MS);
             }
+            update_tri_layer(_LW, _RS, _MS);
             return false;
-        case GIT_ADD...MC_ATRD:
+        case (MC_first + 1)...(MC_last - 1):
             if(record->event.pressed) {
-                // The calculation here is to make sure that the custom keycode
-                // aligns with the git_macros array.
-                send_string(git_macros[keycode - GIT_ADD]);
+                send_string_P(
+#if defined(__AVR__)
+                    // The accessor here first reads from the pointer array that is located
+                    // in PROGMEM.  The pointer is taken and passed to the send_string_P
+                    // function, which is aware of the difference between RAM and PROGMEM
+                    // pointers.
+                    (char*)pgm_read_word(&custom_macros[keycode - MC_first - 1])
+#else
+                    // For non-AVR MCUs, the PROGMEM macro is defined as nothing.  So, the strings are
+                    // declared in RAM instead of flash.  The send_string_P function, when compiled for
+                    // non-AVR targets, uses a different definition of pgm_read_byte internally.  This
+                    // definition uses RAM pointers instead.  This is why the raw pointer is passed for
+                    // non-AVR MCUs.
+                    custom_macros[keycode - MC_first - 1]
+#endif
+                );
                 return true;
             }
             return false;

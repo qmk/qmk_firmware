@@ -39,6 +39,9 @@ typedef struct _I2C_slave_buffer_t {
 #    ifdef ENCODER_ENABLE
     uint8_t encoder_state[NUMBER_OF_ENCODERS];
 #    endif
+#    ifdef WPM_ENABLE
+    uint8_t current_wpm;
+#    endif
 } I2C_slave_buffer_t;
 
 static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_reg;
@@ -49,6 +52,7 @@ static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_re
 #    define I2C_KEYMAP_MASTER_START offsetof(I2C_slave_buffer_t, mmatrix)
 #    define I2C_KEYMAP_SLAVE_START offsetof(I2C_slave_buffer_t, smatrix)
 #    define I2C_ENCODER_START offsetof(I2C_slave_buffer_t, encoder_state)
+#    define I2C_WPM_START offsetof(I2C_slave_buffer_t, current_wpm)
 
 #    define TIMEOUT 100
 
@@ -88,6 +92,15 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
     encoder_update_raw(i2c_buffer->encoder_state);
 #    endif
 
+#    ifdef WPM_ENABLE
+    uint8_t current_wpm = get_current_wpm();
+    if (current_wpm != i2c_buffer->current_wpm) {
+        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_WPM_START, (void *)&current_wpm, sizeof(current_wpm), TIMEOUT) >= 0) {
+            i2c_buffer->current_wpm = current_wpm;
+        }
+    }
+#    endif
+  
     i2c_buffer->sync_time = timer_read32();
     sync_timer_update(i2c_buffer->sync_time);
     i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_SYNC_TIME_START, (void *)&i2c_buffer->sync_time, sizeof(i2c_buffer->sync_time), TIMEOUT);
@@ -119,6 +132,10 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
 #    ifdef ENCODER_ENABLE
     encoder_state_raw(i2c_buffer->encoder_state);
 #    endif
+
+#    ifdef WPM_ENABLE
+    set_current_wpm(i2c_buffer->current_wpm);
+#    endif
 }
 
 void transport_master_init(void) { i2c_init(); }
@@ -147,6 +164,9 @@ typedef struct _Serial_m2s_buffer_t {
 
 #    ifdef BACKLIGHT_ENABLE
     uint8_t backlight_level;
+#    endif
+#    ifdef WPM_ENABLE
+    uint8_t current_wpm;
 #    endif
 } Serial_m2s_buffer_t;
 
@@ -254,6 +274,12 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
     encoder_update_raw((uint8_t *)serial_s2m_buffer.encoder_state);
 #    endif
 
+
+#    ifdef WPM_ENABLE
+    // Write wpm to slave
+    serial_m2s_buffer.current_wpm = get_current_wpm();
+#    endif
+  
     sync_timer_update(timer_read32());
     serial_m2s_buffer.sync_timer = sync_timer_read32();
     return true;
@@ -278,6 +304,10 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
 
 #    ifdef ENCODER_ENABLE
     encoder_state_raw((uint8_t *)serial_s2m_buffer.encoder_state);
+#    endif
+
+#    ifdef WPM_ENABLE
+    set_current_wpm(serial_m2s_buffer.current_wpm);
 #    endif
 }
 
