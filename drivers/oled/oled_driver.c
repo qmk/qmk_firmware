@@ -458,6 +458,15 @@ void oled_write_raw_byte(const char data, uint16_t index) {
     oled_dirty |= (1 << (index / OLED_BLOCK_SIZE));
 }
 
+void oled_write_raw(const char *data, uint16_t size) {
+    if (size > OLED_MATRIX_SIZE) size = OLED_MATRIX_SIZE;
+    for (uint16_t i = 0; i < size; i++) {
+        if (oled_buffer[i] == data[i]) continue;
+        oled_buffer[i] = data[i];
+        oled_dirty |= (1 << (i / OLED_BLOCK_SIZE));
+    }
+}
+
 #if defined(__AVR__)
 void oled_write_P(const char *data, bool invert) {
     uint8_t c = pgm_read_byte(data);
