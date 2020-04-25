@@ -135,7 +135,13 @@ enum custom_keycodes {
 #define VS_TERMINAL LCTL(KC_GRAVE)
 #define VS_BUILD LCTL(LSFT(KC_B))
 #define VS_COMMANDS LCTL(LSFT(KC_P))
-
+// visual studio bookmark commands
+#define VS_BM_LIST LCTL(LALT(KC_L))
+#define VS_BM_LISTALL LCTL(LALT(KC_A))
+#define VS_BM_PREV LCTL(LALT(KC_P))
+#define VS_BM_NEXT LCTL(LALT(KC_N))
+#define VS_BM_TOGGLE LCTL(LALT(KC_K))
+#define VS_BM_LABEL LCTL(LALT(KC_B))
 
 
 #define MACRO_SCREEN_NUM(MACRO_NAME,NUM) \
@@ -427,12 +433,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
-       KC_TRNS, KC_TRNS,     KC_TRNS,       KC_TRNS,          KC_TRNS,                   KC_TRNS,              KC_TRNS,
-       KC_TRNS, KC_TRNS,     VS_REFERENCES, VS_DEFINITION,    VS_IMPLEMENTATION,         VS_LINE,              VS_BRACKET,
-                VS_CLOSETAB, VS_TABLEFT,    VS_TABRIGHT,      VS_SYMBOLEDITOR,           VS_FILE,              VS_BACK,
-       KC_TRNS, KC_TRNS,     VS_COMMANDS,   VS_BUILD,         VS_TERMINAL,               VS_CLOSEPANEL,        KC_TRNS,
-                         // bottom row
-                         KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
+       KC_TRNS, KC_TRNS,     KC_TRNS,       KC_TRNS,          KC_TRNS,             KC_TRNS,         KC_TRNS,
+       KC_TRNS, KC_TRNS,     VS_REFERENCES, VS_DEFINITION,    VS_IMPLEMENTATION,   VS_LINE,         VS_BRACKET,
+                VS_CLOSETAB, VS_TABLEFT,    VS_TABRIGHT,      VS_SYMBOLEDITOR,     VS_FILE,         VS_BACK,
+       KC_TRNS, KC_TRNS,     VS_BM_PREV,    VS_BM_NEXT,       VS_BM_LIST,          VS_BM_LISTALL,   VS_BM_TOGGLE,
+                             // bottom row
+                             VS_COMMANDS,   VS_BUILD,         VS_TERMINAL,         VS_CLOSEPANEL,   VS_BM_LABEL,
        // thumb cluster
        KC_TRNS, KC_TRNS,
        KC_TRNS,
