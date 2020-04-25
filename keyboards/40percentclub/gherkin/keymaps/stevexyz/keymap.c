@@ -223,11 +223,6 @@ void matrix_scan_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case CK_CONFIGINIT:
-      if (record->event.pressed) {
-        eeconfig_init(); // reset keyboard to a standard default state; useful when new releases messup with eeprom values
-      } // else { when released... }
-      break;
     case CK_TRIPLEZERO:
       if (record->event.pressed) {
         SEND_STRING("000");
