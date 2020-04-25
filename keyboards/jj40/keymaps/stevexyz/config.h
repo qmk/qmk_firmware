@@ -1,3 +1,4 @@
+#pragma once
 
 // Behaviors That Can Be Configured
 
