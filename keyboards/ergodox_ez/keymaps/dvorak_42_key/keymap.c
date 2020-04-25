@@ -125,6 +125,7 @@ enum custom_keycodes {
 #define VS_SYMBOLEDITOR LCTL(LSFT(KC_O))
 #define VS_DEFINITION KC_F12
 #define VS_IMPLEMENTATION LCTL(KC_F12)
+#define VS_REFERENCES LSFT(KC_F12)
 #define VS_BACK LALT(KC_LEFT)
 #define VS_BRACKET LCTL(LSFT(KC_BSLS))
 #define VS_TABLEFT LCTL(LSFT(KC_TAB))
@@ -427,9 +428,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
        KC_TRNS, KC_TRNS,     KC_TRNS,       KC_TRNS,          KC_TRNS,                   KC_TRNS,              KC_TRNS,
-       KC_TRNS, KC_TRNS,     VS_COMMANDS,   VS_DEFINITION,    VS_IMPLEMENTATION,         VS_LINE,              KC_TRNS,
+       KC_TRNS, KC_TRNS,     VS_REFERENCES, VS_DEFINITION,    VS_IMPLEMENTATION,         VS_LINE,              VS_BRACKET,
                 VS_CLOSETAB, VS_TABLEFT,    VS_TABRIGHT,      VS_SYMBOLEDITOR,           VS_FILE,              VS_BACK,
-       KC_TRNS, KC_TRNS,     KC_TRNS,       VS_BUILD,         VS_TERMINAL,               VS_CLOSEPANEL,        KC_TRNS,
+       KC_TRNS, KC_TRNS,     VS_COMMANDS,   VS_BUILD,         VS_TERMINAL,               VS_CLOSEPANEL,        KC_TRNS,
                          // bottom row
                          KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
        // thumb cluster
