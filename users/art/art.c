@@ -5,7 +5,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-bool is_win = false;
 const char *key_up[2] = {SS_UP(X_LALT), SS_UP(X_LCTL)};
 const char *key_down[2] = {SS_DOWN(X_LALT), SS_DOWN(X_LCTL)};
 
