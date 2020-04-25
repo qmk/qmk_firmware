@@ -10,7 +10,6 @@ from milc import cli
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.commands import compile_configurator_json, create_make_command, parse_configurator_json
 from qmk.compile_commands_json import parse_make_n, qmk_dir
-from pathlib import Path
 import json
 
 
