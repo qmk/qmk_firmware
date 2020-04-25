@@ -446,6 +446,11 @@ void oled_pan(bool left) {
     oled_dirty = ~((OLED_BLOCK_TYPE)0);
 }
 
+char oled_read_raw_byte(uint16_t index) {
+    if (index > OLED_MATRIX_SIZE) index = OLED_MATRIX_SIZE;
+    return oled_buffer[index];
+}
+
 void oled_write_raw_byte(const char data, uint16_t index) {
     if (index > OLED_MATRIX_SIZE) index = OLED_MATRIX_SIZE;
     if (oled_buffer[index] == data) return;
