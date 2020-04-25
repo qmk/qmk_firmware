@@ -15,8 +15,14 @@ from typing import TextIO, List, Dict
 
 qmk_dir = Path(__file__).parent.parent.parent.parent
 
+
 @lru_cache(maxsize=10)
 def system_libs(binary: str):
+    """Find the system include directory that the given build tool uses.
+
+    Only tested on OSX+homebrew so far.
+    """
+
     try:
         return list(Path(check_output(['which', binary]).rstrip().decode()).resolve().parent.parent.glob("*/include"))
     except Exception:
@@ -26,7 +32,14 @@ def system_libs(binary: str):
 file_re = re.compile(r"""printf "Compiling: ([^"]+)""")
 cmd_re = re.compile(r"""LOG=\$\((.+)\&\&""")
 
-def parse_make_n(f: TextIO) -> List[Dict[str,str]]:
+
+def parse_make_n(f: TextIO) -> List[Dict[str, str]]:
+    """parse the output of `make -n <target>`
+
+    This function makes many assumptions about the format of your build log.
+    This happens to work right now for qmk.
+    """
+
     state = 'start'
     this_file = None
     records = []
@@ -49,6 +62,7 @@ def parse_make_n(f: TextIO) -> List[Dict[str,str]]:
                 state = 'start'
 
     return records
+
 
 if __name__ == '__main__':
     with open(sys.argv[1]) as f:
