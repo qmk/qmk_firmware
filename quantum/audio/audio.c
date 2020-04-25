@@ -546,9 +546,20 @@ void audio_decrease_tempo(uint8_t tempo_change) {
 }
 
 
+// TODO in the int-math version are some bugs; songs sometimes abruptly end - maybe an issue with the timer/sysrtem-tick wrapping around?
 uint16_t audio_duration_to_ms(uint16_t duration_bpm) {
+#if defined(__AVR__)
+    // doing int-math saves us some bytes in the overall firmware size, but the intermediate result is less accurate before beeing cast to/returned as uint
+    return ((uint32_t)duration_bpm * 60 * 1000) / (64 * note_tempo);
+    // NOTE: beware of uint16_t overflows when note_tempo is low and/or the duration is long
+#else
     return ((float)duration_bpm * 60 ) / (64 * note_tempo) * 1000;
+#endif
 }
 uint16_t audio_ms_to_duration(uint16_t duration_ms) {
+#if defined(__AVR__)
+    return ((uint32_t)duration_ms * 64 * note_tempo) / 60 / 1000;
+#else
     return ((float)duration_ms * 64 * note_tempo) / 60 / 1000;
+#endif
 }
