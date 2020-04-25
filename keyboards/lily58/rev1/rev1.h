@@ -3,6 +3,7 @@
 #include "lily58.h"
 
 #include "quantum.h"
+#include "split_util.h"
 
 #ifdef RGBLIGHT_ENABLE
 //rgb led driver
