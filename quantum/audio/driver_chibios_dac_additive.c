@@ -258,11 +258,11 @@ void audio_driver_initialize() {
 
 // no inverted/out-of-phase waveform (yet?), only pulling AUDIO_PIN_ALT_x to ground
 #if defined(AUDIO_PIN_ALT_A4) && defined(AUDIO_PIN_ALT_AS_NEGATIVE)
-    palSetLineMode(AUDIO_PIN_ALT_A4, PAL_MODE_OUTPUT_PUSHPULL);
-    palClearLine(AUDIO_PIN_ALT_A4);
+    palSetLineMode(A4, PAL_MODE_OUTPUT_PUSHPULL);
+    palClearLine(A4);
 #elif defined(AUDIO_PIN_ALT_A5) && defined(AUDIO_PIN_ALT_AS_NEGATIVE)
-    palSetLineMode(AUDIO_PIN_ALT_A5, PAL_MODE_OUTPUT_PUSHPULL);
-    palClearLine(AUDIO_PIN_ALT_A5);
+    palSetLineMode(A5, PAL_MODE_OUTPUT_PUSHPULL);
+    palClearLine(A5);
 #endif
 
     /* enable the output buffer, to directly drive external loads with no additional circuitry
