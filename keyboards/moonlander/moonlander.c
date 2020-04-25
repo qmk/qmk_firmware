@@ -25,6 +25,19 @@ keyboard_config_t keyboard_config;
 bool mcp23018_leds[3] = {0, 0, 0};
 bool is_launching = false;
 
+#ifdef DYNAMIC_MACRO_ENABLE
+static bool is_dynamic_recording = false;
+
+void dynamic_macro_record_start_user(void) {
+    is_dynamic_recording = true;
+}
+
+void dynamic_macro_record_end_user(int8_t direction) {
+    is_dynamic_recording = false;
+    ML_LED_3(false);
+}
+#endif
+
 void moonlander_led_task(void) {
     if (is_launching) {
         ML_LED_1(false);
@@ -61,6 +74,14 @@ void moonlander_led_task(void) {
         is_launching = false;
         layer_state_set_kb(layer_state);
     }
+#ifdef DYNAMIC_MACRO_ENABLE
+    else if (is_dynamic_recording) {
+        ML_LED_3(true);
+        wait_ms(100);
+        ML_LED_3(false);
+        wait_ms(155);
+    }
+#endif
 #ifdef WEBUSB_ENABLE
     else if (webusb_state.pairing == true) {
         static uint8_t led_mask;
@@ -107,6 +128,7 @@ void moonlander_led_task(void) {
         wait_ms(150);
     }
 #endif
+
 }
 
 static THD_WORKING_AREA(waLEDThread, 128);
