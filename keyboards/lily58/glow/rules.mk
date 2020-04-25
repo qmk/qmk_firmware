@@ -1,3 +1,3 @@
-SRC += glow/matrix.c
-SRC += glow/split_util.c
-SRC += glow/split_scomm.c
+SRC += rev1/matrix.c
+SRC += rev1/split_util.c
+SRC += rev1/split_scomm.c
