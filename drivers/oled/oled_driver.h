@@ -150,9 +150,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    endif
 #endif
 
-// Moved here to enable sharing with other source files
-extern uint8_t  oled_buffer[OLED_MATRIX_SIZE];
-
 // OLED Rotation enum values are flags
 typedef enum {
     OLED_ROTATION_0   = 0,
@@ -205,6 +202,9 @@ void oled_write_ln(const char *data, bool invert);
 
 // Pans the buffer to the right (or left by passing true) by moving contents of the buffer
 void oled_pan(bool left);
+
+// Returns a single byte of the oled buffer at index
+char oled_read_raw_byte(uint16_t index);
 
 void oled_write_raw(const char *data, uint16_t size);
 void oled_write_raw_byte(const char data, uint16_t index);
