@@ -19,7 +19,7 @@ import json
 @cli.argument('-kb', '--keyboard', help='The keyboard to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't actually build, just show the make command to be run.")
-@cli.argument('-b', '--builddb', arg_only=True, action='store_true',
+@cli.argument('-c', '--compile-commands', arg_only=True, action='store_true',
               help="Does a make clean, then a make -n for this target and uses the dry-run output to create "
               "a compilation database (compile_commands.json). This file can help some IDEs and "
               "IDE-like editors work better. For more information about this: "
@@ -48,7 +48,7 @@ def compile(cli):
     else:
         if cli.config.compile.keyboard and cli.config.compile.keymap:
             # Generate the make command for a specific keyboard/keymap.
-            dry_run = cli.args.builddb
+            dry_run = cli.args.compile_commands
             command = create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap, dry_run=dry_run)
 
         elif not cli.config.compile.keyboard:
@@ -57,7 +57,7 @@ def compile(cli):
             cli.log.error('Could not determine keymap!')
 
     if command:
-        if cli.args.builddb:
+        if cli.args.compile_commands:
             cli.log.info('Making clean')
             subprocess.run(['make', 'clean'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 

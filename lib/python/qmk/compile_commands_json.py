@@ -24,7 +24,7 @@ def system_libs(binary: str):
 
 
 file_re = re.compile(r"""printf "Compiling: ([^"]+)""")
-cmd_re = re.compile(r"""LOG=\$\(([^\)]+)\)""")
+cmd_re = re.compile(r"""LOG=\$\((.+)\&\&""")
 
 def parse_make_n(f: TextIO) -> List[Dict[str,str]]:
     state = 'start'
@@ -43,7 +43,6 @@ def parse_make_n(f: TextIO) -> List[Dict[str,str]]:
                 # we have a hit!
                 this_cmd = m.group(1)
                 args = shlex.split(this_cmd)
-                args = list(takewhile(lambda x: x != '&&', args))
                 args += ['-I%s' % s for s in system_libs(args[0])]
                 new_cmd = ' '.join(shlex.quote(s) for s in args if s != '-mno-thumb-interwork')
                 records.append({"directory": str(qmk_dir), "command": new_cmd, "file": this_file})
