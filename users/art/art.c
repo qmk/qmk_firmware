@@ -5,6 +5,9 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+uint8_t user_mod_state;
+bool mac_alt_tab_on = false;
+
 const char *key_up[2] = {SS_UP(X_LALT), SS_UP(X_LCTL)};
 const char *key_down[2] = {SS_DOWN(X_LALT), SS_DOWN(X_LCTL)};
 
@@ -32,6 +35,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   switch (keycode) {
+    case KC_TAB:
+      if (record->event.pressed && !is_win) {
+        // user_mod_state = get_mods() & MOD_BIT(KC_LALT);
+        if (get_mods() & MOD_BIT(KC_LALT)) {
+          unregister_mods(MOD_BIT(KC_LALT));
+          SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_TAB));
+          mac_alt_tab_on = true;
+          //set_mods(user_mod_state);
+          return false;
+        }
+      }
+      break;
+    case KC_LALT:
+      if (!record->event.pressed && !is_win && mac_alt_tab_on) {
+          SEND_STRING(SS_UP(X_LCTL));
+          mac_alt_tab_on = false;
+          return false;
+      }
+      break;
+
+    /* -------------------------------------------------------------------------
+     *                            CUSTOM KEYCODES
+     * -------------------------------------------------------------------------
+     */ 
     case CTRL_CTV:
       if (record->event.pressed) {
         if ( get_mods() & MOD_MASK_SHIFT ) {
