@@ -328,8 +328,26 @@ bool music_mask_kb(uint16_t keycode) {
 #ifdef ORYX_ENABLE
 static uint16_t loops = 0;
 static bool is_on = false;
+#endif
+
+#ifdef DYNAMIC_MACRO_ENABLE
+static bool is_dynamic_recording = false;
+static uint16_t dynamic_loop_timer;
+
+void dynamic_macro_record_start_user(void) {
+    is_dynamic_recording = true;
+    dynamic_loop_timer = timer_read();
+    planck_ez_left_led_on();
+}
+
+void dynamic_macro_record_end_user(int8_t direction) {
+    is_dynamic_recording = false;
+    layer_state_set_kb(layer_state);
+}
+#endif
 
 void matrix_scan_kb(void) {
+#ifdef ORYX_ENABLE
     if(webusb_state.pairing == true) {
         if(loops == 0) {
           //lights off
@@ -358,5 +376,22 @@ void matrix_scan_kb(void) {
       planck_ez_left_led_off();
       planck_ez_right_led_off();
     }
-}
 #endif
+#ifdef DYNAMIC_MACRO_ENABLE
+    if (is_dynamic_recording) {
+        if (timer_elapsed(dynamic_loop_timer) > 1)
+        {
+            static uint8_t counter;
+            counter++;
+            if (counter > 100) {
+                planck_ez_left_led_on();
+            } else {
+                planck_ez_left_led_off();
+
+            }
+            dynamic_loop_timer = timer_read();
+        }
+    }
+#endif
+    matrix_scan_user();
+}
