@@ -19,7 +19,11 @@ import json
 @cli.argument('-kb', '--keyboard', help='The keyboard to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't actually build, just show the make command to be run.")
-@cli.argument('-b', '--builddb', arg_only=True, action='store_true', help="Does a make clean, then a make -n, and uses the dry-run output to create a compilation database (compile_commands.json). This file can help some IDEs and IDE-like editors work better. For more information about this: https://clang.llvm.org/docs/JSONCompilationDatabase.html")
+@cli.argument('-b', '--builddb', arg_only=True, action='store_true',
+              help="Does a make clean, then a make -n for this target and uses the dry-run output to create "
+              "a compilation database (compile_commands.json). This file can help some IDEs and "
+              "IDE-like editors work better. For more information about this: "
+              "https://clang.llvm.org/docs/JSONCompilationDatabase.html")
 @cli.subcommand('Compile a QMK Firmware.')
 @automagic_keyboard
 @automagic_keymap
