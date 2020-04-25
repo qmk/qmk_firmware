@@ -33,6 +33,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Rows are doubled-up
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 6
+#define DIODE_DIRECTION COL2ROW
+
 
 // wiring of each half
 #define MATRIX_ROW_PINS { F4, F5, B1, B3, D1, D0, D7, E6 }
