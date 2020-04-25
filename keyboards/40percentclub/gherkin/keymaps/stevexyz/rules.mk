@@ -15,9 +15,6 @@ HD44780_ENABLE = no          # Enable support for HD44780 based LCDs (+400)
 TAP_DANCE_ENABLE = no
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend (it uses the same timer as BACKLIGHT_ENABLE)
 
-MCU = atmega32u4
-BOOTLOADER = caterina
 SLEEP_LED_ENABLE = no   # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes           # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 RGBLIGHT_ENABLE = no
-
