@@ -71,6 +71,23 @@ $ qmk compile -kb dz60
 ...
 ```
 
+**Creating a `compile_commands.json`**
+
+Does your IDE/editor use a language server but doesn't _quite_ find all the necessary include files? Do you hate red squigglies? Do you wish your editor could figure out `#include QMK_KEYBOARD_H`? You might need a [compilation database](https://clang.llvm.org/docs/JSONCompilationDatabase.html)! The qmk tool can build this for you. 
+
+**Example:**
+
+```
+$ cd ~/qmk_firmware/keyboards/gh60/satan/keymaps/colemak
+$ qmk compile -c
+Ψ Making clean
+Ψ Gathering build instructions
+Ψ Found 50 compile commands
+Ψ Writing build database to /Users/you/src/qmk_firmware/compile_commands.json
+```
+
+Now open your dev environment and live a squiggly-free life.
+
 ## `qmk flash`
 
 This command is similar to `qmk compile`, but can also target a bootloader. The bootloader is optional, and is set to `:flash` by default.
