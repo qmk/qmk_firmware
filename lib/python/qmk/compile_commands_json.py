@@ -2,11 +2,9 @@
 
 import sys
 import re
-import inspect
 from pathlib import Path
 import json
 import shlex
-from itertools import takewhile
 from functools import lru_cache
 from subprocess import check_output
 
