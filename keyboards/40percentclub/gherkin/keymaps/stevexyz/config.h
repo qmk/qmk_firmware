@@ -1,3 +1,4 @@
+#pragma once
 
 // bootloader (first top leftmost key)
 #define BOOTMAGIC_LITE_ROW 0
