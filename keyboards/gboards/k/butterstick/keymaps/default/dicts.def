@@ -1,0 +1,10 @@
+// Add/Remove dicts in this file
+// At compilation they will all be bundled into the firmware!
+
+#include "dicts/base.def"
+#include "dicts/function.def"
+#include "dicts/media.def"
+#include "dicts/move.def"
+#include "dicts/numbers.def"
+#include "dicts/special.def"
+#include "dicts/symbols.def"

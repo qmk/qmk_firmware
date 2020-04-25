@@ -1,0 +1,26 @@
+// Symbols and Numbers
+KEYS( SYMB | KE | KD,              cmb_lprn,                 {KC_LSFT,KC_9})       // (
+KEYS( SYMB | KR | KF,              cmb_rprn,                 {KC_LSFT,KC_0})       // )
+PRES( SYMB | KT | KG,                                        KC_GRV)                    // `
+KEYS( SYMB | KH | KY,              cmb_hash,                 {KC_LSFT,KC_3})       // #
+KEYS( SYMB | KW | KS,              cmb_doll,                 {KC_LSFT,KC_4})       // $
+KEYS( SYMB | KQ,                   cmb_excl,                 {KC_LSFT,KC_1})       // !
+KEYS( SYMB | KA,                   cmb_perc,                 {KC_LSFT,KC_5})       // %
+KEYS( SYMB | KW,                   cmb_at,                   {KC_LSFT,KC_2})       // @
+KEYS( SYMB | KS,                   cmb_caret,                {KC_LSFT,KC_6})       // ^
+KEYS( SYMB | KE,                   cmb_lbrc,                 {KC_LSFT,KC_LBRC})    // {
+PRES( SYMB | KD,                                             KC_LBRC)
+KEYS( SYMB | KR,                   cmb_rbrc,                 {KC_LSFT,KC_RBRC})    // }
+PRES( SYMB | KF,                                             KC_RBRC)
+KEYS( SYMB | KT,                   cmb_pipe,                 {KC_LSFT,KC_BSLS})    // |
+KEYS( SYMB | KG,                   cmb_tilde,                {KC_LSFT,KC_GRV})     // ~
+PRES( SYMB | KU | KJ,                                        KC_QUOT)
+KEYS( SYMB | KU | KK,              cmb_quot,                 {KC_LSFT,KC_QUOT})    // "
+PRES( SYMB | KY,                                             KC_KP_PLUS)
+KEYS( SYMB | KH,                   cmb_ampr,                 {KC_LSFT,KC_7})       // &
+PRES( SYMB | KU,                                             KC_MINS)
+PRES( SYMB | KJ,                                             KC_EQL)
+PRES( SYMB | KI,                                             KC_SLSH)
+PRES( SYMB | KK,                                             KC_COMM)
+PRES( SYMB | KO,                                             KC_PAST)
+PRES( SYMB | KL,                                             KC_DOT)

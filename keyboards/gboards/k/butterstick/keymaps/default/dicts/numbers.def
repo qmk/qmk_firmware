@@ -1,0 +1,23 @@
+// Number Row, Right
+PRES( NUMB | KQ,                                             KC_1)
+PRES( NUMB | KW,                                             KC_2)
+PRES( NUMB | KE,                                             KC_3)
+PRES( NUMB | KR,                                             KC_4)
+PRES( NUMB | KT,                                             KC_5)
+PRES( NUMB | KY,                                             KC_6)
+PRES( NUMB | KU,                                             KC_7)
+PRES( NUMB | KI,                                             KC_8)
+PRES( NUMB | KO,                                             KC_9)
+PRES( NUMB | KP,                                             KC_0)
+
+// Number Row, Left
+PRES( NUMA | KQ,                                             KC_1)
+PRES( NUMA | KW,                                             KC_2)
+PRES( NUMA | KE,                                             KC_3)
+PRES( NUMA | KR,                                             KC_4)
+PRES( NUMA | KT,                                             KC_5)
+PRES( NUMA | KY,                                             KC_6)
+PRES( NUMA | KU,                                             KC_7)
+PRES( NUMA | KI,                                             KC_8)
+PRES( NUMA | KO,                                             KC_9)
+PRES( NUMA | KP,                                             KC_0)

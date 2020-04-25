@@ -1,0 +1,17 @@
+// Special chords
+SUBS( KQ | KS | KL | KP,               str_ver,              "VERSION __DATE__")
+PRES( KF | KG | KH | KJ,                                     KC_BSPC)
+PRES( KA | KC,                                               KC_SPC)
+
+// Dual chords/Mods
+SPEC( KE | KR,                         SPEC_CLICK,           KC_MS_BTN2)
+SPEC( KT | KY,                         SPEC_CLICK,           KC_MS_BTN1)
+PRES( KQ | KW,                                               KC_ESC)
+PRES( KA | KS,                                               KC_LSFT)
+PRES( KC | KL,                                               KC_LSFT)
+PRES( KG | KH,                                               KC_SPC)
+PRES( KU | KI,                                               KC_LGUI)
+PRES( KO | KP,                                               KC_LCTL)
+PRES( KI | KO,                                               KC_LALT)
+PRES( KQ | KA | KW | KS,                                     KC_LCTL)
+PRES( KL | KO | KP | KC,                                     KC_ENT)

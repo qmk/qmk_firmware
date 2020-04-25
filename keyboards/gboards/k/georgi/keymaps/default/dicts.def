@@ -1,0 +1,6 @@
+// These are the dicts used by Georgi. You can
+// layer in your own and add include your files :)
+
+#include "dicts/base.def"
+#include "dicts/sym.def"
+#include "dicts/others.def"

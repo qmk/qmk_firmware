@@ -1,0 +1,13 @@
+// Function Layer
+PRES( FUNCT | KY,                                            KC_F1)
+PRES( FUNCT | KU,                                            KC_F2)
+PRES( FUNCT | KI,                                            KC_F3)
+PRES( FUNCT | KO,                                            KC_F4)
+PRES( FUNCT | KY | KH,                                       KC_F5)
+PRES( FUNCT | KU | KJ,                                       KC_F6)
+PRES( FUNCT | KI | KK,                                       KC_F7)
+PRES( FUNCT | KO | KL,                                       KC_F8)
+PRES( FUNCT | KH,                                            KC_F9)
+PRES( FUNCT | KJ,                                            KC_F10)
+PRES( FUNCT | KK,                                            KC_F11)
+PRES( FUNCT | KL,                                            KC_F12)
