@@ -119,7 +119,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       } else {
         if (record->event.pressed) {
-          SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_LEFT) SS_UP(X_LCTRL));
+          SEND_STRING(SS_LCTL(SS_TAP(X_LEFT)));
         }
       }
       break;
@@ -132,7 +132,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       } else {
         if (record->event.pressed) {
-          SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_RIGHT) SS_UP(X_LCTRL));
+          SEND_STRING(SS_LCTL(SS_TAP(X_RIGHT)));
         }
       }
       break;
