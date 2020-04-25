@@ -30,7 +30,7 @@ def system_libs(binary: str):
 
 
 file_re = re.compile(r"""printf "Compiling: ([^"]+)""")
-cmd_re = re.compile(r"""LOG=\$\((.+)\&\&""")
+cmd_re = re.compile(r"""LOG=\$\((.+?)\&\&""")
 
 
 def parse_make_n(f: TextIO) -> List[Dict[str, str]]:
