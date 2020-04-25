@@ -56,4 +56,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DEBOUNCE    5
 #define USB_MAX_POWER_CONSUMPTION 500
-#define COMBO_TERM 50
+#define COMBO_TERM 40
