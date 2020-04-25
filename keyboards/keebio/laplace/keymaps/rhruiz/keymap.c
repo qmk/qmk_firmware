@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "rhruiz.h"
-#include "rhruiz_kc_keys.h"
+#include "layouts/kc_keys.h"
 
 #define KC__M DF(_NUM)
 #define KC__BL DF(_BL)

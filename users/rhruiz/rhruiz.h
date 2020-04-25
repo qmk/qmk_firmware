@@ -1,8 +1,10 @@
 #pragma once
+#include "layouts/wrappers.h"
 
 #ifdef OLED_DRIVER_ENABLE
-#include "oled.h"
+#include "oled/oled.h"
 #endif
+
 
 enum rhruiz_layers { _BL, _GAME, _NUM, _KEY_OVERRIDE, _FN1, _FN2, _GAMEFN1, _CFG };
 

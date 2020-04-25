@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "quantum.h"
 #include "rhruiz.h"
-#include "rhruiz_kc_keys.h"
+#include "kc_keys.h"
 
 #define KC_RNUM LT(_NUM, KC_RGHT)
 #define KC_GRAL RGUI_T(KC_LEFT)
