@@ -240,16 +240,8 @@ void keyboard_pre_init_user(void) {
   setPinOutput(B0);
 }
 
-void led_set_user(uint8_t usb_led) {
-  if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-    writePinLow(D5);
-  } else {
-    writePinHigh(D5);
-  }
-
-  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-    writePinLow(B0);
-  } else {
-    writePinHigh(B0);
-  }
+bool led_update_user(led_t led_state) {
+    writePin(D5, !led_state.num_lock);
+    writePin(B0, !led_state.caps_lock);
+    return false; // prevent keyboard from processing state
 }
