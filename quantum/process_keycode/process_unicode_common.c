@@ -52,9 +52,7 @@ void unicode_input_mode_init(void) {
     dprintf("Unicode input mode init to: %u\n", unicode_config.input_mode);
 }
 
-uint8_t get_unicode_input_mode(void) {
-    return unicode_config.input_mode;
-}
+uint8_t get_unicode_input_mode(void) { return unicode_config.input_mode; }
 
 void set_unicode_input_mode(uint8_t mode) {
     unicode_config.input_mode = mode;
@@ -173,6 +171,8 @@ void register_hex32(uint32_t hex) {
     }
 }
 
+// clang-format off
+
 void send_unicode_hex_string(const char *str) {
     if (!str) {
         return;
@@ -199,6 +199,8 @@ void send_unicode_hex_string(const char *str) {
         str += n;  // Move to the first ' ' (or '\0') after the current token
     }
 }
+
+// clang-format on
 
 // Borrowed from https://nullprogram.com/blog/2017/10/06/
 const char *decode_utf8(const char *str, int32_t *code_point) {
@@ -246,6 +248,8 @@ void send_unicode_string(const char *str) {
     }
 }
 
+// clang-format off
+
 static void audio_helper(void) {
 #ifdef AUDIO_ENABLE
     switch (get_unicode_input_mode()) {
@@ -282,6 +286,8 @@ static void audio_helper(void) {
     }
 #endif
 }
+
+// clang-format on
 
 bool process_unicode_common(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
