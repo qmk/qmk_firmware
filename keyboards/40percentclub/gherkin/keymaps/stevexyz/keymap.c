@@ -214,7 +214,7 @@ void matrix_init_user(void) {
   // eeconfig_init(); // reset keyboard to a standard default state; useful when new releases messup with eeprom values
   // set num lock on at start (for numonly layer to work)
   if (!(host_keyboard_leds() & (1<<USB_LED_NUM_LOCK))) {
-      SEND_STRING(SS_TAP(X_NUMLOCK)); //register_code(KC_NUMLOCK); unregister_code(KC_NUMLOCK);
+      tap_code(KC_NUMLOCK);
   }
 }
 
@@ -258,4 +258,3 @@ void led_set_user(uint8_t usb_led) {
     writePinHigh(B0);
   }
 }
-
