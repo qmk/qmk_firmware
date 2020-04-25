@@ -5,7 +5,7 @@
   git diff 0.8.123 HEAD -- docs/feature_hd44780.md | cat
 -->
 
-これは Peter Fleury の LCD ライブラリの統合です。このページは基本について説明します。[詳細なドキュメントについてはこのページをご覧ください](http://homepage.hispeed.ch/peterfleury/doxygen/avr-gcc-libraries/group__pfleury__lcd.html)
+これは Peter Fleury の LCD ライブラリの統合です。このページは基本について説明します。[詳細なドキュメントについてはこのページをご覧ください](http://homepage.hispeed.ch/peterfleury/doxygen/avr-gcc-libraries/group__pfleury__lcd.html) (訳注）原文のリンク先のページは、サービスの終了に伴って削除されています。移行先は (http://www.peterfleury.epizy.com/doxygen/avr-gcc-libraries/group__pfleury__lcd.html) と思われます。
 
 HD44780 ディスプレイのサポートを有効にするには、キーボードの `rules.mk` の `HD44780_ENABLE` フラグを yes に設定します。
 
@@ -42,7 +42,7 @@ HD44780 のラベルが付いたセクションのコメントを外し、必要
 #endif
 ````
 
-他のプロパティを設定する必要がある場合は、それらを `quantum/hd44780.h` からコピーし、`config.h` に設定することができます。
+他のプロパティを設定する必要がある場合は、それらを `quantum/hd44780.h` からコピーし、`config.h` に設定することができます。（訳注）`quantum/hd44780.h` は `drivers/avr/hd44780.h` の間違いではないかと思われます。
 
 ## 使用法
 
