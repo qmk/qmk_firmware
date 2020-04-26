@@ -1,7 +1,8 @@
-# bcat's KBD67 hotswap layout
+# bcat's 65% ANSI blocker split backspace layout
 
-This is a standard 65% keyboard layout, with an HHKB-style (split) backspace
-and media controls in the function layer (centered around the ESDF cluster).
+This is a standard 65% keyboard layout, with a blocker to the left of the arrow
+keys, an HHKB-style (split) backspace, and media controls in the function layer
+(centered around the ESDF cluster).
 
 ## Default layer
 
