@@ -100,6 +100,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef EEPROM_DRIVER
 #    include "eeprom_driver.h"
 #endif
+#ifdef SPLIT_KEYBOARD
+#    include "split_util.h"
+#endif
 
 static uint32_t last_input_modification_time = 0;
 uint32_t        last_input_activity_time(void) { return last_input_modification_time; }
@@ -508,9 +511,16 @@ MATRIX_LOOP_END:
 #endif
 
     // update LED
-    if (led_status != host_keyboard_leds()) {
-        led_status = host_keyboard_leds();
-        keyboard_set_leds(led_status);
+    if (is_keyboard_master()) {
+        if (led_status != host_keyboard_leds()) {
+            led_status = host_keyboard_leds();
+            keyboard_set_leds(led_status);
+        }
+    } else {
+        if (led_status != get_slave_host_leds()) {
+            led_status = get_slave_host_leds();
+            keyboard_set_leds(led_status);
+        }
     }
 }
 
