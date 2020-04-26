@@ -5,8 +5,8 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-bool mac_alt_tab_on = false; //for switching windows
-bool mac_ctrl_tab_on = false; //for switching tabs
+static bool mac_alt_tab_on = false; //for switching windows
+static bool mac_ctrl_on = false; //for switching tabs
 
 static const char *key_up[2] = {SS_UP(X_LALT), SS_UP(X_LCTL)};
 static const char *key_down[2] = {SS_DOWN(X_LALT), SS_DOWN(X_LCTL)};
@@ -49,7 +49,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (get_mods() & mod_state && !mac_alt_tab_on) {
           del_mods(mod_state);
           add_mods(MOD_LGUI);
-          mac_ctrl_tab_on = true;
+          mac_ctrl_on = true;
+        }
+      }
+      break;
+    case KC_LEFT:
+    case KC_RIGHT:
+      if (record->event.pressed && !is_win) {
+        uint8_t mod_state = get_mods() & MOD_MASK_CTRL;
+        if (get_mods() & mod_state) {
+          del_mods(mod_state);
+          add_mods(MOD_LALT);
+          mac_ctrl_on = true;
         }
       }
       break;
@@ -61,24 +72,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
     case KC_LCTL:
-      if (!record->event.pressed && !is_win && mac_ctrl_tab_on) {
+      if (!record->event.pressed && !is_win && mac_ctrl_on) {
         SEND_STRING(SS_UP(X_LGUI) SS_UP(X_LALT));
-        mac_ctrl_tab_on = false;
+        mac_ctrl_on = false;
         return false;
       }
       break;
-    case KC_LEFT:
-    case KC_RIGHT:
-    //case KC_BSPC:
-      if (record->event.pressed && !is_win) {
-        uint8_t mod_state = get_mods() & MOD_MASK_CTRL;
-        if (get_mods() & mod_state) {
-          del_mods(mod_state);
-          add_mods(MOD_LALT);
-          mac_ctrl_tab_on = true;
-        }
-      }
-      break;
+
     case KC_HOME:
       if (record->event.pressed && !is_win) {
         SEND_STRING(SS_LCTL(SS_TAP(X_LEFT)));
@@ -126,6 +126,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case N_BSPACE:
       if (record->event.pressed) {
+        if (!is_win) {
+          uint8_t mod_state = get_mods() & MOD_MASK_CTRL;
+          if (get_mods() & mod_state) {
+            del_mods(mod_state);
+            add_mods(MOD_LALT);
+            mac_ctrl_on = true;
+          }
+        }
+
         backspace_n_times(char_to_del);
         char_to_del = 1;
       }
@@ -136,7 +145,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         is_win = ! is_win;
       }
       break;
-          case CTR_ALT:
+    case CTR_ALT:
       if (record->event.pressed) {
         send_string(key_down[is_win]);
       } else {
