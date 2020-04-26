@@ -85,6 +85,8 @@
     { K40, K41,   KC_NO, K43, KC_NO, KC_NO, K46, KC_NO, KC_NO, KC_NO, K4A, K4B, KC_NO, K4D,   K4E,   K4F }, \
 }
 
+#define LAYOUT_65_ansi_blocker_split_bs LAYOUT_65_ansi_blocker_splitbs
+
 #define LAYOUT_65_iso( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C,      K0E, K0F, \
     K10,      K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C,      K1E, K1F, \
