@@ -53,15 +53,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PIN D0
 // #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 3
+#define BACKLIGHT_ON_STATE 0
 
-// #define RGB_DI_PIN E2
-// #ifdef RGB_DI_PIN
-// #define RGBLIGHT_ANIMATIONS
-// #define RGBLED_NUM 16
-// #define RGBLIGHT_HUE_STEP 8
-// #define RGBLIGHT_SAT_STEP 8
-// #define RGBLIGHT_VAL_STEP 8
-// #endif
+#define RGB_DI_PIN B7
+#ifdef RGB_DI_PIN
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 14
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8
+#endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5

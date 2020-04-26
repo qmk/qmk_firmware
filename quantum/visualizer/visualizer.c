@@ -26,26 +26,26 @@ SOFTWARE.
 #include "visualizer.h"
 #include <string.h>
 #ifdef PROTOCOL_CHIBIOS
-#include "ch.h"
+#    include "ch.h"
 #endif
 
 #include "gfx.h"
 
 #ifdef LCD_BACKLIGHT_ENABLE
-#include "lcd_backlight.h"
+#    include "lcd_backlight.h"
 #endif
 
 //#define DEBUG_VISUALIZER
 
 #ifdef DEBUG_VISUALIZER
-#include "debug.h"
+#    include "debug.h"
 #else
-#include "nodebug.h"
+#    include "nodebug.h"
 #endif
 
 #ifdef SERIAL_LINK_ENABLE
-#include "serial_link/protocol/transport.h"
-#include "serial_link/system/serial_link.h"
+#    include "serial_link/protocol/transport.h"
+#    include "serial_link/system/serial_link.h"
 #endif
 
 #include "action_util.h"
@@ -53,36 +53,31 @@ SOFTWARE.
 // Define this in config.h
 #ifndef VISUALIZER_THREAD_PRIORITY
 // The visualizer needs gfx thread priorities
-#define VISUALIZER_THREAD_PRIORITY (NORMAL_PRIORITY - 2)
+#    define VISUALIZER_THREAD_PRIORITY (NORMAL_PRIORITY - 2)
 #endif
 
-static visualizer_keyboard_status_t current_status = {
-    .layer = 0xFFFFFFFF,
-    .default_layer = 0xFFFFFFFF,
-    .leds = 0xFFFFFFFF,
+static visualizer_keyboard_status_t current_status = {.layer         = 0xFFFFFFFF,
+                                                      .default_layer = 0xFFFFFFFF,
+                                                      .leds          = 0xFFFFFFFF,
 #ifdef BACKLIGHT_ENABLE
-    .backlight_level = 0,
+                                                      .backlight_level = 0,
 #endif
-    .mods = 0xFF,
-    .suspended = false,
+                                                      .mods      = 0xFF,
+                                                      .suspended = false,
 #ifdef VISUALIZER_USER_DATA_SIZE
-    .user_data = {0}
+                                                      .user_data = {0}
 #endif
 };
 
 static bool same_status(visualizer_keyboard_status_t* status1, visualizer_keyboard_status_t* status2) {
-    return status1->layer == status2->layer &&
-        status1->default_layer == status2->default_layer &&
-        status1->mods == status2->mods &&
-        status1->leds == status2->leds &&
-        status1->suspended == status2->suspended
+    return status1->layer == status2->layer && status1->default_layer == status2->default_layer && status1->mods == status2->mods && status1->leds == status2->leds && status1->suspended == status2->suspended
 #ifdef BACKLIGHT_ENABLE
-        && status1->backlight_level == status2->backlight_level
+           && status1->backlight_level == status2->backlight_level
 #endif
 #ifdef VISUALIZER_USER_DATA_SIZE
-        && memcmp(status1->user_data, status2->user_data, VISUALIZER_USER_DATA_SIZE) == 0
+           && memcmp(status1->user_data, status2->user_data, VISUALIZER_USER_DATA_SIZE) == 0
 #endif
-    ;
+        ;
 }
 
 static bool visualizer_enabled = false;
@@ -107,44 +102,38 @@ GDisplay* LCD_DISPLAY = 0;
 GDisplay* LED_DISPLAY = 0;
 
 #ifdef LCD_DISPLAY_NUMBER
-__attribute__((weak))
-GDisplay* get_lcd_display(void) {
-    return gdispGetDisplay(LCD_DISPLAY_NUMBER);
-}
+__attribute__((weak)) GDisplay* get_lcd_display(void) { return gdispGetDisplay(LCD_DISPLAY_NUMBER); }
 #endif
 
 #ifdef LED_DISPLAY_NUMBER
-__attribute__((weak))
-GDisplay* get_led_display(void) {
-    return gdispGetDisplay(LED_DISPLAY_NUMBER);
-}
+__attribute__((weak)) GDisplay* get_led_display(void) { return gdispGetDisplay(LED_DISPLAY_NUMBER); }
 #endif
 
 void start_keyframe_animation(keyframe_animation_t* animation) {
-    animation->current_frame = -1;
+    animation->current_frame      = -1;
     animation->time_left_in_frame = 0;
-    animation->need_update = true;
-    int free_index = -1;
-    for (int i=0;i<MAX_SIMULTANEOUS_ANIMATIONS;i++) {
+    animation->need_update        = true;
+    int free_index                = -1;
+    for (int i = 0; i < MAX_SIMULTANEOUS_ANIMATIONS; i++) {
         if (animations[i] == animation) {
             return;
         }
         if (free_index == -1 && animations[i] == NULL) {
-           free_index=i;
+            free_index = i;
         }
     }
-    if (free_index!=-1) {
+    if (free_index != -1) {
         animations[free_index] = animation;
     }
 }
 
 void stop_keyframe_animation(keyframe_animation_t* animation) {
-    animation->current_frame = animation->num_frames;
-    animation->time_left_in_frame = 0;
-    animation->need_update = true;
+    animation->current_frame         = animation->num_frames;
+    animation->time_left_in_frame    = 0;
+    animation->need_update           = true;
     animation->first_update_of_frame = false;
-    animation->last_update_of_frame = false;
-    for (int i=0;i<MAX_SIMULTANEOUS_ANIMATIONS;i++) {
+    animation->last_update_of_frame  = false;
+    for (int i = 0; i < MAX_SIMULTANEOUS_ANIMATIONS; i++) {
         if (animations[i] == animation) {
             animations[i] = NULL;
             return;
@@ -153,21 +142,21 @@ void stop_keyframe_animation(keyframe_animation_t* animation) {
 }
 
 void stop_all_keyframe_animations(void) {
-    for (int i=0;i<MAX_SIMULTANEOUS_ANIMATIONS;i++) {
+    for (int i = 0; i < MAX_SIMULTANEOUS_ANIMATIONS; i++) {
         if (animations[i]) {
-            animations[i]->current_frame = animations[i]->num_frames;
-            animations[i]->time_left_in_frame = 0;
-            animations[i]->need_update = true;
+            animations[i]->current_frame         = animations[i]->num_frames;
+            animations[i]->time_left_in_frame    = 0;
+            animations[i]->need_update           = true;
             animations[i]->first_update_of_frame = false;
-            animations[i]->last_update_of_frame = false;
-            animations[i] = NULL;
+            animations[i]->last_update_of_frame  = false;
+            animations[i]                        = NULL;
         }
     }
 }
 
 static uint8_t get_num_running_animations(void) {
     uint8_t count = 0;
-    for (int i=0;i<MAX_SIMULTANEOUS_ANIMATIONS;i++) {
+    for (int i = 0; i < MAX_SIMULTANEOUS_ANIMATIONS; i++) {
         count += animations[i] ? 1 : 0;
     }
     return count;
@@ -175,46 +164,44 @@ static uint8_t get_num_running_animations(void) {
 
 static bool update_keyframe_animation(keyframe_animation_t* animation, visualizer_state_t* state, systemticks_t delta, systemticks_t* sleep_time) {
     // TODO: Clean up this messy code
-    dprintf("Animation frame%d, left %d, delta %d\n", animation->current_frame,
-            animation->time_left_in_frame, delta);
+    dprintf("Animation frame%d, left %d, delta %d\n", animation->current_frame, animation->time_left_in_frame, delta);
     if (animation->current_frame == animation->num_frames) {
         animation->need_update = false;
         return false;
     }
     if (animation->current_frame == -1) {
-       animation->current_frame = 0;
-       animation->time_left_in_frame = animation->frame_lengths[0];
-       animation->need_update = true;
-       animation->first_update_of_frame = true;
+        animation->current_frame         = 0;
+        animation->time_left_in_frame    = animation->frame_lengths[0];
+        animation->need_update           = true;
+        animation->first_update_of_frame = true;
     } else {
         animation->time_left_in_frame -= delta;
         while (animation->time_left_in_frame <= 0) {
             int left = animation->time_left_in_frame;
             if (animation->need_update) {
-                animation->time_left_in_frame = 0;
+                animation->time_left_in_frame   = 0;
                 animation->last_update_of_frame = true;
                 (*animation->frame_functions[animation->current_frame])(animation, state);
                 animation->last_update_of_frame = false;
             }
             animation->current_frame++;
-            animation->need_update = true;
+            animation->need_update           = true;
             animation->first_update_of_frame = true;
             if (animation->current_frame == animation->num_frames) {
                 if (animation->loop) {
                     animation->current_frame = 0;
-                }
-                else {
+                } else {
                     stop_keyframe_animation(animation);
                     return false;
                 }
             }
-            delta = -left;
+            delta                         = -left;
             animation->time_left_in_frame = animation->frame_lengths[animation->current_frame];
             animation->time_left_in_frame -= delta;
         }
     }
     if (animation->need_update) {
-        animation->need_update = (*animation->frame_functions[animation->current_frame])(animation, state);
+        animation->need_update           = (*animation->frame_functions[animation->current_frame])(animation, state);
         animation->first_update_of_frame = false;
     }
 
@@ -231,13 +218,13 @@ void run_next_keyframe(keyframe_animation_t* animation, visualizer_state_t* stat
     if (next_frame == animation->num_frames) {
         next_frame = 0;
     }
-    keyframe_animation_t temp_animation = *animation;
-    temp_animation.current_frame = next_frame;
-    temp_animation.time_left_in_frame = animation->frame_lengths[next_frame];
+    keyframe_animation_t temp_animation  = *animation;
+    temp_animation.current_frame         = next_frame;
+    temp_animation.time_left_in_frame    = animation->frame_lengths[next_frame];
     temp_animation.first_update_of_frame = true;
-    temp_animation.last_update_of_frame = false;
-    temp_animation.need_update  = false;
-    visualizer_state_t temp_state = *state;
+    temp_animation.last_update_of_frame  = false;
+    temp_animation.need_update           = false;
+    visualizer_state_t temp_state        = *state;
     (*temp_animation.frame_functions[next_frame])(&temp_animation, &temp_state);
 }
 
@@ -252,70 +239,64 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
 
     visualizer_keyboard_status_t initial_status = {
         .default_layer = 0xFFFFFFFF,
-        .layer = 0xFFFFFFFF,
-        .mods = 0xFF,
-        .leds = 0xFFFFFFFF,
-        .suspended = false,
-    #ifdef BACKLIGHT_ENABLE
+        .layer         = 0xFFFFFFFF,
+        .mods          = 0xFF,
+        .leds          = 0xFFFFFFFF,
+        .suspended     = false,
+#ifdef BACKLIGHT_ENABLE
         .backlight_level = 0,
-    #endif
-    #ifdef VISUALIZER_USER_DATA_SIZE
+#endif
+#ifdef VISUALIZER_USER_DATA_SIZE
         .user_data = {0},
-    #endif
+#endif
     };
 
-    visualizer_state_t state = {
-        .status = initial_status,
-        .current_lcd_color = 0,
+    visualizer_state_t state = {.status            = initial_status,
+                                .current_lcd_color = 0,
 #ifdef LCD_ENABLE
-        .font_fixed5x8 = gdispOpenFont("fixed_5x8"),
-        .font_dejavusansbold12 = gdispOpenFont("DejaVuSansBold12")
+                                .font_fixed5x8         = gdispOpenFont("fixed_5x8"),
+                                .font_dejavusansbold12 = gdispOpenFont("DejaVuSansBold12")
 #endif
     };
     initialize_user_visualizer(&state);
     state.prev_lcd_color = state.current_lcd_color;
 
 #ifdef LCD_BACKLIGHT_ENABLE
-    lcd_backlight_color(
-            LCD_HUE(state.current_lcd_color),
-            LCD_SAT(state.current_lcd_color),
-            LCD_INT(state.current_lcd_color));
+    lcd_backlight_color(LCD_HUE(state.current_lcd_color), LCD_SAT(state.current_lcd_color), LCD_INT(state.current_lcd_color));
 #endif
 
-    systemticks_t sleep_time = TIME_INFINITE;
+    systemticks_t sleep_time   = TIME_INFINITE;
     systemticks_t current_time = gfxSystemTicks();
-    bool force_update = true;
+    bool          force_update = true;
 
-    while(true) {
+    while (true) {
         systemticks_t new_time = gfxSystemTicks();
-        systemticks_t delta = new_time - current_time;
-        current_time = new_time;
-        bool enabled = visualizer_enabled;
+        systemticks_t delta    = new_time - current_time;
+        current_time           = new_time;
+        bool enabled           = visualizer_enabled;
         if (force_update || !same_status(&state.status, &current_status)) {
             force_update = false;
-    #if BACKLIGHT_ENABLE
-            if(current_status.backlight_level != state.status.backlight_level) {
+#if BACKLIGHT_ENABLE
+            if (current_status.backlight_level != state.status.backlight_level) {
                 if (current_status.backlight_level != 0) {
                     gdispGSetPowerMode(LED_DISPLAY, powerOn);
                     uint16_t percent = (uint16_t)current_status.backlight_level * 100 / BACKLIGHT_LEVELS;
                     gdispGSetBacklight(LED_DISPLAY, percent);
-                }
-                else {
+                } else {
                     gdispGSetPowerMode(LED_DISPLAY, powerOff);
                 }
                 state.status.backlight_level = current_status.backlight_level;
             }
-    #endif
+#endif
             if (visualizer_enabled) {
                 if (current_status.suspended) {
                     stop_all_keyframe_animations();
                     visualizer_enabled = false;
-                    state.status = current_status;
+                    state.status       = current_status;
                     user_visualizer_suspend(&state);
-                }
-                else {
+                } else {
                     visualizer_keyboard_status_t prev_status = state.status;
-                    state.status = current_status;
+                    state.status                             = current_status;
                     update_user_visualizer_state(&state, &prev_status);
                 }
                 state.prev_lcd_color = state.current_lcd_color;
@@ -324,14 +305,14 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
         if (!enabled && state.status.suspended && current_status.suspended == false) {
             // Setting the status to the initial status will force an update
             // when the visualizer is enabled again
-            state.status = initial_status;
+            state.status           = initial_status;
             state.status.suspended = false;
             stop_all_keyframe_animations();
             user_visualizer_resume(&state);
             state.prev_lcd_color = state.current_lcd_color;
         }
         sleep_time = TIME_INFINITE;
-        for (int i=0;i<MAX_SIMULTANEOUS_ANIMATIONS;i++) {
+        for (int i = 0; i < MAX_SIMULTANEOUS_ANIMATIONS; i++) {
             if (animations[i]) {
                 update_keyframe_animation(animations[i], &state, delta, &sleep_time);
             }
@@ -350,17 +331,16 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
         // Enable the visualizer when the startup or the suspend animation has finished
         if (!visualizer_enabled && state.status.suspended == false && get_num_running_animations() == 0) {
             visualizer_enabled = true;
-            force_update = true;
-            sleep_time = 0;
+            force_update       = true;
+            sleep_time         = 0;
         }
 
         systemticks_t after_update = gfxSystemTicks();
-        unsigned update_delta = after_update - current_time;
+        unsigned      update_delta = after_update - current_time;
         if (sleep_time != TIME_INFINITE) {
             if (sleep_time > update_delta) {
                 sleep_time -= update_delta;
-            }
-            else {
+            } else {
                 sleep_time = 0;
             }
         }
@@ -372,7 +352,7 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
 
         // On windows the system ticks is the same as milliseconds anyway
         if (sleep_time != TIME_INFINITE) {
-            sleep_time = ST2MS(sleep_time);
+            sleep_time = TIME_I2MS(sleep_time);
         }
 #endif
         geventEventWait(&event_listener, sleep_time);
@@ -388,26 +368,25 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
 void visualizer_init(void) {
     gfxInit();
 
-  #ifdef LCD_BACKLIGHT_ENABLE
+#ifdef LCD_BACKLIGHT_ENABLE
     lcd_backlight_init();
-  #endif
+#endif
 
-  #ifdef SERIAL_LINK_ENABLE
-    add_remote_objects(remote_objects, sizeof(remote_objects) / sizeof(remote_object_t*) );
-  #endif
+#ifdef SERIAL_LINK_ENABLE
+    add_remote_objects(remote_objects, sizeof(remote_objects) / sizeof(remote_object_t*));
+#endif
 
-  #ifdef LCD_ENABLE
+#ifdef LCD_ENABLE
     LCD_DISPLAY = get_lcd_display();
-  #endif
+#endif
 
-  #ifdef BACKLIGHT_ENABLE
+#ifdef BACKLIGHT_ENABLE
     LED_DISPLAY = get_led_display();
-  #endif
+#endif
 
     // We are using a low priority thread, the idea is to have it run only
     // when the main thread is sleeping during the matrix scanning
-  gfxThreadCreate(visualizerThreadStack, sizeof(visualizerThreadStack),
-                  VISUALIZER_THREAD_PRIORITY, visualizerThread, NULL);
+    gfxThreadCreate(visualizerThreadStack, sizeof(visualizerThreadStack), VISUALIZER_THREAD_PRIORITY, visualizerThread, NULL);
 }
 
 void update_status(bool changed) {
@@ -418,36 +397,34 @@ void update_status(bool changed) {
         }
     }
 #ifdef SERIAL_LINK_ENABLE
-    static systime_t last_update = 0;
-    systime_t current_update = chVTGetSystemTimeX();
-    systime_t delta = current_update - last_update;
-    if (changed || delta > MS2ST(10)) {
-        last_update = current_update;
+    static systime_t last_update    = 0;
+    systime_t        current_update = chVTGetSystemTimeX();
+    systime_t        delta          = current_update - last_update;
+    if (changed || delta > TIME_MS2I(10)) {
+        last_update                     = current_update;
         visualizer_keyboard_status_t* r = begin_write_current_status();
-        *r = current_status;
+        *r                              = current_status;
         end_write_current_status();
     }
 #endif
 }
 
 uint8_t visualizer_get_mods() {
-  uint8_t mods = get_mods();
+    uint8_t mods = get_mods();
 
 #ifndef NO_ACTION_ONESHOT
-  if (!has_oneshot_mods_timed_out()) {
-    mods |= get_oneshot_mods();
-  }
-#endif  
-  return mods;
+    if (!has_oneshot_mods_timed_out()) {
+        mods |= get_oneshot_mods();
+    }
+#endif
+    return mods;
 }
 
 #ifdef VISUALIZER_USER_DATA_SIZE
-void visualizer_set_user_data(void* u) {
-    memcpy(user_data, u, VISUALIZER_USER_DATA_SIZE);
-}
+void visualizer_set_user_data(void* u) { memcpy(user_data, u, VISUALIZER_USER_DATA_SIZE); }
 #endif
 
-void visualizer_update(uint32_t default_state, uint32_t state, uint8_t mods, uint32_t leds) {
+void visualizer_update(layer_state_t default_state, layer_state_t state, uint8_t mods, uint32_t leds) {
     // Note that there's a small race condition here, the thread could read
     // a state where one of these are set but not the other. But this should
     // not really matter as it will be fixed during the next loop step.
@@ -455,34 +432,33 @@ void visualizer_update(uint32_t default_state, uint32_t state, uint8_t mods, uin
 
     bool changed = false;
 #ifdef SERIAL_LINK_ENABLE
-    if (is_serial_link_connected ()) {
+    if (is_serial_link_connected()) {
         visualizer_keyboard_status_t* new_status = read_current_status();
         if (new_status) {
             if (!same_status(&current_status, new_status)) {
-                changed = true;
+                changed        = true;
                 current_status = *new_status;
             }
         }
-    }
-    else {
+    } else {
 #else
-   {
+    {
 #endif
         visualizer_keyboard_status_t new_status = {
-            .layer = state,
+            .layer         = state,
             .default_layer = default_state,
-            .mods = mods,
-            .leds = leds,
+            .mods          = mods,
+            .leds          = leds,
 #ifdef BACKLIGHT_ENABLE
             .backlight_level = current_status.backlight_level,
 #endif
             .suspended = current_status.suspended,
         };
 #ifdef VISUALIZER_USER_DATA_SIZE
-       memcpy(new_status.user_data, user_data, VISUALIZER_USER_DATA_SIZE);
+        memcpy(new_status.user_data, user_data, VISUALIZER_USER_DATA_SIZE);
 #endif
         if (!same_status(&current_status, &new_status)) {
-            changed = true;
+            changed        = true;
             current_status = new_status;
         }
     }

@@ -6,3 +6,4 @@ Emulates original keymap with modifications for:
 - Grave key(s)
 - Reset on the function layer
 - Mouse keys ala Tada68
+- A layer for playing with Colemak

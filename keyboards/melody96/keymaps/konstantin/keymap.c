@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "konstantin.h"
 
-static const HSV *colors[] = { &GODSPEED_BLUE, &GODSPEED_YELLOW };
+static const HSV *colors[] = { &godspeed_blue, &godspeed_yellow };
 static const size_t cnum = sizeof colors / sizeof *colors;
 static size_t cidx = 0;
 
@@ -20,11 +20,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             cidx = (cidx + 1) % cnum;
             rgblight_sethsv(colors[cidx]->h, colors[cidx]->s, colors[cidx]->v);
         }
-        return false;
-
-    default:
-        return true;
+        break;
     }
+
+    return true;
 }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -40,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┼───┼───┼───┤
      * │LSft│RAG│ Z │ X │ C │ V │ B │ N │ M │ , │ . │ / │RSfRCt│ ↑ │P1 │P2 │P3 │   │
      * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┴┬──┴──┬───┼───┼───┼───┼───┤PEn│
-     * │LCtl│LGui│LAlt│         Space          │RAlGu│FnLk │ ← │ ↓ │ → │P0 │P. │   │
+     * │LCtl│LGui│LAlt│         Space          │RAlGu│FnFLk│ ← │ ↓ │ → │P0 │P. │   │
      * └────┴────┴────┴────────────────────────┴─────┴─────┴───┴───┴───┴───┴───┴───┘
      */
     [L_BASE] = LAYOUT(
@@ -52,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             RAL_RGU, XXXXXXX, FN_FNLK, KC_LEFT, KC_DOWN, KC_RGHT, KC_P0,   KC_PDOT, KC_PENT
     ),
 
-    /* Function layer
+    /* Fn layer
      * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
      * │   │   │   │   │   │   │   │   │   │   │   │   │   │Sys│SLk│Pau│Brk│Top│Btm│
      * ├───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┤
@@ -68,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┴───┴───┴───┴───┘
      */
     [L_FN] = LAYOUT(
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_SYSR, KC_SLCK, KC_PAUS, KC_BRK,  TOP,     BOTTOM,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, SYSRQ,   KC_SLCK, KC_PAUS, BREAK,   TOP,     BOTTOM,
         _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, RGB_TOG, DIVIDE,  TIMES,   MINUS,
         KC_BTN4, KC_BTN2, KC_MS_U, KC_BTN1, KC_BTN3, KC_BTN5, _______, UC_MOD,  _______, KC_MSTP, KC_MPLY, KC_MPRV, KC_MNXT, CLEAR,            RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX,
         _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_U, _______, _______, _______, _______, _______, _______, _______, _______,                   RGB_HUD, RGB_SAD, RGB_VAD, RGB_SET,

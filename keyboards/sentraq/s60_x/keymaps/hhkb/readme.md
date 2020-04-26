@@ -1,4 +1,4 @@
-﻿### 7. HHKB
+### 7. HHKB
 [keymap.c](keymap.c) emulates original HHKB layers.
 #### 7.0: Default layer
     ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐

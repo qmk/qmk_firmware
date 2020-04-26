@@ -26,7 +26,6 @@
 #define MATRIX_ROW_PINS { A3, B8, B9, B1 }
 #define MATRIX_COL_PINS { A7, A8, B2, B10 }
 
-#define NUMBER_OF_ENCODERS 1
 #define ENCODERS_PAD_A { B13 }
 #define ENCODERS_PAD_B { B14 }
 
@@ -142,7 +141,7 @@
 #define FB_LOOPGAIN 1 /* For  Low:0, Medium:1, High:2, Very High:3 */
 
 /* default 3V ERM vibration motor voltage and library*/
-#if FB_ERM_LRA == 0 
+#if FB_ERM_LRA == 0
 #define RATED_VOLTAGE 3
 #define V_RMS 2.3
 #define V_PEAK 3.30
@@ -193,4 +192,3 @@
 #define RGB_MATRIX_KEYPRESSES
 
 #define SOLENOID_PIN A14
-

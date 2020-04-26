@@ -1,4 +1,4 @@
-﻿### 4. Plain
+### 4. Plain
 Without any Fn layer this will be useful if you want to use key remapping tool like AHK on host.
 See [keymap.c](keymap.c) for detail.
 

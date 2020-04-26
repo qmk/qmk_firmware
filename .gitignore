@@ -24,8 +24,9 @@ quantum/version.h
 .idea/
 CMakeLists.txt
 cmake-build-debug
+.clang_complete
 doxygen/
-.DS_STORE
+.DS_Store
 /util/wsl_downloaded
 /util/win_downloaded
 /keyboards/*/Makefile
@@ -47,7 +48,6 @@ doxygen/
 *.iml
 .browse.VC.db*
 *.stackdump
-util/Win_Check_Output.txt
 # Let these ones be user specific, since we have so many different configurations
 .vscode/c_cpp_properties.json
 .vscode/launch.json
@@ -60,13 +60,16 @@ util/Win_Check_Output.txt
 
 # ignore image files
 *.png
-*.jpg
 *.gif
-
-# Do not ignore MiniDox left/right hand eeprom files
-!keyboards/minidox/*.eep
+*.jpg
 
 # things travis sees
 secrets.tar
 id_rsa_*
 /.vs
+
+# python things
+__pycache__
+
+# prerequisites for updating ChibiOS
+/util/fmpp*

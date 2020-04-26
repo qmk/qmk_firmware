@@ -1,16 +1,16 @@
 # Glossary of QMK Terms
 
 ## ARM
-A line of 32-bit MCU's produced by a number of companies, such as Atmel, Cypress, Kinetis, NXP, ST, and TI.
+A line of 32-bit MCUs produced by a number of companies, such as Atmel, Cypress, Kinetis, NXP, ST, and TI.
 
 ## AVR
-A line of 8-bit MCU's produced by [Atmel](http://www.microchip.com/). AVR was the original platform that TMK supported.
+A line of 8-bit MCUs produced by [Atmel](http://www.microchip.com/). AVR was the original platform that TMK supported.
 
 ## AZERTY
 The standard Français (French) keyboard layout. Named for the first 6 keys on the keyboard.
 
 ## Backlight
-A generic term for lighting on a keyboard. The backlight is typically, but not always, an array of LED's that shine through keycaps and/or switches.
+A generic term for lighting on a keyboard. The backlight is typically, but not always, an array of LEDs that shine through keycaps and/or switches.
 
 ## Bluetooth
 A short range peer to peer wireless protocol. Most common wireless protocol for a keyboard.
@@ -45,9 +45,6 @@ An IDE that is popular with many C developers.
 
 ## Firmware
 The software that controls your MCU.
-
-## FLIP
-Software provided by Atmel for flashing AVR devices. We generally recommend [QMK Flasher](https://github.com/qmk/qmk_flasher) instead, but for some advanced use cases FLIP is required.
 
 ## git
 Versioning software used at the command line
@@ -147,7 +144,7 @@ A feature that lets you assign multiple keycodes to the same key based on how ma
 A low-cost AVR development board that is commonly used for hand-wired builds. A teensy is often chosen despite costing a few dollars more due to its halfkay bootloader, which makes flashing very simple.
 
 ## Underlight
-A generic term for LEDs that light the underside of the board. These LED's typically shine away from the bottom of the PCB and towards the surface the keyboard rests on.
+A generic term for LEDs that light the underside of the board. These LEDs typically shine away from the bottom of the PCB and towards the surface the keyboard rests on.
 
 ## Unicode
 In the larger computer world Unicode is a set of encoding schemes for representing characters in any language. As it relates to QMK it means using various OS schemes to send unicode codepoints instead of scancodes.

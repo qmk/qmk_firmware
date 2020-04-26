@@ -1,1 +1,1 @@
-# The default keymap for kinesis-advantage
+This is a german keymap for the Kinesis Advantage.

@@ -21,12 +21,14 @@ COMPILEFLAGS += -fdata-sections
 COMPILEFLAGS += -fpack-struct
 COMPILEFLAGS += -fshort-enums
 
-CFLAGS += $(COMPILEFLAGS)
+ASFLAGS += $(AVR_ASFLAGS)
+
+CFLAGS += $(COMPILEFLAGS) $(AVR_CFLAGS)
 CFLAGS += -fno-inline-small-functions
 CFLAGS += -fno-strict-aliasing
 
-CPPFLAGS += $(COMPILEFLAGS)
-CPPFLAGS += -fno-exceptions -std=c++11
+CXXFLAGS += $(COMPILEFLAGS)
+CXXFLAGS += -fno-exceptions -std=c++11
 
 LDFLAGS +=-Wl,--gc-sections
 
@@ -89,77 +91,53 @@ DEBUG_HOST = localhost
 #============================================================================
 # Autodetect teensy loader
 ifndef TEENSY_LOADER_CLI
-    ifneq (, $(shell which teensy-loader-cli 2>/dev/null))
-        TEENSY_LOADER_CLI ?= teensy-loader-cli
-    else
-        TEENSY_LOADER_CLI ?= teensy_loader_cli
-    endif
+	ifneq (, $(shell which teensy-loader-cli 2>/dev/null))
+		TEENSY_LOADER_CLI ?= teensy-loader-cli
+	else
+		TEENSY_LOADER_CLI ?= teensy_loader_cli
+	endif
 endif
 
-# Generate a .qmk for the QMK-FF
-qmk: $(BUILD_DIR)/$(TARGET).hex
-	zip $(TARGET).qmk -FSrj $(KEYMAP_PATH)/*
-	zip $(TARGET).qmk -u $<
-	printf "@ $<\n@=firmware.hex\n" | zipnote -w $(TARGET).qmk
-	printf "{\n  \"generated\": \"%s\"\n}" "$$(date)" > $(BUILD_DIR)/$(TARGET).json
-	if [ -f $(KEYBOARD_PATH_5)/info.json ]; then \
-		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_5)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
-	fi
-	if [ -f $(KEYBOARD_PATH_4)/info.json ]; then \
-		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_4)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
-	fi
-	if [ -f $(KEYBOARD_PATH_3)/info.json ]; then \
-		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_3)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
-	fi
-	if [ -f $(KEYBOARD_PATH_2)/info.json ]; then \
-		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_2)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
-	fi
-	if [ -f $(KEYBOARD_PATH_1)/info.json ]; then \
-		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_1)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
-	fi
-	zip $(TARGET).qmk -urj $(BUILD_DIR)/$(TARGET).json
-	printf "@ $(TARGET).json\n@=info.json\n" | zipnote -w $(TARGET).qmk
-
-# Program the device.
-program: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep check-size
-	$(PROGRAM_CMD)
+define EXEC_TEENSY
+	$(TEENSY_LOADER_CLI) -mmcu=$(MCU) -w -v $(BUILD_DIR)/$(TARGET).hex
+endef
 
 teensy: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
-	$(TEENSY_LOADER_CLI) -mmcu=$(MCU) -w -v $(BUILD_DIR)/$(TARGET).hex
-
-BATCHISP ?= batchisp
-
-flip: $(BUILD_DIR)/$(TARGET).hex check-size
-	$(BATCHISP) -hardware usb -device $(MCU) -operation erase f
-	$(BATCHISP) -hardware usb -device $(MCU) -operation loadbuffer $(BUILD_DIR)/$(TARGET).hex program
-	$(BATCHISP) -hardware usb -device $(MCU) -operation start reset 0
+	$(call EXEC_TEENSY)
 
 DFU_PROGRAMMER ?= dfu-programmer
 GREP ?= grep
 
-dfu: $(BUILD_DIR)/$(TARGET).hex cpfirmware check-size
+
+define EXEC_DFU
+	if [ "$(1)" ]; then \
+		echo "Flashing '$(1)' for EE_HANDS split keyboard support." ;\
+	fi; \
 	until $(DFU_PROGRAMMER) $(MCU) get bootloader-version; do\
-		echo "Error: Bootloader not found. Trying again in 5s." ;\
+		printf "$(MSG_BOOTLOADER_NOT_FOUND)" ;\
 		sleep 5 ;\
-	done
+	done; \
 	if $(DFU_PROGRAMMER) --version 2>&1 | $(GREP) -q 0.7 ; then\
-		$(DFU_PROGRAMMER) $(MCU) erase --force;\
-	else\
-		$(DFU_PROGRAMMER) $(MCU) erase;\
-	fi
-	$(DFU_PROGRAMMER) $(MCU) flash $(BUILD_DIR)/$(TARGET).hex
+		$(DFU_PROGRAMMER) $(MCU) erase --force; \
+		if [ "$(1)" ]; then \
+			$(DFU_PROGRAMMER) $(MCU) flash --eeprom $(QUANTUM_PATH)/split_common/$(1);\
+		fi; \
+	else \
+		$(DFU_PROGRAMMER) $(MCU) erase; \
+		if [ "$(1)" ]; then \
+			$(DFU_PROGRAMMER) $(MCU) flash-eeprom $(QUANTUM_PATH)/split_common/$(1);\
+		fi; \
+	fi; \
+	$(DFU_PROGRAMMER) $(MCU) flash $(BUILD_DIR)/$(TARGET).hex;\
 	$(DFU_PROGRAMMER) $(MCU) reset
+endef
+
+dfu: $(BUILD_DIR)/$(TARGET).hex cpfirmware check-size
+	$(call EXEC_DFU)
 
 dfu-start:
 	$(DFU_PROGRAMMER) $(MCU) reset
 	$(DFU_PROGRAMMER) $(MCU) start
-
-flip-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
-	$(COPY) $(BUILD_DIR)/$(TARGET).eep $(BUILD_DIR)/$(TARGET)eep.hex
-	$(BATCHISP) -hardware usb -device $(MCU) -operation memory EEPROM erase
-	$(BATCHISP) -hardware usb -device $(MCU) -operation memory EEPROM loadbuffer $(BUILD_DIR)/$(TARGET)eep.hex program
-	$(BATCHISP) -hardware usb -device $(MCU) -operation start reset 0
-	$(REMOVE) $(BUILD_DIR)/$(TARGET)eep.hex
 
 dfu-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 	if $(DFU_PROGRAMMER) --version 2>&1 | $(GREP) -q 0.7 ; then\
@@ -170,34 +148,10 @@ dfu-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 	$(DFU_PROGRAMMER) $(MCU) reset
 
 dfu-split-left: $(BUILD_DIR)/$(TARGET).hex cpfirmware check-size
-	until $(DFU_PROGRAMMER) $(MCU) get bootloader-version; do\
-		echo "Error: Bootloader not found. Trying again in 5s." ;\
-		sleep 5 ;\
-	done
-	if $(DFU_PROGRAMMER) --version 2>&1 | $(GREP) -q 0.7 ; then\
-		$(DFU_PROGRAMMER) $(MCU) erase --force;\
-		$(DFU_PROGRAMMER) $(MCU) flash --eeprom $(QUANTUM_PATH)/split_common/eeprom-lefthand.eep;\
-	else\
-		$(DFU_PROGRAMMER) $(MCU) erase;\
-		$(DFU_PROGRAMMER) $(MCU) flash-eeprom $(QUANTUM_PATH)/split_common/eeprom-lefthand.eep;\
-	fi
-	$(DFU_PROGRAMMER) $(MCU) flash $(BUILD_DIR)/$(TARGET).hex
-	$(DFU_PROGRAMMER) $(MCU) reset
+	$(call EXEC_DFU,eeprom-lefthand.eep)
 
 dfu-split-right: $(BUILD_DIR)/$(TARGET).hex cpfirmware check-size
-	until $(DFU_PROGRAMMER) $(MCU) get bootloader-version; do\
-		echo "Error: Bootloader not found. Trying again in 5s." ;\
-		sleep 5 ;\
-	done
-	if $(DFU_PROGRAMMER) --version 2>&1 | $(GREP) -q 0.7 ; then\
-		$(DFU_PROGRAMMER) $(MCU) erase --force;\
-		$(DFU_PROGRAMMER) $(MCU) flash --eeprom $(QUANTUM_PATH)/split_common/eeprom-righthand.eep;\
-	else\
-		$(DFU_PROGRAMMER) $(MCU) erase;\
-		$(DFU_PROGRAMMER) $(MCU) flash-eeprom $(QUANTUM_PATH)/split_common/eeprom-righthand.eep;\
-	fi
-	$(DFU_PROGRAMMER) $(MCU) flash $(BUILD_DIR)/$(TARGET).hex
-	$(DFU_PROGRAMMER) $(MCU) reset
+	$(call EXEC_DFU,eeprom-righthand.eep)
 
 define EXEC_AVRDUDE
 	USB= ;\
@@ -244,6 +198,27 @@ avrdude-split-left: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 
 avrdude-split-right: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	$(call EXEC_AVRDUDE,eeprom-righthand.eep)
+
+define EXEC_USBASP
+	avrdude -p $(AVRDUDE_MCU) -c usbasp -U flash:w:$(BUILD_DIR)/$(TARGET).hex
+endef
+
+usbasp: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+	$(call EXEC_USBASP)
+
+BOOTLOADHID_PROGRAMMER ?= bootloadHID
+
+define EXEC_BOOTLOADHID
+	# bootloadHid executable has no cross platform detect methods
+	# so keep running bootloadHid if the output contains "The specified device was not found"
+	until $(BOOTLOADHID_PROGRAMMER) -r $(BUILD_DIR)/$(TARGET).hex 2>&1 | tee /dev/stderr | grep -v "device was not found"; do\
+		printf "$(MSG_BOOTLOADER_NOT_FOUND)" ;\
+		sleep 5 ;\
+	done
+endef
+
+bootloadHID: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+	$(call EXEC_BOOTLOADHID)
 
 # Convert hex to bin.
 bin: $(BUILD_DIR)/$(TARGET).hex
@@ -306,7 +281,11 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 bootloader:
 	make -C lib/lufa/Bootloaders/DFU/ clean
 	$(TMK_DIR)/make_dfu_header.sh $(ALL_CONFIGS)
-	make -C lib/lufa/Bootloaders/DFU/
+	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) $(CFLAGS) $(OPT_DEFS) tmk_core/common/avr/bootloader_size.c 2> /dev/null | sed -ne 's/\r//;/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
+	$(eval PROGRAM_SIZE_KB=$(shell n=`expr $(MAX_SIZE) / 1024` && echo $$(($$n)) || echo 0))
+	$(eval BOOT_SECTION_SIZE_KB=$(shell n=`expr  $(BOOTLOADER_SIZE) / 1024` && echo $$(($$n)) || echo 0))
+	$(eval FLASH_SIZE_KB=$(shell n=`expr $(PROGRAM_SIZE_KB) + $(BOOT_SECTION_SIZE_KB)` && echo $$(($$n)) || echo 0))
+	make -C lib/lufa/Bootloaders/DFU/ MCU=$(MCU) ARCH=$(ARCH) F_CPU=$(F_CPU) FLASH_SIZE_KB=$(FLASH_SIZE_KB) BOOT_SECTION_SIZE_KB=$(BOOT_SECTION_SIZE_KB)
 	printf "BootloaderDFU.hex copied to $(TARGET)_bootloader.hex\n"
 	cp lib/lufa/Bootloaders/DFU/BootloaderDFU.hex $(TARGET)_bootloader.hex
 
@@ -315,3 +294,20 @@ production: $(BUILD_DIR)/$(TARGET).hex bootloader cpfirmware
 	@cat $(TARGET)_bootloader.hex >> $(TARGET)_production.hex
 	echo "File sizes:"
 	$(SIZE) $(TARGET).hex $(TARGET)_bootloader.hex $(TARGET)_production.hex
+
+flash:  $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+ifneq ($(strip $(PROGRAM_CMD)),)
+	$(PROGRAM_CMD)
+else ifeq ($(strip $(BOOTLOADER)), caterina)
+	$(call EXEC_AVRDUDE)
+else ifeq ($(strip $(BOOTLOADER)), halfkay)
+	$(call EXEC_TEENSY)
+else ifeq (dfu,$(findstring dfu,$(BOOTLOADER)))
+	$(call EXEC_DFU)
+else ifeq ($(strip $(BOOTLOADER)), USBasp)
+	$(call EXEC_USBASP)
+else ifeq ($(strip $(BOOTLOADER)), bootloadHID)
+	$(call EXEC_BOOTLOADHID)
+else
+	$(PRINT_OK); $(SILENT) || printf "$(MSG_FLASH_BOOTLOADER)"
+endif

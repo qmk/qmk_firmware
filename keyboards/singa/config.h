@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VENDOR_ID       0x20A0
 #define PRODUCT_ID      0x422D
+#define DEVICE_VER      0x0200
 #define MANUFACTURER    Singa Keyboards
 #define PRODUCT         Singa
 
@@ -36,6 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCE 5
 
-#define NO_BACKLIGHT_CLOCK
-#define BACKLIGHT_LEVELS 1
+#define BACKLIGHT_PIN D4
+#define BACKLIGHT_LEVELS 3
+
 #define RGBLIGHT_ANIMATIONS

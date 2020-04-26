@@ -13,105 +13,170 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef KEYMAP_SWISS_GERMAN
-#define KEYMAP_SWISS_GERMAN
+
+#pragma once
 
 #include "keymap.h"
 
-// normal characters
-#define CH_Z KC_Y
-#define CH_Y KC_Z
+// clang-format off
 
-#define CH_A KC_A
-#define CH_B KC_B
-#define CH_C KC_C
-#define CH_D KC_D
-#define CH_E KC_E
-#define CH_F KC_F
-#define CH_G KC_G
 #ifdef CH_H
 // The ChibiOS ch.h file defines this...
-#undef CH_H
+#    undef CH_H
 #endif
-#define CH_H KC_H
-#define CH_I KC_I
-#define CH_J KC_J
-#define CH_K KC_K
-#define CH_L KC_L
-#define CH_M KC_M
-#define CH_N KC_N
-#define CH_O KC_O
-#define CH_P KC_P
-#define CH_Q KC_Q
-#define CH_R KC_R
-#define CH_S KC_S
-#define CH_T KC_T
-#define CH_U KC_U
-#define CH_V KC_V
-#define CH_W KC_W
-#define CH_X KC_X
 
-#define CH_0 KC_0
-#define CH_1 KC_1
-#define CH_2 KC_2
-#define CH_3 KC_3
-#define CH_4 KC_4
-#define CH_5 KC_5
-#define CH_6 KC_6
-#define CH_7 KC_7
-#define CH_8 KC_8
-#define CH_9 KC_9
+/*
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ § │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ ' │ ^ │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │ Q │ W │ E │ R │ T │ Z │ U │ I │ O │ P │ ü │ ¨ │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │ A │ S │ D │ F │ G │ H │ J │ K │ L │ ö │ ä │ $ │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │ < │ Y │ X │ C │ V │ B │ N │ M │ , │ . │ - │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+// Row 1
+#define CH_SECT KC_GRV  // §
+#define CH_1    KC_1    // 1
+#define CH_2    KC_2    // 2
+#define CH_3    KC_3    // 3
+#define CH_4    KC_4    // 4
+#define CH_5    KC_5    // 5
+#define CH_6    KC_6    // 6
+#define CH_7    KC_7    // 7
+#define CH_8    KC_8    // 8
+#define CH_9    KC_9    // 9
+#define CH_0    KC_0    // 0
+#define CH_QUOT KC_MINS // '
+#define CH_CIRC KC_EQL  // ^ (dead)
+// Row 2
+#define CH_Q    KC_Q    // Q
+#define CH_W    KC_W    // W
+#define CH_E    KC_E    // E
+#define CH_R    KC_R    // R
+#define CH_T    KC_T    // T
+#define CH_Z    KC_Y    // Z
+#define CH_U    KC_U    // U
+#define CH_I    KC_I    // I
+#define CH_O    KC_O    // O
+#define CH_P    KC_P    // P
+#define CH_UDIA KC_LBRC // ü
+#define CH_DIAE KC_RBRC // ¨ (dead)
+// Row 3
+#define CH_A    KC_A    // A
+#define CH_S    KC_S    // S
+#define CH_D    KC_D    // D
+#define CH_F    KC_F    // F
+#define CH_G    KC_G    // G
+#define CH_H    KC_H    // H
+#define CH_J    KC_J    // J
+#define CH_K    KC_K    // K
+#define CH_L    KC_L    // L
+#define CH_ODIA KC_SCLN // ö
+#define CH_ADIA KC_QUOT // ä
+#define CH_DLR  KC_NUHS // $
+// Row 4
+#define CH_LABK KC_NUBS // <
+#define CH_Y    KC_Z    // Y
+#define CH_X    KC_X    // X
+#define CH_C    KC_C    // C
+#define CH_V    KC_V    // V
+#define CH_B    KC_B    // B
+#define CH_N    KC_N    // N
+#define CH_M    KC_M    // M
+#define CH_COMM KC_COMM // ,
+#define CH_DOT  KC_DOT  // .
+#define CH_MINS KC_SLSH // -
 
-#define CH_DOT KC_DOT
-#define CH_COMM KC_COMM
+/* Shifted symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ ° │ + │ " │ * │ ç │ % │ & │ / │ ( │ ) │ = │ ? │ ` │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │   │   │   │   │   │   │   │   │   │   │ è │ ! │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │   │   │   │   │   │   │   │   │   │ é │ à │ £ │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │ > │   │   │   │   │   │   │   │ ; │ : │ _ │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+// Row 1
+#define CH_DEG  S(CH_SECT) // °
+#define CH_PLUS S(CH_1)    // +
+#define CH_DQUO S(CH_2)    // "
+#define CH_ASTR S(CH_3)    // *
+#define CH_CCED S(CH_4)    // ç
+#define CH_PERC S(CH_5)    // %
+#define CH_AMPR S(CH_6)    // &
+#define CH_SLSH S(CH_7)    // /
+#define CH_LPRN S(CH_8)    // (
+#define CH_RPRN S(CH_9)    // )
+#define CH_EQL  S(CH_0)    // =
+#define CH_QUES S(CH_QUOT) // ?
+#define CH_GRV  S(CH_CIRC) // ` (dead)
+// Row 2
+#define CH_EGRV S(CH_UDIA) // è
+#define CH_EXLM S(CH_DIAE) // !
+// Row 3
+#define CH_EACU S(CH_ODIA) // é
+#define CH_AGRV S(CH_ADIA) // à
+#define CH_PND  S(CH_DLR)  // £
+// Row 4
+#define CH_RABK S(CH_LABK) // >
+#define CH_SCLN S(CH_COMM) // ;
+#define CH_COLN S(CH_DOT)  // :
+#define CH_UNDS S(CH_MINS) // _
 
-#define CH_QUOT KC_MINS // ' ? ´
-#define CH_AE KC_QUOT
-#define CH_UE KC_LBRC
-#define CH_OE KC_SCLN
+/* AltGr symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │   │ ¦ │ @ │ # │   │   │ ¬ │ | │ ¢ │   │   │ ´ │ ~ │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │   │   │ € │   │   │   │   │   │   │   │ [ │ ] │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │   │   │   │   │   │   │   │   │   │   │ { │ } │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │ \ │   │   │   │   │   │   │   │   │   │   │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+// Row 1
+#define CH_BRKP ALGR(CH_1)    // ¦
+#define CH_AT   ALGR(CH_2)    // @
+#define CH_HASH ALGR(CH_3)    // #
+#define CH_NOT  ALGR(CH_6)    // ¬
+#define CH_PIPE ALGR(CH_7)    // |
+#define CH_CENT ALGR(CH_8)    // ¢
+#define CH_ACUT ALGR(CH_QUOT) // ´ (dead)
+#define CH_TILD ALGR(CH_CIRC) // ~ (dead)
+// Row 2
+#define CH_EURO ALGR(CH_E)    // €
+#define CH_LBRC ALGR(CH_UDIA) // [
+#define CH_RBRC ALGR(CH_DIAE) // ]
+// Row 3
+#define CH_LCBR ALGR(CH_ADIA) // {
+#define CH_RCBR ALGR(CH_DLR)  // }
+// Row 4
+#define CH_BSLS ALGR(CH_LABK) // (backslash)
 
-#define CH_PARA KC_GRAVE // secction sign § and °
-#define CH_CARR KC_EQL // carret ^ ` ~
-#define CH_DIER KC_RBRC // dieresis ¨ ! ]
-#define CH_DLR KC_BSLS // $ £ }
-#define CH_LESS KC_NUBS // < and > and backslash
-#define CH_MINS KC_SLSH // - and _
-
-// shifted characters
-#define CH_RING LSFT(CH_PARA) // °
-#define CH_PLUS LSFT(KC_1) // +
-#define CH_DQOT LSFT(KC_2) // "
-#define CH_PAST LSFT(KC_3) // *
-#define CH_CELA  LSFT(KC_4) // ç
-#define CH_PERC LSFT(KC_5) // %
-#define CH_AMPR LSFT(KC_6) // &
-#define CH_SLSH LSFT(KC_7) // /
-#define CH_LPRN LSFT(KC_8) // (
-#define CH_RPRN LSFT(KC_9) // )
-#define CH_EQL  LSFT(KC_0) // =
-#define CH_QST  LSFT(CH_QUOT) // ?
-#define CH_GRV  LSFT(CH_CARR) // `
-#define CH_EXLM LSFT(CH_DIER) // !
-#define CH_POND LSFT(CH_DLR) // £
-#define CH_MORE LSFT(CH_LESS) // >
-#define CH_COLN LSFT(KC_DOT) // :
-#define CH_SCLN LSFT(KC_COMM) // ;
-#define CH_UNDS LSFT(CH_MINS) // _
-
-// Alt Gr-ed characters
-#define CH_BRBR ALGR(KC_1) // ¦ brocken bar
-#define CH_AT ALGR(KC_2) // @
-#define CH_HASH ALGR(KC_3) // #
-#define CH_NOTL ALGR(KC_6) // ¬ negative logic
-#define CH_PIPE ALGR(KC_7) // |
-#define CH_CENT ALGR(KC_8) // ¢ cent
-#define CH_ACUT ALGR(CH_QUOT) // ´
-#define CH_TILD ALGR(CH_CARR) // ~
-#define CH_EURO ALGR(KC_E) // €
-#define CH_LBRC ALGR(CH_UE) // [
-#define CH_RBRC ALGR(CH_DIER) // ]
-#define CH_LCBR ALGR(CH_AE) // {
-#define CH_RCBR ALGR(CH_DLR) // }
-#define CH_BSLS ALGR(CH_LESS) // backslash
-
-#endif
+// DEPRECATED
+#define CH_AE   CH_ADIA
+#define CH_UE   CH_UDIA
+#define CH_OE   CH_ODIA
+#define CH_PARA CH_SECT
+#define CH_CARR CH_CIRC
+#define CH_DIER CH_DIAE
+#define CH_LESS CH_LABK
+#define CH_RING CH_DEG
+#define CH_DQOT CH_DQUO
+#define CH_PAST CH_ASTR
+#define CH_CELA CH_CCED
+#define CH_QST  CH_QUES
+#define CH_POND CH_PND
+#define CH_MORE CH_RABK
+#define CH_BRBR CH_BRKP
+#define CH_NOTL CH_NOT

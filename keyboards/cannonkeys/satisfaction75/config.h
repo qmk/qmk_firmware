@@ -21,8 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xCA04
 #define PRODUCT_ID      0x57F5
 #define DEVICE_VER      0x0001
-/* in python2: list(u"whatever".encode('utf-16-le')) */
-/*   at most 32 characters or the ugly hack in usb_main.c borks */
 #define MANUFACTURER CannonKeys
 #define PRODUCT Satisfaction75
 #define DESCRIPTION Satisfaction 75 Keyboard
@@ -35,9 +33,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B3, B4, A0, A2, A4, A3 }
 #define DIODE_DIRECTION COL2ROW
 
-#define NUMBER_OF_ENCODERS 1
 #define ENCODERS_PAD_A { B9 }
 #define ENCODERS_PAD_B { B8 }
+
+#define ENCODER_RESOLUTION 2
 
 //LEDS A6, RGB B15
 #define BACKLIGHT_LEVELS 24
@@ -65,41 +64,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif
 
+// Custom config starts after VIA's EEPROM usage,
+// dynamic keymaps start after this.
+// Custom config Usage:
+// 1 for enabled encoder modes (1 byte)
+// 1 for custom backlighting controls (1 byte)
+// 1 for OLED default mode (1 byte)
+// 6 for 3x custom encoder settings, left, right, and press (18 bytes)
+#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 21
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
-
-// EEPROM usage
-
-// TODO: refactor with new user EEPROM code (coming soon)
-#define EEPROM_MAGIC 0x451F
-#define EEPROM_MAGIC_ADDR 32
-// Bump this every time we change what we store
-// This will automatically reset the EEPROM with defaults
-// and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x01
-#define EEPROM_VERSION_ADDR 34
-
-// Dynamic keymap starts after EEPROM version
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 35
-
-// Dynamic macro starts after dynamic keymaps (35+(4*6*16*2)) = (35+768) = 803
-
-// I'm also putting my custom stuff after that
-// 1 for enabled encoder modes
-// 1 for custom backlighting controls
-// 1 for OLED default mode
-// 6 for 3x custom encoder settings, left, right, and press (18 total)
-
-#define DYNAMIC_KEYMAP_ENABLED_ENCODER_MODES 803
-#define DYNAMIC_KEYMAP_CUSTOM_BACKLIGHT 804
-#define DYNAMIC_KEYMAP_DEFAULT_OLED 805
-#define DYNAMIC_KEYMAP_CUSTOM_ENCODER 806
-
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 824
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 200
-#define DYNAMIC_KEYMAP_MACRO_COUNT 16
-
-
+// VIA lighting is handled by the keyboard-level code
+#define VIA_CUSTOM_LIGHTING_ENABLE
 
 /*
  * Feature disable options
