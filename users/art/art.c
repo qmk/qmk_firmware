@@ -5,15 +5,15 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-uint8_t user_mod_state;
-bool mac_alt_tab_on = false;
+bool mac_alt_tab_on = false; //for switching windows
+bool mac_ctrl_tab_on = false; //for switching tabs
 
-const char *key_up[2] = {SS_UP(X_LALT), SS_UP(X_LCTL)};
-const char *key_down[2] = {SS_DOWN(X_LALT), SS_DOWN(X_LCTL)};
+static const char *key_up[2] = {SS_UP(X_LALT), SS_UP(X_LCTL)};
+static const char *key_down[2] = {SS_DOWN(X_LALT), SS_DOWN(X_LCTL)};
 
 int char_to_del = 1;
-bool sarcasm_on = false;
-bool sarcasm_key = false;
+static bool sarcasm_on = false;
+static bool sarcasm_key = false;
 
 void backspace_n_times(int times) {
   for (int i=0; i<times; i++) {
@@ -37,20 +37,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case KC_TAB:
       if (record->event.pressed && !is_win) {
-        // user_mod_state = get_mods() & MOD_BIT(KC_LALT);
-        if (get_mods() & MOD_BIT(KC_LALT)) {
-          unregister_mods(MOD_BIT(KC_LALT));
-          SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_TAB));
+        uint8_t mods = get_mods();
+        uint8_t mod_state = mods & MOD_MASK_ALT;
+        if (get_mods() & mod_state) {
+          del_mods(mod_state);
+          add_mods(MOD_LCTL);
           mac_alt_tab_on = true;
-          //set_mods(user_mod_state);
-          return false;
+        }
+
+        mod_state = mods & MOD_MASK_CTRL;
+        if (get_mods() & mod_state && !mac_alt_tab_on) {
+          del_mods(mod_state);
+          add_mods(MOD_LGUI);
+          mac_ctrl_tab_on = true;
         }
       }
       break;
     case KC_LALT:
       if (!record->event.pressed && !is_win && mac_alt_tab_on) {
-          SEND_STRING(SS_UP(X_LCTL));
-          mac_alt_tab_on = false;
+            unregister_mods(MOD_LCTL);
+            mac_alt_tab_on = false;
+            return false;
+      }
+      break;
+    case KC_LCTL:
+      if (!record->event.pressed && !is_win && mac_ctrl_tab_on) {
+          SEND_STRING(SS_UP(X_LGUI));
+          mac_ctrl_tab_on = false;
           return false;
       }
       break;

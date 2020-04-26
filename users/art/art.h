@@ -2,12 +2,8 @@
 #include QMK_KEYBOARD_H
 
 extern bool is_win;
-const char *key_up[2];
-const char *key_down[2];
 
 int char_to_del;
-bool sarcasm_on;
-bool sarcasm_key;
   
 enum layer_names {
   QWERTY,
