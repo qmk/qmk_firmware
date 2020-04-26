@@ -1,23 +1,7 @@
-#include QMK_KEYBOARD_H
-#include "art.h"
+#include <art.h>
+#include <sendstring_workman_zxcvm.h>
 
 bool is_win = true;
-
-#define QWERTY 0
-#define WORKMAN 1
-#define FKEYS 2
-#define NAV 3
-#define CTRL_NAV 4
-#define SHIFT_NAV 5
-#define KEY_LAYER 6
-
-
-enum custom_keycodes {
-  PLACEHOLDER = SAFE_RANGE, // can always be here
-  SWITCH_LANG,
-  VRSN,
-  TESTT
-};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Base qwerty layer
@@ -167,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [NAV] = LAYOUT_ergodox(
        // left hand
        _______,LALT(KC_F1),  LALT(KC_F2),  LALT(KC_F3),  LALT(KC_F4),  LALT(KC_F5),  _______,
-       _______,TESTT,  KC_HOME,  KC_UP,KC_END,KC_PGUP,_______,
+       _______,_______,  KC_HOME,  KC_UP,KC_END,KC_PGUP,_______,
        _______,_______,KC_LEFT, KC_DOWN,KC_RIGHT,KC_PGDOWN,
        _______,_______,  _______,_______,KC_LALT,_______,_______,
           _______,KC_MS_ACCEL0,  KC_MS_ACCEL1,KC_MS_ACCEL2,_______,
@@ -267,48 +251,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_LCTRL, _______, _______
 ),
 
-/* FKeys
- *
- * ,---------------------------------------------------.           ,--------------------------------------------------.
- * |         |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
- * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * |         |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
- * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |         |      |      |      |      |      |------|           |------|      |      |      |      |      |        |
- * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |         |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
- * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |       |      |      |  Alt |  Nav |                                       |      |      |      |      |      |
- *   `-----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        |      |      |       |      |      |
- *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |SFT_NV|      |      |
- *                                 |      |      |------|       |------|      |      |
- *                                 |      |      |      |       |CTR_NV|      |      |
- *                                 `--------------------'       `--------------------'
- */
-[KEY_LAYER] = LAYOUT_ergodox(
-       // left hand
-       _______,_______,  _______,  _______,  _______,  _______,  _______,
-       _______,_______,_______,  _______,_______,_______,_______,
-       _______,_______,_______, _______,_______,_______,
-       _______,_______,_______,_______,_______,_______,_______,
-          _______,_______,_______,KC_LALT,MO(NAV),
-                                       _______,_______,
-                                               _______,
-                               _______,_______,_______,
-       // right hand
-       _______, _______,   _______,  _______,   _______,   _______,  _______,
-       _______, _______,   _______,   _______,    _______,    _______, _______,
-                _______, _______,   _______,    _______,    _______, _______,
-       _______, _______, _______,   _______,    _______,    _______, _______,
-                         _______,_______,  _______,    _______,  _______,
-       _______, _______,
-       MO(SHIFT_NAV),
-       MO(CTRL_NAV), _______, _______
-),
-
 /* Numpad
  *
  *           ,--------------------------------------------------.
@@ -328,12 +270,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case SWITCH_LANG:
-	  if (record->event.pressed) {
-		// SEND_STRING (SS_LALT(X_HOME));
-	  }
-	  return false;
-	  break;
+
   }
   return true;
 }
@@ -365,9 +302,4 @@ void matrix_scan_user(void) {
         default:
             break;
     }
-};
-
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-
 };
