@@ -3,11 +3,13 @@
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _ALPHAS 0
-#define _MODS 1
-#define _VIM 2
-#define _NUMPAD 3
-#define _CODE 4
+enum layers {
+    _ALPHAS,
+    _MODS,
+    _VIM,
+    _NUMPAD,
+    _CODE,
+};
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Alphas
