@@ -182,32 +182,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       break;
-    case OS_HOME:
-      if (is_win) {
-        if (record->event.pressed) {
-          SEND_STRING(SS_DOWN(X_HOME));
-        } else {
-          SEND_STRING(SS_UP(X_HOME));
-        }
-      } else {
-        if (record->event.pressed) {
-          SEND_STRING(SS_LCTL(SS_TAP(X_LEFT)));
-        }
-      }
-      break;
-    case OS_END:
-      if (is_win) {
-        if (record->event.pressed) {
-          SEND_STRING(SS_DOWN(X_END));
-        } else {
-          SEND_STRING(SS_UP(X_END));
-        }
-      } else {
-        if (record->event.pressed) {
-          SEND_STRING(SS_LCTL(SS_TAP(X_RIGHT)));
-        }
-      }
-      break;
 
     // case :
     //   if (record->event.pressed) {

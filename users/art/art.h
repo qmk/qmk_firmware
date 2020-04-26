@@ -40,8 +40,6 @@ enum custom_keycodes_art {
   CTR_ALT,
   OS_CTRL,
   OS_WIN,
-  OS_HOME,
-  OS_END,
 
   TILD_BLOCK,
   ADMINS,
