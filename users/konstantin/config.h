@@ -2,6 +2,8 @@
 
 #define FORCE_NKRO
 
+#undef LOCKING_SUPPORT_ENABLE
+
 #define MOUSEKEY_DELAY             0
 #define MOUSEKEY_INTERVAL          10
 #define MOUSEKEY_MAX_SPEED         4

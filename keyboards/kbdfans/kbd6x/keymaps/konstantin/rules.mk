@@ -4,6 +4,7 @@ COMMAND_ENABLE     = yes
 CONSOLE_ENABLE     = no
 EXTRAKEY_ENABLE    = yes
 GRAVE_ESC_ENABLE   = no
+MAGIC_ENABLE       = no
 MOUSEKEY_ENABLE    = yes
 NKRO_ENABLE        = yes
 RGBLIGHT_ENABLE    = yes
