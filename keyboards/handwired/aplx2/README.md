@@ -1,6 +1,6 @@
 # Aplx2
 
-![Front](https://i.imgur.com/cN4WfaQ.jpg)  
+![Front](https://i.imgur.com/cN4WfaQl.jpg)  
    
 A simple 2% keyboard for osu!. Designed to be assembled as a sandwich with a Pro Micro, using M3 x 16mm screws, your choice of MX- or Alps-compatible switches, and 1N4148 diodes.   
 
