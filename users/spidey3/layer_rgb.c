@@ -117,7 +117,7 @@ bool led_update_user_rgb(led_t led_state) {
 }
 
 void rgb_layer_ack_yn(bool yn) {
-    rgb_layer_ack(yn ? ACK_NO : ACK_YES);
+    rgb_layer_ack(yn ? ACK_YES : ACK_NO);
 }
 
 void rgb_layer_ack(layer_ack_t n) {
