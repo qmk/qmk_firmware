@@ -2,8 +2,6 @@
 #include QMK_KEYBOARD_H
 
 extern bool is_win;
-
-int char_to_del;
   
 enum layer_names {
   QWERTY,
