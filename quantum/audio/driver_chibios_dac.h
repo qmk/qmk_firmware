@@ -105,6 +105,10 @@
 #    define AUDIO_DAC_OFF_VALUE AUDIO_DAC_SAMPLE_MAX / 2
 #endif
 
+#if AUDIO_DAC_OFF_VALUE > AUDIO_DAC_SAMPLE_MAX
+#    error "AUDIO_DAC: OFF_VALUE may not be larger than SAMPLE_MAX"
+#endif
+
 /**
  *user overridable sample generation/processing
  */
