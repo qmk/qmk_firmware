@@ -9,31 +9,6 @@ Common configurations such as `TAPPING_TERM`, `TAPPING_FORCE_HOLD`, `PERMISSIVE_
 
 See `config.h` for details.
 
-## Custom mousekey accelaration
-
-Customized version of mousekeys: wheel and cursor speed can be configured independently.
-
-### Usage
-
-Add `CUSTOM_MOUSEKEY` to `rules.mk` (this also enables `MOUSEKEY_ENABLE`).
-
-```mk
-CUSTOM_MOUSEKEY = yes
-```
-
-Note that `KC_MS_ACCEL0` is the only supported accelaration key.
-
-### Per-board settings
-
-Default configuration (somewhat like karabiner) is provided, but you can also apply some keyboard-specifig modifications.
-
-```c
-#undef MOUSEKEY_WHHEL_TIME_TO_MAX
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 2
-```
-
-See `custom_mousekey.h` for available options.
-
 ## HSV dump utility
 
 Add a keycode to dump the current RGB Matrix's HSV value.

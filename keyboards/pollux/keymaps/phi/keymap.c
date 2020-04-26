@@ -48,7 +48,7 @@ extern uint8_t is_master;
 #define KC_WDN  KC_WH_D
 #define KC_WLFT KC_WH_L
 #define KC_WRGT KC_WH_R
-#define KC_ACEL KC_MS_ACCEL0
+#define KC_ACEL KC_MS_ACCEL2
 
 /* KEYMAPS */
 
