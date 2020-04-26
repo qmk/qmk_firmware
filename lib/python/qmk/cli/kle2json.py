@@ -59,6 +59,7 @@ def kle2json(cli):
         width=kle.columns,
         height=kle.rows,
         layouts={'LAYOUT': {
+            'key_count': kle.key_count,
             'layout': 'LAYOUT_JSON_HERE'
         }},
     )

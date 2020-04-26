@@ -17,6 +17,7 @@ class KLE2xy(list):
         self.key_skel = {'decal': False, 'border_color': 'none', 'keycap_profile': '', 'keycap_color': 'grey', 'label_color': 'black', 'label_size': 3, 'label_style': 4, 'width': Decimal('1'), 'height': Decimal('1'), 'x': Decimal('0'), 'y': Decimal('0')}
         self.rows = Decimal(0)
         self.columns = Decimal(0)
+        self.key_count = 0
 
         if layout:
             self.parse_layout(layout)
@@ -136,6 +137,7 @@ class KLE2xy(list):
                     # Store this key
                     self[-1].append(current_key)
                     current_key = self.key_skel.copy()
+                    self.key_count += 1
 
             # Move to the next row
             current_x = 0
