@@ -12,25 +12,26 @@ extern keymap_config_t keymap_config;
 #define _LOCK 6
 #define _UNLOCK 7
 #define _RESET 8
+#define _NUMPAD 9
 
 //Tap Dance Declarations
 enum tap_dance {
   TD_PRNSL,
   TD_PRNSR,
-  TD_PIPE,
 };
 
 // Nicer keycode alias for keymap readability
 #define x KC_NO // No action
 #define _v_ KC_TRNS // Pass through
-#define L_SYMB LT(_SYMB,KC_CAPSLOCK)
+#define L_SYMB MO(_SYMB)
 #define L_NAV LT(_NAV,KC_TAB)
 #define L_MOUSE LT(_MOUSE,KC_ESC)
 #define L_TOGGLE LT(_TOGGLE,KC_HOME)
 #define L_GAMING TG(_GAMING)
+#define L_NUMPAD MO(_NUMPAD)
 #define L_LOCK TO(_LOCK)
 #define L_UNLOCK TO(_QWERTY)
-#define HYP_MINS ALL_T(KC_MINS)
+#define HYP_MINS HYPR_T(KC_MINS)
 #define MEH_PLUS MEH_T(KC_PPLS)
 #define CUT LGUI(KC_X)
 #define COPY LGUI(KC_C)
@@ -49,7 +50,7 @@ enum tap_dance {
 #define SORT_LINES KC_F5
 
 // Gaming
-#define SCRSHT MEH(KC_PSCR)
+#define SCRSHT LSFT(KC_P5)
 #define STATS MEH(KC_8)
 
 uint16_t frame_timer;
@@ -132,10 +133,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             set_led_green;
             break;
         case _NAV:
-            set_led_blue;
+            set_led_red;
             break;
         case _MOUSE:
-            set_led_red;
+            set_led_blue;
             break;
         case _TOGGLE:
             set_led_green;
@@ -149,7 +150,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             break;
         default:
             break;
-    }ww
+    }
   return state;
 }
 
@@ -157,36 +158,35 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_PRNSL] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LCBR), // [[ -> {
   [TD_PRNSR] = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_RCBR), // ]] -> }
-  [TD_PIPE] = ACTION_TAP_DANCE_DOUBLE(KC_BSLS, KC_PIPE), // \\ -> |
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
-      L_MOUSE, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                                KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV,
+      L_MOUSE, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                                KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      L_NAV,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_MINS,                           KC_EQL,  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  TD(TD_PIPE),
+      L_NAV,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_MINS,                           KC_EQL,  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_GRV,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      L_SYMB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,  TD(TD_PRNSL),                      TD(TD_PRNSR), KC_H, KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+      L_SYMB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_ENT,                            KC_ENT, KC_H, KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
       KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    L_TOGGLE,KC_END,          KC_PGUP,  KC_PGDN, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-      KC_LCTL, HYP_MINS,MEH_PLUS,KC_LALT,      KC_LGUI,     KC_SPC,  KC_DEL,          KC_ENT,  KC_BSPC,     MO(_NAV),      KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT
+      KC_LCTL, HYP_MINS,MEH_PLUS,KC_LALT,      KC_LGUI,     KC_SPC,  KC_DEL,          KC_SPC,  KC_BSPC,   MO(_NAV),      KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
     ),
 
     [_SYMB] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
-      x,       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                               KC_F6,   KC_LCBR,   KC_RCBR,   KC_F9,   KC_F10,  KC_F11,
+      x,       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                               KC_F6,   KC_LBRC,   KC_RBRC,   KC_F9,   KC_F10,  KC_F11,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      x,       x,       x,       x,       x,       x,       _v_,                               _v_,     KC_EXLM, KC_LPRN, KC_RPRN, KC_DLR,  KC_PERC, KC_F12,
+      x,       x,       x,       x,       x,       CONSOLE, _v_,                               _v_,     KC_EXLM, KC_LPRN, KC_RPRN, KC_DLR,  KC_PERC, KC_F12,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
       _v_,     x,       PANE_1,  PANE_2,  PANE_3,  x,       _v_,                               KC_UNDS, KC_PIPE, KC_LCBR, KC_RCBR, KC_EQL,  KC_COLN, KC_DQUO,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      _v_,     x,       x,       CONSOLE, x,       x,       _v_,     _v_,             LINE_UP, LINE_DOWN,KC_AMPR,KC_LT,   KC_GT,   KC_MINS, KC_SLSH, KC_GRV,
+      _v_,     x,       CUT,     COPY,    PASTE,   x,       _v_,     _v_,             LINE_UP, LINE_DOWN,KC_AMPR,KC_LT,   KC_GT,   KC_MINS, KC_SLSH, KC_GRV,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-      x,       x,       REDO,    UNDO,         CUT,         COPY,    PASTE,           DEL_LINE,SORT_LINES,  x,            _v_,     _v_,     _v_,     _v_
-    //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └     ────────┴────────┴────────┴────────┘
+      _v_,       x,       REDO,    UNDO,         _v_,         _v_,     _v_,           SORT_LINES,DEL_LINE,  _v_,            _v_,     _v_,     _v_,     _v_
+    //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
     ),
 
     [_NAV] = LAYOUT(
@@ -195,7 +195,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
       _v_,     _v_,     _v_,     _v_,     _v_,     _v_,     _v_,                               _v_,     _v_,     _v_,     KC_UP,   _v_,     _v_,     KC_VOLD,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      _v_,     _v_,     _v_,     _v_,     _v_,     _v_,     _v_,                                _v_,    _v_,     KC_LEFT, KC_DOWN, KC_RGHT, _v_,     KC_MPLY,
+      KC_CAPS,     _v_,     _v_,     _v_,     _v_,     _v_,     _v_,                                _v_,    _v_,     KC_LEFT, KC_DOWN, KC_RGHT, _v_,     KC_MPLY,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
       _v_,     _v_,     _v_,     _v_,     _v_,     _v_,     _v_,     _v_,             _v_,     _v_,     _v_,  LALT(KC_LEFT),_v_,  LALT(KC_RGHT),_v_, _v_,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
@@ -203,13 +203,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
     ),
 
+    [_NUMPAD] = LAYOUT(
+    //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
+      _v_,     _v_,     _v_,     _v_,     _v_,     _v_,                                                 _v_,     KC_7,    KC_8,    KC_9,    KC_0,    _v_,
+    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+      _v_,     _v_,     _v_,     _v_,     _v_,     _v_,     _v_,                               _v_,     _v_,     KC_4,    KC_5,    KC_6,     _v_,    _v_,
+    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+      _v_,     _v_,     _v_,     _v_,     _v_,     _v_,     _v_,                                _v_,    _v_,     KC_1,    KC_2,    KC_3,    _v_,     _v_,
+    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+      _v_,     _v_,     _v_,     _v_,     _v_,     _v_,     _v_,     _v_,             _v_,     _v_,     _v_,     _v_,    KC_0,     _v_,     _v_,     _v_,
+    //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
+      _v_,     _v_,     _v_,     _v_,          _v_,         _v_,     _v_,             _v_,     _v_,         _v_,          _v_,     _v_,     _v_,     _v_
+    //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
+    ),
+
+
     [_MOUSE] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
       _v_,     x,      x,       x,       x,       x,                                                    x,       KC_MRWD, KC_MPLY, KC_MFFD, KC__MUTE,KC_VOLU,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      x,       x,       x,       KC_WH_U, x,       x,       x,                                  x,      x,       x,       KC_MS_U,  x,      x,       KC_VOLD,
+      L_NUMPAD,x,       x,       KC_WH_U, x,       x,       x,                                  x,      KC_WH_U, x,       KC_MS_U,  x,      x,       KC_VOLD,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      x,       x,       KC_WH_L, KC_WH_D, KC_WH_R, x,       x,                                  x,      x,       KC_MS_L, KC_MS_D, KC_MS_R, x,       KC_MPLY,
+      x,       x,       KC_WH_L, KC_WH_D, KC_WH_R, x,       x,                                  x,      KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, x,       KC_MPLY,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
       x,       x,       x,       x,       x,       x,       x,       x,               x,       x,       x,       x,       x,       x,       x,       x,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
@@ -237,11 +252,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
       KC_TAB,  _v_,     _v_,     _v_,     _v_,     _v_,     KC_Y,                              _v_,     _v_,     _v_,     _v_,     _v_,     _v_,     KC_VOLD,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_CAPS, _v_,     _v_,     _v_,     _v_,     _v_,     KC_H,                              _v_,     _v_,     _v_,     _v_,     _v_,     _v_,     SCRSHT,
+      KC_CAPS, _v_,     _v_,     _v_,     _v_,     _v_,     KC_H,                              _v_,     _v_,     _v_,     _v_,     _v_,     _v_,     _v_,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_LSFT, _v_,     _v_,     _v_,     _v_,     _v_,     _v_,      _v_,            _v_,     _v_,     _v_,     _v_,     _v_,     _v_,     _v_,     STATS,
+      KC_LSFT, _v_,     _v_,     _v_,     _v_,     _v_,     _v_,      _v_,            SCRSHT,     STATS,     _v_,     _v_,     _v_,     _v_,     _v_,     _v_,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-      KC_LCTL, KC_LGUI, _v_,     _v_,          KC_LCTL,     _v_,     _v_,             _v_,     _v_,         _v_,          _v_,     _v_,     _v_,     _v_
+      KC_LCTL, KC_LGUI, _v_,     _v_,          KC_LCTL,     _v_,     KC_ENT,          KC_DEL,  _v_,         _v_,          _v_,     _v_,     _v_,     _v_
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
     ),
 
