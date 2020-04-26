@@ -1,5 +1,7 @@
 #pragma once
 
+#define LAYOUT_kc_wrapper(...) LAYOUT_kc(__VA_ARGS__)
+
 #define KC__F1 KC_F1
 #define KC__F2 KC_F2
 #define KC__F3 KC_F3
@@ -87,7 +89,7 @@
 //                                 `----+----+----+----+----'
 
 //                                 .----+----+----+----+----.
-#define __________L_CFG_1__________     ,    ,    ,    ,
+#define __________L_CFG_1__________ SLCK,PAUS,MISS,RVAD,RVAI
 //                                 |----+----+----+----+----|
 #define __________L_CFG_2__________ RTOG,RMOD,RHUI,RSAI,RVAI
 //                                 |----+----+----+----+----|
