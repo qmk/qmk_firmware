@@ -3,6 +3,35 @@
 
 bool is_win = true;
 
+enum custom_keycodes {
+  keyboardSpecificKeyCode = NEW_SAFE_RANGE //not used
+};
+
+void led_set_user(uint8_t usb_led) {
+  if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+    ergodox_right_led_2_on();
+  } else {
+    ergodox_right_led_2_off();
+  }
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+  ergodox_board_led_off();
+  ergodox_right_led_1_off();
+  ergodox_right_led_3_off();
+  switch (get_highest_layer(state)) {
+    case NAV:
+    case CTRL_NAV:
+    case SHIFT_NAV:
+      ergodox_right_led_1_on();
+      break;
+    case FKEYS:
+      ergodox_right_led_3_on();
+      break;
+  }
+  return state;
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Base qwerty layer
  *
@@ -274,32 +303,3 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
-
-void led_set_user(uint8_t usb_led) {
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        ergodox_right_led_2_on();
-    } else {
-        ergodox_right_led_2_off();
-    }
-}
-
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
-    uint8_t layer = biton32(layer_state);
-
-    ergodox_board_led_off();
-    ergodox_right_led_1_off();
-    ergodox_right_led_3_off();
-    switch (layer) {
-        case NAV:
-        case CTRL_NAV:
-        case SHIFT_NAV:
-            ergodox_right_led_1_on();
-            break;
-		case FKEYS:
-            ergodox_right_led_3_on();
-            break;
-        default:
-            break;
-    }
-};
