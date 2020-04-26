@@ -50,9 +50,7 @@
 #define LOCKING_RESYNC_ENABLE
 
 /* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
+// #define IS_COMMAND() (get_mods() == MOD_MASK_SHIFT)
 
 /* prevent stuck modifiers */
 #define PREVENT_STUCK_MODIFIERS
