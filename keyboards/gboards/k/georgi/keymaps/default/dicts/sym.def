@@ -1,0 +1,42 @@
+// Symbol Layer
+PRES( PWR | RE  | RU,                               KC_ENT)
+PRES( PWR | LA  | LO,                               KC_SPC)
+KEYS( PWR | LP  | LW,        cmb_lcur,              {KC_LSFT, KC_9,    COMBO_END})       // (
+KEYS( PWR | LH  | LR,        cmb_rcur,              {KC_LSFT, KC_0,    COMBO_END})       // )
+PRES( PWR | ST1 | ST2,                              KC_GRV)                              // `
+PRES( PWR | RD  | RZ,                               KC_ESC)
+KEYS( PWR | LSU | LSD,       cmb_hash,              {KC_LSFT, KC_3,    COMBO_END})       // #
+KEYS( PWR | LFT | LK,        cmb_doll,              {KC_LSFT, KC_4,    COMBO_END})       // $
+KEYS( PWR | RT  | RS,        cmb_coln,              {KC_LSFT, KC_SCLN, COMBO_END})       // $
+KEYS( PWR | LSU,             cmb_excl,              {KC_LSFT, KC_1,    COMBO_END})       // !
+KEYS( PWR | LSD,             cmb_perc,              {KC_LSFT, KC_5,    COMBO_END})       // %
+KEYS( PWR | LFT,             cmb_at,                {KC_LSFT, KC_2,    COMBO_END})       // @
+KEYS( PWR | LK,              cmb_care,              {KC_LSFT, KC_6,    COMBO_END})       // ^
+KEYS( PWR | LP,              cmb_lcurl,             {KC_LSFT, KC_LBRC, COMBO_END})       // {
+PRES( PWR | LW,                                     KC_LBRC)
+KEYS( PWR | LH,              cmb_rcurl,             {KC_LSFT, KC_RBRC, COMBO_END})       // }
+PRES( PWR | LR,                                     KC_RBRC)
+KEYS( PWR | ST1,             cmb_pipe,              {KC_LSFT, KC_BSLS, COMBO_END})       // |
+KEYS( PWR | ST2,             cmb_tilde,             {KC_LSFT, KC_GRV,  COMBO_END})       // ~
+PRES( PWR | ST3,                                    KC_QUOT)
+KEYS( PWR | ST4,             cmb_quot,              {KC_LSFT, KC_QUOT, COMBO_END})       // "
+PRES( PWR | RF,                                     KC_KP_PLUS)
+KEYS( PWR | RR,              cmb_ampr,              {KC_LSFT, KC_7,    COMBO_END})       // &
+PRES( PWR | RP,                                     KC_MINS)
+PRES( PWR | RB,                                     KC_EQL)
+PRES( PWR | RL,                                     KC_SLSH)
+PRES( PWR | RG,                                     KC_COMM)
+PRES( PWR | RT,                                     KC_PAST)
+PRES( PWR | RS,                                     KC_DOT)
+PRES( PWR | RD,                                     KC_TAB)
+
+PRES( PWR | LA,                                     KC_SCLN)
+PRES( PWR | LO,                                     KC_SLSH)
+PRES( PWR | RE,                                     KC_SCLN)
+PRES( PWR | RU,                                     KC_BSLS)
+
+PRES( PWR | LNO,                                    KC_BSLS)
+PRES( PWR | ST3 | ST4,                              KC_LEFT)
+PRES( PWR | RF | RR,                                KC_DOWN)
+PRES( PWR | RP | RB,                                KC_UP)
+PRES( PWR | RL | RG,                                KC_RIGHT)

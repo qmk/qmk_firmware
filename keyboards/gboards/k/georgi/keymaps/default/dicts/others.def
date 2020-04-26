@@ -1,0 +1,58 @@
+// Specials
+SUBS( RT  | RS  | RD  | RZ | LNO,         str_verstr,    "VERSION __DATE__")
+PRES( LNO | RNO | LA  | LO | RE | RU,                    KC_MPLY)
+SPEC( LFT | LK  | LP  | LW,                              SPEC_REPEAT,)
+PRES( ST1 | ST2 | LW  | ST4,                             KC_BSPC)
+SPEC( FN  | PWR | ST3 | ST4,               SPEC_SWITCH,  0)
+
+// Mouse Keys
+SPEC( LO  | LSD | LK,                                    SPEC_CLICK, KC_MS_BTN2)
+SPEC( LO  | LR  | LW,                                    SPEC_CLICK, KC_MS_BTN1)
+SPEC( LP  | LH,                                          SPEC_CLICK, KC_MS_BTN1)
+SPEC( LW  | LR,                                          SPEC_CLICK, KC_MS_BTN2)
+
+// Thumb Chords
+PRES( LA  | LO  | RE  | RU,                              KC_CAPS)
+PRES( LA  | RU,                                          KC_ESC)
+PRES( LO  | RE,                                          KC_LCTL)
+KEYS( LNO | RNO | LA | RU,                cmb_CShift,    {KC_LCTL, KC_LSFT, COMBO_END})
+KEYS( LNO | LA  | RE,                     cmb_CAShift,   {KC_LCTL, KC_LSFT, KC_LALT, COMBO_END})
+
+// Mods
+PRES( RT | RD   | RS | RZ,                               KC_LGUI)
+PRES( RT | RD,                                           KC_LCTL)
+PRES( RS | RZ,                                           KC_LALT)
+PRES( LA | LNO,                                          KC_LCTL)
+PRES( LA | LO,                                           KC_LALT)
+PRES( LO,                                                KC_LSFT)
+
+// Function Layer
+PRES( FUNCT | RF | RR,                                   KC_F5)
+PRES( FUNCT | RP | RB,                                   KC_F6)
+PRES( FUNCT | RL | RG,                                   KC_F7)
+PRES( FUNCT | RT | RS,                                   KC_F8)
+PRES( FUNCT | RF,                                        KC_F1)
+PRES( FUNCT | RP,                                        KC_F2)
+PRES( FUNCT | RL,                                        KC_F3)
+PRES( FUNCT | RT,                                        KC_F4)
+PRES( FUNCT | RR,                                        KC_F9)
+PRES( FUNCT | RG,                                        KC_F10)
+PRES( FUNCT | RB,                                        KC_F11)
+PRES( FUNCT | RS,                                        KC_F12)
+
+// Movement Layer
+PRES( MOVE | RF,                                         KC_LEFT)
+PRES( MOVE | RP,                                         KC_DOWN)
+PRES( MOVE | RL,                                         KC_UP)
+PRES( MOVE | RT,                                         KC_RIGHT)
+PRES( MOVE | ST3,                                        KC_PGUP)
+PRES( MOVE | ST4,                                        KC_PGDN)
+
+// Media Layer
+PRES( MEDIA | RF,                                        KC_MPRV)
+PRES( MEDIA | RP,                                        KC_MPLY)
+PRES( MEDIA | RL,                                        KC_MPLY)
+PRES( MEDIA | RT,                                        KC_MNXT)
+PRES( MEDIA | RD,                                        KC_VOLU)
+PRES( MEDIA | RZ,                                        KC_VOLD)
+PRES( MEDIA | RS,                                        KC_MUTE)

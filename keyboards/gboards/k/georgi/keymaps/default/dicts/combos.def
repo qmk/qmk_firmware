@@ -1,0 +1,4 @@
+// Dictionary to allow for compilation
+// nullEntry does nothing
+
+COMB(nullEntry,   KC_Z,       KC_NO)
