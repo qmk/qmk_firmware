@@ -50,17 +50,10 @@ enum custom_keycodes {
   SHELL_EXPAND_OE_LOGPATTERN,
   SHELL_EXPAND_OE_TRANPATTERN,
 
-  // Cloud9 macros
-  CLOUD9_TAB_LEFT,
-  CLOUD9_TAB_RIGHT,
-  CLOUD9_TAB_CLOSE,
-  CLOUD9_GOTO_SYMBOL,
-  CLOUD9_GOTO_LINE,
-  CLOUD9_NAVIGATE,
-
   // Windows 10 macros,
   WINDOWS10_WORKSPACE_LEFT,
   WINDOWS10_WORKSPACE_RIGHT,
+  WINDOWS10_TASK_VIEW
 };
 
 
@@ -197,7 +190,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
       // left thumb cluster
                 WINDOWS10_WORKSPACE_LEFT, WINDOWS10_WORKSPACE_RIGHT,
-                                MEH(KC_6),
+                                WINDOWS10_TASK_VIEW,
       MO(COMBINED),MO(KEYNAV),  OSM(MOD_LALT),
 
       // right hand
@@ -214,11 +207,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [KEYNAV] = LAYOUT_ergodox(
     // left hand
-    KC_TRNS,KC_TRNS,     KC_TRNS,            KC_TRNS,         KC_TRNS,          KC_TRNS,          KC_TRNS,
-    KC_TRNS,KC_ESC,      CLOUD9_GOTO_LINE,   RCTL(KC_Z),      RCTL(KC_S),       MEH(KC_F10),      KC_TRNS,
-    KC_TRNS,KC_LSFT,     CLOUD9_GOTO_SYMBOL, RSFT(KC_TAB),    KC_TAB,           MEH(KC_A),
-    KC_TRNS,MEH(KC_B),   CLOUD9_NAVIGATE,    CLOUD9_TAB_LEFT, CLOUD9_TAB_RIGHT, CLOUD9_TAB_CLOSE, KC_TRNS,
-    KC_TRNS,KC_TRNS,     KC_TRNS,            KC_TRNS,         KC_TRNS,
+    KC_TRNS,KC_TRNS,     KC_TRNS,   KC_TRNS,         KC_TRNS,          KC_TRNS,          KC_TRNS,
+    KC_TRNS,KC_ESC,      KC_TRNS,   RCTL(KC_Z),      RCTL(KC_S),       KC_TRNS,          KC_TRNS,
+    KC_TRNS,KC_LSFT,     KC_TRNS,   RSFT(KC_TAB),    KC_TAB,           KC_TRNS,
+    KC_TRNS,KC_TRNS,     KC_TRNS,   KC_TRNS,         KC_TRNS,          KC_TRNS,          KC_TRNS,
+    KC_TRNS,KC_TRNS,     KC_TRNS,   KC_TRNS,         KC_TRNS,
     // left thumb cluster
     KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 
@@ -649,37 +642,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING(" | dumptlog - ");
             return true;
             break;
-	// Cloud9 macros
-	case CLOUD9_TAB_LEFT:
-            SEND_STRING(SS_LCTRL("["));
-            return true;
-			break;
-		case CLOUD9_TAB_RIGHT:
-            SEND_STRING(SS_LCTRL("]"));
-            return true;
-			break;
-		case CLOUD9_TAB_CLOSE:
-            SEND_STRING(SS_LALT("w"));
-            return true;
-			break;
-		case CLOUD9_GOTO_SYMBOL:
-            SEND_STRING(SS_LSFT(SS_LCTRL("e")));
-            return true;
-			break;
-		case CLOUD9_GOTO_LINE:
-            SEND_STRING(SS_LCTRL("g"));
-            return true;
-			break;
-		case CLOUD9_NAVIGATE:
-            SEND_STRING(SS_LCTRL("e"));
-            return true;
-			break;
         case WINDOWS10_WORKSPACE_LEFT:
             SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_LEFT))));
             return true;
             break;
         case WINDOWS10_WORKSPACE_RIGHT:
             SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_RIGHT))));
+            break;
+        case WINDOWS10_TASK_VIEW:
+            SEND_STRING(SS_LGUI(SS_TAP(X_TAB)));
             break;
 
     }
