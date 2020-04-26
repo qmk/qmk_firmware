@@ -43,6 +43,7 @@ enum custom_keycodes_art {
   OS_HOME,
   OS_END,
 
+  TILD_BLOCK,
   ADMINS,
   PRESCRIPTION,
   FOURS,
