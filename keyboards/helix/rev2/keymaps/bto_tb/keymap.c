@@ -508,35 +508,12 @@ void music_scale_user(void)
 
 #endif
 
-
-uint8_t tb_button    = 0;
-uint8_t tb_scrl_flag = false;
 report_mouse_t mouse_rep;
-void           send_mouse(report_mouse_t *report);
 
-static inline int sgn(int16_t x) {
-    if (x > 0) {
-        return 1;
-    } else if (x < 0) {
-        return -1;
-    } else {
-        return 0;
-    }
+void keyboard_post_init_user() {
+    debug_enable = true;
+    debug_mouse = true;
 }
-
-typedef struct {
-  int16_t x;
-  int16_t y;
-  uint8_t surface;
-  uint8_t motion_flag;
-} trackball_info_t;
-
-static inline void to_tb_info(trackball_info_t* const tb_info, uint8_t dat1,
-                              uint8_t dat2, uint8_t dat3) {
-  tb_info->x = (int16_t)(((int16_t)dat1 << 4) | (((int16_t)dat3 >> 4) << 12));
-  tb_info->y = (int16_t)(((int16_t)dat2 << 4) | (((int16_t)dat3 & 0x0F) << 12));
-}
-
 
 void matrix_scan_user(void) {
     static int  cnt;
@@ -563,7 +540,9 @@ void matrix_scan_user(void) {
         mouse_rep.x       = y;
         mouse_rep.y       = -x;
 
-        dprintf("stat:0x%02x x:%4d y:%4d\n", stat, mouse_rep.x, mouse_rep.y);
+        if (cnt % 10 == 0) {
+            dprintf("stat:%3d x:%4d y:%4d\n", stat, mouse_rep.x, mouse_rep.y);
+        }
 
         if (stat & 0x80) {
             pointing_device_set_report(mouse_rep);

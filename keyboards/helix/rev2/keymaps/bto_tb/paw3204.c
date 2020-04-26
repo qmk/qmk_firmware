@@ -37,10 +37,6 @@ typedef int (*spi_paw3204_t)(uint8_t *p_tx_buffer, size_t tx_length, uint8_t *p_
 #    define PAW3204_DATA D1
 #endif
 
-#ifndef PAW3204_POWER
-// #    define PAW3204_POWER 7
-#endif
-
 int spi_soft_half_duplex(uint8_t *p_tx_buffer, size_t tx_length, uint8_t *p_rx_buffer, size_t rx_length, uint8_t cs_pin) {
     if (tx_length != 2 || rx_length != 2) {
         p_rx_buffer[1] = 0xFF;
@@ -79,7 +75,7 @@ uint8_t read_pid_paw3204() {
     return rcv[1];
 }
 
-// powering paw3204 by gpio (not recommended)
+// set IO pins
 void init_paw3204() {
     setPinOutput(PAW3204_SCLK);
     setPinInputHigh(PAW3204_DATA);
