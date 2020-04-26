@@ -29,3 +29,4 @@
 #define MATRIX_ROWS 12 // Three GPX chips per side, two banks per chip
 #define MATRIX_COLS 8  // 8 pins per GPX bank
 #define UNUSED_PINS { E6, B7, D0, D1, D2, D3, D5, D4, D6, D7, B4, B5, B6, C6, C7, F7 }
+#define DEBOUNCE    10 // 10 ms debounce timer

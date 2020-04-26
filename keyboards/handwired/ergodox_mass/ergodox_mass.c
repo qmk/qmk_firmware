@@ -40,6 +40,8 @@ static uint32_t scanCount = 0;
  */
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
+  state = layer_state_set_user(state);
+
   //uprintf("LAYER %d\n", state);
 
   // Set layer LEDs based on new layer state
@@ -49,18 +51,22 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
   if (layer <= 2)
     writePinHigh(LED_PINS[layer]);
 
-  return layer_state_set_user(state);
+  return state;
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+  bool ret = process_record_user(keycode, record);
+
   //uprintf("RECORD %u\n", keycode);
 
   writePin(LED_PINS[3], record->event.pressed);
 
-  return process_record_user(keycode, record);
+  return ret;
 }
 
 void matrix_init_kb(void) {
+  matrix_init_user();
+
   for (uint8_t i = 0; i <= 4; ++i) {
     setPinOutput(LED_PINS[i]);
     writePinLow(LED_PINS[i]);
@@ -69,14 +75,12 @@ void matrix_init_kb(void) {
   // Set layer LEDs based on default layer state
   layer_state_set_kb(layer_state);
   default_layer_state_set_kb(default_layer_state);
-
-  matrix_init_user();
 }
 
 void matrix_scan_kb(void) {
+  matrix_scan_user();
+
   // Blink LED4
   if (++scanCount % 1000 == 0)
     writePin(LED_PINS[4], ! readPin(LED_PINS[4]));
-
-  matrix_scan_user();
 }
