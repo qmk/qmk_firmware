@@ -51,12 +51,12 @@ HD44780 のラベルが付いたセクションのコメントを外し、必要
 LCD_DISP_OFF             : ディスプレイオフ
 LCD_DISP_ON              : ディスプレイオン、カーソルオフ
 LCD_DISP_ON_CURSOR       : ディスプレイオン、カーソルオン
-LCD_DISP_ON_CURSOR_BLINK : ディスプレイオン、点滅時にカーソル
+LCD_DISP_ON_CURSOR_BLINK : ディスプレイオン、点滅カーソル
 ````
-これはキーボード `matrix_init_kb` またはキーマップ `matrix_init_user` で行うのが最適です。
+これはキーボードの `matrix_init_kb` またはキーマップの `matrix_init_user` で行うのが最適です。
 使用前にディスプレイをクリアすることをお勧めします。
 そのためには、`lcd_clrsrc()` を呼びます。
 
 ディスプレイに何かを表示するには、最初に `lcd_gotoxy(column, line)` を呼びます。最初の行の先頭に移動するには、`lcd_gotoxy(0, 0)` を呼び出し、その後 `lcd_puts("example string")` を使って文字列を出力します。
 
-ディスプレイを制御することができる、より多くのメソッドがあります。[詳細なドキュメントについてはリンクされたページをご覧ください](http://homepage.hispeed.ch/peterfleury/doxygen/avr-gcc-libraries/group__pfleury__lcd.html)
+ディスプレイを制御することができる、より多くのメソッドがあります。[詳細なドキュメントについてはリンクされたページをご覧ください](http://homepage.hispeed.ch/peterfleury/doxygen/avr-gcc-libraries/group__pfleury__lcd.html) (訳注）原文のリンク先のページは、サービスの終了に伴って削除されています。移行先は (http://www.peterfleury.epizy.com/doxygen/avr-gcc-libraries/group__pfleury__lcd.html) と思われます。
