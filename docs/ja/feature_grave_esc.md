@@ -27,7 +27,7 @@ macOS では、Command+<code>&#96;</code> はデフォルトで "次のウィン
 
 ## 設定
 
-グレイブエスケープが壊す可能性のあるキーの組み合わせが幾つかあります。その中には、Windows では Control+Shift+Escape、macOSでは Command+Option+Escape があります。これを回避するには、`config.h` でこれらのオプションを `#define` することができます:
+グレイブエスケープが壊す可能性のあるキーの組み合わせが幾つかあります。その中には、Windows では Control+Shift+Escape、macOSでは Command+Option+Escape があります。これを回避するには、`config.h` で以下のオプションを `#define` することができます:
 
 | 定義 | 説明 |
 |--------------------------|-----------------------------------------|
