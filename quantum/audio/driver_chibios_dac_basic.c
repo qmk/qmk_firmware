@@ -189,12 +189,16 @@ void audio_driver_initialize() {
 #if defined(AUDIO_PIN_A4) || defined(AUDIO_PIN_ALT_A4)
     palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_ANALOG);
     dacStart(&DACD1, &dac_conf_ch1);
-    dacStartConversion(&DACD1, &dac_conv_grp_ch1, (dacsample_t *)dac_buffer_1, AUDIO_DAC_BUFFER_SIZE);
+
+    // initial setup of the dac-triggering timer is still required, even
+    // though it gets reconfigured and restarted later on
+    gptStart(&GPTD6, &gpt6cfg1);
 #endif
 #if defined(AUDIO_PIN_A5) || defined(AUDIO_PIN_ALT_A5)
     palSetPadMode(GPIOA, 5, PAL_MODE_INPUT_ANALOG);
     dacStart(&DACD2, &dac_conf_ch2);
-    dacStartConversion(&DACD2, &dac_conv_grp_ch2, (dacsample_t *)dac_buffer_2, AUDIO_DAC_BUFFER_SIZE);
+
+    gptStart(&GPTD7, &gpt7cfg1);
 #endif
 
     /* enable the output buffer, to directly drive external loads with no additional circuitry
@@ -208,11 +212,9 @@ void audio_driver_initialize() {
      */
 #if defined(AUDIO_PIN_A4) || defined(AUDIO_PIN_ALT_A4)
     DACD1.params->dac->CR &= ~DAC_CR_BOFF1;
-    gptStart(&GPTD6, &gpt6cfg1);  // initialize the timer used to trigger the DAC conversions
 #endif
 #if defined(AUDIO_PIN_A5) || defined(AUDIO_PIN_ALT_A5)
     DACD2.params->dac->CR &= ~DAC_CR_BOFF2;
-    gptStart(&GPTD7, &gpt7cfg1);
 #endif
 
     // start state-updater
@@ -222,11 +224,26 @@ void audio_driver_initialize() {
 void audio_driver_stop(void) {
 #if defined(AUDIO_PIN_A4) || defined(AUDIO_PIN_ALT_A4)
     gptStopTimer(&GPTD6);
+
+    // stop the ongoing conversion and put the output in a known state
+    dacStopConversion(&DACD1);
+    dacPutChannelX(&DACD1, 0, AUDIO_DAC_OFF_VALUE);
 #endif
 #if defined(AUDIO_PIN_A5) || defined(AUDIO_PIN_ALT_A5)
     gptStopTimer(&GPTD7);
+
+    dacStopConversion(&DACD2);
+    dacPutChannelX(&DACD2, 0, AUDIO_DAC_OFF_VALUE);
 #endif
     gptStopTimer(&GPTD8);
 }
 
-void audio_driver_start(void) { gptStartContinuous(&GPTD8, 2U); }
+void audio_driver_start(void) {
+#if defined(AUDIO_PIN_A4) || defined(AUDIO_PIN_ALT_A4)
+    dacStartConversion(&DACD1, &dac_conv_grp_ch1, (dacsample_t *)dac_buffer_1, AUDIO_DAC_BUFFER_SIZE);
+#endif
+#if defined(AUDIO_PIN_A5) || defined(AUDIO_PIN_ALT_A5)
+    dacStartConversion(&DACD2, &dac_conv_grp_ch2, (dacsample_t *)dac_buffer_2, AUDIO_DAC_BUFFER_SIZE);
+#endif
+    gptStartContinuous(&GPTD8, 2U);
+}
