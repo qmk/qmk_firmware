@@ -1,0 +1,48 @@
+/* Welcome to ASETNIOP
+ *
+ * This file contains your personal chords, the  basic layout, symbols and 
+ * layers are in different files. Refer to dicts.def for their locations!
+ *
+ * This is a very different layout based off this table
+ * http://asetniop.com/ 
+ *
+ * Unlike standard Asetniop there are a few concessions that must be
+ * made. Namely we don't do partials and if a chord has multiple left/
+ * right words we go with the most common of the two.
+ *
+ * Also note, All Combos _must_ be done through Command Mode! If you
+ * use a combo enough add it to your dictionary in the USR section!
+ *
+ * Two 'layers' are available, CMD and USR. Just add these into a chord. 
+ * You'll enter/exit these layers with SET_STICKY(CMD) and SET_STICKY(0)
+ *
+ * Note: The engine optimizes for the longest chord it can find, every
+ * now and again this makes conflicts! If you have a better dictionary
+ * or come up with improvements, please submit a PR!
+ */
+
+
+// You can use the following aliases in your chords
+// AA, AS, AE, AT, AN, AI, AO, AP, AL, AR (Left/Right thumb)
+// NUM, USR and CMD are also available
+
+// User defs
+SUBS(USR | AA,											undef1, "undefined User ")
+SUBS(USR | AS,											undef2, "undefined User ")
+SUBS(USR | AE,											undef3, "undefined User ")
+SUBS(USR | AT,											undef4, "undefined User ")
+SUBS(USR | AN,											undef5, "undefined User ")
+SUBS(USR | AI,											undef6, "undefined User ")
+SUBS(USR | AO,											undef7, "undefined User ")
+SUBS(USR | AP,											undef8, "undefined User ")
+SUBS(USR | AR,											undef9, "undefined User ")
+SUBS(USR | AL,											undef0, "undefined User ")
+
+// Quick Fires
+SUBS(AR | AA | AS,									qf0, 		"Undefined Quick Fire ")
+SUBS(AR | AS | AE,									qf1, 		"Undefined Quick Fire ")
+SUBS(AR | AE | AT,									qf2, 		"Undefined Quick Fire ")
+SUBS(AR | AT | AN,									qf3, 		"Undefined Quick Fire ")
+SUBS(AR | AN | AI,									qf4, 		"Undefined Quick Fire ")
+SUBS(AR | AI | AO,									qf5, 		"Undefined Quick Fire ")
+SUBS(AR | AO | AP,									qf6, 		"Undefined Quick Fire ")
