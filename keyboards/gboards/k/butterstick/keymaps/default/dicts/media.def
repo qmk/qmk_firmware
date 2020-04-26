@@ -1,0 +1,8 @@
+// Media Layer
+PRES( MEDIA | KY,                                            KC_MPRV)
+PRES( MEDIA | KU,                                            KC_MPLY)
+PRES( MEDIA | KI,                                            KC_MPLY)
+PRES( MEDIA | KO,                                            KC_MNXT)
+PRES( MEDIA | KK,                                            KC_VOLU)
+PRES( MEDIA | KJ,                                            KC_VOLD)
+PRES( MEDIA | KL,                                            KC_MUTE)

@@ -1,0 +1,7 @@
+// Movement Layer
+PRES( MOVE | KY,                                             KC_LEFT)
+PRES( MOVE | KU,                                             KC_DOWN)
+PRES( MOVE | KI,                                             KC_UP)
+PRES( MOVE | KO,                                             KC_RIGHT)
+PRES( MOVE | KT,                                             KC_PGUP)
+PRES( MOVE | KG,                                             KC_PGDN)
