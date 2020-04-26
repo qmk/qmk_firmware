@@ -1,5 +1,5 @@
 /*
-Copyright 2020 Mechlovin'
+Copyright 2020 Team Mechlovin'
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,15 +21,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID    0x4D4C // ML-Mechlovin
-#define PRODUCT_ID   0x6001
+#define PRODUCT_ID   0xAEC1
 #define DEVICE_VER   0x0001
 #define MANUFACTURER Team.Mechlovin
-#define PRODUCT      Hannah60 RGB
-#define DESCRIPTION  Team.Mechlovin Hannah60 RGB
+#define PRODUCT      Adelais En Ciel
+#define DESCRIPTION  Team.Mechlovin Adelais En Ciel
 
 /* key matrix size */
 #define MATRIX_ROWS 5
-#define MATRIX_COLS 14
+#define MATRIX_COLS 15
 
 /*
  * Keyboard Matrix Assignments
@@ -41,13 +41,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { A4, A5, A3, A2, A1 }
-#define MATRIX_COL_PINS { B11, B10, B2, B1, B0, A7, A6, A0, C15, B4, B5, B3, C13, C14 }
+#define MATRIX_ROW_PINS { B1, A0, C13, A1, A2}
+#define MATRIX_COL_PINS { A10, A9, A8, B15, B14, B13, B12, B11, B10, B8, B4, B5, B3, C14, A15 }
+#define UNUSED_PINS
 
+/* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-#define RGB_DI_PIN A15
-#define DRIVER_LED_TOTAL 72
+
+#define RGB_DI_PIN A7
+#define DRIVER_LED_TOTAL 91
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS

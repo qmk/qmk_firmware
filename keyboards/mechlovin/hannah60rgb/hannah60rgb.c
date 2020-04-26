@@ -15,7 +15,6 @@
  */
 
 #include "hannah60rgb.h"
-#ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
   //Key Matrix to LED Index
   {0,         1,         2,           3,          4,          5,          6,          7,          8,          9,          10,          11,          12,          13},
@@ -38,4 +37,10 @@ led_config_t g_led_config = { {
   1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1, 
 } };
 
-#endif
+void rgb_matrix_indicators_user(void)
+{
+        if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK))
+        {
+            rgb_matrix_set_color(30, 255, 255, 255);
+        }
+}
