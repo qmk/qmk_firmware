@@ -118,18 +118,17 @@ void audio_init() {
     }
 
     // Check EEPROM
-    // TODO: avr defines?
-#if defined(STM32_EEPROM_ENABLE) || defined(PROTOCOL_ARM_ATSAM) || defined(EEPROM_SIZE)
+#ifdef EEPROM_ENABLE
     if (!eeconfig_is_enabled()) {
         eeconfig_init();
     }
     audio_config.raw = eeconfig_read_audio();
-#else  // ARM EEPROM
+#else  // EEPROM settings
     audio_config.enable        = true;
 #    ifdef AUDIO_CLICKY_ON
     audio_config.clicky_enable = true;
 #    endif
-#endif  // ARM EEPROM
+#endif  // EEPROM settings
 
     for (uint8_t i = 0; i < AUDIO_TONE_STACKSIZE; i++) {
         tones[i] = (musical_tone_t){
