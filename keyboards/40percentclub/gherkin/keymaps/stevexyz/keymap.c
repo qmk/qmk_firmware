@@ -212,7 +212,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void matrix_init_user(void) {
   // eeconfig_init(); // reset keyboard to a standard default state; useful when new releases messup with eeprom values
   // set num lock on at start (for numonly layer to work)
-  if (!(host_keyboard_leds() & (1<<USB_LED_NUM_LOCK))) {
+  if (!host_keyboard_led_state().num_lock) {
       tap_code(KC_NUMLOCK);
   }
 }
