@@ -96,11 +96,13 @@
 /* Modifiers */
 #define X_LCTL X_LCTRL
 #define X_LSFT X_LSHIFT
+#define X_LOPT X_LALT
 #define X_LCMD X_LGUI
 #define X_LWIN X_LGUI
 #define X_RCTL X_RCTRL
 #define X_RSFT X_RSHIFT
 #define X_ALGR X_RALT
+#define X_ROPT X_RALT
 #define X_RCMD X_RGUI
 #define X_RWIN X_RGUI
 
