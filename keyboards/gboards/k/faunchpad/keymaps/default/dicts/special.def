@@ -1,0 +1,3 @@
+// SECRET AGENT CHORDS
+SUBS( FP01 | FP02 | FP03 | FP04 | FP11 | FP12 | FP13 | FP14,    str_cad,     "LALT(LCTL(KC_DEL))")
+SUBS( FP01 | FP02 | FP03 | FP04,                                str_ver,     "VERSION __DATE__")

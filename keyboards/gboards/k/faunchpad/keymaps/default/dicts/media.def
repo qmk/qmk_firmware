@@ -1,0 +1,7 @@
+// Media
+PRES( MEDIA | FP13,                                         KC_MPRV)
+PRES( MEDIA | FP14,                                         KC_MNXT)
+PRES( MEDIA | FP04,                                         KC_VOLU)
+PRES( MEDIA | FP03,                                         KC_VOLD)
+PRES( MEDIA | FP03 | FP04,                                  KC_MPLY)
+PRES( MEDIA | FP02,                                         KC_MUTE)

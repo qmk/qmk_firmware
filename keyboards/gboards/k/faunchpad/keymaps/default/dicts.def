@@ -1,0 +1,8 @@
+// These are the dicts used by Georgi. You can
+// layer in your own and add include your files :)
+
+#include "dicts/cats.def"
+#include "dicts/num.def"
+#include "dicts/move.def"
+#include "dicts/media.def"
+#include "dicts/special.def"

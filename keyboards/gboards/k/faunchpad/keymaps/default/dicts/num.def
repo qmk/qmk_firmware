@@ -1,0 +1,11 @@
+// Numpad
+PRES( NUM | FP01 | FP11,                                    KC_4)
+PRES( NUM | FP02 | FP12,                                    KC_5)
+PRES( NUM | FP03 | FP13,                                    KC_6)
+PRES( NUM | FP01,                                           KC_1)
+PRES( NUM | FP02,                                           KC_2)
+PRES( NUM | FP03,                                           KC_3)
+PRES( NUM | FP11,                                           KC_7)
+PRES( NUM | FP12,                                           KC_8)
+PRES( NUM | FP13,                                           KC_9)
+PRES( NUM | FP11 | FP12 | FP13,                             KC_0)
