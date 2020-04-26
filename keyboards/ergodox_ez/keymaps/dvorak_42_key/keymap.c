@@ -133,6 +133,8 @@ enum custom_keycodes {
 #define VS_TERMINAL LCTL(KC_GRAVE)
 #define VS_BUILD LCTL(LSFT(KC_B))
 #define VS_COMMANDS LCTL(LSFT(KC_P))
+#define VS_CMT_BLOCK LSFT(LALT(KC_A))
+#define VS_CMT_LINE LCTL(KC_SLSH)
 // visual studio bookmark commands
 #define VS_BM_LIST LCTL(LALT(KC_L))
 #define VS_BM_LISTALL LCTL(LALT(KC_A))
@@ -379,10 +381,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
-       KC_TRNS, KC_TRNS,     KC_TRNS,       KC_TRNS,          KC_TRNS,             KC_TRNS,         KC_TRNS,
-       KC_TRNS, KC_TRNS,     VS_REFERENCES, VS_DEFINITION,    VS_IMPLEMENTATION,   VS_LINE,         VS_BRACKET,
-                VS_CLOSETAB, VS_TABLEFT,    VS_TABRIGHT,      VS_SYMBOLEDITOR,     VS_FILE,         VS_BACK,
-       KC_TRNS, KC_TRNS,     VS_BM_PREV,    VS_BM_NEXT,       VS_BM_LIST,          VS_BM_LISTALL,   VS_BM_TOGGLE,
+       KC_TRNS,      KC_TRNS,     KC_TRNS,       KC_TRNS,          KC_TRNS,             KC_TRNS,         KC_TRNS,
+       VS_CMT_LINE,  KC_TRNS,     VS_REFERENCES, VS_DEFINITION,    VS_IMPLEMENTATION,   VS_LINE,         VS_BRACKET,
+                     VS_CLOSETAB, VS_TABLEFT,    VS_TABRIGHT,      VS_SYMBOLEDITOR,     VS_FILE,         VS_BACK,
+       VS_CMT_BLOCK, KC_TRNS,     VS_BM_PREV,    VS_BM_NEXT,       VS_BM_LIST,          VS_BM_LISTALL,   VS_BM_TOGGLE,
                              // bottom row
                              VS_COMMANDS,   VS_BUILD,         VS_TERMINAL,         VS_CLOSEPANEL,   VS_BM_LABEL,
        // thumb cluster
