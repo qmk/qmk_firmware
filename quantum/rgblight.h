@@ -196,7 +196,7 @@ typedef struct {
 #        define RGBLIGHT_END_SEGMENT_INDEX (255)
 #        define RGBLIGHT_END_SEGMENTS \
             { RGBLIGHT_END_SEGMENT_INDEX, 0, 0, 0 }
-#        define RGBLIGHT_MAX_LAYERS 8
+#        define RGBLIGHT_MAX_LAYERS 16
 #        define RGBLIGHT_LAYER_SEGMENTS(...) \
             { __VA_ARGS__, RGBLIGHT_END_SEGMENTS }
 #        define RGBLIGHT_LAYERS_LIST(...) \
@@ -247,7 +247,7 @@ typedef struct _rgblight_status_t {
     uint8_t change_flags;
 #    endif
 #    ifdef RGBLIGHT_LAYERS
-    uint8_t enabled_layer_mask;
+    uint16_t enabled_layer_mask;
 #    endif
 } rgblight_status_t;
 
