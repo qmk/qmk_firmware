@@ -511,16 +511,9 @@ MATRIX_LOOP_END:
 #endif
 
     // update LED
-    if (is_keyboard_master()) {
-        if (led_status != host_keyboard_leds()) {
-            led_status = host_keyboard_leds();
-            keyboard_set_leds(led_status);
-        }
-    } else {
-        if (led_status != get_slave_host_leds()) {
-            led_status = get_slave_host_leds();
-            keyboard_set_leds(led_status);
-        }
+    if (led_status != host_keyboard_leds()) {
+        led_status = host_keyboard_leds();
+        keyboard_set_leds(led_status);
     }
 }
 

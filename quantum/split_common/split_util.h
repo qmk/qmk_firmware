@@ -13,3 +13,4 @@ void split_post_init(void);
 
 void set_slave_host_leds(uint8_t host_leds);
 uint8_t get_slave_host_leds(void);
+bool is_keyboard_master(void);

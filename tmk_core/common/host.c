@@ -21,6 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "host.h"
 #include "util.h"
 #include "debug.h"
+#ifdef SPLIT_KEYBOARD
+#    include "split_util.h"
+#endif
 
 #ifdef NKRO_ENABLE
 #    include "keycode_config.h"
@@ -36,13 +39,21 @@ void host_set_driver(host_driver_t *d) { driver = d; }
 host_driver_t *host_get_driver(void) { return driver; }
 
 uint8_t host_keyboard_leds(void) {
-    if (!driver) return 0;
-    return (*driver->keyboard_leds)();
+    if (is_keyboard_master()) {
+         if (!driver) return 0;
+        return (*driver->keyboard_leds)();
+    } else {
+        return get_slave_host_leds();
+    }
 }
 
 led_t host_keyboard_led_state(void) {
-    if (!driver) return (led_t){0};
-    return (led_t)((*driver->keyboard_leds)());
+    if (is_keyboard_master()) {
+        if (!driver) return (led_t){0};
+        return (led_t)((*driver->keyboard_leds)());
+    } else {
+        return (led_t)get_slave_host_leds();
+    }
 }
 
 /* send report */
