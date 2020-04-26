@@ -28,8 +28,15 @@ enum layer_base {
   LAYER_BASE_END     = _FN+1,
 };
 
+typedef enum layer_ack {
+  ACK_NO = 0,
+  ACK_YES,
+  ACK_MEH,
+  ACK_STARTUP,
+  ACK_WAKEUP,
+} layer_ack_t;
+
 #define RGB_LAYER_ACK_DURATION 500
-#define RGB_LAYER_WELCOME_DURATION 750
 
 void eeconfig_init_user_rgb(void);
 void matrix_init_user_rgb(void);
@@ -39,7 +46,8 @@ void post_process_record_user_rgb(uint16_t keycode, keyrecord_t *record);
 layer_state_t layer_state_set_user_rgb(layer_state_t state);
 layer_state_t default_layer_state_set_user_rgb(layer_state_t state);
 bool led_update_user_rgb(led_t led_state);
-void rgb_layer_ack(bool yn);
+void rgb_layer_ack(layer_ack_t n);
+void rgb_layer_ack_yn(bool yn);
 void clear_rgb_layers(void);
 #endif
 

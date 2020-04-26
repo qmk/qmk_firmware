@@ -31,6 +31,6 @@ void shutdown_user() {
 
 void suspend_wakeup_init_user(void) {
 #ifdef RGBLIGHT_ENABLE
-  rgb_layer_ack(true);
+  rgb_layer_ack(ACK_WAKEUP);
 #endif
 }
