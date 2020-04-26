@@ -1,9 +1,7 @@
-//Remember to set in config.h: #define TAPPING_TOGGLE  2
-
 #include QMK_KEYBOARD_H
-#include "debug.h"
-#include "action_layer.h"
-#include "version.h"
+#include "art.h"
+
+bool is_win = true;
 
 #define QWERTY 0
 #define WORKMAN 1
@@ -328,38 +326,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-        if (record->event.pressed) {
-          SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-        }
-        break;
-        case 1:
-        if (record->event.pressed) { // For resetting EEPROM
-          eeconfig_init();
-        }
-        break;
-      }
-    return MACRO_NONE;
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case VRSN:
-      if (record->event.pressed) {
-        SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-      }
-      return false;
-      break;
-	case TESTT:
-      if (record->event.pressed) {
-		SEND_STRING (SS_RALT("A3"));
-      }
-      return false;
-      break;
     case SWITCH_LANG:
 	  if (record->event.pressed) {
 		// SEND_STRING (SS_LALT(X_HOME));
