@@ -137,7 +137,7 @@ $ make HELIX=no-oled helix:default           # without oled
 
 build (experimental use of split_common with backlight and oled)
 ```
-$ make helix/rev2/split_common:default
+$ make helix/rev2/sc:default
 ```
 
 flash to keyboard

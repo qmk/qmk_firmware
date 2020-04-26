@@ -122,7 +122,7 @@ $ make helix/pico/under:default              # with underglow
 
 build (experimental use of split_common with backlight)
 ```
-$ make helix/pico/split_common:default
+$ make helix/pico/sc:default
 ```
 
 flash to keyboard
