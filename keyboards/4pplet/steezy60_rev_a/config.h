@@ -1,7 +1,3 @@
-#ifndef CONFIG_H
-#define CONFIG_H
-
-// Used Plan60 as template
 #pragma once
 
 #include "config_common.h"
