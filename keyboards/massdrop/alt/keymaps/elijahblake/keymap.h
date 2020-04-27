@@ -46,11 +46,10 @@ uint16_t rgb_time_out_saved_seconds;    // The saved user config for RGB timeout
 led_flags_t rgb_time_out_saved_flag;    // Store LED flag before timeout so it can be restored when LED is turned on again.
 
 enum layout_names {
-    _BASE_LAYER=0,        // Keys Layout: The main keyboard layout that has all the characters
-    _SHORTCUT_LAYER,      // My frequently used shortcuts
-    _FUNCTION_LAYER,      // Function & Quantum layer 
-    _KL,                  // Keys Layout: The main keyboard layout that has all the characters
+    _KL=0,    // Keys Layout: The main keyboard layout that has all the characters
+    _FL,      // Function AKA 2nd layer
 };
+
 enum alt_keycodes {
     U_T_AUTO = SAFE_RANGE, // USB Extra Port Toggle Auto Detect / Always Active
     U_T_AGCR,              // USB Toggle Automatic GCR control

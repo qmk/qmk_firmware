@@ -14,14 +14,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, MO(1),   KC_LEFT, KC_DOWN, KC_RGHT 
     ),
     */
-   [_BASE_LAYER] = LAYOUT(
+   [_KL] = LAYOUT(
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,              KC_BSPC, KC_DEL,  
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC,             KC_BSLS, KC_HOME, 
         KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,                      KC_ENT,  KC_PGUP, 
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,                      KC_UP,   KC_PGDN, 
-        KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, MO(_SHORTCUT_LAYER), KC_LEFT, KC_DOWN, KC_RGHT  
+        KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, MO(_FL), KC_LEFT, KC_DOWN, KC_RGHT  
         ),
-    [_SHORTCUT_LAYER] = LAYOUT(
+    [_FL] = LAYOUT(
         KC_GRV,  KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,    KC_F13,    KC_CALC, 
         RGB_M_P, RGB_SPD,  RGB_HUI, RGB_SPI, RGB_SAI, RGB_VAI, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS,   _______,   KC_MYCM, 
         RGB_TOG, RGB_RMOD, RGB_HUD, RGB_MOD, RGB_SAD, RGB_VAD, _______, _______, _______, _______, _______, _______,            KC_MUTE,   KC_VOLU, 
@@ -56,15 +56,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef _______
 #undef _______
 #define _______ {0, 0, 0}
+
 const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
-    [_BASE_LAYER] = {
+    [_KL] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, GREEN,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, GREEN,   GREEN,   GREEN,   _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          GREEN,   _______,
         _______, _______, _______,                            _______,                            _______, _______, GREEN,   GREEN,   GREEN 
     },
-    [_SHORTCUT_LAYER] = {
+    [_FL] = {
         PURPLE,  PURPLE,  PURPLE,  PURPLE,  PURPLE,  PURPLE,  PURPLE,  PURPLE,  PURPLE,   PURPLE,  PURPLE,  PURPLE,  PURPLE,    PURPLE,  BLUE, 
         GOLD,    PINK,    AZURE,   PINK,    TURQ,    TEAL,    _______, _______, _______,  _______, RED,     RED,     GOLD,               _______,   BLUE, 
         TEAL,    MAGENT,  AZURE,   MAGENT,  TURQ,    TEAL,    _______, _______, _______,  _______, _______, _______,                     GOLD,      BLUE, 
@@ -72,6 +73,7 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
         _______, _______, _______,                            GOLD,                                _______, _______,            BLUE,    GOLD,      RED   
     },
 };
+
 #undef _______
 #define _______ KC_TRNS
 #endif
@@ -82,7 +84,7 @@ void matrix_init_user(void) {
     debug_enable=true;
     debug_matrix=true;
     debug_keyboard=true;
-    debug_mouse=true;
+    debug_mouse=false;
 
     idle_second_counter = 0;                            // Counter for number of seconds keyboard has been idle.
     key_event_counter = 0;                              // Counter to determine if keys are being held, neutral at 0.
@@ -235,7 +237,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 void set_layer_color(int layer) {
-    if (layer == _BASE_LAYER) { return; }
+    if (layer == 0) { return; }
     for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
         HSV hsv = {
             .h = pgm_read_byte(&ledmap[layer][i][0]),
@@ -246,7 +248,7 @@ void set_layer_color(int layer) {
             RGB rgb = hsv_to_rgb(hsv);
             float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
             rgb_matrix_set_color(i, f * rgb.r, f * rgb.g, f * rgb.b);
-        } else if (layer != _SHORTCUT_LAYER) {
+        } else if (layer != 1) {
             // Only deactivate non-defined key LEDs at layers other than FN. Because at FN we have RGB adjustments and need to see them live.
             // If the values are all false then it's a transparent key and deactivate LED at this layer
             rgb_matrix_set_color(i, 0, 0, 0);
@@ -260,6 +262,5 @@ void rgb_matrix_indicators_user(void) {
         rgb_matrix_get_flags() == LED_FLAG_UNDERGLOW) {
             return;
         }
-    rgb_matrix_set_color(0, 255, 0, 0);
     set_layer_color(get_highest_layer(layer_state));
 }
