@@ -61,8 +61,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM 7    // Number of LEDs
 #define RGBLIGHT_ANIMATIONS //not working with splits right now
 
-#define ws2812_PORTREG  PORTD
-#define ws2812_DDRREG   DDRD
 #define RGBLIGHT_SLEEP
 #define RGBLIGHT_SPLIT
 

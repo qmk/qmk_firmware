@@ -17,11 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include "../../config.h"
+#pragma once
 
 //#define AUTO_SHIFT_TIMEOUT 150
 //#define NO_AUTO_SHIFT_NUMERIC

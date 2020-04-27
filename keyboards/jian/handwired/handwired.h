@@ -1,12 +1,9 @@
-#ifndef HANDWIRED_H
-#define HANDWIRED_H
+#pragma once
 
 #include "jian.h"
 #include "quantum.h"
 
 #define XXX KC_NO
-#define ___ KC_TRNS
-
 #define LAYOUT( \
   L00, L01, L02, L03, L04, L05, L06,    R06, R05, R04, R03, R02, R01, R00, \
        L11, L12, L13, L14, L15, L16,    R16, R15, R14, R13, R12, R11, \
@@ -33,7 +30,3 @@
   {XXX, K21, K22, K23, K24, K25, K26,   K26, K25, K24, K23, K22, K21, XXX}, \
   {XXX, XXX, XXX, XXX, K34, K35, K36,   K36, K35, K34, XXX, XXX, XXX, XXX} \
 }
-
-//void promicro_bootloader_jmp(bool program);
-
-#endif // HANDWIRED_H

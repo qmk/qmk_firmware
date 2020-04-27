@@ -5,7 +5,6 @@
 #include "quantum.h"
 
 #define XXX KC_NO
-#define ___ KC_TRNS
 
 #define LAYOUT( \
   L20, L00, L01, L12, L02, L03, L04,    R04, R03, R02, R12, R01, R00, R20, \
