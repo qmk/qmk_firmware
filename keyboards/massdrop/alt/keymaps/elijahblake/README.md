@@ -10,7 +10,7 @@ This keymap is here to show some love to the MD Alt. This is a stripped down ver
 
 ### Function Layer
 
-![SHORTCUT_LAYER](https://imgur.com/a/SMaH5Qm.png)
+![SHORTCUT_LAYER](https://i.imgur.com/5Ne0lFt.png)
 
 ## Features
 
