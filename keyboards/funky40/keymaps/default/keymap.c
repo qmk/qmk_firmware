@@ -30,10 +30,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_CAPS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_F11, KC_F12, KC_LBRC, KC_RBRC, 
 		RESET, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPRV, KC_VOLU, KC_VOLD, KC_MNXT),
 
-	
-
-//Bruh I don't know what this next part does I haven't programmed in any macros use it if you want it's just here because qmk complains if it isn't
-
 
 };
 
