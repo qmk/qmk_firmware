@@ -1,6 +1,6 @@
 # Eniigma Keyboards ek87
 
-![ek87](https://i.imgur.com/lmZYr1P.jpg)
+![ek87](https://i.imgur.com/lmZYr1Pl.jpg)
 
 A highly compatible TKL PCB with JST daughterboard support, designed for use with all tenkeyless Eniigma Keyboards products.
 
