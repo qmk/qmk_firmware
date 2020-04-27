@@ -88,6 +88,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 ```
 
+### Advanced Macros
+
+In addition to the `process_record_user()` function, is the `post_process_record_user()` function. This runs after `process_record` and can be used to do things after a keystroke has been sent.  This is useful if you want to have a key pressed before and released after a normal key, for instance. 
+
+In this example, we modify most normal keypresses so that `F22` is pressed before the keystroke is normally sent, and release it __only after__ it's been released.
+
+```c
+static uint8_t f22_tracker;
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case KC_A ... KC_F21: //notice how it skips over F22
+    case KC_F23 ... KC_EXSEL: //exsel is the last one before the modifier keys
+      if (record->event.pressed) {
+        register_code(KC_F22); //this means to send F22 down
+        f22_tracker++;
+        register_code(keycode);
+        return false;
+      }
+      break;
+  }
+  return true;
+}
+
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case KC_A ... KC_F21: //notice how it skips over F22
+    case KC_F23 ... KC_EXSEL: //exsel is the last one before the modifier keys
+      if (!record->event.pressed) {
+        f22_tracker--;
+        if (!f22_tracker) {
+            unregister_code(KC_F22); //this means to send F22 up
+        }
+      }
+      break;
+  }
+}
+```
+
+
 ### TAP, DOWN and UP
 
 You may want to use keys in your macros that you can't write down, such as `Ctrl` or `Home`.
@@ -121,11 +161,11 @@ There's also a couple of mod shortcuts you can use:
 
 * `SS_LCTL(string)`
 * `SS_LSFT(string)`
-* `SS_LALT(string)`
+* `SS_LALT(string)` or `SS_LOPT(string)`
 * `SS_LGUI(string)`, `SS_LCMD(string)` or `SS_LWIN(string)`
 * `SS_RCTL(string)`
 * `SS_RSFT(string)`
-* `SS_RALT(string)` or `SS_ALGR(string)`
+* `SS_RALT(string)`, `SS_ROPT(string)` or `SS_ALGR(string)`
 * `SS_RGUI(string)`, `SS_RCMD(string)` or `SS_RWIN(string)`
 
 These press the respective modifier, send the supplied string and then release the modifier.

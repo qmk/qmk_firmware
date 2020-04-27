@@ -7,11 +7,6 @@
 rgblight_config_t rgblight_config;
 #endif
 
-#if KEYBOARD_helix_rev2
-extern uint8_t is_master;
-bool is_keyboard_master(void) { return is_master; }
-#endif
-
 static void render_logo(void)
 {
     static const char PROGMEM font_logo[] = {
