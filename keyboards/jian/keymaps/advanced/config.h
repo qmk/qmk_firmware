@@ -25,5 +25,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IGNORE_MOD_TAP_INTERRUPT
 #define ALT_LAYOUTS_ENABLE
 //#define TRAINING_HALFES_LOCK
-
-#endif

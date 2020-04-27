@@ -1,5 +1,4 @@
-#ifndef NSREV1_H
-#define NSREV1_H
+#pragma once
 
 #include "jian.h"
 #include "quantum.h"
@@ -40,7 +39,3 @@
   {K20, K21, K22, K23, K24, K25 }, \
   {XXX, XXX, K32, K33, K34, K35 }  \
 }
-
-//void promicro_bootloader_jmp(bool program);
-
-#endif // NSREV1_H

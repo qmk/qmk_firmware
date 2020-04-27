@@ -95,9 +95,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 /* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
+// #define IS_COMMAND() (get_mods() == MOD_MASK_SHIFT)
 
 #ifdef BACKLIGHT_ENABLE
 #define BACKLIGHT_PIN B6
@@ -112,8 +110,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM 7    // Number of LEDs
 #define RGBLIGHT_ANIMATIONS //not working with splits right now
 
-#define ws2812_PORTREG  PORTD
-#define ws2812_DDRREG   DDRD
 #define RGBLIGHT_SLEEP
 #define RGBLIGHT_SPLIT
 
@@ -164,5 +160,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define QMK_ESC_INPUT F4 // usually ROW
 //#define QMK_LED B0
 //#define QMK_SPEAKER B6
-
-#endif //REV1_CONFIG_H
