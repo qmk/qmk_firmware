@@ -25,7 +25,7 @@
 
 bool led_update_kb(led_t led_state);
 bool led_update_user(led_t led_state);
-void keyboard_pre_init_user(void);
+void keyboard_pre_init_kb(void);
 void led_set_color(uint8_t r, uint8_t g, uint8_t b);
 void init_led(void);
 uint16_t cie_lightness(uint16_t v);

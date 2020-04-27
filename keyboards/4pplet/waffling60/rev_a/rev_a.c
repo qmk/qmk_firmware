@@ -1,6 +1,6 @@
 #include "rev_a.h"
 
-void keyboard_pre_init_user(void) {
+void keyboard_pre_init_kb(void) {
   // Call the keyboard pre init code.
   init_led();
 }
@@ -33,7 +33,7 @@ and return false when you would prefer not to run the code in led_update_kb().
     return false;
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) { // just to illustrate, make changes if needed
+layer_state_t layer_state_set_kb(layer_state_t state) { // just to illustrate, make changes if needed
   if(LAYER_INDICATOR){
     switch (get_highest_layer(state)) {
     case _FN1:
