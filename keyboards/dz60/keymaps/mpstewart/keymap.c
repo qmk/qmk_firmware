@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //    _0       _1       _2       _3       _4        _5       _6       _7       _8       _9       _A       _B       _C       _D         _E
 /*0_*/ KC_SLEP, KC_F1,   KC_F2  , KC_F3,   KC_F4,    KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_INS,    KC_DEL,
 /*1_*/ KC_CAPS,          KC_BDN,  KC_BUP,  KC_NO,    RESET,   KC_NO,   KC_NO,   KC_NO,   KC_PSCR, KC_SLCK, KC_PAUS, KC_UP,   KC_NO,     KC_NO,
-/*2_*/ KC_NO,            KC_VDN,  KC_VUP,  KC__MUTE, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_LEFT, KC_RGHT, KC_RETURN,
+/*2_*/ KC_NO,            KC_VOLD,  KC_VOLU,  KC_MUTE, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_LEFT, KC_RGHT, KC_RETURN,
 /*3_*/ KC_LSPO,          KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_END,  KC_PGDN, KC_DOWN,          KC_RSPC,   KC_TRNS,
 /*4_*/ KC_LCTL, KC_LALT,          KC_LGUI,                    KC_SPC,                             KC_RGUI, KC_RALT,          KC_APP,    AG_SWAP
   ),
