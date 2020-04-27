@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #define SSD1306OLED
 #define RGB_DI_PIN D3
 
-#define RGBLED_NUM 22
+#define RGBLED_NUM 18
 #define DRIVER_LED_TOTAL RGBLED_NUM
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
