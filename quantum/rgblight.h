@@ -199,7 +199,9 @@ typedef struct {
 #        ifndef RGBLIGHT_MAX_LAYERS
 #            define RGBLIGHT_MAX_LAYERS 8
 #        endif
-#        if RGBLIGHT_MAX_LAYERS > 0 && RGBLIGHT_MAX_LAYERS <= 8
+#        if RGBLIGHT_MAX_LAYERS <= 0
+#error invalid RGBLIGHT_MAX_LAYERS value (must be >= 1)
+#        elif RGBLIGHT_MAX_LAYERS <= 8
 typedef uint8_t rgblight_layer_mask_t;
 #        elif RGBLIGHT_MAX_LAYERS <= 16
 typedef uint16_t rgblight_layer_mask_t;
