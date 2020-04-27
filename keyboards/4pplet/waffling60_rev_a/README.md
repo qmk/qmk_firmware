@@ -1,4 +1,4 @@
-# Steezy60
+# waffling60
 
 A 60% PCB for MX switches, one hot swap and one solder-pcb version with decent layout support.
 

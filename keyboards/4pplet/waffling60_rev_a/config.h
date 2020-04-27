@@ -29,8 +29,3 @@
 
 #define QMK_ESC_OUTPUT D3 // usually COL
 #define QMK_ESC_INPUT D4 // usually ROW
-
-#define GRAVE_ESC_CTRL_OVERRIDE
-#define GRAVE_ESC_ALT_OVERRIDE
-#define GRAVE_ESC_GUI_OVERRIDE
-#define GRAVE_ESC_SHIFT_OVERRIDE
