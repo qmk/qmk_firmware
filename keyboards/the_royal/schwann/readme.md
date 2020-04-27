@@ -1,6 +1,6 @@
 # Schwann PCB
 
-![schwann_render](https://i.imgur.com/04uaN8x.jpg)
+![schwann_render](https://i.imgur.com/04uaN8xl.jpg)
 
 A simple, HHKB ortho PCB, designed for use with the Neuron Keyboard by Wallet Burner
 
