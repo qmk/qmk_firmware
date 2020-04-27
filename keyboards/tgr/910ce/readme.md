@@ -2,7 +2,7 @@
 
 A 65% Bootmapper Client based keyboard with blocker and 910 logo on the top right. 
 
-* Keyboard Maintainer: [mechmerlin](https://github.com/mechmerlin)
+* Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)
 * Hardware Supported: TGR 910 CE PCB labeled TGR-Unicorn PCB v1.2
 * Hardware Availability: [Geekhack GB](https://geekhack.org/index.php?topic=91498.0)
 

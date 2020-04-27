@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID 0x5447 // TG
 #define PRODUCT_ID 0x910C
 #define DEVICE_VER 0x0001
-#define MANUFACTURER mechmerlin
+#define MANUFACTURER TGR
 #define PRODUCT 910CE
 #define DESCRIPTION A custom 65% keyboard
 
@@ -39,17 +39,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCE 5
 
-#define BACKLIGHT_LEVELS 1
+#define BACKLIGHT_PIN D4
+#define BACKLIGHT_LEVELS 3
 #define RGBLIGHT_ANIMATIONS
 
 /* disable these deprecated features by default */
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-/* key combination for magic key command */
-/* defined by default; to change, uncomment and set to the combination you want */
-// #define IS_COMMAND() (get_mods() == MOD_MASK_SHIFT)
-
-/* Bootmagic Lite key configuration */
-// #define BOOTMAGIC_LITE_ROW 0
-// #define BOOTMAGIC_LITE_COLUMN 0
