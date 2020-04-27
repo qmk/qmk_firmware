@@ -26,4 +26,3 @@ UNICODE_ENABLE 			= no # Unicode
 RAW_ENABLE 				= yes
 BACKLIGHT_ENABLE 		= no 
 RGBLIGHT_ENABLE 		= no
-VIA_ENABLE				= yes
