@@ -1,6 +1,6 @@
 # Funky40
 
-![Funky40](imgur link goes here when initial build is finished) 
+![Funky40](imgurlinkgoesherewheninitialbuildisfinished) 
 
 A compact 40% (12x4) ortholinear keyboard kit made and sold by /u/TheFourthCow
 
