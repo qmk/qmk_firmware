@@ -26,7 +26,7 @@
 #define DIODE_DIRECTION COL2ROW
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 #define QMK_ESC_OUTPUT C4 // usually COL
 #define QMK_ESC_INPUT C2 // usually ROW
