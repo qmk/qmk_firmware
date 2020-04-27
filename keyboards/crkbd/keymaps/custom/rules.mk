@@ -9,6 +9,7 @@ SRC +=  ./lib/glcdfont.c \
         # ./lib/host_led_state_reader.c \
         # ./lib/timelogger.c \
 
-MOUSEKEY_ENABLE = yes
-GBLIGHT_ENABLE = yes# Enable WS2812 RGB underlight.
-BACKLIGHT_ENABLE = yes# Enable keyboard backlight functionality
+# MOUSEKEY_ENABLE = yes
+# GBLIGHT_ENABLE = yes# Enable WS2812 RGB underlight.
+# BACKLIGHT_ENABLE = yes# Enable keyboard backlight functionality
+BACKLIGHT_PIN = D3# Enable keyboard backlight functionality
