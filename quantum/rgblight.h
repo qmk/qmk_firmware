@@ -196,7 +196,11 @@ typedef struct {
 #        define RGBLIGHT_END_SEGMENT_INDEX (255)
 #        define RGBLIGHT_END_SEGMENTS \
             { RGBLIGHT_END_SEGMENT_INDEX, 0, 0, 0 }
-#        define RGBLIGHT_MAX_LAYERS 16
+#        ifdef RGBLIGHT_LAYERS_16
+#          define RGBLIGHT_MAX_LAYERS 16
+#        else
+#          define RGBLIGHT_MAX_LAYERS 8
+#        endif
 #        define RGBLIGHT_LAYER_SEGMENTS(...) \
             { __VA_ARGS__, RGBLIGHT_END_SEGMENTS }
 #        define RGBLIGHT_LAYERS_LIST(...) \
@@ -240,6 +244,20 @@ typedef union {
     };
 } rgblight_config_t;
 
+#ifdef RGBLIGHT_LAYERS_16
+typedef uint16_t rgblight_layer_mask_t;
+typedef struct PACKED _rgblight_status_t {
+    uint8_t base_mode : 8;
+    bool    timer_enabled : 1;
+#    ifdef RGBLIGHT_SPLIT
+    uint8_t change_flags : 7;
+#    endif
+#    ifdef RGBLIGHT_LAYERS
+    rgblight_layer_mask_t enabled_layer_mask : 16;
+#    endif
+} rgblight_status_t;
+#else
+typedef uint8_t rgblight_layer_mask_t;
 typedef struct _rgblight_status_t {
     uint8_t base_mode;
     bool    timer_enabled;
@@ -247,9 +265,10 @@ typedef struct _rgblight_status_t {
     uint8_t change_flags;
 #    endif
 #    ifdef RGBLIGHT_LAYERS
-    uint16_t enabled_layer_mask;
+    rgblight_layer_mask_t enabled_layer_mask;
 #    endif
 } rgblight_status_t;
+#endif
 
 /*
  * Structure for RGB Light clipping ranges
