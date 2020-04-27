@@ -6,7 +6,7 @@ This keymap is here to show some love to the MD Alt. This is a stripped down ver
 
 ### Typing Layer
 
-![Typing Layer](<https://imgur.com/a/VRI84mW.png)
+![Typing Layer](https://i.imgur.com/F7iU53K.png)
 
 ### Function Layer
 
