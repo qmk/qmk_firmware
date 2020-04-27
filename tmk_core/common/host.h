@@ -42,6 +42,7 @@ host_driver_t *host_get_driver(void);
 
 /* host driver interface */
 uint8_t host_keyboard_leds(void);
+uint8_t host_keyboard_leds_raw(void);
 led_t   host_keyboard_led_state(void);
 void    host_keyboard_send(report_keyboard_t *report);
 void    host_mouse_send(report_mouse_t *report);

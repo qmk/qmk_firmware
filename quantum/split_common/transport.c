@@ -29,7 +29,7 @@ static pin_t encoders_pad[] = ENCODERS_PAD_A;
 #    include "rgb_matrix.h"
 #endif
 
-void set_slave_host_leds(uint8_t host_leds);
+void set_split_host_leds(uint8_t host_leds);
 
 #if defined(USE_I2C)
 
@@ -140,10 +140,9 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
 #    endif
 
     uint8_t host_leds = host_keyboard_leds();
-    if (host_leds != i2c_buffer->host_leds) {
-        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_HOST_LED_START, (void *)&host_leds, sizeof(host_leds), TIMEOUT) >= 0) {
-            i2c_buffer->host_leds = host_leds;
-        }
+    set_split_host_leds(host_leds);
+    if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_HOST_LED_START, (void *)&host_leds, sizeof(host_leds), TIMEOUT) >= 0) {
+        i2c_buffer->host_leds = host_leds;
     }
 
 #    ifdef SPLIT_MODS_ENABLE
@@ -221,7 +220,7 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
     set_current_wpm(i2c_buffer->current_wpm);
 #    endif
 
-    set_slave_host_leds(i2c_buffer->host_leds);
+    set_split_host_leds(i2c_buffer->host_leds);
 
 #    ifdef SPLIT_MODS_ENABLE
     set_mods(i2c_buffer->real_mods);
@@ -418,7 +417,9 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
 #    ifndef DISABLE_SYNC_TIMER
     serial_m2s_buffer.sync_timer        = sync_timer_read32() + SYNC_TIMER_OFFSET;
 #    endif
-    serial_m2s_buffer.host_leds = host_keyboard_leds();
+
+    serial_m2s_buffer.host_leds = host_keyboard_leds_raw();
+    set_split_host_leds(serial_m2s_buffer.host_leds);
 
     return true;
 }
@@ -448,7 +449,7 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
     set_current_wpm(serial_m2s_buffer.current_wpm);
 #    endif
 
-    set_slave_host_leds(serial_m2s_buffer.host_leds);
+    set_split_host_leds(serial_m2s_buffer.host_leds);
 
 #    ifdef SPLIT_MODS_ENABLE
     set_mods(serial_m2s_buffer.real_mods);

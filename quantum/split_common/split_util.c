@@ -140,12 +140,15 @@ void split_post_init(void) {
 }
 
 // for syncing host LEDs between halves
-static uint8_t slave_host_leds;
-void set_slave_host_leds(uint8_t host_leds) {
-    slave_host_leds = host_leds;
-    led_set(host_leds);
+static uint8_t split_host_leds;
+
+void set_split_host_leds(uint8_t host_leds) {
+    if (split_host_leds != host_leds) {
+        split_host_leds = host_leds;
+        led_set(host_leds);
+    }
 }
 
-uint8_t get_slave_host_leds(void) {
-    return slave_host_leds;
+uint8_t get_split_host_leds(void) {
+    return split_host_leds;
 }

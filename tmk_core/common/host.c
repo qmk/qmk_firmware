@@ -38,22 +38,25 @@ void host_set_driver(host_driver_t *d) { driver = d; }
 
 host_driver_t *host_get_driver(void) { return driver; }
 
+uint8_t host_keyboard_leds_raw(void) {
+    if (!driver) return 0;
+    return (*driver->keyboard_leds)();
+}
+
 uint8_t host_keyboard_leds(void) {
-    if (is_keyboard_master()) {
-         if (!driver) return 0;
-        return (*driver->keyboard_leds)();
-    } else {
-        return get_slave_host_leds();
-    }
+#ifndef SPLIT_KEYBOARD
+    return host_keyboard_leds_raw();;
+#else
+    return get_split_host_leds();
+#endif
 }
 
 led_t host_keyboard_led_state(void) {
-    if (is_keyboard_master()) {
-        if (!driver) return (led_t){0};
-        return (led_t)((*driver->keyboard_leds)());
-    } else {
-        return (led_t)get_slave_host_leds();
-    }
+#ifndef SPLIT_KEYBOARD
+    return (led_t)host_keyboard_leds_raw();
+#else
+    return (led_t)get_split_host_leds();
+#endif
 }
 
 /* send report */
