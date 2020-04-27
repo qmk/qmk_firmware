@@ -262,7 +262,6 @@ void rgb_matrix_indicators_user(void) {
         rgb_matrix_get_flags() == LED_FLAG_UNDERGLOW) {
             return;
         }
-    //Escape Key:RED
     rgb_matrix_set_color(0, 255, 0, 0); 
     //WASD GREEN
     rgb_matrix_set_color(17, 0, 255, 0);
@@ -273,6 +272,6 @@ void rgb_matrix_indicators_user(void) {
     rgb_matrix_set_color(56, 0, 255, 0);  
     rgb_matrix_set_color(64, 0, 255, 0);  
     rgb_matrix_set_color(65, 0, 255, 0);  
-    rgb_matrix_set_color(66, 0, 255, 0); 
+    rgb_matrix_set_color(66, 0, 255, 0);
     set_layer_color(get_highest_layer(layer_state));
 }
