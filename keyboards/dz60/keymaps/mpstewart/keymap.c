@@ -1,7 +1,6 @@
 #include QMK_KEYBOARD_H
 #define C_ESC CTL_T(KC_ESC)
 
-#define RGBLIGHT_SLEEP
 
 // Layers
 #define _BASE   0
