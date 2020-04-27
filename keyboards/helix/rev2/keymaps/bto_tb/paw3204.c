@@ -43,6 +43,7 @@ int spi_soft_half_duplex(uint8_t *p_tx_buffer, size_t tx_length, uint8_t *p_rx_b
         return 1;
     }
 
+    writePin(PAW3204_DATA, readPin(PAW3204_DATA));
     setPinOutput(PAW3204_DATA);
 
     for (int8_t idx = 7; idx >= 0; idx--) {
@@ -51,6 +52,7 @@ int spi_soft_half_duplex(uint8_t *p_tx_buffer, size_t tx_length, uint8_t *p_rx_b
         writePinHigh(PAW3204_SCLK);
     }
 
+    _delay_us(5);
     setPinInputHigh(PAW3204_DATA);
 
     p_rx_buffer[1] = 0;
