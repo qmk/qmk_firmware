@@ -12,17 +12,13 @@
  * available parts. The feature most shamelessly ripped off from the HHKB is
  * the split right shift and backspace.
  *
- * This keymap is macOS-oriented by default, but the AG_SWAP key on the
- * function key can be double-tapped to swap alt and gui, making this layout
- * also functional for Linux and PC.
- *
- * Lastly, we also use the Space Cadet paren management, so left shift and
- * right shift can be used on their own to type open paren and close paren
- * respectively.
+ * This keymap is macOS-oriented by default, but pressing the AG_TOGG key on
+ * the _FN layer will swap alt and gui, making this layout also functional for
+ * Linux and PC.
  */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* Base layer
+/* _BASE layer
  * Looks like this                                                Arranged like this
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐  ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
  * │Esc│ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ - │ = │ \ │ ` │  │00 │01 │02 │03 │04 │05 │06 │07 │08 │09 │0a │0b │0c │0d │0e │
@@ -31,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤  ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
  * │esc/^ │ A │ S │ D │ F │ G │ H │ J │ K │ L │ ; │ ' │ Enter  │  │20    │22 │23 │24 │25 │26 │27 │28 │29 │2a │2b │2c │2d      │
  * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┤  ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┤
- * │lshift  │ Z │ X │ C │ V │ B │ N │ M │ , │ . │ / │rshift│fn1│  │30      │32 │33 │34 │35 │36 │37 │38 │39 │3a │3b │3d    │3e │
+ * │lshift  │ Z │ X │ C │ V │ B │ N │ M │ , │ . │ / │rshift│fn │  │30      │32 │33 │34 │35 │36 │37 │38 │39 │3a │3b │3d    │3e │
  * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬┴───┤  ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬┴───┤
  * │ctrl│alt │win │                        │win │alt │menu│ctrl│  │40  │41  │43  │46                      │4a  │4b  │4d  │4e  │
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘  └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
@@ -45,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*4_*/ KC_LCTL,  KC_LALT,          KC_LGUI,                 KC_SPC,                          KC_RGUI, KC_RALT,           MO(_LIGHTS), KC_RCTL
   ),
 
-/* Fn layer, where blank keys indicates transparency to the base layer
+/* _FN layer, where blank keys indicates transparency to the base layer
  * Looks like this                                                Arranged like this (as above)
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐  ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
  * │slp│F1 │F2 │F3 │F4 │F5 │F6 │F7 │F8 │F9 │F10│F11│F12│ins│del│  │00 │01 │02 │03 │04 │05 │06 │07 │08 │09 │0a │0b │0c │0d │0e │
@@ -66,10 +62,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*1_*/ KC_CAPS,          KC_BRID,  KC_BRIU,  KC_NO,    RESET,   KC_NO,   KC_NO,   KC_NO,   KC_PSCR, KC_SLCK, KC_PAUS, KC_UP,   KC_NO,     KC_NO,
 /*2_*/ KC_NO,            KC_VOLD,  KC_VOLU,  KC_MUTE, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_LEFT, KC_RGHT, KC_RETURN,
 /*3_*/ KC_LSPO,          KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_END,  KC_PGDN, KC_DOWN,          KC_RSPC,   KC_TRNS,
-/*4_*/ KC_LCTL, KC_LALT,          KC_LGUI,                    KC_SPC,                             KC_RGUI, KC_RALT,          KC_APP,    AG_SWAP
+/*4_*/ KC_LCTL, KC_LALT,          KC_LGUI,                    KC_SPC,                             KC_RGUI, KC_RALT,          KC_APP,    AG_TOGG
   ),
 
-/* LIGHTS LAYER (stolen shamelessly from 256k_HHKB
+/* _LIGHTS LAYER (stolen shamelessly from 256k_HHKB
  *
  *  ,---------------------------------------------------------------------------------------------------------------------+
  * | RGB_TOGGLE  | STATIC | BREATHE | RAINBOW | SWIRL | SNAKE | KNIGHTRIDER | XMAS | STATIC_GRAD | _ |  _ | _ | _ | _ | _ |
