@@ -15,9 +15,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-#ifndef REV2_CONFIG_H
-#define REV2_CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -56,9 +54,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 /* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
+// #define IS_COMMAND() (get_mods() == MOD_MASK_SHIFT)
 
 /*
  * Feature disable options
@@ -94,8 +90,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM 7    // Number of LEDs
 #define RGBLIGHT_ANIMATIONS //not working with splits right now
 
-#define ws2812_PORTREG  PORTD
-#define ws2812_DDRREG   DDRD
 #define RGBLIGHT_SLEEP
 #define RGBLIGHT_SPLIT
 
@@ -155,5 +149,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SET_SCROLL_LOCK_LED() writePinLow(SCROLL_LOCK_LED_PIN)
 #define RESET_SCROLL_LOCK_LED() writePinHigh(SCROLL_LOCK_LED_PIN)
 #endif // SCROLL_LOCK_INVERT
-
-#endif // REV2_CONFIG_H

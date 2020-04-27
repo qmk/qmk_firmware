@@ -1,5 +1,4 @@
-#ifndef JIAN_H
-#define JIAN_H
+#pragma once
 
 #ifdef KEYBOARD_jian_handwired
   #include "handwired.h"
@@ -67,5 +66,3 @@
                              CM_Z, CM_X, CM_M, CM_C, CM_V, CM_K, CM_L, CM_COMM, CM_DOT, CM_SLSH
 
 #endif // ALT_LAYOUTS_ENABLE
-
-#endif // JIAN_H
