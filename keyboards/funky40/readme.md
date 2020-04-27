@@ -1,12 +1,12 @@
 # Funky40
 
-![Funky40](imgurlinkgoesherewheninitialbuildisfinished) 
+<!-- ![Funky40](imgurlinkgoesherewheninitialbuildisfinished) -->
 
 A compact 40% (12x4) ortholinear keyboard kit made and sold by /u/TheFourthCow
 
-* Keyboard Maintainer: [/u/TheFourthCow](https://github.com/TheFourthCow)
+* Keyboard Maintainer: [TheFourthCow](https://github.com/TheFourthCow)
 * Hardware Supported: Funky40 with Pro Micro or Elite C
-* Hardware Availability: TBD - Currently from /u/TheFourthCow pm me on reddit!
+* Hardware Availability: TBD - Currently from /u/TheFourthCow - [pm me on reddit](https://www.reddit.com/user/TheFourthCow/)!
 
 Make example for this keyboard (after setting up your build environment):
 
