@@ -15,8 +15,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REV1_CONFIG_H
-#define REV1_CONFIG_H
+#pragma once
+
+#include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCB10
@@ -37,6 +38,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
+
+/*
+ * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
+ */
+#define SOFT_SERIAL_PIN D2
+
+#define EE_HANDS
+
+#define SPLIT_USB_DETECT
+#define SPLIT_USB_TIMEOUT 1000
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
@@ -59,7 +70,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #ifdef RGBLIGHT_ENABLE
   #define RGB_DI_PIN B5
-  
   #define RGBLED_NUM 18    // Number of LEDs */
 #endif
 /*
@@ -79,5 +89,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-#endif

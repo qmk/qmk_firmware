@@ -27,39 +27,40 @@
   #include "split_util.h"
 #endif
 
+#ifdef ENCODER_ENABLE   
+bool left_encoder_rotated;
+bool right_encoder_rotated;
+uint16_t encoder_rotated_timer;
+#endif
+
 #define _QWERTY 0
 #define _DVORAK 1
 #define _COLEMAK 2
 #define _LOWER 3
 #define _RAISE 4
 #define _ADJUST 5
+#define _NUMPAD 6
 
 // Shortcut Keys
 #define K_LOCK LGUI(LCTL(KC_Q)) // Locks screen on MacOS
 #define K_CSCN LGUI(LCTL(LSFT(KC_4))) // Copy a portion of the screen to the clipboard
-#define K_CPRF LGUI(LSFT(KC_M)) //   + Shift + M. Used for switching Google Chrome profiles
+#define K_CPRF LGUI(LSFT(KC_M)) //  Cmd + Shift + M. Used for switching Google Chrome profiles
 #define K_MDSH LSFT(LALT(KC_MINS))
-#define K_LAPP SGUI(KC_TAB) //  + Shift + Tab
-#define K_RAPP LGUI(KC_TAB) //  + Tab
 
 // Layer Keys
-#define LM_LOW MO(_LOWER)
-#define LM_RAI MO(_RAISE)
-#define LG_LOW TG(_LOWER)
-#define LG_RAI TG(_RAISE)
 #define LT_LOW LT(_LOWER, KC_ENT)
 #define LT_RAI LT(_RAISE, KC_SPC)
 
 // Mod-Tap Keys
-#define MT_DEL MT(MOD_LGUI | MOD_LALT | MOD_LSFT, KC_DEL)
-#define MT_EQL MT(MOD_LALT | MOD_LSFT, KC_EQL)
+#define MT_DEL MT(MOD_LALT | MOD_LSFT, KC_DEL)
+#define MT_EQL MT(MOD_RSFT, KC_EQL) 
 
 // Layout blocks
-#define _____________________QWERTY_L1______________________ T_TAB, T_Q, KC_W, KC_E, KC_R, KC_T
+#define _____________________QWERTY_L1______________________ T_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T
 #define _____________________QWERTY_L2______________________ T_ESC, KC_A, KC_S, KC_D, KC_F, KC_G
 #define _____________________QWERTY_L3______________________ KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B
 
-#define _____________________QWERTY_R1______________________ KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSLS
+#define _____________________QWERTY_R1______________________ T_Y, KC_U, KC_I, KC_O, KC_P, KC_BSLS
 #define _____________________QWERTY_R2______________________ KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT
 #define _____________________QWERTY_R3______________________ KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, MT_EQL
 
@@ -115,6 +116,10 @@
 #endif
 #define _____________________ADJUST_R2______________________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
+#define _____________________NUMPAD_1_______________________ T_Y, KC_P7, KC_P8, KC_P9, KC_PPLS, KC_PAST
+#define _____________________NUMPAD_2_______________________ XXXXXXX, KC_P4, KC_P5, KC_P6, KC_PMNS, KC_PSLS
+#define _____________________NUMPAD_3_______________________ KC_P0, KC_P1, KC_P2, KC_P3, KC_PDOT, KC_COLN
+
 #define _______________NAV_1______________ KC_PGUP, KC_HOME, KC_UP, KC_END
 #define _______________NAV_2______________ KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT
 
@@ -124,7 +129,7 @@
 #define __________________________________ _______, _______, _______, _______
 
 #define _____________MOD_LEFT_____________ KC_LALT, T_GUI, KC_LCTL, LT_RAI
-#define _____________MOD_RIGHT____________ LT_LOW, KC_BSPC, MT_DEL, LM_LOW
+#define _____________MOD_RIGHT____________ LT_LOW, KC_BSPC, MT_DEL, T_CPAP
 
 #define _________MEDIA_1_________ KC_BRIU, KC_MPLY, KC_MUTE
 #define _________MEDIA_2_________ KC_BRID, KC_MFFD, KC__VOLUP
@@ -135,7 +140,7 @@
   #define ________MOD_RIGHT________ LT_LOW, KC_BSPC, MT_DEL
 #else
   #define ________MOD_LEFT_________ KC_LALT, T_GUI, KC_LCTL
-  #define ________MOD_RIGHT________ KC_BSPC, MT_DEL, LM_LOW
+  #define ________MOD_RIGHT________ KC_BSPC, MT_DEL, T_CPAP
 #endif
 
 // Layout wrappers

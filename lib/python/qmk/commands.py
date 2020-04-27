@@ -1,6 +1,12 @@
-"""Functions that build make commands
+"""Helper functions for commands.
 """
 import json
+import os
+import platform
+import subprocess
+import shlex
+import shutil
+
 import qmk.keymap
 
 
@@ -8,6 +14,7 @@ def create_make_command(keyboard, keymap, target=None):
     """Create a make compile command
 
     Args:
+
         keyboard
             The path of the keyboard, for example 'plank'
 
@@ -18,24 +25,23 @@ def create_make_command(keyboard, keymap, target=None):
             Usually a bootloader.
 
     Returns:
+
         A command that can be run to make the specified keyboard and keymap
     """
-    if target is None:
-        return ['make', ':'.join((keyboard, keymap))]
-    return ['make', ':'.join((keyboard, keymap, target))]
+    make_args = [keyboard, keymap]
+    make_cmd = 'gmake' if shutil.which('gmake') else 'make'
 
+    if target:
+        make_args.append(target)
 
-def parse_configurator_json(configurator_file):
-    """Open and parse a configurator json export
-    """
-    user_keymap = json.load(configurator_file)
-    return user_keymap
+    return [make_cmd, ':'.join(make_args)]
 
 
 def compile_configurator_json(user_keymap, bootloader=None):
     """Convert a configurator export JSON file into a C file
 
     Args:
+
         configurator_filename
             The configurator JSON export file
 
@@ -43,6 +49,7 @@ def compile_configurator_json(user_keymap, bootloader=None):
             A bootloader to flash
 
     Returns:
+
         A command to run to compile and flash the C file.
     """
     # Write the keymap C file
@@ -52,3 +59,27 @@ def compile_configurator_json(user_keymap, bootloader=None):
     if bootloader is None:
         return create_make_command(user_keymap['keyboard'], user_keymap['keymap'])
     return create_make_command(user_keymap['keyboard'], user_keymap['keymap'], bootloader)
+
+
+def parse_configurator_json(configurator_file):
+    """Open and parse a configurator json export
+    """
+    user_keymap = json.load(configurator_file)
+
+    return user_keymap
+
+
+def run(command, *args, **kwargs):
+    """Run a command with subprocess.run
+    """
+    platform_id = platform.platform().lower()
+
+    if isinstance(command, str):
+        raise TypeError('`command` must be a non-text sequence such as list or tuple.')
+
+    if 'windows' in platform_id:
+        safecmd = map(shlex.quote, command)
+        safecmd = ' '.join(safecmd)
+        command = [os.environ['SHELL'], '-c', safecmd]
+
+    return subprocess.run(command, *args, **kwargs)

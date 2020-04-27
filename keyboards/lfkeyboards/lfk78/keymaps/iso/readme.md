@@ -1,1 +1,1 @@
-# The default keymap for bluepad
+# The default ISO keymap for LFK78
