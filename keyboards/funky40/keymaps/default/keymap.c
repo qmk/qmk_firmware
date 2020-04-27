@@ -21,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	LAYOUT(
 		KC_ESC, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC, 
 		KC_TAB, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, 
-		KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_DOT, KC_DOT, KC_SLSH, KC_SFTENT, //kc_sftent is a Space Cadet mod tap code that should allow right shift to be enter when tapped right shift when held
+		KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_DOT, KC_DOT, KC_SLSH, KC_SFTENT,
 		KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, LT(1, KC_DEL), KC_SPC, KC_LEFT, KC_UP, KC_DOWN, KC_RGHT),
 										   //^This lt keycode is supposed to make this key delete when tapped and enable a momentary layer to access the next layer down when held
 	LAYOUT(
@@ -32,4 +32,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 };
-
