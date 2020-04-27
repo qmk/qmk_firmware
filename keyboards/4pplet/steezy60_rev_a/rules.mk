@@ -26,4 +26,3 @@ BLUETOOTH_ENABLE 		= no 	# Enable Bluetooth with the Adafruit EZ-Key HID
 RAW_ENABLE 				= yes
 BACKLIGHT_ENABLE 		= no 
 RGBLIGHT_ENABLE 		= no
-VIA_ENABLE 				= yes
