@@ -1,9 +1,5 @@
 #include QMK_KEYBOARD_H
 #define C_ESC CTL_T(KC_ESC)
-#define KC_VUP KC__VOLUP
-#define KC_VDN KC__VOLDOWN
-#define KC_BUP KC_BRIU
-#define KC_BDN KC_BRID
 
 #define RGBLIGHT_SLEEP
 
