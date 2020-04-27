@@ -1,4 +1,4 @@
-#include "waffling60_rev_a.h"
+#include "rev_a.h"
 
 void keyboard_pre_init_user(void) {
   // Call the keyboard pre init code.
