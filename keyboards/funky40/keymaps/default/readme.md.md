@@ -1,4 +1,4 @@
-![Funky40 Layout Image](http://i.imgur.com/7Capi8W.png) -UPDATE THIS
+![Funky40 Layout Images](https://imgur.com/a/D13SsJB)
 
 # Default Funky40 Layout
 
