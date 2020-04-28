@@ -24,10 +24,12 @@ uint8_t tb_scrl_flag = false;
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-    CUSTUM_KC = BMP_SAFE_RANGE,
+    CUSTOM_KC = BMP_SAFE_RANGE,
 };
 
-const key_string_map_t custom_keys_user = {.start_kc = CUSTUM_KC, .end_kc = CUSTUM_KC, .key_strings = "\0"};
+const key_string_map_t custom_keys_user = {.start_kc    = CUSTOM_KC,
+                                           .end_kc      = CUSTOM_KC,
+                                           .key_strings = "\0"};
 
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {KC_NO};
 
