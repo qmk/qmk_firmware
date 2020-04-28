@@ -1,12 +1,12 @@
 # kaishi65
 
-![kaishi65](imgur.com image replace me!)
+
 
 A short description of the keyboard/project
 
-* Keyboard Maintainer: [KBDClack](https://github.com/yourusername)
-* Hardware Supported: The PCBs, controllers supported
-* Hardware Availability: Links to where you can find this hardware
+* Keyboard Maintainer: [KBDClack](https://github.com/powerlemming)
+* Hardware Supported: The kaishi65 line of products
+* Hardware Availability: www.kbdclack.com
 
 Make example for this keyboard (after setting up your build environment):
 
