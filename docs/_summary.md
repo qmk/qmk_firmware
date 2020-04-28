@@ -75,7 +75,6 @@
     * [Layers](feature_layers.md)
     * [One Shot Keys](one_shot_keys.md)
     * [Pointing Device](feature_pointing_device.md)
-    * [RAW HID](feature_rawhid.md)
     * [Swap Hands](feature_swap_hands.md)
     * [Tap Dance](feature_tap_dance.md)
     * [Tap-Hold Configuration](tap_hold.md)

@@ -1,17 +1,10 @@
-# Introduction
+# Setting Up Your QMK Environment
 
-Your computer keyboard has a processor inside of it, not unlike the one inside your computer. This processor runs software that is responsible for detecting button presses and sending reports about the state of the keyboard when buttons are pressed or released. QMK fills the role of that software, detecting button presses and passing that information on to the host computer. When you build your custom keymap, you are creating the equivalent of an executable program for your keyboard.
+Before you can build keymaps, you need to install some software and set up your build environment. This only has to be done once no matter how many keyboards you plan to compile firmware for.
 
-QMK tries to put a lot of power into your hands by making easy things easy, and hard things possible. You don't have to know how to program to create powerful keymaps — you only have to follow a few simple syntax rules.
+## 1. Download Software
 
-# Getting Started
-
-Before you can build keymaps, you need to install some software and set up your build environment. This only has to be done once no matter how many keyboards you plan to compile firmware for. 
-
-If you would prefer a more graphical user interface approach, please consider using the online [QMK Configurator](https://config.qmk.fm). Please refer to [Building Your First Firmware using the online GUI](newbs_building_firmware_configurator.md). 
-
-
-## Download Software
+There are a few pieces of software you'll need to get started.
 
 ### Text Editor
 
@@ -30,7 +23,13 @@ QMK Toolbox is an optional graphical program for Windows and macOS that allows y
 * For Windows: `qmk_toolbox.exe` (portable) or `qmk_toolbox_install.exe` (installer)
 * For macOS: `QMK.Toolbox.app.zip` (portable) or `QMK.Toolbox.pkg` (installer)
 
-## Set Up Your Environment
+### A Unix-like Environment
+
+Linux and macOS come with unix shells you can execute already. You will only need to setup your build environment.
+
+On Windows you will need to install MSYS2 or WSL and use those environments. Instructions for setting up MSYS2 are provided below.
+
+## 2. Prepare Your Build Environment :id=set-up-your-environment
 
 We've tried to make QMK as easy to set up as possible. You only have to prepare your Linux or Unix environment, then let QMK install the rest.
 
@@ -40,52 +39,67 @@ We've tried to make QMK as easy to set up as possible. You only have to prepare 
 
 ### Windows
 
-You will need to install MSYS2 and Git.
+You will need to install MSYS2, Git, and the QMK CLI.
 
 * Follow the installation instructions on the [MSYS2 homepage](http://www.msys2.org).
-* Close any open MSYS2 terminals and open a new MSYS2 MinGW 64-bit terminal.
-* Install Git by running this command: `pacman -S git`.
+* Close any open MSYS2 terminals and open a new MSYS2 MinGW 64-bit terminal. NOTE: This is **not** the same as the MSYS terminal that opens when installation is completed.
+
+After opening a new MSYS2 MinGW 64-bit terminal, make sure `pacman` is up to date with:
+
+    pacman -Syu
+
+You may be asked to close and reopen the window. Do this and keep running the above command until it says `there is nothing to do`. Then run the following:
+
+    pacman -S git mingw-w64-x86_64-toolchain mingw-w64-x86_64-python3-pip
+    python3 -m pip install qmk
 
 ### macOS
 
 You will need to install Homebrew. Follow the instructions on the [Homebrew homepage](https://brew.sh).
 
-After Homebrew is installed, continue with _Set Up QMK_. In that step you will run a script that will install other packages.
+After Homebrew is installed run these commands:
+
+    brew tap qmk/qmk
+    brew install qmk
 
 ### Linux
 
-You will need to install Git. It's very likely that you already have it, but if not, one of the following commands should install it:
+You will need to install Git and Python. It's very likely that you already have both, but if not, one of the following commands should install them:
 
-* Debian / Ubuntu / Devuan: `apt-get install git`
-* Fedora / Red Hat / CentOS: `yum install git`
-* Arch: `pacman -S git`
+* Debian / Ubuntu / Devuan: `sudo apt install git python3 python3-pip`
+* Fedora / Red Hat / CentOS: `sudo yum install git python3 python3-pip`
+* Arch / Manjaro: `sudo pacman -S git python python-pip python-setuptools libffi`
 
-?> Docker is also an option on all platforms. [Click here for details.](getting_started_build_tools.md#docker)
 
-## Set Up QMK
+Install the global CLI to bootstrap your system:
 
-Once you have set up your Linux/Unix environment, you are ready to download QMK. We will do this by using Git to "clone" the QMK repository. Open a Terminal or MSYS2 MinGW window and leave it open for the remainder of this guide. Inside that window run these two commands:
+  `python3 -m pip install --user qmk` (on Arch-based distros you can also try the `qmk` package from AUR (**note**: it's maintained by a community member): `yay -S qmk`)
 
-```shell
-git clone --recurse-submodules https://github.com/qmk/qmk_firmware.git
-cd qmk_firmware
-```
+## 3. Run QMK Setup :id=set-up-qmk
 
-?> If you already know [how to use GitHub](getting_started_github.md), we recommend that you create and clone your own fork instead. If you don't know what that means, you can safely ignore this message.
+After installing QMK you can set it up with this command:
 
-QMK comes with a script to help you set up the rest of what you'll need. You should run it now by typing in this command:
+    qmk setup
 
-    util/qmk_install.sh
+In most situations you will want to answer Yes to all of the prompts.
 
-## Test Your Build Environment
+?>**Note on Debian, Ubuntu and their derivatives**:
+It's possible, that you will get an error saying something like: `bash: qmk: command not found`.
+This is due to a [bug](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=839155) Debian introduced with their Bash 4.4 release, which removed `$HOME/.local/bin` from the PATH. This bug was later fixed on Debian and Ubuntu.
+Sadly, Ubuntu reitroduced this bug and is [yet to fix it](https://bugs.launchpad.net/ubuntu/+source/bash/+bug/1588562).
+Luckily, the fix is easy. Run this as your user: `echo "PATH=$HOME/.local/bin:$PATH" >> $HOME/.bashrc && source $HOME/.bashrc`
+
+?> If you already know [how to use GitHub](getting_started_github.md), we recommend that you create your own fork and use `qmk setup <github_username>/qmk_firmware` to clone your personal fork. If you don't know what that means you can safely ignore this message.
+
+## 4. Test Your Build Environment
 
 Now that your QMK build environment is set up, you can build a firmware for your keyboard. Start by trying to build the keyboard's default keymap. You should be able to do that with a command in this format:
 
-    make <keyboard>:default
+    qmk compile -kb <keyboard> -km default
 
 For example, to build a firmware for a Clueboard 66% you would use:
 
-    make clueboard/66/rev3:default
+    qmk compile -kb clueboard/66/rev3 -km default
 
 When it is done you should have a lot of output that ends similar to this:
 
@@ -96,6 +110,22 @@ Copying clueboard_66_rev3_default.hex to qmk_firmware folder                    
 Checking file size of clueboard_66_rev3_default.hex                                                 [OK]
  * The firmware size is fine - 26356/28672 (2316 bytes free)
 ```
+
+## 5. Configure Your Build Environment (Optional)
+
+You can configure your build environment to set the defaults and make working with QMK less tedious. Let's do that now!
+
+Most people new to QMK only have 1 keyboard. You can set this keyboard as your default with the `qmk config` command. For example, to set your default keyboard to `clueboard/66/rev4`:
+
+    qmk config user.keyboard=clueboard/66/rev4
+
+You can also set your default keymap name. Most people use their github username here, and we recommend that you do too.
+
+    qmk config user.keymap=<github_username>
+
+After this you can leave those arguments off and compile your keyboard like this:
+
+    qmk compile
 
 # Creating Your Keymap
 
