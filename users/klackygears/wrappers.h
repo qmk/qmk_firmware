@@ -98,11 +98,11 @@ NOTE: If you do a search/replace
 #define ________WIN_THUMB_CLUSTER_________                LT(_SYMB,KC_SPC), LT(_NUMB,KC_BSPC), LT(_NUMB,KC_TAB), LT(_SYMB,KC_ENT)
 #define ________MAC_THUMB_CLUSTER_________                LT(_SYMB,KC_SPC), LT(_MNMB,KC_BSPC), LT(_MNMB,KC_TAB), LT(_SYMB,KC_ENT)
 
-#define __________________WIN_THUMB_CLUSTER_V2______________ LT(_FUNC,KC_ENT), MT(MOD_LSFT,KC_SPC), LT(_NUMB,KC_BSPC), LT(_NUMB,KC_TAB), LT(_SYMB,KC_ENT), KC_RSFT
-#define __________________MAC_THUMB_CLUSTER_V2______________ LT(_FUNC,KC_ENT), MT(MOD_LSFT,KC_SPC), LT(_MNMB,KC_BSPC), LT(_MNMB,KC_TAB), LT(_SYMB,KC_ENT), KC_RSFT
-#define ________MAC_THUMB_L______                            LT(_FUNC,KC_ENT), MT(MOD_LSFT,KC_SPC), LT(_MNMB,KC_BSPC)
+#define __________________WIN_THUMB_CLUSTER_V2______________ LT(_FUNC,KC_ENT), LT(_NUMB,KC_BSPC), MT(MOD_LSFT,KC_SPC), LT(_NUMB,KC_TAB), LT(_SYMB,KC_ENT), KC_RSFT
+#define __________________MAC_THUMB_CLUSTER_V2______________ LT(_FUNC,KC_ENT), LT(_MNMB,KC_BSPC), MT(MOD_LSFT,KC_SPC), LT(_MNMB,KC_TAB), LT(_SYMB,KC_ENT), KC_RSFT
+#define ________MAC_THUMB_L______                            LT(_FUNC,KC_ENT), LT(_MNMB,KC_BSPC), MT(MOD_LSFT,KC_SPC)
 #define ________MAC_THUMB_R______                            LT(_MNMB,KC_TAB), LT(_SYMB,KC_ENT),    LT(_MDIA,KC_ENT)
-#define ________WIN_THUMB_L______                            LT(_FUNC,KC_ENT), MT(MOD_LSFT,KC_SPC), LT(_NUMB,KC_BSPC)
+#define ________WIN_THUMB_L______                            LT(_FUNC,KC_ENT), LT(_NUMB,KC_BSPC), MT(MOD_LSFT,KC_SPC)
 #define ________WIN_THUMB_R______                            LT(_NUMB,KC_TAB), LT(_SYMB,KC_ENT),    LT(_MDIA,KC_ENT)
 
 

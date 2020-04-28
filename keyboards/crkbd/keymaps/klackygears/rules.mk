@@ -19,8 +19,8 @@ SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 TAP_DANCE_ENABLE = yes
 
 VELOCIKEY_ENABLE = no
-BOOTLOADER = qmk-dfu
-#BOOTLOADER = atmel-dfu
+#BOOTLOADER = qmk-dfu
+BOOTLOADER = atmel-dfu
 
 
 #EXTRAFLAGS += -flto
