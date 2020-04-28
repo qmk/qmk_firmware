@@ -6,7 +6,7 @@ These options let you modify the behavior of the Tap-Hold keys.
 
 ## Tapping Term
 
-The crux of all of the following features is the tapping term setting.  This determines what is a tap and what is a hold.  And the exact timing for this to feel natural can very from keyboard to keyboard, from switch to switch, and from key to key.  
+The crux of all of the following features is the tapping term setting.  This determines what is a tap and what is a hold.  And the exact timing for this to feel natural can vary from keyboard to keyboard, from switch to switch, and from key to key.  
 
 You can set the global time for this by adding the following setting to your `config.h`: 
 
