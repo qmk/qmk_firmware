@@ -42,11 +42,11 @@ POSSIBILITY OF SUCH DAMAGE.
 #include <stdbool.h>
 
 #if defined(__AVR__)
-#include <avr/interrupt.h>
-#elif defined(PROTOCOL_CHIBIOS) //TODO: or STM32 ?
+#    include <avr/interrupt.h>
+#elif defined(PROTOCOL_CHIBIOS)  // TODO: or STM32 ?
 // chibiOS headers
-#include "ch.h"
-#include "hal.h"
+#    include "ch.h"
+#    include "hal.h"
 #endif
 
 #include "ps2.h"
@@ -71,30 +71,28 @@ static inline void    pbuf_clear(void);
 
 #if defined(PROTOCOL_CHIBIOS)
 void ps2_interrupt_service_routine(void);
-void palCallback(void *arg) {
-    ps2_interrupt_service_routine();
-}
+void palCallback(void *arg) { ps2_interrupt_service_routine(); }
 
-#define PS2_INT_INIT() {                                  \
-        palSetLineMode(PS2_CLOCK, PAL_MODE_INPUT);        \
-    } while(0)
-#define PS2_INT_ON(){                                               \
-        palEnableLineEvent(PS2_CLOCK, PAL_EVENT_MODE_FALLING_EDGE); \
-        palSetLineCallback(PS2_CLOCK, palCallback, NULL);           \
-    } while(0)
-#define PS2_INT_OFF() {                         \
-        palDisableLineEvent(PS2_CLOCK);         \
-    } while(0)
-#endif // PROTOCOL_CHIBIOS
-
-
+#    define PS2_INT_INIT()                             \
+        { palSetLineMode(PS2_CLOCK, PAL_MODE_INPUT); } \
+        while (0)
+#    define PS2_INT_ON()                                                \
+        {                                                               \
+            palEnableLineEvent(PS2_CLOCK, PAL_EVENT_MODE_FALLING_EDGE); \
+            palSetLineCallback(PS2_CLOCK, palCallback, NULL);           \
+        }                                                               \
+        while (0)
+#    define PS2_INT_OFF()                   \
+        { palDisableLineEvent(PS2_CLOCK); } \
+        while (0)
+#endif  // PROTOCOL_CHIBIOS
 
 void ps2_host_init(void) {
     idle();
     PS2_INT_INIT();
     PS2_INT_ON();
     // POR(150-2000ms) plus BAT(300-500ms) may take 2.5sec([3]p.20)
-    //wait_ms(2500);
+    // wait_ms(2500);
 }
 
 uint8_t ps2_host_send(uint8_t data) {
@@ -105,7 +103,7 @@ uint8_t ps2_host_send(uint8_t data) {
 
     /* terminate a transmission if we have */
     inhibit();
-    wait_us(100); // 100us [4]p.13, [5]p.50
+    wait_us(100);  // 100us [4]p.13, [5]p.50
 
     /* 'Request to Send' and Start bit */
     data_lo();
@@ -175,8 +173,7 @@ uint8_t ps2_host_recv(void) {
     }
 }
 
-void ps2_interrupt_service_routine(void)
-{
+void ps2_interrupt_service_routine(void) {
     static enum {
         INIT,
         START,
@@ -246,15 +243,9 @@ RETURN:
     return;
 }
 
-
 #if defined(__AVR__)
-ISR(PS2_INT_VECT)
-{
-    ps2_interrupt_service_routine();
-}
+ISR(PS2_INT_VECT) { ps2_interrupt_service_routine(); }
 #endif
-
-
 
 /* send LED state to keyboard */
 void ps2_host_set_led(uint8_t led) {
@@ -314,7 +305,7 @@ static inline bool pbuf_has_data(void) {
 
     bool has_data = (pbuf_head != pbuf_tail);
 #if defined(__AVR__)
-    SREG          = sreg;
+    SREG = sreg;
 #endif
     return has_data;
 }
@@ -326,6 +317,6 @@ static inline void pbuf_clear(void) {
 
     pbuf_head = pbuf_tail = 0;
 #if defined(__AVR__)
-    SREG                  = sreg;
+    SREG = sreg;
 #endif
 }

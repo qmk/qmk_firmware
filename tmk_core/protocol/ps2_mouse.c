@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 
 #if defined(__AVR__)
-  #include<avr/io.h>
+#    include <avr/io.h>
 #endif
 
 #include "ps2_mouse.h"
@@ -46,7 +46,7 @@ static inline void ps2_mouse_scroll_button_task(report_mouse_t *mouse_report);
 void ps2_mouse_init(void) {
     ps2_host_init();
 
-    wait_ms(PS2_MOUSE_INIT_DELAY);    // wait for powering up
+    wait_ms(PS2_MOUSE_INIT_DELAY);  // wait for powering up
 
     PS2_MOUSE_SEND(PS2_MOUSE_RESET, "ps2_mouse_init: sending reset");
 
