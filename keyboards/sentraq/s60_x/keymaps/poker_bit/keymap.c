@@ -106,7 +106,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM fn_actions[] = {
     /* Poker Layout */
     [0] = ACTION_LAYER_BIT_XOR(1, 0b0101, ON_BOTH),   // Poker Fn(with fix for Esc)
-    [1] = ACTION_LAYER_TOGGLE(5),                     // Poker Arrow toggle
     [3] = ACTION_LAYER_BIT_XOR(1, 0b1101, ON_BOTH),   // Poker Fn(with fix for Arrow)
     [4] = ACTION_MODS_KEY(MOD_RCTL|MOD_RSFT, KC_ESC), // FN3 Task(RControl,RShift+Esc)
 };
