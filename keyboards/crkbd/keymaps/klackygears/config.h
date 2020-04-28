@@ -29,9 +29,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EE_HANDS
 
 #define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
+#define BOOTMAGIC_LITE_COLUMN 5
 #define BOOTMAGIC_LITE_ROW_RIGHT 4
-#define BOOTMAGIC_LITE_COLUMN_RIGHT 0
+#define BOOTMAGIC_LITE_COLUMN_RIGHT 5
 
 #define SSD1306OLED
 
