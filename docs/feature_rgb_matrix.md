@@ -439,7 +439,7 @@ Where `28` is an unused index from `eeconfig.h`.
 ### Query Current Status :id=query-current-status
 |Function                         |Description                |
 |---------------------------------|---------------------------|
-|`rgb_matrix_get_enable()`        |Gets current on/off status |
+|`rgb_matrix_is_enabled()`        |Gets current on/off status |
 |`rgb_matrix_get_mode()`          |Gets current mode          |
 |`rgb_matrix_get_hue()`           |Gets current hue           |
 |`rgb_matrix_get_sat()`           |Gets current sat           |

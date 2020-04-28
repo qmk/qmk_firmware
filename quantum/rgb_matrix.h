@@ -110,7 +110,7 @@ void        rgb_matrix_enable(void);
 void        rgb_matrix_enable_noeeprom(void);
 void        rgb_matrix_disable(void);
 void        rgb_matrix_disable_noeeprom(void);
-uint8_t     rgb_matrix_get_enable(void);
+uint8_t     rgb_matrix_is_enabled(void);
 void        rgb_matrix_step(void);
 void        rgb_matrix_step_reverse(void);
 void        rgb_matrix_increase_hue(void);

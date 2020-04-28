@@ -303,7 +303,7 @@ uint8_t rgblight_get_mode(void);
 uint8_t rgblight_get_hue(void);
 uint8_t rgblight_get_sat(void);
 uint8_t rgblight_get_val(void);
-bool    rgblight_get_enable(void);
+bool    rgblight_is_enabled(void);
 
 /* === qmk_firmware (core)internal Functions === */
 void     rgblight_init(void);

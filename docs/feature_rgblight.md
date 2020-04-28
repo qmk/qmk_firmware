@@ -330,7 +330,7 @@ rgblight_sethsv(HSV_GREEN, 2); // led 2
 #### query
 |Function               |Description                |
 |-----------------------|---------------------------|
-|`rgblight_get_enable()`|Gets current on/off status |
+|`rgblight_is_enabled()`|Gets current on/off status |
 |`rgblight_get_mode()`  |Gets current mode          |
 |`rgblight_get_hue()`   |Gets current hue           |
 |`rgblight_get_sat()`   |Gets current sat           |

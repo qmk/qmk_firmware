@@ -468,7 +468,7 @@ void rgb_matrix_disable_noeeprom(void) {
     rgb_matrix_config.enable = 0;
 }
 
-uint8_t rgb_matrix_get_enable(void) { return rgb_matrix_config.enable; }
+uint8_t rgb_matrix_is_enabled(void) { return rgb_matrix_config.enable; }
 
 void rgb_matrix_step(void) {
     rgb_matrix_config.mode++;
