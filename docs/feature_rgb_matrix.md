@@ -437,12 +437,15 @@ Where `28` is an unused index from `eeconfig.h`.
 |`rgb_matrix_sethsv_noeeprom(h, s, v)`       |Set LEDs to the given HSV value where `h`/`s`/`v` are between 0 and 255 (not written to EEPROM) |
 
 ### Query Current Status :id=query-current-status
-|Function               |Description      |
-|-----------------------|-----------------|
-|`rgb_matrix_get_mode()`  |Get current mode |
-|`rgb_matrix_get_hue()`   |Get current hue  |
-|`rgb_matrix_get_sat()`   |Get current sat  |
-|`rgb_matrix_get_val()`   |Get current val  |
+|Function                         |Description                |
+|---------------------------------|---------------------------|
+|`rgb_matrix_get_enable()`        |Gets current on/off status |
+|`rgb_matrix_get_mode()`          |Gets current mode          |
+|`rgb_matrix_get_hue()`           |Gets current hue           |
+|`rgb_matrix_get_sat()`           |Gets current sat           |
+|`rgb_matrix_get_val()`           |Gets current val           |
+|`rgb_matrix_get_speed()`         |Gets current speed         |
+|`rgb_matrix_get_suspend_state()` |Gets current suspend state |
 
 ## Callbacks :id=callbacks
 
