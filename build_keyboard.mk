@@ -254,9 +254,6 @@ endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_1)/config.h)","")
     CONFIG_H += $(KEYBOARD_PATH_1)/config.h
 endif
-ifneq ("$(wildcard $(BOARD_PATH)/configs/config.h)","")
-    CONFIG_H += $(BOARD_PATH)/configs/config.h
-endif
 
 POST_CONFIG_H :=
 ifneq ("$(wildcard $(KEYBOARD_PATH_1)/post_config.h)","")
@@ -273,9 +270,6 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_4)/post_config.h)","")
 endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/post_config.h)","")
     POST_CONFIG_H += $(KEYBOARD_PATH_5)/post_config.h
-endif
-ifneq ("$(wildcard $(BOARD_PATH)/configs/post_config.h)","")
-    POST_CONFIG_H += $(BOARD_PATH)/configs/post_config.h
 endif
 
 # Userspace setup and definitions

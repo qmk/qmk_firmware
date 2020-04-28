@@ -240,6 +240,15 @@ endif
 # Project, sources and paths
 ##############################################################################
 
+##############################################################################
+# Injected configs
+#
+ifneq ("$(wildcard $(BOARD_PATH)/configs/config.h)","")
+    CONFIG_H += $(BOARD_PATH)/configs/config.h
+endif
+ifneq ("$(wildcard $(BOARD_PATH)/configs/post_config.h)","")
+    POST_CONFIG_H += $(BOARD_PATH)/configs/post_config.h
+endif
 
 ##############################################################################
 # Compiler settings
