@@ -328,12 +328,14 @@ rgblight_sethsv(HSV_GREEN, 2); // led 2
 |`rgblight_set_layer_state(i, is_on)`        |Enable or disable lighting layer `i` based on value of `bool is_on` |
 
 #### query
-|Function               |Description      |
-|-----------------------|-----------------|
-|`rgblight_get_mode()`  |Get current mode |
-|`rgblight_get_hue()`   |Get current hue  |
-|`rgblight_get_sat()`   |Get current sat  |
-|`rgblight_get_val()`   |Get current val  |
+|Function               |Description                |
+|-----------------------|---------------------------|
+|`rgblight_get_enable()`|Gets current on/off status |
+|`rgblight_get_mode()`  |Gets current mode          |
+|`rgblight_get_hue()`   |Gets current hue           |
+|`rgblight_get_sat()`   |Gets current sat           |
+|`rgblight_get_val()`   |Gets current val           |
+|`rgblight_get_speed()` |Gets current speed         |
 
 ## Colors
 

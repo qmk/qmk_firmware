@@ -371,6 +371,8 @@ void rgblight_disable_noeeprom(void) {
     rgblight_set();
 }
 
+bool rgblight_get_enable(void) { return rgblight_config.enable; }
+
 void rgblight_increase_hue_helper(bool write_to_eeprom) {
     uint8_t hue = rgblight_config.hue + RGBLIGHT_HUE_STEP;
     rgblight_sethsv_eeprom_helper(hue, rgblight_config.sat, rgblight_config.val, write_to_eeprom);
