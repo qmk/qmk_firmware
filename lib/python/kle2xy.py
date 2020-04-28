@@ -76,18 +76,9 @@ class KLE2xy(list):
                     if 'h' in key and key['h'] != Decimal(1):
                         current_key['height'] = Decimal(key['h'])
                     if 'a' in key:
-                        current_key['label_style'] = self.key_skel['label_style'] = int(key['a'])
-                        if current_key['label_style'] < 0:
-                            current_key['label_style'] = 0
-                        elif current_key['label_style'] > 9:
-                            current_key['label_style'] = 9
+                        current_key['label_style'] = self.key_skel['label_style'] = max(min(int(key['a']), 9), 0)
                     if 'f' in key:
-                        font_size = int(key['f'])
-                        if font_size > 9:
-                            font_size = 9
-                        elif font_size < 1:
-                            font_size = 1
-                        current_key['label_size'] = self.key_skel['label_size'] = font_size
+                        current_key['label_size'] = self.key_skel['label_size'] = max(min(int(key['f']), 9), 1)
                     if 'p' in key:
                         current_key['keycap_profile'] = self.key_skel['keycap_profile'] = key['p']
                     if 'c' in key:
