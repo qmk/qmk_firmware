@@ -197,7 +197,7 @@ typedef uint8_t pin_t;
 
 #    define readPin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
 
-#    define togglePin(pin)  (PORTx_ADDRESS(pin) ^= _BV((pin)&0xF))
+#    define togglePin(pin) (PORTx_ADDRESS(pin) ^= _BV((pin)&0xF))
 
 #elif defined(PROTOCOL_CHIBIOS)
 typedef ioline_t pin_t;
