@@ -29,7 +29,6 @@ void matrix_scan_cmd_tab(void);
 #define CTL_CAP    CTL_T(KC_CAPS)      // Hold Caps Lock for Control
 /* Command Mod-Tap */
 #define CMD_ESC    CMD_T(KC_ESC)       // Hold Escape for Command
-#define CMD_TAB    CMD_T(KC_TAB)       // Hold Tab for Command
 #define CMD_CAP    CMD_T(KC_CAPS)      // Hold Caps Lock for Command
 /* Hyper Mod-Tap */
 #define HY_ESC    ALL_T(KC_ESC)        // Hold Escape for Hyper (Shift-Control-Option-Command)
@@ -44,6 +43,7 @@ void matrix_scan_cmd_tab(void);
 #define LOWER     MO(_LOWER)           // Hold for LOWER Layer
 #define SPC_LWR   LT(_LOWER, KC_SPC)   // Tap for Space, Hold for LOWER Layer
 #define SPC_RAI   LT(_RAISE, KC_SPC)   // Tap for Space, Hold for RAISE Layer
+#define SLH_LWR   LT(_LOWER, KC_SLSH)  // Tap for /, Hold for LOWER Layer
 #define RAISE     MO(_RAISE)           // Hold for RAISE Layer
 #define MCO_LYR   MO(_MACRO)           // Hold for MACRO Layer
 #define TG_ADJT   TG(_ADJUST)          // Toggle ADJUST Layer
