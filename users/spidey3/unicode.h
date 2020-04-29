@@ -18,6 +18,8 @@ enum unicode_names {
     ANGRY,
     THUMBUP,
     THUMBDN,
+    LOL,
+    SURPRISE,
 };
 
 #define X_BUL (XP(BUL1, BUL2))

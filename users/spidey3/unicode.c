@@ -15,6 +15,8 @@ const uint32_t PROGMEM unicode_map[] = {
     [ANGRY]	= 0x1F620, // 😠
     [THUMBUP]	= 0x1F44D, // 👍
     [THUMBDN]	= 0x1F44E, // 👎
+    [LOL]	= 0x1F602, // 😂
+    [SURPRISE]	= 0x1F62E, // 😮
 };
 
 void eeconfig_init_user_unicode(void)
