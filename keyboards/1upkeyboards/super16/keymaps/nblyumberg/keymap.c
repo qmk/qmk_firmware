@@ -17,7 +17,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 LALT(KC_F13), LALT(KC_F14), LALT(KC_F15), LALT(KC_F16),
                 LALT(KC_F17), LALT(KC_F18), LALT(KC_F19), LALT(KC_F20),
                 LALT(KC_F21), LALT(KC_F22), LALT(KC_F23), LALT(KC_F24),
-                KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS         //Transparent to let you go between layers
+                OSL(1), OSL(2), OSL(3), TG(4)    //Transparent to let you go between layers
         ),
 
         //Layer 2 - Shift + Function Key Layer
@@ -133,14 +133,15 @@ bool led_update_user(led_t led_state) {
 }
 
 // END of New RGB method
-
 /*
+
 void keyboard_post_init_user(void){
 	layer_state_set_user(layer_state);
+	debug_enable=true;
 }
-*/
 
-/*
+
+
 layer_state_t layer_state_set_user(layer_state_t state) {
   rgblight_sethsv_noeeprom(HSV_WHITE);
   switch(get_highest_layer(state)) {
@@ -178,4 +179,5 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     break;
 }
 return state;
-} */
+} 
+*/
