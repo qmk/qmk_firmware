@@ -1,0 +1,4 @@
+// Gergoplex specfic combos 
+
+COMB(overlap1,    KC_Q,          KC_B, KC_V)
+COMB(overlap2,    KC_R,          KC_C, KC_V, KC_B)
