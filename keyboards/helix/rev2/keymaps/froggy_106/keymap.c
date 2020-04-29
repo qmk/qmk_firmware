@@ -1,9 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "keymap_jp.h"
 #include <string.h>
-#ifdef AUDIO_ENABLE
-  #include "audio.h"
-#endif
 #ifdef SSD1306OLED
   #include "ssd1306.h"
 #endif
@@ -536,24 +533,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case MAC:
       if (record->event.pressed) {
         set_mac_mode(true);
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(ag_norm_song);
-        #endif
       }
       break;
     case WIN:
       if (record->event.pressed) {
         set_mac_mode(false);
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(ag_swap_song);
-        #endif
       }
       break;
     case TO_101:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
-        #endif
         if (IS_MODE_106()) {
           persistent_default_layer_set(1UL<<_BASE);
         }
@@ -561,9 +549,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case TO_106:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_colemak);
-        #endif
         if (!IS_MODE_106()) {
           persistent_default_layer_set(1UL<<_BASE_106);
         }
@@ -576,40 +561,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 //keyboard start-up code. Runs once when the firmware starts up.
 void matrix_init_user(void) {
-    #ifdef AUDIO_ENABLE
-        startup_user();
-    #endif
     //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
     #ifdef SSD1306OLED
         iota_gfx_init(!has_usb());   // turns on the display
     #endif
 }
-
-
-#ifdef AUDIO_ENABLE
-
-void startup_user()
-{
-    _delay_ms(20); // gets rid of tick
-}
-
-void shutdown_user()
-{
-    _delay_ms(150);
-    stop_all_notes();
-}
-
-void music_on_user(void)
-{
-    music_scale_user();
-}
-
-void music_scale_user(void)
-{
-    PLAY_SONG(music_scale);
-}
-
-#endif
 
 // LED Effect
 #ifdef RGBLIGHT_ENABLE
