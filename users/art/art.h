@@ -2,7 +2,7 @@
 #include QMK_KEYBOARD_H
 
 extern bool is_win;
-  
+
 enum layer_names {
   QWERTY,
   WORKMAN,

@@ -55,24 +55,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `----------------------'
  */
 [QWERTY] = LAYOUT_ergodox(
-        // left hand
-        KC_GRAVE,		KC_1,		KC_2,		KC_3,		KC_4,   KC_5,   KC_ESCAPE,
-        KC_TAB,			KC_Q,		KC_W,		KC_E,		KC_R,   KC_T,   _______,
-        KC_CAPS,		KC_A,		KC_S,		KC_D,		KC_F,   KC_G,
-        KC_LSFT,		KC_Z,		KC_X,		KC_C,		KC_V,   KC_B,   TT(FKEYS),
-        KC_LCTRL,		KC_BSLASH,	KC_LWIN,	KC_LALT,	LT(NAV, KC_RIGHT),
-                                                KC_DEL,		KC_INS,
-                                                            KC_PGUP,
-                                        KC_SPC,	KC_BSPC,	KC_PGDOWN,
-        // right hand
-        KC_MINS,	KC_6,   KC_7,		KC_8,   KC_9,   KC_0,		KC_RBRC,
-        KC_EQL,		KC_Y,   KC_U,		KC_I,   KC_O,   KC_P,		KC_LBRC,
-                    KC_H,   LCTL_T(KC_J),		KC_K,   KC_L,   KC_SCLN,	KC_QUOT,
-        TT(FKEYS),	KC_N,   KC_M,		KC_COMM,KC_DOT, KC_SLSH,	KC_RSFT,
-                            KC_HOME,	KC_END,	DF(WORKMAN),DM_PLY1,KC_RCTRL,
-        KC_LEFT,	KC_RIGHT,
-        LT(SHIFT_NAV, KC_UP),
-        LT(CTRL_NAV, KC_DOWN),	LT(NAV, KC_ESCAPE), KC_ENT
+  // ------------------------------------------left hand------------------------------------------
+  KC_GRAVE,         KC_1,         KC_2,       KC_3,       KC_4,              KC_5,      KC_ESCAPE,
+  KC_TAB,           KC_Q,         KC_W,       KC_E,       KC_R,              KC_T,      XXXXXXX,
+  KC_CAPS,          KC_A,         KC_S,       KC_D,       KC_F,              KC_G,
+  KC_LSFT,          KC_Z,         KC_X,       KC_C,       KC_V,              KC_B,      TT(FKEYS),
+  KC_LCTRL,         KC_BSLASH,    KC_LWIN,    KC_LALT,    LT(NAV, KC_RIGHT),
+
+                                           KC_DEL,    KC_INS,
+                                                      KC_PGUP,
+                                  KC_SPC,  KC_BSPC,   KC_PGDOWN,
+
+  // ------------------------------------------right hand------------------------------------------
+  KC_MINS,          KC_6,         KC_7,       KC_8,       KC_9,              KC_0,      KC_RBRC,
+  KC_EQL,           KC_Y,         KC_U,       KC_I,       KC_O,              KC_P,      KC_LBRC,
+                    KC_H,         KC_J,       KC_K,       KC_L,              KC_SCLN,   KC_QUOT,
+  TT(FKEYS),        KC_N,         KC_M,       KC_COMM,    KC_DOT,            KC_SLSH,   KC_RSFT,
+                                  KC_HOME,    KC_END,     DF(WORKMAN),       XXXXXXX,   KC_RCTRL,
+
+    KC_LEFT,                KC_RIGHT,
+    LT(SHIFT_NAV, KC_UP),
+    LT(CTRL_NAV, KC_DOWN),  LT(NAV, KC_ESCAPE),   KC_ENT
 ),
  /* Workman
  *
@@ -96,24 +99,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `----------------------'
  */
 [WORKMAN] = LAYOUT_ergodox(  
-        // left hand
-        _______,		_______,		_______,		_______,		_______,   _______,   _______,
-        _______,		KC_Q,		KC_D,		KC_R,	KC_W,   KC_B,   _______,
-        _______,		KC_A,		KC_S,		KC_H,	KC_T,   KC_G,
-        _______,		KC_Z,		KC_X,		KC_C,	KC_V,   KC_M,   _______,
-        _______,		_______,	_______,	_______,	_______,
-                                                _______,	_______,
-                                                            _______,
-                                        _______,	_______,	_______,
-        // right hand
-        _______,	KC_6,   KC_7,		KC_8,   KC_9,   KC_0,		_______,
-        _______,	KC_J,   KC_F,		KC_U,   KC_P,   KC_SCLN,		_______,
-                    KC_Y,   KC_N,		KC_E,   KC_O,   KC_I,	_______,
-        _______,	KC_K,   KC_L,		KC_COMM,KC_DOT, KC_SLSH,	_______,
-                            _______,	_______,	DF(QWERTY),_______,	_______,
-        _______,	_______,
-        _______,
-        _______,	_______, _______
+  // ------------------------------------------left hand------------------------------------------
+  _______,          _______,      _______,    _______,    _______,           _______,   _______,
+  _______,          KC_Q,         KC_D,       KC_R,       KC_W,              KC_B,      _______,
+  _______,          KC_A,         KC_S,       KC_H,       KC_T,              KC_G,
+  _______,          KC_Z,         KC_X,       KC_C,       KC_V,              KC_M,      _______,
+  _______,          _______,      _______,    _______,    _______,
+
+                                            _______,   _______,
+                                                       _______,
+                                  _______,  _______,   _______,
+
+  // ------------------------------------------right hand------------------------------------------
+  _______,          _______,      _______,    _______,    _______,           _______,   _______,
+  _______,          KC_J,         KC_F,       KC_U,       KC_P,              KC_SCLN,   _______,
+                    KC_Y,         KC_N,       KC_E,       KC_O,              KC_I,      _______,
+  _______,          KC_K,         KC_L,       KC_COMM,    KC_DOT,            KC_SLSH,   _______,
+                                  _______,    _______,    DF(QWERTY),        _______,   _______,
+
+    _______,  _______,
+    _______,
+    _______,  _______, _______
 ),
 /* FKeys
  *
@@ -137,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 [FKEYS] = LAYOUT_ergodox(
-       // left hand
+       // ------------------------------------------left hand------------------------------------------
        _______,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  _______,
        _______,_______,_______,  _______,_______,_______,_______,
        _______,_______,_______, _______,_______,_______,
@@ -146,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                        _______,_______,
                                                _______,
                                _______,_______,_______,
-       // right hand
+       // ------------------------------------------right hand------------------------------------------
        _______, KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_F11,
        _______, _______,   _______,   _______,    _______,    _______, KC_F12,
                 _______, _______,   _______,    _______,    _______, KC_PSCREEN,
@@ -178,7 +184,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `---------------------'
  */
 [NAV] = LAYOUT_ergodox(
-       // left hand
+       // ------------------------------------------left hand------------------------------------------
        _______,LALT(KC_F1),  LALT(KC_F2),  LALT(KC_F3),  LALT(KC_F4),  LALT(KC_F5),  _______,
        _______,_______,  KC_HOME,  KC_UP,KC_END,KC_PGUP,_______,
        _______,_______,KC_LEFT, KC_DOWN,KC_RIGHT,KC_PGDOWN,
@@ -187,7 +193,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                        _______,_______,
                                                DM_RSTP,
                                _______,KC_DEL,DM_REC1,
-       // right hand
+       // ------------------------------------------right hand------------------------------------------
        _______, LALT(KC_F6),   LALT(KC_F7),  LALT(KC_F8),   LALT(KC_F9),   LALT(KC_F10),  LALT(KC_F11),
        _______, _______,   KC_MS_BTN1,   KC_MS_UP,    KC_MS_BTN3,    KC_MS_BTN2, LALT(KC_F12),
         KC_AUDIO_VOL_UP,   KC_MS_LEFT,   KC_MS_DOWN,    KC_MS_RIGHT,    KC_APPLICATION, _______,
@@ -219,7 +225,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `---------------------'
  */
 [CTRL_NAV] = LAYOUT_ergodox(
-       // left hand
+       // ------------------------------------------left hand------------------------------------------
        _______,_______,  _______,  _______,  _______,  _______,  _______,
        _______,_______,  LCTL(KC_HOME),  LCTL(KC_UP),LCTL(KC_END),LCTL(KC_PGUP),_______,
        _______,_______,LCTL(KC_LEFT), LCTL(KC_DOWN),LCTL(KC_RIGHT),LCTL(KC_PGDOWN),
@@ -228,7 +234,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                        LCTL(KC_DEL),_______,
                                                _______,
                                _______,LCTL(KC_BSPC),LCTL(KC_DEL),
-       // right hand
+       // ------------------------------------------right hand------------------------------------------
        _______, _______,   _______,  _______,   _______,   _______,  _______,
        _______, _______,   _______,   _______,    _______,    _______, _______,
                 _______,   _______,   _______,    _______,    _______, _______,
@@ -260,7 +266,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `---------------------'
  */
 [SHIFT_NAV] = LAYOUT_ergodox(
-       // left hand
+       // ------------------------------------------left hand------------------------------------------
        _______,_______,  _______,  _______,  _______,  _______,  _______,
        _______,_______,  LSFT(KC_HOME),  LSFT(KC_UP),LSFT(KC_END),LSFT(KC_PGUP),_______,
        _______,_______,LSFT(KC_LEFT), LSFT(KC_DOWN),LSFT(KC_RIGHT),LSFT(KC_PGDOWN),
@@ -269,7 +275,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                        _______,_______,
                                                _______,
                                _______,_______,_______,
-       // right hand
+       // ------------------------------------------right hand------------------------------------------
        _______, _______,   _______,  _______,   _______,   _______,  _______,
        _______, _______,   _______,   _______,    _______,    _______, _______,
                 _______,   _______,   _______,    _______,    _______, _______,
@@ -294,6 +300,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                         |      |   0  |   .  | Calc | Calc   |
  *                         `----------------------------------'
  */
+
+// [] = LAYOUT_ergodox(  
+//   // ------------------------------------------left hand------------------------------------------
+//   _______,          _______,          _______,          _______,          _______,          _______,          _______,
+//   _______,          _______,          _______,          _______,          _______,          _______,          _______,
+//   _______,          _______,          _______,          _______,          _______,          _______,
+//   _______,          _______,          _______,          _______,          _______,          _______,          _______,
+//   _______,          _______,          _______,          _______,          _______,
+
+//                                             _______,   _______,
+//                                                        _______,
+//                                   _______,  _______,   _______,
+
+//   // ------------------------------------------right hand------------------------------------------
+//   _______,          _______,      _______,    _______,    _______,           _______,   _______,
+//   _______,          _______,         _______,       _______,       _______,              _______,   _______,
+//                     _______,         _______,       _______,       _______,              _______,      _______,
+//   _______,          _______,         _______,       _______,    _______,            _______,   _______,
+//                                   _______,    _______,    _______,        _______,   _______,
+
+//     _______,  _______,
+//     _______,
+//     _______,  _______, _______
+// ),
 
 };
 
