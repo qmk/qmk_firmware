@@ -1,3 +1,4 @@
+BOOTMAGIC_ENABLE = lite
 
 SRC += init.c
 SRC += spidey3.c
