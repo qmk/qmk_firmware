@@ -70,6 +70,7 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/boards/$(BOARD)/board.mk)","")
 else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/$(BOARD)/board/board.mk)","")
     BOARD_PATH = $(TOP_DIR)/platforms/chibios/$(BOARD)
     BOARD_MK += $(TOP_DIR)/platforms/chibios/$(BOARD)/board/board.mk
+    KEYBOARD_PATHS += $(BOARD_PATH)/configs
 endif
 
 ifeq ("$(wildcard $(BOARD_MK))","")
