@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_PGDN,        KC_PGUP,      KC_TRNS,        KC_END,   KC_MPRV, KC_MNXT, KC_MPLY, \
   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_LEFT,  KC_DOWN,        KC_UP,        KC_RIGHT,       KC_TRNS,  KC_TRNS,          KC_TRNS, \
   KC_TRNS,  KC_TRNS,  KC_TRNS,  BL_DEC,    BL_TOGG,  BL_INC,   KC_HOME,  LCTL(KC_LEFT),  LCTL(KC_END), LCTL(KC_RIGHT), KC_TRNS,                    RESET,   \
-  KC_TRNS,  KC_TRNS,  F(9),                                    KC_TRNS,                                                KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS),
+  KC_TRNS,  KC_TRNS,  LM(2, MOD_LSFT),                         KC_TRNS,                                                KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS),
   #endif
 
 [_SL] = LAYOUT_60_ansi(
@@ -99,7 +99,6 @@ const uint16_t PROGMEM fn_actions[] = {
   [7]  = ACTION_FUNCTION(RGBLED_INCREASE_VAL),
   [8]  = ACTION_FUNCTION(RGBLED_DECREASE_VAL),
   #endif
-  [9]  = ACTION_LAYER_MODS(2, MOD_LSFT)
 };
 
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
