@@ -33,4 +33,4 @@ API_SYSEX_ENABLE = yes
 TAP_DANCE_ENABLE = no
 ENCODER_ENABLE = yes
 
-LAYOUT = macro_pad
+LAYOUT = ortho_3x3
