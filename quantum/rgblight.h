@@ -130,7 +130,7 @@ enum RGBLIGHT_EFFECT_MODE {
 #    endif
 
 #    ifndef RGBLIGHT_EFFECT_KNIGHT_LED_NUM
-#        define RGBLIGHT_EFFECT_KNIGHT_LED_NUM (effect_num_leds)
+#        define RGBLIGHT_EFFECT_KNIGHT_LED_NUM (rgblight_ranges.effect_num_leds)
 #    endif
 
 #    ifndef RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL
@@ -160,9 +160,7 @@ enum RGBLIGHT_EFFECT_MODE {
 #    include <stdint.h>
 #    include <stdbool.h>
 #    include "eeconfig.h"
-#    ifndef RGBLIGHT_CUSTOM_DRIVER
-#        include "ws2812.h"
-#    endif
+#    include "ws2812.h"
 #    include "color.h"
 #    include "rgblight_list.h"
 
@@ -229,6 +227,19 @@ typedef struct _rgblight_status_t {
     uint8_t enabled_layer_mask;
 #    endif
 } rgblight_status_t;
+
+/*
+ * Structure for RGB Light clipping ranges
+ */
+typedef struct _rgblight_ranges_t {
+    uint8_t clipping_start_pos;
+    uint8_t clipping_num_leds;
+    uint8_t effect_start_pos;
+    uint8_t effect_end_pos;
+    uint8_t effect_num_leds;
+} rgblight_ranges_t;
+
+extern rgblight_ranges_t rgblight_ranges;
 
 /* === Utility Functions ===*/
 void sethsv(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1);

@@ -53,7 +53,7 @@ on a layer, but that'd take some getting used to....)
 
 ## Lower layer
 
-![Lower layer layout](https://i.imgur.com/rDlSmrA.png)
+![Lower layer layout](https://i.imgur.com/SsxvCgy.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/c3fba5eaa2cd70fdfbdbc0f9e34d3bc0))
 
