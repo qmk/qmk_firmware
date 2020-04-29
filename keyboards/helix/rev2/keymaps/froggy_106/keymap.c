@@ -219,11 +219,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #error "undefined keymaps"
 #endif
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 void set_mac_mode(bool enable) {
   uint32_t old_config = user_config.raw;
   if(enable){
@@ -543,14 +538,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case TO_101:
       if (record->event.pressed) {
         if (IS_MODE_106()) {
-          persistent_default_layer_set(1UL<<_BASE);
+          set_single_persistent_default_layer(_BASE);
         }
       }
       break;
     case TO_106:
       if (record->event.pressed) {
         if (!IS_MODE_106()) {
-          persistent_default_layer_set(1UL<<_BASE_106);
+          set_single_persistent_default_layer(_BASE_106);
         }
       }
       break;
