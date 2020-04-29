@@ -444,6 +444,7 @@ Where `28` is an unused index from `eeconfig.h`.
 |`rgb_matrix_get_hue()`           |Gets current hue           |
 |`rgb_matrix_get_sat()`           |Gets current sat           |
 |`rgb_matrix_get_val()`           |Gets current val           |
+|`rgb_matrix_get_hsv()`           |Gets hue, sat, and val and returns a [`HSV` structure](https://github.com/qmk/qmk_firmware/blob/7ba6456c0b2e041bb9f97dbed265c5b8b4b12192/quantum/color.h#L56-L61)|
 |`rgb_matrix_get_speed()`         |Gets current speed         |
 |`rgb_matrix_get_suspend_state()` |Gets current suspend state |
 
