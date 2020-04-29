@@ -9,6 +9,11 @@
 
 #define KC_MTRS MT(MOD_RSFT, KC_GRV)
 
+#define KC_DF0 DF(0)
+#define KC_DF1 DF(1)
+#define KC_DF2 DF(2)
+#define KC_DF3 DF(3)
+
 /*
  * Hasu
  */
@@ -167,19 +172,9 @@ Lw: set Workman layout
 
     */
     LAYOUT_kc(
-         FN5,  FN6,  FN7,  FN8, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, \
-	TRNS,  FN5,  FN8, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,       \
-	TRNS, TRNS, TRNS,  FN7, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,       \
-	TRNS, TRNS, TRNS, TRNS,  FN6, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, \
+         DF0,  DF1,  DF2,  DF3, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, \
+	TRNS,  DF0,  DF3, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,       \
+	TRNS, TRNS, TRNS,  DF2, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,       \
+	TRNS, TRNS, TRNS, TRNS,  DF1, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, \
 	TRNS, TRNS, TRNS,                   TRNS,                   TRNS, TRNS, TRNS, TRNS),
-};
-
-/*
- * Fn action definition
- */
-const uint16_t PROGMEM fn_actions[] = {
-    [5] = ACTION_DEFAULT_LAYER_SET(0),  // set qwerty layout
-    [6] = ACTION_DEFAULT_LAYER_SET(1),  // set colemak layout
-    [7] = ACTION_DEFAULT_LAYER_SET(2),  // set dvorak layout
-    [8] = ACTION_DEFAULT_LAYER_SET(3),  // set workman layout
 };
