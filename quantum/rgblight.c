@@ -107,7 +107,7 @@ LED_TYPE led[RGBLED_NUM];
 rgblight_segment_t const *const *rgblight_layers = NULL;
 #endif
 
-rgblight_ranges_t rgblight_ranges = { 0, RGBLED_NUM,  0, RGBLED_NUM, RGBLED_NUM };
+rgblight_ranges_t rgblight_ranges = {0, RGBLED_NUM, 0, RGBLED_NUM, RGBLED_NUM};
 
 void rgblight_set_clipping_range(uint8_t start_pos, uint8_t num_leds) {
     rgblight_ranges.clipping_start_pos = start_pos;
@@ -660,15 +660,12 @@ static void rgblight_layers_write(void) {
 }
 #endif
 
-__attribute__((weak))
-void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds) {
-    ws2812_setleds(start_led, num_leds);
-}
+__attribute__((weak)) void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds) { ws2812_setleds(start_led, num_leds); }
 
 #ifndef RGBLIGHT_CUSTOM_DRIVER
 void rgblight_set(void) {
     LED_TYPE *start_led;
-    uint8_t  num_leds = rgblight_ranges.clipping_num_leds;
+    uint8_t   num_leds = rgblight_ranges.clipping_num_leds;
 
 #    ifdef RGBLIGHT_LAYERS
     if (rgblight_layers != NULL) {
