@@ -28,4 +28,4 @@ RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 IOS_DEVICE_ENABLE = no      # connect to IOS Device
 ENCODER_ENABLE = yes
 
-LAYOUTS = ortho
+LAYOUTS = ortho_5x4
