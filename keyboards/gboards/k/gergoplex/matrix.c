@@ -215,10 +215,6 @@ static matrix_row_t read_cols(uint8_t row) {
             return 0;
         } else {
             uint8_t data    = 0;
-            mcp23018_status = i2c_start(I2C_ADDR_WRITE, I2C_TIMEOUT);
-            if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(GPIOB, I2C_TIMEOUT);
-            if (mcp23018_status) goto out;
             mcp23018_status = i2c_start(I2C_ADDR_READ, I2C_TIMEOUT);
             if (mcp23018_status) goto out;
             mcp23018_status = i2c_read_nack(I2C_TIMEOUT);
