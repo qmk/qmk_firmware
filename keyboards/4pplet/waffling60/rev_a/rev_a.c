@@ -52,7 +52,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) { // just to illustrate, m
 
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
-    if(res) {
+    if(res && LOCK_INDICATORS) {
         // do not indicate multiple lock statuses in current implementation,
         // sorted by most likely first (if capslock is on, it will be purple, regardless of numlock state)
         if(led_state.caps_lock)
