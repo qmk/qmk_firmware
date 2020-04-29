@@ -12,4 +12,4 @@ NKRO_ENABLE 			= yes   # USB Nkey Rollover
 
 
 OPT_DEFS 						+= -DDEBUG_MATRIX
-EXTRAFLAGS 					+= -flto
+LTO_ENABLE = yes
