@@ -1,22 +1,11 @@
 #include QMK_KEYBOARD_H
-#include "bootloader.h"
 #include "keymap_jp.h"
-#ifdef PROTOCOL_LUFA
-#include "lufa.h"
-#include "split_util.h"
-#endif
+#include <string.h>
 #ifdef AUDIO_ENABLE
   #include "audio.h"
 #endif
 #ifdef SSD1306OLED
   #include "ssd1306.h"
-#endif
-
-extern keymap_config_t keymap_config;
-
-#ifdef RGBLIGHT_ENABLE
-//Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
 #endif
 
 extern uint8_t is_master;
@@ -60,6 +49,12 @@ user_config_t user_config;
 
 #define IS_MODE_106()   ((default_layer_state & (1UL << _BASE_106)) != 0)
 #define IS_MODE_MAC()   (user_config.mac_mode)
+#ifndef MAX
+#define MAX(X, Y) ((X) > (Y) ? (X) : (Y))
+#endif
+#ifndef MIN
+#define MIN(X, Y) ((X) < (Y) ? (X) : (Y))
+#endif
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -226,21 +221,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #else
 #error "undefined keymaps"
 #endif
-
-
-#ifdef AUDIO_ENABLE
-
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-float tone_plover[][2]     = SONG(PLOVER_SOUND);
-float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
-float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
-#endif
-
-// define variables for reactive RGB
-//bool TOG_STATUS = false;
-int RGB_current_mode;
 
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
@@ -518,7 +498,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
           eeconfig_update_rgblight_default();
           rgblight_enable();
-          RGB_current_mode = rgblight_config.mode;
           RGBAnimation = false;
         }
       #endif
@@ -535,7 +514,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
           RGBAnimation = true;
           rgblight_mode(RGBLIGHT_MODE_RAINBOW_MOOD);
-          RGB_current_mode = rgblight_config.mode;
         }
       #endif
       break;
@@ -544,7 +522,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
           RGBAnimation = true;
           rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL + 1);
-          RGB_current_mode = rgblight_config.mode;
         }
       #endif
       break;
@@ -553,7 +530,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
           RGBAnimation = true;
           rgblight_mode(RGBLIGHT_MODE_KNIGHT);
-          RGB_current_mode = rgblight_config.mode;
         }
       #endif
       break;
@@ -602,9 +578,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void matrix_init_user(void) {
     #ifdef AUDIO_ENABLE
         startup_user();
-    #endif
-    #ifdef RGBLIGHT_ENABLE
-      RGB_current_mode = rgblight_config.mode;
     #endif
     //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
     #ifdef SSD1306OLED
