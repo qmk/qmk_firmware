@@ -205,8 +205,10 @@ typedef struct {
 typedef uint8_t rgblight_layer_mask_t;
 #        elif RGBLIGHT_MAX_LAYERS <= 16
 typedef uint16_t rgblight_layer_mask_t;
+#        elif RGBLIGHT_MAX_LAYERS <= 32
+typedef uint32_t rgblight_layer_mask_t;
 #        else
-#error invalid RGBLIGHT_MAX_LAYERS value (must be <= 16)
+#error invalid RGBLIGHT_MAX_LAYERS value (must be <= 32)
 #        endif
 #        define RGBLIGHT_LAYER_SEGMENTS(...) \
             { __VA_ARGS__, RGBLIGHT_END_SEGMENTS }
@@ -252,7 +254,6 @@ typedef union {
 } rgblight_config_t;
 
 // Need to maintain the old bit structure for the default case
-#if RGBLIGHT_MAX_LAYERS <= 8
 typedef struct _rgblight_status_t {
     uint8_t base_mode;
     bool    timer_enabled;
@@ -263,18 +264,6 @@ typedef struct _rgblight_status_t {
     rgblight_layer_mask_t enabled_layer_mask;
 #    endif
 } rgblight_status_t;
-#else
-typedef struct PACKED _rgblight_status_t {
-    uint8_t base_mode : 8;
-    bool    timer_enabled : 1;
-#    ifdef RGBLIGHT_SPLIT
-    uint8_t change_flags : 7;
-#    endif
-#    ifdef RGBLIGHT_LAYERS
-    rgblight_layer_mask_t enabled_layer_mask : RGBLIGHT_MAX_LAYERS;
-#    endif
-} rgblight_status_t;
-#endif
 
 /*
  * Structure for RGB Light clipping ranges
