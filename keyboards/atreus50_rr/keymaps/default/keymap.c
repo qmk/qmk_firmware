@@ -21,11 +21,17 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT( /* Qwerty */
-    KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,                           KC_Y,    KC_U,    KC_I,     KC_O,     KC_P,     KC_MINS,
+    KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,                           KC_Y,    KC_U,    KC_I,     KC_O,     KC_P,     KC_BSPC,
     KC_LCTL,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,                           KC_H,    KC_J,    KC_K,     KC_L,     KC_SCLN,  KC_ENT,
     KC_LSFT,    KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                           KC_N,    KC_M,    KC_COMM,  KC_DOT,   KC_UP,    SFT_T(KC_SLSH),
-    KC_MUTE,    KC_VOLD,  KC_VOLU,  KC_LALT,  KC_LGUI,  KC_SPC,   LOWER,    RAISE,  KC_BSPC, KC_LGUI, KC_LALT,  KC_LEFT,  KC_DOWN,  KC_RGHT
+    KC_MUTE,    KC_VOLD,  KC_VOLU,  KC_LALT,  KC_LGUI,  KC_SPC,   RAISE,        LOWER, KC_MINS, KC_LGUI, KC_LALT,  KC_LEFT,  KC_DOWN,  KC_RGHT
   ),
+  // [_QWERTY] = LAYOUT( /* Qwerty */
+  //   KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,                           KC_Y,    KC_U,    KC_I,     KC_O,     KC_P,     KC_MINS,
+  //   KC_LCTL,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,                           KC_H,    KC_J,    KC_K,     KC_L,     KC_SCLN,  KC_ENT,
+  //   KC_LSFT,    KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                           KC_N,    KC_M,    KC_COMM,  KC_DOT,   KC_UP,    SFT_T(KC_SLSH),
+  //   KC_MUTE,    KC_VOLD,  KC_VOLU,  KC_LALT,  KC_LGUI,  KC_SPC,   RAISE,        LOWER, KC_BSPC, KC_LGUI, KC_LALT,  KC_LEFT,  KC_DOWN,  KC_RGHT
+  // ),
 
   /*
    * !        @     #    $     %        ||     ^    &    *     (    )
@@ -34,10 +40,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *       voldn  super shift space bspc|| alt  ent    L0  prtsc scroll pause
    */
   [_LOWER] = LAYOUT( /* [> LOWER <] */
-    KC_GRV, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,                       KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_EQL,
-    KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,                      KC_HOME,KC_PGDN,KC_PGUP,KC_END, KC_BSLS,KC_QUOT,
-    KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12,                     _______,_______,KC_LBRC,KC_RBRC,KC_PGUP,_______,
-    KC_MRWD,KC_MPLY,KC_MFFD,_______,_______,_______,_______,    _______,_______,_______,_______,KC_HOME,KC_PGDN,KC_END
+    KC_TILD,KC_EXLM,KC_AT,  KC_HASH,KC_DLR,KC_PERC,                     KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,KC_PLUS,
+    _______,_______,_______,KC_DEL, KC_RGHT,KC_ESC,                     KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,KC_PIPE,KC_DQUO,
+    _______,_______,_______,_______,_______,KC_LEFT,                    _______,_______,KC_LCBR,KC_RCBR,_______,_______,
+    KC_MRWD,KC_MPLY,KC_MFFD,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,_______
   ),
 
   /*
@@ -47,10 +53,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * lower  insert super shift space bksp|| alt Ent   fn    .     0    =
    */
   [_RAISE] = LAYOUT( /* [> RAISE <] */
-    KC_TILD,KC_EXLM,KC_AT,  KC_HASH,KC_DLR,KC_PERC,                     KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,KC_PLUS,
-    _______,_______,_______,KC_DEL, KC_RGHT,KC_ESC,                     KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,KC_PIPE,KC_DQUO,
-    _______,_______,_______,_______,_______,KC_LEFT,                    _______,_______,KC_LCBR,KC_RCBR,_______,_______,
-    KC_MRWD,KC_MPLY,KC_MFFD,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,_______
+      KC_GRV, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,                       KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_EQL,
+      KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,                      KC_HOME,KC_PGDN,KC_PGUP,KC_END, KC_BSLS,KC_QUOT,
+      KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12,                     _______,_______,KC_LBRC,KC_RBRC,KC_PGUP,_______,
+      KC_MRWD,KC_MPLY,KC_MFFD,_______,_______,_______,_______,    _______,_______,_______,_______,KC_HOME,KC_PGDN,KC_END
   ),
 
   /*
