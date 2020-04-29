@@ -1,14 +1,14 @@
 # キーマップの概要
 
 <!---
-  original document: 7494490d6:docs/keymap.md
-  git diff 7494490d6 HEAD -- docs/keymap.md | cat
+  original document: 0.8.62:docs/keymap.md
+  git diff 0.8.62 HEAD -- docs/keymap.md | cat
 -->
 
 QMK のキーマップは C のソースファイルの中で定義されます。そのデータ構造は配列の配列です。外側はレイヤーを要素とする配列で、レイヤーはキーを要素とする配列。ほとんどのキーボードは `LAYOUT()` マクロを定義して、この配列の配列を作成しやすくしています。
 
 
-## キーマップとレイヤー
+## キーマップとレイヤー :id=keymap-and-layers
 QMKでは、**`const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS]`**は、**アクションコード**を保持している **16 bit** データの中でキーマップ情報の複数の**レイヤー**を保持します。最大で**32個のレイヤー**を定義することができます。
 
 普通のキー定義の場合、**アクションコード**の上位8ビットは全て0で、下位8ビットは**キーコード**としてキーによって生成された USB HID usage コードを保持します。
@@ -32,7 +32,8 @@ QMKでは、**`const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS]`**は�
 
 TMK の歴史的経緯から、キーマップに保存されたアクションコードは、一部のドキュメントではキーコードと呼ばれる場合があります。
 
-### キーマップレイヤーステータス
+### キーマップレイヤーステータス :id=keymap-layer-status
+
 キーマップレイヤーの状態は、2つの32ビットパラメータによって決定されます。
 
 * **`default_layer_state`** は、常に有効で参照される基本キーマップレイヤー (0-31) を示します (デフォルトレイヤー)。

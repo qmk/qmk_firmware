@@ -24,6 +24,7 @@ endif
 #
 
 # Imported source files and paths
+OPT_OS = chibios
 CHIBIOS = $(TOP_DIR)/lib/chibios
 CHIBIOS_CONTRIB = $(TOP_DIR)/lib/chibios-contrib
 # Startup files. Try a few different locations, for compability with old versions and
@@ -49,6 +50,34 @@ PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLAT
 endif
 include $(PLATFORM_MK)
 
+# Bootloader address
+ifdef STM32_BOOTLOADER_ADDRESS
+    OPT_DEFS += -DSTM32_BOOTLOADER_ADDRESS=$(STM32_BOOTLOADER_ADDRESS)
+endif
+
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_5)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_5)/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_5)/boards/$(BOARD)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_4)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_4)/boards/$(BOARD)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_3)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_3)/boards/$(BOARD)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_2)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_2)/boards/$(BOARD)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_1)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_1)/boards/$(BOARD)/bootloader_defs.h
+else ifneq ("$(wildcard $(TOP_DIR)/drivers/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(TOP_DIR)/drivers/boards/$(BOARD)/bootloader_defs.h
+endif
 
 BOARD_MK :=
 
@@ -179,7 +208,7 @@ HEX = $(OBJCOPY) -O $(FORMAT)
 EEP =
 BIN = $(OBJCOPY) -O binary
 
-COMMON_VPATH += $(DRIVER_PATH)/arm
+COMMON_VPATH += $(DRIVER_PATH)/chibios
 
 THUMBFLAGS = -DTHUMB_PRESENT -mno-thumb-interwork -DTHUMB_NO_INTERWORKING -mthumb -DTHUMB
 
@@ -244,30 +273,6 @@ EXTRALIBDIRS = $(RULESPATH)/ld
 DFU_UTIL ?= dfu-util
 ST_LINK_CLI ?= st-link_cli
 
-# Generate a .qmk for the QMK-FF
-qmk: $(BUILD_DIR)/$(TARGET).bin
-	zip $(TARGET).qmk -FSrj $(KEYMAP_PATH)/*
-	zip $(TARGET).qmk -u $<
-	printf "@ $<\n@=firmware.bin\n" | zipnote -w $(TARGET).qmk
-	printf "{\n  \"generated\": \"%s\"\n}" "$$(date)" > $(BUILD_DIR)/$(TARGET).json
-	if [ -f $(KEYBOARD_PATH_5)/info.json ]; then \
-		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_5)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
-	fi
-	if [ -f $(KEYBOARD_PATH_4)/info.json ]; then \
-		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_4)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
-	fi
-	if [ -f $(KEYBOARD_PATH_3)/info.json ]; then \
-		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_3)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
-	fi
-	if [ -f $(KEYBOARD_PATH_2)/info.json ]; then \
-		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_2)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
-	fi
-	if [ -f $(KEYBOARD_PATH_1)/info.json ]; then \
-		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_1)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
-	fi
-	zip $(TARGET).qmk -urj $(BUILD_DIR)/$(TARGET).json
-	printf "@ $(TARGET).json\n@=info.json\n" | zipnote -w $(TARGET).qmk
-
 define EXEC_DFU_UTIL
 	until $(DFU_UTIL) -l | grep -q "Found DFU"; do\
 		printf "$(MSG_BOOTLOADER_NOT_FOUND)" ;\
@@ -322,7 +327,9 @@ bin: $(BUILD_DIR)/$(TARGET).bin sizeafter
 
 
 flash: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
-ifeq ($(strip $(BOOTLOADER)),dfu)
+ifneq ($(strip $(PROGRAM_CMD)),)
+	$(PROGRAM_CMD)
+else ifeq ($(strip $(BOOTLOADER)),dfu)
 	$(call EXEC_DFU_UTIL)
 else ifeq ($(strip $(MCU_FAMILY)),KINETIS)
 	$(call EXEC_TEENSY)
