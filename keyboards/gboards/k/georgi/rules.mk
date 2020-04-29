@@ -13,6 +13,6 @@ COMMAND_ENABLE      = no
 NKRO_ENABLE					= yes
 BOOTMAGIC_ENABLE = lite
 
-EXTRAFLAGS 		+= -flto
+LTO_ENABLE = yes
 SRC 					+= matrix.c i2c_master.c g/engine.c
 VPATH         +=  keyboards/gboards/ 
