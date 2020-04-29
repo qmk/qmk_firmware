@@ -7,11 +7,26 @@ i2c_status_t mcp23018_status = 0x20;
 void matrix_init_kb(void) {
     // unused pins - C7, D4, D5, D7, E6
     // set as input with internal pull-up enabled
-    DDRB  &= ~(1<<4 | 1<<5 | 1<<6 | 1<<7);
-    PORTB &=  (1<<4 | 1<<5 | 1<<6 | 1<<7);
-
-    DDRD  &= ~(1<<5 | 1<<6 | 1<<7);
-    PORTD &=  (1<<5 | 1<<6 | 1<<7);
+    setPinInput(B4);
+    writePinLow(B4);
+    
+    setPinInput(B5);
+    writePinLow(B5);
+    
+    setPinInput(B6);
+    writePinLow(B6);
+    
+    setPinInput(B7);
+    writePinLow(B7);
+    
+    setPinInput(D5);
+    writePinLow(D5);
+    
+    setPinInput(D6);
+    writePinLow(D6);
+    
+    setPinInput(D7);
+    writePinLow(D7);
 
     matrix_init_user();
 }
