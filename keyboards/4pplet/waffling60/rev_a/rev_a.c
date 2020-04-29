@@ -22,16 +22,6 @@ void init_led(void){
   setPinOutput(C6);
 }
 
-bool led_update_user(led_t led_state) {
-/*
-By convention, return true from led_update_user() to get the led_update_kb() hook to run its code,
-and return false when you would prefer not to run the code in led_update_kb().
-*/
-  if(LOCK_INDICATORS)
-    return true;
-  else
-    return false;
-}
 
 layer_state_t layer_state_set_kb(layer_state_t state) { // just to illustrate, make changes if needed
   if(LAYER_INDICATOR){
