@@ -134,7 +134,6 @@ const uint16_t PROGMEM fn_actions[] = {
 	[25]  =  ACTION_MODS_TAP_KEY(MOD_LCTL, KC_TAB),
 	[26]  =  ACTION_LAYER_SET(1, ON_PRESS),
         [28]  =  ACTION_MODS_TAP_KEY(MOD_RCTL,KC_BSLS),
-	//[29]  =  ACTION_LAYER_TOGGLE(4),
         [29]  = ACTION_MODS_TAP_KEY(MOD_RSFT,KC_ESC),
 };
 
