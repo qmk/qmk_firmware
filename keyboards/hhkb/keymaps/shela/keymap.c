@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                KC_TAB, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1,
                KC_LCTL, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_ENT,
                KC_LSFT, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_RSFT, MO(HHKB),
-               KC_LGUI, KC_FN3, LT(SPACE_FN, KC_SPACE), KC_FN4, KC_RGUI),
+               KC_LGUI, MT(MOD_LALT, KC_MHEN), LT(SPACE_FN, KC_SPACE), MT(MOD_RALT, KC_KANA), KC_RGUI),
 
     /* Layer 2: Dvorak Layer
      * ,-----------------------------------------------------------------------------------------.
@@ -183,8 +183,6 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
  */
 const uint16_t PROGMEM fn_actions[] = {
     [1] = ACTION_FUNCTION(PSEUDO_US_FUNCTION),
-    [3] = ACTION_MODS_TAP_KEY(MOD_LALT, KC_MHEN),
-    [4] = ACTION_MODS_TAP_KEY(MOD_RALT, KC_KANA),
     [5] = ACTION_DEFAULT_LAYER_SET(BASE),
     [6] = ACTION_DEFAULT_LAYER_SET(PSEUDO_US),
     [7] = ACTION_DEFAULT_LAYER_SET(MOUSE),

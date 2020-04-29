@@ -34,7 +34,7 @@ enum planck_keycodes {
 #include "dynamic_macro.h"
 
 // Key code names
-#define SFT_ENT  FUNC(0)    // Tap for enter, hold for right shift
+#define SFT_ENT  MT(MOD_RSFT, KC_ENT)    // Tap for enter, hold for right shift
 #define LOCK     FUNC(1)
 #define KC_PSTE  KC_PASTE
 #define ZOOM_IN  LCTL(KC_EQL)
@@ -57,7 +57,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 // Function definitions
 const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_ENT),
     [1] = ACTION_LAYER_TOGGLE(_LOCKED)
 };
 
