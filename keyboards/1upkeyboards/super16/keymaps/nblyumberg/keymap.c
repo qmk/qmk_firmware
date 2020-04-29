@@ -69,25 +69,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 } else {  // Tap, enter
                     tap_code16(KC_F24);
                 }
-            } return true;
-		
+            } 
+			return true;
         default:
             return true;
     }
 }
-
+/*
  void eeconfig_init_user(void) {  // EEPROM is getting reset!
   // use the non noeeprom versions, to write these values to EEPROM too
 //  rgblight_enable(); // Enable RGB by default
     rgblight_sethsv_noeeprom(HSV_WHITE);  // Set it to white by default
 //  rgblight_mode(RGBLIGHT_MODE_BREATHING); // set to breathing by default
 }
+*/
 
-/*
 //Modifying the Layer RGB using the new method
-const rgblight_segment_t PROGMEM my_base_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-		{1,16,HSV_WHITE}
-	);
+//const rgblight_segment_t PROGMEM my_base_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+//		{1,16,HSV_WHITE}
+//	);
 const rgblight_segment_t PROGMEM my_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 		{1,16,HSV_GREEN}
 	);
@@ -102,25 +102,28 @@ const rgblight_segment_t PROGMEM my_layer4_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 	);
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-		my_layer4_layer,
-		my_layer3_layer,
-		my_layer2_layer,
+		//my_base_layer,
 		my_layer1_layer,
-		my_base_layer
+		my_layer2_layer,
+		my_layer3_layer,
+		my_layer4_layer
+
 	);
 void keyboard_post_init_user(void) {
 	//Enable the LED layers
 	rgblight_layers = my_rgb_layers;
+	layer_state_set_user(layer_state);
 }
 
 
 
 layer_state_t layer_state_set_user(layer_state_t state) {
+	
+	//rgblight_set_layer_state(0, layer_state_cmp(state, 0));
 	rgblight_set_layer_state(1, layer_state_cmp(state, 1));
 	rgblight_set_layer_state(2, layer_state_cmp(state, 2));
 	rgblight_set_layer_state(3, layer_state_cmp(state, 3));
 	rgblight_set_layer_state(4, layer_state_cmp(state, 4));
-	rgblight_set_layer_state(5, layer_state_cmp(state, 5));
 	return state;
 }
 
@@ -130,16 +133,17 @@ bool led_update_user(led_t led_state) {
 }
 
 // END of New RGB method
-*/ 
 
+/*
 void keyboard_post_init_user(void){
 	layer_state_set_user(layer_state);
 }
+*/
 
-
+/*
 layer_state_t layer_state_set_user(layer_state_t state) {
   rgblight_sethsv_noeeprom(HSV_WHITE);
-  switch(biton32(state)) {
+  switch(get_highest_layer(state)) {
   case 1:
     // Green
     rgblight_enable_noeeprom();
@@ -174,4 +178,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     break;
 }
 return state;
+<<<<<<< HEAD
 }
+=======
+} */
+
+
+>>>>>>> Rewriting the layer color functionality
