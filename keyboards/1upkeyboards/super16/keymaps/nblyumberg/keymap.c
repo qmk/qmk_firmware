@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-//#define RBG_VAL 16 //Define 16 RGB LEDs
 
 uint16_t copy_paste_timer;
 uint16_t enter_timer;
@@ -176,4 +175,3 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 return state;
 }
-
