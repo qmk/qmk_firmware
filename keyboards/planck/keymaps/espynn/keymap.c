@@ -36,16 +36,14 @@ extern keymap_config_t keymap_config;
 // Func macro definitions.
 #define LWR_PGDN LT(_LOWER, KC_PGDN) // Tap for PgDn, hold for LOWER
 #define RSE_PGUP LT(_RAISE, KC_PGUP) // Tap for PgUp, hold for RAISE
-#define CTL_CAPS FUNC(2) // Tap for Caps, hold for Ctrl (DOESN'T SEEM TO WORK)
-#define SFT_ENT  FUNC(3) // Tap for Enter, hold for Shift
+#define CTL_CAPS MT(MOD_LCTL, KC_CAPS) // Tap for Caps, hold for Ctrl (DOESN'T SEEM TO WORK)
+#define SFT_ENT  MT(MOD_RSFT, KC_ENT) // Tap for Enter, hold for Shift
 #define ZM_NRM   FUNC(4) // Zoom normal
 #define ZM_IN    FUNC(5) // Zoom out
 #define ZM_OUT   FUNC(6) // Zoom in
 
 // Enable these functions using FUNC(n) macro.
 const uint16_t PROGMEM fn_actions[] = {
-    [2] = ACTION_MODS_TAP_KEY(MOD_LCTL, KC_CAPS),
-    [3] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_ENT),
     [4] = ACTION_MODS_KEY(MOD_LCTL, KC_0),
     [5] = ACTION_MODS_KEY(MOD_LCTL, KC_MINS),
     [6] = ACTION_MODS_KEY(MOD_LCTL, KC_PLUS),

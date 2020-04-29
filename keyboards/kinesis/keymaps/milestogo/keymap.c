@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_TAB, KC_Q   ,KC_W   ,KC_E   ,KC_R   ,KC_T   ,
            TT(_MOUSE) ,KC_A   ,KC_S   ,KC_D   ,KC_F   ,KC_G   ,
            KC_LSFT,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,
-              KC_GRAVE,  KC_ESC, KC_FN4, LT(_SYMB, KC_RIGHT),
+              KC_GRAVE,  KC_ESC, MT(MOD_LGUI,KC_LEFT), LT(_SYMB, KC_RIGHT),
 			   		KC_LCTL,KC_LALT,
 			   		KC_DEL,
               		KC_BSPC, KC_DEL ,TT(_MOUSE) ,
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,KC_BSLS,
 	KC_H   ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN,KC_QUOT,
 	KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,KC_RSFT,
-		LT(_SYMB, KC_UP), KC_FN7,  KC_LBRC ,KC_RBRC,
+		LT(_SYMB, KC_UP), MT(MOD_LGUI,KC_DOWN),  KC_LBRC ,KC_RBRC,
            KC_RALT,KC_RGUI,
            KC_PGUP,
            KC_PGDN,KC_ENTER ,KC_SPC
@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          _______,  KC_CIRC,  KC_LCBR, KC_RCBR,  KC_AT,  KC_PERC,
          _______,  KC_EXLM,  KC_HASH,  KC_0,   KC_EQL,  KC_TILD,
          _______,   KC_6,   KC_7,   KC_8,  KC_9, KC_PIPE,
-                   _______,  KC_COLON,  KC_FN4, LT(_SYMB, KC_RIGHT),
+                   _______,  KC_COLON,  MT(MOD_LGUI,KC_LEFT), LT(_SYMB, KC_RIGHT),
                              _______,  _______,
                                        _______,
                     _______, _______,  RESET,
@@ -110,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_AMPR,  KC_LBRC,  KC_LPRN, KC_RPRN,  KC_UNDS,  _______,
          KC_ASTR,  KC_PLUS,  KC_1,    KC_MINS,   KC_RBRC,  KC_GRV,
          KC_DLR,   KC_2,   KC_3,   KC_4,  KC_5, XXXXXXX,
-                   LT(_SYMB, KC_UP), KC_FN7,   KC_BSLS,  XXXXXXX,
+                   LT(_SYMB, KC_UP), MT(MOD_LGUI,KC_DOWN),   KC_BSLS,  XXXXXXX,
          _______,  _______,
          _______,
          _______,  _______,  _______
@@ -149,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          _______,  KC_SLSH,  RSFT(KC_COMM), RSFT(KC_DOT),  _______,  _______,
          _______,  _______,  RSFT(KC_LBRC),  RSFT(KC_RBRC),   _______,  _______,
          _______,  KC_EQL,  RSFT(KC_9),  RSFT(KC_0),  _______,  _______,
-                   _______,  _______,  KC_FN4, LT(_SYMB, KC_RIGHT),
+                   _______,  _______,  MT(MOD_LGUI,KC_LEFT), LT(_SYMB, KC_RIGHT),
                              _______,  _______,
                                        _______,
                     _______, _______,  RESET,
@@ -158,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          _______,  _______,  KC_PLUS,  KC_MINS,  _______,  _______,
          _______,  _______,  KC_EQL,  KC_PIPE,  _______,  _______,
          _______,  _______,  _______,  _______,  _______,  _______,
-                   LT(_SYMB, KC_UP), KC_FN7,   _______,  _______,
+                   LT(_SYMB, KC_UP), MT(MOD_LGUI,KC_DOWN),   _______,  _______,
          _______,  _______,
          _______,
          _______,  _______,  _______
@@ -257,15 +257,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          _______,
          _______,  _______,  _______
     ),
-
-
-};
-
-
-
-const uint16_t PROGMEM fn_actions[] = {
-	[4]= ACTION_MODS_TAP_KEY(MOD_LGUI,KC_LEFT),
-	[7]= ACTION_MODS_TAP_KEY(MOD_LGUI,KC_DOWN),
 
 
 };
