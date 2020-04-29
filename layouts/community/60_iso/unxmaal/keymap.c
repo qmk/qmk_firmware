@@ -108,8 +108,6 @@ enum function_id {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    [1]  = ACTION_LAYER_TOGGLE(1),     // Toggle Arrow Layer overlay
-    [3]  = ACTION_LAYER_TOGGLE(3),     // Toggle Underglow Layer overlay
     [4]  = ACTION_FUNCTION(RGBLED_TOGGLE), //Turn on/off underglow
     [5]  = ACTION_FUNCTION(RGBLED_STEP_MODE), // Change underglow mode
     [6]  = ACTION_FUNCTION(RGBLED_INCREASE_HUE),
