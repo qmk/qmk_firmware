@@ -1,6 +1,6 @@
 [Layout Images](https://imgur.com/a/k95XQlP)
 
-# Don Gato's programming Layout
+# Alex Daigre's programming Layout
 
 The default Preonic layout is suited to general english typing but not very convent to program on. This is my custom layout to re-optimise the keyboard for programming tasks.
 I have been programming with this keyboard layout at work and I found it much faster and easier to adjust to than the default layout.
