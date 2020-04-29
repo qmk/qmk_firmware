@@ -7,6 +7,8 @@
 #define KC_LT5 LT(5, KC_SLSH)
 #define KC_LT6 LT(6, KC_SCLN)
 
+#define KC_MTRS MT(MOD_RSFT, KC_GRV)
+
 #define KC_DF0 DF(0)
 #define KC_DF1 DF(1)
 #define KC_DF2 DF(2)
@@ -33,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          ESC,    1,    2,   3,   4,   5,   6,   7,   8,    9,    0, MINS,  EQL,   NO, BSPC, \
          TAB,    Q,    W,   E,   R,   T,   Y,   U,   I,    O,    P, LBRC, RBRC, BSLS,       \
         CAPS,    A,    S,   D,   F,   G,   H,   J,   K,    L,  LT6, QUOT,   NO,  ENT,       \
-        LSFT,   NO,    Z,   X,   C,   V,   B,   N,   M, COMM,  DOT,  LT5,   NO,  FN9,   NO, \
+        LSFT,   NO,    Z,   X,   C,   V,   B,   N,   M, COMM,  DOT,  LT5,   NO,  MTRS,   NO, \
         LCTL, LGUI, LALT,                SPC,                 RALT,  MO6,  MO6,  MO4),
     /* Keymap 1: colemak
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
@@ -175,11 +177,4 @@ Lw: set Workman layout
 	TRNS, TRNS, TRNS,  DF2, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,       \
 	TRNS, TRNS, TRNS, TRNS,  DF1, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, \
 	TRNS, TRNS, TRNS,                   TRNS,                   TRNS, TRNS, TRNS, TRNS),
-};
-
-/*
- * Fn action definition
- */
-const uint16_t PROGMEM fn_actions[] = {
-    [9] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_GRV),
 };
