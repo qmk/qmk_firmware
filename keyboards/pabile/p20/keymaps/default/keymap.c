@@ -10,13 +10,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_P4,   KC_P5,   KC_P6,   KC_PPLS, 
         KC_P1,   KC_P2,   KC_P3,   KC_TAB, 
         LT(2,KC_P0), KC_PCMM, KC_PDOT, LT(1,KC_PENT)),
-    [1] = LAYOUT(
+    [1] = LAYOUT_ortho_5x4(
         KC_NLCK, KC_UNDS, KC_NO,   KC_NO, 
         KC_AMPR, KC_ASTR, KC_LPRN, KC_EQL, 
         KC_DLR,  KC_PERC, KC_CIRC, KC_NO, 
         KC_EXLM, KC_AT,   KC_HASH, KC_NO, 
         KC_RPRN, KC_NO,   KC_PSLS, KC_NO),
-    [2] = LAYOUT(
+    [2] = LAYOUT_ortho_5x4(
         KC_NLCK, KC_NO,   KC_NO,   KC_NO, 
         KC_BTN1, KC_MS_U, KC_BTN2, KC_NO, 
         KC_MS_L, KC_MS_D, KC_MS_R, KC_TAB, 
