@@ -18,7 +18,24 @@ You may use more than one slave select pin, not just the `SS` pin. This is usefu
 
 ## ChibiOS/ARM Configuration
 
-ARM support for this driver is not ready yet. Check back later!
+You'll need to determine which pins can be used for SPI -- as an example, STM32 parts generally have multiple SPI peripherals, labeled SPI1, SPI2, SPI3 etc.
+
+To enable SPI, modify your board's `halconf.h` to enable SPI - both `HAL_USE_SPI` and `SPI_USE_WAIT` should be `TRUE`, and `SPI_SELECT_MODE` should be `SPI_SELECT_MODE_PAD`.
+Then, modify your board's `mcuconf.h` to enable the SPI peripheral you've chosen -- in the case of using SPI2, modify `STM32_SPI_USE_SPI2` to be `TRUE`.
+
+As per the AVR configuration, you may select any other standard GPIO as a slave select pin, and can be supplied to `spi_start()`.
+
+Configuration-wise, you'll need to set up the peripheral as per your MCU's datasheet -- the defaults match the pins for a Proton-C, i.e. STM32F303.
+
+`config.h` override         | Description                                                   | Default Value
+----------------------------|---------------------------------------------------------------|--------------
+`#define SPI_DRIVER`        | SPI peripheral to use - SPI1 => `SPID1`, SPI2 => `SPID2` etc. | `SPID2`
+`#define SPI_SCK_PIN`       | The pin to use for the SCK                                    | `B13`
+`#define SPI_SCK_PAL_MODE`  | The alternate function mode for the SCK pin                   | `5`
+`#define SPI_MOSI_PIN`      | The pin to use for the MOSI                                   | `B15`
+`#define SPI_MOSI_PAL_MODE` | The alternate function mode for the MOSI pin                  | `5`
+`#define SPI_MISO_PIN`      | The pin to use for the MISO                                   | `B14`
+`#define SPI_MISO_PAL_MODE` | The alternate function mode for the MISO pin                  | `5`
 
 ## Functions
 
