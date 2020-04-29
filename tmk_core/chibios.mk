@@ -50,35 +50,6 @@ PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLAT
 endif
 include $(PLATFORM_MK)
 
-# Bootloader address
-ifdef STM32_BOOTLOADER_ADDRESS
-    OPT_DEFS += -DSTM32_BOOTLOADER_ADDRESS=$(STM32_BOOTLOADER_ADDRESS)
-endif
-
-ifneq ("$(wildcard $(KEYBOARD_PATH_5)/bootloader_defs.h)","")
-    OPT_DEFS += -include $(KEYBOARD_PATH_5)/bootloader_defs.h
-else ifneq ("$(wildcard $(KEYBOARD_PATH_5)/boards/$(BOARD)/bootloader_defs.h)","")
-    OPT_DEFS += -include $(KEYBOARD_PATH_5)/boards/$(BOARD)/bootloader_defs.h
-else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/bootloader_defs.h)","")
-    OPT_DEFS += -include $(KEYBOARD_PATH_4)/bootloader_defs.h
-else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/boards/$(BOARD)/bootloader_defs.h)","")
-    OPT_DEFS += -include $(KEYBOARD_PATH_4)/boards/$(BOARD)/bootloader_defs.h
-else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/bootloader_defs.h)","")
-    OPT_DEFS += -include $(KEYBOARD_PATH_3)/bootloader_defs.h
-else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/boards/$(BOARD)/bootloader_defs.h)","")
-    OPT_DEFS += -include $(KEYBOARD_PATH_3)/boards/$(BOARD)/bootloader_defs.h
-else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/bootloader_defs.h)","")
-    OPT_DEFS += -include $(KEYBOARD_PATH_2)/bootloader_defs.h
-else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/boards/$(BOARD)/bootloader_defs.h)","")
-    OPT_DEFS += -include $(KEYBOARD_PATH_2)/boards/$(BOARD)/bootloader_defs.h
-else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/bootloader_defs.h)","")
-    OPT_DEFS += -include $(KEYBOARD_PATH_1)/bootloader_defs.h
-else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/boards/$(BOARD)/bootloader_defs.h)","")
-    OPT_DEFS += -include $(KEYBOARD_PATH_1)/boards/$(BOARD)/bootloader_defs.h
-else ifneq ("$(wildcard $(BOARD_PATH)/configs/bootloader_defs.h)","")
-    OPT_DEFS += -include $(BOARD_PATH)/configs/bootloader_defs.h
-endif
-
 BOARD_MK :=
 
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/boards/$(BOARD)/board.mk)","")
@@ -106,6 +77,36 @@ ifeq ("$(wildcard $(BOARD_MK))","")
 	ifeq ("$(wildcard $(BOARD_MK))","")
 		BOARD_MK = $(CHIBIOS_CONTRIB)/os/hal/boards/$(BOARD)/board.mk
 	endif
+endif
+
+# Bootloader address
+ifdef STM32_BOOTLOADER_ADDRESS
+    OPT_DEFS += -DSTM32_BOOTLOADER_ADDRESS=$(STM32_BOOTLOADER_ADDRESS)
+endif
+
+# Work out if we need to set up the include for the bootloader definitions
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_5)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_5)/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_5)/boards/$(BOARD)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_4)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_4)/boards/$(BOARD)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_3)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_3)/boards/$(BOARD)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_2)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_2)/boards/$(BOARD)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_1)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_1)/boards/$(BOARD)/bootloader_defs.h
+else ifneq ("$(wildcard $(BOARD_PATH)/configs/bootloader_defs.h)","")
+    OPT_DEFS += -include $(BOARD_PATH)/configs/bootloader_defs.h
 endif
 
 # Work out the config file directories
