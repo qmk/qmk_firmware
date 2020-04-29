@@ -7,7 +7,7 @@ keymaps. You may need to do some configuration on your part, for the documentati
 
 You can find all of my keyboards under the k/ folder. Make with 
 
-`make gboards/k/gergoplex:default:dfu` or similar
+`make gboards/k/gergoplex:default:flash` or similar
 
 ## Configuration
 Dictionaries are layered ontop of each other at compile time, you specify these in dicts.def and combos.def respectively.
