@@ -140,7 +140,7 @@ uint8_t     rgb_matrix_get_val(void);
 #    define rgblight_enable_noeeprom rgb_matrix_enable_noeeprom
 #    define rgblight_disable rgb_matrix_disable
 #    define rgblight_disable_noeeprom rgb_matrix_disable_noeeprom
-#    define rgblight_get_enable rgb_matrix_get_enable
+#    define rgblight_is_enabled rgb_matrix_is_enabled
 #    define rgblight_step rgb_matrix_step
 #    define rgblight_sethsv rgb_matrix_sethsv
 #    define rgblight_sethsv_noeeprom rgb_matrix_sethsv_noeeprom
