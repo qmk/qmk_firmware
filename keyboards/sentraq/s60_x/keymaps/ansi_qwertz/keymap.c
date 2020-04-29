@@ -29,14 +29,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //Function
 //Mute microphone
 #define KC_SPACEFN LT(2, KC_SPACE)
-#define KC_OSLS KC_FN3
-#define KC_GMLK KC_FN1
+#define KC_OSLS OSM(MOD_LSFT)
+#define KC_GMLK TG(1)
 #define KC_FUNC MO(2)
 #define MICMUTE RCTL(KC_LCTL)
 
 enum function_codes {
-    F_OSLS = 3,
-    F_GMLK = 1,
 };
 
 enum layer_names {
@@ -150,8 +148,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * Fn action definition
 */
 const uint16_t PROGMEM fn_actions[] = {
-    [F_GMLK] = ACTION_LAYER_TOGGLE(1),                  // Disable SpaceFn and Oneshot Shift
-    [F_OSLS] = ACTION_MODS_ONESHOT(MOD_LSFT)            // Oneshot Leftshift
 };
 
 void matrix_init_user(void) {

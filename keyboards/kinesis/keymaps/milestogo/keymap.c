@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			   		KC_LCTL,KC_LALT,
 			   		KC_DEL,
               		KC_BSPC, KC_DEL ,TT(_MOUSE) ,
-        KC_F9  ,KC_F10 ,KC_F11 ,KC_F12 ,TT(_MOUSE) ,KC_FN1  ,TT(_SYMB), KC_NO, RESET,
+        KC_F9  ,KC_F10 ,KC_F11 ,KC_F12 ,TT(_MOUSE) ,TG(_MOUSE)  ,TT(_SYMB), KC_NO, RESET,
 	KC_6   ,KC_7   ,KC_8   ,KC_9   ,KC_0   ,KC_MINS,
 	KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,KC_BSLS,
 	KC_H   ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN,KC_QUOT,
@@ -192,7 +192,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_CAPS,  _______,  _______,  _______,  _______,  _______, _______, _______, _______,
          _______,  KC_EXLM  ,KC_AT,    KC_HASH,  KC_DLR   ,KC_PERC   ,
          _______,  KC_NO,    KC_NO,    KC_UP,    KC_NO,    KC_PGUP,
-         KC_FN1,   LGUI(KC_Z),LGUI(KC_X),LGUI(KC_C),LGUI(KC_V), KC_NO,
+         TG(_MOUSE),   LGUI(KC_Z),LGUI(KC_X),LGUI(KC_C),LGUI(KC_V), KC_NO,
          _______,  KC_NO,    KC_NO,    KC_UP,    KC_NO,    KC_PGDN,
                    _______,  _______,  KC_NO,  KC_NO,
                              _______,  _______,
@@ -259,12 +259,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 
-};
-
-
-
-const uint16_t PROGMEM fn_actions[] = {
-   [1] = ACTION_LAYER_TOGGLE(_MOUSE) ,
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

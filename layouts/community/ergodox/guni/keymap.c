@@ -132,7 +132,6 @@ const uint16_t PROGMEM fn_actions[] = {
 	[23]  =  ACTION_LAYER_SET(3, ON_PRESS),
         [24]  =  ACTION_LAYER_SET(2, ON_PRESS),   
 	[26]  =  ACTION_LAYER_SET(1, ON_PRESS),
-	//[29]  =  ACTION_LAYER_TOGGLE(4),
 };
 
 

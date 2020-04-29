@@ -24,15 +24,21 @@ section at the end of this file).
 
 /* ---------------------------- Hardware Config ---------------------------- */
 
+#ifndef USB_CFG_IOPORTNAME
 #define USB_CFG_IOPORTNAME      D
+#endif
 /* This is the port where the USB bus is connected. When you configure it to
  * "B", the registers PORTB, PINB and DDRB will be used.
  */
+#ifndef USB_CFG_DMINUS_BIT
 #define USB_CFG_DMINUS_BIT      3
+#endif
 /* This is the bit number in USB_CFG_IOPORT where the USB D- line is connected.
  * This may be any bit in the port.
  */
+#ifndef USB_CFG_DPLUS_BIT
 #define USB_CFG_DPLUS_BIT       2
+#endif
 /* This is the bit number in USB_CFG_IOPORT where the USB D+ line is connected.
  * This may be any bit in the port. Please note that D+ must also be connected
  * to interrupt pin INT0! [You can also use other interrupts, see section
@@ -151,7 +157,9 @@ section at the end of this file).
 /* This macro (if defined) is executed when a USB SET_ADDRESS request was
  * received.
  */
+#ifndef USB_COUNT_SOF
 #define USB_COUNT_SOF                   1
+#endif
 /* define this macro to 1 if you need the global variable "usbSofCount" which
  * counts SOF packets. This feature requires that the hardware interrupt is
  * connected to D- instead of D+.
@@ -321,10 +329,18 @@ section at the end of this file).
 
 /* Set INT1 for D- falling edge to count SOF */
 /* #define USB_INTR_CFG            EICRA */
+#ifndef USB_INTR_CFG_SET
 #define USB_INTR_CFG_SET        ((1 << ISC11) | (0 << ISC10))
+#endif
 /* #define USB_INTR_CFG_CLR        0 */
 /* #define USB_INTR_ENABLE         EIMSK */
+#ifndef USB_INTR_ENABLE_BIT
 #define USB_INTR_ENABLE_BIT     INT1
+#endif
 /* #define USB_INTR_PENDING        EIFR */
+#ifndef USB_INTR_PENDING_BIT
 #define USB_INTR_PENDING_BIT    INTF1
+#endif
+#ifndef USB_INTR_VECTOR
 #define USB_INTR_VECTOR         INT1_vect
+#endif
