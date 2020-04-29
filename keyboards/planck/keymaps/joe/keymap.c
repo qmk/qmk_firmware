@@ -44,17 +44,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_MUTE, KC_VOLD, KC_VOLU, KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO,    KC_NO,   KC_NO,   KC_NO           ,
     KC_NO,   KC_MPLY, KC_MPRV, KC_MNXT, KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO,    KC_NO,   KC_NO,   RESET           ,
     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO,    KC_NO,   KC_NO,   KC_NO           ,
-    F(6),    F(7),    F(8),    F(9),   MO(4), KC_TRNS, KC_TRNS, MO(5), KC_POWER, KC_WAKE, KC_SLEP, LCTL(LALT(KC_L))
+    DF(0),   DF(1),   DF(2),   DF(3),   MO(4), KC_TRNS, KC_TRNS, MO(5), KC_POWER, KC_WAKE, KC_SLEP, LCTL(LALT(KC_L))
   )
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    /* toggle layers */
-    [6]  = ACTION_DEFAULT_LAYER_SET(0), 
-    [7]  = ACTION_DEFAULT_LAYER_SET(1),
-    [8]  = ACTION_DEFAULT_LAYER_SET(2),
-    [9]  = ACTION_DEFAULT_LAYER_SET(3),
-
     /* tab on tap, shift on hold */
     [15] = ACTION_MODS_TAP_KEY(MOD_LSFT, KC_TAB),
 };

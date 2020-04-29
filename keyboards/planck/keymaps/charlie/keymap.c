@@ -2,13 +2,13 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_planck_grid( /* Native */
-      KC_ESC,     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    FUNC(2), 
+      KC_ESC,     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    DF(1), 
       KC_BSPC,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
      KC_TAB,     KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
       KC_DEL,     KC_LCTL, KC_NO,   KC_LSFT, KC_LALT, KC_SPC,        KC_NO,   KC_LEFT, KC_DOWN, KC_UP,  KC_RGHT
 ),	  
     [1] = LAYOUT_planck_grid( /* QWERTY->PHOTOSHOP */
-      KC_DELETE,  KC_0,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    FUNC(1),
+      KC_DELETE,  KC_0,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    DF(0),
       KC_O,       KC_G,    KC_S,    KC_U,    KC_T,    FUNC(27),  KC_F21,  KC_F10,  KC_F11,  KC_F7,   KC_F8,   KC_F9,
       KC_TAB,     FUNC(4), FUNC(5),  FUNC(6),  KC_F1,   FUNC(7),  KC_F18,  KC_F19,  KC_F23,  KC_F20,  KC_F22,  FUNC(9),
       KC_COMM,    KC_DOT,  KC_R, FUNC(11), MO(2),    KC_SPC,        FUNC(12), KC_F2,   FUNC(8),  KC_F3,   KC_F14
@@ -22,9 +22,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_DEFAULT_LAYER_SET(0),                             // set Qwerty layout
-    [2] = ACTION_DEFAULT_LAYER_SET(1),                             // set Photoshop presets
- 
     [4] = ACTION_MODS_KEY(MOD_LSFT | MOD_LCTL | MOD_LALT, KC_F9),   // photo folder AHK
     [5] = ACTION_MODS_KEY(MOD_LSFT | MOD_LCTL, KC_I),              // select inverse
     [6] = ACTION_MODS_KEY(MOD_LSFT, KC_M),                         // marquee select
