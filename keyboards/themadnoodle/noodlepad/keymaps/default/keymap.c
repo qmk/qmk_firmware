@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void encoder_update_user(uint8_t index, bool clockwise) {
     
-  switch (biton32(layer_state)) {
+  switch (get_highest_layer(layer_state)) {
       case 1:
           if (clockwise) {
               rgblight_increase_hue();
