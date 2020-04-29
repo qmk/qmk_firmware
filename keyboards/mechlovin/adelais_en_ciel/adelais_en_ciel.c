@@ -15,6 +15,8 @@
  */
 
 #include "adelais_en_ciel.h"
+
+#ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
   //Key Matrix to LED Index
   {1,         2,         3,           4,          5,          6,          7,          8,          9,          10,         11,          12,          13,          14,          16},
@@ -37,6 +39,7 @@ led_config_t g_led_config = { {
   1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,            1,           1,           1,  
   1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1, 
 } };
+#endif
 
 void matrix_init_kb(void) {
     // put your keyboard start-up code here
