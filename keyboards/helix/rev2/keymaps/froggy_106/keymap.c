@@ -220,7 +220,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #endif
 
 void set_mac_mode(bool enable) {
-  uint32_t old_config = user_config.raw;
   if(enable){
     user_config.mac_mode = true;
     keymap_config.swap_lalt_lgui = false;
@@ -230,9 +229,7 @@ void set_mac_mode(bool enable) {
     keymap_config.swap_lalt_lgui = true;
     keymap_config.swap_ralt_rgui = true;
   }
-  if (user_config.raw != old_config) {
-    eeconfig_update_user(user_config.raw);
-  }
+  eeconfig_update_user(user_config.raw);
 }
 
 void eeconfig_init_user(void) {
