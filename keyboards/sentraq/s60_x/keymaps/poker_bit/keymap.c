@@ -2,6 +2,7 @@
 
 #define KC_TG5 TG(5)
 #define KC_TG6 TG(6)
+#define KC_CSES C(S(KC_ESC))
 
 // Poker fix with toggle and bit operation
 // Fn + Esc = `
@@ -42,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [4] = LAYOUT_kc(
         TRNS,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12, TRNS, TRNS, \
         CAPS,  TG6,   UP, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, CALC, TRNS, HOME,  INS, TRNS,       \
-        TRNS, LEFT, DOWN, RGHT, TRNS, TRNS, PSCR, SLCK, PAUS, TRNS,  FN4,  END, TRNS, TRNS,       \
+        TRNS, LEFT, DOWN, RGHT, TRNS, TRNS, PSCR, SLCK, PAUS, TRNS, CSES,  END, TRNS, TRNS,       \
         TRNS, TRNS,  DEL, TRNS, WHOM, MUTE, VOLU, VOLD, TRNS, PGUP, PGDN,  DEL, TRNS, TRNS, TRNS, \
         TRNS, TRNS, TRNS,                    TG5,                   TRNS, TRNS, TRNS, TRNS),
     /* 5: Poker with Arrow
@@ -107,5 +108,4 @@ const uint16_t PROGMEM fn_actions[] = {
     /* Poker Layout */
     [0] = ACTION_LAYER_BIT_XOR(1, 0b0101, ON_BOTH),   // Poker Fn(with fix for Esc)
     [3] = ACTION_LAYER_BIT_XOR(1, 0b1101, ON_BOTH),   // Poker Fn(with fix for Arrow)
-    [4] = ACTION_MODS_KEY(MOD_RCTL|MOD_RSFT, KC_ESC), // FN3 Task(RControl,RShift+Esc)
 };

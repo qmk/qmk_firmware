@@ -122,13 +122,6 @@ enum function_id {
 const uint16_t PROGMEM fn_actions[] = {
    	[0]   =  ACTION_FUNCTION(TEENSY_KEY),                    // FN0 - Teensy key
 	[1]   =  ACTION_LAYER_SET(0, ON_PRESS),              
-       	//[11]  =  ACTION_MODS_KEY(MOD_LSFT, KC_COMM),
-	//[12]  =  ACTION_MODS_KEY(MOD_LSFT, KC_DOT),
-	
-	//[14]  =  ACTION_MODS_KEY(MOD_LSFT, KC_SLSH),
-	//[17]  =  ACTION_MODS_KEY(MOD_LSFT, KC_SCLN),
-	//[20]  =  ACTION_MODS_KEY(MOD_LSFT, KC_5),
-	//[21]  =  ACTION_MODS_KEY(MOD_LSFT, KC_QUOT),
 	[23]  =  ACTION_LAYER_SET(3, ON_PRESS),
         [24]  =  ACTION_LAYER_SET(2, ON_PRESS),   
 	[26]  =  ACTION_LAYER_SET(1, ON_PRESS),

@@ -11,6 +11,8 @@
 #define KC_TG4 TG(4)
 #define KC_TG5 TG(5)
 
+#define KC_CSES C(S(KC_ESC))
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* 0: qwerty
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
@@ -148,7 +150,7 @@ FnS: toggle Arrow overlay
     LAYOUT_kc(
         ESC,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12, TRNS, TRNS, \
         TRNS,  TG5,   UP, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, CALC, TRNS, HOME,  INS,  MO7,       \
-        TRNS, LEFT, DOWN, RGHT, TRNS, TRNS, PSCR, SLCK, PAUS, TRNS,  FN3,  END, TRNS, TRNS,       \
+        TRNS, LEFT, DOWN, RGHT, TRNS, TRNS, PSCR, SLCK, PAUS, TRNS, CSES,  END, TRNS, TRNS,       \
         TRNS, TRNS,  DEL, TRNS, WHOM, MUTE, VOLU, VOLD, TRNS, PGUP, PGDN,  DEL, TRNS, TRNS, TRNS, \
         TRNS, TRNS, TRNS,                    TG4,                   TRNS, TRNS, TRNS, TRNS),
     /* 7: Layout selector
@@ -176,8 +178,4 @@ Lw: set Workman layout
         TRNS, TRNS, TRNS,  DF2, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,       \
         TRNS, TRNS, TRNS, TRNS,  DF1, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, \
         TRNS, TRNS, TRNS,                   TRNS,                   TRNS, TRNS, TRNS, TRNS),
-};
-const uint16_t PROGMEM fn_actions[] = {
-    /* Poker Layout */
-    [3] = ACTION_MODS_KEY(MOD_RCTL|MOD_RSFT, KC_ESC), // Task(RControl,RShift+Esc)
 };
