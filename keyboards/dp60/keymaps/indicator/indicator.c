@@ -29,12 +29,10 @@
 
 #include "rgblight_list.h"
 #include "rgblight.h"
+#include "ws2812.h"
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #include <util/delay.h>
-
-#define RGB_INDICATOR_NUM 8
-#define RGB_INDICATOR_PIN B1
 
 /*
   This routine writes an array of bytes with RGB values to the Dataout pin
@@ -96,7 +94,7 @@
 #define w_nop4 w_nop2 w_nop2
 #define w_nop8 w_nop4 w_nop4
 #define w_nop16 w_nop8 w_nop8
-void inline ws2812_sendarray_mask_ind(uint8_t *data, uint16_t datlen, uint8_t maskhi) {
+void inline indicator_sendarray_mask_ind(uint8_t *data, uint16_t datlen, uint8_t maskhi) {
     uint8_t curbyte, ctr, masklo;
     uint8_t sreg_prev;
 
@@ -172,53 +170,84 @@ void inline ws2812_sendarray_mask_ind(uint8_t *data, uint16_t datlen, uint8_t ma
     SREG = sreg_prev;
 }
 
+// caps led
+const rgblight_segment_t PROGMEM dp60_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {18, 1, HSV_RED}
+);
+
+// scroll led
+const rgblight_segment_t PROGMEM dp60_scrolllock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {19, 1, HSV_GREEN}
+);
+
+// num led
+const rgblight_segment_t PROGMEM dp60_numlock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {20, 1, HSV_BLUE}
+);
+
+// light 21 to 26 for layer 1-5
+const rgblight_segment_t PROGMEM dp60_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {21, 1, HSV_PURPLE}
+);
+const rgblight_segment_t PROGMEM dp60_layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {22, 1, HSV_CYAN}
+);
+const rgblight_segment_t PROGMEM dp60_layer3_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {23, 1, HSV_YELLOW}
+);
+const rgblight_segment_t PROGMEM dp60_layer4_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {24, 1, HSV_PINK}
+);
+const rgblight_segment_t PROGMEM dp60_layer5_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {25, 1, HSV_ORANGE}
+);
+
+// rgb light layers
+const rgblight_segment_t* const PROGMEM dp60_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    dp60_capslock_layer,
+    dp60_scrolllock_layer,
+    dp60_numlock_layer,
+    dp60_layer1_layer,
+    dp60_layer2_layer,
+    dp60_layer3_layer,
+    dp60_layer4_layer,
+    dp60_layer5_layer
+);
+
+void keyboard_post_init_user(void) {
+    // Enable the LED layers
+    rgblight_layers = dp60_rgb_layers;
+}
+
 extern rgblight_config_t rgblight_config;
+extern void              rgblight_layers_write(void);
 
-// led 0 for caps lock, led 1 for scroll lock, led 2 for num lock
-// led 3~7 for layer 1~5
-LED_TYPE dp60_leds[RGB_INDICATOR_NUM];
-const LED_TYPE RGB_LED_RED = {RGB_RED};
-const LED_TYPE RGB_LED_GREEN = {RGB_GREEN};
-const LED_TYPE RGB_LED_BLUE = {RGB_BLUE};
-const LED_TYPE RGB_LED_PURPLE = {RGB_PURPLE};
-
-void indicator_led_task(void) {
-    led_t led_state = (led_t)host_keyboard_leds();
-    uint8_t pinmask = _BV(RGB_INDICATOR_PIN & 0xF);
-
-    for (uint8_t i = 0; i < RGB_INDICATOR_NUM; i++) {
-        dp60_leds[i].r = 0;
-        dp60_leds[i].g = 0;
-        dp60_leds[i].b = 0;
-    }
-    if (led_state.caps_lock) {
-        dp60_leds[0] = rgblight_config.enable ? led[0] : RGB_LED_RED;
-    }
-    if (led_state.scroll_lock) {
-        dp60_leds[1] = rgblight_config.enable ? led[1] : RGB_LED_GREEN;
-    }
-    if (led_state.num_lock) {
-        dp60_leds[2] = rgblight_config.enable ? led[2] : RGB_LED_BLUE;
-    }
-    for (uint8_t j = 0; j < 5; j++) {
-        if (layer_state_is(j+1)) {
-            dp60_leds[j+3] = rgblight_config.enable ? led[j+3] : RGB_LED_PURPLE;
-        }
-    }
-
-    _SFR_IO8((RGB_INDICATOR_PIN >> 4) + 1) |= _BV(RGB_INDICATOR_PIN&0xF);
-    ws2812_sendarray_mask_ind((uint8_t *)dp60_leds, RGB_INDICATOR_NUM * sizeof(LED_TYPE), pinmask);
-
-    _delay_us(50);
-    //ws2812_setleds_pin(dp60_leds, RGB_INDICATOR_NUM, RGB_INDICATOR_PIN);
-}
-
-__attribute__ ((weak))
-void matrix_scan_user(void)
+void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds)
 {
+    ws2812_setleds(led, RGBLED_NUM-RGB_INDICATOR_NUM);
+
+    uint8_t pinmask = _BV(RGB_INDICATOR_PIN & 0xF);
+    _SFR_IO8((RGB_INDICATOR_PIN >> 4) + 1) |= pinmask;
+    indicator_sendarray_mask_ind((uint8_t *)(&led[RGBLED_NUM-RGB_INDICATOR_NUM]), RGB_INDICATOR_NUM * sizeof(LED_TYPE), pinmask);
+    _delay_us(50);
 }
 
-void matrix_scan_kb() {
-    indicator_led_task();
-    matrix_scan_user();
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if (res) {
+        rgblight_set_layer_state(0, led_state.caps_lock);
+        rgblight_set_layer_state(1, led_state.scroll_lock);
+        rgblight_set_layer_state(2, led_state.num_lock);
+    }
+    return res;
+}
+
+layer_state_t layer_state_set_kb(layer_state_t state) {
+    state = layer_state_set_user(state);
+    rgblight_set_layer_state(3, layer_state_cmp(state, 1));
+    rgblight_set_layer_state(4, layer_state_cmp(state, 2));
+    rgblight_set_layer_state(5, layer_state_cmp(state, 3));
+    rgblight_set_layer_state(6, layer_state_cmp(state, 4));
+    rgblight_set_layer_state(7, layer_state_cmp(state, 5));
+    return state;
 }
