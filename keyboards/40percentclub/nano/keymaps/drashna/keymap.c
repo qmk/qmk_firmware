@@ -1,7 +1,6 @@
 #include "drashna.h"
 #include "analog.h"
 #include "pointing_device.h"
-#include "pincontrol.h"
 
 #define KC_X0 LT(_FN, KC_ESC)
 
