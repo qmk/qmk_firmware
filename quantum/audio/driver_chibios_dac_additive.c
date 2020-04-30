@@ -99,13 +99,18 @@ typedef enum {
     OUTPUT_OFF_2, // trailing off: giving the DAC two more conversion cycles until the AUDIO_DAC_OFF_VALUE reaches the output, then turn the timer off, which leaves the output at that level
     number_of_output_states
 } output_states_t;
-output_states_t state = OUTPUT_OFF;
+output_states_t state = OUTPUT_OFF_2;
 
 /**
  * Generation of the waveform being passed to the callback. Declared weak so users
  * can override it with their own waveforms/noises.
  */
 __attribute__((weak)) uint16_t dac_value_generate(void) {
+
+    // DAC is running/asking for values but snapshot length is zero -> must be playing a pause
+    if (active_tones_snapshot_length == 0) {
+        return AUDIO_DAC_OFF_VALUE;
+    }
 
     /* doing additive wave synthesis over all currently playing tones = adding up
      * sine-wave-samples for each frequency, scaled by the number of active tones
@@ -193,7 +198,7 @@ static void dac_end(DACDriver *dacp) {
         if (((sample_p[s] + (AUDIO_DAC_SAMPLE_MAX / 100)) > AUDIO_DAC_OFF_VALUE) && // value approaches from below
             (sample_p[s] < (AUDIO_DAC_OFF_VALUE + (AUDIO_DAC_SAMPLE_MAX / 100))) // or above
              ) {
-            if (OUTPUT_SHOULD_START == state) {
+            if ((OUTPUT_SHOULD_START == state) && (active_tones_snapshot_length > 0)) {
                 state = OUTPUT_RUN_NORMALY;
             } else if (OUTPUT_TONES_CHANGED == state) {
                 state = OUTPUT_REACHED_ZERO_BEFORE_TONE_CHANGE;
