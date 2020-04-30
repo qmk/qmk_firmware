@@ -56,8 +56,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_LEFT:
     case KC_RIGHT:
       if (record->event.pressed && !is_win) {
-        uint8_t mod_state = get_mods() & MOD_MASK_CTRL;
-        if (get_mods() & mod_state) {
+        uint8_t mods = get_mods();
+        uint8_t mod_state = mods & MOD_MASK_ALT;
+        if (get_mods() & mod_state && !mac_ctrl_on) {
+          del_mods(mod_state);
+          add_mods(MOD_LCTL);
+          mac_alt_tab_on = true;
+        }
+
+        mod_state = mods & MOD_MASK_CTRL;
+        if (get_mods() & mod_state && !mac_alt_tab_on) {
           del_mods(mod_state);
           add_mods(MOD_LALT);
           mac_ctrl_on = true;
@@ -65,6 +73,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
     case KC_LALT:
+    case KC_RALT:
       if (!record->event.pressed && !is_win && mac_alt_tab_on) {
         unregister_mods(MOD_LCTL);
         mac_alt_tab_on = false;
@@ -72,6 +81,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
     case KC_LCTL:
+    case KC_RCTL:
       if (!record->event.pressed && !is_win && mac_ctrl_on) {
         SEND_STRING(SS_UP(X_LGUI) SS_UP(X_LALT));
         mac_ctrl_on = false;
