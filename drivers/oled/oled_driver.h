@@ -150,12 +150,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    endif
 #endif
 
+#if defined(__GNUC__)
+#    define PACKED __attribute__((__packed__))
+#else
+#    define PACKED
+#endif
 
-typedef struct _oled_buffer_reader_t {
+typedef struct PACKED {
     uint8_t     *current_element;
     uint16_t    remaining_element_count;
 } oled_buffer_reader_t;
-
 
 // OLED Rotation enum values are flags
 typedef enum {
