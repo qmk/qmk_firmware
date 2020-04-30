@@ -528,7 +528,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 キーコードに基づいて `IGNORE_MOD_TAP_INTERRUPT` の値を変更するには、次のようなものを `keymap.c` ファイルに追加します:
 
 ```c
-bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
+bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case SFT_T(KC_SPC):
       return true;
