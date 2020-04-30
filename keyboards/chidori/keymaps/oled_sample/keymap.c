@@ -18,19 +18,19 @@
 
 #include "board.h"
 
-enum layer_number { 
+enum layer_number {
     _QWERTY,
-     _COLEMAK, 
-     _DVORAK, 
-     _LOWER, 
-     _RAISE, 
-     _ADJUST,
+    _COLEMAK,
+    _DVORAK,
+    _LOWER,
+    _RAISE,
+    _ADJUST,
 };
 
 // Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes { 
-    QWERTY = SAFE_RANGE, 
-    COLEMAK, 
+enum custom_keycodes {
+    QWERTY = SAFE_RANGE,
+    COLEMAK,
     DVORAK,
 };
 
@@ -185,22 +185,15 @@ bool led_update_user(led_t led_state) {
 
 void oled_write_layer_state(void) {
     oled_write_P(PSTR("Layer: "), false);
-    switch (get_highest_layer(layer_state)) {
-        case 0:  // Default layer
-            switch (get_highest_layer(default_layer_state)) {
-                case _QWERTY:
-                    oled_write_ln_P(PSTR("Qwerty"), false);
-                    break;
-                case _COLEMAK:
-                    oled_write_ln_P(PSTR("Colemak"), false);
-                    break;
-                case _DVORAK:
-                    oled_write_ln_P(PSTR("Dvorak"), false);
-                    break;
-                default:
-                    oled_write_ln_P(PSTR("Undef"), false);
-                    break;
-            }
+    switch (get_highest_layer(layer_state | default_layer_state)) {
+        case _QWERTY:
+            oled_write_ln_P(PSTR("Qwerty"), false);
+            break;
+        case _COLEMAK:
+            oled_write_ln_P(PSTR("Colemak"), false);
+            break;
+        case _DVORAK:
+            oled_write_ln_P(PSTR("Dvorak"), false);
             break;
         case _LOWER:
             oled_write_ln_P(PSTR("Lower"), false);
