@@ -31,7 +31,6 @@ BOOTLOADER = atmel-dfu
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (推奨の GUI)
 * QMK の [dfu-programmer](https://github.com/dfu-programmer/dfu-programmer) / `:dfu` (推奨のコマンドライン)
-* [Atmel の Flip](http://www.microchip.com/developmenttools/productdetails.aspx?partno=flip) (非推奨)
 
 書き込み手順:
 
