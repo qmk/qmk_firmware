@@ -103,22 +103,16 @@ output_states_t state = OUTPUT_OFF;
  * can override it with their own waveforms/noises.
  */
 __attribute__((weak)) uint16_t dac_value_generate(void) {
-    uint16_t value = AUDIO_DAC_OFF_VALUE;
-
-    if (OUTPUT_OFF == state) return AUDIO_DAC_OFF_VALUE;
-
-    if ((0 == active_tones_snapshot_length) && (OUTPUT_REACHED_ZERO_BEFORE_OFF == state)) {
-        state = OUTPUT_OFF;
-        return AUDIO_DAC_OFF_VALUE;
-    }
 
     /* doing additive wave synthesis over all currently playing tones = adding up
      * sine-wave-samples for each frequency, scaled by the number of active tones
      */
-    uint16_t value_avg = 0;
+    uint16_t value = 0;
     float    frequency = 0.0f;
 
     for (uint8_t i = 0; i < active_tones_snapshot_length; i++) {
+        /* Note: a user implementation does not have to rely on the active_tones_snapshot, but
+         * could directly query the active frequencies through audio_get_processed_frequency */
         frequency = active_tones_snapshot[i];
 
         dac_if[i] = dac_if[i] + ((frequency * AUDIO_DAC_BUFFER_SIZE) / AUDIO_DAC_SAMPLE_RATE) * 2 / 3;
@@ -133,56 +127,28 @@ __attribute__((weak)) uint16_t dac_value_generate(void) {
         uint16_t dac_i = (uint16_t)dac_if[i];
 
 #if defined(AUDIO_DAC_SAMPLE_WAVEFORM_SINE)
-        value_avg += dac_buffer_sine[dac_i] / active_tones_snapshot_length;
+        value += dac_buffer_sine[dac_i] / active_tones_snapshot_length;
 #elif defined(AUDIO_DAC_SAMPLE_WAVEFORM_TRIANGLE)
-        value_avg += dac_buffer_triangle[dac_i] / active_tones_snapshot_length;
+        value += dac_buffer_triangle[dac_i] / active_tones_snapshot_length;
 #elif defined(AUDIO_DAC_SAMPLE_WAVEFORM_TRAPEZOID)
-        value_avg += dac_buffer_trapezoid[dac_i] / active_tones_snapshot_length;
+        value += dac_buffer_trapezoid[dac_i] / active_tones_snapshot_length;
 #elif defined(AUDIO_DAC_SAMPLE_WAVEFORM_SQUARE)
-        value_avg += dac_buffer_square[dac_i] / active_tones_snapshot_length;
+        value += dac_buffer_square[dac_i] / active_tones_snapshot_length;
 #endif
         /*
         // SINE
-        value_avg += dac_buffer_sine[dac_i] / active_tones_snapshot_length / 3;
+        value += dac_buffer_sine[dac_i] / active_tones_snapshot_length / 3;
         // TRIANGLE
-        value_avg += dac_buffer_triangle[dac_i] / active_tones_snapshot_length / 3;
+        value += dac_buffer_triangle[dac_i] / active_tones_snapshot_length / 3;
         // SQUARE
-        value_avg += dac_buffer_square[dac_i] / active_tones_snapshot_length / 3;
+        value += dac_buffer_square[dac_i] / active_tones_snapshot_length / 3;
         //NOTE: combination of these three waveforms is more exemplary - and doesn't sound particularly good :-P
         */
 
         // STAIRS (mostly usefull as test-pattern)
         // value_avg = dac_buffer_staircase[dac_i] / active_tones_snapshot_length;
     }
-    value = value_avg;
 
-    /* zero crossing (or approach)
-     *
-     * TODO: what about different values, other than AUDIO_DAC_OFF_VALUE=0, AUDIO_DAC_SAMPLE_MAX or AUDIO_DAC_SAMPLE_MAX/2 ?
-     */
-    if ((OUTPUT_SHOULD_STOP == state) && (value < AUDIO_DAC_SAMPLE_MAX / 100)) {  // TODO: works only if DAC_OFF_VALUE = 0!
-        state = OUTPUT_REACHED_ZERO_BEFORE_OFF;
-    } else if ((OUTPUT_TONES_CHANGED == state) && (value < AUDIO_DAC_SAMPLE_MAX / 100)) {  // TODO: works only if DAC_OFF_VALUE = 0!
-        state = OUTPUT_REACHED_ZERO_BEFORE_TONE_CHANGE;
-    }
-
-    if ((OUTPUT_REACHED_ZERO_BEFORE_OFF == state) || (OUTPUT_REACHED_ZERO_BEFORE_TONE_CHANGE == state)) {
-        uint8_t active_tones = MIN(AUDIO_MAX_SIMULTANEOUS_TONES, audio_get_number_of_active_tones());
-
-        active_tones_snapshot_length = 0;
-        // update the snapshot - once, and only on occasion that something changed;
-        // -> saves cpu cycles (?)
-        for (uint8_t i = 0; i < active_tones; i++) {
-            float freq = audio_get_processed_frequency(i);
-            if (freq > 0) {  // disregard 'rest' notes, with valid frequency 0.0f; which would only lower the resulting waveform volume during the additive synthesis step
-                active_tones_snapshot[active_tones_snapshot_length++] = freq;
-            }
-        }
-
-        if (OUTPUT_REACHED_ZERO_BEFORE_TONE_CHANGE == state) {
-            state = OUTPUT_RUN_NORMALY;
-        }
-    }
     return value;
 }
 
@@ -200,7 +166,44 @@ static void dac_end(DACDriver *dacp) {
     }
 
     for (uint8_t s = 0; s < AUDIO_DAC_BUFFER_SIZE / 2; s++) {
-        sample_p[s] = dac_value_generate();
+        if ((0 == active_tones_snapshot_length) && (OUTPUT_REACHED_ZERO_BEFORE_OFF == state)) {
+            state = OUTPUT_OFF;
+        }
+        if (OUTPUT_OFF == state) {
+            sample_p[s] = AUDIO_DAC_OFF_VALUE;
+            continue;
+        } else {
+            sample_p[s] = dac_value_generate();
+        }
+
+        // zero crossing (or approach, whereas zero == DAC_OFF_VALUE, which can be configured to anything from 0 to DAC_SAMPLE_MAX)
+        if (((sample_p[s] + (AUDIO_DAC_SAMPLE_MAX / 100)) > AUDIO_DAC_OFF_VALUE) && // value approaches from below
+            (sample_p[s] < (AUDIO_DAC_OFF_VALUE + (AUDIO_DAC_SAMPLE_MAX / 100))) // or above
+             ) {
+            if (OUTPUT_SHOULD_STOP == state) {
+                state = OUTPUT_REACHED_ZERO_BEFORE_OFF;
+            } else if (OUTPUT_TONES_CHANGED == state) {
+                state = OUTPUT_REACHED_ZERO_BEFORE_TONE_CHANGE;
+            }
+        }
+
+        if ((OUTPUT_REACHED_ZERO_BEFORE_OFF == state) || (OUTPUT_REACHED_ZERO_BEFORE_TONE_CHANGE == state)) {
+            uint8_t active_tones = MIN(AUDIO_MAX_SIMULTANEOUS_TONES, audio_get_number_of_active_tones());
+
+            active_tones_snapshot_length = 0;
+            // update the snapshot - once, and only on occasion that something changed;
+            // -> saves cpu cycles (?)
+            for (uint8_t i = 0; i < active_tones; i++) {
+                float freq = audio_get_processed_frequency(i);
+                if (freq > 0) {  // disregard 'rest' notes, with valid frequency 0.0f; which would only lower the resulting waveform volume during the additive synthesis step
+                    active_tones_snapshot[active_tones_snapshot_length++] = freq;
+                }
+            }
+
+            if (OUTPUT_REACHED_ZERO_BEFORE_TONE_CHANGE == state) {
+                state = OUTPUT_RUN_NORMALY;
+            }
+        }
     }
 
     // update audio internal state (note position, current_note, ...)
@@ -292,5 +295,6 @@ void audio_driver_start(void) {
         active_tones_snapshot[i] = 0.0f;
     }
     active_tones_snapshot_length = 0;
-    state                        = OUTPUT_RUN_NORMALY;
+    state                        = OUTPUT_REACHED_ZERO_BEFORE_TONE_CHANGE;
+    // = have the first conversion update/populate the initial snapshot
 }
