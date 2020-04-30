@@ -25,7 +25,6 @@ Vagrant 以外に、適切なプロバイダがインストールされ、その
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox) (推奨)
 * [Teensy ローダー](https://www.pjrc.com/teensy/loader.html)
-* [Atmel FLIP](http://www.atmel.com/tools/flip.aspx)
 
 コマンドラインでプログラムしたい場合は、Vagranfile の ['modifyvm'] 行のコメントを解除して Linux への USB パススルーを有効にし、dfu-util/dfu-programmer のようなコマンドラインツールを使ってプログラムすることができます。あるいは Teensy CLI バージョンをインストールすることができます。
 

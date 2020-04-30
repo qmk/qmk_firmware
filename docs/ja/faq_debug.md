@@ -152,10 +152,3 @@ https://geekhack.org/index.php?topic=14290.msg1884034#msg1884034
 
 https://github.com/tmk/tmk_keyboard/issues/266
 https://geekhack.org/index.php?topic=41989.msg1967778#msg1967778
-
-
-
-## FLIP が動作しない
-### `AtLibUsbDfu.dll` が見つかりません
-デバイスマネージャから現在のドライバを削除し、FLIP が提供するものを再インストールします。
-http://imgur.com/a/bnwzy
