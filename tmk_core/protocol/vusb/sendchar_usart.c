@@ -3,7 +3,7 @@
  * License: GNU GPL v2 (see License.txt), GNU GPL v3 or proprietary (CommercialLicense.txt)
  */
 #include <stdint.h>
-#include "oddebug.h"
+#include <usbdrv/oddebug.h>
 #include "sendchar.h"
 
 #if DEBUG_LEVEL > 0

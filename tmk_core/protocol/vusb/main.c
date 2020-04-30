@@ -12,8 +12,8 @@
 #include <avr/wdt.h>
 #include <avr/sleep.h>
 #include <util/delay.h>
-#include "usbdrv.h"
-#include "oddebug.h"
+#include <usbdrv/usbdrv.h>
+#include <usbdrv/oddebug.h>
 #include "vusb.h"
 #include "keyboard.h"
 #include "host.h"

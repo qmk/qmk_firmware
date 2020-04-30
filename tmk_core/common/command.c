@@ -43,10 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "mousekey.h"
 #endif
 
-#ifdef PROTOCOL_VUSB
-#    include "usbdrv.h"
-#endif
-
 #ifdef AUDIO_ENABLE
 #    include "audio.h"
 #endif /* AUDIO_ENABLE */
