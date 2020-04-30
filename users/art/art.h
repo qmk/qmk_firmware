@@ -1,6 +1,8 @@
 #pragma once
 #include QMK_KEYBOARD_H
 
+#define CTL_ALT(kc) (CTL_ALT_START + ((kc) & 0xff))
+
 extern bool is_win;
 
 enum layer_names {
@@ -61,6 +63,9 @@ enum custom_keycodes_art {
   G_STAT,
   G_STSH,
   G_SHOW,
+
+  CTL_ALT_START,
+  CTL_ALT_END = CTL_ALT_START + 0xff,
 
   NEW_SAFE_RANGE  //for keymap specific codes
 };
