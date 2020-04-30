@@ -56,12 +56,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_LEFT:
     case KC_RIGHT:
       if (record->event.pressed && !is_win) {
+        /* && !mac_ctrl_on/!mac_alt_tab_on are required since setting the state while holding the key changes
+        the modifier from OS's perspective. As a result, just the pressed key cannot be the single source
+        of truth to determine which state we're in, and a separate bool is required */
         uint8_t mods = get_mods();
         uint8_t mod_state = mods & MOD_MASK_ALT;
-        if (get_mods() & mod_state && !mac_ctrl_on) {
+        //Allows Ctrl <-/-> on Mac if Ctrl Tab is already pressed
+        if (get_mods() & mod_state && mac_alt_tab_on && !mac_ctrl_on) {
           del_mods(mod_state);
           add_mods(MOD_LCTL);
-          mac_alt_tab_on = true;
         }
 
         mod_state = mods & MOD_MASK_CTRL;
