@@ -338,6 +338,7 @@ static inline void disable_pwm(void) {
 
 #endif
 
+#ifdef SPLIT_KEYBOARD
 #ifndef BACKLIGHT_PWM_TIMER_RIGHT
 
 static inline void enable_pwm_right(void) {
@@ -355,7 +356,7 @@ static inline void disable_pwm_right(void) {
     TCCRxA_RIGHT &= ~(_BV(COMxx1_RIGHT) | _BV(COMxx0_RIGHT));
 #    endif
 }
-
+#endif
 #endif
 
 #ifdef BACKLIGHT_PWM_TIMER
