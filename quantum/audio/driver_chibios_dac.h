@@ -100,9 +100,10 @@
 /**
  * The default value of the DAC when not playing anything. Certain hardware
  * setups may require a high (AUDIO_DAC_SAMPLE_MAX) or low (0) value here.
+ * A value in between might also make sense (e.g. AUDIO_DAC_SAMPLE_MAX / 2 ).
  */
 #ifndef AUDIO_DAC_OFF_VALUE
-#    define AUDIO_DAC_OFF_VALUE AUDIO_DAC_SAMPLE_MAX / 2
+#    define AUDIO_DAC_OFF_VALUE 0
 #endif
 
 #if AUDIO_DAC_OFF_VALUE > AUDIO_DAC_SAMPLE_MAX
