@@ -5,7 +5,7 @@
 compatible with TGR Alice and all clone variants. Comes with RGB underglow pre-soldered.
 
 * Keyboard Maintainer: [Team Mechlovin'](https://github.com/mechlovin)
-* Hardware Supported: Adelais, Adelais En Ciel
+* Hardware Supported: Adelais
 * Hardware Availability: [Reddit GB](https://www.reddit.com/r/mechmarket/comments/fr7smq/gb_team_mechlovin_adelais_tgr_alice_clones/)
 
 Make example for this keyboard (after setting up your build environment):
