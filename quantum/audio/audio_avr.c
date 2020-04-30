@@ -112,8 +112,7 @@
 #endif
 
 #if !defined(BPIN_AUDIO) && !defined(CPIN_AUDIO)
-#    error "Audio feature enabled, but no suitable pin selected - see docs/feature_audio.md under the AVR s
-ettings for available options."
+#    error "Audio feature enabled, but no suitable pin selected - see docs/feature_audio.md under the AVR settings for available options."
 #endif
 
 // -----------------------------------------------------------------------------
