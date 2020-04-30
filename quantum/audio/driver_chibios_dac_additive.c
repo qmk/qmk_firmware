@@ -86,6 +86,7 @@ static float   active_tones_snapshot[AUDIO_MAX_SIMULTANEOUS_TONES] = {0, 0};
 static uint8_t active_tones_snapshot_length                        = 0;
 
 typedef enum {
+    OUTPUT_SHOULD_START,
     OUTPUT_RUN_NORMALY,
     // path 1: wait for zero, then change/update active tones
     OUTPUT_TONES_CHANGED,
@@ -94,6 +95,8 @@ typedef enum {
     OUTPUT_SHOULD_STOP,
     OUTPUT_REACHED_ZERO_BEFORE_OFF,
     OUTPUT_OFF,
+    OUTPUT_OFF_1,
+    OUTPUT_OFF_2, // trailing off: giving the DAC two more conversion cycles until the AUDIO_DAC_OFF_VALUE reaches the output, then turn the timer off, which leaves the output at that level
     number_of_output_states
 } output_states_t;
 output_states_t state = OUTPUT_OFF;
@@ -166,30 +169,46 @@ static void dac_end(DACDriver *dacp) {
     }
 
     for (uint8_t s = 0; s < AUDIO_DAC_BUFFER_SIZE / 2; s++) {
-        if ((0 == active_tones_snapshot_length) && (OUTPUT_REACHED_ZERO_BEFORE_OFF == state)) {
-            state = OUTPUT_OFF;
-        }
-        if (OUTPUT_OFF == state) {
+        if (OUTPUT_OFF <= state) {
             sample_p[s] = AUDIO_DAC_OFF_VALUE;
             continue;
         } else {
             sample_p[s] = dac_value_generate();
         }
 
-        // zero crossing (or approach, whereas zero == DAC_OFF_VALUE, which can be configured to anything from 0 to DAC_SAMPLE_MAX)
+        /* zero crossing (or approach, whereas zero == DAC_OFF_VALUE, which can be configured to anything from 0 to DAC_SAMPLE_MAX)
+         * ============================*=*========================== AUDIO_DAC_SAMPLE_MAX
+         *                          *       *
+         *                        *           *
+         * ---------------------------------------------------------
+         *                     *                 *                  } AUDIO_DAC_SAMPLE_MAX/100
+         * --------------------------------------------------------- AUDIO_DAC_OFF_VALUE
+         *                  *                       *               } AUDIO_DAC_SAMPLE_MAX/100
+         * ---------------------------------------------------------
+         *               *
+         * *           *
+         *   *       *
+         * =====*=*================================================= 0x0
+         */
         if (((sample_p[s] + (AUDIO_DAC_SAMPLE_MAX / 100)) > AUDIO_DAC_OFF_VALUE) && // value approaches from below
             (sample_p[s] < (AUDIO_DAC_OFF_VALUE + (AUDIO_DAC_SAMPLE_MAX / 100))) // or above
              ) {
-            if (OUTPUT_SHOULD_STOP == state) {
-                state = OUTPUT_REACHED_ZERO_BEFORE_OFF;
+            if (OUTPUT_SHOULD_START == state) {
+                state = OUTPUT_RUN_NORMALY;
             } else if (OUTPUT_TONES_CHANGED == state) {
                 state = OUTPUT_REACHED_ZERO_BEFORE_TONE_CHANGE;
+            } else if (OUTPUT_SHOULD_STOP == state) {
+                state = OUTPUT_REACHED_ZERO_BEFORE_OFF;
             }
         }
 
-        if ((OUTPUT_REACHED_ZERO_BEFORE_OFF == state) || (OUTPUT_REACHED_ZERO_BEFORE_TONE_CHANGE == state)) {
-            uint8_t active_tones = MIN(AUDIO_MAX_SIMULTANEOUS_TONES, audio_get_number_of_active_tones());
+        // still 'ramping up', reset the output to OFF_VALUE until the generated values reach that value, to do a smooth handover
+        if (OUTPUT_SHOULD_START == state) {
+            sample_p[s] = AUDIO_DAC_OFF_VALUE;
+        }
 
+        if ((OUTPUT_SHOULD_START == state) || (OUTPUT_REACHED_ZERO_BEFORE_OFF == state) || (OUTPUT_REACHED_ZERO_BEFORE_TONE_CHANGE == state)) {
+            uint8_t active_tones = MIN(AUDIO_MAX_SIMULTANEOUS_TONES, audio_get_number_of_active_tones());
             active_tones_snapshot_length = 0;
             // update the snapshot - once, and only on occasion that something changed;
             // -> saves cpu cycles (?)
@@ -200,6 +219,9 @@ static void dac_end(DACDriver *dacp) {
                 }
             }
 
+            if ((0 == active_tones_snapshot_length) && (OUTPUT_REACHED_ZERO_BEFORE_OFF == state)) {
+                state = OUTPUT_OFF;
+            }
             if (OUTPUT_REACHED_ZERO_BEFORE_TONE_CHANGE == state) {
                 state = OUTPUT_RUN_NORMALY;
             }
@@ -213,8 +235,14 @@ static void dac_end(DACDriver *dacp) {
         }
     }
 
-    if (OUTPUT_OFF == state) {
-        gptStopTimer(&GPTD6);
+
+    if (OUTPUT_OFF <= state) {
+        if (OUTPUT_OFF_2 == state) {
+            // stopping timer6 = stopping the DAC at whatever value it is currently pushing to the output = AUDIO_DAC_OFF_VALUE
+            gptStopTimer(&GPTD6);
+        } else {
+            state++;
+        }
     }
 }
 
@@ -282,12 +310,13 @@ void audio_driver_initialize() {
 #elif defined(AUDIO_PIN_A5)
     DACD2.params->dac->CR &= ~DAC_CR_BOFF2;
 #endif
+
+    gptStart(&GPTD6, &gpt6cfg1);
 }
 
 void audio_driver_stop(void) { state = OUTPUT_SHOULD_STOP; }
 
 void audio_driver_start(void) {
-    gptStart(&GPTD6, &gpt6cfg1);
     gptStartContinuous(&GPTD6, 2U);
 
     for (uint8_t i = 0; i < AUDIO_MAX_SIMULTANEOUS_TONES; i++) {
@@ -295,6 +324,5 @@ void audio_driver_start(void) {
         active_tones_snapshot[i] = 0.0f;
     }
     active_tones_snapshot_length = 0;
-    state                        = OUTPUT_REACHED_ZERO_BEFORE_TONE_CHANGE;
-    // = have the first conversion update/populate the initial snapshot
+    state                        = OUTPUT_SHOULD_START;
 }
