@@ -60,9 +60,11 @@ static const pin_t backlight_pins_right[] = BACKLIGHT_PINS_RIGHT;
             { x }                                           \
         }
 #else
-// we support only one backlight pin
+#if defined(BACKLIGHT_PIN_RIGHT)
+// we support only one backlight pin AND it is differently defined for the right side
 static const pin_t backlight_pin_right = BACKLIGHT_PIN_RIGHT;
 #    define FOR_EACH_LED_RIGHT(x) x
+#endif
 #endif
 #endif // SPLIT_KEYBOARD
 
