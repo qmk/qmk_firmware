@@ -24,7 +24,7 @@ For more granular control of this feature, you can add the following to your `co
 You can then add the following function to your keymap:
 
 ```c
-bool get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case SFT_T(KC_SPC):
             return TAPPING_TERM + 1250;
@@ -113,7 +113,7 @@ For more granular control of this feature, you can add the following to your `co
 You can then add the following function to your keymap:
 
 ```c
-bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record)) {
+bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case SFT_T(KC_SPC):
             return true;
@@ -186,4 +186,4 @@ Well, it's simply really: customization.  But specifically, it depends on how yo
 
 ## Why is there no `*_kb` or `*_user` functions?!
 
-Unlike many of the other functions here, there isn't a need (or even reason) to have a quantum or keyboard level function. Only user level functions are useful here, so no need to mark them as such.	zs
+Unlike many of the other functions here, there isn't a need (or even reason) to have a quantum or keyboard level function. Only user level functions are useful here, so no need to mark them as such.
