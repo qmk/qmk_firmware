@@ -1,8 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "vosechu.h"
 
-extern keymap_config_t keymap_config;
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [BASE] = LAYOUT_ortho_half_5x7( // Base layer
@@ -91,26 +89,3 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
   return state;
 }
-
-void suspend_power_down_user(void) {
-    rgblight_disable();
-}
-
-void suspend_wakeup_init_user(void) {
-    rgblight_enable();
-}
-
-
-// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-//   switch (keycode) {
-//     case TT1:
-//       if (record->event.pressed) {
-
-//       } else {
-
-//       }
-//       return false;
-//       break;
-//   }
-//   return true;
-// }

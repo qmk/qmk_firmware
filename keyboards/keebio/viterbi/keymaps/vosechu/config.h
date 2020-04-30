@@ -17,21 +17,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// #define USE_I2C
-
-/* Select hand configuration */
-
-// #define MASTER_RIGHT
-// #define EE_HANDS
-
 #undef RGBLED_NUM
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 12
+#define RGBLED_NUM 3
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
 
-#define RGBLIGHT_LAYERS
+#define RGBLIGHT_SLEEP // Put the keyboard to sleep when USB goes dark
 
 #define LAYOUT_ortho_half_5x7( \
 		L00, L01, L02, L03, L04, L05, L06, \
