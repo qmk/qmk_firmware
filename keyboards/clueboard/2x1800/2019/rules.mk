@@ -1,5 +1,6 @@
 # MCU name
 MCU = at90usb1286
+
 # Bootloader selection
 #   Teensy       halfkay
 #   Pro Micro    caterina
