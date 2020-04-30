@@ -15,7 +15,6 @@ enum ic60_keycodes {
   NUMPAD,
   FNAV,
   MEDIA,
-  CTLALTDEL,
   BACKLIGHT,
   BRIGHT,
   DIM,
@@ -73,7 +72,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_CAPS,_______,_______,_______,_______,_______,_______,KC_PGUP,KC_UP,KC_PGDN,KC_PSCR,_______,_______,KC_DEL,  \
         _______,_______,KC_BTN2,_______,_______,_______,KC_HOME,KC_LEFT,KC_DOWN,KC_RGHT,KC_INS,_______,_______,     \
         _______,KC_APP,KC_BTN1,KC_CALC,_______,_______,KC_END,_______,_______,_______,_______,_______,KC_NO,         \
-        _______,_______,_______,               _______,         F(CTLALTDEL),KC_NLCK,_______,_______   \
+        _______,_______,_______,               _______,         C(A(KC_DEL)),KC_NLCK,_______,_______   \
     ),
 
     /* media */
@@ -161,7 +160,6 @@ uint8_t led_game[5] = {
 
 //======== qmk functions =========
 const uint16_t fn_actions[] = {
-    [CTLALTDEL] = ACTION_KEY(LALT(LCTL(KC_DEL))),
     [ALL] = ACTION_FUNCTION(ACTION_LEDS_ALL),
     [GAME] = ACTION_FUNCTION(ACTION_LEDS_GAME),
     [BACKLIGHT] = ACTION_FUNCTION(ACTION_LEDS_BACKLIGHT),
