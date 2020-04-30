@@ -238,8 +238,9 @@ void oled_write_P(const char *data, bool invert);
 // Remapped to call 'void oled_write_ln(const char *data, bool invert);' on ARM
 void oled_write_ln_P(const char *data, bool invert);
 
-// Returns a single byte of the oled buffer at index
-char oled_read_raw_byte(uint16_t index);
+// Returns a pointer to the requested start index in the buffer plus remaining
+// buffer length as struct
+oled_buffer_reader_t oled_read_raw(uint16_t start_index);
 
 // Writes a string to the buffer at current cursor position
 void oled_write_raw(const char *data, uint16_t size);
