@@ -29,9 +29,21 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(BLUETOOTH)), AdafruitBLE)
-		LUFA_SRC += spi_master.c
-		LUFA_SRC += analog.c
-		LUFA_SRC += $(LUFA_DIR)/adafruit_ble.cpp
+	LUFA_SRC += spi_master.c
+	LUFA_SRC += analog.c
+	LUFA_SRC += $(LUFA_DIR)/adafruit_ble.cpp
+endif
+
+ifeq ($(strip $(BLUETOOTH)), AdafruitBLEUART)
+	LUFA_SRC += $(TMK_DIR)/protocol/bluefruit_le/new.cpp
+	LUFA_SRC += $(TMK_DIR)/protocol/bluefruit_le/HardwareSerial.cpp
+	LUFA_SRC += $(TMK_DIR)/protocol/bluefruit_le/Print.cpp
+	LUFA_SRC += $(TMK_DIR)/protocol/bluefruit_le/Stream.cpp
+	LUFA_SRC += $(TMK_DIR)/protocol/bluefruit_le/ATParser.cpp
+	LUFA_SRC += $(TMK_DIR)/protocol/bluefruit_le/BLE.cpp
+	LUFA_SRC += $(TMK_DIR)/protocol/bluefruit_le/BluefruitLE_UART.cpp
+	LUFA_SRC += $(TMK_DIR)/protocol/bluefruit_le/BLEBattery.cpp
+	LUFA_SRC += $(TMK_DIR)/protocol/bluefruit_le/qmk.cpp
 endif
 
 ifeq ($(strip $(BLUETOOTH)), AdafruitEZKey)

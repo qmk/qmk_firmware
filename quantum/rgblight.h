@@ -16,6 +16,10 @@
 #ifndef RGBLIGHT_H
 #define RGBLIGHT_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /***** rgblight_mode(mode)/rgblight_mode_noeeprom(mode) ****
 
  old mode number (before 0.6.117) to new mode name table
@@ -355,6 +359,7 @@ HSV     rgblight_get_hsv(void);
 
 /* === qmk_firmware (core)internal Functions === */
 void     rgblight_init(void);
+void     rgblight_restore_from_eeprom(void);
 uint32_t rgblight_read_dword(void);
 void     rgblight_update_dword(uint32_t dword);
 uint32_t eeconfig_read_rgblight(void);
@@ -435,4 +440,9 @@ void rgblight_effect_twinkle(animation_status_t *anim);
 #    endif
 
 #endif  // #ifndef RGBLIGHT_H_DUMMY_DEFINE
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif  // RGBLIGHT_H

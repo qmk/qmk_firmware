@@ -66,8 +66,10 @@ extern keymap_config_t keymap_config;
 #endif
 
 #ifdef BLUETOOTH_ENABLE
-#    ifdef MODULE_ADAFRUIT_BLE
+#    ifdef MODULE_ADAFRUIT_BLE_SPI
 #        include "adafruit_ble.h"
+#    elif MODULE_ADAFRUIT_BLE_UART
+#        include "bluefruit_le/BluefruitLE_UART.h"
 #    else
 #        include "bluetooth.h"
 #    endif
@@ -557,9 +559,9 @@ static void send_keyboard(report_keyboard_t *report) {
 
 #ifdef BLUETOOTH_ENABLE
     if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
-#    ifdef MODULE_ADAFRUIT_BLE
+#    if defined(MODULE_ADAFRUIT_BLE_SPI) || defined(MODULE_ADAFRUIT_BLE_UART)
         adafruit_ble_send_keys(report->mods, report->keys, sizeof(report->keys));
-#    elif MODULE_RN42
+#    elif defined(MODULE_RN42)
         bluefruit_serial_send(0xFD);
         bluefruit_serial_send(0x09);
         bluefruit_serial_send(0x01);
@@ -621,7 +623,7 @@ static void send_mouse(report_mouse_t *report) {
 
 #    ifdef BLUETOOTH_ENABLE
     if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
-#        ifdef MODULE_ADAFRUIT_BLE
+#        if defined(MODULE_ADAFRUIT_BLE_SPI) || defined(MODULE_ADAFRUIT_BLE_UART)
         // FIXME: mouse buttons
         adafruit_ble_send_mouse_move(report->x, report->y, report->v, report->h, report->buttons);
 #        else
@@ -699,9 +701,9 @@ static void send_consumer(uint16_t data) {
 
 #    ifdef BLUETOOTH_ENABLE
     if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
-#        ifdef MODULE_ADAFRUIT_BLE
+#        if defined(MODULE_ADAFRUIT_BLE_SPI) || defined(MODULE_ADAFRUIT_BLE_UART)
         adafruit_ble_send_consumer_key(data, 0);
-#        elif MODULE_RN42
+#        elif defined(MODULE_RN42)
         static uint16_t last_data = 0;
         if (data == last_data) return;
         last_data       = data;
@@ -992,7 +994,7 @@ int main(void) {
         MIDI_Device_USBTask(&USB_MIDI_Interface);
 #endif
 
-#ifdef MODULE_ADAFRUIT_BLE
+#if defined(MODULE_ADAFRUIT_BLE_SPI) || defined(MODULE_ADAFRUIT_BLE_UART)
         adafruit_ble_task();
 #endif
 

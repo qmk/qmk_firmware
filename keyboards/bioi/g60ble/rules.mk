@@ -18,7 +18,7 @@ BOOTLOADER = qmk-dfu
 #   comment out to disable the options.
 #
 BOOTMAGIC_ENABLE = lite    # Virtual DIP switch configuration
-MOUSEKEY_ENABLE = yes      # Mouse keys
+MOUSEKEY_ENABLE = no       # Mouse keys
 EXTRAKEY_ENABLE = yes      # Audio control and System control
 CONSOLE_ENABLE = no        # Console for debug
 COMMAND_ENABLE = yes       # Commands for debug and configuration
@@ -27,5 +27,6 @@ NKRO_ENABLE = yes          # USB Nkey Rollover - if this doesn't work, see here:
 BACKLIGHT_ENABLE = yes     # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes
 LTO_ENABLE = yes
+BLUETOOTH = AdafruitBLEUART
 
 LAYOUTS = 60_ansi 60_iso 60_hhkb 60_ansi_split_bs_rshift 60_tsangan_hhkb

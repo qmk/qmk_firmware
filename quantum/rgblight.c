@@ -227,6 +227,14 @@ void rgblight_init(void) {
     is_rgblight_initialized = true;
 }
 
+void rgblight_restore_from_eeprom(void) {
+    if (!is_rgblight_initialized) return;
+    rgblight_config.raw = eeconfig_read_rgblight();
+    if (rgblight_config.enable) {
+        rgblight_mode_noeeprom(rgblight_config.mode);
+    }
+}
+
 uint32_t rgblight_read_dword(void) { return rgblight_config.raw; }
 
 void rgblight_update_dword(uint32_t dword) {

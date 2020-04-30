@@ -38,10 +38,18 @@ POSSIBILITY OF SUCH DAMAGE.
 #ifndef SERIAL_H
 #define SERIAL_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* host role */
 void    serial_init(void);
 uint8_t serial_recv(void);
 int16_t serial_recv2(void);
 void    serial_send(uint8_t data);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

@@ -287,6 +287,33 @@ static void print_eeconfig(void) {
     print("\n");
 #    endif /* BACKLIGHT_ENABLE */
 
+#   ifdef RGBLIGHT_ENABLE
+    rgblight_config_t rgb;
+    rgb.speed = 0;
+    rgb.raw = eeconfig_read_rgblight();
+    print("rgblight_config.raw: ");
+    print_hex8(rgb.raw);
+    print("\n");
+    print(".enable: ");
+    print_dec(rgb.enable);
+    print("\n");
+    print(".mode: ");
+    print_dec(rgb.mode);
+    print("\n");
+    print(".hue: ");
+    print_dec(rgb.hue);
+    print("\n");
+    print(".sat: ");
+    print_dec(rgb.sat);
+    print("\n");
+    print(".val: ");
+    print_dec(rgb.val);
+    print("\n");
+    print(".speed: ");
+    print_dec(rgb.speed);
+    print("\n");
+#   endif /* RGBLIGHT_ENABLE */
+
 #endif /* !NO_PRINT */
 }
 

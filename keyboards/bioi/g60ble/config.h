@@ -48,3 +48,6 @@
 
 #define KEYBOARD_LOCK_ENABLE
 #define MAGIC_KEY_LOCK L
+#define AdafruitBleBaud 76800
+// #define AdafruitBleBattery
+#define OUTPUT_AUTO_ENABLE
