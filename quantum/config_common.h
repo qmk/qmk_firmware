@@ -63,6 +63,9 @@
 #        define PINB_ADDRESS 0x3
 #        define PINC_ADDRESS 0x6
 #        define PIND_ADDRESS 0x9
+#    elif defined(__AVR_ATtiny85__)
+#        define ADDRESS_BASE 0x10
+#        define PINB_ADDRESS 0x6
 #    else
 #        error "Pins are not defined"
 #    endif

@@ -24,15 +24,21 @@ section at the end of this file).
 
 /* ---------------------------- Hardware Config ---------------------------- */
 
+#ifndef USB_CFG_IOPORTNAME
 #define USB_CFG_IOPORTNAME      D
+#endif
 /* This is the port where the USB bus is connected. When you configure it to
  * "B", the registers PORTB, PINB and DDRB will be used.
  */
+#ifndef USB_CFG_DMINUS_BIT
 #define USB_CFG_DMINUS_BIT      3
+#endif
 /* This is the bit number in USB_CFG_IOPORT where the USB D- line is connected.
  * This may be any bit in the port.
  */
+#ifndef USB_CFG_DPLUS_BIT
 #define USB_CFG_DPLUS_BIT       2
+#endif
 /* This is the bit number in USB_CFG_IOPORT where the USB D+ line is connected.
  * This may be any bit in the port. Please note that D+ must also be connected
  * to interrupt pin INT0! [You can also use other interrupts, see section
@@ -40,15 +46,6 @@ section at the end of this file).
  * it is required if you use the USB_COUNT_SOF feature. If you use D- for the
  * interrupt, the USB interrupt will also be triggered at Start-Of-Frame
  * markers every millisecond.]
- */
-#define USB_CFG_CLOCK_KHZ       (F_CPU/1000)
-/* Clock rate of the AVR in kHz. Legal values are 12000, 12800, 15000, 16000,
- * 16500, 18000 and 20000. The 12.8 MHz and 16.5 MHz versions of the code
- * require no crystal, they tolerate +/- 1% deviation from the nominal
- * frequency. All other rates require a precision of 2000 ppm and thus a
- * crystal!
- * Since F_CPU should be defined to your actual clock rate anyway, you should
- * not need to modify this setting.
  */
 #define USB_CFG_CHECK_CRC       0
 /* Define this to 1 if you want that the driver checks integrity of incoming
@@ -160,7 +157,9 @@ section at the end of this file).
 /* This macro (if defined) is executed when a USB SET_ADDRESS request was
  * received.
  */
+#ifndef USB_COUNT_SOF
 #define USB_COUNT_SOF                   1
+#endif
 /* define this macro to 1 if you need the global variable "usbSofCount" which
  * counts SOF packets. This feature requires that the hardware interrupt is
  * connected to D- instead of D+.
@@ -226,19 +225,6 @@ section at the end of this file).
  * This template uses obdev's shared VID/PID pair for Vendor Class devices
  * with libusb: 0x16c0/0x5dc.  Use this VID/PID pair ONLY if you understand
  * the implications!
- */
-#define USB_CFG_DEVICE_CLASS        0
-#define USB_CFG_DEVICE_SUBCLASS     0
-/* See USB specification if you want to conform to an existing device class.
- * Class 0xff is "vendor specific".
- */
-#define USB_CFG_INTERFACE_CLASS     3   /* HID */
-#define USB_CFG_INTERFACE_SUBCLASS  1   /* Boot */
-#define USB_CFG_INTERFACE_PROTOCOL  1   /* Keyboard */
-/* See USB specification if you want to conform to an existing device class or
- * protocol. The following classes must be set at interface level:
- * HID class is 3, no subclass and protocol required (but may be useful!)
- * CDC class is 2, use subclass 2 and protocol 1 for ACM
  */
 #define USB_CFG_HID_REPORT_DESCRIPTOR_LENGTH    0
 /* Define this to the length of the HID report descriptor, if you implement
@@ -343,10 +329,18 @@ section at the end of this file).
 
 /* Set INT1 for D- falling edge to count SOF */
 /* #define USB_INTR_CFG            EICRA */
+#ifndef USB_INTR_CFG_SET
 #define USB_INTR_CFG_SET        ((1 << ISC11) | (0 << ISC10))
+#endif
 /* #define USB_INTR_CFG_CLR        0 */
 /* #define USB_INTR_ENABLE         EIMSK */
+#ifndef USB_INTR_ENABLE_BIT
 #define USB_INTR_ENABLE_BIT     INT1
+#endif
 /* #define USB_INTR_PENDING        EIFR */
+#ifndef USB_INTR_PENDING_BIT
 #define USB_INTR_PENDING_BIT    INTF1
+#endif
+#ifndef USB_INTR_VECTOR
 #define USB_INTR_VECTOR         INT1_vect
+#endif

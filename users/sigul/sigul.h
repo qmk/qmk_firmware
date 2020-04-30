@@ -35,7 +35,6 @@ enum userspace_custom_keycodes {
 #define RAISE TT(_RAISE)
 #define NUMPAD TG(_NUMPAD)
 #define FN MO(_FN)
-#define MOUSE TT(_MOUSE)
 #define TABFN LT(_FN, KC_TAB)
 #define ESCFN LT(_FN, KC_ESC)
 #define MS_B LT(_MOUSE, IT_B)
