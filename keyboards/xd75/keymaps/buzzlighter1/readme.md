@@ -1,15 +1,14 @@
 # XD75 with 7U spacebar for EN-RU gamers
+ * Standard QWERTY made for gamers with a Russian alternative input.
+ * The keys for extra letters in RU alphabet are where they are expected.
+ * Full 2x4 nav cluster.
+ * Volume/mute control are on base layer, Win key is on function layer.
+ * FN_CAPS provides fast F-keys access while gaming. Lefthanded Numpad operation.
+ * NKRO is on (forced).
 
-Standard QWERTY made for gamers with a Russian alternative input.
-The keys for extra letters in RU alphabet are where they are expected.
-Full 2x4 nav cluster. 
-Volume/mute control are on base layer, Win key is on function layer.
-FN_CAPS provides fast F-keys access while gaming. Lefthanded Numpad operation.
-NKRO is working (forced).
-
-## QWERTY
-
+## Layout
 ```c
+/* QWERTY
  * .--------------------------------------------------------------------------------------------------------------------------------------.
  * | GESC   | 1      | 2      | 3      | 4      | 5      | 6      | 7      | 8      | 9      | 0      | -      | =      | Del    | BACKSP |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
@@ -21,12 +20,10 @@ NKRO is working (forced).
  * |--------+--------+--------+--------+--------+-----------------+--------+--------+--------+--------+-----------------+--------+--------|
  * | LCTRL  | Del    | ENTER  | LALT   |                             SPACE                            | End    | LEFT   | DOWN   | RIGHT  |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
-
+ */
 ```
-
-## FUNCTION
-
 ```c
+/* FUNCTION
  * .--------------------------------------------------------------------------------------------------------------------------------------.
  * | XXXXXXX| F1     | F2     | F3     | F4     | F5     | F6     | F7     | F8     | F9     | F10    | F11    | F12    | _______| _______|
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
@@ -38,10 +35,20 @@ NKRO is working (forced).
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * | _______| P0     | P.     | PENT   |                             SPACE                            | BL_TOGG| RGB TG | RGB RMD| RGB MD |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
+ */
 ```
-
-
-## LEDs ID
-
+## LEDs
 Top left LED - Function layer active.
 Mid left LED - CapsLock active.
+
+## Compile
+
+go to qmk top directory.
+```
+$ cd qmk_firmware
+```
+
+build
+```
+$ make xd75:buzzlighter1
+```
