@@ -9,20 +9,19 @@ uint8_t rgb_sat;
 uint8_t rgb_val;
 bool rgb_saved = 0;
 
-void spidey_swirl(void) {
-  dprint("Setting Spidey Swirl!\n");
-  rgblight_enable();
-  rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
-  rgblight_sethsv(213, 255, 128);
+void spidey_glow(void) {
+    rgblight_enable();
+    rgblight_mode(RGBLIGHT_MODE_TWINKLE+4);
+    rgblight_sethsv(213, 255, 128);
 #ifdef VELOCIKEY_ENABLE
-  if (!velocikey_enabled())
-	velocikey_toggle();
+    if (velocikey_enabled())
+        velocikey_toggle();
 #endif
 }
 
 void eeconfig_init_user_rgb(void)
 {
-  spidey_swirl();
+  spidey_glow();
 }
 
 // Convenience macros
@@ -135,7 +134,7 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
             case SPI_GLO:
-                spidey_swirl();
+                spidey_glow();
                 return false;
         }
     }
