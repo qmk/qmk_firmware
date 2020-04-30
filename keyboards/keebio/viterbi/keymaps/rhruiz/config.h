@@ -36,6 +36,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
 
+#define NO_ACTION_ONESHOT
+
+#undef TAPPING_TERM
+#define TAPPING_TERM 150
+#define PERMISSIVE_HOLD
+#define IGNORE_MOD_TAP_INTERRUPT
+
+// bootmagic
+
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 1
+
+// bootloader
+
 #ifdef KEYBOARD_keebio_viterbi_rev1
 #define QMK_ESC_OUTPUT F5 // usually COL
 #endif
