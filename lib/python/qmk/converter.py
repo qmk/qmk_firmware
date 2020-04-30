@@ -23,6 +23,10 @@ def kle2qmk(kle):
                 qmk_key['w'] = key['width']
             if key['height'] != 1:
                 qmk_key['h'] = key['height']
+            if 'r' in key and key['r'] != 0:
+                qmk_key['r'] = key['r'];
+                qmk_key['rx'] = key.get('rx', 0);
+                qmk_key['ry'] = key.get('ry', 0);
             if 'name' in key and key['name']:
                 qmk_key['label'] = key['name'].split('\n', 1)[0]
             else:

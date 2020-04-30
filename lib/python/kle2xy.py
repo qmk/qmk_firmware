@@ -14,7 +14,20 @@ class KLE2xy(list):
         self.name = name
         self.invert_y = invert_y
         self.key_width = Decimal('19.05')
-        self.key_skel = {'decal': False, 'border_color': 'none', 'keycap_profile': '', 'keycap_color': 'grey', 'label_color': 'black', 'label_size': 3, 'label_style': 4, 'width': Decimal('1'), 'height': Decimal('1')}
+        self.key_skel = {
+            'decal': False,
+            'border_color': 'none',
+            'keycap_profile': '',
+            'keycap_color': 'grey',
+            'label_color': 'black',
+            'label_size': 3,
+            'label_style': 4,
+            'width': Decimal('1'),
+            'height': Decimal('1'),
+            'r': Decimal('0'),
+            'rx': Decimal('0'),
+            'ry': Decimal('0')
+        }
         self.rows = Decimal(0)
         self.columns = Decimal(0)
 
@@ -88,6 +101,12 @@ class KLE2xy(list):
                         if key['t'] == "0":
                             key['t'] = "#000000"
                         current_key['label_color'] = self.key_skel['label_color'] = key['t']
+                    if 'r' in key:
+                        current_key['r'] = self.key_skel['r'] = Decimal(key['r'])
+                    if 'rx' in key:
+                        current_col = current_key['rx'] = self.key_skel['rx'] = Decimal(key['rx'])
+                    if 'ry' in key:
+                        current_row = current_key['ry'] = self.key_skel['ry'] = Decimal(key['ry'])
                     if 'x' in key:
                         current_col += Decimal(key['x'])
                     if 'y' in key:
@@ -97,8 +116,8 @@ class KLE2xy(list):
 
                 else:
                     current_key['name'] = key
-                    current_key['row'] = round(current_row, 2)
-                    current_key['column'] = round(current_col, 2)
+                    current_key['row'] = round(current_row, 3)
+                    current_key['column'] = round(current_col, 3)
 
                     # x,y (units mm) is the center of the key
                     x_center = current_col + current_key['width'] / 2
@@ -120,7 +139,7 @@ class KLE2xy(list):
                     current_key = self.key_skel.copy()
 
             # Move to the next row
-            current_col = Decimal(0)
+            current_col = self.key_skel['ry']
             current_row += Decimal(1)
             if current_row > self.rows:
                 self.rows = Decimal(current_row)
