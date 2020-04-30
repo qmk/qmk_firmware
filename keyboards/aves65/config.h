@@ -20,11 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-<<<<<<< HEAD
 #define VENDOR_ID       0x9991
-=======
-#define VENDOR_ID       0xFEED
->>>>>>> 8ab76dec206113306916cc5e4298b3f563d6ffa7
 #define PRODUCT_ID      0x9038
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    I/O Keyboards
