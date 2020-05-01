@@ -1,28 +1,18 @@
-name: CLI CI
+name: Sync Fork
 
 on:
-  push:
-    branches:
-    - master
-    - future
-  pull_request:
-    paths:
-    - 'lib/python/**'
-    - 'bin/qmk'
-    - 'requirements.txt'
-    - '.github/workflows/cli.yml'
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
-  test:
+  sync:
+
     runs-on: ubuntu-latest
 
-    container: qmkfm/base_container
-
     steps:
-    - uses: actions/checkout@v2
-      with:
-        submodules: recursive
-    - name: Install dependencies
-      run: pip3 install -r requirements.txt
-    - name: Run tests
-      run: bin/qmk pytest
+      - uses: TG908/fork-sync@v1.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          owner: qmk
+          base: master
+          head: master
