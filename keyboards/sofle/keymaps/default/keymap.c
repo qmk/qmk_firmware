@@ -257,43 +257,54 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_PRVWD:
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
-                    register_code16(A(KC_LEFT));
+                    register_mods(mod_config(MOD_LALT));
+                    register_code(KC_LEFT);
                 } else {
-                    register_code16(C(KC_LEFT));
+                    register_mods(mod_config(MOD_LCTL));
+                    register_code(KC_LEFT);
                 }
             } else {
                 if (keymap_config.swap_lctl_lgui) {
-                    unregister_code16(A(KC_LEFT));
+                    unregister_mods(mod_config(MOD_LALT));
+                    unregister_code(KC_LEFT);
                 } else {
-                    unregister_code16(C(KC_LEFT));
+                    unregister_mods(mod_config(MOD_LCTL));
+                    unregister_code(KC_LEFT);
                 }
             }
             break;
         case KC_NXTWD:
-            if (record->event.pressed) {
+             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
-                    register_code16(A(KC_RIGHT));
+                    register_mods(mod_config(MOD_LALT));
+                    register_code(KC_RIGHT);
                 } else {
-                    register_code16(C(KC_RIGHT));
+                    register_mods(mod_config(MOD_LCTL));
+                    register_code(KC_RIGHT);
                 }
             } else {
                 if (keymap_config.swap_lctl_lgui) {
-                    unregister_code16(A(KC_RIGHT));
+                    unregister_mods(mod_config(MOD_LALT));
+                    unregister_code(KC_RIGHT);
                 } else {
-                    unregister_code16(C(KC_RIGHT));
+                    unregister_mods(mod_config(MOD_LCTL));
+                    unregister_code(KC_RIGHT);
                 }
             }
             break;
         case KC_LSTRT:
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
-                    register_code16(G(KC_LEFT));
+                     //CMD-arrow on Mac, but we have CTL and GUI swapped
+                    register_mods(mod_config(MOD_LCTL));
+                    register_code(KC_LEFT);
                 } else {
                     register_code(KC_HOME);
                 }
             } else {
                 if (keymap_config.swap_lctl_lgui) {
-                    unregister_code16(G(KC_LEFT));
+                    unregister_mods(mod_config(MOD_LCTL));
+                    unregister_code(KC_LEFT);
                 } else {
                     unregister_code(KC_HOME);
                 }
@@ -302,13 +313,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_LEND:
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
-                    register_code16(G(KC_RIGHT));
+                    //CMD-arrow on Mac, but we have CTL and GUI swapped
+                    register_mods(mod_config(MOD_LCTL));
+                    register_code(KC_RIGHT);
                 } else {
                     register_code(KC_END);
                 }
             } else {
                 if (keymap_config.swap_lctl_lgui) {
-                    unregister_code16(G(KC_RIGHT));
+                    unregister_mods(mod_config(MOD_LCTL));
+                    unregister_code(KC_RIGHT);
                 } else {
                     unregister_code(KC_END);
                 }
@@ -316,80 +330,50 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case KC_DLINE:
             if (record->event.pressed) {
-                if (keymap_config.swap_lctl_lgui) {
-                    register_code16(G(KC_BSPC));
-                } else {
-                    register_code16(C(KC_BSPC));
-                }
+                register_mods(mod_config(MOD_LCTL));
+                register_code(KC_BSPC);
             } else {
-                if (keymap_config.swap_lctl_lgui) {
-                    unregister_code16(G(KC_BSPC));
-                } else {
-                    unregister_code16(C(KC_BSPC));
-                }
+                unregister_mods(mod_config(MOD_LCTL));
+                unregister_code(KC_BSPC);
             }
             break;
         case KC_COPY:
             if (record->event.pressed) {
-                if (keymap_config.swap_lctl_lgui) {
-                    register_code16(G(KC_C));
-                } else {
-                    register_code16(C(KC_C));
-                }
+                register_mods(mod_config(MOD_LCTL));
+                register_code(KC_C);
             } else {
-                if (keymap_config.swap_lctl_lgui) {
-                    unregister_code16(G(KC_C));
-                } else {
-                    unregister_code16(C(KC_C));
-                }
+                unregister_mods(mod_config(MOD_LCTL));
+                unregister_code(KC_C);
             }
             return false;
             break;
         case KC_PASTE:
             if (record->event.pressed) {
-                if (keymap_config.swap_lctl_lgui) {
-                    register_code16(G(KC_V));
-                } else {
-                    register_code16(C(KC_V));
-                }
+                register_mods(mod_config(MOD_LCTL));
+                register_code(KC_V);
             } else {
-                if (keymap_config.swap_lctl_lgui) {
-                    unregister_code16(G(KC_V));
-                } else {
-                    unregister_code16(C(KC_V));
-                }
+                unregister_mods(mod_config(MOD_LCTL));
+                unregister_code(KC_V);
             }
             return false;
             break;
         case KC_CUT:
             if (record->event.pressed) {
-                if (keymap_config.swap_lctl_lgui) {
-                    register_code16(G(KC_X));
-                } else {
-                    register_code16(C(KC_X));
-                }
+                register_mods(mod_config(MOD_LCTL));
+                register_code(KC_X);
             } else {
-                if (keymap_config.swap_lctl_lgui) {
-                    unregister_code16(G(KC_X));
-                } else {
-                    unregister_code16(C(KC_X));
-                }
+                unregister_mods(mod_config(MOD_LCTL));
+                unregister_code(KC_X);
             }
             return false;
             break;
         case KC_UNDO:
             if (record->event.pressed) {
-                if (keymap_config.swap_lctl_lgui) {
-                    register_code16(G(KC_Z));
-                } else {
-                    register_code16(C(KC_Z));
-                }
+                register_mods(mod_config(MOD_LCTL));
+                register_code(KC_Z);
             } else {
-                if (keymap_config.swap_lctl_lgui) {
-                    unregister_code16(G(KC_Z));
-                } else {
-                    unregister_code16(C(KC_Z));
-                }
+                unregister_mods(mod_config(MOD_LCTL));
+                unregister_code(KC_Z);
             }
             return false;
             break;
