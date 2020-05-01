@@ -282,23 +282,13 @@ static const DACConfig dac_conf = {.init = AUDIO_DAC_OFF_VALUE, .datamode = DAC_
 static const DACConversionGroup dac_conv_cfg = {.num_channels = 1U, .end_cb = dac_end, .error_cb = dac_error, .trigger = DAC_TRG(0b000)};
 
 void audio_driver_initialize() {
-#if defined(AUDIO_PIN_A4)
+#if defined(AUDIO_PIN_A4) || defined(AUDIO_PIN_ALT_A4)
     palSetLineMode(A4, PAL_MODE_INPUT_ANALOG);
     dacStart(&DACD1, &dac_conf);
-    dacStartConversion(&DACD1, &dac_conv_cfg, dac_buffer_empty, AUDIO_DAC_BUFFER_SIZE);
-#elif defined(AUDIO_PIN_A5)
+#endif
+#if defined(AUDIO_PIN_A5) || defined(AUDIO_PIN_ALT_A5)
     palSetLineMode(A5, PAL_MODE_INPUT_ANALOG);
     dacStart(&DACD2, &dac_conf);
-    dacStartConversion(&DACD2, &dac_conv_cfg, dac_buffer_empty, AUDIO_DAC_BUFFER_SIZE);
-#endif
-
-// no inverted/out-of-phase waveform (yet?), only pulling AUDIO_PIN_ALT_x to ground
-#if defined(AUDIO_PIN_ALT_A4) && defined(AUDIO_PIN_ALT_AS_NEGATIVE)
-    palSetLineMode(A4, PAL_MODE_OUTPUT_PUSHPULL);
-    palClearLine(A4);
-#elif defined(AUDIO_PIN_ALT_A5) && defined(AUDIO_PIN_ALT_AS_NEGATIVE)
-    palSetLineMode(A5, PAL_MODE_OUTPUT_PUSHPULL);
-    palClearLine(A5);
 #endif
 
     /* enable the output buffer, to directly drive external loads with no additional circuitry
@@ -314,6 +304,20 @@ void audio_driver_initialize() {
     DACD1.params->dac->CR &= ~DAC_CR_BOFF1;
 #elif defined(AUDIO_PIN_A5)
     DACD2.params->dac->CR &= ~DAC_CR_BOFF2;
+#endif
+
+
+#if defined(AUDIO_PIN_A4)
+    dacStartConversion(&DACD1, &dac_conv_cfg, dac_buffer_empty, AUDIO_DAC_BUFFER_SIZE);
+#elif defined(AUDIO_PIN_A5)
+    dacStartConversion(&DACD2, &dac_conv_cfg, dac_buffer_empty, AUDIO_DAC_BUFFER_SIZE);
+#endif
+
+    // no inverted/out-of-phase waveform (yet?), only pulling AUDIO_PIN_ALT_x to AUDIO_DAC_OFF_VALUE
+#if defined(AUDIO_PIN_ALT_A4) && defined(AUDIO_PIN_ALT_AS_NEGATIVE)
+    dacPutChannelX(&DACD1, 0, AUDIO_DAC_OFF_VALUE);
+#elif defined(AUDIO_PIN_ALT_A5) && defined(AUDIO_PIN_ALT_AS_NEGATIVE)
+    dacPutChannelX(&DACD2, 0, AUDIO_DAC_OFF_VALUE);
 #endif
 
     gptStart(&GPTD6, &gpt6cfg1);
