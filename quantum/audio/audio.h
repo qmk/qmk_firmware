@@ -98,7 +98,7 @@ bool audio_is_on(void);
 
 
 /**
- * @bried start playback of a tone with the given frequency and duration
+ * @brief start playback of a tone with the given frequency and duration
  *
  * @details starts the playback of a given note, wich is automatically stopped
  *          at the the end of its duration = fire&forget
@@ -112,7 +112,7 @@ void audio_play_note(float pitch, uint16_t duration);
 // audio_play_note_with_instrument ifdef AUDIO_ENABLE_VOICES
 
 /**
- * @bried start playback of a tone with the given frequency
+ * @brief start playback of a tone with the given frequency
  *
  * @details the 'frequency' is put ontop the internal stack of active tones,
  *          as a new tone with indefinite duration. this tone is played by
