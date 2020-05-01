@@ -44,6 +44,13 @@ for two piezos, for example configured as `AUDIO_PIN_A4` and `AUDIO_PIN_ALT_A5` 
 another alternative is to drive *one* piezo with both DAC pins - for an extra "push".
 wiring red to A4 and black to A5 (or the other way round) and add `#define AUDIO_PIN_ALT_AS_NEGATIVE` to `config.h`
 
+##### Proton-C Example:
+The Proton-C comes (optionally) with one 'builtin' piezo, which is wired to A4+A5.
+For this board `config.h` would include these defines:
+`#define AUDIO_PIN_A5`
+`#define AUDIO_PIN_ALT_A4`
+`#define AUDIO_PIN_ALT_AS_NEGATIVE`
+
 
 ### DAC (additive)
 Another option, besides dac_basic (which produces sound through a squarewave), is to use the DAC to do additive wave synthesis.
