@@ -90,7 +90,7 @@ static uint8_t active_tones_snapshot_length                        = 0;
 
 typedef enum {
     OUTPUT_SHOULD_START,
-    OUTPUT_RUN_NORMALY,
+    OUTPUT_RUN_NORMALLY,
     // path 1: wait for zero, then change/update active tones
     OUTPUT_TONES_CHANGED,
     OUTPUT_REACHED_ZERO_BEFORE_TONE_CHANGE,
@@ -202,7 +202,7 @@ static void dac_end(DACDriver *dacp) {
             (sample_p[s] < (AUDIO_DAC_OFF_VALUE + (AUDIO_DAC_SAMPLE_MAX / 100))) // or above
              ) {
             if ((OUTPUT_SHOULD_START == state) && (active_tones_snapshot_length > 0)) {
-                state = OUTPUT_RUN_NORMALY;
+                state = OUTPUT_RUN_NORMALLY;
             } else if (OUTPUT_TONES_CHANGED == state) {
                 state = OUTPUT_REACHED_ZERO_BEFORE_TONE_CHANGE;
             } else if (OUTPUT_SHOULD_STOP == state) {
@@ -231,7 +231,7 @@ static void dac_end(DACDriver *dacp) {
                 state = OUTPUT_OFF;
             }
             if (OUTPUT_REACHED_ZERO_BEFORE_TONE_CHANGE == state) {
-                state = OUTPUT_RUN_NORMALY;
+                state = OUTPUT_RUN_NORMALLY;
             }
         }
     }
