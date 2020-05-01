@@ -75,6 +75,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       break;
+    case KC_DEL:
+      if (record->event.pressed && !is_win) {
+        uint8_t mod_state = get_mods() & MOD_MASK_CTRL;
+        if (get_mods() & mod_state) {
+          del_mods(mod_state);
+          add_mods(MOD_LALT);
+          mac_ctrl_on = true;
+        }
+      }
+      break;
     case KC_LALT:
     case KC_RALT:
       if (!record->event.pressed && !is_win && mac_alt_tab_on) {
@@ -216,7 +226,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     //   break;
     case TILD_BLOCK:
       if (record->event.pressed) {
-        SEND_STRING("```" SS_TAP(X_ENTER) SS_TAP(X_ENTER) "```" SS_TAP(X_UP));
+        SEND_STRING("```" SS_DOWN(X_LSHIFT) SS_TAP(X_ENTER) SS_TAP(X_ENTER) SS_UP(X_LSHIFT) "```" SS_TAP(X_UP));
         char_to_del = 4;
       }
       break;
