@@ -31,3 +31,5 @@ RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 LINK_TIME_OPTIMIZATION_ENABLE = yes
 SPLIT_KEYBOARD = yes
+
+DEFAULT_FOLDER = keebio/sinc/rev1
