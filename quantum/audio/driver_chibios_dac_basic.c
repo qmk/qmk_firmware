@@ -25,16 +25,27 @@
 
   this driver can either be used to drive to separate speakers, wired to A4+Gnd and A5+Gnd, which allows two tones to be played simultaniously
   OR
-  one speaker wired to A4+A5 with hte AUDIO_PIN_ALT_AS_NEGATIVE define set - see docs/feature_audio
+  one speaker wired to A4+A5 with the AUDIO_PIN_ALT_AS_NEGATIVE define set - see docs/feature_audio
 
-TODOS:
-- channel_X_stop should respect dac conversion buffer-complete; currently the output might end up 'high' = halfway through a sample conversion
 */
 
-#if !defined(AUDIO_PIN_A4) && !defined(AUDIO_PIN_A5) && !defined(AUDIO_PIN_ALT_A4) && !defined(AUDIO_PIN_ALT_A5)
+#if !defined(AUDIO_PIN_A4) && !defined(AUDIO_PIN_A5)
 #    pragma message "Audio feature enabled, but no suitable pin selected as AUDIO_PIN_x or AUDIO_PIN_ALT_x - see docs/feature_audio under 'ARM (DAC basic)' for available options."
 // TODO: make this an 'error' instead; go through a breaking change, and add AUDIO_PIN_A5 to all keyboards currently using AUDIO on STM32 based boards?
 #endif
+// check configuration for ONE speaker, connected to both DAC pins
+#if defined (AUDIO_PIN_ALT_AS_NEGATIVE)
+#    if !defined(AUDIO_PIN_ALT_A4) && !defined(AUDIO_PIN_ALT_A5)
+#        error "Audio feature: AUDIO_PIN_ALT_AS_NEGATIVE set, but no pin configured as AUDIO_PIN_ALT_x."
+#    endif
+#    if defined (AUDIO_PIN_A4) && defined (AUDIO_PIN_A5)
+#        error "Audio feature: with AUDIO_PIN_ALT_AS_NEGATIVE, only one pin can be configured as AUDIO_PIN_x."
+#    endif
+#    if defined (AUDIO_PIN_ALT_A4) && defined (AUDIO_PIN_ALT_A5)
+#        error "Audio feature: with AUDIO_PIN_ALT_AS_NEGATIVE, only one pin can be configured as AUDIO_PIN_ALT_x."
+#    endif
+#endif
+// check configuration for TWO speaker setup
 #if defined(AUDIO_PIN_A4) && defined(AUDIO_PIN_ALT_A4)
 #    error "Audio feature: please set either AUDIO_PIN_A4 or AUDIO_PIN_ALT_A4, not both."
 #endif

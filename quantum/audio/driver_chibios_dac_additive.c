@@ -37,6 +37,9 @@
 #if defined(AUDIO_PIN_ALT_A4) && defined(AUDIO_PIN_ALT_A5)
 #    error "Audio feature: please set either AUDIO_PIN_ALT_A4 or AUDIO_PIN_ALT_A5, not both."
 #endif
+#if !defined(AUDIO_PIN_ALT_AS_NEGATIVE) && (defined (AUDIO_PIN_ALT_A4) || defined(AUDIO_PIN_ALT_A5))
+#    pragma message "Audio feature: AUDIO_PIN_ALT_x set, but not AUDIO_PIN_ALT_AS_NEGATIVE - pin will be left unused; audio might still work though."
+#endif
 
 
 #if !defined(AUDIO_DAC_SAMPLE_WAVEFORM_SINE) && !defined(AUDIO_DAC_SAMPLE_WAVEFORM_TRIANGLE) && !defined(AUDIO_DAC_SAMPLE_WAVEFORM_SQUARE) && !defined(AUDIO_DAC_SAMPLE_WAVEFORM_TRAPEZOID)
