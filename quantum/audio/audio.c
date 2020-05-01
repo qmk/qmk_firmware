@@ -365,25 +365,6 @@ float audio_get_processed_frequency(uint8_t tone_index) {
         return 0.0f;
     }
 
-    /*
-        // TODO make it work and test, currently probably non-functional because it needs some state to keep track of previous tones, the current tone position ...?
-        if (glissando) {  // see voices.c
-            if (frequency != 0 && frequency < frequencies[index] && frequency < frequencies[index] * pow(2, -440 / frequencies[index] / 12 / 2)) {
-                frequency = frequency * pow(2, 440 / frequency / 12 / 2);
-            } else if (frequency != 0 && frequency > frequencies[index] && frequency > frequencies[index] * pow(2, 440 / frequencies[index] / 12 / 2)) {
-                frequency = frequency * pow(2, -440 / frequency / 12 / 2);
-            } else {
-                frequency = frequencies[index];
-            }
-        } else {
-            frequency = frequencies[index];
-        }
-
-        frequency = voice_envelope(frequency);
-
-        return frequency;
-    */
-
     return voice_envelope(tones[index].pitch);
 }
 
@@ -426,6 +407,14 @@ bool audio_update_state(void) {
                 note_resting = false;
 
                 // TODO: handle glissando here (or remember previous and current tone)
+                /* there would need to be a freq(here we are) -> freq(next note)
+                 * and do slide/glissando inbetween problem here is to know which
+                 * frequency on the stack relates to what other? e.g. a melody starts
+                 * tones in a sequence, and stops expiring one, so the most recently
+                 * stopped is the starting point for a glissando to the most recently started?
+                 * how to detect and preserve this relation?
+                 * and what about user input, chords, ...?
+                 */
 
                 // '- delta': Skip forward in the next note's length if we'vv over shot
                 //            the last, so the overall length of the song is the same
