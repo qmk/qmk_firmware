@@ -1,4 +1,5 @@
-/*Copyright 2019 coseyfannitutti
+/*
+Copyright 2020 Eric Lau
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,16 +19,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x6B62
-#define PRODUCT_ID      0x6869
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    coseyfannitutti
-#define PRODUCT         DISCIPLINE
-#define DESCRIPTION     65% keyboard that can be assembled with only through hole components
+/* USB Device descriptor parameter */
+#define VENDOR_ID 0xFEED
+#define PRODUCT_ID 0x0000
+#define DEVICE_VER 0x0001
+#define MANUFACTURER Eric Lau
+#define PRODUCT NumDiscipline
+#define DESCRIPTION A custom keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
-#define MATRIX_COLS 15
+#define MATRIX_COLS 18
 
 /*
  * Keyboard Matrix Assignments
@@ -41,7 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #define MATRIX_ROW_PINS { B2, A1, B1, A0, B0 }
-#define MATRIX_COL_PINS { A2, B3, A3, B4, A4, D5, D6, C6, C5, C4, C3, C2, C1, C0, D7 }
+#define MATRIX_COL_PINS { A2, B3, A3, B4, A4, D5, D6, C6, C5, C4, C3, C2, C1, C0, D7, A5, A6, A7 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
@@ -244,4 +246,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Bootmagic Lite key configuration */
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 0
-
