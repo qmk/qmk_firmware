@@ -14,11 +14,19 @@ static const char lc[][4][3] PROGMEM = {
     [_BL]      = {{0x20, 0x20, 0}, {0x20, 0x20, 0}, {0x20, 0x20, 0}, {0x20, 0x20, 0}},
     [_FN1]     = {{0x20, 0x20, 0}, {0xb2, 0xb3, 0}, {0x92, 0x93, 0}, {0x20, 0x20, 0}},
     [_FN2]     = {{0x20, 0x20, 0}, {0x92, 0x93, 0}, {0xb2, 0xb3, 0}, {0x20, 0x20, 0}},
-    [_CFG]     = {{0x82, 0x83, 0}, {0xa2, 0xa3, 0}, {0xc2, 0xc3, 0}, {0x82, 0x83, 0}},
+    [_CFG]     = {{0x80, 0x81, 0}, {0xa0, 0xa1, 0}, {0xc0, 0xc1, 0}, {0x80, 0x81, 0}},
     [_NUM]     = {{0xae, 0xaf, 0}, {0xce, 0xcf, 0}, {0x20, 0x20, 0}, {0xd2, 0xd3, 0}},
-    [_GAME]    = {{0x20, 0x20, 0}, {0xb0, 0xb1, 0}, {0xd0, 0xd1, 0}, {0x20, 0x20, 0}},
+    [_GAME]    = {{0x20, 0x20, 0}, {0x82, 0x83, 0}, {0xa2, 0xa3, 0}, {0xc2, 0xc3, 0}},
     [_GAMEFN1] = {{0x20, 0x20, 0}, {0xb0, 0xb1, 0}, {0xd0, 0xd1, 0}, {0x11, 0x11, 0}},
 };
+
+static const char _game_layer_logo[][4] PROGMEM = {
+    {0x20, 0x20, 0x20, 0},
+    {0x82, 0x83, 0x84, 0},
+    {0xa2, 0xa3, 0xa4, 0},
+    {0xc2, 0xc3, 0xc4, 0},
+};
+
 // clang-format on
 
 __attribute__((weak)) oled_rotation_t oled_init_keymap(oled_rotation_t rotation) { return rotation; }
@@ -62,7 +70,26 @@ void rhruiz_render_oled(void) {
             break;
 
         case _GAME:
+            for (uint8_t i = 0; i < 4; i++) {
+                oled_write_P(PSTR("           "), false);
+                oled_write_P(_game_layer_logo[i], false);
+                oled_write_P(PSTR("\n"), false);
+            }
+            break;
+
         case _GAMEFN1:
+            oled_write_P(PSTR("           "), false);
+            oled_write_P(lc[layer][3], false);
+            oled_write_P(PSTR("\n"), false);
+
+            for (uint8_t i = 1; i < 4; i++) {
+                oled_write_P(PSTR("           "), false);
+                oled_write_P(_game_layer_logo[i], false);
+                oled_write_P(PSTR("\n"), false);
+            }
+            break;
+
+
         default:
             for (uint8_t i = 0; i < 4; i++) {
                 oled_write_P(PSTR("           "), false);
