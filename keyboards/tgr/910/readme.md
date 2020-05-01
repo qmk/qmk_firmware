@@ -1,9 +1,9 @@
-# tgr-910
+# TGR-910
 
 65% custom keyboard with a very nice design.
 
 * Keyboard Maintainer: [poisonking](https://github.com/halfenergized)
-* Hardware Supported: TGR-910 (Quadcube PCB)
+* Hardware Supported: TGR-910 (Quadcube PCB, will not work with TGR 910 CE PCB)
 * Hardware Availability: [Geekhack GB](https://geekhack.org/index.php?topic=86047.0)
 
 Make example for this keyboard (after setting up your build environment):
