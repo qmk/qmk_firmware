@@ -6,7 +6,7 @@ void backlight_pins_off(void);
 
 void breathing_task(void);
 
-#ifdef SPLIT_KEYBOARD
+#ifdef SPLIT_KEYBOARD_RIGHT
 void backlight_pins_init_right(void);
 void backlight_pins_on_right(void);
 void backlight_pins_off_right(void);

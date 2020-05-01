@@ -7,6 +7,10 @@
 #    include "split_util.h"
 #endif
 
+#if SPLIT_KEYBOARD && (defined(BACKLIGHT_PINS_RIGHT) || defined(BACKLIGHT_PIN_RIGHT))
+#define SPLIT_KEYBOARD_RIGHT
+#endif
+
 // This logic is a bit complex, we support 3 setups:
 //
 //   1. Hardware PWM when backlight is wired to a PWM pin.
@@ -165,7 +169,7 @@ error("Please set 'BACKLIGHT_DRIVER = custom' within rules.mk")
 error("Please set 'BACKLIGHT_DRIVER = software' within rules.mk")
 #endif
 
-#ifdef SPLIT_KEYBOARD
+#ifdef SPLIT_KEYBOARD_RIGHT
 #if (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)) && (BACKLIGHT_PIN_RIGHT == B5 || BACKLIGHT_PIN_RIGHT == B6 || BACKLIGHT_PIN_RIGHT == B7)
 #    define HARDWARE_PWM_RIGHT
 #    define ICRx_RIGHT ICR1
@@ -338,7 +342,7 @@ static inline void disable_pwm(void) {
 
 #endif
 
-#ifdef SPLIT_KEYBOARD
+#ifdef SPLIT_KEYBOARD_RIGHT
 #ifndef BACKLIGHT_PWM_TIMER_RIGHT
 
 static inline void enable_pwm_right(void) {
@@ -448,11 +452,11 @@ static uint16_t cie_lightness(uint16_t v) {
 // range for val is [0..TIMER_TOP]. PWM pin is high while the timer count is below val.
 static inline void set_pwm(uint16_t val) { OCRxx = val; }
 
-#ifdef SPLIT_KEYBOARD
+#ifdef SPLIT_KEYBOARD_RIGHT
 static inline void set_pwm_right(uint16_t val) { OCRxx_RIGHT = val; }
 #endif
 
-#ifdef SPLIT_KEYBOARD
+#ifdef SPLIT_KEYBOARD_RIGHT
 void backlight_set_left(uint8_t level) {
 #else
 void backlight_set(uint8_t level) {
@@ -485,7 +489,7 @@ void backlight_set(uint8_t level) {
     set_pwm(cie_lightness(TIMER_TOP * (uint32_t)level / BACKLIGHT_LEVELS));
 }
 
-#ifdef SPLIT_KEYBOARD
+#ifdef SPLIT_KEYBOARD_RIGHT
 void backlight_set_right(uint8_t level) {
     if (level > BACKLIGHT_LEVELS) level = BACKLIGHT_LEVELS;
 
@@ -516,7 +520,7 @@ void backlight_set_right(uint8_t level) {
 }
 #endif
 
-#ifdef SPLIT_KEYBOARD
+#ifdef SPLIT_KEYBOARD_RIGHT
 void backlight_set(uint8_t level) {
     if (isLeftHand) {
         backlight_set_left(level);
@@ -528,7 +532,7 @@ void backlight_set(uint8_t level) {
 
 void backlight_task(void) {}
 
-#ifdef SPLIT_KEYBOARD
+#ifdef SPLIT_KEYBOARD_RIGHT
 void backlight_task_right(void) {}
 #endif
 
@@ -638,7 +642,7 @@ ISR(TIMERx_OVF_vect)
 
 #endif  // BACKLIGHT_BREATHING
 
-#ifdef SPLIT_KEYBOARD
+#ifdef SPLIT_KEYBOARD_RIGHT
 void backlight_init_ports_left(void) {
 #else
 void backlight_init_ports(void) {
@@ -686,9 +690,7 @@ void backlight_init_ports(void) {
 #endif
 }
 
-
-#ifdef SPLIT_KEYBOARD
-
+#ifdef SPLIT_KEYBOARD_RIGHT
 void backlight_init_ports_right(void) {
     // Setup backlight pin as output and output to on state.
     backlight_pins_init_right();
@@ -734,7 +736,7 @@ void backlight_init_ports_right(void) {
 }
 #endif
 
-#ifdef SPLIT_KEYBOARD
+#ifdef SPLIT_KEYBOARD_RIGHT
 void backlight_init_ports(void) {
     if (isLeftHand) {
         backlight_init_ports_left();

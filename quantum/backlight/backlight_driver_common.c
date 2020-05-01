@@ -47,7 +47,7 @@ static const pin_t backlight_pin = BACKLIGHT_PIN;
 #    error "Backlight pin/pins not defined. Please configure."
 #endif
 
-#ifdef SPLIT_KEYBOARD
+#ifdef SPLIT_KEYBOARD_RIGHT
 #if defined(BACKLIGHT_PINS_RIGHT)
 static const pin_t backlight_pins_right[] = BACKLIGHT_PINS_RIGHT;
 #    ifndef BACKLIGHT_LED_COUNT_RIGHT
@@ -59,14 +59,12 @@ static const pin_t backlight_pins_right[] = BACKLIGHT_PINS_RIGHT;
             pin_t backlight_pin_right = backlight_pins_right[i];        \
             { x }                                           \
         }
-#else
-#if defined(BACKLIGHT_PIN_RIGHT)
+#elif defined(BACKLIGHT_PIN_RIGHT)
 // we support only one backlight pin AND it is differently defined for the right side
 static const pin_t backlight_pin_right = BACKLIGHT_PIN_RIGHT;
 #    define FOR_EACH_LED_RIGHT(x) x
 #endif
-#endif
-#endif // SPLIT_KEYBOARD
+#endif // SPLIT_KEYBOARD_RIGHT
 
 void backlight_pins_init(void) {
     // Setup backlight pin as output and output to off state.
@@ -77,7 +75,7 @@ void backlight_pins_on(void) { FOR_EACH_LED(backlight_on(backlight_pin);) }
 
 void backlight_pins_off(void) { FOR_EACH_LED(backlight_off(backlight_pin);) }
 
-#ifdef SPLIT_KEYBOARD
+#ifdef SPLIT_KEYBOARD_RIGHT
 void backlight_pins_init_right(void) {
     // Setup backlight pin as output and output to off state.
     FOR_EACH_LED_RIGHT(setPinOutput(backlight_pin_right); backlight_off(backlight_pin_right);)
