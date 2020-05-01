@@ -23,66 +23,66 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
 * │HyEsc │ A │ S │ D │ F │ G │ H │ J │ K │ L │   Enter│
 * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬──────┤
-* │Shift   │ Z │ X │ C │ V │ B │ N │ M │< ,│> .│ ↑Shft│
+* │Shift   │ Z │ X │ C │ V │ B │ N │ M │< ,│> .│ ?/Sft│
 * ├────┬───┼───┼───┴───┴───┴───┴───┴───┴┬──┴─┬─┴─┬────┤
-* │Ctrl│Opt│Cmd│          Space         │←Cmd│↓Fn│→Opt│
+* │Ctrl│Opt│Cmd│          Space         │ Cmd│Lwr│ Opt│
 * └────┴───┴───┴────────────────────────┴────┴───┴────┘
 */
 [_BASE] = LAYOUT_ansi_40( \
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
     HY_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,             KC_ENT,  \
-    KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  UP_RSFT, \
-    KC_LCTL, KC_LOPT, KC_LCMD,                            SPC_RAI,                   LFT_CMD, DWN_LWR, RGT_OPT  \
+    KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  SF_SLSH, \
+    KC_LCTL, KC_LOPT, KC_LCMD,                            SPC_RAI,                   KC_RCMD, LOWER,   KC_ROPT  \
 ),
 /* Lower
 * ┌─────┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
-* │F1   │ F2│ F3│ F4│ F5│ F6│ F7│ F8│ F9│F10│F11│  F12│
+* │Del  │BrD│BrU│Msn│LHP│   │   │   │Hom│ ↑ │PgU│ SlpD│
 * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
-* │Caps  │ ← │ ↓ │ ↑ │ → │F13│F14│F15│VlD│VlU│    Play│
+* │HyCaps│Mut│VlU│NxW│PvT│Bck│Fwd│NxT│ ← │ → │    Play│
 * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬──────┤
-* │        │Hom│PgD│PgU│End│   │   │Mut│Prv│Nxt│      │
+* │        │Prv│VlD│Nxt│1PX│1Ps│   │End│ ↓ │PgD│      │
 * ├────┬───┼───┼───┴───┴───┴───┴───┴───┴┬──┴─┬─┴─┬────┤
 * │    │   │   │                        │    │   │    │
 * └────┴───┴───┴────────────────────────┴────┴───┴────┘
 */
 [_LOWER] = LAYOUT_ansi_40( \
-    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
-    KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_F13,  KC_F14,  KC_F15,  KC_VOLD, KC_VOLU,           KC_MPLY, \
-    _______,          KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______, KC_MUTE, KC_MPRV, KC_MNXT, _______, \
+    KC_DELT, KC_BRMD, KC_BRMU, MC_MSSN, MC_LHPD, _______, _______, _______, KC_HOME, KC_UP,   KC_PGUP, MC_SLPD, \
+    HY_CAPS, KC_MUTE, KC_VOLU, NXT_WIN, PRV_TAB, MC_BACK, MC_FWRD, NXT_TAB, KC_LEFT, KC_RGHT,          KC_MPLY, \
+    _______,          KC_MPRV, KC_VOLD, KC_MNXT, PX_AFLL, OP_AFLL, KC_VOLD, KC_END,  KC_DOWN, KC_PGDN, _______, \
     _______, _______, _______,                            _______,                   _______, _______, _______  \
 ),
 /* Raise
 * ┌─────┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
-* │Del  │! 1│@ 2│# 3│$ 4│% 5│^ 6│& 7│* 8│( 9│) 0│     │
+* │~ `  │! 1│@ 2│# 3│$ 4│% 5│^ 6│& 7│* 8│( 9│) 0│     │
 * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
-* │Caps  │ ← │ ↓ │ ↑ │ → │{ [│} ]│_ -│+ =│: ;│   " '  │
+* │      │ F1│ F2│ F3│ F4│ F5│ F6│_ -│+ =│: ;│     " '│
 * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬──────┤
-* │        │Hom│PgD│PgU│End│   │   │| \│~ `│? /│  ⇞Sft│
+* │        │ F7│ F8│ F9│F10│F11│F12│   │{ [│} ]│ |\Sft│
 * ├────┬───┼───┼───┴───┴───┴───┴───┴───┴┬──┴─┬─┴─┬────┤
-* │    │   │   │                        │↖︎Cmd│⇟Fn│↘︎Opt│
+* │    │   │   │                        │    │   │    │
 * └────┴───┴───┴────────────────────────┴────┴───┴────┘
 */
 [_RAISE] = LAYOUT_ansi_40( \
-    KC_DELT, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______, \
-    KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_LBRC, KC_RBRC, KC_MINS, KC_EQL,  KC_SCLN,          KC_QUOT, \
-    _______,          KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______, KC_BSLS, KC_GRV,  KC_SLSH, PGU_SFT, \
-    _______, _______, _______,                            _______,                   HOM_CMD, PGD_LWR, END_OPT  \
+    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______, \
+    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_SCLN,          KC_QUOT, \
+    _______,          KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_LBRC, KC_RBRC, SF_BSLS, \
+    _______, _______, _______,                            _______,                   _______, _______, _______  \
 ),
 /* Adjust/Macro Layer
 * ┌─────┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
-* │Make │BrD│BrU│Msn│LHP│   │   │   │   │   │   │ SlpD│
+* │Make │   │   │EEP│RST│   │   │   │   │   │   │     │
 * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
-* │NxW   │PvT│NxT│Bck│Fwd│   │   │   │   │   │   Reset│
+* │      │   │   │   │   │   │   │   │   │   │        │
 * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬──────┤
-* │        │   │   │   │1PX│1Ps│   │   │   │   │      │
+* │        │   │   │   │   │   │   │   │   │   │      │
 * ├────┬───┼───┼───┴───┴───┴───┴───┴───┴┬──┴─┬─┴─┬────┤
 * │    │   │   │                        │    │   │    │
 * └────┴───┴───┴────────────────────────┴────┴───┴────┘
 */
 [_ADJUST] = LAYOUT_ansi_40( \
-    QM_MAKE, KC_BRMD, KC_BRMU, MC_MSSN, MC_LHPD, _______, _______, _______, _______, _______, _______, MC_SLPD, \
-    NXT_WIN, PRV_TAB, NXT_TAB, MC_BACK, MC_FWRD, _______, _______, _______, _______, _______,          RESET,   \
-    _______,          _______, _______, _______, PX_AFLL, OP_AFLL, _______, _______, _______, _______, _______, \
+    QM_MAKE, _______, _______, EEP_RST, RESET,   _______, _______, _______, _______, _______, _______, _______, \
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, \
+    _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
     _______, _______, _______,                            _______,                   _______, _______, _______  \
 )
 /* Blank Layer
