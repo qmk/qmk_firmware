@@ -26,6 +26,7 @@ enum custom_keycodes {
   SPI_WIN, // Mode: Windows
   CH_CPNL, // AL Control Panel
   CH_ASST, // AL Context-aware Desktop Assistant
+  CH_SUSP, // Suspend
 };
 
 #ifdef RGBLIGHT_ENABLE

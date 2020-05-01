@@ -24,6 +24,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
       case CH_CPNL: host_consumer_send(AL_CONTROL_PANEL); return false;
       case CH_ASST: host_consumer_send(AL_ASSISTANT); return false;
+      case CH_SUSP: tap_code16(LGUI(LSFT(KC_L))); return true;
 
       case SPI_LNX:
 	dprint("SPI_LNX\n");
