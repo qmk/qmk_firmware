@@ -226,7 +226,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     //   break;
     case TILD_BLOCK:
       if (record->event.pressed) {
-        SEND_STRING("```" SS_DOWN(X_LSHIFT) SS_TAP(X_ENTER) SS_TAP(X_ENTER) SS_UP(X_LSHIFT) "```" SS_TAP(X_UP));
+        SEND_STRING("```" SS_LSFT(SS_TAP(X_ENTER) SS_TAP(X_ENTER)) "```" SS_TAP(X_UP));
         char_to_del = 4;
       }
       break;
