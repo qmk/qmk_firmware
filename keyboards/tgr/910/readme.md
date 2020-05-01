@@ -1,4 +1,4 @@
-# tgr-910
+# TGR-910
 
 65% custom keyboard with a very nice design.
 
