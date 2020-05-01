@@ -304,12 +304,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case G_COMM:
     if (!record->event.pressed) {
-        bool shifted = get_mods() & MOD_MASK_SHIFT;
-        clear_mods();
-        
-        backspace_n_times(15);
-        SEND_STRING("ommit -");
-        char_to_del = 15;
+      bool shifted = get_mods() & MOD_MASK_SHIFT;
+      clear_mods();
+      
+      backspace_n_times(15);
+      SEND_STRING("ommit -");
+      char_to_del = 15;
       if (shifted) {
         SEND_STRING("a");
         char_to_del = 16;
@@ -344,13 +344,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case G_P:
     if (record->event.pressed) {
-      if ( get_mods() & MOD_MASK_SHIFT ) {
-        clear_mods();
-        SEND_STRING("git push -u");
-        char_to_del = 11;
-      } else {
-        SEND_STRING("git pu");
-        char_to_del = 6;
+      bool shifted = get_mods() & MOD_MASK_SHIFT;
+      clear_mods();
+
+      SEND_STRING("git pu");
+      char_to_del = 6;
+
+      if (shifted) {
+        SEND_STRING("sh -u ");
+        char_to_del = 12;
       }
     }
     break;
@@ -384,9 +386,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;			
   case G_STSH:
     if (!record->event.pressed) {
+      bool shifted = get_mods() & MOD_MASK_SHIFT;
+      clear_mods();
+
       backspace_n_times(16);
       SEND_STRING("tash ");
       char_to_del = 10;
+
+      if (shifted) {
+        clear_mods();
+        SEND_STRING("apply ");
+        char_to_del = 16;
+      }
+
       layer_off(GIT_S);
     }
     break;		
