@@ -38,12 +38,14 @@ void matrix_scan_cmd_tab(void);
 #define SF_CAPS   LSFT_T(KC_CAPS)      // Hold Caps Lock for Left Shift
 #define SFT_ENT   RSFT_T(KC_ENT)       // Hold Enter for Right Shift
 #define SF_SLSH   RSFT_T(KC_SLSH)      // Tap Right Shift for Slash (/)
+#define SF_BSLS   RSFT_T(KC_BSLS)      // Tap Right Shift for Back Slash (\)
 /* Layer Aliases */
 #define FN_LYR    MO(_FN1)             // Hold for FN Layer
 #define LOWER     MO(_LOWER)           // Hold for LOWER Layer
 #define SPC_LWR   LT(_LOWER, KC_SPC)   // Tap for Space, Hold for LOWER Layer
 #define SPC_RAI   LT(_RAISE, KC_SPC)   // Tap for Space, Hold for RAISE Layer
 #define SLH_LWR   LT(_LOWER, KC_SLSH)  // Tap for /, Hold for LOWER Layer
+#define BSL_LWR   LT(_LOWER, KC_BSLS)  // Tap for \, Hold for LOWER Layer
 #define RAISE     MO(_RAISE)           // Hold for RAISE Layer
 #define MCO_LYR   MO(_MACRO)           // Hold for MACRO Layer
 #define TG_ADJT   TG(_ADJUST)          // Toggle ADJUST Layer
