@@ -27,7 +27,7 @@ float voice_envelope(float frequency);
 
 typedef enum {
     default_voice,
-#    ifdef AUDIO_VOICES
+#ifdef AUDIO_VOICES
     vibrating,
     something,
     drums,
@@ -41,7 +41,7 @@ typedef enum {
 // duty_fourth_down,
 // duty_third_down,
 // duty_fifth_third_down,
-#    endif
+#endif
     number_of_voices  // important that this is last
 } voice_type;
 

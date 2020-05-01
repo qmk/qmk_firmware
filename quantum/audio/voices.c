@@ -18,10 +18,10 @@
 #include "stdlib.h"
 
 uint8_t note_timbre      = TIMBRE_DEFAULT;
-bool  glissando        = false;
-bool  vibrato          = false;
-float vibrato_strength = 0.5;
-float vibrato_rate     = 0.125;
+bool    glissando        = false;
+bool    vibrato          = false;
+float   vibrato_strength = 0.5;
+float   vibrato_rate     = 0.125;
 
 uint16_t voices_timer = 0;
 
@@ -37,7 +37,6 @@ void voice_iterate() { voice = (voice + 1) % number_of_voices; }
 
 void voice_deiterate() { voice = (voice - 1 + number_of_voices) % number_of_voices; }
 
-
 #ifdef AUDIO_VOICES
 float mod(float a, int b) {
     float r = fmod(a, b);
@@ -51,13 +50,12 @@ float voice_add_vibrato(float average_freq) {
 }
 #endif
 
-
 float voice_envelope(float frequency) {
     // envelope_index ranges from 0 to 0xFFFF, which is preserved at 880.0 Hz
 //    __attribute__((unused)) uint16_t compensated_index = (uint16_t)((float)envelope_index * (880.0 / frequency));
 #ifdef AUDIO_VOICES
-    uint16_t envelope_index    = timer_elapsed(voices_timer); //TODO: multiply in some factor?
-    uint16_t compensated_index = envelope_index / 100; // TODO: correct factor would be?
+    uint16_t envelope_index    = timer_elapsed(voices_timer);  // TODO: multiply in some factor?
+    uint16_t compensated_index = envelope_index / 100;         // TODO: correct factor would be?
 #endif
 
     switch (voice) {
@@ -250,7 +248,7 @@ float voice_envelope(float frequency) {
                 case 0 ... VOICE_VIBRATO_DELAY:
                     break;
                 default:
-                    //TODO: merge/replace with voice_add_vibrato above
+                    // TODO: merge/replace with voice_add_vibrato above
                     frequency = frequency * vibrato_lut[(int)fmod((((float)compensated_index - (VOICE_VIBRATO_DELAY + 1)) / 1000 * VOICE_VIBRATO_SPEED), VIBRATO_LUT_LENGTH)];
                     break;
             }
@@ -304,7 +302,6 @@ float voice_envelope(float frequency) {
 
     return frequency;
 }
-
 
 // Vibrato functions
 

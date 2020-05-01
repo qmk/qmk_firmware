@@ -37,10 +37,9 @@
 #if defined(AUDIO_PIN_ALT_A4) && defined(AUDIO_PIN_ALT_A5)
 #    error "Audio feature: please set either AUDIO_PIN_ALT_A4 or AUDIO_PIN_ALT_A5, not both."
 #endif
-#if !defined(AUDIO_PIN_ALT_AS_NEGATIVE) && (defined (AUDIO_PIN_ALT_A4) || defined(AUDIO_PIN_ALT_A5))
+#if !defined(AUDIO_PIN_ALT_AS_NEGATIVE) && (defined(AUDIO_PIN_ALT_A4) || defined(AUDIO_PIN_ALT_A5))
 #    pragma message "Audio feature: AUDIO_PIN_ALT_x set, but not AUDIO_PIN_ALT_AS_NEGATIVE - pin will be left unused; audio might still work though."
 #endif
-
 
 #if !defined(AUDIO_DAC_SAMPLE_WAVEFORM_SINE) && !defined(AUDIO_DAC_SAMPLE_WAVEFORM_TRIANGLE) && !defined(AUDIO_DAC_SAMPLE_WAVEFORM_SQUARE) && !defined(AUDIO_DAC_SAMPLE_WAVEFORM_TRAPEZOID)
 #    define AUDIO_DAC_SAMPLE_WAVEFORM_SINE
@@ -99,7 +98,7 @@ typedef enum {
     OUTPUT_REACHED_ZERO_BEFORE_OFF,
     OUTPUT_OFF,
     OUTPUT_OFF_1,
-    OUTPUT_OFF_2, // trailing off: giving the DAC two more conversion cycles until the AUDIO_DAC_OFF_VALUE reaches the output, then turn the timer off, which leaves the output at that level
+    OUTPUT_OFF_2,  // trailing off: giving the DAC two more conversion cycles until the AUDIO_DAC_OFF_VALUE reaches the output, then turn the timer off, which leaves the output at that level
     number_of_output_states
 } output_states_t;
 output_states_t state = OUTPUT_OFF_2;
@@ -109,7 +108,6 @@ output_states_t state = OUTPUT_OFF_2;
  * can override it with their own waveforms/noises.
  */
 __attribute__((weak)) uint16_t dac_value_generate(void) {
-
     // DAC is running/asking for values but snapshot length is zero -> must be playing a pause
     if (active_tones_snapshot_length == 0) {
         return AUDIO_DAC_OFF_VALUE;
@@ -118,7 +116,7 @@ __attribute__((weak)) uint16_t dac_value_generate(void) {
     /* doing additive wave synthesis over all currently playing tones = adding up
      * sine-wave-samples for each frequency, scaled by the number of active tones
      */
-    uint16_t value = 0;
+    uint16_t value     = 0;
     float    frequency = 0.0f;
 
     for (uint8_t i = 0; i < active_tones_snapshot_length; i++) {
@@ -198,9 +196,9 @@ static void dac_end(DACDriver *dacp) {
          *   *       *
          * =====*=*================================================= 0x0
          */
-        if (((sample_p[s] + (AUDIO_DAC_SAMPLE_MAX / 100)) > AUDIO_DAC_OFF_VALUE) && // value approaches from below
-            (sample_p[s] < (AUDIO_DAC_OFF_VALUE + (AUDIO_DAC_SAMPLE_MAX / 100))) // or above
-             ) {
+        if (((sample_p[s] + (AUDIO_DAC_SAMPLE_MAX / 100)) > AUDIO_DAC_OFF_VALUE) &&  // value approaches from below
+            (sample_p[s] < (AUDIO_DAC_OFF_VALUE + (AUDIO_DAC_SAMPLE_MAX / 100)))     // or above
+        ) {
             if ((OUTPUT_SHOULD_START == state) && (active_tones_snapshot_length > 0)) {
                 state = OUTPUT_RUN_NORMALLY;
             } else if (OUTPUT_TONES_CHANGED == state) {
@@ -216,7 +214,7 @@ static void dac_end(DACDriver *dacp) {
         }
 
         if ((OUTPUT_SHOULD_START == state) || (OUTPUT_REACHED_ZERO_BEFORE_OFF == state) || (OUTPUT_REACHED_ZERO_BEFORE_TONE_CHANGE == state)) {
-            uint8_t active_tones = MIN(AUDIO_MAX_SIMULTANEOUS_TONES, audio_get_number_of_active_tones());
+            uint8_t active_tones         = MIN(AUDIO_MAX_SIMULTANEOUS_TONES, audio_get_number_of_active_tones());
             active_tones_snapshot_length = 0;
             // update the snapshot - once, and only on occasion that something changed;
             // -> saves cpu cycles (?)
@@ -242,7 +240,6 @@ static void dac_end(DACDriver *dacp) {
             state = OUTPUT_TONES_CHANGED;
         }
     }
-
 
     if (OUTPUT_OFF <= state) {
         if (OUTPUT_OFF_2 == state) {
@@ -308,7 +305,6 @@ void audio_driver_initialize() {
 #elif defined(AUDIO_PIN_A5)
     DACD2.params->dac->CR &= ~DAC_CR_BOFF2;
 #endif
-
 
 #if defined(AUDIO_PIN_A4)
     dacStartConversion(&DACD1, &dac_conv_cfg, dac_buffer_empty, AUDIO_DAC_BUFFER_SIZE);

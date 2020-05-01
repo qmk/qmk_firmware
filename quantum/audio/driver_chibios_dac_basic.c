@@ -34,14 +34,14 @@
 // TODO: make this an 'error' instead; go through a breaking change, and add AUDIO_PIN_A5 to all keyboards currently using AUDIO on STM32 based boards?
 #endif
 // check configuration for ONE speaker, connected to both DAC pins
-#if defined (AUDIO_PIN_ALT_AS_NEGATIVE)
+#if defined(AUDIO_PIN_ALT_AS_NEGATIVE)
 #    if !defined(AUDIO_PIN_ALT_A4) && !defined(AUDIO_PIN_ALT_A5)
 #        error "Audio feature: AUDIO_PIN_ALT_AS_NEGATIVE set, but no pin configured as AUDIO_PIN_ALT_x."
 #    endif
-#    if defined (AUDIO_PIN_A4) && defined (AUDIO_PIN_A5)
+#    if defined(AUDIO_PIN_A4) && defined(AUDIO_PIN_A5)
 #        error "Audio feature: with AUDIO_PIN_ALT_AS_NEGATIVE, only one pin can be configured as AUDIO_PIN_x."
 #    endif
-#    if defined (AUDIO_PIN_ALT_A4) && defined (AUDIO_PIN_ALT_A5)
+#    if defined(AUDIO_PIN_ALT_A4) && defined(AUDIO_PIN_ALT_A5)
 #        error "Audio feature: with AUDIO_PIN_ALT_AS_NEGATIVE, only one pin can be configured as AUDIO_PIN_ALT_x."
 #    endif
 #endif
@@ -52,7 +52,6 @@
 #if defined(AUDIO_PIN_A5) && defined(AUDIO_PIN_ALT_A5)
 #    error "Audio feature: please set either AUDIO_PIN_A5 or AUDIO_PIN_ALT_A5, not both."
 #endif
-
 
 #if defined(AUDIO_PIN_A4) || defined(AUDIO_PIN_ALT_A4)
 // squarewave
@@ -168,9 +167,9 @@ static void gpt_cb8(GPTDriver *gptp) {
         // one piezo/speaker connected to both audio pins, the generated squarewaves are inverted
         channel_1_set_frequency(audio_get_processed_frequency(0));
         channel_2_set_frequency(audio_get_processed_frequency(0));
-#else // two separate audio outputs/speakers
-        // primary speaker on A4, optional secondary on A5
-#if     defined(AUDIO_PIN_A4)
+#else  // two separate audio outputs/speakers
+       // primary speaker on A4, optional secondary on A5
+#    if defined(AUDIO_PIN_A4)
         channel_1_set_frequency(audio_get_processed_frequency(0));
 #        if defined(AUDIO_PIN_ALT_A5)
         if (audio_get_number_of_active_tones() > 1) {
@@ -182,7 +181,7 @@ static void gpt_cb8(GPTDriver *gptp) {
 #    endif
 
         // primary speaker on A5, optional secondary on A4
-#if     defined(AUDIO_PIN_A5)
+#    if defined(AUDIO_PIN_A5)
         channel_2_set_frequency(audio_get_processed_frequency(0));
 #        if defined(AUDIO_PIN_ALT_A4)
         if (audio_get_number_of_active_tones() > 1) {

@@ -58,11 +58,11 @@ typedef union {
  * "A musical tone is characterized by its duration, pitch, intensity (or loudness), and timbre (or quality)"
  */
 typedef struct {
-    uint16_t time_started; // timestamp the tone/note was started, systemtime runs with 1ms resolution -> 16bit timer overflows every ~64 seconds, long enough under normal circumstances; but might be too soon for long-duration notes when the note_tempo is set to a very low value
-    float pitch;        // aka frequency, in Hz
-    uint16_t duration;  // in ms, converted from the musical_notes.h unit which has 64parts to a beat, factoring in the current tempo in beats-per-minute
-    //float intensity;    // aka volume [0,1] TODO: not used at the moment; pwm drivers can't handle it
-    //uint8_t timbre;     // range: [0,100] TODO: this currently kept track of globally, should we do this per tone instead?
+    uint16_t time_started;  // timestamp the tone/note was started, systemtime runs with 1ms resolution -> 16bit timer overflows every ~64 seconds, long enough under normal circumstances; but might be too soon for long-duration notes when the note_tempo is set to a very low value
+    float    pitch;         // aka frequency, in Hz
+    uint16_t duration;      // in ms, converted from the musical_notes.h unit which has 64parts to a beat, factoring in the current tempo in beats-per-minute
+    // float intensity;    // aka volume [0,1] TODO: not used at the moment; pwm drivers can't handle it
+    // uint8_t timbre;     // range: [0,100] TODO: this currently kept track of globally, should we do this per tone instead?
 } musical_tone_t;
 
 //     ____        __    ___
@@ -95,7 +95,6 @@ void audio_off(void);
  * @brief query the if audio output is enabled
  */
 bool audio_is_on(void);
-
 
 /**
  * @brief start playback of a tone with the given frequency and duration
@@ -195,7 +194,6 @@ bool audio_is_playing_melody(void);
  * @brief convenience macro, to play a melody/SONG in a loop, until stopped by 'audio_stop_all'
  */
 #define PLAY_LOOP(note_array) audio_play_melody(&note_array, NOTE_ARRAY_SIZE((note_array)), true)
-
 
 // Tone-Multiplexing functions
 // this feature only makes sense for hardware setups which can't do proper
