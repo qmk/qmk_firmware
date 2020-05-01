@@ -43,10 +43,22 @@ float mod(float a, int b) {
     return r < 0 ? r + b : r;
 }
 
+// Effect: 'vibrate' a given target frequency slightly above/below its initial value
 float voice_add_vibrato(float average_freq) {
     float vibrato_counter = mod(timer_read() / (100 * vibrato_rate), VIBRATO_LUT_LENGTH);
 
     return average_freq * pow(vibrato_lut[(int)vibrato_counter], vibrato_strength);
+}
+
+// Effect: 'slides' the 'frequency' from the starting-point, to the target frequency
+float voice_add_glissando(float from_freq, float to_freq) {
+    if (to_freq != 0 && from_freq < to_freq && from_freq < to_freq * pow(2, -440 / to_freq / 12 / 2)) {
+        return from_freq * pow(2, 440 / from_freq / 12 / 2);
+    } else if (to_freq != 0 && from_freq > to_freq && from_freq > to_freq * pow(2, 440 / to_freq / 12 / 2)) {
+        return from_freq * pow(2, -440 / from_freq / 12 / 2);
+    } else {
+        return to_freq;
+    }
 }
 #endif
 
@@ -69,10 +81,6 @@ float voice_envelope(float frequency) {
         case vibrating:
             glissando = false;
             vibrato   = true;
-
-            if (vibrato_strength > 0) {
-                frequency = voice_add_vibrato(frequency);
-            }
             break;
 
         case something:
@@ -299,6 +307,17 @@ float voice_envelope(float frequency) {
         default:
             break;
     }
+
+#ifdef AUDIO_VOICES
+    if (vibrato && (vibrato_strength > 0)) {
+        frequency = voice_add_vibrato(frequency);
+    }
+
+    if (glissando) {
+        // TODO: where to keep track of the start-frequency?
+        // frequency = voice_add_glissando(??, frequency);
+    }
+#endif  // AUDIO_VOICES
 
     return frequency;
 }
