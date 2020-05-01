@@ -473,7 +473,7 @@ void eeconfig_init_user(void) {  // EEPROM正被重置
 想要修改基于键码的`TAPPING TERM`,你要向`keymap.c`文件添加如下代码: 
 
 ```c
-uint16_t get_tapping_term(uint16_t keycode) {
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case SFT_T(KC_SPC):
       return TAPPING_TERM + 1250;
