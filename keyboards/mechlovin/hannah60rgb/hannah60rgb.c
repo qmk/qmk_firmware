@@ -38,10 +38,10 @@ led_config_t g_led_config = { {
   1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,            1,           1,           1,  
   1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1,          1, 
 } };
-#endif
 
 void rgb_matrix_indicators_user(void) {
         if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
             rgb_matrix_set_color(30, 255, 255, 255);
         }
 }
+#endif
