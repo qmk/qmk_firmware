@@ -144,12 +144,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-/*
-* Fn action definition
-*/
-const uint16_t PROGMEM fn_actions[] = {
-};
-
 void matrix_init_user(void) {
 
 }
