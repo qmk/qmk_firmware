@@ -21,13 +21,13 @@
 #endif
 
 #if !defined(AUDIO_PWM_TIMERCHANNEL)
-// NOTE: sticking to the STM datasheet numbering: TIMxCH1 to TIMxCH4
+// NOTE: sticking to the STM data-sheet numbering: TIMxCH1 to TIMxCH4
 // default: STM32F303CC PA8+TIM1_CH1 -> 1
 #    define AUDIO_PWM_TIMERCHANNEL 1
 #endif
 
 #if !defined(AUDIO_PWM_PINALTERNATE_FUNCTION)
-// pin-alternate function: see the datasheet for which pin needs what AF to connect to TIMx_CHy
+// pin-alternate function: see the data-sheet for which pin needs what AF to connect to TIMx_CHy
 // default: STM32F303CC PA8+TIM1_CH1 -> 6
 #    define AUDIO_PWM_PINALTERNATE_FUNCTION 6
 #endif

@@ -58,7 +58,7 @@ typedef union {
  * "A musical tone is characterized by its duration, pitch, intensity (or loudness), and timbre (or quality)"
  */
 typedef struct {
-    uint16_t time_started;  // timestamp the tone/note was started, systemtime runs with 1ms resolution -> 16bit timer overflows every ~64 seconds, long enough under normal circumstances; but might be too soon for long-duration notes when the note_tempo is set to a very low value
+    uint16_t time_started;  // timestamp the tone/note was started, system time runs with 1ms resolution -> 16bit timer overflows every ~64 seconds, long enough under normal circumstances; but might be too soon for long-duration notes when the note_tempo is set to a very low value
     float    pitch;         // aka frequency, in Hz
     uint16_t duration;      // in ms, converted from the musical_notes.h unit which has 64parts to a beat, factoring in the current tempo in beats-per-minute
     // float intensity;    // aka volume [0,1] TODO: not used at the moment; pwm drivers can't handle it
@@ -84,11 +84,11 @@ void audio_init(void);
  */
 void audio_toggle(void);
 /**
- * @brief ensable audio output, save this choice to the eeprom
+ * @brief enable audio output, save this choice to the eeprom
  */
 void audio_on(void);
 /**
- * @brief dissable audio output, save this choice to the eeprom
+ * @brief disable audio output, save this choice to the eeprom
  */
 void audio_off(void);
 /**
@@ -99,7 +99,7 @@ bool audio_is_on(void);
 /**
  * @brief start playback of a tone with the given frequency and duration
  *
- * @details starts the playback of a given note, wich is automatically stopped
+ * @details starts the playback of a given note, which is automatically stopped
  *          at the the end of its duration = fire&forget
  *
  * @param[in] pitch frequency of the tone be played
@@ -113,7 +113,7 @@ void audio_play_note(float pitch, uint16_t duration);
 /**
  * @brief start playback of a tone with the given frequency
  *
- * @details the 'frequency' is put ontop the internal stack of active tones,
+ * @details the 'frequency' is put on-top the internal stack of active tones,
  *          as a new tone with indefinite duration. this tone is played by
  *          the hardware until a call to 'audio_stop_tone'.
  *          should a tone with that frequency already be active, its entry
@@ -131,9 +131,9 @@ void audio_play_tone(float pitch);
  * @details removes a tone matching the given frequency from the internal
  *          playback stack
  *          the hardware is stopped in case this was the last/only frequency
- *          beeing played.
+ *          being played.
  *
- * @param[in] pitch tone/frequenct to be stopped
+ * @param[in] pitch tone/frequency to be stopped
  */
 void audio_stop_tone(float pitch);
 
@@ -156,7 +156,7 @@ void audio_play_melody(float (*np)[][2], uint16_t n_count, bool n_repeat);
  *          audio_play_melody. very short durations might not quite work due to
  *          hardware limitations (DAC: added pulses from zero-crossing feature;...)
  *
- * @param[in] delay in milliseconds, lenght for the pause before the pulses, can be zero
+ * @param[in] delay in milliseconds, length for the pause before the pulses, can be zero
  * @param[in] pitch
  * @param[in] duration in milliseconds, length of the 'click'
  */
@@ -165,7 +165,7 @@ void audio_play_click(uint16_t delay, float pitch, uint16_t duration);
 /**
  * @brief stops all playback
  *
- * @details stops playback of both a meldoy as well as single tones, resetting
+ * @details stops playback of both a melody as well as single tones, resetting
  *          the internal state
  */
 void audio_stop_all(void);
@@ -244,7 +244,7 @@ uint8_t audio_get_number_of_active_tones(void);
  *          the internal state keeps track of, and is usually influenced
  *          by various effects
  * @param[in] tone_index, ranging from 0 to number_of_active_tones-1, with the
- *            first beeing the most recent and each increment yielding the next
+ *            first being the most recent and each increment yielding the next
  *            older one
  * @return a positive frequency, in Hz; or zero if the tone is a pause
  */
@@ -252,11 +252,11 @@ float audio_get_frequency(uint8_t tone_index);
 
 /**
  * @brief calculate and return the frequency for the requested tone
- * @details effects like glissando, vibrato, ... are postprocessed onto the
+ * @details effects like glissando, vibrato, ... are post-processed onto the
  *          each active tones 'base'-frequency; this function returns the
- *          postprocessed result.
+ *          post-processed result.
  * @param[in] tone_index, ranging from 0 to number_of_active_tones-1, with the
- *            first beeing the most recent and each increment yielding the next
+ *            first being the most recent and each increment yielding the next
  *            older one
  * @return a positive frequency, in Hz; or zero if the tone is a pause
  */
@@ -280,7 +280,7 @@ bool audio_update_state(void);
 //  / /___/  __/ /_/ / /_/ / /__/ /_/ /
 // /_____/\___/\__, /\__,_/\___/\__, /
 //            /____/           /____/
-// legacy and backwarts compatibility stuff
+// legacy and back-warts compatibility stuff
 
 #define PLAY_NOTE_ARRAY(note_array, note_repeat, deprecated_arg)                  \
     audio_play_melody(&note_array, NOTE_ARRAY_SIZE((note_array)), (note_repeat)); \

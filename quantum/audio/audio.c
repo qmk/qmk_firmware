@@ -36,7 +36,7 @@
  *
  *
  * A Note on terminology:
- * tone, pitch and frequency are used somewhat interchangeably, in a strict wikipedia-sense:
+ * tone, pitch and frequency are used somewhat interchangeably, in a strict Wikipedia-sense:
  *    "(Musical) tone, a sound characterized by its duration, pitch (=frequency),
  *    intensity (=volume), and timbre"
  * - intensity/volume is currently not handled at all, although the 'dac_additive' driver could do so
@@ -48,12 +48,12 @@
  * kept track of in 'audio_update_state'
  *
  * 'voice' as it is used here, equates to a sort of instrument with its own
- * charactersitic sound and effects
+ * characteristics sound and effects
  * the audio system as-is deals only with (possibly multiple) tones of one
  * instrument/voice at a time (think: chords). since the number of tones that
  * can be reproduced depends on the hardware/driver in use: pwm can only
  * reproduce one tone per output/speaker; DACs can reproduce/mix multiple
- * when doing additive synthese.
+ * when doing additive synthesis.
  *
  * 'duration' can either be in the beats-per-minute related unit found in
  * musical_notes.h, OR in ms; keyboards create SONGs with the former, while
@@ -63,7 +63,7 @@
 #ifndef AUDIO_TONE_STACKSIZE
 #    define AUDIO_TONE_STACKSIZE 8
 #endif
-uint8_t        active_tones = 0;             // number of tones pushed onto the stack by audio_play_tone - might be more than the harware is able to reproduce at any single time
+uint8_t        active_tones = 0;             // number of tones pushed onto the stack by audio_play_tone - might be more than the hardware is able to reproduce at any single time
 musical_tone_t tones[AUDIO_TONE_STACKSIZE];  // stack of currently active tones
 
 bool playing_melody = false;  // playing a SONG?
@@ -88,7 +88,7 @@ uint16_t tone_multiplexing_rate        = AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT;
 uint8_t  tone_multiplexing_index_shift = 0;  // offset used on active-tone array access
 #endif
 
-// proviced and used by voices.c
+// provided and used by voices.c
 extern uint8_t  note_timbre;
 extern bool     glissando;
 extern bool     vibrato;
@@ -245,7 +245,7 @@ void audio_play_note(float pitch, uint16_t duration) {
         pitch = -1 * pitch;
     }
 
-    // roundrobin: shifting out old tones, keeping only unique ones
+    // round-robin: shifting out old tones, keeping only unique ones
     // if the new frequency is already amongst the active tones, shift it to the top of the stack
     bool found = false;
     for (int i = active_tones - 1; i >= 0; i--) {
@@ -408,7 +408,7 @@ bool audio_update_state(void) {
 
                 // TODO: handle glissando here (or remember previous and current tone)
                 /* there would need to be a freq(here we are) -> freq(next note)
-                 * and do slide/glissando inbetween problem here is to know which
+                 * and do slide/glissando in between problem here is to know which
                  * frequency on the stack relates to what other? e.g. a melody starts
                  * tones in a sequence, and stops expiring one, so the most recently
                  * stopped is the starting point for a glissando to the most recently started?
@@ -416,7 +416,7 @@ bool audio_update_state(void) {
                  * and what about user input, chords, ...?
                  */
 
-                // '- delta': Skip forward in the next note's length if we'vv over shot
+                // '- delta': Skip forward in the next note's length if we've over shot
                 //            the last, so the overall length of the song is the same
                 uint16_t duration = audio_duration_to_ms((*notes_pointer)[current_note][1]) - delta;
                 audio_play_note((*notes_pointer)[current_note][0], duration);
@@ -437,7 +437,7 @@ bool audio_update_state(void) {
 
         // housekeeping: stop notes that have no playtime left
         for (int i = 0; i < active_tones; i++) {
-            if ((tones[i].duration != 0xffff)  // indefinetly playing notes, started by 'audio_play_tone'
+            if ((tones[i].duration != 0xffff)  // indefinitely playing notes, started by 'audio_play_tone'
                 && (tones[i].duration != 0)    // 'uninitialized'
             ) {
                 if (timer_elapsed(tones[i].time_started) >= tones[i].duration) {
@@ -497,10 +497,10 @@ void audio_decrease_tempo(uint8_t tempo_change) {
         note_tempo -= tempo_change;
 }
 
-// TODO in the int-math version are some bugs; songs sometimes abruptly end - maybe an issue with the timer/sysrtem-tick wrapping around?
+// TODO in the int-math version are some bugs; songs sometimes abruptly end - maybe an issue with the timer/system-tick wrapping around?
 uint16_t audio_duration_to_ms(uint16_t duration_bpm) {
 #if defined(__AVR__)
-    // doing int-math saves us some bytes in the overall firmware size, but the intermediate result is less accurate before beeing cast to/returned as uint
+    // doing int-math saves us some bytes in the overall firmware size, but the intermediate result is less accurate before being cast to/returned as uint
     return ((uint32_t)duration_bpm * 60 * 1000) / (64 * note_tempo);
     // NOTE: beware of uint16_t overflows when note_tempo is low and/or the duration is long
 #else

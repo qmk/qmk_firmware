@@ -53,8 +53,8 @@ For this board `config.h` would include these defines:
 
 
 ### DAC (additive)
-Another option, besides dac_basic (which produces sound through a squarewave), is to use the DAC to do additive wave synthesis.
-With a number of predefined waveforms or by providing your own implementation to generate samples on the fly.
+Another option, besides dac_basic (which produces sound through a square-wave), is to use the DAC to do additive wave synthesis.
+With a number of predefined wave-forms or by providing your own implementation to generate samples on the fly.
 To use this feature set `AUDIO_DRIVER = dac_additive` in your `rules.mk`, and select in `config.h` EITHER `#define AUDIO_PIN_A4` or `#define AUDIO_PIN_A5`.
 
 The used waveform defaults to a sine, but can be selected by adding one of the following defines to `config.h`:
@@ -88,7 +88,7 @@ STM32F1xx have to fall back to using PWM, but can do so in hardware; but again o
 `#define AUDIO_PWM_TIMERCHANNEL 1`
 (as well as `#define AUDIO_PWM_PINALTERNATE_FUNCTION 42` if you are on STM32F2 or larger)
 which will use Timer 1 to directly drive pin PA8 through the PWM hardware (TIM1_CH1 = PA8).
-Should you want to use the pwm-hardware on another pin and timer - be ready to dig into the STM32 datasheet to pick the right TIMx_CHy and pin-alternate function.
+Should you want to use the pwm-hardware on another pin and timer - be ready to dig into the STM32 data-sheet to pick the right TIMx_CHy and pin-alternate function.
 
 
 ## Songs
