@@ -38,17 +38,9 @@ extern keymap_config_t keymap_config;
 #define RSE_PGUP LT(_RAISE, KC_PGUP) // Tap for PgUp, hold for RAISE
 #define CTL_CAPS MT(MOD_LCTL, KC_CAPS) // Tap for Caps, hold for Ctrl (DOESN'T SEEM TO WORK)
 #define SFT_ENT  MT(MOD_RSFT, KC_ENT) // Tap for Enter, hold for Shift
-#define ZM_NRM   FUNC(4) // Zoom normal
-#define ZM_IN    FUNC(5) // Zoom out
-#define ZM_OUT   FUNC(6) // Zoom in
-
-// Enable these functions using FUNC(n) macro.
-const uint16_t PROGMEM fn_actions[] = {
-    [4] = ACTION_MODS_KEY(MOD_LCTL, KC_0),
-    [5] = ACTION_MODS_KEY(MOD_LCTL, KC_MINS),
-    [6] = ACTION_MODS_KEY(MOD_LCTL, KC_PLUS),
-    [7] = ACTION_MODS_KEY(MOD_LCTL, KC_UNDS),
- };
+#define ZM_NRM   C(KC_0) // Zoom normal
+#define ZM_IN    C(KC_MINS) // Zoom out
+#define ZM_OUT   C(KC_PLUS) // Zoom in
 
 // This config can be found at Keyboard layout editor site: https://goo.gl/cF7uIO
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
