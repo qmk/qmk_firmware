@@ -5,8 +5,8 @@
 A 6x4 matrix ergo keyboard with additional 3 thumb and 1 pinky keys for full cyrillic layout. [More info on GitHub](https://github.com/Ladniy/jiran-keyboard)
 
 * Keyboard Maintainer: [Ladniy](https://github.com/Ladniy)
-* Hardware Supported: Jiran PCB
-* Hardware Availability: [open source](https://github.com/Ladniy/jiran-keyboard/tree/master/Pcb)
+* Hardware Supported: Jiran PCB, Pro Micro
+* Hardware Availability: [Open Source](https://github.com/Ladniy/jiran-breakoff)
 
 Make example for this keyboard (after setting up your build environment):
 
