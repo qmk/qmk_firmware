@@ -107,6 +107,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       case SPI_NORMAL ... SPI_FRAKTR:
 	spi_replace_mode = (spi_replace_mode == keycode) ? SPI_NORMAL: keycode;
 	dprintf("spi_replace_mode = %u\n");
+        break;
     }
   }
 
