@@ -44,6 +44,8 @@ enum custom_keycodes {
   CK_TRIPLEZERO = SAFE_RANGE,
 };
 
+#define CK_CONFIGINIT EEPROM_RESET
+
 enum {
   TD_P_BSPC = 0,
   TD_Q_ESC,
