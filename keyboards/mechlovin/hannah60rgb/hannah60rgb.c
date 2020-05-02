@@ -16,6 +16,13 @@
 
 #include "hannah60rgb.h"
 
+void matrix_init_kb(void) {
+	// put your keyboard start-up code here
+	// runs once when the firmware starts up
+	matrix_init_user();
+	led_init_ports();
+};
+
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
   //Key Matrix to LED Index
@@ -40,7 +47,7 @@ led_config_t g_led_config = { {
 } };
 
 void rgb_matrix_indicators_user(void) {
-        if (get_host_led_state().caps_lock) {
+        if (host_keyboard_led_state().caps_lock) {
             rgb_matrix_set_color(30, 255, 255, 255);
         }
 }
