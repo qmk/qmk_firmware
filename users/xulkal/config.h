@@ -13,13 +13,13 @@
 
 // Running out of firmware space
 #if defined(__AVR__)
-#undef RGB_MATRIX_KEYPRESSES
-#undef RGB_MATRIX_KEYRELEASES
-#undef RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#    undef RGB_MATRIX_KEYPRESSES
+#    undef RGB_MATRIX_KEYRELEASES
+#    undef RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #else
-#define RGB_MATRIX_KEYPRESSES
-#undef RGB_MATRIX_KEYRELEASES
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#    define RGB_MATRIX_KEYPRESSES
+#    undef RGB_MATRIX_KEYRELEASES
+#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #endif
 
 // No need for the single versions when multi performance isn't a problem =D
