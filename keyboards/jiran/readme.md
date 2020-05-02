@@ -1,6 +1,6 @@
 # Jiran
 
-![Jiran](https://i.imgur.com/yQLAejM.png)
+![Jiran](https://i.imgur.com/HnA2Onc.png)
 
 A 6x4 matrix ergo keyboard with additional 3 thumb and 1 pinky keys for full cyrillic layout. [More info on GitHub](https://github.com/Ladniy/jiran-keyboard)
 
