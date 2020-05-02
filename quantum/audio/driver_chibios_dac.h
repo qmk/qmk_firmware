@@ -26,7 +26,7 @@
  * since the DAC is limited to 12 bit, the absolute max is 0xfff = 4095U;
  * lower values adjust the peak-voltage aka volume down.
  * adjusting this value has only an effect on a sample-buffer whose values are
- * are NOT pregenerated - see squarewave
+ * are NOT pregenerated - see square-wave
  */
 #ifndef AUDIO_DAC_SAMPLE_MAX
 #    define AUDIO_DAC_SAMPLE_MAX 4095U
@@ -41,9 +41,9 @@
  * the DAC. The sample rate and maximum number of simultaneous tones roughly
  * has an inverse relationship - slightly higher sample rates may be possible.
  *
- * NOTE: a high samplerate results in a higher cpu-load, which might lead to
+ * NOTE: a high sample-rate results in a higher cpu-load, which might lead to
  *       (audible) discontinuities and/or starve other processes of cpu-time
- *       (like RGB-led backlighting, ...)
+ *       (like RGB-led back-lighting, ...)
  */
 #ifdef AUDIO_DAC_QUALITY_VERY_LOW
 #    define AUDIO_DAC_SAMPLE_RATE 11025U
@@ -66,10 +66,10 @@
 #endif
 
 #ifdef AUDIO_DAC_QUALITY_SANE_MINIMUM
-/* a sane-minimum config: with a tradeoff between cpu-load and tone-range
+/* a sane-minimum config: with a trade-off between cpu-load and tone-range
  *
  * the (currently) highest defined note is NOTE_B8 with 7902Hz; if we now
- * aim for an even even multiple of the buffersize, we end up with:
+ * aim for an even even multiple of the buffer-size, we end up with:
  * ( roundUptoPow2(highest note / AUDIO_DAC_BUFFER_SIZE) * nyquist-rate * AUDIO_DAC_BUFFER_SIZE)
  *                              7902/256 = 30.867        *       2      * 256 ~= 16384
  * which works out (but the 'scope shows some sampling artifacts with lower harmonics :-P)
@@ -79,7 +79,7 @@
 #endif
 
 /**
- * Effective bitrate of the DAC. 44.1khz is the standard for most audio - any
+ * Effective bit-rate of the DAC. 44.1khz is the standard for most audio - any
  * lower will sacrifice perceptible audio quality. Any higher will limit the
  * number of simultaneous tones. In most situations, a tenth (1/10) of the
  * sample rate is where notes become unbearable.

@@ -19,7 +19,7 @@ Audio Driver: PWM
 
 the duty-cycle is always kept at 50%, and the pwm-period is adjusted to match the frequency of a note to be played back.
 
-this driver uses the chibios-PWM system to produce a squarewave on any given output pin in software
+this driver uses the chibios-PWM system to produce a square-wave on any given output pin in software
 - a pwm callback is used to set/clear the configured pin.
 
  */
@@ -45,7 +45,7 @@ static void pwm_audio_channel_interrupt_callback(PWMDriver *pwmp);
 
 static PWMConfig pwmCFG = {
     .frequency = 100000, /* PWM clock frequency  */
-    // CHIBIOS-BUG? can't set the initial period to <2, or the pwm (hard or software) takes ~130ms with .frequency=500000 for a pwmChangePeriod to take effect; with no ouput=silence in the meantime
+    // CHIBIOS-BUG? can't set the initial period to <2, or the pwm (hard or software) takes ~130ms with .frequency=500000 for a pwmChangePeriod to take effect; with no output=silence in the meantime
     .period   = 2, /* initial PWM period (in ticks) 1S (1/10kHz=0.1mS 0.1ms*10000 ticks=1S) */
     .callback = pwm_audio_period_callback,
     .channels =
@@ -93,7 +93,7 @@ void channel_1_stop(void) {
 #endif
 }
 
-// generate a PWM signal on any pin, not neccessarily the one connected to the timer
+// generate a PWM signal on any pin, not necessarily the one connected to the timer
 static void pwm_audio_period_callback(PWMDriver *pwmp) {
     (void)pwmp;
     palClearLine(AUDIO_PIN);
@@ -105,7 +105,7 @@ static void pwm_audio_period_callback(PWMDriver *pwmp) {
 static void pwm_audio_channel_interrupt_callback(PWMDriver *pwmp) {
     (void)pwmp;
     if (channel_1_frequency > 0) {
-        palSetLine(AUDIO_PIN);  // generate a PWM signal on any pin, not neccessarily the one connected to the timer
+        palSetLine(AUDIO_PIN);  // generate a PWM signal on any pin, not necessarily the one connected to the timer
 #if defined(AUDIO_PIN_ALT) && defined(AUDIO_PIN_ALT_AS_NEGATIVE)
         palClearLine(AUDIO_PIN_ALT);
 #endif
@@ -118,7 +118,7 @@ GPTConfig   gptCFG = {
        the longest note is BREAVE_DOT=128+64=192, the shortest SIXTEENTH=4
        the tempo (which might vary!) is in bpm (beats per minute)
        therefore: if the timer ticks away at .frequency = (60*64)Hz,
-       and the .intervall counts from 64 downwards - audio_update_state is
+       and the .interval counts from 64 downwards - audio_update_state is
        called just often enough to not miss anything
     */
     .frequency = 60 * 64,

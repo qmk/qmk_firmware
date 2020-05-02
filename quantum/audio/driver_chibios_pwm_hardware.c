@@ -19,8 +19,8 @@ Audio Driver: PWM
 
 the duty-cycle is always kept at 50%, and the pwm-period is adjusted to match the frequency of a note to be played back.
 
-this driver uses the chibios-PWM system to produce a squarewave on specific output pins that are connected to the PWM hardware.
-The hardware directly toggles the pin via its alternate function. see your MCUs datasheet for which pin can be driven by what timer - looking for TIMx_CHy and the corresponding alternate function.
+this driver uses the chibios-PWM system to produce a square-wave on specific output pins that are connected to the PWM hardware.
+The hardware directly toggles the pin via its alternate function. see your MCUs data-sheet for which pin can be driven by what timer - looking for TIMx_CHy and the corresponding alternate function.
 
  */
 
@@ -36,7 +36,7 @@ mcuconf.h:
 
 used pin: PA8 (alternate0: TIM1_CH1)
 
-from the datasheet for STM32F103C8: alternate function of pin
+from the data-sheet for STM32F103C8: alternate function of pin
 TIM1_CH1 = PA8 <-
 TIM1_CH2 = PA9
 TIM1_CH3 = PA10
@@ -67,7 +67,7 @@ extern uint8_t note_timbre;
 
 static PWMConfig pwmCFG = {
     .frequency = 100000, /* PWM clock frequency  */
-    // CHIBIOS-BUG? can't set the initial period to <2, or the pwm (hard or software) takes ~130ms with .frequency=500000 for a pwmChangePeriod to take effect; with no ouput=silence in the meantime
+    // CHIBIOS-BUG? can't set the initial period to <2, or the pwm (hard or software) takes ~130ms with .frequency=500000 for a pwmChangePeriod to take effect; with no output=silence in the meantime
     .period   = 2,    /* initial PWM period (in ticks) 1S (1/10kHz=0.1mS 0.1ms*10000 ticks=1S) */
     .callback = NULL, /* no callback, the hardware directly toggles the pin */
     .channels =
@@ -125,7 +125,7 @@ GPTConfig   gptCFG = {
        the longest note is BREAVE_DOT=128+64=192, the shortest SIXTEENTH=4
        the tempo (which might vary!) is in bpm (beats per minute)
        therefore: if the timer ticks away at .frequency = (60*64)Hz,
-       and the .intervall counts from 64 downwards - audio_update_state is
+       and the .interval counts from 64 downwards - audio_update_state is
        called just often enough to not miss any notes
     */
     .frequency = 60 * 64,

@@ -23,7 +23,7 @@
 
   which utilizes the dac unit many STM32 are equipped with, to output a modulated waveform from samples stored in the dac_buffer_* array who are passed to the hardware through DMA
 
-  it ia also possible to have a custom sample-LUT by implementing/overriding 'dac_value_generate'
+  it is also possible to have a custom sample-LUT by implementing/overriding 'dac_value_generate'
 
   this driver allows for multiple simultaneous tones to be played through one single channel by doing additive wave-synthesis
 */
@@ -105,7 +105,7 @@ output_states_t state = OUTPUT_OFF_2;
 
 /**
  * Generation of the waveform being passed to the callback. Declared weak so users
- * can override it with their own waveforms/noises.
+ * can override it with their own wave-forms/noises.
  */
 __attribute__((weak)) uint16_t dac_value_generate(void) {
     // DAC is running/asking for values but snapshot length is zero -> must be playing a pause
@@ -151,10 +151,10 @@ __attribute__((weak)) uint16_t dac_value_generate(void) {
         value += dac_buffer_triangle[dac_i] / active_tones_snapshot_length / 3;
         // SQUARE
         value += dac_buffer_square[dac_i] / active_tones_snapshot_length / 3;
-        //NOTE: combination of these three waveforms is more exemplary - and doesn't sound particularly good :-P
+        //NOTE: combination of these three wave-forms is more exemplary - and doesn't sound particularly good :-P
         */
 
-        // STAIRS (mostly usefull as test-pattern)
+        // STAIRS (mostly usefully as test-pattern)
         // value_avg = dac_buffer_staircase[dac_i] / active_tones_snapshot_length;
     }
 

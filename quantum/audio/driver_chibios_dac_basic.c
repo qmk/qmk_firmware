@@ -23,7 +23,7 @@
 
   which utilizes both channels of the DAC unit many STM32 are equipped with to output a modulated square-wave, from precomputed samples stored in a buffer, which is passed to the hardware through DMA
 
-  this driver can either be used to drive to separate speakers, wired to A4+Gnd and A5+Gnd, which allows two tones to be played simultaniously
+  this driver can either be used to drive to separate speakers, wired to A4+Gnd and A5+Gnd, which allows two tones to be played simultaneously
   OR
   one speaker wired to A4+A5 with the AUDIO_PIN_ALT_AS_NEGATIVE define set - see docs/feature_audio
 
@@ -54,7 +54,7 @@
 #endif
 
 #if defined(AUDIO_PIN_A4) || defined(AUDIO_PIN_ALT_A4)
-// squarewave
+// square-wave
 static const dacsample_t dac_buffer_1[AUDIO_DAC_BUFFER_SIZE] = {
     // First half is max, second half is 0
     [0 ... AUDIO_DAC_BUFFER_SIZE / 2 - 1]                     = AUDIO_DAC_SAMPLE_MAX,
@@ -62,7 +62,7 @@ static const dacsample_t dac_buffer_1[AUDIO_DAC_BUFFER_SIZE] = {
 };
 #endif
 #if defined(AUDIO_PIN_A5) || defined(AUDIO_PIN_ALT_A5)
-// squarewave
+// square-wave
 static const dacsample_t dac_buffer_2[AUDIO_DAC_BUFFER_SIZE] = {
     // opposite of dac_buffer above
     [0 ... AUDIO_DAC_BUFFER_SIZE / 2 - 1]                     = 0,
@@ -164,7 +164,7 @@ float channel_2_get_frequency(void) { return channel_2_frequency; }
 static void gpt_cb8(GPTDriver *gptp) {
     if (audio_update_state()) {
 #if (defined(AUDIO_PIN_A4) && defined(AUDIO_PIN_ALT_AS_NEGATIVE) && defined(AUDIO_PIN_ALT_A5)) || (defined(AUDIO_PIN_A5) && defined(AUDIO_PIN_ALT_AS_NEGATIVE) && defined(AUDIO_PIN_ALT_A4))
-        // one piezo/speaker connected to both audio pins, the generated squarewaves are inverted
+        // one piezo/speaker connected to both audio pins, the generated square-waves are inverted
         channel_1_set_frequency(audio_get_processed_frequency(0));
         channel_2_set_frequency(audio_get_processed_frequency(0));
 #else  // two separate audio outputs/speakers
