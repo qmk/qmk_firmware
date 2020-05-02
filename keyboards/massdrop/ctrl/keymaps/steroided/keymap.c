@@ -1,5 +1,9 @@
 #include "keymap.h"
 
+// derived from https://github.com/qmk/qmk_firmware/tree/master/keyboards/massdrop/ctrl/keymaps/endgame
+// my own take at a custom keymap for drop ctrl while learning QMK
+// Luca Lo Verde 2020 05 02
+
 static uint16_t idle_timer;             // Idle LED timeout timer
 static uint8_t idle_second_counter;     // Idle LED seconds counter, counts seconds not milliseconds
 static uint8_t key_event_counter;       // This counter is used to check if any keys are being held
