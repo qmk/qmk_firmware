@@ -41,8 +41,7 @@ enum layers {
 };
 
 enum custom_keycodes {
-  CK_CONFIGINIT = SAFE_RANGE,
-  CK_TRIPLEZERO,
+  CK_TRIPLEZERO = SAFE_RANGE,
 };
 
 enum {
