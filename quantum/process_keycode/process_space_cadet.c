@@ -92,12 +92,15 @@ void perform_space_cadet(keyrecord_t *record, uint16_t sc_keycode, uint8_t holdM
     if (record->event.pressed) {
         sc_last  = holdMod;
         sc_timer = timer_read();
+#ifdef SPACE_CADET_MODIFIER_CARRYOVER
+        sc_mods = get_mods();
+#endif
         if (IS_MOD(holdMod)) {
             register_mods(MOD_BIT(holdMod));
         }
     } else {
 #ifdef TAPPING_TERM_PER_KEY
-        if (sc_last == holdMod && timer_elapsed(sc_timer) < get_tapping_term(sc_keycode))
+        if (sc_last == holdMod && timer_elapsed(sc_timer) < get_tapping_term(sc_keycode record->event))
 #else
         if (sc_last == holdMod && timer_elapsed(sc_timer) < TAPPING_TERM)
 #endif

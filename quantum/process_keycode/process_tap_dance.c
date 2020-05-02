@@ -172,7 +172,7 @@ void matrix_scan_tap_dance() {
             tap_user_defined = action->custom_tapping_term;
         } else {
 #ifdef TAPPING_TERM_PER_KEY
-            tap_user_defined = get_tapping_term(action->state.keycode - QK_TAP_DANCE);
+            tap_user_defined = get_tapping_term(action->state.keycode - QK_TAP_DANCE, NULL);
 #else
             tap_user_defined = TAPPING_TERM;
 #endif
