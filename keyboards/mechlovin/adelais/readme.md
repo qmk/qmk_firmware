@@ -1,8 +1,10 @@
-# adelais
+# Adelais / Adelais En Ciel
 
 ![adelais](https://i.imgur.com/6U1IfZe.png)
 
-compatible with TGR Alice and all clone variants. Comes with RGB underglow pre-soldered.
+Compatible with TGR Alice and all clone variants.  
+`standard_led` (Adelais) comes with backlight and RGB underglow LEDs pre-soldered.  
+`rgb_led` (Adelais En Ciel) comes with per-key RGB LEDs pre-soldered.
 
 * Keyboard Maintainer: [Team Mechlovin'](https://github.com/mechlovin)
 * Hardware Supported: Adelais, Adelais En Ciel
