@@ -39,11 +39,11 @@ extern uint8_t note_timbre;
   alternatively, the PWM pins on PORTB can be used as only/primary speaker
 */
 
-#if (defined(AUDIO_PIN_C4) && defined(AUDIO_PIN_C5)) || (defined(AUDIO_PIN_C5) && defined(AUDIO_PIN_C6)) || (defined(AUDIO_PIN_C4) && defined(AUDIO_PIN_C6)) || (defined(AUDIO_PIN_C4) && defined(AUDIO_PIN_C5) && defined(AUDIO_PIN_C6))
-#    error "Audio feature: please set only one AUDIO_PIN_Cx."
+#if defined(AUDIO_PIN) && (AUDIO_PIN != C4) && (AUDIO_PIN != C5) && (AUDIO_PIN != C6) && (AUDIO_PIN != B5) && (AUDIO_PIN != B6) && (AUDIO_PIN != B7)
+#    error "Audio feature enabled, but no suitable pin selected as AUDIO_PIN - see docs/feature_audio under the AVR settings for available options."
 #endif
 
-#if defined(AUDIO_PIN_C4) || defined(AUDIO_PIN_C5) || defined(AUDIO_PIN_C6)
+#if (AUDIO_PIN == C4) || (AUDIO_PIN == C5) || (AUDIO_PIN == C6)
 #    define AUDIO1_PIN_SET
 #    define AUDIO1_TIMSKx TIMSK3
 #    define AUDIO1_TCCRxA TCCR3A
@@ -57,21 +57,21 @@ extern uint8_t note_timbre;
 #    define AUDIO1_CSx1 CS31
 #    define AUDIO1_CSx2 CS32
 
-#    if defined(AUDIO_PIN_C6)
+#    if (AUDIO_PIN == C6)
 #        define AUDIO1_COMxy0 COM3A0
 #        define AUDIO1_COMxy1 COM3A1
 #        define AUDIO1_OCIExy OCIE3A
 #        define AUDIO1_OCRxy OCR3A
 #        define AUDIO1_PIN C6
 #        define AUDIO1_TIMERx_COMPy_vect TIMER3_COMPA_vect
-#    elif defined(AUDIO_PIN_C5)
+#    elif (AUDIO_PIN == C5)
 #        define AUDIO1_COMxy0 COM3B0
 #        define AUDIO1_COMxy1 COM3B1
 #        define AUDIO1_OCIExy OCIE3B
 #        define AUDIO1_OCRxy OCR3B
 #        define AUDIO1_PIN C5
 #        define AUDIO1_TIMERx_COMPy_vect TIMER3_COMPB_vect
-#    elif defined(AUDIO_PIN_C4)
+#    elif (AUDIO_PIN == C4)
 #        define AUDIO1_COMxy0 COM3C0
 #        define AUDIO1_COMxy1 COM3C1
 #        define AUDIO1_OCIExy OCIE3C
@@ -81,20 +81,19 @@ extern uint8_t note_timbre;
 #    endif
 #endif
 
-// not super necessary, but for the sake of consistency with other drivers
-#if (defined(AUDIO1_PIN_SET) && (defined(AUDIO_PIN_B5) || defined(AUDIO_PIN_B6) || defined(AUDIO_PIN_B7)))
-#    error "Audio feature: with AUDIO_PIN_Cx set up as primary, please configure the secondary output as AUDIO_PIN_ALT_Bx instead of AUDIO_PIN_Bx."
+#if defined(AUDIO_PIN) && defined(AUDIO_PIN_ALT) && (AUDIO_PIN == AUDIO_PIN_ALT)
+#    error "Audio feature: AUDIO_PIN and AUDIO_PIN_ALT on the same pin makes no sense."
 #endif
 
-#if (defined(AUDIO_PIN_B5) && defined(AUDIO_PIN_B6)) || (defined(AUDIO_PIN_B6) && defined(AUDIO_PIN_B7)) || (defined(AUDIO_PIN_B5) && defined(AUDIO_PIN_B7)) || (defined(AUDIO_PIN_B5) && defined(AUDIO_PIN_B6) && defined(AUDIO_PIN_B7))
-#    error "Audio feature: please set only one AUDIO_PIN_Bx."
+#if ((AUDIO_PIN == B5) && ((AUDIO_PIN_ALT == B6) || (AUDIO_PIN_ALT == B7))) || ((AUDIO_PIN == B6) && ((AUDIO_PIN_ALT == B5) || (AUDIO_PIN_ALT == B7))) || ((AUDIO_PIN == B7) && ((AUDIO_PIN_ALT == B5) || (AUDIO_PIN_ALT == B6)))
+#    error "Audio feature: PORTB as AUDIO_PIN and AUDIO_PIN_ALT at the same time is not supported."
 #endif
 
-#if (defined(AUDIO_PIN_ALT_B5) && defined(AUDIO_PIN_ALT_B6)) || (defined(AUDIO_PIN_ALT_B6) && defined(AUDIO_PIN_ALT_B7)) || (defined(AUDIO_PIN_ALT_B5) && defined(AUDIO_PIN_ALT_B7)) || (defined(AUDIO_PIN_ALT_B5) && defined(AUDIO_PIN_ALT_B6) && defined(AUDIO_PIN_ALT_B7))
-#    error "Audio feature: please set only one AUDIO_PIN_ALT_Bx."
+#if defined(AUDIO_PIN_ALT) && (AUDIO_PIN_ALT != B5) && (AUDIO_PIN_ALT != B6) && (AUDIO_PIN_ALT != B7)
+#    error "Audio feature: the pin selected as AUDIO_PIN_ALT is not supported."
 #endif
 
-#if defined(AUDIO_PIN_B5) || defined(AUDIO_PIN_B6) || defined(AUDIO_PIN_B7) || defined(AUDIO_PIN_ALT_B5) || defined(AUDIO_PIN_ALT_B6) || defined(AUDIO_PIN_ALT_B7)
+#if (AUDIO_PIN == B5) || (AUDIO_PIN == B6) || (AUDIO_PIN == B7) || (AUDIO_PIN_ALT == B5) || (AUDIO_PIN_ALT == B6) || (AUDIO_PIN_ALT == B7)
 #    define AUDIO2_PIN_SET
 #    define AUDIO2_TIMSKx TIMSK1
 #    define AUDIO2_TCCRxA TCCR1A
@@ -108,21 +107,21 @@ extern uint8_t note_timbre;
 #    define AUDIO2_CSx1 CS11
 #    define AUDIO2_CSx2 CS12
 
-#    if defined(AUDIO_PIN_B5) || defined(AUDIO_PIN_ALT_B5)
+#    if (AUDIO_PIN == B5) || (AUDIO_PIN_ALT == B5)
 #        define AUDIO2_COMxy0 COM1A0
 #        define AUDIO2_COMxy1 COM1A1
 #        define AUDIO2_OCIExy OCIE1A
 #        define AUDIO2_OCRxy OCR1A
 #        define AUDIO2_PIN B5
 #        define AUDIO2_TIMERx_COMPy_vect TIMER1_COMPA_vect
-#    elif defined(AUDIO_PIN_B6) || defined(AUDIO_PIN_ALT_B6)
+#    elif (AUDIO_PIN == B6) || (AUDIO_PIN_ALT == B6)
 #        define AUDIO2_COMxy0 COM1B0
 #        define AUDIO2_COMxy1 COM1B1
 #        define AUDIO2_OCIExy OCIE1B
 #        define AUDIO2_OCRxy OCR1B
 #        define AUDIO2_PIN B6
 #        define AUDIO2_TIMERx_COMPy_vect TIMER1_COMPB_vect
-#    elif defined(AUDIO_PIN_B7) || defined(AUDIO_PIN_ALT_B7)
+#    elif (AUDIO_PIN == B7) || (AUDIO_PIN_ALT == B7)
 #        define AUDIO2_COMxy0 COM1C0
 #        define AUDIO2_COMxy1 COM1C1
 #        define AUDIO2_OCIExy OCIE1C
