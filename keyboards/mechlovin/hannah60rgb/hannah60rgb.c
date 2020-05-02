@@ -40,7 +40,7 @@ led_config_t g_led_config = { {
 } };
 
 void rgb_matrix_indicators_user(void) {
-        if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+        if (get_host_led_state().caps_lock) {
             rgb_matrix_set_color(30, 255, 255, 255);
         }
 }
