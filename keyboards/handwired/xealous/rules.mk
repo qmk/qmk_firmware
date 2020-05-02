@@ -34,7 +34,7 @@ SUBPROJECT_rev1 = yes
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 SRC += matrix.c
-DEBOUNCE_TYPE = eager_pk
+DEBOUNCE_TYPE = ts_sym_eager_pk
 
 LAYOUTS = split60
 

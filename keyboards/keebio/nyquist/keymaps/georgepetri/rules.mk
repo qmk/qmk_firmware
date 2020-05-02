@@ -2,4 +2,4 @@ MOUSEKEY_ENABLE = no
 COMMAND_ENABLE = no
 RGBLIGHT_ENABLE = yes
 LTO_ENABLE = yes
-DEBOUNCE_TYPE = eager_pk
+DEBOUNCE_TYPE = ts_sym_eager_pk

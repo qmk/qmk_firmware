@@ -33,7 +33,7 @@ API_SYSEX_ENABLE = no
 RGBLIGHT_ENABLE = yes
 
 RGB_MATRIX_ENABLE = no # enable later
-DEBOUNCE_TYPE = eager_pr
+DEBOUNCE_TYPE = ts_sym_eager_pr
 
 # project specific files
 SRC += matrix.c \

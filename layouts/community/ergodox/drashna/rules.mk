@@ -16,4 +16,4 @@ UNICODE_ENABLE     = yes
 UNICDOEMAP_ENABLE  = no
 
 
-DEBOUNCE_TYPE     = eager_pr
+DEBOUNCE_TYPE     = ts_sym_eager_pr
