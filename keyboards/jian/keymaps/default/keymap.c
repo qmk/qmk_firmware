@@ -23,18 +23,6 @@ enum jian_keycodes {
 #define RAISE_T(kc) LT(_RAISE, kc)
 #define LOWER_T(kc) LT(_LOWER, kc)
 
-#define LAYOUT_base( \
-    GRV, Q, W, E, R, T, Y, U, I,    O,   P,    LBRC, RBRC, \
-         A, S, D, F, G, H, J, K,    L,   SCLN, QUOT, \
-         Z, X, C, V, B, N, M, COMM, DOT, SLSH \
-  ) \
-  LAYOUT( \
-  KC_LGUI, GRV,     Q, W, E,               R,              T,                    Y,               U,               I,              O,   P,    LBRC,            RGUI_T(KC_RBRC), \
-           KC_LCTL, A, S, D,               F,              G,                    H,               J,               K,              L,   SCLN, RCTL_T(KC_QUOT), \
-           KC_LALT, Z, X, C,               V,              B,                    N,               M,               COMM,           DOT, SLSH, RALT_T(KC_BSLS), \
-                          RAISE_T(KC_TAB), LSFT_T(KC_SPC), LOWER_T(KC_ENT),      LOWER_T(KC_ESC), RSFT_T(KC_BSPC), RAISE_T(KC_DEL) \
-  )
-#define LAYOUT_base_wrapper(...) LAYOUT_base(__VA_ARGS__)
 
 #ifdef SWAP_HANDS_ENABLE
 #define SW_TG SH_TG
@@ -44,10 +32,33 @@ enum jian_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-[_QWERTY] = LAYOUT_base_wrapper(QWERTY_base),
-[_DVORAK] = LAYOUT_base_wrapper(DVORAK_base),
-[_COLEMAK] = LAYOUT_base_wrapper(COLEMAK_base),
-[_WORKMAN] = LAYOUT_base_wrapper(WORKMAN_base),
+[_QWERTY] = LAYOUT(\
+  KC_LGUI, KC_GRV, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I,    KC_O,   KC_P,    KC_LBRC, KC_RBRC, \
+           KC_LCTL, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,    KC_L,   KC_SCLN, KC_QUOT, \
+           KC_LALT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, RALT_T(KC_BSLS), \
+                 RAISE_T(KC_TAB), LSFT_T(KC_SPC), LOWER_T(KC_ENT),      LOWER_T(KC_ESC), RSFT_T(KC_BSPC), RAISE_T(KC_DEL) \
+),
+
+[_DVORAK] = LAYOUT(\
+  KC_LGUI, KC_GRV, KC_QUOT, KC_COMM, KC_DOT,KC_P, KC_Y, KC_F, KC_G, KC_C, KC_R, KC_L, KC_LBRC, KC_RBRC, \
+           KC_LCTL, KC_A,    KC_O,    KC_E,  KC_U, KC_I, KC_D, KC_H, KC_T, KC_N, KC_S, KC_SLSH, \
+           KC_LALT, KC_SCLN, KC_Q,    KC_J,  KC_K, KC_X, KC_B, KC_M, KC_W, KC_V, KC_Z, RALT_T(KC_BSLS), \
+                    RAISE_T(KC_TAB), LSFT_T(KC_SPC), LOWER_T(KC_ENT),      LOWER_T(KC_ESC), RSFT_T(KC_BSPC), RAISE_T(KC_DEL) \
+),
+
+[_COLEMAK] = LAYOUT(\
+  KC_LGUI, KC_GRV, KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U,    KC_Y,   KC_SCLN, KC_LBRC, KC_RBRC, \
+           KC_LCTL, KC_A, KC_R, KC_S, KC_T, KC_D, KC_H, KC_N, KC_E,    KC_I,   KC_O,    KC_QUOT, \
+           KC_LALT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_K, KC_M, KC_COMM, KC_DOT, KC_SLSH, RALT_T(KC_BSLS), \
+                    RAISE_T(KC_TAB), LSFT_T(KC_SPC), LOWER_T(KC_ENT),      LOWER_T(KC_ESC), RSFT_T(KC_BSPC), RAISE_T(KC_DEL) \
+),
+
+[_WORKMAN] = LAYOUT(\
+  KC_LGUI, KC_GRV, KC_Q, KC_D, KC_R, KC_W, KC_B, KC_J, KC_F, KC_U,    KC_P,   KC_SCLN, KC_LBRC, KC_RBRC, \
+           KC_LCTL, KC_A, KC_S, KC_H, KC_T, KC_G, KC_Y, KC_N, KC_E,    KC_O,   KC_I,    KC_QUOT, \
+           KC_LALT, KC_Z, KC_X, KC_M, KC_C, KC_V, KC_K, KC_L, KC_COMM, KC_DOT, KC_SLSH, RALT_T(KC_BSLS), \
+                    RAISE_T(KC_TAB), LSFT_T(KC_SPC), LOWER_T(KC_ENT),      LOWER_T(KC_ESC), RSFT_T(KC_BSPC), RAISE_T(KC_DEL) \
+),
 
 [_LOWER] = LAYOUT(\
   _______, KC_UNDS,         KC_F1,   KC_F2, KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,          RGUI_T(KC_F12), \
