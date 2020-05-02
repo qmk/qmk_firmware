@@ -1,6 +1,19 @@
-# Massdrop Ctrl Endgame
+# Massdrop Ctrl custom keymap (derived from Endgame)
 
-This keymap is here to show some love to the MD Ctrl.
+My own attempt at keeping my own custom keymap. Derived from the amazing "Endgame" keymap (included into QMK repo, [here](https://github.com/qmk/qmk_firmware/tree/master/keyboards/massdrop/ctrl/keymaps/endgame)). First time attempt at learning QMK, so this stuff will probably be really embarassing.
+
+## My own changes
+
+Let's try to keep proper note of the changes I progressively apply to the original keymap.
+
+* Activated several RGB animations (config.h)
+* Remapped CAPS lock to LCTRL (to be precise, to `TD_CTRL_TERM`, a tap dance keycode to pass CTRL + ALT + T to open a terminal window on linux when tapped without holding)
+* Fn + CAPS lock (layer `_FL`) -> CAPS lock 
+* Fn + Tab (`_FL`) -> `RGB_M_P` (set RGB to plain solid color)
+
+# From the original Endgame github repo README
+
+https://github.com/qmk/qmk_firmware/tree/master/keyboards/massdrop/ctrl/keymaps/endgame
 
 ## Layers
 
