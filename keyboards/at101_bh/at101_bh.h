@@ -1,5 +1,4 @@
-#ifndef at101_blackheart_H
-#define at101_blackheart_H
+#pragma once
 
 #include "quantum.h"
 
@@ -24,5 +23,3 @@
 	{ K1000, K1001, KC_NO, KC_NO, KC_NO, K1005, K1006, K1007, K1008, K1009 }, \
 	{ K1100, K1101, K1102, KC_NO, KC_NO, K1105, K1106, K1107, K1108, KC_NO }  \
 }
-
-#endif
