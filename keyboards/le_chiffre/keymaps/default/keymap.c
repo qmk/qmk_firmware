@@ -6,10 +6,6 @@ enum layers{
   _NAV
 };
 
-enum custom_keycodes{
-  RGBRST = SAFE_RANGE,
-};
-
 #define KC_NUM_SPC LT(_NUM_SYM, KC_SPC)
 #define KC_GA LGUI_T(KC_A)
 #define KC_AS LALT_T(KC_S)
@@ -32,11 +28,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_1,  KC_2,     KC_3,     KC_4,      KC_5,  KC_TRNS,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,
     KC_EXLM,  KC_AT,  KC_HASH,   KC_DLR,   KC_PERC,            KC_CIRC,  KC_AMPR,  KC_ASTR, KC_EQUAL,  KC_MINS,
     KC_BSLS,KC_LCBR,  KC_LBRC,  KC_LPRN,   KC_UNDS,            KC_RPRN,  KC_RBRC,  KC_RCBR,   KC_DOT,   KC_GRV,
-                                KC_TRNS,   KC_TRNS,            KC_TRNS,  KC_TRNS
+                                KC_CAPS,   KC_TRNS,            KC_TRNS,  KC_TRNS
   ),
 
   [_NAV] = LAYOUT(
-      RESET,   RGBRST,  AG_NORM,  AG_SWAP,  DEBUG, KC_TRNS,   KC_GRV,  KC_PGDN,    KC_UP,  KC_PGUP,  KC_SCLN,
+      RESET,  _______,  AG_NORM,  AG_SWAP,  DEBUG, KC_TRNS,   KC_GRV,  KC_PGDN,    KC_UP,  KC_PGUP,  KC_SCLN,
     RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI,  KC_NO,           KC_HOME,  KC_LEFT,  KC_DOWN,  KC_RGHT,   KC_END,
     RGB_MOD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  KC_NO,           KC_MINS,    KC_RO,  KC_COMM,   KC_DOT,  KC_BSLS,
                                   KC_TRNS,KC_TRNS,           KC_TRNS,  KC_TRNS
@@ -55,13 +51,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_90  ;  // flips the display 180 degrees if offhand
-}
-
-bool Caps;
-bool led_update_user(led_t led_state){
-  Caps = led_state.caps_lock;
-  return true;
+    return OLED_ROTATION_90;  // flips the display 180 degrees if offhand
 }
 
 void oled_task_user(void) {
@@ -139,7 +129,7 @@ static const char PROGMEM base_caps_logo[] = {
 
   switch (get_highest_layer(layer_state)) {
     case _BASE:
-    if (Caps) {
+    if (host_keyboard_led_state().caps_lock) {
         oled_write_raw_P(base_caps_logo, sizeof(base_caps_logo));
     } else {
         oled_write_raw_P(base_logo, sizeof(base_logo));
