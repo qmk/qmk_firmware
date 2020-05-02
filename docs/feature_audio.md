@@ -5,25 +5,24 @@ Your keyboard can make sounds! If you've got a spare pin you can hook up a simpl
 To activate this feature, add `AUDIO_ENABLE = yes` to your `rules.mk`.
 
 ## AVR based boards
-On Atmega32U4 based boards, up to two simultaneous tones can be rendered, with one speaker driven by timer 1 and another driven by timer 3.  The following pins can be configured as audio outputs in `config.h`:
+On Atmega32U4 based boards, up to two simultaneous tones can be rendered.
+With one speaker connected to a PWM capable pin on PORTC driven by timer 3 and the other on one of the PWM pins on PORTB driven by timer 1.
 
-for the primary speaker, with Timer 3, pick ONE these pins:
-`#define AUDIO_PIN_C4`
-`#define AUDIO_PIN_C5`
-`#define AUDIO_PIN_C6`
+The following pins can be configured as audio outputs in `config.h` - for one speaker set eiter one out of:
+`#define AUDIO_PIN C4`
+`#define AUDIO_PIN C5`
+`#define AUDIO_PIN C6`
+`#define AUDIO_PIN B5`
+`#define AUDIO_PIN B6`
+`#define AUDIO_PIN B7`
 
-and *optionally*, a secondary speaker, using Timer 1, on ONE of these pins:
-`#define AUDIO_PIN_ALT_B5`
-`#define AUDIO_PIN_ALT_B6`
-`#define AUDIO_PIN_ALT_B7`
-
-another alternative is to configure only one primary speaker, which is connected to one of the pwm capable PORTB pins. `config.h` would then include ONE of these defines:
-`#define AUDIO_PIN_B5`
-`#define AUDIO_PIN_B6`
-`#define AUDIO_PIN_B7`
+and *optionally*, for a second speaker, one of:
+`#define AUDIO_PIN_ALT B5`
+`#define AUDIO_PIN_ALT B6`
+`#define AUDIO_PIN_ALT B7`
 
 ### Wiring
-per speaker is - for example with a piezo buzzer - the black lead to Ground, and the red lead connected to the selected AUDIO_PIN_X for the primary; and similarly with AUDIO_PIN_ALT_X for the secondary.
+per speaker is - for example with a piezo buzzer - the black lead to Ground, and the red lead connected to the selected AUDIO_PIN for the primary; and similarly with AUDIO_PIN_ALT for the secondary.
 
 
 ## ARM based boards
@@ -71,7 +70,7 @@ Note that there is currently only one speaker/pin supported.
 
 set in `rules.mk`:
 `AUDIO_DRIVER = pwm_software` and in `config.h`
-`#define AUDIO_PIN C13` (can be any pin, NOTE the space in the define!)
+`#define AUDIO_PIN C13` (can be any pin)
 to have the selected pin output a pwm signal, generated from a timer callback which toggles the pin in software.
 
 #### Wiring
