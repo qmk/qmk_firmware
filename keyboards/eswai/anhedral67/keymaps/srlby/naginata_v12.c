@@ -49,6 +49,8 @@ static uint8_t ng_chrcount = 0; // 文字キー入力のカウンタ
 static bool is_naginata = false; // 薙刀式がオンかオフか
 static uint8_t naginata_layer = 0; // NG_*を配置しているレイヤー番号
 static uint32_t keycomb = 0UL; // 同時押しの状態を示す。32bitの各ビットがキーに対応する。
+static uint16_t ngon_keys[2]; // 薙刀式をオンにするキー(通常HJ)
+static uint16_t ngoff_keys[2]; // 薙刀式をオフにするキー(通常FG)
 
 // 31キーを32bitの各ビットに割り当てる
 #define B_Q    (1UL<<0)
@@ -698,9 +700,13 @@ const PROGMEM naginata_keymap_ime ngmapi[] = {
 #endif
 };
 
-// 薙刀式のレイヤー、シフトキーを設定
-void set_naginata(uint8_t layer) {
+// 薙刀式のレイヤー、オンオフするキー
+void set_naginata(uint8_t layer, uint16_t *onk, uint16_t *offk) {
   naginata_layer = layer;
+  ngon_keys[0] = *onk;
+  ngon_keys[1] = *(onk+1);
+  ngoff_keys[0] = *offk;
+  ngoff_keys[1] = *(offk+1);
 }
 
 // 薙刀式をオン
@@ -815,9 +821,61 @@ bool process_modifier(uint16_t keycode, keyrecord_t *record) {
   return false;
 }
 
+static bool f_pressed = false;
+static bool g_pressed = false;
+static bool h_pressed = false;
+static bool j_pressed = false;
+
+// 薙刀式の起動処理(COMBOを使わない)
+bool enable_naginata(uint16_t keycode, keyrecord_t *record) {
+  if (keycode == ngon_keys[0]) {
+    if (record->event.pressed) {
+      h_pressed = true;
+    } else {
+      h_pressed = false;
+    }
+  } else if (keycode == ngon_keys[1]) {
+    if (record->event.pressed) {
+      j_pressed = true;
+    } else {
+      j_pressed = false;
+    }
+  } else if (keycode == ngoff_keys[0]) {
+    if (record->event.pressed) {
+      f_pressed = true;
+    } else {
+      f_pressed = false;
+    }
+  } else if (keycode == ngoff_keys[1]) {
+    if (record->event.pressed) {
+      g_pressed = true;
+    } else {
+      g_pressed = false;
+    }
+  }
+
+  if (f_pressed & g_pressed) {
+    f_pressed = false;
+    g_pressed = false;
+    tap_code(KC_BSPC);
+    naginata_off();
+    return false;
+  }
+  if (h_pressed & j_pressed) {
+    h_pressed = false;
+    j_pressed = false;
+    tap_code(KC_BSPC);
+    naginata_on();
+    return false;
+  }
+
+  return true;
+}
+
 // 薙刀式の入力処理
 bool process_naginata(uint16_t keycode, keyrecord_t *record) {
-  if (!is_naginata) return true;
+  if (!is_naginata)
+    return enable_naginata(keycode, record);
 
   if (process_modifier(keycode, record))
     return true;

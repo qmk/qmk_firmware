@@ -1,5 +1,5 @@
 BOOTLOADER = qmk-dfu
-COMBO_ENABLE = yes
+# COMBO_ENABLE = yes
 # RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 UNICODE_ENABLE = yes
 MOUSEKEY_ENABLE = yes

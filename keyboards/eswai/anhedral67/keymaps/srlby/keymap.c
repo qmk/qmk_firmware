@@ -79,23 +79,6 @@ enum kepmap_layers {
 #define LTE   UC(0x2264)
 #define GTE   UC(0x2265)
 
-// 薙刀式
-enum combo_events {
-  NAGINATA_ON_CMB,
-  NAGINATA_OFF_CMB,
-};
-
-#if defined(DQGMLWY)
-const uint16_t PROGMEM ngon_combo[] = {KC_P, KC_N, COMBO_END};
-const uint16_t PROGMEM ngoff_combo[] = {KC_E, KC_M, COMBO_END};
-#endif
-
-combo_t key_combos[COMBO_COUNT] = {
-  [NAGINATA_ON_CMB] = COMBO_ACTION(ngon_combo),
-  [NAGINATA_OFF_CMB] = COMBO_ACTION(ngoff_combo),
-};
-// 薙刀式
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* _QGMLWY
   +-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+
@@ -113,8 +96,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QGMLWY] = LAYOUT(
     JP_GRV           ,KC_1             ,KC_2             ,KC_3             ,KC_4             ,KC_5             ,KC_6             ,KC_7             ,KC_8             ,KC_9             ,KC_0             ,JP_MINS          ,JP_PLUS          ,JP_SLSH          ,JP_ASTR          , \
     KC_ESC           ,KC_COMM          ,KC_S             ,KC_R             ,KC_L             ,KC_B             ,JP_COLN          ,                  KC_Y             ,KC_BSPC          ,KC_I             ,KC_D             ,JP_DOT           ,KC_BSPC                         , \
-    KC_TAB           ,KC_K             ,KC_H             ,KC_T             ,KC_E             ,KC_M             ,JP_BSLS          ,                  KC_P             ,KC_N             ,KC_A             ,KC_O             ,KC_Z             ,KC_ENT                          , \
-    KC_LCTL          ,KC_V             ,JP_QUOT          ,KC_W             ,KC_G             ,KC_C             ,JP_LPRN          ,JP_RPRN          ,KC_U             ,KC_F             ,KC_J             ,KC_X             ,KC_Q             ,KC_UP            ,KC_DEL           , \
+    KC_TAB           ,KC_W             ,KC_H             ,KC_T             ,KC_E             ,KC_M             ,JP_BSLS          ,                  KC_P             ,KC_N             ,KC_A             ,KC_O             ,KC_K             ,KC_ENT                          , \
+    KC_LCTL          ,KC_V             ,JP_QUOT          ,KC_Z             ,KC_G             ,KC_C             ,JP_LPRN          ,JP_RPRN          ,KC_U             ,KC_F             ,KC_J             ,KC_X             ,KC_Q             ,KC_UP            ,KC_DEL           , \
     KC_LSFT          ,                                    ALPH             ,LOWER            ,LT(_SHIFT,KC_SPC),KC_LCTL          ,                  LT(_SHIFT,KC_ENT),RAISE            ,KC_LALT          ,                  KC_LEFT          ,KC_DOWN          ,KC_RGHT
   ),
 
@@ -136,8 +119,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_SHIFT] = LAYOUT(
     JP_TILD   ,JP_EXLM   ,JP_AT     ,JP_HASH   ,JP_DLR    ,JP_PERC   ,JP_CIRC   ,JP_AMPR   ,JP_ASTR   ,JP_LPRN   ,JP_RPRN   ,JP_UNDS   ,JP_EQL    ,JP_QUES, _______, \
     S(KC_ESC) ,JP_LT     ,S(KC_S)   ,S(KC_R)   ,S(KC_L)   ,S(KC_B)   ,JP_SCLN   ,           S(KC_Y)   ,CSBS      ,S(KC_I)   ,S(KC_D)   ,JP_GT     ,S(KC_BSPC), \
-    S(KC_TAB) ,S(KC_K)   ,S(KC_H)   ,S(KC_T)   ,S(KC_E)   ,S(KC_M)   ,JP_PIPE   ,           S(KC_P)   ,S(KC_N)   ,S(KC_A)   ,S(KC_O)   ,S(KC_Z)   ,S(KC_ENT), \
-    _______   ,S(KC_V)   ,JP_DQT    ,S(KC_W)   ,S(KC_G)   ,S(KC_C)   ,JP_LT     ,JP_GT     ,S(KC_U)   ,S(KC_F)   ,S(KC_J)   ,S(KC_X)   ,S(KC_Q)   ,S(KC_UP),S(KC_DEL), \
+    S(KC_TAB) ,S(KC_W)   ,S(KC_H)   ,S(KC_T)   ,S(KC_E)   ,S(KC_M)   ,JP_PIPE   ,           S(KC_P)   ,S(KC_N)   ,S(KC_A)   ,S(KC_O)   ,S(KC_K)   ,S(KC_ENT), \
+    _______   ,S(KC_V)   ,JP_DQT    ,S(KC_Z)   ,S(KC_G)   ,S(KC_C)   ,JP_LT     ,JP_GT     ,S(KC_U)   ,S(KC_F)   ,S(KC_J)   ,S(KC_X)   ,S(KC_Q)   ,S(KC_UP),S(KC_DEL), \
     _______   ,                      KC_LGUI   ,_______   ,_______   ,_______   ,           _______   ,_______   ,_______   ,           S(KC_LEFT),S(KC_DOWN),S(KC_RGHT)
   ),
 
@@ -178,7 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LOWER] = LAYOUT(
     _______  ,KC_F1    ,KC_F2    ,KC_F3    ,KC_F4    ,KC_F5    ,KC_F6    ,KC_F7    ,KC_F8    ,KC_F9    ,KC_F10   ,KC_F11   ,KC_F12   ,_______  ,_______  , \
     _______  ,KC_END   ,KC_HOME  ,C(KC_A)  ,C(KC_S)  ,XXXXXXX  ,XXXXXXX  ,          JP_SLSH  ,KC_7     ,KC_8     ,KC_9     ,JP_PLUS  ,KC_DEL          , \
-    _______  ,KC_PGDN  ,KC_PGUP  ,C(KC_Z)  ,C(KC_X)  ,C(KC_C)  ,XXXXXXX  ,          JP_ASTR  ,KC_4     ,KC_5     ,KC_6     ,JP_MINS  ,A(KC_ENT)       , \
+    _______  ,KC_PGDN  ,KC_PGUP  ,C(KC_Z)  ,C(KC_C)  ,C(KC_X)  ,XXXXXXX  ,          JP_ASTR  ,KC_4     ,KC_5     ,KC_6     ,JP_MINS  ,A(KC_ENT)       , \
     _______  ,XXXXXXX  ,XXXXXXX  ,XXXXXXX  ,C(KC_V)  ,CPPA     ,JP_LBRC  ,JP_RBRC  ,KC_0     ,KC_1     ,KC_2     ,KC_3     ,JP_EQL   ,KC_PGUP  ,_______  , \
     _______  ,                    SALPH    ,_______  ,_______  ,_______  ,          _______  ,_______  ,_______  ,          KC_HOME  ,KC_PGDN  ,KC_END
   ),
@@ -340,29 +323,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-// 薙刀式
-// IME ONのcombo
-void process_combo_event(uint8_t combo_index, bool pressed) {
-  switch(combo_index) {
-    case NAGINATA_ON_CMB:
-      if (pressed) {
-        naginata_on();
-      }
-      break;
-    case NAGINATA_OFF_CMB:
-      if (pressed) {
-        naginata_off();
-      }
-      break;
-  }
-}
-// 薙刀式
-
 void matrix_init_user(void) {
   // 薙刀式
-  set_naginata(_NAGINATA);
-  // 薙刀式
+  uint16_t ngonkeys[] = {KC_P, KC_N};
+  uint16_t ngoffkeys[] = {KC_E, KC_M};
+  set_naginata(_NAGINATA, ngonkeys, ngoffkeys);
   set_unicode_input_mode(UC_WINC);
+  // 薙刀式
 }
 
 void matrix_scan_user(void) {
