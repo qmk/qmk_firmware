@@ -69,7 +69,7 @@
 // #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 
 #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_REACTIVE  // Sets the default mode, if none has been set
-#define RGB_MATRIX_STARTUP_HUE 220  //pinkish alphas with green background when pressed.
+#define RGB_MATRIX_STARTUP_HUE 180  //purple  alphas with green background when pressed.
 // #define RGBLIGHT_HUE_STEP 12        // Units to step when in/decreasing hue
 // #define RGBLIGHT_SAT_STEP 25        // Units to step when in/decreasing saturation
 // #define RGBLIGHT_VAL_STEP 12        // Units to step when in/decreasing value (brightness)
