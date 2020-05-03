@@ -6,6 +6,18 @@ This document has useful information for developers wishing to write new `qmk` s
 
 The QMK CLI operates using the subcommand pattern made famous by git. The main `qmk` script is simply there to setup the environment and pick the correct entrypoint to run. Each subcommand is a self-contained module with an entrypoint (decorated by `@cli.subcommand()`) that performs some action and returns a shell returncode, or None.
 
+## Developer mode:
+
+If you intend to maintain keyboards and/or contribute to QMK, you can enable the CLI's "Developer" mode:
+
+`qmk config user.developer=True`
+
+This will allow you to see all available subcommands.  
+**Note:** You will have to install additional requirements:  
+```bash
+python3 -m pip install -r requirements-dev.txt
+```
+
 # Subcommands
 
 [MILC](https://github.com/clueboard/milc) is the CLI framework `qmk` uses to handle argument parsing, configuration, logging, and many other features. It lets you focus on writing your tool without wasting your time writing glue code.

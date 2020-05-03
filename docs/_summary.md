@@ -121,6 +121,7 @@
     * [Drivers](hardware_drivers.md)
       * [ADC Driver](adc_driver.md)
       * [I2C Driver](i2c_driver.md)
+      * [SPI Driver](spi_driver.md)
       * [WS2812 Driver](ws2812_driver.md)
       * [EEPROM Driver](eeprom_driver.md)
     * [GPIO Controls](internals_gpio_control.md)
@@ -134,6 +135,10 @@
     * QMK API
       * [Development Environment](api_development_environment.md)
       * [Architecture Overview](api_development_overview.md)
+
+  * Hardware Platform Development
+    * Arm/ChibiOS
+      * [Early initialization](platformdev_chibios_earlyinit.md)
 
   * QMK Reference
     * [Contributing to QMK](contributing.md)

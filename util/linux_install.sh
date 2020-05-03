@@ -105,17 +105,17 @@ elif grep ID /etc/os-release | grep -q gentoo; then
 		sudo touch /etc/portage/package.use/qmkfirmware
 		# tee is used here since sudo doesn't apply to >>
 		echo "sys-devel/gcc multilib" | sudo tee --append /etc/portage/package.use/qmkfirmware >/dev/null
-		sudo emerge -auN \
+		sudo emerge -auN sys-devel/gcc
+		sudo emerge -au --noreplace \
 			app-arch/unzip \
 			app-arch/zip \
 			app-mobilephone/dfu-util \
 			dev-embedded/avrdude \
-			dev-lang/python:3.5 \
 			net-misc/wget \
 			sys-devel/clang \
-			sys-devel/gcc \
 			sys-devel/crossdev
-		sudo crossdev -s4 --stable --g =4.9.4 --portage --verbose --target avr
+		sudo crossdev -s4 --stable --g \<9 --portage --verbose --target avr
+		sudo crossdev -s4 --stable --g \<9 --portage --verbose --target arm-none-eabi
 		echo "Done!"
 	else
 		echo "Quitting..."
@@ -132,7 +132,8 @@ elif grep ID /etc/os-release | grep -q sabayon; then
 		sys-devel/clang \
 		sys-devel/gcc \
 		sys-devel/crossdev
-	sudo crossdev -s4 --stable --g =4.9.4 --portage --verbose --target avr
+	sudo crossdev -s4 --stable --g \<9 --portage --verbose --target avr
+	sudo crossdev -s4 --stable --g \<9 --portage --verbose --target arm-none-eabi
 	echo "Done!"
 
 elif grep ID /etc/os-release | grep -qE "opensuse|tumbleweed"; then

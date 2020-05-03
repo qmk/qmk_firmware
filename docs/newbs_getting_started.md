@@ -68,7 +68,7 @@ You will need to install Git and Python. It's very likely that you already have 
 
 * Debian / Ubuntu / Devuan: `apt-get install git python3 && python3 -m pip install qmk`
 * Fedora / Red Hat / CentOS: `yum install git python3 && python3 -m pip install qmk`
-* Arch: `pacman -S qmk`
+* Arch: `yay -S qmk` (or use any other AUR Helper)
 
 ## 3. Run QMK Setup :id=set-up-qmk
 
