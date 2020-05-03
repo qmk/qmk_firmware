@@ -1,9 +1,6 @@
-#include "version.h"
 #include "spidey3.h"
 
 void keyboard_post_init_user(void) {
-  uprint("keyboard_post_init_user: " QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
-  uprintf("debug_enable=%u\n", debug_enable);
 #ifdef RGBLIGHT_ENABLE
   keyboard_post_init_user_rgb();
 #endif

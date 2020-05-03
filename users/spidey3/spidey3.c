@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 
 #include "spidey3.h"
+#include "version.h"
 #include <stdlib.h>
 
 static bool rand_seeded = false;
@@ -177,3 +178,45 @@ bool led_update_user(led_t led_state) {
   return true;
 #endif
 }
+
+#if defined(CONSOLE_ENABLE) && !defined(NO_DEBUG)
+#if defined(SPI_DEBUG_SCAN_RATE)
+static uint32_t matrix_timer      = 0;
+static uint32_t matrix_scan_count = 0;
+static uint32_t last_matrix_scan_count = 0;
+static bool reported_version = false;
+#define SPI_SCAN_RATE_INTERVAL 10
+void matrix_scan_user(void) {
+  matrix_scan_count++;
+  if (debug_enable) {
+    uint32_t timer_now = timer_read32();
+    if (matrix_timer == 0) {
+      matrix_timer = timer_now;
+      last_matrix_scan_count = matrix_scan_count;
+      matrix_scan_count = 0;
+    } else if (TIMER_DIFF_32(timer_now, matrix_timer) > SPI_SCAN_RATE_INTERVAL * 1000) {
+      matrix_timer = timer_now;
+      last_matrix_scan_count = matrix_scan_count;
+      matrix_scan_count = 0;
+      if (!reported_version) {
+        uprintln(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
+        reported_version = true;
+      }
+      uprintf("scan rate: %u/s\n", last_matrix_scan_count / SPI_SCAN_RATE_INTERVAL);
+    }
+  } else {
+    matrix_timer = 0;
+  }
+}
+#else
+static uint32_t matrix_scan_count = 0;
+static bool reported_version = false;
+void matrix_scan_user(void) {
+  matrix_scan_count++;
+  if (!reported_version && matrix_scan_count > 300) {
+    uprintln(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
+    reported_version = true;
+  }
+}
+#endif
+#endif
