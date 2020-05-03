@@ -1,6 +1,6 @@
 # LB75
 
-![LB75](https://i.imgur.com/UNhskvM.jpg)
+![LB75](https://i.imgur.com/UNhskvMl.jpg)
 
 LB75 PCB for QUAD-H
 
