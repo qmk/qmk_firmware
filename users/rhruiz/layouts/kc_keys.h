@@ -22,7 +22,7 @@
 #define KC__VUP KC__VOLUP
 #define KC__VDN KC__VOLDOWN
 
-#define KC_ENTS LSFT(KC_ENTER)
+#define KC_ENTS LSFT_T(KC_ENTER)
 
 #define KC__WN LCMD(KC_GRV)
 #define KC__STP LCMD(KC_UP)
