@@ -2,9 +2,6 @@
 // See gfxfont.h for newer custom bitmap font info.
 
 // Modified to show the Lily58 logo instead of the qmk logo
-
-#pragma once
-
 #include "progmem.h"
 
 // Standard ASCII 5x7 font
