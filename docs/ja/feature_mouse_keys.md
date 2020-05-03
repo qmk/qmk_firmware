@@ -91,7 +91,7 @@ MOUSEKEY_ENABLE = yes
 * **Momentary:** `KC_ACL0` < `KC_ACL1` < *unmodified* < `KC_ACL2`
 * **Tap-to-select:** `KC_ACL0` < `KC_ACL1` < `KC_ACL2`
 
-定速モードを使うには、少なくともキーマップの `config.h` ファイルに `MK_3_SPEED` を定義する必要があります。
+定速モードを使うには、少なくともキーマップの `keymaps` ディレクトリの `config.h` ファイルに `MK_3_SPEED` を定義する必要があります。
 
 ```c
 #define MK_3_SPEED
