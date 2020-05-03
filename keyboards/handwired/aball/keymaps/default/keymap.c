@@ -18,46 +18,24 @@
 #include "adns.h"
 
 enum layer_names {
-    _QWERTY,
-    _LOWER,
-    _RAISE
+    _QWERTY
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = LAYOUT( KC_C,   KC_Q ),
-
-  [_LOWER] = LAYOUT( KC_BSPC,   KC_Q ),
-
-  [_RAISE] = LAYOUT( KC_ESC,  KC_F7 )
+  [_QWERTY] = LAYOUT( KC_C,   KC_Q )
 };
 
 
 
 void keyboard_post_init_user(void) {
   // Customise these values to desired behaviour
-  debug_enable=true;
+  //debug_enable=true;
   //debug_matrix=true;
   //debug_keyboard=true;
   //debug_mouse=true;
-  print("KB INIT COMPLETE");
-  setPinOutput(F5);
-}
-
-void dispRegisters(void){
-  int oreg[7] = {
-    0x00,0x3F,0x2A,0x02  };
-  char* oregname[] = {
-    "Product_ID","Inverse_Product_ID","SROM_Version","Motion"  };
-  uint8_t regres;
-
-
-  int rctr=0;
-  for(rctr=0; rctr<4; rctr++){
-    print("---\n");
-    uprintf("%s\n",oregname[rctr]);
-    regres = adns_read(oreg[rctr]);
-    uprintf("%d\n",regres);
-  }
+  //print("KB INIT COMPLETE");
+  //setPinOutput(F5);
+  return;
 }
 
