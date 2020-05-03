@@ -3,9 +3,7 @@
 
 // Modified to show the Lily58 logo instead of the qmk logo
 
-#ifndef FONT5X7_H
-#define FONT5X7_H
-#endif
+#pragma once
 
 #include "progmem.h"
 
