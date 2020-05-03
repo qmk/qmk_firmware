@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                KC_TAB, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1,
                KC_LCTL, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_ENT,
                KC_LSFT, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_RSFT, MO(HHKB),
-               KC_LGUI, KC_FN3, LT(SPACE_FN, KC_SPACE), KC_FN4, KC_RGUI),
+               KC_LGUI, MT(MOD_LALT, KC_MHEN), LT(SPACE_FN, KC_SPACE), MT(MOD_RALT, KC_KANA), KC_RGUI),
 
     /* Layer 2: Dvorak Layer
      * ,-----------------------------------------------------------------------------------------.
@@ -133,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [HHKB] =
         LAYOUT(KC_PWR, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_INS, KC_DEL,
-               KC_CAPS, KC_FN5, KC_FN6, KC_FN7, KC_FN8, KC_FN9, KC_TRNS, KC_TRNS, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP, KC_TRNS, KC_BSPC,
+               KC_CAPS, DF(BASE), DF(PSEUDO_US), DF(MOUSE), DF(TENKEY), DF(DVORAK), KC_TRNS, KC_TRNS, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP, KC_TRNS, KC_BSPC,
                KC_TRNS, KC_VOLD, KC_VOLU, KC_MUTE, KC_TRNS, KC_TRNS, KC_PAST, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT, KC_PENT,
                KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PPLS, KC_PMNS, KC_END, KC_PGDN, KC_DOWN, KC_TRNS, KC_TRNS,
                KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
@@ -183,11 +183,4 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
  */
 const uint16_t PROGMEM fn_actions[] = {
     [1] = ACTION_FUNCTION(PSEUDO_US_FUNCTION),
-    [3] = ACTION_MODS_TAP_KEY(MOD_LALT, KC_MHEN),
-    [4] = ACTION_MODS_TAP_KEY(MOD_RALT, KC_KANA),
-    [5] = ACTION_DEFAULT_LAYER_SET(BASE),
-    [6] = ACTION_DEFAULT_LAYER_SET(PSEUDO_US),
-    [7] = ACTION_DEFAULT_LAYER_SET(MOUSE),
-    [8] = ACTION_DEFAULT_LAYER_SET(TENKEY),
-    [9] = ACTION_DEFAULT_LAYER_SET(DVORAK),
 };
