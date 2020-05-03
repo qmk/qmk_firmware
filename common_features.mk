@@ -399,7 +399,7 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
         # Unused functions are pruned away, which is why we can add multiple drivers here without bloat.
         ifeq ($(strip $(SPLIT_TRANSPORT)), mirror)
             OPT_DEFS += -DSPLIT_TRANSPORT_MIRROR
-        endef 
+        endif 
         
         ifeq ($(PLATFORM),AVR)
             QUANTUM_LIB_SRC += i2c_master.c \
