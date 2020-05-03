@@ -2,15 +2,8 @@
 #include "layouts/wrappers.h"
 
 #ifdef OLED_DRIVER_ENABLE
-#include "oled/oled.h"
-#undef OLED_FONT_H
-#define OLED_SCROLL_TIMEOUT 8000
-
-#ifdef OLED_ROTATE
-#define OLED_SCROLL_TIMEOUT_RIGHT
+#    include "oled/oled.h"
 #endif
-#endif
-
 
 enum rhruiz_layers { _BL, _GAME, _NUM, _KEY_OVERRIDE, _FN1, _FN2, _GAMEFN1, _CFG };
 

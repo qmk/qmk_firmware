@@ -31,11 +31,7 @@ static const char _cfg_logo[][6] PROGMEM = {
 
 #else
 
-const char rhruiz_logo_lines[][21] PROGMEM = {
-    {0x20, 0x94, 0x95, 0x96, 0x97, 0x98, 0x20, 0x20, 0x20, 0x20, 0x20, 0x88, 0x20, 0x20, 0x20, 0x20, 0x20, 0x16, 0x20, 0x20, 0},
-    {0x20, 0xb4, 0xb5, 0xb6, 0xb7, 0xb8, 0x20, 0x20, 0x20, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xc9, 0xae, 0xaf, 0},
-    {0x20, 0xd4, 0xd5, 0xd6, 0xd7, 0xd8, 0x20, 0x20, 0x20, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xc9, 0xce, 0xcf, 0}
-};
+const char _spacer[] PROGMEM = "          ";
 
 static const char lc[][4][3] PROGMEM = {
     [_BL]      = {{0x20, 0x20, 0}, {0x20, 0x20, 0}, {0x20, 0x20, 0}, {0x20, 0x20, 0}},
@@ -73,15 +69,12 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 #ifdef OLED_ROTATE
 void oled_clear_half_except(uint8_t lines) {
     for (uint8_t j = 0; j < (oled_max_lines() - lines) / 2; j++) {
-        oled_write_P(PSTR("\n"), false);
+        oled_write("\n", false);
     }
 }
 
 void rhruiz_render_oled(void) {
     layer_state_t layer = biton32(layer_state);
-    /* static const char new_arrow[] = { 0x20, 0x85, 0xa5, 0x20 }; */
-
-    oled_set_cursor(0, 0);
 
     switch (layer) {
         case _NUM:
@@ -92,23 +85,17 @@ void rhruiz_render_oled(void) {
 
         case _FN1:
             oled_clear_half_except(6);
-            oled_write_ln_P(_down_arrow_logo[0], false);
-            oled_write_ln_P(_down_arrow_logo[1], false);
-            oled_write_ln_P(_down_arrow_logo[2], false);
-            oled_write_ln_P(_down_arrow_logo[0], false);
-            oled_write_ln_P(_down_arrow_logo[1], false);
-            oled_write_ln_P(_down_arrow_logo[2], false);
+            for (uint8_t i = 0 ; i < 6; i++) {
+                oled_write_ln_P(_down_arrow_logo[i % 3], false);
+            }
             oled_clear_half_except(6);
             break;
 
         case _FN2:
             oled_clear_half_except(6);
-            oled_write_ln_P(_up_arrow_logo[0], false);
-            oled_write_ln_P(_up_arrow_logo[1], false);
-            oled_write_ln_P(_up_arrow_logo[2], false);
-            oled_write_ln_P(_up_arrow_logo[0], false);
-            oled_write_ln_P(_up_arrow_logo[1], false);
-            oled_write_ln_P(_up_arrow_logo[2], false);
+            for (uint8_t i = 0 ; i < 6; i++) {
+                oled_write_ln_P(_up_arrow_logo[i % 3], false);
+            }
             oled_clear_half_except(6);
             break;
 
@@ -122,9 +109,9 @@ void rhruiz_render_oled(void) {
             oled_clear_half_except(2);
 
             oled_write_P(_game_layer_logo[0], false);
-            oled_write_P(PSTR("\x1f"), false);
+            oled_write("\x1f", false);
             oled_write_P(_game_layer_logo[1], false);
-            oled_write_P(PSTR("\x1f"), false);
+            oled_write("\x1f", false);
 
             oled_clear_half_except(2);
             break;
@@ -139,20 +126,12 @@ void rhruiz_render_oled(void) {
             break;
 
         default:
-            oled_clear_half_except(2);
-            oled_write_ln_P(PSTR("\x92\x93"), false);
-            oled_write_ln_P(PSTR("\xb2\xb3\x16"), false);
-            oled_clear_half_except(2);
+            oled_clear_half_except(0);
+            oled_clear_half_except(0);
             break;
     }
 }
 #else
-void rhruiz_render_logo_and_layer(void) {
-    for (uint8_t i = 0; i < 4; i++) {
-        oled_write_ln_P(rhruiz_logo_lines[i], false);
-    }
-}
-
 void rhruiz_render_oled(void) {
     layer_state_t layer = biton32(layer_state);
 
@@ -160,13 +139,13 @@ void rhruiz_render_oled(void) {
         case _FN1:
         case _FN2:
             for (uint8_t i = 0; i < 4; i++) {
-                oled_write_P(PSTR("          "), false);
+                oled_write_P(_spacer, false);
 
                 for (uint8_t j = 0; j < 3; j++) {
                     oled_write_P(lc[layer][i], false);
                 }
 
-                oled_write_P(PSTR("\n"), false);
+                oled_write("\n", false);
             }
 
             break;
@@ -177,34 +156,34 @@ void rhruiz_render_oled(void) {
                     oled_write_P(lc[layer][i], false);
                 }
 
-                oled_write_P(PSTR("\n"), false);
+                oled_write("\n", false);
             }
             break;
 
         case _GAME:
             for (uint8_t i = 0; i < 4; i++) {
-                oled_write_P(PSTR("           "), false);
+                oled_write_P(_spacer, false);
                 oled_write_P(_game_layer_logo[i], false);
-                oled_write_P(PSTR("\n"), false);
+                oled_write("\n", false);
             }
             break;
 
         case _GAMEFN1:
-            oled_write_P(PSTR("           "), false);
+            oled_write_P(_spacer, false);
             oled_write_P(lc[layer][3], false);
-            oled_write_P(PSTR("\n"), false);
+            oled_write("\n", false);
 
             for (uint8_t i = 1; i < 4; i++) {
-                oled_write_P(PSTR("           "), false);
+                oled_write_P(_spacer, false);
                 oled_write_P(_game_layer_logo[i], false);
-                oled_write_P(PSTR("\n"), false);
+                oled_write("\n", false);
             }
             break;
 
 
         default:
             for (uint8_t i = 0; i < 4; i++) {
-                oled_write_P(PSTR("           "), false);
+                oled_write_P(_spacer, false);
                 oled_write_ln_P(lc[layer][i], false);
             }
 
@@ -224,13 +203,9 @@ void oled_task_user(void) {
         } else {
             oled_on();
         }
-
-        rhruiz_render_oled();
-    } else {
-        // rhruiz_render_logo_and_layer();
-        // oled_scroll_right();
-        rhruiz_render_oled();
     }
+
+    rhruiz_render_oled();
 }
 
 void suspend_power_down_user(void) { oled_off(); }
