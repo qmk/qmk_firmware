@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT 910CE
 #define DESCRIPTION A custom 65% keyboard
 
-#define RGBLED_NUM 18
+#define RGBLED_NUM 19
 
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15
