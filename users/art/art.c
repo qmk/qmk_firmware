@@ -21,9 +21,30 @@ void backspace_n_times(int times) {
   }
 }
 
-void send_string_remembering_lenght(char *string) {
+void send_string_remembering_length(char *string) {
   send_string(string);
   char_to_del = strlen(string);
+}
+
+void send_shifted_strings(char *string1, char *string2) {
+  if ( get_mods() & MOD_MASK_SHIFT ) {
+    clear_mods();
+    send_string_remembering_length(string2);
+  } else {
+    send_string_remembering_length(string1);
+  }
+}
+
+void send_shifted_strings_add(char *string1, char *string2) {
+  bool shifted = get_mods() & MOD_MASK_SHIFT;
+  clear_mods();
+
+  send_string_remembering_length(string1);
+
+  if (shifted) {
+    send_string(string2);
+    char_to_del = strlen(string1) + strlen(string2);
+  }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -215,8 +236,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     // case :
     //   if (record->event.pressed) {
-    //     SEND_STRING("");
-    //     char_to_del = ;
+    //     send_string_remembering_length("");
     //   }
     //   break;
     // case :
@@ -239,14 +259,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case ADMINS:
       if (record->event.pressed) {
-        if ( get_mods() & MOD_MASK_SHIFT ) {
-          clear_mods();
-          SEND_STRING("admin/aurora/status");
-          char_to_del = 19;
-        } else {
-          SEND_STRING("admin");
-          char_to_del = 5;
-        }
+        send_shifted_strings_add("admin", "/aurora/status");
       }
       break;
     case PRESCRIPTION:
@@ -264,24 +277,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       
   case G_ADD:
     if (record->event.pressed) {
-      send_string_remembering_lenght("git add ");
+      send_string_remembering_length("git add ");
     }
     break;
   case G_BRCH:
     if (record->event.pressed) {
-      if ( get_mods() & MOD_MASK_SHIFT ) {
-        clear_mods();
-        SEND_STRING("master");
-        char_to_del = 6;
-      } else {
-        SEND_STRING("develop");
-        char_to_del = 7;
-      }
+      send_shifted_strings("develop", "master");
     }
     break;
   case G_C:
     if (record->event.pressed) {
-      send_string_remembering_lenght("git c[Heckout/Ommit]");
+      send_string_remembering_length("git c[Heckout/Ommit]");
       layer_on(GIT_C);
     }
     break;
@@ -318,46 +324,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case G_DIFF:
     if (record->event.pressed) {
-      send_string_remembering_lenght("git diff ");
+      send_string_remembering_length("git diff ");
     }
     break;	
   case G_FTCH:
     if (record->event.pressed) {
-      send_string_remembering_lenght("git fetch ");
+      send_string_remembering_length("git fetch ");
     }
     break;
   case G_LOG:
     if (record->event.pressed) {
-      send_string_remembering_lenght("git log ");
+      send_string_remembering_length("git log ");
     }
     break;
   case G_MERG:
     if (record->event.pressed) {
-      send_string_remembering_lenght("git merge ");
+      send_string_remembering_length("git merge ");
     }
     break;
   case G_P:
     if (record->event.pressed) {
-      bool shifted = get_mods() & MOD_MASK_SHIFT;
-      clear_mods();
-
-      SEND_STRING("git pu");
-      char_to_del = 6;
-
-      if (shifted) {
-        SEND_STRING("sh -u ");
-        char_to_del = 12;
-      }
+      send_shifted_strings_add("git pu", "sh -u ");
     }
     break;
   case G_RST:
     if (record->event.pressed) {
-      send_string_remembering_lenght("git reset ");
+      send_string_remembering_length("git reset ");
     }
     break;
   case G_S:
     if (!record->event.pressed) {
-      send_string_remembering_lenght("git s[taSh/How/taTus]");
+      send_string_remembering_length("git s[taSh/How/taTus]");
       layer_on(GIT_S);			
     }
     break;
