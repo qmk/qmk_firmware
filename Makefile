@@ -559,7 +559,7 @@ endef
 %:
 	# Check if we have the CMP tool installed
 	cmp $(ROOT_DIR)/Makefile $(ROOT_DIR)/Makefile >/dev/null 2>&1; if [ $$? -gt 0 ]; then printf "$(MSG_NO_CMP)"; exit 1; fi;
-	# Ensure that bin/qmk works. This will be a failing check after the next future merge.
+	# Ensure that bin/qmk works. This will be a failing check after the next develop merge on 2020 Aug 29.
 	if ! bin/qmk hello 1> /dev/null 2>&1; then printf "$(MSG_PYTHON_MISSING)"; fi
 	# Check if the submodules are dirty, and display a warning if they are
 ifndef SKIP_GIT
