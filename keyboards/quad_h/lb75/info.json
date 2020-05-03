@@ -5,7 +5,7 @@
     "width": 16, 
     "height": 6, 
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_continuous_fnrow": {
             "layout": [
 				{"label":"Esc", "x":0, "y":0}, 
 				{"label":"F1", "x":1, "y":0}, 
