@@ -870,7 +870,7 @@ void tap_code(uint8_t code) {
 
 /** \brief Adds the given physically pressed modifiers and sends a keyboard report immediately.
  *
- * \param mods A bitfield of modifiers to unregister.
+ * \param mods A bitfield of modifiers to register.
  */
 void register_mods(uint8_t mods) {
     if (mods) {
