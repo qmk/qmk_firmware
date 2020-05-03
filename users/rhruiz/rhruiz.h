@@ -3,6 +3,12 @@
 
 #ifdef OLED_DRIVER_ENABLE
 #include "oled/oled.h"
+#undef OLED_FONT_H
+#define OLED_SCROLL_TIMEOUT 8000
+
+#ifdef OLED_ROTATE
+#define OLED_SCROLL_TIMEOUT_RIGHT
+#endif
 #endif
 
 
