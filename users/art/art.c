@@ -21,6 +21,11 @@ void backspace_n_times(int times) {
   }
 }
 
+void send_string_remembering_lenght(char *string) {
+  send_string(string);
+  char_to_del = strlen(string);
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (sarcasm_on) {
     sarcasm_key = ! sarcasm_key;  
@@ -158,6 +163,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
         }
 
+        layer_off(GIT_C);
+        layer_off(GIT_S);
         backspace_n_times(char_to_del);
         char_to_del = 1;
       }
@@ -257,8 +264,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       
   case G_ADD:
     if (record->event.pressed) {
-      SEND_STRING("git add ");
-        char_to_del = 8;
+      send_string_remembering_lenght("git add ");
     }
     break;
   case G_BRCH:
@@ -275,16 +281,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case G_C:
     if (record->event.pressed) {
-      SEND_STRING("git c[Heckout/Ommit]");
+      send_string_remembering_lenght("git c[Heckout/Ommit]");
       layer_on(GIT_C);
-    }
-    break;
-  //These layers are required for sole purpose of switching off _C/S layer before removing chars
-  case G_BS_C:
-    if (record->event.pressed) {
-      layer_off(GIT_C);
-      //Not setting char_to_del as it's deleted explicitly in G_BS_X
-      backspace_n_times(20);
     }
     break;
   case G_CHEC:
@@ -320,26 +318,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case G_DIFF:
     if (record->event.pressed) {
-      SEND_STRING("git diff ");
-      char_to_del = 9;
+      send_string_remembering_lenght("git diff ");
     }
     break;	
   case G_FTCH:
     if (record->event.pressed) {
-      SEND_STRING("git fetch ");
-      char_to_del = 10;
+      send_string_remembering_lenght("git fetch ");
     }
     break;
   case G_LOG:
     if (record->event.pressed) {
-      SEND_STRING("git log ");
-      char_to_del = 8;
+      send_string_remembering_lenght("git log ");
     }
     break;
   case G_MERG:
     if (record->event.pressed) {
-      SEND_STRING("git merge ");
-      char_to_del = 10;
+      send_string_remembering_lenght("git merge ");
     }
     break;
   case G_P:
@@ -358,22 +352,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case G_RST:
     if (record->event.pressed) {
-      SEND_STRING("git reset ");
-      char_to_del = 10;
+      send_string_remembering_lenght("git reset ");
     }
     break;
   case G_S:
     if (!record->event.pressed) {
-      SEND_STRING("git s[How/taSh/taTus]");
-      //Not setting char_to_del as it's deleted explicitly in G_BS_X
-      char_to_del = 21;
+      send_string_remembering_lenght("git s[taSh/How/taTus]");
       layer_on(GIT_S);			
-    }
-    break;
-  case G_BS_S:
-    if (record->event.pressed) {
-      layer_off(GIT_S);
-      backspace_n_times(21);
     }
     break;
   case G_SHOW:
@@ -410,6 +395,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       layer_off(GIT_S);
     }
     break;
+
   case CTL_ALT_START ... CTL_ALT_END:
     if (record->event.pressed) {
       if (is_win) {
@@ -420,7 +406,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     break;
   }
-
 
   return process_record_keymap(keycode, record);
 }

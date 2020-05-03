@@ -1,5 +1,6 @@
 #pragma once
 #include QMK_KEYBOARD_H
+#include <string.h>
 
 #define CTL_ALT(kc) (CTL_ALT_START + ((kc) & 0xff))
 
@@ -49,7 +50,6 @@ enum custom_keycodes_art {
   G_ADD,
   G_BRCH,
   G_C,
-  G_BS_C,
   G_CHEC,	
   G_COMM,
   G_DIFF,
@@ -59,7 +59,6 @@ enum custom_keycodes_art {
   G_P,
   G_RST,
   G_S,
-  G_BS_S,
   G_STAT,
   G_STSH,
   G_SHOW,
