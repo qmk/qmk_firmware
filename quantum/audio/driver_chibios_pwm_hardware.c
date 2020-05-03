@@ -24,30 +24,6 @@ The hardware directly toggles the pin via its alternate function. see your MCUs 
 
  */
 
-/* STM32F103C8 Setup:
-halconf.h:
-#define HAL_USE_PWM                 TRUE
-#define HAL_USE_PAL                 TRUE
-#define HAL_USE_GPT                 TRUE
-
-mcuconf.h:
-#define STM32_PWM_USE_TIM1                  TRUE
-#define STM32_GPT_USE_TIM3                  TRUE
-
-used pin: PA8 (alternate0: TIM1_CH1)
-
-from the data-sheet for STM32F103C8: alternate function of pin
-TIM1_CH1 = PA8 <-
-TIM1_CH2 = PA9
-TIM1_CH3 = PA10
-TIM1_CH4 = PA11
-
-so adding to config.h:
-#define AUDIO_PIN A8
-#define AUDIO_PWM_TIMER 1
-#define AUDIO_PWM_TIMERCHANNEL 1
-*/
-
 #include "audio.h"
 #include "ch.h"
 #include "hal.h"
