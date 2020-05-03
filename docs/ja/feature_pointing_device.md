@@ -1,4 +1,4 @@
-# Pointing Device :id=pointing-device
+# ポインティングデバイス :id=pointing-device
 
 <!---
   original document: 0.8.141:docs/feature_pointing_device.md
