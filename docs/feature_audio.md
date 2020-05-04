@@ -30,17 +30,17 @@ for more technical details, see the notes on [Audio driver](audio_driver.md).
 
 ### DAC (basic)
 Most STM32 MCUs have DAC peripherals, with a notable exception of the STM32F1xx series. Generally, the DAC peripheral drives pins A4 or A5. To enable DAC-based audio output on STM32 devices, add `AUDIO_DRIVER = dac_basic` to `rules.mk` and set in `config.h` either:
-`#define AUDIO_PIN_A4`
+`#define AUDIO_PIN A4`
 OR
-`#define AUDIO_PIN_A5`
+`#define AUDIO_PIN A5`
 
 the other DAC channel can optionally be used with a secondary speaker, just set:
-`#define AUDIO_PIN_ALT_A4` or `#define AUDIO_PIN_ALT_A5`
+`#define AUDIO_PIN_ALT A4` or `#define AUDIO_PIN_ALT A5`
 
 Do note though that the dac_basic driver is only capable of reproducing one tone per speaker/channel at a time, for more tones simultaneously, try the dac_additive driver.
 
 #### Wiring:
-for two piezos, for example configured as `AUDIO_PIN_A4` and `AUDIO_PIN_ALT_A5` would be: red lead to A4 and black to Ground, and similarly with the second one: A5 = red, and Ground = black
+for two piezos, for example configured as `AUDIO_PIN A4` and `AUDIO_PIN_ALT A5` would be: red lead to A4 and black to Ground, and similarly with the second one: A5 = red, and Ground = black
 
 another alternative is to drive *one* piezo with both DAC pins - for an extra "push".
 wiring red to A4 and black to A5 (or the other way round) and add `#define AUDIO_PIN_ALT_AS_NEGATIVE` to `config.h`
@@ -49,8 +49,8 @@ wiring red to A4 and black to A5 (or the other way round) and add `#define AUDIO
 The Proton-C comes (optionally) with one 'builtin' piezo, which is wired to A4+A5.
 For this board `config.h` would include these defines:
 ```c
-#define AUDIO_PIN_A5
-#define AUDIO_PIN_ALT_A4
+#define AUDIO_PIN A5
+#define AUDIO_PIN_ALT A4
 #define AUDIO_PIN_ALT_AS_NEGATIVE
 ```
 
@@ -58,7 +58,7 @@ For this board `config.h` would include these defines:
 ### DAC (additive)
 Another option, besides dac_basic (which produces sound through a square-wave), is to use the DAC to do additive wave synthesis.
 With a number of predefined wave-forms or by providing your own implementation to generate samples on the fly.
-To use this feature set `AUDIO_DRIVER = dac_additive` in your `rules.mk`, and select in `config.h` EITHER `#define AUDIO_PIN_A4` or `#define AUDIO_PIN_A5`.
+To use this feature set `AUDIO_DRIVER = dac_additive` in your `rules.mk`, and select in `config.h` EITHER `#define AUDIO_PIN A4` or `#define AUDIO_PIN A5`.
 
 The used waveform *defaults* to sine, but others can be selected by adding one of the following defines to `config.h`:
 `#define AUDIO_DAC_SAMPLE_WAVEFORM_SINE`

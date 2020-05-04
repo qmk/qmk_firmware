@@ -28,17 +28,11 @@
   this driver allows for multiple simultaneous tones to be played through one single channel by doing additive wave-synthesis
 */
 
-#if !defined(AUDIO_PIN_A4) && !defined(AUDIO_PIN_A5)
-#    error "Audio feature enabled, but no suitable pin selected as AUDIO_PIN_x - see docs/feature_audio under 'ARM (DAC additive)' for available options."
+#if !defined(AUDIO_PIN)
+#    error "Audio feature enabled, but no suitable pin selected as AUDIO_PIN - see docs/feature_audio under 'ARM (DAC additive)' for available options."
 #endif
-#if defined(AUDIO_PIN_A4) && defined(AUDIO_PIN_A5)
-#    error "Audio feature: please set either AUDIO_PIN_A4 or AUDIO_PIN_A5, not both."
-#endif
-#if defined(AUDIO_PIN_ALT_A4) && defined(AUDIO_PIN_ALT_A5)
-#    error "Audio feature: please set either AUDIO_PIN_ALT_A4 or AUDIO_PIN_ALT_A5, not both."
-#endif
-#if !defined(AUDIO_PIN_ALT_AS_NEGATIVE) && (defined(AUDIO_PIN_ALT_A4) || defined(AUDIO_PIN_ALT_A5))
-#    pragma message "Audio feature: AUDIO_PIN_ALT_x set, but not AUDIO_PIN_ALT_AS_NEGATIVE - pin will be left unused; audio might still work though."
+#if !defined(AUDIO_PIN_ALT_AS_NEGATIVE) && !defined(AUDIO_PIN_ALT)
+#    pragma message "Audio feature: AUDIO_PIN_ALT set, but not AUDIO_PIN_ALT_AS_NEGATIVE - pin will be left unused; audio might still work though."
 #endif
 
 #if !defined(AUDIO_DAC_SAMPLE_WAVEFORM_SINE) && !defined(AUDIO_DAC_SAMPLE_WAVEFORM_TRIANGLE) && !defined(AUDIO_DAC_SAMPLE_WAVEFORM_SQUARE) && !defined(AUDIO_DAC_SAMPLE_WAVEFORM_TRAPEZOID)
@@ -282,14 +276,14 @@ static const DACConfig dac_conf = {.init = AUDIO_DAC_OFF_VALUE, .datamode = DAC_
 static const DACConversionGroup dac_conv_cfg = {.num_channels = 1U, .end_cb = dac_end, .error_cb = dac_error, .trigger = DAC_TRG(0b000)};
 
 void audio_driver_initialize() {
-#if defined(AUDIO_PIN_A4) || defined(AUDIO_PIN_ALT_A4)
-    palSetLineMode(A4, PAL_MODE_INPUT_ANALOG);
-    dacStart(&DACD1, &dac_conf);
-#endif
-#if defined(AUDIO_PIN_A5) || defined(AUDIO_PIN_ALT_A5)
-    palSetLineMode(A5, PAL_MODE_INPUT_ANALOG);
-    dacStart(&DACD2, &dac_conf);
-#endif
+    if ((AUDIO_PIN == A4) || (AUDIO_PIN_ALT == A4)) {
+        palSetLineMode(A4, PAL_MODE_INPUT_ANALOG);
+        dacStart(&DACD1, &dac_conf);
+    }
+    if ((AUDIO_PIN == A5) || (AUDIO_PIN_ALT == A5)) {
+        palSetLineMode(A5, PAL_MODE_INPUT_ANALOG);
+        dacStart(&DACD2, &dac_conf);
+    }
 
     /* enable the output buffer, to directly drive external loads with no additional circuitry
      *
@@ -300,23 +294,22 @@ void audio_driver_initialize() {
      * this is done here, reaching directly into the stm32 registers since chibios has not implemented BOFF handling yet
      * (see: chibios/os/hal/ports/STM32/todo.txt '- BOFF handling in DACv1.'
      */
-#if defined(AUDIO_PIN_A4)
     DACD1.params->dac->CR &= ~DAC_CR_BOFF1;
-#elif defined(AUDIO_PIN_A5)
     DACD2.params->dac->CR &= ~DAC_CR_BOFF2;
-#endif
 
-#if defined(AUDIO_PIN_A4)
-    dacStartConversion(&DACD1, &dac_conv_cfg, dac_buffer_empty, AUDIO_DAC_BUFFER_SIZE);
-#elif defined(AUDIO_PIN_A5)
-    dacStartConversion(&DACD2, &dac_conv_cfg, dac_buffer_empty, AUDIO_DAC_BUFFER_SIZE);
-#endif
+    if (AUDIO_PIN == A4) {
+        dacStartConversion(&DACD1, &dac_conv_cfg, dac_buffer_empty, AUDIO_DAC_BUFFER_SIZE);
+    } else if (AUDIO_PIN == A5) {
+        dacStartConversion(&DACD2, &dac_conv_cfg, dac_buffer_empty, AUDIO_DAC_BUFFER_SIZE);
+    }
 
-    // no inverted/out-of-phase waveform (yet?), only pulling AUDIO_PIN_ALT_x to AUDIO_DAC_OFF_VALUE
-#if defined(AUDIO_PIN_ALT_A4) && defined(AUDIO_PIN_ALT_AS_NEGATIVE)
-    dacPutChannelX(&DACD1, 0, AUDIO_DAC_OFF_VALUE);
-#elif defined(AUDIO_PIN_ALT_A5) && defined(AUDIO_PIN_ALT_AS_NEGATIVE)
-    dacPutChannelX(&DACD2, 0, AUDIO_DAC_OFF_VALUE);
+    // no inverted/out-of-phase waveform (yet?), only pulling AUDIO_PIN_ALT to AUDIO_DAC_OFF_VALUE
+#if defined(AUDIO_PIN_ALT) && defined(AUDIO_PIN_ALT_AS_NEGATIVE)
+    if (AUDIO_PIN_ALT == A4) {
+        dacPutChannelX(&DACD1, 0, AUDIO_DAC_OFF_VALUE);
+    } else if (AUDIO_PIN == A5) {
+        dacPutChannelX(&DACD2, 0, AUDIO_DAC_OFF_VALUE);
+    }
 #endif
 
     gptStart(&GPTD6, &gpt6cfg1);
