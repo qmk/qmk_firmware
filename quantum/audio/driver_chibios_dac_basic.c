@@ -29,13 +29,19 @@
 
 */
 
-#if !defined(AUDIO_PIN) && !defined(AUDIO_PIN_ALT)
-#    pragma message "Audio feature enabled, but no suitable pin selected as AUDIO_PIN or AUDIO_PIN_ALT - see docs/feature_audio under 'ARM (DAC basic)' for available options."
-// TODO: make this an 'error' instead; go through a breaking change, and add AUDIO_PIN_A5 to all keyboards currently using AUDIO on STM32 based boards?
+#if !defined(AUDIO_PIN)
+#    pragma message "Audio feature enabled, but no suitable pin selected as AUDIO_PIN - see docs/feature_audio under 'ARM (DAC basic)' for available options."
+// TODO: make this an 'error' instead; go through a breaking change, and add AUDIO_PIN A5 to all keyboards currently using AUDIO on STM32 based boards? - for now: set the define here
+#    define AUDIO_PIN A5
 #endif
 // check configuration for ONE speaker, connected to both DAC pins
 #if defined(AUDIO_PIN_ALT_AS_NEGATIVE) && !defined(AUDIO_PIN_ALT)
 #    error "Audio feature: AUDIO_PIN_ALT_AS_NEGATIVE set, but no pin configured as AUDIO_PIN_ALT"
+#endif
+
+#ifndef AUDIO_PIN_ALT
+// no ALT pin defined is valid, but the c-ifs below need some value set
+#    define AUDIO_PIN_ALT -1
 #endif
 
 // square-wave
@@ -129,7 +135,7 @@ float channel_2_get_frequency(void) { return channel_2_frequency; }
 
 static void gpt_cb8(GPTDriver *gptp) {
     if (audio_update_state()) {
-#if (defined(AUDIO_PIN_ALT_AS_NEGATIVE) && defined(AUDIO_PIN_ALT))
+#if defined(AUDIO_PIN_ALT_AS_NEGATIVE)
         // one piezo/speaker connected to both audio pins, the generated square-waves are inverted
         channel_1_set_frequency(audio_get_processed_frequency(0));
         channel_2_set_frequency(audio_get_processed_frequency(0));
@@ -138,7 +144,6 @@ static void gpt_cb8(GPTDriver *gptp) {
        // primary speaker on A4, optional secondary on A5
         if (AUDIO_PIN == A4) {
             channel_1_set_frequency(audio_get_processed_frequency(0));
-#    if defined(AUDIO_PIN_ALT)
             if (AUDIO_PIN_ALT == A5) {
                 if (audio_get_number_of_active_tones() > 1) {
                     channel_2_set_frequency(audio_get_processed_frequency(1));
@@ -147,12 +152,10 @@ static void gpt_cb8(GPTDriver *gptp) {
                 }
             }
         }
-#    endif
 
         // primary speaker on A5, optional secondary on A4
         if (AUDIO_PIN == A5) {
             channel_2_set_frequency(audio_get_processed_frequency(0));
-#    if defined(AUDIO_PIN_ALT)
             if (AUDIO_PIN_ALT == A4) {
                 if (audio_get_number_of_active_tones() > 1) {
                     channel_1_set_frequency(audio_get_processed_frequency(1));
@@ -161,7 +164,6 @@ static void gpt_cb8(GPTDriver *gptp) {
                 }
             }
         }
-#    endif
 #endif
     }
 }
