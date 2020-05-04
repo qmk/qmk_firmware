@@ -87,4 +87,6 @@ void console_flush_output(void);
 
 #endif /* CONSOLE_ENABLE */
 
+void sendchar_pf(void *p, char c);
+
 #endif /* _USB_MAIN_H_ */

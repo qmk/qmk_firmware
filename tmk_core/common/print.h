@@ -72,7 +72,9 @@ extern "C"
 
 #    elif defined(PROTOCOL_CHIBIOS) /* PROTOCOL_CHIBIOS */
 
-#        include "printf.h"  // lib/printf/printf.h
+#        ifndef TERMINAL_ENABLE
+#            include "chibios/printf.h"
+#        endif
 
 #        ifdef USER_PRINT /* USER_PRINT */
 
@@ -87,6 +89,7 @@ extern "C"
 #            define uprintf printf
 
 #        else /* NORMAL PRINT */
+
 // Create user & normal print defines
 #            define print(s) printf(s)
 #            define println(s) printf(s "\r\n")
