@@ -53,10 +53,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (sarcasm_key) {
       SEND_STRING(SS_TAP(X_CAPS));
     }
-  }	
+  }
 
   //Checking all other non-backspace keys to clear the backspace buffer. This is to prevent the bug of deleting N chars sometime after using a macro
-  if (record->event.pressed && (keycode != N_BSPACE)) {
+  if (record->event.pressed && (keycode != KC_BSPACE && keycode != XXXXXXX)) {
     char_to_del = 1;
   }
 
@@ -143,8 +143,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     /* -------------------------------------------------------------------------
      *                            CUSTOM KEYCODES
-     * -------------------------------------------------------------------------
-     */ 
+     * ------------------------------------------------------------------------ */
     case CTRL_CTV:
       if (record->event.pressed) {
         if ( get_mods() & MOD_MASK_SHIFT ) {
@@ -173,8 +172,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         sarcasm_on = !sarcasm_on;
       }
       break;
-    case N_BSPACE:
+    case KC_BSPC:
       if (record->event.pressed) {
+        if (char_to_del > 1) {
+          layer_off(GIT_C);
+          layer_off(GIT_S);
+          backspace_n_times(char_to_del);
+          char_to_del = 1;
+          return false;
+        }
+
         if (!is_win) {
           uint8_t mod_state = get_mods() & MOD_MASK_CTRL;
           if (get_mods() & mod_state) {
@@ -183,14 +190,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             mac_ctrl_on = true;
           }
         }
-
-        layer_off(GIT_C);
-        layer_off(GIT_S);
-        backspace_n_times(char_to_del);
-        char_to_del = 1;
       }
       break;
 
+    /* -------------------------------------------------------------------------
+     *                            OS TOGGLING
+     * ------------------------------------------------------------------------ */
     case TOG_OS:
       if (record->event.pressed) {
         is_win = ! is_win;

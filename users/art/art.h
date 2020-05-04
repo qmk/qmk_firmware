@@ -35,7 +35,6 @@ enum custom_keycodes_art {
   CTRL_CTV = SAFE_RANGE,
   CTRL_LCTV,
   SARCASM,
-  N_BSPACE,
 
   TOG_OS,
   CTR_ALT,
