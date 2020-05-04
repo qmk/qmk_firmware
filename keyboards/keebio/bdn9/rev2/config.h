@@ -38,8 +38,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { A3, F1, F0 } \
 }
 
-#define ENCODERS_PAD_A { A8, A10, B3 }
-#define ENCODERS_PAD_B { B11, A9, A15 }
+// Left, Right, Middle
+#define ENCODERS_PAD_A { A8, B3, A10 }
+#define ENCODERS_PAD_B { B11, A15, A9 }
 
 #define RGB_DI_PIN B15
 #ifdef RGB_DI_PIN
