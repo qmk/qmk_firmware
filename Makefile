@@ -568,6 +568,7 @@ ifndef SKIP_GIT
 	if [ ! -e lib/ugfx ]; then git submodule sync lib/ugfx && git submodule update --depth 50 --init lib/ugfx; fi
 	if [ ! -e lib/lufa ]; then git submodule sync lib/lufa && git submodule update --depth 50 --init lib/lufa; fi
 	if [ ! -e lib/vusb ]; then git submodule sync lib/vusb && git submodule update --depth 50 --init lib/vusb; fi
+	if [ ! -e lib/printf ]; then git submodule sync lib/printf && git submodule update --depth 50 --init lib/printf; fi
 	git submodule status --recursive 2>/dev/null | \
 	while IFS= read -r x; do \
 		case "$$x" in \
