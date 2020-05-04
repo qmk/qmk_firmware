@@ -71,8 +71,9 @@ typedef enum naginata_keycodes {
   NG_SLSH,
 
   NG_SHFT,
+  NG_SHFT2,
 } NGKEYS;
 
-#define NG_SAFE_RANGE SAFE_RANGE+31
+#define NG_SAFE_RANGE SAFE_RANGE+32
 
 

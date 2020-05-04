@@ -134,6 +134,7 @@ const uint32_t ng_key[] = {
   [NG_SLSH - NG_Q] = B_SLSH,
 
   [NG_SHFT - NG_Q] = B_SHFT,
+  [NG_SHFT2 - NG_Q] = B_SHFT,
 };
 
 // カナ変換テーブル
@@ -882,7 +883,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
 
   if (record->event.pressed) {
     switch (keycode) {
-      case NG_Q ... NG_SHFT:
+      case NG_Q ... NG_SHFT2:
         ninputs[ng_chrcount] = keycode; // キー入力をバッファに貯める
         ng_chrcount++;
         keycomb |= ng_key[keycode - NG_Q]; // キーの重ね合わせ
@@ -895,7 +896,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
     }
   } else { // key release
     switch (keycode) {
-      case NG_Q ... NG_SHFT:
+      case NG_Q ... NG_SHFT2:
         // どれかキーを離したら処理を開始する
         keycomb &= ~ng_key[keycode - NG_Q]; // キーの重ね合わせ
         if (ng_chrcount > 0) {
@@ -936,6 +937,13 @@ bool naginata_lookup(int nt, bool shifted) {
   // バッファ内のキーを組み合わせる
   for (int i = 0; i < nt; i++) {
     keycomb_buf |= ng_key[ninputs[i] - NG_Q];
+  }
+
+  // NG_SHFT2はスペースの代わりにエンターを入力する
+  if (keycomb_buf == B_SHFT && ninputs[0] == NG_SHFT2) {
+    tap_code(KC_ENT);
+    compress_buffer(nt);
+    return true;
   }
 
   if (shifted) {
