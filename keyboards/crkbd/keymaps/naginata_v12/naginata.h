@@ -32,7 +32,9 @@ void mac_live_conversion_on(void);
 void mac_live_conversion_off(void);
 
 bool process_naginata(uint16_t, keyrecord_t *);
-void set_naginata(uint8_t);
+void set_naginata(uint8_t, uint16_t *, uint16_t *);
+
+bool enable_naginata(uint16_t, keyrecord_t *);
 
 typedef enum naginata_keycodes {
   NG_Q = SAFE_RANGE, // 薙刀式シフトキー
@@ -69,8 +71,9 @@ typedef enum naginata_keycodes {
   NG_SLSH,
 
   NG_SHFT,
+  NG_SHFT2,
 } NGKEYS;
 
-#define NG_SAFE_RANGE SAFE_RANGE+31
+#define NG_SAFE_RANGE SAFE_RANGE+32
 
 

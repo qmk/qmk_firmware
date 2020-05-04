@@ -38,34 +38,35 @@ enum keymap_layers {
 };
 
 // 薙刀式
-enum combo_events {
-  NAGINATA_ON_CMB,
-  NAGINATA_OFF_CMB,
-};
+// 薙刀式の切り替えにCOMBOを使わなくなりました。
+// enum combo_events {
+//   NAGINATA_ON_CMB,
+//   NAGINATA_OFF_CMB,
+// };
 
-const uint16_t PROGMEM ngon_combo[] = {KC_H, KC_J, COMBO_END};
-const uint16_t PROGMEM ngoff_combo[] = {KC_F, KC_G, COMBO_END};
+// const uint16_t PROGMEM ngon_combo[] = {KC_H, KC_J, COMBO_END};
+// const uint16_t PROGMEM ngoff_combo[] = {KC_F, KC_G, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
-  [NAGINATA_ON_CMB] = COMBO_ACTION(ngon_combo),
-  [NAGINATA_OFF_CMB] = COMBO_ACTION(ngoff_combo),
-};
+// combo_t key_combos[COMBO_COUNT] = {
+//   [NAGINATA_ON_CMB] = COMBO_ACTION(ngon_combo),
+//   [NAGINATA_OFF_CMB] = COMBO_ACTION(ngoff_combo),
+// };
 
 // IME ONのcombo
-void process_combo_event(uint8_t combo_index, bool pressed) {
-  switch(combo_index) {
-    case NAGINATA_ON_CMB:
-      if (pressed) {
-        naginata_on();
-      }
-      break;
-    case NAGINATA_OFF_CMB:
-      if (pressed) {
-        naginata_off();
-      }
-      break;
-  }
-}
+// void process_combo_event(uint8_t combo_index, bool pressed) {
+//   switch(combo_index) {
+//     case NAGINATA_ON_CMB:
+//       if (pressed) {
+//         naginata_on();
+//       }
+//       break;
+//     case NAGINATA_OFF_CMB:
+//       if (pressed) {
+//         naginata_off();
+//       }
+//       break;
+//   }
+// }
 // 薙刀式
 
 enum custom_keycodes {
@@ -111,7 +112,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void matrix_init_user(void) {
   // 薙刀式
-  set_naginata(_NAGINATA);
+  uint16_t ngonkeys[] = {KC_H, KC_J};
+  uint16_t ngoffkeys[] = {KC_F, KC_G};
+  set_naginata(_NAGINATA, ngonkeys, ngoffkeys);
+
   #ifdef NAGINATA_EDIT_MAC
   set_unicode_input_mode(UC_OSX);
   #endif

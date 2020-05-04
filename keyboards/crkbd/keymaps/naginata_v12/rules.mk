@@ -17,7 +17,7 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 # AUTO_SHIFT_ENABLE = yes
-COMBO_ENABLE = yes
+# COMBO_ENABLE = yes
 MOUSEKEY_ENABLE = yes        # Mouse keys(+4700)
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
