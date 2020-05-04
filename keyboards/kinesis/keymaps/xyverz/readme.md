@@ -2,9 +2,7 @@
 
 ## About this keymap:
 
-The Dvorak layout shown here stems from my early Kinesis years, using the Contour PS/2 with a Dvorak software layout. Because of this, the RBRC and LBRC were on opposite sides of the board in the corner keys. I've decided to continue using this layout with my QMK Kinesis.
-
-The QWERTY layout shown here is based entirely on the Kinesis Advantage layout. The Colemak layout is merely an adaptation of that.
+This is is pretty much a stock Advantage layout for Dvorak, with a bit of rearranging of certain keys. The QWERTY layout shown here is based entirely on the Kinesis Advantage layout. The Colemak layout is merely an adaptation of that.
 
 I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar to the default Planck layouts.
 
@@ -12,7 +10,7 @@ Depending on the OS, most of the LEDs are now working in this keymap, but I stil
 
 Removed the Media layer 2018-12-07
 
-Updated Dvorak layer to move slash to a position relative to my other keyboards 2020-05-04
+Updated Dvorak layer to move slash to a position relative to my other 5x12 ortholinear keyboards 2020-05-04
 
 ## Still to do:
 
