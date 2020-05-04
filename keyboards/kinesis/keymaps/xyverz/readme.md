@@ -12,6 +12,8 @@ Depending on the OS, most of the LEDs are now working in this keymap, but I stil
 
 Removed the Media layer 2018-12-07
 
+Updated Dvorak layer to move slash to a position relative to my other keyboards 2020-05-04
+
 ## Still to do:
 
  * Figure out how to make the Numpad LED work properly.
@@ -27,15 +29,15 @@ Removed the Media layer 2018-12-07
 ### Layer 0: Dvorak layer
 
 	,-------------------------------------------.,-------------------------------------------.
-	|   ]    |   1  |   2  |   3  |   4  |   5  ||   6  |   7  |   8  |   9  |   0  |   [    |
+	|   =    |   1  |   2  |   3  |   4  |   5  ||   6  |   7  |   8  |   9  |   0  |   \    |
 	|--------+------+------+------+------+------||------+------+------+------+------+--------|
-	| Tab    |   '  |   ,  |   .  |   P  |   Y  ||   F  |   G  |   C  |   R  |   L  |   \    |
+	| Tab    |   '  |   ,  |   .  |   P  |   Y  ||   F  |   G  |   C  |   R  |   L  |   /    |
 	|--------+------+------+------+------+------||------+------+------+------+------+--------|
 	| CapsLk |   A  |   O  |   E  |   U  |   I  ||   D  |   H  |   T  |   N  |   S  |   -    |
 	|--------+------+------+------+------+------||------+------+------+------+------+--------|
 	| LShift |   Z  |   X  |   C  |   V  |   X  ||   B  |   M  |   W  |   V  |   Z  | RShift |
 	`--------+------+------+------+------+------'`------+------+------+------+------+--------'
-	         |   `  |  INS | Left | Rght |              |  Up  |  Dn  |   /  |   =  |
+	         |   `  |  INS | Left | Rght |              |  Up  |  Dn  |   [  |   ]  |
 	         `---------------------------'              `---------------------------'
 	                             ,--------------.,--------------.
 	                             | LCtl  | LAlt || RGUI | RCtl  |
