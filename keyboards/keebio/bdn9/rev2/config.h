@@ -44,14 +44,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN B15
 #ifdef RGB_DI_PIN
-  #define RGBLED_NUM 9
-  #define RGBLIGHT_HUE_STEP 8
-  #define RGBLIGHT_SAT_STEP 8
-  #define RGBLIGHT_VAL_STEP 8
-  #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-  #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-  /*== all animations enable ==*/
-  #define RGBLIGHT_ANIMATIONS
+#    define RGBLED_NUM 9
+#    define RGBLIGHT_HUE_STEP 8
+#    define RGBLIGHT_SAT_STEP 8
+#    define RGBLIGHT_VAL_STEP 8
+#    define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+#    define RGBLIGHT_SLEEP         /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+/*== all animations enable ==*/
+#    define RGBLIGHT_ANIMATIONS
+// RGB Matrix
+#    ifdef RGB_MATRIX_ENABLE
+#        define DRIVER_LED_TOTAL RGBLED_NUM
+#    endif
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */

@@ -1,4 +1,4 @@
-/* Copyright 2019 Danny Nguyen <danny@keeb.io>
+/* Copyright 2020 Danny Nguyen <danny@keeb.io>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
