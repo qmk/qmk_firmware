@@ -29,4 +29,4 @@
 
 #define RGB_DI_PIN A0
 
-#define ADC_PIN A0
+#define ADC_PIN A1
