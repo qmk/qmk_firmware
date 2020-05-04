@@ -59,8 +59,6 @@
 //***************************************************************************
 // KBD
 //***************************************************************************
-#ifdef KBD
-
 bool    udi_hid_kbd_enable(void);
 void    udi_hid_kbd_disable(void);
 bool    udi_hid_kbd_setup(void);
@@ -196,12 +194,10 @@ static void udi_hid_kbd_setreport_valid(void) {
     // UDI_HID_KBD_CHANGE_LED(udi_hid_kbd_report_set);
 }
 
-#endif  // KBD
-
 //********************************************************************************************
 // NKRO Keyboard
 //********************************************************************************************
-#ifdef NKRO
+#ifdef NKRO_ENABLE
 
 bool    udi_hid_nkro_enable(void);
 void    udi_hid_nkro_disable(void);
@@ -336,12 +332,12 @@ static void udi_hid_nkro_setreport_valid(void) {
     // UDI_HID_NKRO_CHANGE_LED(udi_hid_nkro_report_set);
 }
 
-#endif  // NKRO
+#endif  // NKRO_ENABLE
 
 //********************************************************************************************
 // EXK (extra-keys) SYS-CTRL  Keyboard
 //********************************************************************************************
-#ifdef EXK
+#ifdef EXTRAKEY_ENABLE
 
 bool    udi_hid_exk_enable(void);
 void    udi_hid_exk_disable(void);
@@ -467,12 +463,12 @@ static void udi_hid_exk_report_sent(udd_ep_status_t status, iram_size_t nb_sent,
 
 static void udi_hid_exk_setreport_valid(void) {}
 
-#endif  // EXK
+#endif  // EXTRAKEY_ENABLE
 
 //********************************************************************************************
 // MOU Mouse
 //********************************************************************************************
-#ifdef MOU
+#ifdef MOUSE_ENABLE
 
 bool    udi_hid_mou_enable(void);
 void    udi_hid_mou_disable(void);
@@ -601,12 +597,12 @@ static void udi_hid_mou_report_sent(udd_ep_status_t status, iram_size_t nb_sent,
     }
 }
 
-#endif  // MOU
+#endif  // MOUSE_ENABLE
 
 //********************************************************************************************
 // RAW
 //********************************************************************************************
-#ifdef RAW
+#ifdef RAW_ENABLE
 
 bool    udi_hid_raw_enable(void);
 void    udi_hid_raw_disable(void);
@@ -746,12 +742,12 @@ static void udi_hid_raw_report_rcvd(udd_ep_status_t status, iram_size_t nb_rcvd,
     }
 }
 
-#endif //RAW
+#endif // RAW_ENABLE
 
 //********************************************************************************************
 // CON
 //********************************************************************************************
-#ifdef CON
+#ifdef CONSOLE_ENABLE
 
 bool    udi_hid_con_enable(void);
 void    udi_hid_con_disable(void);
@@ -866,4 +862,4 @@ static void udi_hid_con_report_sent(udd_ep_status_t status, iram_size_t nb_sent,
 
 static void udi_hid_con_setreport_valid(void) {}
 
-#endif  // CON
+#endif  // CONSOLE_ENABLE

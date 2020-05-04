@@ -197,6 +197,8 @@ typedef uint8_t pin_t;
 
 #    define readPin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
 
+#    define togglePin(pin) (PORTx_ADDRESS(pin) ^= _BV((pin)&0xF))
+
 #elif defined(PROTOCOL_CHIBIOS)
 typedef ioline_t pin_t;
 
@@ -210,6 +212,8 @@ typedef ioline_t pin_t;
 #    define writePin(pin, level) ((level) ? writePinHigh(pin) : writePinLow(pin))
 
 #    define readPin(pin) palReadLine(pin)
+
+#    define togglePin(pin) palToggleLine(pin)
 #endif
 
 #define SEND_STRING(string) send_string_P(PSTR(string))
@@ -252,8 +256,8 @@ void     matrix_init_kb(void);
 void     matrix_scan_kb(void);
 void     matrix_init_user(void);
 void     matrix_scan_user(void);
-uint16_t get_record_keycode(keyrecord_t *record);
-uint16_t get_event_keycode(keyevent_t event);
+uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache);
+uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache);
 bool     process_action_kb(keyrecord_t *record);
 bool     process_record_kb(uint16_t keycode, keyrecord_t *record);
 bool     process_record_user(uint16_t keycode, keyrecord_t *record);
