@@ -35,6 +35,11 @@
 #    pragma message "Audio feature: AUDIO_PIN_ALT set, but not AUDIO_PIN_ALT_AS_NEGATIVE - pin will be left unused; audio might still work though."
 #endif
 
+#if !defined(AUDIO_PIN_ALT)
+// no ALT pin defined is valid, but the c-ifs below need some value set
+#    define(AUDIO_PIN_ALT) -1
+#endif
+
 #if !defined(AUDIO_DAC_SAMPLE_WAVEFORM_SINE) && !defined(AUDIO_DAC_SAMPLE_WAVEFORM_TRIANGLE) && !defined(AUDIO_DAC_SAMPLE_WAVEFORM_SQUARE) && !defined(AUDIO_DAC_SAMPLE_WAVEFORM_TRAPEZOID)
 #    define AUDIO_DAC_SAMPLE_WAVEFORM_SINE
 #endif
@@ -304,7 +309,7 @@ void audio_driver_initialize() {
     }
 
     // no inverted/out-of-phase waveform (yet?), only pulling AUDIO_PIN_ALT to AUDIO_DAC_OFF_VALUE
-#if defined(AUDIO_PIN_ALT) && defined(AUDIO_PIN_ALT_AS_NEGATIVE)
+#if defined(AUDIO_PIN_ALT_AS_NEGATIVE)
     if (AUDIO_PIN_ALT == A4) {
         dacPutChannelX(&DACD1, 0, AUDIO_DAC_OFF_VALUE);
     } else if (AUDIO_PIN == A5) {
