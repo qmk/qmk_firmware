@@ -140,6 +140,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
       }
       break;
+    case KC_BSPC:
+      if (record->event.pressed) {
+        if (char_to_del > 1) {
+          layer_off(GIT_C);
+          layer_off(GIT_S);
+          backspace_n_times(char_to_del);
+          char_to_del = 1;
+          return false;
+        }
+
+        if (!is_win) {
+          uint8_t mod_state = get_mods() & MOD_MASK_CTRL;
+          if (get_mods() & mod_state) {
+            del_mods(mod_state);
+            add_mods(MOD_LALT);
+            mac_ctrl_on = true;
+          }
+        }
+      }
+      break;
 
     /* -------------------------------------------------------------------------
      *                            CUSTOM KEYCODES
@@ -170,26 +190,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case SARCASM:
       if (record->event.pressed) {
         sarcasm_on = !sarcasm_on;
-      }
-      break;
-    case KC_BSPC:
-      if (record->event.pressed) {
-        if (char_to_del > 1) {
-          layer_off(GIT_C);
-          layer_off(GIT_S);
-          backspace_n_times(char_to_del);
-          char_to_del = 1;
-          return false;
-        }
-
-        if (!is_win) {
-          uint8_t mod_state = get_mods() & MOD_MASK_CTRL;
-          if (get_mods() & mod_state) {
-            del_mods(mod_state);
-            add_mods(MOD_LALT);
-            mac_ctrl_on = true;
-          }
-        }
       }
       break;
 
