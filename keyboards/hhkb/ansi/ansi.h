@@ -1,4 +1,4 @@
-#ifndef ANSI_H
+#pragma once
 #define ANSI_H
 
 #include "quantum.h"
@@ -22,5 +22,3 @@
 }
 
 #define LAYOUT_60_hhkb LAYOUT
-
-#endif
