@@ -13,11 +13,11 @@ Hardware Availability: [gboards.ca](http://gboards.ca)
 ## Firmware building
 After cloning the QMK repo and installing dfu-programmer build and flash with. Be sure to reset your keyboard!
 
-    make gboards/k/georgi:default:dfu
+    make gboards/georgi:default:dfu
 
 To just test your build with the default keymap
    
-    make gboards/k/georgi:default
+    make gboards/georgi:default
 
 Build options can be enabled/disabled in keyboards/georgi/keymaps/default/rules.mk . Copy the default directory and make any changes to your layout, if you think they're worth sharing submit a PR!
 
