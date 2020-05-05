@@ -26,11 +26,11 @@ This board is more than a novelty, it's an ergonomic wonder!
 
 Build and flash with the command below. Be sure to reset your keyboard!
 
-    make gboards/k/ginny:default:dfu
+    make gboards/ginny:default:dfu
 
 To just test your build with the default keymap:
    
-    make gboards/k/ginny:default
+    make gboards/ginny:default
 
 Ginny supports many different languages, these can be configured by modifying dicts.def to include
 the proper dictionaries. For more info, [check out the docs!](http://combos.gboards.ca/)
