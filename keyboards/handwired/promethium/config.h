@@ -150,7 +150,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_FUNCTION
 
 #define PS2_MOUSE_INIT_DELAY 2000
-#define BATTERY_PIN 9
 #define BATTERY_POLL 30000
 #define MAX_VOLTAGE 4.2
 #define MIN_VOLTAGE 3.2
