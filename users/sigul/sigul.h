@@ -25,6 +25,7 @@ enum userspace_custom_keycodes {
   SECRET2,
   SECRET3, 
   SECRET4,
+  SECRET5,
   NEW_SAFE_RANGE // start new keyboard-level declarations with NEW_SAFE_RANGE
 };
 
