@@ -22,7 +22,7 @@ and browser back/forward navigation keys (actually more useful than expected).
 
 ## Lower layer
 
-![Lower layer layout](https://i.imgur.com/d0J2lum.png)
+![Lower layer layout](https://i.imgur.com/9JlbNAd.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/19ad0d3b5d745fbb2818db09740f5a11))
 
