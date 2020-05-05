@@ -20,14 +20,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// Xulkal custom stuff
-#if KEYBOARD_rgbkb_sol_rev2
-    #define OLED_90ROTATION
-    #define RGB_MATRIX_TOG_LAYERS
-    #define RGB_MATRIX_HUE_STEP 8
-    #define RGB_MATRIX_SAT_STEP 8
-    #define RGB_MATRIX_VAL_STEP 8
-    #define RGB_MATRIX_SPD_STEP 8
-#endif
+// place overrides here
 
-#define ENCODER_RESOLUTION 2
+// If you need more program area, try select and reduce rgblight modes to use.
+
+// Selection of RGBLIGHT MODE to use.
+#if defined(LED_ANIMATIONS)
+#    define RGBLIGHT_EFFECT_BREATHING
+#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#    define RGBLIGHT_EFFECT_SNAKE
+#    define RGBLIGHT_EFFECT_KNIGHT
+#    define RGBLIGHT_EFFECT_CHRISTMAS
+#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
+//#define RGBLIGHT_EFFECT_RGB_TEST
+//#define RGBLIGHT_EFFECT_ALTERNATING
+#endif
