@@ -234,8 +234,8 @@ typedef struct {
 static void send_mouse(report_mouse_t *report) {
 #ifdef MOUSE_ENABLE
     vusb_mouse_report_t r = {.report_id = REPORT_ID_MOUSE, .report = *report};
-    if (usbInterruptIsReady3()) {
-        usbSetInterrupt3((void *)&r, sizeof(vusb_mouse_report_t));
+    if (usbInterruptIsReady4()) {
+        usbSetInterrupt4((void *)&r, sizeof(vusb_mouse_report_t));
     }
 #endif
 }
@@ -249,8 +249,8 @@ static void send_extra(uint8_t report_id, uint16_t data) {
     last_data = data;
 
     report_extra_t report = {.report_id = report_id, .usage = data};
-    if (usbInterruptIsReady3()) {
-        usbSetInterrupt3((void *)&report, sizeof(report));
+    if (usbInterruptIsReady4()) {
+        usbSetInterrupt4((void *)&report, sizeof(report));
     }
 }
 #endif
@@ -732,7 +732,7 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
             .bLength         = sizeof(usbEndpointDescriptor_t),
             .bDescriptorType = USBDESCR_ENDPOINT
         },
-        .bEndpointAddress    = (USBRQ_DIR_DEVICE_TO_HOST | USB_CFG_EP3_NUMBER),
+        .bEndpointAddress    = (USBRQ_DIR_DEVICE_TO_HOST | USB_CFG_EP4_NUMBER),
         .bmAttributes        = 0x03,
         .wMaxPacketSize      = 8,
         .bInterval           = USB_POLLING_INTERVAL_MS
