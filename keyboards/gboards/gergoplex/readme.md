@@ -11,11 +11,11 @@ A compact 30% (5x3+3) Split Keyboard from g Heavy Industries
 ## Firmware building
 After cloning the QMK repo and installing dfu-programmer build and flash with. Be sure to reset your keyboard!
 
-    make gboards/k/gergoplex:default:flash
+    make gboards/gergoplex:default:flash
 
 To just test your build with the default keymap
    
-    make gboards/k/gergoplex:default
+    make gboards/gergoplex:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
