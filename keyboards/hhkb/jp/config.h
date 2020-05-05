@@ -22,22 +22,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x4848 // HH = happy hacking
-#ifdef HHKB_JP
-    #define PRODUCT_ID      0x0002 // to differentiate from HHKB (ANSI)
-#else
-    #define PRODUCT_ID      0x0001 // ANSI HHKB
-#endif
+#define PRODUCT_ID      0x0002 // HHKB JP
 #define DEVICE_VER      0x0104
 #define MANUFACTURER    q.m.k
 #define PRODUCT         HHKB mod
 #define DESCRIPTION     q.m.k keyboard firmware for HHKB
 
 /* key matrix size */
-#ifdef HHKB_JP
-#   define MATRIX_ROWS 16
-#else
-#   define MATRIX_ROWS 8
-#endif
+#define MATRIX_ROWS 16
 #define MATRIX_COLS 8
 
 #define TAPPING_TERM    200
