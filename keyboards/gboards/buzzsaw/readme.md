@@ -13,11 +13,11 @@ A Alice style Choc only keyboard that is breakable down to a 40% Split semi-ergo
 ## Firmware building
 After cloning the QMK repo and installing dfu-programmer build and flash with. Be sure to reset your keyboard!
 
-    make gboards/k/buzzsaw:default:flash
+    make gboards/buzzsaw:default:flash
 
 To just test your build with the default keymap
    
-    make gboards/k/buzzsaw:default
+    make gboards/buzzsaw:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
