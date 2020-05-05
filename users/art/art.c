@@ -48,6 +48,10 @@ void send_shifted_strings_add(char *string1, char *string2) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // if (is_win) {
+  //   return process_record_keymap(keycode, record);
+  // }
+
   if (sarcasm_on) {
     sarcasm_key = ! sarcasm_key;  
     if (sarcasm_key) {
@@ -383,6 +387,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (shifted) {
         clear_mods();
         SEND_STRING("apply ");
+
         char_to_del = 16;
       }
 
