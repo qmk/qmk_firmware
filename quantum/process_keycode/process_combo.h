@@ -32,6 +32,7 @@
 typedef struct {
     const uint16_t *keys;
     uint16_t        keycode;
+    bool            disabled;
 #ifdef EXTRA_EXTRA_LONG_COMBOS
     uint32_t state;
 #elif EXTRA_LONG_COMBOS
@@ -58,7 +59,7 @@ bool process_combo(uint16_t keycode, keyrecord_t *record);
 void matrix_scan_combo(void);
 void process_combo_event(uint8_t combo_index, bool pressed);
 #ifdef COMBO_ALLOW_ACTION_KEYS
-void clear_combos(void);
+void clear_combos(bool clear_state);
 #endif
 
 void combo_enable(void);
