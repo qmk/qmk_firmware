@@ -24,6 +24,11 @@ enum layers {
     LOWER
 };
 
+enum custom_keycodes {
+    KC_DEC = SAFE_RANGE,
+    KC_INC
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [DEFAULT] = LAYOUT(
         KC_7, KC_8, KC_9,
@@ -36,14 +41,78 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RGB_SPI, RGB_SPD, KC_NO
     ),
     [LOWER] = LAYOUT(
-        KC_NO, KC_NO,   KC_NO,
-        KC_NO, RGB_MOD, RGB_TOG,
-        KC_NO, KC_NO,   KC_NO
+        KC_DEC, KC_INC,  KC_NO,
+        KC_NO,  RGB_MOD, RGB_TOG,
+        KC_NO,  KC_NO,   KC_NO
     )
 };
 
 void keyboard_post_init_user (void) {
     rgb_matrix_enable_noeeprom();
+}
+
+void rgb_matrix_increase_flags (void) {
+    switch (rgb_matrix_get_flags()) {
+      case LED_FLAG_ALL: {
+          rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER);
+          rgb_matrix_set_color_all(0, 0, 0);
+      }
+        break;
+      case LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER: {
+          rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
+          rgb_matrix_set_color_all(0, 0, 0);
+      }
+        break;
+      case LED_FLAG_UNDERGLOW: {
+          rgb_matrix_set_flags(LED_FLAG_NONE);
+          rgb_matrix_disable_noeeprom();
+      }
+        break;
+      default: {
+          rgb_matrix_set_flags(LED_FLAG_ALL);
+          rgb_matrix_enable_noeeprom();
+      }
+        break;
+    }
+}
+
+void rgb_matrix_decrease_flags (void) {
+    switch (rgb_matrix_get_flags()) {
+      case LED_FLAG_ALL: {
+          rgb_matrix_set_flags(LED_FLAG_NONE);
+          rgb_matrix_disable_noeeprom();
+      }
+        break;
+      case LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER: {
+          rgb_matrix_set_flags(LED_FLAG_ALL);
+          rgb_matrix_set_color_all(0, 0, 0);
+      }
+        break;
+      case LED_FLAG_UNDERGLOW: {
+          rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER);
+          rgb_matrix_set_color_all(0, 0, 0);
+      }
+        break;
+      default: {
+          rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
+          rgb_matrix_enable_noeeprom();
+      }
+        break;
+    }
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        switch (keycode) {
+          case KC_DEC:
+            rgb_matrix_decrease_flags();
+            return false;
+          case KC_INC:
+            rgb_matrix_increase_flags();
+            return false;
+        }
+    }
+    return true;
 }
 
 void matrix_scan_user (void) {
