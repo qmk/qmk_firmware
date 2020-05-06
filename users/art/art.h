@@ -15,15 +15,16 @@ enum layer_names {
 
   QWERTY_MOD,
   LAYOUT_CHG,
-  MEDIA,
-  COMBOS,
-  STRINGS,
-  CONFIG,
 #elif defined(KEYBOARD_ergodone)
   FKEYS,
   CTRL_NAV,
   SHIFT_NAV,
 #endif
+
+  MEDIA,
+  COMBOS,
+  STRINGS,
+  CONFIG,
   NAV,
   GIT,
   GIT_C,
