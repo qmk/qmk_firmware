@@ -100,7 +100,7 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
     /* Continue processing if not a combo key */
     if (-1 == (int8_t)index) {
         combo->disabled = true;
-        /* combo->state = 0; */
+        combo->state = 0;
         return false;
     }
 
