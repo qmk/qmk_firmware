@@ -66,7 +66,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   switch (keycode) {
     case KC_TAB:
-      if (record->event.pressed && !is_win) {
+      if (record->event.pressed && !is_win && !layer_state_is(BASE)) {
         uint8_t mods = get_mods();
         uint8_t mod_state = mods & MOD_MASK_ALT;
         if (get_mods() & mod_state) {
@@ -85,7 +85,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case KC_LEFT:
     case KC_RIGHT:
-      if (record->event.pressed && !is_win) {
+      if (record->event.pressed && !is_win && !layer_state_is(BASE)) {
         /* && !mac_ctrl_on/!mac_alt_tab_on are required since setting the state while holding the key changes
         the modifier from OS's perspective. As a result, just the pressed key cannot be the single source
         of truth to determine which state we're in, and a separate bool is required */
@@ -106,7 +106,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
     case KC_DEL:
-      if (record->event.pressed && !is_win) {
+      if (record->event.pressed && !is_win && !layer_state_is(BASE)) {
         uint8_t mod_state = get_mods() & MOD_MASK_CTRL;
         if (get_mods() & mod_state) {
           del_mods(mod_state);
@@ -117,7 +117,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case KC_LALT:
     case KC_RALT:
-      if (!record->event.pressed && !is_win && mac_alt_tab_on) {
+      if (!record->event.pressed && !is_win && mac_alt_tab_on && !layer_state_is(BASE)) {
         unregister_mods(MOD_LCTL);
         mac_alt_tab_on = false;
         return false;
@@ -125,7 +125,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case KC_LCTL:
     case KC_RCTL:
-      if (!record->event.pressed && !is_win && mac_ctrl_on) {
+      if (!record->event.pressed && !is_win && mac_ctrl_on && !layer_state_is(BASE)) {
         SEND_STRING(SS_UP(X_LGUI) SS_UP(X_LALT));
         mac_ctrl_on = false;
         return false;
@@ -133,13 +133,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
 
     case KC_HOME:
-      if (record->event.pressed && !is_win) {
+      if (record->event.pressed && !is_win && !layer_state_is(BASE)) {
         SEND_STRING(SS_LCTL(SS_TAP(X_LEFT)));
         return false;
       }
       break;
     case KC_END:
-      if (record->event.pressed && !is_win) {
+      if (record->event.pressed && !is_win && !layer_state_is(BASE)) {
         SEND_STRING(SS_LCTL(SS_TAP(X_RIGHT)));
         return false;
       }
@@ -154,7 +154,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           return false;
         }
 
-        if (!is_win) {
+        if (!is_win && !layer_state_is(BASE)) {
           uint8_t mod_state = get_mods() & MOD_MASK_CTRL;
           if (get_mods() & mod_state) {
             del_mods(mod_state);

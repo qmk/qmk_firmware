@@ -8,11 +8,9 @@ extern bool is_win;
 
 enum layer_names {
   QWERTY,
-  WORKMAN,
-  
+  WORKMAN,  
+  BASE, //only specific for split75
 #if defined(KEYBOARD_wheatfield_split75)
-  BASE,
-
   QWERTY_MOD,
   LAYOUT_CHG,
 #elif defined(KEYBOARD_ergodone)
