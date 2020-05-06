@@ -98,23 +98,12 @@ ifndef TEENSY_LOADER_CLI
 	endif
 endif
 
-# Program the device.
-program: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep check-size
-	$(PROGRAM_CMD)
-
 define EXEC_TEENSY
 	$(TEENSY_LOADER_CLI) -mmcu=$(MCU) -w -v $(BUILD_DIR)/$(TARGET).hex
 endef
 
 teensy: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	$(call EXEC_TEENSY)
-
-BATCHISP ?= batchisp
-
-flip: $(BUILD_DIR)/$(TARGET).hex check-size
-	$(BATCHISP) -hardware usb -device $(MCU) -operation erase f
-	$(BATCHISP) -hardware usb -device $(MCU) -operation loadbuffer $(BUILD_DIR)/$(TARGET).hex program
-	$(BATCHISP) -hardware usb -device $(MCU) -operation start reset 0
 
 DFU_PROGRAMMER ?= dfu-programmer
 GREP ?= grep
@@ -149,13 +138,6 @@ dfu: $(BUILD_DIR)/$(TARGET).hex cpfirmware check-size
 dfu-start:
 	$(DFU_PROGRAMMER) $(MCU) reset
 	$(DFU_PROGRAMMER) $(MCU) start
-
-flip-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
-	$(COPY) $(BUILD_DIR)/$(TARGET).eep $(BUILD_DIR)/$(TARGET)eep.hex
-	$(BATCHISP) -hardware usb -device $(MCU) -operation memory EEPROM erase
-	$(BATCHISP) -hardware usb -device $(MCU) -operation memory EEPROM loadbuffer $(BUILD_DIR)/$(TARGET)eep.hex program
-	$(BATCHISP) -hardware usb -device $(MCU) -operation start reset 0
-	$(REMOVE) $(BUILD_DIR)/$(TARGET)eep.hex
 
 dfu-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 	if $(DFU_PROGRAMMER) --version 2>&1 | $(GREP) -q 0.7 ; then\
@@ -314,7 +296,9 @@ production: $(BUILD_DIR)/$(TARGET).hex bootloader cpfirmware
 	$(SIZE) $(TARGET).hex $(TARGET)_bootloader.hex $(TARGET)_production.hex
 
 flash:  $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
-ifeq ($(strip $(BOOTLOADER)), caterina)
+ifneq ($(strip $(PROGRAM_CMD)),)
+	$(PROGRAM_CMD)
+else ifeq ($(strip $(BOOTLOADER)), caterina)
 	$(call EXEC_AVRDUDE)
 else ifeq ($(strip $(BOOTLOADER)), halfkay)
 	$(call EXEC_TEENSY)

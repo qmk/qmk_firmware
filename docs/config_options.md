@@ -115,9 +115,9 @@ If you define these options you will disable the associated feature, which can s
 * `#define NO_ACTION_ONESHOT`
   * disable one-shot modifiers
 * `#define NO_ACTION_MACRO`
-  * disable old style macro handling: MACRO() & action_get_macro
+  * disable old-style macro handling using `MACRO()`, `action_get_macro()` _(deprecated)_
 * `#define NO_ACTION_FUNCTION`
-  * disable calling of action_function() from the fn_actions array (deprecated)
+  * disable old-style function handling using `fn_actions`, `action_function()` _(deprecated)_
 
 ## Features That Can Be Enabled
 
@@ -317,10 +317,10 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
 * `LAYOUTS`
   * A list of [layouts](feature_layouts.md) this keyboard supports.
 * `LINK_TIME_OPTIMIZATION_ENABLE`
-  * Enables Link Time Optimization (`LTO`) when compiling the keyboard.  This makes the process take longer, but can significantly reduce the compiled size (and since the firmware is small, the added time is not noticeable).  However, this will automatically disable the old Macros and Functions features automatically, as these break when `LTO` is enabled.
-  It does this by automatically defining `NO_ACTION_MACRO` and `NO_ACTION_FUNCTION`
+  * Enables Link Time Optimization (LTO) when compiling the keyboard.  This makes the process take longer, but it can significantly reduce the compiled size (and since the firmware is small, the added time is not noticeable).
+However, this will automatically disable the legacy TMK Macros and Functions features, as these break when LTO is enabled.  It does this by automatically defining `NO_ACTION_MACRO` and `NO_ACTION_FUNCTION`.  (Note: This does not affect QMK [Macros](feature_macros.md) and [Layers](feature_layers.md).)
 * `LTO_ENABLE`
-  * It has the same meaning as LINK_TIME_OPTIMIZATION_ENABLE.  You can use `LTO_ENABLE` instead of `LINK_TIME_OPTIMIZATION_ENABLE`.
+  * Has the same meaning as `LINK_TIME_OPTIMIZATION_ENABLE`.  You can use `LTO_ENABLE` instead of `LINK_TIME_OPTIMIZATION_ENABLE`.
 
 ## AVR MCU Options
 * `MCU = atmega32u4`
