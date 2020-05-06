@@ -6,7 +6,7 @@ Supported layout:
 ![TENKI LAYOUT](https://i.imgur.com/sD9kxID.png)
 
 Keyboard Maintainer: [eriqadams](https://github.com/eriqadams)  
-Hardware Supported: TENKI PCB, ATMEGA32u4-au MCU  
+Hardware Supported: TENKI PCB, Pro Micro  
 Hardware Availability: [If you're in Indonesia you can purchase here](https://tokopedia.com/pixlup) 
 
 Make example for this keyboard (after setting up your build environment):
