@@ -172,3 +172,41 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
 }
 #endif
+
+#ifdef RGBLIGHT_LAYERS
+const rgblight_segment_t PROGMEM shift_layers[] = RGBLIGHT_LAYER_SEGMENTS(
+    {  8, 1, 120, 255, 255},
+    { 18, 1, 120, 255, 255}
+);
+const rgblight_segment_t PROGMEM control_layers[] = RGBLIGHT_LAYER_SEGMENTS(
+    {  6, 1, 0, 255, 255},
+    { 16, 1, 0, 255, 255}
+);
+const rgblight_segment_t PROGMEM alt_layers[] = RGBLIGHT_LAYER_SEGMENTS(
+    {  2, 1, 240, 255, 255},
+    { 17, 1, 250, 255, 255}
+);
+const rgblight_segment_t PROGMEM gui_layers[] = RGBLIGHT_LAYER_SEGMENTS(
+    {  7, 1, 51, 255, 255},
+    { 12, 1, 51, 255, 255}
+);
+
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    shift_layers,
+    control_layers,
+    alt_layers,
+    gui_layers
+);
+
+void keyboard_post_init_keymap(void) {
+    rgblight_layers = my_rgb_layers;
+}
+
+void matrix_scan_keymap(void) {
+        uint8_t mods = mod_config(get_mods()|get_oneshot_mods());
+        rgblight_set_layer_state(0, mods & MOD_MASK_SHIFT);
+        rgblight_set_layer_state(1, mods & MOD_MASK_CTRL);
+        rgblight_set_layer_state(2, mods & MOD_MASK_ALT);
+        rgblight_set_layer_state(3, mods & MOD_MASK_GUI);
+}
+#endif
