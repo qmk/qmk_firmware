@@ -26,11 +26,121 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
-#define LAYOUT( \
-    k00, k01, k02, \
-      k10,  k12    \
+#define LAYOUT_ALL(    \
+    k00, k01, k02, k03, \
+    k10, k11, k12, k13, \
+    k20, k21, k22, k23, \
+    k30, k31, k32, k33, \
+    k40, k41, k42, k43, \
+    k50, k51, k52, k53  \
 ) \
 { \
-    { k00, k01,   k02 }, \
-    { k10, KC_NO, k12 }  \
+    {k00, k01, k02, k03}, \
+    {k10, k11, k12, k13}, \
+    {k20, k21, k22, k23}, \
+    {k30, k31, k32, k33}, \
+    {k40, k41, k42, k43}, \
+    {k50, k51, k52, k53}  \
+}
+
+#define LAYOUT_2U_ALL(  \
+    k00, k01, k02, k03, \
+    k10, k11, k12, k13, \
+    k20, k21, k22,      \
+    k30, k31, k32, k33, \
+    k40, k41, k42,      \
+         k51, k52, k53  \
+) \
+{ \
+    {k00, k01, k02, k03}, \
+    {k10, k11, k12, k13}, \
+    {k20, k21, k22, KC_NO}, \
+    {k30, k31, k32, k33}, \
+    {k40, k41, k42, KC_NO}, \
+    {KC_NO, k51, k52, k53}  \
+}
+
+#define LAYOUT_SPLIT_PLUS(  \
+    k00, k01, k02, k03, \
+    k10, k11, k12, k13, \
+    k20, k21, k22, k23, \
+    k30, k31, k32, k33, \
+    k40, k41, k42,      \
+         k51, k52, k53  \
+) \
+{ \
+    {k00, k01, k02, k03}, \
+    {k10, k11, k12, k13}, \
+    {k20, k21, k22, k23}, \
+    {k30, k31, k32, k33}, \
+    {k40, k41, k42, KC_NO}, \
+    {KC_NO, k51, k52, k53}  \
+}
+
+#define LAYOUT_SPLIT_ZERO(  \
+    k00, k01, k02, k03, \
+    k10, k11, k12, k13, \
+    k20, k21, k22,      \
+    k30, k31, k32, k33, \
+    k40, k41, k42,      \
+    k50, k51, k52, k53  \
+) \
+{ \
+    {k00, k01, k02, k03}, \
+    {k10, k11, k12, k13}, \
+    {k20, k21, k22, KC_NO}, \
+    {k30, k31, k32, k33}, \
+    {k40, k41, k42, KC_NO}, \
+    {k50, k51, k52, k53}  \
+}
+
+#define LAYOUT_SPLIT_ENTER(  \
+    k00, k01, k02, k03, \
+    k10, k11, k12, k13, \
+    k20, k21, k22,      \
+    k30, k31, k32, k33, \
+    k40, k41, k42, k43, \
+         k51, k52, k53  \
+) \
+{ \
+    {k00, k01, k02, k03}, \
+    {k10, k11, k12, k13}, \
+    {k20, k21, k22, KC_NO}, \
+    {k30, k31, k32, k33}, \
+    {k40, k41, k42, k43}, \
+    {KC_NO, k51, k52, k53}  \
+}
+
+#define LAYOUT_SPLIT_ENTER_PLUS(  \
+    k00, k01, k02, k03, \
+    k10, k11, k12, k13, \
+    k20, k21, k22, k23, \
+    k30, k31, k32, k33, \
+    k40, k41, k42, k43, \
+         k51, k52, k53  \
+) \
+{ \
+    {k00, k01, k02, k03}, \
+    {k10, k11, k12, k13}, \
+    {k20, k21, k22, k23}, \
+    {k30, k31, k32, k33}, \
+    {k40, k41, k42, k43}, \
+    {KC_NO, k51, k52, k53}  \
+}
+
+#define LAYOUT_SPLIT_ZERO_PLUS(  \
+    k00, k01, k02, k03, \
+    k10, k11, k12, k13, \
+    k20, k21, k22, k23, \
+    k30, k31, k32, k33, \
+    k40, k41, k42,      \
+    k50, k51, k52, k53  \
+) \
+{ \
+    {k00, k01, k02, k03}, \
+    {k10, k11, k12, k13}, \
+    {k20, k21, k22, k23}, \
+    {k30, k31, k32, k33}, \
+    {k40, k41, k42, KC_NO}, \
+    {k50, k51, k52, k53}  \
 }
