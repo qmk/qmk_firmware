@@ -62,7 +62,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_ENTER:
       // enter が押された時に音を再生します
       if (record->event.pressed) {
-        PLAY_NOTE_ARRAY(tone_qwerty);
+        PLAY_SONG(tone_qwerty);
       }
       return true; // QMK に enter のプレスまたはリリースイベントを送信させます
     default:
@@ -440,7 +440,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_ENTER:
         // enter が押された時に音を再生します
         if (record->event.pressed) {
-            PLAY_NOTE_ARRAY(tone_qwerty);
+            PLAY_SONG(tone_qwerty);
         }
         return true; // QMK に enter のプレスまたはリリースイベントを送信させます
     case RGB_LYR:  // これにより、アンダーグローをレイヤー表示として、あるいは通常通りに使うことができます。
