@@ -24,4 +24,4 @@ BACKLIGHT_ENABLE = no  # Enable keyboard backlight functionality
 AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = yes
 
-LAYOUTS = ortho_20
+LAYOUTS = ortho_5x4
