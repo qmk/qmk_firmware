@@ -1,8 +1,8 @@
 # Signature87
 
-Project Keyboard PCB for Kepler TKL
+Project Keyboard PCB for Kepler TKL. 
 
-* Keyboard Maintainer: [159](https://github.com/projectkeyboard)
+* Keyboard Maintainer: [159](https://github.com/projectkeyboard), [MechMerlin](https://github.com/mechmerlin)
 * Hardware Supported: STM32F072CBT6
 
 Make example for this keyboard (after setting up your build environment):
