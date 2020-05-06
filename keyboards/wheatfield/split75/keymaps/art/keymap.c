@@ -176,9 +176,9 @@ RGB_TOG,  _______,    _______,  _______,  _______,  _______,  _______,          
 //--------------------------------Left Hand-----------------------------------------------| |--------------------------------Right Hand------------------------------------------------
                       _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______, _______,
 _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,           _______,
-_______,  _______,    _______,  _______,  G_DIFF,  G_RST,  _______,  G_BRCH,              _______,  G_FTCH,   _______,  G_P,  _______,  _______,  _______,  _______,           _______,
-_______,  _______,    _______,  G_ADD,  G_S,  _______,  _______,  _______,              _______,  _______,   _______,  _______,  _______,  _______,  _______,                     _______,
-_______,  _______,    _______,  _______,  _______,  G_C,  _______,  G_MERG,              _______,  G_LOG,   _______,  _______,  _______,                      _______, _______,  _______,
+_______,  _______,    _______,  _______,  G_DIFF,   G_RST,    _______,  G_BRCH,               _______,   G_FTCH,   _______,  G_P,      _______,  _______,  _______,  _______,           _______,
+_______,  _______,    _______,  G_ADD,    G_S,      _______,  _______,  _______,              _______,  _______,   _______,  _______,  _______,  _______,  _______,                     _______,
+_______,  _______,    _______,  _______,  _______,  G_C,      _______,  G_MERG,               _______,   G_LOG,    _______,  _______,  _______,                      _______, _______,  _______,
 _______,  _______,    _______,  _______,  _______,  _______,  _______,                        _______,             _______, _______,   _______,                      _______, _______,  _______
   ),
   
@@ -187,9 +187,9 @@ _______,  _______,    _______,  _______,  _______,  _______,  _______,          
                       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,
 XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,           XXXXXXX,
 XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,           XXXXXXX,
-XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  G_CHEC,  XXXXXXX,  XXXXXXX,              XXXXXXX,  XXXXXXX,   XXXXXXX,  G_COMM,  XXXXXXX,  XXXXXXX,  XXXXXXX,                     XXXXXXX,
+XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  G_CHEC,   XXXXXXX,  XXXXXXX,              XXXXXXX,  XXXXXXX,   XXXXXXX,  G_COMM,   XXXXXXX,  XXXXXXX,  XXXXXXX,                     XXXXXXX,
 XXXXXXX,  XXXXXXX,    _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,                      _______, XXXXXXX,  XXXXXXX,
-XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_BSPC,                        XXXXXXX,             XXXXXXX, XXXXXXX,   XXXXXXX,                      XXXXXXX, XXXXXXX,  XXXXXXX
+XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_BSPC,                        XXXXXXX,             XXXXXXX,  XXXXXXX,  XXXXXXX,                      XXXXXXX, XXXXXXX,  XXXXXXX
   ),
   
   [GIT_S] = LAYOUT(
@@ -197,7 +197,7 @@ XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_BSPC,          
                       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,
 XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,           XXXXXXX,
 XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,           XXXXXXX,
-XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  G_STSH,  G_SHOW,  G_STAT,  XXXXXXX,              XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                     XXXXXXX,
+XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  G_STSH,   G_SHOW,   G_STAT,   XXXXXXX,              XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                     XXXXXXX,
 XXXXXXX,  XXXXXXX,    _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,              XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,                      _______, XXXXXXX,  XXXXXXX,
 XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_BSPC,                        XXXXXXX,             XXXXXXX, XXXXXXX,   XXXXXXX,                      XXXXXXX, XXXXXXX,  XXXXXXX
   ),   

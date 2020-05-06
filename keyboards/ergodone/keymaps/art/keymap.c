@@ -216,6 +216,103 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTRL,     _______,    _______
 ),
 
+[MEDIA] = LAYOUT_ergodox(  
+  // -----------------------------------------------------left hand-----------------------------------------------------
+  _______,          _______,          _______,          _______,          _______,          _______,          _______,
+  _______,          _______,          KC_MPRV,          KC_VOLU,          KC_MNXT,          _______,          _______,
+  _______,          _______,          _______,          KC_VOLD,          _______,          _______,
+  _______,          _______,          _______,          KC_MUTE,          KC_MPLY,          _______,          _______,
+  _______,          _______,          _______,          _______,          _______,
+
+                                            _______,   _______,
+                                                       _______,
+                                  _______,  _______,   _______,
+
+  // -----------------------------------------------------right hand-----------------------------------------------------
+  _______,          _______,          _______,          _______,          _______,          _______,          _______,
+  _______,          _______,          _______,          _______,          _______,          _______,          _______,
+                    _______,          _______,          _______,          _______,          _______,          _______,
+  _______,          _______,          _______,          _______,          _______,          _______,          _______,
+                    _______,          _______,          _______,          _______,          _______,
+
+    _______,     _______,
+    _______,
+    _______,     _______,    _______
+),
+
+[GIT] = LAYOUT_ergodox(  
+  // -----------------------------------------------------left hand-----------------------------------------------------
+  _______,          _______,          _______,          _______,          _______,          _______,          _______,
+  _______,          _______,          G_DIFF,           G_RST,            _______,          G_BRCH,          _______,
+  _______,          G_ADD,            G_S,              _______,          _______,          _______,
+  _______,          _______,          _______,          G_C,              _______,          G_MERG,          _______,
+  _______,          _______,          _______,          _______,          _______,
+
+                                            _______,   _______,
+                                                       _______,
+                                  _______,  _______,   _______,
+
+  // -----------------------------------------------------right hand-----------------------------------------------------
+  _______,          _______,          _______,          _______,          _______,          _______,          _______,
+  _______,          _______,          G_FTCH,           _______,          G_P,              _______,          _______,
+                    _______,          _______,          _______,          _______,          _______,          _______,
+  _______,          _______,          G_LOG,            _______,          _______,          _______,          _______,
+                    _______,          _______,          _______,          _______,          _______,
+
+    _______,     _______,
+    _______,
+    _______,     _______,    _______
+),
+
+[GIT_C] = LAYOUT_ergodox(  
+  // -----------------------------------------------------left hand-----------------------------------------------------
+  XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
+  XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
+  XXXXXXX,          XXXXXXX,          XXXXXXX,          G_CHEC,           XXXXXXX,          XXXXXXX,
+  _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
+  XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
+
+                                            XXXXXXX,   XXXXXXX,
+                                                       XXXXXXX,
+                                  XXXXXXX,  _______,   XXXXXXX,
+
+  // -----------------------------------------------------right hand-----------------------------------------------------
+  XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
+  XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
+                    XXXXXXX,          XXXXXXX,          XXXXXXX,          G_COMM,           XXXXXXX,          XXXXXXX,
+  XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          _______,
+                    XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
+
+    XXXXXXX,     XXXXXXX,
+    XXXXXXX,
+    XXXXXXX,     XXXXXXX,    XXXXXXX
+),
+
+[GIT_S] = LAYOUT_ergodox(  
+  // -----------------------------------------------------left hand-----------------------------------------------------
+  XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
+  XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
+  XXXXXXX,          XXXXXXX,          G_STSH,           G_SHOW,           G_STAT,           XXXXXXX,
+  _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
+  XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
+
+                                            XXXXXXX,   XXXXXXX,
+                                                       XXXXXXX,
+                                  XXXXXXX,  _______,   XXXXXXX,
+
+  // -----------------------------------------------------right hand-----------------------------------------------------
+  XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
+  XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
+                    XXXXXXX,          XXXXXXX,          XXXXXXX,          G_COMM,           XXXXXXX,          XXXXXXX,
+  XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          _______,
+                    XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
+
+    XXXXXXX,     XXXXXXX,
+    XXXXXXX,
+    XXXXXXX,     XXXXXXX,    XXXXXXX
+),
+
+
 /* Numpad
  *
  *           ,--------------------------------------------------.
