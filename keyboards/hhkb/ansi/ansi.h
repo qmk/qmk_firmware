@@ -1,5 +1,4 @@
 #pragma once
-#define ANSI_H
 
 #include "quantum.h"
 

@@ -1,5 +1,4 @@
 #pragma once
-#define JP_H
 
 #include "quantum.h"
 

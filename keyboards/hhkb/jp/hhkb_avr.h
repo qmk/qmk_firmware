@@ -1,5 +1,4 @@
 #pragma once
-#define HHKB_AVR_H
 
 #include <stdint.h>
 #include <stdbool.h>
