@@ -57,7 +57,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_ENTER:
       // Play a tone when enter is pressed
       if (record->event.pressed) {
-        PLAY_NOTE_ARRAY(tone_qwerty);
+        PLAY_SONG(tone_qwerty);
       }
       return true; // Let QMK send the enter press/release events
     default:
@@ -438,7 +438,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_ENTER:
         // Play a tone when enter is pressed
         if (record->event.pressed) {
-            PLAY_NOTE_ARRAY(tone_qwerty);
+            PLAY_SONG(tone_qwerty);
         }
         return true; // Let QMK send the enter press/release events
     case RGB_LYR:  // This allows me to use underglow as layer indication, or as normal
