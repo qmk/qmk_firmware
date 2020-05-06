@@ -1,5 +1,10 @@
 # 分割キーボード
 
+<!---
+  original document: 0.8.147:docs/feature_split_keyboard.md
+  git diff 0.8.147 HEAD -- docs/feature_split_keyboard.md | cat
+-->
+
 QMK ファームウェアリポジトリの多くのキーボードは、"分割"キーボードです。それらは2つのコントローラを使います — 1つは USB に接続し、もう1つは TRRS または同様のケーブルを介してシリアルまたは I<sup>2</sup>C 接続で接続します。
 
 分割キーボードには多くの利点がありますが、有効にするには追加の作業が必要です。
