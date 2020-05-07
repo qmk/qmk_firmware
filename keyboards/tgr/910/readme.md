@@ -6,7 +6,7 @@
 * Hardware Supported: TGR-910 (see below)
 * Hardware Availability: [Geekhack GB](https://geekhack.org/index.php?topic=86047.0)
 
-**Only works with Quadcube PCB, will not work with TGR 910 CE PCB (a.k.a. TGR Unicorn v1.2)**
+**Only works with Quadcube PCB, will not work with [TGR 910 CE](../910ce) PCB (a.k.a. TGR Unicorn v1.2)**
 
 Make example for this keyboard (after setting up your build environment):
 
