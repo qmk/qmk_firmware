@@ -42,20 +42,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
  * │MKE│ F1│ F2│ F3│ F4│ F5│ F6│ F7│ F8│ F9│F10│F11│F12│LHP│SLP│
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┤
- * │RMod │RH+│RS+│RV+│AS+│   │   │   │F13│F14│F15│PgU│MNC│ Del │
+ * │RMod │RH+│RS+│RV+│AS+│   │   │   │VlU│Prv│Nxt│ ↑ │MNC│ Del │
  * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
- * │RTgl  │RH-│RS-│RV-│AS-│   │   │VlD│VlU│Mut│Hom│End│        │
+ * │RTgl  │RH-│RS-│RV-│AS-│   │   │VlD│Hom│PgU│ ← │ → │   Play │
  * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┤
- * │        │LYR│Thm│   │   │RST│   │   │Prv│Nxt│PgD│      │   │
+ * │        │LYR│Thm│   │   │RST│   │Mut│End│PgD│ ↓ │      │   │
  * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬┴───┤
  * │    │    │    │                        │    │    │    │    │
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 [_FN1] = LAYOUT_60_ansi_split_bs_rshift( \
     QM_MAKE, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  MC_LHPD, MC_SLPD, \
-    RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, _______, _______, KC_F13,  KC_F14,  KC_F15,  KC_PGUP, MC_MSSN, KC_DELT, \
-    RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, _______, _______, KC_VOLD, KC_VOLU, KC_MUTE, KC_HOME, KC_END,           _______, \
-    _______,          RGB_LYR, RGB_THM, _______, _______, RESET,   _______, _______, KC_MPRV, KC_MNXT, KC_PGDN, _______, _______, \
+    RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, _______, _______, KC_VOLU, KC_MPRV, KC_MNXT, KC_UP,   MC_MSSN, KC_DELT, \
+    RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, _______, _______, KC_VOLD, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT,          KC_MPLY, \
+    _______,          RGB_LYR, RGB_THM, _______, _______, RESET,   _______, KC_MUTE, KC_END,  KC_PGDN, KC_DOWN, _______, _______, \
     _______, _______, _______,                            _______,                            _______, _______, _______, _______  \
 )
 /*  Layer
