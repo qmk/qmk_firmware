@@ -77,6 +77,12 @@ static inline void dump_key_buffer(bool emit) {
     buffer_size = 0;
 }
 
+void fire_combo(void) {
+    send_combo(active_combo->keycode, true);
+    active_combo = NULL;
+    dump_key_buffer(false);
+}
+
 #define ALL_COMBO_KEYS_ARE_DOWN (((1 << count) - 1) == combo->state)
 #define KEY_STATE_DOWN(key)         \
     do {                            \
@@ -117,6 +123,9 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
         }
     } else {
         if (ALL_COMBO_KEYS_ARE_DOWN) { /* Combo was released */
+            if (active_combo && !active_combo->disabled) {
+                fire_combo();
+            }
             send_combo(combo->keycode, false);
         } else {
             /* continue processing without immediately returning */
@@ -218,9 +227,7 @@ void matrix_scan_combo(void) {
          * combo will be handled by the next processors in the chain
          */
         if (active_combo && !active_combo->disabled) {
-            send_combo(active_combo->keycode, true);
-            active_combo = NULL;
-            dump_key_buffer(false);
+            fire_combo();
         } else {
             active_combo = NULL;
             is_active = false;
