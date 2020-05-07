@@ -14,8 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// clang-format off
-
 #include "process_ucis.h"
 
 qk_ucis_state_t qk_ucis_state;
