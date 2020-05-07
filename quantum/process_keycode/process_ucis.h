@@ -27,7 +27,7 @@
 #endif
 
 typedef struct {
-    char *symbol;
+    char *   symbol;
     uint32_t code_points[UCIS_MAX_CODE_POINTS];
 } qk_ucis_symbol_t;
 
@@ -39,12 +39,17 @@ typedef struct {
 
 extern qk_ucis_state_t qk_ucis_state;
 
-#define UCIS_TABLE(...)             \
-    {                               \
-        __VA_ARGS__, { NULL, {} }   \
+// clang-format off
+
+#define UCIS_TABLE(...) \
+    {                   \
+        __VA_ARGS__,    \
+        { NULL, {} }    \
     }
 #define UCIS_SYM(name, ...) \
     { name, {__VA_ARGS__} }
+
+// clang-format on
 
 extern const qk_ucis_symbol_t ucis_symbol_table[];
 
