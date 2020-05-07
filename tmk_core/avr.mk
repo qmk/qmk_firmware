@@ -161,15 +161,15 @@ define EXEC_AVRDUDE
 		printf "Detecting USB port, reset your controller now."; \
 		TMP1=`mktemp`; \
 		TMP2=`mktemp`; \
-		ls /dev/tty* > $TMP1; \
+		ls /dev/tty* > $$TMP1; \
 		while [ -z $$USB ]; do \
 			sleep 0.5; \
 			printf "."; \
-			ls /dev/tty* > $TMP2; \
-			USB=`comm -13 $TMP1 $TMP2 | $(GREP) -o '/dev/tty.*'`; \
-			mv $TMP2 $TMP1; \
+			ls /dev/tty* > $$TMP2; \
+			USB=`comm -13 $$TMP1 $$TMP2 | $(GREP) -o '/dev/tty.*'`; \
+			mv $$TMP2 $$TMP1; \
 		done; \
-		rm $TMP2 $TMP1; \
+		rm $$TMP2 $$TMP1; \
 		echo ""; \
 		echo "Device $$USB has appeared; assuming it is the controller."; \
 		if $(GREP) -q -s 'MINGW\|MSYS' /proc/version; then \
