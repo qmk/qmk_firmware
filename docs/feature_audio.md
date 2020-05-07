@@ -94,6 +94,18 @@ which will use Timer 1 to directly drive pin PA8 through the PWM hardware (TIM1_
 Should you want to use the pwm-hardware on another pin and timer - be ready to dig into the STM32 data-sheet to pick the right TIMx_CHy and pin-alternate function.
 
 
+## Tone Multiplexing
+Since most drivers can only render one tone per speaker at a time (with the one exception: arm dac-additive) there also exists a "workaround-feature" that does time-slicing/multiplexing - which does what the name implies: cycle through a set of active tones (e.g. when playing chords in Music Mode) at a given rate, and put one tone at a time out through the one/few speakers that are available.
+
+To enable this feature, and configure a starting-rate, add the following defines to `config.h`:
+```c
+#define AUDIO_ENABLE_TONE_MULTIPLEXING
+#define AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT 10
+```
+
+The audio core offers interface functions to get/set/change the tone multiplexing rate from within `keymap.c`.
+
+
 ## Songs
 There's a couple of different sounds that will automatically be enabled without any other configuration:
 ```
