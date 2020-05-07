@@ -15,8 +15,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //Layer 0 - Base Layer (F13 to F24, and One Shot Layer 1,2,3,4)
         [0] = LAYOUT_ortho_4x4(
                 KC_F13, KC_F14, KC_F15, KC_F16,
-                KC_F17, KC_F18, KC_F19, KC_F20,
-                KC_F21, KC_F22, KC_F23, KC_F24,
+                KC_F17, KC_CCCV, KC_F19, KC_F20,
+                KC_F21, KC_F22, KC_F23, KC_2ENTER,
                 OSL(1), OSL(2), OSL(3), TG(4)    //Transparent to let you go between layers
 		),
 
@@ -53,8 +53,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_CCCV:  // One key copy/paste
@@ -83,107 +81,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
- void eeconfig_init_user(void) {  // EEPROM is getting reset!
-  // use the non noeeprom versions, to write these values to EEPROM too
-    rgblight_enable(); // Enable RGB by default
-    rgblight_sethsv_noeeprom(HSV_WHITE);  // Set it to white by default
-//  rgblight_mode(RGBLIGHT_MODE_BREATHING); // set to breathing by default
-} 
 
-
-//NOT WORKING CORRECTLY ---- Modifying the Layer RGB using the new method
-/*extern LED_TYPE led[];
-rgblight_segment_t const *const *rgblight_layers;
-
-void keyboard_post_init_user(void) {
-	//Enable the LED layers
-	rgblight_layers = my_rgb_layers;
-	layer_state_set_user(layer_state);
-}
-
-void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds) { 
-    if (rgblight_layers != NULL) {
-        rgblight_layers_write();
-    }
-    ws2812_setleds(start_led, num_leds); 
-}
-
-*/
-const rgblight_segment_t PROGMEM my_base_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-		{0,15,HSV_WHITE}
-	);
-const rgblight_segment_t PROGMEM my_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-		{0,15,HSV_GREEN}
-	);
-const rgblight_segment_t PROGMEM my_layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-		{0,15,HSV_RED}
-	);
-const rgblight_segment_t PROGMEM my_layer3_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-		{0,15,HSV_BLUE}
-	);
-const rgblight_segment_t PROGMEM my_layer4_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-		{0,15,HSV_ORANGE}
-	);
-const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-		{0,15,HSV_PURPLE}
-	);
-const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-		my_base_layer,
-		my_layer1_layer,
-		my_layer2_layer,
-		my_layer3_layer,
-		my_layer4_layer,
-		my_capslock_layer
-
-	);
-
-bool led_update_user(led_t led_state) {
-    rgblight_set_layer_state(5, led_state.caps_lock);
-    return true;
-}
-
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-//  rgblight_set_layer_state(0, true);
-  switch(get_highest_layer(state|default_layer_state)) {
-//  switch(get_highest_layer(state)) {
-  case 1:
-    // Green
-    rgblight_enable_noeeprom();
-	rgblight_set_layer_state(1, true);
-    break;
-  case 2:
-    // Red
-    rgblight_enable_noeeprom();    
-	rgblight_set_layer_state(2, true);
-    break;
-  case 3:
-    // Blue
-    rgblight_enable_noeeprom();
- 	rgblight_set_layer_state(3, true);
-    break;
-  case 4:
-    // Orange
-    rgblight_enable_noeeprom();
-	rgblight_set_layer_state(4, true);
-    break;
-  default:
-    // White
-    //Read RGB Light State
-    rgblight_config.raw = eeconfig_read_rgblight();
-    //If enabled, set white
-    if (rgblight_config.enable) {
-        rgblight_set_layer_state(0, true);
-    } else { //Otherwise go back to disabled
-	    rgblight_set_layer_state(0, true);
-        rgblight_disable_noeeprom();
-    }
-    break;
-}
-return state;
-} 
-
-/*
 void keyboard_post_init_user(void) {
 	//Enable the LED layers
 	layer_state_set_user(layer_state);
@@ -226,4 +124,4 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     break;
 }
 return state;
-} */
+}
