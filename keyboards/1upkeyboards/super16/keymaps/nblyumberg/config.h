@@ -4,7 +4,7 @@
 #define ONESHOT_TIMEOUT 3000
 
 #define RGBLED_NUM 16
-#define RGBLIGHT_LAYERS //Enable Layer indicators with RGB
+
 
 // Undef and redefine default brightness to half of 255
 #undef RGBLIGHT_LIMIT_VAL
