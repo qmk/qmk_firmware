@@ -44,16 +44,16 @@ static bool is_uni_seq(char *seq) {
         } else {
             keycode = seq[i] - 'a' + KC_A;
         }
-        if (i > qk_ucis_state.count || qk_ucis_state.keycodes[i] != keycode) {
+        if (i > qk_ucis_state.count || qk_ucis_state.codes[i] != keycode) {
             return false;
         }
     }
-    return qk_ucis_state.keycodes[i] == KC_ENT || qk_ucis_state.keycodes[i] == KC_SPC;
+    return qk_ucis_state.codes[i] == KC_ENT || qk_ucis_state.codes[i] == KC_SPC;
 }
 
 __attribute__((weak)) void qk_ucis_symbol_fallback(void) {
     for (uint8_t i = 0; i < qk_ucis_state.count - 1; i++) {
-        uint8_t keycode = qk_ucis_state.keycodes[i];
+        uint8_t keycode = qk_ucis_state.codes[i];
         register_code(keycode);
         unregister_code(keycode);
         wait_ms(UNICODE_TYPE_DELAY);
@@ -81,7 +81,7 @@ bool process_ucis(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
-    qk_ucis_state.keycodes[qk_ucis_state.count] = keycode;
+    qk_ucis_state.codes[qk_ucis_state.count] = keycode;
     qk_ucis_state.count++;
 
     switch (keycode) {
