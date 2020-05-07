@@ -68,12 +68,14 @@ Then define a table like this in your keymap file:
 const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE(
     UCIS_SYM("poop", 0x1F4A9), // 💩
     UCIS_SYM("rofl", 0x1F923), // 🤣
-    UCIS_SYM("kiss", 0x1F619), // 😙
-    UCIS_SYM("poops", 0x1F4A9, 0x1F4A9) // 💩💩 
+    UCIS_SYM("cuba", 0x1F1E8, 0x1F1FA), // 🇨🇺
+    UCIS_SYM("look", 0x0CA0, 0x005F, 0x0CA0), // ಠ_ಠ
 );
 ```
 
-To use it, call `qk_ucis_start()`. Then, type the mnemonic for the character (such as "rofl"), and hit Space or Enter. QMK should erase the "rofl" text and insert the laughing emoji.
+By default, each table entry may be up to 3 code points long. This number can be changed by adding `#define UCIS_MAX_CODE_POINTS n` to your `config.h` file.
+
+To use UCIS input, call `qk_ucis_start()`. Then, type the mnemonic for the character (such as "rofl") and hit Space or Enter. QMK should erase the "rofl" text and insert the laughing emoji.
 
 ### Customization
 

@@ -92,7 +92,7 @@ void register_hex32(uint32_t hex);
 void send_unicode_hex_string(const char *str);
 void send_unicode_string(const char *str);
 
-void register_unicode(uint32_t code, uint8_t input_mode);
+void register_unicode(uint32_t code_point, uint8_t input_mode);
 
 bool process_unicode_common(uint16_t keycode, keyrecord_t *record);
 
