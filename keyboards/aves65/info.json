@@ -5,7 +5,7 @@
     "width": 16, 
     "height": 5, 
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_65_iso_blocker": {
             "layout": [
                 {"label":"k00", "x":0, "y":0},
                 {"label":"k01", "x":1, "y":0},

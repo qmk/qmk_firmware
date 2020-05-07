@@ -1,8 +1,8 @@
 # Aves65
 
-![Aves65](https://i.imgur.com/H7x8an7.jpg)
+![Aves65](https://i.imgur.com/H7x8an7l.jpg)
 
-A 65% hotswap keyboard with RGB underglow
+A 65% hotswap keyboard with RGB underglow.
 
 * Keyboard Maintainer: [Hund](https://github.com/Hund)
 * Hardware Supported: Aves65
