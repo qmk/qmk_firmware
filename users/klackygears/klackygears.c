@@ -78,6 +78,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       set_single_persistent_default_layer(_GAMER);
     }
     break;
+
+case KC_GAMR1:
+    if (record->event.pressed) {
+      set_single_persistent_default_layer(_GAMR1);
+    }
+    break;
   }
 
       return true;

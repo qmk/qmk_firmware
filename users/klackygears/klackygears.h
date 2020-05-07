@@ -40,6 +40,7 @@ enum userspace_custom_keycodes {
   KC_QWERTY,
   KC_WINBASE,
   KC_GAMER,
+  KC_GAMR1,
   SAFE_RANGE_KEYMAP
 };
 
