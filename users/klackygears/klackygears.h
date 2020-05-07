@@ -25,6 +25,7 @@ enum layer_number {
     _QWERTY,
     _GAMER,
     _GAMR1,
+    _GAMR2,
     _NGMR,
     _NUMB,
     _MNMB,
@@ -41,6 +42,7 @@ enum userspace_custom_keycodes {
   KC_WINBASE,
   KC_GAMER,
   KC_GAMR1,
+  KC_GAMR2,
   SAFE_RANGE_KEYMAP
 };
 

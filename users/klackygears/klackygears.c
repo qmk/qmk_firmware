@@ -84,6 +84,12 @@ case KC_GAMR1:
       set_single_persistent_default_layer(_GAMR1);
     }
     break;
+
+case KC_GAMR2:
+    if (record->event.pressed) {
+      set_single_persistent_default_layer(_GAMR2);
+    }
+    break;
   }
 
       return true;

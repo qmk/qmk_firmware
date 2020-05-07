@@ -9,7 +9,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_WINBASE] = LAYOUT_wrapper( \
              _______________DVORAK_L1___________________, KC_ESC,       KC_GAMER, _______________DVORAK_R1___________________, \
     RGB_TOG, _______________DVORAK_L2___________________, KC_____,      KC_GAMR1, _______________DVORAK_R2___________________, RGB_TOG, \
-    RGB_MOD, _______________WINDVK_L3___________________, KC_____,      KC_____, _______________WINDVK_R3___________________, RGB_MOD, \
+    RGB_MOD, _______________WINDVK_L3___________________, KC_____,      KC_GAMR2, _______________WINDVK_R3___________________, RGB_MOD, \
              KC_____, KC_____,          __________________WIN_THUMB_CLUSTER_V2______________     ,          KC_____, KC_____, \
                                         KC_NO,   KC_NO,   KC_NO,        KC_NO,   KC_NO,   KC_NO \
   ),
@@ -34,15 +34,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_GAMER] = LAYOUT_wrapper( \
              KC_R,    KC_Q,    KC_W,    KC_E,    KC_1,      KC_ESC,        KC_WINBASE, _________________RGB_1_____________________, \
     KC_TAB,  KC_F,    KC_A,    KC_S,    KC_D,    KC_2, LSFT(KC_F2),        KC_GAMR1, _________________RGB_2_____________________, RGB_TOG, \
-    KC_TAB,  KC_TAB,  KC_X,    KC_Z,    KC_C,    KC_3,        KC_M,        KC_____, _________________MEDIA_____________________, RGB_MOD, \
+    KC_TAB,  KC_TAB,  KC_X,    KC_Z,    KC_C,    KC_3,        KC_M,        KC_GAMR2, _________________MEDIA_____________________, RGB_MOD, \
              KC_LCTL, KC_LALT,       KC_LCTL,    KC_LSFT,   KC_SPC,        KC_____, KC_UP,   KC_____,           KC_____, KC_____, \
                                      KC_NO,      KC_LSFT,  KC_LSFT,        KC_LEFT, KC_DOWN, KC_RIGHT \
   ),
 
   [_GAMR1] = LAYOUT_wrapper( \
+             KC_R,    KC_G,    KC_W,    KC_E,    KC_1,      KC_ESC,        KC_WINBASE, _________________RGB_1_____________________, \
+    KC_TAB,  KC_V,    KC_A,    KC_S,    KC_D,    KC_2,        KC_L,        KC_GAMR1, _________________RGB_2_____________________, RGB_TOG, \
+    KC_T,    KC_I,    KC_F,    KC_Q,    KC_4,    KC_3,        KC_M,        KC_GAMR2, _________________MEDIA_____________________, RGB_MOD, \
+             KC_X,    KC_K,             KC_C,    KC_LSFT,   KC_SPC,        KC_____, KC_UP,   KC_____,           KC_____, KC_____, \
+                                        KC_Z,    KC_LSFT,  KC_LSFT,        KC_LEFT, KC_DOWN, KC_RIGHT \
+  ),
+
+[_GAMR2] = LAYOUT_wrapper( \
              KC_R,    KC_Q,    KC_W,    KC_E,    KC_1,      KC_ESC,        KC_WINBASE, _________________RGB_1_____________________, \
     KC_TAB,  KC_C,    KC_A,    KC_S,    KC_D,    KC_2, LSFT(KC_F2),        KC_GAMR1, _________________RGB_2_____________________, RGB_TOG, \
-    KC_TAB,  KC_G,    KC_F,    KC_X,    KC_V,    KC_3,       KC_F1,        KC_____, _________________MEDIA_____________________, RGB_MOD, \
+    KC_TAB,  KC_G,    KC_F,    KC_X,    KC_V,    KC_3,       KC_F1,        KC_GAMR2, _________________MEDIA_____________________, RGB_MOD, \
              KC_LCTL, KC_LALT,       KC_LCTL,    KC_LSFT,   KC_SPC,        KC_____, KC_UP,   KC_____,           KC_____, KC_____, \
                                      KC_NO,      KC_LSFT,  KC_LSFT,        KC_LEFT, KC_DOWN, KC_RIGHT \
   ),
