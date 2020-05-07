@@ -213,6 +213,13 @@ void keyboard_setup(void) {
  */
 __attribute__((weak)) bool is_keyboard_master(void) { return true; }
 
+/** \brief should_process_keypress
+ *
+ * Override this function if you have a condition where keypresses processing should change:
+ *   - splits where the slave side needs to process for rgb/oled functionality
+ */
+__attribute__((weak)) bool should_process_keypress(void) { return is_keyboard_master(); }
+
 /** \brief keyboard_init
  *
  * FIXME: needs doc
@@ -292,7 +299,7 @@ void keyboard_task(void) {
     matrix_scan();
 #endif
 
-    if (is_keyboard_master()) {
+    if (should_process_keypress()) {
         for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
             matrix_row    = matrix_get_row(r);
             matrix_change = matrix_row ^ matrix_prev[r];
