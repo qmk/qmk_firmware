@@ -177,7 +177,7 @@ const uint8_t RGBLED_GRADIENT_RANGES[] PROGMEM = {255, 170, 127, 85, 64};
 By including `#define RGBLIGHT_LAYERS` in your `config.h` file you can enable lighting layers. These make
 it easy to use your underglow LEDs as status indicators to show which keyboard layer is currently active, or the state of caps lock, all without disrupting any animations. [Here's a video](https://youtu.be/uLGE1epbmdY) showing an example of what you can do.
 
-### Defining Lighting Layers
+### Defining Lighting Layers :id=defining-lighting-layers
 
 To define a layer, we modify `keymap.c` to list out LED ranges and the colors we want to overlay on them using an array of `rgblight_segment_t` using the `RGBLIGHT_LAYER_SEGMENTS` macro. We can define multiple layers and enable/disable them independently:
 
