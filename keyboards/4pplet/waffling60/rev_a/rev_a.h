@@ -1,7 +1,7 @@
 #pragma once
 
 #include "quantum.h"
-
+/*
 #define RGB_OFF 0,0,0
 #define RGB_WHITE 255, 255, 255
 #define RGB_RED 255, 0, 0
@@ -12,7 +12,7 @@
 #define RGB_BLUE 0, 0, 255
 #define RGB_PURPLE 255, 0, 255
 #define RGB_PINK 255, 20, 20
-
+*/
 // set LOCK_INDICATORS to false if not used or if leds are used for custom function
 // do not use both, lock indicators will override layer indicator.
 #define LOCK_INDICATORS false // indicate capslock, scroll lock etc with rgb led
@@ -20,6 +20,8 @@
 
 #define BRIGHTNESS_LEVELS 10
 #define DEFAULT_BRIGHTNESS_LEVEL 5
+
+#define RGBLED_NUM 1
 
 #define TIMER_TOP 0xFFFFU
 

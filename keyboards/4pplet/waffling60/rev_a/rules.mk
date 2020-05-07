@@ -24,9 +24,13 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 # if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 NKRO_ENABLE = no            # USB Nkey Rollover 
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
-RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
+#RGBLIGHT_ENABLE = custom        # Enable keyboard RGB underglow
 MIDI_ENABLE = no            # MIDI support
 AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no         # Enable support for HD44780 based LCDs
 UNICODE_ENABLE = no         # Unicode
+RGBLIGHT_CUSTOM_DRIVER = yes
+RGBLIGHT_ENABLE = yes
+
+#SRC += lightning.c 

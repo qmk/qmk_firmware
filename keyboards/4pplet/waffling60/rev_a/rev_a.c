@@ -1,4 +1,5 @@
 #include "rev_a.h"
+#include "led.h"
 
 void keyboard_pre_init_kb(void) {
   // Call the keyboard pre init code.
@@ -13,7 +14,7 @@ void init_led(void){
   // define end of timer
   ICR1 = TIMER_TOP;
   // default set to lowest, will not toggle
-  led_set_color(RGB_OFF);
+  led_set_color(RGB_YELLOW);
 
   brightness_level = DEFAULT_BRIGHTNESS_LEVEL;
   // Set our LED pins as output
@@ -33,7 +34,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) { // just to illustrate, m
         led_set_color(RGB_ORANGE);
         break;
     default:
-        led_set_color(RGB_OFF);
+        led_set_color(RGB_YELLOW);
         break;
     }
   }
@@ -56,7 +57,7 @@ bool led_update_kb(led_t led_state) {
         else if(led_state.kana)
           led_set_color(RGB_YELLOW);
         else
-          led_set_color(RGB_OFF);
+          led_set_color(RGB_YELLOW);
     }
     return res;
 }
