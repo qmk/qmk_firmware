@@ -43,3 +43,6 @@
     { L25, L24, L23, L22, L21, L20 }, \
     { L35, L34, L33, L32, L31, L30 } \
   }
+
+// full Keymap
+#define LAYOUT_full LAYOUT_base
