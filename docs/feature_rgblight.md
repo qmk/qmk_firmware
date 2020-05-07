@@ -215,7 +215,7 @@ void keyboard_post_init_user(void) {
 ```
 Note: For split keyboards with two controllers, both sides need to be flashed when updating the contents of rgblight_layers.
 
-### Enabling and disabling lighting layers
+### Enabling and disabling lighting layers :id=enabling-lighting-layers
 
 Everything above just configured the definition of each lighting layer.
 We can now enable and disable the lighting layers whenever the state of the keyboard changes:
