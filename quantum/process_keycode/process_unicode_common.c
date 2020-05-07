@@ -182,7 +182,7 @@ void send_unicode_hex_string(const char *str) {
         // Find the next code point (token) in the string
         for (; *str == ' '; str++);    // Skip leading spaces
         size_t n = strcspn(str, " ");  // Length of the current token
-        char code_point[n + 1];
+        char code_point[n+1];
         strncpy(code_point, str, n);   // Copy token into buffer
         code_point[n] = '\0';          // Make sure it's null-terminated
 
@@ -203,7 +203,7 @@ void send_unicode_hex_string(const char *str) {
 // clang-format on
 
 // Borrowed from https://nullprogram.com/blog/2017/10/06/
-const char *decode_utf8(const char *str, int32_t *code_point) {
+static const char *decode_utf8(const char *str, int32_t *code_point) {
     const char *next;
 
     if (str[0] < 0x80) {  // U+0000-007F
