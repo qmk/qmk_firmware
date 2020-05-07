@@ -33,7 +33,7 @@ typedef struct {
 
 typedef struct {
     uint8_t  count;
-    uint16_t codes[UCIS_MAX_SYMBOL_LENGTH];
+    uint16_t keycodes[UCIS_MAX_SYMBOL_LENGTH];
     bool     in_progress : 1;
 } qk_ucis_state_t;
 
