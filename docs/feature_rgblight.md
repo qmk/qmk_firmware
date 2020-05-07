@@ -234,7 +234,7 @@ bool led_update_user(led_t led_state) {
 }
 ```
 
-### Lighting layer blink
+### Lighting layer blink :id=lighting-layer-blink
 
 By including `#define RGBLIGHT_LAYER_BLINK` in your `config.h` file you can turn a lighting
 layer on for a specified duration. Once the specified number of milliseconds has elapsed
