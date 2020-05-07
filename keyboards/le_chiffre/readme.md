@@ -1,6 +1,6 @@
 # Le Chiffre
 
-![Le Chiffre](https://i.imgur.com/X1WsUmd.png)
+![Le Chiffre](https://i.imgur.com/X1WsUmdl.png)
 
 Le Chiffre (ironically, "the number" in French is a 30% keyboard designed by tominabox1.  The purpose of the board is to provide a platform for MX and Choc ergo in one package for when ones wrists need a break. The board supports an RGB LED strip with DI on port F0. The board is also fitted with support for run-of-the-mill .91" OLED and EC11 rotary encoder.  
 
