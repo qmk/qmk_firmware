@@ -3,7 +3,7 @@
 65% custom keyboard with a very nice design.
 
 * Keyboard Maintainer: [poisonking](https://github.com/halfenergized)
-* Hardware Supported: TGR-910 (see below)
+* Hardware Supported: TGR-910 (Quadcube PCB)
 * Hardware Availability: [Geekhack GB](https://geekhack.org/index.php?topic=86047.0)
 
 **Only works with Quadcube PCB, will not work with [TGR 910 CE](../910ce) PCB (a.k.a. TGR Unicorn v1.2)**
