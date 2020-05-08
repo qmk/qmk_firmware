@@ -19,7 +19,7 @@
 
 #if !defined(__AVR__)
   #include <string.h>
-  #define memcpy_P(des, src, len) memcpy(des, src, len)
+  // #define memcpy_P(des, src, len) memcpy(des, src, len)
 #endif
 
 #define NGBUFFER 10 // キー入力バッファのサイズ
@@ -49,6 +49,8 @@ static uint8_t ng_chrcount = 0; // 文字キー入力のカウンタ
 static bool is_naginata = false; // 薙刀式がオンかオフか
 static uint8_t naginata_layer = 0; // NG_*を配置しているレイヤー番号
 static uint32_t keycomb = 0UL; // 同時押しの状態を示す。32bitの各ビットがキーに対応する。
+static uint16_t ngon_keys[2]; // 薙刀式をオンにするキー(通常HJ)
+static uint16_t ngoff_keys[2]; // 薙刀式をオフにするキー(通常FG)
 
 // 31キーを32bitの各ビットに割り当てる
 #define B_Q    (1UL<<0)
@@ -132,6 +134,7 @@ const uint32_t ng_key[] = {
   [NG_SLSH - NG_Q] = B_SLSH,
 
   [NG_SHFT - NG_Q] = B_SHFT,
+  [NG_SHFT2 - NG_Q] = B_SHFT,
 };
 
 // カナ変換テーブル
@@ -698,9 +701,13 @@ const PROGMEM naginata_keymap_ime ngmapi[] = {
 #endif
 };
 
-// 薙刀式のレイヤー、シフトキーを設定
-void set_naginata(uint8_t layer) {
+// 薙刀式のレイヤー、オンオフするキー
+void set_naginata(uint8_t layer, uint16_t *onk, uint16_t *offk) {
   naginata_layer = layer;
+  ngon_keys[0] = *onk;
+  ngon_keys[1] = *(onk+1);
+  ngoff_keys[0] = *offk;
+  ngoff_keys[1] = *(offk+1);
 }
 
 // 薙刀式をオン
@@ -815,16 +822,63 @@ bool process_modifier(uint16_t keycode, keyrecord_t *record) {
   return false;
 }
 
+static uint8_t fghj_status = 0UL; // 各ビットがFGHJキーのオンオフを表す
+
+// 薙刀式の起動処理(COMBOを使わない)
+bool enable_naginata(uint16_t keycode, keyrecord_t *record) {
+  if (keycode == ngon_keys[0]) {
+    if (record->event.pressed) {
+      fghj_status |= (1UL<<1);
+    } else {
+      fghj_status &= ~(1UL<<1);
+    }
+  } else if (keycode == ngon_keys[1]) {
+    if (record->event.pressed) {
+      fghj_status |= (1UL<<0);
+    } else {
+      fghj_status &= ~(1UL<<0);
+    }
+  } else if (keycode == ngoff_keys[0]) {
+    if (record->event.pressed) {
+      fghj_status |= (1UL<<3);
+    } else {
+      fghj_status &= ~(1UL<<3);
+    }
+  } else if (keycode == ngoff_keys[1]) {
+    if (record->event.pressed) {
+      fghj_status |= (1UL<<2);
+    } else {
+      fghj_status &= ~(1UL<<2);
+    }
+  }
+
+  if (fghj_status == 0b1100) {
+    fghj_status = 0UL;
+    tap_code(KC_BSPC);
+    naginata_off();
+    return false;
+  }
+  if (fghj_status == 0b0011) {
+    fghj_status = 0UL;
+    tap_code(KC_BSPC);
+    naginata_on();
+    return false;
+  }
+
+  return true;
+}
+
 // 薙刀式の入力処理
 bool process_naginata(uint16_t keycode, keyrecord_t *record) {
-  if (!is_naginata) return true;
+  if (!is_naginata)
+    return enable_naginata(keycode, record);
 
   if (process_modifier(keycode, record))
     return true;
 
   if (record->event.pressed) {
     switch (keycode) {
-      case NG_Q ... NG_SHFT:
+      case NG_Q ... NG_SHFT2:
         ninputs[ng_chrcount] = keycode; // キー入力をバッファに貯める
         ng_chrcount++;
         keycomb |= ng_key[keycode - NG_Q]; // キーの重ね合わせ
@@ -837,7 +891,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
     }
   } else { // key release
     switch (keycode) {
-      case NG_Q ... NG_SHFT:
+      case NG_Q ... NG_SHFT2:
         // どれかキーを離したら処理を開始する
         keycomb &= ~ng_key[keycode - NG_Q]; // キーの重ね合わせ
         if (ng_chrcount > 0) {
@@ -878,6 +932,13 @@ bool naginata_lookup(int nt, bool shifted) {
   // バッファ内のキーを組み合わせる
   for (int i = 0; i < nt; i++) {
     keycomb_buf |= ng_key[ninputs[i] - NG_Q];
+  }
+
+  // NG_SHFT2はスペースの代わりにエンターを入力する
+  if (keycomb_buf == B_SHFT && ninputs[0] == NG_SHFT2) {
+    tap_code(KC_ENT);
+    compress_buffer(nt);
+    return true;
   }
 
   if (shifted) {

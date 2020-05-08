@@ -85,26 +85,6 @@ enum kepmap_layers {
 #define KA(B) A(KC_##B)
 // 薙刀式
 
-// 薙刀式
-enum combo_events {
-  NAGINATA_ON_CMB,
-  NAGINATA_OFF_CMB,
-  ENTER_CMB,
-};
-
-#if defined(DQGMLWY)
-const uint16_t PROGMEM ngon_combo[] = {KC_P, KC_N, COMBO_END};
-const uint16_t PROGMEM ngoff_combo[] = {KC_E, KC_M, COMBO_END};
-const uint16_t PROGMEM enter_combo[] = {KC_G, KC_F, COMBO_END};
-#endif
-
-combo_t key_combos[COMBO_COUNT] = {
-  [NAGINATA_ON_CMB] = COMBO_ACTION(ngon_combo),
-  [NAGINATA_OFF_CMB] = COMBO_ACTION(ngoff_combo),
-  [ENTER_CMB] = COMBO(enter_combo, KC_ENT),
-};
-// 薙刀式
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* _QGMLWY
   +-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+
@@ -119,8 +99,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
   [_QGMLWY] = LAYOUT(
     KC_COMM          ,KC_S             ,KC_R             ,KC_L             ,KC_B             ,KC_Y             ,KC_BSPC          ,KC_I             ,KC_D             ,KC_DOT           , \
-    KC_W             ,KC_H             ,KC_T             ,KC_E             ,KC_M             ,KC_P             ,KC_N             ,KC_A             ,KC_O             ,KC_Z             , \
-    KC_V             ,KC_QUOT          ,KC_K             ,KC_G             ,KC_C             ,KC_U             ,KC_F             ,KC_J             ,KC_X             ,KC_Q             , \
+    KC_W             ,KC_H             ,KC_T             ,KC_E             ,KC_M             ,KC_P             ,KC_N             ,KC_A             ,KC_O             ,KC_K             , \
+    KC_V             ,KC_QUOT          ,KC_Z             ,KC_G             ,KC_C             ,KC_U             ,KC_F             ,KC_J             ,KC_X             ,KC_Q             , \
                                         KC_LCMD          ,LOWER            ,LT(_SHIFT,KC_SPC),LT(_SHIFT,KC_ENT),RAISE            ,KC_RCTL
   ),
 
@@ -137,8 +117,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
   [_SHIFT] = LAYOUT(
     KC_LT  ,S(KC_S),S(KC_R),S(KC_L),S(KC_B),S(KC_Y),KC_DEL ,S(KC_I),S(KC_D),KC_GT  , \
-    S(KC_W),S(KC_H),S(KC_T),S(KC_E),S(KC_M),S(KC_P),S(KC_N),S(KC_A),S(KC_O),S(KC_Z), \
-    S(KC_V),KC_DQT ,S(KC_K),S(KC_G),S(KC_C),S(KC_U),S(KC_F),S(KC_J),S(KC_X),S(KC_Q), \
+    S(KC_W),S(KC_H),S(KC_T),S(KC_E),S(KC_M),S(KC_P),S(KC_N),S(KC_A),S(KC_O),S(KC_K), \
+    S(KC_V),KC_DQT ,S(KC_Z),S(KC_G),S(KC_C),S(KC_U),S(KC_F),S(KC_J),S(KC_X),S(KC_Q), \
                     _______,_______,_______,_______,_______,_______
   ),
 
@@ -211,7 +191,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     NG_Q   ,NG_W   ,NG_E   ,NG_R   ,NG_T   ,NG_Y   ,NG_U   ,NG_I   ,NG_O,NG_P, \
     NG_A   ,NG_S   ,NG_D   ,NG_F   ,NG_G   ,NG_H   ,NG_J   ,NG_K   ,NG_L,NG_SCLN, \
     NG_Z   ,NG_X   ,NG_C   ,NG_V   ,NG_B   ,NG_N   ,NG_M   ,NG_COMM,NG_DOT,NG_SLSH, \
-                    _______,_______,NG_SHFT,NG_SHFT,_______,_______
+                    _______,_______,NG_SHFT,NG_SHFT2,_______,_______
   ),
 
 };
@@ -353,27 +333,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-// 薙刀式
-// IME ONのcombo
-void process_combo_event(uint8_t combo_index, bool pressed) {
-  switch(combo_index) {
-    case NAGINATA_ON_CMB:
-      if (pressed) {
-        naginata_on();
-      }
-      break;
-    case NAGINATA_OFF_CMB:
-      if (pressed) {
-        naginata_off();
-      }
-      break;
-  }
-}
-// 薙刀式
-
 void matrix_init_user(void) {
   // 薙刀式
-  set_naginata(_NAGINATA);
+  uint16_t ngonkeys[] = {KC_P, KC_N};
+  uint16_t ngoffkeys[] = {KC_E, KC_M};
+  set_naginata(_NAGINATA, ngonkeys, ngoffkeys);
   #ifdef NAGINATA_EDIT_MAC
   set_unicode_input_mode(UC_OSX);
   #endif
