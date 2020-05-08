@@ -19,7 +19,7 @@
 
 #if !defined(__AVR__)
   #include <string.h>
-  #define memcpy_P(des, src, len) memcpy(des, src, len)
+  // #define memcpy_P(des, src, len) memcpy(des, src, len)
 #endif
 
 #define NGBUFFER 10 // キー入力バッファのサイズ
