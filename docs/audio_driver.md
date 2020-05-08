@@ -80,10 +80,10 @@ A configuration example for the STM32F103C8 would be:
 ```
 
 If we now target pin A8, looking through the data-sheet of the STM32F103C8, for the timers and alternate functions
-TIM1_CH1 = PA8 <- alternate0
-TIM1_CH2 = PA9
-TIM1_CH3 = PA10
-TIM1_CH4 = PA11
+- TIM1_CH1 = PA8 <- alternate0
+- TIM1_CH2 = PA9
+- TIM1_CH3 = PA10
+- TIM1_CH4 = PA11
 
 with all this information, the configuration would contain these lines:
 ``` c
