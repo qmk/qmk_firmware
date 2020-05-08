@@ -45,7 +45,13 @@ ifeq ($(strip $(BLUETOOTH)), AdafruitBLE)
 	LUFA_SRC += spi_master.c
 	LUFA_SRC += analog.c
 	LUFA_SRC += $(LUFA_DIR)/bluetooth.c
-	LUFA_SRC += $(LUFA_DIR)/adafruit_ble_spi.cpp
+	LUFA_SRC += $(LUFA_DIR)/adafruit_ble/new.cpp
+	LUFA_SRC += $(LUFA_DIR)/adafruit_ble/Print.cpp
+	LUFA_SRC += $(LUFA_DIR)/adafruit_ble/Stream.cpp
+	LUFA_SRC += $(LUFA_DIR)/adafruit_ble/ATParser.cpp
+	LUFA_SRC += $(LUFA_DIR)/adafruit_ble/BLE.cpp
+	LUFA_SRC += $(LUFA_DIR)/adafruit_ble/BLEBattery.cpp
+	LUFA_SRC += $(LUFA_DIR)/adafruit_ble/qmk.cpp
 endif
 
 ifeq ($(strip $(BLUETOOTH)), AdafruitBLEUART)
