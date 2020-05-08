@@ -17,10 +17,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 #pragma once
 
-/* auto shift config */
-#define AUTO_SHIFT_TIMEOUT 150
+// place overrides here
 
 // If you need more program area, try select and reduce rgblight modes to use.
 
