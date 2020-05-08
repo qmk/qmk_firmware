@@ -7,7 +7,7 @@
 #define PRODUCT_ID      0x6667
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Pabile
-#define PRODUCT         Pabile20
+#define PRODUCT         P20
 #define DESCRIPTION     5x4 Macropad
 
 /* key matrix size */
