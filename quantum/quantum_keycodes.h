@@ -512,6 +512,10 @@ enum quantum_keycodes {
     DYN_MACRO_PLAY1,
     DYN_MACRO_PLAY2,
 
+#ifdef BLUETOOTH_ENABLE
+    BT_UNPAIR,
+#endif
+
     // always leave at the end
     SAFE_RANGE
 };

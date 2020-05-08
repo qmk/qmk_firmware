@@ -612,13 +612,16 @@ static bool process_queue_item(struct queue_item *item, uint16_t timeout) {
     }
 }
 
-bool adafruit_ble_send_keys(uint8_t hid_modifier_mask, uint8_t *keys, uint8_t nkeys) {
+bool adafruit_ble_send_keyboard(report_keyboard_t *report) {
     struct queue_item item;
     bool              didWait = false;
 
     item.queue_type   = QTKeyReport;
-    item.key.modifier = hid_modifier_mask;
+    item.key.modifier = report->mods;
     item.added        = timer_read();
+
+    uint8_t *keys  = report->keys;
+    uint8_t  nkeys = sizeof(keys);
 
     while (nkeys >= 0) {
         item.key.keys[0] = keys[0];
@@ -648,7 +651,7 @@ bool adafruit_ble_send_keys(uint8_t hid_modifier_mask, uint8_t *keys, uint8_t nk
     return true;
 }
 
-bool adafruit_ble_send_consumer_key(uint16_t keycode, int hold_duration) {
+bool adafruit_ble_send_consumer(uint16_t keycode, int hold_duration) {
     struct queue_item item;
 
     item.queue_type = QTConsumer;
@@ -661,15 +664,15 @@ bool adafruit_ble_send_consumer_key(uint16_t keycode, int hold_duration) {
 }
 
 #ifdef MOUSE_ENABLE
-bool adafruit_ble_send_mouse_move(int8_t x, int8_t y, int8_t scroll, int8_t pan, uint8_t buttons) {
+bool adafruit_ble_send_mouse(report_mouse_t *report) {
     struct queue_item item;
 
     item.queue_type        = QTMouseMove;
-    item.mousemove.x       = x;
-    item.mousemove.y       = y;
-    item.mousemove.scroll  = scroll;
-    item.mousemove.pan     = pan;
-    item.mousemove.buttons = buttons;
+    item.mousemove.x       = report->x;
+    item.mousemove.y       = report->y;
+    item.mousemove.scroll  = report->v;
+    item.mousemove.pan     = report->h;
+    item.mousemove.buttons = report->buttons;
 
     while (!send_buf.enqueue(item)) {
         send_buf_send_one();
@@ -703,4 +706,11 @@ bool adafruit_ble_set_power_level(int8_t level) {
     }
     snprintf(cmd, sizeof(cmd), "AT+BLEPOWERLEVEL=%d", level);
     return at_command(cmd, NULL, 0, false);
+}
+
+bool adafruit_ble_unpair(void) {
+    if (!at_command_P(PSTR("AT+GAPDELBONDS"), NULL, 0)) {
+        return false;
+    }
+    return adafruit_ble_enable_keyboard();
 }

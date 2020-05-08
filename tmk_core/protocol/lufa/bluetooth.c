@@ -1,38 +1,67 @@
-/*
-Bluefruit Protocol for TMK firmware
-Author: Benjamin Gould, 2013
-        Jack Humbert, 2015
-Based on code Copyright 2011 Jun Wako <wakojun@gmail.com>
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-#include <stdint.h>
-#include "report.h"
-#include "print.h"
-#include "debug.h"
 #include "bluetooth.h"
 
-void bluefruit_keyboard_print_report(report_keyboard_t *report) {
-    if (!debug_keyboard) return;
-    dprintf("keys: ");
-    for (int i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
-        debug_hex8(report->keys[i]);
-        dprintf(" ");
-    }
-    dprintf(" mods: ");
-    debug_hex8(report->mods);
-    dprintf(" reserved: ");
-    debug_hex8(report->reserved);
-    dprintf("\n");
+#ifdef MODULE_ADAFRUIT_BLE
+#    include "adafruit_ble.h"
+#else
+#    include "bluetooth_classic.h"
+#endif
+
+bool bluetooth_is_connected(void) {
+#ifdef MODULE_ADAFRUIT_BLE
+    return adafruit_ble_is_connected();
+#endif
+
+    return true;  // should check if BT is connected here
 }
 
-void bluefruit_serial_send(uint8_t data) { serial_send(data); }
+void bluetooth_unpair() {
+#ifdef MODULE_ADAFRUIT_BLE
+    adafruit_ble_unpair();
+#endif
+}
+
+void bluetooth_task(void) {
+#ifdef MODULE_ADAFRUIT_BLE
+    adafruit_ble_task();
+#else
+    bluetooth_classic_task();
+#endif
+}
+
+void bluetooth_send_keyboard(report_keyboard_t *report) {
+    if (!bluetooth_is_connected()) return;
+
+#ifdef MODULE_ADAFRUIT_BLE
+    adafruit_ble_send_keyboard(report);
+#else
+    bluetooth_classic_send_keyboard(report);
+#endif
+}
+
+void bluetooth_send_consumer(uint16_t data, int hold_duration) {
+    if (!bluetooth_is_connected()) return;
+
+#ifdef MODULE_ADAFRUIT_BLE
+    adafruit_ble_send_consumer(data, 0);
+#elif MODULE_RN42
+    bluetooth_classic_send_consumer(data, 0);
+#endif
+}
+
+#ifdef MOUSE_ENABLE
+void bluetooth_send_mouse(report_mouse_t *report) {
+    if (!bluetooth_is_connected()) return;
+
+#    ifdef MODULE_ADAFRUIT_BLE
+    adafruit_ble_send_mouse(report);
+#    else
+    bluetooth_classic_send_mouse(report);
+#    endif
+}
+#endif
+
+#ifdef BLUETOOTH_BATTERY_ENABLE
+uint8_t bluetooth_get_battery_level(void) { return bluetooth_get_battery_level_user(); }
+
+__attribute__((weak)) uint8_t bluetooth_get_battery_level_user() { return 100; }
+#endif

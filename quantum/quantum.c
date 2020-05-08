@@ -21,6 +21,10 @@
 #    include "outputselect.h"
 #endif
 
+#ifdef BLUETOOTH_ENABLE
+#    include "bluetooth.h"
+#endif
+
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
 extern backlight_config_t backlight_config;
@@ -326,6 +330,9 @@ bool process_record_quantum(keyrecord_t *record) {
                 return false;
             case OUT_BT:
                 set_output(OUTPUT_BLUETOOTH);
+                return false;
+            case BT_UNPAIR:
+                bluetooth_unpair();
                 return false;
 #endif
         }

@@ -35,7 +35,7 @@
 
 #pragma once
 
-#include "qmk.h"
+#include "adafruit_ble.h"
 
 #ifdef __cplusplus
 #    include "ATParser.h"

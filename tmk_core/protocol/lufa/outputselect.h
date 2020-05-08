@@ -12,6 +12,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#pragma once
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 enum outputs {
     OUTPUT_AUTO,
 
@@ -38,3 +44,8 @@ void    set_output(uint8_t output);
 void    set_output_user(uint8_t output);
 uint8_t auto_detect_output(void);
 uint8_t where_to_send(void);
+bool    output_auto(void);
+
+#ifdef __cplusplus
+}
+#endif

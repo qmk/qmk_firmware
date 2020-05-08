@@ -68,7 +68,22 @@ bool BluefruitLE_UART::begin(uint32_t baud, bool debug, bool blocking) {
     Serial.setTimeout(_timeout);
 
     // reset Bluefruit module upon connect
-    return reset(blocking);
+    bool isOK = reset(blocking);
+
+    if (!isOK && baud != 9600) {
+        // sometimes the modules get reset and the baud goes to default (9600)
+        // so if there was an issue, let's retry at the default rate
+        if (begin(9600, debug, blocking)) {
+            // since this worked, let's reset the baud rate to where it's
+            // supposed to be
+            if (atcommand(F("AT+BAUDRATE"), baud)) {
+                // and now we try one more time at the correct rate
+                return begin(baud, debug, blocking);
+            }
+        }
+    }
+
+    return isOK;
 }
 
 /******************************************************************************/

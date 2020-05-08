@@ -25,35 +25,40 @@ endif
 
 ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
 	LUFA_SRC += $(LUFA_DIR)/bluetooth.c \
+	$(LUFA_DIR)/bluetooth_classic.c \
+	$(TMK_DIR)/protocol/serial_uart.c
+endif
+
+ifeq ($(strip $(BLUETOOTH)), AdafruitEZKey)
+	LUFA_SRC += $(LUFA_DIR)/bluetooth.c \
+	$(LUFA_DIR)/bluetooth_classic.c \
+	$(TMK_DIR)/protocol/serial_uart.c
+endif
+
+ifeq ($(strip $(BLUETOOTH)), RN42)
+	LUFA_SRC += $(LUFA_DIR)/bluetooth.c \
+	$(LUFA_DIR)/bluetooth_classic.c \
 	$(TMK_DIR)/protocol/serial_uart.c
 endif
 
 ifeq ($(strip $(BLUETOOTH)), AdafruitBLE)
 	LUFA_SRC += spi_master.c
 	LUFA_SRC += analog.c
-	LUFA_SRC += $(LUFA_DIR)/adafruit_ble.cpp
+	LUFA_SRC += $(LUFA_DIR)/bluetooth.c
+	LUFA_SRC += $(LUFA_DIR)/adafruit_ble_spi.cpp
 endif
 
 ifeq ($(strip $(BLUETOOTH)), AdafruitBLEUART)
-	LUFA_SRC += $(TMK_DIR)/protocol/bluefruit_le/new.cpp
-	LUFA_SRC += $(TMK_DIR)/protocol/bluefruit_le/HardwareSerial.cpp
-	LUFA_SRC += $(TMK_DIR)/protocol/bluefruit_le/Print.cpp
-	LUFA_SRC += $(TMK_DIR)/protocol/bluefruit_le/Stream.cpp
-	LUFA_SRC += $(TMK_DIR)/protocol/bluefruit_le/ATParser.cpp
-	LUFA_SRC += $(TMK_DIR)/protocol/bluefruit_le/BLE.cpp
-	LUFA_SRC += $(TMK_DIR)/protocol/bluefruit_le/BluefruitLE_UART.cpp
-	LUFA_SRC += $(TMK_DIR)/protocol/bluefruit_le/BLEBattery.cpp
-	LUFA_SRC += $(TMK_DIR)/protocol/bluefruit_le/qmk.cpp
-endif
-
-ifeq ($(strip $(BLUETOOTH)), AdafruitEZKey)
-	LUFA_SRC += $(LUFA_DIR)/bluetooth.c \
-	$(TMK_DIR)/protocol/serial_uart.c
-endif
-
-ifeq ($(strip $(BLUETOOTH)), RN42)
-	LUFA_SRC += $(LUFA_DIR)/bluetooth.c \
-	$(TMK_DIR)/protocol/serial_uart.c
+	LUFA_SRC += $(LUFA_DIR)/bluetooth.c
+	LUFA_SRC += $(LUFA_DIR)/adafruit_ble/new.cpp
+	LUFA_SRC += $(LUFA_DIR)/adafruit_ble/HardwareSerial.cpp
+	LUFA_SRC += $(LUFA_DIR)/adafruit_ble/Print.cpp
+	LUFA_SRC += $(LUFA_DIR)/adafruit_ble/Stream.cpp
+	LUFA_SRC += $(LUFA_DIR)/adafruit_ble/ATParser.cpp
+	LUFA_SRC += $(LUFA_DIR)/adafruit_ble/BLE.cpp
+	LUFA_SRC += $(LUFA_DIR)/adafruit_ble/BluefruitLE_UART.cpp
+	LUFA_SRC += $(LUFA_DIR)/adafruit_ble/BLEBattery.cpp
+	LUFA_SRC += $(LUFA_DIR)/adafruit_ble/qmk.cpp
 endif
 
 ifeq ($(strip $(VIRTSER_ENABLE)), yes)

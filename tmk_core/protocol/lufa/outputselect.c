@@ -14,11 +14,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "lufa.h"
 #include "outputselect.h"
-#ifdef MODULE_ADAFRUIT_BLE_SPI
-#    include "adafruit_ble.h"
-#endif
-#ifdef MODULE_ADAFRUIT_BLE_UART
-#    include "bluefruit_le/BluefruitLE_UART.h"
+#ifdef BLUETOOTH_ENABLE
+#    include "bluetooth.h"
 #endif
 
 uint8_t desired_output = OUTPUT_DEFAULT;
@@ -47,14 +44,10 @@ uint8_t auto_detect_output(void) {
         return OUTPUT_USB;
     }
 
-#if defined(MODULE_ADAFRUIT_BLE_SPI) || defined(MODULE_ADAFRUIT_BLE_UART)
-    if (adafruit_ble_is_connected()) {
+#ifdef BLUETOOTH_ENABLE
+    if (bluetooth_is_connected()) {
         return OUTPUT_BLUETOOTH;
     }
-#endif
-
-#ifdef BLUETOOTH_ENABLE
-    return OUTPUT_BLUETOOTH;  // should check if BT is connected here
 #endif
 
     return OUTPUT_NONE;
@@ -70,3 +63,5 @@ uint8_t where_to_send(void) {
     }
     return desired_output;
 }
+
+bool output_auto() { return (desired_output == OUTPUT_AUTO); }

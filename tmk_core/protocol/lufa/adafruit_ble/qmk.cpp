@@ -1,11 +1,13 @@
 #include "BLE.h"
 #include "lufa.h"
 #include "print.h"
+#include "debug.h"
+#include "bluetooth.h"
+#include "outputselect.h"
 
 #ifdef MODULE_ADAFRUIT_BLE_UART
 #    include "BluefruitLE_UART.h"
 #elif MODULE_ADAFRUIT_BLE_SPI
-// TODO
 #endif
 
 #ifdef RGBLIGHT_ENABLE
@@ -16,17 +18,16 @@
 #    include "report.h"
 #endif
 
-#ifdef AdafruitBleBattery
+#ifdef BLUETOOTH_BATTERY_ENABLE
 #    include "BLEBattery.h"
 #endif
 
 #ifdef MODULE_ADAFRUIT_BLE_UART
 static BluefruitLE_UART ble;
 #elif MODULE_ADAFRUIT_BLE_SPI
-// TODO
 #endif
 
-#ifdef AdafruitBleBattery
+#ifdef BLUETOOTH_BATTERY_ENABLE
 BLEBattery battery(ble);
 #endif
 
@@ -37,11 +38,26 @@ static struct {
     uint8_t USB_DeviceState;
 } state;
 
-void connected(void) { state.is_connected = true; }
+void connected(void) {
+    dprintf("adafruit ble connected\n");
+    state.is_connected = true;
+}
 
-void disconnected(void) { state.is_connected = false; }
+void disconnected(void) {
+    dprintf("adafruit ble disconnected\n");
+    state.is_connected = false;
+}
 
 bool adafruit_ble_is_connected(void) { return state.is_connected; }
+
+bool reset() {
+    if (!ble.reset(true)) return false;
+
+    ble.setConnectCallback(connected);
+    ble.setDisconnectCallback(disconnected);
+
+    return true;
+}
 
 // we don't want bt enabled if we're using usb output. this is super annoying on
 // phones, for example, when they will not show the on screen keyboard if a bt
@@ -63,28 +79,24 @@ bool ble_init() {
         return false;
     }
 #elif MODULE_ADAFRUIT_BLE_SPI
-// TODO
 #endif
 
     if (!ble.echo(false)) return false;
-    if (!ble.atcommand(F("AT+GAPINTERVALS"), "10,30,,")) return false;
+    ble.atcommand(F("AT+GAPINTERVALS"), "10,30,,");
     if (!ble.atcommand(F("AT+GAPDEVNAME"), STR(PRODUCT))) return false;
     if (!ble.atcommand(F("AT+BLEHIDEN"), 1)) return false;
-    if (!ble.atcommand(F("AT+BLEPOWERLEVEL"), -12)) return false;
+    ble.atcommand(F("AT+BLEPOWERLEVEL"), -12);
 
-#ifdef AdafruitBleBattery
+#ifdef BLUETOOTH_BATTERY_ENABLE
     if (!battery.begin(false)) return false;
 #else
     // this setting persists across resets, so if we had the battery service
-    // enabled, it will stay enabled even ifndef AdafruitBleBattery, so we
+    // enabled, it will stay enabled even ifndef BLUETOOTH_BATTERY_ENABLE, so we
     // forcibly disable it here.
-    if (!ble.atcommand(F("AT+BLEBATTEN=0"))) return false;
+    ble.atcommand(F("AT+BLEBATTEN=0"));
 #endif
 
-    if (!ble.reset()) return false;
-
-    ble.setConnectCallback(connected);
-    ble.setDisconnectCallback(disconnected);
+    if (!reset()) return false;
 
     state.configured = true;
     return true;
@@ -115,8 +127,26 @@ void rgb_update() {
 void adafruit_ble_task() {
     if (!state.configured && !ble_init()) return;
 
-    // ensure bt is only available when not connected to usb
-    set_connectable(USB_DeviceState != DEVICE_STATE_Configured);
+    switch (where_to_send()) {
+        case OUTPUT_NONE:
+            if (output_auto()) {
+                // if bluetooth is disconnected, where_to_send returns
+                // OUTPUT_NONE but if the desired output is OUTPUT_AUTO then we
+                // must make it possible to connect if usb is not connected
+                set_connectable(USB_DeviceState != DEVICE_STATE_Configured);
+                break;
+            }
+
+            set_connectable(false);
+            break;
+        case OUTPUT_USB:
+            set_connectable(false);
+            break;
+        case OUTPUT_BLUETOOTH:
+        case OUTPUT_USB_AND_BT:
+            set_connectable(true);
+            break;
+    }
 
 #ifdef RGBLIGHT_ENABLE
     rgb_update();
@@ -124,28 +154,26 @@ void adafruit_ble_task() {
 
     ble.update(200);
 
-#ifdef AdafruitBleBattery
-    // if you have a way of reading the battery level using analog inputs, you
-    // can use that value as a percentage (uint8_t) here to update the bt
-    // battery service value
-    //
-    // uint8_t percent = 50;
-    // battery.update(percent);
+#ifdef BLUETOOTH_BATTERY_ENABLE
+    battery.update(bluetooth_get_battery_level());
 #endif
 }
 
-bool adafruit_ble_send_keys(uint8_t hid_modifier_mask, uint8_t* keys, uint8_t nkeys) {
+bool adafruit_ble_send_keyboard(report_keyboard_t *report) {
     char cmdbuf[48];
     char fmtbuf[64];
 
+    uint8_t *     keys  = report->keys;
+    const uint8_t nkeys = sizeof(keys);
+
     strcpy_P(fmtbuf, PSTR("AT+BLEKEYBOARDCODE=%02x-00-%02x-%02x-%02x-%02x-%02x-%02x"));
 
-    snprintf(cmdbuf, sizeof(cmdbuf), fmtbuf, hid_modifier_mask, keys[0], nkeys >= 1 ? keys[1] : 0, nkeys >= 2 ? keys[2] : 0, nkeys >= 3 ? keys[3] : 0, nkeys >= 4 ? keys[4] : 0, nkeys >= 5 ? keys[5] : 0);
+    snprintf(cmdbuf, sizeof(cmdbuf), fmtbuf, report->mods, keys[0], nkeys >= 1 ? keys[1] : 0, nkeys >= 2 ? keys[2] : 0, nkeys >= 3 ? keys[3] : 0, nkeys >= 4 ? keys[4] : 0, nkeys >= 5 ? keys[5] : 0);
 
     return ble.atcommand(cmdbuf);
 }
 
-bool adafruit_ble_send_consumer_key(uint16_t keycode, int hold_duration) {
+bool adafruit_ble_send_consumer(uint16_t keycode, int hold_duration) {
     char cmdbuf[48];
     char fmtbuf[64];
 
@@ -155,21 +183,27 @@ bool adafruit_ble_send_consumer_key(uint16_t keycode, int hold_duration) {
 }
 
 #ifdef MOUSE_ENABLE
-bool adafruit_ble_send_mouse_move(int8_t x, int8_t y, int8_t scroll, int8_t pan, uint8_t buttons) {
+bool adafruit_ble_send_mouse(report_mouse_t *report) {
     char cmdbuf[48];
     char fmtbuf[64];
 
     strcpy_P(fmtbuf, PSTR("AT+BLEHIDMOUSEMOVE=%d,%d,%d,%d"));
-    snprintf(cmdbuf, sizeof(cmdbuf), fmtbuf, x, y, scroll, pan);
+    snprintf(cmdbuf, sizeof(cmdbuf), fmtbuf, report->x, report->y, report->v, report->h);
     if (!ble.atcommand(cmdbuf)) {
         return false;
     }
 
     strcpy_P(cmdbuf, PSTR("AT+BLEHIDMOUSEBUTTON="));
-    if (buttons & MOUSE_BTN1) strcat(cmdbuf, "L");
-    if (buttons & MOUSE_BTN2) strcat(cmdbuf, "R");
-    if (buttons & MOUSE_BTN3) strcat(cmdbuf, "M");
-    if (buttons == 0) strcat(cmdbuf, "0");
+    if (report->buttons & MOUSE_BTN1) strcat(cmdbuf, "L");
+    if (report->buttons & MOUSE_BTN2) strcat(cmdbuf, "R");
+    if (report->buttons & MOUSE_BTN3) strcat(cmdbuf, "M");
+    if (report->buttons == 0) strcat(cmdbuf, "0");
     return ble.atcommand(cmdbuf);
 }
 #endif
+
+bool adafruit_ble_unpair(void) {
+    set_connectable(false);
+    if (!ble.atcommand(F("AT+GAPDELBONDS"))) return false;
+    return reset();  // trigger a reset and reconfigure callbacks
+}
