@@ -3,12 +3,12 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define VENDOR_ID       0x594d // "YM"
+#define PRODUCT_ID      0x0001
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    YMDK
-#define PRODUCT         Melody96
-#define DESCRIPTION     Melody96
+#define PRODUCT         YMDK Melody96
+#define DESCRIPTION     YMDK Melody96
 
 /* key matrix size */
 #define MATRIX_ROWS 12
@@ -27,6 +27,10 @@
 #ifdef BACKLIGHT_PIN
 #define BACKLIGHT_LEVELS 5
 #endif
+
+/* Set location for BootMagic key*/
+#define BOOTMAGIC_LITE_ROW 5
+#define BOOTMAGIC_LITE_COLUMN 0
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
