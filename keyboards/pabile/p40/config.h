@@ -27,5 +27,3 @@ for pro micro facing back of pcb
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-#define RETRO_TAPPING
