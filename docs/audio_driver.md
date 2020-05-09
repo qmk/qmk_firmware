@@ -43,8 +43,8 @@ piezo speakers are marked with :one: for the first/primary and :two: for the sec
   | pwm hardware | state-update                             |                        |               | A8 = :one: <sup>3</sup>       |
 
 
-<sup>1</sup>: the routing and alternate functions for PWM differ sometimes between STM32 MCUs, if in doubt consult the data-sheet
-<sup>2</sup>: one piezo connected to A4 and A5, with AUDIO_PIN_ALT_AS_NEGATIVE set
+<sup>1</sup>: the routing and alternate functions for PWM differ sometimes between STM32 MCUs, if in doubt consult the data-sheet  
+<sup>2</sup>: one piezo connected to A4 and A5, with AUDIO_PIN_ALT_AS_NEGATIVE set  
 <sup>3</sup>: TIM1_CH1 = A8 on STM32F103C8, other combinations are possible, see Data-sheet. configured with: AUDIO_PWM_TIMER and AUDIO_PWM_TIMERCHANNEL
 
 
@@ -116,8 +116,8 @@ While not an exhaustive list, the following table provides the scenarios that ha
 | L0xx                     | :x: (no Tim8)      | ?                  | ?                  | ?                  |
 
 
-:heavy_check_mark: : works and was tested
-:o: : does not apply
+:heavy_check_mark: : works and was tested  
+:o: : does not apply  
 :x: : not supported by MCU
 
 *Other supported ChibiOS boards and/or pins may function, it will be highly chip and configuration dependent.*
