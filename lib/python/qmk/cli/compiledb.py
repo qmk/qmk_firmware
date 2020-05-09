@@ -7,7 +7,7 @@ from milc import cli
 
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.commands import create_make_command
-from qmk.compile_commands_json import parse_make_n
+from qmk.build_log_parse import parse_make_n
 from qmk.constants import QMK_FIRMWARE
 import json
 
