@@ -278,6 +278,8 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
+### Overriding RGB Lighting on/off status
+
 Normally lighting layers are not shown when RGB Lighting is disabled (e.g. with `RGB_TOG` keycode). If you would like lighting layers to work even when the RGB Lighting is otherwise off, add `#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF` to your `config.h`.
 
 ## Functions
