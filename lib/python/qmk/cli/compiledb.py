@@ -5,8 +5,6 @@ import json
 import re
 import shlex
 import subprocess
-import sys
-from argparse import FileType
 from functools import lru_cache
 from pathlib import Path
 from subprocess import check_output
@@ -14,7 +12,6 @@ from typing import Dict, List, TextIO
 
 from milc import cli
 
-import qmk.path
 from qmk.commands import create_make_command
 from qmk.constants import QMK_FIRMWARE
 from qmk.decorators import automagic_keyboard, automagic_keymap
