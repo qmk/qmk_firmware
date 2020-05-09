@@ -13,6 +13,8 @@ from subprocess import check_output
 from typing import Dict, List, TextIO
 
 from milc import cli
+
+import qmk.path
 from qmk.commands import create_make_command
 from qmk.constants import QMK_FIRMWARE
 from qmk.decorators import automagic_keyboard, automagic_keymap
@@ -81,14 +83,18 @@ def compiledb(cli):
         https://clang.llvm.org/docs/JSONCompilationDatabase.html
     """
     command = None
+    # check both config domains: the magic decorator fills in `compiledb` but the user is
+    # more likely to have set `compile` in their config file.
+    current_keyboard = cli.config.compiledb.keyboard or cli.config.compile.keyboard
+    current_keymap = cli.config.compiledb.keymap or cli.config.compile.keymap
 
-    if cli.config.compile.keyboard and cli.config.compile.keymap:
+    if current_keyboard and current_keymap:
         # Generate the make command for a specific keyboard/keymap.
-        command = create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap, dry_run=True)
+        command = create_make_command(current_keyboard, current_keymap, dry_run=True)
 
-    elif not cli.config.compile.keyboard:
+    elif not current_keyboard:
         cli.log.error('Could not determine keyboard!')
-    elif not cli.config.compile.keymap:
+    elif not current_keymap:
         cli.log.error('Could not determine keymap!')
 
     if command:
