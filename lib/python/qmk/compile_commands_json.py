@@ -8,10 +8,9 @@ import shlex
 from functools import lru_cache
 from subprocess import check_output
 
+from qmk.constants import QMK_FIRMWARE
 
 from typing import TextIO, List, Dict
-
-qmk_dir = Path(__file__).parent.parent.parent.parent
 
 
 @lru_cache(maxsize=10)
@@ -56,7 +55,7 @@ def parse_make_n(f: TextIO) -> List[Dict[str, str]]:
                 args = shlex.split(this_cmd)
                 args += ['-I%s' % s for s in system_libs(args[0])]
                 new_cmd = ' '.join(shlex.quote(s) for s in args if s != '-mno-thumb-interwork')
-                records.append({"directory": str(qmk_dir), "command": new_cmd, "file": this_file})
+                records.append({"directory": str(QMK_FIRMWARE.resolve()), "command": new_cmd, "file": this_file})
                 state = 'start'
 
     return records
