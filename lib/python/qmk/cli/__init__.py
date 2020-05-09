@@ -8,6 +8,7 @@ from milc import cli
 
 from . import cformat
 from . import compile
+from . import compiledb
 from . import config
 from . import docs
 from . import doctor

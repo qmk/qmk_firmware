@@ -65,6 +65,7 @@ def parse_make_n(f: TextIO) -> List[Dict[str, str]]:
 
     return records
 
+
 @cli.argument('-kb', '--keyboard', help='The keyboard to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.subcommand('Create a compilation database.')
@@ -94,7 +95,7 @@ def compiledb(cli):
         cli.log.info('Making clean')
         subprocess.run(['make', 'clean'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
-        cli.log.info('Gathering build instructions')
+        cli.log.info('Gathering build instructions from {fg_cyan}%s', ' '.join(command))
         proc = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         db = parse_make_n(proc.stdout)
         res = proc.wait()
