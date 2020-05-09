@@ -1,9 +1,10 @@
 # Signature87
 
-Project Keyboard PCB for Kepler TKL. 
+Project Keyboard ANSI only PCB for Kepler TKL. 
 
 * Keyboard Maintainer: [159](https://github.com/projectkeyboard), [MechMerlin](https://github.com/mechmerlin)
 * Hardware Supported: STM32F072CBT6
+* Hardware Availability: [projectkeyboard](https://store.projectkeyboard.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
