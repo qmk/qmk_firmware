@@ -41,7 +41,7 @@ For the most part, this is the bare minimum to be able to have a high confidence
 
 ChibiOS does have support for a handful of non-STM32 devices, and the list can be found in QMK's [ChibiOS fork](https://github.com/qmk/ChibiOS/tree/master/os/hal/ports) and [ChibiOS-Contrib fork](https://github.com/qmk/ChibiOS-Contrib/tree/master/os/hal/ports). Non-STM32 support is likely out of date, and only supports ancient MCUs -- whilst it might be possible to use these, it's not recommended.
 
-Do note that there are sometimes licensing restrictions with respect to redistribution. As an example, binaries built for NRF5 are not able to be redistributed via QMK Configurator, due to the licensing of their board support package.
+Do note that there are sometimes licensing restrictions with respect to redistribution. As an example, binaries built for nRF5 are not able to be redistributed via QMK Configurator, due to the licensing of their board support package.
 
 ## Adding support for a new STM32 MCU (for an existing family) :id=add-new-stm32-mcu
 
