@@ -2,14 +2,11 @@
 
 Macros allow you to send multiple keystrokes when pressing just one key. QMK has a number of ways to define and use macros. These can do anything you want: type common phrases for you, copypasta, repetitive game movements, or even help you code.
 
-!> **Security Note:** While it is possible to use macros to send passwords, credit card numbers and other sensitive information, it is a supremely bad idea to do so. Anyone who gets a hold of your keyboard will be able to access that information by opening a text editor.
-
+!> **Security Note**: While it is possible to use macros to send passwords, credit card numbers, and other sensitive information it is a supremely bad idea to do so. Anyone who gets a hold of your keyboard will be able to access that information by opening a text editor.
 
 ## The New Way: `SEND_STRING()` & `process_record_user`
 
-Sometimes you want a key to type out words or phrases. For the most common situations we've provided `SEND_STRING()`, which will type out your string (i.e. a sequence of characters) for you. All ASCII characters that are easily translated to a keycode are supported (e.g. `\n\t`).
-
-?> For sending Unicode strings, check out the [Unicode feature](feature_unicode.md) and, specifically, [`send_unicode_string()`](feature_unicode.md#send_unicode_string).
+Sometimes you want a key to type out words or phrases. For the most common situations, we've provided `SEND_STRING()`, which will type out a string (i.e. a sequence of characters) for you. All ASCII characters that are easily translatable to a keycode are supported (e.g. `qmk 123\n\t`).
 
 Here is an example `keymap.c` for a two-key keyboard:
 
