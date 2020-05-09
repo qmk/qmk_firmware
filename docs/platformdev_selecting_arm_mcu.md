@@ -2,9 +2,9 @@
 
 This page outlines the selection criteria to ensure compatibility with Arm/ChibiOS.
 
-QMK uses ChibiOS as its abstraction layer in order to run on Arm devices. ChibiOS in general is best supported on STM32 devices, both in the perspective of base MCU support, as well as on-MCU peripheral support. As an extension to the core ChibiOS MCU support, QMK also utilises ChibiOS-Contrib (which includes the Kinetis MCU support layer, as an example), but it does not provide as great a level of peripheral support or general testing for supported devices.
+QMK uses the Hardware Abstraction Layer of ChibiOS in order to run on Arm devices. ChibiOS in general is best supported on STM32 devices, both in the perspective of base MCU support, as well as on-MCU peripheral support. As an extension to the core ChibiOS MCU support, QMK also utilises ChibiOS-Contrib (which includes the Kinetis MCU support layer, as an example), but it does not provide as great a level of peripheral support or general testing for supported devices.
 
-Adding support for new families of MCUs must go through ChibiOS or ChibiOS-Contrib -- QMK does not have the bandwidth or the resources (nor the inclination) to maintain long-term MCU support for your board of choice.
+Adding support for new MCU families must go through ChibiOS or ChibiOS-Contrib -- QMK does not have the bandwidth, resources, nor the inclination to maintain long-term MCU support for your board of choice.
 
 To be clear: this also includes commercial boards -- unless agreed upon by all parties, QMK will not take over maintenance of a bespoke MCU support package. Even if MCU support is upstreamed into ChibiOS/ChibiOS-Contrib, QMK reserves the right to deprecate and/or remove keyboards utilising support packages that aren't kept up to date with upstream ChibiOS itself.
 
@@ -55,4 +55,4 @@ If this is a requirement, this needs to go through upstream ChibiOS before QMK w
 
 ## Adding support for a new MCU Family :id=add-new-mcu-family
 
-As stated earlier, in order for a new MCU family to be supported by QMK, this needs to be upstreamed into ChibiOS-Contrib before QMK will consider accepting boards using the new MCU family. The same principle applies for development -- you're best approaching the ChibiOS-Contrib maintainers to get a bit more of an idea on what's involved with upstreaming your contribution.
+As stated earlier, in order for a new MCU family to be supported by QMK, it needs to be upstreamed into ChibiOS-Contrib before QMK will consider accepting boards using it. The same principle applies for development -- you're best approaching the ChibiOS-Contrib maintainers to get a bit more of an idea on what's involved with upstreaming your contribution.
