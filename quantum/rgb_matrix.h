@@ -160,6 +160,7 @@ uint8_t     rgb_matrix_get_val(void);
 #    define rgblight_get_hue rgb_matrix_get_hue
 #    define rgblight_get_sat rgb_matrix_get_sat
 #    define rgblight_get_val rgb_matrix_get_val
+#    define rgblight_get_hsv rgb_matrix_get_hsv
 #endif
 
 typedef struct {
