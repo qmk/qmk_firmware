@@ -4,7 +4,7 @@
 
 A 18-key DIY Hotswap Macropad that accepts both Pro Micro and Adafruit Feather 32u4 Bluefruit LE.
 
-* Keyboard Maintainer: [pabile](https://github.com/yourusername)
+* Keyboard Maintainer: [pabile](https://github.com/pabile)
 * Hardware Supported: Pabile P18 PCB with Pro Micro or Adafruit Feather 32u4 Bluefruit LE
 * Hardware Availability: [Info at pabileonline.blogspot.com](https://pabileonline.blogspot.com/search/label/pabile18)
 
