@@ -96,7 +96,7 @@ ifeq ($(strip $(NKRO_ENABLE)), yes)
         TMK_COMMON_DEFS += -DNKRO_ENABLE
         SHARED_EP_ENABLE = yes
     else
-        $(info NKRO is not supported on V-USB, and has been disabled.)
+        $(info NKRO is not currently supported on V-USB, and has been disabled.)
     endif
 endif
 
