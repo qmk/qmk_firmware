@@ -15,6 +15,7 @@
  */
 #include <math.h>
 #include <string.h>
+#include <stdlib.h>
 #ifdef __AVR__
 #    include <avr/eeprom.h>
 #    include <avr/interrupt.h>
@@ -561,7 +562,7 @@ void rgblight_sethsv_at(uint8_t hue, uint8_t sat, uint8_t val, uint8_t index) {
     rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b, index);
 }
 
-#if defined(RGBLIGHT_EFFECT_BREATHING) || defined(RGBLIGHT_EFFECT_RAINBOW_MOOD) || defined(RGBLIGHT_EFFECT_RAINBOW_SWIRL) || defined(RGBLIGHT_EFFECT_SNAKE) || defined(RGBLIGHT_EFFECT_KNIGHT)
+#if defined(RGBLIGHT_EFFECT_BREATHING) || defined(RGBLIGHT_EFFECT_RAINBOW_MOOD) || defined(RGBLIGHT_EFFECT_RAINBOW_SWIRL) || defined(RGBLIGHT_EFFECT_SNAKE) || defined(RGBLIGHT_EFFECT_KNIGHT) || defined(RGBLIGHT_EFFECT_TWINKLE)
 
 static uint8_t get_interval_time(const uint8_t *default_interval_address, uint8_t velocikey_min, uint8_t velocikey_max) {
     return
@@ -905,6 +906,12 @@ void rgblight_task(void) {
             effect_func   = (effect_func_t)rgblight_effect_alternating;
         }
 #    endif
+#    ifdef RGBLIGHT_EFFECT_TWINKLE
+        else if (rgblight_status.base_mode == RGBLIGHT_MODE_TWINKLE) {
+            interval_time = get_interval_time(&RGBLED_TWINKLE_INTERVALS[delta % 3], 5, 50);
+            effect_func   = (effect_func_t)rgblight_effect_twinkle;
+        }
+#    endif
         if (animation_status.restart) {
             animation_status.restart    = false;
             animation_status.last_timer = timer_read() - interval_time - 1;
@@ -1187,5 +1194,61 @@ void rgblight_effect_alternating(animation_status_t *anim) {
     }
     rgblight_set();
     anim->pos = (anim->pos + 1) % 2;
+}
+#endif
+
+#ifdef RGBLIGHT_EFFECT_TWINKLE
+__attribute__((weak)) const uint8_t RGBLED_TWINKLE_INTERVALS[] PROGMEM = {50, 25, 10};
+
+typedef struct PACKED {
+  HSV hsv;
+  uint8_t life;
+  bool up;
+} TwinkleState;
+
+static TwinkleState led_twinkle_state[RGBLED_NUM];
+
+void rgblight_effect_twinkle(animation_status_t *anim) {
+
+    bool random_color = anim->delta / 3;
+    bool restart = anim->pos == 0;
+    anim->pos = 1;
+
+    for (uint8_t i = 0; i < rgblight_ranges.effect_num_leds; i++) {
+        TwinkleState *t = &(led_twinkle_state[i]);
+        HSV *c = &(t->hsv);
+        if (restart) {
+            // Restart
+            t->life = 0;
+            t->hsv.v = 0;
+        } else if (t->life) {
+            // This LED is already on, either brightening or dimming
+            t->life--;
+            uint8_t on = t->up ? RGBLIGHT_EFFECT_TWINKLE_LIFE - t->life : t->life;
+            c->v = (uint16_t) rgblight_config.val * on / RGBLIGHT_EFFECT_TWINKLE_LIFE;
+            if (t->life == 0 && t->up) {
+                t->up = false;
+                t->life = RGBLIGHT_EFFECT_TWINKLE_LIFE;
+            }
+            if (!random_color) {
+                c->h = rgblight_config.hue;
+                c->s = rgblight_config.sat;
+            }
+        } else if (rand() < RAND_MAX * RGBLIGHT_EFFECT_TWINKLE_PROBABILITY) {
+            // This LED is off, but was randomly selected to start brightening
+            c->h = random_color ? rand() % 0xFF : rgblight_config.hue;
+            c->s = random_color ? (rand() % (rgblight_config.sat / 2)) + (rgblight_config.sat / 2) : rgblight_config.sat;
+            c->v = 0;
+            t->life = RGBLIGHT_EFFECT_TWINKLE_LIFE;
+            t->up = true;
+        } else {
+            // This LED is off, and was NOT selected to start brightening
+        }
+
+        LED_TYPE *ledp = led + i + rgblight_ranges.effect_start_pos;
+        sethsv(c->h, c->s, c->v, ledp);
+    }
+
+    rgblight_set();
 }
 #endif
