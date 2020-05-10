@@ -61,9 +61,8 @@ __attribute__((weak)) void qk_ucis_symbol_fallback(void) {
 __attribute__((weak)) void qk_ucis_cancel(void) {}
 
 void register_ucis(const uint32_t *code_points) {
-    uint8_t input_mode = get_unicode_input_mode();
     for (int i = 0; i < UCIS_MAX_CODE_POINTS && code_points[i]; i++) {
-        register_unicode(code_points[i], input_mode);
+        register_unicode(code_points[i]);
         wait_ms(UNICODE_TYPE_DELAY);
     }
 }

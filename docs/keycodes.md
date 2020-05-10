@@ -175,11 +175,11 @@ See also: [Basic Keycodes](keycodes_basic.md)
 |`KC_EXSEL`             |                              |ExSel                                          |
 |`KC_LCTRL`             |`KC_LCTL`                     |Left Control                                   |
 |`KC_LSHIFT`            |`KC_LSFT`                     |Left Shift                                     |
-|`KC_LALT`              |                              |Left Alt                                       |
+|`KC_LALT`              |`KC_LOPT`                     |Left Alt (Option)                              |
 |`KC_LGUI`              |`KC_LCMD`, `KC_LWIN`          |Left GUI (Windows/Command/Meta key)            |
 |`KC_RCTRL`             |`KC_RCTL`                     |Right Control                                  |
 |`KC_RSHIFT`            |`KC_RSFT`                     |Right Shift                                    |
-|`KC_RALT`              |`KC_ALGR`                     |Right Alt (AltGr)                              |
+|`KC_RALT`              |`KC_ROPT`, `KC_ALGR`          |Right Alt (Option/AltGr)                       |
 |`KC_RGUI`              |`KC_RCMD`, `KC_RWIN`          |Right GUI (Windows/Command/Meta key)           |
 |`KC_SYSTEM_POWER`      |`KC_PWR`                      |System Power Down                              |
 |`KC_SYSTEM_SLEEP`      |`KC_SLEP`                     |System Sleep                                   |
@@ -378,11 +378,11 @@ See also: [Modifier Keys](feature_advanced_keycodes.md#modifier-keys)
 |----------|-------------------------------|----------------------------------------------------|
 |`LCTL(kc)`|`C(kc)`                        |Hold Left Control and press `kc`                    |
 |`LSFT(kc)`|`S(kc)`                        |Hold Left Shift and press `kc`                      |
-|`LALT(kc)`|`A(kc)`                        |Hold Left Alt and press `kc`                        |
+|`LALT(kc)`|`A(kc)`, `LOPT(kc)`            |Hold Left Alt and press `kc`                        |
 |`LGUI(kc)`|`G(kc)`, `LCMD(kc)`, `LWIN(kc)`|Hold Left GUI and press `kc`                        |
 |`RCTL(kc)`|                               |Hold Right Control and press `kc`                   |
 |`RSFT(kc)`|                               |Hold Right Shift and press `kc`                     |
-|`RALT(kc)`|`ALGR(kc)`                     |Hold Right Alt and press `kc`                       |
+|`RALT(kc)`|`ROPT(kc)`, `ALGR(kc)`         |Hold Right Alt and press `kc`                       |
 |`RGUI(kc)`|`RCMD(kc)`, `LWIN(kc)`         |Hold Right GUI and press `kc`                       |
 |`SGUI(kc)`|`SCMD(kc)`, `SWIN(kc)`         |Hold Left Shift and GUI and press `kc`              |
 |`LCA(kc)` |                               |Hold Left Control and Alt and press `kc`            |
@@ -401,11 +401,11 @@ See also: [Mod-Tap](mod_tap.md)
 |`MT(mod, kc)`|                                                                 |`mod` when held, `kc` when tapped                      |
 |`LCTL_T(kc)` |`CTL_T(kc)`                                                      |Left Control when held, `kc` when tapped               |
 |`LSFT_T(kc)` |`SFT_T(kc)`                                                      |Left Shift when held, `kc` when tapped                 |
-|`LALT_T(kc)` |`ALT_T(kc)`                                                      |Left Alt when held, `kc` when tapped                   |
+|`LALT_T(kc)` |`LOPT_T(kc)`, `ALT_T(kc)`, `OPT_T(kc)`                           |Left Alt when held, `kc` when tapped                   |
 |`LGUI_T(kc)` |`LCMD_T(kc)`, `LWIN_T(kc)`, `GUI_T(kc)`, `CMD_T(kc)`, `WIN_T(kc)`|Left GUI when held, `kc` when tapped                   |
 |`RCTL_T(kc)` |                                                                 |Right Control when held, `kc` when tapped              |
 |`RSFT_T(kc)` |                                                                 |Right Shift when held, `kc` when tapped                |
-|`RALT_T(kc)` |`ALGR_T(kc)`                                                     |Right Alt when held, `kc` when tapped                  |
+|`RALT_T(kc)` |`ROPT_T(kc)`, `ALGR_T(kc)`                                       |Right Alt when held, `kc` when tapped                  |
 |`RGUI_T(kc)` |`RCMD_T(kc)`, `RWIN_T(kc)`                                       |Right GUI when held, `kc` when tapped                  |
 |`SGUI_T(kc)` |`SCMD_T(kc)`, `SWIN_T(kc)`                                       |Left Shift and GUI when held, `kc` when tapped         |
 |`LCA_T(kc)`  |                                                                 |Left Control and Alt when held, `kc` when tapped       |

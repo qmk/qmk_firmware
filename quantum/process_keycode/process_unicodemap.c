@@ -21,7 +21,8 @@ __attribute__((weak)) uint16_t unicodemap_index(uint16_t keycode) {
         // Keycode is a pair: extract index based on Shift / Caps Lock state
         uint16_t index = keycode - QK_UNICODEMAP_PAIR;
 
-        bool shift = unicode_saved_mods & MOD_MASK_SHIFT, caps = IS_HOST_LED_ON(USB_LED_CAPS_LOCK);
+        bool shift = unicode_saved_mods & MOD_MASK_SHIFT;
+        bool caps = IS_HOST_LED_ON(USB_LED_CAPS_LOCK);
         if (shift ^ caps) {
             index >>= 7;
         }
@@ -36,8 +37,7 @@ __attribute__((weak)) uint16_t unicodemap_index(uint16_t keycode) {
 bool process_unicodemap(uint16_t keycode, keyrecord_t *record) {
     if (keycode >= QK_UNICODEMAP && keycode <= QK_UNICODEMAP_PAIR_MAX && record->event.pressed) {
         uint32_t code_point = pgm_read_dword(unicode_map + unicodemap_index(keycode));
-        uint8_t  input_mode = get_unicode_input_mode();
-        register_unicode(code_point, input_mode);
+        register_unicode(code_point);
     }
     return true;
 }
