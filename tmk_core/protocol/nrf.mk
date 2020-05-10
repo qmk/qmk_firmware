@@ -25,6 +25,7 @@ NRF_DIR = $(PROTOCOL_DIR)/nrf
        $(NRF_DIR)/bmp_indicator_led.c \
        $(NRF_DIR)/bmp_encoder_actions.c \
        $(NRF_DIR)/encoder.c \
+       $(NRF_DIR)/via.c \
 
 
 VPATH += $(TMK_PATH)/$(NRF_DIR)/microshell/core

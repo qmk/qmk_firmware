@@ -1,6 +1,6 @@
 #!/bin/sh
 
-version=0_5_2
+version=0_6_0
 
 for keyboard in ble_micro_pro kugel
     do
@@ -11,10 +11,10 @@ for keyboard in ble_micro_pro kugel
         mv ${keyboard}_default.zip ${keyboard}_default_${version}.zip
         mv ${keyboard}_no_msc.zip ${keyboard}_no_msc_${version}.zip
         unzip -o ${keyboard}_default_${version}.zip
-        mv ${keyboard}_default.bin ${keyboard}_default_${version}.bin
-        mv ${keyboard}_default.dat ${keyboard}_default_${version}.dat
+        mv ${keyboard}_default.bin firmware/${keyboard}_default_${version}.bin
+        mv ${keyboard}_default.dat firmware/${keyboard}_default_${version}.dat
         unzip -o ${keyboard}_no_msc_${version}.zip
-        mv ${keyboard}_no_msc.bin ${keyboard}_no_msc_${version}.bin
-        mv ${keyboard}_no_msc.dat ${keyboard}_no_msc_${version}.dat
+        mv ${keyboard}_no_msc.bin firmware/${keyboard}_no_msc_${version}.bin
+        mv ${keyboard}_no_msc.dat firmware/${keyboard}_no_msc_${version}.dat
     done
 

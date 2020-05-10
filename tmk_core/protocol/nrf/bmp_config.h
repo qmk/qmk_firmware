@@ -23,6 +23,7 @@ int save_eeprom_emulation_file();
 int load_tapping_term_file();
 int save_tapping_term_file();
 
+int save_keymap();
 int load_ex_keycode_file();
 int save_ex_keycode_file();
 
@@ -42,7 +43,7 @@ typedef struct
   char* string_dst;
   uint32_t dst_len;
   int (*parse)(void);
-  void (*save)(void);
+  int (*save)(void);
 } file_string_parser_setting_t;
 
 typedef struct

@@ -121,11 +121,6 @@ void matrix_init_kb() {
     matrix_init_user();
 }
 
-void bmp_befor_sleep() {
-    // turn off trackball
-    writePinHigh(TB_POW);
-}
-
 static trackball_info_t tb_info;
 
 const trackball_info_t *get_trackball_info() { return &tb_info; }
@@ -373,3 +368,5 @@ MSCMD_USER_RESULT usrcmd_trackball_pixel(MSOPT *msopt, MSCMD_USER_OBJECT usrobj)
     pix_to_read = 26 * 26;
     return 0;
 }
+
+bool checkSafemodeFlag(bmp_api_config_t const *const config) { return false; }

@@ -26,4 +26,4 @@ void set_usb_enabled(bool enabled);
 bool is_ble_connected();
 bool is_usb_connected();
 
-void bmp_befor_sleep();
+void bmp_before_sleep();

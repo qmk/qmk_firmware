@@ -256,7 +256,7 @@ MATRIX_LOOP_END:
         sleep_enter_counter--;
         if (sleep_enter_counter == 0)
         {
-            bmp_befor_sleep();
+            bmp_before_sleep();
             BMPAPI->app.enter_sleep_mode();
         }
     }
@@ -333,6 +333,19 @@ bmp_error_t bmp_state_change_cb(bmp_api_event_t event)
   return BMP_OK;
 }
 
+void bmp_hid_raw_receive_cb(const uint8_t * data, uint8_t len) {
+    // xprintf("<hidraw>receive %d bytes", len);
+    static uint8_t via_data[32];
+    if (len > sizeof(via_data) + 1) {
+        xprintf("<hidraw>Too large packet");
+        return;
+    }
+
+    memcpy(via_data, data, len - 1);
+
+    bmp_via_receive_cb(via_data, len - 1);
+}
+
 static bool checkKeyIsPressedOnStartup(bmp_api_config_t const * const config, uint8_t row, uint8_t col)
 {
   int8_t low_side_pin, high_side_pin;
@@ -364,7 +377,7 @@ static bool checkKeyIsPressedOnStartup(bmp_api_config_t const * const config, ui
   return pin_state == 0;
 }
 
-static inline bool checkSafemodeFlag(bmp_api_config_t const * const config)
+__attribute__((weak)) bool checkSafemodeFlag(bmp_api_config_t const * const config)
 {
     return checkKeyIsPressedOnStartup(config, config->matrix.row_pins[0],
             config->matrix.col_pins[0]);
@@ -440,6 +453,7 @@ void bmp_init()
 
   BMPAPI->usb.set_msc_write_cb(msc_write_callback);
   BMPAPI->app.set_state_change_cb(bmp_state_change_cb);
+  BMPAPI->usb.set_raw_receive_cb(bmp_hid_raw_receive_cb);
 
   uint16_t vcc_mv = BMPAPI->app.get_vcc_mv();
   int32_t battery_level = 1;
@@ -510,104 +524,120 @@ void set_ble_enabled(bool enabled) { ble_enabled = enabled; }
 bool get_usb_enabled() { return usb_enabled & has_usb; }
 void set_usb_enabled(bool enabled) { usb_enabled = enabled; }
 
-bool process_record_user_bmp(uint16_t keycode, keyrecord_t *record)
-{
-  char str[16];
+extern bool via_keymap_update_flag;
 
-  switch (keycode) {
-    case xEISU:
-      if (record->event.pressed) {
-        if(keymap_config.swap_lalt_lgui==false){
-          register_code(KC_LANG2);
-        }else{
-          SEND_STRING(SS_LALT("`"));
-        }
-      } else {
-        unregister_code(KC_LANG2);
-      }
-      return false;
-      break;
+bool process_record_user_bmp(uint16_t keycode, keyrecord_t* record) {
+    char str[16];
 
-    case xKANA:
-      if (record->event.pressed) {
-        if(keymap_config.swap_lalt_lgui==false){
-          register_code(KC_LANG1);
-        }else{
-          SEND_STRING(SS_LALT("`"));
-        }
-      } else {
-        unregister_code(KC_LANG1);
-      }
-      return false;
-      break;
-
-    default:
-      break;
-  }
-
-  if (record->event.pressed) {
     switch (keycode) {
-      case BLE_DIS:
-        set_ble_enabled(false);
-        return false;
-      case BLE_EN:
-        set_ble_enabled(true);
-        return false;
-      case USB_DIS:
-        set_usb_enabled(false);
-        return false;
-      case USB_EN:
-        set_usb_enabled(true);
-        return false;
-      case SEL_BLE:
-        set_usb_enabled(false);
-        set_ble_enabled(true);
-        return false;
-      case SEL_USB:
-        set_ble_enabled(false);
-        set_usb_enabled(true);
-        return false;
-      case ADV_ID0...ADV_ID7:
-        BMPAPI->ble.advertise(keycode - ADV_ID0);
-        return false;
-      case AD_WO_L:
-        BMPAPI->ble.advertise(255);
-        return false;
-      case DEL_ID0...DEL_ID7:
-        BMPAPI->ble.delete_bond(keycode - DEL_ID0);
-        return false;
-      case DELBNDS:
-        BMPAPI->ble.delete_bond(255);
-        return false;
-      case ENT_DFU:
-        BMPAPI->bootloader_jump();
-        return false;
-      case ENT_WEB:
-        BMPAPI->web_config.enter();
-        return false;
-      case BATT_LV:
-        snprintf(str, sizeof(str), "%4dmV", BMPAPI->app.get_vcc_mv());
-        send_string(str);
-        return false;
-      case SAVE_EE:
-        save_eeprom_emulation_file();
-        return false;
-      case DEL_EE:
-        BMPAPI->app.delete_file(QMK_EE_RECORD);
-        return false;
-    }
-  }
-  else if (!record->event.pressed) {
-    switch  (keycode) {
-    case ENT_SLP:
-    sleep_enter_counter = 10;
-    return false;
-    }
-  }
+        case KC_INS: {
+            static uint32_t insert_pressed_time;
+            if (record->event.pressed) {
+                insert_pressed_time = timer_read32();
+            } else {
+                if (via_keymap_update_flag && insert_pressed_time > 0 &&
+                    timer_elapsed32(insert_pressed_time) > 3000) {
+                    if (save_keymap() == 0) {
+                        via_keymap_update_flag = false;
+                    }
+                }
+                insert_pressed_time = 0;
+            }
+        }
+            return true;
+            break;
+        case xEISU:
+            if (record->event.pressed) {
+                if (keymap_config.swap_lalt_lgui == false) {
+                    register_code(KC_LANG2);
+                } else {
+                    SEND_STRING(SS_LALT("`"));
+                }
+            } else {
+                unregister_code(KC_LANG2);
+            }
+            return false;
+            break;
 
-  return true;
+        case xKANA:
+            if (record->event.pressed) {
+                if (keymap_config.swap_lalt_lgui == false) {
+                    register_code(KC_LANG1);
+                } else {
+                    SEND_STRING(SS_LALT("`"));
+                }
+            } else {
+                unregister_code(KC_LANG1);
+            }
+            return false;
+            break;
+
+        default:
+            break;
+    }
+
+    if (record->event.pressed) {
+        switch (keycode) {
+            case BLE_DIS:
+                set_ble_enabled(false);
+                return false;
+            case BLE_EN:
+                set_ble_enabled(true);
+                return false;
+            case USB_DIS:
+                set_usb_enabled(false);
+                return false;
+            case USB_EN:
+                set_usb_enabled(true);
+                return false;
+            case SEL_BLE:
+                set_usb_enabled(false);
+                set_ble_enabled(true);
+                return false;
+            case SEL_USB:
+                set_ble_enabled(false);
+                set_usb_enabled(true);
+                return false;
+            case ADV_ID0 ... ADV_ID7:
+                BMPAPI->ble.advertise(keycode - ADV_ID0);
+                return false;
+            case AD_WO_L:
+                BMPAPI->ble.advertise(255);
+                return false;
+            case DEL_ID0 ... DEL_ID7:
+                BMPAPI->ble.delete_bond(keycode - DEL_ID0);
+                return false;
+            case DELBNDS:
+                BMPAPI->ble.delete_bond(255);
+                return false;
+            case ENT_DFU:
+                BMPAPI->bootloader_jump();
+                return false;
+            case ENT_WEB:
+                BMPAPI->web_config.enter();
+                return false;
+            case BATT_LV:
+                snprintf(str, sizeof(str), "%4dmV", BMPAPI->app.get_vcc_mv());
+                send_string(str);
+                return false;
+            case SAVE_EE:
+                save_eeprom_emulation_file();
+                return false;
+            case DEL_EE:
+                BMPAPI->app.delete_file(QMK_EE_RECORD);
+                return false;
+        }
+    } else if (!record->event.pressed) {
+        switch (keycode) {
+            case ENT_SLP:
+                sleep_enter_counter = 10;
+                return false;
+        }
+    }
+
+    return true;
 }
 
 __attribute__((weak)) uint32_t keymaps_len() { return 0; }
 
-__attribute__((weak)) void bmp_befor_sleep() {}
+__attribute__((weak)) void bmp_before_sleep() {}

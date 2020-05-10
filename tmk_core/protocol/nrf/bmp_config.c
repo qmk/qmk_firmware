@@ -95,7 +95,7 @@ int parse_config(void) {
     return 0;
 }
 
-void save_config(void) { BMPAPI->app.save_file(0); }
+int save_config(void) { return BMPAPI->app.save_file(0); }
 
 int parse_keymap(void) {
     uint16_t                   keymap[512];
@@ -119,9 +119,11 @@ int parse_keymap(void) {
     return 0;
 }
 
-void save_keymap(void) {
-    BMPAPI->app.save_file(1);
-    save_ex_keycode_file();
+int save_keymap(void) {
+    if (BMPAPI->app.save_file(1) != BMP_OK) {
+        return 1;
+    }
+    return save_ex_keycode_file();
 }
 
 int parse_qmk_config(void) {
@@ -154,13 +156,15 @@ int parse_qmk_config(void) {
     return 0;
 }
 
-void save_qmk_config(void) {
+int save_qmk_config(void) {
     int res = save_tapping_term_file();
     if (res == 0) {
         BMPAPI->logger.info("Tapping term saved");
     } else {
         BMPAPI->logger.info("Failed to save tapping term");
     }
+
+    return res;
 }
 
 int parse_encoder_config(void) {
@@ -185,13 +189,15 @@ int parse_encoder_config(void) {
     return 0;
 }
 
-void save_encoder_config(void) {
+int save_encoder_config(void) {
     int res = BMPAPI->app.save_file(BMP_ENC_RECORD);
     if (res == 0) {
         xprintf("Succeed to save encoder config");
     } else {
         xprintf("Failed to save encoder config");
     }
+
+    return res;
 }
 
 const file_string_parser_setting_t file_string_parser_setting[] = {
