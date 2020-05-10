@@ -4,7 +4,7 @@ Unicode characters can be input straight from your keyboard! There are some limi
 
 In order to enable Unicode support on your keyboard, you will need to do the following:
 
-1. Choose one of three supported Unicode implementations: [Basic](#basic-unicode), [Unicode Map](#unicode-map), [UCIS](#ucis).
+1. Choose one of three supported Unicode implementations: [Basic Unicode](#basic-unicode), [Unicode Map](#unicode-map), [UCIS](#ucis).
 2. Find which [input mode](#input-modes) is the best match for your operating system and setup.
 3. [Set](#setting-the-input-mode) the appropriate input mode (or modes) in your configuration.
 4. Add Unicode keycodes to your keymap.
@@ -112,7 +112,7 @@ The following input modes are available:
 * **`UC_MAC`**: macOS built-in Unicode hex input. Supports code points up to `0xFFFF` (`0x10FFFF` with Unicode Map).
 
   To enable, go to _System Preferences > Keyboard > Input Sources_, add _Unicode Hex Input_ to the list (it's under _Other_), then activate it from the input dropdown in the Menu Bar.
-  By default, this mode uses the left Option key (`KC_LALT`) for Unicode input, but this can be changed by defining [`UNICODE_KEY_MAC`](#input-key-configuration) with another keycode.
+  By default, this mode uses the left Option key (`KC_LALT`) for Unicode input, but this can be changed by defining [`UNICODE_KEY_MAC`](#input-key-configuration) with a different keycode.
 
   !> Using the _Unicode Hex Input_ input source may disable some Option-based shortcuts, such as Option+Left and Option+Right.
 
@@ -121,7 +121,7 @@ The following input modes are available:
 * **`UC_LNX`**: Linux built-in IBus Unicode input. Supports code points up to `0x10FFFF` (all possible code points).
 
   Enabled by default and works almost anywhere on IBus-enabled distros. Without IBus, this mode works under GTK apps, but rarely anywhere else.
-  By default, this mode uses Ctrl+Shift+U (`LCTL(LSFT(KC_U))`) to start Unicode input, but this can be changed by defining [`UNICODE_KEY_LNX`](#input-key-configuration) with another keycode. This might be required for IBus versions ≥1.5.15, where Ctrl+Shift+U behavior is consolidated into Ctrl+Shift+E.
+  By default, this mode uses Ctrl+Shift+U (`LCTL(LSFT(KC_U))`) to start Unicode input, but this can be changed by defining [`UNICODE_KEY_LNX`](#input-key-configuration) with a different keycode. This might be required for IBus versions ≥1.5.15, where Ctrl+Shift+U behavior is consolidated into Ctrl+Shift+E.
 
 * **`UC_WIN`**: _(not recommended)_ Windows built-in hex numpad Unicode input. Supports code points up to `0xFFFF`.
 
@@ -132,8 +132,8 @@ The following input modes are available:
 
 * **`UC_WINC`**: Windows Unicode input using [WinCompose](https://github.com/samhocevar/wincompose). As of v0.9.0, supports code points up to `0x10FFFF` (all possible code points).
 
-  To enable, install the [latest release](https://github.com/samhocevar/wincompose/releases/latest). Once installed, WinCompose will automatically run on startup. Works reliably under all version of Windows supported by the app.
-  By default, this mode uses right Alt (`KC_RALT`) as the Compose key, but this can be changed in the WinCompose settings and by defining [`UNICODE_KEY_WINC`](#input-key-configuration) with another keycode.
+  To enable, install the [latest release](https://github.com/samhocevar/wincompose/releases/latest). Once installed, WinCompose will automatically run on startup. This mode works reliably under all version of Windows supported by the app.
+  By default, this mode uses right Alt (`KC_RALT`) as the Compose key, but this can be changed in the WinCompose settings and by defining [`UNICODE_KEY_WINC`](#input-key-configuration) with a different keycode.
 
 
 ## 3. Setting the Input Mode :id=setting-the-input-mode
@@ -144,7 +144,7 @@ To set your desired input mode, add the following define to your `config.h`:
 #define UNICODE_SELECTED_MODES UC_LNX
 ```
 
-This example sets the board's default input mode to `UC_LNX`. You can replace this with `UC_MAC` or any of the other modes listed [above](#input-modes). The board will automatically use the selected mode on startup, unless you manually switch to another mode (see [below](#keycodes)).
+This example sets the board's default input mode to `UC_LNX`. You can replace this with `UC_MAC`, `UC_WINC`, or any of the other modes listed [above](#input-modes). The board will automatically use the selected mode on startup, unless you manually switch to another mode (see [below](#keycodes)).
 
 You can also select multiple input modes, which allows you to easily cycle through them using the `UC_MOD`/`UC_RMOD` keycodes.
 
@@ -170,7 +170,7 @@ You can switch the input mode at any time by using the following keycodes. Addin
 
 You can also switch the input mode by calling `set_unicode_input_mode(x)` in your code, where _x_ is one of the above input mode constants (e.g. `UC_LNX`).
 
-?> Using `UNICODE_SELECTED_MODES` is preferred to calling `set_unicode_input_mode()` in `matrix_init_user()` or similar functions, since it's better integrated into the Unicode system and has the added benefit of avoiding unnecessary writes to EEPROM.
+?> Using `UNICODE_SELECTED_MODES` is preferable to calling `set_unicode_input_mode()` in `matrix_init_user()` or similar functions, since it's better integrated into the Unicode system and has the added benefit of avoiding unnecessary writes to EEPROM.
 
 #### Audio Feedback
 
