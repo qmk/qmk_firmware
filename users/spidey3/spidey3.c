@@ -71,7 +71,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // dprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
 
   if (!rand_seeded) {
-    srand(timer_read32() % keycode);
+    srand(record->event.time % keycode);
+    rand_seeded = true;
   }
 
   if (record->event.pressed) {
