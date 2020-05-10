@@ -114,6 +114,7 @@ void bmp_action_exec(keyevent_t event)
 
 static int sleep_enter_counter = -1;
 int reset_counter = -1;
+int bootloader_jump_counter = -1;
 
 /** \brief Keyboard task: Do keyboard routine jobs
  *
@@ -237,12 +238,25 @@ MATRIX_LOOP_END:
         keyboard_set_leds(led_status);
     }
 
+    // auto sleep check
+    static uint32_t last_event_time = 0;
+    uint32_t auto_sleep_timeout = BMPAPI->app.get_config()->reserved[2] * 10 *
+                                  60 * 1000;  // * 10min * 60s/min * 1000ms/s
+    if (auto_sleep_timeout && key_event_cnt == 0 && !is_usb_connected()) {
+        if (timer_elapsed32(last_event_time) > auto_sleep_timeout) {
+            sleep_enter_counter = 1;
+        }
+    } else {
+        last_event_time = timer_read32();
+    }
+
     // sleep flag check
     if (sleep_enter_counter > 0)
     {
         sleep_enter_counter--;
         if (sleep_enter_counter == 0)
         {
+            bmp_befor_sleep();
             BMPAPI->app.enter_sleep_mode();
         }
     }
@@ -257,6 +271,14 @@ MATRIX_LOOP_END:
             BMPAPI->app.reset(0);
         }
     }
+
+    // bootloader jump flag check
+    if (bootloader_jump_counter > 0) {
+        bootloader_jump_counter--;
+        if (bootloader_jump_counter == 0) {
+            BMPAPI->bootloader_jump();
+        }
+    }
 }
 
 bmp_error_t nus_rcv_callback(const uint8_t* dat, uint32_t len)
@@ -268,13 +290,24 @@ bmp_error_t nus_rcv_callback(const uint8_t* dat, uint32_t len)
     return BMP_OK;
 }
 
+static bool is_usb_connected_ = false;
+static bool is_ble_connected_ = false;
+
+bool is_usb_connected() { return is_usb_connected_; }
+bool is_ble_connected() { return is_ble_connected_; }
+
 bmp_error_t bmp_state_change_cb(bmp_api_event_t event)
 {
   switch (event)
   {
     case USB_CONNECTED:
-      update_config_files();
-      break;
+        is_usb_connected_ = true;
+        update_config_files();
+        break;
+
+    case USB_DISCONNECTED:
+        is_usb_connected_ = false;
+        break;
 
     case BLE_ADVERTISING_START:
       bmp_indicator_set(INDICATOR_ADVERTISING, 0);
@@ -286,8 +319,13 @@ bmp_error_t bmp_state_change_cb(bmp_api_event_t event)
       break;
 
     case BLE_CONNECTED:
-      bmp_indicator_set(INDICATOR_CONNECTED, 0);
-      break;
+        is_ble_connected_ = true;
+        bmp_indicator_set(INDICATOR_CONNECTED, 0);
+        break;
+
+    case BLE_DISCONNECTED:
+        is_ble_connected_ = false;
+        break;
 
     default:
       break;
@@ -570,8 +608,6 @@ bool process_record_user_bmp(uint16_t keycode, keyrecord_t *record)
   return true;
 }
 
-__attribute__((weak))uint32_t keymaps_len()
-{
-  return 0;
-}
+__attribute__((weak)) uint32_t keymaps_len() { return 0; }
 
+__attribute__((weak)) void bmp_befor_sleep() {}

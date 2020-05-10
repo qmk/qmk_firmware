@@ -112,13 +112,18 @@ void matrix_init_kb() {
     setPinOutput(CS_PIN_IO);
     setPinOutput(CS_PIN_TB);
 
-    // turn on trackball
+    // turn off trackball
     setPinOutput(TB_POW);
-    writePinLow(TB_POW);
+    writePinHigh(TB_POW);
 
     writePinHigh(IO_RESET);
 
     matrix_init_user();
+}
+
+void bmp_befor_sleep() {
+    // turn off trackball
+    writePinHigh(TB_POW);
 }
 
 static trackball_info_t tb_info;
@@ -186,7 +191,8 @@ void matrix_scan_kb() {
 
     do {
         if (++init_cnt < 10) {
-            // skip until initialize done
+            // turn on trackball module
+            writePinLow(TB_POW);
             break;
         } else if (init_cnt == 10) {
             check_tb_connection();
