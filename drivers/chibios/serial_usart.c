@@ -5,10 +5,17 @@
 #include "ch.h"
 #include "hal.h"
 
+#ifndef USART_CR1_M0
+#    define USART_CR1_M0 USART_CR1_M  // some platforms (f1xx) dont have this so
+#endif
+
 #ifndef USE_GPIOV1
 // The default PAL alternate modes are used to signal that the pins are used for USART
 #    ifndef SERIAL_USART_TX_PAL_MODE
 #        define SERIAL_USART_TX_PAL_MODE 7
+#    endif
+#    ifndef SERIAL_USART_RX_PAL_MODE
+#        define SERIAL_USART_RX_PAL_MODE 7
 #    endif
 #endif
 
@@ -16,30 +23,8 @@
 #    define SERIAL_USART_DRIVER SD1
 #endif
 
-#ifndef SELECT_SOFT_SERIAL_SPEED
-#    define SELECT_SOFT_SERIAL_SPEED 1
-#endif
-
-#ifdef SERIAL_USART_SPEED
-// Allow advanced users to directly set SERIAL_USART_SPEED
-#elif SELECT_SOFT_SERIAL_SPEED == 0
-#    define SERIAL_USART_SPEED 230400
-#elif SELECT_SOFT_SERIAL_SPEED == 1
-#    define SERIAL_USART_SPEED 115200
-#elif SELECT_SOFT_SERIAL_SPEED == 2
-#    define SERIAL_USART_SPEED 57600
-#elif SELECT_SOFT_SERIAL_SPEED == 3
-#    define SERIAL_USART_SPEED 38400
-#elif SELECT_SOFT_SERIAL_SPEED == 4
-#    define SERIAL_USART_SPEED 19200
-#elif SELECT_SOFT_SERIAL_SPEED == 5
-#    define SERIAL_USART_SPEED 14400
-#else
-#    error invalid SELECT_SOFT_SERIAL_SPEED value
-#endif
-
 #ifndef SERIAL_USART_CR1
-#    define SERIAL_USART_CR1 (USART_CR1_PCE | USART_CR1_PS | USART_CR1_M)  // parity enable, odd parity, 9 bit length
+#    define SERIAL_USART_CR1 (USART_CR1_PCE | USART_CR1_PS | USART_CR1_M0)  // parity enable, odd parity, 9 bit length
 #endif
 
 #ifndef SERIAL_USART_CR2
@@ -50,14 +35,50 @@
 #    define SERIAL_USART_CR3 0
 #endif
 
+#ifdef SOFT_SERIAL_PIN
+#    define SERIAL_USART_TX_PIN SOFT_SERIAL_PIN
+#endif
+#ifndef SERIAL_USART_RX_PIN
+#    define SERIAL_USART_HALF_DUPLEX
+#endif
+
+#ifndef SELECT_SOFT_SERIAL_SPEED
+#    define SELECT_SOFT_SERIAL_SPEED 1
+#endif
+
+#ifdef SERIAL_USART_SPEED
+// Allow advanced users to directly set SERIAL_USART_SPEED
+#elif SELECT_SOFT_SERIAL_SPEED == 0
+#    define SERIAL_USART_SPEED 460800
+#elif SELECT_SOFT_SERIAL_SPEED == 1
+#    define SERIAL_USART_SPEED 230400
+#elif SELECT_SOFT_SERIAL_SPEED == 2
+#    define SERIAL_USART_SPEED 115200
+#elif SELECT_SOFT_SERIAL_SPEED == 3
+#    define SERIAL_USART_SPEED 57600
+#elif SELECT_SOFT_SERIAL_SPEED == 4
+#    define SERIAL_USART_SPEED 38400
+#elif SELECT_SOFT_SERIAL_SPEED == 5
+#    define SERIAL_USART_SPEED 19200
+#else
+#    error invalid SELECT_SOFT_SERIAL_SPEED value
+#endif
+
 #define TIMEOUT 100
 #define HANDSHAKE_MAGIC 7
 
-static inline void sdClear(SerialDriver* driver) {
-    while (sdGetTimeout(driver, TIME_IMMEDIATE) != MSG_TIMEOUT) {
-        // Do nothing with the data
-    }
+#ifdef SERIAL_USART_HALF_DUPLEX
+static inline msg_t sdWriteHalfDuplex(SerialDriver* driver, uint8_t* data, uint8_t size) {
+    msg_t ret = sdWrite(driver, data, size);
+
+    // Half duplex requires us to read back the data we just wrote - just throw it away
+    uint8_t dump[size];
+    sdRead(driver, dump, size);
+
+    return ret;
 }
+#    undef sdWrite
+#    define sdWrite sdWriteHalfDuplex
 
 static inline msg_t sdWriteTimeoutHalfDuplex(SerialDriver* driver, uint8_t* data, uint8_t size, uint32_t timeout) {
     msg_t ret = sdWriteTimeout(driver, data, size, timeout);
@@ -68,22 +89,21 @@ static inline msg_t sdWriteTimeoutHalfDuplex(SerialDriver* driver, uint8_t* data
 
     return ret;
 }
+#    undef sdWriteTimeout
+#    define sdWriteTimeout sdWriteTimeoutHalfDuplex
+#endif
 
-static inline msg_t sdWriteHalfDuplex(SerialDriver* driver, uint8_t* data, uint8_t size) {
-    msg_t ret = sdWrite(driver, data, size);
-
-    // Half duplex requires us to read back the data we just wrote - just throw it away
-    uint8_t dump[size];
-    sdRead(driver, dump, size);
-
-    return ret;
+static inline void sdClear(SerialDriver* driver) {
+    while (sdGetTimeout(driver, TIME_IMMEDIATE) != MSG_TIMEOUT) {
+        // Do nothing with the data
+    }
 }
 
 static const SerialConfig sdcfg = {
-    (SERIAL_USART_SPEED),                 // speed - mandatory
-    (SERIAL_USART_CR1),                   // CR1
-    (SERIAL_USART_CR2),                   // CR2
-    (SERIAL_USART_CR3) | USART_CR3_HDSEL  // CR3
+    (SERIAL_USART_SPEED),  // speed - mandatory
+    (SERIAL_USART_CR1),    // CR1
+    (SERIAL_USART_CR2),    // CR2
+    (SERIAL_USART_CR3)     // CR3
 };
 
 void handle_soft_serial_slave(void);
@@ -103,13 +123,25 @@ static THD_FUNCTION(SlaveThread, arg) {
 }
 
 void usart_init(void) {
-    sdStart(&SERIAL_USART_DRIVER, &sdcfg);
-
 #if defined(USE_GPIOV1)
-    palSetPadMode(PAL_PORT(SOFT_SERIAL_PIN), PAL_PAD(SOFT_SERIAL_PIN), PAL_MODE_STM32_ALTERNATE_OPENDRAIN);
+    palSetLineMode(SERIAL_USART_TX_PIN, PAL_MODE_STM32_ALTERNATE_OPENDRAIN);
+#    if !defined(SERIAL_USART_HALF_DUPLEX)
+    palSetLineMode(SERIAL_USART_RX_PIN, PAL_MODE_STM32_ALTERNATE_OPENDRAIN);
+#    endif
 #else
-    palSetPadMode(PAL_PORT(SOFT_SERIAL_PIN), PAL_PAD(SOFT_SERIAL_PIN), PAL_MODE_ALTERNATE(SERIAL_USART_TX_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
+    palSetLineMode(SERIAL_USART_TX_PIN, PAL_MODE_ALTERNATE(SERIAL_USART_TX_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
+#    if !defined(SERIAL_USART_HALF_DUPLEX)
+    palSetLineMode(SERIAL_USART_RX_PIN, PAL_MODE_ALTERNATE(SERIAL_USART_RX_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
+#    endif
 #endif
+
+#ifdef SERIAL_USART_HALF_DUPLEX
+    sdcfg.cr3 |= USART_CR3_HDSEL;
+#else
+    sdcfg.cr2 |= USART_CR2_SWAP;
+#endif
+
+    sdStart(&SERIAL_USART_DRIVER, &sdcfg);
 }
 
 void usart_slave_init(void) {
@@ -142,14 +174,14 @@ void handle_soft_serial_slave(void) {
 
     // Always write back the sstd_index as part of a basic handshake
     sstd_index ^= HANDSHAKE_MAGIC;
-    sdWriteHalfDuplex(&SERIAL_USART_DRIVER, &sstd_index, sizeof(sstd_index));
+    sdWrite(&SERIAL_USART_DRIVER, &sstd_index, sizeof(sstd_index));
 
     if (trans->initiator2target_buffer_size) {
         sdRead(&SERIAL_USART_DRIVER, trans->initiator2target_buffer, trans->initiator2target_buffer_size);
     }
 
     if (trans->target2initiator_buffer_size) {
-        sdWriteHalfDuplex(&SERIAL_USART_DRIVER, trans->target2initiator_buffer, trans->target2initiator_buffer_size);
+        sdWrite(&SERIAL_USART_DRIVER, trans->target2initiator_buffer, trans->target2initiator_buffer_size);
     }
 
     if (trans->status) {
@@ -181,7 +213,7 @@ int soft_serial_transaction(int index) {
     sdClear(&SERIAL_USART_DRIVER);
 
     // First chunk is always transaction id
-    sdWriteTimeoutHalfDuplex(&SERIAL_USART_DRIVER, &sstd_index, sizeof(sstd_index), TIME_MS2I(TIMEOUT));
+    sdWriteTimeout(&SERIAL_USART_DRIVER, &sstd_index, sizeof(sstd_index), TIME_MS2I(TIMEOUT));
 
     uint8_t sstd_index_shake = 0xFF;
 
@@ -195,7 +227,7 @@ int soft_serial_transaction(int index) {
     }
 
     if (trans->initiator2target_buffer_size) {
-        res = sdWriteTimeoutHalfDuplex(&SERIAL_USART_DRIVER, trans->initiator2target_buffer, trans->initiator2target_buffer_size, TIME_MS2I(TIMEOUT));
+        res = sdWriteTimeout(&SERIAL_USART_DRIVER, trans->initiator2target_buffer, trans->initiator2target_buffer_size, TIME_MS2I(TIMEOUT));
         if (res < 0) {
             dprintf("serial::usart_transmit NO_RESPONSE\n");
             return TRANSACTION_NO_RESPONSE;
