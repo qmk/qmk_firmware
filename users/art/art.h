@@ -26,7 +26,6 @@ enum layer_names {
   NAV,
   GIT,
   GIT_C,
-  GIT_P,
   GIT_S
 };
 
