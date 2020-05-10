@@ -213,10 +213,10 @@ Wire Wire Line
 Wire Wire Line
 	1300 4100 2350 4100
 $Comp
-L Device:C_Small C3
+L Device:C_Small C8
 U 1 1 5EB377BC
 P 5000 1100
-F 0 "C3" H 5092 1146 50  0000 L CNN
+F 0 "C8" H 5092 1146 50  0000 L CNN
 F 1 "0.1u" H 5092 1055 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5000 1100 50  0001 C CNN
 F 3 "~" H 5000 1100 50  0001 C CNN
@@ -228,10 +228,10 @@ Wire Wire Line
 Wire Wire Line
 	5000 1300 5350 1300
 $Comp
-L Device:C_Small C4
+L Device:C_Small C3
 U 1 1 5EB38F24
 P 5350 1100
-F 0 "C4" H 5442 1146 50  0000 L CNN
+F 0 "C3" H 5442 1146 50  0000 L CNN
 F 1 "0.1u" H 5442 1055 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5350 1100 50  0001 C CNN
 F 3 "~" H 5350 1100 50  0001 C CNN
@@ -239,10 +239,10 @@ F 3 "~" H 5350 1100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C7
+L Device:C_Small C5
 U 1 1 5EB399EE
 P 5700 1100
-F 0 "C7" H 5792 1146 50  0000 L CNN
+F 0 "C5" H 5792 1146 50  0000 L CNN
 F 1 "0.1u" H 5792 1055 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5700 1100 50  0001 C CNN
 F 3 "~" H 5700 1100 50  0001 C CNN
@@ -250,10 +250,10 @@ F 3 "~" H 5700 1100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C6
+L Device:C_Small C4
 U 1 1 5EB39D7D
 P 6050 1100
-F 0 "C6" H 6142 1146 50  0000 L CNN
+F 0 "C4" H 6142 1146 50  0000 L CNN
 F 1 "0.1u" H 6142 1055 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6050 1100 50  0001 C CNN
 F 3 "~" H 6050 1100 50  0001 C CNN
@@ -261,10 +261,10 @@ F 3 "~" H 6050 1100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C5
+L Device:C_Small C6
 U 1 1 5EB3C3CA
 P 6400 1100
-F 0 "C5" H 6492 1146 50  0000 L CNN
+F 0 "C6" H 6492 1146 50  0000 L CNN
 F 1 "4.7u" H 6492 1055 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6400 1100 50  0001 C CNN
 F 3 "~" H 6400 1100 50  0001 C CNN
@@ -358,10 +358,10 @@ Wire Wire Line
 Wire Wire Line
 	3350 3200 3550 3200
 $Comp
-L Device:C_Small C8
+L Device:C_Small C7
 U 1 1 5EB5410F
 P 4450 2350
-F 0 "C8" V 4400 2250 50  0000 C CNN
+F 0 "C7" V 4400 2250 50  0000 C CNN
 F 1 "1.0u" V 4400 2450 50  0000 C CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4450 2350 50  0001 C CNN
 F 3 "~" H 4450 2350 50  0001 C CNN
@@ -927,8 +927,6 @@ F 3 "" H 10350 3700 60  0000 C CNN
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	11050 2850 11050 3450
-Wire Wire Line
 	7950 3250 7850 3250
 Connection ~ 7950 3250
 Wire Wire Line
@@ -1113,23 +1111,23 @@ Text GLabel 10250 1300 1    50   Input ~ 0
 col2
 Text GLabel 11050 1300 1    50   Input ~ 0
 col3
-Text GLabel 6800 2150 2    50   Input ~ 0
-row4
-Text GLabel 6800 2250 2    50   Input ~ 0
-row3
-Text GLabel 6800 2350 2    50   Input ~ 0
-row2
-Text GLabel 6800 2450 2    50   Input ~ 0
-row1
-Text GLabel 6800 2550 2    50   Input ~ 0
-row0
-Text GLabel 6800 3350 2    50   Input ~ 0
-col0
-Text GLabel 6800 3450 2    50   Input ~ 0
-col1
 Text GLabel 6800 3550 2    50   Input ~ 0
+row4
+Text GLabel 6800 3450 2    50   Input ~ 0
+row3
+Text GLabel 6800 3350 2    50   Input ~ 0
+row2
+Text GLabel 6800 3250 2    50   Input ~ 0
+row1
+Text GLabel 6800 3150 2    50   Input ~ 0
+row0
+Text GLabel 6800 2250 2    50   Input ~ 0
+col0
+Text GLabel 6800 2350 2    50   Input ~ 0
+col1
+Text GLabel 6800 2450 2    50   Input ~ 0
 col2
-Text GLabel 6800 3650 2    50   Input ~ 0
+Text GLabel 6800 2550 2    50   Input ~ 0
 col3
 $Comp
 L power:VCC #PWR0119
@@ -1169,9 +1167,9 @@ Wire Wire Line
 	4500 1950 4650 1950
 Text GLabel 6800 2650 2    50   Input ~ 0
 enSw
-Text GLabel 6800 3150 2    50   Input ~ 0
+Text GLabel 6800 3650 2    50   Input ~ 0
 enA
-Text GLabel 6800 3250 2    50   Input ~ 0
+Text GLabel 6800 3750 2    50   Input ~ 0
 enB
 $Comp
 L Device:Rotary_Encoder_Switch SW2
@@ -1184,7 +1182,7 @@ F 3 "~" H 1750 7710 50  0001 C CNN
 	1    1750 7450
 	1    0    0    -1  
 $EndComp
-Text GLabel 6800 3050 2    50   Input ~ 0
+Text GLabel 4650 2950 0    50   Input ~ 0
 RGB
 NoConn ~ 4650 3950
 NoConn ~ 4650 3850
@@ -1195,7 +1193,6 @@ NoConn ~ 4650 2650
 NoConn ~ 4650 2550
 NoConn ~ 4650 1850
 NoConn ~ 6800 2050
-NoConn ~ 6800 3750
 $Comp
 L power:GND #PWR0101
 U 1 1 5EB1970D
@@ -1337,7 +1334,7 @@ U 1 1 5EB57670
 P 3500 7400
 F 0 "L31" H 3580 7392 50  0000 L CNN
 F 1 ".91\" OLED" H 3580 7301 50  0000 L CNN
-F 2 "Connector_PinSocket_1.27mm:PinSocket_1x04_P1.27mm_Vertical" H 3500 7400 50  0001 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical" H 3500 7400 50  0001 C CNN
 F 3 "~" H 3500 7400 50  0001 C CNN
 	1    3500 7400
 	1    0    0    -1  
@@ -1384,17 +1381,6 @@ F 3 "" H 8350 4250 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L KeyboardParts:KEYSW K12B1
-U 1 1 5EBBE17C
-P 10750 2850
-F 0 "K12B1" H 10750 2850 60  0000 C CNN
-F 1 "KEYSW" H 10750 2750 60  0001 C CNN
-F 2 "Button_Switch_Keyboard:SW_Cherry_MX_2.00u_Vertical_Plate" H 10750 2850 60  0001 C CNN
-F 3 "" H 10750 2850 60  0000 C CNN
-	1    10750 2850
-	1    0    0    -1  
-$EndComp
-$Comp
 L KeyboardParts:KEYSW K20B1
 U 1 1 5EBBEA83
 P 10750 4250
@@ -1403,7 +1389,7 @@ F 1 "KEYSW" H 10750 4150 60  0001 C CNN
 F 2 "Button_Switch_Keyboard:SW_Cherry_MX_2.00u_Vertical_Plate" H 10750 4250 60  0001 C CNN
 F 3 "" H 10750 4250 60  0000 C CNN
 	1    10750 4250
-	1    0    0    -1  
+	-1   0    0    1   
 $EndComp
 Wire Wire Line
 	7950 2650 7950 2950
@@ -1427,9 +1413,6 @@ Wire Wire Line
 Connection ~ 10350 2850
 Wire Wire Line
 	10350 2850 10350 2950
-Wire Wire Line
-	11050 2850 11050 2650
-Connection ~ 11050 2850
 Connection ~ 11050 2650
 Wire Wire Line
 	7950 4050 7950 4250
@@ -2155,32 +2138,8 @@ Wire Wire Line
 $Comp
 L KeyboardParts:LED L9
 U 1 1 5EF45FE7
-P 6750 5350
-F 0 "L9" V 6850 5350 50  0000 R CNN
-F 1 "1.8mm" V 6550 5350 50  0000 R CNN
-F 2 "KeyboardPartsPretty:LED_TH" H 6750 5350 60  0001 C CNN
-F 3 "" H 6750 5350 60  0000 C CNN
-	1    6750 5350
-	0    -1   -1   0   
-$EndComp
-$Comp
-L KeyboardParts:R R18
-U 1 1 5EF45FED
-P 6750 5850
-F 0 "R18" V 6750 5750 50  0000 C CNN
-F 1 "330" V 6750 5900 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6750 5850 60  0001 C CNN
-F 3 "" H 6750 5850 60  0000 C CNN
-	1    6750 5850
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	6750 5600 6750 5550
-$Comp
-L KeyboardParts:LED L10
-U 1 1 5EF45FF4
 P 7050 5350
-F 0 "L10" V 7150 5350 50  0000 R CNN
+F 0 "L9" V 7150 5350 50  0000 R CNN
 F 1 "1.8mm" V 6850 5350 50  0000 R CNN
 F 2 "KeyboardPartsPretty:LED_TH" H 7050 5350 60  0001 C CNN
 F 3 "" H 7050 5350 60  0000 C CNN
@@ -2188,10 +2147,10 @@ F 3 "" H 7050 5350 60  0000 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L KeyboardParts:R R19
-U 1 1 5EF45FFA
+L KeyboardParts:R R18
+U 1 1 5EF45FED
 P 7050 5850
-F 0 "R19" V 7050 5750 50  0000 C CNN
+F 0 "R18" V 7050 5750 50  0000 C CNN
 F 1 "330" V 7050 5900 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7050 5850 60  0001 C CNN
 F 3 "" H 7050 5850 60  0000 C CNN
@@ -2201,10 +2160,10 @@ $EndComp
 Wire Wire Line
 	7050 5600 7050 5550
 $Comp
-L KeyboardParts:LED L11
-U 1 1 5EF592DE
+L KeyboardParts:LED L10
+U 1 1 5EF45FF4
 P 7350 5350
-F 0 "L11" V 7450 5350 50  0000 R CNN
+F 0 "L10" V 7450 5350 50  0000 R CNN
 F 1 "1.8mm" V 7150 5350 50  0000 R CNN
 F 2 "KeyboardPartsPretty:LED_TH" H 7350 5350 60  0001 C CNN
 F 3 "" H 7350 5350 60  0000 C CNN
@@ -2212,10 +2171,10 @@ F 3 "" H 7350 5350 60  0000 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L KeyboardParts:R R20
-U 1 1 5EF592E4
+L KeyboardParts:R R19
+U 1 1 5EF45FFA
 P 7350 5850
-F 0 "R20" V 7350 5750 50  0000 C CNN
+F 0 "R19" V 7350 5750 50  0000 C CNN
 F 1 "330" V 7350 5900 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7350 5850 60  0001 C CNN
 F 3 "" H 7350 5850 60  0000 C CNN
@@ -2225,10 +2184,10 @@ $EndComp
 Wire Wire Line
 	7350 5600 7350 5550
 $Comp
-L KeyboardParts:LED L12
-U 1 1 5EF592EB
+L KeyboardParts:LED L11
+U 1 1 5EF592DE
 P 7650 5350
-F 0 "L12" V 7750 5350 50  0000 R CNN
+F 0 "L11" V 7750 5350 50  0000 R CNN
 F 1 "1.8mm" V 7450 5350 50  0000 R CNN
 F 2 "KeyboardPartsPretty:LED_TH" H 7650 5350 60  0001 C CNN
 F 3 "" H 7650 5350 60  0000 C CNN
@@ -2236,10 +2195,10 @@ F 3 "" H 7650 5350 60  0000 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L KeyboardParts:R R21
-U 1 1 5EF592F1
+L KeyboardParts:R R20
+U 1 1 5EF592E4
 P 7650 5850
-F 0 "R21" V 7650 5750 50  0000 C CNN
+F 0 "R20" V 7650 5750 50  0000 C CNN
 F 1 "330" V 7650 5900 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7650 5850 60  0001 C CNN
 F 3 "" H 7650 5850 60  0000 C CNN
@@ -2249,18 +2208,42 @@ $EndComp
 Wire Wire Line
 	7650 5600 7650 5550
 $Comp
-L KeyboardParts:LED L12B1
-U 1 1 5EF592F8
+L KeyboardParts:LED L12
+U 1 1 5EF592EB
 P 7950 5350
-F 0 "L12B1" V 8050 5350 50  0000 R CNN
+F 0 "L12" V 8050 5350 50  0000 R CNN
 F 1 "1.8mm" V 7750 5350 50  0000 R CNN
 F 2 "KeyboardPartsPretty:LED_TH" H 7950 5350 60  0001 C CNN
 F 3 "" H 7950 5350 60  0000 C CNN
 	1    7950 5350
 	0    -1   -1   0   
 $EndComp
+$Comp
+L KeyboardParts:R R21
+U 1 1 5EF592F1
+P 7950 5850
+F 0 "R21" V 7950 5750 50  0000 C CNN
+F 1 "330" V 7950 5900 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7950 5850 60  0001 C CNN
+F 3 "" H 7950 5850 60  0000 C CNN
+	1    7950 5850
+	-1   0    0    1   
+$EndComp
 Wire Wire Line
 	7950 5600 7950 5550
+$Comp
+L KeyboardParts:LED L8B1
+U 1 1 5EF592F8
+P 6750 5350
+F 0 "L8B1" V 6850 5350 50  0000 R CNN
+F 1 "1.8mm" V 6550 5350 50  0000 R CNN
+F 2 "KeyboardPartsPretty:LED_TH" H 6750 5350 60  0001 C CNN
+F 3 "" H 6750 5350 60  0000 C CNN
+	1    6750 5350
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	6750 5600 6750 5550
 $Comp
 L KeyboardParts:LED L13
 U 1 1 5EF59305
@@ -2360,114 +2343,114 @@ Wire Wire Line
 $Comp
 L KeyboardParts:LED L17
 U 1 1 5EF6B28F
-P 9450 5350
-F 0 "L17" V 9550 5350 50  0000 R CNN
-F 1 "1.8mm" V 9250 5350 50  0000 R CNN
-F 2 "KeyboardPartsPretty:LED_TH" H 9450 5350 60  0001 C CNN
-F 3 "" H 9450 5350 60  0000 C CNN
-	1    9450 5350
-	0    -1   -1   0   
-$EndComp
-$Comp
-L KeyboardParts:R R26
-U 1 1 5EF6B295
-P 9450 5850
-F 0 "R26" V 9450 5750 50  0000 C CNN
-F 1 "330" V 9450 5900 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9450 5850 60  0001 C CNN
-F 3 "" H 9450 5850 60  0000 C CNN
-	1    9450 5850
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	9450 5600 9450 5550
-$Comp
-L KeyboardParts:LED L17B1
-U 1 1 5EF6B29C
 P 9750 5350
-F 0 "L17B1" V 9850 5350 50  0000 R CNN
+F 0 "L17" V 9850 5350 50  0000 R CNN
 F 1 "1.8mm" V 9550 5350 50  0000 R CNN
 F 2 "KeyboardPartsPretty:LED_TH" H 9750 5350 60  0001 C CNN
 F 3 "" H 9750 5350 60  0000 C CNN
 	1    9750 5350
 	0    -1   -1   0   
 $EndComp
+$Comp
+L KeyboardParts:R R26
+U 1 1 5EF6B295
+P 9750 5850
+F 0 "R26" V 9750 5750 50  0000 C CNN
+F 1 "330" V 9750 5900 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9750 5850 60  0001 C CNN
+F 3 "" H 9750 5850 60  0000 C CNN
+	1    9750 5850
+	-1   0    0    1   
+$EndComp
 Wire Wire Line
 	9750 5600 9750 5550
 $Comp
-L KeyboardParts:LED L18
-U 1 1 5EF6B2A9
+L KeyboardParts:LED L17B1
+U 1 1 5EF6B29C
 P 10050 5350
-F 0 "L18" V 10150 5350 50  0000 R CNN
+F 0 "L17B1" V 10150 5350 50  0000 R CNN
 F 1 "1.8mm" V 9850 5350 50  0000 R CNN
 F 2 "KeyboardPartsPretty:LED_TH" H 10050 5350 60  0001 C CNN
 F 3 "" H 10050 5350 60  0000 C CNN
 	1    10050 5350
 	0    -1   -1   0   
 $EndComp
-$Comp
-L KeyboardParts:R R27
-U 1 1 5EF6B2AF
-P 10050 5850
-F 0 "R27" V 10050 5750 50  0000 C CNN
-F 1 "330" V 10050 5900 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10050 5850 60  0001 C CNN
-F 3 "" H 10050 5850 60  0000 C CNN
-	1    10050 5850
-	-1   0    0    1   
-$EndComp
 Wire Wire Line
 	10050 5600 10050 5550
 $Comp
-L KeyboardParts:LED L19
-U 1 1 5EF9FB07
+L KeyboardParts:LED L18
+U 1 1 5EF6B2A9
 P 10350 5350
-F 0 "L19" V 10450 5350 50  0000 R CNN
+F 0 "L18" V 10450 5350 50  0000 R CNN
 F 1 "1.8mm" V 10150 5350 50  0000 R CNN
 F 2 "KeyboardPartsPretty:LED_TH" H 10350 5350 60  0001 C CNN
 F 3 "" H 10350 5350 60  0000 C CNN
 	1    10350 5350
 	0    -1   -1   0   
 $EndComp
+$Comp
+L KeyboardParts:R R27
+U 1 1 5EF6B2AF
+P 10350 5850
+F 0 "R27" V 10350 5750 50  0000 C CNN
+F 1 "330" V 10350 5900 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10350 5850 60  0001 C CNN
+F 3 "" H 10350 5850 60  0000 C CNN
+	1    10350 5850
+	-1   0    0    1   
+$EndComp
 Wire Wire Line
 	10350 5600 10350 5550
 $Comp
-L KeyboardParts:LED L20
-U 1 1 5EF9FB14
+L KeyboardParts:LED L19
+U 1 1 5EF9FB07
 P 10650 5350
-F 0 "L20" V 10750 5350 50  0000 R CNN
+F 0 "L19" V 10750 5350 50  0000 R CNN
 F 1 "1.8mm" V 10450 5350 50  0000 R CNN
 F 2 "KeyboardPartsPretty:LED_TH" H 10650 5350 60  0001 C CNN
 F 3 "" H 10650 5350 60  0000 C CNN
 	1    10650 5350
 	0    -1   -1   0   
 $EndComp
-$Comp
-L KeyboardParts:R R29
-U 1 1 5EF9FB1A
-P 10650 5850
-F 0 "R29" V 10650 5750 50  0000 C CNN
-F 1 "330" V 10650 5900 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10650 5850 60  0001 C CNN
-F 3 "" H 10650 5850 60  0000 C CNN
-	1    10650 5850
-	-1   0    0    1   
-$EndComp
 Wire Wire Line
 	10650 5600 10650 5550
 $Comp
-L KeyboardParts:LED L20B1
-U 1 1 5EF9FB21
+L KeyboardParts:LED L20
+U 1 1 5EF9FB14
 P 10950 5350
-F 0 "L20B1" V 11050 5350 50  0000 R CNN
+F 0 "L20" V 11050 5350 50  0000 R CNN
 F 1 "1.8mm" V 10750 5350 50  0000 R CNN
 F 2 "KeyboardPartsPretty:LED_TH" H 10950 5350 60  0001 C CNN
 F 3 "" H 10950 5350 60  0000 C CNN
 	1    10950 5350
 	0    -1   -1   0   
 $EndComp
+$Comp
+L KeyboardParts:R R29
+U 1 1 5EF9FB1A
+P 10950 5850
+F 0 "R29" V 10950 5750 50  0000 C CNN
+F 1 "330" V 10950 5900 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10950 5850 60  0001 C CNN
+F 3 "" H 10950 5850 60  0000 C CNN
+	1    10950 5850
+	-1   0    0    1   
+$EndComp
 Wire Wire Line
 	10950 5600 10950 5550
+$Comp
+L KeyboardParts:LED L16B1
+U 1 1 5EF9FB21
+P 9450 5350
+F 0 "L16B1" V 9550 5350 50  0000 R CNN
+F 1 "1.8mm" V 9250 5350 50  0000 R CNN
+F 2 "KeyboardPartsPretty:LED_TH" H 9450 5350 60  0001 C CNN
+F 3 "" H 9450 5350 60  0000 C CNN
+	1    9450 5350
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	9450 5600 9450 5550
 Wire Wire Line
 	4350 5150 4650 5150
 Connection ~ 4350 5150
@@ -2490,23 +2473,10 @@ Connection ~ 6150 5150
 Wire Wire Line
 	6150 5150 6450 5150
 Connection ~ 6450 5150
-Wire Wire Line
-	6450 5150 6750 5150
-Connection ~ 6750 5150
-Wire Wire Line
-	6750 5150 7050 5150
 Connection ~ 7050 5150
 Wire Wire Line
 	7050 5150 7350 5150
 Connection ~ 7350 5150
-Wire Wire Line
-	7350 5150 7650 5150
-Connection ~ 7650 5150
-Wire Wire Line
-	7650 5150 7950 5150
-Connection ~ 7950 5150
-Wire Wire Line
-	7950 5150 8250 5150
 Connection ~ 8250 5150
 Wire Wire Line
 	8250 5150 8550 5150
@@ -2516,10 +2486,6 @@ Wire Wire Line
 Connection ~ 8850 5150
 Wire Wire Line
 	8850 5150 9150 5150
-Connection ~ 9150 5150
-Wire Wire Line
-	9150 5150 9450 5150
-Connection ~ 9450 5150
 Wire Wire Line
 	9450 5150 9750 5150
 Connection ~ 9750 5150
@@ -2534,6 +2500,8 @@ Wire Wire Line
 Connection ~ 10650 5150
 Wire Wire Line
 	10650 5150 10950 5150
+Wire Wire Line
+	9150 5150 9450 5150
 Connection ~ 4650 6100
 Wire Wire Line
 	4650 6100 4350 6100
@@ -2555,18 +2523,10 @@ Wire Wire Line
 Connection ~ 6450 6100
 Wire Wire Line
 	6450 6100 6150 6100
-Connection ~ 6750 6100
-Wire Wire Line
-	6750 6100 6450 6100
 Connection ~ 7050 6100
-Wire Wire Line
-	7050 6100 6750 6100
 Connection ~ 7350 6100
 Wire Wire Line
 	7350 6100 7050 6100
-Connection ~ 7650 6100
-Wire Wire Line
-	7650 6100 7350 6100
 Connection ~ 8250 6100
 Connection ~ 8550 6100
 Wire Wire Line
@@ -2578,40 +2538,91 @@ Connection ~ 9150 6100
 Wire Wire Line
 	9150 6100 8850 6100
 Wire Wire Line
-	9450 6100 9150 6100
-Wire Wire Line
 	6450 6550 6450 6100
-Connection ~ 9450 6100
-Connection ~ 10050 6100
 Wire Wire Line
 	10650 6100 10350 6100
-Wire Wire Line
-	10350 6100 10050 6100
 Connection ~ 10350 6100
 $Comp
 L KeyboardParts:R R28
 U 1 1 5EF9FB0D
-P 10350 5850
-F 0 "R28" V 10350 5750 50  0000 C CNN
-F 1 "330" V 10350 5900 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10350 5850 60  0001 C CNN
-F 3 "" H 10350 5850 60  0000 C CNN
-	1    10350 5850
+P 10650 5850
+F 0 "R28" V 10650 5750 50  0000 C CNN
+F 1 "330" V 10650 5900 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10650 5850 60  0001 C CNN
+F 3 "" H 10650 5850 60  0000 C CNN
+	1    10650 5850
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	7650 6100 8250 6100
+	6750 5600 6450 5600
 Wire Wire Line
-	7950 5600 7650 5600
-Connection ~ 7650 5600
+	10050 5600 9750 5600
+Connection ~ 9750 5600
 Wire Wire Line
-	9450 6100 10050 6100
-Wire Wire Line
-	9750 5600 9450 5600
-Connection ~ 9450 5600
-Wire Wire Line
-	10950 5600 10650 5600
-Connection ~ 10650 5600
-Text GLabel 4650 2950 0    50   Input ~ 0
+	9450 5600 9150 5600
+Text GLabel 6800 3050 2    50   Input ~ 0
 BKL
+Connection ~ 7950 5150
+Wire Wire Line
+	7950 5150 8250 5150
+Connection ~ 7950 6100
+Wire Wire Line
+	7950 6100 8250 6100
+Wire Wire Line
+	7350 5150 7650 5150
+Wire Wire Line
+	7350 6100 7650 6100
+Connection ~ 7650 5150
+Wire Wire Line
+	7650 5150 7950 5150
+Connection ~ 7650 6100
+Wire Wire Line
+	7650 6100 7950 6100
+Wire Wire Line
+	6450 5150 6750 5150
+Wire Wire Line
+	6450 6100 7050 6100
+Connection ~ 6450 5600
+Connection ~ 6750 5150
+Wire Wire Line
+	6750 5150 7050 5150
+Connection ~ 9750 6100
+Wire Wire Line
+	9150 6100 9750 6100
+Wire Wire Line
+	9750 6100 10350 6100
+Connection ~ 9150 5150
+Connection ~ 9150 5600
+Connection ~ 9450 5150
+Wire Wire Line
+	10650 6100 10950 6100
+Connection ~ 10650 6100
+$Comp
+L power:VCC #PWR0144
+U 1 1 5EF1F953
+P 3600 1500
+F 0 "#PWR0144" H 3600 1350 50  0001 C CNN
+F 1 "VCC" H 3617 1673 50  0000 C CNN
+F 2 "" H 3600 1500 50  0001 C CNN
+F 3 "" H 3600 1500 50  0001 C CNN
+	1    3600 1500
+	1    0    0    -1  
+$EndComp
+Connection ~ 3600 1500
+$Comp
+L KeyboardParts:KEYSW K12B1
+U 1 1 5EBBE17C
+P 10750 2850
+F 0 "K12B1" H 10750 2850 60  0000 C CNN
+F 1 "KEYSW" H 10750 2750 60  0001 C CNN
+F 2 "Button_Switch_Keyboard:SW_Cherry_MX_2.00u_Vertical_Plate" H 10750 2850 60  0001 C CNN
+F 3 "" H 10750 2850 60  0000 C CNN
+	1    10750 2850
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	11050 2650 11050 2850
+Connection ~ 11050 2850
+Wire Wire Line
+	11050 2850 11050 3450
 $EndSCHEMATC
