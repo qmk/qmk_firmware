@@ -13,7 +13,7 @@ PS/2 デバイスを接続するために3つの利用可能なモードがあ�
 
 ## トラックポイントとコントロール間の回路 :id=the-circuitry-between-trackpoint-and-controller
 
-動作させるには、DATA と回線5+、CLK と回線5+ の間の2つの回線に、4.7K のドラッグが必要です。
+動作させるには、DATA と回線5+、CLK と回線5+ の間の2つの回線に、4.7K の抵抗が必要です。
 
 ```
           DATA ----------+--------- PIN
@@ -259,16 +259,12 @@ X と Y 軸を反転するには、以下を config.h に配置します:
 #define PS2_MOUSE_INVERT_Y
 ```
 
-config.h に置きます。
-
 スクロールの軸を逆にするには、以下を config.h に配置します:
 
 ```c
 #define PS2_MOUSE_INVERT_H
 #define PS2_MOUSE_INVERT_V
 ```
-
-config.h に置きます。
 
 ### マウスの軸の回転 :id=rotate-mouse-axes
 
