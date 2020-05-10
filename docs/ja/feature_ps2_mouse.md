@@ -192,7 +192,7 @@ void ps2_mouse_set_resolution(ps2_mouse_resolution_t resolution);
 void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate);
 ```
 
-### Fine Control :id=fine-control
+### 細かい調整 :id=fine-control
 
 マウスの感度と速度を変更するために以下の定義を使います。
 注意: 同じ効果のために `ps2_mouse_set_resolution` も使うことができます (ほとんどのタッチパッドではサポートされません)。
@@ -203,7 +203,7 @@ void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate);
 #define PS2_MOUSE_V_MULTIPLIER 1
 ```
 
-### Scroll Button :id=scroll-button
+### スクロールボタン :id=scroll-button
 
 トラックポイントを使っている場合は、スクロールのためにそれを使えるようにしたいでしょう。
 押された時に移動の代わりにスクロールさせる "scroll button/s" を有効にすることができます。
