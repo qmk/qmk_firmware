@@ -26,8 +26,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define EE_HANDS
 
+// OLED
 #ifdef OLED_DRIVER_ENABLE
 #    undef SSD1306OLED
+#    undef OLED_FONT_H
+#    define OLED_FONT_H RHRUIZ_OLED_FONT_H
+#    define OLED_SCROLL_TIMEOUT 8000
+#    ifdef OLED_ROTATE
+#        define OLED_SCROLL_TIMEOUT_RIGHT
+#     endif
 #endif
 
 #undef USE_I2C
@@ -49,6 +56,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_SAT_STEP 17
 #    define RGBLIGHT_VAL_STEP 17
 #endif
+
+// bootmagic
+
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 1
 
 // bootloader
 
