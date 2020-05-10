@@ -255,14 +255,12 @@ void send_unicode_string(const char *str) {
         return;
     }
 
-    int32_t code_point = 0;
     while (*str) {
+        int32_t code_point = 0;
         str = decode_utf8(str, &code_point);
 
         if (code_point >= 0) {
-            unicode_input_start();
-            register_hex32(code_point);
-            unicode_input_finish();
+            register_unicode(code_point);
         }
     }
 }
