@@ -171,6 +171,25 @@ void register_hex32(uint32_t hex) {
     }
 }
 
+void register_unicode(uint32_t code_point) {
+    if (code_point > 0x10FFFF || (code_point > 0xFFFF && unicode_config.input_mode == UC_WIN)) {
+        // Code point out of range, do nothing
+        return;
+    }
+
+    unicode_input_start();
+    if (code_point > 0xFFFF && unicode_config.input_mode == UC_MAC) {
+        // Convert code point to UTF-16 surrogate pair on macOS
+        code_point -= 0x10000;
+        uint32_t lo = code_point & 0x3FF, hi = (code_point & 0xFFC00) >> 10;
+        register_hex32(hi + 0xD800);
+        register_hex32(lo + 0xDC00);
+    } else {
+        register_hex32(code_point);
+    }
+    unicode_input_finish();
+}
+
 // clang-format off
 
 void send_unicode_hex_string(const char *str) {
@@ -246,25 +265,6 @@ void send_unicode_string(const char *str) {
             unicode_input_finish();
         }
     }
-}
-
-void register_unicode(uint32_t code_point, uint8_t input_mode) {
-    if (code_point > 0x10FFFF || (code_point > 0xFFFF && input_mode == UC_WIN)) {
-        // Code point out of range, do nothing
-        return;
-    }
-
-    unicode_input_start();
-    if (code_point > 0xFFFF && input_mode == UC_MAC) {
-        // Convert code point to UTF-16 surrogate pair on macOS
-        code_point -= 0x10000;
-        uint32_t lo = code_point & 0x3FF, hi = (code_point & 0xFFC00) >> 10;
-        register_hex32(hi + 0xD800);
-        register_hex32(lo + 0xDC00);
-    } else {
-        register_hex32(code_point);
-    }
-    unicode_input_finish();
 }
 
 // clang-format off
