@@ -7,8 +7,8 @@
 #define PRODUCT_ID      0x0001
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    YMDK
-#define PRODUCT         YMDK Melody96
-#define DESCRIPTION     YMDK Melody96
+#define PRODUCT         Melody96
+#define DESCRIPTION     Melody96
 
 /* key matrix size */
 #define MATRIX_ROWS 12
