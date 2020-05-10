@@ -253,7 +253,6 @@ typedef union {
     };
 } rgblight_config_t;
 
-// Need to maintain the old bit structure for the default case
 typedef struct _rgblight_status_t {
     uint8_t base_mode;
     bool    timer_enabled;
