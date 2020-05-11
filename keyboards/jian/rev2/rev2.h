@@ -21,7 +21,7 @@
   {R20, R21, R22, R23, R24, R25 }, \
   {XXX, XXX, R32, R33, R34, R35 }  \
 }
-#define LAYOUT_rev2 LAYOUT
+#define LAYOUT_jian LAYOUT
 
 #define SYMM_LAYOUT( \
   K20, K00, K01, K12, K02, K03, K04, \
@@ -39,3 +39,4 @@
   {K20, K21, K22, K23, K24, K25 }, \
   {XXX, XXX, K32, K33, K34, K35 }  \
 }
+#define LAYOUT_symmetric_jian SYMM_LAYOUT

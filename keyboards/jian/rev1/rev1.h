@@ -21,6 +21,7 @@
   {XXX, R21, R22, R23, R24, R25, R26}, \
   {XXX, XXX, XXX, XXX, R34, R35, R36} \
 }
+#define LAYOUT_jian LAYOUT
 
 #define SYMM_LAYOUT( \
   K00, K01, K02, K03, K04, K05, K06, \
@@ -38,6 +39,7 @@
   {XXX, K21, K22, K23, K24, K25, K26}, \
   {XXX, XXX, XXX, XXX, K34, K35, K36} \
 }
+#define LAYOUT_symmetric_jian SYMM_LAYOUT
 
 #ifdef DIPS_ENABLE
 #define LAYOUT_DIPS( \
@@ -54,6 +56,5 @@
   {DR1, XXX, XXX, XXX, XXX, XXX, XXX}, \
   {DR2, DR3, DR4, DR5, XXX, XXX, XXX}, \
 }
+#define LAYOUT_jian_dips
 #endif // DIPS_ENABLE
-
-#define LAYOUT_jian LAYOUT
