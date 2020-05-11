@@ -1,6 +1,6 @@
 # HD44780 LCD Displays
 
-This is an integration of Peter Fleury's LCD library. This page will explain the basics. [For in depth documentation visit his page.](http://homepage.hispeed.ch/peterfleury/doxygen/avr-gcc-libraries/group__pfleury__lcd.html)
+This is an integration of Peter Fleury's LCD library. This page will explain the basics. [For in depth documentation visit his page.](http://www.peterfleury.epizy.com/doxygen/avr-gcc-libraries/group__pfleury__lcd.html)
 
 You can enable support for HD44780 Displays by setting the `HD44780_ENABLE` flag in your keyboards `rules.mk` to yes.
 
@@ -54,4 +54,4 @@ To do so call `lcd_clrsrc()`.
 
 To now print something to your Display you first call `lcd_gotoxy(column, line)`. To go to the start of the first line you would call `lcd_gotoxy(0, 0)` and then print a string with `lcd_puts("example string")`.
 
-There are more methods available to control the display. [For in depth documentation please visit the linked page.](http://homepage.hispeed.ch/peterfleury/doxygen/avr-gcc-libraries/group__pfleury__lcd.html)
+There are more methods available to control the display. [For in depth documentation please visit the linked page.](http://www.peterfleury.epizy.com/doxygen/avr-gcc-libraries/group__pfleury__lcd.html)
