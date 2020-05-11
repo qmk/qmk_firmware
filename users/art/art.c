@@ -166,7 +166,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
 
     /* -------------------------------------------------------------------------
-     *                            CUSTOM KEYCODES
+     *                            CUSTOM MACROS
      * ------------------------------------------------------------------------ */
     case CTRL_CTV:
       if (record->event.pressed) {
@@ -254,6 +254,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
+    /* -------------------------------------------------------------------------
+     *                            STRING MACROS
+     * ------------------------------------------------------------------------ */
     // case :
     //   if (record->event.pressed) {
     //     send_string_remembering_length("");
@@ -261,14 +264,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     //   break;
     // case :
     //   if (record->event.pressed) {
-    //     if ( get_mods() & MOD_MASK_SHIFT ) {
-    //       clear_mods();
-    //       SEND_STRING("");
-    //       char_to_del = ;
-    //     } else {
-    //       SEND_STRING("");
-    //       char_to_del = ;
-    //     }
+    //     send_string_remembering_length("", "");
     //   }
     //   break;
     case TILD_BLOCK:
