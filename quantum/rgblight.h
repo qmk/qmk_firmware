@@ -59,6 +59,12 @@
 |       34        | RGBLIGHT_MODE_STATIC_GRADIENT + 9 |
 |       35        | RGBLIGHT_MODE_RGB_TEST            |
 |       36        | RGBLIGHT_MODE_ALTERNATING         |
+|       37        | RGBLIGHT_MODE_TWINKLE             |
+|       38        | RGBLIGHT_MODE_TWINKLE + 1         |
+|       39        | RGBLIGHT_MODE_TWINKLE + 2         |
+|       40        | RGBLIGHT_MODE_TWINKLE + 3         |
+|       41        | RGBLIGHT_MODE_TWINKLE + 4         |
+|       42        | RGBLIGHT_MODE_TWINKLE + 5         |
 |-----------------|-----------------------------------|
  *****/
 
@@ -73,6 +79,7 @@
 #    define RGBLIGHT_EFFECT_STATIC_GRADIENT
 #    define RGBLIGHT_EFFECT_RGB_TEST
 #    define RGBLIGHT_EFFECT_ALTERNATING
+#    define RGBLIGHT_EFFECT_TWINKLE
 #endif
 
 #ifdef RGBLIGHT_STATIC_PATTERNS
@@ -89,7 +96,8 @@
   || defined(RGBLIGHT_EFFECT_KNIGHT)        \
   || defined(RGBLIGHT_EFFECT_CHRISTMAS)     \
   || defined(RGBLIGHT_EFFECT_RGB_TEST)      \
-  || defined(RGBLIGHT_EFFECT_ALTERNATING)
+  || defined(RGBLIGHT_EFFECT_ALTERNATING)   \
+  || defined(RGBLIGHT_EFFECT_TWINKLE)
 #    define RGBLIGHT_USE_TIMER
 #endif
 
@@ -139,6 +147,14 @@ enum RGBLIGHT_EFFECT_MODE {
 
 #    ifndef RGBLIGHT_EFFECT_CHRISTMAS_STEP
 #        define RGBLIGHT_EFFECT_CHRISTMAS_STEP 2
+#    endif
+
+#    ifndef RGBLIGHT_EFFECT_TWINKLE_LIFE
+#        define RGBLIGHT_EFFECT_TWINKLE_LIFE 75
+#    endif
+
+#    ifndef RGBLIGHT_EFFECT_TWINKLE_PROBABILITY
+#        define RGBLIGHT_EFFECT_TWINKLE_PROBABILITY 1 / 127
 #    endif
 
 #    ifndef RGBLIGHT_HUE_STEP
@@ -192,6 +208,12 @@ bool rgblight_get_layer_state(uint8_t layer);
 
 // Point this to an array of rgblight_segment_t arrays in keyboard_post_init_user to use rgblight layers
 extern const rgblight_segment_t *const *rgblight_layers;
+
+#        ifdef RGBLIGHT_LAYER_BLINK
+#            define RGBLIGHT_USE_TIMER
+void rgblight_blink_layer(uint8_t layer, uint16_t duration_ms);
+#        endif
+
 #    endif
 
 extern LED_TYPE led[RGBLED_NUM];
@@ -202,6 +224,7 @@ extern const uint8_t  RGBLED_RAINBOW_SWIRL_INTERVALS[3] PROGMEM;
 extern const uint8_t  RGBLED_SNAKE_INTERVALS[3] PROGMEM;
 extern const uint8_t  RGBLED_KNIGHT_INTERVALS[3] PROGMEM;
 extern const uint16_t RGBLED_RGBTEST_INTERVALS[1] PROGMEM;
+extern const uint8_t  RGBLED_TWINKLE_INTERVALS[3] PROGMEM;
 extern bool           is_rgblight_initialized;
 
 // Should stay in sycn with rgb matrix config as we reuse eeprom storage for both (for now)
@@ -392,6 +415,7 @@ void rgblight_effect_knight(animation_status_t *anim);
 void rgblight_effect_christmas(animation_status_t *anim);
 void rgblight_effect_rgbtest(animation_status_t *anim);
 void rgblight_effect_alternating(animation_status_t *anim);
+void rgblight_effect_twinkle(animation_status_t *anim);
 
 #    endif
 
