@@ -5,12 +5,10 @@ enum jian_layers {
   _DVORAK,
   _COLEMAK,
   _WORKMAN,
-  _ISO,
   _LOWER,
   _RAISE,
   _ADJUST,
-  _BCKLT_ADJ,
-  _THUMB_ALT,
+  _BCKLT_ADJ
 };
 
 enum jian_keycodes {
@@ -76,31 +74,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = SYMM_LAYOUT(\
   RESET,   DEBUG,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
            XXXXXXX,        WORKMAN, COLEMAK, DVORAK,  QWERTY,  XXXXXXX, \
-           TG(_BCKLT_ADJ), XXXXXXX, XXXXXXX, XXXXXXX, TG(_ISO),TG(_THUMB_ALT), \
+           TG(_BCKLT_ADJ), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
                                              _______, SW_TG,   _______  \
 ),
+
 #if defined(RGBLIGHT) | defined(BACKLIGHT_ENABLE)
 [_BCKLT_ADJ] = SYMM_LAYOUT(\
   XXXXXXX, XXXXXXX,        XXXXXXX, BL_INC,  RGB_VAI, RGB_HUD, RGB_HUI, \
            XXXXXXX,        XXXXXXX, BL_DEC,  RGB_VAD, RGB_SAD, RGB_SAI, \
            TG(_BCKLT_ADJ), BL_BRTG, BL_TOGG, RGB_TOG, RGB_RMOD,RGB_MOD, \
                                              _______, _______, _______  \
-),
-#endif // defined(RGBLIGHT) | defined(BACKLIGHT_ENABLE)
-
-[_THUMB_ALT] = LAYOUT(\
-  _______, _______, _______, _______, _______,         _______,         _______,              _______,         _______,        _______, _______, _______, _______, _______, \
-           _______, _______, _______, _______,         _______,         _______,              _______,         _______,        _______, _______, _______, _______, \
-           _______, _______, _______, _______,         _______,         _______,              _______,         _______,        _______, _______, _______, _______, \
-                                      RAISE_T(KC_DEL), LSFT_T(KC_BSPC), LOWER_T(KC_ESC),      LOWER_T(KC_ENT), RSFT_T(KC_SPC), RAISE_T(KC_TAB) \
-),
-
-[_ISO] = LAYOUT(\
-  _______, _______,         _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, _______, _______, \
-           LCTL_T(KC_NUBS), _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, _______, \
-           LALT_T(KC_NUHS), _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, KC_RALT, \
-                                              _______, _______, _______,      _______, _______, _______\
 )
+#endif // defined(RGBLIGHT) | defined(BACKLIGHT_ENABLE)
 
 };
 

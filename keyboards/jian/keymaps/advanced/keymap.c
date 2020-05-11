@@ -1,5 +1,15 @@
 #include QMK_KEYBOARD_H
 
+typedef union {
+  uint32_t raw;
+  struct {
+    bool thumb_alt :1;
+    bool iso       :1;
+  };
+} user_config_t;
+
+user_config_t user_config;
+
 #ifdef STENO_ENABLE
 #include "keymap_steno.h"
 #endif // STENO_ENABLE
@@ -89,6 +99,8 @@ enum jian_keycodes {
   PLOVER,
   EXT_PLV,
   EXT_RGB,
+  ISO,
+  THUMB_ALT,
 #ifdef DIPS_ENABLE
   LAYOUT0,
   LAYOUT1,
@@ -118,8 +130,6 @@ static uint8_t layout_conversion_dip_state = 0;
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 
-#define TG_ISO  TG(_ISO)
-#define TG_THMB TG(_THUMB_ALT)
 #define BL_ADJ  TG(_BCKLT_ADJ)
 #define TG_LWR  TG(_LOWER)
 #define TG_RSE  TG(_RAISE)
@@ -198,7 +208,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = SYMM_LAYOUT(\
   RESET,   DEBUG,   KC_ASUP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
            KC_ASRP, KC_ASTG, XXXXXXX, XXXXXXX, QWERTY,  PLOVER,  \
-           BL_ADJ,  KC_ASDN, XXXXXXX, XXXXXXX, TG_ISO,  TG_THMB, \
+           BL_ADJ,  KC_ASDN, XXXXXXX, XXXXXXX, ISO,     THUMB_ALT, \
                                       _______, SW_TG,   _______  \
 ),
 #if defined(RGBLIGHT) | defined(BACKLIGHT_ENABLE)
@@ -327,6 +337,20 @@ void matrix_init_user(void) {
 #ifdef DIPS_ENABLE
   layer_on(_DIPS);
 #endif // DIPS_ENABLE
+}
+
+void keyboard_post_init_user(void) {
+  user_config.raw = eeconfig_read_user();
+  if (user_config.thumb_alt) {
+     layer_on(_THUMB_ALT);
+  } else {
+     layer_off(_THUMB_ALT);
+  }
+  if (user_config.iso) {
+     layer_on(_ISO);
+  } else {
+     layer_off(_ISO);
+  }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -459,6 +483,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
 #endif // DIPS_ENABLE
+    case THUMB_ALT:
+      if (record->event.pressed) {
+        layer_invert(_THUMB_ALT);
+        user_config.thumb_alt ^= 1;
+        eeconfig_update_user(user_config.raw);
+      }
+      return false;
+      break;
+    case ISO:
+      if (record->event.pressed) {
+        layer_invert(_ISO);
+        user_config.iso ^= 1;
+        eeconfig_update_user(user_config.raw);
+      }
+      return false;
+      break;
   }
   return true;
 }
