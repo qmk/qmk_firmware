@@ -35,10 +35,6 @@ $(error MASTER does not have a valid value(left/right))
     endif
 endif
 
-ifdef SKIP_VERSION
-    OPT_DEFS += -DSKIP_VERSION
-endif
-
 # Determine which subfolders exist.
 KEYBOARD_FOLDER_PATH_1 := $(KEYBOARD)
 KEYBOARD_FOLDER_PATH_2 := $(patsubst %/,%,$(dir $(KEYBOARD_FOLDER_PATH_1)))
