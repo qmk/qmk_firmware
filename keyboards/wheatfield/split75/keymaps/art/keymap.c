@@ -65,7 +65,7 @@ KC_VOLD,KC_VOLU, KC_GRAVE, KC_1,    KC_2,    KC_3,   KC_4,   KC_5,   KC_6,      
 KC_MPRV,KC_MNXT, KC_TAB,   KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,                 KC_Y,   KC_U,   KC_I,    KC_O,   KC_P,    KC_LBRC,  KC_RBRC,  KC_BSLS,           KC_END,
 KC_HOME,KC_END,  KC_CAPS,  KC_A,    KC_S,    KC_D,   KC_F,   KC_G,   KC_H,   KC_J, KC_K, KC_L, KC_SCLN,KC_QUOT,KC_ENTER,         KC_PGUP,
 DYN_MACRO_PLAY1,MO(STRINGS),KC_LSFT,KC_Z,KC_X,KC_C,  KC_V,   KC_B,                 KC_N,   KC_M,   KC_COMM, KC_DOT, LT(GIT,KC_SLSH),                     KC_RSFT,  KC_UP,   KC_PGDN,
-DYN_REC_STOP,DYN_REC_START1,KC_LCTL, KC_LGUI, KC_LALT, LT(MEDIA,KC_SPC), LT(COMBOS,KC_BSPC),            LT(NAV, KC_ENTER),        KC_RALT, MO(LAYOUT_CHG),KC_RCTL,                     KC_LEFT,  KC_DOWN, KC_RIGHT
+DYN_REC_STOP,DYN_REC_START1,KC_LCTL, KC_LGUI, KC_LALT, LT(MEDIA,KC_SPC), LT(COMBOS,KC_BSPC),            LT(NAV, KC_ENTER),        KC_RALT, TT(LAYOUT_CHG),KC_RCTL,                     KC_LEFT,  KC_DOWN, KC_RIGHT
   ),
 
   /* Base          ,-----------------------------------------.     ,-----------------------------------------------------.
@@ -159,7 +159,7 @@ KC_8,  KC_9,    _______,  _______,  _______,  _______,  _______,  _______,  ____
 KC_6,  KC_7,    _______,  _______,  CTL_ALT(KC_HOME),  CTL_ALT(KC_UP),    CTL_ALT(KC_END),   CTL_ALT(KC_PGUP),              _______,  _______,_______, _______,_______,_______,_______,  _______,           _______,
 KC_4,  KC_5,    _______,  _______,  CTL_ALT(KC_LEFT),  CTL_ALT(KC_DOWN),  CTL_ALT(KC_RIGHT), CTL_ALT(KC_PGDOWN),              _______,_______,_______,_______,_______,  _______,  _______,           _______,
 KC_2,  KC_3,    TO(WORKMAN),  _______,  _______,  _______,  _______,  _______,              _______,  _______,   _______,  _______,  _______,                      _______, _______,  _______,
-KC_0,  KC_1,    TO(BASE),  _______,  _______,  _______,  CTL_ALT(KC_BSPC),                        KC_LSFT,             _______, _______,   _______,                      _______, _______,  _______
+KC_0,  KC_1,    TO(BASE),  _______,  _______,  _______,  CTL_ALT(KC_BSPC),                        KC_LSFT,             _______, TO(QWERTY), _______,                      _______, _______,  _______
   ),  
   
   [CONFIG] = LAYOUT(
