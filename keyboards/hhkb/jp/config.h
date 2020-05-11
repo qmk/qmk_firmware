@@ -15,25 +15,20 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xCAFE
+#define VENDOR_ID       0x4848 // HH = happy hacking
+#define PRODUCT_ID      0x0002 // HHKB JP
 #define DEVICE_VER      0x0104
 #define MANUFACTURER    q.m.k
 #define PRODUCT         HHKB mod
 #define DESCRIPTION     q.m.k keyboard firmware for HHKB
 
 /* key matrix size */
-#ifdef HHKB_JP
-#   define MATRIX_ROWS 16
-#else
-#   define MATRIX_ROWS 8
-#endif
+#define MATRIX_ROWS 16
 #define MATRIX_COLS 8
 
 #define TAPPING_TERM    200
@@ -107,5 +102,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-#endif

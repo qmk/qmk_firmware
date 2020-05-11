@@ -1,5 +1,4 @@
-#ifndef HHKB_AVR_H
-#define HHKB_AVR_H
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -67,11 +66,11 @@ static inline void KEY_INIT(void)
     /* key: input with pull-up */
     DDRD  &= ~0x80;
     PORTD |=  0x80;
-#ifdef HHKB_JP
+
     /* row extention for HHKB JP */
     DDRC  |= (1<<6|1<<7);
     PORTC |= (1<<6|1<<7);
-#endif
+
     KEY_UNABLE();
     KEY_PREV_OFF();
 
@@ -80,10 +79,10 @@ static inline void KEY_INIT(void)
 static inline void KEY_SELECT(uint8_t ROW, uint8_t COL)
 {
     PORTB = (PORTB & 0xC0) | (((COL) & 0x07)<<3) | ((ROW) & 0x07);
-#ifdef HHKB_JP
+
     if ((ROW) & 0x08) PORTC = (PORTC & ~(1<<6|1<<7)) | (1<<6);
     else              PORTC = (PORTC & ~(1<<6|1<<7)) | (1<<7);
-#endif
+
 }
 
 
@@ -162,6 +161,4 @@ static inline void KEY_SELECT(uint8_t ROW, uint8_t COL)
     DDRC  &= ~0x0F;                     \
     PORTC &= ~0x0F;                     \
 } while (0)
-#endif
-
 #endif
