@@ -32,6 +32,7 @@ enum layer_names {
 enum custom_keycodes_art {
   CTRL_CTV = SAFE_RANGE,
   CTRL_LCTV,
+  CTRL_CAV,
   SARCASM,
 
   TOG_OS,

@@ -182,13 +182,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         if ( get_mods() & MOD_MASK_SHIFT ) {
           //Firefox
-          SEND_STRING(SS_LCTL("lcPv") SS_TAP(X_ENTER));
+          clear_mods();
+          SEND_STRING(SS_LCTL("lcP"));
+          wait_ms(200);
+          SEND_STRING(SS_LCTL("v") SS_TAP(X_ENTER));
         } else if ( get_mods() & MOD_MASK_CTRL ) {
           //Chrome
+          clear_mods();
           SEND_STRING(SS_LCTL("lcNv") SS_TAP(X_ENTER));
         } else {
           SEND_STRING(SS_LCTL("lctv"));
         }
+      }
+      break;
+    case CTRL_CAV:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LCTL("c" SS_TAP(X_TAB)));
+        wait_ms(50);
+        SEND_STRING(SS_LCTL("av"));
       }
       break;
     case SARCASM:
