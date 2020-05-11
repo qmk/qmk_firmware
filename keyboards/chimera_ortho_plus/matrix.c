@@ -48,16 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static matrix_row_t matrix[MATRIX_ROWS];
 
 __attribute__ ((weak))
-void matrix_init_quantum(void) {
-    matrix_init_kb();
-}
-
-__attribute__ ((weak))
-void matrix_scan_quantum(void) {
-    matrix_scan_kb();
-}
-
-__attribute__ ((weak))
 void matrix_init_kb(void) {
     matrix_init_user();
 }
