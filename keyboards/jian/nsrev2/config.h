@@ -38,9 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { F4, F5, B1, B3, D1, D0, D7, E6 }
 #define MATRIX_COL_PINS { D3, D2, B4, F6, F7, B2 }
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
@@ -130,29 +127,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RESET_SCROLL_LOCK_LED() writePinHigh(SCROLL_LOCK_LED_PIN)
 #define UPDATE_SCROLL_LOCK_LED() writePin(SCROLL_LOCK_LED_PIN, !led_state.scroll_lock)
 #endif // SCROLL_NMOSFET
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
-/* key combination for command */
-// #define IS_COMMAND() (get_mods() == MOD_MASK_SHIFT)
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-// #define NO_DEBUG
-
-/* disable print */
-// #define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
