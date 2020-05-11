@@ -52,29 +52,19 @@ void matrix_init_kb(void) {
 };
 
 #ifdef PHYSICAL_LEDS_ENABLE
-void led_set_kb(uint8_t usb_led)
-{
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
 #ifdef NUM_LOCK_LED_PIN
-   if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-        SET_NUM_LOCK_LED();
-    } else {
-        RESET_NUM_LOCK_LED();
-    }
+        UPDATE_NUM_LOCK_LED();
 #endif // NUM_LOCK_LED_PIN
 #ifdef CAPS_LOCK_LED_PIN
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        SET_CAPS_LOCK_LED();
-    } else {
-        RESET_CAPS_LOCK_LED();
-    }
+        UPDATE_CAPS_LOCK_LED();
 #endif // CAPS_LOCK_LED_PIN
 #ifdef SCROLL_LOCK_LED_PIN
-    if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-        SET_SCROLL_LOCK_LED();
-    } else {
-        RESET_SCROLL_LOCK_LED();
-    }
+        UPDATE_SCROLL_LOCK_LED();
 #endif // SCROLL_LOCK_LED_PIN
-    led_set_user(usb_led);
+    }
+    return res;
 }
 #endif // PHYSICAL_LEDS_ENABLE
