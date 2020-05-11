@@ -91,11 +91,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CAPS_LOCK_LED_PIN B5
 // #define SCROLL_LOCK_LED_PIN B6
 
-// #define NUM_LOCK_INVERT  //uncomment this if you using n-mosfet
-// #define CAPS_LOCK_INVERT  //uncomment this if you using n-mosfet
-// #define SCROLL_LOCK_INVERT  //uncomment this if you using n-mosfet
+// #define NUM_NMOSFET  //uncomment this if you using n-mosfet
+// #define CAPS_NMOSFET  //uncomment this if you using n-mosfet
+// #define SCROLL_NMOSFET  //uncomment this if you using n-mosfet
 
-#ifdef NUM_LOCK_INVERT
+#ifdef NUM_NMOSFET
 #define SET_NUM_LOCK_LED() writePinHigh(NUM_LOCK_LED_PIN)
 #define RESET_NUM_LOCK_LED() writePinLow(NUM_LOCK_LED_PIN)
 #define UPDATE_NUM_LOCK_LED() writePin(NUM_LOCK_LED_PIN, led_state.num_lock)
@@ -103,9 +103,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SET_NUM_LOCK_LED() writePinLow(NUM_LOCK_LED_PIN)
 #define RESET_NUM_LOCK_LED() writePinHigh(NUM_LOCK_LED_PIN)
 #define UPDATE_NUM_LOCK_LED() writePin(NUM_LOCK_LED_PIN, !led_state.num_lock)
-#endif // NUM_LOCK_INVERT
+#endif // NUM_NMOSFET
 
-#ifdef CAPS_LOCK_INVERT
+#ifdef CAPS_NMOSFET
 #define SET_CAPS_LOCK_LED() writePinHigh(CAPS_LOCK_LED_PIN)
 #define RESET_CAPS_LOCK_LED() writePinLow(CAPS_LOCK_LED_PIN)
 #define UPDATE_CAPS_LOCK_LED() writePin(CAPS_LOCK_LED_PIN, led_state.caps_lock)
@@ -113,9 +113,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SET_CAPS_LOCK_LED() writePinLow(CAPS_LOCK_LED_PIN)
 #define RESET_CAPS_LOCK_LED() writePinHigh(CAPS_LOCK_LED_PIN)
 #define UPDATE_CAPS_LOCK_LED() writePin(CAPS_LOCK_LED_PIN, !led_state.caps_lock)
-#endif // CAPS_LOCK_INVERT
+#endif // CAPS_NMOSFET
 
-#ifdef SCROLL_LOCK_INVERT
+#ifdef SCROLL_NMOSFET
 #define SET_SCROLL_LOCK_LED() writePinHigh(SCROLL_LOCK_LED_PIN)
 #define RESET_SCROLL_LOCK_LED() writePinLow(SCROLL_LOCK_LED_PIN)
 #define UPDATE_SCROLL_LOCK_LED() writePin(SCROLL_LOCK_LED_PIN, led_state.scroll_lock)
@@ -123,7 +123,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SET_SCROLL_LOCK_LED() writePinLow(SCROLL_LOCK_LED_PIN)
 #define RESET_SCROLL_LOCK_LED() writePinHigh(SCROLL_LOCK_LED_PIN)
 #define UPDATE_SCROLL_LOCK_LED() writePin(SCROLL_LOCK_LED_PIN, !led_state.scroll_lock)
-#endif // SCROLL_LOCK_INVERT
+#endif // SCROLL_NMOSFET
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
