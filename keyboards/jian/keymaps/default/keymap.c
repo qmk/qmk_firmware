@@ -23,7 +23,6 @@ enum jian_keycodes {
 #define RAISE_T(kc) LT(_RAISE, kc)
 #define LOWER_T(kc) LT(_LOWER, kc)
 
-
 #ifdef SWAP_HANDS_ENABLE
 #define SW_TG SH_TG
 #else
@@ -101,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            LCTL_T(KC_NUBS), _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, _______, \
            LALT_T(KC_NUHS), _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, KC_RALT, \
                                               _______, _______, _______,      _______, _______, _______\
-),
+)
 
 };
 
