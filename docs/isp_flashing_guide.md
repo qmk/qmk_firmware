@@ -126,7 +126,7 @@ You can find the stock bootloaders in the [`util/` folder](https://github.com/qm
 * **BootloadHID (PS2AVRGB)**
   * [ATmega32A](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_ps2avrgb_bootloadhid_1.0.1.hex)
 
-If you're not sure what your board uses, look in the `rules.mk` file for the keyboard in QMK. The `MCU =` line will have the value you need. It may differ between different versions of the board.
+If you're not sure what your board uses, look in the `rules.mk` file for the keyboard in QMK. The `MCU` and `BOOTLOADER` lines will have the value you need. It may differ between different versions of the board.
 
 ### Production Techniques
 
