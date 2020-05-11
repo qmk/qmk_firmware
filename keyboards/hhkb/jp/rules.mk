@@ -49,7 +49,7 @@ OPT_DEFS += -DHHKB_RN42_ENABLE
 # HHKB Alt controller.
 RN42_DIR = ../rn42
 
-SRC +=  ../serial_uart.c \
+SRC +=  serial_uart.c \
 	../rn42/suart.S \
 	../rn42/rn42.c \
 	../rn42/rn42_task.c \
