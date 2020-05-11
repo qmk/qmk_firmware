@@ -86,7 +86,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RESET_SCROLL_LOCK_LED() writePinHigh(SCROLL_LOCK_LED_PIN)
 #define UPDATE_SCROLL_LOCK_LED() writePin(SCROLL_LOCK_LED_PIN, !led_state.scroll_lock)
 #endif // SCROLL_LOCK_INVERT
-endif // SCROLL_LOCK_INVERT
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
