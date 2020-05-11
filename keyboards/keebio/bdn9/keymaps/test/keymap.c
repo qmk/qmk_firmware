@@ -27,23 +27,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == _LEFT) {
         if (clockwise) {
-            tap_code(KC_1);
+            rgblight_increase_hue();
         } else {
-            tap_code(KC_2);
+            rgblight_decrease_hue();
         }
     }
     else if (index == _MIDDLE) {
         if (clockwise) {
-            tap_code(KC_3);
+            rgblight_increase_sat();
         } else {
-            tap_code(KC_4);
+            rgblight_decrease_sat();
         }
     }
     else if (index == _RIGHT) {
         if (clockwise) {
-            tap_code(KC_5);
+            rgblight_increase_val();
         } else {
-            tap_code(KC_6);
+            rgblight_decrease_val();
         }
     }
 }
