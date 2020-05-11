@@ -3,13 +3,18 @@
 #define PRODUCT_ID   0x6002
 #define DEVICE_VER   0x0001
 
-
+#ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN A15
 #define RGBLED_NUM      18
+#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8
+#endif
 
+//rgb matrix setting
 #define DRIVER_ADDR_1 0b1110100
-#define DRIVER_ADDR_2 0b1110110
-
+#define DRIVER_ADDR_2 0b1110111
 #define DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 36
 #define DRIVER_2_LED_TOTAL 34
