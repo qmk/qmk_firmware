@@ -4,6 +4,7 @@
 #define KC_XXX KC_NO
 
 #define KC_CESC CTRLESC
+#define KC__CSP LCTL_T(KC_SPACE)
 
 #define KC__FN1 MO(_FN1)
 #define KC__FN2 MO(_FN2)

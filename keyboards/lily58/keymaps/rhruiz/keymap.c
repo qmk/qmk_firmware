@@ -3,7 +3,6 @@
 #include "layouts/kc_keys.h"
 
 #define KC__GFN1 MO(_GAMEFN1)
-#define KC__CSP LCTL_T(KC_SPACE)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
