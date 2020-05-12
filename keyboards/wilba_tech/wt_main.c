@@ -28,7 +28,6 @@
 
 #ifndef VIA_ENABLE
 #include "tmk_core/common/eeprom.h"
-#include "version.h" // for QMK_BUILDDATE used in EEPROM magic
 #endif
 
 // Called from via_init() if VIA_ENABLE
@@ -166,10 +165,10 @@ void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
 
 bool via_eeprom_is_valid(void)
 {
-    char *p = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
-    uint8_t magic0 = ( ( p[2] & 0x0F ) << 4 ) | ( p[3]  & 0x0F );
-    uint8_t magic1 = ( ( p[5] & 0x0F ) << 4 ) | ( p[6]  & 0x0F );
-    uint8_t magic2 = ( ( p[8] & 0x0F ) << 4 ) | ( p[9]  & 0x0F );
+    char *  p      = __DATE__; // e.g. "Jun 12 2021"
+    uint8_t magic0 = (p[0] + p[1] + p[2]);
+    uint8_t magic1 = ((p[4] & 0x0F) << 4) | (p[5] & 0x0F);
+    uint8_t magic2 = ((p[9] & 0x0F) << 4) | (p[10] & 0x0F);
 
     return (eeprom_read_byte( (void*)VIA_EEPROM_MAGIC_ADDR+0 ) == magic0 &&
             eeprom_read_byte( (void*)VIA_EEPROM_MAGIC_ADDR+1 ) == magic1 &&
