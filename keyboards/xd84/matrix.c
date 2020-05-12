@@ -82,14 +82,14 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
 //_____CUSTOM MATRIX IMPLEMENTATION____________________________________________________
 
-void custom_matrix_init(void) {
+void matrix_init_custom(void) {
     pca9555_init(IC1);
     pca9555_init(IC2);
 
     init_pins();
 }
 
-bool custom_matrix_scan(matrix_row_t current_matrix[]) {
+bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     bool changed = false;
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
         changed |= read_cols_on_row(current_matrix, current_row);

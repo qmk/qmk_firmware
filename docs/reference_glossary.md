@@ -46,9 +46,6 @@ An IDE that is popular with many C developers.
 ## Firmware
 The software that controls your MCU.
 
-## FLIP
-Software provided by Atmel for flashing AVR devices. We generally recommend [QMK Flasher](https://github.com/qmk/qmk_flasher) instead, but for some advanced use cases FLIP is required.
-
 ## git
 Versioning software used at the command line
 
