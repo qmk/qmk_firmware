@@ -53,7 +53,7 @@
 //                             |----+----+----+----+----|
 #define ________L_LWR_2________  _____SYMBOLS_LEFT_____
 //                             |----+----+----+----+----|
-#define ________L_LWR_3________ BSLS,LCBR,RCBR,MINS,LPRN
+#define ________L_LWR_3________ BSLS,LCBR,RCBR,MINS, EQL
 //                             |----+----+----+----+----|
 #define ________L_LWR_4________ EPIP,LBRC,RBRC,    ,
 //                             `----+----+----+----+----'
@@ -63,7 +63,7 @@
 //                             |----+----+----+----+----|
 #define ________R_LWR_2________  _____SYMBOLS_RGHT_____
 //                             |----+----+----+----+----|
-#define ________R_LWR_3________ RPRN,UNDS,RPRN,LPRN,COLN
+#define ________R_LWR_3________ PLUS,UNDS,RPRN,LPRN,COLN
 //                             |----+----+----+----+----|
 #define ________R_LWR_4________     ,    , LT , GT ,QUES
 //                             `----+----+----+----+----'
