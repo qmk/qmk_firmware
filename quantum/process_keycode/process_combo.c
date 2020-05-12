@@ -28,7 +28,7 @@ extern int      COMBO_LEN;
 __attribute__((weak)) void process_combo_event(uint8_t combo_index, bool pressed) {}
 
 static uint16_t timer               = 0;
-static uint8_t  current_combo_index = 0;
+static uint8_t  active_combo_index  = 0;
 static bool     is_active           = true;
 static bool     b_combo_enable      = true;  // defaults to enabled
 static combo_t  *active_combo       = NULL;
@@ -44,7 +44,7 @@ static inline void send_combo(uint16_t action, bool pressed) {
             unregister_code16(action);
         }
     } else {
-        process_combo_event(current_combo_index, pressed);
+        process_combo_event(active_combo_index, pressed);
     }
 }
 
@@ -79,7 +79,7 @@ void fire_combo(void) {
         combo->state &= ~(1 << key); \
     } while (0)
 
-static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *record) {
+static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *record, uint8_t combo_index) {
     uint8_t count = 0;
     uint8_t index = -1;
     /* Find index of keycode and number of combo keys */
@@ -89,7 +89,7 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
         if (COMBO_END == key) break;
     }
 
-    /* Continue processing if current combo doesn't own this key.
+    /* Continue processing if key isn't part of current combo.
      * Also disable current combo and reset its state. */
     if (-1 == (int8_t)index) {
         combo->disabled = true;
@@ -105,12 +105,13 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
             if (ALL_COMBO_KEYS_ARE_DOWN) { /* Combo was pressed */
                 /* Save the combo so we can fire it after COMBO_TERM */
                 active_combo = combo;
+                active_combo_index = combo_index;
             }
         }
     } else {
         if (ALL_COMBO_KEYS_ARE_DOWN) { /* Combo was released */
             if (active_combo && !active_combo->disabled) {
-                /* Fire combo immediately it was released inside COMBO_TERM */
+                /* Fire combo immediately if it was released inside COMBO_TERM */
                 fire_combo();
             }
             send_combo(combo->keycode, false);
@@ -150,12 +151,12 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
         return true;
     }
 #ifndef COMBO_VARIABLE_LEN
-    for (current_combo_index = 0; current_combo_index < COMBO_COUNT; ++current_combo_index) {
+    for (uint8_t idx = 0; idx < COMBO_COUNT; ++idx) {
 #else
-    for (current_combo_index = 0; current_combo_index < COMBO_LEN; ++current_combo_index) {
+    for (uint8_t idx = 0; idx < COMBO_LEN; ++idx) {
 #endif
-        combo_t *combo = &key_combos[current_combo_index];
-        is_combo_key |= process_single_combo(combo, keycode, record);
+        combo_t *combo = &key_combos[idx];
+        is_combo_key |= process_single_combo(combo, keycode, record, idx);
         no_combo_keys_pressed = no_combo_keys_pressed && NO_COMBO_KEYS_ARE_DOWN;
     }
 
