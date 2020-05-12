@@ -25,6 +25,7 @@ enum layers {
   _VIM,
   _MOUSE,
   _MEDIA,
+  _GAME,
 };
 
 signed int fwdCounter = 0;
@@ -36,34 +37,51 @@ signed int bwdCounter = 0;
 #define ADJUST   MO(_ADJUST)
 #define QWERTY   TG(_QWERTY)
 #define MOUSE    TG(_MOUSE)
-#define MEDIA    TG(_MEDIA)
+#define MEDIA    MO(_MEDIA)
 #define VIM      LT(_VIM, KC_TAB)
+#define GAME     TG(_GAME)
 #define NAV      LT(_NAV, KC_SPC)
 
 //Mods
 #define CTL_ESC  LCTL_T(KC_ESC)
 #define ALGR_DN  ALGR_T(KC_DOWN)
-#define SHFT_ENT MT(KC_LSFT, KC_ENT)
-#define PRV_PLY  MT(KC_MPRV, KC_MPLY)
-#define NXT_PLY  MT(KC_MNXT, KC_MPLY)
+#define SHFT_ENT LSFT_T(KC_ENT)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Qwerty
  * ,-----------------------------------------------------------------------------------.
- * |VimTab|   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+ * |  Tab |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |CrEsc |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   Z  |   X  |  C   |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
+ * | Shift|   Z  |   X  |  C   |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |SEntr |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Media| Alt  | GUI  |Lower | Space|Space | Space|Space |Raise | Down |  Up  |Mute  |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_ortho_4x12( \
-  VIM,     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
-  CTL_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SHFT_ENT , \
-  MEDIA,   KC_LGUI, KC_LALT, LOWER,   NAV,     NAV,     NAV,     NAV,     RAISE,   ALGR_DN, KC_UP,   KC_MUTE \
+   KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,       KC_I,    KC_O,    KC_P,  KC_BSPC, \
+  CTL_ESC,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,       KC_K,    KC_L, KC_SCLN,  KC_QUOT, \
+  KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM,  KC_DOT, KC_SLSH, SHFT_ENT, \
+    MEDIA, KC_LGUI, KC_LALT,   LOWER,  KC_SPC,  KC_SPC,     NAV,     NAV,      RAISE, ALGR_DN,   KC_UP,  KC_MUTE \
+),
+
+/* Game
+ * ,-----------------------------------------------------------------------------------.
+ * |  Tab |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |CrEsc |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * | Shift|   Z  |   X  |  C   |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | GAME | Esc  | Esc  | LAlt | Space|Space | NAV  |  NAV |Raise | Down |  Up  |Mute  |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_GAME] = LAYOUT_ortho_4x12( \
+   KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,       KC_I,    KC_O,    KC_P,  KC_BSPC, \
+  KC_LCTL,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,       KC_K,    KC_L, KC_SCLN,  KC_QUOT, \
+  KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM,  KC_DOT, KC_SLSH,   KC_ENT, \
+     GAME,  KC_ESC,  KC_ESC, KC_LALT,  KC_SPC,  KC_SPC,     NAV,     NAV,      RAISE, KC_DOWN,   KC_UP,  KC_MUTE \
 ),
 
 /* Vim
@@ -74,14 +92,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |  C   |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Alt  | GUI  |Lower | Space|Space | Space|Space |Raise |  F3  | CrP  |   *  |
+ * | VIM  | GUI  | LAlt |Lower | Space|Space | Space|Space |Raise |  F3  | CrP  |   *  |
  * `-----------------------------------------------------------------------------------'
  */
 [_VIM] = LAYOUT_ortho_4x12( \
-  KC_TAB,         KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,         KC_BSPC, \
-  LCTL_T(KC_ESC), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,      KC_QUOT, \
-  KC_LSFT,        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,      KC_ENT , \
-  KC_LCTL,        KC_LGUI, KC_LALT, LOWER,   NAV,     NAV,     NAV,     NAV,     RAISE,   KC_F3,   LCTL_T(KC_P), KC_ASTR \
+          KC_TAB,    KC_Q,    KC_W,  KC_E, KC_R, KC_T, KC_Y, KC_U,    KC_I,   KC_O,         KC_P, KC_BSPC, \
+  LCTL_T(KC_ESC),    KC_A,    KC_S,  KC_D, KC_F, KC_G, KC_H, KC_J,    KC_K,   KC_L,      KC_SCLN, KC_QUOT, \
+         KC_LSFT,    KC_Z,    KC_X,  KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT,      KC_SLSH,  KC_ENT, \
+             VIM, KC_LGUI, KC_LALT, LOWER,  NAV,  NAV,  NAV,  NAV,   RAISE,  KC_F3, LCTL_T(KC_P), KC_ASTR \
 ),
 
 /* Lower
@@ -99,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC, \
   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,  KC_F5,   KC_F6,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
   _______, KC_F7,   KC_F8,   KC_F9,   KC_F10, KC_F11,  KC_F12,  BL_TOGG, BL_INC , BL_DEC , _______, _______, \
-  _______, _______, _______, _______, KC_DEL, KC_DEL,  KC_BSPC, KC_BSPC, _______, KC_LEFT, KC_RGHT, KC_MPLY \
+    MOUSE, _______, _______, _______, KC_DEL, KC_DEL,  KC_BSPC, KC_BSPC, _______, KC_LEFT, KC_RGHT, KC_MPLY \
 ),
 
 /* Raise
@@ -114,10 +132,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_ortho_4x12( \
-  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
-  _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS, \
-  _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUHS, KC_NUBS, _______, _______, _______, \
-  _______, _______, _______, _______, KC_DEL,  KC_DEL,  KC_BSPC, KC_BSPC, _______, KC_LEFT, KC_RGHT, KC_MPLY \
+   KC_GRV,  KC_1,    KC_2,    KC_3,   KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC, \
+  _______, KC_F1,   KC_F2,   KC_F3,  KC_F4,   KC_F5,   KC_F6, KC_MINS,  KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS, \
+  _______, KC_F7,   KC_F8,   KC_F9, KC_F10,  KC_F11,  KC_F12, KC_NUHS, KC_NUBS, _______, _______, _______, \
+     GAME,   VIM, _______, _______, KC_DEL,  KC_DEL, KC_BSPC, KC_BSPC, _______, KC_LEFT, KC_RGHT, KC_MPLY \
 ),
 
 /* Navigation
@@ -132,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_NAV] =  LAYOUT_ortho_4x12( \
-  _______, _______, KC_UP,   _______, _______, _______, _______, _______, KC_INS,  _______, KC_PSCR, KC_DEL, \
+   QWERTY, _______, KC_UP,   _______, _______, _______, _______, _______, KC_INS,  _______, KC_PSCR, KC_DEL, \
   _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, _______, KC_PGUP, _______,\
   _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME,  KC_END, KC_PGDN, _______,\
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, LGUI(KC_TAB) \
@@ -171,7 +189,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, KC_UP,   _______, _______, _______, _______, _______, _______, _______, _______, _______, \
   _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, _______, _______, _______,\
   _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPRV, KC_MNXT, KC_MSTP, _______, _______, _______, _______, _______,\
-  MEDIA, _______, _______, _______, PRV_PLY, PRV_PLY, NXT_PLY, NXT_PLY, _______, _______, _______, KC_MPLY \
+    MEDIA, _______, _______, _______, KC_MPRV, KC_MPRV, KC_MNXT, KC_MNXT, _______, _______, _______, KC_MPLY \
 ),
 
 /* Adjust (Lower + Raise)
@@ -189,7 +207,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   EEP_RST, RESET,   DEBUG,   _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,\
   _______, _______, RGB_TOG, RGB_MOD, _______, _______, _______, _______, _______, _______, _______, _______,\
-  _______, BL_TOGG, BL_INC,  BL_DEC , _______, _______, _______, _______, _______, KC_BRID, KC_BRIU, MOUSE \
+   QWERTY, BL_TOGG, BL_INC,  BL_DEC , _______, _______, _______, _______, _______, KC_BRID, KC_BRIU,   MOUSE \
 )
 };
 
@@ -207,9 +225,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+void keyboard_post_init_user(void) {
+  // Customise these values to desired behaviour
+  debug_enable=true;
+  debug_matrix=true;
+  debug_keyboard=true;
+  debug_mouse=true;
+}
+
 void encoder_update_user(uint8_t index, bool clockwise) {
 
   switch (biton32(layer_state)) {
+    case 8:
+      if (clockwise) {
+        tap_code(KC_VOLU);
+      } else {
+        tap_code(KC_VOLD);
+      }
+      break;
     case 6:
       if (clockwise) {
         tap_code(KC_WH_U);
