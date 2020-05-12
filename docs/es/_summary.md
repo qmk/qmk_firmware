@@ -98,6 +98,7 @@
   * [Guía de flasheado de ISP](es/isp_flashing_guide.md)
   * [Guía de depuración de ARM](es/arm_debugging.md)
   * [Driver I2C](es/i2c_driver.md)
+  * [Driver SPI](es/spi_driver.md)
   * [Controles GPIO](es/internals_gpio_control.md)
   * [Conversión Proton C](es/proton_c_conversion.md)
 

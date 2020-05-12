@@ -15,25 +15,50 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <avr/eeprom.h>
 #include <avr/wdt.h>
+#include <util/delay.h>
 #include <stdint.h>
 #include "usbdrv.h"
 #include "usbconfig.h"
 #include "host.h"
 #include "report.h"
-#include "print.h"
-#include "debug.h"
 #include "host_driver.h"
 #include "vusb.h"
-#include <util/delay.h>
+#include "print.h"
+#include "debug.h"
 
-#if defined(RAW_ENABLE)
+#ifdef RAW_ENABLE
 #    include "raw_hid.h"
 #endif
 
-#if (defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)) && defined(RAW_ENABLE)
-#    error "Enabling Mousekeys/Extrakeys and Raw HID at the same time is not currently supported on V-USB."
+#if defined(CONSOLE_ENABLE)
+#    define RBUF_SIZE 128
+#    include "ring_buffer.h"
+#endif
+
+#define NEXT_INTERFACE __COUNTER__
+
+/*
+ * Interface indexes
+ */
+enum usb_interfaces {
+    KEYBOARD_INTERFACE = NEXT_INTERFACE,
+#if (defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE))
+    MOUSE_EXTRA_INTERFACE = NEXT_INTERFACE,
+#endif
+#ifdef RAW_ENABLE
+    RAW_INTERFACE = NEXT_INTERFACE,
+#endif
+#ifdef CONSOLE_ENABLE
+    CONSOLE_INTERFACE = NEXT_INTERFACE,
+#endif
+    TOTAL_INTERFACES = NEXT_INTERFACE,
+};
+
+#define MAX_INTERFACES 2
+
+#if (NEXT_INTERFACE - 1) > MAX_INTERFACES
+#    error There are not enough available interfaces to support all functions. Please disable one or more of the following: Mouse Keys, Extra Keys, Raw HID, Console
 #endif
 
 static uint8_t vusb_keyboard_leds = 0;
@@ -120,7 +145,60 @@ void raw_hid_task(void) {
         raw_output_received_bytes = 0;
     }
 }
+#endif
 
+/*------------------------------------------------------------------*
+ * Console
+ *------------------------------------------------------------------*/
+#ifdef CONSOLE_ENABLE
+#    define CONSOLE_BUFFER_SIZE 32
+#    define CONSOLE_EPSIZE 8
+
+int8_t sendchar(uint8_t c) {
+    rbuf_enqueue(c);
+    return 0;
+}
+
+static inline bool usbSendData3(char *data, uint8_t len) {
+    uint8_t retries = 5;
+    while (!usbInterruptIsReady3()) {
+        if (!(retries--)) {
+            return false;
+        }
+        usbPoll();
+    }
+
+    usbSetInterrupt3((unsigned char *)data, len);
+    return true;
+}
+
+void console_task(void) {
+    if (!usbConfiguration) {
+        return;
+    }
+
+    if (!rbuf_has_data()) {
+        return;
+    }
+
+    // Send in chunks of 8 padded to 32
+    char    send_buf[CONSOLE_BUFFER_SIZE] = {0};
+    uint8_t send_buf_count                = 0;
+    while (rbuf_has_data() && send_buf_count < CONSOLE_EPSIZE) {
+        send_buf[send_buf_count++] = rbuf_dequeue();
+    }
+
+    char *temp = send_buf;
+    for (uint8_t i = 0; i < 4; i++) {
+        if (!usbSendData3(temp, 8)) {
+            break;
+        }
+        temp += 8;
+    }
+
+    usbSendData3(0, 0);
+    usbPoll();
+}
 #endif
 
 /*------------------------------------------------------------------*
@@ -158,7 +236,7 @@ typedef struct {
 } __attribute__((packed)) vusb_mouse_report_t;
 
 static void send_mouse(report_mouse_t *report) {
-#if defined(MOUSE_ENABLE)
+#ifdef MOUSE_ENABLE
     vusb_mouse_report_t r = {.report_id = REPORT_ID_MOUSE, .report = *report};
     if (usbInterruptIsReady3()) {
         usbSetInterrupt3((void *)&r, sizeof(vusb_mouse_report_t));
@@ -410,7 +488,7 @@ const PROGMEM uchar mouse_extra_hid_report[] = {
 };
 #endif
 
-#if defined(RAW_ENABLE)
+#ifdef RAW_ENABLE
 const PROGMEM uchar raw_hid_report[] = {
     0x06, 0x60, 0xFF,  // Usage Page (Vendor Defined)
     0x09, 0x61,        // Usage (Vendor Defined)
@@ -429,7 +507,30 @@ const PROGMEM uchar raw_hid_report[] = {
     0x95, RAW_BUFFER_SIZE,  //   Report Count
     0x75, 0x08,             //   Report Size (8)
     0x91, 0x02,             //   Output (Data, Variable, Absolute)
-    0xC0,                   // End Collection
+    0xC0                    // End Collection
+};
+#endif
+
+#if defined(CONSOLE_ENABLE)
+const PROGMEM uchar console_hid_report[] = {
+    0x06, 0x31, 0xFF,  // Usage Page (Vendor Defined - PJRC Teensy compatible)
+    0x09, 0x74,        // Usage (Vendor Defined - PJRC Teensy compatible)
+    0xA1, 0x01,        // Collection (Application)
+    // Data to host
+    0x09, 0x75,                 //   Usage (Vendor Defined)
+    0x15, 0x00,                 //   Logical Minimum (0x00)
+    0x26, 0xFF, 0x00,           //   Logical Maximum (0x00FF)
+    0x95, CONSOLE_BUFFER_SIZE,  //   Report Count
+    0x75, 0x08,                 //   Report Size (8)
+    0x81, 0x02,                 //   Input (Data, Variable, Absolute)
+    // Data from host
+    0x09, 0x76,                 //   Usage (Vendor Defined)
+    0x15, 0x00,                 //   Logical Minimum (0x00)
+    0x26, 0xFF, 0x00,           //   Logical Maximum (0x00FF)
+    0x95, CONSOLE_BUFFER_SIZE,  //   Report Count
+    0x75, 0x08,                 //   Report Size (8)
+    0x91, 0x02,                 //   Output (Data)
+    0xC0                        // End Collection
 };
 #endif
 
@@ -479,7 +580,6 @@ const PROGMEM usbStringDescriptor_t usbStringDescriptorSerial = {
     .bString             = LSTR(SERIAL_NUMBER)
 };
 
-#if USB_CFG_DESCR_PROPS_DEVICE
 /*
  * Device descriptor
  */
@@ -489,8 +589,8 @@ const PROGMEM usbDeviceDescriptor_t usbDeviceDescriptor = {
         .bDescriptorType = USBDESCR_DEVICE
     },
     .bcdUSB              = 0x0110,
-    .bDeviceClass        = USB_CFG_DEVICE_CLASS,
-    .bDeviceSubClass     = USB_CFG_DEVICE_SUBCLASS,
+    .bDeviceClass        = 0x00,
+    .bDeviceSubClass     = 0x00,
     .bDeviceProtocol     = 0x00,
     .bMaxPacketSize0     = 8,
     .idVendor            = VENDOR_ID,
@@ -501,9 +601,7 @@ const PROGMEM usbDeviceDescriptor_t usbDeviceDescriptor = {
     .iSerialNumber       = 0x03,
     .bNumConfigurations  = 1
 };
-#endif
 
-#if USB_CFG_DESCR_PROPS_CONFIGURATION
 /*
  * Configuration descriptors
  */
@@ -514,11 +612,7 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
             .bDescriptorType = USBDESCR_CONFIG
         },
         .wTotalLength        = sizeof(usbConfigurationDescriptor_t),
-#    if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE) || defined(RAW_ENABLE)
-        .bNumInterfaces      = 2,
-#    else
-        .bNumInterfaces      = 1,
-#    endif
+        .bNumInterfaces      = TOTAL_INTERFACES,
         .bConfigurationValue = 0x01,
         .iConfiguration      = 0x00,
         .bmAttributes        = (1 << 7) | USBATTR_REMOTEWAKE,
@@ -533,12 +627,12 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
             .bLength         = sizeof(usbInterfaceDescriptor_t),
             .bDescriptorType = USBDESCR_INTERFACE
         },
-        .bInterfaceNumber    = 0,
+        .bInterfaceNumber    = KEYBOARD_INTERFACE,
         .bAlternateSetting   = 0x00,
-        .bNumEndpoints       = USB_CFG_HAVE_INTRIN_ENDPOINT,
-        .bInterfaceClass     = USB_CFG_INTERFACE_CLASS,
-        .bInterfaceSubClass  = USB_CFG_INTERFACE_SUBCLASS,
-        .bInterfaceProtocol  = USB_CFG_INTERFACE_PROTOCOL,
+        .bNumEndpoints       = 1,
+        .bInterfaceClass     = 0x03,
+        .bInterfaceSubClass  = 0x01,
+        .bInterfaceProtocol  = 0x01,
         .iInterface          = 0x00
     },
     .keyboardHID = {
@@ -552,7 +646,6 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .bDescriptorType     = USBDESCR_HID_REPORT,
         .wDescriptorLength   = sizeof(keyboard_hid_report)
     },
-#    ifdef USB_CFG_HAVE_INTRIN_ENDPOINT
     .keyboardINEndpoint = {
         .header = {
             .bLength         = sizeof(usbEndpointDescriptor_t),
@@ -563,7 +656,6 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .wMaxPacketSize      = 8,
         .bInterval           = USB_POLLING_INTERVAL_MS
     },
-#    endif
 
 #    if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
     /*
@@ -574,9 +666,9 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
             .bLength         = sizeof(usbInterfaceDescriptor_t),
             .bDescriptorType = USBDESCR_INTERFACE
         },
-        .bInterfaceNumber    = 1,
+        .bInterfaceNumber    = MOUSE_EXTRA_INTERFACE,
         .bAlternateSetting   = 0x00,
-        .bNumEndpoints       = USB_CFG_HAVE_INTRIN_ENDPOINT3,
+        .bNumEndpoints       = 1,
         .bInterfaceClass     = 0x03,
         .bInterfaceSubClass  = 0x00,
         .bInterfaceProtocol  = 0x00,
@@ -593,7 +685,6 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .bDescriptorType     = USBDESCR_HID_REPORT,
         .wDescriptorLength   = sizeof(mouse_extra_hid_report)
     },
-#        if USB_CFG_HAVE_INTRIN_ENDPOINT3
     .mouseExtraINEndpoint = {
         .header = {
             .bLength         = sizeof(usbEndpointDescriptor_t),
@@ -603,15 +694,15 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .bmAttributes        = 0x03,
         .wMaxPacketSize      = 8,
         .bInterval           = USB_POLLING_INTERVAL_MS
-    }
-#        endif
-#    elif defined(RAW_ENABLE)
+    },
+#    endif
+#    if defined(RAW_ENABLE)
     .rawInterface = {
         .header = {
             .bLength         = sizeof(usbInterfaceDescriptor_t),
             .bDescriptorType = USBDESCR_INTERFACE
         },
-        .bInterfaceNumber    = 1,
+        .bInterfaceNumber    = RAW_INTERFACE,
         .bAlternateSetting   = 0x00,
         .bNumEndpoints       = 2,
         .bInterfaceClass     = 0x03,
@@ -630,7 +721,6 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .bDescriptorType     = USBDESCR_HID_REPORT,
         .wDescriptorLength   = sizeof(raw_hid_report)
     },
-#        if USB_CFG_HAVE_INTRIN_ENDPOINT3
     .rawINEndpoint = {
         .header = {
             .bLength         = sizeof(usbEndpointDescriptor_t),
@@ -650,11 +740,58 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
         .bmAttributes        = 0x03,
         .wMaxPacketSize      = RAW_EPSIZE,
         .bInterval           = USB_POLLING_INTERVAL_MS
-    }
-#        endif
+    },
+#    endif
+#    if defined(CONSOLE_ENABLE)
+    /*
+     * Console
+     */
+    .consoleInterface = {
+        .header = {
+            .bLength         = sizeof(usbInterfaceDescriptor_t),
+            .bDescriptorType = USBDESCR_INTERFACE
+        },
+        .bInterfaceNumber    = CONSOLE_INTERFACE,
+        .bAlternateSetting   = 0x00,
+        .bNumEndpoints       = 2,
+        .bInterfaceClass     = 0x03,
+        .bInterfaceSubClass  = 0x00,
+        .bInterfaceProtocol  = 0x00,
+        .iInterface          = 0x00
+    },
+    .consoleHID = {
+        .header = {
+            .bLength         = sizeof(usbHIDDescriptor_t),
+            .bDescriptorType = USBDESCR_HID
+        },
+        .bcdHID              = 0x0111,
+        .bCountryCode        = 0x00,
+        .bNumDescriptors     = 1,
+        .bDescriptorType     = USBDESCR_HID_REPORT,
+        .wDescriptorLength   = sizeof(console_hid_report)
+    },
+    .consoleINEndpoint = {
+        .header = {
+            .bLength         = sizeof(usbEndpointDescriptor_t),
+            .bDescriptorType = USBDESCR_ENDPOINT
+        },
+        .bEndpointAddress    = (USBRQ_DIR_DEVICE_TO_HOST | USB_CFG_EP3_NUMBER),
+        .bmAttributes        = 0x03,
+        .wMaxPacketSize      = CONSOLE_EPSIZE,
+        .bInterval           = 0x01
+    },
+    .consoleOUTEndpoint = {
+        .header = {
+            .bLength         = sizeof(usbEndpointDescriptor_t),
+            .bDescriptorType = USBDESCR_ENDPOINT
+        },
+        .bEndpointAddress    = (USBRQ_DIR_HOST_TO_DEVICE | USB_CFG_EP3_NUMBER),
+        .bmAttributes        = 0x03,
+        .wMaxPacketSize      = CONSOLE_EPSIZE,
+        .bInterval           = 0x01
+    },
 #    endif
 };
-#endif
 
 // clang-format on
 
@@ -670,18 +807,14 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
         debug_hex16(rq->wLength.word); debug("\n");
     */
     switch (rq->wValue.bytes[1]) {
-#if USB_CFG_DESCR_PROPS_DEVICE
         case USBDESCR_DEVICE:
             usbMsgPtr = (unsigned char *)&usbDeviceDescriptor;
             len       = sizeof(usbDeviceDescriptor_t);
             break;
-#endif
-#if USB_CFG_DESCR_PROPS_CONFIGURATION
         case USBDESCR_CONFIG:
             usbMsgPtr = (unsigned char *)&usbConfigurationDescriptor;
             len       = sizeof(usbConfigurationDescriptor_t);
             break;
-#endif
         case USBDESCR_STRING:
             switch (rq->wValue.bytes[0]) {
                 case 0:
@@ -704,18 +837,25 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
             break;
         case USBDESCR_HID:
             switch (rq->wValue.bytes[0]) {
-                case 0:
+                case KEYBOARD_INTERFACE:
                     usbMsgPtr = (unsigned char *)&usbConfigurationDescriptor.keyboardHID;
                     len       = sizeof(usbHIDDescriptor_t);
                     break;
 #if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
-                case 1:
+                case MOUSE_EXTRA_INTERFACE:
                     usbMsgPtr = (unsigned char *)&usbConfigurationDescriptor.mouseExtraHID;
                     len       = sizeof(usbHIDDescriptor_t);
                     break;
-#elif defined(RAW_ENABLE)
-                case 1:
+#endif
+#if defined(RAW_ENABLE)
+                case RAW_INTERFACE:
                     usbMsgPtr = (unsigned char *)&usbConfigurationDescriptor.rawHID;
+                    len       = sizeof(usbHIDDescriptor_t);
+                    break;
+#endif
+#if defined(CONSOLE_ENABLE)
+                case CONSOLE_INTERFACE:
+                    usbMsgPtr = (unsigned char *)&usbConfigurationDescriptor.consoleHID;
                     len       = sizeof(usbHIDDescriptor_t);
                     break;
 #endif
@@ -724,19 +864,26 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
         case USBDESCR_HID_REPORT:
             /* interface index */
             switch (rq->wIndex.word) {
-                case 0:
+                case KEYBOARD_INTERFACE:
                     usbMsgPtr = (unsigned char *)keyboard_hid_report;
                     len       = sizeof(keyboard_hid_report);
                     break;
 #if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
-                case 1:
+                case MOUSE_EXTRA_INTERFACE:
                     usbMsgPtr = (unsigned char *)mouse_extra_hid_report;
                     len       = sizeof(mouse_extra_hid_report);
                     break;
-#elif defined(RAW_ENABLE)
-                case 1:
+#endif
+#if defined(RAW_ENABLE)
+                case RAW_INTERFACE:
                     usbMsgPtr = (unsigned char *)raw_hid_report;
                     len       = sizeof(raw_hid_report);
+                    break;
+#endif
+#if defined(CONSOLE_ENABLE)
+                case CONSOLE_INTERFACE:
+                    usbMsgPtr = (unsigned char *)console_hid_report;
+                    len       = sizeof(console_hid_report);
                     break;
 #endif
             }
