@@ -101,6 +101,12 @@ enum jian_keycodes {
   EXT_RGB,
   ISO,
   THUMB_ALT,
+//ifdef ALT_LAYOUTS_ENABLE
+  CH_WMN,
+  CH_CMK,
+  CH_QWE,
+  CH_DVK,
+//endif // ALT_LAYOUTS_ENABLE
 #ifdef DIPS_ENABLE
   LAYOUT0,
   LAYOUT1,
@@ -206,7 +212,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ADJUST] = SYMM_LAYOUT(\
-  RESET,   DEBUG,   KC_ASUP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  RESET,   DEBUG,   KC_ASUP, CH_WMN,  CH_CMK,  CH_QWE,  CH_DVK,  \
            KC_ASRP, KC_ASTG, XXXXXXX, XXXXXXX, QWERTY,  PLOVER,  \
            BL_ADJ,  KC_ASDN, XXXXXXX, XXXXXXX, ISO,     THUMB_ALT, \
                                       _______, SW_TG,   _______  \
@@ -353,6 +359,81 @@ void keyboard_post_init_user(void) {
   }
 }
 
+#ifdef ALT_LAYOUTS_ENABLE
+char change_layout_input = 0;
+bool change_layout_keystroke = 0;
+void change_layout_conversion(uint16_t keycode) {
+    switch (keycode) {
+        case CH_WMN:
+            change_layout_input |= 0b1000 << (change_layout_keystroke << 2);
+            break;
+        case CH_CMK:
+            change_layout_input |= 0b0100 << (change_layout_keystroke << 2);
+            break;
+        case CH_DVK:
+            change_layout_input |= 0b0010 << (change_layout_keystroke << 2);
+            break;
+        case CH_QWE:
+            change_layout_input |= 0b0001 << (change_layout_keystroke << 2);
+            break;
+    }
+    if (change_layout_keystroke == 1) {
+        switch (change_layout_input) {
+            case 0b00010001:
+                set_single_persistent_default_layer(_QWERTY);
+                break;
+            case 0b00100001:
+                set_single_persistent_default_layer(_DVORAK);
+                break;
+            case 0b01000001:
+                set_single_persistent_default_layer(_COLEMAK);
+                break;
+            case 0b10000001:
+                set_single_persistent_default_layer(_WORKMAN);
+                break;
+            case 0b00010010:
+                set_single_persistent_default_layer(_DVK2QWE);
+                break;
+            case 0b00100010:
+                set_single_persistent_default_layer(_QWERTY);
+                break;
+            case 0b01000010:
+                set_single_persistent_default_layer(_DVK2CMK);
+                break;
+            case 0b10000010:
+                set_single_persistent_default_layer(_DVK2WMN);
+                break;
+            case 0b00010100:
+                set_single_persistent_default_layer(_CMK2QWE);
+                break;
+            case 0b00100100:
+                set_single_persistent_default_layer(_CMK2DVK);
+                break;
+            case 0b01000100:
+                set_single_persistent_default_layer(_QWERTY);
+                break;
+            case 0b10000100:
+                set_single_persistent_default_layer(_CMK2WMN);
+                break;
+            case 0b00011000:
+                set_single_persistent_default_layer(_WMN2QWE);
+                break;
+            case 0b00101000:
+                set_single_persistent_default_layer(_WMN2DVK);
+                break;
+            case 0b01001000:
+                set_single_persistent_default_layer(_WMN2CMK);
+                break;
+            case 0b10001000:
+                set_single_persistent_default_layer(_QWERTY);
+                break;
+        }
+        change_layout_input = 0;
+    }
+    change_layout_keystroke ^= 1;
+}
+#endif // ALT_LAYOUTS_ENABLE
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef TRAINING_HALFES_LOCK
   if (!record->event.pressed) {
@@ -427,6 +508,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+#ifdef ALT_LAYOUTS_ENABLE
+    case CH_WMN:
+    case CH_CMK:
+    case CH_QWE:
+    case CH_DVK:
+      if (record->event.pressed) {
+        change_layout_conversion(keycode);
+      }
+      return false;
+    break;
+#endif // ALT_LAYOUTS_ENABLE
 #ifdef DIPS_ENABLE
 #ifdef ALT_LAYOUTS_ENABLE
     case LAYOUT0:
