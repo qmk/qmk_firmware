@@ -16,9 +16,7 @@
 
 #include "print.h"
 #include "process_combo.h"
-#ifdef COMBO_ALLOW_ACTION_KEYS
 #include "action_tapping.h"
-#endif
 
 #ifndef COMBO_VARIABLE_LEN
 __attribute__((weak)) combo_t key_combos[COMBO_COUNT] = {};
@@ -31,17 +29,12 @@ __attribute__((weak)) void process_combo_event(uint8_t combo_index, bool pressed
 
 static uint16_t timer               = 0;
 static uint8_t  current_combo_index = 0;
-static bool     drop_buffer         = false;
 static bool     is_active           = true;
 static bool     b_combo_enable      = true;  // defaults to enabled
 static combo_t  *active_combo       = NULL;
 
 static uint8_t buffer_size = 0;
-#ifdef COMBO_ALLOW_ACTION_KEYS
 static keyrecord_t key_buffer[MAX_COMBO_LENGTH];
-#else
-static uint16_t key_buffer[MAX_COMBO_LENGTH];
-#endif
 
 static inline void send_combo(uint16_t action, bool pressed) {
     if (action) {
@@ -62,17 +55,10 @@ static inline void dump_key_buffer(bool emit) {
 
     if (emit) {
         for (uint8_t i = 0; i < buffer_size; i++) {
-#ifdef COMBO_ALLOW_ACTION_KEYS
             action_tapping_process(key_buffer[i]);
-#else
-            register_code16(key_buffer[i]);
-            send_keyboard_report();
-#endif
         }
     }
-#ifdef COMBO_ALLOW_ACTION_KEYS
     clear_combos(emit);
-#endif
 
     buffer_size = 0;
 }
@@ -103,7 +89,8 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
         if (COMBO_END == key) break;
     }
 
-    /* Continue processing if not a combo key */
+    /* Continue processing if current combo doesn't own this key.
+     * Also disable current combo and reset its state. */
     if (-1 == (int8_t)index) {
         combo->disabled = true;
         combo->state = 0;
@@ -116,14 +103,14 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
         if (is_combo_active) {
             KEY_STATE_DOWN(index);
             if (ALL_COMBO_KEYS_ARE_DOWN) { /* Combo was pressed */
-                /* send_combo(combo->keycode, true); */
+                /* Save the combo so we can fire it after COMBO_TERM */
                 active_combo = combo;
-                /* drop_buffer = true; */
             }
         }
     } else {
         if (ALL_COMBO_KEYS_ARE_DOWN) { /* Combo was released */
             if (active_combo && !active_combo->disabled) {
+                /* Fire combo immediately it was released inside COMBO_TERM */
                 fire_combo();
             }
             send_combo(combo->keycode, false);
@@ -142,7 +129,6 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
 
 bool process_combo(uint16_t keycode, keyrecord_t *record) {
     bool is_combo_key          = false;
-    drop_buffer                = false;
     bool no_combo_keys_pressed = true;
 
     if (keycode == CMB_ON && record->event.pressed) {
@@ -173,12 +159,7 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
         no_combo_keys_pressed = no_combo_keys_pressed && NO_COMBO_KEYS_ARE_DOWN;
     }
 
-    if (drop_buffer) {
-        /* buffer is only dropped when we complete a combo, so we refresh the timer
-         * here */
-        timer = timer_read();
-        dump_key_buffer(false);
-    } else if (!is_combo_key) {
+    if (!is_combo_key) {
         /* if no combos claim the key we need to emit the keybuffer */
         dump_key_buffer(true);
 
@@ -193,18 +174,13 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
         timer = timer_read();
 
         if (buffer_size < MAX_COMBO_LENGTH) {
-#ifdef COMBO_ALLOW_ACTION_KEYS
             key_buffer[buffer_size++] = *record;
-#else
-            key_buffer[buffer_size++] = keycode;
-#endif
         }
     }
 
     return !is_combo_key;
 }
 
-#ifdef COMBO_ALLOW_ACTION_KEYS
 void clear_combos(bool clear_state) {
     uint8_t index = 0;
 #ifndef COMBO_VARIABLE_LEN
@@ -219,7 +195,6 @@ void clear_combos(bool clear_state) {
         }
     }
 }
-#endif
 
 void matrix_scan_combo(void) {
     if (b_combo_enable && is_active && timer && timer_elapsed(timer) > COMBO_TERM) {
@@ -233,22 +208,21 @@ void matrix_scan_combo(void) {
             is_active = false;
             dump_key_buffer(true);
         }
-#ifdef COMBO_ALLOW_ACTION_KEYS
     } else if (b_combo_enable && !is_active && timer && timer_elapsed(timer) > TAPPING_TERM) {
         /* Re-enable combo processing after TAPPING_TERM so combos are usable
          * with mods from ModTap keys that are also combo keys */
         is_active = true;
         timer = 0;
         clear_combos(false);
-#endif
     }
 }
 
-void combo_enable(void) { b_combo_enable = true; }
+void combo_enable(void) { is_active = b_combo_enable = true; }
 
 void combo_disable(void) {
     b_combo_enable = is_active = false;
     timer                      = 0;
+    active_combo               = NULL;
     dump_key_buffer(true);
 }
 
