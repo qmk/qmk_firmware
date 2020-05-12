@@ -1,4 +1,4 @@
-# Keycode Migration PRs
+## Keycode Migration PRs
 
 [#8954](https://github.com/qmk/qmk_firmware/pull/8954 "Migrate `ACTION_LAYER_TOGGLE` to `TG()`"), [#8957](https://github.com/qmk/qmk_firmware/pull/8957 "Migrate `ACTION_MODS_ONESHOT` to `OSM()`"), [#8958](https://github.com/qmk/qmk_firmware/pull/8958 "Migrate `ACTION_DEFAULT_LAYER_SET` to `DF()`"), [#8959](https://github.com/qmk/qmk_firmware/pull/8959 "Migrate `ACTION_LAYER_MODS` to `LM()`"), [#8968](https://github.com/qmk/qmk_firmware/pull/8968 "Migrate `ACTION_MODS_TAP_KEY` to `MT()`"), [#8977](https://github.com/qmk/qmk_firmware/pull/8977 "Migrate miscellaneous `fn_actions` entries"), and [#8979](https://github.com/qmk/qmk_firmware/pull/8979 "Migrate `ACTION_MODS_KEY` to chained mod keycodes")
 
