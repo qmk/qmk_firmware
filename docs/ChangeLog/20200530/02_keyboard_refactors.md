@@ -1,4 +1,6 @@
-# Migrating Lily58 to use split_common
+## Keyboard Refactors
+
+### Migrating Lily58 to use split_common
 
 [#6260](https://github.com/qmk/qmk_firmware/pull/6260) Modifies the default firmware for Lily58 to use the `split_common` library, instead of including and depending on its own set of libraries for the following functionality:
 - SSD1306 display
@@ -7,7 +9,7 @@
 
 This allows current lily58 firmware to advance with updates to the `split_common` library, which is shared with many other split keyboards.
 
-## To migrate existing Lily58 firmware:
+#### To migrate existing Lily58 firmware:
 
 [Changes to `config.h`](https://github.com/qmk/qmk_firmware/pull/6260/files#diff-445ac369c8717dcd6fc6fc3630836fc1):
 - Remove `#define SSD1306OLED` from config.h
@@ -36,7 +38,8 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 - Find/Replace `is_master` with `is_keyboard_master()`
 - For each instance of `matrix_write_ln(matrix, display_fn())`, rewrite it as `oled_write_ln(read_layer_state(), false);`
 - For each instance of `matrix_write(matrix, read_logo());`, replace with `oled_write(read_logo(), false);`
-# Refactor zinc to use split_common
+
+### Refactor zinc to use split_common
 
 [#7114](https://github.com/qmk/qmk_firmware/pull/7114)
 
@@ -47,7 +50,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     * all authors of keymaps confirmed this PR
 * Update - documents and rules.mk
 
-# Refactor of TKC1800 to use common OLED code
+### Refactor of TKC1800 to use common OLED code
 
 [#8472](https://github.com/qmk/qmk_firmware/pull/8472) Modifies the default firmware for TKC1800 to use the in-built I2C and OLED drivers, instead of including and depending on its own set of libraries for the following functionality:
 - SSD1306 display
@@ -55,7 +58,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 This allows current TKC1800 firmware to advance with updates to those drivers, which are shared with other keyboards.
 
-## To migrate existing TKC1800 firmware:
+#### To migrate existing TKC1800 firmware:
 
 [Changes to `config.h`](https://github.com/qmk/qmk_firmware/pull/8472/files#diff-d10b26e676b4a55cbb00d71955116526):
 - Remove `#define SSD1306OLED` from config.h
@@ -90,14 +93,14 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 ```
 - Remove the function `iota_gfx_task_user`
 
-# Split HHKB to ANSI and JP layouts and Add VIA support for each
+### Split HHKB to ANSI and JP layouts and Add VIA support for each
 
 [#8582](https://github.com/qmk/qmk_firmware/pull/8582)
 
 - Splits the HHKB codebase into two separate folders `keyboards/hhkb/ansi` and `keyboards/hhkb/jp`.
 - Adds VIA Configurator support for both versions.
 
-## Migrating existing HHKB keymaps
+#### Migrating existing HHKB keymaps
 
 - Remove any checks for the `HHKB_JP` definition
   - All checks for this definition have been removed, and each version uses the source that is appropriate to that version.
