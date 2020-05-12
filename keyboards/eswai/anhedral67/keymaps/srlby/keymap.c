@@ -97,8 +97,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     JP_GRV           ,KC_1             ,KC_2             ,KC_3             ,KC_4             ,KC_5             ,KC_6             ,KC_7             ,KC_8             ,KC_9             ,KC_0             ,JP_MINS          ,JP_PLUS          ,JP_SLSH          ,JP_ASTR          , \
     KC_ESC           ,KC_COMM          ,KC_S             ,KC_R             ,KC_L             ,KC_B             ,JP_COLN          ,                  KC_Y             ,KC_BSPC          ,KC_I             ,KC_D             ,JP_DOT           ,KC_BSPC                         , \
     KC_TAB           ,KC_W             ,KC_H             ,KC_T             ,KC_E             ,KC_M             ,JP_BSLS          ,                  KC_P             ,KC_N             ,KC_A             ,KC_O             ,KC_K             ,KC_ENT                          , \
-    KC_LCTL          ,KC_V             ,JP_QUOT          ,KC_Z             ,KC_G             ,KC_C             ,JP_LPRN          ,JP_RPRN          ,KC_U             ,KC_F             ,KC_J             ,KC_X             ,KC_Q             ,KC_UP            ,KC_DEL           , \
-    KC_LSFT          ,                                    ALPH             ,LOWER            ,LT(_SHIFT,KC_SPC),KC_LCTL          ,                  LT(_SHIFT,KC_ENT),RAISE            ,KC_LALT          ,                  KC_LEFT          ,KC_DOWN          ,KC_RGHT
+    KC_LSFT          ,KC_V             ,JP_QUOT          ,KC_Z             ,KC_G             ,KC_C             ,JP_LPRN          ,JP_RPRN          ,KC_U             ,KC_F             ,KC_J             ,KC_X             ,KC_Q             ,KC_UP            ,KC_DEL           , \
+    KC_LCTL          ,                                    ALPH             ,LOWER            ,LT(_SHIFT,KC_SPC),KC_LWIN          ,                  LT(_SHIFT,KC_ENT),RAISE            ,KC_LALT          ,                  KC_LEFT          ,KC_DOWN          ,KC_RGHT
   ),
 
 /* "
@@ -160,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
   [_LOWER] = LAYOUT(
     _______  ,KC_F1    ,KC_F2    ,KC_F3    ,KC_F4    ,KC_F5    ,KC_F6    ,KC_F7    ,KC_F8    ,KC_F9    ,KC_F10   ,KC_F11   ,KC_F12   ,_______  ,_______  , \
-    _______  ,XXXXXXX  ,XXXXXXX  ,C(KC_A)  ,C(KC_S)  ,XXXXXXX  ,XXXXXXX  ,          JP_SLSH  ,KC_7     ,KC_8     ,KC_9     ,JP_PLUS  ,KC_DEL          , \
+    _______  ,XXXXXXX  ,C(KC_A)  ,C(KC_Y)  ,C(KC_S)  ,XXXXXXX  ,XXXXXXX  ,          JP_SLSH  ,KC_7     ,KC_8     ,KC_9     ,JP_PLUS  ,KC_DEL          , \
     _______  ,XXXXXXX  ,XXXXXXX  ,C(KC_Z)  ,C(KC_C)  ,C(KC_X)  ,XXXXXXX  ,          JP_ASTR  ,KC_4     ,KC_5     ,KC_6     ,JP_MINS  ,A(KC_ENT)       , \
     _______  ,XXXXXXX  ,XXXXXXX  ,XXXXXXX  ,C(KC_V)  ,CPPA     ,JP_LBRC  ,JP_RBRC  ,KC_0     ,KC_1     ,KC_2     ,KC_3     ,JP_EQL   ,KC_PGUP  ,_______  , \
     _______  ,                    SALPH    ,_______  ,_______  ,_______  ,          _______  ,_______  ,_______  ,          KC_HOME  ,KC_PGDN  ,KC_END
@@ -202,9 +202,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
   [_ADJUST] = LAYOUT(
     XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
-    EEP_RST,QWERTY ,XXXXXXX,KC_MAIL,XXXXXXX,KC_WAKE,XXXXXXX,        XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______     , \
-    _______,QGMLWY ,KC_SLEP,XXXXXXX,XXXXXXX,RESET  ,XXXXXXX,        XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______     , \
-    _______,XXXXXXX,XXXXXXX,KC_CALC,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______,_______, \
+    EEP_RST,XXXXXXX,KC_SLEP,RESET  ,XXXXXXX,XXXXXXX,XXXXXXX,        XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______     , \
+    _______,KC_WAKE,XXXXXXX,XXXXXXX,G(KC_E),KC_MAIL,XXXXXXX,        XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______     , \
+    _______,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_CALC,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______,_______, \
     _______,                _______,_______,_______,_______,        _______,_______,_______,        _______,_______,_______
   ),
 
