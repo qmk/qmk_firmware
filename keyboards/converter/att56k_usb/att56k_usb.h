@@ -28,8 +28,8 @@ enum custom_keycodes {
                         K3C, K08, K56, K03, K24, K06, K04, K30, K7C, K3D, K49, K74, \
                         K0E, K38, K1D, K5F, K79, K6C, K53, K7A, K1F, K3F, K2F, K2B, \
   K1A, K2C,   K20, K58, K09, K3E, K7E, K10, K2E, K3A, K4C, K5E, K0F, K27, K2D,   K4B,     K57, K7B, K4E,   K12, K14, K07, K7F, \
-  K26, K37,     K46,  K3B, K23, K33, K76, K16, K34, K40, K6B, K48, K66, K75, K69,  K21,   K39, K42, K68,   K64, K0A, K5C, K4A, \
-  K43, K44,      K19,  K35, K29, K63, K70, K22, K28, K05, K65, K73, K60, K5A, K6F,             K2A,        K4D, K6D, K50, K0C, \
+  K26, K37,     K46,  K3B, K23, K33, K76, K16, K34, K40, K6B, K48, K66, K75, K69,         K39, K42, K68,   K64, K0A, K5C, K4A, \
+  K43, K44,      K19,  K35, K29, K63, K70, K22, K28, K05, K65, K73, K60, K5A, K6F, K21,        K2A,        K4D, K6D, K50, K0C, \
   K32, K52,    K61, K17, K11, K5D, K6A, K1C, K0B, K7D, K77, K5B, K55, K4F,      K54,      K45, K67, K71,   K36, K6E, K1E, K00, \
   K31, K78,    K47,       K59,                       K41,                K62,      K25,        K13,           K18,   K02      \
 ) { \
@@ -44,5 +44,4 @@ enum custom_keycodes {
 }
 
 void on_scan(void);
-
 
