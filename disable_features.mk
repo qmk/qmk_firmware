@@ -25,4 +25,4 @@ FEATURE_NAMES += WATCHDOG
 FEATURE_NAMES += XT
 
 $(foreach AFEATURE,$(FEATURE_NAMES),\
-	 $(if $(filter $($(AFEATURE)_SUPPORTED),no),$(eval $(AFEATURE)_FEATURE=no)))
+	 $(if $(filter $($(AFEATURE)_SUPPORTED),no),$(eval $(AFEATURE)_ENABLE=no)))
