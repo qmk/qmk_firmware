@@ -1,8 +1,11 @@
 SRC += drashna.c \
        process_records.c
 
-LTO_ENABLE            = yes
+ifneq ($(PLATFORM),CHIBIOS)
+    LTO_ENABLE        = yes
+endif
 SPACE_CADET_ENABLE    = no
+GRAVE_ESC_ENABLE      = no
 
 ifneq ($(strip $(NO_SECRETS)), yes)
     ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
@@ -16,10 +19,6 @@ endif
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
     SRC += tap_dances.c
 endif
-
-
-
-
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     SRC += rgb_stuff.c
@@ -39,7 +38,7 @@ endif
 
 RGB_MATRIX_ENABLE ?= no
 ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
-    SRC += rgb_stuff.c
+    SRC += rgb_matrix_stuff.c
 endif
 
 
@@ -58,4 +57,8 @@ endif
 # this should be handled per keyboard, but until that happens ...
 ifeq ($(strip $(PROTOCOL)), VUSB)
     NKRO_ENABLE       = no
+endif
+
+ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
+    SRC += oled_stuff.c
 endif

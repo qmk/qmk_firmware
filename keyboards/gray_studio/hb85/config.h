@@ -33,3 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGBLED_NUM 5
 #define RGBLIGHT_ANIMATIONS
+
+#define BACKLIGHT_PIN D4
+#define BACKLIGHT_LEVELS 3

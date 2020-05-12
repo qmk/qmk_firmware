@@ -107,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               MEH_T(KC_F17),  KC_Y,       KC_U,     KC_I,           KC_O,       KC_P,     KC_EQL,
                               KC_H,       KC_J,     KC_K,           KC_L,       KC_SCLN,  CTL_T(KC_QUOT),
               ALL_T(KC_F19),  KC_N,       KC_M,     KC_COMM,        KC_DOT,     KC_SLSH,  KC_FN2,
-                              KC_RGUI,    KC_RALT,  CTL_T(KC_LBRC), KC_FN3,     KC_FN1,
+                              KC_RGUI,    KC_RALT,  CTL_T(KC_LBRC), LT(KEYPAD, KC_RBRC),  KC_FN1,
               M_OSXCPY,       M_OSXPST,
               KC_PGUP,
               KC_PGDN,        KC_ENT,     KC_SPC),
@@ -197,7 +197,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM fn_actions[] = {
   [1] = ACTION_LAYER_ONESHOT(FN),
   [2] = ACTION_MODS_ONESHOT(MOD_LSFT),  // Sticky shift light. Tap for the next keypress to be shifted. Hold for regular shift.
-  [3] = ACTION_LAYER_TAP_KEY(KEYPAD, KC_RBRC),
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {

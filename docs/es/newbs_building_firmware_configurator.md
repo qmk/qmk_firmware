@@ -4,7 +4,7 @@ El [Configurador QMK](https://config.qmk.fm) es un entorno gráfico online que g
 
 ?> **Por favor sigue estos pasos en orden.**
 
-Ve el [Video tutorial](https://youtu.be/tx54jkRC9ZY)
+Ve el [Video tutorial](https://www.youtube.com/watch?v=-imgglzDMdY)
 
 El Configurador QMK functiona mejor con Chrome/Firefox. 
 

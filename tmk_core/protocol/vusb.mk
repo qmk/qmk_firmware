@@ -9,13 +9,12 @@ SRC +=	$(VUSB_DIR)/main.c \
 	$(VUSB_DIR)/usbdrv/oddebug.c
 
 
-ifdef NO_UART
-SRC +=	$(COMMON_DIR)/sendchar_null.c
-else
+ifneq ($(strip $(CONSOLE_ENABLE)), yes)
+ifndef NO_UART
 SRC +=	$(COMMON_DIR)/sendchar_uart.c \
 	$(COMMON_DIR)/uart.c
 endif
-
+endif
 
 # Search Path
 VPATH += $(TMK_PATH)/$(VUSB_DIR)

@@ -31,18 +31,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void matrix_init_user(void) {
 }
 
+// Override if necessary
+/*
 void encoder_one_update(bool clockwise) {
-    if (clockwise) {
-        tap_code(KC_PGDN);
-    } else {
-        tap_code(KC_PGUP);
-    }
 }
 
 void encoder_two_update(bool clockwise) {
-    if (clockwise) {
-        tap_code(KC_VOLU);
-    } else {
-        tap_code(KC_VOLD);
-    }
 }
+//*/
