@@ -110,8 +110,8 @@ class KLE2xy(list):
 
                 else:
                     current_key['name'] = key
-                    current_key['row'] = current_row
-                    current_key['column'] = current_col
+                    current_key['row'] = round(current_row, 2)
+                    current_key['column'] = round(current_col, 2)
 
                     # Determine the X center
                     x_center = (current_key['width'] * self.key_width) / 2

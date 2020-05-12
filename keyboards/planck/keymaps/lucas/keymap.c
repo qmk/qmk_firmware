@@ -8,14 +8,13 @@ The "Gaming" layer is mainly customized for CS:GO.
 If you have any question about this keymap feel free to shoot me a message on reddit!
 */
 
-#include "keymap.h"
+#include QMK_KEYBOARD_H
 #include "keymap_german.h"
-#include "backlight.h"
-#include "debug.h"
-#include "action_layer.h"
+
+#define LT_SPC LT(4, KC_SPC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[0] = { /* Colemak   
+[0] = LAYOUT_planck_grid( /* Colemak   
     * ,-----------------------------------------------------------------------.
     * | Esc | q   | w   | f   | p   | g   | j   | l   | u   | y   | ;   |  -  |
     * |-----------------------------------------------------------------------|
@@ -26,12 +25,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * | CTL | GUI | Tab | ALT |Lower|   Space   |Raise|Left |Down | Up  |Right|
     * `-----------------------------------------------------------------------'
     */
-  {KC_ESC,  KC_Q,    KC_W,   KC_F,    KC_P, KC_G, KC_J, KC_L, KC_U,    KC_Z,    DE_SCLN, DE_MINS},
-  {KC_BSPC, KC_A,    KC_R,   KC_S,    KC_T, KC_D, KC_H, KC_N, KC_E,    KC_I,    KC_O,    DE_QUOT},
-  {M(0),    KC_Y,    KC_X,   KC_C,    KC_V, KC_B, KC_K, KC_M, DE_COMM, DE_DOT,  DE_SLSH, KC_ENT},
-  {KC_LCTL, KC_LGUI, KC_TAB, KC_LALT, MO(3),F(3), F(3), MO(2),KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
-},
-[1] = { /* Symbols
+  KC_ESC,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Z,    DE_SCLN, DE_MINS,
+  KC_BSPC, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    DE_QUOT,
+  M(0),    KC_Y,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    DE_COMM, DE_DOT,  DE_SLSH, KC_ENT,
+  KC_LCTL, KC_LGUI, KC_TAB,  KC_LALT, MO(3),   LT_SPC,  LT_SPC,  MO(2),   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+),
+[1] = LAYOUT_planck_grid( /* Symbols
     * ,-----------------------------------------------------------------------.
     * |     |     |     |     |     |     |     |     |     |     |  :  |     |
     * |-----------------------------------------------------------------------|
@@ -42,12 +41,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |     |     |     |     |     |           |     |     |     |     |     |
     * `-----------------------------------------------------------------------'
     */
-  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, DE_DOT,  KC_TRNS},
-  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, DE_DQOT},
-  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, M(1),    DE_MORE, DE_QST,  KC_TRNS},
-  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
-},
-[2] = { /* Raise
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, DE_DOT,  KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, DE_DQOT,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, M(1),    DE_MORE, DE_QST,  KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+),
+[2] = LAYOUT_planck_grid( /* Raise
     * ,-----------------------------------------------------------------------.
     * |     |  Ä  |     |     |     |     |     |     |  Ü  |  Ö  |     |Game |
     * |-----------------------------------------------------------------------|
@@ -58,12 +57,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |LCTL |LGUI | Tab |LALT |Lower|   Space   |     |Mute |Vol- |Vol+ | P/P |
     * `-----------------------------------------------------------------------'
     */
-  {KC_NO,   S(DE_AE), KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,   S(DE_UE), S(DE_OE), KC_NO,   F(4)},
-  {KC_DEL,  DE_AE,    KC_NO,   DE_SS,   KC_NO,   KC_NO,   KC_NO,    KC_NO,   DE_UE,    DE_OE,    KC_NO,   RALT(KC_F12)},
-  {KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_MSTP,  KC_MPRV,  KC_MNXT, RALT(KC_F11)},
-  {KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_MUTE,  KC_VOLD,  KC_VOLU, KC_MPLY}
-},
-[3] = { /* Lower 
+  KC_NO,   S(DE_AE), KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,   S(DE_UE), S(DE_OE), KC_NO,   F(4),
+  KC_DEL,  DE_AE,    KC_NO,   DE_SS,   KC_NO,   KC_NO,   KC_NO,    KC_NO,   DE_UE,    DE_OE,    KC_NO,   RALT(KC_F12),
+  KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_MSTP,  KC_MPRV,  KC_MNXT, RALT(KC_F11),
+  KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_MUTE,  KC_VOLD,  KC_VOLU, KC_MPLY
+),
+[3] = LAYOUT_planck_grid( /* Lower 
     * ,-----------------------------------------------------------------------.
     * |  ~  |  !  |  @  |  #  |  $  |  %  |  ^  |  &  |  *  |  (  |  )  |  +  |
     * |-----------------------------------------------------------------------| 
@@ -74,12 +73,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |LCTL |LGUI | Tab |LALT |     |   Space   |Raise|Home |PgDn |PgUp | End |
     * `-----------------------------------------------------------------------'
     */
-  {DE_TILD, DE_EXLM, DE_AT,   DE_HASH, DE_DLR,  DE_PERC, DE_CIRC,  DE_AMPR, DE_ASTR, DE_LPRN, DE_RPRN, DE_PLUS},
-  {DE_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,     KC_7,    KC_8,    KC_9,    KC_0,    DE_EQL},
-  {KC_NO,   KC_NO,   KC_NO,   DE_PIPE, DE_LBRC, DE_RBRC, DE_LCBR,  DE_RCBR, DE_EURO, KC_NO,   DE_BSLS, KC_ENT},
-  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_HOME, KC_PGDN, KC_PGUP, KC_END}
-},
-[4] = { /* Function
+  DE_TILD, DE_EXLM, DE_AT,   DE_HASH, DE_DLR,  DE_PERC, DE_CIRC,  DE_AMPR, DE_ASTR, DE_LPRN, DE_RPRN, DE_PLUS,
+  DE_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,     KC_7,    KC_8,    KC_9,    KC_0,    DE_EQL,
+  KC_NO,   KC_NO,   KC_NO,   DE_PIPE, DE_LBRC, DE_RBRC, DE_LCBR,  DE_RCBR, DE_EURO, KC_NO,   DE_BSLS, KC_ENT,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_HOME, KC_PGDN, KC_PGUP, KC_END
+),
+[4] = LAYOUT_planck_grid( /* Function
     * ,-----------------------------------------------------------------------.
     * | F13 | F14 | F15 | F16 | F17 | F18 | F19 | F20 | F21 | F22 | F23 | F24 |
     * |-----------------------------------------------------------------------|
@@ -90,12 +89,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |     |Light|BL DN|BL UP|     |     |     |     |Mute |Vol- |Vol+ | P/P | 
     * `-----------------------------------------------------------------------'
     */
-  {KC_F13, KC_F14,  KC_F15, KC_F16, KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24},
-  {KC_F1,  KC_F2,   KC_F3,  KC_F4,  KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12},
-  {KC_NO,  KC_NO,   KC_NO,  KC_NO,  KC_NO,   KC_PMNS, KC_PPLS, KC_NO,   KC_NO,   KC_NO,   RESET,   KC_NO},
-  {KC_NO,  BL_TOGG, BL_DEC, BL_INC, MO(3),   KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY}
-},
-[5] = { /* Gaming
+  KC_F13, KC_F14,  KC_F15, KC_F16, KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,
+  KC_F1,  KC_F2,   KC_F3,  KC_F4,  KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
+  KC_NO,  KC_NO,   KC_NO,  KC_NO,  KC_NO,   KC_PMNS, KC_PPLS, KC_NO,   KC_NO,   KC_NO,   RESET,   KC_NO,
+  KC_NO,  BL_TOGG, BL_DEC, BL_INC, MO(3),   KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY
+),
+[5] = LAYOUT_planck_grid( /* Gaming
     * ,-----------------------------------------------------------------------.
     * | Buy | ESC | q   | w   | e   | r   | t   | y   | u   | i   | o   |  p  |
     * |-----------------------------------------------------------------------|
@@ -106,12 +105,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |     |     | Tab | ALT |     |   Space   |CrJmp| GUI |Left |Down |Right|
     * `-----------------------------------------------------------------------'
     */
-  {MO(6),   KC_ESC,  KC_Q,   KC_W,    KC_E,  KC_R,   KC_T,   KC_Z,         KC_U,    KC_I,    KC_O,    F(4)},
-  {KC_ENT,  KC_BSPC, KC_A,   KC_S,    KC_D,  KC_F,   KC_G,   KC_H,         KC_J,    KC_K,    KC_L,    DE_SCLN},
-  {KC_LCTL, KC_LSFT, KC_Y,   KC_X,    KC_C,  KC_V,   KC_B,   KC_N,         KC_M,    DE_DOT,  KC_UP,   DE_SLSH},
-  {KC_NO,   KC_NO,   KC_TAB, KC_LALT, KC_NO, KC_SPC, KC_SPC, LCTL(KC_SPC), KC_LGUI, KC_LEFT, KC_DOWN, KC_RGHT}
-},
-[6] = { /* Gaming 
+  MO(6),   KC_ESC,  KC_Q,   KC_W,    KC_E,  KC_R,   KC_T,   KC_Z,         KC_U,    KC_I,    KC_O,    F(4),
+  KC_ENT,  KC_BSPC, KC_A,   KC_S,    KC_D,  KC_F,   KC_G,   KC_H,         KC_J,    KC_K,    KC_L,    DE_SCLN,
+  KC_LCTL, KC_LSFT, KC_Y,   KC_X,    KC_C,  KC_V,   KC_B,   KC_N,         KC_M,    DE_DOT,  KC_UP,   DE_SLSH,
+  KC_NO,   KC_NO,   KC_TAB, KC_LALT, KC_NO, KC_SPC, KC_SPC, LCTL(KC_SPC), KC_LGUI, KC_LEFT, KC_DOWN, KC_RGHT
+),
+[6] = LAYOUT_planck_grid( /* Gaming 
          * CS:GO buy binds
     * ,-----------------------------------------------------------------------.
     * |     |     |     |     |     |     |     |     |  7  |  8  |  9  |     |
@@ -123,15 +122,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |     |     | Tab | ALT |     |   Space   |CrJmp|     |  0  | KP+ |PEnt |
     * `-----------------------------------------------------------------------'
     */
-  {KC_TRNS, KC_NO,   KC_Q,   KC_W,    KC_F,  KC_P,   KC_G,   KC_J,         KC_P7, KC_P8, KC_P9,   KC_NO},
-  {KC_BSPC, KC_NO,   KC_A,   KC_R,    KC_S,  KC_T,   KC_D,   KC_H,         KC_P4, KC_P5, KC_P6,   KC_END},
-  {KC_LCTL, KC_LSFT, KC_Y,   KC_X,    KC_C,  KC_V,   KC_B,   KC_K,         KC_P1, KC_P2, KC_P3,   KC_PGDN},
-  {KC_NO,   KC_NO,   KC_TAB, KC_LALT, KC_NO, KC_SPC, KC_SPC, LCTL(KC_SPC), KC_NO, KC_P0, KC_PDOT, KC_PENT}
-},
+  KC_TRNS, KC_NO,   KC_Q,   KC_W,    KC_F,  KC_P,   KC_G,   KC_J,         KC_P7, KC_P8, KC_P9,   KC_NO,
+  KC_BSPC, KC_NO,   KC_A,   KC_R,    KC_S,  KC_T,   KC_D,   KC_H,         KC_P4, KC_P5, KC_P6,   KC_END,
+  KC_LCTL, KC_LSFT, KC_Y,   KC_X,    KC_C,  KC_V,   KC_B,   KC_K,         KC_P1, KC_P2, KC_P3,   KC_PGDN,
+  KC_NO,   KC_NO,   KC_TAB, KC_LALT, KC_NO, KC_SPC, KC_SPC, LCTL(KC_SPC), KC_NO, KC_P0, KC_PDOT, KC_PENT
+),
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    [3] = ACTION_LAYER_TAP_KEY(4,KC_SPC),         // to Function
     [4] = ACTION_LAYER_TOGGLE(5),                 // toggle Gaming
 	[5] = ACTION_MODS_TAP_KEY(KC_LSFT, KC_CAPS),  //Shift on press, Caps on tap
 };
