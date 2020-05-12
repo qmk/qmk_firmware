@@ -1,12 +1,14 @@
 # punk75
 
-![punk75](imgur.com image replace me!)
+![punk75](https://github.com/dsanchezseco/punk75/raw/master/punk75_front.jpg)
 
-A short description of the keyboard/project
+[Punk75](https://github.com/dsanchezseco/punk75) is an 75-key ortho keyboard with all its components being hand-solderable (through hole).
 
-* Keyboard Maintainer: [dsanchezseco](https://github.com/yourusername)
-* Hardware Supported: The PCBs, controllers supported
-* Hardware Availability: Links to where you can find this hardware
+More info, BOM list and build guide [here](https://github.com/dsanchezseco/punk75)
+
+* Keyboard Maintainer: [dsanchezseco](https://github.com/dsanchezseco)
+* Hardware Supported: ATmega32A-PU
+* Hardware Availability: None (yet) source it yourself ;)
 
 Make example for this keyboard (after setting up your build environment):
 
