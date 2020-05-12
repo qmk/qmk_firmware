@@ -35,11 +35,36 @@
 
 #include "BluefruitLE_SPI.h"
 #include "quantum.h"
+#include "spi_master.h"
 #include <stdlib.h>
 
 #ifndef min
 #    define min(a, b) ((a) < (b) ? (a) : (b))
 #endif
+
+#define SPI_IGNORED_BYTE 0xFEu  /**< SPI default character. Character clocked out in case of an ignored transaction. */
+#define SPI_OVERREAD_BYTE 0xFFu /**< SPI over-read character. Character clocked out after an over-read of the transmit buffer. */
+#define SPI_DEFAULT_DELAY_US 50
+
+#define memclr(buffer, size) memset(buffer, 0, size)
+
+#ifndef AdafruitBleResetPin
+#    define AdafruitBleResetPin D4
+#endif
+
+#ifndef AdafruitBleCSPin
+#    define AdafruitBleCSPin B4
+#endif
+
+#ifndef AdafruitBleIRQPin
+#    define AdafruitBleIRQPin E6
+#endif
+
+#ifndef AdafruitBleSpiClockSpeed
+#    define AdafruitBleSpiClockSpeed 4000000UL  // SCK frequency
+#endif
+
+#define SCK_DIVISOR (F_CPU / AdafruitBleSpiClockSpeed)
 
 #define lowByte(w) ((uint8_t)((w)&0xff))
 #define highByte(w) ((uint8_t)((w) >> 8))
@@ -48,20 +73,12 @@ unsigned int makeWord(unsigned int w) { return w; }
 unsigned int makeWord(unsigned char h, unsigned char l) { return (h << 8) | l; }
 #define word(...) makeWord(__VA_ARGS__)
 
-SPISettings bluefruitSPI(4000000, MSBFIRST, SPI_MODE0);
-
 /******************************************************************************/
 /*!
     @brief Instantiates a new instance of the BluefruitLE_SPI class
 */
 /******************************************************************************/
-BluefruitLE_SPI::BluefruitLE_SPI() : m_rx_fifo(m_rx_buffer, sizeof(m_rx_buffer), 1, true) {
-    _physical_transport = BLUEFRUIT_TRANSPORT_HWSPI;
-
-    m_tx_count = 0;
-
-    m_mode_switch_command_enabled = true;
-}
+BluefruitLE_SPI::BluefruitLE_SPI() : m_rx_fifo(m_rx_buffer, sizeof(m_rx_buffer), 1, true) { m_tx_count = 0; }
 
 /******************************************************************************/
 /*!
@@ -72,6 +89,9 @@ BluefruitLE_SPI::BluefruitLE_SPI() : m_rx_fifo(m_rx_buffer, sizeof(m_rx_buffer),
             'irqPin' is not a HW interrupt pin false will be returned.
 */
 /******************************************************************************/
+
+static bool spiInitialized = false;
+
 bool BluefruitLE_SPI::begin() {
     _verbose = AdafruitBleVerbose;
 
@@ -81,14 +101,10 @@ bool BluefruitLE_SPI::begin() {
     setPinOutput(AdafruitBleCSPin);
     writePinHigh(AdafruitBleCSPin);
 
-    // hardware SPI
-    SPI.begin();
-
-    bool isOK;
-
-    // Always try to send Initialize command to reset
-    // Bluefruit since user can define but not wiring RST signal
-    isOK = sendInitializePattern();
+    if (!spiInitialized) {
+        spi_init();
+        spiInitialized = true;
+    }
 
     // use hardware reset
     // pull the RST to GND for 10 ms
@@ -98,42 +114,12 @@ bool BluefruitLE_SPI::begin() {
     wait_ms(10);
     writePinHigh(AdafruitBleResetPin);
 
-    isOK = true;
-
-    _reset_started_timestamp = timer_read32();
-
     // Bluefruit takes 1 second to reboot
     wait_ms(1000);
 
-    return isOK;
+    return true;
 }
 
-/******************************************************************************/
-/*!
-    @brief  Uninitializes the SPI interface
-*/
-/******************************************************************************/
-void BluefruitLE_SPI::end(void) { SPI.end(); }
-
-/******************************************************************************/
-/*!
-    @brief Handle direct "+++" input command from user.
-           User should use setMode instead
-*/
-/******************************************************************************/
-void BluefruitLE_SPI::simulateSwitchMode(void) {
-    _mode = 1 - _mode;
-
-    char ch = '0' + _mode;
-    m_rx_fifo.write(&ch);
-    m_rx_fifo.write_n("\r\nOK\r\n", 6);
-}
-
-/******************************************************************************/
-/*!
-    @brief Simulate "+++" switch mode command
-*/
-/******************************************************************************/
 bool BluefruitLE_SPI::setMode(uint8_t new_mode) {
     // invalid mode
     if (!(new_mode == BLUEFRUIT_MODE_COMMAND || new_mode == BLUEFRUIT_MODE_DATA)) return false;
@@ -151,23 +137,6 @@ bool BluefruitLE_SPI::setMode(uint8_t new_mode) {
 
     return true;
 }
-
-/******************************************************************************/
-/*!
-    @brief Enable/disable recognition of "+++" switch mode command.
-           Usage of setMode is not affected.
-*/
-/******************************************************************************/
-void BluefruitLE_SPI::enableModeSwitchCommand(bool enabled) { m_mode_switch_command_enabled = enabled; }
-
-/******************************************************************************/
-/*!
-    @brief Send initialize pattern to Bluefruit LE to force a reset. This pattern
-    follow the SDEP command syntax with command_id = SDEP_CMDTYPE_INITIALIZE.
-    The command has NO response, and is expected to complete within 1 second
-*/
-/******************************************************************************/
-bool BluefruitLE_SPI::sendInitializePattern(void) { return sendPacket(SDEP_CMDTYPE_INITIALIZE, NULL, 0, 0); }
 
 /******************************************************************************/
 /*!
@@ -194,29 +163,25 @@ bool BluefruitLE_SPI::sendPacket(uint16_t command, const uint8_t *buf, uint8_t c
     // Copy payload
     if (buf != NULL && count > 0) memcpy(msgCmd.payload, buf, count);
 
-    // Starting SPI transaction
-    SPI.beginTransaction(bluefruitSPI);
-
-    SPI_CS_ENABLE();
+    spi_start(AdafruitBleCSPin, false, 0, SCK_DIVISOR);
 
     uint32_t tt = timer_read32();
 
     // Bluefruit may not be ready
-    while ((spixfer(msgCmd.header.msg_type) == SPI_IGNORED_BYTE) && (timer_elapsed32(tt) < _timeout)) {
+    while ((spi_write(msgCmd.header.msg_type) == SPI_IGNORED_BYTE) && (timer_elapsed32(tt) < _timeout)) {
         // Disable & Re-enable CS with a bit of delay for Bluefruit to ready itself
-        SPI_CS_DISABLE();
+        spi_stop();
         wait_us(SPI_DEFAULT_DELAY_US);
-        SPI_CS_ENABLE();
+        spi_start(AdafruitBleCSPin, false, 0, SCK_DIVISOR);
     }
 
     bool result = (timer_elapsed32(tt) < _timeout);
     if (result) {
         // transfer the rest of the data
-        spixfer((void *)(((uint8_t *)&msgCmd) + 1), sizeof(sdepMsgHeader_t) + count - 1);
+        spi_transmit((((uint8_t *)&msgCmd) + 1), sizeof(sdepMsgHeader_t) + count - 1);
     }
 
-    SPI_CS_DISABLE();
-    SPI.endTransaction();
+    spi_stop();
 
     return result;
 }
@@ -243,12 +208,7 @@ size_t BluefruitLE_SPI::write(uint8_t c) {
     // Final packet due to \r or \n terminator
     if (c == '\r' || c == '\n') {
         if (m_tx_count > 0) {
-            // +++ command to switch mode
-            if (m_mode_switch_command_enabled && memcmp(m_tx_buffer, "+++", 3) == 0) {
-                simulateSwitchMode();
-            } else {
-                sendPacket(SDEP_CMDTYPE_AT_WRAPPER, m_tx_buffer, m_tx_count, 0);
-            }
+            sendPacket(SDEP_CMDTYPE_AT_WRAPPER, m_tx_buffer, m_tx_count, 0);
             m_tx_count = 0;
         }
     } else if (m_tx_count == SDEP_MAX_PACKETSIZE) {
@@ -274,30 +234,26 @@ size_t BluefruitLE_SPI::write(uint8_t c) {
 /******************************************************************************/
 size_t BluefruitLE_SPI::write(const uint8_t *buf, size_t size) {
     if (_mode == BLUEFRUIT_MODE_DATA) {
-        if (m_mode_switch_command_enabled && (size >= 3) && !memcmp(buf, "+++", 3) && !(size > 3 && buf[3] != '\r' && buf[3] != '\n')) {
-            simulateSwitchMode();
-        } else {
-            size_t remain = size;
-            while (remain) {
-                size_t len = min(remain, SDEP_MAX_PACKETSIZE);
-                remain -= len;
+        size_t remain = size;
+        while (remain) {
+            size_t len = min(remain, SDEP_MAX_PACKETSIZE);
+            remain -= len;
 
-                sendPacket(SDEP_CMDTYPE_BLE_UARTTX, buf, (uint8_t)len, remain ? 1 : 0);
-                buf += len;
-            }
-
-            getResponse();
+            sendPacket(SDEP_CMDTYPE_BLE_UARTTX, buf, (uint8_t)len, remain ? 1 : 0);
+            buf += len;
         }
+
+        getResponse();
 
         return size;
-    } else {
-        // Command mode
-        size_t n = 0;
-        while (size--) {
-            n += write(*buf++);
-        }
-        return n;
     }
+
+    // Command mode
+    size_t n = 0;
+    while (size--) {
+        n += write(*buf++);
+    }
+    return n;
 }
 
 /******************************************************************************/
@@ -320,9 +276,9 @@ int BluefruitLE_SPI::available(void) {
         getResponse();
 
         return m_rx_fifo.count();
-    } else {
-        return (readPin(AdafruitBleIRQPin));
     }
+
+    return readPin(AdafruitBleIRQPin);
 }
 
 /******************************************************************************/
@@ -448,33 +404,36 @@ bool BluefruitLE_SPI::getPacket(sdepMsgResponse_t *p_response) {
 
     sdepMsgHeader_t *p_header = &p_response->header;
 
-    SPI.beginTransaction(bluefruitSPI);
-    SPI_CS_ENABLE();
+    spi_start(AdafruitBleCSPin, false, 0, SCK_DIVISOR);
 
     tt = timer_read32();
 
     do {
         if (timer_elapsed32(tt) > _timeout) break;
 
-        p_header->msg_type = spixfer(0xff);
+        p_header->msg_type = spi_read();
 
-        if (p_header->msg_type == SPI_IGNORED_BYTE) {
-            // Bluefruit may not be ready
-            // Disable & Re-enable CS with a bit of delay for Bluefruit to ready itself
-            SPI_CS_DISABLE();
-            wait_us(SPI_DEFAULT_DELAY_US);
-            SPI_CS_ENABLE();
-        } else if (p_header->msg_type == SPI_OVERREAD_BYTE) {
-            // IRQ may not be pulled down by Bluefruit when returning all data in previous transfer.
-            // This could happen when Arduino MCU is running at fast rate comparing to Bluefruit's MCU,
-            // causing an SPI_OVERREAD_BYTE to be returned at stage.
-            //
-            // Walkaround: Disable & Re-enable CS with a bit of delay and keep waiting
-            // TODO IRQ is supposed to be OFF then ON, it is better to use GPIO trigger interrupt.
-
-            SPI_CS_DISABLE();
-            wait_us(SPI_DEFAULT_DELAY_US);
-            SPI_CS_ENABLE();
+        switch (p_header->msg_type) {
+            case SPI_IGNORED_BYTE:
+                // Bluefruit may not be ready
+                //
+                // Disable & Re-enable CS with a bit of delay for Bluefruit to
+                // ready itself
+                //
+                // intentional fallthrough, no break
+            case SPI_OVERREAD_BYTE:
+                // IRQ may not be pulled down by Bluefruit when returning all
+                // data in previous transfer. This could happen when Arduino MCU
+                // is running at fast rate comparing to Bluefruit's MCU, causing
+                // an SPI_OVERREAD_BYTE to be returned at stage.
+                //
+                // Walkaround: Disable & Re-enable CS with a bit of delay and
+                // keep waiting
+                // TODO IRQ is supposed to be OFF then ON, it is better to use
+                // GPIO trigger interrupt.
+                spi_stop();
+                wait_us(SPI_DEFAULT_DELAY_US);
+                spi_start(AdafruitBleCSPin, false, 0, SCK_DIVISOR);
         }
     } while (p_header->msg_type == SPI_IGNORED_BYTE || p_header->msg_type == SPI_OVERREAD_BYTE);
 
@@ -485,19 +444,18 @@ bool BluefruitLE_SPI::getPacket(sdepMsgResponse_t *p_response) {
         // Look for the header
         // note that we should always get the right header at this point, and not doing so will really mess up things.
         while (p_header->msg_type != SDEP_MSGTYPE_RESPONSE && p_header->msg_type != SDEP_MSGTYPE_ERROR && timer_elapsed32(tt) < _timeout) {
-            p_header->msg_type = spixfer(0xff);
+            p_header->msg_type = spi_read();
         }
 
         if (timer_elapsed32(tt) > _timeout) break;
 
-        memset((&p_header->msg_type) + 1, 0xff, sizeof(sdepMsgHeader_t) - 1);
-        spixfer((&p_header->msg_type) + 1, sizeof(sdepMsgHeader_t) - 1);
-
-        // Command is 16-bit at odd address, may have alignment issue with 32-bit chip
-        uint16_t cmd_id = word(p_header->cmd_id_high, p_header->cmd_id_low);
+        spi_receive((&p_header->msg_type) + 1, sizeof(sdepMsgHeader_t) - 1);
 
         // Error Message Response
         if (p_header->msg_type == SDEP_MSGTYPE_ERROR) break;
+
+        // Command is 16-bit at odd address, may have alignment issue with 32-bit chip
+        uint16_t cmd_id = word(p_header->cmd_id_high, p_header->cmd_id_low);
 
         // Invalid command
         if (!(cmd_id == SDEP_CMDTYPE_AT_WRAPPER || cmd_id == SDEP_CMDTYPE_BLE_UARTTX || cmd_id == SDEP_CMDTYPE_BLE_UARTRX)) {
@@ -508,35 +466,12 @@ bool BluefruitLE_SPI::getPacket(sdepMsgResponse_t *p_response) {
         if (p_header->length > SDEP_MAX_PACKETSIZE) break;
 
         // read payload
-        memset(p_response->payload, 0xff, p_header->length);
-        spixfer(p_response->payload, p_header->length);
+        spi_receive(p_response->payload, p_header->length);
 
         result = true;
     } while (0);
 
-    SPI_CS_DISABLE();
-    SPI.endTransaction();
+    spi_stop();
 
     return result;
 }
-
-/******************************************************************************/
-/*!
-
-*/
-/******************************************************************************/
-void BluefruitLE_SPI::spixfer(void *buff, size_t len) {
-    uint8_t *p = (uint8_t *)buff;
-
-    while (len--) {
-        p[0] = spixfer(p[0]);
-        p++;
-    }
-}
-
-/******************************************************************************/
-/*!
-
-*/
-/******************************************************************************/
-uint8_t BluefruitLE_SPI::spixfer(uint8_t x) { return SPI.transfer(x); }

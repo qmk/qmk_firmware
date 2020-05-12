@@ -63,9 +63,7 @@ class BLE : public ATParser {
         BLUEFRUIT_TRANSPORT_HWSPI,
     };
 
-    uint8_t  _physical_transport;
-    uint32_t _reset_started_timestamp;
-    bool     _using_events;
+    bool _using_events;
 
    public:
     // Constructor
@@ -74,7 +72,6 @@ class BLE : public ATParser {
     // Functions implemented in this base class
     bool reset(bool blocking = true);
     bool factoryReset(bool blocking = true);
-    bool resetCompleted(void);
 
     void info(void);
     bool echo(bool enable);
@@ -106,13 +103,6 @@ class BLE : public ATParser {
 
     bool sendCommandWithIntReply(const __FlashStringHelper *cmd, int32_t *reply) { return this->atcommandIntReply(cmd, reply); }
     bool sendCommandWithIntReply(const char cmd[], int32_t *reply) { return this->atcommandIntReply(cmd, reply); }
-
-    // Physical transportation checking
-    bool isTransportHwUart(void) { return _physical_transport == BLUEFRUIT_TRANSPORT_HWUART; }
-    bool isTransportUart(void) { return isTransportHwUart(); }
-
-    bool isTransportHwSpi(void) { return _physical_transport == BLUEFRUIT_TRANSPORT_HWSPI; }
-    bool isTransportSpi(void) { return isTransportHwSpi(); }
 
     /////////////////////
     // callback functions

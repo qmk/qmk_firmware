@@ -45,8 +45,6 @@
 
 class BluefruitLE_UART : public BLE {
    public:
-    BluefruitLE_UART();
-
     virtual ~BluefruitLE_UART();
 
     // HW initialisation

@@ -36,29 +36,7 @@
 #pragma once
 
 #include "BLE.h"
-#include "SPI.h"
 #include "FIFO.h"
-
-#define SPI_CS_ENABLE() writePinLow(AdafruitBleCSPin)
-#define SPI_CS_DISABLE() writePinHigh(AdafruitBleCSPin)
-
-#define SPI_IGNORED_BYTE 0xFEu  /**< SPI default character. Character clocked out in case of an ignored transaction. */
-#define SPI_OVERREAD_BYTE 0xFFu /**< SPI over-read character. Character clocked out after an over-read of the transmit buffer. */
-#define SPI_DEFAULT_DELAY_US 50
-
-#define memclr(buffer, size) memset(buffer, 0, size)
-
-#ifndef AdafruitBleResetPin
-#    define AdafruitBleResetPin D4
-#endif
-
-#ifndef AdafruitBleCSPin
-#    define AdafruitBleCSPin B4
-#endif
-
-#ifndef AdafruitBleIRQPin
-#    define AdafruitBleIRQPin E6
-#endif
 
 class BluefruitLE_SPI : public BLE {
    private:
@@ -70,19 +48,11 @@ class BluefruitLE_SPI : public BLE {
     uint8_t m_rx_buffer[BLE_BUFSIZE];
     FIFO    m_rx_fifo;
 
-    bool m_mode_switch_command_enabled;
-
     // Low level transportation I/O functions
-    bool sendInitializePattern(void);
     bool sendPacket(uint16_t command, const uint8_t* buffer, uint8_t count, uint8_t more_data);
     bool getPacket(sdepMsgResponse_t* p_response);
 
     bool getResponse(void);
-    void simulateSwitchMode(void);
-    // bool    handleSwitchCmdInDataMode(uint8_t ch);
-
-    uint8_t spixfer(uint8_t x);
-    void    spixfer(void* x, size_t len);
 
    public:
     // Constructor
@@ -90,10 +60,8 @@ class BluefruitLE_SPI : public BLE {
 
     // HW initialisation
     bool begin();
-    void end(void);
 
     bool setMode(uint8_t new_mode);
-    void enableModeSwitchCommand(bool enabled);
 
     // Class Print virtual function Interface
     virtual size_t write(uint8_t c);

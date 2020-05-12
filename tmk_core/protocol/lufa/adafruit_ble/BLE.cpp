@@ -66,8 +66,7 @@ enum { NVM_USERDATA_SIZE = 256 };
 BLE::BLE(void) {
     _timeout = BLE_DEFAULT_TIMEOUT;
 
-    _reset_started_timestamp = 0;
-    _using_events            = false;
+    _using_events = false;
 
     _disconnect_callback  = NULL;
     _connect_callback     = NULL;
@@ -128,8 +127,6 @@ bool BLE::reset(bool blocking) {
         if (!isOK) return false;
     }
 
-    _reset_started_timestamp = timer_read32();
-
     // Bluefruit need 1 second to reboot
     if (blocking) {
         wait_ms(1000);
@@ -150,8 +147,6 @@ bool BLE::factoryReset(bool blocking) {
     this->pprintln(F("AT+FACTORYRESET"));
     bool isOK = waitForOK();
 
-    _reset_started_timestamp = timer_read32();
-
     // Bluefruit need 1 second to reboot
     if (blocking) {
         wait_ms(1000);
@@ -162,14 +157,6 @@ bool BLE::factoryReset(bool blocking) {
 
     return isOK;
 }
-
-/******************************************************************************/
-/*!
-    @brief  Check if the reset process is completed, should be used if user
-    reset Bluefruit with non-blocking aka reset(false)
-*/
-/******************************************************************************/
-bool BLE::resetCompleted(void) { return timer_elapsed32(_reset_started_timestamp) > 1000; }
 
 /******************************************************************************/
 /*!

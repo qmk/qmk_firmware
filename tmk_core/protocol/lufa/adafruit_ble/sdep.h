@@ -46,7 +46,6 @@
 */
 /******************************************************************************/
 typedef enum {
-    SDEP_CMDTYPE_INITIALIZE = 0xBEEF, /**< Controls the on board LED(s) */
     SDEP_CMDTYPE_AT_WRAPPER = 0x0A00,
     SDEP_CMDTYPE_BLE_UARTTX = 0x0A01,
     SDEP_CMDTYPE_BLE_UARTRX = 0x0A02,
@@ -57,7 +56,12 @@ typedef enum {
     The first byte of every transfer defines the message type
 */
 /******************************************************************************/
-typedef enum { SDEP_MSGTYPE_COMMAND = 0x10, SDEP_MSGTYPE_RESPONSE = 0x20, SDEP_MSGTYPE_ALERT = 0x40, SDEP_MSGTYPE_ERROR = 0x80 } sdepMsgType_t;
+typedef enum {
+    SDEP_MSGTYPE_COMMAND  = 0x10,
+    SDEP_MSGTYPE_RESPONSE = 0x20,
+    SDEP_MSGTYPE_ALERT    = 0x40,
+    SDEP_MSGTYPE_ERROR    = 0x80,
+} sdepMsgType_t;
 
 /******************************************************************************/
 /*!
