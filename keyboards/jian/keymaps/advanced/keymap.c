@@ -360,8 +360,8 @@ void keyboard_post_init_user(void) {
 }
 
 #ifdef ALT_LAYOUTS_ENABLE
-char change_layout_input = 0;
-bool change_layout_keystroke = 0;
+static char change_layout_input = 0;
+static bool change_layout_keystroke = 0;
 void change_layout_conversion(uint16_t keycode) {
     switch (keycode) {
         case CH_WMN:
