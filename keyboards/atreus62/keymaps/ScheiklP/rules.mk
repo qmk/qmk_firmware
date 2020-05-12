@@ -2,9 +2,9 @@
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
-DYNAMIC_MACRO_ENABLE = yes  # Enable dynamically recorded macros
+DYNAMIC_MACRO_ENABLE = no  # Enable dynamically recorded macros
 AUTO_SHIFT_ENABLE    = yes  # Tap a key for lowercase and hold it for upper case
-KEY_LOCK_ENABLE      = yes  # Adds a lock key to continually hold down a key
+KEY_LOCK_ENABLE      = no  # Adds a lock key to continually hold down a key
 TAP_DANCE_ENABLE     = no   # Enable TapDance functionality
 BOOTMAGIC_ENABLE     = no    # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE      = yes    # Mouse keys(+4700)
