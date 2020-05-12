@@ -15,17 +15,23 @@ GitHub может показаться несколько сложным для 
 
 ![HTTPS link](http://i.imgur.com/eGO0ohO.jpg)
 
-Теперь введите `git clone` в командную строку, а затем вставьте ссылку:
+Теперь введите `git clone --recurse-submodules ` в командную строку, а затем вставьте ссылку:
 
 ```
-user@computer:~$ git clone https://github.com/whoeveryouare/qmk_firmware.git
+user@computer:~$ git clone --recurse-submodules https://github.com/whoeveryouare/qmk_firmware.git
 Cloning into 'qmk_firmware'...
-remote: Counting objects: 46625, done.
-remote: Compressing objects: 100% (2/2), done.
-remote: Total 46625 (delta 0), reused 0 (delta 0), pack-reused 46623
-Receiving objects: 100% (46625/46625), 84.47 MiB | 3.14 MiB/s, done.
-Resolving deltas: 100% (29362/29362), done.
-Checking out files: 100% (2799/2799), done.
+remote: Enumerating objects: 9, done.
+remote: Counting objects: 100% (9/9), done.
+remote: Compressing objects: 100% (5/5), done.
+remote: Total 183883 (delta 5), reused 4 (delta 4), pack-reused 183874
+Receiving objects: 100% (183883/183883), 132.90 MiB | 9.57 MiB/s, done.
+Resolving deltas: 100% (119972/119972), done.
+...
+Submodule path 'lib/chibios': checked out '587968d6cbc2b0e1c7147540872f2a67e59ca18b'
+Submodule path 'lib/chibios-contrib': checked out 'ede48346eee4b8d6847c19bc01420bee76a5e486'
+Submodule path 'lib/googletest': checked out 'ec44c6c1675c25b9827aacd08c02433cccde7780'
+Submodule path 'lib/lufa': checked out 'ce10f7642b0459e409839b23cc91498945119b4d'
+Submodule path 'lib/ugfx': checked out '3e97b74e03c93631cdd3ddb2ce43b963fdce19b2'
 ```
 
 Теперь у вас есть форк QMK на вашем локальном компьютере, и вы можете добавить свою раскладку, скомпилировать ее и прошить ей свою клавиатуру. Как только вы будете довольны своими изменениями, есть возможность добавить, зафиксировать их и сделать коммит в свой форк следующим образом:

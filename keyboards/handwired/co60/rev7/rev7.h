@@ -126,21 +126,3 @@
     { KC_NO, K401,   K402, KC_NO, K404, KC_NO, K406, KC_NO, K408, KC_NO, K410, K411, KC_NO, K413, KC_NO }, \
 }
 
-// Backlighting
-typedef union {
-    uint8_t raw;
-    struct {
-        bool    enable :1;
-        bool    breathing : 1;
-        uint8_t level  :6;
-    };
-} backlight_levels_config_t;
-
-extern backlight_levels_config_t kb_backlight_config;
-extern bool kb_backlight_breathing;
-
-void backlight_init_ports(void);
-void backlight_set(uint8_t level);
-bool is_breathing(void);
-void breathing_enable(void);
-void breathing_disable(void);

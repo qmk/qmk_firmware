@@ -18,7 +18,7 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x5241 // "RW"
+#define VENDOR_ID       0x5241 // "RA"
 #define PRODUCT_ID      0x006A // 6-A
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    RAMA WORKS
@@ -103,27 +103,12 @@
 
 #define RGB_BACKLIGHT_ENABLED 0
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
-
-// EEPROM usage
-
-// TODO: refactor with new user EEPROM code (coming soon)
-#define EEPROM_MAGIC 0x451F
-#define EEPROM_MAGIC_ADDR 34
-// Bump this every time we change what we store
-// This will automatically reset the EEPROM with defaults
-// and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x08
-#define EEPROM_VERSION_ADDR 36
-
 // NOTE: M6-A doesn't use RGB backlight, but we keep this
 // consistent with M6-B which does.
 
-// Backlight config starts after EEPROM version
-#define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR 37
-// Dynamic keymap starts after backlight config (37+43)
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 80
-// Dynamic macro starts after dynamic keymaps (80+(4*6*2)) = (80+48)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 128
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 896
-#define DYNAMIC_KEYMAP_MACRO_COUNT 16
+// Backlight config starts after VIA's EEPROM usage,
+// dynamic keymaps start after this.
+#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 43
+
+// VIA lighting is handled by the keyboard-level code
+#define VIA_CUSTOM_LIGHTING_ENABLE

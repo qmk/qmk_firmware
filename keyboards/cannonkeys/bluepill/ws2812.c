@@ -45,6 +45,7 @@ static THD_FUNCTION(ledsThread, arg) {
 }
 
  static const SPIConfig spicfg = {
+  false,
   NULL,
   PORT_WS2812,
   PIN_WS2812,

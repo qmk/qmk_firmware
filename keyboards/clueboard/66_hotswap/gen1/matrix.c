@@ -5,7 +5,6 @@
 #include "timer.h"
 #include "wait.h"
 #include "printf.h"
-#include "backlight.h"
 #include "matrix.h"
 #include "action.h"
 #include "keycode.h"
