@@ -73,8 +73,20 @@ On the other hand, you can change `layer_state` to overlay the base layer with o
 ### Layer Precedence and Transparency
 Note that ***higher layer has higher priority on stack of layers***, namely firmware falls down from top layer to bottom to look up keycode. Once it spots keycode other than **`KC_TRNS`**(transparent) on a layer it stops searching and lower layers aren't referred.
 
-You can place `KC_TRANS` on overlay layer changes just part of layout to fall back on lower or base layer.
-Key with `KC_TRANS` (`KC_TRNS` and `_______` are the alias) doesn't has its own keycode and refers to lower valid layers for keycode, instead.
+           ____________        
+          /           /  <--- Higher layer
+         /  KC_TRNS  //          
+        /___________//   <--- Lower layer (KC_A)
+        /___________/  
+    
+    In the above scenario, the non-transparent keys on the higher layer would be usable, but whenever KC_TRNS (or equivalent) is defined the keycode (KC_A)) on the lower level would be used. 
+
+**Note:** Valid ways to denote transparency on a given layer:
+* `KC_TRNS`
+* `KC_TRANS` (alias)
+* `_______`  (alias)
+
+These do not have their own keycodes and allow the processing to fall through to the lower layer in search of a keycode to process. 
 
 ## Anatomy of a `keymap.c`
 
