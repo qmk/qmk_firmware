@@ -1,89 +1,28 @@
 # Unconditionally disable features that a keyboard advertises it doesn't support
 
-ifeq ($(strip $(ADAFRUIT_BLE_SUPPORTED)), no)
-    ADAFRUIT_BLE_ENABLE=no
-endif
+FEATURE_NAMES :=
+FEATURE_NAMES += ADAFRUIT_BLE
+FEATURE_NAMES += AUDIO
+FEATURE_NAMES += BACKLIGHT
+FEATURE_NAMES += BLUETOOTH
+FEATURE_NAMES += DIP_SWITCH
+FEATURE_NAMES += DYNAMIC_KEYMAP
+FEATURE_NAMES += ENCODER
+FEATURE_NAMES += HAPTIC
+FEATURE_NAMES += HD44780
+FEATURE_NAMES += IOS_DEVICE
+FEATURE_NAMES += LCD_BACKLIGHT
+FEATURE_NAMES += LCD
+FEATURE_NAMES += OLED
+FEATURE_NAMES += PRINTING
+FEATURE_NAMES += PS2_MOUSE
+FEATURE_NAMES += RGBLIGHT
+FEATURE_NAMES += RGB_MATRIX
+FEATURE_NAMES += STENO
+FEATURE_NAMES += SWAP_HANDS
+FEATURE_NAMES += VISUALIZER
+FEATURE_NAMES += WATCHDOG
+FEATURE_NAMES += XT
 
-ifeq ($(strip $(AUDIO_SUPPORTED)), no)
-    AUDIO_ENABLE=no
-endif
-
-ifeq ($(strip $(BACKLIGHT_SUPPORTED)), no)
-    BACKLIGHT_ENABLE=no
-endif
-
-ifeq ($(strip $(BLUETOOTH_SUPPORTED)), no)
-    BLUETOOTH_ENABLE=no
-endif
-
-ifeq ($(strip $(DIP_SWITCH_SUPPORTED)), no)
-    DIP_SWITCH_ENABLE=no
-endif
-
-ifeq ($(strip $(DYNAMIC_KEYMAP_SUPPORTED)), no)
-    DYNAMIC_KEYMAP_ENABLE=no
-endif
-
-ifeq ($(strip $(ENCODER_SUPPORTED)), no)
-    ENCODER_ENABLE=no
-endif
-
-ifeq ($(strip $(HAPTIC_SUPPORTED)), no)
-    HAPTIC_ENABLE=no
-endif
-
-ifeq ($(strip $(HD44780_SUPPORTED)), no)
-    HD44780_ENABLE=no
-endif
-
-ifeq ($(strip $(IOS_DEVICE_SUPPORTED)), no)
-    IOS_DEVICE_ENABLE=no
-endif
-
-ifeq ($(strip $(LCD_BACKLIGHT_SUPPORTED)), no)
-    LCD_BACKLIGHT_ENABLE=no
-endif
-
-ifeq ($(strip $(LCD_SUPPORTED)), no)
-    LCD_ENABLE=no
-endif
-
-ifeq ($(strip $(OLED_SUPPORTED)), no)
-    OLED_ENABLE=no
-endif
-
-ifeq ($(strip $(PRINTING_SUPPORTED)), no)
-    PRINTING_ENABLE=no
-endif
-
-ifeq ($(strip $(PS2_MOUSE_SUPPORTED)), no)
-    PS2_MOUSE_ENABLE=no
-endif
-
-ifeq ($(strip $(RGBLIGHT_SUPPORTED)), no)
-    RGBLIGHT_ENABLE=no
-endif
-
-ifeq ($(strip $(RGB_MATRIX_SUPPORTED)), no)
-    RGB_MATRIX_ENABLE=no
-endif
-
-ifeq ($(strip $(STENO_SUPPORTED)), no)
-    STENO_ENABLE=no
-endif
-
-ifeq ($(strip $(SWAP_HANDS_SUPPORTED)), no)
-    SWAP_HANDS_ENABLE=no
-endif
-
-ifeq ($(strip $(VISUALIZER_SUPPORTED)), no)
-    VISUALIZER_ENABLE=no
-endif
-
-ifeq ($(strip $(WATCHDOG_SUPPORTED)), no)
-    WATCHDOG_ENABLE=no
-endif
-
-ifeq ($(strip $(XT_SUPPORTED)), no)
-    XT_ENABLE=no
-endif
+$(foreach AFEATURE,$(FEATURE_NAMES),\
+	 $(if $(filter $($(AFEATURE)_SUPPORTED),no),$(eval $(AFEATURE)_FEATURE=no)))
