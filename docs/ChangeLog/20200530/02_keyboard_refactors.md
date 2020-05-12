@@ -89,3 +89,22 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 ```
 - Remove the function `iota_gfx_task_user`
+
+# Split HHKB to ANSI and JP layouts and Add VIA support for each
+
+[#8582](https://github.com/qmk/qmk_firmware/pull/8582)
+
+- Splits the HHKB codebase into two separate folders `keyboards/hhkb/ansi` and `keyboards/hhkb/jp`.
+- Adds VIA Configurator support for both versions.
+
+## Migrating existing HHKB keymaps
+
+- Remove any checks for the `HHKB_JP` definition
+  - All checks for this definition have been removed, and each version uses the source that is appropriate to that version.
+- Move the directory for your keymap into the appropriate `keymaps` directory
+  - `keyboards/hhkb/ansi/keymaps/` for ANSI HHKBs
+  - `keyboards/hhkb/jp/keymaps/` for HHKB JPs
+- Compile with the new keyboard names
+  - This PR changes the compilation instructions for the HHKB Alternate Controller. To compile firmware for this controller moving forward, use:
+    - `make hhkb/ansi` for ANSI-layout HHKBs
+    - `make hhkb/jp` for HHKB JP keyboards
