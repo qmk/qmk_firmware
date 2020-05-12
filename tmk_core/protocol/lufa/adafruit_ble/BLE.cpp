@@ -67,6 +67,7 @@ BLE::BLE(void) {
     _timeout = BLE_DEFAULT_TIMEOUT;
 
     _reset_started_timestamp = 0;
+    _using_events            = false;
 
     _disconnect_callback  = NULL;
     _connect_callback     = NULL;
@@ -90,7 +91,9 @@ void BLE::install_callback(bool enable, int8_t system_id) {
 
     this->pprintln();
 
-    waitForOK();
+    if (waitForOK()) {
+        _using_events = true;
+    }
 
     // switch back if necessary
     if (current_mode == BLUEFRUIT_MODE_DATA) setMode(BLUEFRUIT_MODE_DATA);
@@ -261,6 +264,8 @@ bool BLE::isVersionAtLeast(const char* versionString) {
 */
 /******************************************************************************/
 void BLE::update(uint32_t period_ms) {
+    if (!_using_events) return;
+
     static uint32_t tt = 0;
 
     if (timer_elapsed32(tt) > period_ms) {
@@ -502,3 +507,5 @@ void BLE::setBleUartRxCallback(void (*fp)(char data[], uint16_t len)) {
     this->_ble_uart_rx_callback = fp;
     install_callback(fp != NULL, EVENT_SYSTEM_BLE_UART_RX);
 }
+
+bool BLE::usingEvents() { return _using_events; }

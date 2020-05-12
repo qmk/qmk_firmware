@@ -1,6 +1,5 @@
 #include "BLE.h"
 #include "lufa.h"
-#include "print.h"
 #include "debug.h"
 #include "bluetooth.h"
 #include "outputselect.h"
@@ -8,6 +7,7 @@
 #ifdef MODULE_ADAFRUIT_BLE_UART
 #    include "BluefruitLE_UART.h"
 #elif MODULE_ADAFRUIT_BLE_SPI
+#    include "BluefruitLE_SPI.h"
 #endif
 
 #ifdef RGBLIGHT_ENABLE
@@ -25,6 +25,7 @@
 #ifdef MODULE_ADAFRUIT_BLE_UART
 static BluefruitLE_UART ble;
 #elif MODULE_ADAFRUIT_BLE_SPI
+static BluefruitLE_SPI ble;
 #endif
 
 #ifdef BLUETOOTH_BATTERY_ENABLE
@@ -56,6 +57,13 @@ bool reset() {
     ble.setConnectCallback(connected);
     ble.setDisconnectCallback(disconnected);
 
+    // This only works in SPIFRIEND firmware > 0.6.7, which is why
+    // we check for this conditionally here.
+    // Note that at the time of writing, HID reports only work correctly
+    // with Apple products on firmware version 0.6.7!
+    // https://forums.adafruit.com/viewtopic.php?f=8&t=104052
+    if (!ble.usingEvents()) state.is_connected = true;
+
     return true;
 }
 
@@ -63,7 +71,7 @@ bool reset() {
 // phones, for example, when they will not show the on screen keyboard if a bt
 // keyboard is connected.
 bool set_connectable(bool v) {
-    if (!!v == !!state.connectable) return true;
+    if (state.connectable != -1 && !!v == !!state.connectable) return true;
     state.connectable = v ? 1 : 0;
     return ble.atcommand(F("AT+GAPCONNECTABLE"), state.connectable);
 }
@@ -71,15 +79,10 @@ bool set_connectable(bool v) {
 bool ble_init() {
     state.configured      = false;
     state.is_connected    = false;
-    state.connectable     = 1;
+    state.connectable     = -1;
     state.USB_DeviceState = -1;
 
-#ifdef MODULE_ADAFRUIT_BLE_UART
-    if (!ble.begin(AdafruitBleBaud, AdafruitBleVerbose)) {
-        return false;
-    }
-#elif MODULE_ADAFRUIT_BLE_SPI
-#endif
+    if (!ble.begin()) return false;
 
     if (!ble.echo(false)) return false;
     ble.atcommand(F("AT+GAPINTERVALS"), "10,30,,");

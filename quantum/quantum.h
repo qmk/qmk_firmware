@@ -182,7 +182,7 @@ extern layer_state_t layer_state;
 #    include "wpm.h"
 #endif
 
-#ifdef BLUETOOTH_BATTERY_ENABLE
+#ifdef BLUETOOTH_ENABLE
 #    include "bluetooth.h"
 #endif
 

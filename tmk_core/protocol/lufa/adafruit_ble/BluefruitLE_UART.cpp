@@ -35,8 +35,8 @@
 
 #include "BluefruitLE_UART.h"
 #include "HardwareSerial.h"
+#include "debug.h"
 #include "wait.h"
-#include "print.h"
 
 /******************************************************************************/
 /*!
@@ -61,24 +61,24 @@ BluefruitLE_UART::~BluefruitLE_UART() { end(); }
             'irqPin' is not a HW interrupt pin false will be returned.
 */
 /******************************************************************************/
-bool BluefruitLE_UART::begin(uint32_t baud, bool debug, bool blocking) {
-    _verbose = debug;
+bool BluefruitLE_UART::begin(uint32_t baud) {
+    _verbose = AdafruitBleVerbose;
 
     Serial.begin(baud);
     Serial.setTimeout(_timeout);
 
     // reset Bluefruit module upon connect
-    bool isOK = reset(blocking);
+    bool isOK = reset(true);
 
     if (!isOK && baud != 9600) {
         // sometimes the modules get reset and the baud goes to default (9600)
         // so if there was an issue, let's retry at the default rate
-        if (begin(9600, debug, blocking)) {
+        if (begin(9600)) {
             // since this worked, let's reset the baud rate to where it's
             // supposed to be
             if (atcommand(F("AT+BAUDRATE"), baud)) {
                 // and now we try one more time at the correct rate
-                return begin(baud, debug, blocking);
+                return begin(baud);
             }
         }
     }
@@ -142,7 +142,7 @@ bool BluefruitLE_UART::setMode(uint8_t new_mode) {
 */
 /******************************************************************************/
 size_t BluefruitLE_UART::write(uint8_t c) {
-    if (_verbose) xprintf("%c", c);
+    if (_verbose) dprintf("%c", c);
     wait_us(50);
     return Serial.write(c);
 }

@@ -65,6 +65,7 @@ class BLE : public ATParser {
 
     uint8_t  _physical_transport;
     uint32_t _reset_started_timestamp;
+    bool     _using_events;
 
    public:
     // Constructor
@@ -77,6 +78,7 @@ class BLE : public ATParser {
 
     void info(void);
     bool echo(bool enable);
+    bool usingEvents();
 
     bool isConnected(void);
     bool isVersionAtLeast(const char *versionString);

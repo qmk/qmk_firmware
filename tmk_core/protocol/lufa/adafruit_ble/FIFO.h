@@ -1,6 +1,6 @@
 /**************************************************************************/
 /*!
-    Modified from the original Adafruit_BluefruitLE_UART.h which was released under
+    Modified from the original Adafruit_FIFO.h which was released under
     the BSD License (below).
 
     Software License Agreement (BSD License)
@@ -35,36 +35,35 @@
 
 #pragma once
 
-#include "BLE.h"
+#include <stdint.h>
+#include <stdbool.h>
 
-#ifdef __cplusplus
+class FIFO {
+   private:
+    uint8_t*          m_buffer;     ///< buffer pointer
+    uint16_t          m_depth;      ///< max items
+    uint8_t           m_item_size;  ///< size of each item
+    bool              m_overwritable;
+    volatile uint16_t m_count;   ///< number of items in queue
+    volatile uint16_t m_wr_idx;  ///< write pointer
+    volatile uint16_t m_rd_idx;  ///< read pointer
 
-#    ifndef AdafruitBleBaud
-#        define AdafruitBleBaud 9600
-#    endif
-
-class BluefruitLE_UART : public BLE {
    public:
-    BluefruitLE_UART();
+    // Constructor
+    FIFO(void* buffer, uint16_t depth, uint8_t item_size, bool overwrite);
 
-    virtual ~BluefruitLE_UART();
+    void clear(void);
+    bool peek(void* buffer);
+    bool peekAt(uint16_t position, void* p_buffer);
 
-    // HW initialisation
-    bool begin(uint32_t baud = AdafruitBleBaud);
-    void end(void);
+    bool     write(void const* item);
+    uint16_t write_n(void const* data, uint16_t n);
 
-    bool setMode(uint8_t new_mode);
+    bool     read(void* buffer);
+    uint16_t read_n(void* buffer, uint16_t n);
 
-    // Class Print virtual function Interface
-    virtual size_t write(uint8_t c);
-
-    // pull in write(str) and write(buf, size) from Print
-    using Print::write;
-
-    // Class Stream interface
-    virtual int  available(void);
-    virtual int  read(void);
-    virtual void flush(void);
-    virtual int  peek(void);
+    inline bool     empty(void) { return m_count == 0; }
+    inline bool     full(void) { return m_count == m_depth; }
+    inline uint16_t count(void) { return m_count; }
+    inline uint16_t remaining(void) { return m_depth - m_count; }
 };
-#endif
