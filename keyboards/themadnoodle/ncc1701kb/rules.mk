@@ -32,5 +32,3 @@ UNICODE_ENABLE = yes        # Unicode
 API_SYSEX_ENABLE = yes
 TAP_DANCE_ENABLE = no
 ENCODER_ENABLE = yes
-
-LAYOUT = macro_pad
