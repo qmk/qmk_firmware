@@ -63,40 +63,39 @@ void main_remotewakeup_enable(void);
 // Called by UDC when USB Host request to disable remote wakeup
 void main_remotewakeup_disable(void);
 
-#ifdef KBD
 extern volatile bool main_b_kbd_enable;
 bool                 main_kbd_enable(void);
 void                 main_kbd_disable(void);
-#endif  // KBD
 
-#ifdef NKRO
+#ifdef NKRO_ENABLE
 extern volatile bool main_b_nkro_enable;
 bool                 main_nkro_enable(void);
 void                 main_nkro_disable(void);
-#endif  // NKRO
+#endif  // NKRO_ENABLE
 
-#ifdef EXK
+#ifdef EXTRAKEY_ENABLE
 extern volatile bool main_b_exk_enable;
 bool                 main_exk_enable(void);
 void                 main_exk_disable(void);
-#endif  // EXK
+#endif  // EXTRAKEY_ENABLE
 
-#ifdef CON
+#ifdef CONSOLE_ENABLE
 extern volatile bool main_b_con_enable;
 bool                 main_con_enable(void);
 void                 main_con_disable(void);
-#endif  // CON
+#endif  // CONSOLE_ENABLE
 
-#ifdef MOU
+#ifdef MOUSE_ENABLE
 extern volatile bool main_b_mou_enable;
 bool                 main_mou_enable(void);
 void                 main_mou_disable(void);
-#endif  // MOU
+#endif  // MOUSE_ENABLE
 
-#ifdef RAW
+#ifdef RAW_ENABLE
 extern volatile bool main_b_raw_enable;
 bool                 main_raw_enable(void);
 void                 main_raw_disable(void);
-#endif  // RAW
+void                 main_raw_receive(uint8_t *buffer, uint8_t len);
+#endif  // RAW_ENABLE
 
 #endif  // _MAIN_H_
