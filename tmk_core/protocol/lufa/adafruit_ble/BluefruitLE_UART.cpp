@@ -34,16 +34,9 @@
 /**************************************************************************/
 
 #include "BluefruitLE_UART.h"
-#include "HardwareSerial.h"
+#include "uart.h"
 #include "debug.h"
 #include "wait.h"
-
-/******************************************************************************/
-/*!
-    @brief Class's Destructor
-*/
-/******************************************************************************/
-BluefruitLE_UART::~BluefruitLE_UART() { end(); }
 
 /******************************************************************************/
 /*!
@@ -54,11 +47,15 @@ BluefruitLE_UART::~BluefruitLE_UART() { end(); }
             'irqPin' is not a HW interrupt pin false will be returned.
 */
 /******************************************************************************/
+static bool initialized = false;
+
 bool BluefruitLE_UART::begin(uint32_t baud) {
     _verbose = AdafruitBleVerbose;
 
-    Serial.begin(baud);
-    Serial.setTimeout(_timeout);
+    if (!initialized) {
+        uart_init(baud);
+        initialized = true;
+    }
 
     // reset Bluefruit module upon connect
     bool isOK = reset(true);
@@ -78,13 +75,6 @@ bool BluefruitLE_UART::begin(uint32_t baud) {
 
     return isOK;
 }
-
-/******************************************************************************/
-/*!
-    @brief  Uninitializes the SPI interface
-*/
-/******************************************************************************/
-void BluefruitLE_UART::end(void) { Serial.end(); }
 
 /******************************************************************************/
 /*!
@@ -137,7 +127,8 @@ bool BluefruitLE_UART::setMode(uint8_t new_mode) {
 size_t BluefruitLE_UART::write(uint8_t c) {
     if (_verbose) dprintf("%c", c);
     wait_us(50);
-    return Serial.write(c);
+    uart_putchar(c);
+    return 1;
 }
 
 /******************************************************************************/
@@ -147,7 +138,7 @@ size_t BluefruitLE_UART::write(uint8_t c) {
     @return 'true' if a response is ready, otherwise 'false'
 */
 /******************************************************************************/
-int BluefruitLE_UART::available(void) { return Serial.available(); }
+int BluefruitLE_UART::available(void) { return uart_available(); }
 
 /******************************************************************************/
 /*!
@@ -156,7 +147,7 @@ int BluefruitLE_UART::available(void) { return Serial.available(); }
     @return -1 if no data is available
 */
 /******************************************************************************/
-int BluefruitLE_UART::read(void) { return Serial.read(); }
+int BluefruitLE_UART::read(void) { return uart_getchar(); }
 
 /******************************************************************************/
 /*!
@@ -166,7 +157,7 @@ int BluefruitLE_UART::read(void) { return Serial.read(); }
     @return -1 if no data is available
 */
 /******************************************************************************/
-int BluefruitLE_UART::peek(void) { return Serial.peek(); }
+int BluefruitLE_UART::peek(void) { return uart_peek(); }
 
 /******************************************************************************/
 /*!
@@ -175,4 +166,4 @@ int BluefruitLE_UART::peek(void) { return Serial.peek(); }
     @return -1 if no data is available
 */
 /******************************************************************************/
-void BluefruitLE_UART::flush(void) { Serial.flush(); }
+void BluefruitLE_UART::flush(void) { uart_flush(); }

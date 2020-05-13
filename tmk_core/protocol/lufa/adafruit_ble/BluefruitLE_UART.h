@@ -45,11 +45,8 @@
 
 class BluefruitLE_UART : public BLE {
    public:
-    virtual ~BluefruitLE_UART();
-
     // HW initialisation
     bool begin(uint32_t baud = AdafruitBleBaud);
-    void end(void);
 
     bool setMode(uint8_t new_mode);
 

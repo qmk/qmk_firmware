@@ -9,6 +9,8 @@ extern "C" {
 
 void    uart_init(uint32_t baud);
 void    uart_putchar(uint8_t c);
+void    uart_flush(void);
+uint8_t uart_peek(void);
 uint8_t uart_getchar(void);
 uint8_t uart_available(void);
 
