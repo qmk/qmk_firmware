@@ -188,14 +188,20 @@ void bmp_via_receive_cb(uint8_t *data, uint8_t length) {
                         for (uint8_t row = 0; row < config->matrix.rows;
                              row++) {
                             matrix_row_t value = matrix_get_row(row);
+
                             if (config->matrix.cols > 24) {
                                 command_data[i++] = (value >> 24) & 0xFF;
-                            } else if (config->matrix.cols > 16) {
+                            }
+
+                            if (config->matrix.cols > 16) {
                                 command_data[i++] = (value >> 16) & 0xFF;
-                            } else if (config->matrix.cols > 8) {
+                            }
+
+                            if (config->matrix.cols > 8) {
                                 command_data[i++] = (value >> 8) & 0xFF;
-                            } else
-                                command_data[i++] = value & 0xFF;
+                            }
+
+                            command_data[i++] = value & 0xFF;
                         }
                     }
                     break;
