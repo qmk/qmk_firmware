@@ -7,8 +7,7 @@
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-enum chimera_ortho_plus_layers
-{
+enum chimera_ortho_plus_layers {
   _QWERTY,
   _CAPS,
   _NUMPAD,
@@ -83,13 +82,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_SYMBOLS] = LAYOUT(
   //,-------+-------+-------+-------+-------+-------.     ,-------+-------+-------+-------+-------+-------.
-     _______,    ,    ,    ,    ,    ,          ,    ,    ,    ,    ,    ,
+     _______,_______,_______,_______,_______,_______,      _______,_______,_______,_______,_______,_______,
   //|-------+-------+-------+-------+-------+-------|     |-------+-------+-------+-------+-------+-------|
      _______,KC_EXLM, KC_AT ,KC_HASH,KC_DLR ,KC_PERC,      KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,KC_BSLS,
   //|-------+-------+-------+-------+-------+-------|     |-------+-------+-------+-------+-------+-------|
-      KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 ,      KC_TILD,KC_EQL ,KC_UNDS,KC_LCBR,KC_RCBR,    ,
+      KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 ,      KC_TILD,KC_EQL ,KC_UNDS,KC_LCBR,KC_RCBR,_______,
   //|-------+-------+-------+-------+-------+-------|     |-------+-------+-------+-------+-------+-------|
-      KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_F11 ,KC_F12 ,      KC_GRV ,KC_PLUS,KC_MINS,KC_LBRC,KC_RBRC,    ,
+      KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_F11 ,KC_F12 ,      KC_GRV ,KC_PLUS,KC_MINS,KC_LBRC,KC_RBRC,_______,
   //|-------+-------+-------+-------+-------+-------|     |-------+-------+-------+-------+-------+-------|
                                      KC_PIPE,_______,      _______,_______
   //|-------------------------------+-------+-------|     |-------+-------+-------------------------------|
@@ -121,9 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|-------+-------+-------+-------+-------+-------|     |-------+-------+-------+-------+-------+-------|
                                      _______,KC_DEL ,      _______,_______    
   //|-------------------------------+-------+-------|     |-------+-------+-------------------------------|
-  ),
-
-
+  )
 };
 
 
@@ -144,8 +141,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed){
         SEND_STRING("git push" SS_TAP(X_ENTER));
       }
-      return false;
-    case KC_SCAP:
+      return false;    
+	case KC_SCAP:
       if (record->event.pressed){
         layer_on(_CAPS);
         register_code(KC_CAPSLOCK);
@@ -171,22 +168,22 @@ void matrix_scan_user(void) {
     	case _QWERTY:
     	    set_led_green;
     	    break;
-        case _CAPS:
+	    case _CAPS:
 			set_led_white;
 			break;
-        case _NUMPAD:
+	    case _NUMPAD:
             set_led_blue;
             break;
-        case _SYMBOLS:
+	    case _SYMBOLS:
             set_led_red;
             break;
-        case _NAV:
-			set_led_magenta;
-			break;
-        case _MACROS:
+	    case _MACROS:
 			set_led_cyan;
 			break;
-       default:
+		case _NAV:
+			set_led_magenta;
+			break;
+        default:
             set_led_green;
             break;
     }
