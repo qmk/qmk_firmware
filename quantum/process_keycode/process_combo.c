@@ -55,7 +55,11 @@ static inline void dump_key_buffer(bool emit) {
 
     if (emit) {
         for (uint8_t i = 0; i < buffer_size; i++) {
+#ifndef NO_ACTION_TAPPING
             action_tapping_process(key_buffer[i]);
+#else
+            process_record(&key_buffer[i]);
+#endif
         }
     }
     clear_combos(emit);
