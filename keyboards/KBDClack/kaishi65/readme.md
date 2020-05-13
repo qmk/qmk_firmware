@@ -1,7 +1,4 @@
 # kaishi65
-
-
-
 A sleek 65% keyboard made from CNC machined aluminium
 
 *(PCB based on coseyfannitutti's MULLET design)*
