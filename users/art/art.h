@@ -24,6 +24,7 @@ enum layer_names {
   STRINGS,
   CONFIG,
   NAV,
+  NUMPAD,
   GIT,
   GIT_C,
   GIT_S
