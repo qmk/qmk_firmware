@@ -1,5 +1,4 @@
-#ifndef KOY_KEYS_ON_QUERTZ_DE_LATIN1_H
-#define KOY_KEYS_ON_QUERTZ_DE_LATIN1_H
+#pragma once
 
 /*
 This file defines the desierd KOY keys if you use a software (operating sysetm)
