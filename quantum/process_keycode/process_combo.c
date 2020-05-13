@@ -92,8 +92,10 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
     /* Continue processing if key isn't part of current combo.
      * Also disable current combo and reset its state. */
     if (-1 == (int8_t)index) {
-        combo->disabled = true;
-        combo->state = 0;
+        if (!ALL_COMBO_KEYS_ARE_DOWN) {
+            combo->disabled = true;
+            combo->state = 0;
+        }
         return false;
     }
 
@@ -115,6 +117,7 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
                 fire_combo();
             }
             send_combo(combo->keycode, false);
+            combo->state = 0; /* immediately clear state on release */
         } else {
             /* continue processing without immediately returning */
             is_combo_active = false;
@@ -192,7 +195,14 @@ void clear_combos(bool clear_state) {
         combo_t *combo = &key_combos[index];
         combo->disabled = false;
         if (clear_state) {
-            combo->state = 0;
+            uint8_t count = 0;
+            for (const uint16_t *keys = combo->keys;; ++count) {
+                uint16_t key = pgm_read_word(&keys[count]);
+                if (COMBO_END == key) break;
+            }
+            if (!ALL_COMBO_KEYS_ARE_DOWN) {
+                combo->state = 0;
+            }
         }
     }
 }
