@@ -6,6 +6,7 @@
 extern "C" {
 #endif
 
+void bluetooth_init(void);
 void bluetooth_task(void);
 bool bluetooth_is_connected(void);
 void bluetooth_unpair(void);

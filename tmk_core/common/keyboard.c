@@ -277,6 +277,9 @@ void keyboard_init(void) {
 #ifdef POINTING_DEVICE_ENABLE
     pointing_device_init();
 #endif
+#ifdef BLUETOOTH_ENABLE
+    bluetooth_init();
+#endif
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
     keymap_config.nkro = 1;
     eeconfig_update_keymap(keymap_config.raw);

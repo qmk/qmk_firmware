@@ -78,7 +78,10 @@ unsigned int makeWord(unsigned char h, unsigned char l) { return (h << 8) | l; }
     @brief Instantiates a new instance of the BluefruitLE_SPI class
 */
 /******************************************************************************/
-BluefruitLE_SPI::BluefruitLE_SPI() : m_rx_fifo(m_rx_buffer, sizeof(m_rx_buffer), 1, true) { m_tx_count = 0; }
+BluefruitLE_SPI::BluefruitLE_SPI() : m_rx_fifo(m_rx_buffer, sizeof(m_rx_buffer), 1, true) {
+    m_tx_count = 0;
+    spi_init();
+}
 
 /******************************************************************************/
 /*!
@@ -90,8 +93,6 @@ BluefruitLE_SPI::BluefruitLE_SPI() : m_rx_fifo(m_rx_buffer, sizeof(m_rx_buffer),
 */
 /******************************************************************************/
 
-static bool spiInitialized = false;
-
 bool BluefruitLE_SPI::begin() {
     _verbose = AdafruitBleVerbose;
 
@@ -100,11 +101,6 @@ bool BluefruitLE_SPI::begin() {
     // Set CS pin to output and de-assert by default
     setPinOutput(AdafruitBleCSPin);
     writePinHigh(AdafruitBleCSPin);
-
-    if (!spiInitialized) {
-        spi_init();
-        spiInitialized = true;
-    }
 
     // use hardware reset
     // pull the RST to GND for 10 ms

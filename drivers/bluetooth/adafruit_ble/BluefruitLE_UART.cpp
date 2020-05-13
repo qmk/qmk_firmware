@@ -47,15 +47,11 @@
             'irqPin' is not a HW interrupt pin false will be returned.
 */
 /******************************************************************************/
-static bool uartInitialized = false;
 
 bool BluefruitLE_UART::begin(uint32_t baud) {
     _verbose = AdafruitBleVerbose;
 
-    if (!uartInitialized) {
-        uart_init(baud);
-        uartInitialized = true;
-    }
+    uart_init(baud);
 
     // reset Bluefruit module upon connect
     bool isOK = reset(true);

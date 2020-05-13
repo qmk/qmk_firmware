@@ -1,5 +1,7 @@
 #include "bluetooth.h"
 
+__attribute__((weak)) void bluetooth_init(void) {}
+
 __attribute__((weak)) void bluetooth_task(void) {}
 
 __attribute__((weak)) bool bluetooth_is_connected(void) { return true; }

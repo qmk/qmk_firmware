@@ -3,19 +3,12 @@
 #include "outputselect.h"
 #include "host_driver.h"
 #include "bluetooth.h"
+#include "report.h"
 
 #ifdef MODULE_ADAFRUIT_BLE_UART
 #    include "BluefruitLE_UART.h"
 #elif MODULE_ADAFRUIT_BLE_SPI
 #    include "BluefruitLE_SPI.h"
-#endif
-
-#ifdef RGBLIGHT_ENABLE
-#    include "rgblight.h"
-#endif
-
-#ifdef MOUSE_ENABLE
-#    include "report.h"
 #endif
 
 #ifdef BLUETOOTH_BATTERY_ENABLE
@@ -105,28 +98,6 @@ bool ble_init() {
     return true;
 }
 
-#ifdef RGBLIGHT_ENABLE
-void rgb_update() {
-    if (USB_DeviceState == state.USB_DeviceState) return;
-
-    state.USB_DeviceState = USB_DeviceState;
-
-    switch (USB_DeviceState) {
-        case DEVICE_STATE_Configured:
-            // if rgb showed a solid, non-animated, color when the cord was
-            // removed, since it doesn't need any timers, it won't turn on when
-            // the cord is plugged back in. we'll fix that here.
-            rgblight_restore_from_eeprom();
-            break;
-        default:
-            // rgb already turns off when the cord is removed, since it loses
-            // its required 5v, but qmk thinks it's still running. let's just
-            // stop that.
-            rgblight_disable_noeeprom();
-    }
-}
-#endif
-
 void bluetooth_task() {
     if (!state.configured && !ble_init()) return;
 
@@ -150,10 +121,6 @@ void bluetooth_task() {
             set_connectable(true);
             break;
     }
-
-#ifdef RGBLIGHT_ENABLE
-    rgb_update();
-#endif
 
     ble.update(200);
 
