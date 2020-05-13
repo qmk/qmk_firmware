@@ -34,6 +34,7 @@
     * [Customizing Functionality](custom_quantum_functions.md)
     * [Driver Installation with Zadig](driver_installation_zadig.md)
     * [Keymap Overview](keymap.md)
+    * [Docker Guide](getting_started_docker.md)
     * [Vagrant Guide](getting_started_vagrant.md)
     * Flashing
       * [Flashing](flashing.md)
