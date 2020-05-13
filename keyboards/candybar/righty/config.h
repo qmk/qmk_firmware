@@ -23,7 +23,7 @@
 #define PRODUCT_ID      0x0002
 #define DEVICE_VER      0x0006
 #define MANUFACTURER    The Key Company
-#define PRODUCT         The Key Company Candybar
+#define PRODUCT         Candybar
 #define DESCRIPTION     A compact staggered 40% keyboard with attached numpad
 
 /* key matrix size */
