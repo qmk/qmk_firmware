@@ -2,7 +2,7 @@
 
 In mission to fill my Cherry 1800 case. So I continue developing 1800 PCB (ASH-1800) to fit G80-1800 case. It has some update to make ASH-XIIX more user friendly.
 
-![ash1800](https://i.imgur.com/I962jyW.jpg)
+![ASH-XIIX](https://i.imgur.com/I962jyW.jpg)
 
 * Keyboard Maintainer: [sh_xguitar](https://github.com/sh-xguitar)
 * Keyboard Specification: ATmega32u4, 5P TH MINI USB, JST-PH 5P, RESET BUTTON, Larger ISP Header.
