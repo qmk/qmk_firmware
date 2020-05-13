@@ -456,6 +456,7 @@ ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
 endif
 
 include $(DRIVER_PATH)/qwiic/qwiic.mk
+include $(DRIVER_PATH)/bluetooth/bluetooth.mk
 
 ifeq ($(strip $(UCIS_ENABLE)), yes)
     OPT_DEFS += -DUCIS_ENABLE

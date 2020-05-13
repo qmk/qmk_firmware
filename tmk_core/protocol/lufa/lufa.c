@@ -53,7 +53,6 @@
 #include "lufa.h"
 #include "quantum.h"
 #include <util/atomic.h>
-#include "outputselect.h"
 
 #ifdef NKRO_ENABLE
 #    include "keycode_config.h"
@@ -63,10 +62,6 @@ extern keymap_config_t keymap_config;
 
 #ifdef AUDIO_ENABLE
 #    include <audio.h>
-#endif
-
-#ifdef BLUETOOTH_ENABLE
-#    include "bluetooth.h"
 #endif
 
 #ifdef VIRTSER_ENABLE
@@ -549,17 +544,6 @@ static uint8_t keyboard_leds(void) { return keyboard_led_stats; }
  */
 static void send_keyboard(report_keyboard_t *report) {
     uint8_t timeout = 255;
-    uint8_t where   = where_to_send();
-
-#ifdef BLUETOOTH_ENABLE
-    if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
-        bluetooth_send_keyboard(report);
-    }
-#endif
-
-    if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
-        return;
-    }
 
     /* Select the Keyboard Report Endpoint */
     uint8_t ep   = KEYBOARD_IN_EPNUM;
@@ -595,17 +579,6 @@ static void send_keyboard(report_keyboard_t *report) {
 static void send_mouse(report_mouse_t *report) {
 #ifdef MOUSE_ENABLE
     uint8_t timeout = 255;
-    uint8_t where   = where_to_send();
-
-#    ifdef BLUETOOTH_ENABLE
-    if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
-        bluetooth_send_mouse(report);
-    }
-#    endif
-
-    if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
-        return;
-    }
 
     /* Select the Mouse Report Endpoint */
     Endpoint_SelectEndpoint(MOUSE_IN_EPNUM);
@@ -660,18 +633,6 @@ static void send_system(uint16_t data) {
  */
 static void send_consumer(uint16_t data) {
 #ifdef EXTRAKEY_ENABLE
-    uint8_t where = where_to_send();
-
-#    ifdef BLUETOOTH_ENABLE
-    if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
-        bluetooth_send_consumer(data, 0);
-    }
-#    endif
-
-    if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
-        return;
-    }
-
     send_extra(REPORT_ID_CONSUMER, data);
 #endif
 }
@@ -925,10 +886,6 @@ int main(void) {
 
 #ifdef MIDI_ENABLE
         MIDI_Device_USBTask(&USB_MIDI_Interface);
-#endif
-
-#ifdef BLUETOOTH_ENABLE
-        bluetooth_task();
 #endif
 
 #ifdef VIRTSER_ENABLE

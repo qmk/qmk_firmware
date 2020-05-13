@@ -16,7 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <stdbool.h>
-#include "bluetooth_classic.h"
+#include "host_driver.h"
+#include "bluetooth.h"
 #include "../serial.h"
 
 /*
@@ -44,14 +45,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 static struct { bool initialized; } state;
 
-void bluetooth_classic_task() {
+void bluetooth_task() {
     if (!state.initialized) {
         serial_init();
         state.initialized = true;
     }
 }
 
-void bluetooth_classic_send_keyboard(report_keyboard_t *report) {
+void bluetooth_send_keyboard(report_keyboard_t *report) {
 #ifdef MODULE_RN42
     serial_send(0xFD);
     serial_send(0x09);
@@ -71,7 +72,7 @@ void bluetooth_classic_send_keyboard(report_keyboard_t *report) {
 #endif
 }
 
-void bluetooth_classic_send_consumer(uint16_t data, int hold_duration) {
+void bluetooth_send_consumer(uint16_t data) {
 #ifdef MODULE_RN42
     static uint16_t last_data = 0;
     if (data == last_data) return;
@@ -100,7 +101,7 @@ void bluetooth_classic_send_consumer(uint16_t data, int hold_duration) {
 }
 
 #ifdef MOUSE_ENABLE
-void bluetooth_classic_send_mouse(report_mouse_t *report) {
+void bluetooth_send_mouse(report_mouse_t *report) {
     serial_send(0xFD);
     serial_send(0x00);
     serial_send(0x03);

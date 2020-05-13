@@ -16,11 +16,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <stdint.h>
-//#include <avr/interrupt.h>
 #include "keycode.h"
 #include "host.h"
 #include "util.h"
 #include "debug.h"
+
+#ifdef BLUETOOTH_ENABLE
+#    include "outputselect.h"
+#    include "bluetooth.h"
+#endif
 
 #ifdef NKRO_ENABLE
 #    include "keycode_config.h"
@@ -47,7 +51,6 @@ led_t host_keyboard_led_state(void) {
 
 /* send report */
 void host_keyboard_send(report_keyboard_t *report) {
-    if (!driver) return;
 #if defined(NKRO_ENABLE) && defined(NKRO_SHARED_EP)
     if (keyboard_protocol && keymap_config.nkro) {
         /* The callers of this function assume that report->mods is where mods go in.
@@ -62,6 +65,20 @@ void host_keyboard_send(report_keyboard_t *report) {
         report->report_id = REPORT_ID_KEYBOARD;
 #endif
     }
+
+#ifdef BLUETOOTH_ENABLE
+    uint8_t where = where_to_send();
+
+    if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
+        bluetooth_send_keyboard(report);
+    }
+
+    if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
+        return;
+    }
+#endif
+
+    if (!driver) return;
     (*driver->send_keyboard)(report);
 
     if (debug_keyboard) {
@@ -74,10 +91,23 @@ void host_keyboard_send(report_keyboard_t *report) {
 }
 
 void host_mouse_send(report_mouse_t *report) {
-    if (!driver) return;
 #ifdef MOUSE_SHARED_EP
     report->report_id = REPORT_ID_MOUSE;
 #endif
+
+#if defined(BLUETOOTH_ENABLE) && defined(MOUSE_ENABLE)
+    uint8_t where = where_to_send();
+
+    if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
+        bluetooth_send_mouse(report);
+    }
+
+    if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
+        return;
+    }
+#endif
+
+    if (!driver) return;
     (*driver->send_mouse)(report);
 }
 
@@ -92,6 +122,18 @@ void host_system_send(uint16_t report) {
 void host_consumer_send(uint16_t report) {
     if (report == last_consumer_report) return;
     last_consumer_report = report;
+
+#ifdef BLUETOOTH_ENABLE
+    uint8_t where = where_to_send();
+
+    if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
+        bluetooth_send_consumer(report);
+    }
+
+    if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
+        return;
+    }
+#endif
 
     if (!driver) return;
     (*driver->send_consumer)(report);

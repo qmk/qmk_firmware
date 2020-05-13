@@ -1,8 +1,8 @@
 #include "BLE.h"
-#include "lufa.h"
 #include "debug.h"
-#include "bluetooth.h"
 #include "outputselect.h"
+#include "host_driver.h"
+#include "bluetooth.h"
 
 #ifdef MODULE_ADAFRUIT_BLE_UART
 #    include "BluefruitLE_UART.h"
@@ -49,7 +49,7 @@ void disconnected(void) {
     state.is_connected = false;
 }
 
-bool adafruit_ble_is_connected(void) { return state.is_connected; }
+bool bluetooth_is_connected(void) { return state.is_connected; }
 
 bool reset() {
     if (!ble.reset(true)) return false;
@@ -127,7 +127,7 @@ void rgb_update() {
 }
 #endif
 
-void adafruit_ble_task() {
+void bluetooth_task() {
     if (!state.configured && !ble_init()) return;
 
     switch (where_to_send()) {
@@ -162,7 +162,7 @@ void adafruit_ble_task() {
 #endif
 }
 
-bool adafruit_ble_send_keyboard(report_keyboard_t *report) {
+void bluetooth_send_keyboard(report_keyboard_t *report) {
     char cmdbuf[48];
     char fmtbuf[64];
 
@@ -173,27 +173,27 @@ bool adafruit_ble_send_keyboard(report_keyboard_t *report) {
 
     snprintf(cmdbuf, sizeof(cmdbuf), fmtbuf, report->mods, keys[0], nkeys >= 1 ? keys[1] : 0, nkeys >= 2 ? keys[2] : 0, nkeys >= 3 ? keys[3] : 0, nkeys >= 4 ? keys[4] : 0, nkeys >= 5 ? keys[5] : 0);
 
-    return ble.atcommand(cmdbuf);
+    ble.atcommand(cmdbuf);
 }
 
-bool adafruit_ble_send_consumer(uint16_t keycode, int hold_duration) {
+void bluetooth_send_consumer(uint16_t keycode) {
     char cmdbuf[48];
     char fmtbuf[64];
 
     strcpy_P(fmtbuf, PSTR("AT+BLEHIDCONTROLKEY=0x%04x"));
     snprintf(cmdbuf, sizeof(cmdbuf), fmtbuf, keycode);
-    return ble.atcommand(cmdbuf);
+    ble.atcommand(cmdbuf);
 }
 
 #ifdef MOUSE_ENABLE
-bool adafruit_ble_send_mouse(report_mouse_t *report) {
+void bluetooth_send_mouse(report_mouse_t *report) {
     char cmdbuf[48];
     char fmtbuf[64];
 
     strcpy_P(fmtbuf, PSTR("AT+BLEHIDMOUSEMOVE=%d,%d,%d,%d"));
     snprintf(cmdbuf, sizeof(cmdbuf), fmtbuf, report->x, report->y, report->v, report->h);
     if (!ble.atcommand(cmdbuf)) {
-        return false;
+        return;
     }
 
     strcpy_P(cmdbuf, PSTR("AT+BLEHIDMOUSEBUTTON="));
@@ -201,12 +201,12 @@ bool adafruit_ble_send_mouse(report_mouse_t *report) {
     if (report->buttons & MOUSE_BTN2) strcat(cmdbuf, "R");
     if (report->buttons & MOUSE_BTN3) strcat(cmdbuf, "M");
     if (report->buttons == 0) strcat(cmdbuf, "0");
-    return ble.atcommand(cmdbuf);
+    ble.atcommand(cmdbuf);
 }
 #endif
 
-bool adafruit_ble_unpair(void) {
+void bluetooth_unpair(void) {
     set_connectable(false);
-    if (!ble.atcommand(F("AT+GAPDELBONDS"))) return false;
-    return reset();  // trigger a reset and reconfigure callbacks
+    if (!ble.atcommand(F("AT+GAPDELBONDS"))) return;
+    reset();  // trigger a reset and reconfigure callbacks
 }

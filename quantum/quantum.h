@@ -182,10 +182,6 @@ extern layer_state_t layer_state;
 #    include "wpm.h"
 #endif
 
-#ifdef BLUETOOTH_ENABLE
-#    include "bluetooth.h"
-#endif
-
 // Function substitutions to ease GPIO manipulation
 #if defined(__AVR__)
 typedef uint8_t pin_t;

@@ -35,8 +35,6 @@
 
 #pragma once
 
-#include "adafruit_ble.h"
-
 #ifdef __cplusplus
 #    include "ATParser.h"
 

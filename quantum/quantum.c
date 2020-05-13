@@ -17,11 +17,8 @@
 #include <ctype.h>
 #include "quantum.h"
 
-#ifdef PROTOCOL_LUFA
-#    include "outputselect.h"
-#endif
-
 #ifdef BLUETOOTH_ENABLE
+#    include "outputselect.h"
 #    include "bluetooth.h"
 #endif
 
