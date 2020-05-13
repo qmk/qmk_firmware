@@ -43,6 +43,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 enum usb_interfaces {
     KEYBOARD_INTERFACE = NEXT_INTERFACE,
+// It is important that the Raw HID interface is at a constant
+// interface number, to support Linux/OSX platforms and chrome.hid
+// If Raw HID is enabled, let it be always 1.
 #ifdef RAW_ENABLE
     RAW_INTERFACE = NEXT_INTERFACE,
 #endif
