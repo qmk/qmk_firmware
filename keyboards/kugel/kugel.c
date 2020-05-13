@@ -99,8 +99,6 @@ static void create_status_file() {
 }
 
 void matrix_init_kb() {
-    spim_init();
-
     // reset io expanders
     setPinOutput(IO_RESET);
     setPinOd(IO_ROW);
@@ -190,13 +188,16 @@ void matrix_scan_kb() {
             writePinLow(TB_POW);
             break;
         } else if (init_cnt == 10) {
-            check_tb_connection();
+            spim_init();
+
             ioexp_init();
 
             create_status_file();
 
+            reset_adns7530();
+            check_tb_connection();
             if (trackball_init_flag) {
-                reset_adns7530();
+                // reset_adns7530();
                 setPinInputHigh(TB_INT);
             }
             break;
@@ -367,6 +368,13 @@ MSCMD_USER_RESULT usrcmd_trackball_pixel(MSOPT *msopt, MSCMD_USER_OBJECT usrobj)
 
     pix_to_read = 26 * 26;
     return 0;
+}
+
+void bmp_before_sleep() {
+    setPinInputHigh(16);
+    setPinInputHigh(14);
+    setPinInputHigh(CS_PIN_TB);
+    writePinHigh(TB_POW);
 }
 
 bool checkSafemodeFlag(bmp_api_config_t const *const config) { return false; }
