@@ -43,11 +43,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 enum usb_interfaces {
     KEYBOARD_INTERFACE = NEXT_INTERFACE,
-#if (defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE))
-    MOUSE_EXTRA_INTERFACE = NEXT_INTERFACE,
-#endif
 #ifdef RAW_ENABLE
     RAW_INTERFACE = NEXT_INTERFACE,
+#endif
+#if (defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE))
+    MOUSE_EXTRA_INTERFACE = NEXT_INTERFACE,
 #endif
 #ifdef CONSOLE_ENABLE
     CONSOLE_INTERFACE = NEXT_INTERFACE,
