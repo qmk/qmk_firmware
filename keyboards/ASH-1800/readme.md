@@ -6,6 +6,7 @@ At the beginning, ASH-1800 designed to be a replacement PCB for Cherry G80/G81-1
 
 * Keyboard Maintainer: [angelbirth](https://github.com/angelbirth)
                        [sh_xguitar](https://github.com/sh-xguitar)
+* Keyboard Specification: ATmega32u4, Hirose UX60-MB-5S8, JST-PH 5P
 * Hardware Availability: Sold in Indonesia only
 
 Make example for this keyboard (after setting up your build environment):
