@@ -298,7 +298,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case G_BRCH:
     if (record->event.pressed) {
-      send_shifted_strings("develop", "master");
+      send_shifted_strings_add("git branch ", "-d ");
     }
     break;
   case G_C:
@@ -336,6 +336,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       SEND_STRING("m \"\"" SS_TAP(X_LEFT));
       layer_off(GIT_C);
+    }
+    break;
+  case G_DEV:
+    if (record->event.pressed) {
+      send_shifted_strings("develop", "master");
     }
     break;
   case G_DIFF:

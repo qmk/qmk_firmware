@@ -51,6 +51,7 @@ enum custom_keycodes_art {
   G_C,
   G_CHEC,	
   G_COMM,
+  G_DEV,
   G_DIFF,
   G_FTCH,
   G_LOG,
