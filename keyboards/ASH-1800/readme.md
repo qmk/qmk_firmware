@@ -1,12 +1,13 @@
 # ash1800
 
 ![ash1800](https://i.imgur.com/YP173rP.jpg)
+![ash1800](https://imgur.com/a/y3bx1ZP.jpg)
 
-ASH-1800 is an attempt to make a cheap g80/g81 clone.
+At the beginning, ASH-1800 designed to be a replacement PCB for Cherry G80/G81-1800, but since the measurement of the original PCB is not usual, the hole in ASH-1800 does not fit with the case. So I designed a sandwich acrylic case.
 
 * Keyboard Maintainer: [angelbirth](https://github.com/angelbirth)
-* Hardware Supported: ASH-1800, ATMega32u4
-* Hardware Availability: private GB
+                       [sh_xguitar](https://github.com/sh-xguitar)
+* Hardware Availability: Sold in Indonesia only
 
 Make example for this keyboard (after setting up your build environment):
 
