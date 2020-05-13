@@ -1,7 +1,7 @@
-# ash1800
+# ASH-1800
 
 ![ash1800](https://i.imgur.com/YP173rP.jpg)
-![ash1800](https://imgur.com/a/y3bx1ZP.jpg)
+![ash1800](https://i.imgur.com/etANGxc.jpg)
 
 At the beginning, ASH-1800 designed to be a replacement PCB for Cherry G80/G81-1800, but since the measurement of the original PCB is not usual, the hole in ASH-1800 does not fit with the case. So I designed a sandwich acrylic case.
 
