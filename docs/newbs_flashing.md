@@ -2,7 +2,7 @@
 
 Now that you've built a custom firmware file you'll want to flash your keyboard.
 
-### Put Your Keyboard into DFU (Bootloader) Mode
+## Put Your Keyboard into DFU (Bootloader) Mode
 
 In order to flash your custom firmware you must first put your keyboard into a special flashing mode. While it is in this mode you will not be able to type or otherwise use your keyboard. It is very important that you do not unplug the keyboard or otherwise interrupt the flashing process while the firmware is being written.
 
