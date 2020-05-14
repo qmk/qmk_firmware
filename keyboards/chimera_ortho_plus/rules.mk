@@ -12,27 +12,26 @@ MCU = atmega32u4
 BOOTLOADER = caterina
 
 # Build Options
-#   comment out to disable the options.
+#   change yes to no to disable
 #
-#BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
-MOUSEKEY_ENABLE = yes	# Mouse keys
-EXTRAKEY_ENABLE = yes	# Audio control and System control
-CONSOLE_ENABLE = yes	# Console for debug
-COMMAND_ENABLE = yes   # Commands for debug and configuration
-CUSTOM_MATRIX = yes    # Remote matrix from the wireless bridge
+BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
+MOUSEKEY_ENABLE = yes       # Mouse keys
+EXTRAKEY_ENABLE = yes       # Audio control and System control
+CONSOLE_ENABLE = yes        # Console for debug
+COMMAND_ENABLE = yes        # Commands for debug and configuration
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-# SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
-NKRO_ENABLE = yes		# USB Nkey Rollover - not yet supported in LUFA
-# BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
-# MIDI_ENABLE = YES 		# MIDI controls
-UNICODE_ENABLE = YES 		# Unicode
-# BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
+SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
+# if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE = yes           # USB Nkey Rollover
+BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
+RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
+MIDI_ENABLE = no            # MIDI support
+BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
+AUDIO_ENABLE = no           # Audio output
+FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
+HD44780_ENABLE = no         # Enable support for HD44780 based LCDs
+UNICODE_ENABLE = yes
+CUSTOM_MATRIX = yes
 
-USB = /dev/ttyACM0
-
-OPT_DEFS += -DCHIMERA_ORTHO_PLUS_PROMICRO
-CHIMERA_ORTHO_PLUS_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done; \
-                         avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
-
-# # project specific files
+# project specific files
 SRC = matrix.c
