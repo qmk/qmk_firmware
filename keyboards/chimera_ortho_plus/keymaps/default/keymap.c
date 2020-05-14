@@ -134,7 +134,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case KC_PULL:
       if (record->event.pressed) {
-        SEND_STRING("git pull" SS_TAP(X_ENTER));
+        SEND_STRING("git pull\n");
       }
       return false;
     case KC_PUSH:
