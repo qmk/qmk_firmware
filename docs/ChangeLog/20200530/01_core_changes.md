@@ -53,8 +53,10 @@ Fork all QMK submodules to protect against upstream repositories disappearing.
 
 ### fixing wrong configuration of AUDIO feature
 
-[#8903](https://github.com/qmk/qmk_firmware/pull/8903)
+[#8903](https://github.com/qmk/qmk_firmware/pull/8903) and [#8974](https://github.com/qmk/qmk_firmware/pull/8974)
 
 `audio_avr.c` does not default to any pin; there has to be a #define XX_AUDIO in config.h at some level for Audio to actually work. Otherwise, the Audio code ends up cluttering the firmware, possibly breaking builds because the maximum allowed firmware size is exceeded.
 
 These changes fix this by disabling Audio on keyboards that have the feature misconfigured, and therefore non-functional.
+
+Also, add a compile-time error to alert the user to a missing pin-configuration (on AVR boards) when `AUDIO_ENABLE = yes` is set.
