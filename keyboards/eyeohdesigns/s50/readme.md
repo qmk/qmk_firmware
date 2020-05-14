@@ -2,6 +2,8 @@
 
 ![S50](https://i.imgur.com/9aGFOUi.jpg)
 
+(https://imgur.com/LofLd4F.jpg)
+
 A short description of the keyboard/project
 
 Keyboard Maintainer: [Eye Oh Designs](https://github.com/joedinkle)  
