@@ -79,7 +79,9 @@ void matrix_init(void) {
 }
 
 uint8_t matrix_scan(void) {
-  for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+    bool changed = false;
+
+    for (uint8_t col = 0; col < MATRIX_COLS; col++) {
     select_col(col);
     matrix_io_delay();
 
