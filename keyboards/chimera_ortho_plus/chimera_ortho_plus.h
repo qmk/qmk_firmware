@@ -1,5 +1,4 @@
-#ifndef CHIMERA_ORTHO_PLUS_H
-#define CHIMERA_ORTHO_PLUS_H
+#pragma once
 
 #include "quantum.h"
 
