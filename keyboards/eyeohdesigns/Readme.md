@@ -1,1 +1,13 @@
-Keyboard folder for Eye Oh Designs
+Eye Oh Designs
+
+When I'm not spending time with family, or busy with work, I make keyboards that I hope you'll love.
+
+Stay up to date with my projects on Instagram: @eyeohdesigns
+
+I post on reddit as /u/joedinkle
+
+![Longbow](https://i.imgur.com/nZz3tII.jpg)
+
+![SPRH](https://imgur.com/DHR0beS.jpg)
+
+![S50](https://imgur.com/9aGFOUi.jpg)
