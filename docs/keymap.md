@@ -73,11 +73,11 @@ On the other hand, you can change `layer_state` to overlay the base layer with o
 ### Layer Precedence and Transparency
 Note that ***higher layer has higher priority on stack of layers***, namely firmware falls down from top layer to bottom to look up keycode. Once it spots keycode other than **`KC_TRNS`**(transparent) on a layer it stops searching and lower layers aren't referred.
 
-           ____________        
+           ____________
           /           /  <--- Higher layer
-         /  KC_TRNS  //          
+         /  KC_TRNS  //
         /___________//   <--- Lower layer (KC_A)
-        /___________/  
+        /___________/
     
     In the above scenario, the non-transparent keys on the higher layer would be usable, but whenever `KC_TRNS` (or equivalent) is defined, the keycode (`KC_A`) on the lower level would be used.
 
