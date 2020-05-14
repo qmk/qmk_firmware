@@ -75,5 +75,3 @@
 	{ KC_##k24, KC_##k13, KC_##k38, KC_##k04, KC_##k05, KC_##k48,      KC_##k51, KC_##k06, KC_##k07, KC_##k45, KC_##k22, KC_##k35 }, \
 	{ KC_##k29, KC_##k41, KC_NO     KC_NO,    KC_NO,    KC_NO,         KC_##k30, KC_##k43, KC_NO,    KC_NO,    KC_NO,    KC_NO    }  \
 }
-
-#endif
