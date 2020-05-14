@@ -14,7 +14,6 @@ Additionally, there are some common chars that we dit not yet define:
     §
 */
 
-#include "koy_common.h"
 
 // NQN key definitions in no particular order
 #define N_LT KC_NONUS_BSLASH
