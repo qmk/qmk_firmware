@@ -30,9 +30,9 @@ After the next breaking change you will not be able to build if `bin/qmk hello` 
 
 [#8269](https://github.com/qmk/qmk_firmware/pull/8269)
 
-- Provides debug functionality on ChibiOS/ARM that more compliant than previous integrations.
-- Less maintenence, fewer QMK customisations, and allow QMK to sidestep previous compile and runtime issues.
-- A `make git-submodule` may be required after pulling the latest QMK firmware code to update to the new dependency.
+- Provides debug functionality on ChibiOS/ARM that is more compliant than previous integrations.
+- Less maintenence, fewer QMK customisations, and allows QMK to sidestep previous compile and runtime issues.
+- A `make git-submodule` may be required after pulling the latest QMK Firmware code to update to the new dependency.
 
 ### Fixed RGB_DISABLE_AFTER_TIMEOUT to be seconds based & small internals cleanup
 
