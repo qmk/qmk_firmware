@@ -12,6 +12,7 @@ from . import chibios
 from . import clean
 from . import compile
 from . import config
+from . import console
 from . import docs
 from . import doctor
 from . import fileformat
