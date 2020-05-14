@@ -23,7 +23,7 @@ enum chimera_ortho_plus_layers {
 #define KC_GBRC MT(MOD_RGUI, KC_7)
 #define KC_GQOT MT(MOD_LGUI, KC_QUOT)
 #define KC_MESC LT(_MACROS, KC_ESC)
-#define KC_CAD LALT(LCTL(KC_DEL))					
+#define KC_CAD LALT(LCTL(KC_DEL))
 
 enum custom_keycodes {
   KC_INCL = SAFE_RANGE,
