@@ -302,11 +302,17 @@ bmp_error_t bmp_state_change_cb(bmp_api_event_t event)
   {
     case USB_CONNECTED:
         is_usb_connected_ = true;
+        if (!is_ble_connected()) {
+            select_usb();
+        }
         update_config_files();
         break;
 
     case USB_DISCONNECTED:
         is_usb_connected_ = false;
+        if (is_ble_connected()) {
+            select_ble();
+        }
         break;
 
     case BLE_ADVERTISING_START:
@@ -320,11 +326,18 @@ bmp_error_t bmp_state_change_cb(bmp_api_event_t event)
 
     case BLE_CONNECTED:
         is_ble_connected_ = true;
+        if (!is_usb_connected()) {
+            select_ble();
+        }
         bmp_indicator_set(INDICATOR_CONNECTED, 0);
         break;
 
     case BLE_DISCONNECTED:
         is_ble_connected_ = false;
+        // Disable below code because BLE could be disconnected unintentionally
+        // if (is_usb_connected()) {
+        //     select_usb();
+        // }
         break;
 
     default:
@@ -523,6 +536,14 @@ bool get_ble_enabled() { return ble_enabled & has_ble; }
 void set_ble_enabled(bool enabled) { ble_enabled = enabled; }
 bool get_usb_enabled() { return usb_enabled & has_usb; }
 void set_usb_enabled(bool enabled) { usb_enabled = enabled; }
+void select_ble(void) {
+    ble_enabled = true;
+    usb_enabled = false;
+}
+void select_usb(void) {
+    ble_enabled = false;
+    usb_enabled = true;
+}
 
 extern bool via_keymap_update_flag;
 
@@ -591,12 +612,10 @@ bool process_record_user_bmp(uint16_t keycode, keyrecord_t* record) {
                 set_usb_enabled(true);
                 return false;
             case SEL_BLE:
-                set_usb_enabled(false);
-                set_ble_enabled(true);
+                select_ble();
                 return false;
             case SEL_USB:
-                set_ble_enabled(false);
-                set_usb_enabled(true);
+                select_usb();
                 return false;
             case ADV_ID0 ... ADV_ID7:
                 BMPAPI->ble.advertise(keycode - ADV_ID0);

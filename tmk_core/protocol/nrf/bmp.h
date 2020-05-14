@@ -23,6 +23,8 @@ bool get_ble_enabled();
 void set_ble_enabled(bool enabled);
 bool get_usb_enabled();
 void set_usb_enabled(bool enabled);
+void select_ble(void);
+void select_usb(void);
 bool is_ble_connected();
 bool is_usb_connected();
 
