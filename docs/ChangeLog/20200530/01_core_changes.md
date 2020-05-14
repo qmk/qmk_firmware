@@ -26,8 +26,6 @@ This is the last release of QMK that will work without having Python 3.6 (or lat
 
 After the next breaking change you will not be able to build if `bin/qmk hello` does not work.
 
-###
-
 ### Upgrade from tinyprintf to mpaland/printf
 
 [#8269](https://github.com/qmk/qmk_firmware/pull/8269)
