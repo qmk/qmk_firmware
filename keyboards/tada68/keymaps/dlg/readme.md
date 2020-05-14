@@ -4,14 +4,12 @@
  + Mac layer
    + Press Fn-I to align the bottom row to mac standards
  + volume controls moved to Fn+ M<>
- + [Space Cadet Shift](https://docs.qmk.fm/#/feature_space_cadet_shift) enabled
- + Fn+R for LED breathing
  + Fn+Del for Insert
  + `GRAVE_ESC_ALT_OVERRIDE` so cmd-opt-esc still works (thx [mattdicarlo](https://github.com/qmk/qmk_firmware/tree/master/keyboards/tada68/keymaps/mattdicarlo))
  + `LALT` layer - LALT-4 maps to LALT-F4 so you can close windows in Windows
 
 
-Base Layer
+### Base Layer
 
 ```
 ,----------------------------------------------------------------.
@@ -25,11 +23,13 @@ Base Layer
 |----------------------------------------------------------------|
 |Ctrl|Win |Alt |        Space          |Alt|Fn |Ctrl|<- |Dn | -> |
 `----------------------------------------------------------------'
-Note: Shift + Esc = ~ (tilde)
-      Win   + Esc = ` (grave)
+```
+Note: 
+* Shift + Esc = ~ (tilde)
+* Win   + Esc = ` (grave)
 
 
-Fn Layer
+### Fn Layer
 
 ```
 ,----------------------------------------------------------------.
@@ -43,8 +43,9 @@ Fn Layer
 |----------------------------------------------------------------|
 |    |    |    |                       |   |   |    |Hme|PDn|End |
 `----------------------------------------------------------------'
+```
 
-Mac Layer
+### Mac Layer
 
 ```
 ,----------------------------------------------------------------.
@@ -60,7 +61,7 @@ Mac Layer
 `----------------------------------------------------------------'
 ```
 
-`LALT`Layer
+### `LALT` Layer
 
 ```
 ,----------------------------------------------------------------.
