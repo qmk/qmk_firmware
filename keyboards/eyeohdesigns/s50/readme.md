@@ -4,13 +4,8 @@
 
 ![S50](https://imgur.com/LofLd4F.jpg)
 
-A short description of the keyboard/project
 
 Keyboard Maintainer: [Eye Oh Designs](https://github.com/joedinkle)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
-
-Make example for this keyboard (after setting up your build environment):
 
     make eyeohdesigns/s50:default
 
