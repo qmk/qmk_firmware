@@ -4,7 +4,7 @@ When I'm not spending time with family, or busy with work, I make keyboards that
 
 Stay up to date with my projects on Instagram: @eyeohdesigns
 
-I post on reddit as /u/joedinkle
+I post on reddit and Geekhack as joedinkle
 
 ![Longbow](https://i.imgur.com/nZz3tII.jpg)
 
