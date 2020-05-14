@@ -79,7 +79,7 @@ Note that ***higher layer has higher priority on stack of layers***, namely firm
         /___________//   <--- Lower layer (KC_A)
         /___________/  
     
-    In the above scenario, the non-transparent keys on the higher layer would be usable, but whenever KC_TRNS (or equivalent) is defined the keycode (KC_A)) on the lower level would be used. 
+    In the above scenario, the non-transparent keys on the higher layer would be usable, but whenever `KC_TRNS` (or equivalent) is defined, the keycode (`KC_A`) on the lower level would be used.
 
 **Note:** Valid ways to denote transparency on a given layer:
 * `KC_TRANSPARENT`
