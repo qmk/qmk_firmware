@@ -29,6 +29,9 @@ $(info QMK Firmware $(QMK_VERSION))
 endif
 endif
 
+# avoid 'Entering|Leaving directory' messages
+MAKEFLAGS += --no-print-directory
+
 ON_ERROR := error_occurred=1
 
 BREAK_ON_ERRORS = no
