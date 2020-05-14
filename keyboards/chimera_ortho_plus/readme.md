@@ -4,12 +4,9 @@
 
 A split wireless 50% ortholinear keyboard 
 
-Keyboard Maintainer: [William Wilson](https://github.com/GlenPickle)  
-
-
-Hardware Supported: Chimera Ortho+ PCB, WaveShare core nRF51822
-
-Hardware Availability: [Gerbers](https://github.com/GlenPickle/Chimera/tree/master/ortho_plus/gerbers)
+* Keyboard Maintainer: [William Wilson](https://github.com/GlenPickle)
+* Hardware Supported: Chimera Ortho+ PCB, WaveShare core nRF51822
+* Hardware Availability: [Gerbers](https://github.com/GlenPickle/Chimera/tree/master/ortho_plus/gerbers)
 
 Make example for this keyboard (after setting up your build environment):
 
