@@ -152,8 +152,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_SCOF:
       if (record->event.pressed){
         layer_off(_CAPS);
-        register_code(KC_CAPSLOCK);
-        unregister_code(KC_CAPSLOCK);
+        tap_code(KC_CAPS);
       }
       return false;
   }
