@@ -9,5 +9,5 @@ sudo systemctl stop ModemManager.service
 ```
 and flash it to the board
 ```bash
-qmk flash -kb atreus62 -km ScheiklP
+qmk flash -kb atreus62 -km scheiklp
 ```
