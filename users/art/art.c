@@ -314,7 +314,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case FOURS:
       if (record->event.pressed) {
-        SEND_STRING("4444333322221111" SS_TAP(X_TAB) "1" SS_TAP(X_TAB) "12" SS_TAP(X_TAB) "21" SS_TAP(X_TAB) "123" SS_TAP(X_ENTER));
+        SEND_STRING("4444333322221111\t1\t12\t21\t123\n");
         char_to_del = 16;
       }
       break;
