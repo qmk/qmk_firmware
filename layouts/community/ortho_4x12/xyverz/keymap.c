@@ -2,13 +2,15 @@
 
 enum layer_names { _QWERTY, _COLEMAK, _DVORAK, _LOWER, _RAISE, _ADJUST };
 
-enum custom_keycodes { QWERTY = SAFE_RANGE, COLEMAK, DVORAK, LOWER, RAISE, ADJUST };
+enum custom_keycodes { QWERTY = SAFE_RANGE, COLEMAK, DVORAK, ADJUST };
 
 // Aliases to keep the keymap tidy
 #define GUIBSPC GUI_T(KC_BSPC)  // GUI when held, BSPC when tapped.
 #define RGB_SWR RGB_M_SW        // Swirl Animation alias
 #define RGB_SNK RGB_M_SN        // Snake Animation alias
 #define MACLOCK LGUI(LCTL(KC_Q)) // Lock my MacBook!
+#define RAISE MO(_RAISE)
+#define LOWER MO(_LOWER)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
