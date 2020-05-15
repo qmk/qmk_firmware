@@ -5,5 +5,5 @@ qmk compile -kb xd75 -km ScheiklP
 ```
 and flash it to the board
 ```bash
-qmk flash -kb xd75 -km ScheiklP
+qmk flash -kb xd75 -km scheiklp
 ```
