@@ -2,8 +2,8 @@
   "keyboard_name": "Murciélago",
   "url": "",
   "maintainer": "elagil",
-  "width": 16,
-  "height": 10.025,
+  "width": 15,
+  "height": 5.75,
   "layouts": {
     "LAYOUT": {
       "layout": [ 
