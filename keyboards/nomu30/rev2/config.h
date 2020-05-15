@@ -17,18 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x3100
-#define DEVICE_VER 0x0002
-#define MANUFACTURER recompile keys
-#define PRODUCT Nomu30
-#define DESCRIPTION A 30% keyboard with ISO enter.
-
-/* key matrix size */
-#define MATRIX_ROWS 3
-#define MATRIX_COLS 12
-
 /*
  * Keyboard Matrix Assignments
  *
@@ -57,7 +45,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* disable these deprecated features by default */
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 11

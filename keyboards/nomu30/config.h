@@ -18,3 +18,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "config_common.h"
+
+/* USB Device descriptor parameter */
+#define VENDOR_ID       0xFEED
+#define PRODUCT_ID      0x3100
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    recompile keys
+#define PRODUCT         recompile keys Nomu30
+#define DESCRIPTION     recompile keys Nomu30
+
+/* key matrix size */
+#define MATRIX_ROWS 3
+#define MATRIX_COLS 12
+
+/* Bootmagic Lite key configuration */
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 11
