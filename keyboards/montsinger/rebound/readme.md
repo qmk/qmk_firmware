@@ -1,6 +1,6 @@
 # Rebound
 
-![Rebound](https://imgur.com/a/R4g6LBD)
+![Rebound](https://i.imgur.com/IoV64hC.jpg)
 
 A conjoined-split 40% ortholinear keyboard made and sold by Montsinger. [More info on Montsinger.net](https://montsinger.net).
 
