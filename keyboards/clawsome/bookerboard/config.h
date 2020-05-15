@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x41CE
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    AlisGraveNil
-#define PRODUCT         bookerboard
+#define PRODUCT         Bookerboard
 #define DESCRIPTION     A 12-key QMK-powered macropod
 
 /* key matrix size */
