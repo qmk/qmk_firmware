@@ -1,5 +1,7 @@
 #pragma once
 
+#define ENCODER_DIRECTION_FLIP
+
 #undef RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_EFFECT_BREATHING // Only have Breathing Animation
 

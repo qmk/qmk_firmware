@@ -207,13 +207,13 @@ void keyboard_post_init_keymap(void){
  * Encoder
  */
 const uint16_t PROGMEM encoders[][2][2] = {
-    [_REEDER] = {{ KC_J, KC_K }, { KC_N, KC_P }},
-    [_MEDIA] = {{ KC_VOLU, KC_VOLD }, { KC_MNXT, KC_MPRV }},
-    [_NAVI] = {{ MC_WH_D, MC_WH_U }, { NXT_TAB, PRV_TAB }},
-    [_KARABINER] = {{ KC_PPLS, KC_PMNS }, { KC_PEQL, KC_PDOT }},
-    [LR_NAV] = {{ KC_EQL, KC_MINS }, { KC_PGUP, KC_PGDN }},
-    [LR_REVIEW] = {{ KC_RBRC, KC_LBRC }, { G(KC_UP), G(KC_DOWN) }},
-    [LR_EDIT] = {{ KC_DOT, KC_COMM }, { KC_EQL, KC_MINS }},
+    [_REEDER] = {{ KC_K, KC_J }, { KC_P, KC_N }},
+    [_MEDIA] = {{ KC_VOLD, KC_VOLU }, { KC_MPRV, KC_MNXT }},
+    [_NAVI] = {{ MC_WH_U, MC_WH_D }, { PRV_TAB, NXT_TAB }},
+    [_KARABINER] = {{ KC_PMNS, KC_PPLS }, { KC_PDOT, KC_PEQL }},
+    [LR_NAV] = {{ KC_MINS, KC_EQL }, { KC_PGDN, KC_PGUP }},
+    [LR_REVIEW] = {{ KC_LBRC, KC_RBRC }, { G(KC_DOWN), G(KC_UP) }},
+    [LR_EDIT] = {{ KC_COMM, KC_DOT }, { KC_MINS, KC_EQL }},
 };
 
 void encoder_update_user(uint8_t index, bool clockwise) {
