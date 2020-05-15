@@ -13,13 +13,17 @@ enum bdn9_keycodes {
     TG_EDIT
 };
 
-// Tap Dances
+/**
+ * Tap Dances
+ *
+ * Use tap dance for layer changes
+ */
 enum bdn9_dances {
     TD_DTAP_ADIO = 0,
     TD_DTAP_LGHT,
     TD_DTAP_ADJT
 };
-//Tap Dance Definitions
+// Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_DTAP_ADIO] = ACTION_TAP_DANCE_TRIGGER_LAYER(DOUBLE_TAP, _AUDIO),
     [TD_DTAP_LGHT] = ACTION_TAP_DANCE_TRIGGER_LAYER(DOUBLE_TAP, _LIGHT),
@@ -27,7 +31,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 // Tap Dance Aliases
 #if defined(RGBLIGHT_ENABLE)
-#define DTP_AVC   TD(TD_DTAP_LGHT)
+#define DTP_AVC   TD(TD_DTAP_LGHT)   //
 #elif defined(AUDIO_ENABLE)
 #define DTP_AVC   TD(TD_DTAP_ADIO)
 #endif
@@ -37,14 +41,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
         Layer: Reeder
         ┌───────────┐  ┌───────────┐
-        │   Items   │  │    Subs   │
-        │  Prv  Nxt │  │  Prv  Nxt │
+        │   Items   │  │    Subs   │
+        │  Prv  Nxt │  │  Prv  Nxt │
         ├────────┬──┴──┴──┬────────┤
-        │ VwBrsw │  Star  │  Sync  │
+        │ VwBrsw │  Star  │  Sync  │
         ├────────┼────────┼────────┤
-        │ CmdTab │ TgRead │  Clear │
+        │ CmdTab │ TgRead │  Clear │
         ├────────┼────────┼────────┤
-        │ VwStard│ VwUnrd │  VwAll │
+        │ VwStard│ VwUnrd │  VwAll │
         └────────┴────────┴────────┘
      */
     [_REEDER] = LAYOUT(
@@ -54,15 +58,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /*
         Layer: Media
-        ┌───────────┐  ┌───────────┐
-        │    Vol    │  │   Track   │
-        │  Prv  Nxt │  │  Prv  Nxt │
+        ┌───────────┐  ┌───────────┐
+        │    Vol    │  │   Track   │
+        │  Prv  Nxt │  │  Prv  Nxt │
         ├────────┬──┴──┴──┬────────┤
-        │  Mute  │ Player │  Sync  │
+        │  Mute  │ Player │  Sync  │
         ├────────┼────────┼────────┤
-        │ YT<10s │ YT Ply │ YT>10s │
+        │ YT<10s │ YT Ply │ YT>10s │
         ├────────┼────────┼────────┤
-        │  Left  │  Spce  │  Rght  │
+        │  Left  │  Spce  │  Rght  │
         └────────┴────────┴────────┘
      */
     [_MEDIA] = LAYOUT(
@@ -72,15 +76,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /*
         Layer: Navigation
-        ┌───────────┐  ┌───────────┐
-        │  Scroll   │  │    Tab    │
-        │  Up   Dn  │  │  Prv  Nxt │
+        ┌───────────┐  ┌───────────┐
+        │  Scroll   │  │    Tab    │
+        │  Up   Dn  │  │  Prv  Nxt │
         ├────────┬──┴──┴──┬────────┤
-        │ ReOTab │ CmdTab │ ClsTab │
+        │ ReOTab │ CmdTab │ ClsTab │
         ├────────┼────────┼────────┤
-        │  PgDn  │   Up   │  PgUp  │
+        │  PgDn  │   Up   │  PgUp  │
         ├────────┼────────┼────────┤
-        │  Left  │  Down  │  Rght  │
+        │  Left  │  Down  │  Rght  │
         └────────┴────────┴────────┘
      */
     [_NAVI] = LAYOUT(
@@ -90,15 +94,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /*
         Layer: Macro/Karabiner
-        ┌───────────┐  ┌───────────┐
-        │           │  │           │
-        │   -    +  │  │   .    =  │
+        ┌───────────┐  ┌───────────┐
+        │           │  │           │
+        │   -    +  │  │   .    =  │
         ├────────┬──┴──┴──┬────────┤
-        │    1   │    2   │    3   │
+        │    1   │    2   │    3   │
         ├────────┼────────┼────────┤
-        │    4   │    5   │    6   │
+        │    4   │    5   │    6   │
         ├────────┼────────┼────────┤
-        │    7   │    8   │    9   │
+        │    7   │    8   │    9   │
         └────────┴────────┴────────┘
      */
     [_KARABINER] = LAYOUT(
@@ -108,15 +112,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /*
         Layer: Lightroom Navigation
-        ┌───────────┐  ┌───────────┐
-        │ Thumbnail │  │ Scrl Grid │
-        │ Dec   Inc │  │ Up     Dn │
+        ┌───────────┐  ┌───────────┐
+        │ Thumbnail │  │ Scrl Grid │
+        │ Dec   Inc │  │ Up     Dn │
         ├────────┬──┴──┴──┬────────┤
-        │ TgRevw │CylGrdVw│ TgEdit │
+        │ TgRevw │CylGrdVw│ TgEdit │
         ├────────┼────────┼────────┤
-        │  Start │   Up   │  End   │
+        │  Start │   Up   │  End   │
         ├────────┼────────┼────────┤
-        │  Left  │  Down  │  Rght  │
+        │  Left  │  Down  │  Rght  │
         └────────┴────────┴────────┘
      */
     [LR_NAV] = LAYOUT(
@@ -126,15 +130,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /*
         Layer: Review/Rate
-        ┌───────────┐  ┌───────────┐
-        │   Stars   │  │   Flag    │
-        │ Dec   Inc │  │ Dec   Inc │
+        ┌───────────┐  ┌───────────┐
+        │   Stars   │  │   Flag    │
+        │ Dec   Inc │  │ Dec   Inc │
         ├────────┬──┴──┴──┬────────┤
-        │ TgLNav │ Yellow │ TgEdit │
+        │ TgLNav │ Yellow │ TgEdit │
         ├────────┼────────┼────────┤
-        │ NoStar │  Green │ UnFlag │
+        │ NoStar │  Green │ UnFlag │
         ├────────┼────────┼────────┤
-        │  Left  │  Blue  │  Rght  │
+        │  Left  │  Blue  │  Rght  │
         └────────┴────────┴────────┘
      */
     [LR_REVIEW] = LAYOUT(
@@ -144,15 +148,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /*
         Layer: Edit/Develop
-        ┌───────────┐  ┌───────────┐
-        │  Sliders  │  │   Value   │
-        │ Prv   Nxt │  │ Dec   Inc │
+        ┌───────────┐  ┌───────────┐
+        │  Sliders  │  │   Value   │
+        │ Prv   Nxt │  │ Dec   Inc │
         ├────────┬──┴──┴──┬────────┤
-        │ TgRevw │ Bf/Aft │ TgLNav │
+        │ TgRevw │ Bf/Aft │ TgLNav │
         ├────────┼────────┼────────┤
-        │ FlgRjt │  Undo  │ FlgPkd │
+        │ FlgRjt │  Undo  │ FlgPkd │
         ├────────┼────────┼────────┤
-        │  Left  │  Redo  │  Rght  │
+        │  Left  │  Redo  │  Rght  │
         └────────┴────────┴────────┘
      */
     [LR_EDIT] = LAYOUT(
@@ -162,15 +166,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /*
         Layer: Light
-        ┌───────────┐  ┌───────────┐
-        │  RGB Hue  │  │  RGB Sat  │
-        │ Prv   Nxt │  │ Dec   Inc │
+        ┌───────────┐  ┌───────────┐
+        │  RGB Hue  │  │  RGB Sat  │
+        │ Prv   Nxt │  │ Dec   Inc │
         ├────────┬──┴──┴──┬────────┤
-        │ RGBTgl │  Val+  │ TgLNav │
+        │ RGBTgl │  Val+  │ TgLNav │
         ├────────┼────────┼────────┤
-        │  Mode- │  Val-  │  Mode+ │
+        │  Mode- │  Val-  │  Mode+ │
         ├────────┼────────┼────────┤
-        │ LyrTgl │ NxtThm │  XXXX  │
+        │ LyrTgl │ NxtThm │  XXXX  │
         └────────┴────────┴────────┘
      */
     [_LIGHT] = LAYOUT(
@@ -180,15 +184,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /*
         Layer: ADJUST
-        ┌───────────┐  ┌───────────┐
-        │    XXXX   │  │   XXXX    │
-        │           │  │           │
+        ┌───────────┐  ┌───────────┐
+        │    XXXX   │  │   XXXX    │
+        │           │  │           │
         ├────────┬──┴──┴──┬────────┤
-        │  MAKE  │ Reeder │  Light │
+        │  MAKE  │ Reeder │  Light │
         ├────────┼────────┼────────┤
-        │  Media │  Navi  │  Macro │
+        │  Media │  Navi  │  Macro │
         ├────────┼────────┼────────┤
-        │ LR Rvw │ LR Nav │ LR Edt │
+        │ LR Rvw │ LR Nav │ LR Edt │
         └────────┴────────┴────────┘
      */
     [_ADJUST] = LAYOUT(
