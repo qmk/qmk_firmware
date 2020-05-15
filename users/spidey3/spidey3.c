@@ -8,6 +8,47 @@ static bool rand_seeded = false;
 
 uint16_t spi_replace_mode = SPI_NORMAL;
 
+#if defined(CONSOLE_ENABLE) && !defined(NO_DEBUG)
+static uint32_t matrix_scan_count = 0;
+static bool reported_version = false;
+
+#  if defined(SPI_DEBUG_SCAN_RATE)
+static uint32_t matrix_timer      = 0;
+static uint32_t last_matrix_scan_count = 0;
+#  define SPI_SCAN_RATE_INTERVAL 10
+void matrix_scan_user(void) {
+  matrix_scan_count++;
+  if (debug_enable) {
+    uint32_t timer_now = timer_read32();
+    if (matrix_timer == 0) {
+      matrix_timer = timer_now;
+      last_matrix_scan_count = matrix_scan_count;
+      matrix_scan_count = 0;
+    } else if (TIMER_DIFF_32(timer_now, matrix_timer) > SPI_SCAN_RATE_INTERVAL * 1000) {
+      matrix_timer = timer_now;
+      last_matrix_scan_count = matrix_scan_count;
+      matrix_scan_count = 0;
+      if (!reported_version) {
+        uprintln(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
+        reported_version = true;
+      }
+      uprintf("scan rate: %lu/s\n", last_matrix_scan_count / SPI_SCAN_RATE_INTERVAL);
+    }
+  }
+}
+#  else
+void matrix_scan_user(void) {
+  if (!reported_version) {
+    matrix_scan_count++;
+    if (matrix_scan_count > 300) {
+      uprintln(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
+      reported_version = true;
+    }
+  }
+}
+#  endif
+#endif
+
 bool process_record_glyph_replacement(uint16_t keycode, keyrecord_t *record, uint32_t baseAlphaLower, uint32_t baseAlphaUpper, uint32_t zeroGlyph, uint32_t baseNumberOne, uint32_t spaceGlyph) {
     uint8_t temp_mod = get_mods();
 #ifndef NO_ACTION_ONESHOT
@@ -82,13 +123,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       case DEBUG:
         debug_enable ^= 1;
         if (debug_enable) {
-          print("DEBUG: enabled.\n");
+          print("DEBUG: enabled\n");
         } else {
-          print("DEBUG: disabled.\n");
+          print("DEBUG: disabled\n");
+#  if defined(SPI_DEBUG_SCAN_RATE)
+          matrix_timer = 0;
+          reported_version = false;
+#  endif
         }
         eeconfig_update_debug(debug_config.raw);
-#endif
         return false;
+#endif
 
       case CH_CPNL: host_consumer_send(AL_CONTROL_PANEL); return false;
       case CH_ASST: host_consumer_send(AL_ASSISTANT); return false;
@@ -191,45 +236,3 @@ bool led_update_user(led_t led_state) {
   return true;
 #endif
 }
-
-#if defined(CONSOLE_ENABLE) && !defined(NO_DEBUG)
-#if defined(SPI_DEBUG_SCAN_RATE)
-static uint32_t matrix_timer      = 0;
-static uint32_t matrix_scan_count = 0;
-static uint32_t last_matrix_scan_count = 0;
-static bool reported_version = false;
-#define SPI_SCAN_RATE_INTERVAL 10
-void matrix_scan_user(void) {
-  matrix_scan_count++;
-  if (debug_enable) {
-    uint32_t timer_now = timer_read32();
-    if (matrix_timer == 0) {
-      matrix_timer = timer_now;
-      last_matrix_scan_count = matrix_scan_count;
-      matrix_scan_count = 0;
-    } else if (TIMER_DIFF_32(timer_now, matrix_timer) > SPI_SCAN_RATE_INTERVAL * 1000) {
-      matrix_timer = timer_now;
-      last_matrix_scan_count = matrix_scan_count;
-      matrix_scan_count = 0;
-      if (!reported_version) {
-        uprintln(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
-        reported_version = true;
-      }
-      uprintf("scan rate: %u/s\n", last_matrix_scan_count / SPI_SCAN_RATE_INTERVAL);
-    }
-  } else {
-    matrix_timer = 0;
-  }
-}
-#else
-static uint32_t matrix_scan_count = 0;
-static bool reported_version = false;
-void matrix_scan_user(void) {
-  matrix_scan_count++;
-  if (!reported_version && matrix_scan_count > 300) {
-    uprintln(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
-    reported_version = true;
-  }
-}
-#endif
-#endif
