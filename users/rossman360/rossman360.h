@@ -19,7 +19,7 @@
 #define CTRLSP MT(MOD_LCTL, KC_SPACE)
 #define RVOLU LCTL(KC_RBRC)
 #define RVOLD LCTL(KC_LBRC)
-#define QUIT LALT(KC_Q)
+#define QUIT LCTL(KC_Q)
 
 // Define all of
 enum custom_keycodes {
