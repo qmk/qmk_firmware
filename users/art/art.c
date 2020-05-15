@@ -308,7 +308,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case PRESCRIPTION:
       if (record->event.pressed) {
-        SEND_STRING("55" SS_TAP(X_TAB) "12122019" SS_TAP(X_TAB));
+        SEND_STRING("55\t12122019\t");
         char_to_del = 8;
       }
       break;
