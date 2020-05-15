@@ -1,6 +1,5 @@
 #pragma once
 #include QMK_KEYBOARD_H
-#include <string.h>
 
 #define CTL_ALT(kc) (CTL_ALT_START + ((kc) & 0xff))
 
