@@ -1,4 +1,5 @@
-#include <art.h>
+#include "art.h"
+#include "string.h"
 
 __attribute__ ((weak))
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
