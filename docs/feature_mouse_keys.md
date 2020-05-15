@@ -120,3 +120,10 @@ Use the following settings if you want to adjust cursor movement or scrolling:
 |`MK_W_INTERVAL_1`    |120          |Time between scroll steps (`KC_ACL1`)      |
 |`MK_W_OFFSET_2`      |1            |Scroll steps per scroll action (`KC_ACL2`) |
 |`MK_W_INTERVAL_2`    |20           |Time between scroll steps (`KC_ACL2`)      |
+
+## Functions
+
+The following functions are available:
+
+* `uint8_t mousekey_get_buttons(void);` - Returns the current button state
+

@@ -381,6 +381,8 @@ void mousekey_clear(void) {
     mousekey_accel  = 0;
 }
 
+uint8_t mousekey_get_buttons(void) { return mouse_report.buttons; }
+
 static void mousekey_debug(void) {
     if (!debug_mouse) return;
     print("mousekey [btn|x y v h](rep/acl): [");
