@@ -15,7 +15,7 @@ Different keyboards have different ways to enter this special mode. If your PCB 
 * Press the physical `RESET` button, usually located on the underside of the PCB
 * Locate header pins on the PCB labeled `RESET` and `GND`, and short them together while plugging your PCB in
 
-If you've attempted all of the above to no avail, and the main chip on the board says `STM32` on it, this may be a bit more complicated. Generally your best bet is to ask on Discord for assistance. It's likely some photos of the board will be asked for -- if you can get them ready beforehand it'll help move things along!
+If you've attempted all of the above to no avail, and the main chip on the board says `STM32` on it, this may be a bit more complicated. Generally your best bet is to ask on [Discord](https://discord.gg/Uq7gcHh) for assistance. It's likely some photos of the board will be asked for -- if you can get them ready beforehand it'll help move things along!
 
 Otherwise, you should see a message in yellow, similar to this in QMK Toolbox:
 
