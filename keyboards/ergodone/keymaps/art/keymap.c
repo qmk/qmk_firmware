@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_EQL,           KC_Y,         KC_U,       KC_I,       KC_O,              KC_P,      KC_LBRC,
                     KC_H,         KC_J,       KC_K,       KC_L,              KC_SCLN,   KC_QUOT,
   TT(FKEYS),        KC_N,         KC_M,       KC_COMM,    KC_DOT,        LT(GIT,KC_SLSH), KC_RSFT,
-                                  KC_HOME,    KC_END,     DF(WORKMAN),       XXXXXXX,   KC_RCTRL,
+                                  KC_HOME,    KC_END,     DF(WORKMAN),       KC_RALT,   KC_RCTRL,
 
     KC_LEFT,                KC_RIGHT,
     LT(SHIFT_NAV, KC_UP),
@@ -218,9 +218,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [COMBOS] = LAYOUT_ergodox(  
   // -----------------------------------------------------left hand-----------------------------------------------------
-  TILD_BLOCK,       _______,          _______,          _______,          _______,          _______,          _______,
+  TILD_BLOCK,       PRESCRIPTION,          _______,          _______,          FOURS,          _______,          _______,
   _______,          _______,          _______,          _______,          _______,          _______,          _______,
-  _______,          _______,          SARCASM,          _______,          CTRL_CTV,         _______,
+  _______,          ADMINS,          SARCASM,          _______,          CTRL_CTV,         _______,
   _______,          _______,          _______,          _______,          _______,          _______,          _______,
   _______,          _______,          _______,          _______,          _______,
 
