@@ -4,7 +4,7 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x594d // "YM"
-#define PRODUCT_ID      0x0001
+#define PRODUCT_ID      0x4D96 // "M" + 96
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    YMDK
 #define PRODUCT         Melody96
