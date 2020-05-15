@@ -18,3 +18,6 @@
 #    define RGBLIGHT_EFFECT_TWINKLE
 
 #define SPI_DEBUG_SCAN_RATE
+
+#undef MANUFACTURER
+#define MANUFACTURER Window of Fire
