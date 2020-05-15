@@ -322,7 +322,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                             XXXXXXX,   XXXXXXX,
                                                        XXXXXXX,
-                                  XXXXXXX,  _______,   XXXXXXX,
+                                  XXXXXXX,  KC_BSPC,   XXXXXXX,
 
   // -----------------------------------------------------right hand-----------------------------------------------------
   XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
@@ -346,7 +346,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                             XXXXXXX,   XXXXXXX,
                                                        XXXXXXX,
-                                  XXXXXXX,  _______,   XXXXXXX,
+                                  XXXXXXX,  KC_BSPC,   XXXXXXX,
 
   // -----------------------------------------------------right hand-----------------------------------------------------
   XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
