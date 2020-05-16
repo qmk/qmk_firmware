@@ -20,13 +20,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BASE] = LAYOUT_all(
     KC_ESC  , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,          KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , NTAB  ,
-    JUMPBACK, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_X   , KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT,
+    JUMPBACK, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   ,MO(_DEL), KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT,
     KC_LSFT , KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , LM(_FN1, MOD_LALT), KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_MINS,
     CMDBSP  , ALTDEL , KC_NO  , CTRLSP , KC_TAB , PGMOD  , QUIT   , ENTMOD , SPCMOD , MO(_DEL),KC_NO  , KC_BSPC, KC_DEL
   ),
 
 [_FN1] = LAYOUT_all(
-    RESET  , TAB1   , TAB2   , TAB3   , TAB4   , _______,          _______, UNDO   , _______, _______, _______, CTAB   ,
+    _______, TAB1   , TAB2   , TAB3   , TAB4   , _______,          _______, UNDO   , _______, _______, _______, CTAB   ,
     KC_CAPS, _______, _______, _______, _______, _______, _______, KC_HOME, KC_LEFT, KC_UP  , KC_RIGHT,KC_END , KC_NO  ,
     _______, _______, XPANDR , _______, _______, _______, _______, _______, PMERGE , KC_DOWN, _______, _______, EMDASH ,
     WREFRESH,_______, _______, _______, LWORD  , RWORD  , _______, KC_NO  , _______, KC_NO  , _______, _______, _______
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 [_DEL] = LAYOUT_all(
-    _______, _______, _______, _______, _______, _______,          _______, UNDO   , _______, _______, _______, CTAB   ,
+    RESET,   _______, _______, _______, _______, _______,          _______, UNDO   , _______, _______, _______, CTAB   ,
     REMCAPS, _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_UP  ,KC_RIGHT, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DOWN, _______, _______, _______,
     _______, _______, _______, KC_DEL , KC_BSPC, BWORD  , _______, KC_NO  , KC_NO  , _______, _______, _______, _______
