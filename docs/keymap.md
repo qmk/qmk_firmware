@@ -71,7 +71,7 @@ On the other hand, you can change `layer_state` to overlay the base layer with o
 
 
 ### Layer Precedence and Transparency
-Note that ***higher layers have higher priority within the stack of layers***, namely firmware falls down from top layer to bottom to look up keycode. Once it spots keycode other than **`KC_TRNS`** (transparent) on a layer it stops searching and lower layers aren't referred.
+Note that ***higher layers have higher priority within the stack of layers***. The firmware works its way down from the highest active layers to look up keycodes. Once the firmware locates a keycode other than `KC_TRNS` (transparent) on an active layer, it stops searching, and lower layers aren't referenced.
 
            ____________
           /           /  <--- Higher layer
