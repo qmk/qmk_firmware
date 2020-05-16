@@ -15,7 +15,7 @@ void led_set_kb(uint8_t usb_led) {
 void matrix_init_kb(void) {
 
     #ifdef AUDIO_ENABLE
-        _delay_ms(20); // gets rid of tick
+        wait_ms(20); // gets rid of tick
         PLAY_SONG(tone_startup);
     #endif
 
@@ -27,13 +27,13 @@ void matrix_init_kb(void) {
     // DDRB |= (1<<0);
     // PORTB &= ~(1<<0);
 
-	matrix_init_user();
+    matrix_init_user();
 };
 
 void shutdown_user(void) {
     #ifdef AUDIO_ENABLE
         PLAY_SONG(tone_goodbye);
-	_delay_ms(150);
-	stop_all_notes();
+        wait_ms(150);
+        stop_all_notes();
     #endif
 }

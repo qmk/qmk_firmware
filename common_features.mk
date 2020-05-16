@@ -482,6 +482,9 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
         ifeq ($(PLATFORM),AVR)
             QUANTUM_LIB_SRC += i2c_master.c \
                                i2c_slave.c
+				else ifeq ($(PLATFORM),CHIBIOS)
+            QUANTUM_LIB_SRC += i2c_master.c \
+                               i2c_slave.c
         endif
 
         SERIAL_DRIVER ?= bitbang
