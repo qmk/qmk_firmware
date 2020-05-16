@@ -1,6 +1,6 @@
 # colice_rr
 
-![colice_rr](imgur.com image replace me!)
+![colice_rr_split](imgur.com image replace me!)
 
 A short description of the keyboard/project
 
