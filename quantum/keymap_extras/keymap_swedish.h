@@ -155,24 +155,25 @@
 // DEPRECATED
 #include "keymap_nordic.h"
 
-#undef  NO_AE
-#undef  NO_CIRC
-#undef  NO_OSLH
-
-#define NO_AE   SE_AE
-#define NO_CIRC SE_CIRC
-#define NO_OSLH SE_ODIA
-#define NO_AA   SE_ARNG
-#define NO_ASTR SE_ASTR
+#define SE_OSLH SE_ODIA
+#define SE_APOS SE_QUOT
+#define SE_LESS SE_LABK
+#define SE_QUO2 SE_DQUO
+#define SE_BULT SE_CURR
+#define SE_GRTR SE_RABK
+#define SE_AA   SE_ARNG
+#define SE_AE   SE_ADIA
+#define SE_AM   SE_ARNG
+#define SE_MU   SE_MICR
 // Swedish macOS symbols (not vetted)
-#define NO_ACUT_MAC SE_ACUT
-#define NO_APOS_MAC SE_LABK
-#define NO_AT_MAC   SE_ADIA
-#define NO_BSLS_MAC S(SE_LCBR)
-#define NO_DLR_MAC  SE_CURR
-#define NO_GRV_MAC  SE_BSLS
-#define NO_GRTR_MAC SE_HALF
-#define NO_LCBR_MAC S(SE_LBRC)
-#define NO_LESS_MAC SE_SECT
-#define NO_PIPE_MAC SE_LCBR
-#define NO_RCBR_MAC S(SE_RBRC)
+#define SE_ACUT_MAC SE_ACUT
+#define SE_APOS_MAC SE_LABK
+#define SE_AT_MAC   SE_ADIA
+#define SE_BSLS_MAC S(SE_LCBR)
+#define SE_DLR_MAC  SE_CURR
+#define SE_GRV_MAC  SE_BSLS
+#define SE_GRTR_MAC SE_HALF
+#define SE_LCBR_MAC S(SE_LBRC)
+#define SE_LESS_MAC SE_SECT
+#define SE_PIPE_MAC SE_LCBR
+#define SE_RCBR_MAC S(SE_RBRC)

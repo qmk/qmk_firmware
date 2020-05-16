@@ -21,7 +21,8 @@ __attribute__((weak)) uint16_t unicodemap_index(uint16_t keycode) {
         // Keycode is a pair: extract index based on Shift / Caps Lock state
         uint16_t index = keycode - QK_UNICODEMAP_PAIR;
 
-        bool shift = unicode_saved_mods & MOD_MASK_SHIFT, caps = IS_HOST_LED_ON(USB_LED_CAPS_LOCK);
+        bool shift = unicode_saved_mods & MOD_MASK_SHIFT;
+        bool caps = IS_HOST_LED_ON(USB_LED_CAPS_LOCK);
         if (shift ^ caps) {
             index >>= 7;
         }
@@ -43,7 +44,7 @@ bool process_unicodemap(uint16_t keycode, keyrecord_t *record) {
         if (code > 0x10FFFF || (code > 0xFFFF && input_mode == UC_WIN)) {
             // Character is out of range supported by the platform
             unicode_input_cancel();
-        } else if (code > 0xFFFF && input_mode == UC_OSX) {
+        } else if (code > 0xFFFF && input_mode == UC_MAC) {
             // Convert to UTF-16 surrogate pair on Mac
             code -= 0x10000;
             uint32_t lo = code & 0x3FF, hi = (code & 0xFFC00) >> 10;

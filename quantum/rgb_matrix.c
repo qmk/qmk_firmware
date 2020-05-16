@@ -111,7 +111,6 @@ const point_t k_rgb_matrix_center = RGB_MATRIX_CENTER;
 #    define RGB_MATRIX_STARTUP_SPD UINT8_MAX / 2
 #endif
 
-
 bool g_suspend_state = false;
 
 rgb_config_t rgb_matrix_config;
