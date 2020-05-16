@@ -86,7 +86,7 @@ Note that ***higher layers have higher priority within the stack of layers***, n
 * `KC_TRNS` (alias)
 * `_______` (alias)
 
-These keycodes allow the processing to fall through lower layers in search of a non-transparent keycode to process.
+These keycodes allow the processing to fall through to lower layers in search of a non-transparent keycode to process.
 
 ## Anatomy of a `keymap.c`
 
