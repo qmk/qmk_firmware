@@ -17,7 +17,7 @@ def is_keyboard(keyboard_folder):
 
 
 def config_h(keyboard):
-    """Parses all the config_h.mk files for a keyboard.
+    """Parses all the config.h files for a keyboard.
 
     Args:
         keyboard: name of the keyboard
