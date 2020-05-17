@@ -17,15 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xDEAF
-#define PRODUCT_ID      0x0913
 #define DEVICE_VER      0x0007
-#define MANUFACTURER    imchipwood
-#define PRODUCT         dumbpad
 #define DESCRIPTION     4x4 macro/numpad with rotary encoder on the right side
 
 /* Column/Row IO definitions */
-#define DIODE_DIRECTION COL2ROW
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 5
 #define MATRIX_ROW_PINS { F4, F5, F6, F7 }
@@ -43,6 +38,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Bootmagic - hold down rotary encoder pushbutton while plugging in to enter bootloader */
 #define BOOTMAGIC_LITE_ROW 3
 #define BOOTMAGIC_LITE_COLUMN 4
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
