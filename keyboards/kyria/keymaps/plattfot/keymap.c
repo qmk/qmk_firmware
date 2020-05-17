@@ -208,8 +208,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
     } else if (double_tap_it && keycode != DBL_TAP) {
         double_tap_it = false;
-        unregister_code16(keycode);
-        register_code16(keycode);
+        tap_code16(keycode);
         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
     }
 
