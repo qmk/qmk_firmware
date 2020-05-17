@@ -137,7 +137,7 @@ def _find_all_layouts(keyboard):
                 supported_layouts.remove(layout_name)
 
         if supported_layouts:
-            cli.log.error('%s: Missing layout pp macro for %s' % (keyboard, supported_layouts))
+            cli.log.error('%s: Missing LAYOUT() macro for %s' % (keyboard, ', '.join(supported_layouts)))
 
     return layouts
 
