@@ -42,10 +42,8 @@ def show_layouts(kb_info_json, title_caps=True):
     """Render the layouts with info.json labels.
     """
     for layout_name, layout_art in render_layouts(kb_info_json).items():
-        if title_caps:
-            cli.echo('{fg_cyan}%s{fg_reset}:', layout_name)
-        else:
-            cli.echo('{fg_cyan}%s{fg_reset}:', layout_name)
+        title = layout_name.title() if title_caps else layout_name
+        cli.echo('{fg_cyan}%s{fg_reset}:', title)
         print(layout_art)  # Avoid passing dirty data to cli.echo()
 
 
