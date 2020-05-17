@@ -35,6 +35,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
+#define RGBLED_NUM 18
+#define RGB_DI_PIN A3
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8
+#define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+#define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
