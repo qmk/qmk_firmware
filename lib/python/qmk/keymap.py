@@ -157,7 +157,7 @@ def list_keymaps(keyboard):
 
     if rules:
         # qmk_firmware/keyboards
-        keyboards_dir = Path.cwd() / "keyboards"
+        keyboards_dir = Path('keyboards')
         # path to the keyboard's directory
         kb_path = keyboards_dir / keyboard
         # walk up the directory tree until keyboards_dir
