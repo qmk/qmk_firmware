@@ -14,9 +14,6 @@ F_CPU = 16000000
 #   ATmega328P   USBasp
 BOOTLOADER = USBasp
 
-# disable debug code
-OPT_DEFS = -DDEBUG_LEVEL=0
-
 # Build Options
 #   change yes to no to disable
 #
