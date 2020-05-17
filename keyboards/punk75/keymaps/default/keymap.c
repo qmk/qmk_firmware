@@ -73,8 +73,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+void led_keypress_update(uint8_t led, uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+      writePinHigh(led);
+      return;
+    }
+    else {
+      writePinLow(led);
+      return;
+    }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    writePinHigh(C3);
+    led_keypress_update(LED, keycode, record);
     switch (keycode) {
         case QMKBEST:
             if (record->event.pressed) {

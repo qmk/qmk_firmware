@@ -42,14 +42,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 #define MATRIX_ROW_PINS { D6, D5, C1, C0, D7 }
-#define MATRIX_COL_PINS { C5, C6, A7, A6, A5, A4, B4, A3, B3, A2, B2, A1, B1, A0, B0 }
+#define MATRIX_COL_PINS { C2, C1, C6, C5, C4, A7, A6, A5, A4, B4, A3, B3, A2, B2, A1 }
+#define LED D1
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-
-#define USB_MAX_POWER_CONSUMPTION 100
+#define USB_MAX_POWER_CONSUMPTION 500
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
