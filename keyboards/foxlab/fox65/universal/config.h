@@ -23,8 +23,8 @@
 #define PRODUCT_ID      0x0004
 #define DEVICE_VER      0x0001
 #define MANUFACTURER Fox Labs
-#define PRODUCT Fox 65
-#define DESCRIPTION Fox 65
+#define PRODUCT Key 65
+#define DESCRIPTION Key 65 Universal
 
 /* key matrix size */
 #define MATRIX_ROWS 5
