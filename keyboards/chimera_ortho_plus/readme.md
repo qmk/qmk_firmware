@@ -1,6 +1,6 @@
 # Chimera Ortho+
 
-![Chimera Ortho+](https://i.imgur.com/tuDaGdT.jpg)
+![Chimera Ortho+](https://i.imgur.com/tuDaGdTl.jpg)
 
 A split wireless 50% ortholinear keyboard.
 
