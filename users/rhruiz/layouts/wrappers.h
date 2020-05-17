@@ -91,11 +91,11 @@
 //                             .----+----+----+----+----.
 #define ________L_CFG_1________ SLCK,PAUS,MISS,RVAD,RVAI
 //                             |----+----+----+----+----|
-#define ________L_CFG_2________ RTOG,RMOD,RHUI,RSAI,RVAI
+#define ________L_CFG_2________ RTOG,RMOD,    ,    ,RVAI
 //                             |----+----+----+----+----|
-#define ________L_CFG_3________ EPIP,_TAP,_TAN,    ,
+#define ________L_CFG_3________ EPIP,_TAP,_TAN,    ,RHUI
 //                             |----+----+----+----+----|
-#define ________L_CFG_4________ _VUP,_VDN,MUTE,EJCT,
+#define ________L_CFG_4________ _VUP,_VDN,MUTE,EJCT,RSAI
 //                             `----+----+----+----+----'
 
 //                             .----+----+----+----+----.
