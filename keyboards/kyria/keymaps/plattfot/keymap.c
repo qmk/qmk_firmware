@@ -274,8 +274,8 @@ static void render_status(void) {
     }
 
     // Host Keyboard LED Status and Double tap
-    uint8_t led_usb_state = host_keyboard_leds();
-    if (IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK)) {
+    led_t led_state = host_keyboard_led_state();
+    if (led_state.num_lock) {
         oled_write_P(PSTR("NUMLCK "), false);
     } else if (double_tap_it) {
         oled_write_P(PSTR("Double "), false);
@@ -283,7 +283,7 @@ static void render_status(void) {
         oled_write_P(PSTR("       "), false);
     }
 
-    if (IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK)) {
+    if (led_state.caps_lock) {
         oled_write_P(PSTR("CAPLCK "), false);
     } else if (double_tap_it) {
         oled_write_P(PSTR("Tap    "), false);
@@ -291,7 +291,7 @@ static void render_status(void) {
         oled_write_P(PSTR("       "), false);
     }
 
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
+    oled_write_P(led_state.scroll_lock ? PSTR("SCRLCK ") : PSTR("       "), false);
 }
 
 void oled_task_user(void) {
