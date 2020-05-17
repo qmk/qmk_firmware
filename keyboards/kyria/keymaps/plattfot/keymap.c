@@ -306,7 +306,7 @@ void oled_task_user(void) {
 #ifdef ENCODER_ENABLE
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
-        switch (biton32(layer_state)) {
+        switch (get_highest_layer(layer_state)) {
             case _LOWER:
                 // Skip/Prev song
                 if (clockwise) {
@@ -329,7 +329,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 break;
         }
     } else if (index == 1) {
-        switch (biton32(layer_state)) {
+        switch (get_highest_layer(layer_state)) {
             case _RAISE:
                 // Credit to Thomas Baart for this
                 // See https://docs.splitkb.com/hc/en-us/articles/360010513760-How-can-I-use-a-rotary-encoder-
