@@ -2,7 +2,7 @@
 
 ![Chimera Ortho+](https://i.imgur.com/tuDaGdT.jpg)
 
-A split wireless 50% ortholinear keyboard 
+A split wireless 50% ortholinear keyboard.
 
 * Keyboard Maintainer: [William Wilson](https://github.com/GlenPickle)
 * Hardware Supported: Chimera Ortho+ PCB, WaveShare core nRF51822
