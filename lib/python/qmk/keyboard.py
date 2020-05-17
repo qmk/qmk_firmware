@@ -55,7 +55,7 @@ def rules_mk(keyboard):
 
     for i, dir in enumerate(keyboard.parts):
         cur_dir = cur_dir / dir
-        rules = {**rules, **parse_rules_mk_file(cur_dir / 'rules.mk')}
+        rules = parse_rules_mk_file(cur_dir / 'rules.mk', rules)
 
     return rules
 
