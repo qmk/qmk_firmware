@@ -12,7 +12,7 @@ def check_returncode(result, expected=0):
     """Print stdout if `result.returncode` does not match `expected`.
     """
     if result.returncode != expected:
-        print('`qmk info -kb handwired/onekey/pytest` stdout:')
+        print('`%s` stdout:' % ' '.join(result.args))
         print(result.stdout)
         print('returncode:', result.returncode)
     assert result.returncode == expected
