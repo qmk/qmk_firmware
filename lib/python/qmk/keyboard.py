@@ -23,7 +23,7 @@ def config_h(keyboard):
         keyboard: name of the keyboard
 
     Returns:
-        a dictionary representing the content of the entire rules.mk tree for a keyboard
+        a dictionary representing the content of the entire config.h tree for a keyboard
     """
     config = {}
     cur_dir = Path('keyboards')
