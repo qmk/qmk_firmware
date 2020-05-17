@@ -78,7 +78,6 @@ def test_list_keyboards():
 
 def test_list_keymaps():
     result = check_subcommand('list-keymaps', '-kb', 'handwired/onekey/pytest')
-    print_stdout_if_error(result)
     assert result.returncode == 0
     assert 'default' and 'test' in result.stdout
 
@@ -109,7 +108,6 @@ def test_list_keymaps_vendor_kb_rev():
 
 def test_list_keymaps_no_keyboard_found():
     result = check_subcommand('list-keymaps', '-kb', 'asdfghjkl')
-    print_stdout_if_error(result)
     assert result.returncode == 0
     assert 'does not exist' in result.stdout
 
