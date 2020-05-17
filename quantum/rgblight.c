@@ -613,7 +613,7 @@ void rgblight_sethsv_slave(uint8_t hue, uint8_t sat, uint8_t val) { rgblight_set
 
 #ifdef RGBLIGHT_LAYERS
 void rgblight_set_layer_state(uint8_t layer, bool enabled) {
-    uint8_t mask = 1 << layer;
+    rgblight_layer_mask_t mask = 1 << layer;
     if (enabled) {
         rgblight_status.enabled_layer_mask |= mask;
     } else {
@@ -627,7 +627,7 @@ void rgblight_set_layer_state(uint8_t layer, bool enabled) {
 }
 
 bool rgblight_get_layer_state(uint8_t layer) {
-    uint8_t mask = 1 << layer;
+    rgblight_layer_mask_t mask = 1 << layer;
     return (rgblight_status.enabled_layer_mask & mask) != 0;
 }
 
