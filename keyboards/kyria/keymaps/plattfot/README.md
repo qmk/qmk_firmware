@@ -1,4 +1,4 @@
-# plattfots Keymap for [Kyria](https://github.com/splitkb/kyria)
+# plattfots keymap for [Kyria](https://github.com/splitkb/kyria)
 
 ![Keyboard](https://i.imgur.com/Pvsm973.jpg)
 
