@@ -217,7 +217,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 set_single_persistent_default_layer(_QWERTY);
             }
             return false;
-            break;
         case KC_COLEMAK:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_COLEMAK);
@@ -398,4 +397,3 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 #endif
-
