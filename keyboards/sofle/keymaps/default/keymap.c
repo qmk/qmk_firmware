@@ -231,7 +231,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 update_tri_layer(_LOWER, _RAISE, _ADJUST);
             }
             return false;
-            break;
         case KC_RAISE:
             if (record->event.pressed) {
                 layer_on(_RAISE);
@@ -241,7 +240,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 update_tri_layer(_LOWER, _RAISE, _ADJUST);
             }
             return false;
-            break;
         case KC_ADJUST:
             if (record->event.pressed) {
                 layer_on(_ADJUST);
@@ -249,7 +247,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_off(_ADJUST);
             }
             return false;
-            break;
         case KC_PRVWD:
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
@@ -372,7 +369,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_Z);
             }
             return false;
-            break;
     }
     return true;
 }
