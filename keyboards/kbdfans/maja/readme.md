@@ -1,6 +1,6 @@
 # MAJA
 
-![MAJA](imgur.com image replace me!)
+![MAJA](https://i.ibb.co/ZxWRgg3/2.png)
 
 * Keyboard Maintainer: [DZTECH](https://github.com/moyi4681)
 * Hardware Supported: MAJA
