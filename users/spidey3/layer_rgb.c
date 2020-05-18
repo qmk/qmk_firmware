@@ -46,7 +46,6 @@ const rgblight_segment_t PROGMEM _scrolllock_layer[] = RGBLIGHT_LAYER_SEGMENTS( 
 const rgblight_segment_t PROGMEM _no_layer[] = RGBLIGHT_LAYER_SEGMENTS( FRONT(1, HSV_RED) ); // 6
 const rgblight_segment_t PROGMEM _yes_layer[] = RGBLIGHT_LAYER_SEGMENTS( FRONT(1, HSV_GREEN) ); // 7
 const rgblight_segment_t PROGMEM _meh_layer[] = RGBLIGHT_LAYER_SEGMENTS( FRONT(1, HSV_YELLOW) ); // 8
-const rgblight_segment_t PROGMEM _startup_layer[] = RGBLIGHT_LAYER_SEGMENTS( FRONT(1, HSV_ORANGE) ); // 9
 const rgblight_segment_t PROGMEM _wakeup_layer[] = RGBLIGHT_LAYER_SEGMENTS( FRONT(2, HSV_BLUE) ); // 10
 
 // Now define the array of layers. Higher numbered layers take precedence.
@@ -62,7 +61,6 @@ const rgblight_segment_t* const PROGMEM _rgb_layers[] = {
     [ACK_OFFSET+ACK_NO]      = _no_layer,
     [ACK_OFFSET+ACK_YES]     = _yes_layer,
     [ACK_OFFSET+ACK_MEH]     = _meh_layer,
-    [ACK_OFFSET+ACK_STARTUP] = _startup_layer,
     [ACK_OFFSET+ACK_WAKEUP]  = _wakeup_layer,
 
     [ACK_OFFSET+ACK_WAKEUP+1] = NULL
@@ -85,12 +83,115 @@ void do_rgb_layers(layer_state_t state, uint8_t start, uint8_t end) {
     }
 }
 
+extern rgblight_config_t rgblight_config;
+extern rgblight_status_t rgblight_status;
+static bool startup_animation_done = false;
+
 void keyboard_post_init_user_rgb(void) {
     // Enable the LED layers
     rgblight_layers = _rgb_layers;
     do_rgb_layers(default_layer_state, LAYER_BASE_DEFAULT+1, LAYER_BASE_REGULAR);
     do_rgb_layers(layer_state, LAYER_BASE_REGULAR, LAYER_BASE_END);
-    rgb_layer_ack(ACK_STARTUP);
+
+    // Startup animation
+    {
+        bool is_enabled = rgblight_config.enable;
+        uint8_t old_hue = rgblight_config.hue;
+        uint8_t old_sat = rgblight_config.sat;
+        uint8_t old_val = rgblight_config.val;
+        uint8_t old_mode = rgblight_config.mode;
+
+        bool ramp_down =
+#    ifdef RGBLIGHT_EFFECT_BREATHING
+            (rgblight_status.base_mode == RGBLIGHT_MODE_BREATHING) ||
+#    endif
+#    ifdef RGBLIGHT_EFFECT_SNAKE
+            (rgblight_status.base_mode == RGBLIGHT_MODE_SNAKE) ||
+#    endif
+#    ifdef RGBLIGHT_EFFECT_KNIGHT
+            (rgblight_status.base_mode == RGBLIGHT_MODE_KNIGHT) ||
+#    endif
+#    ifdef RGBLIGHT_EFFECT_TWINKLE
+            (rgblight_status.base_mode == RGBLIGHT_MODE_TWINKLE) ||
+#    endif
+            !is_enabled;
+
+        bool ramp_to =
+#    ifdef RGBLIGHT_EFFECT_STATIC_GRADIENT
+            (rgblight_status.base_mode == RGBLIGHT_MODE_STATIC_GRADIENT) ||
+#    endif
+#    ifdef RGBLIGHT_EFFECT_RAINBOW_MOOD
+            (rgblight_status.base_mode == RGBLIGHT_MODE_RAINBOW_MOOD) ||
+#    endif
+#    ifdef RGBLIGHT_EFFECT_RAINBOW_SWIRL
+            (rgblight_status.base_mode == RGBLIGHT_MODE_RAINBOW_SWIRL) ||
+#    endif
+#    ifdef RGBLIGHT_EFFECT_RAINBOW_CHRISTMAS
+            (rgblight_status.base_mode == RGBLIGHT_MODE_CHRISTMAS) ||
+#    endif
+#    ifdef RGBLIGHT_EFFECT_RAINBOW_RGB_TEST_
+            (rgblight_status.base_mode == RGBLIGHT_MODE_RGB_TEST) ||
+#    endif
+            (rgblight_status.base_mode == RGBLIGHT_MODE_STATIC_LIGHT);
+
+#    define STARTUP_ANIMATION_SATURATION 200
+#    define STARTUP_ANIMATION_VALUE 255
+#    define STARTUP_ANIMATION_STEP 5
+
+        rgblight_enable_noeeprom();
+        if (rgblight_config.enable) {
+            rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+            for (uint8_t i = 0; i < STARTUP_ANIMATION_VALUE; i+=STARTUP_ANIMATION_STEP) {
+                rgblight_sethsv_noeeprom(old_hue, STARTUP_ANIMATION_SATURATION, i);
+                matrix_scan();
+                wait_ms(10);
+            }
+            for (uint8_t i = 255; i > 0; i-=STARTUP_ANIMATION_STEP) {
+                rgblight_sethsv_noeeprom((i + old_hue) % 255, STARTUP_ANIMATION_SATURATION, STARTUP_ANIMATION_VALUE);
+                matrix_scan();
+                wait_ms(10);
+            }
+
+            if (ramp_down) {
+                dprintln("ramp_down");
+                for (uint8_t i = STARTUP_ANIMATION_VALUE; i > 0; i-=STARTUP_ANIMATION_STEP) {
+                    rgblight_sethsv_noeeprom(old_hue, STARTUP_ANIMATION_SATURATION, i);
+                    matrix_scan();
+                    wait_ms(10);
+                }
+            } else if (ramp_to) {
+                dprintf("ramp_to s=%u, v=%u\n", old_sat, old_val);
+                uint8_t steps = 50;
+                for (uint8_t i = 0; i < steps; i++) {
+                    uint8_t s = STARTUP_ANIMATION_SATURATION + i * (((float) old_sat - STARTUP_ANIMATION_SATURATION) / (float) steps);
+                    uint8_t v = STARTUP_ANIMATION_VALUE + i * (((float) old_val - STARTUP_ANIMATION_VALUE) / (float) steps);
+                    rgblight_sethsv_noeeprom(old_hue, s, v);
+                    matrix_scan();
+                    wait_ms(10);
+                }
+            }
+            rgblight_mode_noeeprom(old_mode);
+        }
+        if (is_enabled) {
+            rgblight_sethsv_noeeprom(old_hue, old_sat, old_val);
+        } else {
+            rgblight_disable_noeeprom();
+            // Hack!
+            // rgblight_sethsv_noeeprom() doesn't update these if rgblight is disabled,
+            // but if do it before disabling we get an ugly flash.
+            rgblight_config.hue = old_hue;
+            rgblight_config.sat = old_sat;
+            rgblight_config.val = old_val;
+        }
+        dprint("done\n");
+        startup_animation_done = true;
+    }
+}
+
+void suspend_wakeup_init_user_rgb(void) {
+    if (startup_animation_done) {
+        rgb_layer_ack(ACK_WAKEUP);
+    }
 }
 
 layer_state_t default_layer_state_set_user_rgb(layer_state_t state) {
@@ -104,9 +205,9 @@ layer_state_t layer_state_set_user_rgb(layer_state_t state) {
 }
 
 bool led_update_user_rgb(led_t led_state) {
-    dprintf("num=%u, cap=%u, scl=%u, cmp=%u, kan=%u\n", 
-	led_state.num_lock, led_state.caps_lock, led_state.scroll_lock, 
-	led_state.compose, led_state.kana);
+    dprintf("num=%u, cap=%u, scl=%u, cmp=%u, kan=%u\n",
+        led_state.num_lock, led_state.caps_lock, led_state.scroll_lock,
+        led_state.compose, led_state.kana);
 
     rgblight_set_layer_state(LOCK_OFFSET+USB_LED_NUM_LOCK, led_state.num_lock);
     rgblight_set_layer_state(LOCK_OFFSET+USB_LED_CAPS_LOCK, led_state.caps_lock);
