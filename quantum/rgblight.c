@@ -524,9 +524,7 @@ uint8_t rgblight_get_sat(void) { return rgblight_config.sat; }
 
 uint8_t rgblight_get_val(void) { return rgblight_config.val; }
 
-HSV rgblight_get_hsv(void) {
-    return (HSV){ rgblight_config.hue, rgblight_config.sat, rgblight_config.val };
-}
+HSV rgblight_get_hsv(void) { return (HSV){rgblight_config.hue, rgblight_config.sat, rgblight_config.val}; }
 
 void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b) {
     if (!rgblight_config.enable) {
