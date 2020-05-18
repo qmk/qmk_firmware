@@ -31,3 +31,6 @@ AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no         # Enable support for HD44780 based LCDs
 LTO_ENABLE = yes
+
+# Enter lower-power sleep mode when on the ChibiOS idle thread
+OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
