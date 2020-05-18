@@ -8,7 +8,8 @@ This keymap is for a generic usage, trying to avoid as much gimmick as possible 
 Relying just on the alphabetic keys this layout can be also very easily ported and tested on any qmk supported keyboard (ok, butterstick excluded).
 
 The image below explains the main layers activated respectively with F, N or both modifiers pressed together. In addition to them there are available 5 layers that can be personalized as needed or completely removed without losing any functionality; three of them are currently setup in the default keymap for cursors/mouse, numpad and media (activated with q, w and e respectively).
-![layers](https://raw.githubusercontent.com/stevexyz/qmk_firmware/master/keyboards/40percentclub/gherkin/keymaps/stevexyz/newlayout26272830.jpg)
+
+![layers](https://github.com/stevexyz/qmk_firmware/blob/master/keyboards/40percentclub/gherkin/keymaps/stevexyz/newlayout26272830.jpg)
 
 ![prototype](https://github.com/stevexyz/qmk_firmware/blob/master/keyboards/40percentclub/gherkin/keymaps/stevexyz/gherkin28.jpeg)
 
