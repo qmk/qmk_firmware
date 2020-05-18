@@ -46,12 +46,12 @@ Configure the hardware via your config.h:
 ```c
 #define SOFT_SERIAL_PIN B6  // USART TX pin
 #define SELECT_SOFT_SERIAL_SPEED 1 // or 0, 2, 3, 4, 5
-                                   //  0: about 230kbps (Experimental only)
-                                   //  1: about 115kbps (default)
-                                   //  2: about 57kbps
-                                   //  3: about 38kbps
-                                   //  4: about 19kbps
-                                   //  5: about 14kbps
+                                   //  0: about 460800 baud
+                                   //  1: about 230400 baud (default)
+                                   //  2: about 115200 baud
+                                   //  3: about 57600 baud
+                                   //  4: about 38400 baud
+                                   //  5: about 19200 baud
 #define SERIAL_USART_DRIVER SD1 // USART driver of TX pin. default: SD1
 #define SERIAL_USART_TX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 ```
