@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020  Maxr1998 <max.rumpf1998@gmail.com>
+ * Copyright (C) 2020  Maxr1998 <max.rumpf1998@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,23 +21,15 @@ enum layers {
     DEFAULT
 };
 
-const uint16_t PROGMEM led_adjust_combo[] = {KC_LEFT, KC_RGHT, COMBO_END};
+const uint16_t PROGMEM led_adjust_combo[] = {KC_F22, KC_F24, COMBO_END};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [DEFAULT] = {
-        { KC_END,  KC_UP,   KC_MUTE },
-        { KC_LEFT, KC_DOWN, KC_RGHT }
+        { KC_F20, KC_F21, KC_MUTE },
+        { KC_F22, KC_F23, KC_F24  }
     }
 };
 
-void matrix_init_user(void) {
-}
-
-// Override if necessary
-/*
 void encoder_one_update(bool clockwise) {
+    tap_code(!clockwise ? KC_F18 : KC_F19);
 }
-
-void encoder_two_update(bool clockwise) {
-}
-//*/
