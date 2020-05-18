@@ -8,6 +8,6 @@ This is a 4x3 macropad designed to be used with your favorite 12 keys for whatev
 
 Make example for this keyboard (after setting up your build environment):
 
-    make clawsome/bookerboard/keymaps:default
+    make clawsome/bookerboard:default
 
 See [build environment setup](https://docs.qmk.fm/#/newbs_getting_started) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
