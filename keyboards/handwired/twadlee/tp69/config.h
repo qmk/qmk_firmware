@@ -41,12 +41,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  */
 /*                        19  17  16  15  14   2   8   6   7   9 */
-#define MATRIX_ROW_PINS { B2, B1, B0, C0, D1, D0, D3, D4, D2, C3 }
+//#define MATRIX_ROW_PINS { B2, B1, B0, C0, D1, D0, D3, D4, D2, C3 }
 /*                        20  21  18    0    1   3   4   5 */
-#define MATRIX_COL_PINS { D5, D6, A4, B16, B17, A1, A2, D7 }
+//#define MATRIX_COL_PINS { D5, D6, A4, B16, B17, A1, A2, D7 }
+#define MATRIX_ROW_PINS {                       \
+    LINE_PIN19,                                 \
+    LINE_PIN17,                                 \
+    LINE_PIN16,                                 \
+    LINE_PIN15,                                 \
+    LINE_PIN14,                                 \
+    LINE_PIN2,                                  \
+    LINE_PIN8,                                  \
+    LINE_PIN6,                                  \
+    LINE_PIN7,                                  \
+    LINE_PIN9                                   \
+}
+
+#define MATRIX_COL_PINS {                       \
+    LINE_PIN20,                                 \
+    LINE_PIN21,                                 \
+    LINE_PIN18,                                 \
+    /* chibios-contrib patch pending */         \
+    PAL_LINE(TEENSY_PIN0_IOPORT, TEENSY_PIN0),  \
+    LINE_PIN1,                                  \
+    LINE_PIN3,                                  \
+    LINE_PIN4,                                  \
+    LINE_PIN5                                   \
+}
+
 #define UNUSED_PINS
 
-/* for trackpoint: C1 (22)  C2 (23) */
+// for trackpoint:
+#define PS2_DATA LINE_PIN22
+#define PS2_CLOCK LINE_PIN23  // requires interrupt capability
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
