@@ -10,6 +10,8 @@ DFU_ARGS = -d 1eaf:0003 -a2 -R
 DFU_SUFFIX_ARGS = -v 1eaf -p 0003
 
 
+PROGRAM_CMD=echo 'CLI flashing not supported' >&2
+
 # Build Options
 #   change yes to no to disable
 #
