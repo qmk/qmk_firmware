@@ -1,9 +1,6 @@
 #include "wm1.h"
 
 void matrix_init_kb(void) {
-    // put your keyboard start-up code here
-    // runs once when the firmware starts up
-
   setPinOutput(B1); // Top Indicator LED
   setPinOutput(B0); // Middle Indicator LED
   setPinOutput(C5); // Bottom Indicator LED
