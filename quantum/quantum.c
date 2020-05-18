@@ -108,6 +108,34 @@ void tap_code16(uint16_t code) {
     unregister_code16(code);
 }
 
+void register_magic_code(uint8_t code) { register_code(keycode_config(code)); }
+
+void register_magic_code16(uint16_t keycode) {
+    if (keycode >= QK_MODS && keycode <= QK_MODS_MAX) {
+        keycode = (mod_config((keycode >> 8) & 0x1F) << 8 | keycode_config(keycode & 0xFF));
+    }
+    register_code16(keycode_config(keycode));
+}
+
+void unregister_magic_code(uint8_t code) { unregister_code(keycode_config(code)); }
+
+void unregister_magic_code16(uint16_t keycode) {
+    if (keycode >= QK_MODS && keycode <= QK_MODS_MAX) {
+        keycode = (mod_config((keycode >> 8) & 0x1F) << 8 | keycode_config(keycode & 0xFF));
+    }
+    unregister_code16(keycode_config(keycode));
+}
+
+void tap_magic_code(uint8_t keycode) { tap_code(keycode_config(keycode)); }
+void tap_magic_code_delay(uint8_t keycode, uint16_t delay) { tap_code_delay(keycode_config(keycode), delay); }
+
+void tap_magic_code16(uint16_t keycode) {
+    if (keycode >= QK_MODS && keycode <= QK_MODS_MAX) {
+        keycode = (mod_config((keycode >> 8) & 0x1F) << 8 | keycode_config(keycode & 0xFF));
+    }
+    tap_code16(keycode_config(keycode));
+}
+
 __attribute__((weak)) bool process_action_kb(keyrecord_t *record) { return true; }
 
 __attribute__((weak)) bool process_record_kb(uint16_t keycode, keyrecord_t *record) { return process_record_user(keycode, record); }

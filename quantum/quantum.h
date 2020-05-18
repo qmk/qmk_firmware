@@ -232,6 +232,13 @@ void shutdown_user(void);
 void register_code16(uint16_t code);
 void unregister_code16(uint16_t code);
 void tap_code16(uint16_t code);
+void register_magic_code(uint8_t code);
+void register_magic_code16(uint16_t keycode);
+void unregister_magic_code(uint8_t code);
+void unregister_magic_code16(uint16_t keycode);
+void tap_magic_code(uint8_t keycode);
+void tap_magic_code_delay(uint8_t keycode, uint16_t delay);
+void tap_magic_code16(uint16_t keycode);
 
 void led_set_user(uint8_t usb_led);
 void led_set_kb(uint8_t usb_led);
