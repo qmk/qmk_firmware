@@ -1,7 +1,3 @@
-# Build Options
-#   change yes to no to disable
-#
-
 # MCU name
 MCU = STM32F103
 
