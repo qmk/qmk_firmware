@@ -15,10 +15,10 @@
 */
 
 /*
- * ST32F103xB memory setup for use with the maplemini bootloader.
- * You will have to
- * 	#define CORTEX_VTOR_INIT 0x5000
- * in your projects chconf.h
+ * STM32F103xC memory setup for use with the WM1 mass-storage device bootloader.
+ * You will have to change:
+ * 	OPT_DEFS = -DCORTEX_VTOR_INIT=0x10000
+ * in your board's rules.mk
  */
 MEMORY
 {
