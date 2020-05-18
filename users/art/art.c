@@ -6,9 +6,13 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-static bool mac_alt_tab_on = false; //for switching windows
+__attribute__ ((weak))
+void led_show_current_os(void) {
+}
+
 static bool mac_ctrl_on = false; //for switching tabs
 static bool mac_gui_on = false; //for switching languages
+static bool mac_alt_tab_on = false; //for switching windows
 
 static const char *key_up[2] = {SS_UP(X_LALT), SS_UP(X_LCTL)};
 static const char *key_down[2] = {SS_DOWN(X_LALT), SS_DOWN(X_LCTL)};
@@ -243,6 +247,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case TOG_OS:
       if (record->event.pressed) {
         is_win = ! is_win;
+        led_show_current_os();
       }
       break;
     case CTR_ALT:

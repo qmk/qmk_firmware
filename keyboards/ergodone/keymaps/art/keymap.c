@@ -7,6 +7,40 @@ enum custom_keycodes {
   keyboardSpecificKeyCode = NEW_SAFE_RANGE //not used
 };
 
+void led_show_current_os(void) {
+  if (is_win) {
+    ergodox_right_led_1_on();
+    wait_ms(50);
+    ergodox_right_led_1_off();
+    wait_ms(50);
+    ergodox_right_led_1_on();
+    wait_ms(50);
+    ergodox_right_led_1_off();
+    wait_ms(50);
+    ergodox_right_led_1_on();
+    wait_ms(50);
+    ergodox_right_led_1_off();
+    wait_ms(50);
+  } else {
+    ergodox_right_led_3_on();
+    wait_ms(50);
+    ergodox_right_led_3_off();
+    wait_ms(50);
+    ergodox_right_led_3_on();
+    wait_ms(50);
+    ergodox_right_led_3_off();
+    wait_ms(50);
+    ergodox_right_led_3_on();
+    wait_ms(50);
+    ergodox_right_led_3_off();
+    wait_ms(50);
+  }
+}
+
+void matrix_init_user(void) {
+  led_show_current_os();
+}
+
 void led_set_user(uint8_t usb_led) {
   if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
     ergodox_right_led_2_on();
@@ -14,6 +48,8 @@ void led_set_user(uint8_t usb_led) {
     ergodox_right_led_2_off();
   }
 }
+
+
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   ergodox_board_led_off();

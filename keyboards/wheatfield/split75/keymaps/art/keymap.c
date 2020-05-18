@@ -12,18 +12,38 @@ bool led_update_user(led_t led_state) {
   return false;
 }
 
+void led_show_current_os(void) {
+  if (is_win) {
+    writePinHigh(NUMLOCK_LED_PIN);
+    wait_ms(50);
+    writePinLow(NUMLOCK_LED_PIN);
+    wait_ms(50);
+    writePinHigh(NUMLOCK_LED_PIN);
+    wait_ms(50);
+    writePinLow(NUMLOCK_LED_PIN);
+    wait_ms(50);
+    writePinHigh(NUMLOCK_LED_PIN);
+    wait_ms(50);
+    writePinLow(NUMLOCK_LED_PIN);
+    wait_ms(50);
+  } else {
+    writePinHigh(SCROLLLOCK_LED_PIN);
+    wait_ms(50);
+    writePinLow(SCROLLLOCK_LED_PIN);
+    wait_ms(50);
+    writePinHigh(SCROLLLOCK_LED_PIN);
+    wait_ms(50);
+    writePinLow(SCROLLLOCK_LED_PIN);
+    wait_ms(50);
+    writePinHigh(SCROLLLOCK_LED_PIN);
+    wait_ms(50);
+    writePinLow(SCROLLLOCK_LED_PIN);
+    wait_ms(50);
+  }
+}
+
 void keyboard_pre_init_user(void) {
-  writePinHigh(SCROLLLOCK_LED_PIN);
-  wait_ms(50);
-  writePinHigh(CAPSLOCK_LED_PIN);
-  wait_ms(50);
-  writePinHigh(NUMLOCK_LED_PIN);
-  wait_ms(50);
-  writePinLow(SCROLLLOCK_LED_PIN);
-  wait_ms(50);
-  writePinLow(CAPSLOCK_LED_PIN);
-  wait_ms(50);
-  writePinLow(NUMLOCK_LED_PIN);
+  led_show_current_os();
   
   layer_state_set_user(layer_state);
 }
