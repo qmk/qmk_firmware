@@ -89,6 +89,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         eeconfig_update_debug(debug_config.raw);
 #endif
         return false;
+
+      case CH_CPNL: host_consumer_send(AL_CONTROL_PANEL); return false;
+      case CH_ASST: host_consumer_send(AL_ASSISTANT); return false;
+      case CH_SUSP: tap_code16(LGUI(LSFT(KC_L))); return true;
+
       case SPI_LNX:
 	dprint("SPI_LNX\n");
         set_single_persistent_default_layer(_BASE);
@@ -117,6 +122,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	spi_replace_mode = (spi_replace_mode == keycode) ? SPI_NORMAL: keycode;
 	dprintf("spi_replace_mode = %u\n");
         break;
+    }
+  } else {
+    switch (keycode) {
+      case CH_CPNL:
+      case CH_ASST:
+        host_consumer_send(0);
+        return false;
     }
   }
 
