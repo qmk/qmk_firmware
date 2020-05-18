@@ -73,7 +73,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+void keyboard_pre_init_user(void) {
+    // Call the keyboard pre init code.
+    // Set our LED pin as output
+    setPinOutput(LED);
+}
+
 void led_keypress_update(uint8_t led, uint16_t keycode, keyrecord_t *record) {
+    // When a key is pressed turn on the LED, when released turn it off
     if (record->event.pressed) {
       writePinHigh(led);
       return;
@@ -85,6 +92,7 @@ void led_keypress_update(uint8_t led, uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // Update LED state
     led_keypress_update(LED, keycode, record);
     switch (keycode) {
         case QMKBEST:
