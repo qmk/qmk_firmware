@@ -1,7 +1,7 @@
 # MAJA
 
 ![MAJA](https://i.ibb.co/ZxWRgg3/2.png)
-
+![MAJA](https://i.ibb.co/kgXQkgF/1.png)
 * Keyboard Maintainer: [DZTECH](https://github.com/moyi4681)
 * Hardware Supported: MAJA
 * Hardware Availability: [KBDFans](https://kbdfans.cn/)
