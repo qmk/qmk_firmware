@@ -22,8 +22,8 @@
 #define VENDOR_ID       0x464C // "FL"
 #define PRODUCT_ID      0x0004
 #define DEVICE_VER      0x0001
-#define MANUFACTURER Fox Labs
-#define PRODUCT Key 65
+#define MANUFACTURER Fox Lab
+#define PRODUCT Key 65 Universal
 #define DESCRIPTION Key 65 Universal
 
 /* key matrix size */
