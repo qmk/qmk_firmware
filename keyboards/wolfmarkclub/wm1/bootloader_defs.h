@@ -5,6 +5,7 @@
  *  <tmk_dir>/tmk_core/tool/chibios/ch-bootloader-jump.patch
  */
 
-// STM32F103* does NOT have an USB bootloader in ROM (only serial),
-//  so setting anything here does not make much sense
+// STM32F103 does not have a USB bootloader in ROM -- the WM1
+// has a usermode USB mass storage device bootloader at the normal
+// boot address -- `0x08000000`.
 #define STM32_BOOTLOADER_ADDRESS 0x80000000
