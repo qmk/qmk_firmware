@@ -6,10 +6,6 @@ OPT_DEFS = -DCORTEX_VTOR_INIT=0x10000
 MCU_LDSCRIPT = wm1_f103
 BOARD = STM32_F103_STM32DUINO
 
-DFU_ARGS = -d 1eaf:0003 -a2 -R
-DFU_SUFFIX_ARGS = -v 1eaf -p 0003
-
-
 PROGRAM_CMD=echo 'CLI flashing not supported' >&2
 
 # Build Options
