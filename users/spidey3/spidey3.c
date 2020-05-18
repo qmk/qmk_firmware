@@ -5,6 +5,65 @@
 
 static bool rand_seeded = false;
 
+uint16_t spi_replace_mode = SPI_NORMAL;
+
+bool process_record_glyph_replacement(uint16_t keycode, keyrecord_t *record, uint32_t baseAlphaLower, uint32_t baseAlphaUpper, uint32_t zeroGlyph, uint32_t baseNumberOne, uint32_t spaceGlyph) {
+    uint8_t temp_mod = get_mods();
+#ifndef NO_ACTION_ONESHOT
+    uint8_t temp_osm = get_oneshot_mods();
+#else
+    uint8_t temp_osm = 0;
+#endif
+    if ((((temp_mod | temp_osm) & (MOD_MASK_CTRL | MOD_MASK_ALT | MOD_MASK_GUI))) == 0) {
+        switch (keycode) {
+          case KC_A ... KC_Z:
+            if (record->event.pressed) {
+                clear_mods();
+#ifndef NO_ACTION_ONESHOT
+                clear_oneshot_mods();
+#endif
+
+                unicode_input_start();
+                uint32_t base = ((temp_mod | temp_osm) & MOD_MASK_SHIFT) ? baseAlphaUpper : baseAlphaLower;
+                register_hex32(base + (keycode - KC_A));
+                unicode_input_finish();
+
+                set_mods(temp_mod);
+            }
+            return false;
+          case KC_0:
+            if ((temp_mod | temp_osm) & MOD_MASK_SHIFT) {  // skip shifted numbers, so that we can still use symbols etc.
+                return true;
+            }
+            if (record->event.pressed) {
+                unicode_input_start();
+                register_hex32(zeroGlyph);
+                unicode_input_finish();
+            }
+            return false;
+          case KC_1 ... KC_9:
+            if ((temp_mod | temp_osm) & MOD_MASK_SHIFT) {  // skip shifted numbers, so that we can still use symbols etc.
+                return true;
+            }
+            if (record->event.pressed) {
+                unicode_input_start();
+                register_hex32(baseNumberOne + (keycode - KC_1));
+                unicode_input_finish();
+            }
+            return false;
+          case KC_SPACE:
+            if (record->event.pressed) {
+                unicode_input_start();
+                register_hex32(spaceGlyph);  // em space
+                unicode_input_finish();
+            }
+            return false;
+        }
+    }
+
+    return true;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // If console is enabled, it will print the matrix position and status of each key pressed
@@ -51,7 +110,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_unicode_input_mode(UC_WINC);
 #endif
         break;
+
+      case SPI_NORMAL ... SPI_FRAKTR:
+	spi_replace_mode = (spi_replace_mode == keycode) ? SPI_NORMAL: keycode;
+	dprintf("spi_replace_mode = %u\n");
+        break;
     }
+  }
+
+  switch (keycode) {
+    case KC_A ... KC_0:
+    case KC_SPACE:
+      switch (spi_replace_mode) {
+        case SPI_WIDE:
+          return process_record_glyph_replacement(keycode, record, 0xFF41, 0xFF21, 0xFF10, 0xFF11, 0x2003);
+        case SPI_SCRIPT:
+          return process_record_glyph_replacement(keycode, record, 0x1D4EA, 0x1D4D0, 0x1D7CE, 0x1D7CF, 0x2002);
+        case SPI_BLOCKS:
+          return process_record_glyph_replacement(keycode, record, 0x1F170, 0x1F170, '0', '1', 0x2002);
+        case SPI_CIRCLE:
+          return process_record_glyph_replacement(keycode, record, 0x1F150, 0x1F150, '0', '1', 0x2002);
+        case SPI_SQUARE:
+          return process_record_glyph_replacement(keycode, record, 0x1F130, 0x1F130, '0', '1', 0x2002);
+        case SPI_PARENS:
+          return process_record_glyph_replacement(keycode, record, 0x1F110, 0x1F110, '0', '1', 0x2002);
+        case SPI_FRAKTR:
+          return process_record_glyph_replacement(keycode, record, 0x1D586, 0x1D56C, '0', '1', 0x2002);
+      }
   }
 
 #ifdef RGBLIGHT_ENABLE
