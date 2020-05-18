@@ -199,6 +199,7 @@ void default_layer_led_set(void) {
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
+    ergodox_blink_all_leds();
     default_layer_led_set();
 };
 

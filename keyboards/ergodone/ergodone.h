@@ -61,11 +61,28 @@ inline void ergodox_led_all_off(void) {
     ergodox_right_led_3_off();
     ergodox_board_led_off();
 }
+
 inline void ergodox_right_led_1_set(uint8_t n)          {}
 inline void ergodox_right_led_2_set(uint8_t n)          {}
 inline void ergodox_right_led_3_set(uint8_t n)          {}
 inline void ergodox_right_led_set(uint8_t l, uint8_t n) {}
 inline void ergodox_led_all_set(uint8_t n)              {}
+
+inline static void ergodox_blink_all_leds(void) {
+    ergodox_led_all_off();
+    ergodox_led_all_set(LED_BRIGHTNESS_HI);
+    ergodox_right_led_1_on();
+    _delay_ms(50);
+    ergodox_right_led_2_on();
+    _delay_ms(50);
+    ergodox_right_led_3_on();
+    _delay_ms(50);
+    ergodox_right_led_1_off();
+    _delay_ms(50);
+    ergodox_right_led_2_off();
+    _delay_ms(50);
+    ergodox_led_all_off();
+}
 
 /*
  *   LEFT HAND: LINES 76-83
