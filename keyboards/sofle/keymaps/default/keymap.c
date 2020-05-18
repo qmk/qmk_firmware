@@ -339,7 +339,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_C);
             }
             return false;
-            break;
         case KC_PASTE:
             if (record->event.pressed) {
                 register_mods(mod_config(MOD_LCTL));
@@ -349,7 +348,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_V);
             }
             return false;
-            break;
         case KC_CUT:
             if (record->event.pressed) {
                 register_mods(mod_config(MOD_LCTL));
