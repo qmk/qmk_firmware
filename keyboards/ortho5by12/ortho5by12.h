@@ -41,5 +41,3 @@
     { K81, K83, K90, K91, K93, K95 }, \
     { K80, K82, K84, K85, K92, K94 }  \
 }
-
-#define LAYOUT_preonic_grid  LAYOUT
