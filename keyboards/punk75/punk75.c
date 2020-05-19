@@ -20,14 +20,23 @@
 // You can leave any or all of these undefined.
 // These are only required if you want to perform custom actions.
 
-/*
 void matrix_init_kb(void) {
     // put your keyboard start-up code here
     // runs once when the firmware starts up
 
+    // Set our LED pin as output
+    setPinOutput(LED);
+
+    // Set the rotary encoders pins
+    setPinInputHigh(ENCODER1_PAD_A);
+    setPinInputHigh(ENCODER1_PAD_B);
+    setPinInputHigh(ENCODER2_PAD_A);
+    setPinInputHigh(ENCODER2_PAD_B);
+
     matrix_init_user();
 }
 
+/*
 void matrix_scan_kb(void) {
     // put your looping keyboard code here
     // runs every cycle (a lot)
