@@ -51,16 +51,6 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 BOOTLOADER = USBasp
 
 
-# If you don't know the bootloader type, then you can specify the
-# Boot Section Size in *bytes* by uncommenting out the OPT_DEFS line
-#   Teensy halfKay      512
-#   Teensy++ halfKay    1024
-#   Atmel DFU loader    4096
-#   LUFA bootloader     4096
-#   USBaspLoader        2048
-# OPT_DEFS += -DBOOTLOADER_SIZE=4096
-OPT_DEFS += -DBOOTLOADER_SIZE=2048
-
 # Flash program via avrdude, but default command is not suitable.
 # You can use plaid:default:program
 PROGRAM_CMD = avrdude -c usbasp -p m328 -U flash:w:$(BUILD_DIR)/$(TARGET).hex
