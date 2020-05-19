@@ -105,8 +105,8 @@ Luckily, the fix is easy. Run this as your user: `echo "PATH=$HOME/.local/bin:$P
 
 ### Note on FreeBSD Permissions :id=note-on-freebsd-permissions
 
-It is suggested to run `qmk setup` as a non-`root` user to start with, but this will likely identify that packages need to be isntalled to your
-base system using `pkg`. Although you maybe be prompted to install dependencies, this will likely fail due to running as an unprivileged user. To
+It is suggested to run `qmk setup` as a non-`root` user to start with, but this will likely identify packages that need to be installed to your
+base system using `pkg`. However the installation will probably fail when run as an unprivileged user. To
 manually install the base dependencies, run the following either as `root`, or with `sudo`:
 
     ./util/qmk_install.sh
