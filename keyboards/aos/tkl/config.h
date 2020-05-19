@@ -23,9 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0x504B
 #define PRODUCT_ID      0x1000
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Matt
-#define PRODUCT         Ace of Spades
-#define DESCRIPTION     Ace of Spades
+#define MANUFACTURER    Ace of Spades
+#define PRODUCT         Ace of Spades TKL
+#define DESCRIPTION     Ace of Spades TKL
 
 /* key matrix size */
 #define MATRIX_ROWS 6

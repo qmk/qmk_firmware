@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "quantum.h"
-#include "config_common.h"
 
 /* This a shortcut to help you visually see your layout.
  *
@@ -29,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * represents the switch matrix.
  */
 
-#define LAYOUT_all( \
+#define LAYOUT_tkl_iso_wkl( \
     K000,       K002, K003, K004, K005,    K006, K007, K008, K009,    K010, K011, K012, K013,    K014, K015, K016, \
                                                                                                                    \
     K100, K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112,       K113,    K114, K115, K116, \
@@ -45,5 +44,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { K400,  K401,  K402,  K403,  K404,  K405,  K406,  K407,  K408,  K409,  K410,  K411,  K412,  KC_NO, KC_NO, K415,  KC_NO }, \
     { K500,  KC_NO, K502,  KC_NO, KC_NO, KC_NO, KC_NO, K505, KC_NO, KC_NO, K510,  KC_NO, K512,  K513,  KC_NO, K515,  K516  }, \
 }
-
-#define LAYOUT_tkl_iso LAYOUT_all
