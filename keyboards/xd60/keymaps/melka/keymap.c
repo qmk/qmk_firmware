@@ -1,4 +1,3 @@
-//#include "action_layer.h"
 #include QMK_KEYBOARD_H
 
 /*
