@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_LCTL, KC_LALT,      KC_LGUI, MO(_MNMB), MO(_SYMB),      MO(_SYMB), MO(_MNMB), KC_RGUI,  MO(_MDIA), MO(_FUNC), \
                                          KC_LSFT, KC_SPC,  KC_SPC,      KC_SPC,  KC_SPC,  KC_RSFT \
   ),
-
+  //Jedi - Fallen Order
   [_GAMER] = LAYOUT_wrapper( \
              KC_R,    KC_Q,    KC_W,    KC_E,    KC_1,      KC_ESC,        KC_WINBASE, _________________RGB_1_____________________, \
     KC_TAB,  KC_F,    KC_A,    KC_S,    KC_D,    KC_2, LSFT(KC_F2),        KC_GAMR1, _________________RGB_2_____________________, RGB_TOG, \
@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_LCTL, KC_LALT,       KC_LCTL,    KC_LSFT,   KC_SPC,        KC_____, KC_UP,   KC_____,           KC_____, KC_____, \
                                      KC_NO,      KC_LSFT,  KC_LSFT,        KC_LEFT, KC_DOWN, KC_RIGHT \
   ),
-
+  //Borderlands
   [_GAMR1] = LAYOUT_wrapper( \
              KC_R,    KC_G,    KC_W,    KC_E,    KC_1,      KC_ESC,        KC_WINBASE, _________________RGB_1_____________________, \
     KC_TAB,  KC_V,    KC_A,    KC_S,    KC_D,    KC_2,        KC_L,        KC_GAMR1, _________________RGB_2_____________________, RGB_TOG, \
@@ -46,13 +46,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_X,    KC_K,             KC_C,    KC_LSFT,   KC_SPC,        KC_____, KC_UP,   KC_____,           KC_____, KC_____, \
                                         KC_Z,    KC_LSFT,  KC_LSFT,        KC_LEFT, KC_DOWN, KC_RIGHT \
   ),
-
-[_GAMR2] = LAYOUT_wrapper( \
+  //Witcher
+  [_GAMR2] = LAYOUT_wrapper( \
              KC_R,    KC_Q,    KC_W,    KC_E,    KC_1,      KC_ESC,        KC_WINBASE, _________________RGB_1_____________________, \
-    KC_TAB,  KC_C,    KC_A,    KC_S,    KC_D,    KC_2, LSFT(KC_F2),        KC_GAMR1, _________________RGB_2_____________________, RGB_TOG, \
-    KC_TAB,  KC_G,    KC_F,    KC_X,    KC_V,    KC_3,       KC_F1,        KC_GAMR2, _________________MEDIA_____________________, RGB_MOD, \
-             KC_LCTL, KC_LALT,       KC_LCTL,    KC_LSFT,   KC_SPC,        KC_____, KC_UP,   KC_____,           KC_____, KC_____, \
-                                     KC_NO,      KC_LSFT,  KC_LSFT,        KC_LEFT, KC_DOWN, KC_RIGHT \
+    KC_TAB,  KC_LALT,  KC_A,    KC_S,    KC_D,    KC_2,        KC_J,        KC_GAMR1, _________________RGB_2_____________________, RGB_TOG, \
+    KC_X,    KC_I,    KC_F,    KC_C,    KC_V,    KC_3,        KC_M,        KC_GAMR2, _________________MEDIA_____________________, RGB_MOD, \
+             KC_LCTL, KC_V,          KC_HOME,    KC_LSFT,   KC_SPC,        KC_____, KC_UP,   KC_____,           KC_____, KC_____, \
+                                     KC_ENT,     KC_LCTL,  KC_LSFT,        KC_LEFT, KC_DOWN, KC_RIGHT \
   ),
 
   [_SYMB] = LAYOUT_wrapper( \
