@@ -25,19 +25,19 @@ section at the end of this file).
 /* ---------------------------- Hardware Config ---------------------------- */
 
 #ifndef USB_CFG_IOPORTNAME
-#define USB_CFG_IOPORTNAME      D
+#define USB_CFG_IOPORTNAME              D
 #endif
 /* This is the port where the USB bus is connected. When you configure it to
  * "B", the registers PORTB, PINB and DDRB will be used.
  */
 #ifndef USB_CFG_DMINUS_BIT
-#define USB_CFG_DMINUS_BIT      3
+#define USB_CFG_DMINUS_BIT              3
 #endif
 /* This is the bit number in USB_CFG_IOPORT where the USB D- line is connected.
  * This may be any bit in the port.
  */
 #ifndef USB_CFG_DPLUS_BIT
-#define USB_CFG_DPLUS_BIT       2
+#define USB_CFG_DPLUS_BIT               2
 #endif
 /* This is the bit number in USB_CFG_IOPORT where the USB D+ line is connected.
  * This may be any bit in the port. Please note that D+ must also be connected
@@ -47,7 +47,7 @@ section at the end of this file).
  * interrupt, the USB interrupt will also be triggered at Start-Of-Frame
  * markers every millisecond.]
  */
-#define USB_CFG_CHECK_CRC       0
+#define USB_CFG_CHECK_CRC               0
 /* Define this to 1 if you want that the driver checks integrity of incoming
  * data packets (CRC checks). CRC checks cost quite a bit of code size and are
  * currently only available for 18 MHz crystal clock. You must choose
@@ -85,13 +85,13 @@ section at the end of this file).
 /* If the so-called endpoint 3 is used, it can now be configured to any other
  * endpoint number (except 0) with this macro. Default if undefined is 3.
  */
-#define USB_CFG_HAVE_INTRIN_ENDPOINT4 1
+#define USB_CFG_HAVE_INTRIN_ENDPOINT4   1
 /* Define this to 1 if you want to compile a version with three endpoints: The
  * default control endpoint 0, an interrupt-in endpoint 4 (or the number
  * configured below) and a catch-all default interrupt-in endpoint as above.
  * You must also define USB_CFG_HAVE_INTRIN_ENDPOINT to 1 for this feature.
  */
-#define USB_CFG_EP4_NUMBER 4
+#define USB_CFG_EP4_NUMBER              4
 /* If the so-called endpoint 4 is used, it can now be configured to any other
  * endpoint number (except 0) with this macro. Default if undefined is 4.
  */

@@ -62,13 +62,17 @@ enum usb_interfaces {
     TOTAL_INTERFACES = NEXT_INTERFACE
 };
 
-#define MAX_INTERFACES 2
+#define MAX_INTERFACES 3
 
 #if (NEXT_INTERFACE - 1) > MAX_INTERFACES
 #    error There are not enough available interfaces to support all functions. Please disable one or more of the following: Mouse Keys, Extra Keys, Raw HID, Console
 #endif
 
-static uint8_t keyboard_led_state = 0;
+#if (defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)) && CONSOLE_ENABLE
+#    error Mouse/Extra Keys share an endpoing with Console. Please disable one of the two.
+#endif
+
+static uint8_t vusb_keyboard_leds = 0;
 static uint8_t vusb_idle_rate     = 0;
 
 /* Keyboard report send buffer */
@@ -116,16 +120,16 @@ void raw_hid_send(uint8_t *data, uint8_t length) {
 
     uint8_t *temp = data;
     for (uint8_t i = 0; i < 4; i++) {
-        while (!usbInterruptIsReady3()) {
+        while (!usbInterruptIsReady4()) {
             usbPoll();
         }
-        usbSetInterrupt3(temp, 8);
+        usbSetInterrupt4(temp, 8);
         temp += 8;
     }
-    while (!usbInterruptIsReady3()) {
+    while (!usbInterruptIsReady4()) {
         usbPoll();
     }
-    usbSetInterrupt3(0, 0);
+    usbSetInterrupt4(0, 0);
 }
 
 __attribute__((weak)) void raw_hid_receive(uint8_t *data, uint8_t length) {
@@ -234,8 +238,8 @@ typedef struct {
 static void send_mouse(report_mouse_t *report) {
 #ifdef MOUSE_ENABLE
     vusb_mouse_report_t r = {.report_id = REPORT_ID_MOUSE, .report = *report};
-    if (usbInterruptIsReady4()) {
-        usbSetInterrupt4((void *)&r, sizeof(vusb_mouse_report_t));
+    if (usbInterruptIsReady3()) {
+        usbSetInterrupt3((void *)&r, sizeof(vusb_mouse_report_t));
     }
 #endif
 }
@@ -249,8 +253,8 @@ static void send_extra(uint8_t report_id, uint16_t data) {
     last_data = data;
 
     report_extra_t report = {.report_id = report_id, .usage = data};
-    if (usbInterruptIsReady4()) {
-        usbSetInterrupt4((void *)&report, sizeof(report));
+    if (usbInterruptIsReady3()) {
+        usbSetInterrupt3((void *)&report, sizeof(report));
     }
 }
 #endif
@@ -683,7 +687,7 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
             .bLength         = sizeof(usbEndpointDescriptor_t),
             .bDescriptorType = USBDESCR_ENDPOINT
         },
-        .bEndpointAddress    = (USBRQ_DIR_DEVICE_TO_HOST | USB_CFG_EP3_NUMBER),
+        .bEndpointAddress    = (USBRQ_DIR_DEVICE_TO_HOST | USB_CFG_EP4_NUMBER),
         .bmAttributes        = 0x03,
         .wMaxPacketSize      = RAW_EPSIZE,
         .bInterval           = USB_POLLING_INTERVAL_MS
@@ -693,7 +697,7 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
             .bLength         = sizeof(usbEndpointDescriptor_t),
             .bDescriptorType = USBDESCR_ENDPOINT
         },
-        .bEndpointAddress    = (USBRQ_DIR_HOST_TO_DEVICE | USB_CFG_EP3_NUMBER),
+        .bEndpointAddress    = (USBRQ_DIR_HOST_TO_DEVICE | USB_CFG_EP4_NUMBER),
         .bmAttributes        = 0x03,
         .wMaxPacketSize      = RAW_EPSIZE,
         .bInterval           = USB_POLLING_INTERVAL_MS
@@ -732,7 +736,7 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
             .bLength         = sizeof(usbEndpointDescriptor_t),
             .bDescriptorType = USBDESCR_ENDPOINT
         },
-        .bEndpointAddress    = (USBRQ_DIR_DEVICE_TO_HOST | USB_CFG_EP4_NUMBER),
+        .bEndpointAddress    = (USBRQ_DIR_DEVICE_TO_HOST | USB_CFG_EP3_NUMBER),
         .bmAttributes        = 0x03,
         .wMaxPacketSize      = 8,
         .bInterval           = USB_POLLING_INTERVAL_MS
