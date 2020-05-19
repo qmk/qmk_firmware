@@ -30,4 +30,3 @@
     { k20, k21, k22 } \
 } 
 
-#define LAYOUT_MEDIA LAYOUT
