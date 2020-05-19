@@ -95,8 +95,10 @@ def compiledb(cli):
         cli.log.error('Could not determine keymap!')
 
     if command:
-        cli.log.info('Making clean')
-        subprocess.run(['make', 'clean'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        # re-use same executable as the main make invocation (might be gmake)
+        clean_command = [command[0], 'clean']
+        cli.log.info('Making clean with {fg_cyan}%s', ' '.join(clean_command))
+        subprocess.run(clean_command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
         cli.log.info('Gathering build instructions from {fg_cyan}%s', ' '.join(command))
         proc = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
