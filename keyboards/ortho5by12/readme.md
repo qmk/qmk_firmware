@@ -10,9 +10,9 @@ This was developed on linux mint so you'll have to adapt the commands yourself i
 
 pic here: https://www.reddit.com/r/MechanicalKeyboards/comments/g0ukw4/ortho5by12_through_hole/
 
-Keyboard Maintainer: [gipetto](https://github.com/itsnoteasy)  
-Hardware Supported: ATMEGA328p with vusb [PCB](https://github.com/itsnoteasy/misc/blob/master/ortho5by12.zip)  
-Hardware Availability: no
+* Keyboard Maintainer: [gipetto](https://github.com/itsnoteasy)
+* Hardware Supported: ATMEGA328p with vusb [PCB](https://github.com/itsnoteasy/misc/blob/master/ortho5by12.zip)
+* Hardware Availability: no
 
 Make example for this keyboard (after setting up your build environment):
     make ortho5by12:default
