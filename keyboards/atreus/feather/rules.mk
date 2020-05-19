@@ -10,3 +10,8 @@ F_CPU = 8000000
 #   ATmega32A    bootloadHID
 #   ATmega328P   USBasp
 BOOTLOADER = caterina
+
+# Build Options
+#   change yes to no to disable
+#
+BLUETOOTH = AdafruitBLE
