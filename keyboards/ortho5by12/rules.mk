@@ -11,16 +11,6 @@ MCU = atmega328p
 #   ATmega328P   USBasp
 BOOTLOADER = USBasp
 
-
-# Flash program via avrdude, but default command is not suitable.
-# You can use plaid:default:program
-PROGRAM_CMD = avrdude -c usbasp -p m328 -U flash:w:$(BUILD_DIR)/$(TARGET).hex
-
-
-# disable debug code
-OPT_DEFS = -DDEBUG_LEVEL=0
-
-
 # Build Options
 #   change yes to no to disable
 #
