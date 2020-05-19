@@ -43,8 +43,5 @@
     { K80, K82, K84, K85, K92, K94 }  \
 }
 
-#define LED_RED C5
-#define LED_GREEN C4
-
 #define LAYOUT_preonic_grid  KEYMAP //preonic keymap compatibility
 #define LAYOUT KEYMAP //jj50 keymap compatibility
