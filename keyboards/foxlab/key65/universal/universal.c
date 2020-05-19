@@ -23,6 +23,7 @@ void keyboard_pre_init_kb(void) {
 
 void led_init_ports(void) {
     setPinOutput(E6);
+    writePinHigh(E6);
 }
 
 bool led_update_kb(led_t led_state) {
