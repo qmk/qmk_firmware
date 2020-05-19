@@ -260,7 +260,7 @@ void matrix_scan_rgb_light(void) {
 #    endif
 
 #if defined(RGBLIGHT_STARTUP_ANIMATION)
-    if (is_rgblight_startup) {
+    if (is_rgblight_startup && is_keyboard_master()) {
         if (timer_elapsed(rgblight_startup_loop_timer) > 10) {
             static uint8_t counter;
             counter++;
