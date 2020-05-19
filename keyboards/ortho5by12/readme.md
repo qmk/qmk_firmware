@@ -26,9 +26,6 @@ bootloader doesn't seem to work for the time being. i deleted the last line in o
 I used a cut up mcu socket soldered to stripboard to make an isp programming socket. remember to make fuse in the usbasp 
 directory on a new mcu. 
 
-avrdude -c avrisp -p m328p -P /dev/ttyACM0 -b19200 -U flash:w:ortho5by12_default.hex
-avrdude -c usbasp -b19200 -p m328p
-
 ISP pinout
 
         r4
