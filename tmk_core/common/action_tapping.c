@@ -22,7 +22,7 @@
 __attribute__((weak)) uint16_t get_tapping_term(uint16_t keycode) { return TAPPING_TERM; }
 
 #    ifdef TAPPING_TERM_PER_KEY
-#        define WITHIN_TAPPING_TERM(e) (TIMER_DIFF_16(e.time, tapping_key.event.time) < get_tapping_term(get_event_keycode(tapping_key.event)))
+#        define WITHIN_TAPPING_TERM(e) (TIMER_DIFF_16(e.time, tapping_key.event.time) < get_tapping_term(get_event_keycode(tapping_key.event, false)))
 #    else
 #        define WITHIN_TAPPING_TERM(e) (TIMER_DIFF_16(e.time, tapping_key.event.time) < TAPPING_TERM)
 #    endif
@@ -122,10 +122,10 @@ bool process_tapping(keyrecord_t *keyp) {
 #    if defined(TAPPING_TERM_PER_KEY) || (TAPPING_TERM >= 500) || defined(PERMISSIVE_HOLD) || defined(PERMISSIVE_HOLD_PER_KEY)
                 else if (
 #        ifdef TAPPING_TERM_PER_KEY
-                    (get_tapping_term(get_event_keycode(tapping_key.event)) >= 500) &&
+                    (get_tapping_term(get_event_keycode(tapping_key.event, false)) >= 500) &&
 #        endif
 #        ifdef PERMISSIVE_HOLD_PER_KEY
-                    !get_permissive_hold(get_event_keycode(tapping_key.event), keyp) &&
+                    !get_permissive_hold(get_event_keycode(tapping_key.event, false), keyp) &&
 #        endif
                     IS_RELEASED(event) && waiting_buffer_typed(event)) {
                     debug("Tapping: End. No tap. Interfered by typing key\n");
@@ -246,7 +246,7 @@ bool process_tapping(keyrecord_t *keyp) {
 #    if !defined(TAPPING_FORCE_HOLD) || defined(TAPPING_FORCE_HOLD_PER_KEY)
                     if (
 #        ifdef TAPPING_FORCE_HOLD_PER_KEY
-                        !get_tapping_force_hold(get_event_keycode(tapping_key.event), keyp) &&
+                        !get_tapping_force_hold(get_event_keycode(tapping_key.event, false), keyp) &&
 #        endif
                         !tapping_key.tap.interrupted && tapping_key.tap.count > 0) {
                         // sequential tap.

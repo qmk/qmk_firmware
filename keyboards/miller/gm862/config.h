@@ -28,11 +28,11 @@
 #define UNUSED_PINS
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
+
 /* disable these deprecated features by default */
-#ifndef LINK_TIME_OPTIMIZATION_ENABLE
-#    define NO_ACTION_MACRO
-#    define NO_ACTION_FUNCTION
-#endif
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
+
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 3
 #ifdef RGB_MATRIX_ENABLE
