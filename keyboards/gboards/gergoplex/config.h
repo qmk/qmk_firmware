@@ -52,5 +52,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) || get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)))
 
 #define DEBOUNCE 5
-#define USB_MAX_POWER_CONSUMPTION 500
 #define COMBO_TERM 40
