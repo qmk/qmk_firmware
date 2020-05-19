@@ -1,6 +1,7 @@
 {
     "keyboard_name": "ASH-1800",
-    "maintainer": "angelbirth, sh_xguitar",
+    "url": "config.qmk.fm",
+    "maintainer": "sh_xguitar",
     "width": 19.5,
     "height": 7.25,
     "layouts": {
