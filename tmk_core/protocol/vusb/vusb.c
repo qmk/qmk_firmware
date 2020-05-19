@@ -69,7 +69,7 @@ enum usb_interfaces {
 #endif
 
 #if (defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)) && CONSOLE_ENABLE
-#    error Mouse/Extra Keys share an endpoing with Console. Please disable one of the two.
+#    error Mouse/Extra Keys share an endpoint with Console. Please disable one of the two.
 #endif
 
 static uint8_t vusb_keyboard_leds = 0;
