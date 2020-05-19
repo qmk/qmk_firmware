@@ -226,27 +226,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 
-
-void matrix_init_user(void) {
-  //user initialization
-  // set CapsLock LED to output and low
-  DDRC |= (1 << 5);
-  //PORTC &= ~(1 << 5);
-  // set numLock LED to output and low
-  DDRC |= (1 << 4);
-  //PORTC &= ~(1 << 4);
-}
-
-void led_set_user(uint8_t usb_led) {
-	if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-		PORTC |= (1 << 5);
-	} else {
-		PORTC &= ~(1 << 5);
-	}
-
-	if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-		PORTC |= (1 << 4);
-	} else {
-		PORTC &= ~(1 << 4);
-	}
-}
