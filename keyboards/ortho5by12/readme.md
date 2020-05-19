@@ -15,6 +15,7 @@ pic here: https://www.reddit.com/r/MechanicalKeyboards/comments/g0ukw4/ortho5by1
 * Hardware Availability: no
 
 Make example for this keyboard (after setting up your build environment):
+
     make ortho5by12:default
 
 Flash firmware:
