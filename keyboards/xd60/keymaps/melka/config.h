@@ -1,4 +1,10 @@
-#include "passwd.h"
+#pragma once
+
+#if __GNUC__ > 5
+#    if __has_include("passwd.h")
+#        include "passwd.h"
+#    endif  // if file exists
+#endif      // __GNUC__
 
 #ifndef PASSWORD_A
     #define PASSWORD_A "1234567890"
