@@ -200,7 +200,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
           }
           return false;
-          break;
         case BACKLIT:
           if (record->event.pressed) {
             register_code(KC_RSFT);
