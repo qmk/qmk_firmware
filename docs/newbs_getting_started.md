@@ -20,8 +20,8 @@ QMK Toolbox is an optional graphical program for Windows and macOS that allows y
 
 [Download the latest release here.](https://github.com/qmk/qmk_toolbox/releases/latest)
 
-* For Windows: `qmk_toolbox.exe` (portable) or `qmk_toolbox_install.exe` (installer)
-* For macOS: `QMK.Toolbox.app.zip` (portable) or `QMK.Toolbox.pkg` (installer)
+-   For Windows: `qmk_toolbox.exe` (portable) or `qmk_toolbox_install.exe` (installer)
+-   For macOS: `QMK.Toolbox.app.zip` (portable) or `QMK.Toolbox.pkg` (installer)
 
 ### A Unix-like Environment
 
@@ -41,8 +41,8 @@ We've tried to make QMK as easy to set up as possible. You only have to prepare 
 
 You will need to install MSYS2, Git, and the QMK CLI.
 
-* Follow the installation instructions on the [MSYS2 homepage](http://www.msys2.org).
-* Close any open MSYS2 terminals and open a new MSYS2 MinGW 64-bit terminal. NOTE: This is **not** the same as the MSYS terminal that opens when installation is completed.
+-   Follow the installation instructions on the [MSYS2 homepage](http://www.msys2.org).
+-   Close any open MSYS2 terminals and open a new MSYS2 MinGW 64-bit terminal. NOTE: This is **not** the same as the MSYS terminal that opens when installation is completed.
 
 After opening a new MSYS2 MinGW 64-bit terminal, make sure `pacman` is up to date with:
 
@@ -66,16 +66,15 @@ After Homebrew is installed run these commands:
 
 You will need to install Git and Python. It's very likely that you already have both, but if not, one of the following commands should install them:
 
-* Debian / Ubuntu / Devuan: `sudo apt install git python3 python3-pip`
-* Fedora / Red Hat / CentOS: `sudo yum install git python3 python3-pip`
-* Arch / Manjaro: `sudo pacman -S git python python-pip python-setuptools libffi`
-
+-   Debian / Ubuntu / Devuan: `sudo apt install git python3 python3-pip`
+-   Fedora / Red Hat / CentOS: `sudo yum install git python3 python3-pip`
+-   Arch / Manjaro: `sudo pacman -S git python python-pip python-setuptools libffi`
 
 Install the global CLI to bootstrap your system:
 
-  `python3 -m pip install --user qmk` (on Arch-based distros you can also try the `qmk` package from AUR (**note**: it's maintained by a community member): `yay -S qmk`)
+`python3 -m pip install --user qmk` (on Arch-based distros you can also try the `qmk` package from AUR (**note**: it's maintained by a community member): `yay -S qmk`)
 
-### FreeBSD :id=freebsd
+### FreeBSD
 
 You will need to install Git and Python. It's possible that you already have both, but if not, run the following commands to install them:
 
@@ -101,17 +100,13 @@ This is due to a [bug](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=839155)
 Sadly, Ubuntu reitroduced this bug and is [yet to fix it](https://bugs.launchpad.net/ubuntu/+source/bash/+bug/1588562).
 Luckily, the fix is easy. Run this as your user: `echo "PATH=$HOME/.local/bin:$PATH" >> $HOME/.bashrc && source $HOME/.bashrc`
 
-?> If you already know [how to use GitHub](getting_started_github.md), we recommend that you create your own fork and use `qmk setup <github_username>/qmk_firmware` to clone your personal fork. If you don't know what that means you can safely ignore this message.
-
-### Note on FreeBSD Permissions :id=note-on-freebsd-permissions
-
+?>**Note on FreeBSD**:
 It is suggested to run `qmk setup` as a non-`root` user to start with, but this will likely identify packages that need to be installed to your
-base system using `pkg`. However the installation will probably fail when run as an unprivileged user. To
-manually install the base dependencies, run the following either as `root`, or with `sudo`:
-
-    ./util/qmk_install.sh
-
+base system using `pkg`. However the installation will probably fail when run as an unprivileged user.
+To manually install the base dependencies, run `./util/qmk_install.sh` either as `root`, or with `sudo`.
 Once that completes, re-run `qmk setup` to complete the setup and checks.
+
+?> If you already know [how to use GitHub](getting_started_github.md), we recommend that you create your own fork and use `qmk setup <github_username>/qmk_firmware` to clone your personal fork. If you don't know what that means you can safely ignore this message.
 
 ## 4. Test Your Build Environment
 
