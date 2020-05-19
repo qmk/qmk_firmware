@@ -17,9 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-
-#define _FL 1
-#define  ______ KC_TRNS   
+enum layer_names {
+  _BL,
+  _FL
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //Base Layer
@@ -39,4 +40,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		______, ______, ______, ______, KC_ENT, ______, ______, ______, ______, ______, ______
     ),
 };
-
