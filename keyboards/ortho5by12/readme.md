@@ -18,8 +18,6 @@ Make example for this keyboard (after setting up your build environment):
     make ortho5by12:default
 
 Flash firmware:
-    // In bootloader mode (or)
- make ortho5by12:default:program
  make ortho5by12:default:flash
 
 bootloader doesn't seem to work for the time being. i deleted the last line in ortho5by12.hex and copied the usbasp bootloader
