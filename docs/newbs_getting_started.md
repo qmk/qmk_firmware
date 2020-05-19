@@ -57,10 +57,9 @@ You may be asked to close and reopen the window. Do this and keep running the ab
 
 You will need to install Homebrew. Follow the instructions on the [Homebrew homepage](https://brew.sh).
 
-After Homebrew is installed run these commands:
+After Homebrew is installed run this command:
 
-    brew tap qmk/qmk
-    brew install qmk
+    brew install qmk/qmk/qmk
 
 ### Linux
 
