@@ -1,5 +1,7 @@
 #pragma once
+
 #include "config_common.h"
+
 #define VENDOR_ID       0x4B42
 #define PRODUCT_ID      0x6068
 #define DEVICE_VER      0x0001
