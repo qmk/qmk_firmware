@@ -9,7 +9,6 @@ MCU = atmega328p
 #   QMK DFU      qmk-dfu
 #   atmega32a    bootloadHID
 #   ATmega328P   USBasp
-# This uses usbaspbootloader
 BOOTLOADER = USBasp
 
 
