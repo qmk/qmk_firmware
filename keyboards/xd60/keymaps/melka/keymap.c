@@ -157,7 +157,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   case PASS_B:
     if (record->event.pressed)
     {
-      SEND_STRING(PASSWORD_B SS_TAP(X_ENTER));
+      SEND_STRING(PASSWORD_B "\n");
     }
     break;
   }
