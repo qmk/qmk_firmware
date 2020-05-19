@@ -1,5 +1,5 @@
 /*
-Copyright 2019 angelbirth/hasyimashari
+Copyright 2019 angelbirth, 2020 sh_xguitar
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID 0xFEED
 #define PRODUCT_ID 0x1800
 #define DEVICE_VER 0x0001
-#define MANUFACTURER Hasyim Ashari
+#define MANUFACTURER sh_xguitar
 #define PRODUCT ASH-1800
 #define DESCRIPTION Custom 1800 layout keyboard
 
