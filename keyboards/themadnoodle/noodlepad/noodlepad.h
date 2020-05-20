@@ -29,5 +29,3 @@
     { k10, k11, k12 }, \
     { k20, k21, k22 } \
 } 
-
-#define LAYOUT_MEDIA LAYOUT
