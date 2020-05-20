@@ -45,7 +45,7 @@ Changing the **Value** sets the overall brightness.<br>
 
 |Key                |Aliases   |Description                                                         |
 |-------------------|----------|--------------------------------------------------------------------|
-|`RGB_TOG`          |          |Toggle RGB lighting on or off                                       |
+|`RGB_TOG`          |          |Toggle RGB lighting on or off, turn off when Shift is held          |
 |`RGB_MODE_FORWARD` |`RGB_MOD` |Cycle through modes, reverse direction when Shift is held           |
 |`RGB_MODE_REVERSE` |`RGB_RMOD`|Cycle through modes in reverse, forward direction when Shift is held|
 |`RGB_HUI`          |          |Increase hue, decrease hue when Shift is held                       |

@@ -59,7 +59,7 @@ bool process_rgb(const uint16_t keycode, const keyrecord_t *record) {
         uint8_t shifted = get_mods() & MOD_MASK_SHIFT;
         switch (keycode) {
             case RGB_TOG:
-                rgblight_toggle();
+                handleKeycodeRGB(shifted, rgblight_toggle, rgblight_disable);
                 return false;
             case RGB_MODE_FORWARD:
                 handleKeycodeRGB(shifted, rgblight_step, rgblight_step_reverse);
