@@ -38,11 +38,13 @@ void rhruiz_send_make_args(bool should_flash, bool parallel) {
 
 void rhruiz_send_make(bool should_flash, bool parallel) {
 #ifndef BOOTLOADER_CATERINA
+#ifdef RAW_ENABLE
     if (should_flash) {
         rhruiz_send_make_args(false, parallel);
         SEND_STRING(" && VID=" _I(VENDOR_ID) " PID=" _I(PRODUCT_ID));
         SEND_STRING(" ~/dev/keyboard/hid_send/hid_send bootloader && ");
     }
+#endif
 #endif
     rhruiz_send_make_args(should_flash, parallel);
 }
