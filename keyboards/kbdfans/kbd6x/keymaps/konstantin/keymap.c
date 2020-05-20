@@ -6,7 +6,7 @@ enum keycodes_keymap {
 };
 
 enum layers_keymap {
-    L_RCTRL = L_RANGE_KEYMAP,
+    L_RCTRL = LAYERS_KEYMAP,
 };
 
 void eeconfig_init_keymap(void) {

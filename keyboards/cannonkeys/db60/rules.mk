@@ -1,4 +1,4 @@
-# MCU Name
+# MCU name
 MCU = STM32F072
 
 # Build Options
