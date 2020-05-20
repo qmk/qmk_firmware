@@ -5,7 +5,7 @@
     "width": 16.5, 
     "height": 5, 
     "layouts": {
-        "LAYOUT_ansi": {
+        "LAYOUT_66_ansi": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"!", "x":1, "y":0},
@@ -79,7 +79,7 @@
                 {"label":"\u2192", "x":15.5, "y":4}
             ]
         },
-        "LAYOUT_iso": {
+        "LAYOUT_66_iso": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"!", "x":1, "y":0},
