@@ -264,6 +264,8 @@ static inline void pbuf_enqueue(uint8_t data) {
 #if defined(__AVR__)
     uint8_t sreg = SREG;
     cli();
+#elif defined(PROTOCOL_CHIBIOS)
+    chSysLockFromISR();
 #endif
 
     uint8_t next = (pbuf_head + 1) % PBUF_SIZE;
@@ -276,6 +278,8 @@ static inline void pbuf_enqueue(uint8_t data) {
 
 #if defined(__AVR__)
     SREG = sreg;
+#elif defined(PROTOCOL_CHIBIOS)
+    chSysUnlockFromISR();
 #endif
 }
 static inline uint8_t pbuf_dequeue(void) {
@@ -284,6 +288,8 @@ static inline uint8_t pbuf_dequeue(void) {
 #if defined(__AVR__)
     uint8_t sreg = SREG;
     cli();
+#elif defined(PROTOCOL_CHIBIOS)
+    chSysLock();
 #endif
 
     if (pbuf_head != pbuf_tail) {
@@ -293,6 +299,8 @@ static inline uint8_t pbuf_dequeue(void) {
 
 #if defined(__AVR__)
     SREG = sreg;
+#elif defined(PROTOCOL_CHIBIOS)
+    chSysUnlock();
 #endif
 
     return val;
@@ -301,11 +309,16 @@ static inline bool pbuf_has_data(void) {
 #if defined(__AVR__)
     uint8_t sreg = SREG;
     cli();
+#elif defined(PROTOCOL_CHIBIOS)
+    chSysLock();
 #endif
 
     bool has_data = (pbuf_head != pbuf_tail);
+
 #if defined(__AVR__)
     SREG = sreg;
+#elif defined(PROTOCOL_CHIBIOS)
+    chSysUnlock();
 #endif
     return has_data;
 }
@@ -313,10 +326,15 @@ static inline void pbuf_clear(void) {
 #if defined(__AVR__)
     uint8_t sreg = SREG;
     cli();
+#elif defined(PROTOCOL_CHIBIOS)
+    chSysLock();
 #endif
 
     pbuf_head = pbuf_tail = 0;
+
 #if defined(__AVR__)
     SREG = sreg;
+#elif defined(PROTOCOL_CHIBIOS)
+    chSysUnlock();
 #endif
 }
