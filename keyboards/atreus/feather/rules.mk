@@ -18,3 +18,4 @@ BOOTLOADER = caterina
 #   change yes to no to disable
 #
 BLUETOOTH = AdafruitBLE
+CONSOLE_ENABLE = no           # Console for debug(-400)
