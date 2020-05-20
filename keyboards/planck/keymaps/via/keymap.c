@@ -17,6 +17,9 @@
 
 #include QMK_KEYBOARD_H
 
+#define LOWER  FN_MO13
+#define RAISE  FN_MO23
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Qwerty
