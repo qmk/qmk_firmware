@@ -1,5 +1,5 @@
 /*
-Copyright 2020 The Mad Noodle (Jesse Leventhal)
+Copyright 2012 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -22,10 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x1701
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    The Mad Noodle
-#define PRODUCT         NCC1701KB v1
-#define DESCRIPTION     NCC1701KB v1 macro keypad
+#define DEVICE_VER 		0x0001
+#define MANUFACTURER    J2L Designs
+#define PRODUCT         NCC1701KB
+#define DESCRIPTION     J2L NCC1701KB
 
 /* key matrix size */
 #define MATRIX_ROWS 3
