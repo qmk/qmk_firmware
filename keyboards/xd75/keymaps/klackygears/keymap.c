@@ -1,4 +1,4 @@
-/* Copyright 2017 Wunder
+/* Copyright 2020 klackygears
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,16 +39,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
   [_QWERTY] = LAYOUT_wrapper( \
-    KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,     KC_MINS, KC_PLUS, KC_QUES,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
+    KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,     KC_MINS, KC_GRV,  KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
     KC_TAB,  _________________QWERTY_L1_________________,  LCTL(KC_LEFT), LCTL(KC_UP), LCTL(KC_RIGHT), _________________QWERTY_R1_________________, KC_BSLS,
     KC_CAPS, _________________QWERTY_L2_________________,  KC_MUTE, KC_VOLD, KC_VOLU,   _________________QWERTY_R2_________________, KC_ENT,
     KC_LSFT, _________________QWERTY_L3_________________,  KC_PGUP, KC_UP,   KC_PGDN,   _________________QWERTY_R3_________________, KC_RSFT,
-    KC_LCTL, KC_LALT, KC_LGUI, MO(_MNMB), MO(_SYMB),  KC_SPC, KC_LEFT, MO(_NUMB), MO(_FUNC), KC_SPC, MO(_SYMB), KC_LEFT, KC_UP, KC_DOWN, KC_RGHT
+    KC_LCTL, KC_LALT, KC_LGUI, LT(_MNMB, KC_SPC), LT(_SYMB, KC_SPC),  KC_SPC, MO(_NUMB), MO(_NUMB), MO(_FUNC), KC_SPC, LT(_SYMB, KC_SPC), KC_LEFT, KC_UP, KC_DOWN, KC_RGHT
   ),
 
 
   [_GAMER] = LAYOUT_wrapper( \
-    KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINS, KC_PLUS, KC_QUES, KC_6,    KC_7,    KC_8,    KC_9,    KC_0, TO(_WINBASE),
+    KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINS, KC_GRV,  KC_EQL, KC_6,    KC_7,    KC_8,    KC_9,    KC_0, TO(_WINBASE),
     KC_TAB,  KC_R,    KC_Q,    KC_W,    KC_E,    KC_1,    _______, LSFT(KC_F2), _______, _______, _______, _______, _______, _______, _______,
     KC_LCTL, KC_F,    KC_A,    KC_S,    KC_D,    KC_2,    _______, _______, _______, _______, _______, _______, _______, _______, _______,
     KC_LSFT, _______, KC_X,    KC_Z,    KC_C,    KC_3,    KC_M,    _______, _______, _______, _______, _______, _______, _______, _______,

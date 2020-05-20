@@ -1,1 +1,1 @@
-# The default keymap for xd75, with led controls
+# Klackygears keymap for xd75, with led controls
