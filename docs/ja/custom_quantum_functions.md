@@ -1,8 +1,8 @@
 # キーボードの挙動をカスタマイズする方法
 
 <!---
-  original document: 7494490d6:docs/custom_quantum_functions.md
-  git diff 7494490d6 HEAD -- docs/custom_quantum_functions.md | cat
+  original document: 0.8.62:docs/custom_quantum_functions.md
+  git diff 0.8.62 HEAD -- docs/custom_quantum_functions.md | cat
 -->
 
 多くの人にとって、カスタムキーボードはボタンの押下をコンピュータに送信するだけではありません。単純なボタンの押下やマクロよりも複雑なことを実行できるようにしたいでしょう。QMK にはコードを挿入したり、機能を上書きしたり、様々な状況でキーボードの挙動をカスタマイズできるフックがあります。
@@ -39,7 +39,7 @@ enum my_keycodes {
 };
 ```
 
-## 任意のキーコードの挙動のプログラミング
+## 任意のキーコードの挙動のプログラミング :id=programming-the-behavior-of-any-keycode
 
 既存のキーの挙動を上書きしたい場合、あるいは新しいキーについて挙動を定義する場合、`process_record_kb()` および `process_record_user()` 関数を使うべきです。これらは実際のキーイベントが処理される前のキー処理中に QMK によって呼び出されます。これらの関数が `true` を返す場合、QMK はキーコードを通常通りに処理します。これは、キーを置き換えるのではなく、キーの機能を拡張するのに便利です。これらの関数が `false` を返す場合、QMK は通常のキー処理をスキップし、必要なキーのアップまたはダウンイベントを送信するのかはユーザ次第です。
 
@@ -316,7 +316,7 @@ void suspend_wakeup_init_user(void) {
 * キーボード/リビジョン : `void suspend_power_down_kb(void)` および `void suspend_wakeup_init_user(void)`
 * キーマップ: `void suspend_power_down_kb(void)` および `void suspend_wakeup_init_user(void)`
 
-# レイヤー切り替えコード
+# レイヤー切り替えコード :id=layer-change-code
 
 これはレイヤーが切り替えられるたびにコードを実行します。レイヤー表示あるいはカスタムレイヤー処理に役立ちます。
 
@@ -491,14 +491,24 @@ void eeconfig_init_user(void) {  // EEPROM がリセットされます！
 
 # カスタムタッピング期間
 
-デフォルトでは、タッピング期間はグローバルに設定されていて、キーでは設定することができません。ほとんどのユーザにとって、これは全然問題ありません。しかし、場合によっては、`LT` キーとは異なるタイムアウトによって、デュアルファンクションキーが大幅に改善されます。なぜなら、一部のキーは他のキーよりも押し続けやすいためです。それぞれにカスタムキーコードを使う代わりに、キーごとに設定可能な `TAPPING_TERM` を使用できます。
+デフォルトでは、タッピング期間と(`IGNORE_MOD_TAP_INTERRUPT` のような)関連オプションはグローバルに設定されていて、キーでは設定することができません。ほとんどのユーザにとって、これは全然問題ありません。しかし、場合によっては、`LT` キーとは異なるタイムアウトによって、デュアルファンクションキーが大幅に改善されます。なぜなら、一部のキーは他のキーよりも押し続けやすいためです。それぞれにカスタムキーコードを使う代わりに、キーごとに設定可能なタイムアウトの挙動を設定できます。
 
-この機能を有効にするには、最初に `config.h` に `#define TAPPING_TERM_PER_KEY` を追加する必要があります。
+キーごとのタイムアウトの挙動を制御するための2つの設定可能なオプションがあります:
+
+- `TAPPING_TERM_PER_KEY`
+- `IGNORE_MOD_TAP_INTERRUPT_PER_KEY`
+
+必要な機能ごとに、`config.h` に `#define` 行を追加する必要があります。
+
+```
+#define TAPPING_TERM_PER_KEY
+#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
+```
 
 
 ## `get_tapping_term` の実装例
 
-キーコードに基づいて `TAPPING TERM` を変更するには、次のようなものを `keymap.c` ファイルに追加します:
+キーコードに基づいて `TAPPING_TERM` を変更するには、次のようなものを `keymap.c` ファイルに追加します:
 
 ```c
 uint16_t get_tapping_term(uint16_t keycode) {
@@ -513,6 +523,21 @@ uint16_t get_tapping_term(uint16_t keycode) {
 }
 ```
 
-### `get_tapping_term` 関数のドキュメント
+## `get_ignore_mod_tap_interrupt` の実装例
+
+キーコードに基づいて `IGNORE_MOD_TAP_INTERRUPT` の値を変更するには、次のようなものを `keymap.c` ファイルに追加します:
+
+```c
+bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
+  switch (keycode) {
+    case SFT_T(KC_SPC):
+      return true;
+    default:
+      return false;
+  }
+}
+```
+
+## `get_tapping_term` / `get_ignore_mod_tap_interrupt` 関数のドキュメント
 
 ここにある他の多くの関数とは異なり、quantum あるいはキーボードレベルの関数を持つ必要はありません (または理由さえありません)。ここではユーザレベルの関数だけが有用なため、そのようにマークする必要はありません。

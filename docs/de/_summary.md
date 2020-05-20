@@ -98,6 +98,7 @@
   * [ISP Flashing Guide](de/isp_flashing_guide.md)
   * [ARM Debugging Guide](de/arm_debugging.md)
   * [I2C Driver](de/i2c_driver.md)
+  * [SPI Driver](de/spi_driver.md)
   * [GPIO Controls](de/internals_gpio_control.md)
   * [Proton C Conversion](de/proton_c_conversion.md)
 

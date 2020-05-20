@@ -261,12 +261,24 @@ void oled_task(void);
 // Called at the start of oled_task, weak function overridable by the user
 void oled_task_user(void);
 
-// Scrolls the entire display right
+// Set the specific 8 lines rows of the screen to scroll.
+// 0 is the default for start, and 7 for end, which is the entire
+// height of the screen.  For 128x32 screens, rows 4-7 are not used.
+void oled_scroll_set_area(uint8_t start_line, uint8_t end_line);
+
+// Sets scroll speed, 0-7, fastest to slowest. Default is three.
+// Does not take effect until scrolling is either started or restarted
+// the ssd1306 supports 8 speeds with the delay
+// listed below betwen each frame of the scrolling effect
+// 0=2, 1=3, 2=4, 3=5, 4=25, 5=64, 6=128, 7=256
+void oled_scroll_set_speed(uint8_t speed);
+
+// Begin scrolling the entire display right
 // Returns true if the screen was scrolling or starts scrolling
 // NOTE: display contents cannot be changed while scrolling
 bool oled_scroll_right(void);
 
-// Scrolls the entire display left
+// Begin scrolling the entire display left
 // Returns true if the screen was scrolling or starts scrolling
 // NOTE: display contents cannot be changed while scrolling
 bool oled_scroll_left(void);

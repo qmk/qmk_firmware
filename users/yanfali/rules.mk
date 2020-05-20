@@ -25,3 +25,7 @@ endif
 ifeq ($(strip $(KEYBOARD)), kbdfans/kbd75/rev1)
     COMMAND_ENABLE = no
 endif
+
+ifeq ($(strip $(KEYBOARD)), ai03/polaris)
+    RGBLIGHT_ENABLE = no
+endif

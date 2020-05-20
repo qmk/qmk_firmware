@@ -113,26 +113,16 @@ OPT_DEFS += -DBOOTLOADER_SIZE=2048
 ```
 
 ## `avr-gcc: internal compiler error: Abort trap: 6 (program cc1)` on MacOS
+
 This is an issue with updating on brew, causing symlinks that avr-gcc depend on getting mangled.
 
 The solution is to remove and reinstall all affected modules.
 
 ```
-brew rm avr-gcc
-brew rm avr-gcc@8
-brew rm dfu-programmer
-brew rm dfu-util
-brew rm gcc-arm-none-eabi
-brew rm arm-gcc-bin@8
-brew rm avrdude
-brew install avr-gcc@8
-brew install dfu-programmer
-brew install dfu-util
-brew install arm-gcc-bin@8
-brew install avrdude
+brew rm avr-gcc avr-gcc@8 dfu-programmer dfu-util gcc-arm-none-eabi arm-gcc-bin@8 avrdude qmk
+brew install qmk/qmk/qmk
 brew link --force avr-gcc@8
 brew link --force arm-gcc-bin@8
-
 ```
 
 ### `avr-gcc` and LUFA
