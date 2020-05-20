@@ -20,8 +20,8 @@ QMK Toolbox is an optional graphical program for Windows and macOS that allows y
 
 [Download the latest release here.](https://github.com/qmk/qmk_toolbox/releases/latest)
 
--   For Windows: `qmk_toolbox.exe` (portable) or `qmk_toolbox_install.exe` (installer)
--   For macOS: `QMK.Toolbox.app.zip` (portable) or `QMK.Toolbox.pkg` (installer)
+* For Windows: `qmk_toolbox.exe` (portable) or `qmk_toolbox_install.exe` (installer)
+* For macOS: `QMK.Toolbox.app.zip` (portable) or `QMK.Toolbox.pkg` (installer)
 
 ### A Unix-like Environment
 
@@ -41,8 +41,8 @@ We've tried to make QMK as easy to set up as possible. You only have to prepare 
 
 You will need to install MSYS2, Git, and the QMK CLI.
 
--   Follow the installation instructions on the [MSYS2 homepage](http://www.msys2.org).
--   Close any open MSYS2 terminals and open a new MSYS2 MinGW 64-bit terminal. NOTE: This is **not** the same as the MSYS terminal that opens when installation is completed.
+* Follow the installation instructions on the [MSYS2 homepage](http://www.msys2.org).
+* Close any open MSYS2 terminals and open a new MSYS2 MinGW 64-bit terminal. NOTE: This is **not** the same as the MSYS terminal that opens when installation is completed.
 
 After opening a new MSYS2 MinGW 64-bit terminal, make sure `pacman` is up to date with:
 
@@ -66,9 +66,9 @@ After Homebrew is installed run these commands:
 
 You will need to install Git and Python. It's very likely that you already have both, but if not, one of the following commands should install them:
 
--   Debian / Ubuntu / Devuan: `sudo apt install git python3 python3-pip`
--   Fedora / Red Hat / CentOS: `sudo yum install git python3 python3-pip`
--   Arch / Manjaro: `sudo pacman -S git python python-pip python-setuptools libffi`
+* Debian / Ubuntu / Devuan: `sudo apt install git python3 python3-pip`
+* Fedora / Red Hat / CentOS: `sudo yum install git python3 python3-pip`
+* Arch / Manjaro: `sudo pacman -S git python python-pip python-setuptools libffi`
 
 Install the global CLI to bootstrap your system:
 
