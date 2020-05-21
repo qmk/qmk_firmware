@@ -43,5 +43,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Set to top left most key */
 #define BOOTMAGIC_LITE_ROW 5
 #define BOOTMAGIC_LITE_COLUMN 10
-
-#define TAPPING_TERM 200
