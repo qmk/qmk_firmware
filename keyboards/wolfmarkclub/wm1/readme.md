@@ -6,7 +6,7 @@ Split Ergo 65% keyboard
 
 * Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)
 * Hardware Supported: WM1
-* Hardware Availability: 
+* Hardware Availability: Available through China run Group Buy.
 
 Make example for this keyboard (after setting up your build environment):
 
