@@ -131,7 +131,10 @@ def check_submodules():
                 cli.log.warn('Submodule %s is not available.', submodule['name'])
         elif not submodule['status']:
             if submodule['name'] in ESSENTIAL_SUBMODULES:
-                cli.log.warn('Submodule %s is not up to date!')
+                cli.log.error('Submodule %s is not up to date!', submodule['name'])
+                ok = False
+            else:
+                cli.log.warn('Submodule %s is not up to date!', submodule['name'])
 
     return ok
 
