@@ -1,7 +1,7 @@
 # 'serial' Driver
 This driver powers the [Split Keyboard](feature_split_keyboard.md) feature.
 
-!> Serial in this context should be read as **sending information one bit at a time**, rather than implementing UART/USART/RS485/RS232 standards.
+?> Serial in this context should be read as **sending information one bit at a time**, rather than implementing UART/USART/RS485/RS232 standards.
 
 All drivers in this category have the following characteristics:
 * Provides data and signaling over a single conductor
@@ -11,7 +11,7 @@ All drivers in this category have the following characteristics:
 
 |                   | AVR                | ARM                |
 |-------------------|--------------------|--------------------|
-| bit bang          | :heavy_check_mark: | Soon™              |
+| bit bang          | :heavy_check_mark: | :heavy_check_mark: |
 | USART Half-duplex |                    | :heavy_check_mark: |
 
 ## Driver configuration
@@ -35,6 +35,12 @@ Configure the driver via your config.h:
                                    //  5: about 20kbps
 ```
 
+#### ARM
+
+!> The bitbang driver causes connection issues with bitbang WS2812 driver
+
+Along with the generic options above, you must also turn on the `PAL_USE_CALLBACKS` feature in your halconf.h.
+
 ### USART Half-duplex
 Targeting STM32 boards where communication is offloaded to a USART hardware device. The advantage is that this provides fast and accurate timings. `SOFT_SERIAL_PIN` for this driver is the configured USART TX pin. **The TX pin must have appropriate pull-up resistors**. To configure it, add this to your rules.mk:
 
@@ -56,4 +62,8 @@ Configure the hardware via your config.h:
 #define SERIAL_USART_TX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 ```
 
-You must also turn on the SERIAL feature in your halconf.h and mcuconf.h
+You must also enable the ChibiOS `SERIAL` feature:
+* In your board's halconf.h: `#define HAL_USE_SERIAL TRUE`
+* In your board's mcuconf.h: `#define STM32_SERIAL_USE_USARTn TRUE` (where 'n' matches the peripheral number of your selected USART on the MCU)
+
+Do note that the configuration required is for the `SERIAL` peripheral, not the `UART` peripheral.
