@@ -78,9 +78,6 @@ void matrix_init(void) {
 
   matrix_init_quantum();
 }
-
-void matrix_io_delay(void);
-
 uint8_t matrix_scan(void) {
     bool changed = false;
 
