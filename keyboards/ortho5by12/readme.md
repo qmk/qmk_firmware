@@ -2,11 +2,11 @@
 
 A Plaid-style 5x12 design with two indicator LEDs.
 
-schottky 1N4729A/3.6V (this is left out of the plaid bom which is identical except for number of 1n4148 diodes(60+attrition)
-I recommend using 10k resistors for the leds instead of the plaids 1.5K to make them less glaring. I reckon hsgw was just 
-trying to shave down the parts cost by re-using the 1.5Kohm.
-I use a spare pcb as the backplate since it has the same dimensions.
-This was developed on linux mint so you'll have to adapt the commands yourself if you run anything else.
+Uses a Schottky 1N4729A/3.6V diode. This is left out of the Plaid BOM which is identical, except for number of 1N4148 diodes (60+attrition). I recommend using 10k resistors for the LEDs instead of the Plaid's 1.5k to make them less glaring. I reckon hsgw was just trying to shave down the parts cost by re-using the 1.5kohm.
+
+I use a spare PCB as the backplate since it has the same dimensions.
+
+This was developed on Linux Mint so you'll have to adapt the commands yourself if you run anything else.
 
 pic here: https://www.reddit.com/r/MechanicalKeyboards/comments/g0ukw4/ortho5by12_through_hole/
 
