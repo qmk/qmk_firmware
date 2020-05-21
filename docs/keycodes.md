@@ -531,6 +531,7 @@ See also: [Swap Hands](feature_swap_hands.md)
 |`SH_MOFF`  |Momentarily turns off swap.                                              |
 |`SH_TG`    |Toggles swap on and off with every key press.                            |
 |`SH_TT`    |Toggles with a tap; momentary when held.                                 |
+|`SH_OS`    |One shot swap hands: toggle while pressed or until next key press.       |
 
 ## Unicode Support :id=unicode-support
 

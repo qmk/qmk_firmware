@@ -6,6 +6,7 @@
   * [Testing and Debugging](newbs_testing_debugging.md)
   * [Getting Help/Support](support.md)
   * [Other Resources](newbs_learn_more_resources.md)
+  * [Syllabus](syllabus.md)
 
 * FAQs
   * [General FAQ](faq_general.md)
@@ -33,7 +34,9 @@
     * [Customizing Functionality](custom_quantum_functions.md)
     * [Driver Installation with Zadig](driver_installation_zadig.md)
     * [Keymap Overview](keymap.md)
-    * [Vagrant Guide](getting_started_vagrant.md)
+    * Development Environments
+      * [Docker Guide](getting_started_docker.md)
+      * [Vagrant Guide](getting_started_vagrant.md)
     * Flashing
       * [Flashing](flashing.md)
       * [Flashing ATmega32A (ps2avrgb)](flashing_bootloadhid.md)
@@ -74,6 +77,7 @@
     * [Layers](feature_layers.md)
     * [One Shot Keys](one_shot_keys.md)
     * [Pointing Device](feature_pointing_device.md)
+    * [Raw HID](feature_rawhid.md)
     * [Swap Hands](feature_swap_hands.md)
     * [Tap Dance](feature_tap_dance.md)
     * [Tap-Hold Configuration](tap_hold.md)
