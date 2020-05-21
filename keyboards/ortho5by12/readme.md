@@ -52,7 +52,9 @@ for plaids which should be compatible.
 boot and reset switches have swapped position to my other pcb to ease routing. boot is on the right.
 
 ## Bootloader
-use usbasploader in his repository.
+
+Use USBaspLoader from hsgw's repository.
+
 https://github.com/hsgw/USBaspLoader/tree/plaid
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions]
