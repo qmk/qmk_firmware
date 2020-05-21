@@ -295,7 +295,7 @@ define PARSE_RULE
         $$(info |     make project_folder:keymap[:target])
         $$(info |  Examples:)
         $$(info |     make planck/rev4:default:dfu)
-        $$(info |     make planck:default)
+        $$(info |     make planck/rev4:default)
         $$(info |)
     endif
 endef
