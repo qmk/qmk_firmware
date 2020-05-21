@@ -60,7 +60,7 @@ MOUSEKEY_ENABLE = yes
 | 定義 | デフォルト | 説明 |
 |----------------------------|-------|---------------------------------------------------------|
 | `MOUSEKEY_DELAY` | 300 | 移動キーを押してからカーソルが移動するまでの遅延 |
-| `MOUSEKEY_INTERVAL` | 50 | カーソル移動の間隔 |
+| `MOUSEKEY_INTERVAL` | 50 | カーソル移動間の時間 |
 | `MOUSEKEY_MAX_SPEED` | 10 | 加速が停止する最大のカーソル速度 |
 | `MOUSEKEY_TIME_TO_MAX` | 20 | 最大カーソル速度に達するまでの時間 |
 | `MOUSEKEY_WHEEL_DELAY` | 300 | ホイールキーを押してからホイールが動くまでの遅延 |
@@ -110,18 +110,18 @@ MOUSEKEY_ENABLE = yes
 | `MK_3_SPEED` | *定義なし* | 定速カーソルを有効にする |
 | `MK_MOMENTARY_ACCEL` | *定義なし* | 一時的モードを有効にする |
 | `MK_C_OFFSET_UNMOD` | 16 | 移動ごとのカーソルオフセット (変更無し) |
-| `MK_C_INTERVAL_UNMOD` | 16 | カーソルの移動間隔 (変更無し) |
+| `MK_C_INTERVAL_UNMOD` | 16 | カーソルの移動間の時間 (変更無し) |
 | `MK_C_OFFSET_0` | 1 | 移動ごとのカーソルオフセット (`KC_ACL0`) |
-| `MK_C_INTERVAL_0` | 32 | カーソル移動の間隔 (`KC_ACL0`) |
+| `MK_C_INTERVAL_0` | 32 | カーソル移動間の時間 (`KC_ACL0`) |
 | `MK_C_OFFSET_1` | 4 | 移動ごとのカーソルオフセット (`KC_ACL1`) |
-| `MK_C_INTERVAL_1` | 16 | カーソル移動の間隔 (`KC_ACL1`) |
+| `MK_C_INTERVAL_1` | 16 | カーソル移動間の時間 (`KC_ACL1`) |
 | `MK_C_OFFSET_2` | 32 | 移動ごとのカーソルオフセット (`KC_ACL2`) |
-| `MK_C_INTERVAL_2` | 16 | カーソル移動の間隔 (`KC_ACL2`) |
+| `MK_C_INTERVAL_2` | 16 | カーソル移動間の時間 (`KC_ACL2`) |
 | `MK_W_OFFSET_UNMOD` | 1 | スクロールアクションごとのスクロールステップ (変更無し) |
-| `MK_W_INTERVAL_UNMOD` | 40 | スクロールステップ間隔 (変更無し) |
+| `MK_W_INTERVAL_UNMOD` | 40 | スクロールステップ間の時間 (変更無し) |
 | `MK_W_OFFSET_0` | 1 | スクロールアクションごとのスクロールステップ (`KC_ACL0`) |
-| `MK_W_INTERVAL_0` | 360 | スクロールステップ間隔 (`KC_ACL0`) |
+| `MK_W_INTERVAL_0` | 360 | スクロールステップ間の時間 (`KC_ACL0`) |
 | `MK_W_OFFSET_1` | 1 | スクロールアクションごとのスクロールステップ (`KC_ACL1`) |
-| `MK_W_INTERVAL_1` | 120 | スクロールステップ間隔 (`KC_ACL1`) |
+| `MK_W_INTERVAL_1` | 120 | スクロールステップ間の時間 (`KC_ACL1`) |
 | `MK_W_OFFSET_2` | 1 | スクロールアクションごとのスクロールステップ (`KC_ACL2`) |
-| `MK_W_INTERVAL_2` | 20 | スクロールステップ間隔 (`KC_ACL2`) |
+| `MK_W_INTERVAL_2` | 20 | スクロールステップ間の時間 (`KC_ACL2`) |
