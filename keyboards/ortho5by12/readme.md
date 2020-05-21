@@ -1,6 +1,6 @@
 # ortho5by12 // Through Hole
 
-a plaid style 5x12 design with two indicator leds.
+A Plaid-style 5x12 design with two indicator LEDs.
 
 schottky 1N4729A/3.6V (this is left out of the plaid bom which is identical except for number of 1n4148 diodes(60+attrition)
 I recommend using 10k resistors for the leds instead of the plaids 1.5K to make them less glaring. I reckon hsgw was just 
