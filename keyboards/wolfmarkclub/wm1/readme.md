@@ -1,6 +1,6 @@
 # Wolfmark Club WM1
 
-![WM1](https://i.imgur.com/TDFp97y.jpg)
+![WM1](https://i.imgur.com/TDFp97yl.jpg)
 
 Split Ergo 65% keyboard
 
