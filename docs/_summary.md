@@ -34,7 +34,9 @@
     * [Customizing Functionality](custom_quantum_functions.md)
     * [Driver Installation with Zadig](driver_installation_zadig.md)
     * [Keymap Overview](keymap.md)
-    * [Vagrant Guide](getting_started_vagrant.md)
+    * Development Environments
+      * [Docker Guide](getting_started_docker.md)
+      * [Vagrant Guide](getting_started_vagrant.md)
     * Flashing
       * [Flashing](flashing.md)
       * [Flashing ATmega32A (ps2avrgb)](flashing_bootloadhid.md)
