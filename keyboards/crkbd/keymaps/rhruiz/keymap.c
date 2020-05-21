@@ -2,6 +2,11 @@
 #include "rhruiz.h"
 #include "layouts/kc_keys.h"
 
+#define KC_ZALT LALT_T(KC_Z)
+
+#undef ________L_BL_R4________
+#define ________L_BL_R4________ ZALT,  X ,  C ,  V ,  B
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BL] = LAYOUT_kc_wrapper(
