@@ -26,8 +26,8 @@
 #    define AUDIO_PWM_TIMERCHANNEL 1
 #endif
 
-#if !defined(AUDIO_PWM_PINALTERNATE_FUNCTION)
+#if !defined(AUDIO_PWM_PAL_MODE)
 // pin-alternate function: see the data-sheet for which pin needs what AF to connect to TIMx_CHy
 // default: STM32F303CC PA8+TIM1_CH1 -> 6
-#    define AUDIO_PWM_PINALTERNATE_FUNCTION 6
+#    define AUDIO_PWM_PAL_MODE 6
 #endif
