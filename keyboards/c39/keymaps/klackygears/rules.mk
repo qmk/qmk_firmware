@@ -67,12 +67,4 @@ TAP_DANCE_ENABLE = yes
 UNICODEMAP_ENABLE = yes
 VELOCIKEY_ENABLE = yes
 
-RGBLIGHT_ENABLE = no
-
-    POST_CONFIG_H += $(QUANTUM_DIR)/rgblight_post_config.h
-    OPT_DEFS += -DRGBLIGHT_ENABLE
-    SRC += $(QUANTUM_DIR)/color.c \
-        rgblight.c \
-        ws2812.c
-    CIE1931_CURVE = yes
-    LED_BREATHING_TABLE = yes
+RGBLIGHT_ENABLE = yes

@@ -1,6 +1,7 @@
 #pragma once
 #include "klackygears.h"
 
+#ifdef TAP_DANCE_ENABLE
 enum {
   //TD_MCROTOG,
   //TD_MCROTG2,
@@ -33,6 +34,6 @@ enum {
   TD_XSPC,
   TD_RGB,
 };
-
+#endif
 
 
