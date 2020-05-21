@@ -22,10 +22,7 @@ Flash firmware:
 
     make ortho5by12:default:flash
 
-bootloader doesn't seem to work for the time being. i deleted the last line in ortho5by12.hex and copied the usbasp bootloader
- onto the end in a test editor, then flashed over avrisp using a teensy2.0(following the qmk isp flashing guide) 
-I used a cut up mcu socket soldered to stripboard to make an isp programming socket. remember to make fuse in the usbasp 
-directory on a new mcu. 
+Bootloader doesn't seem to work for the time being. I deleted the last line in ortho5by12.hex and copied the USBasp bootloader onto the end in a text editor, then flashed over AVRISP using a Teensy 2.0 (following the [QMK ISP Flashing Guide](https://docs.qmk.fm/#/isp_flashing_guide)). I used a cut up MCU socket soldered to stripboard to make an ISP programming socket. Remember to make fuse in the USBasp directory on a new MCU. 
 
 ISP pinout
 
