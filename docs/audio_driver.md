@@ -94,7 +94,7 @@ with all this information, the configuration would contain these lines:
 ```
 
 ChibiOS uses GPIOv1 for the F103, which only knows of one alternate function.
-On 'larger' STM32s, GPIOv2 or GPIOv3 are used; with them it is also necessary to configure `AUDIO_PWM_PINALTERNATE_FUNCTION` to the correct alternate function for the selected pin, timer and timer-channel.
+On 'larger' STM32s, GPIOv2 or GPIOv3 are used; with them it is also necessary to configure `AUDIO_PWM_PAL_MODE` to the correct alternate function for the selected pin, timer and timer-channel.
 
 
 ### PWM software :id=pwm-software
