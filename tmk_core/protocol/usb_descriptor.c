@@ -42,6 +42,7 @@
 #ifdef WEBUSB_ENABLE
 #include "webusb_descriptor.h"
 #endif
+#include "usb_descriptor_common.h"
 
 // clang-format off
 
@@ -235,8 +236,8 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 
 #ifdef RAW_ENABLE
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM RawReport[] = {
-    HID_RI_USAGE_PAGE(16, 0xFF60), // Vendor Defined
-    HID_RI_USAGE(8, 0x61),         // Vendor Defined
+    HID_RI_USAGE_PAGE(16, RAW_USAGE_PAGE), // Vendor Defined
+    HID_RI_USAGE(8, RAW_USAGE_ID),         // Vendor Defined
     HID_RI_COLLECTION(8, 0x01),    // Application
         // Data to host
         HID_RI_USAGE(8, 0x62),     // Vendor Defined
