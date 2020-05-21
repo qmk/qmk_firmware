@@ -62,4 +62,8 @@ Configure the hardware via your config.h:
 #define SERIAL_USART_TX_PAL_MODE 7 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 7
 ```
 
-You must also turn on the SERIAL feature in your halconf.h and mcuconf.h.
+You must also enable the ChibiOS `SERIAL` feature:
+* In your board's halconf.h: `#define HAL_USE_SERIAL TRUE`
+* In your board's mcuconf.h: `#define STM32_SERIAL_USE_USARTn TRUE` (where 'n' matches the peripheral number of your selected USART on the MCU)
+
+Do note that the configuration required is for the `SERIAL` peripheral, not the `UART` peripheral.
