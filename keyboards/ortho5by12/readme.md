@@ -24,32 +24,25 @@ Flash firmware:
 
 Bootloader doesn't seem to work for the time being. I deleted the last line in ortho5by12.hex and copied the USBasp bootloader onto the end in a text editor, then flashed over AVRISP using a Teensy 2.0 (following the [QMK ISP Flashing Guide](https://docs.qmk.fm/#/isp_flashing_guide)). I used a cut up MCU socket soldered to stripboard to make an ISP programming socket. Remember to make fuse in the USBasp directory on a new MCU. 
 
-ISP pinout
+## ISP pinout:
 
-        r4
+            R4
 
-reset  sck   miso
+    Reset  SCK    MISO
 
+    GND    MOSI   VCC
 
-gnd    mosi  vcc
+                         C5
 
-                     c5
-
-a few build notes:
+## A few build notes:
 
 I haven't found it easy to get into bootloader mode every time. sometimes there's no alternative but 
-to use the isp header, or pull the ic.
+to use the ISP header, or pull the IC.
 
-put the switch diodes in with the banded end down towards the switches. this gives the fastest scan 
-rate. if you don't and go by the silkscreen then you can swap col2row/row2col from whatever it currently is. 
-the speed penalty is negligible anyway.
-the silkscreen is probably wrong so do the component placement from kicad nightly. it caught me out.
-If you attempt to map the duplex matrix you will hate me so don't bother. I should have used one led
-pin as an extra matrix pin, but in my naivete i thought it was used for a bootloader function.
-the duplexing is compensated for in a header file so you can use a standard preonic keymap with
-any extra unavailable pins commented out. on the upside there's some funky twin led code out there 
-for plaids which should be compatible.
-boot and reset switches have swapped position to my other pcb to ease routing. boot is on the right.
+Put the switch diodes in with the banded end down towards the switches. This gives the fastest scan rate. If you don't and go by the silkscreen then you can swap COL2ROW/ROW2COL from whatever it currently is. The speed penalty is negligible anyway. The silkscreen is probably wrong, so do the component placement from KiCad nightly; it caught me out.
+If you attempt to map the duplex matrix you will hate me so don't bother. I should have used one LED pin as an extra matrix pin, but in my naivete I thought it was used for a bootloader function. The duplexing is compensated for in a header file so you can use a standard Preonic keymap with any extra unavailable pins commented out. On the upside there's some funky twin LED code out there for Plaids which should be compatible.
+
+Boot and Reset switches have swapped position to my other PCB to ease routing - Boot is on the right.
 
 ## Bootloader
 
