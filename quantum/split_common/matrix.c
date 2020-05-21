@@ -106,7 +106,7 @@ static void init_pins(void) {
     }
 }
 
-static bool  read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
+static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
     // Start with a clear matrix row
     matrix_row_t current_row_value = 0;
 
@@ -166,7 +166,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     // For each row...
     for (uint8_t row_index = 0; row_index < ROWS_PER_HAND; row_index++) {
         // Store last value of row prior to reading
-        matrix_row_t last_row_value = current_matrix[row_index];
+        matrix_row_t last_row_value    = current_matrix[row_index];
         matrix_row_t current_row_value = last_row_value;
 
         // Check row pin state
