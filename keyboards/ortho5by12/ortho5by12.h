@@ -9,13 +9,13 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ *LAYOUT_ortho_1x2uC
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #pragma once
-
+#define XXX KC_NO
 #include "quantum.h"
 
 #define LAYOUT_ortho_5x12( \
@@ -33,8 +33,8 @@
     { K40, K42, K44, K50, K52, K54 }, \
     { K60, K62, K64, K70, K72, K74 }, \
     { K61, K63, K65, K71, K73, K75 }, \
-    { K81, K83, K90, K91, K93, K95 }, \
-    { K80, K82, K84, K85, K92, K94 }  \
+    { K81, K83, K85, K91, K93, K95 }, \
+    { K80, K82, K84, K90, K92, K94 }  \
 }
 
 #define LAYOUT_ortho_1x2uC( \
@@ -52,6 +52,7 @@
     { K40, K42, K44, K50, K52, K54 }, \
     { K60, K62, K64, K70, K72, K74 }, \
     { K61, K63, K65, K71, K73, K75 }, \
-    { K81, K83, K90, K91, K93, K95 }, \
-    {      K82, K84, K85, K92, K94 }  \
+    { K81, K83, K85, K91, K93, K95 }, \
+    { K80, K82, K84, XXX, K92, K94 }  \
 }
+
