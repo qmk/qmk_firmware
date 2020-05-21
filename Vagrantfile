@@ -86,8 +86,8 @@ Vagrant.configure(2) do |config|
      make <keyboard>:default
 
   Examples:
-     make planck/rev4:default:dfu
-     make planck:default
+     make planck/ez:default:flash
+     make planck/ez:default
 
   EOT
 end
