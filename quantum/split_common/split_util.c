@@ -41,7 +41,7 @@ volatile bool isLeftHand = true;
 static inline bool usbHasActiveConnection(void) { return USB_Device_IsAddressSet(); }
 static inline void usbDisable(void) { USB_Disable(); }
 #    elif defined(PROTOCOL_CHIBIOS)
-static inline bool usbHasActiveConnection(void) { usbGetDriverStateI(&USBD1) == USB_ACTIVE; }
+static inline bool usbHasActiveConnection(void) { return usbGetDriverStateI(&USBD1) == USB_ACTIVE; }
 static inline void usbDisable(void) { usbStop(&USBD1); }
 #    elif defined(PROTOCOL_VUSB)
 static inline bool usbHasActiveConnection(void) {
