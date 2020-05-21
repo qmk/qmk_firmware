@@ -24,7 +24,6 @@ ESSENTIAL_BINARIES = {
     },
     'bin/qmk': {},
 }
-ESSENTIAL_SUBMODULES = ['lib/chibios', 'lib/lufa']
 
 
 def _udev_rule(vid, pid=None, *args):
@@ -124,14 +123,11 @@ def check_submodules():
 
     for submodule in submodules.status().values():
         if submodule['status'] is None:
-            if submodule['name'] in ESSENTIAL_SUBMODULES:
-                cli.log.error('Submodule %s has not yet been cloned!', submodule['name'])
-                ok = False
-            else:
-                cli.log.warn('Submodule %s is not available.', submodule['name'])
+            cli.log.error('Submodule %s has not yet been cloned!', submodule['name'])
+            ok = False
         elif not submodule['status']:
-            if submodule['name'] in ESSENTIAL_SUBMODULES:
-                cli.log.warn('Submodule %s is not up to date!')
+            cli.log.error('Submodule %s is not up to date!', submodule['name'])
+            ok = False
 
     return ok
 
