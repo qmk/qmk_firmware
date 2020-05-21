@@ -22,11 +22,16 @@ The Navigation Cluster is laid out to be easily accessed with the right hand wit
   * `Delete` on `;`
   * `Insert` on `'`
 ### Media Controls
+  * `Play/Pause` on `W`
+  * `Previous Track` on `E`
+  * `Next Track` on `R`
   * `Mute` on `S`
   * `Volume Down` on `D`
   * `Volume Up` on `F`
-  * `Play/Pause` on `X`
-  * `Previous Track` on `C`
-  * `Next Track` on `V`
 ### Shortcuts
+  * `Undo` on `Z`
+  * `Cut` on `X`
+  * `Copy` on `C`
+  * `Paste` on `V`
+  * `Redo` on `B`
   * `Print Screen` on `P`
