@@ -19,7 +19,8 @@ Make example for this keyboard (after setting up your build environment):
     make ortho5by12:default
 
 Flash firmware:
- make ortho5by12:default:flash
+
+    make ortho5by12:default:flash
 
 bootloader doesn't seem to work for the time being. i deleted the last line in ortho5by12.hex and copied the usbasp bootloader
  onto the end in a test editor, then flashed over avrisp using a teensy2.0(following the qmk isp flashing guide) 
