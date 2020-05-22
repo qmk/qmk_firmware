@@ -26,7 +26,7 @@
  * represents the switch matrix.
  */
 
-#define LAYOUT( \
+#define LAYOUT_all( \
     K40, K41,           \
     K00, K01, K02, K03, \
     K10, K11, K12, K13, \
