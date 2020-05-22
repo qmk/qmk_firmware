@@ -30,6 +30,7 @@ enum custom_keycodes {
   SPI_SQUARE,
   SPI_PARENS,
   SPI_FRAKTR,
+  SPI_GFLOCK,
 };
 
 #ifdef RGBLIGHT_ENABLE

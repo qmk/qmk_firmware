@@ -7,6 +7,7 @@
 static bool rand_seeded = false;
 
 uint16_t spi_replace_mode = SPI_NORMAL;
+bool spi_gflock = false;
 
 #if defined(CONSOLE_ENABLE) && !defined(NO_DEBUG)
 static uint32_t matrix_scan_count = 0;
@@ -106,6 +107,19 @@ bool process_record_glyph_replacement(uint16_t keycode, keyrecord_t *record, uin
     return true;
 }
 
+bool process_gflock(uint16_t keycode, keyrecord_t *record) {
+  if (!spi_gflock) {
+    return true;
+  }
+
+  if (record->event.pressed) {
+    register_code16(G(keycode));
+  } else {
+    unregister_code16(G(keycode));
+  }
+  return false;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // If console is enabled, it will print the matrix position and status of each key pressed
@@ -165,7 +179,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
       case SPI_NORMAL ... SPI_FRAKTR:
 	spi_replace_mode = (spi_replace_mode == keycode) ? SPI_NORMAL: keycode;
-	dprintf("spi_replace_mode = %u\n");
+	dprintf("spi_replace_mode = %u\n", spi_replace_mode);
+        break;
+
+      case SPI_GFLOCK:
+	spi_gflock = !spi_gflock;
+	dprintf("spi_gflock = %u\n", spi_gflock);
         break;
     }
   } else {
@@ -196,6 +215,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case SPI_FRAKTR:
           return process_record_glyph_replacement(keycode, record, 0x1D586, 0x1D56C, '0', '1', 0x2002);
       }
+      break;
+
+    case KC_F1 ... KC_F24:
+      return process_gflock(keycode, record);
   }
 
 #ifdef RGBLIGHT_ENABLE
