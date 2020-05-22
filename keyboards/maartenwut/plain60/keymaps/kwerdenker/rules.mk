@@ -16,8 +16,7 @@
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = no	# Virtual DIP switch configuration(+1000)
+BOOTMAGIC_ENABLE = lite	# Virtual DIP switch configuration(+1000)
 NKRO_ENABLE = yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 RGBLIGHT_ENABLE = yes   # Enable keyboard underlight functionality (+4870)
-RAW_ENABLE = no
-DYNAMIC_KEYMAP_ENABLE = no
+

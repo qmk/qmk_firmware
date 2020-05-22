@@ -15,19 +15,11 @@ BOOTLOADER = bootloadHID
 BOOTMAGIC_ENABLE = full
 MOUSEKEY_ENABLE = no
 EXTRAKEY_ENABLE = yes
-CONSOLE_ENABLE = yes
+CONSOLE_ENABLE = no
 COMMAND_ENABLE = yes
 BACKLIGHT_ENABLE = yes
 RGBLIGHT_ENABLE = yes
 WS2812_DRIVER = i2c
 
-BACKLIGHT_CUSTOM_DRIVER = yes
-
-OPT_DEFS = -DDEBUG_LEVEL=0
-
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
-
-# custom matrix setup
-CUSTOM_MATRIX = yes
-SRC = matrix.c backlight.c

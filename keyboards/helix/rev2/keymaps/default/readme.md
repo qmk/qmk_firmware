@@ -137,6 +137,16 @@ $ make helix/rev2/oled/back:default          # with oled and backlight
 $ make helix/rev2/oled/under:default         # with oled and underglow
 ```
 
+build (experimental use of split_common)
+```
+$ make helix/rev2/sc:default
+$ make helix/rev2/sc/back:default
+$ make helix/rev2/sc/under:default
+$ make helix/rev2/sc/oled:default
+$ make helix/rev2/sc/oledback:default
+$ make helix/rev2/sc/oledunder:default
+```
+
 flash to keyboard
 ```
 $ make helix:default:flash
