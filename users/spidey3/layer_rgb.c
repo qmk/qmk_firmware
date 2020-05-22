@@ -31,22 +31,28 @@ void eeconfig_init_user_rgb(void)
 #define CORNER_FL(color) {RGBLED_NUM-1,1,color}
 #define CORNERS(color) {0,1,color},{RGBLED_NUM/2-1,2,color},{RGBLED_NUM-1,1,color}
 #define FRONT(inset, color) {RGBLED_NUM/2+inset,RGBLED_NUM/2-2*inset,color}
+#define BACK(inset, color) {inset,RGBLED_NUM/2-2*inset,color}
 
 #define LAYER_OFFSET 0
-const rgblight_segment_t PROGMEM _layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS( CORNER_BR(HSV_PURPLE) ); // 0
-const rgblight_segment_t PROGMEM _layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS( CORNERS(HSV_MAGENTA) ); // 1
-const rgblight_segment_t PROGMEM _layer3_layer[] = RGBLIGHT_LAYER_SEGMENTS( CORNERS(HSV_GREEN) ); // 2
+const rgblight_segment_t PROGMEM _layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS( CORNER_BR(HSV_PURPLE) );
+const rgblight_segment_t PROGMEM _layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS( CORNERS(HSV_MAGENTA) );
+const rgblight_segment_t PROGMEM _layer3_layer[] = RGBLIGHT_LAYER_SEGMENTS( CORNERS(HSV_GREEN) );
 
 #define LOCK_OFFSET 3
-const rgblight_segment_t PROGMEM _numlock_layer[] = RGBLIGHT_LAYER_SEGMENTS( FRONT(3, HSV_YELLOW) ); // 3
-const rgblight_segment_t PROGMEM _capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS( CORNER_FL(HSV_AZURE) ); // 4
-const rgblight_segment_t PROGMEM _scrolllock_layer[] = RGBLIGHT_LAYER_SEGMENTS( CORNER_FR(HSV_ORANGE) ); // 5
+const rgblight_segment_t PROGMEM _numlock_layer[] = RGBLIGHT_LAYER_SEGMENTS( FRONT(3, HSV_YELLOW) );
+const rgblight_segment_t PROGMEM _capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS( CORNER_FL(HSV_AZURE) );
+const rgblight_segment_t PROGMEM _scrolllock_layer[] = RGBLIGHT_LAYER_SEGMENTS( CORNER_FR(HSV_ORANGE) );
 
-#define ACK_OFFSET 6
-const rgblight_segment_t PROGMEM _no_layer[] = RGBLIGHT_LAYER_SEGMENTS( FRONT(1, HSV_RED) ); // 6
-const rgblight_segment_t PROGMEM _yes_layer[] = RGBLIGHT_LAYER_SEGMENTS( FRONT(1, HSV_GREEN) ); // 7
-const rgblight_segment_t PROGMEM _meh_layer[] = RGBLIGHT_LAYER_SEGMENTS( FRONT(1, HSV_YELLOW) ); // 8
-const rgblight_segment_t PROGMEM _wakeup_layer[] = RGBLIGHT_LAYER_SEGMENTS( FRONT(2, HSV_BLUE) ); // 10
+#define MISC_OFFSET 6
+const rgblight_segment_t PROGMEM _gflock_layer[] = RGBLIGHT_LAYER_SEGMENTS( BACK(1,HSV_ORANGE) );
+const rgblight_segment_t PROGMEM _glyphreplace_layer[] = RGBLIGHT_LAYER_SEGMENTS( FRONT(1,HSV_ORANGE) );
+
+#define ACK_OFFSET 8
+const rgblight_segment_t PROGMEM _no_layer[] = RGBLIGHT_LAYER_SEGMENTS( FRONT(1, HSV_RED) );
+const rgblight_segment_t PROGMEM _yes_layer[] = RGBLIGHT_LAYER_SEGMENTS( FRONT(1, HSV_GREEN) );
+const rgblight_segment_t PROGMEM _meh_layer[] = RGBLIGHT_LAYER_SEGMENTS( FRONT(1, HSV_YELLOW) );
+const rgblight_segment_t PROGMEM _wakeup_layer[] = RGBLIGHT_LAYER_SEGMENTS( FRONT(2, HSV_BLUE) );
+
 
 // Now define the array of layers. Higher numbered layers take precedence.
 const rgblight_segment_t* const PROGMEM _rgb_layers[] = {
@@ -57,6 +63,9 @@ const rgblight_segment_t* const PROGMEM _rgb_layers[] = {
     [LOCK_OFFSET+USB_LED_NUM_LOCK]    = _numlock_layer,
     [LOCK_OFFSET+USB_LED_CAPS_LOCK]   = _capslock_layer,
     [LOCK_OFFSET+USB_LED_SCROLL_LOCK] = _scrolllock_layer,
+
+    [MISC_OFFSET+0] = _gflock_layer,
+    [MISC_OFFSET+1] = _glyphreplace_layer,
 
     [ACK_OFFSET+ACK_NO]      = _no_layer,
     [ACK_OFFSET+ACK_YES]     = _yes_layer,
@@ -229,6 +238,7 @@ void rgb_layer_ack(layer_ack_t n) {
 extern keymap_config_t keymap_config;
 extern rgblight_config_t rgblight_config;
 
+extern bool spi_gflock;
 extern uint16_t spi_replace_mode;
 
 bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
@@ -257,8 +267,14 @@ void post_process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
             rgb_layer_ack(ACK_MEH);
             break;
 
+        case SPI_GFLOCK:
+            rgb_layer_ack_yn(spi_gflock);
+            rgblight_set_layer_state(MISC_OFFSET+0, spi_gflock);
+            break;
+
         case SPI_NORMAL ... SPI_FRAKTR:
             rgb_layer_ack_yn(spi_replace_mode != SPI_NORMAL);
+            rgblight_set_layer_state(MISC_OFFSET+1, spi_replace_mode != SPI_NORMAL);
             break;
 
         case RGB_TOG:
