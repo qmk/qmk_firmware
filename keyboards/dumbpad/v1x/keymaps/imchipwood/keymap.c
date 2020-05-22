@@ -53,10 +53,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      \-----------------------------------------------------'
     */
     [_SUB] = LAYOUT(
-                   TD(ALT_F7),       KC_F8,       KC_F9,           TD(DEL_NLCK),
-                        KC_F4,   TD(CTL_F5),      KC_F6,           KC_KP_MINUS,
-                        KC_F1,       KC_F2,       KC_F3,           KC_KP_SLASH,
-        MO(_DBG),     _______,   OSM(MOD_LSFT),   OSM(MOD_LCTL),   KC_KP_EQUAL
+                   TD(ALT_F7),          KC_F8,          KC_F9, TD(DEL_NLCK),
+                        KC_F4,     TD(CTL_F5),          KC_F6,  KC_KP_MINUS,
+                        KC_F1,     TD(ALT_F2),          KC_F3,  KC_KP_SLASH,
+        MO(_DBG),     _______,  OSM(MOD_LSFT),  OSM(MOD_LCTL),  KC_KP_EQUAL
     ),
     /*
           DEBUG LAYER
