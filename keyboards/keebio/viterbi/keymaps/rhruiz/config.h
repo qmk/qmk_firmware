@@ -59,5 +59,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #define QMK_ESC_INPUT D4 // usually ROW
-#define QMK_LED B0
-#define QMK_SPEAKER C6
+#define QMK_LED D5
+#define QMK_SPEAKER B0

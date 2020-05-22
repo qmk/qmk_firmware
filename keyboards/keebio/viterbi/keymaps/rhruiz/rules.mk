@@ -5,6 +5,6 @@ CONSOLE_ENABLE = no
 EXTRAKEY_ENABLE = yes
 RAW_ENABLE = yes
 LINK_TIME_OPTIMIZATION_ENABLE = yes
+BOOTLOADER = qmk-dfu
 SRC += users/rhruiz/layouts/ortho_5x14.c
 
-# BOOTLOADER = qmk-dfu
