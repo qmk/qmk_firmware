@@ -56,6 +56,16 @@
 #define SOFT_SERIAL_PIN B6
 #define SELECT_SOFT_SERIAL_SPEED 0
 
+#define RGB_DI_PIN B4
+#define RGBLED_NUM 24
+#define RGBLED_SPLIT { 12, 12 }
+#define RGBLIGHT_ANIMATIONS
+
+#define WS2812_PWM_DRIVER PWMD3
+#define WS2812_PWM_CHANNEL 1
+#define WS2812_DMA_STREAM STM32_DMA1_STREAM3
+#define WS2812_DMA_CHANNEL 3
+
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
 
