@@ -17,8 +17,8 @@
 #include "wt60_xt.h"
 
 #ifdef AUDIO_ENABLE
-    #include "audio.h"
-    #include "song_list.h"
+#include "audio.h"
+#include "song_list.h"
 
 float tone_caps_on[][2]    = SONG(CAPS_LOCK_ON_SOUND);
 float tone_caps_off[][2]   = SONG(CAPS_LOCK_OFF_SOUND);
