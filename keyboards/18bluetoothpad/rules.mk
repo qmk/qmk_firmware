@@ -1,6 +1,9 @@
 # MCU name
 MCU = atmega32u4
 
+# Processor frequency
+F_CPU = 8000000
+
 # Bootloader selection
 #   Teensy       halfkay
 #   Pro Micro    caterina
@@ -9,20 +12,24 @@ MCU = atmega32u4
 #   QMK DFU      qmk-dfu
 #   ATmega32A    bootloadHID
 #   ATmega328P   USBasp
-
-F_CPU = 8000000
 BOOTLOADER = atmel-dfu
+
 # Build Options
 # change yes to no to disable
+#
 BOOTMAGIC_ENABLE = yes      # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
+# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
-NKRO_ENABLE = no            # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+# if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
-AUDIO_ENABLE = no
-RGBLIGHT_ENABLE = yes
-OLED_DRIVER_ENABLE = no
-ENCODER_ENABLE = yes
+RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
+MIDI_ENABLE = no            # MIDI support
+BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
+AUDIO_ENABLE = no           # Audio output
+FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
+BLUETOOTH = AdafruitBLE
