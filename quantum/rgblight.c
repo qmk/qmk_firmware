@@ -368,6 +368,8 @@ void rgblight_disable_noeeprom(void) {
     rgblight_set();
 }
 
+bool rgblight_is_enabled(void) { return rgblight_config.enable; }
+
 void rgblight_increase_hue_helper(bool write_to_eeprom) {
     uint8_t hue = rgblight_config.hue + RGBLIGHT_HUE_STEP;
     rgblight_sethsv_eeprom_helper(hue, rgblight_config.sat, rgblight_config.val, write_to_eeprom);
@@ -521,6 +523,8 @@ uint8_t rgblight_get_hue(void) { return rgblight_config.hue; }
 uint8_t rgblight_get_sat(void) { return rgblight_config.sat; }
 
 uint8_t rgblight_get_val(void) { return rgblight_config.val; }
+
+HSV rgblight_get_hsv(void) { return (HSV){rgblight_config.hue, rgblight_config.sat, rgblight_config.val}; }
 
 void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b) {
     if (!rgblight_config.enable) {

@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "vusb.h"
 #include "print.h"
 #include "debug.h"
+#include "usb_descriptor_common.h"
 
 #ifdef RAW_ENABLE
 #    include "raw_hid.h"
@@ -409,9 +410,9 @@ const PROGMEM uchar keyboard_hid_report[] = {
 
 #ifdef RAW_ENABLE
 const PROGMEM uchar raw_hid_report[] = {
-    0x06, 0x60, 0xFF,  // Usage Page (Vendor Defined)
-    0x09, 0x61,        // Usage (Vendor Defined)
-    0xA1, 0x01,        // Collection (Application)
+    0x06, RAW_USAGE_PAGE_LO, RAW_USAGE_PAGE_HI,  // Usage Page (Vendor Defined)
+    0x09, RAW_USAGE_ID,                          // Usage (Vendor Defined)
+    0xA1, 0x01,                                  // Collection (Application)
     // Data to host
     0x09, 0x62,             //   Usage (Vendor Defined)
     0x15, 0x00,             //   Logical Minimum (0)

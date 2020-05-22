@@ -18,6 +18,37 @@ int cur_dance(qk_tap_dance_state_t *state) {
     }  // any number higher than the maximum state value you return above
 }
 
+void altf2_finished(qk_tap_dance_state_t *state, void *user_data) {
+    td_state = cur_dance(state);
+    switch (td_state) {
+        case SINGLE_TAP:
+            register_code(KC_F2);
+            break;
+        case SINGLE_HOLD:
+            register_mods(MOD_BIT(KC_LALT));
+            break;
+        case DOUBLE_TAP:
+            register_mods(MOD_BIT(KC_LALT));
+            tap_code(KC_F2);
+            break;
+    }
+}
+
+void altf2_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (td_state) {
+        case SINGLE_TAP:
+            unregister_code(KC_F2);
+            break;
+        case SINGLE_HOLD:
+            unregister_mods(MOD_BIT(KC_LALT));
+            break;
+        case DOUBLE_TAP:
+            unregister_code(KC_F2);
+            unregister_mods(MOD_BIT(KC_LALT));
+            break;
+    }
+}
+
 
 void ctlf5_finished(qk_tap_dance_state_t *state, void *user_data) {
     td_state = cur_dance(state);
@@ -82,6 +113,7 @@ void altf7_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
+    [ALT_F2]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, altf2_finished, altf2_reset),
     [CTL_F5]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctlf5_finished, ctlf5_reset),
     [ALT_F7]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, altf7_finished, altf7_reset),
     [DEL_NLCK] = ACTION_TAP_DANCE_DOUBLE(KC_DEL, KC_NLCK),
