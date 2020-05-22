@@ -5,7 +5,7 @@
     "width": 16,
     "height": 5,
     "layouts": {
-        "LAYOUT_625u": {
+        "LAYOUT_65_ansi_blocker_split_bs": {
             "key_count": 68,
             "layout": [
                 {"label":"K00 (D0,B1)", "x":0, "y":0},
@@ -78,7 +78,7 @@
                 {"label":"K4F (F1,B0)", "x":15, "y":4}
             ]
         },
-        "LAYOUT_7u": {
+        "LAYOUT_65_ansi_blocker_tsangan_split_bs": {
             "key_count": 66,
             "layout": [
                 {"label":"K00 (D0,B1)", "x":0, "y":0},
