@@ -15,7 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 #include "config_common.h"
 #define VENDOR_ID       0x6C63 // "lc" = latincompass
-#define PRODUCT_ID      0x6C70 // "1p" = 18bluetoothpad
+#define PRODUCT_ID      0x3170 // "1p" = 18bluetoothpad
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    latincompass
 #define PRODUCT         18bluetoothpad
