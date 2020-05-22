@@ -1,0 +1,6 @@
+# Processor frequency
+F_CPU = 8000000
+
+CONSOLE_ENABLE = no
+MOUSEKEY_ENABLE = no
+#TAP_DANCE_ENABLE = yes
