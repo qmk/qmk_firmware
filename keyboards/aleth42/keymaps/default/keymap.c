@@ -138,7 +138,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) { /* First encoder */
+    if (index == 0) { /* Upper encoder */
         switch (layer_state) {
             case L_QWERTY:
                 if (clockwise) {
@@ -153,14 +153,27 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 if (clockwise) {
                 //    tap_code(KC_VOLU);
                     if(keymap_config.swap_lalt_lgui==false){
-                        register_code(KC_LANG2);
-                    }else{
+                        tap_code(KC_LANG2);
+                    }else {
                         SEND_STRING(SS_LALT("`"));
                     }
                 } else {
-                    unregister_code(KC_LANG2);
+                    if(keymap_config.swap_lalt_lgui==false){
+                    tap_code(KC_LANG1);
+                    } else {
+                        SEND_STRING(SS_LALT("`"));
+                    }
+                }
             break;
-    } else if (index == 1) { /* Second encoder */
+            case L_ADJUST:
+                if (clockwise) {
+                    tap_code(KC_VOLU);
+                } else {
+                    tap_code(KC_VOLD);
+            }
+        }
+
+    } else if (index == 1) { /* Lower encoder */
         if (clockwise) {
             tap_code(KC_PGDN);
         } else {
