@@ -1,6 +1,6 @@
 # dohmain's 60% Tsangan HHKB layout
 ## Layout
-![Layout Image](./layout.png)
+![Layout Image](https://i.imgur.com/LfTyOF4.png)
 ## Features
 ### CapsFn
 * Function layer is accessed by holding down `CapsLock` or `Enter`.
