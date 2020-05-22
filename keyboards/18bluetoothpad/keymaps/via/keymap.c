@@ -39,6 +39,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RGB_VAI, RGB_VAD, RGB_SPI, RGB_SPD,
         RGB_SPI, RGB_SPD, RGB_TOG, KC_TRNS,
         KC_NUMLOCK, KC_CALCULATOR),
+    [2] = LAYOUT_all(
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS),
+    [3] = LAYOUT_all(
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS),
+    
 };
 
 void encoder_update_user(uint8_t index, bool clockwise) {
