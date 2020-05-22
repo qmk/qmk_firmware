@@ -19,13 +19,14 @@ sudo dfu-programmer atmega32u4 launch
 
 ## Layers
 
-![Balance 12 base (BA) layer](https://i.imgur.com/Qka8zUl.png)
+### Balance 12 base (BA) layer
+![Base layer](https://i.imgur.com/Qka8zUl.png)
 
+### Numeric/Punctuation (NP) layer
+![Numeric/Punctuation layer](https://i.imgur.com/GgZ0PCq.png)
 
-![Numeric/Punctuation (NP) layer](https://i.imgur.com/GgZ0PCq.png)
+### Function/Cursor (FC) layer
+![Function/Cursor layer](https://i.imgur.com/NRHgCzt.png)
 
-
-![Function/Cursor (FC) layer](https://i.imgur.com/NRHgCzt.png)
-
-
-![Plover (PL) layer](https://i.imgur.com/RikOGXe.png)
+### Plover (PL) layer
+![Plover layer](https://i.imgur.com/RikOGXe.png)
