@@ -58,13 +58,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
-    case M_TYPE:
+    case M_WHATSAPP:
       if (record->event.pressed) {
         SEND_STRING(SS_LGUI(" "));
-        SEND_STRING("TypeFu.app\n");
+        SEND_STRING("Whatsapp.app\n");
       }
       break;
-  
   }
 
   return process_record_keymap(keycode, record) && process_record_secrets(keycode, record)

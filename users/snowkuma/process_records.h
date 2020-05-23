@@ -9,7 +9,7 @@ enum custom_keycodes {
   M_KRAKEN,
   M_MONEY,
   M_SPOTIFY,
-  M_TYPE,
+  M_WHATSAPP,
 
   // Secret Macros
   M_XXX1,

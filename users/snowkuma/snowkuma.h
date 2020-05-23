@@ -18,6 +18,7 @@
 #include "version.h"
 #include "eeprom.h"
 #include "process_records.h"
+#include "tap_dances.h"
 
 #ifdef TAP_DANCE_ENABLE
   #include "tap_dances.h"
@@ -37,14 +38,6 @@ enum layers {
   _THUMB,
   _FUNCTION
 };
-
-// Shortcut Keys
-#define K_LOCK LGUI(LCTL(KC_Q)) // Locks screen on MacOS
-#define K_CSCN LGUI(LCTL(LSFT(KC_4))) // Copy a portion of the screen to the clipboard
-#define K_CPRF LGUI(LSFT(KC_M)) //   + Shift + M. Used for switching Google Chrome profiles
-#define K_MDSH LSFT(LALT(KC_MINS))
-#define K_LAPP SGUI(KC_TAB) //  + Shift + Tab
-#define K_RAPP LGUI(KC_TAB) //  + Tab
 
 // Layer Keys
 #define SPC_NAV LT(_NAV, KC_SPC)
@@ -107,8 +100,6 @@ enum layers {
 #define INPUT_L LCAG(KC_SPC)
 #define TXT_PLS G(KC_PLUS)
 #define TXT_MIN G(KC_MINS)
-#define SC_CAPF G(S(KC_3))  // Capture the full screen to file
-#define SC_CAPP G(S(KC_4))  // Capture portion of screen to file
 #define CUT G(KC_X)
 #define COPY G(KC_C)
 #define PASTE G(KC_V)
@@ -117,6 +108,13 @@ enum layers {
 #define VOLUP KC__VOLUP     // shorter naming for layout tidiness
 #define VOLDOWN KC__VOLDOWN
 #define MUTE KC_MUTE
+#define LOCK G(C(KC_Q)) // Locks the screen on Mac OS
+#define PREVTAB G(S(KC_LBRC)) // Previous Tab
+#define NEXTTAB G(S(KC_RBRC)) // Next Tab
+#define SCN_CAP G(S(KC_5)) // Screen capture
+#define CHR_PRF G(S(KC_M))    // Switching Google Chrome profiles
+#define MED_DSH S(A(KC_MINS)) // medium dash
+#define POWERDN LCAG(KC_POWER)
 
 // Layout blocks
 
@@ -148,20 +146,20 @@ L3 |   Z   |   X   |   C   |   V   |   B   |           R3  |   K   |   M   |   ,
 L1 |  Ctrl |  Alt  |  GUI  |       |       |            R1 |       | Home  |   Up  |  End  | Page  |
    |       |       |       |       |       |               |       |       |       |       |  Up   |
    |-------+-------+-------+-------+-------|               |-------+-------+-------+-------+-------|
-L2 | Next  |       |       | Shift |       |            R2 |       | Left  |  Down | Right | Page  |
-   | Window|       |       |       |       |               |       |       |       |       | Down  |
+L2 | Next  | Prev  | Next  | Shift |       |            R2 |       | Left  |  Down | Right | Page  |
+   | Window| Tab   | Tab   |       |       |               |       |       |       |       | Down  |
    |-------+-------+-------+-------+-------|               |-------+-------+-------+-------+-------|
-L3 |       |       |       |       |       |            R3 |       |       |       |       |       |
-   |       |       |       |       |       |               |       |       |       |       |       |
+L3 |       |       | Screen|       |       |            R3 |       | Prev  | Next  | Next  |       |
+   |       |       |Capture|       |       |               |       | Tab   | Window| Tab   |       |
    '-------+-------+-------+-------+-------'               '-------+-------+-------+-------+-------'
 */
 #define _________________NAV_L1____________________        KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX, XXXXXXX
-#define _________________NAV_L2____________________        NXT_WIN, XXXXXXX, XXXXXXX, KC_LSFT, XXXXXXX
-#define _________________NAV_L3____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define _________________NAV_L2____________________        XXXXXXX, XXXXXXX, XXXXXXX, KC_LSFT, XXXXXXX
+#define _________________NAV_L3____________________        XXXXXXX, XXXXXXX, SCN_CAP, XXXXXXX, XXXXXXX
 
 #define _________________NAV_R1____________________        XXXXXXX, KC_HOME, KC_UP,   KC_END,  KC_PGUP
 #define _________________NAV_R2____________________        XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN
-#define _________________NAV_R3____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define _________________NAV_R3____________________        XXXXXXX, PREVTAB, NXT_WIN, NEXTTAB, XXXXXXX
 
 /* SYMBOL
                      LEFT                                                    RIGHT
@@ -170,7 +168,7 @@ L1 |   !   |   @   |   *   |   &   |   |   |            R1 |       |   [   |   ^
    |       |       |       |       |       |               |       |       |       |       |       |
    |-------+-------+-------+-------+-------|               |-------+-------+-------+-------+-------|
 L2 |   ~   |   <   |   %   |   %   |   £   |            R2 |   ?   |   (   |   $   |   )   |   /   |
-   |       |       |       |       |       |               |       |       |       |       |       |
+   | 2x ~/ |       |       |       |       |               |       |       |       |       |       |
    |-------+-------+-------+-------+-------|               |-------+-------+-------+-------+-------|
 L3 |   `   |   +   |   -   |   =   |   €   |            R3 |   |   |   {   |   #   |   }   |   \   |
    |       |       |       |       |       |               |       |       |       |       |       |
@@ -178,7 +176,7 @@ L3 |   `   |   +   |   -   |   =   |   €   |            R3 |   |   |   {   |  
 */
 
 #define _________________SYM_L1____________________        KC_EXLM, KC_AT,   KC_ASTR, KC_AMPR, KC_PIPE
-#define _________________SYM_L2____________________        KC_TILD, KC_LT,   KC_PERC, KC_GT,   GBP
+#define _________________SYM_L2____________________        T_TILD,  KC_LT,   KC_PERC, KC_GT,   GBP
 #define _________________SYM_L3____________________        KC_GRV,  KC_PLUS, KC_MINS, KC_EQL,  EURO
 
 #define _________________SYM_R1____________________        XXXXXXX, KC_LBRC, KC_CIRC, KC_RBRC, KC_COLN
@@ -189,7 +187,7 @@ L3 |   `   |   +   |   -   |   =   |   €   |            R3 |   |   |   {   |  
 /* NUMBER
                      LEFT                                                    RIGHT
    ,---------------------------------------.               ,---------------------------------------.
-L1 |       |       |       |       |       |            R1 |   /   |   7   |   8   |   9   |   *   |
+L1 | Ctrl  |  Alt  |  GUI  |       |       |            R1 |   /   |   7   |   8   |   9   |   *   |
    |       |       |       |       |       |               |       |       |       |       |       |
    |-------+-------+-------+-------+-------|               |-------+-------+-------+-------+-------|
 L2 |   :   |   #   |  COPY | PASTE |   £   |            R2 |   .   |   4   |   5   |   6   |   -   |
@@ -203,7 +201,7 @@ L3 |   `   |   +   |   -   |   =   |   €   |            R3 |   ,   |   1   |  
                                                            '-------+-------+-------'
 */
 
-#define _________________NUM_L1____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define _________________NUM_L1____________________        KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX, XXXXXXX
 #define _________________NUM_L2____________________        KC_COLN, KC_HASH, T_CPYCUT,PASTE,   GBP
 #define _________________NUM_L3____________________        KC_COMM, KC_PLUS, KC_MINS, KC_EQL,  EURO
 
@@ -262,29 +260,29 @@ L3 |       |       |       |       |       |            R3 |       |       |    
 /* THUMB
                      LEFT                                                    RIGHT
    ,---------------------------------------.               ,---------------------------------------.
-L1 |       |  P1   |  P2   |       |W_EMAIL|            R1 |       |Input  |       |       | Txt + |
-   |       |       |       |       |       |               |       | Lang  |       |       |       |
+L1 |       |Whatsap|  P1   | PHONE |W_EMAIL|            R1 |       |Input  |  P2   |       | Txt + |
+   |       |       |       |Secret3|Secret2|               |       | Lang  |       |       |       |
    |-------+-------+-------+-------+-------|               |-------+-------+-------+-------+-------|
-L2 |       |       |SPOTIFY|TYPEFU |P_EMAIL|            R2 |       | Caps  | Emoji | Iterm | Txt - |
-   |       |       |       |       |       |               |       | Lock  |       |       |       |
+L2 | ANKI  |       |SPOTIFY|TYPEFU |P_EMAIL|            R2 |       | Caps  | Emoji | Iterm | Txt - |
+   |Assimil|       |       |Telegrm|Secret1|               |       | Lock  |       |       |       |
    |-------+-------+-------+-------+-------|               |-------+-------+-------+-------+-------|
 L3 |       |       | Chrome|       | BRAVE |            R3 |       | Money |       |       |       |
    |       |       |       |       |       |               |       | Dance |       |       |       |
    '-------+-------+-------+-------+-------'               '-------+-------+-------+-------+-------'
 */
 
-#define _________________THU_L1____________________        XXXXXXX, M_XXX4,  M_XXX3,  XXXXXXX,  M_XXX2
-#define _________________THU_L2____________________        XXXXXXX, XXXXXXX, M_SPOTIFY, M_TYPE, M_XXX1
+#define _________________THU_L1____________________        XXXXXXX, M_WHATSAPP, M_XXX4, M_XXX3,  M_XXX2
+#define _________________THU_L2____________________        T_ANKASS, XXXXXXX, M_SPOTIFY, T_TYPTEL, M_XXX1
 #define _________________THU_L3____________________        XXXXXXX, XXXXXXX, M_CHROME, XXXXXXX, M_BRAVE
 
-#define _________________THU_R1____________________        XXXXXXX, XXXXXXX, INPUT_L, XXXXXXX, TXT_PLS
+#define _________________THU_R1____________________        XXXXXXX, INPUT_L, M_XXX5,  XXXXXXX, TXT_PLS
 #define _________________THU_R2____________________        XXXXXXX, KC_CAPS, EMOJI,   M_ITERM, TXT_MIN
 #define _________________THU_R3____________________        XXXXXXX, M_MONEY, XXXXXXX, XXXXXXX, XXXXXXX
 
 /* FUNCTION
                      LEFT                                                    RIGHT
    ,---------------------------------------.               ,---------------------------------------.
-L1 | Ctrl  | Alt   | GUI   |       |       |            R1 |       |  F7   |  F8   |  F9   | F12   |
+L1 | Ctrl  | Alt   | GUI   | LOCK  |       |            R1 |       |  F7   |  F8   |  F9   | F12   |
    |       |       |       |       |       |               |       |       |       |       |       |
    |-------+-------+-------+-------+-------|               |-------+-------+-------+-------+-------|
 L2 |       |       |       | Shift |       |            R2 |       |  F4   |  F5   |  F6   | F11   |
@@ -295,7 +293,7 @@ L2 |       |       |       |       |       |            R2 |       |  F1   |  F2
    '-------+-------+-------+-------+-------'               '-------+-------+-------+-------+-------'
 */
 
-#define _________________FUN_L1____________________        KC_LCTL, KC_LALT, KC_LGUI,  XXXXXXX, XXXXXXX
+#define _________________FUN_L1____________________        KC_LCTL, KC_LALT, KC_LGUI, LOCK,  XXXXXXX
 #define _________________FUN_L2____________________        XXXXXXX, XXXXXXX, XXXXXXX, KC_LSFT, XXXXXXX
 #define _________________FUN_L3____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
