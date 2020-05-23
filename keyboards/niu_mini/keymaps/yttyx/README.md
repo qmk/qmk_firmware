@@ -26,7 +26,7 @@ sudo dfu-programmer atmega32u4 launch
 ![Numeric/Punctuation layer](https://i.imgur.com/GgZ0PCq.png)
 
 ### Function/Cursor (FC) layer
-![Function/Cursor layer](https://i.imgur.com/NRHgCzt.png)
+![Function/Cursor layer](https://i.imgur.com/zcVID2d.png)
 
 ### Plover (PL) layer
 ![Plover layer](https://i.imgur.com/RikOGXe.png)
