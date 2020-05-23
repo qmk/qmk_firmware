@@ -365,6 +365,7 @@ static bool command_common(uint8_t code) {
             stop_all_notes();
             shutdown_user();
 #else
+            shutdown_user();
             wait_ms(1000);
 #endif
             bootloader_jump();  // not return
