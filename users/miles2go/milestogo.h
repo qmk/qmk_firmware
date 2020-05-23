@@ -184,7 +184,6 @@ enum userspace_custom_keycodes {
  ` is a shifted ''
  ~/ is an outwards roll. / .* is a roll. !=0 is a roll , ++1 --1 roll. 
  _ is hard to get to. 
-
  */
 #define ___________________SYM_L1__________________       XXXXXXX, KC_LBRC, KC_RBRC, KC_LCBR, XXXXXXX
 #define ___________________SYM_L2__________________       KC_CIRC,  KC_EXLM, KC_EQL,  KC_0,    KC_DLR 
@@ -194,6 +193,91 @@ enum userspace_custom_keycodes {
 #define ___________________SYM_R2__________________       KC_HASH,  KC_KP_1, KC_MINS, KC_PLUS, KC_GRAVE
 #define ___________________SYM_R3__________________       KC_PERC,  KC_TILDE,KC_AMPR, KC_DOT,  KC_SLASH
 
+
+// Move and brackets - 40% optimization. 
+/*    ,--------------------------------------------.  ,--------------------------------------------.
+ * 01 |  QWERTY| {      |  Find  | }      | Blight-|  | Blight+|LineStrt|   Up   |  EOL   |  CDH   |
+ *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
+ * 02 |   [    |  (     |  Undo  |   )    |   ]    |  | WrdLft | Left   | Down   | Right  | WrdRght|
+ *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
+ * 03 |        | Cut    | Copy   | Paste  | Paste  |  |        | Tab--  | NewTab | Tab++  |        |
+ *    `--------------------------------------------'  `--------------------------------------------'
+ */
+
+#define __________40_______MOV_L1__________________      KC_QWERTY, KC_LCBR,  B_FIND,  KC_RCBR, BL_DEC
+#define __________40_______MOV_L2__________________      KC_LBRC,KC_LPRN,B_UNDO, KC_RPRN, KC_RBRC
+#define __________40_______MOV_L3__________________      KC_NO, B_CUT,  B_COPY,  B_PASTE, B_PASTE
+
+#define __________40_______MOV_R1__________________       BL_INC ,  B_GSOL,   B_UP,    B_GEOL,   KC_CDH
+#define __________40_______MOV_R2__________________       B_L1W,   B_L1C,    B_DOWN,  B_R1C,   B_R1W
+#define __________40_______MOV_R3__________________       KC_NO,  B_PTAB,   B_NTAB,  B_NXTB,  KC_NO
+
+
+
+/* NUM  +  symbol / programming logic +=1 optimization*/
+/*    ,----------------------------------.  ,----------------------------------.
+ * 01 |   1  |   2  |  3   |  4   |  5   |  | 6    | 7    | 8    | 9    | 0    |
+ *    |------+------+------+------+------|  |------+------+------+------+------|
+ * 02 |  ^   |   !  |  =   |   0  | $    |  |   #  |  1   | -    |  +   |  `   |
+ *    |------+------+------+------+------|  |------+------+------+------+------|
+ * 03 |  \   |   %  |   @  |  |   |  _   |  |   *  |  &   |  ~   |  .   |  /   |
+ *    `----------------------------------'  `----------------------------------'
+ Memnonics
+ ^begining end$ .   &&/|| on strong finger.  #at start of line.  
+ Minus is left of plus as normal. ` is a shifted ''
+ ~/ and is an outwards roll. / * is a roll. 
+ _ is hard to get to. 
+ */
+
+
+#define __________40_______NUM_L1__________________       ________________NUMBER_LEFT________________
+#define __________40_______NUM_L2__________________       KC_CIRC,  KC_EXLM, KC_EQL,  KC_0,    KC_DLR 
+#define __________40_______NUM_L3__________________       KC_BSLS,  KC_PERC, KC_AT,   KC_PIPE, KC_UNDS
+  
+#define __________40_______NUM_R1__________________       ________________NUMBER_RIGHT_______________
+#define __________40_______NUM_R2__________________       KC_HASH,  KC_1, KC_MINS, KC_PLUS, KC_GRAVE
+#define __________40_______NUM_R3__________________       KC_ASTR,  KC_AMPR, KC_TILDE,KC_DOT,  KC_SLASH
+ 
+
+ 
+// NUM  
+/*    ,----------------------------------.  ,----------------------------------.
+ * 01 |   1  |   2  |  3   |  4   |  5   |  |   6  |  7   |  8   |   9  |  0   |
+ *    |------+------+------+------+------|  |------+------+------+------+------|
+ * 02 |  F1  |  F2  |  F3  |  F4  |  F5  |  |   +  |  4   |  5   |  6   |  -   |
+ *    |------+------+------+------+------|  |------+------+------+------+------|
+ * 03 |  F11 |  F12 |      |   CDH| QWERT|  |  0   |  1   |  2   |  3   |  .   |
+ *    `----------------------------------'  `----------------------------------'
+ */
+ 
+#define ___________________NUM_L1__________________      ________________NUMBER_LEFT________________ 
+#define ___________________NUM_L2__________________      ________________FKEYS__LEFT________________ 
+#define ___________________NUM_L3__________________      KC_F11,  KC_F11,  XXXXXXX,    XXXXXXX, QWERTY
+  
+#define ___________________NUM_R1__________________      ________________NUMBER_RIGHT_______________
+#define ___________________NUM_R2__________________      KC_PLUS,   KC_4,  KC_5,   KC_6,  KC_MINS
+#define ___________________NUM_R3__________________      KC_0,      KC_1,  KC_2,   KC_3,  KC_DOT
+
+ 
+
+//Standard Sym
+/*    ,----------------------------------.  ,----------------------------------.
+ * 01 |   !  |   @  |  #   |  $   |  %   |  |   ^  |  &   |  *   |  (   |  )   |
+ *    |------+------+------+------+------|  |------+------+------+------+------|
+*/
+#define  __________________SSYM_L1__________________ KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC        
+#define  __________________SSYM_R1__________________ KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN 
+
+
+
+
+#define _________________ADJUST_L1_________________        RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_TOG
+#define _________________ADJUST_L2_________________        MU_TOG , CK_TOGG, AU_ON,   AU_OFF,  AG_NORM
+#define _________________ADJUST_L3_________________        RGB_RMOD,RGB_HUD,RGB_SAD, RGB_VAD, KC_RGB_T
+
+#define _________________ADJUST_R1_________________        KC_SEC1, KC_SEC2, KC_SEC3, KC_SEC4, KC_SEC5
+#define _________________ADJUST_R2_________________        AG_SWAP, QWERTY,  COLEMAK, DVORAK,  WORKMAN
+#define _________________ADJUST_R3_________________        MG_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT
 
 
 /* excel centric symbol layer*/
@@ -223,8 +307,6 @@ enum userspace_custom_keycodes {
  *    |------+------+------+------+------|  |------+------+------+------+------|
  * 03 |      |   :  |   *  |  +   |      |  |      |  &   |  ^   |  ~   |      |
  *    `----------------------------------'  `----------------------------------'
- Memnonics
-
  */
 #define ______________BEKL_SYM_L1__________________       XXXXXXX, KC_LBRC, KC_RBRC, KC_LCBR, XXXXXXX
 #define ______________BEKL_SYM_L2__________________       KC_CIRC,  KC_EXLM, KC_EQL,  KC_0,    KC_DLR 
@@ -233,57 +315,3 @@ enum userspace_custom_keycodes {
 #define ______________BEKL_SYM_R1__________________       XXXXXXX,  KC_RCBR, KC_LPRN, KC_RPRN, XXXXXXX
 #define ______________BEKL_SYM_R2__________________       KC_HASH,  KC_KP_1, KC_MINS, KC_PLUS, KC_GRAVE
 #define ______________BEKL_SYM_R3__________________       KC_PERC,  KC_TILDE,KC_AMPR, KC_DOT,  KC_SLASH
- 
-// NUM  
-/*    ,----------------------------------.  ,----------------------------------.
- * 01 |   1  |   2  |  3   |  4   |  5   |  |   6  |  7   |  8   |   9  |  0   |
- *    |------+------+------+------+------|  |------+------+------+------+------|
- * 02 |  F1  |  F2  |  F3  |  F4  |  F5  |  |  F6  |  F7  |  F8  |  F9  |  F10 |
- *    |------+------+------+------+------|  |------+------+------+------+------|
- * 03 |  F11 |  F12 |      |      | QWERT|  | CDH  |      |      |      |      |
- *    `----------------------------------'  `----------------------------------'
- */
- 
-#define ___________________NUM_L1__________________      ________________NUMBER_LEFT________________ 
-#define ___________________NUM_L2__________________      ________________FKEYS__LEFT________________ 
-#define ___________________NUM_L3__________________      KC_F11,  KC_F11,  XXXXXXX,    XXXXXXX, QWERTY
-  
-#define ___________________NUM_R1__________________      ________________NUMBER_RIGHT_______________
-#define ___________________NUM_R2__________________      ________________FKEYS__RIGHT_______________
-#define ___________________NUM_R3__________________      COLEMAK,   XXXXXXX,  XXXXXXX, XXXXXXX,   XXXXXXX
- 
-
-
-/* NUM  / excel / programming logic +=1 optimization*/
-/*    ,----------------------------------.  ,----------------------------------.
- * 01 |   1  |   2  |  3   |  4   |  5   |  | 6    | 7    | 8    | 9    | 0    |
- *    |------+------+------+------+------|  |------+------+------+------+------|
- * 02 |  ^   |   !  |  =   |   0  | $    |  |   #  |  1   | -    |  +   |  `   |
- *    |------+------+------+------+------|  |------+------+------+------+------|
- * 03 |  \   |   %  |   @  |  |   |  _   |  |   *  |  &   |  ~   |  .   |  /   |
- *    `----------------------------------'  `----------------------------------'
- Memnonics
- ^begining end$ .   &&/|| on strong finger.  #at start of line.  * missing? 
- Minus is left of plus as normal. ` is a shifted ''
- ~/ is an outwards roll. / * is a roll. 
- _ is hard to get to. 
-
- */
-#define __________40_______NUM_L1__________________       ________________NUMBER_LEFT________________
-#define __________40_______NUM_L2__________________       KC_CIRC,  KC_EXLM, KC_EQL,  KC_0,    KC_DLR 
-#define __________40_______NUM_L3__________________       KC_BSLS,  KC_PERC, KC_AT,   KC_PIPE, KC_UNDS
-  
-#define __________40_______NUM_R1__________________       ________________NUMBER_RIGHT_______________
-#define __________40_______NUM_R2__________________       KC_HASH,  KC_KP_1, KC_MINS, KC_PLUS, KC_GRAVE
-#define __________40_______NUM_R3__________________       KC_PERC,  KC_TILDE, KC_AMPR,KC_DOT,  KC_SLASH
- 
-
-#define _________________ADJUST_L1_________________        RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_TOG
-#define _________________ADJUST_L2_________________        MU_TOG , CK_TOGG, AU_ON,   AU_OFF,  AG_NORM
-#define _________________ADJUST_L3_________________        RGB_RMOD,RGB_HUD,RGB_SAD, RGB_VAD, KC_RGB_T
-
-#define _________________ADJUST_R1_________________        KC_SEC1, KC_SEC2, KC_SEC3, KC_SEC4, KC_SEC5
-#define _________________ADJUST_R2_________________        AG_SWAP, QWERTY,  COLEMAK, DVORAK,  WORKMAN
-#define _________________ADJUST_R3_________________        MG_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT
-
-

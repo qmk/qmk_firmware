@@ -27,6 +27,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         Prime_E
 #define DESCRIPTION     Ergo_45
 
+#undef MATRIX_ROWS 
+#undef MATRIX_COLS 
+#undef MATRIX_ROW_PINS
+#undef MATRIX_COL_PINS
+
 /* key matrix size */
 #define MATRIX_ROWS 5 
 #define MATRIX_COLS 15
@@ -42,3 +47,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
+
+// 
+#define USE_BABBLEPASTE

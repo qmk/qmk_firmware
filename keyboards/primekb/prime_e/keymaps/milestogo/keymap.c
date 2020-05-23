@@ -14,82 +14,84 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "milestogo.h"
 
-enum mlayers {
-_QWERTY=0, 
-_CDH, 
-_SYM,
-_NUM,
-_MOV,
-};
+/* customized matrix needs to be updated in local config.h
+#define MATRIX_ROWS 5 
+#define MATRIX_COLS 15
+#define MATRIX_ROW_PINS { E6, C7, B5, B4, C6 }
+#define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, D6, D4, D5, D3, D2, D1, D0, B6, D7} 
+*/
 
 
-#define MLAYOUT( \
+#define LAYOUT_m2primee( \
 	K000, K001, K002, K003, K004, K005,  		K006, K007, K008, K009, K010, K011, K012, \
-	K100, K101, K102, K103, K104, K105,  		K106, K107, K108, K109, K110, K112, \
+	K100, K101, K102, K103, K104, K105,  		K106, K107, K108, K109, K110,       K112, \
 	K200, K201, K202, K203, K204, K205,  		K206, K207, K208, K209, K210, K211, K212, \
-	K300, K301,  			K303, K304,  		K306, K308, 				K311, K312,\
-                                    K413, K414 \
+	K300, K301,  		        K303, K304,  		K306, K308, 		              K311, K312, \
+                                K413,     K414 \
 ) { \
 	{ K000,  K001,  K002,  K003,  K004,  K005,  K006,  K007,  K008,  K009,  K010,  K011,  K012, KC_NO, KC_NO }, \
 	{ K100,  K101,  K102,  K103,  K104,  K105,  K106,  K107,  K108,  K109,  K110,  KC_NO, K112, KC_NO, KC_NO }, \
 	{ K200,  K201,  K202,  K203,  K204,  K205,  K206,  K207,  K208,  K209,  K210,  K211,  K212, KC_NO, KC_NO }, \
 	{ K300,  K301,  KC_NO, K303,  K304,  KC_NO, K306,  KC_NO, K308,  KC_NO, KC_NO, K311,  K312, KC_NO, KC_NO }, \
-  { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,K413,  K414  }\
+	{ KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,K413,  K414  } \
 }
 
 
+#define LAYOUT_m2primee_trns( \
+        K001, K002, K003, K004, K005,     K006, K007, K008, K009, K010, K011, K012, \
+        K101, K102, K103, K104, K105,     K106, K107, K108, K109, K110,       K112, \
+        K201, K202, K203, K204, K205,     K206, K207, K208, K209, K210, K211 \
+) { \
+  { KC_TAB,   K001,  K002,  K003,  K004,  K005,  K006,  K007,  K008,  K009,  K010,  K011,  K012, KC_NO, KC_NO }, \
+  { KC_LCTL,  K101,  K102,  K103,  K104,  K105,  K106,  K107,  K108,  K109,  K110,  KC_NO, K112, KC_NO, KC_NO }, \
+  { KC_LSFT,  K201,  K202,  K203,  K204,  K205,  K206,  K207,  K208,  K209,  K210,  K211,  KC_TRNS, KC_NO, KC_NO }, \
+  { KC_LALT,  KC_TRNS,  KC_NO, KC_TRNS,  KC_TRNS,  KC_NO, KC_TRNS,  KC_NO, KC_TRNS,  KC_NO, KC_NO, KC_TRNS,  KC_RSFT, KC_NO, KC_NO }, \
+  { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,KC_TRNS,  KC_TRNS  } \
+}
+
+
+#define LAYOUT_wrap_m2primee(...)       LAYOUT_m2primee(__VA_ARGS__)
+#define LAYOUT_wrap_m2primee_trns(...)       LAYOUT_m2primee_trns(__VA_ARGS__)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-   [_QWERTY]=MLAYOUT(
-		KC_GRAVE, KC_Q,     KC_W,     KC_E,   KC_R,    KC_T,          KC_Y,   KC_U,     KC_I, KC_O,    KC_P,    KC_MINS, KC_EQL,
-		KC_TAB,   KC_A,     KC_S,     KC_D,   KC_F,    KC_G,          KC_H,   KC_J,     KC_K, KC_L,    KC_SCLN, KC_1,
-		KC_LSFT,  KC_Z,     KC_X,     KC_C,   KC_V,    KC_B,          KC_RCTL,KC_N,     KC_M, KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-		KC_LALT,  MO(_MOV),                LT(_NUM,KC_DEL), LT(_SYM,KC_BSPC),	          KC_SPC, LT(_NUM,KC_ESC), MO(_MOV),KC_RALT,
+   [_QWERTY]=LAYOUT_wrap_m2primee(
+		KC_GRAVE, _________________QWERTY_L1_________________,       _________________QWERTY_R1_________________,   KC_MINS, KC_EQL,
+		KC_TAB,   _________________QWERTY_L2_________________,       _________________QWERTY_R2_________________,   KC_QUOT,
+		KC_LSFT,  _________________QWERTY_L3_________________,       _________________QWERTY_R3_________________,   KC_SLSH, KC_RSFT,
+		KC_LALT,  MO(_MOV),          LT(_NUM,KC_DEL), LT(_SYM,KC_BSPC),	          KC_SPC, LT(_NUM,KC_ESC), MO(_MOV),KC_RALT,
     KC_LGUI,  KC_ENTER
     ),
 
- [_CDH]=MLAYOUT(
-    KC_ESC,   KC_Q,     KC_W,     KC_F,   KC_P,    KC_B,          KC_J,   KC_L,     KC_U, KC_Y,    KC_SCLN,  KC_TRNS, KC_TRNS,
-    KC_TAB,   KC_A,     KC_R,     KC_S,   KC_T,    KC_G,          KC_M,   KC_N,     KC_E, KC_I,    KC_O,     KC_TRNS,
-    KC_LSFT,  KC_Z,     KC_X,     KC_C,   KC_D,    KC_V,          KC_TRNS,KC_K,     KC_H, KC_COMM, KC_DOT,   KC_SLSH, KC_TRNS,
-    KC_TRNS,  KC_TRNS,                    KC_TRNS, KC_TRNS,       KC_TRNS,         KC_TRNS,                  KC_TRNS, KC_TRNS,
+ [_CDH]=LAYOUT_wrap_m2primee_trns(
+    ______________COLEMAK_MOD_DH_L1____________,        ______________COLEMAK_MOD_DH_R1____________, KC_TRNS, KC_TRNS, \
+    ______________COLEMAK_MOD_DH_L2____________,        ______________COLEMAK_MOD_DH_R2____________,  KC_QUOT, \
+    ______________COLEMAK_MOD_DH_L3____________,        ______________COLEMAK_MOD_DH_R3____________, KC_TRNS
+    ),
+
+ [_SYM]=LAYOUT_wrap_m2primee_trns(
+      ______________COLEMAK_MOD_DH_L1____________,        ______________COLEMAK_MOD_DH_R1____________, KC_TRNS, KC_TRNS, \
+      ______________COLEMAK_MOD_DH_L2____________,        ______________COLEMAK_MOD_DH_R2____________,  KC_TRNS, \
+      ______________COLEMAK_MOD_DH_L3____________,        ______________COLEMAK_MOD_DH_R3____________, KC_TRNS
+    ),
+
+[_NUM]=  LAYOUT_wrap_m2primee( 
+    KC_TRNS, __________40_______NUM_L1__________________,                 __________40_______NUM_R1__________________,    KC_VOLD, KC_VOLU,
+    KC_TRNS,  __________40_______NUM_L2__________________ ,                __________40_______NUM_R2__________________ ,   KC_ENT,
+    KC_TRNS,  __________40_______NUM_L3__________________ ,                __________40_______NUM_R3__________________ ,  KC_SLSH,  KC_TRNS,
+    KC_TRNS,  KC_TRNS,                         KC_LSFT,    KC_TRNS,        KC_TRNS,   KC_TRNS,                        KC_TRNS,  KC_TRNS,
     KC_TRNS,  KC_TRNS
     ),
 
-
-[_SYM]=  MLAYOUT(
-    KC_GRV,    KC_EXLM,   KC_AT,   KC_HASH,   KC_DLR,    KC_PERC,          KC_CIRC,   KC_AMPR,    KC_ASTR,     KC_LPRN,   KC_RPRN,   KC_UNDS,   KC_PLUS,
-    KC_CAPS,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,          KC_LBRC,  KC_LCBR,   KC_PIPE,     KC_RCBR,  KC_RBRC,   KC_BSLS,
-    KC_TRNS,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,          KC_NO,  KC_BSLS,   KC_NO,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
-    BL_TOGG,   BL_STEP,                         KC_TRNS,    KC_TRNS,          KC_TRNS,   KC_TILDE,                                     KC_TRNS,   KC_TRNS,
-    KC_TRNS, KC_TRNS
-    ),
-
-[_NUM]=  MLAYOUT( 
-    TG(_CDH),  KC_1,      KC_2,      KC_3,      KC_4,       KC_5,             KC_6,      KC_7,     KC_8,    KC_9,    KC_0,      KC_VOLD, KC_VOLU,
-    KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS,          KC_TRNS,   KC_P4,    KC_P5,   KC_P6,   KC_LBRC,   KC_RBRC,
-    KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS,          KC_TRNS,   KC_P1,    KC_P2,   KC_P3,   KC_TRNS,   KC_TRNS,  KC_TRNS,
-    KC_TRNS,  KC_TRNS,                         KC_LSFT,    KC_TRNS,          KC_TRNS,   KC_TRNS,                        KC_TRNS,  KC_TRNS,
-    KC_TRNS,  KC_TRNS
-    ),
-
-[_MOV]=MLAYOUT(
-    KC_GRV,    KC_TRNS,   KC_MS_BTN1,KC_MS_U,   KC_MS_BTN2, KC_MS_BTN3,          KC_TRNS,   KC_TRNS,    KC_UP,     KC_TRNS,   KC_MUTE,   KC_VOLD,   KC_VOLU,
-    KC_CAPS,   KC_WH_D,   KC_MS_L,   KC_MS_D,   KC_MS_R,    KC_WH_U,          KC_TRNS,   KC_LEFT,    KC_DOWN,   KC_RIGHT,  KC_SCLN,   KC_BSLS,
-    KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS,          KC_TRNS,   KC_TRNS,    KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
-    BL_TOGG,   BL_STEP,                         KC_TRNS,    KC_TRNS,          KC_TRNS,   KC_TRNS,                             KC_TRNS,   KC_TRNS,
-    KC_TRNS, KC_TRNS
+[_MOV]=LAYOUT_wrap_m2primee_trns(
+      __________40_______MOV_L1__________________,        __________40_______MOV_R1__________________, KC_TRNS, KC_CDH, \
+      __________40_______MOV_L2__________________,        __________40_______MOV_R2__________________,  KC_TRNS, \
+      __________40_______MOV_L3__________________,        __________40_______MOV_R3__________________, KC_TRNS
     ),
 };
-/*
-    LAYOUT(
-    KC_TRNS,  KC_1,      KC_2,      KC_3,      KC_4,       KC_5,             KC_6,      KC_7,     KC_8,    KC_9,    KC_0,      KC_MINS,  KC_EQL,
-    KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS,          KC_TRNS,   KC_P4,    KC_P5,   KC_P6,   KC_LBRC,   KC_RBRC,
-    KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS,          KC_TRNS,   KC_P1,    KC_P2,   KC_P3,   KC_TRNS,   KC_TRNS,  KC_TRNS,
-    KC_TRNS,  KC_TRNS,                         KC_TRNS,    KC_TRNS,          KC_PENT,   KC_PDOT,                               KC_TRNS,  KC_TRNS
-    ),
 
-*/ 
+
 void matrix_init_user(void) {
   // set CapsLock LED to output and high by default, drop low when on. 
   setPinOutput(B1);

@@ -9,6 +9,8 @@ __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *
 bool move_is_on = false;  // track if we are in _MOV layer
 bool sym_is_on  = false;  // track if we are in _SYM layer
 
+
+
 // Defines actions for global custom keycodes
 // Then runs the _keymap's record handier if not processed here
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -24,14 +26,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 #endif
 
-    switch (keycode) {
-        case _QWERTY:
+        switch (keycode) {
+        case KC_QWERTY:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_QWERTY);
             }
             break;
 
-        case _CDH:
+        case KC_CDH:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_CDH);
             }
