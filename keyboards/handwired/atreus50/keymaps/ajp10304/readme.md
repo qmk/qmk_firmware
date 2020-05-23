@@ -1,10 +1,13 @@
 # AJP10304 Custom Atreus50 Layout
-# Also available for the Planck and JJ40
+# Also available for the Planck, Shark and JJ40
 
 **Note:** In the tables below where there are two characters on a key,
 the second is the output when shift is applied.
 
 **Note:** The below tables assume a UK layout.
+
+####Flashing
+teensy_loader_cli -w -mmcu=atmega32u4 handwired_atreus50_ajp10304.hex
 
 ##### Main Qwerty Layer
 
@@ -104,5 +107,3 @@ Activated when `fn` and `raise` held together.
 |       |      |      |      |      |      | Ctrl | Alt  |      |      |      |      |      |      |
 
 
-##Program Command
-teensy_loader_cli -w -mmcu=atmega32u4 handwired_atreus50_ajp10304.hex
