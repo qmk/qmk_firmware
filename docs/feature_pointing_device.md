@@ -31,7 +31,7 @@ case MS_SPECIAL:
     if (record->event.pressed) {
         currentReport.v = 127;
         currentReport.h = 127;
-        currentReport.buttons |= MOUSE_BTN1; //this is defined in report.h
+        currentReport.buttons |= MOUSE_BTN1;  // this is defined in report.h
     } else {
         currentReport.v = -127;
         currentReport.h = -127;
