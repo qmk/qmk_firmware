@@ -1,11 +1,11 @@
 # スワップハンドアクション
 
 <!---
-  original document: 0.8.147:docs/feature_swap_hands.md
-  git diff 0.8.147 HEAD -- docs/feature_swap_hands.md | cat
+  original document: 0.8.177:docs/feature_swap_hands.md
+  git diff 0.8.177 HEAD -- docs/feature_swap_hands.md | cat
 -->
 
-スワップハンドアクションにより、別のレイヤーを必要とせずに片手入力をサポートします。Makefile に `SWAP_HANDS_ENABLE` を設定し、キーマップに `hand_swap_config` エントリを定義します。これで `ACTION_SWAP_HANDS` コマンドキーが押されるたびにキーボードがミラーされます。例えば、QWERTY で "Hello, World" を入力するには、`^Ge^s^s^w^c W^wr^sd` を入力します
+スワップハンドアクションにより、別のレイヤーを必要とせずに片手入力をサポートします。Makefile に `SWAP_HANDS_ENABLE` を設定し、キーマップに `hand_swap_config` エントリを定義します。これで `ACTION_SWAP_HANDS` コマンドキーが押されるたびにキーボードがミラーされます。例えば、QWERTY で "Hello, World" を入力するには、`^Ge^s^s^w^c W^wr^sd` を入力します。
 
 ## 設定
 
@@ -20,7 +20,7 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 };
 ```
 
-配列のインデックスはマトリックスと同様に逆になり、値の型は `{col, row}` である `keypos_t` で、全ての値はゼロベースであることに注意してください。上の例では、`hand_swap_config[2][4]` (3行, 4列)は `{7, 2}` (3行, 8列) を返します。はい。紛らわしいです。
+配列のインデックスはマトリックスと同様に逆になり、値の型は `{col, row}` である `keypos_t` で、全ての値はゼロベースであることに注意してください。上の例では、`hand_swap_config[2][4]` (3行, 5列)は `{7, 2}` (3行, 8列) を返します。はい。紛らわしいです。
 
 ## キーコードの入れ替え
 
@@ -32,4 +32,6 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 | `SH_MON` | 押すとスワップハンドし、放すと通常に戻る (一時的)。 |
 | `SH_MOFF` | 一時的に入れ替えをオフする。 |
 | `SH_TG` | キーを押すたびに入れ替えのオンとオフを切り替える。 |
-| `SH_TT` | タップで切り替える。押されている時の一時的なもの。 |
+| `SH_TT` | 連続タップで切り替える。押すとスワップハンドし、放すと通常に戻る。 |
+| `SH_OS` | ワンショットスワップハンド: 押されている時あるいは次のキーを押すまで切り替える。 |
+訳注）`SH_TT` の連続タップの回数は、デフォルトでは5回となっています。回数を変更するときは、`config.h` に `#define TAPPING_TOGGLE 3` のように設定します。
