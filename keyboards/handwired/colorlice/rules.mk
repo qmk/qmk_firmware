@@ -17,7 +17,11 @@ BOOTLOADER = atmel-dfu
 BOOTMAGIC_ENABLE = yes      # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
+<<<<<<< HEAD
+CONSOLE_ENABLE = yes        # Console for debug
+=======
 CONSOLE_ENABLE = no         # Console for debug
+>>>>>>> 5acb7e37072d924cf38c8f43ec89aa9b8e2e8541
 COMMAND_ENABLE = no         # Commands for debug and configuration
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
@@ -30,6 +34,13 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no         # Enable support for HD44780 based LCDs
+<<<<<<< HEAD
+LTO_ENABLE = yes            # Use link time optimization
+RGB_MATRIX_ENABLE = WS2812  # Enable keyboard RGB backlight functionality with ws2812 driver
+RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
+NO_USB_STARTUP_CHECK = no   # Disable initialization only when usb is plugged in
+=======
 LTO_ENABLE = no             # Use link time optimization
 RGB_MATRIX_ENABLE = WS2812  # Enable keyboard RGB backlight functionality with ws2812 driver
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
+>>>>>>> 5acb7e37072d924cf38c8f43ec89aa9b8e2e8541
