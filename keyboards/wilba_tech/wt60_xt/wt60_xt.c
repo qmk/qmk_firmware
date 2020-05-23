@@ -63,7 +63,7 @@ bool led_update_kb(led_t led_state) {
 #ifdef AUDIO_ENABLE
     static led_t old_led_state = { .raw = 0 };
 
-    _delay_ms(10); // gets rid of tick
+    wait_ms(10); // gets rid of tick
 
     if (!is_playing_notes())
     {
