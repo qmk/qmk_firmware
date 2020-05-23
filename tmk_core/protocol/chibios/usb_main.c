@@ -469,7 +469,7 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
 #endif /* NKRO_ENABLE */
                                 /* arm the idle timer if boot protocol & idle */
                                 osalSysLockFromISR();
-                                chVTSetI(&keyboard_idle_timer, 4 * MS2ST(keyboard_idle), keyboard_idle_timer_cb, (void *)usbp);
+                                chVTSetI(&keyboard_idle_timer, 4 * TIME_MS2I(keyboard_idle), keyboard_idle_timer_cb, (void *)usbp);
                                 osalSysUnlockFromISR();
                             }
                         }
@@ -486,7 +486,7 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
                         if (keyboard_idle) {
 #endif /* NKRO_ENABLE */
                             osalSysLockFromISR();
-                            chVTSetI(&keyboard_idle_timer, 4 * MS2ST(keyboard_idle), keyboard_idle_timer_cb, (void *)usbp);
+                            chVTSetI(&keyboard_idle_timer, 4 * TIME_MS2I(keyboard_idle), keyboard_idle_timer_cb, (void *)usbp);
                             osalSysUnlockFromISR();
                         }
                         usbSetupTransfer(usbp, NULL, 0, NULL);
@@ -601,7 +601,7 @@ static void keyboard_idle_timer_cb(void *arg) {
             usbStartTransmitI(usbp, KEYBOARD_IN_EPNUM, (uint8_t *)&keyboard_report_sent, KEYBOARD_EPSIZE);
         }
         /* rearm the timer */
-        chVTSetI(&keyboard_idle_timer, 4 * MS2ST(keyboard_idle), keyboard_idle_timer_cb, (void *)usbp);
+        chVTSetI(&keyboard_idle_timer, 4 * TIME_MS2I(keyboard_idle), keyboard_idle_timer_cb, (void *)usbp);
     }
 
     /* do not rearm the timer if the condition above fails
@@ -700,7 +700,7 @@ void send_mouse(report_mouse_t *report) {
          * every iteration - otherwise the system will remain locked,
          * no interrupts served, so USB not going through as well.
          * Note: for suspend, need USB_USE_WAIT == TRUE in halconf.h */
-        if (osalThreadSuspendTimeoutS(&(&USB_DRIVER)->epc[MOUSE_IN_EPNUM]->in_state->thread, MS2ST(10)) == MSG_TIMEOUT) {
+        if (osalThreadSuspendTimeoutS(&(&USB_DRIVER)->epc[MOUSE_IN_EPNUM]->in_state->thread, TIME_MS2I(10)) == MSG_TIMEOUT) {
             osalSysUnlock();
             return;
         }
@@ -732,7 +732,7 @@ void shared_in_cb(USBDriver *usbp, usbep_t ep) {
  */
 
 #ifdef EXTRAKEY_ENABLE
-static void send_extra_report(uint8_t report_id, uint16_t data) {
+static void send_extra(uint8_t report_id, uint16_t data) {
     osalSysLock();
     if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
         osalSysUnlock();
@@ -744,15 +744,19 @@ static void send_extra_report(uint8_t report_id, uint16_t data) {
     usbStartTransmitI(&USB_DRIVER, SHARED_IN_EPNUM, (uint8_t *)&report, sizeof(report_extra_t));
     osalSysUnlock();
 }
+#endif
 
-void send_system(uint16_t data) { send_extra_report(REPORT_ID_SYSTEM, data); }
+void send_system(uint16_t data) {
+#ifdef EXTRAKEY_ENABLE
+    send_extra(REPORT_ID_SYSTEM, data);
+#endif
+}
 
-void send_consumer(uint16_t data) { send_extra_report(REPORT_ID_CONSUMER, data); }
-
-#else  /* EXTRAKEY_ENABLE */
-void send_system(uint16_t data) { (void)data; }
-void send_consumer(uint16_t data) { (void)data; }
-#endif /* EXTRAKEY_ENABLE */
+void send_consumer(uint16_t data) {
+#ifdef EXTRAKEY_ENABLE
+    send_extra(REPORT_ID_CONSUMER, data);
+#endif
+}
 
 /* ---------------------------------------------------------
  *                   Console functions

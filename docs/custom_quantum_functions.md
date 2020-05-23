@@ -4,7 +4,7 @@ For a lot of people a custom keyboard is about more than sending button presses 
 
 This page does not assume any special knowledge about QMK, but reading [Understanding QMK](understanding_qmk.md) will help you understand what is going on at a more fundamental level.
 
-## A Word on Core vs Keyboards vs Keymap
+## A Word on Core vs Keyboards vs Keymap :id=a-word-on-core-vs-keyboards-vs-keymap
 
 We have structured QMK as a hierarchy:
 
@@ -34,7 +34,7 @@ enum my_keycodes {
 };
 ```
 
-## Programming the Behavior of Any Keycode
+## Programming the Behavior of Any Keycode :id=programming-the-behavior-of-any-keycode
 
 When you want to override the behavior of an existing key, or define the behavior for a new key, you should use the `process_record_kb()` and `process_record_user()` functions. These are called by QMK during key processing before the actual key event is handled. If these functions return `true` QMK will process the keycodes as usual. That can be handy for extending the functionality of a key rather than replacing it. If these functions return `false` QMK will skip the normal key handling, and it will be up to you to send any key up or down events that are required.
 
@@ -313,7 +313,7 @@ void suspend_wakeup_init_user(void) {
 * Keyboard/Revision: `void suspend_power_down_kb(void)` and `void suspend_wakeup_init_user(void)`
 * Keymap: `void suspend_power_down_kb(void)` and `void suspend_wakeup_init_user(void)`
 
-# Layer Change Code
+# Layer Change Code :id=layer-change-code
 
 This runs code every time that the layers get changed.  This can be useful for layer indication, or custom layer handling.
 

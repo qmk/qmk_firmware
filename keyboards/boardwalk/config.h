@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xCDCD
 #define PRODUCT_ID      0x5337
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    shens
+#define MANUFACTURER    shensmobile
 #define PRODUCT         Boardwalk
 #define DESCRIPTION     QMK keyboard firmware for Boardwalk
 
