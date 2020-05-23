@@ -6,9 +6,9 @@ WT60-XT is a keyboard PCB supporting 60% layout with left side macro keys. [More
 
 First produced as WT60-XT JUBI for ION Keyboards JUBI.
 
-Keyboard Maintainer: [Wilba6582](https://github.com/Wilba6582)  
-Hardware Supported: wilba.tech WT60-XT  
-Hardware Availability: Custom keyboard group buys
+* Keyboard Maintainer: [Wilba6582](https://github.com/Wilba6582)
+* Hardware Supported: wilba.tech WT60-XT
+* Hardware Availability: Custom keyboard group buys
 
 Make example for this keyboard (after setting up your build environment):
 
