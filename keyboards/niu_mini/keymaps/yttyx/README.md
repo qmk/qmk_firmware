@@ -20,7 +20,7 @@ sudo dfu-programmer atmega32u4 launch
 ## Layers
 
 ### Balance 12 base (BA) layer
-![Base layer](https://i.imgur.com/Qka8zUl.png)
+![Base layer](https://i.imgur.com/I0TkIHT.png)
 
 ### Numeric/Punctuation (NP) layer
 ![Numeric/Punctuation layer](https://i.imgur.com/GgZ0PCq.png)
