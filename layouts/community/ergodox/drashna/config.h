@@ -30,3 +30,6 @@
 #        undef RGBLIGHT_SLEEP
 #    endif
 #endif
+
+#define PIMORONI_TRACKBALL_INVERT_X
+#define PIMORONI_TRACKBALL_INVERT_Y
