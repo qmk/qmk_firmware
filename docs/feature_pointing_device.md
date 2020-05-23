@@ -27,20 +27,17 @@ In the following example, a custom key is used to click the mouse and scroll 127
 
 ```c
 case MS_SPECIAL:
-	report_mouse_t currentReport = pointing_device_get_report();
-    if (record->event.pressed)
-    {
+    report_mouse_t currentReport = pointing_device_get_report();
+    if (record->event.pressed) {
         currentReport.v = 127;
-		currentReport.h = 127;
-		currentReport.buttons |= MOUSE_BTN1; //this is defined in report.h
-    }
-    else
-    {
+        currentReport.h = 127;
+        currentReport.buttons |= MOUSE_BTN1;  // this is defined in report.h
+    } else {
         currentReport.v = -127;
         currentReport.h = -127;
         currentReport.buttons &= ~MOUSE_BTN1;
     }
-	pointing_device_set_report(currentReport);
+    pointing_device_set_report(currentReport);
     break;
 ```
 
