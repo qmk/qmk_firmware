@@ -8,13 +8,6 @@ enum layer_names {
     _ADJUST
 };
 
-enum custom_keycodes {
-  RSTHD = SAFE_RANGE,
-  LOWER,
-  RAISE,
-  ADJUST
-};
-
 enum combo_events {
   TOP_L,
   TOP_R,
