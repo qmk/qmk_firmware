@@ -19,6 +19,15 @@
 #define M_R23 LCA(KC_T)
 #define M_R13 LCA(KC_G)
 
+#define M_1_6 LCA(KC_1)
+#define M_2_6 LCA(KC_2)
+#define M_3_6 LCA(KC_3)
+#define M_4_6 LCA(KC_4)
+#define M_5_6 LCA(KC_5)
+#define M_6_6 LCA(KC_6)
+#define M_L_56 LCA(KC_COMM)
+#define M_R_56 LCA(KC_DOT)
+
 #define M_NEXT LCAG(KC_RGHT)
 #define M_PREV LCAG(KC_LEFT)
 
@@ -32,14 +41,17 @@
 #define TXT_MIN LGUI(KC_MINS)
 #define SC_CAPF LGUI(LSFT(KC_3))  // Capture the full screen to file
 #define SC_CAPP LGUI(LSFT(KC_4))  // Capture portion of screen to file
+#define CUT LGUI(KC_X)
+#define COPY LGUI(KC_C)
+#define PASTE LGUI(KC_V)
  
 // Special Layer keycodes
 #define ESC_NUM LT(_NUMBER, KC_ESC)
-#define BSP_REG LT(_REGEX, KC_BSPC)
-#define DEL_REG LT(_REGEX, KC_DEL)
-#define MIN_ARR LT(_ARRANGE, KC_MINS)
+#define BSP_SYM LT(_SYMBOL, KC_BSPC)
+#define DEL_SYM LT(_SYMBOL, KC_DEL)
 #define TAB_SFT LSFT_T(KC_TAB)
-#define SPC_SYM LT(_SYMBOL, KC_SPC)
+#define MIN_ARR LT(_ARRANGE, KC_MINS)
+#define SPC_NAV LT(_NAV, KC_SPC)
 #define ENT_THU LT(_THUMB, KC_ENT)
 #define FUN_L MO(_FUNCTION)
 
