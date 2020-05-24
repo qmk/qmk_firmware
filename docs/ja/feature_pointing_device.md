@@ -1,8 +1,8 @@
 # ポインティングデバイス :id=pointing-device
 
 <!---
-  original document: 0.8.141:docs/feature_pointing_device.md
-  git diff 0.8.141 HEAD -- docs/feature_pointing_device.md | cat
+  original document: 0.8.182:docs/feature_pointing_device.md
+  git diff 0.8.182 HEAD -- docs/feature_pointing_device.md | cat
 -->
 
 ポインティングデバイスは汎用的な機能の総称です: システムポインタを移動します。マウスキーのような他のオプションも確かにありますが、これは簡単に変更可能で軽量であることを目指しています。機能を制御するためにカスタムキーを実装したり、他の周辺機器から情報を収集してここに直接挿入したりできます - QMK に処理を任せてください。
@@ -33,14 +33,11 @@ report_mouse_t (ここでは "mouseReport") が以下のプロパティを持つ
 ```c
 case MS_SPECIAL:
 	report_mouse_t currentReport = pointing_device_get_report();
-    if (record->event.pressed)
-    {
+    if (record->event.pressed) {
         currentReport.v = 127;
-		currentReport.h = 127;
-		currentReport.buttons |= MOUSE_BTN1; //this is defined in report.h
-    }
-    else
-    {
+        currentReport.h = 127;
+        currentReport.buttons |= MOUSE_BTN1;  // this is defined in report.h
+    } else {
         currentReport.v = -127;
         currentReport.h = -127;
         currentReport.buttons &= ~MOUSE_BTN1;
