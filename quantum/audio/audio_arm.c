@@ -32,13 +32,10 @@ float frequency     = 0;
 float frequency_alt = 0;
 int   volume        = 0;
 long  position      = 0;
-systime_t last_note_played_at;
 
 float frequencies[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 int   volumes[8]     = {0, 0, 0, 0, 0, 0, 0, 0};
 bool  sliding        = false;
-bool dac_on          = true;
-virtual_timer_t play_note_timer;
 
 float place = 0;
 
@@ -81,24 +78,15 @@ bool     glissando      = true;
 float startup_song[][2] = STARTUP_SONG;
 
 static void gpt_cb8(GPTDriver *gptp);
-static bool should_shutoff_dac(void);
-static void shutoff_dac(void);
-static void shutoff_dac_callback(void *arg);
 
-#define PLAY_NOTE_TIMEOUT TIME_MS2I(5)
 #define DAC_BUFFER_SIZE 100
 #ifndef DAC_SAMPLE_MAX
 #    define DAC_SAMPLE_MAX 65535U
 #endif
 
-#define START_CHANNEL_1() dacStart(&DACD1, &dac1cfg1); \
-  dacStart(&DACD2, &dac1cfg2); \
-  dacStartConversion(&DACD1, &dacgrpcfg1, (dacsample_t *)dac_buffer, DAC_BUFFER_SIZE); \
-  dacStartConversion(&DACD2, &dacgrpcfg2, (dacsample_t *)dac_buffer_2, DAC_BUFFER_SIZE); \
-  dac_on = true; \
-  gptStart(&GPTD6, &gpt6cfg1); \
-  gptStartContinuous(&GPTD6, 2U); \
-  palSetPadMode(GPIOA, 5, PAL_MODE_INPUT_ANALOG);
+#define START_CHANNEL_1()        \
+    gptStart(&GPTD6, &gpt6cfg1); \
+    gptStartContinuous(&GPTD6, 2U)
 #define START_CHANNEL_2()        \
     gptStart(&GPTD7, &gpt7cfg1); \
     gptStartContinuous(&GPTD7, 2U)
@@ -387,13 +375,11 @@ float vibrato(float average_freq) {
 }
 
 #endif
+
 static void gpt_cb8(GPTDriver *gptp) {
     float freq;
 
     if (playing_note) {
-        last_note_played_at = chVTGetSystemTime();
-        chVTReset(&play_note_timer);
-        chVTSet(&play_note_timer, PLAY_NOTE_TIMEOUT, shutoff_dac_callback, NULL);
         if (voices > 0) {
             float freq_alt = 0;
             if (voices > 1) {
@@ -501,7 +487,6 @@ static void gpt_cb8(GPTDriver *gptp) {
     }
 
     if (playing_notes) {
-        last_note_played_at = chVTGetSystemTime();
         if (note_frequency > 0) {
 #ifdef VIBRATO_ENABLE
             if (vibrato_strength > 0) {
@@ -577,26 +562,6 @@ static void gpt_cb8(GPTDriver *gptp) {
         playing_notes = false;
         playing_note  = false;
     }
-
-    if(should_shutoff_dac()) {
-        shutoff_dac();
-    }
-}
-
-bool should_shutoff_dac() { return TIME_MS2I(chVTTimeElapsedSinceX(last_note_played_at)) > 5 && dac_on; }
-
-void shutoff_dac() {
-    dacStopConversion(&DACD2);
-    dacStop(&DACD2);
-    palSetPadMode(GPIOA, 5, PAL_MODE_OUTPUT_PUSHPULL );
-    palSetPad(GPIOA, 5);
-    dac_on = false;
-}
-
-void shutoff_dac_callback(void *args) {
-  if(!playing_note) {
-    shutoff_dac();
-  }
 }
 
 void play_note(float freq, int vol) {
@@ -626,8 +591,6 @@ void play_note(float freq, int vol) {
         gptStartContinuous(&GPTD8, 2U);
         RESTART_CHANNEL_1();
         RESTART_CHANNEL_2();
-        chVTReset(&play_note_timer);
-        chVTSet(&play_note_timer, PLAY_NOTE_TIMEOUT, shutoff_dac_callback, NULL);
     }
 }
 
