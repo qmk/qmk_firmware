@@ -42,7 +42,6 @@ enum userspace_layers {
     _NUM
 };
 
-
 /*
 define modifiers here, since MOD_* doesn't seem to work for these
  */
@@ -171,7 +170,7 @@ enum userspace_custom_keycodes {
 
 /* SYM  / excel / programming logic +=1 optimization*/
 /*    ,----------------------------------.  ,----------------------------------.
- * 01 |      |   [  |  ]   |  {   |      |  |      |  }   | (    | )    |      |
+ * 01 |      |   [  |  ]   |  {   |  }   |  |  {   |  }   | (    | )    |      |
  *    |------+------+------+------+------|  |------+------+------+------+------|
  * 02 |  ^   |   !  |  =   |   0  | $    |  |   #  |  1   | -    |  +   |  `   |
  *    |------+------+------+------+------|  |------+------+------+------+------|
@@ -185,13 +184,13 @@ enum userspace_custom_keycodes {
  ~/ is an outwards roll. / .* is a roll. !=0 is a roll , ++1 --1 roll. 
  _ is hard to get to. 
  */
-#define ___________________SYM_L1__________________       XXXXXXX, KC_LBRC, KC_RBRC, KC_LCBR, XXXXXXX
+#define ___________________SYM_L1__________________       XXXXXXX, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR
 #define ___________________SYM_L2__________________       KC_CIRC,  KC_EXLM, KC_EQL,  KC_0,    KC_DLR 
 #define ___________________SYM_L3__________________       KC_BSLS,  KC_PERC, KC_AT,   KC_PIPE, KC_UNDS
   
-#define ___________________SYM_R1__________________       XXXXXXX,  KC_RCBR, KC_LPRN, KC_RPRN, XXXXXXX
-#define ___________________SYM_R2__________________       KC_HASH,  KC_KP_1, KC_MINS, KC_PLUS, KC_GRAVE
-#define ___________________SYM_R3__________________       KC_PERC,  KC_TILDE,KC_AMPR, KC_DOT,  KC_SLASH
+#define ___________________SYM_R1__________________       KC_LCBR,  KC_RCBR, KC_LPRN, KC_RPRN, XXXXXXX
+#define ___________________SYM_R2__________________       KC_HASH,  KC_1, KC_MINS, KC_PLUS, KC_GRAVE
+#define ___________________SYM_R3__________________       KC_ASTR,  KC_TILDE,KC_AMPR, KC_DOT,  KC_SLASH
 
 
 // Move and brackets - 40% optimization. 
@@ -200,17 +199,17 @@ enum userspace_custom_keycodes {
  *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
  * 02 |   [    |  (     |  Undo  |   )    |   ]    |  | WrdLft | Left   | Down   | Right  | WrdRght|
  *    |--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------|
- * 03 |        | Cut    | Copy   | Paste  | Paste  |  |        | Tab--  | NewTab | Tab++  |        |
+ * 03 |        | Cut    | Copy   | Paste  | Paste  |  | Linux  | Tab--  | NewTab | Tab++  |  MAC   |
  *    `--------------------------------------------'  `--------------------------------------------'
  */
 
 #define __________40_______MOV_L1__________________      KC_QWERTY, KC_LCBR,  B_FIND,  KC_RCBR, BL_DEC
 #define __________40_______MOV_L2__________________      KC_LBRC,KC_LPRN,B_UNDO, KC_RPRN, KC_RBRC
-#define __________40_______MOV_L3__________________      KC_NO, B_CUT,  B_COPY,  B_PASTE, B_PASTE
+#define __________40_______MOV_L3__________________      B_MODE, B_CUT,  B_COPY,  B_PASTE, B_PASTE
 
 #define __________40_______MOV_R1__________________       BL_INC ,  B_GSOL,   B_UP,    B_GEOL,   KC_CDH
 #define __________40_______MOV_R2__________________       B_L1W,   B_L1C,    B_DOWN,  B_R1C,   B_R1W
-#define __________40_______MOV_R3__________________       KC_NO,  B_PTAB,   B_NTAB,  B_NXTB,  KC_NO
+#define __________40_______MOV_R3__________________       B_LINUX,  B_PTAB,   B_NTAB,  B_NXTB,  B_MAC
 
 
 

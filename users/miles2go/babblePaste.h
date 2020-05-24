@@ -16,7 +16,8 @@ and jeebak & algernon's keymap
 void set_babble_mode(uint8_t id);
 void babble_mode_increment(void);
 void babble_mode_decrement(void);
-void babble_led_user(void);
+void babble_modeswitch_user(uint8_t mode);
+void babble_modeswitch_kb(uint8_t mode);
 
 // manually re-order these if you want to set the order or default.
 enum babble_modes {
@@ -26,14 +27,14 @@ enum babble_modes {
 #    ifdef BABL_READMUX
     BABL_READMUX_MODE,
 #    endif
+#    ifdef BABL_LINUX
+    BABL_LINUX_MODE,
+#    endif    
 #    ifdef BABL_WINDOWS
     BABL_WINDOWS_MODE,
 #    endif
 #    ifdef BABL_VI
     BABL_VI_MODE,
-#    endif
-#    ifdef BABL_LINUX
-    BABL_LINUX_MODE,
 #    endif
 #    ifdef BABL_EMACS
     BABL_EMACS_MODE,
@@ -44,7 +45,6 @@ enum babble_modes {
     BABL_MODEMAX
 };
 
-// void babble_led_user( uint8_t id)
 
 /// Hacks to make it easier to create sendstring macros
 
@@ -79,6 +79,11 @@ enum babble_modes {
 
 enum babble_keycodes {
     FIRST = BABBLE_START,
+#   ifdef BABL_MODSWAP
+    BABL_PRIMARY_OS_MOD,
+    BABL_SECONDARY_OS_MOD,
+    BABL_TERTIARY_OS_MOD,
+#   endif 
 #    ifdef BABL_MOVE
     // Movement macros
     // left & right
@@ -210,7 +215,7 @@ enum babble_keycodes {
 };
 
 // primary function.
-bool babblePaste(uint16_t keycode);
+bool babblePaste(uint16_t keycode, bool is_pressed);
 
 /****************************************************/
 /* All per-os includes and short mode switch macros*/
@@ -249,6 +254,12 @@ bool babblePaste_chromeos(uint16_t keycode);
 /****************************************************
 **    All keyboard macros for Babble Actions
 *****************************************************/
+
+#   ifdef BABL_MODSWAP
+#       define B_1ME BABL_PRIMARY_OS_MOD 
+#       define B_2ME BABL_SECONDARY_OS_MOD
+#       define B_3ME BABL_TERTIARY_OS_MOD
+#   endif
 
 #    ifdef BABL_MOVE
 #        define B_L1C BABL_GO_LEFT_1C

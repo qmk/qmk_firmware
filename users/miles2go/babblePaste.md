@@ -56,15 +56,15 @@ To switch modes, run the switch_babble_mode() function, or a pre defined BABL_DO
 
 Add the following to your keymap in process_record_user, before the main switch statement.
 ```
-  #ifdef USE_BABBLEPASTE
-       if( keycode > BABBLE_START && keycode < BABBLE_END_RANGE )  {
-          if (record->event.pressed)  { // is there a case where this isn't desired?
-            babblePaste ( keycode );
-          } else{
-            return true;
-          }
+#ifdef USE_BABBLEPASTE
+    if (keycode > BABBLE_START && keycode < BABBLE_END_RANGE) {
+        if (record->event.pressed) { 
+            babblePaste(keycode, 1);
+        } else {
+            babblePaste(keycode, 0);
         }
-  #endif
+    }
+#endif
 ```
 
 #### Add makefile rules
@@ -99,7 +99,14 @@ See the full list in babblePaste.h, or the list below
   B_EMAX //  switch mode to emacs
   B_READ // switch to readline /tmux mode
   B_CROM // switch to chromeos mode.
+  
+  // Swap meaning of modifier key in most ergonomic location based on babble // mode. Eg Thumb gets CTL on Win/Linux, pinky gets Windows key. Reverse for 
+  // OS X.  See first line in babblepaste function.   
+  #define B_1M BABL_PRIMARY_OS_MOD 
+  #define B_2M BABL_SECOND_OS_MOD
+  #define B_3M BABL_TERTIARY_OS_MOD
 
+// Macros
   #define B_L1C  BABL_GO_LEFT_1C
   #define B_R1C  BABL_GO_RIGHT_1C
   #define B_L1W  BABL_GO_LEFT_WORD
@@ -175,27 +182,48 @@ See the full list in babblePaste.h, or the list below
   #define B_PRVFM   BABL_PREV_FRAME
 ```
 
+####Add babblepaste functions to your keyboard or userspace
+Functions babble_led_user() and babble_led_kb() are called when babble mode is changed. 
+```
+void babble_modeswitch_kb(uint8_t mode){
+  #ifdef USE_BABBLEPASTE
+      writePinLow(B3);      writePinLow(B2);
+      switch(mode) {
+        case(BABL_LINUX_MODE):
+          writePinHigh(B2);
+          backlight_level(1);
+          break;
+        case(BABL_MAC_MODE):  
+          writePinHigh(B3);
+          backlight_level(4);
+          break;
+      }
+      // call the user function
+    babble_modeswitch_user(mode);
+  #endif
+```
+
+
 
 ## Development FAQs
 
 **Todos**
-eeprom store state of babble_mode? or update docs so that people can change the order of the enum in
-babblespace.h?
+eeprom store state of babble_mode? or update docs so that people can change the order of the enum in babblespace.h?
 
 **You have huge ifdef stanzas instead of functions**
 This fails gracefully if you don't have all options defined. Patch if you can think how to use fewer defines.
 
-** Why not an array of arrays as a lookup instead of a function?**
+**Why not an array of arrays as a lookup instead of a function?**
 This would allow you to store the lookup table in PROGMEM.
 True, but that takes more pre-processor skill than I have, and may be less portable to ARM or other flash mappings.
 
-** Have you tested every key on every platform?**
+**Have you tested every key on every platform?**
 No. Be careful, submit a patch.
 
-** Why not update Apps at the same global level as the OS? **
+**Why not update Apps at the same global level as the OS? **
 This is only a good thing if it doesn't confuse the user. If you can show state of OS vs App, it's probably a good thing.
 
-** Can the OS tell the keyboard what mode to use? **
+**Can the OS tell the keyboard what mode to use? **
 The keyboard side is easy to do with virtser_recv & a function that updates babble_mode. It still needs a PC side app to track where the keyboard focus is.
 One could use a keyboard macro to launch an app & switch modes for that app.
 

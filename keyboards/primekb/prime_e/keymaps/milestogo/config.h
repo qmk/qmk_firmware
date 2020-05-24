@@ -48,5 +48,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE 5
 
 
-// 
+// Babble config
 #define USE_BABBLEPASTE
+#define BABL_MODSWAP
+#define BABL_READMUX
+#define BABL_VI
+#define BABL_MAC
+#define BABL_LINUX
