@@ -45,14 +45,12 @@ typedef enum layer_ack {
     ACK_NO = 0,
     ACK_YES,
     ACK_MEH,
-    ACK_WAKEUP,
 } layer_ack_t;
 
 #    define RGB_LAYER_ACK_DURATION 500
 
 void          eeconfig_init_user_rgb(void);
 void          matrix_init_user_rgb(void);
-void          suspend_wakeup_init_user_rgb(void);
 void          keyboard_post_init_user_rgb(void);
 bool          process_record_user_rgb(uint16_t keycode, keyrecord_t *record);
 void          post_process_record_user_rgb(uint16_t keycode, keyrecord_t *record);

@@ -26,9 +26,3 @@ void shutdown_user() {
     rgblight_sethsv_noeeprom(HSV_RED);
 #endif
 }
-
-void suspend_wakeup_init_user(void) {
-#ifdef RGBLIGHT_ENABLE
-    suspend_wakeup_init_user_rgb();
-#endif
-}

@@ -49,7 +49,6 @@ const rgblight_segment_t PROGMEM _glyphreplace_layer[] = RGBLIGHT_LAYER_SEGMENTS
 const rgblight_segment_t PROGMEM _no_layer[]     = RGBLIGHT_LAYER_SEGMENTS(FRONT(1, HSV_RED));
 const rgblight_segment_t PROGMEM _yes_layer[]    = RGBLIGHT_LAYER_SEGMENTS(FRONT(1, HSV_GREEN));
 const rgblight_segment_t PROGMEM _meh_layer[]    = RGBLIGHT_LAYER_SEGMENTS(FRONT(1, HSV_YELLOW));
-const rgblight_segment_t PROGMEM _wakeup_layer[] = RGBLIGHT_LAYER_SEGMENTS(FRONT(2, HSV_BLUE));
 
 // Now define the array of layers. Higher numbered layers take precedence.
 const rgblight_segment_t *const PROGMEM _rgb_layers[] = {
@@ -67,9 +66,8 @@ const rgblight_segment_t *const PROGMEM _rgb_layers[] = {
     [ACK_OFFSET + ACK_NO]     = _no_layer,
     [ACK_OFFSET + ACK_YES]    = _yes_layer,
     [ACK_OFFSET + ACK_MEH]    = _meh_layer,
-    [ACK_OFFSET + ACK_WAKEUP] = _wakeup_layer,
 
-    [ACK_OFFSET + ACK_WAKEUP + 1] = NULL
+    [ACK_OFFSET + ACK_MEH + 1] = NULL
 };
 
 // clang-format on 
@@ -193,12 +191,6 @@ void keyboard_post_init_user_rgb(void) {
         }
         dprint("done\n");
         startup_animation_done = true;
-    }
-}
-
-void suspend_wakeup_init_user_rgb(void) {
-    if (startup_animation_done) {
-        rgb_layer_ack(ACK_WAKEUP);
     }
 }
 
