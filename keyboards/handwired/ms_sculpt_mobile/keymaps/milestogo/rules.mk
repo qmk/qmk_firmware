@@ -22,3 +22,6 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 RAW_ENABLE = no
 # virtual serial port
 VIRTSER_ENABLE = yes
+
+
+USERNAME := miles2go

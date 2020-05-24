@@ -113,30 +113,25 @@ OPT_DEFS += -DBOOTLOADER_SIZE=2048
 ```
 
 ## `avr-gcc: internal compiler error: Abort trap: 6 (program cc1)` on MacOS
+
 This is an issue with updating on brew, causing symlinks that avr-gcc depend on getting mangled.
 
 The solution is to remove and reinstall all affected modules.
 
 ```
-brew rm avr-gcc
-brew rm dfu-programmer
-brew rm dfu-util
-brew rm gcc-arm-none-eabi
-brew rm avrdude
-brew install avr-gcc
-brew install dfu-programmer
-brew install dfu-util
-brew install gcc-arm-none-eabi
-brew install avrdude
+brew rm avr-gcc avr-gcc@8 dfu-programmer dfu-util gcc-arm-none-eabi arm-gcc-bin@8 avrdude qmk
+brew install qmk/qmk/qmk
+brew link --force avr-gcc@8
+brew link --force arm-gcc-bin@8
 ```
 
-### avr-gcc 8.1 and LUFA
+### `avr-gcc` and LUFA
 
-If you updated your avr-gcc to above 7 you may see errors involving LUFA. For example:
+If you updated your `avr-gcc` and you see errors involving LUFA, for example:
 
 `lib/lufa/LUFA/Drivers/USB/Class/Device/AudioClassDevice.h:380:5: error: 'const' attribute on function returning 'void'`
 
-For now, you need to rollback avr-gcc to 7 in brew.
+For now, you need to rollback `avr-gcc` to 8 in Homebrew.
 
 ```
 brew uninstall --force avr-gcc

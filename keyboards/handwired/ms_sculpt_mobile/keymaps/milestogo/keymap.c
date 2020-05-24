@@ -1,28 +1,12 @@
 #include QMK_KEYBOARD_H
 
-
+#include "milestogo.h"
 #include "virtser.h"
 #include <print.h>
 
-enum layer_names {
-_QWR =0,
-_CDH,
-_SYM,
-_MOV,
-_TRAN
-};
 
 #define LAYOUT_local LAYOUT_mobile_XUW
-
-enum layer_keycodes {
-    QWR,
-    CDH,
-    SYM,
-    MOV,
-    NUM,
-    TRAN
-};
-
+#define LAYOUT_local_wrap(...) LAYOUT_local(__VA_ARGS__)
 
 // Shorter spacing
 #define XXXX  KC_NO
@@ -31,7 +15,9 @@ enum layer_keycodes {
 // Custom macros
 
 /* Fn Keys */
+#define LT_SYM LT(_SYM, KC_SPC)
 #define TT_SYM MO(_SYM)
+#define TT_MOV LT(_MOV,KC_BSPC)
 #define TT_NUM MO(_NUM)
 #define SSFT ACTION_MODS_ONESHOT(MOD_LSFT)
 #define SSYM LT(_SYM, KC_SPC)
@@ -67,24 +53,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * ---------------------------------------------------------------------------------
 */
 
-[_QWR] = LAYOUT_local( \
-KC_ESC,   KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8,   KC_F9, KC_F10,    KC_F11,   KC_F12, KC_VOLD, KC_VOLU, TG(CDH),\
-KC_GRAVE, KC_1, MV2,  MV3 ,  MV4, KC_5, KC_6, KC_7, MV8,    MV9,    MV0,    KC_MINUS, KC_EQL, KC_BSPC, KC_DEL,\
-KC_TAB,   KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I,   KC_O, KC_P,    KC_LBRC,  KC_RBRC,KC_BSLS,\
-BKSYM,    KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,   KC_L, KC_SCLN, KC_QUOT,  KC_ENT, KC_PGUP,\
-KC_LSFT,  KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM,KC_DOT,KC_SLSH,KC_RSFT,  KC_UP,  KC_PGDN,\
-KC_LCTL,  KC_LGUI, KC_LALT, KC_SPC, KC_RGUI, TT_SYM,  KC_CAPS, KC_LEFT, KC_DOWN, KC_RIGHT
+[_QWR] = LAYOUT_local_wrap( \
+   KC_ESC,   KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8,   KC_F9, KC_F10,    KC_F11,   KC_F12, KC_VOLD, KC_VOLU, CDH,\
+   KC_ESC,   KC_1, KC_2, KC_3 ,KC_4, KC_5, KC_6, KC_7, KC_8,   KC_9, KC_0,    KC_MINUS, KC_EQL, KC_BSPC, KC_DEL,\
+   KC_TAB,   _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,    KC_LBRC, KC_RBRC, KC_BSLS,\
+   TT_MOV,   _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,  KC_QUOT,  KC_ENT, KC_PGUP,\
+   KC_LSFT,  _________________QWERTY_L3_________________, _________________QWERTY_R3_________________,KC_RSFT,  KC_UP,  KC_PGDN,\
+   KC_LCTL,  KC_LGUI, KC_LALT, KC_FN1, KC_RGUI,TT_SYM,KC_RCTL, KC_LEFT, KC_DOWN, KC_RIGHT
 ),
 
-
-[_CDH] = LAYOUT_local(\
-____,    ____, ____, ____, ____, ____, ____, ____, ____,   ____,   ____,    ____,     ____,   ____,    ____,    ____,  \
-KC_GRAVE, KC_1, KC_2, KC_3 ,KC_4, KC_5, KC_6, KC_7, KC_8,   KC_9, KC_0,    KC_MINUS, KC_EQL, KC_BSPC, KC_DEL,\
-____,    KC_Q, KC_W, KC_F, KC_P, KC_B, KC_J, KC_L, KC_U,   KC_Y,   KC_SCLN, ____,    ____,    ____,\
-MVTAB,   KC_A, KC_R, KC_S, KC_T, KC_G, KC_M, KC_N, KC_E,   KC_I,   KC_O,    KC_QUOT, KC_ENT,  KC_2,\
-KC_LSFT, KC_Z, KC_X, KC_C, DHPASTE, KC_V, KC_K, KC_H, KC_COMM,  KC_DOT,  KC_SLSH, KC_RSFT, ____,   KC_1,\
-____,     ____, ____ , ____, ____, ____, ____, ____, ____,   ____
-),
+[_CDH] = LAYOUT_local_wrap(\
+   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     QWR,  \
+   KC_ESC,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,   \
+   KC_TAB,  ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_L1____________, ____,    ____,   ____,\
+   TT_MOV,  ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_L2____________,    KC_QUOT, KC_ENT, KC_2,\
+   KC_LSFT, ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_L3____________, KC_RSFT, ____,   KC_1,\
+  ____,     ____, ____ , LT_SYM, ____, ____, ____, ____, ____,   ____
 
 /*  SYM
 *
@@ -92,9 +76,9 @@ ____,     ____, ____ , ____, ____, ____, ____, ____, ____,   ____
 *  -------------------------------------------------------------------------------'
 * | ESC |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |  0 |  - |  = |Bakspace|Del |
 *  --------------------------------------------------------------------------
-* | ESC: | ^  |  { |  } |  @ |  % |    |   [ | ( | )  | _  |  [ |  ] |  \    |    |
+* | ESC: |    |  [ |  ] |  {} |  % |    |   [ | ( | )  | _  |  [ |  ] |  \    |    |
 *  -------------------------------------------------------------------------------'
-* |Bak/Mov|  ! |  # |  0 | =  |  { |   } | -  | 1 |  + |  ] |  ` | enter     |PgUp|
+* |Bak/Mov| ^   |  !  |  =  |  0  |  $  |  #  |  1  |  -| +  | `  | enter    |PgUp|
 * --------------------------------------------------------------------------------
 * |Lsft    |  ; | ~ |  : | ~  | "|"|  $ | *   |    |  .  |  / |      Rsft| Up| PgDn|
 * ---------------------------------------------------------------------------------
@@ -102,12 +86,12 @@ ____,     ____, ____ , ____, ____, ____, ____, ____, ____,   ____
 * ---------------------------------------------------------------------------------
 */
 
-[_SYM] = LAYOUT_local(\
+[_SYM] = LAYOUT_local_wrap(\
 ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     ____,  \
 ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,   \
-____,  KC_CIRC, KC_LCBR,  KC_RCBR, KC_AT,  KC_PERC,         ____, KC_LBRC,KC_LPRN,KC_RPRN,  KC_UNDS,  ____,   ____,   ____,\
-____,  KC_EXLM, KC_HASH,  KC_0,   KC_EQL,  KC_LCBR,      KC_RCBR, KC_MINS,KC_1,   KC_PLUS,  KC_RBRC,  KC_GRV,   ____,  ____,\
-____,  KC_SCLN, KC_TILDE, KC_COLN,KC_TILDE,KC_PIPE,       KC_DLR, KC_ASTR, ____,  KC_DOT ,  KC_SLSH,  ____, ____, ____,\
+____,  ___________________SYM_L1__________________,         ___________________SYM_L1__________________,  ____,   ____,   ____,\
+____,  ___________________SYM_L2__________________,         ___________________SYM_L2__________________,  KC_GRV,   ____,  ____,\
+____,  ___________________SYM_L3__________________,         ___________________SYM_L3__________________, ,  ____, ____, ____,\
 ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____
 ),
 /* MOVE simple version
@@ -172,7 +156,6 @@ ____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____
 )
 */
 };
-
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
