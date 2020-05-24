@@ -7,6 +7,8 @@
 #undef ________L_BL_R4________
 #define ________L_BL_R4________ ZALT,  X ,  C ,  V ,  B
 
+#define KC_ALDE LALT_T(KC_DEL)
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BL] = LAYOUT_kc_wrapper(
@@ -41,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|-----+-----------------------------|                    |-----------------------------+-----|
           ,   ________L_LWR_4________   ,                        ________R_LWR_4________   ,     ,
   //|-----+-----------------+-----+-----+-----|  |-----+-----+-----+-----+-----+-----+-----+-----|
-                                  ,     ,     ,        ,     ,
+                                  ,     ,     ,        ,     , ALDE
                           //`-----------------'  `-----------------'
     ),
 
