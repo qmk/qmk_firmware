@@ -34,11 +34,11 @@
 #include "i2c_master.h"
 #include "eeprom.h"
 #include "eeprom_i2c.h"
-
 // #define DEBUG_EEPROM_OUTPUT
 
 #ifdef DEBUG_EEPROM_OUTPUT
-#    include "print.h"
+#    include "timer.h"
+#    include "debug.h"
 #endif  // DEBUG_EEPROM_OUTPUT
 
 static inline void init_i2c_if_required(void) {
@@ -60,7 +60,7 @@ static inline void fill_target_address(uint8_t *buffer, const void *addr) {
 void eeprom_driver_init(void) {}
 
 void eeprom_driver_erase(void) {
-#ifdef CONSOLE_ENABLE
+#ifdef DEBUG_EEPROM_OUTPUT
     uint32_t start = timer_read32();
 #endif
 
@@ -70,7 +70,7 @@ void eeprom_driver_erase(void) {
         eeprom_write_block(buf, (void *)(uintptr_t)addr, EXTERNAL_EEPROM_PAGE_SIZE);
     }
 
-#ifdef CONSOLE_ENABLE
+#ifdef DEBUG_EEPROM_OUTPUT
     dprintf("EEPROM erase took %ldms to complete\n", ((long)(timer_read32() - start)));
 #endif
 }
