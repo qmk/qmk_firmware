@@ -24,11 +24,25 @@ ESSENTIAL_BINARIES = {
     },
     'bin/qmk': {},
 }
-ESSENTIAL_SUBMODULES = ['lib/chibios', 'lib/lufa']
 
 
-def _udev_rule(vid, pid=None):
+def _udev_rule(vid, pid=None, *args):
     """ Helper function that return udev rules
+    """
+    rule = ""
+    if pid:
+        rule = 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="%s", ATTRS{idProduct}=="%s", TAG+="uaccess", RUN{builtin}+="uaccess"' % (vid, pid)
+    else:
+        rule = 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="%s", TAG+="uaccess", RUN{builtin}+="uaccess"' % vid
+    if args:
+        rule = ', '.join([rule, *args])
+    return rule
+
+
+def _deprecated_udev_rule(vid, pid=None):
+    """ Helper function that return udev rules
+
+    Note: these are no longer the recommended rules, this is just used to check for them
     """
     if pid:
         return 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="%s", ATTRS{idProduct}=="%s", MODE:="0666"' % (vid, pid)
@@ -109,14 +123,11 @@ def check_submodules():
 
     for submodule in submodules.status().values():
         if submodule['status'] is None:
-            if submodule['name'] in ESSENTIAL_SUBMODULES:
-                cli.log.error('Submodule %s has not yet been cloned!', submodule['name'])
-                ok = False
-            else:
-                cli.log.warn('Submodule %s is not available.', submodule['name'])
+            cli.log.error('Submodule %s has not yet been cloned!', submodule['name'])
+            ok = False
         elif not submodule['status']:
-            if submodule['name'] in ESSENTIAL_SUBMODULES:
-                cli.log.warn('Submodule %s is not up to date!')
+            cli.log.error('Submodule %s is not up to date!', submodule['name'])
+            ok = False
 
     return ok
 
@@ -128,10 +139,24 @@ def check_udev_rules():
     udev_dir = Path("/etc/udev/rules.d/")
     desired_rules = {
         'dfu': {_udev_rule("03eb", "2ff4"), _udev_rule("03eb", "2ffb"), _udev_rule("03eb", "2ff0")},
-        'tmk': {_udev_rule("feed")},
-        'input_club': {_udev_rule("1c11")},
+        'input_club': {_udev_rule("1c11", "b007")},
         'stm32': {_udev_rule("1eaf", "0003"), _udev_rule("0483", "df11")},
-        'caterina': {'ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"', 'ATTRS{idVendor}=="2341", ENV{ID_MM_DEVICE_IGNORE}="1"'},
+        'bootloadhid': {_udev_rule("16c0", "05df")},
+        'caterina': {
+            _udev_rule("2341", "0036", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),
+            _udev_rule("1b4f", "9205", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),
+            _udev_rule("1b4f", "9203", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),
+            _udev_rule("2a03", "0036", 'ENV{ID_MM_DEVICE_IGNORE}="1"')
+        }
+    }
+
+    # These rules are no longer recommended, only use them to check for their presence.
+    deprecated_rules = {
+        'dfu': {_deprecated_udev_rule("03eb", "2ff4"), _deprecated_udev_rule("03eb", "2ffb"), _deprecated_udev_rule("03eb", "2ff0")},
+        'input_club': {_deprecated_udev_rule("1c11")},
+        'stm32': {_deprecated_udev_rule("1eaf", "0003"), _deprecated_udev_rule("0483", "df11")},
+        'bootloadhid': {_deprecated_udev_rule("16c0", "05df")},
+        'caterina': {'ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"', 'ATTRS{idVendor}=="2341", ENV{ID_MM_DEVICE_IGNORE}="1"'}
     }
 
     if udev_dir.exists():
@@ -147,12 +172,15 @@ def check_udev_rules():
 
         # Check if the desired rules are among the currently present rules
         for bootloader, rules in desired_rules.items():
+            # For caterina, check if ModemManager is running
+            if bootloader == "caterina":
+                if check_modem_manager():
+                    ok = False
+                    cli.log.warn("{bg_yellow}Detected ModemManager without the necessary udev rules. Please either disable it or set the appropriate udev rules if you are using a Pro Micro.")
             if not rules.issubset(current_rules):
-                # If the rules for catalina are not present, check if ModemManager is running
-                if bootloader == "caterina":
-                    if check_modem_manager():
-                        ok = False
-                        cli.log.warn("{bg_yellow}Detected ModemManager without udev rules. Please either disable it or set the appropriate udev rules if you are using a Pro Micro.")
+                deprecated_rule = deprecated_rules.get(bootloader)
+                if deprecated_rule and deprecated_rule.issubset(current_rules):
+                    cli.log.warn("{bg_yellow}Found old, deprecated udev rules for '%s' boards. The new rules on https://docs.qmk.fm/#/faq_build?id=linux-udev-rules offer better security with the same functionality.", bootloader)
                 else:
                     cli.log.warn("{bg_yellow}Missing udev rules for '%s' boards. You'll need to use `sudo` in order to flash them.", bootloader)
 

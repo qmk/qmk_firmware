@@ -186,6 +186,8 @@ it easy to use your underglow LEDs as status indicators to show which keyboard l
 
 ### Defining Lighting Layers :id=defining-lighting-layers
 
+By default, 8 layers are possible. This can be expanded to as many as 32 by overriding the definition of `RGBLIGHT_MAX_LAYERS` in `config.h` (e.g. `#define RGBLIGHT_MAX_LAYERS 32`). Please note, if you use a split keyboard, you will need to flash both sides of the split after changing this. Also, increasing the maximum will increase the firmware size, and will slow sync on split keyboards.
+
 To define a layer, we modify `keymap.c` to list out LED ranges and the colors we want to overlay on them using an array of `rgblight_segment_t` using the `RGBLIGHT_LAYER_SEGMENTS` macro. We can define multiple layers and enable/disable them independently:
 
 ```c
@@ -374,12 +376,14 @@ rgblight_sethsv(HSV_GREEN, 2); // led 2
 |`rgblight_set_layer_state(i, is_on)`        |Enable or disable lighting layer `i` based on value of `bool is_on` |
 
 #### query
-|Function               |Description      |
-|-----------------------|-----------------|
-|`rgblight_get_mode()`  |Get current mode |
-|`rgblight_get_hue()`   |Get current hue  |
-|`rgblight_get_sat()`   |Get current sat  |
-|`rgblight_get_val()`   |Get current val  |
+|Function               |Description                |
+|-----------------------|---------------------------|
+|`rgblight_is_enabled()`|Gets current on/off status |
+|`rgblight_get_mode()`  |Gets current mode          |
+|`rgblight_get_hue()`   |Gets current hue           |
+|`rgblight_get_sat()`   |Gets current sat           |
+|`rgblight_get_val()`   |Gets current val           |
+|`rgblight_get_speed()` |Gets current speed         |
 
 ## Colors
 
