@@ -131,16 +131,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifndef NO_DEBUG
             // Re-implement this here, but fix the persistence!
             case DEBUG:
-                debug_enable ^= 1;
-                if (debug_enable) {
-                    print("DEBUG: enabled\n");
-                } else {
-                    print("DEBUG: disabled\n");
+                if (!debug_enable) {
+                    debug_enable = 1;
 #    if defined(SPI_DEBUG_SCAN_RATE)
                     matrix_timer     = 0;
                     reported_version = false;
 #    endif
+                } else if (!debug_keyboard) {
+                    debug_keyboard = 1;
+                } else if (!debug_matrix) {
+                    debug_matrix = 1;
+                } else {
+                    debug_enable   = 0;
+                    debug_keyboard = 0;
+                    debug_matrix   = 0;
                 }
+                uprintf("DEBUG: enable=%u, keyboard=%u, matrix=%u\n", debug_enable, debug_keyboard, debug_matrix);
                 eeconfig_update_debug(debug_config.raw);
                 return false;
 #endif
