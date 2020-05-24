@@ -43,14 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define CONSUMER2RN42(usage) (usage == AUDIO_MUTE ? 0x0040 : (usage == AUDIO_VOL_UP ? 0x0010 : (usage == AUDIO_VOL_DOWN ? 0x0020 : (usage == TRANSPORT_NEXT_TRACK ? 0x0100 : (usage == TRANSPORT_PREV_TRACK ? 0x0200 : (usage == TRANSPORT_STOP ? 0x0400 : (usage == TRANSPORT_STOP_EJECT ? 0x0800 : (usage == TRANSPORT_PLAY_PAUSE ? 0x0080 : (usage == AL_EMAIL ? 0x0200 : (usage == AL_LOCAL_BROWSER ? 0x8000 : (usage == AC_SEARCH ? 0x0400 : (usage == AC_HOME ? 0x0100 : 0))))))))))))
 
-static struct { bool initialized; } state;
-
-void bluetooth_task() {
-    if (!state.initialized) {
-        serial_init();
-        state.initialized = true;
-    }
-}
+void bluetooth_init() { serial_init(); }
 
 void bluetooth_send_keyboard(report_keyboard_t *report) {
 #ifdef MODULE_RN42

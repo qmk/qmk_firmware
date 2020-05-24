@@ -66,6 +66,8 @@ void host_keyboard_send(report_keyboard_t *report) {
 #endif
     }
 
+    if (!driver) return;
+
 #ifdef BLUETOOTH_ENABLE
     uint8_t where = where_to_send();
 
@@ -78,7 +80,6 @@ void host_keyboard_send(report_keyboard_t *report) {
     }
 #endif
 
-    if (!driver) return;
     (*driver->send_keyboard)(report);
 
     if (debug_keyboard) {
@@ -95,6 +96,8 @@ void host_mouse_send(report_mouse_t *report) {
     report->report_id = REPORT_ID_MOUSE;
 #endif
 
+    if (!driver) return;
+
 #if defined(BLUETOOTH_ENABLE) && defined(MOUSE_ENABLE)
     uint8_t where = where_to_send();
 
@@ -107,7 +110,6 @@ void host_mouse_send(report_mouse_t *report) {
     }
 #endif
 
-    if (!driver) return;
     (*driver->send_mouse)(report);
 }
 
@@ -123,6 +125,8 @@ void host_consumer_send(uint16_t report) {
     if (report == last_consumer_report) return;
     last_consumer_report = report;
 
+    if (!driver) return;
+
 #ifdef BLUETOOTH_ENABLE
     uint8_t where = where_to_send();
 
@@ -135,7 +139,6 @@ void host_consumer_send(uint16_t report) {
     }
 #endif
 
-    if (!driver) return;
     (*driver->send_consumer)(report);
 }
 
