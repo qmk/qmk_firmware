@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [1] = LAYOUT_numpad_6x4(
-        KC_TRNS, KC_TRNS, KC_TRNS, MO(2),
+        KC_TRNS,   KC_TRNS, KC_TRNS, MO(2),
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_HOME, KC_UP,   KC_PGUP,
         KC_LEFT, KC_TRNS, KC_RGHT, KC_TRNS,
