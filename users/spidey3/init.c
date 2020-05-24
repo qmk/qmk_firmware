@@ -2,33 +2,33 @@
 
 void keyboard_post_init_user(void) {
 #ifdef RGBLIGHT_ENABLE
-  keyboard_post_init_user_rgb();
+    keyboard_post_init_user_rgb();
 #endif
 }
 
 void eeconfig_init_user(void) {
-  print("eeconfig_init_user\n");
-  set_single_persistent_default_layer(_BASE);
+    print("eeconfig_init_user\n");
+    set_single_persistent_default_layer(_BASE);
 #ifdef UNICODEMAP_ENABLE
-  eeconfig_init_user_unicode();
+    eeconfig_init_user_unicode();
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-  eeconfig_init_user_rgb();
+    eeconfig_init_user_rgb();
 #endif
 }
 
 void shutdown_user() {
 #ifdef RGBLIGHT_ENABLE
-  clear_rgb_layers();
-  rgblight_enable();
-  rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-  rgblight_sethsv_noeeprom(HSV_RED);
+    clear_rgb_layers();
+    rgblight_enable();
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+    rgblight_sethsv_noeeprom(HSV_RED);
 #endif
 }
 
 void suspend_wakeup_init_user(void) {
 #ifdef RGBLIGHT_ENABLE
-  suspend_wakeup_init_user_rgb();
+    suspend_wakeup_init_user_rgb();
 #endif
 }
