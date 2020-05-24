@@ -81,7 +81,7 @@ Now, we will set up the MSYS2 window to show up in VSCode as the integrated term
 
 ?> If you installed MSYS2 to a different folder, then you'll need to change the path for `terminal.integrated.shell.windows` to the correct path for your system. 
 
-4. Hit Ctrl-` (grave) (for US layouts) to bring up the terminal or go to <kbd>Terminal</kbd> > <kbd>New Terminal</kbd>
+4. Hit Ctrl-\` (grave) to bring up the terminal or go to <kbd><kbd>View</kbd> > <kbd>Terminal</kbd></kbd> (command `workbench.action.terminal.toggleTerminal`). A new terminal will be opened if there isn‘t one already.
 
    This should start the terminal in the workspace's folder (so the `qmk_firmware` folder), and then you can compile your keyboard. 
 
@@ -110,8 +110,8 @@ This installs a bunch of Git related tools that may make using Git with QMK Firm
 Restart once you've installed any extensions
 
 # Configure VS Code for QMK
-1. Click <kbd>File</kbd> > <kbd>Open Folder</kbd></kbd>
+1. Click <kbd><kbd>File</kbd> > <kbd>Open Folder</kbd></kbd>
 2. Open the QMK Firmware folder that you cloned from GitHub. 
-3. Click <kbd>File</kbd> > <kbd>Save Workspace As...</kbd></kbd>
+3. Click <kbd><kbd>File</kbd> > <kbd>Save Workspace As...</kbd></kbd>
 
 And now you're ready to code QMK Firmware in VS Code
