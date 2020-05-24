@@ -190,7 +190,7 @@ enum userspace_custom_keycodes {
   
 #define ___________________SYM_R1__________________       KC_LCBR,  KC_RCBR, KC_LPRN, KC_RPRN, XXXXXXX
 #define ___________________SYM_R2__________________       KC_HASH,  KC_1, KC_MINS, KC_PLUS, KC_GRAVE
-#define ___________________SYM_R3__________________       KC_ASTR,  KC_TILDE,KC_AMPR, KC_DOT,  KC_SLASH
+#define ___________________SYM_R3__________________       KC_ASTR,  KC_AMPR, KC_TILDE,KC_DOT,  KC_SLASH
 
 
 // Move and brackets - 40% optimization. 
