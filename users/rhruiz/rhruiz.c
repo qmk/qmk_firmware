@@ -98,7 +98,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return rhruiz_process_record(keycode, record);
 }
 
-void matrix_init_user(void) { matrix_init_keymap(); }
+void matrix_init_user(void) {
+#ifdef PRO_MICRO
+    setPinOutput(B0);
+    setPinOutput(D5);
+    writePinHigh(D5);
+    writePinHigh(B0);
+#endif
+    matrix_init_keymap();
+}
 
 void keyboard_post_init_user() {
     /* TODO: revisit this check if flashed promicros with dfu */
