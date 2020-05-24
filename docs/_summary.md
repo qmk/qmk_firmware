@@ -6,6 +6,7 @@
   * [Testing and Debugging](newbs_testing_debugging.md)
   * [Getting Help/Support](support.md)
   * [Other Resources](newbs_learn_more_resources.md)
+  * [Syllabus](syllabus.md)
 
 * FAQs
   * [General FAQ](faq_general.md)
@@ -33,7 +34,9 @@
     * [Customizing Functionality](custom_quantum_functions.md)
     * [Driver Installation with Zadig](driver_installation_zadig.md)
     * [Keymap Overview](keymap.md)
-    * [Vagrant Guide](getting_started_vagrant.md)
+    * Development Environments
+      * [Docker Guide](getting_started_docker.md)
+      * [Vagrant Guide](getting_started_vagrant.md)
     * Flashing
       * [Flashing](flashing.md)
       * [Flashing ATmega32A (ps2avrgb)](flashing_bootloadhid.md)
@@ -52,7 +55,7 @@
   * Simple Keycodes
     * [Full List](keycodes.md)
     * [Basic Keycodes](keycodes_basic.md)
-    * [Layer Switching](feature_advanced_keycodes.md)
+    * [Modifier Keys](feature_advanced_keycodes.md)
     * [Quantum Keycodes](quantum_keycodes.md)
 
   * Advanced Keycodes
@@ -71,14 +74,17 @@
     * [Combos](feature_combo.md)
     * [Debounce API](feature_debounce_type.md)
     * [Key Lock](feature_key_lock.md)
+    * [Layers](feature_layers.md)
     * [One Shot Keys](one_shot_keys.md)
     * [Pointing Device](feature_pointing_device.md)
+    * [Raw HID](feature_rawhid.md)
     * [Swap Hands](feature_swap_hands.md)
     * [Tap Dance](feature_tap_dance.md)
     * [Tap-Hold Configuration](tap_hold.md)
     * [Terminal](feature_terminal.md)
     * [Unicode](feature_unicode.md)
     * [Userspace](feature_userspace.md)
+    * [WPM Calculation](feature_wpm.md)
 
   * Hardware Features
     * Displays
@@ -119,8 +125,10 @@
     * [Drivers](hardware_drivers.md)
       * [ADC Driver](adc_driver.md)
       * [I2C Driver](i2c_driver.md)
+      * [SPI Driver](spi_driver.md)
       * [WS2812 Driver](ws2812_driver.md)
       * [EEPROM Driver](eeprom_driver.md)
+      * ['serial' Driver](serial_driver.md)
     * [GPIO Controls](internals_gpio_control.md)
     * [Keyboard Guidelines](hardware_keyboard_guidelines.md)
 
@@ -132,6 +140,10 @@
     * QMK API
       * [Development Environment](api_development_environment.md)
       * [Architecture Overview](api_development_overview.md)
+
+  * Hardware Platform Development
+    * Arm/ChibiOS
+      * [Early initialization](platformdev_chibios_earlyinit.md)
 
   * QMK Reference
     * [Contributing to QMK](contributing.md)

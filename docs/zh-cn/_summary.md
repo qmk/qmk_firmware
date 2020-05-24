@@ -104,6 +104,7 @@
   * [ARM调试指南](zh-cn/arm_debugging.md)
   * [ADC设备](zh-cn/adc_driver.md)
   * [I2C设备](zh-cn/i2c_driver.md)
+  * [SPI设备](zh-cn/spi_driver.md)
   * [WS2812设备](zh-cn/ws2812_driver.md)
   * [EEPROM设备](zh-cn/eeprom_driver.md)
   * [GPIO控制](zh-cn/internals_gpio_control.md)

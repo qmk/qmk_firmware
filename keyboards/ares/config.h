@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x422D
 #define DEVICE_VER      0x0200
 #define MANUFACTURER    LSJ
-#define PRODUCT         QMK Firmware for Ares
+#define PRODUCT         Ares
 
 #define RGBLED_NUM 16
 

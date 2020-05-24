@@ -18,8 +18,10 @@ else
     CONSOLE_ENABLE    			= yes
     COMMAND_ENABLE    			= yes
     RGBLIGHT_ENABLE             = yes
+    RGBLIGHT_STARTUP_ANIMATION  = yes
     RGB_MATRIX_ENABLE           = no
     AUDIO_ENABLE       			= yes
+    EEPROM_DRIVER 				= i2c
 endif
 ifeq ($(strip $(KEYBOARD)), planck/light)
     RGB_MATRIX_ENABLE           = yes

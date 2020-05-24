@@ -24,6 +24,7 @@ endif
 #
 
 # Imported source files and paths
+OPT_OS = chibios
 CHIBIOS = $(TOP_DIR)/lib/chibios
 CHIBIOS_CONTRIB = $(TOP_DIR)/lib/chibios-contrib
 # Startup files. Try a few different locations, for compability with old versions and
@@ -49,6 +50,34 @@ PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLAT
 endif
 include $(PLATFORM_MK)
 
+# Bootloader address
+ifdef STM32_BOOTLOADER_ADDRESS
+    OPT_DEFS += -DSTM32_BOOTLOADER_ADDRESS=$(STM32_BOOTLOADER_ADDRESS)
+endif
+
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_5)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_5)/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_5)/boards/$(BOARD)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_4)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_4)/boards/$(BOARD)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_3)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_3)/boards/$(BOARD)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_2)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_2)/boards/$(BOARD)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_1)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_1)/boards/$(BOARD)/bootloader_defs.h
+else ifneq ("$(wildcard $(TOP_DIR)/drivers/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(TOP_DIR)/drivers/boards/$(BOARD)/bootloader_defs.h
+endif
 
 BOARD_MK :=
 
@@ -179,7 +208,7 @@ HEX = $(OBJCOPY) -O $(FORMAT)
 EEP =
 BIN = $(OBJCOPY) -O binary
 
-COMMON_VPATH += $(DRIVER_PATH)/arm
+COMMON_VPATH += $(DRIVER_PATH)/chibios
 
 THUMBFLAGS = -DTHUMB_PRESENT -mno-thumb-interwork -DTHUMB_NO_INTERWORKING -mthumb -DTHUMB
 
@@ -190,6 +219,18 @@ COMPILEFLAGS += -fdata-sections
 COMPILEFLAGS += -fno-common
 COMPILEFLAGS += -fshort-wchar
 COMPILEFLAGS += $(THUMBFLAGS)
+
+# FPU options default (Cortex-M4 and Cortex-M7 single precision).
+USE_FPU_OPT ?= -mfloat-abi=hard -mfpu=fpv4-sp-d16 -fsingle-precision-constant
+
+# FPU-related options
+USE_FPU ?= no
+ifneq ($(USE_FPU),no)
+  COMPILEFLAGS += $(USE_FPU_OPT)
+  OPT_DEFS += -DCORTEX_USE_FPU=TRUE
+else
+  OPT_DEFS += -DCORTEX_USE_FPU=FALSE
+endif
 
 CFLAGS += $(COMPILEFLAGS)
 
@@ -204,7 +245,6 @@ LDFLAGS += -mno-thumb-interwork -mthumb
 LDSYMBOLS =,--defsym=__process_stack_size__=$(USE_PROCESS_STACKSIZE)
 LDSYMBOLS :=$(LDSYMBOLS),--defsym=__main_stack_size__=$(USE_EXCEPTIONS_STACKSIZE)
 LDFLAGS += -Wl,--script=$(LDSCRIPT)$(LDSYMBOLS)
-LDFLAGS += --specs=nano.specs
 
 OPT_DEFS += -DPROTOCOL_CHIBIOS
 
@@ -212,22 +252,6 @@ OPT_DEFS += -DPROTOCOL_CHIBIOS
 OPT_DEFS += -DPORT_IGNORE_GCC_VERSION_CHECK=1
 
 MCUFLAGS = -mcpu=$(MCU)
-
-# FPU options default (Cortex-M4 and Cortex-M7 single precision).
-ifeq ($(USE_FPU_OPT),)
-  USE_FPU_OPT = -mfloat-abi=$(USE_FPU) -mfpu=fpv4-sp-d16 -fsingle-precision-constant
-endif
-
-# FPU-related options
-ifeq ($(USE_FPU),)
-  USE_FPU = no
-endif
-ifneq ($(USE_FPU),no)
-  OPT    += $(USE_FPU_OPT)
-  OPT_DEFS  += -DCORTEX_USE_FPU=TRUE
-else
-  OPT_DEFS  += -DCORTEX_USE_FPU=FALSE
-endif
 
 DEBUG = gdb
 
@@ -298,7 +322,9 @@ bin: $(BUILD_DIR)/$(TARGET).bin sizeafter
 
 
 flash: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
-ifeq ($(strip $(BOOTLOADER)),dfu)
+ifneq ($(strip $(PROGRAM_CMD)),)
+	$(PROGRAM_CMD)
+else ifeq ($(strip $(BOOTLOADER)),dfu)
 	$(call EXEC_DFU_UTIL)
 else ifeq ($(strip $(MCU_FAMILY)),KINETIS)
 	$(call EXEC_TEENSY)
