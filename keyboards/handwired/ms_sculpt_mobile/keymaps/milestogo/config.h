@@ -24,7 +24,7 @@
 //#define BABL_NOBROWSER
 
 // place overrides here
-#define RGBLED_NUM 2
+#define RGBLED_NUM 3
 #define RGBLIGHT_LIMIT_VAL 200
 #ifdef RGBLIGHT_ENABLE
 #define RGBLIGHT_COLOR_LAYER_0 0x00, 0xFF, 0x00

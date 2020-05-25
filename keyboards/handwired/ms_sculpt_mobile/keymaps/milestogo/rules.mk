@@ -24,4 +24,4 @@ RAW_ENABLE = no
 VIRTSER_ENABLE = yes
 
 
-USERNAME := miles2go
+USER_NAME := miles2go

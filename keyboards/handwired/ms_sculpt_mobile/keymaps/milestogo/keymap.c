@@ -30,10 +30,6 @@
 #define MV9 LT(MOV, KC_9)
 #define MV0 LT(MOV, KC_0)
 
-enum custom_keycodes {
-    DHPASTE= SAFE_RANGE,
-    VIBRK
-};
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -53,8 +49,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * ---------------------------------------------------------------------------------
 */
 
-[_QWR] = LAYOUT_local_wrap( \
-   KC_ESC,   KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8,   KC_F9, KC_F10,    KC_F11,   KC_F12, KC_VOLD, KC_VOLU, CDH,\
+[_QWERTY] = LAYOUT_local_wrap( \
+   KC_ESC,   KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8,   KC_F9, KC_F10,    KC_F11,   KC_F12, KC_VOLD, KC_VOLU, TG(_CDH),\
    KC_ESC,   KC_1, KC_2, KC_3 ,KC_4, KC_5, KC_6, KC_7, KC_8,   KC_9, KC_0,    KC_MINUS, KC_EQL, KC_BSPC, KC_DEL,\
    KC_TAB,   _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,    KC_LBRC, KC_RBRC, KC_BSLS,\
    TT_MOV,   _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,  KC_QUOT,  KC_ENT, KC_PGUP,\
@@ -63,12 +59,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_CDH] = LAYOUT_local_wrap(\
-   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     QWR,  \
+   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     ____,  \
    KC_ESC,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,   \
    KC_TAB,  ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_R1____________, ____,    ____,   ____,\
-   TT_MOV,  ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_R2____________,    KC_QUOT, KC_ENT, KC_2,\
-   KC_LSFT, ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________, KC_RSFT, ____,   KC_1,\
+   TT_MOV,  ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_R2____________,   ____, ____, ____,\
+   KC_LSFT, ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________, ____, ____,   ____,\
   ____,     ____, ____ , LT_SYM, ____, ____, ____, ____, ____,   ____
+),
 
 /*  SYM
 *
@@ -91,7 +88,7 @@ ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,
 ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,   \
 ____,  ___________________SYM_L1__________________,         ___________________SYM_L1__________________,  ____,   ____,   ____,\
 ____,  ___________________SYM_L2__________________,         ___________________SYM_L2__________________,  KC_GRV,   ____,  ____,\
-____,  ___________________SYM_L3__________________,         ___________________SYM_L3__________________, ,  ____, ____, ____,\
+____,  ___________________SYM_L3__________________,         ___________________SYM_L3__________________,  ____, ____, ____,\
 ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____
 ),
 /* MOVE simple version
@@ -157,77 +154,16 @@ ____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____
 */
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case QWR:
-            if (record->event.pressed) {
-                layer_off(_CDH);
-            }
-            return false;
-            break;
-
-        case CDH:
-            if (record->event.pressed) {
-                layer_on(_CDH);
-            }
-            return false;
-            break;
-
-        case SYM:
-            if (record->event.pressed) {
-                layer_on(_SYM);
-            } else {
-              layer_off(_SYM);
-            }
-            return false;
-            break;
-
-        /* Colemak mod-dh moves the D key to the qwerty V position
-            This hack makes apple-V_position do what I mean */
-        case DHPASTE:
-            if(get_mods() & MOD_BIT(KC_LGUI) ) {
-                if (record->event.pressed) {
-                    clear_keyboard_but_mods();
-                    register_code(KC_V);
-                } else {
-                    unregister_code(KC_V);
-                }
-            } else {
-                if (record->event.pressed) {
-                    register_code(KC_D);
-                } else {
-                    unregister_code(KC_D);
-                }
-            }
-            return false;
-            break;
-
-        return false;
-        break;
-    }
-    /* Any clever remapping with modifiers should happen here e.g. shift bablkey does opposite*/
-#ifdef USE_BABLPASTE
-    if( keycode >= BABL_START_NUM && id < (BABL_START_NUM + BABL_NUM_MACROS ) ) {
-        if (record->event.pressed)  { // is there a case where this isn't desired?
-            babblePaste ( record,  keycode);
-            return false;
-        }
-    }
-#endif
-
-    return true;
-}
-
 void keyboard_post_init_user(void) {
   // Customise these values to desired behaviour
-  // debug_enable=true;
+  //debug_enable=true;
   //debug_matrix=true;
   //debug_keyboard=true;
   //debug_mouse=true;
 }
 
 
-void matrix_init_user(void) {
+void matrix_init_kb(void) {
     #ifdef RGBLIGHT_ENABLE
     #ifdef RGB_DI_PIN
         rgblight_setrgb(RGB_GREEN);
@@ -236,17 +172,9 @@ void matrix_init_user(void) {
 }
 
 
-void matrix_scan_user(void) {
-}
-
-
-void led_set_user(uint8_t usb_led) {
-}
-
-
 
 // Runs whenever there is a layer state change.
-layer_state_t layer_state_set_user(layer_state_t state) {
+layer_state_t layer_state_set_kb(layer_state_t state) {
     uint8_t layer = get_highest_layer(state);
     switch (layer) {
         case 0:
