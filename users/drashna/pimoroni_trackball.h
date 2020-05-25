@@ -12,7 +12,7 @@
 void trackball_set_rgbw(uint8_t red, uint8_t green, uint8_t blue, uint8_t white);
 void trackball_check_click(bool pressed, report_mouse_t *mouse);
 
-uint8_t trackball_get_precision(void);
-void    trackball_set_precision(uint8_t precision);
+float trackball_get_precision(void);
+void    trackball_set_precision(float precision);
 bool    trackball_is_scrolling(void);
 void    trackball_set_scrolling(bool scroll);

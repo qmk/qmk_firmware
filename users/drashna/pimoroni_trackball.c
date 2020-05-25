@@ -6,7 +6,7 @@ static int16_t x_offset       = 0;
 static int16_t y_offset       = 0;
 static int16_t h_offset       = 0;
 static int16_t v_offset       = 0;
-static uint8_t precisionSpeed = 1;
+static float precisionSpeed = 1;
 
 #ifndef I2C_TIMEOUT
 #    define I2C_TIMEOUT 100
@@ -19,7 +19,7 @@ void trackball_set_rgbw(uint8_t red, uint8_t green, uint8_t blue, uint8_t white)
 
 int16_t mouse_offset(uint8_t positive, uint8_t negative, int16_t scale) {
     int16_t offset    = (int16_t)positive - (int16_t)negative;
-    int16_t magnitude = scale * offset * offset * precisionSpeed;
+    int16_t magnitude = (int16_t)(scale * offset * offset * precisionSpeed);
     return offset < 0 ? -magnitude : magnitude;
 }
 
@@ -44,28 +44,26 @@ __attribute__((weak)) void trackball_check_click(bool pressed, report_mouse_t* m
     }
 }
 
-uint8_t trackball_get_precision(void) { return precisionSpeed; }
-void    trackball_set_precision(uint8_t precision) { precisionSpeed = precision; }
+float trackball_get_precision(void) { return precisionSpeed; }
+void    trackball_set_precision(float precision) { precisionSpeed = precision; }
 bool    trackball_is_scrolling(void) { return scrolling; }
 void    trackball_set_scrolling(bool scroll) { scrolling = scroll; }
 
-void pointing_device_init(void) {
-    trackball_set_rgbw(0x00,0x00,0x00,0x00);
-}
+__attribute__((weak)) void pointing_device_init(void) { trackball_set_rgbw(0x00,0x00,0x00,0x4F); }
 
 void pointing_device_task(void) {
     uint8_t state[5] = {};
     if (i2c_readReg(TRACKBALL_WRITE, 0x04, state, 5, I2C_TIMEOUT) == I2C_STATUS_SUCCESS) {
         if (scrolling) {
 #ifdef PIMORONI_TRACKBALL_INVERT_X
-            h_offset -= mouse_offset(state[2], state[3], 1);
-#else
             h_offset += mouse_offset(state[2], state[3], 1);
+#else
+            h_offset -= mouse_offset(state[2], state[3], 1);
 #endif
 #ifdef PIMORONI_TRACKBALL_INVERT_Y
-            v_offset -= mouse_offset(state[1], state[0], 1);
-#else
             v_offset += mouse_offset(state[1], state[0], 1);
+#else
+            v_offset -= mouse_offset(state[1], state[0], 1);
 #endif
         } else {
 #ifdef PIMORONI_TRACKBALL_INVERT_X
