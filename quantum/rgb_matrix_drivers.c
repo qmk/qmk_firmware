@@ -23,7 +23,11 @@
  * be here if shared between boards.
  */
 
+<<<<<<< HEAD
 #if defined(IS31FL3731) || defined(IS31FL3733) || defined(IS31FL3737) || defined(IS31FL3737) || defined(IS31FL3741) 
+=======
+#if defined(IS31FL3731) || defined(IS31FL3733) || defined(IS31FL3737) || defined(IS31FL3741) 
+>>>>>>> 453fc33066a0205bce25d10bb54338cda8bf1efd
 
 #    include "i2c_master.h"
 
