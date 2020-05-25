@@ -2,6 +2,9 @@
 OPT_DEFS = -DCORTEX_VTOR_INIT=0x2000
 MCU_LDSCRIPT = STM32F103x8_stm32duino_bootloader
 BOARD = GENERIC_STM32_F103
+# avoid warning about LTO & ChibiOS, even though it mostly works
+LTO_ENABLE = no
+
 
 # GENERIC STM32F103C8T6 board - no bootloader (programmer over serial or SWD) //  Modified by Xydane
 #OPT_DEFS =
