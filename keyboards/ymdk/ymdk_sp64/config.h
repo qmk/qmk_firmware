@@ -19,11 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x20A0
-#define PRODUCT_ID      0x422D
+#define VENDOR_ID       0x594D
+#define PRODUCT_ID      0x8364
 #define DEVICE_VER      0x0200
 #define MANUFACTURER    YMDK
-#define PRODUCT sp64
+#define PRODUCT SP64
 #define DESCRIPTION YMDK Split 64
 
 #define MATRIX_ROWS 6
@@ -31,18 +31,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RIGHT_HALF
 
-#define DEBOUNCE 5
-
 /* disable these deprecated features by default */
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-#define WS2812_ADDRESS 0xB0 // default: 0xb0
-#define WS2812_TIMEOUT 100 // default: 100
+#define WS2812_ADDRESS 0xB0
+#define WS2812_TIMEOUT 100
 
 /* RGB underglow */
-// Not currently working
-//#define RGB_DI_PIN B0 // ATMega32A boards don't have PORTE so the pin can't be standard E2
 #define RGBLED_NUM 12
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8

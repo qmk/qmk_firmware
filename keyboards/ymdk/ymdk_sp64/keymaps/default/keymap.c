@@ -2,9 +2,11 @@
 #include "version.h"
 #include "print.h"
 
-#define BASE 0 // default layer
-#define _FN 1 // function layer
-#define _FX 3 // media keys
+enum layer_names {
+    BASE, // default layer
+    _FN,  // function layer
+    _FX   // media keys
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
@@ -85,9 +87,6 @@ enum custom_keycodes {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch (keycode) {
-      case EPRM:
-        eeconfig_init();
-        return false;
       case VRSN:
         SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
         return false;

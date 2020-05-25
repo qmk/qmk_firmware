@@ -1,16 +1,13 @@
 /*
 Copyright 2013 Oleg Kostyuk <cub.uanic@gmail.com>
-
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
 (at your option) any later version.
-
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
-
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -26,11 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "ymdk_sp64.h"
 #include "debounce.h"
-
-#ifndef DEBOUNCE
-# define DEBOUNCE	5
-#endif
-
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
@@ -70,18 +62,9 @@ void matrix_init(void)
     matrix[row] = 0;
     matrix_debouncing[row] = 0;
   }
-
-
   debounce_init(MATRIX_ROWS);
   matrix_init_quantum();
 }
-
-/*static uint8_t bit_reverse(uint8_t x) {
-  x = ((x >> 1) & 0x55) | ((x << 1) & 0xaa);
-  x = ((x >> 2) & 0x33) | ((x << 2) & 0xcc);
-  x = ((x >> 4) & 0x0f) | ((x << 4) & 0xf0);
-  return x;
-}*/
 
 uint8_t matrix_scan(void)
 {
@@ -102,9 +85,7 @@ uint8_t matrix_scan(void)
     }
   }
 #endif
-
-  bool changed = false; 
-  
+  bool changed = false;
   for (uint8_t row = 0; row < MATRIX_ROWS; row++)
   {
     matrix_row_t cols;
@@ -128,11 +109,12 @@ uint8_t matrix_scan(void)
 
     if (matrix_debouncing[row] != cols) {
       matrix_debouncing[row] = cols;
+      //debouncing = DEBOUNCE;
       changed = true;
     }
   }
-  
-  debounce(matrix, matrix_debouncing, MATRIX_ROWS, changed);
+ 
+  debounce(matrix_debouncing, matrix, MATRIX_ROWS, changed);
 
   matrix_scan_quantum();
 
@@ -142,7 +124,7 @@ uint8_t matrix_scan(void)
       if (matrix_is_on(r, c)) xprintf("r:%d c:%d \n", r, c);
 #endif
 
-  return 1;
+  return (uint8_t)changed;
 }
 
 inline

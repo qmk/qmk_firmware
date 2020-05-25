@@ -2,10 +2,12 @@
 #include "version.h"
 #include "print.h"
 
-#define BASE 0 // default layer
-#define _FUN 1 // function layer
-#define _NUMPAD 2 // num-pad
-#define _MEDIA 3 // media keys
+enum layer_names {
+  BASE, // default layer
+  _FUN, // function layer
+  _NUMPAD, // num-pad
+  _MEDIA // media keys
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer

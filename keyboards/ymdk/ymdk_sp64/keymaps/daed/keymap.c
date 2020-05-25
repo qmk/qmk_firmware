@@ -2,7 +2,7 @@
 #include "version.h"
 #include "print.h"
 
-enum layers {
+enum layer_names {
     _BASE,
     _GAMER,
     _FN,
@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * │ _FN  │ Win │ Alt  │             │ _RA │    │               │ Alt   │ Win  │ Lft │ Dwn │ Rgt │
  * └------┴-----┴------┴-------------┴-----┘    └---------------┴-------┴------┴-----┴-----┴-----┘
  */
-[BASE] = LAYOUT_ymdk_sp64(
+[_BASE] = LAYOUT_ymdk_sp64(
   KC_ESC,  KC_1,    KC_2,    KC_3,     KC_4,    KC_5,     KC_6,               KC_7, KC_8,    KC_9,    KC_0,      KC_MINUS,    KC_EQUAL,    KC_BSPACE,
   KC_TAB,  KC_Q,    KC_W,    KC_E,     KC_R,    KC_T,               KC_Y,     KC_U, KC_I,    KC_O,    KC_P,      KC_LBRACKET, KC_RBRACKET, KC_BSLS,
   KC_LCTL, KC_A,    KC_S,    KC_D,     KC_F,    KC_G,               KC_H,     KC_J, KC_K,    KC_L,    KC_SCOLON, KC_QUOTE,                 KC_ENTER,
@@ -131,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRAVE, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,          KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,
   RGB_TOG, RGB_RMOD, RGB_VAI, RGB_MOD, _______, _______,        _______, _______, _______, _______, _______, _______, _______, RESET,
   _______, RGB_SPD,  RGB_VAD, RGB_SPI, _______, _______,        KC_LEFT, KC_DOWN,   KC_UP, KC_RIGHT, _______, _______,          _______,
-  _______, _______,  _______, _______, _______, _______,        _______, _______, _______, TO(_GAMER), TO(BASE), _______, _______, _______,
+  _______, _______,  _______, _______, _______, _______,        _______, _______, _______, TO(_GAMER), TO(_BASE), _______, _______, _______,
   _______, _______,  _______, _______,          _______,        _______,          _______, _______,          _______, _______, _______
   ),
 /* Keymap 5: Gaming macros
@@ -150,9 +150,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_GACROS] = LAYOUT_ymdk_sp64(
   KC_GRAVE, KC_F1,        KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                      KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,
-  _______, _______,       GAC_PUSH, _______, _______, _______,                    _______, _______, _______, _______, _______, _______, _______, _______,
-  _______, GAC_FROM_LEFT, GAC_FALL, GAC_FROM_RIGHT, _______, _______,            KC_LEFT, KC_DOWN,   KC_UP, KC_RIGHT, _______, _______,          _______,
-  _______, _______,       GAC_CAP, GAC_HEALER_DOWN, _______, _______,          _______, _______, _______, TO(_GAMER), TO(BASE), _______, _______, _______,
+  _______, _______,  _______, _______, _______, _______,                    _______, _______, _______, _______, _______, _______, _______, _______,
+  _______, _______,  _______, _______, _______, _______,            KC_LEFT, KC_DOWN,   KC_UP, KC_RIGHT, _______, _______,          _______,
+  _______, _______,  _______, _______, _______, _______,          _______, _______, _______, TO(_GAMER), TO(_BASE), _______, _______, _______,
   _______, _______,       _______, _______,        _______, _______,                                _______, _______,          _______, _______, _______
   ),
 };
