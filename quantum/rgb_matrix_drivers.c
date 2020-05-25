@@ -46,7 +46,7 @@ static void init(void) {
         IS31FL3731_set_led_control_register(index, enabled, enabled, enabled);
 #    elif defined(IS31FL3733)
         IS31FL3733_set_led_control_register(index, enabled, enabled, enabled);
-#    elif defined(IS31FL3733)
+#    elif defined(IS31FL3737)
         IS31FL3737_set_led_control_register(index, enabled, enabled, enabled);
 #    else
         IS31FL3741_set_led_control_register(index, enabled, enabled, enabled);
