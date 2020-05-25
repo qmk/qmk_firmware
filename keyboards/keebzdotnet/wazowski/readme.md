@@ -1,12 +1,12 @@
-# wazowski
+# wazowski 23-19
 
-![wazowski](imgur.com image replace me!)
+![wazowski 23-19](https://i.imgur.com/fzHzqKI.jpg)
 
-A short description of the keyboard/project
+There once was a r/mech post that showed a horrible keyboard from Monster Inc. This is a modernized version of it
 
-* Keyboard Maintainer: [keebzdotnet](https://github.com/yourusername)
-* Hardware Supported: The PCBs, controllers supported
-* Hardware Availability: Links to where you can find this hardware
+* Keyboard Maintainer: [keebzdotnet](https://github.com/keebzdotnet)
+* Hardware Supported: Wazowski 23-19 PCB
+* Hardware Availability: https://www.keebz.net/shop/wazoski-pcb
 
 Make example for this keyboard (after setting up your build environment):
 

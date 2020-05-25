@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_K, KC_L, KC_NO, KC_M, KC_N
     ),
 };
-
+abcdmfghijnelkf
 /*
 void matrix_init_user(void) {
 
