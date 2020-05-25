@@ -12,11 +12,11 @@ on minimal finger movement. No key is more than one unit away from a finger on t
   * Pinkys, ring fingers, and middle fingers apply dual function modifiers (along with the keys above and below the ring fingers.)
 * Numbers, Symbols, and Function Keys.
   * From the base layer, many keys are dual function layer switches.
-  * The switch on one hand changes the home row of the other hand to a row of symbols in mose cases.
+  * The switch on one hand changes the home row of the other hand to a row of symbols in most cases.
   * The left index finger, and the key below it, change the right hand to the numbers and function keys
   respectfully.
 * Mouse Layer
-  * Clicking the main left thumb key navigates to the mouse layer. Some dual function (technically tap dance functions) allow the left hand to apply modifiers to mouse clicks while tapping switches to
+  * Clicking the main left thumb key navigates to the mouse layer (10.) Some dual function keys (technically tap dance functions) allow the left hand to apply modifiers to mouse clicks while tapping switches to
   navigation layers.
 * Navigation Layers
   * From the Mouse Layer, taps to the left home row navigate to scroll keys, arrow keys, and page keys.
