@@ -29,5 +29,3 @@ WS2812_DRIVER = i2c
 
 SRC += matrix.c 
 QUANTEM_LIB_SRC += i2c_master.c
-
-OPT_DEFS = -DDEBUG_LEVEL=0
