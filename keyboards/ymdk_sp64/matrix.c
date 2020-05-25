@@ -25,12 +25,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "util.h"
 #include "ymdk_sp64.h"
+#include "debounce.h"
 
 #ifndef DEBOUNCE
 # define DEBOUNCE	5
 #endif
 
-static uint8_t debouncing = DEBOUNCE;
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
@@ -71,6 +71,8 @@ void matrix_init(void)
     matrix_debouncing[row] = 0;
   }
 
+
+  debounce_init(MATRIX_ROWS);
   matrix_init_quantum();
 }
 

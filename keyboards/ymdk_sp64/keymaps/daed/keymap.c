@@ -2,12 +2,14 @@
 #include "version.h"
 #include "print.h"
 
-#define BASE 0   // default layer
-#define _GAMER 1  // 
-#define _FN 2    // function layer
-#define _RAISE 3 // quality of life
-#define _MODE 4  // switch modes
-#define _GACROS 5 // Gaming macros
+enum layers {
+    _BASE,
+    _GAMER,
+    _FN,
+    _RAISE,
+    _MODE,
+    _GACROS,
+};
 
 enum custom_keycodes {
 #ifdef ORYX_CONFIGURATOR
