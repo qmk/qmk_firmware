@@ -1,6 +1,6 @@
 
 #include QMK_KEYBOARD_H
-#include <keymap_steno.h>
+#include "keymap_steno.h"
 
 enum layers {
   _BA,           // Base (Balance Twelve mirror variant)

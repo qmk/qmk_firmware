@@ -12,7 +12,7 @@ make planck/rev6:yttyx
 ## To build and flash
 
 ```
-make planck/rev6:yttyx:dfu-util
+make planck/rev6:yttyx:flash
 ```
 
 ## Layers
