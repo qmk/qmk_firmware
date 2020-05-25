@@ -6,7 +6,6 @@
 #define PRODUCT_ID    0x01ED
 #define DEVICE_VER      0x0001
 
-//  Modified by Xydane
 #define MANUFACTURER "QMK"
 #define USBSTR_MANUFACTURER    'Q', '\x00', 'M', '\x00', 'K', '\x00', ' ', '\x00', '\xc6', '\x00'
 #define PRODUCT "8x18"
@@ -25,7 +24,8 @@
 
 // V1
 #define MATRIX_COL_PINS { A7, B10, B1, B0, A6, A5, A4, A3, A2, A1, A0, B11, B8, B7, B6, B5, B4, B3 }
-#define MATRIX_ROW_PINS { A15, A10, A9, A8, B15, B14, B13, B12 }
+//#define MATRIX_ROW_PINS { A15, A10, A9, A8, B15, B14, B13, B12 }
+#define MATRIX_ROW_PINS { B12, B13, B14, B15, A8, A9, A10, A15 }
 
 // bitbanged RGB
 #define RGB_DI_PIN B9
