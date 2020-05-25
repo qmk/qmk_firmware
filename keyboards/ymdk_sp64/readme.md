@@ -10,7 +10,7 @@ Make example for this keyboard (after setting up your build environment):
 
 Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
 
-    make ymdk_sp64:default:bootloadHID
+    make ymdk_sp64:default:flash
 
 **Reset Key**: Hold down the key located at top left on the left hand board, commonly programmed as _ESC_ while plugging in the keyboard.
 
