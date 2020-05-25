@@ -5,7 +5,7 @@
 #include <print.h>
 
 
-#define LAYOUT_local LAYOUT_mobile_XUW
+#define LAYOUT_local LAYOUT_mobile_XUA
 #define LAYOUT_local_wrap(...) LAYOUT_local(__VA_ARGS__)
 
 // Shorter spacing
@@ -65,9 +65,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_CDH] = LAYOUT_local_wrap(\
    ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     QWR,  \
    KC_ESC,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,   \
-   KC_TAB,  ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_L1____________, ____,    ____,   ____,\
-   TT_MOV,  ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_L2____________,    KC_QUOT, KC_ENT, KC_2,\
-   KC_LSFT, ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_L3____________, KC_RSFT, ____,   KC_1,\
+   KC_TAB,  ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_R1____________, ____,    ____,   ____,\
+   TT_MOV,  ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_R2____________,    KC_QUOT, KC_ENT, KC_2,\
+   KC_LSFT, ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________, KC_RSFT, ____,   KC_1,\
   ____,     ____, ____ , LT_SYM, ____, ____, ____, ____, ____,   ____
 
 /*  SYM
