@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "util.h"
 #include "ymdk_sp64.h"
+#include "debounce.h"
 
 #ifndef DEBOUNCE
 # define DEBOUNCE	5
