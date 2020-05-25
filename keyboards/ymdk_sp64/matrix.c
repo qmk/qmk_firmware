@@ -71,6 +71,8 @@ void matrix_init(void)
     matrix_debouncing[row] = 0;
   }
 
+
+  debounce_init(MATRIX_ROWS);
   matrix_init_quantum();
 }
 
