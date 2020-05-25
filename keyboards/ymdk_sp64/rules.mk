@@ -27,6 +27,7 @@ CUSTOM_MATRIX = yes
 # Needed for underglow
 WS2812_DRIVER = i2c
 
-SRC += matrix.c i2c_master.c
+SRC += matrix.c 
+QUANTEM_LIB_SRC += i2c_master.c
 
 OPT_DEFS = -DDEBUG_LEVEL=0
