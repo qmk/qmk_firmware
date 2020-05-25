@@ -8,6 +8,7 @@
 #define ________L_BL_R4________ ZALT,  X ,  C ,  V ,  B
 
 #define KC_ALDE LALT_T(KC_DEL)
+#define KC_ALT0 LALT_T(KC_0)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -73,13 +74,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NUM] = LAYOUT_kc(
   //,-----------------------------------.                    ,-----------------------------------.
-          , BTN1, MS_U, BTN2, WH_D,     ,                       7  ,  8  ,  9  , ASTR,     ,     ,
+          , BTN1, MS_U, BTN2, WH_D,     ,                      ASTR,  7  ,  8  ,  9  , MINS,     ,
   //|-----+-----+-----+-----+-----+-----|                    |-----+-----+-----+-----+-----+-----|
-          , MS_L, MS_D, MS_R, WH_U,     ,                       4  ,  5  ,  6  , PLUS,     , _TGN,
+          , MS_L, MS_D, MS_R, WH_U,     ,                      SLSH,  4  ,  5  ,  6  , PLUS, _TGN,
   //|-----+-----+-----+-----+-----+-----|                    |-----+-----+-----+-----+-----+-----|
-          ,     ,     ,     ,     ,     ,                       1  ,  2  ,  3  , MINS,     ,     ,
+          ,     ,     ,     ,     ,     ,                      COMM,  1  ,  2  ,  3  , ENT ,     ,
   //|-----+-----+-----+-----+-----+-----+-----|  |-----+-----+-----+-----+-----+-----+-----+-----|
-                                  ,     ,     ,        ,  0  , DOT
+                                  ,     ,     ,        ,     , ALT0
                           //`-----------------'  `-----------------'
     ),
 
