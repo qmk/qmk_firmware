@@ -24,8 +24,8 @@ uint8_t          unicode_saved_mods;
 
 #if UNICODE_SELECTED_MODES != -1
 static uint8_t selected[]     = {UNICODE_SELECTED_MODES};
-static uint8_t selected_count = sizeof selected / sizeof *selected;
-static uint8_t selected_index;
+static int8_t  selected_count = sizeof selected / sizeof *selected;
+static int8_t  selected_index;
 #endif
 
 void unicode_input_mode_init(void) {
@@ -33,7 +33,7 @@ void unicode_input_mode_init(void) {
 #if UNICODE_SELECTED_MODES != -1
 #    if UNICODE_CYCLE_PERSIST
     // Find input_mode in selected modes
-    uint8_t i;
+    int8_t i;
     for (i = 0; i < selected_count; i++) {
         if (selected[i] == unicode_config.input_mode) {
             selected_index = i;
@@ -60,9 +60,12 @@ void set_unicode_input_mode(uint8_t mode) {
     dprintf("Unicode input mode set to: %u\n", unicode_config.input_mode);
 }
 
-void cycle_unicode_input_mode(uint8_t offset) {
+void cycle_unicode_input_mode(int8_t offset) {
 #if UNICODE_SELECTED_MODES != -1
-    selected_index            = (selected_index + offset) % selected_count;
+    selected_index = (selected_index + offset) % selected_count;
+    if (selected_index < 0) {
+        selected_index += selected_count;
+    }
     unicode_config.input_mode = selected[selected_index];
 #    if UNICODE_CYCLE_PERSIST
     persist_unicode_input_mode();
@@ -168,6 +171,8 @@ void register_hex32(uint32_t hex) {
     }
 }
 
+// clang-format off
+
 void send_unicode_hex_string(const char *str) {
     if (!str) {
         return;
@@ -175,12 +180,11 @@ void send_unicode_hex_string(const char *str) {
 
     while (*str) {
         // Find the next code point (token) in the string
-        for (; *str == ' '; str++)
-            ;
+        for (; *str == ' '; str++);    // Skip leading spaces
         size_t n = strcspn(str, " ");  // Length of the current token
-        char   code_point[n + 1];
-        strncpy(code_point, str, n);
-        code_point[n] = '\0';  // Make sure it's null-terminated
+        char code_point[n+1];
+        strncpy(code_point, str, n);   // Copy token into buffer
+        code_point[n] = '\0';          // Make sure it's null-terminated
 
         // Normalize the code point: make all hex digits lowercase
         for (char *p = code_point; *p; p++) {
@@ -196,8 +200,10 @@ void send_unicode_hex_string(const char *str) {
     }
 }
 
+// clang-format on
+
 // Borrowed from https://nullprogram.com/blog/2017/10/06/
-const char *decode_utf8(const char *str, int32_t *code_point) {
+static const char *decode_utf8(const char *str, int32_t *code_point) {
     const char *next;
 
     if (str[0] < 0x80) {  // U+0000-007F
@@ -231,7 +237,6 @@ void send_unicode_string(const char *str) {
     }
 
     int32_t code_point = 0;
-
     while (*str) {
         str = decode_utf8(str, &code_point);
 
@@ -243,53 +248,70 @@ void send_unicode_string(const char *str) {
     }
 }
 
+// clang-format off
+
+static void audio_helper(void) {
+#ifdef AUDIO_ENABLE
+    switch (get_unicode_input_mode()) {
+#    ifdef UNICODE_SONG_MAC
+        static float song_mac[][2] = UNICODE_SONG_MAC;
+        case UC_MAC:
+            PLAY_SONG(song_mac);
+            break;
+#    endif
+#    ifdef UNICODE_SONG_LNX
+        static float song_lnx[][2] = UNICODE_SONG_LNX;
+        case UC_LNX:
+            PLAY_SONG(song_lnx);
+            break;
+#    endif
+#    ifdef UNICODE_SONG_WIN
+        static float song_win[][2] = UNICODE_SONG_WIN;
+        case UC_WIN:
+            PLAY_SONG(song_win);
+            break;
+#    endif
+#    ifdef UNICODE_SONG_BSD
+        static float song_bsd[][2] = UNICODE_SONG_BSD;
+        case UC_BSD:
+            PLAY_SONG(song_bsd);
+            break;
+#    endif
+#    ifdef UNICODE_SONG_WINC
+        static float song_winc[][2] = UNICODE_SONG_WINC;
+        case UC_WINC:
+            PLAY_SONG(song_winc);
+            break;
+#    endif
+    }
+#endif
+}
+
+// clang-format on
+
 bool process_unicode_common(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
+        bool shifted = get_mods() & MOD_MASK_SHIFT;
         switch (keycode) {
             case UNICODE_MODE_FORWARD:
-                cycle_unicode_input_mode(+1);
+                cycle_unicode_input_mode(shifted ? -1 : +1);
+                audio_helper();
                 break;
             case UNICODE_MODE_REVERSE:
-                cycle_unicode_input_mode(-1);
+                cycle_unicode_input_mode(shifted ? +1 : -1);
+                audio_helper();
                 break;
 
-            case UNICODE_MODE_MAC:
-                set_unicode_input_mode(UC_MAC);
-#if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_MAC)
-                static float song_mac[][2] = UNICODE_SONG_MAC;
-                PLAY_SONG(song_mac);
-#endif
+            case UNICODE_MODE_MAC ... UNICODE_MODE_WINC: {
+                // Keycodes and input modes follow the same ordering
+                uint8_t delta = keycode - UNICODE_MODE_MAC;
+                set_unicode_input_mode(UC_MAC + delta);
+                audio_helper();
                 break;
-            case UNICODE_MODE_LNX:
-                set_unicode_input_mode(UC_LNX);
-#if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_LNX)
-                static float song_lnx[][2] = UNICODE_SONG_LNX;
-                PLAY_SONG(song_lnx);
-#endif
-                break;
-            case UNICODE_MODE_WIN:
-                set_unicode_input_mode(UC_WIN);
-#if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_WIN)
-                static float song_win[][2] = UNICODE_SONG_WIN;
-                PLAY_SONG(song_win);
-#endif
-                break;
-            case UNICODE_MODE_BSD:
-                set_unicode_input_mode(UC_BSD);
-#if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_BSD)
-                static float song_bsd[][2] = UNICODE_SONG_BSD;
-                PLAY_SONG(song_bsd);
-#endif
-                break;
-            case UNICODE_MODE_WINC:
-                set_unicode_input_mode(UC_WINC);
-#if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_WINC)
-                static float song_winc[][2] = UNICODE_SONG_WINC;
-                PLAY_SONG(song_winc);
-#endif
-                break;
+            }
         }
     }
+
 #if defined(UNICODE_ENABLE)
     return process_unicode(keycode, record);
 #elif defined(UNICODEMAP_ENABLE)
