@@ -10,6 +10,7 @@ MCU = atmega32a
 #   ATmega32A    bootloadHID
 #   ATmega328P   USBasp
 BOOTLOADER = bootloadHID
+
 # Build Options
 #   change yes to no to disable
 #
@@ -27,6 +28,5 @@ CUSTOM_MATRIX = yes
 # Needed for underglow
 WS2812_DRIVER = i2c
 
-SRC += matrix.c i2c_master.c
-
-OPT_DEFS = -DDEBUG_LEVEL=0
+SRC += matrix.c 
+QUANTEM_LIB_SRC += i2c_master.c

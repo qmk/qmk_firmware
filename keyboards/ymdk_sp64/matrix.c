@@ -103,6 +103,8 @@ uint8_t matrix_scan(void)
   }
 #endif
 
+  bool changed = false; 
+  
   for (uint8_t row = 0; row < MATRIX_ROWS; row++)
   {
     matrix_row_t cols;
@@ -126,19 +128,11 @@ uint8_t matrix_scan(void)
 
     if (matrix_debouncing[row] != cols) {
       matrix_debouncing[row] = cols;
-      debouncing = DEBOUNCE;
+      changed = true;
     }
   }
-
-  if (debouncing) {
-    if (--debouncing) {
-      _delay_ms(1);
-    } else {
-      for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        matrix[i] = matrix_debouncing[i];
-      }
-    }
-  }
+  
+  debounce(matrix, matrix_debouncing, MATRIX_ROWS, changed);
 
   matrix_scan_quantum();
 
