@@ -1,15 +1,26 @@
-# ErgoDox EZ Default Configuration
+# The nathanvercaemert ErgoDox EZ configuration
 
-## Changelog
+Centered around the home row and the use of mouse keys, this configuration focuses
+on minimal finger movement. No key is more than one unit away from a finger on the home row.
 
-* Dec 2016:
-  * Added LED keys
-  * Refreshed layout graphic, comes from http://configure.ergodox-ez.com now.
-* Sep 22, 2016:
-  * Created a new key in layer 1 (bottom-corner key) that resets the EEPROM.
-* Feb 2, 2016 (V1.1): 
-  * Made the right-hand quote key double as Cmd/Win on hold. So you get ' when you tap it, " when you tap it with Shift, and Cmd or Win when you hold it. You can then use it as a modifier, or just press and hold it for a moment (and then let go) to send a single Cmd or Win keystroke (handy for opening the Start menu on Windows).
+## Layers
 
-This is what we ship with out of the factory. :) The image says it all:
+* Base Layer
+  * The two main thumb keys provide a loop to the mouse key layer. Pressing the left followed by the right always guarantees that you are on the base layer.
+  * There are a lot of dual function keys on the base layer.
+  * The layout of the letters is qwerty.
+  * Pinkys, ring fingers, and middle fingers apply dual function modifiers (along with the keys above and below the ring fingers.)
+* Numbers, Symbols, and Function Keys.
+  * From the base layer, many keys are dual function layer switches.
+  * The switch on one hand changes the home row of the other hand to a row of symbols in mose cases.
+  * The left index finger, and the key below it, change the right hand to the numbers and function keys
+  respectfully.
+* Mouse Layer
+  * Clicking the main left thumb key navigates to the mouse layer. Some dual function (technically tap dance functions) allow the left hand to apply modifiers to mouse clicks while tapping switches to
+  navigation layers.
+* Navigation Layers
+  * From the Mouse Layer, taps to the left home row navigate to scroll keys, arrow keys, and page keys.
 
-![Default](https://i.imgur.com/Be53jH7.png)
+Here is the image of my keymap:
+
+![Default](https://i.imgur.com/kXywQIq.png)
