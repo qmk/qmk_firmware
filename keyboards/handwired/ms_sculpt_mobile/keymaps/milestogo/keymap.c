@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_TAB,   _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,    KC_LBRC, KC_RBRC, KC_BSLS,\
    TT_MOV,   _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,  KC_QUOT,  KC_ENT, KC_PGUP,\
    KC_LSFT,  _________________QWERTY_L3_________________, _________________QWERTY_R3_________________,KC_RSFT,  KC_UP,  KC_PGDN,\
-   KC_LCTL,  KC_LGUI, KC_LALT, KC_FN1, KC_RGUI,TT_SYM,KC_RCTL, KC_LEFT, KC_DOWN, KC_RIGHT
+   KC_LCTL,  KC_LGUI, KC_LALT, KC_SPC , KC_RGUI,TT_SYM,KC_RCTL, KC_LEFT, KC_DOWN, KC_RIGHT
 ),
 
 [_CDH] = LAYOUT_local_wrap(\
@@ -172,52 +172,61 @@ void matrix_init_kb(void) {
 }
 
 
+// Assign indicators to LEDs
+#define LED_LAYER 2 // layer: raise/Lower
+#define LED_LAYOUT 1 // qwerty , colemak, dv
+#define LED_CAPS  4 // caps on/off 
+#define LED_MACRO  0 // babble os indicator: windows/chrome/mac/linux
 
 // Runs whenever there is a layer state change.
 layer_state_t layer_state_set_kb(layer_state_t state) {
     uint8_t layer = get_highest_layer(state);
+
+
+    #ifdef RGBLIGHT_ENABLE
+        rgblight_init();
+        //// keyboard layout modes 
+    #endif
+
+        if ( layer_state_cmp(state, _CDH)) {
+        	 #ifdef RGBLIGHT_COLOR_LAYER_1
+                rgblight_setrgb_at(RGBLIGHT_COLOR_LAYER_1,LED_LAYOUT);
+            #endif
+        }
+          if ( layer_state_cmp(state, _QWERTY)) {
+        	 #ifdef RGBLIGHT_COLOR_LAYER_0
+                rgblight_setrgb_at(RGBLIGHT_COLOR_LAYER_0,LED_LAYOUT);
+
+            #endif
+        }
+
     switch (layer) {
-        case 0:
-            #ifdef RGBLIGHT_COLOR_LAYER_0
-                rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
-            #else
-                #ifdef RGBLIGHT_ENABLE
-                    rgblight_init();
-                #endif
-            #endif
-            break;
-
-        case 1:
-            #ifdef RGBLIGHT_COLOR_LAYER_1
-                rgblight_setrgb(RGBLIGHT_COLOR_LAYER_1);
-            #endif
-            break;
-
-        case 2:
+        case _SYM:
             #ifdef RGBLIGHT_COLOR_LAYER_2
-                rgblight_setrgb(RGBLIGHT_COLOR_LAYER_2);
+                 rgblight_setrgb_at(RGBLIGHT_COLOR_LAYER_2,LED_LAYER);
             #endif
             break;
 
         case 3:
             #ifdef RGBLIGHT_COLOR_LAYER_3
-                rgblight_setrgb(RGBLIGHT_COLOR_LAYER_3);
+                 rgblight_setrgb_at(RGBLIGHT_COLOR_LAYER_3,LED_LAYER);
             #endif
             break;
 
         case 4:
             #ifdef RGBLIGHT_COLOR_LAYER_4
-                rgblight_setrgb(RGBLIGHT_COLOR_LAYER_4);
+                 rgblight_setrgb_at(RGBLIGHT_COLOR_LAYER_4,LED_LAYER);
             #endif
             break;
 
         case 5:
             #ifdef RGBLIGHT_COLOR_LAYER_5
-                rgblight_setrgb(RGBLIGHT_COLOR_LAYER_5);
+                 rgblight_setrgb_at(RGBLIGHT_COLOR_LAYER_5,LED_LAYER);
             #endif
             break;
 
         default:
+               rgblight_setrgb_at(RGBLIGHT_OFF,LED_LAYER);
           break;
       }
     #ifdef VIRTSER_ENABLE

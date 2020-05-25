@@ -21,7 +21,7 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 #enable RAW in keymap config, since it can hang machines
 RAW_ENABLE = no
 # virtual serial port
-VIRTSER_ENABLE = yes
+VIRTSER_ENABLE = no
 
 
 USER_NAME := miles2go
