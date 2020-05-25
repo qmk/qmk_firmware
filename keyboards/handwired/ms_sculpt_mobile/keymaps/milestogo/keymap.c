@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *
 * |ESC | F1 | F2 | F3 | F4 | F5 | F6 | f7 | F8 | F9 | F10| F11| F12|Vol-|Vol+|_CDH|
 *  -------------------------------------------------------------------------------'
-* | ESC |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |  0 |  - |  = |Bakspace| Del|
+* |grv  |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |  0 |  - |  = |Bakspace| Del|
 * ---------------------------------------------------------------------------
 * | tab  |  q |  w |  e |  r |  t |  y |  u |  i |  o |  p |  [ |  ] |  \    |    |
 *  -------------------------------------------------------------------------------'
@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWERTY] = LAYOUT_local_wrap( \
    KC_ESC,   KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8,   KC_F9, KC_F10,    KC_F11,   KC_F12, KC_VOLD, KC_VOLU, TG(_CDH),\
-   KC_ESC,   KC_1, KC_2, KC_3 ,KC_4, KC_5, KC_6, KC_7, KC_8,   KC_9, KC_0,    KC_MINUS, KC_EQL, KC_BSPC, KC_DEL,\
+   KC_GRAVE,   KC_1, KC_2, KC_3 ,KC_4, KC_5, KC_6, KC_7, KC_8,   KC_9, KC_0,    KC_MINUS, KC_EQL, KC_BSPC, KC_DEL,\
    KC_TAB,   _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,    KC_LBRC, KC_RBRC, KC_BSLS,\
    TT_MOV,   _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,  KC_QUOT,  KC_ENT, KC_PGUP,\
    KC_LSFT,  _________________QWERTY_L3_________________, _________________QWERTY_R3_________________,KC_RSFT,  KC_UP,  KC_PGDN,\
@@ -60,8 +60,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_CDH] = LAYOUT_local_wrap(\
    ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     ____,  \
-   KC_ESC,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,   \
-   KC_TAB,  ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_R1____________, ____,    ____,   ____,\
+   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,   \
+   ____,  ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_R1____________, ____,    ____,   ____,\
    TT_MOV,  ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_R2____________,   ____, ____, ____,\
    KC_LSFT, ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________, ____, ____,   ____,\
   ____,     ____, ____ , LT_SYM, ____, ____, ____, ____, ____,   ____
