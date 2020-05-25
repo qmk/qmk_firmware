@@ -103,6 +103,8 @@ uint8_t matrix_scan(void)
   }
 #endif
 
+  bool changed = false; 
+  
   for (uint8_t row = 0; row < MATRIX_ROWS; row++)
   {
     matrix_row_t cols;
