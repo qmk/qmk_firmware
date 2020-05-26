@@ -53,5 +53,3 @@ void IS31FL3741_update_led_control_registers(uint8_t addr1, uint8_t addr2);
 void IS31FL3741_set_scaling_registers(const is31_led *pled, uint8_t red, uint8_t green, uint8_t blue);
 
 void IS31FL3741_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green, uint8_t blue);
-
-#endif  // IS31FL3741_DRIVER_H
