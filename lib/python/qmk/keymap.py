@@ -2,8 +2,6 @@
 """
 from pathlib import Path
 
-from milc import cli
-
 from qmk.keyboard import rules_mk
 import qmk.path
 
