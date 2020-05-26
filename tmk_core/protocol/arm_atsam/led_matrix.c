@@ -326,7 +326,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {.init = init, .flush = flush, .se
 ==============================================================================*/
 
 #ifdef USE_MASSDROP_CONFIGURATOR
-// Ported from Massdrop QMK Github Repo
+// Ported from Massdrop QMK GitHub Repo
 
 // TODO?: wire these up to keymap.c
 uint8_t led_animation_orientation = 0;
