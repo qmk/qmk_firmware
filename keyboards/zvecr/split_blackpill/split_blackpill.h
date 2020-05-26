@@ -1,4 +1,4 @@
-/* Copyright 2019
+/* Copyright 2020 zvecr <git@zvecr.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,26 +13,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #pragma once
 
-#include "config_common.h"
+#include "quantum.h"
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-#define PCBDOWN 1
-
-#define MATRIX_ROW_PINS { D0, D1, D3, D2 }
-#define MATRIX_COL_PINS { B7, D6, F7, F6, B6, D4, E6, B4, B5, C6, D7 }
-#define UNUSED_PINS
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
+#define LAYOUT_ortho_4x12( \
+	L00, L01, L02, L03, L04, L05, R00, R01, R02, R03, R04, R05, \
+	L10, L11, L12, L13, L14, L15, R10, R11, R12, R13, R14, R15, \
+	L20, L21, L22, L23, L24, L25, R20, R21, R22, R23, R24, R25, \
+	L30, L31, L32, L33, L34, L35, R30, R31, R32, R33, R34, R35 \
+	) \
+	{ \
+		{ L00, L01, L02, L03, L04, L05 }, \
+		{ L10, L11, L12, L13, L14, L15 }, \
+		{ L20, L21, L22, L23, L24, L25 }, \
+		{ L30, L31, L32, L33, L34, L35 }, \
+		{ R05, R04, R03, R02, R01, R00 }, \
+		{ R15, R14, R13, R12, R11, R10 }, \
+		{ R25, R24, R23, R22, R21, R20 }, \
+		{ R35, R34, R33, R32, R31, R30 } \
+	}
