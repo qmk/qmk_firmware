@@ -5,7 +5,8 @@ from pathlib import Path
 
 from milc import cli
 
-from qmk.path import is_keyboard, is_keymap_dir, under_qmk_firmware
+from qmk.keymap import is_keymap_dir
+from qmk.path import is_keyboard, under_qmk_firmware
 
 
 def automagic_keyboard(func):

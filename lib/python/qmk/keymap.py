@@ -47,6 +47,14 @@ def _strip_any(keycode):
     return keycode
 
 
+def is_keymap_dir(keymap):
+    """Return True if Path object `keymap` has a keymap file inside.
+    """
+    for file in ('keymap.c', 'keymap.json'):
+        if (keymap / file).is_file():
+            return True
+
+
 def generate(keyboard, layout, layers):
     """Returns a keymap.c for the specified keyboard, layout, and layers.
 
@@ -126,7 +134,7 @@ def locate_keymap(keyboard, keymap):
         if (keymap_dir / keymap / 'keymap.json').exists():
             keymap_path = keymap_dir / keymap / 'keymap.json'
 
-    if keymap_dir:
+    if keymap_path:
         return keymap_path
 
     # Check community layouts as a fallback
@@ -134,7 +142,7 @@ def locate_keymap(keyboard, keymap):
 
     if "LAYOUTS" in rules:
         for layout in rules["LAYOUTS"].split():
-            community_layout = Path('layouts/community') / layout
+            community_layout = Path('layouts/community') / layout / keymap
             if community_layout.exists():
                 if (community_layout / 'keymap.json').exists():
                     return community_layout / 'keymap.json'
@@ -165,7 +173,7 @@ def list_keymaps(keyboard):
         while kb_path != keyboards_dir:
             keymaps_dir = kb_path / "keymaps"
             if keymaps_dir.exists():
-                names = names.union([keymap for keymap in keymaps_dir.iterdir() if (keymaps_dir / keymap / "keymap.c").is_file()])
+                names = names.union([keymap.name for keymap in keymaps_dir.iterdir() if is_keymap_dir(keymap)])
             kb_path = kb_path.parent
 
         # if community layouts are supported, get them
@@ -173,6 +181,6 @@ def list_keymaps(keyboard):
             for layout in rules["LAYOUTS"].split():
                 cl_path = Path('layouts/community') / layout
                 if cl_path.exists():
-                    names = names.union([keymap for keymap in cl_path.iterdir() if (cl_path / keymap / "keymap.c").is_file()])
+                    names = names.union([keymap.name for keymap in cl_path.iterdir() if is_keymap_dir(keymap)])
 
     return sorted(names)

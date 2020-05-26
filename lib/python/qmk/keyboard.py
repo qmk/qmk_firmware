@@ -8,16 +8,6 @@ from qmk.c_parse import parse_config_h_file
 from qmk.makefile import parse_rules_mk_file
 
 
-def is_keyboard(keyboard_folder):
-    """Returns True if keyboard is a valid keyboard_folder.
-    """
-    if not keyboard_folder:
-        return False
-    keyboard_folder = Path('keyboards') / keyboard_folder
-    rules = keyboard_folder / 'rules.mk'
-    return keyboard_folder.exists() and rules.exists()
-
-
 def config_h(keyboard):
     """Parses all the config.h files for a keyboard.
 

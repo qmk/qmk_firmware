@@ -4,7 +4,7 @@ from milc import cli
 
 import qmk.keymap
 from qmk.decorators import automagic_keyboard
-from qmk.keyboard import is_keyboard
+from qmk.path import is_keyboard
 
 
 @cli.argument("-kb", "--keyboard", help="Specify keyboard name. Example: 1upkeyboards/1up60hse")

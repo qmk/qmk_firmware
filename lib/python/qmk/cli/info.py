@@ -7,9 +7,10 @@ import json
 from milc import cli
 
 from qmk.decorators import automagic_keyboard, automagic_keymap
-from qmk.keyboard import is_keyboard, render_layouts, render_layout
+from qmk.keyboard import render_layouts, render_layout
 from qmk.keymap import locate_keymap
 from qmk.info import info_json
+from qmk.path import is_keyboard
 
 ROW_LETTERS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnop'
 COL_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijilmnopqrstuvwxyz'
