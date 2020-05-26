@@ -22,8 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID    0x4D4C // ML-Mechlovin
 #define MANUFACTURER Team.Mechlovin
-#define PRODUCT      Hannah60 RGB
-#define DESCRIPTION  Team.Mechlovin Hannah60 RGB
 
 /* key matrix size */
 #define MATRIX_ROWS 5

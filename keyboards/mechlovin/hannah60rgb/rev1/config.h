@@ -2,6 +2,8 @@
 
 #define PRODUCT_ID   0x6001
 #define DEVICE_VER   0x0001
+#define PRODUCT      Hannah60 RGB
+#define DESCRIPTION  Team.Mechlovin Hannah60 RGB
 
 
 #define RGB_DI_PIN A15
