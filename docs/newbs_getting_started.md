@@ -135,7 +135,7 @@ Most people new to QMK only have 1 keyboard. You can set this keyboard as your d
 
     qmk config user.keyboard=clueboard/66/rev4
 
-You can also set your default keymap name. Most people use their github username here, and we recommend that you do too.
+You can also set your default keymap name. Most people use their GitHub username here, and we recommend that you do too.
 
     qmk config user.keymap=<github_username>
 
