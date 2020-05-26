@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-#include "ash_epad.h"
+#include "ash6e1.h"
 
 // Optional override functions below.
 // You can leave any or all of these undefined.
