@@ -27,9 +27,6 @@ enum babble_modes {
 #    ifdef BABL_READMUX
     BABL_READMUX_MODE,
 #    endif
-#    ifdef BABL_LINUX
-    BABL_LINUX_MODE,
-#    endif    
 #    ifdef BABL_WINDOWS
     BABL_WINDOWS_MODE,
 #    endif
@@ -42,6 +39,9 @@ enum babble_modes {
 #    ifdef BABL_CHROMEOS
     BABL_CHROMEOS_MODE,
 #    endif
+#    ifdef BABL_LINUX
+    BABL_LINUX_MODE,
+#    endif  
     BABL_MODEMAX
 };
 
@@ -79,6 +79,8 @@ enum babble_modes {
 
 enum babble_keycodes {
     FIRST = BABBLE_START,
+    BABL_MODE_INCREMENT, 
+    BABL_MODE_DECREMENT,
 #   ifdef BABL_MODSWAP
     BABL_PRIMARY_OS_MOD,
     BABL_SECONDARY_OS_MOD,
@@ -248,13 +250,12 @@ bool babblePaste_readmux(uint16_t keycode);
 bool babblePaste_chromeos(uint16_t keycode);
 #    endif
 
-#    define BABL_INC babble_mode_increment();
-#    define BABL_DEC babble_mode_decrement();
 
 /****************************************************
 **    All keyboard macros for Babble Actions
 *****************************************************/
-
+#       define B_INC BABL_MODE_INCREMENT
+#       define B_DEC BABL_MODE_DECREMENT
 #   ifdef BABL_MODSWAP
 #       define B_1ME BABL_PRIMARY_OS_MOD 
 #       define B_2ME BABL_SECONDARY_OS_MOD

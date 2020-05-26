@@ -100,11 +100,12 @@ See the full list in babblePaste.h, or the list below
   B_READ // switch to readline /tmux mode
   B_CROM // switch to chromeos mode.
   
-  // Swap meaning of modifier key in most ergonomic location based on babble // mode. Eg Thumb gets CTL on Win/Linux, pinky gets Windows key. Reverse for 
+  // Swap meaning of modifier key in most ergonomic location based on babble
+  // mode. Eg Thumb gets CTL on Win/Linux, pinky gets Windows key. Reverse for 
   // OS X.  See first line in babblepaste function.   
-  #define B_1M BABL_PRIMARY_OS_MOD 
-  #define B_2M BABL_SECOND_OS_MOD
-  #define B_3M BABL_TERTIARY_OS_MOD
+  #define B_1ME BABL_PRIMARY_OS_MOD 
+  #define B_2ME BABL_SECONDARY_OS_MOD
+  #define B_3ME BABL_TERTIARY_OS_MOD
 
 // Macros
   #define B_L1C  BABL_GO_LEFT_1C

@@ -112,6 +112,18 @@ bool babblePaste(uint16_t keycode, bool is_pressed )  {
            return true;
     }
 
+// handle increment functions. 
+
+if (keycode == BABL_MODE_INCREMENT) {
+        babble_mode_increment();
+        return true;
+}
+
+if (keycode == BABL_MODE_DECREMENT) {
+        babble_mode_decrement();
+        return true;
+}
+
 #    ifdef BABL_MAC
     if (keycode == BABL_DO_MAC) {
         set_babble_mode(BABL_MAC_MODE);
@@ -164,7 +176,7 @@ bool babblePaste(uint16_t keycode, bool is_pressed )  {
         babblePaste_emacs(keycode);
     }
 #    endif
-#    ifdef BABL_CHROME
+#    ifdef BABL_CHROMEOS
     if (keycode == BABL_DO_CHROMEOS) {
         set_babble_mode(BABL_CHROMEOS_MODE);
         babble_modeswitch_kb(babble_mode);
