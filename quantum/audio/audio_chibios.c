@@ -89,9 +89,15 @@ static void gpt_cb8(GPTDriver *gptp);
     gptStartContinuous(&GPTD6, 2U)
 #define START_CHANNEL_2()        \
     gptStart(&GPTD7, &gpt7cfg1); \
-    gptStartContinuous(&GPTD7, 2U)
+    gptStartContinuous(&GPTD7, 2U); \
+    palSetPadMode(GPIOA, 5, PAL_MODE_INPUT_ANALOG)
+
 #define STOP_CHANNEL_1() gptStopTimer(&GPTD6)
-#define STOP_CHANNEL_2() gptStopTimer(&GPTD7)
+#define STOP_CHANNEL_2()         \
+    gptStopTimer(&GPTD7);        \
+    palSetPadMode(GPIOA, 5, PAL_MODE_OUTPUT_PUSHPULL); \
+    palSetPad(GPIOA, 5)
+
 #define RESTART_CHANNEL_1() \
     STOP_CHANNEL_1();       \
     START_CHANNEL_1()
