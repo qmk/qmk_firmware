@@ -1,6 +1,7 @@
 # ASH-6.E1
 
 ASH-6.E1 is a 6 switch + 1 rotary encoder macropad.
+
 ![ASH-6.E1](https://i.imgur.com/ooB1TKI.png)
 
 * Keyboard Maintainer: [sh_xguitar](https://github.com/sh-xguitar)
