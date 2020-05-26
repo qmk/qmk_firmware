@@ -5,6 +5,7 @@ ASH-6.E1 is a 6 switch + 1 rotary encoder macropad.
 ![ASH-6.E1](https://i.imgur.com/ooB1TKI.png)
 
 * Keyboard Maintainer: [sh_xguitar](https://github.com/sh-xguitar)
+                       [vulcan](instagram.com/project_vulcan)
 * Keyboard Specification: ATmega32u4, THT USB Type C + ESD, ISP Header, in-switch LED.
 * Hardware Availability: Sold in Indonesia only
 
