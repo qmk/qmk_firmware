@@ -89,4 +89,4 @@ def test_list_keymaps_no_keyboard_found():
 def test_json2c():
     result = check_subcommand('json2c', 'keyboards/handwired/onekey/keymaps/default_json/keymap.json')
     assert result.returncode == 0
-    assert '#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\t[0] = LAYOUT(KC_A)};' in result.stdout
+    assert result.stdout == '#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\t[0] = LAYOUT(KC_A)};\n\n'
