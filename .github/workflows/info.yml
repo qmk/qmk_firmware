@@ -18,12 +18,12 @@ jobs:
         with:
           submodules: recursive
 
-    - name: Print info
-      run: |
-        git rev-parse --short HEAD
-        git diff remotes/origin/${{ github.base_ref }} --name-only
+      - name: Print info
+          run: |
+            git rev-parse --short HEAD
+            git diff remotes/origin/${{ github.base_ref }} --name-only
 
-    - name: Run
-      run: |
-        qmk info -kb zvecr/split_blackpill 2>&1 | tee /tmp/$$
-        grep ☒ /tmp/$$
+      - name: Run
+        run: |
+          qmk info -kb zvecr/split_blackpill 2>&1 | tee /tmp/$$
+          grep ☒ /tmp/$$
