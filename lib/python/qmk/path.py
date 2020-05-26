@@ -4,18 +4,8 @@ import logging
 import os
 from pathlib import Path
 
-from qmk.constants import QMK_FIRMWARE, MAX_KEYBOARD_SUBFOLDERS
+from qmk.constants import MAX_KEYBOARD_SUBFOLDERS, QMK_FIRMWARE
 from qmk.errors import NoSuchKeyboardError
-
-
-def is_keymap_dir(keymap_path):
-    """Returns True if `keymap_path` is a valid keymap directory.
-    """
-    keymap_path = Path(keymap_path)
-    keymap_c = keymap_path / 'keymap.c'
-    keymap_json = keymap_path / 'keymap.json'
-
-    return any((keymap_c.exists(), keymap_json.exists()))
 
 
 def is_keyboard(keyboard_name):

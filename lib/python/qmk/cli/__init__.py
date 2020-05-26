@@ -12,6 +12,7 @@ from . import config
 from . import doctor
 from . import flash
 from . import hello
+from . import info
 from . import json
 from . import json2c
 from . import list
