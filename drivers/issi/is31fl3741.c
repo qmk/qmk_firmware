@@ -17,13 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef __AVR__
-#    include <avr/interrupt.h>
-#    include <avr/io.h>
-#    include <util/delay.h>
-#else
-#    include "wait.h"
-#endif
+#include "wait.h"
 
 #include "is31fl3741.h"
 #include <string.h>
