@@ -1,11 +1,25 @@
+/* Copyright 2020 Richard Sutherland <rich@brickbots.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+#include "spi_master.h"
+#include "spi_master.c"
 #include "adns.h"
-#include <avr/io.h>
-#include <avr/interrupt.h>
 #include "print.h"
 #include "quantum.h"
 #include "pointing_device.h"
 #include "adns9800_srom_A6.h"
-#include "../../lib/lufa/LUFA/Drivers/Peripheral/SPI.h"
 
 // registers
 #define REG_Product_ID                           0x00
@@ -55,12 +69,12 @@
 #define REG_Pixel_Burst                          0x64
 
 // pins
-#define NCS 0
+#define NCS F7
 
 extern const uint16_t firmware_length;
 extern const uint8_t firmware_data[];
 
-enum motion_burst_property{
+enum motion_burst_propertr{
     motion = 0,
     observation,
     delta_x_l,
@@ -85,80 +99,59 @@ volatile int16_t delta_y;
 volatile uint8_t motion_ind=0;
 
 void adns_begin(void){
-
-    writePinLow(F5);
-    //PORTB &= ~ (1 << NCS);
+    spi_start(NCS, false, 3, 8);
 }
 
 void adns_end(void){
-    writePinHigh(F5);
-    //PORTB |= (1 << NCS);
+    spi_stop();
 }
 
 void adns_write(uint8_t reg_addr, uint8_t data){
 
     adns_begin();
-
     //send address of the register, with MSBit = 1 to indicate it's a write
-    SPI_TransferByte(reg_addr | 0x80 );
-    SPI_TransferByte(data);
+    spi_write(reg_addr | 0x80 );
+    spi_write(data);
 
     // tSCLK-NCS for write operation
     wait_us(20);
 
-    adns_end();
 
     // tSWW/tSWR (=120us) minus tSCLK-NCS. Could be shortened, but is looks like a safe lower bound
     wait_us(100);
+    adns_end();
 }
 
 uint8_t adns_read(uint8_t reg_addr){
 
-    adns_begin();
 
+    adns_begin();
     // send adress of the register, with MSBit = 0 to indicate it's a read
-    SPI_TransferByte(reg_addr & 0x7f );
-    uint8_t data = SPI_TransferByte(0);
+    spi_write(reg_addr & 0x7f );
+    uint8_t data = spi_read();
 
     // tSCLK-NCS for read operation is 120ns
     wait_us(1);
 
-    adns_end();
 
     //  tSRW/tSRR (=20us) minus tSCLK-NCS
     wait_us(19);
 
+    adns_end();
     return data;
 }
 
 void pointing_device_init(void) {
-    print("STSARTING INTI"); 
-    setPinOutput(F5);
+    print("STSARTING INTI\n");
 
-    // interrupt 2
-    //EICRA &= ~(1 << 4);
-    //EICRA |= (1 << 5);
-    //EIMSK |= (1<<INT2);
-
-    // mode 3
-    SPI_Init(
-        SPI_SPEED_FCPU_DIV_8 |
-        SPI_ORDER_MSB_FIRST |
-        SPI_SCK_LEAD_FALLING |
-        SPI_SAMPLE_TRAILING |
-        SPI_MODE_MASTER);
-
-    // set B0 output
-
+    spi_init();
     // reset serial port
-    adns_end();
     adns_begin();
     adns_end();
 
     // reboot
     adns_write(REG_Power_Up_Reset, 0x5a);
     wait_ms(50);
-
     // read registers and discard
     adns_read(REG_Motion);
     adns_read(REG_Delta_X_L);
@@ -183,22 +176,20 @@ void pointing_device_init(void) {
     adns_write(REG_SROM_Enable, 0x18);
 
     // write the SROM file (=firmware data)
-    adns_begin();
 
     // write burst destination adress
-    SPI_TransferByte(REG_SROM_Load_Burst | 0x80);
+    adns_begin();
+    spi_write(REG_SROM_Load_Burst | 0x80);
     wait_us(15);
-
     // send all bytes of the firmware
     unsigned char c;
     for(int i = 0; i < firmware_length; i++){
         c = (unsigned char)pgm_read_byte(firmware_data + i);
-        SPI_TransferByte(c);
+        spi_write(c);
         wait_us(15);
     }
 
     adns_end();
-
     wait_ms(10);
 
     // enable laser(bit 0 = 0b), in normal mode (bits 3,2,1 = 000b)
@@ -218,7 +209,7 @@ void pointing_device_init(void) {
     adns_write(REG_Configuration_I, 0x08);
 
     wait_ms(100);
-    print("INIT ENDDED");
+    print("INIT ENDED\n");
 }
 
 int16_t convertDeltaToInt(uint8_t high, uint8_t low){
@@ -238,12 +229,12 @@ void readSensor(void) {
     adns_begin();
 
     // send adress of the register, with MSBit = 1 to indicate it's a write
-    SPI_TransferByte(REG_Motion_Burst & 0x7f);
+    spi_write(REG_Motion_Burst & 0x7f);
 
     uint8_t burst_data[pixel_sum];
 
     for (int i = 0; i < pixel_sum; ++i) {
-        burst_data[i] = SPI_TransferByte(0);
+        burst_data[i] = spi_read();
     }
 
     delta_x += convertDeltaToInt(burst_data[delta_x_h], burst_data[delta_x_l]);
@@ -257,7 +248,7 @@ void pointing_device_task(void) {
     report_mouse_t report = pointing_device_get_report();
 
     //if(delta_x + delta_y > 0)
-        //uprintf("M: %d\tX: %d\tY: %d\n", motion_ind, delta_x, delta_y);
+    //uprintf("M: %d\tX: %d\tY: %d\n", motion_ind, delta_x, delta_y);
     // clamp deltas from -127 to 127
     report.x = delta_x < -127 ? 127 : delta_x > 127 ? 127 : delta_x;
     report.x = -report.x;
@@ -274,23 +265,3 @@ void pointing_device_task(void) {
 
 
 
-ISR(INT2_vect) {
-    // called on interrupt 2 when sensed motion
-    // copy burst data from the respective registers
-
-    adns_begin();
-
-    // send adress of the register, with MSBit = 1 to indicate it's a write
-    SPI_TransferByte(REG_Motion_Burst & 0x7f);
-
-    uint8_t burst_data[pixel_sum];
-
-    for (int i = 0; i < pixel_sum; ++i) {
-        burst_data[i] = SPI_TransferByte(0);
-    }
-
-    delta_x += convertDeltaToInt(burst_data[delta_x_h], burst_data[delta_x_l]);
-    delta_y += convertDeltaToInt(burst_data[delta_y_h], burst_data[delta_y_l]);
-
-    adns_end();
-}
