@@ -78,43 +78,43 @@ def test_list_keyboards():
 
 def test_list_keymaps():
     result = check_subcommand('list-keymaps', '-kb', 'handwired/onekey/pytest')
-    assert result.returncode == 0
+    check_returncode(result, 0)
     assert 'default' and 'test' in result.stdout
 
 
 def test_list_keymaps_long():
     result = check_subcommand('list-keymaps', '--keyboard', 'handwired/onekey/pytest')
-    assert result.returncode == 0
+    check_returncode(result, 0)
     assert 'default' and 'test' in result.stdout
 
 
 def test_list_keymaps_kb_only():
     result = check_subcommand('list-keymaps', '-kb', 'niu_mini')
-    assert result.returncode == 0
+    check_returncode(result, 0)
     assert 'default' and 'via' in result.stdout
 
 
 def test_list_keymaps_vendor_kb():
     result = check_subcommand('list-keymaps', '-kb', 'ai03/lunar')
-    assert result.returncode == 0
+    check_returncode(result, 0)
     assert 'default' and 'via' in result.stdout
 
 
 def test_list_keymaps_vendor_kb_rev():
     result = check_subcommand('list-keymaps', '-kb', 'kbdfans/kbd67/mkiirgb/v2')
-    assert result.returncode == 0
+    check_returncode(result, 0)
     assert 'default' and 'via' in result.stdout
 
 
 def test_list_keymaps_no_keyboard_found():
     result = check_subcommand('list-keymaps', '-kb', 'asdfghjkl')
-    assert result.returncode != 0
+    check_returncode(result, 1)
     assert 'does not exist' in result.stdout
 
 
 def test_json2c():
     result = check_subcommand('json2c', 'keyboards/handwired/onekey/keymaps/default_json/keymap.json')
-    assert result.returncode == 0
+    check_returncode(result, 0)
     assert result.stdout == '#include QMK_KEYBOARD_H\nconst uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\t[0] = LAYOUT(KC_A)};\n\n'
 
 
