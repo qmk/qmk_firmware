@@ -4,7 +4,7 @@ from milc import cli
 
 import qmk.keymap
 from qmk.decorators import automagic_keyboard
-from qmk.errors import NoSuchKeyboardError
+from qmk.path import is_keyboard
 
 
 @cli.argument("-kb", "--keyboard", help="Specify keyboard name. Example: 1upkeyboards/1up60hse")
@@ -13,13 +13,9 @@ from qmk.errors import NoSuchKeyboardError
 def list_keymaps(cli):
     """List the keymaps for a specific keyboard
     """
-    try:
-        for name in qmk.keymap.list_keymaps(cli.config.list_keymaps.keyboard):
-            # We echo instead of cli.log.info to allow easier piping of this output
-            cli.echo('%s', name)
-    except NoSuchKeyboardError as e:
-        cli.echo("{fg_red}%s: %s", cli.config.list_keymaps.keyboard, e.message)
-    except (FileNotFoundError, PermissionError) as e:
-        cli.echo("{fg_red}%s: %s", cli.config.list_keymaps.keyboard, e)
-    except TypeError:
-        cli.echo("{fg_red}Something went wrong. Did you specify a keyboard?")
+    if not is_keyboard(cli.config.list_keymaps.keyboard):
+        cli.log.error('Keyboard %s does not exist!', cli.config.list_keymaps.keyboard)
+        exit(1)
+
+    for name in qmk.keymap.list_keymaps(cli.config.list_keymaps.keyboard):
+        print(name)
