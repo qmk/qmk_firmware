@@ -1,4 +1,4 @@
-/* Copyright 2019
+/* Copyright 2020 zvecr <git@zvecr.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,26 +13,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "split_blackpill.h"
 
-#pragma once
+void keyboard_pre_init_kb(void){
+    // Workaround for reversible pcb/mcu
+    palSetLineMode(C13, PAL_MODE_OUTPUT_OPENDRAIN);
+    palSetLineMode(B9, PAL_MODE_OUTPUT_OPENDRAIN);
+    palSetLineMode(B8, PAL_MODE_OUTPUT_OPENDRAIN);
 
-#include "config_common.h"
+    keyboard_pre_init_user();
+}
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-#define PCBDOWN 1
-
-#define MATRIX_ROW_PINS { D0, D1, D3, D2 }
-#define MATRIX_COL_PINS { B7, D6, F7, F6, B6, D4, E6, B4, B5, C6, D7 }
-#define UNUSED_PINS
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
+void board_init(void) {
+    AFIO->MAPR |= AFIO_MAPR_USART1_REMAP | AFIO_MAPR_TIM3_REMAP_PARTIALREMAP;
+}
