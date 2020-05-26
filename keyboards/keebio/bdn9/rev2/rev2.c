@@ -32,11 +32,6 @@ void eeconfig_init_kb(void) {
 
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_enable();  // Enable RGB by default
-#    ifdef RGB_MATRIX_KEYPRESSES
-    rgb_matrix_mode(RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE);
-#    else
-    rgb_matrix_mode(RGB_MATRIX_GRADIENT_UP_DOWN);
-#    endif
 #endif
 
     eeconfig_update_kb(0);
