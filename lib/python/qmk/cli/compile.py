@@ -7,7 +7,6 @@ from argparse import FileType
 
 from milc import cli
 
-import qmk.path
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.commands import compile_configurator_json, create_make_command, parse_configurator_json
 
