@@ -14,7 +14,7 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 /* Library made by: g4lvanix
- * Github repository: https://github.com/g4lvanix/I2C-master-lib
+ * GitHub repository: https://github.com/g4lvanix/I2C-master-lib
  */
 
 #include <avr/io.h>
