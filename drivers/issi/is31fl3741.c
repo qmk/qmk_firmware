@@ -181,11 +181,7 @@ void IS31FL3741_init(uint8_t addr) {
 // IS31FL3741_update_led_scaling_registers(addr, 0xFF, 0xFF, 0xFF);
 
 // Wait 10ms to ensure the device has woken up.
-#ifdef __AVR__
-    _delay_ms(10);
-#else
     wait_ms(10);
-#endif
 }
 
 void IS31FL3741_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
