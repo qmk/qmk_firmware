@@ -2,6 +2,8 @@
 """
 from pathlib import Path
 
+from milc import cli
+
 from qmk.keyboard import rules_mk
 import qmk.path
 
@@ -103,10 +105,12 @@ def write(keyboard, keymap, layout, layers):
             An array of arrays describing the keymap. Each item in the inner array should be a string that is a valid QMK keycode.
     """
     keymap_c = generate(keyboard, layout, layers)
-    keymap_file = qmk.path.keymap(keyboard) / 'keymap.c'
+    keymap_file = qmk.path.keymap(keyboard) / keymap / 'keymap.c'
 
     keymap_file.parent.mkdir(parents=True, exist_ok=True)
     keymap_file.write_text(keymap_c)
+
+    cli.log.info('Wrote keymap to {fg_cyan}%s', keymap_file)
 
     return keymap_file
 

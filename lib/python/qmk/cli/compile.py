@@ -35,8 +35,6 @@ def compile(cli):
         keymap_path = qmk.path.keymap(user_keymap['keyboard'])
         command = compile_configurator_json(user_keymap)
 
-        cli.log.info('Wrote keymap to {fg_cyan}%s/%s/keymap.c', keymap_path, user_keymap['keymap'])
-
     else:
         if cli.config.compile.keyboard and cli.config.compile.keymap:
             # Generate the make command for a specific keyboard/keymap.
