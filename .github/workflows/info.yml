@@ -19,9 +19,9 @@ jobs:
           submodules: recursive
 
       - name: Print info
-          run: |
-            git rev-parse --short HEAD
-            git diff remotes/origin/${{ github.base_ref }} --name-only
+        run: |
+          git rev-parse --short HEAD
+          git diff remotes/origin/${{ github.base_ref }} --name-only
 
       - name: Run
         run: |
