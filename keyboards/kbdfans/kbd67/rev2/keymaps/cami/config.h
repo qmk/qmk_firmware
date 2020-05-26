@@ -1,5 +1,4 @@
-/* Copyright 2018 MechMerlin
- *
+/*
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
@@ -16,4 +15,3 @@
 
 #pragma once
 #define ONESHOT_TIMEOUT 5000
-#define UNICODE_SELECTED_MODES UC_WIN, UC_WINC
