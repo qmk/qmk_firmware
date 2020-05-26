@@ -2,8 +2,8 @@
 """
 from pathlib import Path
 
-from qmk.path import is_keyboard
 from qmk.keyboard import rules_mk
+import qmk.path
 
 # The `keymap.c` template to use when a keyboard doesn't have its own
 DEFAULT_KEYMAP_C = """#include QMK_KEYBOARD_H
@@ -103,7 +103,7 @@ def write(keyboard, keymap, layout, layers):
             An array of arrays describing the keymap. Each item in the inner array should be a string that is a valid QMK keycode.
     """
     keymap_c = generate(keyboard, layout, layers)
-    keymap_file = keymap(keyboard) / keymap / 'keymap.c'
+    keymap_file = qmk.path.keymap(keyboard) / 'keymap.c'
 
     keymap_file.parent.mkdir(parents=True, exist_ok=True)
     keymap_file.write_text(keymap_c)
@@ -114,7 +114,7 @@ def write(keyboard, keymap, layout, layers):
 def locate_keymap(keyboard, keymap):
     """Returns the path to a keymap for a specific keyboard.
     """
-    if not is_keyboard(keyboard):
+    if not qmk.path.is_keyboard(keyboard):
         raise KeyError('Invalid keyboard: ' + repr(keyboard))
 
     # Check the keyboard folder first, last match wins
