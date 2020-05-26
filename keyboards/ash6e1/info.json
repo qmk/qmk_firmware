@@ -1,0 +1,44 @@
+{
+    "keyboard_name": "ASH-6E1",
+    "url": "config.qmk.fm",
+    "maintainer": "sh_xguitar",
+    "width": 19.5,
+    "height": 7.25,
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {
+                    "label": "S1",
+                    "x": 0,
+                    "y": 3
+                },
+                {
+                    "label": "S2",
+                    "x": 1,
+                    "y": 3
+                },
+                {
+                    "label": "S3",
+                    "x": 2,
+                    "y": 3
+                },
+                {
+                    "label": "S4",
+                    "x": 0,
+                    "y": 4
+                },
+                {
+                    "label": "S5",
+                    "x": 1,
+                    "y": 4
+                },
+                {
+                    "label": "S6",
+                    "x": 2,
+                    "y": 4
+                },
+                
+            ]
+        }
+    }
+}
