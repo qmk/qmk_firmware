@@ -6,7 +6,7 @@ from milc import cli
 
 from qmk.comment_remover import comment_remover
 
-default_key_entry = {'x': -1, 'y': -1, 'w': 1}
+default_key_entry = {'x': -1, 'y': 0, 'w': 1}
 
 
 def c_source_files(dir_names):
@@ -48,7 +48,6 @@ def find_layouts(file):
             matrix_locations = _parse_matrix_locations(matrix, file, macro_name)
 
             # Parse the layout entries into a basic structure
-            default_key_entry['y'] = 0
             default_key_entry['x'] = -1  # Set to -1 so _default_key(key) will increment it to 0
             layout = layout.strip()
             parsed_layout = [_default_key(key) for key in layout.split(',')]
