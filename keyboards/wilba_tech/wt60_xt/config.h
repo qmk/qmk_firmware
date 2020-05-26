@@ -1,31 +1,33 @@
-/*
-Copyright 2018 MechMerlin
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+/* Copyright 2020 Jason Williams (Wilba)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #pragma once
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B42
-#define PRODUCT_ID      0x6066
+#define VENDOR_ID       0x6582 // wilba.tech
+#define PRODUCT_ID      0x001C // PCB #28
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    kbdfans
-#define PRODUCT         kbd67
-#define DESCRIPTION     65% Keyboard
+#define MANUFACTURER    wilba.tech
+#define PRODUCT         wilba.tech WT60-XT
+#define DESCRIPTION     wilba.tech WT60-XT
+
+#define C6_AUDIO
+#define AUDIO_CLICKY
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -41,40 +43,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-#define MATRIX_ROW_PINS { D0, D1, D2, D3, D5 }
-#define MATRIX_COL_PINS { F0, F1, E6, C7, C6, B7, D4, B1, B0, B5, B4, D7, D6, B3, F4, F5 }
+#define MATRIX_ROW_PINS { F0, E6, F4, F6, F7 }
+#define MATRIX_COL_PINS { B7, B0, F5, D5, B1, B2, B3, D3, D2, C7, B6, B5, B4, D7, D6, D4 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_PIN B6
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 3
-#endif
-#define RGB_DI_PIN E2
-#ifdef RGB_DI_PIN
-  #define RGBLED_NUM 20
-  #define RGBLIGHT_HUE_STEP 8
-  #define RGBLIGHT_SAT_STEP 8
-  #define RGBLIGHT_VAL_STEP 8
-  #define RGBLIGHT_LIMIT_VAL 180 /* The maximum brightness level */
-  // #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-/*== all animations enable ==*/
-  #define RGBLIGHT_ANIMATIONS
-  #define RGBLIGHT_SLEEP
-/*== or choose animations ==*/
-  // #define RGBLIGHT_EFFECT_BREATHING
-  // #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-  // #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-  // #define RGBLIGHT_EFFECT_SNAKE
-  // #define RGBLIGHT_EFFECT_KNIGHT
-  // #define RGBLIGHT_EFFECT_CHRISTMAS
-  // #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-  // #define RGBLIGHT_EFFECT_RGB_TEST
-  // #define RGBLIGHT_EFFECT_ALTERNATING
-#endif
+// #define BACKLIGHT_PIN B7
+// #define BACKLIGHT_BREATHING
+// #define BACKLIGHT_LEVELS 3
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
@@ -203,35 +181,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 1
-
-/*
- * HD44780 LCD Display Configuration
- */
-/*
-#define LCD_LINES           2     //< number of visible lines of the display
-#define LCD_DISP_LENGTH    16     //< visibles characters per line of the display
-
-#define LCD_IO_MODE      1            //< 0: memory mapped mode, 1: IO port mode
-
-#if LCD_IO_MODE
-#define LCD_PORT         PORTB        //< port for the LCD lines
-#define LCD_DATA0_PORT   LCD_PORT     //< port for 4bit data bit 0
-#define LCD_DATA1_PORT   LCD_PORT     //< port for 4bit data bit 1
-#define LCD_DATA2_PORT   LCD_PORT     //< port for 4bit data bit 2
-#define LCD_DATA3_PORT   LCD_PORT     //< port for 4bit data bit 3
-#define LCD_DATA0_PIN    4            //< pin for 4bit data bit 0
-#define LCD_DATA1_PIN    5            //< pin for 4bit data bit 1
-#define LCD_DATA2_PIN    6            //< pin for 4bit data bit 2
-#define LCD_DATA3_PIN    7            //< pin for 4bit data bit 3
-#define LCD_RS_PORT      LCD_PORT     //< port for RS line
-#define LCD_RS_PIN       3            //< pin  for RS line
-#define LCD_RW_PORT      LCD_PORT     //< port for RW line
-#define LCD_RW_PIN       2            //< pin  for RW line
-#define LCD_E_PORT       LCD_PORT     //< port for Enable line
-#define LCD_E_PIN        1            //< pin  for Enable line
-#endif
-*/
-
-/* Bootmagic Lite key configuration */
-// #define BOOTMAGIC_LITE_ROW 0
-// #define BOOTMAGIC_LITE_COLUMN 0
