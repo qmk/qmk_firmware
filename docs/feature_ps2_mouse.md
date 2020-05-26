@@ -248,7 +248,7 @@ Fine control over the scrolling is supported with the following defines:
 
 ### Invert Mouse buttons :id=invert-buttons
 
-To invert the left & right buttonsyou can put:
+To invert the left & right buttons you can put:
 
 ```c
 #define PS2_MOUSE_INVERT_BUTTONS
