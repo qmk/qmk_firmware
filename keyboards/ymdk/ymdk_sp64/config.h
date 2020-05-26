@@ -19,8 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x594D
-#define PRODUCT_ID      0x8364
+#define VENDOR_ID       0x594D // "YM"
+#define PRODUCT_ID      0x8364 // "D" + 64
 #define DEVICE_VER      0x0200
 #define MANUFACTURER    YMDK
 #define PRODUCT SP64
