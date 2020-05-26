@@ -6,7 +6,7 @@ import qmk.path
 
 def test_keymap_onekey_pytest():
     path = qmk.path.keymap('handwired/onekey/pytest')
-    assert path.samefile('keyboards/handwired/onekey/keymaps')
+    assert path.samefile('keyboards/handwired/onekey/pytest/keymaps')
 
 
 def test_normpath():

@@ -4,7 +4,7 @@ import logging
 import os
 from pathlib import Path
 
-from qmk.constants import QMK_FIRMWARE, MAX_KEYBOARD_SUBFOLDERS
+from qmk.constants import MAX_KEYBOARD_SUBFOLDERS, QMK_FIRMWARE
 from qmk.errors import NoSuchKeyboardError
 
 
@@ -68,17 +68,3 @@ def normpath(path):
         return path
 
     return Path(os.environ['ORIG_CWD']) / path
-
-
-def c_source_files(dir_names):
-    """Returns a list of all *.c, *.h, and *.cpp files for a given list of directories
-
-    Args:
-
-        dir_names
-            List of directories, relative pathing starts at qmk's cwd
-    """
-    files = []
-    for dir in dir_names:
-        files.extend(file for file in Path(dir).glob('**/*') if file.suffix in ['.c', '.h', '.cpp'])
-    return files
