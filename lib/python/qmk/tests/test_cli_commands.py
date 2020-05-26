@@ -123,7 +123,7 @@ def test_info():
     check_returncode(result)
     assert 'Keyboard Name: handwired/onekey/pytest' in result.stdout
     assert 'Processor: STM32F303' in result.stdout
-    assert 'LAYOUT:' not in result.stdout
+    assert 'Layout:' not in result.stdout
     assert 'k0' not in result.stdout
 
 
@@ -132,7 +132,7 @@ def test_info_keyboard_render():
     check_returncode(result)
     assert 'Keyboard Name: handwired/onekey/pytest' in result.stdout
     assert 'Processor: STM32F303' in result.stdout
-    assert 'LAYOUT:' in result.stdout
+    assert 'Layout:' in result.stdout
     assert 'k0' in result.stdout
 
 
