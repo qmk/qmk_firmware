@@ -8,7 +8,7 @@ on:
     - 'tests/**'
 
 jobs:
-  build:
+  info:
     runs-on: ubuntu-latest
 
     container: qmkfm/base_container
