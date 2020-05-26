@@ -137,7 +137,7 @@ def test_info_keyboard_render():
 
 
 def test_info_keymap_render():
-    result = check_subcommand('info', '-kb', 'handwired/onekey/pytest', '-km', 'default')
+    result = check_subcommand('info', '-kb', 'handwired/onekey/pytest', '-km', 'default_json')
     check_returncode(result)
     assert 'Keyboard Name: handwired/onekey/pytest' in result.stdout
     assert 'Processor: STM32F303' in result.stdout
