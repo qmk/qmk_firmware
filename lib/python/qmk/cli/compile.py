@@ -32,7 +32,6 @@ def compile(cli):
         # If a configurator JSON was provided generate a keymap and compile it
         # FIXME(skullydazed): add code to check and warn if the keymap already exists when compiling a json keymap.
         user_keymap = parse_configurator_json(cli.args.filename)
-        keymap_path = qmk.path.keymap(user_keymap['keyboard'])
         command = compile_configurator_json(user_keymap)
 
     else:
