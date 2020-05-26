@@ -7,7 +7,6 @@
 
 // clang-format off
 
-#define KC_RNUM LT(_NUM, KC_RGHT)
 #define KC_GGRV RGUI_T(KC_GRV)
 #define KC_ALDE RALT_T(KC_DEL)
 
