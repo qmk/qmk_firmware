@@ -73,29 +73,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______,          _______, _______,          _______, _______,          _______, _______, _______
   ),
 };
-
-enum custom_keycodes {
-#ifdef ORYX_CONFIGURATOR
-  EPRM = EZ_SAFE_RANGE,
-#else
-  EPRM = SAFE_RANGE,
-#endif
-  VRSN,
-  RGB_SLD
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    switch (keycode) {
-      case VRSN:
-        SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-        return false;
-      #ifdef RGBLIGHT_ENABLE
-      case RGB_SLD:
-        rgblight_mode(1);
-        return false;
-      #endif
-    }
-  }
-  return true;
-}
