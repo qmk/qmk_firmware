@@ -3,7 +3,7 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x1337
+#define VENDOR_ID       0x88B2
 #define PRODUCT_ID      0x88b2
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    PFU
