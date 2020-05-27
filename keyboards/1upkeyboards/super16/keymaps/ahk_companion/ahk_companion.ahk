@@ -10,88 +10,95 @@
 ;;=================================================================
 ;Row 1
 
-F13::Send ^#{Left}                 ;Left Windows Desktop
-F14::Send #{Tab}                   ;Task View
-F15::Send ^!a
-F16::Send ^#{Right}                ;Right Windows Desktop
+F13::Send a
+F14::Send b
+F15::Send c
+F16::Send d
 
 ;Row 2
 
-F17::Send ^+{Tab}                  ;Chrome Tab Left
-F18::Send ^v
-F19::Send ^v
-F20::Send ^{Tab}                   ;Chrome Tab Right
+F17::Send e
+F18::Send f
+F19::Send g
+F20::Send h
 
 ;Row 3
-F21::Run, https://google.com
-F22::Send 'Hello world!'
-F23::Send {Backspace}
-F24::Send {Enter}
+
+F21::Send i
+F22::Send j
+F23::Send k
+F24::Send l
 
 
 ;=================================================================
 ;                       Layer 1
 ;;=================================================================
 ;Row 1
-!F13::Run, https://mail.google.com
-!F14::Run, https://mail.google.com
-!F15::Run, https://mail.google.com
-!F16::Run, https://mail.google.com
 
+!F13::Send m
+!F14::Send n
+!F15::Send o
+!F16::Send p
 
 ;Row 2
-!F17::Run, https://mail.google.com
-!F18::Run, https://mail.google.com
-!F19::Run, https://mail.google.com
-!F20::Run, https://mail.google.com
+
+!F17::Send q
+!F18::Send r
+!F19::Send s
+!F20::Send t
 
 ;Row 3
-!F21::Run, https://mail.google.com
-!F22::Run, https://mail.google.com
-!F23::Run, "C:\Program Files (x86)\KeePass2x\KeePass.exe" -entry-url-open -uuid:9393DACF87EFEB40B4C72516A9B08A87
-!F24::Send, 1
+
+!F21::Send u
+!F22::Send v
+!F23::Send w
+!F24::Send x
+
 
 ;=================================================================
 ;                       Layer 2
 ;;=================================================================
 ;Row 1
-+F13::Send, A
-+F14::
-+F15::
-+F16::
+
++F13::Send y
++F14::Send z
++F15::Send A
++F16::Send B
 
 ;Row 2
-+F17::
-+F18::
-+F19::
-+F20::
+
++F17::Send C
++F18::Send D
++F19::Send E
++F20::Send F
 
 ;Row 3
-+F21::
-+F22::
-+F23::
-+F24::
+
++F21::Send G
++F22::Send H
++F23::Send I
++F24::Send J
 
 ;=================================================================
 ;                       Layer 3
 ;;=================================================================
-^F13::
-^F14::
-^F15::
-^F16::
+;Row 1
+
+^F13::Send K
+^F14::Send L
+^F15::Send M
+^F16::Send N
 
 ;Row 2
-^F17::
-^F18::
-^F19::
-^F20::
+
+^F17::Send O
+^F18::Send P
+^F19::Send Q
+^F20::Send R
 
 ;Row 3
-^F21::
-^F22::
-^F23::
-^F24::
 
-;Special Key
-^!+F13::
-
+^F21::Send S
+^F22::Send T
+^F23::Send U
+^F24::Send V

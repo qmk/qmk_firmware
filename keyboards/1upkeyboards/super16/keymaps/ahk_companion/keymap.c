@@ -40,9 +40,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //Layer 4 - Multimedia
         [4] = LAYOUT_ortho_4x4(
                 KC_MPRV, KC_MPLY, KC_MNXT,   KC_VOLU,
-                KC_NO, KC_NO, KC_NO,   KC_MUTE,
-                KC_NO, RESET,   EEP_RST,   KC_VOLD,
-                TG(5), KC_TRNS, KC_TRNS,   KC_TRNS         //Transparent to let you go between layers
+                KC_NO,   KC_NO,   KC_NO,     KC_MUTE,
+                KC_NO,   RESET,   EEP_RST,   KC_VOLD,
+                TG(5),   KC_TRNS, KC_TRNS,   KC_TRNS         //Transparent to let you go between layers
         ),
 
         //Layer 5 - Keyboard Lights, Programming and Special Functions
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const rgblight_segment_t PROGMEM my_layer0_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-		{0,15,HSV_WHITE}
+		{0,15,HSV_ORANGE}
 	);
 const rgblight_segment_t PROGMEM my_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 		{0,15,HSV_GREEN}
@@ -73,7 +73,7 @@ const rgblight_segment_t PROGMEM my_layer5_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 		{0,15,HSV_TEAL}
 	);
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-                my_layer0_layer,
+        my_layer0_layer,
 		my_layer1_layer,
 		my_layer2_layer,
 		my_layer3_layer,
@@ -86,6 +86,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // Allow for a preview of changes when modifying RGB
 # if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
   switch (keycode) {
     case RGB_TOG ... VLK_TOG:
@@ -99,8 +100,8 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   return;
 }
 
+//Set the appropriate layer color
 layer_state_t layer_state_set_user(layer_state_t state) {
-//    rgblight_set_layer_state(0, layer_state_cmp(state, 0));
     rgblight_set_layer_state(1, layer_state_cmp(state, 1));
     rgblight_set_layer_state(2, layer_state_cmp(state, 2));
     rgblight_set_layer_state(3, layer_state_cmp(state, 3));
@@ -117,7 +118,8 @@ void keyboard_post_init_user(void) {
 
 void matrix_scan_user(void) {
 # if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
-    if (rgb_preview_timer && TIMER_DIFF_32(timer_read32(), rgb_preview_timer) > 5000) {
+    // Allow preview for
+    if (rgb_preview_timer && TIMER_DIFF_32(timer_read32(), rgb_preview_timer) > PREVIEW_TIMEOUT) {
         rgb_preview_timer = 0;
         default_layer_state_set_user(default_layer_state);
         layer_state_set_user(layer_state);
@@ -129,6 +131,6 @@ void matrix_scan_user(void) {
 //EEPROM Reset Function
 void eeconfig_init_user(void) {
   rgblight_enable(); // Enable RGB by default
-  rgblight_sethsv_orange();  // Set it to white by default
+  rgblight_sethsv_orange();  // Set it to orange by default
 }
 
