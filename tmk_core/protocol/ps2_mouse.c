@@ -151,10 +151,7 @@ static inline void ps2_mouse_convert_report_to_hid(report_mouse_t *mouse_report)
     mouse_report->buttons &= PS2_MOUSE_BTN_MASK;
 
 #ifdef PS2_MOUSE_INVERT_BUTTONS
-    int buttons = mouse_report->buttons;
-    buttons |= ((mouse_report->buttons >> PS2_MOUSE_BTN_LEFT) & 1U) << 1;
-    buttons |= (mouse_report->buttons >> PS2_MOUSE_BTN_RIGHT) & 1U;
-    mouse_report->buttons = buttons;
+    mouse_report->buttons = (mouse_report->buttons >> PS2_MOUSE_BTN_LEFT & 1U) << PS2_MOUSE_BTN_RIGHT | (mouse_report->buttons >> PS2_MOUSE_BTN_RIGHT & 1U) << PS2_MOUSE_BTN_LEFT | (mouse_report->buttons >> PS2_MOUSE_BTN_MIDDLE & 1U) << PS2_MOUSE_BTN_MIDDLE;
 #endif
 
 #ifdef PS2_MOUSE_INVERT_X
