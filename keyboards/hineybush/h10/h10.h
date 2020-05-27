@@ -26,7 +26,7 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
-#define LAYOUT_ALL(    \
+#define LAYOUT_ortho_6x4(    \
     k00, k01, k02, k03, \
     k10, k11, k12, k13, \
     k20, k21, k22, k23, \
@@ -43,7 +43,7 @@
     {k50, k51, k52, k53}  \
 }
 
-#define LAYOUT_2U_ALL(  \
+#define LAYOUT_numpad_6x4(  \
     k00, k01, k02, k03, \
     k10, k11, k12, k13, \
     k20, k21, k22,      \
@@ -60,7 +60,7 @@
     {KC_NO, k51, k52, k53}  \
 }
 
-#define LAYOUT_SPLIT_PLUS(  \
+#define LAYOUT_split_plus(  \
     k00, k01, k02, k03, \
     k10, k11, k12, k13, \
     k20, k21, k22, k23, \
@@ -77,7 +77,7 @@
     {KC_NO, k51, k52, k53}  \
 }
 
-#define LAYOUT_SPLIT_ZERO(  \
+#define LAYOUT_split_zero(  \
     k00, k01, k02, k03, \
     k10, k11, k12, k13, \
     k20, k21, k22,      \
@@ -94,7 +94,7 @@
     {k50, k51, k52, k53}  \
 }
 
-#define LAYOUT_SPLIT_ENTER(  \
+#define LAYOUT_split_enter(  \
     k00, k01, k02, k03, \
     k10, k11, k12, k13, \
     k20, k21, k22,      \
@@ -111,7 +111,7 @@
     {KC_NO, k51, k52, k53}  \
 }
 
-#define LAYOUT_SPLIT_ENTER_PLUS(  \
+#define LAYOUT_split_enter_plus(  \
     k00, k01, k02, k03, \
     k10, k11, k12, k13, \
     k20, k21, k22, k23, \
@@ -128,7 +128,7 @@
     {KC_NO, k51, k52, k53}  \
 }
 
-#define LAYOUT_SPLIT_ZERO_PLUS(  \
+#define LAYOUT_split_zero_plus(  \
     k00, k01, k02, k03, \
     k10, k11, k12, k13, \
     k20, k21, k22, k23, \

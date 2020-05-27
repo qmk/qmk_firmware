@@ -18,55 +18,39 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [0] = LAYOUT_ALL(
+    [0] = LAYOUT_numpad_6x4(
         KC_ESC,   KC_PEQL,   KC_BSPC,  MO(1),
         KC_NLCK,  KC_PSLS,   KC_PAST,  KC_PMNS,
-        KC_P7,    KC_P8,     KC_P9,    KC_TRNS,
+        KC_P7,    KC_P8,     KC_P9,
         KC_P4,    KC_P5,     KC_P6,    KC_PPLS,
-        KC_P1,    KC_P2,     KC_P3,    KC_TRNS,
-        KC_TRNS,  KC_P0,     KC_PDOT,  KC_PENT
+        KC_P1,    KC_P2,     KC_P3,
+                  KC_P0,     KC_PDOT,  KC_PENT
     ),
-    [1] = LAYOUT_ALL(
+    [1] = LAYOUT_numpad_6x4(
         KC_VOLU,   KC_MPLY,   KC_MNXT,   KC_TRNS,
         KC_VOLD,   KC_TRNS,   KC_TRNS,   KC_TRNS,
+        KC_TRNS,   KC_TRNS,   KC_TRNS,
         KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
-        KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
-        KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
-        KC_TRNS,   KC_TRNS,   KC_TRNS,   RESET
+        KC_TRNS,   KC_TRNS,   KC_TRNS,
+                   KC_TRNS,   KC_TRNS,   RESET
     ),
-    [2] = LAYOUT_ALL(
+    [2] = LAYOUT_numpad_6x4(
         KC_VOLU,   KC_MPLY,   KC_MNXT,   KC_TRNS,
         KC_VOLD,   KC_TRNS,   KC_TRNS,   KC_TRNS,
+        KC_TRNS,   KC_TRNS,   KC_TRNS,
         KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
-        KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
-        KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
-        KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS
+        KC_TRNS,   KC_TRNS,   KC_TRNS,
+                   KC_TRNS,   KC_TRNS,   KC_TRNS
     ),
-    [3] = LAYOUT_ALL(
+    [3] = LAYOUT_numpad_6x4(
         KC_VOLU,   KC_MPLY,   KC_MNXT,   KC_TRNS,
         KC_VOLD,   KC_TRNS,   KC_TRNS,   KC_TRNS,
+        KC_TRNS,   KC_TRNS,   KC_TRNS,
         KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
-        KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
-        KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
-        KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS
+        KC_TRNS,   KC_TRNS,   KC_TRNS,
+                   KC_TRNS,   KC_TRNS,   KC_TRNS
     ),
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
-    return true;
-}
 
-/*
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-bool led_update_user(led_t led_state) {
-    return true;
-}
-*/
