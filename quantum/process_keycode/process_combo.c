@@ -197,7 +197,10 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
         }
     } else if (record->event.pressed && is_active) {
         /* otherwise the key is consumed and placed in the buffer */
-        timer = timer_read();
+        if (!timer) {
+            /* only start the timer on first key */
+            timer = timer_read();
+        }
 
         if (buffer_size < MAX_COMBO_LENGTH) {
             key_buffer[buffer_size++] = *record;
