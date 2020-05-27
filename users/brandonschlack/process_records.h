@@ -30,6 +30,7 @@ void matrix_scan_cmd_tab(void);
 /* Command Mod-Tap */
 #define CMD_ESC    CMD_T(KC_ESC)       // Hold Escape for Command
 #define CMD_CAP    CMD_T(KC_CAPS)      // Hold Caps Lock for Command
+#define CMD_SPC    CMD_T(KC_SPC)       // Hold Space for Command
 /* Hyper Mod-Tap */
 #define HY_ESC    ALL_T(KC_ESC)        // Hold Escape for Hyper (Shift-Control-Option-Command)
 #define HY_TAB    ALL_T(KC_TAB)        // Hold Tab for Hyper (Shift-Control-Option-Command)
