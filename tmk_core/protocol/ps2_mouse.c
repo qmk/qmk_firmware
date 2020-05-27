@@ -147,11 +147,23 @@ static inline void ps2_mouse_convert_report_to_hid(report_mouse_t *mouse_report)
     mouse_report->x = X_IS_NEG ? ((!X_IS_OVF && -127 <= mouse_report->x && mouse_report->x <= -1) ? mouse_report->x : -127) : ((!X_IS_OVF && 0 <= mouse_report->x && mouse_report->x <= 127) ? mouse_report->x : 127);
     mouse_report->y = Y_IS_NEG ? ((!Y_IS_OVF && -127 <= mouse_report->y && mouse_report->y <= -1) ? mouse_report->y : -127) : ((!Y_IS_OVF && 0 <= mouse_report->y && mouse_report->y <= 127) ? mouse_report->y : 127);
 
+#ifdef PS2_MOUSE_INVERT_BUTTONS
+    mouse_report->buttons = ( \
+        // Change right to left
+        BIT_SET_BY(mouse_report->buttons, PS2_MOUSE_BTN_LEFT, PS2_MOUSE_BTN_RIGHT) | \
+        // Change left to right
+        BIT_SET_BY(mouse_report->buttons, PS2_MOUSE_BTN_RIGHT,PS2_MOUSE_BTN_LEFT) | \
+        // Leave the rest untouched
+        BITMASK_CLEAR(mouse_report->buttons, (
+            // Calculate mask for the rest
+            BIT_VALUE(PS2_MOUSE_BTN_MASK, PS2_MOUSE_BTN_LEFT) | \
+            BIT_VALUE(PS2_MOUSE_BTN_MASK, PS2_MOUSE_BTN_RIGHT)
+        ))
+    // remove sign and overflow flags
+    ) & PS2_MOUSE_BTN_MASK;
+#else
     // remove sign and overflow flags
     mouse_report->buttons &= PS2_MOUSE_BTN_MASK;
-
-#ifdef PS2_MOUSE_INVERT_BUTTONS
-    mouse_report->buttons = (mouse_report->buttons >> PS2_MOUSE_BTN_LEFT & 1U) << PS2_MOUSE_BTN_RIGHT | (mouse_report->buttons >> PS2_MOUSE_BTN_RIGHT & 1U) << PS2_MOUSE_BTN_LEFT | (mouse_report->buttons >> PS2_MOUSE_BTN_MIDDLE & 1U) << PS2_MOUSE_BTN_MIDDLE;
 #endif
 
 #ifdef PS2_MOUSE_INVERT_X

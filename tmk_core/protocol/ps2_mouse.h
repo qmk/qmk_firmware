@@ -21,6 +21,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include "debug.h"
 
+/*
+ * Binary manipulation macros
+ */
+
+/* a=target variable, b=bit number to act upon 0-n, c=bit number to act upon 0-n */
+#define BIT_SET_BY(a, b, c) ((a >> b & 1U) << c)
+#define BIT_GET(a, b) (a >> b & 1U)
+#define BIT_VALUE(a, b) ((a >> b & 1U) << b)
+/* x=target variable, y=mask */
+#define BITMASK_CLEAR(x,y) ((x) & (~(y)))
+
 #define PS2_MOUSE_SEND(command, message)                                                \
     do {                                                                                \
         __attribute__((unused)) uint8_t rcv = ps2_host_send(command);                   \
