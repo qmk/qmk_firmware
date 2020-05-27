@@ -32,6 +32,7 @@ static uint8_t  active_combo_index  = 0;
 static bool     is_active           = true;
 static bool     b_combo_enable      = true;  // defaults to enabled
 static combo_t  *prepared_combo       = NULL;
+#define COMBO_PREPARED (prepared_combo && !prepared_combo->disabled)
 
 static uint8_t buffer_size = 0;
 static keyrecord_t key_buffer[MAX_COMBO_LENGTH];
@@ -133,14 +134,17 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
         }
     } else {
         if (ALL_COMBO_KEYS_ARE_DOWN) { /* Combo was released */
-            if (prepared_combo && !prepared_combo->disabled) {
-                /* Fire combo immediately if it was released inside COMBO_TERM */
+            if (COMBO_PREPARED && !IS_MOD(prepared_combo->keycode)) {
+                /* Fire non-mod combo immediately if it was released inside COMBO_TERM */
                 fire_combo();
             }
-            send_combo(combo->keycode, false);
+            if (combo->active) {
+                send_combo(combo->keycode, false);
+            }
             combo->state = 0; /* immediately clear state on release */
             combo->active = false;
             combo->disabled = true;
+            is_combo_active = false;
         } else {
             /* continue processing without immediately returning */
             is_combo_active = false;
@@ -215,7 +219,7 @@ void matrix_scan_combo(void) {
         /* This disables the combo, meaning key events for this
          * combo will be handled by the next processors in the chain
          */
-        if (prepared_combo && !prepared_combo->disabled) {
+        if (COMBO_PREPARED) {
             fire_combo();
         } else {
             prepared_combo = NULL;
