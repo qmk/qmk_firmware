@@ -84,8 +84,13 @@ def info(cli):
     """Compile an info.json for a particular keyboard and pretty-print it.
     """
     # Determine our keyboard(s)
+    if not cli.config.info.keyboard:
+        cli.log.error('Missing paramater: --keyboard')
+        cli.subcommands['info'].print_help()
+        exit(1)
+
     if not is_keyboard(cli.config.info.keyboard):
-        cli.log.error('Invalid keyboard: %s!', cli.config.info.keyboard)
+        cli.log.error('Invalid keyboard: "%s"', cli.config.info.keyboard)
         exit(1)
 
     # Build the info.json file
