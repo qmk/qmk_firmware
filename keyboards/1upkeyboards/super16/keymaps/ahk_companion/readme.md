@@ -1,3 +1,36 @@
-# AutoHotKey Companion
+## AutoHotKey Companion  ##
 
-<script src="https://gist.github.com/nblyumberg/efd9445dae659c1bbd98866fed078899.js"></script>
+### Overview ### 
+AutoHotKey Companion Keymap for <a href="https://www.1upkeyboards.com/shop/keyboard-kits/macro-pads/super-16-macro-pad/">1upkeyboards Super16</a> is designed be a quick and easy way to get started with AutoHotKey and to provide a foundation for customizing your own macropad. I chose the Super16 because it provided an easy way (RGB) to identify what layer I was on with a quick glance or peripheral vision. The F13 to F24 keys were selected as they are rarely used so you won't run into conflicts with existing application shortcuts and AutoHotKey recognizes them without any issues. 
+
+Same functionality can be accomplished with other similar applications on the host system like Keyboard Maestro, AutoIt, etc. 
+
+* <a href="https://www.autohotkey.com">AutoHotKey</a>(Windows)
+* <a href="https://www.autoitscript.com/site/autoit/">AutoIT</a> (Windows)
+* <a href="https://www.keyboardmaestro.com/main/">Keyboard Maestro</a>(Mac)
+* <a href="https://github.com/autokey/autokey">AutoKey</a>(Linux)
+
+This keymap allows for a total of 48 Function/Macro keys that are accessible within 2 sequential key presses (or more when extended with your own code and additional layers) 
+
+### Alternate Implementations ###
+I chose to use <a href="https://docs.qmk.fm/#/feature_layers?id=switching-and-toggling-layers">QMK OSL</a> (One Shot Layer) functionality to avoid having to hold a key while selecting the next key and to have my layers always go back to the default layer as the starting point. This also helps me avoid having to cognitively remember what layer I am on. 
+
+If persistent behavior is prefered, OSL can be swapped for TG which will toggle the layer on/off with a key press instead of clearing the layer once the Function key is pressed. I also added a OSL timeout of 3 seconds, so that if the key is not pressed within 3 seconds the layer will go back to default. This can be adjusted in the config.h file by increasing 3000 to a desired value: `#define ONESHOT_TIMEOUT 3000` 
+
+
+
+
+### Layers ###
+
+
+* Layer 0 (Base Layer) - the default layer and functions like sending the F13 to F24 keys along with the bottom row to activate another 4 layers. 
+* Layer 1 (Alt Layer) - Equivalent to Alt+Fxx key being pressed 
+* Layer 2 (Shift Layer) - Equivalent to Shift+Fxx key being pressed
+* Layer 3 (Control Layer) - Equivalent to Ctrl+Fxx key being pressed
+* Layer 4 (Config Layer) - Layer for multimedia
+* Layer 5 (RGB Control/QMK) - RGB control layer and Quantum functions (Reset, EEPROM Reset, )
+
+### Host Configuration ### 
+
+The second component of this is to install AutoHotKey on your Windows machine which will allow the 
+Once the keymap has been flashed to the Super16, you can download the accompanying AutoHotKey file and have it start automatically either via a Windows Task or another way. This allows you to adjust actions from the buttons without having to change your map and reflash the macropad"
