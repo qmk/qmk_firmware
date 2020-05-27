@@ -1,9 +1,8 @@
-#ifndef KB_H
-#define KB_H
+#pragma once
 
 #include "quantum.h"
 
-#define KEYMAP( \
+#define LAYOUT( \
     K509, K109, K108, K107, K106, K006, K005, K105, K104, K103, K102, K002, K004, K413, K009, \
     K309,   K209, K208, K207, K206, K306, K305, K205, K204, K203, K202, K302, K304,     K313, \
     K010,       K409, K408, K407, K406, K506, K505, K405, K404, K403, K402, K502,       K613, \
@@ -21,5 +20,3 @@
 	{ K600,  KC_NO, KC_NO, K603,  KC_NO, K605,  K606,  K607,  K608,  K609,  KC_NO, K611,  KC_NO, K613 }, \
 	{ KC_NO, KC_NO, K702,  KC_NO, KC_NO, K705,  K706,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, K712,  K713 }  \
 }
-
-#endif
