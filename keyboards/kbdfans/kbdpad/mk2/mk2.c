@@ -13,10 +13,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "kbdpad_mk2.h"
+#include "mk2.h"
 
 void matrix_init_kb(void) {
-	
+
   // Num Lock LED = B4
   // Sinking setup (5V -> LED/Res -> Pin)
   
@@ -26,7 +26,7 @@ void matrix_init_kb(void) {
 }
 
 void led_set_kb(uint8_t usb_led) {
-  
+
   // Sinking setup. Write HIGH to turn OFF, LOW to turn ON.
   
   if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
