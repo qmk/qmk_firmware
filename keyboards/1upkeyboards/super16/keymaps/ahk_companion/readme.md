@@ -26,15 +26,33 @@ While the first 5 layers are accessible with only 1 key press at most, the 5th (
 
 
 * Layer 0 (Base Layer) - the default layer and functions like sending the F13 to F24 keys along with the bottom row to activate another 4 layers. 
-``(https://i.imgur.com/0LhityX.png)``
+
+    ![Image of Base Layer ](https://i.imgur.com/0LhityX.png)
 
 * Layer 1 (Alt Layer) - Equivalent to Alt+Fxx key being pressed 
+
+    ![Image of Layer 1 ](https://i.imgur.com/ZblqLZt.png)
+
 * Layer 2 (Shift Layer) - Equivalent to Shift+Fxx key being pressed
+
+    ![Image of Layer 2 ](https://i.imgur.com/ZQHwLC0.png)
+
 * Layer 3 (Control Layer) - Equivalent to Ctrl+Fxx key being pressed
-* Layer 4 (Config Layer) - Layer for multimedia
+
+    ![Image of Layer 3 ](https://i.imgur.com/JkM8bqV.png)
+
+* Layer 4 (Config Layer) - Layer for multimedia. You can replace the KC_TRNS on this layer in keymap.c to TG(x) to enable additional layers.
+
+    ![Image of Layer 4 ](https://i.imgur.com/srDp5Lv.png)
+    
 * Layer 5 (RGB Control/QMK) - RGB control layer and Quantum functions (Reset, EEPROM Reset, )
 
+    ![Image of Layer 5 ](https://i.imgur.com/Os3n8dx.png)
+    
 ### Host Configuration ### 
 
-The second component of this is to install AutoHotKey on your Windows machine which will allow the 
-Once the keymap has been flashed to the Super16, you can download the accompanying AutoHotKey file and have it start automatically either via a Windows Task or another way. This allows you to adjust actions from the buttons without having to change your map and reflash the macropad"
+Once the keymap has been flashed to the Super16, you can download the accompanying AutoHotKey file or create your own and have it start automatically either via a Windows Task or another way. Using AutoHotKey allows adjustment of functionality of the buttons without the need to change your map and reflash the macropad every time.
+Starting the AHK file can be done either by:
+* Creating a Windows Task 
+* Adding the AHK to the startup folder
+* Launch manually
