@@ -11,9 +11,10 @@ from qmk.errors import NoSuchKeyboardError
 def is_keyboard(keyboard_name):
     """Returns True if `keyboard_name` is a keyboard we can compile.
     """
-    keyboard_path = QMK_FIRMWARE / 'keyboards' / keyboard_name
-    rules_mk = keyboard_path / 'rules.mk'
-    return rules_mk.exists()
+    if keyboard_name:
+        keyboard_path = QMK_FIRMWARE / 'keyboards' / keyboard_name
+        rules_mk = keyboard_path / 'rules.mk'
+        return rules_mk.exists()
 
 
 def under_qmk_firmware():
