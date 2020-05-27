@@ -171,6 +171,20 @@ uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache) {
         return keymap_key_to_keycode(layer_switch_get_layer(event.key), event.key);
 }
 
+/* Get keycode, and then process pre tapping functionality */
+bool pre_process_record_quantum(keyrecord_t *record) {
+    uint16_t keycode = get_record_keycode(record, false);
+
+    if (!(
+#ifdef COMBO_ENABLE
+        process_combo(keycode, record) &&
+#endif
+        true)) {
+        return false;
+    }
+    return true; // continue processing
+}
+
 /* Get keycode, and then call keyboard function */
 void post_process_record_quantum(keyrecord_t *record) {
     uint16_t keycode = get_record_keycode(record, false);
