@@ -27,9 +27,9 @@ extern int      COMBO_LEN;
 
 __attribute__((weak)) void process_combo_event(uint8_t combo_index, bool pressed) {}
 
-#    ifdef PERMISSIVE_HOLD_PER_KEY
+#ifdef COMBO_TERM_PER_COMBO
 __attribute__((weak)) uint16_t get_combo_term(uint8_t index, combo_t *combo) { return COMBO_TERM; }
-#    endif
+#endif
 
 static uint16_t timer               = 0;
 static uint8_t  prepared_combo_index  = -1;
