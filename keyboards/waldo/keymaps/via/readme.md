@@ -1,2 +1,1 @@
-# The Default Waldo Layout
-
+# The Default VIA keymap for Waldo
