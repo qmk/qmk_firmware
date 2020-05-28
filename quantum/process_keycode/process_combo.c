@@ -234,11 +234,19 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
 
 void matrix_scan_combo(void) {
     uint16_t time = COMBO_TERM;
-#ifdef COMBO_TERM_PER_COMBO
+
+#if defined(COMBO_TERM_PER_COMBO) || defined(COMBO_MUST_HOLD_MODS)
     if (prepared_combo) {
+#   if defined(COMBO_TERM_PER_COMBO)
         time = get_combo_term(prepared_combo_index, prepared_combo);
+#   elif defined(COMBO_MUST_HOLD_MODS)
+        if (IS_MOD(prepared_combo->keycode)) {
+            time = COMBO_MOD_TERM;
+        }
+#   endif
     }
 #endif
+
     if (b_combo_enable && is_active && timer && timer_elapsed(timer) > time) {
 
         if (COMBO_PREPARED) {
