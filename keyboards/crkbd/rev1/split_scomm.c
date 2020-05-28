@@ -8,8 +8,7 @@
 #include <split_scomm.h>
 #include "serial.h"
 #ifdef CONSOLE_ENABLE
-  #include <print.h>
-  #include <debug.h>
+  #include "debug.h"
 #endif
 
 uint8_t volatile serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH] = {0};
