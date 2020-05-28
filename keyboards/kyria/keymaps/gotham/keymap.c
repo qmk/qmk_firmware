@@ -27,8 +27,8 @@
 #    include "oled.c"
 #endif
 
-#ifdef JOYSTICK_ENABLE
-#    include "joystick.c"
+#ifdef THUMBSTICK_ENABLE
+#    include "thumbstick.c"
 #endif
 
 // clang-format off
@@ -92,16 +92,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-#ifdef JOYSTICK_ENABLE
+#ifdef THUMBSTICK_ENABLE
 void matrix_init_user(void) {
     if (!isLeftHand) {
-        init_joystick();
+        init_thumbstick();
     }
 }
 
 void matrix_scan_user(void) {
     if (!isLeftHand) {
-        process_joystick();
+        process_thumbstick();
     }
 }
 #endif

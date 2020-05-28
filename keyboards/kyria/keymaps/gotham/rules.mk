@@ -4,9 +4,9 @@ RGBLIGHT_ENABLE = yes      # Enable keyboard RGB underglow
 MOUSEKEY_ENABLE = no       # Mouse keys
 OLED_DRIVER_ENABLE = yes   # Enables the use of OLED displays
 
-JOYSTICK_ENABLE = yes
+THUMBSTICK_ENABLE = yes
 
-ifeq ($(strip $(JOYSTICK_ENABLE)), yes)
+ifeq ($(strip $(THUMBSTICK_ENABLE)), yes)
     POINTING_DEVICE_ENABLE = yes
-    OPT_DEFS += -DJOYSTICK_ENABLE
+    OPT_DEFS += -DTHUMBSTICK_ENABLE
 endif
