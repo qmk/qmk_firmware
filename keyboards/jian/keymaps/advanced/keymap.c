@@ -494,20 +494,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         eeconfig_update_keymap(keymap_config.raw);
       }
       return false;
-      break;
     case EXT_PLV:
       if (record->event.pressed) {
         layer_off(_PLOVER);
       }
       return false;
-      break;
 #endif // STENO_ENABLE
     case QWERTY:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_QWERTY);
       }
       return false;
-      break;
 #ifdef ALT_LAYOUTS_ENABLE
     case CH_WMN:
     case CH_CMK:
@@ -517,7 +514,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         change_layout_conversion(keycode);
       }
       return false;
-    break;
 #endif // ALT_LAYOUTS_ENABLE
 #ifdef DIPS_ENABLE
 #ifdef ALT_LAYOUTS_ENABLE
@@ -529,7 +525,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       layout_convert(layout_conversion_dip_state);
       return false;
-      break;
     case LAYOUT1:
       if (record->event.pressed) {
         layout_conversion_dip_state |= 1 << 1;
@@ -538,7 +533,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       layout_convert(layout_conversion_dip_state);
       return false;
-      break;
     case LAYOUT2:
       if (record->event.pressed) {
         layout_conversion_dip_state |= 1 << 2;
@@ -547,7 +541,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       layout_convert(layout_conversion_dip_state);
       return false;
-      break;
     case LAYOUT3:
       if (record->event.pressed) {
         layout_conversion_dip_state |= 1 << 3;
@@ -556,7 +549,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       layout_convert(layout_conversion_dip_state);
       return false;
-      break;
 #endif // ALT_LAYOUTS_ENABLE
     case DIP_ISO:
       if (record->event.pressed) {
@@ -565,7 +557,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           layer_off(_ISO);
       }
       return false;
-      break;
     case FLIP_TH:
       if (record->event.pressed) {
           layer_on(_THUMB_ALT);
@@ -573,7 +564,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           layer_off(_THUMB_ALT);
       }
       return false;
-      break;
 #endif // DIPS_ENABLE
     case THUMB_ALT:
       if (record->event.pressed) {
@@ -582,7 +572,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         eeconfig_update_user(user_config.raw);
       }
       return false;
-      break;
     case ISO:
       if (record->event.pressed) {
         layer_invert(_ISO);
@@ -590,7 +579,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         eeconfig_update_user(user_config.raw);
       }
       return false;
-      break;
   }
   return true;
 }

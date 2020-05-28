@@ -78,14 +78,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                              _______, SW_TG,   _______
 ),
 
-#if defined(RGBLIGHT) | defined(BACKLIGHT_ENABLE)
+#if defined(RGBLIGHT) || defined(BACKLIGHT_ENABLE)
 [_BCKLT_ADJ] = SYMM_LAYOUT(
   XXXXXXX, XXXXXXX,        XXXXXXX, BL_INC,  RGB_VAI, RGB_HUD, RGB_HUI,
            XXXXXXX,        XXXXXXX, BL_DEC,  RGB_VAD, RGB_SAD, RGB_SAI,
            TG(_BCKLT_ADJ), BL_BRTG, BL_TOGG, RGB_TOG, RGB_RMOD,RGB_MOD,
                                              _______, _______, _______
 )
-#endif // defined(RGBLIGHT) | defined(BACKLIGHT_ENABLE)
+#endif // defined(RGBLIGHT) || defined(BACKLIGHT_ENABLE)
 
 };
 
@@ -100,25 +100,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_single_persistent_default_layer(_QWERTY);
       }
       return false;
-      break;
     case DVORAK:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_DVORAK);
       }
       return false;
-      break;
     case COLEMAK:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_COLEMAK);
       }
       return false;
-      break;
     case WORKMAN:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_WORKMAN);
       }
       return false;
-      break;
   }
   return true;
 }
