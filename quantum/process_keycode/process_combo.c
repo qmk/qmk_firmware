@@ -27,6 +27,10 @@ extern int      COMBO_LEN;
 
 __attribute__((weak)) void process_combo_event(uint8_t combo_index, bool pressed) {}
 
+#ifdef COMBO_MUST_HOLD_PER_KEY
+__attribute__((weak)) bool get_combo_must_hold(uint8_t index, combo_t *combo) { return false; }
+#endif
+
 #ifdef COMBO_TERM_PER_COMBO
 __attribute__((weak)) uint16_t get_combo_term(uint8_t index, combo_t *combo) { return COMBO_TERM; }
 #endif
@@ -140,7 +144,15 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
         }
     } else {
         if (ALL_COMBO_KEYS_ARE_DOWN) { /* Combo was released */
-            if (COMBO_PREPARED && !IS_MOD(prepared_combo->keycode)) {
+            if (COMBO_PREPARED
+#ifdef COMBO_MUST_HOLD_PER_KEY
+                    && !get_combo_must_hold(prepared_combo_index, prepared_combo)
+#else
+#   ifdef COMBO_MUST_HOLD_MODS
+                    && !IS_MOD(prepared_combo->keycode)
+#   endif
+#endif
+                ) {
                 /* Fire non-mod combo immediately if it was released inside COMBO_TERM */
                 fire_combo();
             }
