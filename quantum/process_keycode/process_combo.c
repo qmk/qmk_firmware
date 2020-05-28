@@ -27,8 +27,12 @@ extern int      COMBO_LEN;
 
 __attribute__((weak)) void process_combo_event(uint8_t combo_index, bool pressed) {}
 
+#    ifdef PERMISSIVE_HOLD_PER_KEY
+__attribute__((weak)) uint16_t get_combo_term(uint8_t index, combo_t *combo) { return COMBO_TERM; }
+#    endif
+
 static uint16_t timer               = 0;
-static uint8_t  active_combo_index  = 0;
+static uint8_t  prepared_combo_index  = -1;
 static bool     is_active           = true;
 static bool     b_combo_enable      = true;  // defaults to enabled
 static combo_t  *prepared_combo       = NULL;
@@ -45,13 +49,14 @@ static inline void send_combo(uint16_t action, bool pressed) {
             unregister_code16(action);
         }
     } else {
-        process_combo_event(active_combo_index, pressed);
+        process_combo_event(prepared_combo_index, pressed);
     }
 }
 
 void clear_combos(bool clear_state) {
     uint8_t index = 0;
     prepared_combo = NULL;
+    prepared_combo_index = -1;
 #ifndef COMBO_VARIABLE_LEN
     for (index = 0; index < COMBO_COUNT; ++index) {
 #else
@@ -88,6 +93,7 @@ void fire_combo(void) {
     send_combo(prepared_combo->keycode, true);
     prepared_combo->active = true;
     prepared_combo = NULL;
+    prepared_combo_index = -1;
     dump_key_buffer(false);
 }
 
@@ -129,7 +135,7 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
             if (ALL_COMBO_KEYS_ARE_DOWN) { /* Combo was pressed */
                 /* Save the combo so we can fire it after COMBO_TERM */
                 prepared_combo = combo;
-                active_combo_index = combo_index;
+                prepared_combo_index = combo_index;
             }
         }
     } else {
@@ -215,14 +221,22 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_scan_combo(void) {
-    if (b_combo_enable && is_active && timer && timer_elapsed(timer) > COMBO_TERM) {
-        /* This disables the combo, meaning key events for this
-         * combo will be handled by the next processors in the chain
-         */
+    uint16_t time = COMBO_TERM;
+#ifdef COMBO_TERM_PER_COMBO
+    if (prepared_combo) {
+        time = get_combo_term(prepared_combo_index, prepared_combo);
+    }
+#endif
+    if (b_combo_enable && is_active && timer && timer_elapsed(timer) > time) {
+
         if (COMBO_PREPARED) {
             fire_combo();
         } else {
+            /* This disables the combo, meaning key events for this
+             * combo will be handled by the next processors in the chain
+             */
             prepared_combo = NULL;
+            prepared_combo_index = -1;
             is_active = false;
             dump_key_buffer(true);
         }
