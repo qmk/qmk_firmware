@@ -148,17 +148,10 @@ static inline void ps2_mouse_convert_report_to_hid(report_mouse_t *mouse_report)
     mouse_report->y = Y_IS_NEG ? ((!Y_IS_OVF && -127 <= mouse_report->y && mouse_report->y <= -1) ? mouse_report->y : -127) : ((!Y_IS_OVF && 0 <= mouse_report->y && mouse_report->y <= 127) ? mouse_report->y : 127);
 
 #ifdef PS2_MOUSE_INVERT_BUTTONS
-    mouse_report->buttons = (
-        /* Change right to left */
-        BIT_SET_BY(mouse_report->buttons, PS2_MOUSE_BTN_LEFT, PS2_MOUSE_BTN_RIGHT) |
-        /* Change left to right */
-        BIT_SET_BY(mouse_report->buttons, PS2_MOUSE_BTN_RIGHT, PS2_MOUSE_BTN_LEFT) |
-        /* Leave the rest */
-        BITMASK_CLEAR(mouse_report->buttons, (BIT_VALUE(PS2_MOUSE_BTN_MASK, PS2_MOUSE_BTN_LEFT) | BIT_VALUE(PS2_MOUSE_BTN_MASK, PS2_MOUSE_BTN_RIGHT)))
-    /* Remove sign and overflow flags */
-    ) & PS2_MOUSE_BTN_MASK;
+    // remove sign and overflow flags and apply buttons LUT
+    mouse_report->buttons = btns_lut[mouse_report->buttons & PS2_MOUSE_BTN_MASK];
 #else
-    /* remove sign and overflow flags */
+    // remove sign and overflow flags
     mouse_report->buttons &= PS2_MOUSE_BTN_MASK;
 #endif
 

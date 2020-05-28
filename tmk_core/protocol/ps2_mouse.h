@@ -21,17 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include "debug.h"
 
-/*
- * Binary manipulation macros
- */
-
-/* a=target variable, b=bit number to act upon 0-n, c=bit number to act upon 0-n */
-#define BIT_SET_BY(a, b, c) ((a >> b & 1U) << c)
-#define BIT_GET(a, b) (a >> b & 1U)
-#define BIT_VALUE(a, b) ((a >> b & 1U) << b)
-/* x=target variable, y=mask */
-#define BITMASK_CLEAR(x,y) ((x) & (~(y)))
-
 #define PS2_MOUSE_SEND(command, message)                                                \
     do {                                                                                \
         __attribute__((unused)) uint8_t rcv = ps2_host_send(command);                   \
@@ -86,14 +75,24 @@ __attribute__((unused)) static enum ps2_mouse_mode_e {
  *    1|[                    X movement(0-255)                         ]
  *    2|[                    Y movement(0-255)                         ]
  */
-#define PS2_MOUSE_BTN_MASK 0x07
-#define PS2_MOUSE_BTN_LEFT 0
-#define PS2_MOUSE_BTN_RIGHT 1
-#define PS2_MOUSE_BTN_MIDDLE 2
-#define PS2_MOUSE_X_SIGN 4
-#define PS2_MOUSE_Y_SIGN 5
-#define PS2_MOUSE_X_OVFLW 6
-#define PS2_MOUSE_Y_OVFLW 7
+#define PS2_MOUSE_BTN_MASK 0x07 // 0b0000111
+#define PS2_MOUSE_BTN_LEFT 0    // 0b0000001
+#define PS2_MOUSE_BTN_RIGHT 1   // 0b0000010
+#define PS2_MOUSE_BTN_MIDDLE 2  // 0b0000100
+#define PS2_MOUSE_X_SIGN 4      // 0b0001000
+#define PS2_MOUSE_Y_SIGN 5      // 0b0010000
+#define PS2_MOUSE_X_OVFLW 6     // 0b0100000
+#define PS2_MOUSE_Y_OVFLW 7     // 0b1000000
+
+#ifdef PS2_MOUSE_INVERT_BUTTONS
+/*
+ * LUT for change mouse buttons
+ *
+ * table index is the mouse_report->buttons state from PS2 (after &= PS2_MOUSE_BTN_MASK)
+ * the value replace the mouse_report->buttons before to send to the USB interface
+ */
+static const __attribute__((unused)) uint8_t btns_lut[8] = {0b000, 0b010, 0b001, 0b011, 0b100, 0b101, 0b110, 0b111};
+#endif
 
 /* mouse button to start scrolling; set 0 to disable scroll */
 #ifndef PS2_MOUSE_SCROLL_BTN_MASK
