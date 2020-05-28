@@ -17,7 +17,11 @@
 #include QMK_KEYBOARD_H
 #include "rgblite.h"
 
-#define _FUNC 1
+// Defines names for use in layer keycodes and the keymap
+enum layer_names {
+    _BASE,
+    _FUNC,
+};
 
 // set your keycodes here
 #define layer1_left  KC_PAUS
@@ -27,17 +31,17 @@
 
 
 enum custom_keycodes {
-  LEFT1,
+  LEFT1 = SAFE_RANGE,
   RIGHT1,
   LEFT2,
   RIGHT2
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT(
+  [_BASE] = LAYOUT(
     LEFT1,  RIGHT1
   ),
-  [1] = LAYOUT(
+  [_FUNC] = LAYOUT(
     LEFT2,  RIGHT2
   )
 };
@@ -152,7 +156,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 
 // layer colors
 layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (biton(state)) {
+    switch (get_highest_layer(state)) {
     case _FUNC:
         rgblight_setrgb_red();
         break;
