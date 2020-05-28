@@ -17,7 +17,7 @@
 #include QMK_KEYBOARD_H
 
 #include "keycodes.h"
-#include "util.c"
+#include "split_util.h"
 
 #ifdef ENCODER_ENABLE
 #    include "encoder.c"
@@ -94,13 +94,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef JOYSTICK_ENABLE
 void matrix_init_user(void) {
-    if (!is_keyboard_left()) {
+    if (!isLeftHand) {
         init_joystick();
     }
 }
 
 void matrix_scan_user(void) {
-    if (!is_keyboard_left()) {
+    if (!isLeftHand) {
         process_joystick();
     }
 }

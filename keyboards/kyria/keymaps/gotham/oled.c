@@ -1,7 +1,6 @@
 #pragma once
 
 #include "keycodes.h"
-#include "util.c"
 
 #ifdef ENCODER_ENABLE
 #    include "encoder.c"
