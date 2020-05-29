@@ -16,8 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef ERGODOX_EZ_CONFIG_H
-#define ERGODOX_EZ_CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -25,9 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x1307
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    ErgoDox EZ
+#define MANUFACTURER    ZSA Technology Labs Inc
 #define PRODUCT         ErgoDox EZ
-#define DESCRIPTION     QMK keyboard firmware for Ergodox EZ
 
 /* key matrix size */
 #define MATRIX_ROWS 14
@@ -149,5 +147,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 //#define DEBUG_MATRIX_SCAN_RATE
-
-#endif
