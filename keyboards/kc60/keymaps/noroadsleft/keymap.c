@@ -163,9 +163,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case M_SALL:
             if (record->event.pressed) {
                 if ( macroMode == 1 ) {
-                    tap_code16(G(KC_A));
+                    SEND_STRING(SS_LGUI("a"));
                 } else {
-                    tap_code16(C(KC_A));
+                    SEND_STRING(SS_LCTL("a"));
                 }
             }
             return false;
@@ -173,30 +173,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 if ( macroMode == 1 ) {
                     if ( get_mods() & MOD_MASK_SHIFT ) {
-                        tap_code16( S(G(KC_Z)) );
+                        SEND_STRING(SS_LSFT(SS_LGUI("z")));
                     } else {
-                        tap_code16( G(KC_Z) );
+                        SEND_STRING(SS_LGUI("z"));
                     }
                 } else {
-                    tap_code16(C(KC_Z));
+                    SEND_STRING(SS_LCTL("z"));
                 }
             }
             return false;
         case M_CUT:
             if (record->event.pressed) {
                 if ( macroMode == 1 ) {
-                    tap_code16(G(KC_X));
+                    SEND_STRING(SS_LGUI("x"));
                 } else {
-                    tap_code16(C(KC_X));
+                    SEND_STRING(SS_LCTL("x"));
                 }
             }
             return false;
         case M_COPY:
             if (record->event.pressed) {
                 if ( macroMode == 1 ) {
-                    tap_code16(G(KC_C));
+                    SEND_STRING(SS_LGUI("c"));
                 } else {
-                    tap_code16(C(KC_C));
+                    SEND_STRING(SS_LCTL("c"));
                 }
             }
             return false;
@@ -204,57 +204,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 if ( macroMode == 1 ) {
                     if ( get_mods() & MOD_MASK_SHIFT ) {
-                        tap_code16( S(A(G(KC_V))) );
+                        SEND_STRING(SS_LSFT(SS_LALT(SS_LGUI("v"))));
                     } else {
-                        tap_code16( G(KC_V) );
+                        SEND_STRING(SS_LGUI("v"));
                     }
                 } else {
-                    tap_code16(C(KC_V));
+                    SEND_STRING(SS_LCTL("v"));
                 }
             }
             return false;
         case KC_HOME:
             if (record->event.pressed) {
                 if ( macroMode == 1 ) {
-                    register_code16(G(KC_LEFT));
+                    tap_code16(G(KC_LEFT));
                 } else {
-                    register_code(keycode);
-                }
-            } else {
-                if ( macroMode == 1 ) {
-                    unregister_code16(G(KC_LEFT));
-                } else {
-                    unregister_code(keycode);
+                    tap_code(keycode);
                 }
             };
             return false;
         case KC_END:
             if (record->event.pressed) {
                 if ( macroMode == 1 ) {
-                    register_code16(G(KC_RGHT));
+                    tap_code16(G(KC_RGHT));
                 } else {
-                    register_code(keycode);
-                }
-            } else {
-                if ( macroMode == 1 ) {
-                    unregister_code16(G(KC_RGHT));
-                } else {
-                    unregister_code(keycode);
+                    tap_code(keycode);
                 }
             };
             return false;
         case KC_PSCR:
             if (record->event.pressed) {
                 if ( macroMode == 1 ) {
-                    register_code16(LGUI(LSFT(KC_3)));
+                    tap_code16(G(S(KC_3)));
                 } else {
-                    register_code(keycode);
-                }
-            } else {
-                if ( macroMode == 1 ) {
-                    unregister_code16(LGUI(LSFT(KC_3)));
-                } else {
-                    unregister_code(keycode);
+                    tap_code(keycode);
                 }
             };
             return false;
