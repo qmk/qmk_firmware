@@ -6,6 +6,10 @@
 #    include "encoder.c"
 #endif
 
+#ifdef THUMBSTICK_ENABLE
+#    include "thumbstick.h"
+#endif
+
 static void render_kyria_logo(void) {
     static const char PROGMEM kyria_logo[] = {0,  0,  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   128, 128, 192, 224, 240, 112, 120, 56,  60,  28, 30, 14, 14, 14, 7,  7,   7,   7,   7,  7, 7,   7,   7, 7,  7,   7,   7,   7,  7,  7,  14, 14, 14,  30,  28,  60,  56,  120, 112, 240, 224, 192, 128, 128, 0,   0,  0,  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,  0,  0,   0,   0,   0,   192, 224, 240, 124, 62,  31,  15,  7,   3,   1,   128, 192, 224, 240, 120, 56,  60, 28, 30, 14, 14, 7,   7,   135, 231, 127, 31,  255, 255, 31,  127, 231, 135, 7,  7,  14,
                                               14, 30, 28,  60,  56,  120, 240, 224, 192, 128, 1,   3,   7,   15,  31,  62,  124, 240, 224, 192, 0,   0,   0,  0,  0,  0,  0,  0,  0,   0,   0,   0,  0, 0,   0,   0, 0,  0,   0,   0,   0,  0,  0,  0,  0,  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,  0,  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   240, 252, 255, 31,  7,   1,  0,   0,   192, 240, 252, 254, 255, 247, 243, 177, 176, 48,  48,  48,  48,  48,  48,  48,  120, 254, 135, 1,   0,   0,   255, 255, 0,   0,   1,   135, 254, 120, 48,  48,  48, 48, 48,  48,  48,  176, 177, 243, 247, 255, 254, 252, 240, 192, 0,   0,   1,   7,   31,  255, 252, 240, 0,  0,  0,  0,  0,  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,  0,  0,
@@ -60,16 +64,41 @@ static void render_encoder(encoder_mode_t mode) {
 }
 #endif
 
+#ifdef THUMBSTICK_ENABLE
+static void render_thumbstick(thumbstick_mode_t mode) {
+    switch (mode) {
+        case THUMBSTICK_MODE_MOUSE:
+            oled_write_P(PSTR("Mouse"), false);
+            break;
+        case THUMBSTICK_MODE_ARROWS:
+            oled_write_P(PSTR("Arrows"), false);
+            break;
+        case THUMBSTICK_MODE_SCROLL:
+            oled_write_P(PSTR("Scroll"), false);
+            break;
+        default:
+            oled_write_P(PSTR("???\n"), false);
+    }
+}
+#endif
+
 static void render_status(void) {
     if (is_keyboard_master()) {
         // Host Keyboard Layer Status
         render_layer();
 #ifdef ENCODER_ENABLE
         // Encoder state
-        oled_write_P(PSTR("\nL-Enc: "), false);
+        oled_write_P(PSTR("L-Enc: "), false);
         render_encoder(encoder_left_mode);
-        oled_write_P(PSTR("\nR-Enc: "), false);
+        oled_write_P(PSTR("R-Enc: "), false);
         render_encoder(encoder_right_mode);
+#endif
+#ifdef THUMBSTICK_ENABLE
+        if (!isLeftHand) {
+            // Thumbstick state
+            oled_write_P(PSTR("Joystick: "), false);
+            render_thumbstick(thumbstick_state.config.mode);
+        }
 #endif
         // Host Keyboard LED Status
         uint8_t led_usb_state = host_keyboard_leds();

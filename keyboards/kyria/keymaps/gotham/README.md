@@ -29,21 +29,28 @@ A PSP 2000 thumbstick is attached to the right half. It will currently only func
 #### Thumbstick Configuration
 
 - __THUMBSTICK_ENABLE:__ Enable thumbstick.
-- __THUMBSTICK_CHANNEL_X/Y (mandatory):__ The ADC channels to use for the respective axis. The values are from the [lufa library](http://www.lufa-lib.org/files/LUFA/Doc/120219/html/group___group___a_d_c___a_v_r8.html). I used ADC_CHANNEL0 and ADC_CHANNEL1 (F0 and F1 pinouts on Elite C), for example.
+- __THUMBSTICK_PIN_X/Y (mandatory):__ The QMK pins to use for the respective axis. The values are from the [QMK's ADC driver](https://docs.qmk.fm/#/adc_driver). I used F0 and F1, for example.
 - __THUMBSTICK_FLIP_X/Y:__ Mirror the direction of the respective axis. Use to compensate for actual orientation of thumbstick.
-__THUMBSTICK_FLIP_CHANNELS:__ Flip the pins used for X and Y axes. Use instead of re-wiring the thumbstick.
-__THUMBSTICK_DEBUG:__ Print raw and calculated values from ADC channels to console. Will only work with CONSOLE_ENABLE turned on.
-__THUMBSTICK_ANGLE_CORRECT <angle>:__ Angle in degrees to correct for physical orientation of thumbstick. Can be positive or negative.
+- __THUMBSTICK_DEBUG:__ Print raw and calculated values from analogReadPin to console. Will only work with CONSOLE_ENABLE turned on.
+- __THUMBSTICK_ANGLE_CORRECT <angle>:__ Angle in degrees to correct for physical orientation of thumbstick. Can be positive or negative.
 
 #### Thumbstick Fine-tuning
 
-The ADC channels return a number between 0 and 1023, but thumbsticks usually aren't accurate enough to work in that full range. So we need to set limits on the high and low readings of each channels based on actual readings. In addition, the resting position has a deadzone which needs to be ignored by the code. For PSP 2000 thumbsticks, this value is typically 50 units around the center. The parameters for each axis are defined below, and can be set in thumbstick.c. Turn on CONSOLE_ENABLE in rules.mk and THUMBSTICK_DEBUG in config.h to look at the raw values from the channels using hid_listen (or QMK Toolbox).
+More tunables are described here. Values like deadzone threshold are hardware-specific. The theoretical range for analog readings is [0, 1023], but emperical readings don't extend the entire range. To find the right values, turn on CONSOLE_ENABLE in rules.mk and THUMBSTICK_DEBUG in config.h to look at the raw values from the pins using hid_listen (or QMK Toolbox).
 
-- __STICK_MIN_X/Y <number>__
-- __STICK_MAX_X/Y <number>__
-- __STICK_DEADZONE_X/Y_MIN <number>__
-- __STICK_DEADZONE_X/Y_MAX <number>__
+- __THUMBSTICK_DEAD_ZONE 90:__ Values below this are ignored (deadzone).
+- __THUMBSTICK_FINE_ZONE 180:__  Values below this enable fine movement.
+
+- __THUMBSTICK_MODE <mode>:__ One of THUMBSTICK_MODE_MOUSE, THUMBSTICK_MODE_ARROWS and THUMBSTICK_MODE_SCROLL. This is just the default mode, it can be changed by calling ```void thumbstick_mode_cycle(bool reverse)``` within code.
+
+- __THUMBSTICK_SPEED 127:__ Cursor speed in THUMBSTICK_MODE_MOUSE.
+- __THUMBSTICK_FINE_SPEED 64:__ Fine cursor speed in THUMBSTICK_MODE_MOUSE (kicks in when slightly nudging the thumbstick).
+- __THUMBSTICK_SCROLL_SPEED 1:__ Scrolling speed in THUMBSTICK_MODE_SCROLL.
+
+- __THUMBSTICK_EIGHT_AXIS true:__ 8-axis toggle for ARROW and SCROLL modes. Disable to fall back to 4 axes (think D-pads vs analog stick).
+- __THUMBSTICK_AXIS_SEPARATION 0.5f:__ Float value between 0 and 1, used to discretize the circular range into distinct zones for 8-axis. Imagine the top-right quadrant on a graph, and picture the diagonal. This value indicates the angular "distance" from the diagonal to either axis. Moving from the diagonal to each of the axes, this value changes from 0 to 1. So, a value of 0.5 will "sweep" from the center to half-way towards each axis, creating a zone across the diagonal. Smaller values make narrower diagonal zones, and vice versa.
 
 #### Thanks
 
-Thanks to u/pyrho and u/\_GEIST\_ from Reddit for their help.
+- @pyrho and u/\_GEIST\_ for the inspiration and initial reference code.
+- @zvecr and @drashna for code review and more pointers.

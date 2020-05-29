@@ -1,130 +1,213 @@
-#if !defined THUMBSTICK_CHANNEL_X || !defined THUMBSTICK_CHANNEL_Y
-#    error "You must define THUMBSTICK_CHANNEL_X and THUMBSTICK_CHANNEL_Y in config.h, see keyboards\kyria\keymaps\gotham\README.md for more information."
+#include "thumbstick.h"
+
+void thumbstick_init(void) {
+    thumbstickTimer    = 0;
+    thumbstickScrollTimer = 0;
+
+    thumbstick_state.config.mode           = THUMBSTICK_MODE_MOUSE;
+    thumbstick_state.config.deadZone       = THUMBSTICK_DEAD_ZONE;
+    thumbstick_state.config.fineZone       = THUMBSTICK_FINE_ZONE;
+    thumbstick_state.config.speed          = THUMBSTICK_SPEED;
+    thumbstick_state.config.fineSpeed      = THUMBSTICK_FINE_SPEED;
+    thumbstick_state.config.axisSeparation = THUMBSTICK_AXIS_SEPARATION;
+    thumbstick_state.config.eightAxis      = THUMBSTICK_EIGHT_AXIS;
+
+#if defined THUMBSTICK_DEBUG
+    rawX  = 0;
+    rawY  = 0;
+    distX = 0;
+    distY = 0;
+    thumbstickLogTimer = 0;
 #endif
-
-#include "timer.h"
-#include "pointing_device.h"
-#include "LUFA/Drivers/Peripheral/ADC.h"
-
-#if defined THUMBSTICK_DEBUG && defined CONSOLE_ENABLE
-#    include <print.h>
-#endif
-
-#define STICK_MIN_X 150
-#define STICK_MAX_X 790
-#define STICK_DEADZONE_X_MIN 430
-#define STICK_DEADZONE_X_MAX 480
-
-#define STICK_MIN_Y 200
-#define STICK_MAX_Y 860
-#define STICK_DEADZONE_Y_MIN 500
-#define STICK_DEADZONE_Y_MAX 550
-
-#if defined THUMBSTICK_DEBUG && defined CONSOLE_ENABLE
-static uint16_t                       raw_x  = 0;
-static uint16_t                       raw_y  = 0;
-static uint16_t                       last_x = 0;
-static uint16_t                       last_y = 0;
-#endif
-
-#ifdef THUMBSTICK_ANGLE_CORRECT
-#    define PI 3.1415926535897932384626433832795
-#    define THUMBSTICK_ANGLE_CORRECT_RADIANS (double)THUMBSTICK_ANGLE_CORRECT* PI / 180.0
-#endif
-
-// Map a value from [in_min..in_max] to another value in the range of [out_min..out_max]
-int32_t map(int32_t x, int32_t in_min, int32_t in_max, int32_t out_min, int32_t out_max) { return out_min + (x - in_min) * (out_max - out_min) / (in_max - in_min); }
-
-static int16_t thumbstick_read(uint32_t chanmask, uint16_t high, uint16_t low, uint16_t deadzone_min, uint16_t deadzone_max) {
-    uint16_t analogValue = ADC_GetChannelReading(ADC_REFERENCE_AVCC | chanmask);
-#if defined THUMBSTICK_DEBUG && defined CONSOLE_ENABLE
-#    ifdef THUMBSTICK_FLIP_CHANNELS
-    if (chanmask == THUMBSTICK_CHANNEL_Y)
-#    else
-    if (chanmask == THUMBSTICK_CHANNEL_X)
-#    endif
-        raw_x = analogValue;
-    else
-        raw_y = analogValue;
-#endif
-
-    // If the current value is too close to the deadzone, do not move the mouse.
-    if ((analogValue < deadzone_min) || (analogValue > deadzone_max)) {
-        // Map the analog read value from 0 to 1024 to between -127 and 127 so that it can be fed to
-        // mouseReport.
-        // But in reality we never reach 0 and 1024 because the thumbstick is not that precise, so just
-        // map from the empiric range. (Note that these values as specific to your thumbstick, if you
-        // want finer control you need to adjust the defines to fit your readings).
-        int32_t vMapped = map((int)analogValue, low, high, -127, 127);
-        return vMapped * 1 / 8;
-    }
-    return 0;
 }
 
-static int32_t thumbstick_read_x(void) {
-#ifdef THUMBSTICK_FLIP_CHANNELS
-    int32_t val = thumbstick_read(THUMBSTICK_CHANNEL_Y, STICK_MAX_Y, STICK_MIN_Y, STICK_DEADZONE_Y_MIN, STICK_DEADZONE_Y_MAX);
-#else
-    int32_t val = thumbstick_read(THUMBSTICK_CHANNEL_X, STICK_MAX_X, STICK_MIN_X, STICK_DEADZONE_X_MIN, STICK_DEADZONE_X_MAX);
+// Axis-level wrapper to read raw value, do logging and calculate speed
+int16_t thumbstick_get_component(uint8_t pin) {
+    uint16_t analogValue = analogReadPin(pin);
+    // Compute direction
+    int8_t polarity = (analogValue > THUMBSTICK_RANGE_CENTER) ? 1 : -1;
+    // Compute distance from the center
+    uint16_t distance = (polarity > 0) ? (analogValue - THUMBSTICK_RANGE_CENTER) : (THUMBSTICK_RANGE_CENTER - analogValue);
+#if defined THUMBSTICK_DEBUG
+    if (pin == THUMBSTICK_PIN_X) {
+        rawX  = analogValue;
+        distX = distance;
+    } else {
+        rawY  = analogValue;
+        distY = distance;
+    }
+#endif
+    // Compute component (range of [0 to 1023])
+    return (int16_t)polarity * distance;
+}
+
+void thumbstick_mode_set(thumbstick_mode_t mode) { thumbstick_state.config.mode = mode; }
+
+thumbstick_mode_t thumbstick_mode_get(void) { return thumbstick_state.config.mode; }
+
+void thumbstick_mode_cycle(bool reverse) {
+    thumbstick_mode_t mode = thumbstick_mode_get();
+    if (reverse) {
+        mode = (mode == 0) ? (_THUMBSTICK_MODE_LAST - 1) : (mode - 1);
+    } else {
+        mode = (mode == (_THUMBSTICK_MODE_LAST - 1)) ? 0 : (mode + 1);
+    }
+    thumbstick_mode_set(mode);
+}
+
+#ifdef THUMBSTICK_ANGLE_CORRECT
+// Rotate axes clockwise by given angle in radians
+thumbstick_vector_t thumbstick_get_corrected_angle(thumbstick_vector_t vector) {
+    thumbstick_vector_t correctedVector;
+    double               angle  = atan2((double)vector.y, (double)vector.x) + THUMBSTICK_ANGLE_CORRECT_RADIANS;
+    double               radius = sqrt((double)vector.x * vector.x + vector.y * vector.y);
+    correctedVector.x          = radius * cos(angle);
+    correctedVector.y          = radius * sin(angle);
+    return correctedVector;
+}
 #endif
 
+// Get mouse speed
+int8_t thumbstick_get_mouse_speed(int16_t component) {
+    int8_t   maxSpeed;
+    uint16_t distance = abs(component);
+    if (distance > THUMBSTICK_FINE_ZONE) {
+        maxSpeed = THUMBSTICK_SPEED;
+    } else if (distance > THUMBSTICK_DEAD_ZONE) {
+        maxSpeed = THUMBSTICK_FINE_SPEED;
+    } else {
+        return 0;
+    }
+    return (float)maxSpeed * component / THUMBSTICK_RANGE_CENTER;
+}
+
+// Fix direction within one of 8 axes (or 4 if 8-axis is disabled)
+thumbstick_direction_t thumbstick_get_discretized_direction(thumbstick_vector_t vector, float axisSeparation, bool eightAxis) {
+    thumbstick_direction_t direction;
+    int16_t                absX                = abs(vector.x);
+    int16_t                absY                = abs(vector.y);
+    int16_t                maxComponent        = (absX > absY) ? absX : absY;
+    float                  ratio               = abs(absX - absY) / (float)maxComponent;
+    bool                   insideDeadZone      = (maxComponent <= THUMBSTICK_DEAD_ZONE);
+    bool                   outsideDiagonalZone = (ratio >= axisSeparation);
+    if (insideDeadZone) {
+        direction.up = direction.down = direction.left = direction.right = false;
+    } else {
+        direction.up    = (vector.y < 0);
+        direction.down  = (vector.y > 0);
+        direction.left  = (vector.x < 0);
+        direction.right = (vector.x > 0);
+        // Let only one direction remain under the right conditions
+        if (outsideDiagonalZone || !eightAxis) {
+            bool dominantX = (absX > absY);
+            if (dominantX) {
+                direction.up = direction.down = false;
+            } else {
+                direction.left = direction.right = false;
+            }
+        }
+    }
+    return direction;
+}
+
+void thumbstick_process(void) {
+    if (timer_elapsed(thumbstickTimer) > THUMBSTICK_TIMEOUT) {
+        thumbstickTimer           = timer_read();
+        thumbstick_state.vector.x = thumbstick_get_component(THUMBSTICK_PIN_X);
+        thumbstick_state.vector.y = thumbstick_get_component(THUMBSTICK_PIN_Y);
+#ifdef THUMBSTICK_ANGLE_CORRECT
+        thumbstick_state.vector = thumbstick_get_corrected_angle(thumbstick_state.vector);
+#endif
 #ifdef THUMBSTICK_FLIP_X
-    return -val;
-#else
-    return val;
+        thumbstick_state.vector.x = -thumbstick_state.vector.x;
 #endif
-}
-
-static int32_t thumbstick_read_y(void) {
-#ifdef THUMBSTICK_FLIP_CHANNELS
-    int32_t val = thumbstick_read(THUMBSTICK_CHANNEL_X, STICK_MAX_X, STICK_MIN_X, STICK_DEADZONE_X_MIN, STICK_DEADZONE_X_MAX);
-#else
-    int32_t val = thumbstick_read(THUMBSTICK_CHANNEL_Y, STICK_MAX_Y, STICK_MIN_Y, STICK_DEADZONE_Y_MIN, STICK_DEADZONE_Y_MAX);
-#endif
-
 #ifdef THUMBSTICK_FLIP_Y
-    return -val;
-#else
-    return val;
+        thumbstick_state.vector.y = -thumbstick_state.vector.y;
 #endif
+        thumbstick_direction_t direction;  // Declaring here as it's not allowed in a switch block
+        switch (thumbstick_state.config.mode) {
+            case THUMBSTICK_MODE_MOUSE:
+                thumbstick_state.report.x = thumbstick_get_mouse_speed(thumbstick_state.vector.x);
+                thumbstick_state.report.y = thumbstick_get_mouse_speed(thumbstick_state.vector.y);
+                break;
+            case THUMBSTICK_MODE_ARROWS:
+                thumbstick_state.direction = thumbstick_get_discretized_direction(thumbstick_state.vector, thumbstick_state.config.axisSeparation, thumbstick_state.config.eightAxis);
+                break;
+            case THUMBSTICK_MODE_SCROLL:
+                if (timer_elapsed(thumbstickScrollTimer) > THUMBSTICK_SCROLL_TIMEOUT) {
+                    thumbstickScrollTimer = timer_read();
+                    direction                 = thumbstick_get_discretized_direction(thumbstick_state.vector, thumbstick_state.config.axisSeparation, false);
+                    thumbstick_state.report.v = (direction.up || direction.down) ? (direction.up ? THUMBSTICK_SCROLL_SPEED : -THUMBSTICK_SCROLL_SPEED) : 0;
+                    thumbstick_state.report.h = (direction.left || direction.right) ? (direction.left ? -THUMBSTICK_SCROLL_SPEED : THUMBSTICK_SCROLL_SPEED) : 0;
+                } else {
+                    thumbstick_state.report.v = thumbstick_state.report.h = 0;
+                }
+                break;
+            default:
+                break;
+        }
+    }
 }
 
-void init_thumbstick(void) {
-    // Turn on the ADC for reading the thumbstick
-    ADC_Init(ADC_SINGLE_CONVERSION | ADC_PRESCALE_32);
-    ADC_SetupChannel(0);
-    ADC_SetupChannel(1);
+void update_keycode_status(uint16_t keycode, bool last, bool current) {
+    if (last != current) {
+        if (current) {
+            register_code16(keycode);
+        } else {
+            unregister_code16(keycode);
+        }
+    }
 }
 
-void process_thumbstick(void) {
-    int8_t x = thumbstick_read_x();
-    int8_t y = thumbstick_read_y();
-#if defined THUMBSTICK_DEBUG && defined CONSOLE_ENABLE
-    uint16_t timer = timer_read();
-    if ((last_x != x) || (last_y != y)) {
-        last_x = x;
-        last_y = y;
-    }
-    if (timer % 10 == 0) {
-        uprintf("MAP: (%d, %d); REAL: (%u, %u);\n", x, y, last_x, last_y);
-    }
-#endif
+void pointing_device_init(void) { thumbstick_init(); }
 
-#ifdef THUMBSTICK_ANGLE_CORRECT
-    // Angle correction
-    double angle  = atan2(y, x) + THUMBSTICK_ANGLE_CORRECT_RADIANS;
-    double radius = sqrt(x * x + y * y);
-    x             = (int8_t)(radius * cos(angle));
-    y             = (int8_t)(radius * sin(angle));
-#    if defined THUMBSTICK_DEBUG && defined CONSOLE_ENABLE
-    if (timer % 10 == 0) {
-        uprintf("ORIG: (%d, %d); ANGLE: (%d, %d);\n", last_x, last_y, x, y);
-    }
-#    endif
-#endif
+void pointing_device_task(void) {
+    report_mouse_t report = pointing_device_get_report();
 
-    report_mouse_t currentReport = pointing_device_get_report();
-    currentReport.x              = x;
-    currentReport.y              = y;
-    pointing_device_set_report(currentReport);
+    if (!isLeftHand) {
+        thumbstick_process();
+        thumbstick_direction_t direction, lastDirection;  // Declaring here as it's not allowed in a switch block
+        switch (thumbstick_state.config.mode) {
+            case THUMBSTICK_MODE_MOUSE:
+                report.x = thumbstick_state.report.x;
+                report.y = thumbstick_state.report.y;
+#ifdef THUMBSTICK_DEBUG
+                if (timer_elapsed(thumbstickLogTimer) > 100) {
+                    thumbstickLogTimer = timer_read();
+                    uprintf("Raw (%d, %d); Dist (%u, %u); Vec (%d, %d);\n", rawX, rawY, distX, distY, thumbstick_state.vector.x, thumbstick_state.vector.y);
+                }
+#endif
+                break;
+            case THUMBSTICK_MODE_ARROWS:
+                direction     = thumbstick_state.direction;
+                lastDirection = thumbstick_state.lastDirection;
+                update_keycode_status(KC_UP, lastDirection.up, direction.up);
+                update_keycode_status(KC_DOWN, lastDirection.down, direction.down);
+                update_keycode_status(KC_LEFT, lastDirection.left, direction.left);
+                update_keycode_status(KC_RIGHT, lastDirection.right, direction.right);
+                thumbstick_state.lastDirection = direction;
+#ifdef THUMBSTICK_DEBUG
+                if (timer_elapsed(thumbstickLogTimer) > 100) {
+                    thumbstickLogTimer = timer_read();
+                    uprintf("Up %d; Down %d; Left: %d; Right %d; Vec (%d, %d);\n", direction.up, direction.down, direction.left, direction.right, thumbstick_state.vector.x, thumbstick_state.vector.y);
+                }
+#endif
+                break;
+            case THUMBSTICK_MODE_SCROLL:
+                report.v = thumbstick_state.report.v;
+                report.h = thumbstick_state.report.h;
+#ifdef THUMBSTICK_DEBUG
+                if (timer_elapsed(thumbstickLogTimer) > 100) {
+                    thumbstickLogTimer = timer_read();
+                    uprintf("Scroll (%d, %d)\n", report.h, report.v);
+                }
+#endif
+                break;
+            default:
+                break;
+        }
+    }
+
+    pointing_device_set_report(report);
+    pointing_device_send();
 }

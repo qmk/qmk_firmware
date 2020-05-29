@@ -17,7 +17,6 @@
 #include QMK_KEYBOARD_H
 
 #include "keycodes.h"
-#include "split_util.h"
 
 #ifdef ENCODER_ENABLE
 #    include "encoder.c"
@@ -28,7 +27,7 @@
 #endif
 
 #ifdef THUMBSTICK_ENABLE
-#    include "thumbstick.c"
+#    include "thumbstick.h"
 #endif
 
 // clang-format off
@@ -39,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
       ESC_RAISE,    KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     BSLS_RAISE,
       KC_LSFT,      KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                       KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  SFT_QUOT,
-      KC_LCTL,      KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,  KC_LGUI,  KC_NO,     KC_NO,  KC_NO,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  CTL_MINS,
+      KC_LCTL,      KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,  KC_LGUI,  KC_NO,  TMB_MODE,  KC_NO,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  CTL_MINS,
         ENC_MODE_L, KC_LALT, LT(_LOWER, KC_SPC), LT(_RAISE, KC_TAB), KC_LSFT,  KC_EQL, LT(_RAISE, KC_ENT), LT(_LOWER, KC_BSPC),  KC_DEL, ENC_MODE_R
     ),
 /*
@@ -88,23 +87,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 #endif
+#ifdef THUMBSTICK_ENABLE
+        case TMB_MODE:
+            if (record->event.pressed) {
+                thumbstick_mode_cycle(false);
+            }
+#endif
     }
     return true;
 }
-
-#ifdef THUMBSTICK_ENABLE
-void matrix_init_user(void) {
-    if (!isLeftHand) {
-        init_thumbstick();
-    }
-}
-
-void matrix_scan_user(void) {
-    if (!isLeftHand) {
-        process_thumbstick();
-    }
-}
-#endif
 
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
