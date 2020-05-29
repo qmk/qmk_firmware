@@ -36,14 +36,6 @@ static inline void ps2_mouse_clear_report(report_mouse_t *mouse_report);
 static inline void ps2_mouse_enable_scrolling(void);
 static inline void ps2_mouse_scroll_button_task(report_mouse_t *mouse_report);
 
-#ifdef PS2_MOUSE_INVERT_BUTTONS
-/*
- * LUT for change mouse buttons
- *
- * table index is the mouse_report->buttons state from PS2 (after &= PS2_MOUSE_BTN_MASK)
- * the value replace the mouse_report->buttons before to send to the USB interface
- */
-static const uint8_t btns_lut[8] = {0b000, 0b010, 0b001, 0b011, 0b100, 0b101, 0b110, 0b111};
 #endif
 
 /* ============================= IMPLEMENTATION ============================ */
@@ -158,8 +150,9 @@ static inline void ps2_mouse_convert_report_to_hid(report_mouse_t *mouse_report)
     mouse_report->y = Y_IS_NEG ? ((!Y_IS_OVF && -127 <= mouse_report->y && mouse_report->y <= -1) ? mouse_report->y : -127) : ((!Y_IS_OVF && 0 <= mouse_report->y && mouse_report->y <= 127) ? mouse_report->y : 127);
 
 #ifdef PS2_MOUSE_INVERT_BUTTONS
-    // remove sign and overflow flags and apply buttons LUT
-    mouse_report->buttons = btns_lut[mouse_report->buttons & PS2_MOUSE_BTN_MASK];
+    // swap left & rigth buttons & remove sign and overflow flags
+    uint8_t btns_change      = ((mouse_report->buttons >> PS2_MOUSE_BTN_LEFT) ^ (mouse_report->buttons >> PS2_MOUSE_BTN_RIGHT)) & 1;
+    mouse_report->buttons = ((btns_change << PS2_MOUSE_BTN_LEFT) | (btns_change << PS2_MOUSE_BTN_RIGHT)) & PS2_MOUSE_BTN_MASK;
 #else
     // remove sign and overflow flags
     mouse_report->buttons &= PS2_MOUSE_BTN_MASK;
