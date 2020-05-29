@@ -1,2 +1,2 @@
-/* Copyright 2020 hineybush
+# Copyright hineybush 2020
 VIA_ENABLE = yes
