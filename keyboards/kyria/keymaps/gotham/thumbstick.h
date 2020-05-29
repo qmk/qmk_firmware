@@ -26,10 +26,6 @@ typedef enum {
 #define THUMBSTICK_RANGE_STOP 1023
 #define THUMBSTICK_RANGE_CENTER (THUMBSTICK_RANGE_STOP - THUMBSTICK_RANGE_START + 1) / 2
 #define THUMBSTICK_RANGE_MOVEMENT (THUMBSTICK_RANGE_CENTER - THUMBSTICK_DEAD_ZONE)
-#ifdef THUMBSTICK_ANGLE_CORRECT
-#    define PI 3.1415926535897932384626433832795
-#    define THUMBSTICK_ANGLE_CORRECT_RADIANS (double)THUMBSTICK_ANGLE_CORRECT* PI / 180.0
-#endif
 
 #include "timer.h"
 #include "analog.h"
@@ -90,11 +86,6 @@ void thumbstick_init(void);
 
 // Axis-level wrapper to read raw value, do logging and calculate speed
 int16_t thumbstick_get_component(uint8_t pin);
-
-#ifdef THUMBSTICK_ANGLE_CORRECT
-// Rotate axes clockwise by given angle in radians
-thumbstick_vector_t thumbstick_get_corrected_angle(thumbstick_vector_t vector);
-#endif
 
 // Get mouse speed
 int8_t thumbstick_get_mouse_speed(int16_t component);

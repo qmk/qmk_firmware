@@ -32,7 +32,6 @@ A PSP 2000 thumbstick is attached to the right half. It will currently only func
 - __THUMBSTICK_PIN_X/Y (mandatory):__ The QMK pins to use for the respective axis. The values are from the [QMK's ADC driver](https://docs.qmk.fm/#/adc_driver). I used F0 and F1, for example.
 - __THUMBSTICK_FLIP_X/Y:__ Mirror the direction of the respective axis. Use to compensate for actual orientation of thumbstick.
 - __THUMBSTICK_DEBUG:__ Print raw and calculated values from analogReadPin to console. Will only work with CONSOLE_ENABLE turned on.
-- __THUMBSTICK_ANGLE_CORRECT <angle>:__ Angle in degrees to correct for physical orientation of thumbstick. Can be positive or negative.
 
 #### Thumbstick Fine-tuning
 

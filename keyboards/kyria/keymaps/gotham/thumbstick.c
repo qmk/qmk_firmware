@@ -55,18 +55,6 @@ void thumbstick_mode_cycle(bool reverse) {
     thumbstick_mode_set(mode);
 }
 
-#ifdef THUMBSTICK_ANGLE_CORRECT
-// Rotate axes clockwise by given angle in radians
-thumbstick_vector_t thumbstick_get_corrected_angle(thumbstick_vector_t vector) {
-    thumbstick_vector_t correctedVector;
-    double               angle  = atan2((double)vector.y, (double)vector.x) + THUMBSTICK_ANGLE_CORRECT_RADIANS;
-    double               radius = sqrt((double)vector.x * vector.x + vector.y * vector.y);
-    correctedVector.x          = radius * cos(angle);
-    correctedVector.y          = radius * sin(angle);
-    return correctedVector;
-}
-#endif
-
 // Get mouse speed
 int8_t thumbstick_get_mouse_speed(int16_t component) {
     int8_t   maxSpeed;
@@ -115,9 +103,6 @@ void thumbstick_process(void) {
         thumbstickTimer           = timer_read();
         thumbstick_state.vector.x = thumbstick_get_component(THUMBSTICK_PIN_X);
         thumbstick_state.vector.y = thumbstick_get_component(THUMBSTICK_PIN_Y);
-#ifdef THUMBSTICK_ANGLE_CORRECT
-        thumbstick_state.vector = thumbstick_get_corrected_angle(thumbstick_state.vector);
-#endif
 #ifdef THUMBSTICK_FLIP_X
         thumbstick_state.vector.x = -thumbstick_state.vector.x;
 #endif
