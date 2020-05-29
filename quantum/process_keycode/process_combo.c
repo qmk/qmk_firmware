@@ -196,6 +196,23 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
     if (!is_combo_enabled()) {
         return true;
     }
+
+#if defined(COMBO_PERMISSIVE_HOLD) && (defined(COMBO_MUST_HOLD_MODS) || defined(COMBO_MUST_HOLD_PER_KEY))
+    if (COMBO_PREPARED && timer_elapsed(timer) > COMBO_TERM &&
+        record->event.pressed &&
+#   if defined(COMBO_MUST_HOLD_MODS)
+        IS_MOD(prepared_combo->keycode)
+#   elif defined(COMBO_MUST_HOLD_PER_KEY)
+        get_combo_must_hold(prepared_combo_index, prepared_combo);
+#   endif
+        ) {
+        /* Allow combos resolving to modifier keys to be fired sooner when
+         * another key is pressed. */
+        fire_combo();
+        return true;
+    }
+#endif
+
 #ifndef COMBO_VARIABLE_LEN
     for (uint8_t idx = 0; idx < COMBO_COUNT; ++idx) {
 #else
