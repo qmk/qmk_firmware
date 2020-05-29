@@ -36,6 +36,16 @@ static inline void ps2_mouse_clear_report(report_mouse_t *mouse_report);
 static inline void ps2_mouse_enable_scrolling(void);
 static inline void ps2_mouse_scroll_button_task(report_mouse_t *mouse_report);
 
+#ifdef PS2_MOUSE_INVERT_BUTTONS
+/*
+ * LUT for change mouse buttons
+ *
+ * table index is the mouse_report->buttons state from PS2 (after &= PS2_MOUSE_BTN_MASK)
+ * the value replace the mouse_report->buttons before to send to the USB interface
+ */
+static const uint8_t btns_lut[8] = {0b000, 0b010, 0b001, 0b011, 0b100, 0b101, 0b110, 0b111};
+#endif
+
 /* ============================= IMPLEMENTATION ============================ */
 
 /* supports only 3 button mouse at this time */

@@ -75,24 +75,14 @@ __attribute__((unused)) static enum ps2_mouse_mode_e {
  *    1|[                    X movement(0-255)                         ]
  *    2|[                    Y movement(0-255)                         ]
  */
-#define PS2_MOUSE_BTN_MASK 0x07 // 0b0000111
-#define PS2_MOUSE_BTN_LEFT 0    // 0b0000001
-#define PS2_MOUSE_BTN_RIGHT 1   // 0b0000010
-#define PS2_MOUSE_BTN_MIDDLE 2  // 0b0000100
-#define PS2_MOUSE_X_SIGN 4      // 0b0001000
-#define PS2_MOUSE_Y_SIGN 5      // 0b0010000
-#define PS2_MOUSE_X_OVFLW 6     // 0b0100000
-#define PS2_MOUSE_Y_OVFLW 7     // 0b1000000
-
-#ifdef PS2_MOUSE_INVERT_BUTTONS
-/*
- * LUT for change mouse buttons
- *
- * table index is the mouse_report->buttons state from PS2 (after &= PS2_MOUSE_BTN_MASK)
- * the value replace the mouse_report->buttons before to send to the USB interface
- */
-static const __attribute__((unused)) uint8_t btns_lut[8] = {0b000, 0b010, 0b001, 0b011, 0b100, 0b101, 0b110, 0b111};
-#endif
+#define PS2_MOUSE_BTN_MASK 0x07
+#define PS2_MOUSE_BTN_LEFT 0
+#define PS2_MOUSE_BTN_RIGHT 1
+#define PS2_MOUSE_BTN_MIDDLE 2
+#define PS2_MOUSE_X_SIGN 4
+#define PS2_MOUSE_Y_SIGN 5
+#define PS2_MOUSE_X_OVFLW 6
+#define PS2_MOUSE_Y_OVFLW 7
 
 /* mouse button to start scrolling; set 0 to disable scroll */
 #ifndef PS2_MOUSE_SCROLL_BTN_MASK
