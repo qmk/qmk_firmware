@@ -86,6 +86,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef VIA_ENABLE
 #    include "via.h"
 #endif
+#ifdef DIP_SWITCH_ENABLE
+#    include "dip_switch.h"
+#endif
 
 // Only enable this if console is enabled to print to
 #if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)
@@ -269,6 +272,10 @@ void keyboard_init(void) {
     keymap_config.nkro = 1;
     eeconfig_update_keymap(keymap_config.raw);
 #endif
+#ifdef DIP_SWITCH_ENABLE
+    dip_switch_init();
+#endif
+
     keyboard_post_init_kb(); /* Always keep this last */
 }
 
