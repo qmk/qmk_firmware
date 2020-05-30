@@ -17,30 +17,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-//#ifndef CONFIG_H
-//#define CONFIG_H
 
 #include "config_common.h"
-
-// GCC include 'config.h" sequence in qmk_firmware/keyboards/zinc/
-//   -include keyboards/zinc/config.h
-//   -include keyboards/zinc/rev?/config.h
-//   -include keyboards/zinc/rev?/keymaps/MAPNAME/config.h
-//   XXXX.c
-
-#include <serial_config.h>
-
-// GCC include search path in qmk_firmare/keyboards/zinc/
-//    #include "..." search starts here:
-//    #include <...> search starts here:
-//     keyboards/zinc/rev?/keymaps/MAPNAME
-//     keyboards/zinc
-//     keyboards/zinc/rev?
-//     .
-//     ./tmk_core
-//     ......
-
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
-//#endif /* CONFIG_H */
