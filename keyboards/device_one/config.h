@@ -7,7 +7,7 @@
 #define PRODUCT_ID      0x0001
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Akegata Denki
-#define PRODUCT         Device One
+#define PRODUCT         Akegata Denki Device One
 #define DESCRIPTION     "60% Mechanical Keyboard"
 
 #define MATRIX_ROWS 5
