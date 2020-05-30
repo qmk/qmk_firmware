@@ -138,8 +138,18 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
             KEY_STATE_DOWN(index);
             if (ALL_COMBO_KEYS_ARE_DOWN) { /* Combo was pressed */
                 /* Save the combo so we can fire it after COMBO_TERM */
-                prepared_combo = combo;
-                prepared_combo_index = combo_index;
+
+                /* Don't prepare this combo if its combo term has passed. */
+                uint16_t time = COMBO_TERM;
+#if defined(COMBO_TERM_PER_COMBO)
+                time = get_combo_term(combo_index, combo)
+#elif defined(COMBO_MUST_HOLD_MODS)
+                if (IS_MOD(combo->keycode)) time = COMBO_MOD_TERM;
+#endif
+                if (timer_elapsed(timer) < time) {
+                    prepared_combo = combo;
+                    prepared_combo_index = combo_index;
+                }
             }
         }
     } else {
