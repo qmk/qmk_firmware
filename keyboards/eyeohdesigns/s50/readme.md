@@ -14,28 +14,45 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 # Hardware Build
 
 Let’s start by taking a look at all the needed components.  You’ll receive the following items in separate bags:
+
 -S50 FR4 Switch Plate
+
 -S50 PCB
+
 -S50 FR4 Bottom
+
 ![PCBs](https://imgur.com/buXCI84.jpg)
  
 Resistors/Encoder Bag.  Contains:
+
 -1k Ohm resistor (x1)
+
 -10k Ohm resistor (x4)
+
 -470 Ohm resistor (x54)
+
 -Rotary Encoder (x1)
+
 ![Bag 1](https://imgur.com/yfbxBKN.jpg)
 
 Diodes/Transistor Bag.  Contains:
+
 LEDs (x54)
+
 Diodes (x55)
+
 4.7 uF capacitor  (x2)
+
 NPN Transistor  (x1)
+
 ![Bag 2](https://imgur.com/rW7Ji5s.jpg)
  
 Hardware Bag.  Contains:
+
 -M2 x 4 mm screws (x22)
+
 -M2 x 10 mm spacers  (x11)
+
 ![Bag 3](https://imgur.com/DEotoAs.jpg)
  
 Parts you’ll need to supply to build this kit are:
@@ -59,15 +76,25 @@ Tools you’ll need to build this kit are:
 3.	Snips
 
 Now that we’ve got all the parts, let’s put the kit together.  We’ll tackle the build in the following order:
+
 1.	Place then solder resistors, diodes (not LEDs), capacitors, and transistor
+
 2.	Place and solder Pro Micro header
+
 3.	Place and solder encoder
+
 4.	Install stabilizers
+
 5.	Install screws and stand-offs on PCB
+
 6.	Mount switches to plate then solder to PCB
+
 7.	Place then solder LEDs
+
 8.	Solder Pro Micro on header
+
 9.	Mount keyboard bottom
+
 10.	Install keycaps and knob
 
 ## Step 1: Place then solder resistors, diodes (not LEDs), capacitors, and transistor
