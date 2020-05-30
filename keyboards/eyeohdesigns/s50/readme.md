@@ -103,7 +103,7 @@ Our method will be to place all the 2-pin through-hole components into their spa
 
 We’ll start with the parts with the smallest quantities, which would be the 1k Ohm resistor, 4.7u capacitors, and 10k Ohm resistors.  These components don’t have a polarity and can be inserted in either direction on the bottom of the PCB.
 
-Getting the resistors to fit neatly takes a bit a care.  [Here’s a quick how-to](https://streamable.com/cv3ux9)
+Getting the resistors to fit neatly takes a bit of care.  [Here’s a quick how-to](https://streamable.com/cv3ux9)
 
 The 1k Ohm goes in the R59 spot near the top of the keyboard
 ![1K](https://imgur.com/tXVYFGJ.jpg)
@@ -126,7 +126,10 @@ The diodes have a polarity, and must be installed as shown, with the black part 
 Now let’s solder the capacitors, diodes, and resistors.  This is best done with the components facing up.  Once all the components are soldered, flip the PCB over, raise the component legs, and use your snips to remove the excess.
  
  
-For the last part of step one, we’ll solder the transistor.  Ensure the flat part of the PCB icon matches the flat part of the transistor.  We want to get the transistor body as close to the PCB as possible.  To do this, use some force to press it down, or push just enough of the legs through to solder, and bend the transistor so that it’s parallel with the PCB.
+For the last part of step one, we’ll solder the transistor.  
+![Transistor](https://imgur.com/qmmZG6A.jpg)
+
+Ensure the flat part of the PCB icon matches the flat part of the transistor.  We want to get the transistor body as close to the PCB as possible.  To do this, use some force to press the body as close to the PCB before soldering , or push just enough of the legs through to solder, and bend the transistor so that it’s parallel with the PCB.
 
 ## Step 2:  Place and install the Pro Micro Header
 
@@ -147,6 +150,8 @@ This part is simple enough.
 
 Use this image to help make sure you’re installing the stabilizers for the layout you’re planning.
 Make sure the stabilizer bar is closest to the larger holes.
+
+![Layouts](https://imgur.com/fN097Gh.jpg)
 
 ## Step 5: Install screws and stand-offs on PCB
 
