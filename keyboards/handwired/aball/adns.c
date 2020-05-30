@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "spi_master.h"
-#include "spi_master.c"
 #include "adns.h"
 #include "print.h"
 #include "quantum.h"

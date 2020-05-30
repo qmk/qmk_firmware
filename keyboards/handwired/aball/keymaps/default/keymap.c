@@ -14,8 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "print.h"
-#include "adns.h"
 
 enum layer_names {
     _QWERTY
@@ -25,17 +23,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = LAYOUT( KC_C,   KC_Q )
 };
-
-
-
-void keyboard_post_init_user(void) {
-  // Customise these values to desired behaviour
-  //debug_enable=true;
-  //debug_matrix=true;
-  //debug_keyboard=true;
-  //debug_mouse=true;
-  //print("KB INIT COMPLETE");
-  //setPinOutput(F5);
-  return;
-}
 
