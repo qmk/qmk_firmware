@@ -103,7 +103,7 @@ Our method will be to place all the 2-pin through-hole components into their spa
 
 We’ll start with the parts with the smallest quantities, which would be the 1k Ohm resistor, 4.7u capacitors, and 10k Ohm resistors.  These components don’t have a polarity and can be inserted in either direction on the bottom of the PCB.
 
-Getting the resistors to fit neatly takes a bit a care.  Here’s a quick how-to:
+Getting the resistors to fit neatly takes a bit a care.  [Here’s a quick how-to](https://streamable.com/cv3ux9)
 
 The 1k Ohm goes in the R59 spot near the top of the keyboard
 ![1K](https://imgur.com/tXVYFGJ.jpg)
@@ -154,7 +154,7 @@ You have to do this part now!  If you try and install your switches before putti
 
 ## Step 6:  Mount switches to plate then solder to PCB
 
-Snap one switch into the plate, then solder it.  Next, place each switch into the plate.  The pins should fall into place on the PCB with no problem.  Once all your switches are in, solder them in place.
+Did you complete Step 5?  Are you sure?  Take another look!  Okay.  Snap one switch into the plate, then solder it.  Next, place each switch into the plate.  The pins should fall into place on the PCB with no problem.  Once all your switches are in, solder them in place.
 
 ## Step 7:  Place then solder LEDs
 
