@@ -20,7 +20,7 @@ typedef enum {
 #define THUMBSTICK_AXIS_SEPARATION 0.5f
 
 // Implicit and derived constants
-#define THUMBSTICK_TIMEOUT 10  // Mouse report throttling time in ms
+#define THUMBSTICK_TIMEOUT 10          // Mouse report throttling time in ms
 #define THUMBSTICK_SCROLL_TIMEOUT 200  // Mouse scroll throttling time in ms
 #define THUMBSTICK_RANGE_START 0
 #define THUMBSTICK_RANGE_STOP 1023

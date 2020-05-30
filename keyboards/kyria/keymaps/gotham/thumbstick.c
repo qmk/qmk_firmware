@@ -1,7 +1,7 @@
 #include "thumbstick.h"
 
 void thumbstick_init(void) {
-    thumbstickTimer    = 0;
+    thumbstickTimer       = 0;
     thumbstickScrollTimer = 0;
 
     thumbstick_state.config.mode           = THUMBSTICK_MODE_MOUSE;
@@ -13,10 +13,10 @@ void thumbstick_init(void) {
     thumbstick_state.config.eightAxis      = THUMBSTICK_EIGHT_AXIS;
 
 #if defined THUMBSTICK_DEBUG
-    rawX  = 0;
-    rawY  = 0;
-    distX = 0;
-    distY = 0;
+    rawX               = 0;
+    rawY               = 0;
+    distX              = 0;
+    distY              = 0;
     thumbstickLogTimer = 0;
 #endif
 }
@@ -25,9 +25,9 @@ void thumbstick_init(void) {
 int16_t thumbstick_get_component(uint8_t pin) {
     uint16_t analogValue = analogReadPin(pin);
     // Compute direction
-    int8_t polarity = (analogValue > THUMBSTICK_RANGE_CENTER) ? 1 : -1;
+    bool directionIsPositive = (analogValue > THUMBSTICK_RANGE_CENTER);
     // Compute distance from the center
-    uint16_t distance = (polarity > 0) ? (analogValue - THUMBSTICK_RANGE_CENTER) : (THUMBSTICK_RANGE_CENTER - analogValue);
+    uint16_t distance = directionIsPositive ? (analogValue - THUMBSTICK_RANGE_CENTER) : (THUMBSTICK_RANGE_CENTER - analogValue);
 #if defined THUMBSTICK_DEBUG
     if (pin == THUMBSTICK_PIN_X) {
         rawX  = analogValue;
@@ -38,7 +38,7 @@ int16_t thumbstick_get_component(uint8_t pin) {
     }
 #endif
     // Compute component (range of [0 to 1023])
-    return (int16_t)polarity * distance;
+    return directionIsPositive ? distance : -(int16_t)distance;
 }
 
 void thumbstick_mode_set(thumbstick_mode_t mode) { thumbstick_state.config.mode = mode; }
@@ -72,12 +72,11 @@ int8_t thumbstick_get_mouse_speed(int16_t component) {
 // Fix direction within one of 8 axes (or 4 if 8-axis is disabled)
 thumbstick_direction_t thumbstick_get_discretized_direction(thumbstick_vector_t vector, float axisSeparation, bool eightAxis) {
     thumbstick_direction_t direction;
-    int16_t                absX                = abs(vector.x);
-    int16_t                absY                = abs(vector.y);
-    int16_t                maxComponent        = (absX > absY) ? absX : absY;
-    float                  ratio               = abs(absX - absY) / (float)maxComponent;
+    uint16_t               absX                = abs(vector.x);
+    uint16_t               absY                = abs(vector.y);
+    uint16_t               maxComponent        = (absX > absY) ? absX : absY;
     bool                   insideDeadZone      = (maxComponent <= THUMBSTICK_DEAD_ZONE);
-    bool                   outsideDiagonalZone = (ratio >= axisSeparation);
+    bool                   outsideDiagonalZone = ((abs(absX - absY) / (float)maxComponent) >= axisSeparation);
     if (insideDeadZone) {
         direction.up = direction.down = direction.left = direction.right = false;
     } else {
@@ -85,10 +84,9 @@ thumbstick_direction_t thumbstick_get_discretized_direction(thumbstick_vector_t 
         direction.down  = (vector.y > 0);
         direction.left  = (vector.x < 0);
         direction.right = (vector.x > 0);
-        // Let only one direction remain under the right conditions
+        // Let only the dominant direction remain under the right conditions
         if (outsideDiagonalZone || !eightAxis) {
-            bool dominantX = (absX > absY);
-            if (dominantX) {
+            if (absX > absY) {
                 direction.up = direction.down = false;
             } else {
                 direction.left = direction.right = false;
@@ -98,18 +96,20 @@ thumbstick_direction_t thumbstick_get_discretized_direction(thumbstick_vector_t 
     return direction;
 }
 
-void thumbstick_process(void) {
+static thumbstick_direction_t scrollDirection;  // Declaring global to save stack space
+void                          thumbstick_process(void) {
     if (timer_elapsed(thumbstickTimer) > THUMBSTICK_TIMEOUT) {
-        thumbstickTimer           = timer_read();
+        thumbstickTimer = timer_read();
+#ifndef THUMBSTICK_FLIP_X
         thumbstick_state.vector.x = thumbstick_get_component(THUMBSTICK_PIN_X);
+#else
+        thumbstick_state.vector.x = -thumbstick_get_component(THUMBSTICK_PIN_X);
+#endif
+#ifndef THUMBSTICK_FLIP_Y
         thumbstick_state.vector.y = thumbstick_get_component(THUMBSTICK_PIN_Y);
-#ifdef THUMBSTICK_FLIP_X
-        thumbstick_state.vector.x = -thumbstick_state.vector.x;
+#else
+        thumbstick_state.vector.y = -thumbstick_get_component(THUMBSTICK_PIN_Y);
 #endif
-#ifdef THUMBSTICK_FLIP_Y
-        thumbstick_state.vector.y = -thumbstick_state.vector.y;
-#endif
-        thumbstick_direction_t direction;  // Declaring here as it's not allowed in a switch block
         switch (thumbstick_state.config.mode) {
             case THUMBSTICK_MODE_MOUSE:
                 thumbstick_state.report.x = thumbstick_get_mouse_speed(thumbstick_state.vector.x);
@@ -120,10 +120,10 @@ void thumbstick_process(void) {
                 break;
             case THUMBSTICK_MODE_SCROLL:
                 if (timer_elapsed(thumbstickScrollTimer) > THUMBSTICK_SCROLL_TIMEOUT) {
-                    thumbstickScrollTimer = timer_read();
-                    direction                 = thumbstick_get_discretized_direction(thumbstick_state.vector, thumbstick_state.config.axisSeparation, false);
-                    thumbstick_state.report.v = (direction.up || direction.down) ? (direction.up ? THUMBSTICK_SCROLL_SPEED : -THUMBSTICK_SCROLL_SPEED) : 0;
-                    thumbstick_state.report.h = (direction.left || direction.right) ? (direction.left ? -THUMBSTICK_SCROLL_SPEED : THUMBSTICK_SCROLL_SPEED) : 0;
+                    thumbstickScrollTimer     = timer_read();
+                    scrollDirection           = thumbstick_get_discretized_direction(thumbstick_state.vector, thumbstick_state.config.axisSeparation, false);
+                    thumbstick_state.report.v = (scrollDirection.up || scrollDirection.down) ? (scrollDirection.up ? THUMBSTICK_SCROLL_SPEED : -THUMBSTICK_SCROLL_SPEED) : 0;
+                    thumbstick_state.report.h = (scrollDirection.left || scrollDirection.right) ? (scrollDirection.left ? -THUMBSTICK_SCROLL_SPEED : THUMBSTICK_SCROLL_SPEED) : 0;
                 } else {
                     thumbstick_state.report.v = thumbstick_state.report.h = 0;
                 }
@@ -151,7 +151,6 @@ void pointing_device_task(void) {
 
     if (!isLeftHand) {
         thumbstick_process();
-        thumbstick_direction_t direction, lastDirection;  // Declaring here as it's not allowed in a switch block
         switch (thumbstick_state.config.mode) {
             case THUMBSTICK_MODE_MOUSE:
                 report.x = thumbstick_state.report.x;
@@ -164,13 +163,11 @@ void pointing_device_task(void) {
 #endif
                 break;
             case THUMBSTICK_MODE_ARROWS:
-                direction     = thumbstick_state.direction;
-                lastDirection = thumbstick_state.lastDirection;
-                update_keycode_status(KC_UP, lastDirection.up, direction.up);
-                update_keycode_status(KC_DOWN, lastDirection.down, direction.down);
-                update_keycode_status(KC_LEFT, lastDirection.left, direction.left);
-                update_keycode_status(KC_RIGHT, lastDirection.right, direction.right);
-                thumbstick_state.lastDirection = direction;
+                update_keycode_status(KC_UP, thumbstick_state.lastDirection.up, thumbstick_state.direction.up);
+                update_keycode_status(KC_DOWN, thumbstick_state.lastDirection.down, thumbstick_state.direction.down);
+                update_keycode_status(KC_LEFT, thumbstick_state.lastDirection.left, thumbstick_state.direction.left);
+                update_keycode_status(KC_RIGHT, thumbstick_state.lastDirection.right, thumbstick_state.direction.right);
+                thumbstick_state.lastDirection = thumbstick_state.direction;
 #ifdef THUMBSTICK_DEBUG
                 if (timer_elapsed(thumbstickLogTimer) > 100) {
                     thumbstickLogTimer = timer_read();
