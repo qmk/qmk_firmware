@@ -11,12 +11,13 @@ Keyboard Maintainer: [Eye Oh Designs](https://github.com/joedinkle)
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-#Hardware Build
+# Hardware Build
 
 Let’s start by taking a look at all the needed components.  You’ll receive the following items in separate bags:
 -S50 FR4 Switch Plate
 -S50 PCB
 -S50 FR4 Bottom
+(https://imgur.com/buXCI84.jpg)
  
 Resistors/Encoder Bag.  Contains:
 -1k Ohm resistor (x1)
