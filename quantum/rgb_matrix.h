@@ -178,14 +178,14 @@ extern const rgb_matrix_driver_t rgb_matrix_driver;
 
 extern rgb_config_t rgb_matrix_config;
 
-extern bool           g_suspend_state;
-extern rgb_counters_t g_rgb_counters;
-extern led_config_t   g_led_config;
+extern bool         g_suspend_state;
+extern uint32_t     g_rgb_timer;
+extern led_config_t g_led_config;
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
 extern last_hit_t g_last_hit_tracker;
 #endif
 #ifdef RGB_MATRIX_FRAMEBUFFER_EFFECTS
-extern uint8_t rgb_frame_buffer[MATRIX_ROWS][MATRIX_COLS];
+extern uint8_t g_rgb_frame_buffer[MATRIX_ROWS][MATRIX_COLS];
 #endif
 
 #endif
