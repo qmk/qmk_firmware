@@ -55,6 +55,7 @@
   * Simple Keycodes
     * [Full List](keycodes.md)
     * [Basic Keycodes](keycodes_basic.md)
+    * [Language-Specific Keycodes](reference_keymap_extras.md)
     * [Modifier Keys](feature_advanced_keycodes.md)
     * [Quantum Keycodes](quantum_keycodes.md)
 

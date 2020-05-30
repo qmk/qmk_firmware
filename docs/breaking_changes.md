@@ -102,7 +102,7 @@ This happens immediately after the previous `future` branch is merged.
     * [ ] Roll up the ChangeLog into one file.
     * [ ] `git commit -m 'Merge point for <DATE> Breaking Change'`
     * [ ] `git push origin future`
-* Github Actions
+* GitHub Actions
     * [ ] Create a PR for `future`
     * [ ] Make sure travis comes back clean
     * [ ] Merge `future` PR
