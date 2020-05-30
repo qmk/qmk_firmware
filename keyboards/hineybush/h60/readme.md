@@ -1,6 +1,6 @@
 # h60
 
-![h60](imgur.com image replace me!)
+![h60](https://live.staticflickr.com/65535/49952697531_2efeaa0bd6_k.jpg)
 
 A GH60 form factor PCB for 60% keyboards. Uses a USB Type C connector.
 
