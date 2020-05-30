@@ -17,7 +17,7 @@ Let’s start by taking a look at all the needed components.  You’ll receive t
 -S50 FR4 Switch Plate
 -S50 PCB
 -S50 FR4 Bottom
-(https://imgur.com/buXCI84.jpg)
+!(https://imgur.com/buXCI84.jpg)
  
 Resistors/Encoder Bag.  Contains:
 -1k Ohm resistor (x1)
