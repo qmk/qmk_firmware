@@ -93,9 +93,11 @@ Now that we’ve got all the parts, let’s put the kit together.  We’ll tackl
 
 8.	Solder Pro Micro on header
 
-9.	Mount keyboard bottom
+9.  Install the software	
 
-10.	Install keycaps and knob
+10. Mount keyboard bottom
+
+11.	Install keycaps and knob
 
 ## Step 1: Place then solder resistors, diodes (not LEDs), capacitors, and transistor
 
@@ -172,7 +174,7 @@ Turn the PCB so the diodes and resistors are facing up, and place the Pro Micro 
 
 ## Step 9: Install the Software
 
-1.	Follow the instructions here to install QMK.
+1.	Follow the instructions [here](https://beta.docs.qmk.fm/tutorial/newbs_getting_started) to install QMK and learn how to flash.
 
 2.	Download the Eye Oh Designs folder() into your QMK keyboards folder.
 
@@ -185,6 +187,7 @@ a.	make:eyeohdesigns/s50:default:dfu
 b.	make:eyeohdesigns/s50:default:avrdude
 
 Replace ‘default’ with whichever layout you’d like, or one you made yourself.  Generally speaking, USB-C based Pro Micros use the dfu command and all other Pro Micros use the avrdude command.  Reset your Pro Micro based on its design (installed button if included, short reset to ground if not).  At this point you should have a working keyboard.
+
 ## Step 10:  Mount Keyboard Bottom
 
 Do it.
