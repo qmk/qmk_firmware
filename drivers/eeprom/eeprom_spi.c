@@ -50,8 +50,9 @@
 #    define EXTERNAL_EEPROM_SPI_TIMEOUT 100
 #endif
 
-#ifdef CONSOLE_ENABLE
-#    include "print.h"
+#if defined(CONSOLE_ENABLE) && defined(DEBUG_EEPROM_OUTPUT)
+#    include "timer.h"
+#    include "debug.h"
 #endif  // CONSOLE_ENABLE
 
 static void init_spi_if_required(void) {
@@ -93,7 +94,7 @@ static void spi_eeprom_transmit_address(uintptr_t addr) {
 void eeprom_driver_init(void) {}
 
 void eeprom_driver_erase(void) {
-#ifdef CONSOLE_ENABLE
+#if defined(CONSOLE_ENABLE) && defined(DEBUG_EEPROM_OUTPUT)
     uint32_t start = timer_read32();
 #endif
 
@@ -103,7 +104,7 @@ void eeprom_driver_erase(void) {
         eeprom_write_block(buf, (void *)(uintptr_t)addr, EXTERNAL_EEPROM_PAGE_SIZE);
     }
 
-#ifdef CONSOLE_ENABLE
+#if defined(CONSOLE_ENABLE) && defined(DEBUG_EEPROM_OUTPUT)
     dprintf("EEPROM erase took %ldms to complete\n", ((long)(timer_read32() - start)));
 #endif
 }
@@ -141,7 +142,7 @@ void eeprom_read_block(void *buf, const void *addr, size_t len) {
     spi_eeprom_transmit_address((uintptr_t)addr);
     spi_receive(buf, len);
 
-#ifdef DEBUG_EEPROM_OUTPUT
+#if defined(CONSOLE_ENABLE) && defined(DEBUG_EEPROM_OUTPUT)
     dprintf("[EEPROM R] 0x%08lX: ", ((uint32_t)(uintptr_t)addr));
     for (size_t i = 0; i < len; ++i) {
         dprintf(" %02X", (int)(((uint8_t *)buf)[i]));
@@ -200,7 +201,7 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
             return;
         }
 
-#ifdef DEBUG_EEPROM_OUTPUT
+#if defined(CONSOLE_ENABLE) && defined(DEBUG_EEPROM_OUTPUT)
         dprintf("[EEPROM W] 0x%08lX: ", ((uint32_t)(uintptr_t)target_addr));
         for (size_t i = 0; i < write_length; i++) {
             dprintf(" %02X", (int)(uint8_t)(read_buf[i]));

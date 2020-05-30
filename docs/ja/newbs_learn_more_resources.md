@@ -14,7 +14,7 @@
 
 * [Great General Tutorial](https://www.codecademy.com/learn/learn-git)
 * [Git Game To Learn From Examples](https://learngitbranching.js.org/)
-* [Git Resources to Learn More About Github](getting_started_github.md)
+* [Git Resources to Learn More About GitHub](getting_started_github.md)
 * [Git Resources Aimed Specifically toward QMK](contributing.md)
 
 ### 日本語
@@ -22,7 +22,7 @@
 _日本語のリソース情報を募集中です。_
 
 * [Git Game To Learn From Examples(日本語対応有り)](https://learngitbranching.js.org/)
-* [QMK で Github を使う方法](ja/getting_started_github.md)
+* [QMK で GitHub を使う方法](ja/getting_started_github.md)
 * [貢献方法](ja/contributing.md)
 
 ## コマンドラインに関するリソース:
