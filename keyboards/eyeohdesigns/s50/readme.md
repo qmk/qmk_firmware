@@ -14,25 +14,29 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 # Hardware Build
 
 Let’s start by taking a look at all the needed components.  You’ll receive the following items in separate bags:
-![-S50 FR4 Switch Plate
+-S50 FR4 Switch Plate
 -S50 PCB
 -S50 FR4 Bottom
-](https://imgur.com/buXCI84.jpg)
+![PCBs](https://imgur.com/buXCI84.jpg)
  
 Resistors/Encoder Bag.  Contains:
 -1k Ohm resistor (x1)
 -10k Ohm resistor (x4)
 -470 Ohm resistor (x54)
--Rotary Encoder (x1) 
+-Rotary Encoder (x1)
+![Bag 1](https://imgur.com/yfbxBKN.jpg)
+
 Diodes/Transistor Bag.  Contains:
 LEDs (x54)
 Diodes (x55)
 4.7 uF capacitor  (x2)
 NPN Transistor  (x1)
+![Bag 2](https://imgur.com/rW7Ji5s.jpg)
  
 Hardware Bag.  Contains:
 -M2 x 4 mm screws (x22)
 -M2 x 10 mm spacers  (x11)
+![Bag 3](https://imgur.com/DEotoAs)
  
 Parts you’ll need to supply to build this kit are:
 1.	Switches
@@ -44,6 +48,7 @@ Tools you’ll need to build this kit are:
 1.	Soldering iron
 2.	Screw driver/Hex driver
 3.	Snips
+
 Now that we’ve got all the parts, let’s put the kit together.  We’ll tackle the build in the following order:
 1.	Place then solder resistors, diodes (not LEDs), capacitors, and transistor
 2.	Place and solder Pro Micro header
@@ -55,7 +60,8 @@ Now that we’ve got all the parts, let’s put the kit together.  We’ll tackl
 8.	Solder Pro Micro on header
 9.	Mount keyboard bottom
 10.	Install keycaps and knob
-Step 1: Place then solder resistors, diodes (not LEDs), capacitors, and transistor
+
+## Step 1: Place then solder resistors, diodes (not LEDs), capacitors, and transistor
 Our method will be to place all the 2-pin through-hole components into their space and bend the legs to prevent them from coming out.  Once they’re all in we’ll solder all the 2-pin through-hole components. 
  We’ll start with the parts with the smallest quantities, which would be the 1k Ohm resistor, 4.7u capacitors, and 10k Ohm resistors.  These components don’t have a polarity and can be inserted in either direction on the bottom of the PCB.
 Getting the resistors to fit neatly takes a bit a care.  Here’s a quick how-to:
