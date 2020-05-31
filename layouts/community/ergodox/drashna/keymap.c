@@ -297,6 +297,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
+#ifdef PIMORONI_TRACKBALL_ENABLE
 void run_trackball_cleanup(void) {
     if (trackball_is_scrolling()) {
         trackball_set_rgbw(RGB_CYAN, 0x00);
@@ -314,6 +315,7 @@ void keyboard_post_init_keymap(void) {
 void shutdown_keymap(void) {
     trackball_set_rgbw(RGB_RED, 0x00);
 }
+#endif
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -343,6 +345,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                 eeconfig_update_user(userspace_config.raw);
             }
             break;
+#ifdef PIMORONI_TRACKBALL_ENABLE
         case PM_SCROLL:
             trackball_set_scrolling(record->event.pressed);
             run_trackball_cleanup();
@@ -355,7 +358,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             }
             run_trackball_cleanup();
             break;
-#if !defined(MOUSEKEY_ENABLE) && defined(POINTING_DEVICE_ENABLE)
+#if     !defined(MOUSEKEY_ENABLE) && defined(POINTING_DEVICE_ENABLE)
         case KC_BTN1 ... KC_BTN3:
         {
             report_mouse_t currentReport = pointing_device_get_report();
@@ -368,6 +371,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             pointing_device_send();
             break;
         }
+#    endif
 #endif
     }
     // switch (keycode) {
