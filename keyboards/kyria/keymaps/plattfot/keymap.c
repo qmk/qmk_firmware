@@ -33,7 +33,7 @@ enum custom_keycodes {
 static bool double_tap_it = false;
 
 enum layers {
-    _DEFAULT = 0,
+    _DEFAULT,
     _LOWER,
     _RAISE,
     _NAV,
