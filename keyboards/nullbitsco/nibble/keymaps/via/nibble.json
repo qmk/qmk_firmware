@@ -1,6 +1,6 @@
 {
   "name": "nibble",
-  "vendorId": "0xFEED",
+  "vendorId": "0x6E61",
   "productId": "0x6060",
   "lighting": "qmk_rgblight",
   "customFeatures": ["rotary-encoder"],
