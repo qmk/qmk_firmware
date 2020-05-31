@@ -183,7 +183,7 @@ If you define these options you will enable the associated feature, which may in
   * Flag for enabling extending timeout on Combos containing modifers
 * `#define COMBO_MOD_TERM 200`
   * Allows for extending COMBO_TERM for mod keys while mid-combo. 
-* `#define COMBO_MUST_HOLD_PER_KEY`
+* `#define COMBO_MUST_HOLD_PER_COMBO`
   * Flag to enable per-combo COMBO_TERM extension and `get_combo_must_hold()` function
 * `#define COMBO_TERM_PER_COMBO`
   * Flag to enable per-combo COMBO_TERM extension and `get_combo_term()` function

@@ -85,7 +85,7 @@ You can enable, disable and toggle the Combo feature on the fly.  This is useful
 |`CMB_TOG` |Toggles Combo feature on and off |
 
 #### Combo Term
-By default, the timeout for the Combos to be recognized is set to the same value as `TAPPING_TERM` (default: 200ms). This can be changed if accidental combo misfires are happening. For instance `#define COMBO_TERM 50` would set the time out period for combos to 50ms.
+By default, the timeout for the Combos to be recognized is set to 100ms which is half of `TAPPING_TERM`. This can be changed if accidental combo misfires are happening. For instance `#define COMBO_TERM 50` would set the time out period for combos to 50ms.
 
 #### Long Combos
 If you're using long combos or longer combos, you may run into issues with this, as the structure may not be large enough to accommodate what you're doing. In this case, you can configure the size of the data structure used. Be aware, larger combo sizes will increase memory usage!
@@ -96,19 +96,56 @@ If you're using long combos or longer combos, you may run into issues with this,
 | 16   | `#define EXTRA_LONG_COMBOS`  |
 | 32   | `#define EXTRA_EXTRA_LONG_COMBOS`|
 
-#### Permissive Hold
-Similar to Tap-Hold configuration, Combos can be setup to behave similarly. Add `#define COMBO_PERMISSIVE_HOLD` to your `config.h` to enable. This feature is extremely useful for fast typists!
+#### Modifier Combos
+If a combo resolves to a Modifier, the window for processing the combo can be extended independent from normal combos. By default this is disabled but can be enabled with `#define COMBO_MUST_HOLD_MODS`, and the time window can be configured with `#define COMBO_MOD_TERM 150` (default: `TAPPING_TERM`). With `COMBO_MUST_HOLD_MODS` you cannot tap the combo any more which makes the combo less prone to misfires.
 
-#### Mod Term
-If a combo contains a Modifer, the window for processing a combo can be extended. This is useful for keymaps with a shortend `COMBO_TERM` or that use a Combo for a modifer key. By default it is disabled but can be enabled with `#define COMBO_MUST_HOLD_MODS`, the time window can be configured with `#define COMBO_MOD_TERM 50` (default: `TAPPING_TERM`
+#### Permissive Hold
+Similar to Tap-Hold configuration, Mod Combos can be setup to behave similarly. Add `#define COMBO_PERMISSIVE_HOLD` to your `config.h` to enable. This feature is extremely useful for fast typists as you don't have to wait for the Mod Combo's combo term to finish.
+
+If `COMBO_TERM` and `COMBO_MOD_TERM` are too close to each other this settings becomes less useful as this only affects if a key is pressed between `COMBO_TERM` and `COMBO_MOD_TERM`. All key presses under `COMBO_TERM` are always considered for overlapping combos.
 
 #### Per Combo Timing
-Instead of using a blanket `COMBO_TERM` window for every combo, per-combo timings can be generated. In order to use this feature the following config options and functions can be defined. Coming up with useful timings and configuration is left as an excercise for the reader.
+Instead of using a blanket `COMBO_TERM` window for every combo, per-combo timings can be generated. In order to use this feature the following config options and functions can be defined. Coming up with useful timings and configuration is left as an exercise for the reader.
 
-| Config Flag | Function | Description |
-|-------------|----------|-------------|
-| `COMBO_MUST_HOLD_PER_KEY` | bool get_combo_must_hold(uint16_t index, combo_t \*combo) | Controls if a given combo window should be extended by `get_combo_term()` (default: False) |
-| `COMBO_TERM_PER_COMBO` | uint16_t get_combo_term(uint16_t index, combo_t \*combo) | Optional per-combo timeout window for primary combos. (default: COMBO_TERM) |
+| Config Flag                 | Function                                                  | Description                                                                                          |
+|-----------------------------|-----------------------------------------------------------|------------------------------------------------------------------------------------------------------|
+| `COMBO_MUST_HOLD_PER_COMBO` | bool get_combo_must_hold(uint16_t index, combo_t \*combo) | Controls if a given combo should fire immediately on tap or if it needs to be held. (default: False) |
+| `COMBO_TERM_PER_COMBO`      | uint16_t get_combo_term(uint16_t index, combo_t \*combo)  | Optional per-combo timeout window. (default: COMBO_TERM)                                             |
+
+If you set either of the options but like the Modifier Combo settings, you have to define those yourself in the function.
+
+Examples:
+```c
+uint16_t get_combo_term(uint16_t index, combo_t *combo) {
+    // decide by combo->keycode
+    if (IS_MOD(combo->keycode)) return COMBO_MOD_TERM; // you have to config this yourself ifdef COMBO_TERM_PER_COMBO
+    switch (combo->keycode) {
+        case KC_X:
+            return 50;
+    }
+
+    // or with combo index, i.e. its name from enum.
+    switch (index) {
+        case COMBO_NAME_HERE:
+            return 9001;
+    }
+
+    return COMBO_TERM;
+}
+
+bool get_combo_must_hold(uint16_t index, combo_t *combo) {
+    // yet again, with keycode and true for Modifiers if so desired.
+    if (IS_MOD(combo->keycode)) return true;
+
+    // or index/name
+    switch (index) {
+        case COMBO_NAME_HERE:
+            return true;
+    }
+
+    return false;
+}
+```
 
 #### Variable Length Combos
 If `COMBO_VARIABLE_LEN` is defined allows the user to pragmatically declare the size of the Combo data structure and avoid updating COMBO_COUNT. Instead a variable is exported called COMBO_LEN and is usually set with something similar to the following in `keymap.c`: `int COMBO_LEN = sizeof(key_combos) / sizeof(key_combos[0]);`
