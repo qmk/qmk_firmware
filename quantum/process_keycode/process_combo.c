@@ -27,7 +27,7 @@ extern int      COMBO_LEN;
 
 __attribute__((weak)) void process_combo_event(uint8_t combo_index, bool pressed) {}
 
-#ifdef COMBO_MUST_HOLD_PER_KEY
+#ifdef COMBO_MUST_HOLD_PER_COMBO
 __attribute__((weak)) bool get_combo_must_hold(uint8_t index, combo_t *combo) { return false; }
 #endif
 
@@ -155,7 +155,7 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
     } else {
         if (ALL_COMBO_KEYS_ARE_DOWN) { /* Combo was released */
             if (COMBO_PREPARED
-#if defined(COMBO_MUST_HOLD_PER_KEY)
+#if defined(COMBO_MUST_HOLD_PER_COMBO)
                     && !get_combo_must_hold(prepared_combo_index, prepared_combo)
 #elif defined(COMBO_MUST_HOLD_MODS)
                     && !IS_MOD(prepared_combo->keycode)
@@ -207,12 +207,12 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
         return true;
     }
 
-#if defined(COMBO_PERMISSIVE_HOLD) && (defined(COMBO_MUST_HOLD_MODS) || defined(COMBO_MUST_HOLD_PER_KEY))
+#if defined(COMBO_PERMISSIVE_HOLD) && (defined(COMBO_MUST_HOLD_MODS) || defined(COMBO_MUST_HOLD_PER_COMBO))
     if (COMBO_PREPARED && timer_elapsed(timer) > COMBO_TERM &&
         record->event.pressed &&
 #   if defined(COMBO_MUST_HOLD_MODS)
         IS_MOD(prepared_combo->keycode)
-#   elif defined(COMBO_MUST_HOLD_PER_KEY)
+#   elif defined(COMBO_MUST_HOLD_PER_COMBO)
         get_combo_must_hold(prepared_combo_index, prepared_combo);
 #   endif
         ) {
