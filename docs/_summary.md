@@ -34,7 +34,9 @@
     * [Customizing Functionality](custom_quantum_functions.md)
     * [Driver Installation with Zadig](driver_installation_zadig.md)
     * [Keymap Overview](keymap.md)
-    * [Vagrant Guide](getting_started_vagrant.md)
+    * Development Environments
+      * [Docker Guide](getting_started_docker.md)
+      * [Vagrant Guide](getting_started_vagrant.md)
     * Flashing
       * [Flashing](flashing.md)
       * [Flashing ATmega32A (ps2avrgb)](flashing_bootloadhid.md)
@@ -53,6 +55,7 @@
   * Simple Keycodes
     * [Full List](keycodes.md)
     * [Basic Keycodes](keycodes_basic.md)
+    * [Language-Specific Keycodes](reference_keymap_extras.md)
     * [Modifier Keys](feature_advanced_keycodes.md)
     * [Quantum Keycodes](quantum_keycodes.md)
 
@@ -112,6 +115,7 @@
     * [Overview](breaking_changes.md)
     * [My Pull Request Was Flagged](breaking_changes_instructions.md)
     * History
+      * [2020 May 30](ChangeLog/20200530.md)
       * [2020 Feb 29](ChangeLog/20200229.md)
       * [2019 Aug 30](ChangeLog/20190830.md)
 
@@ -126,6 +130,7 @@
       * [SPI Driver](spi_driver.md)
       * [WS2812 Driver](ws2812_driver.md)
       * [EEPROM Driver](eeprom_driver.md)
+      * ['serial' Driver](serial_driver.md)
     * [GPIO Controls](internals_gpio_control.md)
     * [Keyboard Guidelines](hardware_keyboard_guidelines.md)
 

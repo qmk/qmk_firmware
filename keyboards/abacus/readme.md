@@ -6,7 +6,7 @@ A first attempt at a PCB design for a mechanical keyboard. Includes rotary encod
 
 * Keyboard Maintainer: [nickolaij](https://github.com/nickolaij)
 * Hardware Supported: Abacus PCB, [Elite C Microcontroller](https://keeb.io/products/elite-c-usb-c-pro-micro-replacement-arduino-compatible-atmega32u4) or Pro Micro Microcontroller (Elite C has additional pins for encoder)
-* Hardware Availability: [Abacus PCB Github](https://github.com/nickolaij/Abacus_Rev2)
+* Hardware Availability: [Abacus PCB GitHub](https://github.com/nickolaij/Abacus_Rev2)
 
 Make example for this keyboard (after setting up your build environment):
 

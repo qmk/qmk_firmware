@@ -1,9 +1,11 @@
 #include "alice.h"
 
-void matrix_init_board(void){
+void keyboard_pre_init_kb(void) {
     setPinOutput(INDICATOR_PIN_0);
     setPinOutput(INDICATOR_PIN_1);
     setPinOutput(INDICATOR_PIN_2);
+
+    keyboard_pre_init_user();
 }
 
 bool led_update_kb(led_t led_state) {
