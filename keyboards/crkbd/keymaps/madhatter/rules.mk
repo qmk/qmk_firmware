@@ -1,7 +1,7 @@
-BOOTLOADER = atmel-dfu  # Elite-C
+BOOTLOADER = atmel-dfu # Elite-C
 
-MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
-RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
+MOUSEKEY_ENABLE = yes
+RGBLIGHT_ENABLE = yes
 
 # If you want to change the display of OLED, you need to change here
 SRC +=  ./lib/glcdfont.c \
