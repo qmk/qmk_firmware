@@ -48,7 +48,7 @@ int retro_tapping_counter = 0;
 #endif
 
 #ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-__attribute__((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode) { return false; }
+__attribute__((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) { return false; }
 #endif
 
 #ifndef TAP_CODE_DELAY
@@ -98,6 +98,11 @@ void action_exec(keyevent_t event) {
     if (has_oneshot_mods_timed_out()) {
         clear_oneshot_mods();
     }
+#        ifdef SWAP_HANDS_ENABLE
+    if (has_oneshot_swaphands_timed_out()) {
+        clear_oneshot_swaphands();
+    }
+#        endif
 #    endif
 #endif
 
@@ -165,6 +170,8 @@ void process_record_tap_hint(keyrecord_t *record) {
 #    ifdef SWAP_HANDS_ENABLE
         case ACT_SWAP_HANDS:
             switch (action.swap.code) {
+                case OP_SH_ONESHOT:
+                    break;
                 case OP_SH_TAP_TOGGLE:
                 default:
                     swap_hands = !swap_hands;
@@ -224,7 +231,11 @@ void process_action(keyrecord_t *record, action_t action) {
 #ifndef NO_ACTION_ONESHOT
     bool do_release_oneshot = false;
     // notice we only clear the one shot layer if the pressed key is not a modifier.
-    if (is_oneshot_layer_active() && event.pressed && !IS_MOD(action.key.code)) {
+    if (is_oneshot_layer_active() && event.pressed && !IS_MOD(action.key.code)
+#    ifdef SWAP_HANDS_ENABLE
+        && !(action.kind.id == ACT_SWAP_HANDS && action.swap.code == OP_SH_ONESHOT)
+#    endif
+    ) {
         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
         do_release_oneshot = !is_oneshot_layer_active();
     }
@@ -324,7 +335,7 @@ void process_action(keyrecord_t *record, action_t action) {
 #    if !defined(IGNORE_MOD_TAP_INTERRUPT) || defined(IGNORE_MOD_TAP_INTERRUPT_PER_KEY)
                             if (
 #        ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-                                !get_ignore_mod_tap_interrupt(get_event_keycode(record->event, false)) &&
+                                !get_ignore_mod_tap_interrupt(get_event_keycode(record->event, false), record) &&
 #        endif
                                 record->tap.interrupted) {
                                 dprint("mods_tap: tap: cancel: add_mods\n");
@@ -593,6 +604,14 @@ void process_action(keyrecord_t *record, action_t action) {
                         swap_hands = false;
                     }
                     break;
+                case OP_SH_ONESHOT:
+                    if (event.pressed) {
+                        set_oneshot_swaphands();
+                    } else {
+                        release_oneshot_swaphands();
+                    }
+                    break;
+
 #    ifndef NO_ACTION_TAPPING
                 case OP_SH_TAP_TOGGLE:
                     /* tap toggle */
@@ -679,6 +698,12 @@ void process_action(keyrecord_t *record, action_t action) {
         }
     }
 #    endif
+#endif
+
+#ifdef SWAP_HANDS_ENABLE
+    if (event.pressed && !(action.kind.id == ACT_SWAP_HANDS && action.swap.code == OP_SH_ONESHOT)) {
+        use_oneshot_swaphands();
+    }
 #endif
 
 #ifndef NO_ACTION_ONESHOT
@@ -870,7 +895,7 @@ void tap_code(uint8_t code) {
 
 /** \brief Adds the given physically pressed modifiers and sends a keyboard report immediately.
  *
- * \param mods A bitfield of modifiers to unregister.
+ * \param mods A bitfield of modifiers to register.
  */
 void register_mods(uint8_t mods) {
     if (mods) {

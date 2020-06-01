@@ -56,7 +56,7 @@ bool process_rgb(const uint16_t keycode, const keyrecord_t *record) {
     // Split keyboards need to trigger on key-up for edge-case issue
     if (!record->event.pressed) {
 #endif
-        uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
+        uint8_t shifted = get_mods() & MOD_MASK_SHIFT;
         switch (keycode) {
             case RGB_TOG:
                 rgblight_toggle();
