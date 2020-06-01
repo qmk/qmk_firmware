@@ -18,5 +18,6 @@ Support for dumbpad all PCB revisions can be found in this directory.
       * ['v0x_right'](v0x_right/): Same as v0x but with rotary encoder on right side (components on bottom of PCB)
       * ['v0x_dualencoder'](v0x_dualencoder/): Dual-encoder PCBs
     * v1.x - these revisions have three LEDs - two for layer indication, one for numlock indication
-      * ['v1x'](v1x/): Default setup for single rotary encoder v1.x PCBs
+      * ['v1x'](v1x/): Default setup for v1.x PCBs with a single rotary encoder on the left side
       * ['v1x_right'](v1x_right/): Same as v1x but with rotary encoder on right side (components on bottom of PCB)
+      * ['v1x_dualencoder'](v1x_dualencoder/): v1x PCB with two rotary encoders
