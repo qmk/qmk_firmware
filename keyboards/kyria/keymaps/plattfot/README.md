@@ -1,6 +1,6 @@
 # plattfot's keymap for [Kyria](https://github.com/splitkb/kyria)
 
-![Keyboard](https://i.imgur.com/Pvsm973.jpg)
+![Keyboard](https://i.imgur.com/Pvsm973l.jpg)
 
 Designed to be ease of use when programming, typing in both English
 and Swedish and navigating around in a tiling window manager, in my
