@@ -1,5 +1,5 @@
-EXTRAKEY_ENABLE  = yes  # Audio control and System control
-CONSOLE_ENABLE   = no   # Console for debug
-COMMAND_ENABLE   = no   # Commands for debug and configuration
-SLEEP_LED_ENABLE = no   # Breathing sleep LED during USB suspend
-NKRO_ENABLE      = yes  # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+EXTRAKEY_ENABLE = yes
+CONSOLE_ENABLE = no
+COMMAND_ENABLE = no
+SLEEP_LED_ENABLE = no
+NKRO_ENABLE = yes
