@@ -13,7 +13,7 @@
 #define DESCRIPTION     Little macro pad
 
 /* key matrix size */
-#define MATRIX_ROWS 3   
+#define MATRIX_ROWS 3
 #define MATRIX_COLS 4
 
 #define MATRIX_ROW_PINS { F7, F6, F5,}
