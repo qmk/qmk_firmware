@@ -18,15 +18,28 @@
 
 #ifdef OLED_DRIVER_ENABLE
   #define OLED_DISPLAY_128X64
-#endif
-
-#ifdef RGBLIGHT_ENABLE
-  #define RGBLIGHT_ANIMATIONS
-  #define RGBLIGHT_HUE_STEP 8
-  #define RGBLIGHT_SAT_STEP 8
-  #define RGBLIGHT_VAL_STEP 8
+  #define OLED_TIMEOUT 300000
 #endif
 
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
- #define SPLIT_USB_DETECT
- #define NO_USB_STARTUP_CHECK
+#define SPLIT_USB_DETECT
+#define NO_USB_STARTUP_CHECK
+#define SPLIT_USB_TIMEOUT 1000
+#define MASTER_RIGHT
+
+
+// Space saving
+#ifndef NO_DEBUG
+#define NO_DEBUG
+#endif // !NO_DEBUG
+#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
+#define NO_PRINT
+#endif // !NO_PRINT
+//#define NO_ACTION_TAPPING
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
+
+
+#define OLED_FONT_END 127
+
+#undef RGBLIGHT_ANIMATIONS
