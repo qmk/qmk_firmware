@@ -42,15 +42,27 @@ static bool     b_combo_enable      = true;  // defaults to enabled
 static combo_t  *prepared_combo       = NULL;
 #define COMBO_PREPARED (prepared_combo && !prepared_combo->disabled)
 
+#define CODE_IS_MOD(code) (IS_MOD((uint8_t)code) || (code && (uint8_t)code == KC_NO))
+
 static uint8_t buffer_size = 0;
 static keyrecord_t key_buffer[MAX_COMBO_LENGTH];
 
-static inline void send_combo(uint16_t action, bool pressed) {
-    if (action) {
+static inline void send_combo(uint16_t keycode, bool pressed) {
+    if (keycode) {
         if (pressed) {
-            register_code16(action);
+            if (CODE_IS_MOD(keycode)) {
+                register_mods(keycode >> 8);
+                register_code((uint8_t)keycode);
+            } else {
+                register_code16(keycode);
+            }
         } else {
-            unregister_code16(action);
+            if (CODE_IS_MOD(keycode)) {
+                unregister_mods(keycode >> 8);
+                unregister_code((uint8_t)keycode);
+            } else {
+                unregister_code16(keycode);
+            }
         }
     } else {
         process_combo_event(prepared_combo_index, pressed);
@@ -144,7 +156,7 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
 #if defined(COMBO_TERM_PER_COMBO)
                 time = get_combo_term(combo_index, combo)
 #elif defined(COMBO_MUST_HOLD_MODS)
-                if (IS_MOD(combo->keycode)) time = COMBO_MOD_TERM;
+                if (CODE_IS_MOD(combo->keycode)) time = COMBO_MOD_TERM;
 #endif
                 if (timer_elapsed(timer) < time) {
                     prepared_combo = combo;
@@ -158,7 +170,7 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
 #if defined(COMBO_MUST_HOLD_PER_COMBO)
                     && !get_combo_must_hold(prepared_combo_index, prepared_combo)
 #elif defined(COMBO_MUST_HOLD_MODS)
-                    && !IS_MOD(prepared_combo->keycode)
+                    && !CODE_IS_MOD(prepared_combo->keycode)
 #endif
                 ) {
                 /* Fire non-mod combo immediately if it was released inside COMBO_TERM */
@@ -211,7 +223,7 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
     if (COMBO_PREPARED && timer_elapsed(timer) > COMBO_TERM &&
         record->event.pressed &&
 #   if defined(COMBO_MUST_HOLD_MODS)
-        IS_MOD(prepared_combo->keycode)
+        CODE_IS_MOD(prepared_combo->keycode)
 #   elif defined(COMBO_MUST_HOLD_PER_COMBO)
         get_combo_must_hold(prepared_combo_index, prepared_combo);
 #   endif
@@ -265,7 +277,7 @@ void matrix_scan_combo(void) {
 #   if defined(COMBO_TERM_PER_COMBO)
         time = get_combo_term(prepared_combo_index, prepared_combo);
 #   elif defined(COMBO_MUST_HOLD_MODS)
-        if (IS_MOD(prepared_combo->keycode)) {
+        if (CODE_IS_MOD(prepared_combo->keycode)) {
             time = COMBO_MOD_TERM;
         }
 #   endif
