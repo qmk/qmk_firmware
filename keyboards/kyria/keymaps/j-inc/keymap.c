@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST] = LAYOUT(
       _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
       _______, RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI, RGB_MOD,                                     _______, _______, _______, KC_F11,  KC_F12,  _______,
-      _______, _______, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD,_______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      _______, RGB_M_SW, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD,_______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                  KC_TRNS, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 // /*
@@ -187,7 +187,7 @@ uint8_t current_idle_frame = 0;
 // uint8_t current_prep_frame = 0; // uncomment if PREP_FRAMES >1
 uint8_t current_tap_frame = 0;
 
-// Images credit j-inc(/James Incandenza) and /u/pixelbenny
+// Images credit j-inc(/James Incandenza) and pixelbenny. Thanks to obosob for initial animation approach.
 static void render_anim(void) {
     static const char PROGMEM idle[IDLE_FRAMES][ANIM_SIZE] = {
         {
@@ -256,17 +256,14 @@ static void render_anim(void) {
     void animation_phase(void) {
         if(get_current_wpm() <=IDLE_SPEED){
             current_idle_frame = (current_idle_frame + 1) % IDLE_FRAMES;
-            oled_clear();
             oled_write_raw_P(idle[abs((IDLE_FRAMES-1)-current_idle_frame)], ANIM_SIZE);
          }
          if(get_current_wpm() >IDLE_SPEED && get_current_wpm() <TAP_SPEED){
-             oled_clear();
              // oled_write_raw_P(prep[abs((PREP_FRAMES-1)-current_prep_frame)], ANIM_SIZE); // uncomment if IDLE_FRAMES >1
              oled_write_raw_P(prep[0], ANIM_SIZE); // remove if IDLE_FRAMES >1
          }
          if(get_current_wpm() >=TAP_SPEED){
              current_tap_frame = (current_tap_frame + 1) % TAP_FRAMES;
-             oled_clear();
              oled_write_raw_P(tap[abs((TAP_FRAMES-1)-current_tap_frame)], ANIM_SIZE);
          }
     }
@@ -307,18 +304,33 @@ void oled_task_user(void) {
 
 #endif
 
-  void matrix_scan_user(void) {
+#ifdef ENCODER_ENABLE
+void encoder_update_user(uint8_t index, bool clockwise) {
+    if (clockwise) {
+        if (!is_alt_tab_active) {
+            is_alt_tab_active = true;
+            register_code(KC_LALT);
+        }
+        alt_tab_timer = timer_read();
+        tap_code16(KC_TAB);
+    } else {
+        tap_code16(S(KC_TAB));
+        }
+}
+void matrix_scan_user(void) {
     if (is_alt_tab_active) {
-      if (timer_elapsed(alt_tab_timer) > 1250) {
-        unregister_code(KC_LALT);
-        is_alt_tab_active = false;
-      }
-    }
-  }
+        if (timer_elapsed(alt_tab_timer) > 1250) {
+            unregister_code(KC_LALT);
+            is_alt_tab_active = false;
+            }
+        }
+}
 
-  #ifdef RGBLIGHT_ENABLE
-  void keyboard_post_init_user(void) {
-    rgblight_enable_noeeprom(); // Enables RGB, without saving settings
-    rgblight_sethsv_noeeprom(HSV_GOLDENROD);
-  }
-  #endif
+#endif
+
+#ifdef RGBLIGHT_ENABLE
+void keyboard_post_init_user(void) {
+rgblight_enable_noeeprom(); // Enables RGB, without saving settings
+rgblight_sethsv_noeeprom(HSV_GOLDENROD);
+}
+#endif
