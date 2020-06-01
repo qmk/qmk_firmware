@@ -110,6 +110,11 @@
 #    define TIMER_1_DUTY_CYCLE OCR1C
 #    define TIMER1_AUDIO_vect TIMER1_COMPC_vect
 #endif
+
+#if !defined(BPIN_AUDIO) && !defined(CPIN_AUDIO)
+#    error "Audio feature enabled, but no suitable pin selected - see docs/feature_audio.md under the AVR settings for available options."
+#endif
+
 // -----------------------------------------------------------------------------
 
 int   voices        = 0;

@@ -23,6 +23,7 @@ To use these, simply `#include` the corresponding [header file](https://github.c
 |Finnish                    |`keymap_finnish.h`              |
 |French                     |`keymap_french.h`               |
 |French (BÉPO)              |`keymap_bepo.h`                 |
+|French (Belgium)           |`keymap_belgian.h`              |
 |French (Switzerland)       |`keymap_fr_ch.h`                |
 |French (macOS, ISO)        |`keymap_french_osx.h`           |
 |German                     |`keymap_german.h`               |
