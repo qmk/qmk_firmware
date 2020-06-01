@@ -1,2 +1,2 @@
 #undef PRODUCT
-#define PRODUCT "MadHatter's Custom Spacc"
+#define PRODUCT MadHatter\x27s Custom Spacc
