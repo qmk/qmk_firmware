@@ -1,2 +1,2 @@
 #undef PRODUCT
-#define PRODUCT "MadHatter's Custom Singa V3"
+#define PRODUCT MadHatter\x27s Custom Singa V3
