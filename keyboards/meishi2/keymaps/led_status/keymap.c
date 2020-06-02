@@ -29,10 +29,6 @@ void matrix_init_user(void) {
   setPinOutput(PRO_MICRO_LED_RX);
 }
 
-void matrix_scan_user(void) {
-
-}
-
 void led_set_user(uint8_t usb_led) {
   if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
     writePinLow(PRO_MICRO_LED_TX);
