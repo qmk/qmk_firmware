@@ -55,7 +55,7 @@ LCD_DISP_ON_CURSOR_BLINK : ディスプレイオン、点滅カーソル
 ````
 これはキーボードの `matrix_init_kb` またはキーマップの `matrix_init_user` で行うのが最適です。
 使用前にディスプレイをクリアすることをお勧めします。
-そのためには、`lcd_clrsrc()` を呼びます。
+そのためには、`lcd_clrscr()` を呼びます。
 
 ディスプレイに何かを表示するには、最初に `lcd_gotoxy(column, line)` を呼びます。最初の行の先頭に移動するには、`lcd_gotoxy(0, 0)` を呼び出し、その後 `lcd_puts("example string")` を使って文字列を出力します。
 

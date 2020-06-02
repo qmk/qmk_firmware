@@ -22,4 +22,6 @@
     #include "rev1.h"
 #elif defined(KEYBOARD_montsinger_rebound_rev2)
     #include "rev2.h"
+#elif defined(KEYBOARD_montsinger_rebound_rev3)
+    #include "rev3.h"
 #endif
