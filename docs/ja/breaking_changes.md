@@ -2,8 +2,8 @@
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
-  original document: 0.8.75:docs/breaking_changes.md
-  git diff 0.8.75 HEAD -- docs/breaking_changes.md | cat
+  original document: 0.9.0:docs/breaking_changes.md
+  git diff 0.9.0 HEAD -- docs/breaking_changes.md | cat
 -->
 
 このドキュメントは QMK の互換性を破る変更(Breaking change) のプロセスについて説明します。
@@ -15,29 +15,30 @@ Breaking change ピリオドとは、危険な、または予想外の QMK へ�
 
 ## 過去の Breaking change には何が含まれますか？
 
+* [2020年5月30日](ja/ChangeLog/20200530.md)
 * [2020年2月29日](ja/ChangeLog/20200229.md)
 * [2019年8月30日](ja/ChangeLog/20190830.md)
 
 ## 次の Breaking change はいつですか？
 
-次の Breaking change は2020年5月30日に予定されています。
+次の Breaking change は2020年8月29日に予定されています。
 
 ### 重要な日付
 
-* [x] 2020年 2月29日 - `future` が作成されました。毎週リベースされます。
-* [ ] 2020年 5月02日 - `future` は新しいPRを取り込みません
-* [ ] 2020年 5月02日 - テスターの募集。
-* [ ] 2020年 5月28日 - `master`がロックされ、PRはマージされません。
-* [ ] 2020年 5月30日 - `future` を `master` にマージします。
-* [ ] 2020年 5月30日 - `master` のロックが解除されます。PRを再びマージすることができます。
+* [x] 2020年 5月30日 - `develop` が作成されました。毎週リベースされます。
+* [ ] 2020年 8月01日 - `develop` は新しいPRを取り込みません。
+* [ ] 2020年 8月01日 - テスターの募集。
+* [ ] 2020年 8月27日 - `master`がロックされ、PR はマージされません。
+* [ ] 2020年 8月29日 - `develop` を `master` にマージします。
+* [ ] 2020年 8月29日 - `master` のロックが解除されます。PR を再びマージすることができます。
 
 ## どのような変更が含まれますか？
 
 最新の Breaking change 候補を見るには、[`breaking_change` ラベル](https://github.com/qmk/qmk_firmware/pulls?q=is%3Aopen+label%3Abreaking_change+is%3Apr)を参照してください。
-現在から `future` が閉じられるまでの間に新しい変更が追加される可能性があり、そのラベルが適用された PR はマージされることは保証されていません。
+現在から `develop` が閉じられるまでの間に新しい変更が追加される可能性があり、そのラベルが適用された PR はマージされることは保証されていません。
 
-このラウンドに、あなたの Breaking change を含めたい場合は、`breaking_change` ラベルを持つ PR を作成し、`future` が閉じる前に承認してもらう必要があります。
-`future` が閉じた後は、新しい Breaking change は受け付けられません。
+このラウンドに、あなたの Breaking change を含めたい場合は、`breaking_change` ラベルを持つ PR を作成し、`develop` が閉じる前に承認してもらう必要があります。
+`develop` が閉じた後は、新しい Breaking change は受け付けられません。
 
 受け入れの基準:
 
@@ -48,9 +49,9 @@ Breaking change ピリオドとは、危険な、または予想外の QMK へ�
 
 ここでは、Breaking change プロセスを実行する時に使用する様々なプロセスについて説明します。
 
-## `master` から `future` をリベースします
+## `master` から `develop` をリベースします
 
-これは `future` が開いている間、毎週金曜日に実行されます。
+これは `develop` が開いている間、毎週金曜日に実行されます。
 
 プロセス:
 
@@ -58,31 +59,31 @@ Breaking change ピリオドとは、危険な、または予想外の QMK へ�
 cd qmk_firmware
 git checkout master
 git pull --ff-only
-git checkout future
+git checkout develop
 git rebase master
 git push --force
 ```
 
-## `future` ブランチの作成
+## `develop` ブランチの作成
 
-以前の `future` ブランチがマージされた直後に、これが発生します。
+以前の `develop` ブランチがマージされた直後に、これが発生します。
 
 * `qmk_firmware` git commands
    * [ ] `git checkout master`
    * [ ] `git pull --ff-only`
-   * [ ] `git checkout -b future`
+   * [ ] `git checkout -b develop`
    * [ ] Edit `readme.md`
       * [ ] これがテストブランチであることを上部に大きな通知で追加します。
       * [ ] このドキュメントへのリンクを含めます
    * [ ] `git commit -m 'Branch point for <DATE> Breaking Change'`
    * [ ] `git tag breakpoint_<YYYY>_<MM>_<DD>`
    * [ ] `git tag <next_version>` # ブレーキング ポイント タグがバージョンの増分を混乱させないようにします
-   * [ ] `git push origin future`
+   * [ ] `git push origin develop`
    * [ ] `git push --tags`
 
 ## マージの 4 週間前
 
-* `future` は新しい PR に対して閉じられ、現在の PR の修正のみがマージされる可能性があります。
+* `develop` は新しい PR に対して閉じられ、現在の PR の修正のみがマージされる可能性があります。
 * テスターの呼び出しを投稿します
    * [ ] Discord
    * [ ] GitHub PR
@@ -105,15 +106,15 @@ git push --force
 ## マージの日
 
 * `qmk_firmware` git commands
-   * [ ] `git checkout future`
+   * [ ] `git checkout develop`
    * [ ] `git pull --ff-only`
    * [ ] `git rebase origin/master`
    * [ ] Edit `readme.md`
-      * [ ] `future` についてのメモを削除
+      * [ ] `develop` についてのメモを削除
    * [ ] ChangeLog を 1 つのファイルにまとめます。
    * [ ] `git commit -m 'Merge point for <DATE> Breaking Change'`
-   * [ ] `git push origin future`
+   * [ ] `git push origin develop`
 * GitHub Actions
-   * [ ] `future`の PR を作成します
+   * [ ] `develop`の PR を作成します
    * [ ] travis がクリーンに戻ったことを確認します
-   * [ ] `future` PR をマージします
+   * [ ] `develop` PR をマージします
