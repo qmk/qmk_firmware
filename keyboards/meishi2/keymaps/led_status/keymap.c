@@ -29,15 +29,8 @@ void matrix_init_user(void) {
   setPinOutput(PRO_MICRO_LED_RX);
 }
 
-void led_set_user(uint8_t usb_led) {
-  if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-    writePinLow(PRO_MICRO_LED_TX);
-  } else {
-    writePinHigh(PRO_MICRO_LED_TX);
-  }
-  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-    writePinLow(PRO_MICRO_LED_RX);
-  } else {
-    writePinHigh(PRO_MICRO_LED_RX);
-  }
+bool led_update_user(led_t led_state) {
+  writePin(PRO_MICRO_LED_TX, !led_state.num_lock);
+  writePin(PRO_MICRO_LED_RX, !led_state.caps_lock);
+  return true;
 }
