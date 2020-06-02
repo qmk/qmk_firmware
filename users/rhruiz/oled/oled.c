@@ -62,9 +62,7 @@ __attribute__((weak)) oled_rotation_t oled_init_keymap(oled_rotation_t rotation)
 #endif
 }
 
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return oled_init_keymap(rotation);
-}
+oled_rotation_t oled_init_user(oled_rotation_t rotation) { return oled_init_keymap(rotation); }
 
 #ifdef OLED_ROTATE
 void oled_clear_half_except(uint8_t lines) {
@@ -85,7 +83,7 @@ void rhruiz_render_oled(void) {
 
         case _FN1:
             oled_clear_half_except(6);
-            for (uint8_t i = 0 ; i < 6; i++) {
+            for (uint8_t i = 0; i < 6; i++) {
                 oled_write_ln_P(_down_arrow_logo[i % 3], false);
             }
             oled_clear_half_except(6);
@@ -93,7 +91,7 @@ void rhruiz_render_oled(void) {
 
         case _FN2:
             oled_clear_half_except(6);
-            for (uint8_t i = 0 ; i < 6; i++) {
+            for (uint8_t i = 0; i < 6; i++) {
                 oled_write_ln_P(_up_arrow_logo[i % 3], false);
             }
             oled_clear_half_except(6);
@@ -108,10 +106,13 @@ void rhruiz_render_oled(void) {
         case _GAMEFN1:
             oled_clear_half_except(2);
 
-            oled_write_P(_game_layer_logo[0], false);
-            oled_write("\x1f", false);
-            oled_write_P(_game_layer_logo[1], false);
-            oled_write("\x1f", false);
+            for (uint8_t i = 0; i < 2; i++) {
+                if (is_keyboard_left()) oled_write("\x1f", false);
+
+                oled_write_P(_game_layer_logo[i], false);
+
+                if (!is_keyboard_left()) oled_write("\x1f", false);
+            }
 
             oled_clear_half_except(2);
             break;
@@ -180,7 +181,6 @@ void rhruiz_render_oled(void) {
             }
             break;
 
-
         default:
             for (uint8_t i = 0; i < 4; i++) {
                 oled_write_P(_spacer, false);
@@ -194,8 +194,7 @@ void rhruiz_render_oled(void) {
 
 void rhruiz_oled_activity(void) { oled_timer = timer_read32(); }
 
-__attribute__((weak))
-void oled_task_user(void) {
+__attribute__((weak)) void oled_task_user(void) {
     if (is_keyboard_master()) {
         if (timer_elapsed32(oled_timer) > OLED_TIMEOUT) {
             oled_off();
@@ -211,4 +210,3 @@ void oled_task_user(void) {
 void suspend_power_down_user(void) { oled_off(); }
 
 void suspend_wakeup_init_user(void) { oled_on(); }
-
