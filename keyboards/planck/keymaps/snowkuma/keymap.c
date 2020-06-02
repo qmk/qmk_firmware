@@ -27,7 +27,6 @@
 
 #include QMK_KEYBOARD_H
 #include "muse.h"
-#include "my_strings.h"
 #include "snowkuma.h"
 
 extern keymap_config_t keymap_config;
