@@ -672,9 +672,9 @@ static void rgblight_layers_write(void) {
 }
 
 #    ifdef RGBLIGHT_LAYER_BLINK
-uint8_t         _blinked_layer_mask = 0;
-uint16_t        _blink_duration     = 0;
-static uint16_t _blink_timer;
+rgblight_layer_mask_t _blinked_layer_mask = 0;
+uint16_t              _blink_duration     = 0;
+static uint16_t       _blink_timer;
 
 void rgblight_blink_layer(uint8_t layer, uint16_t duration_ms) {
     rgblight_set_layer_state(layer, true);
