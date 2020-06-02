@@ -2,8 +2,8 @@
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
-  original document: 0.8.75:docs/breaking_changes_instructions.md
-  git diff 0.8.75 HEAD -- docs/breaking_changes_instructions.md | cat
+  original document: 0.9.0:docs/breaking_changes_instructions.md
+  git diff 0.9.0 HEAD -- docs/breaking_changes_instructions.md | cat
 -->
 
 QMK のメンバーがあなたのプルリクエストに返信し、あなたの提出したものは Breaking change (互換性を破る変更) であると述べている場合があります。メンバーの判断では、あなたが提案した変更は QMK やその利用者にとってより大きな影響を持つと考えられます。
@@ -36,7 +36,7 @@ Breaking change プロセスを経て提出する際には、変更ログのエ�
 エントリーは、あなたのプルリクエストが行う変更の短い要約としてください &ndash; [ここの各セクションは changelog として開始されました](ja/ChangeLog/20190830.md "n.b. This should link to the 2019 Aug 30 Breaking Changes doc - @noroadsleft")。
 
 変更ログは `docs/ChangeLog/YYYYMMDD/PR####.md` に置いてください。
-ここで、`YYYYMMDD` は QMK の breaking change ブランチ &ndash; 通常は `future` という名称 &ndash; が `master` ブランチにマージされる日付、`####` はプルリクエストの番号です。
+ここで、`YYYYMMDD` は QMK の breaking change ブランチ &ndash; 通常は `develop` という名称 &ndash; が `master` ブランチにマージされる日付、`####` はプルリクエストの番号です。
 
 ユーザー側でのアクションを必要とする場合、あなたの変更ログは、どのようなアクションを取らなければならないかをユーザーに指示するか、そのようなアクションを指示する場所にリンクする必要があります。
 
