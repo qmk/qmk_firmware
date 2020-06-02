@@ -630,9 +630,6 @@ void matrix_init_quantum() {
 #ifdef OUTPUT_AUTO_ENABLE
     set_output(OUTPUT_AUTO);
 #endif
-#ifdef DIP_SWITCH_ENABLE
-    dip_switch_init();
-#endif
 
     matrix_init_kb();
 }
