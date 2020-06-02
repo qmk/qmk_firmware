@@ -53,10 +53,10 @@ typedef struct {
 #    define COMBO_COUNT 0
 #endif
 #ifndef COMBO_TERM
-#    define COMBO_TERM 100
+#    define COMBO_TERM 50
 #endif
 #ifndef COMBO_MOD_TERM
-#    define COMBO_MOD_TERM TAPPING_TERM
+#    define COMBO_MOD_TERM 200
 #endif
 
 bool process_combo(uint16_t keycode, keyrecord_t *record);

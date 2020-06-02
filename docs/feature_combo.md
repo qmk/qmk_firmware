@@ -85,7 +85,7 @@ You can enable, disable and toggle the Combo feature on the fly.  This is useful
 |`CMB_TOG` |Toggles Combo feature on and off |
 
 #### Combo Term
-By default, the timeout for the Combos to be recognized is set to 100ms which is half of `TAPPING_TERM`. This can be changed if accidental combo misfires are happening. For instance `#define COMBO_TERM 50` would set the time out period for combos to 50ms.
+By default, the timeout for the Combos to be recognized is set to 50ms. This can be changed if accidental combo misfires are happening or if you're having difficulties pressing keys at the same time. For instance `#define COMBO_TERM 40` would set the time out period for combos to 40ms.
 
 #### Long Combos
 If you're using long combos or longer combos, you may run into issues with this, as the structure may not be large enough to accommodate what you're doing. In this case, you can configure the size of the data structure used. Be aware, larger combo sizes will increase memory usage!
@@ -97,7 +97,7 @@ If you're using long combos or longer combos, you may run into issues with this,
 | 32   | `#define EXTRA_EXTRA_LONG_COMBOS`|
 
 #### Modifier Combos
-If a combo resolves to a Modifier, the window for processing the combo can be extended independent from normal combos. By default this is disabled but can be enabled with `#define COMBO_MUST_HOLD_MODS`, and the time window can be configured with `#define COMBO_MOD_TERM 150` (default: `TAPPING_TERM`). With `COMBO_MUST_HOLD_MODS` you cannot tap the combo any more which makes the combo less prone to misfires.
+If a combo resolves to a Modifier, the window for processing the combo can be extended independent from normal combos. By default this is disabled but can be enabled with `#define COMBO_MUST_HOLD_MODS`, and the time window can be configured with `#define COMBO_MOD_TERM 150` (default: 200). With `COMBO_MUST_HOLD_MODS` you cannot tap the combo any more which makes the combo less prone to misfires.
 
 #### Permissive Hold
 Similar to Tap-Hold configuration, Mod Combos can be setup to behave similarly. Add `#define COMBO_PERMISSIVE_HOLD` to your `config.h` to enable. This feature is extremely useful for fast typists as you don't have to wait for the Mod Combo's combo term to finish.
