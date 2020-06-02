@@ -7,26 +7,26 @@ static uint32_t oled_timer = 0;
 
 #ifdef OLED_ROTATE
 static const char _game_layer_logo[][5] PROGMEM = {
-    {0xa8, 0xa9, 0xaa, 0xab, 0},
-    {0xc8, 0xc9, 0xca, 0xcb, 0},
+    "\xa8\xa9\xaa\xab",
+    "\xc8\xc9\xca\xcb",
 };
 
 static const char _up_arrow_logo[][5] PROGMEM = {
-    {0x20, 0x82, 0x83, 0x84, 0},
-    {0x20, 0xa2, 0xa3, 0xa4, 0},
-    {0x20, 0xc2, 0xc3, 0xc4, 0},
+    "\x20\x82\x83\x84",
+    "\x20\xa2\xa3\xa4",
+    "\x20\xc2\xc3\xc4",
 };
 
 static const char _down_arrow_logo[][5] PROGMEM = {
-    {0x20, 0x85, 0x86, 0x87, 0},
-    {0x20, 0xa5, 0xa6, 0xa7, 0},
-    {0x20, 0xc5, 0xc6, 0xc7, 0},
+    "\x20\x85\x86\x87",
+    "\x20\xa5\xa6\xa7",
+    "\x20\xc5\xc6\xc7",
 };
 
 static const char _cfg_logo[][6] PROGMEM = {
-    {0x80, 0x81, 0x80, 0x81, 0x80, 0},
-    {0xa0, 0xa1, 0xa0, 0xa1, 0xa0, 0},
-    {0xc0, 0xc1, 0xc0, 0xc1, 0xc0, 0}
+    "\x80\x81\x80\x81\x80",
+    "\xa0\xa1\xa0\xa1\xa0",
+    "\xc0\xc1\xc0\xc1\xc0"
 };
 
 #else
@@ -34,20 +34,20 @@ static const char _cfg_logo[][6] PROGMEM = {
 const char _spacer[] PROGMEM = "          ";
 
 static const char lc[][4][3] PROGMEM = {
-    [_BL]      = {{0x20, 0x20, 0}, {0x20, 0x20, 0}, {0x20, 0x20, 0}, {0x20, 0x20, 0}},
-    [_FN1]     = {{0x20, 0x20, 0}, {0xb2, 0xb3, 0}, {0x92, 0x93, 0}, {0x20, 0x20, 0}},
-    [_FN2]     = {{0x20, 0x20, 0}, {0x92, 0x93, 0}, {0xb2, 0xb3, 0}, {0x20, 0x20, 0}},
-    [_CFG]     = {{0x80, 0x81, 0}, {0xa0, 0xa1, 0}, {0xc0, 0xc1, 0}, {0x80, 0x81, 0}},
-    [_NUM]     = {{0xae, 0xaf, 0}, {0xce, 0xcf, 0}, {0x20, 0x20, 0}, {0xd2, 0xd3, 0}},
-    [_GAME]    = {{0x20, 0x20, 0}, {0x82, 0x83, 0}, {0xa2, 0xa3, 0}, {0xc2, 0xc3, 0}},
-    [_GAMEFN1] = {{0x20, 0x20, 0}, {0xb0, 0xb1, 0}, {0xd0, 0xd1, 0}, {0x11, 0x11, 0}},
+    [_BL]      = {"\x20\x20", "\x20\x20", "\x20\x20", "\x20\x20"},
+    [_FN1]     = {"\x20\x20", "\xb2\xb3", "\x92\x93", "\x20\x20"},
+    [_FN2]     = {"\x20\x20", "\x92\x93", "\xb2\xb3", "\x20\x20"},
+    [_CFG]     = {"\x80\x81", "\xa0\xa1", "\xc0\xc1", "\x80\x81"},
+    [_NUM]     = {"\xae\xaf", "\xce\xcf", "\x20\x20", "\xd2\xd3"},
+    [_GAME]    = {"\x20\x20", "\x82\x83", "\xa2\xa3", "\xc2\xc3"},
+    [_GAMEFN1] = {"\x20\x20", "\xb0\xb1", "\xd0\xd1", "\x11\x11"},
 };
 
 static const char _game_layer_logo[][4] PROGMEM = {
-    {0x20, 0x20, 0x20, 0},
-    {0x82, 0x83, 0x84, 0},
-    {0xa2, 0xa3, 0xa4, 0},
-    {0xc2, 0xc3, 0xc4, 0},
+    "\x20\x20\x20",
+    "\x82\x83\x84",
+    "\xa2\xa3\xa4",
+    "\xc2\xc3\xc4",
 };
 
 #endif
