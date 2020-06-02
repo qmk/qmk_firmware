@@ -146,8 +146,8 @@ L3 |   Z   |   X   |   C   |   V   |   B   |           R3  |   K   |   M   |   ,
 L1 |  Ctrl |  Alt  |  GUI  |       |       |            R1 |       | Home  |   Up  |  End  | Page  |
    |       |       |       |       |       |               |       |       |       |       |  Up   |
    |-------+-------+-------+-------+-------|               |-------+-------+-------+-------+-------|
-L2 | Next  | Prev  | Next  | Shift |       |            R2 |       | Left  |  Down | Right | Page  |
-   | Window| Tab   | Tab   |       |       |               |       |       |       |       | Down  |
+L2 |       |       |       | Shift |       |            R2 |       | Left  |  Down | Right | Page  |
+   |       |       |       |       |       |               |       |       |       |       | Down  |
    |-------+-------+-------+-------+-------|               |-------+-------+-------+-------+-------|
 L3 |       |       | Screen|       |       |            R3 |       | Prev  | Next  | Next  |       |
    |       |       |Capture|       |       |               |       | Tab   | Window| Tab   |       |
@@ -260,10 +260,10 @@ L3 |       |       |       |       |       |            R3 |       |       |    
 /* THUMB
                      LEFT                                                    RIGHT
    ,---------------------------------------.               ,---------------------------------------.
-L1 |       |Whatsap|  P1   | PHONE |W_EMAIL|            R1 |       |Input  |  P2   |       | Txt + |
-   |       |       |       |Secret3|Secret2|               |       | Lang  |       |       |       |
+L1 |       |Whatsap|  P2   |  P3   |  P4   |            R1 |       | Input |  P5   |       | Txt + |
+   |       |       |Secret2|Secret3|Secret4|               |       | Lang  |Secret5|       |       |
    |-------+-------+-------+-------+-------|               |-------+-------+-------+-------+-------|
-L2 | ANKI  |       |SPOTIFY|TYPEFU |P_EMAIL|            R2 |       | Caps  | Emoji | Iterm | Txt - |
+L2 | ANKI  |       |SPOTIFY|TYPEFU |  P5   |            R2 |       | Caps  | Emoji | Iterm | Txt - |
    |Assimil|       |       |Telegrm|Secret1|               |       | Lock  |       |       |       |
    |-------+-------+-------+-------+-------|               |-------+-------+-------+-------+-------|
 L3 |       |       | Chrome|       | BRAVE |            R3 |       | Money |       |       |       |
@@ -271,7 +271,7 @@ L3 |       |       | Chrome|       | BRAVE |            R3 |       | Money |    
    '-------+-------+-------+-------+-------'               '-------+-------+-------+-------+-------'
 */
 
-#define _________________THU_L1____________________        XXXXXXX, M_WHATSAPP, M_XXX4, M_XXX3,  M_XXX2
+#define _________________THU_L1____________________        XXXXXXX, M_WHATSAPP, M_XXX2, M_XXX3,  M_XXX4
 #define _________________THU_L2____________________        T_ANKASS, XXXXXXX, M_SPOTIFY, T_TYPTEL, M_XXX1
 #define _________________THU_L3____________________        XXXXXXX, XXXXXXX, M_CHROME, XXXXXXX, M_BRAVE
 
