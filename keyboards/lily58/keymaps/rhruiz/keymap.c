@@ -3,6 +3,7 @@
 #include "layouts/kc_keys.h"
 
 #define KC__GFN1 MO(_GAMEFN1)
+#define KC_ESPC LSFT_T(KC_SPACE)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -100,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // |-----+-----+-----+-----+-----+-----|-----|    |-----|-----+-----+-----+-----+-----+-----|
          ,     ,     ,     ,     ,     , BSPC,          ,     ,     ,     ,     ,     ,     ,
 // `-----+-----+-----+-----+-----+----/-----/      \-----\----+-----+-----+-----+-----+-----'
-                        ,     , _GFN1,     ,              ,      ,     ,
+                        ,     , _GFN1, ESPC,              ,      ,     ,
 //                `-----+-----+----'/-----/          \-----\'----+-----+-----'
   ),
 
