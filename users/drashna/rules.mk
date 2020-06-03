@@ -22,9 +22,6 @@ endif
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     SRC += rgb_stuff.c
-    ifeq ($(strip $(INDICATOR_LIGHTS)), yes)
-        OPT_DEFS += -DINDICATOR_LIGHTS
-    endif
     ifeq ($(strip $(RGBLIGHT_TWINKLE)), yes)
         OPT_DEFS += -DRGBLIGHT_TWINKLE
     endif
