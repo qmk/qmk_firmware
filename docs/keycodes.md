@@ -111,38 +111,38 @@ See also: [Basic Keycodes](keycodes_basic.md)
 |`KC_NONUS_BSLASH`      |`KC_NUBS`                     |Non-US `\` and `\|`                            |✔      |✔            |✔                |
 |`KC_APPLICATION`       |`KC_APP`                      |Application (Windows Context Menu Key)         |✔      |             |✔                |
 |`KC_POWER`             |                              |System Power                                   |?      |✔<sup>3</sup>|✔                |
-|`KC_KP_EQUAL`          |`KC_PEQL`                     |Keypad `=`                                     |?      |?            |✔                |
-|`KC_F13`               |                              |F13                                            |?      |?            |✔                |
-|`KC_F14`               |                              |F14                                            |?      |?            |✔                |
-|`KC_F15`               |                              |F15                                            |?      |?            |✔                |
-|`KC_F16`               |                              |F16                                            |?      |?            |✔                |
-|`KC_F17`               |                              |F17                                            |?      |?            |✔                |
-|`KC_F18`               |                              |F18                                            |?      |?            |✔                |
-|`KC_F19`               |                              |F19                                            |?      |?            |✔                |
-|`KC_F20`               |                              |F20                                            |?      |?            |✔                |
-|`KC_F21`               |                              |F21                                            |?      |?            |✔                |
-|`KC_F22`               |                              |F22                                            |?      |?            |✔                |
-|`KC_F23`               |                              |F23                                            |?      |?            |✔                |
-|`KC_F24`               |                              |F24                                            |?      |?            |✔                |
-|`KC_EXECUTE`           |`KC_EXEC`                     |Execute                                        |?      |?            |✔                |
-|`KC_HELP`              |                              |Help                                           |?      |?            |✔                |
-|`KC_MENU`              |                              |Menu                                           |?      |?            |✔                |
-|`KC_SELECT`            |`KC_SLCT`                     |Select                                         |?      |?            |✔                |
-|`KC_STOP`              |                              |Stop                                           |?      |?            |✔                |
-|`KC_AGAIN`             |`KC_AGIN`                     |Again                                          |?      |?            |✔                |
-|`KC_UNDO`              |                              |Undo                                           |?      |?            |✔                |
-|`KC_CUT`               |                              |Cut                                            |?      |?            |✔                |
-|`KC_COPY`              |                              |Copy                                           |?      |?            |✔                |
-|`KC_PASTE`             |`KC_PSTE`                     |Paste                                          |?      |?            |✔                |
-|`KC_FIND`              |                              |Find                                           |?      |?            |✔                |
+|`KC_KP_EQUAL`          |`KC_PEQL`                     |Keypad `=`                                     |?      |✔            |✔                |
+|`KC_F13`               |                              |F13                                            |✔      |✔            |✔                |
+|`KC_F14`               |                              |F14                                            |✔      |✔            |✔                |
+|`KC_F15`               |                              |F15                                            |✔      |✔            |✔                |
+|`KC_F16`               |                              |F16                                            |✔      |✔            |✔                |
+|`KC_F17`               |                              |F17                                            |✔      |✔            |✔                |
+|`KC_F18`               |                              |F18                                            |✔      |✔            |✔                |
+|`KC_F19`               |                              |F19                                            |✔      |✔            |✔                |
+|`KC_F20`               |                              |F20                                            |✔      |             |✔                |
+|`KC_F21`               |                              |F21                                            |✔      |             |✔                |
+|`KC_F22`               |                              |F22                                            |✔      |             |✔                |
+|`KC_F23`               |                              |F23                                            |✔      |             |✔                |
+|`KC_F24`               |                              |F24                                            |✔      |             |✔                |
+|`KC_EXECUTE`           |`KC_EXEC`                     |Execute                                        |       |             |✔                |
+|`KC_HELP`              |                              |Help                                           |       |             |✔                |
+|`KC_MENU`              |                              |Menu                                           |       |             |✔                |
+|`KC_SELECT`            |`KC_SLCT`                     |Select                                         |       |             |✔                |
+|`KC_STOP`              |                              |Stop                                           |       |             |✔                |
+|`KC_AGAIN`             |`KC_AGIN`                     |Again                                          |       |             |✔                |
+|`KC_UNDO`              |                              |Undo                                           |       |             |✔                |
+|`KC_CUT`               |                              |Cut                                            |       |             |✔                |
+|`KC_COPY`              |                              |Copy                                           |       |             |✔                |
+|`KC_PASTE`             |`KC_PSTE`                     |Paste                                          |       |             |✔                |
+|`KC_FIND`              |                              |Find                                           |       |             |✔                |
 |`KC__MUTE`             |                              |Mute                                           |?      |✔            |✔                |
 |`KC__VOLUP`            |                              |Volume Up                                      |?      |✔            |✔                |
 |`KC__VOLDOWN`          |                              |Volume Down                                    |?      |✔            |✔                |
-|`KC_LOCKING_CAPS`      |`KC_LCAP`                     |Locking Caps Lock                              |?      |?            |                 |
-|`KC_LOCKING_NUM`       |`KC_LNUM`                     |Locking Num Lock                               |?      |?            |                 |
-|`KC_LOCKING_SCROLL`    |`KC_LSCR`                     |Locking Scroll Lock                            |?      |?            |                 |
-|`KC_KP_COMMA`          |`KC_PCMM`                     |Keypad `,`                                     |?      |?            |✔                |
-|`KC_KP_EQUAL_AS400`    |                              |Keypad `=` on AS/400 keyboards                 |?      |?            |                 |
+|`KC_LOCKING_CAPS`      |`KC_LCAP`                     |Locking Caps Lock                              |?      |✔            |                 |
+|`KC_LOCKING_NUM`       |`KC_LNUM`                     |Locking Num Lock                               |?      |✔            |                 |
+|`KC_LOCKING_SCROLL`    |`KC_LSCR`                     |Locking Scroll Lock                            |?      |✔            |                 |
+|`KC_KP_COMMA`          |`KC_PCMM`                     |Keypad `,`                                     |?      |             |✔                |
+|`KC_KP_EQUAL_AS400`    |                              |Keypad `=` on AS/400 keyboards                 |?      |             |                 |
 |`KC_INT1`              |`KC_RO`                       |JIS `\` and `_`                                |       |             |✔                |
 |`KC_INT2`              |`KC_KANA`                     |JIS Katakana/Hiragana                          |       |             |✔                |
 |`KC_INT3`              |`KC_JYEN`                     |JIS `¥` and `\|`                               |       |             |✔                |
@@ -183,15 +183,15 @@ See also: [Basic Keycodes](keycodes_basic.md)
 |`KC_RGUI`              |`KC_RCMD`, `KC_RWIN`          |Right GUI (Windows/Command/Meta key)           |✔      |✔            |✔                |
 |`KC_SYSTEM_POWER`      |`KC_PWR`                      |System Power Down                              |✔      |✔<sup>3</sup>|✔                |
 |`KC_SYSTEM_SLEEP`      |`KC_SLEP`                     |System Sleep                                   |✔      |✔<sup>3</sup>|✔                |
-|`KC_SYSTEM_WAKE`       |`KC_WAKE`                     |System Wake                                    |?      |?            |✔                |
+|`KC_SYSTEM_WAKE`       |`KC_WAKE`                     |System Wake                                    |?      |✔<sup>3</sup>|✔                |
 |`KC_AUDIO_MUTE`        |`KC_MUTE`                     |Mute                                           |✔      |✔            |✔                |
 |`KC_AUDIO_VOL_UP`      |`KC_VOLU`                     |Volume Up                                      |✔      |✔<sup>4</sup>|✔                |
 |`KC_AUDIO_VOL_DOWN`    |`KC_VOLD`                     |Volume Down                                    |✔      |✔<sup>4</sup>|✔                |
 |`KC_MEDIA_NEXT_TRACK`  |`KC_MNXT`                     |Next Track                                     |✔      |✔<sup>5</sup>|✔                |
 |`KC_MEDIA_PREV_TRACK`  |`KC_MPRV`                     |Previous Track                                 |✔      |✔<sup>5</sup>|✔                |
-|`KC_MEDIA_STOP`        |`KC_MSTP`                     |Stop Track                                     |✔      |?            |✔                |
+|`KC_MEDIA_STOP`        |`KC_MSTP`                     |Stop Track                                     |✔      |             |✔                |
 |`KC_MEDIA_PLAY_PAUSE`  |`KC_MPLY`                     |Play/Pause Track                               |✔      |✔            |✔                |
-|`KC_MEDIA_SELECT`      |`KC_MSEL`                     |Launch Media Player                            |✔      |?            |✔                |
+|`KC_MEDIA_SELECT`      |`KC_MSEL`                     |Launch Media Player                            |✔      |             |✔                |
 |`KC_MEDIA_EJECT`       |`KC_EJCT`                     |Eject                                          |?      |✔            |✔                |
 |`KC_MAIL`              |                              |Launch Mail                                    |✔      |             |✔                |
 |`KC_CALCULATOR`        |`KC_CALC`                     |Launch Calculator                              |✔      |             |✔                |
