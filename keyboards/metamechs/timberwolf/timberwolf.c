@@ -18,10 +18,10 @@
 
 bool led_update_kb(led_t led_state) {
     bool runDefault = led_update_user(led_state);
-    if (led_state.caps_lock == 0) {
-      backlight_disable();
-    } else if (led_state.caps_lock == 1) {
-		backlight_enable();
+    if (led_state.caps_lock) {
+      backlight_enable();
+    } else {
+		backlight_disable();
 	}
     return runDefault;
 }
