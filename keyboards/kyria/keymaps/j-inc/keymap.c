@@ -161,10 +161,10 @@ static void render_status(void) {
     }
 
     // Host Keyboard LED Status
-    uint8_t led_usb_state = host_keyboard_leds();
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR("Num Lock ") : PSTR("       "), false);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR("Caps Lock ") : PSTR("       "), false);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("Scroll Lock ") : PSTR("       "), false);
+    led_t led_state = host_keyboard_led_state();
+    oled_write_P(led_state.num_lock ? PSTR("Num Lock ") : PSTR("       "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("Caps Lock ") : PSTR("       "), false);
+    oled_write_P(led_state.scroll_lock ? PSTR("Scroll Lock ") : PSTR("       "), false);
 }
 
 
