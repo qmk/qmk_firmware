@@ -141,7 +141,7 @@ uint8_t adns_read(uint8_t reg_addr){
 }
 
 void pointing_device_init(void) {
-    print("STSARTING INTI\n");
+    dprint("STARTING INTI\n");
 
     spi_init();
     // reset serial port
@@ -261,5 +261,4 @@ void pointing_device_task(void) {
     pointing_device_set_report(report);
     pointing_device_send();
 }
-
 
