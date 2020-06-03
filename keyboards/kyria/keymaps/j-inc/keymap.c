@@ -289,9 +289,8 @@ static void render_anim(void) {
 void oled_task_user(void) {
     if (is_keyboard_master()) {
         oled_write_P(PSTR("Kyria Rev 1.0\n"), false);
-        oled_set_cursor(0,4); {
-            render_status();
-        }
+        oled_set_cursor(0,4);
+        render_status();
      // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_anim();
