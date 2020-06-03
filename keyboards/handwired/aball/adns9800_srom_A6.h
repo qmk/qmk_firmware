@@ -1,6 +1,6 @@
 #pragma once
 
-#include <avr/pgmspace.h>
+#include "progmem.h"
 
 const uint16_t firmware_length = 3070;
 
