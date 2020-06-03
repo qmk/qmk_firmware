@@ -16,11 +16,12 @@
 
 #include "timberwolf.h"
 
-
 bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        writePin(E2, led_state.caps_lock);
-    }
-    return res;
+    bool runDefault = led_update_user(led_state);
+    if (led_state.caps_lock == 0) {
+      backlight_disable();
+    } else if (led_state.caps_lock == 1) {
+		backlight_enable();
+	}
+    return runDefault;
 }
