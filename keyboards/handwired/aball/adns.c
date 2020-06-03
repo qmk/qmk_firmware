@@ -15,7 +15,7 @@
  */
 #include "spi_master.h"
 #include "adns.h"
-#include "print.h"
+#include "debug.h"
 #include "quantum.h"
 #include "pointing_device.h"
 #include "adns9800_srom_A6.h"
@@ -261,4 +261,3 @@ void pointing_device_task(void) {
     pointing_device_set_report(report);
     pointing_device_send();
 }
-
