@@ -1,8 +1,8 @@
 # prophet
 
-Keyboard Maintainer: [westfoxtrot](https://github.com/westfoxtrot)  
-Hardware Supported: All versions of the prophet PCB
-Hardware Availability: sold with prophet GB, [PCB Files](https://github.com/westfoxtrot/prophet_pcb)
+* Keyboard Maintainer: [westfoxtrot](https://github.com/westfoxtrot)
+* Hardware Supported: All versions of the prophet PCB
+* Hardware Availability: sold with prophet GB, [PCB Files](https://github.com/westfoxtrot/prophet_pcb)
 
 Make example for this keyboard (after setting up your build environment):
 
