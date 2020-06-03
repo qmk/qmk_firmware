@@ -295,10 +295,9 @@ void oled_task_user(void) {
      // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_anim();
-        oled_set_cursor(0,6); {
-            sprintf(wpm_str, "       WPM: %03d", get_current_wpm());
-            oled_write(wpm_str, false);
-            }
+        oled_set_cursor(0,6);
+        sprintf(wpm_str, "       WPM: %03d", get_current_wpm());
+        oled_write(wpm_str, false);
     }
 }
 
