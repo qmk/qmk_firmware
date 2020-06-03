@@ -142,7 +142,7 @@ See also: [Basic Keycodes](keycodes_basic.md)
 |`KC_LOCKING_NUM`       |`KC_LNUM`                     |Locking Num Lock                               |?      |✔            |                 |
 |`KC_LOCKING_SCROLL`    |`KC_LSCR`                     |Locking Scroll Lock                            |?      |✔            |                 |
 |`KC_KP_COMMA`          |`KC_PCMM`                     |Keypad `,`                                     |?      |             |✔                |
-|`KC_KP_EQUAL_AS400`    |                              |Keypad `=` on AS/400 keyboards                 |?      |             |                 |
+|`KC_KP_EQUAL_AS400`    |                              |Keypad `=` on AS/400 keyboards                 |       |             |                 |
 |`KC_INT1`              |`KC_RO`                       |JIS `\` and `_`                                |       |             |✔                |
 |`KC_INT2`              |`KC_KANA`                     |JIS Katakana/Hiragana                          |       |             |✔                |
 |`KC_INT3`              |`KC_JYEN`                     |JIS `¥` and `\|`                               |       |             |✔                |
