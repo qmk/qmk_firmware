@@ -2,25 +2,19 @@
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
-  original document: ed0575fc8:docs/newbs_testing_debugging.md
-  git diff ed0575fc8 HEAD -- docs/newbs_testing_debugging.md | cat
+  original document: 0.9.0:docs/newbs_testing_debugging.md
+  git diff 0.9.0 HEAD -- docs/newbs_testing_debugging.md | cat
 -->
 
 カスタムファームウェアをキーボードへ書き込んだら、テストする準備が整います。運が良ければ全て問題なく動作しているはずですが、もしそうでなければこのドキュメントがどこが悪いのか調べるのに役立ちます。
 
 ## テスト
 
-通常、キーボードをテストするのは非常に簡単です。全てのキーをひとつずつ押して、期待されるキーが送信されていることを確認します。キーを押したことを見逃さないためのプログラムもあります。
+通常、キーボードをテストするのは非常に簡単です。
+全てのキーをひとつずつ押して、期待されるキーが送信されていることを確認します。
+QMKを実行していなくても、[QMK Configurator](https://config.qmk.fm/#/test/)のテストモードを使ってキーボードを確認することができます。
 
-メモ：　これらのプログラムは QMK によって提供・承認されたものではありません。
-
-* [QMK Configurator](https://config.qmk.fm/#/test/) (Web Based)
-* [Switch Hitter](https://web.archive.org/web/20190413233743/https://elitekeyboards.com/switchhitter.php) (Windows Only)
-* [Keyboard Viewer](https://www.imore.com/how-use-keyboard-viewer-your-mac) (Mac Only)
-* [Keyboard Tester](http://www.keyboardtester.com) (Web Based)
-* [Keyboard Checker](http://keyboardchecker.com) (Web Based)
-
-## デバッグ
+## デバッグ :id=debugging
 
 `rules.mk`へ`CONSOLE_ENABLE = yes`の設定をするとキーボードはデバッグ情報を出力します。デフォルトの出力は非常に限られたものですが、デバッグモードをオンにすることでデバッグ情報の量を増やすことが出来ます。キーマップの`DEBUG`キーコードを使用するか、デバッグモードを有効にする [Command](ja/feature_command.md) 機能を使用するか、以下のコードをキーマップに追加します。
 
@@ -34,6 +28,10 @@ void keyboard_post_init_user(void) {
 }
 ```
 
+## デバッグツール :id=debugging-tools
+
+キーボードのデバッグには2種類のツールがあります。
+
 ### QMK Toolboxを使ったデバッグ
 
 互換性のある環境では、[QMK Toolbox](https://github.com/qmk/qmk_toolbox)を使うことでキーボードからのデバッグメッセージを表示できます。
@@ -42,7 +40,6 @@ void keyboard_post_init_user(void) {
 
 ターミナルベースの方法がお好みですか？PJRC が提供する[hid_listen](https://www.pjrc.com/teensy/hid_listen.html)もデバッグメッセージの表示に使用できます。ビルド済みの実行ファイルは Windows, Linux, MacOS 用が用意されています。
 
-<!-- FIXME: Describe the debugging messages here. -->
 
 ## 独自のデバッグメッセージを送信する
 
