@@ -208,7 +208,7 @@ void pointing_device_init(void) {
     adns_write(REG_Configuration_I, 0x08);
 
     wait_ms(100);
-    print("INIT ENDED\n");
+    dprint("INIT ENDED\n");
 }
 
 int16_t convertDeltaToInt(uint8_t high, uint8_t low){
@@ -261,6 +261,5 @@ void pointing_device_task(void) {
     pointing_device_set_report(report);
     pointing_device_send();
 }
-
 
 
