@@ -25,3 +25,4 @@ UNICODE_ENABLE   = yes # Enable support for arrow keys icon on the second layer.
 COMBO_ENABLE     = yes # Enable combo for special function when using multiple keys at once.
 TAP_DANCE_ENABLE = no  # Enable use multiple tap
 NKRO_ENABLE      = yes
+BACKLIGHT_ENABLE = yes

@@ -14,13 +14,13 @@ QMK (*Quantum Mechanical Keyboard*) היא קהילת קוד פתוח (open sour
 
 ## איך להשיג אותה
 
-אם אתם מתכננים לתרום מיפוי מקשים, מקלדת או יכולת ל QMK, הדבר הקל ביותר הוא  [לעשות פורק לריפו בGithub](https://github.com/qmk/qmk_firmware#fork-destination-box), ולעשות קלון לריפו בסביבה המקומית ושם לבצע את השינויים שלכם, לדחוף אותם ולפתוח  [Pull Request](https://github.com/qmk/qmk_firmware/pulls) מהפורק שלך.
+אם אתם מתכננים לתרום מיפוי מקשים, מקלדת או יכולת ל QMK, הדבר הקל ביותר הוא  [לעשות פורק לריפו בGitHub](https://github.com/qmk/qmk_firmware#fork-destination-box), ולעשות קלון לריפו בסביבה המקומית ושם לבצע את השינויים שלכם, לדחוף אותם ולפתוח  [Pull Request](https://github.com/qmk/qmk_firmware/pulls) מהפורק שלך.
 
 אחרת, אפשר להוריד את הקושחה באופן ישיר ([zip](https://github.com/qmk/qmk_firmware/zipball/master), [tar](https://github.com/qmk/qmk_firmware/tarball/master)), או לשכפל אותה באמצעות git (`git@github.com:qmk/qmk_firmware.git`), או https (`https://github.com/qmk/qmk_firmware.git`).
 
 ## איך לקמפל
 
-לפני שתצליחו לקמפל, תדרשו [להתקין סביבה](getting_started_build_tools.md) עבור פיתוח AVR ו/או ARM. ברגע שהדבר בוצע, תוכלו להריץ פקודת `make` כדי לבנות מקלדת ומיפוי עם התחביר הבא: 
+לפני שתצליחו לקמפל, תדרשו [להתקין סביבה](he-il/getting_started_build_tools.md) עבור פיתוח AVR ו/או ARM. ברגע שהדבר בוצע, תוכלו להריץ פקודת `make` כדי לבנות מקלדת ומיפוי עם התחביר הבא: 
 
     make planck/rev4:default
 
@@ -30,5 +30,5 @@ QMK (*Quantum Mechanical Keyboard*) היא קהילת קוד פתוח (open sour
 
 ## איך להתאים
 
-לQMK יש המון [יכולות](features.md) שאפשר לנווט בהן, וכמות נכבדת של [תיעוד ודוקומנטציה](http://docs.qmk.fm) בה אפשר לנבור. רוב הפיצ׳רים באים לידי ביטוי על ידי שינוי  [מיפוי המקלדת](keymap.md) ושינוי  [קודי המקשים](keycodes.md).
+לQMK יש המון [יכולות](he-il/features.md) שאפשר לנווט בהן, וכמות נכבדת של [תיעוד ודוקומנטציה](http://docs.qmk.fm) בה אפשר לנבור. רוב הפיצ׳רים באים לידי ביטוי על ידי שינוי  [מיפוי המקלדת](he-il/keymap.md) ושינוי  [קודי המקשים](he-il/keycodes.md).
 </div>

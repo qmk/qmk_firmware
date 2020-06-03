@@ -14,6 +14,7 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 #include "ericgebhart.h"
 
 #include "quantum.h"
@@ -59,11 +60,6 @@ uint32_t layer_state_set_keymap (uint32_t state) {
 
 __attribute__ ((weak))
 void led_set_keymap(uint8_t usb_led) {}
-
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-  //ACTION_DEFAULT_LAYER_SET(DVORAK) ;
-}
 
 // check default layerstate to see which layer we are on.
 // if (biton32(layer_state) == _DIABLO) {  --- current layer
@@ -122,8 +118,6 @@ const uint8_t key_translations[][2][2] = {
   [GR(DB_CIRC)] =   {{BP_AT, MOD_BIT(KC_RALT)}, {BP_AT, MOD_BIT(KC_RALT)}},
   [GR(DB_LESS)] =   {{BP_LGIL, MOD_BIT(KC_RALT)}, {BP_LGIL, MOD_BIT(KC_RALT)}},
   [GR(DB_GRTR)] =   {{BP_RGIL, MOD_BIT(KC_RALT)}, {BP_RGIL, MOD_BIT(KC_RALT)}},
-
-
 };
 
 
@@ -275,7 +269,7 @@ xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record-
     // to save on firmware space, since it's limited.
 #ifdef MACROS_ENABLED
   case KC_OVERWATCH: // Toggle's if we hit "ENTER" or "BACKSPACE" to input macros
-    if (record->event.pressed) { userspace_config.is_overwatch ^= 1; eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw); }
+    if (record->event.pressed) { userspace_config.is_overwatch ^= 1; eeprom_update_byte(EECONFIG_USER, userspace_config.raw); }
     return false; break;
 #endif // MACROS_ENABLED
 
@@ -304,7 +298,7 @@ xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record-
       case CLICKY_TOGGLE:
 #ifdef AUDIO_CLICKY
         userspace_config.clicky_enable = clicky_enable;
-        eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw);
+        eeprom_update_byte(EECONFIG_USER, userspace_config.raw);
 #endif
         break;
 #ifdef UNICODE_ENABLE
@@ -390,13 +384,20 @@ void tap_dance_layer_switch (qk_tap_dance_state_t *state, void *user_data) {
     if(on_qwerty())
       layer_invert(SYMB);
     else
-         layer_invert(SYMB_ON_BEPO);
+      layer_invert(SYMB_ON_BEPO);
     break;
   case 2:
     layer_invert(MDIA);
     break;
   case 3:
     layer_invert(LAYERS);
+    break;
+  case 4:
+    if(on_qwerty())
+      layer_invert(KEYPAD);
+    else
+      layer_invert(KEYPAD_ON_BEPO);
+    break;
   default:
     break;
   }

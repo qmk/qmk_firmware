@@ -6,6 +6,7 @@
 #define ONESHOT_TIMEOUT           3000
 #define RETRO_TAPPING
 #define BACKLIGHT_BREATHING
+#define DYNAMIC_MACRO_NO_NESTING
 
 #define MOUSEKEY_INTERVAL         20
 #define MOUSEKEY_DELAY            0

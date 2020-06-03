@@ -63,16 +63,16 @@
 #define gbp A(KC_3)
 
 #define down KC_DOWN
-#define home KC_HOME
-#define end KC_END
+#define home G(KC_LEFT)
+#define end G(KC_RGHT)
 #define up KC_UP
 #define pgdn KC_PGDN
 #define pgup KC_PGUP
 #define left KC_LEFT
 #define rght KC_RGHT
 
-#define tabl S(C(KC_TAB))
-#define tabr C(KC_TAB)
+#define tabl G(S(KC_LBRC))
+#define tabr G(S(KC_RBRC))
 #define fwd G(KC_RBRC)
 #define back G(KC_LBRC)
 #define dtl C(KC_LEFT)
@@ -162,13 +162,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [SYMB] = LAYOUT_planck_grid(
          esc,   n7,   n5,   n3,   n1,   n9,   n8,   n0,   n2,   n4,   n6, dash,
-         del, bsls, hash, astr,  eql, pipe,   at, rprn, lprn,  dlr, ampr,  gbp,
-        caps,  grv, exlm, lbrc, rbrc, circ, tild, rcbr, lcbr, plus, perc, caps,
+         del,   at,  dlr,  eql, lprn, lbrc, rbrc, rprn, astr, hash, plus,  gbp,
+        ____,  grv, pipe, bsls, lcbr, tild, circ, rcbr, ampr, exlm, perc, ____,
         ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
     ),
 
     [MOVE] = LAYOUT_planck_grid(
-         esc, xxxx, slup,  dtl,  dtr, xxxx, xxxx, home,   up,  end, xxxx, xxxx,
+         esc, xxxx, slup,  dtl,  dtr, xxxx, xxxx, home,   up,  end, xxxx, caps,
          del, xxxx, sldn, tabl, tabr, xxxx, xxxx, left, down, rght, xxxx, xxxx,
         ____, xxxx, xxxx, back,  fwd, xxxx, xxxx, pgdn, pgup, xxxx, xxxx, ____,
         ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____

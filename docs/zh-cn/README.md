@@ -13,13 +13,13 @@ QMK (*Quantum Mechanical Keyboard*) 是一个社区维护的开源软件，包�
 
 ## 如何得到它
 
-如果你打算贡献布局, 键盘, 或者其他QMK特性, 一下是最简单的方法：[从Github获得repo分支](https://github.com/qmk/qmk_firmware#fork-destination-box), 并克隆你的repo到本地进行编辑，推送，然后从你的分支打开 [Pull Request](https://github.com/qmk/qmk_firmware/pulls).
+如果你打算贡献布局, 键盘, 或者其他QMK特性, 一下是最简单的方法：[从GitHub获得repo分支](https://github.com/qmk/qmk_firmware#fork-destination-box), 并克隆你的repo到本地进行编辑，推送，然后从你的分支打开 [Pull Request](https://github.com/qmk/qmk_firmware/pulls).
 
 此外, 你也可以直接下载 ([zip](https://github.com/qmk/qmk_firmware/zipball/master), [tar](https://github.com/qmk/qmk_firmware/tarball/master)), 或者从git克隆 (`git@github.com:qmk/qmk_firmware.git`), 或 https (`https://github.com/qmk/qmk_firmware.git`).
 
 ## 如何编译
 
-在你能编译之前, 你需要[部署环境](getting_started_build_tools.md) 用于 AVR or/and ARM 开发。完成后, 你可以使用 `make` 命令来编译一个键盘和布局使用以下命令:
+在你能编译之前, 你需要[部署环境](zh-cn/getting_started_build_tools.md) 用于 AVR or/and ARM 开发。完成后, 你可以使用 `make` 命令来编译一个键盘和布局使用以下命令:
 
     make planck/rev4:default
 
@@ -29,4 +29,4 @@ QMK (*Quantum Mechanical Keyboard*) 是一个社区维护的开源软件，包�
 
 ## 如何定制
 
-QMK 有许多 [特性](features.md)来探索，也有很多 [参考文档](http://docs.qmk.fm) 供您发掘。你可以通过修改 [布局](keymap.md)和[键码](keycodes.md)来利用许多特性。
+QMK 有许多 [特性](zh-cn/features.md)来探索，也有很多 [参考文档](http://docs.qmk.fm) 供您发掘。你可以通过修改 [布局](zh-cn/keymap.md)和[键码](zh-cn/keycodes.md)来利用许多特性。

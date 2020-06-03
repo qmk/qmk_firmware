@@ -4,7 +4,7 @@
 
 ## 基本QMK结构
 
-QMK是[Jun Wako](https://github.com/tmk)的[tmk_keyboard](https://github.com/tmk/tmk_keyboard)工程的一个分叉。经过更改的TMK原始代码放在`tmk` 文件夹中。 QMK增加的新东西可以在 `quantum` 文件夹中找到。 键盘项目可以在 `handwired`（手动飞线） 和 `keyboard`（PCB键盘）这两个文件夹找到。
+QMK是[Jun Wako](https://github.com/tmk)的[tmk_keyboard](https://github.com/tmk/tmk_keyboard)工程的一个分叉。经过更改的TMK原始代码放在`tmk_core` 文件夹中。 QMK增加的新东西可以在 `quantum` 文件夹中找到。 键盘项目可以在 `handwired`（手动飞线） 和 `keyboard`（PCB键盘）这两个文件夹找到。
 
 ### 用户空间结构
 

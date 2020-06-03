@@ -15,6 +15,13 @@
 #    include "backlight.h"
 #endif
 
+#if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
+#    include "rgblight.h"
+extern rgblight_config_t rgblight_config;
+static bool              rgblight_enabled;
+static bool              is_suspended;
+#endif
+
 /** \brief suspend idle
  *
  * FIXME: needs doc
@@ -43,6 +50,14 @@ void suspend_power_down(void) {
     // TODO: figure out what to power down and how
     // shouldn't power down TPM/FTM if we want a breathing LED
     // also shouldn't power down USB
+#if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
+    rgblight_timer_disable();
+    if (!is_suspended) {
+        is_suspended     = true;
+        rgblight_enabled = rgblight_config.enable;
+        rgblight_disable_noeeprom();
+    }
+#endif
 
     suspend_power_down_kb();
     // on AVR, this enables the watchdog for 15ms (max), and goes to
@@ -104,5 +119,12 @@ void suspend_wakeup_init(void) {
 #ifdef BACKLIGHT_ENABLE
     backlight_init();
 #endif /* BACKLIGHT_ENABLE */
+#if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
+    is_suspended = false;
+    if (rgblight_enabled) {
+        rgblight_enable_noeeprom();
+    }
+    rgblight_timer_enable();
+#endif
     suspend_wakeup_init_kb();
 }

@@ -17,25 +17,20 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
 #define VENDOR_ID       0x20A0
 #define PRODUCT_ID      0x422D
+#define DEVICE_VER      0x0200
 
-// TODO: share these strings with usbconfig.h
-// Edit usbconfig.h to change these.
 #define MANUFACTURER    YMDK
-#define PRODUCT         ymd75 / mt84
+#define PRODUCT         YMD75 / MT84
 #define DESCRIPTION     75% Keyboard
 
-/* matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 15
-#define DIODE_DIRECTION ROW2COL
 
+#define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 12
 
 #define RGB_DI_PIN E2
@@ -44,7 +39,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 15
 #define RGBLIGHT_VAL_STEP 18
-
-#define NO_UART 1
-
-#endif

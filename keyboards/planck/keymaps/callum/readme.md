@@ -28,7 +28,7 @@ This is a layout for the grid planck, built with a few ideals in mind:
 
 Layout rendered with [keyboard-layout-editor.com][]:
 
-![](https://callum-oakley.github.io/images/keymap.png)
+![](https://callumoakley.net/images/keymap.png)
 
 The only behaviour not captured in this graphic is: pressing both cmd keys will
 send cmd+ctrl. See [keymap.c][] for details.

@@ -20,11 +20,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #include "ws2812.h"
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #include <util/delay.h>
+
+#define pinmask(pin) (_BV((pin)&0xF))
 
 /*
  * Forward declare internal functions
@@ -33,162 +34,28 @@
  * The length is the number of bytes to send - three per LED.
  */
 
-void ws2812_sendarray(uint8_t *array, uint16_t length);
-void ws2812_sendarray_mask(uint8_t *array, uint16_t length, uint8_t pinmask);
-
-
-#ifdef RGBW_BB_TWI
-
-// Port for the I2C
-#    define I2C_DDR DDRD
-#    define I2C_PIN PIND
-#    define I2C_PORT PORTD
-
-// Pins to be used in the bit banging
-#    define I2C_CLK 0
-#    define I2C_DAT 1
-
-#    define I2C_DATA_HI()           \
-        I2C_DDR &= ~(1 << I2C_DAT); \
-        I2C_PORT |= (1 << I2C_DAT);
-#    define I2C_DATA_LO()          \
-        I2C_DDR |= (1 << I2C_DAT); \
-        I2C_PORT &= ~(1 << I2C_DAT);
-
-#    define I2C_CLOCK_HI()          \
-        I2C_DDR &= ~(1 << I2C_CLK); \
-        I2C_PORT |= (1 << I2C_CLK);
-#    define I2C_CLOCK_LO()         \
-        I2C_DDR |= (1 << I2C_CLK); \
-        I2C_PORT &= ~(1 << I2C_CLK);
-
-#    define I2C_DELAY 1
-
-void I2C_WriteBit(unsigned char c) {
-    if (c > 0) {
-        I2C_DATA_HI();
-    } else {
-        I2C_DATA_LO();
-    }
-
-    I2C_CLOCK_HI();
-    _delay_us(I2C_DELAY);
-
-    I2C_CLOCK_LO();
-    _delay_us(I2C_DELAY);
-
-    if (c > 0) {
-        I2C_DATA_LO();
-    }
-
-    _delay_us(I2C_DELAY);
-}
-
-// Inits bitbanging port, must be called before using the functions below
-//
-void I2C_Init(void) {
-    I2C_PORT &= ~((1 << I2C_DAT) | (1 << I2C_CLK));
-
-    I2C_CLOCK_HI();
-    I2C_DATA_HI();
-
-    _delay_us(I2C_DELAY);
-}
-
-// Send a START Condition
-//
-void I2C_Start(void) {
-    // set both to high at the same time
-    I2C_DDR &= ~((1 << I2C_DAT) | (1 << I2C_CLK));
-    _delay_us(I2C_DELAY);
-
-    I2C_DATA_LO();
-    _delay_us(I2C_DELAY);
-
-    I2C_CLOCK_LO();
-    _delay_us(I2C_DELAY);
-}
-
-// Send a STOP Condition
-//
-void I2C_Stop(void) {
-    I2C_CLOCK_HI();
-    _delay_us(I2C_DELAY);
-
-    I2C_DATA_HI();
-    _delay_us(I2C_DELAY);
-}
-
-// write a byte to the I2C slave device
-//
-unsigned char I2C_Write(unsigned char c) {
-    for (char i = 0; i < 8; i++) {
-        I2C_WriteBit(c & 128);
-
-        c <<= 1;
-    }
-
-    I2C_WriteBit(0);
-    _delay_us(I2C_DELAY);
-    _delay_us(I2C_DELAY);
-
-    // _delay_us(I2C_DELAY);
-    // return I2C_ReadBit();
-    return 0;
-}
-
-#endif
+static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t masklo, uint8_t maskhi);
 
 // Setleds for standard RGB
-void inline ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
-    // ws2812_setleds_pin(ledarray,leds, _BV(ws2812_pin));
-    ws2812_setleds_pin(ledarray, leds, _BV(RGB_DI_PIN & 0xF));
+void inline ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds) {
+    // wrap up usage of RGB_DI_PIN
+    ws2812_setleds_pin(ledarray, number_of_leds, RGB_DI_PIN);
 }
 
-void inline ws2812_setleds_pin(LED_TYPE *ledarray, uint16_t leds, uint8_t pinmask) {
-    // ws2812_DDRREG |= pinmask; // Enable DDR
-    // new universal format (DDR)
-    _SFR_IO8((RGB_DI_PIN >> 4) + 1) |= pinmask;
+void ws2812_setleds_pin(LED_TYPE *ledarray, uint16_t number_of_leds, uint8_t pin) {
+    DDRx_ADDRESS(RGB_DI_PIN) |= pinmask(pin);
 
-    ws2812_sendarray_mask((uint8_t *)ledarray, leds + leds + leds, pinmask);
-    _delay_us(50);
-}
+    uint8_t masklo = ~(pinmask(pin)) & PORTx_ADDRESS(pin);
+    uint8_t maskhi = pinmask(pin) | PORTx_ADDRESS(pin);
 
-// Setleds for SK6812RGBW
-void inline ws2812_setleds_rgbw(LED_TYPE *ledarray, uint16_t leds) {
-#ifdef RGBW_BB_TWI
-    uint8_t sreg_prev, twcr_prev;
-    sreg_prev = SREG;
-    twcr_prev = TWCR;
-    cli();
-    TWCR &= ~(1 << TWEN);
-    I2C_Init();
-    I2C_Start();
-    I2C_Write(0x84);
-    uint16_t datlen = leds << 2;
-    uint8_t  curbyte;
-    uint8_t *data = (uint8_t *)ledarray;
-    while (datlen--) {
-        curbyte = *data++;
-        I2C_Write(curbyte);
-    }
-    I2C_Stop();
-    SREG = sreg_prev;
-    TWCR = twcr_prev;
-#endif
+    ws2812_sendarray_mask((uint8_t *)ledarray, number_of_leds * sizeof(LED_TYPE), masklo, maskhi);
 
-    // ws2812_DDRREG |= _BV(ws2812_pin); // Enable DDR
-    // new universal format (DDR)
-    _SFR_IO8((RGB_DI_PIN >> 4) + 1) |= _BV(RGB_DI_PIN & 0xF);
-
-    ws2812_sendarray_mask((uint8_t *)ledarray, leds << 2, _BV(RGB_DI_PIN & 0xF));
-
-#ifndef RGBW_BB_TWI
+#ifdef RGBW
     _delay_us(80);
+#else
+    _delay_us(50);
 #endif
 }
-
-void ws2812_sendarray(uint8_t *data, uint16_t datlen) { ws2812_sendarray_mask(data, datlen, _BV(RGB_DI_PIN & 0xF)); }
 
 /*
   This routine writes an array of bytes with RGB values to the Dataout pin
@@ -251,14 +118,9 @@ void ws2812_sendarray(uint8_t *data, uint16_t datlen) { ws2812_sendarray_mask(da
 #define w_nop8 w_nop4 w_nop4
 #define w_nop16 w_nop8 w_nop8
 
-void inline ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t maskhi) {
-    uint8_t curbyte, ctr, masklo;
-    uint8_t sreg_prev;
+static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t masklo, uint8_t maskhi) {
+    uint8_t curbyte, ctr, sreg_prev;
 
-    // masklo  =~maskhi&ws2812_PORTREG;
-    // maskhi |=        ws2812_PORTREG;
-    masklo = ~maskhi & _SFR_IO8((RGB_DI_PIN >> 4) + 2);
-    maskhi |= _SFR_IO8((RGB_DI_PIN >> 4) + 2);
     sreg_prev = SREG;
     cli();
 
@@ -321,7 +183,7 @@ void inline ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t maskhi
                      "       dec   %0    \n\t"  //  '1' [+2] '0' [+2]
                      "       brne  loop%=\n\t"  //  '1' [+3] '0' [+4]
                      : "=&d"(ctr)
-                     : "r"(curbyte), "I"(_SFR_IO_ADDR(_SFR_IO8((RGB_DI_PIN >> 4) + 2))), "r"(maskhi), "r"(masklo));
+                     : "r"(curbyte), "I"(_SFR_IO_ADDR(PORTx_ADDRESS(RGB_DI_PIN))), "r"(maskhi), "r"(masklo));
     }
 
     SREG = sreg_prev;

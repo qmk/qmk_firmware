@@ -41,7 +41,7 @@ uint8_t host_keyboard_leds(void) {
 }
 
 led_t host_keyboard_led_state(void) {
-    if (!driver) return (led_t) {0};
+    if (!driver) return (led_t){0};
     return (led_t)((*driver->keyboard_leds)());
 }
 

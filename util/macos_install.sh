@@ -21,9 +21,11 @@ if ! brew --version >/dev/null 2>&1; then
 	done
 fi
 
-brew tap osx-cross/avr
-brew tap PX4/homebrew-px4
+# All macOS dependencies are managed in the homebrew package:
+#     https://github.com/qmk/homebrew-qmk
 brew update
-brew install avr-gcc@8 gcc-arm-none-eabi dfu-programmer avrdude clang-format dfu-util python3
+brew install qmk/qmk/qmk
 brew link --force avr-gcc@8
+brew link --force arm-gcc-bin@8
+
 pip3 install -r "${util_dir}/../requirements.txt"

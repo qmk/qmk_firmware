@@ -320,7 +320,8 @@ static void send_mouse(report_mouse_t *report) {
 #endif
 }
 
-static void send_system(uint16_t data) { /* not supported */ }
+static void send_system(uint16_t data) { /* not supported */
+}
 
 static void send_consumer(uint16_t data) {
 #ifdef EXTRAKEY_ENABLE

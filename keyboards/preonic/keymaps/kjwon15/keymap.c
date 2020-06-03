@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | SF/EN|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Enter| Ctrl | GUI  | Alt  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
+ * | Enter| Ctrl | GUI  | Alt  |Lower |Mouse |Space |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_preonic_grid(
@@ -160,30 +160,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT_preonic_grid(
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  \
-  KC_LOCK, RESET,   CK_TOGG, MU_MOD,  QWERTY,  PURE, BLANK,  KC_WH_D, KC_MS_U, KC_WH_U, _______, KC_DEL,  \
+  KC_LOCK, RESET,   CK_TOGG, MU_MOD,  QWERTY,  PURE,    BLANK,   KC_WH_D, KC_MS_U, KC_WH_U, _______, KC_DEL,  \
   _______, AU_ON,   AU_OFF,  KC_BTN2, KC_BTN1, AG_NORM, AG_SWAP, KC_MS_L, KC_MS_D, KC_MS_R, _______, KC_ACL0, \
   _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, KC_ACL1, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_ACL2  \
 ),
 
-/* Mouse
+/* Mouse / LED
  * ,-----------------------------------------------------------------------------------.
  * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      | WHL_U|Mclick|      |      |      | LCTL | MS_U | WHL_U|      |  Del |
+ * |RGB_TO|      | WHL_U|Mclick|      | HU_D | HU_I | LCTL | MS_U | WHL_U|      |  Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      | WHL_D|Rclick|Lclick|      |      | MS_L | MS_D | MS_R |      | ACL0 |
+ * |RGB_MO|      | WHL_D|Rclick|Lclick| SA_D | SA_I | MS_L | MS_D | MS_R |      | ACL0 |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |      | WHL_D| WHL_L| WHL_R|      | ACL1 |
+ * |RGB_MR|      |      |      |      | VA_D | VA_I | WHL_D| WHL_L| WHL_R|      | ACL1 |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      | ACL2 |
  * `-----------------------------------------------------------------------------------'
  */
 [_MOUSE] = LAYOUT_preonic_grid(
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  \
-  _______, _______, KC_WH_U, KC_BTN3, _______, _______, _______, KC_LCTL, KC_MS_U, KC_WH_U, _______, KC_DEL,  \
-  _______, _______, KC_WH_D, KC_BTN2, KC_BTN1, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, KC_ACL0, \
-  _______, _______, _______, _______, _______, _______, _______, KC_WH_D, KC_WH_L, KC_WH_R, _______, KC_ACL1, \
+  RGB_TOG, _______, KC_WH_U, KC_BTN3, _______, RGB_HUD, RGB_HUI, KC_LCTL, KC_MS_U, KC_WH_U, _______, KC_DEL,  \
+  RGB_MOD, _______, KC_WH_D, KC_BTN2, KC_BTN1, RGB_SAD, RGB_SAI, KC_MS_L, KC_MS_D, KC_MS_R, _______, KC_ACL0, \
+  RGB_RMOD,_______, _______, _______, _______, RGB_VAD, RGB_VAI, KC_WH_D, KC_WH_L, KC_WH_R, _______, KC_ACL1, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_ACL2  \
   )
 

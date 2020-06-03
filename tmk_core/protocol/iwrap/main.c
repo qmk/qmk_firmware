@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "iwrap.h"
 #ifdef PROTOCOL_VUSB
 #    include "vusb.h"
-#    include "usbdrv.h"
+#    include <usbdrv/usbdrv.h>
 #endif
 #include "uart.h"
 #include "suart.h"
@@ -393,7 +393,7 @@ static uint8_t key2asc(uint8_t key) {
         case KC_BSLASH:
             return '\\';
         case KC_NONUS_HASH:
-            return '\\';
+            return '#';
         case KC_SCOLON:
             return ';';
         case KC_QUOTE:
