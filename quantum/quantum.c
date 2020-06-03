@@ -175,7 +175,7 @@ uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache) {
 bool pre_process_record_quantum(keyrecord_t *record) {
     if (!(
 #ifdef COMBO_ENABLE
-        process_combo(get_record_keycode(record, false), record) &&
+        process_combo(get_record_keycode(record, true), record) &&
 #endif
         true)) {
         return false;

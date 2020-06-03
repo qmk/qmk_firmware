@@ -273,7 +273,7 @@ void matrix_scan_combo(void) {
     uint16_t time = COMBO_TERM;
 
 #if defined(COMBO_TERM_PER_COMBO) || defined(COMBO_MUST_HOLD_MODS)
-    if (prepared_combo) {
+    if (COMBO_PREPARED) {
 #   if defined(COMBO_TERM_PER_COMBO)
         time = get_combo_term(prepared_combo_index, prepared_combo);
 #   elif defined(COMBO_MUST_HOLD_MODS)
