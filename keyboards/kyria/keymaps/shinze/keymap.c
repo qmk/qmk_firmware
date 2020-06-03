@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |   W    |   A  |   U  |  I   |   E  |   ,  |                              |   C  |   T  |   S  |   R  |   N  |   M    |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LShift |   À  |   Y  |   X  |   .  |   K  |LShift|LShift|  |LShift|LShift|   ’  |   Q  |   G  |   H  |   F  |   Ç    |
+ * | LShift |   À  |   Y  |   X  |   .  |   K  |  SPC |LShift|  |LShift|LShift|   ’  |   Q  |   G  |   H  |   F  |   Ç    |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        | CTRL | Alt  | Enter| Space| Esc  |  | Enter| Space| Tab  | Bksp | AltGr|
  *                        |      |      | CMD  | Lower| Raise|  | Lower| Raise|      |      |      |
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_LOWER] = LAYOUT(
-      BP_DOL , BP_DQOT, BP_LGIL, BP_RGIL, BP_LPRN, BP_RPRN,                                       BP_AT, BP_PLUS, BP_MINS, BP_SLASH, BP_ASTR, BP_EQL,
+      BP_DOL , BP_DQUO, BP_LGIL, BP_RGIL, BP_LPRN, BP_RPRN,                                       BP_AT, BP_PLUS, BP_MINS, BP_SLASH, BP_ASTR, BP_EQL,
       BP_HASH, BP_1,    BP_2,    BP_3,    BP_4,    BP_5,                                          BP_6,    BP_7,     BP_8,    BP_9,    BP_0,   BP_DEGR,
       BP_PERC, _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______, _______, _______, BP_GRV,
                                  _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______
@@ -115,8 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Adjust Layer: Function keys, RGB
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        | F1   |  F2  | F3   | F4   | F5   |
- *                       | F6   | F7   |  F8  | F9   | F10  |        |
+ * |        | F1   |  F2  | F3   | F4   | F5   |                              | F6   | F7   |  F8  | F9   | F10  |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        | TOG  | SAI  | HUI  | VAI  | MOD  |                              |      |      |      | F11  | F12  |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
