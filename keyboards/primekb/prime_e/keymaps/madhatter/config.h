@@ -1,3 +1,5 @@
+#pragma once
+
 #define TAPPING_TERM 150
 
 #undef PRODUCT
