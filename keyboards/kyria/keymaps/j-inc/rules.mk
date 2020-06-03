@@ -4,4 +4,4 @@ RGBLIGHT_ENABLE = yes      # Enable keyboard RGB underglow
 WPM_ENABLE = yes
 MOUSEKEY_ENABLE = no
 BOOTMAGIC_ENABLE = no
-EXTRAFLAGS += -flto
+LTO_ENABLE = yes
