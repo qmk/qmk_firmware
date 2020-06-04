@@ -159,7 +159,17 @@ The available keycodes for audio are:
 * `AU_OFF` - Turn Audio Feature off
 * `AU_TOG` - Toggle Audio Feature state
 
-!> These keycodes turn all of the audio functionality on and off.  Turning it off means that audio feedback, audio clicky, music mode, etc. are disabled, completely. 
+!> These keycodes turn all of the audio functionality on and off.  Turning it off means that audio feedback, audio clicky, music mode, etc. are disabled, completely.
+
+## Tempo
+the 'speed' at which SONGs are played is dictated by the set Tempo, which is measured in beats-per-minute. Note lenghts are defined relative to that.
+The initial/default tempo is set to 120 bpm, but can be configured by setting `TEMPO_DEFAULT` in `config.c`.
+There is also a set of functions to modify the tempo from within the user/keymap code:
+```c
+void audio_set_tempo(uint8_t tempo);
+void audio_increase_tempo(uint8_t tempo_change);
+void audio_decrease_tempo(uint8_t tempo_change);
+```
 
 ## ARM Audio Volume
 
