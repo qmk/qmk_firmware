@@ -76,7 +76,7 @@ A configuration example for the STM32F103C8 would be:
 ``` c
 // mcuconf.h:
 #define STM32_PWM_USE_TIM1                  TRUE
-#define STM32_GPT_USE_TIM3                  TRUE
+#define STM32_GPT_USE_TIM4                  TRUE
 ```
 
 If we now target pin A8, looking through the data-sheet of the STM32F103C8, for the timers and alternate functions
@@ -91,6 +91,7 @@ with all this information, the configuration would contain these lines:
 #define AUDIO_PIN A8
 #define AUDIO_PWM_DRIVER PWMD1
 #define AUDIO_PWM_CHANNEL 1
+#define AUDIO_STATE_TIMER GPTD4
 ```
 
 ChibiOS uses GPIOv1 for the F103, which only knows of one alternate function.

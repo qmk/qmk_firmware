@@ -133,7 +133,7 @@ void audio_driver_initialize(void) {
     pwmEnablePeriodicNotification(&AUDIO_PWM_DRIVER);  // enable pwm callbacks
     pwmEnableChannelNotification(&AUDIO_PWM_DRIVER, AUDIO_PWM_CHANNEL - 1);
 
-    gptStart(&GPTD6, &gptCFG);
+    gptStart(&AUDIO_STATE_TIMER, &gptCFG);
 }
 
 void audio_driver_start(void) {
@@ -141,13 +141,13 @@ void audio_driver_start(void) {
     channel_1_start();
 
     if (playing_note || playing_melody) {
-        gptStartContinuous(&GPTD6, 64);
+        gptStartContinuous(&AUDIO_STATE_TIMER, 64);
     }
 }
 
 void audio_driver_stop(void) {
     channel_1_stop();
-    gptStopTimer(&GPTD6);
+    gptStopTimer(&AUDIO_STATE_TIMER);
 }
 
 /* a regular timer task, that checks the note to be currently played

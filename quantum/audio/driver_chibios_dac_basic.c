@@ -44,6 +44,10 @@
 #    define AUDIO_PIN_ALT -1
 #endif
 
+#if !defined(AUDIO_STATE_TIMER)
+#    define AUDIO_STATE_TIMER GPTD8
+#endif
+
 // square-wave
 static const dacsample_t dac_buffer_1[AUDIO_DAC_BUFFER_SIZE] = {
     // First half is max, second half is 0
@@ -67,9 +71,9 @@ GPTConfig gpt7cfg1 = {.frequency = AUDIO_DAC_SAMPLE_RATE,
                       .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
                       .dier      = 0U};
 
-static void gpt_cb8(GPTDriver *gptp);
-GPTConfig   gpt8cfg1 = {.frequency = 10,
-                      .callback  = gpt_cb8,
+static void gpt_audio_state_cb(GPTDriver *gptp);
+GPTConfig   gptStateUpdateCfg = {.frequency = 10,
+                      .callback  = gpt_audio_state_cb,
                       .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
                       .dier      = 0U};
 
@@ -133,7 +137,7 @@ void         channel_2_set_frequency(float freq) {
 }
 float channel_2_get_frequency(void) { return channel_2_frequency; }
 
-static void gpt_cb8(GPTDriver *gptp) {
+static void gpt_audio_state_cb(GPTDriver *gptp) {
     if (audio_update_state()) {
 #if defined(AUDIO_PIN_ALT_AS_NEGATIVE)
         // one piezo/speaker connected to both audio pins, the generated square-waves are inverted
@@ -198,7 +202,7 @@ void audio_driver_initialize() {
     DACD2.params->dac->CR &= ~DAC_CR_BOFF2;
 
     // start state-updater
-    gptStart(&GPTD8, &gpt8cfg1);
+    gptStart(&AUDIO_STATE_TIMER, &gptStateUpdateCfg);
 }
 
 void audio_driver_stop(void) {
@@ -216,7 +220,7 @@ void audio_driver_stop(void) {
         dacStopConversion(&DACD2);
         dacPutChannelX(&DACD2, 0, AUDIO_DAC_OFF_VALUE);
     }
-    gptStopTimer(&GPTD8);
+    gptStopTimer(&AUDIO_STATE_TIMER);
 }
 
 void audio_driver_start(void) {
@@ -226,5 +230,5 @@ void audio_driver_start(void) {
     if ((AUDIO_PIN == A5) || (AUDIO_PIN_ALT == A5)) {
         dacStartConversion(&DACD2, &dac_conv_grp_ch2, (dacsample_t *)dac_buffer_2, AUDIO_DAC_BUFFER_SIZE);
     }
-    gptStartContinuous(&GPTD8, 2U);
+    gptStartContinuous(&AUDIO_STATE_TIMER, 2U);
 }
