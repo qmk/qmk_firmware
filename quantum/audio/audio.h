@@ -282,9 +282,6 @@ bool audio_update_state(void);
 //            /____/           /____/
 // legacy and back-warts compatibility stuff
 
-#define PLAY_NOTE_ARRAY(note_array, note_repeat, deprecated_arg)                  \
-    audio_play_melody(&note_array, NOTE_ARRAY_SIZE((note_array)), (note_repeat)); \
-    _Pragma("message \"'PLAY_NOTE_ARRAY' macro is deprecated\"")
 
 // LEGACY defines - TODO: remove and replace these in all keyboards using them
 #ifdef A4_AUDIO
