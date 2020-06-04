@@ -1,8 +1,7 @@
 MOUSEKEY_ENABLE = yes       # Mouse keys
-TAP_DANCE_ENABLE = yes
 
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
-OLED_DRIVER_ENABLE = no
+OLED_DRIVER_ENABLE = yes
 LTO_ENABLE = yes
 
 # If you use connection the Rhymestone, please enable RS_EXTRA_LED

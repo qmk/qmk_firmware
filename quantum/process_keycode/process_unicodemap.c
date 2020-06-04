@@ -43,7 +43,7 @@ bool process_unicodemap(uint16_t keycode, keyrecord_t *record) {
         if (code > 0x10FFFF || (code > 0xFFFF && input_mode == UC_WIN)) {
             // Character is out of range supported by the platform
             unicode_input_cancel();
-        } else if (code > 0xFFFF && input_mode == UC_OSX) {
+        } else if (code > 0xFFFF && input_mode == UC_MAC) {
             // Convert to UTF-16 surrogate pair on Mac
             code -= 0x10000;
             uint32_t lo = code & 0x3FF, hi = (code & 0xFFC00) >> 10;
