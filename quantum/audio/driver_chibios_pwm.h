@@ -31,3 +31,9 @@
 // default: STM32F303CC PA8+TIM1_CH1 -> 6
 #    define AUDIO_PWM_PAL_MODE 6
 #endif
+
+#if !defined(AUDIO_STATE_TIMER)
+// timer used to trigger updates in the audio-system, configured/enabled in chibios mcuconf.
+// Tim6 is the default for "larger" STMs, smaller ones might not have this one (enabled) and need to switch to a different one (e.g.: STM32F103 has only Tim1-Tim4)
+#    define AUDIO_STATE_TIMER GPTD6
+#endif

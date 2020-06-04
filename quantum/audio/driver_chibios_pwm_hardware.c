@@ -113,7 +113,7 @@ void audio_driver_initialize(void) {
     palSetLineMode(AUDIO_PIN, PAL_STM32_MODE_ALTERNATE | PAL_STM32_ALTERNATE(AUDIO_PWM_PAL_MODE));
 #endif
 
-    gptStart(&GPTD6, &gptCFG);
+    gptStart(&AUDIO_STATE_TIMER, &gptCFG);
 }
 
 void audio_driver_start(void) {
@@ -121,13 +121,13 @@ void audio_driver_start(void) {
     channel_1_start();
 
     if (playing_note || playing_melody) {
-        gptStartContinuous(&GPTD6, 64);
+        gptStartContinuous(&AUDIO_STATE_TIMER, 64);
     }
 }
 
 void audio_driver_stop(void) {
     channel_1_stop();
-    gptStopTimer(&GPTD6);
+    gptStopTimer(&AUDIO_STATE_TIMER);
 }
 
 /* a regular timer task, that checks the note to be currently played
