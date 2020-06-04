@@ -30,7 +30,7 @@ void keyboard_post_init_user(void) {
 
 ## デバッグツール :id=debugging-tools
 
-キーボードのデバッグには2種類のツールがあります。
+キーボードのデバッグに使えるツールは2つあります。
 
 ### QMK Toolboxを使ったデバッグ
 
