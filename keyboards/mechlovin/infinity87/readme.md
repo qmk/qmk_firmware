@@ -2,7 +2,7 @@
 
 ![infinity87](https://i.imgur.com/QuK1EnN.png)
 
-A replacement PCB for TKL keyboard. A87 form factor,south-facing stabilisers.
+A replacement PCB for TKL keyboard. A87 form factor,south-facing stabilisers.  
 
 * Keyboard Maintainer: [Team Mechlovin'](https://github.com/mechlovin)
 * Hardware Supported: Infinity87 rev.1 (1.6mm & 1.2mm).
