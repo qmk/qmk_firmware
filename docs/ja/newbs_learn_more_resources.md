@@ -10,27 +10,33 @@
 
 ## QMK に関するリソース:
 
-* [Thomas Baart's QMK Basics Blog](https://thomasbaart.nl/category/mechanical-keyboards/firmware/qmk/qmk-basics/) – A user-created blog covering the basics of how to use QMK Firmware, as seen from a new user's perspective.
+### 英語 :id=english-resources-qmk
+
+* [Thomas Baart's QMK Basics Blog](https://thomasbaart.nl/category/mechanical-keyboards/firmware/qmk/qmk-basics/) – 新規ユーザーの視点から見た QMK ファームウェアの使い方の基本を網羅した、ユーザー作成のブログ。
+
+### 日本語 :id=japanese-resources-qmk
+
+_日本語のリソース情報を募集中です。_
 
 ## コマンドラインに関するリソース:
 
-### 英語
+### 英語 :id=english-resources-cli
 
 * [Good General Tutorial on Command Line](https://www.codecademy.com/learn/learn-the-command-line)
 
-### 日本語
+### 日本語 :id=japanese-resources-cli
 
 _日本語のリソース情報を募集中です。_
 
 ## Git に関するリソース:
 
-### 英語
+### 英語 :id=english-resources-git
 
 * [Great General Tutorial](https://www.codecademy.com/learn/learn-git)
 * [Flight Rules For Git](https://github.com/k88hudson/git-flight-rules)
 * [Git Game To Learn From Examples](https://learngitbranching.js.org/)
 
-### 日本語
+### 日本語 :id=japanese-resources-git
 
 _日本語のリソース情報を募集中です。_
 
