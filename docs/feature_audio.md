@@ -87,8 +87,8 @@ STM32F1xx have to fall back to using PWM, but can do so in hardware; but again o
 
 `AUDIO_DRIVER = pwm_hardware` in `rules.mk`, and in `config.h`:
 `#define AUDIO_PIN A8`
-`#define AUDIO_PWM_TIMER 1`
-`#define AUDIO_PWM_TIMERCHANNEL 1`
+`#define AUDIO_PWM_DRIVER PWMD1`
+`#define AUDIO_PWM_CHANNEL 1`
 (as well as `#define AUDIO_PWM_PAL_MODE 42` if you are on STM32F2 or larger)
 which will use Timer 1 to directly drive pin PA8 through the PWM hardware (TIM1_CH1 = PA8).
 Should you want to use the pwm-hardware on another pin and timer - be ready to dig into the STM32 data-sheet to pick the right TIMx_CHy and pin-alternate function.
