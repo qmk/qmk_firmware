@@ -1,5 +1,5 @@
 /*
-Copyright 2019 MechMerlin
+Copyright 2020 The Mad Noodle (Jesse Leventhal)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,33 +20,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x5053 /* PS */
-#define PRODUCT_ID      0x4253
+#define VENDOR_ID       0xFEED
+#define PRODUCT_ID      0x1701
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Percent Studio
-#define PRODUCT         Booster
-#define DESCRIPTION     Custom programmable numpad
+#define MANUFACTURER    The Mad Noodle
+#define PRODUCT         Noodle Pad v1
+#define DESCRIPTION     Noodle Pad macro keypad
 
 /* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 4
+#define MATRIX_ROWS 3
+#define MATRIX_COLS 3
 
-#define MATRIX_ROW_PINS { D1, D6, D7, B4, B5 }
-#define MATRIX_COL_PINS { C7, D4, D2, D0 }
+/* NCC-1701-KB PCB default pin-out */
+#define MATRIX_ROW_PINS { D4, D6, D7 }
+#define MATRIX_COL_PINS { B4, B5, B6 }
+#define UNUSED_PINS
 
-#define BACKLIGHT_PIN B7
-#define BACKLIGHT_LEVELS 3
+/* RGB BackLight */
+#define RGB_DI_PIN B7
+#define RGBLED_NUM 4
+#define RGBLIGHT_SLEEP
+#define RGBLIGHT_ANIMATIONS
+/*Encoders */
+#define ENCODERS_PAD_A { D0 }
+#define ENCODERS_PAD_B { D1 }
 
-#define DIODE_DIRECTION COL2ROW
 
-#define RGB_DI_PIN E2
-#ifdef RGB_DI_PIN
-    #define RGBLED_NUM 10
-    #define RGBLIGHT_HUE_STEP 8
-    #define RGBLIGHT_SAT_STEP 8
-    #define RGBLIGHT_VAL_STEP 8
-    #define RGBLIGHT_LIMIT_VAL 255
-    #define RGBLIGHT_SLEEP
-    #define RGBLIGHT_ANIMATIONS
-#endif
-
+/* COL2ROW or ROW2COL */
+#define DIODE_DIRECTION ROW2COL
