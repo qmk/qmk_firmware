@@ -20,12 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
+#define VENDOR_ID       0x4B42
+#define PRODUCT_ID      0x3658
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    You
 #define PRODUCT         kbd6x
-#define DESCRIPTION     A custom keyboard
+#define DESCRIPTION     Dual USB-C Tsangan Hot Swap PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 5
