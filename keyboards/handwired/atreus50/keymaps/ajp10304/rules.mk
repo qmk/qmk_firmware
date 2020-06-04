@@ -7,4 +7,3 @@ OPT_DEFS += -DBOOTLOADER_SIZE=512
 
 BOOTLOADER = halfkay
 
-SRC = keymap.c
