@@ -31,6 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+#ifdef ENCODER_ENABLE
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
@@ -41,9 +42,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
     else if (index == 1) {
         if (clockwise) {
-            tap_code(KC_PGDN);
+            tap_code(KC_LEFT);
         } else {
-            tap_code(KC_PGUP);
+            tap_code(KC_RGHT);
         }
     }
     else if (index == 2) {
@@ -54,3 +55,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
     }
 }
+
+  #endif
