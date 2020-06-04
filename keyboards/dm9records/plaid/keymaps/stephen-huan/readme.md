@@ -1,1 +1,1 @@
-# stephen-huan's keymap for Plaida
+# stephen-huan's keymap for Plaid
