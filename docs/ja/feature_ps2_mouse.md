@@ -7,13 +7,13 @@
 
 PS/2 マウス (例えばタッチパッドあるいはトラックポイント)を複合デバイスとしてキーボードに接続することができます。
 
-トラックポイントを接続するには、トラックポイントモジュール (つまり、Thinkpad キーボードから収穫)を取得し、モジュールの各ピンの機能を特定し、コントローラとトラックポイントモジュールの間に必要な回路を作成する必要があります。詳細については、Deskthority Wiki の[トラックポイントハードウェア](https://deskthority.net/wiki/TrackPoint_Hardware)ページを参照してください。
+トラックポイントを接続するには、トラックポイントモジュールを入手し (つまり、Thinkpad キーボードからキーボードから部品を取って)、モジュールの各ピンの機能を特定し、コントローラとトラックポイントモジュールの間に必要な回路を作成する必要があります。詳細については、Deskthority Wiki の[トラックポイントハードウェア](https://deskthority.net/wiki/TrackPoint_Hardware)ページを参照してください。
 
-PS/2 デバイスを接続するために3つの利用可能なモードがあります: USART (最善) または interrupts (次善) または busywait (非推奨)。
+PS/2 デバイスの接続は、USART(最善)、割り込み(次善)、 または busywait(非推奨)の3つのやり方が有ります。
 
-## トラックポイントとコントロール間の回路 :id=the-circuitry-between-trackpoint-and-controller
+## トラックポイントとコントローラ間の回路 :id=the-circuitry-between-trackpoint-and-controller
 
-動作させるには、DATA と回線5+、CLK と回線5+ の間の2つの回線に、4.7K の抵抗が必要です。
+動作させるには、DATA と CLK のふたつのラインを 4.7k の抵抗で 5V にプルアップしてやる必要があります。
 
 ```
           DATA ----------+--------- PIN
@@ -30,7 +30,7 @@ MODULE    5+  --------+--+--------- PWR   CONTROLLER
 
 ## Busywait バージョン :id=busywait-version
 
-注意: これは非推奨です。ギクシャクした動きや、未送信の入力が発生するかもしれません。可能であれば、interrupt または USART バージョンを使ってください。
+注意: これは非推奨です。ギクシャクした動きや、未送信の入力が発生するかもしれません。可能であれば、割り込みまたは USART バージョンを使ってください。
 
 rules.mk で:
 
@@ -54,9 +54,9 @@ PS2_USE_BUSYWAIT = yes
 #endif
 ```
 
-## Interrupt Version :id=interrupt-version
+## 割り込みバージョン :id=interrupt-version
 
-以下の例はクロックのためにD2を、データのために D5 を使います。クロックには任意の INT あるいは PCINT ピンを、データには任意のピンを使うことができます。
+以下の例はクロックのために D2 を、データのために D5 を使います。クロックには任意の INT あるいは PCINT ピンを、データには任意のピンを使うことができます。
 
 rules.mk で:
 
@@ -94,7 +94,7 @@ PS2_USE_INT = yes
 
 ## USART バージョン :id=usart-version
 
-ATMega32u4 で USART を使うには、クロックのために PD5 を、データのために PD2 を使う必要があります。それらのいずれかが利用できない場合は、interrupt バージョンを使う必要があります。
+ATMega32u4 で USART を使うには、クロックのために PD5 を、データのために PD2 を使う必要があります。それらのいずれかが利用できない場合は、割り込みバージョンを使う必要があります。
 
 rules.mk で:
 
@@ -153,7 +153,7 @@ PS2_USE_USART = yes
 
 ### PS/2 マウス機能 :id=ps2-mouse-features
 
-これらは PS/2 マウスプロトコルによってサポートされる設定を有効にします。
+以下の PS/2 マウスプロトコルによってサポートされる設定を有効にします。
 
 ```c
 /* デフォルトのストリームモードの代わりにリモートモードを使います (リンクを見てください) */
@@ -172,7 +172,7 @@ PS2_USE_USART = yes
 #define PS2_MOUSE_INIT_DELAY 1000 /* Default */
 ```
 
-以下の関数を ps2_mouse.h から呼び出すこともできます
+ps2_mouse.h をインクルードして、以下の関数を呼び出すこともできます。
 
 ```c
 void ps2_mouse_disable_data_reporting(void);
@@ -194,7 +194,7 @@ void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate);
 
 ### 細かい調整 :id=fine-control
 
-マウスの感度と速度を変更するために以下の定義を使います。
+マウスの感度と速度を変更するには以下の定義を使います。
 注意: 同じ効果のために `ps2_mouse_set_resolution` も使うことができます (ほとんどのタッチパッドではサポートされません)。
 
 ```c
@@ -206,7 +206,7 @@ void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate);
 ### スクロールボタン :id=scroll-button
 
 トラックポイントを使っている場合は、スクロールのためにそれを使えるようにしたいでしょう。
-押された時に移動の代わりにスクロールさせる "scroll button/s" を有効にすることができます。
+押された時にマウスを移動させる代わりにスクロールさせる「スクロールボタン」を有効にすることができます。
 この機能を有効にするには、以下のようにスクロールボタンマスクを設定する必要があります:
 
 ```c
@@ -227,11 +227,11 @@ void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate);
 #define PS2_MOUSE_BTN_MIDDLE    2
 ```
 
-ボタンを一緒に `|` することでマスク内でボタンを組み合わせることができます。
+ボタン定数を `|` で結合したマスクでボタンを組み合わせることができます。
 
 スクロールボタンマスクを設定したら、スクロールボタンの送信間隔を設定する必要があります。
-これは、スクロールボタンが放された場合にホストに送信されるまでの間隔です。
-この間隔の後で、マウスはスクロールし、送信されません。
+これは、スクロールボタンが離された場合に、スクロールボタンがホストに送信されるまでの間隔です。
+この時間が経過すると、マウスはスクロールして送信されなくなります。
 
 ```c
 #define PS2_MOUSE_SCROLL_BTN_SEND 300 /* Default */
@@ -243,7 +243,7 @@ void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate);
 #define PS2_MOUSE_SCROLL_BTN_SEND 0
 ```
 
-以下の定義でスクロールの詳細な制御がサポートされます:
+以下の定義でスクロールの細かい制御がサポートされます:
 
 ```c
 #define PS2_MOUSE_SCROLL_DIVISOR_H 2
@@ -252,7 +252,7 @@ void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate);
 
 ### マウスとスクロールの軸の反転 :id=invert-mouse-and-scroll-axes
 
-X と Y 軸を反転するには、以下を config.h に配置します:
+X 軸と Y 軸を反転するには、以下を config.h に配置します:
 
 ```c
 #define PS2_MOUSE_INVERT_X
