@@ -111,7 +111,7 @@
    |       |       |Whatsap|   P2  |  P3  |   P4   |                  |       | Input |  P5   |       | Txt + |       |
    |       |       |       |Secret2|Secret3|Secret4|                  |       | Lang  |Secret5|       |       |       |
    |-------+-------+-------+-------+-------+-------|                  |-------+-------+-------+-------+-------+-------|
-   | ANKI  |       |       |Spotify|TypeFu |   P1  |                  |       | Caps  | Emoji | Iterm | Txt - |       |
+   | ANKI  |       |       |Spotify|TypeFu |   P1  |                  |HMA VPN| Caps  | Emoji | Iterm | Txt - |       |
    |Assimil|       |       |       |Telegrm|Secret1|                  |       | Lock  |       |       |       |       |
    |-------+-------+-------+-------+-------+-------|                  |-------+-------+-------+-------+-------+-------|
    |       |       |       |Chrome |       | Brave |                  |       | Money |       |       |       |       |

@@ -29,6 +29,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("Chrome.app\n");
       }
       break;     
+    
+    case M_HMA:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LGUI(" "));
+        SEND_STRING("HMA VPN.app\n");
+      }
 
     case M_ITERM:
       if (record->event.pressed) {

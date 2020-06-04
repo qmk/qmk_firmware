@@ -263,7 +263,7 @@ L3 |       |       |       |       |       |            R3 |       |       |    
 L1 |       |Whatsap|  P2   |  P3   |  P4   |            R1 |       | Input |  P5   |       | Txt + |
    |       |       |Secret2|Secret3|Secret4|               |       | Lang  |Secret5|       |       |
    |-------+-------+-------+-------+-------|               |-------+-------+-------+-------+-------|
-L2 | ANKI  |       |SPOTIFY|TYPEFU |  P5   |            R2 |       | Caps  | Emoji | Iterm | Txt - |
+L2 | ANKI  |       |SPOTIFY|TYPEFU |  P5   |            R2 |HMA VPN| Caps  | Emoji | Iterm | Txt - |
    |Assimil|       |       |Telegrm|Secret1|               |       | Lock  |       |       |       |
    |-------+-------+-------+-------+-------|               |-------+-------+-------+-------+-------|
 L3 |       |       | Chrome|       | BRAVE |            R3 |       | Money |       |       |       |
@@ -276,7 +276,7 @@ L3 |       |       | Chrome|       | BRAVE |            R3 |       | Money |    
 #define _________________THU_L3____________________        XXXXXXX, XXXXXXX, M_CHROME, XXXXXXX, M_BRAVE
 
 #define _________________THU_R1____________________        XXXXXXX, INPUT_L, M_XXX5,  XXXXXXX, TXT_PLS
-#define _________________THU_R2____________________        XXXXXXX, KC_CAPS, EMOJI,   M_ITERM, TXT_MIN
+#define _________________THU_R2____________________        M_HMA,   KC_CAPS, EMOJI,   M_ITERM, TXT_MIN
 #define _________________THU_R3____________________        XXXXXXX, M_MONEY, XXXXXXX, XXXXXXX, XXXXXXX
 
 /* FUNCTION
