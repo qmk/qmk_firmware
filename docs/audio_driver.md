@@ -45,7 +45,7 @@ piezo speakers are marked with :one: for the first/primary and :two: for the sec
 
 <sup>1</sup>: the routing and alternate functions for PWM differ sometimes between STM32 MCUs, if in doubt consult the data-sheet  
 <sup>2</sup>: one piezo connected to A4 and A5, with AUDIO_PIN_ALT_AS_NEGATIVE set  
-<sup>3</sup>: TIM1_CH1 = A8 on STM32F103C8, other combinations are possible, see Data-sheet. configured with: AUDIO_PWM_TIMER and AUDIO_PWM_TIMERCHANNEL
+<sup>3</sup>: TIM1_CH1 = A8 on STM32F103C8, other combinations are possible, see Data-sheet. configured with: AUDIO_PWM_DRIVER and AUDIO_PWM_CHANNEL
 
 
 
@@ -89,8 +89,8 @@ with all this information, the configuration would contain these lines:
 ``` c
 //config.h:
 #define AUDIO_PIN A8
-#define AUDIO_PWM_TIMER 1
-#define AUDIO_PWM_TIMERCHANNEL 1
+#define AUDIO_PWM_DRIVER PWMD1
+#define AUDIO_PWM_CHANNEL 1
 ```
 
 ChibiOS uses GPIOv1 for the F103, which only knows of one alternate function.

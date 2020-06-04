@@ -32,11 +32,6 @@ The hardware directly toggles the pin via its alternate function. see your MCUs 
 #    error "Audio feature enabled, but no pin selected - see docs/feature_audio under the ARM PWM settings"
 #endif
 
-// some preprocessor trickery to get the corresponding chibios-PWMDriver
-#define TO_CHIBIOS_PWMD_PASTE(t) (PWMD##t)
-#define TO_CHIBIOS_PWMD_EVAL(t) TO_CHIBIOS_PWMD_PASTE(t)
-#define PWMD TO_CHIBIOS_PWMD_EVAL(AUDIO_PWM_TIMER)
-
 extern bool    playing_note;
 extern bool    playing_melody;
 extern uint8_t note_timbre;
@@ -48,17 +43,17 @@ static PWMConfig pwmCFG = {
     .callback = NULL, /* no callback, the hardware directly toggles the pin */
     .channels =
         {
-#if AUDIO_PWM_TIMERCHANNEL == 4
+#if AUDIO_PWM_CHANNEL == 4
             {PWM_OUTPUT_DISABLED, NULL},   /* channel 0 -> TIMx_CH1 */
             {PWM_OUTPUT_DISABLED, NULL},   /* channel 1 -> TIMx_CH2 */
             {PWM_OUTPUT_DISABLED, NULL},   /* channel 2 -> TIMx_CH3 */
             {PWM_OUTPUT_ACTIVE_HIGH, NULL} /* channel 3 -> TIMx_CH4 */
-#elif AUDIO_PWM_TIMERCHANNEL == 3
+#elif AUDIO_PWM_CHANNEL == 3
             {PWM_OUTPUT_DISABLED, NULL},
             {PWM_OUTPUT_DISABLED, NULL},
             {PWM_OUTPUT_ACTIVE_HIGH, NULL}, /* TIMx_CH3 */
             {PWM_OUTPUT_DISABLED, NULL}
-#elif AUDIO_PWM_TIMERCHANNEL == 2
+#elif AUDIO_PWM_CHANNEL == 2
             {PWM_OUTPUT_DISABLED, NULL},
             {PWM_OUTPUT_ACTIVE_HIGH, NULL}, /* TIMx_CH2 */
             {PWM_OUTPUT_DISABLED, NULL},
@@ -80,20 +75,20 @@ void         channel_1_set_frequency(float freq) {
         return;
 
     pwmcnt_t period = (pwmCFG.frequency / freq);
-    pwmChangePeriod(&PWMD, period);
-    pwmEnableChannel(&PWMD, AUDIO_PWM_TIMERCHANNEL - 1,
+    pwmChangePeriod(&AUDIO_PWM_DRIVER, period);
+    pwmEnableChannel(&AUDIO_PWM_DRIVER, AUDIO_PWM_CHANNEL - 1,
                      // adjust the duty-cycle so that the output is for 'note_timbre' duration HIGH
-                     PWM_PERCENTAGE_TO_WIDTH(&PWMD, (100 - note_timbre) * 100));
+                     PWM_PERCENTAGE_TO_WIDTH(&AUDIO_PWM_DRIVER, (100 - note_timbre) * 100));
 }
 
 float channel_1_get_frequency(void) { return channel_1_frequency; }
 
 void channel_1_start(void) {
-    pwmStop(&PWMD);
-    pwmStart(&PWMD, &pwmCFG);
+    pwmStop(&AUDIO_PWM_DRIVER);
+    pwmStart(&AUDIO_PWM_DRIVER, &pwmCFG);
 }
 
-void channel_1_stop(void) { pwmStop(&PWMD); }
+void channel_1_stop(void) { pwmStop(&AUDIO_PWM_DRIVER); }
 
 static void gpt_callback(GPTDriver *gptp);
 GPTConfig   gptCFG = {
@@ -109,7 +104,7 @@ GPTConfig   gptCFG = {
 };
 
 void audio_driver_initialize(void) {
-    pwmStart(&PWMD, &pwmCFG);
+    pwmStart(&AUDIO_PWM_DRIVER, &pwmCFG);
 
     // connect the AUDIO_PIN to the PWM hardware
 #if defined(USE_GPIOV1)  // STM32F103C8

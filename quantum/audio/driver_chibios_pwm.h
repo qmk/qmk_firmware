@@ -15,15 +15,15 @@
  */
 #pragma once
 
-#if !defined(AUDIO_PWM_TIMER)
+#if !defined(AUDIO_PWM_DRIVER)
 // NOTE: Timer2 seems to be used otherwise in QMK, otherwise we could default to A5 (= TIM2_CH1, with PWMD2 and alternate-function(1))
-#    define AUDIO_PWM_TIMER 1
+#    define AUDIO_PWM_DRIVER PWMD1
 #endif
 
-#if !defined(AUDIO_PWM_TIMERCHANNEL)
+#if !defined(AUDIO_PWM_CHANNEL)
 // NOTE: sticking to the STM data-sheet numbering: TIMxCH1 to TIMxCH4
 // default: STM32F303CC PA8+TIM1_CH1 -> 1
-#    define AUDIO_PWM_TIMERCHANNEL 1
+#    define AUDIO_PWM_CHANNEL 1
 #endif
 
 #if !defined(AUDIO_PWM_PAL_MODE)

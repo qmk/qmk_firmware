@@ -30,12 +30,6 @@ this driver uses the chibios-PWM system to produce a square-wave on any given ou
 #if !defined(AUDIO_PIN)
 #    error "Audio feature enabled, but no pin selected - see docs/feature_audio under the ARM PWM settings"
 #endif
-
-// some preprocessor trickery to get the corresponding chibios-PWMDriver
-#define TO_CHIBIOS_PWMD_PASTE(t) (PWMD##t)
-#define TO_CHIBIOS_PWMD_EVAL(t) TO_CHIBIOS_PWMD_PASTE(t)
-#define PWMD TO_CHIBIOS_PWMD_EVAL(AUDIO_PWM_TIMER)
-
 extern bool    playing_note;
 extern bool    playing_melody;
 extern uint8_t note_timbre;
@@ -66,25 +60,25 @@ void         channel_1_set_frequency(float freq) {
         return;
 
     pwmcnt_t period = (pwmCFG.frequency / freq);
-    pwmChangePeriod(&PWMD, period);
+    pwmChangePeriod(&AUDIO_PWM_DRIVER, period);
 
-    pwmEnableChannel(&PWMD, AUDIO_PWM_TIMERCHANNEL - 1,
+    pwmEnableChannel(&AUDIO_PWM_DRIVER, AUDIO_PWM_CHANNEL - 1,
                      // adjust the duty-cycle so that the output is for 'note_timbre' duration HIGH
-                     PWM_PERCENTAGE_TO_WIDTH(&PWMD, (100 - note_timbre) * 100));
+                     PWM_PERCENTAGE_TO_WIDTH(&AUDIO_PWM_DRIVER, (100 - note_timbre) * 100));
 }
 
 float channel_1_get_frequency(void) { return channel_1_frequency; }
 
 void channel_1_start(void) {
-    pwmStop(&PWMD);
-    pwmStart(&PWMD, &pwmCFG);
+    pwmStop(&AUDIO_PWM_DRIVER);
+    pwmStart(&AUDIO_PWM_DRIVER, &pwmCFG);
 
-    pwmEnablePeriodicNotification(&PWMD);
-    pwmEnableChannelNotification(&PWMD, AUDIO_PWM_TIMERCHANNEL - 1);
+    pwmEnablePeriodicNotification(&AUDIO_PWM_DRIVER);
+    pwmEnableChannelNotification(&AUDIO_PWM_DRIVER, AUDIO_PWM_CHANNEL - 1);
 }
 
 void channel_1_stop(void) {
-    pwmStop(&PWMD);
+    pwmStop(&AUDIO_PWM_DRIVER);
 
     palClearLine(AUDIO_PIN);  // leave the line low, after last note was played
 
@@ -126,7 +120,7 @@ GPTConfig   gptCFG = {
 };
 
 void audio_driver_initialize(void) {
-    pwmStart(&PWMD, &pwmCFG);
+    pwmStart(&AUDIO_PWM_DRIVER, &pwmCFG);
 
     palSetLineMode(AUDIO_PIN, PAL_MODE_OUTPUT_PUSHPULL);
     palClearLine(AUDIO_PIN);
@@ -136,8 +130,8 @@ void audio_driver_initialize(void) {
     palClearLine(AUDIO_PIN_ALT);
 #endif
 
-    pwmEnablePeriodicNotification(&PWMD);  // enable pwm callbacks
-    pwmEnableChannelNotification(&PWMD, AUDIO_PWM_TIMERCHANNEL - 1);
+    pwmEnablePeriodicNotification(&AUDIO_PWM_DRIVER);  // enable pwm callbacks
+    pwmEnableChannelNotification(&AUDIO_PWM_DRIVER, AUDIO_PWM_CHANNEL - 1);
 
     gptStart(&GPTD6, &gptCFG);
 }
