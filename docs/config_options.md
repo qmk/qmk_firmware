@@ -197,6 +197,8 @@ If you define these options you will enable the associated feature, which may in
   * Note: Increasing the maximum will increase the firmware size and slow sync on split keyboards.
 * `#define RGBLIGHT_LAYER_BLINK` 
   * Adds ability to [blink](feature_rgblight.md?id=lighting-layer-blink) a lighting layer for a specified number of milliseconds (e.g. to acknowledge an action).
+* `#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF`
+  * If defined, then [lighting layers](feature_rgblight?id=overriding-rgb-lighting-onoff-status) will be shown even if RGB Light is off.
 * `#define RGBLED_NUM 12`
   * number of LEDs
 * `#define RGBLIGHT_SPLIT`
