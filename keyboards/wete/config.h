@@ -21,8 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xB16B
 #define PRODUCT_ID      0x00B5
 #define DEVICE_VER      0x0012
-/* in python2: list(u"whatever".encode('utf-16-le')) */
-/*   at most 32 characters or the ugly hack in usb_main.c borks */
 #define MANUFACTURER Ramon Imbao
 #define PRODUCT Wete
 #define DESCRIPTION Southpaw Full-sized Keyboard
@@ -35,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { A9, B12, B11, B10, B2, B1 }
 #define DIODE_DIRECTION COL2ROW
 
-//LEDS A6, RGB B15
+//LEDS A6
 #define BACKLIGHT_PIN A6
 #define BACKLIGHT_PWM_DRIVER PWMD3
 #define BACKLIGHT_PWM_CHANNEL 1
@@ -43,6 +41,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 24
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 6
+
+// RGB B4
+#define RGB_DI_PIN B4
+#define RGBLED_NUM 24
+#define RGBLIGHT_ANIMATIONS
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
