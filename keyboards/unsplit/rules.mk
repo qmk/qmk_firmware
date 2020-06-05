@@ -23,4 +23,4 @@ NKRO_ENABLE = yes	# USB Nkey Rollover -
 RGBLIGHT_ENABLE = no
 SLEEP_LED_ENABLE = no   # Breathing sleep LED during USB suspend
 UNICODE_ENABLE = yes
-TAP_DANCE_ENABLE = yes
+TAP_DANCE_ENABLE = no
