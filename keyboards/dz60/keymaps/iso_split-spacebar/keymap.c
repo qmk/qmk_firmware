@@ -112,12 +112,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------------------------'
    */
    [NL] = LAYOUT_60_iso_split(
-	//  1          2          3          4          5          6          7          8          9          10         11         12         13         14
-	    TG(NL),    KC_1,      KC_2,      KC_3,      KC_4,      KC_5,      KC_6,      KC_7,      KC_8,      KC_9,      KC_0,      KC_MINS,   KC_EQL,    _______,
-        _______,   KC_4,      KC_5,      KC_6,      KC_PAST,   KC_PSLS,   _______,   KC_4,      KC_5,      KC_6,      KC_PAST,   KC_PSLS,   _______,
-        _______,   KC_7,      KC_8,      KC_9,      KC_PPLS,   KC_PMNS,   _______,   KC_1,      KC_2,      KC_3,      KC_PPLS,   KC_PMNS,   _______,   _______,
-        _______,   KC_0,      KC_COMM,   KC_DOT,    KC_EQL,    _______,   _______,   _______,   KC_0,      KC_COMM,   KC_DOT,    KC_EQL,    _______,
-        _______,   _______,   _______,   _______,   MO(FL),    _______,   _______,   _______,   TG(RL),    _______),
+	//  1          2              3              4              5              6              7          8              9              10             11             12             13             14
+	    TG(NL),    KC_KP_1,       KC_KP_2,       KC_KP_3,       KC_4,          KC_5,          KC_6,      KC_KP_7,       KC_KP_8,       KC_KP_9,       KC_KP_0,       KC_KP_PLUS,    KC_KP_EQUAL,   _______,
+        _______,   KC_KP_4,       KC_KP_5,       KC_KP_6,       KC_KP_ASTERISK,KC_KP_SLASH,   _______,   KC_KP_4,       KC_KP_5,       KC_KP_6,       KC_KP_ASTERISK,KC_KP_SLASH,   _______,
+        _______,   KC_KP_7,       KC_KP_8,       KC_KP_9,       KC_KP_PLUS,    KC_KP_MINUS,   _______,   KC_KP_1,       KC_KP_2,       KC_KP_3,       KC_KP_PLUS,    KC_KP_MINUS,   _______,       _______,
+        _______,   KC_KP_0,       KC_KP_COMMA,   KC_KP_DOT,     KC_EQUAL,      _______,       _______,   _______,       KC_KP_0,       KC_KP_COMMA,   KC_KP_DOT,     KC_KP_EQUAL,   _______,
+        _______,   _______,       _______,       _______,       MO(FL),        _______,       _______,   _______,       TG(RL),        _______),
 
   /* Keymap RL: RGB Layer
    *
