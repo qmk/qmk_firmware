@@ -198,14 +198,65 @@ void led_keypress_update(uint8_t led, uint8_t led_mode, uint16_t keycode, keyrec
         break;
       case LEDMODE_BLINKIN:
         if (record->event.pressed) {
-          if(rand() % 2 == 1) {
-            if(rand() % 2 == 0) {
-              writePinLow(led);
-            }
-            else {
-              writePinHigh(led);
-            }
+
+          /* Markov Chain
+           *
+           *   1 - x           1 - y
+           *   /---\           /---\
+           *   v   |           v   |
+           *  /------\   x   /------\
+           *  |      |------>|      |
+           *  |  on  |   y   | off  |
+           *  |      |<------|      |
+           *  \------/       \------/
+          */
+
+          /* Non-homogeneous Markov Chain
+           *
+           * /-----\ 1 - x0 /-----\ 1 - x1 /-----\  
+           * |on  0|------->|on  1|------->|on  2|----> ...  
+           * \-----/\      /\-----/\      /\-----/\
+           *         \    /         \    /         .
+           *        x0\  /         x1\  /           .
+           *           \/             \/             .
+           *           /\             /\              
+           *        y0/  \         y1/  \            .
+           *         /    \         /    \          .
+           *        /      \       /      \        .
+           * /-----\ 1 - y0 /-----\ 1 - y1 /-----\/  
+           * |off 0|------->|off 1|------->|off 2|----> ...
+           * \-----/        \-----/        \-----/  
+           *
+           *
+           * if x = 1/4 and y 1/4, behavior is equivalent to the original code
+           * and converges to a steady state at the rate of 1/2^k
+           * where k is the number of key presses
+           * (the distance from a given vector to the steady state, [1/2, 1/2], 
+           * is cut in half every key press)
+           *
+           * if x = y, then it is guaranteed that the steady state is still
+           * [1/2, 1/2], but the rate at which it converges is variable 
+           *
+           * if x != y, then there is no well-defined steady state
+          */
+
+          double x = (1.0*rand())/RAND_MAX;
+          double y = (1.0*rand())/RAND_MAX;
+
+          double p = (readPin(led)) ? x : y;
+          if (rand() < p*RAND_MAX) {
+            togglePin(led);
           }
+
+          /* following code is restriced to x + y <= 1
+           * if(rand() % 2 == 1) { */
+          /*   if(rand() % 2 == 0) { */
+          /*     writePinLow(led); */
+          /*   } */
+          /*   else { */
+          /*     writePinHigh(led); */
+          /*   } */
+          /* } */
         }
         break;
       case LEDMODE_KEY:
