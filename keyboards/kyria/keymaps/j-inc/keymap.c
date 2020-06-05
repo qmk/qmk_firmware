@@ -21,10 +21,10 @@ uint16_t alt_tab_timer = 0;
 char wpm_str[10];
 
 enum layers {
-    _QWERTY = 0,
-    _LOWER = 1,
-    _RAISE = 2,
-    _ADJUST = 3
+    _QWERTY,
+    _LOWER,
+    _RAISE,
+    _ADJUST,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
