@@ -22,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [NUMB] = LAYOUT( \
-    BP_HASH, BP_DQOT, BP_LDQT, BP_RDQT, BP_LPRN, BP_RPRN, BP_AT,         BP_PLUS, BP_MINS, BP_SLSH, BP_ASTR, BP_EQL,  BP_PERC, KC_BSPC, \
+    BP_HASH, BP_DQOT, BP_LDQU, BP_RDQU, BP_LPRN, BP_RPRN, BP_AT,         BP_PLUS, BP_MINS, BP_SLSH, BP_ASTR, BP_EQL,  BP_PERC, KC_BSPC, \
     BP_DLR,  BP_1,    BP_2,    BP_3,    BP_4,    BP_5,    KC_LBRC,       KC_RBRC, BP_6,    BP_7,    BP_8,    BP_9,    BP_0,    BP_DEGR, \
     _______, _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______, _______, \
     _______, _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______, _______  \
