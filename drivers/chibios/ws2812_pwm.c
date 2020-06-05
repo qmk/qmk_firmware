@@ -53,10 +53,10 @@
 /**
  * @brief   Number of bit-periods to hold the data line low at the end of a frame
  *
- * The reset period for each frame is defined in WS2812_DELAY_MICROSECONDS.
+ * The reset period for each frame is defined in WS2812_TRST_US.
  * Calculate the number of zeroes to add at the end assuming 1.25 uS/bit:
  */
-#define WS2812_RESET_BIT_N (1000 * WS2812_DELAY_MICROSECONDS / 1250)
+#define WS2812_RESET_BIT_N (1000 * WS2812_TRST_US / 1250)
 #define WS2812_COLOR_BIT_N (RGBLED_NUM * 24)                   /**< Number of data bits */
 #define WS2812_BIT_N (WS2812_COLOR_BIT_N + WS2812_RESET_BIT_N) /**< Total number of bits in a frame */
 

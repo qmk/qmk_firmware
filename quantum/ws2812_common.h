@@ -19,6 +19,6 @@
  * ws2812 implementations 
  */
 
-#if !defined(WS2812_DELAY_MICROSECONDS)
-#define WS2812_DELAY_MICROSECONDS 280
+#if !defined(WS2812_TRST_US)
+#define WS2812_TRST_US 280
 #endif
