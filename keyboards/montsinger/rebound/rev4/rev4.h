@@ -26,30 +26,34 @@
  * represents the switch matrix.
  */
 #define LAYOUT_ortho_4x12( \
-    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, \
-    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, \
-    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B,\
-    K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B\
+    K00, K70, K01, K71, K02, K72, K04, K84, K05, K75, K06, K76, \
+    K10, K60, K11, K61, K12, K62, K14, K74, K15, K65, K16, K66, \
+    K20, K50, K21, K51, K22, K52, K24, K64, K25, K55, K26, K56,\
+    K30, K40, K31, K41, K32, K42, K34, K54, K35, K45, K36, K46\
     ) { \
-  { K00,   K01,   K02,   K03,   K04,   K05,   K06,   K07,   K08,   K09,   K0A,   K0B   }, \
-  { K10,   K11,   K12,   K13,   K14,   K15,   K16,   K17,   K18,   K19,   K1A,   K1B   }, \
-  { K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K28,   K29,   K2A,   K2B   }, \
-  { K30,   K31,   K32,   K33,   K34,   K35,   K36,   K37,   K38,   K39,   K3A,   K3B   }, \
-  { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }  \
+  { K00, K01, K02, K04, K05, K06, K07}, \
+  { K10, K11, K12, K14, K15, K16, K17 }, \
+  { K20, K21, K22, K24, K25, K26, K27 }, \
+  { K30, K31, K32, K34, K35, K36, K37 }, \
+  { K40, K41, K42, K44, K45, K46, K47 }, \
+  { K50, K51, K52, K54, K55, K56, K57 }, \
+  { K60, K61, K62, K64, K65, K66, K67 }, \
+  { K70, K71, K72, K74, K75, K76, K77 } \
 }
 
 #define LAYOUT_all( \
-    KA1, KH1, KA2, KH2, KA3, KH3,      KA5, KH5, KA6, KH6, KA7, KH7
-    KB1, KG1, KB2, KG2, KB3, KG3, KB4, KB5, KG5, KB6, KG6, KB7, KG7
-    KC1, KF1, KC2, KF2, KC3, KF3, KC4, KC5, KF5, KC6, KF6, KC7, KF7
-    KD1, KE1, KD2, KE2, KD3, KE3, KD4, KD5, KE5, KD6, KE6, KD7, KE7
+    K00, K70, K01, K71, K02, K72,      K04, K74, K05, K75, K06, K76, \
+    K10, K60, K11, K61, K12, K62, K13, K14, K64, K15, K65, K16, K66, \
+    K20, K50, K21, K51, K22, K52, K23, K24, K54, K25, K55, K26, K56,\
+    K30, K40, K31, K41, K32, K42, K33, K34, K44, K35, K45, K36, K46\
     ) { \
-  { KA1, KA2, KA3, KC_NO, KA5, KA6, KA7}, \
-  { KB1, KB2, KB3, KB4, KB5, KB6, KB7 }, \
-  { KC1, KC2, KC3, KC4, KC5, KC6, KC7 }, \
-  { KD1, KD2, KD3, KD4, KD5, KD6, KD7 }, \
-  { KE1, KE2, KE3, KE4, KE5, KE6, KE7 }, \
-  { KF1, KF2, KF3, KC_NO, KF5, KF6, KF7 }, \
-  { KG1, KG2, KG3, KC_NO, KG5, KG6, KG7 }, \
-  { KH1, KH2, KH3, KC_NO, KH5, KH6, KH7 } \
+  { K00, K01, K02, KC_NO, K04, K05, K06}, \
+  { K10, K11, K12, K13, K14, K15, K16}, \
+  { K20, K21, K22, K23, K24, K25, K26}, \
+  { K30, K31, K32, K33, K34, K35, K36}, \
+  { K40, K41, K42, KC_NO, K44, K45, K46}, \
+  { K50, K51, K52, KC_NO, K54, K55, K56}, \
+  { K60, K61, K62, KC_NO, K64, K65, K66}, \
+  { K70, K71, K72, KC_NO, K74, K75, K76} \
 }
+
