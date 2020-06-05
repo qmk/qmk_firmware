@@ -40,5 +40,6 @@ _日本語のリソース情報を募集中です。_
 
 _日本語のリソース情報を募集中です。_
 
-* [Git Game To Learn From Examples(日本語対応有り)](https://learngitbranching.js.org/)
+* [Git Game To Learn From Examples(日本語対応有り)](https://learngitbranching.js.org/)  
+  git のブランチの作り方、マージの仕方などがビジュアルに学べます。
 * [QMK で GitHub を使う方法](ja/getting_started_github.md)
