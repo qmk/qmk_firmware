@@ -21,11 +21,11 @@ These LEDs are called "addressable" because instead of using a wire per color, e
 
 ### All drivers
 
-Different versions of the addressable LEDs have differing requirements for the RESET period between frames. 
+Different versions of the addressable LEDs have differing requirements for the T<sub>RST</sub> period between frames.
 The default setting is 280 µs, which should work for most cases, but this can be overridden in your config.h. e.g.:
 
 ```c
-#define WS2812_DELAY_MICROSECONDS 80
+#define WS2812_TRST_US 80
 ```
 
 ### Bitbang
