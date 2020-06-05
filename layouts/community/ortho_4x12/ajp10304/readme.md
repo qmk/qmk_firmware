@@ -1,14 +1,10 @@
-# AJP10304 Custom JJ40 Layout
-# Also available for the Planck, Shark and Atreus50
+# AJP10304 Ortho 4x12 Layout
+# For Planck, Shark, JJ40 and Atreus50
 
 **Note:** In the tables below where there are two characters on a key,
 the second is the output when shift is applied.
 
 **Note:** The below tables assume a UK layout.
-
-####Flashing
-Use sleep to get a chance to get into boot mode.
-`sleep 5; bootloadHID -r .build/jj40_ajp10304.hex`
 
 ##### Main Qwerty Layer
 

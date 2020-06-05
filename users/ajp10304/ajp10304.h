@@ -17,7 +17,8 @@ enum ajp10304_layers {
   _FUNC2,
   _MFNC2,
   _ADJUST,
-  _MOUSE
+  _MOUSE,
+  _NUMPAD
 };
 
 enum ajp10304_keycodes {
@@ -32,5 +33,6 @@ enum ajp10304_keycodes {
   RAISE,
   MRSE,
   MOUSE,
+  NUMPAD,
   DYNAMIC_MACRO_RANGE
 };

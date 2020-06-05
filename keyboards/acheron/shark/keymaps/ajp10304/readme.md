@@ -105,3 +105,13 @@ Activated when `fn` and `raise` held together.
 | ACC0  | ACC1 | ACC2 |      |      |      |      | BTN1 |  UP  | BTN2 |      |      |
 | ACC0  | ACC1 | ACC2 |      |      |      |      | LEFT | DOWN | RIGHT|      |      |
 |       |      |      |      |      |      |      |      |      |      |      |      |
+
+##### Number Pad Layout
+Activated when holding `Esc` key.
+
+|       |      |      |      |      |      |      |      |      |      |      |      |
+| :---: | :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|
+|       |      |      |      |      |      |NMLOCK|   7  |   8  |   9  |   /  |      |
+|       |      |      |      |      |      |      |   4  |   5  |   6  |   *  |      |
+|       |      |      |      |      |      |      |   1  |   2  |   3  |   +  |      |
+|       |      |      |      |      |      |      |   0  |   .  |   ,  |   -  |      |
