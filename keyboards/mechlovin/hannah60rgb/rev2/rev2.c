@@ -219,6 +219,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_F14:
             rgb_matrix_step();
             return false;
+        case KC_F15:
+            rgb_matrix_increase_speed();
+            return false;
+        case KC_F16:
+            rgb_matrix_decrease_speed();
+            return false;
+        case KC_F17:
+            rgb_matrix_increase_hue();
+            return false;
+        case KC_F18:
+            rgb_matrix_decrease_hue();
+            return false;
+        case KC_F19:
+            rgb_matrix_increase_sat();
+            return false;
+        case KC_F20:
+            rgb_matrix_decrease_sat();
+            return false;
+        case KC_F21:
+            rgb_matrix_increase_val();
+            return false;
+        case KC_F22:
+            rgb_matrix_decrease_val();
+            return false;
         #endif
     #endif
         default:
