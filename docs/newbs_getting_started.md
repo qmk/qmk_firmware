@@ -98,7 +98,6 @@ It's possible, that you will get an error saying something like: `bash: qmk: com
 This is due to a [bug](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=839155) Debian introduced with their Bash 4.4 release, which removed `$HOME/.local/bin` from the PATH. This bug was later fixed on Debian and Ubuntu.
 Sadly, Ubuntu reitroduced this bug and is [yet to fix it](https://bugs.launchpad.net/ubuntu/+source/bash/+bug/1588562).
 Luckily, the fix is easy. Run this as your user: `echo "PATH=$HOME/.local/bin:$PATH" >> $HOME/.bashrc && source $HOME/.bashrc`
-If you are using a Debian-based distro on WSL and you get a syntax error, run `export PATH="$HOME/.local/bin:$PATH"` every time you open the terminal instead.
 ?>**Note on FreeBSD**:
 It is suggested to run `qmk setup` as a non-`root` user to start with, but this will likely identify packages that need to be installed to your
 base system using `pkg`. However the installation will probably fail when run as an unprivileged user.
