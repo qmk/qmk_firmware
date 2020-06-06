@@ -115,12 +115,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 void led_set_user(uint8_t usb_led) {
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        CAPS = 1;
-    }
-    else {
-        CAPS = 0;
-    }
+    CAPS = IS_LED_ON(usb_led, USB_LED_CAPS_LOCK);
 }
 
 void togg_indicator(uint8_t *state, uint8_t pin) {
