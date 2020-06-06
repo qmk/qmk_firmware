@@ -21,10 +21,10 @@ uint16_t alt_tab_timer = 0;
 char wpm_str[10];
 
 enum layers {
-    _QWERTY = 0,
-    _LOWER = 1,
-    _RAISE = 2,
-    _ADJUST = 3
+    _QWERTY,
+    _LOWER,
+    _RAISE,
+    _ADJUST,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * | CTRL   |   Z  |   X  |   C  |   V  |   B  |Enter |Tab   |  |LShift|(2u)  |   N  |   M  | ,  < | . >  | /  ? |  - _   |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | TG(3)| Alt  | Win  | Shift| Back |  | Enter| Space| Win  | Alt  | AltGr|
+ *                        | TG(1)| Alt  | Win  | Shift| Back |  | Enter| Space| Win  | Alt  | AltGr|
  *                        |      |      |      | Lower| space|  | Lower| Raise|      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
@@ -48,25 +48,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LCTL,   KC_Z,    KC_X,   KC_C,   KC_V,   KC_B,     KC_ENT,  KC_LCTL,      KC_RCTL, _______,     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_MINS,
                          TG(1), KC_LALT, KC_LGUI, KC_LSFT,  KC_BSPC,      LT(2, KC_ENT), LT(1, KC_SPC), KC_RGUI,  KC_RALT, TG(2)
     ),
-    /*
-    * Lower Layer: numpad and arrow
-    //  *
-    //  * ,-------------------------------------------.                              ,-------------------------------------------.
-    //  * |        |      |   7  |   8  |  9   |  0   |                              | PGUP |      |      |      |      |        |
-    //  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
-    //  * | CAPS   |      |   4  |   5  |  6   |      |                              | PGDN |      |      |      |      |        |
-    //  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
-    //  * |        |      |   1  |  2   |  3   |      |      |      |  |      |      |      |      |      |      |      |   +/=  |
-    //  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
-    //  *                        |      |   0  |      |      |      |  |      |      |      |      |      |
-    //  *                        |      |      |      |      |      |  |      |      |      |      |      |
-    //  *                        `----------------------------------'  `----------------------------------'
-    //  */
+/*
+ * Lower Layer: numpad and arrow
+ *
+ * ,-------------------------------------------.                              ,-------------------------------------------.
+ * |        |      |   7  |   8  |  9   |  0   |                              | PGUP |      |  UP  |      |      |        |
+ * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+ * | CAPS   |      |   4  |   5  |  6   |      |                              | PGDN | Left | Down | Right|      |        |
+ * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+ * |        |      |   1  |  2   |  3   |      |      |      |  |      |      |      | LBRC | RBRC |      |      |   +/=  |
+ * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+ *                        |      |   0  |      |      |      |  |      |      |      |      |      |
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        `----------------------------------'  `----------------------------------'
+ */
      [_LOWER] = LAYOUT(
         _______, _______,    KC_7,    KC_8,    KC_9,    KC_0,                                          KC_PGUP, _______,   KC_UP, _______, _______, KC_DEL,
-         KC_TAB, _______,    KC_4,    KC_5,    KC_6, _______,                                          KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
-        KC_LSFT,    KC_0,    KC_1,    KC_2,    KC_3,  KC_TAB,   KC_ENT,   KC_LCTL,       MO(3), _______, KC_LBRC, KC_RBRC, _______, _______, _______, KC_EQL,
-                                   _______,    KC_ENT,  KC_ENT, KC_LSFT,  KC_BSPC,      KC_ENT, KC_TRNS, _______, _______, _______
+        KC_CAPS, _______,    KC_4,    KC_5,    KC_6,  KC_TAB,                                          KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
+        KC_LSFT,    KC_0,    KC_1,    KC_2,    KC_3,  KC_ENT,   KC_TRNS,   KC_TRNS,       MO(3), _______, KC_LBRC, KC_RBRC, _______, _______, _______, KC_EQL,
+                                   KC_TRNS,    KC_TAB,  KC_ENT, KC_TRNS,  KC_TRNS,      KC_ENT, KC_TRNS, _______, _______, _______
     ),
 /*
  * Raise Layer: F keys and media
@@ -145,26 +145,26 @@ static void render_status(void) {
     oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
         case _QWERTY:
-            oled_write_P(PSTR("QWERTY\n"), false);
+            oled_write_P(PSTR("QWERTY"), false);
             break;
         case _LOWER:
-            oled_write_P(PSTR("Numpad\n"), false);
+            oled_write_P(PSTR("Numpad"), false);
             break;
         case _RAISE:
-            oled_write_P(PSTR("F Keys\n"), false);
+            oled_write_P(PSTR("F Keys"), false);
             break;
         case _ADJUST:
-    oled_write_P(PSTR("RGB\n"), false);
+            oled_write_P(PSTR("RGB   "), false);
             break;
         default:
-            oled_write_P(PSTR("Undefined\n"), false);
+            oled_write_P(PSTR("Undefined"), false);
     }
 
-    // Host Keyboard LED Status
-    uint8_t led_usb_state = host_keyboard_leds();
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR("Num Lock ") : PSTR("       "), false);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR("Caps Lock ") : PSTR("       "), false);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("Scroll Lock ") : PSTR("       "), false);
+    //Host Keyboard LED Status
+    led_t led_state = host_keyboard_led_state();
+    oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("       "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("CAPS ") : PSTR("       "), false);
+    oled_write_P(led_state.scroll_lock ? PSTR("SCRL") : PSTR("       "), false);
 }
 
 
@@ -178,7 +178,7 @@ static void render_status(void) {
 #define TAP_SPEED 60 // above this wpm value typing animation to triggere
 
 #define ANIM_FRAME_DURATION 200 // how long each frame lasts in ms
-#define SLEEP_TIMER 60000 // should sleep after this period of 0 wpm, may need fixing
+// #define SLEEP_TIMER 60000 // should sleep after this period of 0 wpm, needs fixing
 #define ANIM_SIZE 640 // number of bytes in array, minimize for adequate firmware size, max is 1024
 
 uint16_t anim_timer = 0;
@@ -187,7 +187,7 @@ uint8_t current_idle_frame = 0;
 // uint8_t current_prep_frame = 0; // uncomment if PREP_FRAMES >1
 uint8_t current_tap_frame = 0;
 
-// Images credit j-inc(/James Incandenza) and pixelbenny. Thanks to obosob for initial animation approach.
+// Images credit j-inc(/James Incandenza) and pixelbenny. Credit to obosob for initial animation approach.
 static void render_anim(void) {
     static const char PROGMEM idle[IDLE_FRAMES][ANIM_SIZE] = {
         {
@@ -260,48 +260,52 @@ static void render_anim(void) {
          }
          if(get_current_wpm() >IDLE_SPEED && get_current_wpm() <TAP_SPEED){
              // oled_write_raw_P(prep[abs((PREP_FRAMES-1)-current_prep_frame)], ANIM_SIZE); // uncomment if IDLE_FRAMES >1
-             oled_write_raw_P(prep[0], ANIM_SIZE); // remove if IDLE_FRAMES >1
+             oled_write_raw_P(prep[0], ANIM_SIZE);  // remove if IDLE_FRAMES >1
          }
          if(get_current_wpm() >=TAP_SPEED){
              current_tap_frame = (current_tap_frame + 1) % TAP_FRAMES;
              oled_write_raw_P(tap[abs((TAP_FRAMES-1)-current_tap_frame)], ANIM_SIZE);
          }
     }
-    if(get_current_wpm() != 0) {
+    if(get_current_wpm() != 000) {
+        oled_on(); // not essentiall but turns on Master OLED with any alpha keypress
         if(timer_elapsed(anim_timer) > ANIM_FRAME_DURATION) {
             anim_timer = timer_read();
             animation_phase();
         }
         anim_sleep = timer_read();
     } else {
-        if(timer_elapsed(anim_timer) > ANIM_FRAME_DURATION) {
-            anim_timer = timer_read();
-            animation_phase();
-        }
-        if(timer_elapsed(anim_sleep) > SLEEP_TIMER) {
+        if(timer_elapsed(anim_sleep) > OLED_TIMEOUT) {
             oled_off();
+        } else {
+            if(timer_elapsed(anim_timer) > ANIM_FRAME_DURATION) {
+                anim_timer = timer_read();
+                animation_phase();
+            }
         }
     }
 }
-
-
+// static void render_skull(void) { // Helen Tseong (http://shewolfe.co/), the original artist behind the skull, sadly only allowing use of the skull for my personal use. Her (excellent) works are copyright her, and I claim no ownership. Reach out to her for permission!
+//     static const char PROGMEM skull[] = {
+//     };
+//      oled_write_raw_P(skull, 801);
+//  }
 
 void oled_task_user(void) {
     if (is_keyboard_master()) {
-        oled_write_P(PSTR("Kyria Rev 1.0\n"), false);
-        oled_set_cursor(0,4); {
-            render_status();
-        }
+        //render_skull();
+        oled_set_cursor(4,6);
+        render_status();
+
      // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_anim();
-        oled_set_cursor(0,6); {
-            sprintf(wpm_str, "       WPM: %03d", get_current_wpm());
-            oled_write(wpm_str, false);
-            }
+        oled_set_cursor(0,6);
+        sprintf(wpm_str, "       WPM: %03d", get_current_wpm());
+        oled_write(wpm_str, false);
+
     }
 }
-
 #endif
 
 #ifdef ENCODER_ENABLE
