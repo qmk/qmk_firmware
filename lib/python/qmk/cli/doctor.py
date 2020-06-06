@@ -17,10 +17,10 @@ ESSENTIAL_BINARIES = {
     'avrdude': {},
     'dfu-util': {},
     'avr-gcc': {
-        'version_arg': '-dumpversion'
+        'version_arg': '-dumpfullversion'
     },
     'arm-none-eabi-gcc': {
-        'version_arg': '-dumpversion'
+        'version_arg': '-dumpfullversion'
     },
     'bin/qmk': {},
 }
