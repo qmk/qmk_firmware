@@ -15,7 +15,9 @@
  */
 #pragma once
 
-#include_next "mcuconf.h"
+#define BOARD_OTG_NOVBUSSENS 1
 
-#undef STM32_I2C_USE_I2C1
-#define STM32_I2C_USE_I2C1 TRUE
+#define STM32_LSECLK 32768U
+#define STM32_HSECLK 25000000U
+
+#define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE

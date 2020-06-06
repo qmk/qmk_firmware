@@ -15,7 +15,6 @@
  */
 #pragma once
 
-#include_next "mcuconf.h"
+// #define CH_CFG_OPTIMIZE_SPEED TRUE
 
-#undef STM32_I2C_USE_I2C1
-#define STM32_I2C_USE_I2C1 TRUE
+#include_next "chconf.h"
