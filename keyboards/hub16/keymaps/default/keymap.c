@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-// Keyboard is setup to 'warp' the pressed key with F24,
+// Keyboard is setup to 'wrap' the pressed key with F24,
 // allowing for easy differentiation from a real keyboard.
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* Left Encoder */
