@@ -285,6 +285,7 @@ static void render_anim(void) {
         }
     }
 }
+
 // static void render_skull(void) { // Helen Tseong (http://shewolfe.co/), the original artist behind the skull, sadly only allowing use of the skull for my personal use. Her (excellent) works are copyright her, and I claim no ownership. Reach out to her for permission!
 //     static const char PROGMEM skull[] = {
 //     };

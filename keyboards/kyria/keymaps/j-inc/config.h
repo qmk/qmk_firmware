@@ -25,21 +25,11 @@
 #define SPLIT_USB_DETECT
 #define NO_USB_STARTUP_CHECK
 #define SPLIT_USB_TIMEOUT 1000
+
 #define MASTER_RIGHT
 
-
-// Space saving
-#ifndef NO_DEBUG
-#define NO_DEBUG
-#endif // !NO_DEBUG
-#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
-#define NO_PRINT
-#endif // !NO_PRINT
-//#define NO_ACTION_TAPPING
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
-// #undef RGBLIGHT_ANIMATIONS
-
-
-#define RGBLIGHT_MODE_RAINBOW_SWIRL
+#define NO_ACTION_ONESHOT
+#undef RGBLIGHT_ANIMATIONS
 #define OLED_FONT_END 127
