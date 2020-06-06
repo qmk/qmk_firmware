@@ -1,4 +1,4 @@
-/* Copyright 2019 sekigon-gonnoc
+/* Copyright 2020 sekigon-gonnoc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,33 +13,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #pragma once
 
-#include "quantum.h"
+#include <stdint.h>
+#include <stdbool.h>
 
-/* This a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
- */
+#include "microshell/util/mscmd.h"
 
-
-typedef struct
-{
+typedef struct {
     int16_t x;
     int16_t y;
     uint8_t surface;
     uint8_t motion_flag;
-} trackball_info_t;
+} adns7530_info_t;
 
-typedef enum {
-    TRACKBALL_NONE,
-    TRACKBALL_ADNS,
-    TRACKBALL_BTO,
-} trackball_type_t;
-
-const trackball_info_t* get_trackball_info();
-extern trackball_type_t trackball_init_flag;
+void    reset_adns7530(uint8_t cs_pin);
+void    read_adns7530(bool read_flag, uint8_t cs_pin, adns7530_info_t* info);
+uint8_t read_pid_adns7530(uint8_t cs_pin);
+const uint8_t* get_pixel_bitmap_adns7530(uint32_t* size);
+int            capture_pixel_adns7530(uint8_t cs_pin);

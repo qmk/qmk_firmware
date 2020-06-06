@@ -24,6 +24,7 @@ const static uint8_t
     indicator_priority[INDICATOR_END] = {
         [INDICATOR_NONE] = 255,
         [INDICATOR_TURN_OFF] = 0,
+        [INDICATOR_TURN_ON] = 4,
         [INDICATOR_BATTERY] = 1,
         [INDICATOR_ADVERTISING] = 3,
         [INDICATOR_CONNECTED] = 2,
@@ -79,6 +80,11 @@ int bmp_indicator_set(BMP_INDICATOR_TYPE type, int32_t option) {
 static int bmp_indicator_none(uint32_t time_ms, int32_t option) {
     bmp_indicator_led_off();
     return 1;
+}
+
+static int bmp_indicator_turnon(uint32_t time_ms, int32_t option) {
+    bmp_indicator_led_on();
+    return 0;
 }
 
 static int bmp_indicator_turnoff(uint32_t time_ms, int32_t option) {
@@ -148,6 +154,7 @@ __attribute__((weak)) int bmp_indicator_user_pattern(uint32_t time_ms, int32_t o
 typedef int (*bmp_indicator_task_t)(uint32_t time_ms, int32_t option);
 const static bmp_indicator_task_t indicator_tasks[INDICATOR_END] = {
     [INDICATOR_NONE] = bmp_indicator_none,
+    [INDICATOR_TURN_ON] = bmp_indicator_turnon,
     [INDICATOR_TURN_OFF] = bmp_indicator_turnoff,
     [INDICATOR_BATTERY] = bmp_indicator_battery,
     [INDICATOR_ADVERTISING] = bmp_indicator_advertising,

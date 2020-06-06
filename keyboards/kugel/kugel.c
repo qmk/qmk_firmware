@@ -20,8 +20,11 @@
 
 #include QMK_KEYBOARD_H
 #include "matrix.h"
+#include "bmp.h"
 #include "bmp_matrix.h"
 #include "spi.h"
+#include "adns7530.h"
+#include "paw3204.h"
 
 #include "report.h"
 
@@ -35,51 +38,35 @@
 
 #define IO_NUM 3
 
-const uint8_t ioexpander_addrs[IO_NUM]        = {0x00, 0x01, 0x02};
-const uint8_t ioexpander_cs_pins[IO_NUM]      = {CS_PIN_IO, CS_PIN_IO, CS_PIN_IO};
-static bool   ioexpander_init_flag            = false;
+const uint8_t ioexpander_addrs[IO_NUM]   = {0x00, 0x01, 0x02};
+const uint8_t ioexpander_cs_pins[IO_NUM] = {CS_PIN_IO, CS_PIN_IO, CS_PIN_IO};
+static bool   ioexpander_init_flag       = false;
 static bool   ioexpander_init_succeed[IO_NUM] = {false};
-bool          trackball_init_flag             = false;
 
-#define WRITE_TO(addr) (0x80 | addr)
-#define READ_FROM(addr) (addr)
-void reset_adns7530();
+trackball_type_t trackball_init_flag = TRACKBALL_NONE;
 
 void keyboard_post_init_kb() { debug_enable = false; }
 
-#define ToWord(p_byte) (*((uint16_t *)(p_byte)))
-#define ToDWord(p_byte) (*((uint32_t *)(p_byte)))
-static uint8_t  pixel_img[1024];
-static uint32_t pix_to_read;
-#define IMG_WIDTH 26
-
 void create_user_file() {
-    static const char qmk_configurator[] = "<meta http-equiv=\"refresh\" content=\"0;URL=\'https://sekigon-gonnoc.github.io/qmk_configurator/#/kugel/LAYOUT\'\"/>";
-    BMPAPI->usb.create_file("MAP_EDITHTM", (uint8_t *)qmk_configurator, strlen(qmk_configurator));
+    static const char qmk_configurator[] =
+        "<meta http-equiv=\"refresh\" "
+        "content=\"0;URL=\'https://sekigon-gonnoc.github.io/qmk_configurator/#/"
+        "kugel/LAYOUT\'\"/>";
+    BMPAPI->usb.create_file("MAP_EDITHTM", (uint8_t *)qmk_configurator,
+                            strlen(qmk_configurator));
 
-    static const char build_guide[] = "<meta http-equiv=\"refresh\" content=\"0;URL=\'https://github.com/sekigon-gonnoc/Kugel-doc\'\"/>";
-    BMPAPI->usb.create_file("BLDGUIDEHTM", (uint8_t *)build_guide, strlen(build_guide));
+    static const char build_guide[] =
+        "<meta http-equiv=\"refresh\" "
+        "content=\"0;URL=\'https://github.com/sekigon-gonnoc/Kugel-doc\'\"/>";
+    BMPAPI->usb.create_file("BLDGUIDEHTM", (uint8_t *)build_guide,
+                            strlen(build_guide));
 
     // set bitmap header
     // 8bit 26*26 pixels
-    pixel_img[0]            = 0x42;
-    pixel_img[1]            = 0x4D;
-    ToDWord(&pixel_img[2])  = 26 * 28 + 54;
-    ToWord(&pixel_img[6])   = 0;
-    ToWord(&pixel_img[8])   = 0;
-    ToDWord(&pixel_img[10]) = 0x36;
-    ToDWord(&pixel_img[14]) = 40;
-    ToDWord(&pixel_img[18]) = 26;
-    ToDWord(&pixel_img[22]) = 26;
-    ToWord(&pixel_img[26])  = 1;
-    ToWord(&pixel_img[28])  = 8;
-    ToDWord(&pixel_img[30]) = 0;
-    ToDWord(&pixel_img[34]) = 26 * 28;
-    ToDWord(&pixel_img[38]) = 96;
-    ToDWord(&pixel_img[42]) = 96;
-    ToDWord(&pixel_img[46]) = 0;
-    ToDWord(&pixel_img[50]) = 0;
-    BMPAPI->usb.create_file("PIXEL   BMP", pixel_img, 26 * 28 + 54);
+
+    uint32_t       bitmap_size;
+    const uint8_t *bitmap = get_pixel_bitmap_adns7530(&bitmap_size);
+    BMPAPI->usb.create_file("PIXEL   BMP", bitmap, bitmap_size);
 }
 
 static void create_status_file() {
@@ -93,9 +80,11 @@ static void create_status_file() {
                 ioexpander_init_succeed[0] ? "OK" : "NG",
                 ioexpander_init_succeed[1] ? "OK" : "NG",
                 ioexpander_init_succeed[2] ? "OK" : "NG",
-                trackball_init_flag ? "OK" : "NG");
+                trackball_init_flag == TRACKBALL_ADNS ? "ADNS" :
+                (trackball_init_flag == TRACKBALL_BTO ? " BTO" : "NO"));
     // clang-format on
-    BMPAPI->usb.create_file("STATUS  TXT", (uint8_t *)status_str, strlen(status_str));
+    BMPAPI->usb.create_file("STATUS  TXT", (uint8_t *)status_str,
+                            strlen(status_str));
 }
 
 void matrix_init_kb() {
@@ -138,9 +127,11 @@ static inline void ioexp_init() {
         spim_start(mcp23s_snd, 4, mcp23s_rcv, 4, CS_PIN_IO);
     }
 
-    // set addressing mode of io expanders, INT pin mirror, and INT pin open drain
+    // set addressing mode of io expanders, INT pin mirror, and INT pin open
+    // drain
     {
-        uint8_t mcp23s_snd[] = {0x40 | 0 | 0, 0x0A, (1 << 6) | (1 << 3) | (1 << 2)};
+        uint8_t mcp23s_snd[] = {0x40 | 0 | 0, 0x0A,
+                                (1 << 6) | (1 << 3) | (1 << 2)};
         uint8_t mcp23s_rcv[] = {0, 0, 0};
         spim_start(mcp23s_snd, 3, mcp23s_rcv, 3, CS_PIN_IO);
 
@@ -162,17 +153,23 @@ static inline void ioexp_init() {
 }
 
 static inline void check_tb_connection() {
-    int32_t retry = 1000;
-
     // read trackball id
-    uint8_t snd[] = {0, 0};
-    uint8_t rcv[2];
+    int32_t retry = 1000;
     do {
-        spim_start(snd, 2, rcv, 2, CS_PIN_TB);
-    } while (rcv[1] != 0x31 && retry--);
+        if (read_pid_adns7530(CS_PIN_TB) == 0x31) {
+            break;
+        }
+    } while (--retry > 0);
 
     if (retry > 0) {
-        trackball_init_flag = true;
+        trackball_init_flag = TRACKBALL_ADNS;
+        BMPAPI->adc.config_vcc_channel(8, 3000, 2000);
+        return;
+    }
+
+    if (read_pid_paw3204() == 0x30) {
+        trackball_init_flag = TRACKBALL_BTO;
+        return;
     }
 }
 
@@ -192,109 +189,94 @@ void matrix_scan_kb() {
 
             ioexp_init();
 
-            create_status_file();
-
-            reset_adns7530();
+            reset_adns7530(CS_PIN_TB);
             check_tb_connection();
-            if (trackball_init_flag) {
-                // reset_adns7530();
+
+            if (trackball_init_flag == TRACKBALL_ADNS) {
                 setPinInputHigh(TB_INT);
+            } else if (trackball_init_flag == TRACKBALL_NONE) {
+                setPinInputHigh(TB_POW);
             }
+
+            create_status_file();
             break;
         } else {
             init_cnt = 11;
         }
 
-        if (!trackball_init_flag) {
-            break;
-        }
-
-        // read motion data
-        if (readPin(TB_INT) == 0 || debug_mouse) {
+        if (trackball_init_flag == TRACKBALL_ADNS) {
+            // read motion data
+            adns7530_info_t adns7530_info;
+            read_adns7530(readPin(TB_INT) == 0 || debug_mouse, CS_PIN_TB,
+                          &adns7530_info);
+            tb_info.x           = adns7530_info.x;
+            tb_info.y           = adns7530_info.y;
+            tb_info.surface     = adns7530_info.surface;
+            tb_info.motion_flag = adns7530_info.motion_flag;
+        } else if (trackball_init_flag == TRACKBALL_BTO) {
             // trackball communication packet
-            uint8_t snd[] = {0x42, 0, 0, 0, 0, 0};
-            uint8_t rcv[] = {0, 0, 0, 0, 0, 0};
+            static uint32_t last_read_time;
+            static uint32_t last_active_time;
 
-            spim_start(snd, sizeof(snd), rcv, sizeof(rcv), CS_PIN_TB);
+            if (timer_elapsed32(last_active_time) < 200 ||
+                timer_elapsed32(last_read_time) > 50) {
+                uint8_t stat = 0;
+                int8_t  x = 0, y = 0;
 
-            tb_info.x           = (int16_t)(((int16_t)rcv[2] << 4) | (((int16_t)rcv[4] >> 4) << 12));
-            tb_info.y           = (int16_t)(((int16_t)rcv[3] << 4) | (((int16_t)rcv[4] & 0x0F) << 12));
-            tb_info.surface     = rcv[5];
-            tb_info.motion_flag = rcv[1];
-        } else {
-            tb_info.motion_flag = 0;
-        }
+                read_paw3204(&stat, &x, &y);
+                last_read_time = timer_read32();
 
-        if (pix_to_read && (tb_info.motion_flag & 0x40)) {
-            // read pixel data if available
-            uint8_t  snd[2] = {READ_FROM(0x35), 0};
-            uint8_t  rcv[2];
-            uint32_t col = (26 * 26 - pix_to_read) / 26;
-            uint32_t row = (26 * 26 - pix_to_read) % 26;
-            spim_start(snd, 2, rcv, 2, CS_PIN_TB);
+                tb_info.x           = -y * 16;
+                tb_info.y           = x * 16;
+                tb_info.surface     = 0;
+                tb_info.motion_flag = stat;
 
-            // write to bitmap file
-            pixel_img[54 + 28 * row + col] = rcv[1];
-            pix_to_read--;
-
-            if (pix_to_read == 0) {
-                tfp_printf("capture finished\n");
-            } else if (pix_to_read % 100 == 0) {
-                tfp_printf(".");
+                if (stat & 0x80) {
+                    last_active_time = timer_read32();
+                }
+            } else {
+                tb_info.x           = 0;
+                tb_info.y           = 0;
+                tb_info.motion_flag = 0;
+                writePinHigh(5);
+                writePinHigh(6);
             }
         }
     } while (0);
 
-    matrix_scan_user();
-}
+    if (!is_usb_connected()) {
+        static uint32_t battery_check_cnt = 0;
+        static float voltage = -1;
+        static uint32_t low_battery_cnt = 0;
 
-void reset_adns7530() {
-    uint8_t rcv[256];
+        if (voltage < 0) {
+            // first measurement
+            voltage = BMPAPI->app.get_vcc_mv();
+            battery_check_cnt = timer_read32();
+        } else if (timer_elapsed32(battery_check_cnt) > 1000) {
+            battery_check_cnt = timer_read32();
+            uint32_t v_mes =  BMPAPI->app.get_vcc_mv();
 
-    {
-        uint8_t snd[] = {
-            WRITE_TO(0x3A), 0x5a, 0, 0, WRITE_TO(0x2E), 0, 0, 0,
-        };
-        spim_start(snd, sizeof(snd), rcv, sizeof(snd), CS_PIN_TB);
-    }
+            if (v_mes > voltage) {
+                voltage = (0.7f) * voltage + (0.3f) * v_mes;
+            } else {
+                if (voltage - v_mes > 100) {
+                } else {
+                    voltage = (0.95f) * voltage + (0.05f) * v_mes;
+                }
+            }
 
-    {
-        uint8_t snd[] = {
-            READ_FROM(0x2), 0, READ_FROM(0x3), 0, READ_FROM(0x4), 0, READ_FROM(0x5), 0,
-        };
-        spim_start(snd, sizeof(snd), rcv, sizeof(snd), CS_PIN_TB);
-    }
+            if (voltage < 1000.0f - 100.0f) { // 100mV offset by series resistance
+                low_battery_cnt++;
+            }
 
-    {
-        uint8_t snd[] = {
-            WRITE_TO(0x3C), 0x27, WRITE_TO(0x22), 0x0A, WRITE_TO(0x21), 0x01, WRITE_TO(0x3C), 0x32, WRITE_TO(0x23), 0x20, WRITE_TO(0x3C), 0x05,
-        };
-        spim_start(snd, sizeof(snd), rcv, sizeof(snd), CS_PIN_TB);
-    }
-
-    {
-        // clang-format off
-        // set laser power packet
-        uint8_t snd[] = {
-            WRITE_TO(0x1A), 0x40,
-            WRITE_TO(0x1F), (uint8_t)((~0x40) & 0xFF),
-            WRITE_TO(0x1C), 0xFF,
-            WRITE_TO(0x1D), 0,
-        };
-        // clang-format on
-
-        // get laser power config from CONFIG.JSN
-        uint8_t laser_power = BMPAPI->app.get_config()->reserved[0];
-        // set default value
-        if (laser_power == 0) {
-            laser_power = 0xFF;
+            if (low_battery_cnt > 30) {
+                sleep_enter_counter = 1;
+            }
         }
-
-        snd[5] = laser_power;
-        snd[7] = ~laser_power;
-
-        spim_start(snd, sizeof(snd), rcv, sizeof(snd), CS_PIN_TB);
     }
+
+    matrix_scan_user();
 }
 
 static void kugel_matrix_init() { setPinInputHigh(IO_INT); }
@@ -318,6 +300,8 @@ static uint32_t kugel_matrix_scan(matrix_row_t *matrix_raw) {
     if (readPin(IO_INT)) {
         return 0;
     }
+
+    spim_init();
 
     for (uint8_t row = 0; row < MATRIX_ROWS_DEFAULT; row++) {
         spi_send[0] = 0x40 | (ioexpander_addrs[row] << 1) | 1;
@@ -344,31 +328,11 @@ static uint32_t kugel_matrix_scan(matrix_row_t *matrix_raw) {
     return res;
 }
 
-static const bmp_matrix_func_t matrix_func = {kugel_matrix_init, kugel_matrix_get_row, kugel_matrix_get_col, kugel_matrix_scan};
+static const bmp_matrix_func_t matrix_func = {
+    kugel_matrix_init, kugel_matrix_get_row, kugel_matrix_get_col,
+    kugel_matrix_scan};
 
 const bmp_matrix_func_t *get_matrix_func_user() { return &matrix_func; }
-
-#include "microshell/util/mscmd.h"
-
-MSCMD_USER_RESULT usrcmd_trackball_pixel(MSOPT *msopt, MSCMD_USER_OBJECT usrobj) {
-    tfp_printf("capture pixel image\n");
-
-    uint8_t rcv[2];
-    // reset pointer of pixel_grab to (0,0)
-    {
-        uint8_t snd[] = {WRITE_TO(0x35), 0x00};
-        spim_start(snd, 2, rcv, 2, CS_PIN_TB);
-    }
-
-    // wait until PIXRDY set
-    do {
-        uint8_t snd[] = {READ_FROM(0x02), 0x00};
-        spim_start(snd, 2, rcv, 2, CS_PIN_TB);
-    } while (!(rcv[1] & 0x60));
-
-    pix_to_read = 26 * 26;
-    return 0;
-}
 
 void bmp_before_sleep() {
     setPinInputHigh(16);
@@ -378,3 +342,29 @@ void bmp_before_sleep() {
 }
 
 bool checkSafemodeFlag(bmp_api_config_t const *const config) { return false; }
+
+bool bmp_config_overwrite(bmp_api_config_t const *const config_on_storage,
+                          bmp_api_config_t *const       keyboard_config) {
+    // get vcc from a3
+    BMPAPI->adc.config_vcc_channel(3, 1200, 700);
+    // wait until voltage become stable
+    for (int i = 0; i < 40000; i++) {
+        BMPAPI->app.get_vcc_percent();
+    }
+
+    // User can overwrite partial settings
+    keyboard_config->startup          = config_on_storage->startup;
+    keyboard_config->matrix.debounce  = config_on_storage->matrix.debounce;
+    keyboard_config->param_central    = config_on_storage->param_central;
+    keyboard_config->param_peripheral = config_on_storage->param_peripheral;
+    keyboard_config->keymap           = config_on_storage->keymap;
+    keyboard_config->reserved[2]      = config_on_storage->reserved[2];
+    return true;
+}
+
+#include "microshell/util/mscmd.h"
+
+MSCMD_USER_RESULT usrcmd_trackball_pixel(MSOPT *           msopt,
+                                         MSCMD_USER_OBJECT usrobj) {
+    return capture_pixel_adns7530(CS_PIN_TB);
+}

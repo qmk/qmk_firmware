@@ -1,10 +1,6 @@
-SRC += paw3204.c adns7530.c
+# Additional source
+SRC += mtch6102.c
 
-# MCU name
-MCU_FAMILY = NRF52
-MCU_SERIES = NRF52840
-MCU_LDSCRIPT = nrf52840_ao
-MCU = cortex-m4
 CUSTOM_MATRIX = yes # This flag should be on for nrf52
 
 # Build Options
@@ -23,7 +19,7 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 BMP_ENCODER_ENABLE = no     # Rotary encoder for BLE Micro Pro
 NKRO_ENABLE = no            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
-RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
+RGBLIGHT_ENABLE = no       # Enable keyboard RGB underglow
 MIDI_ENABLE = no            # MIDI support (+2400 to 4200, depending on config)
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID

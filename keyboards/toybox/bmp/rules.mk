@@ -1,0 +1,8 @@
+# MCU name
+MCU_FAMILY = NRF52
+MCU_SERIES = NRF52840
+MCU_LDSCRIPT = nrf52840_ao
+MCU = cortex-m4
+
+RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
+

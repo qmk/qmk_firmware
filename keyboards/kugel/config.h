@@ -45,6 +45,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IS_LEFT_HAND  true
 #define BMP_DEFAULT_MODE SINGLE
 
+#define CONFIG_RESERVED {0, 1, 0, 0, 0, 0, 0, 0}
+
 #include "microshell/util/mscmd.h"
 #define USER_DEFINED_MSCMD {"tb_pix", usrcmd_trackball_pixel, "get pixel values"}
 MSCMD_USER_RESULT usrcmd_trackball_pixel(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
@@ -60,8 +62,8 @@ MSCMD_USER_RESULT usrcmd_trackball_pixel(MSOPT *msopt, MSCMD_USER_OBJECT usrobj)
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-#define MATRIX_ROW_PINS { 255 }
-#define MATRIX_COL_PINS { 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255 }
+#define MATRIX_ROW_PINS { 13 }
+#define MATRIX_COL_PINS { 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11 }
 #define MATRIX_LAYOUT \
     {13, 15, 2, 3, 31, 32, 17, 18, 45, 46, 33, 35, 36, 0, \
     14, 16, 1, 4, 30, 29, 20, 19, 47, 48, 34, 37, 0, \

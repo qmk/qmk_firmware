@@ -1,12 +1,13 @@
 #!/bin/sh
 
-version=0_6_0
+version=0_7_0
 
-for keyboard in ble_micro_pro kugel
+for keyboard in ble_micro_pro kugel toybox/bmp
     do
         make $keyboard:default:uf2 -j8
         make $keyboard:default:zip -j8
         make $keyboard:no_msc:zip -j8
+        keyboard=${keyboard//\//_}
         mv ${keyboard}_default.uf2 ${keyboard}_default_${version}.uf2
         mv ${keyboard}_default.zip ${keyboard}_default_${version}.zip
         mv ${keyboard}_no_msc.zip ${keyboard}_no_msc_${version}.zip

@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 typedef enum {
     INDICATOR_NONE,
     INDICATOR_TURN_OFF,
+    INDICATOR_TURN_ON,
     INDICATOR_BATTERY,
     INDICATOR_ADVERTISING,
     INDICATOR_CONNECTED,

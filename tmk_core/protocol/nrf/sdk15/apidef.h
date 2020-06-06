@@ -5,7 +5,7 @@
 
 #include "error_def.h"
 
-#define API_VERSION 8
+#define API_VERSION 9
 #define CONFIG_VERSION 2
 #define PINS_MAX 32
 
@@ -235,6 +235,7 @@ typedef struct {
     bmp_error_t (*delete_file)(uint8_t file_id);
     bmp_error_t (*get_file)(uint8_t file_id, uint8_t** buf, uint32_t* const len);
     uint16_t (*get_vcc_mv)(void);
+    uint16_t (*get_vcc_percent)(void);
     bmp_error_t (*set_state_change_cb)(bmp_api_state_change_cb_t);
 } bmp_api_app_t;
 
@@ -361,6 +362,7 @@ typedef struct {
 
 typedef struct {
     // void (*init)(void); // initialized in wakeup process
+    int (*config_vcc_channel)(uint8_t ain, uint16_t vmax_mv, uint16_t vmin_mv);
     int (*config_channel)(uint8_t channel, uint8_t pin);
     int (*sample_and_convert)(uint8_t channel, int16_t* const result);
 } bmp_api_adc_t;

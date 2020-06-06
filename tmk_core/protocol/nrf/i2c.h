@@ -27,8 +27,13 @@
 #define I2C_MAX_DATA_LEN 2048
 #endif
 
-#define I2C_7BIT_ADDR(addr) (addr << 1)
-#define I2C_8BIT_ADDR(addr) (addr)
+#ifndef I2C_7BIT_ADDR
+#    define I2C_7BIT_ADDR(addr) (addr << 1)
+#endif
+
+#ifndef I2C_8BIT_ADDR
+#    define I2C_8BIT_ADDR(addr) (addr)
+#endif
 
 static inline int i2c_init(void)
 {

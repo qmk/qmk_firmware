@@ -112,6 +112,7 @@ void main_tasks(void* context) {
   if (BMPAPI->app.get_config()->mode == SPLIT_SLAVE)
   {
     matrix_scan();
+    bmp_mode_transition_check();
 #if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_ANIMATIONS)
     rgblight_task();
 #endif
@@ -119,6 +120,7 @@ void main_tasks(void* context) {
   else
   {
     bmp_keyboard_task();
+    bmp_mode_transition_check();
 #ifdef CONSOLE_ENABLE
     console_task();
 #endif

@@ -5,6 +5,9 @@
 #include "action.h"
 #include "quantum_keycodes.h"
 
+bool bmp_config_overwrite(bmp_api_config_t const *const config_on_storage,
+                          bmp_api_config_t *const       keyboard_config);
+void bmp_mode_transition_check(void);
 void bmp_keyboard_task(void);
 void bmp_init(void);
 
@@ -28,4 +31,6 @@ void select_usb(void);
 bool is_ble_connected();
 bool is_usb_connected();
 
+extern int sleep_enter_counter;
 void bmp_before_sleep();
+

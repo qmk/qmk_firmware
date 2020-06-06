@@ -112,9 +112,41 @@ void bmp_action_exec(keyevent_t event)
     action_exec(event);
 }
 
-static int sleep_enter_counter = -1;
+int sleep_enter_counter = -1;
 int reset_counter = -1;
 int bootloader_jump_counter = -1;
+
+void bmp_mode_transition_check(void) {
+    // sleep flag check
+    if (sleep_enter_counter > 0)
+    {
+        sleep_enter_counter--;
+        if (sleep_enter_counter == 0)
+        {
+            bmp_before_sleep();
+            BMPAPI->app.enter_sleep_mode();
+        }
+    }
+
+    // reset flag check
+    if (reset_counter > 0)
+    {
+        reset_counter--;
+        if (reset_counter == 0)
+        {
+            // reset without safemode flag
+            BMPAPI->app.reset(0);
+        }
+    }
+
+    // bootloader jump flag check
+    if (bootloader_jump_counter > 0) {
+        bootloader_jump_counter--;
+        if (bootloader_jump_counter == 0) {
+            BMPAPI->bootloader_jump();
+        }
+    }
+}
 
 /** \brief Keyboard task: Do keyboard routine jobs
  *
@@ -249,36 +281,6 @@ MATRIX_LOOP_END:
     } else {
         last_event_time = timer_read32();
     }
-
-    // sleep flag check
-    if (sleep_enter_counter > 0)
-    {
-        sleep_enter_counter--;
-        if (sleep_enter_counter == 0)
-        {
-            bmp_before_sleep();
-            BMPAPI->app.enter_sleep_mode();
-        }
-    }
-
-    // reset flag check
-    if (reset_counter > 0)
-    {
-        reset_counter--;
-        if (reset_counter == 0)
-        {
-            // reset without safemode flag
-            BMPAPI->app.reset(0);
-        }
-    }
-
-    // bootloader jump flag check
-    if (bootloader_jump_counter > 0) {
-        bootloader_jump_counter--;
-        if (bootloader_jump_counter == 0) {
-            BMPAPI->bootloader_jump();
-        }
-    }
 }
 
 bmp_error_t nus_rcv_callback(const uint8_t* dat, uint32_t len)
@@ -410,6 +412,12 @@ static inline bool checkMscDisableFlag(bmp_api_config_t const * const config)
 }
 #endif
 
+__attribute__((weak)) bool bmp_config_overwrite(
+    bmp_api_config_t const* const config_on_storage,
+    bmp_api_config_t* const       keyboard_config) {
+    return false;
+}
+
 static bool has_ble = true;
 static bool has_usb = true;
 static bool is_safe_mode_ = false;
@@ -448,7 +456,10 @@ void bmp_init()
       .param_peripheral = {60, 30, 7},
       .param_central = {60, 30, 7},
       .led = {.pin = RGB_DI_PIN, .num = RGBLED_NUM_DEFAULT},
-      .keymap = {.locale = KEYMAP_PRIOR_LOCALE, .use_ascii = KEYMAP_ASCII}
+      .keymap = {.locale = KEYMAP_PRIOR_LOCALE, .use_ascii = KEYMAP_ASCII},
+#ifdef CONFIG_RESERVED
+      .reserved = CONFIG_RESERVED
+#endif
   };
 
   is_safe_mode_ = (BMPAPI->app.init(&default_config) > 0);
@@ -464,16 +475,25 @@ void bmp_init()
     is_safe_mode_ = true;
   }
 
+
+  bmp_api_config_t keyboard_config = default_config;
+
+  if (bmp_config_overwrite(config, &keyboard_config)) {
+    BMPAPI->app.set_config(&keyboard_config);
+    config = &keyboard_config;
+  }
+
   BMPAPI->usb.set_msc_write_cb(msc_write_callback);
   BMPAPI->app.set_state_change_cb(bmp_state_change_cb);
   BMPAPI->usb.set_raw_receive_cb(bmp_hid_raw_receive_cb);
 
-  uint16_t vcc_mv = BMPAPI->app.get_vcc_mv();
+  uint16_t vcc_percent = BMPAPI->app.get_vcc_percent();
   int32_t battery_level = 1;
-  if (vcc_mv > 2700) {
+
+  if (vcc_percent > 70) {
     battery_level = 3;
   }
-  else if (vcc_mv > 2400) {
+  else if (vcc_percent > 30) {
     battery_level = 2;
   }
 

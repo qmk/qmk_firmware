@@ -19,6 +19,7 @@
 #include "cli.h"
 #include "bootloader.h"
 #include "app_ble_func.h"
+#include "bmp_indicator_led.h"
 
 #include "apidef.h"
 #include "configurator.h"
@@ -53,6 +54,7 @@ static MSCMD_USER_RESULT usrcmd_i2c_test(MSOPT *msopt, MSCMD_USER_OBJECT usrobj)
 
 static MSCMD_USER_RESULT usrcmd_file_streaming_mode(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_encoder(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
+static MSCMD_USER_RESULT usrcmd_indicator(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 
 static MICROSHELL microshell;
 static MSCMD mscmd;
@@ -79,6 +81,7 @@ static const MSCMD_COMMAND_TABLE table[] = {
     {"web", usrcmd_webconfig_enter, "Start web config mode"},
     {"i2c", usrcmd_i2c_test, "Test i2c"},
     {"file", usrcmd_file_streaming_mode, "Enter file streaming mode"},
+    {"ind", usrcmd_indicator, "Test indicator LED"},
 #ifdef USER_DEFINED_MSCMD
     USER_DEFINED_MSCMD
 #endif
@@ -453,6 +456,32 @@ static MSCMD_USER_RESULT usrcmd_i2c_test(MSOPT *msopt, MSCMD_USER_OBJECT usrobj)
     {
         tfp_printf("Invalid option\r\n");
     }
+    return 0;
+}
+
+static MSCMD_USER_RESULT usrcmd_indicator(MSOPT *           msopt,
+                                          MSCMD_USER_OBJECT usrobj) {
+    int32_t mode;
+    int32_t option = 0;
+    char    arg[16];
+
+    if (msopt->argc < 2) {
+        xprintf("ind <mode> <option>\n");
+        return 1;
+    }
+
+    msopt_get_argv(msopt, 1, arg, sizeof(arg));
+    mode = atoi(arg);
+
+    if (msopt->argc >= 3) {
+        msopt_get_argv(msopt, 0, arg, sizeof(arg));
+        option = atoi(arg);
+    }
+
+    if (mode >= INDICATOR_NONE && mode < INDICATOR_END) {
+        bmp_indicator_set(mode, option);
+    }
+
     return 0;
 }
 
