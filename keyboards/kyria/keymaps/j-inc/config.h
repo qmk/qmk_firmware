@@ -18,14 +18,13 @@
 
 #ifdef OLED_DRIVER_ENABLE
   #define OLED_DISPLAY_128X64
-  #define OLED_TIMEOUT 120000
+  #define OLED_TIMEOUT 300000
 #endif
 
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
 #define SPLIT_USB_DETECT
 #define NO_USB_STARTUP_CHECK
 #define SPLIT_USB_TIMEOUT 1000
-
 
 #define MASTER_RIGHT
 
