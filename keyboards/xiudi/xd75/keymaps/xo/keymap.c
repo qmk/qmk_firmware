@@ -84,9 +84,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   if (record->event.pressed) {
-    backlight_level(5);
+    backlight_level(3);
   } else {
-    backlight_level(0);
+    backlight_level(5);
   }
 
   return true;
