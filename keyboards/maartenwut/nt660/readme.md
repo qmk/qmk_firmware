@@ -4,7 +4,7 @@ A drop-in replacement PCB for the Leopold FC660M.
 
 * Keyboard Maintainer: [Maartenwut](https://github.com/Maartenwut)
 * Hardware Supported: nt660 PCB
-* Hardware Availability: [maartenwut.com](https://maartenwut.com/product/nt660/)
+* Hardware Availability: [maartenwut.com](https://maartenwut.com/product/nt-660/)
 
 ## Flashing
 
