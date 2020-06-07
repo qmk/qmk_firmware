@@ -62,7 +62,7 @@ extern keymap_config_t keymap_config;
 
 uint8_t                keyboard_idle __attribute__((aligned(2)))     = 0;
 uint8_t                keyboard_protocol __attribute__((aligned(2))) = 1;
-uint8_t                keyboard_led_stats                            = 0;
+uint8_t                keyboard_led_state                            = 0;
 volatile uint16_t      keyboard_idle_count                           = 0;
 static virtual_timer_t keyboard_idle_timer;
 static void            keyboard_idle_timer_cb(void *arg);
@@ -386,10 +386,10 @@ static void    set_led_transfer_cb(USBDriver *usbp) {
     if (usbp->setup[6] == 2) { /* LSB(wLength) */
         uint8_t report_id = set_report_buf[0];
         if ((report_id == REPORT_ID_KEYBOARD) || (report_id == REPORT_ID_NKRO)) {
-            keyboard_led_stats = set_report_buf[1];
+            keyboard_led_state = set_report_buf[1];
         }
     } else {
-        keyboard_led_stats = set_report_buf[0];
+        keyboard_led_state = set_report_buf[0];
     }
 }
 
@@ -610,7 +610,7 @@ static void keyboard_idle_timer_cb(void *arg) {
 }
 
 /* LED status */
-uint8_t keyboard_leds(void) { return keyboard_led_stats; }
+uint8_t keyboard_leds(void) { return keyboard_led_state; }
 
 /* prepare and start sending a report IN
  * not callable from ISR or locked state */
