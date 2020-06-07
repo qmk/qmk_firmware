@@ -12,7 +12,7 @@
 
 通常、キーボードをテストするのは非常に簡単です。
 全てのキーをひとつずつ押して、期待されるキーが送信されていることを確認します。
-QMKを実行していなくても、[QMK Configurator](https://config.qmk.fm/#/test/)のテストモードを使ってキーボードを確認することができます。
+QMK を実行していなくても、[QMK Configurator](https://config.qmk.fm/#/test/) のテストモードを使ってキーボードを確認することができます。
 
 ## デバッグ :id=debugging
 
