@@ -35,26 +35,23 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ffb", TAG+="uacc
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff0", TAG+="uaccess", RUN{builtin}+="uaccess"
 ```
 
-**/etc/udev/rules.d/52-tmk-keyboard.rules:**
-```
-# tmk keyboard products     https://github.com/tmk/tmk_keyboard
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", TAG+="uaccess", RUN{builtin}+="uaccess"
-```
 **/etc/udev/rules.d/54-input-club-keyboard.rules:**
 
 ```
 # Input Club keyboard bootloader
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", TAG+="uaccess", RUN{builtin}+="uaccess"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", ATTRS{idProduct}=="b007", TAG+="uaccess", RUN{builtin}+="uaccess"
 ```
 
 **/etc/udev/rules.d/55-caterina.rules:**
 ```
 # ModemManager should ignore the following devices
-ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"
-ATTRS{idVendor}=="2341", ENV{ID_MM_DEVICE_IGNORE}="1"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="2a03", ATTRS{idProduct}=="0036", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="0036", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1b4f", ATTRS{idProduct}=="9205", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1b4f", ATTRS{idProduct}=="9203", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
 ```
 
-**Note:** ModemManager filtering only works when not in strict mode, the following commands can update that settings:
+**Note:** With older (before 1.12) ModemManager, filtering only works when not in strict mode, the following commands can update that settings:
 ```console
 sudo sed -i 's/--filter-policy=strict/--filter-policy=default/' /lib/systemd/system/ModemManager.service
 sudo systemctl daemon-reload
