@@ -26,7 +26,7 @@ NGKEYS naginata_keys;
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
   QWERTY = NG_SAFE_RANGE,
-  QGMLWY,
+  SRLBY,
   RAISE, LOWER, ADJUST,
   NUMLOC,
   EISU,
@@ -39,7 +39,7 @@ enum custom_keycodes {
 
 // Layers
 enum kepmap_layers {
-  _QGMLWY,
+  _SRLBY,
   _QWERTY,
   _SHIFT,
 // 薙刀式
@@ -81,7 +81,7 @@ enum kepmap_layers {
 #define GTE   UC(0x2265)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* _QGMLWY
+/* _SRLBY
   +-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+
   |        `        |        1        |        2        |        3        |        4        |        5        |        6        |        7        |        8        |        9        |        0        |        -        |        +        |        /        |        *        |
   +-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+
@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   |      LSFT       |                 |                 |      ALPH       |      LOWER      |LT(_SHIFT,KC_SPC)|      LCTL       |                 |LT(_SHIFT,KC_ENT)|      RAISE      |      LALT       |                 |      LEFT       |      DOWN       |      RGHT       |
   +-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+
 */
-  [_QGMLWY] = LAYOUT(
+  [_SRLBY] = LAYOUT(
     KC_GRV           ,KC_1             ,KC_2             ,KC_3             ,KC_4             ,KC_5             ,KC_6             ,KC_7             ,KC_8             ,KC_9             ,KC_0             ,KC_MINS          ,KC_EQL           ,KC_SLSH          ,KC_ASTR          , \
     KC_ESC           ,KC_COMM          ,KC_S             ,KC_R             ,KC_L             ,KC_B             ,KC_SCLN          ,                  KC_Y             ,KC_BSPC          ,KC_I             ,KC_D             ,KC_DOT           ,KC_BSPC                         , \
     KC_TAB           ,KC_W             ,KC_H             ,KC_T             ,KC_E             ,KC_M             ,KC_BSLS          ,                  KC_P             ,KC_N             ,KC_A             ,KC_O             ,KC_K             ,KC_ENT                          , \
@@ -171,7 +171,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   |EEP_RST|QWERTY |  XX   | MAIL  |  XX   | WAKE  |  XX   |       |  XX   |  XX   |  XX   |  XX   |  XX   |  __   |       |
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-  |  __   |QGMLWY | SLEP  |  XX   |  XX   | RESET |  XX   |       |  XX   |  XX   |  XX   |  XX   |  XX   |  __   |       |
+  |  __   |SRLBY | SLEP  |  XX   |  XX   | RESET |  XX   |       |  XX   |  XX   |  XX   |  XX   |  XX   |  __   |       |
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   |  __   |  XX   |  XX   | CALC  |  XX   |  XX   |  XX   |  XX   |  XX   |  XX   |  XX   |  XX   |  XX   |  __   |  __   |
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
@@ -254,9 +254,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case QGMLWY:
+    case SRLBY:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_QGMLWY);
+        persistent_default_layer_set(1UL<<_SRLBY);
       }
       return false;
       break;
