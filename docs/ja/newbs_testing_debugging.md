@@ -16,7 +16,7 @@ QMK を実行していなくても、[QMK Configurator](https://config.qmk.fm/#/
 
 ## デバッグ :id=debugging
 
-`rules.mk`へ`CONSOLE_ENABLE = yes`の設定をするとキーボードはデバッグ情報を出力します。デフォルトの出力は非常に限られたものですが、デバッグモードをオンにすることでデバッグ情報の量を増やすことが出来ます。キーマップの`DEBUG`キーコードを使用するか、デバッグモードを有効にする [Command](ja/feature_command.md) 機能を使用するか、以下のコードをキーマップに追加します。
+`rules.mk`へ`CONSOLE_ENABLE = yes`の設定をするとキーボードはデバッグ情報を出力します。デフォルトの出力は非常に限られたものですが、デバッグモードをオンにすることでデバッグ情報の量を増やすことが出来ます。キーマップの`DEBUG`キーコードを使用するか、デバッグモードを有効にする [コマンド](ja/feature_command.md) 機能を使用するか、以下のコードをキーマップに追加します。
 
 ```c
 void keyboard_post_init_user(void) {
