@@ -21,6 +21,8 @@
 
   例: Shift + 2 で @ を入力する
 
+  変換された文字はキーリピートが無効です。
+
 */
 
 #include QMK_KEYBOARD_H
