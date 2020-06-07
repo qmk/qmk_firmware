@@ -60,20 +60,24 @@ void keyboard_post_init_kb() {
     // check hardware status and overwrite config
     bmp_api_config_t config = *BMPAPI->app.get_config();
     if (config.mode == SPLIT_MASTER) {
-        if (!(get_toybox_mode() & TOYBOX_LEFT)) {
-            // if split master configuration, this device has only five rows
-            config.matrix.device_rows = 5;
-        } else {
-            // if this device has all rows, this should be SINGLE configuration
-            config.mode                = SINGLE;
+        if (get_toybox_mode() == TOYBOX_RIGHT) {
+            // if split master right configuration, this device has only five rows
+            config.matrix.device_rows  = 5;
             config.matrix.is_left_hand = 0;
+        } else if (get_toybox_mode() == TOYBOX_LEFT) {
+            // if split master left configuration, this device has only five rows
+            config.matrix.device_rows  = 5;
+            config.matrix.is_left_hand = 1;
+        } else if (get_toybox_mode() == TOYBOX_SINGLE) {
+            // if this device has all rows, this should be SINGLE configuration
+            config.mode = SINGLE;
         }
         BMPAPI->app.set_config(&config);
     }
 
-    debug_enable = false;
+    debug_enable   = false;
     debug_keyboard = false;
-    debug_mouse = false;
+    debug_mouse    = false;
 }
 
 static const bmp_matrix_func_t matrix_func = {
