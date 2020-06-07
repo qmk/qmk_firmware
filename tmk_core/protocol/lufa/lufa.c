@@ -88,7 +88,7 @@ extern keymap_config_t keymap_config;
 uint8_t keyboard_idle = 0;
 /* 0: Boot Protocol, 1: Report Protocol(default) */
 uint8_t        keyboard_protocol  = 1;
-static uint8_t keyboard_led_stats = 0;
+static uint8_t keyboard_led_state = 0;
 
 static report_keyboard_t keyboard_report_sent;
 
@@ -103,30 +103,30 @@ host_driver_t  lufa_driver = {
 };
 
 #ifdef VIRTSER_ENABLE
+// clang-format off
+
 USB_ClassInfo_CDC_Device_t cdc_device = {
-    .Config =
-        {
-            .ControlInterfaceNumber = CCI_INTERFACE,
-            .DataINEndpoint =
-                {
-                    .Address = CDC_IN_EPADDR,
-                    .Size    = CDC_EPSIZE,
-                    .Banks   = 1,
-                },
-            .DataOUTEndpoint =
-                {
-                    .Address = CDC_OUT_EPADDR,
-                    .Size    = CDC_EPSIZE,
-                    .Banks   = 1,
-                },
-            .NotificationEndpoint =
-                {
-                    .Address = CDC_NOTIFICATION_EPADDR,
-                    .Size    = CDC_NOTIFICATION_EPSIZE,
-                    .Banks   = 1,
-                },
+    .Config = {
+        .ControlInterfaceNumber = CCI_INTERFACE,
+        .DataINEndpoint = {
+            .Address            = (CDC_IN_EPNUM | ENDPOINT_DIR_IN),
+            .Size               = CDC_EPSIZE,
+            .Banks              = 1
         },
+        .DataOUTEndpoint = {
+            .Address            = (CDC_OUT_EPNUM | ENDPOINT_DIR_OUT),
+            .Size               = CDC_EPSIZE,
+            .Banks              = 1
+        },
+        .NotificationEndpoint = {
+            .Address            = (CDC_NOTIFICATION_EPNUM | ENDPOINT_DIR_IN),
+            .Size               = CDC_NOTIFICATION_EPSIZE,
+            .Banks              = 1
+        }
+    }
 };
+
+// clang-format on
 #endif
 
 #ifdef RAW_ENABLE
@@ -254,7 +254,7 @@ static void Console_Task(void) {
     // fill empty bank
     while (Endpoint_IsReadWriteAllowed()) Endpoint_Write_8(0);
 
-    // flash senchar packet
+    // flush sendchar packet
     if (Endpoint_IsINReady()) {
         Endpoint_ClearIN();
     }
@@ -370,45 +370,46 @@ void EVENT_USB_Device_StartOfFrame(void) {
 void EVENT_USB_Device_ConfigurationChanged(void) {
     bool ConfigSuccess = true;
 
-    /* Setup Keyboard HID Report Endpoints */
 #ifndef KEYBOARD_SHARED_EP
-    ConfigSuccess &= ENDPOINT_CONFIG(KEYBOARD_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN, KEYBOARD_EPSIZE, ENDPOINT_BANK_SINGLE);
+    /* Setup keyboard report endpoint */
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((KEYBOARD_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, KEYBOARD_EPSIZE, 1);
 #endif
 
 #if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
-    /* Setup Mouse HID Report Endpoint */
-    ConfigSuccess &= ENDPOINT_CONFIG(MOUSE_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN, MOUSE_EPSIZE, ENDPOINT_BANK_SINGLE);
+    /* Setup mouse report endpoint */
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((MOUSE_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, MOUSE_EPSIZE, 1);
 #endif
 
 #ifdef SHARED_EP_ENABLE
-    /* Setup Shared HID Report Endpoint */
-    ConfigSuccess &= ENDPOINT_CONFIG(SHARED_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN, SHARED_EPSIZE, ENDPOINT_BANK_SINGLE);
+    /* Setup shared report endpoint */
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((SHARED_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, SHARED_EPSIZE, 1);
 #endif
 
 #ifdef RAW_ENABLE
-    /* Setup Raw HID Report Endpoints */
-    ConfigSuccess &= ENDPOINT_CONFIG(RAW_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN, RAW_EPSIZE, ENDPOINT_BANK_SINGLE);
-    ConfigSuccess &= ENDPOINT_CONFIG(RAW_OUT_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_OUT, RAW_EPSIZE, ENDPOINT_BANK_SINGLE);
+    /* Setup raw HID endpoints */
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((RAW_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, RAW_EPSIZE, 1);
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((RAW_OUT_EPNUM | ENDPOINT_DIR_OUT), EP_TYPE_INTERRUPT, RAW_EPSIZE, 1);
 #endif
 
 #ifdef CONSOLE_ENABLE
-    /* Setup Console HID Report Endpoints */
-    ConfigSuccess &= ENDPOINT_CONFIG(CONSOLE_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN, CONSOLE_EPSIZE, ENDPOINT_BANK_SINGLE);
+    /* Setup console endpoint */
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((CONSOLE_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, CONSOLE_EPSIZE, 1);
 #    if 0
-    ConfigSuccess &= ENDPOINT_CONFIG(CONSOLE_OUT_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_OUT,
-                                     CONSOLE_EPSIZE, ENDPOINT_BANK_SINGLE);
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((CONSOLE_OUT_EPNUM | ENDPOINT_DIR_OUT), EP_TYPE_INTERRUPT, CONSOLE_EPSIZE, 1);
 #    endif
 #endif
 
 #ifdef MIDI_ENABLE
-    ConfigSuccess &= Endpoint_ConfigureEndpoint(MIDI_STREAM_IN_EPADDR, EP_TYPE_BULK, MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);
-    ConfigSuccess &= Endpoint_ConfigureEndpoint(MIDI_STREAM_OUT_EPADDR, EP_TYPE_BULK, MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);
+    /* Setup MIDI stream endpoints */
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((MIDI_STREAM_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_BULK, MIDI_STREAM_EPSIZE, 1);
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((MIDI_STREAM_OUT_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_BULK, MIDI_STREAM_EPSIZE, 1);
 #endif
 
 #ifdef VIRTSER_ENABLE
-    ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC_NOTIFICATION_EPADDR, EP_TYPE_INTERRUPT, CDC_NOTIFICATION_EPSIZE, ENDPOINT_BANK_SINGLE);
-    ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC_OUT_EPADDR, EP_TYPE_BULK, CDC_EPSIZE, ENDPOINT_BANK_SINGLE);
-    ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC_IN_EPADDR, EP_TYPE_BULK, CDC_EPSIZE, ENDPOINT_BANK_SINGLE);
+    /* Setup virtual serial endpoints */
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((CDC_NOTIFICATION_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, CDC_NOTIFICATION_EPSIZE, 1);
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((CDC_OUT_EPNUM | ENDPOINT_DIR_OUT), EP_TYPE_BULK, CDC_EPSIZE, 1);
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((CDC_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_BULK, CDC_EPSIZE, 1);
 #endif
 }
 
@@ -472,10 +473,10 @@ void EVENT_USB_Device_ControlRequest(void) {
                             uint8_t report_id = Endpoint_Read_8();
 
                             if (report_id == REPORT_ID_KEYBOARD || report_id == REPORT_ID_NKRO) {
-                                keyboard_led_stats = Endpoint_Read_8();
+                                keyboard_led_state = Endpoint_Read_8();
                             }
                         } else {
-                            keyboard_led_stats = Endpoint_Read_8();
+                            keyboard_led_state = Endpoint_Read_8();
                         }
 
                         Endpoint_ClearOUT();
@@ -545,7 +546,7 @@ void EVENT_USB_Device_ControlRequest(void) {
  *
  * FIXME: Needs doc
  */
-static uint8_t keyboard_leds(void) { return keyboard_led_stats; }
+static uint8_t keyboard_leds(void) { return keyboard_led_state; }
 
 /** \brief Send Keyboard
  *
@@ -808,24 +809,25 @@ ERROR_EXIT:
  ******************************************************************************/
 
 #ifdef MIDI_ENABLE
+// clang-format off
+
 USB_ClassInfo_MIDI_Device_t USB_MIDI_Interface = {
-    .Config =
-        {
-            .StreamingInterfaceNumber = AS_INTERFACE,
-            .DataINEndpoint =
-                {
-                    .Address = MIDI_STREAM_IN_EPADDR,
-                    .Size    = MIDI_STREAM_EPSIZE,
-                    .Banks   = 1,
-                },
-            .DataOUTEndpoint =
-                {
-                    .Address = MIDI_STREAM_OUT_EPADDR,
-                    .Size    = MIDI_STREAM_EPSIZE,
-                    .Banks   = 1,
-                },
+    .Config = {
+        .StreamingInterfaceNumber = AS_INTERFACE,
+        .DataINEndpoint = {
+            .Address              = (MIDI_STREAM_IN_EPNUM | ENDPOINT_DIR_IN),
+            .Size                 = MIDI_STREAM_EPSIZE,
+            .Banks                = 1
         },
+        .DataOUTEndpoint = {
+            .Address              = (MIDI_STREAM_OUT_EPNUM | ENDPOINT_DIR_OUT),
+            .Size                 = MIDI_STREAM_EPSIZE,
+            .Banks                = 1
+        }
+    }
 };
+
+// clang-format on
 
 void send_midi_packet(MIDI_EventPacket_t *event) { MIDI_Device_SendEventPacket(&USB_MIDI_Interface, event); }
 
