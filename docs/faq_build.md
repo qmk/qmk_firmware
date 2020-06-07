@@ -53,7 +53,7 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="1b4f", ATTRS{idProduct}=="9203", TAG+="uacc
 
 **Note:** With older (before 1.12) ModemManager, filtering only works when not in strict mode, the following commands can update that settings:
 ```console
-sudo sed -i 's/--filter-policy=strict/--filter-policy=default/' /lib/systemd/system/ModemManager.service
+printf '[Service]\nExecStart=\nExecStart=/usr/sbin/ModemManager --filter-policy=default' | sudo tee /etc/systemd/system/ModemManager.service.d/policy.conf
 sudo systemctl daemon-reload
 sudo systemctl restart ModemManager
 ```
