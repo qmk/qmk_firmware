@@ -720,8 +720,8 @@ static void send_consumer(uint16_t data) {
         bluefruit_serial_send(0xFD);
         bluefruit_serial_send(0x00);
         bluefruit_serial_send(0x02);
-        bluefruit_serial_send((bitmap >> 8) & 0xFF);
         bluefruit_serial_send(bitmap & 0xFF);
+        bluefruit_serial_send((bitmap >> 8) & 0xFF);
         bluefruit_serial_send(0x00);
         bluefruit_serial_send(0x00);
         bluefruit_serial_send(0x00);
