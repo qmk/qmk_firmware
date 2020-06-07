@@ -112,12 +112,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------------------------'
    */
    [NL] = LAYOUT_60_iso_split(
-	//  1          2              3              4              5              6              7          8              9              10             11             12             13             14
-	    TG(NL),    KC_KP_1,       KC_KP_2,       KC_KP_3,       KC_4,          KC_5,          KC_6,      KC_KP_7,       KC_KP_8,       KC_KP_9,       KC_KP_0,       KC_KP_PLUS,    KC_KP_EQUAL,   _______,
-        _______,   KC_KP_4,       KC_KP_5,       KC_KP_6,       KC_KP_ASTERISK,KC_KP_SLASH,   _______,   KC_KP_4,       KC_KP_5,       KC_KP_6,       KC_KP_ASTERISK,KC_KP_SLASH,   _______,
-        _______,   KC_KP_7,       KC_KP_8,       KC_KP_9,       KC_KP_PLUS,    KC_KP_MINUS,   _______,   KC_KP_1,       KC_KP_2,       KC_KP_3,       KC_KP_PLUS,    KC_KP_MINUS,   _______,       _______,
-        _______,   KC_KP_0,       KC_KP_COMMA,   KC_KP_DOT,     KC_EQUAL,      _______,       _______,   _______,       KC_KP_0,       KC_KP_COMMA,   KC_KP_DOT,     KC_KP_EQUAL,   _______,
-        _______,   _______,       _______,       _______,       MO(FL),        _______,       _______,   _______,       TG(RL),        _______),
+	//  1          2         3          4          5          6          7          8          9        10        11        12         13         14
+	    TG(NL),    KC_P1,    KC_P2,     KC_P3,     KC_P4,     KC_P5,     KC_P6,     KC_P7,     KC_P8,   KC_P9,    KC_P0,     KC_PPLS,   KC_PMNS,   _______,
+        _______,   KC_P4,    KC_P5,     KC_P6,     KC_PAST,   KC_PSLS,   _______,   KC_P4,     KC_P5,   KC_P6,    KC_PAST,   KC_PSLS,   _______,
+        _______,   KC_P7,    KC_P8,     KC_P9,     KC_PPLS,   KC_PMNS,   _______,   KC_P1,     KC_P2,   KC_P3,    KC_PPLS,   KC_PMNS,   _______,   _______,
+        _______,   KC_P0,    KC_COMM,   KC_DOT,    KC_PEQL,   KC_PSLS,   KC_PMNS,   _______,   KC_P0,   KC_COMM,  KC_DOT,    KC_PEQL,   _______,
+        _______,   _______,  _______,   _______,   MO(FL),    _______,   _______,   _______,   TG(RL),  _______),
 
   /* Keymap RL: RGB Layer
    *
@@ -150,6 +150,23 @@ void persistent_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
+// always enable num lock on layer NL and disable on other layers
+// thanks to spidey3 & Erovia on discord
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+    case NL:
+        if (!host_keyboard_led_state().num_lock) {
+             tap_code16(KC_NLCK);
+        }
+        break;
+    default: //  for any other layers, or the default layer
+        if (host_keyboard_led_state().num_lock) {
+             tap_code16(KC_NLCK);
+        }
+        break;
+    }
+  return state;
+}
 
 // layer-activated RGB underglow
 
@@ -172,11 +189,11 @@ void matrix_scan_user(void) {
         break;
       case NL:
           RGB_NL_MODE; 
-         // RGB_NL_LIGHT; 
+          RGB_NL_LIGHT; 
         break;
       case RL:
           RGB_RL_MODE; 
-         // RGB_RL_LIGHT;        
+          RGB_RL_LIGHT;        
         break;
     }
 
