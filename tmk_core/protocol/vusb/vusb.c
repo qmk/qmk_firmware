@@ -65,7 +65,7 @@ enum usb_interfaces {
 #    error There are not enough available interfaces to support all functions. Please disable one or more of the following: Mouse Keys, Extra Keys, Raw HID, Console
 #endif
 
-static uint8_t vusb_keyboard_leds = 0;
+static uint8_t keyboard_led_state = 0;
 static uint8_t vusb_idle_rate     = 0;
 
 /* Keyboard report send buffer */
@@ -74,13 +74,7 @@ static report_keyboard_t kbuf[KBUF_SIZE];
 static uint8_t           kbuf_head = 0;
 static uint8_t           kbuf_tail = 0;
 
-typedef struct {
-    uint8_t modifier;
-    uint8_t reserved;
-    uint8_t keycode[6];
-} keyboard_report_t;
-
-static keyboard_report_t keyboard_report;  // sent to PC
+static report_keyboard_t keyboard_report_sent;
 
 #define VUSB_TRANSFER_KEYBOARD_MAX_TRIES 10
 
@@ -218,7 +212,7 @@ static host_driver_t driver = {keyboard_leds, send_keyboard, send_mouse, send_sy
 
 host_driver_t *vusb_driver(void) { return &driver; }
 
-static uint8_t keyboard_leds(void) { return vusb_keyboard_leds; }
+static uint8_t keyboard_leds(void) { return keyboard_led_state; }
 
 static void send_keyboard(report_keyboard_t *report) {
     uint8_t next = (kbuf_head + 1) % KBUF_SIZE;
@@ -232,6 +226,7 @@ static void send_keyboard(report_keyboard_t *report) {
     // NOTE: send key strokes of Macro
     usbPoll();
     vusb_transfer_keyboard();
+    keyboard_report_sent = *report;
 }
 
 typedef struct {
@@ -289,9 +284,10 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
     if ((rq->bmRequestType & USBRQ_TYPE_MASK) == USBRQ_TYPE_CLASS) { /* class request type */
         if (rq->bRequest == USBRQ_HID_GET_REPORT) {
             debug("GET_REPORT:");
-            /* we only have one report type, so don't look at wValue */
-            usbMsgPtr = (usbMsgPtr_t)&keyboard_report;
-            return sizeof(keyboard_report);
+            if (rq->wIndex.word == KEYBOARD_INTERFACE) {
+                usbMsgPtr = (usbMsgPtr_t)&keyboard_report_sent;
+                return sizeof(keyboard_report_sent);
+            }
         } else if (rq->bRequest == USBRQ_HID_GET_IDLE) {
             debug("GET_IDLE: ");
             // debug_hex(vusb_idle_rate);
@@ -304,7 +300,7 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
         } else if (rq->bRequest == USBRQ_HID_SET_REPORT) {
             debug("SET_REPORT: ");
             // Report Type: 0x02(Out)/ReportID: 0x00(none) && Interface: 0(keyboard)
-            if (rq->wValue.word == 0x0200 && rq->wIndex.word == 0) {
+            if (rq->wValue.word == 0x0200 && rq->wIndex.word == KEYBOARD_INTERFACE) {
                 debug("SET_LED: ");
                 last_req.kind = SET_LED;
                 last_req.len  = rq->wLength.word;
@@ -330,7 +326,7 @@ uchar usbFunctionWrite(uchar *data, uchar len) {
             debug("SET_LED: ");
             debug_hex(data[0]);
             debug("\n");
-            vusb_keyboard_leds = data[0];
+            keyboard_led_state = data[0];
             last_req.len       = 0;
             return 1;
             break;
