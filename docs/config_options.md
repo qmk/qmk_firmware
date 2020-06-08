@@ -174,7 +174,7 @@ If you define these options you will enable the associated feature, which may in
   * sets the timer for leader key chords to run on each key press rather than overall
 * `#define LEADER_KEY_STRICT_KEY_PROCESSING`
   * Disables keycode filtering for Mod-Tap and Layer-Tap keycodes. Eg, if you enable this, you would need to specify `MT(MOD_CTL, KC_A)` if you want to use `KC_A`.
-* `#define MAGIC_ENFORCE_HANDING`
+* `#define MAGIC_ENFORCE_HANDLING`
   * Enables magic configuration handling for advanced keycodes (such as Mod Tap and Layer Tap)
 * `#define ONESHOT_TIMEOUT 300`
   * how long before oneshot times out
