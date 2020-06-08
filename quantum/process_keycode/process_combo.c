@@ -155,6 +155,8 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
                 uint16_t time = COMBO_TERM;
 #if defined(COMBO_TERM_PER_COMBO)
                 time = get_combo_term(combo_index, combo)
+#elif defined(COMBO_MUST_HOLD_PER_COMBO)
+                if (get_combo_must_hold(combo_index, combo)) time = COMBO_MOD_TERM;
 #elif defined(COMBO_MUST_HOLD_MODS)
                 if (CODE_IS_MOD(combo->keycode)) time = COMBO_MOD_TERM;
 #endif
@@ -222,10 +224,10 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
 #if defined(COMBO_PERMISSIVE_HOLD) && (defined(COMBO_MUST_HOLD_MODS) || defined(COMBO_MUST_HOLD_PER_COMBO))
     if (COMBO_PREPARED && timer_elapsed(timer) > COMBO_TERM &&
         record->event.pressed &&
-#   if defined(COMBO_MUST_HOLD_MODS)
+#   if defined(COMBO_MUST_HOLD_PER_COMBO)
+        get_combo_must_hold(prepared_combo_index, prepared_combo)
+#   elif defined(COMBO_MUST_HOLD_MODS)
         CODE_IS_MOD(prepared_combo->keycode)
-#   elif defined(COMBO_MUST_HOLD_PER_COMBO)
-        get_combo_must_hold(prepared_combo_index, prepared_combo);
 #   endif
         ) {
         /* Allow combos resolving to modifier keys to be fired sooner when
@@ -272,14 +274,14 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
 void matrix_scan_combo(void) {
     uint16_t time = COMBO_TERM;
 
-#if defined(COMBO_TERM_PER_COMBO) || defined(COMBO_MUST_HOLD_MODS)
+#if defined(COMBO_TERM_PER_COMBO) || defined(COMBO_MUST_HOLD_MODS) || defined(COMBO_MUST_HOLD_PER_COMBO)
     if (COMBO_PREPARED) {
 #   if defined(COMBO_TERM_PER_COMBO)
-        time = get_combo_term(prepared_combo_index, prepared_combo);
+        time = get_combo_term(prepared_combo_index, prepared_combo)
+#   elif defined(COMBO_MUST_HOLD_PER_COMBO)
+        if (get_combo_must_hold(prepared_combo_index, prepared_combo)) time = COMBO_MOD_TERM;
 #   elif defined(COMBO_MUST_HOLD_MODS)
-        if (CODE_IS_MOD(prepared_combo->keycode)) {
-            time = COMBO_MOD_TERM;
-        }
+        if (CODE_IS_MOD(prepared_combo->keycode)) time = COMBO_MOD_TERM;
 #   endif
     }
 #endif
