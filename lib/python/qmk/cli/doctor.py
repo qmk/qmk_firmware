@@ -5,6 +5,7 @@ Check out the user's QMK environment and make sure it's ready to compile.
 import platform
 import shutil
 import subprocess
+from packaging import version
 from pathlib import Path
 
 from milc import cli
@@ -17,10 +18,10 @@ ESSENTIAL_BINARIES = {
     'avrdude': {},
     'dfu-util': {},
     'avr-gcc': {
-        'version_arg': '-dumpfullversion'
+        'version_arg': '-dumpversion'
     },
     'arm-none-eabi-gcc': {
-        'version_arg': '-dumpfullversion'
+        'version_arg': '-dumpversion'
     },
     'bin/qmk': {},
 }
@@ -66,8 +67,8 @@ def check_avr_gcc_version():
     if 'output' in ESSENTIAL_BINARIES['avr-gcc']:
         version_number = ESSENTIAL_BINARIES['avr-gcc']['output'].strip()
 
-        major, minor, rest = version_number.split('.', 2)
-        if int(major) > 8:
+        parsed_version = version.parse(version_number)
+        if parsed_version.major > 8:
             cli.log.error('We do not recommend avr-gcc newer than 8. Downgrading to 8.x is recommended.')
             return False
 
