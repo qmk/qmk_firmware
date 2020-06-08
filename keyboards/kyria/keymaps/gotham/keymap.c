@@ -19,11 +19,11 @@
 #include "keycodes.h"
 
 #ifdef ENCODER_ENABLE
-#    include "encoder.c"
+#    include "encoder_utils.h"
 #endif
 
 #ifdef OLED_DRIVER_ENABLE
-#    include "oled.c"
+#    include "oled_utils.h"
 #endif
 
 #ifdef THUMBSTICK_ENABLE
@@ -69,7 +69,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 };
-// clang-format off
+// clang-format on
+
+void matrix_init_user(void) {
+#ifdef ENCODER_ENABLE
+    encoder_utils_init();
+#endif
+}
 
 layer_state_t layer_state_set_user(layer_state_t state) { return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST); }
 

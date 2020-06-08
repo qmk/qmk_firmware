@@ -19,8 +19,9 @@ Press the encoder on each half to cycle between:
 Master-side OLED displays dynamic data:
 - Current layer
 - Current mode of each rotary encoder
+- Current mode of thumbstick
 
-Slave-side OLED currently only displays a static logo. More changes to come when I figure out how to drive two oleds with serial link.
+Slave-side OLED currently only displays a static content.
 
 ### Thumbstick
 

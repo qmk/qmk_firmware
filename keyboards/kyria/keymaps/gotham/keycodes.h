@@ -1,5 +1,7 @@
 #pragma once
 
+#include "quantum.h"
+
 enum layers { _QWERTY = 0, _LOWER, _RAISE, _ADJUST };
 
 enum custom_keycodes {
