@@ -12,8 +12,8 @@ typedef enum {
 #define THUMBSTICK_FINE_ZONE 180  // Values below this enable fine movement
 
 #define THUMBSTICK_MODE THUMBSTICK_MODE_MOUSE
-#define THUMBSTICK_SPEED 127
-#define THUMBSTICK_FINE_SPEED 64
+#define THUMBSTICK_SPEED 256
+#define THUMBSTICK_FINE_SPEED 96
 #define THUMBSTICK_SCROLL_SPEED 1
 
 #define THUMBSTICK_EIGHT_AXIS true
@@ -88,7 +88,7 @@ void thumbstick_init(void);
 int16_t thumbstick_get_component(uint8_t pin);
 
 // Get mouse speed
-int8_t thumbstick_get_mouse_speed(int16_t component);
+int16_t thumbstick_get_mouse_speed(int16_t component);
 
 // Fix direction within one of 8 axes (or 4 if 8-axis is disabled)
 thumbstick_direction_t thumbstick_get_discretized_direction(thumbstick_vector_t vector, float axisSeparation, bool eightAxis);

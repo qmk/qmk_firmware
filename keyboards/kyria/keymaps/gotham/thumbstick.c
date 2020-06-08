@@ -56,8 +56,8 @@ void thumbstick_mode_cycle(bool reverse) {
 }
 
 // Get mouse speed
-int8_t thumbstick_get_mouse_speed(int16_t component) {
-    int8_t   maxSpeed;
+int16_t thumbstick_get_mouse_speed(int16_t component) {
+    int16_t  maxSpeed;
     uint16_t distance = abs(component);
     if (distance > THUMBSTICK_FINE_ZONE) {
         maxSpeed = THUMBSTICK_SPEED;
@@ -97,7 +97,7 @@ thumbstick_direction_t thumbstick_get_discretized_direction(thumbstick_vector_t 
 }
 
 thumbstick_direction_t scrollDirection;  // Declaring global to save stack space
-void                          thumbstick_process(void) {
+void                   thumbstick_process(void) {
     if (timer_elapsed(thumbstickTimer) > THUMBSTICK_TIMEOUT) {
         thumbstickTimer = timer_read();
 #ifndef THUMBSTICK_FLIP_X
