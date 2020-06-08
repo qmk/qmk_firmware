@@ -1,4 +1,4 @@
-MOUSEKEY_ENABLE = no       # Mouse keys
-CONSOLE_ENABLE = no       # Console for debug
-COMMAND_ENABLE = no        # Commands for debug and configuration
+MOUSEKEY_ENABLE = no
+CONSOLE_ENABLE = no
+COMMAND_ENABLE = no
 OLED_DRIVER_ENABLE = no
