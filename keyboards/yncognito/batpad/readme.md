@@ -1,6 +1,6 @@
 # batpad
 
-![batpad](https://imgur.com/CZ3m0jh)
+![batpad](https://i.imgur.com/CZ3m0jh.jpg)
 
 A short description of the keyboard/project
 
