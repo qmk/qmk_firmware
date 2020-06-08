@@ -38,7 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS {D7,D5,F0,F1,F4,F6,F7,D4,C7,C6,D6,B5,B4}
 #define UNUSED_PINS
 
-#define BACKLIGHT_PIN B6
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -56,6 +55,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Backlight configuration
  */
+#define BACKLIGHT_PIN B6
+#define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 4
 
 #define RGB_DI_PIN D0    // The pin the LED strip is connected to
