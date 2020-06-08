@@ -33,7 +33,7 @@ typedef enum {
 #include "pointing_device.h"
 
 #if defined THUMBSTICK_DEBUG
-#    include <print.h>
+#    include "print.h"
 uint16_t rawX;
 uint16_t rawY;
 uint16_t distX;
