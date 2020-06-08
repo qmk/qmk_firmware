@@ -21,12 +21,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0003
-#define MANUFACTURER    Vortex
-#define PRODUCT         Core
-#define DESCRIPTION     Atom47 PCB for the Vortex Core Rev.2
+#define VENDOR_ID       0x4705
+#define PRODUCT_ID      0x8e66
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    Maartenwut
+#define PRODUCT         Atom47 Rev2
+#define DESCRIPTION     45% PCB that fits the Vortex Core
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -62,7 +62,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM 1     // Number of LEDs in your strip
 
 #define QMK_ESC_OUTPUT D7 // usually COL
-#define QMK_ESC_INPUT B1 // usually ROW
+#define QMK_ESC_INPUT B7 // usually ROW
 #define QMK_LED B6
 
 #endif

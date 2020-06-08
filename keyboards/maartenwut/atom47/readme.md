@@ -4,23 +4,12 @@
 
 ## Support
 Keyboard Maintainer: [Maarten Dekkers](https://github.com/maartenwut)  
-Hardware Supported: Atom47 rev2/rev3
+Hardware Supported: Atom47 rev2/rev3/rev4
 Hardware Availability: [GeekHack.com Group Buy](https://geekhack.org/index.php?topic=93447.msg2545221)  
 
-
-## Features (rev3 and up)
-- QMK Firmware  
-- 6 Underglow RGB leds  
-- In-switch leds  
-- Through-hole micro usb connector (less likely to break off!)  
-- South facing leds for the QMX/Zealencio users  
-- Multiple layouts  
-- Easily reachable reset button under the spacebar  
-- CapsLock indicator  
-
 ## Build
-To build the default keymap for the latest revision, simply run `make atom47:default`. Specifiy the revision like so: `make atom47/rev3:default`.
+Make example for this keyboard (after setting up your build environment):
 
-See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
+    make maartenwut/atom47/rev4:default
 
-![Atom47](https://i.imgur.com/JfYnOba.jpg)
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

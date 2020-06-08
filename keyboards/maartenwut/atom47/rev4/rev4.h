@@ -1,5 +1,5 @@
-#ifndef ATOM47_REV3_H
-#define ATOM47_REV3_H
+#ifndef ATOM47_REV4_H
+#define ATOM47_REV4_H
 
 #include "quantum.h"
 

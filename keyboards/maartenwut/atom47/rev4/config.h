@@ -15,17 +15,17 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REV3_CONFIG_H
-#define REV3_CONFIG_H
+#ifndef REV4_CONFIG_H
+#define REV4_CONFIG_H
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x4705
-#define PRODUCT_ID      0x0e6d
+#define PRODUCT_ID      0x8446
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Maartenwut
-#define PRODUCT         Atom47 Rev3
+#define PRODUCT         Atom47 Rev4
 #define DESCRIPTION     45% PCB that fits the Vortex Core
 
 /* key matrix size */
@@ -34,10 +34,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // ROWS: Top to bottom, COLS: Left to right
 
-#define MATRIX_ROW_PINS {B3,B2,B1,B0}
-#define MATRIX_COL_PINS {B7,F0,F1,F4,F6,D4,D6,D7,B4,B5,C6,C7,F7}
+#define MATRIX_ROW_PINS {D0,C2,C5,C6}
+#define MATRIX_COL_PINS {C4,C7,B7,B6,B5,B2,B1,B0,D6,D5,D4,D3,D2}
 #define UNUSED_PINS
 
+#define ENCODERS_PAD_A { B3 }
+#define ENCODERS_PAD_B { B4 }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -50,15 +52,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Backlight configuration
  */
-#define BACKLIGHT_PIN B6
-#define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 5
 
-#define RGB_DI_PIN F5    // The pin the LED strip is connected to
-#define RGBLED_NUM 6     // Number of LEDs in your strip
-#define RGBLIGHT_ANIMATIONS
-#define QMK_ESC_OUTPUT B7 // usually COL
-#define QMK_ESC_INPUT B0 // usually ROW
-#define QMK_LED E6
+#define QMK_ESC_OUTPUT C4 // usually COL
+#define QMK_ESC_INPUT C6 // usually ROW
+#define QMK_LED D1
 
 #endif
