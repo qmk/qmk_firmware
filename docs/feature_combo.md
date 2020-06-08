@@ -17,7 +17,20 @@ combo_t key_combos[COMBO_COUNT] = {COMBO(test_combo, KC_ESC)};
 
 This will send "Escape" if you hit the A and B keys.
 
-!> This method only supports [basic keycodes](keycodes_basic.md). See the examples for more control.
+As of [PR#8591](https://github.com/qmk/qmk_firmware/pull/8591/), it is possible to fire combos from ModTap keys and LayerTap keys. So in the above example you could have keys `LSFT_T(KC_A)` and `LT(_LAYER, KC_B)` and it would work.
+
+It is also now possible to overlap combos. Before, with the example below both combos would activate when all three keys were pressed. Now only the three key combo will activate.
+
+```c
+const uint16_t PROGMEM test_combo1[] = {LSFT_T(KC_A), LT(_LAYER, KC_B), COMBO_END};
+const uint16_t PROGMEM test_combo2[] = {LSFT_T(KC_A), LT(_LAYER, KC_B), KC_C, COMBO_END};
+combo_t key_combos[COMBO_COUNT] = {
+    COMBO(test_combo1, KC_ESC)
+    COMBO(test_combo2, KC_TAB)
+};
+```
+
+!> This method currently only supports [basic keycodes](keycodes_basic.md). See the examples for more control.
 
 ## Examples
 
@@ -26,15 +39,18 @@ If you want to add a list, then you'd use something like this:
 ```c
 enum combos {
   AB_ESC,
-  JK_TAB
+  JK_TAB,
+  QW_SFT
 };
 
 const uint16_t PROGMEM ab_combo[] = {KC_A, KC_B, COMBO_END};
 const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM qw_combo[] = {KC_Q, KC_W, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [AB_ESC] = COMBO(ab_combo, KC_ESC),
-  [JK_TAB] = COMBO(jk_combo, KC_TAB)
+  [JK_TAB] = COMBO(jk_combo, KC_TAB),
+  [QW_SFT] = COMBO(qw_combo, KC_LSFT)
 };
 ```
 
@@ -53,6 +69,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [ZC_COPY] = COMBO_ACTION(copy_combo),
   [XV_PASTE] = COMBO_ACTION(paste_combo),
 };
+/* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
 
 void process_combo_event(uint8_t combo_index, bool pressed) {
   switch(combo_index) {
@@ -119,6 +136,7 @@ Examples:
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     // decide by combo->keycode
     if (IS_MOD(combo->keycode)) return COMBO_MOD_TERM; // you have to config this yourself ifdef COMBO_TERM_PER_COMBO
+
     switch (combo->keycode) {
         case KC_X:
             return 50;
@@ -160,13 +178,6 @@ In addition to the keycodes, there are a few functions that you can use to set t
 | `combo_disable()`    | Disables the combo feature, and clears the combo buffer |
 | `combo_toggle()`     | Toggles the state of the combo feature                  |
 | `is_combo_enabled()` | Returns the status of the combo feature state (true or false) |
-
-#### Hooks
-The following functions can be defined and will hook the processing of the Combo feature
-
-|Function   |Description                                                         |
-|-----------|--------------------------------------------------------------------|
-| void process_combo_event(uint16_t combo_index, bool pressed) | User hook called on every combo key |
 
 
 #### Dictionary Management
