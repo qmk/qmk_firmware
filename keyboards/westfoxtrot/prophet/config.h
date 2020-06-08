@@ -3,7 +3,7 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x21FF
+#define VENDOR_ID       0xFF21
 #define PRODUCT_ID      0xAA03
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    westfoxtrot
