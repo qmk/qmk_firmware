@@ -47,7 +47,7 @@ static combo_t  *prepared_combo       = NULL;
 static uint8_t buffer_size = 0;
 static keyrecord_t key_buffer[MAX_COMBO_LENGTH];
 
-static inline void send_combo(uint16_t keycode, bool pressed) {
+static inline void send_combo(uint16_t keycode, bool pressed, uint8_t combo_index) {
     if (keycode) {
         if (pressed) {
             if (CODE_IS_MOD(keycode)) {
@@ -65,7 +65,7 @@ static inline void send_combo(uint16_t keycode, bool pressed) {
             }
         }
     } else {
-        process_combo_event(prepared_combo_index, pressed);
+        process_combo_event(combo_index, pressed);
     }
 }
 
@@ -106,7 +106,7 @@ static inline void dump_key_buffer(bool emit) {
 }
 
 void fire_combo(void) {
-    send_combo(prepared_combo->keycode, true);
+    send_combo(prepared_combo->keycode, true, prepared_combo_index);
     prepared_combo->active = true;
     prepared_combo = NULL;
     prepared_combo_index = -1;
@@ -154,7 +154,7 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
                 /* Don't prepare this combo if its combo term has passed. */
                 uint16_t time = COMBO_TERM;
 #if defined(COMBO_TERM_PER_COMBO)
-                time = get_combo_term(combo_index, combo)
+                time = get_combo_term(combo_index, combo);
 #elif defined(COMBO_MUST_HOLD_PER_COMBO)
                 if (get_combo_must_hold(combo_index, combo)) time = COMBO_MOD_TERM;
 #elif defined(COMBO_MUST_HOLD_MODS)
@@ -179,7 +179,7 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
                 fire_combo();
             }
             if (combo->active) {
-                send_combo(combo->keycode, false);
+                send_combo(combo->keycode, false, combo_index);
             }
             combo->state = 0; /* immediately clear state on release */
             combo->active = false;
@@ -277,7 +277,7 @@ void matrix_scan_combo(void) {
 #if defined(COMBO_TERM_PER_COMBO) || defined(COMBO_MUST_HOLD_MODS) || defined(COMBO_MUST_HOLD_PER_COMBO)
     if (COMBO_PREPARED) {
 #   if defined(COMBO_TERM_PER_COMBO)
-        time = get_combo_term(prepared_combo_index, prepared_combo)
+        time = get_combo_term(prepared_combo_index, prepared_combo);
 #   elif defined(COMBO_MUST_HOLD_PER_COMBO)
         if (get_combo_must_hold(prepared_combo_index, prepared_combo)) time = COMBO_MOD_TERM;
 #   elif defined(COMBO_MUST_HOLD_MODS)
