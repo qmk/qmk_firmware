@@ -242,7 +242,7 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
 #endif
         combo_t *combo = &key_combos[idx];
         is_combo_key |= process_single_combo(combo, keycode, record, idx);
-        no_combo_keys_pressed = no_combo_keys_pressed && NO_COMBO_KEYS_ARE_DOWN;
+        no_combo_keys_pressed = no_combo_keys_pressed && (NO_COMBO_KEYS_ARE_DOWN || combo->active);
     }
 
     if (!is_combo_key) {
