@@ -5,6 +5,7 @@ it corresponds to the colemak-dh layout.
 
 To customize, upload the json file to qmk configurator
 
+- `keymap_colemak.json`: colemak layout
 - `keymap_colemak_dh.json`: colemak-dh layout
 - `keymap_qwerty.json`: qwerty layout
 
