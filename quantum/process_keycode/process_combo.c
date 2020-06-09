@@ -77,7 +77,8 @@ void clear_combos(bool clear_state) {
     for (index = 0; index < COMBO_LEN; ++index) {
 #endif
         combo_t *combo = &key_combos[index];
-        combo->disabled = false;
+        if (!combo->active)
+            combo->disabled = false;
         if (clear_state && !combo->active) {
             combo->state = 0;
         }
@@ -112,6 +113,7 @@ void fire_combo(void) {
 }
 
 #define ALL_COMBO_KEYS_ARE_DOWN (((1 << count) - 1) == combo->state)
+#define ONLY_ONE_KEY_IS_DOWN(state) !(state & (state-1))
 #define KEY_STATE_DOWN(key)         \
     do {                            \
         combo->state |= (1 << key); \
@@ -136,7 +138,6 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
     if (-1 == (int8_t)index) {
         if (!combo->active) { /* do not clear a combo that has been fired */
             combo->disabled = true;
-            combo->state = 0;
         }
         return false;
     }
@@ -144,8 +145,8 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
     bool is_combo_active = is_active & !combo->disabled;
 
     if (record->event.pressed) {
+        KEY_STATE_DOWN(index);
         if (is_combo_active) {
-            KEY_STATE_DOWN(index);
             if (ALL_COMBO_KEYS_ARE_DOWN) { /* Combo was pressed */
                 /* Save the combo so we can fire it after COMBO_TERM */
 
@@ -165,7 +166,7 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
             }
         }
     } else {
-        if (ALL_COMBO_KEYS_ARE_DOWN) { /* Combo was released */
+        if (ALL_COMBO_KEYS_ARE_DOWN) { /* First key was released */
             if (COMBO_PREPARED
 #if defined(COMBO_MUST_HOLD_PER_COMBO)
                     && !get_combo_must_hold(prepared_combo_index, prepared_combo)
@@ -176,17 +177,14 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
                 /* Fire non-mod combo immediately if it was released inside COMBO_TERM */
                 fire_combo();
             }
-            if (combo->active) {
-                send_combo(combo->keycode, false, combo_index);
-            }
-            combo->state = 0; /* immediately clear state on release */
+            combo->disabled = true;
+        } else if (combo->active && ONLY_ONE_KEY_IS_DOWN(combo->state)) { /* last key released */
+            send_combo(combo->keycode, false, combo_index);
             combo->active = false;
             combo->disabled = true;
-            is_combo_active = false;
-        } else {
-            /* continue processing without immediately returning */
-            is_combo_active = false;
         }
+        /* continue processing without immediately returning */
+        is_combo_active = false;
 
         KEY_STATE_UP(index);
     }
