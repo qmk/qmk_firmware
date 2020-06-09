@@ -59,15 +59,18 @@ For a more complicated implementation, you can use the `process_combo_event` fun
 ```c
 enum combo_events {
   ZC_COPY,
-  XV_PASTE
+  XV_PASTE,
+  SD_LAYER
 };
 
 const uint16_t PROGMEM copy_combo[] = {KC_Z, KC_C, COMBO_END};
 const uint16_t PROGMEM paste_combo[] = {KC_X, KC_V, COMBO_END};
+const uint16_t PROGMEM layer_combo[] = {KC_S, KC_D, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [ZC_COPY] = COMBO_ACTION(copy_combo),
   [XV_PASTE] = COMBO_ACTION(paste_combo),
+  [SD_LAYER] = COMBO_ACTION(layer_combo),
 };
 /* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
 
@@ -83,11 +86,19 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
         tap_code16(LCTL(KC_V));
       }
       break;
+    case SD_LAYER:
+      /* until more advanced keycodes are supported, layer changing combos need to be handled manually. */
+      if (pressed) {
+        layer_on(_LAYER);
+      } else {
+        layer_off(_LAYER);
+      }
+      break;
   }
 }
 ```
 
-This will send Ctrl+C if you hit Z and C, and Ctrl+V if you hit X and V.  But you could change this to do stuff like change layers, play sounds, or change settings.
+This will send Ctrl+C if you hit Z and C, Ctrl+V if you hit X and V, and changel layer to `_LAYER` when you hold down S and D.  But you could change this to do stuff like play sounds or change settings.
 
 # Advanced Configuration
 These configuration settings can be set in your keymaps `config.h`. 
