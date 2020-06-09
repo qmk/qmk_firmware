@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 #define VENDOR_ID       0x464C // "FL"
-#define PRODUCT_ID      0x0002 // JN
+#define PRODUCT_ID      0x0005 // Leaf 80
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Fox Lab
 #define PRODUCT         Leaf 80
