@@ -1,5 +1,4 @@
-/*
-Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
+/* Copyright 2020 spyruf
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,6 +27,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 15
 
+// I copied the stuff below from the TGR Jane v2 TKL and similar ATmega32A boards.
+// I don't know if this is correct or if it matters for any of the current supported features
+// I think it has to do with LEDs but I'm not using any
 //                        0   1   2   3   4   5   6   7   8   9   A   B   C   D   E
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, B4, B5, B6, B7 }
 #define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4, C3, C2, D7 }

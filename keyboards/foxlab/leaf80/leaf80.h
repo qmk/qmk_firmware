@@ -54,6 +54,7 @@
 * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘ └───┴───┴───┘
 */
  // This is the only layout I ported based on my bootmapper client layout - @spyruf
+ // See above for what it looks like - basically Standard ANSI TKL
 #define LAYOUT_tkl_ansi( \
     k11, k13, k14, k15, k16, k18, k19, k1A, k1B, k1C, k10, k1D, k12, k02, k03, k00,      \
     k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k20, k2D, k07, k06, k05, \

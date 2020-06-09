@@ -16,5 +16,7 @@ Flashing example for this keyboard ([after setting up the bootloadHID flashing e
 
 **Reset Key:** To put Leaf 80 into reset, hold the top right most key (`K00`) while plugging in. 
 
+If the default keymap is flashed, holding the `Menu Key` + `Escape` will also trigger keycode `RESET`.
+
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
