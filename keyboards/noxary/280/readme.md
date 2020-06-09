@@ -1,5 +1,9 @@
 # Noxary 280
 
+![Noxary 280 WKL](https://i.imgur.com/CuQz0qW.png)
+![Noxary 280 WK](https://i.imgur.com/iAQYzsq.png)
+
+
 A fully customizable TKL keyboard.
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin), [Rozakiin](https://github.com/rozakiin)  
