@@ -16,7 +16,7 @@
 #pragma once
 
 #include "quantum.h"
-
+// clang-format off
 // This a shortcut to help you visually see your layout.
 // The first section contains all of the arguments
 // The second converts the arguments into a two-dimensional array
