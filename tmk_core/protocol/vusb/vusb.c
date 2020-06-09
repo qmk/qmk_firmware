@@ -15,10 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <avr/wdt.h>
-#include <util/delay.h>
 #include <stdint.h>
+
+#include <avr/wdt.h>
+
 #include <usbdrv/usbdrv.h>
+
 #include "usbconfig.h"
 #include "host.h"
 #include "report.h"
@@ -26,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "vusb.h"
 #include "print.h"
 #include "debug.h"
+#include "wait.h"
 #include "usb_descriptor_common.h"
 
 #ifdef RAW_ENABLE
@@ -56,7 +59,7 @@ enum usb_interfaces {
 #ifdef CONSOLE_ENABLE
     CONSOLE_INTERFACE = NEXT_INTERFACE,
 #endif
-    TOTAL_INTERFACES = NEXT_INTERFACE,
+    TOTAL_INTERFACES = NEXT_INTERFACE
 };
 
 #define MAX_INTERFACES 2
@@ -86,19 +89,13 @@ void vusb_transfer_keyboard(void) {
                 usbSetInterrupt((void *)&kbuf[kbuf_tail], sizeof(report_keyboard_t));
                 kbuf_tail = (kbuf_tail + 1) % KBUF_SIZE;
                 if (debug_keyboard) {
-                    print("V-USB: kbuf[");
-                    pdec(kbuf_tail);
-                    print("->");
-                    pdec(kbuf_head);
-                    print("](");
-                    phex((kbuf_head < kbuf_tail) ? (KBUF_SIZE - kbuf_tail + kbuf_head) : (kbuf_head - kbuf_tail));
-                    print(")\n");
+                    dprintf("V-USB: kbuf[%d->%d](%02X)\n", kbuf_tail, kbuf_head, (kbuf_head < kbuf_tail) ? (KBUF_SIZE - kbuf_tail + kbuf_head) : (kbuf_head - kbuf_tail));
                 }
             }
             break;
         }
         usbPoll();
-        _delay_ms(1);
+        wait_ms(1);
     }
 }
 
@@ -220,7 +217,7 @@ static void send_keyboard(report_keyboard_t *report) {
         kbuf[kbuf_head] = *report;
         kbuf_head       = next;
     } else {
-        debug("kbuf: full\n");
+        dprint("kbuf: full\n");
     }
 
     // NOTE: send key strokes of Macro
@@ -283,37 +280,35 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
 
     if ((rq->bmRequestType & USBRQ_TYPE_MASK) == USBRQ_TYPE_CLASS) { /* class request type */
         if (rq->bRequest == USBRQ_HID_GET_REPORT) {
-            debug("GET_REPORT:");
+            dprint("GET_REPORT:");
             if (rq->wIndex.word == KEYBOARD_INTERFACE) {
                 usbMsgPtr = (usbMsgPtr_t)&keyboard_report_sent;
                 return sizeof(keyboard_report_sent);
             }
         } else if (rq->bRequest == USBRQ_HID_GET_IDLE) {
-            debug("GET_IDLE: ");
-            // debug_hex(vusb_idle_rate);
+            dprint("GET_IDLE:");
             usbMsgPtr = (usbMsgPtr_t)&vusb_idle_rate;
             return 1;
         } else if (rq->bRequest == USBRQ_HID_SET_IDLE) {
             vusb_idle_rate = rq->wValue.bytes[1];
-            debug("SET_IDLE: ");
-            debug_hex(vusb_idle_rate);
+            dprintf("SET_IDLE: %02X", vusb_idle_rate);
         } else if (rq->bRequest == USBRQ_HID_SET_REPORT) {
-            debug("SET_REPORT: ");
+            dprint("SET_REPORT:");
             // Report Type: 0x02(Out)/ReportID: 0x00(none) && Interface: 0(keyboard)
             if (rq->wValue.word == 0x0200 && rq->wIndex.word == KEYBOARD_INTERFACE) {
-                debug("SET_LED: ");
+                dprint("SET_LED:");
                 last_req.kind = SET_LED;
                 last_req.len  = rq->wLength.word;
             }
             return USB_NO_MSG;  // to get data in usbFunctionWrite
         } else {
-            debug("UNKNOWN:");
+            dprint("UNKNOWN:");
         }
     } else {
-        debug("VENDOR:");
+        dprint("VENDOR:");
         /* no vendor specific requests implemented */
     }
-    debug("\n");
+    dprint("\n");
     return 0; /* default for not implemented requests: return no data back to host */
 }
 
@@ -323,9 +318,7 @@ uchar usbFunctionWrite(uchar *data, uchar len) {
     }
     switch (last_req.kind) {
         case SET_LED:
-            debug("SET_LED: ");
-            debug_hex(data[0]);
-            debug("\n");
+            dprintf("SET_LED: %02X\n", data[0]);
             keyboard_led_state = data[0];
             last_req.len       = 0;
             return 1;
@@ -342,13 +335,13 @@ void usbFunctionWriteOut(uchar *data, uchar len) {
 #ifdef RAW_ENABLE
     // Data from host must be divided every 8bytes
     if (len != 8) {
-        debug("RAW: invalid length");
+        dprint("RAW: invalid length\n");
         raw_output_received_bytes = 0;
         return;
     }
 
     if (raw_output_received_bytes + len > RAW_BUFFER_SIZE) {
-        debug("RAW: buffer full");
+        dprint("RAW: buffer full\n");
         raw_output_received_bytes = 0;
     } else {
         for (uint8_t i = 0; i < 8; i++) {
@@ -403,29 +396,6 @@ const PROGMEM uchar keyboard_hid_report[] = {
     0x91, 0x03,  //   Output (Constant)
     0xC0         // End Collection
 };
-
-#ifdef RAW_ENABLE
-const PROGMEM uchar raw_hid_report[] = {
-    0x06, RAW_USAGE_PAGE_LO, RAW_USAGE_PAGE_HI,  // Usage Page (Vendor Defined)
-    0x09, RAW_USAGE_ID,                          // Usage (Vendor Defined)
-    0xA1, 0x01,                                  // Collection (Application)
-    // Data to host
-    0x09, 0x62,             //   Usage (Vendor Defined)
-    0x15, 0x00,             //   Logical Minimum (0)
-    0x26, 0xFF, 0x00,       //   Logical Maximum (255)
-    0x95, RAW_BUFFER_SIZE,  //   Report Count
-    0x75, 0x08,             //   Report Size (8)
-    0x81, 0x02,             //   Input (Data, Variable, Absolute)
-    // Data from host
-    0x09, 0x63,             //   Usage (Vendor Defined)
-    0x15, 0x00,             //   Logical Minimum (0)
-    0x26, 0xFF, 0x00,       //   Logical Maximum (255)
-    0x95, RAW_BUFFER_SIZE,  //   Report Count
-    0x75, 0x08,             //   Report Size (8)
-    0x91, 0x02,             //   Output (Data, Variable, Absolute)
-    0xC0                    // End Collection
-};
-#endif
 
 #if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
 const PROGMEM uchar mouse_extra_hid_report[] = {
@@ -508,6 +478,29 @@ const PROGMEM uchar mouse_extra_hid_report[] = {
     0x81, 0x00,                //   Input (Data, Array, Absolute)
     0xC0                       // End Collection
 #    endif
+};
+#endif
+
+#ifdef RAW_ENABLE
+const PROGMEM uchar raw_hid_report[] = {
+    0x06, RAW_USAGE_PAGE_LO, RAW_USAGE_PAGE_HI,  // Usage Page (Vendor Defined)
+    0x09, RAW_USAGE_ID,                          // Usage (Vendor Defined)
+    0xA1, 0x01,                                  // Collection (Application)
+    // Data to host
+    0x09, 0x62,             //   Usage (Vendor Defined)
+    0x15, 0x00,             //   Logical Minimum (0)
+    0x26, 0xFF, 0x00,       //   Logical Maximum (255)
+    0x95, RAW_BUFFER_SIZE,  //   Report Count
+    0x75, 0x08,             //   Report Size (8)
+    0x81, 0x02,             //   Input (Data, Variable, Absolute)
+    // Data from host
+    0x09, 0x63,             //   Usage (Vendor Defined)
+    0x15, 0x00,             //   Logical Minimum (0)
+    0x26, 0xFF, 0x00,       //   Logical Maximum (255)
+    0x95, RAW_BUFFER_SIZE,  //   Report Count
+    0x75, 0x08,             //   Report Size (8)
+    0x91, 0x02,             //   Output (Data, Variable, Absolute)
+    0xC0                    // End Collection
 };
 #endif
 
@@ -801,14 +794,6 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
 USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
     usbMsgLen_t len = 0;
 
-    /*
-        debug("usbFunctionDescriptor: ");
-        debug_hex(rq->bmRequestType); debug(" ");
-        debug_hex(rq->bRequest); debug(" ");
-        debug_hex16(rq->wValue.word); debug(" ");
-        debug_hex16(rq->wIndex.word); debug(" ");
-        debug_hex16(rq->wLength.word); debug("\n");
-    */
     switch (rq->wValue.bytes[1]) {
         case USBDESCR_DEVICE:
             usbMsgPtr = (usbMsgPtr_t)&usbDeviceDescriptor;
@@ -892,6 +877,5 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
             }
             break;
     }
-    // debug("desc len: "); debug_hex(len); debug("\n");
     return len;
 }
