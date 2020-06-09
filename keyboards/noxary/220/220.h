@@ -1,4 +1,4 @@
-/* Copyright 2019 MechMerlin
+/* Copyright 2019 Rozakiin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
-#define LAYOUT_ortho_6x4( \
+#define LAYOUT( \
 	K00, K01, K02, K03, \
 	K10, K11, K12, K13, \
 	K20, K21, K22, K23, \
