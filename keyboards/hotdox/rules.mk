@@ -28,6 +28,7 @@ BACKLIGHT_ENABLE        = yes # Enable keyboard backlight functionality
 SWAP_HANDS_ENABLE       = no  # Disable Onehand
 RGBLIGHT_ENABLE         = no
 MIDI_ENABLE             = no
+TAP_DANCE_ENABLE				=	yes
 
 # project specific files
 SRC =  matrix.c     \
