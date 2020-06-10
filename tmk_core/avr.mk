@@ -129,7 +129,8 @@ define EXEC_DFU
 		fi; \
 	fi; \
 	$(DFU_PROGRAMMER) $(MCU) flash $(BUILD_DIR)/$(TARGET).hex;\
-	$(DFU_PROGRAMMER) $(MCU) reset
+	$(DFU_PROGRAMMER) $(MCU) reset;\
+	true
 endef
 
 dfu: $(BUILD_DIR)/$(TARGET).hex cpfirmware check-size
@@ -306,6 +307,7 @@ else ifeq ($(strip $(BOOTLOADER)), caterina)
 else ifeq ($(strip $(BOOTLOADER)), halfkay)
 	$(call EXEC_TEENSY)
 else ifeq (dfu,$(findstring dfu,$(BOOTLOADER)))
+	$(info [${EXEC_DFU}])
 	$(call EXEC_DFU)
 else ifeq ($(strip $(BOOTLOADER)), USBasp)
 	$(call EXEC_USBASP)
