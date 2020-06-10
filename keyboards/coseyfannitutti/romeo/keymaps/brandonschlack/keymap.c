@@ -36,19 +36,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 /* Lower
 * ┌─────┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
-* │Del  │BrD│BrU│Msn│LHP│   │   │   │Hom│ ↑ │PgU│ SlpD│
+* │Del  │BrD│BrU│Msn│LHP│   │   │   │PgU│Hom│End│ SlpD│
 * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
-* │HyCaps│Mut│VlU│NxW│PvT│Bck│Fwd│NxT│ ← │ → │    Play│
+* │HyCaps│Mut│VlU│NxW│PvT│Bck│Fwd│NxT│PgD│ ↑ │    Play│
 * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬──────┤
-* │        │Prv│VlD│Nxt│1PX│1Ps│   │End│ ↓ │PgD│      │
+* │        │Prv│VlD│Nxt│1PX│1Ps│   │ ← │ ↓ │ → │      │
 * ├────┬───┼───┼───┴───┴───┴───┴───┴───┴┬──┴─┬─┴─┬────┤
 * │    │   │   │                        │    │   │    │
 * └────┴───┴───┴────────────────────────┴────┴───┴────┘
 */
 [_LOWER] = LAYOUT_ansi_40( \
-    KC_DELT, KC_BRMD, KC_BRMU, MC_MSSN, MC_LHPD, _______, _______, _______, KC_HOME, KC_UP,   KC_PGUP, MC_SLPD, \
-    HY_CAPS, KC_MUTE, KC_VOLU, NXT_WIN, PRV_TAB, MC_BACK, MC_FWRD, NXT_TAB, KC_LEFT, KC_RGHT,          KC_MPLY, \
-    _______,          KC_MPRV, KC_VOLD, KC_MNXT, PX_AFLL, OP_AFLL, KC_VOLD, KC_END,  KC_DOWN, KC_PGDN, _______, \
+    KC_DELT, KC_BRMD, KC_BRMU, MC_MSSN, MC_LHPD, _______, _______, _______, KC_PGUP, KC_HOME, KC_END,  MC_SLPD, \
+    HY_CAPS, KC_MUTE, KC_VOLU, NXT_WIN, PRV_TAB, MC_BACK, MC_FWRD, NXT_TAB, KC_PGDN, KC_UP,            KC_MPLY, \
+    _______,          KC_MPRV, KC_VOLD, KC_MNXT, PX_AFLL, OP_AFLL, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, \
     _______, _______, _______,                            _______,                   _______, _______, _______  \
 ),
 /* Raise
