@@ -2,6 +2,12 @@
 
 #include "quantum.h"
 
+#if defined(KEYBOARD_xd60_rev2)
+#    include "rev2.h"
+#elif defined(KEYBOARD_xd60_rev3)
+#    include "rev3.h"
+#endif
+
 /* XD60 LEDs
  *   GPIO pads
  *   0 F7 not connected
