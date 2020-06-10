@@ -4,9 +4,9 @@
 
 this macro pad / small 12 key was inspired by the plaid look
 
-*   Keyboard Maintainer: [Boardsource](https://github.com/daysgobye)
-*   Hardware Supported: 3x4 v1
-*   Hardware Availability: [Boardsource store](https://boardsource.xyz/store/5ecc2008eee64242946c98c1)
+* Keyboard Maintainer: [Boardsource](https://github.com/daysgobye)
+* Hardware Supported: 3x4 v1
+* Hardware Availability: [Boardsource store](https://boardsource.xyz/store/5ecc2008eee64242946c98c1)
 
 Make example for this keyboard (after setting up your build environment):
 
