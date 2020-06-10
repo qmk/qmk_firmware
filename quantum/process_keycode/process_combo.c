@@ -113,7 +113,8 @@ void fire_combo(void) {
 }
 
 #define ALL_COMBO_KEYS_ARE_DOWN (((1 << count) - 1) == combo->state)
-#define ONLY_ONE_KEY_IS_DOWN(state) !(state & (state-1))
+#define ONLY_ONE_KEY_IS_DOWN !(combo->state & (combo->state - 1))
+#define KEY_NOT_YET_RELEASED ((1 << index) & combo->state)
 #define KEY_STATE_DOWN(key)         \
     do {                            \
         combo->state |= (1 << key); \
@@ -145,7 +146,9 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
     bool is_combo_active = is_active & !combo->disabled;
 
     if (record->event.pressed) {
-        KEY_STATE_DOWN(index);
+        if (!combo->active) {
+            KEY_STATE_DOWN(index);
+        }
         if (is_combo_active) {
             if (ALL_COMBO_KEYS_ARE_DOWN) { /* Combo was pressed */
                 /* Save the combo so we can fire it after COMBO_TERM */
@@ -166,7 +169,7 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
             }
         }
     } else {
-        if (ALL_COMBO_KEYS_ARE_DOWN) { /* First key was released */
+        if (!combo->active && ALL_COMBO_KEYS_ARE_DOWN) { /* First key quickly released */
             if (COMBO_PREPARED
 #if defined(COMBO_MUST_HOLD_PER_COMBO)
                     && !get_combo_must_hold(prepared_combo_index, prepared_combo)
@@ -176,15 +179,20 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
                 ) {
                 /* Fire non-mod combo immediately if it was released inside COMBO_TERM */
                 fire_combo();
+            } else {
+                /* combo wasn't tappable, dump key buffer */
+                is_combo_active = false;
             }
-            combo->disabled = true;
-        } else if (combo->active && ONLY_ONE_KEY_IS_DOWN(combo->state)) { /* last key released */
+        } else if (combo->active && ONLY_ONE_KEY_IS_DOWN && KEY_NOT_YET_RELEASED) { /* last key released */
             send_combo(combo->keycode, false, combo_index);
             combo->active = false;
-            combo->disabled = true;
+            is_combo_active = true;
+        } else if (combo->active && KEY_NOT_YET_RELEASED) { /* first or middle key released */
+            is_combo_active = true;
+        } else {
+            /* continue processing without immediately returning */
+            is_combo_active = false;
         }
-        /* continue processing without immediately returning */
-        is_combo_active = false;
 
         KEY_STATE_UP(index);
     }
@@ -240,18 +248,13 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
 #endif
         combo_t *combo = &key_combos[idx];
         is_combo_key |= process_single_combo(combo, keycode, record, idx);
-        no_combo_keys_pressed = no_combo_keys_pressed && (NO_COMBO_KEYS_ARE_DOWN || combo->active);
+        no_combo_keys_pressed = no_combo_keys_pressed && (NO_COMBO_KEYS_ARE_DOWN || combo->active || combo->disabled);
     }
 
     if (!is_combo_key) {
         /* if no combos claim the key we need to emit the keybuffer */
         dump_key_buffer(true);
 
-        // reset state if there are no combo keys pressed at all
-        if (no_combo_keys_pressed) {
-            timer     = 0;
-            is_active = true;
-        }
     } else if (record->event.pressed && is_active) {
         /* otherwise the key is consumed and placed in the buffer */
         if (!timer) {
@@ -262,6 +265,11 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
         if (buffer_size < MAX_COMBO_LENGTH) {
             key_buffer[buffer_size++] = *record;
         }
+    } else if (!record->event.pressed && no_combo_keys_pressed) {
+        // reset state if there are no combo keys pressed at all
+        dump_key_buffer(true);
+        timer     = 0;
+        is_active = true;
     }
 
     return !is_combo_key;
