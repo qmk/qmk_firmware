@@ -19,9 +19,8 @@ SLEEP_LED_ENABLE = no              # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes                  # USB Nkey Rollover
 AUDIO_ENABLE = no                  # Audio output on port C6
 NO_USB_STARTUP_CHECK = no          # Disable initialization only when usb is plugged in
-RGBLIGHT_ENABLE = yes
-WS2812_DRIVER = pwm                # Underglow LEDs
-#SERIAL_LINK_ENABLE = yes
+RGBLIGHT_ENABLE = yes              # Underglow RGB
+WS2812_DRIVER = pwm                # Underglow RGB Driver
 
 CIE1931_CURVE = yes
 
