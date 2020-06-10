@@ -1,0 +1,12 @@
+{
+  "keyboard_name": "Pikatea Macropad",
+  "url": "http://www.pikatea.com",
+  "maintainer": "qmk",
+  "width": 5,
+  "height": 1,
+  "layouts": {
+    "LAYOUT": {
+      "layout": [{"label":"k00", "x":0, "y":0}, {"label":"k01", "x":1, "y":0}, {"label":"k02", "x":2, "y":0}, {"label":"k03", "x":3, "y":0}, {"label":"k04", "x":4, "y":0}]
+    }
+  }
+}
