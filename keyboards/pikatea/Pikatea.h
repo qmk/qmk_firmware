@@ -1,5 +1,4 @@
-#ifndef NINEKEY_H
-#define NINEKEY_H
+#pragma once
 
 #include "quantum.h"
 
@@ -10,4 +9,3 @@
     { k00, k01, k02, k03, k04 } \
 } 
 
-#endif

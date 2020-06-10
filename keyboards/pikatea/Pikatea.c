@@ -1,4 +1,4 @@
-#include "Pikatea.h"
+#include "pikatea.h"
 
 void matrix_init_kb(void) {
 	matrix_init_user();
