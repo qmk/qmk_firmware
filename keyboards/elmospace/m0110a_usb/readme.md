@@ -1,12 +1,12 @@
 # m0110a_usb
 
-![m0110a_usb](imgur.com image replace me!)
+![m0110a_usb](https://i.imgur.com/h8nN8On.jpg)
 
-A short description of the keyboard/project
+Drop in replacement PCB for the Apple M0110a
 
-* Keyboard Maintainer: [elmo-space](https://github.com/yourusername)
-* Hardware Supported: The PCBs, controllers supported
-* Hardware Availability: Links to where you can find this hardware
+* Keyboard Maintainer: [elmo-space](https://github.com/elmo-space)
+* Hardware Supported: M0110a USB
+* Hardware Availability: [Project is open source](https://github.com/elmo-space/m0110a_usb)
 
 Make example for this keyboard (after setting up your build environment):
 

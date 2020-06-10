@@ -1,6 +1,9 @@
 # MCU name
 MCU = atmega32a
 
+# Processor frequency
+F_CPU = 16000000
+
 # Bootloader selection
 #   Teensy       halfkay
 #   Pro Micro    caterina
@@ -9,7 +12,7 @@ MCU = atmega32a
 #   QMK DFU      qmk-dfu
 #   ATmega32A    bootloadHID
 #   ATmega328P   USBasp
-BOOTLOADER = bootloadHID
+BOOTLOADER = USBasp
 
 # Build Options
 #   change yes to no to disable

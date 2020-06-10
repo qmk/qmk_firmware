@@ -20,9 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0xa68c
-#define DEVICE_VER 0xdb4b
+#define VENDOR_ID 0xA68C
+#define PRODUCT_ID 0xDB4B
+#define DEVICE_VER 0x0001
 #define MANUFACTURER APPLE
 #define PRODUCT M0110A
 
@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * Keyboard Matrix Assignments
  */
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, D5 }
-#define MATRIX_COL_PINS { D7, C0, C1, C2, C3, D6, B4, C6, C7, A7, A6, A5, A4, A0, A1, A2, A3 }
+#define MATRIX_COL_PINS { D7, C0, C1, C2, C3, D1, B4, C6, C7, A7, A6, A5, A4, A3, A2, A1, A0 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
