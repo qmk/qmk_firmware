@@ -20,7 +20,7 @@ NKRO_ENABLE = yes                  # USB Nkey Rollover
 AUDIO_ENABLE = no                  # Audio output on port C6
 NO_USB_STARTUP_CHECK = no          # Disable initialization only when usb is plugged in
 RGBLIGHT_ENABLE = yes
-WS2812_DRIVER = bitbang                # Underglow LEDs
+WS2812_DRIVER = pwm                # Underglow LEDs
 #SERIAL_LINK_ENABLE = yes
 
 CIE1931_CURVE = yes
