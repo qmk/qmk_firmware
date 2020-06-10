@@ -604,6 +604,7 @@ void process_action(keyrecord_t *record, action_t action) {
                         swap_hands = false;
                     }
                     break;
+#    ifndef NO_ACTION_ONESHOT
                 case OP_SH_ONESHOT:
                     if (event.pressed) {
                         set_oneshot_swaphands();
@@ -611,6 +612,7 @@ void process_action(keyrecord_t *record, action_t action) {
                         release_oneshot_swaphands();
                     }
                     break;
+#    endif
 
 #    ifndef NO_ACTION_TAPPING
                 case OP_SH_TAP_TOGGLE:
@@ -701,9 +703,11 @@ void process_action(keyrecord_t *record, action_t action) {
 #endif
 
 #ifdef SWAP_HANDS_ENABLE
+#    ifndef NO_ACTION_ONESHOT
     if (event.pressed && !(action.kind.id == ACT_SWAP_HANDS && action.swap.code == OP_SH_ONESHOT)) {
         use_oneshot_swaphands();
     }
+#    endif
 #endif
 
 #ifndef NO_ACTION_ONESHOT
