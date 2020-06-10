@@ -28,19 +28,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 4
 
 
-#define MATRIX_ROW_PINS { C2, C4, C5, C6, C7 }
-#define MATRIX_COL_PINS { D7, D6, D5, D4 }
+// #define MATRIX_ROW_PINS { C2, C4, C5, C6, C7 }
+// #define MATRIX_COL_PINS { D7, D6, D5, D4 }
+#define MATRIX_ROW_PINS {C6, B6, B5, B4, D7}
+#define MATRIX_COL_PINS {F1, F4, F5, F6}
+
 #define UNUSED_PINS
 
 
 //Encoder stuff
-#define ENCODERS_PAD_A { B12 }
-#define ENCODERS_PAD_B { B13 }
+#define ENCODERS_PAD_A { F7 }
+// #define ENCODERS_PAD_B { B13 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_PIN B7
+#define BACKLIGHT_PIN C7
 //#define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 10
 
