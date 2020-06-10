@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -26,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 		0x0001
 #define MANUFACTURER    Pikatea Keyboards
 #define PRODUCT         Pikatea Macropad
-#define DESCRIPTION     Pikatea Macropad 5 Button 1 Knob GB1
+#define DESCRIPTION     Pikatea MacropadV1
 
 /* key matrix size */
 #define MATRIX_ROWS 1
