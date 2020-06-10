@@ -6,4 +6,6 @@ enum layers {
 	_LOWER,
 	_RAISE,
 	_ADJUST
-}
+};
+
+#endif

@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 
+#include "keymap.h"
 // enum layers {
 //     _QWERTY = 0,
 //     _LOWER,
@@ -101,26 +102,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
-
-#ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 1) {
-        // Volume control
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    }
-    else if (index == 0) {
-        // Page up/Page down
-        if (clockwise) {
-            tap_code(KC_PGDN);
-        } else {
-            tap_code(KC_PGUP);
-        }
-    }
-}
-#endif
-
-#endif
