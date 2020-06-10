@@ -113,14 +113,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [NUMPAD] = LAYOUT(
     _______, _______, _______,  _______, _______,  _______,                                            _______, KC_7,  KC_8,  KC_9, KC_KP_MINUS, _______,
     _______, _______, _______,  _______, _______, _______,                                             _______, KC_4,  KC_5,  KC_6, KC_KP_PLUS , _______, 
-    _______, _______, _______,  _______, _______,  _______, TO(QWERTY), _______,    _______, TO(EDIT), _______, KC_1,  KC_2,  KC_3, KC_KP_SLASH, _______,
+    _______, _______, _______,  _______, _______,  _______, TO(QWERTY), _______,    _______, TO(EDIT), _______, KC_1,  KC_2,  KC_3, KC_KP_SLASH, LCTL(KC_RIGHT),
                                  _______, _______, _______, _______, _______,       _______,  _______, KC_0, KC_DOT, _______
     ),
 
   [EDIT] = LAYOUT(
     _______, TASK_MAN, _______, SELW_LEFT, SELW_RIGHT, _______,                                                NEW_TAB , KC_PGUP, KC_UP, KC_PGDOWN, KC_PSCREEN, _______, 
     _______, _______ , LGUI(KC_GRV), MVW_LEFT,  MVW_RIGHT , _______,                                                R_HOME  , KC_LEFT, KC_DOWN, KC_RIGHT, R_END, _______, 
-    _______, R_UNDO, R_CUT  , R_COPY , R_PASTE, R_REDO ,      TO(NUMPAD), FORM_GET,      FORM_PUT, TO(QWERTY), SEL_HOME, S(KC_LEFT), S(KC_DOWN), S(KC_RIGHT), SEL_END, _______, 
+    LCTL(KC_LEFT), R_UNDO, R_CUT  , R_COPY , R_PASTE, R_REDO ,      TO(NUMPAD), FORM_GET,      FORM_PUT, TO(QWERTY), SEL_HOME, S(KC_LEFT), S(KC_DOWN), S(KC_RIGHT), SEL_END, _______, 
                                        _______, _______, _______, DEL_WRD, _______,       _______, _______, _______, _______, _______
     ),
 
@@ -134,14 +134,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [FSYM] = LAYOUT(
     _______, _______, _______, _______, _______, _______,                                                KC_CIRC,  KC_AMPR , KC_ASTR, KC_GRV ,  _______, _______, 
     _______, _______, KC_TILD, KC_EXLM, _______, _______,                                                KC_EQUAL, KC_MINUS, KC_UNDS, KC_PIPE, KC_COLON, KC_DQT,
-    _______, _______, TO(QWERTY), _______, _______, _______, _______, _______,         _______, _______, _______, KC_PLUS,  KC_BSLS, KC_SLSH, _______, _______, 
+    LCTL(KC_RIGHT), _______, TO(QWERTY), _______, _______, _______, _______, _______,         _______, _______, _______, KC_PLUS,  KC_BSLS, KC_SLSH, _______, _______, 
                                _______, _______, _______, _______, _______,         _______, _______, _______, _______, _______ 
     ), 
     
   [JSYM] = LAYOUT(
     _______, KC_GRV,  KC_AT  , KC_LCBR,     KC_RCBR,     _______,                                             _______, _______, _______, _______,  _______, _______, 
     _______, KC_HASH, KC_DLR , KC_LPRN,     KC_RPRN,     KC_LEFT,                                             _______, _______, KC_QUES, KC_SLSH, KC_COLON, _______,
-    _______, KC_PERC, KC_CIRC, KC_LBRACKET, KC_RBRACKET, _______, _______, _______,         _______, _______, _______, _______, _______, TO(QWERTY), _______, _______, 
+    _______, KC_PERC, KC_CIRC, KC_LBRACKET, KC_RBRACKET, _______, _______, _______,         _______, _______, _______, _______, _______, TO(QWERTY), _______, LCTL(KC_LEFT), 
                                        _______, _______, _______, _______, _______,         _______, _______, _______, _______, _______
     ), 
     
