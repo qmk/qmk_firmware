@@ -18,6 +18,5 @@
 
 // place overrides here
 // #define ENCODER_RESOLUTION 4
-#define TAPPING_TERM 100
+#define TAPPING_TERM 200
 #define PERMISSIVE_HOLD
-#define RETRO_TAPPING
