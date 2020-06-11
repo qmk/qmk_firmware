@@ -52,7 +52,7 @@ def _deprecated_udev_rule(vid, pid=None):
 
 
 def parse_gcc_version(version):
-    m = re.match("(\d+)(?:\.(\d+))?(?:\.(\d+))?", version)
+    m = re.match(r"(\d+)(?:\.(\d+))?(?:\.(\d+))?", version)
 
     return {
         'major': int(m.group(1)),
