@@ -213,6 +213,8 @@ ifneq ($(findstring STM32F103, $(MCU)),)
 endif
 
 ifneq (,$(filter $(MCU),atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 at90usb1286))
+  PROTOCOL = LUFA
+
   # Processor frequency.
   #     This will define a symbol, F_CPU, in all source code files equal to the
   #     processor frequency in Hz. You can then use this symbol in your source code to
@@ -280,6 +282,39 @@ ifneq (,$(filter $(MCU),atmega328p))
   #     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
   #     automatically to create a 32-bit value in your source code.
   F_CPU ?= 16000000
+
+  # unsupported features for now
+  NO_UART ?= yes
+  NO_SUSPEND_POWER_DOWN ?= yes
+endif
+
+ifneq (,$(filter $(MCU),atmega328))
+  # MCU name for avrdude
+  AVRDUDE_MCU = m328
+
+  PROTOCOL = VUSB
+
+  # Processor frequency.
+  #     This will define a symbol, F_CPU, in all source code files equal to the
+  #     processor frequency in Hz. You can then use this symbol in your source code to
+  #     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
+  #     automatically to create a 32-bit value in your source code.
+  F_CPU ?= 16000000
+
+  # unsupported features for now
+  NO_UART ?= yes
+  NO_SUSPEND_POWER_DOWN ?= yes
+endif
+
+ifneq (,$(filter $(MCU),attiny85))
+  PROTOCOL = VUSB
+
+  # Processor frequency.
+  #     This will define a symbol, F_CPU, in all source code files equal to the
+  #     processor frequency in Hz. You can then use this symbol in your source code to
+  #     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
+  #     automatically to create a 32-bit value in your source code.
+  F_CPU ?= 16500000
 
   # unsupported features for now
   NO_UART ?= yes

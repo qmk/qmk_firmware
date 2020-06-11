@@ -53,6 +53,7 @@
 
 #define MUSIC_MAP
 #undef AUDIO_VOICES
+// Note: following undef isn't really necessary on STM32, C6_AUDIO is AVR related
 #undef C6_AUDIO
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */

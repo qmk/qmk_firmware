@@ -27,7 +27,5 @@ RGBLIGHT_ENABLE ?= yes  # Enable WS2812 RGB underlight.
 WS2812_DRIVER = i2c
 TAP_DANCE_ENABLE = no
 
-OPT_DEFS = -DDEBUG_LEVEL=0
-
 LAYOUTS = planck_mit
 LAYOUTS_HAS_RGB = no
