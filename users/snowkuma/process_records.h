@@ -2,22 +2,22 @@
 #include "snowkuma.h"
 
 enum custom_keycodes {
-  // Custom Macros
-  M_BRAVE = SAFE_RANGE,
-  M_CHROME,
-  M_HMA,
-  M_ITERM,
-  M_KRAKEN,
-  M_MONEY,
-  M_SPOTIFY,
-  M_WHATSAPP,
+    // Custom Macros
+    M_BRAVE = SAFE_RANGE,
+    M_CHROME,
+    M_HMA,
+    M_ITERM,
+    M_KRAKEN,
+    M_MONEY,
+    M_SPOTIFY,
+    M_WHATSAPP,
 
-  // Secret Macros
-  M_XXX1,
-  M_XXX2,
-  M_XXX3,
-  M_XXX4,
-  M_XXX5,
+    // Secret Macros
+    M_XXX1,
+    M_XXX2,
+    M_XXX3,
+    M_XXX4,
+    M_XXX5,
 };
 
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
