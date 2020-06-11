@@ -27,16 +27,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Underglow
 #ifdef RGBLIGHT_ENABLE
-  #undef RGBLED_NUM
-  #define RGBLED_NUM 10
-  #define RGBLIGHT_ANIMATIONS
-  #define RGBLIGHT_SLEEP
+    #undef RGBLED_NUM
+    #define RGBLED_NUM 10
+    #define RGBLIGHT_ANIMATIONS
+    #define RGBLIGHT_SLEEP
 #endif 
 
 // Encoder
 #ifdef ENCODER_ENABLE 
-  #define ENCODERS_PAD_A { F5 }
-  #define ENCODERS_PAD_B { F4 }
-  // Enable if encoder is on the left side
-  // #define ENCODER_DIRECTION_FLIP
+    #define ENCODERS_PAD_A { F5 }
+    #define ENCODERS_PAD_B { F4 }
+    // Enable if encoder is on the left side
+    // #define ENCODER_DIRECTION_FLIP
 #endif
