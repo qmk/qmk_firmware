@@ -1,8 +1,14 @@
 #include QMK_KEYBOARD_H
 #include "keymap.h"
 #include "settings.h"
+#include "quantum/rgblight.h"
 
 #ifdef OLED_DRIVER_ENABLE
+static void render_modifiers(void);
+static void render_layers(void);    
+static void render_rgb(void);    
+
+
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (!is_keyboard_master()) {
         return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
@@ -22,43 +28,56 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 // }
 uint16_t texts = 0;
 static void render_left(void) {
-    oled_clear();
+    // oled_clear();
 
-    // oled_set_cursor(0, 2);
+    render_rgb();
+    render_layers();
+    render_modifiers();
+}
 
+static void render_rgb(void) {
+    oled_set_cursor(0, oled_max_lines() - 3);
+    oled_write_P(PSTR("\x83\x84"), false);
+    // if (rgblight_is_enabled()) {
+    if (rgblight_config.enable)
+        char snum[3];
+        itoa(rgblight_get_val() * 100 / RGBLIGHT_LIMIT_VAL, snum, 10);
+        oled_write(snum, false);
+    } else
+        oled_write_P(PSTR("---"), false);
+}
+
+static void render_layers(void) {
     // Host Keyboard Layer Status
-    // oled_write_P(PSTR("Layer: "), false);
-    // switch (get_highest_layer(layer_state)) {
-    //     case _QWERTY:
-    //         oled_write_P(PSTR("Default\n"), false);
-    //         break;
-    //     case _LOWER:
-    //         oled_write_P(PSTR("Lower\n"), false);
-    //         break;
-    //     case _RAISE:
-    //         oled_write_P(PSTR("Raise\n"), false);
-    //         break;
-    //     case _ADJUST:
-    //         oled_write_P(PSTR("Adjust\n"), false);
-    //         break;
-    //     default:
-    //         oled_write_P(PSTR("Undefined\n"), false);
-    // }
+    oled_set_cursor(0,oled_max_lines() - 1);
+    oled_write_P(PSTR("\x81\x82"), false);
+    switch (get_highest_layer(layer_state)) {
+        case _QWERTY:
+            oled_write_P(PSTR("Def"), false);
+            break;
+        case _LOWER:
+            oled_write_P(PSTR("Sym"), false);
+            break;
+        case _RAISE:
+            oled_write_P(PSTR("Sys"), false);
+            break;
+        case _ADJUST:
+            oled_write_P(PSTR("Adj"), false);
+            break;
+        default:
+            oled_write_P(PSTR("Und"), false);
+    }
+}
 
+static void render_modifiers(void) {
     // Host Keyboard LED Status
     uint8_t led_usb_state = host_keyboard_leds();
 
     oled_set_cursor(0, 0);
-    if (IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK)) oled_write_P(PSTR("C"), false);
-
-    oled_set_cursor(1, 0);
-    if (user_config.dead_keys) oled_write_P(PSTR("D"), false);
-
-    oled_set_cursor(2, 0);
-    if (IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK)) oled_write_P(PSTR("N"), false);
-
-    oled_set_cursor(3, 0);
-    if (IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK)) oled_write_P(PSTR("S"), false);
+    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR("C") : PSTR(" "), false);
+    oled_write_P(user_config.dead_keys ? PSTR("D") : PSTR(" "), false);
+    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR("N") : PSTR(" "), false);
+    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("S") : PSTR(" "), false);
 
     for (uint8_t i=0; i<oled_max_chars();i++) {
         oled_set_cursor(i, 1);
@@ -73,9 +92,14 @@ static void render_right(void) {
   oled_write(snum, false);
 }
 
+bool first_render = true;
 uint16_t render_timer = 0;
 void oled_task_user(void) {
-    if (timer_elapsed(render_timer) >= 1000 / OLED_FRAMERATE) {
+    if (first_render) {
+        oled_clear();
+        first_render = false;
+        render_timer = timer_read() + 100;
+    } else if (timer_elapsed(render_timer) >= 1000 / OLED_FRAMERATE) {
         if (is_keyboard_master()) {
             render_left(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
         } else {
