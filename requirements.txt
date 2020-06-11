@@ -4,4 +4,3 @@ appdirs
 argcomplete
 colorama
 hjson
-packaging
