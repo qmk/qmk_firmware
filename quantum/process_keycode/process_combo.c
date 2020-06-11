@@ -265,7 +265,8 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
         if (buffer_size < MAX_COMBO_LENGTH) {
             key_buffer[buffer_size++] = *record;
         }
-    } else if (!record->event.pressed && no_combo_keys_pressed) {
+    }
+    if (!record->event.pressed && no_combo_keys_pressed) {
         // reset state if there are no combo keys pressed at all
         dump_key_buffer(true);
         timer     = 0;
