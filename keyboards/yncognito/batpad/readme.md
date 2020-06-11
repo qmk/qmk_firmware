@@ -1,12 +1,11 @@
-# batpad
+# Batpad
 
 ![batpad](https://i.imgur.com/CZ3m0jh.jpg)
 
-A short description of the keyboard/project
+A 8 keys macropad!
 
 * Keyboard Maintainer: Yncognito
 * Hardware Supported: Batpad/Atmega32u4
-* Hardware Availability: https://www.facebook.com/Yncognito-112984860434908
 
 Make example for this keyboard (after setting up your build environment):
 
