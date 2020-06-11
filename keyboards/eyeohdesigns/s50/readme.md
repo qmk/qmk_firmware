@@ -61,7 +61,7 @@ Parts you’ll need to supply to build this kit are:
 
 2.	Keycaps
 
-3.	Knob
+3.	Knob([Recommended Knobs](https://www.digikey.com/products/en/hardware-fasteners-accessories/knobs/568?k=kilo+international&k=&pkeyword=kilo+international&sv=0&pv76=25530&pv76=25551&pv76=29348&pv76=29363&pv76=32833&pv76=32847&pv76=32849&sf=0&FV=73%7C15346%2C-8%7C568&quantity=&ColumnSort=0&page=1&pageSize=25))
 
 4.	Pro Micro and header pins(normally included)
 
