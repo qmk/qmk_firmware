@@ -1,7 +1,7 @@
 #pragma once
 
 #include "quantum/color.h"
-#include "quantum/ws2812_common.h"
+#include "drivers/ws2812_common.h"
 
 /* User Interface
  *
