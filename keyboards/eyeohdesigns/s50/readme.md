@@ -165,7 +165,7 @@ Did you complete Step 5?  Are you sure?  Take another look!  Okay.  Snap one swi
 
 ## Step 7:  Place then solder LEDs
 
-Install the LEDs by placing them through the slots on the switches.  Check the underside of the PCB to ensure the long leg of the LED goes through the hole labeled “+” and the short leg through the hole labeled “-”.  Bend the legs to keep them in place until you’re ready to solder.
+Install the LEDs by placing them through the slots on the switches.  Check the underside of the PCB to ensure the long leg of the LED goes through the hole labeled “+” and the short leg through the hole labeled “-”.  Not all of the LED footprints are facing the same way(especially on the bottom row and numpad area!), so be sure you check which leg is where before soldering.  Bend the legs to keep them in place until you’re ready to solder.
 
 ## Step 8:  Solder Pro Micro on header
 
@@ -186,7 +186,9 @@ a.	make:eyeohdesigns/s50:default:dfu
 
 b.	make:eyeohdesigns/s50:default:avrdude
 
-Replace ‘default’ with whichever layout you’d like, or one you made yourself.  Generally speaking, USB-C based Pro Micros use the dfu command and all other Pro Micros use the avrdude command.  Reset your Pro Micro based on its design (installed button if included, short reset to ground if not).  At this point you should have a working keyboard.
+Replace ‘default’ with whichever layout you’d like, or one you made yourself.  The naming convention for the layouts, from left to right, is shift style, spacebar style, numpad style.  Shift options are 'ansi' or 'iso' and spcaebar options are 'left', 'right', or 'split'. If using a numpad build, add 'num'.  Take a look at the keymap folder to make sure you're correctly spelling the layout you want.
+
+Generally speaking, USB-C based Pro Micros use the dfu command and all other Pro MicrAos use the avrdude command.  Reset your Pro Micro based on its design (installed button if included, short reset to ground if not).  At this point you should have a working keyboard.
 
 ## Step 10:  Mount Keyboard Bottom
 
