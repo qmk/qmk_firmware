@@ -2,8 +2,8 @@
     "keyboard_name": "m0110a_usb",
     "url": "",
     "maintainer": "elmo-space",
-    "width": 3,
-    "height": 2,
+    "width": 19.25,
+    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [{"label":"Esc", "x":0, "y":0},
