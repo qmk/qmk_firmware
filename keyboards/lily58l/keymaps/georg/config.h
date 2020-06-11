@@ -1,5 +1,7 @@
 #pragma once
 
+#define TAPPING_TERM 200
+
 #ifdef RGBLIGHT_ENABLE
   #define RGBLIGHT_ANIMATIONS
   #define RGBLIGHT_EFFECT_CHRISTMAS
