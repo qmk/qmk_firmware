@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "keymap.h"
+#include "settings.h"
 
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -19,10 +20,16 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 // 
 //     oled_write_P(qmk_logo, false);
 // }
-
+uint16_t texts = 0;
 static void render_left(void) {
+    oled_clear();
+
+    oled_set_cursor(0,0);
     // Version information
-    oled_write_P(PSTR("Lily58L rev1.0\n\n"), false);
+    oled_write_P(PSTR("Lily58L rev1.0"), false);
+       
+
+    oled_set_cursor(0, 2);
 
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
@@ -45,9 +52,14 @@ static void render_left(void) {
 
     // Host Keyboard LED Status
     uint8_t led_usb_state = host_keyboard_leds();
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR("NUMLCK ") : PSTR("       "), false);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR("CAPLCK ") : PSTR("       "), false);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
+    oled_set_cursor(oled_max_chars() - 1, 0);
+    oled_write_P(PSTR("N"), IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK));
+    oled_set_cursor(oled_max_chars() - 1, 1);
+    oled_write_P(PSTR("C"), IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK));
+    oled_set_cursor(oled_max_chars() - 1, 3);
+    oled_write_P(PSTR("S"), IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK));
+    oled_set_cursor(oled_max_chars() - 1, 2);
+    oled_write_P(PSTR("D"), user_config.dead_keys);
 }
 
 static void render_right(void) {
@@ -57,11 +69,15 @@ static void render_right(void) {
   oled_write(snum, false);
 }
 
+uint16_t render_timer = 0;
 void oled_task_user(void) {
-    if (is_keyboard_master()) {
-        render_left(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
-    } else {
-        render_right(); 
+    if (timer_elapsed(render_timer) >= 1000 / OLED_FRAMERATE) {
+        if (is_keyboard_master()) {
+            render_left(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+        } else {
+            render_right(); 
+        }
+        render_timer = timer_read();
     }
 }
 #endif

@@ -14,6 +14,7 @@ enum layers {
 
 enum custom_keycodes {
 	CUSTOM_SHIFT_QUOT = SAFE_RANGE,
+	TOG_DK,  // Toggle dead keys
 };
 
 #endif
