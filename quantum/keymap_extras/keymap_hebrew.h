@@ -33,7 +33,6 @@
  * │    │    │    │                        │    │    │    │    │
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
-
 // Row 1
 #define IL_SCLN    KC_GRV  // ;
 #define IL_1       KC_1    // 1
@@ -50,41 +49,41 @@
 #define IL_EQL     KC_EQL  // =
 #define IL_BSLS    KC_BSLS // (backslash)
 // Row 2
-#define IL_SLSH    KC_Q    // /
-#define IL_QUOT    KC_W    // '
-#define IL_QOF     KC_E    // ק
-#define IL_RESH    KC_R    // ר
-#define IL_ALEF    KC_T    // א
-#define IL_TET     KC_Y    // ט
-#define IL_VAV     KC_U    // ו
-#define IL_NUN_S   KC_I    // ן
-#define IL_MEM_S   KC_O    // ם
-#define IL_PAY     KC_P    // פ
-#define IL_RBRC    KC_LBRC // [
-#define IL_LBRC    KC_RBRC // ]
+#define IL_SLSH KC_Q    // /
+#define IL_QUOT KC_W    // '
+#define IL_QOF  KC_E    // ק
+#define IL_RESH KC_R    // ר
+#define IL_ALEF KC_T    // א
+#define IL_TET  KC_Y    // ט
+#define IL_VAV  KC_U    // ו
+#define IL_FNUN KC_I    // ן
+#define IL_FMEM KC_O    // ם
+#define IL_PE   KC_P    // פ
+#define IL_RBRC KC_LBRC // ]
+#define IL_LBRC KC_RBRC // [
 // Row 3
-#define IL_SHIN    KC_A    // ש
-#define IL_DALET   KC_S    // ד
-#define IL_GIMEL   KC_D    // ג
-#define IL_KAF     KC_F    // כ
-#define IL_AYIN    KC_G    // ע
-#define IL_YOD     KC_H    // י
-#define IL_CHET    KC_J    // ח
-#define IL_LAMED   KC_K    // ל
-#define IL_KAF_S   KC_L    // ך
-#define IL_PAY_S   KC_SCLN // ף
-#define IL_COMM    KC_QUOT // '
+#define IL_SHIN KC_A    // ש
+#define IL_DALT KC_S    // ד
+#define IL_GIML KC_D    // ג
+#define IL_KAF  KC_F    // כ
+#define IL_AYIN KC_G    // ע
+#define IL_YOD  KC_H    // י
+#define IL_HET  KC_J    // ח
+#define IL_LAMD KC_K    // ל
+#define IL_FKAF KC_L    // ך
+#define IL_FPE  KC_SCLN // ף
+#define IL_COMM KC_QUOT // ,
 // Row 4
-#define IL_ZAYIN   KC_Z    // ז
-#define IL_SAMECH  KC_X    // ס
-#define IL_BET     KC_C    // ב
-#define IL_HEH     KC_V    // ה
-#define IL_NUN     KC_B    // נ
-#define IL_MEM     KC_N    // מ
-#define IL_TSADE   KC_M    // צ
-#define IL_TAV     KC_COMM // ת
-#define IL_TSADE_S KC_DOT  // ץ
-#define IL_DOT     KC_SLSH // .
+#define IL_ZAYN KC_Z    // ז
+#define IL_SMKH KC_X    // ס
+#define IL_BET  KC_C    // ב
+#define IL_HE   KC_V    // ה
+#define IL_NUN  KC_B    // נ
+#define IL_MEM  KC_N    // מ
+#define IL_TSDI KC_M    // צ
+#define IL_TAV  KC_COMM // ת
+#define IL_FTSD KC_DOT  // ץ
+#define IL_DOT  KC_SLSH // .
 
 /* Shifted symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
@@ -100,30 +99,30 @@
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 // Row 1
-#define IL_TILD S(IL_SCLN)    // ~
-#define IL_EXLM S(IL_1)       // !
-#define IL_AT   S(IL_2)       // @
-#define IL_PND  S(IL_3)       // #
-#define IL_DLR  S(IL_4)       // $
-#define IL_PERC S(IL_5)       // %
-#define IL_CIRC S(IL_6)       // ^
-#define IL_AMPR S(IL_7)       // &
-#define IL_ASTR S(IL_8)       // *
-#define IL_RPRN S(IL_9)       // )
-#define IL_LPRN S(IL_0)       // (
-#define IL_UNDS S(IL_MINS)    // _
-#define IL_PLUS S(IL_EQL)     // +
-#define IL_PIPE S(IL_BSLS)    // |
+#define IL_TILD S(IL_SCLN) // ~
+#define IL_EXLM S(IL_1)    // !
+#define IL_AT   S(IL_2)    // @
+#define IL_PND  S(IL_3)    // #
+#define IL_DLR  S(IL_4)    // $
+#define IL_PERC S(IL_5)    // %
+#define IL_CIRC S(IL_6)    // ^
+#define IL_AMPR S(IL_7)    // &
+#define IL_ASTR S(IL_8)    // *
+#define IL_RPRN S(IL_9)    // )
+#define IL_LPRN S(IL_0)    // (
+#define IL_UNDS S(IL_MINS) // _
+#define IL_PLUS S(IL_EQL)  // +
+#define IL_PIPE S(IL_BSLS) // |
 // Row 2
-#define IL_RCBR S(IL_RBRC)    // }
-#define IL_LCBR S(IL_LBRC)    // {
+#define IL_RCBR S(IL_RBRC) // }
+#define IL_LCBR S(IL_LBRC) // {
 // Row 3
-#define IL_COLN S(IL_PAY_S)   // :
-#define IL_DQUO S(IL_COMM)    // "
+#define IL_COLN S(IL_FPE)  // :
+#define IL_DQUO S(IL_COMM) // "
 // Row 4
-#define IL_RABK S(IL_TAV)     // >
-#define IL_LABK S(IL_TSADE_S) // <
-#define IL_QUES S(IL_DOT)     // ?
+#define IL_RABK S(IL_TAV)  // >
+#define IL_LABK S(IL_FTSD) // <
+#define IL_QUES S(IL_DOT)  // ?
 
 /* AltGr symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
@@ -138,18 +137,11 @@
  * │    │    │    │                        │    │    │    │    │
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
-
 // Row 1
-#define IL_EURO   ALGR(IL_3)    // €
-#define IL_SHEKEL ALGR(IL_4)    // ₪
+#define IL_EURO ALGR(IL_3)    // €
+#define IL_SHKL ALGR(IL_4)    // ₪
 // Row 2
-#define IL_DBLVAV ALGR(IL_VAV)  // װ
+#define IL_DVAV ALGR(IL_VAV)  // װ
 // Row 3
-#define IL_DBLYOD ALGR(IL_YOD)  // ײ
-#define IL_VAVYOD ALGR(IL_CHET) // ױ
-
-/*
- * NOTE:
- * There is no uniform method for entering Niqqud, so 
- * we do not attempt to provide a mapping here.
- */
+#define IL_DYOD ALGR(IL_YOD)  // ײ
+#define IL_VYOD ALGR(IL_HET)  // ױ
