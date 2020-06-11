@@ -1,6 +1,6 @@
 # P42 
 
-![prototype photo1](https://imgur.com/a/u60rVVB.jpg)
+![prototype photo1](https://github.com/pabile/P42/blob/master/docs/P42%20PCB%20and%20Top%20Plate%20v5-2.png)
 
 42-key Ortho-linear keyboard
 
