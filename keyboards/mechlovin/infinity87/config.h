@@ -55,7 +55,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN A15
 #define RGBLED_NUM 26
 #define RGBLIGHT_LIMIT_VAL 255
-#define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 /*== all animations enable ==*/
 #define RGBLIGHT_ANIMATIONS

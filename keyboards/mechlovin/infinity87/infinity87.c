@@ -16,14 +16,7 @@
 
 #include "infinity87.h"
 
-// Optional override functions below.
-// You can leave any or all of these undefined.
-// These are only required if you want to perform custom actions.
-
 void matrix_init_kb(void) {
-    // put your keyboard start-up code here
-    // runs once when the firmware starts up
-
     matrix_init_user();
     led_init_ports();
 }
