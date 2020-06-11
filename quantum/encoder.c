@@ -111,12 +111,12 @@ void encoder_read(void) {
 }
 
 #ifdef SPLIT_KEYBOARD
-void encoder_state_raw(uint8_t* slave_state) { memcpy(slave_state, &encoder_value[thisHand], sizeof(uint8_t) * NUMBER_OF_ENCODERS); }
+void encoder_state_raw(uint8_t* follower_state) { memcpy(follower_state, &encoder_value[thisHand], sizeof(uint8_t) * NUMBER_OF_ENCODERS); }
 
-void encoder_update_raw(uint8_t* slave_state) {
+void encoder_update_raw(uint8_t* follower_state) {
     for (uint8_t i = 0; i < NUMBER_OF_ENCODERS; i++) {
         uint8_t index = i + thatHand;
-        int8_t  delta = slave_state[i] - encoder_value[index];
+        int8_t  delta = follower_state[i] - encoder_value[index];
         while (delta > 0) {
             delta--;
             encoder_value[index]++;

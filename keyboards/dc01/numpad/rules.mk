@@ -33,7 +33,7 @@ HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs
 NO_USB_STARTUP_CHECK = yes  # Disable initialization only when usb is plugged in
 CUSTOM_MATRIX = yes         # Use custom matrix
 SRC += matrix.c \
-       i2c_slave.c
+       i2c_follower.c
 
 # Community layouts supported
 LAYOUTS = numpad_5x4 ortho_5x4

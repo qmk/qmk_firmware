@@ -411,7 +411,7 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
         # Unused functions are pruned away, which is why we can add multiple drivers here without bloat.
         ifeq ($(PLATFORM),AVR)
             QUANTUM_LIB_SRC += i2c_master.c \
-                               i2c_slave.c
+                               i2c_follower.c
         endif
 
         SERIAL_DRIVER ?= bitbang

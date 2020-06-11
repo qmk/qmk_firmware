@@ -23,7 +23,7 @@
 
 #include "debug.h"
 
-// PCA9555 slave addresses
+// PCA9555 follower addresses
 #define IC1 0x20
 #define IC2 0x21
 

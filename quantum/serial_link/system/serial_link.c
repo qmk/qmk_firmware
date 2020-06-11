@@ -157,8 +157,8 @@ typedef struct {
 
 static matrix_object_t last_matrix = {};
 
-SLAVE_TO_MASTER_OBJECT(keyboard_matrix, matrix_object_t);
-MASTER_TO_ALL_SLAVES_OBJECT(serial_link_connected, bool);
+follower_TO_MASTER_OBJECT(keyboard_matrix, matrix_object_t);
+MASTER_TO_ALL_followerS_OBJECT(serial_link_connected, bool);
 
 static remote_object_t* remote_objects[] = {
     REMOTE_OBJECT(serial_link_connected),

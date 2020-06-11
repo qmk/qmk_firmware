@@ -95,18 +95,18 @@ void soft_serial_target_init(SSTD_t *sstd_table, int sstd_table_size) {
     chThdCreateStatic(waThread1, sizeof(waThread1), HIGHPRIO, Thread1, NULL);
 }
 
-// Used by the master to synchronize timing with the slave.
+// Used by the master to synchronize timing with the follower.
 static void __attribute__((noinline)) sync_recv(void) {
     serial_input();
-    // This shouldn't hang if the slave disconnects because the
-    // serial line will float to high if the slave does disconnect.
+    // This shouldn't hang if the follower disconnects because the
+    // serial line will float to high if the follower does disconnect.
     while (!serial_read_pin()) {
     }
 
     serial_delay();
 }
 
-// Used by the slave to send a synchronization signal to the master.
+// Used by the follower to send a synchronization signal to the master.
 static void __attribute__((noinline)) sync_send(void) {
     serial_output();
 
@@ -142,7 +142,7 @@ static void __attribute__((noinline)) serial_write_byte(uint8_t data) {
     }
 }
 
-// interrupt handle to be used by the slave device
+// interrupt handle to be used by the follower device
 void interrupt_handler(void *arg) {
     chSysLockFromISR();
 
@@ -222,28 +222,28 @@ int soft_serial_transaction(int sstd_index) {
     // this code is very time dependent, so we need to disable interrupts
     chSysLock();
 
-    // signal to the slave that we want to start a transaction
+    // signal to the follower that we want to start a transaction
     serial_output();
     serial_low();
     serial_delay_blip();
 
-    // wait for the slaves response
+    // wait for the followers response
     serial_input();
     serial_high();
     serial_delay();
 
-    // check if the slave is present
+    // check if the follower is present
     if (serial_read_pin()) {
-        // slave failed to pull the line low, assume not present
+        // follower failed to pull the line low, assume not present
         dprintf("serial::NO_RESPONSE\n");
         chSysUnlock();
         return TRANSACTION_NO_RESPONSE;
     }
 
-    // if the slave is present syncronize with it
+    // if the follower is present syncronize with it
 
     uint8_t checksum = 0;
-    // send data to the slave
+    // send data to the follower
 #ifdef SERIAL_USE_MULTI_TRANSACTION
     serial_write_byte(sstd_index);  // first chunk is transaction id
     sync_recv();
@@ -259,7 +259,7 @@ int soft_serial_transaction(int sstd_index) {
     serial_delay();
     serial_delay();  // read mid pulses
 
-    // receive data from the slave
+    // receive data from the follower
     uint8_t checksum_computed = 0;
     for (int i = 0; i < trans->target2initiator_buffer_size; ++i) {
         trans->target2initiator_buffer[i] = serial_read_byte();

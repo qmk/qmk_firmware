@@ -103,7 +103,7 @@
 #define TC7_DMAC_ID_OVF             65       // Indexes of DMA Overflow trigger
 #define TC7_EXT                     0        // Coding of implemented extended features (keep 0 value)
 #define TC7_GCLK_ID                 39       // Index of Generic Clock
-#define TC7_MASTER_SLAVE_MODE       2        // TC type 0 : NA, 1 : Master, 2 : Slave
+#define TC7_MASTER_follower_MODE       2        // TC type 0 : NA, 1 : Master, 2 : follower
 #define TC7_OW_NUM                  2        // Number of Output Waveforms
 
 #endif /* _SAMD51_TC7_INSTANCE_ */

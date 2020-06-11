@@ -233,7 +233,7 @@ Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in yo
 
 ### Setting Handedness
 
-One thing to remember, the side that the USB port is plugged into is always the master half. The side not plugged into USB is the slave.
+One thing to remember, the side that the USB port is plugged into is always the master half. The side not plugged into USB is the follower.
 
 There are a few different ways to set handedness for split keyboards (listed in order of precedence):
 
@@ -243,7 +243,7 @@ There are a few different ways to set handedness for split keyboards (listed in 
    * For boards with Caterina bootloader (like stock Pro Micros), use `:avrdude-split-left`/`:avrdude-split-right`
    * For boards with ARM DFU bootloader (like Proton C), use `:dfu-util-split-left`/`:dfu-util-split-right`
 3. Set `MASTER_RIGHT`: Half that is plugged into the USB port is determined to be the master and right half (inverse of the default)
-4. Default: The side that is plugged into the USB port is the master half and is assumed to be the left half. The slave side is the right half
+4. Default: The side that is plugged into the USB port is the master half and is assumed to be the left half. The follower side is the right half
 
 #### Defines for handedness
 
@@ -285,15 +285,15 @@ There are a few different ways to set handedness for split keyboards (listed in 
     * 5: about 20kbps
 
 * `#define SPLIT_USB_DETECT`
-  * Detect (with timeout) USB connection when delegating master/slave
+  * Detect (with timeout) USB connection when delegating master/follower
   * Default behavior for ARM
   * Required for AVR Teensy
 
 * `#define SPLIT_USB_TIMEOUT 2000`
-  * Maximum timeout when detecting master/slave when using `SPLIT_USB_DETECT`
+  * Maximum timeout when detecting master/follower when using `SPLIT_USB_DETECT`
 
 * `#define SPLIT_USB_TIMEOUT_POLL 10`
-  * Poll frequency when detecting master/slave when using `SPLIT_USB_DETECT`
+  * Poll frequency when detecting master/follower when using `SPLIT_USB_DETECT`
 
 # The `rules.mk` File
 

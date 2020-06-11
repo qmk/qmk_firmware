@@ -103,7 +103,7 @@
 #define TC6_DMAC_ID_OVF             62       // Indexes of DMA Overflow trigger
 #define TC6_EXT                     0        // Coding of implemented extended features (keep 0 value)
 #define TC6_GCLK_ID                 39       // Index of Generic Clock
-#define TC6_MASTER_SLAVE_MODE       1        // TC type 0 : NA, 1 : Master, 2 : Slave
+#define TC6_MASTER_follower_MODE       1        // TC type 0 : NA, 1 : Master, 2 : follower
 #define TC6_OW_NUM                  2        // Number of Output Waveforms
 
 #endif /* _SAMD51_TC6_INSTANCE_ */

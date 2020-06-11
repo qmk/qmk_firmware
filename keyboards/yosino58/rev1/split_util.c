@@ -38,12 +38,12 @@ static void keyboard_master_setup(void) {
 #endif
 }
 
-static void keyboard_slave_setup(void) {
+static void keyboard_follower_setup(void) {
 
 #ifdef USE_MATRIX_I2C
-    i2c_slave_init(SLAVE_I2C_ADDRESS);
+    i2c_follower_init(follower_I2C_ADDRESS);
 #else
-    serial_slave_init();
+    serial_follower_init();
 #endif
 }
 
@@ -59,7 +59,7 @@ void split_keyboard_setup(void) {
    if (has_usb()) {
       keyboard_master_setup();
    } else {
-      keyboard_slave_setup();
+      keyboard_follower_setup();
    }
    sei();
 }

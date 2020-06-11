@@ -53,7 +53,7 @@ typedef union {
     uint32_t :3;               /*!< bit: 17..19  Reserved                           */
     uint32_t SDAHOLD:2;        /*!< bit: 20..21  SDA Hold Time                      */
     uint32_t MEXTTOEN:1;       /*!< bit:     22  Master SCL Low Extend Timeout      */
-    uint32_t SEXTTOEN:1;       /*!< bit:     23  Slave SCL Low Extend Timeout       */
+    uint32_t SEXTTOEN:1;       /*!< bit:     23  follower SCL Low Extend Timeout       */
     uint32_t SPEED:2;          /*!< bit: 24..25  Transfer Speed                     */
     uint32_t :1;               /*!< bit:     26  Reserved                           */
     uint32_t SCLSM:1;          /*!< bit:     27  SCL Clock Stretch Mode             */
@@ -84,7 +84,7 @@ typedef union {
 #define SERCOM_I2CM_CTRLA_SDAHOLD(value) (SERCOM_I2CM_CTRLA_SDAHOLD_Msk & ((value) << SERCOM_I2CM_CTRLA_SDAHOLD_Pos))
 #define SERCOM_I2CM_CTRLA_MEXTTOEN_Pos 22           /**< \brief (SERCOM_I2CM_CTRLA) Master SCL Low Extend Timeout */
 #define SERCOM_I2CM_CTRLA_MEXTTOEN  (_U_(0x1) << SERCOM_I2CM_CTRLA_MEXTTOEN_Pos)
-#define SERCOM_I2CM_CTRLA_SEXTTOEN_Pos 23           /**< \brief (SERCOM_I2CM_CTRLA) Slave SCL Low Extend Timeout */
+#define SERCOM_I2CM_CTRLA_SEXTTOEN_Pos 23           /**< \brief (SERCOM_I2CM_CTRLA) follower SCL Low Extend Timeout */
 #define SERCOM_I2CM_CTRLA_SEXTTOEN  (_U_(0x1) << SERCOM_I2CM_CTRLA_SEXTTOEN_Pos)
 #define SERCOM_I2CM_CTRLA_SPEED_Pos 24           /**< \brief (SERCOM_I2CM_CTRLA) Transfer Speed */
 #define SERCOM_I2CM_CTRLA_SPEED_Msk (_U_(0x3) << SERCOM_I2CM_CTRLA_SPEED_Pos)
@@ -112,7 +112,7 @@ typedef union {
     uint32_t :3;               /*!< bit: 17..19  Reserved                           */
     uint32_t SDAHOLD:2;        /*!< bit: 20..21  SDA Hold Time                      */
     uint32_t :1;               /*!< bit:     22  Reserved                           */
-    uint32_t SEXTTOEN:1;       /*!< bit:     23  Slave SCL Low Extend Timeout       */
+    uint32_t SEXTTOEN:1;       /*!< bit:     23  follower SCL Low Extend Timeout       */
     uint32_t SPEED:2;          /*!< bit: 24..25  Transfer Speed                     */
     uint32_t :1;               /*!< bit:     26  Reserved                           */
     uint32_t SCLSM:1;          /*!< bit:     27  SCL Clock Stretch Mode             */
@@ -141,7 +141,7 @@ typedef union {
 #define SERCOM_I2CS_CTRLA_SDAHOLD_Pos 20           /**< \brief (SERCOM_I2CS_CTRLA) SDA Hold Time */
 #define SERCOM_I2CS_CTRLA_SDAHOLD_Msk (_U_(0x3) << SERCOM_I2CS_CTRLA_SDAHOLD_Pos)
 #define SERCOM_I2CS_CTRLA_SDAHOLD(value) (SERCOM_I2CS_CTRLA_SDAHOLD_Msk & ((value) << SERCOM_I2CS_CTRLA_SDAHOLD_Pos))
-#define SERCOM_I2CS_CTRLA_SEXTTOEN_Pos 23           /**< \brief (SERCOM_I2CS_CTRLA) Slave SCL Low Extend Timeout */
+#define SERCOM_I2CS_CTRLA_SEXTTOEN_Pos 23           /**< \brief (SERCOM_I2CS_CTRLA) follower SCL Low Extend Timeout */
 #define SERCOM_I2CS_CTRLA_SEXTTOEN  (_U_(0x1) << SERCOM_I2CS_CTRLA_SEXTTOEN_Pos)
 #define SERCOM_I2CS_CTRLA_SPEED_Pos 24           /**< \brief (SERCOM_I2CS_CTRLA) Transfer Speed */
 #define SERCOM_I2CS_CTRLA_SPEED_Msk (_U_(0x3) << SERCOM_I2CS_CTRLA_SPEED_Pos)
@@ -352,9 +352,9 @@ typedef union {
     uint32_t :3;               /*!< bit:  3.. 5  Reserved                           */
     uint32_t PLOADEN:1;        /*!< bit:      6  Data Preload Enable                */
     uint32_t :2;               /*!< bit:  7.. 8  Reserved                           */
-    uint32_t SSDE:1;           /*!< bit:      9  Slave Select Low Detect Enable     */
+    uint32_t SSDE:1;           /*!< bit:      9  follower Select Low Detect Enable     */
     uint32_t :3;               /*!< bit: 10..12  Reserved                           */
-    uint32_t MSSEN:1;          /*!< bit:     13  Master Slave Select Enable         */
+    uint32_t MSSEN:1;          /*!< bit:     13  Master follower Select Enable         */
     uint32_t AMODE:2;          /*!< bit: 14..15  Address Mode                       */
     uint32_t :1;               /*!< bit:     16  Reserved                           */
     uint32_t RXEN:1;           /*!< bit:     17  Receiver Enable                    */
@@ -372,9 +372,9 @@ typedef union {
 #define SERCOM_SPI_CTRLB_CHSIZE(value) (SERCOM_SPI_CTRLB_CHSIZE_Msk & ((value) << SERCOM_SPI_CTRLB_CHSIZE_Pos))
 #define SERCOM_SPI_CTRLB_PLOADEN_Pos 6            /**< \brief (SERCOM_SPI_CTRLB) Data Preload Enable */
 #define SERCOM_SPI_CTRLB_PLOADEN    (_U_(0x1) << SERCOM_SPI_CTRLB_PLOADEN_Pos)
-#define SERCOM_SPI_CTRLB_SSDE_Pos   9            /**< \brief (SERCOM_SPI_CTRLB) Slave Select Low Detect Enable */
+#define SERCOM_SPI_CTRLB_SSDE_Pos   9            /**< \brief (SERCOM_SPI_CTRLB) follower Select Low Detect Enable */
 #define SERCOM_SPI_CTRLB_SSDE       (_U_(0x1) << SERCOM_SPI_CTRLB_SSDE_Pos)
-#define SERCOM_SPI_CTRLB_MSSEN_Pos  13           /**< \brief (SERCOM_SPI_CTRLB) Master Slave Select Enable */
+#define SERCOM_SPI_CTRLB_MSSEN_Pos  13           /**< \brief (SERCOM_SPI_CTRLB) Master follower Select Enable */
 #define SERCOM_SPI_CTRLB_MSSEN      (_U_(0x1) << SERCOM_SPI_CTRLB_MSSEN_Pos)
 #define SERCOM_SPI_CTRLB_AMODE_Pos  14           /**< \brief (SERCOM_SPI_CTRLB) Address Mode */
 #define SERCOM_SPI_CTRLB_AMODE_Msk  (_U_(0x3) << SERCOM_SPI_CTRLB_AMODE_Pos)
@@ -666,7 +666,7 @@ typedef union {
 typedef union {
   struct {
     uint8_t  MB:1;             /*!< bit:      0  Master On Bus Interrupt Disable    */
-    uint8_t  SB:1;             /*!< bit:      1  Slave On Bus Interrupt Disable     */
+    uint8_t  SB:1;             /*!< bit:      1  follower On Bus Interrupt Disable     */
     uint8_t  :5;               /*!< bit:  2.. 6  Reserved                           */
     uint8_t  ERROR:1;          /*!< bit:      7  Combined Error Interrupt Disable   */
   } bit;                       /*!< Structure used for bit  access                  */
@@ -679,7 +679,7 @@ typedef union {
 
 #define SERCOM_I2CM_INTENCLR_MB_Pos 0            /**< \brief (SERCOM_I2CM_INTENCLR) Master On Bus Interrupt Disable */
 #define SERCOM_I2CM_INTENCLR_MB     (_U_(0x1) << SERCOM_I2CM_INTENCLR_MB_Pos)
-#define SERCOM_I2CM_INTENCLR_SB_Pos 1            /**< \brief (SERCOM_I2CM_INTENCLR) Slave On Bus Interrupt Disable */
+#define SERCOM_I2CM_INTENCLR_SB_Pos 1            /**< \brief (SERCOM_I2CM_INTENCLR) follower On Bus Interrupt Disable */
 #define SERCOM_I2CM_INTENCLR_SB     (_U_(0x1) << SERCOM_I2CM_INTENCLR_SB_Pos)
 #define SERCOM_I2CM_INTENCLR_ERROR_Pos 7            /**< \brief (SERCOM_I2CM_INTENCLR) Combined Error Interrupt Disable */
 #define SERCOM_I2CM_INTENCLR_ERROR  (_U_(0x1) << SERCOM_I2CM_INTENCLR_ERROR_Pos)
@@ -719,7 +719,7 @@ typedef union {
     uint8_t  DRE:1;            /*!< bit:      0  Data Register Empty Interrupt Disable */
     uint8_t  TXC:1;            /*!< bit:      1  Transmit Complete Interrupt Disable */
     uint8_t  RXC:1;            /*!< bit:      2  Receive Complete Interrupt Disable */
-    uint8_t  SSL:1;            /*!< bit:      3  Slave Select Low Interrupt Disable */
+    uint8_t  SSL:1;            /*!< bit:      3  follower Select Low Interrupt Disable */
     uint8_t  :3;               /*!< bit:  4.. 6  Reserved                           */
     uint8_t  ERROR:1;          /*!< bit:      7  Combined Error Interrupt Disable   */
   } bit;                       /*!< Structure used for bit  access                  */
@@ -736,7 +736,7 @@ typedef union {
 #define SERCOM_SPI_INTENCLR_TXC     (_U_(0x1) << SERCOM_SPI_INTENCLR_TXC_Pos)
 #define SERCOM_SPI_INTENCLR_RXC_Pos 2            /**< \brief (SERCOM_SPI_INTENCLR) Receive Complete Interrupt Disable */
 #define SERCOM_SPI_INTENCLR_RXC     (_U_(0x1) << SERCOM_SPI_INTENCLR_RXC_Pos)
-#define SERCOM_SPI_INTENCLR_SSL_Pos 3            /**< \brief (SERCOM_SPI_INTENCLR) Slave Select Low Interrupt Disable */
+#define SERCOM_SPI_INTENCLR_SSL_Pos 3            /**< \brief (SERCOM_SPI_INTENCLR) follower Select Low Interrupt Disable */
 #define SERCOM_SPI_INTENCLR_SSL     (_U_(0x1) << SERCOM_SPI_INTENCLR_SSL_Pos)
 #define SERCOM_SPI_INTENCLR_ERROR_Pos 7            /**< \brief (SERCOM_SPI_INTENCLR) Combined Error Interrupt Disable */
 #define SERCOM_SPI_INTENCLR_ERROR   (_U_(0x1) << SERCOM_SPI_INTENCLR_ERROR_Pos)
@@ -783,7 +783,7 @@ typedef union {
 typedef union {
   struct {
     uint8_t  MB:1;             /*!< bit:      0  Master On Bus Interrupt Enable     */
-    uint8_t  SB:1;             /*!< bit:      1  Slave On Bus Interrupt Enable      */
+    uint8_t  SB:1;             /*!< bit:      1  follower On Bus Interrupt Enable      */
     uint8_t  :5;               /*!< bit:  2.. 6  Reserved                           */
     uint8_t  ERROR:1;          /*!< bit:      7  Combined Error Interrupt Enable    */
   } bit;                       /*!< Structure used for bit  access                  */
@@ -796,7 +796,7 @@ typedef union {
 
 #define SERCOM_I2CM_INTENSET_MB_Pos 0            /**< \brief (SERCOM_I2CM_INTENSET) Master On Bus Interrupt Enable */
 #define SERCOM_I2CM_INTENSET_MB     (_U_(0x1) << SERCOM_I2CM_INTENSET_MB_Pos)
-#define SERCOM_I2CM_INTENSET_SB_Pos 1            /**< \brief (SERCOM_I2CM_INTENSET) Slave On Bus Interrupt Enable */
+#define SERCOM_I2CM_INTENSET_SB_Pos 1            /**< \brief (SERCOM_I2CM_INTENSET) follower On Bus Interrupt Enable */
 #define SERCOM_I2CM_INTENSET_SB     (_U_(0x1) << SERCOM_I2CM_INTENSET_SB_Pos)
 #define SERCOM_I2CM_INTENSET_ERROR_Pos 7            /**< \brief (SERCOM_I2CM_INTENSET) Combined Error Interrupt Enable */
 #define SERCOM_I2CM_INTENSET_ERROR  (_U_(0x1) << SERCOM_I2CM_INTENSET_ERROR_Pos)
@@ -836,7 +836,7 @@ typedef union {
     uint8_t  DRE:1;            /*!< bit:      0  Data Register Empty Interrupt Enable */
     uint8_t  TXC:1;            /*!< bit:      1  Transmit Complete Interrupt Enable */
     uint8_t  RXC:1;            /*!< bit:      2  Receive Complete Interrupt Enable  */
-    uint8_t  SSL:1;            /*!< bit:      3  Slave Select Low Interrupt Enable  */
+    uint8_t  SSL:1;            /*!< bit:      3  follower Select Low Interrupt Enable  */
     uint8_t  :3;               /*!< bit:  4.. 6  Reserved                           */
     uint8_t  ERROR:1;          /*!< bit:      7  Combined Error Interrupt Enable    */
   } bit;                       /*!< Structure used for bit  access                  */
@@ -853,7 +853,7 @@ typedef union {
 #define SERCOM_SPI_INTENSET_TXC     (_U_(0x1) << SERCOM_SPI_INTENSET_TXC_Pos)
 #define SERCOM_SPI_INTENSET_RXC_Pos 2            /**< \brief (SERCOM_SPI_INTENSET) Receive Complete Interrupt Enable */
 #define SERCOM_SPI_INTENSET_RXC     (_U_(0x1) << SERCOM_SPI_INTENSET_RXC_Pos)
-#define SERCOM_SPI_INTENSET_SSL_Pos 3            /**< \brief (SERCOM_SPI_INTENSET) Slave Select Low Interrupt Enable */
+#define SERCOM_SPI_INTENSET_SSL_Pos 3            /**< \brief (SERCOM_SPI_INTENSET) follower Select Low Interrupt Enable */
 #define SERCOM_SPI_INTENSET_SSL     (_U_(0x1) << SERCOM_SPI_INTENSET_SSL_Pos)
 #define SERCOM_SPI_INTENSET_ERROR_Pos 7            /**< \brief (SERCOM_SPI_INTENSET) Combined Error Interrupt Enable */
 #define SERCOM_SPI_INTENSET_ERROR   (_U_(0x1) << SERCOM_SPI_INTENSET_ERROR_Pos)
@@ -900,7 +900,7 @@ typedef union {
 typedef union { // __I to avoid read-modify-write on write-to-clear register
   struct {
     __I uint8_t  MB:1;             /*!< bit:      0  Master On Bus Interrupt            */
-    __I uint8_t  SB:1;             /*!< bit:      1  Slave On Bus Interrupt             */
+    __I uint8_t  SB:1;             /*!< bit:      1  follower On Bus Interrupt             */
     __I uint8_t  :5;               /*!< bit:  2.. 6  Reserved                           */
     __I uint8_t  ERROR:1;          /*!< bit:      7  Combined Error Interrupt           */
   } bit;                       /*!< Structure used for bit  access                  */
@@ -913,7 +913,7 @@ typedef union { // __I to avoid read-modify-write on write-to-clear register
 
 #define SERCOM_I2CM_INTFLAG_MB_Pos  0            /**< \brief (SERCOM_I2CM_INTFLAG) Master On Bus Interrupt */
 #define SERCOM_I2CM_INTFLAG_MB      (_U_(0x1) << SERCOM_I2CM_INTFLAG_MB_Pos)
-#define SERCOM_I2CM_INTFLAG_SB_Pos  1            /**< \brief (SERCOM_I2CM_INTFLAG) Slave On Bus Interrupt */
+#define SERCOM_I2CM_INTFLAG_SB_Pos  1            /**< \brief (SERCOM_I2CM_INTFLAG) follower On Bus Interrupt */
 #define SERCOM_I2CM_INTFLAG_SB      (_U_(0x1) << SERCOM_I2CM_INTFLAG_SB_Pos)
 #define SERCOM_I2CM_INTFLAG_ERROR_Pos 7            /**< \brief (SERCOM_I2CM_INTFLAG) Combined Error Interrupt */
 #define SERCOM_I2CM_INTFLAG_ERROR   (_U_(0x1) << SERCOM_I2CM_INTFLAG_ERROR_Pos)
@@ -953,7 +953,7 @@ typedef union { // __I to avoid read-modify-write on write-to-clear register
     __I uint8_t  DRE:1;            /*!< bit:      0  Data Register Empty Interrupt      */
     __I uint8_t  TXC:1;            /*!< bit:      1  Transmit Complete Interrupt        */
     __I uint8_t  RXC:1;            /*!< bit:      2  Receive Complete Interrupt         */
-    __I uint8_t  SSL:1;            /*!< bit:      3  Slave Select Low Interrupt Flag    */
+    __I uint8_t  SSL:1;            /*!< bit:      3  follower Select Low Interrupt Flag    */
     __I uint8_t  :3;               /*!< bit:  4.. 6  Reserved                           */
     __I uint8_t  ERROR:1;          /*!< bit:      7  Combined Error Interrupt           */
   } bit;                       /*!< Structure used for bit  access                  */
@@ -970,7 +970,7 @@ typedef union { // __I to avoid read-modify-write on write-to-clear register
 #define SERCOM_SPI_INTFLAG_TXC      (_U_(0x1) << SERCOM_SPI_INTFLAG_TXC_Pos)
 #define SERCOM_SPI_INTFLAG_RXC_Pos  2            /**< \brief (SERCOM_SPI_INTFLAG) Receive Complete Interrupt */
 #define SERCOM_SPI_INTFLAG_RXC      (_U_(0x1) << SERCOM_SPI_INTFLAG_RXC_Pos)
-#define SERCOM_SPI_INTFLAG_SSL_Pos  3            /**< \brief (SERCOM_SPI_INTFLAG) Slave Select Low Interrupt Flag */
+#define SERCOM_SPI_INTFLAG_SSL_Pos  3            /**< \brief (SERCOM_SPI_INTFLAG) follower Select Low Interrupt Flag */
 #define SERCOM_SPI_INTFLAG_SSL      (_U_(0x1) << SERCOM_SPI_INTFLAG_SSL_Pos)
 #define SERCOM_SPI_INTFLAG_ERROR_Pos 7            /**< \brief (SERCOM_SPI_INTFLAG) Combined Error Interrupt */
 #define SERCOM_SPI_INTFLAG_ERROR    (_U_(0x1) << SERCOM_SPI_INTFLAG_ERROR_Pos)
@@ -1024,7 +1024,7 @@ typedef union {
     uint16_t LOWTOUT:1;        /*!< bit:      6  SCL Low Timeout                    */
     uint16_t CLKHOLD:1;        /*!< bit:      7  Clock Hold                         */
     uint16_t MEXTTOUT:1;       /*!< bit:      8  Master SCL Low Extend Timeout      */
-    uint16_t SEXTTOUT:1;       /*!< bit:      9  Slave SCL Low Extend Timeout       */
+    uint16_t SEXTTOUT:1;       /*!< bit:      9  follower SCL Low Extend Timeout       */
     uint16_t LENERR:1;         /*!< bit:     10  Length Error                       */
     uint16_t :5;               /*!< bit: 11..15  Reserved                           */
   } bit;                       /*!< Structure used for bit  access                  */
@@ -1050,7 +1050,7 @@ typedef union {
 #define SERCOM_I2CM_STATUS_CLKHOLD  (_U_(0x1) << SERCOM_I2CM_STATUS_CLKHOLD_Pos)
 #define SERCOM_I2CM_STATUS_MEXTTOUT_Pos 8            /**< \brief (SERCOM_I2CM_STATUS) Master SCL Low Extend Timeout */
 #define SERCOM_I2CM_STATUS_MEXTTOUT (_U_(0x1) << SERCOM_I2CM_STATUS_MEXTTOUT_Pos)
-#define SERCOM_I2CM_STATUS_SEXTTOUT_Pos 9            /**< \brief (SERCOM_I2CM_STATUS) Slave SCL Low Extend Timeout */
+#define SERCOM_I2CM_STATUS_SEXTTOUT_Pos 9            /**< \brief (SERCOM_I2CM_STATUS) follower SCL Low Extend Timeout */
 #define SERCOM_I2CM_STATUS_SEXTTOUT (_U_(0x1) << SERCOM_I2CM_STATUS_SEXTTOUT_Pos)
 #define SERCOM_I2CM_STATUS_LENERR_Pos 10           /**< \brief (SERCOM_I2CM_STATUS) Length Error */
 #define SERCOM_I2CM_STATUS_LENERR   (_U_(0x1) << SERCOM_I2CM_STATUS_LENERR_Pos)
@@ -1069,7 +1069,7 @@ typedef union {
     uint16_t LOWTOUT:1;        /*!< bit:      6  SCL Low Timeout                    */
     uint16_t CLKHOLD:1;        /*!< bit:      7  Clock Hold                         */
     uint16_t :1;               /*!< bit:      8  Reserved                           */
-    uint16_t SEXTTOUT:1;       /*!< bit:      9  Slave SCL Low Extend Timeout       */
+    uint16_t SEXTTOUT:1;       /*!< bit:      9  follower SCL Low Extend Timeout       */
     uint16_t HS:1;             /*!< bit:     10  High Speed                         */
     uint16_t LENERR:1;         /*!< bit:     11  Transaction Length Error           */
     uint16_t :4;               /*!< bit: 12..15  Reserved                           */
@@ -1095,7 +1095,7 @@ typedef union {
 #define SERCOM_I2CS_STATUS_LOWTOUT  (_U_(0x1) << SERCOM_I2CS_STATUS_LOWTOUT_Pos)
 #define SERCOM_I2CS_STATUS_CLKHOLD_Pos 7            /**< \brief (SERCOM_I2CS_STATUS) Clock Hold */
 #define SERCOM_I2CS_STATUS_CLKHOLD  (_U_(0x1) << SERCOM_I2CS_STATUS_CLKHOLD_Pos)
-#define SERCOM_I2CS_STATUS_SEXTTOUT_Pos 9            /**< \brief (SERCOM_I2CS_STATUS) Slave SCL Low Extend Timeout */
+#define SERCOM_I2CS_STATUS_SEXTTOUT_Pos 9            /**< \brief (SERCOM_I2CS_STATUS) follower SCL Low Extend Timeout */
 #define SERCOM_I2CS_STATUS_SEXTTOUT (_U_(0x1) << SERCOM_I2CS_STATUS_SEXTTOUT_Pos)
 #define SERCOM_I2CS_STATUS_HS_Pos   10           /**< \brief (SERCOM_I2CS_STATUS) High Speed */
 #define SERCOM_I2CS_STATUS_HS       (_U_(0x1) << SERCOM_I2CS_STATUS_HS_Pos)
@@ -1594,7 +1594,7 @@ typedef struct { /* I2C Master Mode */
 
 /** \brief SERCOM_I2CS hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef struct { /* I2C Slave Mode */
+typedef struct { /* I2C follower Mode */
   __IO SERCOM_I2CS_CTRLA_Type    CTRLA;       /**< \brief Offset: 0x00 (R/W 32) I2CS Control A */
   __IO SERCOM_I2CS_CTRLB_Type    CTRLB;       /**< \brief Offset: 0x04 (R/W 32) I2CS Control B */
   __IO SERCOM_I2CS_CTRLC_Type    CTRLC;       /**< \brief Offset: 0x08 (R/W 32) I2CS Control C */
@@ -1669,7 +1669,7 @@ typedef struct { /* USART Mode */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
        SercomI2cm                I2CM;        /**< \brief Offset: 0x00 I2C Master Mode */
-       SercomI2cs                I2CS;        /**< \brief Offset: 0x00 I2C Slave Mode */
+       SercomI2cs                I2CS;        /**< \brief Offset: 0x00 I2C follower Mode */
        SercomSpi                 SPI;         /**< \brief Offset: 0x00 SPI Mode */
        SercomUsart               USART;       /**< \brief Offset: 0x00 USART Mode */
 } Sercom;

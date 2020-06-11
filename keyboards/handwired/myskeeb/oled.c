@@ -221,7 +221,7 @@ if (is_keyboard_master()) {
 	oled_write_P(oled_footer, false);	
 	}
 	
-// SLAVE SIDE
+// follower SIDE
 else {
 	render_skeeb_logo();
 	} 

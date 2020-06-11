@@ -7,5 +7,5 @@ This is for those who insist to use keyboard with ÅÄÖ. Also thought about the
 gaming aspect with this keyboard, therefore space on left side.
 
 At first I thought about having backspace in the upper right corner of the
-slave side, but that made it really clunky to fix your text. Thumbs should take
+follower side, but that made it really clunky to fix your text. Thumbs should take
 care of this job instead.

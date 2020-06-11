@@ -14,7 +14,7 @@ COMMAND_ENABLE          = no        # Commands for debug and configuration
 # RGB Options
 RGBLIGHT_ENABLE         = yes       # Enable global lighting effects. Do not enable with RGB Matrix
 RGBLIGHT_ANIMATIONS     = yes       # LED animations
-LED_MIRRORED            = yes       # Mirror LEDs across halves (enable DIP 1 on slave, and DIP 2 and 3 on master)
+LED_MIRRORED            = yes       # Mirror LEDs across halves (enable DIP 1 on follower, and DIP 2 and 3 on master)
 
 RGB_MATRIX_ENABLE       = no        # Enable per-key coordinate based RGB effects. Do not enable with RGBlight
 RGB_MATRIX_KEYPRESSES   = no        # Enable reactive per-key effects.

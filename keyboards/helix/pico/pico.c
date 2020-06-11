@@ -35,7 +35,7 @@ void keyboard_post_init_kb(void) {
 }
 
 #if defined(SPLIT_KEYBOARD) && defined(SSD1306OLED)
-void matrix_slave_scan_user(void) {
+void matrix_follower_scan_user(void) {
     matrix_scan_user();
 }
 #endif

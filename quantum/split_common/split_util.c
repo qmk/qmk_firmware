@@ -97,11 +97,11 @@ __attribute__((weak)) bool is_keyboard_left(void) {
 }
 
 __attribute__((weak)) bool is_keyboard_master(void) {
-    static enum { UNKNOWN, MASTER, SLAVE } usbstate = UNKNOWN;
+    static enum { UNKNOWN, MASTER, follower } usbstate = UNKNOWN;
 
     // only check once, as this is called often
     if (usbstate == UNKNOWN) {
-        usbstate = usbIsActive() ? MASTER : SLAVE;
+        usbstate = usbIsActive() ? MASTER : follower;
     }
 
     return (usbstate == MASTER);
@@ -129,10 +129,10 @@ void split_pre_init(void) {
 }
 
 // this code runs after the keyboard is fully initialized
-//   - avoids race condition during matrix_init_quantum where slave can start
+//   - avoids race condition during matrix_init_quantum where follower can start
 //     receiving before the init process has completed
 void split_post_init(void) {
     if (!is_keyboard_master()) {
-        transport_slave_init();
+        transport_follower_init();
     }
 }

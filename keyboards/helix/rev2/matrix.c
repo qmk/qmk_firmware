@@ -147,9 +147,9 @@ uint8_t _matrix_scan(void)
 
 // Get rows from other half over i2c
 int i2c_transaction(void) {
-    int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
+    int followerOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
 
-    int err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_WRITE);
+    int err = i2c_master_start(follower_I2C_ADDRESS + I2C_WRITE);
     if (err) goto i2c_error;
 
     // start of matrix stored at 0x00
@@ -157,15 +157,15 @@ int i2c_transaction(void) {
     if (err) goto i2c_error;
 
     // Start read
-    err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_READ);
+    err = i2c_master_start(follower_I2C_ADDRESS + I2C_READ);
     if (err) goto i2c_error;
 
     if (!err) {
         int i;
         for (i = 0; i < ROWS_PER_HAND-1; ++i) {
-            matrix[slaveOffset+i] = i2c_master_read(I2C_ACK);
+            matrix[followerOffset+i] = i2c_master_read(I2C_ACK);
         }
-        matrix[slaveOffset+i] = i2c_master_read(I2C_NACK);
+        matrix[followerOffset+i] = i2c_master_read(I2C_NACK);
         i2c_master_stop();
     } else {
 i2c_error: // the cable is disconnceted, or something else went wrong
@@ -179,7 +179,7 @@ i2c_error: // the cable is disconnceted, or something else went wrong
 #else // USE_SERIAL
 
 int serial_transaction(int master_changed) {
-    int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
+    int followerOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
 #ifdef SERIAL_USE_MULTI_TRANSACTION
     int ret=serial_update_buffers(master_changed);
 #else
@@ -190,8 +190,8 @@ int serial_transaction(int master_changed) {
         return 1;
     }
     writePinHigh(B0);
-    memcpy(&matrix[slaveOffset],
-        (void *)serial_slave_buffer, sizeof(serial_slave_buffer));
+    memcpy(&matrix[followerOffset],
+        (void *)serial_follower_buffer, sizeof(serial_follower_buffer));
     return 0;
 }
 #endif
@@ -201,7 +201,7 @@ uint8_t matrix_scan(void)
     if (is_helix_master()) {
         matrix_master_scan();
     }else{
-        matrix_slave_scan();
+        matrix_follower_scan();
         int offset = (isLeftHand) ? ROWS_PER_HAND : 0;
         memcpy(&matrix[offset],
                (void *)serial_master_buffer, sizeof(serial_master_buffer));
@@ -221,8 +221,8 @@ uint8_t matrix_master_scan(void) {
 
 #ifdef USE_MATRIX_I2C
 //    for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        /* i2c_slave_buffer[i] = matrix[offset+i]; */
-//        i2c_slave_buffer[i] = matrix[offset+i];
+        /* i2c_follower_buffer[i] = matrix[offset+i]; */
+//        i2c_follower_buffer[i] = matrix[offset+i];
 //    }
 #else // USE_SERIAL
   #ifdef SERIAL_USE_MULTI_TRANSACTION
@@ -246,9 +246,9 @@ uint8_t matrix_master_scan(void) {
 
         if (error_count > ERROR_DISCONNECT_COUNT) {
             // reset other half if disconnected
-            int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
+            int followerOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
             for (int i = 0; i < ROWS_PER_HAND; ++i) {
-                matrix[slaveOffset+i] = 0;
+                matrix[followerOffset+i] = 0;
             }
         }
     } else {
@@ -260,15 +260,15 @@ uint8_t matrix_master_scan(void) {
     return ret;
 }
 
-void matrix_slave_scan(void) {
+void matrix_follower_scan(void) {
     _matrix_scan();
 
     int offset = (isLeftHand) ? 0 : ROWS_PER_HAND;
 
 #ifdef USE_MATRIX_I2C
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        /* i2c_slave_buffer[i] = matrix[offset+i]; */
-        i2c_slave_buffer[i] = matrix[offset+i];
+        /* i2c_follower_buffer[i] = matrix[offset+i]; */
+        i2c_follower_buffer[i] = matrix[offset+i];
     }
 #else // USE_SERIAL
   #ifdef SERIAL_USE_MULTI_TRANSACTION
@@ -276,13 +276,13 @@ void matrix_slave_scan(void) {
   #endif
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
   #ifdef SERIAL_USE_MULTI_TRANSACTION
-        if( serial_slave_buffer[i] != matrix[offset+i] )
+        if( serial_follower_buffer[i] != matrix[offset+i] )
 	    change = 1;
   #endif
-        serial_slave_buffer[i] = matrix[offset+i];
+        serial_follower_buffer[i] = matrix[offset+i];
     }
   #ifdef SERIAL_USE_MULTI_TRANSACTION
-    slave_buffer_change_count += change;
+    follower_buffer_change_count += change;
   #endif
 #endif
 }

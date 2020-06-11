@@ -38,9 +38,9 @@
 #    define SPI_TIMEOUT 100
 #endif
 
-static pin_t   currentSlavePin    = NO_PIN;
-static uint8_t currentSlaveConfig = 0;
-static bool    currentSlave2X     = false;
+static pin_t   currentfollowerPin    = NO_PIN;
+static uint8_t currentfollowerConfig = 0;
+static bool    currentfollower2X     = false;
 
 void spi_init(void) {
     writePinHigh(SPI_SS_PIN);
@@ -51,26 +51,26 @@ void spi_init(void) {
     SPCR = (_BV(SPE) | _BV(MSTR));
 }
 
-bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
-    if (currentSlavePin != NO_PIN || slavePin == NO_PIN) {
+bool spi_start(pin_t followerPin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
+    if (currentfollowerPin != NO_PIN || followerPin == NO_PIN) {
         return false;
     }
 
-    currentSlaveConfig = 0;
+    currentfollowerConfig = 0;
 
     if (lsbFirst) {
-        currentSlaveConfig |= _BV(DORD);
+        currentfollowerConfig |= _BV(DORD);
     }
 
     switch (mode) {
         case 1:
-            currentSlaveConfig |= _BV(CPHA);
+            currentfollowerConfig |= _BV(CPHA);
             break;
         case 2:
-            currentSlaveConfig |= _BV(CPOL);
+            currentfollowerConfig |= _BV(CPOL);
             break;
         case 3:
-            currentSlaveConfig |= (_BV(CPOL) | _BV(CPHA));
+            currentfollowerConfig |= (_BV(CPOL) | _BV(CPHA));
             break;
     }
 
@@ -81,34 +81,34 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
 
     switch (roundedDivisor) {
         case 16:
-            currentSlaveConfig |= _BV(SPR0);
+            currentfollowerConfig |= _BV(SPR0);
             break;
         case 64:
-            currentSlaveConfig |= _BV(SPR1);
+            currentfollowerConfig |= _BV(SPR1);
             break;
         case 128:
-            currentSlaveConfig |= (_BV(SPR1) | _BV(SPR0));
+            currentfollowerConfig |= (_BV(SPR1) | _BV(SPR0));
             break;
         case 2:
-            currentSlave2X = true;
+            currentfollower2X = true;
             break;
         case 8:
-            currentSlave2X = true;
-            currentSlaveConfig |= _BV(SPR0);
+            currentfollower2X = true;
+            currentfollowerConfig |= _BV(SPR0);
             break;
         case 32:
-            currentSlave2X = true;
-            currentSlaveConfig |= _BV(SPR1);
+            currentfollower2X = true;
+            currentfollowerConfig |= _BV(SPR1);
             break;
     }
 
-    SPCR |= currentSlaveConfig;
-    if (currentSlave2X) {
+    SPCR |= currentfollowerConfig;
+    if (currentfollower2X) {
         SPSR |= _BV(SPI2X);
     }
-    currentSlavePin = slavePin;
-    setPinOutput(currentSlavePin);
-    writePinLow(currentSlavePin);
+    currentfollowerPin = followerPin;
+    setPinOutput(currentfollowerPin);
+    writePinLow(currentfollowerPin);
 
     return true;
 }
@@ -164,13 +164,13 @@ spi_status_t spi_receive(uint8_t *data, uint16_t length) {
 }
 
 void spi_stop(void) {
-    if (currentSlavePin != NO_PIN) {
-        setPinOutput(currentSlavePin);
-        writePinHigh(currentSlavePin);
-        currentSlavePin = NO_PIN;
+    if (currentfollowerPin != NO_PIN) {
+        setPinOutput(currentfollowerPin);
+        writePinHigh(currentfollowerPin);
+        currentfollowerPin = NO_PIN;
         SPSR &= ~(_BV(SPI2X));
-        SPCR &= ~(currentSlaveConfig);
-        currentSlaveConfig = 0;
-        currentSlave2X     = false;
+        SPCR &= ~(currentfollowerConfig);
+        currentfollowerConfig = 0;
+        currentfollower2X     = false;
     }
 }

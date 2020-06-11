@@ -55,7 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // PG3: Configuration Register: Synchronize Configuration
 #define ISSI3733_CR_SYNC_MASTER 0x40    // Master
-#define ISSI3733_CR_SYNC_SLAVE 0x80     // Slave
+#define ISSI3733_CR_SYNC_follower 0x80     // follower
 #define ISSI3733_CR_SYNC_HIGH_IMP 0xC0  // High Impedance
 
 // PG3: Configuration Register: Open/Short Detection Enable Bit

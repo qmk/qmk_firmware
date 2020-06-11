@@ -61,7 +61,7 @@ const CDCDescriptor _cdcInterface =
 	D_CDCCS(CDC_HEADER,0x10,0x01),								// Header (1.10 bcd)
 	D_CDCCS(CDC_CALL_MANAGEMENT,1,1),							// Device handles call management (not)
 	D_CDCCS4(CDC_ABSTRACT_CONTROL_MANAGEMENT,6),				// SET_LINE_CODING, GET_LINE_CODING, SET_CONTROL_LINE_STATE supported
-	D_CDCCS(CDC_UNION,CDC_ACM_INTERFACE,CDC_DATA_INTERFACE),	// Communication interface is master, data interface is slave 0
+	D_CDCCS(CDC_UNION,CDC_ACM_INTERFACE,CDC_DATA_INTERFACE),	// Communication interface is master, data interface is follower 0
 	D_ENDPOINT(USB_ENDPOINT_IN (CDC_ENDPOINT_ACM),USB_ENDPOINT_TYPE_INTERRUPT,0x10,0x40),
 
 	//	CDC data interface

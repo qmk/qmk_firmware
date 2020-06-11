@@ -669,7 +669,7 @@ typedef struct {
     uint8_t bDescriptorType;
     uint8_t bDescriptorSubtype;
     uint8_t bMasterInterface;
-    uint8_t bSlaveInterface0;
+    uint8_t bfollowerInterface0;
 } usb_cdc_union_desc_t;
 
 typedef struct {
@@ -733,7 +733,7 @@ typedef struct {
         .bDescriptorType = CDC_CS_INTERFACE, \
         .bDescriptorSubtype = CDC_SCS_UNION, \
         .bMasterInterface = CDC_STATUS_INTERFACE, \
-        .bSlaveInterface0 = CDC_DATA_INTERFACE \
+        .bfollowerInterface0 = CDC_DATA_INTERFACE \
     }, \
     .ep_c = { \
         .bLength = sizeof(usb_ep_desc_t), \

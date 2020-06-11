@@ -219,8 +219,8 @@ uint32_t layer_state_set_kb(uint32_t state) {
 		}
 		
 	}
-	// NOTE: Do not set slave LEDs here.
-	// This is not called on slave
+	// NOTE: Do not set follower LEDs here.
+	// This is not called on follower
 	
 	return layer_state_set_user(state);
 }

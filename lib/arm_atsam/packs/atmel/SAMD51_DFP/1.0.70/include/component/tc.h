@@ -412,7 +412,7 @@ typedef union { // __I to avoid read-modify-write on write-to-clear register
 typedef union {
   struct {
     uint8_t  STOP:1;           /*!< bit:      0  Stop Status Flag                   */
-    uint8_t  SLAVE:1;          /*!< bit:      1  Slave Status Flag                  */
+    uint8_t  follower:1;          /*!< bit:      1  follower Status Flag                  */
     uint8_t  :1;               /*!< bit:      2  Reserved                           */
     uint8_t  PERBUFV:1;        /*!< bit:      3  Synchronization Busy Status        */
     uint8_t  CCBUFV0:1;        /*!< bit:      4  Compare channel buffer 0 valid     */
@@ -433,8 +433,8 @@ typedef union {
 
 #define TC_STATUS_STOP_Pos          0            /**< \brief (TC_STATUS) Stop Status Flag */
 #define TC_STATUS_STOP              (_U_(0x1) << TC_STATUS_STOP_Pos)
-#define TC_STATUS_SLAVE_Pos         1            /**< \brief (TC_STATUS) Slave Status Flag */
-#define TC_STATUS_SLAVE             (_U_(0x1) << TC_STATUS_SLAVE_Pos)
+#define TC_STATUS_follower_Pos         1            /**< \brief (TC_STATUS) follower Status Flag */
+#define TC_STATUS_follower             (_U_(0x1) << TC_STATUS_follower_Pos)
 #define TC_STATUS_PERBUFV_Pos       3            /**< \brief (TC_STATUS) Synchronization Busy Status */
 #define TC_STATUS_PERBUFV           (_U_(0x1) << TC_STATUS_PERBUFV_Pos)
 #define TC_STATUS_CCBUFV0_Pos       4            /**< \brief (TC_STATUS) Compare channel buffer 0 valid */

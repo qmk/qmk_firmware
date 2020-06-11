@@ -12,7 +12,7 @@
 - Green: LED Do  -> PCB Extra Data
 - Black: LED GND -> PCB GND
 
-## Slave
+## follower
 
 ### TRRS
 - Red: LED +5V -> PCB VCC

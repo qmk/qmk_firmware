@@ -78,7 +78,7 @@ void ws2812_init(void) {
 
     spiAcquireBus(&WS2812_SPI);     /* Acquire ownership of the bus.    */
     spiStart(&WS2812_SPI, &spicfg); /* Setup transfer parameters.       */
-    spiSelect(&WS2812_SPI);         /* Slave Select assertion.          */
+    spiSelect(&WS2812_SPI);         /* follower Select assertion.          */
 }
 
 void ws2812_setleds(LED_TYPE* ledarray, uint16_t leds) {

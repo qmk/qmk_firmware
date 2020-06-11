@@ -90,7 +90,7 @@
 #define ADC0_DMAC_ID_SEQ            69       // Index of DMA SEQ trigger
 #define ADC0_EXTCHANNEL_MSB         15       // Number of external channels
 #define ADC0_GCLK_ID                40       // index of Generic Clock
-#define ADC0_MASTER_SLAVE_MODE      1        // ADC Master/Slave Mode
+#define ADC0_MASTER_follower_MODE      1        // ADC Master/follower Mode
 #define ADC0_OPAMP2                 0        // MUXPOS value to select OPAMP2
 #define ADC0_OPAMP01                0        // MUXPOS value to select OPAMP01
 #define ADC0_PTAT                   28       // MUXPOS value to select PTAT

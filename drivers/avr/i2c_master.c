@@ -41,7 +41,7 @@ void i2c_init(void) {
     // enable TWI (two-wire interface)
     TWCR |= (1 << TWEN);
 
-    // enable TWI interrupt and slave address ACK
+    // enable TWI interrupt and follower address ACK
     TWCR |= (1 << TWIE);
     TWCR |= (1 << TWEA);
 #endif
@@ -65,7 +65,7 @@ i2c_status_t i2c_start(uint8_t address, uint16_t timeout) {
         return I2C_STATUS_ERROR;
     }
 
-    // load slave address into data register
+    // load follower address into data register
     TWDR = address;
     // start transmission of address
     TWCR = (1 << TWINT) | (1 << TWEN);

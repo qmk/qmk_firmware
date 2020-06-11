@@ -69,7 +69,7 @@ void leds_init(void){
     txbuf[i] = 0x00;
   spiAcquireBus(&WS2812_SPI);              /* Acquire ownership of the bus.    */
   spiStart(&WS2812_SPI, &spicfg);          /* Setup transfer parameters.       */
-  spiSelect(&WS2812_SPI);                  /* Slave Select assertion.          */
+  spiSelect(&WS2812_SPI);                  /* follower Select assertion.          */
   chThdCreateStatic(LEDS_THREAD_WA, sizeof(LEDS_THREAD_WA),NORMALPRIO, ledsThread, NULL);
 }
 

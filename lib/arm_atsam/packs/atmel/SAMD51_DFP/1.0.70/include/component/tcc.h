@@ -52,7 +52,7 @@ typedef union {
     uint32_t RUNSTDBY:1;       /*!< bit:     11  Run in Standby                     */
     uint32_t PRESCSYNC:2;      /*!< bit: 12..13  Prescaler and Counter Synchronization Selection */
     uint32_t ALOCK:1;          /*!< bit:     14  Auto Lock                          */
-    uint32_t MSYNC:1;          /*!< bit:     15  Master Synchronization (only for TCC Slave Instance) */
+    uint32_t MSYNC:1;          /*!< bit:     15  Master Synchronization (only for TCC follower Instance) */
     uint32_t :7;               /*!< bit: 16..22  Reserved                           */
     uint32_t DMAOS:1;          /*!< bit:     23  DMA One-shot Trigger Mode          */
     uint32_t CPTEN0:1;         /*!< bit:     24  Capture Channel 0 Enable           */
@@ -122,7 +122,7 @@ typedef union {
 #define TCC_CTRLA_PRESCSYNC_RESYNC  (TCC_CTRLA_PRESCSYNC_RESYNC_Val << TCC_CTRLA_PRESCSYNC_Pos)
 #define TCC_CTRLA_ALOCK_Pos         14           /**< \brief (TCC_CTRLA) Auto Lock */
 #define TCC_CTRLA_ALOCK             (_U_(0x1) << TCC_CTRLA_ALOCK_Pos)
-#define TCC_CTRLA_MSYNC_Pos         15           /**< \brief (TCC_CTRLA) Master Synchronization (only for TCC Slave Instance) */
+#define TCC_CTRLA_MSYNC_Pos         15           /**< \brief (TCC_CTRLA) Master Synchronization (only for TCC follower Instance) */
 #define TCC_CTRLA_MSYNC             (_U_(0x1) << TCC_CTRLA_MSYNC_Pos)
 #define TCC_CTRLA_DMAOS_Pos         23           /**< \brief (TCC_CTRLA) DMA One-shot Trigger Mode */
 #define TCC_CTRLA_DMAOS             (_U_(0x1) << TCC_CTRLA_DMAOS_Pos)
@@ -1068,7 +1068,7 @@ typedef union {
     uint32_t IDX:1;            /*!< bit:      1  Ramp                               */
     uint32_t UFS:1;            /*!< bit:      2  Non-recoverable Update Fault State */
     uint32_t DFS:1;            /*!< bit:      3  Non-Recoverable Debug Fault State  */
-    uint32_t SLAVE:1;          /*!< bit:      4  Slave                              */
+    uint32_t follower:1;          /*!< bit:      4  follower                              */
     uint32_t PATTBUFV:1;       /*!< bit:      5  Pattern Buffer Valid               */
     uint32_t :1;               /*!< bit:      6  Reserved                           */
     uint32_t PERBUFV:1;        /*!< bit:      7  Period Buffer Valid                */
@@ -1117,8 +1117,8 @@ typedef union {
 #define TCC_STATUS_UFS              (_U_(0x1) << TCC_STATUS_UFS_Pos)
 #define TCC_STATUS_DFS_Pos          3            /**< \brief (TCC_STATUS) Non-Recoverable Debug Fault State */
 #define TCC_STATUS_DFS              (_U_(0x1) << TCC_STATUS_DFS_Pos)
-#define TCC_STATUS_SLAVE_Pos        4            /**< \brief (TCC_STATUS) Slave */
-#define TCC_STATUS_SLAVE            (_U_(0x1) << TCC_STATUS_SLAVE_Pos)
+#define TCC_STATUS_follower_Pos        4            /**< \brief (TCC_STATUS) follower */
+#define TCC_STATUS_follower            (_U_(0x1) << TCC_STATUS_follower_Pos)
 #define TCC_STATUS_PATTBUFV_Pos     5            /**< \brief (TCC_STATUS) Pattern Buffer Valid */
 #define TCC_STATUS_PATTBUFV         (_U_(0x1) << TCC_STATUS_PATTBUFV_Pos)
 #define TCC_STATUS_PERBUFV_Pos      7            /**< \brief (TCC_STATUS) Period Buffer Valid */

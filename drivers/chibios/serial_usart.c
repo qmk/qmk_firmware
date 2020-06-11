@@ -98,19 +98,19 @@ static SerialConfig sdcfg = {
     (SERIAL_USART_CR3)     // CR3
 };
 
-void handle_soft_serial_slave(void);
+void handle_soft_serial_follower(void);
 
 /*
- * This thread runs on the slave and responds to transactions initiated
+ * This thread runs on the follower and responds to transactions initiated
  * by the master
  */
-static THD_WORKING_AREA(waSlaveThread, 2048);
-static THD_FUNCTION(SlaveThread, arg) {
+static THD_WORKING_AREA(wafollowerThread, 2048);
+static THD_FUNCTION(followerThread, arg) {
     (void)arg;
-    chRegSetThreadName("slave_transport");
+    chRegSetThreadName("follower_transport");
 
     while (true) {
-        handle_soft_serial_slave();
+        handle_soft_serial_follower();
     }
 }
 
@@ -129,14 +129,14 @@ void usart_master_init(void) {
     sdStart(&SERIAL_USART_DRIVER, &sdcfg);
 }
 
-void usart_slave_init(void) {
+void usart_follower_init(void) {
     usart_init();
 
     sdcfg.cr3 |= USART_CR3_HDSEL;
     sdStart(&SERIAL_USART_DRIVER, &sdcfg);
 
     // Start transport thread
-    chThdCreateStatic(waSlaveThread, sizeof(waSlaveThread), HIGHPRIO, SlaveThread, NULL);
+    chThdCreateStatic(wafollowerThread, sizeof(wafollowerThread), HIGHPRIO, followerThread, NULL);
 }
 
 static SSTD_t* Transaction_table      = NULL;
@@ -153,10 +153,10 @@ void soft_serial_target_init(SSTD_t* sstd_table, int sstd_table_size) {
     Transaction_table      = sstd_table;
     Transaction_table_size = (uint8_t)sstd_table_size;
 
-    usart_slave_init();
+    usart_follower_init();
 }
 
-void handle_soft_serial_slave(void) {
+void handle_soft_serial_follower(void) {
     uint8_t sstd_index = sdGet(&SERIAL_USART_DRIVER);  // first chunk is always transaction id
     SSTD_t* trans      = &Transaction_table[sstd_index];
 
@@ -207,7 +207,7 @@ int soft_serial_transaction(int index) {
 
     // Which we always read back first so that we can error out correctly
     //   - due to the half duplex limitations on return codes, we always have to read *something*
-    //   - without the read, write only transactions *always* succeed, even during the boot process where the slave is not ready
+    //   - without the read, write only transactions *always* succeed, even during the boot process where the follower is not ready
     res = sdReadTimeout(&SERIAL_USART_DRIVER, &sstd_index_shake, sizeof(sstd_index_shake), TIME_MS2I(TIMEOUT));
     if (res < 0 || (sstd_index_shake != (sstd_index ^ HANDSHAKE_MAGIC))) {
         dprintf("serial::usart_shake NO_RESPONSE\n");

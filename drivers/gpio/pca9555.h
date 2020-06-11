@@ -46,12 +46,12 @@
 #define ALL_LOW 0
 #define ALL_HIGH 0xFF
 
-void pca9555_init(uint8_t slave_addr);
+void pca9555_init(uint8_t follower_addr);
 
-void pca9555_set_config(uint8_t slave_addr, uint8_t port, uint8_t conf);
+void pca9555_set_config(uint8_t follower_addr, uint8_t port, uint8_t conf);
 
-void pca9555_set_output(uint8_t slave_addr, uint8_t port, uint8_t conf);
+void pca9555_set_output(uint8_t follower_addr, uint8_t port, uint8_t conf);
 
-uint8_t pca9555_readPins(uint8_t slave_addr, uint8_t port);
+uint8_t pca9555_readPins(uint8_t follower_addr, uint8_t port);
 
-uint16_t pca9555_readAllPins(uint8_t slave_addr);
+uint16_t pca9555_readAllPins(uint8_t follower_addr);

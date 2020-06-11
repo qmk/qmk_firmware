@@ -60,7 +60,7 @@ uint8_t i2c_start(uint8_t address)
     // check if the start condition was successfully transmitted
     if((TWSR & 0xF8) != TW_START){ return 1; }
 
-    // load slave address into data register
+    // load follower address into data register
     TWDR = address;
     // start transmission of address
     TWCR = (1<<TWINT) | (1<<TWEN);

@@ -767,7 +767,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
         },
         .Subtype                = 0x06,
         .MasterInterfaceNumber  = CCI_INTERFACE,
-        .SlaveInterfaceNumber   = CDI_INTERFACE,
+        .followerInterfaceNumber   = CDI_INTERFACE,
     },
     .CDC_NotificationEndpoint = {
         .Header = {

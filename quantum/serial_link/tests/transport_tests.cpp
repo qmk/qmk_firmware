@@ -42,14 +42,14 @@ struct test_object2 {
     uint32_t test2;
 };
 
-MASTER_TO_ALL_SLAVES_OBJECT(master_to_slave, test_object1);
-MASTER_TO_SINGLE_SLAVE_OBJECT(master_to_single_slave, test_object1);
-SLAVE_TO_MASTER_OBJECT(slave_to_master, test_object1);
+MASTER_TO_ALL_followerS_OBJECT(master_to_follower, test_object1);
+MASTER_TO_SINGLE_follower_OBJECT(master_to_single_follower, test_object1);
+follower_TO_MASTER_OBJECT(follower_to_master, test_object1);
 
 static remote_object_t* test_remote_objects[] = {
-    REMOTE_OBJECT(master_to_slave),
-    REMOTE_OBJECT(master_to_single_slave),
-    REMOTE_OBJECT(slave_to_master),
+    REMOTE_OBJECT(master_to_follower),
+    REMOTE_OBJECT(master_to_single_follower),
+    REMOTE_OBJECT(follower_to_master),
 };
 
 class Transport : public testing::Test {
@@ -86,99 +86,99 @@ void router_send_frame(uint8_t destination, uint8_t* data, uint16_t size) { Tran
 }
 
 TEST_F(Transport, write_to_local_signals_an_event) {
-    begin_write_master_to_slave();
+    begin_write_master_to_follower();
     EXPECT_CALL(*this, signal_data_written());
-    end_write_master_to_slave();
-    begin_write_slave_to_master();
+    end_write_master_to_follower();
+    begin_write_follower_to_master();
     EXPECT_CALL(*this, signal_data_written());
-    end_write_slave_to_master();
-    begin_write_master_to_single_slave(1);
+    end_write_follower_to_master();
+    begin_write_master_to_single_follower(1);
     EXPECT_CALL(*this, signal_data_written());
-    end_write_master_to_single_slave(1);
+    end_write_master_to_single_follower(1);
 }
 
-TEST_F(Transport, writes_from_master_to_all_slaves) {
+TEST_F(Transport, writes_from_master_to_all_followers) {
     update_transport();
-    test_object1* obj = begin_write_master_to_slave();
+    test_object1* obj = begin_write_master_to_follower();
     obj->test         = 5;
     EXPECT_CALL(*this, signal_data_written());
-    end_write_master_to_slave();
+    end_write_master_to_follower();
     EXPECT_CALL(*this, router_send_frame(0xFF));
     update_transport();
     transport_recv_frame(0, sent_data.data(), sent_data.size());
-    test_object1* obj2 = read_master_to_slave();
+    test_object1* obj2 = read_master_to_follower();
     EXPECT_NE(obj2, nullptr);
     EXPECT_EQ(obj2->test, 5);
 }
 
-TEST_F(Transport, writes_from_slave_to_master) {
+TEST_F(Transport, writes_from_follower_to_master) {
     update_transport();
-    test_object1* obj = begin_write_slave_to_master();
+    test_object1* obj = begin_write_follower_to_master();
     obj->test         = 7;
     EXPECT_CALL(*this, signal_data_written());
-    end_write_slave_to_master();
+    end_write_follower_to_master();
     EXPECT_CALL(*this, router_send_frame(0));
     update_transport();
     transport_recv_frame(3, sent_data.data(), sent_data.size());
-    test_object1* obj2 = read_slave_to_master(2);
-    EXPECT_EQ(read_slave_to_master(0), nullptr);
+    test_object1* obj2 = read_follower_to_master(2);
+    EXPECT_EQ(read_follower_to_master(0), nullptr);
     EXPECT_NE(obj2, nullptr);
     EXPECT_EQ(obj2->test, 7);
 }
 
-TEST_F(Transport, writes_from_master_to_single_slave) {
+TEST_F(Transport, writes_from_master_to_single_follower) {
     update_transport();
-    test_object1* obj = begin_write_master_to_single_slave(3);
+    test_object1* obj = begin_write_master_to_single_follower(3);
     obj->test         = 7;
     EXPECT_CALL(*this, signal_data_written());
-    end_write_master_to_single_slave(3);
+    end_write_master_to_single_follower(3);
     EXPECT_CALL(*this, router_send_frame(4));
     update_transport();
     transport_recv_frame(0, sent_data.data(), sent_data.size());
-    test_object1* obj2 = read_master_to_single_slave();
+    test_object1* obj2 = read_master_to_single_follower();
     EXPECT_NE(obj2, nullptr);
     EXPECT_EQ(obj2->test, 7);
 }
 
 TEST_F(Transport, ignores_object_with_invalid_id) {
     update_transport();
-    test_object1* obj = begin_write_master_to_single_slave(3);
+    test_object1* obj = begin_write_master_to_single_follower(3);
     obj->test         = 7;
     EXPECT_CALL(*this, signal_data_written());
-    end_write_master_to_single_slave(3);
+    end_write_master_to_single_follower(3);
     EXPECT_CALL(*this, router_send_frame(4));
     update_transport();
     sent_data[sent_data.size() - 1] = 44;
     transport_recv_frame(0, sent_data.data(), sent_data.size());
-    test_object1* obj2 = read_master_to_single_slave();
+    test_object1* obj2 = read_master_to_single_follower();
     EXPECT_EQ(obj2, nullptr);
 }
 
 TEST_F(Transport, ignores_object_with_size_too_small) {
     update_transport();
-    test_object1* obj = begin_write_master_to_slave();
+    test_object1* obj = begin_write_master_to_follower();
     obj->test         = 7;
     EXPECT_CALL(*this, signal_data_written());
-    end_write_master_to_slave();
+    end_write_master_to_follower();
     EXPECT_CALL(*this, router_send_frame(_));
     update_transport();
     sent_data[sent_data.size() - 2] = 0;
     transport_recv_frame(0, sent_data.data(), sent_data.size() - 1);
-    test_object1* obj2 = read_master_to_slave();
+    test_object1* obj2 = read_master_to_follower();
     EXPECT_EQ(obj2, nullptr);
 }
 
 TEST_F(Transport, ignores_object_with_size_too_big) {
     update_transport();
-    test_object1* obj = begin_write_master_to_slave();
+    test_object1* obj = begin_write_master_to_follower();
     obj->test         = 7;
     EXPECT_CALL(*this, signal_data_written());
-    end_write_master_to_slave();
+    end_write_master_to_follower();
     EXPECT_CALL(*this, router_send_frame(_));
     update_transport();
     sent_data.resize(sent_data.size() + 22);
     sent_data[sent_data.size() - 1] = 0;
     transport_recv_frame(0, sent_data.data(), sent_data.size());
-    test_object1* obj2 = read_master_to_slave();
+    test_object1* obj2 = read_master_to_follower();
     EXPECT_EQ(obj2, nullptr);
 }

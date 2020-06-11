@@ -31,9 +31,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "timer.h"
 #include "i2c_master.h"
 
-#define SLAVE_I2C_ADDRESS_RIGHT 0x19
-#define SLAVE_I2C_ADDRESS_NUMPAD 0x21
-#define SLAVE_I2C_ADDRESS_ARROW 0x23
+#define follower_I2C_ADDRESS_RIGHT 0x19
+#define follower_I2C_ADDRESS_NUMPAD 0x21
+#define follower_I2C_ADDRESS_ARROW 0x23
 
 #define ERROR_DISCONNECT_COUNT 5
 static uint8_t error_count_right = 0;
@@ -210,7 +210,7 @@ uint8_t matrix_scan(void)
         }
 #   endif
 
-    if (i2c_transaction(SLAVE_I2C_ADDRESS_RIGHT, 0x3F, 0)){ //error has occured for main right half
+    if (i2c_transaction(follower_I2C_ADDRESS_RIGHT, 0x3F, 0)){ //error has occured for main right half
         error_count_right++;
         if (error_count_right > ERROR_DISCONNECT_COUNT){ //disconnect half
             for (uint8_t i = 0; i < MATRIX_ROWS ; i++) {
@@ -221,7 +221,7 @@ uint8_t matrix_scan(void)
         error_count_right = 0;
     }
 
-    if (i2c_transaction(SLAVE_I2C_ADDRESS_ARROW, 0X3FFF, 8)){ //error has occured for arrow cluster
+    if (i2c_transaction(follower_I2C_ADDRESS_ARROW, 0X3FFF, 8)){ //error has occured for arrow cluster
         error_count_arrow++;
         if (error_count_arrow > ERROR_DISCONNECT_COUNT){ //disconnect arrow cluster
             for (uint8_t i = 0; i < MATRIX_ROWS ; i++) {
@@ -232,7 +232,7 @@ uint8_t matrix_scan(void)
         error_count_arrow = 0;
     }
 
-    if (i2c_transaction(SLAVE_I2C_ADDRESS_NUMPAD, 0x1FFFF, 11)){ //error has occured for numpad
+    if (i2c_transaction(follower_I2C_ADDRESS_NUMPAD, 0x1FFFF, 11)){ //error has occured for numpad
         error_count_numpad++;
         if (error_count_numpad > ERROR_DISCONNECT_COUNT){ //disconnect numpad
             for (uint8_t i = 0; i < MATRIX_ROWS ; i++) {
@@ -444,7 +444,7 @@ i2c_status_t i2c_transaction(uint8_t address, uint32_t mask, uint8_t col_offset)
     err = i2c_read_ack(10);
     if (err == 0x55) { //synchronization byte
 
-        for (uint8_t i = 0; i < MATRIX_ROWS-1 ; i++) { //assemble slave matrix in main matrix
+        for (uint8_t i = 0; i < MATRIX_ROWS-1 ; i++) { //assemble follower matrix in main matrix
             matrix[i] &= mask; //mask bits to keep
             err = i2c_read_ack(10);
                 matrix[i] |= ((uint32_t)err << (MATRIX_COLS_SCANNED + col_offset)); //add new bits at the end

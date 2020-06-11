@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ISSI3733_DRIVER_COUNT 2
 #define DRIVER_LED_TOTAL ISSI3733_LED_COUNT
 
-//Hardware address of each driver (Refer to ISSI3733 pdf "Table 1 Slave Address" and keyboard schematic)
+//Hardware address of each driver (Refer to ISSI3733 pdf "Table 1 follower Address" and keyboard schematic)
 #define ISSI3773_DRIVER_ADDRESSES { 0xA0, 0xBE }
 
 //LED I2C bus speed

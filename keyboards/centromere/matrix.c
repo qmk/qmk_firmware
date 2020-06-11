@@ -87,7 +87,7 @@ uint8_t matrix_scan(void)
 
     uint32_t timeout = 0;
 
-    //the s character requests the RF remote slave to send the matrix information
+    //the s character requests the RF remote follower to send the matrix information
     SERIAL_UART_DATA = 's';
 
     //trust the external keystates, erase the last set of data
