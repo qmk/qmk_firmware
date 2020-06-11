@@ -14,10 +14,6 @@
  */
 #include QMK_KEYBOARD_H
 
-enum custom_keycodes {
-  TILDE = SAFE_RANGE
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [0] = LAYOUT_65_ansi(
