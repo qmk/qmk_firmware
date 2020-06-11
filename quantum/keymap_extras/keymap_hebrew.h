@@ -34,20 +34,20 @@
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 // Row 1
-#define IL_SCLN    KC_GRV  // ;
-#define IL_1       KC_1    // 1
-#define IL_2       KC_2    // 2
-#define IL_3       KC_3    // 3
-#define IL_4       KC_4    // 4
-#define IL_5       KC_5    // 5
-#define IL_6       KC_6    // 6
-#define IL_7       KC_7    // 7
-#define IL_8       KC_8    // 8
-#define IL_9       KC_9    // 9
-#define IL_0       KC_0    // 0
-#define IL_MINS    KC_MINS // -
-#define IL_EQL     KC_EQL  // =
-#define IL_BSLS    KC_BSLS // (backslash)
+#define IL_SCLN KC_GRV  // ;
+#define IL_1    KC_1    // 1
+#define IL_2    KC_2    // 2
+#define IL_3    KC_3    // 3
+#define IL_4    KC_4    // 4
+#define IL_5    KC_5    // 5
+#define IL_6    KC_6    // 6
+#define IL_7    KC_7    // 7
+#define IL_8    KC_8    // 8
+#define IL_9    KC_9    // 9
+#define IL_0    KC_0    // 0
+#define IL_MINS KC_MINS // -
+#define IL_EQL  KC_EQL  // =
+#define IL_BSLS KC_BSLS // (backslash)
 // Row 2
 #define IL_SLSH KC_Q    // /
 #define IL_QUOT KC_W    // '
