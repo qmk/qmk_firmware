@@ -22,7 +22,7 @@
 #define COMBO1 RSFT(LCTL(KC_O))
 
 const uint16_t PROGMEM
-    keymaps[][MATRIX_ROWS][MATRIX_COLS] =
+               keymaps[][MATRIX_ROWS][MATRIX_COLS] =
         {
             [0] =
                 {
