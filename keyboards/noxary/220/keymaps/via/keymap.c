@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * │   │   │   │   │
     * └───┴───┴───┴───┘
     */
-	[_FL3] = LAYOUT(
+	[_FL3] = LAYOUT_ortho_6x4(
 		_______, _______, _______, _______, 
 		_______, _______, _______, _______, 
 		_______, _______, _______, _______, 
@@ -121,4 +121,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______, _______, _______, _______
     ),
 };
-
