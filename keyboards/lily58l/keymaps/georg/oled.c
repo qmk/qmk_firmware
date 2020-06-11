@@ -8,7 +8,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
         return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
     }
 
-    return rotation;
+    return OLED_ROTATION_270;
 }
 
 // static void render_logo(void) {
@@ -24,42 +24,46 @@ uint16_t texts = 0;
 static void render_left(void) {
     oled_clear();
 
-    oled_set_cursor(0,0);
-    // Version information
-    oled_write_P(PSTR("Lily58L rev1.0"), false);
-       
-
-    oled_set_cursor(0, 2);
+    // oled_set_cursor(0, 2);
 
     // Host Keyboard Layer Status
-    oled_write_P(PSTR("Layer: "), false);
-    switch (get_highest_layer(layer_state)) {
-        case _QWERTY:
-            oled_write_P(PSTR("Default\n"), false);
-            break;
-        case _LOWER:
-            oled_write_P(PSTR("Lower\n"), false);
-            break;
-        case _RAISE:
-            oled_write_P(PSTR("Raise\n"), false);
-            break;
-        case _ADJUST:
-            oled_write_P(PSTR("Adjust\n"), false);
-            break;
-        default:
-            oled_write_P(PSTR("Undefined\n"), false);
-    }
+    // oled_write_P(PSTR("Layer: "), false);
+    // switch (get_highest_layer(layer_state)) {
+    //     case _QWERTY:
+    //         oled_write_P(PSTR("Default\n"), false);
+    //         break;
+    //     case _LOWER:
+    //         oled_write_P(PSTR("Lower\n"), false);
+    //         break;
+    //     case _RAISE:
+    //         oled_write_P(PSTR("Raise\n"), false);
+    //         break;
+    //     case _ADJUST:
+    //         oled_write_P(PSTR("Adjust\n"), false);
+    //         break;
+    //     default:
+    //         oled_write_P(PSTR("Undefined\n"), false);
+    // }
 
     // Host Keyboard LED Status
     uint8_t led_usb_state = host_keyboard_leds();
-    oled_set_cursor(oled_max_chars() - 1, 0);
-    oled_write_P(PSTR("N"), IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK));
-    oled_set_cursor(oled_max_chars() - 1, 1);
-    oled_write_P(PSTR("C"), IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK));
-    oled_set_cursor(oled_max_chars() - 1, 3);
-    oled_write_P(PSTR("S"), IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK));
-    oled_set_cursor(oled_max_chars() - 1, 2);
-    oled_write_P(PSTR("D"), user_config.dead_keys);
+
+    oled_set_cursor(0, 0);
+    if (IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK)) oled_write_P(PSTR("C"), false);
+
+    oled_set_cursor(1, 0);
+    if (user_config.dead_keys) oled_write_P(PSTR("D"), false);
+
+    oled_set_cursor(2, 0);
+    if (IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK)) oled_write_P(PSTR("N"), false);
+
+    oled_set_cursor(3, 0);
+    if (IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK)) oled_write_P(PSTR("S"), false);
+
+    for (uint8_t i=0; i<oled_max_chars();i++) {
+        oled_set_cursor(i, 1);
+        oled_write_P(PSTR("\x80"), false);
+    }
 }
 
 static void render_right(void) {

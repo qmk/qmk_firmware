@@ -8,6 +8,6 @@ void keyboard_post_init_user(void) {
 
 void eeconfig_init_user(void) {
 	user_config.raw = 0;
-	user_config.dead_keys = false;
+	user_config.dead_keys = true;
 	eeconfig_update_user(user_config.raw);
 }

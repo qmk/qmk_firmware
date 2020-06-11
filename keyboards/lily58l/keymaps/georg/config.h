@@ -1,6 +1,10 @@
 #pragma once
 
 #define TAPPING_TERM 200
+#define PERMISSIVE_HOLD
+
+#define OLED_FRAMERATE 30
+#define OLED_FONT_H "common/glcdfont.c"
 
 #ifdef RGBLIGHT_ENABLE
   #define RGBLIGHT_ANIMATIONS
@@ -19,7 +23,6 @@
 // #define MASTER_LEFT
 #define MASTER_LEFT
 
-#define OLED_FRAMERATE 30
 
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
 // #define SPLIT_USB_DETECT
