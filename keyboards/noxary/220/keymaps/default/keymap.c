@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * │ 0 │ 0 │ . │ENT│
     * └───┴───┴───┴───┘
     */
-	[_BL] = LAYOUT(
+	[_BL] = LAYOUT_ortho_6x4(
 	  KC_ESC,   BL_TOGG, BL_DEC,   BL_INC, 
 		KC_NLCK,  KC_PSLS, KC_PAST,  KC_PEQL, 
 		KC_P7,    KC_P8,   KC_P9,    KC_PMNS, 
