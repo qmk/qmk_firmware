@@ -35,14 +35,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    _______,_______,_______,_______                                                ,_______,_______,_______,KC_HOME,KC_PGDN,KC_END ),
 
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case TILDE:
-      if (record->event.pressed) {
-        SEND_STRING("~");
-      }
-      break;
-  }
-  return true;
-}
