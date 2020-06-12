@@ -75,15 +75,13 @@
 #define tabr G(S(KC_RBRC))
 #define fwd G(KC_RBRC)
 #define back G(KC_LBRC)
-#define winl C(G(KC_LEFT))
-#define winr C(G(KC_RGHT))
+#define slup S(A(KC_UP))
+#define sldn S(A(KC_DOWN))
 
 #define ctl1 C(KC_1)
 #define ctl2 C(KC_2)
 #define ctl3 C(KC_3)
 #define ctl4 C(KC_4)
-#define ctl5 C(KC_5)
-#define ctl6 C(KC_6)
 
 #define f1 KC_F1
 #define f2 KC_F2
@@ -173,9 +171,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [MOVE] = LAYOUT_planck_grid(
-         esc, ctl4, ctl1, winl, winr, xxxx, xxxx, home,   up,  end, xxxx, caps,
-         del, ctl5, ctl2, tabl, tabr, xxxx, xxxx, left, down, rght, xxxx, xxxx,
-        ____, ctl6, ctl3, back,  fwd, xxxx, xxxx, pgdn, pgup, xxxx, xxxx, ____,
+         esc, ctl1, ctl2, ctl3, ctl4, xxxx, xxxx, home,   up,  end, xxxx, caps,
+         del, xxxx, slup, tabl, tabr, xxxx, xxxx, left, down, rght, xxxx, xxxx,
+        ____, xxxx, sldn, back,  fwd, xxxx, xxxx, pgdn, pgup, xxxx, xxxx, ____,
         ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
     ),
 
