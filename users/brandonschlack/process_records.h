@@ -86,6 +86,7 @@ void matrix_scan_cmd_tab(void);
 #define PGU_SFT   RSFT_T(KC_PGUP)      // Tap Right Shift for Page Up
 #define HOM_OPT   ROPT_T(KC_HOME)      // Tap Right Option for Home
 #define HOM_CMD   RCMD_T(KC_HOME)      // Tap Right Command for Home
+#define PGD_OPT   ROPT_T(KC_PGDN)      // Tap Right Option for Page Down
 #define PGD_FN1   LT(1, KC_PGDN)       // Tap Fn for Page Down
 #define PGD_LWR   PGD_FN1              // Tap Lower for Page Down
 #define PGD_FN2   LT(2, KC_PGDN)       // Tap Fn2 for Page Down
