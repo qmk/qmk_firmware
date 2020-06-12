@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "keymap.h"
 #include "settings.h"
-#include "quantum/rgblight.h"
+#include "stdio.h"
 
 #ifdef OLED_DRIVER_ENABLE
 static void render_modifiers(void);
@@ -30,18 +30,18 @@ uint16_t texts = 0;
 static void render_left(void) {
     // oled_clear();
 
-    render_rgb();
+    oled_set_cursor(0, 2);
     render_layers();
+    oled_set_cursor(0, 4);
+    render_rgb();
     render_modifiers();
 }
 
 static void render_rgb(void) {
-    oled_set_cursor(0, oled_max_lines() - 3);
     oled_write_P(PSTR("\x83\x84"), false);
-    // if (rgblight_is_enabled()) {
-    if (rgblight_config.enable)
+    if (rgblight_is_enabled()) {
         char snum[3];
-        itoa(rgblight_get_val() * 100 / RGBLIGHT_LIMIT_VAL, snum, 10);
+        sprintf(snum, "%3d", rgblight_get_val() * 100 / RGBLIGHT_LIMIT_VAL);
         oled_write(snum, false);
     } else
         oled_write_P(PSTR("---"), false);
@@ -49,7 +49,6 @@ static void render_rgb(void) {
 
 static void render_layers(void) {
     // Host Keyboard Layer Status
-    oled_set_cursor(0,oled_max_lines() - 1);
     oled_write_P(PSTR("\x81\x82"), false);
     switch (get_highest_layer(layer_state)) {
         case _QWERTY:
@@ -59,7 +58,7 @@ static void render_layers(void) {
             oled_write_P(PSTR("Sym"), false);
             break;
         case _RAISE:
-            oled_write_P(PSTR("Sys"), false);
+            oled_write_P(PSTR("Com"), false);
             break;
         case _ADJUST:
             oled_write_P(PSTR("Adj"), false);
@@ -86,10 +85,10 @@ static void render_modifiers(void) {
 }
 
 static void render_right(void) {
-  oled_write_P(PSTR("WPM: "), false);
-  char snum[5];
-  itoa(get_current_wpm(), snum, 10);
-  oled_write(snum, false);
+//   oled_write_P(PSTR("WPM: "), false);
+//   char snum[5];
+//   itoa(get_current_wpm(), snum, 10);
+//   oled_write(snum, false);
 }
 
 bool first_render = true;
