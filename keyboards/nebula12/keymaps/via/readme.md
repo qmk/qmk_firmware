@@ -1,8 +1,6 @@
-The default keymap for NK65. VIA support enabled.
+The default keymap for Nebula12. VIA support enabled.
 =========================================================
 
-![Layer 0](https://i.imgur.com/dXyRwb1.png)
+![Layer 0](https://i.imgur.com/CoMteJW.png)
 
-![Layer 1](https://i.imgur.com/4izTAFa.png)
-
-Default layer is normal ANSI 65%
+![Layer 1](https://i.imgur.com/LbIPiJj.png)

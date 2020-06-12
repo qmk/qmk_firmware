@@ -41,6 +41,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
+/* Setting up 400KHz I2C Clock for a 48MHz system clock */
+#define I2C1_SCL_PAL_MODE 1
+#define I2C1_SDA_PAL_MODE 1
+#define I2C1_TIMINGR_SCLDEL 3U
+#define I2C1_TIMINGR_SDADEL 1U
+#define I2C1_TIMINGR_SCLH 3U
+#define I2C1_TIMINGR_SCLL 9U
+
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
 
@@ -93,18 +101,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLIGHT_VAL_STEP 8
   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-/*== all animations enable ==*/
   #define RGBLIGHT_ANIMATIONS
-/*== or choose animations ==*/
-  #define RGBLIGHT_EFFECT_BREATHING
-  #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-  #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-  #define RGBLIGHT_EFFECT_SNAKE
-  #define RGBLIGHT_EFFECT_KNIGHT
-  #define RGBLIGHT_EFFECT_CHRISTMAS
-  #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-  #define RGBLIGHT_EFFECT_RGB_TEST
-  #define RGBLIGHT_EFFECT_ALTERNATING
 #endif
 
 /* Bootmagic Lite key configuration */
@@ -113,7 +110,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Backlight options */
 
-#define RGB_BACKLIGHT_ENABLED 0
+#define RGB_BACKLIGHT_ENABLED 1
 
 #define RGB_BACKLIGHT_NEBULA12
 
@@ -144,8 +141,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_BACKLIGHT_COLOR_1 { .h = 0, .s = 255 }
 #define RGB_BACKLIGHT_COLOR_2 { .h = 127, .s = 255 }
 
-#define DRIVER_COUNT 2
-#define DRIVER_LED_TOTAL 128
+#define DRIVER_COUNT 1
+#define DRIVER_LED_TOTAL 16
 
 // These define which keys in the matrix are alphas/mods
 // Used for backlight effects so colors are different for
