@@ -13,8 +13,8 @@ enum layers {
 };
 
 enum custom_keycodes {
-	CUSTOM_SHIFT_QUOT = SAFE_RANGE,
-	TOG_DK,  // Toggle dead keys
+	TOG_DK = SAFE_RANGE,  // Toggle dead keys
+  TOG_SCE,  // Toggle switch caps lock and escape
 };
 
 #endif

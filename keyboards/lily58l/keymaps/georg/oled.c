@@ -75,8 +75,9 @@ static void render_modifiers(void) {
     oled_set_cursor(0, 0);
     oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR("C") : PSTR(" "), false);
     oled_write_P(user_config.dead_keys ? PSTR("D") : PSTR(" "), false);
+    oled_write_P(user_config.switch_caps_esc ? PSTR("\x85") : PSTR(" "), false);
     oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR("N") : PSTR(" "), false);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("S") : PSTR(" "), false);
+    // oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("S") : PSTR(" "), false);
 
     for (uint8_t i=0; i<oled_max_chars();i++) {
         oled_set_cursor(i, 1);
