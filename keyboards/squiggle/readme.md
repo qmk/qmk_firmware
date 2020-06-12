@@ -1,6 +1,6 @@
 # squiggle
 
-![squiggle](imgur.com image replace me!)
+![squiggle](https://i.imgur.com/5UhvDsj.jpg)
 
 A short description of the keyboard/project
 
