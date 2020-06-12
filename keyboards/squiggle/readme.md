@@ -5,8 +5,8 @@
 A short description of the keyboard/project
 
 * Keyboard Maintainer: [ibnuda](https://github.com/ibnuda)
-* Hardware Supported: The PCBs, controllers supported
-* Hardware Availability: Links to where you can find this hardware
+* Hardware Supported: Atmega32u4.
+* Hardware Availability: [shop](https://dactyl.bigcartel.com/product/squiggle-keyboard-kit) or [repo](https://github.com/ibnuda/squiggle).
 
 Make example for this keyboard (after setting up your build environment):
 
