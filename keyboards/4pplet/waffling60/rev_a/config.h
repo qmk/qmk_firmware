@@ -24,8 +24,6 @@
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
-#define RGBLED_NUM 1
-
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 0
 

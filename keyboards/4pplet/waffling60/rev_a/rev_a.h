@@ -1,46 +1,6 @@
 #pragma once
 
 #include "quantum.h"
-/*
-#define RGB_OFF 0,0,0
-#define RGB_WHITE 255, 255, 255
-#define RGB_RED 255, 0, 0
-#define RGB_ORANGE 255, 20, 0
-#define RGB_YELLOW 255, 255, 0
-#define RGB_GREEN 0, 255, 0
-#define RGB_CYAN 0, 255, 255
-#define RGB_BLUE 0, 0, 255
-#define RGB_PURPLE 255, 0, 255
-#define RGB_PINK 255, 20, 20
-*/
-// set LOCK_INDICATORS to false if not used or if leds are used for custom function
-// do not use both, lock indicators will override layer indicator.
-#define LOCK_INDICATORS false // indicate capslock, scroll lock etc with rgb led
-#define LAYER_INDICATOR true // indicate layer with rgb led, functions may need modification.
-
-#define BRIGHTNESS_LEVELS 10
-#define DEFAULT_BRIGHTNESS_LEVEL 5
-
-#define RGBLED_NUM 1
-
-#define TIMER_TOP 0xFFFFU
-
-bool led_update_kb(led_t led_state);
-bool led_update_user(led_t led_state);
-void keyboard_pre_init_kb(void);
-void led_set_color(uint8_t r, uint8_t g, uint8_t b);
-void init_led(void);
-uint16_t cie_lightness(uint16_t v);
-
-// variables
-uint16_t brightness_level;
-
-enum waffling_layers {
-  _BASE1,
-  _BASE2,
-  _FN1,
-  _FN2,
-};
 
 // k<row><col>
 #define LAYOUT_all( \
