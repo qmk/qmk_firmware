@@ -84,6 +84,10 @@
 #define ctl4 C(KC_4)
 #define ctl5 C(KC_5)
 #define ctl6 C(KC_6)
+#define ctl7 C(KC_7)
+#define ctl8 C(KC_8)
+#define ctl9 C(KC_9)
+#define ctl0 C(KC_0)
 
 #define f1 KC_F1
 #define f2 KC_F2
@@ -173,9 +177,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [MOVE] = LAYOUT_planck_grid(
-         esc, ctl1, ctl2, ctl3, ctl4, xxxx, xxxx, home,   up,  end, xxxx, caps,
-         del, ctl5, slup, tabl, tabr, xxxx, xxxx, left, down, rght, xxxx, xxxx,
-        ____, ctl6, sldn, back,  fwd, xxxx, xxxx, pgdn, pgup, xxxx, xxxx, ____,
+         esc, ctl1, ctl2, ctl3, ctl4, xxxx, xxxx, home,   up,  end, ctl7, caps,
+         del, ctl5, slup, tabl, tabr, xxxx, xxxx, left, down, rght, ctl8, xxxx,
+        ____, ctl6, sldn, back,  fwd, xxxx, xxxx, pgdn, pgup, ctl0, ctl9, ____,
         ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
     ),
 
