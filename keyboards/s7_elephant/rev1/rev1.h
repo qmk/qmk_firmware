@@ -1,5 +1,4 @@
-#ifndef S7_ELEPHANT_H
-#define S7_ELEPHANT_H
+#pragma once
 
 #include "quantum.h"
 
@@ -852,4 +851,3 @@ K400, K401, K402, K403,                   K407,             K410,             K4
 { K300, K301, K302, K303, K304, K305, K306, K307, K308, K309, K310, K311, K312, K313, K314, K315 }, \
 { K400, K401, K402, K403, ____, ____, ____, K407, ____, ____, K410, ____, ____, K413, K414, K415 }  \
 }
-#endif
