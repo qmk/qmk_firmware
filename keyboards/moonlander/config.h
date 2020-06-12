@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0x3297
 #define PRODUCT_ID      0x1969
 #define MANUFACTURER    ZSA
-#define PRODUCT         Moonlander
+#define PRODUCT         Moonlander Mark I
 #define DESCRIPTION     A keyboard
 #define DEVICE_VER      0x0001
 #define WEBUSB_LANDING_PAGE_URL u8"configure.ergodox-ez.com"
