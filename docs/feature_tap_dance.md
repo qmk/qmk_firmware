@@ -1,12 +1,12 @@
 # Tap Dance: A Single Key Can Do 3, 5, or 100 Different Things
 
-## Introduction
+## Introduction :id=introduction
 
 Hit the semicolon key once, send a semicolon. Hit it twice, rapidly -- send a colon. Hit it three times, and your keyboard's LEDs do a wild dance. That's just one example of what Tap Dance can do. It's one of the nicest community-contributed features in the firmware, conceived and created by [algernon](https://github.com/algernon) in [#451](https://github.com/qmk/qmk_firmware/pull/451). Here's how algernon describes the feature:
 
 With this feature one can specify keys that behave differently, based on the amount of times they have been tapped, and when interrupted, they get handled before the interrupter.
 
-## How to Use Tap Dance
+## How to Use Tap Dance :id=how-to-use
 
 First, you will need `TAP_DANCE_ENABLE = yes` in your `rules.mk`, because the feature is disabled by default. This adds a little less than 1k to the firmware size. 
 
@@ -40,7 +40,7 @@ For more complicated cases, use the third or fourth options (examples of each ar
 
 Finally, the fifth option is particularly useful if your non-Tap-Dance keys start behaving weirdly after adding the code for your Tap Dance keys. The likely problem is that you changed the `TAPPING_TERM` time to make your Tap Dance keys easier for you to use, and that this has changed the way your other keys handle interrupts.
 
-## Implementation Details
+## Implementation Details :id=implementation
 
 Well, that's the bulk of it! You should now be able to work through the examples below, and to develop your own Tap Dance functionality. But if you want a deeper understanding of what's going on behind the scenes, then read on for the explanation of how it all works!
 
@@ -52,9 +52,9 @@ Our next stop is `matrix_scan_tap_dance()`. This handles the timeout of tap-danc
 
 For the sake of flexibility, tap-dance actions can be either a pair of keycodes, or a user function. The latter allows one to handle higher tap counts, or do extra things, like blink the LEDs, fiddle with the backlighting, and so on. This is accomplished by using an union, and some clever macros.
 
-## Examples
+## Examples :id=examples
 
-### Simple Example
+### Simple Example :id=simple-example
 
 Here's a simple example for a single definition:
 
@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 ```
 
-### Complex Examples
+### Complex Examples :id=complex-examples
 
 This section details several complex tap dance examples.
 All the enums used in the examples are declared like this:
@@ -98,7 +98,7 @@ enum {
 };
 ```
 
-#### Example 1: Send `:` on Single Tap, `;` on Double Tap
+#### Example 1: Send `:` on Single Tap, `;` on Double Tap :id=example-1
 
 ```c
 void dance_cln_finished(qk_tap_dance_state_t *state, void *user_data) {
@@ -123,7 +123,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 ```
 
-#### Example 2: Send "Safety Dance!" After 100 Taps
+#### Example 2: Send "Safety Dance!" After 100 Taps :id=example-2
 
 ```c
 void dance_egg(qk_tap_dance_state_t *state, void *user_data) {
@@ -138,7 +138,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 ```
 
-#### Example 3: Turn LED Lights On Then Off, One at a Time
+#### Example 3: Turn LED Lights On Then Off, One at a Time :id=example-3
 
 ```c
 // On each tap, light up one LED, from right to left
@@ -188,7 +188,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 ```
 
-#### Example 4: 'Quad Function Tap-Dance'
+#### Example 4: 'Quad Function Tap-Dance' :id=example-4
 
 By [DanielGGordon](https://github.com/danielggordon)
 
@@ -327,7 +327,7 @@ If you want to implement this in your userspace, then you may want to check out 
 
 > In this configuration "hold" takes place **after** tap dance timeout (see `ACTION_TAP_DANCE_FN_ADVANCED_TIME`). To achieve instant hold, remove `state->interrupted` checks in conditions. As a result you may use comfortable longer tapping periods to have more time for taps and not to wait too long for holds (try starting with doubled `TAPPING_TERM`).
 
-#### Example 5: Using tap dance for advanced mod-tap and layer-tap keys :id=example-5-using-tap-dance-for-advanced-mod-tap-and-layer-tap-keys
+#### Example 5: Using tap dance for advanced mod-tap and layer-tap keys :id=example-5
 
 Tap dance can be used to emulate `MT()` and `LT()` behavior when the tapped code is not a basic keycode. This is useful to send tapped keycodes that normally require `Shift`, such as parentheses or curly braces—or other modified keycodes, such as `Control + X`.
 
@@ -411,7 +411,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 Wrap each tapdance keycode in `TD()` when including it in your keymap, e.g. `TD(ALT_LP)`.
 
-#### Example 6: Using tap dance for momentary-layer-switch and layer-toggle keys
+#### Example 6: Using tap dance for momentary-layer-switch and layer-toggle keys :id=example-6
 
 Tap Dance can be used to mimic MO(layer) and TG(layer) functionality. For this example, we will set up a key to function as `KC_QUOT` on single-tap, as `MO(_MY_LAYER)` on single-hold, and `TG(_MY_LAYER)` on double-tap.
 
@@ -503,7 +503,7 @@ The above code is similar to that used in previous examples. The one point to no
 
 The use of `cur_dance()` and `ql_tap_state` mirrors the above examples.
 
-The `case:SINGLE_TAP` in `ql_finished` is similar to the above examples. The `case:SINGLE_HOLD` works in conjunction with `ql_reset()` to switch to `_MY_LAYER` while the tap dance key is held, and to switch away from `_MY_LAYER` when the key is released. This mirrors the use of `MO(_MY_LAYER)`. The `case: DOUBLE_TAP` works by checking whether `_MY_LAYER` is the active layer, and toggling it on or off accordingly. This mirrors the use of `TG(_MY_LAYER)`.
+The `case:SINGLE_TAP` in `ql_finished` is similar to the above examples. The `SINGLE_HOLD` case works in conjunction with `ql_reset()` to switch to `_MY_LAYER` while the tap dance key is held, and to switch away from `_MY_LAYER` when the key is released. This mirrors the use of `MO(_MY_LAYER)`. The `DOUBLE_TAP` case works by checking whether `_MY_LAYER` is the active layer, and toggling it on or off accordingly. This mirrors the use of `TG(_MY_LAYER)`.
 
 `tap_dance_actions[]` works similar to the above examples. Note that I used `ACTION_TAP_DANCE_FN_ADVANCED_TIME()` instead of `ACTION_TAP_DANCE_FN_ADVANCED()`. This is because I like my `TAPPING_TERM` to be short (\~175ms) for my non-tap-dance keys but find that this is too quick for me to reliably complete tap dance actions - thus the increased time of 275ms here.
 
