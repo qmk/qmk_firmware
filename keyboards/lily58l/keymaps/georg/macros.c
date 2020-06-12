@@ -29,10 +29,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
 bool key_swap_helper(uint16_t new_key, uint16_t keycode, keyrecord_t* record) {
 	if (user_config.switch_caps_esc) {
-		if (keycode >> 13) {
-			if (record->event.pressed)
-				tap_code(new_key);
-		} else if (record->event.pressed)
+		if (record->event.pressed)
 			register_code(new_key);
 		else
 			unregister_code(new_key);
