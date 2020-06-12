@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x0007
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    leafcutterlabs
-#define PRODUCT         bigKNOBv2
+#define PRODUCT         bigknobv2
 #define DESCRIPTION     4 key with rotary  board
 
 /* key matrix size */
