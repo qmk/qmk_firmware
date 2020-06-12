@@ -4,31 +4,28 @@
 #ifdef ENCODER_ENABLE
 void encoder_update_user(uint8_t index, bool clockwise) {
     HSV hsv;
+    bool shifted = get_mods() & MOD_MASK_SHIFT;  // precision steps
     switch (get_highest_layer(layer_state)) {
         case _RAISE:  // brightness control
-            if (get_mods() & MOD_MASK_SHIFT) {
-                if (clockwise)
-                    rgblight_increase_hue();
-                else
-                    rgblight_decrease_hue();
+            hsv = rgblight_get_hsv();
+            if (get_mods() & MOD_MASK_CTRL) {
+                hsv.h = hsv.h + (clockwise ? 1 : -1) * (shifted ? 1 : RGBLIGHT_HUE_STEP);
             } else {
-                hsv = rgblight_get_hsv();
-                int16_t v = hsv.v + (clockwise ? 1 : -1) * RGBLIGHT_VAL_STEP;
+                int16_t v = hsv.v + (clockwise ? 1 : -1) * (shifted ? 1 : RGBLIGHT_VAL_STEP);
                 if (v <= 0) {
                     rgblight_disable();
                     v = 0;
                 } else if (!rgblight_is_enabled())
                     rgblight_enable();
-
-                rgblight_sethsv(hsv.h, hsv.s, v);
-            }
+                hsv.v = v;
+            } 
+            rgblight_sethsv(hsv.h, hsv.s, hsv.v);
+            break;
+        case _LOWER:
+            tap_code(clockwise ? KC_BRIU : KC_BRID);
             break;
         default:  // Volume control
-            if (clockwise) 
-                tap_code(KC_VOLU);
-            else
-                tap_code(KC_VOLD);
-            break;
+            tap_code(clockwise ? KC_VOLU : KC_VOLD);
 }
     }
 #endif
