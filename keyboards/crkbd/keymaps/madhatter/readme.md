@@ -1,4 +1,4 @@
-# bcat's Corne layout
+# sidcarter's Corne layout
 
 This split ergo layout mirrors
 [my Lily58 layout](https://github.com/qmk/qmk_firmware/tree/master/keyboards/lily58/keymaps/bcat)
