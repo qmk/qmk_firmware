@@ -9,24 +9,25 @@ MCU = atmega32u4
 #   QMK DFU      qmk-dfu
 #   ATmega32A    bootloadHID
 #   ATmega328P   USBasp
-BOOTLOADER = caterina
+BOOTLOADER = qmk-dfu
 
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
-MOUSEKEY_ENABLE = yes       # Mouse keys
-EXTRAKEY_ENABLE = no       # Audio control and System control
-CONSOLE_ENABLE = no         # Console for debug
+BOOTMAGIC_ENABLE = yes     # Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE = no       # Mouse keys(+4700)
+EXTRAKEY_ENABLE = no       # Audio control and System control(+450)
+CONSOLE_ENABLE = no        # Console for debug(+400)
 COMMAND_ENABLE = no        # Commands for debug and configuration
-NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE = no           # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
-MIDI_ENABLE = no            # MIDI controls
-AUDIO_ENABLE = no           # Audio output on port C6
-UNICODE_ENABLE = no         # Unicode
-BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
-RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
+MIDI_ENABLE = no           # MIDI controls
+AUDIO_ENABLE = no          # Audio output on port C6
+UNICODE_ENABLE = no        # Unicode
+BLUETOOTH_ENABLE = no      # Enable Bluetooth with the Adafruit EZ-Key HID
+RGBLIGHT_ENABLE = yes      # Enable WS2812 RGB underlight.
+# RGB_MATRIX_ENABLE = WS2812
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
@@ -37,6 +38,6 @@ QUANTUM_LIB_SRC += 	i2c.c \
 SRC += ssd1306.c
 
 # if firmware size over limit, try this option
-# CFLAGS += -flto
+CFLAGS += -flto
 
 DEFAULT_FOLDER = crkbd/rev1
