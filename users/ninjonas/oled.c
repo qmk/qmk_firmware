@@ -47,13 +47,16 @@ void render_layer_state(void) {
   bool lower = layer_state_is(_LOWER) & !layer_state_is(_ADJUST);
   bool raise = layer_state_is(_RAISE) & !layer_state_is(_ADJUST);
   bool adjust = layer_state_is(_ADJUST);
+  bool numpad = layer_state_is(_NUMPAD);
 
   if(lower){ 
     oled_write_P(PSTR(" Lower "), true); 
   } else if(raise){ 
     oled_write_P(PSTR(" Raise "), true); 
   } else if(adjust){ 
-    oled_write_P(PSTR(" Adjust "), true); 
+      oled_write_P(PSTR(" Adjust "), true); 
+  } else if(numpad) {
+      oled_write_P(PSTR(" Numpad "), true); 
   } else { 
     oled_write_P(PSTR(" Default"), false); 
   }

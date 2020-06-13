@@ -183,7 +183,14 @@ void fled_val_increase(void)
 
     // Update stored config
     fled_update_conf();
-    rgblight_set();
+
+    // Update and set LED state
+    if (fled_mode == FLED_INDI) {
+        fled_layer_update(layer_state);
+        fled_lock_update(host_keyboard_led_state());
+    } else {
+        rgblight_set();
+    }
 }
 
 void fled_val_decrease(void)
@@ -196,7 +203,14 @@ void fled_val_decrease(void)
 
     // Update stored config
     fled_update_conf();
-    rgblight_set();
+
+    // Update and set LED state
+    if (fled_mode == FLED_INDI) {
+        fled_layer_update(layer_state);
+        fled_lock_update(host_keyboard_led_state());
+    } else {
+        rgblight_set();
+    }
 }
 
 void fled_layer_update(layer_state_t state) {

@@ -49,7 +49,7 @@
 #else
 #include "ch.h"
 #include "hal.h"
-#include "drivers/arm/i2c_master.h"
+#include "drivers/chibios/i2c_master.h"
 #endif
 
 #if defined(RGB_BACKLIGHT_DAWN60)
