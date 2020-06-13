@@ -54,7 +54,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_EPIP:
             if (!record->event.pressed) {
                 switch (biton32(layer_state)) {
-                    case _FN1:
+                    case _FN2:
                         SEND_STRING(" { || }");
                         tap_code(KC_LEFT);
                         tap_code(KC_LEFT);
