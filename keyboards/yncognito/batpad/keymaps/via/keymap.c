@@ -28,6 +28,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Q,    KC_W,    KC_E,    KC_R,
         KC_LGUI, KC_SPC,  RGB_TOG, RGB_MOD
     ),
-
+    [3] = LAYOUT_ortho_2x4(
+        _______, _______, _______, _______,
+        _______, _______, _______, _______
+    ),
 
 };
