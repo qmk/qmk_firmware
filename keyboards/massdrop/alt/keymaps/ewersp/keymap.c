@@ -8,6 +8,7 @@ enum alt_keycodes {
     DBG_KBD,               //DEBUG Toggle Keyboard Prints
     DBG_MOU,               //DEBUG Toggle Mouse Prints
     MD_BOOT,               //Restart into bootloader after hold timeout
+    ALT_DEL,               //Added to map left alt + backspace to delete
 };
 
 // Friendly layer names
@@ -40,10 +41,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, RGB_SPD, RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, _______, U_T_AUTO,U_T_AGCR,_______, KC_PSCR, KC_SLCK, KC_PAUS, _______, KC_END,  \
         _______, RGB_RMOD,RGB_VAD, RGB_MOD, RGB_HUD, RGB_SAD, _______, _______, _______, _______, _______, _______,          _______, KC_VOLU, \
         _______, RGB_TOG, _______, _______, _______, MD_BOOT, NK_TOGG, DBG_TOG, _______, TG(ALT), _______, _______,          KC_PGUP, KC_VOLD, \
-        _______, _______, _______,                            _______,                            _______, _______, KC_HOME, KC_PGDN, KC_END   \
+        _______, _______, KC_LALT,                            _______,                            _______, _______, KC_HOME, KC_PGDN, KC_END   \
     ),
     [SUPR] = LAYOUT_65_ansi_blocker(
-        KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,   _______, _______, KC_DEL,  _______, \
+        KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,   _______, _______, ALT_DEL, _______, \
         KC_TAB,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_END,  \
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, \
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, \
@@ -111,6 +112,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_DEL:
         case KC_UP:
         case KC_DOWN:
+        case MO(FUNC):
             if (super_alt_layer_active && record->event.pressed) {
                 // Only activate the alt modifier for the first key press
                 if ((keyboard_report->mods & MOD_BIT(KC_LALT)) == false) {
@@ -118,8 +120,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     need_to_unregister_alt = true;
                 }
             }
-            // Always process the key as usual
+            // We still want to process the keycode normally
             return true;
+        case ALT_DEL:
+            if (record->event.pressed) {
+                register_code(KC_DEL);
+            } else {
+                unregister_code(KC_DEL);
+            }
+            return false;
         case U_T_AUTO:
             if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
                 TOGGLE_FLAG_AND_PRINT(usb_extra_manual, "USB extra port manual mode");
@@ -186,6 +195,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         default:
-            return true; //Process all other keycodes normally
+            return true; // Process all other keycodes normally
     }
 }
