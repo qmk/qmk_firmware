@@ -25,10 +25,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |---------------------------------------------------------------------------------------|
      */
   [1] = LAYOUT(
-    TO(2),  TO(3),  TO(4),  //TO(5),  TO(6),  TO(7),    TO(8),  TO(9),  TO(10), TO(11), TO(12),
-    //TO(13), TO(14), TO(15), TO(16), TO(17), TO(18),   TO(19), TO(20), TO(21), TO(22), _______,
-    //TO(23), TO(24), TO(25), TO(26),         _______,  TO(27), TO(28), TO(29), TO(30), TO(31)
-    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, _______, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
+    TO(2),  TO(3),  TO(4),  TO(5),//TO(6),  TO(7),   TO(8),  TO(9),  TO(10), TO(11), TO(12),
+                                    KC_NO,  KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
+  //TO(13), TO(14), TO(15), TO(16), TO(17), TO(18),  TO(19), TO(20), TO(21), TO(22), _______,
+    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,  _______,
+  //TO(23), TO(24), TO(25), TO(26),         _______, TO(27), TO(28), TO(29), TO(30), TO(31)
+    KC_NO,  KC_NO,  KC_NO,  KC_NO,          _______, KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO
   ),
   /* Level 2: Numbers Layer
      * ,---------------------------------------------------------------------------------------.
@@ -36,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |---------------------------------------------------------------------------------------|
      * |  TAB  |   4   |   5   |   6   |   -   |   +   |  HOME |   UP  |  END  |  PGUP | TG(2) |
      * |---------------------------------------------------------------------------------------|
-     * |  LATL |   1   |   2   |   3   |   0           |  LEFT |  DOWN |  RGHT |  PGDN | RSHFT |
+     * |  LALT |   1   |   2   |   3   |   0           |  LEFT |  DOWN |  RGHT |  PGDN | RSHFT |
      * |---------------------------------------------------------------------------------------|
      */
   [2] = LAYOUT(
@@ -58,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCBR, KC_RCBR,       KC_LBRC, KC_RBRC, KC_QUOT, _______, KC_BSLS, KC_SCLN, KC_COLN, KC_GRV,        TG(3),
     KC_LSFT, OSM(MOD_LCTL), KC_L,    KC_T,             KC_TAB,  KC_N,    _______, _______, OSM(MOD_RCTL), KC_QUES
   ),
-  /* Level 4: F-keys Layer
+  /* Level 4: F-keys and Media Layer
      * ,---------------------------------------------------------------------------------------.
      * | RESET |  MUTE |  VOLU |  MPLY |  TRNS |   F1  |   F2  |   F3  |   F4  |   F5  |   F6  |
      * |---------------------------------------------------------------------------------------|
@@ -71,6 +73,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     RESET,         KC_MUTE, KC_VOLU, KC_MPLY, _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,
     OSM(MOD_LGUI), KC_MPRV, KC_VOLD, KC_MNXT, _______, _______, _______, _______, _______, _______, TG(4),
     _______,       _______, _______, _______,          KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12
+  ),
+  /* Level 5: Commands Layer
+     * ,---------------------------------------------------------------------------------------.
+     * |  CUT  |  PSCR |  BRIU |  PWR  |  TRNS |  TRNS |  TRNS |  TRNS |  TRNS |  TRNS |  TRNS |
+     * |---------------------------------------------------------------------------------------|
+     * |  COPY |  FIND |  BRID |  SLEP |  TRNS |  TRNS |  TRNS |  TRNS |  TRNS |  TRNS | TG(5) |
+     * |---------------------------------------------------------------------------------------|
+     * |  PSTE |  TRNS |  TRNS |  WAKE |      TRNS     |  TRNS |  TRNS |  TRNS |  TRNS |  TRNS |
+     * |---------------------------------------------------------------------------------------|
+     */
+  [5] = LAYOUT(
+    KC_CUT,  KC_PSCR, KC_BRIU, KC_PWR, _______, _______, _______, _______, _______, _______, _______,
+    KC_COPY, KC_FIND, KC_BRID, KC_SLEP, _______, _______, _______, _______, _______, _______, TG(5),
+    KC_PSTE, _______, _______, KC_WAKE,          _______, _______, _______, _______, _______, _______
   )
 };
 
@@ -117,7 +133,7 @@ void led_set_user(uint8_t usb_led) {
   }
 
 }
-// Light LEDs 0 through 16 in red when keyboard layer 0 is active
+// Light LEDs 0 through 16 in white when keyboard layer 0 is active
 const rgblight_segment_t PROGMEM my_layer0_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 17, HSV_WHITE}
 );
@@ -133,13 +149,23 @@ const rgblight_segment_t PROGMEM my_layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 const rgblight_segment_t PROGMEM my_layer3_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 17, HSV_YELLOW}
 );
+// Light LEDs 0 through 16 in red when keyboard layer 4 is active
+const rgblight_segment_t PROGMEM my_layer4_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 17, HSV_RED}
+);
+// Light LEDs 0 through 16 in cyan when keyboard layer 5 is active
+const rgblight_segment_t PROGMEM my_layer5_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 17, HSV_CYAN}
+);
 
 // Now define the array of layers. Later layers take precedence
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_layer0_layer,
     my_layer1_layer,
     my_layer2_layer,
-    my_layer3_layer
+    my_layer3_layer,
+    my_layer4_layer,
+    my_layer5_layer
 );
 
 void keyboard_post_init_user(void) {
@@ -152,5 +178,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(1, layer_state_cmp(state, 1));
     rgblight_set_layer_state(2, layer_state_cmp(state, 2));
     rgblight_set_layer_state(3, layer_state_cmp(state, 3));
+    rgblight_set_layer_state(4, layer_state_cmp(state, 4));
+    rgblight_set_layer_state(5, layer_state_cmp(state, 5));
     return state;
 }
