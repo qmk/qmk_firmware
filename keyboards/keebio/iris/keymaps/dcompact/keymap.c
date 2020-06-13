@@ -185,6 +185,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
            stop_all_notes();
            PLAY_SONG(plover_song);
          #endif
+         rgblight_mode(RGBLIGHT_MODE_SNAKE);
          layer_on(_GAME);
        }
        return false;
@@ -194,6 +195,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
          #ifdef AUDIO_ENABLE
            PLAY_SONG(plover_gb_song);
          #endif
+         rgblight_mode(RGBLIGHT_MODE_RAINBOW_MOOD);
          layer_off(_GAME);
        }
        return false;
