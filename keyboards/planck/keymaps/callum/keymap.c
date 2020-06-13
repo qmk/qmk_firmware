@@ -114,8 +114,8 @@
 #define next KC_MNXT
 #define play KC_MPLY
 #define prev KC_MPRV
-#define vold KC_F11
-#define volu KC_F12
+#define vold KC_VOLD
+#define volu KC_VOLU
 
 #define symb MO(SYMB)
 #define move MO(MOVE)
