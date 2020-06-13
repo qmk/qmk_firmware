@@ -52,13 +52,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-void led_set_user(uint8_t usb_led) {
+bool led_update_user(led_t led_state) {
     // Turn LEDs On/Off for Caps Lock
-    if (host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK)) {
+    if (led_state.caps_lock) {
         rgblight_enable_noeeprom();
         rgblight_sethsv_noeeprom(0, 0, 80);
     } else {
         rgblight_sethsv_noeeprom(0, 0, 80);
         rgblight_disable_noeeprom();
     }
+    return false;
 }
