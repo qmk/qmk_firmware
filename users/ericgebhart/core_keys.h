@@ -166,7 +166,11 @@ enum {
       TD_DEF_LAYER_SW = 5,
       TD_DEF_OS_LAYER_SW = 6,
       TD_MOUSE_BTNS = 7,
-      TD_DVORAK_BEPO = 8
+      TD_DVORAK_BEPO = 8,
+      TD_UP_HOME = 9,
+      TD_DOWN_END = 10,
+      TD_RIGHT_TAB = 11,
+      TD_LEFT_BACKTAB = 12
 };
 
 
@@ -179,6 +183,10 @@ enum {
 #define XMONAD_ESC      TD(TD_XMONAD_ESC)  // Escape, dvorak, media or symb. - tap and hold tap dance. 1-4
 #define DVORAK_ET_BEPO  TD(TD_DVORAK_BEPO)  // Escape, dvorak, media or symb. - tap and hold tap dance. 1-4
 #define TDMOUSE_BTNS    TD(TD_MOUSE_BTNS)  // hmmm. 1-5
+#define RIGHT_TAB       TD(TD_RIGHT_TAB)
+#define LEFT_BACKTAB    TD(TD_LEFT_BACKTAB)
+#define UP_HOME         TD(TD_UP_HOME)
+#define DOWN_END        TD(TD_DOWN_END)
 
 // HOME ROW LAYER TOGGLE (LT) and Shift.
 // both sides of the home row have  "shift, ___, media , symb, ___"  and  "___, symb, media, ___, shift".

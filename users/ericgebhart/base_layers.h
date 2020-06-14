@@ -82,17 +82,17 @@
 /********************************************************************/
 /**  The bottom row and thumbs as needed.                          **/
 /********************************************************************/
-#define ___BOTTOM_LEFT___  LCTL(KC_C),  LCTL(KC_V),  KC_INS,  KC_LEFT, KC_RIGHT
-#define ___BOTTOM_RIGHT___ KC_UP,  KC_DOWN,  KC_BSLASH,  LCTL(KC_V),  LCTL(KC_C)
+#define ___BOTTOM_LEFT___  LCTL(KC_C),  LCTL(KC_V),  KC_INS,  LEFT_BACKTAB, RIGHT_TAB
+#define ___BOTTOM_RIGHT___ UP_HOME,  DOWN_END,  KC_BSLASH,  LCTL(KC_V),  LCTL(KC_C)
 
 // the bottom rows  for keyboards on bepo.
 // bepo on bepo - not enough space to go around....
-#define ___BOTTOM_LEFT_BP___  LCTL(BP_C),  BP_ECRC,  LCTL(BP_V),  KC_LEFT, KC_RIGHT
-#define ___BOTTOM_RIGHT_BP___ KC_UP,  KC_DOWN,  DB_BACKSLASH,  BP_CCED,  BP_PERC
+#define ___BOTTOM_LEFT_BP___  LCTL(BP_C),  BP_ECRC,  LCTL(BP_V),  LEFT_BACKTAB, RIGHT_TAB
+#define ___BOTTOM_RIGHT_BP___ UP_HOME,  DOWN_END,  DB_BACKSLASH,  BP_CCED,  BP_PERC
 
 // for dvorak on bepo
-#define ___BOTTOM_LEFT_FR___  LCTL(BP_C),  LCTL(BP_C),  LCTL(BP_V),  KC_LEFT, KC_RIGHT
-#define ___BOTTOM_RIGHT_FR___ KC_UP,  KC_DOWN,  DB_BACKSLASH, LCTL(KC_V),  LCTL(KC_C)
+#define ___BOTTOM_LEFT_FR___  LCTL(BP_C),  LCTL(BP_C),  LCTL(BP_V),  LEFT_BACKTAB, RIGHT_TAB
+#define ___BOTTOM_RIGHT_FR___ UP_HOME,  DOWN_END,  DB_BACKSLASH, LCTL(KC_V),  LCTL(KC_C)
 
 #define ___ORTHO_15_BOTTOM___     ___BOTTOM_LEFT___,    ___ORTHO_15_MIDDLE_4___, ___BOTTOM_RIGHT___
 #define ___ORTHO_15_BOTTOM_FR___  ___BOTTOM_LEFT_FR___, ___ORTHO_15_MIDDLE_4___, ___BOTTOM_RIGHT_FR___

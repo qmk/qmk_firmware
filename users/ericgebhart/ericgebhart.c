@@ -633,6 +633,10 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   //Tap once for Esc, twice for Caps Lock
   [TD_ESC_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
   [TD_TAB_BKTAB] = ACTION_TAP_DANCE_DOUBLE(KC_TAB, LSFT(KC_TAB)),
+  [TD_RIGHT_TAB] = ACTION_TAP_DANCE_DOUBLE(KC_RIGHT, KC_TAB),
+  [TD_LEFT_BACKTAB] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT, LSFT(KC_TAB)),
+  [TD_UP_HOME] = ACTION_TAP_DANCE_DOUBLE(KC_UP, KC_HOME),
+  [TD_DOWN_END] = ACTION_TAP_DANCE_DOUBLE(KC_DOWN, KC_END),
   [TD_MDIA_SYMB] = ACTION_TAP_DANCE_FN(tap_dance_layer_switch),
   [TD_DVORAK_BEPO] = ACTION_TAP_DANCE_FN(tap_dance_df_bepo_layers_switch),
   [TD_DEF_LAYER_SW] = ACTION_TAP_DANCE_FN(tap_dance_default_layer_switch),
