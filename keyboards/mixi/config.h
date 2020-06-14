@@ -6,7 +6,7 @@
 #define VENDOR_ID       0x4752
 #define PRODUCT_ID      0x4d49
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    gregorio <chiko150@outlook.com>
+#define MANUFACTURER    gregorio
 #define PRODUCT         Mixi
 #define DESCRIPTION     Mixi macropad by gregorio
 
