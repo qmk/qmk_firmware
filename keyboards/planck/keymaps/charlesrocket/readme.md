@@ -1,9 +1,6 @@
 # Red Planck EZ (Glow) with beeps
 
-Standard QWERTY layout with colored layers (red, purple, green and white). 
-
-Beep feedback is on by default. Sound level is hardcoded with `DAC_SAMPLE_MAX` and tone settings (`CK`) are in Adjust (WHITE).
-
+QWERTY layout with colored layers (red, purple, green and white) for Planck EZ Glow. Soft beep feedback is On by default. Sound level is hardcoded with `DAC_SAMPLE_MAX` and tone settings (`CK`) are in Adjust (WHITE) layer.
 
 ```
 RED Base
@@ -14,7 +11,7 @@ RED Base
  |------+------+------+------+------+------+------+------+------+------+------+------|
  | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
  |------+------+------+------+------+------+------+------+------+------+------+------|
- | QMK  | Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
+ | QMK  | Ctrl | Alt  |  OS  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
  `-----------------------------------------------------------------------------------'
 ```
 
