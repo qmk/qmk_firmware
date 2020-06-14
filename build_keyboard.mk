@@ -101,6 +101,9 @@ MAIN_KEYMAP_PATH_5 := $(KEYBOARD_PATH_5)/keymaps/$(KEYMAP)
 # Check for keymap.json first, so we can regenerate keymap.c
 include build_json.mk
 
+# Execute mcu_selection before rules.mk, then mcu context variables are available for rules.mk
+include quantum/mcu_selection.mk
+
 ifeq ("$(wildcard $(KEYMAP_PATH))", "")
     # Look through the possible keymap folders until we find a matching keymap.c
     ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_5)/keymap.c)","")
@@ -145,8 +148,6 @@ endif
 ifneq ($(FORCE_LAYOUT),)
     TARGET := $(TARGET)_$(FORCE_LAYOUT)
 endif
-
-include quantum/mcu_selection.mk
 
 ifdef MCU_FAMILY
     OPT_DEFS += -DQMK_STM32
