@@ -16,9 +16,9 @@
 
 // Push Pull or Open Drain Configuration
 // Default Push Pull
-#ifndef WS2812_OUTPUT_MODE
+#ifndef WS2812_OUTPUT_MODE_OPEN_DRAIN
     #define WS2812_OUTPUT_MODE PAL_MODE_OUTPUT_PUSHPULL
-#elif (WS2812_OUTPUT_MODE == OPEN_DRAIN)
+#else
     #define WS2812_OUTPUT_MODE PAL_MODE_OUTPUT_OPENDRAIN
 #endif
 

@@ -58,10 +58,9 @@ You must also turn on the SPI feature in your halconf.h and mcuconf.h
 
 ### Push Pull and Open Drain Configuration
 The default configuration is a push pull on the defined pin.
-To configure the `RGB_DI_PIN` to push pull or open drain configuration add this to your config.h file:
-
-```
-#define WS2812_OUTPUT_MODE OPEN_DRAIN
+ To configure the `RGB_DI_PIN` to open drain configuration add this to your config.h file: 
+```c
+ #define WS2812_OUTPUT_MODE_OPEN_DRAIN 
 ```
 
 #### Testing Notes
