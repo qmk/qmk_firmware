@@ -34,7 +34,7 @@
  * The length is the number of bytes to send - three per LED.
  */
 
-static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t masklo, uint8_t maskhi);
+static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t masklo, uint8_t maskhi, uint8_t pin);
 
 // Setleds for standard RGB
 void inline ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds) {
@@ -48,7 +48,7 @@ void ws2812_setleds_pin(LED_TYPE *ledarray, uint16_t number_of_leds, uint8_t pin
     uint8_t masklo = ~(pinmask(pin)) & PORTx_ADDRESS(pin);
     uint8_t maskhi = pinmask(pin) | PORTx_ADDRESS(pin);
 
-    ws2812_sendarray_mask((uint8_t *)ledarray, number_of_leds * sizeof(LED_TYPE), masklo, maskhi);
+    ws2812_sendarray_mask((uint8_t *)ledarray, number_of_leds * sizeof(LED_TYPE), masklo, maskhi, pin);
 
 #ifdef RGBW
     _delay_us(80);
@@ -118,7 +118,7 @@ void ws2812_setleds_pin(LED_TYPE *ledarray, uint16_t number_of_leds, uint8_t pin
 #define w_nop8 w_nop4 w_nop4
 #define w_nop16 w_nop8 w_nop8
 
-static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t masklo, uint8_t maskhi) {
+static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t masklo, uint8_t maskhi, uint8_t pin) {
     uint8_t curbyte, ctr, sreg_prev;
 
     sreg_prev = SREG;
@@ -183,7 +183,7 @@ static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t
                      "       dec   %0    \n\t"  //  '1' [+2] '0' [+2]
                      "       brne  loop%=\n\t"  //  '1' [+3] '0' [+4]
                      : "=&d"(ctr)
-                     : "r"(curbyte), "I"(_SFR_IO_ADDR(PORTx_ADDRESS(RGB_DI_PIN))), "r"(maskhi), "r"(masklo));
+                     : "r"(curbyte), "I"(_SFR_IO_ADDR(PORTx_ADDRESS(pin))), "r"(maskhi), "r"(masklo));
     }
 
     SREG = sreg_prev;
