@@ -79,6 +79,26 @@ void matrix_scan_user(void) {
 #define MODS_CTRL  (get_mods() & MOD_BIT(KC_LCTL) || get_mods() & MOD_BIT(KC_RCTRL))
 #define MODS_ALT  (get_mods() & MOD_BIT(KC_LALT) || get_mods() & MOD_BIT(KC_RALT))
 
+// Taken from 'g_led_config' in config_led.c
+#define CAPS_LOCK_LED_ID 30
+
+// This runs every matrix scan (every 'frame')
+void rgb_matrix_indicators_user(void) {
+    led_flags_t flags = rgb_matrix_get_flags();
+
+    // If we're in either keylight or underglow modes (but not both simultaneously)
+    if (HAS_FLAGS(flags, LED_FLAG_KEYLIGHT) != HAS_FLAGS(flags, LED_FLAG_UNDERGLOW)) {
+
+        // This fixes the bug where the caps lock LED will flicker when toggled in either keylight or underglow modes
+        // as seen here: https://www.reddit.com/r/olkb/comments/eoez6b/weird_caps_lock_issue_on_drop_alt_anyone_know_how/
+        if (host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK)) {
+            rgb_matrix_set_color(CAPS_LOCK_LED_ID, 0xFF, 0xFF, 0xFF);
+        } else {
+            rgb_matrix_set_color(CAPS_LOCK_LED_ID, 0x00, 0x00, 0x00);
+        }
+    }
+}
+
 // This runs code every time that the layers get changed
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
