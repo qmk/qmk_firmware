@@ -24,6 +24,17 @@
 #    define WS2812_DMA_CHANNEL 2  // DMA Channel for TIMx_UP
 #endif
 
+// Push Pull or Open Drain Configuration
+// Default Push Pull
+// For Open Drain define PAL_MODE_OUTPUT_OPENDRAIN
+#ifndef WS2812_OUTPUT_MODE
+    #if defined(GPIOV1)
+        #define WS2812_OUTPUT_MODE PAL_MODE_STM32_ALTERNATE_PUSHPULL
+    #else
+        #define WS2812_OUTPUT_MODE PAL_STM32_OTYPE_PUSHPULL
+    #endif
+#endif
+
 #ifndef WS2812_PWM_TARGET_PERIOD
 //#    define WS2812_PWM_TARGET_PERIOD 800000 // Original code is 800k...?
 #    define WS2812_PWM_TARGET_PERIOD 80000  // TODO: work out why 10x less on f303/f4x1
@@ -145,7 +156,7 @@ void ws2812_init(void) {
 #if defined(USE_GPIOV1)
     palSetLineMode(RGB_DI_PIN, PAL_MODE_STM32_ALTERNATE_PUSHPULL);
 #else
-    palSetLineMode(RGB_DI_PIN, PAL_MODE_ALTERNATE(WS2812_PWM_PAL_MODE) | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING);
+    palSetLineMode(RGB_DI_PIN, PAL_MODE_ALTERNATE(WS2812_PWM_PAL_MODE) | WS2812_OUTPUT_MODE | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING);
 #endif
 
     // PWM Configuration

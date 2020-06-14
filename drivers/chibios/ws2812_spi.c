@@ -16,6 +16,17 @@
 #    define WS2812_SPI_MOSI_PAL_MODE 5
 #endif
 
+// Push Pull or Open Drain Configuration
+// Default Push Pull
+// For Open Drain define PAL_MODE_OUTPUT_OPENDRAIN
+#ifndef WS2812_OUTPUT_MODE
+    #if defined(GPIOV1)
+        #define WS2812_OUTPUT_MODE PAL_MODE_STM32_ALTERNATE_PUSHPULL
+    #else
+        #define WS2812_OUTPUT_MODE PAL_STM32_OTYPE_OPENDRAIN
+    #endif
+#endif
+
 #define BYTES_FOR_LED_BYTE 4
 #define NB_COLORS 3
 #define BYTES_FOR_LED (BYTES_FOR_LED_BYTE * NB_COLORS)
@@ -53,9 +64,9 @@ static void set_led_color_rgb(LED_TYPE color, int pos) {
 
 void ws2812_init(void) {
 #if defined(USE_GPIOV1)
-    palSetLineMode(RGB_DI_PIN, PAL_MODE_STM32_ALTERNATE_PUSHPULL);
+    palSetLineMode(RGB_DI_PIN, WS2812_OUTPUT_MODE);
 #else
-    palSetLineMode(RGB_DI_PIN, PAL_MODE_ALTERNATE(WS2812_SPI_MOSI_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL);
+    palSetLineMode(RGB_DI_PIN, PAL_MODE_ALTERNATE(WS2812_SPI_MOSI_PAL_MODE) | WS2812_OUTPUT_MODE);
 #endif
 
     // TODO: more dynamic baudrate
