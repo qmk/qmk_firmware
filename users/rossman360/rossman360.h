@@ -21,6 +21,8 @@
 #define RVOLU LCTL(KC_RBRC)
 #define RVOLD LCTL(KC_LBRC)
 #define QUIT LCTL(KC_Q)
+#define ZSHIFT MT(MOD_LSFT, KC_Z)
+
 
 // Define all of
 enum custom_keycodes {
