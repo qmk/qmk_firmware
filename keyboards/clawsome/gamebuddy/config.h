@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    AlisGraveNil
 #define PRODUCT         GameBuddy
-#define DESCRIPTION     A 26-key QMK-powered macropad, designed for gaming!
+#define DESCRIPTION     A 26-key QMK-powered macropad designed for gaming!
 
 /* key matrix size */
 #define MATRIX_ROWS 5
