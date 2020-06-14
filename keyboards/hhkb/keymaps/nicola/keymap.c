@@ -43,6 +43,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t macro_id, uint8_t o
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  static size_t mkeys_size = sizeof(mkeys) / sizeof(mkeys[0]);
+
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
@@ -84,6 +86,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   // 親指シフト
-  return process_nicola(keycode, record, _NICOLA, KC_SPC, KC_HENK, mkeys);
+  return process_nicola(keycode, record, _NICOLA, KC_SPC, KC_HENK, mkeys, mkeys_size);
   // 親指シフト
 }

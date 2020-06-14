@@ -99,9 +99,7 @@ void ncl_clear(void) {
   ncl_rshift = false;
 }
 
-bool process_nicola(uint16_t keycode, keyrecord_t *record, uint8_t ncl_layer, uint16_t lshiftkey, uint16_t rshiftkey, uint16_t modkeys[]) {
-  static int modkeys_size = sizeof(modkeys) / sizeof(modkeys[0]);
-
+bool process_nicola(uint16_t keycode, keyrecord_t *record, uint8_t ncl_layer, uint16_t lshiftkey, uint16_t rshiftkey, uint16_t modkeys[], size_t modkeys_size) {
   switch (keycode) {
   case KC_LCTRL:
   case KC_LSHIFT:
@@ -119,7 +117,7 @@ bool process_nicola(uint16_t keycode, keyrecord_t *record, uint8_t ncl_layer, ui
     }
     break;
   }
-  for (int i = 0; i < modkeys_size; i++) {
+  for (size_t i = 0; i < modkeys_size; i++) {
     if (keycode == modkeys[i]) {
       if (record->event.pressed) {
         ncl_modcount++;
