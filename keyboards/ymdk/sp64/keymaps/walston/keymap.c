@@ -24,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * │ _NUM │_MED │ Alt  │ Cmd         │ Spc │    │ Space         │ Cmd   │ Alt  │ Lft │ Dwn │ Rgt │
  * └------┴-----┴------┴-------------┴-----┘    └---------------┴-------┴------┴-----┴-----┴-----┘
  */
-[BASE] = LAYOUT_ymdk_sp64(
+[BASE] = LAYOUT(
   MT(RESET, KC_GRAVE),   KC_1,      KC_2,    KC_3,    KC_4,    KC_5,     KC_6,     KC_7,    KC_8,    KC_9,    KC_0,      KC_MINUS,    KC_EQUAL,    KC_BSPACE,
   KC_TAB,                KC_Q,      KC_W,    KC_E,    KC_R,    KC_T,     KC_Y,     KC_U,    KC_I,    KC_O,    KC_P,      KC_LBRACKET, KC_RBRACKET,   KC_BSLS,
   KC_LCTL,               KC_A,      KC_S,    KC_D,    KC_F,    KC_G,     KC_H,     KC_J,    KC_K,    KC_L,    KC_SCOLON, KC_QUOTE,                  KC_ENTER,
@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * │      │     │      │             │     │    │               │       │      │     │     │     │
  * └------┴-----┴------┴-------------┴-----┘    └---------------┴-------┴------┴-----┴-----┴-----┘
  */
-[_FUN] = LAYOUT_ymdk_sp64(
+[_FUN] = LAYOUT(
   KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  KC_F6,              KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_F11,  KC_F12,  _______,
   _______, _______, _______, _______, _______, _______,           _______, _______, _______, _______,  _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,           KC_LEFT, KC_UP,   KC_DOWN, KC_RIGHT, _______, _______,          _______,
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * │      │     │      │             │     │    │               │       │      │     │     │     │
  * └------┴-----┴------┴-------------┴-----┘    └---------------┴-------┴------┴-----┴-----┴-----┘
  */
-[_NUMPAD] = LAYOUT_ymdk_sp64(
+[_NUMPAD] = LAYOUT(
   _______, _______, _______, _______, _______, _______, _______,           KC_P7,   KC_P8,   KC_P9,   _______, KC_VOLD, KC_VOLU, KC_MUTE,
   _______, _______, _______, _______, _______, _______,           _______, KC_P4,   KC_P5,   KC_P6,   _______, KC_MPRV, KC_MNXT, KC_MPLY,
   _______, _______, _______, _______, _______, _______,           _______, KC_P1,   KC_P2,   KC_P3,   _______, _______,          _______,
@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * │      │     │      │ Backlight   │     │    │               │       │      │     │     │     │
  * └------┴-----┴------┴-------------┴-----┘    └---------------┴-------┴------┴-----┴-----┴-----┘
  */
-[_MEDIA] = LAYOUT_ymdk_sp64(
+[_MEDIA] = LAYOUT(
   _______, _______, _______, _______, _______, _______, _______,           _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,           _______, _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,           _______, _______, _______, _______, _______, _______,          _______,
@@ -95,32 +95,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, RGB_TOG,          _______,           _______,          _______, _______,          _______, _______, _______
   ),
 };
-
-enum custom_keycodes {
-#ifdef ORYX_CONFIGURATOR
-  EPRM = EZ_SAFE_RANGE,
-#else
-  EPRM = SAFE_RANGE,
-#endif
-  VRSN,
-  RGB_SLD
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    switch (keycode) {
-      case EPRM:
-        eeconfig_init();
-        return false;
-      case VRSN:
-        SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-        return false;
-      #ifdef RGBLIGHT_ENABLE
-      case RGB_SLD:
-        rgblight_mode(1);
-        return false;
-      #endif
-    }
-  }
-  return true;
-}
