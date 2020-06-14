@@ -1,3 +1,5 @@
+# GameBuddy
+
 This is a 5x7 macropad designed for left-hand usage for videogames, with special focus on FPS layouts!
 
 * Keyboard Maintainer: AAClawson
