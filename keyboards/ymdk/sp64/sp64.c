@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ymdk_sp64.h"
+#include "sp64.h"
 #include QMK_KEYBOARD_H
 
 #ifdef RIGHT_HALF

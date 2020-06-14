@@ -6,11 +6,11 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ymdk/ymdk_sp64:default
+    make ymdk/sp64:default
 
 Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
 
-    make ymdk/ymdk_sp64:default:flash
+    make ymdk/sp64:default:flash
 
 **Reset Key**: Hold down the key located at top left on the left hand board, commonly programmed as _ESC_ while plugging in the keyboard.  (NOTE:  If this doesn't work, try the lower left key on the lower left board, commonly programmed as _Control_.  There might be a different version of the board that uses that key as the reset.)
 

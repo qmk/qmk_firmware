@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "print.h"
 #include "debug.h"
 #include "util.h"
-#include "ymdk_sp64.h"
+#include "sp64.h"
 #include "debounce.h"
 
 /* matrix state(1:on, 0:off) */
@@ -113,7 +113,7 @@ uint8_t matrix_scan(void)
       changed = true;
     }
   }
- 
+
   debounce(matrix_debouncing, matrix, MATRIX_ROWS, changed);
 
   matrix_scan_quantum();
