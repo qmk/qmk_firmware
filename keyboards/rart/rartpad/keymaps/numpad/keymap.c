@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_P1,   KC_P2,   KC_P3,   KC_PENT, \
 		KC_P0,            KC_PDOT           \
 	)
-}
+};
 
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
