@@ -158,11 +158,7 @@ void ws2812_init(void) {
     for (i = 0; i < WS2812_COLOR_BIT_N; i++) ws2812_frame_buffer[i] = WS2812_DUTYCYCLE_0;      // All color bits are zero duty cycle
     for (i = 0; i < WS2812_RESET_BIT_N; i++) ws2812_frame_buffer[i + WS2812_COLOR_BIT_N] = 0;  // All reset bits are zero
 
-#if defined(USE_GPIOV1)
-    palSetLineMode(RGB_DI_PIN, PAL_MODE_STM32_ALTERNATE_PUSHPULL);
-#else
-    palSetLineMode(RGB_DI_PIN, PAL_MODE_ALTERNATE(WS2812_PWM_PAL_MODE) | WS2812_OUTPUT_MODE | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING);
-#endif
+    palSetLineMode(RGB_DI_PIN, WS2812_OUTPUT_MODE);
 
     // PWM Configuration
     //#pragma GCC diagnostic ignored "-Woverride-init"  // Turn off override-init warning for this struct. We use the overriding ability to set a "default" channel config
