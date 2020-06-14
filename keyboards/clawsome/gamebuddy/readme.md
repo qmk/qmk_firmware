@@ -6,6 +6,6 @@ This is a 5x7 macropad designed for left-hand usage for videogames, with special
 
 Make example for this keyboard (after setting up your build environment):
 
-make clawsome/gamebuddy:default
+    make clawsome/gamebuddy:default
 
 See the build environment setup and the make instructions for more information. Brand new to QMK? Start with our Complete Newbs Guide.
