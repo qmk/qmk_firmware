@@ -43,7 +43,7 @@ void inline ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds) {
 }
 
 void ws2812_setleds_pin(LED_TYPE *ledarray, uint16_t number_of_leds, uint8_t pin) {
-    DDRx_ADDRESS(RGB_DI_PIN) |= pinmask(pin);
+    DDRx_ADDRESS(pin) |= pinmask(pin);
 
     uint8_t masklo = ~(pinmask(pin)) & PORTx_ADDRESS(pin);
     uint8_t maskhi = pinmask(pin) | PORTx_ADDRESS(pin);
