@@ -19,7 +19,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [3] = LAYOUT_ortho_4x10(
     KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_INS,  KC_PGUP, KC_UP,   KC_PGDN, KC_DEL,
     KC_TAB,  KC_NO,   KC_NO,   KC_TILD, KC_LCBR, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_NO,
-    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_END,  KC_NO,   KC_NO,   KC_NO,   KC_NO,
+    KC_LSFT, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_END,  KC_NO,   KC_NO,   KC_NO,   KC_NO,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_BSPC, KC_BSPC, KC_NO,   KC_NO,   KC_DEL,  KC_NO,   KC_NO),
   [4] = LAYOUT_ortho_4x10(
     KC_P7,  KC_P8,  KC_P9,  KC_PMNS,  KC_PSLS, KC_NO, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U,
