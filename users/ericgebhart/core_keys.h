@@ -112,8 +112,12 @@ enum userspace_custom_keycodes {
   KC_CCCV
 };
 
+#define CTLGUI_T(kc) { MT(MOD_LGUI | MOD_LCTL, kc) }
 #define SFTGUI_T(kc) { MT(MOD_LGUI | MOD_LSFT, kc) }
-#define SFT_GUI_ESC MT(MOD_LSFT | MOD_LGUI, KC_PGDN)  // shift LGUI or Escape.
+#define ALTGUI_T(kc) { MT(MOD_LGUI | MOD_LALT, kc) }
+#define ALT_GUI_PGDN ALTGUI_T(KC_PGDN)  // shift LGUI or PGDN.
+#define CTL_GUI_PGDN CTLGUI_T(KC_PGDN)  // shift LGUI or PGDN.
+#define SFT_GUI_PGDN SFTGUI_T(KC_PGDN)  // shift LGUI or PGDN.
 #define ALT_ENT     ALT_T(KC_ENT)  // Alt or enter
 #define CTL_SPC     CTL_T(KC_SPC) // ctrl or space
 #define CTL_BSPC    CTL_T(KC_BSPC) // ctrl or backspace
@@ -193,6 +197,8 @@ enum {
 // so pinky fingers are shift when held and the index and second fingers are symbol and
 // media layers when held.
 
+#define KC_LGUI_ESC LGUI_T(KC_ESC)
+#define KC_LT_MDIA_PGDN LT(MDIA, KC_PGDN)
 // Dvorak
 // shift and layer switch on hold on the home row.
 #define KC_SFT_T_A   SFT_T(KC_A)

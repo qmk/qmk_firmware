@@ -801,8 +801,6 @@ ERROR_EXIT:
     Endpoint_SelectEndpoint(ep);
     return -1;
 }
-#else
-int8_t sendchar(uint8_t c) { return 0; }
 #endif
 
 /*******************************************************************************

@@ -26,13 +26,5 @@ This is a layout for the grid planck, built with a few ideals in mind:
   higher ones. (number arrangement borrowed from [dustypomeleau's minidox
   layout][].
 
-Layout rendered with [keyboard-layout-editor.com][]:
-
-![](https://callumoakley.net/images/keymap.png)
-
-The only behaviour not captured in this graphic is: pressing both cmd keys will
-send cmd+ctrl. See [keymap.c][] for details.
-
 [dustypomeleau's minidox layout]: https://github.com/qmk/qmk_firmware/tree/master/keyboards/minidox/keymaps/dustypomerleau
-[keyboard-layout-editor.com]: http://www.keyboard-layout-editor.com
 [keymap.c]: keymap.c

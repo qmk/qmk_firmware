@@ -374,7 +374,8 @@ These are defined in [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blo
 ```c
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
-#define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
+#define RGB_DISABLE_TIMEOUT 0 // number of milliseconds to wait until rgb automatically turns off
+#define RGB_DISABLE_AFTER_TIMEOUT 0 // OBSOLETE: number of ticks to wait until disabling effects
 #define RGB_DISABLE_WHEN_USB_SUSPENDED false // turn off effects when suspended
 #define RGB_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 #define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
@@ -437,12 +438,16 @@ Where `28` is an unused index from `eeconfig.h`.
 |`rgb_matrix_sethsv_noeeprom(h, s, v)`       |Set LEDs to the given HSV value where `h`/`s`/`v` are between 0 and 255 (not written to EEPROM) |
 
 ### Query Current Status :id=query-current-status
-|Function               |Description      |
-|-----------------------|-----------------|
-|`rgb_matrix_get_mode()`  |Get current mode |
-|`rgb_matrix_get_hue()`   |Get current hue  |
-|`rgb_matrix_get_sat()`   |Get current sat  |
-|`rgb_matrix_get_val()`   |Get current val  |
+|Function                         |Description                |
+|---------------------------------|---------------------------|
+|`rgb_matrix_is_enabled()`        |Gets current on/off status |
+|`rgb_matrix_get_mode()`          |Gets current mode          |
+|`rgb_matrix_get_hue()`           |Gets current hue           |
+|`rgb_matrix_get_sat()`           |Gets current sat           |
+|`rgb_matrix_get_val()`           |Gets current val           |
+|`rgb_matrix_get_hsv()`           |Gets hue, sat, and val and returns a [`HSV` structure](https://github.com/qmk/qmk_firmware/blob/7ba6456c0b2e041bb9f97dbed265c5b8b4b12192/quantum/color.h#L56-L61)|
+|`rgb_matrix_get_speed()`         |Gets current speed         |
+|`rgb_matrix_get_suspend_state()` |Gets current suspend state |
 
 ## Callbacks :id=callbacks
 

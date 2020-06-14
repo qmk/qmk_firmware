@@ -107,22 +107,23 @@
 #define ___ERGODOX_THUMB_LEFT___                \
     OSL(SYMB), OSM(KC_LGUI),                    \
         HOME_END,                               \
-        CTL_BSPC, ALT_DEL, XMONAD_ESC
+        CTL_BSPC, ALT_DEL, GUI_ESC
+
 
 #define ___ERGODOX_THUMB_RIGHT___               \
-    XXX, OSL(KEYPAD),                           \
-        KC_PGUP,                                \
-        KC_PGDN, ALT_ENT, CTL_SPC
+    KC_PGUP, OSL(KEYPAD),                       \
+        CTLGUI_PGDN,                            \
+        TT(MDIA), ALT_ENT, CTL_SPC
 
 #define ___ERGODOX_THUMB_RIGHT_BP___            \
-    XXX, OSL(KEYPAD_ON_BEPO),                   \
-        KC_PGUP,                                \
-        KC_PGDN, ALT_ENT, CTL_SPC
+    KC_PGUP, OSL(KEYPAD_ON_BEPO),               \
+        CTLGUI_PGDN,                            \
+        TT(MDIA), ALT_ENT, CTL_SPC
 
 #define ___ERGODOX_THUMB_LEFT_BP___             \
-    OSL(SYMB_ON_BEPO), OSM(KC_LGUI),            \
+    OSL(SYMB_ON_BEPO), OSM(KC_LGUI | KC_LCTL),  \
         HOME_END,                               \
-        CTL_BSPC, ALT_DEL, XMONAD_ESC
+        CTL_BSPC, ALT_DEL, GUI_ESC
 
 /********************************************************************************/
 /* the interior rows for ortholinear keyboards. the first number is the length  */

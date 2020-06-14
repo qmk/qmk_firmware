@@ -113,7 +113,7 @@ compile.keymap: skully -> None
 |-----|---------------|-------------|
 | user.keyboard | None | キーボードのパス (例: `clueboard/66/rev4`) |
 | user.keymap | None | キーマップ名 (例: `default`) |
-| user.name | None | ユーザの github のユーザ名。 |
+| user.name | None | ユーザの GitHub のユーザ名。 |
 
 # 全ての設定オプション
 
