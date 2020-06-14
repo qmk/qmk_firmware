@@ -1,13 +1,35 @@
-# RART 67
+# MCU name
+MCU = atmega32u4
 
-65% pcb  
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
+BOOTLOADER = atmel-dfu
 
-Keyboard Maintainer: [Alabahuy](https://github.com/alabahuy)  
-Hardware Supported: RART67 PCB, Mini USB
-Hardware Availability: Private GB
+# Build Options
+#   change yes to no to disable
+#
+BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration
+MOUSEKEY_ENABLE = yes       # Mouse keys
+EXTRAKEY_ENABLE = yes       # Audio control and System control
+CONSOLE_ENABLE = yes        # Console for debug
+COMMAND_ENABLE = no         # Commands for debug and configuration
+# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
+SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
+# if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE = yes           # USB Nkey Rollover
+BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality on B7 by default
+RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
+MIDI_ENABLE = no            # MIDI support
+UNICODE_ENABLE = no         # Unicode
+BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
+AUDIO_ENABLE = no           # Audio output on port C6
+FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
+HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs
 
-Make example for this keyboard (after setting up your build environment):
-
-    make RART/rart67:default
-
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+LAYOUTS = all
