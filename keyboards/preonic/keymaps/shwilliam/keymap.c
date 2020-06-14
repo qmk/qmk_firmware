@@ -51,165 +51,138 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case LIQUOT:
         if (record->event.pressed) {
             SEND_STRING(SS_LALT("300a"));
-            return false;
-        } else {}
-        break;
+        }
+        return false;
         case RIQUOT:
         if (record->event.pressed) {
             SEND_STRING(SS_LALT("300b"));
-            return false;
-        } else {}
-        break;
+        }
+        return false;
         case LQUOT:
         if (record->event.pressed) {
             SEND_STRING(SS_LALT("300c"));
-            return false;
-        } else {}
-        break;
+        }
+        return false;
         case RQUOT:
         if (record->event.pressed) {
             SEND_STRING(SS_LALT("300d"));
-            return false;
-        } else {}
-        break;
+        }
+        return false;
         case LTITLE:
         if (record->event.pressed) {
             SEND_STRING(SS_LALT("3010"));
-            return false;
-        } else {}
-        break;
+        }
+        return false;
         case RTITLE:
         if (record->event.pressed) {
             SEND_STRING(SS_LALT("3011"));
-            return false;
-        } else {}
-        break;
+        }
+        return false;
         case TBULLET:
         if (record->event.pressed) {
             SEND_STRING(SS_LALT("2023"));
-            return false;
-        } else {}
-        break;
+        }
+        return false;
         case FBULLET:
         if (record->event.pressed) {
             SEND_STRING(SS_LALT("2055"));
-            return false;
-        } else {}
-        break;
+        }
+        return false;
         case MAIL:
         if (record->event.pressed) {
             SEND_STRING("w-lindvall@outlook.com");
-            return false;
-        } else {}
-        break;
+        }
+        return false;
         case GITHUB:
         if (record->event.pressed) {
             SEND_STRING("https://github.com/shwilliam");
-            return false;
-        } else {}
-        break;
+        }
+        return false;
         case FN_ARROW:
         if (record->event.pressed) {
             SEND_STRING("=>");
-            return false;
-        } else {}
-        break;
+        }
+        return false;
         case HEART:
         if (record->event.pressed) {
             SEND_STRING(SS_LALT("2661"));
-            return false;
-        } else {}
-        break;
+        }
+        return false;
         case E_LCRY:
         if (record->event.pressed) {
             SEND_STRING(SS_LALT("D83D+DE02"));
-            return false;
-        } else {}
-        break;
+        }
+        return false;
         case E_FLOWER:
         if (record->event.pressed) {
             SEND_STRING(SS_LALT("D83C+DF38"));
-            return false;
-        } else {}
-        break;
+        }
+        return false;
         case E_SHEART:
         if (record->event.pressed) {
             SEND_STRING(SS_LALT("D83D+DC96"));
-            return false;
-        } else {}
-        break;
+        }
+        return false;
         case E_KISS:
         if (record->event.pressed) {
             SEND_STRING(SS_LALT("D83D+DE18"));
-            return false;
-        } else {}
-        break;
+        }
+        return false;
         case E_PHEART:
         if (record->event.pressed) {
             SEND_STRING(SS_LALT("D83D+DC9C"));
-            return false;
-        } else {}
-        break;
+        }
+        return false;
         case E_NOGOOD:
         if (record->event.pressed) {
             SEND_STRING(SS_LALT("D83D+DE45"));
-            return false;
-        } else {}
-        break;
+        }
+        return false;
         case E_PARTY:
         if (record->event.pressed) {
             SEND_STRING(SS_LALT("D83C+DF8A"));
-            return false;
-        } else {}
-        break;
+        }
+        return false;
         case E_ROCKET:
         if (record->event.pressed) {
             SEND_STRING(SS_LALT("D83D+DE80"));
-            return false;
-        } else {}
-        break;
+        }
+        return false;
         case E_SHRUG:
         if (record->event.pressed) {
             SEND_STRING(SS_LALT("D83E+DD37"));
-            return false;
-        } else {}
-        break;
+        }
+        return false;
         case E_WIZARD:
         if (record->event.pressed) {
             SEND_STRING(SS_LALT("D83E+DDD9"));
-            return false;
-        } else {}
-        break;
+        }
+        return false;
         case E_OKBUST:
         if (record->event.pressed) {
             SEND_STRING(SS_LALT("D83D+DE46"));
-            return false;
-        } else {}
-        break;
+        }
+        return false;
         case E_OKHAND:
         if (record->event.pressed) {
             SEND_STRING(SS_LALT("D83D+DC4C"));
-            return false;
-        } else {}
-        break;
+        }
+        return false;
         case E_SLEEP:
         if (record->event.pressed) {
             SEND_STRING(SS_LALT("D83D+DE34"));
-            return false;
-        } else {}
-        break;
+        }
+        return false;
         case E_HUNNED:
         if (record->event.pressed) {
             SEND_STRING(SS_LALT("D83D+DCAF"));
-            return false;
-        } else {}
-        break;
+        }
+        return false;
         case E_2HEART:
         if (record->event.pressed) {
             SEND_STRING(SS_LALT("D83D+DC95"));
-            return false;
-        } else {}
-        break;
+        }
+        return false;
     }
     return true;
 };
