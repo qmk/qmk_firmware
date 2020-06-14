@@ -18,10 +18,15 @@
 
 // Push Pull or Open Drain Configuration
 // Default Push Pull
-// For Open Drain define PAL_MODE_OUTPUT_OPENDRAIN
 #ifndef WS2812_OUTPUT_MODE
     #if defined(GPIOV1)
         #define WS2812_OUTPUT_MODE PAL_MODE_STM32_ALTERNATE_PUSHPULL
+    #else
+        #define WS2812_OUTPUT_MODE PAL_STM32_OTYPE_PUSHPULL
+    #endif
+#elif (WS2812_OUTPUT_MODE == OPEN_DRAIN)
+    #if defined(GPIOV1)
+        #define WS2812_OUTPUT_MODE PAL_MODE_STM32_ALTERNATE_OPENDRAIN
     #else
         #define WS2812_OUTPUT_MODE PAL_STM32_OTYPE_OPENDRAIN
     #endif
