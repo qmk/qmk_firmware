@@ -18,6 +18,8 @@
 #include "joystick.h"
 #include "pointing_device.h"
 
+#define JOYSTICK_SPEED 30
+
 enum layers {
     DEFAULT,
     RAISE,
@@ -116,12 +118,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_scan_user (void) {
-    joystick_report_t joy = joystick_get_report();
     report_mouse_t r = pointing_device_get_report();
+    joystick_report_t joy = joystick_get_report();
 
-    r.x = joy.x * 30;
-    r.y = joy.y * 30;
+    r.x = joy.x * JOYSTICK_SPEED;
+    r.y = joy.y * JOYSTICK_SPEED;
 
-    pointing_device_set_report(r);
-    pointing_device_send();
+    /* pointing_device_send is fairly slow so call only if needed */
+    if (r.x >= 1 || r.x <= -1 || r.y >= 1 || r.y <= -1) {
+        pointing_device_set_report(r);
+        pointing_device_send();
+    }
 }
