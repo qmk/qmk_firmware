@@ -17,10 +17,10 @@
 
 #define MIDI_BASIC
 #define AUDIO_CLICKY
-#define AUDIO_CLICKY_FREQ_DEFAULT 2354.0f
+#define AUDIO_CLICKY_FREQ_DEFAULT 2360.0f
 #define AUDIO_CLICKY_FREQ_MAX 9500.0f
 #define AUDIO_CLICKY_FREQ_RANDOMNESS 0.05f
-#define DAC_SAMPLE_MAX 9350U
+#define DAC_SAMPLE_MAX 9754U
 
 /* enable advanced MIDI features:
    - MIDI notes can be added to the keymap
