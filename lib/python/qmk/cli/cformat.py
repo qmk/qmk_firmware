@@ -22,9 +22,8 @@ def cformat_run(files, all_files):
             cli.log.warn('No changes detected. Use "qmk cformat -a" to format all files')
             return False
         if files and all_files:
-            cli.log.warning('Filenames passed with -a, only formatting: %s', ','.join(cli.args.files))
-        # 3.6+: Can remove the str casting, python will cast implicitly
-        subprocess.run(clang_format + [str(file) for file in files], check=True)
+            cli.log.warning('Filenames passed with -a, only formatting: %s', ','.join(files))
+        subprocess.run(clang_format + [file for file in files], check=True)
         cli.log.info('Successfully formatted the C code.')
 
     except subprocess.CalledProcessError:
@@ -35,7 +34,7 @@ def cformat_run(files, all_files):
 @cli.argument('-a', '--all-files', arg_only=True, action='store_true', help='Format all core files.')
 @cli.argument('-b', '--base-branch', default='origin/master', help='Branch to compare to diffs to.')
 @cli.argument('files', nargs='*', arg_only=True, help='Filename(s) to format.')
-@cli.subcommand("Format C code according to QMK's style.")
+@cli.subcommand("Format C code according to QMK's style.", hidden=False if cli.config.user.developer else True)
 def cformat(cli):
     """Format C code according to QMK's style.
     """

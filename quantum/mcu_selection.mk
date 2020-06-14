@@ -287,3 +287,18 @@ ifneq (,$(filter $(MCU),atmega328p))
   NO_UART ?= yes
   NO_SUSPEND_POWER_DOWN ?= yes
 endif
+
+ifneq (,$(filter $(MCU),attiny85))
+  PROTOCOL = VUSB
+
+  # Processor frequency.
+  #     This will define a symbol, F_CPU, in all source code files equal to the
+  #     processor frequency in Hz. You can then use this symbol in your source code to
+  #     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
+  #     automatically to create a 32-bit value in your source code.
+  F_CPU ?= 16500000
+
+  # unsupported features for now
+  NO_UART ?= yes
+  NO_SUSPEND_POWER_DOWN ?= yes
+endif
