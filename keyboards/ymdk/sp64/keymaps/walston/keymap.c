@@ -1,7 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "version.h"
-#include "print.h"
-
 enum layer_names {
   BASE, // default layer
   _FUN, // function layer
