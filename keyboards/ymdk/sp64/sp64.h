@@ -65,7 +65,7 @@ uint8_t init_mcp23018(void);
  * │ L40  │ L41 │ L42  │ L43         │ L45 │    │ R46           │ R48   │ R4A  │ R4B │ R4C │ R4D │
  * └------┴-----┴------┴-------------┴-----┘    └---------------┴-------┴------┴-----┴-----┴-----┘
  */
-#define LAYOUT_ymdk_sp64(                                                      \
+#define LAYOUT(                                                      \
     L00, L01, L02, L03, L04, L05, L06,      R07, R08, R09, R0A, R0B, R0C, R0D, \
     L10, L11, L12, L13, L14, L15,      R16, R17, R18, R19, R1A, R1B, R1C, R1D, \
     L20, L21, L22, L23, L24, L25,      R26, R27, R28, R29, R2A, R2B, R2C,      \
@@ -82,4 +82,3 @@ uint8_t init_mcp23018(void);
     { L00, L01, L02, L03, L04, L05, ___, R16, ___, ___, ___, ___, ___, ___ }   \
    }
 
-#define LAYOUT LAYOUT_sp64
