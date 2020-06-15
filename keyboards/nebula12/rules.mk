@@ -1,5 +1,6 @@
 # MCU name
 MCU = STM32F072
+
 BOARD = ST_STM32F072B_DISCOVERY
 
 # Do not put the microcontroller into power saving mode
