@@ -27,8 +27,8 @@ CIE1931_CURVE = yes
 LAYOUTS = 68_ansi
 
 # project specific files
-SRC =	keyboards/wilba_tech/wt_main.c \
-		keyboards/wilba_tech/wt_rgb_backlight.c \
-		drivers/issi/is31fl3733.c \
-		quantum/color.c \
-		drivers/chibios/i2c_master.c
+SRC +=  keyboards/wilba_tech/wt_main.c \
+        keyboards/wilba_tech/wt_rgb_backlight.c \
+        drivers/issi/is31fl3733.c \
+        quantum/color.c
+QUANTUM_LIB_SRC += drivers/chibios/i2c_master.c
