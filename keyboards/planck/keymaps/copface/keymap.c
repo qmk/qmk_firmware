@@ -27,8 +27,7 @@
 #define M_LGENT LGUI_T(KC_ENT)
 
 enum planck_layers {
-  _MAC = 0,
-  _WIN,
+  _DEFAULT = 0,
   _LOWER,
   _RAISE,
   _META,
@@ -36,15 +35,13 @@ enum planck_layers {
 };
 
 enum planck_keycodes {
-  MAC = SAFE_RANGE,
-  WIN,
-  KC_ARR,  // ->
-  KC_FARR, // =>
-  HK_CLOS, // />
-  XD1,     // :D
-  XD3,     // :DDD
-  XD5,     // :DDDDD
-  XD15,    // :DDDDDDDDDDDDDDD
+  KC_ARR = SAFE_RANGE,  // ->
+  KC_FARR,              // =>
+  HK_CLOS,              // />
+  XD1,                  // :D
+  XD3,                  // :DDD
+  XD5,                  // :DDDDD
+  XD15,                 // :DDDDDDDDDDDDDDD
 };
 
 enum tapdancers {
@@ -65,18 +62,11 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_MAC] = LAYOUT_planck_grid(
+[_DEFAULT] = LAYOUT_planck_grid(
     KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,  KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,  KC_J,    KC_K,    KC_L,    XXXXXXX, KC_ENT,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,  KC_M,    KC_COMM, KC_DOT,  XXXXXXX, KC_LEAD,
     KC_LGUI, KC_LCTL, KC_LALT, KC_LALT, LOWER,   KC_SPC,  META,  RAISE,   KC_RALT, KC_MPRV, KC_MPLY, KC_MNXT
-),
-
-[_WIN] = LAYOUT_planck_grid(
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    KC_LCTL, KC_LGUI, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
 [_LOWER] = LAYOUT_planck_grid(
@@ -101,17 +91,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ADJUST] = LAYOUT_planck_grid(
-    XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     WIN,     MAC, XXXXXXX,
+    XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LCG_NRM, XXXXXXX,
     XXXXXXX, KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET
 )
 };
-
-#ifdef AUDIO_ENABLE
-  float song_qwerty_sound[][2]   = SONG(QWERTY_SOUND);
-  float song_colemak_sound[][2]  = SONG(COLEMAK_SOUND);
-#endif
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
@@ -119,25 +104,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case MAC:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(song_colemak_sound);
-        #endif
-        set_single_persistent_default_layer(_MAC);
-      }
-
-      return false;
-    case WIN:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(song_qwerty_sound);
-        #endif
-        set_single_persistent_default_layer(_WIN);
-      }
-
-      return false;
-
     case KC_ARR:
       if (record->event.pressed) {
         SEND_STRING("->");
@@ -250,14 +216,4 @@ void matrix_scan_user(void) {
             unregister_code(KC_LSFT);
         }
     }
-}
-
-bool music_mask_user(uint16_t keycode) {
-  switch (keycode) {
-    case RAISE:
-    case LOWER:
-      return false;
-    default:
-      return true;
-  }
 }

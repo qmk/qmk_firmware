@@ -2,10 +2,12 @@
 
 extern uint8_t is_master;
 
-#define _QWERTY 0
-#define _LOWER 1
-#define _RAISE 2
-#define _ADJUST 3
+enum layers {
+    _QWERTY,
+    _LOWER,
+    _RAISE,
+    _ADJUST,
+};
 
 // Aliases for keys
 #define KC_PRS LGUI(LALT(LCTL(KC_4)))
@@ -96,11 +98,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 // Setting ADJUST layer RGB back to default
 void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
@@ -147,69 +144,35 @@ void matrix_scan_user(void) {
         }
         // Screenshot
         SEQ_ONE_KEY(KC_S) {
-            register_code(KC_LGUI);
-            register_code(KC_LCTL);
-            register_code(KC_LSFT);
-            register_code(KC_4);
-            unregister_code(KC_4);
-            unregister_code(KC_LSFT);
-            unregister_code(KC_LCTL);
-            unregister_code(KC_LGUI);
+            tap_code16(G(C(S(KC_4))));
         }
         // 1Pass browser
         SEQ_ONE_KEY(KC_F) {
-            register_code(KC_LGUI);
-            register_code(KC_LALT);
-            register_code(KC_BSLS);
-            unregister_code(KC_BSLS);
-            unregister_code(KC_LALT);
-            unregister_code(KC_LGUI);
+            tap_code16(G(A(KC_BSLS)));
         }
         // 1Pass mini
         SEQ_TWO_KEYS(KC_F, KC_F) {
-            register_code(KC_LGUI);
-            register_code(KC_BSLS);
-            unregister_code(KC_BSLS);
-            unregister_code(KC_LGUI);
+            tap_code16(G(KC_BSLS));
         }
         // Comment out
         SEQ_ONE_KEY(KC_G) {
-            register_code(KC_LGUI);
-            register_code(KC_SLSH);
-            unregister_code(KC_SLSH);
-            unregister_code(KC_LGUI);
+            tap_code16(G(KC_SLSH));
         }
         // Spotlight
         SEQ_ONE_KEY(KC_SPC) {
-            register_code(KC_LGUI);
-            register_code(KC_SPC);
-            unregister_code(KC_SPC);
-            unregister_code(KC_LGUI);
+            tap_code16(G(KC_SPC));
         }
         // Grave
         SEQ_ONE_KEY(KC_TAB) {
-            register_code(KC_LALT);
-            register_code(KC_GRV);
-            unregister_code(KC_GRV);
-            unregister_code(KC_LALT);
+            tap_code16(A(KC_GRV));
         }
         // Tilde
         SEQ_TWO_KEYS(KC_TAB, KC_TAB) {
-            register_code(KC_LSFT);
-            register_code(KC_GRV);
-            unregister_code(KC_GRV);
-            unregister_code(KC_LSFT);
+            tap_code16(S(KC_GRV));
         }
         // Auto format
         SEQ_ONE_KEY(KC_ENT) {
-            register_code(KC_LSFT);
-            register_code(KC_LGUI);
-            register_code(KC_LALT);
-            register_code(KC_F);
-            unregister_code(KC_F);
-            unregister_code(KC_LALT);
-            unregister_code(KC_LGUI);
-            unregister_code(KC_LSFT);
+            tap_code16(S(G(A(KC_F))));
         }
     }
 }
