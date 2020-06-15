@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REV4_CONFIG_H
-#define REV4_CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -56,5 +55,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QMK_ESC_OUTPUT C4 // usually COL
 #define QMK_ESC_INPUT C6 // usually ROW
 #define QMK_LED D1
-
-#endif

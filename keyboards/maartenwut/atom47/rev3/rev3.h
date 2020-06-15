@@ -1,5 +1,4 @@
-#ifndef ATOM47_REV3_H
-#define ATOM47_REV3_H
+#pragma once
 
 #include "quantum.h"
 
@@ -33,5 +32,3 @@
   {k20, XXX, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c}, \
   {k30, k31, k32, XXX, XXX, XXX, XXX, k37, XXX, k39, k3a, k3b, k3c}  \
 }
-
-#endif
