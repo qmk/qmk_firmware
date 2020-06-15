@@ -25,7 +25,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case AUTRUCHE:
             if (record->event.pressed) SEND_STRING("Autruche");
-            return false;
+            return true;
     }
 
     return process_record_keymap(keycode, record)
