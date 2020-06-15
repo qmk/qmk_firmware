@@ -25,7 +25,6 @@ enum layer_names {
     _FL2,
     _FL3
 };
-#define _______ KC_TRNS // better readability 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base Layer
