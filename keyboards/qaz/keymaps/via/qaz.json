@@ -1,0 +1,54 @@
+{
+   "name":"QAZ",
+   "vendorId":"0x7431",
+   "productId":"0x0001",
+   "lighting":{
+      "extends":"qmk_rgblight",
+      "keycodes":"qmk",
+      "effects":[
+         [
+            "All Off",
+            0
+         ],
+         [
+            "Solid Color 1",
+            1
+         ],
+         [
+            "Custom Colors",
+            6
+         ],
+         [
+            "Cycle All",
+            0
+         ]
+      ],
+      "supportedLightingValues":[
+         128,
+         129,
+         130,
+         131
+      ]
+   },
+   "matrix":{
+      "rows":4,
+      "cols":10
+   },
+   "layouts":{
+     "labels":[
+        [
+           "Split Bars",
+           "Big Bars"
+        ]
+     ],
+      "keymap":[
+
+        [{c:"#aaaaaa"},"0,0",{c:"#cccccc"},"0,1","0,2","0,3","0,4","0,5","0,6","0,7","0,8",{c:"#aaaaaa",w:1.25},"0,9"],
+        [{w:1.25},"1,0",{c:"#cccccc"},"1,1","1,2","1,3","1,4","1,5","1,6","1,7","1,8",{c:"#aaaaaa"},"1,9"],
+        [{w:1.75},"2,0",{c:"#cccccc"},"2,1","2,2","2,3","2,4","2,5","2,6","2,7",{c:"#aaaaaa",w:1.5},"2,8"],
+        ["3,0\n\n\n3,0","3,1\n\n\n3,0","3,2\n\n\n3,0",{c:"#cccccc",w:2.25},"3,3\n\n\n3,0",{w:2},"3,4\n\n\n3,0",{c:"#aaaaaa"},"3,5\n\n\n3,0","3,6\n\n\n3,0","3,7\n\n\n3,0"],
+        ["3,0\n\n\n3,1","3,1\n\n\n3,1",{c:"#cccccc",w:6.25},"3,2\n\n\n3,1",{c:"#aaaaaa"},"3,6\n\n\n3,1","3,7\n\n\n3,1"]
+
+]
+   }
+}
