@@ -5,7 +5,7 @@
     "width": 12,
     "height": 4,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_4x12": {
             "layout": [
                 { "label": "K01", "x": 0, "y": 0 },
                 { "label": "K02", "x": 1, "y": 0 },
