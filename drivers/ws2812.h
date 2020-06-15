@@ -15,10 +15,26 @@
 
 #pragma once
 
-/* This file is for items that are common across all of the 
- * ws2812 implementations 
+#include "quantum/color.h"
+
+/*
+ * Older WS2812s can handle a reset time (TRST) of 50us, but recent 
+ * component revisions require a minimum of 280us.
  */
 
 #if !defined(WS2812_TRST_US)
 #define WS2812_TRST_US 280
 #endif
+
+/* User Interface
+ *
+ * Input:
+ *         ledarray:           An array of GRB data describing the LED colors
+ *         number_of_leds:     The number of LEDs to write
+ *
+ * The functions will perform the following actions:
+ *         - Set the data-out pin as output
+ *         - Send out the LED data
+ *         - Wait 50us to reset the LEDs
+ */
+void ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds);
