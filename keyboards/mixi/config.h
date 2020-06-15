@@ -4,7 +4,7 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x4752
-#define PRODUCT_ID      0x4d49
+#define PRODUCT_ID      0x4D49
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    gregorio
 #define PRODUCT         Mixi
