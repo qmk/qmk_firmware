@@ -2,9 +2,9 @@
 
 75% pcb with encoder
 
-*Keyboard Maintainer: [Alabahuy](https://github.com/alabahuy)  
-*Hardware Supported: RART75 PCB, Mini USB, Encoders
-*Hardware Availability: Private GB
+* Keyboard Maintainer: [Alabahuy](https://github.com/alabahuy)
+* Hardware Supported: RART75 PCB, Mini USB, Encoders
+* Hardware Availability: Private GB
 
 Make example for this keyboard (after setting up your build environment):
 
