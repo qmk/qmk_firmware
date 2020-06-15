@@ -135,7 +135,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 ### タップ、ダウン、アップ
 
-`Ctrl` あるいは `Home` など、書き込めないキーをマクロで使うこともできます。
+`Ctrl` あるいは `Home` など、ソースコードに文字列として表記できないキーをマクロで使うこともできます。
 以下のようにラップすることで任意のコードを送信することができます:
 
 * `SS_TAP()` キーを押して放します。
@@ -173,7 +173,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 * `SS_RALT(文字列)`、`SS_ROPT(文字列)`、`SS_ALGR(文字列)`
 * `SS_RGUI(文字列)`、`SS_RCMD(文字列)`、`SS_RWIN(文字列)`
 
-これらはそれぞれのモディファイアを押し、指定された文字列を送信してから、モディファイアを解放します。
+これらはそれぞれの修飾キーを押し、指定された文字列を送信してから、修飾キーを解放します。
 それらは以下のように使うことができます:
 
     SEND_STRING(SS_LCTL("a"));
@@ -213,7 +213,7 @@ SEND_STRING(".."SS_TAP(X_END));
 
 ### `record->event.pressed`
 
-これはスイッチが押されているか放されているかどうかをテストすることができるブール値です。この例は、
+これでスイッチが押されているか放されているかどうかをテストすることができます。以下が例です。
 
 ```c
     if (record->event.pressed) {
@@ -225,7 +225,7 @@ SEND_STRING(".."SS_TAP(X_END));
 
 ### `register_code(<kc>);`
 
-これはコンピュータに `<kc>` キーダウンイベントを送信します。幾つかの例として `KC_ESC`、`KC_C`、`KC_4` があり、`KC_LSFT` と `KC_LGUI` のようなモディファイアさえもあります。
+これはコンピュータに `<kc>` キーダウンイベントを送信します。例として `KC_ESC`、`KC_C`、`KC_4` や、`KC_LSFT` と `KC_LGUI` のような修飾キーなどもあります。
 
 ### `unregister_code(<kc>);`
 
@@ -239,9 +239,9 @@ SEND_STRING(".."SS_TAP(X_END));
 
 ### `register_code16(<kc>);`、`unregister_code16(<kc>);`、`tap_code16(<kc>);`
 
-これらの関数は通常の対応する関数と同様に機能しますが、変更されたキーコードを使うことができます (Shift、Alt、Control、GUI を適用)。
+これらの関数は対応する通常の関数と同様に機能しますが、修飾キーで修飾されたキーコードを使うことができます (Shift、Alt、Control、GUI を適用)。
 
-例えば、修飾キーを登録してキーコードを登録する代わりに、`register_code16(S(KC_5));` を使うことができます。
+例えば、修飾キーを押して(`register_code()`して)、キーコードを押す(`register_code()`する)代わりに、`register_code16(S(KC_5));` を使うことができます。
 
 ### `clear_keyboard();`
 
