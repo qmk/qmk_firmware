@@ -26,6 +26,3 @@ AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = yes
 ENCODER_ENABLE = yes
 
-
-LAYOUTS = pad all
-
