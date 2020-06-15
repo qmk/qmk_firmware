@@ -18,11 +18,11 @@ bool led_update_user(led_t new_led) {
     };
 
     if(old_led.caps_lock != new_led.caps_lock) {
-        new_led.caps_lock ? on_new_led_on() : on_new_led_off();
+        new_led.caps_lock ? on_usb_led_on() : on_usb_led_off();
     } else if(old_led.num_lock != new_led.num_lock) {
-        new_led.num_lock ? on_new_led_on() : on_new_led_off();
+        new_led.num_lock ? on_usb_led_on() : on_usb_led_off();
     } else if(old_led.scroll_lock != new_led.scroll_lock) {
-        new_led.scroll_lock ? on_new_led_on() : on_new_led_off();
+        new_led.scroll_lock ? on_usb_led_on() : on_usb_led_off();
     }
     old_led = new_led;
 
