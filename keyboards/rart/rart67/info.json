@@ -7,7 +7,7 @@
     "layouts": {
         "LAYOUT_all": {
             "layout": [
-                /* Row 1 */
+      
                 {
                     "label" : "Esc",
                     "x":0, "y":0},
@@ -56,7 +56,7 @@
                 {
                     "label" : "Page up",
                     "x":15, "y":0},
-                /* Row 2 */
+    
                 {
                     "label" : "Tab",
                     "x":0, "y":1, "w":1.5},
@@ -102,7 +102,7 @@
                 {
                     "label" : "Page  down",
                     "x":15, "y":1},
-                /* Row 3 */
+       
                 {
                     "label" : "Caps lock",
                     "x":0, "y":2, "w":1.75},
@@ -148,7 +148,7 @@
                 {
                     "label" : "Home",
                     "x":15, "y":2},
-                /* Row 4 */
+    
                 {
                     "label" : "Shift",
                     "x":0, "y":3, "w":2.25},
@@ -191,7 +191,7 @@
                 {
                     "label" : "End",
                     "x":15, "y":3},
-                /* Row 5 */
+       
                 {
                     "label" : "Ctrl",
                     "x":0, "y":4, "w":1.25},
