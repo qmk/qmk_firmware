@@ -50,6 +50,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_A_RIGHT { F5 }
 #define ENCODERS_PAD_B_RIGHT { F4 }
 
+// Uncomment this if you use an ALPS EC11K encoder, or are noticing missing encoder actuations
+// #define ENCODER_RESOLUTION 2
+
 // Underglow
 /*
 #define RGBLIGHT_ANIMATIONS
