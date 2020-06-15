@@ -2,9 +2,9 @@
 
 5x4 Macropad pcb with double encoder
 
-*Keyboard Maintainer: [Alabahuy](https://github.com/alabahuy)  
-*Hardware Supported: RARTPAD PCB, Promicro, Mini USB, Encoders
-*Hardware Availability: Private GB
+* Keyboard Maintainer: [Alabahuy](https://github.com/alabahuy)
+* Hardware Supported: RARTPAD PCB, Promicro, Mini USB, Encoders
+* Hardware Availability: Private GB
 
 Make example for this keyboard (after setting up your build environment):
 
