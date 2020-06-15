@@ -123,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
- * |Reset | Red  |Green | Rmod | Gmod |Rblink|Gblink| Rkey | Gkey | Rcar | Gcar |      |
+ * |Reset | Red  |Green | Rmod | Gmod |Rblink|Gblink| Rkey | Gkey | Rcar | Gcar |Power |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -133,9 +133,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_plaid_grid(
-    RESET  , LED_1  , LED_2  ,  LED_3  , LED_4  , LED_5  ,LED_6   , LED_7  , LED_8  , LED_9  , LED_0  , _______,
-    _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    RESET  , LED_1  , LED_2  ,  LED_3  , LED_4  , LED_5  ,LED_6   , LED_7  , LED_8  , LED_9  , LED_0  , KC_POWER,
+    _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______ ,
+    _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______ ,
     _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
 
@@ -174,7 +174,6 @@ void eeconfig_init_user(void) {  // EEPROM is getting reset!
   led_config.raw = 0;
   led_config.red_mode = LEDMODE_ON;
   led_config.green_mode = LEDMODE_MODS;
-      eeconfig_update_user(led_config.raw);
   eeconfig_update_user(led_config.raw);
 }
 
@@ -241,7 +240,7 @@ void led_keypress_update(uint8_t led, uint8_t led_mode, uint16_t keycode, keyrec
           */
 
           double x = (1.0*rand())/RAND_MAX;
-          double y = (1.0*rand())/RAND_MAX;
+          double y = x;
 
           double p = (readPin(led)) ? x : y;
           if (rand() < p*RAND_MAX) {
@@ -310,8 +309,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             writePinHigh(LED_RED);
         }
       }
-      eeconfig_update_user(led_config.raw);
-      return false;
       break;
     case LED_2:
       if (record->event.pressed) {
@@ -324,49 +321,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             writePinHigh(LED_GREEN);
         }
       }
-      eeconfig_update_user(led_config.raw);
-      return false;
       break;
     case LED_3:
       led_config.red_mode=LEDMODE_MODS;
-      eeconfig_update_user(led_config.raw);
-      return false;
       break;
     case LED_4:
       led_config.green_mode=LEDMODE_MODS;
-      eeconfig_update_user(led_config.raw);
-      return false;
       break;
     case LED_5:
       led_config.red_mode=LEDMODE_BLINKIN;
-      eeconfig_update_user(led_config.raw);
-      return false;
       break;
     case LED_6:
       led_config.green_mode=LEDMODE_BLINKIN;
-      eeconfig_update_user(led_config.raw);
-      return false;
       break;
     case LED_7:
       led_config.red_mode=LEDMODE_KEY;
-      eeconfig_update_user(led_config.raw);
-      return false;
       break;
     case LED_8:
       led_config.green_mode=LEDMODE_KEY;
-      eeconfig_update_user(led_config.raw);
-      return false;
       break;
     case LED_9:
       led_config.red_mode=LEDMODE_ENTER;
-      eeconfig_update_user(led_config.raw);
-      return false;
       break;
     case LED_0:
       led_config.green_mode=LEDMODE_ENTER;
-      eeconfig_update_user(led_config.raw);
-      return false;
       break;
   }
+
+  if (keycode >= LED_0 && keycode <= LED_9) {
+    eeconfig_update_user(led_config.raw);
+  }
+
   return true;
 }
