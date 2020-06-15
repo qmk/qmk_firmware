@@ -12,7 +12,7 @@
 #include "secret.h"
 #endif
 
-void eeconfig_init_keymap(void) { return; }
+void eeconfig_init_keymap(void) {}
 
 void eeconfig_init_user(void) {
     set_unicode_input_mode(UC_LNX);
