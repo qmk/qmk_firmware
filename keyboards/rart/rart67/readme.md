@@ -2,9 +2,9 @@
 
 65% pcb  
 
-*Keyboard Maintainer: [Alabahuy](https://github.com/alabahuy)  
-*Hardware Supported: RART67 PCB, Mini USB
-*Hardware Availability: Private GB
+* Keyboard Maintainer: [Alabahuy](https://github.com/alabahuy)
+* Hardware Supported: RART67 PCB, Mini USB
+* Hardware Availability: Private GB
 
 Make example for this keyboard (after setting up your build environment):
 
