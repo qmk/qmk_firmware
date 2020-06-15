@@ -27,5 +27,5 @@ RGBLIGHT_ENABLE = yes
 ENCODER_ENABLE = yes
 
 
-LAYOUTS = all pad
+LAYOUTS = pad all
 
