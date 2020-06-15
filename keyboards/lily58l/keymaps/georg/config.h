@@ -2,6 +2,10 @@
 
 #define TAPPING_TERM 200
 #define PERMISSIVE_HOLD
+#define TAPPING_FORCE_HOLD
+
+#undef DEBOUNCE
+#define DEBOUNCE 5 
 
 #define OLED_FRAMERATE 30
 #define OLED_FONT_H "common/glcdfont.c"
