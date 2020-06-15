@@ -4,8 +4,8 @@
 
 A compact macropad designed to mount to the underside of a desk or monitor (1x5)+Knob. keyboard made and sold by Pikatea Keyboards.
 
-* Keyboard Maintainer: Jack Kester (u/JackPikatea)  
-* Hardware Supported: Pikatea Macropad  
+* Keyboard Maintainer: Jack Kester (u/JackPikatea)
+* Hardware Supported: Pikatea Macropad
 * Hardware Availability: [Pikatea.com](http://pikatea.com/)
 
 Make example for this keyboard (after setting up your build environment):
