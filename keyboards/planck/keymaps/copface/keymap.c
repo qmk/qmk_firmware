@@ -165,55 +165,27 @@ void matrix_scan_user(void) {
 
         // Screenshot
         SEQ_ONE_KEY(KC_S) {
-            register_code(KC_LGUI);
-            register_code(KC_LCTL);
-            register_code(KC_LSFT);
-            register_code(KC_4);
-            unregister_code(KC_4);
-            unregister_code(KC_LSFT);
-            unregister_code(KC_LCTL);
-            unregister_code(KC_LGUI);
+            tap_code16(G(C(S(KC_4))));
         }
         // 1Pass browser
         SEQ_ONE_KEY(KC_A) {
-            register_code(KC_LGUI);
-            register_code(KC_LALT);
-            register_code(KC_BSLS);
-            unregister_code(KC_BSLS);
-            unregister_code(KC_LALT);
-            unregister_code(KC_LGUI);
+            tap_code16(G(A(KC_BSLS)));
         }
         // 1Pass mini
         SEQ_TWO_KEYS(KC_A, KC_A) {
-            register_code(KC_LGUI);
-            register_code(KC_BSLS);
-            unregister_code(KC_BSLS);
-            unregister_code(KC_LGUI);
+            tap_code16(G(KC_BSLS));
         }
         // Comment out
         SEQ_ONE_KEY(KC_F) {
-            register_code(KC_LGUI);
-            register_code(KC_SLSH);
-            unregister_code(KC_SLSH);
-            unregister_code(KC_LGUI);
+            tap_code16(G(KC_SLSH));
         }
         // Spotlight
         SEQ_ONE_KEY(KC_SPC) {
-            register_code(KC_LGUI);
-            register_code(KC_SPC);
-            unregister_code(KC_SPC);
-            unregister_code(KC_LGUI);
+            tap_code16(G(KC_SPC));
         }
         // Auto format
         SEQ_ONE_KEY(KC_ENT) {
-            register_code(KC_LSFT);
-            register_code(KC_LGUI);
-            register_code(KC_LALT);
-            register_code(KC_F);
-            unregister_code(KC_F);
-            unregister_code(KC_LALT);
-            unregister_code(KC_LGUI);
-            unregister_code(KC_LSFT);
+            tap_code16(S(G(A(KC_F))));
         }
     }
 }
