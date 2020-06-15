@@ -19,7 +19,6 @@
 
 #include "quantum.h"
 #include "../wilba_tech/wt_rgb_backlight_keycodes.h"
-#include "via.h"
 
 // This a shortcut to help you visually see your layout.
 
