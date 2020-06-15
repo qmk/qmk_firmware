@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x0118 //280
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Noxary
-#define PRODUCT         Noxary 280
+#define PRODUCT         280
 #define DESCRIPTION     A custom TKL keyboard.
 
 /* key matrix size */
