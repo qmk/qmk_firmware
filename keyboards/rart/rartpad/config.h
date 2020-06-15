@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID		0x414C  // "AL" 
-#define PRODUCT_ID 		0x0020	// "PAD"
+#define PRODUCT_ID 		0x0050	// "P"
 #define DEVICE_VER 		0x0001
 #define MANUFACTURER    Alabahuy
 #define PRODUCT         RARTPAD
