@@ -2,9 +2,9 @@
 
 This is a standard fixed layout 12 key PCB. It supports VIA, full per-key RGB and underglow RGB.
 
-Keyboard Maintainer: [Yiancar](http://yiancar-designs.com/) and on [GitHub](https://github.com/yiancar)\
-Hardware Supported: A 65% keyboard with STM32F072CB\
-Hardware Availability: https://spaceholdings.net/
+* Keyboard Maintainer: [Yiancar](http://yiancar-designs.com/) and on [GitHub](https://github.com/yiancar)
+* Hardware Supported: A 65% keyboard with STM32F072CB
+* Hardware Availability: https://spaceholdings.net/
 
 ## Instructions
 
