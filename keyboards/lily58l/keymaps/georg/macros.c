@@ -3,7 +3,7 @@
 #include "keymap.h"
 #include "settings.h"
 
-bool handle_key_swap(uint16_t keycode, keyrecord_t* record);
+bool handle_all_keys(uint16_t keycode, keyrecord_t* record);
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 	switch (keycode) {
@@ -21,7 +21,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
       return false;
 	}
 
-	if (!handle_key_swap(keycode, record))
+	if (!handle_all_keys(keycode, record))
 		return false;
 
 	return true;
@@ -38,12 +38,15 @@ bool key_swap_helper(uint16_t new_key, uint16_t keycode, keyrecord_t* record) {
 	return true;
 }
 
-bool handle_key_swap(uint16_t keycode, keyrecord_t* record) {
+bool handle_all_keys(uint16_t keycode, keyrecord_t* record) {
 	if ((keycode >> 13) && !record->tap.count)
 		return true;
 
 	switch (keycode & 0xFF) {
     case KC_ESC:
+      if (IS_LED_ON(host_keyboard_leds(), USB_LED_CAPS_LOCK) 
+          && record->event.pressed)
+        tap_code(user_config.switch_caps_esc?KC_ESC:KC_CAPS);
       return key_swap_helper(KC_CAPS, keycode, record);
     case KC_CAPS:
 			return key_swap_helper(KC_ESC, keycode, record);
