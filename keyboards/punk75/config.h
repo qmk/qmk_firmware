@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 #define MATRIX_ROW_PINS { D6, D5, C1, C0, D7 }
-#define MATRIX_COL_PINS { C2, C1, C6, C5, C4, A7, A6, A5, A4, B4, A3, B3, A2, B2, A1 }
+#define MATRIX_COL_PINS { C2, C3, C6, C5, C4, A7, A6, A5, A4, B4, A3, B3, A2, B2, A1 }
 #define LED A0
 
 #define ENCODER1_PAD_A D1
