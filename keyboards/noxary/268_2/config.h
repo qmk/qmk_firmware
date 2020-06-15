@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x010C //268
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    Noxary
-#define PRODUCT         Noxary 268.2
+#define PRODUCT         268.2
 #define DESCRIPTION     A fully customizable 65% keyboard.
 
 /* key matrix size */
