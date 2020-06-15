@@ -23,3 +23,4 @@ NKRO_ENABLE = yes            # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 TAP_DANCE_ENABLE = no
+COMBO_ENABLE = yes

@@ -4,7 +4,7 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x6A50
+#define PRODUCT_ID 0x3CAE
 #define DEVICE_VER 0x0001
 #define MANUFACTURER whydobearsexplode
 #define PRODUCT qaz
