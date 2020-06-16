@@ -1,9 +1,10 @@
 # Exclusive E8.5 Hotswap
 
-Custom hotswap PCB for Exclusive E8.5
+Custom hotswap PCB for Exclusive E8.5. This firmware works on both Standard and Tsangan versions provided the correct 
+layout is selected when creating a keymap. 
 
 * Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)
-* Hardware Supported: E8.5 Hotswap PCB, atmega32u4
+* Hardware Supported: E8.5 Hotswap PCB Standard and Tsangan versions, atmega32u4
 * Hardware Availability: [Geekhack GB](https://geekhack.org/index.php?topic=103520)
 
 Make example for this keyboard (after setting up your build environment):
