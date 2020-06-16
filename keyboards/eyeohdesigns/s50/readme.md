@@ -125,13 +125,13 @@ Next is to place the diodes. Unlike the resistors, these can be bent in bulk.  I
 IF YOU THINK YOUR PHONE SCREEN IS SUSCEPTIBLE TO SCRATCHING, DON’T USE THIS METHOD!
 The diodes have a polarity, and must be installed as shown, with the black part of the diode and thick portion of the diode icon on the same side.
 
-![Diode Polarity](https://imgur.com/tFSseUq.jpg)
+![Diode Polarity](https://i.imgur.com/4P6bG6W.jpg)
  
 Now let’s solder the capacitors, diodes, and resistors.  This is best done with the components facing up.  Once all the components are soldered, flip the PCB over, raise the component legs, and use your snips to remove the excess.
  
  
 For the last part of step one, we’ll solder the transistor.  
-![Transistor](https://imgur.com/a/tFSseUq.jpg)
+![Transistor](https://i.imgur.com/qmmZG6A.jpg)
 
 Ensure the flat part of the PCB icon matches the flat part of the transistor.  We want to get the transistor body as close to the PCB as possible.  To do this, use some force to press the body as close to the PCB before soldering , or push just enough of the legs through to solder, and bend the transistor so that it’s parallel with the PCB.
 
