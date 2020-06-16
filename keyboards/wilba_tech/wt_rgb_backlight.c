@@ -974,6 +974,7 @@ const Point g_map_led_to_point_polar[BACKLIGHT_LED_COUNT] PROGMEM = {
     {72,197}, {64,194}, {56,197}, {85,74}, {64,64}, {43,74}, {171,74}, {192,64},
     {255,255}, {255,255}, {255,255}, {255,255},
     {200,196}, {192,192}, {184,196}, {213,74}
+};
 
 #elif defined(RGB_BACKLIGHT_NEBULA65)
 const Point g_map_led_to_point[BACKLIGHT_LED_COUNT] PROGMEM = {
