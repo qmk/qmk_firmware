@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	[0] = LAYOUT_all(
+	[0] = LAYOUT_ortho_5x4(
 		KC_NLCK, KC_PSLS, KC_PAST, KC_TRNS,
 		KC_P7,   KC_P8,   KC_P9,   KC_PEQL,
 		KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
@@ -27,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		MO(1),   KC_0,    KC_PDOT, KC_PENT
 	),
   
-	[1] = LAYOUT_all(
+	[1] = LAYOUT_ortho_5x4(
 		KC_TRNS, RGB_HUI, RGB_HUD,  KC_TRNS, 
 		RGB_SAI, RGB_SAD, KC_MNXT,  KC_MPRV, 
 		RGB_VAI, RGB_VAD, KC_MSTP,  KC_MPLY, 
