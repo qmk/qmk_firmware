@@ -31,5 +31,3 @@ AUDIO_ENABLE = no           # Audio output
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no         # Enable support for HD44780 based LCDs
 LTO_ENABLE = yes
-
-LAYOUTS = tkl_ansi
