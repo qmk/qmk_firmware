@@ -26,3 +26,4 @@ AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = yes
 ENCODER_ENABLE = yes
 
+LAYOUTS = ortho_5x4 numpad_5x4
