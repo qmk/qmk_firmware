@@ -124,6 +124,8 @@ Next is to place the diodes. Unlike the resistors, these can be bent in bulk.  I
  
 IF YOU THINK YOUR PHONE SCREEN IS SUSCEPTIBLE TO SCRATCHING, DON’T USE THIS METHOD!
 The diodes have a polarity, and must be installed as shown, with the black part of the diode and thick portion of the diode icon on the same side.
+
+![Diode Polarity](https://imgur.com/tFSseUq.jpg)
  
 Now let’s solder the capacitors, diodes, and resistors.  This is best done with the components facing up.  Once all the components are soldered, flip the PCB over, raise the component legs, and use your snips to remove the excess.
  
