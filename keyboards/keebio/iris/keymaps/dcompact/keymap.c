@@ -202,7 +202,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
          layer_off(_LNUM);
        }
        return false;
-       break;
      case LFUN:
        if (record->event.pressed) {
          layer_on(_LFUN);
