@@ -131,7 +131,7 @@ Now let’s solder the capacitors, diodes, and resistors.  This is best done wit
  
  
 For the last part of step one, we’ll solder the transistor.  
-![Transistor](https://imgur.com/qmmZG6A.jpg)
+![Transistor](https://imgur.com/a/tFSseUq.jpg)
 
 Ensure the flat part of the PCB icon matches the flat part of the transistor.  We want to get the transistor body as close to the PCB as possible.  To do this, use some force to press the body as close to the PCB before soldering , or push just enough of the legs through to solder, and bend the transistor so that it’s parallel with the PCB.
 
