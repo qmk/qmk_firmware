@@ -187,7 +187,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
          layer_on(_GAME);
        }
        return false;
-       break;
      case EXT_GM:
        if (record->event.pressed) {
          #ifdef AUDIO_ENABLE
