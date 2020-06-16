@@ -196,7 +196,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
          layer_off(_GAME);
        }
        return false;
-       break;
      case LNUM:
        if (record->event.pressed) {
          layer_on(_LNUM);
