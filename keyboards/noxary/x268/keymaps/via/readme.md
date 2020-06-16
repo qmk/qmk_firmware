@@ -1,3 +1,3 @@
-![x268 Layout Image](https://geekhack.org/index.php?action=dlattach;topic=96377.0;attach=198826;image)
+![x268 Layout Image](https://i.imgur.com/D9jQz6g.png)
 
 # The VIA keymap for x268
