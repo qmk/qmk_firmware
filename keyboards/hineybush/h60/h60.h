@@ -96,7 +96,7 @@
     { k400, k401, k402, KC_NO,KC_NO,KC_NO,k406, KC_NO,KC_NO,KC_NO,k410, k411, k412, KC_NO} \
 }
 
-#define LAYOUT_60_tsangan(\
+#define LAYOUT_60_tsangan_split_rshift(\
     k000, k001, k002, k003, k004, k005, k006, k007, k008, k009, k010, k011, k012, k113,       \
     k100, k101, k102, k103, k104, k105, k106, k107, k108, k109, k110, k111, k112, k213,       \
     k200, k201, k202, k203, k204, k205, k206, k207, k208, k209, k210, k211, k212,             \
