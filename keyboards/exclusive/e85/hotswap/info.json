@@ -5,7 +5,7 @@
     "width": 18.25,
     "height": 6.5,
     "layouts": {
-        "LAYOUT_tkl_ansi": {
+        "LAYOUT_tkl_standard": {
             "key_count": 88,
             "layout": [
                 {"label":"K00 (E6,D0)", "x":0, "y":0},
