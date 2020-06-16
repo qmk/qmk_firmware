@@ -6,8 +6,8 @@
         K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
     ) \
     LAYOUT_wrapper( \
-        KC_TAB,  K01, K02, K03, K04, K05,      K06, K07, K08, K09, K0A, KC_MINS, \
-        MT_ESC,  K11, K12, K13, K14, K15,      K16, K17, K18, K19, K1A, KC_QUOT, \
+        KC_ESC,  K01, K02, K03, K04, K05,      K06, K07, K08, K09, K0A, KC_MINS, \
+        MT_TAB,  K11, K12, K13, K14, K15,      K16, K17, K18, K19, K1A, KC_QUOT, \
         OS_LSFT, K21, K22, K23, K24, K25,      K26, K27, K28, K29, K2A, OS_RSFT, \
                 KC_LEAD,OS_LALT, SP_LWER,      ET_RAIS, KC_BSPC, KC_RGUI         \
     )

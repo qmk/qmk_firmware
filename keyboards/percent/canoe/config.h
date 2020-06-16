@@ -20,10 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x20A0
-#define PRODUCT_ID      0x422D
+#define VENDOR_ID       0x5053 /* PS */
+#define PRODUCT_ID      0x434E
 #define DEVICE_VER      0x0200
-#define MANUFACTURER    NotActuallyPercent
+#define MANUFACTURER    Percent Studios
 #define PRODUCT         CANOE
 
 #define RGBLED_NUM 2
@@ -38,9 +38,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCE 5
 
-#define BACKLIGHT_LEVELS 1
-#define RGBLIGHT_ANIMATIONS
+#define BACKLIGHT_PIN D4
+#define BACKLIGHT_LEVELS 3
 
-#define NO_UART 1
+#define RGBLIGHT_ANIMATIONS
 
 #endif

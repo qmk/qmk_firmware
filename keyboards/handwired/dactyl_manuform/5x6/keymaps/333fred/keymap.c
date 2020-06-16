@@ -1,12 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "333fred.h"
 
-enum custom_macros {
-    DLEFT,
-    DRIGHT,
-    PSCREEN_APP
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [BASE] = LAYOUT_5x6(

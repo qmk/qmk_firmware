@@ -1,5 +1,6 @@
 # MCU name
 MCU = STM32F072
+BOARD = ST_STM32F072B_DISCOVERY
 
 # Build Options
 #   comment out to disable the options.
@@ -17,3 +18,6 @@ CUSTOM_MATRIX = no # Custom matrix file
 # RGBLIGHT_ENABLE = yes
 NO_USB_STARTUP_CHECK = yes # Workaround for issue 6369
 
+
+# Enter lower-power sleep mode when on the ChibiOS idle thread
+OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE

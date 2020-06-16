@@ -53,6 +53,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGBLIGHT_ENABLE
 #    include "rgblight.h"
 #endif
+#ifdef ENCODER_ENABLE
+#    include "encoder.h"
+#endif
 #ifdef STENO_ENABLE
 #    include "process_steno.h"
 #endif
@@ -85,6 +88,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #ifdef VIA_ENABLE
 #    include "via.h"
+#endif
+#ifdef DIP_SWITCH_ENABLE
+#    include "dip_switch.h"
 #endif
 
 // Only enable this if console is enabled to print to
@@ -213,6 +219,13 @@ void keyboard_setup(void) {
  */
 __attribute__((weak)) bool is_keyboard_master(void) { return true; }
 
+/** \brief should_process_keypress
+ *
+ * Override this function if you have a condition where keypresses processing should change:
+ *   - splits where the slave side needs to process for rgb/oled functionality
+ */
+__attribute__((weak)) bool should_process_keypress(void) { return is_keyboard_master(); }
+
 /** \brief keyboard_init
  *
  * FIXME: needs doc
@@ -249,6 +262,9 @@ void keyboard_init(void) {
 #ifdef RGBLIGHT_ENABLE
     rgblight_init();
 #endif
+#ifdef ENCODER_ENABLE
+    encoder_init();
+#endif
 #ifdef STENO_ENABLE
     steno_init();
 #endif
@@ -262,6 +278,10 @@ void keyboard_init(void) {
     keymap_config.nkro = 1;
     eeconfig_update_keymap(keymap_config.raw);
 #endif
+#ifdef DIP_SWITCH_ENABLE
+    dip_switch_init();
+#endif
+
     keyboard_post_init_kb(); /* Always keep this last */
 }
 
@@ -292,7 +312,7 @@ void keyboard_task(void) {
     matrix_scan();
 #endif
 
-    if (is_keyboard_master()) {
+    if (should_process_keypress()) {
         for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
             matrix_row    = matrix_get_row(r);
             matrix_change = matrix_row ^ matrix_prev[r];
@@ -333,6 +353,20 @@ MATRIX_LOOP_END:
 
 #ifdef DEBUG_MATRIX_SCAN_RATE
     matrix_scan_perf_task();
+#endif
+
+#if defined(RGBLIGHT_ENABLE)
+    rgblight_task();
+#endif
+
+#if defined(BACKLIGHT_ENABLE)
+#    if defined(BACKLIGHT_PIN) || defined(BACKLIGHT_PINS)
+    backlight_task();
+#    endif
+#endif
+
+#ifdef ENCODER_ENABLE
+    encoder_read();
 #endif
 
 #ifdef QWIIC_ENABLE

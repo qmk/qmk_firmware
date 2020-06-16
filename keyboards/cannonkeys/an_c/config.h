@@ -21,8 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xCA04
 #define PRODUCT_ID      0xA00C
 #define DEVICE_VER      0x0001
-/* in python2: list(u"whatever".encode('utf-16-le')) */
-/*   at most 32 characters or the ugly hack in usb_main.c borks */
 #define MANUFACTURER CannonKeys
 #define PRODUCT AN-C
 #define DESCRIPTION AN-C Keyboard
@@ -35,6 +33,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B1, B0, A7, A5, A4 }
 #define DIODE_DIRECTION COL2ROW
 
+#define BACKLIGHT_PIN           A6
+#define BACKLIGHT_PWM_DRIVER    PWMD3
+#define BACKLIGHT_PWM_CHANNEL   1
+#define BACKLIGHT_PAL_MODE      1
 #define BACKLIGHT_LEVELS 6
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 6
@@ -51,16 +53,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 #define RGBLIGHT_ANIMATIONS
-
-#define WS2812_LED_N 14
-#define RGBLED_NUM WS2812_LED_N
-#define PORT_WS2812     GPIOB
-#define PIN_WS2812      15
+#define RGB_DI_PIN B15
+#define RGBLED_NUM 14
 #define WS2812_SPI SPID2
-
-// Backlight config starts after VIA's EEPROM usage,
-// dynamic keymaps start after this.
-#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 1
+#define WS2812_SPI_MOSI_PAL_MODE 0
 
 /*
  * Feature disable options

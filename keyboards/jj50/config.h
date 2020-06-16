@@ -25,10 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0x20A0
 #define PRODUCT_ID      0x422D
 #define DEVICE_VER      0x0200
-// TODO: share these strings with usbconfig.h
-// Edit usbconfig.h to change these.
-#define MANUFACTURER    kprepublic
-#define PRODUCT         jj50
+#define MANUFACTURER    KPrepublic
+#define PRODUCT         JJ50
 #define DESCRIPTION     Preonic-like clone
 
 /* matrix size */
@@ -38,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4 }
 #define DIODE_DIRECTION COL2ROW
 
-//#define BACKLIGHT_PIN D4
+#define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 12
 
 #define RGB_DI_PIN E2
@@ -47,7 +45,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 15
 #define RGBLIGHT_VAL_STEP 18
-
-#define NO_UART 1
 
 #endif

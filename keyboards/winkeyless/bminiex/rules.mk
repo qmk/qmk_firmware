@@ -19,14 +19,9 @@ CONSOLE_ENABLE = no
 DEBUG_ENABLE = no
 COMMAND_ENABLE = no
 BACKLIGHT_ENABLE = yes
-BACKLIGHT_CUSTOM_DRIVER = yes
 RGBLIGHT_ENABLE = yes
 WS2812_DRIVER = i2c
 TAP_DANCE_ENABLE = no
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
-
-OPT_DEFS = -DDEBUG_LEVEL=0
-
-SRC += backlight.c

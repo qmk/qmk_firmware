@@ -123,17 +123,17 @@ void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
     switch ( *command_id )
     {
 #if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
-        case id_backlight_config_set_value:
+        case id_lighting_set_value:
         {
             backlight_config_set_value(command_data);
             break;
         }
-        case id_backlight_config_get_value:
+        case id_lighting_get_value:
         {
             backlight_config_get_value(command_data);
             break;
         }
-        case id_backlight_config_save:
+        case id_lighting_save:
         {
             backlight_config_save();
             break;

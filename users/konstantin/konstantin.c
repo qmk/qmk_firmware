@@ -69,7 +69,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case CLEAR:
         if (record->event.pressed) {
             CLEAN_MODS(
-                SEND_STRING(SS_LCTRL("a") SS_TAP(X_DELETE));
+                SEND_STRING(SS_LCTL("a") SS_TAP(X_DELETE));
             )
         }
         break;
@@ -116,4 +116,13 @@ void led_set_keymap(uint8_t usb_led) {}
 
 void led_set_user(uint8_t usb_led) {
     led_set_keymap(usb_led);
+}
+
+__attribute__((weak))
+bool led_update_keymap(led_t led_state) {
+    return true;
+}
+
+bool led_update_user(led_t led_state) {
+    return led_update_keymap(led_state);
 }

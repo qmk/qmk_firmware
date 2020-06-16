@@ -20,8 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFAAD
 #define PRODUCT_ID      0x422D
 #define DEVICE_VER      0x0200
-// You can edit those at usbconfig.h about line 250. These values will
-// unforunatly be ignored so far
 #define MANUFACTURER    HNB
 #define PRODUCT         DB63v1 Hotswap
 
@@ -32,11 +30,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4, C3, C2 }
 #define UNUSED_PINS
 
+#define DIODE_DIRECTION COL2ROW
+
 #define RGBLED_NUM 18
 #define RGBLIGHT_ANIMATIONS
 
-#define NO_UART 1
-
 #define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 3
-

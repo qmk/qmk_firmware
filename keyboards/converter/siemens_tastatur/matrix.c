@@ -33,57 +33,52 @@ volatile uint16_t portb_buffer = 0;
 
 static uint32_t switch_buffer = 0;
 
-// Trigger on negative edge of any of the sense lines.
-static void extcb1(EXTDriver *extp, expchannel_t channel) {
+static void pal_cb(void* unused);
 
-    (void)extp;
-    (void)channel;
+static void enable_input_events(void)
+{
+    palDisablePadEventI(GPIOA, 0);
+    palDisablePadEventI(GPIOA, 1);
+    palDisablePadEventI(GPIOA, 2);
+    palDisablePadEventI(GPIOA, 9);
+    palDisablePadEventI(GPIOA, 10);
+    palDisablePadEventI(GPIOB, 12);
+    palDisablePadEventI(GPIOB, 13);
+    palDisablePadEventI(GPIOB, 14);
+    palDisablePadEventI(GPIOB, 15);
+
+    palEnablePadEventI(GPIOA, 0, PAL_EVENT_MODE_FALLING_EDGE);
+    palEnablePadEventI(GPIOA, 1, PAL_EVENT_MODE_FALLING_EDGE);
+    palEnablePadEventI(GPIOA, 2, PAL_EVENT_MODE_FALLING_EDGE);
+    palEnablePadEventI(GPIOA, 9, PAL_EVENT_MODE_FALLING_EDGE);
+    palEnablePadEventI(GPIOA, 10, PAL_EVENT_MODE_FALLING_EDGE);
+    palEnablePadEventI(GPIOB, 12, PAL_EVENT_MODE_FALLING_EDGE);
+    palEnablePadEventI(GPIOB, 13, PAL_EVENT_MODE_FALLING_EDGE);
+    palEnablePadEventI(GPIOB, 14, PAL_EVENT_MODE_FALLING_EDGE);
+    palEnablePadEventI(GPIOB, 15, PAL_EVENT_MODE_FALLING_EDGE);
+
+    palSetPadCallbackI(GPIOA, 0, &pal_cb, 0);
+    palSetPadCallbackI(GPIOA, 1, &pal_cb, 0);
+    palSetPadCallbackI(GPIOA, 2, &pal_cb, 0);
+    palSetPadCallbackI(GPIOA, 9, &pal_cb, 0);
+    palSetPadCallbackI(GPIOA, 10, &pal_cb, 0);
+    palSetPadCallbackI(GPIOB, 12, &pal_cb, 0);
+    palSetPadCallbackI(GPIOB, 13, &pal_cb, 0);
+    palSetPadCallbackI(GPIOB, 14, &pal_cb, 0);
+    palSetPadCallbackI(GPIOB, 15, &pal_cb, 0);
+}
+
+// Trigger on negative edge of any of the sense lines.
+static void pal_cb(void* unused) {
+
+    (void)unused;
     chSysLockFromISR();
     porta_buffer = palReadPort(GPIOA);
     portb_buffer = palReadPort(GPIOB);
     //Disable further interrupts that might occur on same button press.
-    extChannelDisable(&EXTD1,0);
-    extChannelDisable(&EXTD1,1);
-    extChannelDisable(&EXTD1,2);
-    extChannelDisable(&EXTD1,9);
-    extChannelDisable(&EXTD1,10);
-    extChannelDisable(&EXTD1,12);
-    extChannelDisable(&EXTD1,13);
-    extChannelDisable(&EXTD1,14);
-    extChannelDisable(&EXTD1,15);
-
-    extChannelEnable(&EXTD1,0);
-    extChannelEnable(&EXTD1,1);
-    extChannelEnable(&EXTD1,2);
-    extChannelEnable(&EXTD1,9);
-    extChannelEnable(&EXTD1,10);
-    extChannelEnable(&EXTD1,12);
-    extChannelEnable(&EXTD1,13);
-    extChannelEnable(&EXTD1,14);
-    extChannelEnable(&EXTD1,15);
+    enable_input_events();
     chSysUnlockFromISR();
 }
-
-static const EXTConfig extcfg = {
-    {
-        {EXT_CH_MODE_FALLING_EDGE | EXT_CH_MODE_AUTOSTART | EXT_MODE_GPIOA, extcb1 }, //0
-        {EXT_CH_MODE_FALLING_EDGE | EXT_CH_MODE_AUTOSTART | EXT_MODE_GPIOA, extcb1 }, //1
-        {EXT_CH_MODE_FALLING_EDGE | EXT_CH_MODE_AUTOSTART | EXT_MODE_GPIOA, extcb1 }, //2
-        {EXT_CH_MODE_DISABLED, NULL},
-        {EXT_CH_MODE_DISABLED, NULL},
-        {EXT_CH_MODE_DISABLED, NULL},
-        {EXT_CH_MODE_DISABLED, NULL},
-        {EXT_CH_MODE_DISABLED, NULL},
-        {EXT_CH_MODE_DISABLED, NULL},
-        {EXT_CH_MODE_FALLING_EDGE | EXT_CH_MODE_AUTOSTART | EXT_MODE_GPIOA, extcb1 }, //9
-        {EXT_CH_MODE_FALLING_EDGE | EXT_CH_MODE_AUTOSTART | EXT_MODE_GPIOA, extcb1 }, //10
-        {EXT_CH_MODE_DISABLED, NULL},
-        {EXT_CH_MODE_FALLING_EDGE | EXT_CH_MODE_AUTOSTART | EXT_MODE_GPIOB, extcb1 }, //12
-        {EXT_CH_MODE_FALLING_EDGE | EXT_CH_MODE_AUTOSTART | EXT_MODE_GPIOB, extcb1 }, //13
-        {EXT_CH_MODE_FALLING_EDGE | EXT_CH_MODE_AUTOSTART | EXT_MODE_GPIOB, extcb1 }, //14
-        {EXT_CH_MODE_FALLING_EDGE | EXT_CH_MODE_AUTOSTART | EXT_MODE_GPIOB, extcb1 }  //15
-    },
-};
 
 void matrix_init(void) {
     //Set I/O as pull-up inputs to read states
@@ -115,8 +110,10 @@ void matrix_init(void) {
     memset(matrix_debouncing, 0, MATRIX_ROWS * sizeof(matrix_row_t));
 
     matrix_init_quantum();
-    //Start interrupt driver
-    extStart(&EXTD1, &extcfg);
+
+    osalSysLock();
+    enable_input_events();
+    osalSysUnlock();
 }
 
 uint8_t matrix_scan(void) {
@@ -202,7 +199,7 @@ uint8_t matrix_scan(void) {
         case 0x18FEB: matrix[3] = 0x10000; break;
         case 0x3FF69: matrix[3] = 0x20000; break;
         case 0x3A37B: matrix[3] = 0x40000; break;
-        default: 
+        default:
                  if ((portb_buffer & 0x1000) == 0) { matrix[1] = 0x4000; break; }
                  if ((portb_buffer & 0x2000) == 0) { matrix[3] = 0x4000; break; }
                  if ((portb_buffer & 0x4000) == 0) { matrix[0] = 0x4000; break; }
