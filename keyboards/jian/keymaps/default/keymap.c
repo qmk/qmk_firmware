@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                               _______, _______, _______,      _______, _______, _______
 ),
 
-[_ADJUST] = SYMM_LAYOUT(
+[_ADJUST] = LAYOUT_symmetric(
   RESET,   DEBUG,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
            XXXXXXX,        WORKMAN, COLEMAK, DVORAK,  QWERTY,  XXXXXXX,
            TG(_BCKLT_ADJ), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 #if defined(RGBLIGHT) || defined(BACKLIGHT_ENABLE)
-[_BCKLT_ADJ] = SYMM_LAYOUT(
+[_BCKLT_ADJ] = LAYOUT_symmetric(
   XXXXXXX, XXXXXXX,        XXXXXXX, BL_INC,  RGB_VAI, RGB_HUD, RGB_HUI,
            XXXXXXX,        XXXXXXX, BL_DEC,  RGB_VAD, RGB_SAD, RGB_SAI,
            TG(_BCKLT_ADJ), BL_BRTG, BL_TOGG, RGB_TOG, RGB_RMOD,RGB_MOD,
