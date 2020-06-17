@@ -1,1 +1,2 @@
 #define USE_LEDS_FOR_LAYERS
+#define STOPLIGHT_LED

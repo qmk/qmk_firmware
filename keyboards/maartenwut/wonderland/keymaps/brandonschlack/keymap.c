@@ -1,14 +1,10 @@
 #include QMK_KEYBOARD_H
 #include "brandonschlack.h"
 
+// LEDs
 #define TOP_LED    B1
 #define MIDDLE_LED B2
 #define BOTTOM_LED B3
-
-bool is_led_stoplight_active = false;
-uint8_t led_stoplight_index = 0;
-uint16_t led_stoplight_timer = 0;
-void matrix_scan_led_stoplight(void);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE] = LAYOUT( \
@@ -54,7 +50,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 };
 
-void keyboard_post_init_keymap(void) {
+#ifdef STOPLIGHT_LED
+bool is_led_stoplight_active = false;
+uint8_t led_stoplight_index = 0;
+uint16_t led_stoplight_timer = 0;
+void matrix_scan_led_stoplight(void);
+
+void led_stoplight_start(void) {
     writePinHigh(TOP_LED);
     writePinHigh(MIDDLE_LED);
     writePinHigh(BOTTOM_LED);
@@ -63,20 +65,32 @@ void keyboard_post_init_keymap(void) {
     led_stoplight_timer = timer_read();
 };
 
+void led_stoplight_set(pin_t pin) {
+    writePinLow(pin);
+};
+
+void led_stoplight_end(void) {
+    // Reset timer and status variables
+    led_stoplight_index = 0;
+    is_led_stoplight_active = false;
+    led_stoplight_timer = 0;
+    led_update_kb(host_keyboard_led_state());
+};
+
 void matrix_scan_led_stoplight(void) {
     if (is_led_stoplight_active) {
         if (timer_elapsed(led_stoplight_timer) > (1000 * (led_stoplight_index + 1))) {
             switch (led_stoplight_index){
                 case 0:
-                    writePinLow(TOP_LED);
+                    led_stoplight_set(TOP_LED);
                     led_stoplight_index++;
                     break;
                 case 1:
-                    writePinLow(MIDDLE_LED);
+                    led_stoplight_set(MIDDLE_LED);
                     led_stoplight_index++;
                     break;
                 case 2:
-                    writePinLow(BOTTOM_LED);
+                    led_stoplight_set(BOTTOM_LED);
                     led_stoplight_index++;
                     break;
                 default:
@@ -85,14 +99,22 @@ void matrix_scan_led_stoplight(void) {
                     led_stoplight_timer = 0;
                     led_update_kb(host_keyboard_led_state());
                     break;
-
             }
         }
     }
 };
+#endif
+
+void keyboard_post_init_keymap(void) {
+#ifdef STOPLIGHT_LED
+    led_stoplight_start();
+#endif
+};
 
 void matrix_scan_keymap(void) {
+#ifdef STOPLIGHT_LED
     matrix_scan_led_stoplight();
+#endif
 };
 
 #ifdef USE_LEDS_FOR_LAYERS
