@@ -22,7 +22,7 @@
 
 enum layer { DEFAULT };
 enum custom_keycode { LED_MODE = SAFE_RANGE };
-enum lightshow_pattern { LEVELMETER, PARTY };
+enum lightshow_pattern { LEVELMETER, LEVELMETER_PEAK, PARTY };
 
 enum lightshow_pattern pattern = LEVELMETER;
 
@@ -40,6 +40,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
    case LED_MODE:
     if (record->event.pressed) {
       pattern = pattern == LEVELMETER ? (
+        LEVELMETER_PEAK
+      ) : pattern == LEVELMETER_PEAK ? (
         PARTY
       ) : (
         LEVELMETER
@@ -54,33 +56,33 @@ void keyboard_post_init_user (void) {
   msgeq7_init();
 }
 
-int _map (int val, int sfrom, int sto, int dfrom, int dto) {
-  if (val < sfrom) return dfrom;
-  else if (val > sto) return dto;
+int _map (int val, int sfrom, int sto, int dfrom, int dto, bool bound) {
+  if (val < sfrom) return (bound ? 0 : dfrom);
+  else if (val > sto) return (bound ? 0 : dto);
   else return (val - sfrom) * (dto - dfrom) / (sto - sfrom) + dfrom;
 }
 
-void process_lightshow_levelmeter (int *values) {
+void process_lightshow_levelmeter (int *values, bool peak) {
   /* r1 */
-  sethsv(80, 255, _map(values[0] + values[0], THRESHOLD * 2, 1024 * 2, 0, 96), &led[3]);
-  sethsv(80, 255, _map(values[1] + values[2], THRESHOLD * 2, 1024 * 2, 0, 96), &led[2]);
-  sethsv(80, 255, _map(values[3] + values[4], THRESHOLD * 2, 1024 * 2, 0, 96), &led[1]);
-  sethsv(80, 255, _map(values[5] + values[6], THRESHOLD * 2, 1024 * 2, 0, 96), &led[0]);
+  sethsv(80, 255, _map(values[0] + values[0], THRESHOLD * 2, 1024 * 2, 0, 96, peak), &led[3]);
+  sethsv(80, 255, _map(values[1] + values[2], THRESHOLD * 2, 1024 * 2, 0, 96, peak), &led[2]);
+  sethsv(80, 255, _map(values[3] + values[4], THRESHOLD * 2, 1024 * 2, 0, 96, peak), &led[1]);
+  sethsv(80, 255, _map(values[5] + values[6], THRESHOLD * 2, 1024 * 2, 0, 96, peak), &led[0]);
   /* r2 */
-  sethsv(100, 255, _map(values[0] + values[0], THRESHOLD, THRESHOLD * 2, 0, 96), &led[7]);
-  sethsv(100, 255, _map(values[1] + values[2], THRESHOLD, THRESHOLD * 2, 0, 96), &led[6]);
-  sethsv(100, 255, _map(values[3] + values[4], THRESHOLD, THRESHOLD * 2, 0, 96), &led[5]);
-  sethsv(100, 255, _map(values[5] + values[6], THRESHOLD, THRESHOLD * 2, 0, 96), &led[4]);
+  sethsv(100, 255, _map(values[0] + values[0], THRESHOLD, THRESHOLD * 2, 0, 96, peak), &led[7]);
+  sethsv(100, 255, _map(values[1] + values[2], THRESHOLD, THRESHOLD * 2, 0, 96, peak), &led[6]);
+  sethsv(100, 255, _map(values[3] + values[4], THRESHOLD, THRESHOLD * 2, 0, 96, peak), &led[5]);
+  sethsv(100, 255, _map(values[5] + values[6], THRESHOLD, THRESHOLD * 2, 0, 96, peak), &led[4]);
   /* r3 */
-  sethsv(120, 255, _map(values[0] + values[0], THRESHOLD / 2, THRESHOLD, 0, 96), &led[11]);
-  sethsv(120, 255, _map(values[1] + values[2], THRESHOLD / 2, THRESHOLD, 0, 96), &led[10]);
-  sethsv(120, 255, _map(values[3] + values[4], THRESHOLD / 2, THRESHOLD, 0, 96), &led[9]);
-  sethsv(120, 255, _map(values[5] + values[6], THRESHOLD / 2, THRESHOLD, 0, 96), &led[8]);
+  sethsv(120, 255, _map(values[0] + values[0], THRESHOLD / 2, THRESHOLD, 0, 96, peak), &led[11]);
+  sethsv(120, 255, _map(values[1] + values[2], THRESHOLD / 2, THRESHOLD, 0, 96, peak), &led[10]);
+  sethsv(120, 255, _map(values[3] + values[4], THRESHOLD / 2, THRESHOLD, 0, 96, peak), &led[9]);
+  sethsv(120, 255, _map(values[5] + values[6], THRESHOLD / 2, THRESHOLD, 0, 96, peak), &led[8]);
   /* r4 */
-  sethsv(140, 255, _map(values[0] + values[0], THRESHOLD / 4, THRESHOLD / 2, 0, 96), &led[15]);
-  sethsv(140, 255, _map(values[1] + values[2], THRESHOLD / 4, THRESHOLD / 2, 0, 96), &led[14]);
-  sethsv(140, 255, _map(values[3] + values[4], THRESHOLD / 4, THRESHOLD / 2, 0, 96), &led[13]);
-  sethsv(140, 255, _map(values[5] + values[6], THRESHOLD / 4, THRESHOLD / 2, 0, 96), &led[12]);
+  sethsv(140, 255, _map(values[0] + values[0], THRESHOLD / 4, THRESHOLD / 2, 0, 96, peak), &led[15]);
+  sethsv(140, 255, _map(values[1] + values[2], THRESHOLD / 4, THRESHOLD / 2, 0, 96, peak), &led[14]);
+  sethsv(140, 255, _map(values[3] + values[4], THRESHOLD / 4, THRESHOLD / 2, 0, 96, peak), &led[13]);
+  sethsv(140, 255, _map(values[5] + values[6], THRESHOLD / 4, THRESHOLD / 2, 0, 96, peak), &led[12]);
   /* flush */
   ws2812_setleds(led, 16);
 }
@@ -124,7 +126,9 @@ void matrix_scan_user (void) {
   if (!delay) {
     msgeq7_read(values);
     if (pattern == LEVELMETER) {
-      process_lightshow_levelmeter(values);
+      process_lightshow_levelmeter(values, false);
+    } else if (pattern == LEVELMETER_PEAK) {
+      process_lightshow_levelmeter(values, true);
     } else if (pattern == PARTY) {
       process_lightshow_party(values);
     }
