@@ -190,20 +190,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;   
     case FORM_GET:
       if (record->event.pressed) {
-        //click KC_MS_BTN1
-        //register_code16(KC_BTN1);
-        //unregister_code16(KC_BTN1);
-        tap_code16(KC_MS_BTN1);
-        SEND_STRING(SS_LGUI("a"));
-        SEND_STRING(SS_LGUI("c"));
+        tap_code(KC_BTN1);
+        tap_code16(G(KC_A));
+        tap_code16(G(KC_C));
       }
       return false;
       break;
     case FORM_PUT:
       if (record->event.pressed) {
-        tap_code16(KC_MS_BTN1);
-        SEND_STRING(SS_LGUI("a"));
-        SEND_STRING(SS_LGUI("v"));
+        tap_code(KC_BTN1);
+        tap_code16(G(KC_A));
+        tap_code16(G(KC_V));
       }
       return false;
       break;
@@ -253,23 +250,4 @@ void matrix_scan_user(void) {
             break;
     }
 
-        // LEADER_DICTIONARY() {
-    //   leading = false;
-    //   leader_end();
-
-    //   SEQ_ONE_KEY(KC_F) {
-    //     register_code(KC_S);
-    //     unregister_code(KC_S);
-    //   }
-    //   SEQ_TWO_KEYS(KC_A, KC_S) {
-    //     register_code(KC_H);
-    //     unregister_code(KC_H);
-    //   }
-    //   SEQ_THREE_KEYS(KC_A, KC_S, KC_D) {
-    //     register_code(KC_LGUI);
-    //     register_code(KC_S);
-    //     unregister_code(KC_S);
-    //     unregister_code(KC_LGUI);
-    //   }
-    // }
 };

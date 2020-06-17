@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TD(FRBK2)  , KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,  TO(EDIT), KC_ESCAPE,         KC_DEL, TO(NUMPAD),  KC_N, KC_M,     KC_COMM, KC_DOT, LT(MEDIA,KC_SLSH), KC_MS_BTN1,
                            TO(ADJUST), TD(SGCA), TD(AGC), KC_BSPACE, TD(SHNTC),          SFTENT,  KC_SPC,   TD(GCA), TD(CTLALL), KC_CAPS
     ),*/
-  [QWERTY] = LAYOUT_STACK(
+  [QWERTY] = LAYOUT_stack(
     KC_TAB   , KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                             
     OSL(EDIT), KC_A, LT(NUMPAD,KC_S), KC_D, LT(FSYM,KC_F), KC_G,                 
     TD(FRBK2)  , KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,  TO(EDIT), KC_ESCAPE,     
@@ -237,10 +237,10 @@ static void render_status(void) {
     }
 */
     // Host Keyboard LED Status
-    uint8_t led_usb_state = host_keyboard_leds();
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR("NUMLCK ") : PSTR("       "), false);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR("CAPLCK ") : PSTR("       "), false);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
+    led_t led_state = host_keyboard_led_state();
+    oled_write_P(led_state.num_lock ? PSTR("NUMLCK ") : PSTR("       "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("CAPLCK ") : PSTR("       "), false);
+    oled_write_P(led_state.scroll_lock ? PSTR("SCRLCK ") : PSTR("       "), false);
 }
 
 void oled_task_user(void) {
@@ -256,7 +256,7 @@ void oled_task_user(void) {
 #ifdef ENCODER_ENABLE
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
-        switch (biton32(layer_state)) {
+        switch (get_highest_layer(layer_state)) {
             case EDIT:
                 // Move whole words. Hold shift to select while moving.
                 if (clockwise) {
@@ -277,7 +277,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 break;
         }
     } else if (index == 1) {
-        switch (biton32(layer_state)) {
+        switch (get_highest_layer(layer_state)) {
             case QWERTY:
                 // Scrolling with PageUp and PgDn.
                 if (clockwise) {
@@ -304,23 +304,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case FORM_GET:
       if (record->event.pressed) {
-        //click KC_MS_BTN1
-        //register_code16(KC_BTN1);
-        //unregister_code16(KC_BTN1);
-        tap_code16(KC_MS_BTN1);
-        SEND_STRING(SS_LGUI("a"));
-        SEND_STRING(SS_LGUI("c"));
+        tap_code(KC_BTN1);
+        tap_code16(G(KC_A));
+        tap_code16(G(KC_C));
       }
       return false;
-      break;
     case FORM_PUT:
       if (record->event.pressed) {
         tap_code16(KC_MS_BTN1);
-        SEND_STRING(SS_LGUI("a"));
-        SEND_STRING(SS_LGUI("v"));
+        tap_code16(G(KC_A));
+        tap_code16(G(KC_V));
       }
       return false;
-      break;
   }
   return true;
 }

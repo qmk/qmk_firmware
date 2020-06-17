@@ -150,32 +150,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-// const uint16_t PROGMEM fn_actions[] = {
-//   [1] = ACTION_LAYER_TAP_TOGGLE(1)
-// };
-
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // dynamically generate these.
-    case EPRM:
-      if (record->event.pressed) {
-        eeconfig_init();
-      }
-      return false;
-      break;
     case VRSN:
       if (record->event.pressed) {
         SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
       }
       return false;
-      break;   
   }
   return true;
 }
 
-
-// LEADER_EXTERNS();
 
 void matrix_scan_user(void) {
 
@@ -216,23 +202,4 @@ void matrix_scan_user(void) {
             break;
     }
 
-        // LEADER_DICTIONARY() {
-    //   leading = false;
-    //   leader_end();
-
-    //   SEQ_ONE_KEY(KC_F) {
-    //     register_code(KC_S);
-    //     unregister_code(KC_S);
-    //   }
-    //   SEQ_TWO_KEYS(KC_A, KC_S) {
-    //     register_code(KC_H);
-    //     unregister_code(KC_H);
-    //   }
-    //   SEQ_THREE_KEYS(KC_A, KC_S, KC_D) {
-    //     register_code(KC_LGUI);
-    //     register_code(KC_S);
-    //     unregister_code(KC_S);
-    //     unregister_code(KC_LGUI);
-    //   }
-    // }
 };

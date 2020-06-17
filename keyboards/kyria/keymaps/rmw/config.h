@@ -31,7 +31,7 @@
 // #define SPLIT_USB_DETECT
 // #define NO_USB_STARTUP_CHECK
 
-#define LAYOUT_STACK( 								\
+#define LAYOUT_stack( 								\
     L00, L01, L02, L03, L04, L05,           		\
     L12, L13, L14, L15, L16, L17,           		\
     L24, L25, L26, L27, L28, L29, L30, L31, 		\

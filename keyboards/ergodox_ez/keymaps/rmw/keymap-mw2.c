@@ -277,57 +277,43 @@ char * macwin_codes[17][2] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // dynamically generate these.
-    case EPRM:
-      if (record->event.pressed) {
-        eeconfig_init();
-      }
-      return false;
-      break;
     case VRSN:
       if (record->event.pressed) {
         SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
       }
       return false;
-      break;
     case FORM_GET:
       if (record->event.pressed) {
-        //click KC_MS_BTN1
-        //register_code16(KC_BTN1);
-        //unregister_code16(KC_BTN1);
-        tap_code16(KC_MS_BTN1);
+        tap_code(KC_BTN1);
         if (mac) {
-          SEND_STRING(SS_LGUI("a"));
-          SEND_STRING(SS_LGUI("c"));
+          tap_code16(G(KC_A));
+          tap_code16(G(KC_C));
         }
         else {
-          SEND_STRING(SS_LCTRL("a"));
-          SEND_STRING(SS_LCTRL("c"));
+          tap_code16(C(KC_A));
+          tap_code16(C(KC_C));
         }
       }
       return false;
-      break;
     case FORM_PUT:
       if (record->event.pressed) {
-        tap_code16(KC_MS_BTN1);
+        tap_code(KC_BTN1);
         if (mac) {
-          SEND_STRING(SS_LGUI("a"));
-          SEND_STRING(SS_LGUI("v"));
+          tap_code16(G(KC_A));
+          tap_code16(G(KC_V));
         }
         else {
-          SEND_STRING(SS_LCTRL("a"));
-          SEND_STRING(SS_LCTRL("v"));
+          tap_code16(C(KC_A));
+          tap_code16(C(KC_V));
         }
       }
       return false;
-      break;
 
     case MAC_WIN:
       if (record->event.pressed) {
         mac = !mac;
-        //SEND_STRING("MAC_WIN");
       }
       return false;
-      break;
 
     case MVW_LEFT ... SEL_END: 
       if (record->event.pressed) {
@@ -341,9 +327,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           send_string(macwin_codes[index][0]);
           // something here needs to clear the one-shot layer.
         }
-        return false;
       }
-      break;
+      return false;
   }
     return true;
 }

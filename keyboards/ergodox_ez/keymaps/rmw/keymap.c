@@ -1,6 +1,4 @@
 #include "ergodox_ez.h"
-#include "debug.h"
-#include "action_layer.h"
 #include "version.h"
 
 #define LONGPRESS_DELAY 180
