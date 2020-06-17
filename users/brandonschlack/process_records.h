@@ -76,6 +76,7 @@ void matrix_scan_cmd_tab(void);
 #define DWN_FN2   LT(2, KC_DOWN)       // Tap Fn2 for Down
 #define DWN_RAI   DWN_FN2              // Tap Raise for Down
 #define DWN_OPT   ROPT_T(KC_DOWN)      // Tap Right Option for Down
+#define RGT_SFT   RSFT_T(KC_RGHT)      // Tap Right Shift for Right
 #define RGT_OPT   ROPT_T(KC_RGHT)      // Tap Right Option for Right
 #define RGT_CTL   RCTL_T(KC_RGHT)      // Tap Right Ctrl for Right
 /**
