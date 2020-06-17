@@ -28,6 +28,7 @@ enum layer_numbers {
 #define KC_WEEL   MO(WHEEL)
 #define KC_MOUSE  MO(MOUSE)
 #define KC_BASE   TO(BASE)
+#define KC_DSCO   LCTL(LSFT(LALT(KC_N)))
 
 #define KC_RST  RESET
 #define KC_MUP  KC_MS_U
@@ -61,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|------+------+------+------+------+------+------+------+------+------+------+------|
         LSFT , Z    , X    , C    , V    , B    , N    , M    , COMM , DOT  , SLSH , \
 //    `------+------+------+------+------+------+------+------+------+------+------'
-                         ____ ,ES_ALT, SPC  ,EN_RAI, BSPC, ____   \
+                         DSCO ,ES_ALT, SPC  ,EN_RAI, FUNC, ____   \
 //                     `------+------+------+------+------+------'
 ),
 
