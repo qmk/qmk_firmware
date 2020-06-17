@@ -20,8 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-// if you need more program area, try uncomment follow line
-#include "serial_config_simpleapi.h"
 
 // place overrides here
 // Selection of RGBLIGHT MODE to use.
