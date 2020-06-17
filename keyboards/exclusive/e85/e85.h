@@ -20,6 +20,7 @@
 
 #define ___ KC_NO
 
+// This is the layout for one hotswap PCB and can also be used on the soldered edition 
 #define LAYOUT_tkl_standard( \
     K00,  K01, K02, K03, K04,  K05, K06, K07, K08,  K68, K67, K65, K64,   K63,  K66, K62, K61,  \
     K10, K11, K12, K13, K14, K15, K16, K17, K18, K78, K70, K77, K75, K73,       K76, K72, K71,  \
@@ -41,6 +42,7 @@
     { KC_NO, KA1,   KA2,   KC_NO, KA4,   KA5,   KA6,   KA7,   KA8   }, \
 }
 
+// This is the layout for one hotswap PCB and can also be used on the soldered edition 
 #define LAYOUT_tkl_tsangan( \
     K00,  K01, K02, K03, K04,  K05, K06, K07, K08,  K68, K67, K65, K64,   K63,  K66, K62, K61,  \
     K10, K11, K12, K13, K14, K15, K16, K17, K18, K78, K70, K77, K75, K73,       K76, K72, K71,  \
