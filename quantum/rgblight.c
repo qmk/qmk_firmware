@@ -628,6 +628,13 @@ void rgblight_set_layer_state(uint8_t layer, bool enabled) {
     if (rgblight_status.timer_enabled == false) {
         rgblight_mode_noeeprom(rgblight_config.mode);
     }
+
+#    ifdef RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
+    // If not enabled, then nothing else will actually set the LEDs...
+    if (!rgblight_config.enable) {
+        rgblight_set();
+    }
+#    endif
 }
 
 bool rgblight_get_layer_state(uint8_t layer) {
@@ -665,9 +672,9 @@ static void rgblight_layers_write(void) {
 }
 
 #    ifdef RGBLIGHT_LAYER_BLINK
-uint8_t         _blinked_layer_mask = 0;
-uint16_t        _blink_duration     = 0;
-static uint16_t _blink_timer;
+rgblight_layer_mask_t _blinked_layer_mask = 0;
+uint16_t              _blink_duration     = 0;
+static uint16_t       _blink_timer;
 
 void rgblight_blink_layer(uint8_t layer, uint16_t duration_ms) {
     rgblight_set_layer_state(layer, true);
@@ -693,15 +700,10 @@ void rgblight_unblink_layers(void) {
 __attribute__((weak)) void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds) { ws2812_setleds(start_led, num_leds); }
 
 #ifndef RGBLIGHT_CUSTOM_DRIVER
+
 void rgblight_set(void) {
     LED_TYPE *start_led;
     uint8_t   num_leds = rgblight_ranges.clipping_num_leds;
-
-#    ifdef RGBLIGHT_LAYERS
-    if (rgblight_layers != NULL) {
-        rgblight_layers_write();
-    }
-#    endif
 
     if (!rgblight_config.enable) {
         for (uint8_t i = rgblight_ranges.effect_start_pos; i < rgblight_ranges.effect_end_pos; i++) {
@@ -713,6 +715,16 @@ void rgblight_set(void) {
 #    endif
         }
     }
+
+#    ifdef RGBLIGHT_LAYERS
+    if (rgblight_layers != NULL
+#        ifndef RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
+        && rgblight_config.enable
+#        endif
+    ) {
+        rgblight_layers_write();
+    }
+#    endif
 
 #    ifdef RGBLIGHT_LED_MAP
     LED_TYPE led0[RGBLED_NUM];
