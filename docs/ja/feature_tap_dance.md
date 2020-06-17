@@ -1,8 +1,8 @@
 # タップダンス: 1つのキーが3つ、5つまたは100の異なる動作をします
 
 <!---
-  original document: 0.9.10:docs/feature_tap_dance.md
-  git diff 0.9.10 HEAD -- docs//feature_tap_dance.md | cat
+  original document: 0.9.0:docs/feature_tap_dance.md
+  git diff 0.9.0 HEAD -- docs/feature_tap_dance.md | cat
 --> 
 
 ## イントロダクション
