@@ -1,7 +1,6 @@
 #pragma once
 
 #include "jian.h"
-#include "quantum.h"
 
 #define XXX KC_NO
 
@@ -21,9 +20,8 @@
   {R20, R21, R22, R23, R24, R25 }, \
   {XXX, XXX, R32, R33, R34, R35 }  \
 }
-#define LAYOUT_jian LAYOUT
 
-#define SYMM_LAYOUT( \
+#define LAYOUT_symmetric( \
   K20, K00, K01, K12, K02, K03, K04, \
        K10, K11, K22, K13, K14, K05, \
        K21, K32, K33, K23, K24, K15, \
@@ -39,4 +37,3 @@
   {K20, K21, K22, K23, K24, K25 }, \
   {XXX, XXX, K32, K33, K34, K35 }  \
 }
-#define LAYOUT_symmetric_jian SYMM_LAYOUT

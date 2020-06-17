@@ -28,9 +28,9 @@ user_config_t user_config;
                              KC_A, KC_S, KC_H, KC_T, KC_G, KC_Y, KC_N, KC_E,    KC_O,   KC_I,    KC_QUOT, \
                              KC_Z, KC_X, KC_M, KC_C, KC_V, KC_K, KC_L, KC_COMM, KC_DOT, KC_SLSH
 #ifdef ALT_LAYOUTS_ENABLE
-#include <keymap_dvorak.h>
-#include <keymap_colemak.h>
-#include <keymap_workman.h>
+#include "keymap_dvorak.h"
+#include "keymap_colemak.h"
+#include "keymap_workman.h"
 #define DVK2QWE_base DV_GRV, DV_Q, DV_W, DV_E, DV_R, DV_T, DV_Y, DV_U, DV_I,    DV_O,   DV_P,    DV_LBRC, DV_RBRC, \
                              DV_A, DV_S, DV_D, DV_F, DV_G, DV_H, DV_J, DV_K,    DV_L,   DV_SCLN, DV_QUOT, \
                              DV_Z, DV_X, DV_C, DV_V, DV_B, DV_N, DV_M, DV_COMM, DV_DOT, DV_SLSH
@@ -211,14 +211,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       _______, _______, _______,      _______, _______, _______
 ),
 
-[_ADJUST] = SYMM_LAYOUT(
+[_ADJUST] = LAYOUT_symmetric(
   RESET,   DEBUG,   KC_ASUP, CH_WMN,  CH_CMK,  CH_QWE,  CH_DVK,
            KC_ASRP, KC_ASTG, XXXXXXX, XXXXXXX, QWERTY,  PLOVER,
            BL_ADJ,  KC_ASDN, XXXXXXX, XXXXXXX, ISO,     THUMB_ALT,
                                       _______, SW_TG,   _______
 ),
 #if defined(RGBLIGHT) | defined(BACKLIGHT_ENABLE)
-[_BCKLT_ADJ] = SYMM_LAYOUT(
+[_BCKLT_ADJ] = LAYOUT_symmetric(
   XXXXXXX, XXXXXXX, XXXXXXX, BL_INC,  RGB_VAI, RGB_HUD, RGB_HUI,
            XXXXXXX, XXXXXXX, BL_DEC,  RGB_VAD, RGB_SAD, RGB_SAI,
            BL_ADJ,  BL_BRTG, BL_TOGG, RGB_TOG, RGB_RMOD,RGB_MOD,
