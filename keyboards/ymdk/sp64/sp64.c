@@ -15,7 +15,6 @@
  */
 
 #include "sp64.h"
-#include QMK_KEYBOARD_H
 
 #ifdef RIGHT_HALF
 bool i2c_initialized = 0;
