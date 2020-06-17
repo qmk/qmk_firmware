@@ -13,8 +13,8 @@ enum layers {
     QWERTY,   // add a minimak layer that I can change to the default layer?
     EXCEL,
     EDIT,
-    RIGHTSYM,
-    LEFTSYM,
+    FSYM,
+    JSYM,
     MEDIA,
     FLOP,
     ADJUST
@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [QWERTY] = LAYOUT_ergodox( // LEFT HAND
     TD(FRBK),       KC_1,           KC_2,       KC_3,        KC_4,    KC_5,    KC_F4, 
     KC_TAB,         KC_Q,           KC_W,       KC_E,        KC_R,    KC_T,    TO(EDIT), 
-    OSL(EDIT),      KC_A,  LT(EXCEL,KC_S),  KC_D, LT(RIGHTSYM,KC_F),  KC_G, 
+    OSL(EDIT),      KC_A,  LT(EXCEL,KC_S),  KC_D, LT(FSYM,KC_F),  KC_G, 
     OSM(MOD_LSFT),  KC_Z,           KC_X,       KC_C,        KC_V,    SFT_T(KC_B), KC_TAB, 
     TD(CTLAND),       OSL(ADJUST),    TD(SFTAND),  TD(TDGUI),  TD(UMOD2), 
                                                                OS_ALT,    OS_CTL   , 
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                      // RIGHT HAND
         KC_F5,       KC_6,             KC_7,       KC_8,    KC_9,             KC_0,          KC_BSPC, 
         TO(EXCEL),   KC_Y,             KC_U,       KC_I,    KC_O,             KC_P,          KC_BSLS, 
-                     KC_H,     LT(LEFTSYM,KC_J),   KC_K,    KC_L,    LT(EDIT,KC_SCLN),       KC_QUOTE, 
+                     KC_H,     LT(JSYM,KC_J),   KC_K,    KC_L,    LT(EDIT,KC_SCLN),       KC_QUOTE, 
         CTL_T(KC_B), KC_N,             KC_M,       KC_COMM, KC_DOT,  LT(MEDIA,KC_SLSH),     TD(SHENT), 
         TD(UMOD),    TD(TDGUI),        KC_LBRC,    KC_RBRC, KC_MS_BTN1,
       OS_ALT,     KC_TAB, 
@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, 
     _______, _______, _______, S(KC_F10), _______, _______), 
 
-  [RIGHTSYM] = LAYOUT_ergodox(_______, _______, _______, _______, _______, _______, _______, 
+  [FSYM] = LAYOUT_ergodox(_______, _______, _______, _______, _______, _______, _______, 
     _______, _______, _______, _______, _______, _______, _______, 
     _______, _______, KC_TILD, KC_EXLM, _______, _______, 
     _______, _______, _______, _______, _______, _______, _______, 
@@ -109,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, 
     _______, _______, _______, _______, _______, _______), 
 
-  [LEFTSYM] = LAYOUT_ergodox(_______, _______, _______, _______, _______, _______, _______, 
+  [JSYM] = LAYOUT_ergodox(_______, _______, _______, _______, _______, _______, _______, 
     _______, KC_GRV,  KC_AT  , KC_LCBR, KC_RCBR, _______, _______, 
     _______, KC_HASH, KC_DLR , KC_LPRN,    KC_RPRN,    KC_LEFT, 
     _______, KC_PERC, KC_CIRC, KC_LBRACKET, KC_RBRACKET, _______, _______, 
@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [ADJUST] = LAYOUT_ergodox(_______, _______, _______, _______, _______, _______, _______, 
     _______, _______, _______, _______, _______, _______, _______, 
-    _______, TO(EDIT), TO(EXCEL), TO(RIGHTSYM), TO(LEFTSYM), TO(MEDIA), 
+    _______, TO(EDIT), TO(EXCEL), TO(FSYM), TO(JSYM), TO(MEDIA), 
     _______, _______, _______, _______, _______, _______, _______, 
     _______, TO(QWERTY), _______, _______, _______, 
     _______, _______, _______, _______, _______, _______, 
@@ -163,43 +163,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 
+
 void matrix_scan_user(void) {
-
-    uint8_t layer = biton32(layer_state);
-
-    ergodox_board_led_off();
-    ergodox_right_led_1_off();
-    ergodox_right_led_2_off();
-    ergodox_right_led_3_off();
-    switch (layer) {
-        case 1:
-            ergodox_right_led_1_on();
-            break;
-        case 2:
-            ergodox_right_led_2_on();
-            break;
-        case 3:
-            ergodox_right_led_3_on();
-            break;
-        case 4:
-            ergodox_right_led_1_on();
-            ergodox_right_led_2_on();
-            break;
-        case 5:
-            ergodox_right_led_1_on();
-            ergodox_right_led_3_on();
-            break;
-        case 6:
-            ergodox_right_led_2_on();
-            ergodox_right_led_3_on();
-            break;
-        case 7:
-            ergodox_right_led_1_on();
-            ergodox_right_led_2_on();
-            ergodox_right_led_3_on();
-            break;
-        default:
-            break;
-    }
-
-};
+  ergodox_board_led_off();
+  ergodox_right_led_1_off();
+  ergodox_right_led_2_off();
+  ergodox_right_led_3_off();
+  switch (get_highest_layer(layer_state)) {
+    case EXCEL:
+      ergodox_right_led_1_on();
+      break;
+    case EDIT:
+      ergodox_right_led_2_on();
+      break;
+    case FSYM:
+      ergodox_right_led_1_on();
+      ergodox_right_led_2_on();
+      break;
+    case JSYM:
+      ergodox_right_led_1_on();
+      ergodox_right_led_3_on();
+      break;
+    case MEDIA:
+      ergodox_right_led_2_on();
+      ergodox_right_led_3_on();      
+      break;
+    case ADJUST:
+      ergodox_right_led_1_on();
+      ergodox_right_led_2_on();
+      ergodox_right_led_3_on();      
+      break;
+  }
+}

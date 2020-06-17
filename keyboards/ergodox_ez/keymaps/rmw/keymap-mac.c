@@ -1,7 +1,6 @@
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE
-  ,EPRM
   ,VRSN
   ,OS_GSFT = OSM(MOD_LSFT | MOD_LGUI)
   ,OS_CALT = OSM(MOD_LCTL | MOD_LALT)
@@ -113,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        KC_0,   KC_DOT, KC_EQUAL, KC_KP_ASTERISK, _______,  
     _______,  _______, KC_INSERT, TO(EDIT), _______, _______), 
 
-  [EDIT] = LAYOUT_ergodox(EPRM, _______, KC_MS_WH_UP, KC_MS_BTN1, KC_MS_BTN2, _______, _______, 
+  [EDIT] = LAYOUT_ergodox(_______, _______, KC_MS_WH_UP, KC_MS_BTN1, KC_MS_BTN2, _______, _______, 
     _______, LGUI(LALT(KC_ESCAPE)), KC_MS_WH_DOWN, LALT(S(KC_LEFT)), LALT(S(KC_RIGHT)), _______, TO(EXCEL), 
     _______, _______, LGUI(KC_GRV), LALT(KC_LEFT), LALT(KC_RIGHT), _______, 
     LCTL(KC_RIGHT), LGUI(KC_Z), LGUI(KC_X), LGUI(KC_C), LGUI(KC_V), LGUI(KC_Y), _______, 
@@ -236,43 +235,3 @@ void matrix_scan_user(void) {
       break;
   }
 }
-
-// void matrix_scan_user(void) {
-
-//     uint8_t layer = biton32(layer_state);
-
-//     ergodox_board_led_off();
-//     ergodox_right_led_1_off();
-//     ergodox_right_led_2_off();
-//     ergodox_right_led_3_off();
-//     switch (layer) {
-//         case 2:
-//             ergodox_right_led_1_on();
-//             break;
-//         case 3:
-//             ergodox_right_led_2_on();
-//             break;
-//         case 4:
-//             ergodox_right_led_3_on();
-//             break;
-//         case 5:
-//             ergodox_right_led_1_on();
-//             ergodox_right_led_2_on();
-//             break;
-//         case 6:
-//             ergodox_right_led_1_on();
-//             ergodox_right_led_3_on();
-//             break;
-//         case 7:
-//             ergodox_right_led_2_on();
-//             ergodox_right_led_3_on();
-//             break;
-//         case 8:
-//             ergodox_right_led_1_on();
-//             ergodox_right_led_2_on();
-//             ergodox_right_led_3_on();
-//             break;
-//         default:
-//             break;
-//     }
-// };
