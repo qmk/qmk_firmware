@@ -18,7 +18,7 @@ That should be everything necessary.
 
 To start recording the macro, press either `DYN_REC_START1` or `DYN_REC_START2`. 
 
-To finish the recording, press the `DYN_REC_STOP` layer button. 
+To finish the recording, press the `DYN_REC_STOP` layer button. You can also press `DYN_REC_START1` or `DYN_REC_START2` again to stop the recording.
 
 To replay the macro, press either `DYN_MACRO_PLAY1` or `DYN_MACRO_PLAY2`.
 
