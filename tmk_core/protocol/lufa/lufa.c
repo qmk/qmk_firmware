@@ -53,7 +53,6 @@
 #include "lufa.h"
 #include "quantum.h"
 #include <util/atomic.h>
-#include "outputselect.h"
 
 #ifdef NKRO_ENABLE
 #    include "keycode_config.h"
@@ -66,6 +65,7 @@ extern keymap_config_t keymap_config;
 #endif
 
 #ifdef BLUETOOTH_ENABLE
+#    include "outputselect.h"
 #    ifdef MODULE_ADAFRUIT_BLE
 #        include "adafruit_ble.h"
 #    else
@@ -554,9 +554,10 @@ static uint8_t keyboard_leds(void) { return keyboard_led_state; }
  */
 static void send_keyboard(report_keyboard_t *report) {
     uint8_t timeout = 255;
-    uint8_t where   = where_to_send();
 
 #ifdef BLUETOOTH_ENABLE
+    uint8_t where   = where_to_send();
+
     if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
 #    ifdef MODULE_ADAFRUIT_BLE
         adafruit_ble_send_keys(report->mods, report->keys, sizeof(report->keys));
@@ -578,11 +579,11 @@ static void send_keyboard(report_keyboard_t *report) {
         }
 #    endif
     }
-#endif
 
     if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
         return;
     }
+#endif
 
     /* Select the Keyboard Report Endpoint */
     uint8_t ep   = KEYBOARD_IN_EPNUM;
@@ -618,9 +619,10 @@ static void send_keyboard(report_keyboard_t *report) {
 static void send_mouse(report_mouse_t *report) {
 #ifdef MOUSE_ENABLE
     uint8_t timeout = 255;
-    uint8_t where   = where_to_send();
 
 #    ifdef BLUETOOTH_ENABLE
+    uint8_t where   = where_to_send();
+
     if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
 #        ifdef MODULE_ADAFRUIT_BLE
         // FIXME: mouse buttons
@@ -637,11 +639,11 @@ static void send_mouse(report_mouse_t *report) {
         bluefruit_serial_send(0x00);
 #        endif
     }
-#    endif
 
     if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
         return;
     }
+#    endif
 
     /* Select the Mouse Report Endpoint */
     Endpoint_SelectEndpoint(MOUSE_IN_EPNUM);
@@ -696,9 +698,9 @@ static void send_system(uint16_t data) {
  */
 static void send_consumer(uint16_t data) {
 #ifdef EXTRAKEY_ENABLE
+#    ifdef BLUETOOTH_ENABLE
     uint8_t where = where_to_send();
 
-#    ifdef BLUETOOTH_ENABLE
     if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
 #        ifdef MODULE_ADAFRUIT_BLE
         adafruit_ble_send_consumer_key(data, 0);
@@ -728,11 +730,11 @@ static void send_consumer(uint16_t data) {
         bluefruit_serial_send(0x00);
 #        endif
     }
-#    endif
 
     if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
         return;
     }
+#    endif
 
     send_extra(REPORT_ID_CONSUMER, data);
 #endif
