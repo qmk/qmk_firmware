@@ -187,7 +187,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
       }
       return false;
-      break;   
     case FORM_GET:
       if (record->event.pressed) {
         tap_code(KC_BTN1);
@@ -195,7 +194,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         tap_code16(G(KC_C));
       }
       return false;
-      break;
     case FORM_PUT:
       if (record->event.pressed) {
         tap_code(KC_BTN1);
@@ -203,13 +201,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         tap_code16(G(KC_V));
       }
       return false;
-      break;
   }
   return true;
 }
-
-
-// LEADER_EXTERNS();
 
 void matrix_scan_user(void) {
 

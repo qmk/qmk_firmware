@@ -16,7 +16,6 @@
 #include QMK_KEYBOARD_H
 #include "tapdances.cpp"
 
-#define _______ KC_TRNS
 #define SFTENT SFT_T(KC_ENT)
 
 enum layers {

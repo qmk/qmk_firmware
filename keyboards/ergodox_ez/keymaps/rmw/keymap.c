@@ -6,7 +6,6 @@
 //#define ONESHOT_TIMEOUT 300
 //#define LEADER_TIMEOUT 300
 
-#define _______ KC_TRNS
 
 #include "tapdances.cpp"
 #include "keymap-mac.c"
