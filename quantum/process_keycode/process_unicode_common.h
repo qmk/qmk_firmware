@@ -89,6 +89,8 @@ void unicode_input_cancel(void);
 
 void register_hex(uint16_t hex);
 void register_hex32(uint32_t hex);
+void register_unicode(uint32_t code_point);
+
 void send_unicode_hex_string(const char *str);
 void send_unicode_string(const char *str);
 
