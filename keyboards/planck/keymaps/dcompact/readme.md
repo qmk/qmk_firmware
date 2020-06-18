@@ -1,6 +1,6 @@
 # DCompact Layout
 
-**Dvorak, Layered, Mouse-Enabled, Compact -- now with Plover~**
+**Dvorak, Layered, Mouse-Enabled, Compact -- now with Game Mode~**
 
 _See [the layout source](keymap.c) for the actual layout_
 
