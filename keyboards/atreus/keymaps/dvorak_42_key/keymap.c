@@ -119,7 +119,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return true;    
         break;
     case W10_WORKSPACE_LEFT:
-        SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_LEFT))));
+        tap_code16(G(C(KC_LEFT)));
         return true;
         break;
     case W10_WORKSPACE_RIGHT:
