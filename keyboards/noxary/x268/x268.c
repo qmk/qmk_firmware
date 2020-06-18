@@ -22,25 +22,13 @@
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here
 	// runs once when the firmware starts up
+    setPinOutput(B0);
 	matrix_init_user();
 }
 
-// bool led_update_kb(led_t led_state) {
-//     if(led_update_user(led_state)) {
-//         writePin(B1, led_state.caps_lock);
-//     }
-//     return true;
-// }
-
-void led_set_kb(uint8_t usb_led) {
-	// put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-	led_set_user(usb_led);
-}
-void led_set_user(uint8_t usb_led) {
-    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-        DDRB |= (1 << 0); PORTB |= (1 << 0);
+bool led_update_kb(led_t led_state) {
+    if(led_update_user(led_state)) {
+        writePin(B0, led_state.caps_lock);
     }
-    else {
-        DDRB &= ~(1 << 0); PORTB &= ~(1 << 0);
-    }
+    return true;
 }
