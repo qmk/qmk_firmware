@@ -4,7 +4,7 @@
 
 A fully customizable 65% keyboard.
 
-Keyboard Maintainer: [Rozakiin](https://github.com/rozakiin)  
+* Keyboard Maintainer: [Rozakiin](https://github.com/rozakiin)
 Hardware Supported: Noxary 268.2 PCB  
 Hardware Availability: [Noxary](https://shop.noxary.co/collections/268-2/products/noxary-268-2-polycarbonate)
 
