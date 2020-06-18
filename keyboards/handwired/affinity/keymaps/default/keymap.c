@@ -25,7 +25,7 @@ enum layer { DEFAULT, RAISE };
 enum custom_keycode { LED_MODE = SAFE_RANGE };
 enum lightshow_pattern { LEVELMETER, LEVELMETER_PEAK, LEVELMETER2, LEVELMETER3, PARTY, PARTY2 };
 
-enum lightshow_pattern pattern = LEVELMETER;
+enum lightshow_pattern current_pattern = LEVELMETER;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [DEFAULT] = LAYOUT(
@@ -46,15 +46,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
    case LED_MODE:
     if (record->event.pressed) {
-      pattern = pattern == LEVELMETER ? (
+      current_pattern = current_pattern == LEVELMETER ? (
         LEVELMETER_PEAK
-      ) : pattern == LEVELMETER_PEAK ? (
+      ) : current_pattern == LEVELMETER_PEAK ? (
         LEVELMETER2
-      ) : pattern == LEVELMETER2 ? (
+      ) : current_pattern == LEVELMETER2 ? (
         LEVELMETER3
-      ) : pattern == LEVELMETER3 ? (
+      ) : current_pattern == LEVELMETER3 ? (
         PARTY
-      ) : pattern == PARTY ? (
+      ) : current_pattern == PARTY ? (
         PARTY2
       ) : (
         LEVELMETER
@@ -94,6 +94,9 @@ bool _kick_detect (int *values) {
   }
 }
 
+/* ---- lightshow patterns */
+
+/* 4-band levelmeter */
 void process_lightshow_levelmeter (int *values, bool peak) {
   /* r1 */
   sethsv(80, 255, _map(values[0] + values[1], THRESHOLD * 2, 1023 * 2, 0, 96, peak), &led[3]);
@@ -117,6 +120,7 @@ void process_lightshow_levelmeter (int *values, bool peak) {
   sethsv(140, 255, _map(values[5] + values[6], THRESHOLD / 4, THRESHOLD / 2, 0, 96, peak), &led[12]);
 }
 
+/* 4-band levelmeter x 2 */
 void process_lightshow_levelmeter2 (int *values, bool peak) {
   /* r1 */
   setrgb(
@@ -220,6 +224,7 @@ void process_lightshow_levelmeter2 (int *values, bool peak) {
   );
 }
 
+/* 7-band small levelmeter */
 void process_lightshow_levelmeter3 (int *values, bool peak) {
   /* r1 */
   sethsv(0, 255, _map(values[0], THRESHOLD / 2, 1023, 0, 96, peak), &led[3]);
@@ -246,27 +251,32 @@ void process_lightshow_levelmeter3 (int *values, bool peak) {
 void process_lightshow_party (int *values) {
   static int hue;
 
+  /* rotate hue iff a kick is detected */
   if (_kick_detect(values)) {
     hue = (hue + 199) % 256;
   }
 
+  /* set brightness */
   int val = 0;
   for (int i = 0; i < 7; i++) {
     val += values[i] / (4 * 7); /* 7 * 1024 => 256 */
   }
 
+  /* scroll old plots */
   for (int col = 0; col < 2; col++) {
-    /* c0, c1 */
+    /* col0, col1 */
     for (int row = 3; row >= 0; row--) {
       LED_TYPE *src = &led[(row - 1) * 4 + col];
       setrgb(src->r, src->g, src->b, &led[row * 4 + col]);
     }
-    /* c2, c3 */
+    /* col2, col3 */
     for (int row = 0; row < 3; row++) {
       LED_TYPE *src = &led[(row + 1) * 4 + (col + 2)];
       setrgb(src->r, src->g, src->b, &led[row * 4 + (col + 2)]);
     }
   }
+
+  /* push new plots */
   for (int col = 0; col < 2; col++) {
     sethsv(hue, 255, val, &led[0 * 4 + col]);
     sethsv(hue, 255, val, &led[3 * 4 + (col + 2)]);
@@ -276,9 +286,9 @@ void process_lightshow_party (int *values) {
 void process_lightshow_party2 (int *values) {
   int blue = 0, red = 0, green = 0, kick = 0;
 
-  for (int i = 0; i < 2; i++) blue += values[i] / (4 * 2 * 2);
-  for (int i = 2; i < 4; i++) red += values[i] / (4 * 2 * 2);
-  for (int i = 4; i < 7; i++) green += values[i] / (4 * 3 * 2);
+  for (int i = 0; i < 2; i++) blue += values[i] / (4 * 2 * 2);  /* 2 * 1024 => 128 */
+  for (int i = 2; i < 4; i++) red += values[i] / (4 * 2 * 2);   /* 2 * 1024 => 128 */
+  for (int i = 4; i < 7; i++) green += values[i] / (4 * 3 * 2); /* 3 * 1024 => 128 */
   kick = _kick_detect(values) ? 127 : 0;
 
   for(int row = 0; row < 4; row++) {
@@ -301,17 +311,17 @@ void matrix_scan_user (void) {
   static int delay = 0;
   if (!delay) {
     msgeq7_read(values);
-    if (pattern == LEVELMETER) {
+    if (current_pattern == LEVELMETER) {
       process_lightshow_levelmeter(values, false);
-    } else if (pattern == LEVELMETER_PEAK) {
+    } else if (current_pattern == LEVELMETER_PEAK) {
       process_lightshow_levelmeter(values, true);
-    } else if (pattern == LEVELMETER2) {
+    } else if (current_pattern == LEVELMETER2) {
       process_lightshow_levelmeter2(values, false);
-    } else if (pattern == LEVELMETER3) {
+    } else if (current_pattern == LEVELMETER3) {
       process_lightshow_levelmeter3(values, false);
-    } else if (pattern == PARTY) {
+    } else if (current_pattern == PARTY) {
       process_lightshow_party(values);
-    } else if (pattern == PARTY2) {
+    } else if (current_pattern == PARTY2) {
       process_lightshow_party2(values);
     }
     ws2812_setleds(led, 16);
