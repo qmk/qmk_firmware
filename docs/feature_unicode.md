@@ -66,13 +66,16 @@ Then define a table like this in your keymap file:
 
 ```c
 const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE(
-    UCIS_SYM("poop", 0x1F4A9), // 💩
-    UCIS_SYM("rofl", 0x1F923), // 🤣
-    UCIS_SYM("kiss", 0x1F619)  // 😙
+    UCIS_SYM("poop", 0x1F4A9),                // 💩
+    UCIS_SYM("rofl", 0x1F923),                // 🤣
+    UCIS_SYM("cuba", 0x1F1E8, 0x1F1FA),       // 🇨🇺
+    UCIS_SYM("look", 0x0CA0, 0x005F, 0x0CA0), // ಠ_ಠ
 );
 ```
 
-To use it, call `qk_ucis_start()`. Then, type the mnemonic for the character (such as "rofl"), and hit Space or Enter. QMK should erase the "rofl" text and insert the laughing emoji.
+By default, each table entry may be up to 3 code points long. This number can be changed by adding `#define UCIS_MAX_CODE_POINTS n` to your `config.h` file.
+
+To use UCIS input, call `qk_ucis_start()`. Then, type the mnemonic for the character (such as "rofl") and hit Space, Enter or Esc. QMK should erase the "rofl" text and insert the laughing emoji.
 
 ### Customization
 
@@ -90,7 +93,7 @@ Unicode input in QMK works by inputting a sequence of characters to the OS, sort
 
 The following input modes are available:
 
-* **`UC_MAC`**: macOS built-in Unicode hex input. Supports code points up to `0xFFFF` (`0x10FFFF` with Unicode Map).
+* **`UC_MAC`**: macOS built-in Unicode hex input. Supports code points up to `0x10FFFF` (all possible code points).
 
   To enable, go to _System Preferences > Keyboard > Input Sources_, add _Unicode Hex Input_ to the list (it's under _Other_), then activate it from the input dropdown in the Menu Bar.
   By default, this mode uses the left Option key (`KC_LALT`) for Unicode input, but this can be changed by defining [`UNICODE_KEY_MAC`](#input-key-configuration) with another keycode.
