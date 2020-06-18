@@ -115,7 +115,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return true;
 			break;
     case W10_TASKVIEW:
-        SEND_STRING(SS_LGUI(SS_TAP(X_TAB)));
+        tap_code16(G(KC_TAB));
         return true;    
         break;
     case W10_WORKSPACE_LEFT:
@@ -130,4 +130,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   return true;
 }
-
