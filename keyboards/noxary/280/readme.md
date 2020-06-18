@@ -1,7 +1,7 @@
 # Noxary 280
 
-![Noxary 280 WKL](https://i.imgur.com/CuQz0qW.png)
-![Noxary 280 WK](https://i.imgur.com/iAQYzsq.png)
+![Noxary 280 WKL](https://i.imgur.com/CuQz0qWl.png)
+![Noxary 280 WK](https://i.imgur.com/iAQYzsql.png)
 
 
 A fully customizable TKL keyboard.
