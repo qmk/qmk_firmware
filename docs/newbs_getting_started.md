@@ -97,7 +97,7 @@ In most situations you will want to answer Yes to all of the prompts.
 It's possible, that you will get an error saying something like: `bash: qmk: command not found`.
 This is due to a [bug](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=839155) Debian introduced with their Bash 4.4 release, which removed `$HOME/.local/bin` from the PATH. This bug was later fixed on Debian and Ubuntu.
 Sadly, Ubuntu reitroduced this bug and is [yet to fix it](https://bugs.launchpad.net/ubuntu/+source/bash/+bug/1588562).
-Luckily, the fix is easy. Run this as your user: `echo "PATH=$HOME/.local/bin:$PATH" >> $HOME/.bashrc && source $HOME/.bashrc`
+Luckily, the fix is easy. Run this as your user: `echo 'PATH="$HOME/.local/bin:$PATH"' >> $HOME/.bashrc && source $HOME/.bashrc`
 
 ?>**Note on FreeBSD**:
 It is suggested to run `qmk setup` as a non-`root` user to start with, but this will likely identify packages that need to be installed to your
@@ -135,7 +135,7 @@ Most people new to QMK only have 1 keyboard. You can set this keyboard as your d
 
     qmk config user.keyboard=clueboard/66/rev4
 
-You can also set your default keymap name. Most people use their github username here, and we recommend that you do too.
+You can also set your default keymap name. Most people use their GitHub username here, and we recommend that you do too.
 
     qmk config user.keymap=<github_username>
 

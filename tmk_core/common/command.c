@@ -43,10 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "mousekey.h"
 #endif
 
-#ifdef PROTOCOL_VUSB
-#    include "usbdrv.h"
-#endif
-
 #ifdef AUDIO_ENABLE
 #    include "audio.h"
 #endif /* AUDIO_ENABLE */
@@ -359,15 +355,8 @@ static bool command_common(uint8_t code) {
         // jump to bootloader
         case MAGIC_KC(MAGIC_KEY_BOOTLOADER):
         case MAGIC_KC(MAGIC_KEY_BOOTLOADER_ALT):
-            clear_keyboard();  // clear to prevent stuck keys
             print("\n\nJumping to bootloader... ");
-#ifdef AUDIO_ENABLE
-            stop_all_notes();
-            shutdown_user();
-#else
-            wait_ms(1000);
-#endif
-            bootloader_jump();  // not return
+            reset_keyboard();
             break;
 
         // debug toggle
