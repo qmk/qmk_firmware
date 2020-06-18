@@ -5,9 +5,6 @@
 #define _VIA2     2
 #define _VIA3     3
 
-#include "quantum.h"
-#include "remote_kb.h"
-
 #define KC_DISC_MUTE KC_F23
 #define KC_DISC_DEAF KC_F24
 #define NUM_CUST_KEYCODES (_NUM_CUST_KCS - SAFE_RANGE)

@@ -35,9 +35,6 @@
 #define MATRIX_COLS 16
 #define MATRIX_MUX_COLS 4
 
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
-
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 10
 
@@ -54,7 +51,6 @@
 /* Optional SMT LED pins */
 #define RGB_DI_PIN E6
 #define RGBLED_NUM 10
-#define RGBLIGHT_LIMIT_VAL 255
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_SLEEP
 

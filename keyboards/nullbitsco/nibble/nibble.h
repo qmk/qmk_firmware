@@ -13,11 +13,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef NIBBLE_H
-#define NIBBLE_H
+#pragma once
+
 #define ___ KC_NO
 
 #include "quantum.h"
+#include "remote_kb.h" 
 
 #define LAYOUT( \
             K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K0E, K0F, K0G, \
@@ -32,5 +33,3 @@
    {K31,    K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D, ___, K3F, K3G}, \
    {K41,    K42, K43, K44, ___, ___, K47, ___, ___, K4A, K4B, K4C, K4D, ___, K4F, K4G}, \
 }
-
-#endif
