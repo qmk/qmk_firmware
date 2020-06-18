@@ -34,6 +34,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if defined(OLED_DRIVER_ENABLE)
 #    include "oled_stuff.h"
 #endif
+#if defined(PIMORONI_TRACKBALL_ENABLE)
+#    include "pimoroni_trackball.h"
+#endif
 
 /* Define layer names */
 enum userspace_layers {

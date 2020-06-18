@@ -8,7 +8,7 @@
 #include <split_scomm.h>
 #include "serial.h"
 #ifdef CONSOLE_ENABLE
-  #include <print.h>
+  #include "debug.h"
 #endif
 
 uint8_t volatile serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH] = {0};
@@ -63,9 +63,11 @@ int serial_update_buffers(int master_update)
         if( smatstatus == TRANSACTION_END ) {
             s_change_old = s_change_new;
 #ifdef CONSOLE_ENABLE
-            uprintf("slave matrix = %b %b %b %b\n",
+            if (debug_matrix) {
+                uprintf("slave matrix = %b %b %b %b\n",
                     serial_slave_buffer[0], serial_slave_buffer[1],
                     serial_slave_buffer[2], serial_slave_buffer[3]);
+            }
 #endif
         }
     } else {

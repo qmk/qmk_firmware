@@ -155,11 +155,3 @@ Pour le moment, l'origine du problème n'est pas comprise, mais certaines option
 
 https://github.com/tmk/tmk_keyboard/issues/266
 https://geekhack.org/index.php?topic=41989.msg1967778#msg1967778
-
-## FLIP ne marche pas
-
-### `AtLibUsbDfu.dll` Not Found
-
-Supprimez le pilote actuel et réinstallez celui donné par FLIP dans le gestionnaire de périphériques.
-
-http://imgur.com/a/bnwzy

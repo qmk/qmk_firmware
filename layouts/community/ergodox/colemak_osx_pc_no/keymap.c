@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MO(4),     KC_BTN1,      KC_BTN2, KC_TAB,GUI_T(KC_COMMA),
                                                       NO_AMPR, NO_PIPE,
                                                               NO_PLUS,
-                                               KC_FN1,CTL_T(KC_DOT),ALT_T(NO_MINS),
+                                               OSM(MOD_LSFT),CTL_T(KC_DOT),ALT_T(NO_MINS),
         // right hand
              KC_FN5, NO_DLR, NO_LPRN, NO_RPRN ,KC_FN3, KC_FN4,NO_AT,
              NO_APOS,      KC_J,    KC_L,    KC_U,      KC_Y,     NO_AA,   NO_AE  ,
@@ -222,7 +222,6 @@ enum macro_id {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_MODS_ONESHOT(MOD_LSFT),  // Sticky shift light. Tap for the next keypress to be shifted. Hold for regular shift.
     [2] = ACTION_MACRO(TILDE_NO), // Completed ~ character(pc and mac), no space needed.
     [3] = ACTION_MACRO(LESS_NO), // < completed on keypress down, to avoid shifting the next character if it is not released first.
     [4] = ACTION_MACRO(GRTR_NO), // > completed on keypress down, to avoid shifting the next character if it is not released first.
