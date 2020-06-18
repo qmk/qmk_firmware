@@ -46,10 +46,6 @@ extern backlight_config_t backlight_config;
 #    include "haptic.h"
 #endif
 
-#ifdef ENCODER_ENABLE
-#    include "encoder.h"
-#endif
-
 #ifdef AUDIO_ENABLE
 #    ifndef GOODBYE_SONG
 #        define GOODBYE_SONG SONG(GOODBYE_SOUND)
@@ -618,9 +614,6 @@ void matrix_init_quantum() {
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_init();
 #endif
-#ifdef ENCODER_ENABLE
-    encoder_init();
-#endif
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
     unicode_input_mode_init();
 #endif
@@ -629,9 +622,6 @@ void matrix_init_quantum() {
 #endif
 #ifdef OUTPUT_AUTO_ENABLE
     set_output(OUTPUT_AUTO);
-#endif
-#ifdef DIP_SWITCH_ENABLE
-    dip_switch_init();
 #endif
 
     matrix_init_kb();
@@ -656,10 +646,6 @@ void matrix_scan_quantum() {
 
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_task();
-#endif
-
-#ifdef ENCODER_ENABLE
-    encoder_read();
 #endif
 
 #ifdef WPM_ENABLE

@@ -6,6 +6,14 @@
 #include "transport.h"
 #include "quantum.h"
 
+#ifdef PROTOCOL_LUFA
+#    include <LUFA/Drivers/USB/USB.h>
+#endif
+
+#ifdef PROTOCOL_VUSB
+#    include "usbdrv.h"
+#endif
+
 #ifdef EE_HANDS
 #    include "eeconfig.h"
 #endif
@@ -22,30 +30,57 @@
 #    define SPLIT_USB_TIMEOUT_POLL 10
 #endif
 
+#ifdef PROTOCOL_CHIBIOS
+#    define SPLIT_USB_DETECT  // Force this on for now
+#endif
+
 volatile bool isLeftHand = true;
 
-bool waitForUsb(void) {
+#if defined(SPLIT_USB_DETECT)
+#    if defined(PROTOCOL_LUFA)
+static inline bool usbHasActiveConnection(void) { return USB_Device_IsAddressSet(); }
+static inline void usbDisable(void) {
+    USB_Disable();
+    USB_DeviceState = DEVICE_STATE_Unattached;
+}
+#    elif defined(PROTOCOL_CHIBIOS)
+static inline bool usbHasActiveConnection(void) { return usbGetDriverStateI(&USBD1) == USB_ACTIVE; }
+static inline void usbDisable(void) { usbStop(&USBD1); }
+#    elif defined(PROTOCOL_VUSB)
+static inline bool usbHasActiveConnection(void) {
+    usbPoll();
+    return usbConfiguration;
+}
+static inline void usbDisable(void) { usbDeviceDisconnect(); }
+#    else
+static inline bool usbHasActiveConnection(void) { return true; }
+static inline void usbDisable(void) {}
+#    endif
+
+bool usbIsActive(void) {
     for (uint8_t i = 0; i < (SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL); i++) {
         // This will return true if a USB connection has been established
-#if defined(__AVR__)
-        if (UDADDR & _BV(ADDEN)) {
-#else
-        if (usbGetDriverStateI(&USBD1) == USB_ACTIVE) {
-#endif
+        if (usbHasActiveConnection()) {
             return true;
         }
         wait_ms(SPLIT_USB_TIMEOUT_POLL);
     }
 
     // Avoid NO_USB_STARTUP_CHECK - Disable USB as the previous checks seem to enable it somehow
-#if defined(__AVR__)
-    (USBCON &= ~(_BV(USBE) | _BV(OTGPADE)));
-#else
-    usbStop(&USBD1);
-#endif
+    usbDisable();
 
     return false;
 }
+#elif defined(PROTOCOL_LUFA)
+static inline bool usbIsActive(void) {
+    USB_OTGPAD_On();  // enables VBUS pad
+    wait_us(5);
+
+    return USB_VBUS_GetStatus();  // checks state of VBUS
+}
+#else
+static inline bool usbIsActive(void) { return true; }
+#endif
 
 __attribute__((weak)) bool is_keyboard_left(void) {
 #if defined(SPLIT_HAND_PIN)
@@ -66,16 +101,7 @@ __attribute__((weak)) bool is_keyboard_master(void) {
 
     // only check once, as this is called often
     if (usbstate == UNKNOWN) {
-#if defined(SPLIT_USB_DETECT) || defined(PROTOCOL_CHIBIOS)
-        usbstate = waitForUsb() ? MASTER : SLAVE;
-#elif defined(__AVR__)
-        USBCON |= (1 << OTGPADE);  // enables VBUS pad
-        wait_us(5);
-
-        usbstate = (USBSTA & (1 << VBUS)) ? MASTER : SLAVE;  // checks state of VBUS
-#else
-        usbstate = MASTER;
-#endif
+        usbstate = usbIsActive() ? MASTER : SLAVE;
     }
 
     return (usbstate == MASTER);
