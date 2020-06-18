@@ -1,8 +1,8 @@
 # よくあるビルドの質問
 
 <!---
-  original document: 0f43c2652:docs/faq_build.md
-  git diff 0f43c2652 HEAD -- docs/faq_build.md | cat
+  original document: 0.9.0:docs/faq_build.md
+  git diff 0.9.0 HEAD -- docs/faq_build.md | cat
 -->
 
 このページは QMK のビルドに関する質問を説明します。まだビルドをしていない場合は、[ビルド環境のセットアップ](ja/getting_started_build_tools.md) および [Make 手順](ja/getting_started_make_guide.md)ガイドを読むべきです。
@@ -116,23 +116,14 @@ OPT_DEFS += -DBOOTLOADER_SIZE=2048
 ```
 
 ## MacOS での `avr-gcc: internal compiler error: Abort trap: 6 (program cc1)` 
+
 これは brew での更新に関する問題で、avr-gcc が依存するシンボリックリンクを壊します。
 
 解決法は全ての影響を受けたモジュールを削除し再インストールすることです。
 
 ```
-brew rm avr-gcc
-brew rm avr-gcc@8
-brew rm dfu-programmer
-brew rm dfu-util
-brew rm gcc-arm-none-eabi
-brew rm arm-gcc-bin@8
-brew rm avrdude
-brew install avr-gcc@8
-brew install dfu-programmer
-brew install dfu-util
-brew install arm-gcc-bin@8
-brew install avrdude
+brew rm avr-gcc avr-gcc@8 dfu-programmer dfu-util gcc-arm-none-eabi arm-gcc-bin@8 avrdude qmk
+brew install qmk/qmk/qmk
 brew link --force avr-gcc@8
 brew link --force arm-gcc-bin@8
 ```
