@@ -16,10 +16,10 @@
 
 // Push Pull or Open Drain Configuration
 // Default Push Pull
-#ifndef WS2812_OUTPUT_MODE_OPEN_DRAIN
-    #define WS2812_OUTPUT_MODE PAL_MODE_OUTPUT_PUSHPULL
+#ifndef WS2812_EXTERNAL_PULLUP
+#    define WS2812_OUTPUT_MODE PAL_MODE_OUTPUT_PUSHPULL
 #else
-    #define WS2812_OUTPUT_MODE PAL_MODE_OUTPUT_OPENDRAIN
+#    define WS2812_OUTPUT_MODE PAL_MODE_OUTPUT_OPENDRAIN
 #endif
 
 #define NUMBER_NOPS 6
@@ -74,9 +74,7 @@ void sendByte(uint8_t byte) {
     }
 }
 
-void ws2812_init(void) {
-    palSetLineMode(RGB_DI_PIN, WS2812_OUTPUT_MODE);
- }
+void ws2812_init(void) { palSetLineMode(RGB_DI_PIN, WS2812_OUTPUT_MODE); }
 
 // Setleds for standard RGB
 void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {

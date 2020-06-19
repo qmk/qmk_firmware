@@ -108,5 +108,5 @@ Note: This only applies to STM32 boards.
 
  To configure the `RGB_DI_PIN` to open drain configuration add this to your config.h file: 
 ```c
- #define WS2812_OUTPUT_MODE_OPEN_DRAIN 
+ #define WS2812_EXTERNAL_PULLUP 
 ```
