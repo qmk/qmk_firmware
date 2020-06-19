@@ -140,8 +140,12 @@
 // Row 1
 #define IL_EURO ALGR(IL_3)    // €
 #define IL_SHKL ALGR(IL_4)    // ₪
+#define IL_DEG  ALGR(IL_5)    // °
+#define IL_MUL  ALGR(IL_8)    // ×
 // Row 2
 #define IL_DVAV ALGR(IL_TET)  // װ
 // Row 3
 #define IL_VYOD ALGR(IL_AYIN) // ױ
 #define IL_DYOD ALGR(IL_YOD)  // ײ
+// Row 4
+#define IL_DIV  ALGR(IL_DOT)  // ÷
