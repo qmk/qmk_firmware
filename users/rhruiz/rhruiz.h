@@ -24,9 +24,9 @@ enum custom_keycodes { KC_MAKE = SAFE_RANGE, KC_EPIP, NEW_SAFE_RANGE };
 #define BKSFN2 LT(_FN2, KC_BSPC)
 
 /* arrow cluster */
-#define CLLEFT MT(MOD_LGUI, KC_LEFT)
-#define CLDOWN MT(MOD_LALT, KC_DOWN)
-#define CLUP MT(MOD_RCTL, KC_UP)
+#define CLLEFT MT(MOD_RGUI, KC_LEFT)
+#define CLDOWN MT(MOD_RCTL, KC_DOWN)
+#define CLUP MT(MOD_RSFT, KC_UP)
 #define CLRIGHT LT(_FN1, KC_RIGHT)
 
 void          rhruiz_update_layer_colors(layer_state_t state);

@@ -30,3 +30,6 @@
 #define MANUFACTURER rhruiz
 #define PRODUCT rhruiz one
 #define DESCRIPTION rhruiz one keyboard
+
+#define RGBLIGHT_LAYERS
+#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
