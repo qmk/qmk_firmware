@@ -18,6 +18,8 @@
 
 // place overrides here
 // #define ENCODER_RESOLUTION 4
-#define TAPPING_TERM 100
+// #define TAPPING_TERM 200
 #define PERMISSIVE_HOLD
-#define RETRO_TAPPING
+
+#define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT)))
+#define DEBUG_ACTION
