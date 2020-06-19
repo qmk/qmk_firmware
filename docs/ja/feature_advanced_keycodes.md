@@ -1,8 +1,8 @@
 # 修飾キー :id=modifier-keys
 
 <!---
-  original document: 5d5ff80:docs/feature_advanced_keycodes.md
-  git diff 5d5ff80 HEAD -- docs/feature_advanced_keycodes.md | cat
+  original document: 0.9.0:docs/feature_advanced_keycodes.md
+  git diff 0.9.0 HEAD -- docs/feature_advanced_keycodes.md | cat
 -->
 
 以下のようにキーコードとモディファイアを組み合わせることができます。押すと、モディファイアのキーダウンイベントが送信され、次に `kc` のキーダウンイベントが送信されます。放すと、`kc` のキーアップイベントが送信され、次にモディファイアのキーアップイベントが送信されます。
