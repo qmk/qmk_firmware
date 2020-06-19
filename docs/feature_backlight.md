@@ -89,7 +89,7 @@ BACKLIGHT_DRIVER = pwm
 
 Hardware PWM is supported according to the following table:
 
-|Backlight Pin|AT90USB64/128|ATmega16/32U4|ATmega16/32U2|ATmega32A|ATmega328P|
+|Backlight Pin|AT90USB64/128|ATmega16/32U4|ATmega16/32U2|ATmega32A|ATmega328/P|
 |-------------|-------------|-------------|-------------|---------|----------|
 |`B1`         |             |             |             |         |Timer 1   |
 |`B2`         |             |             |             |         |Timer 1   |
