@@ -1,4 +1,4 @@
-/* Copyright 2020 Ross Montsinger
+/* Copyright 2020 AAClawson (AlisGraveNil)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,17 +13,4 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-#pragma once
-
-#include "quantum.h"
-
-#if defined(KEYBOARD_montsinger_rebound_rev1)
-    #include "rev1.h"
-#elif defined(KEYBOARD_montsinger_rebound_rev2)
-    #include "rev2.h"
-#elif defined(KEYBOARD_montsinger_rebound_rev3)
-    #include "rev3.h"
-#elif defined(KEYBOARD_montsinger_rebound_rev4)
-    #include "rev4.h"
-#endif
+#include "gamebuddy.h"

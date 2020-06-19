@@ -99,3 +99,14 @@ While not an exhaustive list, the following table provides the scenarios that ha
 | f401/f411 | :heavy_check_mark: |
 
 *Other supported ChibiOS boards and/or pins may function, it will be highly chip and configuration dependent.*
+
+### Push Pull and Open Drain Configuration
+The default configuration is a push pull on the defined pin.
+This can be configured for bitbang, PWM and SPI.
+
+Note: This only applies to STM32 boards.
+
+ To configure the `RGB_DI_PIN` to open drain configuration add this to your config.h file: 
+```c
+ #define WS2812_EXTERNAL_PULLUP 
+```
