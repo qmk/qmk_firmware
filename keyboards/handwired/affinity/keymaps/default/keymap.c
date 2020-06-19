@@ -82,14 +82,20 @@ static inline float _exp_ave (int val, float ave, int window_size) {
   return val * alpha + ave * (1 - alpha);
 }
 
-bool _kick_detect (int *values) {
-  static int lastkickvalue;
+static inline float _max (float a, float b) { return a > b ? a : b; }
 
-  if (values[0] + values[1] - lastkickvalue > THRESHOLD / 2) {
-    lastkickvalue = values[0] + values[1];
+#define THRESHOLD_WINDOW 30
+bool _kick_detect (int *values) {
+  static int lastvalue, threshold;
+
+  threshold = _exp_ave(values[0] + values[1], threshold, THRESHOLD_WINDOW);
+
+  /* if (values[0] + values[1] - lastvalue > THRESHOLD / 2) { */
+  if (values[0] + values[1] - _max(threshold, lastvalue) > THRESHOLD / 3) {
+    lastvalue = values[0] + values[1];
     return true;
   } else {
-    lastkickvalue = values[0] + values[1];
+    lastvalue = values[0] + values[1];
     return false;
   }
 }
