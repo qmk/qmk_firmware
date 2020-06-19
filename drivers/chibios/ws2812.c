@@ -14,6 +14,14 @@
 #    endif
 #endif
 
+// Push Pull or Open Drain Configuration
+// Default Push Pull
+#ifndef WS2812_EXTERNAL_PULLUP
+#    define WS2812_OUTPUT_MODE PAL_MODE_OUTPUT_PUSHPULL
+#else
+#    define WS2812_OUTPUT_MODE PAL_MODE_OUTPUT_OPENDRAIN
+#endif
+
 #define NUMBER_NOPS 6
 #define CYCLES_PER_SEC (STM32_SYSCLK / NUMBER_NOPS * NOP_FUDGE)
 #define NS_PER_SEC (1000000000L)  // Note that this has to be SIGNED since we want to be able to check for negative values of derivatives
@@ -66,7 +74,7 @@ void sendByte(uint8_t byte) {
     }
 }
 
-void ws2812_init(void) { setPinOutput(RGB_DI_PIN); }
+void ws2812_init(void) { palSetLineMode(RGB_DI_PIN, WS2812_OUTPUT_MODE); }
 
 // Setleds for standard RGB
 void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
