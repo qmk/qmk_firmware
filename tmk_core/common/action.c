@@ -192,7 +192,14 @@ void process_record(keyrecord_t *record) {
         return;
     }
 
-    if (!process_record_quantum(record)) return;
+    if (!process_record_quantum(record)) {
+#ifndef NO_ACTION_ONESHOT
+        if (is_oneshot_layer_active() && record->event.pressed) {
+            clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+        }
+#endif
+        return;
+    }
 
     process_record_handler(record);
     post_process_record_quantum(record);
@@ -231,7 +238,7 @@ void process_action(keyrecord_t *record, action_t action) {
 #ifndef NO_ACTION_ONESHOT
     bool do_release_oneshot = false;
     // notice we only clear the one shot layer if the pressed key is not a modifier.
-    if (is_oneshot_layer_active() && event.pressed && !IS_MOD(action.key.code)
+    if (is_oneshot_layer_active() && event.pressed && (action.kind.id == ACT_USAGE || !IS_MOD(action.key.code))
 #    ifdef SWAP_HANDS_ENABLE
         && !(action.kind.id == ACT_SWAP_HANDS && action.swap.code == OP_SH_ONESHOT)
 #    endif
@@ -767,9 +774,10 @@ void register_code(uint8_t code) {
     }
 #endif
 
-    else if IS_KEY (code) {
-        // TODO: should push command_proc out of this block?
-        if (command_proc(code)) return;
+    else if
+        IS_KEY(code) {
+            // TODO: should push command_proc out of this block?
+            if (command_proc(code)) return;
 
 #ifndef NO_ACTION_ONESHOT
 /* TODO: remove
@@ -786,33 +794,35 @@ void register_code(uint8_t code) {
         } else
 */
 #endif
-        {
-            // Force a new key press if the key is already pressed
-            // without this, keys with the same keycode, but different
-            // modifiers will be reported incorrectly, see issue #1708
-            if (is_key_pressed(keyboard_report, code)) {
-                del_key(code);
+            {
+                // Force a new key press if the key is already pressed
+                // without this, keys with the same keycode, but different
+                // modifiers will be reported incorrectly, see issue #1708
+                if (is_key_pressed(keyboard_report, code)) {
+                    del_key(code);
+                    send_keyboard_report();
+                }
+                add_key(code);
                 send_keyboard_report();
             }
-            add_key(code);
+        }
+    else if
+        IS_MOD(code) {
+            add_mods(MOD_BIT(code));
             send_keyboard_report();
         }
-    } else if IS_MOD (code) {
-        add_mods(MOD_BIT(code));
-        send_keyboard_report();
-    }
 #ifdef EXTRAKEY_ENABLE
-    else if IS_SYSTEM (code) {
-        host_system_send(KEYCODE2SYSTEM(code));
-    } else if IS_CONSUMER (code) {
-        host_consumer_send(KEYCODE2CONSUMER(code));
-    }
+    else if
+        IS_SYSTEM(code) { host_system_send(KEYCODE2SYSTEM(code)); }
+    else if
+        IS_CONSUMER(code) { host_consumer_send(KEYCODE2CONSUMER(code)); }
 #endif
 #ifdef MOUSEKEY_ENABLE
-    else if IS_MOUSEKEY (code) {
-        mousekey_on(code);
-        mousekey_send();
-    }
+    else if
+        IS_MOUSEKEY(code) {
+            mousekey_on(code);
+            mousekey_send();
+        }
 #endif
 }
 
@@ -857,22 +867,26 @@ void unregister_code(uint8_t code) {
     }
 #endif
 
-    else if IS_KEY (code) {
-        del_key(code);
-        send_keyboard_report();
-    } else if IS_MOD (code) {
-        del_mods(MOD_BIT(code));
-        send_keyboard_report();
-    } else if IS_SYSTEM (code) {
-        host_system_send(0);
-    } else if IS_CONSUMER (code) {
-        host_consumer_send(0);
-    }
+    else if
+        IS_KEY(code) {
+            del_key(code);
+            send_keyboard_report();
+        }
+    else if
+        IS_MOD(code) {
+            del_mods(MOD_BIT(code));
+            send_keyboard_report();
+        }
+    else if
+        IS_SYSTEM(code) { host_system_send(0); }
+    else if
+        IS_CONSUMER(code) { host_consumer_send(0); }
 #ifdef MOUSEKEY_ENABLE
-    else if IS_MOUSEKEY (code) {
-        mousekey_off(code);
-        mousekey_send();
-    }
+    else if
+        IS_MOUSEKEY(code) {
+            mousekey_off(code);
+            mousekey_send();
+        }
 #endif
 }
 
