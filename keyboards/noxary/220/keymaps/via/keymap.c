@@ -1,4 +1,4 @@
-/* Copyright 2019 Rozakiin
+/* Copyright 2020 Rozakiin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ enum layer_names {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	/* Base Layer
+    /* Base Layer
     * ┌───┬───┬───┬───┐
     * │Esc│BLT│BL-│BL+│
     * ├───┼───┼───┼───┤
@@ -119,5 +119,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______, _______, _______, _______, 
 		_______, _______, _______, _______
     ),
-
 };

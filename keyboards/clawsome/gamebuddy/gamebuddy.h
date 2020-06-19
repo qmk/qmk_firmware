@@ -1,4 +1,4 @@
-/* Copyright 2020 Rozakiin
+/* Copyright 2020 AAClawson (AlisGraveNil)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,22 +13,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "220.h"
+#pragma once
 
-// Optional override functions below.
-// You can leave any or all of these undefined.
-// These are only required if you want to perform custom actions.
+#include "quantum.h"
 
-void matrix_init_kb(void) {
-  // put your keyboard start-up code here
-  // runs once when the firmware starts up
-  setPinOutput(C6);
-  matrix_init_user();
-}
-
-bool led_update_kb(led_t led_state) {
-    if(led_update_user(led_state)) {
-        writePin(C6, led_state.num_lock);
-    }
-    return true;
+#define LAYOUT( \
+    K00, K01, K02, K03, K04, K05,        \
+    K10, K11, K12, K13, K14, K15,        \
+    K20,      K22, K23, K24, K25,        \
+    K30, K31, K32, K33, K34, K35, K46,   \
+                        K44, K45         \
+) { \
+    { K00,   K01,   K02,   K03,   K04,   K05,   KC_NO }, \
+    { K10,   K11,   K12,   K13,   K14,   K15,   KC_NO }, \
+    { K20,   KC_NO, K22,   K23,   K24,   K25,   KC_NO }, \
+    { K30,   K31,   K32,   K33,   K34,   K35,   KC_NO }, \
+    { KC_NO, KC_NO, KC_NO, KC_NO, K44,   K45,   K46   }, \
 }
