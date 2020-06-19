@@ -2,7 +2,13 @@
 
 ![squiggle](https://i.imgur.com/5UhvDsj.jpg)
 
-A short description of the keyboard/project
+It's a keyboard family which has the following requirements:
+
+-  5 columns per hand.
+-  At most 3 keys for each side's thumb row.
+-  No numrow.
+-  Split.
+-  Symmetric.
 
 * Keyboard Maintainer: [ibnuda](https://github.com/ibnuda)
 * Hardware Supported: Atmega32u4.
