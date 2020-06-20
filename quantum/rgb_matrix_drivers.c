@@ -98,27 +98,27 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 #elif defined(WS2812)
 
 // LED color buffer
-LED_TYPE ws2812_led_array[DRIVER_LED_TOTAL];
+LED_TYPE rgb_matrix_ws2812_array[DRIVER_LED_TOTAL];
 
 static void init(void) {}
 
 static void flush(void) {
     // Assumes use of RGB_DI_PIN
-    ws2812_setleds(ws2812_led_array, DRIVER_LED_TOTAL);
+    ws2812_setleds(rgb_matrix_ws2812_array, DRIVER_LED_TOTAL);
 }
 
 // Set an led in the buffer to a color
 static inline void setled(int i, uint8_t r, uint8_t g, uint8_t b) {
-    ws2812_led_array[i].r = r;
-    ws2812_led_array[i].g = g;
-    ws2812_led_array[i].b = b;
+    rgb_matrix_ws2812_array[i].r = r;
+    rgb_matrix_ws2812_array[i].g = g;
+    rgb_matrix_ws2812_array[i].b = b;
 #    ifdef RGBW
-    convert_rgb_to_rgbw(ws2812_led_array[i]);
+    convert_rgb_to_rgbw(rgb_matrix_ws2812_array[i]);
 #    endif
 }
 
 static void setled_all(uint8_t r, uint8_t g, uint8_t b) {
-    for (int i = 0; i < sizeof(ws2812_led_array) / sizeof(ws2812_led_array[0]); i++) {
+    for (int i = 0; i < sizeof(rgb_matrix_ws2812_array) / sizeof(rgb_matrix_ws2812_array[0]); i++) {
         setled(i, r, g, b);
     }
 }
