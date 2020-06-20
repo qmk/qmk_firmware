@@ -30,6 +30,10 @@ The bottom row is fairly Kinesis-ish since the Contour and Advantage keyboards h
 ### 0.7
  * Brought code up to new standards (as of 27 June 2019).
  * Updated this readme file.
+### 0.8
+ * Added MACLOCK macro.
+### 0.9
+ * Updated code to correspond to new setPinInput behaviour.
 
 ### TODO:
 

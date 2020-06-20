@@ -1,7 +1,7 @@
 #pragma once
 
 // Use custom magic number so that when switching branches, EEPROM always gets reset
-#define EECONFIG_MAGIC_NUMBER (uint16_t)0x1337
+#define EECONFIG_MAGIC_NUMBER (uint16_t)0x1339
 
 /* Set Polling rate to 1000Hz */
 #define USB_POLLING_INTERVAL_MS 1
@@ -21,7 +21,7 @@
 
 #    define AUDIO_CLICKY_FREQ_RANDOMNESS 1.5f
 
-#    define UNICODE_SONG_OSX SONG(RICK_ROLL)
+#    define UNICODE_SONG_MAC SONG(RICK_ROLL)
 #    define UNICODE_SONG_LNX SONG(RICK_ROLL)
 #    define UNICODE_SONG_WIN SONG(RICK_ROLL)
 #    define UNICODE_SONG_BSD SONG(RICK_ROLL)
@@ -52,6 +52,7 @@
 #    if defined(__AVR__) && !defined(__AVR_AT90USB1286__)
 #        define DISABLE_RGB_MATRIX_ALPHAS_MODS
 #        define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
+#        define DISABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
 #        define DISABLE_RGB_MATRIX_BREATHING
 #        define DISABLE_RGB_MATRIX_BAND_SAT
 #        define DISABLE_RGB_MATRIX_BAND_VAL
@@ -97,8 +98,9 @@
 #    define ONESHOT_TIMEOUT 3000
 #endif  // !ONESHOT_TIMEOUT
 
-#ifndef QMK_KEYS_PER_SCAN
-#    define QMK_KEYS_PER_SCAN 4
+#ifdef QMK_KEYS_PER_SCAN
+#    undef QMK_KEYS_PER_SCAN
+#    define QMK_KEYS_PER_SCAN 1
 #endif  // !QMK_KEYS_PER_SCAN
 
 // this makes it possible to do rolling combos (zx) with keys that

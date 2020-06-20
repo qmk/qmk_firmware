@@ -1,15 +1,15 @@
-# QMK で Github を使う方法
+# QMK で GitHub を使う方法
 
 <!---
-  original document: d598f01cb:getting_started_github.md
-  git diff d598f01cb HEAD getting_started_github.md | cat
+  original document: 0.8.82:docs/getting_started_github.md
+  git diff 0.8.82 HEAD -- docs/getting_started_github.md | cat
 -->
 
-Github は慣れていない人には少し注意が必要です - このガイドは、QMK におけるフォーク、クローン、プルリクエストのサブミットの各ステップについて説明します。
+GitHub は慣れていない人には少し注意が必要です - このガイドは、QMK におけるフォーク、クローン、プルリクエストのサブミットの各ステップについて説明します。
 
 ?> このガイドでは、あなたがコマンドラインでの実行にある程度慣れており、システムに git がインストールされていることを前提にしています。
 
-[QMK Github ページ](https://github.com/qmk/qmk_firmware)を開くと、右上に "Fork" というボタンが見えます:
+[QMK GitHub ページ](https://github.com/qmk/qmk_firmware)を開くと、右上に "Fork" というボタンが見えます:
 
 ![Git でのフォーク](http://i.imgur.com/8Toomz4.jpg)
 
@@ -59,7 +59,7 @@ To https://github.com/whoeveryouare/qmk_firmware.git
  + 20043e64...7da94ac5 master -> master
 ```
 
-あなたの変更は今では Github 上のフォークにあります - フォーク (`https://github.com/<whoeveryouare>/qmk_firmware`)に戻ると、"New Pull Request" ボタンをクリックすることで新しいプルリクエストを作成することができます:
+あなたの変更は今では GitHub 上のフォークにあります - フォーク (`https://github.com/<whoeveryouare>/qmk_firmware`)に戻ると、"New Pull Request" ボタンをクリックすることで新しいプルリクエストを作成することができます:
 
 ![New Pull Request](http://i.imgur.com/DxMHpJ8.jpg)
 

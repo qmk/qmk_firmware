@@ -20,8 +20,8 @@ typedef void (*rgb_func_pointer)(void);
 
 /**
  * Wrapper for inc/dec rgb keycode
- * 
- * noinline to optimise for firmware size not speed (not in hot path) 
+ *
+ * noinline to optimise for firmware size not speed (not in hot path)
  */
 static void __attribute__((noinline)) handleKeycodeRGB(const uint8_t is_shifted, const rgb_func_pointer inc_func, const rgb_func_pointer dec_func) {
     if (is_shifted) {
@@ -35,10 +35,10 @@ static void __attribute__((noinline)) handleKeycodeRGB(const uint8_t is_shifted,
  * Wrapper for animation mode
  *   - if not in animation family -> jump to that animation
  *   - otherwise -> wrap round animation speed
- * 
- * noinline to optimise for firmware size not speed (not in hot path) 
+ *
+ * noinline to optimise for firmware size not speed (not in hot path)
  */
-static void __attribute__((noinline,unused)) handleKeycodeRGBMode(const uint8_t start, const uint8_t end) {
+static void __attribute__((noinline, unused)) handleKeycodeRGBMode(const uint8_t start, const uint8_t end) {
     if ((start <= rgblight_get_mode()) && (rgblight_get_mode() < end)) {
         rgblight_step();
     } else {
@@ -56,7 +56,7 @@ bool process_rgb(const uint16_t keycode, const keyrecord_t *record) {
     // Split keyboards need to trigger on key-up for edge-case issue
     if (!record->event.pressed) {
 #endif
-        uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
+        uint8_t shifted = get_mods() & MOD_MASK_SHIFT;
         switch (keycode) {
             case RGB_TOG:
                 rgblight_toggle();

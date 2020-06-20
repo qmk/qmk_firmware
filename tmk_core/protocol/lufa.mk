@@ -29,6 +29,7 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(BLUETOOTH)), AdafruitBLE)
+		LUFA_SRC += spi_master.c
 		LUFA_SRC += analog.c
 		LUFA_SRC += $(LUFA_DIR)/adafruit_ble.cpp
 endif

@@ -37,6 +37,9 @@ else
 		exit 1
 	fi
 fi
+if [ -z "$keyboard" ]; then
+	keyboard=all
+fi
 if [ -n "$target" ]; then
 	if [ "$(uname)" = "Linux" ] || docker-machine active >/dev/null 2>&1; then
 		usb_args="--privileged -v /dev:/dev"

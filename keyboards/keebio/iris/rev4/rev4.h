@@ -3,7 +3,6 @@
 #include "iris.h"
 #include "quantum.h"
 
-
 #ifdef USE_I2C
 #include <stddef.h>
 #ifdef __AVR__
