@@ -10,7 +10,10 @@ else
 	OPT_DEFS += -DRHRUIZ_OLED_FONT_H="\"users/rhruiz/oled/glcdfont.c\""
 endif
 
-
 ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
     SRC += oled/oled.c
+endif
+
+ifeq ($(strip $(RGBLIGHT_LAYERS)), yes)
+	OPT_DEFS += -DRGBLIGHT_LAYERS -DRGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
 endif
