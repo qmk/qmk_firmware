@@ -17,15 +17,17 @@
 #include "rhruiz.h"
 
 #ifdef RGBLIGHT_LAYERS
-const rgblight_segment_t PROGMEM fn1_colors[] = RGBLIGHT_LAYER_SEGMENTS({0, 7, 2, 255, 255});
+const rgblight_segment_t PROGMEM fn1_colors[] = RGBLIGHT_LAYER_SEGMENTS({7, 7, 2, 255, 255});
 
-const rgblight_segment_t PROGMEM fn2_colors[] = RGBLIGHT_LAYER_SEGMENTS({0, 7, 200, 255, 255});
+const rgblight_segment_t PROGMEM fn2_colors[] = RGBLIGHT_LAYER_SEGMENTS({7, 7, 200, 255, 255});
 
-const rgblight_segment_t PROGMEM cfg_colors[] = RGBLIGHT_LAYER_SEGMENTS({0, 7, 80, 255, 255});
+const rgblight_segment_t PROGMEM cfg_colors[] = RGBLIGHT_LAYER_SEGMENTS({7, 7, 80, 255, 255});
 
-const rgblight_segment_t PROGMEM num_colors[] = RGBLIGHT_LAYER_SEGMENTS({0, 7, 45, 255, 255});
+const rgblight_segment_t PROGMEM num_colors[] = RGBLIGHT_LAYER_SEGMENTS({7, 7, 45, 255, 255});
 
-const rgblight_segment_t* const PROGMEM _rgb_layers[] = RGBLIGHT_LAYERS_LIST(fn1_colors, fn2_colors, cfg_colors, num_colors);
+const rgblight_segment_t PROGMEM game_colors[] = RGBLIGHT_LAYER_SEGMENTS({7, 7, 250, 255, 255});
+
+const rgblight_segment_t* const PROGMEM _rgb_layers[] = RGBLIGHT_LAYERS_LIST(fn1_colors, fn2_colors, cfg_colors, num_colors, game_colors);
 #else
 const hue_sat_pair hue_sat_pairs[] = {[_FN1] = {2, 255}, [_FN2] = {200, 255}, [_CFG] = {80, 255}, [_NUM] = {45, 255}};
 
@@ -38,6 +40,7 @@ void rhruiz_update_layer_colors(layer_state_t state) {
     rgblight_set_layer_state(1, layer_state_cmp(state, _FN2));
     rgblight_set_layer_state(2, layer_state_cmp(state, _CFG));
     rgblight_set_layer_state(3, layer_state_cmp(state, _NUM));
+    rgblight_set_layer_state(4, layer_state_cmp(state, _GAME));
 #else
     if (biton32(state) < _FN1) {
         rhruiz_rgblight_reset();

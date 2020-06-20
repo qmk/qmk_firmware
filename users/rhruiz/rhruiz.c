@@ -154,7 +154,7 @@ layer_state_t rhruiz_layer_state_set_user(layer_state_t state) {
 
 void rhruiz_rgblight_reset(void) {
 #ifdef RGBLIGHT_ENABLE
-#ifdef RGBLIGHT_LAYERS
+#ifndef RGBLIGHT_LAYERS
     rgblight_config_t eeprom_config;
     eeprom_config.raw = eeconfig_read_rgblight();
 
