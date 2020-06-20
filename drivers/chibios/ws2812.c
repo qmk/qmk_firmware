@@ -51,7 +51,7 @@
 
 // The reset gap can be 6000 ns, but depending on the LED strip it may have to be increased
 // to values like 600000 ns. If it is too small, the pixels will show nothing most of the time.
-#define RES (1000 * WS2812_TRST_US) // Width of the low gap between bits to cause a frame to latch
+#define RES (1000 * WS2812_TRST_US)  // Width of the low gap between bits to cause a frame to latch
 
 void sendByte(uint8_t byte) {
     // WS2812 protocol wants most significant bits first
