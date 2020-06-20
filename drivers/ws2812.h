@@ -1,11 +1,4 @@
 /*
- * light weight WS2812 lib include
- *
- * Version 2.3  - Nev 29th 2015
- * Author: Tim (cpldcpu@gmail.com)
- *
- * Please do not change this file! All configuration is handled in "ws2812_config.h"
- *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
@@ -24,12 +17,20 @@
 
 #include "quantum/color.h"
 
+/*
+ * Older WS2812s can handle a reset time (TRST) of 50us, but recent 
+ * component revisions require a minimum of 280us.
+ */
+
+#if !defined(WS2812_TRST_US)
+#define WS2812_TRST_US 280
+#endif
+
 /* User Interface
  *
  * Input:
  *         ledarray:           An array of GRB data describing the LED colors
  *         number_of_leds:     The number of LEDs to write
- *         pin (optional):     A pin_t definition for the line to drive
  *
  * The functions will perform the following actions:
  *         - Set the data-out pin as output
@@ -37,4 +38,3 @@
  *         - Wait 50us to reset the LEDs
  */
 void ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds);
-void ws2812_setleds_pin(LED_TYPE *ledarray, uint16_t number_of_leds, uint8_t pin);
