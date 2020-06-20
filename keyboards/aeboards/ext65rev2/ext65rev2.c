@@ -2,14 +2,13 @@
 
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_90;  // flips the display 90 degrees
+    return OLED_ROTATION_90;  // rotates the display 90 degrees
 }
 
 #else
 
 void keyboard_pre_init_user(void) {
   // Call the keyboard pre init code.
-
   // Set our LED pins as output
   setPinOutput(B4);
   setPinOutput(B3);

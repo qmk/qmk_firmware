@@ -22,8 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0xA652 // AEboards EXT65 Rev2
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    AEboards
-#define PRODUCT         AEboards Ext65 REV 2
-#define DESCRIPTION     AEboards Ext65 REV 2
+#define PRODUCT         AEboards Ext65 Rev2
+#define DESCRIPTION     AEboards Ext65 Rev2
 
 /* key matrix size */
 /* key matrix size */
@@ -36,9 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
 
@@ -48,7 +45,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 //RGB Underglow WS2812
-
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 24
 #define RGB_DI_PIN B15
@@ -56,14 +52,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //SPI
 #define WS2812_SPI SPID2
 #define WS2812_SPI_MOSI_PAL_MODE 0
-
-/* UPAS CONFIG
-#define WS2812_LED_N 24
-#define RGBLED_NUM WS2812_LED_N
-#define PORT_WS2812     GPIOB
-#define PIN_WS2812      6
-#define WS2812_SPI SPID2
-*/
+#define WS2812_EXTERNAL_PULLUP
 
 // I2C OLED defines
 #define I2C1_SCL 8
@@ -87,21 +76,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 6
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 6
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
