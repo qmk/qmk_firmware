@@ -15,3 +15,5 @@
 /* Tapping */
 #define TAPPING_TOGGLE 3
 
+/* Leader */
+#define LEADER_TIMEOUT 300
