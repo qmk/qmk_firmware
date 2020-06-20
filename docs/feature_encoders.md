@@ -26,7 +26,7 @@ If your encoder's clockwise directions are incorrect, you can swap the A & B pad
 #define ENCODER_DIRECTION_FLIP
 ```
 
-Additionally, the resolution can be specified in the same file (the default & suggested is 4):
+Additionally, the resolution can be specified in the same file. The resolution defines how many times the enoder registers a turn before updating its state. The default & suggested is 4, not 1, because many encoders will register multiple turns between each dent. This can be defined with:
 
 ```c
 #define ENCODER_RESOLUTION 4
