@@ -24,6 +24,22 @@
 #    define WS2812_DMA_CHANNEL 2  // DMA Channel for TIMx_UP
 #endif
 
+// Push Pull or Open Drain Configuration
+// Default Push Pull
+#ifndef WS2812_EXTERNAL_PULLUP
+#    if defined(USE_GPIOV1)
+#        define WS2812_OUTPUT_MODE PAL_MODE_STM32_ALTERNATE_PUSHPULL
+#    else
+#        define WS2812_OUTPUT_MODE PAL_MODE_ALTERNATE(WS2812_PWM_PAL_MODE) | PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING
+#    endif
+#else
+#    if defined(USE_GPIOV1)
+#        define WS2812_OUTPUT_MODE PAL_MODE_STM32_ALTERNATE_OPENDRAIN
+#    else
+#        define WS2812_OUTPUT_MODE PAL_MODE_ALTERNATE(WS2812_PWM_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING
+#    endif
+#endif
+
 #ifndef WS2812_PWM_TARGET_PERIOD
 //#    define WS2812_PWM_TARGET_PERIOD 800000 // Original code is 800k...?
 #    define WS2812_PWM_TARGET_PERIOD 80000  // TODO: work out why 10x less on f303/f4x1
@@ -142,11 +158,7 @@ void ws2812_init(void) {
     for (i = 0; i < WS2812_COLOR_BIT_N; i++) ws2812_frame_buffer[i] = WS2812_DUTYCYCLE_0;      // All color bits are zero duty cycle
     for (i = 0; i < WS2812_RESET_BIT_N; i++) ws2812_frame_buffer[i + WS2812_COLOR_BIT_N] = 0;  // All reset bits are zero
 
-#if defined(USE_GPIOV1)
-    palSetLineMode(RGB_DI_PIN, PAL_MODE_STM32_ALTERNATE_PUSHPULL);
-#else
-    palSetLineMode(RGB_DI_PIN, PAL_MODE_ALTERNATE(WS2812_PWM_PAL_MODE) | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING);
-#endif
+    palSetLineMode(RGB_DI_PIN, WS2812_OUTPUT_MODE);
 
     // PWM Configuration
     //#pragma GCC diagnostic ignored "-Woverride-init"  // Turn off override-init warning for this struct. We use the overriding ability to set a "default" channel config
