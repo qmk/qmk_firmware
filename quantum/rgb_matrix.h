@@ -104,11 +104,13 @@ void rgb_matrix_indicators_user(void);
 void rgb_matrix_init(void);
 
 void        rgb_matrix_set_suspend_state(bool state);
+bool        rgb_matrix_get_suspend_state(void);
 void        rgb_matrix_toggle(void);
 void        rgb_matrix_enable(void);
 void        rgb_matrix_enable_noeeprom(void);
 void        rgb_matrix_disable(void);
 void        rgb_matrix_disable_noeeprom(void);
+uint8_t     rgb_matrix_is_enabled(void);
 void        rgb_matrix_step(void);
 void        rgb_matrix_step_reverse(void);
 void        rgb_matrix_increase_hue(void);
@@ -119,6 +121,7 @@ void        rgb_matrix_increase_val(void);
 void        rgb_matrix_decrease_val(void);
 void        rgb_matrix_increase_speed(void);
 void        rgb_matrix_decrease_speed(void);
+uint8_t     rgb_matrix_get_speed(void);
 led_flags_t rgb_matrix_get_flags(void);
 void        rgb_matrix_set_flags(led_flags_t flags);
 void        rgb_matrix_mode(uint8_t mode);
@@ -126,6 +129,10 @@ void        rgb_matrix_mode_noeeprom(uint8_t mode);
 uint8_t     rgb_matrix_get_mode(void);
 void        rgb_matrix_sethsv(uint16_t hue, uint8_t sat, uint8_t val);
 void        rgb_matrix_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val);
+HSV         rgb_matrix_get_hsv(void);
+uint8_t     rgb_matrix_get_hue(void);
+uint8_t     rgb_matrix_get_sat(void);
+uint8_t     rgb_matrix_get_val(void);
 
 #ifndef RGBLIGHT_ENABLE
 #    define rgblight_toggle rgb_matrix_toggle
@@ -133,6 +140,7 @@ void        rgb_matrix_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val);
 #    define rgblight_enable_noeeprom rgb_matrix_enable_noeeprom
 #    define rgblight_disable rgb_matrix_disable
 #    define rgblight_disable_noeeprom rgb_matrix_disable_noeeprom
+#    define rgblight_is_enabled rgb_matrix_is_enabled
 #    define rgblight_step rgb_matrix_step
 #    define rgblight_sethsv rgb_matrix_sethsv
 #    define rgblight_sethsv_noeeprom rgb_matrix_sethsv_noeeprom
@@ -145,9 +153,14 @@ void        rgb_matrix_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val);
 #    define rgblight_decrease_val rgb_matrix_decrease_val
 #    define rgblight_increase_speed rgb_matrix_increase_speed
 #    define rgblight_decrease_speed rgb_matrix_decrease_speed
+#    define rgblight_get_speed rgb_matrix_get_speed
 #    define rgblight_mode rgb_matrix_mode
 #    define rgblight_mode_noeeprom rgb_matrix_mode_noeeprom
 #    define rgblight_get_mode rgb_matrix_get_mode
+#    define rgblight_get_hue rgb_matrix_get_hue
+#    define rgblight_get_sat rgb_matrix_get_sat
+#    define rgblight_get_val rgb_matrix_get_val
+#    define rgblight_get_hsv rgb_matrix_get_hsv
 #endif
 
 typedef struct {
