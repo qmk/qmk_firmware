@@ -221,7 +221,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   #ifdef CONSOLE_ENABLE
     uprintf("layer_state: %u\n", biton32(layer_state));
-  #endif 
+  #endif
   return true;
 }
 

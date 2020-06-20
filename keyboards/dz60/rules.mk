@@ -12,7 +12,7 @@ MCU = atmega32u4
 BOOTLOADER = atmel-dfu
 
 # Build Options
-#   comment out to disable the options.
+#   change yes to no to disable
 #
 BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes	# Mouse keys
@@ -22,7 +22,8 @@ COMMAND_ENABLE = no    # Commands for debug and configuration
 SLEEP_LED_ENABLE = no  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE = yes  # Enable per-key backlight LEDs
-AUDIO_ENABLE = no    # There is no speaker on this PCB
-RGBLIGHT_ENABLE = yes # Enable the RGB underglow LEDs
+AUDIO_ENABLE = no  # There is no speaker on this PCB
+RGBLIGHT_ENABLE = yes  # Enable the RGB underglow LEDs
+VELOCIKEY_ENABLE = yes
 
 LAYOUTS = 60_ansi 60_ansi_split_bs_rshift 60_hhkb 60_iso 60_abnt2 60_tsangan_hhkb

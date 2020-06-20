@@ -76,7 +76,7 @@ enum layers_user {
     L_NUMPAD,
 #endif
 
-    L_RANGE_KEYMAP,
+    LAYERS_KEYMAP,
 };
 
 void keyboard_pre_init_keymap(void);

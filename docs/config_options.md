@@ -192,6 +192,9 @@ If you define these options you will enable the associated feature, which may in
   * run RGB animations
 * `#define RGBLIGHT_LAYERS`
   * Lets you define [lighting layers](feature_rgblight.md?id=lighting-layers) that can be toggled on or off. Great for showing the current keyboard layer or caps lock state.
+* `#define RGBLIGHT_MAX_LAYERS`
+  * Defaults to 8. Can be expanded up to 32 if more [lighting layers](feature_rgblight.md?id=lighting-layers) are needed.
+  * Note: Increasing the maximum will increase the firmware size and slow sync on split keyboards.
 * `#define RGBLIGHT_LAYER_BLINK` 
   * Adds ability to [blink](feature_rgblight.md?id=lighting-layer-blink) a lighting layer for a specified number of milliseconds (e.g. to acknowledge an action).
 * `#define RGBLED_NUM 12`

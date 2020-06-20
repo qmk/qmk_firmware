@@ -29,6 +29,9 @@ $(info QMK Firmware $(QMK_VERSION))
 endif
 endif
 
+# avoid 'Entering|Leaving directory' messages
+MAKEFLAGS += --no-print-directory
+
 ON_ERROR := error_occurred=1
 
 BREAK_ON_ERRORS = no
@@ -291,8 +294,8 @@ define PARSE_RULE
         $$(info |  QMK's make format recently changed to use folder locations and colons:)
         $$(info |     make project_folder:keymap[:target])
         $$(info |  Examples:)
-        $$(info |     make planck/rev4:default:dfu)
-        $$(info |     make planck:default)
+        $$(info |     make dz60:default)
+        $$(info |     make planck/rev6:default:flash)
         $$(info |)
     endif
 endef
