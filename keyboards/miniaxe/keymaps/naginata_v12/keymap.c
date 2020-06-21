@@ -202,7 +202,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void matrix_init_user(void) {
   // 薙刀式
-  set_naginata(_NAGINATA);
+  // 薙刀式
+  uint16_t ngonkeys[] = {KC_F, KC_G};
+  uint16_t ngoffkeys[] = {KC_H, KC_J};
+  set_naginata(_NAGINATA, ngonkeys, ngoffkeys);
+  // 薙刀式
   #ifdef NAGINATA_EDIT_MAC
   set_unicode_input_mode(UC_OSX);
   #endif
