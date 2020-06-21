@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x3060
 #define MANUFACTURER    Peej
 #define PRODUCT			For Science
-#define DESCRIPTION     A 4x5+3 split keyboard
+#define DESCRIPTION     A 100x100mm 4x5+3 split keyboard
 
 /* key matrix size */
 // Rows are doubled-up
