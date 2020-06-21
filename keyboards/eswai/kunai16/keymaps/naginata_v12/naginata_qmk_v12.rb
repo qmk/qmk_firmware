@@ -24,12 +24,12 @@ r_kogaki  = %w(xya xyu xyo xa xi xu xe xo xwa xtu)
 
 kumiawase = []
 r_kumiawase = []
-kumiawase << %w(しぇ しゃ しゅ しょ じぇ じゃ じゅ じょ)
-r_kumiawase << %w(sye sya syu syo je ja ju jo)
+kumiawase << %w(しゃ しゅ しょ じゃ じゅ じょ)
+r_kumiawase << %w(sya syu syo zya zyu zyo)
 kumiawase << %w(きゃ きゅ きょ ぎゃ ぎゅ ぎょ)
 r_kumiawase << %w(kya kyu kyo gya gyu gyo)
-kumiawase << %w(ちぇ ちゃ ちゅ ちょ ぢぇ ぢゃ ぢゅ ぢょ)
-r_kumiawase << %w(che cha chu cho dye dya dyu dyo)
+kumiawase << %w(ちゃ ちゅ ちょ ぢゃ ぢゅ ぢょ)
+r_kumiawase << %w(tya tyu tyo dya dyu dyo)
 kumiawase << %w(にゃ にゅ にょ)
 r_kumiawase << %w(nya nyu nyo)
 kumiawase << %w(ひゃ ひゅ ひょ びゃ びゅ びょ ぴゃ ぴゅ ぴょ)
@@ -42,20 +42,20 @@ r_kumiawase << %w(rya ryu ryo)
 gairai = []
 r_gairai = []
 gairai << %w(てぃ てゅ でぃ でゅ)
-r_gairai << %w(texi texyu dexi dexyu)
+r_gairai << %w(thi thu dhi dhu)
 gairai << %w(とぅ どぅ)
 r_gairai << %w(toxu doxu)
 gairai << %w(しぇ ちぇ じぇ ぢぇ)
-r_gairai << %w(sixe tixe jixe dixe)
+r_gairai << %w(sye tye zye dye)
 
 gairai << %w(ふぁ ふぃ ふぇ ふぉ ふゅ)
 r_gairai << %w(fa fi fe fo fyu)
 gairai << %w(うぃ うぇ うぉ ゔぁ ゔぃ ゔぇ ゔぉ ゔゅ)
-r_gairai << %w(uxi uxe uxo va vi ve vo vuxyu)
+r_gairai << %w(wi we uxo va vi ve vo vuxyu)
 gairai << %w(くぁ くぃ くぇ くぉ くゎ ぐぁ ぐぃ ぐぇ ぐぉ ぐゎ)
 r_gairai << %w(kuxa kuxi kuxe kuxo kuxwa guxa guxi guxe guxo guxwa)
 gairai << %w(つぁ つぃ つぇ つぉ)
-r_gairai << %w(tuxa tuxi tuxe tuxo)
+r_gairai << %w(tsa tsi tse tso)
 
 kumiawase.flatten!
 r_kumiawase.flatten!
