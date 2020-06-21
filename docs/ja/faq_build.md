@@ -55,7 +55,7 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="1b4f", ATTRS{idProduct}=="9205", TAG+="uacc
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="1b4f", ATTRS{idProduct}=="9203", TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
 ```
 
-**注意:** 古い(1.12以前の)ModemManagerでは、フィルタリングは厳密なモードではない場合にのみ動作し、以下のコマンドはその設定を更新することができます。
+**注意:** 古い(1.12以前の) ModemManager では、フィルタリングは厳密なモードではない場合にのみ動作し、以下のコマンドはその設定を更新することができます。
 ```console
 sudo sed -i 's/--filter-policy=strict/--filter-policy=default/' /lib/systemd/system/ModemManager.service
 sudo systemctl daemon-reload
