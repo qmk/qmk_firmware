@@ -1,5 +1,5 @@
 /*
-Copyright 2012-2019 Jun Wako, Jack Humbert, Yiancar
+Copyright 2012-2020 Jun Wako, Jack Humbert, Yiancar
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -47,7 +47,7 @@ static void init_pins(void) {
     i2c_writeReg((PORT_EXPANDER_ADDRESS << 1), 0x06, &send_data, 1, 20);
 
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        if ( (x > 0) && (x < 12) ) {
+        if ( x < 6 ) {
             setPinInputHigh(col_pins[x]);
         }
     }
@@ -74,42 +74,37 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     select_row(current_row);
     wait_us(30);
 
+    uint8_t port_expander_buffer;
+    i2c_readReg((PORT_EXPANDER_ADDRESS << 1), 0x09, &port_expander_buffer, 1, 20);
+
     // For each col...
     for(uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
         uint8_t pin_state;
         // Select the col pin to read (active low)
         switch (col_index) {
             case 6 :
-                i2c_readReg((PORT_EXPANDER_ADDRESS << 1), 0x09, &pin_state, 1, 20);
-                pin_state = pin_state & (1 << 0);
+                pin_state = port_expander_buffer & (1 << 0);
                 break;
             case 7 :
-                i2c_readReg((PORT_EXPANDER_ADDRESS << 1), 0x09, &pin_state, 1, 20);
-                pin_state = pin_state & (1 << 1);
+                pin_state = port_expander_buffer & (1 << 1);
                 break;
             case 8 :
-                i2c_readReg((PORT_EXPANDER_ADDRESS << 1), 0x09, &pin_state, 1, 20);
-                pin_state = pin_state & (1 << 2);
+                pin_state = port_expander_buffer & (1 << 2);
                 break;
             case 9 :
-                i2c_readReg((PORT_EXPANDER_ADDRESS << 1), 0x09, &pin_state, 1, 20);
-                pin_state = pin_state & (1 << 3);
+                pin_state = port_expander_buffer & (1 << 3);
                 break;
             case 10 :
-                i2c_readReg((PORT_EXPANDER_ADDRESS << 1), 0x09, &pin_state, 1, 20);
-                pin_state = pin_state & (1 << 4);
+                pin_state = port_expander_buffer & (1 << 4);
                 break;
             case 11 :
-                i2c_readReg((PORT_EXPANDER_ADDRESS << 1), 0x09, &pin_state, 1, 20);
-                pin_state = pin_state & (1 << 5);
+                pin_state = port_expander_buffer & (1 << 5);
                 break;
             case 12 :
-                i2c_readReg((PORT_EXPANDER_ADDRESS << 1), 0x09, &pin_state, 1, 20);
-                pin_state = pin_state & (1 << 6);
+                pin_state = port_expander_buffer & (1 << 6);
                 break;
             case 13 :
-                i2c_readReg((PORT_EXPANDER_ADDRESS << 1), 0x09, &pin_state, 1, 20);
-                pin_state = pin_state & (1 << 7);
+                pin_state = port_expander_buffer & (1 << 7);
                 break;
             default :
                 pin_state = readPin(col_pins[col_index]);
