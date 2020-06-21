@@ -15,7 +15,9 @@
 __attribute__((weak)) void eeconfig_init_keymap(void) {}
 
 void eeconfig_init_user(void) {
+#ifdef UNICODE_ENABLE
     set_unicode_input_mode(UC_LNX);
+#endif
     eeconfig_init_keymap();
 }
 
