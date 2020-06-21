@@ -356,8 +356,8 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
 
 void matrix_init_user(void) {
   // 薙刀式
-  uint16_t ngonkeys[] = {KC_P, KC_N};
-  uint16_t ngoffkeys[] = {KC_E, KC_M};
+  uint16_t ngonkeys[] = {KC_N, KC_R};
+  uint16_t ngoffkeys[] = {KC_I, KC_A};
   set_naginata(_NAGINATA, ngonkeys, ngoffkeys);
   set_unicode_input_mode(UC_WINC);
   // 薙刀式
