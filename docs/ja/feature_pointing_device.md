@@ -32,7 +32,7 @@ report_mouse_t (ここでは "mouseReport") が以下のプロパティを持つ
 
 ```c
 case MS_SPECIAL:
-	report_mouse_t currentReport = pointing_device_get_report();
+    report_mouse_t currentReport = pointing_device_get_report();
     if (record->event.pressed) {
         currentReport.v = 127;
         currentReport.h = 127;
