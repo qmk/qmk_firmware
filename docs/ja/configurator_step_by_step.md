@@ -1,4 +1,4 @@
-# QMK Configurator: Step by Step
+# QMK Configurator: ステップ・バイ・ステップ
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
