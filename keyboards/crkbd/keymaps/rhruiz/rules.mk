@@ -15,6 +15,8 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 RAW_ENABLE = yes
 OLED_DRIVER_ENABLE = yes
 LINK_TIME_OPTIMIZATION_ENABLE = yes
+TAP_DANCE_ENABLE = yes
+
 BOOTLOADER = qmk-dfu
 
 OPT_DEFS += -DPRO_MICRO
