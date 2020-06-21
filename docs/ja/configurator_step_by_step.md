@@ -19,7 +19,7 @@
 !> **正しいバージョンを選択してください!**
 
 キーボードが QMK を搭載していると宣伝されていてもリストにない場合は、開発者がまだ作業中か、私たちがまだマージするきっかけがなかった可能性があります。
-アクティブな [Pull Request](https://github.com/qmk/qmk_firmware/pulls?q=is%3Aopen+is%3Apr+label%3Akeyboard) がない場合、[qmk_firmware](https://github.com/qmk/qmk_firmware/issues)で報告して、その特定のキーボードのサポートをリクエストします。
+アクティブな [プルリクエスト](https://github.com/qmk/qmk_firmware/pulls?q=is%3Aopen+is%3Apr+label%3Akeyboard) がない場合、[qmk_firmware](https://github.com/qmk/qmk_firmware/issues)で報告して、その特定のキーボードのサポートをリクエストします。
 製作者自身の GitHub アカウントにある QMK 搭載キーボードもあります。
 それも再確認してください。
 
