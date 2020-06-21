@@ -15,4 +15,6 @@
 
 QMK Configurator は Chrome/Firefox で最適に動作します。
 
-!> **KLE や kbfirmware などの他のツールのファイルは、QMK Configurator と互換性がありません。それらをロードしたり、インポートしたりしないでください。QMK Configurator は異なるツールです。**
+!> **注意: Keyboard Layout Editor (KLE) や kbfirmware などの他のツールのファイルは、QMK Configurator と互換性がありません。それらをロードしたり、インポートしたりしないでください。QMK Configurator は異なるツールです。**
+
+[QMK Configurator: ステップ・バイ・ステップ](ja/configurator_step_by_step.md)を参照してください。
