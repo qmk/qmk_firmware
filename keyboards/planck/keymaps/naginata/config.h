@@ -8,9 +8,9 @@
 // #define NAGINATA_TATEGAKI
 #define NAGINATA_YOKOGAKI
 #define DSRLBY
-// #define NAGINATA_EDIT_WIN // JP106
-#define NAGINATA_EDIT_MAC // US101
-#define MAC_LIVE_CONVERSION // Macでライブ変換をオンにしている場合
+#define NAGINATA_EDIT_WIN // JP106
+// #define NAGINATA_EDIT_MAC // US101
+// #define MAC_LIVE_CONVERSION // Macでライブ変換をオンにしている場合
 #define COMBO_COUNT 10
 #define COMBO_TERM 40
 // 薙刀式

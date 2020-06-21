@@ -16,6 +16,7 @@
 
 #include QMK_KEYBOARD_H
 #include "muse.h"
+#include "twpair_on_jis.h"
 
 // 薙刀式
 #include "naginata.h"
@@ -116,28 +117,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   +-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+
 */
   [_SRLBY] = LAYOUT_planck_grid(
-    KC_ESC           ,KC_COMM          ,KC_S             ,KC_R             ,KC_L             ,KC_B             ,KC_Y             ,KC_BSPC          ,KC_I             ,KC_D             ,KC_DOT           ,KC_SLSH          , \
-    KC_TAB           ,KC_W             ,KC_H             ,KC_T             ,KC_E             ,KC_M             ,KC_P             ,KC_N             ,KC_A             ,KC_O             ,KC_Z             ,KC_ENT           , \
-    ALPH             ,KC_V             ,KC_QUOT          ,KC_K             ,KC_G             ,KC_C             ,KC_U             ,KC_F             ,KC_J             ,KC_X             ,KC_Q             ,SALPH            , \
-    KC_LCMD          ,KC_LALT          ,KC_LSFT          ,KC_LCTL          ,MO(_LOWER)       ,LT(_SHIFT,KC_SPC),LT(_SHIFT,KC_ENT),MO(_RAISE)       ,KC_LEFT          ,KC_UP            ,KC_DOWN          ,KC_RGHT
-  ),
-
-/* _SHIFT
-  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  | __  |  <  |S(S) |S(R) |S(L) |S(B) |S(Y) | DEL |S(I) |S(D) |  >  | __  |
-  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  | __  |S(W) |S(H) |S(T) |S(E) |S(M) |S(P) |S(N) |S(A) |S(O) |S(Z) | __  |
-  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  | __  |S(V) |  "  |S(K) |S(G) |S(C) |S(U) |S(F) |S(J) |S(X) |S(Q) | __  |
-  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  |
-  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-*/
-  [_SHIFT] = LAYOUT_planck_grid(
-    _______,KC_LT  ,S(KC_S),S(KC_R),S(KC_L),S(KC_B),S(KC_Y),KC_DEL ,S(KC_I),S(KC_D),KC_GT  ,_______, \
-    _______,S(KC_W),S(KC_H),S(KC_T),S(KC_E),S(KC_M),S(KC_P),S(KC_N),S(KC_A),S(KC_O),S(KC_Z),_______, \
-    _______,S(KC_V),KC_DQT ,S(KC_K),S(KC_G),S(KC_C),S(KC_U),S(KC_F),S(KC_J),S(KC_X),S(KC_Q),_______, \
-    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
+    KC_ESC           ,KC_COMM          ,KC_S             ,KC_R             ,KC_L             ,KC_B             ,KC_Y             ,KC_BSPC          ,KC_I             ,KC_D             ,KC_DOT           ,KC_QUOT          , \
+    CTL_T(KC_TAB)    ,KC_W             ,KC_H             ,KC_T             ,KC_E             ,KC_M             ,KC_P             ,KC_N             ,KC_A             ,KC_O             ,KC_K             ,KC_ENT           , \
+    KC_LSFT          ,KC_V             ,KC_SLSH          ,KC_Z             ,KC_G             ,KC_C             ,KC_U             ,KC_F             ,KC_J             ,KC_X             ,KC_Q             ,KC_UP            , \
+    KC_LCTL          ,KC_LALT          ,KC_LCMD          ,MO(_LOWER)       ,XXXXXXX          ,LSFT_T(KC_SPC)   ,XXXXXXX          ,LSFT_T(KC_ENT)   ,MO(_RAISE)       ,KC_LEFT          ,KC_DOWN          ,KC_RGHT
   ),
 
 /* _LOWER
@@ -152,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
 */
   [_LOWER] = LAYOUT_planck_grid(
-    _______,KC_ESC ,XXXXXXX,XXXXXXX,KC_COLN,KC_SCLN,KC_SLSH,KC_7   ,KC_8   ,KC_9   ,KC_MINS,_______, \
+    _______,KC_ESC ,XXXXXXX,XXXXXXX,KC_COLN,KC_SCLN,KC_SLSH,KC_7   ,KC_8   ,KC_9   ,KC_MINS,KC_DEL , \
     _______,KC_TAB ,KC_LCBR,KC_LBRC,KC_LPRN,KC_LT  ,KC_ASTR,KC_4   ,KC_5   ,KC_6   ,KC_PLUS,_______, \
     _______,XXXXXXX,KC_RCBR,KC_RBRC,KC_RPRN,KC_GT  ,KC_0   ,KC_1   ,KC_2   ,KC_3   ,KC_EQL ,_______, \
     _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
@@ -170,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 */
   [_RAISE] = LAYOUT_planck_grid(
-    _______   ,KC_TILD   ,KC_AT     ,KC_HASH   ,KC_DLR    ,KC_PERC   ,KC_HOME   ,S(KC_UP)  ,KC_UP     ,XXXXXXX   ,KC_BSPC   ,_______   , \
+    _______   ,KC_TILD   ,KC_AT     ,KC_HASH   ,KC_DLR    ,KC_PERC   ,KC_HOME   ,S(KC_UP)  ,KC_UP     ,XXXXXXX   ,KC_BSPC   ,KC_DEL    , \
     _______   ,KC_CIRC   ,KC_AMPR   ,KC_EXLM   ,KC_QUES   ,KC_JYEN   ,KC_END    ,KC_LEFT   ,KC_DOWN   ,KC_RGHT   ,XXXXXXX   ,_______   , \
     _______   ,KC_PIPE   ,KC_GRV    ,KC_QUOT   ,KC_DQT    ,KC_UNDS   ,XXXXXXX   ,S(KC_LEFT),S(KC_DOWN),S(KC_RGHT),XXXXXXX   ,_______   , \
     _______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______
@@ -209,7 +192,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,NG_Q   ,NG_W   ,NG_E   ,NG_R   ,NG_T   ,NG_Y   ,NG_U   ,NG_I   ,NG_O   ,NG_P   ,_______, \
     _______,NG_A   ,NG_S   ,NG_D   ,NG_F   ,NG_G   ,NG_H   ,NG_J   ,NG_K   ,NG_L   ,NG_SCLN,_______, \
     ALPH   ,NG_Z   ,NG_X   ,NG_C   ,NG_V   ,NG_B   ,NG_N   ,NG_M   ,NG_COMM,NG_DOT ,NG_SLSH,SALPH  , \
-    _______,_______,_______,_______,_______,NG_SHFT,NG_SHFT,_______,_______,_______,_______,_______
+    _______,_______,_______,_______,XXXXXXX,NG_SHFT,XXXXXXX,NG_SHFT2,_______,_______,_______,_______
   ),
 
 };
@@ -293,7 +276,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
   // 薙刀式
 
+  // typewriter pairing on jis keyboard
+  if (!twpair_on_jis(keycode, record))
+    return false;
   return true;
+
 }
 
 bool muse_mode = false;
@@ -368,13 +355,10 @@ void dip_update(uint8_t index, bool active) {
 
 void matrix_init_user(void) {
   // 薙刀式
-  set_naginata(_NAGINATA);
-  #ifdef NAGINATA_EDIT_MAC
-  set_unicode_input_mode(UC_OSX);
-  #endif
-  #ifdef NAGINATA_EDIT_WIN
+  uint16_t ngonkeys[] = {KC_P, KC_N};
+  uint16_t ngoffkeys[] = {KC_E, KC_M};
+  set_naginata(_NAGINATA, ngonkeys, ngoffkeys);
   set_unicode_input_mode(UC_WINC);
-  #endif
   // 薙刀式
 }
 
