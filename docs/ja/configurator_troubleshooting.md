@@ -20,7 +20,7 @@
 
 以下を見てください。
 
-* [Basic Keycode Reference](ja/keycodes_basic.md)
+* [基本的なキーコードリファレンス](ja/keycodes_basic.md)
 * [Advanced Keycode Reference](ja/feature_advanced_keycodes.md)
 
 #### コンパイルできません
