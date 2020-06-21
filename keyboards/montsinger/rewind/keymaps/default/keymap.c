@@ -8,7 +8,7 @@
 enum layer_names
 {
   _QWERTY,
-  _FN1
+  _FN1,
   _SYM
 };
 
