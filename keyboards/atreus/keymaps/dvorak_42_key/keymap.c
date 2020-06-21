@@ -46,7 +46,6 @@ enum custom_keycodes {
 // building instructions:
 // make atreus:dvorak_42_key
 
-// flashing instructions:
 // avrdude -p atmega32u4 -c avr109 -U flash:w:atreus_astar_dvorak_42_key.hex  -P COM15
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
