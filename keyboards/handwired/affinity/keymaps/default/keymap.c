@@ -94,7 +94,7 @@ bool _kick_detect (int *values) {
   threshold = _exp_ave(values[0] + values[1], threshold, THRESHOLD_WINDOW);
 
   /* if (values[0] + values[1] - lastvalue > THRESHOLD / 2) { */
-  if (values[0] + values[1] - _max(threshold, lastvalue) > THRESHOLD / 3) {
+  if (values[0] + values[1] - _max(threshold, lastvalue) > THRESHOLD / 4) {
     lastvalue = values[0] + values[1];
     return true;
   } else {
