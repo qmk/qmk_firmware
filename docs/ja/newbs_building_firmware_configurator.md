@@ -10,7 +10,7 @@
 
 [QMK Configurator](https://config.qmk.fm) は、QMKファームウェアの hex ファイルを生成するオンライングラフィカルユーザーインターフェイスです。
 
-[Video Tutorial](https://www.youtube.com/watch?v=-imgglzDMdY) を見てください。
+[ビデオチュートリアル](https://www.youtube.com/watch?v=-imgglzDMdY) を見てください。
 多くの人は、それが自分のキーボードのプログラミングを始めるのに十分な情報であることに気づくでしょう。
 
 QMK Configurator は Chrome/Firefox で最適に動作します。
