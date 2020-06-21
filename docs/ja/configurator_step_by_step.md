@@ -43,7 +43,7 @@
 
 ?> マウスをキーの上に置くと、そのキーコードの機能の短い説明文が出ます。より詳細な説明については以下を見てください:
 
-* [Basic Keycode Reference](ja/keycodes_basic.md)
+* [基本的なキーコードリファレンス](ja/keycodes_basic.md)
 * [Advanced Keycode Reference](ja/feature_advanced_keycodes.md)
 
 !> 選択したレイアウトが物理的なビルドと一致しない場合は、使用していないキーは空白のままにしておきます。どのキーが使用されているかわからない場合、例えば、バックスペースキーは 1 つだが `LAYOUT_all` には2つのキーがあるなど、同じキーコードを両方の場所に配置してください。
