@@ -1,4 +1,4 @@
-{
+ {
     "keyboard":"montsinger/rewind",
     "url": "https://montsinger.net",
     "maintainer": "rossman360",
@@ -7,7 +7,6 @@
     "layouts": {
         "LAYOUT_ortho_5x12": {
             "layout": [
-
                 {"x":0, "y":0},
                 {"x":1, "y":0},
                 {"x":2, "y":0},
