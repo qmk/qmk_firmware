@@ -43,6 +43,6 @@ QMK は[多くの趣味のキーボード](http://qmk.fm/keyboards/)をサポー
 
 このガイドの他にも、QMK の学習に役立つリソースがいくつかあります。[学習リソース](ja/newbs_learn_more_resources.md)のページにまとめました。
 
-## Open Source
+## オープンソース
 
 QMKは GNU General Public License でリリースされているオープンソース・ソフトウェアです。
