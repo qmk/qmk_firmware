@@ -21,7 +21,7 @@
 以下を見てください。
 
 * [基本的なキーコードリファレンス](ja/keycodes_basic.md)
-* [Advanced Keycode Reference](ja/feature_advanced_keycodes.md)
+* [高度なキーコードリファレンス](ja/feature_advanced_keycodes.md)
 
 #### コンパイルできません
 
