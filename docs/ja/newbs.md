@@ -27,7 +27,7 @@ QMK は[多くの趣味のキーボード](http://qmk.fm/keyboards/)をサポー
 
 ## 概要
 
-このガイドには 4つの主要なセクションがあります。
+このガイドには4つの主要なセクションがあります。
 
 1. [環境設定](ja/newbs_getting_started.md)
 2. [コマンドラインを使用して初めてのファームウェアを構築する](ja/newbs_building_firmware.md)
