@@ -320,3 +320,8 @@ ifneq (,$(filter $(MCU),attiny85))
   NO_UART ?= yes
   NO_SUSPEND_POWER_DOWN ?= yes
 endif
+
+ifeq ($(strip $(PROTOCOL)),VUSB)
+  # prevent VUSB boards from enabling NKRO, as they do not support it.
+  NKRO_ENABLE = no
+endif

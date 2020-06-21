@@ -23,9 +23,5 @@ endif
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 
-# Enable N-Key Rollover, except in cases of VUSB:
-ifeq ($(strip $(PROTOCOL)), VUSB)
-  NKRO_ENABLE = no
-else
-  NKRO_ENABLE = yes
-endif
+# Enable N-Key Rollover
+NKRO_ENABLE = yes

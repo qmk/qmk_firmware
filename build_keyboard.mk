@@ -91,7 +91,6 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_1)/rules.mk)","")
     include $(KEYBOARD_PATH_1)/rules.mk
 endif
 
-
 MAIN_KEYMAP_PATH_1 := $(KEYBOARD_PATH_1)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_2 := $(KEYBOARD_PATH_2)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_3 := $(KEYBOARD_PATH_3)/keymaps/$(KEYMAP)
@@ -131,6 +130,14 @@ ifeq ("$(wildcard $(KEYMAP_PATH))", "")
         # this state should never be reached
     endif
 endif
+
+# Userspace setup
+ifeq ("$(USER_NAME)","")
+    USER_NAME := $(KEYMAP)
+endif
+USER_PATH := users/$(USER_NAME)
+# Userspace rules.mk
+-include $(USER_PATH)/rules.mk
 
 ifeq ($(strip $(CTPC)), yes)
   CONVERT_TO_PROTON_C=yes
@@ -279,13 +286,7 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_5)/post_config.h)","")
     POST_CONFIG_H += $(KEYBOARD_PATH_5)/post_config.h
 endif
 
-# Userspace setup and definitions
-ifeq ("$(USER_NAME)","")
-    USER_NAME := $(KEYMAP)
-endif
-USER_PATH := users/$(USER_NAME)
-
--include $(USER_PATH)/rules.mk
+# Userspace config
 ifneq ("$(wildcard $(USER_PATH)/config.h)","")
     CONFIG_H += $(USER_PATH)/config.h
 endif
