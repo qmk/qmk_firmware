@@ -54,6 +54,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_NO  , KC_NO, KC_TRNS, 
                 EEP_RST, RESET, DEBUG  , 
                 KC_NO  , KC_NO, KC_NO
+              ),
+
+    /*
+     * | Knob: N/A       |
+     * .-----------------.
+     * | N/A | N/A | N/A |
+     * |-----------------|
+     * | N/A | N/A | N/A |
+     * |-----------------|
+     * | N/A | N/A | N/A |
+     * '-----------------'
+     */
+    [3] =
+        LAYOUT(
+                KC_NO, KC_NO, KC_NO,
+                KC_NO, KC_NO, KC_NO,
+                KC_NO, KC_NO, KC_NO
               )
 
 };
