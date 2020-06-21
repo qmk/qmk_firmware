@@ -1,12 +1,11 @@
-# herringbone
+# Herringbone
 
-![herringbone](imgur.com image replace me!)
+![Herringbone](https://i.imgur.com/SQyS0j8.png)
 
 A short description of the keyboard/project
 
-* Keyboard Maintainer: [Ramon Imbao](https://github.com/yourusername)
-* Hardware Supported: The PCBs, controllers supported
-* Hardware Availability: Links to where you can find this hardware
+* Keyboard Maintainer: [Ramon Imbao](https://github.com/ramonimbao)
+* Hardware Supported: ATmega32A
 
 Make example for this keyboard (after setting up your build environment):
 
