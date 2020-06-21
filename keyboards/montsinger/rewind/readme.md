@@ -2,7 +2,7 @@
 
 ![Rewind](https://i.imgur.com/3QZbLr0.jpg)
 
-A 5x10 ortholinear keyboard that fits inside a puffy VHS case, made and sold by Montsinger. [More info on Montsinger.net](https://montsinger.net).
+A 5x10 ortholinear keyboard that fits inside puffy VHS cases, made and sold by Montsinger. [More info on Montsinger.net](https://montsinger.net).
 
 * Keyboard Maintainer: [Rossman360](https://github.com/rossman360)
 * Hardware Supported: Rewind; Pro Micro or Elite-C
