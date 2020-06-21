@@ -22,8 +22,8 @@
 #include "msgeq7.h"
 
 enum layer { DEFAULT, RAISE };
-enum custom_keycode { LED_MODE = SAFE_RANGE };
-enum lightshow_pattern { LEVELMETER, LEVELMETER_PEAK, LEVELMETER2, LEVELMETER3, PARTY, PARTY2 };
+enum custom_keycode { LED_MODE = SAFE_RANGE, LED_DEBUG };
+enum lightshow_pattern { LEVELMETER, LEVELMETER_PEAK, LEVELMETER2, LEVELMETER3, PARTY, PARTY2, BEATDEBUG };
 
 enum lightshow_pattern current_pattern = LEVELMETER;
 
@@ -38,14 +38,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     RESET, KC_NO, KC_NO, LED_MODE,
     KC_NO, KC_NO, KC_NO, KC_NO,
     KC_NO, KC_NO, KC_NO, KC_NO,
-    KC_NO, KC_NO, KC_NO, KC_NO
+    LED_DEBUG, KC_NO, KC_NO, KC_NO
   )
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-   case LED_MODE:
-    if (record->event.pressed) {
+  if (record->event.pressed) {
+    switch (keycode) {
+     case LED_MODE:
       current_pattern = current_pattern == LEVELMETER ? (
         LEVELMETER_PEAK
       ) : current_pattern == LEVELMETER_PEAK ? (
@@ -59,8 +59,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       ) : (
         LEVELMETER
       );
+      return false;
+     case LED_DEBUG:
+      current_pattern = BEATDEBUG;
+      return false;
     }
-    return false;
   }
   return true;
 }
@@ -98,6 +101,40 @@ bool _kick_detect (int *values) {
     lastvalue = values[0] + values[1];
     return false;
   }
+}
+
+/* kick detector debug */
+void process_lightshow_debug (int *values) {
+  static int lastvalue, threshold;
+
+  int value = values[0] + values[1];
+  threshold = _exp_ave(value, threshold, THRESHOLD_WINDOW);
+
+  /* col1 (value) */
+  sethsv(0,   255, _map(value, THRESHOLD, 1023 * 2, 0, 96, false), &led[3]);
+  sethsv(64,  255, _map(value, THRESHOLD / 2, THRESHOLD, 0, 96, false), &led[7]);
+  sethsv(128, 255, _map(value, THRESHOLD / 3, THRESHOLD / 2, 0, 96, false), &led[11]);
+  sethsv(192, 255, _map(value, THRESHOLD / 4, THRESHOLD / 3, 0, 96, false), &led[15]);
+
+  /* col2 (value - lastvalue) */
+  sethsv(0,   255, _map(value - lastvalue, THRESHOLD, 1023 * 2, 0, 96, false), &led[2]);
+  sethsv(64,  255, _map(value - lastvalue, THRESHOLD / 2, THRESHOLD, 0, 96, false), &led[6]);
+  sethsv(128, 255, _map(value - lastvalue, THRESHOLD / 3, THRESHOLD / 2, 0, 96, false), &led[10]);
+  sethsv(192, 255, _map(value - lastvalue, THRESHOLD / 4, THRESHOLD / 3, 0, 96, false), &led[14]);
+
+  /* col3 (value - threshold) */
+  sethsv(0,   255, _map(value - threshold, THRESHOLD, 1023 * 2, 0, 96, false), &led[1]);
+  sethsv(64,  255, _map(value - threshold, THRESHOLD / 2, THRESHOLD, 0, 96, false), &led[5]);
+  sethsv(128, 255, _map(value - threshold, THRESHOLD / 3, THRESHOLD / 2, 0, 96, false), &led[9]);
+  sethsv(192, 255, _map(value - threshold, THRESHOLD / 4, THRESHOLD / 3, 0, 96, false), &led[13]);
+
+  /* and(col2, col3) */
+  sethsv(0,   255, _map(value - _max(threshold, lastvalue), THRESHOLD, 1023 * 2, 0, 96, false), &led[0]);
+  sethsv(64,  255, _map(value - _max(threshold, lastvalue), THRESHOLD / 2, THRESHOLD, 0, 96, false), &led[4]);
+  sethsv(128, 255, _map(value - _max(threshold, lastvalue), THRESHOLD / 3, THRESHOLD / 2, 0, 96, false), &led[8]);
+  sethsv(192, 255, _map(value - _max(threshold, lastvalue), THRESHOLD / 4, THRESHOLD / 3, 0, 96, false), &led[12]);
+
+  lastvalue = value;
 }
 
 /* ---- lightshow patterns */
@@ -329,6 +366,8 @@ void matrix_scan_user (void) {
       process_lightshow_party(values);
     } else if (current_pattern == PARTY2) {
       process_lightshow_party2(values);
+    } else if (current_pattern == BEATDEBUG) {
+      process_lightshow_debug(values);
     }
     ws2812_setleds(led, 16);
     delay = LIGHTSHOW_DELAY;
