@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [2] =
         LAYOUT(
                 KC_NO  , KC_NO, KC_TRNS, 
-                EEPROM_RESET, RESET, DEBUG  , 
+                EEP_RST, RESET, DEBUG  , 
                 KC_NO  , KC_NO, KC_NO
               )
 
