@@ -42,7 +42,7 @@ case MS_SPECIAL:
         currentReport.h = -127;
         currentReport.buttons &= ~MOUSE_BTN1;
     }
-	pointing_device_set_report(currentReport);
+    pointing_device_set_report(currentReport);
     break;
 ```
 
