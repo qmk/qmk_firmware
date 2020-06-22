@@ -842,19 +842,28 @@ bool enable_naginata(uint16_t keycode, keyrecord_t *record) {
   } else if (keycode == ngoff_keys[0]) {
     if (record->event.pressed) {
       fghj_status |= (1UL<<3);
+      register_code(ngoff_keys[0]);
+      ret = false;
     } else {
       fghj_status &= ~(1UL<<3);
+      unregister_code(ngoff_keys[0]);
+      ret = false;
     }
   } else if (keycode == ngoff_keys[1]) {
     if (record->event.pressed) {
       fghj_status |= (1UL<<2);
+      register_code(ngoff_keys[1]);
+      ret = false;
     } else {
       fghj_status &= ~(1UL<<2);
+      unregister_code(ngoff_keys[1]);
+      ret = false;
     }
   }
 
   if (fghj_status == 0b1100) {
     fghj_status = 0UL;
+    tap_code(KC_BSPC);
     tap_code(KC_BSPC);
     naginata_off();
     return false;
