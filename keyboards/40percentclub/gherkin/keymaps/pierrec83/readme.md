@@ -28,10 +28,6 @@ To update the keymap,
 ```
 mv ~/Downloads/pierrec83.json keyboards/40percentclub/gherkin/keymaps/pierrec83/keymap.json
 ```
-* Regenerate the `keymap.c`:
-```
-qmk json2c keyboards/40percentclub/gherkin/keymaps/pierrec83/keymap.json -o keyboards/40percentclub/gherkin/keymaps/pierrec83/keymap.c
-```
 * Flash the firmware (for instance, if left hand is plugged):
 ```
 qmk flash -kb 40percentclub/gherkin -km pierrec83
