@@ -24,6 +24,6 @@ enum custom_layers {
     _MS,     // Mouse
     _GT,     // Git
     _CN,     // Convenience
-    _GW,     // Guild Wars 2
+    _GG,     // General Gaming
     _CS      // Counter-Strike: Global Offensive
 };
