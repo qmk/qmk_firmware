@@ -1,4 +1,4 @@
-![Mixi Layout Image](https://i.imgur.com/UIXj9O6.png)
+![Mixi Layout Image](https://i.imgur.com/WCtQ6GG.jpg)
 
 # Default Mixi Layout
 

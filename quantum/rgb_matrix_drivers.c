@@ -23,7 +23,7 @@
  * be here if shared between boards.
  */
 
-#if defined(IS31FL3731) || defined(IS31FL3733) || defined(IS31FL3737) || defined(IS31FL3741) 
+#if defined(IS31FL3731) || defined(IS31FL3733) || defined(IS31FL3737) || defined(IS31FL3741)
 
 #    include "i2c_master.h"
 
@@ -100,9 +100,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .set_color_all = IS31FL3737_set_color_all,
 };
 #    else
-static void flush(void) {
-    IS31FL3741_update_pwm_buffers(DRIVER_ADDR_1, DRIVER_ADDR_2);
-}
+static void flush(void) { IS31FL3741_update_pwm_buffers(DRIVER_ADDR_1, DRIVER_ADDR_2); }
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
     .init = init,
@@ -115,27 +113,27 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 #elif defined(WS2812)
 
 // LED color buffer
-LED_TYPE led[DRIVER_LED_TOTAL];
+LED_TYPE rgb_matrix_ws2812_array[DRIVER_LED_TOTAL];
 
 static void init(void) {}
 
 static void flush(void) {
     // Assumes use of RGB_DI_PIN
-    ws2812_setleds(led, DRIVER_LED_TOTAL);
+    ws2812_setleds(rgb_matrix_ws2812_array, DRIVER_LED_TOTAL);
 }
 
 // Set an led in the buffer to a color
 static inline void setled(int i, uint8_t r, uint8_t g, uint8_t b) {
-    led[i].r = r;
-    led[i].g = g;
-    led[i].b = b;
+    rgb_matrix_ws2812_array[i].r = r;
+    rgb_matrix_ws2812_array[i].g = g;
+    rgb_matrix_ws2812_array[i].b = b;
 #    ifdef RGBW
-    convert_rgb_to_rgbw(led[i]);
+    convert_rgb_to_rgbw(rgb_matrix_ws2812_array[i]);
 #    endif
 }
 
 static void setled_all(uint8_t r, uint8_t g, uint8_t b) {
-    for (int i = 0; i < sizeof(led) / sizeof(led[0]); i++) {
+    for (int i = 0; i < sizeof(rgb_matrix_ws2812_array) / sizeof(rgb_matrix_ws2812_array[0]); i++) {
         setled(i, r, g, b);
     }
 }
