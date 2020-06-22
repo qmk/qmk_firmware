@@ -16,22 +16,14 @@ void keyboard_pre_init_user(void) {
   setPinOutput(A14);
 }
 
-void led_set_user(uint8_t usb_led) {
-    if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-        writePinHigh(B4);
-    } else {
-        writePinLow(B4);
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        writePin(B4, led_state.num_lock);
+        writePin(B3, led_state.caps_lock);
+        writePin(A15, led_state.scroll_lock);
     }
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        writePinHigh(B3);
-    } else {
-        writePinLow(B3);
-    }
-    if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-        writePinHigh(A15);
-    } else {
-        writePinLow(A15);
-    }
+    return res;
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
