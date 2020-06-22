@@ -223,7 +223,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 
-        case KC_F1 ... KC_F24:
+        case KC_F1 ... KC_F12:
             return process_gflock(keycode, record);
     }
 
