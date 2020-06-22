@@ -1,8 +1,6 @@
 # MCU name
 MCU = atmega32u4
 
-
-
 # Build Options
 #   comment out to disable the options.
 #
