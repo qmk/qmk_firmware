@@ -556,7 +556,7 @@ static void send_keyboard(report_keyboard_t *report) {
     uint8_t timeout = 255;
 
 #ifdef BLUETOOTH_ENABLE
-    uint8_t where   = where_to_send();
+    uint8_t where = where_to_send();
 
     if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
 #    ifdef MODULE_ADAFRUIT_BLE
@@ -621,7 +621,7 @@ static void send_mouse(report_mouse_t *report) {
     uint8_t timeout = 255;
 
 #    ifdef BLUETOOTH_ENABLE
-    uint8_t where   = where_to_send();
+    uint8_t where = where_to_send();
 
     if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
 #        ifdef MODULE_ADAFRUIT_BLE
