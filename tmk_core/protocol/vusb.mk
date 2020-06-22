@@ -1,13 +1,13 @@
 VUSB_DIR = protocol/vusb
 
-OPT_DEFS += -DPROTOCOL_VUSB
+# Path to the V-USB library
+VUSB_PATH = $(LIB_PATH)/vusb
 
-SRC +=	$(VUSB_DIR)/main.c \
+SRC += $(VUSB_DIR)/main.c \
 	$(VUSB_DIR)/vusb.c \
-	$(VUSB_DIR)/usbdrv/usbdrv.c \
-	$(VUSB_DIR)/usbdrv/usbdrvasm.S \
-	$(VUSB_DIR)/usbdrv/oddebug.c
-
+	$(VUSB_PATH)/usbdrv/usbdrv.c \
+	$(VUSB_PATH)/usbdrv/usbdrvasm.S \
+	$(VUSB_PATH)/usbdrv/oddebug.c
 
 ifneq ($(strip $(CONSOLE_ENABLE)), yes)
 ifndef NO_UART
@@ -18,4 +18,6 @@ endif
 
 # Search Path
 VPATH += $(TMK_PATH)/$(VUSB_DIR)
-VPATH += $(TMK_PATH)/$(VUSB_DIR)/usbdrv
+VPATH += $(VUSB_PATH)
+
+OPT_DEFS += -DPROTOCOL_VUSB

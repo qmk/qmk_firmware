@@ -278,6 +278,10 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
+### Overriding RGB Lighting on/off status
+
+Normally lighting layers are not shown when RGB Lighting is disabled (e.g. with `RGB_TOG` keycode). If you would like lighting layers to work even when the RGB Lighting is otherwise off, add `#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF` to your `config.h`.
+
 ## Functions
 
 If you need to change your RGB lighting in code, for example in a macro to change the color whenever you switch layers, QMK provides a set of functions to assist you. See [`rgblight.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight.h) for the full list, but the most commonly used functions include:
@@ -376,12 +380,14 @@ rgblight_sethsv(HSV_GREEN, 2); // led 2
 |`rgblight_set_layer_state(i, is_on)`        |Enable or disable lighting layer `i` based on value of `bool is_on` |
 
 #### query
-|Function               |Description      |
-|-----------------------|-----------------|
-|`rgblight_get_mode()`  |Get current mode |
-|`rgblight_get_hue()`   |Get current hue  |
-|`rgblight_get_sat()`   |Get current sat  |
-|`rgblight_get_val()`   |Get current val  |
+|Function               |Description                |
+|-----------------------|---------------------------|
+|`rgblight_is_enabled()`|Gets current on/off status |
+|`rgblight_get_mode()`  |Gets current mode          |
+|`rgblight_get_hue()`   |Gets current hue           |
+|`rgblight_get_sat()`   |Gets current sat           |
+|`rgblight_get_val()`   |Gets current val           |
+|`rgblight_get_speed()` |Gets current speed         |
 
 ## Colors
 
