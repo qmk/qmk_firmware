@@ -257,7 +257,7 @@ void send_unicode_string(const char *str) {
 
     while (*str) {
         int32_t code_point = 0;
-        str = decode_utf8(str, &code_point);
+        str                = decode_utf8(str, &code_point);
 
         if (code_point >= 0) {
             register_unicode(code_point);
