@@ -114,3 +114,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
 };
 // clang-format on
+#ifdef OLED_DRIVER_ENABLE
+
+void rhruiz_update_layer_colors(layer_state_t state) {
+    writePinHigh(D5);
+    writePinHigh(B0);
+
+    if (layer_state_cmp(state, _NUM)) {
+        writePinLow(D5);
+        writePinLow(B0);
+    }
+}
+#endif
