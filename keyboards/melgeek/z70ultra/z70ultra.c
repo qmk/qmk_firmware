@@ -1,7 +1,7 @@
 #include "z70ultra.h"
 #include "is31fl3741.h"
 
-#include <print.h>
+#include "print.h"
 
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, 28, 1, 30, 1, 29, 1}, /* RGB10 */
