@@ -13,12 +13,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef FOR_SCIENCE_H
-#define FOR_SCIENCE_H
+#pragma once
 
 #include "quantum.h"
 
-#define KEYMAP( \
+#define LAYOUT( \
     L00, L01, L02, L03, L04, R00, R01, R02, R03, R04, \
     L10, L11, L12, L13, L14, R10, R11, R12, R13, R14, \
     L20, L21, L22, L23, L24, R20, R21, R22, R23, R24, \
@@ -38,4 +37,3 @@
     { KC_NO, KC_NO, RT3, RT2, RT1 } \
 }
 
-#endif

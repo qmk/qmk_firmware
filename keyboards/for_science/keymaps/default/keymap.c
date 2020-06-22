@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                 `------------------------   `-Layer-----------------'
  */
 
-[_BASE] = KEYMAP(
+[_BASE] = LAYOUT(
     KC_TAB,  KC_ESC,  KC_LPRN, KC_LCBR, KC_LBRC,    KC_RBRC, KC_RCBR, KC_RPRN, KC_QUOT, KC_BSPC,
     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
     SFT_A,   KC_S,    KC_D,    KC_F,    KC_G,       KC_H,    KC_J,    KC_K,    KC_L,    KC_ENT,
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       KC_LCTL, KC_LGUI, KC_LALT,    LAY_SPC, LAYER,   KC_RSFT
 ),
 
-[_LAYER] = KEYMAP(
+[_LAYER] = LAYOUT(
     KC_TILD, KC_GRV,  KC_LABK, KC_UNDS, KC_MINS,    KC_PLUS, KC_EQL,  KC_RABK, KC_BSLS, KC_DEL,
     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,       KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
     SFT_F1,  KC_F2,   KC_F3,   KC_F4,   KC_F5,      KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_SCLN,
@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       _______, _______, _______,    FUNCT,   _______, _______
 ),
 
-[_MOD_LAYER] = KEYMAP(
+[_MOD_LAYER] = LAYOUT(
     KC_TILD, _______, _______, _______, _______,    KC_Q,    _______, _______, _______, _______,
     KC_TAB,  _______, _______, _______, _______,    _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______,
@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       _______, _______, _______,    _______, _______, _______
 ),
 
-[_FUNCT] = KEYMAP(
+[_FUNCT] = LAYOUT(
     RESET,   _______, _______, _______, LOCK,       MAC_LCK, _______, _______, _______, MAGIC_SWAP_LALT_LGUI,
     _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______,
