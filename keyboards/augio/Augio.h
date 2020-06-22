@@ -1,5 +1,4 @@
-#ifndef AUGIO_H
-#define AUGIO_H
+#pragma once
 
 #include "quantum.h"
 
