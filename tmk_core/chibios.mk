@@ -24,6 +24,7 @@ endif
 #
 
 # Imported source files and paths
+OPT_OS = chibios
 CHIBIOS = $(TOP_DIR)/lib/chibios
 CHIBIOS_CONTRIB = $(TOP_DIR)/lib/chibios-contrib
 # Startup files. Try a few different locations, for compability with old versions and
@@ -49,6 +50,34 @@ PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLAT
 endif
 include $(PLATFORM_MK)
 
+# Bootloader address
+ifdef STM32_BOOTLOADER_ADDRESS
+    OPT_DEFS += -DSTM32_BOOTLOADER_ADDRESS=$(STM32_BOOTLOADER_ADDRESS)
+endif
+
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_5)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_5)/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_5)/boards/$(BOARD)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_4)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_4)/boards/$(BOARD)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_3)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_3)/boards/$(BOARD)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_2)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_2)/boards/$(BOARD)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_1)/bootloader_defs.h
+else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(KEYBOARD_PATH_1)/boards/$(BOARD)/bootloader_defs.h
+else ifneq ("$(wildcard $(TOP_DIR)/drivers/boards/$(BOARD)/bootloader_defs.h)","")
+    OPT_DEFS += -include $(TOP_DIR)/drivers/boards/$(BOARD)/bootloader_defs.h
+endif
 
 BOARD_MK :=
 
@@ -80,7 +109,8 @@ ifeq ("$(wildcard $(BOARD_MK))","")
 endif
 
 include $(BOARD_MK)
-include $(CHIBIOS)/os/hal/osal/rt/osal.mk
+-include $(CHIBIOS)/os/hal/osal/rt/osal.mk         # ChibiOS <= 19.x
+-include $(CHIBIOS)/os/hal/osal/rt-nil/osal.mk     # ChibiOS >= 20.x
 # RTOS files (optional).
 include $(CHIBIOS)/os/rt/rt.mk
 # Compability with old version
@@ -108,6 +138,11 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld
 else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(TOP_DIR)/drivers/boards/ld/$(MCU_LDSCRIPT).ld)","")
+    LDSCRIPT = $(TOP_DIR)/drivers/boards/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(STARTUPLD_CONTRIB)/$(MCU_LDSCRIPT).ld)","")
+    LDSCRIPT = $(STARTUPLD_CONTRIB)/$(MCU_LDSCRIPT).ld
+    USE_CHIBIOS_CONTRIB = yes
 else
     LDSCRIPT = $(STARTUPLD)/$(MCU_LDSCRIPT).ld
 endif
@@ -120,16 +155,40 @@ CHIBISRC = $(STARTUPSRC) \
        $(PLATFORMSRC) \
        $(BOARDSRC) \
        $(STREAMSSRC) \
-	   $(STARTUPASM) \
-	   $(PORTASM) \
-	   $(OSALASM)
+       $(CHIBIOS)/os/various/syscalls.c
+
+# Ensure the ASM files are not subjected to LTO -- it'll strip out interrupt handlers otherwise.
+QUANTUM_LIB_SRC += $(STARTUPASM) $(PORTASM) $(OSALASM)
 
 CHIBISRC := $(patsubst $(TOP_DIR)/%,%,$(CHIBISRC))
 
-EXTRAINCDIRS += $(CHIBIOS)/os/license \
+EXTRAINCDIRS += $(CHIBIOS)/os/license $(CHIBIOS)/os/oslib/include \
          $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
          $(STREAMSINC) $(CHIBIOS)/os/various $(COMMON_VPATH)
+
+#
+# ChibiOS-Contrib
+##############################################################################
+
+# Work out if we're using ChibiOS-Contrib by checking if halconf_community.h exists
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/halconf_community.h)","")
+    USE_CHIBIOS_CONTRIB = yes
+else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/halconf_community.h)","")
+    USE_CHIBIOS_CONTRIB = yes
+else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/halconf_community.h)","")
+    USE_CHIBIOS_CONTRIB = yes
+else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/halconf_community.h)","")
+    USE_CHIBIOS_CONTRIB = yes
+else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/halconf_community.h)","")
+    USE_CHIBIOS_CONTRIB = yes
+endif
+
+ifeq ($(strip $(USE_CHIBIOS_CONTRIB)),yes)
+	include $(CHIBIOS_CONTRIB)/os/hal/hal.mk
+	CHIBISRC += $(PLATFORMSRC_CONTRIB) $(HALSRC_CONTRIB)
+	EXTRAINCDIRS += $(PLATFORMINC_CONTRIB) $(HALINC_CONTRIB) $(CHIBIOS_CONTRIB)/os/various
+endif
 
 #
 # Project, sources and paths
@@ -149,7 +208,7 @@ HEX = $(OBJCOPY) -O $(FORMAT)
 EEP =
 BIN = $(OBJCOPY) -O binary
 
-COMMON_VPATH += $(DRIVER_PATH)/arm
+COMMON_VPATH += $(DRIVER_PATH)/chibios
 
 THUMBFLAGS = -DTHUMB_PRESENT -mno-thumb-interwork -DTHUMB_NO_INTERWORKING -mthumb -DTHUMB
 
@@ -161,12 +220,24 @@ COMPILEFLAGS += -fno-common
 COMPILEFLAGS += -fshort-wchar
 COMPILEFLAGS += $(THUMBFLAGS)
 
+# FPU options default (Cortex-M4 and Cortex-M7 single precision).
+USE_FPU_OPT ?= -mfloat-abi=hard -mfpu=fpv4-sp-d16 -fsingle-precision-constant
+
+# FPU-related options
+USE_FPU ?= no
+ifneq ($(USE_FPU),no)
+  COMPILEFLAGS += $(USE_FPU_OPT)
+  OPT_DEFS += -DCORTEX_USE_FPU=TRUE
+else
+  OPT_DEFS += -DCORTEX_USE_FPU=FALSE
+endif
+
 CFLAGS += $(COMPILEFLAGS)
 
 ASFLAGS += $(THUMBFLAGS)
 
-CPPFLAGS += $(COMPILEFLAGS)
-CPPFLAGS += -fno-rtti
+CXXFLAGS += $(COMPILEFLAGS)
+CXXFLAGS += -fno-rtti
 
 LDFLAGS +=-Wl,--gc-sections
 LDFLAGS +=-Wl,--no-wchar-size-warning
@@ -177,23 +248,10 @@ LDFLAGS += -Wl,--script=$(LDSCRIPT)$(LDSYMBOLS)
 
 OPT_DEFS += -DPROTOCOL_CHIBIOS
 
+# Workaround to stop ChibiOS from complaining about new GCC -- it's been fixed for 7/8/9 already
+OPT_DEFS += -DPORT_IGNORE_GCC_VERSION_CHECK=1
+
 MCUFLAGS = -mcpu=$(MCU)
-
-# FPU options default (Cortex-M4 and Cortex-M7 single precision).
-ifeq ($(USE_FPU_OPT),)
-  USE_FPU_OPT = -mfloat-abi=$(USE_FPU) -mfpu=fpv4-sp-d16 -fsingle-precision-constant
-endif
-
-# FPU-related options
-ifeq ($(USE_FPU),)
-  USE_FPU = no
-endif
-ifneq ($(USE_FPU),no)
-  OPT    += $(USE_FPU_OPT)
-  OPT_DEFS  += -DCORTEX_USE_FPU=TRUE
-else
-  OPT_DEFS  += -DCORTEX_USE_FPU=FALSE
-endif
 
 DEBUG = gdb
 
@@ -209,30 +267,6 @@ EXTRALIBDIRS = $(RULESPATH)/ld
 
 DFU_UTIL ?= dfu-util
 ST_LINK_CLI ?= st-link_cli
-
-# Generate a .qmk for the QMK-FF
-qmk: $(BUILD_DIR)/$(TARGET).bin
-	zip $(TARGET).qmk -FSrj $(KEYMAP_PATH)/*
-	zip $(TARGET).qmk -u $<
-	printf "@ $<\n@=firmware.bin\n" | zipnote -w $(TARGET).qmk
-	printf "{\n  \"generated\": \"%s\"\n}" "$$(date)" > $(BUILD_DIR)/$(TARGET).json
-	if [ -f $(KEYBOARD_PATH_5)/info.json ]; then \
-		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_5)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
-	fi
-	if [ -f $(KEYBOARD_PATH_4)/info.json ]; then \
-		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_4)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
-	fi
-	if [ -f $(KEYBOARD_PATH_3)/info.json ]; then \
-		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_3)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
-	fi
-	if [ -f $(KEYBOARD_PATH_2)/info.json ]; then \
-		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_2)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
-	fi
-	if [ -f $(KEYBOARD_PATH_1)/info.json ]; then \
-		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_1)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
-	fi
-	zip $(TARGET).qmk -urj $(BUILD_DIR)/$(TARGET).json
-	printf "@ $(TARGET).json\n@=info.json\n" | zipnote -w $(TARGET).qmk
 
 define EXEC_DFU_UTIL
 	until $(DFU_UTIL) -l | grep -q "Found DFU"; do\
@@ -288,7 +322,9 @@ bin: $(BUILD_DIR)/$(TARGET).bin sizeafter
 
 
 flash: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
-ifeq ($(strip $(BOOTLOADER)),dfu)
+ifneq ($(strip $(PROGRAM_CMD)),)
+	$(PROGRAM_CMD)
+else ifeq ($(strip $(BOOTLOADER)),dfu)
 	$(call EXEC_DFU_UTIL)
 else ifeq ($(strip $(MCU_FAMILY)),KINETIS)
 	$(call EXEC_TEENSY)

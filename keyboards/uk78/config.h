@@ -21,8 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x554B /* Ascii */
-#define PRODUCT_ID      0x004E
+#define VENDOR_ID       0x554B // "UK"
+#define PRODUCT_ID      0x004E // 78
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    UK Keyboards
 #define PRODUCT         UK78

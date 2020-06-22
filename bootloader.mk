@@ -82,6 +82,13 @@ ifeq ($(strip $(BOOTLOADER)), USBasp)
     OPT_DEFS += -DBOOTLOADER_USBASP
     BOOTLOADER_SIZE = 4096
 endif
+ifeq ($(strip $(BOOTLOADER)), lufa-ms)
+    # DO NOT USE THIS BOOTLOADER IN NEW PROJECTS!
+    # It is extremely prone to bricking, and is only included to support existing boards.
+    OPT_DEFS += -DBOOTLOADER_MS
+    BOOTLOADER_SIZE = 6144
+    FIRMWARE_FORMAT = bin
+endif
 
 ifdef BOOTLOADER_SIZE
     OPT_DEFS += -DBOOTLOADER_SIZE=$(strip $(BOOTLOADER_SIZE))

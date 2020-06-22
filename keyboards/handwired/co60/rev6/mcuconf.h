@@ -1,5 +1,5 @@
 /*
-    ChibiOS - Copyright (C) 2006..2016 Giovanni Di Sirio
+    ChibiOS - Copyright (C) 2006..2018 Giovanni Di Sirio
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -32,6 +32,7 @@
  */
 
 #define STM32F3xx_MCUCONF
+#define STM32F303_MCUCONF
 
 /*
  * HAL driver system settings.
@@ -66,9 +67,28 @@
 #define STM32_USB_CLOCK_REQUIRED            TRUE
 #define STM32_USBPRE                        STM32_USBPRE_DIV1P5
 
-#undef STM32_HSE_BYPASS
-// #error "oh no"
-// #endif
+/*
+ * IRQ system settings.
+ */
+#define STM32_IRQ_EXTI0_PRIORITY            6
+#define STM32_IRQ_EXTI1_PRIORITY            6
+#define STM32_IRQ_EXTI2_PRIORITY            6
+#define STM32_IRQ_EXTI3_PRIORITY            6
+#define STM32_IRQ_EXTI4_PRIORITY            6
+#define STM32_IRQ_EXTI5_9_PRIORITY          6
+#define STM32_IRQ_EXTI10_15_PRIORITY        6
+#define STM32_IRQ_EXTI16_PRIORITY           6
+#define STM32_IRQ_EXTI17_PRIORITY           15
+#define STM32_IRQ_EXTI18_PRIORITY           6
+#define STM32_IRQ_EXTI19_PRIORITY           15
+#define STM32_IRQ_EXTI20_PRIORITY           15
+#define STM32_IRQ_EXTI21_22_29_PRIORITY     6
+#define STM32_IRQ_EXTI30_32_PRIORITY        6
+#define STM32_IRQ_EXTI33_PRIORITY           6
+#define STM32_IRQ_TIM1_BRK_TIM15_PRIORITY   7
+#define STM32_IRQ_TIM1_UP_TIM16_PRIORITY    7
+#define STM32_IRQ_TIM1_TRGCO_TIM17_PRIORITY 7
+#define STM32_IRQ_TIM1_CC_PRIORITY          7
 
 /*
  * ADC driver system settings.
@@ -115,25 +135,6 @@
 #define STM32_DAC_DAC1_CH2_DMA_PRIORITY     2
 
 /*
- * EXT driver system settings.
- */
-#define STM32_EXT_EXTI0_IRQ_PRIORITY        6
-#define STM32_EXT_EXTI1_IRQ_PRIORITY        6
-#define STM32_EXT_EXTI2_IRQ_PRIORITY        6
-#define STM32_EXT_EXTI3_IRQ_PRIORITY        6
-#define STM32_EXT_EXTI4_IRQ_PRIORITY        6
-#define STM32_EXT_EXTI5_9_IRQ_PRIORITY      6
-#define STM32_EXT_EXTI10_15_IRQ_PRIORITY    6
-#define STM32_EXT_EXTI16_IRQ_PRIORITY       6
-#define STM32_EXT_EXTI17_IRQ_PRIORITY       6
-#define STM32_EXT_EXTI18_IRQ_PRIORITY       6
-#define STM32_EXT_EXTI19_IRQ_PRIORITY       6
-#define STM32_EXT_EXTI20_IRQ_PRIORITY       6
-#define STM32_EXT_EXTI21_22_29_IRQ_PRIORITY 6
-#define STM32_EXT_EXTI30_32_IRQ_PRIORITY    6
-#define STM32_EXT_EXTI33_IRQ_PRIORITY       6
-
-/*
  * GPT driver system settings.
  */
 #define STM32_GPT_USE_TIM1                  FALSE
@@ -143,6 +144,9 @@
 #define STM32_GPT_USE_TIM6                  TRUE
 #define STM32_GPT_USE_TIM7                  TRUE
 #define STM32_GPT_USE_TIM8                  TRUE
+#define STM32_GPT_USE_TIM15                 FALSE
+#define STM32_GPT_USE_TIM16                 FALSE
+#define STM32_GPT_USE_TIM17                 FALSE
 #define STM32_GPT_TIM1_IRQ_PRIORITY         7
 #define STM32_GPT_TIM2_IRQ_PRIORITY         7
 #define STM32_GPT_TIM3_IRQ_PRIORITY         7
@@ -172,6 +176,7 @@
 #define STM32_ICU_USE_TIM3                  FALSE
 #define STM32_ICU_USE_TIM4                  FALSE
 #define STM32_ICU_USE_TIM8                  FALSE
+#define STM32_ICU_USE_TIM15                 FALSE
 #define STM32_ICU_TIM1_IRQ_PRIORITY         7
 #define STM32_ICU_TIM2_IRQ_PRIORITY         7
 #define STM32_ICU_TIM3_IRQ_PRIORITY         7
@@ -187,11 +192,22 @@
 #define STM32_PWM_USE_TIM3                  FALSE
 #define STM32_PWM_USE_TIM4                  TRUE
 #define STM32_PWM_USE_TIM8                  FALSE
+#define STM32_PWM_USE_TIM15                 FALSE
+#define STM32_PWM_USE_TIM16                 FALSE
+#define STM32_PWM_USE_TIM17                 FALSE
 #define STM32_PWM_TIM1_IRQ_PRIORITY         7
 #define STM32_PWM_TIM2_IRQ_PRIORITY         7
 #define STM32_PWM_TIM3_IRQ_PRIORITY         7
 #define STM32_PWM_TIM4_IRQ_PRIORITY         7
 #define STM32_PWM_TIM8_IRQ_PRIORITY         7
+
+/*
+ * RTC driver system settings.
+ */
+#define STM32_RTC_PRESA_VALUE               32
+#define STM32_RTC_PRESS_VALUE               1024
+#define STM32_RTC_CR_INIT                   0
+#define STM32_RTC_TAMPCR_INIT               0
 
 /*
  * SERIAL driver system settings.

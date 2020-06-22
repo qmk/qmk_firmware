@@ -7,6 +7,7 @@
 #include "split_util.h"
 #include "matrix.h"
 #include "keyboard.h"
+#include "wait.h"
 
 #ifdef USE_MATRIX_I2C
 #  include "i2c.h"
@@ -14,19 +15,68 @@
 #  include "split_scomm.h"
 #endif
 
+#ifdef EE_HANDS
+#    include "eeconfig.h"
+#endif
+
+#ifndef SPLIT_USB_TIMEOUT
+#    define SPLIT_USB_TIMEOUT 2000
+#endif
+
+#ifndef SPLIT_USB_TIMEOUT_POLL
+#    define SPLIT_USB_TIMEOUT_POLL 10
+#endif
+
 volatile bool isLeftHand = true;
 
-static void setup_handedness(void) {
-  #ifdef EE_HANDS
-    isLeftHand = eeprom_read_byte(EECONFIG_HANDEDNESS);
-  #else
-    // I2C_MASTER_RIGHT is deprecated, use MASTER_RIGHT instead, since this works for both serial and i2c
-    #if defined(I2C_MASTER_RIGHT) || defined(MASTER_RIGHT)
-      isLeftHand = !has_usb();
-    #else
-      isLeftHand = has_usb();
-    #endif
-  #endif
+bool waitForUsb(void) {
+    for (uint8_t i = 0; i < (SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL); i++) {
+        // This will return true if a USB connection has been established
+        if (UDADDR & _BV(ADDEN)) {
+            return true;
+        }
+        wait_ms(SPLIT_USB_TIMEOUT_POLL);
+    }
+
+    // Avoid NO_USB_STARTUP_CHECK - Disable USB as the previous checks seem to enable it somehow
+    (USBCON &= ~(_BV(USBE) | _BV(OTGPADE)));
+
+    return false;
+}
+
+
+bool is_keyboard_left(void) {
+#if defined(SPLIT_HAND_PIN)
+    // Test pin SPLIT_HAND_PIN for High/Low, if low it's right hand
+    setPinInput(SPLIT_HAND_PIN);
+    return readPin(SPLIT_HAND_PIN);
+#elif defined(EE_HANDS)
+    return eeconfig_read_handedness();
+#elif defined(MASTER_RIGHT)
+    return !is_helix_master();
+#endif
+
+    return is_helix_master();
+}
+
+bool is_helix_master(void) {
+    static enum { UNKNOWN, MASTER, SLAVE } usbstate = UNKNOWN;
+
+    // only check once, as this is called often
+    if (usbstate == UNKNOWN) {
+#if defined(SPLIT_USB_DETECT)
+        usbstate = waitForUsb() ? MASTER : SLAVE;
+#elif defined(__AVR__)
+        USBCON |= (1 << OTGPADE);  // enables VBUS pad
+        wait_us(5);
+
+        usbstate = (USBSTA & (1 << VBUS)) ? MASTER : SLAVE;  // checks state of VBUS
+#else
+        usbstate = MASTER;
+#endif
+    }
+
+    return (usbstate == MASTER);
 }
 
 static void keyboard_master_setup(void) {
@@ -47,24 +97,13 @@ static void keyboard_slave_setup(void) {
 #endif
 }
 
-bool has_usb(void) {
-   USBCON |= (1 << OTGPADE); //enables VBUS pad
-   _delay_us(5);
-   return (USBSTA & (1<<VBUS));  //checks state of VBUS
-}
-
 void split_keyboard_setup(void) {
-   setup_handedness();
+   isLeftHand = is_keyboard_left();
 
-   if (has_usb()) {
+   if (is_helix_master()) {
       keyboard_master_setup();
    } else {
       keyboard_slave_setup();
    }
    sei();
-}
-
-// this code runs before the usb and keyboard is initialized
-void matrix_setup(void) {
-    split_keyboard_setup();
 }
