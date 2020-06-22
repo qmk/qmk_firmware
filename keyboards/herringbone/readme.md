@@ -2,7 +2,7 @@
 
 ![Herringbone](https://i.imgur.com/SQyS0j8.png)
 
-A short description of the keyboard/project
+A through-hole 75% keyboard.
 
 * Keyboard Maintainer: [Ramon Imbao](https://github.com/ramonimbao)
 * Hardware Supported: ATmega32A
