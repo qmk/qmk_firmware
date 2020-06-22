@@ -1,5 +1,4 @@
 #include "z70ultra.h"
-#include "config.h"
 #include "is31fl3741.h"
 
 #include <print.h>
