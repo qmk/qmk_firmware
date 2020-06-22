@@ -43,6 +43,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F6, F7, B1, B3, B2 }
 #define UNUSED_PINS
 
+#define USE_I2C
+
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
 #define DIODE_DIRECTION ROW2COL
 
