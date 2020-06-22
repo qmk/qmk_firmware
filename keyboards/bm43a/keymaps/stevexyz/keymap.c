@@ -38,8 +38,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { // 12+11+11+9
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX ),
 };
 
-// set num lock alwways on
-void matrix_init_user(void) {
-  if (!host_keyboard_led_state().num_lock)
-    tap_code(KC_LOCKING_NUM); //KC_NUMLOCK
-}
