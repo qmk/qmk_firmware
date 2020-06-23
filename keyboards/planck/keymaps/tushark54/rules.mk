@@ -1,0 +1,7 @@
+SRC += muse.c
+
+COMMAND_ENABLE = no
+
+KEY_LOCK_ENABLE = yes
+
+COMBO_ENABLE = yes
