@@ -2,7 +2,7 @@
 
 ![Split Keyboard Default Layout](https://github.com/ncwhale/Keyboard_Design/raw/master/Splite-Keyboard-v3/Keyboar-layout.png)
 
-A splite keyboard (7x6x2) made by WhaleMo and Massdrop.
+A splite keyboard (7x6x2) made by Whale Mo.
 
 * Keyboard Maintainer: [Whale Mo](https://github.com/ncwhale)
 * Hardware Supported:  [Opensource Design](https://github.com/ncwhale/Keyboard_Design), Sparkfun Micro Pro
