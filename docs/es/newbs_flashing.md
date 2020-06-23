@@ -256,7 +256,7 @@ Para placas basadas en Bootmapper Client(BMC)/bootloadHID/ATmega32A, cuando est�
 
 Por ejemplo, si tu keymap se llama "xyverz" y estás construyendo un keymap para un jj40, usarás esté comando:
 
-    make jj40:xyverz:bootloaderHID
+    make kprepublic/jj40:xyverz:bootloaderHID
 
 Una vez que el firmware acaba de compilar, mostrará una información de salida como esta: 
 

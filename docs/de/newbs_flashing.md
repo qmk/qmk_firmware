@@ -268,7 +268,7 @@ Für auf Bootmapper Client(BMC)/bootloaderHID/ATmega32A basierende Tastaturen, w
 
 Wenn deine Tastaturbelegung zum Beispiel den Namen "xyverz" hat und Du eine Tastaturbelegung für ein jj40 erzeugen möchtest, lautet der Befehl dafür:
 
-    make jj40:xyverz:bootloaderHID
+    make kprepublic/jj40:xyverz:bootloaderHID
 
 Nachdem die Kompilation abgeschlossen ist sollte die Ausgabe ungefähr so aussehen:
 

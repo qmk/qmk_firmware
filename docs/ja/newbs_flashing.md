@@ -362,7 +362,7 @@ Bootmapper Client(BMC)/bootloadHID/ATmega32A ベースのキーボードの場�
 
 たとえば、キーマップの名前が xyverz で、jj40 のキーマップを作成している場合、次のコマンドを使用します。
 
-    make jj40:xyverz:bootloaderHID
+    make kprepublic/jj40:xyverz:bootloaderHID
 
 ファームウェアのコンパイルが完了すると、以下のように出力されます。
 

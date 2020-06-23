@@ -332,7 +332,7 @@ Pour les claviers basés sur Bootmapper Client(BMC)/bootloadHID/ATmega32A, si vo
 
 Par exemple, si votre keymap s'appelle "xyverz" et que vous compilez une keymap pour un jj40, utilisez cette commande:
 
-    make jj40:xyverz:bootloaderHID
+    make kprepublic/jj40:xyverz:bootloaderHID
 
 Une fois le firmware compilé, vous aurez cette sortie:
 
