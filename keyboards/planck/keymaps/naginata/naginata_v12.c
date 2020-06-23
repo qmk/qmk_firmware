@@ -818,52 +818,34 @@ static uint8_t fghj_status = 0UL; // 各ビットがFGHJキーのオンオフを
 
 // 薙刀式の起動処理(COMBOを使わない)
 bool enable_naginata(uint16_t keycode, keyrecord_t *record) {
-  bool ret = true;
   if (keycode == ngon_keys[0]) {
     if (record->event.pressed) {
       fghj_status |= (1UL<<1);
-      register_code(ngon_keys[0]);
-      ret = false;
     } else {
       fghj_status &= ~(1UL<<1);
-      unregister_code(ngon_keys[0]);
-      ret = false;
     }
   } else if (keycode == ngon_keys[1]) {
     if (record->event.pressed) {
       fghj_status |= (1UL<<0);
-      register_code(ngon_keys[1]);
-      ret = false;
     } else {
       fghj_status &= ~(1UL<<0);
-      unregister_code(ngon_keys[1]);
-      ret = false;
     }
   } else if (keycode == ngoff_keys[0]) {
     if (record->event.pressed) {
       fghj_status |= (1UL<<3);
-      register_code(ngoff_keys[0]);
-      ret = false;
     } else {
       fghj_status &= ~(1UL<<3);
-      unregister_code(ngoff_keys[0]);
-      ret = false;
     }
   } else if (keycode == ngoff_keys[1]) {
     if (record->event.pressed) {
       fghj_status |= (1UL<<2);
-      register_code(ngoff_keys[1]);
-      ret = false;
     } else {
       fghj_status &= ~(1UL<<2);
-      unregister_code(ngoff_keys[1]);
-      ret = false;
     }
   }
 
   if (fghj_status == 0b1100) {
     fghj_status = 0UL;
-    tap_code(KC_BSPC);
     tap_code(KC_BSPC);
     naginata_off();
     return false;
@@ -871,12 +853,11 @@ bool enable_naginata(uint16_t keycode, keyrecord_t *record) {
   if (fghj_status == 0b0011) {
     fghj_status = 0UL;
     tap_code(KC_BSPC);
-    tap_code(KC_BSPC);
     naginata_on();
     return false;
   }
 
-  return ret;
+  return true;
 }
 
 // 薙刀式の入力処理
