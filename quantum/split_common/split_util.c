@@ -30,13 +30,11 @@ bool waitForUsb(void) {
         // This will return true if a USB connection has been established
 #if defined(__AVR__)
         if (UDADDR & _BV(ADDEN)) {
-            return true;
-        }
 #else
         if (usbGetDriverStateI(&USBD1) == USB_ACTIVE) {
+#endif
             return true;
         }
-#endif
         wait_ms(SPLIT_USB_TIMEOUT_POLL);
     }
 
