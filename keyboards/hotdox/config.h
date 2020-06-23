@@ -3,6 +3,7 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
+
 #define VENDOR_ID       0x414B // 'AK' for Alpaca Keyboards
 #define PRODUCT_ID      0x0001 // sequentially numbered
 
