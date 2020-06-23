@@ -1,6 +1,6 @@
 # Mixi
 
-![Mixi](https://i.imgur.com/GPO6Khu.jpg)
+![Mixi](https://i.imgur.com/f6hHXKZ.jpg)
 
 A mini 3x3 macropad with rotary encoders support and RGB underglow and also tray mount support. Currently the PCB and kits can only be purchased in Indonesia.
 
