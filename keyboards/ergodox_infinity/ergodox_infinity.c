@@ -6,6 +6,17 @@
 #include "lcd_backlight.h"
 #endif
 
+#ifdef WPM_ENABLE
+#   include "serial_link/protocol/transport.h"
+#   include "wpm.h"
+
+MASTER_TO_ALL_SLAVES_OBJECT(current_wpm, uint8_t);
+static remote_object_t* remote_objects[] = {
+    REMOTE_OBJECT(current_wpm),
+};
+static uint8_t last_sent_wpm = 0;
+#endif
+
 void init_serial_link_hal(void) {
     PORTA->PCR[1] = PORTx_PCRn_PE | PORTx_PCRn_PS | PORTx_PCRn_PFE | PORTx_PCRn_MUX(2);
     PORTA->PCR[2] = PORTx_PCRn_DSE | PORTx_PCRn_SRE | PORTx_PCRn_MUX(2);
@@ -117,12 +128,30 @@ void matrix_init_kb(void) {
 #ifndef VISUALIZER_ENABLE
 	lcd_backlight_hal_init();
 #endif
+#ifdef WPM_ENABLE
+	add_remote_objects(remote_objects, sizeof(remote_objects) / sizeof(remote_object_t*));
+#endif
 }
 
 void matrix_scan_kb(void) {
 	// put your looping keyboard code here
 	// runs every cycle (a lot)
 
+#ifdef WPM_ENABLE
+	if (is_serial_link_master()) {
+		uint8_t current_wpm = get_current_wpm();
+		if (current_wpm != last_sent_wpm) {
+			*begin_write_current_wpm() = current_wpm;
+			end_write_current_wpm();
+			last_sent_wpm = current_wpm;
+		}
+	} else if (is_serial_link_connected()) {
+		uint8_t* new_wpm = read_current_wpm();
+		if (new_wpm) {
+			set_current_wpm(*new_wpm);
+		}
+	}
+#endif
 	matrix_scan_user();
 }
 
