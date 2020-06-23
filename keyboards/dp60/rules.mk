@@ -32,7 +32,7 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 # RGBLIGHT_ENABLE = Yes       # Use RGB underglow light
 RGB_MATRIX_ENABLE = yes     # Use RGB matrix
 
-LAYOUTS = all 60_ansi 60_hhkb 60_iso 60_ansi_split_bs_rshift
+LAYOUTS = 60_ansi 60_hhkb 60_iso 60_ansi_split_bs_rshift
 
 CUSTOM_MATRIX = yes
 SRC += matrix.c
