@@ -46,11 +46,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define XT_CLOCK_PORT  PORTD
 #define XT_CLOCK_PIN   PIND
 #define XT_CLOCK_DDR   DDRD
-#define XT_CLOCK_BIT   1
+#define XT_CLOCK_BIT   5
 #define XT_DATA_PORT   PORTD
 #define XT_DATA_PIN    PIND
 #define XT_DATA_DDR    DDRD
-#define XT_DATA_BIT    0
+#define XT_DATA_BIT    2
 #define XT_RST_PORT    PORTB
 #define XT_RST_PIN     PINB
 #define XT_RST_DDR     DDRB
