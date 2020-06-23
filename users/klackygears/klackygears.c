@@ -67,7 +67,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case SHRUG:
             if (record->event.pressed) {
                 SEND_STRING(":Shrug:");
-                // send_unicode_hex_string(0x2122);
             }
             break;
     }
