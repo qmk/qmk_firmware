@@ -17,13 +17,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
-#ifndef ERGODOX_EZ_CONFIG_H
-#define ERGODOX_EZ_CONFIG_H
-
-#include "../../config.h"
-
-#include "config_common.h"
-
 /* USB Device descriptor parameter */
 #define DESCRIPTION     QMK keyboard firmware for Ergodox EZ
 
@@ -36,15 +29,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define PREVENT_STUCK_MODIFIERS 
 
-#undef  TAPPING_TERM
-#define TAPPING_TERM 200
-
-#undef  ONESHOT_TIMEOUT
 #define ONESHOT_TIMEOUT 900 // how long before oneshot times out
 //#define ONESHOT_TAP_TOGGLE 2 // how many taps before oneshot toggle is triggered
-
-//#define PERMISSIVE_HOLD
-#define IGNORE_MOD_TAP_INTERRUPT
 
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
@@ -67,5 +53,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 //#define DEBUG_MATRIX_SCAN_RATE
-
-#endif
