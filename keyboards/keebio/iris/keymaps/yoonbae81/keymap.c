@@ -47,66 +47,27 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = LAYOUT_kc(
-    /*
-     * ,-----+-----+-----+-----+-----+-----+                ,-----+-----+-----+-----+-----+-----+
-     * |~ESC~|  1  |  2  |  3  |  4  |  5  |                |  6  |  7  |  8  |  9  |  0  |  `  |
-     * |-----+-----+-----+-----+-----+-----+                +-----+-----+-----+-----+-----+-----+
-     * | TAB |  Q  |  W  |  E  |  R  |  T  |                |  Y  |  U  |  I  |  O  |  P  | BSLS|
-     * +-----+-----+-----+-----+-----+-----+                +-----+-----+-----+-----+-----+-----+
-     * | LCTL|  A  |  S  |  D  |  F  |  G  |                |  H  |  J  |  K  |  L  |  ;  |  '  |
-     * +-----+-----+-----+-----+-----+-----+-----.    ,-----+-----+-----+-----+-----+-----+-----+
-     * | LSFT|  Z  |  X  |  C  |  V  |  B  |TT(2)/    \     |  N  |  M  |  ,  |  .  |  /  | BSPC|
-     * +-----+-----+-----+--+--+-----+-----+----/      \ SPC+-----+-----+--+--+-----+-----+-----+
-     *                      \ LGUI| LALT| TT(1)/        \      | ENT | HAEN/
-     *                      `-----+-----+-----'          `-----+-----+----'
-     */
      GESC,  1  ,  2  ,  3  ,  4  ,  5  ,                 6  ,  7  ,  8  ,  9  ,  0  ,  GRV, 
      TAB ,  Q  ,  W  ,  E  ,  R  ,  T  ,                 Y  ,  U  ,  I  ,  O  ,  P  , BSLS, 
      LCTL,  A  ,  S  ,  D  ,  F  ,  G  ,                 H  ,  J  ,  K  ,  L  , SCLN, QUOT, 
-     LSFT,  Z  ,  X  ,  C  ,  V  ,  B  , TT(2),   SPC ,  N  ,  M  , COMM, DOT , SLSH, BSPC, 
-                          LGUI,  LALT, TT(1),        SPC , ENT , HAEN
+     LSFT,  Z  ,  X  ,  C  ,  V  ,  B  ,TT(_LOWER),SPC,  N  ,  M  , COMM, DOT , SLSH, BSPC, 
+                      TT(_RAISE), LGUI, LALT,        SPC , LT(1,KC_HAEN), L(2,KC_HANJ)
   ),
 
   [_LOWER] = LAYOUT_kc(
-    /*
-     * ,-----+-----+-----+-----+-----+-----+                ,-----+-----+-----+-----+-----+-----+
-     * | F1  | F2  | F3  | F4  | F5  | F6  |                | F7  | F8  | F9  | F10 | F11 | F12 |
-     * |-----+-----+-----+-----+-----+-----+                +-----+-----+-----+-----+-----+-----+
-     * |     | PGUP| UP  | PGDN|  (  |  )  |                | HOME| PGDN| PGUP| END |  -  |  =  |
-     * +-----+-----+-----+-----+-----+-----+                +-----+-----+-----+-----+-----+-----+
-     * |     | LEFT| DOWN| RGHT|  {  |  }  |                | LEFT| DOWN| UP  | RGHT| NO  | NO  |
-     * +-----+-----+-----+-----+-----+-----+-----.    ,-----+-----+-----+-----+-----+-----+-----+
-     * |     | NO  | NO  | NO  |  [  |  ]  |     /    \     | NO  | NO  | NO  | NO  | INS | DEL |
-     * +-----+-----+-----+--+--+-----+-----+----/      \    +-----+-----+--+--+-----+-----+-----+
-     *                      \     |     |      /        \      |     | HANJ/
-     *                      `-----+-----+-----'          `-----+-----+----'
-     */
      F1   , F2  , F3  , F4  , F5  , F6  ,                F7  , F8  , F9  , F10 , F11 , F12 ,
-          , PGUP, UP  , PGDN, LPRN, RPRN,                HOME, PGDN, PGUP, END , MINS, EQL ,
+          , PGUP, UP  , PGDN, LPRN, RPRN,                PSTE, HOME, PGUP,   NO, MINS, EQL ,
           , LEFT, DOWN, RGHT, LCBR, RCBR,                LEFT, DOWN,   UP, RGHT,   NO,   NO,
-          , NO  , NO  , NO  , LBRC, RBRC,    ,        ,    NO,   NO,   NO,   NO,  INS,  DEL, 
-                                ,     ,     ,             ,     , HANJ
+          , NO  , NO  , NO  , LBRC, RBRC,    ,      ENT, COPY, PGDN,  END,   NO,  INS,  DEL, 
+                                ,     , SPC,          ENT,     , 
   ),
 
   [_RAISE] = LAYOUT_kc(
-    /*
-     * ,-----+-----+-----+-----+-----+-----+                ,-----+-----+-----+-----+-----+-----+
-     * | Prev| Stop| Pla | NO  | NO  | NO  |                | NO  | NO  | P/  | P*  | P-  | Next|
-     * |-----+-----+-----+-----+-----+-----+                +-----+-----+-----+-----+-----+-----+
-     * |     | PGUP| UP  | PGDN|     |     |                | NO  |  7  |  8  |  9  | P+  | Vol-|
-     * +-----+-----+-----+-----+-----+-----+                +-----+-----+-----+-----+-----+-----+
-     * | HOME| LEFT| DOWN| RGHT| END | NO  |                | NO  |  4  |  5  |  6  | ENT | Vol+|
-     * +-----+-----+-----+-----+-----+-----+-----.    ,-----+-----+-----+-----+-----+-----+-----+
-     * | NO  | PSCR| SLCK| PAUS| NO  | NO  |     /    \     | P=  |  1  |  2  |  3  | ENT | Mute|
-     * +-----+-----+-----+--+--+-----+-----+    /      \    +-----+-----+--+--+-----+-----+-----+
-     *                      \     |     | TT(0)/        \      |  0  |  .  /
-     *                      `-----+-----+-----'          `-----+-----+----'
-     */
-     MPRV, MSTP, MPLY,  NO ,  NO ,  NO ,                NO , NO  , PSLS, PAST, PMNS, MNXT,
-     NO  , PGUP,  UP , PGDN,     ,     ,                NO ,   7 ,   8 ,   9 , PPLS, VOLU,
-     HOME, LEFT, DOWN, RGHT,  END,  NO ,                NO ,   4 ,   5 ,   6 ,  ENT, VOLD,
-     NO  , PSCR, SLCK, PAUS,  NO ,  NO ,    ,        , PEQL,   1 ,   2 ,   3 ,  ENT, MUTE,
-                               ,     ,TT(0),             ,   0 , DOT
+     MPRV, MSTP, MPLY, MNXT, VOLD, VOLU,                 UNDO, CALC, PSLS, PAST, PMNS, PSCR,
+         , PGUP,  UP , PGDN,   NO, MUTE,                 PSTE,   7 ,   8 ,   9 , PPLS, SCLK,
+         , LEFT, DOWN, RGHT,   NO,   NO,                  CUT,   4 ,   5 ,   6 , PCMM, PAUS,
+         , HOME,   NO,  END,   NO,   NO,TO(_QWERTY),ENT, COPY,   1 ,   2 ,   3 , PEQL,   NO,
+                               ,     , SPC,           ENT,   0 , PDOT
   )
 };
 
