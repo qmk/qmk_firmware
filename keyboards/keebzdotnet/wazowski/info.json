@@ -1,25 +1,25 @@
 {
     "keyboard_name": "wazowski",
-    "url": "",
+    "url": "https://www.keebz.net/shop/wazoski-pcb",
     "maintainer": "keebzdotnet",
     "width": 9,
     "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"label":"k00", "x":0, "y":3},
-                {"label":"k01", "x":1, "y":0},
-                {"label":"k02", "x":1, "y":4},
-                {"label":"k03", "x":2, "y":3},
+                {"label":"k01", "x":1, "y":1},
                 {"label":"k04", "x":3, "y":2},
-                {"label":"k05", "x":3, "y":4},
                 {"label":"k06", "x":4, "y":2},
-                {"label":"k07", "x":4, "y":3},
                 {"label":"k08", "x":5, "y":2},
+                {"label":"k12", "x":7, "y":3},
+                {"label":"k00", "x":0, "y":3},
+                {"label":"k03", "x":2, "y":3},
+                {"label":"k07", "x":4, "y":3},
                 {"label":"k09", "x":5, "y":3},
                 {"label":"k10", "x":6, "y":2},
+                {"label":"k02", "x":1, "y":4},
+                {"label":"k05", "x":3, "y":4},
                 {"label":"k11", "x":7, "y":1},
-                {"label":"k12", "x":7, "y":3},
                 {"label":"k13", "x":8, "y":2}
             ]
         }
