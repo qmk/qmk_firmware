@@ -1,6 +1,6 @@
 # Rewind
 
-![Rewind](https://i.imgur.com/3QZbLr0.jpg)
+[Rewind](https://i.imgur.com/3QZbLr0l.jpg)
 
 A 5x10 ortholinear keyboard that fits inside puffy VHS cases, made and sold by Montsinger. [More info on Montsinger.net](https://montsinger.net).
 
