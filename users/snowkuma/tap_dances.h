@@ -2,7 +2,16 @@
 #include "snowkuma.h"
 
 // Tap Dance Declarations
-enum { TD_ANKASS = 0, TD_COPYCUT, TD_KRAKEN, TD_LBRC_BACK, TD_RBRC_FWD, TD_TILD, TD_TYPTEL, TD_ZOOM };
+enum { 
+    TD_ANKASS = 0,
+    TD_COPYCUT,
+    TD_KRAKEN,
+    TD_LBRC_BACK,
+    TD_RBRC_FWD,
+    TD_TILD,
+    TD_TYPTEL,
+    TD_ZOOM
+};
 
 #define T_ANKASS TD(TD_ANKASS)   // Tap for Anki, double tap for Assimil
 #define T_CPYCUT TD(TD_COPYCUT)  // Tap to copy, double tap for cut

@@ -59,4 +59,12 @@ void typefu_telegram(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {[TD_ANKASS] = ACTION_TAP_DANCE_FN(anki_assimil), [TD_COPYCUT] = ACTION_TAP_DANCE_FN(copy_cut), [TD_LBRC_BACK] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, LGUI(KC_LBRC)), [TD_RBRC_FWD] = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, LGUI(KC_RBRC)), [TD_KRAKEN] = ACTION_TAP_DANCE_FN(kraken_safe_reset), [TD_TILD] = ACTION_TAP_DANCE_FN(tilde_home), [TD_TYPTEL] = ACTION_TAP_DANCE_FN(typefu_telegram), [TD_ZOOM] = ACTION_TAP_DANCE_FN(zoom_toggle)};
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_ANKASS] = ACTION_TAP_DANCE_FN(anki_assimil),
+    [TD_COPYCUT] = ACTION_TAP_DANCE_FN(copy_cut),
+    [TD_LBRC_BACK] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, LGUI(KC_LBRC)),
+    [TD_RBRC_FWD] = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, LGUI(KC_RBRC)),
+    [TD_KRAKEN] = ACTION_TAP_DANCE_FN(kraken_safe_reset),
+    [TD_TILD] = ACTION_TAP_DANCE_FN(tilde_home),
+    [TD_TYPTEL] = ACTION_TAP_DANCE_FN(typefu_telegram),
+    [TD_ZOOM] = ACTION_TAP_DANCE_FN(zoom_toggle)};
