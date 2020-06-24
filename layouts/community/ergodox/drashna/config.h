@@ -15,7 +15,7 @@
 #define PRODUCT DrashnaDox - Hacked ErgoDox EZ Hybrid Monstrosity
 
 #undef DEBOUNCE
-#define DEBOUNCE 30
+#define DEBOUNCE 15
 
 #define TAPPING_TERM_PER_KEY
 
@@ -30,3 +30,6 @@
 #        undef RGBLIGHT_SLEEP
 #    endif
 #endif
+
+#define PIMORONI_TRACKBALL_INVERT_X
+#define PIMORONI_TRACKBALL_INVERT_Y

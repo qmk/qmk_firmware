@@ -1,13 +1,51 @@
 # よくある質問
 
 <!---
-  original document: d598f01cb:docs/faq_general.md
-  git diff d598f01cb HEAD -- docs/faq_general.md | cat
+  original document: 0.8.62:docs/faq_general.md
+  git diff 0.8.62 HEAD -- docs/faq_general.md | cat
 -->
 
 ## QMK とは何か？
 
 Quantum Mechanical Keyboard の略である [QMK](https://github.com/qmk) は、カスタムキーボードのためのツールをビルドしている人々のグループです。[TMK](https://github.com/tmk/tmk_keyboard) の大幅に修正されたフォークである [QMK ファームウェア](https://github.com/qmk/qmk_firmware)から始まりました。
+
+## どこから始めればいいかわかりません！
+
+この場合は、[初心者ガイド](ja/newbs.md) から始めるべきです。ここには多くの素晴らしい情報があり、それらはあなたが始めるのに必要な全てをカバーするはずです。
+
+問題がある場合は、[QMK Configurator](https://config.qmk.fm)にアクセスしてください。あなたが必要なものの大部分が処理されます。
+
+## ビルドしたファームウェアを書き込むにはどうすればいいですか？
+
+まず、[コンパイル/書き込み FAQ ページ](ja/faq-build.md) に進みます。そこにはたくさんの情報があり、そこには一般的な問題に対する多くの解決策があります。
+
+## ここで取り上げていない問題がある場合はどうしますか？
+
+OK、問題ありません。[GitHub で issue を開く](https://github.com/qmk/qmk_firmware/issues) をチェックして、誰かが同じこと(似ているかだけでなく実際に同じであることを確認してください)を経験しているかどうかを確認してください。
+
+もし何も見つからない場合は、[新しい issue](https://github.com/qmk/qmk_firmware/issues/new) を開いてください！
+
+## バグを見つけたらどうしますか？
+
+[issue](https://github.com/qmk/qmk_firmware/issues/new) を開いてください。そしてもし修正方法を知っている場合は、GitHub で修正のプルリクエストを開いてください。
+
+## しかし、`git` と `GitHub` は怖いです！
+
+心配しないでください。開発を容易にするために `git` と GitHub を使い始めるための、かなり良い [ガイドライン](ja/newbs_git_best_practices.md) があります。
+
+さらに、追加の `git` と GitHub の関連リンクを [ここ](ja/newbs_learn_more_resources.md) に見つけることができます。
+
+## サポートを追加したいキーボードがあります
+
+素晴らしい！プルリクエストを開いてください。私たちはコードをレビューし、マージします！
+
+### `QMK` でブランドしたい場合はどうればいいですか？
+
+素晴らしい！私たちはあなたを支援したいと思います！
+
+実際、私たちにはあなたのページとキーボードに QMK ブランドを追加するための [完全なページ](https://qmk.fm/powered/) があります。これは QMK を公式にサポートするために必要なほぼ全て(知識と画像)をカバーしています。
+
+これについて質問がある場合は、issue を開くか、[Discord](https://discord.gg/Uq7gcHh) に進んでください。
 
 ## QMK と TMK の違いは何か？
 

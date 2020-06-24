@@ -1,42 +1,12 @@
 # QMK CLI Commands
 
-# CLI Commands
-
-## `qmk cformat`
-
-This command formats C code using clang-format. 
-
-Run it with no arguments to format all core code that has been changed. Default checks `origin/master` with `git diff`, branch can be changed using `-b <branch_name>`
-
-Run it with `-a` to format all core code, or pass filenames on the command line to run it on specific files.
-
-**Usage for specified files**:
-
-```
-qmk cformat [file1] [file2] [...] [fileN]
-```
-
-**Usage for all core files**:
-
-```
-qmk cformat -a
-```
-
-**Usage for only changed files against origin/master**:
-
-```
-qmk cformat
-```
-
-**Usage for only changed files against branch_name**:
-
-```
-qmk cformat -b branch_name
-```
+# User Commands
 
 ## `qmk compile`
 
 This command allows you to compile firmware from any directory. You can compile JSON exports from <https://config.qmk.fm>, compile keymaps in the repo, or compile the keyboard in the current working directory.
+
+This command is directory aware. It will automatically fill in KEYBOARD and/or KEYMAP if you are in a keyboard or keymap directory.
 
 **Usage for Configurator Exports**:
 
@@ -105,8 +75,9 @@ $ qmk compile -kb dz60
 
 ## `qmk flash`
 
-This command is similar to `qmk compile`, but can also target a bootloader. The bootloader is optional, and is set to `:flash` by default.
-To specify a different bootloader, use `-bl <bootloader>`. Visit the [Flashing Firmware](flashing.md) guide for more details of the available bootloaders.
+This command is similar to `qmk compile`, but can also target a bootloader. The bootloader is optional, and is set to `:flash` by default. To specify a different bootloader, use `-bl <bootloader>`. Visit the [Flashing Firmware](flashing.md) guide for more details of the available bootloaders.
+
+This command is directory aware. It will automatically fill in KEYBOARD and/or KEYMAP if you are in a keyboard or keymap directory.
 
 **Usage for Configurator Exports**:
 
@@ -136,16 +107,6 @@ This command lets you configure the behavior of QMK. For the full `qmk config` d
 qmk config [-ro] [config_token1] [config_token2] [...] [config_tokenN]
 ```
 
-## `qmk docs`
-
-This command starts a local HTTP server which you can use for browsing or improving the docs. Default port is 8936.
-
-**Usage**:
-
-```
-qmk docs [-p PORT]
-```
-
 ## `qmk doctor`
 
 This command examines your environment and alerts you to potential build or flash problems. It can fix many of them if you want it to.
@@ -170,6 +131,32 @@ Check your environment and report problems only:
 
     qmk doctor -n
 
+## `qmk info`
+
+Displays information about keyboards and keymaps in QMK. You can use this to get information about a keyboard, show the layouts, display the underlying key matrix, or to pretty-print JSON keymaps.
+
+**Usage**:
+
+```
+qmk info [-f FORMAT] [-m] [-l] [-km KEYMAP] [-kb KEYBOARD]
+```
+
+This command is directory aware. It will automatically fill in KEYBOARD and/or KEYMAP if you are in a keyboard or keymap directory.
+
+**Examples**:
+
+Show basic information for a keyboard:
+
+    qmk info -kb planck/rev5
+
+Show the matrix for a keyboard:
+
+    qmk info -kb ergodox_ez -m
+
+Show a JSON keymap for a keyboard:
+
+    qmk info -kb clueboard/california -km default
+
 ## `qmk json2c`
 
 Creates a keymap.c from a QMK Configurator export.
@@ -178,6 +165,86 @@ Creates a keymap.c from a QMK Configurator export.
 
 ```
 qmk json2c [-o OUTPUT] filename
+```
+
+## `qmk list-keyboards`
+
+This command lists all the keyboards currently defined in `qmk_firmware`
+
+**Usage**:
+
+```
+qmk list-keyboards
+```
+
+## `qmk list-keymaps`
+
+This command lists all the keymaps for a specified keyboard (and revision).
+
+This command is directory aware. It will automatically fill in KEYBOARD if you are in a keyboard directory.
+
+**Usage**:
+
+```
+qmk list-keymaps -kb planck/ez
+```
+
+## `qmk new-keymap`
+
+This command creates a new keymap based on a keyboard's existing default keymap.
+
+This command is directory aware. It will automatically fill in KEYBOARD and/or KEYMAP if you are in a keyboard or keymap directory.
+
+**Usage**:
+
+```
+qmk new-keymap [-kb KEYBOARD] [-km KEYMAP]
+```
+
+---
+
+# Developer Commands
+
+## `qmk cformat`
+
+This command formats C code using clang-format. 
+
+Run it with no arguments to format all core code that has been changed. Default checks `origin/master` with `git diff`, branch can be changed using `-b <branch_name>`
+
+Run it with `-a` to format all core code, or pass filenames on the command line to run it on specific files.
+
+**Usage for specified files**:
+
+```
+qmk cformat [file1] [file2] [...] [fileN]
+```
+
+**Usage for all core files**:
+
+```
+qmk cformat -a
+```
+
+**Usage for only changed files against origin/master**:
+
+```
+qmk cformat
+```
+
+**Usage for only changed files against branch_name**:
+
+```
+qmk cformat -b branch_name
+```
+
+## `qmk docs`
+
+This command starts a local HTTP server which you can use for browsing or improving the docs. Default port is 8936.
+
+**Usage**:
+
+```
+qmk docs [-p PORT]
 ```
 
 ## `qmk kle2json`
@@ -202,36 +269,6 @@ $ qmk kle2json -f kle.txt -f
 Ψ Wrote out to info.json
 ```
 
-## `qmk list-keyboards`
-
-This command lists all the keyboards currently defined in `qmk_firmware`
-
-**Usage**:
-
-```
-qmk list-keyboards
-```
-
-## `qmk list-keymaps`
-
-This command lists all the keymaps for a specified keyboard (and revision).
-
-**Usage**:
-
-```
-qmk list-keymaps -kb planck/ez
-```
-
-## `qmk new-keymap`
-
-This command creates a new keymap based on a keyboard's existing default keymap.
-
-**Usage**:
-
-```
-qmk new-keymap [-kb KEYBOARD] [-km KEYMAP]
-```
-
 ## `qmk pyformat`
 
 This command formats python code in `qmk_firmware`.
@@ -251,3 +288,4 @@ This command runs the python test suite. If you make changes to python code you 
 ```
 qmk pytest
 ```
+

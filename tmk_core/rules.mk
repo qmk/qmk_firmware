@@ -46,7 +46,7 @@ FORMAT = ihex
 # Optimization level, can be [0, 1, 2, 3, s].
 #     0 = turn off optimization. s = optimize for size.
 #     (Note: 3 is not always the best optimization level. See avr-libc FAQ.)
-OPT = s
+OPT ?= s
 
 # Compiler flag to set the C Standard level.
 #     c89   = "ANSI" C
@@ -223,6 +223,12 @@ $(foreach LOBJ, $(NO_LTO_OBJ), $(eval $(call NO_LTO,$(LOBJ))))
 
 MOVE_DEP = mv -f $(patsubst %.o,%.td,$@) $(patsubst %.o,%.d,$@)
 
+# For a ChibiOS build, ensure that the board files have the hook overrides injected
+define BOARDSRC_INJECT_HOOKS
+$(KEYBOARD_OUTPUT)/$(patsubst %.c,%.o,$(patsubst ./%,%,$1)): INIT_HOOK_CFLAGS += -include $(TOP_DIR)/tmk_core/protocol/chibios/init_hooks.h
+endef
+$(foreach LOBJ, $(BOARDSRC), $(eval $(call BOARDSRC_INJECT_HOOKS,$(LOBJ))))
+
 # Add QMK specific flags
 DFU_SUFFIX ?= dfu-suffix
 DFU_SUFFIX_ARGS ?=
@@ -306,27 +312,27 @@ ifdef $1_CONFIG
 $1_CONFIG_FLAGS += $$(patsubst %,-include %,$$($1_CONFIG))
 endif
 $1_CFLAGS = $$(ALL_CFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS) $$(NOLTO_CFLAGS)
-$1_CXXFLAGS= $$(ALL_CXXFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS) $$(NOLTO_CFLAGS)
-$1_ASFLAGS= $$(ALL_ASFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS)
+$1_CXXFLAGS = $$(ALL_CXXFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS) $$(NOLTO_CFLAGS)
+$1_ASFLAGS = $$(ALL_ASFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS)
 
 # Compile: create object files from C source files.
 $1/%.o : %.c $1/%.d $1/cflags.txt $1/compiler.txt | $(BEGIN)
 	@mkdir -p $$(@D)
 	@$$(SILENT) || printf "$$(MSG_COMPILING) $$<" | $$(AWK_CMD)
-	$$(eval CMD := $$(CC) -c $$($1_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
+	$$(eval CMD := $$(CC) -c $$($1_CFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
 
 # Compile: create object files from C++ source files.
 $1/%.o : %.cpp $1/%.d $1/cxxflags.txt $1/compiler.txt | $(BEGIN)
 	@mkdir -p $$(@D)
 	@$$(SILENT) || printf "$$(MSG_COMPILING_CXX) $$<" | $$(AWK_CMD)
-	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
+	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
 
 $1/%.o : %.cc $1/%.d $1/cxxflags.txt $1/compiler.txt | $(BEGIN)
 	@mkdir -p $$(@D)
 	@$$(SILENT) || printf "$$(MSG_COMPILING_CXX) $$<" | $$(AWK_CMD)
-	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
+	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
 
 # Assemble: create object files from assembler source files.
@@ -433,7 +439,7 @@ $(eval $(foreach OUTPUT,$(OUTPUTS),$(shell mkdir -p $(OUTPUT) 2>/dev/null)))
 .PHONY : all finish sizebefore sizeafter qmkversion \
 gccversion build elf hex eep lss sym coff extcoff \
 clean clean_list debug gdb-config show_path \
-program teensy dfu flip dfu-ee flip-ee dfu-start \
+program teensy dfu dfu-ee dfu-start \
 flash dfu-split-left dfu-split-right \
 avrdude-split-left avrdude-split-right \
 avrdude-loop usbasp
