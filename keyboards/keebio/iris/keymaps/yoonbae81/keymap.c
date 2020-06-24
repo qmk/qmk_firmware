@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      MPRV, MSTP, MPLY, MNXT, VOLD, VOLU,                 UNDO, CALC, PSLS, PAST, PMNS, PSCR,
          , PGUP,  UP , PGDN,   NO, MUTE,                 PSTE,   7 ,   8 ,   9 , PPLS, SCLK,
          , LEFT, DOWN, RGHT,   NO,   NO,                  CUT,   4 ,   5 ,   6 , PCMM, PAUS,
-         , HOME,   NO,  END,   NO,   NO,TO(_QWERTY),ENT, COPY,   1 ,   2 ,   3 , PEQL,   NO,
+         , HOME,   NO,  END,   NO,   NO,TO(_QWERTY),ENT, COPY,   1 ,   2 ,   3 , PEQL, BSPC,
                                ,     , SPC,           ENT,   0 , PDOT
   )
 };
