@@ -56,13 +56,13 @@ L3 |   Z   |   X   |   C   |   V   |   B   |           R3  |   K   |   M   |   ,
    '-------+-------+-------+-------+-------'               '-------+-------+-------+-------+-------'
 */
 
-#define _________________COLEMAK_L1________________ Q_CTL, W_ALT, F_GUI, KC_P, KC_G
-#define _________________COLEMAK_L2________________ KC_A, KC_R, KC_S, T_SFT, KC_D
-#define _________________COLEMAK_L3________________ KC_Z, KC_X, KC_C, KC_V, KC_B
+#define _________________COLEMAK_L1________________        Q_CTL, W_ALT, F_GUI, KC_P, KC_G
+#define _________________COLEMAK_L2________________        KC_A, KC_R, KC_S, T_SFT, KC_D
+#define _________________COLEMAK_L3________________        KC_Z, KC_X, KC_C, KC_V, KC_B
 
-#define _________________COLEMAK_R1________________ KC_J, KC_L, U_GUI, Y_ALT, SCL_CTL
-#define _________________COLEMAK_R2________________ KC_H, N_SFT, KC_E, KC_I, KC_O
-#define _________________COLEMAK_R3________________ KC_K, KC_M, KC_COMM, KC_DOT, KC_QUOT
+#define _________________COLEMAK_R1________________        KC_J, KC_L, U_GUI, Y_ALT, SCL_CTL
+#define _________________COLEMAK_R2________________        KC_H, N_SFT, KC_E, KC_I, KC_O
+#define _________________COLEMAK_R3________________        KC_K, KC_M, KC_COMM, KC_DOT, KC_QUOT
 
 /* NAV
                      LEFT                                                    RIGHT
@@ -77,13 +77,13 @@ L3 |       |       | Screen|       |       |            R3 |       | Prev  | Nex
    |       |       |Capture|       |       |               |       | Tab   | Window| Tab   |       |
    '-------+-------+-------+-------+-------'               '-------+-------+-------+-------+-------'
 */
-#define _________________NAV_L1____________________ KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX, XXXXXXX
-#define _________________NAV_L2____________________ XXXXXXX, XXXXXXX, XXXXXXX, KC_LSFT, XXXXXXX
-#define _________________NAV_L3____________________ XXXXXXX, XXXXXXX, SCN_CAP, XXXXXXX, XXXXXXX
+#define _________________NAV_L1____________________        KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX, XXXXXXX
+#define _________________NAV_L2____________________        XXXXXXX, XXXXXXX, XXXXXXX, KC_LSFT, XXXXXXX
+#define _________________NAV_L3____________________        XXXXXXX, XXXXXXX, SCN_CAP, XXXXXXX, XXXXXXX
 
-#define _________________NAV_R1____________________ XXXXXXX, KC_HOME, KC_UP, KC_END, KC_PGUP
-#define _________________NAV_R2____________________ XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN
-#define _________________NAV_R3____________________ XXXXXXX, PREVTAB, NXT_WIN, NEXTTAB, XXXXXXX
+#define _________________NAV_R1____________________        XXXXXXX, KC_HOME, KC_UP, KC_END, KC_PGUP
+#define _________________NAV_R2____________________        XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN
+#define _________________NAV_R3____________________        XXXXXXX, PREVTAB, NXT_WIN, NEXTTAB, XXXXXXX
 
 /* SYMBOL
                      LEFT                                                    RIGHT
@@ -99,13 +99,13 @@ L3 |   `   |   +   |   -   |   =   |   €   |            R3 |   |   |   {   |  
    '-------+-------+-------+-------+-------'               '-------+-------+-------+-------+-------'
 */
 
-#define _________________SYM_L1____________________ KC_EXLM, KC_AT, KC_ASTR, KC_AMPR, KC_PIPE
-#define _________________SYM_L2____________________ T_TILD, KC_LT, KC_PERC, KC_GT, GBP
-#define _________________SYM_L3____________________ KC_GRV, KC_PLUS, KC_MINS, KC_EQL, EURO
+#define _________________SYM_L1____________________        KC_EXLM, KC_AT, KC_ASTR, KC_AMPR, KC_PIPE
+#define _________________SYM_L2____________________        T_TILD, KC_LT, KC_PERC, KC_GT, GBP
+#define _________________SYM_L3____________________        KC_GRV, KC_PLUS, KC_MINS, KC_EQL, EURO
 
-#define _________________SYM_R1____________________ XXXXXXX, KC_LBRC, KC_CIRC, KC_RBRC, KC_COLN
-#define _________________SYM_R2____________________ KC_QUES, KC_LPRN, KC_DLR, KC_RPRN, KC_SLSH
-#define _________________SYM_R3____________________ KC_PIPE, KC_LCBR, KC_HASH, KC_RCBR, KC_BSLS
+#define _________________SYM_R1____________________        XXXXXXX, KC_LBRC, KC_CIRC, KC_RBRC, KC_COLN
+#define _________________SYM_R2____________________        KC_QUES, KC_LPRN, KC_DLR, KC_RPRN, KC_SLSH
+#define _________________SYM_R3____________________        KC_PIPE, KC_LCBR, KC_HASH, KC_RCBR, KC_BSLS
 
 /* NUMBER
                      LEFT                                                    RIGHT
@@ -124,14 +124,14 @@ L3 |   `   |   +   |   -   |   =   |   €   |            R3 |   ,   |   1   |  
                                                            '-------+-------+-------'
 */
 
-#define _________________NUM_L1____________________ KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX, XXXXXXX
-#define _________________NUM_L2____________________ KC_COLN, KC_HASH, T_CPYCUT, PASTE, GBP
-#define _________________NUM_L3____________________ KC_COMM, KC_PLUS, KC_MINS, KC_EQL, EURO
+#define _________________NUM_L1____________________        KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX, XXXXXXX
+#define _________________NUM_L2____________________        KC_COLN, KC_HASH, T_CPYCUT, PASTE, GBP
+#define _________________NUM_L3____________________        KC_COMM, KC_PLUS, KC_MINS, KC_EQL, EURO
 
-#define _________________NUM_R1____________________ KC_SLSH, KC_7, KC_8, KC_9, KC_ASTR
-#define _________________NUM_R2____________________ KC_DOT, KC_4, KC_5, KC_6, KC_MINS
-#define _________________NUM_R3____________________ KC_COMM, KC_1, KC_2, KC_3, KC_PLUS
-#define ________NUM_R4___________ KC_BSLS, KC_0, EQL_THU
+#define _________________NUM_R1____________________        KC_SLSH, KC_7, KC_8, KC_9, KC_ASTR
+#define _________________NUM_R2____________________        KC_DOT, KC_4, KC_5, KC_6, KC_MINS
+#define _________________NUM_R3____________________        KC_COMM, KC_1, KC_2, KC_3, KC_PLUS
+#define ________NUM_R4___________                          KC_BSLS, KC_0, EQL_THU
 
 /* ARRANGE
                      LEFT                                                    RIGHT
@@ -147,13 +147,13 @@ L3 | L 5/6 | 3/6th |Restore| 4/6th | R 5/6 |            R3 |       | Bottom| Cen
    '-------+-------+-------+-------+-------'               '-------+-------+-------+-------+-------'
 */
 
-#define _________________ARR_L1____________________ M_1_6, M_2_6, M_MAX, M_5_6, M_6_6
-#define _________________ARR_L2____________________ M_L13, M_L23, M_C13, M_R23, M_R13
-#define _________________ARR_L3____________________ M_L_56, M_3_6, M_REST, M_4_6, M_R_56
+#define _________________ARR_L1____________________        M_1_6, M_2_6, M_MAX, M_5_6, M_6_6
+#define _________________ARR_L2____________________        M_L13, M_L23, M_C13, M_R23, M_R13
+#define _________________ARR_L3____________________        M_L_56, M_3_6, M_REST, M_4_6, M_R_56
 
-#define _________________ARR_R1____________________ XXXXXXX, M_TOPL, M_TOP, M_TOPR, XXXXXXX
-#define _________________ARR_R2____________________ M_PREV, M_LEFT, M_BOTT, M_RGHT, M_NEXT
-#define _________________ARR_R3____________________ XXXXXXX, M_BOTL, M_CEN, M_BOTR, XXXXXXX
+#define _________________ARR_R1____________________        XXXXXXX, M_TOPL, M_TOP, M_TOPR, XXXXXXX
+#define _________________ARR_R2____________________        M_PREV, M_LEFT, M_BOTT, M_RGHT, M_NEXT
+#define _________________ARR_R3____________________        XXXXXXX, M_BOTL, M_CEN, M_BOTR, XXXXXXX
 
 /* MOUSE
                      LEFT                                                    RIGHT
@@ -169,13 +169,13 @@ L3 |       |       |       |       |       |            R3 |       |       |    
    '-------+-------+-------+-------+-------'               '-------+-------+-------+-------+-------'
 */
 
-#define _________________MOU_L1____________________ KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX, XXXXXXX
-#define _________________MOU_L2____________________ KC_BTN3, KC_BTN2, KC_BTN1, KC_LSFT, XXXXXXX
-#define _________________MOU_L3____________________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define _________________MOU_L1____________________        KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX, XXXXXXX
+#define _________________MOU_L2____________________        KC_BTN3, KC_BTN2, KC_BTN1, KC_LSFT, XXXXXXX
+#define _________________MOU_L3____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
-#define _________________MOU_R1____________________ XXXXXXX, KC_WH_L, KC_MS_U, KC_WH_R, KC_WH_U
-#define _________________MOU_R2____________________ XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D
-#define _________________MOU_R3____________________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define _________________MOU_R1____________________        XXXXXXX, KC_WH_L, KC_MS_U, KC_WH_R, KC_WH_U
+#define _________________MOU_R2____________________        XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D
+#define _________________MOU_R3____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
 /* THUMB
                      LEFT                                                    RIGHT
@@ -191,13 +191,13 @@ L3 |       |       | Chrome|       | BRAVE |            R3 |       | Money |    
    '-------+-------+-------+-------+-------'               '-------+-------+-------+-------+-------'
 */
 
-#define _________________THU_L1____________________ XXXXXXX, M_WHATSAPP, M_XXX2, M_XXX3, M_XXX4
-#define _________________THU_L2____________________ T_ANKASS, XXXXXXX, M_SPOTIFY, T_TYPTEL, M_XXX1
-#define _________________THU_L3____________________ XXXXXXX, XXXXXXX, M_CHROME, XXXXXXX, M_BRAVE
+#define _________________THU_L1____________________        XXXXXXX, M_WHATSAPP, M_XXX2, M_XXX3, M_XXX4
+#define _________________THU_L2____________________        T_ANKASS, XXXXXXX, M_SPOTIFY, T_TYPTEL, M_XXX1
+#define _________________THU_L3____________________        XXXXXXX, XXXXXXX, M_CHROME, XXXXXXX, M_BRAVE
 
-#define _________________THU_R1____________________ XXXXXXX, INPUT_L, M_XXX5, XXXXXXX, TXT_PLS
-#define _________________THU_R2____________________ M_HMA, KC_CAPS, EMOJI, M_ITERM, TXT_MIN
-#define _________________THU_R3____________________ XXXXXXX, M_MONEY, XXXXXXX, XXXXXXX, XXXXXXX
+#define _________________THU_R1____________________        XXXXXXX, INPUT_L, M_XXX5, XXXXXXX, TXT_PLS
+#define _________________THU_R2____________________        M_HMA, KC_CAPS, EMOJI, M_ITERM, TXT_MIN
+#define _________________THU_R3____________________        XXXXXXX, M_MONEY, XXXXXXX, XXXXXXX, XXXXXXX
 
 /* FUNCTION
                      LEFT                                                    RIGHT
@@ -213,13 +213,13 @@ L2 |       |       |       |       |       |            R2 |       |  F1   |  F2
    '-------+-------+-------+-------+-------'               '-------+-------+-------+-------+-------'
 */
 
-#define _________________FUN_L1____________________ KC_LCTL, KC_LALT, KC_LGUI, LOCK, XXXXXXX
-#define _________________FUN_L2____________________ XXXXXXX, XXXXXXX, XXXXXXX, KC_LSFT, XXXXXXX
-#define _________________FUN_L3____________________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define _________________FUN_L1____________________        KC_LCTL, KC_LALT, KC_LGUI, LOCK, XXXXXXX
+#define _________________FUN_L2____________________        XXXXXXX, XXXXXXX, XXXXXXX, KC_LSFT, XXXXXXX
+#define _________________FUN_L3____________________        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
-#define _________________FUN_R1____________________ XXXXXXX, KC_F7, KC_F8, KC_F9, KC_F12
-#define _________________FUN_R2____________________ XXXXXXX, KC_F4, KC_F5, KC_F6, KC_F11
-#define _________________FUN_R3____________________ XXXXXXX, KC_F1, KC_F2, KC_F3, KC_F10
+#define _________________FUN_R1____________________        XXXXXXX, KC_F7, KC_F8, KC_F9, KC_F12
+#define _________________FUN_R2____________________        XXXXXXX, KC_F4, KC_F5, KC_F6, KC_F11
+#define _________________FUN_R3____________________        XXXXXXX, KC_F1, KC_F2, KC_F3, KC_F10
 
 /* MOD THUMB CLUSTER
                  LEFT                              RIGHT
@@ -229,8 +229,8 @@ Hold   |  NUM  | Symbol| Shift |         |Arrange|  NAV  | Thumb |
        '-------+-------+-------'         '-------+-------+-------'
 */
 
-#define ________MOD_LEFT_________ ESC_NUM, BSP_SYM, TAB_SFT
-#define ________MOD_RIGHT________ MIN_ARR, SPC_NAV, ENT_THU
+#define ________MOD_LEFT_________        ESC_NUM, BSP_SYM, TAB_SFT
+#define ________MOD_RIGHT________        MIN_ARR, SPC_NAV, ENT_THU
 
 // Layout wrappers
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
