@@ -15,6 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 #include "tapdances.c"
+#include "encoder_functions.c"
 
 #define SFTENT SFT_T(KC_ENT)
 
@@ -102,26 +103,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_DEL, TO(NUMPAD),  KC_N, KC_M,     KC_COMM, KC_DOT, LT(MEDIA,KC_SLSH), KC_MS_BTN1,
             SFTENT,  KC_SPC,   TD(GCA), TD(CTLALL), KC_CAPS
     ),
-
-    [NUMPAD] = LAYOUT(
-        _______, _______, _______,  _______, _______,  _______,                                            _______, KC_7,  KC_8,  KC_9, KC_KP_MINUS, _______,
-        _______, _______, _______,  _______, _______, _______,                                             _______, KC_4,  KC_5,  KC_6, KC_KP_PLUS , _______, 
-        _______, _______, _______,  _______, _______,  _______, TO(QWERTY), _______,    _______, TO(EDIT), _______, KC_1,  KC_2,  KC_3, KC_KP_SLASH, LCTL(KC_RIGHT),
-                                    _______, _______, _______, _______, _______,       _______,  _______, KC_0, KC_DOT, _______
+    [NUMPAD] = LAYOUT_stack(
+        _______, _______, _______,  _______, _______, _______,                      
+        _______, _______, _______,  _______, _______, _______,                       
+        _______, _______, _______,  _______, _______, _______, TO(QWERTY), _______, 
+                                    _______, _______, _______,  _______  , _______,    
+                                                    
+                                    _______, KC_7,     KC_8,    KC_9,  KC_KP_MINUS, _______,
+                                    _______, KC_4,     KC_5,    KC_6,  KC_KP_PLUS , _______, 
+                _______, TO(EDIT), _______, KC_1,  KC_2,  KC_3, KC_KP_SLASH, LCTL(KC_RIGHT),
+                _______,  _______, KC_0, KC_DOT, _______ 
     ),
 
     [EDIT] = LAYOUT(
-        _______, TASK_MAN, _______, SELW_LEFT, SELW_RIGHT, _______,                                                NEW_TAB , KC_PGUP, KC_UP, KC_PGDOWN, KC_PSCREEN, _______, 
-        _______, _______ , LGUI(KC_GRV), MVW_LEFT,  MVW_RIGHT , _______,                                                R_HOME  , KC_LEFT, KC_DOWN, KC_RIGHT, R_END, _______, 
-        LCTL(KC_LEFT), R_UNDO, R_CUT  , R_COPY , R_PASTE, R_REDO , TO(NUMPAD), FORM_GET,      FORM_PUT, TO(QWERTY), SEL_HOME, S(KC_LEFT), S(KC_DOWN), S(KC_RIGHT), SEL_END, _______, 
-                                         _______, _______, _______, DEL_WRD, _______,       _______, _______, _______, _______, _______
+        _______, TASK_MAN, _______, SELW_LEFT, SELW_RIGHT, _______,                       
+        _______, _______ , LGUI(KC_GRV), MVW_LEFT,  MVW_RIGHT , _______,                  
+        LCTL(KC_LEFT), R_UNDO, R_CUT  , R_COPY , R_PASTE, R_REDO , TO(NUMPAD), FORM_GET,  
+                                            _______, _______, _______, DEL_WRD, _______,    
+
+                                    NEW_TAB , KC_PGUP, KC_UP, KC_PGDOWN, KC_PSCREEN, _______, 
+                                    R_HOME  , KC_LEFT, KC_DOWN, KC_RIGHT, R_END, _______, 
+                FORM_PUT, TO(QWERTY), SEL_HOME, S(KC_LEFT), S(KC_DOWN), S(KC_RIGHT), SEL_END, _______, 
+                _______, _______, _______, _______, _______ 
     ),
 
     [ADJUST] = LAYOUT(
-        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  KC_F6,                                              KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11, KC_F12, 
-        TO(QWERTY), TO(EDIT), TO(NUMPAD), TO(JSYM), TO(FSYM), TO(MEDIA),                                   _______, _______, _______, _______, _______,  _______,
-        DF(MINIMAK4), DF(QWERTY), RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD,_______, _______,       _______, _______, _______, _______, _______, _______, _______, _______,
-                                           _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
+        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  KC_F6,                                
+        TO(QWERTY), TO(EDIT), TO(NUMPAD), TO(JSYM), TO(FSYM), TO(MEDIA),                  
+        DF(MINIMAK4), DF(QWERTY), RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD,_______, _______,   
+                                           _______, _______, _______, _______, _______,   
+
+                                KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11, KC_F12, 
+                                _______, _______, _______, _______, _______,  _______,
+                _______, _______, _______, _______, _______, _______, _______, _______,
+                _______, _______, _______, _______, _______
     ),
 
     [FSYM] = LAYOUT(
@@ -178,40 +193,21 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         switch (get_highest_layer(layer_state)) {
             case EDIT:
-                // Move whole words. Hold shift to select while moving.
-                if (clockwise) {
-                    tap_code16(A(KC_RGHT));
-                } else {
-                    tap_code16(A(KC_LEFT));
-                }
+                enc_move_words(clockwise);
                 break;
-            //case QWERTY:
+            case QWERTY:
+                enc_move_desktop(clockwise);
             default:
-                // History scrubbing. Should this be G(KC_Z) and G(S(KC_Z))?
-                if (clockwise) {
-                    tap_code16(G(KC_Z));
-                } else {
-                    tap_code16(G(KC_Y));
-                }
+                enc_history_scrubbing(clockwise);
                 break;
         }
     } else if (index == 1) {
         switch (get_highest_layer(layer_state)) {
             case QWERTY:
-                // Scrolling with PageUp and PgDn.
-                if (clockwise) {
-                    tap_code(KC_MS_WH_DOWN);
-                } else {
-                    tap_code(KC_MS_WH_UP);
-                }
+                enc_scrolling(clockwise);
                 break;
             default:
-                // Volume control.
-                if (clockwise) {
-                    tap_code(KC_VOLU);
-                } else {
-                    tap_code(KC_VOLD);
-                }
+                enc_volume_knob(clockwise);
                 break;
         }
     }
