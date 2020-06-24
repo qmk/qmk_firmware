@@ -4,15 +4,12 @@ enum layers {
   _QWERTY,
   _LOWER,
   _RAISE,
+  _ADJUST
 };
 
 #define LOWER   MO(_LOWER)
 #define RAISE   MO(_RAISE)
 #define TGLOWER TG(_LOWER)
-
-static bool is_ctl_pressed;
-static bool is_esc_pressed;
-static bool is_bspc_pressed;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -52,46 +49,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // └───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┘
 ),
 
+[_ADJUST] = LAYOUT_ortho_4x12 (
+// ┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐
+    _______,RESET,  _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
+// └───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┘
+),
+
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   #ifdef JOTANCK_LEDS
   writePin(JOTANCK_LED1, (get_highest_layer(state) == _LOWER));
   #endif
-  return state;
+  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
 bool led_update_user(led_t led_state) {
-
   // NumLock allways on
   if (!led_state.num_lock) {
     tap_code(KC_NUMLOCK);
   }
-
   #ifdef JOTANCK_LEDS
   // CapsLock led
   writePin(JOTANCK_LED2, led_state.caps_lock);
   #endif
   return true;
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case KC_LCTL:
-      is_ctl_pressed = record->event.pressed;
-      break;
-    case KC_ESC:
-      is_esc_pressed = record->event.pressed;
-      break;
-    case KC_BSPC:
-      is_bspc_pressed = record->event.pressed;
-      break;
-  };
-  return true;
-}
-
-void matrix_scan_user(void) {
-  if (is_ctl_pressed && is_esc_pressed && is_bspc_pressed) {
-    reset_keyboard();
-  }
 }
