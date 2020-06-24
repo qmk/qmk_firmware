@@ -1,4 +1,4 @@
-/* Copyright 2019 Sebastian Williams
+/* Copyright 2020 MechMerlin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,14 +13,5 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#pragma once
 
-#include "quantum.h"
-
-#define LAYOUT( \
-  K00,  \
-  K01  \
-) { \
-  { K00 }, \
-  { K01 } \
-}
+#include "e85.h"

@@ -1,4 +1,4 @@
-/* Copyright 2019 Sebastian Williams
+/* Copyright 2020 hineybush
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,4 +13,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "smd_milk.h"
+
+#include "h60.h"
+
+void matrix_init_kb(void) {
+	// put your keyboard start-up code here
+	// runs once when the firmware starts up
+   	setPinOutput(C6);
+}
+
+bool led_update_kb(led_t led_state) {
+    if(led_update_user(led_state)) {
+        writePin(C6, !led_state.caps_lock);
+    }
+    return true;
+}
+
