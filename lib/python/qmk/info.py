@@ -108,19 +108,20 @@ def _search_keyboard_h(layouts, path):
         if keyboard_h_path.exists():
             layouts.update(find_layouts(keyboard_h_path))
 
+    return layouts
+
 
 def _find_all_layouts(keyboard):
     """Looks for layout macros associated with this keyboard.
     """
-    layouts = {}
     rules = rules_mk(keyboard)
 
     # Pull in all layouts defined in the standard files
-    _search_keyboard_h(layouts, Path(keyboard))
+    layouts = _search_keyboard_h(Path(keyboard))
 
     if not layouts:
         # Search in DEFAULT_FOLDER next, if we didn't get any hits
-        _search_keyboard_h(layouts, Path(rules.get('DEFAULT_FOLDER', keyboard)))
+        layouts = _search_keyboard_h(layouts, Path(rules.get('DEFAULT_FOLDER', keyboard)))
 
     if not layouts:
         # If we didn't find any layouts above we widen our search. This is error
