@@ -9,9 +9,6 @@
 // This a shortcut to help you visually see your layout.
 // The first section contains all of the arguements
 // The second converts the arguments into a two-dimensional array
-//
-//This is an enhancement to enable VIA mapping for the DP60 PCB. Thanks to @sigprof in qmk discord for guidance
-//
     // Matrix layout to accomodate all layouts. Good for VIA mapping correctly, and it doesnt exist yet
     //
     //┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐  ┌──────┐
