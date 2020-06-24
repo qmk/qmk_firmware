@@ -99,8 +99,9 @@ def _extract_rules_mk(info_data):
     return info_data
 
 
-def _search_keyboard_h(layouts, path):
+def _search_keyboard_h(path):
     current_path = Path('keyboards/')
+    layouts = {}
     for directory in path.parts:
         current_path = current_path / directory
         keyboard_h = '%s.h' % (directory,)
