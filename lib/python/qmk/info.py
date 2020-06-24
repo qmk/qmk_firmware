@@ -99,21 +99,28 @@ def _extract_rules_mk(info_data):
     return info_data
 
 
-def _find_all_layouts(keyboard):
-    """Looks for layout macros associated with this keyboard.
-    """
-    layouts = {}
-    rules = rules_mk(keyboard)
-    keyboard_path = Path(rules.get('DEFAULT_FOLDER', keyboard))
-
-    # Pull in all layouts defined in the standard files
+def _search_keyboard_h(layouts, path):
     current_path = Path('keyboards/')
-    for directory in keyboard_path.parts:
+    for directory in path.parts:
         current_path = current_path / directory
         keyboard_h = '%s.h' % (directory,)
         keyboard_h_path = current_path / keyboard_h
         if keyboard_h_path.exists():
             layouts.update(find_layouts(keyboard_h_path))
+
+
+def _find_all_layouts(keyboard):
+    """Looks for layout macros associated with this keyboard.
+    """
+    layouts = {}
+    rules = rules_mk(keyboard)
+
+    # Pull in all layouts defined in the standard files
+    _search_keyboard_h(layouts, Path(keyboard))
+
+    if not layouts:
+        # Search in DEFAULT_FOLDER next, if we didn't get any hits
+        _search_keyboard_h(layouts, Path(rules.get('DEFAULT_FOLDER', keyboard)))
 
     if not layouts:
         # If we didn't find any layouts above we widen our search. This is error
