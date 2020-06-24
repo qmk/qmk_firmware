@@ -18,8 +18,8 @@
 #include "version.h"
 #include "eeprom.h"
 #include "process_records.h"
-#include "tap_dances.h"
 #include "keycodes.h"
+#include "wrappers.h"
 
 #ifdef TAP_DANCE_ENABLE
 #    include "tap_dances.h"
@@ -27,6 +27,13 @@
 #if defined(KEYBOARD_lily58_rev1) & defined(PROTOCOL_LUFA)
 #    include "lufa.h"
 #    include "split_util.h"
+#endif
+
+#if defined(RGBLIGHT_ENABLE)
+#    include "rgb_stuff.h"
+#endif
+#if defined(RGB_MATRIX_ENABLE)
+#    include "rgb_matrix_stuff.h"
 #endif
 
 enum layers { 

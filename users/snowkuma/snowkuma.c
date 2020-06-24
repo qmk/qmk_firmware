@@ -20,19 +20,3 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _NUMBER, _THUMB, _FUNCTION);
     return state;
 }
-
-void keyboard_post_init_user() {
-#ifdef RGBLIGHT_ENABLE
-    // Cycles through the entire hue wheel and resetting to default color
-    uint16_t default_hue = rgblight_get_hue();
-    rgblight_enable_noeeprom();
-    layer_state_set_user(layer_state);
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-    for (uint16_t i = 255; i > 0; i--) {
-        rgblight_sethsv_noeeprom((i + default_hue) % 255, rgblight_get_sat(), rgblight_get_val());
-        matrix_scan();
-        wait_ms(10);
-    }
-#endif
-    layer_state_set_user(layer_state);
-}
