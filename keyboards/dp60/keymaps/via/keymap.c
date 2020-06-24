@@ -16,16 +16,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TRNS,KC_TRNS,KC_TRNS,                        KC_TRNS,                        KC_TRNS,MO(2),TG(0),KC_TRNS),
 
     [2] = LAYOUT_all(
-      KC_TRNS, KC_TRNS,KC_TRNS,  KC_TRNS,KC_TRNS,  KC_TRNS,KC_TRNS,  KC_TRNS,KC_TRNS,  KC_TRNS,KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-      KC_TRNS,   KC_TRNS,KC_VOLU,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-      KC_MUTE,        KC_MPRV,KC_VOLD,KC_MNXT,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,
-      KC_TRNS, KC_TRNS,       RGB_TOG,RGB_MOD,RGB_RMOD,RGB_VAI,RGB_VAD,RGB_HUI,RGB_HUD,RGB_SAI,RGB_SAD,KC_TRNS,KC_TRNS,KC_TRNS,
-      KC_TRNS,KC_TRNS,KC_TRNS,                        KC_MPLY,                        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS),
+      _______, _______,_______,  _______,_______,  _______,_______,  _______,_______,  _______,_______, _______,_______,_______,_______,
+      _______,   _______,KC_VOLU,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+      KC_MUTE,        KC_MPRV,KC_VOLD,KC_MNXT,_______,_______,_______,_______, _______,_______,_______,_______,_______, _______,
+      _______, _______,       RGB_TOG,RGB_MOD,RGB_RMOD,RGB_VAI,RGB_VAD,RGB_HUI,RGB_HUD,RGB_SAI,RGB_SAD,_______,_______,_______,
+      _______,_______,_______,                        KC_MPLY,                        _______,_______,_______,_______),
 
     [3] = LAYOUT_all(
-      KC_TRNS, KC_TRNS,KC_TRNS,  KC_TRNS,KC_TRNS,  KC_TRNS,KC_TRNS,  KC_TRNS,KC_TRNS,  KC_TRNS,KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-      KC_TRNS,   KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-      KC_TRNS,        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-      KC_TRNS, KC_TRNS,       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-      KC_TRNS,KC_TRNS,KC_TRNS,                        KC_TRNS,                        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS)
+      _______, _______,_______,  _______,_______,  _______,_______,  _______,_______,  _______,_______, _______,_______,_______,_______,
+      _______,   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+      _______,        _______,_______,_______,_______,_______,_______,_______, _______,_______,_______,_______,_______,_______,
+      _______, _______,       _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+      _______,_______,_______,                        _______,                        _______,_______,_______,_______)
 };
