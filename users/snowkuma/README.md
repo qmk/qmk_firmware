@@ -1,6 +1,6 @@
 # QMK User Configuration for snowkuma
 Moving from one type of keyboard to 2 (planck to crkbd) I felt it made sense to start utilizing user keymaps.  
-Building on user [ninjonas](github.com/ninjonas/qmk-yonas) approach and others.
+Building on [ninjonas](github.com/ninjonas/qmk-yonas) and [drashna](github.com/drashna) approaches.
 
 See: https://docs.qmk.fm/#/feature_userspace
 
