@@ -31,6 +31,7 @@ To use these, simply `#include` the corresponding [header file](https://github.c
 |German (macOS)             |`keymap_german_osx.h`           |
 |German (Neo2)*             |`keymap_neo2.h`                 |
 |Greek*                     |`keymap_greek.h`                |
+|Hebrew*                    |`keymap_hebrew.h`               |
 |Hungarian                  |`keymap_hungarian.h`            |
 |Icelandic                  |`keymap_icelandic.h`            |
 |Italian                    |`keymap_italian.h`              |
