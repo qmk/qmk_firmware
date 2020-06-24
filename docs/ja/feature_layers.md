@@ -1,8 +1,8 @@
 # レイヤー :id=layers
 
 <!---
-  original document: 0.9.0:docs/feature_layers.md
-  git diff 0.9.0 HEAD -- docs/feature_layers.md | cat
+  original document: 0.9.20:docs/feature_layers.md
+  git diff 0.9.20 HEAD -- docs/feature_layers.md | cat
 -->
 
 QMK ファームウェアの最も強力で良く使われている機能の一つは、レイヤーを使う機能です。ほとんどの人にとって、これはラップトップやタブレットキーボードにあるのと同じように、様々なキーを可能にするファンクションキーに相当します。
