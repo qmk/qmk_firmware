@@ -162,10 +162,7 @@ void toggle_rgb_caps_lock(bool isActive) {
     }
 };
 
-void led_set_user(uint8_t usb_led) {
-    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-        toggle_rgb_caps_lock(true);
-    } else {
-        toggle_rgb_caps_lock(false);
-    }
+bool led_update_user(led_t led_state) {
+    toggle_rgb_caps_lock(led_state.caps_lock);
+    return true;
 };
