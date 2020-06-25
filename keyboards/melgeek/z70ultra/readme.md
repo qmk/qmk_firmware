@@ -4,7 +4,7 @@
 
 A hotswap 65% RGB Custom Mechanical keyboard.
 
-* Keyboard Maintainer: [melgeek](https://github.com/melgeek)
+* Keyboard Maintainer: [melgeek](https://github.com/melgeek001365)
 * Hardware Supported: Z70 Ultra V1.4 20200422
 * Hardware Availability: [MelGeek](https://www.melgeek.com/)
 
