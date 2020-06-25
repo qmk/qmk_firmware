@@ -1,6 +1,6 @@
 # [RART 67](https://github.com/alabahuy/RART/tree/master/RART67)
 
-65% pcb mechanical keyboard  based on IMKG (Indonesia Mechanical Keyboard Group)
+65% pcb mechanical keyboard  based on [IMKG](https://www.facebook.com/groups/indomechanicalkeyboard/) (Indonesia Mechanical Keyboard Group)
 
 * Keyboard Maintainer: [Alabahuy](https://github.com/alabahuy)
 * Hardware Supported: RART67 PCB, Mini USB, ATMega32U4, RGB underglow
