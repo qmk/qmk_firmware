@@ -5,7 +5,7 @@
   git diff 0.9.19 HEAD -- docs/compatible_microcontrollers.md | cat
 -->
 
-QMK は十分な書き込み空間を備えた USB 対応 AVR または ARM マイクロコントローラで実行されます - 一般的に 32kB 以上ですが、ほとんどの機能が無効な場合*ほんの* 16kB に圧縮されます。
+QMK は十分なフラッシュ容量を備えた USB 対応 AVR または ARM マイクロコントローラで実行されます - 一般的に 32kB 以上ですが、ほとんどの機能を無効にすると*ほんの* 16kB に詰め込むことができます。
 
 ## Atmel AVR
 
@@ -39,4 +39,4 @@ QMK は十分な書き込み空間を備えた USB 対応 AVR または ARM マ�
 
 ## Atmel ATSAM
 
-Atmel の ATSAM マイクロコントローラーの1つ、つまり [Massdrop keyboards](https://github.com/qmk/qmk_firmware/tree/master/keyboards/massdrop) で使用される [ATSAMD51J18A](https://www.microchip.com/wwwproducts/en/ATSAMD51J18A) のサポートは限られています。
+Atmel の マイクロコントローラの1つに対する限定的なサポートがあり [Massdrop keyboards](https://github.com/qmk/qmk_firmware/tree/master/keyboards/massdrop) で使用される [ATSAMD51J18A](https://www.microchip.com/wwwproducts/en/ATSAMD51J18A) があります。
