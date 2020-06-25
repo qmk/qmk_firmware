@@ -2,8 +2,8 @@
 
 Trinity XT TKL Keyboard designed by [Reconsiderit](https://switchplate.co/).
 
-Keyboard Maintainer: [Xelus22](https://github.com/Xelus22)  
-Hardware Supported: STM32F072CBT6  
+* Keyboard Maintainer: [Xelus22](https://github.com/Xelus22)
+* Hardware Supported: STM32F072CBT6
 
 Make example for this keyboard (after setting up your build environment):
 
