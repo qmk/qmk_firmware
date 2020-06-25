@@ -80,7 +80,7 @@
                 {"label" : "Ctrl", "x":11.5, "y":4, "w":1.5},
                 {"label" : "Left", "x":13, "y":4 },
                 {"label" : "Down", "x":14, "y":4 },
-                {"label" : "Right", "x":15, "y":4 },                                                         
+                {"label" : "Right", "x":15, "y":4 }                                                        
             ]
         }
     }
