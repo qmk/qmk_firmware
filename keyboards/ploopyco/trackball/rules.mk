@@ -34,4 +34,4 @@ HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs
 POINTING_DEVICE_ENABLE = yes
 MOUSEKEY_ENABLE = no        # Mouse keys
 
-QUANTUM_LIB_SRC += analog.c spi.c
+QUANTUM_LIB_SRC += analog.c spi_master.c

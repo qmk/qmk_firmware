@@ -19,6 +19,7 @@
 #ifdef ENCODER_ENABLE
 #    include "encoder.h"
 #endif
+#include "sensor.h"
 
 // TODO: Implement libinput profiles
 // https://wayland.freedesktop.org/libinput/doc/latest/pointer-acceleration.html
@@ -42,7 +43,7 @@ static void process_mouse(bool bMotion, bool* bBurst) {
     PMWState d        = point_burst_read(bMotion, bBurst);
     bool     isMoving = (d.X != 0) || (d.Y != 0);
     int16_t  x, y;
-    
+
     // Reset timer if stopped moving
     if (!isMoving) {
         if (MotionStart != 0) MotionStart = 0;
@@ -88,6 +89,50 @@ static void process_mouse(bool bMotion, bool* bBurst) {
     currentReport.y              = (int)y;
     pointing_device_set_report(currentReport);
 }
+
+void process_wheel(void) {
+    // TODO: Replace this with interrupt driven code,  polling is S L O W
+    // Lovingly ripped from the Ploopy Source
+
+    // If the mouse wheel was just released, do not scroll.
+    // unsigned long elapsed = micros() - middleClickRelease;
+    // if (elapsed < SCROLL_BUTT_DEBOUNCE) { return 0; }
+
+    // Limit the number of scrolls per unit time.
+    if ((timer_read() - lastScroll) < OPT_DEBOUNCE) return;
+
+    // Don't scroll if the middle button is depressed.
+    // int middleButtonPin = digitalRead(MOUSE_MIDDLE_PIN);
+    // if (middleButtonPin == LOW) { return 0; }
+
+    lastScroll  = timer_read();
+    uint16_t p1 = adc_read(OPT_ENC1_MUX);
+    uint16_t p2 = adc_read(OPT_ENC2_MUX);
+    if (DEBUGOPTO) dprintf("OPT1: %d, OPT2: %d\n", p1, p2);
+
+    uint8_t dir = 0;
+    if (p1 < OPT_THRES && p2 < OPT_THRES) {
+        if (OptLowPin == OPT_ENC1) {
+            dir = -1;
+        }  // scroll down
+        else if (OptLowPin == OPT_ENC2) {
+            dir = 1;
+        }  // scroll up
+        OptLowPin = 0;
+    } else if (p1 < OPT_THRES) {
+        OptLowPin = OPT_ENC1;
+    } else if (p2 < OPT_THRES) {
+        OptLowPin = OPT_ENC2;
+    }
+
+    // Bundle and send if needed
+    if (dir == 0) return;
+    report_mouse_t cRep = pointing_device_get_report();
+    cRep.v += dir * OPT_SCALE;
+    pointing_device_set_report(cRep);
+}
+
+
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (DEBUGMOUSE) {
@@ -137,56 +182,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     return process_record_user(keycode, record);
 }
 
-void process_wheel(void) {
-    // TODO: Replace this with interrupt driven code,  polling is S L O W
-    // Lovingly ripped from the Ploopy Source
 
-    // If the mouse wheel was just released, do not scroll.
-    // unsigned long elapsed = micros() - middleClickRelease;
-    // if (elapsed < SCROLL_BUTT_DEBOUNCE) { return 0; }
-
-    // Limit the number of scrolls per unit time.
-    if ((timer_read() - lastScroll) < OPT_DEBOUNCE) return;
-
-    // Don't scroll if the middle button is depressed.
-    // int middleButtonPin = digitalRead(MOUSE_MIDDLE_PIN);
-    // if (middleButtonPin == LOW) { return 0; }
-
-    lastScroll  = timer_read();
-    uint16_t p1 = adc_read(OPT_ENC1_MUX);
-    uint16_t p2 = adc_read(OPT_ENC2_MUX);
-    if (DEBUGOPTO) dprintf("OPT1: %d, OPT2: %d\n", p1, p2);
-
-    uint8_t dir = 0;
-    if (p1 < OPT_THRES && p2 < OPT_THRES) {
-        if (OptLowPin == OPT_ENC1) {
-            dir = -1;
-        }  // scroll down
-        else if (OptLowPin == OPT_ENC2) {
-            dir = 1;
-        }  // scroll up
-        OptLowPin = 0;
-    } else if (p1 < OPT_THRES) {
-        OptLowPin = OPT_ENC1;
-    } else if (p2 < OPT_THRES) {
-        OptLowPin = OPT_ENC2;
-    }
-
-    // Bundle and send if needed
-    if (dir == 0) return;
-    report_mouse_t cRep = pointing_device_get_report();
-    cRep.v += dir * OPT_SCALE;
-    pointing_device_set_report(cRep);
-}
 
 // Hardware Setup
 void keyboard_pre_init_kb(void) {
     // debug_enable = false;
     // debug_matrix = true;
     // debug_mouse  = false;
-
-    // Set up all the hardware
-    setPinOutput(SENSOR_CS);
 
     // These should probably be moved into the matrix itself
     // using DIRECT_PINS, and then custom keycodes added for the
@@ -235,13 +237,11 @@ void keyboard_pre_init_kb(void) {
     writePinLow(F3);
 
     // Initialize SPI for MCU
-    SPI_Init(SPI_OPTION);
-    DDRB |= (1 << SS_TB);
-    PORTB |= (1 << SS_TB);  // pull up to diable all comm
-    point_init(SS_TB);
+    spi_init();
+    if (spi_start(SPI_SS_PIN, true, 0,  ))
+
 }
 void matrix_scan_kb(void) {
-    process_mouse(Motion, &BurstState);
     process_wheel();
     matrix_scan_user();
 }
