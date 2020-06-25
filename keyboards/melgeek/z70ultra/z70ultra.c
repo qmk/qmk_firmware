@@ -98,34 +98,36 @@ const is31_led g_is31_indicator_leds[6] = {
     {0, 5, 6, 3, 6, 4, 6}, /* RGB76 */
 };
 
-void led_set_user(uint8_t usb_led) {
-    // uprintf("------------------------led_set_user %x\r\n", usb_led);
-    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-        IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[2], 0xff, 0x00, 0x00);
-        IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[3], 0xff, 0x00, 0x00);
-    } else {
-        IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[2], 0x00, 0x00, 0x00);
-        IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[3], 0x00, 0x00, 0x00);
-    }
+bool led_update_kb(led_t led_state) {
+    if (led_update_user(led_state)) {
+        if (led_state.caps_lock) {
+            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[2], 0xff, 0x00, 0x00);
+            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[3], 0xff, 0x00, 0x00);
+        } else {
+            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[2], 0x00, 0x00, 0x00);
+            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[3], 0x00, 0x00, 0x00);
+        }
 
-    if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-        IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[1], 0x00, 0xff, 0x00);
-        IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[4], 0x00, 0xff, 0x00);
-    } else {
-        IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[1], 0x00, 0x00, 0x00);
-        IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[4], 0x00, 0x00, 0x00);
-    }
+        if (led_state.num_lock) {
+            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[1], 0x00, 0xff, 0x00);
+            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[4], 0x00, 0xff, 0x00);
+        } else {
+            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[1], 0x00, 0x00, 0x00);
+            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[4], 0x00, 0x00, 0x00);
+        }
 
-    if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-        IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[0], 0x00, 0x00, 0xff);
-        IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[5], 0x00, 0x00, 0xff);
-    } else {
-        IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[0], 0x00, 0x00, 0x00);
-        IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[5], 0x00, 0x00, 0x00);
-    }
+        if (led_state.scroll_lock) {
+            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[0], 0x00, 0x00, 0xff);
+            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[5], 0x00, 0x00, 0xff);
+        } else {
+            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[0], 0x00, 0x00, 0x00);
+            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[5], 0x00, 0x00, 0x00);
+        }
 
-    // flush the indicator to the buffer
-    IS31FL3741_update_pwm_buffers(DRIVER_ADDR_1, DRIVER_ADDR_1);
+        // flush the indicator to the buffer
+        IS31FL3741_update_pwm_buffers(DRIVER_ADDR_1, DRIVER_ADDR_1);
+    }
+    return true;
 }
 
 void matrix_init_kb(void) {
