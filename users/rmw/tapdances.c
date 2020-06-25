@@ -1,5 +1,7 @@
 // tapdances.c
 
+#include "tapdances.h"
+
 void tapmod(qk_tap_dance_state_t *state, int taps, uint16_t keycode_tapped, uint16_t keycode_held)
 {
   if (state->count >= taps) {

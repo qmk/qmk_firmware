@@ -1,27 +1,4 @@
-
-enum custom_keycodes {
-  VRSN = SAFE_RANGE
-  ,OS_GSFT = OSM(MOD_LSFT | MOD_LGUI)
-  ,OS_CALT = OSM(MOD_LCTL | MOD_LALT)
-  ,OS_ALT  = OSM(MOD_LALT)
-  ,OS_CTL  = OSM(MOD_LCTL)
-  ,OS_CMD  = OSM(MOD_LGUI)
-  ,DEL_WRD = LALT(KC_BSPACE)
-  ,FORM_GET
-  ,FORM_PUT
-};
-
-enum layers {
-    QWERTY
-   ,MINIMAK4
-   ,EXCEL 
-   ,EDIT 
-   ,FSYM 
-   ,JSYM 
-   ,MEDIA 
-   ,FLOP 
-   ,ADJUST 
-};
+#include "rmw.h"
 
 // Tap Dance enum
 enum {
@@ -62,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [QWERTY] = LAYOUT_ergodox(
     TD(FRBK2),      KC_1,           KC_2,       KC_3,        KC_4,          KC_5,    KC_F4, 
     KC_TAB,         KC_Q,           KC_W,       KC_E,        KC_R,          KC_T,    TO(EDIT), 
-    OSL(EDIT),      KC_A,  LT(EXCEL,KC_S),      KC_D,  LT(FSYM,KC_F),   KC_G, 
+    OSL(EDIT),      KC_A,  LT(NUMPAD,KC_S),      KC_D,  LT(FSYM,KC_F),   KC_G, 
     LCTL(KC_LEFT),  KC_Z,           KC_X,       KC_C,        KC_V,    SFT_T(KC_B),   KC_TAB, 
     TD(CTLALL),     OSL(ADJUST),    TD(GUCTL),  TD(SGCA),  TD(AGC), 
                                                                OS_CMD,    OS_CTL   , 
@@ -70,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                    KC_BSPACE,  TD(SHENT), OSL(EDIT), 
 
         KC_F5,       KC_6,             KC_7,       KC_8,    KC_9,             KC_0,          KC_BSPC, 
-        TO(EXCEL),   KC_Y,             KC_U,       KC_I,    KC_O,             KC_P,          KC_BSLS, 
+        TO(NUMPAD),   KC_Y,             KC_U,       KC_I,    KC_O,             KC_P,          KC_BSLS, 
                      KC_H,     LT(JSYM,KC_J),   KC_K,    KC_L,    LT(EDIT,KC_SCLN),       KC_QUOTE, 
         CTL_T(KC_B), KC_N,             KC_M,       KC_COMM, KC_DOT,  LT(MEDIA,KC_SLSH),    LCTL(KC_RIGHT), 
         TD(GCA),    TD(CTLALL),        KC_LBRC,    KC_RBRC, KC_MS_BTN1,
@@ -82,14 +59,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [MINIMAK4] = LAYOUT_ergodox(
     TD(FRBK2),       KC_1,           KC_2,       KC_3,        KC_4,    KC_5,    KC_F4, 
     KC_TAB,         KC_Q,           KC_W,       KC_D,        KC_R,    KC_K,    TO(EDIT), 
-    OSL(EDIT),      KC_A,  LT(EXCEL,KC_S),      KC_T,  LT(FSYM,KC_F),  KC_G, 
+    OSL(EDIT),      KC_A,  LT(NUMPAD,KC_S),      KC_T,  LT(FSYM,KC_F),  KC_G, 
     OSM(MOD_LSFT),  KC_Z,           KC_X,       KC_C,        KC_V,    SFT_T(KC_B), KC_TAB, 
     TD(CTLALL),     OSL(ADJUST),    TD(GUCTL),  TD(SGCA),  TD(AGC), 
                                                                OS_CMD,    OS_CTL   , 
                                                                           KC_ESCAPE, 
                                                    KC_BSPACE,  TD(SHENT), OSL(EDIT), 
         KC_F5,       KC_6,             KC_7,       KC_8,    KC_9,             KC_0,          KC_BSPC, 
-        TO(EXCEL),   KC_Y,             KC_U,       KC_I,    KC_O,             KC_P,          KC_BSLS, 
+        TO(NUMPAD),   KC_Y,             KC_U,       KC_I,    KC_O,             KC_P,          KC_BSLS, 
                      KC_H,     LT(JSYM,KC_J),   KC_E,    KC_L,    LT(EDIT,KC_SCLN),       KC_QUOTE, 
         CTL_T(KC_B), KC_N,             KC_M,       KC_COMM, KC_DOT,  LT(MEDIA,KC_SLSH),     KC_MS_BTN1, 
         TD(GCA),    TD(CTLALL),        LGUI(KC_GRV),    KC_RBRC, KC_MS_BTN1,
@@ -97,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_DEL, 
       KC_CAPS,  SFT_T(KC_ENT),  KC_SPC), 
 
-  [EXCEL] = LAYOUT_ergodox(VRSN, KC_F11, KC_F12, KC_F1, KC_F2, KC_F3, _______, 
+  [NUMPAD] = LAYOUT_ergodox(VRSN, KC_F11, KC_F12, KC_F1, KC_F2, KC_F3, _______, 
     _______, _______, KC_PGUP, KC_UP, KC_PGDOWN, _______, TO(QWERTY), 
     _______, _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, 
     _______, LGUI(KC_Z), LGUI(KC_X), LGUI(KC_C), LGUI(KC_V), LGUI(KC_Y), _______,
@@ -112,11 +89,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______, KC_INSERT, TO(EDIT), _______, _______), 
 
   [EDIT] = LAYOUT_ergodox(_______, _______, KC_MS_WH_UP, KC_MS_BTN1, KC_MS_BTN2, _______, _______, 
-    _______, LGUI(LALT(KC_ESCAPE)), KC_MS_WH_DOWN, LALT(S(KC_LEFT)), LALT(S(KC_RIGHT)), _______, TO(EXCEL), 
+    _______, LGUI(LALT(KC_ESCAPE)), KC_MS_WH_DOWN, LALT(S(KC_LEFT)), LALT(S(KC_RIGHT)), _______, TO(NUMPAD), 
     _______, _______, LGUI(KC_GRV), LALT(KC_LEFT), LALT(KC_RIGHT), _______, 
     LCTL(KC_RIGHT), LGUI(KC_Z), LGUI(KC_X), LGUI(KC_C), LGUI(KC_V), LGUI(KC_Y), _______, 
     _______, _______, _______, _______, _______, 
-    _______, _______, _______, _______, _______, TO(EXCEL), 
+    _______, _______, _______, _______, _______, TO(NUMPAD), 
     _______, _______, _______, S(KC_UP), _______, _______, KC_DELETE, 
     TO(QWERTY), LGUI(KC_T), KC_PGUP, KC_UP, KC_PGDOWN, KC_PSCREEN, _______, 
              LGUI(KC_LEFT), KC_LEFT, KC_DOWN, KC_RIGHT, LGUI(KC_RIGHT), _______, 
@@ -165,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [ADJUST] = LAYOUT_ergodox(_______, _______, _______, _______, _______, _______, _______, 
     _______, _______, _______, _______, _______, _______, _______, 
-    _______, TO(EDIT), TO(EXCEL), TO(FSYM), TO(JSYM), TO(MEDIA), 
+    _______, TO(EDIT), TO(NUMPAD), TO(FSYM), TO(JSYM), TO(MEDIA), 
     _______, _______, _______, _______, _______, _______, _______, 
     _______, TO(QWERTY), DF(MINIMAK4), DF(QWERTY), _______, 
     _______, _______, _______, _______, _______, _______, 
@@ -209,7 +186,7 @@ void matrix_scan_user(void) {
   ergodox_right_led_2_off();
   ergodox_right_led_3_off();
   switch (get_highest_layer(layer_state)) {
-    case EXCEL:
+    case NUMPAD:
       ergodox_right_led_1_on();
       break;
     case EDIT:

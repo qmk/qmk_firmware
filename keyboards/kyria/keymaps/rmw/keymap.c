@@ -14,21 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "tapdances.c"
-#include "encoder_functions.c"
+#include "rmw.h"
 
 #define SFTENT SFT_T(KC_ENT)
-
-enum layers {
-    QWERTY = 0
-   ,NUMPAD 
-   ,EDIT 
-   ,FSYM 
-   ,JSYM 
-   ,MEDIA 
-   ,MINIMAK4 // does this work up here? or does it need to be lower?
-   ,ADJUST 
-};
 
 // Tap Dance enum
 enum {
@@ -46,32 +34,6 @@ enum {
    ,CTLALL 
    ,GUCTL 
    ,CTLAND
-};
-
-enum custom_keycodes {
-    FORM_GET = SAFE_RANGE
-    ,FORM_PUT
-    ,OS_GSFT = OSM(MOD_LSFT | MOD_LGUI)
-    ,OS_CALT = OSM(MOD_LCTL | MOD_LALT)
-    ,OS_ALT  = OSM(MOD_LALT)
-    ,OS_CTL  = OSM(MOD_LCTL)
-    ,OS_CMD  = OSM(MOD_LGUI)
-    ,R_UNDO  = LGUI(KC_Z)
-    ,R_REDO  = LGUI(KC_Y)
-    ,R_CUT   = LGUI(KC_X)
-    ,R_COPY  = LGUI(KC_C)
-    ,R_PASTE = LGUI(KC_V)
-    ,DEL_WRD = LALT(KC_BSPACE)
-    ,MVW_LEFT = LALT(KC_LEFT) 
-    ,MVW_RIGHT = LALT(KC_RIGHT)
-    ,SELW_LEFT = LALT(S(KC_LEFT))
-    ,SELW_RIGHT = LALT(S(KC_RIGHT))
-    ,NEW_TAB = LGUI(KC_T)
-    ,TASK_MAN = LGUI(LALT(KC_ESCAPE))
-    ,SEL_HOME = S(LGUI(KC_LEFT))
-    ,SEL_END = S(LGUI(KC_RIGHT))
-    ,R_HOME = LGUI(KC_LEFT)
-    ,R_END = LGUI(KC_RIGHT)
 };
 
 //Tap Dance Definitions

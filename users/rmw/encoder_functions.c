@@ -1,5 +1,7 @@
 // Encoder functions to mix and match!
 
+#include "encoder_functions.h"
+
 void enc_move_words(bool cw){ // Move whole words. Hold shift to select while moving.
     if (cw) {
         tap_code16(A(KC_RGHT));
