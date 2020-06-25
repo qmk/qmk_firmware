@@ -19,19 +19,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCA04
-#define PRODUCT_ID      0x0B75
+#define PRODUCT_ID      0x5A67
 #define DEVICE_VER      0x0001
 #define MANUFACTURER CannonKeys
-#define PRODUCT Obliterated75
-#define DESCRIPTION Obliterated75 Keyboard
+#define PRODUCT Sagittarius
+#define DESCRIPTION Sagittarius Keyboard
 
 /* key matrix size */
-#define MATRIX_ROWS 6
+#define MATRIX_ROWS 10
 #define MATRIX_COLS 16
 
-#define MATRIX_COL_PINS { A5, B10, A3, A2, B0, A9, C13, B9, B8, B7, B6, B5, B4, B3, A15, A14 }
-#define MATRIX_ROW_PINS { A13, B12, B11, B14, A8, A1 }
+#define MATRIX_COL_PINS { A7, A5, A4, A3, A2, A1, A0, B5, A13, B2, B1, B0, B9, B8, B7, B6 }
+#define MATRIX_ROW_PINS { B10, B14, A8, A9, A10, C13, C14, C15, F0, F1 }
 #define DIODE_DIRECTION COL2ROW
+
+#define INDICATOR_PIN_0 B4
+#define INDICATOR_PIN_1 B3
+#define INDICATOR_PIN_2 A15
 
 #define BACKLIGHT_PIN           A6
 #define BACKLIGHT_PWM_DRIVER    PWMD3
@@ -54,7 +58,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGBLIGHT_ANIMATIONS
 #define RGB_DI_PIN B15
-#define RGBLED_NUM 32
+#define RGBLED_NUM 8
 #define WS2812_SPI SPID2
 #define WS2812_SPI_MOSI_PAL_MODE 0
 
