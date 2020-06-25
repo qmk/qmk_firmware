@@ -1,4 +1,4 @@
-#Coupe
+# Coupe
 
 This is a 5x14 keyboard in a 60% layout.
 
