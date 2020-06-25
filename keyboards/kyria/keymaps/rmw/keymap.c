@@ -102,6 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_DEL, TO(NUMPAD),  KC_N, KC_M,     KC_COMM, KC_DOT, LT(MEDIA,KC_SLSH), KC_MS_BTN1,
             SFTENT,  KC_SPC,   TD(GCA), TD(CTLALL), KC_CAPS
     ),
+
     [NUMPAD] = LAYOUT_stack(
         _______, _______, _______,  _______, _______, _______,                      
         _______, _______, _______,  _______, _______, _______,                       
@@ -114,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 _______,  _______, KC_0, KC_DOT, _______ 
     ),
 
-    [EDIT] = LAYOUT(
+    [EDIT] = LAYOUT_stack(
         _______, TASK_MAN, _______, SELW_LEFT, SELW_RIGHT, _______,                       
         _______, _______ , LGUI(KC_GRV), MVW_LEFT,  MVW_RIGHT , _______,                  
         LCTL(KC_LEFT), R_UNDO, R_CUT  , R_COPY , R_PASTE, R_REDO , TO(NUMPAD), FORM_GET,  
@@ -126,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 _______, _______, _______, _______, _______ 
     ),
 
-    [ADJUST] = LAYOUT(
+    [ADJUST] = LAYOUT_stack(
         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  KC_F6,                                
         TO(QWERTY), TO(EDIT), TO(NUMPAD), TO(JSYM), TO(FSYM), TO(MEDIA),                  
         DF(MINIMAK4), DF(QWERTY), RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD,_______, _______,   
@@ -138,32 +139,52 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 _______, _______, _______, _______, _______
     ),
 
-    [FSYM] = LAYOUT(
-        _______, _______, _______, _______, _______, _______,                                                KC_CIRC,  KC_AMPR , KC_ASTR, KC_GRV ,  _______, _______, 
-        _______, _______, KC_TILD, KC_EXLM, _______, _______,                                                KC_EQUAL, KC_MINUS, KC_UNDS, KC_PIPE, KC_COLON, KC_DQT,
-        LCTL(KC_RIGHT), _______, TO(QWERTY), _______, _______, _______, _______, _______,         _______, _______, _______, KC_PLUS,  KC_BSLS, KC_SLSH, _______, _______, 
-                                             _______, _______, _______, _______, _______,         _______, _______, _______, _______, _______ 
+    [FSYM] = LAYOUT_stack(
+        _______, _______, _______, _______, _______, _______,                                
+        _______, _______, KC_TILD, KC_EXLM, _______, _______,                                
+        LCTL(KC_RIGHT), _______, TO(QWERTY), _______, _______, _______, _______, _______,    
+                                            _______, _______, _______, _______, _______,    
+
+                                KC_CIRC,  KC_AMPR , KC_ASTR, KC_GRV ,  _______, _______, 
+                                KC_EQUAL, KC_MINUS, KC_UNDS, KC_PIPE, KC_COLON, KC_DQT,
+                _______, _______, _______, KC_PLUS,  KC_BSLS, KC_SLSH, _______, _______, 
+                _______, _______, _______, _______, _______ 
     ), 
     
-    [JSYM] = LAYOUT(
-        _______, KC_GRV,  KC_AT  , KC_LCBR,     KC_RCBR,     _______,                                             _______, _______, _______, _______,  _______, _______, 
-        _______, KC_HASH, KC_DLR , KC_LPRN,     KC_RPRN,     KC_LEFT,                                             _______, _______, KC_QUES, KC_SLSH, KC_COLON, _______,
-        _______, KC_PERC, KC_CIRC, KC_LBRACKET, KC_RBRACKET, _______, _______, _______,         _______, _______, _______, _______, _______, TO(QWERTY), _______, LCTL(KC_LEFT), 
-                                           _______, _______, _______, _______, _______,         _______, _______, _______, _______, _______
+    [JSYM] = LAYOUT_stack(
+        _______, KC_GRV,  KC_AT  , KC_LCBR,     KC_RCBR,     _______,                      
+        _______, KC_HASH, KC_DLR , KC_LPRN,     KC_RPRN,     KC_LEFT,                      
+        _______, KC_PERC, KC_CIRC, KC_LBRACKET, KC_RBRACKET, _______, _______, _______,    
+                                                _______, _______, _______, _______, _______,    
+
+                                _______, _______, _______, _______,  _______, _______, 
+                                _______, _______, KC_QUES, KC_SLSH, KC_COLON, _______,
+                _______, _______, _______, _______, _______, TO(QWERTY), _______, LCTL(KC_LEFT), 
+                _______, _______, _______, _______, _______
     ), 
     
-    [MEDIA] = LAYOUT(
-        _______, KC_MS_WH_UP, KC_MS_WH_LEFT, KC_MS_UP, KC_MS_WH_RIGHT, _______,                                            _______, _______, _______, _______,  _______, _______, 
-        _______, KC_MS_WH_DOWN, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, _______,                                              _______, _______, _______, _______, _______, _______,
-        _______, _______, KC_MS_ACCEL0, KC_MS_ACCEL1, KC_MS_ACCEL2, _______, _______, _______,         _______, _______, _______, _______, KC_AUDIO_VOL_DOWN, KC_AUDIO_MUTE, KC_AUDIO_VOL_UP, _______,
-                                                  _______, _______, _______, _______, _______,         KC_MS_BTN1, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_REWIND, KC_MEDIA_FAST_FORWARD, KC_AUDIO_MUTE 
+    [MEDIA] = LAYOUT_stack(
+        _______, KC_WH_U, KC_WH_L, KC_MS_UP, KC_WH_R, _______,                    
+        _______, KC_WH_D, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, _______,                      
+        _______, _______, KC_ACL0, KC_ACL1, KC_ACL2, _______, _______, _______,     
+                                                _______, _______, _______, _______, _______,     
+
+                                _______, _______, _______, _______,  _______, _______, 
+                                _______, _______, _______, _______, _______, _______,
+                _______, _______, _______, _______, KC_VOLD, KC_MUTE, KC_VOLU, _______,
+                KC_MS_BTN1, KC_MEDIA_PLAY_PAUSE, KC_MRWD, KC_MFFD, _______ 
     ),
 
-    [MINIMAK4] = LAYOUT(
-        KC_TAB   , KC_Q,   KC_W,   KC_D,   KC_R,   KC_K,                                                              KC_Y,    KC_U,       KC_I, KC_O,      KC_P,        KC_PIPE,
-        OSL(EDIT), KC_A, LT(NUMPAD,KC_S), KC_T, LT(FSYM,KC_F), KC_G,                                                  KC_H, LT(JSYM,KC_J), KC_E, KC_L, LT(EDIT,KC_SCLN), KC_QUOT,
-        OSM(MOD_LSFT)  , KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,  TO(EDIT), KC_ESCAPE,            KC_DEL, TO(NUMPAD),   KC_N, KC_M,     KC_COMM, KC_DOT, LT(MEDIA,KC_SLSH), KC_MINS,
-                                _______, TO(ADJUST), TD(SGCA), KC_BSPACE, TD(SHNTC),            SFTENT,  KC_SPC,   TD(GCA), TD(CTLALL), _______
+    [MINIMAK4] = LAYOUT_stack(
+        KC_TAB   , KC_Q,   KC_W,   KC_D,   KC_R,   KC_K,                                   
+        OSL(EDIT), KC_A, LT(NUMPAD,KC_S), KC_T, LT(FSYM,KC_F), KC_G,                       
+        OSM(MOD_LSFT)  , KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,  TO(EDIT), KC_ESCAPE,       
+                                _______, TO(ADJUST), TD(SGCA), KC_BSPACE, TD(SHNTC),       
+
+                                KC_Y,    KC_U,       KC_I, KC_O,      KC_P,        KC_PIPE,
+                                KC_H, LT(JSYM,KC_J), KC_E, KC_L, LT(EDIT,KC_SCLN), KC_QUOT,
+                KC_DEL, TO(NUMPAD),   KC_N, KC_M,     KC_COMM, KC_DOT, LT(MEDIA,KC_SLSH), KC_MINS,
+                SFTENT,  KC_SPC,   TD(GCA), TD(CTLALL), _______
     )
 };
 
