@@ -5,13 +5,13 @@
   git diff 0.9.19 HEAD -- docs/documentation_templates.md | cat
 -->
 
-このページは、新しいキーマップとキーコードを QMK にサブミットした時に使う必要があるテンプレートを記載しています。
+このページでは、新しいキーマップやキーボードを QMK に提出する際に使うべきテンプレートをまとめています。
 
 ## キーマップ `readme.md` テンプレート :id=keyboard-readmemd-template
 
-ほとんどのキーマップには、レイアウトを表す画像があります。画像を作成するには、[Keyboard Layout Editor](http://keyboard-layout-editor.com) を使うことができます。[Imgur](http://imgur.com) または別のホスティング サービスにアップロードします。プルリクエストに画像を含めないでください。
+ほとんどのキーマップには、レイアウトを表す画像があります。画像を作成するには、[Keyboard Layout Editor](http://keyboard-layout-editor.com) を使うことができます。画像は [Imgur](http://imgur.com) や別のホスティングサービスにアップロードし、プルリクエストに画像を含めないでください。
 
-画像の下に短い説明を書いて、人々がキーマップを理解できるようにしてください。
+画像の下に短い説明を書いて、キーマップを理解してもらうための簡単な説明文を書いてください。
 
 ```
 ![Clueboard Layout Image](http://i.imgur.com/7Capi8W.png)
