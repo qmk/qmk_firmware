@@ -49,7 +49,8 @@ enum {
 };
 
 enum custom_keycodes {
-    PLACEHOLDER = SAFE_RANGE
+    FORM_GET = SAFE_RANGE
+    ,FORM_PUT
     ,OS_GSFT = OSM(MOD_LSFT | MOD_LGUI)
     ,OS_CALT = OSM(MOD_LCTL | MOD_LALT)
     ,OS_ALT  = OSM(MOD_LALT)
@@ -71,8 +72,6 @@ enum custom_keycodes {
     ,SEL_END = S(LGUI(KC_RIGHT))
     ,R_HOME = LGUI(KC_LEFT)
     ,R_END = LGUI(KC_RIGHT)
-    ,FORM_GET
-    ,FORM_PUT
 };
 
 //Tap Dance Definitions

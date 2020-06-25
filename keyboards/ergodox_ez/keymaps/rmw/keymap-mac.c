@@ -1,7 +1,6 @@
 
 enum custom_keycodes {
-  PLACEHOLDER = SAFE_RANGE
-  ,VRSN
+  VRSN = SAFE_RANGE
   ,OS_GSFT = OSM(MOD_LSFT | MOD_LGUI)
   ,OS_CALT = OSM(MOD_LCTL | MOD_LALT)
   ,OS_ALT  = OSM(MOD_LALT)

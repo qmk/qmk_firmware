@@ -3,9 +3,7 @@ bool mac = true;
 // I want Second Key, Thumb Row, Right Hand plus L to produce LGUI(KC_L) on Win and LCTL(LGUI(KC_Q)) on MAC...
 
 enum custom_keycodes {
-  PLACEHOLDER = SAFE_RANGE
-  ,EPRM
-  ,VRSN
+  VRSN = SAFE_RANGE
   ,OS_CSFT = OSM(MOD_LSFT | MOD_LCTL)
   ,OS_ALT  = OSM(MOD_LALT)
   ,OS_CTL  = OSM(MOD_LCTL)

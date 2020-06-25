@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef  DEBOUNCE
 #define DEBOUNCE 5
 
-#define PREVENT_STUCK_MODIFIERS 
 
 #define ONESHOT_TIMEOUT 900 // how long before oneshot times out
 //#define ONESHOT_TAP_TOGGLE 2 // how many taps before oneshot toggle is triggered
