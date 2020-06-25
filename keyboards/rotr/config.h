@@ -23,6 +23,7 @@
 #define ENCODERS_PAD_A { C6 }
 #define ENCODERS_PAD_B { D7 }
 
+/*Sets the number of pulses per increment*/
 #define ENCODER_RESOLUTION 2
 
 #define UNUSED_PINS
