@@ -6,7 +6,6 @@
     "height": 5,
     "layouts": {
         "LAYOUT": {
-            "key_count": 61,
             "layout": [
                 {"label":"K00 (D7,F4)", "x":0, "y":0},
                 {"label":"K10 (D2,F4)", "x":1, "y":0},
@@ -74,4 +73,3 @@
     }
     ,"meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
 }
-
