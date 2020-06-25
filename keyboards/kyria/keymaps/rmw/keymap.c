@@ -205,6 +205,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             case QWERTY:
                 enc_scrolling(clockwise);
                 break;
+            case FSYM:
+                enc_zoom(clockwise);
+                break;
             default:
                 enc_volume_knob(clockwise);
                 break;
