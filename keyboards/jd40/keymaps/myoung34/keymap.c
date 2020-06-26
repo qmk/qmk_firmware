@@ -26,20 +26,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
         ),
     };
-
-void matrix_scan_user(void) {
-  // Layer LED indicators
-  // ESC led on when in function layer, WASD cluster leds enabled when on arrow cluster
-  uint32_t layer = layer_state;
-  if (layer & (1 << 1)) {
-      //gh60_wasd_leds_on();
-  } else {
-      //gh60_wasd_leds_off();
-  }
-
-  if (layer & (1 << 2)) {
-      //gh60_esc_led_on();
-  } else {
-      //gh60_esc_led_off();
-  }
-};
