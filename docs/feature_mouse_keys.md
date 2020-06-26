@@ -124,9 +124,9 @@ Use the following settings if you want to adjust cursor movement or scrolling:
 
 ### Combined mode
 
-This mode functions like `Accellerated` mode, however, you can hold `KC_ACL0`, `KC_ACL1` and `KC_ACL2`
+This mode functions like **Accellerated** mode, however, you can hold `KC_ACL0`, `KC_ACL1` and `KC_ACL2`
 to momentarily (while held) set the cursor and scroll speeds to constant speeds. When no accelleration
-keys are held, this mode is identical to `Accellerated` mode, and can be modified using all of the
+keys are held, this mode is identical to **Accellerated** mode, and can be modified using all of the
 relevant settings.
 
 * **KC_ACL0:** This accelleration sets your cursor to the slowest possible speed. This is useful for very
