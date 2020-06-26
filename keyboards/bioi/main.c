@@ -20,7 +20,6 @@
 #include "quantum.h"
 #include <util/atomic.h>
 #include "outputselect.h"
-#include "rgblight_reconfig.h"
 
 #ifdef NKRO_ENABLE
 #include "keycode_config.h"
