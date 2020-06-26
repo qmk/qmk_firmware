@@ -1,13 +1,12 @@
 # choc_taro
 
-![choc_taro](imgur.com image replace me!)
+![choc_taro](https://i.gyazo.com/717ddeed13cd2f956ed01b71c6e96f87.jpg)
 
-A short description of the keyboard/project
+gh60 compatible choc keyboard
 
-* Keyboard Maintainer: [kakunpc](https://github.com/yourusername)
-* Hardware Supported: The PCBs, controllers supported
-* Hardware Availability: Links to where you can find this hardware
-
+* Keyboard Maintainer: [kakunpc](https://github.com/kakunpc)
+* Hardware Supported: choc taro pcb
+* Hardware Availability: booth([@kakunpc](https://kakunpc.booth.pm/))
 Make example for this keyboard (after setting up your build environment):
 
     make choc_taro:default
