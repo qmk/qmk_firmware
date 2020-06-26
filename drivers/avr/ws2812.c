@@ -117,9 +117,9 @@ static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t
     while (datlen--) {
         curbyte = (*data++);
 
-        asm volatile("       ldi   %0,8  \n\t"
-                     "loop%=:            \n\t"
-                     "       out   %2,%3 \n\t"  //  '1' [01] '0' [01] - re
+        asm volatile("       ldi   %[ctr],8             \n\t"
+                     "loop%=:                           \n\t"
+                     "       out   %[port],%[maskhi]    \n\t"  //  '1' [01] '0' [01] - re
 #if (w1_nops & 1)
                      w_nop1
 #endif
@@ -135,9 +135,9 @@ static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t
 #if (w1_nops & 16)
                                      w_nop16
 #endif
-                     "       sbrs  %1,7  \n\t"  //  '1' [03] '0' [02]
-                     "       out   %2,%4 \n\t"  //  '1' [--] '0' [03] - fe-low
-                     "       lsl   %1    \n\t"  //  '1' [04] '0' [04]
+                     "       sbrs  %[curbyte],7         \n\t"  //  '1' [03] '0' [02]
+                     "       out   %[port],%[masklo]    \n\t"  //  '1' [--] '0' [03] - fe-low
+                     "       lsl   %[curbyte]           \n\t"  //  '1' [04] '0' [04]
 #if (w2_nops & 1)
                      w_nop1
 #endif
@@ -153,7 +153,7 @@ static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t
 #if (w2_nops & 16)
                                      w_nop16
 #endif
-                     "       out   %2,%4 \n\t"  //  '1' [+1] '0' [+1] - fe-high
+                     "       out   %[port],%[masklo]    \n\t"  //  '1' [+1] '0' [+1] - fe-high
 #if (w3_nops & 1)
                      w_nop1
 #endif
@@ -170,10 +170,10 @@ static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t
                                      w_nop16
 #endif
 
-                     "       dec   %0    \n\t"  //  '1' [+2] '0' [+2]
-                     "       brne  loop%=\n\t"  //  '1' [+3] '0' [+4]
-                     : "=&d"(ctr)
-                     : "r"(curbyte), "I"(_SFR_IO_ADDR(PORTx_ADDRESS(RGB_DI_PIN))), "r"(maskhi), "r"(masklo));
+                     "       dec   %[ctr]               \n\t"  //  '1' [+2] '0' [+2]
+                     "       brne  loop%=               \n\t"  //  '1' [+3] '0' [+4]
+                     : [ctr] "=&d"(ctr)
+                     : [curbyte] "r"(curbyte), [port] "I"(_SFR_IO_ADDR(PORTx_ADDRESS(RGB_DI_PIN))), [maskhi] "r"(maskhi), [masklo] "r"(masklo));
     }
 
     SREG = sreg_prev;
