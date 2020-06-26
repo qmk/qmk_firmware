@@ -32,5 +32,5 @@ RGBLIGHT_ENABLE         = no
 BLUETOOTH               = AdafruitBLE
 
 # project specific files
-SRC = twimaster.c \
+SRC = i2c_master.c \
 	  matrix.c
