@@ -4,7 +4,7 @@ Swiftrax's TKL
 A TKL with F13 that uses Ai03's unified daughter board
 
 Keyboard Maintainer: Swiftrax 
-Hardware Supported: Plain60-C and Plain60-B  
+Hardware Supported: Swiftrax_TKL 
 Hardware Availability: https://github.com/swiftrax
 
 Make example for this keyboard (after setting up your build environment):
