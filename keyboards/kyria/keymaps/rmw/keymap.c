@@ -30,6 +30,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             SFTENT,  KC_SPC,   TD(GCA), TD(CTLALL), KC_CAPS
     ),
 
+    [MINIMAK4] = LAYOUT_stack(
+        KC_TAB   , KC_Q,   KC_W,   KC_D,   KC_R,   KC_K,                                   
+        OSL(EDIT), KC_A, LT(NUMPAD,KC_S), KC_T, LT(FSYM,KC_F), KC_G,                       
+        OSM(MOD_LSFT)  , KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,  TO(EDIT), KC_ESCAPE,       
+                                _______, TO(ADJUST), TD(SGCA), KC_BSPACE, TD(SHNTC),       
+
+                                KC_Y,    KC_U,       KC_I, KC_O,      KC_P,        KC_PIPE,
+                                KC_H, LT(JSYM,KC_J), KC_E, KC_L, LT(EDIT,KC_SCLN), KC_QUOT,
+                KC_DEL, TO(NUMPAD),   KC_N, KC_M,     KC_COMM, KC_DOT, LT(MEDIA,KC_SLSH), KC_MINS,
+                SFTENT,  KC_SPC,   TD(GCA), TD(CTLALL), _______
+    ),
+
     [NUMPAD] = LAYOUT_stack(
         _______, _______, _______,  _______, _______, _______,                      
         _______, _______, _______,  _______, _______, _______,                       
@@ -100,18 +112,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 _______, _______, _______, _______, _______, _______,
                 _______, _______, _______, _______, KC_VOLD, KC_MUTE, KC_VOLU, _______,
                 KC_MS_BTN1, KC_MEDIA_PLAY_PAUSE, KC_MRWD, KC_MFFD, _______ 
-    ),
-
-    [MINIMAK4] = LAYOUT_stack(
-        KC_TAB   , KC_Q,   KC_W,   KC_D,   KC_R,   KC_K,                                   
-        OSL(EDIT), KC_A, LT(NUMPAD,KC_S), KC_T, LT(FSYM,KC_F), KC_G,                       
-        OSM(MOD_LSFT)  , KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,  TO(EDIT), KC_ESCAPE,       
-                                _______, TO(ADJUST), TD(SGCA), KC_BSPACE, TD(SHNTC),       
-
-                                KC_Y,    KC_U,       KC_I, KC_O,      KC_P,        KC_PIPE,
-                                KC_H, LT(JSYM,KC_J), KC_E, KC_L, LT(EDIT,KC_SCLN), KC_QUOT,
-                KC_DEL, TO(NUMPAD),   KC_N, KC_M,     KC_COMM, KC_DOT, LT(MEDIA,KC_SLSH), KC_MINS,
-                SFTENT,  KC_SPC,   TD(GCA), TD(CTLALL), _______
     )
 };
 
