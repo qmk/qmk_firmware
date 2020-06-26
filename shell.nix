@@ -47,7 +47,7 @@ let
     "-L${avrlibc}/avr/lib/avr51"
   ];
 in
-stdenv.mkDerivation {
+mkShell {
   name = "qmk-firmware";
 
   buildInputs = [ dfu-programmer dfu-util diffutils git pythonEnv ]
@@ -62,4 +62,9 @@ stdenv.mkDerivation {
 
   AVR_CFLAGS = lib.optional avr avr_incflags;
   AVR_ASFLAGS = lib.optional avr avr_incflags;
+  shellHook = ''
+    # Prevent the avr-gcc wrapper from picking up host GCC flags
+    # like -iframework, which is problematic on Darwin
+    unset NIX_TARGET_CFLAGS_COMPILE
+  '';
 }
