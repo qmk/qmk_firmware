@@ -68,11 +68,25 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds) {
 #define w_totalcycles (((F_CPU / 1000) * w_totalperiod + 500000) / 1000000)
 
 // w1 - nops between rising edge and falling edge - low
-#define w1 (w_zerocycles - w_fixedlow)
+#if w_zerocycles >= w_fixedlow
+#    define w1 (w_zerocycles - w_fixedlow)
+#else
+#    define w1 0
+#endif
+
 // w2   nops between fe low and fe high
-#define w2 (w_onecycles - w_fixedhigh - w1)
+#if w_onecycles >= (w_fixedhigh + w1)
+#    define w2 (w_onecycles - w_fixedhigh - w1)
+#else
+#    define w2 0
+#endif
+
 // w3   nops to complete loop
-#define w3 (w_totalcycles - w_fixedtotal - w1 - w2)
+#if w_totalcycles >= (w_fixedtotal + w1 + w2)
+#    define w3 (w_totalcycles - w_fixedtotal - w1 - w2)
+#else
+#    define w3 0
+#endif
 
 #if w1 > 0
 #    define w1_nops w1
