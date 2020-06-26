@@ -31,6 +31,5 @@ API_SYSEX_ENABLE        = no
 RGBLIGHT_ENABLE         = no
 BLUETOOTH               = AdafruitBLE
 
-# project specific files
-SRC = i2c_master.c \
-	  matrix.c
+SRC += matrix.c
+QUANTUM_LIB_SRC += i2c_master.c

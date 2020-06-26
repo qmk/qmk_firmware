@@ -1,5 +1,4 @@
 #include "pterodactyl.h"
-#include "i2c_master.h"
 
 #ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))

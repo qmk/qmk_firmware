@@ -18,9 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef DACTYL_CONFIG_H
-#define DACTYL_CONFIG_H
-
+#pragma once
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
@@ -70,5 +68,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define AdafruitBleResetPin D4
 #define AdafruitBleCSPin B4
 #define AdafruitBleIRQPin E6
-
-#endif
