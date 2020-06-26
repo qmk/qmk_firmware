@@ -66,4 +66,4 @@ This page describes my cool feature. You can use my cool feature to make coffee 
 |KC_SUGAR||Order Sugar|
 ```
 
-`ドキュメントを `docs/feature_<my_cool_feature>.md` に配置し、そのファイルを `docs/_summary.md` の適切な場所に追加します。キーコードを追加した場合は、機能ページに戻るリンクとともに `docs/keycodes.md` に追加するようにしてください。
+ドキュメントを `docs/feature_<my_cool_feature>.md` に配置し、そのファイルを `docs/_summary.md` の適切な場所に追加します。キーコードを追加した場合は、機能ページに戻るリンクとともに `docs/keycodes.md` に追加するようにしてください。
