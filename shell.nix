@@ -7,10 +7,34 @@ let
   };
 
   pkgs = import nixpkgs { };
+
+  hjson = with pkgs.python3Packages; buildPythonPackage rec {
+    pname = "hjson";
+    version = "3.0.1";
+
+    src = fetchPypi {
+      inherit pname version;
+      sha256 = "1yaimcgz8w0ps1wk28wk9g9zdidp79d14xqqj9rjkvxalvx2f5qx";
+    };
+    doCheck = false;
+  };
+
+  pythonEnv = pkgs.python3.withPackages (p: with p; [
+    # requirements.txt
+    appdirs
+    argcomplete
+    colorama
+    hjson
+    # requirements-dev.txt
+    nose2
+    flake8
+    pep8-naming
+    yapf
+  ]);
 in
 
 with pkgs;
-let 
+let
   avrlibc = pkgsCross.avr.libcCross;
 
   avr_incflags = [
@@ -26,8 +50,8 @@ in
 stdenv.mkDerivation {
   name = "qmk-firmware";
 
-  buildInputs = [ dfu-programmer dfu-util diffutils git python3 ]
-    ++ lib.optional avr [ 
+  buildInputs = [ dfu-programmer dfu-util diffutils git pythonEnv ]
+    ++ lib.optional avr [
       pkgsCross.avr.buildPackages.binutils
       pkgsCross.avr.buildPackages.gcc8
       avrlibc
