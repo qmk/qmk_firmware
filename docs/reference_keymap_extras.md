@@ -64,6 +64,7 @@ There are also a few which are not quite language-specific, but useful if you ar
 |-------------------|------------------------|
 |Colemak            |`keymap_colemak.h`      |
 |Dvorak             |`keymap_dvorak.h`       |
+|Dvorak (French)    |`keymap_dvorak_fr.h`    |
 |Dvorak (Programmer)|`keymap_dvp.h`          |
 |Norman             |`keymap_norman.h`       |
 |Plover*            |`keymap_plover.h`       |
