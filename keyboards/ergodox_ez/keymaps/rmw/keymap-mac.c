@@ -1,39 +1,5 @@
 #include "rmw.h"
 
-// Tap Dance enum
-enum {
-  SHCAP = 0
- ,TDGUI 
- ,TDGUI2 
- ,SHENT 
- ,FRBK 
- ,FRBK2 
- ,GCA 
- ,AGC 
- ,SGCA
- ,CTLALL 
- ,GUCTL 
- ,DLTR
-};
-
-//Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [SHCAP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, caps, shift_reset)
-   ,[TDGUI] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shiftgui, gui_reset)
-   ,[TDGUI2] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, guictl, ubermod_reset)
-   ,[SHENT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shiftenter, shift_reset)
-   ,[FRBK]  = ACTION_TAP_DANCE_DOUBLE(KC_WWW_BACK,KC_WWW_FORWARD)
-   ,[FRBK2]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, forward_back_mac, ubermod_reset)
-   ,[GCA]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ubermod_mac, ubermod_reset) // GUI->CTL->ALT
-   ,[AGC]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ubermod2_mac, ubermod_reset) // ALT->GUI->CTL
-   ,[SGCA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_and_mac, CASG_reset) // SG->SC->SA
-   ,[CTLALL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctrl_all_mac, ubermod_reset) // C->CG->CA->CAG
-   ,[GUCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, guictl, ubermod_reset) 
-   ,[DLTR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, deleter, ubermod_reset) // backspace, backspace, alt backspace, gui backspace
-};
-
-// Figure out something to replace layer 0 BRACKETs 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [QWERTY] = LAYOUT_ergodox(
@@ -53,7 +19,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TD(GCA),    TD(CTLALL),        KC_LBRC,    KC_RBRC, KC_MS_BTN1,
       OS_CALT,     KC_TAB, 
       KC_DEL, 
-      KC_CAPS,  SFT_T(KC_ENT),  KC_SPC), 
+      KC_CAPS,  SFTENT,  KC_SPC), 
 
 
   [MINIMAK4] = LAYOUT_ergodox(
@@ -180,34 +146,43 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void matrix_scan_user(void) {
-  ergodox_board_led_off();
-  ergodox_right_led_1_off();
-  ergodox_right_led_2_off();
-  ergodox_right_led_3_off();
-  switch (get_highest_layer(layer_state)) {
+layer_state_t layer_state_set_user(layer_state_t state) {
+  switch (get_highest_layer(state)) {
+    case QWERTY:
+    ergodox_right_led_1_off();
+    ergodox_right_led_2_off();
+    ergodox_right_led_3_off();
+    break;
     case NUMPAD:
-      ergodox_right_led_1_on();
-      break;
+    ergodox_right_led_1_on();
+    ergodox_right_led_2_off();
+    ergodox_right_led_3_off();
+    break;
     case EDIT:
-      ergodox_right_led_2_on();
-      break;
+    ergodox_right_led_1_off();
+    ergodox_right_led_2_on();
+    ergodox_right_led_3_off();
+    break;
     case FSYM:
-      ergodox_right_led_1_on();
-      ergodox_right_led_2_on();
-      break;
+    ergodox_right_led_1_on();
+    ergodox_right_led_2_on();
+    ergodox_right_led_3_off();
+    break;
     case JSYM:
-      ergodox_right_led_1_on();
-      ergodox_right_led_3_on();
-      break;
+    ergodox_right_led_1_on();
+    ergodox_right_led_2_off();
+    ergodox_right_led_3_on();
+    break;
     case MEDIA:
-      ergodox_right_led_2_on();
-      ergodox_right_led_3_on();      
-      break;
+    ergodox_right_led_1_off();
+    ergodox_right_led_2_on();
+    ergodox_right_led_3_on();      
+    break;
     case ADJUST:
-      ergodox_right_led_1_on();
-      ergodox_right_led_2_on();
-      ergodox_right_led_3_on();      
-      break;
+    ergodox_right_led_1_on();
+    ergodox_right_led_2_on();
+    ergodox_right_led_3_on();      
+    break;
   }
+  return state;
 }

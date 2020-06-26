@@ -1,26 +1,26 @@
-// tapdances.c
+// Useful tapdance functions!
 
 #include "tapdances.h"
 
-void tapmod(qk_tap_dance_state_t *state, int taps, uint16_t keycode_tapped, uint16_t keycode_held)
-{
-  if (state->count >= taps) {
-    if (state->pressed) {
-      register_code(keycode_held);
-    }
-    else {
-      set_oneshot_mods(keycode_tapped);
-    } 
-    reset_tap_dance(state);
-  }
-}
-
-void test(qk_tap_dance_state_t *state, void *user_data)
-{
-  tapmod(state, 2, KC_CAPS,  KC_LSFT);
-  tapmod(state, 1, MOD_LSFT, KC_LSFT);
-  reset_tap_dance(state);
-}
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [SHCAP]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, caps, shift_reset)
+   ,[TDGUI]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shiftgui, gui_reset)
+   ,[TDGUI2] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, guictl, ubermod_reset)
+   ,[SHENT]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shiftenter, shift_reset)
+   ,[SHNTC]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shiftentercaps, shift_reset)
+   ,[GCA]    = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ubermod_mac, ubermod_reset) // GUI->CTL->ALT
+   ,[AGC]    = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ubermod2_mac, ubermod_reset) // ALT->GUI->CTL
+   ,[SGCA]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_and_mac, CASG_reset) // SG->SC->SA
+   ,[GUCTL]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, guictl, ubermod_reset) 
+   ,[CAG]    = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ubermod, ubermod_reset) // CTL->ALT->GUI
+   ,[ACG]    = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ubermod2, ubermod_reset) // ALT->GUI->CTL
+   ,[SCAG]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_and, CASG_reset) // SG->SC->SA
+   ,[DLTR]   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, deleter, ubermod_reset) // backspace, backspace, alt backspace, gui backspace
+   ,[FRBK2]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, forward_back_mac, ubermod_reset)
+   ,[CTLALL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctrl_all_mac, ubermod_reset) // C->CG->CA->CAG
+   ,[CTLAND] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctrl_all, ubermod_reset) // C->CA->CG->CAG
+   ,[FRBK]   = ACTION_TAP_DANCE_DOUBLE(KC_WWW_BACK,KC_WWW_FORWARD)
+};
 
 void caps(qk_tap_dance_state_t *state, void *user_data) // Shift, Caps
 { if (state->count >= 2) {register_code(KC_CAPS); unregister_code(KC_CAPS);}
@@ -387,5 +387,3 @@ void shift_and_mac(qk_tap_dance_state_t *state, void *user_data) // SG->SC->SA
   }
   reset_tap_dance(state);
 }
-
-

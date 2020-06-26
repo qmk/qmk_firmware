@@ -1,73 +1,29 @@
-enum custom_keycodes {
-  VRSN = SAFE_RANGE
-  ,OS_CSFT = OSM(MOD_LSFT | MOD_LCTL)
-  ,OS_ALT  = OSM(MOD_LALT)
-  ,OS_CTL  = OSM(MOD_LCTL)
-//  ,TD_SFTX = TD(SFTAND)
-  ,KILLMODS // write a little function that unsets all mods?
-};
-
-enum layers {
-    QWERTY,   // add a minimak layer that I can change to the default layer?
-    EXCEL,
-    EDIT,
-    FSYM,
-    JSYM,
-    MEDIA,
-    FLOP,
-    ADJUST
-};
-
-// Tap Dance enum
-enum {
-  SHCAP = 0,
-  TDGUI,
-  SHENT,
-  FRBK,
-  UMOD,
-  UMOD2,
-  SFTAND,
-  CTLAND
-};
-
-//Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [SHCAP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, caps, shift_reset)
-   ,[TDGUI] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shiftgui, gui_reset)
-   ,[SHENT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shiftenter, shift_reset)
-   ,[FRBK]  = ACTION_TAP_DANCE_DOUBLE(KC_WWW_BACK,KC_WWW_FORWARD)
-   ,[UMOD]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ubermod, ubermod_reset)
-   ,[UMOD2]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ubermod2, ubermod_reset)
-   ,[SFTAND] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_and, CASG_reset)
-   ,[CTLAND] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctrl_all, CAS_reset) 
-};
-
-// Figure out something to replace layer 0 BRACKETs
+#include "rmw.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [QWERTY] = LAYOUT_ergodox( // LEFT HAND
     TD(FRBK),       KC_1,           KC_2,       KC_3,        KC_4,    KC_5,    KC_F4, 
     KC_TAB,         KC_Q,           KC_W,       KC_E,        KC_R,    KC_T,    TO(EDIT), 
-    OSL(EDIT),      KC_A,  LT(EXCEL,KC_S),  KC_D, LT(FSYM,KC_F),  KC_G, 
+    OSL(EDIT),      KC_A,  LT(NUMPAD,KC_S),  KC_D, LT(FSYM,KC_F),  KC_G, 
     OSM(MOD_LSFT),  KC_Z,           KC_X,       KC_C,        KC_V,    SFT_T(KC_B), KC_TAB, 
-    TD(CTLAND),       OSL(ADJUST),    TD(SFTAND),  TD(TDGUI),  TD(UMOD2), 
+    TD(CTLAND),       OSL(ADJUST),    TD(SCAG),  TD(TDGUI),  TD(ACG), 
                                                                OS_ALT,    OS_CTL   , 
                                                                           KC_ESCAPE, 
                                                    KC_BSPACE,  TD(SHENT), OSL(EDIT), 
 
                      // RIGHT HAND
         KC_F5,       KC_6,             KC_7,       KC_8,    KC_9,             KC_0,          KC_BSPC, 
-        TO(EXCEL),   KC_Y,             KC_U,       KC_I,    KC_O,             KC_P,          KC_BSLS, 
+        TO(NUMPAD),   KC_Y,             KC_U,       KC_I,    KC_O,             KC_P,          KC_BSLS, 
                      KC_H,     LT(JSYM,KC_J),   KC_K,    KC_L,    LT(EDIT,KC_SCLN),       KC_QUOTE, 
         CTL_T(KC_B), KC_N,             KC_M,       KC_COMM, KC_DOT,  LT(MEDIA,KC_SLSH),     TD(SHENT), 
-        TD(UMOD),    TD(TDGUI),        KC_LBRC,    KC_RBRC, KC_MS_BTN1,
+        TD(CAG),    TD(TDGUI),        KC_LBRC,    KC_RBRC, KC_MS_BTN1,
       OS_ALT,     KC_TAB, 
       KC_DEL, 
       KC_CAPS,  SFT_T(KC_ENT),  KC_SPC), 
 
 
-  [EXCEL] = LAYOUT_ergodox(VRSN, KC_F11, KC_F12, KC_F1, KC_F2, KC_F3, _______, 
+  [NUMPAD] = LAYOUT_ergodox(VRSN, KC_F11, KC_F12, KC_F1, KC_F2, KC_F3, _______, 
     _______, _______, KC_PGUP, KC_UP, KC_PGDOWN, _______, TO(0), 
     _______, _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, 
     _______, LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), LCTL(KC_Y), _______,
@@ -82,11 +38,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______, KC_INSERT, TO(EDIT), _______, _______), 
 
   [EDIT] = LAYOUT_ergodox(KC_ESCAPE, LALT(LCTL(KC_DELETE)), KC_MS_WH_UP, KC_MS_BTN1, KC_MS_BTN2, _______, _______, 
-    _______, LCTL(S(KC_ESCAPE)), KC_MS_WH_DOWN, LCTL(S(KC_LEFT)), LCTL(S(KC_RIGHT)), _______, TO(EXCEL), 
+    _______, LCTL(S(KC_ESCAPE)), KC_MS_WH_DOWN, LCTL(S(KC_LEFT)), LCTL(S(KC_RIGHT)), _______, TO(NUMPAD), 
     _______, _______, KC_LEFT, LCTL(KC_LEFT), LCTL(KC_RIGHT), _______, 
     _______, LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), LCTL(KC_Y), _______, 
     _______, _______, _______, _______, _______, 
-    _______, _______, _______, _______, _______, TO(EXCEL), 
+    _______, _______, _______, _______, _______, TO(NUMPAD), 
     _______, _______, _______, S(KC_UP), _______, _______, KC_DELETE, 
     TO(0), LCTL(KC_T), KC_PGUP, KC_UP, KC_PGDOWN, KC_PSCREEN, _______, 
              KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT, KC_END, _______, 
@@ -135,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [ADJUST] = LAYOUT_ergodox(_______, _______, _______, _______, _______, _______, _______, 
     _______, _______, _______, _______, _______, _______, _______, 
-    _______, TO(EDIT), TO(EXCEL), TO(FSYM), TO(JSYM), TO(MEDIA), 
+    _______, TO(EDIT), TO(NUMPAD), TO(FSYM), TO(JSYM), TO(MEDIA), 
     _______, _______, _______, _______, _______, _______, _______, 
     _______, TO(QWERTY), _______, _______, _______, 
     _______, _______, _______, _______, _______, _______, 
@@ -161,35 +117,43 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 
-
-void matrix_scan_user(void) {
-  ergodox_board_led_off();
-  ergodox_right_led_1_off();
-  ergodox_right_led_2_off();
-  ergodox_right_led_3_off();
-  switch (get_highest_layer(layer_state)) {
-    case EXCEL:
-      ergodox_right_led_1_on();
-      break;
+layer_state_t layer_state_set_user(layer_state_t state) {
+  switch (get_highest_layer(state)) {
+    case QWERTY:
+    ergodox_right_led_1_off();
+    ergodox_right_led_2_off();
+    ergodox_right_led_3_off();
+    break;
+    case NUMPAD:
+    ergodox_right_led_1_on();
+    ergodox_right_led_2_off();
+    ergodox_right_led_3_off();
+    break;
     case EDIT:
-      ergodox_right_led_2_on();
-      break;
+    ergodox_right_led_1_off();
+    ergodox_right_led_2_on();
+    ergodox_right_led_3_off();
+    break;
     case FSYM:
-      ergodox_right_led_1_on();
-      ergodox_right_led_2_on();
-      break;
+    ergodox_right_led_1_on();
+    ergodox_right_led_2_on();
+    ergodox_right_led_3_off();
+    break;
     case JSYM:
-      ergodox_right_led_1_on();
-      ergodox_right_led_3_on();
-      break;
+    ergodox_right_led_1_on();
+    ergodox_right_led_2_off();
+    ergodox_right_led_3_on();
+    break;
     case MEDIA:
-      ergodox_right_led_2_on();
-      ergodox_right_led_3_on();      
-      break;
+    ergodox_right_led_1_off();
+    ergodox_right_led_2_on();
+    ergodox_right_led_3_on();      
+    break;
     case ADJUST:
-      ergodox_right_led_1_on();
-      ergodox_right_led_2_on();
-      ergodox_right_led_3_on();      
-      break;
+    ergodox_right_led_1_on();
+    ergodox_right_led_2_on();
+    ergodox_right_led_3_on();      
+    break;
   }
+  return state;
 }

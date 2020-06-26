@@ -1,8 +1,9 @@
 SRC += rmw.c
+
 ifdef TAP_DANCE_ENABLE
-	SRC += tapdances.c
+SRC += tapdances.c
 endif
 
 ifdef ENCODER_ENABLE
-	SRC += encoder_functions.c
+SRC += encoder_functions.c
 endif

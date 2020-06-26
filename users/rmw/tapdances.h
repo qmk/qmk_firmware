@@ -1,15 +1,8 @@
-// tapdances.h
 #pragma once
 #include "rmw.h"
 #include "process_tap_dance.h"
 #include "action.h"
 
-// tapdances.c
-
-#include "tapdances.h"
-
-void tapmod(qk_tap_dance_state_t *state, int taps, uint16_t keycode_tapped, uint16_t keycode_held);
-void test(qk_tap_dance_state_t *state, void *user_data);
 void caps(qk_tap_dance_state_t *state, void *user_data); // Shift, Caps
 void forward_back_mac(qk_tap_dance_state_t *state, void *user_data); // G<-, then G->
 void shiftgui(qk_tap_dance_state_t *state, void *user_data); // G->SG
@@ -32,3 +25,22 @@ void alt_all(qk_tap_dance_state_t *state, void *user_data); // A->SA->AC
 void shift_and(qk_tap_dance_state_t *state, void *user_data); // SC->SA->SG
 void shift_and_mac(qk_tap_dance_state_t *state, void *user_data); // SG->SC->SA
 
+enum {
+    SHCAP = 0
+   ,TDGUI
+   ,TDGUI2
+   ,SHENT
+   ,SHNTC
+   ,GUCTL
+   ,FRBK
+   ,FRBK2
+   ,GCA 
+   ,AGC 
+   ,SGCA
+   ,SCAG
+   ,CAG
+   ,ACG
+   ,CTLALL
+   ,CTLAND 
+   ,DLTR 
+};
