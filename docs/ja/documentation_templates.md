@@ -11,7 +11,7 @@
 
 ほとんどのキーマップには、レイアウトを表す画像があります。画像を作成するには、[Keyboard Layout Editor](http://keyboard-layout-editor.com) を使うことができます。画像は [Imgur](http://imgur.com) や別のホスティングサービスにアップロードし、プルリクエストに画像を含めないでください。
 
-画像の下に短い説明を書いて、キーマップを理解してもらうための簡単な説明文を書いてください。
+画像の下には、キーマップを理解してもらうための簡単な説明文を書いてください。
 
 ```
 ![Clueboard Layout Image](http://i.imgur.com/7Capi8W.png)
