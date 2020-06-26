@@ -137,11 +137,11 @@
 #define SI_CARN ALGR(SI_2)    // ˇ (dead)
 #define SI_CIRC ALGR(SI_3)    // ^ (dead)
 #define SI_BREV ALGR(SI_4)    // ˘ (dead)
-#define SI_DEG  ALGR(SI_5)    // ° (dead)
+#define SI_RNGA ALGR(SI_5)    // ° (dead)
 #define SI_OGON ALGR(SI_6)    // ˛ (dead)
 #define SI_GRV  ALGR(SI_7)    // `
 #define SI_DOTA ALGR(SI_8)    // ˙ (dead)
-#define SI_ACCU ALGR(SI_9)    // ´ (dead)
+#define SI_ACUT ALGR(SI_9)    // ´ (dead)
 #define SI_DACU ALGR(SI_0)    // ˝ (dead)
 // Row 2
 #define SI_BSLS ALGR(SI_Q)    // (backslash)

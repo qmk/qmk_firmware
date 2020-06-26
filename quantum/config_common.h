@@ -58,11 +58,14 @@
 #        define PINC_ADDRESS 0x3
 #        define PINB_ADDRESS 0x6
 #        define PINA_ADDRESS 0x9
-#    elif defined(__AVR_ATmega328P__)
+#    elif defined(__AVR_ATmega328P__) || defined(__AVR_ATmega328__)
 #        define ADDRESS_BASE 0x00
 #        define PINB_ADDRESS 0x3
 #        define PINC_ADDRESS 0x6
 #        define PIND_ADDRESS 0x9
+#    elif defined(__AVR_ATtiny85__)
+#        define ADDRESS_BASE 0x10
+#        define PINB_ADDRESS 0x6
 #    else
 #        error "Pins are not defined"
 #    endif

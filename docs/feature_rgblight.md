@@ -64,6 +64,9 @@ Changing the **Value** sets the overall brightness.<br>
 |`RGB_MODE_GRADIENT`|`RGB_M_G` |Static gradient animation mode                                      |
 |`RGB_MODE_RGBTEST` |`RGB_M_T` |Red, Green, Blue test animation mode                                |
 
+!> By default, if you have both the RGB Light and the [RGB Matrix](feature_rgb_matrix.md) feature enabled, these keycodes will work for both features, at the same time. You can disable the keycode functionality by defining the `*_DISABLE_KEYCODES` option for the specific feature.
+
+
 ## Configuration
 
 Your RGB lighting can be configured by placing these `#define`s in your `config.h`:
@@ -76,6 +79,7 @@ Your RGB lighting can be configured by placing these `#define`s in your `config.
 |`RGBLIGHT_LIMIT_VAL` |`255`        |The maximum brightness level                                                 |
 |`RGBLIGHT_SLEEP`     |*Not defined*|If defined, the RGB lighting will be switched off when the host goes to sleep|
 |`RGBLIGHT_SPLIT`     |*Not defined*|If defined, synchronization functionality for split keyboards is added|
+|`RGBLIGHT_DISABLE_KEYCODES`|*not defined*|If defined, disables the ability to control RGB Light from the keycodes. You must use code functions to control the feature| 
 
 ## Effects and Animations
 
@@ -94,6 +98,7 @@ if `RGBLIGHT_EFFECT_xxxx` or `RGBLIGHT_ANIMATIONS` is defined, you also have a n
 |`RGBLIGHT_MODE_STATIC_GRADIENT`| 0,1,..,9        |Static gradient                        |
 |`RGBLIGHT_MODE_RGB_TEST`     | *None*            |RGB Test                               |
 |`RGBLIGHT_MODE_ALTERNATING`  | *None*            |Alternating                            |
+|`RGBLIGHT_MODE_TWINKLE`      | 0,1,2,3,4,5       |Twinkle                                |
 
 Check out [this video](https://youtube.com/watch?v=VKrpPAHlisY) for a demonstration.
 
@@ -103,8 +108,8 @@ Note: For versions older than 0.6.117, The mode numbers were written directly. I
 
 Use these defines to add or remove animations from the firmware. When you are running low on flash space, it can be helpful to disable animations you are not using.
 
-|Define                              |Default      |Description                                                                          |
-|------------------------------------|-------------|-------------------------------------------------------------------------------------|
+|Define                              |Default      |Description                                                              |
+|------------------------------------|-------------|-------------------------------------------------------------------------|
 |`RGBLIGHT_ANIMATIONS`               |*Not defined*|Enable all additional animation modes.                                   |
 |`RGBLIGHT_EFFECT_ALTERNATING`       |*Not defined*|Enable alternating animation mode.                                       |
 |`RGBLIGHT_EFFECT_BREATHING`         |*Not defined*|Enable breathing animation mode.                                         |
@@ -115,6 +120,7 @@ Use these defines to add or remove animations from the firmware. When you are ru
 |`RGBLIGHT_EFFECT_RGB_TEST`          |*Not defined*|Enable RGB test animation mode.                                          |
 |`RGBLIGHT_EFFECT_SNAKE`             |*Not defined*|Enable snake animation mode.                                             |
 |`RGBLIGHT_EFFECT_STATIC_GRADIENT`   |*Not defined*|Enable static gradient mode.                                             |
+|`RGBLIGHT_EFFECT_TWINKLE`           |*Not defined*|Enable twinkle animation mode.                                           |
 
 ### Effect and Animation Settings
 
@@ -131,6 +137,8 @@ The following options are used to tweak the various animations:
 |`RGBLIGHT_EFFECT_KNIGHT_OFFSET`     |`0`          |The number of LEDs to start the "Knight" animation from the start of the strip by    |
 |`RGBLIGHT_RAINBOW_SWIRL_RANGE`      |`255`        |Range adjustment for the rainbow swirl effect to get different swirls                |
 |`RGBLIGHT_EFFECT_SNAKE_LENGTH`      |`4`          |The number of LEDs to light up for the "Snake" animation                             |
+|`RGBLIGHT_EFFECT_TWINKLE_LIFE`      |`75`         |Adjusts how quickly each LED brightens and dims when twinkling (in animation steps)  |
+|`RGBLIGHT_EFFECT_TWINKLE_PROBABILITY`|`1/127`     |Adjusts how likely each LED is to twinkle (on each animation step)                   |
 
 ### Example Usage to Reduce Memory Footprint
   1. Remove `RGBLIGHT_ANIMATIONS` from `config.h`.
@@ -168,6 +176,9 @@ const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {100, 50, 20};
 // How long (in milliseconds) to wait between animation steps for each of the "Knight" animations
 const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {127, 63, 31};
 
+// How long (in milliseconds) to wait between animation steps for each of the "Twinkle" animations
+const uint8_t RGBLED_TWINKLE_INTERVALS[] PROGMEM = {50, 25, 10};
+
 // These control which hues are selected for each of the "Static gradient" modes
 const uint8_t RGBLED_GRADIENT_RANGES[] PROGMEM = {255, 170, 127, 85, 64};
 ```
@@ -176,6 +187,10 @@ const uint8_t RGBLED_GRADIENT_RANGES[] PROGMEM = {255, 170, 127, 85, 64};
 
 By including `#define RGBLIGHT_LAYERS` in your `config.h` file you can enable lighting layers. These make
 it easy to use your underglow LEDs as status indicators to show which keyboard layer is currently active, or the state of caps lock, all without disrupting any animations. [Here's a video](https://youtu.be/uLGE1epbmdY) showing an example of what you can do.
+
+### Defining Lighting Layers :id=defining-lighting-layers
+
+By default, 8 layers are possible. This can be expanded to as many as 32 by overriding the definition of `RGBLIGHT_MAX_LAYERS` in `config.h` (e.g. `#define RGBLIGHT_MAX_LAYERS 32`). Please note, if you use a split keyboard, you will need to flash both sides of the split after changing this. Also, increasing the maximum will increase the firmware size, and will slow sync on split keyboards.
 
 To define a layer, we modify `keymap.c` to list out LED ranges and the colors we want to overlay on them using an array of `rgblight_segment_t` using the `RGBLIGHT_LAYER_SEGMENTS` macro. We can define multiple layers and enable/disable them independently:
 
@@ -211,8 +226,12 @@ void keyboard_post_init_user(void) {
     rgblight_layers = my_rgb_layers;
 }
 ```
+Note: For split keyboards with two controllers, both sides need to be flashed when updating the contents of rgblight_layers.
 
-Finally, we enable and disable the lighting layers whenever the state of the keyboard changes:
+### Enabling and disabling lighting layers :id=enabling-lighting-layers
+
+Everything above just configured the definition of each lighting layer.
+We can now enable and disable the lighting layers whenever the state of the keyboard changes:
 
 ```c
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -228,7 +247,44 @@ bool led_update_user(led_t led_state) {
 }
 ```
 
-Note: For split keyboards with two controllers, both sides need to be flashed when updating the contents of rgblight_layers.
+### Lighting layer blink :id=lighting-layer-blink
+
+By including `#define RGBLIGHT_LAYER_BLINK` in your `config.h` file you can turn a lighting
+layer on for a specified duration. Once the specified number of milliseconds has elapsed
+the layer will be turned off. This is useful, e.g., if you want to acknowledge some
+action (e.g. toggling some setting):
+
+```c
+const rgblight_segment_t PROGMEM _yes_layer[] = RGBLIGHT_LAYER_SEGMENTS( {9, 6, HSV_GREEN} );
+const rgblight_segment_t PROGMEM _no_layer[] = RGBLIGHT_LAYER_SEGMENTS( {9, 6, HSV_RED} );
+
+const rgblight_segment_t* const PROGMEM _rgb_layers[] =
+    RGBLIGHT_LAYERS_LIST( _yes_layer, _no_layer );
+
+void keyboard_post_init_user(void) {
+    rgblight_layers = _rgb_layers;
+}
+
+// Note we user post_process_record_user because we want the state
+// after the flag has been flipped...
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case DEBUG:
+            rgblight_blink_layer(debug_enable ? 0 : 1, 500);
+            break;
+
+        case NK_TOGG:
+        case NK_ON:
+        case NK_OFF:
+            rgblight_blink_layer(keymap_config.nkro ? 0 : 1, 500);
+            break;
+    }
+}
+```
+
+### Overriding RGB Lighting on/off status
+
+Normally lighting layers are not shown when RGB Lighting is disabled (e.g. with `RGB_TOG` keycode). If you would like lighting layers to work even when the RGB Lighting is otherwise off, add `#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF` to your `config.h`.
 
 ## Functions
 
@@ -328,12 +384,14 @@ rgblight_sethsv(HSV_GREEN, 2); // led 2
 |`rgblight_set_layer_state(i, is_on)`        |Enable or disable lighting layer `i` based on value of `bool is_on` |
 
 #### query
-|Function               |Description      |
-|-----------------------|-----------------|
-|`rgblight_get_mode()`  |Get current mode |
-|`rgblight_get_hue()`   |Get current hue  |
-|`rgblight_get_sat()`   |Get current sat  |
-|`rgblight_get_val()`   |Get current val  |
+|Function               |Description                |
+|-----------------------|---------------------------|
+|`rgblight_is_enabled()`|Gets current on/off status |
+|`rgblight_get_mode()`  |Gets current mode          |
+|`rgblight_get_hue()`   |Gets current hue           |
+|`rgblight_get_sat()`   |Gets current sat           |
+|`rgblight_get_val()`   |Gets current val           |
+|`rgblight_get_speed()` |Gets current speed         |
 
 ## Colors
 

@@ -106,7 +106,7 @@
     * [Velocikey](ja/feature_velocikey.md)
 
 * QMK の開発
-  * 破壊的な変更
+  * 互換性を破る変更/Breaking changes
     * [概要](ja/breaking_changes.md)
     * [プルリクエストにフラグが付けられた](ja/breaking_changes_instructions.md)
     * 履歴
@@ -121,6 +121,7 @@
     * [ドライバ](ja/hardware_drivers.md)
       * [ADC ドライバ](ja/adc_driver.md)
       * [I2C ドライバ](ja/i2c_driver.md)
+      * [SPI ドライバ](ja/spi_driver.md)
       * [WS2812 ドライバ](ja/ws2812_driver.md)
       * [EEPROM ドライバ](ja/eeprom_driver.md)
     * [GPIO コントロール](ja/internals_gpio_control.md)

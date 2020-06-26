@@ -16,7 +16,7 @@
 
 /* key matrix size */
 #define MATRIX_ROWS 5
-#define MATRIX_COLS 14
+#define MATRIX_COLS 15
 #define UNUSED_PINS
 #define DIODE_DIRECTION COL2ROW
 
@@ -49,7 +49,3 @@
 #define DRIVER_1_LED_TOTAL 36
 #define DRIVER_2_LED_TOTAL 36
 #define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
-
-#if defined(VIA_ENABLE)
-#   define DYNAMIC_KEYMAP_LAYER_COUNT 2
-#endif
