@@ -1,21 +1,12 @@
 { avr ? true, arm ? true, teensy ? true }:
 
 let
-  overlay = self: super:
-    let addDarwinSupport = pkg: pkg.overrideAttrs (oldAttrs: {
-      meta.platforms = (oldAttrs.meta.platforms or []) ++ self.lib.platforms.darwin;
-    });
-    in {
-      dfu-programmer = addDarwinSupport super.dfu-programmer;
-      teensy-loader-cli = addDarwinSupport super.teensy-loader-cli;
-    };
-
   nixpkgs = builtins.fetchTarball {
     url = "https://github.com/NixOS/nixpkgs/archive/903266491b7b9b0379e88709feca0af900def0d9.tar.gz";
     sha256 = "1b5wjrfgyha6s15k1yjyx41hvrpmd5szpkpkxk6l5hyrfqsr8wip";
   };
 
-  pkgs = import nixpkgs { overlays = [ overlay ]; };
+  pkgs = import nixpkgs { };
 in
 
 with pkgs;
