@@ -24,6 +24,7 @@
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #include <util/delay.h>
+#include "timer.h"
 
 #define pinmask(pin) (_BV((pin)&0xF))
 
@@ -90,7 +91,26 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds) {
 #    warning "Please consider a higher clockspeed, if possible"
 #endif
 
-#if w2 > 0
+// Interrupt flag register and bit which correspond to the QMK timer interrupt
+// (this must match the code in tmk_core/common/avr/timer.c).
+#if defined(__AVR_ATmega32U4__)
+#    define TIFRx TIFR0
+#    define OCFxx OCF0A
+#endif
+
+#ifdef TIFRx
+// Number of cycles consumed by the code to check for pending timer interrupts.
+#    define timer_fixup_cycles 5
+#    if w2 >= timer_fixup_cycles
+#        define DO_TIMER_FIXUP
+#    else
+#        pragma message "ws2812: The clock speed is not enough to fix the timer skew with a long LED chain"
+#    endif
+#endif
+
+#if defined(DO_TIMER_FIXUP)
+#    define w2_nops (w2 - timer_fixup_cycles)
+#elif w2 > 0
 #    define w2_nops w2
 #else
 #    define w2_nops 0
@@ -110,6 +130,10 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds) {
 
 static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t masklo, uint8_t maskhi) {
     uint8_t curbyte, ctr, sreg_prev;
+#ifdef DO_TIMER_FIXUP
+    uint8_t irqs = 0;
+    uint8_t tifr;
+#endif
 
     sreg_prev = SREG;
     cli();
@@ -138,6 +162,28 @@ static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t
                      "       sbrs  %[curbyte],7         \n\t"  //  '1' [03] '0' [02]
                      "       out   %[port],%[masklo]    \n\t"  //  '1' [--] '0' [03] - fe-low
                      "       lsl   %[curbyte]           \n\t"  //  '1' [04] '0' [04]
+#ifdef DO_TIMER_FIXUP
+                     // Check for a pending timer compare interrupt which is
+                     // used to maintain the QMK clock.  If the interrupt was
+                     // pending, reset the status register bit by writing 1.
+                     "       in    %[tifr],%[tifr_port] \n\t"
+                     "       andi  %[tifr],%[tifr_mask] \n\t"
+                     "       out   %[tifr_port],%[tifr] \n\t"
+
+                     // Now %[tifr] is nonzero if the interrupt was pending,
+                     // and in that case we need to increment %[irqs].  Do it
+                     // by treating %[irqs]:%[tifr] as a 16-bit number and
+                     // adding 0x00ff to it (if the low byte is nonzero, this
+                     // will result in propagating the carry to the high byte).
+                     // Because AVR does not have an "addi" instruction,
+                     // instead of adding 0x00ff, we need to subtract its
+                     // two's-complement - 0xff01.
+                     "       subi  %[tifr],0x01         \n\t"
+                     "       sbci  %[irqs],0xff         \n\t"
+
+                     // The above code takes 5 cycles to execute; the value of
+                     // timer_fixup_cycles must match this.
+#endif
 #if (w2_nops & 1)
                      w_nop1
 #endif
@@ -173,8 +219,18 @@ static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t
                      "       dec   %[ctr]               \n\t"  //  '1' [+2] '0' [+2]
                      "       brne  loop%=               \n\t"  //  '1' [+3] '0' [+4]
                      : [ctr] "=&d"(ctr)
-                     : [curbyte] "r"(curbyte), [port] "I"(_SFR_IO_ADDR(PORTx_ADDRESS(RGB_DI_PIN))), [maskhi] "r"(maskhi), [masklo] "r"(masklo));
+#ifdef DO_TIMER_FIXUP
+                     , [irqs] "=&d"(irqs), [tifr] "=&d"(tifr)
+#endif
+                     : [curbyte] "r"(curbyte), [port] "I"(_SFR_IO_ADDR(PORTx_ADDRESS(RGB_DI_PIN))), [maskhi] "r"(maskhi), [masklo] "r"(masklo)
+#ifdef DO_TIMER_FIXUP
+                     , [tifr_port] "I"(_SFR_IO_ADDR(TIFRx)), [tifr_mask] "M"(_BV(OCFxx))
+#endif
+                     );
     }
 
+#ifdef DO_TIMER_FIXUP
+    timer_count += irqs;
+#endif
     SREG = sreg_prev;
 }
