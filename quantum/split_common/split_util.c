@@ -74,7 +74,7 @@ __attribute__((weak)) bool is_keyboard_left(void) {
 #   ifdef SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
     return peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID);
 #   else
-    return ! peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID);
+    return !peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID);
 #   endif
 #elif defined(EE_HANDS)
     return eeconfig_read_handedness();
