@@ -25,5 +25,5 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 
 # project specific files
 SRC += indicators.c \
-       is31fl3731-simple.c
+       drivers/issi/is31fl3731-simple.c
 QUANTUM_LIB_SRC += i2c_master.c
