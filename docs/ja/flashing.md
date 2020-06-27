@@ -1,8 +1,8 @@
 # 書き込みの手順とブートローダ情報
 
 <!---
-  original document: 0.8.62:docs/flashing.md
-  git diff 0.8.62 HEAD -- docs/flashing.md | cat
+  original document: 0.9.10:docs/flashing.md
+  git diff 0.9.10 HEAD -- docs/flashing.md | cat
 -->
 
 キーボードが使用するブートローダにはかなり多くの種類があり、ほぼ全てが異なる書き込みの方法を使います。幸いなことに、[QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) のようなプロジェクトは、あまり深く考える必要無しに様々なタイプと互換性を持つことを目指していますが、この文章では様々なタイプのブートローダとそれらを書き込むために利用可能な方法について説明します。
@@ -31,7 +31,6 @@ BOOTLOADER = atmel-dfu
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (推奨の GUI)
 * QMK の [dfu-programmer](https://github.com/dfu-programmer/dfu-programmer) / `:dfu` (推奨のコマンドライン)
-* [Atmel の Flip](http://www.microchip.com/developmenttools/productdetails.aspx?partno=flip) (非推奨)
 
 書き込み手順:
 

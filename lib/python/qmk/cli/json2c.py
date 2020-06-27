@@ -10,29 +10,27 @@ import qmk.path
 
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('filename', arg_only=True, help='Configurator JSON file')
+@cli.argument('filename', type=qmk.path.normpath, arg_only=True, help='Configurator JSON file')
 @cli.subcommand('Creates a keymap.c from a QMK Configurator export.')
 def json2c(cli):
     """Generate a keymap.c from a configurator export.
 
     This command uses the `qmk.keymap` module to generate a keymap.c from a configurator export. The generated keymap is written to stdout, or to a file if -o is provided.
     """
-    cli.args.filename = qmk.path.normpath(cli.args.filename)
-
     # Error checking
-    if not cli.args.filename.exists():
-        cli.log.error('JSON file does not exist!')
-        cli.print_usage()
-        exit(1)
-
-    if str(cli.args.filename) == '-':
+    if cli.args.filename and cli.args.filename.name == '-':
         # TODO(skullydazed/anyone): Read file contents from STDIN
         cli.log.error('Reading from STDIN is not (yet) supported.')
         cli.print_usage()
         exit(1)
 
+    if not cli.args.filename.exists():
+        cli.log.error('JSON file does not exist!')
+        cli.print_usage()
+        exit(1)
+
     # Environment processing
-    if cli.args.output == ('-'):
+    if cli.args.output and cli.args.output.name == '-':
         cli.args.output = None
 
     # Parse the configurator json

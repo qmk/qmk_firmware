@@ -13,7 +13,7 @@ QMK (*Quantum Mechanical Keyboard*) 是一个社区维护的开源软件，包�
 
 ## 如何得到它
 
-如果你打算贡献布局, 键盘, 或者其他QMK特性, 一下是最简单的方法：[从Github获得repo分支](https://github.com/qmk/qmk_firmware#fork-destination-box), 并克隆你的repo到本地进行编辑，推送，然后从你的分支打开 [Pull Request](https://github.com/qmk/qmk_firmware/pulls).
+如果你打算贡献布局, 键盘, 或者其他QMK特性, 一下是最简单的方法：[从GitHub获得repo分支](https://github.com/qmk/qmk_firmware#fork-destination-box), 并克隆你的repo到本地进行编辑，推送，然后从你的分支打开 [Pull Request](https://github.com/qmk/qmk_firmware/pulls).
 
 此外, 你也可以直接下载 ([zip](https://github.com/qmk/qmk_firmware/zipball/master), [tar](https://github.com/qmk/qmk_firmware/tarball/master)), 或者从git克隆 (`git@github.com:qmk/qmk_firmware.git`), 或 https (`https://github.com/qmk/qmk_firmware.git`).
 
