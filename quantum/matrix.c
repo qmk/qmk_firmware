@@ -109,7 +109,6 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
     // Select row and wait for row selecton to stabilize
     select_row(current_row);
-    matrix_io_delay();
 
     // For each col...
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
@@ -122,6 +121,9 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
     // Unselect row
     unselect_row(current_row);
+    if( current_row + 1 < MATRIX_ROWS ) {
+        matrix_io_delay();
+    }
 
     // If the row has changed, store the row and return the changed flag.
     if (current_matrix[current_row] != current_row_value) {
@@ -159,7 +161,6 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 
     // Select col and wait for col selecton to stabilize
     select_col(current_col);
-    matrix_io_delay();
 
     // For each row...
     for (uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {
@@ -185,6 +186,9 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 
     // Unselect col
     unselect_col(current_col);
+    if( current_col + 1 < MATRIX_COLS ) {
+        matrix_io_delay();
+    }
 
     return matrix_changed;
 }
