@@ -5,7 +5,7 @@
   git diff 0.9.19 HEAD -- docs/compatible_microcontrollers.md | cat
 -->
 
-QMK は十分なフラッシュ容量を備えた USB 対応 AVR または ARM マイクロコントローラで実行されます - 一般的に 32kB 以上ですが、ほとんどの機能を無効にすると*ほんの* 16kB に詰め込むことができます。
+QMK は十分な容量のフラッシュメモリを備えた USB 対応 AVR または ARM マイクロコントローラで実行されます - 一般的に 32kB 以上ですが、ほとんどの機能を無効にすると*ほんの* 16kB に詰め込むことができます。
 
 ## Atmel AVR
 
@@ -15,7 +15,7 @@ QMK は十分なフラッシュ容量を備えた USB 対応 AVR または ARM �
 * [ATmega16U4](https://www.microchip.com/wwwproducts/en/ATmega16U4) / [ATmega32U4](https://www.microchip.com/wwwproducts/en/ATmega32U4)
 * [AT90USB64](https://www.microchip.com/wwwproducts/en/AT90USB646) / [AT90USB128](https://www.microchip.com/wwwproducts/en/AT90USB1286)
 
-ネイティブな USB を持たない特定の MCU は代わりに [V-USB](https://www.obdev.at/products/vusb/index.html) を使います:
+組み込みの USB インターフェースを持たない、いくつかの MCU は代わりに [V-USB](https://www.obdev.at/products/vusb/index.html) を使います:
 
 * [ATmega32A](https://www.microchip.com/wwwproducts/en/ATmega32A)
 * [ATmega328P](https://www.microchip.com/wwwproducts/en/ATmega328P)
@@ -23,7 +23,7 @@ QMK は十分なフラッシュ容量を備えた USB 対応 AVR または ARM �
 
 ## ARM
 
-[ChibiOS](http://www.chibios.org) をサポートする USB 付きの ARM チップを使うこともできます。ほとんどは十分な書き込み領域があります。動作すると知られているのは:
+[ChibiOS](http://www.chibios.org) がサポートする USB 付きの ARM チップを使うこともできます。ほとんどのチップには十分な容量のフラッシュメモリがあります。動作するとわかっているのは:
 
 ### STMicroelectronics (STM32)
 
@@ -39,4 +39,4 @@ QMK は十分なフラッシュ容量を備えた USB 対応 AVR または ARM �
 
 ## Atmel ATSAM
 
-Atmel の マイクロコントローラの1つに対する限定的なサポートがあり [Massdrop keyboards](https://github.com/qmk/qmk_firmware/tree/master/keyboards/massdrop) で使用される [ATSAMD51J18A](https://www.microchip.com/wwwproducts/en/ATSAMD51J18A) があります。
+Atmel の ATSAM マイクロコントローラの一つである、[Massdrop keyboards](https://github.com/qmk/qmk_firmware/tree/master/keyboards/massdrop) で使用されている [ATSAMD51J18A](https://www.microchip.com/wwwproducts/en/ATSAMD51J18A) には限定的なサポートがあります。
