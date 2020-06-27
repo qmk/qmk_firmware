@@ -81,8 +81,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE 20
 
 /* ENCODER THINGS */
-
-// #define NUMBER_OF_ENCODERS 2
+// #define ENCODER_DIRECTION_FLIP
 #define ENCODERS_PAD_A \
     { F6, B4 }
 #define ENCODERS_PAD_B \

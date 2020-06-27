@@ -5,8 +5,9 @@
 A 60% keyboard that runs ps2avrgb natively and fits the popular GH60 form factor. Another "bfake" or clone of the original B.face PCB by [Winkeyless](https://winkeyless.kr/product/b-face-x2-pcb/). This PCB has slightly different switch matrix than the origninal B.face, and is also different than the bfake. It commonly comes as the PCB in 60% keyboard kits sold by YMDK on Aliexpress.
 
 * Keyboard Maintainer: QMK Community
-* Hardware Supported: White Bface Mini USB PCB with no RGB.
+* Hardware Supported: White Bface Mini USB PCB with 12 RGB LEDs on the bottom.
 * Hardware Availability: [Shenzhen YMD Tech Co. (YMDK) on Aliexpress](https://www.aliexpress.com/item/32799437588.html)
+* Case capability: You can not use generic GH60 plastic cases with this board as RGB LEDs on the bottom is messing with the supportive ribs of the case, just like on DZ60.
 
 Make example for this keyboard (after setting up your build environment):
 

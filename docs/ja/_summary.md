@@ -106,7 +106,7 @@
     * [Velocikey](ja/feature_velocikey.md)
 
 * QMK の開発
-  * 破壊的な変更
+  * 互換性を破る変更/Breaking changes
     * [概要](ja/breaking_changes.md)
     * [プルリクエストにフラグが付けられた](ja/breaking_changes_instructions.md)
     * 履歴

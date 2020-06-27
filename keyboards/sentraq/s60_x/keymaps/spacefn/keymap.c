@@ -44,13 +44,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 GRV,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12, TRNS,  DEL, \
         TRNS, TRNS, TRNS,  ESC, TRNS, TRNS, TRNS, HOME,   UP,  END, PSCR, SLCK, PAUS,  INS,       \
 	TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, PGUP, LEFT, DOWN, RGHT, TRNS, TRNS, TRNS, TRNS,       \
-	TRNS, TRNS, TRNS, TRNS, TRNS,  SPC, PGDN,  GRV,  FN1, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, \
+	TRNS, TRNS, TRNS, TRNS, TRNS,  SPC, PGDN,  GRV,  TILD, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, \
 	TRNS, TRNS, TRNS,                   TRNS,                   TRNS, TRNS, TRNS, TRNS),
-};
-
-/*
- * Fn action definition
- */
-const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_MODS_KEY(MOD_LSFT, KC_GRV),    // tilde
 };
