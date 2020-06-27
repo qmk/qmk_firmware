@@ -16,7 +16,6 @@ enum layers {
 
 enum custom_keycodes {
   LOWER = SAFE_RANGE,
-
   RAISE,
   ADJUST,
 };
