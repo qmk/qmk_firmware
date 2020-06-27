@@ -2,7 +2,7 @@
 
 ![GHS.RAR](https://i.imgur.com/5n893ul.jpg)
 
-A short description of the keyboard/project
+A seamless screwless 75% keyboard.
 
 * Keyboard Maintainer: [Ramon Imbao](https://github.com/ramonimbao)
 * Hardware Supported: ATmega32u4
