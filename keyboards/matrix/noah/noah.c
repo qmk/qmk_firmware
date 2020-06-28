@@ -208,7 +208,6 @@ led_config_t g_led_config = {
 
 #endif
 
-/*
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch(keycode) {
@@ -230,6 +229,5 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         break;
     }
   }
-  return true;
+  return process_record_user(keycode, record);
 }
-*/

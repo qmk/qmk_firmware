@@ -178,7 +178,7 @@ bool handle_call_key(uint16_t key, keyrecord_t* record) {
         return true;
 }
 
-bool process_record_kb(uint16_t key, keyrecord_t *record) {
+bool process_record_user(uint16_t key, keyrecord_t *record) {
     if (layers[layers[0] + 1] == LAYER_NORM_BASE) {
     } else if (layers[layers[0] + 1] == LAYER_NORM_EXTENTION) {
     }
