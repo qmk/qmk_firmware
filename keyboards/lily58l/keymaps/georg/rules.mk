@@ -1,6 +1,7 @@
 OLED_DRIVER_ENABLE = yes   # Enables the use of OLED displays
-ENCODER_ENABLE = yes       # ENables the use of one or more encoders
-RGBLIGHT_ENABLE = yes      # Enable keyboard RGB light
+ENCODER_ENABLE = yes       # Enables the use of one or more encoders
+RGBLIGHT_ENABLE = no       # Enable keyboard RGB light
+RGB_MATRIX_ENABLE = WS2812
 WPM_ENABLE = no
 MOUSEKEY_ENABLE = no      # Mouse keys
 # CONSOLE_ENABLE = yes 
