@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = LAYOUT_kc(
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
-     DEL ,APP, VOLD,MUTE,VOLU,LGUI,               RGUI,MPRV,MPLY,MNXT,DOWN,ESC ,
+     DEL ,APP, VOLD,MUTE,VOLU,LGUI,               GRV,MPRV,MPLY,MNXT,DOWN,ESC ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
      TAB , Q  , W  , E  , R  , T  ,                Y  , U  , I  , O  , P  ,LBRC,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  [_DVORAK] = LAYOUT_kc(
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
-     DEL ,APP ,VOLD,MUTE,VOLU,LGUI,               RGUI,MPRV,MPLY,MNXT,DOWN,ESC ,
+     DEL ,APP ,VOLD,MUTE,VOLU,LGUI,              GRV,MPRV,MPLY,MNXT,DOWN,ESC ,
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
      TAB ,LBRC,QUOT,SCLN, P  , Y  ,                F  , G  , C  , R  , L  ,DEL,
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  [_COLEMAK] = LAYOUT_kc(
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
-     DEL ,APP, VOLD,MUTE,VOLU,LGUI,               RGUI,MPRV,MPLY,MNXT,DOWN,ESC ,
+     DEL ,APP, VOLD,MUTE,VOLU,LGUI,               GRV,MPRV,MPLY,MNXT,DOWN,ESC ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
      TAB , Q  , W  , F  , P  , G  ,                J  , L  , U  , Y  ,LBRC,QUOT,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
@@ -126,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_WORKMAN] = LAYOUT_kc(
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
-     DEL ,APP, VOLD,MUTE,VOLU,LGUI,               RGUI,MPRV,MPLY,MNXT,DOWN,ESC ,
+     DEL ,APP, VOLD,MUTE,VOLU,LGUI,               GRV,MPRV,MPLY,MNXT,DOWN,ESC ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
      TAB , Q  , W  , R  , W  , B  ,                J  , F  , U  , P  ,LBRC,SCLN,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
