@@ -247,7 +247,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
 //          PLAY_SONG(tone_qwerty);
         #endif
-        persistent_default_layer_set(1UL<<_GAMING);
+        set_single_persistent_default_layer(_GAMING);
       }
       return false;
       break;
