@@ -19,6 +19,7 @@
 #    include <avr/pgmspace.h>
 #    include <avr/io.h>
 #    include <avr/interrupt.h>
+#    include <util/atomic.h>
 #endif
 #if defined(PROTOCOL_CHIBIOS)
 #    include "hal.h"
@@ -186,18 +187,77 @@ extern layer_state_t layer_state;
 #if defined(__AVR__)
 typedef uint8_t pin_t;
 
-#    define setPinInput(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
-#    define setPinInputHigh(pin) (DDRx_ADDRESS(pin) &= ~_BV((pin)&0xF), PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
-#    define setPinInputLow(pin) _Static_assert(0, "AVR processors cannot implement an input as pull low")
-#    define setPinOutput(pin) (DDRx_ADDRESS(pin) |= _BV((pin)&0xF))
+static inline void setPinInput(pin_t pin) {
+    volatile uint8_t *ddr = &DDRx_ADDRESS(pin);
+    volatile uint8_t *port = &PORTx_ADDRESS(pin);
+    uint8_t inv_mask = ~_BV(pin & 0xF);
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+        *ddr &= inv_mask;
+        *port &= inv_mask;
+    }
+}
 
-#    define writePinHigh(pin) (PORTx_ADDRESS(pin) |= _BV((pin)&0xF))
-#    define writePinLow(pin) (PORTx_ADDRESS(pin) &= ~_BV((pin)&0xF))
+static inline void setPinInputHigh(pin_t pin) {
+    volatile uint8_t *ddr = &DDRx_ADDRESS(pin);
+    volatile uint8_t *port = &PORTx_ADDRESS(pin);
+    uint8_t mask = _BV(pin & 0xF);
+    uint8_t inv_mask = ~mask;
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+        *ddr &= inv_mask;
+        *port |= mask;
+    }
+}
+
+#    define setPinInputLow(pin) _Static_assert(0, "AVR processors cannot implement an input as pull low")
+
+static inline void setPinOutput(pin_t pin) {
+    if (__builtin_constant_p(pin)) {
+        asm volatile("sbi %0,%1" : : "I"(_SFR_IO_ADDR(DDRx_ADDRESS(pin))), "I"(pin & 0xF));
+    } else {
+        volatile uint8_t *ddr = &DDRx_ADDRESS(pin);
+        uint8_t mask = _BV(pin & 0xF);
+        ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+            *ddr |= mask;
+        }
+    }
+}
+
+static inline void writePinHigh(pin_t pin) {
+    if (__builtin_constant_p(pin)) {
+        asm volatile("sbi %0,%1" : : "I"(_SFR_IO_ADDR(PORTx_ADDRESS(pin))), "I"(pin & 0xF));
+    } else {
+        volatile uint8_t *port = &PORTx_ADDRESS(pin);
+        uint8_t mask = _BV(pin & 0xF);
+        ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+            *port |= mask;
+        }
+    }
+}
+
+static inline void writePinLow(pin_t pin) {
+    if (__builtin_constant_p(pin)) {
+        asm volatile("cbi %0,%1" : : "I"(_SFR_IO_ADDR(PORTx_ADDRESS(pin))), "I"(pin & 0xF));
+    } else {
+        volatile uint8_t *port = &PORTx_ADDRESS(pin);
+        uint8_t inv_mask = ~_BV(pin & 0xF);
+        ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+            *port &= inv_mask;
+        }
+    }
+}
+
 #    define writePin(pin, level) ((level) ? writePinHigh(pin) : writePinLow(pin))
 
 #    define readPin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
 
-#    define togglePin(pin) (PORTx_ADDRESS(pin) ^= _BV((pin)&0xF))
+static inline void togglePin(pin_t pin) {
+    volatile uint8_t *port = &PORTx_ADDRESS(pin);
+    uint8_t mask = _BV(pin & 0xF);
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+        *port ^= mask;
+    }
+}
+
 
 #elif defined(PROTOCOL_CHIBIOS)
 typedef ioline_t pin_t;
