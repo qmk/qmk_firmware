@@ -23,6 +23,30 @@ __attribute__((weak)) bool rhruiz_is_layer_indicator_led(uint8_t index) {
 #endif
 }
 
+#ifdef TAP_DANCE_ENABLE
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_RSHIFT_NUM] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_RSFT, _NUM),
+};
+
+#endif
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch(keycode) {
+#ifdef HOME_ROW_MODS
+        case SFT_T(KC_S):
+        case SFT_T(KC_L):
+        case ALT_T(KC_A):
+        case ALT_T(KC_SCLN):
+            return TAPPING_TERM + 50;
+#endif
+#ifdef TAP_DANCE_ENABLE
+        case TD(TD_RSHIFT_NUM):
+            return TAPPING_TERM + 25;
+#endif
+        default:
+            return TAPPING_TERM;
+    }
+}
+
 void rhruiz_send_make_args(bool should_flash, bool parallel) {
     SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
     if (should_flash) {

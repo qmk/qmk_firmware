@@ -37,6 +37,17 @@ bool          rhruiz_process_record(uint16_t keycode, keyrecord_t *record);
 void          keyboard_post_init_keymap(void);
 void          matrix_init_keymap(void);
 
+#ifdef TAP_DANCE_ENABLE
+// tap dances
+enum {
+    TD_RSHIFT_NUM,
+};
+
+#    define KC_TDSNU TD(TD_RSHIFT_NUM)
+#else
+#    define KC_TDSNU KC_RSFT
+#endif
+
 /* underglow control */
 void rhruiz_rgblight_reset(void);
 #ifdef RGBLIGHT_ENABLE

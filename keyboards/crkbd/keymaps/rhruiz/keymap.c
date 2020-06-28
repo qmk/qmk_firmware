@@ -12,21 +12,6 @@
 #define KC_ALDE LALT_T(KC_DEL)
 #define KC_ALT0 LALT_T(KC_0)
 
-#ifdef TAP_DANCE_ENABLE
-// tap dances
-enum {
-    TD_RSHIFT_NUM,
-};
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_RSHIFT_NUM] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_RSFT, _NUM),
-};
-
-#    define KC_TDSNU TD(TD_RSHIFT_NUM)
-#else
-#    define KC_TDSNU KC_RSFT
-#endif
-
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BL] = LAYOUT_kc_wrapper(
