@@ -1,5 +1,7 @@
 # Coupe
 
+![Coupe](https://www.clawboards.xyz/shop/coupe)
+
 This is a 5x14 keyboard in a 60% layout.
 
 * Keyboard Maintainer: [AAClawson](http://github.com/AlisGraveNil)
