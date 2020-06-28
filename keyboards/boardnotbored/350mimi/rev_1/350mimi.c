@@ -1,4 +1,5 @@
 #include "350mimi.h"
+
 void matrix_init_board(void){
     setPinOutput(B4);
 }

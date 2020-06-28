@@ -15,8 +15,8 @@ SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes	    # USB Nkey Rollover
 CUSTOM_MATRIX = no # Custom matrix file
 # BACKLIGHT_ENABLE = yes # This is broken on 072 for some reason
-RGBLIGHT_ENABLE = yes
-WS2812_DRIVER = bitbang
+#RGBLIGHT_ENABLE = yes
+#WS2812_DRIVER = bitbang
 
 LAYOUTS = LAYOUT_ALL 60_tsangan_hhkb
 

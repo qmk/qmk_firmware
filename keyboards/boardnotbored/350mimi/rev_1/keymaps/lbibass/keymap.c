@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     MO(5), KC_LGUI, KC_LALT,                   KC_SPC,                    KC_RALT, KC_RGUI, KC_RCTL
     ),
 LAYOUT_60_tsangan_hhkb(
-    KC_GRAVE,  KC_BRID,    KC_BRIU,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_MRWD,    KC_MPLY,    KC_MFFD,    KC_MUTE,    KC_VOLD, KC_VOLU,  KC_INS, KC_DEL,
+    KC_GRAVE,  KC_BRID,    KC_BRIU,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_MEDIA_PREV_TRACK,    KC_MPLY,    KC_MEDIA_NEXT_TRACK,    KC_MUTE,    KC_VOLD, KC_VOLU,  KC_INS, KC_DEL,
     KC_CAPS,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_UP, KC_RBRC, KC_BSPACE,
     KC_TRNS, KC_LEFT,    KC_DOWN,    KC_UP,    KC_RIGHT,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_LEFT, KC_RIGHT, LT(7, KC_ENTER),
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_DOWN, KC_RSFT,  MO(3),
