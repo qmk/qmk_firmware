@@ -4,8 +4,10 @@
 
 #define KC_ZALT LALT_T(KC_Z)
 
-#undef ________L_BL_R4________
-#define ________L_BL_R4________ ZALT, X, C, V, B
+#ifndef HOME_ROW_MODS
+#    undef ________L_BL_R4________
+#    define ________L_BL_R4________ ZALT, X, C, V, B
+#endif
 
 #define KC_ALDE LALT_T(KC_DEL)
 #define KC_ALT0 LALT_T(KC_0)
