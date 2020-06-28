@@ -183,6 +183,16 @@ void process_record_tap_hint(keyrecord_t *record) {
 }
 #endif
 
+#ifndef NO_ACTION_ONESHOT
+static bool clear_oneshot_enable;
+
+/** \brief Indicate whether one-shot layer should be cleared after this record
+ */
+void set_clear_oneshot(bool yn) {
+    clear_oneshot_enable = yn;
+}
+#endif
+
 /** \brief Take a key event (key press or key release) and processes it.
  *
  * FIXME: Needs documentation.
@@ -192,9 +202,13 @@ void process_record(keyrecord_t *record) {
         return;
     }
 
+#ifndef NO_ACTION_ONESHOT
+    clear_oneshot_enable = true;
+#endif
+
     if (!process_record_quantum(record)) {
 #ifndef NO_ACTION_ONESHOT
-        if (is_oneshot_layer_active() && record->event.pressed) {
+        if (clear_oneshot_enable && is_oneshot_layer_active() && record->event.pressed) {
             clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
         }
 #endif
@@ -238,7 +252,7 @@ void process_action(keyrecord_t *record, action_t action) {
 #ifndef NO_ACTION_ONESHOT
     bool do_release_oneshot = false;
     // notice we only clear the one shot layer if the pressed key is not a modifier.
-    if (is_oneshot_layer_active() && event.pressed && (action.kind.id == ACT_USAGE || !IS_MOD(action.key.code))
+    if (clear_oneshot_enable && is_oneshot_layer_active() && event.pressed && (action.kind.id == ACT_USAGE || !IS_MOD(action.key.code))
 #    ifdef SWAP_HANDS_ENABLE
         && !(action.kind.id == ACT_SWAP_HANDS && action.swap.code == OP_SH_ONESHOT)
 #    endif

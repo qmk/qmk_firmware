@@ -26,6 +26,17 @@ For one shot mods, you need to call `set_oneshot_mods(MOD)` to set it, or `clear
 
 !> If you're having issues with OSM translating over Remote Desktop Connection, this can be fixed by opening the settings, going to the "Local Resources" tap, and in the keyboard section, change the drop down to "On this Computer".  This will fix the issue and allow OSM to function properly over Remote Desktop.
 
+By default, oneshots are cleared after the next key is pressed; but in some cases it may be desirable to override this behavior, e.g. for certain complex behavior implemented in `process_record_user()`.
+To override for the current event that is being processed, you can call `set_clear_oneshot(bool yn)`:
+
+```c
+set_clear_oneshot(true); // oneshot will be cleared
+```
+or
+```c
+set_clear_oneshot(false); // oneshot will NOT be cleared
+```
+
 ## Callbacks
 
 When you'd like to perform custom logic when pressing a one shot key, there are several callbacks you can choose to implement. You could indicate changes in one shot keys by flashing an LED or making a sound, for example.
