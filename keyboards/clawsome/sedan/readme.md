@@ -1,5 +1,7 @@
 # Sedan
 
+![Sedan](https://www.clawboards.xyz/shop/sedan)
+
 This is a 5x15 keyboard in a 68% layout.
 
 * Keyboard Maintainer: [AAClawson](http://github.com/AlisGraveNil)
