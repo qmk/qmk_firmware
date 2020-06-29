@@ -50,21 +50,37 @@ def test_pyformat():
     assert 'Successfully formatted the python code' in result.stderr
 
 
-def test_list_keyboards():
-    result = check_subcommand('list-keyboards')
-    assert result.returncode == 0
-    # check to see if a known keyboard is returned
-    # this will fail if handwired/onekey/pytest is removed
-    assert 'handwired/onekey/pytest' in result.stdout
-
-
 def test_list_keymaps():
-    result = check_subcommand("list-keymaps", "-kb", "handwired/onekey/pytest")
+    result = check_subcommand('list-keymaps', '-kb', 'handwired/onekey/pytest')
     assert result.returncode == 0
-    assert "default" and "test" in result.stdout
+    assert 'default' and 'test' in result.stdout
+
+
+def test_list_keymaps_long():
+    result = check_subcommand('list-keymaps', '--keyboard', 'handwired/onekey/pytest')
+    assert result.returncode == 0
+    assert 'default' and 'test' in result.stdout
+
+
+def test_list_keymaps_kb_only():
+    result = check_subcommand('list-keymaps', '-kb', 'niu_mini')
+    assert result.returncode == 0
+    assert 'default' and 'via' in result.stdout
+
+
+def test_list_keymaps_vendor_kb():
+    result = check_subcommand('list-keymaps', '-kb', 'ai03/lunar')
+    assert result.returncode == 0
+    assert 'default' and 'via' in result.stdout
+
+
+def test_list_keymaps_vendor_kb_rev():
+    result = check_subcommand('list-keymaps', '-kb', 'kbdfans/kbd67/mkiirgb/v2')
+    assert result.returncode == 0
+    assert 'default' and 'via' in result.stdout
 
 
 def test_list_keymaps_no_keyboard_found():
-    result = check_subcommand("list-keymaps", "-kb", "asdfghjkl")
+    result = check_subcommand('list-keymaps', '-kb', 'asdfghjkl')
     assert result.returncode == 0
-    assert "does not exist" in result.stdout
+    assert 'does not exist' in result.stdout
