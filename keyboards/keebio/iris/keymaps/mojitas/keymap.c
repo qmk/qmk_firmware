@@ -25,9 +25,6 @@ enum custom_keycodes {
   WORKMAN,
   GAMING,
   NUMPAD,
-  LOWER,
-  RAISE,
-  ADJUST,
 };
 
 #define KC_ KC_TRNS
