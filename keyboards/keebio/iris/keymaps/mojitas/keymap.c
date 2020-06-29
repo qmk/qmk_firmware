@@ -7,16 +7,17 @@
 //Mirrored ctl, alt and shift to be able to use both hands when doing commands
 //Gaming layer, qwerty with space on left half.
 
-#define _QWERTY 2
-#define _DVORAK 0
-#define _COLEMAK 1
-#define _WORKMAN 3
-#define _GAMING 4
-#define _NUMPAD 5
-#define _LOWER 6
-#define _RAISE 7
-
-#define _ADJUST 16
+enum layer_names {
+    _DVORAK,
+    _COLEMAK,
+    _QWERTY,
+    _WORKMAN,
+    _GAMING,
+    _NUMPAD,
+    _LOWER,
+    _RAISE,
+    _ADJUST
+};
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
