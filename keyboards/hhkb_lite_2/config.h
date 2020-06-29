@@ -7,8 +7,8 @@
 #define PRODUCT_ID      0x88b2
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    PFU
-#define PRODUCT         keyboard
-#define DESCRIPTION     HHKB Lite 2
+#define PRODUCT         HHKB Lite 2
+#define DESCRIPTION     keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -24,4 +24,3 @@
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
-
