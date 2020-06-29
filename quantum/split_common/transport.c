@@ -11,11 +11,11 @@
 #    include "rgblight.h"
 #endif
 
-/*
+
 #ifdef RGB_MATRIX_ENABLE
 #    include "rgb_matrix.h"
 #endif
-*/
+
 
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"

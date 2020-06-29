@@ -192,8 +192,6 @@ extern last_hit_t g_last_hit_tracker;
 extern uint8_t g_rgb_frame_buffer[MATRIX_ROWS][MATRIX_COLS];
 #endif
 
-#endif
-
 #ifdef RGBLIGHT_SPLIT
 typedef struct _rgb_matrix_syncinfo_t {
     rgb_config_t config;
@@ -207,3 +205,6 @@ void rgb_matrix_get_syncinfo(rgb_matrix_syncinfo_t *syncinfo);
 /* for split keyboard slave side */
 void rgb_matrix_update_sync(rgb_matrix_syncinfo_t *syncinfo);
 #endif
+
+#endif  // RGB_MATRIX_H
+
