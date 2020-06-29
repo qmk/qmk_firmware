@@ -235,7 +235,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case BACKLIT:
       if (record->event.pressed) {
-        SEND_STRING("qawsedrftgyhujikolp;");
         register_code(KC_LCTL);
         #ifdef BACKLIGHT_ENABLE
           backlight_step();
@@ -308,11 +307,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case CHG_LAYER:
       if (record->event.pressed) {
         if(layer_state_is(_WIN)){
-            layer_invert(_MAC);
-            set_single_persistent_default_layer(_MAC);
+          layer_off(_WIN);
+          layer_invert(_MAC);
+          set_single_persistent_default_layer(_MAC);
         }else{
-           layer_invert(_WIN);
-           set_single_persistent_default_layer(_WIN);
+          layer_off(_MAC);
+          layer_invert(_WIN);
+          set_single_persistent_default_layer(_WIN);
         }
       }
       return false;
