@@ -3,6 +3,7 @@
 Check out the user's QMK environment and make sure it's ready to compile.
 """
 import platform
+import re
 import shutil
 import subprocess
 from pathlib import Path
@@ -10,13 +11,39 @@ from pathlib import Path
 from milc import cli
 from qmk import submodules
 from qmk.questions import yesno
+from qmk.commands import run
 
-ESSENTIAL_BINARIES = ['dfu-programmer', 'avrdude', 'dfu-util', 'avr-gcc', 'arm-none-eabi-gcc', 'bin/qmk']
-ESSENTIAL_SUBMODULES = ['lib/chibios', 'lib/lufa']
+ESSENTIAL_BINARIES = {
+    'dfu-programmer': {},
+    'avrdude': {},
+    'dfu-util': {},
+    'avr-gcc': {
+        'version_arg': '-dumpversion'
+    },
+    'arm-none-eabi-gcc': {
+        'version_arg': '-dumpversion'
+    },
+    'bin/qmk': {},
+}
 
 
-def _udev_rule(vid, pid=None):
+def _udev_rule(vid, pid=None, *args):
     """ Helper function that return udev rules
+    """
+    rule = ""
+    if pid:
+        rule = 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="%s", ATTRS{idProduct}=="%s", TAG+="uaccess", RUN{builtin}+="uaccess"' % (vid, pid)
+    else:
+        rule = 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="%s", TAG+="uaccess", RUN{builtin}+="uaccess"' % vid
+    if args:
+        rule = ', '.join([rule, *args])
+    return rule
+
+
+def _deprecated_udev_rule(vid, pid=None):
+    """ Helper function that return udev rules
+
+    Note: these are no longer the recommended rules, this is just used to check for them
     """
     if pid:
         return 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="%s", ATTRS{idProduct}=="%s", MODE:="0666"' % (vid, pid)
@@ -24,12 +51,76 @@ def _udev_rule(vid, pid=None):
         return 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="%s", MODE:="0666"' % vid
 
 
+def parse_gcc_version(version):
+    m = re.match(r"(\d+)(?:\.(\d+))?(?:\.(\d+))?", version)
+
+    return {
+        'major': int(m.group(1)),
+        'minor': int(m.group(2)) if m.group(2) else 0,
+        'patch': int(m.group(3)) if m.group(3) else 0
+    }
+
+
+def check_arm_gcc_version():
+    """Returns True if the arm-none-eabi-gcc version is not known to cause problems.
+    """
+    if 'output' in ESSENTIAL_BINARIES['arm-none-eabi-gcc']:
+        version_number = ESSENTIAL_BINARIES['arm-none-eabi-gcc']['output'].strip()
+        cli.log.info('Found arm-none-eabi-gcc version %s', version_number)
+
+    return True  # Right now all known arm versions are ok
+
+
+def check_avr_gcc_version():
+    """Returns True if the avr-gcc version is not known to cause problems.
+    """
+    if 'output' in ESSENTIAL_BINARIES['avr-gcc']:
+        version_number = ESSENTIAL_BINARIES['avr-gcc']['output'].strip()
+
+        parsed_version = parse_gcc_version(version_number)
+        if parsed_version['major'] > 8:
+            cli.log.error('We do not recommend avr-gcc newer than 8. Downgrading to 8.x is recommended.')
+            return False
+
+        cli.log.info('Found avr-gcc version %s', version_number)
+        return True
+
+    return False
+
+
+def check_avrdude_version():
+    if 'output' in ESSENTIAL_BINARIES['avrdude']:
+        last_line = ESSENTIAL_BINARIES['avrdude']['output'].split('\n')[-2]
+        version_number = last_line.split()[2][:-1]
+        cli.log.info('Found avrdude version %s', version_number)
+
+    return True
+
+
+def check_dfu_util_version():
+    if 'output' in ESSENTIAL_BINARIES['dfu-util']:
+        first_line = ESSENTIAL_BINARIES['dfu-util']['output'].split('\n')[0]
+        version_number = first_line.split()[1]
+        cli.log.info('Found dfu-util version %s', version_number)
+
+    return True
+
+
+def check_dfu_programmer_version():
+    if 'output' in ESSENTIAL_BINARIES['dfu-programmer']:
+        first_line = ESSENTIAL_BINARIES['dfu-programmer']['output'].split('\n')[0]
+        version_number = first_line.split()[1]
+        cli.log.info('Found dfu-programmer version %s', version_number)
+
+    return True
+
+
 def check_binaries():
     """Iterates through ESSENTIAL_BINARIES and tests them.
     """
     ok = True
 
-    for binary in ESSENTIAL_BINARIES:
+    for binary in sorted(ESSENTIAL_BINARIES):
         if not is_executable(binary):
             ok = False
 
@@ -43,14 +134,11 @@ def check_submodules():
 
     for submodule in submodules.status().values():
         if submodule['status'] is None:
-            if submodule['name'] in ESSENTIAL_SUBMODULES:
-                cli.log.error('Submodule %s has not yet been cloned!', submodule['name'])
-                ok = False
-            else:
-                cli.log.warn('Submodule %s is not available.', submodule['name'])
+            cli.log.error('Submodule %s has not yet been cloned!', submodule['name'])
+            ok = False
         elif not submodule['status']:
-            if submodule['name'] in ESSENTIAL_SUBMODULES:
-                cli.log.warn('Submodule %s is not up to date!')
+            cli.log.error('Submodule %s is not up to date!', submodule['name'])
+            ok = False
 
     return ok
 
@@ -62,32 +150,48 @@ def check_udev_rules():
     udev_dir = Path("/etc/udev/rules.d/")
     desired_rules = {
         'dfu': {_udev_rule("03eb", "2ff4"), _udev_rule("03eb", "2ffb"), _udev_rule("03eb", "2ff0")},
-        'tmk': {_udev_rule("feed")},
-        'input_club': {_udev_rule("1c11")},
+        'input_club': {_udev_rule("1c11", "b007")},
         'stm32': {_udev_rule("1eaf", "0003"), _udev_rule("0483", "df11")},
-        'caterina': {'ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"', 'ATTRS{idVendor}=="2341", ENV{ID_MM_DEVICE_IGNORE}="1"'},
+        'bootloadhid': {_udev_rule("16c0", "05df")},
+        'caterina': {
+            _udev_rule("2341", "0036", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),
+            _udev_rule("1b4f", "9205", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),
+            _udev_rule("1b4f", "9203", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),
+            _udev_rule("2a03", "0036", 'ENV{ID_MM_DEVICE_IGNORE}="1"')
+        }
+    }
+
+    # These rules are no longer recommended, only use them to check for their presence.
+    deprecated_rules = {
+        'dfu': {_deprecated_udev_rule("03eb", "2ff4"), _deprecated_udev_rule("03eb", "2ffb"), _deprecated_udev_rule("03eb", "2ff0")},
+        'input_club': {_deprecated_udev_rule("1c11")},
+        'stm32': {_deprecated_udev_rule("1eaf", "0003"), _deprecated_udev_rule("0483", "df11")},
+        'bootloadhid': {_deprecated_udev_rule("16c0", "05df")},
+        'caterina': {'ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"', 'ATTRS{idVendor}=="2341", ENV{ID_MM_DEVICE_IGNORE}="1"'}
     }
 
     if udev_dir.exists():
-        udev_rules = [str(rule_file) for rule_file in udev_dir.glob('*.rules')]
+        udev_rules = [rule_file for rule_file in udev_dir.glob('*.rules')]
         current_rules = set()
 
         # Collect all rules from the config files
         for rule_file in udev_rules:
-            with open(rule_file, "r") as fd:
-                for line in fd.readlines():
-                    line = line.strip()
-                    if not line.startswith("#") and len(line):
-                        current_rules.add(line)
+            for line in rule_file.read_text().split('\n'):
+                line = line.strip()
+                if not line.startswith("#") and len(line):
+                    current_rules.add(line)
 
         # Check if the desired rules are among the currently present rules
         for bootloader, rules in desired_rules.items():
+            # For caterina, check if ModemManager is running
+            if bootloader == "caterina":
+                if check_modem_manager():
+                    ok = False
+                    cli.log.warn("{bg_yellow}Detected ModemManager without the necessary udev rules. Please either disable it or set the appropriate udev rules if you are using a Pro Micro.")
             if not rules.issubset(current_rules):
-                # If the rules for catalina are not present, check if ModemManager is running
-                if bootloader == "caterina":
-                    if check_modem_manager():
-                        ok = False
-                        cli.log.warn("{bg_yellow}Detected ModemManager without udev rules. Please either disable it or set the appropriate udev rules if you are using a Pro Micro.")
+                deprecated_rule = deprecated_rules.get(bootloader)
+                if deprecated_rule and deprecated_rule.issubset(current_rules):
+                    cli.log.warn("{bg_yellow}Found old, deprecated udev rules for '%s' boards. The new rules on https://docs.qmk.fm/#/faq_build?id=linux-udev-rules offer better security with the same functionality.", bootloader)
                 else:
                     cli.log.warn("{bg_yellow}Missing udev rules for '%s' boards. You'll need to use `sudo` in order to flash them.", bootloader)
 
@@ -98,7 +202,7 @@ def check_modem_manager():
     """Returns True if ModemManager is running.
     """
     if shutil.which("systemctl"):
-        mm_check = subprocess.run(["systemctl", "--quiet", "is-active", "ModemManager.service"], timeout=10)
+        mm_check = run(["systemctl", "--quiet", "is-active", "ModemManager.service"], timeout=10)
         if mm_check.returncode == 0:
             return True
 
@@ -116,12 +220,16 @@ def is_executable(command):
         return False
 
     # Make sure the command can be executed
-    check = subprocess.run([command, '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5)
+    version_arg = ESSENTIAL_BINARIES[command].get('version_arg', '--version')
+    check = run([command, version_arg], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=5, universal_newlines=True)
+
+    ESSENTIAL_BINARIES[command]['output'] = check.stdout
+
     if check.returncode in [0, 1]:  # Older versions of dfu-programmer exit 1
         cli.log.debug('Found {fg_cyan}%s', command)
         return True
 
-    cli.log.error("{fg_red}Can't run `%s --version`", command)
+    cli.log.error("{fg_red}Can't run `%s %s`", command, version_arg)
     return False
 
 
@@ -168,19 +276,19 @@ def doctor(cli):
     ok = True
 
     # Determine our OS and run platform specific tests
-    OS = platform.platform().lower()  # noqa (N806), uppercase name is ok in this instance
+    platform_id = platform.platform().lower()
 
-    if 'darwin' in OS:
+    if 'darwin' in platform_id or 'macos' in platform_id:
         if not os_test_macos():
             ok = False
-    elif 'linux' in OS:
+    elif 'linux' in platform_id:
         if not os_test_linux():
             ok = False
-    elif 'windows' in OS:
+    elif 'windows' in platform_id:
         if not os_test_windows():
             ok = False
     else:
-        cli.log.error('Unsupported OS detected: %s', OS)
+        cli.log.error('Unsupported OS detected: %s', platform_id)
         ok = False
 
     # Make sure the basic CLI tools we need are available and can be executed.
@@ -188,13 +296,18 @@ def doctor(cli):
 
     if not bin_ok:
         if yesno('Would you like to install dependencies?', default=True):
-            subprocess.run(['util/qmk_install.sh'])
+            run(['util/qmk_install.sh'])
             bin_ok = check_binaries()
 
     if bin_ok:
         cli.log.info('All dependencies are installed.')
     else:
         ok = False
+
+    # Make sure the tools are at the correct version
+    for check in (check_arm_gcc_version, check_avr_gcc_version, check_avrdude_version, check_dfu_util_version, check_dfu_programmer_version):
+        if not check():
+            ok = False
 
     # Check out the QMK submodules
     sub_ok = check_submodules()

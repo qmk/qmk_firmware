@@ -63,7 +63,7 @@ void draw_string(uint8_t x, uint8_t y, char* string, uint8_t color, uint8_t mode
 #ifndef LCDWIDTH
 #    define LCDWIDTH 64
 #endif
-#ifndef LCDWIDTH
+#ifndef LCDHEIGHT
 #    define LCDHEIGHT 48
 #endif
 #define FONTHEADERSIZE 6

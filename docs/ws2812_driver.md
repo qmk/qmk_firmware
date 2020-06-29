@@ -15,9 +15,18 @@ These LEDs are called "addressable" because instead of using a wire per color, e
 | bit bang | :heavy_check_mark: | :heavy_check_mark: |
 | I2C      | :heavy_check_mark: |                    |
 | SPI      |                    | :heavy_check_mark: |
-| PWM      |                    | Soon™              |
+| PWM      |                    | :heavy_check_mark: |
 
 ## Driver configuration
+
+### All drivers
+
+Different versions of the addressable LEDs have differing requirements for the T<sub>RST</sub> period between frames.
+The default setting is 280 µs, which should work for most cases, but this can be overridden in your config.h. e.g.:
+
+```c
+#define WS2812_TRST_US 80
+```
 
 ### Bitbang
 Default driver, the absence of configuration assumes this driver. To configure it, add this to your rules.mk:
@@ -67,3 +76,46 @@ While not an exhaustive list, the following table provides the scenarios that ha
 | f303 | A7 :heavy_check_mark: B5 :heavy_check_mark:  | B15 :heavy_check_mark: | B5 :heavy_check_mark: |
 
 *Other supported ChibiOS boards and/or pins may function, it will be highly chip and configuration dependent.*
+
+### PWM
+
+Targeting STM32 boards where WS2812 support is offloaded to an PWM timer and DMA stream. The advantage is that the use of DMA offloads processing of the WS2812 protocol from the MCU. To configure it, add this to your rules.mk:
+
+```make
+WS2812_DRIVER = pwm
+```
+
+Configure the hardware via your config.h:
+```c
+#define WS2812_PWM_DRIVER PWMD2  // default: PWMD2
+#define WS2812_PWM_CHANNEL 2  // default: 2
+#define WS2812_PWM_PAL_MODE 2  // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 2
+#define WS2812_DMA_STREAM STM32_DMA1_STREAM2  // DMA Stream for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
+#define WS2812_DMA_CHANNEL 2  // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
+```
+
+You must also turn on the PWM feature in your halconf.h and mcuconf.h
+
+#### Testing Notes
+
+While not an exhaustive list, the following table provides the scenarios that have been partially validated:
+
+| | Status |
+|-|-|
+| f072 | ? |
+| f103 | :heavy_check_mark: |
+| f303 | :heavy_check_mark: |
+| f401/f411 | :heavy_check_mark: |
+
+*Other supported ChibiOS boards and/or pins may function, it will be highly chip and configuration dependent.*
+
+### Push Pull and Open Drain Configuration
+The default configuration is a push pull on the defined pin.
+This can be configured for bitbang, PWM and SPI.
+
+Note: This only applies to STM32 boards.
+
+ To configure the `RGB_DI_PIN` to open drain configuration add this to your config.h file: 
+```c
+ #define WS2812_EXTERNAL_PULLUP 
+```
