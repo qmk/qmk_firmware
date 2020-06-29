@@ -15,7 +15,3 @@
  */
 
 #pragma once
-
-/* ensure NKRO is enabled by default
- */
-#define FORCE_NKRO

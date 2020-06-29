@@ -1,11 +1,12 @@
 {
     "keyboard_name": "Fallacy", 
     "maintainer": "Toraifu", 
-    "width": 15, 
+    "width": 18.75, 
     "height": 5, 
     "layouts": {
         "LAYOUT_all": {
             "layout": [
+                {"label":"Esc", "x":0.5, "y":0},
                 {"label":"~", "x":1.75, "y":0},
                 {"label":"!", "x":2.75, "y":0},
                 {"label":"@", "x":3.75, "y":0},
@@ -21,7 +22,7 @@
                 {"label":"+", "x":15, "y":0},
                 {"label":"|", "x":16, "y":0},
                 {"label":"~", "x":17, "y":0},
-                {"label":"Esc", "x":0, "y":1},
+                {"label":"PgUp", "x":0.25, "y":1},
                 {"label":"Tab", "x":1.5, "y":1, "w":1.5},
                 {"label":"Q", "x":3, "y":1},
                 {"label":"W", "x":4, "y":1},
@@ -36,7 +37,7 @@
                 {"label":"{", "x":14.75, "y":1},
                 {"label":"}", "x":15.75, "y":1},
                 {"label":"Backspace", "x":16.75, "y":1, "w":1.5},
-                {"label":"PgUp", "x":0, "y":2},
+                {"label":"PgDn", "x":0, "y":2},
                 {"label":"Control", "x":1.25, "y":2, "w":1.75},
                 {"label":"A", "x":3, "y":2},
                 {"label":"S", "x":4, "y":2},
@@ -50,7 +51,6 @@
                 {"label":":", "x":14.25, "y":2}, 
                 {"label":"\"", "x":15.25, "y":2},
                 {"label":"Enter", "x":16.25, "y":2, "w":2.25},
-                {"label":"PgDn", "x":0, "y":3}, 
                 {"label":"Shift", "x":1, "y":3, "w":2.25},
                 {"label":"Z", "x":3.25, "y":3},
                 {"label":"X", "x":4.25, "y":3}, 
@@ -76,6 +76,7 @@
         },
         "LAYOUT_default": {
             "layout": [
+                {"label":"Esc", "x":0.5, "y":0},
                 {"label":"~", "x":1.75, "y":0},
                 {"label":"!", "x":2.75, "y":0},
                 {"label":"@", "x":3.75, "y":0},
@@ -90,7 +91,7 @@
                 {"label":"_", "x":14, "y":0},
                 {"label":"+", "x":15, "y":0},
                 {"label":"Backspace", "x":16, "y":0, "w":2},
-                {"label":"Esc", "x":0, "y":1},
+                {"label":"PgUp", "x":0.25, "y":1},
                 {"label":"Tab", "x":1.5, "y":1, "w":1.5},
                 {"label":"Q", "x":3, "y":1},
                 {"label":"W", "x":4, "y":1},
@@ -105,7 +106,7 @@
                 {"label":"{", "x":14.75, "y":1},
                 {"label":"}", "x":15.75, "y":1},
                 {"label":"Backspace", "x":16.75, "y":1, "w":1.5},
-                {"label":"PgUp", "x":0, "y":2},
+                {"label":"PgDn", "x":0, "y":2},
                 {"label":"Control", "x":1.25, "y":2, "w":1.75},
                 {"label":"A", "x":3, "y":2},
                 {"label":"S", "x":4, "y":2},
@@ -119,7 +120,6 @@
                 {"label":":", "x":14.25, "y":2}, 
                 {"label":"\"", "x":15.25, "y":2},
                 {"label":"Enter", "x":16.25, "y":2, "w":2.25},
-                {"label":"PgDn", "x":0, "y":3}, 
                 {"label":"Shift", "x":1, "y":3, "w":2.25},
                 {"label":"Z", "x":3.25, "y":3},
                 {"label":"X", "x":4.25, "y":3}, 
