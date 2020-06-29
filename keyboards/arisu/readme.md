@@ -8,7 +8,7 @@ A keyboard inspired by Lyn's EM7 and TGR Alice.
 
 * Keyboard Maintainer: [Fate](https://github.com/FateNozomi)
 * Hardware Supported: Arisu
-* Hardware Availability: Fate
+* Hardware Availability: [PCB](https://github.com/FateNozomi/arisu-pcb) + [Case](https://github.com/FateNozomi/arisu-case)
 
 Make example for this keyboard (after setting up your build environment):
 
