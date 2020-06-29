@@ -35,7 +35,7 @@
 // Explicitly override it if the keyboard uses a microcontroller with
 // more EEPROM *and* it makes sense to increase it.
 #ifndef DYNAMIC_KEYMAP_EEPROM_MAX_ADDR
-#    ifdef __AVR_AT90USB1286__
+#    if defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
 #        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 2047
 #    else
 #        define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 1023
