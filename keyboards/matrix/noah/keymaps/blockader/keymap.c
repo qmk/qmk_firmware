@@ -460,7 +460,7 @@ bool handle_layer_key(uint16_t key, keyrecord_t* record) {
             switch (key) {
                 case SAFE_RANGE + LAYER_WINDOW:
                     if (!record->event.pressed) {
-                        if (timer_elapsed(layer_window_data.start_time) < TAPPING_TERM)
+                        if (timer_elapsed(layer_window_data.start_time) < 200)
                             temporary[LAYER_WINDOW] = true;
                         else
                             temporary[LAYER_WINDOW] = false;
