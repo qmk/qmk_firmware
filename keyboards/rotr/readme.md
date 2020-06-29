@@ -7,7 +7,7 @@ A macro pad with a multipurpose knob.
 * Keyboard Maintainer: [kwlodarczyk](https://github.com/kwlodarczy)
 * Hardware: [Geekhack](https://geekhack.org/index.php?topic=107104.0)
 
-### Features:
+## Features:
 * Minimal design with plug and play functionality.
 * Frictionless, solid brass knob.
 * Hot swappable switches.
