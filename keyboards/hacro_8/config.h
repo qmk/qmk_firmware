@@ -4,7 +4,7 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x5467
+#define PRODUCT_ID      0x9358
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Short Circuits
 #define PRODUCT         Hacro 8
