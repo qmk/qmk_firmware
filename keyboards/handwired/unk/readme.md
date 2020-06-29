@@ -4,7 +4,7 @@ A split 65% handwired keyboard made by herpiko.
 
 * Keyboard Maintainer: [herpiko](https://github.com/herpiko)
 * Hardware Supported: Pro Micro
-* Hardware Availability: -
+* Hardware Availability: https://github.com/herpiko/unk
 
 Make example for this keyboard (after setting up your build environment):
 
