@@ -21,13 +21,6 @@ enum arisu_layers {
   _ADJUST
 };
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  FN,
-  ADJUST
-};
-
 // Tap Dance Declarations
 enum {
     TD_LALT_LGUI = 0,
