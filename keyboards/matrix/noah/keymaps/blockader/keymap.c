@@ -12,7 +12,7 @@ enum {
     NUMBER_OR_LAYERS,
 };
 
-const bool temporary[NUMBER_OR_LAYERS] = {
+bool temporary[NUMBER_OR_LAYERS] = {
     [LAYER_NORM_BASE] = false,
     [LAYER_NORM_EXTENTION] = true,
     [LAYER_RACE_BASE] = false,
@@ -23,7 +23,7 @@ const bool temporary[NUMBER_OR_LAYERS] = {
     [LAYER_WINDOW] = true,
 };
 
-#define KEY_FORWARD(a) SAFE_RANGE+a
+#define KEY_FORWARD_LAYER(a) SAFE_RANGE+a
 
 enum{
     DANCE_PGDN_BOTTOM,
@@ -38,155 +38,524 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define KEY_DANCE(a) TD(a)
 
 enum custom_keycodes {
-    KEY_BACK = SAFE_RANGE + NUMBER_OR_LAYERS,
-    KEY_DELETE_WORD,
-    KEY_DELETE_LINE,
+    KEY_BACK_LAYER = SAFE_RANGE + NUMBER_OR_LAYERS,
+    KEY_CREATE_PREVIOUS_LINE,
+    KEY_CREATE_NEXT_LINE,
+    KEY_CUT_WORD,
+    KEY_CUT_LINE,
     KEY_CUT_SELECTION,
-    KEY_CREATE_LINE_BEFORE,
-    KEY_CREATE_LINE_AFTER,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LAYER_NORM_BASE] = LAYOUT_default_splitspace(
-        KC_GRAVE, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KEY_DANCE(DANCE_PGDN_BOTTOM), KEY_DANCE(DANCE_PGUP_TOP), KC_NO, KEY_DELETE_LINE, KEY_FORWARD(LAYER_RACE_BASE),
-        KC_TAB, KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_LCBR, KC_RCBR, KC_BSLS, KEY_FORWARD(LAYER_LEGACY_BASE),
+        KC_GRAVE, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KEY_DANCE(DANCE_PGDN_BOTTOM), KEY_DANCE(DANCE_PGUP_TOP), KC_NO, KEY_CUT_LINE, KEY_FORWARD_LAYER(LAYER_RACE_BASE),
+        KC_TAB, KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_LCBR, KC_RCBR, KC_BSLS, KEY_FORWARD_LAYER(LAYER_LEGACY_BASE),
         KC_CAPS, KC_A, KC_R, KC_S, KC_T, KC_D, KC_H, KC_N, KC_E, KC_I, KC_O, KC_QUOT, KC_ENT, LCTL(KC_UP),
         KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_K, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_NO, LCTL(KC_LEFT),
-        KC_LCTL, KC_LGUI, KC_LALT, KEY_FORWARD(LAYER_NORM_EXTENTION), KC_NO, KC_SPC, KC_RALT, KC_RGUI, KC_NO, KC_NO, LCTL(KC_RIGHT)),
+        KC_LCTL, KC_LGUI, KC_LALT, KEY_FORWARD_LAYER(LAYER_NORM_EXTENTION), KEY_FORWARD_LAYER(LAYER_CONTROL), KC_SPC, KC_RALT, KC_RGUI, KC_NO, KC_NO, LCTL(KC_RIGHT)),
     [LAYER_NORM_EXTENTION] = LAYOUT_default_splitspace(
-        KC_NO, KC_NO, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_MPLY, KC_MUTE, KC_VOLD, KC_VOLU, KC_NO, LCTL(KC_C), KEY_FORWARD(LAYER_RACE_BASE),
-        KC_NO, LGUI(KC_SPC), LCTL(KC_SPC), KC_ESC, KC_TILD, KC_EXLM, KC_PEQL, KC_PLUS, KC_MINUS, KC_PIPE, KC_COLN, KC_LCBR, KC_RCBR, KEY_CREATE_LINE_BEFORE, KEY_FORWARD(LAYER_LEGACY_BASE),
-        KEY_DELETE_WORD, LALT(KC_LEFT), LALT(KC_RIGHT), KC_BSPC, LGUI(KC_LEFT), LGUI(KC_RIGHT), KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, LGUI(KC_V), KC_DQUO, KEY_CREATE_LINE_AFTER, LCTL(KC_UP),
+        KC_NO, KC_NO, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_MPLY, KC_MUTE, KC_VOLD, KC_VOLU, KC_NO, LCTL(KC_C), KEY_FORWARD_LAYER(LAYER_RACE_BASE),
+        KEY_FORWARD_LAYER(LAYER_WINDOW), LGUI(KC_SPC), LCTL(KC_SPC), KC_ESC, KC_TILD, KC_EXLM, KC_PEQL, KC_PLUS, KC_MINUS, KC_PIPE, KC_COLN, KC_LCBR, KC_RCBR, KEY_CREATE_PREVIOUS_LINE, KEY_FORWARD_LAYER(LAYER_LEGACY_BASE),
+        KEY_CUT_WORD, LALT(KC_LEFT), LALT(KC_RIGHT), KC_BSPC, LGUI(KC_LEFT), LGUI(KC_RIGHT), KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, LGUI(KC_V), KC_DQUO, KEY_CREATE_NEXT_LINE, LCTL(KC_UP),
         KC_LSFT, LGUI(KC_Z), KEY_CUT_SELECTION, KC_LPRN, KC_RPRN, KC_UNDS, KC_LBRC, KC_RBRC, KC_LT, KC_GT, KC_QUES, KC_RSFT, KC_NO, LCTL(KC_LEFT),
-        KC_LCTL, KC_LGUI, KC_LALT, KC_NO, KC_NO, KC_SPC, KC_RALT, KC_RGUI, KC_NO, KC_NO, LCTL(KC_RIGHT)),
+        KC_LCTL, KC_LGUI, KC_LALT, KC_NO, KEY_FORWARD_LAYER(LAYER_CONTROL), KC_SPC, KC_RALT, KC_RGUI, KC_NO, KC_NO, LCTL(KC_RIGHT)),
     [LAYER_RACE_BASE] = LAYOUT_default_splitspace(
-        KC_NO, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_NO, KC_NO, KC_NO, KEY_DELETE_LINE, KEY_BACK,
+        KC_NO, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_NO, KC_NO, KC_NO, KEY_CUT_LINE, KEY_BACK_LAYER,
         KC_NO, KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_LCBR, KC_RCBR, KC_BSLS, KC_NO,
         KC_CAPS, KC_A, KC_R, KC_S, KC_T, KC_D, KC_H, KC_N, KC_E, KC_I, KC_O, KC_QUOT, KC_ENT, KC_NO,
         KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_K, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, KEY_FORWARD(LAYER_RACE_EXTENTION), KC_NO, KC_SPC, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO),
+        KC_NO, KC_NO, KC_NO, KEY_FORWARD_LAYER(LAYER_RACE_EXTENTION), KC_NO, KC_SPC, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO),
     [LAYER_RACE_EXTENTION] = LAYOUT_default_splitspace(
-        KC_NO, KC_NO, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KEY_DELETE_LINE, KEY_BACK,
+        KC_NO, KC_NO, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KEY_CUT_LINE, KEY_BACK_LAYER,
         KC_NO, KC_NO, KC_NO, KC_NO, KC_TILD, KC_EXLM, KC_PEQL, KC_PLUS, KC_MINUS, KC_PIPE, KC_COLN, KC_LCBR, KC_RCBR, KC_NO, KC_NO,
-        KEY_DELETE_WORD, KC_NO, KC_NO, KC_BSPC, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_DQUO, KC_ENT, KC_NO,
+        KEY_CUT_WORD, KC_NO, KC_NO, KC_BSPC, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_DQUO, KC_ENT, KC_NO,
         KC_LSFT, LGUI(KC_Z), KEY_CUT_SELECTION, KC_LPRN, KC_RPRN, KC_UNDS, KC_LBRC, KC_RBRC, KC_LT, KC_GT, KC_QUES, KC_RSFT, KC_NO, KC_NO,
         KC_LCTL, KC_LGUI, KC_LALT, KC_NO, KC_NO, KC_SPC, KC_RALT, KC_RGUI, KC_NO, KC_NO, KC_NO),
     [LAYER_LEGACY_BASE] = LAYOUT_default_splitspace(
-        KC_GRAVE, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KEY_DANCE(DANCE_PGDN_BOTTOM), KEY_DANCE(DANCE_PGUP_TOP), KC_NO, KEY_DELETE_LINE, KC_NO,
-        KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LCBR, KC_RCBR, KC_BSLS, KEY_BACK,
+        KC_GRAVE, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KEY_DANCE(DANCE_PGDN_BOTTOM), KEY_DANCE(DANCE_PGUP_TOP), KC_NO, KEY_CUT_LINE, KC_NO,
+        KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LCBR, KC_RCBR, KC_BSLS, KEY_BACK_LAYER,
         KC_CAPS, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT, LCTL(KC_UP),
         KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_NO, LCTL(KC_LEFT),
-        KC_LCTL, KC_LGUI, KC_LALT, KEY_FORWARD(LAYER_LEGACY_EXTENTION), KC_NO, KC_SPC, KC_RALT, KC_RGUI, KC_NO, KC_NO, LCTL(KC_RIGHT)),
+        KC_LCTL, KC_LGUI, KC_LALT, KEY_FORWARD_LAYER(LAYER_LEGACY_EXTENTION), KEY_FORWARD_LAYER(LAYER_CONTROL), KC_SPC, KC_RALT, KC_RGUI, KC_NO, KC_NO, LCTL(KC_RIGHT)),
     [LAYER_LEGACY_EXTENTION] = LAYOUT_default_splitspace(
         KC_NO, KC_NO, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_MPLY, KC_MUTE, KC_VOLD, KC_VOLU, KC_NO, LCTL(KC_C), KC_NO,
-        KC_NO, LGUI(KC_SPC), LCTL(KC_SPC), KC_ESC, KC_TILD, KC_EXLM, KC_PEQL, KC_PLUS, KC_MINUS, KC_PIPE, KC_COLN, KC_LCBR, KC_RCBR, KEY_CREATE_LINE_BEFORE, KEY_BACK,
-        KEY_DELETE_WORD, LALT(KC_LEFT), LALT(KC_RIGHT), KC_BSPC, LGUI(KC_LEFT), LGUI(KC_RIGHT), KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, LGUI(KC_V), KC_DQUO, KEY_CREATE_LINE_AFTER, LCTL(KC_UP),
+        KEY_FORWARD_LAYER(LAYER_WINDOW), LGUI(KC_SPC), LCTL(KC_SPC), KC_ESC, KC_TILD, KC_EXLM, KC_PEQL, KC_PLUS, KC_MINUS, KC_PIPE, KC_COLN, KC_LCBR, KC_RCBR, KEY_CREATE_PREVIOUS_LINE, KEY_BACK_LAYER,
+        KEY_CUT_WORD, LALT(KC_LEFT), LALT(KC_RIGHT), KC_BSPC, LGUI(KC_LEFT), LGUI(KC_RIGHT), KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, LGUI(KC_V), KC_DQUO, KEY_CREATE_NEXT_LINE, LCTL(KC_UP),
         KC_LSFT, LGUI(KC_Z), KEY_CUT_SELECTION, KC_LPRN, KC_RPRN, KC_UNDS, KC_LBRC, KC_RBRC, KC_LT, KC_GT, KC_QUES, KC_RSFT, KC_NO, LCTL(KC_LEFT),
-        KC_LCTL, KC_LGUI, KC_LALT, KC_NO, KC_NO, KC_SPC, KC_RALT, KC_RGUI, KC_NO, KC_NO, LCTL(KC_RIGHT)),
+        KC_LCTL, KC_LGUI, KC_LALT, KC_NO, KEY_FORWARD_LAYER(LAYER_CONTROL), KC_SPC, KC_RALT, KC_RGUI, KC_NO, KC_NO, LCTL(KC_RIGHT)),
     [LAYER_CONTROL] = LAYOUT_default_splitspace(
-        KC_GRAVE, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KEY_DANCE(DANCE_PGDN_BOTTOM), KEY_DANCE(DANCE_PGUP_TOP), KC_NO, KEY_DELETE_LINE, KEY_FORWARD(LAYER_RACE_BASE),
-        KC_TAB, KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_LCBR, KC_RCBR, KC_BSLS, KEY_FORWARD(LAYER_LEGACY_BASE),
-        KC_CAPS, KC_A, KC_R, KC_S, KC_T, KC_D, KC_H, KC_N, KC_E, KC_I, KC_O, KC_QUOT, KC_ENT, LCTL(KC_UP),
-        KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_K, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_NO, LCTL(KC_LEFT),
-        KC_LCTL, KC_LGUI, KC_LALT, KC_NO, KEY_BACK, KC_SPC, KC_RALT, KC_RGUI, KC_NO, KC_NO, LCTL(KC_RIGHT)),
+        KC_NO, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, LALT(KC_LEFT), LALT(KC_RIGHT), KC_BSPC, LGUI(KC_LEFT), LGUI(KC_RIGHT), KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, LGUI(KC_Z), KEY_CUT_SELECTION, LGUI(KC_C), LGUI(KC_V), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KEY_BACK_LAYER, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO),
     [LAYER_WINDOW] = LAYOUT_default_splitspace(
-        KC_GRAVE, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KEY_DANCE(DANCE_PGDN_BOTTOM), KEY_DANCE(DANCE_PGUP_TOP), KC_NO, KEY_DELETE_LINE, KEY_FORWARD(LAYER_RACE_BASE),
-        KC_TAB, KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_LCBR, KC_RCBR, KC_BSLS, KEY_FORWARD(LAYER_LEGACY_BASE),
-        KC_CAPS, KC_A, KC_R, KC_S, KC_T, KC_D, KC_H, KC_N, KC_E, KC_I, KC_O, KC_QUOT, KC_ENT, LCTL(KC_UP),
-        KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_K, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_NO, LCTL(KC_LEFT),
-        KC_LCTL, KC_LGUI, KC_LALT, KC_NO, KEY_BACK, KC_SPC, KC_RALT, KC_RGUI, KC_NO, KC_NO, LCTL(KC_RIGHT)),
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_NO, KC_NO, KEY_BACK_LAYER, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KEY_BACK_LAYER, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO),
 };
-
-bool handle_common_key(uint16_t key, keyrecord_t *record){
-    if(key == KEY_DELETE_WORD){
-        if (record->event.pressed) {
-            SEND_STRING(SS_LALT(SS_TAP(X_LEFT) SS_TAP(X_RIGHT)));
-            register_code(KC_LSHIFT);
-            SEND_STRING(SS_LALT(SS_TAP(X_LEFT)));
-            unregister_code(KC_LSHIFT);
-            SEND_STRING(SS_LGUI(SS_TAP(X_X)));
-        }
-        return false;
-    }else if(key == KEY_DELETE_LINE){
-        if (record->event.pressed) {
-            register_code(KC_LSHIFT);
-            SEND_STRING(SS_LGUI(SS_TAP(X_LEFT)));
-            unregister_code(KC_LSHIFT);
-            SEND_STRING(SS_LGUI(SS_TAP(X_X)));
-        }
-        return false;
-    }else if(key == KEY_CREATE_LINE_BEFORE){
-        if (record->event.pressed) {
-            SEND_STRING(SS_LGUI(SS_TAP(X_LEFT)) SS_TAP(X_ENTER) SS_TAP(X_UP));
-        }
-        return false;
-    }else if(key == KEY_CREATE_LINE_AFTER){
-        if (record->event.pressed) {
-            SEND_STRING(SS_LGUI(SS_TAP(X_RIGHT)) SS_TAP(X_ENTER));
-        }
-        return false;
-    }else if(key == KEY_CUT_SELECTION){
-        if (record->event.pressed) {
-            if (get_mods() & MOD_MASK_SHIFT) {
-                unregister_code(KC_LSHIFT);
-                SEND_STRING(SS_LGUI(SS_TAP(X_X)));
-                register_code(KC_LSHIFT);
-            } else
-                SEND_STRING(SS_LGUI(SS_TAP(X_X)));
-        }
-        return false;
-    }else
-        return true;
-}
 
 int layers[16];
 
-void update_layer(void){
+struct {
+    int operator,multiplier;
+} layer_control_data;
+
+struct {
+    int start_time;
+} layer_window_data;
+
+bool handle_layer_key(uint16_t key, keyrecord_t* record) {
+    switch (layers[layers[0] + 1]) {
+        case LAYER_CONTROL:
+            switch (key) {
+                case KC_0:
+                    if (record->event.pressed) {
+                        layer_control_data.multiplier = layer_control_data.multiplier * 10;
+                        if (layer_control_data.multiplier < 0) layer_control_data.multiplier = 0;
+                    }
+                    return false;
+                case KC_1:
+                    if (record->event.pressed) {
+                        layer_control_data.multiplier = layer_control_data.multiplier * 10 + 1;
+                        if (layer_control_data.multiplier < 0) layer_control_data.multiplier = 0;
+                    }
+                    return false;
+                case KC_2:
+                    if (record->event.pressed) {
+                        layer_control_data.multiplier = layer_control_data.multiplier * 10 + 2;
+                        if (layer_control_data.multiplier < 0) layer_control_data.multiplier = 0;
+                    }
+                    return false;
+                case KC_3:
+                    if (record->event.pressed) {
+                        layer_control_data.multiplier = layer_control_data.multiplier * 10 + 3;
+                        if (layer_control_data.multiplier < 0) layer_control_data.multiplier = 0;
+                    }
+                    return false;
+                case KC_4:
+                    if (record->event.pressed) {
+                        layer_control_data.multiplier = layer_control_data.multiplier * 10 + 4;
+                        if (layer_control_data.multiplier < 0) layer_control_data.multiplier = 0;
+                    }
+                    return false;
+                case KC_5:
+                    if (record->event.pressed) {
+                        layer_control_data.multiplier = layer_control_data.multiplier * 10 + 5;
+                        if (layer_control_data.multiplier < 0) layer_control_data.multiplier = 0;
+                    }
+                    return false;
+                case KC_6:
+                    if (record->event.pressed) {
+                        layer_control_data.multiplier = layer_control_data.multiplier * 10 + 6;
+                        if (layer_control_data.multiplier < 0) layer_control_data.multiplier = 0;
+                    }
+                    return false;
+                case KC_7:
+                    if (record->event.pressed) {
+                        layer_control_data.multiplier = layer_control_data.multiplier * 10 + 7;
+                        if (layer_control_data.multiplier < 0) layer_control_data.multiplier = 0;
+                    }
+                    return false;
+                case KC_8:
+                    if (record->event.pressed) {
+                        layer_control_data.multiplier = layer_control_data.multiplier * 10 + 8;
+                        if (layer_control_data.multiplier < 0) layer_control_data.multiplier = 0;
+                    }
+                    return false;
+                case KC_9:
+                    if (record->event.pressed) {
+                        layer_control_data.multiplier = layer_control_data.multiplier * 10 + 9;
+                        if (layer_control_data.multiplier < 0) layer_control_data.multiplier = 0;
+                    }
+                    return false;
+                case LALT(KC_LEFT):
+                    if (layer_control_data.operator == - 1 && layer_control_data.multiplier == 0) return true;
+                    if (record->event.pressed) {
+                        if (layer_control_data.operator == - 1)
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_LALT(SS_TAP(X_LEFT)));
+                        else if (layer_control_data.operator == KC_BSPC) {
+                            SEND_STRING(SS_LALT(SS_TAP(X_LEFT) SS_TAP(X_RIGHT)));
+                            register_code(KC_LSHIFT);
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_LALT(SS_TAP(X_LEFT)));
+                            unregister_code(KC_LSHIFT);
+                            SEND_STRING(SS_LGUI(SS_TAP(X_X)));
+                        } else if (layer_control_data.operator == LGUI(KC_C)) {
+                            SEND_STRING(SS_LALT(SS_TAP(X_LEFT) SS_TAP(X_RIGHT)));
+                            register_code(KC_LSHIFT);
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_LALT(SS_TAP(X_LEFT)));
+                            unregister_code(KC_LSHIFT);
+                            SEND_STRING(SS_LGUI(SS_TAP(X_C)));
+                            SEND_STRING(SS_TAP(X_RIGHT));
+                        }
+                        layer_control_data.multiplier = 0;
+                        layer_control_data.operator   = - 1;
+                    }
+                    return false;
+                case LALT(KC_RIGHT):
+                    if (layer_control_data.operator == - 1 && layer_control_data.multiplier == 0) return true;
+                    if (record->event.pressed) {
+                        if (layer_control_data.operator == - 1)
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_LALT(SS_TAP(X_RIGHT)));
+                        else if (layer_control_data.operator == KC_BSPC) {
+                            SEND_STRING(SS_LALT(SS_TAP(X_RIGHT) SS_TAP(X_LEFT)));
+                            register_code(KC_LSHIFT);
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_LALT(SS_TAP(X_RIGHT)));
+                            unregister_code(KC_LSHIFT);
+                            SEND_STRING(SS_LGUI(SS_TAP(X_X)));
+                        } else if (layer_control_data.operator == LGUI(KC_C)) {
+                            SEND_STRING(SS_LALT(SS_TAP(X_RIGHT) SS_TAP(X_LEFT)));
+                            register_code(KC_LSHIFT);
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_LALT(SS_TAP(X_RIGHT)));
+                            unregister_code(KC_LSHIFT);
+                            SEND_STRING(SS_LGUI(SS_TAP(X_C)));
+                            SEND_STRING(SS_TAP(X_LEFT));
+                        }
+                        layer_control_data.multiplier = 0;
+                        layer_control_data.operator   = - 1;
+                    }
+                    return false;
+                case KC_BSPC:
+                    if (record->event.pressed) {
+                        if (get_mods() & MOD_MASK_SHIFT) {
+                            unregister_code(KC_LSHIFT);
+                            SEND_STRING(SS_LGUI(SS_TAP(X_X)));
+                            register_code(KC_LSHIFT);
+                            layer_control_data.multiplier = 0;
+                            layer_control_data.operator   = - 1;
+                        } else if (layer_control_data.operator == - 1)
+                            layer_control_data.operator= KC_BSPC;
+                        else {
+                            if (layer_control_data.operator == KC_BSPC) {
+                                SEND_STRING(SS_LCTRL(SS_TAP(X_A)));
+                                register_code(KC_LSHIFT);
+                                for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_DOWN));
+                                unregister_code(KC_LSHIFT);
+                                SEND_STRING(SS_LGUI(SS_TAP(X_X)));
+                            }
+                            layer_control_data.multiplier = 0;
+                            layer_control_data.operator   = - 1;
+                        }
+                    }
+                    return false;
+                case KC_LEFT:
+                    if (record->event.pressed) {
+                        if (layer_control_data.operator == - 1)
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_LEFT));
+                        else if (layer_control_data.operator == KC_BSPC) {
+                            register_code(KC_LSHIFT);
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_LEFT));
+                            unregister_code(KC_LSHIFT);
+                            SEND_STRING(SS_LGUI(SS_TAP(X_X)));
+                        } else if (layer_control_data.operator == LGUI(KC_C)) {
+                            register_code(KC_LSHIFT);
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_LEFT));
+                            unregister_code(KC_LSHIFT);
+                            SEND_STRING(SS_LGUI(SS_TAP(X_C)));
+                            SEND_STRING(SS_TAP(X_RIGHT));
+                        }
+                        layer_control_data.multiplier = 0;
+                        layer_control_data.operator   = - 1;
+                    }
+                    return false;
+                case KC_DOWN:
+                    if (record->event.pressed) {
+                        if (layer_control_data.operator == - 1)
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_DOWN));
+                        else if (layer_control_data.operator == KC_BSPC) {
+                            SEND_STRING(SS_LCTRL(SS_TAP(X_A)));
+                            register_code(KC_LSHIFT);
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_DOWN));
+                            unregister_code(KC_LSHIFT);
+                            SEND_STRING(SS_LGUI(SS_TAP(X_X)));
+                        } else if (layer_control_data.operator == LGUI(KC_C)) {
+                            SEND_STRING(SS_LCTRL(SS_TAP(X_A)));
+                            register_code(KC_LSHIFT);
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_DOWN));
+                            unregister_code(KC_LSHIFT);
+                            SEND_STRING(SS_LGUI(SS_TAP(X_C)));
+                            SEND_STRING(SS_TAP(X_LEFT));
+                        }
+                        layer_control_data.multiplier = 0;
+                        layer_control_data.operator   = - 1;
+                    }
+                    return false;
+                case KC_UP:
+                    if (record->event.pressed) {
+                        if (layer_control_data.operator == - 1)
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_UP));
+                        else if (layer_control_data.operator == KC_BSPC) {
+                            SEND_STRING(SS_LCTRL(SS_TAP(X_E)));
+                            register_code(KC_LSHIFT);
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_UP));
+                            SEND_STRING(SS_LCTRL(SS_TAP(X_E)));
+                            unregister_code(KC_LSHIFT);
+                            SEND_STRING(SS_LGUI(SS_TAP(X_X)));
+                        } else if (layer_control_data.operator == LGUI(KC_C)) {
+                            SEND_STRING(SS_LCTRL(SS_TAP(X_E)));
+                            register_code(KC_LSHIFT);
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_UP));
+                            SEND_STRING(SS_LCTRL(SS_TAP(X_E)));
+                            unregister_code(KC_LSHIFT);
+                            SEND_STRING(SS_LGUI(SS_TAP(X_C)));
+                            SEND_STRING(SS_TAP(X_RIGHT));
+                        }
+                        layer_control_data.multiplier = 0;
+                        layer_control_data.operator   = - 1;
+                    }
+                    return false;
+                case KC_RIGHT:
+                    if (record->event.pressed) {
+                        if (layer_control_data.operator == - 1)
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_RIGHT));
+                        else if (layer_control_data.operator == KC_BSPC) {
+                            register_code(KC_LSHIFT);
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_RIGHT));
+                            unregister_code(KC_LSHIFT);
+                            SEND_STRING(SS_LGUI(SS_TAP(X_X)));
+                        } else if (layer_control_data.operator == LGUI(KC_C)) {
+                            register_code(KC_LSHIFT);
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_RIGHT));
+                            unregister_code(KC_LSHIFT);
+                            SEND_STRING(SS_LGUI(SS_TAP(X_C)));
+                            SEND_STRING(SS_TAP(X_LEFT));
+                        }
+                        layer_control_data.multiplier = 0;
+                        layer_control_data.operator   = - 1;
+                    }
+                    return false;
+                case LGUI(KC_Z):
+                    if (layer_control_data.operator == - 1 && layer_control_data.multiplier == 0) return true;
+                    if (record->event.pressed) {
+                        if (layer_control_data.operator == - 1)
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_LGUI(SS_TAP(X_Z)));
+                        layer_control_data.multiplier = 0;
+                        layer_control_data.operator   = - 1;
+                    }
+                    return false;
+                case LGUI(KC_C):
+                    if (record->event.pressed) {
+                        if (get_mods() & MOD_MASK_SHIFT) {
+                            unregister_code(KC_LSHIFT);
+                            SEND_STRING(SS_LGUI(SS_TAP(X_C)));
+                            register_code(KC_LSHIFT);
+                            layer_control_data.multiplier = 0;
+                            layer_control_data.operator   = - 1;
+                        } else if (layer_control_data.operator == - 1)
+                            layer_control_data.operator= LGUI(KC_C);
+                        else {
+                            if (layer_control_data.operator == LGUI(KC_C)) {
+                                SEND_STRING(SS_LCTRL(SS_TAP(X_A)));
+                                register_code(KC_LSHIFT);
+                                for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_DOWN));
+                                unregister_code(KC_LSHIFT);
+                                SEND_STRING(SS_LGUI(SS_TAP(X_C)));
+                                SEND_STRING(SS_TAP(X_LEFT));
+                            }
+                            layer_control_data.multiplier = 0;
+                            layer_control_data.operator   = - 1;
+                        }
+                    }
+                    return false;
+                case LGUI(KC_V):
+                    if (record->event.pressed) {
+                        if (get_mods() & MOD_MASK_SHIFT) {
+                            unregister_code(KC_LSHIFT);
+                            SEND_STRING(SS_LGUI(SS_TAP(X_V)));
+                            register_code(KC_LSHIFT);
+                            layer_control_data.multiplier = 0;
+                            layer_control_data.operator   = - 1;
+                        } else {
+                            SEND_STRING(SS_LGUI(SS_TAP(X_V)));
+                            layer_control_data.multiplier = 0;
+                            layer_control_data.operator   = - 1;
+                        }
+                    }
+                    return false;
+            }
+            layer_control_data.multiplier = 0;
+            layer_control_data.operator   = - 1;
+            return true;
+        case LAYER_WINDOW:
+            switch (key) {
+                case SAFE_RANGE + LAYER_WINDOW:
+                    if (!record->event.pressed) {
+                        if (timer_elapsed(layer_window_data.start_time) < TAPPING_TERM)
+                            temporary[LAYER_WINDOW] = true;
+                        else
+                            temporary[LAYER_WINDOW] = false;
+                    }
+                    return true;
+                case KEY_BACK_LAYER:
+                    if (record->event.pressed) {
+                        SEND_STRING(SS_TAP(X_ENTER));
+                    }
+                    return true;
+            }
+            return true;
+    }
+    return true;
+}
+
+void handle_layer_start(void) {
+    rgblight_disable_noeeprom();
+    switch (layers[layers[0] + 1]) {
+        case LAYER_RACE_BASE:
+        case LAYER_RACE_EXTENTION:
+            rgblight_sethsv_noeeprom(HSV_GREEN);
+            rgblight_enable_noeeprom();
+            rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+            return;
+        case LAYER_LEGACY_BASE:
+        case LAYER_LEGACY_EXTENTION:
+            rgblight_sethsv_noeeprom(HSV_RED);
+            rgblight_enable_noeeprom();
+            rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+            return;
+        case LAYER_CONTROL:
+            layer_control_data.operator   = - 1;
+            layer_control_data.multiplier = 0;
+            rgblight_sethsv_noeeprom(HSV_BLUE);
+            rgblight_enable_noeeprom();
+            rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+            return;
+        case LAYER_WINDOW:
+            register_code(KC_LGUI);
+            SEND_STRING(SS_TAP(X_TAB));
+            layer_window_data.start_time = timer_read();
+            return;
+    }
+}
+
+void handle_layer_return(void) {
+    rgblight_disable_noeeprom();
+    switch (layers[layers[0] + 1]) {
+        case LAYER_RACE_BASE:
+        case LAYER_RACE_EXTENTION:
+            rgblight_sethsv_noeeprom(HSV_GREEN);
+            rgblight_enable_noeeprom();
+            rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+            return;
+        case LAYER_LEGACY_BASE:
+        case LAYER_LEGACY_EXTENTION:
+            rgblight_sethsv_noeeprom(HSV_RED);
+            rgblight_enable_noeeprom();
+            rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+            return;
+        case LAYER_CONTROL:
+            layer_control_data.operator   = - 1;
+            layer_control_data.multiplier = 0;
+            rgblight_sethsv_noeeprom(HSV_BLUE);
+            rgblight_enable_noeeprom();
+            rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+            return;
+    }
+}
+
+void handle_layer_end(void) {
+    switch (layers[layers[0] + 1]) {
+        case LAYER_WINDOW:
+            unregister_code(KC_LGUI);
+            return;
+    }
+}
+
+void update_layer(void) {
     layer_clear();
     layer_on(layers[layers[0] + 1]);
 }
 
 bool handle_call_key(uint16_t key, keyrecord_t* record) {
-    if (key == KEY_BACK) {
-        if (record->event.pressed) {
-            if (layers[0]) {
-                --layers[0];
-                if (temporary[layers[layers[0] + 1]])
+    switch (key) {
+        case KEY_BACK_LAYER:
+            if (record->event.pressed) {
+                if (layers[0]) {
+                    handle_layer_end();
                     --layers[0];
-                update_layer();
+                    update_layer();
+                    handle_layer_return();
+                }
             }
-        }
-        return false;
-    } else if (key >= SAFE_RANGE && key < SAFE_RANGE + NUMBER_OR_LAYERS) {
+            return false;
+    }
+    if (key >= SAFE_RANGE && key < SAFE_RANGE + NUMBER_OR_LAYERS) {
         int new_layer = key - SAFE_RANGE;
         if (record->event.pressed) {
             if (layers[layers[0] + 1] != new_layer) {
-                if (temporary[layers[layers[0] + 1]])
+                if (temporary[layers[layers[0] + 1]]) {
+                    handle_layer_end();
                     layers[layers[0] + 1] = new_layer;
-                else
+                } else
                     layers[++layers[0] + 1] = new_layer;
                 update_layer();
+                handle_layer_start();
             }
         } else {
             if (layers[layers[0] + 1] == new_layer && temporary[layers[layers[0] + 1]]) {
+                handle_layer_end();
                 --layers[0];
                 update_layer();
+                handle_layer_return();
             }
         }
         return false;
-    } else
-        return true;
+    }
+    return true;
 }
 
-bool process_record_user(uint16_t key, keyrecord_t *record) {
-    if (layers[layers[0] + 1] == LAYER_NORM_BASE) {
-    } else if (layers[layers[0] + 1] == LAYER_NORM_EXTENTION) {
+bool handle_common_key(uint16_t key, keyrecord_t* record) {
+    switch (key) {
+        case KEY_CUT_WORD:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_LEFT) SS_TAP(X_RIGHT)));
+                register_code(KC_LSHIFT);
+                SEND_STRING(SS_LALT(SS_TAP(X_LEFT)));
+                unregister_code(KC_LSHIFT);
+                SEND_STRING(SS_LGUI(SS_TAP(X_X)));
+            }
+            return false;
+        case KEY_CUT_LINE:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LGUI(SS_TAP(X_RIGHT)));
+                register_code(KC_LSHIFT);
+                SEND_STRING(SS_LGUI(SS_TAP(X_LEFT)));
+                unregister_code(KC_LSHIFT);
+                SEND_STRING(SS_LGUI(SS_TAP(X_X)));
+            }
+            return false;
+        case KEY_CREATE_PREVIOUS_LINE:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LGUI(SS_TAP(X_LEFT)) SS_TAP(X_ENTER) SS_TAP(X_UP));
+            }
+            return false;
+        case KEY_CREATE_NEXT_LINE:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LGUI(SS_TAP(X_RIGHT)) SS_TAP(X_ENTER));
+            }
+            return false;
+        case KEY_CUT_SELECTION:
+            if (record->event.pressed) {
+                if (get_mods() & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSHIFT);
+                    SEND_STRING(SS_LGUI(SS_TAP(X_X)));
+                    register_code(KC_LSHIFT);
+                } else
+                    SEND_STRING(SS_LGUI(SS_TAP(X_X)));
+            }
+            return false;
     }
+    return true;
+}
+
+bool process_record_user(uint16_t key, keyrecord_t* record) {
+    if (!handle_layer_key(key, record)) return false;
     if (!handle_call_key(key, record)) return false;
     return handle_common_key(key, record);
 }
 
 void keyboard_post_init_user() {
-    rgblight_disable();
+    rgblight_disable_noeeprom();
     rgb_matrix_disable();
 }
