@@ -53,8 +53,8 @@ enum custom_keycodes {
 #define KC_MEH4 MEH(KC_4)
 #define KC_MEH5 MEH(KC_5)
 
-#define KC_LOWR LOWER
-#define KC_RASE RAISE
+#define KC_LOWR MO(_LOWER)
+#define KC_RASE MO(_RAISE)
 #define KC_RST RESET
 #define KC_BL_S BL_STEP
 
