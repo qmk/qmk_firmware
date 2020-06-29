@@ -223,7 +223,9 @@ typedef uint8_t pin_t;
 #    define setPinOutput(pin) \
     do { \
 	if (__builtin_constant_p(pin)) { \
-	    asm volatile("sbi %0,%1" : : "I"(_SFR_IO_ADDR(DDRx_ADDRESS(pin))), "I"((pin) & 0xF)); \
+	    if (((pin) & 0xF) <= 7) { \
+		asm volatile("sbi %0,%1" : : "I"(_SFR_IO_ADDR(DDRx_ADDRESS(pin))), "I"((pin) & 0xF)); \
+	    } \
 	} else { \
 	    volatile uint8_t *ddr = &DDRx_ADDRESS(pin); \
 	    uint8_t mask = _BV((pin) & 0xF); \
@@ -238,7 +240,9 @@ typedef uint8_t pin_t;
 #    define writePinHigh(pin) \
     do { \
 	if (__builtin_constant_p(pin)) { \
-	    asm volatile("sbi %0,%1" : : "I"(_SFR_IO_ADDR(PORTx_ADDRESS(pin))), "I"((pin) & 0xF)); \
+	    if (((pin) & 0xF) <= 7) { \
+		asm volatile("sbi %0,%1" : : "I"(_SFR_IO_ADDR(PORTx_ADDRESS(pin))), "I"((pin) & 0xF)); \
+	    } \
 	} else { \
 	    volatile uint8_t *port = &PORTx_ADDRESS(pin); \
 	    uint8_t mask = _BV((pin) & 0xF); \
@@ -253,7 +257,9 @@ typedef uint8_t pin_t;
 #    define writePinLow(pin) \
     do { \
 	if (__builtin_constant_p(pin)) { \
-	    asm volatile("cbi %0,%1" : : "I"(_SFR_IO_ADDR(PORTx_ADDRESS(pin))), "I"((pin) & 0xF)); \
+	    if (((pin) & 0xF) <= 7) { \
+		asm volatile("cbi %0,%1" : : "I"(_SFR_IO_ADDR(PORTx_ADDRESS(pin))), "I"((pin) & 0xF)); \
+	    } \
 	} else { \
 	    volatile uint8_t *port = &PORTx_ADDRESS(pin); \
 	    uint8_t inv_mask = (uint8_t)~_BV((pin) & 0xF); \
