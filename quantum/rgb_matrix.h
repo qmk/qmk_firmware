@@ -196,6 +196,7 @@ extern uint8_t g_rgb_frame_buffer[MATRIX_ROWS][MATRIX_COLS];
 typedef struct _rgb_matrix_syncinfo_t {
     rgb_config_t config;
     led_flags_t effect_flags;
+    // bool suspend_state;
 } rgb_matrix_syncinfo_t;
 
 /* for master side */

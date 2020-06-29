@@ -214,7 +214,7 @@ void transport_slave_init(void) { soft_serial_target_init(transactions, TID_LIMI
 // rgblight synchronization information communication.
 
 void transport_rgb_master(void) {
-    if (rgblight_get_change_flags()) {
+    if (rgblight_get_change_flags() || true) {
 #ifdef RGB_MATRIX_ENABLE 
         rgb_matrix_get_syncinfo((rgb_matrix_syncinfo_t *)&serial_rgb.rgb_matrix_sync);
 #elif defined(RGBLIGHT_ENABLE)
@@ -295,6 +295,8 @@ void transport_slave(matrix_row_t matrix[]) {
 #    ifdef WPM_ENABLE
     set_current_wpm(serial_m2s_buffer.current_wpm);
 #    endif
+
+    rgb_matrix_task();
 }
 
 #endif

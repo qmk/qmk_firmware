@@ -135,6 +135,8 @@ static rgb_task_states rgb_task_state    = SYNCING;
 static uint32_t rgb_anykey_timer;
 #endif  // RGB_DISABLE_TIMEOUT > 0
 
+uint8_t flag = 1;  // TODO: REMOVE
+
 // double buffers
 static uint32_t rgb_timer_buffer;
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
@@ -552,6 +554,7 @@ led_flags_t rgb_matrix_get_flags(void) { return rgb_effect_params.flags; }
 void rgb_matrix_set_flags(led_flags_t flags) { rgb_effect_params.flags = flags; }
 
 void rgb_matrix_mode(uint8_t mode) {
+    flag = 1;
     rgb_matrix_config.mode = mode;
     rgb_task_state         = STARTING;
     eeconfig_update_rgb_matrix();
@@ -579,8 +582,8 @@ uint8_t rgb_matrix_get_sat(void) { return rgb_matrix_config.hsv.s; }
 uint8_t rgb_matrix_get_val(void) { return rgb_matrix_config.hsv.v; }
 
 #ifdef RGBLIGHT_SPLIT
-uint8_t rgb_matrix_get_change_flags(void) { return 0xFF; }  // TODO
-void rgb_matrix_clear_change_flags(void) {}
+uint8_t rgb_matrix_get_change_flags(void) { return flag; }  // TODO
+void rgb_matrix_clear_change_flags(void) {flag = 0;}
 
 void rgb_matrix_get_syncinfo(rgb_matrix_syncinfo_t *syncinfo) {
     syncinfo->config = rgb_matrix_config;
@@ -592,8 +595,9 @@ void rgb_matrix_update_sync(rgb_matrix_syncinfo_t *syncinfo) {
     if (syncinfo->config.enable) {  // CHANGE MODE or ENABLE
         rgb_matrix_enable_noeeprom();
         rgb_matrix_mode_noeeprom(syncinfo->config.mode);
+        rgb_task_state = STARTING;
     } else
-        rgb_matrix_disable_noeeprom();
+        rgb_matrix_disable();
 
     // CHANGE HSV 
     rgb_matrix_sethsv_noeeprom(syncinfo->config.hsv.h, syncinfo->config.hsv.s, syncinfo->config.hsv.v);
@@ -603,5 +607,8 @@ void rgb_matrix_update_sync(rgb_matrix_syncinfo_t *syncinfo) {
 
     // CHANGE FLAGS 
     rgb_matrix_set_flags(syncinfo->effect_flags);
+
+    // SUSPEND
+    // rgb_matrix_set_suspend_state(false);
 }
 #endif
