@@ -1,6 +1,6 @@
 # ROTR
 
-![ROTR](https://i.imgur.com/051liRC.jpg)
+![ROTR](https://i.imgur.com/051liRCl.jpg)
 
 A macro pad with a multipurpose knob.
 
