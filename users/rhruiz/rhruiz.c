@@ -40,7 +40,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 #endif
 #ifdef TAP_DANCE_ENABLE
         case TD(TD_RSHIFT_NUM):
-            return TAPPING_TERM + 25;
+            return TAPPING_TERM + 50;
 #endif
         default:
             return TAPPING_TERM;
