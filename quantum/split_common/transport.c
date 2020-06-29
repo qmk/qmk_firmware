@@ -11,6 +11,12 @@
 #    include "rgblight.h"
 #endif
 
+/*
+#ifdef RGB_MATRIX_ENABLE
+#    include "rgb_matrix.h"
+#endif
+*/
+
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
 #endif
@@ -29,8 +35,10 @@ static pin_t encoders_pad[] = ENCODERS_PAD_A;
 typedef struct _I2C_slave_buffer_t {
     matrix_row_t smatrix[ROWS_PER_HAND];
     uint8_t      backlight_level;
-#    if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
-    rgblight_syncinfo_t rgblight_sync;
+#    if defined(RGB_MATRIX_ENABLE) && defined(RGBLIGHT_SPLIT)
+    rgb_matrix_syncinfo_t rgb_sync;
+#    elif defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
+    rgblight_syncinfo_t rgb_sync;
 #    endif
 #    ifdef ENCODER_ENABLE
     uint8_t encoder_state[NUMBER_OF_ENCODERS];
@@ -43,7 +51,7 @@ typedef struct _I2C_slave_buffer_t {
 static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_reg;
 
 #    define I2C_BACKLIGHT_START offsetof(I2C_slave_buffer_t, backlight_level)
-#    define I2C_RGB_START offsetof(I2C_slave_buffer_t, rgblight_sync)
+#    define I2C_RGB_START offsetof(I2C_slave_buffer_t, rgb_sync)
 #    define I2C_KEYMAP_START offsetof(I2C_slave_buffer_t, smatrix)
 #    define I2C_ENCODER_START offsetof(I2C_slave_buffer_t, encoder_state)
 #    define I2C_WPM_START offsetof(I2C_slave_buffer_t, current_wpm)
@@ -68,11 +76,15 @@ bool transport_master(matrix_row_t matrix[]) {
     }
 #    endif
 
-#    if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
+#    if defined(RGBLIGHT_SPLIT) && (defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE))
     if (rgblight_get_change_flags()) {
-        rgblight_syncinfo_t rgblight_sync;
-        rgblight_get_syncinfo(&rgblight_sync);
-        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_RGB_START, (void *)&rgblight_sync, sizeof(rgblight_sync), TIMEOUT) >= 0) {
+#        ifdef RGB_MATRIX_ENABLE
+        rgb_matrix_syncinfo_t rgb_sync;
+#        elif defined(RGBLIGHT_ENABLE)
+        rgblight_syncinfo_t rgb_sync;
+#        endif
+        rgblight_get_syncinfo(&rgb_sync);
+        if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_RGB_START, (void *)&rgb_sync, sizeof(rgb_sync), TIMEOUT) >= 0) {
             rgblight_clear_change_flags();
         }
     }
@@ -103,12 +115,9 @@ void transport_slave(matrix_row_t matrix[]) {
     backlight_set(i2c_buffer->backlight_level);
 #    endif
 
-#    if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
+#    if defined(RGBLIGHT_SPLIT) && (defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE))
     // Update the RGB with the new data
-    if (i2c_buffer->rgblight_sync.status.change_flags != 0) {
-        rgblight_update_sync(&i2c_buffer->rgblight_sync, false);
-        i2c_buffer->rgblight_sync.status.change_flags = 0;
-    }
+    rgblight_update_sync(&i2c_buffer->rgb_sync, false);
 #    endif
 
 #    ifdef ENCODER_ENABLE
@@ -147,7 +156,7 @@ typedef struct _Serial_m2s_buffer_t {
 #    endif
 } Serial_m2s_buffer_t;
 
-#    if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
+#    if defined(RGBLIGHT_SPLIT) && (defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE))
 // When MCUs on both sides drive their respective RGB LED chains,
 // it is necessary to synchronize, so it is necessary to communicate RGB
 // information. In that case, define RGBLIGHT_SPLIT with info on the number
@@ -156,12 +165,16 @@ typedef struct _Serial_m2s_buffer_t {
 // Otherwise, if the master side MCU drives both sides RGB LED chains,
 // there is no need to communicate.
 
-typedef struct _Serial_rgblight_t {
+typedef struct _Serial_rgb_t {
+#ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_syncinfo_t rgb_matrix_sync;
+#elif defined(RGBLIGHT_ENABLE)
     rgblight_syncinfo_t rgblight_sync;
-} Serial_rgblight_t;
+#endif
+} Serial_rgb_t;
 
-volatile Serial_rgblight_t serial_rgblight = {};
-uint8_t volatile status_rgblight           = 0;
+volatile Serial_rgb_t serial_rgb = {};
+uint8_t volatile status_rgb           = 0;
 #    endif
 
 volatile Serial_s2m_buffer_t serial_s2m_buffer = {};
@@ -170,8 +183,8 @@ uint8_t volatile status0                       = 0;
 
 enum serial_transaction_id {
     GET_SLAVE_MATRIX = 0,
-#    if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
-    PUT_RGBLIGHT,
+#    if defined(RGBLIGHT_SPLIT) && (defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE))
+    PUT_RGB,
 #    endif
 };
 
@@ -184,10 +197,10 @@ SSTD_t transactions[] = {
             sizeof(serial_s2m_buffer),
             (uint8_t *)&serial_s2m_buffer,
         },
-#    if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
-    [PUT_RGBLIGHT] =
+#    if defined(RGBLIGHT_SPLIT) && (defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE))
+    [PUT_RGB] =
         {
-            (uint8_t *)&status_rgblight, sizeof(serial_rgblight), (uint8_t *)&serial_rgblight, 0, NULL  // no slave to master transfer
+            (uint8_t *)&status_rgb, sizeof(serial_rgb), (uint8_t *)&serial_rgb, 0, NULL  // no slave to master transfer
         },
 #    endif
 };
@@ -196,30 +209,39 @@ void transport_master_init(void) { soft_serial_initiator_init(transactions, TID_
 
 void transport_slave_init(void) { soft_serial_target_init(transactions, TID_LIMIT(transactions)); }
 
-#    if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
+#    if defined(RGBLIGHT_SPLIT) && (defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE))
 
 // rgblight synchronization information communication.
 
-void transport_rgblight_master(void) {
+void transport_rgb_master(void) {
     if (rgblight_get_change_flags()) {
-        rgblight_get_syncinfo((rgblight_syncinfo_t *)&serial_rgblight.rgblight_sync);
-        if (soft_serial_transaction(PUT_RGBLIGHT) == TRANSACTION_END) {
+#ifdef RGB_MATRIX_ENABLE 
+        rgb_matrix_get_syncinfo((rgb_matrix_syncinfo_t *)&serial_rgb.rgb_matrix_sync);
+#elif defined(RGBLIGHT_ENABLE)
+        rgblight_get_syncinfo((rgblight_syncinfo_t *)&serial_rgb.rgblight_sync);
+#endif
+        if (soft_serial_transaction(PUT_RGB) == TRANSACTION_END) {
             rgblight_clear_change_flags();
         }
     }
 }
 
-void transport_rgblight_slave(void) {
-    if (status_rgblight == TRANSACTION_ACCEPTED) {
-        rgblight_update_sync((rgblight_syncinfo_t *)&serial_rgblight.rgblight_sync, false);
-        status_rgblight = TRANSACTION_END;
+void transport_rgb_slave(void) {
+    if (status_rgb == TRANSACTION_ACCEPTED) {
+#ifdef RGB_MATRIX_ENABLE 
+        rgb_matrix_update_sync((rgb_matrix_syncinfo_t *)&serial_rgb.rgb_matrix_sync);
+#elif defined(RGBLIGHT_ENABLE)
+        rgblight_update_sync((rgblight_syncinfo_t *)&serial_rgb.rgblight_sync, false);
+#endif
+        status_rgb = TRANSACTION_END;
     }
 }
 
 #    else
-#        define transport_rgblight_master()
-#        define transport_rgblight_slave()
+#        define transport_rgb_master()
+#        define transport_rgb_slave()
 #    endif
+
 
 bool transport_master(matrix_row_t matrix[]) {
 #    ifndef SERIAL_USE_MULTI_TRANSACTION
@@ -227,7 +249,8 @@ bool transport_master(matrix_row_t matrix[]) {
         return false;
     }
 #    else
-    transport_rgblight_master();
+    transport_rgb_master();
+
     if (soft_serial_transaction(GET_SLAVE_MATRIX) != TRANSACTION_END) {
         return false;
     }
@@ -255,7 +278,8 @@ bool transport_master(matrix_row_t matrix[]) {
 }
 
 void transport_slave(matrix_row_t matrix[]) {
-    transport_rgblight_slave();
+    transport_rgb_slave();
+
     // TODO: if MATRIX_COLS > 8 change to pack()
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         serial_s2m_buffer.smatrix[i] = matrix[i];

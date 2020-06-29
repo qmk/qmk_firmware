@@ -21,7 +21,10 @@
   #define RGBLIGHT_SLEEP //  the RGB lighting will be switched off when the host goes to sleep
 #endif
 
-
+#ifdef RGB_MATRIX_ENABLE
+// #define RGB_MATRIX_KEYPRESSES
+// #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#endif
 
 #define EE_HANDS
 

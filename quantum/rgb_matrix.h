@@ -161,6 +161,10 @@ uint8_t     rgb_matrix_get_val(void);
 #    define rgblight_get_sat rgb_matrix_get_sat
 #    define rgblight_get_val rgb_matrix_get_val
 #    define rgblight_get_hsv rgb_matrix_get_hsv
+#    define rgblight_get_change_flags rgb_matrix_get_change_flags
+#    define rgblight_clear_change_flags rgb_matrix_clear_change_flags
+#    define rgblight_get_syncinfo rgb_matrix_get_syncinfo
+#    define rgblight_update_sync(s, w) rgb_matrix_update_sync(s)
 #endif
 
 typedef struct {
@@ -188,4 +192,18 @@ extern last_hit_t g_last_hit_tracker;
 extern uint8_t g_rgb_frame_buffer[MATRIX_ROWS][MATRIX_COLS];
 #endif
 
+#endif
+
+#ifdef RGBLIGHT_SPLIT
+typedef struct _rgb_matrix_syncinfo_t {
+    rgb_config_t config;
+    led_flags_t effect_flags;
+} rgb_matrix_syncinfo_t;
+
+/* for master side */
+uint8_t rgb_matrix_get_change_flags(void);
+void rgb_matrix_clear_change_flags(void);
+void rgb_matrix_get_syncinfo(rgb_matrix_syncinfo_t *syncinfo);
+/* for split keyboard slave side */
+void rgb_matrix_update_sync(rgb_matrix_syncinfo_t *syncinfo);
 #endif

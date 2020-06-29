@@ -577,3 +577,31 @@ HSV     rgb_matrix_get_hsv(void) { return rgb_matrix_config.hsv; }
 uint8_t rgb_matrix_get_hue(void) { return rgb_matrix_config.hsv.h; }
 uint8_t rgb_matrix_get_sat(void) { return rgb_matrix_config.hsv.s; }
 uint8_t rgb_matrix_get_val(void) { return rgb_matrix_config.hsv.v; }
+
+#ifdef RGBLIGHT_SPLIT
+uint8_t rgb_matrix_get_change_flags(void) { return 0xFF; }  // TODO
+void rgb_matrix_clear_change_flags(void) {}
+
+void rgb_matrix_get_syncinfo(rgb_matrix_syncinfo_t *syncinfo) {
+    syncinfo->config = rgb_matrix_config;
+    syncinfo->effect_flags = rgb_matrix_get_flags();
+}
+
+void rgb_matrix_update_sync(rgb_matrix_syncinfo_t *syncinfo) {
+    // TODO add change flag
+    if (syncinfo->config.enable) {  // CHANGE MODE or ENABLE
+        rgb_matrix_enable_noeeprom();
+        rgb_matrix_mode_noeeprom(syncinfo->config.mode);
+    } else
+        rgb_matrix_disable_noeeprom();
+
+    // CHANGE HSV 
+    rgb_matrix_sethsv_noeeprom(syncinfo->config.hsv.h, syncinfo->config.hsv.s, syncinfo->config.hsv.v);
+
+    // CHANGE SPEED
+    rgb_matrix_config.speed = syncinfo->config.speed;
+
+    // CHANGE FLAGS 
+    rgb_matrix_set_flags(syncinfo->effect_flags);
+}
+#endif
