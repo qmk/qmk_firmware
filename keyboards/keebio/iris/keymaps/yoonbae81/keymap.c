@@ -1,106 +1,110 @@
-/* Copyright 2020 Yoonbae Cho
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-/* 
- * Refereces:
- * https://beta.docs.qmk.fm/using-qmk/guides/keymap
- * https://beta.docs.qmk.fm/using-qmk/simple-keycodes/keycodes
- * https://beta.docs.qmk.fm/using-qmk/software-features/feature_layers
- * https://github.com/qmk/qmk_firmware/blob/master/keyboards/keebio/iris/keymaps/dbroqua/keymap.c
- * https://github.com/qmk/qmk_firmware/blob/master/keyboards/keebio/iris/keymaps/fluffactually/keymap.c
- * https://github.com/qmk/qmk_firmware/blob/master/keyboards/keebio/iris/keymaps/dcompact/keymap.c
- * https://github.com/qmk/qmk_firmware/blob/master/keyboards/planck/keymaps/smittey/keymap.c
- */
-
-
 #include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
 
-enum custom_layers {
-  _QWERTY,
-  _LOWER,
-  _RAISE,
-};
+#define _QWERTY 0
+#define _LOWER 1
+#define _RAISE 2
+#define _ADJUST 3
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
   RAISE,
+  ADJUST,
 };
-
-#define KC_ KC_TRNS
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = LAYOUT_kc(
-     GESC,  1  ,  2  ,  3  ,  4  ,  5  ,                 6  ,  7  ,  8  ,  9  ,  0  ,  GRV, 
-     TAB ,  Q  ,  W  ,  E  ,  R  ,  T  ,                 Y  ,  U  ,  I  ,  O  ,  P  , BSLS, 
-     LCTL,  A  ,  S  ,  D  ,  F  ,  G  ,                 H  ,  J  ,  K  ,  L  , SCLN, QUOT, 
-     LSFT,  Z  ,  X  ,  C  ,  V  ,  B  ,TT(_LOWER),SPC,  N  ,  M  , COMM, DOT , SLSH, BSPC, 
-                      TT(_RAISE), LGUI, LALT,        SPC , LT(1,KC_HAEN), L(2,KC_HANJ)
+  [_QWERTY] = LAYOUT(
+  //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
+      KC_GESC,   KC_1 ,   KC_2 ,   KC_3 ,   KC_4 ,   KC_5 ,                              KC_6 ,   KC_7 ,   KC_8 ,   KC_9 ,   KC_0 , KC_GRV ,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+      KC_TAB ,   KC_Q ,   KC_W ,   KC_E ,   KC_R ,   KC_T ,                              KC_Y ,   KC_U ,   KC_I ,   KC_O ,   KC_P ,KC_BSLS ,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+     KC_LCTL ,   KC_A ,   KC_S ,   KC_D ,   KC_F ,   KC_G ,                              KC_H ,   KC_J ,   KC_K ,   KC_L ,KC_SCLN ,KC_QUOT ,    
+  //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+     KC_LSFT ,   KC_Z ,   KC_X ,   KC_C ,   KC_V ,   KC_B ,  TT(2) ,          KC_SPC ,   KC_N ,   KC_M ,KC_COMM , KC_DOT ,KC_SLSH ,KC_BSPC ,  
+  //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
+                                    KC_LGUI ,KC_LALT ,LT(1,KC_ENT),               KC_SPC ,LT(1,KC_HAEN) ,LT(2,KC_HANJ)
+                                // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
-  [_LOWER] = LAYOUT_kc(
-     F1   , F2  , F3  , F4  , F5  , F6  ,                F7  , F8  , F9  , F10 , F11 , F12 ,
-          , PGUP, UP  , PGDN, LPRN, RPRN,                PSTE, HOME, PGUP,   NO, MINS, EQL ,
-          , LEFT, DOWN, RGHT, LCBR, RCBR,                LEFT, DOWN,   UP, RGHT,   NO,   NO,
-          , NO  , NO  , NO  , LBRC, RBRC,    ,      ENT, COPY, PGDN,  END,   NO,  INS,  DEL, 
-                                ,     , SPC,          ENT,     , 
+  [_LOWER] = LAYOUT(
+  //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
+       KC_F1 ,  KC_F2 ,  KC_F3 ,  KC_F4 ,  KC_F5 ,  KC_F6 ,                             KC_F7 ,  KC_F8 ,  KC_F9 , KC_F10 , KC_F11 , KC_F12 ,   
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+      _______,KC_PGUP ,  KC_UP ,KC_PGDN ,KC_LPRN ,KC_RPRN ,                           KC_PSTE ,KC_HOME ,KC_PGUP ,  KC_NO ,KC_MINS , KC_EQL ,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+      _______,KC_LEFT ,KC_DOWN ,KC_RGHT ,KC_LCBR ,KC_RCBR ,                           KC_LEFT ,KC_DOWN ,  KC_UP ,KC_RGHT ,  KC_NO ,  KC_NO ,   
+  //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+      _______,KC_HOME ,  KC_NO , KC_END ,KC_LBRC ,KC_RBRC , _______,          KC_ENT ,KC_COPY ,KC_PGDN , KC_END ,  KC_NO , KC_INS , KC_DEL ,
+  //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
+                                     _______, _______, _______,                   KC_ENT , _______, _______ 
+                                // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
-  [_RAISE] = LAYOUT_kc(
-     MPRV, MSTP, MPLY, MNXT, VOLD, VOLU,                 UNDO, CALC, PSLS, PAST, PMNS, PSCR,
-         , PGUP,  UP , PGDN,   NO, MUTE,                 PSTE,   7 ,   8 ,   9 , PPLS, SCLK,
-         , LEFT, DOWN, RGHT,   NO,   NO,                  CUT,   4 ,   5 ,   6 , PCMM, PAUS,
-         , HOME,   NO,  END,   NO,   NO,TO(_QWERTY),ENT, COPY,   1 ,   2 ,   3 , PEQL, BSPC,
-                               ,     , SPC,           ENT,   0 , PDOT
+  [_RAISE] = LAYOUT(
+  //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
+      _______, _______, _______, _______, _______, _______,                           KC_UNDO ,KC_CALC ,KC_PSLS ,KC_PAST ,KC_PMNS ,KC_PSCR ,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+      _______, _______, _______, _______, _______, _______,                           KC_PSTE ,   KC_7 ,   KC_8 ,   KC_9 ,KC_PPLS ,KC_SLCK ,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+      _______, _______, _______, _______, _______, _______,                            KC_CUT ,   KC_4 ,   KC_5 ,   KC_6 ,KC_PCMM ,KC_PAUS ,  
+  //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+      _______, _______, _______, _______, _______, _______,  TO(0) ,          KC_ENT ,KC_COPY ,   KC_1 ,   KC_2 ,   KC_3 ,KC_PEQL ,KC_BSPC ,
+  //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
+                                     _______, _______, _______,                   KC_ENT ,  KC_P0 , KC_PDOT
+                                // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
+  ),
+
+  [_ADJUST] = LAYOUT(
+  //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
+     _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+     _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+     _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______,
+  //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+     _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______, _______,
+  //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
+                                    _______, _______, _______,                   _______, _______, _______
+                                // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   )
 };
-
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_QWERTY);
+        set_single_persistent_default_layer(_QWERTY);
       }
       return false;
       break;
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _QWERTY);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _QWERTY);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
       break;
     case RAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _QWERTY);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _QWERTY);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      return false;
+      break;
+    case ADJUST:
+      if (record->event.pressed) {
+        layer_on(_ADJUST);
+      } else {
+        layer_off(_ADJUST);
       }
       return false;
       break;
