@@ -1,10 +1,12 @@
 # JJ50
 
-A preonic-like board
+![JJ50 + SA Vilebloom (w/ Sakurios) by u/rendleshift](https://i.imgur.com/SwYZ4wol.jpg)
 
-* Keyboard Maintainer: [Wayne K. Jones](github.com/WarmCatUK)
-* Hardware Supported: JJ50 with the ATmega32a chip.
-* Hardware Availability: [KPrepublic on AliExpress](https://www.aliexpress.com/item/jj50-v1-0-Custom-Mechanical-Keyboard-50-PCB-programmed-50-preonic-layouts-bface-firmware-with-rgb/32848915277.html)
+A compact 50% (5x12) ortholinear keyboard made and sold by KPrepublic.
+
+* Keyboard Maintainer: [QMK Community](https://github.com/qmk)
+* Hardware Supported: Atmega32A
+* Hardware Availability: [AliExpress](https://www.aliexpress.com/item/jj50-v1-0-Custom-Mechanical-Keyboard-50-PCB-programmed-50-preonic-layouts-bface-firmware-with-rgb/32848915277.html); [KPrepublic](https://kprepublic.com/collections/jj50-50/products/jj50-50-custom-keyboard-pcb-similar-with-preonic)
 
 Make example for this keyboard (after setting up your build environment):
 
