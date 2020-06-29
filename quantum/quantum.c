@@ -645,7 +645,7 @@ void matrix_scan_quantum() {
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_task();
+//    rgb_matrix_task();
 #endif
 
 #ifdef WPM_ENABLE

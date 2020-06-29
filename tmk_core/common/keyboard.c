@@ -53,6 +53,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGBLIGHT_ENABLE
 #    include "rgblight.h"
 #endif
+#ifdef RGB_MATRIX_ENABLE
+#    include "rgb_matrix.h"
+#endif
 #ifdef ENCODER_ENABLE
 #    include "encoder.h"
 #endif
@@ -357,6 +360,10 @@ MATRIX_LOOP_END:
 
 #if defined(RGBLIGHT_ENABLE)
     rgblight_task();
+#endif
+
+#if defined(RGB_MATRIX_ENABLE)
+    rgb_matrix_task();
 #endif
 
 #if defined(BACKLIGHT_ENABLE)

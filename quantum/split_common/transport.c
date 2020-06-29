@@ -295,8 +295,6 @@ void transport_slave(matrix_row_t matrix[]) {
 #    ifdef WPM_ENABLE
     set_current_wpm(serial_m2s_buffer.current_wpm);
 #    endif
-
-    rgb_matrix_task();
 }
 
 #endif
