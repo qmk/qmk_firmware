@@ -191,7 +191,7 @@ typedef uint8_t pin_t;
 #    define GPIO_BARRIER() asm volatile("")
 
 #    define setPinInput(pin) \
-    do { \
+    (__extension__({ \
         volatile uint8_t *ddr = &DDRx_ADDRESS(pin); \
         volatile uint8_t *port = &PORTx_ADDRESS(pin); \
         uint8_t inv_mask = (uint8_t)~_BV((pin) & 0xF); \
@@ -201,10 +201,10 @@ typedef uint8_t pin_t;
             *port &= inv_mask; \
         } \
         GPIO_BARRIER(); \
-    } while(0)
+    }))
 
 #    define setPinInputHigh(pin) \
-    do { \
+    (__extension__({ \
         volatile uint8_t *ddr = &DDRx_ADDRESS(pin); \
         volatile uint8_t *port = &PORTx_ADDRESS(pin); \
         uint8_t mask = _BV((pin) & 0xF); \
@@ -216,12 +216,12 @@ typedef uint8_t pin_t;
             *port |= mask; \
         } \
         GPIO_BARRIER(); \
-    } while(0)
+    }))
 
 #    define setPinInputLow(pin) _Static_assert(0, "AVR processors cannot implement an input as pull low")
 
 #    define setPinOutput(pin) \
-    do { \
+    (__extension__({ \
         if (__builtin_constant_p(pin)) { \
             if (((pin) & 0xF) <= 7) { \
                 asm volatile("sbi %0,%1" : : "I"(_SFR_IO_ADDR(DDRx_ADDRESS(pin))), "I"((pin) & 0xF)); \
@@ -235,10 +235,10 @@ typedef uint8_t pin_t;
             } \
             GPIO_BARRIER(); \
         } \
-    } while(0)
+    }))
 
 #    define writePinHigh(pin) \
-    do { \
+    (__extension__ ({ \
         if (__builtin_constant_p(pin)) { \
             if (((pin) & 0xF) <= 7) { \
                 asm volatile("sbi %0,%1" : : "I"(_SFR_IO_ADDR(PORTx_ADDRESS(pin))), "I"((pin) & 0xF)); \
@@ -252,10 +252,10 @@ typedef uint8_t pin_t;
             } \
             GPIO_BARRIER(); \
         } \
-    } while(0)
+    }))
 
 #    define writePinLow(pin) \
-    do { \
+    (__extension__ ({ \
         if (__builtin_constant_p(pin)) { \
             if (((pin) & 0xF) <= 7) { \
                 asm volatile("cbi %0,%1" : : "I"(_SFR_IO_ADDR(PORTx_ADDRESS(pin))), "I"((pin) & 0xF)); \
@@ -269,20 +269,14 @@ typedef uint8_t pin_t;
             } \
             GPIO_BARRIER(); \
         } \
-    } while(0)
+    }))
 
-#    define writePin(pin, level) \
-    do { \
-        if (level) \
-            writePinHigh(pin); \
-        else \
-            writePinLow(pin); \
-    } while(0)
+#    define writePin(pin, level) ((level) ? writePinHigh(pin) : writePinLow(pin))
 
 #    define readPin(pin) ((bool)(PINx_ADDRESS(pin) & _BV((pin)&0xF)))
 
 #    define togglePin(pin) \
-    do { \
+    (__extension__({ \
         volatile uint8_t *port = &PORTx_ADDRESS(pin); \
         uint8_t mask = _BV((pin) & 0xF); \
         GPIO_FORCE_PRECOMPUTE(mask); \
@@ -290,7 +284,7 @@ typedef uint8_t pin_t;
             *port ^= mask; \
         } \
         GPIO_BARRIER(); \
-    } while(0)
+    }))
 
 
 #elif defined(PROTOCOL_CHIBIOS)
