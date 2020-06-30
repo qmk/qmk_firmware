@@ -57,7 +57,7 @@ static volatile uint32_t seconds_timer_counter = 0;
 /* Timer callback to update the seconds timer */
 static void update_seconds_timer(void *p) {
     chSysLockFromISR();
-    chVTSetI(&seconds_timer, MS2ST(1000), update_seconds_timer, p);
+    chVTSetI(&seconds_timer, TIME_MS2I(1000), update_seconds_timer, p);
     chSysUnlockFromISR();
 
     seconds_timer_counter++;
@@ -77,7 +77,7 @@ void anne_pro_lighting_init(void) {
     palSetPadMode(GPIOB, 11, PAL_MODE_ALTERNATE(7));
 
     /* Enable the seconds timer for backlight timeout */
-    chVTSet(&seconds_timer, MS2ST(1000), update_seconds_timer, NULL);
+    chVTSet(&seconds_timer, TIME_MS2I(1000), update_seconds_timer, NULL);
 }
 
 /* Buffer for the keystate packet */
