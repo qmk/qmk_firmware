@@ -190,7 +190,7 @@ def json_keymap(cli):
 cli.log.info('Reading from %s and writing to %s', cli.args.filename, cli.args.output)
 ```
 
-# テスト、リントおよびフォーマット (oh my!)
+# テスト、リントおよびフォーマット
 
 nose2、flake8 および yapf を使ってコードをテスト、リントおよびフォーマットします。これらのテストを実行するために `pytest` と `pyformat` サブコマンドを使うことができます。
 
