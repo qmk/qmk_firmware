@@ -23,7 +23,17 @@ def info_json(keyboard):
         'maintainer': 'qmk',
     }
 
-    for layout_name, layout_json in _find_all_layouts(keyboard).items():
+    cur_dir = Path('keyboards')
+    rules = parse_rules_mk_file(cur_dir / Path(keyboard) / 'rules.mk')
+    default_folder = rules.get('DEFAULT_FOLDER', '')
+
+    if not default_folder == keyboard:
+        rules = parse_rules_mk_file(cur_dir / Path(default_folder) / 'rules.mk', rules)
+        default_folder = rules.get('DEFAULT_FOLDER', keyboard)
+
+    keyboard = default_folder
+
+    for layout_name, layout_json in _find_all_layouts(keyboard, rules).items():
         if not layout_name.startswith('LAYOUT_kc'):
             info_data['layouts'][layout_name] = layout_json
 
@@ -113,20 +123,9 @@ def _search_keyboard_h(path):
     return layouts
 
 
-def _find_all_layouts(keyboard):
+def _find_all_layouts(keyboard, rules):
     """Looks for layout macros associated with this keyboard.
     """
-    cur_dir = Path('keyboards')
-    rules = parse_rules_mk_file(cur_dir / Path(keyboard) / 'rules.mk')
-    default_folder = rules.get('DEFAULT_FOLDER', '')
-
-    # Pull in all layouts defined in the standard files
-    if not default_folder == keyboard:
-        rules = parse_rules_mk_file(cur_dir / Path(default_folder) / 'rules.mk', rules)
-        default_folder = rules.get('DEFAULT_FOLDER', keyboard)
-
-    keyboard = default_folder
-
     layouts = _search_keyboard_h(Path(keyboard))
 
     if not layouts:
