@@ -1,19 +1,18 @@
 # P20
 
 ![Linear grid](https://github.com/pabile/Pabile20/blob/master/_bak/layout-grid.jpg)
-![Numeric pad](https://github.com/pabile/Pabile20/blob/master/_bak/layout-numpad.jpg)
 
-A 5x4 grid keyboard with up to 3 rotary encoders. 
+A 5x4 grid macro numeric pad with up to 3 optional rotary encoders. 
 
 * Keyboard Maintainer: [pabile](https://github.com/pabile)
-* Hardware Supported: Pabile P20 PCB, Pro Micro, rotary encoders
+* Hardware Supported: Pabile P20 PCB, Pro Micro, Rotary Encoders, Alps/MX Switches
 * Hardware Availability: [pabileonline.blogspot.com](https://pabileonline.blogspot.com/search/label/p20)
 
 Make example for this keyboard (after setting up your build environment):
 
     make pabile/p20:default
 
-For PCB v2, compile your file using:
+For PCB v2, compile configurations using:
 
     make pabile/p20:ver2
 
