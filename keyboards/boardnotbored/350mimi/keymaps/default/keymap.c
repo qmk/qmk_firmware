@@ -13,7 +13,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include QMK_KEYBOARD_H
+#include "350mimi.h"
 
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
