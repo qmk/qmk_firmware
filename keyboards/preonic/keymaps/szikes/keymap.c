@@ -93,8 +93,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   S(KC_ESC),  HU_EXLM,      HU_AT,      HU_HASH,      HU_DLR,  HU_PERC,  HU_CIRC,    HU_AMPR,      HU_ASTR,      HU_LPRN,       HU_RPRN,    S(KC_BSPC), \
   S(KC_TAB),  S(HU_Q),      S(HU_W),    TD(TD_S_E_EE),S(HU_R), S(HU_T),  S(HU_Z),    TD(TD_S_U_UU),TD(TD_S_I_II),TD(TD_S_O_OO), S(HU_P),    HU_PIPE,    \
   S(KC_LCTL), TD(TD_S_A_AA),S(HU_S),    S(HU_D),      S(HU_F), S(HU_G),  S(HU_H),    S(HU_J),      S(HU_K),      S(HU_L),       HU_COLN,    S(KC_ENT),  \
-  _______,    S(HU_Y),      S(HU_X),    S(HU_C),      S(HU_V), S(HU_B),  S(HU_N),    S(HU_M),      HU_LESS,      HU_MORE,       S(KC_UP),   HU_QST,     \
-  HU_PLUS,    HU_DQOT,      S(KC_LGUI), S(KC_LALT),   _______, S(KC_SPC), S(KC_SPC), _______,      HU_UNDS,      S(KC_LEFT),    S(KC_DOWN), S(KC_RGHT) \
+  SHIFT,      S(HU_Y),      S(HU_X),    S(HU_C),      S(HU_V), S(HU_B),  S(HU_N),    S(HU_M),      HU_LESS,      HU_MORE,       S(KC_UP),   HU_QST,     \
+  HU_PLUS,    HU_DQOT,      S(KC_LGUI), S(KC_LALT),   LOWER,   S(KC_SPC), S(KC_SPC), RAISE,        HU_UNDS,      S(KC_LEFT),    S(KC_DOWN), S(KC_RGHT) \
 ),
 
 /* Lower
