@@ -201,10 +201,8 @@ bool handle_layer_key(uint16_t key, keyrecord_t* record) {
                     if (record->event.pressed) {
                         if (layer_control_data.operator== - 1) {
                             SEND_STRING(SS_LALT(SS_TAP(X_LEFT) SS_TAP(X_RIGHT)));
-                            register_code(KC_LSHIFT);
-                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_LALT(SS_TAP(X_LEFT)));
-                            unregister_code(KC_LSHIFT);
-                            SEND_STRING(SS_LGUI(SS_TAP(X_X)));
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) tap_code16(LSFT(LALT(KC_LEFT)));
+                            tap_code16(LGUI(KC_X));
                         }
                         layer_control_data.multiplier = 0;
                         layer_control_data.operator   = - 1;
@@ -214,20 +212,16 @@ bool handle_layer_key(uint16_t key, keyrecord_t* record) {
                     if (layer_control_data.operator== - 1 && layer_control_data.multiplier == 0) return true;
                     if (record->event.pressed) {
                         if (layer_control_data.operator== - 1)
-                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_LALT(SS_TAP(X_LEFT)));
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) tap_code16(LALT(KC_LEFT));
                         else if (layer_control_data.operator== KC_BSPC) {
                             SEND_STRING(SS_LALT(SS_TAP(X_LEFT) SS_TAP(X_RIGHT)));
-                            register_code(KC_LSHIFT);
-                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_LALT(SS_TAP(X_LEFT)));
-                            unregister_code(KC_LSHIFT);
-                            SEND_STRING(SS_LGUI(SS_TAP(X_X)));
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) tap_code16(LSFT(LALT(KC_LEFT)));
+                            tap_code16(LGUI(KC_X));
                         } else if (layer_control_data.operator== LGUI(KC_C)) {
                             SEND_STRING(SS_LALT(SS_TAP(X_LEFT) SS_TAP(X_RIGHT)));
-                            register_code(KC_LSHIFT);
-                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_LALT(SS_TAP(X_LEFT)));
-                            unregister_code(KC_LSHIFT);
-                            SEND_STRING(SS_LGUI(SS_TAP(X_C)));
-                            SEND_STRING(SS_TAP(X_RIGHT));
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) tap_code16(LSFT(LALT(KC_LEFT)));
+                            tap_code16(LGUI(KC_C));
+                            tap_code(KC_RIGHT);
                         }
                         layer_control_data.multiplier = 0;
                         layer_control_data.operator   = - 1;
@@ -237,20 +231,16 @@ bool handle_layer_key(uint16_t key, keyrecord_t* record) {
                     if (layer_control_data.operator== - 1 && layer_control_data.multiplier == 0) return true;
                     if (record->event.pressed) {
                         if (layer_control_data.operator== - 1)
-                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_LALT(SS_TAP(X_RIGHT)));
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) tap_code16(LALT(KC_RIGHT));
                         else if (layer_control_data.operator== KC_BSPC) {
                             SEND_STRING(SS_LALT(SS_TAP(X_RIGHT) SS_TAP(X_LEFT)));
-                            register_code(KC_LSHIFT);
-                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_LALT(SS_TAP(X_RIGHT)));
-                            unregister_code(KC_LSHIFT);
-                            SEND_STRING(SS_LGUI(SS_TAP(X_X)));
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) tap_code16(LSFT(LALT(KC_RIGHT)));
+                            tap_code16(LGUI(KC_X));
                         } else if (layer_control_data.operator== LGUI(KC_C)) {
                             SEND_STRING(SS_LALT(SS_TAP(X_RIGHT) SS_TAP(X_LEFT)));
-                            register_code(KC_LSHIFT);
-                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_LALT(SS_TAP(X_RIGHT)));
-                            unregister_code(KC_LSHIFT);
-                            SEND_STRING(SS_LGUI(SS_TAP(X_C)));
-                            SEND_STRING(SS_TAP(X_LEFT));
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) tap_code16(LSFT(LALT(KC_RIGHT)));
+                            tap_code16(LGUI(KC_C));
+                            tap_code(KC_LEFT);
                         }
                         layer_control_data.multiplier = 0;
                         layer_control_data.operator   = - 1;
@@ -259,18 +249,14 @@ bool handle_layer_key(uint16_t key, keyrecord_t* record) {
                 case LGUI(KC_LEFT):
                     if (record->event.pressed) {
                         if (layer_control_data.operator== - 1)
-                            SEND_STRING(SS_LGUI(SS_TAP(X_LEFT)));
+                            tap_code16(LGUI(KC_LEFT));
                         else if (layer_control_data.operator== KC_BSPC) {
-                            register_code(KC_LSHIFT);
-                            SEND_STRING(SS_LGUI(SS_TAP(X_LEFT)));
-                            unregister_code(KC_LSHIFT);
-                            SEND_STRING(SS_LGUI(SS_TAP(X_X)));
+                            tap_code16(LSFT(LGUI(KC_LEFT)));
+                            tap_code16(LGUI(KC_X));
                         } else if (layer_control_data.operator== LGUI(KC_C)) {
-                            register_code(KC_LSHIFT);
-                            SEND_STRING(SS_LGUI(SS_TAP(X_LEFT)));
-                            unregister_code(KC_LSHIFT);
-                            SEND_STRING(SS_LGUI(SS_TAP(X_C)));
-                            SEND_STRING(SS_TAP(X_RIGHT));
+                            tap_code16(LSFT(LGUI(KC_LEFT)));
+                            tap_code16(LGUI(KC_C));
+                            tap_code(KC_RIGHT);
                         }
                         layer_control_data.multiplier = 0;
                         layer_control_data.operator   = - 1;
@@ -279,18 +265,14 @@ bool handle_layer_key(uint16_t key, keyrecord_t* record) {
                 case LGUI(KC_RIGHT):
                     if (record->event.pressed) {
                         if (layer_control_data.operator== - 1)
-                            SEND_STRING(SS_LGUI(SS_TAP(X_RIGHT)));
+                            tap_code16(LGUI(KC_RIGHT));
                         else if (layer_control_data.operator== KC_BSPC) {
-                            register_code(KC_LSHIFT);
-                            SEND_STRING(SS_LGUI(SS_TAP(X_RIGHT)));
-                            unregister_code(KC_LSHIFT);
-                            SEND_STRING(SS_LGUI(SS_TAP(X_X)));
+                            tap_code16(LSFT(LGUI(KC_RIGHT)));
+                            tap_code16(LGUI(KC_X));
                         } else if (layer_control_data.operator== LGUI(KC_C)) {
-                            register_code(KC_LSHIFT);
-                            SEND_STRING(SS_LGUI(SS_TAP(X_RIGHT)));
-                            unregister_code(KC_LSHIFT);
-                            SEND_STRING(SS_LGUI(SS_TAP(X_C)));
-                            SEND_STRING(SS_TAP(X_LEFT));
+                            tap_code16(LSFT(LGUI(KC_RIGHT)));
+                            tap_code16(LGUI(KC_C));
+                            tap_code(KC_LEFT);
                         }
                         layer_control_data.multiplier = 0;
                         layer_control_data.operator   = - 1;
@@ -300,7 +282,7 @@ bool handle_layer_key(uint16_t key, keyrecord_t* record) {
                     if (record->event.pressed) {
                         if (get_mods() & MOD_MASK_SHIFT) {
                             unregister_code(KC_LSHIFT);
-                            SEND_STRING(SS_LGUI(SS_TAP(X_X)));
+                            tap_code16(LGUI(KC_X));
                             register_code(KC_LSHIFT);
                             layer_control_data.multiplier = 0;
                             layer_control_data.operator   = - 1;
@@ -308,11 +290,9 @@ bool handle_layer_key(uint16_t key, keyrecord_t* record) {
                             layer_control_data.operator= KC_BSPC;
                         else {
                             if (layer_control_data.operator== KC_BSPC) {
-                                SEND_STRING(SS_LCTRL(SS_TAP(X_A)));
-                                register_code(KC_LSHIFT);
-                                for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_DOWN));
-                                unregister_code(KC_LSHIFT);
-                                SEND_STRING(SS_LGUI(SS_TAP(X_X)));
+                                tap_code16(LCTL(KC_A));
+                                for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) tap_code16(LSFT(KC_DOWN));
+                                tap_code16(LGUI(KC_X));
                             }
                             layer_control_data.multiplier = 0;
                             layer_control_data.operator   = - 1;
@@ -323,18 +303,14 @@ bool handle_layer_key(uint16_t key, keyrecord_t* record) {
                     if (layer_control_data.operator== - 1 && layer_control_data.multiplier == 0) return true;
                     if (record->event.pressed) {
                         if (layer_control_data.operator== - 1)
-                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_LEFT));
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) tap_code(KC_LEFT);
                         else if (layer_control_data.operator== KC_BSPC) {
-                            register_code(KC_LSHIFT);
-                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_LEFT));
-                            unregister_code(KC_LSHIFT);
-                            SEND_STRING(SS_LGUI(SS_TAP(X_X)));
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) tap_code16(LSFT(KC_LEFT));
+                            tap_code16(LGUI(KC_X));
                         } else if (layer_control_data.operator== LGUI(KC_C)) {
-                            register_code(KC_LSHIFT);
-                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_LEFT));
-                            unregister_code(KC_LSHIFT);
-                            SEND_STRING(SS_LGUI(SS_TAP(X_C)));
-                            SEND_STRING(SS_TAP(X_RIGHT));
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) tap_code16(LSFT(KC_LEFT));
+                            tap_code16(LGUI(KC_C));
+                            tap_code(KC_RIGHT);
                         }
                         layer_control_data.multiplier = 0;
                         layer_control_data.operator   = - 1;
@@ -344,20 +320,16 @@ bool handle_layer_key(uint16_t key, keyrecord_t* record) {
                     if (layer_control_data.operator== - 1 && layer_control_data.multiplier == 0) return true;
                     if (record->event.pressed) {
                         if (layer_control_data.operator== - 1)
-                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_DOWN));
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) tap_code(KC_DOWN);
                         else if (layer_control_data.operator== KC_BSPC) {
-                            SEND_STRING(SS_LCTRL(SS_TAP(X_A)));
-                            register_code(KC_LSHIFT);
-                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_DOWN));
-                            unregister_code(KC_LSHIFT);
-                            SEND_STRING(SS_LGUI(SS_TAP(X_X)));
+                            tap_code16(LCTL(KC_A));
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) tap_code16(LSFT(KC_DOWN));
+                            tap_code16(LGUI(KC_X));
                         } else if (layer_control_data.operator== LGUI(KC_C)) {
-                            SEND_STRING(SS_LCTRL(SS_TAP(X_A)));
-                            register_code(KC_LSHIFT);
-                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_DOWN));
-                            unregister_code(KC_LSHIFT);
-                            SEND_STRING(SS_LGUI(SS_TAP(X_C)));
-                            SEND_STRING(SS_TAP(X_LEFT));
+                            tap_code16(LCTL(KC_A));
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) tap_code16(LSFT(KC_DOWN));
+                            tap_code16(LGUI(KC_C));
+                            tap_code(KC_LEFT);
                         }
                         layer_control_data.multiplier = 0;
                         layer_control_data.operator   = - 1;
@@ -367,22 +339,18 @@ bool handle_layer_key(uint16_t key, keyrecord_t* record) {
                     if (layer_control_data.operator== - 1 && layer_control_data.multiplier == 0) return true;
                     if (record->event.pressed) {
                         if (layer_control_data.operator== - 1)
-                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_UP));
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) tap_code(KC_UP);
                         else if (layer_control_data.operator== KC_BSPC) {
-                            SEND_STRING(SS_LCTRL(SS_TAP(X_E)));
-                            register_code(KC_LSHIFT);
-                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_UP));
-                            SEND_STRING(SS_LCTRL(SS_TAP(X_E)));
-                            unregister_code(KC_LSHIFT);
-                            SEND_STRING(SS_LGUI(SS_TAP(X_X)));
+                            tap_code16(LCTL(KC_E));
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) tap_code16(LSFT(KC_UP));
+                            tap_code16(LSFT(LCTL(KC_E)));
+                            tap_code16(LGUI(KC_X));
                         } else if (layer_control_data.operator== LGUI(KC_C)) {
-                            SEND_STRING(SS_LCTRL(SS_TAP(X_E)));
-                            register_code(KC_LSHIFT);
-                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_UP));
-                            SEND_STRING(SS_LCTRL(SS_TAP(X_E)));
-                            unregister_code(KC_LSHIFT);
-                            SEND_STRING(SS_LGUI(SS_TAP(X_C)));
-                            SEND_STRING(SS_TAP(X_RIGHT));
+                            tap_code16(LCTL(KC_E));
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) tap_code16(LSFT(KC_UP));
+                            tap_code16(LSFT(LCTL(KC_E)));
+                            tap_code16(LGUI(KC_C));
+                            tap_code(KC_RIGHT);
                         }
                         layer_control_data.multiplier = 0;
                         layer_control_data.operator   = - 1;
@@ -392,18 +360,14 @@ bool handle_layer_key(uint16_t key, keyrecord_t* record) {
                     if (layer_control_data.operator== - 1 && layer_control_data.multiplier == 0) return true;
                     if (record->event.pressed) {
                         if (layer_control_data.operator== - 1)
-                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_RIGHT));
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) tap_code(KC_RIGHT);
                         else if (layer_control_data.operator== KC_BSPC) {
-                            register_code(KC_LSHIFT);
-                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_RIGHT));
-                            unregister_code(KC_LSHIFT);
-                            SEND_STRING(SS_LGUI(SS_TAP(X_X)));
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) tap_code16(LSFT(KC_RIGHT));
+                            tap_code16(LGUI(KC_X));
                         } else if (layer_control_data.operator== LGUI(KC_C)) {
-                            register_code(KC_LSHIFT);
-                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_RIGHT));
-                            unregister_code(KC_LSHIFT);
-                            SEND_STRING(SS_LGUI(SS_TAP(X_C)));
-                            SEND_STRING(SS_TAP(X_LEFT));
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) tap_code16(LSFT(KC_RIGHT));
+                            tap_code16(LGUI(KC_C));
+                            tap_code(KC_LEFT);
                         }
                         layer_control_data.multiplier = 0;
                         layer_control_data.operator   = - 1;
@@ -416,7 +380,7 @@ bool handle_layer_key(uint16_t key, keyrecord_t* record) {
                     if (layer_control_data.operator== - 1 && layer_control_data.multiplier == 0) return true;
                     if (record->event.pressed) {
                         if (layer_control_data.operator== - 1)
-                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_LGUI(SS_TAP(X_Z)));
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) tap_code16(LGUI(KC_Z));
                         layer_control_data.multiplier = 0;
                         layer_control_data.operator   = - 1;
                     }
@@ -425,7 +389,7 @@ bool handle_layer_key(uint16_t key, keyrecord_t* record) {
                     if (record->event.pressed) {
                         if (get_mods() & MOD_MASK_SHIFT) {
                             unregister_code(KC_LSHIFT);
-                            SEND_STRING(SS_LGUI(SS_TAP(X_C)));
+                            tap_code16(LGUI(KC_C));
                             register_code(KC_LSHIFT);
                             layer_control_data.multiplier = 0;
                             layer_control_data.operator   = - 1;
@@ -433,12 +397,10 @@ bool handle_layer_key(uint16_t key, keyrecord_t* record) {
                             layer_control_data.operator= LGUI(KC_C);
                         else {
                             if (layer_control_data.operator== LGUI(KC_C)) {
-                                SEND_STRING(SS_LCTRL(SS_TAP(X_A)));
-                                register_code(KC_LSHIFT);
-                                for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_TAP(X_DOWN));
-                                unregister_code(KC_LSHIFT);
-                                SEND_STRING(SS_LGUI(SS_TAP(X_C)));
-                                SEND_STRING(SS_TAP(X_LEFT));
+                                tap_code16(LCTL(KC_A));
+                                for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) tap_code16(LSFT(KC_DOWN));
+                                tap_code16(LGUI(KC_C));
+                                tap_code(KC_LEFT);
                             }
                             layer_control_data.multiplier = 0;
                             layer_control_data.operator   = - 1;
@@ -449,12 +411,12 @@ bool handle_layer_key(uint16_t key, keyrecord_t* record) {
                     if (record->event.pressed) {
                         if (get_mods() & MOD_MASK_SHIFT) {
                             unregister_code(KC_LSHIFT);
-                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_LGUI(SS_TAP(X_V)));
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) tap_code16(LGUI(KC_V));
                             register_code(KC_LSHIFT);
                             layer_control_data.multiplier = 0;
                             layer_control_data.operator   = - 1;
                         } else {
-                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) SEND_STRING(SS_LGUI(SS_TAP(X_V)));
+                            for (int i = 0; i < (layer_control_data.multiplier ? layer_control_data.multiplier : 1); ++i) tap_code16(LGUI(KC_V));
                             layer_control_data.multiplier = 0;
                             layer_control_data.operator   = - 1;
                         }
@@ -475,17 +437,14 @@ bool handle_layer_key(uint16_t key, keyrecord_t* record) {
                     }
                     return true;
                 case KEY_BACK_LAYER:
-                    if (record->event.pressed) {
-                        SEND_STRING(SS_TAP(X_ENTER));
-                    }
+                    if (record->event.pressed) tap_code(KC_ENTER);
                     return true;
             }
             return true;
         case LAYER_DESKTOP:
             switch (key) {
                 case KEY_BACK_LAYER:
-                    if (record->event.pressed)
-                        SEND_STRING(SS_LCTRL(SS_TAP(X_UP)));
+                    if (record->event.pressed) tap_code16(LCTL(KC_UP));
                     return true;
             }
             return true;
@@ -517,11 +476,11 @@ void handle_layer_start(void) {
             return;
         case LAYER_WINDOW:
             register_code(KC_LGUI);
-            SEND_STRING(SS_TAP(X_TAB));
+            tap_code(KC_TAB);
             layer_window_data.start_time = timer_read();
             return;
         case LAYER_DESKTOP:
-            SEND_STRING(SS_LCTRL(SS_TAP(X_UP)));
+            tap_code16(LCTL(KC_UP));
             return;
     }
 }
@@ -614,12 +573,12 @@ bool handle_call_key(uint16_t key, keyrecord_t* record) {
 bool handle_common_key(uint16_t key, keyrecord_t* record) {
     switch (key) {
         case KEY_INSERT_LINE_START:
-            if (record->event.pressed) SEND_STRING(SS_LGUI(SS_TAP(X_LEFT)));
+            if (record->event.pressed) tap_code16(LGUI(KC_LEFT));
             return false;
         case KEY_INSERT_HERE:
             return false;
         case KEY_INSERT_LINE_END:
-            if (record->event.pressed) SEND_STRING(SS_LGUI(SS_TAP(X_RIGHT)));
+            if (record->event.pressed) tap_code16(LGUI(KC_RIGHT));
             return false;
         case KEY_CREATE_PREVIOUS_LINE:
             if (record->event.pressed) {
@@ -635,28 +594,28 @@ bool handle_common_key(uint16_t key, keyrecord_t* record) {
             if (record->event.pressed) {
                 SEND_STRING(SS_LALT(SS_TAP(X_LEFT) SS_TAP(X_RIGHT)));
                 register_code(KC_LSHIFT);
-                SEND_STRING(SS_LALT(SS_TAP(X_LEFT)));
+                tap_code16(LALT(KC_LEFT));
                 unregister_code(KC_LSHIFT);
-                SEND_STRING(SS_LGUI(SS_TAP(X_X)));
+                tap_code16(LGUI(KC_X));
             }
             return false;
         case KEY_CUT_LINE:
             if (record->event.pressed) {
-                SEND_STRING(SS_LGUI(SS_TAP(X_RIGHT)));
+                tap_code16(LGUI(KC_RIGHT));
                 register_code(KC_LSHIFT);
-                SEND_STRING(SS_LGUI(SS_TAP(X_LEFT)));
+                tap_code16(LGUI(KC_LEFT));
                 unregister_code(KC_LSHIFT);
-                SEND_STRING(SS_LGUI(SS_TAP(X_X)));
+                tap_code16(LGUI(KC_X));
             }
             return false;
         case KEY_CUT_SELECTION:
             if (record->event.pressed) {
                 if (get_mods() & MOD_MASK_SHIFT) {
                     unregister_code(KC_LSHIFT);
-                    SEND_STRING(SS_LGUI(SS_TAP(X_X)));
+                    tap_code16(LGUI(KC_X));
                     register_code(KC_LSHIFT);
                 } else
-                    SEND_STRING(SS_LGUI(SS_TAP(X_X)));
+                    tap_code16(LGUI(KC_X));
             }
             return false;
     }
