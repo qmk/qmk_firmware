@@ -120,49 +120,45 @@ UDC_DESC_STORAGE udc_desc_t udc_desc = {
     .conf.iConfiguration      = 0,
     .conf.bmAttributes        = /* USB_CONFIG_ATTR_MUST_SET | */ USB_DEVICE_ATTR,
     .conf.bMaxPower           = USB_CONFIG_MAX_POWER(USB_DEVICE_POWER),
-#ifdef KBD
     .hid_kbd = UDI_HID_KBD_DESC,
-#endif
-#ifdef RAW
+#ifdef RAW_ENABLE
     .hid_raw = UDI_HID_RAW_DESC,
 #endif
-#ifdef MOU
+#ifdef MOUSE_ENABLE
     .hid_mou = UDI_HID_MOU_DESC,
 #endif
-#ifdef EXK
+#ifdef EXTRAKEY_ENABLE
     .hid_exk = UDI_HID_EXK_DESC,
 #endif
-#ifdef CON
+#ifdef CONSOLE_ENABLE
     .hid_con = UDI_HID_CON_DESC,
 #endif
-#ifdef NKRO
+#ifdef NKRO_ENABLE
     .hid_nkro = UDI_HID_NKRO_DESC,
 #endif
-#ifdef CDC
+#ifdef VIRTSER_ENABLE
     .cdc_serial = CDC_DESCRIPTOR,
 #endif
 };
 
 UDC_DESC_STORAGE udi_api_t *udi_apis[USB_DEVICE_NB_INTERFACE] = {
-#ifdef KBD
     &udi_api_hid_kbd,
-#endif
-#ifdef RAW
+#ifdef RAW_ENABLE
     &udi_api_hid_raw,
 #endif
-#ifdef MOU
+#ifdef MOUSE_ENABLE
     &udi_api_hid_mou,
 #endif
-#ifdef EXK
+#ifdef EXTRAKEY_ENABLE
     &udi_api_hid_exk,
 #endif
-#ifdef CON
+#ifdef CONSOLE_ENABLE
     &udi_api_hid_con,
 #endif
-#ifdef NKRO
+#ifdef NKRO_ENABLE
     &udi_api_hid_nkro,
 #endif
-#ifdef CDC
+#ifdef VIRTSER_ENABLE
     &udi_api_cdc_comm, &udi_api_cdc_data,
 #endif
 };

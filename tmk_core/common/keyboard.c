@@ -83,6 +83,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef VELOCIKEY_ENABLE
 #    include "velocikey.h"
 #endif
+#ifdef VIA_ENABLE
+#    include "via.h"
+#endif
 
 // Only enable this if console is enabled to print to
 #if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)
@@ -210,6 +213,13 @@ void keyboard_setup(void) {
  */
 __attribute__((weak)) bool is_keyboard_master(void) { return true; }
 
+/** \brief should_process_keypress
+ *
+ * Override this function if you have a condition where keypresses processing should change:
+ *   - splits where the slave side needs to process for rgb/oled functionality
+ */
+__attribute__((weak)) bool should_process_keypress(void) { return is_keyboard_master(); }
+
 /** \brief keyboard_init
  *
  * FIXME: needs doc
@@ -217,6 +227,9 @@ __attribute__((weak)) bool is_keyboard_master(void) { return true; }
 void keyboard_init(void) {
     timer_init();
     matrix_init();
+#ifdef VIA_ENABLE
+    via_init();
+#endif
 #ifdef QWIIC_ENABLE
     qwiic_init();
 #endif
@@ -254,6 +267,7 @@ void keyboard_init(void) {
 #endif
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
     keymap_config.nkro = 1;
+    eeconfig_update_keymap(keymap_config.raw);
 #endif
     keyboard_post_init_kb(); /* Always keep this last */
 }
@@ -285,7 +299,7 @@ void keyboard_task(void) {
     matrix_scan();
 #endif
 
-    if (is_keyboard_master()) {
+    if (should_process_keypress()) {
         for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
             matrix_row    = matrix_get_row(r);
             matrix_change = matrix_row ^ matrix_prev[r];
@@ -296,13 +310,14 @@ void keyboard_task(void) {
                 }
 #endif
                 if (debug_matrix) matrix_print();
-                for (uint8_t c = 0; c < MATRIX_COLS; c++) {
-                    if (matrix_change & ((matrix_row_t)1 << c)) {
+                matrix_row_t col_mask = 1;
+                for (uint8_t c = 0; c < MATRIX_COLS; c++, col_mask <<= 1) {
+                    if (matrix_change & col_mask) {
                         action_exec((keyevent_t){
-                            .key = (keypos_t){.row = r, .col = c}, .pressed = (matrix_row & ((matrix_row_t)1 << c)), .time = (timer_read() | 1) /* time should not be 0 */
+                            .key = (keypos_t){.row = r, .col = c}, .pressed = (matrix_row & col_mask), .time = (timer_read() | 1) /* time should not be 0 */
                         });
                         // record a processed key
-                        matrix_prev[r] ^= ((matrix_row_t)1 << c);
+                        matrix_prev[r] ^= col_mask;
 #ifdef QMK_KEYS_PER_SCAN
                         // only jump out if we have processed "enough" keys.
                         if (++keys_processed >= QMK_KEYS_PER_SCAN)
@@ -325,6 +340,16 @@ MATRIX_LOOP_END:
 
 #ifdef DEBUG_MATRIX_SCAN_RATE
     matrix_scan_perf_task();
+#endif
+
+#if defined(RGBLIGHT_ENABLE)
+    rgblight_task();
+#endif
+
+#if defined(BACKLIGHT_ENABLE)
+#    if defined(BACKLIGHT_PIN) || defined(BACKLIGHT_PINS)
+    backlight_task();
+#    endif
 #endif
 
 #ifdef QWIIC_ENABLE

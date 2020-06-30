@@ -6,20 +6,21 @@ The breaking change period is when we will merge PR's that change QMK in dangero
 
 ## What has been included in past Breaking Changes?
 
+* [2020 Feb 29](ChangeLog/20200229.md)
 * [2019 Aug 30](ChangeLog/20190830.md)
 
 ## When is the next Breaking Change?
 
-The next Breaking Change is scheduled for Nov 29.
+The next Breaking Change is scheduled for May 30, 2020.
 
 ### Important Dates
 
-* [x] 2019 Sep 21 - `future` is created. It will be rebased weekly.
-* [ ] 2019 Nov 01 - `future` closed to new PR's.
-* [ ] 2019 Nov 01 - Call for testers.
-* [ ] 2019 Nov 27 - `master` is locked, no PR's merged.
-* [ ] 2019 Nov 29 - Merge `future` to `master`.
-* [ ] 2019 Nov 30 - `master` is unlocked. PR's can be merged again.
+* [x] 2020 Feb 29 - `future` is created. It will be rebased weekly.
+* [ ] 2020 May 2 - `future` closed to new PR's.
+* [ ] 2020 May 2 - Call for testers.
+* [ ] 2020 May 28 - `master` is locked, no PR's merged.
+* [ ] 2020 May 30 - Merge `future` to `master`.
+* [ ] 2020 May 30 - `master` is unlocked. PR's can be merged again.
 
 ## What changes will be included?
 
@@ -101,7 +102,7 @@ This happens immediately after the previous `future` branch is merged.
     * [ ] Roll up the ChangeLog into one file.
     * [ ] `git commit -m 'Merge point for <DATE> Breaking Change'`
     * [ ] `git push origin future`
-* Github Actions
+* GitHub Actions
     * [ ] Create a PR for `future`
     * [ ] Make sure travis comes back clean
     * [ ] Merge `future` PR

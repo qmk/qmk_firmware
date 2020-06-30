@@ -29,6 +29,9 @@ $(info QMK Firmware $(QMK_VERSION))
 endif
 endif
 
+# avoid 'Entering|Leaving directory' messages
+MAKEFLAGS += --no-print-directory
+
 ON_ERROR := error_occurred=1
 
 BREAK_ON_ERRORS = no
@@ -291,8 +294,8 @@ define PARSE_RULE
         $$(info |  QMK's make format recently changed to use folder locations and colons:)
         $$(info |     make project_folder:keymap[:target])
         $$(info |  Examples:)
-        $$(info |     make planck/rev4:default:dfu)
-        $$(info |     make planck:default)
+        $$(info |     make dz60:default)
+        $$(info |     make planck/rev6:default:flash)
         $$(info |)
     endif
 endef
@@ -623,13 +626,19 @@ endif
 # Generate the version.h file
 ifndef SKIP_GIT
     GIT_VERSION := $(shell git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")
+    CHIBIOS_VERSION := $(shell cd lib/chibios && git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")
+    CHIBIOS_CONTRIB_VERSION := $(shell cd lib/chibios-contrib && git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")
 else
     GIT_VERSION := NA
+    CHIBIOS_VERSION := NA
+    CHIBIOS_CONTRIB_VERSION := NA
 endif
 ifndef SKIP_VERSION
 BUILD_DATE := $(shell date +"%Y-%m-%d-%H:%M:%S")
 $(shell echo '#define QMK_VERSION "$(GIT_VERSION)"' > $(ROOT_DIR)/quantum/version.h)
 $(shell echo '#define QMK_BUILDDATE "$(BUILD_DATE)"' >> $(ROOT_DIR)/quantum/version.h)
+$(shell echo '#define CHIBIOS_VERSION "$(CHIBIOS_VERSION)"' >> $(ROOT_DIR)/quantum/version.h)
+$(shell echo '#define CHIBIOS_CONTRIB_VERSION "$(CHIBIOS_CONTRIB_VERSION)"' >> $(ROOT_DIR)/quantum/version.h)
 else
 BUILD_DATE := NA
 endif

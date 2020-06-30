@@ -9,3 +9,4 @@ In addition to hosting the [Seattle Mechanical Keyboard Meetups](https://ckeys.o
     * naKey        - Through hole numpad
     * Handwire 101 - Handwired 4x4 (Proton C or Pro Micro)
     * The Dora Board - 4x5 with rotary encoder and Proton C pinouts
+    * Washington Macropad - Macropad shaped like Washington State with rotary encoder and OLED
