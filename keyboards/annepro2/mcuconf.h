@@ -37,7 +37,7 @@
 
 #define HT32_CK_HSE_FREQUENCY   8000000UL           // 8 MHz
 #define HT32_CKCU_SW            CKCU_GCCR_SW_PLL
-#define HT32_PLL_USE_HSE        FALSE
+#define HT32_PLL_USE_HSE        TRUE
 #define HT32_PLL_FBDIV          6                   // 8 MHz -> 48 MHz
 #define HT32_PLL_OTDIV          0
 #define HT32_AHB_PRESCALER      1                   // 48 MHz -> 48 MHz
