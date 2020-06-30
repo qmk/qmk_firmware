@@ -7,6 +7,7 @@ gh60 compatible choc keyboard
 * Keyboard Maintainer: [kakunpc](https://github.com/kakunpc)
 * Hardware Supported: choc taro pcb
 * Hardware Availability: booth([@kakunpc](https://kakunpc.booth.pm/))
+
 Make example for this keyboard (after setting up your build environment):
 
     make choc_taro:default
