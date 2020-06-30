@@ -17,6 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 #define KC_MO1 MO(1)
+#define KC_SPFN LT(1, KC_SPC)
+#define KC_SDEL S(KC_DEL)
+#define KC_CINS C(KC_INS)
+#define KC_SINS S(KC_INS)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	/* Layout 0: Default Layer
@@ -37,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		TAB,  Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P,    LBRC, RBRC, BSLS, \
 		LCTL, A,    S,    D,    F,    G,    H,    J,    K,    L, SCLN,    QUOT, NUHS, ENT,  \
 		LSFT, NUBS, Z,    X,    C,    V,    B,    N,    M, COMM,  DOT,    SLSH,   NO, RSFT, NO, \
-		MO1,  LGUI, LALT,             FN0,                          RALT, RGUI, APP,  RCTL),
+		MO1,  LGUI, LALT,             SPFN,                         RALT, RGUI, APP,  RCTL),
 
 	/* Layout 1: Function Layer
 	* ,-----------------------------------------------------------.
@@ -56,25 +60,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		ESC,  F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,   F10,  F11,  F12,  TRNS, DEL,  \
 		TRNS, MPRV, MPLY, MNXT, MSTP, TRNS, TRNS, PGUP, UP,   PGDN, TRNS, SLCK, PAUS, INS,  \
 		TRNS, VOLD, MUTE, VOLU, TRNS, TRNS, HOME, LEFT, DOWN, RGHT, END,  TRNS, TRNS, PENT, \
-		TRNS, TRNS, PSCR, FN2,  FN3,  FN4,  CALC, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, CAPS, TRNS, \
+		TRNS, TRNS, PSCR, SDEL, CINS, SINS, CALC, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, CAPS, TRNS, \
 		TRNS, TRNS, TRNS,             TRNS,                         TRNS, TRNS, TRNS, TRNS),
 };
-
-/*
-* Fn action definition
-*/
-const uint16_t PROGMEM fn_actions[] = {
-	[0] = ACTION_LAYER_TAP_KEY(1, KC_SPACE),    /* SpaceFn layout 1 */
-	[2] = ACTION_MODS_KEY(MOD_LSFT, KC_DEL),    /* Cut  */
-	[3] = ACTION_MODS_KEY(MOD_LCTL, KC_INS),    /* Copy  */
-	[4] = ACTION_MODS_KEY(MOD_LSFT, KC_INS),    /* Paste */
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    return MACRO_NONE;
-};
-
 
 void matrix_init_user(void) {
 

@@ -73,7 +73,9 @@ static void steno_clear_state(void) {
 static void send_steno_state(uint8_t size, bool send_empty) {
     for (uint8_t i = 0; i < size; ++i) {
         if (chord[i] || send_empty) {
+#ifdef VIRTSER_ENABLE
             virtser_send(chord[i]);
+#endif
         }
     }
 }
@@ -105,7 +107,9 @@ static void send_steno_chord(void) {
         switch (mode) {
             case STENO_MODE_BOLT:
                 send_steno_state(BOLT_STATE_SIZE, false);
+#ifdef VIRTSER_ENABLE
                 virtser_send(0);  // terminating byte
+#endif
                 break;
             case STENO_MODE_GEMINI:
                 chord[0] |= 0x80;  // Indicate start of packet

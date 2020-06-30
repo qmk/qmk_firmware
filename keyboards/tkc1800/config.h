@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define VENDOR_ID       0x544B // "TK"
+#define PRODUCT_ID      0x0001
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    The Key Company
 #define PRODUCT         TKC1800
@@ -66,6 +66,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+#define QMK_ESC_OUTPUT A0 // usually COL
+#define QMK_ESC_INPUT F4 // usually ROW
+#define QMK_LED D2 // NumLock on TKC1800
+//#define QMK_SPEAKER C6
 
 /*
  * Force NKRO
