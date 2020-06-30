@@ -4,7 +4,10 @@ util_dir=$(dirname "$0")
 dir=$(cd -P -- "$util_dir" && pwd -P)
 pushd "$dir";
 
-if [[ $dir != /mnt/* ]];
+mount_point=$(df ${dir} | tail -1 | cut -d' ' -f 1);
+valid_windows_mount="^[A-Z]:\\\\$"
+
+if [[ ! $mount_point =~ $valid_windows_mount ]];
 then
     echo
     echo "You need to clone the qmk_firmware repository outside the linux filesystem."
@@ -31,7 +34,7 @@ source "$dir/win_shared_install.sh"
 
 pip3 install -r ${util_dir}/../requirements.txt
 
-echo 
+echo
 echo "Creating a softlink to the utils directory as ~/qmk_utils."
 echo "This is needed so that the the make system can find all utils it need."
 read -p "Press enter to continue (ctrl-c to abort)"
