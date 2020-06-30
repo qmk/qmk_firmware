@@ -1,47 +1,17 @@
 # QMK CLI コマンド
 
 <!---
-  original document: 0.8.58:docs/cli.md
-  git diff 0.8.58 HEAD -- docs/cli.md | cat
+  original document: 0.9.19:docs/cli_command.md
+  git diff 0.9.19 HEAD -- docs/cli_command.md | cat
 -->
 
-# CLI コマンド
-
-## `qmk cformat`
-
-このコマンドは clang-format を使って C コードを整形します。
-
-引数無しで実行すると、変更された全てのコアコードを整形します。デフォルトでは `git diff` で `origin/master` をチェックし、ブランチは `-b <branch_name>` を使って変更できます。
-
-`-a` で全てのコアコードを整形するか、コマンドラインでファイル名を渡して特定のファイルに対して実行します。
-
-**指定したファイルに対する使い方**:
-
-```
-qmk cformat [file1] [file2] [...] [fileN]
-```
-
-**全てのコアファイルに対する使い方**:
-
-```
-qmk cformat -a
-```
-
-**origin/master で変更されたファイルのみに対する使い方**:
-
-```
-qmk cformat
-```
-
-**branch_name で変更されたファイルのみに対する使い方**:
-
-```
-qmk cformat -b branch_name
-```
+# ユーザー用コマンド
 
 ## `qmk compile`
 
 このコマンドにより、任意のディレクトリからファームウェアをコンパイルすることができます。<https://config.qmk.fm> からエクスポートした JSON をコンパイルするか、リポジトリ内でキーマップをコンパイルするか、現在の作業ディレクトリでキーボードをコンパイルすることができます。
+
+このコマンドはディレクトリを認識します。キーボードやキーマップのディレクトリにいる場合、自動的に KEYBOARD や KEYMAP を入力します。
 
 **Configurator Exports での使い方**:
 
@@ -113,6 +83,8 @@ $ qmk compile -kb dz60
 このコマンドは `qmk compile` に似ていますが、ブートローダを対象にすることもできます。ブートローダはオプションで、デフォルトでは `:flash` に設定されています。
 違うブートローダを指定するには、`-bl <bootloader>` を使ってください。利用可能なブートローダの詳細については、[ファームウェアを書き込む](ja/flashing.md)を見てください。
 
+このコマンドはディレクトリを認識します。キーボードやキーマップのディレクトリにいる場合、自動的に KEYBOARD や KEYMAP を入力します。
+
 **Configurator Exports での使い方**:
 
 ```
@@ -141,16 +113,6 @@ qmk flash -b
 qmk config [-ro] [config_token1] [config_token2] [...] [config_tokenN]
 ```
 
-## `qmk docs`
-
-このコマンドは、ドキュメントを参照または改善するために使うことができるローカル HTTP サーバを起動します。デフォルトのポートは 8936 です。
-
-**使用法**:
-
-```
-qmk docs [-p PORT]
-```
-
 ## `qmk doctor`
 
 このコマンドは環境を調査し、潜在的なビルドあるいは書き込みの問題について警告します。必要に応じてそれらの多くを修正できます。
@@ -175,6 +137,32 @@ qmk doctor [-y] [-n]
 
     qmk doctor -n
 
+## `qmk info`
+
+QMK のキーボードやキーマップに関する情報を表示します。キーボードに関する情報を取得したり、レイアウトを表示したり、基礎となるキーマトリックスを表示したり、JSON キーマップをきれいに印刷したりするのに使用できます。
+
+**使用法**:
+
+```
+qmk info [-f FORMAT] [-m] [-l] [-km KEYMAP] [-kb KEYBOARD]
+```
+
+このコマンドはディレクトリを認識します。キーボードやキーマップのディレクトリにいる場合、自動的に KEYBOARD や KEYMAP を入力します。
+
+**例**:
+
+キーボードの基本情報を表示する:
+
+    qmk info -kb planck/rev5
+
+キーボードのマトリクスを表示する:
+
+    qmk info -kb ergodox_ez -m
+
+キーボードの JSON キーマップを表示する:
+
+    qmk info -kb clueboard/california -km default
+
 ## `qmk json2c`
 
 QMK Configurator からエクスポートしたものから keymap.c を生成します。
@@ -183,6 +171,86 @@ QMK Configurator からエクスポートしたものから keymap.c を生成�
 
 ```
 qmk json2c [-o OUTPUT] filename
+```
+
+## `qmk list-keyboards`
+
+このコマンドは現在 `qmk_firmware` で定義されている全てのキーボードを列挙します。
+
+**使用法**:
+
+```
+qmk list-keyboards
+```
+
+## `qmk list-keymaps`
+
+このコマンドは指定されたキーボード(とリビジョン)の全てのキーマップを列挙します。
+
+このコマンドはディレクトリを認識します。キーボードのディレクトリにいる場合、自動的に KEYBOARD を入力します。
+
+**使用法**:
+
+```
+qmk list-keymaps -kb planck/ez
+```
+
+## `qmk new-keymap`
+
+このコマンドは、キーボードの既存のデフォルトのキーマップに基づいて新しいキーマップを作成します。
+
+このコマンドはディレクトリを認識します。キーボードやキーマップのディレクトリにいる場合、自動的に KEYBOARD や KEYMAP を入力します。
+
+**使用法**:
+
+```
+qmk new-keymap [-kb KEYBOARD] [-km KEYMAP]
+```
+
+---
+
+# 開発者用コマンド
+
+## `qmk cformat`
+
+このコマンドは clang-format を使って C コードを整形します。
+
+引数無しで実行すると、変更された全てのコアコードを整形します。デフォルトでは `git diff` で `origin/master` をチェックし、ブランチは `-b <branch_name>` を使って変更できます。
+
+`-a` で全てのコアコードを整形するか、コマンドラインでファイル名を渡して特定のファイルに対して実行します。
+
+**指定したファイルに対する使い方**:
+
+```
+qmk cformat [file1] [file2] [...] [fileN]
+```
+
+**全てのコアファイルに対する使い方**:
+
+```
+qmk cformat -a
+```
+
+**origin/master で変更されたファイルのみに対する使い方**:
+
+```
+qmk cformat
+```
+
+**branch_name で変更されたファイルのみに対する使い方**:
+
+```
+qmk cformat -b branch_name
+```
+
+## `qmk docs`
+
+このコマンドは、ドキュメントを参照または改善するために使うことができるローカル HTTP サーバを起動します。デフォルトのポートは 8936 です。
+
+**使用法**:
+
+```
+qmk docs [-p PORT]
 ```
 
 ## `qmk kle2json`
@@ -205,36 +273,6 @@ $ qmk kle2json kle.txt
 ```
 $ qmk kle2json -f kle.txt -f
 Ψ Wrote out to info.json
-```
-
-## `qmk list-keyboards`
-
-このコマンドは現在 `qmk_firmware` で定義されている全てのキーボードを列挙します。
-
-**使用法**:
-
-```
-qmk list-keyboards
-```
-
-## `qmk list-keymaps`
-
-このコマンドは指定されたキーボード(とリビジョン)の全てのキーマップを列挙します。
-
-**使用法**:
-
-```
-qmk list-keymaps -kb planck/ez
-```
-
-## `qmk new-keymap`
-
-このコマンドは、キーボードの既存のデフォルトのキーマップに基づいて新しいキーマップを作成します。
-
-**使用法**:
-
-```
-qmk new-keymap [-kb KEYBOARD] [-km KEYMAP]
 ```
 
 ## `qmk pyformat`
