@@ -85,13 +85,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LAYER_LEGACY_EXTENTION] = LAYOUT_default_splitspace(
         LGUI(LSFT(KC_4)), KC_NO, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_MPLY, KC_MUTE, KC_VOLD, KC_VOLU, KC_NO, LCTL(KC_C), KC_NO,
         KEY_FORWARD_LAYER(LAYER_WINDOW), LGUI(KC_SPC), LCTL(KC_SPC), KC_ESC, KC_TILD, KC_EXLM, KC_PEQL, KC_PLUS, KC_MINUS, KC_PIPE, KC_COLN, KC_LCBR, KC_RCBR, KEY_CREATE_PREVIOUS_LINE, KEY_BACK_LAYER,
-        KEY_CUT_WORD, LALT(KC_LEFT), LALT(KC_RIGHT), KC_BSPC, LGUI(KC_LEFT), LGUI(KC_RIGHT), KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, LGUI(KC_V), KC_DQUO, KEY_CREATE_NEXT_LINE, KEY_FORWARD_LAYER(LAYER_DESKTOP),
+        KEY_CUT_WORD, LALT(KC_LEFT), LALT(KC_RIGHT), KC_BSPC, LGUI(KC_LEFT), LCTL(KC_E), KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, LGUI(KC_V), KC_DQUO, KEY_CREATE_NEXT_LINE, KEY_FORWARD_LAYER(LAYER_DESKTOP),
         KC_LSFT, LGUI(KC_Z), KEY_CUT_SELECTION, KC_LPRN, KC_RPRN, KC_UNDS, KC_LBRC, KC_RBRC, KC_LT, KC_GT, KC_QUES, KC_RSFT, KC_NO, LCTL(KC_LEFT),
         KC_LCTL, KC_LGUI, KC_LALT, KC_NO, KEY_FORWARD_LAYER(LAYER_CONTROL), KC_SPC, KC_RALT, KC_RGUI, KC_NO, KC_NO, LCTL(KC_RIGHT)),
     [LAYER_CONTROL] = LAYOUT_default_splitspace(
         KC_NO, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KEY_INSERT_LINE_START, KEY_INSERT_HERE, KEY_INSERT_LINE_END, KC_NO, KC_NO, KC_NO, KEY_CREATE_PREVIOUS_LINE, KC_NO,
-        KEY_CUT_WORD, LALT(KC_LEFT), LALT(KC_RIGHT), KC_BSPC, LGUI(KC_LEFT), LGUI(KC_RIGHT), KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, LGUI(KC_V), KC_NO, KEY_CREATE_NEXT_LINE, KC_NO,
+        KEY_CUT_WORD, LALT(KC_LEFT), LALT(KC_RIGHT), KC_BSPC, LGUI(KC_LEFT), LCTL(KC_E), KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, LGUI(KC_V), KC_NO, KEY_CREATE_NEXT_LINE, KC_NO,
         KC_LSFT, LGUI(KC_Z), KEY_CUT_SELECTION, LGUI(KC_C), LGUI(KC_V), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_RSFT, KC_NO, KC_NO,
         KC_NO, KC_NO, KC_NO, KC_NO, KEY_BACK_LAYER, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO),
     [LAYER_WINDOW] = LAYOUT_default_splitspace(
@@ -262,15 +262,15 @@ bool handle_layer_key(uint16_t key, keyrecord_t* record) {
                         layer_control_data.operator   = - 1;
                     }
                     return false;
-                case LGUI(KC_RIGHT):
+                case LCTL(KC_E):
                     if (record->event.pressed) {
                         if (layer_control_data.operator== - 1)
-                            tap_code16(LGUI(KC_RIGHT));
+                            tap_code16(LCTL(KC_E));
                         else if (layer_control_data.operator== KC_BSPC) {
-                            tap_code16(LSFT(LGUI(KC_RIGHT)));
+                            tap_code16(LSFT(LCTL(KC_E)));
                             tap_code16(LGUI(KC_X));
                         } else if (layer_control_data.operator== LGUI(KC_C)) {
-                            tap_code16(LSFT(LGUI(KC_RIGHT)));
+                            tap_code16(LSFT(LCTL(KC_E)));
                             tap_code16(LGUI(KC_C));
                             tap_code(KC_LEFT);
                         }
