@@ -9,6 +9,7 @@ from milc import cli
 from qmk.constants import ARM_PROCESSORS, AVR_PROCESSORS, VUSB_PROCESSORS
 from qmk.c_parse import find_layouts
 from qmk.keyboard import config_h, rules_mk
+from qmk.makefile import parse_rules_mk_file
 from qmk.math import compute
 
 
@@ -115,14 +116,18 @@ def _search_keyboard_h(path):
 def _find_all_layouts(keyboard):
     """Looks for layout macros associated with this keyboard.
     """
-    rules = rules_mk(keyboard)
+    cur_dir = Path('keyboards')
+    rules = parse_rules_mk_file(cur_dir / Path(keyboard) / 'rules.mk')
+    default_folder = rules.get('DEFAULT_FOLDER', '')
 
     # Pull in all layouts defined in the standard files
-    layouts = _search_keyboard_h(Path(keyboard))
+    if not default_folder == keyboard:
+        rules = parse_rules_mk_file(cur_dir / Path(default_folder) / 'rules.mk', rules)
+        default_folder = rules.get('DEFAULT_FOLDER', keyboard)
 
-    if not layouts:
-        # Search in DEFAULT_FOLDER next, if we didn't get any hits
-        layouts = _search_keyboard_h(layouts, Path(rules.get('DEFAULT_FOLDER', keyboard)))
+    keyboard = default_folder
+
+    layouts = _search_keyboard_h(Path(keyboard))
 
     if not layouts:
         # If we didn't find any layouts above we widen our search. This is error
