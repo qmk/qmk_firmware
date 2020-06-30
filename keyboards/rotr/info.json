@@ -6,7 +6,7 @@
     "height": 1, 
     "layouts": {
         "LAYOUT": {
-            "layout": [{"label":"Previous","x":0, "y":0}, {"label":"Play","x":1, "y":0}, {"label":"Next","x":2, "y":0}]
+            "layout": [{"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}]
         }
     }
 }
