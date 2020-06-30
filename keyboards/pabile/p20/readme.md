@@ -7,7 +7,7 @@ A 5x4 grid keyboard with up to 3 rotary encoders.
 
 * Keyboard Maintainer: [pabile](https://github.com/pabile)
 * Hardware Supported: Pabile P20 PCB, Pro Micro, rotary encoders
-* Hardware Availability: [Info at pabileonline.blogspot.com](https://pabileonline.blogspot.com/search/label/pabile20)
+* Hardware Availability: [pabileonline.blogspot.com](https://pabileonline.blogspot.com/search/label/p20)
 
 Make example for this keyboard (after setting up your build environment):
 
