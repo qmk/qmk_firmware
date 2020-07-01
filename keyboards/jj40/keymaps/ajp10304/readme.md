@@ -6,7 +6,7 @@ the second is the output when shift is applied.
 
 **Note:** The below tables assume a UK layout.
 
-####Flashing
+#### Flashing
 Use sleep to get a chance to get into boot mode.
 `sleep 5; bootloadHID -r .build/jj40_ajp10304.hex`
 
