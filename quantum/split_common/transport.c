@@ -27,6 +27,10 @@ static pin_t encoders_pad[] = ENCODERS_PAD_A;
 #    define NUMBER_OF_ENCODERS (sizeof(encoders_pad) / sizeof(pin_t))
 #endif
 
+#define RGB_SHOULD_SPLIT_MATRIX  (defined(RGB_MATRIX_SPLIT) && defined(RGB_MATRIX_ENABLE))
+#define RGB_SHOULD_SPLIT_LIGHT (defined(RGBLIGHT_SPLIT) && defined(RGBLIGHT_ENABLE))
+#define RGB_SHOULD_SPLIT (RGB_SHOULD_SPLIT_MATRIX || RGB_SHOULD_SPLIT_LIGHT)
+
 #if defined(USE_I2C)
 
 #    include "i2c_master.h"
@@ -36,9 +40,9 @@ typedef struct _I2C_slave_buffer_t {
     uint32_t sync_time;
     matrix_row_t smatrix[ROWS_PER_HAND];
     uint8_t      backlight_level;
-#    if defined(RGB_MATRIX_ENABLE) && defined(RGBLIGHT_SPLIT)
+#    ifdef RGB_SHOULD_SPLIT_MATRIX
     rgb_matrix_syncinfo_t rgb_sync;
-#    elif defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
+#    elif RGB_SHOULD_SPLIT_LIGHT
     rgblight_syncinfo_t rgb_sync;
 #    endif
 #    ifdef ENCODER_ENABLE
@@ -78,9 +82,9 @@ bool transport_master(matrix_row_t matrix[]) {
     }
 #    endif
 
-#    if defined(RGBLIGHT_SPLIT) && (defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE))
+#    if RGB_SHOULD_SPLIT
     if (rgblight_get_change_flags()) {
-#        ifdef RGB_MATRIX_ENABLE
+#        if defined(RGB_MATRIX_ENABLE)
         rgb_matrix_syncinfo_t rgb_sync;
 #        elif defined(RGBLIGHT_ENABLE)
         rgblight_syncinfo_t rgb_sync;
@@ -122,7 +126,7 @@ void transport_slave(matrix_row_t matrix[]) {
     backlight_set(i2c_buffer->backlight_level);
 #    endif
 
-#    if defined(RGBLIGHT_SPLIT) && (defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE))
+#    if RGB_SPLIT 
     // Update the RGB with the new data
     rgblight_update_sync(&i2c_buffer->rgb_sync, false);
 #    endif
@@ -164,7 +168,7 @@ typedef struct _Serial_m2s_buffer_t {
 #    endif
 } Serial_m2s_buffer_t;
 
-#    if defined(RGBLIGHT_SPLIT) && (defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE))
+#if RGB_SHOULD_SPLIT
 // When MCUs on both sides drive their respective RGB LED chains,
 // it is necessary to synchronize, so it is necessary to communicate RGB
 // information. In that case, define RGBLIGHT_SPLIT with info on the number
@@ -174,7 +178,7 @@ typedef struct _Serial_m2s_buffer_t {
 // there is no need to communicate.
 
 typedef struct _Serial_rgb_t {
-#ifdef RGB_MATRIX_ENABLE
+#if defined(RGB_MATRIX_ENABLE)
     rgb_matrix_syncinfo_t rgb_matrix_sync;
 #elif defined(RGBLIGHT_ENABLE)
     rgblight_syncinfo_t rgblight_sync;
@@ -191,7 +195,7 @@ uint8_t volatile status0                       = 0;
 
 enum serial_transaction_id {
     GET_SLAVE_MATRIX = 0,
-#    if defined(RGBLIGHT_SPLIT) && (defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE))
+#    if RGB_SHOULD_SPLIT
     PUT_RGB,
 #    endif
 };
@@ -205,7 +209,7 @@ SSTD_t transactions[] = {
             sizeof(serial_s2m_buffer),
             (uint8_t *)&serial_s2m_buffer,
         },
-#    if defined(RGBLIGHT_SPLIT) && (defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE))
+#    if RGB_SHOULD_SPLIT
     [PUT_RGB] =
         {
             (uint8_t *)&status_rgb, sizeof(serial_rgb), (uint8_t *)&serial_rgb, 0, NULL  // no slave to master transfer
@@ -217,13 +221,13 @@ void transport_master_init(void) { soft_serial_initiator_init(transactions, TID_
 
 void transport_slave_init(void) { soft_serial_target_init(transactions, TID_LIMIT(transactions)); }
 
-#    if defined(RGBLIGHT_SPLIT) && (defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE))
+#    if RGB_SHOULD_SPLIT
 
 // rgblight synchronization information communication.
 
 void transport_rgb_master(void) {
     if (rgblight_get_change_flags() || true) {
-#ifdef RGB_MATRIX_ENABLE 
+#if defined(RGB_MATRIX_ENABLE)
         rgb_matrix_get_syncinfo((rgb_matrix_syncinfo_t *)&serial_rgb.rgb_matrix_sync);
 #elif defined(RGBLIGHT_ENABLE)
         rgblight_get_syncinfo((rgblight_syncinfo_t *)&serial_rgb.rgblight_sync);
@@ -236,7 +240,7 @@ void transport_rgb_master(void) {
 
 void transport_rgb_slave(void) {
     if (status_rgb == TRANSACTION_ACCEPTED) {
-#ifdef RGB_MATRIX_ENABLE 
+#if defined(RGB_MATRIX_ENABLE)
         rgb_matrix_update_sync((rgb_matrix_syncinfo_t *)&serial_rgb.rgb_matrix_sync);
 #elif defined(RGBLIGHT_ENABLE)
         rgblight_update_sync((rgblight_syncinfo_t *)&serial_rgb.rgblight_sync, false);
@@ -312,3 +316,7 @@ void transport_slave(matrix_row_t matrix[]) {
 }
 
 #endif
+
+#undef RGB_SHOULD_SPLIT
+#undef RGB_SHOULD_SPLIT_MATRIX
+#undef RGB_SHOULD_SPLIT_LIGHT

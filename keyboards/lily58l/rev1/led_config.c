@@ -69,26 +69,6 @@ led_config_t g_led_config = { {
 
 #endif
 
-__attribute__((weak))
-void matrix_init_user(void) {}
-
-void matrix_init_kb(void) {
-#ifdef RGB_MATRIX_ENABLE
-	if (!isLeftHand) {
-		g_led_config = (led_config_t){ {
-			KEY_2_LED_RIGHT,
-			KEY_2_LED_LEFT
-		}, {
-			POS_LED_RIGHT,
-			POS_LED_LEFT
-		}, {
-			LED_FLAG, LED_FLAG
-		}};
-	}
-#endif
-	matrix_init_user();
-}
-
 
 #undef KEY_2_LED_LEFT
 #undef KEY_2_LED_RIGHT

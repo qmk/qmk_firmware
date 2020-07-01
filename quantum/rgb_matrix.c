@@ -18,6 +18,7 @@
 
 #include "rgb_matrix.h"
 #include "progmem.h"
+#include "split_util.h"
 #include "config.h"
 #include "eeprom.h"
 #include <string.h>
@@ -116,7 +117,7 @@ const point_t k_rgb_matrix_center = RGB_MATRIX_CENTER;
 #endif
 
 // split things
-#ifdef RGBLIGHT_SPLIT
+#ifdef RGB_MATRIX_SPLIT
 /* for split keyboard */
 #    define RGB_MATRIX_SPLIT_SET_CHANGE_MODE change_flags |= RGB_MATRIX_STATUS_CHANGE_MODE
 #    define RGB_MATRIX_SPLIT_SET_CHANGE_HSVS change_flags |= RGB_MATRIX_STATUS_CHANGE_HSVS
@@ -129,7 +130,7 @@ uint8_t change_flags = 0xFF;
 #    define RGB_MATRIX_SPLIT_SET_CHANGE_MODEHSVS
 #    define RGB_MATRIX_SPLIT_SET_CHANGE_FLAG 
 
-#endif
+#endif  // RGB_MATRIX_SPLIT
 
 // globals
 bool         g_suspend_state = false;
@@ -156,6 +157,10 @@ static uint32_t rgb_timer_buffer;
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
 static last_hit_t last_hit_buffer;
 #endif  // RGB_MATRIX_KEYREACTIVE_ENABLED
+
+#ifdef RGB_MATRIX_SPLIT
+const uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;
+#endif
 
 void eeconfig_read_rgb_matrix(void) { eeprom_read_block(&rgb_matrix_config, EECONFIG_RGB_MATRIX, sizeof(rgb_matrix_config)); }
 
@@ -194,9 +199,23 @@ uint8_t rgb_matrix_map_row_column_to_led(uint8_t row, uint8_t column, uint8_t *l
 
 void rgb_matrix_update_pwm_buffers(void) { rgb_matrix_driver.flush(); }
 
-void rgb_matrix_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) { rgb_matrix_driver.set_color(index, red, green, blue); }
+void rgb_matrix_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) { 
+#ifdef RGB_MATRIX_SPLIT
+    if (!isLeftHand && index >= k_rgb_matrix_split[0])
+        rgb_matrix_driver.set_color(index - k_rgb_matrix_split[0], red, green, blue);
+    else if (isLeftHand && index < k_rgb_matrix_split[0])
+#endif
+    rgb_matrix_driver.set_color(index, red, green, blue); 
+}
 
-void rgb_matrix_set_color_all(uint8_t red, uint8_t green, uint8_t blue) { rgb_matrix_driver.set_color_all(red, green, blue); }
+void rgb_matrix_set_color_all(uint8_t red, uint8_t green, uint8_t blue) { 
+#ifdef RGB_MATRIX_SPLIT
+    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++)
+        rgb_matrix_set_color(i, red, green, blue);
+#else
+    rgb_matrix_driver.set_color_all(red, green, blue); 
+#endif
+}
 
 bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
 #if RGB_DISABLE_TIMEOUT > 0
@@ -620,7 +639,7 @@ uint8_t rgb_matrix_get_hue(void) { return rgb_matrix_config.hsv.h; }
 uint8_t rgb_matrix_get_sat(void) { return rgb_matrix_config.hsv.s; }
 uint8_t rgb_matrix_get_val(void) { return rgb_matrix_config.hsv.v; }
 
-#ifdef RGBLIGHT_SPLIT
+#ifdef RGB_MATRIX_SPLIT
 uint8_t rgb_matrix_get_change_flags(void) { return change_flags; }  // TODO
 void rgb_matrix_clear_change_flags(void) { change_flags = 0; }
 
@@ -655,4 +674,4 @@ void rgb_matrix_update_sync(rgb_matrix_syncinfo_t *syncinfo) {
     // SUSPEND
     // rgb_matrix_set_suspend_state(false);
 }
-#endif
+#endif  // RGB_MATRIX_SPLIT
