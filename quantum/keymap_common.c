@@ -178,6 +178,11 @@ __attribute__((weak)) void action_function(keyrecord_t *record, uint8_t id, uint
 
 // translates key to keycode
 __attribute__((weak)) uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key) {
+#ifdef SPLIT_TRANSPORT_MIRROR
+    if (!is_keyboard_master())
+        return KC_NO;
+#endif
+
     // Read entire word (16bits)
     return pgm_read_word(&keymaps[(layer)][(key.row)][(key.col)]);
 }
