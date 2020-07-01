@@ -1,7 +1,7 @@
 # PH ARISU
 
 PCB is base on https://github.com/FateNozomi/arisu-pcb
-and used for a local groupbuy.
+and used for a local groupbuy in the Philippines.
 
 Keyboard Maintainer: [Leivince John](https://github.com/devinceble)  
 Hardware Supported: PH ARISU PCB 
