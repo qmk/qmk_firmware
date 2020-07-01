@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "keymap_swedish.h"
 
 //Heavily modified keymap. Some features:
 //Multiple layouts, I use dvorak as main.
@@ -65,9 +66,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,--------+--------+--------+--------+--------+--------.                          ,--------+--------+--------+--------+--------+--------.
       KC_DEL , KC_APP , KC_VOLD, KC_MUTE, KC_VOLU, KC_LGUI,                            KC_GRV , KC_MPRV, KC_MPLY, KC_MNXT, KC_DOWN, KC_ESC ,
   //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
-      KC_TAB , KC_Q   , KC_W   , KC_E   , KC_ R  , KC_T   ,                            KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_LBRC,
+      KC_TAB , KC_Q   , KC_W   , KC_E   , KC_ R  , KC_T   ,                            KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , SE_ARNG,
   //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   ,                            KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT,
+      KC_LCTL, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   ,                            KC_H   , KC_J   , KC_K   , KC_L   , SE_ODIA, SE_ADIA,
   //|--------+--------+--------+--------+--------+--------+--------.        ,--------|--------+--------+--------+--------+--------+--------|
       KC_LSFT, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_NUMP,          KC_ENT , KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_RSFT,
   //`--------+--------+--------+----+---+--------+--------+--------/        \--------+--------+--------+---+----+--------+--------+--------'
@@ -81,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
       KC_TAB , KC_Q   , KC_W   , KC_E   , KC_ R  , KC_T   ,                            KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_DEL ,
   //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   ,                            KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_RCTL,
+      KC_LCTL, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   ,                            KC_H   , KC_J   , KC_K   , KC_L   , SW_ODIA, KC_RCTL,
   //|--------+--------+--------+--------+--------+--------+--------.        ,--------|--------+--------+--------+--------+--------+--------|
       KC_LSFT, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_NUMP,          KC_ENT , KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_RSFT,
   //`--------+--------+--------+----+---+--------+--------+--------/        \--------+--------+--------+---+----+--------+--------+--------'
@@ -93,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,--------+--------+--------+--------+--------+--------.                          ,--------+--------+--------+--------+--------+--------.
       KC_DEL , KC_APP , KC_VOLD, KC_MUTE, KC_VOLU, KC_LGUI,                            KC_GRV , KC_MPRV, KC_MPLY, KC_MNXT, KC_DOWN, KC_ESC ,
   //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
-      KC_TAB , KC_LBRC, KC_QUOT, KC_SCLN, KC_P   , KC_Y   ,                            KC_F   , KC_G   , KC_C   , KC_R   , KC_L   ,KC_DEL  ,
+      KC_TAB , SE_ARNG, SE_ADIA, SE_ODIA, KC_P   , KC_Y   ,                            KC_F   , KC_G   , KC_C   , KC_R   , KC_L   ,KC_DEL  ,
   //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
       KC_LCTL, KC_A   , KC_O   , KC_E   , KC_U   , KC_I   ,                            KC_D   , KC_H   , KC_T   , KC_N   , KC_S   ,KC_RCTL ,
   //|--------+--------+--------+--------+--------+--------+--------.        ,--------|--------+--------+--------+--------+--------+--------|
@@ -107,9 +108,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,--------+--------+--------+--------+--------+--------.                          ,--------+--------+--------+--------+--------+--------.
       KC_DEL , KC_APP , KC_VOLD, KC_MUTE, KC_VOLU, KC_LGUI,                            KC_GRV , KC_MPRV, KC_MPLY, KC_MNXT, KC_DOWN, KC_ESC ,
   //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
-      KC_TAB , KC_Q   , KC_W   , KC_F   , KC_P   , KC_G   ,                            KC_J   , KC_L   , KC_U   , KC_Y   , KC_LBRC, KC_QUOT,
+      KC_TAB , KC_Q   , KC_W   , KC_F   , KC_P   , KC_G   ,                            KC_J   , KC_L   , KC_U   , KC_Y   , SE_ARNG, SE_ADIA,
   //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, KC_A   , KC_R   , KC_S   , KC_T   , KC_D   ,                            KC_H   , KC_N   , KC_E   , KC_I   , KC_O   , KC_SCLN,
+      KC_LCTL, KC_A   , KC_R   , KC_S   , KC_T   , KC_D   ,                            KC_H   , KC_N   , KC_E   , KC_I   , KC_O   , SE_ODIA,
   //|--------+--------+--------+--------+--------+--------+--------.        ,--------|--------+--------+--------+--------+--------+--------|
       KC_LSFT, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_NUMP,          KC_ENT , KC_K   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_RSFT,
   //`--------+--------+--------+----+---+--------+--------+--------/        \--------+--------+--------+---+----+--------+--------+--------'
@@ -121,11 +122,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,--------+--------+--------+--------+--------+--------.                          ,--------+--------+--------+--------+--------+--------.
       KC_DEL , KC_APP , KC_VOLD, KC_MUTE, KC_VOLU, KC_LGUI,                            KC_GRV , KC_MPRV, KC_MPLY, KC_MNXT, KC_DOWN, KC_ESC ,
   //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
-      KC_TAB , KC_Q   , KC_W   , KC_R   , KC_W     KC_B   ,                            KC_J   , KC_F   , KC_U   , KC_P   , KC_LBRC, KC_SCLN,
+      KC_TAB , KC_Q   , KC_W   , KC_R   , KC_W     KC_B   ,                            KC_J   , KC_F   , KC_U   , KC_P   , SE_ARNG, SE_ODIA,
   //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
       KC_LCTL, KC_A   , KC_S   , KC_H   , KC_T   , KC_G   ,                            KC_Y   , KC_N   , KC_E   , KC_O   , KC_I   , KC_RCTL,
   //|--------+--------+--------+--------+--------+--------+--------.        ,--------|--------+--------+--------+--------+--------+--------|
-      KC_LSFT, KC_Z   , KC_X   , KC_M   , KC_C   , KC_V   , KC_NUMP,          KC_ENT , KC_K   , KC_L   , KC_QUOT, KC_DOT , KC_SLSH, KC_RSFT,
+      KC_LSFT, KC_Z   , KC_X   , KC_M   , KC_C   , KC_V   , KC_NUMP,          KC_ENT , KC_K   , KC_L   , SE_ADIA, KC_DOT , KC_SLSH, KC_RSFT,
   //`--------+--------+--------+----+---+--------+--------+--------/        \--------+--------+--------+---+----+--------+--------+--------'
                                       KC_LALT, KC_LOWR, KC_BSPC,                 KC_SPC  , KC_RASE, KC_LALT
   //                                `--------+--------+--------'                `--------+--------+--------'
