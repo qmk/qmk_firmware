@@ -228,7 +228,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_single_persistent_default_layer(_GAMING);
       }
       return false;
-      break;
   }
   return true;
 }
