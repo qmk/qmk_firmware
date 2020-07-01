@@ -235,6 +235,7 @@ __attribute__((weak)) bool should_process_keypress(void) { return is_keyboard_ma
  */
 void keyboard_init(void) {
     timer_init();
+    sync_timer_init();
     matrix_init();
 #ifdef VIA_ENABLE
     via_init();
