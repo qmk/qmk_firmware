@@ -2,6 +2,7 @@
 #include "keymap.h"
 #include "settings.h"
 #include "stdio.h"
+#include "transport.h"
 
 #ifdef OLED_DRIVER_ENABLE
 static void render_modifiers(void);

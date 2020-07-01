@@ -11,7 +11,6 @@
 #    include "rgblight.h"
 #endif
 
-
 #ifdef RGB_MATRIX_ENABLE
 #    include "rgb_matrix.h"
 #endif
@@ -240,7 +239,7 @@ void transport_slave_init(void) { soft_serial_target_init(transactions, TID_LIMI
 // rgblight synchronization information communication.
 
 void transport_rgb_master(void) {
-    if (rgblight_get_change_flags() || true) {
+    if (rgblight_get_change_flags()) {
 #if defined(RGB_MATRIX_ENABLE)
         rgb_matrix_get_syncinfo((rgb_matrix_syncinfo_t *)&serial_rgb.rgb_matrix_sync);
 #elif defined(RGBLIGHT_ENABLE)
@@ -313,7 +312,7 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
 void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
     transport_rgb_slave();
 
-    sync_timer_update(serial_m2s_buffer.sync_timer + 2);  // 2ms offset to account for transfer speed
+    sync_timer_update(serial_m2s_buffer.sync_timer - 100);  // 2ms offset to account for transfer speed
 
     // TODO: if MATRIX_COLS > 8 change to pack()
     for (int i = 0; i < ROWS_PER_HAND; ++i) {

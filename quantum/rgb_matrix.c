@@ -504,7 +504,7 @@ void rgb_matrix_toggle(void) {
     rgb_matrix_config.enable ^= 1;
     rgb_task_state = STARTING;
     eeconfig_update_rgb_matrix();
-
+	RGB_MATRIX_SPLIT_SET_CHANGE_MODE;
 }
 
 void rgb_matrix_enable(void) {
@@ -536,7 +536,6 @@ void rgb_matrix_step(void) {
     if (rgb_matrix_config.mode >= RGB_MATRIX_EFFECT_MAX) rgb_matrix_config.mode = 1;
     rgb_task_state = STARTING;
     eeconfig_update_rgb_matrix();
-
     RGB_MATRIX_SPLIT_SET_CHANGE_MODE;
 }
 
@@ -545,21 +544,18 @@ void rgb_matrix_step_reverse(void) {
     if (rgb_matrix_config.mode < 1) rgb_matrix_config.mode = RGB_MATRIX_EFFECT_MAX - 1;
     rgb_task_state = STARTING;
     eeconfig_update_rgb_matrix();
-
     RGB_MATRIX_SPLIT_SET_CHANGE_MODE;
 }
 
 void rgb_matrix_increase_hue(void) {
     rgb_matrix_config.hsv.h += RGB_MATRIX_HUE_STEP;
     eeconfig_update_rgb_matrix();
-
     RGB_MATRIX_SPLIT_SET_CHANGE_HSVS;
 }
 
 void rgb_matrix_decrease_hue(void) {
     rgb_matrix_config.hsv.h -= RGB_MATRIX_HUE_STEP;
     eeconfig_update_rgb_matrix();
-
     RGB_MATRIX_SPLIT_SET_CHANGE_HSVS;
 }
 
@@ -659,7 +655,7 @@ void rgb_matrix_update_sync(rgb_matrix_syncinfo_t *syncinfo) {
             rgb_matrix_mode_noeeprom(syncinfo->config.mode);
             rgb_task_state = STARTING;
         } else
-            rgb_matrix_disable();
+            rgb_matrix_disable_noeeprom();
     }
 
     if (syncinfo->change_flags & RGB_MATRIX_STATUS_CHANGE_HSVS) {
