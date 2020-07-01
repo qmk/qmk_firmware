@@ -18,11 +18,14 @@
 
 #include "rgb_matrix.h"
 #include "progmem.h"
-#include "split_util.h"
 #include "config.h"
 #include "eeprom.h"
 #include <string.h>
 #include <math.h>
+
+#ifdef SPLIT_KEYBOARD
+#include "split_util.h"
+#endif
 
 #include "lib/lib8tion/lib8tion.h"
 
