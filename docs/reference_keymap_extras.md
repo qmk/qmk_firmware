@@ -31,6 +31,7 @@ To use these, simply `#include` the corresponding [header file](https://github.c
 |German (macOS)             |`keymap_german_osx.h`           |
 |German (Neo2)*             |`keymap_neo2.h`                 |
 |Greek*                     |`keymap_greek.h`                |
+|Hebrew*                    |`keymap_hebrew.h`               |
 |Hungarian                  |`keymap_hungarian.h`            |
 |Icelandic                  |`keymap_icelandic.h`            |
 |Italian                    |`keymap_italian.h`              |
@@ -63,6 +64,7 @@ There are also a few which are not quite language-specific, but useful if you ar
 |-------------------|------------------------|
 |Colemak            |`keymap_colemak.h`      |
 |Dvorak             |`keymap_dvorak.h`       |
+|Dvorak (French)    |`keymap_dvorak_fr.h`    |
 |Dvorak (Programmer)|`keymap_dvp.h`          |
 |Norman             |`keymap_norman.h`       |
 |Plover*            |`keymap_plover.h`       |
