@@ -203,7 +203,7 @@
  * @note    Disabling this option saves both code and data space.
  */
 #if !defined(PAL_USE_CALLBACKS) || defined(__DOXYGEN__)
-#define PAL_USE_CALLBACKS                   TRUE
+#define PAL_USE_CALLBACKS                   FALSE
 #endif
 
 /**
@@ -223,7 +223,7 @@
  * @note    Disabling this option saves both code and data space.
  */
 #if !defined(ADC_USE_WAIT) || defined(__DOXYGEN__)
-#define ADC_USE_WAIT                        TRUE
+#define ADC_USE_WAIT                        FALSE
 #endif
 
 /**
@@ -231,7 +231,7 @@
  * @note    Disabling this option saves both code and data space.
  */
 #if !defined(ADC_USE_MUTUAL_EXCLUSION) || defined(__DOXYGEN__)
-#define ADC_USE_MUTUAL_EXCLUSION            TRUE
+#define ADC_USE_MUTUAL_EXCLUSION            FALSE
 #endif
 
 /*===========================================================================*/
@@ -283,7 +283,7 @@
  * @note    Disabling this option saves both code and data space.
  */
 #if !defined(DAC_USE_WAIT) || defined(__DOXYGEN__)
-#define DAC_USE_WAIT                        TRUE
+#define DAC_USE_WAIT                        FALSE
 #endif
 
 /**
@@ -291,7 +291,7 @@
  * @note    Disabling this option saves both code and data space.
  */
 #if !defined(DAC_USE_MUTUAL_EXCLUSION) || defined(__DOXYGEN__)
-#define DAC_USE_MUTUAL_EXCLUSION            TRUE
+#define DAC_USE_MUTUAL_EXCLUSION            FALSE
 #endif
 
 /*===========================================================================*/
@@ -313,14 +313,14 @@
  * @brief   Enables the zero-copy API.
  */
 #if !defined(MAC_USE_ZERO_COPY) || defined(__DOXYGEN__)
-#define MAC_USE_ZERO_COPY                   TRUE
+#define MAC_USE_ZERO_COPY                   FALSE
 #endif
 
 /**
  * @brief   Enables an event sources for incoming packets.
  */
 #if !defined(MAC_USE_EVENTS) || defined(__DOXYGEN__)
-#define MAC_USE_EVENTS                      TRUE
+#define MAC_USE_EVENTS                      FALSE
 #endif
 
 /*===========================================================================*/
@@ -357,7 +357,7 @@
  *          at @p FALSE.
  */
 #if !defined(SDC_MMC_SUPPORT) || defined(__DOXYGEN__)
-#define SDC_MMC_SUPPORT                     TRUE
+#define SDC_MMC_SUPPORT                     FALSE
 #endif
 
 /**
@@ -440,7 +440,7 @@
  * @note    Disabling this option saves both code and data space.
  */
 #if !defined(SPI_USE_WAIT) || defined(__DOXYGEN__)
-#define SPI_USE_WAIT                        TRUE
+#define SPI_USE_WAIT                        FALSE
 #endif
 
 /**
@@ -457,7 +457,7 @@
  * @note    Disabling this option saves both code and data space.
  */
 #if !defined(SPI_USE_MUTUAL_EXCLUSION) || defined(__DOXYGEN__)
-#define SPI_USE_MUTUAL_EXCLUSION            TRUE
+#define SPI_USE_MUTUAL_EXCLUSION            FALSE
 #endif
 
 /**
@@ -485,7 +485,7 @@
  * @note    Disabling this option saves both code and data space.
  */
 #if !defined(UART_USE_MUTUAL_EXCLUSION) || defined(__DOXYGEN__)
-#define UART_USE_MUTUAL_EXCLUSION           TRUE
+#define UART_USE_MUTUAL_EXCLUSION           FALSE
 #endif
 
 /*===========================================================================*/
@@ -509,7 +509,7 @@
  * @note    Disabling this option saves both code and data space.
  */
 #if !defined(WSPI_USE_WAIT) || defined(__DOXYGEN__)
-#define WSPI_USE_WAIT                       TRUE
+#define WSPI_USE_WAIT                       FALSE
 #endif
 
 /**
@@ -517,7 +517,7 @@
  * @note    Disabling this option saves both code and data space.
  */
 #if !defined(WSPI_USE_MUTUAL_EXCLUSION) || defined(__DOXYGEN__)
-#define WSPI_USE_MUTUAL_EXCLUSION           TRUE
+#define WSPI_USE_MUTUAL_EXCLUSION           FALSE
 #endif
 
 #endif /* HALCONF_H */
