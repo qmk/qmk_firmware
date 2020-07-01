@@ -1,6 +1,7 @@
 # bigknobv2
 
 ![](https://i.imgur.com/8ZBC23k.jpg)
+![](https://i.imgur.com/I0IOA76.jpg)
 
 Macropad Media Controller with USB-C + RGB underglow + Hotswap and support for up to 40mm knob
 
