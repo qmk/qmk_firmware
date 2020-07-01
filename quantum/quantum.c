@@ -644,10 +644,6 @@ void matrix_scan_quantum() {
     led_matrix_task();
 #endif
 
-#ifdef RGB_MATRIX_ENABLE
-//    rgb_matrix_task();
-#endif
-
 #ifdef WPM_ENABLE
     decay_wpm();
 #endif

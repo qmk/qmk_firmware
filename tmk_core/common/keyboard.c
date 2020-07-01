@@ -228,7 +228,7 @@ __attribute__((weak)) bool is_keyboard_master(void) { return true; }
  * Override this function if you have a condition where keypresses processing should change:
  *   - splits where the slave side needs to process for rgb/oled functionality
  */
-__attribute__((weak)) bool should_process_keypress(void) { return is_keyboard_master(); }
+__attribute__((weak)) bool should_process_keypress(void) { return true; } // return is_keyboard_master(); }
 
 /** \brief keyboard_init
  *

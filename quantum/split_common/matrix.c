@@ -24,6 +24,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config.h"
 #include "transport.h"
 
+#ifdef RGB_MATRIX_ENABLE
+#include "rgb_matrix.h"
+#endif
+
 #define ERROR_DISCONNECT_COUNT 5
 
 #define ROWS_PER_HAND (MATRIX_ROWS / 2)
@@ -244,7 +248,7 @@ void matrix_post_scan(void) {
     if (is_keyboard_master()) {
         static uint8_t error_count;
 
-        if (!transport_master(matrix + thatHand)) {
+        if (!transport_master(matrix + thisHand, matrix + thatHand)) {
             error_count++;
 
             if (error_count > ERROR_DISCONNECT_COUNT) {
@@ -259,7 +263,16 @@ void matrix_post_scan(void) {
 
         matrix_scan_quantum();
     } else {
-        transport_slave(matrix + thisHand);
+        transport_slave(matrix + thatHand, matrix + thisHand);
+#ifdef SPLIT_TRANSPORT_MIRROR
+
+#  if defined(RGB_MATRIX_SPLIT) && defined(RGB_MATRIX_ENABLE)
+        // matrix_scan_quantum();
+        // rgb_matrix_task();
+        // matrix_scan_quantum();
+#  endif
+
+#endif
 
         matrix_slave_scan_user();
     }

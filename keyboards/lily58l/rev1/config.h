@@ -47,6 +47,7 @@
 #define DRIVER_LED_TOTAL RGBLED_NUM
 #define RGB_MATRIX_CENTER {112, 36}
 #define RGB_MATRIX_SPLIT RGBLED_SPLIT
+#define SPLIT_TRANSPORT_MIRROR
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
