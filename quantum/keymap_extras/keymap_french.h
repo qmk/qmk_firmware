@@ -58,7 +58,7 @@
 #define FR_I    KC_I    // I
 #define FR_O    KC_O    // O
 #define FR_P    KC_P    // P
-#define FR_CIRC KC_LBRC // ^ (dead)
+#define FR_CIRC KC_DCIR // ^ (dead)
 #define FR_DLR  KC_RBRC // $
 // Row 3
 #define FR_Q    KC_A    // Q
@@ -146,6 +146,7 @@
 #define FR_PIPE ALGR(FR_MINS) // |
 #define FR_GRV  ALGR(FR_EGRV) // ` (dead)
 #define FR_BSLS ALGR(FR_UNDS) // (backslash)
+#define FR_CIRC ALGR(FR_CCED) // ^
 #define FR_AT   ALGR(FR_AGRV) // @
 #define FR_RBRC ALGR(FR_RPRN) // ]
 #define FR_RCBR ALGR(FR_EQL)  // }
