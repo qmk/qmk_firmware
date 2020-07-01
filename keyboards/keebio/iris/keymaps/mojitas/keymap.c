@@ -31,24 +31,11 @@ enum custom_keycodes {
 
 #define KC_ KC_TRNS
 
-#define KC_Sw2 RALT(KC_2) // Nordic @
-#define KC_Sw3 RALT(KC_3) // Nordic something
-#define KC_Sw4 RALT(KC_4) // Nordic something
-#define KC_Sw5 RALT(KC_5) // Nordic something
-#define KC_Sw6 RALT(KC_6) // ...
-#define KC_Sw7 RALT(KC_7)
-#define KC_Sw8 RALT(KC_8)
-#define KC_Sw9 RALT(KC_9)
-#define KC_Sw0 RALT(KC_0)
-#define KC_Tild RALT(KC_RBRC)
-#define KC_Bsls RALT(KC_MINS)
-#define KC_Bar RALT(KC_NUBS)
-#define KC_Less S(KC_NUBS)
+#define SE_YEN ALGR(SE_6) //isn't in the swedish_keymap.h
 #define KC_CATDEL LCTL(LALT(KC_DEL)) // Ctrl alt del
 #define KC_TSKMGR LCTL(S(KC_ESC)) // Ctrl shift esc
 #define KC_NUMP TG(_NUMPAD)  // Toggle layer NUMPAD for use in LAYOUT_kc
 #define KC_Close RALT(KC_F4) // Alt F4
-#define KC_Great S(KC_NUBS)
 #define KC_MEH1 MEH(KC_1)
 #define KC_MEH2 MEH(KC_2)
 #define KC_MEH3 MEH(KC_3)
@@ -145,29 +132,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 
-  [_LOWER] = LAYOUT_kc(
+  [_LOWER] = LAYOUT(
   //,--------+--------+--------+--------+--------+--------.                          ,--------+--------+--------+--------+--------+--------.
       KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  ,                            KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 ,
   //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
              , KC_CAPS, KC_PGUP, KC_UP  , KC_PGDN, KC_ESC,                             KC_RCBR, KC_EXLM, KC_ASTR, KC_LPRN, KC_UNDS,        ,
   //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
-             , KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,                             KC_RPRN, KC_QUES, KC_Sw8 , KC_Sw9 , KC_LABK,        ,
+             , KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,                             KC_RPRN, KC_QUES, SE_LBRC, SE_RBRC, KC_LABK,        ,
   //|--------+--------+--------+--------+--------+--------+--------.        ,--------|--------+--------+--------+--------+--------+--------|
-             , KC_ENT ,        ,        ,        , KC_DEL ,                ,         , KC_RABK, KC_NUBS, KC_Sw7 , KC_Sw0 , KC_Great,       ,
+             , KC_ENT ,        ,        ,        , KC_DEL ,                ,         , KC_RABK, SE_LABK, SE_LCBR, SE_RCBR, SE_RABK,       ,
   //`--------+--------+--------+----+---+--------+--------+--------/        \--------+--------+--------+---+----+--------+--------+--------'
                                              ,        ,        ,                         ,        ,
   //                                `--------+--------+--------'                `--------+--------+--------'
   ),
 
-  [_RAISE] = LAYOUT_kc(
+  [_RAISE] = LAYOUT(
   //,--------+--------+--------+--------+--------+--------.                          ,--------+--------+--------+--------+--------+--------.
-      KC_TILD, KC_EXLM, KC_GRV , KC_EQL , KC_DLR , KC_PERC,                            KC_Sw3 , KC_Sw5 , KC_Sw6 , KC_Sw0 , KC_RPRN,        ,
+      SE_TILD, KC_EXLM, KC_GRV , KC_EQL , KC_DLR , KC_PERC,                            SE_PND , SE_EURO , SE_YEN, SE_RCBR, KC_RPRN,        ,
   //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
-             , KC_Bar , KC_Sw2 , KC_HASH, KC_AT  , KC_PERC,                            KC_PIPE, KC_7   , KC_8   , KC_9   , KC_PMNS, KC_PSLS,
+             , SE_PIPE , SE_AT , KC_HASH, KC_DQT , KC_PERC,                            KC_PIPE, KC_7   , KC_8   , KC_9   , KC_PMNS, KC_PSLS,
   //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
-             , KC_Bsls, KC_Tild, KC_SLSH, KC_AMPR, KC_BSLS,                            KC_COMM, KC_4     KC_5     KC_6   , KC_PPLS, KC_PAST,
+             , SE_BSLS, SE_TILD, SE_SLSH, KC_AMPR, KC_BSLS,                            KC_COMM, KC_4   ,  KC_5  ,  KC_6  , KC_PPLS, KC_PAST,
   //|--------+--------+--------+--------+--------+--------+--------.        ,--------|--------+--------+--------+--------+--------+--------|
-             , KC_PIPE, KC_Sw4 , KC_PLUS, KC_CIRC, KC_TILD,         ,        KC_PENT , KC_DOT , KC_1   , KC_2   , KC_3   , KC_0   , KC_PEQL,
+             , KC_PIPE, SE_CURR, KC_PLUS, KC_CIRC, KC_TILD,         ,        KC_PENT , KC_DOT , KC_1   , KC_2   , KC_3   , KC_0   , KC_PEQL,
   //`--------+--------+--------+----+---+--------+--------+--------/        \--------+--------+--------+---+----+--------+--------+--------'
                                              ,        , KC_DEL  ,                        ,        ,
   //                                `--------+--------+--------'                `--------+--------+--------'
