@@ -25,7 +25,7 @@ bool temporary[NUMBER_OR_LAYERS] = {
     [LAYER_DESKTOP] = false,
 };
 
-#define KEY_FORWARD_LAYER(a) SAFE_RANGE+a
+#define KEY_FORWARD_LAYER(a) SAFE_RANGE + a
 
 enum{
     DANCE_PGDN_BOTTOM,
