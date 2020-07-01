@@ -215,7 +215,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_single_persistent_default_layer(_COLEMAK);
       }
       return false;
-      break;
     case WORKMAN:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_WORKMAN);
