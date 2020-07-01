@@ -57,8 +57,6 @@ enum custom_keycodes {
 
 #define KC_LOWR MO(_LOWER)
 #define KC_RASE MO(_RAISE)
-#define KC_RST RESET
-#define KC_BL_S BL_STEP
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
