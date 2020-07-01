@@ -43,7 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define EE_HANDS
 #define SOFT_SERIAL_PIN D3
-// #define SPLIT_HAND_PIN D1
+#define SPLIT_HAND_PIN D1
 
 #define RGB_DI_PIN B6
 #define RGBLED_SPLIT { 7, 7 }
