@@ -50,7 +50,7 @@ uint8_t matrix_scan(void) {
         port_cache[0] = palReadPort(IOPORTA);
         port_cache[1] = palReadPort(IOPORTB);
         port_cache[2] = palReadPort(IOPORTC);
-        port_cache[2] = palReadPort(IOPORTD);
+        port_cache[3] = palReadPort(IOPORTD);
         palSetLine(row_list[row]);
 
         // get columns from ports
