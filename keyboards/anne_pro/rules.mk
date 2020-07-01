@@ -35,3 +35,4 @@ NO_USB_STARTUP_CHECK = yes
 MOUSEKEY_ENABLE = no  # Mouse keys
 EXTRAKEY_ENABLE = yes # Audio control and System control
 NKRO_ENABLE = yes     # USB Nkey Rollover
+EEPROM_DRIVER = transient
