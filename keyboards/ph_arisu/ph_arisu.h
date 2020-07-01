@@ -1,5 +1,5 @@
-#ifndef ARISU_H
-#define ARISU_H
+#ifndef PH_ARISU_H
+#define PH_ARISU_H
 
 #include "quantum.h"
 
