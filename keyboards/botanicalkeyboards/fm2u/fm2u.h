@@ -97,3 +97,17 @@
 ) { \
     { k00 } \
 }
+
+// Backward compatibility TODO: remove these
+#define LAYOUT_100u LAYOUT_1u
+#define LAYOUT_125u LAYOUT_1u25
+#define LAYOUT_150u LAYOUT_1u5
+#define LAYOUT_175u LAYOUT_1u75
+#define LAYOUT_200u LAYOUT_2u
+#define LAYOUT_225u LAYOUT_2u25
+#define LAYOUT_275u LAYOUT_2u75
+#define LAYOUT_300u LAYOUT_3u
+#define LAYOUT_600u LAYOUT_6u
+#define LAYOUT_625u LAYOUT_6u25
+#define LAYOUT_700u LAYOUT_7u
+#define LAYOUT_iso LAYOUT_isoenter

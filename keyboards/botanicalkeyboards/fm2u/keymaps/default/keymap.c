@@ -17,7 +17,7 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [0] = LAYOUT_1u(
+    [0] = LAYOUT_2u(
         KC_B
     )
 };
