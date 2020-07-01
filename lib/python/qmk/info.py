@@ -16,13 +16,6 @@ from qmk.math import compute
 def info_json(keyboard):
     """Generate the info.json data for a specific keyboard.
     """
-    info_data = {
-        'keyboard_name': str(keyboard),
-        'keyboard_folder': str(keyboard),
-        'layouts': {},
-        'maintainer': 'qmk',
-    }
-
     cur_dir = Path('keyboards')
     rules = parse_rules_mk_file(cur_dir / Path(keyboard) / 'rules.mk')
     default_folder = rules.get('DEFAULT_FOLDER', '')
@@ -32,6 +25,13 @@ def info_json(keyboard):
         default_folder = rules.get('DEFAULT_FOLDER', keyboard)
 
     keyboard = default_folder
+
+    info_data = {
+        'keyboard_name': str(keyboard),
+        'keyboard_folder': str(keyboard),
+        'layouts': {},
+        'maintainer': 'qmk',
+    }
 
     for layout_name, layout_json in _find_all_layouts(keyboard, rules).items():
         if not layout_name.startswith('LAYOUT_kc'):
