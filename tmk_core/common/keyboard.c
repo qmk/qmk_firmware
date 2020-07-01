@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "led.h"
 #include "keycode.h"
 #include "timer.h"
+#include "sync_timer.h"
 #include "print.h"
 #include "debug.h"
 #include "command.h"
