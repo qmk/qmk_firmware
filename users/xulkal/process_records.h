@@ -15,3 +15,4 @@ enum layer_number {
 };
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
+bool process_record_encoder(uint16_t keycode, keyrecord_t *record);

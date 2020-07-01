@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 
 #ifdef MAX
-#undef MAX
+#    undef MAX
 #endif
 #define MAX(X, Y) ((X) > (Y) ? (X) : (Y))
 
@@ -36,23 +36,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 static void print_usb_data(const report_mouse_t *report);
 
-void serial_mouse_task(void)
-{
+void serial_mouse_task(void) {
     /* 5 byte ring buffer */
     static uint8_t buffer[5];
-    static int buffer_cur = 0;
+    static int     buffer_cur = 0;
 
     int16_t rcv;
 
     report_mouse_t report = {0, 0, 0, 0, 0};
 
     rcv = serial_recv2();
-    if (rcv < 0)
-        /* no new data */
+    if (rcv < 0) /* no new data */
         return;
 
-    if (debug_mouse)
-        xprintf("serial_mouse: byte: %04X\n", rcv);
+    if (debug_mouse) xprintf("serial_mouse: byte: %04X\n", rcv);
 
     /*
      * Synchronization: mouse(4) says that all
@@ -61,13 +58,11 @@ void serial_mouse_task(void)
      * Therefore we discard all bytes up to the
      * first one with the characteristic bit pattern.
      */
-    if (buffer_cur == 0 && (rcv >> 3) != 0x10)
-        return;
+    if (buffer_cur == 0 && (rcv >> 3) != 0x10) return;
 
     buffer[buffer_cur++] = (uint8_t)rcv;
 
-    if (buffer_cur < 5)
-        return;
+    if (buffer_cur < 5) return;
     buffer_cur = 0;
 
 #ifdef SERIAL_MOUSE_CENTER_SCROLL
@@ -97,12 +92,9 @@ void serial_mouse_task(void)
      * if the mouse moved or the button states
      * change.
      */
-    if (!(buffer[0] & (1 << 2)))
-        report.buttons |= MOUSE_BTN1;
-    if (!(buffer[0] & (1 << 1)))
-        report.buttons |= MOUSE_BTN3;
-    if (!(buffer[0] & (1 << 0)))
-        report.buttons |= MOUSE_BTN2;
+    if (!(buffer[0] & (1 << 2))) report.buttons |= MOUSE_BTN1;
+    if (!(buffer[0] & (1 << 1))) report.buttons |= MOUSE_BTN3;
+    if (!(buffer[0] & (1 << 0))) report.buttons |= MOUSE_BTN2;
 
     /* USB HID uses only values from -127 to 127 */
     report.x = MAX((int8_t)buffer[1], -127);
@@ -120,12 +112,8 @@ void serial_mouse_task(void)
     }
 }
 
-static void print_usb_data(const report_mouse_t *report)
-{
-    if (!debug_mouse)
-        return;
+static void print_usb_data(const report_mouse_t *report) {
+    if (!debug_mouse) return;
 
-    xprintf("serial_mouse usb: [%02X|%d %d %d %d]\n",
-            report->buttons, report->x, report->y,
-            report->v, report->h);
+    xprintf("serial_mouse usb: [%02X|%d %d %d %d]\n", report->buttons, report->x, report->y, report->v, report->h);
 }

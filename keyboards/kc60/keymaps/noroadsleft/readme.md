@@ -1,10 +1,22 @@
 # @noroadsleft's KC60 keymap
 
-### Last updated: April 7, 2019, 2:26 AM UTC-0700
+### Last updated: November 5, 2019, 12:07 AM UTC-0800
 
 ![](https://i.imgur.com/tzhXQYI.jpg)
 
 I am a full-time Dvorak typist, and occasional semi-serious FPS gamer. The layers are oriented towards a mix of typing and gaming.
+
+
+----
+
+# Preface
+
+Images in this readme follow the following format:
+
+![Legend](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/kc60/keymaps/noroadsleft/legend.png)  
+*Legend*
+
+Descriptions of the physical locations of keys will use the key's function in a US QWERTY layout, even if the layout itself is not QWERTY.
 
 
 ----

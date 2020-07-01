@@ -19,10 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x20A0
-#define PRODUCT_ID      0x422D
-#define MANUFACTURER    Singa and TGR
-#define PRODUCT         Unikorn 60
+#define VENDOR_ID       0x5354 // Singa x TGR (ST)
+#define PRODUCT_ID      0x556B // UK
+#define DEVICE_VER      0x0200
+#define MANUFACTURER    Singa x TGR
+#define PRODUCT         Unikorn60
 
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -35,8 +36,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCE 5
 
-#define NO_BACKLIGHT_CLOCK
-#define BACKLIGHT_LEVELS 1
+#define BACKLIGHT_PIN D4
+#define BACKLIGHT_LEVELS 3
+
 #ifdef RGBLIGHT_ENABLE
 #define RGBLED_NUM 17
 #define RGBLIGHT_ANIMATIONS

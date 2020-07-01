@@ -1,5 +1,6 @@
-#ifndef HELIX_H
-#define HELIX_H
+#pragma once
+
+#include "quantum.h"
 
 #ifdef KEYBOARD_helix_rev1
     #include "rev1.h"
@@ -9,8 +10,4 @@
 #endif
 #ifdef KEYBOARD_helix_pico
     #include "pico.h"
-#endif
-
-#include "quantum.h"
-
 #endif

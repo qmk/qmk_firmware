@@ -10,7 +10,7 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
- * This files are free to use from https://github.com/rogerclarkmelbourne/Arduino_STM32 and 
+ * This files are free to use from https://github.com/rogerclarkmelbourne/Arduino_STM32 and
  * https://github.com/leaflabs/libmaple
  *
  * Modifications for QMK and STM32F303 by Yiancar
@@ -20,22 +20,13 @@
 #define __FLASH_STM32_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 #include "ch.h"
 #include "hal.h"
 
-typedef enum
-    {
-    FLASH_BUSY = 1,
-    FLASH_ERROR_PG,
-    FLASH_ERROR_WRP,
-    FLASH_ERROR_OPT,
-    FLASH_COMPLETE,
-    FLASH_TIMEOUT,
-    FLASH_BAD_ADDRESS
-    } FLASH_Status;
+typedef enum { FLASH_BUSY = 1, FLASH_ERROR_PG, FLASH_ERROR_WRP, FLASH_ERROR_OPT, FLASH_COMPLETE, FLASH_TIMEOUT, FLASH_BAD_ADDRESS } FLASH_Status;
 
 #define IS_FLASH_ADDRESS(ADDRESS) (((ADDRESS) >= 0x08000000) && ((ADDRESS) < 0x0807FFFF))
 

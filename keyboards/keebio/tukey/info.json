@@ -1,0 +1,15 @@
+{
+    "keyboard_name": "Tukey",
+    "url": "https://keeb.io",
+    "maintainer": "nooges",
+    "width": 2,
+    "height": 1,
+    "layouts": {
+      "LAYOUT": {
+        "layout": [
+          {"x":0, "y":0},
+          {"x":1, "y":0}
+        ]
+      }
+    }
+  }

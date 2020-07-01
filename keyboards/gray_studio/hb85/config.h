@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VENDOR_ID       0x20A0
 #define PRODUCT_ID      0x422F
+#define DEVICE_VER      0x0200
 #define MANUFACTURER    Gray Studio
 #define PRODUCT         HB85
 
@@ -32,3 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGBLED_NUM 5
 #define RGBLIGHT_ANIMATIONS
+
+#define BACKLIGHT_PIN D4
+#define BACKLIGHT_LEVELS 3

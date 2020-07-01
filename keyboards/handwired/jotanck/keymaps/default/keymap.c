@@ -1,9 +1,6 @@
-// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
-// this is the style you want to emulate.
+// This is the default layout for the handwired/jotanck keyboard
 
 #include QMK_KEYBOARD_H
-
-extern keymap_config_t keymap_config;
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -74,19 +71,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
 ),
 
-/* Adjust */
 [_ADJUST] = LAYOUT_ortho_4x12 (
     _______, RESET,   _______, _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-),    
+),
+    
 };
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
+  #ifdef JOTANCK_LEDS
+  switch (get_highest_layer(state)) {
+  case _LOWER:
+    writePinHigh(JOTANCK_LED1);
+    writePinLow(JOTANCK_LED2);
+    break;
+  case _RAISE:
+    writePinLow(JOTANCK_LED1);
+    writePinHigh(JOTANCK_LED2);
+    break;
+  default:
+    writePinLow(JOTANCK_LED1);
+    writePinLow(JOTANCK_LED2);
+    break; 
+  };
+  #endif
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
-
-void matrix_init_user(void) {
-}
-

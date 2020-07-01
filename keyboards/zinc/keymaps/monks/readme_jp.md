@@ -1,4 +1,4 @@
-﻿# monksoffunk's personal zinc Layout
+# monksoffunk's personal zinc Layout
 ## 配列
 
 ### Qwerty配列

@@ -17,8 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REV1_CONFIG_H
-#define REV1_CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -40,10 +39,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F5, F6, F7, B1, B3, B2, B6 }
 // #define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6 } //uncomment this line and comment line above if you need to reverse left-to-right key order
 
-#define CATERINA_BOOTLOADER
+/* COL2ROW, ROW2COL*/
+#define DIODE_DIRECTION COL2ROW
 
-/* define tapping term */
-#define TAPPING_TERM 100
+#define SOFT_SERIAL_PIN D0
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
@@ -61,7 +60,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
-
 #define RGBLED_NUM 12    // Number of LEDs
 
 /*
@@ -81,5 +79,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-#endif

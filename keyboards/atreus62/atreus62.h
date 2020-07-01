@@ -3,8 +3,6 @@
 
 #include "quantum.h"
 
-void promicro_bootloader_jmp(bool program);
-
 // This a shortcut to help you visually see your layout.
 // The first section contains all of the arguements
 // The second converts the arguments into a two-dimensional array

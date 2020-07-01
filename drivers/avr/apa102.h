@@ -27,7 +27,6 @@
 
 #include "color.h"
 
-
 /* User Interface
  *
  * Input:
@@ -41,6 +40,6 @@
  *         - Wait 50�s to reset the LEDs
  */
 
-void apa102_setleds     (LED_TYPE *ledarray, uint16_t number_of_leds);
-void apa102_setleds_pin (LED_TYPE *ledarray, uint16_t number_of_leds,uint8_t pinmask);
+void apa102_setleds(LED_TYPE *ledarray, uint16_t number_of_leds);
+void apa102_setleds_pin(LED_TYPE *ledarray, uint16_t number_of_leds, uint8_t pinmask);
 void apa102_setleds_rgbw(LED_TYPE *ledarray, uint16_t number_of_leds);

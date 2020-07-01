@@ -1,12 +1,6 @@
-#ifndef REV1_H
-#define REV1_H
+#pragma once
 
-#include "../minidox.h"
-
-//void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
-
-//void promicro_bootloader_jmp(bool program);
 
 // readability
 #define ___ KC_NO
@@ -27,5 +21,3 @@
     { k61, k62, k63, k64, k65 }, \
     { ___, ___, k73, k74, k75 } \
   }
-
-#endif

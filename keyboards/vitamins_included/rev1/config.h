@@ -16,17 +16,17 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REV1_CONFIG_H
-#define REV1_CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xBEE5
-#define PRODUCT_ID      0xF33D
+#define SPLIT_USB_DETECT
+
+#define EE_HANDS
+#define SOFT_SERIAL_PIN D0
+
+/* USB Device descriptor parameters */
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Duckle29
-#define PRODUCT         Lets Split sockets vitamins included
 #define DESCRIPTION     A split keyboard for the cheapish makers
 
 /* key matrix size */
@@ -37,6 +37,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // wiring of each half
 #define MATRIX_ROW_PINS { F5, F6, C7, F7 }
 #define MATRIX_COL_PINS { F1, F4, E2, B6, D7, D6}
+
+#define DIODE_DIRECTION COL2ROW
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
@@ -80,5 +82,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-#endif

@@ -253,7 +253,7 @@ uint32_t processFakeSteno(bool lookup) {
 	P( RB,				SEND(KC_K););
 	P( RG,				SEND(KC_L););
 	P( RS,				SEND(KC_SCLN););
-	P( RZ,				SEND(KC_COMM););
+	P( RZ,				SEND(KC_QUOT););
 	P( LNO,				SEND(KC_1););
 	P( RNO,				SEND(KC_1););
 

@@ -2,6 +2,7 @@
 #include "rgb_matrix_animations/solid_color_anim.h"
 #include "rgb_matrix_animations/alpha_mods_anim.h"
 #include "rgb_matrix_animations/gradient_up_down_anim.h"
+#include "rgb_matrix_animations/gradient_left_right_anim.h"
 #include "rgb_matrix_animations/breathing_anim.h"
 #include "rgb_matrix_animations/colorband_sat_anim.h"
 #include "rgb_matrix_animations/colorband_val_anim.h"

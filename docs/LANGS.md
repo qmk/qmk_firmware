@@ -1,4 +1,0 @@
-# Languages
-
-* [English](/)
-* [Chinese](zh/)

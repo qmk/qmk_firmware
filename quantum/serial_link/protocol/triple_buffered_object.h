@@ -30,22 +30,18 @@ SOFTWARE.
 typedef struct {
     uint8_t state;
     uint8_t buffer[] __attribute__((aligned(4)));
-}triple_buffer_object_t;
+} triple_buffer_object_t;
 
 void triple_buffer_init(triple_buffer_object_t* object);
 
-#define triple_buffer_begin_write(object) \
-    (typeof(*object.buffer[0])*)triple_buffer_begin_write_internal(sizeof(*object.buffer[0]), (triple_buffer_object_t*)object)
+#define triple_buffer_begin_write(object) (typeof(*object.buffer[0])*)triple_buffer_begin_write_internal(sizeof(*object.buffer[0]), (triple_buffer_object_t*)object)
 
-#define triple_buffer_end_write(object) \
-    triple_buffer_end_write_internal((triple_buffer_object_t*)object)
+#define triple_buffer_end_write(object) triple_buffer_end_write_internal((triple_buffer_object_t*)object)
 
-#define triple_buffer_read(object) \
-    (typeof(*object.buffer[0])*)triple_buffer_read_internal(sizeof(*object.buffer[0]), (triple_buffer_object_t*)object)
+#define triple_buffer_read(object) (typeof(*object.buffer[0])*)triple_buffer_read_internal(sizeof(*object.buffer[0]), (triple_buffer_object_t*)object)
 
 void* triple_buffer_begin_write_internal(uint16_t object_size, triple_buffer_object_t* object);
-void triple_buffer_end_write_internal(triple_buffer_object_t* object);
+void  triple_buffer_end_write_internal(triple_buffer_object_t* object);
 void* triple_buffer_read_internal(uint16_t object_size, triple_buffer_object_t* object);
-
 
 #endif

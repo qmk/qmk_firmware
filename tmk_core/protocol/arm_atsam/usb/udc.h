@@ -53,11 +53,11 @@
 #include "udd.h"
 
 #if USB_DEVICE_VENDOR_ID == 0
-#   error USB_DEVICE_VENDOR_ID cannot be equal to 0
+#    error USB_DEVICE_VENDOR_ID cannot be equal to 0
 #endif
 
 #if USB_DEVICE_PRODUCT_ID == 0
-#   error USB_DEVICE_PRODUCT_ID cannot be equal to 0
+#    error USB_DEVICE_PRODUCT_ID cannot be equal to 0
 #endif
 
 #ifdef __cplusplus
@@ -172,10 +172,7 @@ extern "C" {
     }
 \endcode
  */
-static inline bool udc_include_vbus_monitoring(void)
-{
-    return udd_include_vbus_monitoring();
-}
+static inline bool udc_include_vbus_monitoring(void) { return udd_include_vbus_monitoring(); }
 
 /*! \brief Start the USB Device stack
  */
@@ -192,28 +189,19 @@ void udc_stop(void);
  * then it will attach device when an acceptable Vbus
  * level from the host is detected.
  */
-static inline void udc_attach(void)
-{
-    udd_attach();
-}
+static inline void udc_attach(void) { udd_attach(); }
 
 /**
  * \brief Detaches the device from the bus
  *
  * The driver must remove pull-up on USB line D- or D+.
  */
-static inline void udc_detach(void)
-{
-    udd_detach();
-}
+static inline void udc_detach(void) { udd_detach(); }
 
 /*! \brief The USB driver sends a resume signal called \e "Upstream Resume"
  * This is authorized only when the remote wakeup feature is enabled by host.
  */
-inline void udc_remotewakeup(void)
-{
-    udd_send_remotewakeup();
-}
+inline void udc_remotewakeup(void) { udd_send_remotewakeup(); }
 
 /**
  * \brief Returns a pointer on the current interface descriptor
@@ -257,4 +245,4 @@ usb_iface_desc_t UDC_DESC_STORAGE *udc_get_interface_desc(void);
 }
 #endif
 
-#endif // _UDC_H_
+#endif  // _UDC_H_

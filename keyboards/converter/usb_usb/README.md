@@ -36,18 +36,18 @@ https://geekhack.org/index.php?topic=69169.0
 
 ### Build one yourself using Arduino Leonardo + Circuit@Home USB Host Shield 2.0
 Buying Arduino Leonardo and USB Host Shield 2.0(from Circuit@home) will be better, you won't need even soldering iron.
-http://arduino.cc/en/Main/ArduinoBoardLeonardo
-https://www.circuitsathome.com/arduino_usb_host_shield_projects/
+- http://arduino.cc/en/Main/ArduinoBoardLeonardo
+- https://www.circuitsathome.com/arduino_usb_host_shield_projects/
 
 Other compatible boards like Arduino's Shield will also work well but I think Sparkfun's needs to be modified.
-http://arduino.cc/en/Main/ArduinoUSBHostShield
-https://www.sparkfun.com/products/9947
+- http://arduino.cc/en/Main/ArduinoUSBHostShield
+- https://www.sparkfun.com/products/9947
 
 Also Pro Micro 3.3V(not Mini) or Teensy with mini host shield will work with some fixes on signal/power routing.
-[Build guide](https://geekhack.org/index.php?topic=80421.0)
-https://www.circuitsathome.com/arduino_usb_host_shield_projects/
-https://www.sparkfun.com/products/12587
-https://www.pjrc.com/teensy/td_libs_USBHostShield.html
+- [Build guide](https://geekhack.org/index.php?topic=80421.0)
+- https://www.circuitsathome.com/arduino_usb_host_shield_projects/
+- https://www.sparkfun.com/products/12587
+- https://www.pjrc.com/teensy/td_libs_USBHostShield.html
 
 Limitations
 ----------
@@ -56,24 +56,14 @@ Note that the converter can host only USB "boot protocol" keyboard(6KRO), not NK
 
 Resources
 --------
-Hasu's main thread for the converter
-    https://geekhack.org/index.php?topic=69169.0
-Build guide for the Pro Micro variant
-    https://geekhack.org/index.php?topic=80421.0
-Original TMK version of the converter
-    https://github.com/tmk/tmk_keyboard/tree/master/converter/usb_usb
-USB Host Shield 2.0
-    https://www.circuitsathome.com/arduino_usb_host_shield_projects/
-USB Host Shield 2.0 source
-    https://github.com/felis/USB_Host_Shield_2.0
-Arduino USB Host Shield (with bootst converter)
-    http://arduino.cc/en/Main/ArduinoUSBHostShield
-Arduino source
-    https://github.com/arduino/Arduino
-Initial release of TMK USB-USB converter
-    https://geekhack.org/index.php?topic=33057.msg653549#msg653549
-    http://deskthority.net/workshop-f7/is-remapping-a-usb-keyboard-using-teensy-possible-t2841-30.html#p74854
-Arduino-based hardware keyboard remapper - Colemak forum
-    http://forum.colemak.com/viewtopic.php?id=1561
-Teensy + Host Shield
-    http://www.pjrc.com/teensy/td_libs_USBHostShield.html
+- [Hasu's main thread for the converter](https://geekhack.org/index.php?topic=69169.0)
+- [Build guide for the Pro Micro variant](https://geekhack.org/index.php?topic=80421.0)
+- [Original TMK version of the converter](https://github.com/tmk/tmk_keyboard/tree/master/converter/usb_usb)
+- [USB Host Shield 2.0](https://www.circuitsathome.com/arduino_usb_host_shield_projects/)
+- [USB Host Shield 2.0 source](https://github.com/felis/USB_Host_Shield_2.0)
+- [Arduino USB Host Shield (with bootst converter)](http://arduino.cc/en/Main/ArduinoUSBHostShield)
+- [Arduino source](https://github.com/arduino/Arduino)
+- [Initial release of TMK USB-USB converter](https://geekhack.org/index.php?topic=33057.msg653549#msg653549)
+- [Teensy/Arduino + Host Shield](http://deskthority.net/workshop-f7/is-remapping-a-usb-keyboard-using-teensy-possible-t2841-30.html#p74854)
+- [Arduino-based hardware keyboard remapper - Colemak forum](http://forum.colemak.com/viewtopic.php?id=1561)
+- [Teensy + Host Shield](http://www.pjrc.com/teensy/td_libs_USBHostShield.html)

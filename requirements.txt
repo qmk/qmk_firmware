@@ -1,0 +1,6 @@
+# Python requirements
+# milc FIXME(skullydazed): Included in the repo for now.
+appdirs
+argcomplete
+colorama
+hjson

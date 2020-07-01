@@ -49,14 +49,13 @@ void* triple_buffer_read_internal(uint16_t object_size, triple_buffer_object_t* 
     serial_link_lock();
     if (GET_DATA_AVAILABLE()) {
         uint8_t shared_index = GET_SHARED_INDEX();
-        uint8_t read_index = GET_READ_INDEX();
+        uint8_t read_index   = GET_READ_INDEX();
         SET_READ_INDEX(shared_index);
         SET_SHARED_INDEX(read_index);
         SET_DATA_AVAILABLE(false);
         serial_link_unlock();
         return object->buffer + object_size * shared_index;
-    }
-    else {
+    } else {
         serial_link_unlock();
         return NULL;
     }
@@ -70,7 +69,7 @@ void* triple_buffer_begin_write_internal(uint16_t object_size, triple_buffer_obj
 void triple_buffer_end_write_internal(triple_buffer_object_t* object) {
     serial_link_lock();
     uint8_t shared_index = GET_SHARED_INDEX();
-    uint8_t write_index = GET_WRITE_INDEX();
+    uint8_t write_index  = GET_WRITE_INDEX();
     SET_SHARED_INDEX(write_index);
     SET_WRITE_INDEX(shared_index);
     SET_DATA_AVAILABLE(true);

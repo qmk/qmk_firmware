@@ -31,22 +31,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, KC_END, KC_PGDN,   KC_DOWN, KC_TRNS, KC_TRNS,
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
 };
-
-void matrix_init_user(void) {
-  setPinOutput(B6);
-}
-
-void matrix_scan_user(void) {
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	return true;
-}
-
-void led_set_user(uint8_t usb_led) {
-	if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-		writePinLow(B6);
-	} else {
-		writePinHigh(B6);
-	}
-}

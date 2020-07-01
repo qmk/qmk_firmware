@@ -23,10 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "orthodox.h"
 
-//void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
-
-//void promicro_bootloader_jmp(bool program);
 
 #define LAYOUT( \
 	L00, L01, L02, L03, L04, L05,                                  R00, R01, R02, R03, R04, R05, \
