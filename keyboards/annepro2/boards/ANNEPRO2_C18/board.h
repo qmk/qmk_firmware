@@ -54,8 +54,8 @@
 #define LINE_COL10                  PAL_LINE(IOPORTA, 10)
 #define LINE_COL11                  PAL_LINE(IOPORTA, 11)
 #define LINE_COL12                  PAL_LINE(IOPORTA, 14)
-#define LINE_COL13                  PAL_LINE(IOPORTD,  3)
-#define LINE_COL14                  PAL_LINE(IOPORTD,  2)
+#define LINE_COL13                  PAL_LINE(IOPORTD,  2)
+#define LINE_COL14                  PAL_LINE(IOPORTD,  3)
 
 #if !defined(_FROM_ASM_)
 #ifdef __cplusplus
