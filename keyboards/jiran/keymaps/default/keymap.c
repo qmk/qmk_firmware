@@ -38,11 +38,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //          ┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
                KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_EQL,
   // ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┼────────┐
-      KC_F11,  KC_TAB,  BL_ON,   KC_HOME, RESET,   KC_PGUP, BL_INC,                             KC_VOLU, KC_PGUP, RESET,   KC_HOME, KC_INS,  KC_DEL,  KC_F12,
+      KC_F11,  KC_TAB,  RGB_HUI, KC_HOME, RESET,   RGB_SAI, RGB_VAI,                            KC_VOLU, KC_PGUP, RESET,   KC_HOME, KC_INS,  KC_DEL,  KC_F12,
   // └────────┼────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┼────────┘
-               KC_LSFT, BL_BRTG, KC_LEFT, KC_UP,   KC_RGHT, BL_DEC,                             KC_MUTE, KC_LEFT, KC_UP,   KC_RGHT, KC_PSCR, KC_SLSF,
+               KC_LSFT, RGB_HUD, KC_LEFT, KC_UP,   KC_RGHT, RGB_VAD,                            KC_MUTE, KC_LEFT, KC_UP,   KC_RGHT, KC_PSCR, KC_SLSF,
   //          ├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-               KC_LCTL, BL_STEP, KC_END,  KC_DOWN, KC_PGDN, BL_TOGG,                            KC_VOLD, KC_PGDN, KC_DOWN, KC_END,  KC_PAUS, KC_NLCT,
+               KC_LCTL, RGB_M_B, KC_END,  KC_DOWN, RGB_SAD, RGB_TOG,                            KC_VOLD, KC_PGDN, KC_DOWN, KC_END,  KC_PAUS, KC_NLCT,
   //          └────────┴────────┴────────┴────────┼────────┼────────┤                          ├────────┼────────┴────────┴────────┴────────┴────────┘
                                           KC_TRNS, KC_SPC,  KC_LALT,                            KC_ETAL, KC_BSPC, KC_TRNS
                                     //   └────────┴────────┴────────┘                          └────────┴────────┴────────┘
