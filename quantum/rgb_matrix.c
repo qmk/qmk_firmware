@@ -425,7 +425,7 @@ __attribute__((weak)) void rgb_matrix_indicators_kb(void) {}
 __attribute__((weak)) void rgb_matrix_indicators_user(void) {}
 
 void rgb_matrix_indicators_advanced(effect_params_t *params) {
-    /* special handling is need "params->iter", since it's already been incremented.
+    /* special handling is needed for "params->iter", since it's already been incremented.
      * Could move the invocations to rgb_task_render, but then it's missing a few checks
      * and not sure which would be better. Otherwise, this should be called from
      * rgb_task_render, right before the iter++ line.
