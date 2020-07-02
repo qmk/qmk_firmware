@@ -4,6 +4,7 @@ import json
 import os
 import platform
 from subprocess import PIPE  # noqa, so other submodules doesn't need to
+from subprocess import STDOUT  # noqa, so other submodules doesn't need to
 from subprocess import run as sprun
 import shlex
 import shutil

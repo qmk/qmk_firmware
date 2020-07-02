@@ -1,9 +1,9 @@
-from qmk.commands import run, PIPE
+from qmk.commands import run, STDOUT, PIPE
 
 
 def check_subcommand(command, *args):
     cmd = ['bin/qmk', command] + list(args)
-    result = run(cmd, stdout=PIPE, stderr=PIPE, universal_newlines=True)
+    result = run(cmd, stdout=PIPE, stderr=STDOUT, universal_newlines=True)
     return result
 
 
@@ -159,11 +159,11 @@ def test_info_matrix_render():
 
 def test_c2json():
     result = check_subcommand("c2json", "-kb", "handwired/onekey/pytest", "keyboards/handwired/onekey/keymaps/default/keymap.c")
-    assert result.returncode == 0
-    assert result.stdout.strip() == '{"keyboard": "handwired/onekey/pytest", "documentation": "This file is a keymap.json file for handwired/onekey/pytest", "layout": "LAYOUT", "layers": [["KC_A"]]}'
+    check_returncode(result)
+    assert result.stdout.strip() == '{"keyboard": "handwired/onekey/pytest", "documentation": "This file is a keymap.json file for handwired/onekey/pytest", "layout": "LAYOUT_ortho_1x1", "layers": [["KC_A"]]}'
 
 
 def test_c2json_nocpp():
     result = check_subcommand("c2json", "--no-cpp", "-kb", "handwired/onekey/pytest", "keyboards/handwired/onekey/keymaps/pytest_nocpp/keymap.c")
-    assert result.returncode == 0
+    check_returncode(result)
     assert result.stdout.strip() == '{"keyboard": "handwired/onekey/pytest", "documentation": "This file is a keymap.json file for handwired/onekey/pytest", "layout": "LAYOUT", "layers": [["KC_ENTER"]]}'
