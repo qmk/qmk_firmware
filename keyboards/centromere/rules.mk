@@ -40,3 +40,5 @@ OPT_DEFS += -DCENTROMERE_PROMICRO
 
 # # project specific files
 SRC = matrix.c
+
+LAYOUTS = split_3x6_3
