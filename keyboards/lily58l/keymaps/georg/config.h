@@ -26,6 +26,17 @@
  
 #define RGB_MATRIX_KEYPRESSES
 // #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+  #define RGB_MATRIX_HUE_STEP 3 // number of steps to cycle through the hue by
+  #define RGB_MATRIX_SAT_STEP 6 // number of steps to increment the saturation by
+  #define RGB_MATRIX_VAL_STEP 6 // number of steps to increment the brightness by
+
+  #define DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+  #define DISABLE_RGB_MATRIX_SOLID_REACTIVE
+  #define DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+  #define DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+  #define DISABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
+  #define DISABLE_RGB_MATRIX_SPLASH
+  #define DISABLE_RGB_MATRIX_SOLID_SPLASH
 #endif
 
 #define EE_HANDS

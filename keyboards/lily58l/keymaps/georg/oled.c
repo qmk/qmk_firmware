@@ -39,7 +39,7 @@ static void render_left(void) {
 }
 
 static void render_rgb(void) {
-#ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     oled_write_P(PSTR("\x83\x84"), false);
     if (rgblight_is_enabled()) {
         char snum[3];
