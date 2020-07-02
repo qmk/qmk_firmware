@@ -1,5 +1,3 @@
-#include "action_layer.h"
-#include "eeconfig.h"
 #include "keymap_uk.h"
 #include QMK_KEYBOARD_H
 
