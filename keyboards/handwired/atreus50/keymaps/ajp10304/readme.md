@@ -101,7 +101,7 @@ Activated when `fn` and `raise` held together.
 
 |       |      |      |      |      |      |      |      |      |      |      |      |      |      |
 | :---: | :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|
-| ESC   |      |      |      |      |      |      |      |      |      |      |      |      |      |
+| ESC   |      |      |      |      |      |      |      |      |      | BTN3 |      |      |      |
 | ACC0  | ACC1 | ACC2 |      |      |      |      |      |      | BTN1 |  UP  | BTN2 |      |      |
 | ACC0  | ACC1 | ACC2 |      |      |      |      |      |      | LEFT | DOWN | RIGHT|      |      |
 |       |      |      |      |      |      | Ctrl | Alt  |      |      |      |      |      |      |
