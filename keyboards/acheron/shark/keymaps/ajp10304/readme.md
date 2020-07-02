@@ -46,13 +46,13 @@ Activated when `Lower` is held in the above `qwerty` layer.
 | Shift |  \|  |  `¬  |  #~  |  '@  |  -_  |  =+  |  #~  |  [{  |  ]}  |  '@  |Shift |
 |       |      |      |      |Lower | Del  |Space |      | Next | Vol- | Vol+ | Play |
 
- ##### Raise Layer
- Activated when `Raise` is held in the above `qwerty` layer.
+##### Raise Layer
+Activated when `Raise` is held in the above `qwerty` layer.
 
- * Preferred layer for typing brackets.
- * Allows for cursor navigation to be used solely with the right hand.
- * WRDSEL: Select the word where the cursor is.
- * |< and >|: Apply `ctrl` to `left` and `right` respectively for word jumping.
+* Preferred layer for typing brackets.
+* Allows for cursor navigation to be used solely with the right hand.
+* WRDSEL: Select the word where the cursor is.
+* |< and >|: Apply `ctrl` to `left` and `right` respectively for word jumping.
 
 |       |      |      |      |      |      |       |      |      |      |       |      |
 | :---: |:----:| :---:| :---:| :---:| :---:| :---: | :---:| :---:| :---:| :---: | :---:|
