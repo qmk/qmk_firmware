@@ -1,7 +1,3 @@
 AUDIO_ENABLE = no
 MOUSEKEY_ENABLE = yes
-
-TEMP := $(OPT_DEFS)
-OPT_DEFS = $(filter-out -DBOOTLOADER_SIZE=4096,$(TEMP))
-
 BOOTLOADER = halfkay
