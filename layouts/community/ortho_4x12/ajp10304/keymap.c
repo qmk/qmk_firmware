@@ -68,10 +68,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_ortho_4x12(\
-  KC_GRV,     XXXXXXX, M(1),    KC_LBRC,       KC_RBRC,       XXXXXXX,   XXXXXXX,       KC_PGUP,  KC_HOME,  KC_PGDOWN,  XXXXXXX,        KC_PSCREEN            ,\
-  KC_GRV,     XXXXXXX, XXXXXXX, LSFT(KC_9),    LSFT(KC_0),    XXXXXXX,   XXXXXXX,       KC_HOME,  KC_UP,    KC_END,     XXXXXXX,        LCTL(LSFT(KC_EQL))    ,\
-  _______,    XXXXXXX, XXXXXXX, LSFT(KC_LBRC), LSFT(KC_RBRC), XXXXXXX,   LCTL(KC_LEFT), KC_LEFT,  KC_DOWN,  KC_RIGHT,   LCTL(KC_RIGHT), LCTL(KC_MINS)         ,\
-  MO(_MOUSE), _______, _______, _______,       _______,       KC_LALT,   KC_ENT,        _______,  XXXXXXX,  _______,    _______,        _______               \
+  KC_GRV,     XXXXXXX, M_WORD_SEL, KC_LBRC,       KC_RBRC,       XXXXXXX,   XXXXXXX,       KC_PGUP,  KC_HOME,  KC_PGDOWN,  XXXXXXX,        KC_PSCREEN            ,\
+  KC_GRV,     XXXXXXX, XXXXXXX,    LSFT(KC_9),    LSFT(KC_0),    XXXXXXX,   XXXXXXX,       KC_HOME,  KC_UP,    KC_END,     XXXXXXX,        LCTL(LSFT(KC_EQL))    ,\
+  _______,    XXXXXXX, XXXXXXX,    LSFT(KC_LBRC), LSFT(KC_RBRC), XXXXXXX,   LCTL(KC_LEFT), KC_LEFT,  KC_DOWN,  KC_RIGHT,   LCTL(KC_RIGHT), LCTL(KC_MINS)         ,\
+  MO(_MOUSE), _______, _______,    _______,       _______,       KC_LALT,   KC_ENT,        _______,  XXXXXXX,  _______,    _______,        _______               \
 ),
 
 /* Adjust (Lower + Raise)
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_ortho_4x12(\
-  M(0),     RESET,   QWERTY,  BL_ON,   BL_OFF,  DYN_REC_START1,  DYN_REC_START2,  _______,             _______,           _______,              _______,  KC_DEL  ,\
+  M_CUSTOM, RESET,   QWERTY,  BL_ON,   BL_OFF,  DYN_REC_START1,  DYN_REC_START2,  _______,             _______,           _______,              _______,  KC_DEL  ,\
   KC_CAPS,  RGB_TOG, RGB_MOD, RGB_VAD, RGB_VAI, DYN_MACRO_PLAY1, DYN_MACRO_PLAY2, KC_AUDIO_MUTE,       KC_AUDIO_VOL_UP,   KC_MEDIA_PLAY_PAUSE,  _______,  _______ ,\
   TG(_MAC), RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, DYN_REC_STOP,    DYN_REC_STOP,    KC_MEDIA_PREV_TRACK, KC_AUDIO_VOL_DOWN, KC_MEDIA_NEXT_TRACK,  _______,  _______ ,\
   _______,  _______, _______, _______, _______, _______,         _______,         _______,             _______,           _______,              _______,  _______ \
@@ -140,10 +140,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_FUNC2] = LAYOUT_ortho_4x12(\
-    _______,  _______,    M(1),       _______,    _______,    _______, M(5),    _______, _______, _______, _______, _______,\
-    _______,  _______,    M(3),       M(7),       _______,    _______, _______, M(10),   _______, _______, _______, _______,\
-    _______,  LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), _______, _______, _______, _______, _______, _______, M(98),  \
-    _______,  _______,    _______,    _______,    _______,    _______, _______, _______, _______, _______, _______, _______ \
+    _______,  _______,    M_WORD_SEL, _______,    _______,    _______, M_LINE_DEL, _______, _______, _______, _______, _______,\
+    _______,  _______,    M_LINE_SEL, M_DUP,      _______,    _______, _______,    M_JOIN,  _______, _______, _______, _______,\
+    _______,  LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), _______, _______,    _______, _______, _______, _______, M_MODE, \
+    _______,  _______,    _______,    _______,    _______,    _______, _______,    _______, _______, _______, _______, _______ \
 ),
 
 [_MAC]= LAYOUT_ortho_4x12(\
@@ -161,10 +161,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_MRSE] = LAYOUT_ortho_4x12(\
-    _______,  _______,  M(2),    _______, _______, _______, _______,       _______,    _______, _______,    _______,        _______       ,\
-    _______,  _______,  _______, _______, _______, _______, _______,       LCTL(KC_A), _______, LCTL(KC_E), _______,        LGUI(KC_EQL)  ,\
-    _______,  _______,  _______, _______, _______, _______, LALT(KC_LEFT), _______,    _______, _______,    LALT(KC_RIGHT), LGUI(KC_MINS) ,\
-    _______,  _______,  _______, _______, _______, _______, _______,       _______,    _______, _______,    _______,        _______        \
+    _______,  _______,  M_WORD_SEL_MAC, _______, _______, _______, _______,       _______,    _______, _______,    _______,        _______       ,\
+    _______,  _______,  _______,        _______, _______, _______, _______,       LCTL(KC_A), _______, LCTL(KC_E), _______,        LGUI(KC_EQL)  ,\
+    _______,  _______,  _______,        _______, _______, _______, LALT(KC_LEFT), _______,    _______, _______,    LALT(KC_RIGHT), LGUI(KC_MINS) ,\
+    _______,  _______,  _______,        _______, _______, _______, _______,       _______,    _______, _______,    _______,        _______        \
 ),
 
 [_MFNC]= LAYOUT_ortho_4x12(\
@@ -175,10 +175,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_MFNC2] = LAYOUT_ortho_4x12(\
-    _______,  _______,    M(2),       _______,    _______,    _______, M(6),    _______, _______, _______, _______, _______,\
-    _______,  _______,    M(4),       M(8),       _______,    _______, _______, M(10),   _______, _______, _______, _______,\
-    _______,  LGUI(KC_Z), LGUI(KC_X), LGUI(KC_C), LGUI(KC_V), _______, _______, _______, _______, _______, _______, M(99),  \
-    _______,  _______,    _______,    _______,    _______,    _______, _______, _______, _______, _______, _______, _______ \
+    _______,  _______,    M_WORD_SEL_MAC, _______,    _______,    _______, M_LINE_DEL_MAC, _______,    _______, _______, _______, _______,\
+    _______,  _______,    M_LINE_SEL_MAC, M_DUP_MAC,  _______,    _______, _______,        M_JOIN_MAC, _______, _______, _______, _______,\
+    _______,  LGUI(KC_Z), LGUI(KC_X),     LGUI(KC_C), LGUI(KC_V), _______, _______,        _______,    _______, _______, _______, M_MODE_MAC,\
+    _______,  _______,    _______,        _______,    _______,    _______, _______,        _______,    _______, _______, _______, _______ \
 )
 
 };

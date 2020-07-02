@@ -30,5 +30,17 @@ enum ajp10304_keycodes {
   MRSE,
   MOUSE,
   NUMPAD,
-  DYNAMIC_MACRO_RANGE
+  M_CUSTOM,
+  M_WORD_SEL,
+  M_WORD_SEL_MAC,
+  M_LINE_SEL,
+  M_LINE_SEL_MAC,
+  M_LINE_DEL,
+  M_LINE_DEL_MAC,
+  M_DUP,
+  M_DUP_MAC,
+  M_JOIN,
+  M_JOIN_MAC,
+  M_MODE,
+  M_MODE_MAC
 };

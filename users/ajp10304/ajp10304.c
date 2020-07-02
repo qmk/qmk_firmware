@@ -7,7 +7,7 @@ void persistant_default_layer_set(uint16_t default_layer) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
-   switch (keycode) {
+  switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
         persistant_default_layer_set(1UL<<_QWERTY);
@@ -71,68 +71,73 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_MFNC2);
       }
       return false;
-    }
+    case M_CUSTOM:
+        if (record->event.pressed) {
+            SEND_STRING("Custom text here");
+        }
+        break;
+    case M_WORD_SEL:
+        if (record->event.pressed) {
+            SEND_STRING(SS_DOWN(X_LCTRL) SS_TAP(X_RIGHT) SS_DOWN(X_LSHIFT) SS_TAP(X_LEFT) SS_UP(X_LSHIFT) SS_UP(X_LCTRL));
+        }
+        break;
+    case M_WORD_SEL_MAC:
+        if (record->event.pressed) {
+            SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_RIGHT) SS_DOWN(X_LSHIFT) SS_TAP(X_LEFT) SS_UP(X_LSHIFT) SS_UP(X_LALT));
+        }
+        break;
+    case M_LINE_SEL:
+        if (record->event.pressed) {
+            SEND_STRING(SS_TAP(X_HOME) SS_DOWN(X_LSHIFT) SS_TAP(X_END) SS_UP(X_LSHIFT));
+        }
+        break;
+    case M_LINE_SEL_MAC:
+        if (record->event.pressed) {
+            SEND_STRING(SS_LCTRL("a") SS_DOWN(X_LSHIFT) SS_LCTRL("e") SS_UP(X_LSHIFT));
+        }
+        break;
+    case M_LINE_DEL:
+        if (record->event.pressed) {
+            SEND_STRING(SS_TAP(X_HOME) SS_DOWN(X_LSHIFT) SS_TAP(X_END) SS_UP(X_LSHIFT));
+            SEND_STRING(SS_TAP(X_BSPACE));
+        }
+        break;
+    case M_LINE_DEL_MAC:
+        if (record->event.pressed) {
+            SEND_STRING(SS_LCTRL("a") SS_DOWN(X_LSHIFT) SS_LCTRL("e") SS_UP(X_LSHIFT));
+            SEND_STRING(SS_TAP(X_BSPACE));
+        }
+        break;
+    case M_DUP:
+        if (record->event.pressed) {
+            SEND_STRING(SS_LCTRL("c") SS_TAP(X_RIGHT) SS_LCTRL("v"));
+         }
+         break;
+    case M_DUP_MAC:
+        if (record->event.pressed) {
+            SEND_STRING(SS_LGUI("c") SS_TAP(X_RIGHT) SS_LGUI("v"));
+        }
+        break;
+    case M_JOIN:
+        if (record->event.pressed) {
+            SEND_STRING(SS_TAP(X_END) SS_TAP(X_DELETE));
+        }
+        break;
+    case M_JOIN_MAC:
+        if (record->event.pressed) {
+            SEND_STRING(SS_LCTRL("e") SS_TAP(X_DELETE));
+        }
+        break;
+    case M_MODE:
+        if (record->event.pressed) {
+            SEND_STRING("PC");
+        }
+        break;
+    case M_MODE_MAC:
+        if (record->event.pressed) {
+            SEND_STRING("OSX");
+        }
+        break;
+  }
   return true;
 }
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t keycode, uint8_t opt) {
-  // These would trigger when you hit a key mapped as M(0)
-  if (record->event.pressed) {
-    switch(keycode) {
-      case 0: // Some custom string here
-        SEND_STRING("");
-        return false;
-
-      case 1: // Word Select
-        SEND_STRING(SS_DOWN(X_LCTRL) SS_TAP(X_RIGHT) SS_DOWN(X_LSHIFT) SS_TAP(X_LEFT) SS_UP(X_LSHIFT) SS_UP(X_LCTRL));
-        return false;
-
-      case 2: // Word Select Mac
-        SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_RIGHT) SS_DOWN(X_LSHIFT) SS_TAP(X_LEFT) SS_UP(X_LSHIFT) SS_UP(X_LALT));
-        return false;
-
-      case 3: // Line Select
-        SEND_STRING(SS_TAP(X_HOME) SS_DOWN(X_LSHIFT) SS_TAP(X_END) SS_UP(X_LSHIFT));
-        return false;
-
-      case 4: // Line Select Mac
-        SEND_STRING(SS_LCTRL("a") SS_DOWN(X_LSHIFT) SS_LCTRL("e") SS_UP(X_LSHIFT));
-        return false;
-
-      case 5: // Line Delete
-        SEND_STRING(SS_TAP(X_HOME) SS_DOWN(X_LSHIFT) SS_TAP(X_END) SS_UP(X_LSHIFT));
-        SEND_STRING(SS_TAP(X_BSPACE));
-        return false;
-
-      case 6: // Line Delete Mac
-        SEND_STRING(SS_LCTRL("a") SS_DOWN(X_LSHIFT) SS_LCTRL("e") SS_UP(X_LSHIFT));
-        SEND_STRING(SS_TAP(X_BSPACE));
-        return false;
-
-      case 7: // Duplicate Selection
-        SEND_STRING(SS_LCTRL("c") SS_TAP(X_RIGHT) SS_LCTRL("v"));
-        return false;
-
-      case 8: // Duplicate Selection Mac
-        SEND_STRING(SS_LGUI("c") SS_TAP(X_RIGHT) SS_LGUI("v"));
-        return false;
-
-      case 9: // Join line
-        SEND_STRING(SS_TAP(X_END) SS_TAP(X_DELETE));
-        return false;
-
-      case 10: // Join line Mac
-        SEND_STRING(SS_LCTRL("e") SS_TAP(X_DELETE));
-        return false;
-
-      case 98: // Print mode
-        SEND_STRING("PC");
-        return false;
-
-      case 99: // Print mode
-        SEND_STRING("OSX");
-        return false;
-    }
-  }
-  return MACRO_NONE;
-};
