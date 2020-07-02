@@ -18,7 +18,7 @@ bool DIGITAL_RAIN(effect_params_t* params) {
 
     if (params->init) {
         rgb_matrix_set_color_all(0, 0, 0);
-        memset(rgb_frame_buffer, 0, sizeof(rgb_frame_buffer));
+        memset(g_rgb_frame_buffer, 0, sizeof(g_rgb_frame_buffer));
         drop = 0;
     }
 
@@ -27,10 +27,10 @@ bool DIGITAL_RAIN(effect_params_t* params) {
             if (row == 0 && drop == 0 && rand() < RAND_MAX / RGB_DIGITAL_RAIN_DROPS) {
                 // top row, pixels have just fallen and we're
                 // making a new rain drop in this column
-                rgb_frame_buffer[row][col] = max_intensity;
-            } else if (rgb_frame_buffer[row][col] > 0 && rgb_frame_buffer[row][col] < max_intensity) {
+                g_rgb_frame_buffer[row][col] = max_intensity;
+            } else if (g_rgb_frame_buffer[row][col] > 0 && g_rgb_frame_buffer[row][col] < max_intensity) {
                 // neither fully bright nor dark, decay it
-                rgb_frame_buffer[row][col]--;
+                g_rgb_frame_buffer[row][col]--;
             }
             // set the pixel colour
             uint8_t led[LED_HITS_TO_REMEMBER];
@@ -38,11 +38,11 @@ bool DIGITAL_RAIN(effect_params_t* params) {
 
             // TODO: multiple leds are supported mapped to the same row/column
             if (led_count > 0) {
-                if (rgb_frame_buffer[row][col] > pure_green_intensity) {
-                    const uint8_t boost = (uint8_t)((uint16_t)max_brightness_boost * (rgb_frame_buffer[row][col] - pure_green_intensity) / (max_intensity - pure_green_intensity));
+                if (g_rgb_frame_buffer[row][col] > pure_green_intensity) {
+                    const uint8_t boost = (uint8_t)((uint16_t)max_brightness_boost * (g_rgb_frame_buffer[row][col] - pure_green_intensity) / (max_intensity - pure_green_intensity));
                     rgb_matrix_set_color(led[0], boost, max_intensity, boost);
                 } else {
-                    const uint8_t green = (uint8_t)((uint16_t)max_intensity * rgb_frame_buffer[row][col] / pure_green_intensity);
+                    const uint8_t green = (uint8_t)((uint16_t)max_intensity * g_rgb_frame_buffer[row][col] / pure_green_intensity);
                     rgb_matrix_set_color(led[0], 0, green, 0);
                 }
             }
@@ -55,15 +55,15 @@ bool DIGITAL_RAIN(effect_params_t* params) {
         for (uint8_t row = MATRIX_ROWS - 1; row > 0; row--) {
             for (uint8_t col = 0; col < MATRIX_COLS; col++) {
                 // if ths is on the bottom row and bright allow decay
-                if (row == MATRIX_ROWS - 1 && rgb_frame_buffer[row][col] == max_intensity) {
-                    rgb_frame_buffer[row][col]--;
+                if (row == MATRIX_ROWS - 1 && g_rgb_frame_buffer[row][col] == max_intensity) {
+                    g_rgb_frame_buffer[row][col]--;
                 }
                 // check if the pixel above is bright
-                if (rgb_frame_buffer[row - 1][col] == max_intensity) {
+                if (g_rgb_frame_buffer[row - 1][col] == max_intensity) {
                     // allow old bright pixel to decay
-                    rgb_frame_buffer[row - 1][col]--;
+                    g_rgb_frame_buffer[row - 1][col]--;
                     // make this pixel bright
-                    rgb_frame_buffer[row][col] = max_intensity;
+                    g_rgb_frame_buffer[row][col] = max_intensity;
                 }
             }
         }

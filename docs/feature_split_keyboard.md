@@ -8,8 +8,19 @@ QMK Firmware has a generic implementation that is usable by any board, as well a
 
 For this, we will mostly be talking about the generic implementation used by the Let's Split and other keyboards. 
 
-!> ARM is not yet supported for Split Keyboards.  Progress is being made, but we are not quite there, yet. 
+!> ARM is not yet fully supported for Split Keyboards and has many limitations. Progress is being made, but we have not yet reached 100% feature parity.
 
+
+## Compatibility Overview
+
+| Transport                    | AVR                | ARM                |
+|------------------------------|--------------------|--------------------|
+| ['serial'](serial_driver.md) | :heavy_check_mark: | :white_check_mark: <sup>1</sup> |
+| I2C                          | :heavy_check_mark: |                    |
+
+Notes:
+
+1. Both hardware and software limitations are detailed within the [driver documentation](serial_driver.md).
 
 ## Hardware Configuration
 
