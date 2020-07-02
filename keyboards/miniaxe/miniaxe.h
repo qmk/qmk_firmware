@@ -48,3 +48,5 @@
     }
 
 #endif
+
+#define LAYOUT_split_3x5_3 LAYOUT
