@@ -120,9 +120,8 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     // Start with a clear matrix row
     matrix_row_t current_row_value = 0;
 
-    // Select row and wait for row selecton to stabilize
+    // Select row
     select_row(current_row);
-    matrix_io_delay();
 
     // For each col...
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
@@ -135,6 +134,9 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
     // Unselect row
     unselect_row(current_row);
+    if( current_row + 1 < MATRIX_ROWS ) {
+        matrix_io_delay(); // wait for row signal to HIGH
+    }
 
     // If the row has changed, store the row and return the changed flag.
     if (current_matrix[current_row] != current_row_value) {
@@ -170,9 +172,8 @@ static void init_pins(void) {
 static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
     bool matrix_changed = false;
 
-    // Select col and wait for col selecton to stabilize
+    // Select col
     select_col(current_col);
-    matrix_io_delay();
 
     // For each row...
     for (uint8_t row_index = 0; row_index < ROWS_PER_HAND; row_index++) {
@@ -198,6 +199,9 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 
     // Unselect col
     unselect_col(current_col);
+    if( current_col + 1 < MATRIX_COLS ) {
+        matrix_io_delay(); // wait for col signal to HIGH
+    }
 
     return matrix_changed;
 }
