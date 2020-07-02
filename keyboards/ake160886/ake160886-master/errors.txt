@@ -1,0 +1,23 @@
+root@kali:~/qmk_firmware/keyboards/ake160886# qmk compile -kb ake160886 -km default
+Ψ Compiling keymap with make ake160886:default
+
+
+QMK Firmware 0.9.12
+Making ake160886 with keymap default
+
+avr-gcc (GCC) 5.4.0
+Copyright (C) 2015 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Compiling: keyboards/ake160886/ake160886.c                                                         keyboards/ake160886/ake160886.c:56:24: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘keymaps’
+ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+                        ^
+ [ERRORS]
+ | 
+ | 
+ | 
+make[1]: *** [tmk_core/rules.mk:386: .build/obj_ake160886_default/keyboards/ake160886/ake160886.o] Error 1
+Make finished with errors
+make: *** [Makefile:584: ake160886:default] Error 1
+root@kali:~/qmk_firmware/keyboards/ake160886# 

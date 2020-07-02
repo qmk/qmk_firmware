@@ -1,0 +1,389 @@
+[
+  {
+    "name": "ake160886",
+    "author": "Grogdor",
+    "switchMount": "cherry",
+    "switchBrand": "cherry",
+    "switchType": "MX1A-11xx",
+    "plate": true
+  },
+  [
+    {
+      "y": 2,
+      "x": 1.25,
+      "a": 7,
+      "w": 2
+    },
+    "Clear",
+    "Clear Field",
+    "Exit",
+    {
+      "x": 0.25
+    },
+    "",
+    "DA",
+    "Review",
+    "",
+    "Print",
+    "",
+    {
+      "x": 0.5
+    },
+    "911",
+    "ANI Recall",
+    "General Menu",
+    "ORDB",
+    {
+      "x": 0.5
+    },
+    "Update Coins",
+    "Collect Coins",
+    "",
+    "",
+    {
+      "x": 0.25
+    },
+    "Split Calling",
+    "Start Timing",
+    "Gen AMA",
+    {
+      "x": 0.25
+    },
+    "Dial Rate",
+    "Auto Collect",
+    "Special Called",
+    {
+      "a": 5
+    },
+    "*\n\n\n\n\n\nNo AMA"
+  ],
+  [
+    {
+      "x": 1.25
+    },
+    "*\n\n\n\n\n\nStop Calls",
+    {
+      "a": 7
+    },
+    "Hold",
+    "SA",
+    {
+      "a": 5
+    },
+    "*\n\n\n\n\n\nNo Audio",
+    {
+      "x": 0.25,
+      "a": 7
+    },
+    "",
+    "Pop Up",
+    "Unmask",
+    "EDA Menu",
+    "",
+    "",
+    {
+      "x": 0.5
+    },
+    "ZIP Code",
+    "FCN",
+    "OGT Menu",
+    "CC Menu",
+    {
+      "x": 0.5
+    },
+    "T&C",
+    "Return Coins",
+    "Line 2",
+    "Line 1",
+    {
+      "x": 0.25
+    },
+    "Split Called",
+    "Cancel Timing",
+    "No Connect",
+    {
+      "x": 0.25
+    },
+    "Person",
+    "Station",
+    "Paid",
+    "Collect"
+  ],
+  [
+    {
+      "y": 0.75,
+      "x": 1.25
+    },
+    "",
+    "",
+    "",
+    "",
+    {
+      "x": 0.25
+    },
+    "Bus Keywd",
+    {
+      "w": 2
+    },
+    "Expand Locality",
+    {
+      "w": 2
+    },
+    "Residence",
+    {
+      "w": 2
+    },
+    "Business",
+    {
+      "w": 2
+    },
+    "Government",
+    "Fed Gov",
+    "State Gov",
+    "County Gov",
+    "Local Gov",
+    {
+      "w": 2
+    },
+    "Extend Search",
+    {
+      "x": 0.25
+    },
+    "Release Calling #",
+    {
+      "w": 2
+    },
+    "Release Called Number",
+    {
+      "x": 0.25
+    },
+    "",
+    "",
+    "",
+    ""
+  ],
+  [
+    {
+      "x": 1.25
+    },
+    "",
+    "",
+    "",
+    "",
+    {
+      "x": 0.25,
+      "w": 1.5
+    },
+    "Field Tab",
+    "Q",
+    "W",
+    "E",
+    "R",
+    "T",
+    "Y",
+    "U",
+    "I",
+    "O",
+    "P",
+    "EDA Search",
+    "NXX",
+    {
+      "w": 1.5
+    },
+    "Area Code",
+    {
+      "x": 0.25
+    },
+    "Trouble",
+    "Interpt",
+    "Verify",
+    {
+      "x": 0.25
+    },
+    "",
+    {
+      "a": 5
+    },
+    "\n1",
+    {
+      "a": 4
+    },
+    "\n\n\n\n\n\n↑\n\nABC\n\n2",
+    {
+      "a": 5
+    },
+    "DEF\n3"
+  ],
+  [
+    {
+      "x": 1.25,
+      "a": 7
+    },
+    "",
+    "",
+    "",
+    "",
+    {
+      "x": 0.25,
+      "w": 1.75
+    },
+    "Enter",
+    "A",
+    "S",
+    "D",
+    "F",
+    "G",
+    "H",
+    "J",
+    "K",
+    "L",
+    "Bus",
+    "Res",
+    "Page Back",
+    {
+      "w": 1.25
+    },
+    "Page Forward",
+    {
+      "x": 0.25
+    },
+    "Calling #",
+    "Called #",
+    "Billing #",
+    {
+      "x": 0.25
+    },
+    "",
+    {
+      "a": 4
+    },
+    "\n\n\n\n\n\n←\n\nGHI\n\n4",
+    {
+      "a": 5
+    },
+    "JKL\n5",
+    {
+      "a": 4
+    },
+    "\n\n\n\n\n\n\n→\nMNO\n\n6"
+  ],
+  [
+    {
+      "x": 1.25,
+      "a": 7
+    },
+    "",
+    "",
+    "",
+    "",
+    {
+      "x": 0.25,
+      "w": 1.25
+    },
+    "Shift",
+    "Subfld Tab",
+    "Z",
+    "X",
+    "C",
+    "V",
+    "B",
+    "N",
+    "M",
+    ".",
+    "←",
+    "→",
+    "Tone",
+    {
+      "w": 1.75
+    },
+    "Backspace",
+    {
+      "x": 0.25
+    },
+    "Credit",
+    "Misc",
+    "IC",
+    {
+      "x": 0.25
+    },
+    "",
+    {
+      "a": 5
+    },
+    "PQRS\n7",
+    {
+      "a": 4
+    },
+    "\n\n\n\n\n\n↓\n\nTUV\n\n8",
+    {
+      "a": 5
+    },
+    "WXYZ\n9"
+  ],
+  [
+    {
+      "x": 1.25,
+      "a": 7,
+      "w": 2
+    },
+    "Position Release",
+    "",
+    "Cancel Call",
+    {
+      "x": 0.25
+    },
+    "State",
+    {
+      "w": 2
+    },
+    "Locality",
+    {
+      "w": 2
+    },
+    "Name",
+    {
+      "w": 4
+    },
+    "",
+    {
+      "w": 2
+    },
+    "Other",
+    "Bldg #",
+    "Category",
+    {
+      "w": 2
+    },
+    "Audio Release",
+    {
+      "x": 0.25
+    },
+    "Xfr IC",
+    {
+      "w": 2
+    },
+    "Handoff",
+    {
+      "x": 0.25
+    },
+    "",
+    {
+      "a": 5
+    },
+    "\n0",
+    {
+      "a": 7,
+      "w": 2
+    },
+    "Connect"
+  ],
+  [
+    {
+      "y": 0.25,
+      "x": 28,
+      "w": 1.25,
+      "d": true
+    },
+    ""
+  ]
+]
