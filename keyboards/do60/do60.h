@@ -1,7 +1,6 @@
 #pragma once
 
 #include "quantum.h"
-#include "led.h"
 
 /* DO60 LEDs
  *   GPIO pads
