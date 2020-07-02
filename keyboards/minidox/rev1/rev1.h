@@ -21,3 +21,5 @@
     { k61, k62, k63, k64, k65 }, \
     { ___, ___, k73, k74, k75 } \
   }
+
+#define LAYOUT_split_3x5_3 LAYOUT
