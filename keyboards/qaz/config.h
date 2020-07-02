@@ -6,7 +6,7 @@
 #define VENDOR_ID 0x7431
 #define PRODUCT_ID 0x0001
 #define DEVICE_VER 0x0001
-#define MANUFACTURER whydobearsexplode
+#define MANUFACTURER whydobearsexplod
 #define PRODUCT qaz keyboard
 
 /* key matrix size */
@@ -39,7 +39,14 @@
 #define LOCKING_RESYNC_ENABLE
 
 #define RGB_DI_PIN F7
-   #define RGBLED_NUM 1
+
+#ifdef RGB_DI_PIN
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 21
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8
+#endif
 
 #ifdef COMBO_ENABLE
    #define COMBO_COUNT 5

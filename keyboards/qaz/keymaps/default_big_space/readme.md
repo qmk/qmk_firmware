@@ -1,1 +1,1 @@
-# Default QAZ Layout
+# Default QAZ Layout full size spacebar
