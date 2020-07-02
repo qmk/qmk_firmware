@@ -9,7 +9,7 @@ MCU = atmega32u4
 #   QMK DFU      qmk-dfu
 #   ATmega32A    bootloadHID
 #   ATmega328P   USBasp
-BOOTLOADER = atmel-dfu
+BOOTLOADER = caterina
 
 # Processor frequency.
 #     This will define a symbol, F_CPU, in all source code files equal to the
