@@ -24,4 +24,5 @@ ifeq ($(strip $(KEYBOARD)), projectkb/alice/rev1)
   SRC += rgblight_layers.c
   VIA_ENABLE = yes
   LTO_ENABLE = no
+  VELOCIKEY_ENABLE=yes
 endif

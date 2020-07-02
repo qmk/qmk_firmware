@@ -1,8 +1,8 @@
 # より詳細な `make` 手順
 
 <!---
-  original document: 5f35203d1:docs/getting_started_make_guide.md
-  git diff 5f35203d1 HEAD -- docs/getting_started_make_guide.md | cat
+  original document: 0.9.0:docs/getting_started_make_guide.md
+  git diff 0.9.0 HEAD -- docs/getting_started_make_guide.md | cat
 -->
 
 `make` コマンドの完全な構文は `<keyboard_folder>:<keymap>:<target>` です:
