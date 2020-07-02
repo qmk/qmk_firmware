@@ -3,8 +3,6 @@
 #include "keymap_uk.h"
 #include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
-
 enum ajp10304_layers {
   _QWERTY,
   _MAC,
