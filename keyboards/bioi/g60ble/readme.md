@@ -1,6 +1,6 @@
 # BIOI G60 BLE
 
-![BIOI G60 BLE](https://i.imgur.com/7Mf8L3a.png)
+![BIOI G60 BLE](https://i.imgur.com/7Mf8L3al.png)
 
 A 60% keyboard with Bluetooth LE support
 
