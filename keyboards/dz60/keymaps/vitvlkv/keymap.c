@@ -3,6 +3,9 @@
 // To compile firmware:
 // qmk_firmware$ qmk compile -kb dz60 -km vitvlkv
 
+// To flash firmware:
+// qmk_firmware$ qmk flash -kb dz60 -km vitvlkv
+
 // Usefull docs:
 // * https://docs.qmk.fm/#/keycodes
 // * https://docs.qmk.fm/#/faq_keymap
@@ -16,6 +19,7 @@
 // * KC__VOLUP, KC__VOLDOWN, KC__MUTE
 // * KC_BRIU, KC_BRID (Brightness Up/Down)
 // * Mouse movement/click/wheel
+// * RESET, DEBUG, EEP_RST, see https://docs.qmk.fm/#/quantum_keycodes
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LAYOUT_60_ansi_split_bs_rshift(
