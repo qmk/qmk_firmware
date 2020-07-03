@@ -57,8 +57,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_VAL_STEP 17
 #define RGBLIGHT_LIMIT_VAL 255
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
-
 // EEPROM usage
 
 // TODO: refactor with new user EEPROM code (coming soon)
