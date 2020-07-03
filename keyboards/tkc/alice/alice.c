@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "alice.h"
-void matrix_init_board(void){
+void matrix_init_board(void) {
     setPinOutput(C7);
     setPinOutput(C6);
     setPinOutput(B6);
