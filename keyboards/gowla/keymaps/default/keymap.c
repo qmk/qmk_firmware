@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT(
+    [0] = LAYOUT_ortho_3x3(
         LT(1, KC_MPRV), KC_MNXT, KC_MPLY,
         KC_VOLD,        KC_UP,   KC_VOLU,
         KC_LEFT,        KC_DOWN, KC_RGHT
@@ -12,4 +12,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F2,   KC_F3,   KC_F4
     )
 };
-
