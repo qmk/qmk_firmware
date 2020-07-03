@@ -40,9 +40,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 void led_init_ports(void) {
     setPinOutput(B1);
     writePinHigh(B1);
-	setPinOutput(B2);
+    setPinOutput(B2);
     writePinHigh(B2);
-	setPinOutput(B3);
+    setPinOutput(B3);
     writePinHigh(B3);
 }
 
