@@ -7,6 +7,8 @@ Designed by Don of the Board Podcast and sold as a kit by [keeb.io](https://keeb
 
 https://github.com/flehrad/Big-Switch-PCB
 
+make: flehrad/bigswitch:default
+
 ### Technical Specifications
 
  * Uses a atmega32u4 pro micro or pin compatible MCU
