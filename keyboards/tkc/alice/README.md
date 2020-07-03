@@ -4,9 +4,9 @@
 
 The TKC Alice is an ATMega32u4 powered, USB Type C, Alice compatible PCB and was created specifically for the OSA case, but with considerations to make it compatible with the Lubrigante acrylic cases (except for the Type C connector it should also be compatible with original TGR Alice cases).
 
-Keyboard Maintainer: [Terry Mathews](https://github.com/TerryMathews/)  
-Hardware Supported: TKC Alice PCB  
-Hardware Availability: https://thekey.company/collections/alice-keyboard
+* Keyboard Maintainer: [Terry Mathews](https://github.com/TerryMathews/)
+* Hardware Supported: TKC Alice PCB
+* Hardware Availability: https://thekey.company/collections/alice-keyboard
 
 Make example for this keyboard (after setting up your build environment):
 
