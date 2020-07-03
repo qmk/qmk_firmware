@@ -1,5 +1,4 @@
-#ifndef GOWLA_H
-#define GOWLA_H
+#pragma once
 
 #include "quantum.h"
 
