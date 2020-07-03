@@ -118,11 +118,9 @@ void led_set_user(uint8_t usb_led) {}
 void encoder_update_user(uint8_t index, bool clockwise) {
  if (index == 0) {
 	 if (clockwise) {
-  register_code(KC_VOLU);
-  unregister_code(KC_VOLU);
+tap_code(KC_VOLU);
  }  else{
-	register_code (KC_VOLD);
-	unregister_code(KC_VOLD);
+	tap_code(KC_VOLD);
  }
  }
 }
