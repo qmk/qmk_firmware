@@ -1,9 +1,9 @@
 {
- "keyboard":"handwired/onekey/pytest",
- "keymap":"default_json",
- "layout":"LAYOUT",
- "layers":[["KC_A"]],
- "author":"qmk",
- "notes":"This file is a keymap.json file for handwired/onekey/pytest",
- "version":1
+    "keyboard": "handwired/onekey/pytest",
+    "keymap": "default_json",
+    "layout": "LAYOUT_ortho_1x1",
+    "layers": [["KC_A"]],
+    "author": "qmk",
+    "notes": "This file is a keymap.json file for handwired/onekey/pytest",
+    "version": 1
 }

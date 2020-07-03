@@ -1,56 +1,69 @@
 {
-    "keyboard_name": "fm2u", 
-    "url": "", 
-    "maintainer": "qmk", 
-    "width": 1, 
-    "height": 1, 
+    "keyboard_name": "Botanical Keyboards FM2U",
+    "url": "",
+    "maintainer": "qmk",
+    "width": 1,
+    "height": 1,
     "layouts": {
-        "LAYOUT_100u": {
-            "layout": [{"x":0, "y":0}]
+        "LAYOUT_1u": {
+            "layout": [
+                {"x": 0, "y": 0}
+            ]
         },
-
-        "LAYOUT_125u": {
-            "layout": [{"x":0, "y":0, "w":1.25}]
+        "LAYOUT_1u25": {
+            "layout": [
+                {"x": 0, "y": 0, "w": 1.25}
+            ]
         },
-
-        "LAYOUT_150u": {
-            "layout": [{"x":0, "y":0, "w":1.50}]
+        "LAYOUT_1u5": {
+            "layout": [
+                {"x": 0, "y": 0, "w": 1.50}
+            ]
         },
-
-        "LAYOUT_175u": {
-            "layout": [{"x":0, "y":0, "w":1.75}]
+        "LAYOUT_1u75": {
+            "layout": [
+                {"x": 0, "y": 0, "w": 1.75}
+            ]
         },
-
-        "LAYOUT_200u": {
-            "layout": [{"x":0, "y":0, "w":2.00}]
+        "LAYOUT_2u": {
+            "layout": [
+                {"x": 0, "y": 0, "w": 2}
+            ]
         },
-
-        "LAYOUT_225u": {
-            "layout": [{"x":0, "y":0, "w":2.25}]
+        "LAYOUT_2u25": {
+            "layout": [
+                {"x": 0, "y": 0, "w": 2.25}
+            ]
         },
-
-        "LAYOUT_275u": {
-            "layout": [{"x":0, "y":0, "w":2.75}]
+        "LAYOUT_2u75": {
+            "layout": [
+                {"x": 0, "y": 0, "w": 2.75}
+            ]
         },
-
-        "LAYOUT_300u": {
-            "layout": [{"x":0, "y":0, "w":3.00}]
+        "LAYOUT_3u": {
+            "layout": [
+                {"x": 0, "y": 0, "w": 3}
+            ]
         },
-
-        "LAYOUT_600u": {
-            "layout": [{"x":0, "y":0, "w":6.00}]
+        "LAYOUT_6u": {
+            "layout": [
+                {"x": 0, "y": 0, "w": 6}
+            ]
         },
-
-        "LAYOUT_625u": {
-            "layout": [{"x":0, "y":0, "w":6.25}]
+        "LAYOUT_6u25": {
+            "layout": [
+                {"x": 0, "y": 0, "w": 6.25}
+            ]
         },
-
-        "LAYOUT_700u": {
-            "layout": [{"x":0, "y":0, "w":7.00}]
+        "LAYOUT_7u": {
+            "layout": [
+                {"x": 0, "y": 0, "w": 7}
+            ]
         },
-
-        "LAYOUT_iso": {
-            "layout": [{"x":0.25, "y":0, "w":1.25, "h":2}]
+        "LAYOUT_isoenter": {
+            "layout": [
+                {"x": 0.25, "y": 0, "w": 1.25, "h": 2}
+            ]
         }
     }
 }
