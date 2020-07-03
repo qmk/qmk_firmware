@@ -31,21 +31,12 @@ void led_init_ports(void) {
     writePinHigh(B3);
 }
 
-void led_set_kb(uint8_t usb_led) {
-    if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-        writePinLow(B1);
-    } else {
-        writePinHigh(B1);
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        writePin(B1, !led_state.num_lock);
+        writePin(B2, !led_state.caps_lock);
+        writePin(B3, !led_state.scroll_lock);
     }
-	if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-        writePinLow(B2);
-    } else {
-        writePinHigh(B2);
-    }
-	if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-        writePinLow(B3);
-    } else {
-        writePinHigh(B3);
-    }
-    led_set_user(usb_led);
+    return res;
 }
