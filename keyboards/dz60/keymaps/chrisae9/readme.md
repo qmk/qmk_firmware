@@ -8,7 +8,7 @@ This is a custom keymap for the layout of the DZ60.
 
 ## Keyboard Layout
 
-![Chris DZ60](https://i.imgur.com/sILXwXc.png)
+![Chris DZ60](https://i.imgur.com/HR70qSv.png)
 
 ## Setup
 
