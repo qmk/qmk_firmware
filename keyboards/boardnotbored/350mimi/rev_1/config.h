@@ -39,38 +39,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MATRIX_HAS_GHOST
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    5
+#define DEBOUNCE    4
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-//#define RGBLIGHT_ANIMATIONS
-//#define RGB_DI_PIN A7
-//#define RGBLED_NUM 16
 
-//#define WS2812_PWM_DRIVER PWMD3  // default: PWMD2
-//#define WS2812_PWM_CHANNEL 2 // default: 2
-//#define WS2812_PWM_PAL_MODE 1  // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 2
-//#define WS2812_DMA_STREAM STM32_DMA1_STREAM3  // DMA Stream for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
-//#define WS2812_DMA_CHANNEL 3  // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
-//#define WS2812_SPI SPID1
-//#define WS2812_SPI_MOSI_PAL_MODE 0
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
+#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 3071 // this lets you use more of the 8kb of eeprom availible on the STM32F072CBT6. (3kB here)
+#define DYNAMIC_KEYMAP_LAYER_COUNT 10

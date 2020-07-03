@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCB4B
 #define PRODUCT_ID      0xA350
-#define DEVICE_VER      0x0001
+#define DEVICE_VER      0x0002
 /* in python2: list(u"whatever".encode('utf-16-le')) */
 /*   at most 32 characters or the ugly hack in usb_main.c borks */
 #define MANUFACTURER BoardNotBored
@@ -52,20 +52,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_SPI SPID1
 #define WS2812_SPI_MOSI_PAL_MODE 0
 
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
+#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 3071 // this lets you use more of the 8kb of eeprom availible on the STM32F072CBT6. (3kB here)
+#define DYNAMIC_KEYMAP_LAYER_COUNT 10

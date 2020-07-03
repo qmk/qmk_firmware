@@ -1,13 +1,7 @@
 #include "350mimi.h"
+void keyboard_pre_init_user(void) {
+  // Call the keyboard pre init code.
 
-void matrix_init_board(void){
-    setPinOutput(B4);
-}
-
-bool led_update_kb(led_t led_state) {
-    bool runDefault = led_update_user(led_state);
-    if (runDefault) {
-      writePin(B4, led_state.caps_lock);
-    }
-    return runDefault;
+  // Set our LED pins as output
+  setPinOutput(B4);
 }
