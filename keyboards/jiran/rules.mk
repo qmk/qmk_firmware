@@ -1,7 +1,5 @@
+# MCU name
 MCU = atmega32u4
-F_CPU = 16000000
-ARCH = AVR8
-F_USB = $(F_CPU)
 
 # Bootloader
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
