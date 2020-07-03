@@ -78,7 +78,6 @@ replace_year_placeholders() {
         "${keyboard_dir}/config.h"
         "${keyboard_dir}/${keyboard_base_name}.c"
         "${keyboard_dir}/${keyboard_base_name}.h"
-        "${keyboard_dir}/keymaps/default/config.h"
         "${keyboard_dir}/keymaps/default/keymap.c"
     )
     replace_placeholders "%YEAR%" "$(date +%Y)" "${replace_year_filenames[@]}"
@@ -104,7 +103,6 @@ replace_name_placeholders() {
         "${keyboard_dir}/readme.md"
         "${keyboard_dir}/${keyboard_base_name}.c"
         "${keyboard_dir}/${keyboard_base_name}.h"
-        "${keyboard_dir}/keymaps/default/config.h"
         "${keyboard_dir}/keymaps/default/keymap.c"
     )
     replace_placeholders "%YOUR_NAME%" "$username" "${replace_name_filenames[@]}"
