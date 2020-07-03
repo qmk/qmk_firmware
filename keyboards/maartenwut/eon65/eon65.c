@@ -1,4 +1,4 @@
-/* Copyright 2020 mechmerlin
+/* Copyright 2019 Maarten Dekkers <maartenwut@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,24 +13,4 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include QMK_KEYBOARD_H
-
-
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* Base */
-    [0] = LAYOUT_2u(
-        KC_B
-    ),
-
-    [1] = LAYOUT_2u(
-        KC_TRNS
-    ),
-
-    [2] = LAYOUT_2u(
-        KC_TRNS
-    ),
-
-    [3] = LAYOUT_2u(
-        KC_TRNS
-    )
-};
+#include "eon65.h"
