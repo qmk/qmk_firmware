@@ -5,7 +5,7 @@
     "width": 22.5,
     "height": 6.5,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_fullsize_ansi": {
             "key_count": 104,
             "layout": [
                 {"label":"K00 (B0,D1)", "x":0, "y":0},
