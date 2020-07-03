@@ -50,8 +50,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PIN B6
 #define BACKLIGHT_LEVELS 5
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
-
 // EEPROM usage
 
 // TODO: refactor with new user EEPROM code (coming soon)
