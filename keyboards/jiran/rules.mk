@@ -13,9 +13,6 @@ else
     BOOTLOADER = caterina
 endif
 
-# Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-
 # Build Options
 #   change yes to no to disable
 #
