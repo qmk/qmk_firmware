@@ -2,13 +2,11 @@ YDKB Chili
 
 [Chili PCB](https://gd3.alicdn.com/imgextra/i3/12420845/O1CN01ilPFVn1I73GjalIXf_!!12420845.jpg)
 
-
 The YDKB Chili is a Cherry G80-3000 replacement PCB utilizing the ATmega32U4 microcontroller.
 
-Keyboard Maintainer: QMK community  
-Hardware Supported: YDKB Chili
-Hardware Availability: [TaoBao](https://item.taobao.com/item.htm?id=565823984744)  
-
+* Keyboard Maintainer: QMK community
+* Hardware Supported: YDKB Chili
+* Hardware Availability: [TaoBao](https://item.taobao.com/item.htm?id=565823984744)
 
 Make example for this keyboard (after setting up your build environment):
 
