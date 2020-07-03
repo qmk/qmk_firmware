@@ -36,5 +36,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ROW2COL */
 #define DIODE_DIRECTION ROW2COL
-
-#endif
