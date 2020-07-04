@@ -15,6 +15,7 @@
  */
 #pragma once
 
+#include "quantum.h"
 #ifdef KEYBOARD_nomu30_rev1
     #include "rev1.h"
 #elif KEYBOARD_nomu30_rev2
