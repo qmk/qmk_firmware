@@ -27,7 +27,7 @@ BACKLIGHT_ENABLE = no        # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no         # Enable keyboard RGB underglow
 MIDI_ENABLE = no             # MIDI support
 UNICODE_ENABLE = no          # Unicode
-BLUETOOTH_ENABLE = no        # Enable Bluetooth with the Adafruit EZ-Key HID
+BLUETOOTH_ENABLE = no        # Enable Bluetooth
 AUDIO_ENABLE = no            # Audio output
 FAUXCLICKY_ENABLE = no       # Use buzzer to emulate clicky switches
 
