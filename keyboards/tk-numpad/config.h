@@ -32,8 +32,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MATRIX_COL_PINS { D7, D6, D5, D4 }
 #define MATRIX_ROW_PINS {C6, B6, B5, B4, D7}
 #define MATRIX_COL_PINS {F1, F4, F5, F6}
+#define DIODE_DIRECTION COL2ROW
 
-#define UNUSED_PINS
+
+
+#define BACKLIGHT_LEVELS 24
+#define BACKLIGHT_BREATHING
+#define BREATHING_PERIOD 6
+
+
 
 
 //Encoder stuff
@@ -42,6 +49,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
+
+#define ENCODER_RESOLUTION 2
+
 
 #define BACKLIGHT_PIN C7
 //#define BACKLIGHT_BREATHING

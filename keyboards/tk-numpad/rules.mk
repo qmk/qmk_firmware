@@ -31,5 +31,8 @@ NKRO_ENABLE = no		# USB Nkey Rollover - if this doesn't work, see here: https://
 BACKLIGHT_ENABLE = yes  # In-switch LEDs
 AUDIO_ENABLE = no      # There is no available timer or pin for audio on the 
 RGBLIGHT_ENABLE = yes  # RGB LEDs for underglow, installed and enabled by default for the 
+ENCODER_ENABLE = yes
+CONSOLE_ENABLE = yes
+
 
 LAYOUTS = ortho_5x4
