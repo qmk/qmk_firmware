@@ -7,7 +7,7 @@
 #define VENDOR_ID       0x6172
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    qmkbuilder
+#define MANUFACTURER    PHARISU
 #define PRODUCT         keyboard
 #define DESCRIPTION     Keyboard
 
