@@ -1,5 +1,5 @@
 /*
-Copyright 2020 Gone Hacking Studio
+Copyright 2019 Fate
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,16 +20,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0x0645
-#define PRODUCT_ID 0x0001
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Gone Hacking Studio
-#define PRODUCT GHS.RAR
-#define DESCRIPTION A 75% keyboard
+#define VENDOR_ID       0xFA7E
+#define PRODUCT_ID      0x0000
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    Fate
+#define PRODUCT         arisu
+#define DESCRIPTION     alice counterpart keyboard
 
 /* key matrix size */
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 8
+#define MATRIX_ROWS 5
+#define MATRIX_COLS 15
 
 /*
  * Keyboard Matrix Assignments
@@ -40,9 +40,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
- */
-#define MATRIX_ROW_PINS { B0, B7, C6, B6, B5, B4, D7, D6, D4, D5, D3, D2 }
-#define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, C7, D1 }
+*/
+#define MATRIX_ROW_PINS { D0, D1, D2, D3, D5 }
+#define MATRIX_COL_PINS { F0, F1, E6, C7, C6, B6, D4, B1, B0, B7, B5, B4, D7, D6, B3 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
@@ -52,17 +52,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BACKLIGHT_BREATHING
 // #define BACKLIGHT_LEVELS 3
 
-#define RGB_DI_PIN D0
-#ifdef RGB_DI_PIN
-    #define RGBLED_NUM 17
-    #define RGBLIGHT_ANIMATIONS
-#endif
+// #define RGB_DI_PIN E2
+// #ifdef RGB_DI_PIN
+//   #define RGBLED_NUM 16
+//   #define RGBLIGHT_HUE_STEP 8
+//   #define RGBLIGHT_SAT_STEP 8
+//   #define RGBLIGHT_VAL_STEP 8
+//   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+//   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+// /*== all animations enable ==*/
+//   #define RGBLIGHT_ANIMATIONS
+// /*== or choose animations ==*/
+//   #define RGBLIGHT_EFFECT_BREATHING
+//   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+//   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+//   #define RGBLIGHT_EFFECT_SNAKE
+//   #define RGBLIGHT_EFFECT_KNIGHT
+//   #define RGBLIGHT_EFFECT_CHRISTMAS
+//   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+//   #define RGBLIGHT_EFFECT_RGB_TEST
+//   #define RGBLIGHT_EFFECT_ALTERNATING
+// #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
+
+/* number of backlight levels */
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -109,7 +127,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key combination for magic key command */
 /* defined by default; to change, uncomment and set to the combination you want */
-// #define IS_COMMAND() (get_mods() == MOD_MASK_SHIFT)
+// #define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
 
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true
@@ -163,10 +181,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
+//#define NO_ACTION_MACRO
+//#define NO_ACTION_FUNCTION
 
 /*
  * MIDI options
@@ -190,7 +206,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 1
-
-/* Bootmagic Lite key configuration */
-// #define BOOTMAGIC_LITE_ROW 0
-// #define BOOTMAGIC_LITE_COLUMN 0

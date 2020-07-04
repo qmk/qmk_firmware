@@ -438,8 +438,7 @@ void send_string_with_delay(const char *str, uint8_t interval) {
             if (ascii_code == SS_TAP_CODE) {
                 // tap
                 uint8_t keycode = *(++str);
-                register_code(keycode);
-                unregister_code(keycode);
+                tap_code(keycode);
             } else if (ascii_code == SS_DOWN_CODE) {
                 // down
                 uint8_t keycode = *(++str);
@@ -480,8 +479,7 @@ void send_string_with_delay_P(const char *str, uint8_t interval) {
             if (ascii_code == SS_TAP_CODE) {
                 // tap
                 uint8_t keycode = pgm_read_byte(++str);
-                register_code(keycode);
-                unregister_code(keycode);
+                tap_code(keycode);
             } else if (ascii_code == SS_DOWN_CODE) {
                 // down
                 uint8_t keycode = pgm_read_byte(++str);
