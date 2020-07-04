@@ -49,7 +49,7 @@
 #define bspc KC_BSPC
 #define caps KC_CAPS
 #define comm KC_COMM
-#define dash A(KC_MINS)
+#define dash A(KC_MINS) // en-dash (–); or with shift: em-dash (—)
 #define scln KC_SCLN
 #define slsh KC_SLSH
 #define spc KC_SPC
@@ -74,8 +74,8 @@
 #define tabr G(S(KC_RBRC))
 #define fwd G(KC_RBRC)
 #define back G(KC_LBRC)
-#define slup S(A(KC_UP))
-#define sldn S(A(KC_DOWN))
+#define slup S(A(KC_UP))   // Previous unread in Slack
+#define sldn S(A(KC_DOWN)) // Next unread in Slack
 
 #define ctl1 C(KC_1)
 #define ctl2 C(KC_2)
@@ -283,16 +283,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return send_string_if_keydown(record, ")", NULL);
         case tild:
             return send_string_if_keydown(record, "~", NULL);
+
+        // The macOS shortcuts for curly quotes are horrible, so this rebinds
+        // them so that shift toggles single–double instead of left–right, and
+        // then both varieties of left quote can share one key, and both
+        // varieties of right quote share another.
         case lcqt:
             return send_string_if_keydown(
                     record,
-                    SS_LALT("]"),
-                    SS_LALT("["));
+                    SS_LALT("]"),           // left single quote (‘)
+                    SS_LALT("["));          // left double quote (“)
         case rcqt:
             return send_string_if_keydown(
                     record,
-                    SS_LALT(SS_LSFT("]")),
-                    SS_LALT(SS_LSFT("[")));
+                    SS_LALT(SS_LSFT("]")),  // right single quote (’)
+                    SS_LALT(SS_LSFT("["))); // right double quote (”)
 
         // cmd + cmd -> cmd + ctl
         case cmd:
