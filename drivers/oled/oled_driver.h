@@ -150,13 +150,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    endif
 #endif
 
-#if defined(__GNUC__)
-#    define PACKED __attribute__((__packed__))
-#else
-#    define PACKED
-#endif
-
-typedef struct PACKED {
+typedef struct __attribute__((__packed__)) {
     uint8_t     *current_element;
     uint16_t    remaining_element_count;
 } oled_buffer_reader_t;
