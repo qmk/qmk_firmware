@@ -1,5 +1,6 @@
 # [RARTPAD](https://github.com/alabahuy/RART/tree/master/RARTPAD)
 
+![rartpad](https://user-images.githubusercontent.com/67696967/86514870-3931bf00-be3f-11ea-8177-29e80add2ce4.jpeg)
 5x4 Macropad pcb with double encoder, based on IMKG (Indonesia Mechanical Keyboard Group)
 
 * Keyboard Maintainer: [Alabahuy](https://github.com/alabahuy)
