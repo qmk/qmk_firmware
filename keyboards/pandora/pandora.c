@@ -26,12 +26,10 @@ void led_init_ports(void) {
     writePinHigh(E6);
 }
 
-void led_set_kb(uint8_t usb_led) {
-    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-        writePinLow(E6);
-    } else {
-        writePinHigh(E6);
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        writePin(E6, !led_state.caps_lock);
     }
-
-    led_set_user(usb_led);
+    return res;
 }

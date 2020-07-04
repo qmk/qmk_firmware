@@ -1,2 +1,2 @@
 VIA_ENABLE = yes
-LTO_OPTIMIZATION = yes
+LTO_ENABLE = no
