@@ -21,5 +21,3 @@
 #elif KEYBOARD_nomu30_rev2
     #include "rev2.h"
 #endif
-
-#include "quantum.h"
