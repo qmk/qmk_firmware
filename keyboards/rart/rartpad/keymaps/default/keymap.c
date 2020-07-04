@@ -19,22 +19,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	[0] = LAYOUT_ortho_5x4(
-		KC_NLCK, KC_PSLS, KC_PAST, KC_INS,
-		KC_P7,   KC_P8,   KC_P9,   KC_PEQL,
-		KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
-		KC_P1,   KC_P2,   KC_P3,   KC_PMNS,
-		MO(1),   KC_0,    KC_PDOT, KC_PENT
-	),
-  
-	[1] = LAYOUT_ortho_5x4(
-		KC_TRNS, RGB_HUI, RGB_HUD,  KC_TRNS, 
-		RGB_SAI, RGB_SAD, KC_MNXT,  KC_MPRV, 
-		RGB_VAI, RGB_VAD, KC_MSTP,  KC_MPLY, 
-		KC_COPY, KC_PSTE, KC_MYCM,  KC_CALC, 
-		KC_TRNS, RGB_TOG, KC_TRNS,  KC_TRNS 
-	)
+    [0] = LAYOUT_ortho_5x4(
+        KC_NLCK, KC_PSLS, KC_PAST, KC_INS,
+        KC_P7,   KC_P8,   KC_P9,   KC_PEQL,
+        KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
+        KC_P1,   KC_P2,   KC_P3,   KC_PMNS,
+        MO(1),   KC_P0,   KC_PDOT, KC_PENT
+    ),
+ 
+    [1] = LAYOUT_ortho_5x4(
+        KC_TRNS, RGB_HUI, RGB_HUD,  KC_TRNS, 
+        RGB_SAI, RGB_SAD, KC_MNXT,  KC_MPRV, 
+        RGB_VAI, RGB_VAD, KC_MSTP,  KC_MPLY, 
+        KC_COPY, KC_PSTE, KC_MYCM,  KC_CALC, 
+        KC_TRNS, RGB_TOG, KC_TRNS,  KC_TRNS 
+    )
 };
+
+bool led_update_user(led_t led_state) {
+    // writePin sets the pin high for 1 and low for 0.
+    // In this example the pins are inverted, setting
+    // it low/0 turns it on, and high/1 turns the LED off.
+    // This behavior depends on whether the LED is between the pin
+    // and VCC or the pin and GND.
+    writePin(NUM_LOCK_LED_PIN, led_state.num_lock);
+    
+    return false;
 
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
