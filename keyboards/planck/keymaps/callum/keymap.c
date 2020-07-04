@@ -60,7 +60,6 @@
 #define mins KC_MINS
 #define quot KC_QUOT
 #define esc KC_ESC
-#define gbp A(KC_3)
 
 #define down KC_DOWN
 #define home G(KC_LEFT)
@@ -137,6 +136,7 @@ enum planck_layers {
 };
 
 enum planck_keycodes {
+    // ASCII
     ampr = SAFE_RANGE,
     astr,
     at,
@@ -158,6 +158,11 @@ enum planck_keycodes {
     rprn,
     tild,
 
+    // Curly quotes
+    lcqt,
+    rcqt,
+
+    // "Smart" mods
     cmd,
 };
 
@@ -171,7 +176,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [SYMB] = LAYOUT_planck_grid(
          esc,   n7,   n5,   n3,   n1,   n9,   n8,   n0,   n2,   n4,   n6, dash,
-         del,   at,  dlr,  eql, lprn, lbrc, rbrc, rprn, astr, hash, plus,  gbp,
+        lcqt,   at,  dlr,  eql, lprn, lbrc, rbrc, rprn, astr, hash, plus, rcqt,
         ____,  grv, pipe, bsls, lcbr, tild, circ, rcbr, ampr, exlm, perc, ____,
         ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
     ),
@@ -193,12 +198,63 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool send_string_if_keydown(keyrecord_t *record, const char *s) {
     if (record->event.pressed) {
-        send_string(s);
+        SEND_STRING(s);
     }
     return true;
 }
 
-int cmd_keys_down = 0;
+// send_left_curly_quotes and send_right_curly_quotes will send double quotes if
+// shifted, and single quotes otherwise. Uses macOS specific shortcuts instead
+// of Unicode input, because the Unicode keymap breaks too many of my shortcuts.
+bool send_left_curly_quotes(keyrecord_t *record) {
+    if (record->event.pressed) {
+        uint8_t shifts = get_mods() & MOD_MASK_SHIFT;
+        if (shifts) {
+            del_mods(shifts);
+            SEND_STRING(SS_LALT("[")); // “
+            add_mods(shifts);
+        } else {
+            SEND_STRING(SS_LALT("]")); // ‘
+        }
+    }
+    return true;
+}
+
+bool send_right_curly_quotes(keyrecord_t *record) {
+    if (record->event.pressed) {
+        uint8_t shifts = get_mods() & MOD_MASK_SHIFT;
+        if (shifts) {
+            del_mods(shifts);
+            SEND_STRING(SS_LALT(SS_LSFT("["))); // ”
+            add_mods(shifts);
+        } else {
+            SEND_STRING(SS_LALT(SS_LSFT("]"))); // ’
+        }
+    }
+    return true;
+}
+
+// Holding both cmd keys will instead register as cmd + ctl
+bool smart_cmd(keyrecord_t *record) {
+    static int cmd_keys_down = 0;
+
+    if (record->event.pressed) {
+        if (cmd_keys_down == 0) {
+            register_code(KC_LCMD);
+        } else {
+            register_code(KC_LCTL);
+        }
+        cmd_keys_down++;
+    } else {
+        if (cmd_keys_down == 1) {
+            unregister_code(KC_LCMD);
+        } else {
+            unregister_code(KC_LCTL);
+        }
+        cmd_keys_down--;
+    }
+    return true;
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -245,24 +301,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case tild:
             return send_string_if_keydown(record, "~");
 
+        case lcqt:
+            return send_left_curly_quotes(record);
+        case rcqt:
+            return send_right_curly_quotes(record);
+
         // cmd + cmd -> cmd + ctl
         case cmd:
-            if (record->event.pressed) {
-                if (cmd_keys_down == 0) {
-                    register_code(KC_LCMD);
-                } else {
-                    register_code(KC_LCTL);
-                }
-                cmd_keys_down++;
-            } else {
-                if (cmd_keys_down == 1) {
-                    unregister_code(KC_LCMD);
-                } else {
-                    unregister_code(KC_LCTL);
-                }
-                cmd_keys_down--;
-            }
-            return true;
+            return smart_cmd(record);
     }
     return true;
 }
