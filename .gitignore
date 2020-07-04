@@ -49,12 +49,7 @@ doxygen/
 .browse.VC.db*
 *.stackdump
 # Let these ones be user specific, since we have so many different configurations
-.vscode/c_cpp_properties.json
-.vscode/launch.json
-.vscode/tasks.json
-.vscode/last.sql
-.vscode/temp.sql
-.vscode/ipch/
+.vscode
 .stfolder
 .tags
 
@@ -73,3 +68,4 @@ __pycache__
 
 # prerequisites for updating ChibiOS
 /util/fmpp*
+keyboards/handwired/dactyl_manuform/5x7/.vscode/c_cpp_properties.json
