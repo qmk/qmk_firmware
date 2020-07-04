@@ -18,13 +18,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Encoder rotate function
 void encoder_update_user(uint8_t index, bool clockwise) {
-  /* First encoder */
-	if (index == 0) {
-    if (clockwise) {
-        tap_code(KC_AUDIO_VOL_UP);
-    } else {
-        tap_code(KC_AUDIO_VOL_DOWN);
-    }
+    /* First encoder */
+    if (index == 0) {
+        if (clockwise) {
+            tap_code(KC_AUDIO_VOL_UP);
+        } else {
+            tap_code(KC_AUDIO_VOL_DOWN);
+        }
   }
 }
 
