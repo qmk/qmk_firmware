@@ -1,5 +1,7 @@
 # Gowla Macro Board
 
+![Gowla](https://github.com/SamGowland/Gowla-Macro-Board/blob/master/Images/comp.jpg)
+
 Simple Compact 3x3 Macro Board for use with QMK, designed and sold by Gowla.
 
 * Keyboard Maintainer: [Gowla](https://github.com/SamGowland/)
