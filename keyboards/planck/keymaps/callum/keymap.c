@@ -196,39 +196,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-bool send_string_if_keydown(keyrecord_t *record, const char *s) {
+bool send_string_if_keydown(
+        keyrecord_t *record,
+        const char *unshifted,
+        const char *shifted) {
     if (record->event.pressed) {
-        SEND_STRING(s);
-    }
-    return true;
-}
-
-// send_left_curly_quotes and send_right_curly_quotes will send double quotes if
-// shifted, and single quotes otherwise. Uses macOS specific shortcuts instead
-// of Unicode input, because the Unicode keymap breaks too many of my shortcuts.
-bool send_left_curly_quotes(keyrecord_t *record) {
-    if (record->event.pressed) {
-        uint8_t shifts = get_mods() & MOD_MASK_SHIFT;
-        if (shifts) {
-            del_mods(shifts);
-            SEND_STRING(SS_LALT("[")); // “
-            add_mods(shifts);
+        if (shifted) {
+            uint8_t shifts = get_mods() & MOD_MASK_SHIFT;
+            if (shifts) {
+                del_mods(shifts);
+                SEND_STRING(shifted);
+                add_mods(shifts);
+            } else {
+                SEND_STRING(unshifted);
+            }
         } else {
-            SEND_STRING(SS_LALT("]")); // ‘
-        }
-    }
-    return true;
-}
-
-bool send_right_curly_quotes(keyrecord_t *record) {
-    if (record->event.pressed) {
-        uint8_t shifts = get_mods() & MOD_MASK_SHIFT;
-        if (shifts) {
-            del_mods(shifts);
-            SEND_STRING(SS_LALT(SS_LSFT("["))); // ”
-            add_mods(shifts);
-        } else {
-            SEND_STRING(SS_LALT(SS_LSFT("]"))); // ’
+            SEND_STRING(unshifted);
         }
     }
     return true;
@@ -261,50 +244,55 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // Override the defualt auto shifted symbols to use SEND_STRING See
         // https://github.com/qmk/qmk_firmware/issues/4072
         case ampr:
-            return send_string_if_keydown(record, "&");
+            return send_string_if_keydown(record, "&", NULL);
         case astr:
-            return send_string_if_keydown(record, "*");
+            return send_string_if_keydown(record, "*", NULL);
         case at:
-            return send_string_if_keydown(record, "@");
+            return send_string_if_keydown(record, "@", NULL);
         case bsls:
-            return send_string_if_keydown(record, "\\");
+            return send_string_if_keydown(record, "\\", NULL);
         case circ:
-            return send_string_if_keydown(record, "^");
+            return send_string_if_keydown(record, "^", NULL);
         case dlr:
-            return send_string_if_keydown(record, "$");
+            return send_string_if_keydown(record, "$", NULL);
         case eql:
-            return send_string_if_keydown(record, "=");
+            return send_string_if_keydown(record, "=", NULL);
         case exlm:
-            return send_string_if_keydown(record, "!");
+            return send_string_if_keydown(record, "!", NULL);
         case grv:
-            return send_string_if_keydown(record, "`");
+            return send_string_if_keydown(record, "`", NULL);
         case hash:
-            return send_string_if_keydown(record, "#");
+            return send_string_if_keydown(record, "#", NULL);
         case lbrc:
-            return send_string_if_keydown(record, "[");
+            return send_string_if_keydown(record, "[", NULL);
         case lcbr:
-            return send_string_if_keydown(record, "{");
+            return send_string_if_keydown(record, "{", NULL);
         case lprn:
-            return send_string_if_keydown(record, "(");
+            return send_string_if_keydown(record, "(", NULL);
         case perc:
-            return send_string_if_keydown(record, "%");
+            return send_string_if_keydown(record, "%", NULL);
         case pipe:
-            return send_string_if_keydown(record, "|");
+            return send_string_if_keydown(record, "|", NULL);
         case plus:
-            return send_string_if_keydown(record, "+");
+            return send_string_if_keydown(record, "+", NULL);
         case rbrc:
-            return send_string_if_keydown(record, "]");
+            return send_string_if_keydown(record, "]", NULL);
         case rcbr:
-            return send_string_if_keydown(record, "}");
+            return send_string_if_keydown(record, "}", NULL);
         case rprn:
-            return send_string_if_keydown(record, ")");
+            return send_string_if_keydown(record, ")", NULL);
         case tild:
-            return send_string_if_keydown(record, "~");
-
+            return send_string_if_keydown(record, "~", NULL);
         case lcqt:
-            return send_left_curly_quotes(record);
+            return send_string_if_keydown(
+                    record,
+                    SS_LALT("]"),
+                    SS_LALT("["));
         case rcqt:
-            return send_right_curly_quotes(record);
+            return send_string_if_keydown(
+                    record,
+                    SS_LALT(SS_LSFT("]")),
+                    SS_LALT(SS_LSFT("[")));
 
         // cmd + cmd -> cmd + ctl
         case cmd:
