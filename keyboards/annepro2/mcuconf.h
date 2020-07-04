@@ -50,14 +50,14 @@
  * Peripheral driver settings
  */
 
-#define HT32_GPT_USE_BFTM0                  TRUE
-#define HT32_GPT_BFTM0_IRQ_PRIORITY         4
+// #define HT32_GPT_USE_BFTM0                  TRUE
+// #define HT32_GPT_BFTM0_IRQ_PRIORITY         4
 
 //#define HT32_SPI_USE_SPI1                   TRUE
 //#define HT32_SPI1_IRQ_PRIORITY              6
 
-//#define HT32_UART_USE_USART0                TRUE
-//#define HT32_USART0_IRQ_PRIORITY            6
+#define HT32_SERIAL_USE_USART0              TRUE
+#define HT32_USART0_IRQ_PRIORITY            6
 
 /*
  * USB driver settings
@@ -66,7 +66,5 @@
 #define HT32_USB_USE_USB0                   TRUE
 #define HT32_USB_USB0_IRQ_PRIORITY          5
 
-#define HT32_PWM_USE_GPTM1                  TRUE
-// #define HT32_GPT_BFTM1_IRQ_PRIORITY
 
 #endif /* _MCUCONF_H_ */

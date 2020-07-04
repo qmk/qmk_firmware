@@ -60,6 +60,8 @@
 
 // Alternate Functions
 #define AF_BITS(PORT, N) (\
+    PAFIO(PORT, N, LINE_UART_RX,  AFIO_USART)| \
+    PAFIO(PORT, N, LINE_UART_TX,  AFIO_USART)| \
     PAFIO(PORT, N, LINE_ROW1,     AFIO_GPIO) | \
     PAFIO(PORT, N, LINE_ROW2,     AFIO_GPIO) | \
     PAFIO(PORT, N, LINE_ROW3,     AFIO_GPIO) | \
@@ -177,23 +179,6 @@ void __early_init(void) {
 void matrix_scan_kb() {
     matrix_scan_user();
 }
-
-
-
-// SPI Initialization
-
-// static const SPIConfig spi1_config = {
-//     .end_cb = NULL,
-//     .cr0 = SPI_CR0_SELOEN,
-//     .cr1 = 8 | SPI_CR1_FORMAT_MODE0 | SPI_CR1_MODE,
-//     .cpr = 1,
-//     .fcr = 0,
-// };
-
-// void spi_init(void) {
-//     spiStart(&SPID1, &spi1_config);
-//     palSetLine(LINE_SPI_CS);
-// }
 
 /**
  * @brief   Board-specific initialization code.
