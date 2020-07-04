@@ -42,12 +42,12 @@ typedef struct matrix_index_t {
 
 #    define NUMBER_OF_DIP_SWITCHES (sizeof(dip_switch_pad) / sizeof(matrix_index_t))
 static matrix_index_t dip_switch_pad[] = DIP_SWITCH_MATRIX_GRID;
-extern bool peek_matrix(uint8_t row_index, uint8_t col_index, bool read_raw);
-static uint16_t scan_count;
+extern bool           peek_matrix(uint8_t row_index, uint8_t col_index, bool read_raw);
+static uint16_t       scan_count;
 #endif /* DIP_SWITCH_MATRIX_GRID */
 
-static bool  dip_switch_state[NUMBER_OF_DIP_SWITCHES]      = {0};
-static bool  last_dip_switch_state[NUMBER_OF_DIP_SWITCHES] = {0};
+static bool dip_switch_state[NUMBER_OF_DIP_SWITCHES]      = {0};
+static bool last_dip_switch_state[NUMBER_OF_DIP_SWITCHES] = {0};
 
 __attribute__((weak)) void dip_switch_update_user(uint8_t index, bool active) {}
 
@@ -74,13 +74,13 @@ void dip_switch_read(bool forced) {
     uint32_t dip_switch_mask       = 0;
 
 #ifdef DIP_SWITCH_MATRIX_GRID
-    bool     read_raw = false;
+    bool read_raw = false;
 
     if (scan_count < 500) {
-        scan_count ++;
+        scan_count++;
         if (scan_count == 10) {
             read_raw = true;
-            forced = true;  /* First reading of the dip switch */
+            forced   = true; /* First reading of the dip switch */
         } else {
             return;
         }
@@ -92,8 +92,7 @@ void dip_switch_read(bool forced) {
         dip_switch_state[i] = !readPin(dip_switch_pad[i]);
 #endif
 #ifdef DIP_SWITCH_MATRIX_GRID
-        dip_switch_state[i] = peek_matrix(dip_switch_pad[i].row, dip_switch_pad[i].col,
-                                          read_raw);
+        dip_switch_state[i] = peek_matrix(dip_switch_pad[i].row, dip_switch_pad[i].col, read_raw);
 #endif
         dip_switch_mask |= dip_switch_state[i] << i;
         if (last_dip_switch_state[i] != dip_switch_state[i] || forced) {

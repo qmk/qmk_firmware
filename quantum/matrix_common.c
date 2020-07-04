@@ -113,7 +113,4 @@ __attribute__((weak)) uint8_t matrix_scan(void) {
     return changed;
 }
 
-__attribute__((weak)) bool peek_matrix(uint8_t row_index, uint8_t col_index, bool raw) {
-    return 0 != ( (raw? raw_matrix[row_index]:matrix[row_index])
-                  & (MATRIX_ROW_SHIFTER << col_index));
-}
+__attribute__((weak)) bool peek_matrix(uint8_t row_index, uint8_t col_index, bool raw) { return 0 != ((raw ? raw_matrix[row_index] : matrix[row_index]) & (MATRIX_ROW_SHIFTER << col_index)); }
