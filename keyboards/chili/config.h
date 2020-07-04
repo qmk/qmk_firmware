@@ -67,10 +67,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define QMK_ESC_OUTPUT D4 // usually COL
-#define QMK_ESC_INPUT F5 // usually ROW
-#define QMK_LED B1 // NumLock on TKC1800
-//#define QMK_SPEAKER C6
 
 /*
  * Force NKRO
