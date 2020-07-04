@@ -34,6 +34,9 @@
  * I/O
  */
 
+#define LINE_UART_TX                PAL_LINE(IOPORTB,  0)
+#define LINE_UART_RX                PAL_LINE(IOPORTB,  1)
+
 // outputs (rows are pulled low)
 #define LINE_ROW1                   PAL_LINE(IOPORTC,  2)
 #define LINE_ROW2                   PAL_LINE(IOPORTC,  1)
@@ -51,6 +54,7 @@
 #define LINE_COL7                   PAL_LINE(IOPORTA,  8)
 #define LINE_COL8                   PAL_LINE(IOPORTA, 10)
 #define LINE_COL9                   PAL_LINE(IOPORTA, 11)
+// PORTA 12,13 conflict with SWD
 #define LINE_COL10                  PAL_LINE(IOPORTA, 12)
 #define LINE_COL11                  PAL_LINE(IOPORTA, 13)
 #define LINE_COL12                  PAL_LINE(IOPORTA, 14)
