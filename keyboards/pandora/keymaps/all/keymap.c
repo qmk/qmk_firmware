@@ -44,15 +44,12 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 
 // Encoder click function
 void dip_switch_update_user(uint8_t index, bool active) {
-	switch (index) {
-		/* First encoder */
+    switch (index) {
+    /* First encoder */
     case 0:
-    	if (active) {
-				tap_code(KC_MUTE);
-			}
-			else {
-				//do nothing
-			}
-    break;
-	}
+        if (active) {
+            tap_code(KC_MUTE);
+        }
+        break;
+    }
 }
