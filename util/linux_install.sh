@@ -220,6 +220,7 @@ elif grep ID /etc/os-release | grep -q void; then
 		dfu-util \
 		gcc \
 		git \
+		libusb-compat-devel \
 		make \
 		wget \
 		unzip \
