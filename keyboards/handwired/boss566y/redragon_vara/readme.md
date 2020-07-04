@@ -1,6 +1,6 @@
 # Handwired Redragon Vara
 
-![Redragon](https://imgur.com/mGJkiZJ.jpg)
+![Redragon](https://imgur.com/6L35ata.jpg)
 
 A handwired Redragon Vara. Built using a teensy 2.0 and has  a 12x11 matrix 
 
