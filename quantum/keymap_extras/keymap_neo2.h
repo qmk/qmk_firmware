@@ -55,7 +55,7 @@
 #define NE_W    KC_T    // W
 #define NE_K    KC_Y    // K
 #define NE_H    KC_U    // H
-#define NE_H    KC_I    // G
+#define NE_G    KC_I    // G
 #define NE_F    KC_O    // F
 #define NE_Q    KC_P    // Q
 #define NE_SS   KC_LBRC // ß
