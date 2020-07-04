@@ -21,23 +21,11 @@ void keyboard_pre_init_kb(void) {
     setPinOutput(B6);
 }
 
-void led_set_kb(uint8_t usb_led) {
-  // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-
-  if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-        writePinHigh(C7);
-    } else {
-        writePinLow(C7);
+bool led_update_kb(led_t led_state) {
+    if (led_update_user(led_state)) {
+        writePin(C7, led_state.num_lock);
+        writePin(C6, led_state.caps_lock);
+        writePin(B6, led_state.scroll_lock);
     }
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        writePinHigh(C6);
-    } else {
-        writePinLow(C6);
-    }
-    if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-        writePinHigh(B6);
-    } else {
-        writePinLow(B6);
-    }
-  led_set_user(usb_led);
+    return true;
 }
