@@ -91,7 +91,7 @@ void render_mod_status(uint8_t modifiers) {
 
 void oled_task_user(void) {
     render_layer_state();
-    render_keylock_status(host_keyboard_leds());
+    render_keylock_status(host_keyboard_led_state());
     render_mod_status(get_mods()|get_oneshot_mods());
 }
 
