@@ -24,8 +24,8 @@
 enum custom_keycodes { QMKBEST = SAFE_RANGE, QMKURL };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	    [QWERTY] = ISO_Split(
-	/* Layer 0
+    [QWERTY] = ISO_Split(
+    /* Layer 0
      * ,____.      ,---------------------------------------------------------------------.
      * |Knob|      | Esc| Q  | W  | E  | R  | T  | Y  | U  | I  | O  | P  |Bksp| E  | LED|
      * `----'     ,-----+----+----+----+----+----+----+----+----+----+----|----+ n  |----|
@@ -38,15 +38,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
                         KC_ESC,       KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I,   KC_O,   KC_P,    KC_BSPC,          BL_STEP, \
 KC_MUTE,                                                                                                          KC_ENT,           \
-				      KC_TAB,         KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,   KC_L,   KC_SCLN, KC_QUOT,          KC_ASON, \
+                      KC_TAB,         KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,   KC_L,   KC_SCLN, KC_QUOT,          KC_ASON, \
                                                                                                                                     \
-		KC_BSLS,MT(MOD_LSFT, KC_CAPS),KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM,KC_DOT, KC_SLSH, KC_RSFT, KC_UP,   KC_ASOFF,\
+        KC_BSLS,MT(MOD_LSFT, KC_CAPS),KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM,KC_DOT, KC_SLSH, KC_RSFT, KC_UP,   KC_ASOFF,\
                                                                                                                                     \
       KC_LGUI,       KC_LCTL,           KC_LALT,MO(RAISE),  MO(NUMBRS), KC_SPC,        MO(RAISE),KC_RCTL,KC_LEFT, KC_DOWN, KC_RIGHT \
 ),
 
-	[RAISE] = ISO_Split(
-	/* Layer 1
+[RAISE] = ISO_Split(
+    /* Layer 1
      * ,____.      ,---------------------------------------------------------------------.
      * |Knob|      | `  |    |PgUp|    |    |  [ | ]  |    | Up |    |    |    | E  |Del |
      * `----'     ,-----+----+----+----+----+----+----+----+----+----+----|----+ n  |----|
@@ -59,14 +59,14 @@ KC_MUTE,                                                                        
      */
                       KC_GRAVE,______,KC_PGUP,______, ______,  KC_LBRC,KC_RBRC,______,KC_UP,______,______,KC_DEL,         KC_PSCR,\
 RESET,                                                                                                            KC_ENT,         \
-				   KC_TAB,KC_HOME,KC_PGDN,KC_END,______,KC_MINS,KC_EQL, KC_LEFT,KC_DOWN,KC_RIGHT,______,_______,          KC_ASUP,\
+                   KC_TAB,KC_HOME,KC_PGDN,KC_END,______,KC_MINS,KC_EQL, KC_LEFT,KC_DOWN,KC_RIGHT,______,_______,          KC_ASUP,\
                                                                                                                                   \
-				 ______,______,______,______,______,______,______,______,______, ______,______,______,KC_RSFT,    KC_UP,  KC_ASDN,\
+                 ______,______,______,______,______,______,______,______,______, ______,______,______,KC_RSFT,    KC_UP,  KC_ASDN,\
                                                                                                                                   \
-			   KC_LGUI,  KC_LCTL,KC_LALT,______,______   ,           KC_SPC,          ______,  KC_RCTL, KC_LEFT, KC_DOWN, KC_RIGHT\
+               KC_LGUI,  KC_LCTL,KC_LALT,______,______   ,           KC_SPC,          ______,  KC_RCTL, KC_LEFT, KC_DOWN, KC_RIGHT\
 ),
-	[NUMBRS] = ISO_Split(
-	/* Layer 2
+[NUMBRS] = ISO_Split(
+    /* Layer 2
      * ,____.      ,---------------------------------------------------------------------.
      * |Knob|      | F1 | F2 | F3 | F4 | F5 | F6 | F7 | F8 | F9 | F10| F11|F12 | E  |    |
      * `----'     ,-----+----+----+----+----+----+----+----+----+----+----|----+ n  |----|
@@ -79,11 +79,11 @@ RESET,                                                                          
      */  
                       KC_F1,    KC_F2,   KC_F3, KC_F4,   KC_F5,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11, KC_F12,         ______,\
 RESET,                                                                                                                         KC_ENT,       \
-				     KC_TAB,    KC_1,    KC_2 , KC_3 ,   KC_4 ,  KC_5 ,   KC_6 ,   KC_7 ,   KC_8 ,   KC_9 ,   KC_0 ,  ______,         ______,\
+                     KC_TAB,    KC_1,    KC_2 , KC_3 ,   KC_4 ,  KC_5 ,   KC_6 ,   KC_7 ,   KC_8 ,   KC_9 ,   KC_0 ,  ______,         ______,\
                                                                                                                                              \
-				 KC_BSLS,______,KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,______, KC_UP,  ______,\
+                 KC_BSLS,______,KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,______, KC_UP,  ______,\
                                                                                                                                              \
-			   KC_LGUI,  KC_LCTL,KC_LALT,______,  ______,        KC_SPC,             ______,  KC_RCTL,             KC_LEFT, KC_DOWN, KC_RIGHT\
+               KC_LGUI,  KC_LCTL,KC_LALT,______,  ______,        KC_SPC,             ______,  KC_RCTL,             KC_LEFT, KC_DOWN, KC_RIGHT\
 )
 };
 
@@ -117,8 +117,8 @@ void led_set_user(uint8_t usb_led) {}
 
 void encoder_update_user(uint8_t index, bool clockwise) {
 if (index == 0) {
-	 if (clockwise) {
-	tap_code(KC_VOLU);
+     if (clockwise) {
+    tap_code(KC_VOLU);
  }  else{
 tap_code(KC_VOLD);
  }
