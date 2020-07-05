@@ -45,7 +45,7 @@ KC_MUTE,                                                                        
       KC_LGUI,       KC_LCTL,           KC_LALT,MO(RAISE),  MO(NUMBRS), KC_SPC,        MO(RAISE),KC_RCTL,KC_LEFT, KC_DOWN, KC_RIGHT \
 ),
 
-RAISE] = ANSI_Split(
+[RAISE] = ANSI_Split(
     /* Layer 3
      * ,____.      ,---------------------------------------------------------------------.
      * |Knob|      | `  |    |PgUp|    |    |  [ | ]  |    | Up |    |    |    | E  |PScr|
