@@ -40,6 +40,6 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
         writePinLow(A14);
         break;
       }
-    return state;
+    return layer_state_set_user(state);
 }
 #endif
