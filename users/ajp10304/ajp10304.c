@@ -73,54 +73,70 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
     case M_WORD_SEL:
         if (record->event.pressed) {
-            SEND_STRING(SS_DOWN(X_LCTRL) SS_TAP(X_RIGHT) SS_DOWN(X_LSHIFT) SS_TAP(X_LEFT) SS_UP(X_LSHIFT) SS_UP(X_LCTRL));
+            register_mods(MOD_LCTL);
+            tap_code(KC_RGHT);
+            tap_code16(S(KC_LEFT));
+            unregister_mods(MOD_LCTL);
         }
         break;
     case M_WORD_SEL_MAC:
         if (record->event.pressed) {
-            SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_RIGHT) SS_DOWN(X_LSHIFT) SS_TAP(X_LEFT) SS_UP(X_LSHIFT) SS_UP(X_LALT));
+            register_mods(MOD_LALT);
+            tap_code(KC_RGHT);
+            tap_code16(S(KC_LEFT));
+            unregister_mods(MOD_LALT);
         }
         break;
     case M_LINE_SEL:
         if (record->event.pressed) {
-            SEND_STRING(SS_TAP(X_HOME) SS_DOWN(X_LSHIFT) SS_TAP(X_END) SS_UP(X_LSHIFT));
+            tap_code(KC_HOME);
+            tap_code16(S(KC_END));
         }
         break;
     case M_LINE_SEL_MAC:
         if (record->event.pressed) {
-            SEND_STRING(SS_LCTRL("a") SS_DOWN(X_LSHIFT) SS_LCTRL("e") SS_UP(X_LSHIFT));
+            tap_code16(C(KC_A));
+            tap_code16(C(S(KC_E)));
         }
         break;
     case M_LINE_DEL:
         if (record->event.pressed) {
-            SEND_STRING(SS_TAP(X_HOME) SS_DOWN(X_LSHIFT) SS_TAP(X_END) SS_UP(X_LSHIFT));
-            SEND_STRING(SS_TAP(X_BSPACE));
+            tap_code(KC_HOME);
+            tap_code16(S(KC_END));
+            tap_code(KC_BSPC);
         }
         break;
     case M_LINE_DEL_MAC:
         if (record->event.pressed) {
-            SEND_STRING(SS_LCTRL("a") SS_DOWN(X_LSHIFT) SS_LCTRL("e") SS_UP(X_LSHIFT));
-            SEND_STRING(SS_TAP(X_BSPACE));
+            tap_code16(C(KC_A));
+            tap_code16(C(S(KC_E)));
+            tap_code(KC_BSPC);
         }
         break;
     case M_DUP:
         if (record->event.pressed) {
-            SEND_STRING(SS_LCTRL("c") SS_TAP(X_RIGHT) SS_LCTRL("v"));
+            tap_code16(C(KC_C));
+            tap_code(KC_RGHT);
+            tap_code16(C(KC_V));
          }
          break;
     case M_DUP_MAC:
         if (record->event.pressed) {
-            SEND_STRING(SS_LGUI("c") SS_TAP(X_RIGHT) SS_LGUI("v"));
+            tap_code16(G(KC_C));
+            tap_code(KC_RGHT);
+            tap_code16(G(KC_V));
         }
         break;
     case M_JOIN:
         if (record->event.pressed) {
-            SEND_STRING(SS_TAP(X_END) SS_TAP(X_DELETE));
+            tap_code(KC_END);
+            tap_code(KC_DEL);
         }
         break;
     case M_JOIN_MAC:
         if (record->event.pressed) {
-            SEND_STRING(SS_LCTRL("e") SS_TAP(X_DELETE));
+            tap_code16(C(KC_E));
+            tap_code(KC_DEL);
         }
         break;
     case M_MODE:
