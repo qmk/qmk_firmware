@@ -1,4 +1,3 @@
-#include "keymap_uk.h"
 #include QMK_KEYBOARD_H
 
 enum ajp10304_layers {
