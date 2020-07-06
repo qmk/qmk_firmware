@@ -7,7 +7,8 @@ the second is the output when shift is applied.
 **Note:** The below tables assume a UK layout.
 
 #### Flashing
-teensy_loader_cli -w -mmcu=atmega32u4 handwired_atreus50_ajp10304.hex
+
+`make handwired/atreus50:ajp10304:flash`
 
 ##### Main Qwerty Layer
 

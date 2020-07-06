@@ -6,6 +6,9 @@ the second is the output when shift is applied.
 
 **Note:** The below tables assume a UK layout.
 
+#### Flashing
+Refer to the README.md of the keyboard you want to flash.
+
 ##### Main Qwerty Layer
 
 * Tab: when held, operates as shift.

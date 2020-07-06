@@ -7,7 +7,8 @@ the second is the output when shift is applied.
 **Note:** The below tables assume a UK layout.
 
 #### Flashing
-make acheron/shark:ajp10304
+
+`make acheron/shark:ajp10304:flash`
 
 ##### Main Qwerty Layer
 
