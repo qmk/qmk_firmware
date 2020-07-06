@@ -1,5 +1,4 @@
-The default keymap for Gingham
-==============================
+# The default keymap for Gingham
 
 ![Layout image](https://imgur.com/gallery/RqUENIl)
 
@@ -11,4 +10,3 @@ and maps the right menu key to layer two.
 
 The third layer includes all the RGB underglow controls with escape toggling
 the underglow. 
-
