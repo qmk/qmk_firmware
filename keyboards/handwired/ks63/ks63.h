@@ -1,14 +1,7 @@
-#pragma once
+#ifndef KS63
+#define KS63
 
 #include "quantum.h"
-
-
-#ifdef USE_I2C
-#include <stddef.h>
-#ifdef __AVR__
-	#include <avr/io.h>
-	#include <avr/interrupt.h>
-#endif
 
 #define KEYMAP( \
 	K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012,       K014, \
@@ -23,6 +16,5 @@
 	{ KC_NO, K301,  K302,  K303,  K304,  K305,  K306,  K307,  K308,  K309,  K310,  K311,  KC_NO, K313,  KC_NO }, \
 	{ K400,  K401,  KC_NO, K403,  K404,  KC_NO, K406,  KC_NO, K408,  KC_NO, K410,  K411,  KC_NO, K413,  K414 }  \
 }
-
 
 #endif

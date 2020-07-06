@@ -29,14 +29,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION     A split keyboard for the cheap makers
 
 /* key matrix size */
-#define MATRIX_ROWS 5
+#define MATRIX_ROWS 10
 #define MATRIX_COLS 15
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B5, B4, E6, D7, C6 }
-#define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6 }
+#define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6, F5 }
 #define MATRIX_COL_PINS_RIGHT { B6, B2, B3, B1, F7, F6, F5, F4, D4 }
 #define UNUSED_PINS
+
+#define DIODE_DIRECTION COL2ROW
 
 /* mouse config */
 #define MOUSEKEY_INTERVAL       20
@@ -76,3 +78,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
+
+#define MASTER_LEFT
