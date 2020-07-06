@@ -1,3 +1,5 @@
+SRC = matrix.c \
+      i2c_master.c
 # MCU name
 MCU = atmega328p
 
