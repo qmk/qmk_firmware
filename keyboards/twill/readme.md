@@ -4,7 +4,7 @@ A 60% keyboard with only through hole components and RGB underglow.
 
 Based off the Gingham designed by [Yiancar](https://yiancar-designs.com/portfolio/gingham/)
 
-![Twill image](https://imgur.com/gallery/gNAEsL6)
+![Twill image](https://i.imgur.com/s4UtWqF.jpg)
 
 * Keyboard Maintainer: [UWA Makers](https://wiki.uwamakers.com//)  
 * Hardware Supported: Twill PCB rev1 with ATMEGA328p 
