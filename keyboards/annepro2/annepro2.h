@@ -20,3 +20,10 @@
 #include "quantum.h"
 
 #define OVERRIDE __attribute__ ((noinline))
+
+extern uint16_t annepro2LedMatrix[MATRIX_ROWS * MATRIX_COLS];
+
+void annepro2LedDisable(void);
+void annepro2LedEnable(void);
+void annepro2LedUpdate(uint8_t row, uint8_t col);
+void annepro2LedUpdateRow(uint8_t row);
