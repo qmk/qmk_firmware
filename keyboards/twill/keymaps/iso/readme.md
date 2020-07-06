@@ -1,5 +1,4 @@
-The default keymap for ISO Twill
-==================================
+# The default keymap for ISO Twill
 
 ![Layout image](https://i.imgur.com/WwOVJTh.jpg)
 
