@@ -1,6 +1,6 @@
 # The default keymap for Gingham
 
-![Layout image](https://imgur.com/gallery/RqUENIl)
+![Layout image](https://i.imgur.com/lcDEjaT.png)
 
 The first layer contains regular keys and the right function key is used to switch
 to layer two.
