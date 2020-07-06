@@ -1,6 +1,6 @@
 # Twill
 
-A 60% keyboard with only through hole components and RGB underglow.   
+A 60% keyboard with only through hole components and RGB underglow.
 
 Based off the Gingham designed by [Yiancar](https://yiancar-designs.com/portfolio/gingham/)
 
