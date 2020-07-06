@@ -1,16 +1,11 @@
 #include "ajp10304.h"
 
-void persistant_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<_QWERTY);
+        set_single_persistent_default_layer(_QWERTY);
       }
       return false;
     case LOWER:
