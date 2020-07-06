@@ -233,21 +233,21 @@
 #define FR_DACU S(ALGR(FR_LPRN)) // ˝ (dead)
 #define FR_DGRV S(ALGR(FR_RPRN)) //  ̏ (dead)
 #define FR_MDSH S(ALGR(FR_RSQU)) // —
-#define FR_LAQU S(ALGR(FR_LDAQ)) // ‹
-#define FR_RAQU S(ALGR(FR_RDAQ)) // ›
+#define FR_LSAQ S(ALGR(FR_LDAQ)) // ‹
+#define FR_RSAQ S(ALGR(FR_RDAQ)) // ›
 #define FR_RNGA S(ALGR(FR_QUOT)) // ˚ (dead)
 // Row 2
 #define FR_TM   S(ALGR(FR_T))    // ™
 #define FR_DOTB S(ALGR(FR_I))    //  ̣ (dead)
 #define FR_PERM S(ALGR(FR_P))    // ‰
-#define FR_IDSH S(ALGR(FR_MINS)) // ‑
+#define FR_NBHY S(ALGR(FR_MINS)) // ‑ (non-breaking hyphen)
 #define FR_DDAG S(ALGR(FR_PLUS)) // ‡
 // Row 3
-#define FR_SMAC S(ALGR(FR_H))    // ˍ (dead)
+#define FR_MACB S(ALGR(FR_H))    // ˍ (dead)
 #define FR_SQRT S(ALGR(FR_SLSH)) // √
 #define FR_QRTR S(ALGR(FR_ASTR)) // ¼
 // Row 4
 #define FR_GEQL S(ALGR(FR_LABK)) // ≥
 #define FR_OGON S(ALGR(FR_V))    // ˛ (dead)
-#define FR_SCOM S(ALGR(FR_COMM)) //  ̦ (dead)
+#define FR_DCMM S(ALGR(FR_COMM)) //  ̦ (dead)
 #define FR_NEQL S(ALGR(FR_SCLN)) // ≠
