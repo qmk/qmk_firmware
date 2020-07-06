@@ -21,11 +21,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (!record->event.pressed) {
                     SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP
 #if (defined(BOOTLOADER_DFU) || defined(BOOTLOADER_LUFA_DFU) || defined(BOOTLOADER_QMK_DFU))
-                                ":dfu"
+                        ":dfu"
 #elif defined(BOOTLOADER_HALFKAY)
-                                ":teensy"
+                        ":teensy"
 #elif defined(BOOTLOADER_CATERINA)
-                                ":avrdude"
+                        ":avrdude"
 #endif
                     );
                     SEND_STRING(" -j6 --output-sync");
@@ -45,6 +45,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 } else {
                     if (timer_elapsed(clipboard_timer) > TAPPING_TERM) {  // Hold, copy
                         tap_code16(LCTL(KC_C));
+                    } else {  // Tap, paste
+                        tap_code16(LCTL(KC_V));
                     }
                 }
                 break;
