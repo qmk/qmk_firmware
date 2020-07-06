@@ -6,7 +6,7 @@ Based off the Gingham designed by [Yiancar](https://yiancar-designs.com/portfoli
 
 ![Twill image](https://i.imgur.com/s4UtWqF.jpg)
 
-* Keyboard Maintainer: [UWA Makers](https://wiki.uwamakers.com//)  
+* Keyboard Maintainer: [UWA Makers](https://wiki.uwamakers.com/)
 * Hardware Supported: Twill PCB rev1 with ATMEGA328p 
 
 Make example for this keyboard (after setting up your build environment):
