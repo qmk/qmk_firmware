@@ -10,11 +10,12 @@ Based off the Gingham designed by [Yiancar](https://yiancar-designs.com/portfoli
 * Hardware Supported: Twill PCB rev1 with ATMEGA328p
 
 Make example for this keyboard (after setting up your build environment):
-    qmk compile -kb twill
 
-Flash firmware:
-    // In bootloader mode
-    qmk flash -kb twill
+    make twill:default
+
+Flashing example for this keyboard:
+
+    make twill:default:flash
 
 Bootloader:
 use usbasploader HSGW's my repository.
