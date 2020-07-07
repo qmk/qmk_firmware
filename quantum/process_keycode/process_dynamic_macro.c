@@ -221,8 +221,8 @@ bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
             case DYN_REC_STOP:
                 /* Stop the macro recording. */
                 if (record->event.pressed ^ (keycode != DYN_REC_STOP)) { /* Ignore the initial release
-                                              * just after the recording
-                                              * starts for DYN_REC_STOP. */
+                                                                          * just after the recording
+                                                                          * starts for DYN_REC_STOP. */
                     switch (macro_id) {
                         case 1:
                             dynamic_macro_record_end(macro_buffer, macro_pointer, +1, &macro_end);
