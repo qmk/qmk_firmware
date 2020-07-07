@@ -124,7 +124,7 @@ void toybox_matrix_init() {
         toybox_mode |= TOYBOX_RIGHT;
     }
 
-    if (check_mtch6102() == 0x0200) {
+    if (check_mtch6102() >= 0x0200) {
         if (init_mtch6102() == 0) {
             is_touchpad_enabled_ = true;
         }
