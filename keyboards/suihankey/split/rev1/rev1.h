@@ -43,3 +43,5 @@
     { R03, R13, R23, KC_NO }, \
     { R04, R14, R24, KC_NO }, \
 }
+
+#define LAYOUT_split_3x5_3 LAYOUT
