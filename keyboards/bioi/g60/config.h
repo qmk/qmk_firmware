@@ -76,7 +76,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 /* key combination for magic key command */
 #define KEYBOARD_LOCK_ENABLE
 #define MAGIC_KEY_LOCK L
-#define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
 
 #define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 3
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 1
