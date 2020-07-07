@@ -38,7 +38,7 @@
                 {"label":".", "x":8, "y":2}, 
                 {"label":"?", "x":9, "y":2}, 
                 {"label":"Ctrl", "x":0, "y":3}, 
-                {"label":"Super", "x":1, "y":3}, 
+                {"label":"Win", "x":1, "y":3}, 
                 {"label":"Alt", "x":2, "y":3}, 
                 {"label":"Shift", "x":3, "y":3}, 
                 {"label":"&larr;", "x":4, "y":3}, 
