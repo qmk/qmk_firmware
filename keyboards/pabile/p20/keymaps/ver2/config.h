@@ -8,7 +8,4 @@
 #define MATRIX_COL_PINS { D1, D0, D4, B2 }
 
 #undef ENCODERS_PAD_A
-#define ENCODERS_PAD_A { F4, F7 }
 #undef ENCODERS_PAD_B
-#define ENCODERS_PAD_B { F5, B1 }
-#define ENCODERS_PAD_C { F6, B3 }
