@@ -1,5 +1,5 @@
 /*
-Copyright 2019 Baisc I/O Instruments(Scott Wei) <scot.wei@gmail.com>
+Copyright 2019 Basic I/O Instruments(Scott Wei) <scot.wei@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
