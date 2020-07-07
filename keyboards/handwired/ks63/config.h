@@ -25,18 +25,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x3061
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    kleshwong
+#define PRODUCT         ks63
 // defined in subfolder
 #define DESCRIPTION     A split keyboard for the cheap makers
 
 /* key matrix size */
 #define MATRIX_ROWS 10
-#define MATRIX_COLS 15
+#define MATRIX_COLS 8
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B5, B4, E6, D7, C6 }
-#define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6, F5 }
-#define MATRIX_COL_PINS_RIGHT { B6, B2, B3, B1, F7, F6, F5, F4, D4 }
-#define UNUSED_PINS
+#define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6, F5, F4 }
 
 #define DIODE_DIRECTION COL2ROW
 
@@ -80,3 +79,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_FUNCTION
 
 #define MASTER_LEFT
+#define USE_SERIAL
+#define SPLIT_USB_DETECT
+
+
