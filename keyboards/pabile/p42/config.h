@@ -24,13 +24,6 @@
 */
 
 #define UNUSED_PINS
- 
-/* Encoder position for PROMICRO */
-#define ENCODERS_PAD_A { F5, F6 }
-
-/* Encoder position for BLUEFRUIT LE
-#define ENCODERS_PAD_A { C6, D7 }
-*/
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
