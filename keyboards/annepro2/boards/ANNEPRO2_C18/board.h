@@ -33,6 +33,8 @@
 /*
  * I/O
  */
+#define LINE_UART_TX                PAL_LINE(IOPORTB,  0)
+#define LINE_UART_RX                PAL_LINE(IOPORTB,  1)
 
 // outputs (rows are pulled low)
 #define LINE_ROW1                   PAL_LINE(IOPORTB,  5)
