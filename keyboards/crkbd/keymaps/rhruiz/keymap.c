@@ -12,6 +12,8 @@
 #define KC_ALDE LALT_T(KC_DEL)
 #define KC_ALT0 LALT_T(KC_0)
 
+#define KC_TFN2 LT(_FN2, KC_TAB)
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BL] = LAYOUT_kc_wrapper(
@@ -22,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|-----+-----------------------------|                    |-----------------------------+-----|
       LSFT,   ________L_BL_R4________   ,                        ________R_BL_R4________   ,TDSNU,
   //|-----+-----------------+-----+-----+-----|  |-----+-----+-----+-----------------------+-----|
-                              LGUI, _FN1, _CSP,    ENTS, _FN2, ALBS
+                              LGUI, _FN1, _CSP,    ENTS, TFN2, ALBS
                           //`-----------------'  `-----------------'
   ),
 
