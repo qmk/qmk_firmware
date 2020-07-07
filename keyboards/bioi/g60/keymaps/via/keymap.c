@@ -33,13 +33,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______),
 
 };
-
-void led_set_user(uint8_t usb_led)
-{
-  //
-}
-
-void keyboard_pre_init_user(void)
-{
-  //
-}

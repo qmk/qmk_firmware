@@ -1,5 +1,5 @@
 /*
-Copyright 2019 Baisc I/O Instruments(Scott Wei) <scot.wei@gmail.com>
+Copyright 2019 Basic I/O Instruments(Scott Wei) <scot.wei@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -56,7 +56,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* RGB Underglow */
 #define RGB_DI_PIN B1
@@ -77,6 +77,5 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 /* key combination for magic key command */
 #define KEYBOARD_LOCK_ENABLE
 #define MAGIC_KEY_LOCK L
-#define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
 
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 1

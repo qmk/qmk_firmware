@@ -1,7 +1,6 @@
 #pragma once
 
 #include "quantum.h"
-#include "led.h"
 
 #define ___ KC_NO
 
@@ -18,4 +17,3 @@
     { K30,  ___,  K32,  K33,   K34,   K35,  K36,   K37,  K38,  K39,  K3A,  K3B,  K3C,  K3D,  K3E,  ___ }, \
     { K40,  K41,  K42,  ___,   ___,   ___,  K46,   ___,  ___,  K49,  K4A,  K4B,  K4C,  K4D,  K4E,  K4F }  \
 }
-

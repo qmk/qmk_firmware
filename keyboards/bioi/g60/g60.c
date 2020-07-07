@@ -1,7 +1,4 @@
 #include "g60.h"
-#include "print.h"
-#include "../ble.h"
-#include "quantum.h"
 
 void keyboard_pre_init_kb(void) {
     setPinOutput(F0);
