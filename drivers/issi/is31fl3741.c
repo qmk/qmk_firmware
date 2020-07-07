@@ -272,6 +272,8 @@ void IS31FL3741_update_led_control_registers(uint8_t addr, uint8_t index) {
         for (int i = 0; i < 171; ++i) {
             IS31FL3741_write_register(addr, i, g_scaling_registers[0][180 + i]);
         }
+
+        g_scaling_registers_update_required[index] = false;
     }
 }
 
