@@ -5,7 +5,7 @@
 42-key Ortho-linear keyboard
 
 * Keyboard Maintainer: [pabile](https://github.com/pabile)
-* Hardware Supported: Pabile P42 PCB, Pro Micro, Bluefruit LE, EC11 Rotary Encoders, Hotswap Sockets
+* Hardware Supported: Pabile P42 PCB, Pro Micro, Bluefruit LE, Hotswap Sockets
 * Hardware Availability: [pabileonline.blogspot.com](https://pabileonline.blogspot.com/)
 
 Make example for this keyboard (after setting up your build environment):
