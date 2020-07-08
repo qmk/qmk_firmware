@@ -25,6 +25,10 @@
 #    define SEQUENCER_STEPS 16
 #endif
 
+#ifndef SEQUENCER_PHASE_RELEASE_TIMEOUT
+#    define SEQUENCER_PHASE_RELEASE_TIMEOUT 20
+#endif
+
 /**
  * Make sure that the items of this enumeration follow the powers of 2, separated by a ternary variant.
  * Check the implementation of `get_step_duration` for further explanation.

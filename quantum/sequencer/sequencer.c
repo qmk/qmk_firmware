@@ -16,6 +16,10 @@
 
 #include "sequencer.h"
 
+#ifdef MIDI_ENABLE
+#    include "process_midi.h"
+#endif
+
 sequencer_config_t sequencer_config = {
     false,     // enabled
     {false},   // steps
@@ -25,7 +29,18 @@ sequencer_config_t sequencer_config = {
 
 uint8_t  sequencer_current_step = 0;
 uint16_t sequencer_timer        = 0;
-bool     sequencer_waiting      = false;
+
+/**
+ * Because Digital Audio Workstations get overwhelmed when too many MIDI signals are sent concurrently,
+ * We use a "phase" state machine to delay some of the events.
+ */
+enum sequencer_phase_t {
+    SEQUENCER_PHASE_ATTACK,   // t=0ms, send the MIDI note on signal
+    SEQUENCER_PHASE_RELEASE,  // t=SEQUENCER_PHASE_RELEASE_TIMEOUT ms, send the MIDI note off signal
+    SEQUENCER_PHASE_PAUSE     // t=step duration ms, loop
+};
+
+uint8_t sequencer_phase = SEQUENCER_PHASE_ATTACK;
 
 bool is_sequencer_on(void) { return sequencer_config.enabled; }
 
@@ -34,7 +49,7 @@ void sequencer_on(void) {
     sequencer_config.enabled = true;
     sequencer_current_step   = 0;
     sequencer_timer          = timer_read();
-    sequencer_waiting        = false;
+    sequencer_phase          = SEQUENCER_PHASE_ATTACK;
 }
 
 void sequencer_off(void) {
@@ -116,20 +131,48 @@ void sequencer_decrease_resolution(void) { sequencer_set_resolution(sequencer_co
 
 uint8_t sequencer_get_current_step(void) { return sequencer_current_step; }
 
+void sequencer_phase_attack(void) {
+    dprintf("sequencer: step %d\n", sequencer_current_step);
+#ifdef MIDI_ENABLE
+    if (is_sequencer_step_on(sequencer_current_step)) {
+        // Drum kick
+        process_midi_basic_noteon(36);
+    }
+#endif
+    sequencer_timer = timer_read();
+    sequencer_phase = SEQUENCER_PHASE_RELEASE;
+}
+
+void sequencer_phase_release(void) {
+#ifdef MIDI_ENABLE
+    if (is_sequencer_step_on(sequencer_current_step)) {
+        // Drum kick
+        process_midi_basic_noteoff(36);
+    }
+#endif
+    sequencer_phase = SEQUENCER_PHASE_PAUSE;
+}
+
+void sequencer_phase_pause(void) {
+    sequencer_current_step = (sequencer_current_step + 1) % SEQUENCER_STEPS;
+    sequencer_phase        = SEQUENCER_PHASE_ATTACK;
+}
+
 void matrix_scan_sequencer(void) {
     if (!sequencer_config.enabled) {
         return;
     }
 
-    if (sequencer_waiting && timer_elapsed(sequencer_timer) > sequencer_get_step_duration()) {
-        sequencer_current_step = (sequencer_current_step + 1) % SEQUENCER_STEPS;
-        sequencer_waiting      = false;
+    if (sequencer_phase == SEQUENCER_PHASE_PAUSE && timer_elapsed(sequencer_timer) > sequencer_get_step_duration()) {
+        sequencer_phase_pause();
     }
 
-    if (!sequencer_waiting) {
-        dprintf("sequencer: step %d\n", sequencer_current_step);
-        sequencer_timer   = timer_read();
-        sequencer_waiting = true;
+    if (sequencer_phase == SEQUENCER_PHASE_RELEASE && timer_elapsed(sequencer_timer) > SEQUENCER_PHASE_RELEASE_TIMEOUT) {
+        sequencer_phase_release();
+    }
+
+    if (sequencer_phase == SEQUENCER_PHASE_ATTACK) {
+        sequencer_phase_attack();
     }
 }
 
