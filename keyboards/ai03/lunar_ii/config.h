@@ -59,6 +59,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+/* Solenoid support */
+#define SOLENOID_PIN B7
+#define SOLENOID_DEFAULT_DWELL 100
+
+
 /*
  * Force NKRO
  *
