@@ -16,9 +16,14 @@ On not-unlocked keyboards, the firmware will hard fault at boot, requiring a JTA
 ## Supported Keyboards
 
 * [Vortex POK3R](/keyboards/vortex/pok3r/)
-* [Vortex POK3R RGB](/keyboards/vortex/pok3r_rgb/)
-* [Vortex Core](/keyboards/vortex/core/)
+* [Vortex POK3R RGB](/keyboards/vortex/pok3r_rgb/) (not stable)
+* [Vortex Core](/keyboards/vortex/core/) (not stable)
 * Vortex RACE3 (planned)
 * Vortex ViBE (planned)
 * KBP V60 (planned)
 * KBP V80 (planned)
+
+## Related
+
+* [pok3rtool](https://github.com/pok3r-custom/pok3rtool)
+* [Pok3rConf](https://github.com/pok3r-custom/Pok3rConf)
