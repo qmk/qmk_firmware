@@ -25,5 +25,5 @@ On not-unlocked keyboards, the firmware will hard fault at boot, requiring a JTA
 
 ## Related
 
-* [pok3rtool](https://github.com/pok3r-custom/pok3rtool)
-* [Pok3rConf](https://github.com/pok3r-custom/Pok3rConf)
+* [pok3rtool](https://github.com/pok3r-custom/pok3rtool) - CLI dev tool for pok3r keyboards
+* [Pok3rConf](https://github.com/pok3r-custom/Pok3rConf) - GUI configuration tool for pok3r keyboards
