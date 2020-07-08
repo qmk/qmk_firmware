@@ -21,15 +21,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0x4853 /* HS */
 #define PRODUCT_ID      0x660C
 #define DEVICE_VER      0x0100
-#define MANUFACTURER    QMK
-#define PRODUCT         Leopold FC660C with QMK
+#define MANUFACTURER    Hasu
+#define PRODUCT         FC660C
 #define DESCRIPTION     Leopold FC660C with Hasu alternative controller using QMK
 
 /* key matrix size */
-#define MATRIX_ROWS 8
+#define MATRIX_ROWS 5
 #define MATRIX_COLS 16
 
 //#define DIODE_DIRECTION

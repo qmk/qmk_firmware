@@ -175,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 // Configure ignore mod tap interrupt per key
-bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
+bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         // I don't like how mod tap interrupt feels with these keys specifically when I'm typing
         case LCTL_T(KC_ESC):
