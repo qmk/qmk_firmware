@@ -417,12 +417,16 @@ enum quantum_keycodes {
     SEQUENCER_STEP_MIN,
     SEQUENCER_STEP_MAX = SEQUENCER_STEP_MIN + SEQUENCER_STEPS,
 
+    SEQUENCER_TRACK_MIN,
+    SEQUENCER_TRACK_MAX = SEQUENCER_TRACK_MIN + SEQUENCER_TRACKS,
+
 /**
- * Helpers to assign a keycode to a step or resolution.
+ * Helpers to assign a keycode to a step, a resolution, or a track.
  * Falls back to NOOP if n is out of range.
  */
 #    define SQ_S(n) (n < SEQUENCER_STEPS ? SEQUENCER_STEP_MIN + n : XXXXXXX)
 #    define SQ_R(n) (n < SEQUENCER_RESOLUTIONS ? SEQUENCER_RESOLUTION_MIN + n : XXXXXXX)
+#    define SQ_T(n) (n < SEQUENCER_TRACKS ? SEQUENCER_TRACK_MIN + n : XXXXXXX)
 
 #endif
 

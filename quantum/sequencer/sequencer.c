@@ -27,8 +27,9 @@ sequencer_config_t sequencer_config = {
     SQ_RES_4,  // resolution
 };
 
-uint8_t  sequencer_current_step = 0;
-uint16_t sequencer_timer        = 0;
+uint8_t  sequencer_active_tracks = 0;
+uint8_t  sequencer_current_step  = 0;
+uint16_t sequencer_timer         = 0;
 
 /**
  * Because Digital Audio Workstations get overwhelmed when too many MIDI signals are sent concurrently,
@@ -65,6 +66,19 @@ void sequencer_toggle(void) {
         sequencer_on();
     }
 }
+
+bool is_sequencer_track_active(uint8_t track) { return (sequencer_active_tracks >> track) & true; }
+
+void sequencer_set_track_activation(uint8_t track, bool value) {
+    if (value) {
+        sequencer_active_tracks |= (1 << track);
+    } else {
+        sequencer_active_tracks &= ~(1 << track);
+    }
+    dprintf("sequencer: track %d is %s\n", track, value ? "active" : "inactive");
+}
+
+void sequencer_toggle_track_activation(uint8_t track) { sequencer_set_track_activation(track, !is_sequencer_track_active(track)); }
 
 bool is_sequencer_step_on(uint8_t step) { return step < SEQUENCER_STEPS && sequencer_config.steps[step]; }
 

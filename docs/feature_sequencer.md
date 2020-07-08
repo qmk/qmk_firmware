@@ -18,6 +18,10 @@ By default the sequencer has 16 steps, but you can override this setting in your
 #define SEQUENCER_STEPS 32
 ```
 
+## Tracks
+
+You can program up to 8 independent tracks with the step sequencer. Select the tracks you want to edit, enable or disable some steps, and start the sequence!
+
 ## Resolutions
 
 While the tempo defines the absolute speed at which the sequencer goes through the steps, the resolution defines the granularity of these steps (from coarser to finer).
@@ -49,6 +53,7 @@ While the tempo defines the absolute speed at which the sequencer goes through t
 |`SQ_R(n)`|Set the resolution to n            |
 |`SQ_RESD`|Change to the slower resolution    |
 |`SQ_RESU`|Change to the faster resolution    |
+|`SQ_T(n)`|Toggle the track `n`               |
 
 ## Functions
 
@@ -74,3 +79,8 @@ While the tempo defines the absolute speed at which the sequencer goes through t
 |`void sequencer_set_resolution(sequencer_resolution_t resolution);`  |Set the resolution to `resolution`           |
 |`void sequencer_increase_resolution(void);`                          |Change to the faster resolution              |
 |`void sequencer_decrease_resolution(void);`                          |Change to the slower resolution              |
+|`bool is_sequencer_track_active(uint8_t track);`                     |Return whether the track is active           |
+|`void sequencer_set_track_activation(uint8_t track, bool value);`    |Activate or deactivate the `track`           |
+|`void sequencer_toggle_track_activation(uint8_t track);`             |Toggle the `track`                           |
+|`void sequencer_activate_track(uint8_t track);`                      |Activate the `track`                         |
+|`void sequencer_deactivate_track(uint8_t track);`                    |Deactivate the `track`                       |

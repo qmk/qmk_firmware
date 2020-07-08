@@ -25,6 +25,9 @@
 #    define SEQUENCER_STEPS 16
 #endif
 
+// Maximum number of tracks: 8
+#define SEQUENCER_TRACKS 8
+
 #ifndef SEQUENCER_PHASE_RELEASE_TIMEOUT
 #    define SEQUENCER_PHASE_RELEASE_TIMEOUT 20
 #endif
@@ -48,6 +51,13 @@ bool is_sequencer_on(void);
 void sequencer_toggle(void);
 void sequencer_on(void);
 void sequencer_off(void);
+
+bool is_sequencer_track_active(uint8_t track);
+void sequencer_set_track_activation(uint8_t track, bool value);
+void sequencer_toggle_track_activation(uint8_t track);
+
+#define sequencer_activate_track(track) sequencer_set_track_activation(track, true)
+#define sequencer_deactivate_track(track) sequencer_set_track_activation(track, false)
 
 bool is_sequencer_step_on(uint8_t step);
 void sequencer_set_step(uint8_t step, bool value);
