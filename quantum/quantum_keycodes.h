@@ -395,6 +395,12 @@ enum quantum_keycodes {
     MI_BENDU,  // Bend up
 #endif         // MIDI_ADVANCED
 
+#if defined(SEQUENCER_ENABLE)
+    SQ_ON,
+    SQ_OFF,
+    SQ_TOG,
+#endif
+
     // Backlight functionality
     BL_ON,
     BL_OFF,

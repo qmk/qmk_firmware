@@ -229,6 +229,9 @@ bool process_record_quantum(keyrecord_t *record) {
             process_record_via(keycode, record) &&
 #endif
             process_record_kb(keycode, record) &&
+#if defined(SEQUENCER_ENABLE)
+            process_sequencer(keycode, record) &&
+#endif
 #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
             process_midi(keycode, record) &&
 #endif
