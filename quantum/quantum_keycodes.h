@@ -403,16 +403,26 @@ enum quantum_keycodes {
     SQ_ON,
     SQ_OFF,
     SQ_TOG,
+
+    SQ_TMPD,  // Decrease tempo
+    SQ_TMPU,  // Increase tempo
+
+    SEQUENCER_RESOLUTION_MIN,
+    SEQUENCER_RESOLUTION_MAX = SEQUENCER_RESOLUTION_MIN + SEQUENCER_RESOLUTIONS,
+    SQ_RESD,  // Decrease resolution
+    SQ_RESU,  // Increase resolution
+
     SQ_SALL,  // All steps on
     SQ_SCLR,  // All steps off
     SEQUENCER_STEP_MIN,
     SEQUENCER_STEP_MAX = SEQUENCER_STEP_MIN + SEQUENCER_STEPS,
 
 /**
- * Helper to assign a keycode to a step.
- * Falls back to NOOP if the step is out of range.
+ * Helpers to assign a keycode to a step or resolution.
+ * Falls back to NOOP if n is out of range.
  */
 #    define SQ_S(n) (n < SEQUENCER_STEPS ? SEQUENCER_STEP_MIN + n : XXXXXXX)
+#    define SQ_R(n) (n < SEQUENCER_RESOLUTIONS ? SEQUENCER_RESOLUTION_MIN + n : XXXXXXX)
 
 #endif
 

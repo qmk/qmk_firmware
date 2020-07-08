@@ -28,6 +28,21 @@ bool process_sequencer(uint16_t keycode, keyrecord_t *record) {
             case SQ_TOG:
                 sequencer_toggle();
                 return false;
+            case SQ_TMPD:
+                sequencer_decrease_tempo();
+                return false;
+            case SQ_TMPU:
+                sequencer_increase_tempo();
+                return false;
+            case SEQUENCER_RESOLUTION_MIN ... SEQUENCER_RESOLUTION_MAX:
+                sequencer_set_resolution(keycode - SEQUENCER_RESOLUTION_MIN);
+                return false;
+            case SQ_RESD:
+                sequencer_decrease_resolution();
+                return false;
+            case SQ_RESU:
+                sequencer_increase_resolution();
+                return false;
             case SQ_SALL:
                 sequencer_set_all_steps_on();
                 return false;

@@ -17,8 +17,10 @@
 #include "sequencer.h"
 
 sequencer_config_t sequencer_config = {
-    false,   // enabled
-    {false}  // steps
+    false,     // enabled
+    {false},   // steps
+    60,        // tempo
+    SQ_RES_4,  // resolution
 };
 
 bool is_sequencer_on(void) { return sequencer_config.enabled; }
@@ -66,3 +68,40 @@ void sequencer_set_all_steps(bool value) {
     }
     dprintf("sequencer: all steps are %s\n", value ? "on" : "off");
 }
+
+uint8_t sequencer_get_tempo(void) { return sequencer_config.tempo; }
+
+void sequencer_set_tempo(uint8_t tempo) {
+    if (tempo > 0) {
+        sequencer_config.tempo = tempo;
+        dprintf("sequencer: tempo set to %d bpm\n", tempo);
+    } else {
+        dprintln("sequencer: cannot set tempo to 0");
+    }
+}
+
+void sequencer_increase_tempo(void) {
+    // Handling potential uint8_t overflow
+    if (sequencer_config.tempo < UINT8_MAX) {
+        sequencer_set_tempo(sequencer_config.tempo + 1);
+    } else {
+        dprintf("sequencer: cannot set tempo above %d\n", UINT8_MAX);
+    }
+}
+
+void sequencer_decrease_tempo(void) { sequencer_set_tempo(sequencer_config.tempo - 1); }
+
+sequencer_resolution_t sequencer_get_resolution(void) { return sequencer_config.resolution; }
+
+void sequencer_set_resolution(sequencer_resolution_t resolution) {
+    if (resolution >= 0 && resolution < SEQUENCER_RESOLUTIONS) {
+        sequencer_config.resolution = resolution;
+        dprintf("sequencer: resolution set to %d\n", resolution);
+    } else {
+        dprintf("sequencer: resolution %d is out of range\n", resolution);
+    }
+}
+
+void sequencer_increase_resolution(void) { sequencer_set_resolution(sequencer_config.resolution + 1); }
+
+void sequencer_decrease_resolution(void) { sequencer_set_resolution(sequencer_config.resolution - 1); }
