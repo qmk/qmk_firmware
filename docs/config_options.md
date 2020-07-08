@@ -190,7 +190,7 @@ If you define these options you will enable the associated feature, which may in
 * `#define VARIABLE_COMBO_LEN`
   * Flag for defining the number of Combos in user keymaps dynamically
 * `#define COMBO_PERMISSIVE_HOLD`
-  * Flag for allowing Tap-Mod style combo usage
+  * Flag for allowing Mod-Tap style combo usage
 * `#define TAP_CODE_DELAY 100`
   * Sets the delay between `register_code` and `unregister_code`, if you're having issues with it registering properly (common on VUSB boards). The value is in milliseconds.
 * `#define TAP_HOLD_CAPS_DELAY 80`
