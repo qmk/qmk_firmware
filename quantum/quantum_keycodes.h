@@ -17,7 +17,7 @@
 #define QUANTUM_KEYCODES_H
 
 #if defined(SEQUENCER_ENABLE)
-#    include "quantum/sequencer.h"
+#    include "sequencer.h"
 #endif
 
 #ifndef MIDI_ENABLE_STRICT

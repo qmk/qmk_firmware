@@ -41,7 +41,7 @@ endif
 ifeq ($(strip $(SEQUENCER_ENABLE)), yes)
     OPT_DEFS += -DSEQUENCER_ENABLE
     MUSIC_ENABLE = yes
-    SRC += $(QUANTUM_DIR)/sequencer.c
+    SRC += $(QUANTUM_DIR)/sequencer/sequencer.c
     SRC += $(QUANTUM_DIR)/process_keycode/process_sequencer.c
 endif
 

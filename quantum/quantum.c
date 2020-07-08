@@ -636,6 +636,10 @@ void matrix_scan_quantum() {
     matrix_scan_music();
 #endif
 
+#ifdef SEQUENCER_ENABLE
+    matrix_scan_sequencer();
+#endif
+
 #ifdef TAP_DANCE_ENABLE
     matrix_scan_tap_dance();
 #endif

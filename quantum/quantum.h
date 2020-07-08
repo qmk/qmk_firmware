@@ -69,7 +69,7 @@ extern layer_state_t layer_state;
 #endif
 
 #if defined(SEQUENCER_ENABLE)
-#    include "quantum/sequencer.h"
+#    include "sequencer.h"
 #    include "process_sequencer.h"
 #endif
 

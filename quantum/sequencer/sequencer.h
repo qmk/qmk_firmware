@@ -18,12 +18,17 @@
 
 #include <stdbool.h>
 #include "debug.h"
+#include "timer.h"
 
 // Maximum number of steps: 256
 #ifndef SEQUENCER_STEPS
 #    define SEQUENCER_STEPS 16
 #endif
 
+/**
+ * Make sure that the items of this enumeration follow the powers of 2, separated by a ternary variant.
+ * Check the implementation of `get_step_duration` for further explanation.
+ */
 typedef enum { SQ_RES_2, SQ_RES_2T, SQ_RES_4, SQ_RES_4T, SQ_RES_8, SQ_RES_8T, SQ_RES_16, SQ_RES_16T, SQ_RES_32, SEQUENCER_RESOLUTIONS } sequencer_resolution_t;
 
 typedef struct {
@@ -59,3 +64,13 @@ sequencer_resolution_t sequencer_get_resolution(void);
 void                   sequencer_set_resolution(sequencer_resolution_t resolution);
 void                   sequencer_increase_resolution(void);
 void                   sequencer_decrease_resolution(void);
+
+uint8_t sequencer_get_current_step(void);
+
+uint16_t sequencer_get_beat_duration(void);
+uint16_t sequencer_get_step_duration(void);
+
+uint16_t get_beat_duration(uint8_t tempo);
+uint16_t get_step_duration(uint8_t tempo, sequencer_resolution_t resolution);
+
+void matrix_scan_sequencer(void);

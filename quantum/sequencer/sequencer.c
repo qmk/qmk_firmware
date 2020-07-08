@@ -23,16 +23,24 @@ sequencer_config_t sequencer_config = {
     SQ_RES_4,  // resolution
 };
 
+uint8_t  sequencer_current_step = 0;
+uint16_t sequencer_timer        = 0;
+bool     sequencer_waiting      = false;
+
 bool is_sequencer_on(void) { return sequencer_config.enabled; }
 
 void sequencer_on(void) {
     dprintln("sequencer on");
     sequencer_config.enabled = true;
+    sequencer_current_step   = 0;
+    sequencer_timer          = timer_read();
+    sequencer_waiting        = false;
 }
 
 void sequencer_off(void) {
     dprintln("sequencer off");
     sequencer_config.enabled = false;
+    sequencer_current_step   = 0;
 }
 
 void sequencer_toggle(void) {
@@ -105,3 +113,67 @@ void sequencer_set_resolution(sequencer_resolution_t resolution) {
 void sequencer_increase_resolution(void) { sequencer_set_resolution(sequencer_config.resolution + 1); }
 
 void sequencer_decrease_resolution(void) { sequencer_set_resolution(sequencer_config.resolution - 1); }
+
+uint8_t sequencer_get_current_step(void) { return sequencer_current_step; }
+
+void matrix_scan_sequencer(void) {
+    if (!sequencer_config.enabled) {
+        return;
+    }
+
+    if (sequencer_waiting && timer_elapsed(sequencer_timer) > sequencer_get_step_duration()) {
+        sequencer_current_step = (sequencer_current_step + 1) % SEQUENCER_STEPS;
+        sequencer_waiting      = false;
+    }
+
+    if (!sequencer_waiting) {
+        dprintf("sequencer: step %d\n", sequencer_current_step);
+        sequencer_timer   = timer_read();
+        sequencer_waiting = true;
+    }
+}
+
+uint16_t sequencer_get_beat_duration(void) { return get_beat_duration(sequencer_config.tempo); }
+
+uint16_t sequencer_get_step_duration(void) { return get_step_duration(sequencer_config.tempo, sequencer_config.resolution); }
+
+uint16_t get_beat_duration(uint8_t tempo) {
+    // Don’t crash in the unlikely case where the given tempo is 0
+    if (tempo == 0) {
+        return get_beat_duration(60);
+    }
+
+    /**
+     * Given
+     *  t = tempo and d = duration, both strictly greater than 0
+     * When
+     *  t beats / minute = 1 beat / d ms
+     * Then
+     *  t beats / 60000ms = 1 beat / d ms
+     *  d ms = 60000ms / t
+     */
+    return 60000 / tempo;
+}
+
+uint16_t get_step_duration(uint8_t tempo, sequencer_resolution_t resolution) {
+    /**
+     * Resolution cheatsheet:
+     * 1/2  => 2 steps per 4 beats
+     * 1/2T => 3 steps per 4 beats
+     * 1/4  => 4 steps per 4 beats
+     * 1/4T => 6 steps per 4 beats
+     * 1/8  => 8 steps per 4 beats
+     * 1/8T => 12 steps per 4 beats
+     * 1/16 => 16 steps per 4 beats
+     * 1/16T => 24 steps per 4 beats
+     * 1/32 => 32 steps per 4 beats
+     *
+     * The number of steps for binary resolutions follows the powers of 2.
+     * The ternary variants are simply 1.5x faster.
+     */
+    bool     is_binary            = resolution % 2 == 0;
+    uint8_t  binary_steps         = 2 << (resolution / 2);
+    uint16_t binary_step_duration = get_beat_duration(tempo) * 4 / binary_steps;
+
+    return is_binary ? binary_step_duration : 2 * binary_step_duration / 3;
+}
