@@ -16,7 +16,10 @@
 
 #include "sequencer.h"
 
-sequencer_config_t sequencer_config = {false};
+sequencer_config_t sequencer_config = {
+    false,   // enabled
+    {false}  // steps
+};
 
 bool is_sequencer_on(void) { return sequencer_config.enabled; }
 
@@ -36,4 +39,30 @@ void sequencer_toggle(void) {
     } else {
         sequencer_on();
     }
+}
+
+bool is_sequencer_step_on(uint8_t step) { return step < SEQUENCER_STEPS && sequencer_config.steps[step]; }
+
+void sequencer_set_step(uint8_t step, bool value) {
+    if (step < SEQUENCER_STEPS) {
+        sequencer_config.steps[step] = value;
+        dprintf("sequencer: step %d is %s\n", step, value ? "on" : "off");
+    } else {
+        dprintf("sequencer: step %d is out of range\n", step);
+    }
+}
+
+void sequencer_toggle_step(uint8_t step) {
+    if (is_sequencer_step_on(step)) {
+        sequencer_set_step_off(step);
+    } else {
+        sequencer_set_step_on(step);
+    }
+}
+
+void sequencer_set_all_steps(bool value) {
+    for (uint8_t step = 0; step < SEQUENCER_STEPS; step++) {
+        sequencer_config.steps[step] = value;
+    }
+    dprintf("sequencer: all steps are %s\n", value ? "on" : "off");
 }

@@ -16,6 +16,10 @@
 #ifndef QUANTUM_KEYCODES_H
 #define QUANTUM_KEYCODES_H
 
+#if defined(SEQUENCER_ENABLE)
+#    include "quantum/sequencer.h"
+#endif
+
 #ifndef MIDI_ENABLE_STRICT
 #    define MIDI_ENABLE_STRICT 0
 #endif
@@ -399,6 +403,17 @@ enum quantum_keycodes {
     SQ_ON,
     SQ_OFF,
     SQ_TOG,
+    SQ_SALL,  // All steps on
+    SQ_SCLR,  // All steps off
+    SEQUENCER_STEP_MIN,
+    SEQUENCER_STEP_MAX = SEQUENCER_STEP_MIN + SEQUENCER_STEPS,
+
+/**
+ * Helper to assign a keycode to a step.
+ * Falls back to NOOP if the step is out of range.
+ */
+#    define SQ_S(n) (n < SEQUENCER_STEPS ? SEQUENCER_STEP_MIN + n : XXXXXXX)
+
 #endif
 
     // Backlight functionality

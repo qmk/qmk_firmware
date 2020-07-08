@@ -19,8 +19,14 @@
 #include <stdbool.h>
 #include "debug.h"
 
+// Maximum number of steps: 256
+#ifndef SEQUENCER_STEPS
+#    define SEQUENCER_STEPS 16
+#endif
+
 typedef struct {
     bool enabled;
+    bool steps[SEQUENCER_STEPS];
 } sequencer_config_t;
 
 extern sequencer_config_t sequencer_config;
@@ -29,3 +35,13 @@ bool is_sequencer_on(void);
 void sequencer_toggle(void);
 void sequencer_on(void);
 void sequencer_off(void);
+
+bool is_sequencer_step_on(uint8_t step);
+void sequencer_set_step(uint8_t step, bool value);
+void sequencer_toggle_step(uint8_t step);
+void sequencer_set_all_steps(bool value);
+
+#define sequencer_set_step_on(step) sequencer_set_step(step, true)
+#define sequencer_set_step_off(step) sequencer_set_step(step, false)
+#define sequencer_set_all_steps_on() sequencer_set_all_steps(true)
+#define sequencer_set_all_steps_off() sequencer_set_all_steps(false)

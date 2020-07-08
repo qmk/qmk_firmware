@@ -28,6 +28,15 @@ bool process_sequencer(uint16_t keycode, keyrecord_t *record) {
             case SQ_TOG:
                 sequencer_toggle();
                 return false;
+            case SQ_SALL:
+                sequencer_set_all_steps_on();
+                return false;
+            case SQ_SCLR:
+                sequencer_set_all_steps_off();
+                return false;
+            case SEQUENCER_STEP_MIN ... SEQUENCER_STEP_MAX:
+                sequencer_toggle_step(keycode - SEQUENCER_STEP_MIN);
+                return false;
         }
     }
 
