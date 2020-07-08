@@ -204,7 +204,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         eeconfig_update_keymap(keymap_config.raw);
       }
       return false;
-      break;
     case EXT_PLV:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
