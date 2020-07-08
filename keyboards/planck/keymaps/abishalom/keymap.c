@@ -169,7 +169,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_single_persistent_default_layer(_QWERTY);
       }
       return false;
-      break;
     case BACKLIT:
       if (record->event.pressed) {
         register_code(KC_RSFT);
