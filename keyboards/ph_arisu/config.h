@@ -6,8 +6,8 @@
 #define VENDOR_ID       0x6172
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    PHARISU
-#define PRODUCT         keyboard
+#define MANUFACTURER    PH
+#define PRODUCT         Arisu
 #define DESCRIPTION     Keyboard
 
 /* key matrix size */
