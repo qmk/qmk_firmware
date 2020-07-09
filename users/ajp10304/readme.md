@@ -1,5 +1,20 @@
-# AJP10304 Custom JJ40 Layout
-# Also available for the Planck, Shark and Atreus50
+Copyright 2020 Alan Pocklington <ajp10304@gmail.com> @ajp10304
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# AJP10304 Custom 40% Layout
+# For the Planck, Shark, JJ40 and Atreus50
 
 **Note:** In the tables below where there are two characters on a key,
 the second is the output when shift is applied.
@@ -7,9 +22,7 @@ the second is the output when shift is applied.
 **Note:** The below tables assume a UK layout.
 
 #### Flashing
-Use sleep to get a chance to get into boot mode.
-
-`make jj40:ajp10304:flash`
+Refer to the README.md of the keyboard you want to flash.
 
 ##### Main Qwerty Layer
 
