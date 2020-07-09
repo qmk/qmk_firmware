@@ -145,6 +145,7 @@
 
   * Hardware Platform Development
     * Arm/ChibiOS
+      * [Selecting an MCU](platformdev_selecting_arm_mcu.md)
       * [Early initialization](platformdev_chibios_earlyinit.md)
 
   * QMK Reference

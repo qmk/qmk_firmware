@@ -3,7 +3,7 @@
 ![adelais](https://i.imgur.com/6U1IfZe.png)
 
 Compatible with TGR Alice and all clone variants.  
-`standard_led` (Adelais) comes with backlight and RGB underglow LEDs pre-soldered.  
+`standard_led` (Adelais) comes with backlight and RGB underglow LEDs pre-soldered. Adelais rev.3 support 3 rotary encoder, USB TypeC both side and reset button.
 `rgb_led` (Adelais En Ciel) comes with per-key RGB LEDs pre-soldered.
 
 * Keyboard Maintainer: [Team Mechlovin'](https://github.com/mechlovin)
