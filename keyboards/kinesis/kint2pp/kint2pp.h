@@ -1,5 +1,5 @@
-#ifndef KINESIS_STAPELBERG_H
-#define KINESIS_STAPELBERG_H
+#ifndef KINESIS_KINT2PP_H
+#define KINESIS_KINT2PP_H
 
 #include "quantum.h"
 

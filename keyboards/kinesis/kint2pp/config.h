@@ -1,5 +1,5 @@
-#ifndef STAPELBERG_CONFIG_H
-#define STAPELBERG_CONFIG_H
+#ifndef KINT2PP_CONFIG_H
+#define KINT2PP_CONFIG_H
 
 #include "../config.h"
 
