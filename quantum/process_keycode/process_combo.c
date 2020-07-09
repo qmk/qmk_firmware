@@ -277,6 +277,8 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_scan_combo(void) {
+    if (!b_combo_enable) { return; }
+
     uint16_t time = COMBO_TERM;
 
 #if defined(COMBO_TERM_PER_COMBO) || defined(COMBO_MUST_HOLD_MODS) || defined(COMBO_MUST_HOLD_PER_COMBO)
@@ -291,25 +293,16 @@ void matrix_scan_combo(void) {
     }
 #endif
 
-    if (b_combo_enable && is_active && timer && timer_elapsed(timer) > time) {
-
+    if (is_active && timer && timer_elapsed(timer) > time) {
         if (COMBO_PREPARED) {
             fire_combo();
         } else {
-            /* This disables the combo, meaning key events for this
-             * combo will be handled by the next processors in the chain
-             */
             prepared_combo = NULL;
             prepared_combo_index = -1;
-            is_active = false;
             dump_key_buffer(true);
+            timer = 0;
+            is_active = true;
         }
-    } else if (b_combo_enable && !is_active && timer && timer_elapsed(timer) > TAPPING_TERM) {
-        /* Re-enable combo processing after TAPPING_TERM so combos are usable
-         * with mods from ModTap keys that are also combo keys */
-        is_active = true;
-        timer = 0;
-        clear_combos(false);
     }
 }
 
