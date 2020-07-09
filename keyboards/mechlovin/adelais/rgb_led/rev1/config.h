@@ -4,7 +4,6 @@
 #define PRODUCT      Adelais En Ciel
 #define DESCRIPTION  Team.Mechlovin Adelais En Ciel
 
-#define RGB_DI_PIN A7
 #define DRIVER_LED_TOTAL 91
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
