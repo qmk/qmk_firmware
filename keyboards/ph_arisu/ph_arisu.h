@@ -1,5 +1,4 @@
-#ifndef PH_ARISU_H
-#define PH_ARISU_H
+#pragma once
 
 #include "quantum.h"
 
