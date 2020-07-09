@@ -1,6 +1,6 @@
 # 明け方電気 (akegata denki) device one
 
-![device one](https://www.akegata.co/6187dca6fa7bc5102f0ccd5a7eb97c3e.png)
+![device one](https://www.akegata.co/d1b6a7641bbf87de498f25ed34725732.png)
 
 A caseless 60% mechanical keyboard that strikes the right balance between affordability and function.
 
