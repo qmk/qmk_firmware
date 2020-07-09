@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Encoder things
 #define SWITCH_1 F7
 #define SWITCH_2 D7
-bool read_encoder_switches(matrix_row_t current_matrix[], uint8_t current_row);
+static bool read_encoder_switches(matrix_row_t current_matrix[], uint8_t current_row);
 
 #ifdef MATRIX_MASKED
 extern const matrix_row_t matrix_mask[];
@@ -128,7 +128,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     }
 
     // Unselect row
-    unselect_row(current_row); 
+    unselect_row(current_row);
 
     return (last_row_value != current_matrix[current_row]);
 }
@@ -222,6 +222,7 @@ uint8_t matrix_scan(void) {
 
     debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
 
+    // Read encoder switches, already debounced
     changed |= read_encoder_switches(matrix, 4);
 
     matrix_scan_quantum();
@@ -229,29 +230,37 @@ uint8_t matrix_scan(void) {
 }
 
 // Customisations for the encoders
-void matrix_init_kb(void){
+void matrix_init_kb(void) {
     setPinInput(SWITCH_1);
     setPinInput(SWITCH_2);
 }
 
-void matrix_scan_kb(void){
+void matrix_scan_kb(void) {}
 
-}
+void matrix_print(void) {}
 
-void matrix_print(void){
-
-}
-
-bool read_encoder_switches(matrix_row_t current_matrix[], uint8_t current_row) {
+static bool read_encoder_switches(matrix_row_t current_matrix[], uint8_t current_row) {
     // Store last value of row prior to reading
     matrix_row_t last_row_value = current_matrix[current_row];
 
     // Clear data in matrix row
     current_matrix[current_row] = 0;
 
-    // Populate the matrix row with the state of the encoder switch
-    current_matrix[current_row] |= readPin(SWITCH_1) ? (1 << 0) : 0;
-    current_matrix[current_row] |= readPin(SWITCH_2) ? (1 << 1) : 0;
+    // Debounce the encoder buttons using a shift register
+    static uint8_t btn_1_array;
+    static uint8_t btn_2_array;
+    bool           btn_1_pressed = 0;
+    bool           btn_2_pressed = 0;
+    btn_1_array <<= 1;
+    btn_2_array <<= 1;
+    btn_1_array |= readPin(SWITCH_1);
+    btn_2_array |= readPin(SWITCH_2);
+    (btn_1_array == 0b11111111) ? (btn_1_pressed = 1) : (btn_1_pressed = 0);
+    (btn_2_array == 0b11111111) ? (btn_2_pressed = 1) : (btn_2_pressed = 0);
+
+    // Populate the matrix row with the state of the encoder
+    current_matrix[current_row] |= btn_1_pressed ? (1 << 0) : 0;
+    current_matrix[current_row] |= btn_2_pressed ? (1 << 1) : 0;
 
     return (last_row_value != current_matrix[current_row]);
 }
