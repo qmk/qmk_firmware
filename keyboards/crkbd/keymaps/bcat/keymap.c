@@ -1,14 +1,12 @@
 #include QMK_KEYBOARD_H
 
+#include "bcat.h"
+
 enum layer {
     LAYER_DEFAULT,
     LAYER_LOWER,
     LAYER_RAISE,
     LAYER_ADJUST,
-};
-
-enum keycode {
-    MC_ALTT = SAFE_RANGE,
 };
 
 #define LY_LWR MO(LAYER_LOWER)
@@ -53,31 +51,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-layer_state_t layer_state_set_user(layer_state_t state) {
+layer_state_t layer_state_set_keymap(layer_state_t state) {
     return update_tri_layer_state(state, LAYER_LOWER, LAYER_RAISE, LAYER_ADJUST);
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    static bool alt_tab_pressed = false;
-    switch (keycode) {
-        case MC_ALTT:
-            if (record->event.pressed) {
-                if (!alt_tab_pressed) {
-                    register_code(KC_LALT);
-                    alt_tab_pressed = true;
-                }
-                register_code(KC_TAB);
-            } else {
-                unregister_code(KC_TAB);
-            }
-            return false;
-        case LY_LWR:
-            if (!record->event.pressed && alt_tab_pressed) {
-                unregister_code(KC_LALT);
-                alt_tab_pressed = false;
-            }
-            /* fallthrough */
-        default:
-            return true;
-    }
 }
