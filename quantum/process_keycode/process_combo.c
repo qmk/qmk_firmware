@@ -105,6 +105,9 @@ static inline void dump_key_buffer(bool emit) {
 }
 
 void fire_combo(void) {
+#ifndef NO_ACTION_TAPPING
+    action_tapping_process((keyrecord_t){}); // trigger possible ModTaps
+#endif
     send_combo(prepared_combo->keycode, true, prepared_combo_index);
     prepared_combo->active = true;
     prepared_combo = NULL;
