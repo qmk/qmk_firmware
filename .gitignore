@@ -16,8 +16,6 @@
 *.swp
 tags
 *~
-build/
-.build/
 *.bak
 .vagrant/
 quantum/version.h
