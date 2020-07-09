@@ -87,11 +87,17 @@ void sequencer_set_track_activation(uint8_t track, bool value) {
 
 void sequencer_toggle_track_activation(uint8_t track) { sequencer_set_track_activation(track, !is_sequencer_track_active(track)); }
 
-bool is_sequencer_step_on(uint8_t step) { return step < SEQUENCER_STEPS && sequencer_config.steps[step]; }
+bool is_sequencer_step_on(uint8_t step) { return step < SEQUENCER_STEPS && (sequencer_config.steps[step] & sequencer_active_tracks) > 0; }
+
+bool is_sequencer_step_on_for_track(uint8_t step, uint8_t track) { return step < SEQUENCER_STEPS && (sequencer_config.steps[step] >> track) & true; }
 
 void sequencer_set_step(uint8_t step, bool value) {
     if (step < SEQUENCER_STEPS) {
-        sequencer_config.steps[step] = value;
+        if (value) {
+            sequencer_config.steps[step] |= sequencer_active_tracks;
+        } else {
+            sequencer_config.steps[step] &= ~sequencer_active_tracks;
+        }
         dprintf("sequencer: step %d is %s\n", step, value ? "on" : "off");
     } else {
         dprintf("sequencer: step %d is out of range\n", step);
@@ -108,7 +114,11 @@ void sequencer_toggle_step(uint8_t step) {
 
 void sequencer_set_all_steps(bool value) {
     for (uint8_t step = 0; step < SEQUENCER_STEPS; step++) {
-        sequencer_config.steps[step] = value;
+        if (value) {
+            sequencer_config.steps[step] |= sequencer_active_tracks;
+        } else {
+            sequencer_config.steps[step] &= ~sequencer_active_tracks;
+        }
     }
     dprintf("sequencer: all steps are %s\n", value ? "on" : "off");
 }
@@ -165,7 +175,7 @@ void sequencer_phase_attack(void) {
     }
 
 #ifdef MIDI_ENABLE
-    if (is_sequencer_step_on(sequencer_current_step)) {
+    if (is_sequencer_step_on_for_track(sequencer_current_step, sequencer_current_track)) {
         process_midi_basic_noteon(midi_compute_note(sequencer_config.track_notes[sequencer_current_track]));
     }
 #endif
@@ -182,7 +192,7 @@ void sequencer_phase_release(void) {
         return;
     }
 #ifdef MIDI_ENABLE
-    if (is_sequencer_step_on(sequencer_current_step)) {
+    if (is_sequencer_step_on_for_track(sequencer_current_step, sequencer_current_track)) {
         process_midi_basic_noteoff(midi_compute_note(sequencer_config.track_notes[sequencer_current_track]));
     }
 #endif

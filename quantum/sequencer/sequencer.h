@@ -44,7 +44,7 @@ typedef enum { SQ_RES_2, SQ_RES_2T, SQ_RES_4, SQ_RES_4T, SQ_RES_8, SQ_RES_8T, SQ
 
 typedef struct {
     bool                   enabled;
-    bool                   steps[SEQUENCER_STEPS];
+    uint8_t                steps[SEQUENCER_STEPS];
     uint16_t               track_notes[SEQUENCER_TRACKS];
     uint8_t                tempo;  // Is a maximum tempo of 255 reasonable?
     sequencer_resolution_t resolution;
@@ -65,6 +65,7 @@ void sequencer_toggle_track_activation(uint8_t track);
 #define sequencer_deactivate_track(track) sequencer_set_track_activation(track, false)
 
 bool is_sequencer_step_on(uint8_t step);
+bool is_sequencer_step_on_for_track(uint8_t step, uint8_t track);
 void sequencer_set_step(uint8_t step, bool value);
 void sequencer_toggle_step(uint8_t step);
 void sequencer_set_all_steps(bool value);
