@@ -1,7 +1,6 @@
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
     [0] = LAYOUT(
         KC_ESC, KC_2, KC_4, KC_6, KC_8, KC_0, KC_EQL, KC_GRV,
         KC_1, KC_3, KC_5, KC_7, KC_9, KC_MINS, KC_BSLS,
