@@ -32,6 +32,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return 130;
         default:
             return TAPPING_TERM;
+    }
 }
 ```
 
