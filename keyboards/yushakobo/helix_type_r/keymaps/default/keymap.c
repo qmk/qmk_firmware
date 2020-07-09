@@ -141,6 +141,30 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
 }
 
+void dip_switch_update_user(uint8_t index, bool active) {
+    switch (index) {
+        case 0:
+            if(active) { // Left no.1
+              ;
+            } else { }
+            break;
+        case 1:
+            if(active) { // Left no.2
+              ;
+            } else { }
+            break;
+        case 2:
+            if(active) { // Right no.2
+              ;
+            } else { }
+            break;
+        case 3:
+            if (active) { // Right no.1
+              ;
+            } else { }
+            break;
+    }
+}
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
