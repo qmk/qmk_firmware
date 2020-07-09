@@ -22,4 +22,4 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-A build guide for this keyboard can be found here: [Infra Build Guide](https://
+A build guide for this keyboard can be found here: [Infra Build Guide](https://https://github.com/EddieCTian/qmk_firmware/blob/master/build/infra_build_guide.md)
