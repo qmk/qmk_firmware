@@ -19,6 +19,15 @@ These LEDs are called "addressable" because instead of using a wire per color, e
 
 ## Driver configuration
 
+### All drivers
+
+Different versions of the addressable LEDs have differing requirements for the T<sub>RST</sub> period between frames.
+The default setting is 280 µs, which should work for most cases, but this can be overridden in your config.h. e.g.:
+
+```c
+#define WS2812_TRST_US 80
+```
+
 ### Bitbang
 Default driver, the absence of configuration assumes this driver. To configure it, add this to your rules.mk:
 

@@ -6,36 +6,37 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /*
-     * | Knob: Layer +/-                       |
-     * .---------------------------------------.
-     * | Mute     | Play/Pause | Hold: Layer 2 |
-     * |----------|------------|---------------|
-     * | Previous | Up         | Next          |
-     * |----------|------------|---------------|
-     * | Left     | Down       | Right         |
-     * '---------------------------------------'
+     * | Knob: Layer +/-                                |
+     * .------------------------------------------------.
+     * | Volume Mute | Media Play/Pause | Hold: Layer 2 |
+     * |-------------|------------------|---------------|
+     * | Media Prev  | Up               | Media Next    |
+     * |-------------|------------------|---------------|
+     * | Left        | Down             | Right         |
+     * '------------------------------------------------'
      */
     [0] =
         LAYOUT(
-                KC_MUTE,  KC_MPLY, MO(2), 
-                KC_MNXT,  KC_UP  , KC_MPRV     , 
+                KC_MUTE,  KC_MPLY, MO(2)  , 
+                KC_MPRV,  KC_UP  , KC_MNXT, 
                 KC_LEFT, KC_DOWN , KC_RGHT
               ),
 
     /*
-     * .-----------------------.
-     * | NUM 7 | NUM 8 | NUM 9 |
-     * |-------|-------|-------|
-     * | NUM 4 | NUM 5 | NUM 6 |
-     * |-------|-------|-------|
-     * | NUM 1 | NUM 2 | NUM 3 |
-     * '-----------------------'
+     * | Knob: Layer +/-                                   |
+     * .---------------------------------------------------.
+     * | RGB Toggle     | Media Play/Pause | Hold: Layer 2 |
+     * |----------------|------------------|---------------|
+     * | Media Previous | RGB Bright+      | Media Next    |
+     * |----------------|------------------|---------------|
+     * | RGB Anim-      | RGB Bright-      | RGB Anim+     |
+     * '---------------------------------------------------'
      */
     [1] =
         LAYOUT(
-                KC_P7, KC_P8, KC_P8,
-                KC_P4, KC_P5, KC_P6,
-                KC_P1, KC_P2, KC_P3
+                RGB_TOG , KC_TRNS, KC_TRNS,
+                KC_TRNS , RGB_VAI, KC_TRNS,
+                RGB_RMOD, RGB_VAD, RGB_MOD
               ),
 
     /*
@@ -53,12 +54,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_NO  , KC_NO, KC_TRNS, 
                 EEP_RST, RESET, DEBUG  , 
                 KC_NO  , KC_NO, KC_NO
+              ),
+
+    /*
+     * | Knob: N/A       |
+     * .-----------------.
+     * | N/A | N/A | N/A |
+     * |-----------------|
+     * | N/A | N/A | N/A |
+     * |-----------------|
+     * | N/A | N/A | N/A |
+     * '-----------------'
+     */
+    [3] =
+        LAYOUT(
+                KC_NO, KC_NO, KC_NO,
+                KC_NO, KC_NO, KC_NO,
+                KC_NO, KC_NO, KC_NO
               )
 
 };
 
 const rgblight_segment_t PROGMEM _base_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-        {0, RGBLED_NUM, HSV_WHITE}
+        {0, RGBLED_NUM, HSV_BLUE}
         );
 const rgblight_segment_t PROGMEM _middle_layer[] = RGBLIGHT_LAYER_SEGMENTS(
         {0, RGBLED_NUM, HSV_GREEN}
