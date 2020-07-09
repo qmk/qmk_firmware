@@ -13,14 +13,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "for_science.h"
+#include QMK_KEYBOARD_H
 
-#define _______ KC_TRNS
-
-#define _BASE 0
-#define _LAYER 3
-#define _MOD_LAYER 5
-#define _FUNCT 10
+// Defines names for use in layer keycodes and the keymap
+enum layer_names {
+    _BASE,
+    _LAYER,
+    _MOD_LAYER,
+    _FUNCT
+};
 
 #define SFT_A SFT_T(KC_A)
 #define SFT_F1 SFT_T(KC_F1)

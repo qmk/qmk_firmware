@@ -54,17 +54,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
-#define IGNORE_MOD_TAP_INTERRUPT
-#define TAPPING_FORCE_HOLD
-#define PERMISSIVE_HOLD
-#define PREVENT_STUCK_MODIFIERS
-
 //#define MASTER_RIGHT
 
 /* key combination for magic key command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
+/* defined by default; to change, uncomment and set to the combination you want */
+// #define IS_COMMAND() (get_mods() == MOD_MASK_SHIFT)
 
 /*
  * Feature disable options
@@ -83,4 +77,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
