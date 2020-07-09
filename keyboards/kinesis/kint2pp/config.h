@@ -21,8 +21,36 @@
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-#define MATRIX_ROW_PINS { D0, D1, D2, D3, D4, D5, D6, D7, C0, C1, C2, C3, C4, C5, C6 }
-#define MATRIX_COL_PINS { B0, B1, B2, B3, B4, B5, B6 }
+#define MATRIX_ROW_PINS \
+  {			\
+   D7, /* ROW_EQL */	\
+   E0, /* ROW_1 */	\
+   E1, /* ROW_2 */	\
+   C0, /* ROW_3 */	\
+   C6, /* ROW_4 */	\
+   F6, /* ROW_5 */	\
+   D4, /* ROW_6 */	\
+   D2, /* ROW_7 */	\
+   D3, /* ROW_8 */	\
+   D0, /* ROW_9 */	\
+   B7, /* ROW_0 */	\
+   D1, /* ROW_MIN */	\
+   E6, /* ROW_ESC */	\
+   B4, /* ROW_F1 */	\
+   B2  /* ROW_F2 */	\
+  }
+
+#define MATRIX_COL_PINS \
+  {			\
+   E7, /* COL_0 */	\
+   F0, /* COL_1 */	\
+   F7, /* COL_2 */	\
+   B1, /* COL_3 */	\
+   B3, /* COL_4 */	\
+   B0, /* COL_5 */	\
+   D5 /* COL_6 */	\
+  }
+
 #define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */

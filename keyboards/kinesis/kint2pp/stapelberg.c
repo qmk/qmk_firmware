@@ -4,10 +4,10 @@ void matrix_init_kb(void) {
 	// put your keyboard start-up code here
 	// runs once when the firmware starts up
     // * Set our LED pins as output
-    DDRF |= (1<<0); // Keypad LED
-    DDRF |= (1<<1); // ScrLock LED
-    DDRF |= (1<<2); // NumLock LED
-    DDRF |= (1<<3); // CapsLock LED
+    DDRC |= (1<<3); // Keypad LED: C3
+    DDRC |= (1<<4); // ScrLock LED: C4
+    DDRC |= (1<<5); // NumLock LED: C5
+    DDRC |= (1<<1); // CapsLock LED: C1
 
 	matrix_init_user();
 }
@@ -28,34 +28,34 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
 void led_init_ports() {
   // * Set our LED pins as output
-  DDRF |= (1<<0); // Keypad LED
-  DDRF |= (1<<1); // ScrLock LED
-  DDRF |= (1<<2); // NumLock LED
-  DDRF |= (1<<3); // CapsLock LED
+  DDRC |= (1<<3); // Keypad LED: C3
+  DDRC |= (1<<4); // ScrLock LED: C4
+  DDRC |= (1<<5); // NumLock LED: C5
+  DDRC |= (1<<1); // CapsLock LED: C1
 }
 
 void led_set_kb(uint8_t usb_led) {
   if (usb_led & (1<<USB_LED_COMPOSE)) {
-      PORTF &= ~(1<<0);
+      PORTC &= ~(1<<3);
   } else {
-      PORTF |= (1<<0);
+      PORTC |= (1<<3);
   }
 
   if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
-      PORTF &= ~(1<<1);
+      PORTC &= ~(1<<4);
   } else {
-      PORTF |= (1<<1);
+      PORTC |= (1<<4);
   }
 
   if (usb_led & (1<<USB_LED_NUM_LOCK)) {
-      PORTF &= ~(1<<2);
+      PORTC &= ~(1<<5);
   } else {
-      PORTF |= (1<<2);
+      PORTC |= (1<<5);
   }
 
   if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-      PORTF &= ~(1<<3);
+      PORTC &= ~(1<<1);
   } else {
-      PORTF |= (1<<3);
+      PORTC |= (1<<1);
   }
 }
