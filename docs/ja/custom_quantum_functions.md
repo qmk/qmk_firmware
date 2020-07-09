@@ -62,7 +62,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_ENTER:
       // enter が押された時に音を再生します
       if (record->event.pressed) {
-        PLAY_NOTE_ARRAY(tone_qwerty);
+        PLAY_SONG(tone_qwerty);
       }
       return true; // QMK に enter のプレスまたはリリースイベントを送信させます
     default:
@@ -440,7 +440,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_ENTER:
         // enter が押された時に音を再生します
         if (record->event.pressed) {
-            PLAY_NOTE_ARRAY(tone_qwerty);
+            PLAY_SONG(tone_qwerty);
         }
         return true; // QMK に enter のプレスまたはリリースイベントを送信させます
     case RGB_LYR:  // これにより、アンダーグローをレイヤー表示として、あるいは通常通りに使うことができます。
@@ -511,7 +511,7 @@ void eeconfig_init_user(void) {  // EEPROM がリセットされます！
 キーコードに基づいて `TAPPING_TERM` を変更するには、次のようなものを `keymap.c` ファイルに追加します:
 
 ```c
-uint16_t get_tapping_term(uint16_t keycode) {
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case SFT_T(KC_SPC):
       return TAPPING_TERM + 1250;
@@ -528,7 +528,7 @@ uint16_t get_tapping_term(uint16_t keycode) {
 キーコードに基づいて `IGNORE_MOD_TAP_INTERRUPT` の値を変更するには、次のようなものを `keymap.c` ファイルに追加します:
 
 ```c
-bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
+bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case SFT_T(KC_SPC):
       return true;

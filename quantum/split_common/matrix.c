@@ -24,10 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config.h"
 #include "transport.h"
 
-#ifdef ENCODER_ENABLE
-#    include "encoder.h"
-#endif
-
 #define ERROR_DISCONNECT_COUNT 5
 
 #define ROWS_PER_HAND (MATRIX_ROWS / 2)
@@ -65,17 +61,22 @@ static void init_pins(void) {
 }
 
 static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
-    matrix_row_t last_row_value = current_matrix[current_row];
-    current_matrix[current_row] = 0;
+    // Start with a clear matrix row
+    matrix_row_t current_row_value = 0;
 
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
         pin_t pin = direct_pins[current_row][col_index];
         if (pin != NO_PIN) {
-            current_matrix[current_row] |= readPin(pin) ? 0 : (MATRIX_ROW_SHIFTER << col_index);
+            current_row_value |= readPin(pin) ? 0 : (MATRIX_ROW_SHIFTER << col_index);
         }
     }
 
-    return (last_row_value != current_matrix[current_row]);
+    // If the row has changed, store the row and return the changed flag.
+    if (current_matrix[current_row] != current_row_value) {
+        current_matrix[current_row] = current_row_value;
+        return true;
+    }
+    return false;
 }
 
 #elif defined(DIODE_DIRECTION)
@@ -102,11 +103,8 @@ static void init_pins(void) {
 }
 
 static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
-    // Store last value of row prior to reading
-    matrix_row_t last_row_value = current_matrix[current_row];
-
-    // Clear data in matrix row
-    current_matrix[current_row] = 0;
+    // Start with a clear matrix row
+    matrix_row_t current_row_value = 0;
 
     // Select row and wait for row selecton to stabilize
     select_row(current_row);
@@ -118,13 +116,18 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
         uint8_t pin_state = readPin(col_pins[col_index]);
 
         // Populate the matrix row with the state of the col pin
-        current_matrix[current_row] |= pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);
+        current_row_value |= pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);
     }
 
     // Unselect row
     unselect_row(current_row);
 
-    return (last_row_value != current_matrix[current_row]);
+    // If the row has changed, store the row and return the changed flag.
+    if (current_matrix[current_row] != current_row_value) {
+        current_matrix[current_row] = current_row_value;
+        return true;
+    }
+    return false;
 }
 
 #    elif (DIODE_DIRECTION == ROW2COL)
@@ -159,20 +162,22 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     // For each row...
     for (uint8_t row_index = 0; row_index < ROWS_PER_HAND; row_index++) {
         // Store last value of row prior to reading
-        matrix_row_t last_row_value = current_matrix[row_index];
+        matrix_row_t last_row_value    = current_matrix[row_index];
+        matrix_row_t current_row_value = last_row_value;
 
         // Check row pin state
         if (readPin(row_pins[row_index]) == 0) {
             // Pin LO, set col bit
-            current_matrix[row_index] |= (MATRIX_ROW_SHIFTER << current_col);
+            current_row_value |= (MATRIX_ROW_SHIFTER << current_col);
         } else {
             // Pin HI, clear col bit
-            current_matrix[row_index] &= ~(MATRIX_ROW_SHIFTER << current_col);
+            current_row_value &= ~(MATRIX_ROW_SHIFTER << current_col);
         }
 
         // Determine if the matrix changed state
-        if ((last_row_value != current_matrix[row_index]) && !(matrix_changed)) {
-            matrix_changed = true;
+        if ((last_row_value != current_row_value)) {
+            matrix_changed |= true;
+            current_matrix[row_index] = current_row_value;
         }
     }
 
@@ -255,9 +260,7 @@ void matrix_post_scan(void) {
         matrix_scan_quantum();
     } else {
         transport_slave(matrix + thisHand);
-#ifdef ENCODER_ENABLE
-        encoder_read();
-#endif
+
         matrix_slave_scan_user();
     }
 }
