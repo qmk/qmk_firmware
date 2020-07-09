@@ -36,16 +36,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-bool led_update_user(led_t led_state) {
-    // writePin sets the pin high for 1 and low for 0.
-    // In this example the pins are inverted, setting
-    // it low/0 turns it on, and high/1 turns the LED off.
-    // This behavior depends on whether the LED is between the pin
-    // and VCC or the pin and GND.
-    writePin(NUM_LOCK_LED_PIN, led_state.num_lock);
-    
-    return false;
-
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
         if (clockwise) {
