@@ -28,8 +28,12 @@
 // Maximum number of tracks: 8
 #define SEQUENCER_TRACKS 8
 
+#ifndef SEQUENCER_TRACK_THROTTLE
+#    define SEQUENCER_TRACK_THROTTLE 3
+#endif
+
 #ifndef SEQUENCER_PHASE_RELEASE_TIMEOUT
-#    define SEQUENCER_PHASE_RELEASE_TIMEOUT 20
+#    define SEQUENCER_PHASE_RELEASE_TIMEOUT 30
 #endif
 
 /**
@@ -41,6 +45,7 @@ typedef enum { SQ_RES_2, SQ_RES_2T, SQ_RES_4, SQ_RES_4T, SQ_RES_8, SQ_RES_8T, SQ
 typedef struct {
     bool                   enabled;
     bool                   steps[SEQUENCER_STEPS];
+    uint16_t               track_notes[SEQUENCER_TRACKS];
     uint8_t                tempo;  // Is a maximum tempo of 255 reasonable?
     sequencer_resolution_t resolution;
 } sequencer_config_t;

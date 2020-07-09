@@ -21,13 +21,19 @@
 #endif
 
 sequencer_config_t sequencer_config = {
-    false,     // enabled
-    {false},   // steps
+    false,    // enabled
+    {false},  // steps
+#ifdef MIDI_ENABLE
+    {MI_C_1, MI_D_1, MI_Fs_1, MI_As_1, MI_Cs_2, MI_Ds_2, MI_Ds_1, MI_A},
+#else
+    {0},
+#endif
     60,        // tempo
     SQ_RES_4,  // resolution
 };
 
 uint8_t  sequencer_active_tracks = 0;
+uint8_t  sequencer_current_track = 0;
 uint8_t  sequencer_current_step  = 0;
 uint16_t sequencer_timer         = 0;
 
@@ -48,6 +54,7 @@ bool is_sequencer_on(void) { return sequencer_config.enabled; }
 void sequencer_on(void) {
     dprintln("sequencer on");
     sequencer_config.enabled = true;
+    sequencer_current_track  = 0;
     sequencer_current_step   = 0;
     sequencer_timer          = timer_read();
     sequencer_phase          = SEQUENCER_PHASE_ATTACK;
@@ -147,27 +154,50 @@ uint8_t sequencer_get_current_step(void) { return sequencer_current_step; }
 
 void sequencer_phase_attack(void) {
     dprintf("sequencer: step %d\n", sequencer_current_step);
+    dprintf("sequencer: time %d\n", timer_read());
+
+    if (sequencer_current_track == 0) {
+        sequencer_timer = timer_read();
+    }
+
+    if (timer_elapsed(sequencer_timer) < sequencer_current_track * SEQUENCER_TRACK_THROTTLE) {
+        return;
+    }
+
 #ifdef MIDI_ENABLE
     if (is_sequencer_step_on(sequencer_current_step)) {
-        // Drum kick
-        process_midi_basic_noteon(36);
+        process_midi_basic_noteon(midi_compute_note(sequencer_config.track_notes[sequencer_current_track]));
     }
 #endif
-    sequencer_timer = timer_read();
-    sequencer_phase = SEQUENCER_PHASE_RELEASE;
+
+    if (sequencer_current_track < SEQUENCER_TRACKS - 1) {
+        sequencer_current_track++;
+    } else {
+        sequencer_phase = SEQUENCER_PHASE_RELEASE;
+    }
 }
 
 void sequencer_phase_release(void) {
+    if (timer_elapsed(sequencer_timer) < SEQUENCER_PHASE_RELEASE_TIMEOUT + sequencer_current_track * SEQUENCER_TRACK_THROTTLE) {
+        return;
+    }
 #ifdef MIDI_ENABLE
     if (is_sequencer_step_on(sequencer_current_step)) {
-        // Drum kick
-        process_midi_basic_noteoff(36);
+        process_midi_basic_noteoff(midi_compute_note(sequencer_config.track_notes[sequencer_current_track]));
     }
 #endif
-    sequencer_phase = SEQUENCER_PHASE_PAUSE;
+    if (sequencer_current_track > 0) {
+        sequencer_current_track--;
+    } else {
+        sequencer_phase = SEQUENCER_PHASE_PAUSE;
+    }
 }
 
 void sequencer_phase_pause(void) {
+    if (timer_elapsed(sequencer_timer) < sequencer_get_step_duration()) {
+        return;
+    }
+
     sequencer_current_step = (sequencer_current_step + 1) % SEQUENCER_STEPS;
     sequencer_phase        = SEQUENCER_PHASE_ATTACK;
 }
@@ -177,11 +207,11 @@ void matrix_scan_sequencer(void) {
         return;
     }
 
-    if (sequencer_phase == SEQUENCER_PHASE_PAUSE && timer_elapsed(sequencer_timer) > sequencer_get_step_duration()) {
+    if (sequencer_phase == SEQUENCER_PHASE_PAUSE) {
         sequencer_phase_pause();
     }
 
-    if (sequencer_phase == SEQUENCER_PHASE_RELEASE && timer_elapsed(sequencer_timer) > SEQUENCER_PHASE_RELEASE_TIMEOUT) {
+    if (sequencer_phase == SEQUENCER_PHASE_RELEASE) {
         sequencer_phase_release();
     }
 
