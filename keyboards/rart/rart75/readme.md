@@ -1,5 +1,7 @@
 # [RART 75](https://github.com/alabahuy/RART/tree/master/RART75)
+
 ![RART 75 TOP](https://user-images.githubusercontent.com/30220306/85908009-9de88a80-b83d-11ea-84e8-d1bc07e6bf38.png)
+
 75% pcb with encoder, based on IMKG (Indonesia Mechanical Keyboard Group)
 
 * Keyboard Maintainer: [Alabahuy](https://github.com/alabahuy)
