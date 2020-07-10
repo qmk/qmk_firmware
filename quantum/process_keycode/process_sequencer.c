@@ -53,7 +53,7 @@ bool process_sequencer(uint16_t keycode, keyrecord_t *record) {
                 sequencer_toggle_step(keycode - SEQUENCER_STEP_MIN);
                 return false;
             case SEQUENCER_TRACK_MIN ... SEQUENCER_TRACK_MAX:
-                sequencer_toggle_track_activation(keycode - SEQUENCER_TRACK_MIN);
+                sequencer_toggle_single_active_track(keycode - SEQUENCER_TRACK_MIN);
                 return false;
         }
     }

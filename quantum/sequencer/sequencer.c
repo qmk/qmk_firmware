@@ -87,6 +87,14 @@ void sequencer_set_track_activation(uint8_t track, bool value) {
 
 void sequencer_toggle_track_activation(uint8_t track) { sequencer_set_track_activation(track, !is_sequencer_track_active(track)); }
 
+void sequencer_toggle_single_active_track(uint8_t track) {
+    if (is_sequencer_track_active(track)) {
+        sequencer_active_tracks = 0;
+    } else {
+        sequencer_active_tracks = 1 << track;
+    }
+}
+
 bool is_sequencer_step_on(uint8_t step) { return step < SEQUENCER_STEPS && (sequencer_config.steps[step] & sequencer_active_tracks) > 0; }
 
 bool is_sequencer_step_on_for_track(uint8_t step, uint8_t track) { return step < SEQUENCER_STEPS && (sequencer_config.steps[step] >> track) & true; }

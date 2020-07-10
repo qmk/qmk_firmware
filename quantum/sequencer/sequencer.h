@@ -60,6 +60,7 @@ void sequencer_off(void);
 bool is_sequencer_track_active(uint8_t track);
 void sequencer_set_track_activation(uint8_t track, bool value);
 void sequencer_toggle_track_activation(uint8_t track);
+void sequencer_toggle_single_active_track(uint8_t track);
 
 #define sequencer_activate_track(track) sequencer_set_track_activation(track, true)
 #define sequencer_deactivate_track(track) sequencer_set_track_activation(track, false)
