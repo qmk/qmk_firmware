@@ -16,6 +16,13 @@
 #include "m0lly.h"
 #include "led.h"
 
+void keyboard_pre_init_kb(void) {
+  setPinInputHigh(D0);
+  setPinInputHigh(D1);
+
+  keyboard_pre_init_user();
+}
+
 void matrix_init_kb(void) {
     // put your keyboard start-up code here
     // runs once when the firmware starts up

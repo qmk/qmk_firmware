@@ -2,8 +2,8 @@
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
-  original document: c9e3fa6f7:docs/hardware_avr.md
-  git diff c9e3fa6f7 HEAD -- docs/hardware_avr.md | cat
+  original document: 0.9.0:docs/hardware_avr.md
+  git diff 0.9.0 HEAD -- docs/hardware_avr.md | cat
 -->
 
 このページでは QMK における AVR マイコンのサポートについて説明します。AVR マイコンには、Atmel 社製の atmega32u4、atmega32u2、at90usb1286 やその他のマイコンを含みます。AVR マイコンは、簡単に動かせるよう設計された8ビットの MCU です。キーボードでよく使用される AVR マイコンには USB 機能や大きなキーボードマトリックスのためのたくさんの GPIO を搭載しています。これらは、現在、キーボードで使われる最も一般的な MCU です。
