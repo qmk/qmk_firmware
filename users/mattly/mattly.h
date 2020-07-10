@@ -100,13 +100,13 @@ enum {
 
 // == UNDERGLOW
 #ifdef RGBLIGHT_ENABLE
-#define HSV_CAPS     60, 255, 255
+#define HSV_CAPS     55, 255, 255
 #define HSV_ERR      30, 196, 196
-#define HSV_MAC      18, 255, 128
-#define HSV_WIN       0, 255, 128
-#define HSV_SYMBOL  240, 255, 255
+#define HSV_MAC      20, 255, 128
+#define HSV_WIN      10, 255, 128
+#define HSV_SYMBOL  235, 255, 255
 #define HSV_NAVNUM  250, 255, 255
-#define HSV_FUNCT   238, 255, 255
+#define HSV_FUNCT   210, 255, 255
 #define HSV_RESET   180, 255, 255
 #endif
 

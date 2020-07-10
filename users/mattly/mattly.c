@@ -23,15 +23,16 @@ void set_lights_default(void) {
 
 void layer_state_set_rgb(layer_state_t state) {
 #ifdef RGBLIGHT_ENABLE
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
         case _SYMBOL:
             rgblight_sethsv_noeeprom(HSV_SYMBOL);
             break;
-        case _NAVNUM_WIN:
         case _NAVNUM:
+        case _NAVNUM_WIN:
             rgblight_sethsv_noeeprom(HSV_NAVNUM);
             break;
         case _FUNCT:
+        case _FUNCT_WIN:
             rgblight_sethsv_noeeprom(HSV_FUNCT);
             break;
         default:
@@ -43,6 +44,7 @@ void layer_state_set_rgb(layer_state_t state) {
 layer_state_t layer_state_set_user (layer_state_t state) {
   state = update_tri_layer_state(state, _SYMBOL, _NAVNUM, _FUNCT);
   state = update_tri_layer_state(state, _OVER_WIN, _NAVNUM, _NAVNUM_WIN);
+  state = update_tri_layer_state(state, _OVER_WIN, _FUNCT, _FUNCT_WIN);
   current_state = get_highest_layer(state);
   layer_state_set_rgb(state);
   return layer_state_set_keymap (state);
