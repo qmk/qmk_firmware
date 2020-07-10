@@ -153,6 +153,7 @@ void haptic_reset(void) {
 #ifdef SOLENOID_ENABLE
     uint8_t dwell       = SOLENOID_DEFAULT_DWELL;
     haptic_config.dwell = dwell;
+    haptic_config.buzz  = SOLENOID_DEFAULT_BUZZ;
     solenoid_set_dwell(dwell);
 #endif
     eeconfig_update_haptic(haptic_config.raw);

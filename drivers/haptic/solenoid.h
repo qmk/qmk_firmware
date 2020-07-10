@@ -29,6 +29,10 @@
 #    define SOLENOID_MIN_DWELL 4
 #endif
 
+#ifndef SOLENOID_DEFAULT_BUZZ
+#    define SOLENOID_DEFAULT_BUZZ 0
+#endif
+
 #ifndef SOLENOID_PIN
 #    error SOLENOID_PIN not defined
 #endif

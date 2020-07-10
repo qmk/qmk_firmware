@@ -48,6 +48,7 @@ First you will need a build a circuit to drive the solenoid through a mosfet as 
 |`SOLENOID_DEFAULT_DWELL`  | `12` ms       |Configures the default dwell time for the solenoid.    |
 |`SOLENOID_MIN_DWELL`      | `4` ms        |Sets the lower limit for the dwell.                    |
 |`SOLENOID_MAX_DWELL`      | `100` ms      |Sets the upper limit for the dwell.                    |
+|`SOLENOID_DEFAULT_BUZZ`   | 0 (disabled)  |On HPT_RST buzz is set "on" if this is "1"             |
 
 ?> Dwell time is how long the "plunger" stays activated.  The dwell time changes how the solenoid sounds.
 
