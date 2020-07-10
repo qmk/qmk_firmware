@@ -37,8 +37,6 @@ void solenoid_buzz_on(void);
 void solenoid_buzz_off(void);
 void solenoid_set_buzz(int buzz);
 
-void solenoid_dwell_minus(uint8_t solenoid_dwell);
-void solenoid_dwell_plus(uint8_t solenoid_dwell);
 void solenoid_set_dwell(uint8_t dwell);
 
 void solenoid_stop(void);
