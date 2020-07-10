@@ -82,5 +82,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QMK_LED D5
 #define QMK_SPEAKER B0
 
+// combos
+#ifdef COMBO_ENABLE
+#   define COMBO_TERM 50
+#   define COMBO_COUNT 29
+#endif
+
 // todo: remove on split common
 #define NO_DEBUG_LEDS
