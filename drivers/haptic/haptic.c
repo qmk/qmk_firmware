@@ -33,6 +33,9 @@ void haptic_init(void) {
         eeconfig_init();
     }
     haptic_config.raw = eeconfig_read_haptic();
+#ifdef SOLENOID_ENABLE
+    solenoid_set_dwell(haptic_config.dwell);
+#endif
     if (haptic_config.mode < 1) {
         haptic_config.mode = 1;
     }
