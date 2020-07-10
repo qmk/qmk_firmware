@@ -1,0 +1,37 @@
+#+TITLE:Logs
+
+Alright as for organization the example they use to compile
+
+#+BEGIN_SRC sh :exports both
+cd ..
+cd keyboards/clueboard/66/rev3
+ls
+#+END_SRC
+
+#+RESULTS:
+| config.h |
+| rev3.c   |
+| rev3.h   |
+| rules.mk |
+
+
+Show that to compile a keyboard it goes to a folder which can store what seems any number of keyboards.
+
+#+BEGIN_SRC sh :exports both
+cd ..
+cd keyboards/clueboard
+ls
+#+END_SRC
+
+#+RESULTS:
+| 17         |
+| 2x1800     |
+| 60         |
+| 66         |
+| 66_hotswap |
+| california |
+| card       |
+| info.json  |
+| readme.md  |
+
+Here there seems to be an set of keyboards with a set of layouts.

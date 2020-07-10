@@ -1,5 +1,5 @@
 /*
-Copyright 2020
+Copyright 2018 Cole Markham
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,39 +17,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
+#include "quantum.h"
 
+#define LAYOUT_ortho_5x4( \
+    K00, K01, K02, K03, \
+    K10, K11, K12, K13, \
+    K20, K21, K22, K23, \
+    K30, K31, K32, K33, \
+    K40, K41, K42, K43  \
+) { \
+    { K00,   K01,   K02,   K03 }, \
+    { K10,   K11,   K12,   K13 }, \
+    { K20,   K21,   K22,   K23 }, \
+    { K30,   K31,   K32,   K33 }, \
+    { K40,   K41,   K42,   K43 } \
+}
 
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 4
-
-
-#define MATRIX_ROW_PINS {C6, B6, B5, B4, D7}
-#define MATRIX_COL_PINS {F1, F4, F5, F6}
-#define DIODE_DIRECTION COL2ROW
-
-
-
-#define BACKLIGHT_LEVELS 24
-#define BACKLIGHT_BREATHING
-#define BREATHING_PERIOD 6
-
-
-
-
-//Encoder stuff
-#define ENCODERS_PAD_A { F7 }
-// #define ENCODERS_PAD_B { B13 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
-#define ENCODER_RESOLUTION 2
-
-
-#define BACKLIGHT_PIN C7
-//#define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 10
-
+#define LAYOUT LAYOUT_ortho_5x4
