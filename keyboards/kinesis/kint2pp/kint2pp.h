@@ -1,5 +1,4 @@
-#ifndef KINESIS_KINT2PP_H
-#define KINESIS_KINT2PP_H
+#pragma once
 
 #include "quantum.h"
 
@@ -98,7 +97,3 @@ PC4 kCx Row: ESC F3  F6  F9  F12 PAU --
 PC5 kDx Row: F1  F4  F7  F10 PRT PRG --
 PC6 kEx Row: F2  F5  F8  F11 SLK KEY --
 */
-
-
-
-#endif

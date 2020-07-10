@@ -1,5 +1,4 @@
-#ifndef KINT2PP_CONFIG_H
-#define KINT2PP_CONFIG_H
+#pragma once
 
 #include "../config.h"
 
@@ -68,5 +67,3 @@
 */
 
 #define IGNORE_MOD_TAP_INTERRUPT
-
-#endif
