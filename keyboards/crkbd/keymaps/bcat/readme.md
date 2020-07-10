@@ -39,7 +39,7 @@ layer-switch keys to correct mistakes.
 * There are two Shift keys, although I generally use Left Shift. (I've
 considered replacing Right Shift with another key, but haven't chosen one.)
 
-* Lower and Raise layer-switch keys are in the resting postion of my left and
+* Lower and Raise layer-switch keys are in the resting position of my left and
 right thumbs, respectively.
 
 * Space and Enter are on the big thumb keys so they're easy to press.
@@ -75,7 +75,7 @@ And yup, the shifted versions are above the unshifted versions.
 left half.
 
 * The home row on the left half contains handy shortcuts for window movement,
-and browser naviation, and screen lock.
+and browser navigation, and screen lock.
 
 * Lower+Esc is bound to Ctrl+Space because the Ctrl and Space keys are both on
 the left thumb, so this key combination (which I use for tmux prefix and editor
@@ -83,7 +83,7 @@ autocomplete) is hard to press in its natural location.
 
 * Lower+Tab is bound to a custom Alt+Tab macro that keeps the Alt modifier held
 as long as the Lower key is held down. This means that window switching is on
-Lower+Tab immediately next to brwoser tab switching (Ctrl+Tab).
+Lower+Tab immediately next to browser tab switching (Ctrl+Tab).
 
 ## Raise layer
 
