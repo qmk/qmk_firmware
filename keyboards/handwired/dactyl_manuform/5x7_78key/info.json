@@ -1,11 +1,11 @@
 {
-    "keyboard_name": "Dactyl Manuform 5x7",
+    "keyboard_name": "Dactyl Manuform 5x7 (78 keys)",
     "url": "",
     "maintainer": "qmk",
     "width": 17,
-    "height": 8,
+    "height": 9,
     "layouts": {
-        "LAYOUT_5x7": {
+        "LAYOUT_5x7_78KEY": {
             "layout": [
                 {"label":"L11", "x":0, "y":0},
                 {"label":"L12", "x":1, "y":0},
@@ -34,18 +34,19 @@
                 {"label":"L44", "x":3, "y":3},
                 {"label":"L45", "x":4, "y":3},
                 {"label":"L46", "x":5, "y":3},
-                {"label":"L47", "x":5, "y":3},
+                {"label":"L47", "x":6, "y":3},
                 {"label":"L51", "x":0, "y":4},
                 {"label":"L52", "x":1, "y":4},
                 {"label":"L53", "x":2, "y":4},
                 {"label":"L54", "x":3, "y":4},
                 {"label":"L55", "x":4, "y":4},
-                {"label":"L56", "x":5, "y":5},
-                {"label":"L57", "x":5, "y":5},
-                {"label":"L65", "x":6, "y":6},
-                {"label":"L66", "x":7, "y":6},
-                {"label":"L63", "x":6, "y":7},
-                {"label":"L64", "x":7, "y":7},
+                {"label":"L56", "x":6, "y":5, "w":2},
+                {"label":"L57", "x":6, "y":6, "w":2},
+                {"label":"L64", "x":6, "y":7},
+                {"label":"L65", "x":6, "y":8},
+                {"label":"L66", "x":7, "y":8},
+                {"label":"L67", "x":7, "y":7},
+
                 {"label":"R11", "x":10, "y":0},
                 {"label":"R12", "x":11, "y":0},
                 {"label":"R13", "x":12, "y":0},
@@ -79,12 +80,12 @@
                 {"label":"R55", "x":14, "y":4},
                 {"label":"R56", "x":15, "y":4},
                 {"label":"R57", "x":16, "y":4},
-                {"label":"R51", "x":11, "y":5},
-                {"label":"R52", "x":12, "y":5},
-                {"label":"R62", "x":9, "y":6},
-                {"label":"R63", "x":10, "y":6},
-                {"label":"R64", "x":9, "y":7},
-                {"label":"R65", "x":10, "y":7}
+                {"label":"R51", "x":9,  "y":5, "w":2},
+                {"label":"R52", "x":9,  "y":6, "w":2},
+                {"label":"R61", "x":9,  "y":7},
+                {"label":"R62", "x":9,  "y":8},
+                {"label":"R63", "x":10, "y":8},
+                {"label":"R64", "x":10, "y":7}
             ]
         }
     }
