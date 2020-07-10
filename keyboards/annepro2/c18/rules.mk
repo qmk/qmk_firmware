@@ -1,7 +1,8 @@
 # Anne Pro 2
 SRC = \
 	matrix.c \
-	hardfault_handler.c
+	hardfault_handler.c \
+	annepro2_ble.c
 
 LAYOUTS +=
 

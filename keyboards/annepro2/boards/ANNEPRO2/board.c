@@ -1,7 +1,5 @@
 /*
-    ChibiOS - Copyright (C) 2006..2016 Giovanni Di Sirio
-                        (C) 2018 Charlie Waters
-                        (C) 2020 Yaotian Feng, Codetector<codetector@codetector.cn>
+    Copyright (C) 2020 Yaotian Feng, Codetector<codetector@codetector.cn>
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -62,6 +60,8 @@
 #define AF_BITS(PORT, N) (\
     PAFIO(PORT, N, LINE_UART_RX,  AFIO_USART)| \
     PAFIO(PORT, N, LINE_UART_TX,  AFIO_USART)| \
+    PAFIO(PORT, N, LINE_BT_UART_TX,  AFIO_USART)| \
+    PAFIO(PORT, N, LINE_BT_UART_RX,  AFIO_USART)| \
     PAFIO(PORT, N, LINE_ROW1,     AFIO_GPIO) | \
     PAFIO(PORT, N, LINE_ROW2,     AFIO_GPIO) | \
     PAFIO(PORT, N, LINE_ROW3,     AFIO_GPIO) | \
