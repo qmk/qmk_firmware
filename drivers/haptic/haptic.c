@@ -131,7 +131,7 @@ void haptic_dwell_increase(void) {
 void haptic_dwell_decrease(void) {
     uint8_t dwell = haptic_config.dwell - 1;
 #ifdef SOLENOID_ENABLE
-    if (haptic_config.dwell < SOLENOID_MIN_DWELL) {
+    if (haptic_config.dwell <= SOLENOID_MIN_DWELL) {
         dwell = SOLENOID_MAX_DWELL;
     }
     solenoid_set_dwell(dwell);
