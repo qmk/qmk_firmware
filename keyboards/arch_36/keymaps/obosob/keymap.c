@@ -150,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                             |________|        |        |  |        |  ****  |________|         
 //                                      |________|        |  |        |________|
 //                                               |________|  |________|        
-    [_NAV] = LAYOUT(                                      
+    [_NAV] = LAYOUT_split_3x5_3(                                      
       OS_GUI,  OS_ALT,  OS_CTL,  OS_SFT,  ___x___,                    KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_PSCR,
       KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, ___x___,                    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_INS,
       ___x___, ___x___, ___x___, ___x___, ___x___,                    ___x___, AS_TAB,  A_TAB,   ___x___, ___x___,

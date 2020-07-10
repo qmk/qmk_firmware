@@ -106,6 +106,7 @@ uint16_t rgb_edit_timer = 0;
 uint16_t last_rgb_char = 0;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch(keycode) {
     case RGB_TOG:
     case RGB_MOD:
     case RGB_HUD:
