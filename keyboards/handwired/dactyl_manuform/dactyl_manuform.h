@@ -13,7 +13,7 @@
 #elif KEYBOARD_handwired_dactyl_manuform_dmote_62key
     #include "62key.h"
 #elif KEYBOARD_handwired_dactyl_manuform_5x7_78key
-    #include "5x7.h"
+    #include "78key.h"
 #endif
 
 #include "quantum.h"
