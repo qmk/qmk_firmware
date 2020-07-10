@@ -12,7 +12,7 @@
     #include "6x6.h"
 #elif KEYBOARD_handwired_dactyl_manuform_dmote_62key
     #include "62key.h"
-#elif KEYBOARD_handwired_dactyl_manuform_5x7_78key
+#elif KEYBOARD_handwired_dactyl_manuform_78key
     #include "78key.h"
 #endif
 
