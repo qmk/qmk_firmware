@@ -1,5 +1,7 @@
 # [n]87
 
+![n87](https://i.imgur.com/EAIGP1r.jpg)
+
 A TKL pcb that supports standard, tsangan and symmetrical standard bottom row
 
 * Keyboard Maintainer: [Neil Brian Ramirez](https://github.com/NightlyBoards)
