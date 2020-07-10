@@ -11,12 +11,11 @@ MCU = atmega32u4
 #   ATmega328P   USBasp
 BOOTLOADER = atmel-dfu
 
-LAYOUTS = split_3x5_3
-
-SPLIT_KEYBOARD = yes       # Split common
-
 # Build Options
 #   change yes to no to disable
 #
 OLED_DRIVER_ENABLE = yes    # Enables the use of OLED displays
 RGBLIGHT_ENABLE = yes      # Enable keyboard RGB underglow
+SPLIT_KEYBOARD = yes       # Split common
+
+LAYOUTS = split_3x5_3

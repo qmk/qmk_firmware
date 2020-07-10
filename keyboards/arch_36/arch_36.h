@@ -1,4 +1,4 @@
-/* Copyright 2019 Thomas Baart <thomas@splitkb.com>
+/* Copyright 2020 Obosob <obosob@riseup.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
-#define LAYOUT( \
+#define LAYOUT_split_3x5_3( \
     L00, L01, L02, L03, L04,    R05, R06, R07, R08, R09, \
     L10, L11, L12, L13, L14,    R15, R16, R17, R18, R19, \
     L20, L21, L22, L23, L24,    R25, R26, R27, R28, R29, \
@@ -41,5 +41,3 @@
     { R29,   R28,   R27,   R26,   R25 }, \
     { KC_NO, KC_NO, R37,   R36,   R35 }, \
 }
-
-#define LAYOUT_split_3x5_3 LAYOUT

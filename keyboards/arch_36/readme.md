@@ -2,8 +2,8 @@
 
 An ergonomic 30% split keyboard
 
-Keyboard Maintainer: [obosob](https://github.com/obosob)  
-Hardware Supported: Pro Micro 5V/16MHz and compatible.  
+* Keyboard Maintainer: [obosob](https://github.com/obosob)
+* Hardware Supported: Pro Micro 5V/16MHz and compatible.
 
 Make example for this keyboard (after setting up your build environment):
 
