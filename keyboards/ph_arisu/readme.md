@@ -1,5 +1,7 @@
 # PH ARISU
 
+![PH_ARISU](<an image of the board or PCB>)
+
 PCB is base on https://github.com/FateNozomi/arisu-pcb
 and used for a local groupbuy in the Philippines.
 
