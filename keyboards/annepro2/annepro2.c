@@ -1,18 +1,21 @@
 #include "ch.h"
 #include "hal.h"
 #include "annepro2.h"
+#include "annepro2_ble.h"
 #include "qmk_ap2_led.h"
 
-/**
- * @brief   Driver default configuration.
- */
 static const SerialConfig ledUartConfig = {
   .speed = 115200,
 };
 
-static uint8_t ledMcuWakeup[11] = {
-0x7b, 0x10, 0x43, 0x10, 0x03, 0, 0, 0x7d, 0x02, 0x01, 0x02
+static const SerialConfig bleUartConfig = {
+  .speed = 115200,
 };
+
+static uint8_t ledMcuWakeup[11] = {
+    0x7b, 0x10, 0x43, 0x10, 0x03, 0x00, 0x00, 0x7d, 0x02, 0x01, 0x02
+};
+
 
 uint16_t annepro2LedMatrix[MATRIX_ROWS * MATRIX_COLS] = {
   0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -22,11 +25,20 @@ uint16_t annepro2LedMatrix[MATRIX_ROWS * MATRIX_COLS] = {
   0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };
 
-void OVERRIDE matrix_init_kb(void) {
-    // Start uart
+void OVERRIDE keyboard_pre_init_kb(void) {
+}
+
+void OVERRIDE keyboard_post_init_kb(void) {
+    // Start LED UART
     sdStart(&SD0, &ledUartConfig);
     sdWrite(&SD0, ledMcuWakeup, 11);
 
+    // Start BLE UART
+    sdStart(&SD1, &bleUartConfig);
+    annepro2_ble_startup();
+}
+
+void OVERRIDE matrix_init_kb(void) {
     matrix_init_user();
 }
 
@@ -61,6 +73,45 @@ bool OVERRIDE led_update_kb(led_t status) {
     return led_update_user(status);
 }
 
+/*!
+ * @returns false   processing for this keycode has been completed.
+ */
 bool OVERRIDE process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        switch (keycode) {
+            case KC_AP2_BT_SCAN1:
+                annepro2_ble_broadcast(0);
+                return false;
+            case KC_AP2_BT_SCAN2:
+                annepro2_ble_broadcast(1);
+                return false;
+            case KC_AP2_BT_SCAN3:
+                annepro2_ble_broadcast(2);
+                return false;
+            case KC_AP2_BT_SCAN4:
+                annepro2_ble_broadcast(3);
+                return false;
+            case KC_AP2_BT_CONN1:
+                annepro2_ble_connect(0);
+                return false;
+            case KC_AP2_BT_CONN2:
+                annepro2_ble_connect(1);
+                return false;
+            case KC_AP2_BT_CONN3:
+                annepro2_ble_connect(2);
+                return false;
+            case KC_AP2_BT_CONN4:
+                annepro2_ble_connect(3);
+                return false;
+            case KC_AP2_USB:
+                annepro2_ble_disconnect();
+                return false;
+            case KC_AP2_BT_UNPAIR:
+                annepro2_ble_unpair();
+                return false;
+            default:
+                break;
+        }
+    }
     return process_record_user(keycode, record);
 }

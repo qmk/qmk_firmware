@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Charlie Waters
+ * Copyright (c) 2018 Yaotian Feng
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,6 +22,20 @@
 #define OVERRIDE __attribute__ ((noinline))
 
 extern uint16_t annepro2LedMatrix[MATRIX_ROWS * MATRIX_COLS];
+
+enum AP2KeyCodes {
+    KC_AP2_BT_SCAN1 = SAFE_RANGE,
+    KC_AP2_BT_SCAN2,
+    KC_AP2_BT_SCAN3,
+    KC_AP2_BT_SCAN4,
+    KC_AP2_BT_CONN1,
+    KC_AP2_BT_CONN2,
+    KC_AP2_BT_CONN3,
+    KC_AP2_BT_CONN4,
+    KC_AP2_BT_UNPAIR,
+    KC_AP2_USB,
+    AP2_SAFE_RANGE,
+};
 
 void annepro2LedDisable(void);
 void annepro2LedEnable(void);

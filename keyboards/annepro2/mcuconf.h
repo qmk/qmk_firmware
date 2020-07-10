@@ -43,21 +43,18 @@
 #define HT32_AHB_PRESCALER      1                   // 48 MHz -> 48 MHz
 #define HT32_USART_PRESCALER    1                   // 48 MHz
 #define HT32_USB_PRESCALER      1                   // 48 MHz -> 48 MHz
-// SysTick uses processor clock at 72MHz
+// SysTick uses processor clock at 48MHz
 #define HT32_ST_USE_HCLK        TRUE
 
 /*
  * Peripheral driver settings
  */
 
-// #define HT32_GPT_USE_BFTM0                  TRUE
-// #define HT32_GPT_BFTM0_IRQ_PRIORITY         4
-
-//#define HT32_SPI_USE_SPI1                   TRUE
-//#define HT32_SPI1_IRQ_PRIORITY              6
-
 #define HT32_SERIAL_USE_USART0              TRUE
 #define HT32_USART0_IRQ_PRIORITY            6
+
+#define HT32_SERIAL_USE_USART1              TRUE
+#define HT32_USART1_IRQ_PRIORITY            7
 
 /*
  * USB driver settings

@@ -7,7 +7,7 @@ enum anne_pro_layers {
   _FN2_LAYER,
 };
 enum custom_keys {
-    KC_AP_LED_ON = SAFE_RANGE,
+    KC_AP_LED_ON = AP2_SAFE_RANGE,
     KC_AP_LED_OFF,
 };
 /*

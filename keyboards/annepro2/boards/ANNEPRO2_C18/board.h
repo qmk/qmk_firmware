@@ -36,6 +36,9 @@
 #define LINE_UART_TX                PAL_LINE(IOPORTB,  0)
 #define LINE_UART_RX                PAL_LINE(IOPORTB,  1)
 
+#define LINE_BT_UART_TX             PAL_LINE(IOPORTA,  4) // Master TX, BLE RX
+#define LINE_BT_UART_RX             PAL_LINE(IOPORTA,  5) // Master RX, BLE TX
+
 // outputs (rows are pulled low)
 #define LINE_ROW1                   PAL_LINE(IOPORTB,  5)
 #define LINE_ROW2                   PAL_LINE(IOPORTB,  4)
