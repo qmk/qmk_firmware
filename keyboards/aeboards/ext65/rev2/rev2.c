@@ -1,4 +1,4 @@
-#include "ext65rev2.h"
+#include "rev2.h"
 
 void board_init(void) {
   SYSCFG->CFGR1 |= SYSCFG_CFGR1_I2C1_DMA_RMP;
