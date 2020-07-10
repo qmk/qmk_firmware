@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                       ________| Shift  | | Shift  |________
 //                                               |________| |________|        
 
-    [_QWERTY] = LAYOUT(
+    [_QWERTY] = LAYOUT_split_3x5_3(
       KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
       KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,
       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                      KC_N,    KC_M,    SYM,     MISC,    KC_SLSH,
@@ -106,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                       ________| Shift  | | Shift  |________
 //                                               |________| |________|        
 
-    [_COLMAK] = LAYOUT(
+    [_COLMAK] = LAYOUT_split_3x5_3(
       KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                      KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,
       KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                      KC_K,    KC_N,    KC_E,    KC_I,    KC_O,
       KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                      KC_M,    KC_H,    SYM,     MISC,    KC_SLSH,
@@ -128,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                             |________|  ****  |        | |        |        |________|         
 //                                      |________|        | |        |________|
 //                                               |________| |________|
-    [_NUM] = LAYOUT(
+    [_NUM] = LAYOUT_split_3x5_3(
      KC_F1,   KC_F2,   KC_F3,   KC_F4,   ___x___,                    KC_PLUS, KC_7,    KC_8,    KC_9,    KC_SLSH,
      KC_F5,   KC_F6,   KC_F7,   KC_F8,   ___x___,                    KC_COMM, KC_4,    KC_5,    KC_6,    KC_DOT,
      KC_F9,   KC_F10,  KC_F11,  KC_F12,  ___x___,                    KC_MINS, KC_1,    KC_2,    KC_3,    KC_ASTR,
@@ -173,7 +173,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                      |________|        |  |        |________|
 //                                               |________|  |________|                             
 //                                                            
-    [_SYM] = LAYOUT(
+    [_SYM] = LAYOUT_split_3x5_3(
          KC_LT,   KC_GT,   KC_LCBR, KC_RCBR, KC_GRV,                   ___x___, ___x___, ___x___, ___x___, KC_NUPI,
          KC_ASTR, KC_HASH, KC_LPRN, KC_RPRN, KC_CIRC,                  KC_UNDS, KC_MINS, ___x___, KC_AMPR, KC_PIPE,
          KC_NUBS, KC_DLR,  KC_LBRC, KC_RBRC, KC_DQUO,                  KC_EQL,  KC_PLUS, _______, KC_PERC, KC_NUHS,
@@ -196,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                      |________|        |  |        |________|
 //                                               |________|  |________|
 //
-    [_MISC] = LAYOUT(
+    [_MISC] = LAYOUT_split_3x5_3(
         LTGT,    LTGTC,   CBR,     CBR,     GRV,                        ___x___, ___x___, ___x___, ___x___, ___x___,
         ___x___, ___x___, PRN,     PRN,     ___x___,                    ___x___, ___x___, ___x___, ___x___, ___x___,
         ___x___, ___x___, BRC,     BRC,     ___x___,                    ___x___, ___x___, ___x___, _______, ___x___,
@@ -218,7 +218,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                             |________|  ****  |        |  |        |  ****  |________|         
 //                                      |________|        |  |        |________|
 //                                               |________|  |________|
-    [_ADJUST] = LAYOUT(
+    [_ADJUST] = LAYOUT_split_3x5_3(
         ___x___, WOKE,    EEP_RST, RESET,   ___x___,                     ___x___, ___x___, ___x___, ___x___, ___x___, 
         ___x___, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,                     ___x___, QWERTY,  COLEMAK, ___x___, ___x___, 
         ___x___, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD,                     ___x___, ___x___, ___x___, ___x___, ___x___, 
@@ -401,7 +401,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _NAV, _NUM, _ADJUST);
     return state;
 }
@@ -507,11 +507,11 @@ void render_layer_state(void) {
     }
 }
 
-void render_keylock_status(uint8_t led_usb_state) {
+void render_keylock_status(led_t led_state) {
     oled_write_P(PSTR("Lock:   "), false);
-    oled_write_P(PSTR("123"), led_usb_state & (1 << USB_LED_NUM_LOCK));
+    oled_write_P(PSTR("123"), led_state.num_lock);
     oled_write_P(PSTR(" "), false);
-    oled_write_ln_P(led_usb_state & (1 << USB_LED_CAPS_LOCK)?PSTR("ABC"):PSTR("abc"), led_usb_state & (1 << USB_LED_CAPS_LOCK));
+    oled_write_ln_P(led_state.caps_lock?PSTR("ABC"):PSTR("abc"), led_state.caps_lock);
 }
 
 void render_mod_status(uint8_t modifiers) {
@@ -529,7 +529,7 @@ static void render_status(void) {
     // Host Keyboard Layer Status
     render_default_layer_state();
     render_layer_state();
-    render_keylock_status(host_keyboard_leds());
+    render_keylock_status(host_keyboard_led_state());
     render_mod_status(get_mods() | get_oneshot_mods());
 #ifdef RGBLIGHT_ENABLE
     render_rgb_state();
