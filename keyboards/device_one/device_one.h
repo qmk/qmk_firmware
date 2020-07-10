@@ -1,5 +1,4 @@
-#ifndef DEVICE_ONE_H
-#define DEVICE_ONE_H
+#pragma once
 
 #include "quantum.h"
 
@@ -58,4 +57,3 @@
     { k30, KC_NO, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, KC_NO, k3c, KC_NO }, \
     { k40, k41, k42, KC_NO, KC_NO, KC_NO, k47, KC_NO, KC_NO, k4a, k4b, k4c, KC_NO, KC_NO, k4e, }, \
 }
-#endif

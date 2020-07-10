@@ -3,12 +3,12 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xADD0
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    akegata denki 
-#define PRODUCT        	device one mechanical keyboard 
-#define DESCRIPTION     "60% Mechanical Keyboard"
+#define VENDOR_ID 0xFEED
+#define PRODUCT_ID 0xADD0
+#define DEVICE_VER 0x0001
+#define MANUFACTURER akegata denki 
+#define PRODUCT device one mechanical keyboard 
+#define DESCRIPTION "60% Mechanical Keyboard"
 
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
