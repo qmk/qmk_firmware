@@ -21,13 +21,9 @@
 #endif
 
 sequencer_config_t sequencer_config = {
-    false,    // enabled
-    {false},  // steps
-#ifdef MIDI_ENABLE
-    {MI_C_1, MI_D_1, MI_Fs_1, MI_As_1, MI_Cs_2, MI_Ds_2, MI_Ds_1, MI_A},
-#else
-    {0},
-#endif
+    false,     // enabled
+    {false},   // steps
+    {0},       // track notes
     60,        // tempo
     SQ_RES_4,  // resolution
 };
@@ -71,6 +67,12 @@ void sequencer_toggle(void) {
         sequencer_off();
     } else {
         sequencer_on();
+    }
+}
+
+void sequencer_set_track_notes(const uint16_t track_notes[SEQUENCER_TRACKS]) {
+    for (uint8_t i = 0; i < SEQUENCER_TRACKS; i++) {
+        sequencer_config.track_notes[i] = track_notes[i];
     }
 }
 

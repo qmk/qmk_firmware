@@ -26,7 +26,9 @@
 #endif
 
 // Maximum number of tracks: 8
-#define SEQUENCER_TRACKS 8
+#ifndef SEQUENCER_TRACKS
+#    define SEQUENCER_TRACKS 8
+#endif
 
 #ifndef SEQUENCER_TRACK_THROTTLE
 #    define SEQUENCER_TRACK_THROTTLE 3
@@ -56,6 +58,8 @@ bool is_sequencer_on(void);
 void sequencer_toggle(void);
 void sequencer_on(void);
 void sequencer_off(void);
+
+void sequencer_set_track_notes(const uint16_t track_notes[SEQUENCER_TRACKS]);
 
 bool is_sequencer_track_active(uint8_t track);
 void sequencer_set_track_activation(uint8_t track, bool value);
