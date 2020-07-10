@@ -40,11 +40,10 @@ void layer_state_set_rgb(layer_state_t state) {
 #endif
 }
 
-
 layer_state_t layer_state_set_user (layer_state_t state) {
   state = update_tri_layer_state(state, _SYMBOL, _NAVNUM, _FUNCT);
   state = update_tri_layer_state(state, _OVER_WIN, _NAVNUM, _NAVNUM_WIN);
-  current_state = biton32(state);
+  current_state = get_highest_layer(state);
   layer_state_set_rgb(state);
   return layer_state_set_keymap (state);
 }
