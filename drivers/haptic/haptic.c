@@ -167,6 +167,10 @@ void haptic_reset(void) {
     haptic_config.dwell = dwell;
     haptic_config.buzz  = SOLENOID_DEFAULT_BUZZ;
     solenoid_set_dwell(dwell);
+#else
+    // This is to trigger haptic_reset again, if solenoid is enabled in the future.
+    haptic_config.dwell = 0;
+    haptic_config.buzz  = 0;
 #endif
     eeconfig_update_haptic(haptic_config.raw);
     xprintf("haptic_config.feedback = %u\n", haptic_config.feedback);
