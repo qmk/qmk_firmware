@@ -71,6 +71,11 @@ void eeconfig_init_quantum(void) {
 
 #if defined(HAPTIC_ENABLE)
     haptic_reset();
+#else
+    // this is used in case haptic is disabled, but we still want sane defaults
+    // in the haptic configuration eeprom. All zero will trigger a haptic_reset
+    // when a haptic-enabled firmware is loaded onto the keyboard.
+    eeprom_update_dword(EECONFIG_HAPTIC, 0);
 #endif
 
     eeconfig_init_kb();

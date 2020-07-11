@@ -36,6 +36,17 @@ void haptic_init(void) {
 #ifdef SOLENOID_ENABLE
     solenoid_set_dwell(haptic_config.dwell);
 #endif
+    if ((haptic_config.raw == 0)
+#ifdef SOLENOID_ENABLE
+        || (haptic_config.dwell == 0)
+#endif
+       ) {
+        // this will be called, if the eeprom is not corrupt,
+        // but the previous firmware didn't have haptic enabled,
+        // or the previous firmware didn't have solenoid enabled,
+        // and the current one has solenoid enabled.
+        haptic_reset();
+    }
 #ifdef SOLENOID_ENABLE
     solenoid_setup();
     dprintf("Solenoid driver initialized\n");
