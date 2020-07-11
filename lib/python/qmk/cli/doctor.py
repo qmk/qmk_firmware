@@ -150,12 +150,12 @@ def check_udev_rules():
     udev_dir = Path("/etc/udev/rules.d/")
     desired_rules = {
         # Atmel DFU
-        _udev_rule("03EB", "2FEF"), # ATmega16U2
-        _udev_rule("03EB", "2FF0"), # ATmega32U2
-        _udev_rule("03EB", "2FF3"), # ATmega16U4
-        _udev_rule("03EB", "2FF4"), # ATmega32U4
-        _udev_rule("03EB", "2FF9"), # AT90USB64
-        _udev_rule("03EB", "2FFB"), # AT90USB128
+        _udev_rule("03EB", "2FEF"),  # ATmega16U2
+        _udev_rule("03EB", "2FF0"),  # ATmega32U2
+        _udev_rule("03EB", "2FF3"),  # ATmega16U4
+        _udev_rule("03EB", "2FF4"),  # ATmega32U4
+        _udev_rule("03EB", "2FF9"),  # AT90USB64
+        _udev_rule("03EB", "2FFB"),  # AT90USB128
         # Kiibohd bootloader
         _udev_rule("1C11", "B007"),
         # STM32duino
@@ -169,9 +169,9 @@ def check_udev_rules():
         # Atmel SAM-Ba (Massdrop)
         _udev_rule("03EB", "6124"),
         # Caterina (Pro Micro)
-        _udev_rule("1B4F", None, 'ENV{ID_MM_DEVICE_IGNORE}="1"'), # Sparkfun
-        _udev_rule("2341", None, 'ENV{ID_MM_DEVICE_IGNORE}="1"'), # Arduino SA
-        _udev_rule("2A03", None, 'ENV{ID_MM_DEVICE_IGNORE}="1"')  # dog hunter AG
+        _udev_rule("1B4F", None, 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Sparkfun
+        _udev_rule("2341", None, 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Arduino SA
+        _udev_rule("2A03", None, 'ENV{ID_MM_DEVICE_IGNORE}="1"')   # dog hunter AG
     }
 
     # These rules are no longer recommended, only use them to check for their presence.
@@ -201,8 +201,8 @@ def check_udev_rules():
                 ok = False
                 cli.log.warn("{bg_yellow}Detected ModemManager without the necessary udev rules. Please either disable it or set the appropriate udev rules if you are using a Pro Micro.")
             if not rules.issubset(current_rules):
-                for bootloader, rules in deprecated_rules.items():
-                    if deprecated_rule and deprecated_rule.issubset(current_rules):
+                for bootloader, rule in deprecated_rules.items():
+                    if rule and rule.issubset(current_rules):
                         cli.log.warn("{bg_yellow}Found old, deprecated udev rules for '%s' boards. The new rules on https://docs.qmk.fm/#/faq_build?id=linux-udev-rules offer better security with the same functionality.", bootloader)
                     else:
                         cli.log.warn("{bg_yellow}Missing udev rules for '%s' boards. You'll need to use `sudo` in order to flash them.", bootloader)
