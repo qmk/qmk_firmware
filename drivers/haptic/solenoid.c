@@ -65,7 +65,7 @@ void solenoid_check(void) {
 
     // Check whether to buzz the solenoid on and off
     if (haptic_config.buzz) {
-        if (elapsed / SOLENOID_MIN_DWELL % 2 == 0) {
+        if ((elapsed % (SOLENOID_BUZZ_ACTUATED + SOLENOID_BUZZ_NONACTUATED)) < SOLENOID_BUZZ_ACTUATED) {
             if (!solenoid_buzzing) {
                 solenoid_buzzing = true;
                 writePinHigh(SOLENOID_PIN);

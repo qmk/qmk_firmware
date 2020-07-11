@@ -42,13 +42,15 @@ First you will need a build a circuit to drive the solenoid through a mosfet as 
 [Wiring diagram provided by Adafruit](https://playground.arduino.cc/uploads/Learning/solenoid_driver.pdf)
 
 
-| Settings                 | Default       | Description                                           |
-|--------------------------|---------------|-------------------------------------------------------|
-|`SOLENOID_PIN`            | *Not defined* |Configures the pin that the Solenoid is connected to.  |
-|`SOLENOID_DEFAULT_DWELL`  | `12` ms       |Configures the default dwell time for the solenoid.    |
-|`SOLENOID_MIN_DWELL`      | `4` ms        |Sets the lower limit for the dwell.                    |
-|`SOLENOID_MAX_DWELL`      | `100` ms      |Sets the upper limit for the dwell.                    |
-|`SOLENOID_DEFAULT_BUZZ`   | 0 (disabled)  |On HPT_RST buzz is set "on" if this is "1"             |
+| Settings                   | Default              | Description                                           |
+|----------------------------|----------------------|-------------------------------------------------------|
+|`SOLENOID_PIN`              | *Not defined*        |Configures the pin that the Solenoid is connected to.  |
+|`SOLENOID_DEFAULT_DWELL`    | `12` ms              |Configures the default dwell time for the solenoid.    |
+|`SOLENOID_MIN_DWELL`        | `4` ms               |Sets the lower limit for the dwell.                    |
+|`SOLENOID_MAX_DWELL`        | `100` ms             |Sets the upper limit for the dwell.                    |
+|`SOLENOID_DEFAULT_BUZZ`     | `0` (disabled)       |On HPT_RST buzz is set "on" if this is "1"             |
+|`SOLENOID_BUZZ_ACTUATED`    | `SOLENOID_MIN_DWELL` |Actuated-time when the solenoid is in buzz mode        |
+|`SOLENOID_BUZZ_NONACTUATED` | `SOLENOID_MIN_DWELL` |Non-Actuated-time when the solenoid is in buzz mode    |
 
 ?> Dwell time is how long the "plunger" stays activated.  The dwell time changes how the solenoid sounds.
 
