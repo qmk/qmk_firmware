@@ -59,7 +59,7 @@
 #define US_O    KC_O    // O
 #define US_P    KC_P    // P
 #define US_LBRC KC_LBRC // [
-#define US_RBRC KC_LBRC // ]
+#define US_RBRC KC_RBRC // ]
 #define US_BSLS KC_BSLS // (backslash)
 // Row 3
 #define US_A    KC_A    // A
