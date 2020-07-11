@@ -29,6 +29,10 @@
 #    define SOLENOID_MIN_DWELL 4
 #endif
 
+#ifndef SOLENOID_DWELL_STEP_SIZE
+#    define SOLENOID_DWELL_STEP_SIZE 1
+#endif
+
 #ifndef SOLENOID_DEFAULT_BUZZ
 #    define SOLENOID_DEFAULT_BUZZ 0
 #endif

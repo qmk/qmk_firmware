@@ -48,6 +48,7 @@ First you will need a build a circuit to drive the solenoid through a mosfet as 
 |`SOLENOID_DEFAULT_DWELL`    | `12` ms              |Configures the default dwell time for the solenoid.    |
 |`SOLENOID_MIN_DWELL`        | `4` ms               |Sets the lower limit for the dwell.                    |
 |`SOLENOID_MAX_DWELL`        | `100` ms             |Sets the upper limit for the dwell.                    |
+|`SOLENOID_DWELL_STEP_SIZE`  | `1` ms               |The step size to use when `HPT_DWL*` keycodes are sent |
 |`SOLENOID_DEFAULT_BUZZ`     | `0` (disabled)       |On HPT_RST buzz is set "on" if this is "1"             |
 |`SOLENOID_BUZZ_ACTUATED`    | `SOLENOID_MIN_DWELL` |Actuated-time when the solenoid is in buzz mode        |
 |`SOLENOID_BUZZ_NONACTUATED` | `SOLENOID_MIN_DWELL` |Non-Actuated-time when the solenoid is in buzz mode    |
