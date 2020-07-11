@@ -55,6 +55,8 @@ First you will need a build a circuit to drive the solenoid through a mosfet as 
 
 * If solenoid buzz is off, then dwell time is how long the "plunger" stays activated. The dwell time changes how the solenoid sounds.
 * If solenoid buzz is on, then dwell time sets the length of the buzz, while `SOLENOID_BUZZ_ACTUATED` and `SOLENOID_BUZZ_NONACTUATED` set the (non-)actuation times withing the buzz period.
+* With the current implementation, for any of the above time settings, the precision of these settings may be affected by how fast the keyboard is able to scan the matrix.
+  Therefore, if the keyboards scanning routine is slow, it may be preferable to set `SOLENOID_DWELL_STEP_SIZE` to a value slightly smaller than the time it takes to scan the keyboard.
 
 Beware that some pins may be powered during bootloader (ie. A13 on the STM32F303 chip) and will result in the solenoid kept in the on state through the whole flashing process. This may overheat and damage the solenoid. If you find that the pin the solenoid is connected to is triggering the solenoid during bootloader/DFU, select another pin.
 
