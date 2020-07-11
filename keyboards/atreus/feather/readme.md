@@ -7,7 +7,7 @@ working on fixing turning on auto by default, but have still not succeeded.
 To build it and flash it, do:
 
 ```
-make atreus/feather:clash:avrdude
+make atreus/feather:clash:flash
 ```
 
 ## Wiring it up
