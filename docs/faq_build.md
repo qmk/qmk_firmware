@@ -32,7 +32,7 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="03EB", ATTRS{idProduct}=="2FF0", TAG+="uacc
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="03EB", ATTRS{idProduct}=="2FF3", TAG+="uaccess", RUN{builtin}+="uaccess"
 # ATmega32U4
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="03EB", ATTRS{idProduct}=="2FF4", TAG+="uaccess", RUN{builtin}+="uaccess"
-# AT90USB128
+# AT90USB64
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="03EB", ATTRS{idProduct}=="2FF9", TAG+="uaccess", RUN{builtin}+="uaccess"
 # AT90USB128
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="03EB", ATTRS{idProduct}=="2FFB", TAG+="uaccess", RUN{builtin}+="uaccess"
@@ -54,7 +54,7 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="16C0", ATTRS{idProduct}=="05DC", TAG+="uacc
 # ModemManager should ignore the following devices
 # Atmel SAM-BA (Massdrop)
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="03EB" ATTRS{idProduct}=="6124" TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
-# Caterina
+# Caterina (Pro Micro)
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="2A03" TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341" TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="1B4F" TAG+="uaccess", RUN{builtin}+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"

@@ -149,15 +149,30 @@ def check_udev_rules():
     ok = True
     udev_dir = Path("/etc/udev/rules.d/")
     desired_rules = {
-        'dfu': {_udev_rule("03eb", "2ff4"), _udev_rule("03eb", "2ffb"), _udev_rule("03eb", "2ff0")},
-        'input_club': {_udev_rule("1c11", "b007")},
-        'stm32': {_udev_rule("1eaf", "0003"), _udev_rule("0483", "df11")},
-        'bootloadhid': {_udev_rule("16c0", "05df")},
-        'caterina': {
-            _udev_rule("2341", "0036", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),
-            _udev_rule("1b4f", "9205", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),
-            _udev_rule("1b4f", "9203", 'ENV{ID_MM_DEVICE_IGNORE}="1"'),
-            _udev_rule("2a03", "0036", 'ENV{ID_MM_DEVICE_IGNORE}="1"')
+        'qmk': {
+            # Atmel DFU
+            _udev_rule("03EB", "2FEF"), # ATmega16U2
+            _udev_rule("03EB", "2FF0"), # ATmega32U2
+            _udev_rule("03EB", "2FF3"), # ATmega16U4
+            _udev_rule("03EB", "2FF4"), # ATmega32U4
+            _udev_rule("03EB", "2FF9"), # AT90USB64
+            _udev_rule("03EB", "2FFB"), # AT90USB128
+            # Kiibohd bootloader
+            _udev_rule("1C11", "B007"),
+            # STM32duino
+            _udev_rule("1EAF", "0003"),
+            # STM32 DFU
+            _udev_rule("0483", "DF11"),
+            # BootloadHID
+            _udev_rule("16C0", "05DF"),
+            # USBAspLoader
+            _udev_rule("16C0", "05DC"),
+            # Atmel SAM-Ba (Massdrop)
+            _udev_rule("03EB", "6124"),
+            # Caterina (Pro Micro)
+            _udev_rule("1B4F", None, 'ENV{ID_MM_DEVICE_IGNORE}="1"'), # Sparkfun
+            _udev_rule("2341", None, 'ENV{ID_MM_DEVICE_IGNORE}="1"'), # Arduino SA
+            _udev_rule("2A03", None, 'ENV{ID_MM_DEVICE_IGNORE}="1"')  # dog hunter AG
         }
     }
 
