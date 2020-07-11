@@ -36,13 +36,6 @@ void haptic_init(void) {
 #ifdef SOLENOID_ENABLE
     solenoid_set_dwell(haptic_config.dwell);
 #endif
-    if (haptic_config.mode < 1) {
-        haptic_config.mode = 1;
-    }
-    if (!haptic_config.mode) {
-        dprintf("No haptic config found in eeprom, setting default configs\n");
-        haptic_reset();
-    }
 #ifdef SOLENOID_ENABLE
     solenoid_setup();
     dprintf("Solenoid driver initialized\n");

@@ -13,6 +13,10 @@
 #    include "eeprom_driver.h"
 #endif
 
+#if defined(HAPTIC_ENABLE)
+#    include "haptic.h"
+#endif
+
 /** \brief eeconfig enable
  *
  * FIXME: needs doc
@@ -63,6 +67,10 @@ void eeconfig_init_quantum(void) {
 #elif defined INIT_EE_HANDS_RIGHT
 #    pragma message "Faking EE_HANDS for right hand"
     eeprom_update_byte(EECONFIG_HANDEDNESS, 0);
+#endif
+
+#if defined(HAPTIC_ENABLE)
+    haptic_reset();
 #endif
 
     eeconfig_init_kb();
