@@ -1,0 +1,3 @@
+BOOTLOADER = caterina
+
+UNICODEMAP_ENABLE = yes
