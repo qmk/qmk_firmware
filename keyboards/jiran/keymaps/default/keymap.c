@@ -1,9 +1,9 @@
 #include QMK_KEYBOARD_H
 
 // Defines names for use in layer keycodes and the keymap
-enum layer_names {
-    _BASE,
-    _LOWER
+enum jiran_layers {
+  _QWERTY,
+  _LOWER
 };
 
 #define KC_RBGI  RGUI_T(KC_RBRC)
