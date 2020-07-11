@@ -52,7 +52,8 @@ First you will need a build a circuit to drive the solenoid through a mosfet as 
 |`SOLENOID_BUZZ_ACTUATED`    | `SOLENOID_MIN_DWELL` |Actuated-time when the solenoid is in buzz mode        |
 |`SOLENOID_BUZZ_NONACTUATED` | `SOLENOID_MIN_DWELL` |Non-Actuated-time when the solenoid is in buzz mode    |
 
-?> Dwell time is how long the "plunger" stays activated.  The dwell time changes how the solenoid sounds.
+* If solenoid buzz is off, then dwell time is how long the "plunger" stays activated. The dwell time changes how the solenoid sounds.
+* If solenoid buzz is on, then dwell time sets the length of the buzz, while `SOLENOID_BUZZ_ACTUATED` and `SOLENOID_BUZZ_NONACTUATED` set the (non-)actuation times withing the buzz period.
 
 Beware that some pins may be powered during bootloader (ie. A13 on the STM32F303 chip) and will result in the solenoid kept in the on state through the whole flashing process. This may overheat and damage the solenoid. If you find that the pin the solenoid is connected to is triggering the solenoid during bootloader/DFU, select another pin.
 
