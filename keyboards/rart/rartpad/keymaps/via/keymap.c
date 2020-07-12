@@ -11,7 +11,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
  
   [1] = LAYOUT_ortho_5x4(
-    KC_TRNS, RGB_HUI, RGB_HUD,  KC_TRNS, 
+    KC_TRNS, RGB_HUI, RGB_HUD,  RESET, 
     RGB_SAI, RGB_SAD, KC_MNXT,  KC_MPRV, 
     RGB_VAI, RGB_VAD, KC_MSTP,  KC_MPLY, 
     KC_COPY, KC_PSTE, KC_MYCM,  KC_CALC, 
@@ -19,7 +19,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     
   [2] = LAYOUT_ortho_5x4(
-    _______, _______, _______, RESET,
+    _______, _______, _______, _______,
     _______, _______, _______, _______,
     _______, _______, _______, _______,
     _______, _______, _______, _______,
