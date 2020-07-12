@@ -11,14 +11,14 @@ ps2avr(GB) キーボードは ATmega32A マイクロコントローラを使い�
 
 1. 以下のいずれかの方法を使ってブートローダに入ります:
    * `RESET` キーコードをタップします (全てのデバイスでは動作しないかもしれません)
-   * キーボードを接続しながらソルトキーを押し続けます (通常はキーボードの readme に書かれています)
+   * ソルトキーを押し続けながらキーボードを接続します (通常はキーボードの readme に書かれています)
 2. OS がデバイスを検知するのを待ちます。
 3. .hex ファイルを書き込みます
 4. デバイスをアプリケーションモードにリセットします(自動的に実行されるかもしれません)
 
 ## bootloadHID の書き込みターゲット
 
-?> [こちら](ja/newbs_getting_started.md)で詳しく説明されている QMK インストールスクリプトを使って、必要な bootloadHID ツールを自動的にインストールしていなければなりません。
+?> [こちら](ja/newbs_getting_started.md)で詳しく説明されている QMK インストールスクリプトを使うと、必要な bootloadHID ツールが自動的にインストールされます。
 
 コマンドライン経由で書き込むには、以下のコマンドを実行してターゲット `:bootloadHID` を使います:
 
@@ -37,13 +37,13 @@ ps2avr(GB) キーボードは ATmega32A マイクロコントローラを使い�
 ## コマンドライン書き込み
 
 1. キーボードをリセットします。
-2. `bootloadHID -r` に続けて `.hex` ファイルへのパスを入力し、ボードに書き込みます。
+2. `bootloadHID -r` に続けて `.hex` ファイルへのパスを入力し、キーボードに書き込みます。
 
 ### Windows 手動インストール
 MSYS2の場合:
-1. https://www.obdev.at/downloads/vusb/bootloadHID.2012-12-08.tar.gz から BootloadHID ファームウェアをダウンロードします。
+1. https://www.obdev.at/downloads/vusb/bootloadHID.2012-12-08.tar.gz から BootloadHID ファームウェアパッケージをダウンロードします。
 2. 互換性のあるツール、例えば 7-Zip を使って内容を抽出します。
-3. 解凍された書庫から MSYS2インストール、一般的に `C:\msys64\usr\bin` に `commandline/bootloadHID.exe` をコピーして、MSYS パスに追加します。
+3. 解凍された書庫から MSYS2 インストール先、通常 `C:\msys64\usr\bin` に `commandline/bootloadHID.exe` をコピーして、MSYS パスに追加します。
 
 ネイティブの Windows 書き込みの場合、MSYS2 環境の外部で `bootloadHID.exe` を使うことができます。
 
