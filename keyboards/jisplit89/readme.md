@@ -1,6 +1,6 @@
 # JISplit89
 
-![jisplit89](https://s2.booth.pm/1d33594d-0c5f-4f93-baf5-2e89e0d99afc/i/1916810/82322b65-7867-4779-b7f4-9076530d9e33_base_resized.jpg)
+![jisplit89](https://s2.booth.pm/1d33594d-0c5f-4f93-baf5-2e89e0d99afc/i/1916810/ee9743ff-b03d-4ab8-8130-ddaad3c1b30d_base_resized.jpg)
 
 This is 89 keys Custom keyboard.
 
@@ -14,4 +14,4 @@ Make example for this keyboard (after setting up your build environment):
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-[Build guide](https://salicylic-acid3.hatenablog.com/entry/7skb-mx-build-guide)(See here because it is almost the same as 7sKB)
+[Build guide](https://salicylic-acid3.hatenablog.com/entry/jisplit89-build-guide)
