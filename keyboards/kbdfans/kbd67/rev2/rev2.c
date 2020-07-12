@@ -1,21 +1,14 @@
 #include "rev2.h"
-
 void matrix_init_kb(void) {
-    matrix_init_user();
-    led_init_ports();
-};
-
-void led_init_ports(void) {
+    // put your keyboard start-up code here
+    // runs once when the firmware starts up
     setPinOutput(D4);
-    writePinHigh(D4);
+    matrix_init_user();
 }
-
-void led_set_kb(uint8_t usb_led) {
-    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-        writePinLow(D4);
-    } else {
-        writePinHigh(D4);
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        writePin(D4, !led_state.caps_lock);
     }
-
-    led_set_user(usb_led);
+    return res;
 }
