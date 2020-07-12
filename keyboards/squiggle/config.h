@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x6955
 #define PRODUCT_ID      0x2073
-#define DEVICE_VER      0x0001
 #define MANUFACTURER    ibnuda
 #define PRODUCT         squiggle
 #define DESCRIPTION     boring board
