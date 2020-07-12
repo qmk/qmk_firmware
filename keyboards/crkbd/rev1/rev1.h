@@ -52,3 +52,5 @@
                                             KC_##L30, KC_##L31, KC_##L32, KC_##R30, KC_##R31, KC_##R32 \
   )
 // clang-format on
+
+#define LAYOUT_split_3x6_3 LAYOUT

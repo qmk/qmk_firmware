@@ -794,6 +794,7 @@ enum quantum_keycodes {
 #    define SH_T(kc) (QK_SWAP_HANDS | (kc))
 #    define SH_TG (QK_SWAP_HANDS | OP_SH_TOGGLE)
 #    define SH_TT (QK_SWAP_HANDS | OP_SH_TAP_TOGGLE)
+#    define SH_OS (QK_SWAP_HANDS | OP_SH_ONESHOT)
 #    define SH_MON (QK_SWAP_HANDS | OP_SH_ON_OFF)
 #    define SH_MOFF (QK_SWAP_HANDS | OP_SH_OFF_ON)
 #    define SH_ON (QK_SWAP_HANDS | OP_SH_ON)

@@ -4,7 +4,7 @@
 
 A Blue Pill STM32F103C8T6-based Converter board for a very very old keyboard.  
 
-Keyboard Maintainer: [Yiancar](http://yiancar-designs.com/) and on [github](https://github.com/yiancar)  
+Keyboard Maintainer: [Yiancar](http://yiancar-designs.com/) and on [GitHub](https://github.com/yiancar)  
 Hardware Supported: Blue Pill STM32F103C8T6  
 Hardware Availability: Custom PCB available, contact me  
 

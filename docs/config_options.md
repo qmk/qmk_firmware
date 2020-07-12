@@ -191,7 +191,14 @@ If you define these options you will enable the associated feature, which may in
 * `#define RGBLIGHT_ANIMATIONS`
   * run RGB animations
 * `#define RGBLIGHT_LAYERS`
-  * Lets you define [lighting layers](feature_rgblight.md) that can be toggled on or off. Great for showing the current keyboard layer or caps lock state.
+  * Lets you define [lighting layers](feature_rgblight.md?id=lighting-layers) that can be toggled on or off. Great for showing the current keyboard layer or caps lock state.
+* `#define RGBLIGHT_MAX_LAYERS`
+  * Defaults to 8. Can be expanded up to 32 if more [lighting layers](feature_rgblight.md?id=lighting-layers) are needed.
+  * Note: Increasing the maximum will increase the firmware size and slow sync on split keyboards.
+* `#define RGBLIGHT_LAYER_BLINK` 
+  * Adds ability to [blink](feature_rgblight.md?id=lighting-layer-blink) a lighting layer for a specified number of milliseconds (e.g. to acknowledge an action).
+* `#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF`
+  * If defined, then [lighting layers](feature_rgblight?id=overriding-rgb-lighting-onoff-status) will be shown even if RGB Light is off.
 * `#define RGBLED_NUM 12`
   * number of LEDs
 * `#define RGBLIGHT_SPLIT`
@@ -243,7 +250,10 @@ There are a few different ways to set handedness for split keyboards (listed in 
 * `#define SPLIT_HAND_PIN B7`
   * For using high/low pin to determine handedness, low = right hand, high = left hand. Replace `B7` with the pin you are using. This is optional, and if you leave `SPLIT_HAND_PIN` undefined, then you can still use the EE_HANDS method or MASTER_LEFT / MASTER_RIGHT defines like the stock Let's Split uses.
 
-* `#define EE_HANDS` (only works if `SPLIT_HAND_PIN` is not defined)
+* `#define SPLIT_HAND_MATRIX_GRID <out_pin>,<in_pin>`
+  * The handedness is determined by using the intersection of the keyswitches in the key matrix, which does not exist. Normally, when this intersection is shorted (level low), it is considered left. If you define `#define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT`, it is determined to be right when the level is low.
+
+* `#define EE_HANDS` (only works if `SPLIT_HAND_PIN` and `SPLIT_HAND_MATRIX_GRID` are not defined)
   * Reads the handedness value stored in the EEPROM after `eeprom-lefthand.eep`/`eeprom-righthand.eep` has been flashed to their respective halves.
 
 * `#define MASTER_RIGHT`

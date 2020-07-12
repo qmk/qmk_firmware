@@ -44,7 +44,11 @@ To connect your host computer to your keyboard with raw HID you need four pieces
 3. Usage Page
 4. Usage
 
-The first two can easily be found in your keyboard's `config.h` in the keyboard's main directory under `VENDOR_ID` and `PRODUCT_ID`. **Usage Page** is **`0xFF60`** and **Usage** is **`0x0061`**.
+The first two can easily be found in your keyboard's `config.h` in the keyboard's main directory under `VENDOR_ID` and `PRODUCT_ID`.
+
+The final two can be overridden in your keyboard's `config.h` in the keyboard's main directory by redefining the values: `#define RAW_USAGE_PAGE 0xFF60` and `#define RAW_USAGE_ID 0x61`.
+
+By default, **Usage Page** is `0xFF60` and **Usage** is `0x61`.
 
 ### Building your host
 

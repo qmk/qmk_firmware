@@ -19,7 +19,11 @@ function install_avr {
     mv avr-gcc-8.3.0-x86-mingw avr8-gnu-toolchain
     rm avr8-gnu-toolchain/bin/make.exe
     rm avr-gcc-8.3.0-x86-mingw.zip
-    pacman --needed --disable-download-timeout -S mingw-w64-x86_64-avrdude
+
+    # FIXME: As of 2020-05-19, the MSYS2 avrdude cannot flash USBaspLoader devices, for some reason
+    # (warning: cannot set sck period)
+    # However, the avr-gcc toolchain above contains an avrdude which can, so let's just not install this for now
+    #pacman --needed --disable-download-timeout -S mingw-w64-x86_64-avrdude
 }
 
 function install_arm {
