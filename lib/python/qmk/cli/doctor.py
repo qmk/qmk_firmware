@@ -149,35 +149,41 @@ def check_udev_rules():
     ok = True
     udev_dir = Path("/etc/udev/rules.d/")
     desired_rules = {
-        # Atmel DFU
-        _udev_rule("03EB", "2FEF"),  # ATmega16U2
-        _udev_rule("03EB", "2FF0"),  # ATmega32U2
-        _udev_rule("03EB", "2FF3"),  # ATmega16U4
-        _udev_rule("03EB", "2FF4"),  # ATmega32U4
-        _udev_rule("03EB", "2FF9"),  # AT90USB64
-        _udev_rule("03EB", "2FFB"),  # AT90USB128
-        # Kiibohd bootloader
-        _udev_rule("1C11", "B007"),
-        # STM32duino
-        _udev_rule("1EAF", "0003"),
-        # STM32 DFU
-        _udev_rule("0483", "DF11"),
-        # BootloadHID
-        _udev_rule("16C0", "05DF"),
-        # USBAspLoader
-        _udev_rule("16C0", "05DC"),
-        # Atmel SAM-Ba (Massdrop)
-        _udev_rule("03EB", "6124"),
-        # Caterina (Pro Micro)
-        _udev_rule("1B4F", None, 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Sparkfun
-        _udev_rule("2341", None, 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Arduino SA
-        _udev_rule("2A03", None, 'ENV{ID_MM_DEVICE_IGNORE}="1"')   # dog hunter AG
+        'atmel-dfu': {
+            _udev_rule("03EB", "2FEF"),  # ATmega16U2
+            _udev_rule("03EB", "2FF0"),  # ATmega32U2
+            _udev_rule("03EB", "2FF3"),  # ATmega16U4
+            _udev_rule("03EB", "2FF4"),  # ATmega32U4
+            _udev_rule("03EB", "2FF9"),  # AT90USB64
+            _udev_rule("03EB", "2FFB")   # AT90USB128
+        },
+        'kiibohd': {
+            _udev_rule("1C11", "B007")
+        },
+        'stm32': {
+            _udev_rule("1EAF", "0003"),  # STM32duino
+            _udev_rule("0483", "DF11")   # STM32 DFU
+        },
+        'bootloadhid': {
+            _udev_rule("16C0", "05DF")
+        },
+        'usbasploader': {
+            _udev_rule("16C0", "05DC")
+        },
+        'massdrop': {
+            _udev_rule("03EB", "6124")
+        },
+        'caterina': {
+            _udev_rule("1B4F", None, 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Sparkfun
+            _udev_rule("2341", None, 'ENV{ID_MM_DEVICE_IGNORE}="1"'),  # Arduino SA
+            _udev_rule("2A03", None, 'ENV{ID_MM_DEVICE_IGNORE}="1"')   # dog hunter AG
+        }
     }
 
     # These rules are no longer recommended, only use them to check for their presence.
     deprecated_rules = {
-        'dfu': {_deprecated_udev_rule("03eb", "2ff4"), _deprecated_udev_rule("03eb", "2ffb"), _deprecated_udev_rule("03eb", "2ff0")},
-        'input_club': {_deprecated_udev_rule("1c11")},
+        'atmel-dfu': {_deprecated_udev_rule("03eb", "2ff4"), _deprecated_udev_rule("03eb", "2ffb"), _deprecated_udev_rule("03eb", "2ff0")},
+        'kiibohd': {_deprecated_udev_rule("1c11")},
         'stm32': {_deprecated_udev_rule("1eaf", "0003"), _deprecated_udev_rule("0483", "df11")},
         'bootloadhid': {_deprecated_udev_rule("16c0", "05df")},
         'caterina': {'ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"', 'ATTRS{idVendor}=="2341", ENV{ID_MM_DEVICE_IGNORE}="1"'},
@@ -196,17 +202,18 @@ def check_udev_rules():
                     current_rules.add(line)
 
         # Check if the desired rules are among the currently present rules
-        for rules in desired_rules.items():
+        for bootloader, rules in desired_rules.items():
             # For caterina, check if ModemManager is running
-            if check_modem_manager():
-                ok = False
-                cli.log.warn("{bg_yellow}Detected ModemManager without the necessary udev rules. Please either disable it or set the appropriate udev rules if you are using a Pro Micro.")
+            if bootloader == "caterina":
+                if check_modem_manager():
+                    ok = False
+                    cli.log.warn("{bg_yellow}Detected ModemManager without the necessary udev rules. Please either disable it or set the appropriate udev rules if you are using a Pro Micro.")
             if not rules.issubset(current_rules):
-                for bootloader, rule in deprecated_rules.items():
-                    if rule and rule.issubset(current_rules):
-                        cli.log.warn("{bg_yellow}Found old, deprecated udev rules for '%s' boards. The new rules on https://docs.qmk.fm/#/faq_build?id=linux-udev-rules offer better security with the same functionality.", bootloader)
-                    else:
-                        cli.log.warn("{bg_yellow}Missing udev rules for '%s' boards. You'll need to use `sudo` in order to flash them.", bootloader)
+                deprecated_rule = deprecated_rules.get(bootloader)
+                if deprecated_rule and deprecated_rule.issubset(current_rules):
+                    cli.log.warn("{bg_yellow}Found old, deprecated udev rules for '%s' boards. The new rules on https://docs.qmk.fm/#/faq_build?id=linux-udev-rules offer better security with the same functionality.", bootloader)
+                else:
+                    cli.log.warn("{bg_yellow}Missing udev rules for '%s' boards. You'll need to use `sudo` in order to flash them.", bootloader)
 
     return ok
 
