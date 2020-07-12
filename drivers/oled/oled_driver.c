@@ -632,4 +632,17 @@ void oled_task(void) {
 #endif
 }
 
+void oled_write_pixel(int16_t x, int16_t y, bool on) {
+    if (x < 0 || y < 0 || x >= OLED_DISPLAY_WIDTH || y >= OLED_DISPLAY_HEIGHT) {
+        return;
+    }
+    uint16_t index = x + (y / 8) * OLED_DISPLAY_WIDTH;
+    if (on) {
+        oled_buffer[index] |= (1 << (y % 8));
+    } else {
+        oled_buffer[index] &= ~(1 << (y % 8));
+    }
+    oled_dirty |= (1 << (index / OLED_BLOCK_SIZE));
+}
+
 __attribute__((weak)) void oled_task_user(void) {}
