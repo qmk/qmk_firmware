@@ -23,3 +23,5 @@ SPLIT_KEYBOARD = yes
 COMBO_ENABLE = yes
 
 DEFAULT_FOLDER = squiggle/rev1
+
+LAYOUTS = split_3x5_3
