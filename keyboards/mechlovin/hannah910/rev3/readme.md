@@ -1,6 +1,6 @@
 # hannah910
 
-![hannah910](https://i.imgur.com/n8WN5Z7.jpg)
+![hannah910](https://i.imgur.com/WX86LCp.png)
 
 Replacement PCB and plate for TGR 910 keyboard, Kyuu Keyboard (TypeC version)  
 
