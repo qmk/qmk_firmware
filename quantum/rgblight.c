@@ -406,17 +406,28 @@ void rgblight_decrease_val_helper(bool write_to_eeprom) {
 }
 void rgblight_decrease_val_noeeprom(void) { rgblight_decrease_val_helper(false); }
 void rgblight_decrease_val(void) { rgblight_decrease_val_helper(true); }
-void rgblight_increase_speed(void) {
+
+
+void rgblight_increase_speed_helper(bool write_to_eeprom) {
     if (rgblight_config.speed < 3) rgblight_config.speed++;
     // RGBLIGHT_SPLIT_SET_CHANGE_HSVS; // NEED?
-    eeconfig_update_rgblight(rgblight_config.raw);  // EECONFIG needs to be increased to support this
+    if (write_to_eeprom) {
+        eeconfig_update_rgblight(rgblight_config.raw);  // EECONFIG needs to be increased to support this
+    }
 }
+void rgblight_increase_speed(void) { rgblight_increase_speed_helper(true); }
+void rgblight_increase_speed_noeeprom(void) { rgblight_increase_speed_helper(false); }
 
-void rgblight_decrease_speed(void) {
+void rgblight_decrease_speed_helper(bool write_to_eeprom) {
     if (rgblight_config.speed > 0) rgblight_config.speed--;
     // RGBLIGHT_SPLIT_SET_CHANGE_HSVS; // NEED??
-    eeconfig_update_rgblight(rgblight_config.raw);  // EECONFIG needs to be increased to support this
+    if (write_to_eeprom) {
+        eeconfig_update_rgblight(rgblight_config.raw);  // EECONFIG needs to be increased to support this
+    }
 }
+void rgblight_decrease_speed(void) { rgblight_decrease_speed_helper(true); }
+void rgblight_decrease_speed_noeeprom(void) { rgblight_decrease_speed_helper(false); }
+
 
 void rgblight_sethsv_noeeprom_old(uint8_t hue, uint8_t sat, uint8_t val) {
     if (rgblight_config.enable) {
