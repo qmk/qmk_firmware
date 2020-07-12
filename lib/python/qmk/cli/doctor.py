@@ -181,6 +181,7 @@ def check_udev_rules():
         'stm32': {_deprecated_udev_rule("1eaf", "0003"), _deprecated_udev_rule("0483", "df11")},
         'bootloadhid': {_deprecated_udev_rule("16c0", "05df")},
         'caterina': {'ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"', 'ATTRS{idVendor}=="2341", ENV{ID_MM_DEVICE_IGNORE}="1"'}
+        'tmk': {_deprecated_udev_rule("feed")}
     }
 
     if udev_dir.exists():
