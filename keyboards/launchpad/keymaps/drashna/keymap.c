@@ -70,3 +70,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       )
 
 };
+
+
+
+
+#ifdef RGB_MATRIX_ENABLE
+  led_config_t g_led_config = {
+  {
+    {  7,  0 },
+    {  6,  1 },
+    {  5,  2 },
+    {  4,  3 },
+  },{
+    { 121,   2 }, { 121,  23 },
+    { 121,  41 }, { 121,  60 },
+    { 103,   2 }, { 103,  23 },
+    { 103,  41 }, { 103,  60 },
+  },{
+    1, 1, 1, 1,
+    1, 1, 1, 1,
+  }
+  };
+#endif
