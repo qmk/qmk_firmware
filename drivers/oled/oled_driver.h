@@ -206,6 +206,10 @@ void oled_pan(bool left);
 void oled_write_raw(const char *data, uint16_t size);
 void oled_write_raw_byte(const char data, uint16_t index);
 
+// Sets a specific pixel on or off
+// Coordinates start at top-left and go right and down for positive x and y
+void oled_write_pixel(int16_t x, int16_t y, bool on);
+
 #if defined(__AVR__)
 // Writes a PROGMEM string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
@@ -277,7 +281,3 @@ uint8_t oled_max_chars(void);
 
 // Returns the maximum number of lines that will fit on the oled
 uint8_t oled_max_lines(void);
-
-// Sets a specific pixel on or off
-// Coordinates start at top-left and go right and down for positive x and y
-void oled_write_pixel(int16_t x, int16_t y, bool on);

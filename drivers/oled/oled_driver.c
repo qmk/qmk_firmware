@@ -462,6 +462,19 @@ void oled_write_raw(const char *data, uint16_t size) {
     }
 }
 
+void oled_write_pixel(int16_t x, int16_t y, bool on) {
+    if (x < 0 || y < 0 || x >= OLED_DISPLAY_WIDTH || y >= OLED_DISPLAY_HEIGHT) {
+        return;
+    }
+    uint16_t index = x + (y / 8) * OLED_DISPLAY_WIDTH;
+    if (on) {
+        oled_buffer[index] |= (1 << (y % 8));
+    } else {
+        oled_buffer[index] &= ~(1 << (y % 8));
+    }
+    oled_dirty |= (1 << (index / OLED_BLOCK_SIZE));
+}
+
 #if defined(__AVR__)
 void oled_write_P(const char *data, bool invert) {
     uint8_t c = pgm_read_byte(data);
@@ -630,19 +643,6 @@ void oled_task(void) {
 #    endif
     }
 #endif
-}
-
-void oled_write_pixel(int16_t x, int16_t y, bool on) {
-    if (x < 0 || y < 0 || x >= OLED_DISPLAY_WIDTH || y >= OLED_DISPLAY_HEIGHT) {
-        return;
-    }
-    uint16_t index = x + (y / 8) * OLED_DISPLAY_WIDTH;
-    if (on) {
-        oled_buffer[index] |= (1 << (y % 8));
-    } else {
-        oled_buffer[index] &= ~(1 << (y % 8));
-    }
-    oled_dirty |= (1 << (index / OLED_BLOCK_SIZE));
 }
 
 __attribute__((weak)) void oled_task_user(void) {}
