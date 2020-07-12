@@ -22,15 +22,4 @@
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-#define COMBO_TERM 100
-#define COMBO_COUNT 38
-#define IGNORE_MOD_TAP_INTERRUPT
-#define PERMISSIVE_HOLD
-#define TAPPING_TERM 200
-
-// wiring of each half
-#define SOFT_SERIAL_PIN D0
-
-#define USE_SERIAL
-
 #define MASTER_LEFT
