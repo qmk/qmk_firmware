@@ -30,7 +30,7 @@ combo_t key_combos[COMBO_COUNT] = {
 };
 ```
 
-!> This method currently only supports [basic keycodes](keycodes_basic.md). See the examples for more control.
+!> The `COMBO` macro currently only supports triggering [basic keycodes](keycodes_basic.md). See the examples for more control.
 
 ## Examples
 
