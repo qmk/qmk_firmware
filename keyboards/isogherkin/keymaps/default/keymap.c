@@ -25,10 +25,6 @@ enum combos {
   B_N_LT
 };
 
-enum custom_keycodes {
-  KC_SHFT_ESC
-};
-
 const uint16_t PROGMEM q_w_esc_combo[] = { KC_Q, KC_W, COMBO_END};
 const uint16_t PROGMEM a_s_tab_combo[] = { KC_A, KC_S, COMBO_END};
 const uint16_t PROGMEM lbrc_rbrc_bspc_combo[] = { KC_LBRC, KC_RBRC, COMBO_END};
@@ -44,7 +40,7 @@ const uint16_t PROGMEM n_m_tt_combo[] = { KC_N, KC_M, COMBO_END};
 const uint16_t PROGMEM b_n_lt_combo[] = { KC_B, KC_N, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
-  [Q_W_ESC] = COMBO(q_w_esc_combo, KC_SHFT_ESC),
+  [Q_W_ESC] = COMBO(q_w_esc_combo, KC_ESC),
   [A_S_TAB] = COMBO_ACTION(a_s_tab_combo),
   [LBRC_RBRC_BSPC] = COMBO_ACTION(lbrc_rbrc_bspc_combo),
   [QUOT_NUHS_ENT] = COMBO(quot_nuhs_ent_combo, KC_ENT),
