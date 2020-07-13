@@ -1,0 +1,3 @@
+# variant for WS2812 LEDs
+SRC += ws2812.c
+OPT_DEFS += -DMODELM_LEDS_WS2812
