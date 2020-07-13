@@ -1,3 +1,10 @@
-# default TADA68 layout
+# rupa's TADA68 layout
 
-This layout replicates the default factory layout of the TADA68.
+* win/alt -> alt/cmd
+* alt/fn -> fn/alt
+
+fn layer:
+  * no wasd arrows
+  * rotate mute/vol
+  * right versions of shift/ctl/alt/gui
+  * shrug/lod, interrobang

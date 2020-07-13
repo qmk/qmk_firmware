@@ -1,9 +1,24 @@
 #include QMK_KEYBOARD_H
+#include "version.h"
 
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
+enum custom_keycodes {
+    SHR_LOD = SAFE_RANGE,
+    VRSN
+};
+
+enum unicode_name {
+    IBNG
+};
+
+const uint32_t PROGMEM unicode_map[] = {
+    [IBNG]  = 0x203D,  // ‽
+};
+
+#define u_LOD "0CA0 005F 0CA0" // ಠ_ಠ
+#define u_SHRUG "00AF 005C 005F 0028 30C4 0029 005F 002F 00AF" // ¯\_(ツ)_/¯
+
+#define TAP_CODE_DELAY 5 //DEFAULT: 100
+
 #define _BL 0
 #define _FL 1
 
@@ -18,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |----------------------------------------------------------------|
      * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift | Up|PgDn|
      * |----------------------------------------------------------------|
-     * |Ctrl|Win |Alt |        Space          |Alt| FN|Ctrl|Lef|Dow|Rig |
+     * |Ctrl|Alt |Cmd |        Space          | Fn|Alt|Ctrl|Lef|Dow|Rig |
      * `----------------------------------------------------------------'
      */
     [_BL] = LAYOUT_65_ansi(
@@ -26,27 +41,52 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL,
         KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  KC_PGUP,
         KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_UP,   KC_PGDN,
-        KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                    KC_RALT, MO(_FL), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+        KC_LCTL, KC_LALT, KC_LGUI,                            KC_SPC,                    MO(_FL), KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
     /* Keymap _FL: Function Layer
      * ,----------------------------------------------------------------.
-     * |   | F1|F2 |F3 |F4 |F5 |F6 |F7 |F8 |F9 |F10|F11|F12|Del    |Ins |
+     * |LoD| F1|F2 |F3 |F4 |F5 |F6 |F7 |F8 |F9 |F10|F11|F12|Del    |Ins |
      * |----------------------------------------------------------------|
-     * |     |   |Up |   |   |   |   |   |   |   |   |   |   |     |Hme |
+     * |     |   |   |   |   |   |   |   |   |   |   |   |   |     |Hme |
      * |----------------------------------------------------------------|
-     * |      |<- |Dn | ->|   |   |   |   |   |   |   |   |        |End |
+     * |      |   |   |   |   |   |   |   |   |   |   |   |        |End |
      * |----------------------------------------------------------------|
-     * |        |   |   |Bl-|BL |BL+|   |VU-|VU+|MUT|   |   McL|MsU|McR |
+     * |RShift  |   |   |Bl-|BL |BL+|   |MUT|VU-|VU+|Ibg|   McL|MsU|McR |
      * |----------------------------------------------------------------|
-     * |    |    |    |                       |   |   |    |MsL|MsD|MsR |
+     * |RCtl|RAlt|RGui|                       |   |   |    |MsL|MsD|MsR |
      * `----------------------------------------------------------------'
      */
     [_FL] = LAYOUT_65_ansi(
-        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_INS,
-        _______, _______, KC_UP,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME,
-        _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, _______, _______, _______,          _______, KC_END,
-        _______,          _______, _______, BL_DEC,  BL_TOGG, BL_INC,  _______, KC_VOLD, KC_VOLU, KC_MUTE, _______, KC_BTN1, KC_MS_U, KC_BTN2,
-        _______, _______, _______,                            _______,                   _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R
+        SHR_LOD, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_INS,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, KC_END,
+        KC_RSFT,          _______, _______, BL_DEC,  BL_TOGG, BL_INC,  _______, KC_MUTE, KC_VOLD, KC_VOLU, X(IBNG), KC_BTN1, KC_MS_U, KC_BTN2,
+        KC_RCTL, KC_RALT, KC_RGUI,                            _______,                   _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R
     ),
 };
+
+void unicode_s(const char plain[], const char shifted[]) {
+    if (get_mods()&MOD_MASK_SHIFT) {
+        send_unicode_hex_string(shifted);
+    } else {
+        send_unicode_hex_string(plain);
+    }
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch(keycode) {
+        case SHR_LOD:
+            if (record->event.pressed) {
+                unicode_s(u_SHRUG, u_LOD);
+            }
+            return false;
+        case VRSN:  // Prints firmware version
+            if (record->event.pressed) {
+                send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP ":" QMK_VERSION " " QMK_BUILDDATE), TAP_CODE_DELAY);
+            }
+            return false;
+        default:
+            return true;
+    }
+}
