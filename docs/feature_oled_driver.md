@@ -249,7 +249,7 @@ void oled_write_raw_P(const char *data, uint16_t size);
 
 // Sets a specific pixel on or off
 // Coordinates start at top-left and go right and down for positive x and y
-void oled_write_pixel(int16_t x, int16_t y, bool on);
+void oled_write_pixel(uint8_t x, uint8_t y, bool on);
 
 // Can be used to manually turn on the screen if it is off
 // Returns true if the screen was on or turns on
