@@ -8,13 +8,13 @@ A compact TKL/XL 75% with rotary encoder and macro column.
 * Hardware Supported: Timber Wolf PCB using ATmega32u4
 * Hardware Availability: [GB ended October 2019](https://geekhack.org/index.php?topic=102520.0)
 
-Make command depends on the physical layout you purchased - for example, if you purchased a TBR-Prime, you would use:
+Make command depends on the physical layout you purchased - for example, if you purchased a TBR-Prime and want to use an ANSI layout, you would use:
 
-    make metamechs/timberwolf:prime
+    make metamechs/timberwolf:prime_ansi
 
-or for a TBR-B you would use:
+or for a TBR-B in ISO you would use:
 
-    make metamechs/timberwolf:b
+    make metamechs/timberwolf:b_iso
 
 etc.
 
