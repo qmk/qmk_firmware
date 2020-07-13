@@ -70,21 +70,6 @@ static bool layer3tapped = false;
 
 void process_combo_event(uint8_t combo_index, bool pressed) {
   switch(combo_index) {
-    case Q_W_ESC:
-      if (pressed) {
-        if (IS_LAYER_ON(1)) {
-          register_code16(KC_GRV);
-        } else {
-          register_code16(KC_ESC);
-        }
-      } else {
-        if (IS_LAYER_ON(1)) {
-          unregister_code16(KC_GRV);
-        } else {
-          unregister_code16(KC_ESC);
-        }
-      }
-      break;
     case A_S_TAB:
       if (pressed) {
         if (my_lalt_flag) {
@@ -194,26 +179,4 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
       }
       break;
   }
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case KC_SHFT_ESC:
-      if (record->event.pressed) {
-        if (IS_LAYER_ON(1)) {
-          register_code16(KC_GRV);
-        } else {
-          register_code16(KC_ESC);
-        }
-      } else {
-        if (IS_LAYER_ON(1)) {
-          unregister_code16(KC_GRV);
-        } else {
-          unregister_code16(KC_ESC);
-        }
-      }
-      return false;
-      break;
-  }
-  return true;
 }
