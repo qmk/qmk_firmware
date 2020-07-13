@@ -14,11 +14,6 @@ const uint32_t PROGMEM unicode_map[] = {
     [IBNG]  = 0x203D,  // ‽
 };
 
-#define u_LOD "0CA0 005F 0CA0" // ಠ_ಠ
-#define u_SHRUG "00AF 005C 005F 0028 30C4 0029 005F 002F 00AF" // ¯\_(ツ)_/¯
-
-#define TAP_CODE_DELAY 5 //DEFAULT: 100
-
 #define _BL 0
 #define _FL 1
 
@@ -58,11 +53,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `----------------------------------------------------------------'
      */
     [_FL] = LAYOUT_65_ansi(
-        SHR_LOD, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_INS,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, KC_END,
-        KC_RSFT,          _______, _______, BL_DEC,  BL_TOGG, BL_INC,  _______, KC_MUTE, KC_VOLD, KC_VOLU, X(IBNG), KC_BTN1, KC_MS_U, KC_BTN2,
-        KC_RCTL, KC_RALT, KC_RGUI,                            _______,                   _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R
+        SHR_LOD,       KC_F1,         KC_F2,         KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_INS,
+        _______,       VRSN,          _______,       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME,
+        _______,       _______,       _______,       _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, KC_END,
+        OSM(MOD_RSFT),                _______,       _______, BL_DEC,  BL_TOGG, BL_INC,  _______, KC_MUTE, KC_VOLD, KC_VOLU, X(IBNG), KC_BTN1, KC_MS_U, KC_BTN2,
+        OSM(MOD_RCTL), OSM(MOD_RALT), OSM(MOD_RGUI),                            _______,                   _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R
     ),
 };
 

@@ -6,5 +6,5 @@
 fn layer:
   * no wasd arrows
   * rotate mute/vol
-  * right versions of shift/ctl/alt/gui
-  * shrug/lod, interrobang
+  * (one-shot) right versions of shift/ctl/alt/gui
+  * shrug/lod, interrobang, version
