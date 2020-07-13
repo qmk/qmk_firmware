@@ -6,6 +6,21 @@ enum layers {
     _FN2
 };
 
+// I put these combos in because they're easy to impliment and it gives you an idea of what you need to do
+// Go nuts, have fun! It's why I build the board :)
+enum WOMBO_COMBOS {
+    VOLUME_UP = 0,
+    VOLUME_DOWN
+};
+
+const uint16_t PROGMEM VOLUME_UP_COMBO[] = { KC_F1, KC_F2, COMBO_END };
+const uint16_t PROGMEM VOLUME_DN_COMBO[] = { KC_F3, KC_F4, COMBO_END };
+
+combo_t key_combos[COMBO_COUNT] = {
+    [VOLUME_UP] = COMBO(VOLUME_UP_COMBO, KC_VOLU),
+    [VOLUME_DOWN] = COMBO(VOLUME_DN_COMBO, KC_VOLD)
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_EUISO_BIGSPACE(
                         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,  KC_T,   KC_Y,   KC_U,  KC_I,    KC_O,    KC_P,    KC_BSPC,

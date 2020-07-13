@@ -16,23 +16,25 @@
 
 #include QMK_KEYBOARD_H
 
-#define BASE 0
-#define FN 1
+enum layers {
+	BASE = 0,
+	FN
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[BASE] = LAYOUT(
-		KC_7, KC_8, KC_9,
-		KC_4, KC_5, KC_6,
-		KC_1, KC_2, KC_3,
-		TG(1), KC_0, KC_DOT
+		KC_P7, KC_P8, KC_P9,
+		KC_P4, KC_P5, KC_P6,
+		KC_P1, KC_P2, KC_P3,
+		TG(1), KC_P0, KC_DOT
 	),
-  
+
 	[FN] = LAYOUT(
 		KC_TRNS, KC_HOME, KC_PGUP,
 		KC_TRNS, KC_END, KC_PGDN,
 		KC_TRNS, KC_TRNS, KC_TRNS,
-		KC_TRNS, KC_TRNS, KC_ENT
+		KC_TRNS, KC_NLCK, KC_ENT
 	)
 };
 
@@ -47,13 +49,13 @@ static void render_logo(void) {
         0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1, 0xB2, 0xB3, 0xB4,
         0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0xC5, 0xC6, 0xC7, 0xC8, 0xC9, 0xCA, 0xCB, 0xCC, 0xCD, 0xCE, 0xCF, 0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0x00
     };
-    
+
     oled_write_P(qmk_logo, false);
 }
 
 void oled_task_user(void) {
   // Host Keyboard Layer Status
-  
+
   switch (get_highest_layer(layer_state)) {
     case BASE:
       render_logo();

@@ -1,14 +1,16 @@
 #pragma once
-#include <stdlib.h>
-#include <stdio.h>
-
-#define CAKE_SSLJ B__NOTE(_D6), M__NOTE(_C6, 36), M__NOTE(_D6, 36), M__NOTE(_C6, 36), M__NOTE(_D6, 36), W__NOTE(_REST), M__NOTE(_C6, 36), M__NOTE(_D6, 36), M__NOTE(_C6, 36), M__NOTE(_A5, 36), B__NOTE(_F5), B__NOTE(_G5), B__NOTE(_A5),
-int fuckboi = rand() % 2 + 1;
 
 #ifdef AUDIO_ENABLE
-    #define STARTUP_SONG SONG(CAKE_SSLJ)
-    #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND) }
+    #define STARTUP_SONG SONG(PREONIC_SOUND)
+    // #define STARTUP_SONG SONG(NO_SOUND)
+
+    #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
+                                  SONG(COLEMAK_SOUND), \
+                                  SONG(DVORAK_SOUND) \
+                                }
 #endif
+
+#define MUSIC_MASK (keycode != KC_NO)
 
 /*
  * MIDI options
@@ -33,6 +35,3 @@ int fuckboi = rand() % 2 + 1;
 
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
-
-// Most tactile encoders have detents every 6 stages
-#define ENCODER_RESOLUTION 6
