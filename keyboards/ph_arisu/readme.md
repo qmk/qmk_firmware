@@ -6,7 +6,7 @@ PCB is base on https://github.com/FateNozomi/arisu-pcb
 and used for a local groupbuy in the Philippines.
 
 * Keyboard Maintainer: [Neil Brian Ramirez](https://github.com/NightlyBoards)
-* Hardware Supported: PH ARISU PCB
+* Hardware Supported: Pro Micro ATmega32U4
 * Hardware Availability: Base on [ARISU](https://github.com/FateNozomi/arisu-pcb)
 
 Make example for this keyboard (after setting up your build environment):
