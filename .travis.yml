@@ -27,6 +27,7 @@ addons:
 install:
   - npm install -g moxygen
 script:
+  - git fetch --depth=50 origin $TRAVIS_BRANCH:$TRAVIS_BRANCH
   - git rev-parse --short HEAD
   - git diff --name-only HEAD $TRAVIS_BRANCH
   - bash util/travis_test.sh

@@ -51,6 +51,8 @@ int retro_tapping_counter = 0;
 __attribute__((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) { return false; }
 #endif
 
+__attribute__((weak)) bool pre_process_record_quantum(keyrecord_t *record) { return true; }
+
 #ifndef TAP_CODE_DELAY
 #    define TAP_CODE_DELAY 0
 #endif
@@ -107,9 +109,13 @@ void action_exec(keyevent_t event) {
 #endif
 
 #ifndef NO_ACTION_TAPPING
-    action_tapping_process(record);
+    if (IS_NOEVENT(record.event) || pre_process_record_quantum(&record)) {
+        action_tapping_process(record);
+    }
 #else
-    process_record(&record);
+    if (IS_NOEVENT(record.event) || pre_process_record_quantum(&record)) {
+        process_record(&record);
+    }
     if (!IS_NOEVENT(record.event)) {
         dprint("processed: ");
         debug_record(record);

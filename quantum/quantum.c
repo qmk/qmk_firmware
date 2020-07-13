@@ -17,7 +17,7 @@
 #include <ctype.h>
 #include "quantum.h"
 
-#ifdef PROTOCOL_LUFA
+#ifdef BLUETOOTH_ENABLE
 #    include "outputselect.h"
 #endif
 
@@ -171,6 +171,18 @@ uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache) {
         return keymap_key_to_keycode(layer_switch_get_layer(event.key), event.key);
 }
 
+/* Get keycode, and then process pre tapping functionality */
+bool pre_process_record_quantum(keyrecord_t *record) {
+    if (!(
+#ifdef COMBO_ENABLE
+        process_combo(get_record_keycode(record, true), record) &&
+#endif
+        true)) {
+        return false;
+    }
+    return true; // continue processing
+}
+
 /* Get keycode, and then call keyboard function */
 void post_process_record_quantum(keyrecord_t *record) {
     uint16_t keycode = get_record_keycode(record, false);
@@ -252,9 +264,6 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #ifdef LEADER_ENABLE
             process_leader(keycode, record) &&
-#endif
-#ifdef COMBO_ENABLE
-            process_combo(keycode, record) &&
 #endif
 #ifdef PRINTING_ENABLE
             process_printer(keycode, record) &&
@@ -618,7 +627,7 @@ void matrix_init_quantum() {
 #ifdef HAPTIC_ENABLE
     haptic_init();
 #endif
-#ifdef OUTPUT_AUTO_ENABLE
+#if defined(BLUETOOTH_ENABLE) && defined(OUTPUT_AUTO_ENABLE)
     set_output(OUTPUT_AUTO);
 #endif
 

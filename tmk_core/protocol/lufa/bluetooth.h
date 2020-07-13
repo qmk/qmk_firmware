@@ -15,34 +15,82 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef BLUETOOTH_H
-#define BLUETOOTH_H
+#pragma once
 
 #include "../serial.h"
 
 void bluefruit_serial_send(uint8_t data);
 
-/*
-+-----------------+-------------------+-------+
-| Consumer Key    | Bit Map           | Hex   |
-+-----------------+-------------------+-------+
-| Home            | 00000001 00000000 | 01 00 |
-| KeyboardLayout  | 00000010 00000000 | 02 00 |
-| Search          | 00000100 00000000 | 04 00 |
-| Snapshot        | 00001000 00000000 | 08 00 |
-| VolumeUp        | 00010000 00000000 | 10 00 |
-| VolumeDown      | 00100000 00000000 | 20 00 |
-| Play/Pause      | 01000000 00000000 | 40 00 |
-| Fast Forward    | 10000000 00000000 | 80 00 |
-| Rewind          | 00000000 00000001 | 00 01 |
-| Scan Next Track | 00000000 00000010 | 00 02 |
-| Scan Prev Track | 00000000 00000100 | 00 04 |
-| Random Play     | 00000000 00001000 | 00 08 |
-| Stop            | 00000000 00010000 | 00 10 |
-+-------------------------------------+-------+
-*/
-#define CONSUMER2BLUEFRUIT(usage) (usage == AUDIO_MUTE ? 0x0000 : (usage == AUDIO_VOL_UP ? 0x1000 : (usage == AUDIO_VOL_DOWN ? 0x2000 : (usage == TRANSPORT_NEXT_TRACK ? 0x0002 : (usage == TRANSPORT_PREV_TRACK ? 0x0004 : (usage == TRANSPORT_STOP ? 0x0010 : (usage == TRANSPORT_STOP_EJECT ? 0x0000 : (usage == TRANSPORT_PLAY_PAUSE ? 0x4000 : (usage == AL_CC_CONFIG ? 0x0000 : (usage == AL_EMAIL ? 0x0000 : (usage == AL_CALCULATOR ? 0x0000 : (usage == AL_LOCAL_BROWSER ? 0x0000 : (usage == AC_SEARCH ? 0x0400 : (usage == AC_HOME ? 0x0100 : (usage == AC_BACK ? 0x0000 : (usage == AC_FORWARD ? 0x0000 : (usage == AC_STOP ? 0x0000 : (usage == AC_REFRESH ? 0x0000 : (usage == AC_BOOKMARKS ? 0x0000 : 0)))))))))))))))))))
+// https://learn.adafruit.com/introducing-bluefruit-ez-key-diy-bluetooth-hid-keyboard/sending-keys-via-serial#raw-hid-consumer-reports-8-14
+static inline uint16_t CONSUMER2BLUEFRUIT(uint16_t usage) {
+    switch (usage) {
+        case AC_HOME:
+            return 0x0001;
+        case AL_KEYBOARD_LAYOUT:
+            return 0x0002;
+        case AC_SEARCH:
+            return 0x0004;
+        case SNAPSHOT:
+            return 0x0008;
+        case AUDIO_VOL_UP:
+            return 0x0010;
+        case AUDIO_VOL_DOWN:
+            return 0x0020;
+        case TRANSPORT_PLAY_PAUSE:
+            return 0x0040;
+        case TRANSPORT_FAST_FORWARD:
+            return 0x0080;
+        case TRANSPORT_REWIND:
+            return 0x0100;
+        case TRANSPORT_NEXT_TRACK:
+            return 0x0200;
+        case TRANSPORT_PREV_TRACK:
+            return 0x0400;
+        case TRANSPORT_RANDOM_PLAY:
+            return 0x0800;
+        case TRANSPORT_STOP:
+            return 0x1000;
+        default:
+            return 0;
+    }
+}
 
-#define CONSUMER2RN42(usage) (usage == AUDIO_MUTE ? 0x0040 : (usage == AUDIO_VOL_UP ? 0x0010 : (usage == AUDIO_VOL_DOWN ? 0x0020 : (usage == TRANSPORT_NEXT_TRACK ? 0x0100 : (usage == TRANSPORT_PREV_TRACK ? 0x0200 : (usage == TRANSPORT_STOP ? 0x0400 : (usage == TRANSPORT_STOP_EJECT ? 0x0800 : (usage == TRANSPORT_PLAY_PAUSE ? 0x0080 : (usage == AL_EMAIL ? 0x0200 : (usage == AL_LOCAL_BROWSER ? 0x8000 : (usage == AC_SEARCH ? 0x0400 : (usage == AC_HOME ? 0x0100 : 0))))))))))))
-
-#endif
+// https://cdn.sparkfun.com/datasheets/Wireless/Bluetooth/bluetooth_cr_UG-v1.0r.pdf#G7.663734
+static inline uint16_t CONSUMER2RN42(uint16_t usage) {
+    switch (usage) {
+        case AC_HOME:
+            return 0x0001;
+        case AL_EMAIL:
+            return 0x0002;
+        case AC_SEARCH:
+            return 0x0004;
+        case AL_KEYBOARD_LAYOUT:
+            return 0x0008;
+        case AUDIO_VOL_UP:
+            return 0x0010;
+        case AUDIO_VOL_DOWN:
+            return 0x0020;
+        case AUDIO_MUTE:
+            return 0x0040;
+        case TRANSPORT_PLAY_PAUSE:
+            return 0x0080;
+        case TRANSPORT_NEXT_TRACK:
+            return 0x0100;
+        case TRANSPORT_PREV_TRACK:
+            return 0x0200;
+        case TRANSPORT_STOP:
+            return 0x0400;
+        case TRANSPORT_EJECT:
+            return 0x0800;
+        case TRANSPORT_FAST_FORWARD:
+            return 0x1000;
+        case TRANSPORT_REWIND:
+            return 0x2000;
+        case TRANSPORT_STOP_EJECT:
+            return 0x4000;
+        case AL_LOCAL_BROWSER:
+            return 0x8000;
+        default:
+            return 0;
+    }
+}
