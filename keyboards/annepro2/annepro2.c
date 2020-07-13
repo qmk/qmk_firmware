@@ -79,29 +79,17 @@ bool OVERRIDE led_update_kb(led_t status) {
 bool OVERRIDE process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
-            case KC_AP2_BT_SCAN1:
+            case KC_AP2_BT1:
                 annepro2_ble_broadcast(0);
                 return false;
-            case KC_AP2_BT_SCAN2:
+            case KC_AP2_BT2:
                 annepro2_ble_broadcast(1);
                 return false;
-            case KC_AP2_BT_SCAN3:
+            case KC_AP2_BT3:
                 annepro2_ble_broadcast(2);
                 return false;
-            case KC_AP2_BT_SCAN4:
+            case KC_AP2_BT4:
                 annepro2_ble_broadcast(3);
-                return false;
-            case KC_AP2_BT_CONN1:
-                annepro2_ble_connect(0);
-                return false;
-            case KC_AP2_BT_CONN2:
-                annepro2_ble_connect(1);
-                return false;
-            case KC_AP2_BT_CONN3:
-                annepro2_ble_connect(2);
-                return false;
-            case KC_AP2_BT_CONN4:
-                annepro2_ble_connect(3);
                 return false;
             case KC_AP2_USB:
                 annepro2_ble_disconnect();

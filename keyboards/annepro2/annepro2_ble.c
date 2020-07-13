@@ -72,13 +72,13 @@ void annepro2_ble_broadcast(uint8_t port) {
     sdPut(&SD1, 0x00);
     sdWrite(&SD1, bleMcuStartBroadcast, 10);
     sdPut(&SD1, port);
+    annepro2_ble_connect(port);
 }
 
 void annepro2_ble_connect(uint8_t port) {
     if (port > 3) {
         port = 3;
     }
-    sdPut(&SD1, 0x00);
     sdWrite(&SD1, bleMcuConnect, 10);
     sdPut(&SD1, port);
     ap2_ble_swtich_ble_driver();
@@ -111,8 +111,8 @@ static void ap2_ble_swtich_ble_driver(void) {
     lastHostDriver = host_get_driver();
 #ifdef NKRO_ENABLE
     lastNkroStatus = keymap_config.nkro;
-    keymap_config.nkro = false;
 #endif
+    keymap_config.nkro = false;
     host_set_driver(&ap2_ble_driver);
 }
 
