@@ -10,8 +10,12 @@ sed -i 's/gunp_planck.png/https:\/\/drive.google.com\/uc?export=view\&id='\
 '1A2z7r_3bhXq0hS4O3yxaO-ZXeJBzlIqB'\
 '/g' keyboards/planck/keymaps/gunp/readme.md
 
-if [[ $2 == "dfu" ]]; then
-    sudo make planck/$1:gunp:dfu
+if [[ $2 == "exec" ]]; then
+    if [[ $1 == "rev6" ]]; then
+        sudo make planck/$1:gunp:dfu-util
+    else
+        sudo make planck/$1:gunp:dfu
+    fi
 else
     # make git-submodule
     make clean planck/$1:gunp

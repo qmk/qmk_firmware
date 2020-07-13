@@ -1,13 +1,22 @@
 #pragma once
 
+/* Tapping this number of times holds the key until tapped once again. */
+#define ONESHOT_TAP_TOGGLE 7
+/* Time (in ms) before the one shot key is released */
+#define ONESHOT_TIMEOUT 5000
+
+/* Sets the amount of memory that Dynamic Macros can use.
+   This is a limited resource, dependent on the controller. */
+#define DYNAMIC_MACRO_SIZE 4096
+/* Defining this falls back to using the user `keymap.c` file
+   to trigger the macro behaviour. */
+#define DYNAMIC_MACRO_USER_CALL
+
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(PLANCK_SOUND)
-    // #define STARTUP_SONG SONG(NO_SOUND)
-
-    #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
-                                  SONG(COLEMAK_SOUND), \
-                                  SONG(DVORAK_SOUND) \
-                                }
+    /* #define UNICODE_SONG_LNX  UNICODE_LINUX */
+    /* #define UNICODE_SONG_WIN  UNICODE_WINDOWS */
+    /* #define UNICODE_SONG_MAC  TERMINAL_SOUND */
 #endif
 
 /*

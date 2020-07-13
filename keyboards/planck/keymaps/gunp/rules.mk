@@ -7,16 +7,25 @@ MOUSEKEY_ENABLE = yes        # Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes        # Audio control and System control(+450)
 CONSOLE_ENABLE = no          # Console for debug(+400)
 COMMAND_ENABLE = no          # Commands for debug and configuration
-NKRO_ENABLE = yes            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE = no        # Enable keyboard backlight functionality
+BLUETOOTH_ENABLE = no        # Enable Bluetooth with the Adafruit EZ-Key HID
+RGBLIGHT_ENABLE = no         # Enable WS2812 RGB underlight.
+                             #   note: this option is not for Planck `light`
+NKRO_ENABLE = yes            # Nkey Rollover - if this doesn't work, see here:
+                 #https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 
-# disable `MIDI_ENABLE` and `AUDIO_ENABLE` for `rev4` to save some space
+UNICODE_ENABLE = yes
+KEY_LOCK_ENABLE = yes
+DYNAMIC_MACRO_ENABLE = yes
+
+# # for `rev4`
+# MIDI_ENABLE = no            # MIDI controls
+# AUDIO_ENABLE = no           # Audio output on port C6
+
+# for `light` and `rev6`
 MIDI_ENABLE = yes            # MIDI controls
 AUDIO_ENABLE = yes           # Audio output on port C6
 
-UNICODE_ENABLE = yes         # Unicode
-BLUETOOTH_ENABLE = no        # Enable Bluetooth with the Adafruit EZ-Key HID
-RGBLIGHT_ENABLE = no         # Enable WS2812 RGB underlight.
 
 ########################################
 # old config - keep here for reference
