@@ -24,14 +24,10 @@
 extern uint16_t annepro2LedMatrix[MATRIX_ROWS * MATRIX_COLS];
 
 enum AP2KeyCodes {
-    KC_AP2_BT_SCAN1 = SAFE_RANGE,
-    KC_AP2_BT_SCAN2,
-    KC_AP2_BT_SCAN3,
-    KC_AP2_BT_SCAN4,
-    KC_AP2_BT_CONN1,
-    KC_AP2_BT_CONN2,
-    KC_AP2_BT_CONN3,
-    KC_AP2_BT_CONN4,
+    KC_AP2_BT1 = SAFE_RANGE,
+    KC_AP2_BT2,
+    KC_AP2_BT3,
+    KC_AP2_BT4,
     KC_AP2_BT_UNPAIR,
     KC_AP2_USB,
     AP2_SAFE_RANGE,
