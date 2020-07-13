@@ -12,7 +12,7 @@ Make command depends on the physical layout you purchased - for example, if you 
 
     make metamechs/timberwolf:prime_ansi
 
-or for a TBR-B in ISO you would use:
+or for a TBR-B with ISO you would use:
 
     make metamechs/timberwolf:b_iso
 
