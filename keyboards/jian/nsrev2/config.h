@@ -41,6 +41,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
+#define QMK_ESC_OUTPUT D3
+#define QMK_ESC_INPUT B1
+
 #define PHYSICAL_LEDS_ENABLE
 
 #ifdef BACKLIGHT_ENABLE

@@ -55,7 +55,7 @@
 #endif
 
 #if defined(RGB_BACKLIGHT_DAWN60)
-#include "drivers/avr/ws2812.h"
+#include "ws2812.h"
 LED_TYPE g_ws2812_leds[WS2812_LED_TOTAL];
 #endif
 
