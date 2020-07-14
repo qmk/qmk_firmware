@@ -6,7 +6,7 @@ A cool looking numpad with an encoder and OLED
 
 * Keyboard Maintainer: [rtft](https://github.com/rtft/) and on [GitHub](https://github.com/rtft/)
 * Hardware Supported: ATmega32U4
-* Hardware Availability: Small production run by Cloudboards[Cloudboards](https://cloudboards.xyz/)
+* Hardware Availability: Small production run by [Cloudboards](https://cloudboards.xyz/)
 
 Make example for this keyboard (after setting up your build environment):
 

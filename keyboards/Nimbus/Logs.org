@@ -84,23 +84,33 @@ What this gives is a bunch of results of
 ** GIT
 To get everything from here onto your computer all you need to do is to type these commands in the terminal
 
+#+begin_src
 git clone https://github.com/rtft/qmk_firmware
+#+end_src
 
 to get this project firmware.
 
 Next is to add the upstream git, which is basically all the other stuff people are contributing to the repo
 
+#+begin_src
 git remote add -t master -m master upstream https://github.com/qmk/qmk_firmware
+#+end_src
+
 
 So all you need to do now to get all the new stuff is to run the following
-
+#+begin_src
 git fetch upstream
+#+end_src
 
+#+begin_src
 git merge upstream
+#+end_src
 
 after which it will put you into some commit log probably in vim (and if it is vim just type :wq) to write and quit the editor after which you can
 
+#+begin_src
 git push
+#+end_src
 
 back to the repo
 
@@ -183,6 +193,50 @@ The folder that contains the different keymaps, but so far it only contains one,
 This folder contains the file that has all the good stuff for the numpad.
 **** keymap.c
 
+File contains pretty much the layout and the stuff that controls the OLED and Encoder
+https://docs.qmk.fm/#/keycodes
+This link will be pretty useful for finding out what does what.
+
+Also the layers stuff can be turned into an array if we want more layers.
+***** Keycode and Layers
+So this is where all the stuff gets matched to have input, there can be multiple layers if we wanted something with a WASD sort of deal. if you want to make another layer
+just continue from the "," and make a name such as Layout2() and write out all the keycodes.
+
+It is good to note that "_______" Means transparency, and will use whatever is above that layer.
+****** In case it breaks note:
+I am pretty sure the current layout works, but if it doesn't I did see another persons numpad look like this
+#+begin_src
+        KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
+        KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
+        KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
+        KC_P1,   KC_P2,   KC_P3,   KC_ENT,
+        KC_P0,   KC_P0,   KC_PDOT, KC_ENT
+#+end_src
+so maybe we try that idk.
+***** Encoder
+Currently don't have much done with the encoder. Just have it set to raise and lower volume
+https://beta.docs.qmk.fm/using-qmk/hardware-features/feature_encoders
+Documentation is here if you would like to change it.
+
+
+***** OLED
+https://beta.docs.qmk.fm/using-qmk/hardware-features/displays/feature_oled_driver
+Right now it is missing a LOGO and some other stuff, I do have it display when numlock is pressed and that is about it.
+Also using a special font for it, and that is glcdfont.c where this is refered to by the config.h in the same directory
+
+OLED rotation specifies what direction it is in, so horizontal is 0 which is what I have it as
+**** config.h
+used for the font for the OLED screen
+**** glcdfont.c
+a hex representation of the font
 
 * Todo list
-** TODO
+** TODO OLED [0/3] [0%]
+- [ ] OLED logo
+- [ ] Layer display
+- [ ] Extra menu stuff
+** TODO Encoder [0/2] [0%]
+- [ ] Functions
+- [ ] Layer functional changes
+** TODO Layer  [0/1] [0%]
+- [ ] Make some more I guess
