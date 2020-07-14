@@ -35,18 +35,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------+--------|
  * | ESC    | A      | S      | D      | F      | G      | H      | J      | K      | L      | ;      | '      | ENTER  | ENTER  | END    |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------+--------|
- * | LSHIFT | Z      | X      | C      | V      | B      | N      | M      | ,      | .      | /      | RSHIFT |        |        | PG UP  |
+ * | LSHIFT | Z      | X      | C      | V      | B      | N      | M      | ,      | .      | /      | RSHIFT | UP     |        | PG UP  |
  * |--------+--------+--------+--------+--------+-----------------+--------+--------+--------+--------+-----------------+--------+--------|
- * | LCTRL  | LGUI   | LALT   | BKSP   | BKSP   | FN     | SPACE  | RALT   | RGUI   | RCTL   | LEFT   | DOWN   | UP     | RIGHT  | PG DN  |
+ * | LCTRL  | LGUI   | LALT   | FN     | BKSP   |        | SPACE  | RALT   | RGUI   | RCTL   |        | LEFT   | DOWN   | RIGHT  | PG DN  |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
 
   [_QW] = LAYOUT_ortho_5x15( /* QWERTY */
-    KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,  KC_DEL,
-    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,  KC_HOME,
-    KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,  KC_ENT,   KC_END,
-    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_UP,   KC_NO,    KC_PGUP,
-    KC_LCTL, KC_LGUI, KC_LALT, KC_BSPC, KC_BSPC, MO(_FN), KC_SPC,  KC_RALT, KC_RGUI, KC_RCTL, KC_NO,   KC_LEFT, KC_DOWN, KC_RIGHT, KC_PGDN
+    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,  KC_DEL,
+    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,  KC_HOME,
+    KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,  KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,  KC_ENT,   KC_END,
+    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_UP,   KC_NO,    KC_PGUP,
+    KC_LCTL, KC_LGUI, KC_LALT, MO(_FN), KC_BSPC, KC_NO, KC_SPC,  KC_RALT, KC_RGUI, KC_RCTL, KC_NO,   KC_LEFT, KC_DOWN, KC_RIGHT, KC_PGDN
   ),
 
 /* FUNCTION
@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * | VOL-   | MUTE   | VOL+   |        | RGB VD | RGB VI |        |        |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        |        | RGB TG | RGB MD | RGB RMD| FN     |        |        |        |        |        |        |        |        |        |
+ * | RGB TG | RGB MD |        | FN     | RGB RMD|        |        |        |        |        |        |        |        |        |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
 
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, RGB_HUD, RGB_HUI, _______, _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_INS,
     KC_MPRV, KC_MPLY, KC_MNXT, _______, RGB_SAD, RGB_SAI, _______, _______, _______, _______, _______, RESET,   _______, _______, _______,
     KC_VOLD, KC_MUTE, KC_VOLU, _______, RGB_VAD, RGB_VAI, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, RGB_TOG, RGB_MOD, RGB_RMOD,_______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    RGB_TOG, RGB_MOD, _______, _______, RGB_RMOD,_______, _______, _______, _______, _______, _______, _______, _______, _______, _______
   )
 };
 
