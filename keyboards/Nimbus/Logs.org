@@ -1,0 +1,188 @@
+#+TITLE:Logs
+
+So this document is to hopefully help understand how qmk seems to work and to show what I did to get around certain things
+It is structured into sections so you can look at whatever in a more organized way
+
+
+* Compile and Structure
+Alright as for organization the example they use to compile
+#+BEGIN_SRC sh :exports both
+cd ../keyboards/clueboard/66/rev3
+ls
+#+END_SRC
+
+#+RESULTS:
+| config.h |
+| rev3.c   |
+| rev3.h   |
+| rules.mk |
+
+
+Show that to compile a keyboard it goes to a folder which can store what seems any number of keyboards.
+
+#+BEGIN_SRC sh :exports both
+cd ../keyboards/clueboard
+ls
+#+END_SRC
+
+#+RESULTS:
+| 17         |
+| 2x1800     |
+| 60         |
+| 66         |
+| 66_hotswap |
+| california |
+| card       |
+| info.json  |
+| readme.md  |
+
+Here there seems to be an set of keyboards with a set of layouts.
+#+BEGIN_SRC sh : exports both
+cd ../keyboards/clueboard/60
+tree
+#+END_SRC
+
+#+RESULTS:
+| .   |              |             |           |
+| ├── | 60.c         |             |           |
+| ├── | 60.h         |             |           |
+| ├── | chconf.h     |             |           |
+| ├── | config.h     |             |           |
+| ├── | halconf.h    |             |           |
+| ├── | info.json    |             |           |
+| ├── | keymaps      |             |           |
+| │   | ├──          | default     |           |
+| │   | │            | ├──         | keymap.c  |
+| │   | │            | └──         | readme.md |
+| │   | └──          | default_aek |           |
+| │   | ├──          | ├──         | keymap.c  |
+| │   | └──          | └──         | readme.md |
+| ├── | led.c        |             |           |
+| ├── | mcuconf.h    |             |           |
+| ├── | readme.md    |             |           |
+| └── | rules.mk     |             |           |
+|     |              |             |           |
+| 3   | directories, | 14  files   |           |
+
+What was kind of confusing for me at the start was what was under keymaps, what these keymaps
+
+* Code tips
+** GREP
+So the way I found a bug I made about transparency layers I used grep to see how others made their layouts for numpads
+Grep being a tool to find text through files
+
+So to find boards similar to ours I used a grep search on "layout_5x4" Since that is the dimensions of our numpads
+
+#+begin_src sh : exports both
+cd ..
+grep -iR 5x4 .
+#+end_src
+
+#+RESULTS:
+
+What this gives is a bunch of results of
+** GIT
+To get everything from here onto your computer all you need to do is to type these commands in the terminal
+
+git clone https://github.com/rtft/qmk_firmware
+
+to get this project firmware.
+
+Next is to add the upstream git, which is basically all the other stuff people are contributing to the repo
+
+git remote add -t master -m master upstream https://github.com/qmk/qmk_firmware
+
+So all you need to do now to get all the new stuff is to run the following
+
+git fetch upstream
+
+git merge upstream
+
+after which it will put you into some commit log probably in vim (and if it is vim just type :wq) to write and quit the editor after which you can
+
+git push
+
+back to the repo
+
+I don't really modify what qmk has so there should not be any merge conflicts, but if there is you should tell me.
+
+
+* Nimbus Numpad
+So to find the directory containing the numpad code. In the root directory of the QMK there is a symbolic link called "Nimbus" This is a symbolic link that takes you into the qmk_firmware/keyboards directory. Since there is like hundreds of keyboards in there, I thought it would make it slightly easier to visit. And I think the Nimbus stuff has to be in that directory for qmk to recognize it, but I am not sure.
+
+
+
+So the current structure of the Nimbus folder looks like this. and I will try to explain what each file does.
+#+begin_src sh :exports both
+tree
+#+end_src
+
+#+RESULTS:
+| .   |              |         |          |
+| ├── | config.h     |         |          |
+| ├── | info.json    |         |          |
+| ├── | keymaps      |         |          |
+| │   | └──          | default |          |
+| │   |              | └──     | keymap.c |
+| ├── | Logs.org     |         |          |
+| ├── | Nimbus.c     |         |          |
+| ├── | Nimbus.h     |         |          |
+| ├── | readme.md    |         |          |
+| └── | rules.mk     |         |          |
+|     |              |         |          |
+| 2   | directories, | 8       | files    |
+
+Basically the 2 most important files in here are config.h and keymap.c in the keymaps/default/ directory
+
+** Logs.org
+This is the file you are reading which has logs pertaining to what I have been doing and explanations for each file
+
+** readme.md
+Is our readme file, which after seeing a few other peoples would be good to have a picture of stuff explaining the layout of everything and what not.
+but I have a basic thing there for now
+
+** rules.mk
+This has all of the I guess "rules" associated with the keyboard. where the bootloader settings and microcontroller are set, you should also check if I got those right as well.
+
+
+** info.json
+this file is what is used on http://www.keyboard-layout-editor.com/ and does not affect the compile or code in anyway.... At least im pretty sure lol, I have a basic numpad layout for this one
+
+*** Sidenote:
+I actually tried placing the numpad layout thing in there, and it don't work... but it doesn't really affect the code in any way (I have seen some projects that just leave this blank) so im just gonna leave that there for now
+
+** config.h
+Is a pretty important file that contains all the information related to pins, so Matrix and Column pins are stated here. As well as encoders and LED breathing and levels, RGB, and USB device descriptor.
+
+Carter I think you should take a look at this file first to make sure I did everything here right because I don't really know much about electricity and everything you did here lol
+
+** Nimbus.c
+This is if we want extra customizations. There is commented code here that explains some of the functions here. Such as doing a specific thing at boot, and other things such as running during a matrix scan, and LED setting such as capslock or a macro looking thing.
+
+
+** Nimbus.h
+The header file associated, contains the layout for the numpad which is made to look like this
+  .-------------------.
+  |NLCK|   /|   *|   -|
+  |-------------------|
+  |   7|   8|   9|    |
+  |--------------|    |
+  |   4|   5|   6|   +|
+  |-------------------|
+  |   1|   2|   3|    |
+  |--------------|    |
+  |        0|   .| Ent|
+  '-------------------'
+  And I hope I got that right
+
+
+
+** keymaps
+The folder that contains the different keymaps, but so far it only contains one, and probably will only contain one for simplicity
+*** default
+This folder contains the file that has all the good stuff for the numpad.
+**** keymap.c
+
+
+* Todo list
+** TODO
