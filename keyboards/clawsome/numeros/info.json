@@ -1,0 +1,33 @@
+{
+    "keyboard_name": "numeros",
+    "url": "www.clawboards.xyz",
+    "maintainer": "AAClawson (AlisGraveNil)",
+    "width": 4,
+    "height": 5,
+    "layouts": {
+        "LAYOUT": {
+            "key_count": 17,
+            "layout": [
+                {"label":"K00 (D0,B3)", "x":0, "y":0},
+                {"label":"K01 (D0,E6)", "x":1, "y":0},
+                {"label":"K02 (D0,D7)", "x":2, "y":0},
+                {"label":"K03 (D0,D4)", "x":3, "y":0},
+                {"label":"K10 (C6,B3)", "x":0, "y":1},
+                {"label":"K11 (C6,E6)", "x":1, "y":1},
+                {"label":"K12 (C6,D7)", "x":2, "y":1},
+                {"label":"K13 (C6,D4)", "x":3, "y":1, "h":2},
+                {"label":"K20 (B2,B3)", "x":0, "y":2},
+                {"label":"K21 (B2,E6)", "x":1, "y":2},
+                {"label":"K22 (B2,D7)", "x":2, "y":2},
+                {"label":"K30 (B6,B3)", "x":0, "y":3},
+                {"label":"K31 (B6,E6)", "x":1, "y":3},
+                {"label":"K32 (B6,D7)", "x":2, "y":3},
+                {"label":"K33 (B6,D4)", "x":3, "y":3, "h":2},
+                {"label":"K40 (B5,B3)", "x":0, "y":4, "w":2},
+                {"label":"K42 (B5,D7)", "x":2, "y":4}
+            ]
+        }
+    }
+    ,"meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
+}
+
