@@ -58,6 +58,7 @@ void matrix_scan_user(void) {
 }
 
 //Encoder stuff
+//https://beta.docs.qmk.fm/using-qmk/hardware-features/feature_encoders
 void encoder_update_user(uint8_t index, bool clockwise) {
     if(index == 0){
         if (clockwise) {
