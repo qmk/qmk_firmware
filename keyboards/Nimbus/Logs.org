@@ -128,19 +128,21 @@ tree
 #+end_src
 
 #+RESULTS:
-| .   |              |         |          |
-| ├── | config.h     |         |          |
-| ├── | info.json    |         |          |
-| ├── | keymaps      |         |          |
-| │   | └──          | default |          |
-| │   |              | └──     | keymap.c |
-| ├── | Logs.org     |         |          |
-| ├── | Nimbus.c     |         |          |
-| ├── | Nimbus.h     |         |          |
-| ├── | readme.md    |         |          |
-| └── | rules.mk     |         |          |
-|     |              |         |          |
-| 2   | directories, | 8       | files    |
+| .   |              |         |            |
+| ├── | config.h     |         |            |
+| ├── | info.json    |         |            |
+| ├── | keymaps      |         |            |
+| │   | └──          | default |            |
+| │   |              | ├──     | config.h   |
+| │   |              | ├──     | glcdfont.c |
+| │   |              | ├──     | keymap.c   |
+| ├── | Logs.org     |         |            |
+| ├── | Nimbus.c     |         |            |
+| ├── | Nimbus.h     |         |            |
+| ├── | readme.md    |         |            |
+| └── | rules.mk     |         |            |
+|     |              |         |            |
+| 2   | directories, | 10      | files      |
 
 Basically the 2 most important files in here are config.h and keymap.c in the keymaps/default/ directory
 
