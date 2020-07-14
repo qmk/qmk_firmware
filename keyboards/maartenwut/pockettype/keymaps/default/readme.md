@@ -1,1 +1,1 @@
-This is the default keymap for the Eon40.
+This is the default keymap for the PocketType.
