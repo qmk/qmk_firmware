@@ -63,9 +63,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void unicode_s(const char plain[], const char shifted[]) {
     if (get_mods()&MOD_MASK_SHIFT) {
-        send_unicode_hex_string(shifted);
+        send_unicode_string(shifted);
     } else {
-        send_unicode_hex_string(plain);
+        send_unicode_string(plain);
     }
 }
 
@@ -73,7 +73,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
         case SHR_LOD:
             if (record->event.pressed) {
-                unicode_s(u_SHRUG, u_LOD);
+                unicode_s("¯\\_(ツ)_/¯", "ಠ_ಠ");
             }
             return false;
         case VRSN:  // Prints firmware version
