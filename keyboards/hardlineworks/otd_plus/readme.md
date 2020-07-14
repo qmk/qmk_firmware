@@ -1,6 +1,6 @@
 # [OTD PLUS](https://github.com/gadzkun/Hardlineworks/tree/master/otd%20plus)
 ![TKL top](https://user-images.githubusercontent.com/67696967/87272049-54679300-c4ff-11ea-8f5a-4f7c2825b85c.png)
-TKL layout pcb mechanical keyboard
+A modern PCB replacement for OTD keyboards, powered by HardLineWorks
 
 * Keyboard Maintainer   : [Hardlineworks](https://github.com/gadzkun/Hardlineworks)
 * Hardware Supported    : otd plus pcb
