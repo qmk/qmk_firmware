@@ -78,7 +78,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case VRSN:  // Prints firmware version
             if (record->event.pressed) {
-                send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP ":" QMK_VERSION " " QMK_BUILDDATE), TAP_CODE_DELAY);
+                send_string_with_delay_P(PSTR("# " QMK_KEYBOARD "/" QMK_KEYMAP ":" QMK_VERSION " " QMK_BUILDDATE "\n"), TAP_CODE_DELAY);
             }
             return false;
         default:
