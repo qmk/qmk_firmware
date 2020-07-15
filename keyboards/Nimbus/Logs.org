@@ -4,68 +4,6 @@ So this document is to hopefully help understand how qmk seems to work and to sh
 It is structured into sections so you can look at whatever in a more organized way
 
 
-* Compile and Structure
-Alright as for organization the example they use to compile
-#+BEGIN_SRC sh :exports both
-cd ../keyboards/clueboard/66/rev3
-ls
-#+END_SRC
-
-#+RESULTS:
-| config.h |
-| rev3.c   |
-| rev3.h   |
-| rules.mk |
-
-
-Show that to compile a keyboard it goes to a folder which can store what seems any number of keyboards.
-
-#+BEGIN_SRC sh :exports both
-cd ../keyboards/clueboard
-ls
-#+END_SRC
-
-#+RESULTS:
-| 17         |
-| 2x1800     |
-| 60         |
-| 66         |
-| 66_hotswap |
-| california |
-| card       |
-| info.json  |
-| readme.md  |
-
-Here there seems to be an set of keyboards with a set of layouts.
-#+BEGIN_SRC sh : exports both
-cd ../keyboards/clueboard/60
-tree
-#+END_SRC
-
-#+RESULTS:
-| .   |              |             |           |
-| ├── | 60.c         |             |           |
-| ├── | 60.h         |             |           |
-| ├── | chconf.h     |             |           |
-| ├── | config.h     |             |           |
-| ├── | halconf.h    |             |           |
-| ├── | info.json    |             |           |
-| ├── | keymaps      |             |           |
-| │   | ├──          | default     |           |
-| │   | │            | ├──         | keymap.c  |
-| │   | │            | └──         | readme.md |
-| │   | └──          | default_aek |           |
-| │   | ├──          | ├──         | keymap.c  |
-| │   | └──          | └──         | readme.md |
-| ├── | led.c        |             |           |
-| ├── | mcuconf.h    |             |           |
-| ├── | readme.md    |             |           |
-| └── | rules.mk     |             |           |
-|     |              |             |           |
-| 3   | directories, | 14  files   |           |
-
-What was kind of confusing for me at the start was what was under keymaps, what these keymaps
-
 * Code tips
 ** GREP
 So the way I found a bug I made about transparency layers I used grep to see how others made their layouts for numpads
@@ -246,7 +184,7 @@ a hex representation of the font
 
 * Work log
 ** (time stamp this in org-mode later)
-Added more debug related stuff, and output related to encoder for testing. 
+Added more debug related stuff, and output related to encoder for testing.
 
 #+begin_src
 
@@ -254,10 +192,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef CONSOLE_ENABLE
     uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
-#endif 
+#endif
   return true;
 }
 
 #+end_src
 
-Added this block of code to check for keypresses. 
+Added this block of code to check for keypresses.
