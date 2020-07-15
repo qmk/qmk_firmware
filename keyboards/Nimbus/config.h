@@ -41,7 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Encoder stuff */
 #define ENCODERS_PAD_A { D6 }
 #define ENCODERS_PAD_B { D4 }
-#define ENCODER_RESOLUTION 1
+#define ENCODER_RESOLUTION 4
 #define DEBOUNCE 10
 
 
@@ -59,7 +59,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 24
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 6
-#define BACKLIGHT_LEVELS 10
 
 // Actually since it is RGB LEDs it should be this
 

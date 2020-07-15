@@ -23,11 +23,11 @@ bool numlock_status = false;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	LAYOUT_numpad_5x4_Base(
-		KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
-    	KC_P7,   KC_P8,   KC_P9,
-    	KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
-    	KC_P1,   KC_P2,   KC_P3,
+	LAYOUT_numpad_5x4(
+		KC_NLCK, KC_PSLS, KC_PAST, 
+    	KC_P7,   KC_P8,   KC_P9, KC_PMNS,
+    	KC_P4,   KC_P5,   KC_P6,  
+    	KC_P1,   KC_P2,   KC_P3, KC_PPLS,
     	KC_P0,   KC_PDOT, KC_PENT
 	),
 };
@@ -91,8 +91,6 @@ static const char PROGMEM numlock_on[] = {
 static const char PROGMEM numlock_off[] = {
   0x20, 0x20, 0x20, 0x20, 0x20, 0x99, 0x9A, 0x00
 };
-
-
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   return OLED_ROTATION_0;

@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * |-------------------|
  * |   1|   2|   3|    |
  * |--------------|    |
- * |        0|   .| Ent|
+ * | 0       |   .| Ent|
  * '-------------------'
  */
 // The first section contains all of the arguments
@@ -39,11 +39,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     k10, k11, k12,      \
     k20, k21, k22, k23, \
     k30, k31, k32,      \
-         k41, k42, k43 \
+    k40     , k42, k43 \
 ) { \
     { k00,   k01, k02, k03   },  \
     { k10,   k11, k12, KC_NO },  \
     { k20,   k21, k22, k23   },  \
     { k30,   k31, k32, KC_NO },  \
-    { KC_NO, k41, k42, k43   }   \
-}
+    { k40, KC_NO, k42, k43   }}
