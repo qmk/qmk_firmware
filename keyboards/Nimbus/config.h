@@ -39,21 +39,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS {F1, F4, F5, F6}
 
 /* Encoder stuff */
-#define ENCODERS_PAD_A { F7 }
-#define ENCODER_RESOLUTION 2
+#define ENCODERS_PAD_A { D6 }
+#define ENCODERS_PAD_B { D4 }
+#define ENCODER_RESOLUTION 1
 #define DEBOUNCE 5
 
 
+//Version 1 Old
 // #define BACKLIGHT_PIN C7
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 24
-// #define BACKLIGHT_BREATHING
-// #define BREATHING_PERIOD 6
-// #define BACKLIGHT_LEVELS 10
+// #define RGB_DI_PIN B7
+
+//Version 2 New
+#define RGB_DI_PIN C7
+#define BACKLIGHT_PIN B7
+
+
+
+#define BACKLIGHT_BREATHING
+#define BACKLIGHT_LEVELS 24
+#define BACKLIGHT_BREATHING
+#define BREATHING_PERIOD 6
+#define BACKLIGHT_LEVELS 10
 
 // Actually since it is RGB LEDs it should be this
 
-#define RGB_DI_PIN C7
 #ifdef RGB_DI_PIN
   #define RGBLED_NUM 10
   #define RGBLIGHT_HUE_STEP 8
