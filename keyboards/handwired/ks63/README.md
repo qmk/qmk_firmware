@@ -1,5 +1,3 @@
-[Please checkout here](https://github.com/klesh/ks63)
-
 # ks63
 
 ![ks63](https://github.com/klesh/ks63/raw/master/images/ks63-finish-02.jpg)
