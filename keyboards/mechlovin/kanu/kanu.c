@@ -27,14 +27,14 @@ void led_init_ports(void) {
   setPinOutput(D2);
 
 }
-void led_set_kb(uint8_t usb_led) {
-  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-    writePinHigh(B2);
-  } else {
-    writePinLow(B2);
-  }
-      led_set_user(usb_led);
+bool led_update_kb(led_t led_state) {
+    if(led_update_user(led_state)) {
+        writePin(B2, led_state.caps_lock);
+    }
+
+    return true;
 }
+
 
 uint32_t layer_state_set_user(uint32_t state)
 {
