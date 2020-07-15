@@ -242,3 +242,22 @@ a hex representation of the font
 - [ ] Layer functional changes
 ** TODO Layer  [0/1] [0%]
 - [ ] Make some more I guess
+
+
+* Work log
+** (time stamp this in org-mode later)
+Added more debug related stuff, and output related to encoder for testing. 
+
+#+begin_src
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // If console is enabled, it will print the matrix position and status of each key pressed
+#ifdef CONSOLE_ENABLE
+    uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+#endif 
+  return true;
+}
+
+#+end_src
+
+Added this block of code to check for keypresses. 

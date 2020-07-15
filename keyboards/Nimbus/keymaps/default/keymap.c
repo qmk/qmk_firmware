@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
+#include <print.h>
 
 
 bool numlock_status = false;
@@ -63,8 +64,10 @@ void matrix_scan_user(void) {
 void encoder_update_user(uint8_t index, bool clockwise) {
     if(index == 0){
         if (clockwise) {
+          dprint("Vol going up");
         tap_code(KC_VOLU);
       } else {
+          dprint("Vol going down");
         tap_code(KC_VOLD);
       }
     }
@@ -100,6 +103,16 @@ void oled_task_user(void) {
   render_status();
 }
 #endif
+
+//DEBUG stuff to see if presses work and what not.
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // If console is enabled, it will print the matrix position and status of each key pressed
+#ifdef CONSOLE_ENABLE
+    uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+#endif 
+  return true;
+}
+
 
 void led_set_user(uint8_t usb_led) {
 
