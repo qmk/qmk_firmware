@@ -24,12 +24,21 @@ SUPPORTED_MCUS = {
     'at90usb646': 'avr',
     'atmega16u2': 'avr',
     'atmega16u4': 'avr',
-    'atmega328p': 'avr',
+    'atmega328': 'ps2avrgb',
+    'atmega328p': 'ps2avrgb',
     'atmega32a': 'ps2avrgb',
     'atmega32u2': 'avr',
     'atmega32u4': 'avr',
-    'STM32F042': 'stm32',
-    'STM32F072': 'stm32',
-    'STM32F103': 'stm32',
-    'STM32F303': 'stm32',
+    'attiny85': 'ps2avrgb',
+    # 'cortex-m0',
+    # 'cortex-m0plus'
+    # 'cortex-m3'
+    # 'cortex-m4'
+    # 'MK20DX128'
+    # 'MK20DX256'
+    # 'MKL26Z64'
+    'STM32F042': 'stm32', # cortex-m0
+    'STM32F072': 'stm32', # cortex-m0
+    'STM32F103': 'stm32', # cortex-m3
+    'STM32F303': 'stm32'  # cortex-m4
 }
