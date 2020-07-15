@@ -48,8 +48,6 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
   * 一般的に、誰もしくはどのブランドがボードを作成したか
 * `#define PRODUCT Board`
   * キーボードの名前
-* `#define DESCRIPTION a keyboard`
-  * キーボードの簡単な説明
 * `#define MATRIX_ROWS 5`
   * キーボードのマトリックスの行の数
 * `#define MATRIX_COLS 15`
