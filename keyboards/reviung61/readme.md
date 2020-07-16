@@ -2,7 +2,7 @@
 
 ![REVIUNG61](https://github.com/gtips/reviung/blob/master/reviung61/image/reviung61-pcb.jpg)  
 
-The REVIUNG41 is 61-key Standard ANSI 60% keyboard. And compatible with both MX compatible and ALPS compatible.  
+The REVIUNG41 is 61-key Standard ANSI 60% keyboard. And compatible with MX and ALPS.  
 
 * Keyboard Maintainer: [gtips](https://github.com/gtips)
 * Hardware Supported: REVIUNG61
