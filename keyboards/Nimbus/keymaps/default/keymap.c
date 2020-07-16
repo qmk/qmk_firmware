@@ -24,10 +24,10 @@ bool numlock_status = false;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	LAYOUT_numpad_5x4(
-		KC_NLCK, KC_PSLS, KC_PAST, 
-    	KC_P7,   KC_P8,   KC_P9, KC_PMNS,
-    	KC_P4,   KC_P5,   KC_P6,  
-    	KC_P1,   KC_P2,   KC_P3, KC_PPLS,
+		KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
+    	KC_P7,   KC_P8,   KC_P9, 
+    	KC_P4,   KC_P5,   KC_P6, KC_PPLS, 
+    	KC_P1,   KC_P2,   KC_P3, 
     	KC_P0,   KC_PDOT, KC_PENT
 	),
 };
@@ -38,6 +38,7 @@ void keyboard_pre_init_user(void) {
 
   // Set our LED pins as output (I don't have the pin sheet with me right now sorry carter lol)
   setPinOutput(C7);
+
 }
 
 void keyboard_post_init_user(void) {
@@ -46,6 +47,9 @@ void keyboard_post_init_user(void) {
   debug_matrix=true;
   debug_keyboard=true;
   debug_mouse=true;
+
+  rgblight_enable();
+  rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL + 5);
 }
 
 
@@ -60,13 +64,16 @@ void matrix_scan_user(void) {
 //Encoder stuff
 //https://beta.docs.qmk.fm/using-qmk/hardware-features/feature_encoders
 void encoder_update_user(uint8_t index, bool clockwise) {
+    backlight_enable();
     if(index == 0){
         if (clockwise) {
           dprint("Vol going up");
         tap_code(KC_VOLU);
+        backlight_increase();
       } else {
           dprint("Vol going down");
         tap_code(KC_VOLD);
+        backlight_decrease();
       }
     }
 }
@@ -78,26 +85,30 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 //Make a logo now
 static void render_logo(void) {
     static const char PROGMEM qmk_logo[] = {
-        0x00
+        0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91, 0x92, 0x93, 0x94,
+        0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1, 0xB2, 0xB3, 0xB4,
+        0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0xC5, 0xC6, 0xC7, 0xC8, 0xC9, 0xCA, 0xCB, 0xCC, 0xCD, 0xCE, 0xCF, 0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0x00
     };
 
     oled_write_P(qmk_logo, false);
 }
 
-static const char PROGMEM numlock_on[] = {
-  0x4E, 0x55, 0x4D, 0x20, 0x20, 0x99, 0x9A, 0x00
-};
 
-static const char PROGMEM numlock_off[] = {
-  0x20, 0x20, 0x20, 0x20, 0x20, 0x99, 0x9A, 0x00
-};
+
+// static const char PROGMEM numlock_on[] = {
+//   0x4E, 0x55, 0x4D, 0x20, 0x20, 0x99, 0x9A, 0x00
+// };
+
+// static const char PROGMEM numlock_off[] = {
+//   0x20, 0x20, 0x20, 0x20, 0x20, 0x99, 0x9A, 0x00
+// };
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   return OLED_ROTATION_0;
 }
 
 void oled_task_user(void) {
-  render_status();
+  render_logo();
 }
 #endif
 
