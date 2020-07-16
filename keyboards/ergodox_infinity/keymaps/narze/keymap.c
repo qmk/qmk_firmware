@@ -683,7 +683,7 @@ void matrix_scan_user(void) {
 
 // Combos
 
-void process_combo_event(uint8_t combo_index, bool pressed) {
+void process_combo_event(uint16_t combo_index, bool pressed) {
     if (pressed) {
         switch(combo_index) {
             case CB_SUPERDUPER:
