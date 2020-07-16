@@ -20,17 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 bool         i2c_initialized = 0;
 i2c_status_t mcp23017_status = I2C_ADDR;
 
-void matrix_init_kb(void) {
-    // set unused pins on mcu as input with internal pull-up enabled
-    pin_t unused_pins_mcu[UNUSED_MCU] = UNUSED_PINS_MCU;
-    for (int pin_index = 0; pin_index < UNUSED_MCU; pin_index++) {
-        pin_t pin = unused_pins_mcu[pin_index];
-        setPinInputHigh(pin);
-    }
-
-    matrix_init_user();
-}
-
 uint8_t init_mcp23017(void) {
     print("starting init");
     mcp23017_status = I2C_ADDR;
