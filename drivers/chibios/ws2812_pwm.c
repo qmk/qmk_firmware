@@ -23,6 +23,9 @@
 #ifndef WS2812_DMA_CHANNEL
 #    define WS2812_DMA_CHANNEL 2  // DMA Channel for TIMx_UP
 #endif
+#if (STM32_DMA_SUPPORTS_DMAMUX == TRUE) && !defined(WS2812_DMAMUX_ID)
+#    error "please consult your MCU's datasheet and specify in your config.h: #define WS2812_DMAMUX_ID STM32_DMAMUX1_TIM?_UP"
+#endif
 
 // Push Pull or Open Drain Configuration
 // Default Push Pull
@@ -183,6 +186,11 @@ void ws2812_init(void) {
     dmaStreamSetTransactionSize(WS2812_DMA_STREAM, WS2812_BIT_N);
     dmaStreamSetMode(WS2812_DMA_STREAM, STM32_DMA_CR_CHSEL(WS2812_DMA_CHANNEL) | STM32_DMA_CR_DIR_M2P | STM32_DMA_CR_PSIZE_WORD | STM32_DMA_CR_MSIZE_WORD | STM32_DMA_CR_MINC | STM32_DMA_CR_CIRC | STM32_DMA_CR_PL(3));
     // M2P: Memory 2 Periph; PL: Priority Level
+
+#if (STM32_DMA_SUPPORTS_DMAMUX == TRUE)
+    // If the MCU has a DMAMUX we need to assign the correct resource
+    dmaSetRequestSource(WS2812_DMA_STREAM, WS2812_DMAMUX_ID);
+#endif
 
     // Start DMA
     dmaStreamEnable(WS2812_DMA_STREAM);
