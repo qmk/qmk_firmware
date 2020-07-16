@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include <avr/io.h>
 #include "wait.h"
-#include "print.h"
 #include "debug.h"
 #include "matrix.h"
 #include QMK_KEYBOARD_H
@@ -87,12 +86,12 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
             // if (++mcp23017_reset_loop >= 1300) {
             // since mcp23017_reset_loop is 8 bit - we'll try to reset once in 255 matrix scans
             // this will be approx bit more frequent than once per second
-            print("trying to reset mcp23017\n");
+            dprint("trying to reset mcp23017\n");
             mcp23017_status = init_mcp23017();
             if (mcp23017_status) {
-                print("right side not responding\n");
+                dprint("right side not responding\n");
             } else {
-                print("right side attached\n");
+                dprint("right side attached\n");
             }
         }
     }
