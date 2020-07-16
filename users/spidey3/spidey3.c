@@ -192,6 +192,72 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 spi_gflock = !spi_gflock;
                 dprintf("spi_gflock = %u\n", spi_gflock);
                 break;
+
+            case KC_PSCR: {
+                uint8_t mods = get_mods();
+#ifndef NO_ACTION_ONESHOT
+                uint8_t osm = get_oneshot_mods();
+#else
+                uint8_t osm = 0;
+#endif
+
+                switch (get_unicode_input_mode()) {
+                    case UC_MAC:
+                        if ((mods | osm) & MOD_MASK_ALT) {
+                            // Window screenshot
+                            clear_mods();
+#ifndef NO_ACTION_ONESHOT
+                            clear_oneshot_mods();
+#endif
+                            tap_code16(LSFT(LGUI(KC_4)));
+                            wait_ms(100);
+                            tap_code(KC_SPC);
+                            set_mods(mods);
+                            return false;
+                        } else if ((mods | osm) & MOD_MASK_SHIFT) {
+                            // Partial screenshot
+                            tap_code16(LSFT(LGUI(KC_4)));
+                            return false;
+                        } else {
+                            // Full screenshot
+                            tap_code16(LSFT(LGUI(KC_3)));
+                            return false;
+                        }
+                        break;
+
+                    case UC_WIN:
+                    case UC_WINC:
+                        if ((mods | osm) & MOD_MASK_ALT) {
+                            // Window screenshot
+                            // Alt+PrintScreen should work as is
+                        } else if ((mods | osm) & MOD_MASK_SHIFT) {
+                            // Partial screenshot
+                            tap_code16(LGUI(LSFT(KC_S)));
+                            return false;
+                        } else {
+                            // Full screenshot
+                            // PrintScreen should work as is
+                        }
+                        break;
+
+                    default:
+                        // Note: These are specific to ChromeOS
+                        if ((mods | osm) & MOD_MASK_ALT) {
+                            // Window screenshot
+                            tap_code16(LCTL(LALT(KC_F5)));
+                            return false;
+                        } else if ((mods | osm) & MOD_MASK_SHIFT) {
+                            // Partial screenshot
+                            tap_code16(LCTL(LSFT(KC_F5)));
+                            return false;
+                        } else {
+                            // Full screenshot
+                            // PrintScreen should work as is
+                        }
+                        break;
+                }
+                break;
+            }
         }
     } else {
         switch (keycode) {
