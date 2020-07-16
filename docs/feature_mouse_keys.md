@@ -133,7 +133,7 @@ relevant settings.
 small and detailed movements of the cursor.
 * **KC_ACL1:** This acceleration sets your cursor to half the maximum (user defined) speed.
 * **KC_ACL2:** This acceleration sets your cursor to the maximum (computer defined) speed. This is
-useful for moveing the cursor large distances without much accuracy.
+useful for moving the cursor large distances without much accuracy.
 
 To use constant speed mode, you must at least define `MK_COMBINED` in your keymap’s `config.h` file:
 
