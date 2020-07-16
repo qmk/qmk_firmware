@@ -2,6 +2,7 @@
 
 #include "ch.h"
 #include "hal.h"
+#include "wait.h"
 
 /* This code should be checked whether it runs correctly on platforms */
 #define SYMVAL(sym) (uint32_t)(((uint8_t *)&(sym)) - ((uint8_t *)0))
@@ -31,15 +32,6 @@
 
 extern uint32_t __ram0_end__;
 
-#    define bootdelay(loopcount)                  \
-        do {                                      \
-            for (int i = 0; i < loopcount; ++i) { \
-                __asm__ volatile("nop\n\t"        \
-                                 "nop\n\t"        \
-                                 "nop\n\t");      \
-            }                                     \
-        } while (0)
-
 void bootloader_jump(void) {
     // For STM32 MCUs with dual-bank flash, and we're incapable of jumping to the bootloader. The first valid flash
     // bank is executed unconditionally after a reset, so it doesn't enter DFU unless BOOT0 is high. Instead, we do
@@ -54,7 +46,7 @@ void bootloader_jump(void) {
 #    endif
 
     // Wait for a while for the capacitor to charge
-    bootdelay(STM32_BOOTLOADER_DUAL_BANK_DELAY);
+    wait_ms(100);
 
     // Issue a system reset to get the ROM bootloader to execute, with BOOT0 high
     NVIC_SystemReset();
