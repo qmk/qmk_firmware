@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 /* matrix state(1:on, 0:off) */
-static matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
 static matrix_row_t matrix[MATRIX_ROWS];      // debounced values
 
 static matrix_row_t read_cols(uint8_t row);
@@ -47,7 +46,6 @@ void matrix_init_custom(void) {
     // initialize matrix state: all keys off
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
         matrix[i]     = 0;
-        raw_matrix[i] = 0;
     }
 }
 
