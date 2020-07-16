@@ -43,7 +43,7 @@ Mouse keys supports three different modes to move the cursor:
 
 * **Accelerated (default):** Holding movement keys accelerates the cursor until it reaches its maximum speed.
 * **Constant:** Holding movement keys moves the cursor at constant speeds.
-* **Combined:** Holding movement keys accelerates the cursor until it reaches its maximum speed, but holding accelleration and movement keys simultaneously moves the cursor at constant speeds.
+* **Combined:** Holding movement keys accelerates the cursor until it reaches its maximum speed, but holding acceleration and movement keys simultaneously moves the cursor at constant speeds.
 
 The same principle applies to scrolling.
 
