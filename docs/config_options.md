@@ -43,8 +43,6 @@ This is a C header file that is one of the first things included, and will persi
   * generally who/whatever brand produced the board
 * `#define PRODUCT Board`
   * the name of the keyboard
-* `#define DESCRIPTION a keyboard`
-  * a short description of what the keyboard is
 * `#define MATRIX_ROWS 5`
   * the number of rows in your keyboard's matrix
 * `#define MATRIX_COLS 15`
