@@ -249,8 +249,11 @@ void set_single_persistent_default_layer(uint8_t default_layer);
 
 void tap_random_base64(void);
 
-#define IS_LAYER_ON(layer) (layer_state & (1UL << (layer)))
-#define IS_LAYER_OFF(layer) (~layer_state & (1UL << (layer)))
+#define IS_LAYER_ON(layer) layer_state_is(layer)
+#define IS_LAYER_OFF(layer) !layer_state_is(layer)
+
+#define IS_LAYER_ON_STATE(state, layer) layer_state_cmp(state, layer)
+#define IS_LAYER_OFF_STATE(state, layer) !layer_state_cmp(state, layer)
 
 void     matrix_init_kb(void);
 void     matrix_scan_kb(void);

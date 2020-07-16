@@ -364,6 +364,8 @@ void process_action(keyrecord_t *record, action_t action) {
                             dprint("MODS_TAP: Tap: unregister_code\n");
                             if (action.layer_tap.code == KC_CAPS) {
                                 wait_ms(TAP_HOLD_CAPS_DELAY);
+                            } else {
+                                wait_ms(TAP_CODE_DELAY);
                             }
                             unregister_code(action.key.code);
                         } else {
