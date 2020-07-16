@@ -134,6 +134,10 @@ def new_keyboard(cli):
     if mcu in ['atmega16u2', 'atmega32u2', 'atmega328', 'atmega328p']:
         file_contents = Path(keyboard_path / 'config.h').read_text().replace("F1, F0, B0", "B0, B1, B2")
         Path(keyboard_path / 'config.h').write_text(file_contents)
+    # Replace BOOTLOADER value for atmega328p
+    if mcu == 'atmega328p':
+        file_contents = Path(keyboard_path / 'rules.mk').read_text().replace("BOOTLOADER = atmel-dfu", "BOOTLOADER = USBasp")
+        Path(keyboard_path / 'rules.mk').write_text(file_contents)
 
     # end message to user
     cli.log.info("%s keyboard directory created in: %s", common_name, keyboard_path)
