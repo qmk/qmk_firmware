@@ -52,7 +52,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_A { F6 }
 #define ENCODERS_PAD_B { F5 }
 //#define ENCODER_DIRECTION_FLIP
-#define ENCODER_RESOLUTION 10
+#define ENCODER_RESOLUTION 1
 #define DIP_SWITCH_PINS { B2, B5 }
 
 //#define BACKLIGHT_PIN
@@ -72,7 +72,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
+#define DEBOUNCE 0
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
