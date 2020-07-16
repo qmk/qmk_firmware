@@ -153,7 +153,7 @@ void matrix_setup(void) {
     set_superduper_key_combos();
 }
 
-void process_combo_event(uint8_t combo_index, bool pressed) {
+void process_combo_event(uint16_t combo_index, bool pressed) {
     if (pressed) {
         switch(combo_index) {
             case CB_SUPERDUPER:
