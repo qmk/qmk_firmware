@@ -45,6 +45,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODER_RESOLUTION 2
 #define DEBOUNCE 10
 
+/* OLED Display */
+#define OLED_DISPLAY_HEIGHT 32
+#define OLED_DISPLAY_WIDTH  128
+#define OLED_COM_PINS COM_PINS_SEQ
 
 //Version 1 Old
 // #define BACKLIGHT_PIN C7
@@ -53,8 +57,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //Version 2 New
 #define RGB_DI_PIN C7
 #define BACKLIGHT_PIN B7
-
-
 
 #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 24
