@@ -39,7 +39,7 @@ uint8_t init_mcp23017(void) {
     if (i2c_initialized == 0) {
         i2c_init();  // on pins D(1,0)
         i2c_initialized = true;
-        _delay_ms(I2C_TIMEOUT);
+        wait_ms(I2C_TIMEOUT);
     }
 
     // set pin direction
