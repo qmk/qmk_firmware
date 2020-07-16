@@ -22,7 +22,7 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 UNICODE_ENABLE = yes
-CUSTOM_MATRIX = yes
+CUSTOM_MATRIX = lite
 NO_USB_STARTUP_CHECK = yes
 LTO_ENABLE = yes
 

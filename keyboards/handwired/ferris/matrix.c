@@ -45,21 +45,8 @@ static void         unselect_rows(void);
 static void         select_row(uint8_t row);
 
 static uint8_t mcp23017_reset_loop;
-// static uint16_t mcp23017_reset_loop;
 
-__attribute__((weak)) void matrix_init_user(void) {}
-
-__attribute__((weak)) void matrix_scan_user(void) {}
-
-__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
-
-__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
-
-inline uint8_t matrix_rows(void) { return MATRIX_ROWS; }
-
-inline uint8_t matrix_cols(void) { return MATRIX_COLS; }
-
-void matrix_init(void) {
+void matrix_init_custom(void) {
     // initialize row and col
 
     mcp23017_status = init_mcp23017();
@@ -72,9 +59,6 @@ void matrix_init(void) {
         matrix[i]     = 0;
         raw_matrix[i] = 0;
     }
-
-    debounce_init(MATRIX_ROWS);
-    matrix_init_quantum();
 }
 
 void matrix_power_up(void) {
@@ -91,16 +75,16 @@ void matrix_power_up(void) {
 
 // Reads and stores a row, returning
 // whether a change occurred.
-static inline bool store_raw_matrix_row(uint8_t index) {
+static inline bool store_matrix_row(matrix_row_t current_matrix[], uint8_t index) {
     matrix_row_t temp = read_cols(index);
-    if (raw_matrix[index] != temp) {
-        raw_matrix[index] = temp;
+    if (current_matrix[index] != temp) {
+        current_matrix[index] = temp;
         return true;
     }
     return false;
 }
 
-uint8_t matrix_scan(void) {
+bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     if (mcp23017_status) {  // if there was an error
         if (++mcp23017_reset_loop == 0) {
             // if (++mcp23017_reset_loop >= 1300) {
@@ -127,43 +111,13 @@ uint8_t matrix_scan(void) {
         // we don't need a 30us delay anymore, because selecting a
         // left-hand row requires more than 30us for i2c.
 
-        changed |= store_raw_matrix_row(left_index);
-        changed |= store_raw_matrix_row(right_index);
+        changed |= store_matrix_row(current_matrix, left_index);
+        changed |= store_matrix_row(current_matrix, right_index);
 
         unselect_rows();
     }
 
-    debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
-    matrix_scan_quantum();
-
-    return 1;
-}
-
-bool matrix_is_modified(void)  // deprecated and evidently not called.
-{
-    return true;
-}
-
-inline bool matrix_is_on(uint8_t row, uint8_t col) { return (matrix[row] & ((matrix_row_t)1 << col)); }
-
-inline matrix_row_t matrix_get_row(uint8_t row) { return matrix[row]; }
-
-void matrix_print(void) {
-    print("\nr/c 0123456789ABCDEF\n");
-    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        phex(row);
-        print(": ");
-        pbin_reverse16(matrix_get_row(row));
-        print("\n");
-    }
-}
-
-uint8_t matrix_key_count(void) {
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        count += bitpop16(matrix[i]);
-    }
-    return count;
+    return changed;
 }
 
 static void init_cols(void) {
