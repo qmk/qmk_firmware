@@ -129,10 +129,10 @@ to momentarily (while held) set the cursor and scroll speeds to constant speeds.
 keys are held, this mode is identical to **Accelerated** mode, and can be modified using all of the
 relevant settings.
 
-* **KC_ACL0:** This accelleration sets your cursor to the slowest possible speed. This is useful for very
+* **KC_ACL0:** This acceleration sets your cursor to the slowest possible speed. This is useful for very
 small and detailed movements of the cursor.
-* **KC_ACL1:** This accelleration sets your cursor to half the maximum (user defined) speed.
-* **KC_ACL1:** This accelleration sets your cursor to the maximum (computer defined) speed. This is
+* **KC_ACL1:** This acceleration sets your cursor to half the maximum (user defined) speed.
+* **KC_ACL2:** This acceleration sets your cursor to the maximum (computer defined) speed. This is
 useful for moveing the cursor large distances without much accuracy.
 
 To use constant speed mode, you must at least define `MK_COMBINED` in your keymap’s `config.h` file:
