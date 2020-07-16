@@ -23,12 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * to repeating that information all over the place.
  */
 
-#include <stdint.h>
-#include <stdbool.h>
-#include <avr/io.h>
-#include "wait.h"
-#include "debug.h"
-#include "matrix.h"
 #include QMK_KEYBOARD_H
 
 /* matrix state(1:on, 0:off) */
