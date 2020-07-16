@@ -2,6 +2,7 @@
 
 #include "ch.h"
 #include "hal.h"
+#include "wait.h"
 
 /* This code should be checked whether it runs correctly on platforms */
 #define SYMVAL(sym) (uint32_t)(((uint8_t *)&(sym)) - ((uint8_t *)0))
@@ -31,44 +32,27 @@
 
 extern uint32_t __ram0_end__;
 
-#    define bootdelay(loopcount)                  \
-        do {                                      \
-            for (int i = 0; i < loopcount; ++i) { \
-                __asm__ volatile("nop\n\t"        \
-                                 "nop\n\t"        \
-                                 "nop\n\t");      \
-            }                                     \
-        } while (0)
-
 void bootloader_jump(void) {
-    *MAGIC_ADDR = BOOTLOADER_MAGIC;  // set magic flag => reset handler will jump into boot loader
+    // For STM32 MCUs with dual-bank flash, and we're incapable of jumping to the bootloader. The first valid flash
+    // bank is executed unconditionally after a reset, so it doesn't enter DFU unless BOOT0 is high. Instead, we do
+    // it with hardware...in this case, we pull a GPIO high/low depending on the configuration, connects 3.3V to
+    // BOOT0's RC charging circuit, lets it charge the capacitor, and issue a system reset. See the QMK discord
+    // #hardware channel pins for an example circuit.
+    palSetPadMode(PAL_PORT(STM32_BOOTLOADER_DUAL_BANK_GPIO), PAL_PAD(STM32_BOOTLOADER_DUAL_BANK_GPIO), PAL_MODE_OUTPUT_PUSHPULL);
+#    if STM32_BOOTLOADER_DUAL_BANK_POLARITY
+    palSetPad(PAL_PORT(STM32_BOOTLOADER_DUAL_BANK_GPIO), PAL_PAD(STM32_BOOTLOADER_DUAL_BANK_GPIO));
+#    else
+    palClearPad(PAL_PORT(STM32_BOOTLOADER_DUAL_BANK_GPIO), PAL_PAD(STM32_BOOTLOADER_DUAL_BANK_GPIO));
+#    endif
+
+    // Wait for a while for the capacitor to charge
+    wait_ms(100);
+
+    // Issue a system reset to get the ROM bootloader to execute, with BOOT0 high
     NVIC_SystemReset();
 }
 
-void enter_bootloader_mode_if_requested(void) {
-    unsigned long *check = MAGIC_ADDR;
-    if (*check == BOOTLOADER_MAGIC) {
-        *check = 0;
-
-        // For STM32 MCUs with dual-bank flash, and we're incapable of jumping to the bootloader. The first valid flash
-        // bank is executed unconditionally after a reset, so it doesn't enter DFU unless BOOT0 is high. Instead, we do
-        // it with hardware...in this case, we pull a GPIO high/low depending on the configuration, connects 3.3V to
-        // BOOT0's RC charging circuit, lets it charge the capacitor, and issue a system reset. See the QMK discord
-        // #hardware channel pins for an example circuit.
-        palSetPadMode(PAL_PORT(STM32_BOOTLOADER_DUAL_BANK_GPIO), PAL_PAD(STM32_BOOTLOADER_DUAL_BANK_GPIO), PAL_MODE_OUTPUT_PUSHPULL);
-#    if STM32_BOOTLOADER_DUAL_BANK_POLARITY
-        palSetPad(PAL_PORT(STM32_BOOTLOADER_DUAL_BANK_GPIO), PAL_PAD(STM32_BOOTLOADER_DUAL_BANK_GPIO));
-#    else
-        palClearPad(PAL_PORT(STM32_BOOTLOADER_DUAL_BANK_GPIO), PAL_PAD(STM32_BOOTLOADER_DUAL_BANK_GPIO));
-#    endif
-
-        // Wait for a while for the capacitor to charge
-        bootdelay(STM32_BOOTLOADER_DUAL_BANK_DELAY);
-
-        // Issue a system reset to get the ROM bootloader to execute, with BOOT0 high
-        NVIC_SystemReset();
-    }
-}
+void enter_bootloader_mode_if_requested(void) {}  // not needed at all, but if anybody attempts to invoke it....
 
 #elif defined(STM32_BOOTLOADER_ADDRESS)  // STM32_BOOTLOADER_DUAL_BANK
 
