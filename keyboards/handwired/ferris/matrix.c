@@ -31,7 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
-#include "debounce.h"
 #include QMK_KEYBOARD_H
 
 /* matrix state(1:on, 0:off) */
