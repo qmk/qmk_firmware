@@ -20,6 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 bool numlock_status = false;
+bool encoder_button_status = true;
+bool encoder_button_previous = true;
+uint8_t encoder_mode = 0;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -34,22 +37,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 void keyboard_pre_init_user(void) {
-  // Call the keyboard pre init code.
+    // Call the keyboard pre init code.
 
-  // Set our LED pins as output (I don't have the pin sheet with me right now sorry carter lol)
-  setPinOutput(C7);
-
+    // Set our LED pins as output (I don't have the pin sheet with me right now sorry carter lol)
+    setPinInput(ENCODER_BUTTON);
 }
 
 void keyboard_post_init_user(void) {
-  // Customise these values to desired behaviour
-  debug_enable=true;
-  debug_matrix=true;
-  debug_keyboard=true;
-  debug_mouse=true;
+    // Customise these values to desired behaviour
+    debug_enable=true;
+    debug_matrix=true;
+    debug_keyboard=true;
+    debug_mouse=true;
 
-  rgblight_enable();
-  rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL + 5);
+    rgblight_enable();
+    rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL + 4);
 }
 
 
@@ -58,23 +60,66 @@ void matrix_init_user(void) {
 }
 
 void matrix_scan_user(void) {
+    encoder_button_status = readPin(ENCODER_BUTTON);
 
+    if (!encoder_button_status && encoder_button_status != encoder_button_previous){
+        encoder_mode++;
+        encoder_button_previous = false;
+    }
+    else if (encoder_button_status && !encoder_button_previous) {
+        encoder_button_previous = true;
+    }
 }
 
 //Encoder stuff
 //https://beta.docs.qmk.fm/using-qmk/hardware-features/feature_encoders
 void encoder_update_user(uint8_t index, bool clockwise) {
-    backlight_enable();
-    if(index == 0){
-        if (clockwise) {
-          dprint("Vol going up");
-        tap_code(KC_VOLU);
-        backlight_increase();
-      } else {
-          dprint("Vol going down");
-        tap_code(KC_VOLD);
-        backlight_decrease();
-      }
+
+    switch (encoder_mode) {
+
+        case 0: // Volume control
+
+            if (clockwise) {
+                tap_code(KC_VOLU);
+            } else {
+                tap_code(KC_VOLD);
+            }
+
+            break;
+
+        case 1: // Backlight brightness control
+
+            if (clockwise) {
+                backlight_increase();
+            } else {
+                backlight_decrease();
+            }
+
+            break;
+
+        case 2: // RGB brightness control
+
+            if (clockwise) {
+                rgblight_increase_val();
+            } else {
+                rgblight_decrease_val();
+            }
+
+            break;
+
+        case 3: // RGG speed control
+
+            if (clockwise) {
+                rgblight_step();
+            } else {
+                rgblight_step_reverse();
+            }
+
+            break;
+
+        default: // Reset counter
+            encoder_mode = 0;
+            break;
     }
 }
 
@@ -104,21 +149,21 @@ static void render_logo(void) {
 // };
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-  return OLED_ROTATION_0;
+    return OLED_ROTATION_0;
 }
 
 void oled_task_user(void) {
-  render_logo();
+    render_logo();
 }
 #endif
 
 //DEBUG stuff to see if presses work and what not.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // If console is enabled, it will print the matrix position and status of each key pressed
+// If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef CONSOLE_ENABLE
     uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
 #endif
-  return true;
+    return true;
 }
 
 
