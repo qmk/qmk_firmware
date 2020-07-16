@@ -23,3 +23,5 @@ UNICODE_ENABLE = no          # Unicode
 BLUETOOTH_ENABLE = no        # Enable Bluetooth
 AUDIO_ENABLE = no            # Audio output
 FAUXCLICKY_ENABLE = no       # Use buzzer to emulate clicky switches
+
+LAYOUTS = numpad_5x4
