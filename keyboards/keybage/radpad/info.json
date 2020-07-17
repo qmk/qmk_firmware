@@ -27,7 +27,7 @@
                 {"x":3, "y":4}
             ]
         },
-        "LAYOUT_4x3_Encoders": {
+        "LAYOUT_4x3_encoders": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":3, "y":0},
@@ -45,7 +45,7 @@
                 {"x":3, "y":3}
             ]
         },
-        "LAYOUT_3x4_Encoders": {
+        "LAYOUT_3x4_encoders": {
             "layout": [
                 {"x":1, "y":0},
                 {"x":3, "y":0},
@@ -63,7 +63,7 @@
                 {"x":3, "y":4}
             ]
         },
-        "LAYOUT_3x3_Encoders": {
+        "LAYOUT_3x3_encoders": {
             "layout": [
                 {"x":1, "y":0},
                 {"x":3, "y":0},
