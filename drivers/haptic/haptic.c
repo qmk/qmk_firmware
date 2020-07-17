@@ -125,8 +125,8 @@ void haptic_mode_decrease(void) {
 }
 
 void haptic_dwell_increase(void) {
-    int16_t next_dwell = ((int16_t)haptic_config.dwell) + SOLENOID_DWELL_STEP_SIZE;
 #ifdef SOLENOID_ENABLE
+    int16_t next_dwell = ((int16_t)haptic_config.dwell) + SOLENOID_DWELL_STEP_SIZE;
     if (haptic_config.dwell >= SOLENOID_MAX_DWELL) {
         // if it's already at max, we wrap back to min
         next_dwell = SOLENOID_MIN_DWELL;
@@ -135,13 +135,15 @@ void haptic_dwell_increase(void) {
         next_dwell = SOLENOID_MAX_DWELL;
     }
     solenoid_set_dwell(next_dwell);
+#else
+    int16_t next_dwell = ((int16_t)haptic_config.dwell) + 1;
 #endif
     haptic_set_dwell(next_dwell);
 }
 
 void haptic_dwell_decrease(void) {
-    int16_t next_dwell = ((int16_t)haptic_config.dwell) - SOLENOID_DWELL_STEP_SIZE;
 #ifdef SOLENOID_ENABLE
+    int16_t next_dwell = ((int16_t)haptic_config.dwell) - SOLENOID_DWELL_STEP_SIZE;
     if (haptic_config.dwell <= SOLENOID_MIN_DWELL) {
         // if it's already at min, we wrap to max
         next_dwell = SOLENOID_MAX_DWELL;
@@ -150,6 +152,8 @@ void haptic_dwell_decrease(void) {
         next_dwell = SOLENOID_MIN_DWELL;
     }
     solenoid_set_dwell(next_dwell);
+#else
+    int16_t next_dwell = ((int16_t)haptic_config.dwell) - 1;
 #endif
     haptic_set_dwell(next_dwell);
 }
