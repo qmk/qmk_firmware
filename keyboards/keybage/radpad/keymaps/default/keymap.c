@@ -21,19 +21,19 @@ enum layer_names {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_BASE] = LAYOUT( \
-        KC_MUTE,                   KC_MPLY, \
-        KC_PMNS, KC_P7,   KC_P8,   KC_P9,   \
-        KC_PPLS, KC_P4,   KC_P5,   KC_P6,   \
-        KC_BSPC, KC_P1,   KC_P2,   KC_P3,   \
-        KC_PENT, MO(_FN), KC_P0,   KC_PDOT  \
+    [_BASE] = LAYOUT(
+        KC_MUTE,                   KC_MPLY,
+        KC_PMNS, KC_P7,   KC_P8,   KC_P9,
+        KC_PPLS, KC_P4,   KC_P5,   KC_P6,
+        KC_BSPC, KC_P1,   KC_P2,   KC_P3,
+        KC_PENT, MO(_FN), KC_P0,   KC_PDOT
     ),
-    [_FN] = LAYOUT( \
-        _______,                   _______, \
-        KC_PSLS, KC_F21,  KC_F22,  KC_F23,  \
-        KC_PAST, KC_F18,  KC_F19,  KC_F20,  \
-        KC_NLCK, KC_F15,  KC_F16,  KC_F17,  \
-        RESET,   _______, KC_F13,  KC_F14   \
+    [_FN] = LAYOUT(
+        _______,                   _______,
+        KC_PSLS, KC_F21,  KC_F22,  KC_F23,
+        KC_PAST, KC_F18,  KC_F19,  KC_F20,
+        KC_NLCK, KC_F15,  KC_F16,  KC_F17,
+        RESET,   _______, KC_F13,  KC_F14
     )
 };
 

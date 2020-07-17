@@ -28,7 +28,7 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
-#define LAYOUT_4x4_Encoders( \
+#define LAYOUT_4x4_encoders( \
     k00,           k03, \
     k10, k11, k12, k13, \
     k20, k21, k22, k23, \
@@ -43,7 +43,7 @@
     { k40, k41, k42, k43 }  \
 }
 
-#define LAYOUT_4x3_Encoders( \
+#define LAYOUT_4x3_encoders( \
     k00,           k03, \
     k10, k11, k12, k13, \
     k20, k21, k22, k23, \
@@ -57,7 +57,7 @@
     { XXX, XXX, XXX, XXX }  \
 }
 
-#define LAYOUT_3x4_Encoders( \
+#define LAYOUT_3x4_encoders( \
     k01,      k03, \
     k11, k12, k13, \
     k21, k22, k23, \
@@ -72,7 +72,7 @@
     { XXX, k41, k42, k43 }  \
 }
 
-#define LAYOUT_3x3_Encoders( \
+#define LAYOUT_3x3_encoders( \
     k01,      k03, \
     k11, k12, k13, \
     k21, k22, k23, \
@@ -86,4 +86,4 @@
     { XXX, XXX, XXX, XXX }  \
 }
 
-#define LAYOUT LAYOUT_4x4_Encoders
+#define LAYOUT LAYOUT_4x4_encoders
