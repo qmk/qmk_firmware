@@ -4,8 +4,8 @@
 
 The Adelheid is a 75% Alice-like keyboard. It's a fork of the [Arisu](https://github.com/FateNozomi/arisu-pcb) by FateNozomi and is open-source as well.
 
-* Keyboard Maintainer: [floookay](https://github.com/floookay)  
-* Hardware Supported: Adelheid PCB [Rev2.0]  
+* Keyboard Maintainer: [floookay](https://github.com/floookay)
+* Hardware Supported: Adelheid PCB [Rev2.0]
 * Hardware Availability: [PCB-, case- &amp; wrist rest files](https://github.com/floookay/adelheid)
 
 Make example for this keyboard (after setting up your build environment):
