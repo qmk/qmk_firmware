@@ -380,12 +380,12 @@ rgblight_sethsv(HSV_GREEN, 2); // led 2
 #### Speed functions
 |Function                                    |Description  |
 |--------------------------------------------|-------------|
-|`rgblight_increase_speed()`                 |Increases the animation speed. |
-|`rgblight_increase_speed_noeeprom()`        |Increases the animation speed. (no written to EEPROM) |
-|`rgblight_decrease_speed()`                 |Decreases the animation speed. |
-|`rgblight_decrease_speed_noeeprom()`        |Decreases the animation speed. (no written to EEPROM) |
-|`rgblight_set_speed()`                      |Sets the speed. Value is between 0 and 255. |
-|`rgblight_set_speed_noeeprom()`             |Sets the speed. Value is between 0 and 255. (no written to EEPROM) |
+|`rgblight_increase_speed()`                 |Increases the animation speed |
+|`rgblight_increase_speed_noeeprom()`        |Increases the animation speed (not written to EEPROM) |
+|`rgblight_decrease_speed()`                 |Decreases the animation speed |
+|`rgblight_decrease_speed_noeeprom()`        |Decreases the animation speed (not written to EEPROM) |
+|`rgblight_set_speed()`                      |Sets the speed. Value is between 0 and 255 |
+|`rgblight_set_speed_noeeprom()`             |Sets the speed. Value is between 0 and 255 (not written to EEPROM) |
 
 
 #### layer functions
