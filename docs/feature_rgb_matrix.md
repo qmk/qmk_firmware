@@ -55,9 +55,7 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](http://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/issi/is31fl3731.h`. The `driver` is the index of the driver you defined in your `config.h` (`0` or `1` right now).
 
 ---
-### IS31FL3733/IS31FL3737 :id=is31fl3733is31fl3737
-
-!> For the IS31FL3737, replace all instances of `IS31FL3733` below with `IS31FL3737`.
+### IS31FL3733 :id=is31fl3733
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3733 RGB controller. To enable it, add this to your `rules.mk`:
 
@@ -82,11 +80,14 @@ Configure the hardware via your `config.h`:
 #define DRIVER_ADDR_2 0b1010000 // this is here for compliancy reasons.
 
 #define DRIVER_COUNT 2
-#define DRIVER_1_LED_TOTAL 64
-#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+#define DRIVER_1_LED_TOTAL 56
+#define DRIVER_2_LED_TOTAL 55
+#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL+ DRIVER_2_LED_TOTAL)
 ```
 
-Currently only a single drivers is supported, but it would be trivial to support all 4 combinations. For now define `DRIVER_ADDR_2` as `DRIVER_ADDR_1`
+!> Note the parentheses, this is so when `DRIVER_LED_TOTAL` is used in code and expanded, the values are added together before any additional math is applied to them. As an example, `rand() % (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)` will give very different results than `rand() % DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL`.
+
+Currently only 2 drivers are supported, but it would be trivial to support all 8 combinations.
 
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
@@ -103,7 +104,57 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 }
 ```
 
-Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](http://www.issi.com/WW/pdf/31FL3733.pdf) and the header file `drivers/issi/is31fl3733.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0` right now).
+Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](http://www.issi.com/WW/pdf/31FL3733.pdf) and the header file `drivers/issi/is31fl3733.h`. The `driver` is the index of the driver you defined in your `config.h` (`0` or `1` right now).
+
+---
+### IS31FL3737 :id=is31fl3737
+
+!> For the IS31FL3737, replace all instances of `IS31FL3733` below with `IS31FL3737`.
+
+There is basic support for addressable RGB matrix lighting with the I2C IS31FL3737 RGB controller. To enable it, add this to your `rules.mk`:
+
+```makefile
+RGB_MATRIX_ENABLE = IS31FL3737
+```
+
+Configure the hardware via your `config.h`:
+
+```c
+// This is a 7-bit address, that gets left-shifted and bit 0
+// set to 0 for write, 1 for read (as per I2C protocol)
+// The address will vary depending on your wiring:
+// 0000 ADDR <-> GND
+// 0101 ADDR <-> SCL
+// 1010 ADDR <-> SDA
+// 1111 ADDR <-> VCC
+// ADDR represents A3:A0 of the 7-bit address.
+// The result is: 0b101(ADDR)
+#define DRIVER_ADDR_1 0b1010000
+#define DRIVER_ADDR_2 0b1010000 // this is here for compliancy reasons.
+
+#define DRIVER_COUNT 2
+#define DRIVER_1_LED_TOTAL 48
+#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+```
+
+Currently only a single driver is supported, but it would be trivial to support all 4 combinations. For now define `DRIVER_ADDR_2` as `DRIVER_ADDR_1`
+
+Define these arrays listing all the LEDs in your `<keyboard>.c`:
+
+```c
+const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+/* Refer to IS31 manual for these locations
+ *   driver
+ *   |  R location
+ *   |  |       G location
+ *   |  |       |       B location
+ *   |  |       |       | */
+    {0, B_1,    A_1,    C_1},
+    ....
+}
+```
+
+Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](http://www.issi.com/WW/pdf/31FL3737.pdf) and the header file `drivers/issi/is31fl3737.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0` right now).
 
 ---
 
