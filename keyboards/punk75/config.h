@@ -45,13 +45,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { C2, C3, C6, C5, C4, A7, A6, A5, A4, B4, A3, B3, A2, B2, A1 }
 #define LED A0
 
-#define ENCODER1_PAD_A D0
-#define ENCODER1_PAD_B D1
-#define ENCODER2_PAD_A B1
-#define ENCODER2_PAD_B B0
-
-#define ENCODERS_PAD_A { ENCODER1_PAD_A, ENCODER2_PAD_A}
-#define ENCODERS_PAD_B { ENCODER1_PAD_B, ENCODER2_PAD_B }
+#define ENCODERS_PAD_A { D0, B1}
+#define ENCODERS_PAD_B { D1, B0 }
 
 #define UNUSED_PINS { C7 }
 
