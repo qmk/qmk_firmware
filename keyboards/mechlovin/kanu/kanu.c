@@ -35,28 +35,12 @@ bool led_update_kb(led_t led_state) {
     return true;
 }
 
-
-uint32_t layer_state_set_user(uint32_t state)
-{
+layer_state_t layer_state_set_user(layer_state_t state) {
   // if on layer 1, turn on D2 LED, otherwise off.
-    if (biton32(state) == 1) {
-        writePinHigh(D2);
-    } else {
-        writePinLow(D2);
-    }
+  writePin(D2, get_highest_layer(state) == 1);
   // if on layer 2, turn on D1 LED, otherwise off.
-    if (biton32(state) == 2) {
-        writePinHigh(D1);
-    } else {
-        writePinLow(D1);
-    }
-
+  writePin(D1, get_highest_layer(state) == 2);
   // if on layer 3, turn on D0 LED, otherwise off.
-    if (biton32(state) == 3) {
-        writePinHigh(D0);
-    } else {
-        writePinLow(D0);
-    }
-
-    return state;
+  writePin(D0, get_highest_layer(state) == 3);
+  return state;
 }

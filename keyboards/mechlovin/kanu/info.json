@@ -5,7 +5,7 @@
     "width": 16,
     "height": 5,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "key_count": 72,
             "layout": [
                 {"label":"K00 (B0,B5)", "x":0, "y":0},

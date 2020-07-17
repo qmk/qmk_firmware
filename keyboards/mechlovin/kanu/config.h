@@ -55,5 +55,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN E2
 #define RGBLED_NUM 6
-#define RGBLIGHT_LIMIT_VAL 255
 #define RGBLIGHT_ANIMATIONS
