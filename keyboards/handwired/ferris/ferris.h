@@ -18,37 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "quantum.h"
-#include "i2c_master.h"
-
-extern i2c_status_t mcp23017_status;
-#define I2C_TIMEOUT 1000
-
-// For a better understanding of the i2c protocol, this is a good read:
-// https://www.robot-electronics.co.uk/i2c-tutorial
-
-// I2C address:
-// See the datasheet, section 3.3.1 on addressing I2C devices and figure 3-6 for an
-// illustration
-// http://ww1.microchip.com/downloads/en/devicedoc/20001952c.pdf
-// All address pins of the mcp23017 are connected to the ground on the ferris
-// | 0  | 1  | 0  | 0  | A2 | A1 | A0 |
-// | 0  | 1  | 0  | 0  | 0  | 0  | 0  |
-#define I2C_ADDR 0b0100000
-#define I2C_ADDR_WRITE ((I2C_ADDR << 1) | I2C_WRITE)
-#define I2C_ADDR_READ ((I2C_ADDR << 1) | I2C_READ)
-
-// Register addresses
-// See https://github.com/adafruit/Adafruit-MCP23017-Arduino-Library/blob/master/Adafruit_MCP23017.h
-#define IODIRA 0x00  // i/o direction register
-#define IODIRB 0x01
-#define GPPUA 0x0C  // GPIO pull-up resistor register
-#define GPPUB 0x0D
-#define GPIOA 0x12  // general purpose i/o port register (write modifies OLAT)
-#define GPIOB 0x13
-#define OLATA 0x14  // output latch register
-#define OLATB 0x15
-
-uint8_t init_mcp23017(void);
 
 // clang-format off
 
