@@ -1,6 +1,6 @@
 # dumbpad v1.x dual-encoder
 
-![dumbpad](https://i.imgur.com/OkSRXWT.jpg)
+![dumbpad](https://i.imgur.com/OkSRXWTl.jpg)
 
 A 4x4 numpad/macropad with two rotary encoders
 
