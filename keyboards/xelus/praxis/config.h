@@ -38,6 +38,7 @@
 /* RGB Underglow */
 #define RGB_DI_PIN B0
 #define RGBLED_NUM 28
+#define RGBLIGHT_ANIMATIONS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
