@@ -39,7 +39,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
                 break;
 
-            case KC_CLPB:  // One key copy/paste
+            case KC_CCCV:  // One key copy/paste
                 if (record->event.pressed) {
                     clipboard_timer = timer_read();
                 } else {

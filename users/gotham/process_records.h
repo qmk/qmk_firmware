@@ -12,7 +12,10 @@ enum userspace_custom_keycodes {
     KC_WORKMAN,         // Sets default layer to WORKMAN
     KC_NORMAN,          // Sets default layer to NORMAN
     KC_MAKE,            // Run keyboard's customized make command
-    KC_CLPB,            // Hold to copy (Ctl+hold to cut), tap to paste
+    KC_CCCV,            // Hold to copy, tap to paste
+    ENC_MODE_L,         // Change left encoder mode
+    ENC_MODE_R,         // Change right encoder mode
+    TMB_MODE,           // Change thumbstick mode
     NEW_SAFE_RANGE      // use this instead of SAFE_RANGE for keymap specific codes
 };
 
@@ -21,13 +24,13 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 #define ADJUST MO(_ADJUST)
-#define TG_GAME TG(_GAMEPAD)
-#define MO_GNUM MO(_GAMEPAD_NUM)
+#define TG_GAME TG(_GAME)
+#define MO_GNUM MO(_GAMENUM)
 
 #define QWERTY KC_QWERTY
 #define COLEMAK KC_COLEMAK
-#define WORKMAN KC_WORKMAN
 #define NORMAN KC_NORMAN
+#define WORKMAN KC_WORKMAN
 #define DVORAK KC_DVORAK
 
 #define SF_QUOT MT(MOD_RSFT, KC_QUOT)

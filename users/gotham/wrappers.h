@@ -102,17 +102,17 @@ For instance Tap/Hold for Control on all of the layouts
 #define _________________LOWER_L3__________________       KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD
 
 #define _________________LOWER_R1__________________       ___________________BLANK___________________
-#define _________________LOWER_R2__________________       __________________NAV_R1___________________
-#define _________________LOWER_R3__________________       __________________NAV_R2___________________
+#define _________________LOWER_R2__________________       KC_MINS, KC_PLUS, KC_ASTR, KC_SLSH, KC_PERC
+#define _________________LOWER_R3__________________       KC_AMPR, KC_PIPE, KC_COMM, KC_DOT,  KC_SLSH
 
 
 #define _________________RAISE_L1__________________       ________________NUMBER_LEFT________________
-#define _________________RAISE_L2__________________       _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_VOLU
-#define _________________RAISE_L3__________________       _______, _______, _______, KC_MUTE, KC_VOLD
+#define _________________RAISE_L2__________________       _______, _______, KC_VOLU, KC_VOLD, KC_MUTE
+#define _________________RAISE_L3__________________       KC_PSCR, KC_SLCK, KC_BRK,  _______, _______
 
 #define _________________RAISE_R1__________________       ________________NUMBER_RIGHT_______________
-#define _________________RAISE_R2__________________       KC_MINS, KC_PLUS, KC_ASTR, KC_SLSH, KC_PERC
-#define _________________RAISE_R3__________________       KC_AMPR, KC_PIPE, KC_COMM, KC_DOT,  KC_SLSH
+#define _________________RAISE_R2__________________       __________________NAV_R1___________________
+#define _________________RAISE_R3__________________       __________________NAV_R2___________________
 
 
 #define _________________ADJUST_L1_________________       _________________FUNC_LEFT_________________
@@ -121,6 +121,6 @@ For instance Tap/Hold for Control on all of the layouts
 
 #define _________________ADJUST_R1_________________       _________________FUNC_RIGHT________________
 #define _________________ADJUST_R2_________________       RESET,   KC_MAKE, VRSN,    KC_F11,  KC_F12
-#define _________________ADJUST_R3_________________       QWERTY,  COLEMAK, WORKMAN, NORMAN,  DVORAK
+#define _________________ADJUST_R3_________________       QWERTY,  COLEMAK, NORMAN,  WORKMAN,  DVORAK
 
 // clang-format on
