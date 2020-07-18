@@ -1,6 +1,6 @@
 # XD84 Pro
 
-![XD84 Pro](https://cdn.shopify.com/s/files/1/2711/4238/products/HTB17eeJSXXXXXbIXFXXq6xXFXXXp_1024x1024.jpg?v=1515505994)
+![XD84 Pro](https://cdn.shopify.com/s/files/1/2711/4238/products/Hf5d4a9571a524cb78870def7403f5acc5.jpg?v=1574416288)
 
 Keyboard with 84 Keys, RGB LED Underglow, and USB-C Connection
 - Designed by Xiudi
