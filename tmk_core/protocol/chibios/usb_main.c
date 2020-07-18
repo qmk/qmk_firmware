@@ -796,9 +796,8 @@ int8_t sendchar(uint8_t c) {
 }
 #endif /* CONSOLE_ENABLE */
 
-void sendchar_pf(void *p, char c) {
-    (void)p;
-    sendchar((uint8_t)c);
+void _putchar(char character) {
+    sendchar(character);
 }
 
 #ifdef RAW_ENABLE

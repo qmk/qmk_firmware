@@ -10,21 +10,21 @@
 
 #if defined(AUDIO_ENABLE) || defined(RGBLIGHT_ENABLE)
 
-bool led_update_user(led_t usb_led) {
-    static led_t old_usb_led = {
+bool led_update_user(led_t new_led) {
+    static led_t old_led = {
         .num_lock = false,
         .caps_lock = false,
         .scroll_lock = false
     };
 
-    if(old_usb_led.caps_lock != usb_led.caps_lock) {
-        usb_led.caps_lock ? on_usb_led_on() : on_usb_led_off();
-    } else if(old_usb_led.num_lock != usb_led.num_lock) {
-        usb_led.num_lock ? on_usb_led_on() : on_usb_led_off();
-    } else if(old_usb_led.scroll_lock != usb_led.scroll_lock) {
-        usb_led.scroll_lock ? on_usb_led_on() : on_usb_led_off();
+    if(old_led.caps_lock != new_led.caps_lock) {
+        new_led.caps_lock ? on_usb_led_on() : on_usb_led_off();
+    } else if(old_led.num_lock != new_led.num_lock) {
+        new_led.num_lock ? on_usb_led_on() : on_usb_led_off();
+    } else if(old_led.scroll_lock != new_led.scroll_lock) {
+        new_led.scroll_lock ? on_usb_led_on() : on_usb_led_off();
     }
-    old_usb_led = usb_led;
+    old_led = new_led;
 
     return true;
 }

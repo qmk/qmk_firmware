@@ -15,7 +15,7 @@ You can control the behavior of one shot keys by defining these in `config.h`:
 #define ONESHOT_TIMEOUT 5000  /* Time (in ms) before the one shot key is released */
 ```
 
-* `OSM(mod)` - Momentarily hold down *mod*. You must use the `MOD_*` keycodes as shown in [Mod Tap](#mod-tap), not the `KC_*` codes.
+* `OSM(mod)` - Momentarily hold down *mod*. You must use the `MOD_*` keycodes as shown in [Mod Tap](mod_tap.md), not the `KC_*` codes.
 * `OSL(layer)` - momentary switch to *layer*.
 
 Sometimes, you want to activate a one-shot key as part of a macro or tap dance routine.  

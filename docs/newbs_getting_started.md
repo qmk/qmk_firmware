@@ -41,16 +41,11 @@ We've tried to make QMK as easy to set up as possible. You only have to prepare 
 
 You will need to install MSYS2, Git, and the QMK CLI.
 
-* Follow the installation instructions on the [MSYS2 homepage](http://www.msys2.org).
-* Close any open MSYS2 terminals and open a new MSYS2 MinGW 64-bit terminal. NOTE: This is **not** the same as the MSYS terminal that opens when installation is completed.
+Follow the installation instructions on the [MSYS2 homepage](http://www.msys2.org). Close any open MSYS terminals and open a new MinGW 64-bit terminal. **NOTE: This is *not* the same as the MSYS terminal that opens when installation is completed.**
 
-After opening a new MSYS2 MinGW 64-bit terminal, make sure `pacman` is up to date with:
+Then, run the following:
 
-    pacman -Syu
-
-You may be asked to close and reopen the window. Do this and keep running the above command until it says `there is nothing to do`. Then run the following:
-
-    pacman -S git mingw-w64-x86_64-toolchain mingw-w64-x86_64-python3-pip
+    pacman --needed --noconfirm --disable-download-timeout -S git mingw-w64-x86_64-toolchain mingw-w64-x86_64-python3-pip
     python3 -m pip install qmk
 
 ### macOS
@@ -97,7 +92,7 @@ In most situations you will want to answer Yes to all of the prompts.
 It's possible, that you will get an error saying something like: `bash: qmk: command not found`.
 This is due to a [bug](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=839155) Debian introduced with their Bash 4.4 release, which removed `$HOME/.local/bin` from the PATH. This bug was later fixed on Debian and Ubuntu.
 Sadly, Ubuntu reitroduced this bug and is [yet to fix it](https://bugs.launchpad.net/ubuntu/+source/bash/+bug/1588562).
-Luckily, the fix is easy. Run this as your user: `echo "PATH=$HOME/.local/bin:$PATH" >> $HOME/.bashrc && source $HOME/.bashrc`
+Luckily, the fix is easy. Run this as your user: `echo 'PATH="$HOME/.local/bin:$PATH"' >> $HOME/.bashrc && source $HOME/.bashrc`
 
 ?>**Note on FreeBSD**:
 It is suggested to run `qmk setup` as a non-`root` user to start with, but this will likely identify packages that need to be installed to your
