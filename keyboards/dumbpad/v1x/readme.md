@@ -1,6 +1,6 @@
 # dumbpad v1.x
 
-![dumbpad](https://i.imgur.com/ND03FiF.png)
+![dumbpad](https://i.imgur.com/ND03FiFl.png)
 
 A 4x4 numpad/macropad with a rotary encoder to the left of the bottom row of keys.
 
