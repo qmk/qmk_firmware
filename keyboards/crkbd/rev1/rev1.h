@@ -71,3 +71,4 @@
 // clang-format on
 
 #define LAYOUT_split_3x6_3 LAYOUT
+#define LAYOUT_split_3x5_3 LAYOUT_mini
