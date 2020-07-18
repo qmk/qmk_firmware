@@ -1,5 +1,7 @@
 # rupa's TADA68 layout
 
+i've swapped the lufa-ms bootloader for caterina
+
 * win/alt -> alt/cmd
 * alt/fn -> fn/alt
 
