@@ -94,7 +94,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
      *        CCW: left arrow
      */
     if (index == 0) {
-        switch (biton32(layer_state)) {
+        switch (get_highest_layer(layer_state)) {
             case _BASE:
                 // main layer - move mouse right (CW) and left (CCW)
                 if (clockwise) {

@@ -1,6 +1,6 @@
 # dumbpad
 
-![dumbpad](https://i.imgur.com/1T7ciLZ.jpg)
+![dumbpad](https://i.imgur.com/1T7ciLZl.jpg)
 
 dumbpad is a num/macro pad available in two major form factors - single- and dual-rotary encoder.
 
