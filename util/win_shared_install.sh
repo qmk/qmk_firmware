@@ -18,10 +18,6 @@ function install_utils {
     wget 'https://www.pjrc.com/teensy/teensy_loader_cli_windows.zip'
     unzip teensy_loader_cli_windows.zip
 
-    echo "Installing bootloadHID"
-    wget 'https://www.obdev.at/downloads/vusb/bootloadHID.2012-12-08.zip'
-    unzip bootloadHID.2012-12-08.zip
-
     echo "Downloading the QMK driver installer"
     wget -qO- https://api.github.com/repos/qmk/qmk_driver_installer/releases | grep browser_download_url | head -n 1 | cut -d '"' -f 4 | wget -i -
 
