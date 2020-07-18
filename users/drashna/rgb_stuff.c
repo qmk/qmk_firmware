@@ -152,7 +152,7 @@ void matrix_scan_rgb_light(void) {
 
 void rgblight_set_hsv_and_mode(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode) {
     rgblight_sethsv_noeeprom(hue, sat, val);
-    wait_us(175);  // Add a slight delay between color and mode to ensure it's processed correctly
+    // wait_us(175);  // Add a slight delay between color and mode to ensure it's processed correctly
     rgblight_mode_noeeprom(mode);
 }
 
