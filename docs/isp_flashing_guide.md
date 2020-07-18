@@ -241,7 +241,7 @@ For Caterina on the `atmega32u4`, these are the fuse settings that you want:
 | High     | `0xD8` |
 | Extended | `0xCB` |
 
-To set this add `-U lfuse:w:0xFF:m -U hfuse:w:0xD8:m -U efuse:w:0xCb:m` to your command.  So the final command should look something like: 
+To set this add `-U lfuse:w:0xFF:m -U hfuse:w:0xD8:m -U efuse:w:0xCB:m` to your command.  So the final command should look something like: 
 
     avrdude -c avrisp -P COM3 -p atmega32u4 -U flash:w:main.hex:i -U lfuse:w:0xFF:m -U hfuse:w:0xD8:m -U efuse:w:0xCB:m
 
