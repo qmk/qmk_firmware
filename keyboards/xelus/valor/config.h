@@ -20,11 +20,11 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x5845 // "XE"
-#define PRODUCT_ID      0x5052 // Praxis "PR"
+#define PRODUCT_ID      0x5652 // Valor "VR"
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Xelus
-#define PRODUCT         Praxis
-#define DESCRIPTION     Praxis
+#define PRODUCT         Valor
+#define DESCRIPTION     Valor
 
 /* key matrix size */
 #define MATRIX_ROWS 5
