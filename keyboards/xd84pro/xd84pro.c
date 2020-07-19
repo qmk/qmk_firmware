@@ -16,17 +16,15 @@
 #include "xd84pro.h"
 
 void keyboard_pre_init_kb(void) {
-  setPinOutput(B2);
-
-  keyboard_pre_init_user();
+    led_init_ports();
+    keyboard_pre_init_user();
 }
-
-void led_set_kb(uint8_t usb_led) {
-  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-    writePinLow(B2);
-  } else {
-    writePinHigh(B2);
-  }
-
-  led_set_user(usb_led);
+void led_init_ports(void) {
+    setPinOutput(B2);
+}
+bool led_update_kb(led_t led_state) {
+    if (led_update_user(led_state)) {
+        writePin(B2, !led_state.caps_lock);
+    }
+    return false;
 }
