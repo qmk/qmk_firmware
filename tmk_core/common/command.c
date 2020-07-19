@@ -141,7 +141,6 @@ static void command_common_help(void) {
 static void print_version(void) {
     // print version & information
     print("\n\t- Version -\n");
-    print("DESC: " STR(DESCRIPTION) "\n");
     print("VID: " STR(VENDOR_ID) "(" STR(MANUFACTURER) ") "
                                                        "PID: " STR(PRODUCT_ID) "(" STR(PRODUCT) ") "
                                                                                                 "VER: " STR(DEVICE_VER) "\n");
