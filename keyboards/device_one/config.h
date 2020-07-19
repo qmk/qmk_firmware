@@ -8,7 +8,6 @@
 #define DEVICE_VER 0x0001
 #define MANUFACTURER akegata denki 
 #define PRODUCT device one mechanical keyboard 
-#define DESCRIPTION "60% Mechanical Keyboard"
 
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
