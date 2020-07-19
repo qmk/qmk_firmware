@@ -103,6 +103,14 @@ Do not Auto Shift numeric keys, zero through nine.
 
 Do not Auto Shift alpha characters, which include A through Z.
 
+### INVERT_DVORAK_FOR_AUTO_SHIFT (simple define)
+
+Classifies keys as SPECIAL/ALPHA according to what they would send *after*
+being remapped from US (QWERTY) to Dvorak.  With `INVERT_DVORAK_FOR_AUTO_SHIFT`
+and `NO_AUTO_SHIFT_SPECIAL` defined, Auto Shift will not be applied to Q, even
+if `NO_AUTO_SHIFT_ALPHA` is not defined.  This is because Q is a special
+character (') once remapped to Dvorak.
+
 ## Using Auto Shift Setup
 
 This will enable you to define three keys temporarily to increase, decrease and report your `AUTO_SHIFT_TIMEOUT`.
