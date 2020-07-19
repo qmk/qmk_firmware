@@ -14,7 +14,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make punk75:default
 
-To flash the keymap use
+Flashing example for this keyboard:
 
     make punk75:default:flash
 
