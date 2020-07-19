@@ -60,12 +60,12 @@ After Homebrew is installed run this command:
 
 You will need to install Git and Python. It's very likely that you already have both, but if not, one of the following commands should install them:
 
-* Debian / Ubuntu / Devuan: `sudo apt install git python3 python3-pip`
+* Debian / Ubuntu / Devuan: `sudo apt install git python3 python3-pip python3-setuptools`
 * Fedora / Red Hat / CentOS: `sudo yum install git python3 python3-pip`
 * Arch / Manjaro: `sudo pacman -S git python python-pip python-setuptools libffi`
 
 Install the global CLI to bootstrap your system:
-
+`python3 -m pip install install wheel`
 `python3 -m pip install --user qmk` (on Arch-based distros you can also try the `qmk` package from AUR (**note**: it's maintained by a community member): `yay -S qmk`)
 
 ### FreeBSD
