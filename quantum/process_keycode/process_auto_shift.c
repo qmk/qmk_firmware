@@ -100,15 +100,43 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
                 return true;
 
 #    ifndef NO_AUTO_SHIFT_ALPHA
+#        ifndef INVERT_DVORAK_FOR_AUTO_SHIFT
             case KC_A ... KC_Z:
+#        else
+            // Exclude "qwez", which when remapped from QWERTY to
+            // Dvorak in software become "',.;" respectively.
+            case KC_A ... KC_D:
+            case KC_F ... KC_P:
+            case KC_R ... KC_V:
+            case KC_X ... KC_Z:
+            // Include ",./;", which become "wvzs" respectively when remapped
+            // from QWERTY to Dvorak.
+            case KC_COMMA:
+            case KC_DOT:
+            case KC_SLASH:
+            case KC_SEMICOLON:
+#        endif /* INVERT_DVORAK_FOR_AUTO_SHIFT */
 #    endif
 #    ifndef NO_AUTO_SHIFT_NUMERIC
             case KC_1 ... KC_0:
 #    endif
 #    ifndef NO_AUTO_SHIFT_SPECIAL
             case KC_TAB:
-            case KC_MINUS ... KC_SLASH:
             case KC_NONUS_BSLASH:
+#        ifndef INVERT_DVORAK_FOR_AUTO_SHIFT
+            case KC_MINUS ... KC_SLASH:
+#        else
+            // Exclude ",./;", which become "wvzs" respectively when remapped
+            // from QWERTY to Dvorak.
+            case KC_MINUS ... KC_NONUS_HASH:
+            case KC_QUOTE ... KC_GRAVE:
+            // Include "qwez", which are "',.;" respectively when remapped from
+            // QWERTY to Dvorak in software.
+            case KC_Q:
+            case KC_W:
+            case KC_E:
+            case KC_Z:
+#        endif /* INVERT_DVORAK_FOR_AUTO_SHIFT */
 #    endif
                 autoshift_flush();
                 if (!autoshift_enabled) return true;
