@@ -1,6 +1,6 @@
 # punk75
 
-![punk75](https://github.com/dsanchezseco/punk75/raw/master/punk75_front.jpg)
+![punk75](https://github.com/dsanchezseco/punk75/raw/master/generated/images/punk75_front.jpg)
 
 [Punk75](https://github.com/dsanchezseco/punk75) is an 75-key ortho keyboard with all its components being hand-solderable (through hole).
 
