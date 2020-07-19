@@ -8,7 +8,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef KEYLOGGER_ENABLE
     xprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
 #endif  // KEYLOGGER_ENABLE
-    if (process_record_keymap(keycode, record)) {
+    if (
+        process_record_keymap(keycode, record)
+#ifdef ENCODER_ENABLE
+        && process_record_keymap_encoder(keycode, record)
+#endif
+    ) {
         switch (keycode) {
             case KC_QWERTY ... KC_NORMAN:
                 if (record->event.pressed) {

@@ -2,8 +2,6 @@
 
 #pragma once
 
-#include "gotham.h"
-
 enum userspace_custom_keycodes {
     VRSN = SAFE_RANGE,  // Prints QMK Firmware and board info
     KC_QWERTY,          // Sets default layer to QWERTY
@@ -13,9 +11,6 @@ enum userspace_custom_keycodes {
     KC_NORMAN,          // Sets default layer to NORMAN
     KC_MAKE,            // Run keyboard's customized make command
     KC_CCCV,            // Hold to copy, tap to paste
-    ENC_MODE_L,         // Change left encoder mode
-    ENC_MODE_R,         // Change right encoder mode
-    TMB_MODE,           // Change thumbstick mode
     NEW_SAFE_RANGE      // use this instead of SAFE_RANGE for keymap specific codes
 };
 
