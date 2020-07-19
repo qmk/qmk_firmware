@@ -1,3 +1,4 @@
 BOOTLOADER = caterina
 
 UNICODEMAP_ENABLE = yes
+CONSOLE_ENABLE = yes
