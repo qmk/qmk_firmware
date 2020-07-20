@@ -5,7 +5,7 @@
 ![S50](https://imgur.com/LofLd4F.jpg)
 
 
-Keyboard Maintainer: [Eye Oh Designs](https://github.com/joedinkle)  
+* Keyboard Maintainer: [Eye Oh Designs](https://github.com/joedinkle) 
 
 
 
