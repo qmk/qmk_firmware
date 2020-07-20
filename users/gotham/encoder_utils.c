@@ -22,9 +22,9 @@ void encoder_init_user(void) {
 }
 
 void encoder_update_user(int8_t index, bool clockwise) {
-// #ifdef OLED_DRIVER_ENABLE
-//     oled_sleep_timer_reset();
-// #endif
+#ifdef OLED_DRIVER_ENABLE
+    oled_sleep_timer_reset();
+#endif
     encoder_update_keymap(index, clockwise);
 }
 

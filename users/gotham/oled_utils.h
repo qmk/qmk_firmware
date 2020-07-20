@@ -70,7 +70,11 @@
 #    define OLED_STR_ENC_MODE_PAGING "Page"
 #endif
 
-// void            oled_sleep_timer_reset(void);
+#ifndef OLED_CUSTOM_TIMEOUT
+#    define OLED_CUSTOM_TIMEOUT 5000
+#endif
+
+void            oled_sleep_timer_reset(void);
 oled_rotation_t oled_init_keymap(oled_rotation_t rotation);
 bool            process_record_keymap_oled(uint16_t keycode, keyrecord_t *record);
 
