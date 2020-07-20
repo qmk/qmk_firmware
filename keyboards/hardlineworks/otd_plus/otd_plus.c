@@ -1,11 +1,12 @@
 #include "otd_plus.h"
 
-bool led_update_kb(led_t led_state) {
-    if (led_update_user(led_state)) {
-        writePin(CAPS_LOCK_LED_PIN, led_state.caps_lock);
-        writePin(SCROLL_LOCK_LED_PIN, led_state.scroll_lock);
-    }
-    return true;
+void keyboard_pre_init_kb(void) {
+    led_init_ports();
+    keyboard_pre_init_user();
+}
+void led_init_ports(void) {
+    setPinOutput(CAPS_LOCK_LED_PIN);
+    setPinOutput(SCROLL_LOCK_LED_PIN);
 }
 
 
