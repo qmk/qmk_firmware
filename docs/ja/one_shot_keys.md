@@ -16,16 +16,16 @@
 `config.h` でこれらを定義することでワンショットキーの挙動を制御することができます:
 
 ```c
-#define ONESHOT_TAP_TOGGLE 5  /* この回数をタップすると、もう一度タップするまでキーが保持されます。*/
+#define ONESHOT_TAP_TOGGLE 5  /* この回数をタップすると、もう一度タップするまでキーが押されたままになります。*/
 #define ONESHOT_TIMEOUT 5000  /* ワンショットキーが解除されるまでの時間 (ms) */
 ```
 
 * `OSM(mod)` - *mod*を一時的に押し続けます。[モッドタップ](ja/mod_tap.md)で示したように、`KC_*` コードでは無く、`MOD_*` キーコードを使わなければなりません。
 * `OSL(layer)` - 一時的に*レイヤー*に切り替えます。
 
-ワンショットキーをマクロあるいはタップダンスルーチンとして有効にしたい場合があります。
+ワンショットキーをマクロあるいはタップダンスルーチンの一部として有効にしたい場合があります。
 
-ワンショットレイヤーについては、キーダウン時に `set_oneshot_layer(LAYER, ONESHOT_START)` を呼び出し、キーアップ時に `clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED)` を呼び出す必要があります。ワンショットをキャンセルする場合は、`reset_oneshot_layer()` を呼んでください。
+ワンショットレイヤーについては、キーを押した時に `set_oneshot_layer(LAYER, ONESHOT_START)` を呼び出し、キーを放した時に `clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED)` を呼び出す必要があります。ワンショットをキャンセルする場合は、`reset_oneshot_layer()` を呼び出してください。
 
 ワンショットモッドについては、設定するためには `set_oneshot_mods(MOD)` を呼び出し、キャンセルするためには `clear_oneshot_mods()` を呼び出す必要があります。
 
@@ -57,7 +57,7 @@ void oneshot_mods_changed_user(uint8_t mods) {
 }
 ```
 
-`mods` の引数は変更後のアクティブな mod が含まれるため、現在の状態が反映されます。
+`mods` 引数は変更後のアクティブな mod が含まれるため、現在の状態が反映されます。
 
 (`config.h` に `#define ONESHOT_TAP_TOGGLE 2` を追加して) ワンショットタップトグルを使う場合、指定された回数だけ修飾キーを押してロックすることができます。そのためのコールバックもあります:
 
@@ -104,4 +104,4 @@ void oneshot_mods_changed_kb(uint8_t mods);
 void oneshot_layer_changed_kb(uint8_t layer);
 ```
 
-他のコールバックと同様に、更にカスタマイズを可能にするために `_user` の変種を呼ぶようにしてください。
+他のコールバックと同様に、更にカスタマイズを可能にするために `_user` バージョンを呼ぶようにしてください。
