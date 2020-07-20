@@ -21,14 +21,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x0000
+#define PRODUCT_ID   0x6060
 #define DEVICE_VER   0x0001
 #define MANUFACTURER vufly
 #define PRODUCT      route1
 
 /* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 3
+#define MATRIX_ROWS 9
+#define MATRIX_COLS 7
 
 /*
  * Keyboard Matrix Assignments
@@ -40,9 +40,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { D0, D5 }
-#define MATRIX_COL_PINS { F1, F0, B0 }
-#define UNUSED_PINS
+#define MATRIX_ROW_PINS { E6, B7, D0, D1, D2, D3, C6, C7, D5 }
+#define MATRIX_COL_PINS { B0, F5, F6, F7, B6, B4, D7 }
+// #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -50,7 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
-#define SOFT_SERIAL_PIN D0  // or D1, D2, D3, E6
+// #define SOFT_SERIAL_PIN D0  // or D1, D2, D3, E6
 
 //#define BACKLIGHT_PIN B7
 //#define BACKLIGHT_LEVELS 3
@@ -119,7 +119,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * power-up.
  *
  */
-//#define FORCE_NKRO
+#define FORCE_NKRO
 
 /*
  * Feature disable options
