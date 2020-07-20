@@ -11,7 +11,7 @@
   * [QMK CLI](ru-ru/cli.md)
   * [QMK CLI Config](ru-ru/cli_configuration.md)
   * [Contributing to QMK](ru-ru/contributing.md)
-  * [How to Use Github](ru-ru/getting_started_github.md)
+  * [How to Use GitHub](ru-ru/getting_started_github.md)
   * [Getting Help](ru-ru/getting_started_getting_help.md)
 
 * [Breaking Changes](ru-ru/breaking_changes.md)

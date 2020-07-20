@@ -69,6 +69,8 @@ enum consumer_usages {
     AL_CALCULATOR          = 0x192,
     AL_LOCAL_BROWSER       = 0x194,
     AL_LOCK                = 0x19E,
+    AL_CONTROL_PANEL       = 0x19F,
+    AL_ASSISTANT           = 0x1CB,
     // 15.16 Generic GUI Application Controls
     AC_MINIMIZE            = 0x206,
     AC_SEARCH              = 0x221,

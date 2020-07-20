@@ -30,3 +30,4 @@ UNICODE_ENABLE = yes 		# Unicode
 
 # project specific files
 SRC += matrix.c
+

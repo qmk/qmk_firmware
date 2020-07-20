@@ -111,8 +111,8 @@
 #define RS_LPRN S(RS_8)    // (
 #define RS_RPRN S(RS_9)    // )
 #define RS_EQL  S(RS_0)    // =
-#define RS_DEG  S(RS_QUOT) // ?
-#define RS_UNDS S(RS_PLUS) // *
+#define RS_QUES S(RS_QUOT) // ?
+#define RS_ASTR S(RS_PLUS) // *
 // Row 4
 #define RS_RABK S(RS_LABK) // >
 #define RS_SCLN S(RS_COMM) // ;

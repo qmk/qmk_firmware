@@ -89,15 +89,24 @@ typedef struct usbConfigurationDescriptor {
     usbHIDDescriptor_t                 keyboardHID;
     usbEndpointDescriptor_t            keyboardINEndpoint;
 
-#if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
-    usbInterfaceDescriptor_t mouseExtraInterface;
-    usbHIDDescriptor_t       mouseExtraHID;
-    usbEndpointDescriptor_t  mouseExtraINEndpoint;
-#elif defined(RAW_ENABLE)
+#if defined(RAW_ENABLE)
     usbInterfaceDescriptor_t rawInterface;
     usbHIDDescriptor_t       rawHID;
     usbEndpointDescriptor_t  rawINEndpoint;
     usbEndpointDescriptor_t  rawOUTEndpoint;
+#endif
+
+#if defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)
+    usbInterfaceDescriptor_t mouseExtraInterface;
+    usbHIDDescriptor_t       mouseExtraHID;
+    usbEndpointDescriptor_t  mouseExtraINEndpoint;
+#endif
+
+#if defined(CONSOLE_ENABLE)
+    usbInterfaceDescriptor_t consoleInterface;
+    usbHIDDescriptor_t       consoleHID;
+    usbEndpointDescriptor_t  consoleINEndpoint;
+    usbEndpointDescriptor_t  consoleOUTEndpoint;
 #endif
 } __attribute__((packed)) usbConfigurationDescriptor_t;
 
@@ -105,7 +114,3 @@ typedef struct usbConfigurationDescriptor {
 
 host_driver_t *vusb_driver(void);
 void           vusb_transfer_keyboard(void);
-
-#ifdef RAW_ENABLE
-void raw_hid_task(void);
-#endif
