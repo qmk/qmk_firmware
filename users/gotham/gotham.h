@@ -9,6 +9,10 @@
 #include "wrappers.h"
 #include "process_records.h"
 
+#ifdef OLED_DRIVER_ENABLE
+#include "oled_utils.h"
+#endif
+
 #ifdef ENCODER_ENABLE
 #include "encoder_utils.h"
 #endif

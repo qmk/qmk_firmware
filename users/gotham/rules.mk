@@ -5,6 +5,15 @@ ifneq ($(PLATFORM),CHIBIOS)
     LTO_ENABLE        = yes
 endif
 
+ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
+	SRC += $(USER_PATH)/oled_utils.c
+	ifeq ($(strip $(OLED_ANIMATIONS_ENABLE)), yes)
+		OPT_DEFS += -DOLED_ANIMATIONS_ENABLE
+		SRC += lib/lib8tion/lib8tion.c
+		SRC += $(USER_PATH)/oled_animations/*.c
+	endif
+endif
+
 ifeq ($(strip $(ENCODER_ENABLE)), yes)
 	SRC += $(USER_PATH)/encoder_utils.c
 endif

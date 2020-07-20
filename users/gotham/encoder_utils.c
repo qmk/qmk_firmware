@@ -17,14 +17,21 @@ __attribute__((weak)) void encoder_update_keymap(int8_t index, bool clockwise) {
 
 __attribute__((weak)) bool process_record_keymap_encoder(uint16_t keycode, keyrecord_t *record) { return true; }
 
+void encoder_init_user(void) {
+    encoder_init_keymap();
+}
+
 void encoder_update_user(int8_t index, bool clockwise) {
+// #ifdef OLED_DRIVER_ENABLE
+//     oled_sleep_timer_reset();
+// #endif
     encoder_update_keymap(index, clockwise);
 }
 
 void encoder_mode_set(uint8_t index, encoder_mode_t mode) {
     encoder_modes[index] = mode;
 #ifdef CONSOLE_ENABLE
-    uprintf("EncModes: [%d, %d]\n", encoder_modes[0], encoder_modes[1]);
+    uprintf("EncModes: [%d, %d], [%d, %d]\n", encoder_modes[0], encoder_modes[1], encoder_mode_get(0), encoder_mode_get(1));
 #endif
 }
 
@@ -43,11 +50,11 @@ void encoder_set_modes_raw(encoder_mode_t* source_list) {
 #endif
 
 void encoder_mode_next(uint8_t index) {
-    encoder_mode_set(index, (encoder_mode_get(index) + 1) % _ENC_MODE_LAST);
+    encoder_mode_set(index, (encoder_mode_get(index) + 1) % _ENC_MODE_COUNT);
 }
 
 void encoder_mode_previous(uint8_t index) {
-    encoder_mode_set(index, (encoder_mode_get(index) + _ENC_MODE_LAST - 1) % _ENC_MODE_LAST);
+    encoder_mode_set(index, (encoder_mode_get(index) + _ENC_MODE_COUNT - 1) % _ENC_MODE_COUNT);
 }
 
 void encoder_action_volume(uint8_t clockwise) {

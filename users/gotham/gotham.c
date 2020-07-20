@@ -18,7 +18,7 @@ void matrix_init_user(void) {
 }
 
 void keyboard_post_init_user(void) {
-    encoder_init_keymap();
+    encoder_init_user();
     keyboard_post_init_keymap();
 }
 

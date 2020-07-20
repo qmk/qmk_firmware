@@ -27,9 +27,9 @@ For instance Tap/Hold for Control on all of the layouts
 #define _________________QWERTY_R3_________________        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
 
 
-#define _________________GAMEPAD_L1________________        KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R
-#define _________________GAMEPAD_L2________________        KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F
-#define _________________GAMEPAD_L3________________        KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V
+#define __________________GAME_L1__________________        KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R
+#define __________________GAME_L2__________________        KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F
+#define __________________GAME_L3__________________        KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V
 
 
 #define _________________COLEMAK_L1________________       KC_Q,    KC_W,    KC_F,    KC_P,    KC_G
