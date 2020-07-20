@@ -7,12 +7,12 @@
 
 [Eclipse][1]は Java 開発のために広く使われているオープンソースの [統合開発環境](https://en.wikipedia.org/wiki/Integrated_development_environment) (IDE) ですが、他の言語および用途のためにカスタマイズできる拡張可能なプラグインシステムがあります。
 
-Eclipse のような IDE を使うと、以下のようなプレーンテキストエディタよりも多くの利点があります:
+Eclipse のような IDE の使用は、プレーンテキストエディタの使用よりも多くの利点をもたらします。例えば、次のような利点です。
 * インテリジェントなコード補完
 * コード内の便利なナビゲーション
 * リファクタリングツール
 * 自動ビルド (コマンドラインは不要)
-* GIT用のGUI
+* Git 用の GUI
 * 静的なコード解析
 * デバッグ、コードフォーマット、呼び出し構造の表示などの多くのツール。
 
@@ -47,13 +47,13 @@ Workspace 選択で入力を促された場合は、Eclipse メタデータと�
 開始したら、右上の <kbd>Workbench</kbd> ボタンをクリックし、workbench ビューに切り替えます (開始時のようこそ画面をスキップするために、下部にチェックボタンもあります)。
 
 ## 必要なプラグインをインストール
-注意: プラグインをインストールするごとに、Eclipse を再起動する必要はありません。全てのプラグインがインストールされたら単に再起動します。
+注意: プラグインをインストールするごとに、Eclipse を再起動する必要はありません。全てのプラグインがインストールされたら単に1回再起動します。
 
 ### [AVR プラグイン](http://avr-eclipse.sourceforge.net/)
-Eclipse が AVR C コードを_理解_できるようになるため、これは最も重要なプラグインです。[更新サイトを使うための指示](http://avr-eclipse.sourceforge.net/wiki/index.php/Plugin_Download#Update_Site)に従い、署名の無いコンテンツのセキュリティ警告に同意します。
+これは、Eclipse が AVR C コードを_理解_するための最も重要なプラグインです。[更新サイトを使うための指示](http://avr-eclipse.sourceforge.net/wiki/index.php/Plugin_Download#Update_Site)に従い、署名の無いコンテンツのセキュリティ警告に同意します。
 
 ### [コンソールでの ANSI エスケープ](https://marketplace.eclipse.org/content/ansi-escape-console)
-個のプラグインは QMK makefile によって生成された色付きビルド出力を適切に表示するために必要です。
+このプラグインは QMK makefile によって生成された色付きビルド出力を適切に表示するために必要です。
 
 1. <kbd><kbd>Help</kbd> > <kbd>Eclipse Marketplace…</kbd></kbd> を開きます
 2. _コンソールでの ANSI エスケープ_を検索します
