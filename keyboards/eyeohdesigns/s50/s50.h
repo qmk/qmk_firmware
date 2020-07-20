@@ -13,9 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-//#pragma once
-#ifndef S50_H
-#define S50_H
+#pragma once
 #include "quantum.h"
 
 /* This a shortcut to help you visually see your layout.
@@ -219,4 +217,3 @@
    {k50, k51, k52, KC_NO,k54, k55,  k56, k57}, \
    {k60, k61, k62, k63,  k64, k65,  k66, k67}, \
 }
-#endif
