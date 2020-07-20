@@ -23,7 +23,7 @@ ESSENTIAL_BINARIES = {
     'arm-none-eabi-gcc': {
         'version_arg': '-dumpversion'
     },
-    'bin/qmk': {},
+    'qmk': {},
 }
 
 
