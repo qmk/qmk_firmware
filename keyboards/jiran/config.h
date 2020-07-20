@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0300
 #define MANUFACTURER    Ladniy
 #define PRODUCT         Jiran
-#define DESCRIPTION     Ergo-Split Keyboard
 
 /* key matrix size */
 // Rows are doubled-up
