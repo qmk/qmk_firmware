@@ -11,7 +11,7 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
-#define LAYOUT_all( \
+#define LAYOUT_tkl_ansi_wkl( \
      K00,      K01, KB1, K02, KB2, K03, KB3, K04, KB4, KB5, K06, KB6, K07,  KB7, K08, KB8, \
      K10, KA0, K11, KA1, K12, KA2, K13, KA3, K14, KA4, K15, KA5, K16, KA6,  KA7, K18, KA8, \
      K20, K90, K21, K91, K22, K92, K23, K93, K24, K94, K25, K95, K26, K96,  K97, K28, K98, \
