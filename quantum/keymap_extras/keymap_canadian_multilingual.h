@@ -204,7 +204,7 @@
 #define CA_APSN RCTL(CA_N)    // ŉ
 #define CA_MICR RCTL(CA_M)    // μ
 #define CA_HRZB RCTL(CA_COMM) // ―
-#define CA_DOTA ALGR(CA_DOT)  // ˙ (dead)
+#define CA_DOTA RCTL(CA_DOT)  // ˙ (dead)
 
 /* Shift+Right Ctrl symbols
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐

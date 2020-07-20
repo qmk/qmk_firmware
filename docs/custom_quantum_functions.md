@@ -319,7 +319,7 @@ This runs code every time that the layers get changed.  This can be useful for l
 
 ### Example `layer_state_set_*` Implementation
 
-This example shows how to set the [RGB Underglow](feature_rgblight.md) lights based on the layer, using the Planck as an example
+This example shows how to set the [RGB Underglow](feature_rgblight.md) lights based on the layer, using the Planck as an example.
 
 ```c
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -343,6 +343,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return state;
 }
 ```
+
+Use the `IS_LAYER_ON_STATE(state, layer)` and `IS_LAYER_OFF_STATE(state, layer)` macros to check the status of a particular layer.
+
+Outside of `layer_state_set_*` functions, you can use the `IS_LAYER_ON(layer)` and `IS_LAYER_OFF(layer)` macros to check global layer state.
+
 ### `layer_state_set_*` Function Documentation
 
 * Keyboard/Revision: `layer_state_t layer_state_set_kb(layer_state_t state)`
