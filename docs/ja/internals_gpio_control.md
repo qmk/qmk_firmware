@@ -23,6 +23,6 @@ QMK には、マイクロコントローラに依存しない GPIO 制御抽象�
 | `readPin(pin)` | ピンのレベルを返す | `_SFR_IO8(pin >> 4) & _BV(pin & 0xF)` | `palReadLine(pin)` |
 | `togglePin(pin)` | ピンを出力と仮定して、ピンレベルを反転 | `PORTB ^= (1<<2)` | `palToggleLine(pin)` |
 
-## 追加の設定 :id=advanced-settings
+## 高度な設定 :id=advanced-settings
 
 各マイクロコントローラは GPIO に関して複数の高度な設定を持つことができます。この抽象レイヤーは、アーキテクチャー固有の機能の使用法を制限しません。上級ユーザは、目的のデバイスのデータシートを参照し、必要なライブラリを含めてください。AVR については、標準 avr/io.h ライブラリが使われます; STM32 については ChibiOS [PAL ライブラリ](http://chibios.sourceforge.net/docs3/hal/group___p_a_l.html)が使われます。
