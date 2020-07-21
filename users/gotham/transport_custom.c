@@ -160,14 +160,14 @@ typedef struct _Serial_m2s_buffer_t {
 #    endif
 #    ifdef ENCODER_ENABLE
     uint8_t                      encoder_state[NUMBER_OF_ENCODERS];
-#    ifndef SPLIT_KEYBOARD
+#        ifndef SPLIT_KEYBOARD
     encoder_mode_t               encoder_modes[NUMBER_OF_ENCODERS];
-#    else
-    encoder_mode_t               encoder_modes[NUMBER_OF_ENCODERS * 2];
-#    endif
+#        else
+    encoder_mode_t encoder_modes[NUMBER_OF_ENCODERS * 2];
+#        endif
 #    endif
 #    ifdef OLED_DRIVER_ENABLE
-    bool oled_reset_flag;
+    bool                         oled_reset_flag;
 #    endif
 #    ifdef THUMBSTICK_ENABLE
     thumbstick_transport_state_t thumbstick_state;
@@ -308,7 +308,7 @@ void transport_slave(matrix_row_t matrix[]) {
 
 #    ifdef ENCODER_ENABLE
     encoder_state_raw((uint8_t *)serial_s2m_buffer.encoder_state);
-    encoder_set_modes_raw((encoder_mode_t*)serial_m2s_buffer.encoder_modes);
+    encoder_set_modes_raw((encoder_mode_t *)serial_m2s_buffer.encoder_modes);
 #    endif
 
 #    ifdef OLED_DRIVER_ENABLE

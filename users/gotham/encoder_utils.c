@@ -11,19 +11,13 @@ static encoder_mode_t encoder_modes[NUMBER_OF_ENCODERS] = {ENC_MODE_VOLUME};
 
 __attribute__((weak)) void encoder_init_keymap(void) {}
 
-__attribute__((weak)) void encoder_update_keymap(int8_t index, bool clockwise) {
-    encoder_action(encoder_mode_get(index), clockwise);
-}
+__attribute__((weak)) void encoder_update_keymap(int8_t index, bool clockwise) { encoder_action(encoder_mode_get(index), clockwise); }
 
-__attribute__((weak)) bool process_record_keymap_encoder(uint16_t keycode, keyrecord_t *record) { return true; }
+__attribute__((weak)) bool process_record_keymap_encoder(uint16_t keycode, keyrecord_t* record) { return true; }
 
-bool process_record_user_encoder(uint16_t keycode, keyrecord_t *record) {
-    return process_record_keymap_encoder(keycode, record);
-}
+bool process_record_user_encoder(uint16_t keycode, keyrecord_t* record) { return process_record_keymap_encoder(keycode, record); }
 
-void encoder_init_user(void) {
-    encoder_init_keymap();
-}
+void encoder_init_user(void) { encoder_init_keymap(); }
 
 void encoder_update_user(int8_t index, bool clockwise) {
     encoder_update_keymap(index, clockwise);
@@ -32,22 +26,13 @@ void encoder_update_user(int8_t index, bool clockwise) {
 #endif
 }
 
-void encoder_mode_set(uint8_t index, encoder_mode_t mode) {
-    encoder_modes[index] = mode;
-}
+void encoder_mode_set(uint8_t index, encoder_mode_t mode) { encoder_modes[index] = mode; }
 
-encoder_mode_t encoder_mode_get(uint8_t index) {
-    return encoder_modes[index];
-}
+encoder_mode_t encoder_mode_get(uint8_t index) { return encoder_modes[index]; }
 
-void encoder_mode_next(uint8_t index) {
-    encoder_mode_set(index, (encoder_mode_get(index) + 1) % _ENC_MODE_COUNT);
-}
+void encoder_mode_next(uint8_t index) { encoder_mode_set(index, (encoder_mode_get(index) + 1) % _ENC_MODE_COUNT); }
 
-void encoder_mode_previous(uint8_t index) {
-    encoder_mode_set(index, (encoder_mode_get(index) + _ENC_MODE_COUNT - 1) % _ENC_MODE_COUNT);
-}
-
+void encoder_mode_previous(uint8_t index) { encoder_mode_set(index, (encoder_mode_get(index) + _ENC_MODE_COUNT - 1) % _ENC_MODE_COUNT); }
 
 #ifdef SPLIT_KEYBOARD
 void encoder_get_modes_raw(encoder_mode_t* target_list) {
@@ -76,13 +61,9 @@ encoder_mode_t encoder_mode_hand_get(encoder_hand_t hand, uint8_t index) {
     return encoder_modes[index];
 }
 
-void encoder_mode_hand_next(encoder_hand_t hand, uint8_t index) {
-    encoder_mode_hand_set(hand, index, (encoder_mode_hand_get(hand, index) + 1) % _ENC_MODE_COUNT);
-}
+void encoder_mode_hand_next(encoder_hand_t hand, uint8_t index) { encoder_mode_hand_set(hand, index, (encoder_mode_hand_get(hand, index) + 1) % _ENC_MODE_COUNT); }
 
-void encoder_mode_hand_previous(encoder_hand_t hand, uint8_t index) {
-    encoder_mode_hand_set(hand, index, (encoder_mode_hand_get(hand, index) + _ENC_MODE_COUNT - 1) % _ENC_MODE_COUNT);
-}
+void encoder_mode_hand_previous(encoder_hand_t hand, uint8_t index) { encoder_mode_hand_set(hand, index, (encoder_mode_hand_get(hand, index) + _ENC_MODE_COUNT - 1) % _ENC_MODE_COUNT); }
 #endif
 
 void encoder_action_volume(uint8_t clockwise) {

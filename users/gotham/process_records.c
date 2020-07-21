@@ -8,8 +8,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef KEYLOGGER_ENABLE
     xprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
 #endif  // KEYLOGGER_ENABLE
-    if (
-        process_record_keymap(keycode, record)
+    if (process_record_keymap(keycode, record)
 #ifdef OLED_DRIVER_ENABLE
         && process_record_user_oled(keycode, record)
 #endif
@@ -29,11 +28,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (!record->event.pressed) {
                     SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP
 #if (defined(BOOTLOADER_DFU) || defined(BOOTLOADER_LUFA_DFU) || defined(BOOTLOADER_QMK_DFU))
-                        ":dfu"
+                                ":dfu"
 #elif defined(BOOTLOADER_HALFKAY)
-                        ":teensy"
+                                ":teensy"
 #elif defined(BOOTLOADER_CATERINA)
-                        ":avrdude"
+                                ":avrdude"
 #endif
                     );
                     SEND_STRING(" -j6 --output-sync");

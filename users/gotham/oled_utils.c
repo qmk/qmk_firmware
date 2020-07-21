@@ -1,6 +1,6 @@
 #include "oled_utils.h"
 
-static bool     is_master;
+static bool is_master;
 #if OLED_CUSTOM_TIMEOUT > 0
 static bool     oled_reset_flag;
 static uint32_t oled_sleep_timer;
@@ -39,23 +39,17 @@ void oled_sleep_timer_reset(void) {
     oled_reset_flag = is_master;
 }
 
-bool oled_reset_flag_get(void)  {
-    return oled_reset_flag;
-}
+bool oled_reset_flag_get(void) { return oled_reset_flag; }
 
-void oled_reset_flag_set(bool value) {
-    oled_reset_flag = value;
-}
+void oled_reset_flag_set(bool value) { oled_reset_flag = value; }
 #endif
 
-__attribute__((weak)) oled_rotation_t oled_init_keymap(oled_rotation_t rotation) {
-    return OLED_ROTATION_0;
-}
+__attribute__((weak)) oled_rotation_t oled_init_keymap(oled_rotation_t rotation) { return OLED_ROTATION_0; }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     is_master = is_keyboard_master();
 #if OLED_CUSTOM_TIMEOUT > 0
-    oled_reset_flag = false;
+    oled_reset_flag  = false;
     oled_sleep_timer = timer_read32() + OLED_CUSTOM_TIMEOUT;
 #endif
 #if defined(OLED_ANIMATIONS_ENABLED) && defined(OLED_ANIM_STARFIELD)
@@ -82,10 +76,10 @@ void oled_task_user(void) {
 #if OLED_CUSTOM_TIMEOUT > 0
     if (timer_elapsed32(oled_sleep_timer) > OLED_CUSTOM_TIMEOUT) {
         oled_off();
-#if defined(OLED_ANIMATIONS_ENABLED) && defined(OLED_ANIM_STARFIELD_WANDER)
+#    if defined(OLED_ANIMATIONS_ENABLED) && defined(OLED_ANIM_STARFIELD_WANDER)
         erase_stars();
         set_starfield_center();
-#endif
+#    endif
         return;
     }
 #endif
@@ -95,7 +89,7 @@ void oled_task_user(void) {
 void render_layout(void) {
     oled_write_P(PSTR(OLED_STR_LAYOUT), false);
     uint32_t layer = get_highest_layer(layer_state);
-    layer = ((layer == _GAME) || (layer == _GAMENUM)) ? _GAME : get_highest_layer(default_layer_state);
+    layer          = ((layer == _GAME) || (layer == _GAMENUM)) ? _GAME : get_highest_layer(default_layer_state);
     oled_write_ln_P(layer_names[layer], false);
 }
 
