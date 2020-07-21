@@ -66,7 +66,7 @@ uint8_t mk_wheel_interval    = MOUSEKEY_WHEEL_INTERVAL;
 uint8_t mk_wheel_max_speed   = MOUSEKEY_WHEEL_MAX_SPEED;
 uint8_t mk_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
 
-#ifndef MK_COMBINED
+#    ifndef MK_COMBINED
 
 static uint8_t move_unit(void) {
     uint16_t unit;
@@ -104,7 +104,7 @@ static uint8_t wheel_unit(void) {
     return (unit > MOUSEKEY_WHEEL_MAX ? MOUSEKEY_WHEEL_MAX : (unit == 0 ? 1 : unit));
 }
 
-#else /* #ifndef MK_COMBINED */
+#    else /* #ifndef MK_COMBINED */
 
 static uint8_t move_unit(void) {
     uint16_t unit;
@@ -142,7 +142,7 @@ static uint8_t wheel_unit(void) {
     return (unit > MOUSEKEY_WHEEL_MAX ? MOUSEKEY_WHEEL_MAX : (unit == 0 ? 1 : unit));
 }
 
-#endif /* #ifndef MK_COMBINED */
+#    endif /* #ifndef MK_COMBINED */
 
 void mousekey_task(void) {
     // report cursor and scroll movement independently
