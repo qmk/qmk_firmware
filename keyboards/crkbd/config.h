@@ -32,3 +32,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
   #define DISABLE_LEADER
 #endif // USE_Link_Time_Optimization
+#define EE_HANDS

@@ -26,7 +26,7 @@ The Corne Keyboard also supports using the RGB Matrix feature, in place of RGB L
 In your keymap's `rules.mk` file, add the following: 
 
 ```make
-RGBLIGHT_ENABLE = no
+RGBLIGHT_ENABLE = yes
 RGB_MATRIX_ENABLE = WS2812
 ```
 
