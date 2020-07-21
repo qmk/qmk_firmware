@@ -12,7 +12,7 @@ QMK (*Quantum Mechanical Keyboard*) é uma comunidade de código aberto que mant
 
 ## Como obter e usar o QMK
 
-Se você planeja contribuir com um _keymap_ ("mapa de teclas"), teclado ou recursos para o QMK, o jeito mais fácil é [percorrer o repositório através do Github](https://github.com/qmk/qmk_firmware#fork-destination-box) e clonar seu repositório localmente para fazer suas alterações, dê um _push_ nelas e abra uma [_Pull request_](https://github.com/qmk/qmk_firmware/pulls) no seu fork.
+Se você planeja contribuir com um _keymap_ ("mapa de teclas"), teclado ou recursos para o QMK, o jeito mais fácil é [percorrer o repositório através do GitHub](https://github.com/qmk/qmk_firmware#fork-destination-box) e clonar seu repositório localmente para fazer suas alterações, dê um _push_ nelas e abra uma [_Pull request_](https://github.com/qmk/qmk_firmware/pulls) no seu fork.
 
 Caso contrário, você pode cloná-lo diretamente com `git clone https://github.com/qmk/qmk_firmware`. Não faça o download dos arquivos zip ou tar; é necessário um repositório git para baixar os submódulos para compilar.
 

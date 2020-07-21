@@ -30,10 +30,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Function 2 layer: http://www.keyboard-layout-editor.com/#/gists/65ac939caec878401603bc36290852d4 */
     [LAYER_FUNCTION_2] = LAYOUT_60_tsangan_hhkb(
-        _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   _______,  _______,
-        _______,  BL_BRTG,  KC_MPLY,  KC_VOLU,  KC_MSTP,  _______,  EEP_RST,  RESET,    _______,  _______,  _______,  RGB_VAI,  _______,  _______,
-        _______,  BL_INC,   KC_MPRV,  KC_VOLD,  KC_MNXT,  _______,  _______,  RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_RMOD, RGB_MOD,            RGB_TOG,
-        _______,  BL_DEC,   _______,  KC_MUTE,  _______,  _______,  _______,  RGB_SPD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  _______,                      _______,
+        _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_INS,   KC_DEL,
+        _______,  _______,  KC_MPLY,  KC_VOLU,  KC_MSTP,  BL_BRTG,  EEP_RST,  RESET,    _______,  _______,  _______,  RGB_VAI,  _______,  _______,
+        _______,  _______,  KC_MPRV,  KC_VOLD,  KC_MNXT,  BL_INC,   _______,  RGB_SPI,  RGB_HUI,  RGB_SAI,  RGB_RMOD, RGB_MOD,            RGB_TOG,
+        _______,  _______,  _______,  KC_MUTE,  _______,  BL_DEC,   _______,  RGB_SPD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  _______,                      _______,
         _______,  _______,  _______,                                _______,                                          _______,  _______,            _______
     ),
 };

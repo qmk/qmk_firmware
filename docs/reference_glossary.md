@@ -41,7 +41,7 @@ A macro which has been recorded on the keyboard and which will be lost when the 
 ## Eclipse
 An IDE that is popular with many C developers.
 
-* [Eclipse Setup Instructions](eclipse.md)
+* [Eclipse Setup Instructions](other_eclipse.md)
 
 ## Firmware
 The software that controls your MCU.

@@ -12,14 +12,14 @@ static uint32_t hypno_timer;
 
 void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode, uint8_t speed, uint8_t led_type) {
     HSV hsv = {hue, sat, val};
-    if (hsv.v > rgb_matrix_config.hsv.v) {
-        hsv.v = rgb_matrix_config.hsv.v;
+    if (hsv.v > rgb_matrix_get_val()) {
+        hsv.v = rgb_matrix_get_val();
     }
 
     switch (mode) {
         case 1:  // breathing
         {
-            uint16_t time = scale16by8(g_rgb_counters.tick, speed / 8);
+            uint16_t time = scale16by8(g_rgb_timer, speed / 8);
             hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
             RGB rgb       = hsv_to_rgb(hsv);
             for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
