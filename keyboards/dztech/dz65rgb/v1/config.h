@@ -1,8 +1,8 @@
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x1222
+#define VENDOR_ID       0x445A
+#define PRODUCT_ID      0x1420
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    DZTECH
 #define PRODUCT         DZ65RGB
@@ -29,10 +29,8 @@
 #define DIODE_DIRECTION COL2ROW
 
 /* disable these deprecated features by default */
-#ifndef LINK_TIME_OPTIMIZATION_ENABLE
-#    define NO_ACTION_MACRO
-#    define NO_ACTION_FUNCTION
-#endif
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_LED_PROCESS_LIMIT 4

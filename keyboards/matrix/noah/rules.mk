@@ -37,20 +37,18 @@ OPT_DEFS =
 #   comment out to disable the options.
 #
 BOOTMAGIC_ENABLE = yes      # Virtual DIP switch configuration
-MOUSEKEY_ENABLE = no        # Mouse keys
+MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes	    # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = no            # USB Nkey Rollover
-NO_USB_STARTUP_CHECK = yes   # Disable initialization only when usb is plugged in
+NO_USB_STARTUP_CHECK = yes	# Disable initialization only when usb is plugged in
 
-CUSTOM_MATRIX = yes
 RGB_MATRIX_ENABLE = yes
 
 RGBLIGHT_ENABLE = yes
 RGBLIGHT_CUSTOM_DRIVER = yes
 
+CUSTOM_MATRIX = yes
 # project specific files
-SRC += \
-    matrix.c \
-    ws2812.c
+SRC += ws2812.c matrix.c

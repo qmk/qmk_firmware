@@ -14,14 +14,17 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
+
+#pragma once
+
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x6060
+#define VENDOR_ID    0x4335 // GEEKhack
+#define PRODUCT_ID   0x0001
 #define DEVICE_VER   0x0001
 #define MANUFACTURER    geekhack
-#define PRODUCT         GH60
+#define PRODUCT         GH60 Rev C
 #define DESCRIPTION     t.m.k. keyboard firmware for GH60
 
 /* key matrix size */

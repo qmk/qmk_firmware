@@ -6,20 +6,26 @@
 // entirely and just use numbers.
 #define _QWERTY 0
 #define _SYMB 1
+#define _LIGHT 2
 
 // Shortcut to make keymap more readable
 #define SYM_L   MO(_SYMB)
 #define KC_ALEN LALT_T(KC_ENT)
+#define ES_LIGH LT(_LIGHT, KC_ESC)
+
+#define CT_COPY   LCTL(KC_C)
+#define CT_PASTE  LCTL(KC_V)
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐
-     KC_ESC  ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,
+     ES_LIGH ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,
   //└────────┼────────┼────────┼────────┼────────┼────────┤
               KC_Q    ,KC_W    ,KC_E    ,KC_R    ,KC_T    ,
   //┌────────┼────────┼────────┼────────┼────────┼────────┼────────┐
-     KC_LGUI ,KC_ALEN ,KC_A    ,KC_S    ,KC_D    ,KC_F    ,KC_G    ,
+     CT_COPY ,CT_PASTE,KC_A    ,KC_S    ,KC_D    ,KC_F    ,KC_G    ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐
      KC_LSFT ,KC_Z                      ,KC_X    ,KC_C    ,KC_V    ,
   //├────────┼────────┘                 └────────┴────────┼────────┼────────┐
@@ -35,10 +41,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┼────────┼────────┼────────┼────────┼────────┼────────┐
      _______ ,_______ ,KC_LEFT ,KC_DOWN ,KC_RIGHT,KC_LBRC ,KC_RBRC ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐
-     _______ ,KC_BSPC                   ,KC_CIRC ,KC_LPRN ,KC_RPRN ,
+     _______ ,KC_BSPC                   ,KC_DEL  ,KC_LPRN ,KC_RPRN ,
   //├────────┼────────┘                 └────────┴────────┼────────┼────────┐
      _______                                              ,_______ ,_______
+  //└────────┘                                            └────────┴────────┘
+  ),
+
+  [_LIGHT] = LAYOUT(
+  //┌────────┬────────┬────────┬────────┬────────┬────────┐
+     _______ ,RGB_HUI ,RGB_HUD ,RGB_SAI ,RGB_SAD ,RGB_VAI ,
+  //└────────┼────────┼────────┼────────┼────────┼────────┤
+              RGB_M_P ,RGB_M_SW,RGB_M_X ,RGB_M_B ,RGB_VAD ,
+  //┌────────┼────────┼────────┼────────┼────────┼────────┼────────┐
+     _______ ,_______ ,RGB_M_SN,RGB_M_G ,RGB_M_R ,RGB_M_K ,RGB_M_T ,
+  //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐
+     _______ ,RGB_M_T                   ,XXXXXXX ,RGB_VAI ,RGB_VAD ,
+  //├────────┼────────┘                 └────────┴────────┼────────┼────────┐
+     _______                                              ,RGB_MOD ,RGB_TOG
   //└────────┘                                            └────────┴────────┘
   )
 
 };
+
+// Runs just one time when the keyboard initializes.
+#ifdef RGBLIGHT_ENABLE
+void keyboard_post_init_user(void) {
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL);
+};
+#endif

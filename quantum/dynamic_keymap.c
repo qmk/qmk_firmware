@@ -32,7 +32,7 @@
 
 // This is the default EEPROM max address to use for dynamic keymaps.
 // The default is the ATmega32u4 EEPROM max address.
-// Explicitly override it if the keyboard uses a microcontroller with 
+// Explicitly override it if the keyboard uses a microcontroller with
 // more EEPROM *and* it makes sense to increase it.
 #ifndef DYNAMIC_KEYMAP_EEPROM_MAX_ADDR
 #    define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 1023
@@ -210,9 +210,9 @@ void dynamic_keymap_macro_send(uint8_t id) {
         ++p;
     }
 
-    // Send the macro string one or two chars at a time
-    // by making temporary 1 or 2 char strings
-    char data[3] = {0, 0, 0};
+    // Send the macro string one or three chars at a time
+    // by making temporary 1 or 3 char strings
+    char data[4] = {0, 0, 0, 0};
     // We already checked there was a null at the end of
     // the buffer, so this cannot go past the end
     while (1) {
@@ -223,10 +223,12 @@ void dynamic_keymap_macro_send(uint8_t id) {
             break;
         }
         // If the char is magic (tap, down, up),
-        // add the next char (key to use) and send a 2 char string.
+        // add the next char (key to use) and send a 3 char string.
         if (data[0] == SS_TAP_CODE || data[0] == SS_DOWN_CODE || data[0] == SS_UP_CODE) {
-            data[1] = eeprom_read_byte(p++);
-            if (data[1] == 0) {
+            data[1] = data[0];
+            data[0] = SS_QMK_PREFIX;
+            data[2] = eeprom_read_byte(p++);
+            if (data[2] == 0) {
                 break;
             }
         }

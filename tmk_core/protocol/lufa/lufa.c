@@ -54,7 +54,6 @@
 #include "quantum.h"
 #include <util/atomic.h>
 #include "outputselect.h"
-#include "rgblight_reconfig.h"
 
 #ifdef NKRO_ENABLE
 #    include "keycode_config.h"
@@ -76,10 +75,6 @@ extern keymap_config_t keymap_config;
 
 #ifdef VIRTSER_ENABLE
 #    include "virtser.h"
-#endif
-
-#if (defined(RGB_MIDI) || defined(RGBLIGHT_ANIMATIONS)) && defined(RGBLIGHT_ENABLE)
-#    include "rgblight.h"
 #endif
 
 #ifdef MIDI_ENABLE
@@ -806,8 +801,6 @@ ERROR_EXIT:
     Endpoint_SelectEndpoint(ep);
     return -1;
 }
-#else
-int8_t sendchar(uint8_t c) { return 0; }
 #endif
 
 /*******************************************************************************

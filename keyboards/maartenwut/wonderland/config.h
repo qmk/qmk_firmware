@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0x4705
 #define PRODUCT_ID      0xA71C
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    Maartenwut

@@ -17,8 +17,12 @@
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 
+#define MATRIX_ROW_PINS {  B0,  A1, C14, C13,  A0}
+#define MATRIX_COL_PINS { C15, B10,  B7,  B6,  B5,  B4, A15, A10,  A9,  A8, B15, B14, B13, B12,  B2}
+#define UNUSED_PINS
+
 #define DIODE_DIRECTION COL2ROW
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE    5
 
 // i2c setting
 #define USE_I2CV1
@@ -37,13 +41,11 @@
 #define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
 /* indicator rgb */
-#define WS2812_LED_N 7
-#define RGBLED_NUM WS2812_LED_N
+#define RGBLED_NUM 7
 #define RGB_DI_PIN B1
 #define RGBLIGHT_ANIMATIONS
-//#define WS2812_EXTERNAL_PULLUP
 
 // tapping setting
-#define TAPPING_TERM 200
-#define RETRO_TAPPING
-#define PERMISSIVE_HOLD
+//#define TAPPING_TERM 200
+//#define RETRO_TAPPING
+//#define PERMISSIVE_HOLD

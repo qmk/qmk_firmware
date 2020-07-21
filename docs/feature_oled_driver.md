@@ -247,6 +247,10 @@ void oled_write_raw_byte(const char data, uint16_t index);
 // Writes a PROGMEM string to the buffer at current cursor position
 void oled_write_raw_P(const char *data, uint16_t size);
 
+// Sets a specific pixel on or off
+// Coordinates start at top-left and go right and down for positive x and y
+void oled_write_pixel(uint8_t x, uint8_t y, bool on);
+
 // Can be used to manually turn on the screen if it is off
 // Returns true if the screen was on or turns on
 bool oled_on(void);
@@ -261,12 +265,24 @@ void oled_task(void);
 // Called at the start of oled_task, weak function overridable by the user
 void oled_task_user(void);
 
-// Scrolls the entire display right
+// Set the specific 8 lines rows of the screen to scroll.
+// 0 is the default for start, and 7 for end, which is the entire
+// height of the screen.  For 128x32 screens, rows 4-7 are not used.
+void oled_scroll_set_area(uint8_t start_line, uint8_t end_line);
+
+// Sets scroll speed, 0-7, fastest to slowest. Default is three.
+// Does not take effect until scrolling is either started or restarted
+// the ssd1306 supports 8 speeds with the delay
+// listed below betwen each frame of the scrolling effect
+// 0=2, 1=3, 2=4, 3=5, 4=25, 5=64, 6=128, 7=256
+void oled_scroll_set_speed(uint8_t speed);
+
+// Begin scrolling the entire display right
 // Returns true if the screen was scrolling or starts scrolling
 // NOTE: display contents cannot be changed while scrolling
 bool oled_scroll_right(void);
 
-// Scrolls the entire display left
+// Begin scrolling the entire display left
 // Returns true if the screen was scrolling or starts scrolling
 // NOTE: display contents cannot be changed while scrolling
 bool oled_scroll_left(void);

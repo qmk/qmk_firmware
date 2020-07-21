@@ -9,6 +9,20 @@ Keyboard Maintainer: QMK Community
 Hardware Supported: XD004 PCB v1.0  
 Hardware Availability: [KPRepublic](https://kprepublic.com/products/xd004-xiudi-4-custom-mechanical-keyboard-4-keys-switch-leds-pcb-programmed-hot-swappable-macro-key-silver-case-micro-port)
 
+To put this board in DFU (firmware update) mode, bridge the last two pins (#5 & 6) of the 6-pin "J2" header on the opposite edge of the board to the USB port"
+```
+----+
+ J2 |
+[o] |
+(o) |
+(o) |
+(o) |
+(o)-+-\ (These
+(o)-+-/  two)
+    |
+----+
+```
+
 To build with a default keymap (not useful at all, have a look at other keymaps):
 
 ```make xd004/v1:default```
