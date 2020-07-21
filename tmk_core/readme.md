@@ -67,7 +67,6 @@ Start Your Own Project
     #define PRODUCT_ID      0xBEEF
     #define MANUFACTURER    t.m.k.
     #define PRODUCT         Macway mod
-    #define DESCRIPTION     t.m.k. keyboard firmware for Macway mod
 
 #### 2. Keyboard matrix configuration
     #define MATRIX_ROWS 8

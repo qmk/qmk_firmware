@@ -77,7 +77,6 @@ def _extract_config_h(info_data):
         'device_ver': config_c.get('DEVICE_VER'),
         'manufacturer': config_c.get('MANUFACTURER'),
         'product': config_c.get('PRODUCT'),
-        'description': config_c.get('DESCRIPTION'),
     }
 
     return info_data
