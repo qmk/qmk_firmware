@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x2073
 #define MANUFACTURER    ibnuda
 #define PRODUCT         squiggle
-#define DESCRIPTION     boring board
 
 #define USE_SERIAL
 

@@ -1,6 +1,6 @@
 # squiggle
 
-![squiggle](https://i.imgur.com/5UhvDsj.jpg)
+![squiggle](https://i.imgur.com/5UhvDsjl.jpg)
 
 It's a keyboard family which has the following requirements:
 
