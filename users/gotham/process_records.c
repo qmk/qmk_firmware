@@ -11,10 +11,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (
         process_record_keymap(keycode, record)
 #ifdef OLED_DRIVER_ENABLE
-        && process_record_keymap_oled(keycode, record)
+        && process_record_user_oled(keycode, record)
 #endif
 #ifdef ENCODER_ENABLE
-        && process_record_keymap_encoder(keycode, record)
+        && process_record_user_encoder(keycode, record)
 #endif
     ) {
         switch (keycode) {

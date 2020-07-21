@@ -22,6 +22,10 @@ static pin_t encoders_pad[] = ENCODERS_PAD_A;
 #    include "encoder_utils.h"
 #endif
 
+#ifdef OLED_DRIVER_ENABLE
+#    include "oled_utils.h"
+#endif
+
 #ifdef THUMBSTICK_ENABLE
 #    include "thumbstick.h"
 #endif
@@ -162,7 +166,9 @@ typedef struct _Serial_m2s_buffer_t {
     encoder_mode_t               encoder_modes[NUMBER_OF_ENCODERS * 2];
 #    endif
 #    endif
-
+#    ifdef OLED_DRIVER_ENABLE
+    bool oled_reset_flag;
+#    endif
 #    ifdef THUMBSTICK_ENABLE
     thumbstick_transport_state_t thumbstick_state;
 #    endif
@@ -269,6 +275,10 @@ bool transport_master(matrix_row_t matrix[]) {
     encoder_get_modes_raw((encoder_mode_t *)serial_m2s_buffer.encoder_modes);
 #    endif
 
+#    ifdef OLED_DRIVER_ENABLE
+    serial_m2s_buffer.oled_reset_flag = oled_reset_flag_get();
+    oled_reset_flag_set(false);
+#    endif
 #    ifdef THUMBSTICK_ENABLE
     if (isLeftHand) {
         serial_m2s_buffer.thumbstick_state.mode = thumbstick_mode_get();
@@ -299,6 +309,12 @@ void transport_slave(matrix_row_t matrix[]) {
 #    ifdef ENCODER_ENABLE
     encoder_state_raw((uint8_t *)serial_s2m_buffer.encoder_state);
     encoder_set_modes_raw((encoder_mode_t*)serial_m2s_buffer.encoder_modes);
+#    endif
+
+#    ifdef OLED_DRIVER_ENABLE
+    if (serial_m2s_buffer.oled_reset_flag) {
+        oled_sleep_timer_reset();
+    }
 #    endif
 
 #    ifdef THUMBSTICK_ENABLE

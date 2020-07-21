@@ -29,6 +29,8 @@ typedef enum {
 #endif
 
 void encoder_init_user(void);
+bool process_record_user_encoder(uint16_t keycode, keyrecord_t *record);
+
 void encoder_init_keymap(void);
 void encoder_update_keymap(int8_t index, bool clockwise);
 bool process_record_keymap_encoder(uint16_t keycode, keyrecord_t *record);

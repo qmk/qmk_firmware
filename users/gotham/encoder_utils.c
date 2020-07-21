@@ -17,6 +17,10 @@ __attribute__((weak)) void encoder_update_keymap(int8_t index, bool clockwise) {
 
 __attribute__((weak)) bool process_record_keymap_encoder(uint16_t keycode, keyrecord_t *record) { return true; }
 
+bool process_record_user_encoder(uint16_t keycode, keyrecord_t *record) {
+    return process_record_keymap_encoder(keycode, record);
+}
+
 void encoder_init_user(void) {
     encoder_init_keymap();
 }
