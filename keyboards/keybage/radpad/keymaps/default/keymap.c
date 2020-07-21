@@ -38,13 +38,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) { /* First encoder */
+    if (index == 0) { /* Left encoder */
         if (clockwise) {
             tap_code16(KC_VOLU);
         } else {
             tap_code16(KC_VOLD);
         }
-    } else if (index == 1) { /* Second encoder */
+    } else if (index == 1) { /* Right encoder */
         if (clockwise) {
             tap_code16(KC_MNXT);
         } else {
@@ -54,7 +54,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 #ifdef OLED_DRIVER_ENABLE
-static uint32_t oled_timer = 0;
+static uint32_t oled_logo_timer = 0;
 bool oled_logo_cleared = false; // Set to true if you don't want a logo at all
 
 static void render_status(void) {
@@ -72,10 +72,19 @@ static void render_status(void) {
             // Or use the write_ln shortcut over adding '\n' to the end of your string
             oled_write_ln_P(PSTR("Some Other Layer"), false);
     }
+
+    // Empty Line
+    oled_write_ln_P(PSTR(" "), false);
+
+    // Host Keyboard LED Status
+    led_t led_state = host_keyboard_led_state();
+    oled_write_P(led_state.num_lock ? PSTR(" NUM ") : PSTR("     "), led_state.num_lock);
+    oled_write_P(led_state.caps_lock ? PSTR(" CAP ") : PSTR("     "), led_state.caps_lock);
+    oled_write_P(led_state.scroll_lock ? PSTR(" SCR ") : PSTR("     "), led_state.scroll_lock);
 }
 
 /*
-    Article to make convert your own image:
+    How to convert your own image:
     https://docs.splitkb.com/hc/en-us/articles/360013811280
 */
 static void render_logo(void) {
@@ -120,7 +129,7 @@ void oled_task_user(void) {
     if (oled_logo_cleared) {
         render_status();
     } else {
-        if (timer_elapsed32(oled_timer) > OLED_LOGO_TIMEOUT) {
+        if (timer_elapsed32(oled_logo_timer) > OLED_LOGO_TIMEOUT) {
             oled_clear();
             oled_logo_cleared = true;
             render_status();
