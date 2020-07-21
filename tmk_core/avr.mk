@@ -21,12 +21,14 @@ COMPILEFLAGS += -fdata-sections
 COMPILEFLAGS += -fpack-struct
 COMPILEFLAGS += -fshort-enums
 
-CFLAGS += $(COMPILEFLAGS)
+ASFLAGS += $(AVR_ASFLAGS)
+
+CFLAGS += $(COMPILEFLAGS) $(AVR_CFLAGS)
 CFLAGS += -fno-inline-small-functions
 CFLAGS += -fno-strict-aliasing
 
-CPPFLAGS += $(COMPILEFLAGS)
-CPPFLAGS += -fno-exceptions -std=c++11
+CXXFLAGS += $(COMPILEFLAGS)
+CXXFLAGS += -fno-exceptions -std=c++11
 
 LDFLAGS +=-Wl,--gc-sections
 

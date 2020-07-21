@@ -19,6 +19,8 @@
 #define MATRIX_COL_PINS { D0, D1, D2, F7, F6, F5, F4, F1 }
 #define UNUSED_PINS
 
+#define DIODE_DIRECTION COL2ROW
+
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 

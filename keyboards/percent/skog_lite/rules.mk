@@ -11,14 +11,16 @@ MCU = atmega32a
 #   ATmega328P   USBasp
 BOOTLOADER = bootloadHID
 
-# build options
-BOOTMAGIC_ENABLE = no
-MOUSEKEY_ENABLE = yes
-EXTRAKEY_ENABLE = yes
-CONSOLE_ENABLE = yes
-COMMAND_ENABLE = yes
-BACKLIGHT_ENABLE = yes
-RGBLIGHT_ENABLE = yes
+# Build Options
+#   change yes to no to disable
+#
+BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
+MOUSEKEY_ENABLE = yes       # Mouse keys
+EXTRAKEY_ENABLE = yes       # Audio control and System control
+CONSOLE_ENABLE = no         # Console for debug
+COMMAND_ENABLE = yes        # Commands for debug and configuration
+BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
+RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 WS2812_DRIVER = i2c
 
 OPT_DEFS = -DDEBUG_LEVEL=0

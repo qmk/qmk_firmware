@@ -34,7 +34,7 @@ ARMV = 7
 # 0x00000000-0x00001000 area is occupied by bootlaoder.*/
 # The CORTEX_VTOR... is needed only for MCHCK/Infinity KB
 #OPT_DEFS = -DCORTEX_VTOR_INIT=0x00001000
-OPT_DEFS = 
+OPT_DEFS =
 
 # Build Options
 #   comment out to disable the options.
@@ -52,5 +52,9 @@ BACKLIGHT_ENABLE = no
 VISUALIZER_ENABLE = no
 
 #LED_DRIVER = is31fl3731c
-#LED_WIDTH = 16 
+#LED_WIDTH = 16
 #LED_HEIGHT = 5
+
+
+# Enter lower-power sleep mode when on the ChibiOS idle thread
+OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE

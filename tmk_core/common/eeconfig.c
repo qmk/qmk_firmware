@@ -9,6 +9,10 @@
 #    include "eeprom_stm32.h"
 #endif
 
+#if defined(EEPROM_DRIVER)
+#    include "eeprom_driver.h"
+#endif
+
 /** \brief eeconfig enable
  *
  * FIXME: needs doc
@@ -31,6 +35,9 @@ __attribute__((weak)) void eeconfig_init_kb(void) {
 void eeconfig_init_quantum(void) {
 #ifdef STM32_EEPROM_ENABLE
     EEPROM_Erase();
+#endif
+#if defined(EEPROM_DRIVER)
+    eeprom_driver_erase();
 #endif
     eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_NUMBER);
     eeprom_update_byte(EECONFIG_DEBUG, 0);
@@ -80,6 +87,9 @@ void eeconfig_enable(void) { eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_N
 void eeconfig_disable(void) {
 #ifdef STM32_EEPROM_ENABLE
     EEPROM_Erase();
+#endif
+#if defined(EEPROM_DRIVER)
+    eeprom_driver_erase();
 #endif
     eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_NUMBER_OFF);
 }

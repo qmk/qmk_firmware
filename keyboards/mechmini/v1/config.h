@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef V1_CONFIG_H
-#define V1_CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -38,11 +37,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define NO_UART 1
 
+#define BACKLIGHT_PIN D4
+#define BACKLIGHT_LEVELS 3
+
 /* RGB underglow */
 // The RGB_DI_PIN value seems to be shared between all PS2AVRGB boards.
 // The same pin is used on the JJ40, at least.
 #define RGBLED_NUM 16
 #define RGBLIGHT_ANIMATIONS
 #define RGB_DI_PIN E2
-
-#endif

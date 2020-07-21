@@ -7,7 +7,7 @@
 #ifdef BACKLIGHT_PIN
 
 #    if defined(STM32F0XX) || defined(STM32F0xx)
-#        error "Backlight support for STMF072 is not available. Please disable."
+#        pragma message("Backlight support for STMF072 has had limited testing, YMMV. If unsure, set 'BACKLIGHT_ENABLE = no' in your rules.mk")
 #    endif
 
 // GPIOV2 && GPIOV3
@@ -156,13 +156,6 @@ void breathing_self_disable(void) {
         breathing_halt = BREATHING_HALT_OFF;
     else
         breathing_halt = BREATHING_HALT_ON;
-}
-
-void breathing_toggle(void) {
-    if (is_breathing())
-        breathing_disable();
-    else
-        breathing_enable();
 }
 
 /* To generate breathing curve in python:

@@ -5,12 +5,14 @@
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _QWERTY 0
-#define _COLEMAK 1
-#define _DVORAK 2
-#define _LOWER 3
-#define _RAISE 4
-#define _ADJUST 16
+enum my_layers {
+  _QWERTY,
+  _COLEMAK,
+  _DVORAK,
+  _LOWER,
+  _RAISE,
+  _ADJUST
+};
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -166,19 +168,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_single_persistent_default_layer(_QWERTY);
       }
       return false;
-      break;
     case COLEMAK:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_COLEMAK);
       }
       return false;
-      break;
     case DVORAK:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_DVORAK);
       }
       return false;
-      break;
   }
   return true;
 }

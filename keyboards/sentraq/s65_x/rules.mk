@@ -14,9 +14,9 @@ BOOTLOADER = atmel-dfu
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = full      # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = no        # Mouse keys(+4700)
-EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
+BOOTMAGIC_ENABLE = full      # Virtual DIP switch configuration
+MOUSEKEY_ENABLE = no        # Mouse keys
+EXTRAKEY_ENABLE = yes       # Audio control and System control
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 MIDI_ENABLE = no            # MIDI controls

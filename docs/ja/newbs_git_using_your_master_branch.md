@@ -41,7 +41,7 @@ upstream        https://github.com/qmk/qmk_firmware.git (push)
 このコマンドは `upstream` というニックネームを持つ QMK リポジトリから、ブランチとタグ &mdash; "refs" と総称されます &mdash; を取得します。
 これで、あなたのフォーク `origin` のデータを QMK が保持するデータと比較できます。
 
-あなたのフォークの `master` を更新するには、次を実行します、各行の後にEnterキーを押してください:
+あなたのフォークの `master` を更新するには、次を実行します、各行の後に Enter キーを押してください:
 
 ```
 git checkout master
@@ -98,4 +98,4 @@ git commit -m "My commit message."
 
 最後のステップは、変更をフォークにプッシュすることです。
 これを行うには、`git push`と入力します。
-Gitは、 `dev_branch`の現在の状態をフォークに公開します。
+Git は、 `dev_branch`の現在の状態をフォークに公開します。

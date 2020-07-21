@@ -7,7 +7,7 @@
 #ifdef RGBLIGHT_ENABLE
 #include <string.h>
 #include "rgblight.h"
-#include "ws2812_f4.h"
+#include "ws2812.h"
 extern rgblight_config_t rgblight_config;
 
 // led 0 for caps lock, led 1 for scroll lock, led 3 for num lock
@@ -58,7 +58,6 @@ void matrix_init_kb(void) {
 __attribute__((weak))
 void matrix_init_user(void) {
 #ifdef RGBLIGHT_ENABLE
-  ws2812_init();
   rgblight_enable();
 #endif
 

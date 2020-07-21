@@ -63,9 +63,6 @@ util/Win_Check_Output.txt
 *.gif
 *.jpg
 
-# Do not ignore MiniDox left/right hand eeprom files
-!keyboards/minidox/*.eep
-
 # things travis sees
 secrets.tar
 id_rsa_*
@@ -73,3 +70,6 @@ id_rsa_*
 
 # python things
 __pycache__
+
+# prerequisites for updating ChibiOS
+/util/fmpp*

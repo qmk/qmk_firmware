@@ -17,7 +17,7 @@ Note that this set-up has been tested on Ubuntu 16.04 only for the moment.
 
 # Prerequisites
 ## Build Environment
-Before starting, you must have followed the [Getting Started](README.md#getting-started) section corresponding to your system. In particular, you must have been able to build the firmware with [the `make` command](../#the-make-command).
+Before starting, you must have followed the [Getting Started](news_getting_started.md) section of the Tutorial. In particular, you must have been able to build the firmware with [the `qmk compile` command](news_building_firmware#build-your-firmware).
 
 ## Java
 Eclipse is a Java application, so you will need to install Java 8 or more recent to be able to run it. You may choose between the JRE or the JDK, the latter being useful if you intend to do Java development.

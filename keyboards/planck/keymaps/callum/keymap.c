@@ -163,12 +163,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [SYMB] = LAYOUT_planck_grid(
          esc,   n7,   n5,   n3,   n1,   n9,   n8,   n0,   n2,   n4,   n6, dash,
          del,   at,  dlr,  eql, lprn, lbrc, rbrc, rprn, astr, hash, plus,  gbp,
-        caps,  grv, pipe, bsls, lcbr, tild, circ, rcbr, ampr, exlm, perc, caps,
+        ____,  grv, pipe, bsls, lcbr, tild, circ, rcbr, ampr, exlm, perc, ____,
         ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
     ),
 
     [MOVE] = LAYOUT_planck_grid(
-         esc, xxxx, slup,  dtl,  dtr, xxxx, xxxx, home,   up,  end, xxxx, xxxx,
+         esc, xxxx, slup,  dtl,  dtr, xxxx, xxxx, home,   up,  end, xxxx, caps,
          del, xxxx, sldn, tabl, tabr, xxxx, xxxx, left, down, rght, xxxx, xxxx,
         ____, xxxx, xxxx, back,  fwd, xxxx, xxxx, pgdn, pgup, xxxx, xxxx, ____,
         ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____

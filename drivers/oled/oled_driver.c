@@ -22,15 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <string.h>
 
-#if defined(__AVR__)
-#    include <avr/io.h>
-#    include <avr/pgmspace.h>
-#elif defined(ESP8266)
-#    include <pgmspace.h>
-#else  // defined(ESP8266)
-#    define PROGMEM
+#include "progmem.h"
+#ifndef __AVR__
 #    define memcpy_P(des, src, len) memcpy(des, src, len)
-#endif  // defined(__AVR__)
+#endif
 
 // Used commands from spec sheet: https://cdn-shop.adafruit.com/datasheets/SSD1306.pdf
 // for SH1106: https://www.velleman.eu/downloads/29/infosheets/sh1106_datasheet.pdf
@@ -392,6 +387,8 @@ void oled_write_char(const char data, bool invert) {
     static uint8_t oled_temp_buffer[OLED_FONT_WIDTH];
     memcpy(&oled_temp_buffer, oled_cursor, OLED_FONT_WIDTH);
 
+    _Static_assert(sizeof(font) >= ((OLED_FONT_END + 1 - OLED_FONT_START) * OLED_FONT_WIDTH), "OLED_FONT_END references outside array");
+
     // set the reder buffer data
     uint8_t cast_data = (uint8_t)data;  // font based on unsigned type for index
     if (cast_data < OLED_FONT_START || cast_data > OLED_FONT_END) {
@@ -429,6 +426,31 @@ void oled_write(const char *data, bool invert) {
 void oled_write_ln(const char *data, bool invert) {
     oled_write(data, invert);
     oled_advance_page(true);
+}
+
+void oled_pan(bool left) {
+    uint16_t i = 0;
+    for (uint16_t y = 0; y < OLED_DISPLAY_HEIGHT / 8; y++) {
+        if (left) {
+            for (uint16_t x = 0; x < OLED_DISPLAY_WIDTH - 1; x++) {
+                i              = y * OLED_DISPLAY_WIDTH + x;
+                oled_buffer[i] = oled_buffer[i + 1];
+            }
+        } else {
+            for (uint16_t x = OLED_DISPLAY_WIDTH - 1; x > 0; x--) {
+                i              = y * OLED_DISPLAY_WIDTH + x;
+                oled_buffer[i] = oled_buffer[i - 1];
+            }
+        }
+    }
+    oled_dirty = ~((OLED_BLOCK_TYPE)0);
+}
+
+void oled_write_raw_byte(const char data, uint16_t index) {
+    if (index > OLED_MATRIX_SIZE) index = OLED_MATRIX_SIZE;
+    if (oled_buffer[index] == data) return;
+    oled_buffer[index] = data;
+    oled_dirty |= (1 << (index / OLED_BLOCK_SIZE));
 }
 
 void oled_write_raw(const char *data, uint16_t size) {

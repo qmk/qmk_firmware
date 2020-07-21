@@ -150,6 +150,24 @@ void register_hex(uint16_t hex) {
     }
 }
 
+void register_hex32(uint32_t hex) {
+    bool onzerostart = true;
+    for (int i = 7; i >= 0; i--) {
+        if (i <= 3) {
+            onzerostart = false;
+        }
+        uint8_t digit = ((hex >> (i * 4)) & 0xF);
+        if (digit == 0) {
+            if (!onzerostart) {
+                tap_code(hex_to_keycode(digit));
+            }
+        } else {
+            tap_code(hex_to_keycode(digit));
+            onzerostart = false;
+        }
+    }
+}
+
 void send_unicode_hex_string(const char *str) {
     if (!str) {
         return;
@@ -175,6 +193,53 @@ void send_unicode_hex_string(const char *str) {
         unicode_input_finish();
 
         str += n;  // Move to the first ' ' (or '\0') after the current token
+    }
+}
+
+// Borrowed from https://nullprogram.com/blog/2017/10/06/
+const char *decode_utf8(const char *str, int32_t *code_point) {
+    const char *next;
+
+    if (str[0] < 0x80) {  // U+0000-007F
+        *code_point = str[0];
+        next        = str + 1;
+    } else if ((str[0] & 0xE0) == 0xC0) {  // U+0080-07FF
+        *code_point = ((int32_t)(str[0] & 0x1F) << 6) | ((int32_t)(str[1] & 0x3F) << 0);
+        next        = str + 2;
+    } else if ((str[0] & 0xF0) == 0xE0) {  // U+0800-FFFF
+        *code_point = ((int32_t)(str[0] & 0x0F) << 12) | ((int32_t)(str[1] & 0x3F) << 6) | ((int32_t)(str[2] & 0x3F) << 0);
+        next        = str + 3;
+    } else if ((str[0] & 0xF8) == 0xF0 && (str[0] <= 0xF4)) {  // U+10000-10FFFF
+        *code_point = ((int32_t)(str[0] & 0x07) << 18) | ((int32_t)(str[1] & 0x3F) << 12) | ((int32_t)(str[2] & 0x3F) << 6) | ((int32_t)(str[3] & 0x3F) << 0);
+        next        = str + 4;
+    } else {
+        *code_point = -1;
+        next        = str + 1;
+    }
+
+    // part of a UTF-16 surrogate pair - invalid
+    if (*code_point >= 0xD800 && *code_point <= 0xDFFF) {
+        *code_point = -1;
+    }
+
+    return next;
+}
+
+void send_unicode_string(const char *str) {
+    if (!str) {
+        return;
+    }
+
+    int32_t code_point = 0;
+
+    while (*str) {
+        str = decode_utf8(str, &code_point);
+
+        if (code_point >= 0) {
+            unicode_input_start();
+            register_hex32(code_point);
+            unicode_input_finish();
+        }
     }
 }
 

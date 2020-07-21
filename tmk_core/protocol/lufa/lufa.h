@@ -58,12 +58,6 @@ extern host_driver_t lufa_driver;
 }
 #endif
 
-/* extra report structure */
-typedef struct {
-    uint8_t  report_id;
-    uint16_t usage;
-} __attribute__((packed)) report_extra_t;
-
 #ifdef API_ENABLE
 #    include "api.h"
 #endif

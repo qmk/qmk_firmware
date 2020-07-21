@@ -43,7 +43,7 @@
 //#define DIODE_DIRECTION
 
 /* number of backlight levels */
-#define BACKLIGHT_LEVELS 3
+//#define BACKLIGHT_LEVELS 3
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
 

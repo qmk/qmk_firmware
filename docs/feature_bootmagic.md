@@ -54,7 +54,7 @@ Hold down the Bootmagic key (Space by default) and the desired hotkey while plug
 |`6`               |Make layer 6 the default layer               |
 |`7`               |Make layer 7 the default layer               |
 
-## Keycodes
+## Keycodes :id=keycodes
 
 |Key                               |Aliases  |Description                                                               |
 |----------------------------------|---------|--------------------------------------------------------------------------|
@@ -121,7 +121,7 @@ If you would like to change the hotkey assignments for Bootmagic, `#define` thes
 |`BOOTMAGIC_KEY_DEFAULT_LAYER_6`         |`KC_6`       |Make layer 6 the default layer                     |
 |`BOOTMAGIC_KEY_DEFAULT_LAYER_7`         |`KC_7`       |Make layer 7 the default layer                     |
 
-# Bootmagic Lite
+# Bootmagic Lite :id=bootmagic-lite
 
 In addition to the full blown Bootmagic feature, is the Bootmagic Lite feature that only handles jumping into the bootloader.  This is great for boards that don't have a physical reset button but you need a way to jump into the bootloader, and don't want to deal with the headache that Bootmagic can cause.
 

@@ -217,7 +217,7 @@ void IS31FL3733_update_pwm_buffers(uint8_t addr, uint8_t index) {
 
         // If any of the transactions fail we risk writing dirty PG0,
         // refresh page 0 just in case.
-        if (!IS31FL3733_write_pwm_buffer(addr, g_pwm_buffer[index])){
+        if (!IS31FL3733_write_pwm_buffer(addr, g_pwm_buffer[index])) {
             g_led_control_registers_update_required[index] = true;
         }
     }

@@ -38,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 12
-// #define BACKLIGHT_BREATHING  // Requires #4324 to enable hardware pwm for atmega32a
+#define BACKLIGHT_BREATHING
 
 /* RGB underglow */
 // NOTE: for PS2AVRGB boards, underglow commands are sent via I2C to 0xB0.

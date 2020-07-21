@@ -107,6 +107,16 @@ Would tap `KC_HOME` - note how the prefix is now `X_`, and not `KC_`. You can al
 
 Which would send "VE" followed by a `KC_HOME` tap, and "LO" (spelling "LOVE" if on a newline).
 
+Delays can be also added to the string:
+
+* `SS_DELAY(msecs)` will delay for the specified number of milliseconds.
+
+For example:
+
+    SEND_STRING("VE" SS_DELAY(1000) SS_TAP(X_HOME) "LO");
+
+Which would send "VE" followed by a 1-second delay, then a `KC_HOME` tap, and "LO" (spelling "LOVE" if on a newline, but delayed in the middle).
+
 There's also a couple of mod shortcuts you can use:
 
 * `SS_LCTL(string)`
@@ -154,6 +164,8 @@ SEND_STRING(".."SS_TAP(X_END));
 
 There are some functions you may find useful in macro-writing. Keep in mind that while you can write some fairly advanced code within a macro, if your functionality gets too complex you may want to define a custom keycode instead. Macros are meant to be simple.
 
+?> You can also use the functions described in [Useful function](ref_functions.md) for additional functionality. For example `reset_keyboard()` allows you to reset the keyboard as part of a macro.
+
 ### `record->event.pressed`
 
 This is a boolean value that can be tested to see if the switch is being pressed or released. An example of this is
@@ -198,11 +210,11 @@ This will clear all mods currently pressed.
 
 This will clear all keys besides the mods currently pressed.
 
-## Advanced Example: 
+## Advanced Example:
 
 ### Super ALT↯TAB
 
-This macro will register `KC_LALT` and tap `KC_TAB`, then wait for 1000ms. If the key is tapped again, it will send another `KC_TAB`; if there is no tap, `KC_LALT` will be unregistered, thus allowing you to cycle through windows. 
+This macro will register `KC_LALT` and tap `KC_TAB`, then wait for 1000ms. If the key is tapped again, it will send another `KC_TAB`; if there is no tap, `KC_LALT` will be unregistered, thus allowing you to cycle through windows.
 
 ```c
 bool is_alt_tab_active = false;    # ADD this near the begining of keymap.c
@@ -219,7 +231,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (!is_alt_tab_active) {
           is_alt_tab_active = true;
           register_code(KC_LALT);
-        } 
+        }
         alt_tab_timer = timer_read();
         register_code(KC_TAB);
       } else {
@@ -230,7 +242,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void matrix_scan_user(void) {     # The very important timer. 
+void matrix_scan_user(void) {     # The very important timer.
   if (is_alt_tab_active) {
     if (timer_elapsed(alt_tab_timer) > 1000) {
       unregister_code(KC_LALT);
@@ -319,7 +331,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ```
 
 
-## Advanced Example: 
+## Advanced Example:
 
 ### Single-Key Copy/Paste
 

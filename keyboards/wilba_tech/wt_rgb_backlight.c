@@ -14,9 +14,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if defined(RGB_BACKLIGHT_ZEAL60) || defined(RGB_BACKLIGHT_ZEAL65) || defined(RGB_BACKLIGHT_M60_A) || defined(RGB_BACKLIGHT_M6_B) || defined(RGB_BACKLIGHT_KOYU) || defined(RGB_BACKLIGHT_HS60) || defined(RGB_BACKLIGHT_NK65) || defined(RGB_BACKLIGHT_U80_A) || defined(RGB_BACKLIGHT_DAWN60)
+#if defined(RGB_BACKLIGHT_ZEAL60) || \
+    defined(RGB_BACKLIGHT_ZEAL65) || \
+    defined(RGB_BACKLIGHT_M60_A) || \
+    defined(RGB_BACKLIGHT_M6_B) || \
+    defined(RGB_BACKLIGHT_KOYU) || \
+    defined(RGB_BACKLIGHT_HS60) || \
+    defined(RGB_BACKLIGHT_NK65) || \
+    defined(RGB_BACKLIGHT_U80_A) || \
+    defined(RGB_BACKLIGHT_DAWN60) || \
+    defined(RGB_BACKLIGHT_WT60_B) || \
+    defined(RGB_BACKLIGHT_WT60_BX) || \
+    defined(RGB_BACKLIGHT_WT60_C)
 #else
-#error None of the following was defined: RGB_BACKLIGHT_ZEAL60, RGB_BACKLIGHT_ZEAL65, RGB_BACKLIGHT_M60_A, RGB_BACKLIGHT_M6_B, RGB_BACKLIGHT_KOYU, RGB_BACKLIGHT_HS60, RGB_BACKLIGHT_NK65, RGB_BACKLIGHT_U80_A, RGB_BACKLIGHT_DAWN60
+#error wt_rgb_backlight.c compiled without setting configuration symbol
 #endif
 
 #ifndef MAX
@@ -50,8 +61,12 @@ LED_TYPE g_ws2812_leds[WS2812_LED_TOTAL];
 #include "quantum/color.h"
 #include "tmk_core/common/eeprom.h"
 
-#include "via.h" // uses only the EEPROM address
+#include "via.h" // uses EEPROM address, lighting value IDs
 #define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR (VIA_EEPROM_CUSTOM_CONFIG_ADDR)
+
+#if VIA_EEPROM_CUSTOM_CONFIG_SIZE == 0
+#error VIA_EEPROM_CUSTOM_CONFIG_SIZE was not defined to store backlight_config struct
+#endif
 
 #if defined(RGB_BACKLIGHT_M6_B)
 #include "drivers/issi/is31fl3218.h"
@@ -739,6 +754,35 @@ const Point g_map_led_to_point_polar[BACKLIGHT_LED_COUNT] PROGMEM = {
     {0,27}, {0,64}, {0,101}, {0,137}, {0,174}, {255,233}, {228,201}, {235,255}, {237,255},
     {195,128}, {206,136}, {215,152}, {222,175}, {205,234}, {209,255}, {214,255}, {219,255}, {223,255}
 };
+#elif defined(RGB_BACKLIGHT_WT60_B) || defined(RGB_BACKLIGHT_WT60_BX) || defined(RGB_BACKLIGHT_WT60_C)
+const Point g_map_led_to_point[BACKLIGHT_LED_COUNT] PROGMEM = {
+    // LA0..LA17
+    {120,16}, {104,16}, {88,16}, {72,16}, {56,16}, {40,16}, {24,16}, {4,16}, {4,32},
+    {128,0}, {112,0}, {96,0}, {80,0}, {64,0}, {48,0}, {32,0}, {16,0}, {0,0},
+    // LB0..LB17
+    {144,0}, {160,0}, {176,0}, {192,0}, {208,0}, {224,0}, {216,0}, {255,255}, {255,255},
+    {136,16}, {152,16}, {168,16}, {184,16}, {200,16}, {220,16}, {255,255}, {255,255}, {255,255},
+    // LC0..LC17
+    {112,64}, {100,48}, {84,48}, {68,48}, {52,48}, {36,48}, {64,60}, {44,64}, {24,64},
+    {108,32}, {92,32}, {76,32}, {60,32}, {44,32}, {28,32}, {255,255}, {10,48}, {4,64},
+    // LD0..LD17
+    {124,32}, {140,32}, {156,32}, {172,32}, {188,32}, {214,32}, {180,48}, {202,48}, {224,48},
+    {116,48}, {132,48}, {148,48}, {164,48}, {255,255}, {160,60}, {180,64}, {200,64}, {220,64}
+};
+const Point g_map_led_to_point_polar[BACKLIGHT_LED_COUNT] PROGMEM = {
+    // LA0..LA17
+    {58,129}, {70,129}, {80,139}, {89,157}, {96,181}, {101,208}, {105,238}, {109,255}, {128,247},
+    {58,255}, {64,255}, {70,255}, {75,255}, {80,255}, {85,255}, {89,255}, {93,255}, {96,255},
+    // LB0..LB17
+    {53,255}, {48,255}, {43,255}, {39,255}, {35,255}, {32,255}, {34,255}, {255,255}, {255,255},
+    {48,139}, {39,157}, {32,181}, {27,208}, {23,238}, {19,255}, {255,255}, {255,255}, {255,255},
+    // LC0..LC17
+    {192,255}, {183,131}, {173,143}, {165,163}, {159,188}, {154,216}, {173,248}, {170,255}, {165,255},
+    {128,9}, {128,46}, {128,82}, {128,119}, {128,155}, {128,192}, {255,255}, {148,255}, {161,255},
+    // LD0..LD17
+    {0,27}, {0,64}, {0,101}, {0,137}, {0,174}, {0,233}, {228,201}, {235,242}, {237,255},
+    {195,128}, {206,136}, {215,152}, {222,175}, {255,255}, {211,248}, {214,255}, {219,255}, {223,255}
+};
 #elif defined(RGB_BACKLIGHT_U80_A)
 const Point g_map_led_to_point[BACKLIGHT_LED_COUNT] PROGMEM = {
     // Thse are scaled by 14.5 per U
@@ -1076,6 +1120,14 @@ const uint8_t g_map_row_column_to_led[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
     { 36+16, 36+15,  36+5,  36+4,  36+3,  36+2,  36+1,  54+9, 54+10, 54+11, 54+12,  54+6,  54+7,  54+8 },
     { 36+17,  36+8,  36+7,  36+6,   255,   255,   255,  36+0,  255,  54+13, 54+14, 54+15, 54+16, 54+17 }
 };
+#elif defined(RGB_BACKLIGHT_WT60_B) || defined(RGB_BACKLIGHT_WT60_BX) || defined(RGB_BACKLIGHT_WT60_C)
+const uint8_t g_map_row_column_to_led[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
+    {  0+17,  0+16,  0+15,  0+14,  0+13,  0+12,  0+11,  0+10,   0+9,  18+0,  18+1,  18+2,  18+3,  18+4 },
+    {   0+7,   0+6,   0+5,   0+4,   0+3,   0+2,   0+1,   0+0,  18+9, 18+10, 18+11, 18+12, 18+13, 18+14 },
+    {   0+8, 36+14, 36+13, 36+12, 36+11, 36+10,  36+9,  54+0,  54+1,  54+2,  54+3,  54+4,  54+5,  18+5 },
+    { 36+16,   255,  36+5,  36+4,  36+3,  36+2,  36+1,  54+9, 54+10, 54+11, 54+12,  54+6,  54+7,  54+8 },
+    { 36+17,  36+8,  36+7,  36+6,   255,   255,   255,  36+0,  255,    255, 54+14, 54+15, 54+16, 54+17 }
+};
 #elif defined(RGB_BACKLIGHT_U80_A)
 // Note: Left spacebar stab is at 5,3 (LC6)
 // Right spacebar stab is at 5,10 (LD14)
@@ -1238,7 +1290,10 @@ void backlight_set_color_all( uint8_t red, uint8_t green, uint8_t blue )
 #if defined(RGB_BACKLIGHT_M6_B)
     IS31FL3218_set_color_all( red, green, blue );
 #elif defined(RGB_BACKLIGHT_HS60) || defined(RGB_BACKLIGHT_NK65)
-    IS31FL3733_set_color_all( red, green, blue );
+    // This is done to avoid indicator LEDs being set
+    for (int i = 0; i < BACKLIGHT_LED_COUNT; i++) {
+        IS31FL3733_set_color(i, red, green, blue);
+    }
 #elif defined(RGB_BACKLIGHT_DAWN60)
     IS31FL3731_set_color_all( red, green, blue );
     for (uint8_t i = 0; i < WS2812_LED_TOTAL; i++) {
@@ -2316,6 +2371,20 @@ void backlight_init_drivers(void)
         // HHKB blockers (LC17, LD17) and ISO extra keys (LC15,LD13) not present on M60-A
                           ( index == 36+17 ) || // LC17
                           ( index == 54+17 ) || // LD17
+                          ( index == 36+15 ) || // LC15
+                          ( index == 54+13 ) ); // LD13
+#elif defined(RGB_BACKLIGHT_WT60_B) || defined(RGB_BACKLIGHT_WT60_BX) || defined(RGB_BACKLIGHT_WT60_C)
+        bool enabled = !(
+        // LB6 not present on WT60-B
+#if defined(RGB_BACKLIGHT_WT60_B)
+                          ( index == 18+6 ) || // LB6
+#endif
+        // LB7 LB8 LB15 LB16 LB17 LC15 LD13 not present on WT60-B, WT60-BX, WT60-C
+                          ( index == 18+7 ) || // LB7
+                          ( index == 18+8 ) || // LB8
+                          ( index == 18+15 ) || // LB15
+                          ( index == 18+16 ) || // LB16
+                          ( index == 18+17 ) || // LB17
                           ( index == 36+15 ) || // LC15
                           ( index == 54+13 ) ); // LD13
 #elif defined(RGB_BACKLIGHT_ZEAL60)
