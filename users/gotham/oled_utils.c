@@ -1,7 +1,9 @@
 #include "oled_utils.h"
 
 static bool     is_master;
+#if OLED_CUSTOM_TIMEOUT > 0
 static uint32_t oled_sleep_timer;
+#endif
 
 const char PROGMEM layer_names[][OLED_CHAR_COUNT] = {
     [_QWERTY] = OLED_STR_QWERTY,
@@ -26,9 +28,11 @@ const char PROGMEM encoder_mode_names[][OLED_CHAR_COUNT] = {
 };
 #endif
 
+#if OLED_CUSTOM_TIMEOUT > 0
 void oled_sleep_timer_reset(void) {
     oled_sleep_timer = timer_read32();
 }
+#endif
 
 __attribute__((weak)) oled_rotation_t oled_init_keymap(oled_rotation_t rotation) {
     return OLED_ROTATION_0;
@@ -36,7 +40,9 @@ __attribute__((weak)) oled_rotation_t oled_init_keymap(oled_rotation_t rotation)
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     is_master = is_keyboard_master();
+#if OLED_CUSTOM_TIMEOUT > 0
     oled_sleep_timer = timer_read32() + OLED_CUSTOM_TIMEOUT;
+#endif
 #if defined(OLED_ANIMATIONS_ENABLED) && defined(OLED_ANIM_STARFIELD)
     oled_init_starfield();
 #elif defined(OLED_ANIMATIONS_ENABLED) && defined(OLED_ANIM_DVD_LOGO)
@@ -46,7 +52,9 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 __attribute__((weak)) bool process_record_keymap_oled(uint16_t keycode, keyrecord_t *record) {
+#if OLED_CUSTOM_TIMEOUT > 0
     oled_sleep_timer_reset();
+#endif
 #if defined(OLED_ANIMATIONS_ENABLED) && defined(OLED_ANIM_STARFIELD)
     random16_add_entropy(keycode);
 #endif
@@ -54,6 +62,7 @@ __attribute__((weak)) bool process_record_keymap_oled(uint16_t keycode, keyrecor
 }
 
 void oled_task_user(void) {
+#if OLED_CUSTOM_TIMEOUT > 0
     if (timer_elapsed32(oled_sleep_timer) > OLED_CUSTOM_TIMEOUT) {
         oled_off();
 #if defined(OLED_ANIMATIONS_ENABLED) && defined(OLED_ANIM_STARFIELD_WANDER)
@@ -62,6 +71,7 @@ void oled_task_user(void) {
 #endif
         return;
     }
+#endif
     render_status();
 }
 

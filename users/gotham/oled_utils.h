@@ -74,7 +74,9 @@
 #    define OLED_CUSTOM_TIMEOUT 5000
 #endif
 
+#if OLED_CUSTOM_TIMEOUT > 0
 void            oled_sleep_timer_reset(void);
+#endif
 oled_rotation_t oled_init_keymap(oled_rotation_t rotation);
 bool            process_record_keymap_oled(uint16_t keycode, keyrecord_t *record);
 
