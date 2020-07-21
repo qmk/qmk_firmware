@@ -29,23 +29,25 @@ enum layer_number {
 enum custom_keycodes {
     RGB_RST = SAFE_RANGE,
     INS_L,      //Insert Line
-    KILL_L,		//Kill Line
-    SEL_CPY,	//Selection Copy
-	SEL_CUT,	//Selection Cut
-	SEL_DEL,	//Selection Delete
+    KILL_L, 		//Kill Line
+    SEL_CPY,  	//Selection Copy
+    SEL_CUT,	  //Selection Cut
+    SEL_DEL,	  //Selection Delete
     SND_ID,     //Send ID
-	RST_MOD     //Reset Modefier Key
+	  RST_MOD     //Reset Modefier Key
 };
 
 //Alias
-#define MT_US LT(_UPC,KC_SPC)    //hold:"uppercase"  tap:"Space"
+#define MT_US LT(_UPC,KC_SPC)       //hold:"uppercase"  tap:"Space"S
 #define MT_EH LT(_EMACS,KC_HENK)    //hold:"EMACS"      tap:"MHEN"
 #define MT_MM LT(_META,KC_MHEN)     //hold:"META"       tap:"HENK"
-#define MT_BR LCTL(KC_DOT)          //CTRL + . 'Bunsetsu Right'
-#define MT_BL LCTL(KC_COMM)         //CTRL + , 'Bunsetsu Left'
-#define MT_HI LCTL(KC_U)			//CTRL + U 'Hiragana'
-#define MT_KA LCTL(KC_I)			//CTRL + I 'Katakana'
-#define MT_HN LCTL(KC_O)			//CTRL + O 'Hankaku'
+#define MT_RSH RSFT_T(KC_HENK)       //hold:"RSFT"      tap:"HENk"
+#define MT_LSM LSFT_T(KC_MHEN)       //hold:"LSFT"      tap:"MHEN"
+#define MT_BR LCTL(KC_DOT)          //CTRL + .          'Bunsetsu Right'
+#define MT_BL LCTL(KC_COMM)         //CTRL + ,          'Bunsetsu Left'
+#define MT_HI LCTL(KC_U)			//CTRL + U          'Hiragana'
+#define MT_KA LCTL(KC_I)			//CTRL + I          'Katakana'
+#define MT_HN LCTL(KC_O)			//CTRL + O          'Hankaku'
 #define MT_ZN LCTL(KC_P)			//CTRL + P 'Zenkaku'
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -57,9 +59,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+--------+--------|
        KC_TAB,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,        KC_H,    KC_J,    KC_K,    KC_L, JP_SCLN, JP_QUOT,  KC_ENT,
   //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+--------|
-      KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,        KC_N,    KC_M, KC_COMM,  KC_DOT, JP_SLSH, KC_RSFT, MO(_FN),
+       MT_LSM,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,        KC_N,    KC_M, KC_COMM,  KC_DOT, JP_SLSH,  MT_RSH, MO(_FN),
   //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+--------|
-                        KC_LSFT, KC_LALT,   MT_MM,   MT_US,       MT_US,   MT_EH, KC_RCTL, KC_RGUI
+                        KC_LCTL,KC_LALT,    MT_MM,   MT_US,       MT_US,   MT_EH, KC_RCTL, KC_RGUI
           //`---------------------------------------------|   |--------------------------------------------'
   ),
 
@@ -180,9 +182,17 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 return state;
 }
 
+
 int RGB_current_mode;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   bool result = false;
+  if(IS_LAYER_ON(_UPC)){
+      add_key(KC_LSFT);
+  }else
+  {
+      del_key(KC_LSFT);
+  }
+
   switch (keycode) {
     #ifdef RGBLIGHT_ENABLE
       case RGB_MOD:
@@ -200,19 +210,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
         break;
     #endif
-
-    case MT_US:
-        if (record->event.pressed){
-            layer_on(_UPC);
-            add_key(KC_LSHIFT);
-            send_keyboard_report();
-        }
-        else
-        {
-            layer_off(_UPC);
-            del_key(KC_LSHIFT);
-            send_keyboard_report();
-        }
 
     case KILL_L:
       if(record->event.pressed){
