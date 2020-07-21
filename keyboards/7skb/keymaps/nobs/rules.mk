@@ -1,1 +1,1 @@
-
+MOUSEKEY_ENABLE = yes
