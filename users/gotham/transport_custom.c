@@ -156,7 +156,11 @@ typedef struct _Serial_m2s_buffer_t {
 #    endif
 #    ifdef ENCODER_ENABLE
     uint8_t                      encoder_state[NUMBER_OF_ENCODERS];
+#    ifndef SPLIT_KEYBOARD
     encoder_mode_t               encoder_modes[NUMBER_OF_ENCODERS];
+#    else
+    encoder_mode_t               encoder_modes[NUMBER_OF_ENCODERS * 2];
+#    endif
 #    endif
 
 #    ifdef THUMBSTICK_ENABLE
