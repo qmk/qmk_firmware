@@ -25,10 +25,11 @@ enum layer_number {
   _ADJUST,
 };
 
-//Tap Dance declaretions
+/*Tap Dance declaretions
 enum{
     TD_TAB_FUNC,
 };
+*/
 
 //Declare custum keyCodes
 enum custom_keycodes {
@@ -49,6 +50,8 @@ enum custom_keycodes {
 #define MT_MM LT(_META,KC_MHEN)     //hold:"META"       tap:"HENK"
 #define MT_RSH RSFT_T(KC_HENK)       //hold:"RSFT"      tap:"HENk"
 #define MT_LSM LSFT_T(KC_MHEN)       //hold:"LSFT"      tap:"MHEN"
+#define MT_RCH RCTL_T(KC_HENK)       //hold:"RSFT"      tap:"HENk"
+#define MT_LAM LALT_T(KC_MHEN)       //hold:"LSFT"      tap:"MHEN"
 #define MT_BR LCTL(KC_DOT)          //CTRL + .          'Bunsetsu Right'
 #define MT_BL LCTL(KC_COMM)         //CTRL + ,          'Bunsetsu Left'
 #define MT_HI LCTL(KC_U)			//CTRL + U          'Hiragana'
@@ -67,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+--------|
        MT_LSM,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,        KC_N,    KC_M, KC_COMM,  KC_DOT, JP_SLSH,  MT_RSH, TG(_FN),
   //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+--------|
-                        KC_LCTL,KC_LALT,MO(_META),   MT_US,      MT_US,MO(_EMACS),KC_RCTL, KC_RGUI
+                        KC_LCTL,MT_LAM,MO(_META),   MT_US,      MT_US,MO(_EMACS),  MT_RCH, KC_RGUI
           //`---------------------------------------------|   |--------------------------------------------'
   ),
 
