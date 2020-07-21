@@ -2,10 +2,10 @@
 #include "gotham.h"
 
 #if defined(OLED_ANIMATIONS_ENABLE)
-#    if defined(OLED_ANIM_DVD_LOGO)
-#        include "oled_animations/dvd_logo.h"
-#    elif defined(OLED_ANIM_STARFIELD)
+#    if defined(OLED_ANIM_STARFIELD)
 #        include "oled_animations/starfield.h"
+#    elif defined(OLED_ANIM_IMAGE_BOUNCE)
+#        include "oled_animations/image_bounce.h"
 #    endif
 #endif
 
@@ -80,20 +80,20 @@ bool oled_reset_flag_get(void);
 void oled_reset_flag_set(bool value);
 #endif
 
-bool process_record_user_oled(uint16_t keycode, keyrecord_t *record);
-
 oled_rotation_t oled_init_keymap(oled_rotation_t rotation);
+oled_rotation_t oled_init_user(oled_rotation_t rotation);
 bool            process_record_keymap_oled(uint16_t keycode, keyrecord_t *record);
+bool            process_record_user_oled(uint16_t keycode, keyrecord_t *record);
 
-void render_kyria_logo(void);
+void render_keyboard_info(void);
+void render_layout(void);
 void render_layer(void);
-void render_status(void);
-void render_status_main(void);
-void render_status_secondary(void);
 #ifdef ENCODER_ENABLE
 void render_encoder(uint8_t index);
 void render_encoders(void);
 #endif
-// #ifdef THUMBSTICK_ENABLE
 // void render_thumbstick(thumbstick_mode_t mode);
-// #endif
+
+void render_status(void);
+void render_status_main(void);
+void render_status_secondary(void);

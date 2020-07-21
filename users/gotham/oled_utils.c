@@ -7,6 +7,7 @@ static uint32_t oled_sleep_timer;
 #endif
 
 const char PROGMEM layer_names[][OLED_CHAR_COUNT] = {
+// clang-format off
     [_QWERTY] = OLED_STR_QWERTY,
     [_COLEMAK] = OLED_STR_COLEMAK,
     [_DVORAK] = OLED_STR_DVORAK,
@@ -17,15 +18,18 @@ const char PROGMEM layer_names[][OLED_CHAR_COUNT] = {
     [_LOWER] = OLED_STR_LOWER,
     [_RAISE] = OLED_STR_RAISE,
     [_ADJUST] = OLED_STR_ADJUST,
+// clang-format on
 };
 
 #ifdef ENCODER_ENABLE
 const char PROGMEM encoder_mode_names[][OLED_CHAR_COUNT] = {
+// clang-format off
     [ENC_MODE_VOLUME] = OLED_STR_ENC_MODE_VOLUME,
     [ENC_MODE_WORD_NAV] = OLED_STR_ENC_MODE_WORD_NAV,
     [ENC_MODE_LEFT_RIGHT] = OLED_STR_ENC_MODE_LEFT_RIGHT,
     [ENC_MODE_UP_DOWN] = OLED_STR_ENC_MODE_UP_DOWN,
     [ENC_MODE_PAGING] = OLED_STR_ENC_MODE_PAGING,
+// clang-format on
 };
 #endif
 
@@ -52,10 +56,12 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     oled_reset_flag  = false;
     oled_sleep_timer = timer_read32() + OLED_CUSTOM_TIMEOUT;
 #endif
-#if defined(OLED_ANIMATIONS_ENABLED) && defined(OLED_ANIM_STARFIELD)
+#if defined(OLED_ANIMATIONS_ENABLED)
+#    if defined(OLED_ANIM_STARFIELD)
     oled_init_starfield();
-#elif defined(OLED_ANIMATIONS_ENABLED) && defined(OLED_ANIM_DVD_LOGO)
-    oled_init_dvd_logo();
+#    elif defined(OLED_ANIM_IMAGE_BOUNCE)
+    oled_init_image_bounce();
+#    endif
 #endif
     return oled_init_keymap(rotation);
 }
@@ -84,6 +90,12 @@ void oled_task_user(void) {
     }
 #endif
     render_status();
+}
+
+void render_keyboard_info(void) {
+    oled_advance_page(false);
+    oled_write_ln_P(PSTR(QMK_KEYBOARD), false);
+    oled_write_ln_P(PSTR(QMK_KEYMAP), false);
 }
 
 void render_layout(void) {
@@ -153,9 +165,11 @@ __attribute__((weak)) void render_status_secondary(void) {
 #ifdef OLED_ANIMATIONS_ENABLE
 #    if defined(OLED_ANIM_STARFIELD)
     render_starfield();
-#    elif defined(OLED_ANIM_DVD_LOGO)
-    render_dvd_logo();
+#    elif defined(OLED_ANIM_IMAGE_BOUNCE)
+    render_image_bounce();
 #    endif
+#else
+    render_keyboard_info();
 #endif
 }
 
@@ -163,7 +177,6 @@ void render_status(void) {
     if (is_master) {
         render_status_main();
     } else {
-        render_status_main();
-        // render_status_secondary();
+        render_status_secondary();
     }
 }

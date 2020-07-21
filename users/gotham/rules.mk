@@ -10,7 +10,9 @@ ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
 	ifeq ($(strip $(OLED_ANIMATIONS_ENABLE)), yes)
 		OPT_DEFS += -DOLED_ANIMATIONS_ENABLE
 		SRC += lib/lib8tion/lib8tion.c
-		SRC += $(USER_PATH)/oled_animations/*.c
+		SRC += $(USER_PATH)/oled_animations/common.c
+		SRC += $(USER_PATH)/oled_animations/starfield.c
+		SRC += $(USER_PATH)/oled_animations/image_bounce.c
 	endif
 endif
 
