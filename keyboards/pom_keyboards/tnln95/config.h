@@ -14,6 +14,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#pragma once
+
+#include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x544E
@@ -21,10 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    POM_keyboard
 #define PRODUCT         tnln95
-
-#define CONFIG_H
-
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 10

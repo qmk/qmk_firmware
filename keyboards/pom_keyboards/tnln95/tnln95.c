@@ -16,44 +16,18 @@
 #include "tnln95.h"
 
 void matrix_init_kb(void) {
-    // put your keyboard start-up code here
-    // runs once when the firmware starts up
+    setPinOutput(B1);
+    setPinOutput(B2);
+    setPinOutput(B3);
+
     matrix_init_user();
 }
 
-void matrix_scan_kb(void) {
-    // put your looping keyboard code here
-    // runs every cycle (a lot)
-    matrix_scan_user();
-}
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    // put your per-action keyboard code here
-    // runs for every action, just before processing by the firmware
-    return process_record_user(keycode, record);
-}
-
-void led_set_kb(uint8_t usb_led) {
-    /* indicator for Numlock led */
-    if (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) {
-        PORTB |= (1<<1);
-    } else {
-        PORTB &= ~(1<<1);
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        writePin(B1, led_state.num_lock);
+        writePin(B2, led_state.caps_lock);
     }
-
-    /* indicator for Capslock led */
-    if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
-        PORTB |= (1<<2);
-    } else {
-        PORTB &= ~(1<<2);
-    }
-    
-    /* indicator for fn layer */
-    if (biton32(layer_state) == 1) {
-        PORTB |= (1<<3);
-    } else {
-        PORTB &= ~(1<<3);
-    }
-
-    led_set_user(usb_led);
+    return res;
 }
