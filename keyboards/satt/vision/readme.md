@@ -2,8 +2,8 @@
 
 Vision Keyboard
 
-Keyboard Maintainer: [SatT](https://github.com/satt99)  
-Hardware Supported: STM32F072CBT6  
+* Keyboard Maintainer: [SatT](https://github.com/satt99)
+* Hardware Supported: STM32F072CBT6
 
 Make example for this keyboard (after setting up your build environment):
 
