@@ -15,6 +15,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef ENCODER_ENABLE
         && process_record_user_encoder(keycode, record)
 #endif
+#ifdef THUMBSTICK_ENABLE
+        && process_record_user_thumbstick(keycode, record)
+#endif
     ) {
         switch (keycode) {
             case KC_QWERTY ... KC_NORMAN:
@@ -28,14 +31,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (!record->event.pressed) {
                     SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP
 #if (defined(BOOTLOADER_DFU) || defined(BOOTLOADER_LUFA_DFU) || defined(BOOTLOADER_QMK_DFU))
-                                ":dfu"
+                                ":dfu BOOTLOADER=atmel-dfu"
 #elif defined(BOOTLOADER_HALFKAY)
-                                ":teensy"
+                                ":teensy BOOTLOADER=halfkay"
 #elif defined(BOOTLOADER_CATERINA)
-                                ":avrdude"
+                                ":avrdude BOOTLOADER=caterina"
 #endif
                     );
-                    SEND_STRING(" -j6 --output-sync");
+                    SEND_STRING(" -j5 --output-sync");
                     tap_code(KC_ENT);
                 }
                 break;

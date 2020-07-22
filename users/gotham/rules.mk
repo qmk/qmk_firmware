@@ -1,3 +1,5 @@
+SPLIT_TRANSPORT		   = custom
+
 SRC += gotham.c \
 	   process_records.c
 
@@ -18,6 +20,17 @@ endif
 
 ifeq ($(strip $(ENCODER_ENABLE)), yes)
 	SRC += $(USER_PATH)/encoder_utils.c
+endif
+
+ifeq ($(strip $(THUMBSTICK_ENABLE)), yes)
+    POINTING_DEVICE_ENABLE = yes
+    OPT_DEFS += -DTHUMBSTICK_ENABLE
+	SRC += analog.c
+	SRC += $(USER_PATH)/thumbstick.c
+endif
+
+ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
+	SRC += $(USER_PATH)/pointing_devices.c
 endif
 
 ifeq ($(strip $(SPLIT_TRANSPORT)), custom)

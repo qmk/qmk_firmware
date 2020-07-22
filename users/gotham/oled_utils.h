@@ -43,6 +43,11 @@
 #    define OLED_STR_ENC_MODE_LEFT_RIGHT "Left / Right"
 #    define OLED_STR_ENC_MODE_UP_DOWN "Up / Down"
 #    define OLED_STR_ENC_MODE_PAGING "Paging"
+
+#    define OLED_STR_THUMBSTICK_MODE "JoySt: "
+#    define OLED_STR_THUMBSTICK_MODE_MOUSE "Mouse"
+#    define OLED_STR_THUMBSTICK_MODE_ARROWS "Arrows"
+#    define OLED_STR_THUMBSTICK_MODE_SCROLL "Scroll"
 #else
 #    define OLED_CHAR_COUNT (5 + 1)
 #    define OLED_STR_UNKNOWN "???"
@@ -68,6 +73,11 @@
 #    define OLED_STR_ENC_MODE_LEFT_RIGHT "L / R"
 #    define OLED_STR_ENC_MODE_UP_DOWN "U / D"
 #    define OLED_STR_ENC_MODE_PAGING "Page"
+
+#    define OLED_STR_THUMBSTICK_MODE "Joy: "
+#    define OLED_STR_THUMBSTICK_MODE_MOUSE "Mouse"
+#    define OLED_STR_THUMBSTICK_MODE_ARROWS "Arrow"
+#    define OLED_STR_THUMBSTICK_MODE_SCROLL "Scrol"
 #endif
 
 #ifndef OLED_CUSTOM_TIMEOUT
@@ -92,7 +102,9 @@ void render_layer(void);
 void render_encoder(uint8_t index);
 void render_encoders(void);
 #endif
-// void render_thumbstick(thumbstick_mode_t mode);
+#ifdef THUMBSTICK_ENABLE
+void render_thumbstick(void);
+#endif
 
 void render_status(void);
 void render_status_main(void);

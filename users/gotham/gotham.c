@@ -14,7 +14,9 @@ void keyboard_pre_init_user(void) { keyboard_pre_init_keymap(); }
 void matrix_init_user(void) { matrix_init_keymap(); }
 
 void keyboard_post_init_user(void) {
+#ifdef ENCODER_ENABLE
     encoder_init_user();
+#endif
     keyboard_post_init_keymap();
 }
 

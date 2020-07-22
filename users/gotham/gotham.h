@@ -17,6 +17,10 @@
 #    include "encoder_utils.h"
 #endif
 
+#ifdef POINTING_DEVICE_ENABLE
+#    include "pointing_devices.h"
+#endif
+
 enum userspace_layers {
     _QWERTY = 0,
     _COLEMAK,

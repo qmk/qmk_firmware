@@ -7,7 +7,7 @@ static uint32_t oled_sleep_timer;
 #endif
 
 const char PROGMEM layer_names[][OLED_CHAR_COUNT] = {
-// clang-format off
+    // clang-format off
     [_QWERTY] = OLED_STR_QWERTY,
     [_COLEMAK] = OLED_STR_COLEMAK,
     [_DVORAK] = OLED_STR_DVORAK,
@@ -18,18 +18,28 @@ const char PROGMEM layer_names[][OLED_CHAR_COUNT] = {
     [_LOWER] = OLED_STR_LOWER,
     [_RAISE] = OLED_STR_RAISE,
     [_ADJUST] = OLED_STR_ADJUST,
-// clang-format on
+    // clang-format on
 };
 
 #ifdef ENCODER_ENABLE
 const char PROGMEM encoder_mode_names[][OLED_CHAR_COUNT] = {
-// clang-format off
+    // clang-format off
     [ENC_MODE_VOLUME] = OLED_STR_ENC_MODE_VOLUME,
     [ENC_MODE_WORD_NAV] = OLED_STR_ENC_MODE_WORD_NAV,
     [ENC_MODE_LEFT_RIGHT] = OLED_STR_ENC_MODE_LEFT_RIGHT,
     [ENC_MODE_UP_DOWN] = OLED_STR_ENC_MODE_UP_DOWN,
     [ENC_MODE_PAGING] = OLED_STR_ENC_MODE_PAGING,
-// clang-format on
+    // clang-format on
+};
+#endif
+
+#ifdef THUMBSTICK_ENABLE
+const char PROGMEM thumbstick_mode_names[][OLED_CHAR_COUNT] = {
+    // clang-format off
+    [THUMBSTICK_MODE_MOUSE] = OLED_STR_THUMBSTICK_MODE_MOUSE,
+    [THUMBSTICK_MODE_ARROWS] = OLED_STR_THUMBSTICK_MODE_ARROWS,
+    [THUMBSTICK_MODE_SCROLL] = OLED_STR_THUMBSTICK_MODE_SCROLL,
+    // clang-format on
 };
 #endif
 
@@ -132,23 +142,12 @@ void render_encoders(void) {
 }
 #endif
 
-// #ifdef THUMBSTICK_ENABLE
-// void render_thumbstick(thumbstick_mode_t mode) {
-//     switch (mode) {
-//         case THUMBSTICK_MODE_MOUSE:
-//             oled_write_P(PSTR("Mouse"), false);
-//             break;
-//         case THUMBSTICK_MODE_ARROWS:
-//             oled_write_P(PSTR("Arrows"), false);
-//             break;
-//         case THUMBSTICK_MODE_SCROLL:
-//             oled_write_P(PSTR("Scroll"), false);
-//             break;
-//         default:
-//             oled_write_P(PSTR("???\n"), false);
-//     }
-// }
-// #endif
+#ifdef THUMBSTICK_ENABLE
+void render_thumbstick(void) {
+    oled_write_P(PSTR(OLED_STR_THUMBSTICK_MODE), false);
+    oled_write_ln_P(thumbstick_mode_names[thumbstick_mode_get()], false);
+}
+#endif
 
 __attribute__((weak)) void render_status_main(void) {
     render_layout();
@@ -156,9 +155,9 @@ __attribute__((weak)) void render_status_main(void) {
 #ifdef ENCODER_ENABLE
     render_encoders();
 #endif
-    // #ifdef THUMBSTICK_ENABLE
-    //     render_thumbstick();
-    // #endif
+#ifdef THUMBSTICK_ENABLE
+    render_thumbstick();
+#endif
 }
 
 __attribute__((weak)) void render_status_secondary(void) {
