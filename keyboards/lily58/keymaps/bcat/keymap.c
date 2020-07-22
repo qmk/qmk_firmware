@@ -14,7 +14,6 @@ enum layer {
 
 #define KY_CSPC LCTL(KC_SPC)
 #define KY_LOCK LGUI(KC_L)
-#define KY_NKRO MAGIC_TOGGLE_NKRO
 #define KY_WINL LGUI(KC_LEFT)
 #define KY_WINR LGUI(KC_RGHT)
 
@@ -49,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Adjust layer: http://www.keyboard-layout-editor.com/#/gists/8f6a3f08350a9bbe1d414b22bca4e6c7 */
     [LAYER_ADJUST] = LAYOUT(
         _______,  _______,  _______,  _______,  _______,  _______,                      _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  KY_NKRO,  KC_MPLY,  KC_VOLU,  KC_MSTP,  _______,                      EEP_RST,  RESET,    _______,  _______,  _______,  _______,
+        _______,  NK_TOGG,  KC_MPLY,  KC_VOLU,  KC_MSTP,  _______,                      EEP_RST,  RESET,    _______,  _______,  _______,  _______,
         _______,  _______,  KC_MPRV,  KC_VOLD,  KC_MNXT,  _______,                      _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  KC_MUTE,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
                                       _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______
