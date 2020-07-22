@@ -1,21 +1,7 @@
-CONSOLE_ENABLE     = yes  # Console for debug
-ENCODER_ENABLE     = yes  # ENables the use of one or more encoders
-RGBLIGHT_ENABLE    = yes  # Enable keyboard RGB underglow
-MOUSEKEY_ENABLE    = no   # Mouse keys
-OLED_DRIVER_ENABLE = yes  # Enables the use of OLED displays
-THUMBSTICK_ENABLE  = yes  # Enables analog thumbstick code
-
-ifeq ($(strip $(ENCODER_ENABLE)), yes)
-	SRC += encoder_utils.c
-endif
-
-ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
-	SRC += oled_utils.c
-endif
-
-ifeq ($(strip $(THUMBSTICK_ENABLE)), yes)
-    POINTING_DEVICE_ENABLE = yes
-    OPT_DEFS += -DTHUMBSTICK_ENABLE
-	SRC += analog.c
-	SRC += thumbstick.c
-endif
+CONSOLE_ENABLE	       = yes
+MOUSEKEY_ENABLE        = no
+ENCODER_ENABLE         = yes
+RGBLIGHT_ENABLE        = no
+OLED_DRIVER_ENABLE     = yes
+OLED_ANIMATIONS_ENABLE = yes
+THUMBSTICK_ENABLE  	   = yes
