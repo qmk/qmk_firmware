@@ -85,5 +85,3 @@
     { XXX, k31, k32, k33 }, \
     { XXX, XXX, XXX, XXX }  \
 }
-
-#define LAYOUT LAYOUT_4x4_encoders

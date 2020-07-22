@@ -5,7 +5,7 @@
     "width": 4,
     "height": 5,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_4x4_encoders": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":3, "y":0},
