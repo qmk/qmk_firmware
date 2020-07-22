@@ -11,8 +11,9 @@ enum userspace_layers {
 };
 
 enum userspace_custom_keycodes {
-    LOD = SAFE_RANGE,
-    VRSN,
+    VRSN = SAFE_RANGE,
+    LOD,
+    RUPA,
     U_FRACT,
     U_MONOS,
     U_SCRPT,

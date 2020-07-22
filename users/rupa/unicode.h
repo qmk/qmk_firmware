@@ -20,6 +20,7 @@ enum unicode_names {
     M8,   // ♪
     M8B,  // ♫
     M16,  // ♬
+    OM,   // ॐ
     STB,  // ★
     STW,  // ☆
 };
