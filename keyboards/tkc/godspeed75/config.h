@@ -24,7 +24,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    The Key Company
 #define PRODUCT         GodSpeed75
-#define DESCRIPTION     A premium 75% layout keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 12
