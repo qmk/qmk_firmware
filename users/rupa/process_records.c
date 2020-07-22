@@ -23,7 +23,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (keycode == LOD) {
                     send_unicode_string((is_shifted ? "¯\\_(ツ)_/¯" : "ಠ_ಠ"));
                 } else if (keycode == RUPA) {
-                    send_unicode_string((is_shifted ? "rūpa" : "Śrīrūpa"));
+                    send_unicode_string((is_shifted ? "Śrīrūpa" : "rūpa"));
                 }
             }
             return false;
