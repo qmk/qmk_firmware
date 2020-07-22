@@ -99,8 +99,12 @@ ifeq ($(strip $(COMMAND_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(NKRO_ENABLE)), yes)
-    TMK_COMMON_DEFS += -DNKRO_ENABLE
-    SHARED_EP_ENABLE = yes
+    ifneq ($(PROTOCOL),VUSB)
+        TMK_COMMON_DEFS += -DNKRO_ENABLE
+        SHARED_EP_ENABLE = yes
+    else
+        $(info NKRO is not currently supported on V-USB, and has been disabled.)
+    endif
 endif
 
 ifeq ($(strip $(USB_6KRO_ENABLE)), yes)
