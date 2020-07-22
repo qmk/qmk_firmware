@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_P1,   KC_P2,   KC_P3, CMD_PASTE,           KC_LSHIFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMMA, KC_DOT, KC_SLASH,   KC_RSHIFT,   KC_UP, KC_END, \
     KC_PENT, KC_PDOT,    KC_P0,      KC_COMMA ,       KC_LCTRL, KC_LGUI, KC_LALT,                KC_SPACE,              KC_RALT,   MO(_FNC),   KC_LEFT, KC_DOWN, KC_RIGHT \
   ),
-  [_FNC] = LAYOUT_ansi
+  [_FNC] = LAYOUT_ansi(
     _______, _______,   _______,   _______, _______,   _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,        KC_DEL,    KC_PSCR, \
              _______,   _______,   _______, _______,      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOG, RGB_RMOD, RGB_MOD,     KC_INS,      KC_VOLU, \
     _______, _______,   _______,   _______, _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,         BL_TOGG,       KC_VOLD, \
