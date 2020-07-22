@@ -166,7 +166,7 @@ typedef struct _Serial_m2s_buffer_t {
     encoder_mode_t encoder_modes[NUMBER_OF_ENCODERS * 2];
 #        endif
 #    endif
-#    ifdef OLED_DRIVER_ENABLE
+#    if defined(OLED_DRIVER_ENABLE) && defined(SPLIT_KEYBOARD)
     bool                         oled_reset_flag;
 #    endif
 #    ifdef THUMBSTICK_ENABLE
@@ -275,7 +275,7 @@ bool transport_master(matrix_row_t matrix[]) {
     encoder_get_modes_raw((encoder_mode_t *)serial_m2s_buffer.encoder_modes);
 #    endif
 
-#    ifdef OLED_DRIVER_ENABLE
+#    if defined(OLED_DRIVER_ENABLE) && defined(SPLIT_KEYBOARD)
     serial_m2s_buffer.oled_reset_flag = oled_reset_flag_get();
     oled_reset_flag_set(false);
 #    endif
@@ -311,7 +311,7 @@ void transport_slave(matrix_row_t matrix[]) {
     encoder_set_modes_raw((encoder_mode_t *)serial_m2s_buffer.encoder_modes);
 #    endif
 
-#    ifdef OLED_DRIVER_ENABLE
+#    if defined(OLED_DRIVER_ENABLE) && defined(SPLIT_KEYBOARD)
     if (serial_m2s_buffer.oled_reset_flag) {
         oled_sleep_timer_reset();
     }

@@ -1,34 +1,38 @@
 #include "oled_utils.h"
 
+#ifdef SPLIT_KEYBOARD
 static bool is_master;
+#endif
 #if OLED_CUSTOM_TIMEOUT > 0
-static bool     oled_reset_flag;
 static uint32_t oled_sleep_timer;
+#    ifdef SPLIT_KEYBOARD
+static bool oled_reset_flag;
+#    endif
 #endif
 
 const char PROGMEM layer_names[][OLED_CHAR_COUNT] = {
     // clang-format off
-    [_QWERTY] = OLED_STR_QWERTY,
+    [_QWERTY]  = OLED_STR_QWERTY,
     [_COLEMAK] = OLED_STR_COLEMAK,
-    [_DVORAK] = OLED_STR_DVORAK,
+    [_DVORAK]  = OLED_STR_DVORAK,
     [_WORKMAN] = OLED_STR_WORKMAN,
-    [_NORMAN] = OLED_CHAR_COUNTORMAN,
-    [_GAME] = OLED_STR_GAME,
+    [_NORMAN]  = OLED_CHAR_COUNTORMAN,
+    [_GAME]    = OLED_STR_GAME,
     [_GAMENUM] = OLED_STR_GAMENUM,
-    [_LOWER] = OLED_STR_LOWER,
-    [_RAISE] = OLED_STR_RAISE,
-    [_ADJUST] = OLED_STR_ADJUST,
+    [_LOWER]   = OLED_STR_LOWER,
+    [_RAISE]   = OLED_STR_RAISE,
+    [_ADJUST]  = OLED_STR_ADJUST,
     // clang-format on
 };
 
 #ifdef ENCODER_ENABLE
 const char PROGMEM encoder_mode_names[][OLED_CHAR_COUNT] = {
     // clang-format off
-    [ENC_MODE_VOLUME] = OLED_STR_ENC_MODE_VOLUME,
-    [ENC_MODE_WORD_NAV] = OLED_STR_ENC_MODE_WORD_NAV,
+    [ENC_MODE_VOLUME]     = OLED_STR_ENC_MODE_VOLUME,
+    [ENC_MODE_WORD_NAV]   = OLED_STR_ENC_MODE_WORD_NAV,
     [ENC_MODE_LEFT_RIGHT] = OLED_STR_ENC_MODE_LEFT_RIGHT,
-    [ENC_MODE_UP_DOWN] = OLED_STR_ENC_MODE_UP_DOWN,
-    [ENC_MODE_PAGING] = OLED_STR_ENC_MODE_PAGING,
+    [ENC_MODE_UP_DOWN]    = OLED_STR_ENC_MODE_UP_DOWN,
+    [ENC_MODE_PAGING]     = OLED_STR_ENC_MODE_PAGING,
     // clang-format on
 };
 #endif
@@ -36,7 +40,7 @@ const char PROGMEM encoder_mode_names[][OLED_CHAR_COUNT] = {
 #ifdef THUMBSTICK_ENABLE
 const char PROGMEM thumbstick_mode_names[][OLED_CHAR_COUNT] = {
     // clang-format off
-    [THUMBSTICK_MODE_MOUSE] = OLED_STR_THUMBSTICK_MODE_MOUSE,
+    [THUMBSTICK_MODE_MOUSE]  = OLED_STR_THUMBSTICK_MODE_MOUSE,
     [THUMBSTICK_MODE_ARROWS] = OLED_STR_THUMBSTICK_MODE_ARROWS,
     [THUMBSTICK_MODE_SCROLL] = OLED_STR_THUMBSTICK_MODE_SCROLL,
     // clang-format on
@@ -47,23 +51,31 @@ const char PROGMEM thumbstick_mode_names[][OLED_CHAR_COUNT] = {
 void oled_sleep_timer_reset(void) {
     oled_on();
     oled_sleep_timer = timer_read32();
+#    ifdef SPLIT_KEYBOARD
     /* If primary side, announce to transport to reset secondary side (flag cleared by transport).
      * If secondary side, clear flag after after timer is reset.
      */
     oled_reset_flag = is_master;
+#    endif
 }
 
+#    ifdef SPLIT_KEYBOARD
 bool oled_reset_flag_get(void) { return oled_reset_flag; }
 
 void oled_reset_flag_set(bool value) { oled_reset_flag = value; }
+#    endif
 #endif
 
 __attribute__((weak)) oled_rotation_t oled_init_keymap(oled_rotation_t rotation) { return OLED_ROTATION_0; }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+#ifdef SPLIT_KEYBOARD
     is_master = is_keyboard_master();
+#endif
 #if OLED_CUSTOM_TIMEOUT > 0
-    oled_reset_flag  = false;
+#    ifdef SPLIT_KEYBOARD
+    oled_reset_flag = false;
+#    endif
     oled_sleep_timer = timer_read32() + OLED_CUSTOM_TIMEOUT;
 #endif
 #if defined(OLED_ANIMATIONS_ENABLED)
@@ -173,9 +185,15 @@ __attribute__((weak)) void render_status_secondary(void) {
 }
 
 void render_status(void) {
-    if (is_master) {
+#ifdef SPLIT_KEYBOARD
+    if (is_master)
+#endif
+    {
         render_status_main();
-    } else {
+    }
+#ifdef SPLIT_KEYBOARD
+    else {
         render_status_secondary();
     }
+#endif
 }
