@@ -3,7 +3,7 @@
     "url": "https://github.com/chemicalwill/bear_face_pcb",
     "maintainer": "chemicalwill",
     "width": 16,
-    "height": 5,
+    "height": 6,
     "layouts": {
         "LAYOUT_83_ansi": {
             "key_count": 83,
@@ -93,9 +93,9 @@
                 {"label":"Alt", "x":10, "y":5},
                 {"label":"Fn", "x":11, "y":5},
                 {"label":"Ctrl", "x":12, "y":5},
-                {"label":"\u2190", "x":13, "y":5},
-                {"label":"\u2193", "x":14, "y":5},
-                {"label":"\u2192", "x":15, "y":5}
+                {"label":"Left", "x":13, "y":5},
+                {"label":"Down", "x":14, "y":5},
+                {"label":"Right", "x":15, "y":5}
             ]
         },
 
@@ -178,7 +178,7 @@
                 {"label":">", "x":10.25, "y":4},
                 {"label":"?", "x":11.25, "y":4},
                 {"label":"Shift", "x":12.25, "y":4, "w":1.75},
-                {"label":"\u2191", "x":14, "y":4},
+                {"label":"Up", "x":14, "y":4},
                 {"label":"End", "x":15, "y":4},
 
                 {"label":"Ctrl", "x":0, "y":5, "w":1.25},
@@ -188,9 +188,9 @@
                 {"label":"Alt Gr", "x":10, "y":5},
                 {"label":"Fn", "x":11, "y":5},
                 {"label":"Ctrl", "x":12, "y":5},
-                {"label":"\u2190", "x":13, "y":5},
-                {"label":"\u2193", "x":14, "y":5},
-                {"label":"\u2192", "x":15, "y":5}
+                {"label":"Left", "x":13, "y":5},
+                {"label":"Down", "x":14, "y":5},
+                {"label":"Right", "x":15, "y":5}
             ]
         }
     }
