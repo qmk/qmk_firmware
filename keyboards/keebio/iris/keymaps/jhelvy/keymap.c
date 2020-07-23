@@ -121,9 +121,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         if (clockwise) {
             tap_code16(G(KC_EQL));
         } else {
-            register_code(KC_LGUI);
-            tap_code(KC_MINS);
-            unregister_code(KC_LGUI);
+            tap_code16(G(KC_MINS));
         }
     } else {
         if (clockwise) {
