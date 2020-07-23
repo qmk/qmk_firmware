@@ -4,7 +4,7 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x445A  // "DZ"
-#define PRODUCT_ID      0x0001
+#define PRODUCT_ID      0x1010
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    BOCC
 #define PRODUCT         BOCC
