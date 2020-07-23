@@ -119,9 +119,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
     } else if (IS_LAYER_ON(MOUSE)) {
         if (clockwise) {
-            register_code(KC_LGUI);
-            tap_code(KC_EQL);
-            unregister_code(KC_LGUI);
+            tap_code16(G(KC_EQL));
         } else {
             register_code(KC_LGUI);
             tap_code(KC_MINS);
