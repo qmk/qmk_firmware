@@ -34,6 +34,7 @@ Search for functions ending in __\_keymap__. These can be overriden in keymap.c 
 - suspend_power_down_keymap
 - suspend_wakeup_init_keymap
 - layer_state_set_keymap
+- default_layer_state_set_keymap
 - led_update_keymap
 - process_record_keymap
 
