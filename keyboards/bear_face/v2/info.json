@@ -99,7 +99,6 @@
         },
 
         "LAYOUT_84_iso": {
-            "key_count": 84,
             "layout": [
                 {"label":"Esc", "x":0, "y":0, "w":1.5},
                 {"label":"F1", "x":1.5, "y":0},
