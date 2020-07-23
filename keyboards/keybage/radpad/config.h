@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Keybage
 #define PRODUCT RadPad
-#define DESCRIPTION A 4x4 macropad with encoders, OLED display, and removable row and column
 
 /* key matrix size */
 #define MATRIX_ROWS 5
