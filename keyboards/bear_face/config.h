@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x09f5
 #define MANUFACTURER    chemicalwill
 #define PRODUCT         bear_face
-#define DESCRIPTION     Vortex Race 3 programmable PCB replacement
 
 /* key matrix size */
 #define MATRIX_ROWS 6
