@@ -46,10 +46,6 @@ extern backlight_config_t backlight_config;
 #    include "haptic.h"
 #endif
 
-#ifdef ENCODER_ENABLE
-#    include "encoder.h"
-#endif
-
 #ifdef AUDIO_ENABLE
 #    ifndef GOODBYE_SONG
 #        define GOODBYE_SONG SONG(GOODBYE_SOUND)
@@ -149,18 +145,21 @@ void reset_keyboard(void) {
 }
 
 /* Convert record into usable keycode via the contained event. */
-uint16_t get_record_keycode(keyrecord_t *record) { return get_event_keycode(record->event); }
+uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache) { return get_event_keycode(record->event, update_layer_cache); }
 
 /* Convert event into usable keycode. Checks the layer cache to ensure that it
  * retains the correct keycode after a layer change, if the key is still pressed.
+ * "update_layer_cache" is to ensure that it only updates the layer cache when
+ * appropriate, otherwise, it will update it and cause layer tap (and other keys)
+ * from triggering properly.
  */
-uint16_t get_event_keycode(keyevent_t event) {
+uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache) {
 #if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
     /* TODO: Use store_or_get_action() or a similar function. */
     if (!disable_action_cache) {
         uint8_t layer;
 
-        if (event.pressed) {
+        if (event.pressed && update_layer_cache) {
             layer = layer_switch_get_layer(event.key);
             update_source_layers_cache(event.key, layer);
         } else {
@@ -174,7 +173,7 @@ uint16_t get_event_keycode(keyevent_t event) {
 
 /* Get keycode, and then call keyboard function */
 void post_process_record_quantum(keyrecord_t *record) {
-    uint16_t keycode = get_record_keycode(record);
+    uint16_t keycode = get_record_keycode(record, false);
     post_process_record_kb(keycode, record);
 }
 
@@ -182,7 +181,7 @@ void post_process_record_quantum(keyrecord_t *record) {
     then processes internal quantum keycodes, and then processes
     ACTIONs.                                                      */
 bool process_record_quantum(keyrecord_t *record) {
-    uint16_t keycode = get_record_keycode(record);
+    uint16_t keycode = get_record_keycode(record, true);
 
     // This is how you use actions here
     // if (keycode == KC_LEAD) {
@@ -439,8 +438,7 @@ void send_string_with_delay(const char *str, uint8_t interval) {
             if (ascii_code == SS_TAP_CODE) {
                 // tap
                 uint8_t keycode = *(++str);
-                register_code(keycode);
-                unregister_code(keycode);
+                tap_code(keycode);
             } else if (ascii_code == SS_DOWN_CODE) {
                 // down
                 uint8_t keycode = *(++str);
@@ -481,8 +479,7 @@ void send_string_with_delay_P(const char *str, uint8_t interval) {
             if (ascii_code == SS_TAP_CODE) {
                 // tap
                 uint8_t keycode = pgm_read_byte(++str);
-                register_code(keycode);
-                unregister_code(keycode);
+                tap_code(keycode);
             } else if (ascii_code == SS_DOWN_CODE) {
                 // down
                 uint8_t keycode = pgm_read_byte(++str);
@@ -615,9 +612,6 @@ void matrix_init_quantum() {
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_init();
 #endif
-#ifdef ENCODER_ENABLE
-    encoder_init();
-#endif
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
     unicode_input_mode_init();
 #endif
@@ -626,9 +620,6 @@ void matrix_init_quantum() {
 #endif
 #ifdef OUTPUT_AUTO_ENABLE
     set_output(OUTPUT_AUTO);
-#endif
-#ifdef DIP_SWITCH_ENABLE
-    dip_switch_init();
 #endif
 
     matrix_init_kb();
@@ -653,10 +644,6 @@ void matrix_scan_quantum() {
 
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_task();
-#endif
-
-#ifdef ENCODER_ENABLE
-    encoder_read();
 #endif
 
 #ifdef WPM_ENABLE

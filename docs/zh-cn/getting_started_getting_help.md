@@ -10,6 +10,6 @@
 
 QMK的官方论坛是[/r/olkb](https://reddit.com/r/olkb) 在[reddit.com](https://reddit.com)上.
 
-## Github的Issue
+## GitHub的Issue
 
 你可以在GitHub上 [提出issue](https://github.com/qmk/qmk_firmware/issues).当您的问题需要长期讨论或调试时，这尤其方便。

@@ -1,5 +1,4 @@
 tmk_core/protocol
-tmk_core/protocol/bluefruit
 tmk_core/protocol/chibios
 tmk_core/protocol/iwrap
 tmk_core/protocol/lufa

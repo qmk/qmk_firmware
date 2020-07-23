@@ -23,12 +23,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #if defined(LAYER_STATE_8BIT)
 typedef uint8_t layer_state_t;
+#    define MAX_LAYER_BITS 3
+#    ifndef MAX_LAYER
+#        define MAX_LAYER 8
+#    endif
 #    define get_highest_layer(state) biton(state)
 #elif defined(LAYER_STATE_16BIT)
 typedef uint16_t layer_state_t;
+#    define MAX_LAYER_BITS 4
+#    ifndef MAX_LAYER
+#        define MAX_LAYER 16
+#    endif
 #    define get_highest_layer(state) biton16(state)
 #else
 typedef uint32_t layer_state_t;
+#    define MAX_LAYER_BITS 5
+#    ifndef MAX_LAYER
+#        define MAX_LAYER 32
+#    endif
 #    define get_highest_layer(state) biton32(state)
 #endif
 
@@ -96,8 +108,7 @@ layer_state_t layer_state_set_kb(layer_state_t state);
 
 /* pressed actions cache */
 #if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
-/* The number of bits needed to represent the layer number: log2(32). */
-#    define MAX_LAYER_BITS 5
+
 void    update_source_layers_cache(keypos_t key, uint8_t layer);
 uint8_t read_source_layers_cache(keypos_t key);
 #endif

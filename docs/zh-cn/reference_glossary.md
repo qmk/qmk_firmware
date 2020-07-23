@@ -46,9 +46,6 @@ Français (法国)标准键盘布局。用键盘的前六个字母命名。
 ## Firmware(固件)
 用来控制单片机的软件。
 
-## FLIP
-爱特梅尔(Atmel)提供的AVR器件刷写软件。我们一般推荐 [QMK刷写工具](https://github.com/qmk/qmk_flasher)，但是对于一些高级用例，需要FLIP。
-
 ## git
 命令行版本控制软件
 
