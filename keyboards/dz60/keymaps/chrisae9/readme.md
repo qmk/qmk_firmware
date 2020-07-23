@@ -4,11 +4,11 @@ This is a custom keymap for the layout of the DZ60.
 
 ## Keyboard Picture
 
-![Keyboard Picture](https://i.imgur.com/AKDKAXN.png)
+![Keyboard Picture](https://i.imgur.com/cbKxxx4.jpg)
 
 ## Keyboard Layout
 
-![Chris DZ60](https://i.imgur.com/Z8XDwiI.png)
+![Chris DZ60](https://i.imgur.com/sILXwXc.png)
 
 ## Setup
 

@@ -224,16 +224,14 @@ void rgb_matrix_indicators_user(void) {
     is_ez = true;
 #    endif
 
-    if (userspace_config.rgb_layer_change &&
-#    ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
-        !g_suspend_state &&
-#    endif
+    if (g_suspend_state || !rgb_matrix_config.enable) return;
+
 #    if defined(RGBLIGHT_ENABLE)
-        (!rgblight_config.enable && rgb_matrix_config.enable)
+    if (!userspace_config.rgb_layer_change)
 #    else
-        rgb_matrix_config.enable
+    if (userspace_config.rgb_layer_change)
 #    endif
-    ) {
+    {
         switch (get_highest_layer(layer_state)) {
             case _GAMEPAD:
                 rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
@@ -297,6 +295,7 @@ void rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(is_ez ? 41 : 42, 0xD9, 0xA5, 0x21);
             break;
     }
+
     if ((this_mod | this_osm) & MOD_MASK_SHIFT || this_led & (1 << USB_LED_CAPS_LOCK)) {
         if (!layer_state_cmp(layer_state, _ADJUST)) {
             rgb_matrix_set_color(24, 0x00, 0xFF, 0x00);

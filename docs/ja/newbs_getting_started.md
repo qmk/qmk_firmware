@@ -2,8 +2,8 @@
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
-  original document: docs/newbs_getting_started.md
-  git diff 161d469 HEAD docs/newbs_getting_started.md | cat
+  original document: 161d469:docs/newbs_getting_started.md
+  git diff 161d469 HEAD -- docs/newbs_getting_started.md | cat
 -->
 
 キーボードにはプロセッサが入っており、それはコンピュータに入っているものと大して違わないものです。
@@ -12,7 +12,7 @@ QMK は、そのソフトウェアの役割を果たし、ボタンの押下を�
 カスタムキーマップを作るということは、キーボード上で動くプログラムを作るということなのです。
 
 QMK は、簡単なことは簡単に、そして、難しいことを可能なことにすることで、あなたの手にたくさんのパワーをもたらします。
-パワフルなキーマップを作るためにプログラムを作成する方法を知る必要はありません。いくつかのシンプルな文法に従うだけでOKです。
+パワフルなキーマップを作るためにプログラムを作成する方法を知る必要はありません。いくつかのシンプルな文法に従うだけで OK です。
 
 # はじめに
 

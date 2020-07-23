@@ -43,7 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { A10, A9, A3, A4, A5, A6, B0, B1, A15, B3, B4, B5, C13, C14, C15 }
 #define UNUSED_PINS
 
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
+/* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
@@ -57,9 +57,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Backlight configuration
  * Backlight LEDs on B8
  */
-#define BACKLIGHT_LEVELS 24
+#define BACKLIGHT_PIN B8
 #define BACKLIGHT_BREATHING
-#define BREATHING_PERIOD 6
+
+/* RGB underglow configuration */
+#define WS2812_SPI SPID1
+#define WS2812_SPI_MOSI_PAL_MODE 5
 
 #define RGBLIGHT_ANIMATIONS
 

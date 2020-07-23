@@ -10,6 +10,18 @@ SOLUS_INFO="Your tools are now installed. To start using them, open new terminal
 
 util_dir=$(dirname "$0")
 
+# For those distros that do not package bootloadHID
+install_bootloadhid() {
+    if ! command -v bootloadHID >/dev/null; then
+        wget https://www.obdev.at/downloads/vusb/bootloadHID.2012-12-08.tar.gz -O - | tar -xz -C /tmp
+        cd /tmp/bootloadHID.2012-12-08/commandline/
+        if make; then
+            sudo cp bootloadHID /usr/local/bin
+        fi
+        cd -
+    fi
+}
+
 if grep ID /etc/os-release | grep -qE "fedora"; then
 	sudo dnf install \
 		arm-none-eabi-binutils-cs \
@@ -20,6 +32,7 @@ if grep ID /etc/os-release | grep -qE "fedora"; then
 		avr-libc \
 		binutils-avr32-linux-gnu \
 		clang \
+		avrdude \
 		dfu-util \
 		dfu-programmer \
 		diffutils \
@@ -28,6 +41,7 @@ if grep ID /etc/os-release | grep -qE "fedora"; then
 		glibc-headers \
 		kernel-devel \
 		kernel-headers \
+		libusb-devel \
 		make \
 		perl \
 		python3 \
@@ -54,13 +68,16 @@ elif grep ID /etc/os-release | grep -qE 'debian|ubuntu'; then
 		gcc-avr \
 		git \
 		libnewlib-arm-none-eabi \
+		avrdude \
+		libusb-dev \
 		python3 \
+		python3-pip \
 		unzip \
 		wget \
 		zip
 
 elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
-	sudo pacman -U https://archive.archlinux.org/packages/a/avr-gcc/avr-gcc-8.3.0-1-x86_64.pkg.tar.xz
+	sudo pacman --needed -U https://archive.archlinux.org/packages/a/avr-gcc/avr-gcc-8.3.0-1-x86_64.pkg.tar.xz
 	sudo pacman -S --needed \
 		arm-none-eabi-binutils \
 		arm-none-eabi-gcc \
@@ -68,7 +85,6 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 		avrdude \
 		avr-binutils \
 		avr-libc \
-		avr-gcc \
 		base-devel \
 		clang \
 		dfu-programmer \
@@ -76,6 +92,7 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 		diffutils \
 		gcc \
 		git \
+		libusb-compat \
 		python \
 		python-pip \
 		unzip \
@@ -90,17 +107,18 @@ elif grep ID /etc/os-release | grep -q gentoo; then
 		sudo touch /etc/portage/package.use/qmkfirmware
 		# tee is used here since sudo doesn't apply to >>
 		echo "sys-devel/gcc multilib" | sudo tee --append /etc/portage/package.use/qmkfirmware >/dev/null
-		sudo emerge -auN \
+		sudo emerge -auN sys-devel/gcc
+		sudo emerge -au --noreplace \
 			app-arch/unzip \
 			app-arch/zip \
 			app-mobilephone/dfu-util \
+			dev-embedded/dfu-programmer \
 			dev-embedded/avrdude \
-			dev-lang/python:3.5 \
 			net-misc/wget \
 			sys-devel/clang \
-			sys-devel/gcc \
 			sys-devel/crossdev
-		sudo crossdev -s4 --stable --g =4.9.4 --portage --verbose --target avr
+		sudo crossdev -s4 --stable --g \<9 --portage --verbose --target avr
+		sudo crossdev -s4 --stable --g \<9 --portage --verbose --target arm-none-eabi
 		echo "Done!"
 	else
 		echo "Quitting..."
@@ -111,13 +129,15 @@ elif grep ID /etc/os-release | grep -q sabayon; then
 		app-arch/unzip \
 		app-arch/zip \
 		app-mobilephone/dfu-util \
+		dev-embedded/dfu-programmer \
 		dev-embedded/avrdude \
 		dev-lang/python \
 		net-misc/wget \
 		sys-devel/clang \
 		sys-devel/gcc \
 		sys-devel/crossdev
-	sudo crossdev -s4 --stable --g =4.9.4 --portage --verbose --target avr
+	sudo crossdev -s4 --stable --g \<9 --portage --verbose --target avr
+	sudo crossdev -s4 --stable --g \<9 --portage --verbose --target arm-none-eabi
 	echo "Done!"
 
 elif grep ID /etc/os-release | grep -qE "opensuse|tumbleweed"; then
@@ -135,9 +155,11 @@ elif grep ID /etc/os-release | grep -qE "opensuse|tumbleweed"; then
 		cross-avr-binutils \
 		cross-arm-none-newlib-devel \
 		cross-arm-binutils cross-arm-none-newlib-devel \
-		dfu-tool \
+		avrdude \
+		dfu-util \
 		dfu-programmer \
 		gcc \
+		libusb-devel \
 		python3 \
 		unzip \
 		wget \
@@ -177,6 +199,7 @@ elif grep ID /etc/os-release | grep -q solus; then
 		avrdude \
 		dfu-util \
 		dfu-programmer \
+		libusb-devel \
 		python3 \
 		git \
 		wget \
@@ -185,23 +208,19 @@ elif grep ID /etc/os-release | grep -q solus; then
 	printf "\n$SOLUS_INFO\n"
 
 elif grep ID /etc/os-release | grep -q void; then
-	# musl Void systems don't have glibc cross compilers avaliable in their repos.
-	# glibc Void systems do have musl cross compilers though, for some reason.
-	# So, default to musl, and switch to glibc if it is installed.
-	CROSS_ARM=cross-arm-linux-musleabi
-	if xbps-query glibc > /dev/null; then # Check is glibc if installed
-		CROSS_ARM=cross-arm-linux-gnueabi
-	fi
-
 	sudo xbps-install \
 		avr-binutils \
 		avr-gcc \
 		avr-libc \
-		$CROSS_ARM \
+		cross-arm-none-eabi-binutils \
+		cross-arm-none-eabi-gcc \
+		cross-arm-none-eabi-newlib \
+		avrdude \
 		dfu-programmer \
 		dfu-util \
 		gcc \
 		git \
+		libusb-compat-devel \
 		make \
 		wget \
 		unzip \
@@ -214,4 +233,5 @@ else
 fi
 
 # Global install tasks
+install_bootloadhid
 pip3 install --user -r ${util_dir}/../requirements.txt

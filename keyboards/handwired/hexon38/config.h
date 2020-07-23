@@ -49,6 +49,3 @@
 
 /* Locking resynchronize hack */
 //#define LOCKING_RESYNC_ENABLE
-
-/* prevent stuck modifiers */
-//#define PREVENT_STUCK_MODIFIERS

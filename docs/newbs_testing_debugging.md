@@ -4,17 +4,9 @@ Once you've flashed your keyboard with a custom firmware you're ready to test it
 
 ## Testing
 
-Testing your keyboard is usually pretty straightforward. Press every single key and make sure it sends the keys you expect. There are even programs that will help you make sure that no key is missed.
+Testing your keyboard is usually pretty straightforward. Press every single key and make sure it sends the keys you expect. You can use [QMK Configurator](https://config.qmk.fm/#/test/)'s test mode to check your keyboard, even if it doesn't run QMK.
 
-Note: These programs are not provided by or endorsed by QMK.
-
-* [QMK Configurator](https://config.qmk.fm/#/test/) (Web Based)
-* [Switch Hitter](https://web.archive.org/web/20190413233743/https://elitekeyboards.com/switchhitter.php) (Windows Only)
-* [Keyboard Viewer](https://www.imore.com/how-use-keyboard-viewer-your-mac) (Mac Only)
-* [Keyboard Tester](http://www.keyboardtester.com) (Web Based)
-* [Keyboard Checker](http://keyboardchecker.com) (Web Based)
-
-## Debugging
+## Debugging :id=debugging
 
 Your keyboard will output debug information if you have `CONSOLE_ENABLE = yes` in your `rules.mk`. By default the output is very limited, but you can turn on debug mode to increase the amount of debug output. Use the `DEBUG` keycode in your keymap, use the [Command](feature_command.md) feature to enable debug mode, or add the following code to your keymap.
 
@@ -28,6 +20,10 @@ void keyboard_post_init_user(void) {
 }
 ```
 
+## Debugging Tools
+
+There are two different tools you can use to debug your keyboard.
+
 ### Debugging With QMK Toolbox
 
 For compatible platforms, [QMK Toolbox](https://github.com/qmk/qmk_toolbox) can be used to display debug messages from your keyboard.
@@ -35,8 +31,6 @@ For compatible platforms, [QMK Toolbox](https://github.com/qmk/qmk_toolbox) can 
 ### Debugging With hid_listen
 
 Prefer a terminal based solution? [hid_listen](https://www.pjrc.com/teensy/hid_listen.html), provided by PJRC, can also be used to display debug messages. Prebuilt binaries for Windows,Linux,and MacOS are available.
-
-<!-- FIXME: Describe the debugging messages here. -->
 
 ## Sending Your Own Debug Messages
 

@@ -3,8 +3,8 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xD070
+#define VENDOR_ID       0x4250 // BP for Backprop
+#define PRODUCT_ID      0x4D4C // ML for Multi
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Backprop Studio
 #define PRODUCT         Doro67 Multi PCB

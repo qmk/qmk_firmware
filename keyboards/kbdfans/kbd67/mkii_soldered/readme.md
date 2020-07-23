@@ -5,9 +5,9 @@
 A simple 65% keyboard
 This is for the solderable PCB for the MKII. For hotswap PCB firmware, please check the other directories.
 
-Keyboard Maintainer: [ai03](https://github.com/ai03-2725) / [KBDfans](https://kbdfans.cn/)  
-Hardware Supported: KBD67 MKII Soldered PCB (Not hotswap)
-Hardware Availability: KBDfans
+* Keyboard Maintainer: [ai03](https://github.com/ai03-2725) / [KBDfans](https://kbdfans.cn/)
+* Hardware Supported: KBD67 MKII Soldered PCB (Not hotswap)
+* Hardware Availability: KBDfans
 
 Make example for this keyboard (after setting up your build environment):
 
