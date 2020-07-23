@@ -76,7 +76,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 #    ifdef SPLIT_KEYBOARD
     oled_reset_flag = false;
 #    endif
-    oled_sleep_timer = timer_read32() + OLED_CUSTOM_TIMEOUT;
+    oled_sleep_timer = timer_read32();
 #endif
 #if defined(OLED_ANIMATIONS_ENABLED)
 #    if defined(OLED_ANIM_STARFIELD)
