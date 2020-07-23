@@ -1,3 +1,6 @@
+// ADNS-9800 Firmware bytecode is Copyright Avago Technologies.
+// Originally formatted for Arduino use by MrJohnK - https://github.com/mrjohnk
+
 #pragma once
 
 #include <avr/pgmspace.h>
