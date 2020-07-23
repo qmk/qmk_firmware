@@ -15,7 +15,7 @@
  */
 #include "spi_master.h"
 #include "adns.h"
-#include "print.h"
+#include "debug.h"
 #include "quantum.h"
 #include "pointing_device.h"
 #include "adns9800_srom_A6.h"
@@ -141,7 +141,7 @@ uint8_t adns_read(uint8_t reg_addr){
 }
 
 void pointing_device_init(void) {
-    print("STSARTING INTI\n");
+    dprint("STARTING INTI\n");
 
     spi_init();
     // reset serial port
@@ -208,7 +208,7 @@ void pointing_device_init(void) {
     adns_write(REG_Configuration_I, 0x08);
 
     wait_ms(100);
-    print("INIT ENDED\n");
+    dprint("INIT ENDED\n");
 }
 
 int16_t convertDeltaToInt(uint8_t high, uint8_t low){
@@ -261,6 +261,3 @@ void pointing_device_task(void) {
     pointing_device_set_report(report);
     pointing_device_send();
 }
-
-
-
