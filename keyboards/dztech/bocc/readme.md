@@ -1,7 +1,7 @@
 #
 * Keyboard Maintainer: DZTECH
-* Hardware Supported: BOCC
-* Hardware Availability: DZTECH
+* Hardware Supported: DZTECH
+* Hardware Availability: BOCC
 
 Make example for this keyboard (after setting up your build environment):
 
