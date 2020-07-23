@@ -31,7 +31,6 @@ layer_state_t layer_state_set_user(layer_state_t state) { return layer_state_set
 
 layer_state_t default_layer_state_set_user(layer_state_t state) { return default_layer_state_set_keymap(state); }
 
-
 bool led_update_user(led_t led_state) {
     bool keymap_result = led_update_keymap(led_state);
     return keymap_result;

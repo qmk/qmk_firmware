@@ -4,8 +4,8 @@
 static uint8_t  n_stars = 0;
 static uint8_t  star_ang[STAR_COUNT_MAX];
 static uint8_t  star_rad[STAR_COUNT_MAX];
-static uint16_t star_lifetime_timer  = 0;
-static uint16_t star_update_timer = 0;
+static uint16_t star_lifetime_timer = 0;
+static uint16_t star_update_timer   = 0;
 
 static uint16_t center_x = OLED_DISPLAY_WIDTH / 2;
 static uint16_t center_y = OLED_DISPLAY_HEIGHT / 2;
