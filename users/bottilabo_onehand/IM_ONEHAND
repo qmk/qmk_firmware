@@ -1,0 +1,13 @@
+/* Copyright 2020 bottilabo [twitter @bottinabo]
+ *                          [https://github.com/bottilabo/bottilabo_onehand]
+ *
+ * GNU General Public License version 3 [http://www.gnu.org/licenses/]
+ */
+
+#pragma message("#IM_ONEHAND")
+#include "IM_ONEHAND.c"
+
+im_plug_t IM_ONEHAND_PLUG = {
+    IM_ONEHAND_enable,
+    process_ONEHAND
+};
