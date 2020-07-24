@@ -86,11 +86,12 @@ Some of these might be too much for AVR MCUs to handle depending on what other f
 
 ## Thumbstick
 
-Support one thumbstick as a pointing device.
+Support one thumbstick as a pointing device. Tested with PSP joystick.
 
 ### Thumbstick Configuration
 
 - __THUMBSTICK_ENABLE:__ Enable thumbstick.
+- __THUMBSTICK_RIGHT:__ Define if thumbstick is attached on the right half.
 - __THUMBSTICK_PIN_X/Y (mandatory):__ The QMK pins to use for the respective axis. The values are from the [QMK's ADC driver](https://docs.qmk.fm/#/adc_driver). I used F0 and F1, for example.
 - __THUMBSTICK_FLIP_X/Y:__ Mirror the direction of the respective axis. Use to compensate for actual orientation of thumbstick.
 - __THUMBSTICK_DEBUG:__ Print raw and calculated values from analogReadPin to console. Will only work with CONSOLE_ENABLE turned on.

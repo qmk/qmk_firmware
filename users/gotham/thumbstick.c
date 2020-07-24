@@ -42,10 +42,15 @@ void thumbstick_init_user(void) {
 
 bool thumbstick_update(report_mouse_t* report) {
     if (timer_elapsed(thumbstickTimer) > THUMBSTICK_TIMEOUT) {
-        // Only read pins on the right half where the thunmbstick is attached, and set state
-        if (!isLeftHand) {
-            thumbstick_read_vectors();
-        }
+        // Only read pins on the half where the thumbstick is attached
+#ifdef SPLIT_KEYBOARD
+#ifdef THUMBSTICK_RIGHT
+        if (!isLeftHand)
+#else
+        if (isLeftHand)
+#endif
+#endif
+        { thumbstick_read_vectors(); }
         // Calculate and process thumbstick state (if master half doesn't have the thumbstick, the custom transport will bring the vectors over)
         thumbstick_calculate_state();
         thumbstick_process_state(report);

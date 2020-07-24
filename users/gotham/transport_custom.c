@@ -280,14 +280,16 @@ bool transport_master(matrix_row_t matrix[]) {
     oled_reset_flag_set(false);
 #    endif
 #    ifdef THUMBSTICK_ENABLE
-    if (isLeftHand) {
         serial_m2s_buffer.thumbstick_state.mode = thumbstick_mode_get();
-        thumbstick_vector_set(serial_s2m_buffer.thumbstick_state.vector);
-    } else {
-        serial_m2s_buffer.thumbstick_state.mode   = thumbstick_mode_get();
-        serial_m2s_buffer.thumbstick_state.vector = thumbstick_vector_get();
-    }
+#ifdef THUMBSTICK_RIGHT
+    if (isLeftHand)
+#else
+    if (!isLeftHand)
+#endif
+    { thumbstick_vector_set(serial_s2m_buffer.thumbstick_state.vector); }
+    else { serial_m2s_buffer.thumbstick_state.vector = thumbstick_vector_get(); }
 #    endif
+
 
 #    ifdef WPM_ENABLE
     // Write wpm to slave
@@ -318,13 +320,14 @@ void transport_slave(matrix_row_t matrix[]) {
 #    endif
 
 #    ifdef THUMBSTICK_ENABLE
-    if (isLeftHand) {
         thumbstick_mode_set(serial_m2s_buffer.thumbstick_state.mode);
-        thumbstick_vector_set(serial_m2s_buffer.thumbstick_state.vector);
-    } else {
-        thumbstick_mode_set(serial_m2s_buffer.thumbstick_state.mode);
-        serial_s2m_buffer.thumbstick_state.vector = thumbstick_vector_get();
-    }
+#ifdef THUMBSTICK_RIGHT
+    if (isLeftHand)
+#else
+    if (!isLeftHand)
+#endif
+    { thumbstick_vector_set(serial_m2s_buffer.thumbstick_state.vector); }
+    else { serial_s2m_buffer.thumbstick_state.vector = thumbstick_vector_get(); }
 #    endif
 
 #    ifdef WPM_ENABLE
