@@ -1,7 +1,7 @@
 # キーボードの挙動をカスタマイズする方法
 
 <!---
-  original document: 0.8.62:docs/custom_quantum_functions.md
+  original document: 0.9.43:docs/custom_quantum_functions.md
   git diff 0.9.43 HEAD -- docs/custom_quantum_functions.md | cat
 -->
 
