@@ -1,7 +1,7 @@
 # ポインティングデバイス :id=pointing-device
 
 <!---
-  original document: 0.8.182:docs/feature_pointing_device.md
+  original document: 0.9.43:docs/feature_pointing_device.md
   git diff 0.9.43 HEAD -- docs/feature_pointing_device.md | cat
 -->
 
