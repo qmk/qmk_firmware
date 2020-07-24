@@ -1,7 +1,7 @@
 # バックライト :id=backlighting
 
 <!---
-  original document: 0.9.10:docs/feature_backlight.md
+  original document: 0.9.44:docs/feature_backlight.md
   git diff 0.9.44 HEAD -- docs/feature_backlight.md | cat
 -->
 
