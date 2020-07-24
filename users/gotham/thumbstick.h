@@ -4,7 +4,7 @@
 #include "analog.h"
 #include "lib/lib8tion/lib8tion.h"
 #ifdef SPLIT_KEYBOARD
-#include "split_util.h"
+#    include "split_util.h"
 #endif
 
 #if !defined(THUMBSTICK_PIN_X) || !defined(THUMBSTICK_PIN_Y)

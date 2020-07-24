@@ -27,8 +27,8 @@
 #    define OLED_DISPLAY_128X64
 
 #    ifdef OLED_CUSTOM_TIMEOUT
-#undef OLED_CUSTOM_TIMEOUT
-#define OLED_CUSTOM_TIMEOUT 30000
+#        undef OLED_CUSTOM_TIMEOUT
+#        define OLED_CUSTOM_TIMEOUT 30000
 #    endif
 #    define OLED_INFO_TIMEOUT 1000
 

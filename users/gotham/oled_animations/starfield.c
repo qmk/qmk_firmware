@@ -4,21 +4,19 @@
 static uint8_t  n_stars = 0;
 static uint8_t  star_ang[STAR_COUNT_MAX];
 static uint8_t  star_rad[STAR_COUNT_MAX];
-static uint8_t  zoom_speed = STAR_ZOOM_SPEED_MIN;
+static uint8_t  zoom_speed          = STAR_ZOOM_SPEED_MIN;
 static uint16_t star_lifetime_timer = 0;
 static uint16_t star_update_timer   = 0;
 static uint16_t center_x            = OLED_DISPLAY_WIDTH / 2;
 static uint16_t center_y            = OLED_DISPLAY_HEIGHT / 2;
 
-void oled_init_starfield(void) {
-    set_starfield_center();
-}
+void oled_init_starfield(void) { set_starfield_center(); }
 
 uint8_t inline starfield_speed_get(void) { return zoom_speed; }
 
 void starfield_speed_set(uint8_t value) {
     bool in_range = ((value >= STAR_ZOOM_SPEED_MIN) && (value <= STAR_ZOOM_SPEED_MAX));
-    zoom_speed = in_range * value + !in_range * zoom_speed;
+    zoom_speed    = in_range * value + !in_range * zoom_speed;
 }
 
 static void spawn_star(void) {

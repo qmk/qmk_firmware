@@ -44,13 +44,15 @@ bool thumbstick_update(report_mouse_t* report) {
     if (timer_elapsed(thumbstickTimer) > THUMBSTICK_TIMEOUT) {
         // Only read pins on the half where the thumbstick is attached
 #ifdef SPLIT_KEYBOARD
-#ifdef THUMBSTICK_RIGHT
+#    ifdef THUMBSTICK_RIGHT
         if (!isLeftHand)
-#else
+#    else
         if (isLeftHand)
+#    endif
 #endif
-#endif
-        { thumbstick_read_vectors(); }
+        {
+            thumbstick_read_vectors();
+        }
         // Calculate and process thumbstick state (if master half doesn't have the thumbstick, the custom transport will bring the vectors over)
         thumbstick_calculate_state();
         thumbstick_process_state(report);
