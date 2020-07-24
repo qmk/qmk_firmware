@@ -32,49 +32,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
 		KC_TRNS, KC_TRNS, KC_TRNS),
 };
-
-
-
-void matrix_init_user(void) {
-//  CapsLock LED 
-  setPinOutput(D6);
-  writePinLow(D6);
-//  NumLock LED
-  setPinOutput(D7);
-  writePinLow(D7);
-//  ScrollLock LED to output and low
-  setPinOutput(D4);
-  writePinLow(D4);
-}
-
-void matrix_scan_user(void) {
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	return true;
-}
-
-void led_set_user(uint8_t usb_led) {
-  if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-    writePinHigh(D7);
-  } else {
-    writePinLow(D7);
-  }
-  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-    writePinHigh(D6);
-  } else {
-    writePinLow(D6);
-  }
-
-  if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-    writePinHigh(D4);
-  } else {
-    writePinLow(D4);
-  }
-
-}
-
-
 void encoder_update_user(uint8_t index, bool clockwise) 
 {
     if (index == 0) 
