@@ -83,8 +83,8 @@ For instance Tap/Hold for Control on all of the layouts
 #define ___________________BLANK___________________       _______, _______, _______, _______, _______
 #define ________________NUMBER_LEFT________________       KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #define ________________NUMBER_RIGHT_______________       KC_6,    KC_7,    KC_8,    KC_9,    KC_0
-#define _________________FUNC_LEFT_________________       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
-#define _________________FUNC_RIGHT________________       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
+#define __________________FN_LEFT__________________       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
+#define __________________FN_RIGHT_________________       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
 
 #define ________________VIM_ARROWS_________________       KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______
 
@@ -115,11 +115,11 @@ For instance Tap/Hold for Control on all of the layouts
 #define _________________RAISE_R3__________________       __________________NAV_R2___________________
 
 
-#define _________________ADJUST_L1_________________       _________________FUNC_LEFT_________________
+#define _________________ADJUST_L1_________________       __________________FN_LEFT__________________
 #define _________________ADJUST_L2_________________       RGB_TOG, RGB_SAI, RGB_VAI, RGB_HUI, RGB_MOD
 #define _________________ADJUST_L3_________________       MU_TOG,  RGB_SAD, RGB_VAD, RGB_HUD, RGB_RMOD
 
-#define _________________ADJUST_R1_________________       _________________FUNC_RIGHT________________
+#define _________________ADJUST_R1_________________       __________________FN_RIGHT_________________
 #define _________________ADJUST_R2_________________       RESET,   KC_MAKE, VRSN,    KC_F11,  KC_F12
 #define _________________ADJUST_R3_________________       QWERTY,  COLEMAK, NORMAN,  WORKMAN,  DVORAK
 
