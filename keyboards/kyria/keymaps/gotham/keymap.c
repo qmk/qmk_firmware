@@ -45,8 +45,8 @@ enum encoder_names {
   LAYOUT_wrapper( \
       KC_ESC,   K01,  K02,  K03,  K04,  K05,                                           K06,  K07,  K08,  K09,  K0A,  KC_BSLS, \
       KC_LSFT,  K11,  K12,  K13,  K14,  K15,                                           K16,  K17,  K18,  K19,  K1A,  RSFT_T(KC_QUOT), \
-      KC_LGUI,  K21,  K22,  K23,  K24,  K25,  KC_CCCV, TG_GAME,  TMB_MODE, TMB_MODE, K26,  K27,  K28,  K29,  K2A,  RCTL_T(KC_MINS), \
-                ENC_MODE_L, KC_LALT, SP_LOWR, TB_RAIS, KC_LCTL,  KC_EQL, EN_LOWR, BK_RAIS, KC_DEL, ENC_MODE_R \
+      KC_LCTL,  K21,  K22,  K23,  K24,  K25,  KC_CCCV, TG_GAME,  TMB_MODE, TMB_MODE, K26,  K27,  K28,  K29,  K2A,  RCTL_T(KC_MINS), \
+                ENC_MODE_L, KC_LALT, SP_LOWR, TB_RAIS, KC_LGUI,  KC_EQL, EN_LOWR, BK_RAIS, KC_DEL, ENC_MODE_R \
     )
 /* Re-pass though to allow templates to be used */
 #define LAYOUT_kyria_base_wrapper(...)       LAYOUT_kyria_base(__VA_ARGS__)
