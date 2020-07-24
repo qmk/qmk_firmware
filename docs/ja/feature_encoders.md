@@ -1,7 +1,7 @@
 # エンコーダ
 
 <!---
-  original document: 0.8.123:docs/feature_encoders.md
+  original document: 0.9.43:docs/feature_encoders.md
   git diff 0.9.43 HEAD -- docs/feature_encoders.md | cat
 -->
 

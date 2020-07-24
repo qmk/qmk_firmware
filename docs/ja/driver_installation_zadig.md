@@ -1,7 +1,7 @@
 # Zadig を使ったブートローダドライバのインストール
 
 <!---
-  original document: 0.9.0:docs/driver_installation_zadig.md
+  original document: 0.9.43:docs/driver_installation_zadig.md
   git diff 0.9.43 HEAD -- docs/driver_installation_zadig.md | cat
 -->
 

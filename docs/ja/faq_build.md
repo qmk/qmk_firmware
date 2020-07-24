@@ -1,7 +1,7 @@
 # よくあるビルドの質問
 
 <!---
-  original document: 0.9.10:docs/faq_build.md
+  original document: 0.9.43:docs/faq_build.md
   git diff 0.9.43 HEAD -- docs/faq_build.md | cat
 -->
 
