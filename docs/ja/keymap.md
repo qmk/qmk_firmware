@@ -1,7 +1,7 @@
 # キーマップの概要
 
 <!---
-  original document: 0.8.62:docs/keymap.md
+  original document: 0.9.44:docs/keymap.md
   git diff 0.9.44 HEAD -- docs/keymap.md | cat
 -->
 
