@@ -49,7 +49,7 @@ void dip_switch_update_user(uint8_t index, bool active) {
     /* First encoder */
     case 0:
         if (active) {
-            tap_code(KC_MUTE);
+            tap_code(KC_MEDIA_PLAY_PAUSE);
         }
         break;
     }
