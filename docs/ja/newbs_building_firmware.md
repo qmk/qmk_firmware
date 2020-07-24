@@ -2,7 +2,7 @@
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
-  original document: 0f43c2652:docs/newbs_building_firmware.md
+  original document: 0.9.44:docs/newbs_building_firmware.md
   git diff 0.9.44 HEAD -- docs/newbs_building_firmware.md | cat
 -->
 
