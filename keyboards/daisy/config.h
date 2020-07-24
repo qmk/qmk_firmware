@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0501
 #define MANUFACTURER    KTEC
 #define PRODUCT         Daisy
-#define DESCRIPTION     QMK + VIA port for Daisy
+#define DESCRIPTION     qmk port for Daisy
 
 /* key matrix size */
 #define MATRIX_ROWS 4
