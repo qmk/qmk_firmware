@@ -21,7 +21,7 @@ Make example for this keyboard (after setting up your build environment):
 
 Flashing the firmware can easily be done when the keyboard is in DFU mode:
 
-    make anne_pro:default:dfu-util
+    make anne_pro:default:flash
 
 The default Arrows and macOS keyboard layouts are also included and can be used with `arrow` or `macos` instead of `default`.
 
