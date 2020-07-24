@@ -1,7 +1,7 @@
 # マウスキー
 
 <!---
-  original document: 0.8.141:docs/feature_mouse_keys.md
+  original document: 0.9.44:docs/feature_mouse_keys.md
   git diff 0.9.44 HEAD -- docs/feature_mouse_keys.md | cat
 -->
 
