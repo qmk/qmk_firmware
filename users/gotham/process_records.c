@@ -29,23 +29,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
             case KC_MAKE:
                 if (!record->event.pressed) {
-                    SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP
+                    SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP ":flash"
 #if (defined(BOOTLOADER_DFU) || defined(BOOTLOADER_LUFA_DFU) || defined(BOOTLOADER_QMK_DFU))
-                                ":dfu BOOTLOADER=atmel-dfu"
+                                " BOOTLOADER=atmel-dfu"
 #elif defined(BOOTLOADER_HALFKAY)
-                                ":teensy BOOTLOADER=halfkay"
+                                " BOOTLOADER=halfkay"
 #elif defined(BOOTLOADER_CATERINA)
-                                ":avrdude BOOTLOADER=caterina"
+                                " BOOTLOADER=caterina"
 #endif
-                    );
-                    SEND_STRING(" -j5 --output-sync");
-                    tap_code(KC_ENT);
+                                " -j5 --output-sync\n");
                 }
                 break;
 
             case VRSN:  // Prints firmware version
                 if (record->event.pressed) {
-                    send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), TAP_CODE_DELAY);
+                    SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
                 }
                 break;
 
