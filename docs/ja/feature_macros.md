@@ -1,7 +1,7 @@
 # マクロ
 
 <!---
-  original document: 0.8.169:docs/feature_macros.md
+  original document: 0.9.43:docs/feature_macros.md
   git diff 0.9.43 HEAD -- docs/feature_macros.md | cat
 -->
 
