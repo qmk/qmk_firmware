@@ -57,6 +57,6 @@ Suggested mount position for the Black Pill (view from the bottom side of the PC
 2. Solder two 3-pin headers for boot jumpers.
 3. Solder 4-pin SWD header.
 4. Burn [STM32duino bootloader](https://github.com/rogerclarkmelbourne/STM32duino-bootloader/blob/master/bootloader_only_binaries/generic_boot20_pb12.bin) to Black Pill.
-5. Compile and flash the firmware: `.\dfu-util --alt 2 --download handwired_z150_default.bin`
+5. Compile and flash the firmware: `make handwired/z150:default:flash`
 5. Align Black Pill pins B11–A4 with columns 0–7 and solder them.
 6. Connect rows, LEDs, ground and VCC traces to the corresponding pins of the BlackPill using additional wires.
