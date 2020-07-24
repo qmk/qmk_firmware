@@ -1,10 +1,14 @@
 #include QMK_KEYBOARD_H
 
 enum layers {
-    _QWERTY = 0,
-    _LOWER,
-    _RAISE,
-    _ADJUST
+    _BASE = 0,
+    _ALT,
+    _QWERTY,
+    _SYMBOLS,
+    _NAVIGATION,
+    _VISUALSTUDIO,
+    _MOUSE,
+    _FUNCTIONKEYS
 };
 
 // forward declaration of keymaps defined in keymap.c

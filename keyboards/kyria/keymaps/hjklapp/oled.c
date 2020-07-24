@@ -52,20 +52,23 @@ static void render_status(void) {
     oled_write_P(PSTR("Kyria rev1.0\n\n"), false);
 
     // Host Keyboard Layer Status
-    oled_write_P(PSTR("Layer: "), false);
+    // oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
+        case _BASE:
+            oled_write_P(PSTR("Base\n"), false);
+            break;
         case _QWERTY:
             oled_write_P(PSTR("Default\n"), false);
             break;
-        case _LOWER:
-            oled_write_P(PSTR("Lower\n"), false);
-            break;
-        case _RAISE:
-            oled_write_P(PSTR("Raise\n"), false);
-            break;
-        case _ADJUST:
-            oled_write_P(PSTR("Adjust\n"), false);
-            break;
+        // case _LOWER:
+        //     oled_write_P(PSTR("Lower\n"), false);
+        //     break;
+        // case _RAISE:
+        //     oled_write_P(PSTR("Raise\n"), false);
+        //     break;
+        // case _ADJUST:
+        //     oled_write_P(PSTR("Adjust\n"), false);
+        //     break;
         default:
             oled_write_P(PSTR("Undefined\n"), false);
     }
