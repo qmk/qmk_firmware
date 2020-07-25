@@ -27,19 +27,26 @@ static uint16_t autoshift_lastkey = KC_NO;
 static struct {
     // Whether autoshift is enabled.
     bool enabled : 1;
+    // Whether the last autoshifted key was released after the timeout.  This
+    // is used to replicate the last key for a tap-then-hold.
+    bool lastshifted : 1;
+    // Whether an auto-shiftable key is currently being pressed.
+    bool in_progress : 1;
     // Whether the auto-shifted keypress has been registered.
     bool registered : 1;
     // Whether autoshift is currently "holding" the shift key.
     bool holding_shift : 1;
-} autoshift_flags = {true, false, false};
+} autoshift_flags = {true, false, false, false, false};
 
 /** \brief Resets the autoshift state and releases the shift key */
-static void autoshift_flush(void) {
+static void autoshift_flush(uint16_t now) {
     if (autoshift_flags.holding_shift) {
         // Release the shift key if it was simulated.
         unregister_code(KC_LSFT);
     }
-    autoshift_lastkey             = KC_NO;
+    // Roll the autoshift_time forward for detecting tap-and-hold.
+    autoshift_time                = now;
+    autoshift_flags.in_progress   = false;
     autoshift_flags.holding_shift = false;
     autoshift_flags.registered    = false;
 }
@@ -53,7 +60,7 @@ static bool autoshift_press(uint16_t keycode, keyrecord_t *record) {
         return true;
     }
 
-    autoshift_flush();
+    autoshift_flush(record->event.time);
 
 #    ifndef AUTO_SHIFT_MODIFIERS
     if (get_mods()) {
@@ -61,9 +68,20 @@ static bool autoshift_press(uint16_t keycode, keyrecord_t *record) {
     }
 #    endif
 
+    const uint16_t elapsed = TIMER_DIFF_16(record->event.time, autoshift_time);
+
+#    ifndef TAPPING_FORCE_HOLD
+    if (elapsed < TAPPING_TERM && keycode == autoshift_lastkey && !autoshift_flags.lastshifted) {
+        // Allow a tap-then-hold to hold the unshifted key.
+        autoshift_lastkey = KC_NO;
+        return true;
+    }
+#    endif
+
     // Record the keycode so we can simulate it later.
-    autoshift_time    = record->event.time;
-    autoshift_lastkey = keycode;
+    autoshift_time              = record->event.time;
+    autoshift_lastkey           = keycode;
+    autoshift_flags.in_progress = true;
 
 #    if !defined(NO_ACTION_ONESHOT) && !defined(NO_ACTION_TAPPING)
     clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
@@ -83,6 +101,7 @@ void autoshift_check_timeout(uint16_t now) {
         if (!(get_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)))) {
             // Simulate pressing the shift key.
             register_code(KC_LSFT);
+            autoshift_flags.lastshifted   = true;
             autoshift_flags.holding_shift = true;
         }
         register_code(autoshift_lastkey);
@@ -103,7 +122,7 @@ void autoshift_check_timeout(uint16_t now) {
  * key without a shift.
  */
 static void autoshift_check_record(uint16_t keycode, keyrecord_t *record) {
-    if (autoshift_lastkey == KC_NO) {
+    if (!autoshift_flags.in_progress) {
         return;
     }
 
@@ -112,6 +131,7 @@ static void autoshift_check_record(uint16_t keycode, keyrecord_t *record) {
         // Time since the initial press was recorded.
         const uint16_t elapsed = TIMER_DIFF_16(record->event.time, autoshift_time);
         if (elapsed < autoshift_timeout) {
+            autoshift_flags.lastshifted = false;
             // Auto-shiftable key is being released before the shift timeout;
             // simulate the original press then let the usual processing take
             // care of the release.
@@ -120,7 +140,7 @@ static void autoshift_check_record(uint16_t keycode, keyrecord_t *record) {
             wait_ms(TAP_CODE_DELAY);
 #    endif
         }
-        autoshift_flush();
+        autoshift_flush(record->event.time);
     } else if (keycode == KC_LSFT && record->event.pressed) {
         // If the user presses shift, auto-shift will not hold shift for
         // them.
@@ -139,7 +159,7 @@ static void autoshift_check_record(uint16_t keycode, keyrecord_t *record) {
  *  to be released.
  */
 void autoshift_matrix_scan(void) {
-    if (autoshift_lastkey == KC_NO || autoshift_flags.registered) {
+    if (!autoshift_flags.in_progress || autoshift_flags.registered) {
         return;
     }
 
@@ -149,7 +169,7 @@ void autoshift_matrix_scan(void) {
 void autoshift_toggle(void) {
     if (autoshift_flags.enabled) {
         autoshift_flags.enabled = false;
-        autoshift_flush();
+        autoshift_flush(0);
     } else {
         autoshift_flags.enabled = true;
     }
@@ -157,12 +177,12 @@ void autoshift_toggle(void) {
 
 void autoshift_enable(void) {
     autoshift_flags.enabled = true;
-    autoshift_flush();
+    autoshift_flush(0);
 }
 
 void autoshift_disable(void) {
     autoshift_flags.enabled = false;
-    autoshift_flush();
+    autoshift_flush(0);
 }
 
 #    ifndef AUTO_SHIFT_NO_SETUP
