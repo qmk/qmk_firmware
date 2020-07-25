@@ -1,7 +1,7 @@
 # 分割キーボード
 
 <!---
-  original document:0.9.5:docs/feature_split_keyboard.md
+  original document:0.9.43:docs/feature_split_keyboard.md
   git diff 0.9.43 HEAD -- docs/feature_split_keyboard.md | cat
 -->
 

@@ -1,7 +1,7 @@
 # ユーザスペース: キーマップ間でのコードの共有
 
 <!---
-  original document: 0.9.0:docs/feature_userspace.md
+  original document: 0.9.43:docs/feature_userspace.md
   git diff 0.9.43 HEAD -- docs/feature_userspace.md | cat
 -->
 

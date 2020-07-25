@@ -1,7 +1,7 @@
 # 動的マクロ: ランタイムでのマクロの記録および再生
 
 <!---
-  original document: 0.8.123:docs/feature_dynamic_macros.md
+  original document: 0.9.43:docs/feature_dynamic_macros.md
   git diff 0.9.43 HEAD -- docs/feature_dynamic_macros.md | cat
 -->
 

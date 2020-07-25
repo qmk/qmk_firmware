@@ -1,7 +1,7 @@
 # QMK の設定
 
 <!---
-  original document: 0.8.62:docs/config_options.md
+  original document: 0.9.43:docs/config_options.md
   git diff 0.9.43 HEAD -- docs/config_options.md | cat
 -->
 
