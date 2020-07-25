@@ -140,7 +140,7 @@ static void autoshift_check_record(uint16_t keycode, keyrecord_t *record) {
     if (keycode == autoshift_lastkey && !record->event.pressed) {
         // Time since the initial press was recorded.
         const uint16_t elapsed = TIMER_DIFF_16(record->event.time, autoshift_time);
-        if (elapsed < autoshift_timeout) {
+        if (!autoshift_flags.registered && elapsed < autoshift_timeout) {
             autoshift_flags.lastshifted = false;
             // Auto-shiftable key is being released before the shift timeout;
             // simulate the original press then let the usual processing take
