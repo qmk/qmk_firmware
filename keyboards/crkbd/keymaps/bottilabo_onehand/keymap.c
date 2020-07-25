@@ -1,6 +1,6 @@
 /*
  * Copyright 2020 bottilabo (twitter: @bottilabo)
- * http://github.com/bottilabo/qmk-harmonize
+ * http://github.com/bottilabo/bottilabo_onehand_keyboard
  */
 #include QMK_KEYBOARD_H
 

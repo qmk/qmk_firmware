@@ -1,5 +1,5 @@
 /* Copyright 2020 bottilabo [twitter @bottinabo]
- *                          [https://github.com/bottilabo/bottilabo_onehand]
+ *                          [https://github.com/bottilabo/bottilabo_onehand_keyboard]
  *
  * GNU General Public License version 3 [http://www.gnu.org/licenses/]
  */
