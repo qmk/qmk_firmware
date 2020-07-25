@@ -32,3 +32,8 @@
 #include "rgb_matrix_animations/solid_reactive_nexus.h"
 #include "rgb_matrix_animations/splash_anim.h"
 #include "rgb_matrix_animations/solid_splash_anim.h"
+#include "rgb_matrix_animations/hue_breathing_anim.h"
+#include "rgb_matrix_animations/hue_pendulum_anim.h"
+#include "rgb_matrix_animations/hue_wave_anim.h"
+
+
