@@ -16,47 +16,152 @@
 
 #ifdef AUTO_SHIFT_ENABLE
 
+#    include <stdbool.h>
 #    include <stdio.h>
 
 #    include "process_auto_shift.h"
 
-static bool     autoshift_enabled = true;
 static uint16_t autoshift_time    = 0;
 static uint16_t autoshift_timeout = AUTO_SHIFT_TIMEOUT;
 static uint16_t autoshift_lastkey = KC_NO;
+static struct {
+    // Whether autoshift is enabled.
+    bool enabled : 1;
+    // Whether the auto-shifted keypress has been registered.
+    bool registered : 1;
+    // Whether autoshift is currently "holding" the shift key.
+    bool holding_shift : 1;
+} autoshift_flags = {true, false, false};
 
-void autoshift_flush(void) {
-    if (autoshift_lastkey != KC_NO) {
-        uint16_t elapsed = timer_elapsed(autoshift_time);
+/** \brief Resets the autoshift state and releases the shift key */
+static void autoshift_flush(void) {
+    if (autoshift_flags.holding_shift) {
+        // Release the shift key if it was simulated.
+        unregister_code(KC_LSFT);
+    }
+    autoshift_lastkey             = KC_NO;
+    autoshift_flags.holding_shift = false;
+    autoshift_flags.registered    = false;
+}
 
-        if (elapsed > autoshift_timeout) {
-            tap_code16(LSFT(autoshift_lastkey));
-        } else {
-            tap_code(autoshift_lastkey);
+/** \brief Record the press of an autoshiftable key
+ *
+ *  \return Whether the record should be further processed.
+ */
+static bool autoshift_press(uint16_t keycode, keyrecord_t *record) {
+    if (!autoshift_flags.enabled) {
+        return true;
+    }
+
+    autoshift_flush();
+
+#    ifndef AUTO_SHIFT_MODIFIERS
+    if (get_mods()) {
+        return true;
+    }
+#    endif
+
+    // Record the keycode so we can simulate it later.
+    autoshift_time    = record->event.time;
+    autoshift_lastkey = keycode;
+
+#    if !defined(NO_ACTION_ONESHOT) && !defined(NO_ACTION_TAPPING)
+    clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+#    endif
+    return false;
+}
+
+/** \brief Registers an autoshiftable key under the right conditions
+ *
+ * If the autoshift delay has elapsed and no shift has already been registered,
+ * register a shift and the key.
+ */
+void autoshift_check_timeout(uint16_t now) {
+    const uint16_t elapsed = TIMER_DIFF_16(now, autoshift_time);
+    if (elapsed >= autoshift_timeout) {
+        // The timeout has expired, so simulate the keypress.
+        if (!(get_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)))) {
+            // Simulate pressing the shift key.
+            register_code(KC_LSFT);
+            autoshift_flags.holding_shift = true;
         }
+        register_code(autoshift_lastkey);
+        autoshift_flags.registered = true;
 
-        autoshift_time    = 0;
-        autoshift_lastkey = KC_NO;
+#    if TAP_CODE_DELAY > 0
+        wait_ms(TAP_CODE_DELAY);
+#    endif
     }
 }
 
-void autoshift_on(uint16_t keycode) {
-    autoshift_time    = timer_read();
-    autoshift_lastkey = keycode;
+/** \brief Registers an autoshiftable key under the right conditions
+ *
+ * If the autoshift delay has elapsed and no shift has already been registered,
+ * register a shift and the key.
+ *
+ * If the autoshift key is released before the delay has elapsed, register the
+ * key without a shift.
+ */
+static void autoshift_check_record(uint16_t keycode, keyrecord_t *record) {
+    if (autoshift_lastkey == KC_NO) {
+        return;
+    }
+
+    // Process the release of the autoshiftable key.
+    if (keycode == autoshift_lastkey && !record->event.pressed) {
+        // Time since the initial press was recorded.
+        const uint16_t elapsed = TIMER_DIFF_16(record->event.time, autoshift_time);
+        if (elapsed < autoshift_timeout) {
+            // Auto-shiftable key is being released before the shift timeout;
+            // simulate the original press then let the usual processing take
+            // care of the release.
+            register_code(keycode);
+#    if TAP_CODE_DELAY > 0
+            wait_ms(TAP_CODE_DELAY);
+#    endif
+        }
+        autoshift_flush();
+    } else if (keycode == KC_LSFT && record->event.pressed) {
+        // If the user presses shift, auto-shift will not hold shift for
+        // them.
+        autoshift_flags.holding_shift = false;
+    } else {
+        // Use an unrelated event as an opportunity to check if the autoshift
+        // timeout has expired.
+        autoshift_check_timeout(record->event.time);
+    }
+}
+
+/** \brief Simulates auto-shifted key presses
+ *
+ *  Can be called from \c matrix_scan_user so that auto-shifted keys are sent
+ *  immediately after the timeout has expired, rather than waiting for the key
+ *  to be released.
+ */
+void autoshift_matrix_scan(void) {
+    if (autoshift_lastkey == KC_NO || autoshift_flags.registered) {
+        return;
+    }
+
+    autoshift_check_timeout(timer_read());
 }
 
 void autoshift_toggle(void) {
-    if (autoshift_enabled) {
-        autoshift_enabled = false;
+    if (autoshift_flags.enabled) {
+        autoshift_flags.enabled = false;
         autoshift_flush();
     } else {
-        autoshift_enabled = true;
+        autoshift_flags.enabled = true;
     }
 }
 
-void autoshift_enable(void) { autoshift_enabled = true; }
+void autoshift_enable(void) {
+    autoshift_flags.enabled = true;
+    autoshift_flush();
+}
+
 void autoshift_disable(void) {
-    autoshift_enabled = false;
+    autoshift_flags.enabled = false;
     autoshift_flush();
 }
 
@@ -70,7 +175,7 @@ void autoshift_timer_report(void) {
 }
 #    endif
 
-bool get_autoshift_state(void) { return autoshift_enabled; }
+bool get_autoshift_state(void) { return autoshift_flags.enabled; }
 
 uint16_t get_autoshift_timeout(void) { return autoshift_timeout; }
 
@@ -102,6 +207,7 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
                 autoshift_timer_report();
                 return true;
 #    endif
+
 #    ifndef NO_AUTO_SHIFT_ALPHA
             case KC_A ... KC_Z:
 #    endif
@@ -113,30 +219,14 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
             case KC_MINUS ... KC_SLASH:
             case KC_NONUS_BSLASH:
 #    endif
-                autoshift_flush();
-                if (!autoshift_enabled) return true;
-
-#    ifndef AUTO_SHIFT_MODIFIERS
-                if (get_mods()) {
-                    return true;
-                }
-#    endif
-                autoshift_on(keycode);
-
-                // We need some extra handling here for OSL edge cases
-#    if !defined(NO_ACTION_ONESHOT) && !defined(NO_ACTION_TAPPING)
-                clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
-#    endif
-                return false;
+                return autoshift_press(keycode, record);
 
             default:
-                autoshift_flush();
-                return true;
+                break;
         }
-    } else {
-        autoshift_flush();
     }
 
+    autoshift_check_record(keycode, record);
     return true;
 }
 
