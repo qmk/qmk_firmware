@@ -40,7 +40,13 @@ static struct {
 
 /** \brief Resets the autoshift state and releases the shift key */
 static void autoshift_flush(uint16_t now) {
-    if (autoshift_flags.holding_shift) {
+    if (autoshift_flags.in_progress && !autoshift_flags.registered) {
+        // Register the key.
+        register_code(autoshift_lastkey);
+#    if TAP_CODE_DELAY > 0
+        wait_ms(TAP_CODE_DELAY);
+#    endif
+    } else if (autoshift_flags.holding_shift) {
         // Release the shift key if it was simulated.
         unregister_code(KC_LSFT);
     }
@@ -93,6 +99,8 @@ static bool autoshift_press(uint16_t keycode, keyrecord_t *record) {
  *
  * If the autoshift delay has elapsed and no shift has already been registered,
  * register a shift and the key.
+ *
+ * \return True if the timeout had elapsed.
  */
 void autoshift_check_timeout(uint16_t now) {
     const uint16_t elapsed = TIMER_DIFF_16(now, autoshift_time);
@@ -120,6 +128,8 @@ void autoshift_check_timeout(uint16_t now) {
  *
  * If the autoshift key is released before the delay has elapsed, register the
  * key without a shift.
+ *
+ * If another key is pressed, register the key.
  */
 static void autoshift_check_record(uint16_t keycode, keyrecord_t *record) {
     if (!autoshift_flags.in_progress) {
@@ -136,19 +146,23 @@ static void autoshift_check_record(uint16_t keycode, keyrecord_t *record) {
             // simulate the original press then let the usual processing take
             // care of the release.
             register_code(keycode);
+            autoshift_flags.registered = true;
 #    if TAP_CODE_DELAY > 0
             wait_ms(TAP_CODE_DELAY);
 #    endif
         }
         autoshift_flush(record->event.time);
-    } else if (keycode == KC_LSFT && record->event.pressed) {
-        // If the user presses shift, auto-shift will not hold shift for
-        // them.
-        autoshift_flags.holding_shift = false;
-    } else {
-        // Use an unrelated event as an opportunity to check if the autoshift
-        // timeout has expired.
-        autoshift_check_timeout(record->event.time);
+    } else if (record->event.pressed) {
+        if (keycode == KC_LSFT) {
+            // If the user presses shift, auto-shift will not hold shift for
+            // them.
+            autoshift_flags.holding_shift = false;
+        } else if (!autoshift_flags.registered) {
+            // If the key isn't registered yet, it means the timeout hasn't
+            // elapsed, so register the unshifted key.
+            autoshift_flush(0);
+            autoshift_lastkey = KC_NO;
+        }
     }
 }
 
