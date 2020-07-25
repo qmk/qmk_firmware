@@ -20,12 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
+#define VENDOR_ID 0x9906
 #define PRODUCT_ID 0x0000
 #define DEVICE_VER 0x0001
 #define MANUFACTURER noclew
-#define PRODUCT creonic
-#define DESCRIPTION A custom keyboard
+#define PRODUCT Flatbread60
+#define DESCRIPTION A simple copycat
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -59,7 +59,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN F7
 #ifdef RGB_DI_PIN
-  #define RGBLED_NUM 16
+  #define RGBLED_NUM 19
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8
