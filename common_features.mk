@@ -529,3 +529,10 @@ ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
         OPT_DEFS += -DAUTO_SHIFT_MODIFIERS
     endif
 endif
+
+ifeq ($(strip $(JOYSTICK_ENABLE)), yes)
+    OPT_DEFS += -DJOYSTICK_ENABLE
+    SRC += $(QUANTUM_DIR)/process_keycode/process_joystick.c
+    SRC += $(QUANTUM_DIR)/joystick.c
+    SRC += analog.c
+endif
