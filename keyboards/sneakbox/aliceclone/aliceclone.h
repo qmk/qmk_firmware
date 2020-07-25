@@ -26,5 +26,3 @@
 	{ KC_NO, K081,  KC_NO, K083,  KC_NO, K085,  K086,  KC_NO }, \
 	{ KC_NO, K091,  KC_NO, K093,  KC_NO, KC_NO, KC_NO, K097 }  \
 }
-
-#endif
