@@ -4,7 +4,7 @@ This is a 5x4 numberpad.
 
 * Keyboard Maintainer: [AAClawson](https://github.com/AlisGraveNil)
 * Hardware Supported: Los Numeros, Pro Micro, Elite-C
-* Hardware Availability: <www.clawboards.xyz>
+* Hardware Availability: www.clawboards.xyz
 
 Make example for this keyboard (after setting up your build environment):
 
