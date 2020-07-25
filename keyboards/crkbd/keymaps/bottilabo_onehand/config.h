@@ -1,13 +1,7 @@
 #pragma once
 
-
 #undef PRODUCT
 #define PRODUCT         Corne
-
-
-#define SSD1306OLED
-
-#define USE_SERIAL_PD2
 
 #ifdef RGBLIGHT_ENABLE
     #undef RGBLED_NUM
