@@ -53,34 +53,34 @@ enum planck_keycodes {
 };
 
 // 薙刀式
-// enum combo_events {
-//   NAGINATA_ON_CMB,
-//   NAGINATA_OFF_CMB,
-// };
+enum combo_events {
+  NAGINATA_ON_CMB,
+  NAGINATA_OFF_CMB,
+};
 
-// const uint16_t PROGMEM ngon_combo[] = {KC_P, KC_N, COMBO_END};
-// const uint16_t PROGMEM ngoff_combo[] = {KC_E, KC_M, COMBO_END};
+const uint16_t PROGMEM ngon_combo[] = {KC_F, KC_H, COMBO_END};
+const uint16_t PROGMEM ngoff_combo[] = {KC_S, KC_QUOT, COMBO_END};
 
-// combo_t key_combos[COMBO_COUNT] = {
-//   [NAGINATA_ON_CMB] = COMBO_ACTION(ngon_combo),
-//   [NAGINATA_OFF_CMB] = COMBO_ACTION(ngoff_combo),
-// };
+combo_t key_combos[COMBO_COUNT] = {
+  [NAGINATA_ON_CMB] = COMBO_ACTION(ngon_combo),
+  [NAGINATA_OFF_CMB] = COMBO_ACTION(ngoff_combo),
+};
 
-// // IME ONのcombo
-// void process_combo_event(uint8_t combo_index, bool pressed) {
-//   switch(combo_index) {
-//     case NAGINATA_ON_CMB:
-//       if (pressed) {
-//         naginata_on();
-//       }
-//       break;
-//     case NAGINATA_OFF_CMB:
-//       if (pressed) {
-//         naginata_off();
-//       }
-//       break;
-//   }
-// }
+// IME ONのcombo
+void process_combo_event(uint8_t combo_index, bool pressed) {
+  switch(combo_index) {
+    case NAGINATA_ON_CMB:
+      if (pressed) {
+        naginata_on();
+      }
+      break;
+    case NAGINATA_OFF_CMB:
+      if (pressed) {
+        naginata_off();
+      }
+      break;
+  }
+}
 // 薙刀式
 
 #define LOWER MO(_LOWER)
@@ -206,7 +206,7 @@ uint32_t layer_state_set_user(uint32_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
-static bool nstate = false;
+// static bool nstate = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -233,42 +233,42 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case KANA2:
-      if (record->event.pressed) {
-        naginata_on();
-      }
-      return false;
-      break;
-    case EISU:
-      if (record->event.pressed) {
-        naginata_off();
-      }
-      return false;
-      break;
+    // case KANA2:
+    //   if (record->event.pressed) {
+    //     naginata_on();
+    //   }
+    //   return false;
+    //   break;
+    // case EISU:
+    //   if (record->event.pressed) {
+    //     naginata_off();
+    //   }
+    //   return false;
+    //   break;
     case LCTOGL:
       if (record->event.pressed) {
         mac_live_conversion_toggle();
       }
       return false;
       break;
-    case ALPH:
-      if (record->event.pressed) {
-        nstate = naginata_state();
-        if (nstate) naginata_off();
-      } else {
-        if (nstate) naginata_on();
-      }
-      break;
-    case SALPH:
-      if (record->event.pressed) {
-        nstate = naginata_state();
-        if (nstate) naginata_off();
-        register_code(KC_LSFT);
-      } else {
-        unregister_code(KC_LSFT);
-        if (nstate) naginata_on();
-      }
-      break;
+    // case ALPH:
+    //   if (record->event.pressed) {
+    //     nstate = naginata_state();
+    //     if (nstate) naginata_off();
+    //   } else {
+    //     if (nstate) naginata_on();
+    //   }
+    //   break;
+    // case SALPH:
+    //   if (record->event.pressed) {
+    //     nstate = naginata_state();
+    //     if (nstate) naginata_off();
+    //     register_code(KC_LSFT);
+    //   } else {
+    //     unregister_code(KC_LSFT);
+    //     if (nstate) naginata_on();
+    //   }
+    //   break;
   }
 
   // 薙刀式
@@ -355,9 +355,10 @@ void dip_update(uint8_t index, bool active) {
 
 void matrix_init_user(void) {
   // 薙刀式
-  uint16_t ngonkeys[] = {KC_F, KC_H};
-  uint16_t ngoffkeys[] = {KC_S, KC_QUOT};
-  set_naginata(_NAGINATA, ngonkeys, ngoffkeys);
+  // uint16_t ngonkeys[] = {KC_F, KC_H};
+  // uint16_t ngoffkeys[] = {KC_S, KC_QUOT};
+  // set_naginata(_NAGINATA, ngonkeys, ngoffkeys);
+  set_naginata(_NAGINATA);
   set_unicode_input_mode(UC_WINC);
   // 薙刀式
 }
