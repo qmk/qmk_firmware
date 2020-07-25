@@ -15,25 +15,25 @@ problem.
 When you tap a key, it stays depressed for a short period of time before it is
 then released. This depressed time is a different length for everyone. Auto Shift
 defines a constant `AUTO_SHIFT_TIMEOUT` which is typically set to twice your
-normal pressed state time. When you press a key, a timer starts and then stops
-when you release the key. If the time depressed is greater than or equal to the
-`AUTO_SHIFT_TIMEOUT`, then a shifted version of the key is emitted. If the time
-is less than the `AUTO_SHIFT_TIMEOUT` time, then the normal state is emitted.
+normal pressed state time. When you press a key, a timer starts, and if you
+have not released the key after the `AUTO_SHIFT_TIMEOUT` period, then a shifted
+version of the key is emitted. If the time is less than the `AUTO_SHIFT_TIMEOUT`
+time, or you press another key, then the normal state is emitted.
+
+If you hold the key down, it will repeat the shifted key.  If you want to repeat
+the normal key, then tap it once then immediately (within `TAPPING_TERM`) hold
+it down again.  The ability to repeat the normal key like this will be disabled
+if `TAPPING_FORCE_HOLD` is set.
 
 ## Are There Limitations to Auto Shift?
 
 Yes, unfortunately.
 
-1. Key repeat will cease to work. For example, before if you wanted 20 'a'
-   characters, you could press and hold the 'a' key for a second or two. This no
-   longer works with Auto Shift because it is timing your depressed time instead
-   of emitting a depressed key state to your operating system.
-2. You will have characters that are shifted when you did not intend on shifting, and
-   other characters you wanted shifted, but were not. This simply comes down to
-   practice. As we get in a hurry, we think we have hit the key long enough
-   for a shifted version, but we did not. On the other hand, we may think we are
-   tapping the keys, but really we have held it for a little longer than
-   anticipated.
+You will have characters that are shifted when you did not intend on shifting, and
+other characters you wanted shifted, but were not. This simply comes down to
+practice. As we get in a hurry, we think we have hit the key long enough for a
+shifted version, but we did not. On the other hand, we may think we are tapping
+the keys, but really we have held it for a little longer than anticipated.
 
 ## How Do I Enable Auto Shift?
 
