@@ -1,7 +1,7 @@
 # DIP スイッチ
 
 <!---
-  original document: 0.8.94:docs/feature_dip_switch.md
+  original document: 0.9.43:docs/feature_dip_switch.md
   git diff 0.9.43 HEAD -- docs/feature_dip_switch.md | cat
 -->
 
