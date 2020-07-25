@@ -38,7 +38,7 @@ static struct {
     bool holding_shift : 1;
 } autoshift_flags = {true, false, false, false, false};
 
-/** \brief Resets the autoshift state and releases the shift key */
+/** \brief Resets the autoshift state */
 static void autoshift_flush(uint16_t now) {
     if (autoshift_flags.in_progress && !autoshift_flags.registered) {
         // Register the key.
@@ -46,15 +46,20 @@ static void autoshift_flush(uint16_t now) {
 #    if TAP_CODE_DELAY > 0
         wait_ms(TAP_CODE_DELAY);
 #    endif
-    } else if (autoshift_flags.holding_shift) {
-        // Release the shift key if it was simulated.
-        unregister_code(KC_LSFT);
     }
     // Roll the autoshift_time forward for detecting tap-and-hold.
     autoshift_time                = now;
     autoshift_flags.in_progress   = false;
-    autoshift_flags.holding_shift = false;
     autoshift_flags.registered    = false;
+}
+
+/** \brief Releases the shift key if it was held by auto-shift */
+static void autoshift_flush_shift(void) {
+    if (autoshift_flags.holding_shift) {
+        // Release the shift key if it was simulated.
+        unregister_code(KC_LSFT);
+    }
+    autoshift_flags.holding_shift = false;
 }
 
 /** \brief Record the press of an autoshiftable key
@@ -66,16 +71,14 @@ static bool autoshift_press(uint16_t keycode, keyrecord_t *record) {
         return true;
     }
 
+    const uint16_t elapsed = TIMER_DIFF_16(record->event.time, autoshift_time);
     autoshift_flush(record->event.time);
 
 #    ifndef AUTO_SHIFT_MODIFIERS
-    if (get_mods()) {
+    if (get_mods() ^ (autoshift_flags.holding_shift ? MOD_BIT(KC_LSFT) : 0)) {
         return true;
     }
 #    endif
-
-    const uint16_t elapsed = TIMER_DIFF_16(record->event.time, autoshift_time);
-
 #    ifndef TAPPING_FORCE_HOLD
     if (elapsed < TAPPING_TERM && keycode == autoshift_lastkey && !autoshift_flags.lastshifted) {
         // Allow a tap-then-hold to hold the unshifted key.
@@ -85,7 +88,6 @@ static bool autoshift_press(uint16_t keycode, keyrecord_t *record) {
 #    endif
 
     // Record the keycode so we can simulate it later.
-    autoshift_time              = record->event.time;
     autoshift_lastkey           = keycode;
     autoshift_flags.in_progress = true;
 
@@ -138,15 +140,16 @@ static void autoshift_check_record(uint16_t keycode, keyrecord_t *record) {
 
     // Process the release of the autoshiftable key.
     if (keycode == autoshift_lastkey && !record->event.pressed) {
+        autoshift_flush_shift();
         // Time since the initial press was recorded.
         const uint16_t elapsed = TIMER_DIFF_16(record->event.time, autoshift_time);
         if (!autoshift_flags.registered && elapsed < autoshift_timeout) {
-            autoshift_flags.lastshifted = false;
             // Auto-shiftable key is being released before the shift timeout;
             // simulate the original press then let the usual processing take
             // care of the release.
             register_code(keycode);
-            autoshift_flags.registered = true;
+            autoshift_flags.lastshifted = false;
+            autoshift_flags.registered  = true;
 #    if TAP_CODE_DELAY > 0
             wait_ms(TAP_CODE_DELAY);
 #    endif
@@ -159,9 +162,13 @@ static void autoshift_check_record(uint16_t keycode, keyrecord_t *record) {
             autoshift_flags.holding_shift = false;
         } else if (!autoshift_flags.registered) {
             // If the key isn't registered yet, it means the timeout hasn't
-            // elapsed, so register the unshifted key.
+            // elapsed, so register the key without additional shifting.
             autoshift_flush(0);
             autoshift_lastkey = KC_NO;
+        } else {
+            // The key is registered; flush any shift state for the
+            // non-autoshiftable key.
+            autoshift_flush_shift();
         }
     }
 }
@@ -183,6 +190,7 @@ void autoshift_matrix_scan(void) {
 void autoshift_toggle(void) {
     if (autoshift_flags.enabled) {
         autoshift_flags.enabled = false;
+        autoshift_flush_shift();
         autoshift_flush(0);
     } else {
         autoshift_flags.enabled = true;
@@ -191,11 +199,13 @@ void autoshift_toggle(void) {
 
 void autoshift_enable(void) {
     autoshift_flags.enabled = true;
+    autoshift_flush_shift();
     autoshift_flush(0);
 }
 
 void autoshift_disable(void) {
     autoshift_flags.enabled = false;
+    autoshift_flush_shift();
     autoshift_flush(0);
 }
 
