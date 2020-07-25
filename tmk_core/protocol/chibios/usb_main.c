@@ -48,8 +48,12 @@ extern keymap_config_t keymap_config;
 #endif
 
 #ifdef WEBUSB_ENABLE
-#include "webusb.h"
+#    include "webusb.h"
 #endif
+#ifdef JOYSTICK_ENABLE
+#    include "joystick.h"
+#endif
+
 /* ---------------------------------------------------------
  *       Global interface variables and declarations
  * ---------------------------------------------------------
@@ -269,6 +273,9 @@ typedef struct {
 #ifdef WEBUSB_ENABLE
             usb_driver_config_t webusb_driver;
 #endif
+#ifdef JOYSTICK_ENABLE
+            usb_driver_config_t joystick_driver;
+#endif
         };
         usb_driver_config_t array[0];
     };
@@ -312,6 +319,13 @@ static usb_driver_configs_t drivers = {
 #  define WEBUSB_IN_MODE USB_EP_MODE_TYPE_INTR
 #  define WEBUSB_OUT_MODE USB_EP_MODE_TYPE_INTR
     .webusb_driver = QMK_USB_DRIVER_CONFIG(WEBUSB, 0, false),
+#endif
+#ifdef JOYSTICK_ENABLE
+#    define JOYSTICK_IN_CAPACITY 4
+#    define JOYSTICK_OUT_CAPACITY 4
+#    define JOYSTICK_IN_MODE USB_EP_MODE_TYPE_BULK
+#    define JOYSTICK_OUT_MODE USB_EP_MODE_TYPE_BULK
+    .joystick_driver = QMK_USB_DRIVER_CONFIG(JOYSTICK, 0, false),
 #endif
 };
 
@@ -940,6 +954,60 @@ void virtser_task(void) {
             virtser_recv(buffer[i]);
         }
     } while (numBytesReceived > 0);
+}
+
+#endif
+
+#ifdef JOYSTICK_ENABLE
+
+void send_joystick_packet(joystick_t *joystick) {
+    joystick_report_t rep = {
+#    if JOYSTICK_AXES_COUNT > 0
+        .axes = {joystick->axes[0],
+
+#        if JOYSTICK_AXES_COUNT >= 2
+                 joystick->axes[1],
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 3
+                 joystick->axes[2],
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 4
+                 joystick->axes[3],
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 5
+                 joystick->axes[4],
+#        endif
+#        if JOYSTICK_AXES_COUNT >= 6
+                 joystick->axes[5],
+#        endif
+        },
+#    endif  // JOYSTICK_AXES_COUNT>0
+
+#    if JOYSTICK_BUTTON_COUNT > 0
+        .buttons = {joystick->buttons[0],
+
+#        if JOYSTICK_BUTTON_COUNT > 8
+                    joystick->buttons[1],
+#        endif
+#        if JOYSTICK_BUTTON_COUNT > 16
+                    joystick->buttons[2],
+#        endif
+#        if JOYSTICK_BUTTON_COUNT > 24
+                    joystick->buttons[3],
+#        endif
+        }
+#    endif  // JOYSTICK_BUTTON_COUNT>0
+    };
+
+    // chnWrite(&drivers.joystick_driver.driver, (uint8_t *)&rep, sizeof(rep));
+    osalSysLock();
+    if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
+        osalSysUnlock();
+        return;
+    }
+
+    usbStartTransmitI(&USB_DRIVER, JOYSTICK_IN_EPNUM, (uint8_t *)&rep, sizeof(joystick_report_t));
+    osalSysUnlock();
 }
 
 #endif
